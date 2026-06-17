@@ -1,0 +1,16 @@
+{
+  "name": "world-cup-simplified",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@11.0.7",
+  "scripts": {
+    "audit": "node scripts/audit-data.mjs",
+    "smoke": "node scripts/ui-smoke.mjs",
+    "test": "node scripts/validate-data.mjs && node scripts/audit-data.mjs && node scripts/ui-smoke.mjs",
+    "validate": "node scripts/validate-data.mjs"
+  },
+  "devDependencies": {
+    "playwright": "1.60.0"
+  }
+}

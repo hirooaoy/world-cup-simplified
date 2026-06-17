@@ -1,0 +1,270 @@
+{
+  "updatedAt": "2026-06-17T13:58:03-07:00",
+  "coverageNote": "The current seed dataset covers the full official fixture skeleton from June 11 through July 19. Rich previews, scores, live status and knockout participants are updated progressively.",
+  "sources": [
+    {
+      "id": "fifa-schedule-2026-06-17",
+      "label": "FIFA World Cup 2026 schedule",
+      "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/match-schedule-fixtures-results-teams-stadiums",
+      "type": "official",
+      "checkedAt": "2026-06-17T12:55:14-07:00"
+    },
+    {
+      "id": "fifa-ranking-2026-06-11",
+      "label": "FIFA/Coca-Cola Men's World Ranking",
+      "url": "https://inside.fifa.com/fifa-world-ranking/men",
+      "type": "official",
+      "checkedAt": "2026-06-17T11:40:00-07:00"
+    },
+    {
+      "id": "fifa-standings-2026-06-17",
+      "label": "FIFA World Cup 2026 standings",
+      "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/standings",
+      "type": "official",
+      "checkedAt": "2026-06-17T13:58:03-07:00"
+    },
+    {
+      "id": "fox-schedule-2026-06-17",
+      "label": "FOX Sports World Cup 2026 schedule cross-check",
+      "url": "https://www.foxsports.com/stories/soccer/how-watch-2026-fifa-world-cup-full-schedule-dates-every-match",
+      "type": "cross-check",
+      "checkedAt": "2026-06-17T12:55:14-07:00"
+    },
+    {
+      "id": "sbn-standings-2026-06-17",
+      "label": "SB Nation standings cross-check",
+      "url": "https://www.sbnation.com/soccer/1117905/world-cup-standings-updated-full-list-of-teams",
+      "type": "cross-check",
+      "checkedAt": "2026-06-17T11:40:00-07:00"
+    },
+    {
+      "id": "espn-result-2026-06-17",
+      "label": "ESPN Portugal vs Congo DR result cross-check",
+      "url": "https://www.espn.com/soccer/match/_/gameId/760435",
+      "type": "cross-check",
+      "checkedAt": "2026-06-17T12:55:14-07:00"
+    },
+    {
+      "id": "editorial-preview-2026-06-17",
+      "label": "Editorial preview notes and placeholder projections",
+      "url": "",
+      "type": "editorial",
+      "checkedAt": "2026-06-17T11:40:00-07:00"
+    },
+    {
+      "id": "ranking-projection-2026-06-17",
+      "label": "Ranking-based projection model",
+      "url": "https://inside.fifa.com/fifa-world-ranking/men",
+      "type": "editorial",
+      "checkedAt": "2026-06-17T11:40:00-07:00"
+    },
+    {
+      "id": "key-player-baseline-2026-06-17",
+      "label": "Team key-player watchlist baseline",
+      "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/fifa-world-cup-2026-squads-confirmed",
+      "type": "editorial",
+      "checkedAt": "2026-06-17T11:40:00-07:00"
+    },
+    {
+      "id": "national-football-teams-ned-jpn-h2h-2026-06-17",
+      "label": "National Football Teams Netherlands-Japan H2H cross-check",
+      "url": "https://www.national-football-teams.com/encounter/teams/129/94/Netherlands_vs_Japan.html",
+      "type": "cross-check",
+      "checkedAt": "2026-06-17T12:43:00-07:00"
+    },
+    {
+      "id": "national-football-teams-h2h-2026-06-17",
+      "label": "National Football Teams H2H encounter records",
+      "url": "https://www.national-football-teams.com/",
+      "type": "cross-check",
+      "checkedAt": "2026-06-17T13:48:00-07:00"
+    },
+    {
+      "id": "mint-england-croatia-live-2026-06-17",
+      "label": "Mint England vs Croatia live score cross-check",
+      "url": "https://www.livemint.com/sports/football-news/fifa-world-cup-england-10-vs-croatia-3-live-score-1489384",
+      "type": "cross-check",
+      "checkedAt": "2026-06-17T13:58:03-07:00"
+    },
+    {
+      "id": "global-sports-archive-england-croatia-live-2026-06-17",
+      "label": "Global Sports Archive England vs Croatia live score cross-check",
+      "url": "https://globalsportsarchive.com/en/soccer/match/2026-06-17/england-vs-croatia/3592452",
+      "type": "cross-check",
+      "checkedAt": "2026-06-17T13:58:03-07:00"
+    }
+  ],
+  "groups": [
+    {
+      "id": "A",
+      "label": "Group A",
+      "teamIds": [
+        "MEX",
+        "KOR",
+        "CZE",
+        "RSA"
+      ]
+    },
+    {
+      "id": "B",
+      "label": "Group B",
+      "teamIds": [
+        "CAN",
+        "BIH",
+        "QAT",
+        "SUI"
+      ]
+    },
+    {
+      "id": "C",
+      "label": "Group C",
+      "teamIds": [
+        "BRA",
+        "MAR",
+        "HAI",
+        "SCO"
+      ]
+    },
+    {
+      "id": "D",
+      "label": "Group D",
+      "teamIds": [
+        "USA",
+        "PAR",
+        "AUS",
+        "TUR"
+      ]
+    },
+    {
+      "id": "E",
+      "label": "Group E",
+      "teamIds": [
+        "GER",
+        "ECU",
+        "CIV",
+        "CUW"
+      ]
+    },
+    {
+      "id": "F",
+      "label": "Group F",
+      "teamIds": [
+        "SWE",
+        "NED",
+        "JPN",
+        "TUN"
+      ]
+    },
+    {
+      "id": "G",
+      "label": "Group G",
+      "teamIds": [
+        "IRN",
+        "NZL",
+        "BEL",
+        "EGY"
+      ]
+    },
+    {
+      "id": "H",
+      "label": "Group H",
+      "teamIds": [
+        "URU",
+        "KSA",
+        "ESP",
+        "CPV"
+      ]
+    },
+    {
+      "id": "I",
+      "label": "Group I",
+      "teamIds": [
+        "NOR",
+        "FRA",
+        "SEN",
+        "IRQ"
+      ]
+    },
+    {
+      "id": "J",
+      "label": "Group J",
+      "teamIds": [
+        "ARG",
+        "AUT",
+        "JOR",
+        "ALG"
+      ]
+    },
+    {
+      "id": "K",
+      "label": "Group K",
+      "teamIds": [
+        "POR",
+        "COD",
+        "UZB",
+        "COL"
+      ]
+    },
+    {
+      "id": "L",
+      "label": "Group L",
+      "teamIds": [
+        "ENG",
+        "CRO",
+        "GHA",
+        "PAN"
+      ]
+    }
+  ],
+  "stages": [
+    {
+      "id": "group",
+      "label": "Group stage",
+      "type": "group",
+      "startsOn": "2026-06-11",
+      "endsOn": "2026-06-27"
+    },
+    {
+      "id": "round-of-32",
+      "label": "Round of 32",
+      "type": "knockout",
+      "startsOn": "2026-06-28",
+      "endsOn": "2026-07-03"
+    },
+    {
+      "id": "round-of-16",
+      "label": "Round of 16",
+      "type": "knockout",
+      "startsOn": "2026-07-04",
+      "endsOn": "2026-07-07"
+    },
+    {
+      "id": "quarter-finals",
+      "label": "Quarter-finals",
+      "type": "knockout",
+      "startsOn": "2026-07-09",
+      "endsOn": "2026-07-11"
+    },
+    {
+      "id": "semi-finals",
+      "label": "Semi-finals",
+      "type": "knockout",
+      "startsOn": "2026-07-14",
+      "endsOn": "2026-07-15"
+    },
+    {
+      "id": "bronze-final",
+      "label": "Third-place play-off",
+      "type": "knockout",
+      "startsOn": "2026-07-18",
+      "endsOn": "2026-07-18"
+    },
+    {
+      "id": "final",
+      "label": "Final",
+      "type": "knockout",
+      "startsOn": "2026-07-19",
+      "endsOn": "2026-07-19"
+    }
+  ]
+}
