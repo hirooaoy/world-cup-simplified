@@ -1,4 +1,17 @@
 {
+  "apiFootball": {
+    "leagueId": "1",
+    "season": "2026",
+    "fixtureIds": {
+      "argentina-algeria-2026-06-16": "replace-with-api-football-fixture-id"
+    },
+    "teamIds": {
+      "ARG": "replace-with-api-football-team-id",
+      "ALG": "replace-with-api-football-team-id",
+      "ENG": "replace-with-api-football-team-id",
+      "CRO": "replace-with-api-football-team-id"
+    }
+  },
   "sportmonks": {
     "leagueId": "replace-with-sportmonks-world-cup-league-id",
     "seasonId": "replace-with-sportmonks-world-cup-2026-season-id",

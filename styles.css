@@ -190,7 +190,10 @@ a {
 }
 
 .catch-up-item {
-  display: block;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: start;
+  gap: 0 18px;
   padding: 15px 0;
   border-bottom: 1px solid rgba(10, 10, 10, 0.08);
 }
@@ -203,7 +206,18 @@ a {
 .catch-up-copy {
   display: grid;
   gap: 7px;
+  grid-column: 2;
   min-width: 0;
+}
+
+.catch-up-item-date {
+  grid-column: 1;
+  color: rgba(10, 10, 10, 0.48);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1.22;
+  white-space: nowrap;
 }
 
 .catch-up-title-row {
@@ -225,17 +239,6 @@ a {
   font-weight: 700;
   letter-spacing: 0;
   line-height: 1.22;
-}
-
-.catch-up-inline-date {
-  display: inline;
-  margin-right: 5px;
-  color: rgba(10, 10, 10, 0.48);
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0;
-  line-height: inherit;
-  white-space: nowrap;
 }
 
 .catch-up-subtitle {
@@ -1659,8 +1662,8 @@ h1 {
   letter-spacing: 0;
   line-height: inherit;
   text-decoration: underline;
-  text-decoration-color: rgba(10, 10, 10, 0.24);
-  text-decoration-thickness: 1px;
+  text-decoration-color: rgba(10, 10, 10, 0.58);
+  text-decoration-thickness: 1.5px;
   text-underline-offset: 3px;
 }
 
@@ -1695,6 +1698,7 @@ h1 {
   pointer-events: none;
   transform: translate(var(--player-card-shift, 0px), 4px);
   transition: opacity 140ms ease, transform 140ms ease;
+  visibility: hidden;
 }
 
 .player-hover:hover .player-card,
@@ -1702,6 +1706,7 @@ h1 {
   opacity: 1;
   pointer-events: auto;
   transform: translate(var(--player-card-shift, 0px), 0);
+  visibility: visible;
 }
 
 .player-card-header {

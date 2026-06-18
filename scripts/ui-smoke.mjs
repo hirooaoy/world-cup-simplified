@@ -165,8 +165,9 @@ try {
     "Player hover card should include a face or initials fallback."
   );
   assert(
-    (await playerCard.locator(".player-card-title span").count()) >= 2,
-    "Player hover card should include position and club lines."
+    (await playerCard.locator(".player-card-title strong").count()) === 1 &&
+      (await playerCard.locator(".player-card-title span").count()) === 1,
+    "Player hover card should include position and club lines without repeating the name."
   );
   assert(
     (await playerCard.locator(".player-skill-list span").count()) > 0,
@@ -180,6 +181,38 @@ try {
       firstCardBox.x >= 0 &&
       firstCardBox.x + firstCardBox.width <= viewportSize.width,
     "Player hover card should stay inside the viewport horizontally."
+  );
+
+  await page.goto(`${baseUrl}?view=matches&date=2026-06-11&tz=America%2FLos_Angeles`, {
+    waitUntil: "load"
+  });
+  await page.waitForSelector(".match-row");
+  await page.locator('[data-match-id="mexico-south-africa-2026-06-11"]').click();
+  const mexicoHeadingLinks = await page
+    .locator(".key-info-team")
+    .first()
+    .locator("h4 .player-link")
+    .evaluateAll((links) => links.map((link) => link.textContent.trim()));
+  assert(
+    mexicoHeadingLinks.includes("Gimenez") && mexicoHeadingLinks.includes("Alvarez"),
+    "Mexico's accented player aliases should link from the team tagline."
+  );
+  const gimenezLink = page
+    .locator(".key-info-team")
+    .first()
+    .locator("h4 .player-link", { hasText: "Gimenez" });
+  const gimenezCard = gimenezLink
+    .locator("xpath=ancestor::span[contains(concat(' ', normalize-space(@class), ' '), ' player-hover ')][1]")
+    .locator(".player-card");
+  await gimenezLink.hover();
+  await gimenezCard.waitFor({ state: "visible" });
+  assert(
+    (await gimenezLink.getAttribute("aria-label"))?.startsWith("Santiago Giménez:"),
+    "Mexico's unaccented Gimenez tagline alias should open Santiago Giménez's hover card."
+  );
+  assert(
+    (await gimenezCard.locator(".player-card-title strong").innerText()).trim() === "Striker",
+    "Player hover card should not repeat the linked player name as a subtitle."
   );
 
   await page.locator("#matches-tab").focus();

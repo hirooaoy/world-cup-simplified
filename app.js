@@ -1,4 +1,4 @@
-const DATA_VERSION = "2026-06-18-source-note-fix";
+const DATA_VERSION = "2026-06-18-player-alias-hover";
 const DATA_URLS = {
   fixtures: `data/fixtures.json?v=${DATA_VERSION}`,
   history: `data/history.json?v=${DATA_VERSION}`,
@@ -1478,6 +1478,15 @@ function renderProjection(match) {
   `;
 }
 
+function renderPredictionBlock(match) {
+  return `
+    <section class="info-block">
+      ${renderPredictionHeading(match.projection)}
+      ${renderProjection(match)}
+    </section>
+  `;
+}
+
 function getHistoricalProjectionRating(ratings, teamName) {
   if (!ratings.has(teamName)) {
     ratings.set(teamName, 1500);
@@ -1612,6 +1621,7 @@ function renderMatchStatusBlock(match) {
         ${renderScoreSummary(match)}
         <p class="data-note">Final score reflected in the current standings after source checks.</p>
       </section>
+      ${renderPredictionBlock(match)}
     `;
   }
 
@@ -1625,12 +1635,7 @@ function renderMatchStatusBlock(match) {
     `;
   }
 
-  return `
-    <section class="info-block">
-      ${renderPredictionHeading(match.projection)}
-      ${renderProjection(match)}
-    </section>
-  `;
+  return renderPredictionBlock(match);
 }
 
 function getPlayerNames(players = []) {
@@ -1767,21 +1772,29 @@ function getPlayerMentionEntries(players) {
   const aliasBuckets = new Map();
 
   for (const player of players) {
-    if (!getPlayerName(player)) {
+    const playerName = getPlayerName(player);
+    if (!playerName) {
       continue;
     }
 
+    const playerKey = normalizeTextKey(playerName);
     for (const alias of getPlayerAliases(player, players)) {
       const key = normalizeTextKey(alias);
-      const bucket = aliasBuckets.get(key) || { alias, players: [] };
-      bucket.players.push(player);
+      const bucket = aliasBuckets.get(key) || { aliases: [], players: new Map() };
+      if (!bucket.aliases.includes(alias)) {
+        bucket.aliases.push(alias);
+      }
+      bucket.players.set(playerKey, player);
       aliasBuckets.set(key, bucket);
     }
   }
 
   return [...aliasBuckets.values()]
-    .filter((bucket) => bucket.players.length === 1)
-    .map((bucket) => ({ alias: bucket.alias, player: bucket.players[0] }))
+    .filter((bucket) => bucket.players.size === 1)
+    .flatMap((bucket) => {
+      const player = [...bucket.players.values()][0];
+      return bucket.aliases.map((alias) => ({ alias, player }));
+    })
     .sort((a, b) => b.alias.length - a.alias.length);
 }
 
@@ -1821,8 +1834,7 @@ function renderPlayerMention(label, player) {
         <span class="player-card-header">
           <span class="player-photo">${renderPlayerPhoto(player, profile)}</span>
           <span class="player-card-title">
-            <strong>${escapeHtml(displayName)}</strong>
-            <span>${escapeHtml(position)}</span>
+            <strong>${escapeHtml(position)}</strong>
             <span>${escapeHtml(club)}</span>
           </span>
         </span>
@@ -3364,14 +3376,12 @@ function renderCatchUpItem(item) {
 
   return `
     <article class="catch-up-item">
+      <time class="catch-up-item-date" datetime="${escapeHtml(
+        item.dateKey || selectedDayKey
+      )}">${escapeHtml(catchUpItemLeadDateFormatter.format(itemDate))}</time>
       <div class="catch-up-copy">
         <div class="catch-up-title-row">
-          <h3>
-            <time class="catch-up-inline-date" datetime="${escapeHtml(
-              item.dateKey || selectedDayKey
-            )}">${escapeHtml(catchUpItemLeadDateFormatter.format(itemDate))}</time>
-            <span>${escapeHtml(item.headline)}</span>
-          </h3>
+          <h3><span>${escapeHtml(item.headline)}</span></h3>
           ${sourceLink}
         </div>
         ${item.body ? `<p class="catch-up-subtitle">${escapeHtml(item.body)}</p>` : ""}
@@ -3397,14 +3407,12 @@ function renderCatchUp() {
     ? items.map(renderCatchUpItem).join("")
     : `
       <article class="catch-up-item">
+        <time class="catch-up-item-date" datetime="${escapeHtml(startKey)}">${escapeHtml(
+          catchUpItemLeadDateFormatter.format(startDate)
+        )}</time>
         <div class="catch-up-copy">
           <div class="catch-up-title-row">
-            <h3>
-              <time class="catch-up-inline-date" datetime="${escapeHtml(startKey)}">${escapeHtml(
-                catchUpItemLeadDateFormatter.format(startDate)
-              )}</time>
-              <span>No catch-up notes loaded yet</span>
-            </h3>
+            <h3><span>No catch-up notes loaded yet</span></h3>
           </div>
           <p class="catch-up-subtitle">Yesterday and today do not have finished or live match notes yet.</p>
         </div>

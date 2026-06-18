@@ -63,7 +63,7 @@ The script uses Wikipedia football infoboxes for current club, position, and pho
 ## Update Cadence
 
 Preferred production path:
-- Configure `/api/live-data` with a Sportmonks token.
+- Configure `/api/live-data` with an API-Football key on the free plan.
 - Let the server-side live snapshot merge recent scores/status and recompute standings automatically.
 - Keep manual JSON updates as the editorial/fallback layer, not the main live-update mechanism.
 
@@ -76,7 +76,7 @@ Match days:
 - Check after each match for final score and standings.
 
 During live matches:
-- If there is no live API, update `status` manually from `SCHEDULED` to `LIVE`, then to `FT` with `score`.
+- If there is no live API, or the free API quota/cache delay is not fresh enough, update `status` manually from `SCHEDULED` to `LIVE`, then to `FT` with `score`.
 - Do not rely on kickoff time alone for live status.
 - Treat a post-match row with no score as a data incident, not an empty state. The UI will label it "Final pending"; the fix is still to update the fixture, standings, and source timestamps before sharing.
 

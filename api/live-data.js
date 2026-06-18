@@ -9,8 +9,28 @@ const DEFAULT_WINDOW_BEFORE_DAYS = 1;
 const DEFAULT_WINDOW_AFTER_DAYS = 1;
 const DEFAULT_PROVIDER_TIMEOUT_MS = 8000;
 const DEFAULT_PROVIDER_MAX_PAGES = 5;
+const DEFAULT_LIVE_DATA_CACHE_SECONDS = 30 * 60;
+const DEFAULT_LIVE_DATA_STALE_SECONDS = 30 * 60;
+const API_FOOTBALL_PROVIDER_KEY = "apiFootball";
+const SPORTMONKS_PROVIDER_KEY = "sportmonks";
+const API_FOOTBALL_BASE_URL = "https://v3.football.api-sports.io";
+const API_FOOTBALL_DEFAULT_LEAGUE_ID = "1";
+const API_FOOTBALL_DEFAULT_SEASON = "2026";
 const SPORTMONKS_BASE_URL = "https://api.sportmonks.com/v3/football";
 const SPORTMONKS_FIXTURE_INCLUDE = "participants;scores;state";
+const PROVIDER_ALIASES = {
+  apifootball: API_FOOTBALL_PROVIDER_KEY,
+  "api-football": API_FOOTBALL_PROVIDER_KEY,
+  "api football": API_FOOTBALL_PROVIDER_KEY,
+  apisports: API_FOOTBALL_PROVIDER_KEY,
+  "api-sports": API_FOOTBALL_PROVIDER_KEY,
+  sportmonks: SPORTMONKS_PROVIDER_KEY
+};
+const TEAM_NAME_ALIASES = {
+  "czech republic": "CZE",
+  "ivory coast": "CIV",
+  turkey: "TUR"
+};
 
 export default async function handler(request, response) {
   if (request.method !== "GET") {
@@ -26,10 +46,11 @@ export default async function handler(request, response) {
     readJson("tournament.json")
   ]);
   const providerMap = (await readOptionalJson("provider-map.json")) || {};
-  const token = process.env.SPORTMONKS_API_TOKEN;
+  const provider = getLiveDataProvider();
   const checkedAt = new Date().toISOString();
+  const cacheControl = getLiveDataCacheControl();
 
-  if (!token) {
+  if (!provider.ok) {
     sendJson(
       response,
       200,
@@ -40,29 +61,24 @@ export default async function handler(request, response) {
         syncStatus: {
           checkedAt,
           ok: false,
-          provider: "sportmonks",
-          reason: "SPORTMONKS_API_TOKEN is not configured"
+          provider: provider.name,
+          reason: provider.reason
         }
       },
-      "s-maxage=60, stale-while-revalidate=300"
+      cacheControl
     );
     return;
   }
 
   try {
-    const sportmonks = createSportmonksClient({
-      maxPages: positiveInteger(process.env.SPORTMONKS_MAX_PAGES, DEFAULT_PROVIDER_MAX_PAGES),
-      timeoutMs: positiveInteger(process.env.SPORTMONKS_TIMEOUT_MS, DEFAULT_PROVIDER_TIMEOUT_MS),
-      token
-    });
-    const providerFixtures = await fetchProviderFixtures({
-      sportmonks,
+    const providerFixtures = await provider.fetchFixtures({
       providerMap,
       timeZone: process.env.SYNC_TIMEZONE || DEFAULT_TIME_ZONE
     });
     const merge = mergeProviderFixtures({
       checkedAt,
       fixturesData,
+      provider,
       providerFixtures,
       providerMap,
       teams: teamsData.teams
@@ -70,11 +86,13 @@ export default async function handler(request, response) {
     const mergedStandingsData = recomputeStandings({
       checkedAt,
       fixturesData: merge.fixturesData,
+      provider,
       standingsData,
       tournamentData
     });
-    const mergedTournamentData = addSportmonksSource({
+    const mergedTournamentData = addProviderSource({
       checkedAt,
+      provider,
       tournamentData,
       updateCount: merge.updateCount
     });
@@ -90,11 +108,11 @@ export default async function handler(request, response) {
           checkedAt,
           matchedFixtures: merge.matchedCount,
           ok: true,
-          provider: "sportmonks",
+          provider: provider.name,
           updatedFixtures: merge.updateCount
         }
       },
-      "s-maxage=60, stale-while-revalidate=300"
+      cacheControl
     );
   } catch (error) {
     sendJson(
@@ -107,11 +125,11 @@ export default async function handler(request, response) {
         syncStatus: {
           checkedAt,
           ok: false,
-          provider: "sportmonks",
+          provider: provider.name,
           reason: error.message || "Unable to sync provider data"
         }
       },
-      "s-maxage=60, stale-while-revalidate=300"
+      cacheControl
     );
   }
 }
@@ -119,8 +137,33 @@ export default async function handler(request, response) {
 function sendJson(response, statusCode, payload, cacheControl) {
   response.statusCode = statusCode;
   response.setHeader("Content-Type", "application/json; charset=utf-8");
-  response.setHeader("Cache-Control", cacheControl);
+  setCacheHeaders(response, cacheControl);
   response.end(JSON.stringify(payload));
+}
+
+function setCacheHeaders(response, cacheControl) {
+  if (cacheControl === "no-store") {
+    response.setHeader("Cache-Control", "no-store");
+    response.removeHeader?.("CDN-Cache-Control");
+    response.removeHeader?.("Vercel-CDN-Cache-Control");
+    return;
+  }
+
+  response.setHeader("Cache-Control", "public, max-age=0, must-revalidate");
+  response.setHeader("CDN-Cache-Control", cacheControl);
+  response.setHeader("Vercel-CDN-Cache-Control", cacheControl);
+}
+
+function getLiveDataCacheControl() {
+  const freshSeconds = positiveInteger(
+    process.env.LIVE_DATA_CACHE_SECONDS,
+    DEFAULT_LIVE_DATA_CACHE_SECONDS
+  );
+  const staleSeconds = positiveInteger(
+    process.env.LIVE_DATA_STALE_SECONDS,
+    DEFAULT_LIVE_DATA_STALE_SECONDS
+  );
+  return `public, s-maxage=${freshSeconds}, stale-while-revalidate=${staleSeconds}`;
 }
 
 async function readJson(fileName) {
@@ -137,6 +180,111 @@ async function readOptionalJson(fileName) {
 
     throw error;
   }
+}
+
+function getLiveDataProvider() {
+  const requestedProvider = getRequestedProviderKey();
+  const apiFootballToken = getFirstEnv([
+    "API_FOOTBALL_API_KEY",
+    "APIFOOTBALL_API_KEY",
+    "API_SPORTS_API_KEY",
+    "APISPORTS_API_KEY"
+  ]);
+  const sportmonksToken = process.env.SPORTMONKS_API_TOKEN;
+
+  if (requestedProvider === API_FOOTBALL_PROVIDER_KEY) {
+    return apiFootballToken
+      ? createApiFootballProvider(apiFootballToken)
+      : missingProvider("api-football", "API_FOOTBALL_API_KEY is not configured");
+  }
+
+  if (requestedProvider === SPORTMONKS_PROVIDER_KEY) {
+    return sportmonksToken
+      ? createSportmonksProvider(sportmonksToken)
+      : missingProvider("sportmonks", "SPORTMONKS_API_TOKEN is not configured");
+  }
+
+  if (apiFootballToken) {
+    return createApiFootballProvider(apiFootballToken);
+  }
+
+  if (sportmonksToken) {
+    return createSportmonksProvider(sportmonksToken);
+  }
+
+  return missingProvider(
+    "none",
+    "No live data provider is configured. Add API_FOOTBALL_API_KEY for free API-Football sync."
+  );
+}
+
+function getRequestedProviderKey() {
+  const requested = normalizeKey(process.env.LIVE_DATA_PROVIDER);
+  return PROVIDER_ALIASES[requested] || "";
+}
+
+function getFirstEnv(names) {
+  for (const name of names) {
+    if (process.env[name]) {
+      return process.env[name];
+    }
+  }
+
+  return "";
+}
+
+function missingProvider(name, reason) {
+  return {
+    ok: false,
+    name,
+    reason
+  };
+}
+
+function createApiFootballProvider(token) {
+  const client = createApiFootballClient({
+    maxPages: positiveInteger(process.env.API_FOOTBALL_MAX_PAGES, DEFAULT_PROVIDER_MAX_PAGES),
+    timeoutMs: positiveInteger(process.env.API_FOOTBALL_TIMEOUT_MS, DEFAULT_PROVIDER_TIMEOUT_MS),
+    token
+  });
+
+  return {
+    docsUrl: "https://www.api-football.com/news/post/fifa-world-cup-2026-guide-to-using-data-with-api-sports",
+    fetchFixtures: ({ providerMap, timeZone }) =>
+      fetchApiFootballFixtures({
+        apiFootball: client,
+        providerMap,
+        timeZone
+      }),
+    key: API_FOOTBALL_PROVIDER_KEY,
+    label: "API-Football automatic sync",
+    name: "api-football",
+    ok: true,
+    sourcePrefix: "api-football-auto"
+  };
+}
+
+function createSportmonksProvider(token) {
+  const client = createSportmonksClient({
+    maxPages: positiveInteger(process.env.SPORTMONKS_MAX_PAGES, DEFAULT_PROVIDER_MAX_PAGES),
+    timeoutMs: positiveInteger(process.env.SPORTMONKS_TIMEOUT_MS, DEFAULT_PROVIDER_TIMEOUT_MS),
+    token
+  });
+
+  return {
+    docsUrl: "https://docs.sportmonks.com/v3/tutorials-and-guides/tutorials/livescores-and-fixtures/fixtures",
+    fetchFixtures: ({ providerMap, timeZone }) =>
+      fetchSportmonksFixtures({
+        providerMap,
+        sportmonks: client,
+        timeZone
+      }),
+    key: SPORTMONKS_PROVIDER_KEY,
+    label: "Sportmonks Football API automatic sync",
+    name: "sportmonks",
+    ok: true,
+    sourcePrefix: "sportmonks-auto"
+  };
 }
 
 function positiveInteger(value, fallback) {
@@ -178,6 +326,34 @@ function asArray(value) {
   return [];
 }
 
+function hasEntries(value) {
+  if (!value) {
+    return false;
+  }
+
+  if (Array.isArray(value)) {
+    return value.length > 0;
+  }
+
+  return typeof value === "object" && Object.keys(value).length > 0;
+}
+
+function summarizeProviderErrors(errors) {
+  if (!errors) {
+    return "";
+  }
+
+  if (Array.isArray(errors)) {
+    return errors.join(", ");
+  }
+
+  if (typeof errors === "object") {
+    return Object.values(errors).flat().join(", ");
+  }
+
+  return String(errors);
+}
+
 function normalizeKey(value) {
   return String(value || "")
     .normalize("NFKD")
@@ -188,21 +364,68 @@ function normalizeKey(value) {
     .toLowerCase();
 }
 
-async function fetchWithTimeout(url, timeoutMs) {
+async function fetchWithTimeout(url, timeoutMs, providerName, options = {}) {
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
 
   try {
-    return await fetch(url, { signal: controller.signal });
+    return await fetch(url, { ...options, signal: controller.signal });
   } catch (error) {
     if (error?.name === "AbortError") {
-      throw new Error(`Sportmonks request timed out after ${timeoutMs}ms`);
+      throw new Error(`${providerName} request timed out after ${timeoutMs}ms`);
     }
 
     throw error;
   } finally {
     clearTimeout(timeoutId);
   }
+}
+
+function createApiFootballClient({ maxPages, timeoutMs, token }) {
+  const baseUrl = process.env.API_FOOTBALL_BASE_URL || API_FOOTBALL_BASE_URL;
+
+  return async function apiFootball(pathname, params = {}) {
+    const url = new URL(`${baseUrl}${pathname}`);
+
+    for (const [key, value] of Object.entries(params)) {
+      if (value !== undefined && value !== null && value !== "") {
+        url.searchParams.set(key, value);
+      }
+    }
+
+    const items = [];
+    let page = positiveInteger(params.page, 1);
+    let totalPages = 1;
+
+    while (page <= totalPages) {
+      if (page > maxPages) {
+        throw new Error(`API-Football pagination exceeded ${maxPages} pages`);
+      }
+
+      url.searchParams.set("page", String(page));
+      const apiResponse = await fetchWithTimeout(url, timeoutMs, "API-Football", {
+        headers: {
+          "x-apisports-key": token
+        }
+      });
+
+      if (!apiResponse.ok) {
+        throw new Error(`API-Football request failed with ${apiResponse.status}`);
+      }
+
+      const payload = await apiResponse.json();
+      if (hasEntries(payload.errors)) {
+        const detail = summarizeProviderErrors(payload.errors);
+        throw new Error(`API-Football request returned an error${detail ? `: ${detail}` : ""}`);
+      }
+
+      items.push(...asArray(payload.response));
+      totalPages = positiveInteger(payload.paging?.total, 1);
+      page += 1;
+    }
+
+    return items;
+  };
 }
 
 function createSportmonksClient({ maxPages, timeoutMs, token }) {
@@ -228,7 +451,7 @@ function createSportmonksClient({ maxPages, timeoutMs, token }) {
         throw new Error(`Sportmonks pagination exceeded ${maxPages} pages`);
       }
 
-      const apiResponse = await fetchWithTimeout(nextUrl, timeoutMs);
+      const apiResponse = await fetchWithTimeout(nextUrl, timeoutMs, "Sportmonks");
       if (!apiResponse.ok) {
         throw new Error(`Sportmonks request failed with ${apiResponse.status}`);
       }
@@ -251,16 +474,59 @@ function createSportmonksClient({ maxPages, timeoutMs, token }) {
   };
 }
 
-async function fetchProviderFixtures({ providerMap, sportmonks, timeZone }) {
+function getSyncWindow({ afterDays, beforeDays, timeZone }) {
   const todayKey = getDayKey(new Date(), timeZone);
   const startKey = shiftDayKey(
     todayKey,
-    -positiveInteger(process.env.SPORTMONKS_WINDOW_BEFORE_DAYS, DEFAULT_WINDOW_BEFORE_DAYS)
+    -positiveInteger(beforeDays, DEFAULT_WINDOW_BEFORE_DAYS)
   );
   const endKey = shiftDayKey(
     todayKey,
-    positiveInteger(process.env.SPORTMONKS_WINDOW_AFTER_DAYS, DEFAULT_WINDOW_AFTER_DAYS)
+    positiveInteger(afterDays, DEFAULT_WINDOW_AFTER_DAYS)
   );
+
+  return { endKey, startKey };
+}
+
+async function fetchApiFootballFixtures({ apiFootball, providerMap, timeZone }) {
+  const { endKey, startKey } = getSyncWindow({
+    afterDays: process.env.API_FOOTBALL_WINDOW_AFTER_DAYS,
+    beforeDays: process.env.API_FOOTBALL_WINDOW_BEFORE_DAYS,
+    timeZone
+  });
+  const leagueId = String(
+    process.env.API_FOOTBALL_LEAGUE_ID ||
+      providerMap.apiFootball?.leagueId ||
+      API_FOOTBALL_DEFAULT_LEAGUE_ID
+  );
+  const season = String(
+    process.env.API_FOOTBALL_SEASON ||
+      providerMap.apiFootball?.season ||
+      API_FOOTBALL_DEFAULT_SEASON
+  );
+  const fixtures = await apiFootball("/fixtures", {
+    league: leagueId,
+    season,
+    timezone: process.env.API_FOOTBALL_TIMEZONE || timeZone
+  });
+
+  return fixtures.filter((fixture) => {
+    const kickoff = getProviderKickoff(fixture, API_FOOTBALL_PROVIDER_KEY);
+    if (!kickoff) {
+      return false;
+    }
+
+    const kickoffKey = getDayKey(toProviderDate(kickoff), timeZone);
+    return kickoffKey >= startKey && kickoffKey <= endKey;
+  });
+}
+
+async function fetchSportmonksFixtures({ providerMap, sportmonks, timeZone }) {
+  const { endKey, startKey } = getSyncWindow({
+    afterDays: process.env.SPORTMONKS_WINDOW_AFTER_DAYS,
+    beforeDays: process.env.SPORTMONKS_WINDOW_BEFORE_DAYS,
+    timeZone
+  });
   const fixtures = await sportmonks(`/fixtures/between/${startKey}/${endKey}`, {
     include: process.env.SPORTMONKS_FIXTURE_INCLUDE || SPORTMONKS_FIXTURE_INCLUDE,
     per_page: "100"
@@ -275,10 +541,11 @@ async function fetchProviderFixtures({ providerMap, sportmonks, timeZone }) {
   });
 }
 
-function buildTeamLookup(teams, providerMap) {
+function buildTeamLookup(teams, providerMap, providerKey) {
   const byName = new Map();
   const byProviderId = new Map();
-  const providerTeamIds = providerMap.sportmonks?.teamIds || {};
+  const providerTeamIds = providerMap[providerKey]?.teamIds || {};
+  const teamIds = new Set(teams.map((team) => team.id));
 
   for (const team of teams) {
     for (const name of [team.name, team.officialName, ...(team.aliases || [])]) {
@@ -291,10 +558,23 @@ function buildTeamLookup(teams, providerMap) {
     }
   }
 
+  for (const [alias, teamId] of Object.entries(TEAM_NAME_ALIASES)) {
+    if (teamIds.has(teamId)) {
+      byName.set(normalizeKey(alias), teamId);
+    }
+  }
+
   return { byName, byProviderId };
 }
 
-function getProviderParticipants(providerFixture) {
+function getProviderParticipants(providerFixture, providerKey) {
+  if (providerKey === API_FOOTBALL_PROVIDER_KEY) {
+    return {
+      away: normalizeApiFootballParticipant(providerFixture.teams?.away, "away"),
+      home: normalizeApiFootballParticipant(providerFixture.teams?.home, "home")
+    };
+  }
+
   const participants = asArray(providerFixture.participants);
   const home =
     participants.find((participant) => getParticipantLocation(participant) === "home") ||
@@ -303,6 +583,14 @@ function getProviderParticipants(providerFixture) {
     participants.find((participant) => getParticipantLocation(participant) === "away") ||
     participants[1];
   return { away, home };
+}
+
+function normalizeApiFootballParticipant(team, location) {
+  return {
+    id: team?.id,
+    location,
+    name: team?.name
+  };
 }
 
 function getParticipantLocation(participant) {
@@ -315,18 +603,21 @@ function getParticipantLocation(participant) {
 }
 
 function findTeamIdForParticipant(participant, teamLookup) {
-  const providerId = participant?.id || participant?.participant_id;
+  const providerId = participant?.id || participant?.participant_id || participant?.team_id;
   if (providerId && teamLookup.byProviderId.has(String(providerId))) {
     return teamLookup.byProviderId.get(String(providerId));
   }
 
-  return teamLookup.byName.get(normalizeKey(participant?.name || participant?.display_name));
+  return teamLookup.byName.get(
+    normalizeKey(participant?.name || participant?.display_name || participant?.team_name)
+  );
 }
 
-function findMatchingFixture({ fixtures, providerFixture, providerMap, teamLookup }) {
-  const fixtureIds = providerMap.sportmonks?.fixtureIds || {};
+function findMatchingFixture({ fixtures, provider, providerFixture, providerMap, teamLookup }) {
+  const fixtureIds = providerMap[provider.key]?.fixtureIds || {};
+  const providerFixtureId = getProviderFixtureId(providerFixture, provider.key);
   const knownFixtureId = Object.entries(fixtureIds).find(
-    ([, providerId]) => String(providerId) === String(providerFixture.id)
+    ([, providerId]) => String(providerId) === String(providerFixtureId)
   )?.[0];
 
   if (knownFixtureId) {
@@ -334,22 +625,23 @@ function findMatchingFixture({ fixtures, providerFixture, providerMap, teamLooku
   }
 
   const mappedFixture = fixtures.find(
-    (fixture) => String(fixture.providerIds?.sportmonks?.fixtureId || "") === String(providerFixture.id)
+    (fixture) =>
+      String(fixture.providerIds?.[provider.key]?.fixtureId || "") === String(providerFixtureId)
   );
   if (mappedFixture) {
     return mappedFixture;
   }
 
-  const participants = getProviderParticipants(providerFixture);
+  const participants = getProviderParticipants(providerFixture, provider.key);
   const homeTeamId = findTeamIdForParticipant(participants.home, teamLookup);
   const awayTeamId = findTeamIdForParticipant(participants.away, teamLookup);
-  const startingAt = providerFixture.starting_at || providerFixture.starting_at_timestamp;
+  const startingAt = getProviderKickoff(providerFixture, provider.key);
 
   if (!homeTeamId || !awayTeamId || !startingAt) {
     return null;
   }
 
-  const providerKickoff = new Date(startingAt);
+  const providerKickoff = toProviderDate(startingAt);
   return fixtures.find((fixture) => {
     const kickoff = new Date(fixture.kickoffUtc);
     const sameTeams = fixture.homeTeamId === homeTeamId && fixture.awayTeamId === awayTeamId;
@@ -358,7 +650,54 @@ function findMatchingFixture({ fixtures, providerFixture, providerMap, teamLooku
   });
 }
 
-function getProviderStatus(providerFixture) {
+function getProviderFixtureId(providerFixture, providerKey) {
+  if (providerKey === API_FOOTBALL_PROVIDER_KEY) {
+    return providerFixture.fixture?.id;
+  }
+
+  return providerFixture.id;
+}
+
+function getProviderKickoff(providerFixture, providerKey) {
+  if (providerKey === API_FOOTBALL_PROVIDER_KEY) {
+    return providerFixture.fixture?.date || providerFixture.fixture?.timestamp;
+  }
+
+  return providerFixture.starting_at || providerFixture.starting_at_timestamp;
+}
+
+function toProviderDate(value) {
+  if (typeof value === "number" || /^\d+$/.test(String(value))) {
+    const timestamp = Number(value);
+    return new Date(timestamp < 10 ** 12 ? timestamp * 1000 : timestamp);
+  }
+
+  return new Date(value);
+}
+
+function getProviderStatus(providerFixture, providerKey) {
+  if (providerKey === API_FOOTBALL_PROVIDER_KEY) {
+    const status = String(providerFixture.fixture?.status?.short || "").toUpperCase();
+
+    if (["CANC", "ABD"].includes(status)) {
+      return "CANCELLED";
+    }
+
+    if (status === "PST") {
+      return "POSTPONED";
+    }
+
+    if (["FT", "AET", "PEN"].includes(status)) {
+      return "FT";
+    }
+
+    if (["1H", "HT", "2H", "ET", "P", "BT", "LIVE", "SUSP", "INT"].includes(status)) {
+      return "LIVE";
+    }
+
+    return "SCHEDULED";
+  }
+
   const text = normalizeKey(
     [
       providerFixture.state?.short_name,
@@ -390,7 +729,13 @@ function getProviderStatus(providerFixture) {
   return "SCHEDULED";
 }
 
-function getProviderScore(providerFixture, participants) {
+function getProviderScore(providerFixture, participants, providerKey) {
+  if (providerKey === API_FOOTBALL_PROVIDER_KEY) {
+    const home = Number(providerFixture.goals?.home);
+    const away = Number(providerFixture.goals?.away);
+    return Number.isFinite(home) && Number.isFinite(away) ? { away, home } : null;
+  }
+
   const rows = asArray(providerFixture.scores);
   const preferred =
     rows.filter((row) => normalizeKey(row.description) === "current") ||
@@ -431,8 +776,8 @@ function statusRank(status) {
   }[status] ?? 0;
 }
 
-function mergeProviderFixtures({ checkedAt, fixturesData, providerFixtures, providerMap, teams }) {
-  const teamLookup = buildTeamLookup(teams, providerMap);
+function mergeProviderFixtures({ checkedAt, fixturesData, provider, providerFixtures, providerMap, teams }) {
+  const teamLookup = buildTeamLookup(teams, providerMap, provider.key);
   const fixtures = fixturesData.fixtures.map((fixture) => ({ ...fixture }));
   let matchedCount = 0;
   let updateCount = 0;
@@ -440,6 +785,7 @@ function mergeProviderFixtures({ checkedAt, fixturesData, providerFixtures, prov
   for (const providerFixture of providerFixtures) {
     const fixture = findMatchingFixture({
       fixtures,
+      provider,
       providerFixture,
       providerMap,
       teamLookup
@@ -450,9 +796,9 @@ function mergeProviderFixtures({ checkedAt, fixturesData, providerFixtures, prov
     }
 
     matchedCount += 1;
-    const participants = getProviderParticipants(providerFixture);
-    const providerStatus = getProviderStatus(providerFixture);
-    const providerScore = getProviderScore(providerFixture, participants);
+    const participants = getProviderParticipants(providerFixture, provider.key);
+    const providerStatus = getProviderStatus(providerFixture, provider.key);
+    const providerScore = getProviderScore(providerFixture, participants, provider.key);
     const nextStatus =
       statusRank(providerStatus) >= statusRank(fixture.status) ? providerStatus : fixture.status;
     const before = JSON.stringify({
@@ -464,9 +810,9 @@ function mergeProviderFixtures({ checkedAt, fixturesData, providerFixtures, prov
     fixture.status = nextStatus;
     fixture.providerIds = {
       ...(fixture.providerIds || {}),
-      sportmonks: {
+      [provider.key]: {
         awayParticipantId: participants.away?.id || null,
-        fixtureId: providerFixture.id,
+        fixtureId: getProviderFixtureId(providerFixture, provider.key),
         homeParticipantId: participants.home?.id || null
       }
     };
@@ -489,7 +835,9 @@ function mergeProviderFixtures({ checkedAt, fixturesData, providerFixtures, prov
   return {
     fixturesData: {
       ...fixturesData,
-      sourceIds: [...new Set([...(fixturesData.sourceIds || []), getSportmonksSourceId(checkedAt)])],
+      sourceIds: [
+        ...new Set([...(fixturesData.sourceIds || []), getProviderSourceId(provider, checkedAt)])
+      ],
       updatedAt: checkedAt,
       fixtures
     },
@@ -498,18 +846,18 @@ function mergeProviderFixtures({ checkedAt, fixturesData, providerFixtures, prov
   };
 }
 
-function getSportmonksSourceId(checkedAt) {
-  return `sportmonks-auto-${checkedAt.slice(0, 10)}`;
+function getProviderSourceId(provider, checkedAt) {
+  return `${provider.sourcePrefix}-${checkedAt.slice(0, 10)}`;
 }
 
-function addSportmonksSource({ checkedAt, tournamentData, updateCount }) {
-  const sourceId = getSportmonksSourceId(checkedAt);
+function addProviderSource({ checkedAt, provider, tournamentData, updateCount }) {
+  const sourceId = getProviderSourceId(provider, checkedAt);
   const nextSources = (tournamentData.sources || []).filter((source) => source.id !== sourceId);
 
   nextSources.push({
     id: sourceId,
-    label: "Sportmonks Football API automatic sync",
-    url: "https://docs.sportmonks.com/v3/tutorials-and-guides/tutorials/livescores-and-fixtures/fixtures",
+    label: provider.label,
+    url: provider.docsUrl,
     type: "provider",
     checkedAt,
     note: `${updateCount} fixture update${updateCount === 1 ? "" : "s"} merged from provider data.`
@@ -569,7 +917,7 @@ function goalDifference(row) {
   return row.gf - row.ga;
 }
 
-function recomputeStandings({ checkedAt, fixturesData, standingsData, tournamentData }) {
+function recomputeStandings({ checkedAt, fixturesData, provider, standingsData, tournamentData }) {
   const existingOrder = new Map();
   for (const [groupId, rows] of Object.entries(standingsData.groups || {})) {
     rows.forEach((row, index) => existingOrder.set(`${groupId}:${row.teamId}`, index));
@@ -607,7 +955,9 @@ function recomputeStandings({ checkedAt, fixturesData, standingsData, tournament
 
   return {
     ...standingsData,
-    sourceIds: [...new Set([...(standingsData.sourceIds || []), getSportmonksSourceId(checkedAt)])],
+    sourceIds: [
+      ...new Set([...(standingsData.sourceIds || []), getProviderSourceId(provider, checkedAt)])
+    ],
     updatedAt: checkedAt,
     groups: standingsGroups
   };
