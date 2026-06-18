@@ -63,6 +63,7 @@ const timeZones = [
 ];
 const MATCH_LIVE_WINDOW_MS = 2.25 * 60 * 60 * 1000;
 const DATA_REFRESH_INTERVAL_MS = 5 * 60 * 1000;
+const LIVE_DATA_TIMEOUT_MS = 4000;
 const CURRENT_STANDINGS_YEAR = 2026;
 const CURRENT_STANDINGS_SUMMARY =
   "Top two in each group advance. The best eight third-place teams also reach the Round of 32.";
@@ -319,18 +320,43 @@ function clampPercent(value) {
   return Math.max(0, Math.min(100, number));
 }
 
-async function loadJson(url) {
-  const response = await fetch(url, { cache: "no-store" });
-  if (!response.ok) {
-    throw new Error(`Unable to load ${url}`);
+async function loadJson(url, options = {}) {
+  const { timeoutMs = 0 } = options;
+  const controller =
+    timeoutMs > 0 && typeof AbortController !== "undefined" ? new AbortController() : null;
+  const timeoutId = controller
+    ? window.setTimeout(() => controller.abort(), timeoutMs)
+    : null;
+
+  try {
+    const response = await fetch(url, {
+      cache: "no-store",
+      signal: controller?.signal
+    });
+
+    if (!response.ok) {
+      throw new Error(`Unable to load ${url}`);
+    }
+
+    return await response.json();
+  } catch (error) {
+    if (error?.name === "AbortError") {
+      throw new Error(`Timed out loading ${url}`);
+    }
+
+    throw error;
+  } finally {
+    if (timeoutId) {
+      window.clearTimeout(timeoutId);
+    }
   }
-  return response.json();
 }
 
-async function loadOptionalJson(url, fallback) {
+async function loadOptionalJson(url, fallback, options = {}) {
   try {
-    return await loadJson(url);
-  } catch {
+    return await loadJson(url, options);
+  } catch (error) {
+    console.warn(`Optional data unavailable: ${url}`, error);
     return fallback;
   }
 }
@@ -3322,7 +3348,7 @@ function renderCatchUpItem(item) {
   const sourceLink = item.sourceUrl
     ? `<a class="catch-up-source" href="${escapeHtml(item.sourceUrl)}" target="_blank" rel="noreferrer" aria-label="${escapeHtml(
         item.sourceLabel || "Read source"
-      )}" title="${escapeHtml(item.sourceLabel || "Read source")}"><span aria-hidden="true"></span></a>`
+      )}" title="${escapeHtml(item.sourceLabel || "Read source")}"><span aria-hidden="true">&#8599;</span></a>`
     : "";
   const footer =
     item.meta
@@ -3518,37 +3544,43 @@ function renderSourceNote() {
 }
 
 function renderLoadError(error) {
+  console.error("Unable to load World Cup data", error);
   matchList.innerHTML = `
     <article class="empty-state">
       <h2>Data unavailable</h2>
-      <p>${escapeHtml(error.message)}</p>
+      <p>The match data could not be loaded. Refresh the page to try again.</p>
     </article>
   `;
   matchInfo.innerHTML = `<p class="info-empty">The match data could not be loaded.</p>`;
 }
 
-async function loadData() {
-  const [
-    liveData,
-    fixturesData,
-    historyData,
-    playerProfilesData,
-    teamsData,
-    standingsData,
-    tournamentData
-  ] = await Promise.all([
-    loadOptionalJson(DATA_URLS.liveData, null),
-    loadJson(DATA_URLS.fixtures),
-    loadJson(DATA_URLS.history),
-    loadOptionalJson(DATA_URLS.playerProfiles, { profiles: {} }),
-    loadJson(DATA_URLS.teams),
-    loadJson(DATA_URLS.standings),
-    loadJson(DATA_URLS.tournament)
-  ]);
-  const activeFixturesData = liveData?.fixturesData || fixturesData;
-  const activeStandingsData = liveData?.standingsData || standingsData;
-  const activeTournamentData = liveData?.tournamentData || tournamentData;
+function renderAppError(error) {
+  console.error("Unable to render World Cup data", error);
+  matchList.innerHTML = `
+    <article class="empty-state">
+      <h2>Unable to display matches</h2>
+      <p>The page loaded, but something went wrong while displaying it. Refresh the page to try again.</p>
+    </article>
+  `;
+  matchInfo.innerHTML = `<p class="info-empty">The match view could not be displayed.</p>`;
+}
 
+function hasLiveDataSnapshot(liveData) {
+  return Boolean(
+    Array.isArray(liveData?.fixturesData?.fixtures) &&
+      liveData?.standingsData?.groups &&
+      Array.isArray(liveData?.tournamentData?.groups)
+  );
+}
+
+function applyDataSnapshot({
+  fixturesData,
+  historyData,
+  playerProfilesData,
+  standingsData,
+  teamsData,
+  tournamentData
+}) {
   teamsById = new Map(teamsData.teams.map((team) => [team.id, team]));
   teamsByName = buildTeamNameLookup(teamsData.teams);
   playerProfilesByName = new Map(
@@ -3557,43 +3589,114 @@ async function loadData() {
       profile
     ])
   );
-  fixtures = activeFixturesData.fixtures;
+  fixtures = fixturesData.fixtures;
   history = historyData;
   historicalFixtures = historyData.fixtures || [];
   historicalProjectionCache.clear();
-  standingsByGroup = activeStandingsData.groups;
-  tournament = activeTournamentData;
-  dataCoverage = activeFixturesData.coverage || { status: "partial" };
+  standingsByGroup = standingsData.groups;
+  tournament = tournamentData;
+  dataCoverage = fixturesData.coverage || { status: "partial" };
+}
+
+function applyLiveDataSnapshot(liveData) {
+  fixtures = liveData.fixturesData.fixtures;
+  standingsByGroup = liveData.standingsData.groups;
+  tournament = liveData.tournamentData;
+  dataCoverage = liveData.fixturesData.coverage || { status: "partial" };
+}
+
+async function loadStaticData() {
+  const [
+    fixturesData,
+    historyData,
+    playerProfilesData,
+    teamsData,
+    standingsData,
+    tournamentData
+  ] = await Promise.all([
+    loadJson(DATA_URLS.fixtures),
+    loadJson(DATA_URLS.history),
+    loadOptionalJson(DATA_URLS.playerProfiles, { profiles: {} }),
+    loadJson(DATA_URLS.teams),
+    loadJson(DATA_URLS.standings),
+    loadJson(DATA_URLS.tournament)
+  ]);
+
+  applyDataSnapshot({
+    fixturesData,
+    historyData,
+    playerProfilesData,
+    standingsData,
+    teamsData,
+    tournamentData
+  });
+}
+
+async function loadLiveData() {
+  const liveData = await loadOptionalJson(DATA_URLS.liveData, null, {
+    timeoutMs: LIVE_DATA_TIMEOUT_MS
+  });
+
+  if (!hasLiveDataSnapshot(liveData)) {
+    return false;
+  }
+
+  applyLiveDataSnapshot(liveData);
+  return true;
+}
+
+function renderLoadedApp(options = {}) {
+  ensureSelectableSelectedDay();
+  selectedStandingsYear = getValidStandingsYear(selectedStandingsYear);
+  renderTimeZoneOptions();
+  renderStandingsView();
+
+  if (options.syncActiveView) {
+    setActiveView(activeView);
+  }
+
+  renderSchedule();
+  renderSourceNote();
 }
 
 async function refreshData() {
+  let didUpdate = false;
+
   try {
-    await loadData();
-    ensureSelectableSelectedDay();
-    selectedStandingsYear = getValidStandingsYear(selectedStandingsYear);
-    renderTimeZoneOptions();
-    renderStandingsView();
-    renderSchedule();
-    renderSourceNote();
-  } catch {
+    didUpdate = await loadLiveData();
+  } catch (error) {
     // Keep the current data visible if a background refresh fails.
+    console.warn("Unable to refresh live data", error);
+    return;
+  }
+
+  if (!didUpdate) {
+    return;
+  }
+
+  try {
+    renderLoadedApp();
+  } catch (error) {
+    console.error("Unable to render refreshed data", error);
   }
 }
 
 async function boot() {
   try {
-    await loadData();
-    readUrlState({ forceToday: isReloadNavigation() });
-    ensureSelectableSelectedDay();
-    renderTimeZoneOptions();
-    renderStandingsView();
-    setActiveView(activeView);
-    renderSchedule();
-    renderSourceNote();
-    setInterval(renderSchedule, 60 * 1000);
-    setInterval(refreshData, DATA_REFRESH_INTERVAL_MS);
+    await loadStaticData();
   } catch (error) {
     renderLoadError(error);
+    return;
+  }
+
+  try {
+    readUrlState({ forceToday: isReloadNavigation() });
+    renderLoadedApp({ syncActiveView: true });
+    setInterval(renderSchedule, 60 * 1000);
+    setInterval(refreshData, DATA_REFRESH_INTERVAL_MS);
+    refreshData();
+  } catch (error) {
+    renderAppError(error);
   }
 }
 

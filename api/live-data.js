@@ -7,6 +7,8 @@ const dataDir = path.join(root, "data");
 const DEFAULT_TIME_ZONE = "America/Los_Angeles";
 const DEFAULT_WINDOW_BEFORE_DAYS = 1;
 const DEFAULT_WINDOW_AFTER_DAYS = 1;
+const DEFAULT_PROVIDER_TIMEOUT_MS = 8000;
+const DEFAULT_PROVIDER_MAX_PAGES = 5;
 const SPORTMONKS_BASE_URL = "https://api.sportmonks.com/v3/football";
 const SPORTMONKS_FIXTURE_INCLUDE = "participants;scores;state";
 
@@ -48,7 +50,11 @@ export default async function handler(request, response) {
   }
 
   try {
-    const sportmonks = createSportmonksClient({ token });
+    const sportmonks = createSportmonksClient({
+      maxPages: positiveInteger(process.env.SPORTMONKS_MAX_PAGES, DEFAULT_PROVIDER_MAX_PAGES),
+      timeoutMs: positiveInteger(process.env.SPORTMONKS_TIMEOUT_MS, DEFAULT_PROVIDER_TIMEOUT_MS),
+      token
+    });
     const providerFixtures = await fetchProviderFixtures({
       sportmonks,
       providerMap,
@@ -182,7 +188,24 @@ function normalizeKey(value) {
     .toLowerCase();
 }
 
-function createSportmonksClient({ token }) {
+async function fetchWithTimeout(url, timeoutMs) {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
+
+  try {
+    return await fetch(url, { signal: controller.signal });
+  } catch (error) {
+    if (error?.name === "AbortError") {
+      throw new Error(`Sportmonks request timed out after ${timeoutMs}ms`);
+    }
+
+    throw error;
+  } finally {
+    clearTimeout(timeoutId);
+  }
+}
+
+function createSportmonksClient({ maxPages, timeoutMs, token }) {
   const baseUrl = process.env.SPORTMONKS_BASE_URL || SPORTMONKS_BASE_URL;
 
   return async function sportmonks(pathname, params = {}) {
@@ -197,9 +220,15 @@ function createSportmonksClient({ token }) {
 
     const items = [];
     let nextUrl = url;
+    let pageCount = 0;
 
     while (nextUrl) {
-      const apiResponse = await fetch(nextUrl);
+      pageCount += 1;
+      if (pageCount > maxPages) {
+        throw new Error(`Sportmonks pagination exceeded ${maxPages} pages`);
+      }
+
+      const apiResponse = await fetchWithTimeout(nextUrl, timeoutMs);
       if (!apiResponse.ok) {
         throw new Error(`Sportmonks request failed with ${apiResponse.status}`);
       }

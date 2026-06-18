@@ -218,6 +218,13 @@ a {
   min-width: 0;
 }
 
+.catch-up-title-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 20px;
+  align-items: start;
+  gap: 8px;
+}
+
 .catch-up-copy h3 {
   margin: 0;
   color: var(--text);
@@ -229,17 +236,13 @@ a {
 
 .catch-up-points {
   display: grid;
-  gap: 6px;
+  gap: 5px;
   margin: 0;
-  padding: 0;
-  list-style: none;
+  padding-left: 16px;
+  list-style: disc;
 }
 
 .catch-up-point {
-  display: grid;
-  grid-template-columns: 14px minmax(0, 1fr);
-  align-items: start;
-  gap: 8px;
   color: rgba(10, 10, 10, 0.62);
   font-size: 12px;
   font-weight: 500;
@@ -247,25 +250,9 @@ a {
   line-height: 1.38;
 }
 
-.catch-up-point-icon {
-  position: relative;
-  width: 14px;
-  height: 14px;
-  margin-top: 1px;
-  border: 1px solid rgba(10, 10, 10, 0.12);
-  border-radius: 999px;
-  background: rgba(10, 10, 10, 0.03);
-}
-
-.catch-up-point-icon::after {
-  content: "";
-  position: absolute;
-  top: 4px;
-  left: 4px;
-  width: 4px;
-  height: 4px;
-  border-radius: 999px;
-  background: rgba(10, 10, 10, 0.5);
+.catch-up-point::marker {
+  color: rgba(10, 10, 10, 0.34);
+  font-size: 0.9em;
 }
 
 .catch-up-copy .catch-up-standouts {
@@ -295,26 +282,25 @@ a {
 .catch-up-source {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
-  width: fit-content;
-  color: rgba(10, 10, 10, 0.72);
-  font-size: 11px;
-  font-weight: 600;
-  line-height: 1.2;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  margin-top: -2px;
+  border-radius: 999px;
+  color: rgba(10, 10, 10, 0.46);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1;
   text-decoration: none;
+  transition: background 160ms ease, color 160ms ease;
 }
 
-.catch-up-source::before {
-  content: "";
-  width: 5px;
-  height: 5px;
-  border-top: 1.5px solid currentColor;
-  border-right: 1.5px solid currentColor;
-  opacity: 0.58;
-  transform: rotate(45deg);
+.catch-up-source span {
+  transform: translateY(-1px);
 }
 
 .catch-up-source:hover {
+  background: rgba(10, 10, 10, 0.05);
   color: var(--text);
 }
 
