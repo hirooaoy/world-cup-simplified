@@ -247,6 +247,12 @@ const catchUpItemDateFormatter = new Intl.DateTimeFormat("en-US", {
   timeZone: "UTC"
 });
 
+const catchUpItemLeadDateFormatter = new Intl.DateTimeFormat("en-US", {
+  day: "numeric",
+  month: "long",
+  timeZone: "UTC"
+});
+
 function escapeHtml(value) {
   return String(value ?? "").replace(/[&<>"']/g, (char) => {
     const replacements = {
@@ -3326,51 +3332,50 @@ function getCatchUpItems() {
   return items.sort(compareCatchUpItemsChronologically);
 }
 
+function splitCatchUpBullet(text) {
+  const trimmed = text.trim();
+  if (!trimmed) {
+    return [];
+  }
+
+  return trimmed
+    .split(/;\s+|,\s+while\s+/i)
+    .map((part) => part.trim())
+    .filter(Boolean);
+}
+
+function getCatchUpBullets(standouts) {
+  return (standouts || []).flatMap(splitCatchUpBullet);
+}
+
 function renderCatchUpItem(item) {
   const itemDate = getDateFromKey(item.dateKey || selectedDayKey);
-  const standoutText = (item.standouts || []).join("; ");
-  const summaryPoint = item.body
-    ? `
-        <li class="catch-up-point">${escapeHtml(item.body)}</li>
-      `
+  const catchUpBullets = getCatchUpBullets(item.standouts);
+  const points = catchUpBullets.length
+    ? `<ul class="catch-up-points catch-up-standouts">${catchUpBullets
+        .map((bullet) => `<li class="catch-up-point">${escapeHtml(bullet)}</li>`)
+        .join("")}</ul>`
     : "";
-  const standouts = standoutText
-    ? `
-        <li class="catch-up-point catch-up-standouts"><strong>Standouts:</strong> ${escapeHtml(
-          standoutText
-        )}</li>
-      `
-    : "";
-  const points =
-    summaryPoint || standouts
-      ? `<ul class="catch-up-points">${summaryPoint}${standouts}</ul>`
-      : "";
   const sourceLink = item.sourceUrl
     ? `<a class="catch-up-source" href="${escapeHtml(item.sourceUrl)}" target="_blank" rel="noreferrer" aria-label="${escapeHtml(
         item.sourceLabel || "Read source"
       )}" title="${escapeHtml(item.sourceLabel || "Read source")}"><span aria-hidden="true">&#8599;</span></a>`
     : "";
-  const footer =
-    item.meta
-      ? `
-        <div class="catch-up-footer">
-          <span class="catch-up-meta">${escapeHtml(item.meta)}</span>
-        </div>
-      `
-      : "";
 
   return `
     <article class="catch-up-item">
-      <time datetime="${escapeHtml(item.dateKey || selectedDayKey)}">${escapeHtml(
-        catchUpItemDateFormatter.format(itemDate)
-      )}</time>
       <div class="catch-up-copy">
         <div class="catch-up-title-row">
-          <h3>${escapeHtml(item.headline)}</h3>
+          <h3>
+            <time class="catch-up-inline-date" datetime="${escapeHtml(
+              item.dateKey || selectedDayKey
+            )}">${escapeHtml(catchUpItemLeadDateFormatter.format(itemDate))}</time>
+            <span>${escapeHtml(item.headline)}</span>
+          </h3>
           ${sourceLink}
         </div>
+        ${item.body ? `<p class="catch-up-subtitle">${escapeHtml(item.body)}</p>` : ""}
         ${points}
-        ${footer}
       </div>
     </article>
   `;
@@ -3392,14 +3397,16 @@ function renderCatchUp() {
     ? items.map(renderCatchUpItem).join("")
     : `
       <article class="catch-up-item">
-        <time datetime="${escapeHtml(startKey)}">${escapeHtml(
-          catchUpItemDateFormatter.format(startDate)
-        )}</time>
         <div class="catch-up-copy">
-          <h3>No catch-up notes loaded yet</h3>
-          <ul class="catch-up-points">
-            <li class="catch-up-point">Yesterday and today do not have finished or live match notes yet.</li>
-          </ul>
+          <div class="catch-up-title-row">
+            <h3>
+              <time class="catch-up-inline-date" datetime="${escapeHtml(startKey)}">${escapeHtml(
+                catchUpItemLeadDateFormatter.format(startDate)
+              )}</time>
+              <span>No catch-up notes loaded yet</span>
+            </h3>
+          </div>
+          <p class="catch-up-subtitle">Yesterday and today do not have finished or live match notes yet.</p>
         </div>
       </article>
     `;

@@ -549,8 +549,12 @@ try {
   const catchUpItems = await catchUpCheck.page.locator(".catch-up-item").evaluateAll((items) =>
     items.map((item) => ({
       time: item.querySelector("time")?.textContent.trim(),
-      headline: item.querySelector("h3")?.textContent.trim(),
+      headline: item.querySelector(".catch-up-title-row h3 > span")?.textContent.trim(),
+      subtitle: item.querySelector(".catch-up-subtitle")?.textContent.trim() || "",
       standouts: item.querySelector(".catch-up-standouts")?.textContent.trim() || "",
+      standoutBullets: Array.from(item.querySelectorAll(".catch-up-standouts .catch-up-point")).map(
+        (point) => point.textContent.trim()
+      ),
       sourceHref: item.querySelector(".catch-up-source")?.getAttribute("href") || ""
     }))
   );
@@ -596,8 +600,11 @@ try {
     "The completed England/Croatia match should use the final-score catch-up story."
   );
   assert(
-    englandCatchUpItem?.standouts ===
-      "Standouts: Harry Kane scored twice, while Jude Bellingham and Marcus Rashford added second-half goals.",
+    englandCatchUpItem?.standoutBullets.join("|") ===
+      [
+        "Harry Kane scored twice",
+        "Jude Bellingham and Marcus Rashford added second-half goals."
+      ].join("|"),
     "The completed England/Croatia match should include sourced standout player context."
   );
   assert(

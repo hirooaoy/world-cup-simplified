@@ -139,7 +139,6 @@ a {
 
 .catch-up-popover {
   --catch-up-column-gap: 12px;
-  --catch-up-date-column: 54px;
 
   position: fixed;
   top: var(--catch-up-popover-top, 0);
@@ -191,9 +190,7 @@ a {
 }
 
 .catch-up-item {
-  display: grid;
-  grid-template-columns: var(--catch-up-date-column) minmax(0, 1fr);
-  gap: var(--catch-up-column-gap);
+  display: block;
   padding: 15px 0;
   border-bottom: 1px solid rgba(10, 10, 10, 0.08);
 }
@@ -203,26 +200,22 @@ a {
   padding-bottom: 0;
 }
 
-.catch-up-item time {
-  color: rgba(10, 10, 10, 0.42);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0;
-  line-height: 1.25;
-  text-transform: uppercase;
-}
-
 .catch-up-copy {
   display: grid;
-  gap: 8px;
+  gap: 7px;
   min-width: 0;
 }
 
 .catch-up-title-row {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 20px;
+  display: flex;
   align-items: start;
+  justify-content: space-between;
   gap: 8px;
+  min-width: 0;
+}
+
+.catch-up-title-row h3 {
+  min-width: 0;
 }
 
 .catch-up-copy h3 {
@@ -234,9 +227,29 @@ a {
   line-height: 1.22;
 }
 
+.catch-up-inline-date {
+  display: inline;
+  margin-right: 5px;
+  color: rgba(10, 10, 10, 0.48);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: inherit;
+  white-space: nowrap;
+}
+
+.catch-up-subtitle {
+  margin: 0;
+  color: rgba(10, 10, 10, 0.6);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1.38;
+}
+
 .catch-up-points {
   display: grid;
-  gap: 5px;
+  gap: 4px;
   margin: 0;
   padding-left: 16px;
   list-style: disc;
@@ -253,30 +266,6 @@ a {
 .catch-up-point::marker {
   color: rgba(10, 10, 10, 0.34);
   font-size: 0.9em;
-}
-
-.catch-up-copy .catch-up-standouts {
-  color: rgba(10, 10, 10, 0.66);
-}
-
-.catch-up-standouts strong {
-  color: rgba(10, 10, 10, 0.76);
-  font-weight: 600;
-}
-
-.catch-up-footer {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 6px 10px;
-  min-width: 0;
-}
-
-.catch-up-meta {
-  color: rgba(10, 10, 10, 0.45);
-  font-size: 11px;
-  font-weight: 600;
-  line-height: 1.2;
 }
 
 .catch-up-source {
