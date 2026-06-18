@@ -157,6 +157,18 @@ try {
     (await page.locator(".key-info-team h4 .player-link").count()) > 0,
     "Key information headings should link player-name taglines."
   );
+  const headingPlayerDecoration = await page
+    .locator(".key-info-team h4 .player-link")
+    .first()
+    .evaluate((link) => getComputedStyle(link).textDecorationLine);
+  const paragraphPlayerDecoration = await page
+    .locator(".key-info-team p .player-link")
+    .first()
+    .evaluate((link) => getComputedStyle(link).textDecorationLine);
+  assert(
+    headingPlayerDecoration.includes("underline") && paragraphPlayerDecoration === "none",
+    "Key information should underline heading player mentions, not paragraph mentions."
+  );
   await page.locator(".player-link").first().hover();
   const playerCard = page.locator(".player-card").first();
   await playerCard.waitFor({ state: "visible" });
@@ -412,6 +424,14 @@ try {
     datedLinkLabel === "Jun 18" || datedLinkLabel === "Today",
     "Dated links should open the requested match date."
   );
+  await page.locator('[data-match-id="switzerland-bosnia-2026-06-18"]').click();
+  const finalMatchDetailText = await page.locator("#match-info").innerText();
+  assert(
+    finalMatchDetailText.includes("Result") &&
+      finalMatchDetailText.includes("Prediction") &&
+      finalMatchDetailText.includes("Switzerland beat Bosnia and Herzegovina 4-1."),
+    "Final match details should keep the prediction card below the result."
+  );
 
   const matchStateCheck = await openPageAtTime("2026-06-18T05:30:00.000Z");
   const june17Scores = await matchStateCheck.page.locator(".match-score").evaluateAll((scores) =>
@@ -581,7 +601,7 @@ try {
   const catchUpText = await catchUpCheck.page.locator("#catch-up-popover").innerText();
   const catchUpItems = await catchUpCheck.page.locator(".catch-up-item").evaluateAll((items) =>
     items.map((item) => ({
-      time: item.querySelector("time")?.textContent.trim(),
+      time: item.closest(".catch-up-group")?.querySelector(".catch-up-group-date")?.textContent.trim(),
       headline: item.querySelector(".catch-up-title-row h3 > span")?.textContent.trim(),
       subtitle: item.querySelector(".catch-up-subtitle")?.textContent.trim() || "",
       standouts: item.querySelector(".catch-up-standouts")?.textContent.trim() || "",
@@ -721,6 +741,25 @@ try {
   assert(
     groupOrderCheck.groupB?.join("|") === "Switzerland|Canada|Qatar|Bosnia and Herz...",
     "Group B should preserve the checked table order."
+  );
+  const bosniaStandingTeam = page
+    .locator(".standings-card", { hasText: "Group B" })
+    .locator(".standing-team.has-name-tooltip", { hasText: "Bosnia and Herz..." });
+  await bosniaStandingTeam.hover();
+  await page.waitForTimeout(160);
+  const bosniaTooltip = await bosniaStandingTeam.evaluate((team) => {
+    const tooltipStyle = getComputedStyle(team, "::after");
+    return {
+      content: tooltipStyle.content,
+      opacity: Number(tooltipStyle.opacity),
+      tooltip: team.getAttribute("data-tooltip")
+    };
+  });
+  assert(
+    bosniaTooltip.tooltip === "Bosnia and Herzegovina" &&
+      bosniaTooltip.content.includes("Bosnia and Herzegovina") &&
+      bosniaTooltip.opacity > 0.9,
+    "Bosnia and Herzegovina should reveal its full name when the shortened standings row is hovered."
   );
   assert(
     groupOrderCheck.groupK?.join("|") === "Colombia|Portugal|DR Congo|Uzbekistan",

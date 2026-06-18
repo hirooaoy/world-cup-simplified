@@ -24,6 +24,7 @@ const PROVIDER_ALIASES = {
   "api football": API_FOOTBALL_PROVIDER_KEY,
   apisports: API_FOOTBALL_PROVIDER_KEY,
   "api-sports": API_FOOTBALL_PROVIDER_KEY,
+  "api sports": API_FOOTBALL_PROVIDER_KEY,
   sportmonks: SPORTMONKS_PROVIDER_KEY
 };
 const TEAM_NAME_ALIASES = {

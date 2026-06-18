@@ -1193,13 +1193,22 @@ function getStandingsRows(groupId) {
 function renderStandingRow(row, options = {}) {
   const team = getTeam(row.teamId);
   const { showRank = true } = options;
+  const standingName = getStandingName(team);
+  const fullName = team.name || standingName;
+  const hasShortenedName = standingName !== fullName;
+  const teamClasses = ["standing-team", hasShortenedName ? "has-name-tooltip" : ""]
+    .filter(Boolean)
+    .join(" ");
+  const tooltipAttributes = hasShortenedName
+    ? ` data-tooltip="${escapeHtml(fullName)}" tabindex="0"`
+    : "";
 
   return `
     <tr>
       <td>
-        <span class="standing-team">
+        <span class="${teamClasses}" aria-label="${escapeHtml(fullName)}"${tooltipAttributes}>
           ${renderFlag(team)}
-          <span class="standing-name" aria-label="${escapeHtml(team.name)}" title="${escapeHtml(team.name)}">${escapeHtml(getStandingName(team))}</span>
+          <span class="standing-name" aria-label="${escapeHtml(fullName)}" title="${escapeHtml(fullName)}">${escapeHtml(standingName)}</span>
           ${showRank ? renderRank(team) : ""}
         </span>
       </td>
@@ -3361,7 +3370,6 @@ function getCatchUpBullets(standouts) {
 }
 
 function renderCatchUpItem(item) {
-  const itemDate = getDateFromKey(item.dateKey || selectedDayKey);
   const catchUpBullets = getCatchUpBullets(item.standouts);
   const points = catchUpBullets.length
     ? `<ul class="catch-up-points catch-up-standouts">${catchUpBullets
@@ -3376,9 +3384,6 @@ function renderCatchUpItem(item) {
 
   return `
     <article class="catch-up-item">
-      <time class="catch-up-item-date" datetime="${escapeHtml(
-        item.dateKey || selectedDayKey
-      )}">${escapeHtml(catchUpItemLeadDateFormatter.format(itemDate))}</time>
       <div class="catch-up-copy">
         <div class="catch-up-title-row">
           <h3><span>${escapeHtml(item.headline)}</span></h3>
@@ -3389,6 +3394,38 @@ function renderCatchUpItem(item) {
       </div>
     </article>
   `;
+}
+
+function renderCatchUpGroup(dateKey, items) {
+  const groupDate = getDateFromKey(dateKey || selectedDayKey);
+  return `
+    <section class="catch-up-group" aria-label="${escapeHtml(
+      catchUpItemLeadDateFormatter.format(groupDate)
+    )}">
+      <time class="catch-up-group-date" datetime="${escapeHtml(dateKey || selectedDayKey)}">${escapeHtml(
+        catchUpItemLeadDateFormatter.format(groupDate)
+      )}</time>
+      <div class="catch-up-group-items">
+        ${items.map(renderCatchUpItem).join("")}
+      </div>
+    </section>
+  `;
+}
+
+function renderCatchUpGroups(items) {
+  const groups = [];
+
+  for (const item of items) {
+    const dateKey = item.dateKey || selectedDayKey;
+    const latestGroup = groups[groups.length - 1];
+    if (latestGroup?.dateKey === dateKey) {
+      latestGroup.items.push(item);
+    } else {
+      groups.push({ dateKey, items: [item] });
+    }
+  }
+
+  return groups.map((group) => renderCatchUpGroup(group.dateKey, group.items)).join("");
 }
 
 function renderCatchUp() {
@@ -3404,19 +3441,25 @@ function renderCatchUp() {
   catchUpDate.dateTime = startKey;
   catchUpDate.textContent = getCatchUpRangeLabel(dayKeys);
   catchUpList.innerHTML = items.length
-    ? items.map(renderCatchUpItem).join("")
+    ? renderCatchUpGroups(items)
     : `
-      <article class="catch-up-item">
-        <time class="catch-up-item-date" datetime="${escapeHtml(startKey)}">${escapeHtml(
+      <section class="catch-up-group" aria-label="${escapeHtml(
+        catchUpItemLeadDateFormatter.format(startDate)
+      )}">
+        <time class="catch-up-group-date" datetime="${escapeHtml(startKey)}">${escapeHtml(
           catchUpItemLeadDateFormatter.format(startDate)
         )}</time>
-        <div class="catch-up-copy">
-          <div class="catch-up-title-row">
-            <h3><span>No catch-up notes loaded yet</span></h3>
-          </div>
-          <p class="catch-up-subtitle">Yesterday and today do not have finished or live match notes yet.</p>
+        <div class="catch-up-group-items">
+          <article class="catch-up-item">
+            <div class="catch-up-copy">
+              <div class="catch-up-title-row">
+                <h3><span>No catch-up notes loaded yet</span></h3>
+              </div>
+              <p class="catch-up-subtitle">Yesterday and today do not have finished or live match notes yet.</p>
+            </div>
+          </article>
         </div>
-      </article>
+      </section>
     `;
 }
 

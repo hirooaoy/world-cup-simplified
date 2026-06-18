@@ -23,6 +23,9 @@ const pageTitleOverrides = new Map([
   ["Roberto Lopes", "Roberto Lopes (footballer, born 1992)"]
 ]);
 const profileFieldOverrides = {
+  "Christian Volpato": {
+    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/FC%20Internazionale%20Milano%20v%20US%20Sassuolo%20Calcio%2C%2021%20September%202025%20-%2008%20%28Cristian%20Volpato%29.jpg?width=160"
+  },
   "James Rodriguez": { club: "Minnesota United" },
   "Kenan Yildiz": { position: "Attacking midfielder, winger" },
   "Percy Tau": { club: "Thep Xanh Nam Dinh FC" },
