@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-18T08:54:42-07:00",
+  "updatedAt": "2026-06-18T14:22:16-07:00",
   "sourceIds": [
     "fifa-schedule-2026-06-17",
     "fox-schedule-2026-06-17",
@@ -13,6 +13,8 @@
     "aljazeera-england-croatia-2026-06-17",
     "fifa-ghana-panama-result-2026-06-18",
     "fifa-uzbekistan-colombia-result-2026-06-18",
+    "guardian-czechia-south-africa-2026-06-18",
+    "guardian-switzerland-bosnia-2026-06-18",
     "fifa-debutants-2026-06-17"
   ],
   "coverage": {
@@ -2185,7 +2187,21 @@
       "homeTeamId": "CZE",
       "awayTeamId": "RSA",
       "venue": "Atlanta Stadium",
-      "status": "SCHEDULED",
+      "status": "FT",
+      "score": {
+        "home": 1,
+        "away": 1
+      },
+      "catchUp": [
+        {
+          "headline": "Czechia and South Africa share tense draw",
+          "body": "Czechia scored early through Michal Sadilek, but Teboho Mokoena's late penalty earned South Africa a 1-1 draw in Group A.",
+          "meta": "Czechia 1-1 South Africa",
+          "sourceLabel": "Guardian match report",
+          "sourceUrl": "https://www.theguardian.com/football/2026/jun/18/czechia-south-africa-world-cup-group-a-match-report",
+          "priority": 8
+        }
+      ],
       "h2h": {
         "status": "loaded",
         "sourceId": "national-football-teams-h2h-2026-06-17",
@@ -2256,7 +2272,21 @@
       "homeTeamId": "SUI",
       "awayTeamId": "BIH",
       "venue": "Los Angeles Stadium",
-      "status": "SCHEDULED",
+      "status": "FT",
+      "score": {
+        "home": 4,
+        "away": 1
+      },
+      "catchUp": [
+        {
+          "headline": "Manzambi sparks Swiss surge past Bosnia",
+          "body": "Johan Manzambi scored twice after halftime as Switzerland beat Bosnia and Herzegovina 4-1 to move top of Group B.",
+          "meta": "Switzerland 4-1 Bosnia and Herzegovina",
+          "sourceLabel": "Guardian live report",
+          "sourceUrl": "https://www.theguardian.com/football/live/2026/jun/18/switzerland-v-bosnia-and-herzegovina-world-cup-2026-live",
+          "priority": 9
+        }
+      ],
       "h2h": {
         "status": "loaded",
         "sourceId": "national-football-teams-h2h-2026-06-17",

@@ -11,25 +11,131 @@ const outputPath = path.join(dataDir, "player-profiles.json");
 const userAgent = "WorldCupSimplified/0.1 (local profile enrichment)";
 const requestDelayMs = Number(process.env.WIKI_REQUEST_DELAY_MS || 1800);
 const pageTitleOverrides = new Map([
+  ["Chris Wood", "Chris Wood (footballer, born 1991)"],
   ["Cristiano Ronaldo", "Cristiano Ronaldo"],
+  ["Ismael Diaz", "Ismael Díaz (footballer, born 1997)"],
+  ["Luis Chavez", "Luis Chávez (footballer)"],
+  ["Luis Diaz", "Luis Díaz (footballer, born 1997)"],
   ["Luis Suarez", "Luis Suárez (footballer, born 1997)"],
   ["Martin Odegaard", "Martin Ødegaard"],
-  ["Neymar", "Neymar"]
+  ["Mousa Al-Taamari", "Musa Al-Taamari"],
+  ["Neymar", "Neymar"],
+  ["Roberto Lopes", "Roberto Lopes (footballer, born 1992)"]
 ]);
+const profileFieldOverrides = {
+  "James Rodriguez": { club: "Minnesota United" },
+  "Kenan Yildiz": { position: "Attacking midfielder, winger" },
+  "Percy Tau": { club: "Thep Xanh Nam Dinh FC" },
+  Vozinha: { club: "G.D. Chaves" }
+};
+const clubLeagueOverrides = {
+  "AC Milan": "Serie A",
+  "Ajax Amateurs": "Vierde Divisie",
+  "Al Hilal": "Saudi Pro League",
+  "Al Sadd": "Qatar Stars League",
+  "Al-Ahli": "Saudi Pro League",
+  "Al-Arabi": "Qatar Stars League",
+  "Al-Duhail": "Qatar Stars League",
+  "Al-Hilal": "Saudi Pro League",
+  "Al-Ittihad": "Saudi Pro League",
+  "Al-Karma": "Iraq Stars League",
+  "Al-Najma": "Saudi First Division League",
+  "Al-Nassr": "Saudi Pro League",
+  "Al-Ula": "Saudi First Division League",
+  Arsenal: "Premier League",
+  "Aston Villa": "Premier League",
+  Atalanta: "Serie A",
+  "Athletic Bilbao": "La Liga",
+  "Atlanta United": "Major League Soccer",
+  "Atlético Madrid": "La Liga",
+  Barcelona: "La Liga",
+  "Bayer Leverkusen": "Bundesliga",
+  "Bayern Munich": "Bundesliga",
+  Beşiktaş: "Süper Lig",
+  "Borussia Dortmund": "Bundesliga",
+  Bournemouth: "Premier League",
+  "Brighton & Hove Albion": "Premier League",
+  Burnley: "EFL Championship",
+  Chelsea: "Premier League",
+  "Cultural Leonesa": "Segunda División",
+  "Dender EH": "Belgian Pro League",
+  "Dinamo Zagreb": "Croatian Football League",
+  "Dynamo Moscow": "Russian Premier League",
+  "Eintracht Frankfurt": "Bundesliga",
+  Esteghlal: "Persian Gulf Pro League",
+  "FC St. Pauli": "Bundesliga",
+  Fenerbahçe: "Süper Lig",
+  "G.D. Chaves": "Liga Portugal 2",
+  "Hannover 96": "2. Bundesliga",
+  "Inter Milan": "Serie A",
+  Iğdır: "TFF First League",
+  "Iğdır FK": "TFF First League",
+  Juventus: "Serie A",
+  "Leicester City": "EFL Championship",
+  Levante: "La Liga",
+  León: "Liga MX",
+  Liverpool: "Premier League",
+  "Los Angeles": "Major League Soccer",
+  "Los Angeles FC": "Major League Soccer",
+  "Mamelodi Sundowns": "South African Premiership",
+  "Manchester City": "Premier League",
+  "Manchester United": "Premier League",
+  Marseille: "Ligue 1",
+  "Minnesota United": "Major League Soccer",
+  Monaco: "Ligue 1",
+  Nantes: "Ligue 1",
+  Napoli: "Serie A",
+  "Newcastle United": "Premier League",
+  "Nottingham Forest": "Premier League",
+  Olympiacos: "Super League Greece",
+  PSV: "Eredivisie",
+  Pachuca: "Liga MX",
+  Palmeiras: "Campeonato Brasileiro Série A",
+  "Paris Saint-Germain": "Ligue 1",
+  "Pumas UNAM": "Liga MX",
+  "RB Leipzig": "Bundesliga",
+  "Real Madrid": "La Liga",
+  "Real Sociedad": "La Liga",
+  Rennes: "Ligue 1",
+  Santos: "Campeonato Brasileiro Série A",
+  Sassuolo: "Serie A",
+  "Schalke 04": "2. Bundesliga",
+  Selangor: "Malaysia Super League",
+  "Shabab Al Ahli": "UAE Pro League",
+  "Shamrock Rovers": "League of Ireland Premier Division",
+  "Sporting CP": "Primeira Liga",
+  Strasbourg: "Ligue 1",
+  Sunderland: "Premier League",
+  "TSG Hoffenheim": "Bundesliga",
+  "Thep Xanh Nam Dinh FC": "V.League 1",
+  "Tottenham Hotspur": "Premier League",
+  Utrecht: "Eredivisie",
+  Volendam: "Eredivisie",
+  "Wellington Phoenix": "A-League Men",
+  "West Ham United": "Premier League",
+  "Wolverhampton Wanderers": "Premier League",
+  Wrexham: "EFL Championship",
+  "Wydad AC": "Botola Pro",
+  "Çaykur Rizespor": "Süper Lig",
+  "İstanbul Başakşehir": "Süper Lig"
+};
 
 const skillRules = [
   ["goalkeeper|shot-stopper|saves?|keeper", "Shot-stopping"],
-  ["set-piece|dead-ball|restart", "Set pieces"],
+  ["set-piece|set piece|dead-ball|dead ball|restart", "Set pieces"],
   ["aerial|crosses|crossing|second balls|box", "Box presence"],
   ["finisher|finishing|striker|scorer|penalty-box|goal", "Finishing"],
-  ["creative|creator|invention|final passes|connects|orchestrator", "Chance creation"],
-  ["tempo|control|rhythm|dictate|passing", "Tempo setting"],
+  ["creative|creator|invention|final passes|connects|orchestrator|spark", "Chance creation"],
+  ["connect|connector|combine|link|first pass", "Link-up play"],
+  ["tempo|control|rhythm|dictate|passing|stabilizer|balance|midfield", "Midfield control"],
   ["direct|behind|space|runner|runs|pace|speed", "Runs in behind"],
+  ["channel|drift|mobile|movement|arrives late", "Movement"],
   ["wide|width|winger|stretch", "Wide threat"],
   ["press|pressure|counter-press", "Pressing"],
-  ["defensive|defender|shield|anchor|organizer|back line", "Defensive control"],
-  ["ball-carrier|carries|dribble|surges", "Ball carrying"],
-  ["long-range|left-footed", "Long-range shooting"],
+  ["ball-winning|duels?", "Ball winning"],
+  ["defensive|defender|shield|anchor|organizer|back line|screen|compact|security|stopping counters|killing counters", "Defensive control"],
+  ["ball-carrier|carries|carry|dribble|surges|outlet|serve early", "Ball carrying"],
+  ["long-range|long range|left-footed|left footed", "Long-range shooting"],
   ["target|reference|hold-up|power", "Target play"],
   ["leadership|captain|experienced|veteran|calm", "Leadership"]
 ];
@@ -78,7 +184,9 @@ function cleanWikiText(value) {
       }
 
       const name = parts[0].toLowerCase();
-      if (["nowrap", "nobold", "small", "ubl", "plainlist"].includes(name)) {
+      if (
+        ["nowrap", "nobold", "small", "ubl", "unbulleted list", "plainlist"].includes(name)
+      ) {
         return parts.slice(1).join(", ");
       }
       if (name === "flagicon" || name === "flagdeco") {
@@ -103,7 +211,7 @@ function cleanWikiText(value) {
 }
 
 function getInfoboxFields(wikitext) {
-  const start = wikitext.search(/\{\{Infobox football biography/i);
+  const start = wikitext.search(/\{\{Infobox (?:football biography|footballer)/i);
   if (start < 0) {
     return {};
   }
@@ -173,6 +281,24 @@ function getCommonsImageUrl(fileName) {
   return `https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(cleaned)}?width=160`;
 }
 
+function getTitleFromSourceUrl(sourceUrl) {
+  try {
+    const url = new URL(sourceUrl);
+    const title = decodeURIComponent(url.pathname.split("/wiki/")[1] || "");
+    return title.replace(/_/g, " ");
+  } catch {
+    return "";
+  }
+}
+
+function getBaseClubName(club) {
+  return String(club || "").replace(/\s+\(on loan from .+\)$/i, "").trim();
+}
+
+function getLeagueForClub(club) {
+  return clubLeagueOverrides[club] || clubLeagueOverrides[getBaseClubName(club)] || "";
+}
+
 function inferSkills(note) {
   const lower = normalizeText(note);
   const skills = [];
@@ -183,7 +309,7 @@ function inferSkills(note) {
     }
   }
 
-  return skills.slice(0, 4);
+  return (skills.length ? skills : ["Match impact"]).slice(0, 4);
 }
 
 async function wikiJson(params) {
@@ -307,14 +433,24 @@ async function fetchPageWikitextBatch(titles) {
   const data = await wikiJson({
     action: "query",
     prop: "revisions",
+    redirects: "1",
     rvprop: "content",
     rvslots: "main",
     titles: titles.join("|")
   });
   const pages = new Map();
+  const redirectTargets = new Map(
+    (data.query?.redirects || []).map((redirect) => [redirect.from, redirect.to])
+  );
 
   for (const page of data.query?.pages || []) {
     pages.set(page.title, page.revisions?.[0]?.slots?.main?.content || "");
+  }
+
+  for (const [from, to] of redirectTargets) {
+    if (pages.has(to)) {
+      pages.set(from, pages.get(to));
+    }
   }
 
   return pages;
@@ -363,17 +499,20 @@ async function buildProfile(player) {
   await sleep(requestDelayMs);
   const wikitext = await fetchPageWikitext(title);
   const fields = getInfoboxFields(wikitext);
+  const overrides = profileFieldOverrides[player.name] || {};
   const position = cleanWikiText(fields.position || "");
   const club = cleanWikiText(fields.currentclub || "") || getOpenEndedClub(fields);
   const imageUrl = getCommonsImageUrl(fields.image || "");
+  const profileClub = overrides.club || club;
 
   return {
     name: player.name,
     displayName: cleanWikiText(fields.name || "") || title.replace(/_/g, " "),
     teamId: player.team.id,
-    position,
-    club,
-    imageUrl,
+    position: overrides.position || position,
+    club: profileClub,
+    league: overrides.league || getLeagueForClub(profileClub),
+    imageUrl: overrides.imageUrl || imageUrl,
     skills: inferSkills(player.note),
     note: player.note,
     sourceUrl: `https://en.wikipedia.org/wiki/${encodeURIComponent(title.replace(/ /g, "_"))}`
@@ -392,17 +531,20 @@ function buildProfileFromWikitext(player, title, wikitext) {
   }
 
   const fields = getInfoboxFields(wikitext);
+  const overrides = profileFieldOverrides[player.name] || {};
   const position = cleanWikiText(fields.position || "");
   const club = cleanWikiText(fields.currentclub || "") || getOpenEndedClub(fields);
   const imageUrl = getCommonsImageUrl(fields.image || "");
+  const profileClub = overrides.club || club;
 
   return {
     name: player.name,
     displayName: cleanWikiText(fields.name || "") || title.replace(/_/g, " "),
     teamId: player.team.id,
-    position,
-    club,
-    imageUrl,
+    position: overrides.position || position,
+    club: profileClub,
+    league: overrides.league || getLeagueForClub(profileClub),
+    imageUrl: overrides.imageUrl || imageUrl,
     skills: inferSkills(player.note),
     note: player.note,
     sourceUrl: `https://en.wikipedia.org/wiki/${encodeURIComponent(title.replace(/ /g, "_"))}`
@@ -410,6 +552,7 @@ function buildProfileFromWikitext(player, title, wikitext) {
 }
 
 const [fixturesData, teamsData] = await Promise.all([readJson(fixturesPath), readJson(teamsPath)]);
+const existingProfilesData = await readJson(outputPath).catch(() => ({ profiles: {} }));
 const teamsById = new Map((teamsData.teams || []).map((team) => [team.id, team]));
 const players = getUniquePlayers(fixturesData, teamsById);
 const profiles = {};
@@ -421,9 +564,15 @@ console.log(`Finding Wikipedia pages for ${players.length} players...`);
 
 for (const [index, player] of players.entries()) {
   try {
-    const title = await searchPlayerPage(player, player.team);
+    const title =
+      pageTitleOverrides.get(player.name) ||
+      getTitleFromSourceUrl(existingProfilesData.profiles?.[player.name]?.sourceUrl) ||
+      (await searchPlayerPage(player, player.team));
     titleByPlayerName.set(player.name, title);
     console.log(`${index + 1}/${players.length} ${player.name} -> ${title || "page missing"}`);
+    if (title === pageTitleOverrides.get(player.name) || existingProfilesData.profiles?.[player.name]?.sourceUrl) {
+      continue;
+    }
   } catch (error) {
     warnings.push(`${player.name}: ${error.message}`);
     titleByPlayerName.set(player.name, "");

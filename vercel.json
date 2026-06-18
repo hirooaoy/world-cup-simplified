@@ -2,6 +2,9 @@
   "functions": {
     "api/report-issue.js": {
       "maxDuration": 10
+    },
+    "api/live-data.js": {
+      "maxDuration": 10
     }
   },
   "headers": [
@@ -27,7 +30,7 @@
       ]
     },
     {
-      "source": "/api/(.*)",
+      "source": "/api/report-issue",
       "headers": [
         {
           "key": "Cache-Control",

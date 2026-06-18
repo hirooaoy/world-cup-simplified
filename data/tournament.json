@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-18T08:54:42-07:00",
+  "updatedAt": "2026-06-18T14:22:16-07:00",
   "coverageNote": "The current seed dataset covers the full official fixture skeleton from June 11 through July 19. Rich previews, scores, live status and knockout participants are updated progressively.",
   "sources": [
     {
@@ -113,6 +113,20 @@
       "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/uzbekistan-colombia-match-report-highlights",
       "type": "official",
       "checkedAt": "2026-06-18T08:54:42-07:00"
+    },
+    {
+      "id": "guardian-czechia-south-africa-2026-06-18",
+      "label": "Guardian Czechia vs South Africa final score cross-check",
+      "url": "https://www.theguardian.com/football/2026/jun/18/czechia-south-africa-world-cup-group-a-match-report",
+      "type": "cross-check",
+      "checkedAt": "2026-06-18T14:22:16-07:00"
+    },
+    {
+      "id": "guardian-switzerland-bosnia-2026-06-18",
+      "label": "Guardian Switzerland vs Bosnia and Herzegovina final score cross-check",
+      "url": "https://www.theguardian.com/football/live/2026/jun/18/switzerland-v-bosnia-and-herzegovina-world-cup-2026-live",
+      "type": "cross-check",
+      "checkedAt": "2026-06-18T14:22:16-07:00"
     },
     {
       "id": "openfootball-worldcup-json-2026-06-17",

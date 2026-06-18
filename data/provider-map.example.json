@@ -1,0 +1,15 @@
+{
+  "sportmonks": {
+    "leagueId": "replace-with-sportmonks-world-cup-league-id",
+    "seasonId": "replace-with-sportmonks-world-cup-2026-season-id",
+    "fixtureIds": {
+      "argentina-algeria-2026-06-16": "replace-with-sportmonks-fixture-id"
+    },
+    "teamIds": {
+      "ARG": "replace-with-sportmonks-team-id",
+      "ALG": "replace-with-sportmonks-team-id",
+      "ENG": "replace-with-sportmonks-team-id",
+      "CRO": "replace-with-sportmonks-team-id"
+    }
+  }
+}

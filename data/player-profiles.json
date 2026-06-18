@@ -1,0 +1,1533 @@
+{
+  "updatedAt": "2026-06-18T21:25:43.747Z",
+  "sourceIds": [
+    "wikipedia-football-infobox",
+    "wikimedia-commons"
+  ],
+  "profiles": {
+    "Aaron Wan-Bissaka": {
+      "name": "Aaron Wan-Bissaka",
+      "teamId": "COD",
+      "skills": [
+        "Pressing",
+        "Ball winning",
+        "Defensive control"
+      ],
+      "note": "A one-on-one defender built for awkward wing duels and long spells of pressure.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Aaron_Wan-Bissaka"
+    },
+    "Abbosbek Fayzullaev": {
+      "name": "Abbosbek Fayzullaev",
+      "teamId": "UZB",
+      "skills": [
+        "Chance creation",
+        "Midfield control",
+        "Runs in behind",
+        "Ball carrying"
+      ],
+      "note": "A creative midfielder who has to carry transition moments before the opposition can reset behind the ball.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Abbosbek_Fayzullaev"
+    },
+    "Abdukodir Khusanov": {
+      "name": "Abdukodir Khusanov",
+      "teamId": "UZB",
+      "skills": [
+        "Runs in behind",
+        "Movement",
+        "Defensive control"
+      ],
+      "note": "The defensive centerpiece in a back three, crucial against pace and movement across the front line.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Abdukodir_Khusanov"
+    },
+    "Achraf Hakimi": {
+      "name": "Achraf Hakimi",
+      "teamId": "MAR",
+      "skills": [
+        "Set pieces",
+        "Runs in behind",
+        "Wide threat"
+      ],
+      "note": "A two-way right-side force whose overlaps, recovery speed, and set pieces shape Morocco's best stretches.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Achraf_Hakimi"
+    },
+    "Adalberto Carrasquilla": {
+      "name": "Adalberto Carrasquilla",
+      "teamId": "PAN",
+      "skills": [
+        "Midfield control",
+        "Defensive control"
+      ],
+      "note": "Panama's midfield organizer. If he sets the rhythm, Panama can slow the match and make it uncomfortable.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Adalberto_Carrasquilla"
+    },
+    "Adam Hlozek": {
+      "name": "Adam Hlozek",
+      "teamId": "CZE",
+      "skills": [
+        "Link-up play",
+        "Midfield control"
+      ],
+      "note": "A flexible attacker who can connect midfield to Schick and make Czechia less predictable.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Adam_Hlo%C5%BEek"
+    },
+    "Akram Afif": {
+      "name": "Akram Afif",
+      "teamId": "QAT",
+      "skills": [
+        "Box presence",
+        "Chance creation",
+        "Link-up play",
+        "Runs in behind"
+      ],
+      "note": "Qatar's main creator and box connector, dangerous when he can receive in open space.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Akram_Afif"
+    },
+    "Alexander Isak": {
+      "name": "Alexander Isak",
+      "teamId": "SWE",
+      "skills": [
+        "Box presence",
+        "Finishing",
+        "Movement"
+      ],
+      "note": "The elegant main striker, dangerous when Sweden can find him early in channels or around the box.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Alexander_Isak"
+    },
+    "Ali Jasim": {
+      "name": "Ali Jasim",
+      "teamId": "IRQ",
+      "skills": [
+        "Chance creation",
+        "Defensive control",
+        "Ball carrying"
+      ],
+      "note": "A creative dribbler who can give Iraq spark on the break and force defenders into awkward decisions.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Ali_Jasim"
+    },
+    "Alireza Jahanbakhsh": {
+      "name": "Alireza Jahanbakhsh",
+      "teamId": "IRN",
+      "skills": [
+        "Set pieces",
+        "Chance creation",
+        "Wide threat",
+        "Leadership"
+      ],
+      "note": "The experienced wide creator, useful on set pieces and when Iran need a calmer final ball.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Alireza_Jahanbakhsh"
+    },
+    "Almoez Ali": {
+      "name": "Almoez Ali",
+      "teamId": "QAT",
+      "skills": [
+        "Finishing",
+        "Runs in behind"
+      ],
+      "note": "The striker Qatar look for when they need a direct finish from limited chances.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Almoez_Ali"
+    },
+    "Alphonso Davies": {
+      "name": "Alphonso Davies",
+      "teamId": "CAN",
+      "skills": [
+        "Wide threat"
+      ],
+      "note": "Canada's most explosive ball-carrier, able to flip the match with one run from wide areas.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Alphonso_Davies"
+    },
+    "Amine Gouiri": {
+      "name": "Amine Gouiri",
+      "teamId": "ALG",
+      "skills": [
+        "Link-up play",
+        "Movement"
+      ],
+      "note": "A clever forward who can drift, combine, and give Algeria scoring threat away from the obvious lanes.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Amine_Gouiri"
+    },
+    "Andy Robertson": {
+      "name": "Andy Robertson",
+      "teamId": "SCO",
+      "skills": [
+        "Runs in behind",
+        "Leadership"
+      ],
+      "note": "The captain and left-side engine, giving Scotland delivery, recovery runs, and tournament edge.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Andy_Robertson"
+    },
+    "Antoine Griezmann": {
+      "name": "Antoine Griezmann",
+      "teamId": "FRA",
+      "skills": [
+        "Set pieces",
+        "Chance creation",
+        "Link-up play",
+        "Pressing"
+      ],
+      "note": "The connective creator, balancing France's attack with final passes, pressing work, and set-piece quality.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Antoine_Griezmann"
+    },
+    "Antoine Semenyo": {
+      "name": "Antoine Semenyo",
+      "teamId": "GHA",
+      "skills": [
+        "Runs in behind",
+        "Defensive control"
+      ],
+      "note": "Ghana's sharpest runner in the front line, able to attack space early before a defensive block settles.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Antoine_Semenyo"
+    },
+    "Antonio Nusa": {
+      "name": "Antonio Nusa",
+      "teamId": "NOR",
+      "skills": [
+        "Chance creation",
+        "Runs in behind",
+        "Wide threat",
+        "Defensive control"
+      ],
+      "note": "The young wide spark, able to beat defenders and give Norway a different speed outside the main stars.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Antonio_Nusa"
+    },
+    "Arda Guler": {
+      "name": "Arda Guler",
+      "teamId": "TUR",
+      "skills": [
+        "Box presence",
+        "Chance creation",
+        "Runs in behind"
+      ],
+      "note": "The creative spark in open space, dangerous when he can receive on the turn near the box.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Arda_G%C3%BCler"
+    },
+    "Aymen Hussein": {
+      "name": "Aymen Hussein",
+      "teamId": "IRQ",
+      "skills": [
+        "Box presence",
+        "Finishing",
+        "Target play"
+      ],
+      "note": "Iraq's target in the box, the finisher they look for when attacks become crosses and second balls.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Aymen_Hussein"
+    },
+    "Breel Embolo": {
+      "name": "Breel Embolo",
+      "teamId": "SUI",
+      "skills": [
+        "Box presence",
+        "Runs in behind",
+        "Target play"
+      ],
+      "note": "A powerful runner who can turn Switzerland's possession into box entries.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Breel_Embolo"
+    },
+    "Bruno Fernandes": {
+      "name": "Bruno Fernandes",
+      "teamId": "POR",
+      "skills": [
+        "Chance creation",
+        "Runs in behind"
+      ],
+      "note": "Portugal's highest-volume chance creator, dangerous in open space and from free kicks and corners.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Bruno_Fernandes"
+    },
+    "Casemiro": {
+      "name": "Casemiro",
+      "teamId": "BRA",
+      "skills": [
+        "Midfield control",
+        "Defensive control"
+      ],
+      "note": "The midfield security blanket, important for stopping counters before Brazil's fullbacks are exposed.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Casemiro"
+    },
+    "Chris Wood": {
+      "name": "Chris Wood",
+      "teamId": "NZL",
+      "skills": [
+        "Box presence",
+        "Finishing",
+        "Target play"
+      ],
+      "note": "New Zealand's target striker and clearest scoring route, especially from crosses and second balls.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Chris_Wood_(footballer%2C_born_1991)"
+    },
+    "Christian Pulisic": {
+      "name": "Christian Pulisic",
+      "teamId": "USA",
+      "skills": [
+        "Box presence",
+        "Runs in behind",
+        "Pressing"
+      ],
+      "note": "The primary one-v-one attacker and late-box runner, the player most likely to turn pressure into a clean shot.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Christian_Pulisic"
+    },
+    "Christian Volpato": {
+      "name": "Christian Volpato",
+      "teamId": "AUS",
+      "skills": [
+        "Chance creation",
+        "Long-range shooting"
+      ],
+      "note": "A creative left-footed option who can give Australia a cleaner final pass in tight matches.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Cristian_Volpato"
+    },
+    "Christoph Baumgartner": {
+      "name": "Christoph Baumgartner",
+      "teamId": "AUT",
+      "skills": [
+        "Box presence",
+        "Midfield control",
+        "Runs in behind",
+        "Pressing"
+      ],
+      "note": "A smart runner between midfield and attack, often the player who turns pressure into box entries.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Christoph_Baumgartner"
+    },
+    "Cody Gakpo": {
+      "name": "Cody Gakpo",
+      "teamId": "NED",
+      "skills": [
+        "Link-up play",
+        "Midfield control",
+        "Movement"
+      ],
+      "note": "A flexible forward who can drift inside, combine, and finish when the Dutch attack finds rhythm.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Cody_Gakpo"
+    },
+    "Cristiano Ronaldo": {
+      "name": "Cristiano Ronaldo",
+      "teamId": "POR",
+      "skills": [
+        "Box presence",
+        "Finishing",
+        "Target play"
+      ],
+      "note": "The headline finisher and reference point in the box, still chasing the World Cup piece missing from his resume.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Cristiano_Ronaldo"
+    },
+    "Darwin Nunez": {
+      "name": "Darwin Nunez",
+      "teamId": "URU",
+      "skills": [
+        "Runs in behind",
+        "Wide threat",
+        "Defensive control"
+      ],
+      "note": "The chaos-forward who can stretch any back line and turn half-chances into high-speed danger.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Darwin_N%C3%BA%C3%B1ez"
+    },
+    "David Alaba": {
+      "name": "David Alaba",
+      "teamId": "AUT",
+      "skills": [
+        "Set pieces",
+        "Defensive control",
+        "Leadership"
+      ],
+      "note": "Austria's organizer and set-piece technician, giving the back line leadership and the ball progression.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/David_Alaba"
+    },
+    "Declan Rice": {
+      "name": "Declan Rice",
+      "teamId": "ENG",
+      "skills": [
+        "Midfield control",
+        "Defensive control"
+      ],
+      "note": "The balance piece in midfield, responsible for stopping counters before opponents can slow the game down.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Declan_Rice"
+    },
+    "Dejan Kulusevski": {
+      "name": "Dejan Kulusevski",
+      "teamId": "SWE",
+      "skills": [
+        "Chance creation",
+        "Link-up play",
+        "Midfield control",
+        "Runs in behind"
+      ],
+      "note": "The left-footed creator who links midfield to attack and gives Sweden craft in open space.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Dejan_Kulusevski"
+    },
+    "Duckens Nazon": {
+      "name": "Duckens Nazon",
+      "teamId": "HAI",
+      "skills": [
+        "Finishing",
+        "Runs in behind"
+      ],
+      "note": "Haiti's emotional attacking focal point, a direct finisher who can turn loose moments into shots.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Duckens_Nazon"
+    },
+    "Edin Dzeko": {
+      "name": "Edin Dzeko",
+      "teamId": "BIH",
+      "skills": [
+        "Finishing",
+        "Target play",
+        "Leadership"
+      ],
+      "note": "The veteran finisher and target, still the player Bosnia can build attacks around.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Edin_D%C5%BEeko"
+    },
+    "Edson Alvarez": {
+      "name": "Edson Alvarez",
+      "teamId": "MEX",
+      "skills": [
+        "Midfield control",
+        "Defensive control"
+      ],
+      "note": "The midfield shield and organizer, central to slowing transition attacks and protecting the back line.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Edson_%C3%81lvarez"
+    },
+    "Eldor Shomurodov": {
+      "name": "Eldor Shomurodov",
+      "teamId": "UZB",
+      "skills": [
+        "Target play",
+        "Leadership"
+      ],
+      "note": "Uzbekistan's captain and all-time scoring reference, the player most likely to make limited chances matter.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Eldor_Shomurodov"
+    },
+    "Elias Saad": {
+      "name": "Elias Saad",
+      "teamId": "TUN",
+      "skills": [
+        "Runs in behind",
+        "Wide threat"
+      ],
+      "note": "A direct wide threat who gives Tunisia a route forward when the match asks for pace.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Elias_Saad"
+    },
+    "Ellyes Skhiri": {
+      "name": "Ellyes Skhiri",
+      "teamId": "TUN",
+      "skills": [
+        "Midfield control",
+        "Defensive control"
+      ],
+      "note": "The midfield screen, important for keeping Tunisia compact and killing counters at source.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Ellyes_Skhiri"
+    },
+    "Emiliano Martinez": {
+      "name": "Emiliano Martinez",
+      "teamId": "ARG",
+      "skills": [
+        "Shot-stopping",
+        "Finishing"
+      ],
+      "note": "The commanding goalkeeper and penalty-stage presence, central to Argentina's tournament confidence.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Emiliano_Mart%C3%ADnez"
+    },
+    "Enner Valencia": {
+      "name": "Enner Valencia",
+      "teamId": "ECU",
+      "skills": [
+        "Finishing",
+        "Pressing",
+        "Leadership"
+      ],
+      "note": "The veteran finisher and emotional leader, still the quickest route from pressure to goals.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Enner_Valencia"
+    },
+    "Enzo Fernandez": {
+      "name": "Enzo Fernandez",
+      "teamId": "ARG",
+      "skills": [
+        "Midfield control"
+      ],
+      "note": "The midfield passer who can change the angle of attacks and keep Argentina's control from going stale.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Enzo_Fern%C3%A1ndez"
+    },
+    "Erling Haaland": {
+      "name": "Erling Haaland",
+      "teamId": "NOR",
+      "skills": [
+        "Box presence",
+        "Finishing"
+      ],
+      "note": "Norway's headline finisher, a box force who changes how every opponent defends crosses and depth.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Erling_Haaland"
+    },
+    "Esmir Bajraktarevic": {
+      "name": "Esmir Bajraktarevic",
+      "teamId": "BIH",
+      "skills": [
+        "Chance creation",
+        "Wide threat"
+      ],
+      "note": "A creative wide option who can add spark if Bosnia need a cleaner final pass.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Esmir_Bajraktarevi%C4%87"
+    },
+    "Federico Valverde": {
+      "name": "Federico Valverde",
+      "teamId": "URU",
+      "skills": [
+        "Midfield control",
+        "Runs in behind",
+        "Long-range shooting"
+      ],
+      "note": "Uruguay's engine and long-range threat, driving the midfield while covering huge spaces without the ball.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Federico_Valverde"
+    },
+    "Firas Al-Buraikan": {
+      "name": "Firas Al-Buraikan",
+      "teamId": "KSA",
+      "skills": [
+        "Finishing",
+        "Link-up play",
+        "Movement",
+        "Target play"
+      ],
+      "note": "The mobile striker who links attacks and gives Saudi Arabia a cleaner target in transition.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Firas_Al-Buraikan"
+    },
+    "Florian Wirtz": {
+      "name": "Florian Wirtz",
+      "teamId": "GER",
+      "skills": [
+        "Chance creation"
+      ],
+      "note": "A high-IQ creator whose timing and final pass can turn Germany's possession into real chances.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Florian_Wirtz"
+    },
+    "Franck Kessie": {
+      "name": "Franck Kessie",
+      "teamId": "CIV",
+      "skills": [
+        "Box presence",
+        "Midfield control",
+        "Ball carrying",
+        "Target play"
+      ],
+      "note": "The power-and-control midfielder, giving Cote d'Ivoire ball-winning, carries, and box arrivals.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Franck_Kessi%C3%A9"
+    },
+    "Frantzdy Pierrot": {
+      "name": "Frantzdy Pierrot",
+      "teamId": "HAI",
+      "skills": [
+        "Box presence",
+        "Target play"
+      ],
+      "note": "A powerful target in the box who gives Haiti a route through crosses and second balls.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Frantzdy_Pierrot"
+    },
+    "Frenkie de Jong": {
+      "name": "Frenkie de Jong",
+      "teamId": "NED",
+      "skills": [
+        "Midfield control",
+        "Pressing"
+      ],
+      "note": "The press-resistant midfielder who turns build-up pressure into controlled entries through midfield.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Frenkie_de_Jong"
+    },
+    "Granit Xhaka": {
+      "name": "Granit Xhaka",
+      "teamId": "SUI",
+      "skills": [
+        "Midfield control",
+        "Pressing"
+      ],
+      "note": "Switzerland's rhythm setter, controlling where the match is played and when pressure releases.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Granit_Xhaka"
+    },
+    "Gustavo Gomez": {
+      "name": "Gustavo Gomez",
+      "teamId": "PAR",
+      "skills": [
+        "Set pieces",
+        "Defensive control",
+        "Target play"
+      ],
+      "note": "The defensive leader and set-piece target, central to Paraguay's rugged low-scoring path.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Gustavo_G%C3%B3mez"
+    },
+    "Hakan Calhanoglu": {
+      "name": "Hakan Calhanoglu",
+      "teamId": "TUR",
+      "skills": [
+        "Set pieces",
+        "Midfield control"
+      ],
+      "note": "The deep playmaker and dead-ball specialist, capable of controlling the rhythm or punishing fouls from distance.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Hakan_%C3%87alhano%C4%9Flu"
+    },
+    "Hakim Ziyech": {
+      "name": "Hakim Ziyech",
+      "teamId": "MAR",
+      "skills": [
+        "Chance creation",
+        "Long-range shooting"
+      ],
+      "note": "The left-footed chance creator, dangerous when Morocco can switch play and let him pick final balls.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Hakim_Ziyech"
+    },
+    "Hannibal Mejbri": {
+      "name": "Hannibal Mejbri",
+      "teamId": "TUN",
+      "skills": [
+        "Link-up play",
+        "Midfield control",
+        "Pressing",
+        "Ball carrying"
+      ],
+      "note": "The high-energy connector who can lift Tunisia's tempo with pressure, carries, and edge.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Hannibal_Mejbri"
+    },
+    "Harry Kane": {
+      "name": "Harry Kane",
+      "teamId": "ENG",
+      "skills": [
+        "Finishing",
+        "Movement",
+        "Leadership"
+      ],
+      "note": "England's captain and central finisher. His dropping movements can pull center-backs out of shape.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Harry_Kane"
+    },
+    "Homam Ahmed": {
+      "name": "Homam Ahmed",
+      "teamId": "QAT",
+      "skills": [
+        "Midfield control",
+        "Runs in behind",
+        "Defensive control"
+      ],
+      "note": "A left-sided runner whose recovery pace and timing can shape Qatar's defensive rhythm.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Homam_Ahmed"
+    },
+    "Inaki Williams": {
+      "name": "Inaki Williams",
+      "teamId": "GHA",
+      "skills": [
+        "Runs in behind",
+        "Wide threat",
+        "Defensive control"
+      ],
+      "note": "A vertical forward who stretches defenses and gives Ghana a second route behind the back line.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/I%C3%B1aki_Williams"
+    },
+    "Ismael Bennacer": {
+      "name": "Ismael Bennacer",
+      "teamId": "ALG",
+      "skills": [
+        "Midfield control",
+        "Pressing"
+      ],
+      "note": "The midfield press-breaker, important for helping Algeria play through pressure instead of around it.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Isma%C3%ABl_Bennacer"
+    },
+    "Ismael Diaz": {
+      "name": "Ismael Diaz",
+      "teamId": "PAN",
+      "skills": [
+        "Chance creation",
+        "Defensive control"
+      ],
+      "note": "The attacking spark, capable of turning a compact Panama performance into a real scoring chance.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Ismael_D%C3%ADaz_(footballer%2C_born_1997)"
+    },
+    "Jackson Irvine": {
+      "name": "Jackson Irvine",
+      "teamId": "AUS",
+      "skills": [
+        "Box presence",
+        "Midfield control",
+        "Runs in behind",
+        "Pressing"
+      ],
+      "note": "The midfield tone-setter, valuable for pressing, second balls, and late runs into the area.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Jackson_Irvine"
+    },
+    "Jamal Musiala": {
+      "name": "Jamal Musiala",
+      "teamId": "GER",
+      "skills": [
+        "Runs in behind",
+        "Pressing"
+      ],
+      "note": "The glide-through-pressure attacker, able to create chaos in crowded central spaces.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Jamal_Musiala"
+    },
+    "James Rodriguez": {
+      "name": "James Rodriguez",
+      "teamId": "COL",
+      "skills": [
+        "Chance creation",
+        "Link-up play",
+        "Leadership"
+      ],
+      "note": "The experienced creator who still connects Colombia's attack, especially when the match slows near the area.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/James_Rodr%C3%ADguez"
+    },
+    "Jean-Ricner Bellegarde": {
+      "name": "Jean-Ricner Bellegarde",
+      "teamId": "HAI",
+      "skills": [
+        "Midfield control",
+        "Pressing",
+        "Ball carrying"
+      ],
+      "note": "The rhythm and carrying option in midfield, valuable when Haiti need cleaner exits under pressure.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Jean-Ricner_Bellegarde"
+    },
+    "Jeremy Doku": {
+      "name": "Jeremy Doku",
+      "teamId": "BEL",
+      "skills": [
+        "Midfield control",
+        "Runs in behind",
+        "Wide threat",
+        "Ball carrying"
+      ],
+      "note": "The one-v-one destabilizer, stretching games wide open with direct carries from the flank.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/J%C3%A9r%C3%A9my_Doku"
+    },
+    "John McGinn": {
+      "name": "John McGinn",
+      "teamId": "SCO",
+      "skills": [
+        "Link-up play"
+      ],
+      "note": "The ball-winning connector who sets the tone physically and keeps Scotland's attacks moving.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/John_McGinn"
+    },
+    "Jonathan David": {
+      "name": "Jonathan David",
+      "teamId": "CAN",
+      "skills": [
+        "Finishing"
+      ],
+      "note": "The central finisher, sharpest when Canada create fast cutbacks or transition chances.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Jonathan_David"
+    },
+    "Jordan Ayew": {
+      "name": "Jordan Ayew",
+      "teamId": "GHA",
+      "skills": [
+        "Pressing",
+        "Leadership"
+      ],
+      "note": "The experienced captain and pressure valve, useful when Ghana need calm touches instead of rushed attacks.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Jordan_Ayew"
+    },
+    "Joshua Kimmich": {
+      "name": "Joshua Kimmich",
+      "teamId": "GER",
+      "skills": [
+        "Midfield control",
+        "Defensive control"
+      ],
+      "note": "Germany's control valve, setting tempo while also giving the back line protection when possession breaks.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Joshua_Kimmich"
+    },
+    "Josko Gvardiol": {
+      "name": "Josko Gvardiol",
+      "teamId": "CRO",
+      "skills": [
+        "Runs in behind",
+        "Movement",
+        "Wide threat",
+        "Defensive control"
+      ],
+      "note": "Croatia's defensive anchor on the left side, important against movement in open space and wide runners.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Jo%C5%A1ko_Gvardiol"
+    },
+    "Jude Bellingham": {
+      "name": "Jude Bellingham",
+      "teamId": "ENG",
+      "skills": [
+        "Link-up play",
+        "Midfield control",
+        "Movement"
+      ],
+      "note": "The connector between midfield and attack, dangerous because he arrives late rather than standing still as a No. 10.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Jude_Bellingham"
+    },
+    "Julian Alvarez": {
+      "name": "Julian Alvarez",
+      "teamId": "ARG",
+      "skills": [
+        "Finishing",
+        "Pressing"
+      ],
+      "note": "Argentina's pressing forward and flexible finisher, dangerous whether he starts moves or attacks the last line.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Juli%C3%A1n_Alvarez"
+    },
+    "Julio Enciso": {
+      "name": "Julio Enciso",
+      "teamId": "PAR",
+      "skills": [
+        "Chance creation",
+        "Midfield control"
+      ],
+      "note": "A fearless shot creator from pockets between midfield and defense, capable of making a low-chance match volatile.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Julio_Enciso_(footballer%2C_born_2004)"
+    },
+    "Juninho Bacuna": {
+      "name": "Juninho Bacuna",
+      "teamId": "CUW",
+      "skills": [
+        "Midfield control",
+        "Defensive control"
+      ],
+      "note": "Curacao's most assertive midfield carrier, useful for turning defensive work into forward momentum.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Juninho_Bacuna"
+    },
+    "Kalidou Koulibaly": {
+      "name": "Kalidou Koulibaly",
+      "teamId": "SEN",
+      "skills": [
+        "Set pieces",
+        "Ball winning",
+        "Defensive control"
+      ],
+      "note": "The back-line commander, important for duels, organization, and defending set pieces.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Kalidou_Koulibaly"
+    },
+    "Kaoru Mitoma": {
+      "name": "Kaoru Mitoma",
+      "teamId": "JPN",
+      "skills": [
+        "Wide threat",
+        "Defensive control"
+      ],
+      "note": "The isolation winger who can beat the first defender and turn patient possession into sudden chances.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Kaoru_Mitoma"
+    },
+    "Kenan Yildiz": {
+      "name": "Kenan Yildiz",
+      "teamId": "TUR",
+      "skills": [
+        "Wide threat",
+        "Ball carrying"
+      ],
+      "note": "A fearless young attacker who can stretch the game with carries and quick combinations.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Kenan_Y%C4%B1ld%C4%B1z"
+    },
+    "Kevin De Bruyne": {
+      "name": "Kevin De Bruyne",
+      "teamId": "BEL",
+      "skills": [
+        "Box presence"
+      ],
+      "note": "Belgium's elite chance architect, able to find early crosses, through balls, and shots before defenses settle.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Kevin_De_Bruyne"
+    },
+    "Kim Min-jae": {
+      "name": "Kim Min-jae",
+      "teamId": "KOR",
+      "skills": [
+        "Ball winning",
+        "Defensive control"
+      ],
+      "note": "The defensive anchor, tasked with winning first-contact duels and keeping the back line organized.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Kim_Min-jae_(footballer)"
+    },
+    "Kylian Mbappe": {
+      "name": "Kylian Mbappe",
+      "teamId": "FRA",
+      "skills": [
+        "Finishing",
+        "Runs in behind",
+        "Movement"
+      ],
+      "note": "France's game-breaking runner and finisher, the player who turns one channel ball into panic.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Kylian_Mbapp%C3%A9"
+    },
+    "Lamine Yamal": {
+      "name": "Lamine Yamal",
+      "teamId": "ESP",
+      "skills": [
+        "Chance creation",
+        "Midfield control",
+        "Wide threat"
+      ],
+      "note": "Spain's game-breaking wide creator, able to bend low blocks with dribbling, passing, and shot threat.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Lamine_Yamal"
+    },
+    "Leandro Bacuna": {
+      "name": "Leandro Bacuna",
+      "teamId": "CUW",
+      "skills": [
+        "Set pieces",
+        "Pressing",
+        "Leadership"
+      ],
+      "note": "The experienced set-piece and leadership presence, important when Curacao need calm under pressure.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Leandro_Bacuna"
+    },
+    "Lee Kang-in": {
+      "name": "Lee Kang-in",
+      "teamId": "KOR",
+      "skills": [
+        "Chance creation",
+        "Midfield control"
+      ],
+      "note": "The creative passer who can turn Korea's counters into controlled attacks.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Lee_Kang-in"
+    },
+    "Liberato Cacace": {
+      "name": "Liberato Cacace",
+      "teamId": "NZL",
+      "skills": [
+        "Ball carrying"
+      ],
+      "note": "The left-side outlet who can carry New Zealand up the pitch and serve early balls.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Liberato_Cacace"
+    },
+    "Luis Chavez": {
+      "name": "Luis Chavez",
+      "teamId": "MEX",
+      "skills": [
+        "Set pieces",
+        "Long-range shooting"
+      ],
+      "note": "A left-footed set-piece and long-range threat who can punish loose clearances.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Luis_Ch%C3%A1vez_(footballer)"
+    },
+    "Luis Diaz": {
+      "name": "Luis Diaz",
+      "teamId": "COL",
+      "skills": [
+        "Box presence",
+        "Finishing",
+        "Wide threat"
+      ],
+      "note": "Colombia's most explosive wide threat, dangerous attacking the box from the left and finishing moves himself.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Luis_D%C3%ADaz_(footballer%2C_born_1997)"
+    },
+    "Luis Suarez": {
+      "name": "Luis Suarez",
+      "teamId": "COL",
+      "skills": [
+        "Box presence",
+        "Finishing",
+        "Runs in behind",
+        "Target play"
+      ],
+      "note": "A central striker arriving off a heavy club scoring season, giving Colombia a direct target in the box.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Luis_Su%C3%A1rez_(footballer%2C_born_1997)"
+    },
+    "Luka Modric": {
+      "name": "Luka Modric",
+      "teamId": "CRO",
+      "skills": [
+        "Midfield control"
+      ],
+      "note": "Still Croatia's rhythm-setter. If he gets time, Croatia can turn this from a running game into a control game.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Luka_Modri%C4%87"
+    },
+    "Lyle Foster": {
+      "name": "Lyle Foster",
+      "teamId": "RSA",
+      "skills": [
+        "Runs in behind",
+        "Defensive control"
+      ],
+      "note": "A direct forward who gives South Africa a route behind the defensive line.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Lyle_Foster"
+    },
+    "Manuel Akanji": {
+      "name": "Manuel Akanji",
+      "teamId": "SUI",
+      "skills": [
+        "Runs in behind",
+        "Defensive control"
+      ],
+      "note": "The defensive organizer, especially important when Switzerland have to manage direct central attacks.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Manuel_Akanji"
+    },
+    "Marcel Sabitzer": {
+      "name": "Marcel Sabitzer",
+      "teamId": "AUT",
+      "skills": [
+        "Finishing",
+        "Midfield control",
+        "Pressing"
+      ],
+      "note": "The pressing midfielder with shooting range, dangerous when Austria force turnovers near goal.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Marcel_Sabitzer"
+    },
+    "Martin Odegaard": {
+      "name": "Martin Odegaard",
+      "teamId": "NOR",
+      "skills": [
+        "Chance creation",
+        "Midfield control",
+        "Long-range shooting"
+      ],
+      "note": "The left-footed creator and rhythm setter, responsible for turning Norway's possession into service for Haaland.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Martin_%C3%98degaard"
+    },
+    "Mateo Kovacic": {
+      "name": "Mateo Kovacic",
+      "teamId": "CRO",
+      "skills": [
+        "Midfield control",
+        "Pressing",
+        "Ball carrying"
+      ],
+      "note": "The pressure-release midfielder. His carries can break the first line and give Croatia territory.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Mateo_Kova%C4%8Di%C4%87"
+    },
+    "Mathew Ryan": {
+      "name": "Mathew Ryan",
+      "teamId": "AUS",
+      "skills": [
+        "Shot-stopping",
+        "Defensive control",
+        "Leadership"
+      ],
+      "note": "The experienced keeper and organizer, important when Australia absorb long spells without the ball.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Mathew_Ryan"
+    },
+    "Mehdi Taremi": {
+      "name": "Mehdi Taremi",
+      "teamId": "IRN",
+      "skills": [
+        "Finishing",
+        "Link-up play",
+        "Target play"
+      ],
+      "note": "Iran's most polished attacking reference, a clever finisher who also wins fouls and links counters.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Mehdi_Taremi"
+    },
+    "Michael Murillo": {
+      "name": "Michael Murillo",
+      "teamId": "PAN",
+      "skills": [
+        "Box presence",
+        "Runs in behind",
+        "Wide threat",
+        "Defensive control"
+      ],
+      "note": "An experienced right-sided defender who adds recovery speed and crossing threat from wide areas.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Michael_Amir_Murillo"
+    },
+    "Miguel Almiron": {
+      "name": "Miguel Almiron",
+      "teamId": "PAR",
+      "skills": [
+        "Runs in behind",
+        "Pressing",
+        "Ball carrying"
+      ],
+      "note": "The speed outlet who can carry Paraguay out of pressure and attack space before blocks reset.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Miguel_Almir%C3%B3n"
+    },
+    "Mohamed Salah": {
+      "name": "Mohamed Salah",
+      "teamId": "EGY",
+      "skills": [
+        "Finishing",
+        "Runs in behind",
+        "Ball carrying"
+      ],
+      "note": "Egypt's decisive outlet, a transition runner and finisher every opponent has to bend their shape around.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Mohamed_Salah"
+    },
+    "Mohammed Al-Owais": {
+      "name": "Mohammed Al-Owais",
+      "teamId": "KSA",
+      "skills": [
+        "Shot-stopping",
+        "Box presence",
+        "Finishing",
+        "Wide threat"
+      ],
+      "note": "The experienced goalkeeper, vital if Saudi Arabia spend long stretches defending their box.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Mohammed_Al-Owais"
+    },
+    "Moises Caicedo": {
+      "name": "Moises Caicedo",
+      "teamId": "ECU",
+      "skills": [
+        "Midfield control",
+        "Defensive control"
+      ],
+      "note": "Ecuador's midfield eraser and ball mover, vital for disrupting opponents before they reach the back line.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Mois%C3%A9s_Caicedo"
+    },
+    "Mostafa Mohamed": {
+      "name": "Mostafa Mohamed",
+      "teamId": "EGY",
+      "skills": [
+        "Box presence",
+        "Target play"
+      ],
+      "note": "The central target, important when Egypt need hold-up play and a box endpoint.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Mostafa_Mohamed_(footballer)"
+    },
+    "Mousa Al-Taamari": {
+      "name": "Mousa Al-Taamari",
+      "teamId": "JOR",
+      "skills": [
+        "Runs in behind"
+      ],
+      "note": "Jordan's star ball-carrier, a direct runner who can make counters feel dangerous immediately.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Musa_Al-Taamari"
+    },
+    "Neymar": {
+      "name": "Neymar",
+      "teamId": "BRA",
+      "skills": [
+        "Box presence"
+      ],
+      "note": "Brazil's imagination hub when they need disguise, combination play, and fouls drawn around the box.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Neymar"
+    },
+    "Nico Williams": {
+      "name": "Nico Williams",
+      "teamId": "ESP",
+      "skills": [
+        "Box presence",
+        "Wide threat",
+        "Pressing"
+      ],
+      "note": "The vertical winger who turns switches of play into immediate pressure on the box.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Nico_Williams"
+    },
+    "Nicolas Jackson": {
+      "name": "Nicolas Jackson",
+      "teamId": "SEN",
+      "skills": [
+        "Finishing",
+        "Runs in behind",
+        "Movement"
+      ],
+      "note": "A mobile striker whose runs behind the line give Senegal a faster, less predictable edge.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Nicolas_Jackson"
+    },
+    "Noah Sadiki": {
+      "name": "Noah Sadiki",
+      "teamId": "COD",
+      "skills": [
+        "Link-up play",
+        "Midfield control",
+        "Runs in behind",
+        "Pressing"
+      ],
+      "note": "A young midfield runner who matters when DR Congo need to escape pressure and connect the first pass forward.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Noah_Sadiki"
+    },
+    "Noor Al-Rawabdeh": {
+      "name": "Noor Al-Rawabdeh",
+      "teamId": "JOR",
+      "skills": [
+        "Link-up play",
+        "Midfield control",
+        "Defensive control"
+      ],
+      "note": "The midfield worker who helps Jordan stay compact and connect the first pass forward.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Noor_Al-Rawabdeh"
+    },
+    "Omar Marmoush": {
+      "name": "Omar Marmoush",
+      "teamId": "EGY",
+      "skills": [
+        "Movement"
+      ],
+      "note": "A mobile second scoring threat who can attack channels and keep Egypt from becoming one-dimensional.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Omar_Marmoush"
+    },
+    "Patrik Schick": {
+      "name": "Patrik Schick",
+      "teamId": "CZE",
+      "skills": [
+        "Box presence",
+        "Finishing"
+      ],
+      "note": "Czechia's main finisher in the box, especially dangerous when crosses and second balls arrive early.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Patrik_Schick"
+    },
+    "Pedri": {
+      "name": "Pedri",
+      "teamId": "ESP",
+      "skills": [
+        "Midfield control",
+        "Runs in behind",
+        "Leadership"
+      ],
+      "note": "The rhythm setter in open space, making Spain's possession feel calmer and more incisive.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Pedri"
+    },
+    "Percy Tau": {
+      "name": "Percy Tau",
+      "teamId": "RSA",
+      "skills": [
+        "Runs in behind",
+        "Target play",
+        "Leadership"
+      ],
+      "note": "The experienced attacking reference, useful in open space and in quick combinations.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Percy_Tau"
+    },
+    "Piero Hincapie": {
+      "name": "Piero Hincapie",
+      "teamId": "ECU",
+      "skills": [
+        "Runs in behind",
+        "Defensive control"
+      ],
+      "note": "The left-sided defensive anchor, comfortable stepping out to defend space and start attacks.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Piero_Hincapi%C3%A9"
+    },
+    "Riyad Mahrez": {
+      "name": "Riyad Mahrez",
+      "teamId": "ALG",
+      "skills": [
+        "Chance creation",
+        "Long-range shooting"
+      ],
+      "note": "Algeria's left-footed creator, still the player who can slow a match down and pick the decisive pass.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Riyad_Mahrez"
+    },
+    "Roberto Lopes": {
+      "name": "Roberto Lopes",
+      "teamId": "CPV",
+      "skills": [
+        "Defensive control"
+      ],
+      "note": "The defensive organizer, central to keeping Cabo Verde compact through long spells without the ball.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Roberto_Lopes_(footballer%2C_born_1992)"
+    },
+    "Romelu Lukaku": {
+      "name": "Romelu Lukaku",
+      "teamId": "BEL",
+      "skills": [
+        "Box presence",
+        "Finishing",
+        "Target play"
+      ],
+      "note": "The reference point in the box and power finisher, built to punish any service into his stride or feet.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Romelu_Lukaku"
+    },
+    "Ronald Araujo": {
+      "name": "Ronald Araujo",
+      "teamId": "URU",
+      "skills": [
+        "Ball winning",
+        "Defensive control"
+      ],
+      "note": "The recovery defender and duel winner, essential against elite forwards in open grass.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Ronald_Ara%C3%BAjo"
+    },
+    "Ronwen Williams": {
+      "name": "Ronwen Williams",
+      "teamId": "RSA",
+      "skills": [
+        "Pressing",
+        "Leadership"
+      ],
+      "note": "South Africa's captain and shot-stopper, important when opponents turn territory into sustained pressure.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Ronwen_Williams"
+    },
+    "Ryan Mendes": {
+      "name": "Ryan Mendes",
+      "teamId": "CPV",
+      "skills": [
+        "Target play",
+        "Leadership"
+      ],
+      "note": "Cabo Verde's experienced attacking reference, useful when counters need a composed final action.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Ryan_Mendes"
+    },
+    "Sadio Mane": {
+      "name": "Sadio Mane",
+      "teamId": "SEN",
+      "skills": [
+        "Runs in behind"
+      ],
+      "note": "Senegal's senior attacking leader, still the name who can turn a direct move into a decisive action.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Sadio_Man%C3%A9"
+    },
+    "Salem Al-Dawsari": {
+      "name": "Salem Al-Dawsari",
+      "teamId": "KSA",
+      "skills": [
+        "Wide threat",
+        "Defensive control",
+        "Ball carrying"
+      ],
+      "note": "Saudi Arabia's big-moment wide attacker, trusted to carry counters and take on defenders.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Salem_Al-Dawsari"
+    },
+    "Santiago Gimenez": {
+      "name": "Santiago Gimenez",
+      "teamId": "MEX",
+      "skills": [
+        "Box presence",
+        "Finishing",
+        "Pressing"
+      ],
+      "note": "Mexico's focal striker, valuable when home pressure turns into repeated box touches.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Santiago_Gim%C3%A9nez"
+    },
+    "Sardar Azmoun": {
+      "name": "Sardar Azmoun",
+      "teamId": "IRN",
+      "skills": [
+        "Box presence",
+        "Finishing",
+        "Movement"
+      ],
+      "note": "A box striker with timing in the air and enough movement to punish loose marking.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Sardar_Azmoun"
+    },
+    "Sarpreet Singh": {
+      "name": "Sarpreet Singh",
+      "teamId": "NZL",
+      "skills": [
+        "Chance creation",
+        "Runs in behind"
+      ],
+      "note": "A technical creator who can make New Zealand less predictable when space appears in open space.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Sarpreet_Singh"
+    },
+    "Scott McTominay": {
+      "name": "Scott McTominay",
+      "teamId": "SCO",
+      "skills": [
+        "Box presence",
+        "Finishing",
+        "Midfield control",
+        "Runs in behind"
+      ],
+      "note": "Scotland's late-arriving goal threat, most dangerous when midfield runs crash into the box.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Scott_McTominay"
+    },
+    "Sead Kolasinac": {
+      "name": "Sead Kolasinac",
+      "teamId": "BIH",
+      "skills": [
+        "Ball winning",
+        "Defensive control"
+      ],
+      "note": "A physical left-sided defender who can make the game uncomfortable in duels.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Sead_Kola%C5%A1inac"
+    },
+    "Sebastien Haller": {
+      "name": "Sebastien Haller",
+      "teamId": "CIV",
+      "skills": [
+        "Box presence",
+        "Finishing",
+        "Target play"
+      ],
+      "note": "The central reference point, a finisher in the box who makes crosses and cutbacks matter.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/S%C3%A9bastien_Haller"
+    },
+    "Simon Adingra": {
+      "name": "Simon Adingra",
+      "teamId": "CIV",
+      "skills": [
+        "Runs in behind",
+        "Wide threat",
+        "Defensive control"
+      ],
+      "note": "The wide runner who can stretch back lines and make transition attacks feel immediate.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Simon_Adingra"
+    },
+    "Son Heung-min": {
+      "name": "Son Heung-min",
+      "teamId": "KOR",
+      "skills": [
+        "Runs in behind",
+        "Defensive control",
+        "Leadership"
+      ],
+      "note": "South Korea's captain and most reliable shot threat, lethal when space opens behind the defensive line.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Son_Heung-min"
+    },
+    "Stephen Eustaquio": {
+      "name": "Stephen Eustaquio",
+      "teamId": "CAN",
+      "skills": [
+        "Midfield control"
+      ],
+      "note": "A midfield stabilizer who helps Canada avoid turning the match into only end-to-end breaks.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Stephen_Eust%C3%A1quio"
+    },
+    "Takefusa Kubo": {
+      "name": "Takefusa Kubo",
+      "teamId": "JPN",
+      "skills": [
+        "Chance creation",
+        "Runs in behind"
+      ],
+      "note": "Japan's sharpest creator in tight spaces, especially dangerous when he can cut inside onto his left foot.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Takefusa_Kubo"
+    },
+    "Tomas Soucek": {
+      "name": "Tomas Soucek",
+      "teamId": "CZE",
+      "skills": [
+        "Set pieces",
+        "Box presence"
+      ],
+      "note": "A set-piece and late-run threat whose aerial presence can tilt a tight group match.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Tom%C3%A1%C5%A1_Sou%C4%8Dek"
+    },
+    "Tyler Adams": {
+      "name": "Tyler Adams",
+      "teamId": "USA",
+      "skills": [
+        "Midfield control",
+        "Defensive control"
+      ],
+      "note": "The ball-winning organizer at the base of midfield, crucial when the match opens into transition.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Tyler_Adams"
+    },
+    "Viktor Gyokeres": {
+      "name": "Viktor Gyokeres",
+      "teamId": "SWE",
+      "skills": [
+        "Pressing",
+        "Ball carrying",
+        "Target play"
+      ],
+      "note": "A relentless power forward whose carries and pressing can turn Sweden from structured to explosive.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Viktor_Gy%C3%B6keres"
+    },
+    "Vinicius Junior": {
+      "name": "Vinicius Junior",
+      "teamId": "BRA",
+      "skills": [
+        "Runs in behind",
+        "Ball carrying"
+      ],
+      "note": "The devastating left-sided runner, capable of breaking a match with one isolation or carry in behind.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Vin%C3%ADcius_J%C3%BAnior"
+    },
+    "Virgil van Dijk": {
+      "name": "Virgil van Dijk",
+      "teamId": "NED",
+      "skills": [
+        "Box presence",
+        "Midfield control",
+        "Ball winning",
+        "Defensive control"
+      ],
+      "note": "The defensive reference point, controlling aerial duels and giving the Netherlands confidence to hold a higher line.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Virgil_van_Dijk"
+    },
+    "Vitinha": {
+      "name": "Vitinha",
+      "teamId": "POR",
+      "skills": [
+        "Box presence",
+        "Midfield control",
+        "Pressing"
+      ],
+      "note": "A press-resistant rhythm setter who can turn Portugal's possession into cleaner entries around the box.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Vitinha"
+    },
+    "Vozinha": {
+      "name": "Vozinha",
+      "teamId": "CPV",
+      "skills": [
+        "Shot-stopping",
+        "Finishing",
+        "Leadership"
+      ],
+      "note": "The veteran goalkeeper whose shot-stopping can keep Cabo Verde alive in narrow games.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Vozinha"
+    },
+    "Vurnon Anita": {
+      "name": "Vurnon Anita",
+      "teamId": "CUW",
+      "skills": [
+        "Link-up play",
+        "Defensive control",
+        "Leadership"
+      ],
+      "note": "A veteran organizer who can help Curacao stay compact and connected without the ball.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Vurnon_Anita"
+    },
+    "Wataru Endo": {
+      "name": "Wataru Endo",
+      "teamId": "JPN",
+      "skills": [
+        "Link-up play",
+        "Midfield control",
+        "Pressing",
+        "Defensive control"
+      ],
+      "note": "The midfield anchor, key to Japan's counter-press and the first pass after winning the ball.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Wataru_Endo"
+    },
+    "Weston McKennie": {
+      "name": "Weston McKennie",
+      "teamId": "USA",
+      "skills": [
+        "Set pieces",
+        "Box presence",
+        "Link-up play",
+        "Midfield control"
+      ],
+      "note": "A box-to-box connector whose second-ball work and set-piece timing give the U.S. midfield bite.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Weston_McKennie"
+    },
+    "William Saliba": {
+      "name": "William Saliba",
+      "teamId": "FRA",
+      "skills": [
+        "Midfield control",
+        "Runs in behind",
+        "Defensive control",
+        "Leadership"
+      ],
+      "note": "The defensive stabilizer, calm enough to defend space while France's athletes surge forward.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/William_Saliba"
+    },
+    "Yazan Al-Naimat": {
+      "name": "Yazan Al-Naimat",
+      "teamId": "JOR",
+      "skills": [
+        "Finishing"
+      ],
+      "note": "The central finisher and combination forward, key when Jordan turn rare attacks into real chances.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Yazan_Al-Naimat"
+    },
+    "Yoane Wissa": {
+      "name": "Yoane Wissa",
+      "teamId": "COD",
+      "skills": [
+        "Runs in behind",
+        "Ball carrying"
+      ],
+      "note": "DR Congo's direct running threat, the outlet who can turn counters into shots when opponents overcommit.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Yoane_Wissa"
+    },
+    "Youssef En-Nesyri": {
+      "name": "Youssef En-Nesyri",
+      "teamId": "MAR",
+      "skills": [
+        "Box presence",
+        "Finishing",
+        "Runs in behind",
+        "Target play"
+      ],
+      "note": "The reference point in the box and aerial finisher who gives Morocco a direct end point.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Youssef_En-Nesyri"
+    },
+    "Zidane Iqbal": {
+      "name": "Zidane Iqbal",
+      "teamId": "IRQ",
+      "skills": [
+        "Link-up play",
+        "Midfield control",
+        "Defensive control"
+      ],
+      "note": "The midfield connector, valuable when Iraq need composure rather than only defensive running.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Zidane_Iqbal"
+    }
+  }
+}

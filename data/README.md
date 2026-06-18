@@ -62,6 +62,11 @@ The script uses Wikipedia football infoboxes for current club, position, and pho
 
 ## Update Cadence
 
+Preferred production path:
+- Configure `/api/live-data` with a Sportmonks token.
+- Let the server-side live snapshot merge recent scores/status and recompute standings automatically.
+- Keep manual JSON updates as the editorial/fallback layer, not the main live-update mechanism.
+
 Normal non-match days:
 - Check sources once per day.
 

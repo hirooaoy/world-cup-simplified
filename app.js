@@ -1,4 +1,4 @@
-const DATA_VERSION = "2026-06-18-player-profiles";
+const DATA_VERSION = "2026-06-18-source-note-fix";
 const DATA_URLS = {
   fixtures: `data/fixtures.json?v=${DATA_VERSION}`,
   history: `data/history.json?v=${DATA_VERSION}`,
@@ -1027,7 +1027,8 @@ function renderMatchRow(match, state, currentTime = Date.now()) {
       : state === "next"
         ? `<span class="up-next-pill">Up next</span>`
         : "";
-  const rowMeta = `${scoreStatus}${stateBadge}`;
+  const score = renderScore(match, state);
+  const rowMeta = `${scoreStatus}${stateBadge}${score}`;
 
   row.type = "button";
   row.className = `match-row is-${state}`;
@@ -1051,7 +1052,7 @@ function renderMatchRow(match, state, currentTime = Date.now()) {
     </time>
     <span class="match-teams">
       ${renderTeamInline(match.homeTeam, getTeamClass("team", winnerSide, "home"))}
-      ${renderScore(match, state) || `<span class="versus">vs</span>`}
+      <span class="versus">vs</span>
       ${renderTeamInline(match.awayTeam, getTeamClass("team", winnerSide, "away"))}
     </span>
     ${rowMeta ? `<span class="match-row-meta">${rowMeta}</span>` : ""}
@@ -1678,6 +1679,11 @@ function getPlayerInitials(name) {
     .toUpperCase();
 }
 
+function getPlayerClubLine(profile) {
+  const club = profile?.club || "Club to verify";
+  return profile?.league ? `${club} (${profile.league})` : club;
+}
+
 function getPlayerSkills(player, profile = getPlayerProfile(player)) {
   const skills = Array.isArray(profile?.skills) ? profile.skills.filter(Boolean) : [];
   if (skills.length) {
@@ -1766,7 +1772,7 @@ function renderPlayerMention(label, player) {
   const profile = getPlayerProfile(player);
   const displayName = getPlayerDisplayName(player, profile);
   const position = profile?.position || "Position to verify";
-  const club = profile?.club || "Club to verify";
+  const club = getPlayerClubLine(profile);
   const sourceUrl = profile?.sourceUrl || "";
   const note = getPlayerNote(player) || profile?.note || "";
   const skills = getPlayerSkills(player, profile);
@@ -1839,9 +1845,10 @@ function getMatchKeyPlayers(match) {
 
 function renderKeyInformationTeam(team, info, players = [], mentionPlayers = players) {
   const text = getKeyInformationText(team, info, players);
+  const label = getKeyInformationLabel(team);
   return `
     <article class="key-info-team">
-      <h4>${escapeHtml(getKeyInformationLabel(team))}</h4>
+      <h4>${renderPlayerLinkedText(label, mentionPlayers)}</h4>
       <p>${renderPlayerLinkedText(text, mentionPlayers)}</p>
     </article>
   `;
@@ -3444,17 +3451,6 @@ function renderSourceNote() {
     "FIFA World Cup 2026 standings": "standings"
   };
   const coreSourceLabels = new Set(Object.keys(compactSourceLabels));
-  const getValidCheckDate = (source) => {
-    const date = new Date(source.checkedAt);
-    return Number.isNaN(date.getTime()) ? null : date;
-  };
-  const formatCheckDate = (date) =>
-    new Intl.DateTimeFormat("en-US", {
-      dateStyle: "medium",
-      timeStyle: "short",
-      timeZone: selectedTimeZone
-    }).format(date);
-  const getAgeHours = (date) => (Date.now() - date.getTime()) / (60 * 60 * 1000);
   const coreOfficialSources = tournament.sources.filter(
     (source) => source.type === "official" && coreSourceLabels.has(source.label)
   );
@@ -3464,39 +3460,8 @@ function renderSourceNote() {
       ? `<a href="${escapeHtml(source.url)}" target="_blank" rel="noreferrer">${escapeHtml(label)}</a>`
       : escapeHtml(label);
   });
-  const coreCheckLines = coreOfficialSources.map((source) => {
-    const checkedAt = getValidCheckDate(source);
-    const label = compactSourceLabels[source.label] ?? source.label;
-    return `${label}: ${checkedAt ? formatCheckDate(checkedAt) : "unknown"}`;
-  });
-  const coreCheckDates = coreOfficialSources.map(getValidCheckDate).filter(Boolean);
-  const oldestCoreCheck = [...coreCheckDates].sort((a, b) => a - b)[0];
-  const isCoreSourceStale =
-    oldestCoreCheck && getAgeHours(oldestCoreCheck) > SOURCE_STALE_WARNING_HOURS;
-  const latestResultCheck = tournament.sources
-    .filter(
-      (source) =>
-        (source.type === "official" || source.type === "provider") &&
-        !coreSourceLabels.has(source.label) &&
-        getValidCheckDate(source)
-    )
-    .map(getValidCheckDate)
-    .sort((a, b) => b - a)[0];
-  const freshnessBadge = isCoreSourceStale
-    ? `<strong class="source-freshness is-stale">Core data needs refresh</strong>`
-    : `<strong class="source-freshness is-fresh">Core data recently checked</strong>`;
 
-  sourceNote.innerHTML = `
-    Sources: ${officialSourceLinks.join(", ")}.
-    Predictions are unofficial.
-    ${freshnessBadge}
-    Core checks: ${escapeHtml(coreCheckLines.join("; "))}.
-    ${
-      latestResultCheck
-        ? `Latest result data checked ${escapeHtml(formatCheckDate(latestResultCheck))}.`
-        : ""
-    }
-  `;
+  sourceNote.innerHTML = `Sources: ${officialSourceLinks.join(", ")}. Predictions are unofficial.`;
 }
 
 function renderLoadError(error) {

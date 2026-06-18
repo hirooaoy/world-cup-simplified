@@ -411,6 +411,57 @@ try {
   }
   await matchStateCheck.context.close();
 
+  const liveFallbackScoreCheck = await openPageAtTime(
+    "2026-06-18T16:05:00.000Z",
+    "/?view=matches&date=2026-06-18&tz=America%2FLos_Angeles",
+    {
+      fixtureTransform(data) {
+        const liveFixture = data.fixtures.find(
+          (fixture) => fixture.id === "czechia-south-africa-2026-06-18"
+        );
+        liveFixture.status = "SCHEDULED";
+        delete liveFixture.score;
+      }
+    }
+  );
+  const liveFallbackRow = liveFallbackScoreCheck.page.locator(
+    '[data-match-id="czechia-south-africa-2026-06-18"]'
+  );
+  assert(
+    (await liveFallbackRow.locator(".match-score").innerText()).trim() === "0-0",
+    "A live fixture without a loaded score should show a 0-0 fallback score."
+  );
+  const liveFallbackText = (await liveFallbackRow.innerText()).replace(/\s+/g, " ").trim();
+  const liveFallbackOrder = ["Czechia", "vs", "South Africa", "LIVE", "0-0"].map((text) =>
+    liveFallbackText.indexOf(text)
+  );
+  assert(
+    liveFallbackOrder.every((index) => index >= 0) &&
+      liveFallbackOrder.every((index, itemIndex) => itemIndex === 0 || index > liveFallbackOrder[itemIndex - 1]),
+    "A live fixture without a loaded score should keep vs between teams and show 0-0 after Live."
+  );
+  const liveFallbackMetaText = await liveFallbackRow
+    .locator(".match-row-meta > *")
+    .evaluateAll((items) => items.map((item) => item.innerText.trim()).join("|"));
+  assert(
+    liveFallbackMetaText === "LIVE|0-0",
+    "The live score should sit to the right of the Live pill."
+  );
+  assert(
+    (await liveFallbackRow.locator(".score-status").count()) === 0,
+    "A live fixture without a loaded score should not show Score pending."
+  );
+  assert(
+    !(await liveFallbackRow.innerText()).includes("Score pending"),
+    "The visible live row text should not include Score pending."
+  );
+  const liveFallbackBox = await liveFallbackRow.boundingBox();
+  assert(
+    liveFallbackBox && liveFallbackBox.height < 44,
+    "The live fallback row should remain a single line."
+  );
+  await liveFallbackScoreCheck.context.close();
+
   const pendingScoreCheck = await openPageAtTime(
     "2026-06-18T05:30:00.000Z",
     "/?view=matches&date=2026-06-17&tz=America%2FLos_Angeles",
@@ -543,20 +594,26 @@ try {
   await catchUpCheck.context.close();
 
   const sourceFreshnessCheck = await openPageAtTime("2026-06-18T15:57:00.000Z");
-  const sourceNoteText = await sourceFreshnessCheck.page.locator("#source-note").innerText();
-  assert(
-    sourceNoteText.includes("Core data needs refresh"),
-    "The source note should warn when core official data is stale."
+  const sourceNote = sourceFreshnessCheck.page.locator("#source-note");
+  const sourceNoteText = await sourceNote.innerText();
+  const sourceLinkLabels = await sourceNote.locator("a").evaluateAll((links) =>
+    links.map((link) => link.textContent.trim()).join("|")
   );
   assert(
-    sourceNoteText.includes("Core checks:") &&
-      sourceNoteText.includes("standings: Jun 17, 2026, 3:40 PM") &&
-      sourceNoteText.includes("Latest match reports checked Jun 18, 2026, 8:54 AM"),
-    "The source note should separate core-source freshness from latest match-report checks."
+    sourceNoteText ===
+      "Sources: FIFA schedule, debutants, ranking, standings. Predictions are unofficial.",
+    "The source note should stay short and readable."
   );
   assert(
-    !sourceNoteText.includes("Source data checked Jun 17, 2026, 3:40 PM"),
-    "The source note should not hide freshness behind one generic timestamp."
+    sourceLinkLabels === "FIFA schedule|debutants|ranking|standings",
+    "The source note should keep the compact official source links."
+  );
+  assert(
+    !sourceNoteText.includes("Core data") &&
+      !sourceNoteText.includes("Core checks:") &&
+      !sourceNoteText.includes("Latest result data checked") &&
+      !sourceNoteText.includes("Source data checked"),
+    "The source note should not show diagnostic freshness details."
   );
   await sourceFreshnessCheck.context.close();
 
@@ -609,8 +666,8 @@ try {
     };
   });
   assert(
-    groupOrderCheck.groupB?.join("|") === "Canada|Bosnia and Herz...|Qatar|Switzerland",
-    "Group B should preserve the checked FIFA table order."
+    groupOrderCheck.groupB?.join("|") === "Switzerland|Canada|Qatar|Bosnia and Herz...",
+    "Group B should preserve the checked table order."
   );
   assert(
     groupOrderCheck.groupK?.join("|") === "Colombia|Portugal|DR Congo|Uzbekistan",
