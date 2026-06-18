@@ -21,19 +21,19 @@ The site is set up for Vercel. Static pages are served from the repo root and th
 
 The production site tries `/api/live-data` before it falls back to the static JSON files. That API route runs server-side, fetches recent provider fixtures, merges live/final scores into the existing fixtures, recomputes group standings, and returns a CDN-cached snapshot to the browser. Visitors still get the fast static app, but the data can update automatically without exposing the provider key.
 
-The free/default provider is API-Football. The site defaults to `league=1` and `season=2026`; confirm those provider IDs in API-Football if their World Cup mapping changes.
+The free/default provider is football-data.org. The site defaults to competition `WC` and season `2026`, and uses the delayed-score free tier so the custom UI can update without exposing the provider key.
 
-To enable the free API-Football sync:
+To enable the free football-data.org sync:
 
-1. Create an API-Football account.
-2. Add `API_FOOTBALL_API_KEY` in Vercel.
-3. Keep `API_FOOTBALL_LEAGUE_ID=1` and `API_FOOTBALL_SEASON=2026` unless API-Football changes their World Cup IDs.
+1. Create a football-data.org account.
+2. Add `FOOTBALL_DATA_API_KEY` in Vercel.
+3. Keep `FOOTBALL_DATA_COMPETITION=WC` and `FOOTBALL_DATA_SEASON=2026` unless football-data.org changes their World Cup mapping.
 4. Optionally copy `data/provider-map.example.json` to `data/provider-map.json` and fill in provider IDs if name matching is not enough.
 5. Deploy. The site will use live provider data automatically when `/api/live-data` succeeds, and static JSON when it does not.
 
-The live endpoint is cached for 30 minutes by default with `LIVE_DATA_CACHE_SECONDS=1800` and `LIVE_DATA_STALE_SECONDS=1800`. That keeps the free API-Football quota from being burned by normal visits. Lower it only if you are comfortable spending more API calls on match days.
+The live endpoint is cached for 5 minutes by default with football-data.org. You can override that with `LIVE_DATA_CACHE_SECONDS` and `LIVE_DATA_STALE_SECONDS`; use higher values if you want fewer provider calls.
 
-Sportmonks remains supported as an optional paid provider. Set `LIVE_DATA_PROVIDER=sportmonks` and add `SPORTMONKS_API_TOKEN` plus the optional Sportmonks league/season IDs.
+API-Football and Sportmonks remain supported as optional providers. Set `LIVE_DATA_PROVIDER=api-football` or `LIVE_DATA_PROVIDER=sportmonks` and add the matching token plus optional league/season IDs.
 
 Before launch:
 
@@ -65,9 +65,15 @@ RESEND_TIMEOUT_MS=8000
 Automatic data updates:
 
 ```sh
-LIVE_DATA_PROVIDER=api-football
-LIVE_DATA_CACHE_SECONDS=1800
-LIVE_DATA_STALE_SECONDS=1800
+LIVE_DATA_PROVIDER=football-data
+LIVE_DATA_CACHE_SECONDS=300
+LIVE_DATA_STALE_SECONDS=300
+FOOTBALL_DATA_API_KEY=
+FOOTBALL_DATA_COMPETITION=WC
+FOOTBALL_DATA_SEASON=2026
+FOOTBALL_DATA_WINDOW_BEFORE_DAYS=2
+FOOTBALL_DATA_WINDOW_AFTER_DAYS=2
+FOOTBALL_DATA_TIMEOUT_MS=8000
 API_FOOTBALL_API_KEY=
 API_FOOTBALL_LEAGUE_ID=1
 API_FOOTBALL_SEASON=2026

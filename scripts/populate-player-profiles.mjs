@@ -23,13 +23,28 @@ const pageTitleOverrides = new Map([
   ["Roberto Lopes", "Roberto Lopes (footballer, born 1992)"]
 ]);
 const profileFieldOverrides = {
+  "Ali Jasim": {
+    imageUrl: "https://resources.saudi-pro-league.pulselive.com/saudi-pro-league/photo/2025/11/13/287545ca-8c56-428c-81ba-cb4620bb94c8/05c43886-bdda-4649-a88b-b22c4eac68af________.jpg"
+  },
   "Christian Volpato": {
     imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/FC%20Internazionale%20Milano%20v%20US%20Sassuolo%20Calcio%2C%2021%20September%202025%20-%2008%20%28Cristian%20Volpato%29.jpg?width=160"
+  },
+  "Esmir Bajraktarevic": {
+    imageUrl: "https://media.reprezentacija.ba/2025/01/esmir-bajraktarevic-psv-1200x800.jpg"
+  },
+  "Frantzdy Pierrot": {
+    imageUrl: "https://www.eaguingamp.com/voy_content/uploads/2020/09/frantzdy-pierrot.png"
+  },
+  "Ismael Diaz": {
+    imageUrl: "https://imagenes.primicias.ec/files/og_thumbnail/uploads/2024/05/25/665295a4a90f8.jpeg"
   },
   "James Rodriguez": { club: "Minnesota United" },
   "Kenan Yildiz": { position: "Attacking midfielder, winger" },
   "Percy Tau": { club: "Thep Xanh Nam Dinh FC" },
-  Vozinha: { club: "G.D. Chaves" }
+  Vozinha: {
+    club: "G.D. Chaves",
+    imageUrl: "https://i0.statig.com.br/bancodeimagens/4d/4f/vq/4d4fvq90nxcb1y4c2z9un4l6e.jpg"
+  }
 };
 const clubLeagueOverrides = {
   "AC Milan": "Serie A",

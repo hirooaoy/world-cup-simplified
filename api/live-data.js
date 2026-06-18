@@ -11,14 +11,25 @@ const DEFAULT_PROVIDER_TIMEOUT_MS = 8000;
 const DEFAULT_PROVIDER_MAX_PAGES = 5;
 const DEFAULT_LIVE_DATA_CACHE_SECONDS = 30 * 60;
 const DEFAULT_LIVE_DATA_STALE_SECONDS = 30 * 60;
+const FOOTBALL_DATA_PROVIDER_KEY = "footballData";
 const API_FOOTBALL_PROVIDER_KEY = "apiFootball";
 const SPORTMONKS_PROVIDER_KEY = "sportmonks";
+const FOOTBALL_DATA_BASE_URL = "https://api.football-data.org/v4";
+const FOOTBALL_DATA_DEFAULT_COMPETITION = "WC";
+const FOOTBALL_DATA_DEFAULT_SEASON = "2026";
+const FOOTBALL_DATA_DEFAULT_WINDOW_BEFORE_DAYS = 2;
+const FOOTBALL_DATA_DEFAULT_WINDOW_AFTER_DAYS = 2;
 const API_FOOTBALL_BASE_URL = "https://v3.football.api-sports.io";
 const API_FOOTBALL_DEFAULT_LEAGUE_ID = "1";
 const API_FOOTBALL_DEFAULT_SEASON = "2026";
 const SPORTMONKS_BASE_URL = "https://api.sportmonks.com/v3/football";
 const SPORTMONKS_FIXTURE_INCLUDE = "participants;scores;state";
 const PROVIDER_ALIASES = {
+  footballdata: FOOTBALL_DATA_PROVIDER_KEY,
+  "football-data": FOOTBALL_DATA_PROVIDER_KEY,
+  "football data": FOOTBALL_DATA_PROVIDER_KEY,
+  "football-data.org": FOOTBALL_DATA_PROVIDER_KEY,
+  "football data org": FOOTBALL_DATA_PROVIDER_KEY,
   apifootball: API_FOOTBALL_PROVIDER_KEY,
   "api-football": API_FOOTBALL_PROVIDER_KEY,
   "api football": API_FOOTBALL_PROVIDER_KEY,
@@ -28,7 +39,11 @@ const PROVIDER_ALIASES = {
   sportmonks: SPORTMONKS_PROVIDER_KEY
 };
 const TEAM_NAME_ALIASES = {
+  "bosnia herzegovina": "BIH",
+  "cape verde": "CPV",
+  "cape verde islands": "CPV",
   "czech republic": "CZE",
+  iran: "IRN",
   "ivory coast": "CIV",
   turkey: "TUR"
 };
@@ -49,7 +64,7 @@ export default async function handler(request, response) {
   const providerMap = (await readOptionalJson("provider-map.json")) || {};
   const provider = getLiveDataProvider();
   const checkedAt = new Date().toISOString();
-  const cacheControl = getLiveDataCacheControl();
+  const cacheControl = getLiveDataCacheControl(provider);
 
   if (!provider.ok) {
     sendJson(
@@ -155,14 +170,14 @@ function setCacheHeaders(response, cacheControl) {
   response.setHeader("Vercel-CDN-Cache-Control", cacheControl);
 }
 
-function getLiveDataCacheControl() {
+function getLiveDataCacheControl(provider = {}) {
   const freshSeconds = positiveInteger(
     process.env.LIVE_DATA_CACHE_SECONDS,
-    DEFAULT_LIVE_DATA_CACHE_SECONDS
+    provider.defaultCacheSeconds || DEFAULT_LIVE_DATA_CACHE_SECONDS
   );
   const staleSeconds = positiveInteger(
     process.env.LIVE_DATA_STALE_SECONDS,
-    DEFAULT_LIVE_DATA_STALE_SECONDS
+    provider.defaultStaleSeconds || DEFAULT_LIVE_DATA_STALE_SECONDS
   );
   return `public, s-maxage=${freshSeconds}, stale-while-revalidate=${staleSeconds}`;
 }
@@ -185,6 +200,11 @@ async function readOptionalJson(fileName) {
 
 function getLiveDataProvider() {
   const requestedProvider = getRequestedProviderKey();
+  const footballDataToken = getFirstEnv([
+    "FOOTBALL_DATA_API_KEY",
+    "FOOTBALLDATA_API_KEY",
+    "FOOTBALL_DATA_TOKEN"
+  ]);
   const apiFootballToken = getFirstEnv([
     "API_FOOTBALL_API_KEY",
     "APIFOOTBALL_API_KEY",
@@ -192,6 +212,12 @@ function getLiveDataProvider() {
     "APISPORTS_API_KEY"
   ]);
   const sportmonksToken = process.env.SPORTMONKS_API_TOKEN;
+
+  if (requestedProvider === FOOTBALL_DATA_PROVIDER_KEY) {
+    return footballDataToken
+      ? createFootballDataProvider(footballDataToken)
+      : missingProvider("football-data.org", "FOOTBALL_DATA_API_KEY is not configured");
+  }
 
   if (requestedProvider === API_FOOTBALL_PROVIDER_KEY) {
     return apiFootballToken
@@ -205,6 +231,10 @@ function getLiveDataProvider() {
       : missingProvider("sportmonks", "SPORTMONKS_API_TOKEN is not configured");
   }
 
+  if (footballDataToken) {
+    return createFootballDataProvider(footballDataToken);
+  }
+
   if (apiFootballToken) {
     return createApiFootballProvider(apiFootballToken);
   }
@@ -215,7 +245,7 @@ function getLiveDataProvider() {
 
   return missingProvider(
     "none",
-    "No live data provider is configured. Add API_FOOTBALL_API_KEY for free API-Football sync."
+    "No live data provider is configured. Add FOOTBALL_DATA_API_KEY for free delayed-score sync."
   );
 }
 
@@ -239,6 +269,30 @@ function missingProvider(name, reason) {
     ok: false,
     name,
     reason
+  };
+}
+
+function createFootballDataProvider(token) {
+  const client = createFootballDataClient({
+    timeoutMs: positiveInteger(process.env.FOOTBALL_DATA_TIMEOUT_MS, DEFAULT_PROVIDER_TIMEOUT_MS),
+    token
+  });
+
+  return {
+    defaultCacheSeconds: 5 * 60,
+    defaultStaleSeconds: 5 * 60,
+    docsUrl: "https://www.football-data.org/documentation/quickstart",
+    fetchFixtures: ({ providerMap, timeZone }) =>
+      fetchFootballDataFixtures({
+        footballData: client,
+        providerMap,
+        timeZone
+      }),
+    key: FOOTBALL_DATA_PROVIDER_KEY,
+    label: "football-data.org delayed-score sync",
+    name: "football-data.org",
+    ok: true,
+    sourcePrefix: "football-data-auto"
   };
 }
 
@@ -382,6 +436,37 @@ async function fetchWithTimeout(url, timeoutMs, providerName, options = {}) {
   }
 }
 
+function createFootballDataClient({ timeoutMs, token }) {
+  const baseUrl = process.env.FOOTBALL_DATA_BASE_URL || FOOTBALL_DATA_BASE_URL;
+
+  return async function footballData(pathname, params = {}, headers = {}) {
+    const url = new URL(`${baseUrl}${pathname}`);
+
+    for (const [key, value] of Object.entries(params)) {
+      if (value !== undefined && value !== null && value !== "") {
+        url.searchParams.set(key, value);
+      }
+    }
+
+    const apiResponse = await fetchWithTimeout(url, timeoutMs, "football-data.org", {
+      headers: {
+        "X-Auth-Token": token,
+        ...headers
+      }
+    });
+    const payload = await apiResponse.json().catch(() => ({}));
+
+    if (!apiResponse.ok) {
+      const detail = payload.message || payload.error || "";
+      throw new Error(
+        `football-data.org request failed with ${apiResponse.status}${detail ? `: ${detail}` : ""}`
+      );
+    }
+
+    return payload;
+  };
+}
+
 function createApiFootballClient({ maxPages, timeoutMs, token }) {
   const baseUrl = process.env.API_FOOTBALL_BASE_URL || API_FOOTBALL_BASE_URL;
 
@@ -489,6 +574,41 @@ function getSyncWindow({ afterDays, beforeDays, timeZone }) {
   return { endKey, startKey };
 }
 
+async function fetchFootballDataFixtures({ footballData, providerMap, timeZone }) {
+  const { endKey, startKey } = getSyncWindow({
+    afterDays:
+      process.env.FOOTBALL_DATA_WINDOW_AFTER_DAYS || FOOTBALL_DATA_DEFAULT_WINDOW_AFTER_DAYS,
+    beforeDays:
+      process.env.FOOTBALL_DATA_WINDOW_BEFORE_DAYS || FOOTBALL_DATA_DEFAULT_WINDOW_BEFORE_DAYS,
+    timeZone
+  });
+  const competition = encodeURIComponent(
+    String(
+      process.env.FOOTBALL_DATA_COMPETITION ||
+        providerMap.footballData?.competition ||
+        FOOTBALL_DATA_DEFAULT_COMPETITION
+    )
+  );
+  const season = String(
+    process.env.FOOTBALL_DATA_SEASON ||
+      providerMap.footballData?.season ||
+      FOOTBALL_DATA_DEFAULT_SEASON
+  );
+  const payload = await footballData(
+    `/competitions/${competition}/matches`,
+    {
+      dateFrom: startKey,
+      dateTo: endKey,
+      season
+    },
+    {
+      "X-Unfold-Goals": "true"
+    }
+  );
+
+  return asArray(payload.matches);
+}
+
 async function fetchApiFootballFixtures({ apiFootball, providerMap, timeZone }) {
   const { endKey, startKey } = getSyncWindow({
     afterDays: process.env.API_FOOTBALL_WINDOW_AFTER_DAYS,
@@ -569,6 +689,13 @@ function buildTeamLookup(teams, providerMap, providerKey) {
 }
 
 function getProviderParticipants(providerFixture, providerKey) {
+  if (providerKey === FOOTBALL_DATA_PROVIDER_KEY) {
+    return {
+      away: normalizeFootballDataParticipant(providerFixture.awayTeam, "away"),
+      home: normalizeFootballDataParticipant(providerFixture.homeTeam, "home")
+    };
+  }
+
   if (providerKey === API_FOOTBALL_PROVIDER_KEY) {
     return {
       away: normalizeApiFootballParticipant(providerFixture.teams?.away, "away"),
@@ -584,6 +711,14 @@ function getProviderParticipants(providerFixture, providerKey) {
     participants.find((participant) => getParticipantLocation(participant) === "away") ||
     participants[1];
   return { away, home };
+}
+
+function normalizeFootballDataParticipant(team, location) {
+  return {
+    id: team?.id,
+    location,
+    name: team?.name || team?.shortName || team?.tla
+  };
 }
 
 function normalizeApiFootballParticipant(team, location) {
@@ -660,6 +795,10 @@ function getProviderFixtureId(providerFixture, providerKey) {
 }
 
 function getProviderKickoff(providerFixture, providerKey) {
+  if (providerKey === FOOTBALL_DATA_PROVIDER_KEY) {
+    return providerFixture.utcDate;
+  }
+
   if (providerKey === API_FOOTBALL_PROVIDER_KEY) {
     return providerFixture.fixture?.date || providerFixture.fixture?.timestamp;
   }
@@ -677,6 +816,28 @@ function toProviderDate(value) {
 }
 
 function getProviderStatus(providerFixture, providerKey) {
+  if (providerKey === FOOTBALL_DATA_PROVIDER_KEY) {
+    const status = String(providerFixture.status || "").toUpperCase();
+
+    if (status === "CANCELLED") {
+      return "CANCELLED";
+    }
+
+    if (status === "POSTPONED") {
+      return "POSTPONED";
+    }
+
+    if (["FINISHED", "AWARDED"].includes(status)) {
+      return "FT";
+    }
+
+    if (["LIVE", "IN_PLAY", "PAUSED", "SUSPENDED"].includes(status)) {
+      return "LIVE";
+    }
+
+    return "SCHEDULED";
+  }
+
   if (providerKey === API_FOOTBALL_PROVIDER_KEY) {
     const status = String(providerFixture.fixture?.status?.short || "").toUpperCase();
 
@@ -731,6 +892,13 @@ function getProviderStatus(providerFixture, providerKey) {
 }
 
 function getProviderScore(providerFixture, participants, providerKey) {
+  if (providerKey === FOOTBALL_DATA_PROVIDER_KEY) {
+    const fullTime = providerFixture.score?.fullTime || {};
+    const home = Number(fullTime.home ?? fullTime.homeTeam);
+    const away = Number(fullTime.away ?? fullTime.awayTeam);
+    return Number.isFinite(home) && Number.isFinite(away) ? { away, home } : null;
+  }
+
   if (providerKey === API_FOOTBALL_PROVIDER_KEY) {
     const home = Number(providerFixture.goals?.home);
     const away = Number(providerFixture.goals?.away);

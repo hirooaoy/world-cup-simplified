@@ -22,7 +22,6 @@ const calendarYesterdayButton = document.querySelector("#calendar-yesterday");
 const calendarTodayButton = document.querySelector("#calendar-today");
 const catchUpButton = document.querySelector("#catch-up-button");
 const catchUpPopover = document.querySelector("#catch-up-popover");
-const catchUpDate = document.querySelector("#catch-up-date");
 const catchUpList = document.querySelector("#catch-up-list");
 const standingsYearButton = document.querySelector("#standings-year-button");
 const standingsYearPopover = document.querySelector("#standings-year-popover");
@@ -239,12 +238,6 @@ const calendarDayLabelFormatter = new Intl.DateTimeFormat("en-US", {
   timeZone: "UTC",
   weekday: "long",
   year: "numeric"
-});
-
-const catchUpItemDateFormatter = new Intl.DateTimeFormat("en-US", {
-  day: "numeric",
-  month: "short",
-  timeZone: "UTC"
 });
 
 const catchUpItemLeadDateFormatter = new Intl.DateTimeFormat("en-US", {
@@ -827,15 +820,63 @@ function getStandingName(team) {
 
 function renderTeamInline(team, className = "team", options = {}) {
   const { showRank = true } = options;
-  const teamName = escapeHtml(team.name);
+  const teamName = team.name || "";
+  const escapedTeamName = escapeHtml(teamName);
+  const tooltipAttributes = teamName
+    ? ` aria-label="${escapedTeamName}" data-tooltip="${escapedTeamName}"`
+    : "";
 
   return `
-    <span class="${className}">
+    <span class="${escapeHtml(className)}"${tooltipAttributes}>
       ${renderFlag(team)}
-      <span class="team-name" aria-label="${teamName}" title="${teamName}">${teamName}</span>
+      <span class="team-name" aria-label="${escapedTeamName}">${escapedTeamName}</span>
       ${showRank ? renderRank(team) : ""}
     </span>
   `;
+}
+
+function setNameTooltipAnchor(container, name) {
+  const containerRect = container.getBoundingClientRect();
+  const nameRect = name.getBoundingClientRect();
+  if (!containerRect.width || !nameRect.width) {
+    return;
+  }
+
+  const anchorX = nameRect.left - containerRect.left + nameRect.width / 2;
+  container.style.setProperty("--name-tooltip-anchor", `${Math.round(anchorX)}px`);
+}
+
+function updateTruncatedTeamTooltips(root = document) {
+  root
+    .querySelectorAll(".team[data-tooltip], .past-team[data-tooltip], .summary-team[data-tooltip]")
+    .forEach((team) => {
+      const name = team.querySelector(".team-name");
+      if (!name) {
+        team.classList.remove("has-team-tooltip");
+        team.style.removeProperty("--name-tooltip-anchor");
+        return;
+      }
+
+      const isTruncated = name.scrollWidth > name.clientWidth + 1;
+      const hasEllipsisText = name.textContent.includes("...");
+      const shouldShowTooltip = isTruncated || hasEllipsisText;
+      team.classList.toggle("has-team-tooltip", shouldShowTooltip);
+
+      if (shouldShowTooltip) {
+        setNameTooltipAnchor(team, name);
+      } else {
+        team.style.removeProperty("--name-tooltip-anchor");
+      }
+    });
+}
+
+function updateStandingNameTooltips(root = document) {
+  root.querySelectorAll(".standing-team.has-name-tooltip").forEach((team) => {
+    const name = team.querySelector(".standing-name");
+    if (name) {
+      setNameTooltipAnchor(team, name);
+    }
+  });
 }
 
 function getVenueLabel(match) {
@@ -1429,6 +1470,7 @@ function renderStandingsView() {
     selectedStandingsYear === CURRENT_STANDINGS_YEAR
       ? renderCurrentStandingsCards()
       : renderHistoricalStandingsCards(selectedStandingsYear);
+  updateStandingNameTooltips(standingsGrid);
 }
 
 function renderPredictionBar(label, value) {
@@ -1762,8 +1804,13 @@ function getPlayerAliases(player, allPlayers) {
   const candidateCounts = new Map();
   for (const other of allPlayers) {
     const otherNameParts = getPlayerName(other).split(/\s+/).filter(Boolean);
-    for (const part of [otherNameParts[0], otherNameParts.at(-1)].filter(Boolean)) {
-      const key = normalizeTextKey(part);
+    const uniqueNamePartKeys = [
+      otherNameParts[0],
+      otherNameParts.at(-1)
+    ]
+      .filter(Boolean)
+      .map((part) => normalizeTextKey(part));
+    for (const key of new Set(uniqueNamePartKeys)) {
       candidateCounts.set(key, (candidateCounts.get(key) || 0) + 1);
     }
   }
@@ -2869,6 +2916,7 @@ function renderMatchInfo(match, options = {}) {
   if (match.isHistorical) {
     matchInfo.innerHTML = renderHistoricalMatchInfo(match);
     positionPlayerCards();
+    updateTruncatedTeamTooltips(matchInfo);
     if (options.reveal) {
       revealMatchInfoOnSmallScreens();
     }
@@ -2908,6 +2956,7 @@ function renderMatchInfo(match, options = {}) {
     </section>
   `;
   positionPlayerCards();
+  updateTruncatedTeamTooltips(matchInfo);
 
   if (options.reveal) {
     revealMatchInfoOnSmallScreens();
@@ -3281,23 +3330,6 @@ function getCatchUpWindowDayKeys() {
   return [shiftDayKey(todayKey, -1), todayKey];
 }
 
-function getCatchUpRangeLabel(dayKeys) {
-  if (!dayKeys.length) {
-    return "";
-  }
-
-  const [startKey] = dayKeys;
-  const endKey = dayKeys.at(-1);
-
-  if (startKey === endKey) {
-    return navDateFormatter.format(getDateFromKey(startKey));
-  }
-
-  return `${navDateFormatter.format(getDateFromKey(startKey))}-${catchUpItemDateFormatter.format(
-    getDateFromKey(endKey)
-  )}`;
-}
-
 function hasMatchStarted(match) {
   return match.status === "FT" || match.status === "LIVE";
 }
@@ -3314,15 +3346,6 @@ function getCatchUpMatchRank(match) {
   return 2;
 }
 
-function compareCatchUpItemsChronologically(a, b) {
-  return (
-    (a.sortValue || "").localeCompare(b.sortValue || "") ||
-    (a.dateKey || "").localeCompare(b.dateKey || "") ||
-    (a.priority ?? 99) - (b.priority ?? 99) ||
-    a.headline.localeCompare(b.headline)
-  );
-}
-
 function compareCatchUpItemsByRecency(a, b) {
   return (
     (b.sortValue || "").localeCompare(a.sortValue || "") ||
@@ -3335,7 +3358,7 @@ function compareCatchUpItemsByRecency(a, b) {
 function getCatchUpItems() {
   const dayKeys = new Set(getCatchUpWindowDayKeys());
 
-  const items = fixtures
+  return fixtures
     .filter((fixture) => dayKeys.has(getFixtureDayKey(fixture)) && hasMatchStarted(fixture))
     .sort(
       (a, b) =>
@@ -3349,8 +3372,6 @@ function getCatchUpItems() {
     })
     .sort(compareCatchUpItemsByRecency)
     .slice(0, 5);
-
-  return items.sort(compareCatchUpItemsChronologically);
 }
 
 function splitCatchUpBullet(text) {
@@ -3429,25 +3450,23 @@ function renderCatchUpGroups(items) {
 }
 
 function renderCatchUp() {
-  if (!catchUpDate || !catchUpList) {
+  if (!catchUpList) {
     return;
   }
 
   const dayKeys = getCatchUpWindowDayKeys();
-  const startKey = dayKeys[0] || selectedDayKey;
-  const startDate = getDateFromKey(startKey);
+  const latestKey = dayKeys.at(-1) || selectedDayKey;
+  const latestDate = getDateFromKey(latestKey);
   const items = getCatchUpItems();
 
-  catchUpDate.dateTime = startKey;
-  catchUpDate.textContent = getCatchUpRangeLabel(dayKeys);
   catchUpList.innerHTML = items.length
     ? renderCatchUpGroups(items)
     : `
       <section class="catch-up-group" aria-label="${escapeHtml(
-        catchUpItemLeadDateFormatter.format(startDate)
+        catchUpItemLeadDateFormatter.format(latestDate)
       )}">
-        <time class="catch-up-group-date" datetime="${escapeHtml(startKey)}">${escapeHtml(
-          catchUpItemLeadDateFormatter.format(startDate)
+        <time class="catch-up-group-date" datetime="${escapeHtml(latestKey)}">${escapeHtml(
+          catchUpItemLeadDateFormatter.format(latestDate)
         )}</time>
         <div class="catch-up-group-items">
           <article class="catch-up-item">
@@ -3540,6 +3559,7 @@ function renderSchedule() {
     renderMatchInfoPrompt();
   }
 
+  updateTruncatedTeamTooltips(matchList);
   updateUrlState();
 }
 
@@ -3555,6 +3575,8 @@ function setActiveView(view) {
     panel.classList.toggle("is-hidden", panelView !== activeView);
     panel.hidden = panelView !== activeView;
   });
+  updateTruncatedTeamTooltips(viewPanels.matches);
+  updateStandingNameTooltips(standingsGrid);
   updateUrlState();
 }
 
@@ -3908,6 +3930,8 @@ document.addEventListener("keydown", (event) => {
 window.addEventListener("resize", () => {
   positionCatchUpPopover();
   positionPlayerCards();
+  updateTruncatedTeamTooltips();
+  updateStandingNameTooltips();
 });
 window.addEventListener(
   "scroll",

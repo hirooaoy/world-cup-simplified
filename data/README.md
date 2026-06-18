@@ -63,7 +63,7 @@ The script uses Wikipedia football infoboxes for current club, position, and pho
 ## Update Cadence
 
 Preferred production path:
-- Configure `/api/live-data` with an API-Football key on the free plan.
+- Configure `/api/live-data` with a football-data.org key on the free delayed-score plan.
 - Let the server-side live snapshot merge recent scores/status and recompute standings automatically.
 - Keep manual JSON updates as the editorial/fallback layer, not the main live-update mechanism.
 

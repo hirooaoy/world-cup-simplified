@@ -227,6 +227,26 @@ try {
     "Player hover card should not repeat the linked player name as a subtitle."
   );
 
+  await page.goto(`${baseUrl}?view=matches&date=2026-06-26&tz=America%2FLos_Angeles`, {
+    waitUntil: "load"
+  });
+  await page.waitForSelector(".match-row");
+  await page.locator('[data-match-id="cabo-verde-saudi-arabia-2026-06-26"]').click();
+  const vozinhaLink = page.locator(".key-info-team .player-link", { hasText: "Vozinha" }).first();
+  assert(
+    (await vozinhaLink.count()) === 1,
+    "Single-name player aliases should link from key information."
+  );
+  const vozinhaCard = vozinhaLink
+    .locator("xpath=ancestor::span[contains(concat(' ', normalize-space(@class), ' '), ' player-hover ')][1]")
+    .locator(".player-card");
+  await vozinhaLink.hover();
+  await vozinhaCard.waitFor({ state: "visible" });
+  assert(
+    (await vozinhaCard.locator(".player-photo img, .player-photo-fallback").count()) === 1,
+    "Single-name player hover cards should include a face or initials fallback."
+  );
+
   await page.locator("#matches-tab").focus();
   await page.keyboard.press("ArrowRight");
   assert(
@@ -424,7 +444,43 @@ try {
     datedLinkLabel === "Jun 18" || datedLinkLabel === "Today",
     "Dated links should open the requested match date."
   );
-  await page.locator('[data-match-id="switzerland-bosnia-2026-06-18"]').click();
+  await page.setViewportSize({ width: 640, height: 720 });
+  await page.waitForTimeout(80);
+  const switzerlandBosniaRow = page.locator('[data-match-id="switzerland-bosnia-2026-06-18"]');
+  const bosniaMatchTeam = switzerlandBosniaRow.locator(".team.has-team-tooltip", {
+    hasText: "Bosnia and Herzegovina"
+  });
+  const qatarMatchTeam = page.locator('[data-match-id="canada-qatar-2026-06-18"] .team', {
+    hasText: "Qatar"
+  });
+  assert(
+    !(await qatarMatchTeam.evaluate((team) => team.classList.contains("has-team-tooltip"))),
+    "Short match row names should not show full-name tooltips when they are not truncated."
+  );
+  await bosniaMatchTeam.hover();
+  await page.waitForTimeout(160);
+  const bosniaMatchTooltip = await bosniaMatchTeam.evaluate((team) => {
+    const name = team.querySelector(".team-name");
+    const teamRect = team.getBoundingClientRect();
+    const nameRect = name.getBoundingClientRect();
+    const tooltipStyle = getComputedStyle(team, "::after");
+    return {
+      anchor: Number(getComputedStyle(team).getPropertyValue("--name-tooltip-anchor").replace("px", "")),
+      content: tooltipStyle.content,
+      expectedAnchor: Math.round(nameRect.left - teamRect.left + nameRect.width / 2),
+      opacity: Number(tooltipStyle.opacity),
+      tooltip: team.getAttribute("data-tooltip")
+    };
+  });
+  assert(
+    bosniaMatchTooltip.tooltip === "Bosnia and Herzegovina" &&
+      bosniaMatchTooltip.content.includes("Bosnia and Herzegovina") &&
+      Math.abs(bosniaMatchTooltip.anchor - bosniaMatchTooltip.expectedAnchor) <= 1 &&
+      bosniaMatchTooltip.opacity > 0.9,
+    "Bosnia and Herzegovina should reveal its full name when the shortened match row label is hovered."
+  );
+  await page.setViewportSize({ width: 1280, height: 720 });
+  await switzerlandBosniaRow.click();
   const finalMatchDetailText = await page.locator("#match-info").innerText();
   assert(
     finalMatchDetailText.includes("Result") &&
@@ -599,6 +655,11 @@ try {
   const catchUpCheck = await openPageAtTime("2026-06-18T05:30:00.000Z");
   await catchUpCheck.page.locator("#catch-up-button").click();
   const catchUpText = await catchUpCheck.page.locator("#catch-up-popover").innerText();
+  assert(
+    (await catchUpCheck.page.locator(".catch-up-header").count()) === 0 &&
+      (await catchUpCheck.page.locator("#catch-up-popover").getAttribute("aria-label")) === "Catch Up",
+    "The catch-up popover should not show a header title or date range."
+  );
   const catchUpItems = await catchUpCheck.page.locator(".catch-up-item").evaluateAll((items) =>
     items.map((item) => ({
       time: item.closest(".catch-up-group")?.querySelector(".catch-up-group-date")?.textContent.trim(),
@@ -627,13 +688,13 @@ try {
   assert(
     catchUpHeadlines.join("|") ===
       [
-        "Austria look sharp against Jordan",
-        "Portugal and DR Congo split the points",
-        "England look sharp against Croatia",
+        "Colombia take control of Group K",
         "Ghana leave it late against Panama",
-        "Colombia take control of Group K"
+        "England look sharp against Croatia",
+        "Portugal and DR Congo split the points",
+        "Austria look sharp against Jordan"
       ].join("|"),
-    "The catch-up feed should show the latest updates in chronological order."
+    "The catch-up feed should show the latest updates first."
   );
   assert(
     portugalCatchUpItem?.sourceHref.includes("portugal-dr-congo-world-cup-2026-group-k-match-report"),
@@ -748,9 +809,14 @@ try {
   await bosniaStandingTeam.hover();
   await page.waitForTimeout(160);
   const bosniaTooltip = await bosniaStandingTeam.evaluate((team) => {
+    const name = team.querySelector(".standing-name");
+    const teamRect = team.getBoundingClientRect();
+    const nameRect = name.getBoundingClientRect();
     const tooltipStyle = getComputedStyle(team, "::after");
     return {
+      anchor: Number(getComputedStyle(team).getPropertyValue("--name-tooltip-anchor").replace("px", "")),
       content: tooltipStyle.content,
+      expectedAnchor: Math.round(nameRect.left - teamRect.left + nameRect.width / 2),
       opacity: Number(tooltipStyle.opacity),
       tooltip: team.getAttribute("data-tooltip")
     };
@@ -758,6 +824,7 @@ try {
   assert(
     bosniaTooltip.tooltip === "Bosnia and Herzegovina" &&
       bosniaTooltip.content.includes("Bosnia and Herzegovina") &&
+      Math.abs(bosniaTooltip.anchor - bosniaTooltip.expectedAnchor) <= 1 &&
       bosniaTooltip.opacity > 0.9,
     "Bosnia and Herzegovina should reveal its full name when the shortened standings row is hovered."
   );

@@ -1,4 +1,17 @@
 {
+  "footballData": {
+    "competition": "WC",
+    "season": "2026",
+    "fixtureIds": {
+      "argentina-algeria-2026-06-16": "replace-with-football-data-match-id"
+    },
+    "teamIds": {
+      "ARG": "replace-with-football-data-team-id",
+      "ALG": "replace-with-football-data-team-id",
+      "ENG": "replace-with-football-data-team-id",
+      "CRO": "replace-with-football-data-team-id"
+    }
+  },
   "apiFootball": {
     "leagueId": "1",
     "season": "2026",
