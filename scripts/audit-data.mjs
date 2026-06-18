@@ -8,7 +8,7 @@ const dataDir = path.join(root, "data");
 const now = new Date();
 const timeZone = process.env.WORLD_CUP_TZ || "America/Los_Angeles";
 const staleSourceHours = Number(process.env.STALE_SOURCE_HOURS || 12);
-const staleLiveHours = Number(process.env.STALE_LIVE_HOURS || 4);
+const staleLiveHours = Number(process.env.STALE_LIVE_HOURS || 2.5);
 const scheduledLiveWindowHours = Number(process.env.SCHEDULED_LIVE_WINDOW_HOURS || 2.25);
 const enrichmentWindowHours = Number(process.env.ENRICHMENT_WINDOW_HOURS || 48);
 const warnings = [];
@@ -58,8 +58,21 @@ function participantName(teamsById, fixture, side) {
   return teamId ? teamName(teamsById, teamId) : slot || "TBD";
 }
 
-const [fixturesData, standingsData, teamsData, tournamentData] = await Promise.all([
+function emptyStanding(teamId) {
+  return {
+    teamId,
+    played: 0,
+    wins: 0,
+    draws: 0,
+    losses: 0,
+    gf: 0,
+    ga: 0
+  };
+}
+
+const [fixturesData, historyData, standingsData, teamsData, tournamentData] = await Promise.all([
   readJson("fixtures.json"),
+  readJson("history.json"),
   readJson("standings.json"),
   readJson("teams.json"),
   readJson("tournament.json")
@@ -83,6 +96,9 @@ console.log(`Loaded fixture dates: ${loadedDayKeys.join(", ") || "none"}`);
 if (!["complete", "complete-schedule"].includes(fixturesData.coverage?.status)) {
   warnings.push("Fixture coverage is partial. Public users will see Not loaded for dates outside the loaded range.");
 }
+console.log(
+  `Historical archive: ${historyData.coverage?.status || "unknown"} (${historyData.fixtures?.length || 0} fixtures, ${historyData.tournaments?.length || 0} tournaments)`
+);
 
 console.log("");
 console.log("Sources:");
@@ -133,7 +149,9 @@ for (const fixture of fixtures) {
   }
 
   if (fixture.status === "LIVE" && hoursSinceKickoff > staleLiveHours) {
-    warnings.push(`${label} has been LIVE for ${hoursSinceKickoff.toFixed(1)}h. Confirm status or final score.`);
+    failures.push(`${label} has been LIVE for ${hoursSinceKickoff.toFixed(1)}h. Confirm status or final score.`);
+  } else if (fixture.status === "LIVE" && hoursSinceKickoff > scheduledLiveWindowHours) {
+    warnings.push(`${label} has been LIVE for ${hoursSinceKickoff.toFixed(1)}h. Confirm status soon.`);
   }
 
   if (fixture.status === "LIVE" && hoursSinceKickoff < -0.05) {
@@ -152,6 +170,17 @@ for (const fixture of fixtures) {
     warnings.push(`${label} has incomplete key player notes.`);
   }
 
+  if (
+    shouldAuditEnrichment &&
+    (!fixture.keyInformation?.home ||
+      !fixture.keyInformation?.away ||
+      /main names to track|key information is not loaded/i.test(
+        `${fixture.keyInformation?.home || ""} ${fixture.keyInformation?.away || ""}`
+      ))
+  ) {
+    warnings.push(`${label} has incomplete matchup key information.`);
+  }
+
   if (shouldAuditEnrichment && (!fixture.h2h || fixture.h2h.status === "not-loaded")) {
     warnings.push(`${label} has H2H marked not-loaded.`);
   }
@@ -160,6 +189,62 @@ for (const fixture of fixtures) {
 const standingGroups = Object.keys(standingsData.groups || {});
 if (standingGroups.length !== (tournamentData.groups || []).length) {
   failures.push(`Standings include ${standingGroups.length} groups, expected ${(tournamentData.groups || []).length}.`);
+}
+
+const computedStandings = new Map();
+for (const group of tournamentData.groups || []) {
+  for (const teamId of group.teamIds || []) {
+    computedStandings.set(teamId, emptyStanding(teamId));
+  }
+}
+
+for (const fixture of fixtures) {
+  if (fixture.stage !== "group" || fixture.status !== "FT" || !fixture.score) {
+    continue;
+  }
+
+  const home = computedStandings.get(fixture.homeTeamId);
+  const away = computedStandings.get(fixture.awayTeamId);
+  if (!home || !away) {
+    continue;
+  }
+
+  const homeScore = Number(fixture.score.home);
+  const awayScore = Number(fixture.score.away);
+  home.played += 1;
+  away.played += 1;
+  home.gf += homeScore;
+  home.ga += awayScore;
+  away.gf += awayScore;
+  away.ga += homeScore;
+
+  if (homeScore > awayScore) {
+    home.wins += 1;
+    away.losses += 1;
+  } else if (awayScore > homeScore) {
+    away.wins += 1;
+    home.losses += 1;
+  } else {
+    home.draws += 1;
+    away.draws += 1;
+  }
+}
+
+for (const [groupId, rows] of Object.entries(standingsData.groups || {})) {
+  for (const row of rows || []) {
+    const expected = computedStandings.get(row.teamId);
+    if (!expected) {
+      continue;
+    }
+
+    for (const key of ["played", "wins", "draws", "losses", "gf", "ga"]) {
+      if (row[key] !== expected[key]) {
+        failures.push(
+          `Standings group ${groupId} ${teamName(teamsById, row.teamId)} ${key} is ${row[key]}, expected ${expected[key]} from completed fixtures.`
+        );
+      }
+    }
+  }
 }
 
 console.log("");

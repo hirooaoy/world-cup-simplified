@@ -12,6 +12,18 @@ async function readJson(fileName) {
   return JSON.parse(await readFile(filePath, "utf8"));
 }
 
+async function readOptionalJson(fileName) {
+  try {
+    return await readJson(fileName);
+  } catch (error) {
+    if (error?.code === "ENOENT") {
+      return null;
+    }
+
+    throw error;
+  }
+}
+
 function fail(message) {
   errors.push(message);
 }
@@ -26,6 +38,10 @@ function isNumber(value) {
   return typeof value === "number" && Number.isFinite(value);
 }
 
+function isDayKey(value) {
+  return /^\d{4}-\d{2}-\d{2}$/.test(value || "") && !Number.isNaN(new Date(`${value}T12:00:00Z`).getTime());
+}
+
 function requireSourceIds(sourceIds, sourceIdSet, owner) {
   assert(Array.isArray(sourceIds), `${owner} must include sourceIds`);
   for (const sourceId of sourceIds || []) {
@@ -33,8 +49,47 @@ function requireSourceIds(sourceIds, sourceIdSet, owner) {
   }
 }
 
-const [fixturesData, standingsData, teamsData, tournamentData] = await Promise.all([
+function createEmptyStanding(teamId) {
+  return {
+    teamId,
+    played: 0,
+    wins: 0,
+    draws: 0,
+    losses: 0,
+    gf: 0,
+    ga: 0
+  };
+}
+
+function applyGroupResult(table, fixture) {
+  const home = table.get(fixture.homeTeamId);
+  const away = table.get(fixture.awayTeamId);
+  const homeScore = fixture.score.home;
+  const awayScore = fixture.score.away;
+
+  home.played += 1;
+  away.played += 1;
+  home.gf += homeScore;
+  home.ga += awayScore;
+  away.gf += awayScore;
+  away.ga += homeScore;
+
+  if (homeScore > awayScore) {
+    home.wins += 1;
+    away.losses += 1;
+  } else if (awayScore > homeScore) {
+    away.wins += 1;
+    home.losses += 1;
+  } else {
+    home.draws += 1;
+    away.draws += 1;
+  }
+}
+
+const [fixturesData, historyData, playerProfilesData, standingsData, teamsData, tournamentData] = await Promise.all([
   readJson("fixtures.json"),
+  readJson("history.json"),
+  readOptionalJson("player-profiles.json"),
   readJson("standings.json"),
   readJson("teams.json"),
   readJson("tournament.json")
@@ -51,6 +106,7 @@ for (const source of tournamentData.sources || []) {
 }
 
 requireSourceIds(fixturesData.sourceIds, sourceIds, "fixtures.json");
+requireSourceIds(historyData.sourceIds, sourceIds, "history.json");
 requireSourceIds(standingsData.sourceIds, sourceIds, "standings.json");
 requireSourceIds(teamsData.sourceIds, sourceIds, "teams.json");
 
@@ -82,12 +138,34 @@ for (const team of teamsData.teams || []) {
   teams.set(team.id, team);
 }
 
+if (playerProfilesData) {
+  assert(
+    typeof playerProfilesData.updatedAt === "string" &&
+      !Number.isNaN(new Date(playerProfilesData.updatedAt).getTime()),
+    "player-profiles.json must include a valid updatedAt"
+  );
+  assert(
+    playerProfilesData.profiles && typeof playerProfilesData.profiles === "object",
+    "player-profiles.json must include profiles"
+  );
+}
+
+const playerProfiles = new Map(Object.entries(playerProfilesData?.profiles || {}));
+const requiredProfileNames = new Set();
+
 for (const group of groups.values()) {
   for (const teamId of group.teamIds) {
     assert(teams.has(teamId), `Group "${group.id}" references unknown team "${teamId}"`);
     assert(teams.get(teamId)?.groupId === group.id, `Team "${teamId}" group does not match group "${group.id}"`);
   }
 }
+
+const computedStandings = new Map(
+  [...groups.values()].map((group) => [
+    group.id,
+    new Map(group.teamIds.map((teamId) => [teamId, createEmptyStanding(teamId)]))
+  ])
+);
 
 for (const [groupId, rows] of Object.entries(standingsData.groups || {})) {
   assert(groups.has(groupId), `standings.json includes unknown group "${groupId}"`);
@@ -151,6 +229,17 @@ for (const fixture of fixturesData.fixtures || []) {
     assert(fixture.score, `Final fixture "${fixture.id}" must include score`);
     assert(isNumber(fixture.score?.home), `Final fixture "${fixture.id}" must include numeric home score`);
     assert(isNumber(fixture.score?.away), `Final fixture "${fixture.id}" must include numeric away score`);
+
+    if (
+      fixture.stage === "group" &&
+      groups.has(fixture.groupId) &&
+      teams.has(fixture.homeTeamId) &&
+      teams.has(fixture.awayTeamId) &&
+      isNumber(fixture.score?.home) &&
+      isNumber(fixture.score?.away)
+    ) {
+      applyGroupResult(computedStandings.get(fixture.groupId), fixture);
+    }
   }
 
   if (fixture.projection) {
@@ -163,6 +252,55 @@ for (const fixture of fixturesData.fixtures || []) {
     assert(sourceIds.has(fixture.keyPlayers.sourceId), `Fixture "${fixture.id}" keyPlayers references unknown source`);
     assert(Array.isArray(fixture.keyPlayers.home), `Fixture "${fixture.id}" keyPlayers.home must be an array`);
     assert(Array.isArray(fixture.keyPlayers.away), `Fixture "${fixture.id}" keyPlayers.away must be an array`);
+
+    if (fixture.stage === "group") {
+      for (const side of ["home", "away"]) {
+        for (const [index, player] of (fixture.keyPlayers[side] || []).entries()) {
+          assert(
+            typeof player === "object" && typeof player.name === "string" && player.name.trim(),
+            `Fixture "${fixture.id}" keyPlayers.${side}[${index}] must include a player name`
+          );
+          if (typeof player?.name === "string" && player.name.trim()) {
+            requiredProfileNames.add(player.name);
+          }
+          assert(
+            typeof player === "object" && typeof player.note === "string" && player.note.trim(),
+            `Fixture "${fixture.id}" keyPlayers.${side}[${index}] must include a player note`
+          );
+        }
+      }
+    }
+  }
+
+  if (fixture.keyInformation) {
+    assert(
+      sourceIds.has(fixture.keyInformation.sourceId),
+      `Fixture "${fixture.id}" keyInformation references unknown source`
+    );
+  }
+
+  if (fixture.stage === "group") {
+    assert(fixture.keyInformation, `Group fixture "${fixture.id}" must include matchup-aware keyInformation`);
+
+    for (const side of ["home", "away"]) {
+      const copy = fixture.keyInformation?.[side];
+      assert(
+        typeof copy === "string" && copy.trim().length >= 180,
+        `Group fixture "${fixture.id}" keyInformation.${side} must include a detailed matchup note`
+      );
+      assert(
+        typeof copy === "string" && copy.trim().split(/\s+/).length <= 85,
+        `Group fixture "${fixture.id}" keyInformation.${side} should stay concise`
+      );
+      assert(
+        !/main names to track|key information is not loaded/i.test(copy || ""),
+        `Group fixture "${fixture.id}" keyInformation.${side} uses generic placeholder wording`
+      );
+      assert(
+        /Against /.test(copy || ""),
+        `Group fixture "${fixture.id}" keyInformation.${side} must describe the opponent relationship`
+      );
+    }
   }
 
   assert(fixture.h2h, `Fixture "${fixture.id}" must include h2h status`);
@@ -205,6 +343,100 @@ for (const fixture of fixturesData.fixtures || []) {
   }
 }
 
+for (const playerName of requiredProfileNames) {
+  if (!playerProfilesData) {
+    continue;
+  }
+
+  const profile = playerProfiles.get(playerName);
+  assert(profile, `player-profiles.json is missing "${playerName}"`);
+  if (!profile) {
+    continue;
+  }
+
+  assert(
+    typeof profile.position === "string" && profile.position.trim(),
+    `player-profiles.json "${playerName}" must include position`
+  );
+  assert(
+    typeof profile.club === "string" && profile.club.trim(),
+    `player-profiles.json "${playerName}" must include club`
+  );
+  assert(
+    Array.isArray(profile.skills) && profile.skills.length > 0,
+    `player-profiles.json "${playerName}" must include skills`
+  );
+}
+
+for (const [groupId, rows] of Object.entries(standingsData.groups || {})) {
+  const expectedRows = computedStandings.get(groupId);
+
+  for (const row of rows || []) {
+    const expected = expectedRows?.get(row.teamId);
+    if (!expected) {
+      continue;
+    }
+
+    for (const key of ["played", "wins", "draws", "losses", "gf", "ga"]) {
+      assert(
+        row[key] === expected[key],
+        `Standings row "${row.teamId}" ${key} is ${row[key]}, expected ${expected[key]} from final group fixtures`
+      );
+    }
+  }
+}
+
+const historicalTournamentYears = new Set();
+for (const tournament of historyData.tournaments || []) {
+  assert(isNumber(tournament.year), "Each historical tournament must have a numeric year");
+  assert(tournament.name, `Historical tournament "${tournament.year}" must have a name`);
+  assert(isDayKey(tournament.startDate), `Historical tournament "${tournament.year}" must include a valid startDate`);
+  assert(isDayKey(tournament.endDate), `Historical tournament "${tournament.year}" must include a valid endDate`);
+  assert(isNumber(tournament.matchCount), `Historical tournament "${tournament.year}" must include matchCount`);
+  assert(isNumber(tournament.teamCount), `Historical tournament "${tournament.year}" must include teamCount`);
+  assert(Array.isArray(tournament.teams), `Historical tournament "${tournament.year}" must include teams`);
+  historicalTournamentYears.add(tournament.year);
+}
+
+const historicalFixtureIds = new Set();
+for (const fixture of historyData.fixtures || []) {
+  assert(fixture.id, "Each historical fixture must have an id");
+  assert(!historicalFixtureIds.has(fixture.id), `Duplicate historical fixture id "${fixture.id}"`);
+  historicalFixtureIds.add(fixture.id);
+  assert(fixture.isHistorical === true, `Historical fixture "${fixture.id}" must be marked isHistorical`);
+  assert(sourceIds.has(fixture.sourceId), `Historical fixture "${fixture.id}" references unknown source`);
+  assert(fixture.sourcePath, `Historical fixture "${fixture.id}" must include sourcePath`);
+  assert(isNumber(fixture.tournamentYear), `Historical fixture "${fixture.id}" must include tournamentYear`);
+  assert(
+    historicalTournamentYears.has(fixture.tournamentYear),
+    `Historical fixture "${fixture.id}" references unknown tournament year "${fixture.tournamentYear}"`
+  );
+  assert(fixture.tournamentName, `Historical fixture "${fixture.id}" must include tournamentName`);
+  assert(isDayKey(fixture.date), `Historical fixture "${fixture.id}" must include a valid date`);
+  assert(fixture.sortKey, `Historical fixture "${fixture.id}" must include sortKey`);
+  assert(fixture.round, `Historical fixture "${fixture.id}" must include round`);
+  assert(fixture.homeSlot, `Historical fixture "${fixture.id}" must include homeSlot`);
+  assert(fixture.awaySlot, `Historical fixture "${fixture.id}" must include awaySlot`);
+  assert(fixture.venue, `Historical fixture "${fixture.id}" must include venue`);
+  assert(
+    ["FT", "SCHEDULED", "CANCELLED"].includes(fixture.status),
+    `Historical fixture "${fixture.id}" has invalid status`
+  );
+  if (fixture.localTime) {
+    assert(
+      /^\d{1,2}:\d{2}(?: UTC[+-]\d{1,2})?$/.test(fixture.localTime),
+      `Historical fixture "${fixture.id}" has invalid localTime`
+    );
+  }
+  if (fixture.status === "FT") {
+    assert(fixture.score, `Historical final fixture "${fixture.id}" must include score`);
+    assert(isNumber(fixture.score?.home), `Historical final fixture "${fixture.id}" must include numeric home score`);
+    assert(isNumber(fixture.score?.away), `Historical final fixture "${fixture.id}" must include numeric away score`);
+  }
+  assert(Array.isArray(fixture.goalsHome), `Historical fixture "${fixture.id}" goalsHome must be an array`);
+  assert(Array.isArray(fixture.goalsAway), `Historical fixture "${fixture.id}" goalsAway must be an array`);
+}
+
 if (errors.length) {
   console.error(`Data validation failed with ${errors.length} issue${errors.length === 1 ? "" : "s"}:`);
   for (const error of errors) {
@@ -214,5 +446,5 @@ if (errors.length) {
 }
 
 console.log(
-  `Data validation passed: ${teams.size} teams, ${groups.size} groups, ${fixtureIds.size} fixtures, ${sourceIds.size} sources.`
+  `Data validation passed: ${teams.size} teams, ${groups.size} groups, ${fixtureIds.size} fixtures, ${historicalFixtureIds.size} historical fixtures, ${sourceIds.size} sources.`
 );

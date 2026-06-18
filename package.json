@@ -6,6 +6,9 @@
   "packageManager": "pnpm@11.0.7",
   "scripts": {
     "audit": "node scripts/audit-data.mjs",
+    "import:history": "node scripts/import-world-cup-history.mjs",
+    "matchups": "node scripts/populate-matchup-key-information.mjs",
+    "profiles": "node scripts/populate-player-profiles.mjs",
     "smoke": "node scripts/ui-smoke.mjs",
     "test": "node scripts/validate-data.mjs && node scripts/audit-data.mjs && node scripts/ui-smoke.mjs",
     "validate": "node scripts/validate-data.mjs"

@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-17T13:58:03-07:00",
+  "updatedAt": "2026-06-18T08:54:42-07:00",
   "coverageNote": "The current seed dataset covers the full official fixture skeleton from June 11 through July 19. Rich previews, scores, live status and knockout participants are updated progressively.",
   "sources": [
     {
@@ -8,6 +8,13 @@
       "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/match-schedule-fixtures-results-teams-stadiums",
       "type": "official",
       "checkedAt": "2026-06-17T12:55:14-07:00"
+    },
+    {
+      "id": "fifa-debutants-2026-06-17",
+      "label": "FIFA World Cup 2026 debutants",
+      "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/debutants-cabo-verde-curacao-jordan-uzbekistan",
+      "type": "official",
+      "checkedAt": "2026-06-17T14:58:16-07:00"
     },
     {
       "id": "fifa-ranking-2026-06-11",
@@ -21,7 +28,7 @@
       "label": "FIFA World Cup 2026 standings",
       "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/standings",
       "type": "official",
-      "checkedAt": "2026-06-17T13:58:03-07:00"
+      "checkedAt": "2026-06-17T15:40:00-07:00"
     },
     {
       "id": "fox-schedule-2026-06-17",
@@ -77,21 +84,42 @@
       "label": "National Football Teams H2H encounter records",
       "url": "https://www.national-football-teams.com/",
       "type": "cross-check",
-      "checkedAt": "2026-06-17T13:48:00-07:00"
+      "checkedAt": "2026-06-17T14:58:16-07:00"
     },
     {
-      "id": "mint-england-croatia-live-2026-06-17",
-      "label": "Mint England vs Croatia live score cross-check",
-      "url": "https://www.livemint.com/sports/football-news/fifa-world-cup-england-10-vs-croatia-3-live-score-1489384",
+      "id": "england-football-england-croatia-2026-06-17",
+      "label": "England Football England vs Croatia final score cross-check",
+      "url": "https://www.englandfootball.com/england/mens-senior-team/fixtures-results/2025-26/World-Cup/england-v-croatia-fifa-world-cup-wednesday-17-june-2026-match-centre",
       "type": "cross-check",
-      "checkedAt": "2026-06-17T13:58:03-07:00"
+      "checkedAt": "2026-06-17T15:40:00-07:00"
     },
     {
-      "id": "global-sports-archive-england-croatia-live-2026-06-17",
-      "label": "Global Sports Archive England vs Croatia live score cross-check",
-      "url": "https://globalsportsarchive.com/en/soccer/match/2026-06-17/england-vs-croatia/3592452",
+      "id": "aljazeera-england-croatia-2026-06-17",
+      "label": "Al Jazeera England vs Croatia final score cross-check",
+      "url": "https://www.aljazeera.com/sports/liveblog/2026/6/17/england-vs-croatia-live-world-cup-2026",
       "type": "cross-check",
-      "checkedAt": "2026-06-17T13:58:03-07:00"
+      "checkedAt": "2026-06-17T15:40:00-07:00"
+    },
+    {
+      "id": "fifa-ghana-panama-result-2026-06-18",
+      "label": "FIFA Ghana vs Panama final score",
+      "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/ghana-panama-highlights-match-report",
+      "type": "official",
+      "checkedAt": "2026-06-18T08:54:42-07:00"
+    },
+    {
+      "id": "fifa-uzbekistan-colombia-result-2026-06-18",
+      "label": "FIFA Uzbekistan vs Colombia final score",
+      "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/uzbekistan-colombia-match-report-highlights",
+      "type": "official",
+      "checkedAt": "2026-06-18T08:54:42-07:00"
+    },
+    {
+      "id": "openfootball-worldcup-json-2026-06-17",
+      "label": "openfootball World Cup JSON",
+      "url": "https://github.com/openfootball/worldcup.json",
+      "type": "public-domain-data",
+      "checkedAt": "2026-06-17T15:08:00-07:00"
     }
   ],
   "groups": [

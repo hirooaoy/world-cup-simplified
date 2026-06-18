@@ -44,6 +44,22 @@ node scripts/populate-enrichment-baselines.mjs
 
 The script preserves curated player notes, loaded H2H results, and verified-empty H2H records by default. Pass `--overwrite` only when intentionally regenerating all known-team group fixture enrichment baselines.
 
+Run this after player-note or fixture updates to refresh opponent-specific key-information blurbs for each group fixture:
+
+```bash
+node scripts/populate-matchup-key-information.mjs
+```
+
+These notes are editorial matchup previews. Each group fixture should explain both the team's own plan and how that plan relates to the opponent.
+
+Run this after key-player changes or transfer/profile updates to refresh hover-card player metadata:
+
+```bash
+node scripts/populate-player-profiles.mjs
+```
+
+The script uses Wikipedia football infoboxes for current club, position, and photos, then derives skill tags from the editorial key-player notes.
+
 ## Update Cadence
 
 Normal non-match days:
@@ -57,6 +73,8 @@ Match days:
 During live matches:
 - If there is no live API, update `status` manually from `SCHEDULED` to `LIVE`, then to `FT` with `score`.
 - Do not rely on kickoff time alone for live status.
+
+For authored `catchUp` entries, keep the headline and body score-focused. Add optional `standouts` only when a source supports the player note; one compact sentence is enough.
 
 ## Required Update Steps
 
@@ -75,6 +93,16 @@ node scripts/audit-data.mjs
    - standings tab
    - selected match info card
    - footer source note
+
+## Historical Archive
+
+`data/history.json` contains past men's World Cup match records from 1930 through 2022. It is generated from the public-domain `openfootball/worldcup.json` project:
+
+```bash
+node scripts/import-world-cup-history.mjs
+```
+
+The historical archive lives outside the 2026 fixture/standings model on purpose. Past teams do not have to belong to 2026 groups, and historical dates are preserved as tournament-local dates instead of being shifted by the user's selected timezone.
 
 ## Status Rules
 

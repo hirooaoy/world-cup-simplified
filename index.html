@@ -8,26 +8,30 @@
       name="description"
       content="A simplified match and standings guide for the 2026 FIFA World Cup."
     />
-    <link rel="canonical" href="https://worldcupsimplified.com/" />
+    <link rel="canonical" href="https://world-cup-simplified.vercel.app/" />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://worldcupsimplified.com/" />
+    <meta property="og:url" content="https://world-cup-simplified.vercel.app/" />
     <meta property="og:title" content="World Cup Simplified" />
     <meta
       property="og:description"
       content="A simplified match and standings guide for the 2026 FIFA World Cup."
     />
-    <meta property="og:image" content="https://worldcupsimplified.com/assets/site-thumbnail.png?v=child-drawn" />
+    <meta property="og:image" content="https://world-cup-simplified.vercel.app/assets/site-thumbnail.png?v=2026-06-17-1213" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="World Cup Simplified" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="World Cup Simplified" />
     <meta
       name="twitter:description"
       content="A simplified match and standings guide for the 2026 FIFA World Cup."
     />
-    <meta name="twitter:image" content="https://worldcupsimplified.com/assets/site-thumbnail.png?v=child-drawn" />
+    <meta name="twitter:image" content="https://world-cup-simplified.vercel.app/assets/site-thumbnail.png?v=2026-06-17-1213" />
+    <meta name="twitter:image:alt" content="World Cup Simplified" />
     <meta name="theme-color" content="#ffffff" />
-    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
-    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg?v=2026-06-17-1209" />
+    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=2026-06-17-1213" />
+    <link rel="stylesheet" href="styles.css?v=2026-06-18-calendar-shortcuts" />
   </head>
   <body>
     <header class="site-header">
@@ -49,14 +53,28 @@
         </svg>
         <span>World Cup Simplified</span>
       </a>
-      <nav class="view-tabs" aria-label="World Cup views" role="tablist">
-        <button class="view-tab is-active" id="matches-tab" type="button" role="tab" data-view="matches" aria-controls="matches-view" aria-selected="true">
-          Matches
-        </button>
-        <button class="view-tab" id="standings-tab" type="button" role="tab" data-view="standings" aria-controls="standings-view" aria-selected="false" tabindex="-1">
-          Standings
-        </button>
-      </nav>
+      <div class="header-view-actions">
+        <nav class="view-tabs" aria-label="World Cup views" role="tablist">
+          <button class="view-tab is-active" id="matches-tab" type="button" role="tab" data-view="matches" aria-controls="matches-view" aria-selected="true">
+            Matches
+          </button>
+          <button class="view-tab" id="standings-tab" type="button" role="tab" data-view="standings" aria-controls="standings-view" aria-selected="false" tabindex="-1">
+            Standings
+          </button>
+        </nav>
+        <div class="catch-up-shell">
+          <button class="catch-up-button" id="catch-up-button" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="catch-up-popover">
+            Catch Up
+          </button>
+          <div class="catch-up-popover is-hidden" id="catch-up-popover" role="dialog" aria-labelledby="catch-up-heading">
+            <div class="catch-up-header">
+              <h2 id="catch-up-heading">Catch Up</h2>
+              <time id="catch-up-date" datetime="">Today</time>
+            </div>
+            <div class="catch-up-list" id="catch-up-list"></div>
+          </div>
+        </div>
+      </div>
       <label class="timezone-control">
         <span class="visually-hidden">Time zone</span>
         <select class="timezone-select" id="timezone-select"></select>
@@ -88,7 +106,8 @@
             </div>
             <div class="calendar-grid" id="calendar-grid"></div>
             <div class="calendar-footer">
-              <button class="calendar-today-button" id="calendar-today" type="button">Today</button>
+              <button class="calendar-shortcut-button" id="calendar-yesterday" type="button">Yesterday</button>
+              <button class="calendar-shortcut-button" id="calendar-today" type="button">Today</button>
             </div>
           </div>
         </section>
@@ -102,8 +121,16 @@
 
       <section class="view-panel is-hidden" id="standings-view" role="tabpanel" aria-labelledby="standings-tab" hidden>
         <section class="standings-title">
-          <h1 id="standings-heading">Standings</h1>
-          <p>Top two in each group advance. The best eight third-place teams also reach the Round of 32.</p>
+          <h1 id="standings-heading">
+            <button class="standings-year-button" id="standings-year-button" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="standings-year-popover">
+              2026
+            </button>
+            <span>Standings</span>
+          </h1>
+          <div class="standings-year-popover is-hidden" id="standings-year-popover" role="dialog" aria-label="Choose standings year">
+            <div class="standings-year-grid" id="standings-year-grid"></div>
+          </div>
+          <p id="standings-summary">Top two in each group advance. The best eight third-place teams also reach the Round of 32.</p>
         </section>
         <section class="standings-grid" id="standings-grid" aria-live="polite" aria-label="Group standings"></section>
       </section>
@@ -111,10 +138,10 @@
 
     <footer class="site-footer">
       <p id="source-note">
-        Information sources: <a href="https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/match-schedule-fixtures-results-teams-stadiums">FIFA World Cup 2026 schedule</a>, <a href="https://inside.fifa.com/fifa-world-ranking/men">FIFA/Coca-Cola Men's World Ranking</a>, <a href="https://www.espn.com/soccer/match/_/gameId/760435">ESPN result cross-check</a>, <a href="https://www.national-football-teams.com/">National Football Teams H2H records</a>. Standings include cross-checks where available. Projections and player notes are editorial previews. Last checked Jun 17, 2026, 1:53 PM.
+        Sources: <a href="https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/match-schedule-fixtures-results-teams-stadiums">FIFA schedule</a>, <a href="https://inside.fifa.com/fifa-world-ranking/men">ranking</a>, <a href="https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/standings">standings</a>. Predictions are unofficial. Source data checked Jun 17, 2026, 3:40 PM.
       </p>
     </footer>
 
-    <script type="module" src="app.js"></script>
+    <script type="module" src="app.js?v=2026-06-18-calendar-shortcuts"></script>
   </body>
 </html>

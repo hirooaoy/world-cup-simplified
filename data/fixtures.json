@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-17T13:53:28-07:00",
+  "updatedAt": "2026-06-18T08:54:42-07:00",
   "sourceIds": [
     "fifa-schedule-2026-06-17",
     "fox-schedule-2026-06-17",
@@ -9,8 +9,11 @@
     "key-player-baseline-2026-06-17",
     "national-football-teams-ned-jpn-h2h-2026-06-17",
     "national-football-teams-h2h-2026-06-17",
-    "mint-england-croatia-live-2026-06-17",
-    "global-sports-archive-england-croatia-live-2026-06-17"
+    "england-football-england-croatia-2026-06-17",
+    "aljazeera-england-croatia-2026-06-17",
+    "fifa-ghana-panama-result-2026-06-18",
+    "fifa-uzbekistan-colombia-result-2026-06-18",
+    "fifa-debutants-2026-06-17"
   ],
   "coverage": {
     "status": "complete-schedule",
@@ -98,7 +101,7 @@
         "home": [
           {
             "name": "Santiago Gimenez",
-            "note": "Mexico's focal striker, valuable when home pressure turns into repeated penalty-area touches."
+            "note": "Mexico's focal striker, valuable when home pressure turns into repeated box touches."
           },
           {
             "name": "Edson Alvarez",
@@ -116,13 +119,18 @@
           },
           {
             "name": "Percy Tau",
-            "note": "The experienced attacking reference, useful between lines and in quick combinations."
+            "note": "The experienced attacking reference, useful in open space and in quick combinations."
           },
           {
             "name": "Lyle Foster",
             "note": "A direct forward who gives South Africa a route behind the defensive line."
           }
         ]
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-17",
+        "home": "Mexico are a home-side pressure team that want territory, crowd energy, and repeated box touches, led by Santiago Gimenez, Edson Alvarez, and Luis Chavez. Against South Africa, they want to keep the ball in the opponent's half and feed Gimenez before Chavez attacks restarts or rebounds; the risk is South Africa can turn saves from Williams into Tau and Foster counters.",
+        "away": "South Africa are counterattacking underdogs who can stay in games if their goalkeeper and forwards give them belief, led by Ronwen Williams, Percy Tau, and Lyle Foster. Against Mexico, they want to absorb pressure, find Tau in space, and release Foster before the defense recovers; the risk is Mexico can turn home pressure into Gimenez touches and Chavez set-piece looks."
       }
     },
     {
@@ -206,7 +214,7 @@
         "away": [
           {
             "name": "Patrik Schick",
-            "note": "Czechia's main penalty-box finisher, especially dangerous when crosses and second balls arrive early."
+            "note": "Czechia's main finisher in the box, especially dangerous when crosses and second balls arrive early."
           },
           {
             "name": "Tomas Soucek",
@@ -217,6 +225,11 @@
             "note": "A flexible attacker who can connect midfield to Schick and make Czechia less predictable."
           }
         ]
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-17",
+        "home": "South Korea are a relentless running side with star quality at both ends of the spine, led by Son Heung-min, Kim Min-jae, and Lee Kang-in. Against Czechia, they want to release Son behind the line and let Lee Kang-in choose the final pass; the risk is Czechia can turn crosses, set pieces, and Soucek runs into high-value chances.",
+        "away": "Czechia are a set-piece and crossing threat that become dangerous when the game is played in the air, led by Patrik Schick, Tomas Soucek, and Adam Hlozek. Against South Korea, they want to load early service toward Schick and Soucek before the defensive block settles; the risk is South Korea can turn running power and Son's finishing into sudden chances."
       }
     },
     {
@@ -236,7 +249,7 @@
       "h2h": {
         "status": "verified-empty",
         "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "No senior meetings were listed by National Football Teams before this fixture.",
+        "summary": "Canada and Bosnia and Herzegovina have never met in a verified senior men's international. This is their first head-to-head meeting.",
         "results": [],
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/36/26/Canada_vs_Bosnia_Herzegovina.html"
       },
@@ -280,6 +293,11 @@
             "note": "A creative wide option who can add spark if Bosnia need a cleaner final pass."
           }
         ]
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-17",
+        "home": "Canada are a fast, direct host-side threat with enough top-end speed to change games in a few seconds, led by Alphonso Davies, Jonathan David, and Stephen Eustaquio. Against Bosnia and Herzegovina, they want to release Davies into space and get David facing goal before the opponent's block is set; the risk is Bosnia and Herzegovina can turn direct service into Dzeko touches and scrappy box pressure.",
+        "away": "Bosnia and Herzegovina are a veteran-leaning side that still carry real danger when the match becomes physical and direct, led by Edin Dzeko, Sead Kolasinac, and Esmir Bajraktarevic. Against Canada, they want to play into Dzeko early and build around the second balls that follow; the risk is Canada can run through Davies and David before defenders can recover."
       }
     },
     {
@@ -407,15 +425,38 @@
         "method": "team-watchlist-baseline",
         "basis": "Team-level key-player watchlist; replace with API/squad-sourced fixture notes when available",
         "home": [
-          "Christian Pulisic",
-          "Weston McKennie",
-          "Tyler Adams"
+          {
+            "name": "Christian Pulisic",
+            "note": "The primary one-v-one attacker and late-box runner, the player most likely to turn pressure into a clean shot."
+          },
+          {
+            "name": "Weston McKennie",
+            "note": "A box-to-box connector whose second-ball work and set-piece timing give the U.S. midfield bite."
+          },
+          {
+            "name": "Tyler Adams",
+            "note": "The ball-winning organizer at the base of midfield, crucial when the match opens into transition."
+          }
         ],
         "away": [
-          "Miguel Almiron",
-          "Julio Enciso",
-          "Gustavo Gomez"
+          {
+            "name": "Miguel Almiron",
+            "note": "The speed outlet who can carry Paraguay out of pressure and attack space before blocks reset."
+          },
+          {
+            "name": "Julio Enciso",
+            "note": "A fearless shot creator from pockets between midfield and defense, capable of making a low-chance match volatile."
+          },
+          {
+            "name": "Gustavo Gomez",
+            "note": "The defensive leader and set-piece target, central to Paraguay's rugged low-scoring path."
+          }
         ]
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-17",
+        "home": "United States are an athletic pressing team with enough direct attacking talent to make games feel stretched, led by Christian Pulisic, Weston McKennie, and Tyler Adams. Against Paraguay, they want to press into turnovers and let Pulisic or McKennie attack before the defense resets; the risk is Paraguay can turn one Almiron break or Enciso shot into a low-margin swing.",
+        "away": "Paraguay are rugged counterpunchers who are comfortable turning matches into physical, low-margin contests, led by Miguel Almiron, Julio Enciso, and Gustavo Gomez. Against United States, they want to release Almiron into space and let Enciso attack the pocket before defenders settle; the risk is United States can turn pressure into Pulisic carries and McKennie second-ball runs."
       }
     },
     {
@@ -465,7 +506,7 @@
         "home": [
           {
             "name": "Akram Afif",
-            "note": "Qatar's main creator and penalty-box connector, dangerous when he can receive between lines."
+            "note": "Qatar's main creator and box connector, dangerous when he can receive in open space."
           },
           {
             "name": "Almoez Ali",
@@ -479,7 +520,7 @@
         "away": [
           {
             "name": "Granit Xhaka",
-            "note": "Switzerland's tempo setter, controlling where the match is played and when pressure releases."
+            "note": "Switzerland's rhythm setter, controlling where the match is played and when pressure releases."
           },
           {
             "name": "Manuel Akanji",
@@ -490,6 +531,11 @@
             "note": "A powerful runner who can turn Switzerland's possession into box entries."
           }
         ]
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-17",
+        "home": "Qatar are compact possession builders who need their best attackers to turn long spells into sharper chances, led by Akram Afif, Almoez Ali, and Homam Ahmed. Against Switzerland, they want to find Afif in pockets and let Almoez Ali attack the first clean service; the risk is Switzerland can slow the game through Xhaka and use Embolo as the release valve.",
+        "away": "Switzerland are a tournament-tested structure team who rarely look rushed when the match gets tense, led by Granit Xhaka, Manuel Akanji, and Breel Embolo. Against Qatar, they want to let Xhaka dictate the first pass and find Embolo before the opponent can squeeze midfield; the risk is Qatar can combine through Afif and Almoez Ali when defenders lose patience."
       }
     },
     {
@@ -557,15 +603,38 @@
         "method": "team-watchlist-baseline",
         "basis": "Team-level key-player watchlist; replace with API/squad-sourced fixture notes when available",
         "home": [
-          "Neymar",
-          "Vinicius Junior",
-          "Casemiro"
+          {
+            "name": "Neymar",
+            "note": "Brazil's imagination hub when they need disguise, combination play, and fouls drawn around the box."
+          },
+          {
+            "name": "Vinicius Junior",
+            "note": "The devastating left-sided runner, capable of breaking a match with one isolation or carry in behind."
+          },
+          {
+            "name": "Casemiro",
+            "note": "The midfield security blanket, important for stopping counters before Brazil's fullbacks are exposed."
+          }
         ],
         "away": [
-          "Achraf Hakimi",
-          "Hakim Ziyech",
-          "Youssef En-Nesyri"
+          {
+            "name": "Achraf Hakimi",
+            "note": "A two-way right-side force whose overlaps, recovery speed, and set pieces shape Morocco's best stretches."
+          },
+          {
+            "name": "Hakim Ziyech",
+            "note": "The left-footed chance creator, dangerous when Morocco can switch play and let him pick final balls."
+          },
+          {
+            "name": "Youssef En-Nesyri",
+            "note": "The reference point in the box and aerial finisher who gives Morocco a direct end point."
+          }
         ]
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-17",
+        "home": "Brazil are a top-tier attacking side whose best moments mix individual invention with sudden acceleration, led by Neymar, Vinicius Junior, and Casemiro. Against Morocco, they want to isolate Vinicius Junior quickly and let Neymar combine around the fouls and gaps that creates; the risk is Morocco can combine Hakimi surges, Ziyech service, and En-Nesyri's box movement.",
+        "away": "Morocco are a disciplined, dangerous side whose structure lets their flair players attack with freedom, led by Achraf Hakimi, Hakim Ziyech, and Youssef En-Nesyri. Against Brazil, they want to use Hakimi's overlaps to tilt the field before Ziyech finds En-Nesyri; the risk is Brazil can break a shape through Neymar combinations and Vinicius Junior's speed."
       }
     },
     {
@@ -585,7 +654,7 @@
       "h2h": {
         "status": "verified-empty",
         "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "No senior meetings were listed by National Football Teams before this fixture.",
+        "summary": "Haiti and Scotland have never met in a verified senior men's international. This is their first head-to-head meeting.",
         "results": [],
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/81/162/Haiti_vs_Scotland.html"
       },
@@ -602,15 +671,38 @@
         "method": "team-watchlist-baseline",
         "basis": "Team-level key-player watchlist; replace with API/squad-sourced fixture notes when available",
         "home": [
-          "Duckens Nazon",
-          "Frantzdy Pierrot",
-          "Jean-Ricner Bellegarde"
+          {
+            "name": "Duckens Nazon",
+            "note": "Haiti's emotional attacking focal point, a direct finisher who can turn loose moments into shots."
+          },
+          {
+            "name": "Frantzdy Pierrot",
+            "note": "A powerful target in the box who gives Haiti a route through crosses and second balls."
+          },
+          {
+            "name": "Jean-Ricner Bellegarde",
+            "note": "The rhythm and carrying option in midfield, valuable when Haiti need cleaner exits under pressure."
+          }
         ],
         "away": [
-          "Scott McTominay",
-          "John McGinn",
-          "Andy Robertson"
+          {
+            "name": "Scott McTominay",
+            "note": "Scotland's late-arriving goal threat, most dangerous when midfield runs crash into the box."
+          },
+          {
+            "name": "John McGinn",
+            "note": "The ball-winning connector who sets the tone physically and keeps Scotland's attacks moving."
+          },
+          {
+            "name": "Andy Robertson",
+            "note": "The captain and left-side engine, giving Scotland delivery, recovery runs, and tournament edge."
+          }
         ]
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-17",
+        "home": "Haiti are a direct attacking underdog with enough forward power to punish loose defending, led by Duckens Nazon, Frantzdy Pierrot, and Jean-Ricner Bellegarde. Against Scotland, they want to play forward quickly toward Nazon and Pierrot before the opponent can crowd the box; the risk is Scotland can turn Robertson service and McTominay runs into pressure.",
+        "away": "Scotland are a physical midfield side that can make opponents defend deliveries, duels, and late runners, led by Scott McTominay, John McGinn, and Andy Robertson. Against Haiti, they want to work the ball left for Robertson and attack the second phase through McTominay; the risk is Haiti can turn direct service into Nazon or Pierrot chances."
       }
     },
     {
@@ -668,15 +760,38 @@
         "method": "team-watchlist-baseline",
         "basis": "Team-level key-player watchlist; replace with API/squad-sourced fixture notes when available",
         "home": [
-          "Mathew Ryan",
-          "Jackson Irvine",
-          "Christian Volpato"
+          {
+            "name": "Mathew Ryan",
+            "note": "The experienced keeper and organizer, important when Australia absorb long spells without the ball."
+          },
+          {
+            "name": "Jackson Irvine",
+            "note": "The midfield tone-setter, valuable for pressing, second balls, and late runs into the area."
+          },
+          {
+            "name": "Christian Volpato",
+            "note": "A creative left-footed option who can give Australia a cleaner final pass in tight matches."
+          }
         ],
         "away": [
-          "Hakan Calhanoglu",
-          "Arda Guler",
-          "Kenan Yildiz"
+          {
+            "name": "Hakan Calhanoglu",
+            "note": "The deep playmaker and dead-ball specialist, capable of controlling the rhythm or punishing fouls from distance."
+          },
+          {
+            "name": "Arda Guler",
+            "note": "The creative spark in open space, dangerous when he can receive on the turn near the box."
+          },
+          {
+            "name": "Kenan Yildiz",
+            "note": "A fearless young attacker who can stretch the game with carries and quick combinations."
+          }
         ]
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-17",
+        "home": "Australia are a durable, physical side built around organization, pressure, and set-piece toughness, led by Mathew Ryan, Jackson Irvine, and Christian Volpato. Against Türkiye, they want to make the match direct enough for Irvine's running and Volpato's left foot to matter; the risk is Türkiye can turn Calhanoglu service and Guler invention into sudden chances.",
+        "away": "Türkiye are a creative young attacking side with enough set-piece quality to punish small mistakes, led by Hakan Calhanoglu, Arda Guler, and Kenan Yildiz. Against Australia, they want to use Calhanoglu's passing to find Guler in space before Yildiz attacks the gap; the risk is Australia can drag opponents into duels, restarts, and late midfield runs."
       }
     },
     {
@@ -696,7 +811,7 @@
       "h2h": {
         "status": "verified-empty",
         "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "No senior meetings were listed by National Football Teams before this fixture.",
+        "summary": "Curaçao is playing its first World Cup match. Germany and Curaçao have never met in a verified senior men's international, making this their first head-to-head meeting.",
         "results": [],
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/71/280/Germany_vs_Curacao.html"
       },
@@ -713,15 +828,38 @@
         "method": "team-watchlist-baseline",
         "basis": "Team-level key-player watchlist; replace with API/squad-sourced fixture notes when available",
         "home": [
-          "Joshua Kimmich",
-          "Jamal Musiala",
-          "Florian Wirtz"
+          {
+            "name": "Joshua Kimmich",
+            "note": "Germany's control valve, setting tempo while also giving the back line protection when possession breaks."
+          },
+          {
+            "name": "Jamal Musiala",
+            "note": "The glide-through-pressure attacker, able to create chaos in crowded central spaces."
+          },
+          {
+            "name": "Florian Wirtz",
+            "note": "A high-IQ creator whose timing and final pass can turn Germany's possession into real chances."
+          }
         ],
         "away": [
-          "Juninho Bacuna",
-          "Leandro Bacuna",
-          "Vurnon Anita"
+          {
+            "name": "Juninho Bacuna",
+            "note": "Curacao's most assertive midfield carrier, useful for turning defensive work into forward momentum."
+          },
+          {
+            "name": "Leandro Bacuna",
+            "note": "The experienced set-piece and leadership presence, important when Curacao need calm under pressure."
+          },
+          {
+            "name": "Vurnon Anita",
+            "note": "A veteran organizer who can help Curacao stay compact and connected without the ball."
+          }
         ]
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-17",
+        "home": "Germany are a technical control side with enough young creativity to open compact defenses, led by Joshua Kimmich, Jamal Musiala, and Florian Wirtz. Against Curaçao, they want to pull midfielders out with Kimmich's passing before Musiala and Wirtz attack the gaps near the box; the risk is Curaçao can turn veteran set-piece moments into a way back into the game.",
+        "away": "Curaçao are a veteran-heavy underdog side trying to stay connected and choose their moments carefully, led by Juninho Bacuna, Leandro Bacuna, and Vurnon Anita. Against Germany, they want to use the Bacuna brothers to turn pressure relief into set pieces and territory; the risk is Germany can combine through Kimmich, Musiala, and Wirtz until the block loses its shape."
       }
     },
     {
@@ -785,15 +923,38 @@
         "method": "team-watchlist-baseline",
         "basis": "Team-level key-player watchlist; replace with API/squad-sourced fixture notes when available",
         "home": [
-          "Virgil van Dijk",
-          "Frenkie de Jong",
-          "Cody Gakpo"
+          {
+            "name": "Virgil van Dijk",
+            "note": "The defensive reference point, controlling aerial duels and giving the Netherlands confidence to hold a higher line."
+          },
+          {
+            "name": "Frenkie de Jong",
+            "note": "The press-resistant midfielder who turns build-up pressure into controlled entries through midfield."
+          },
+          {
+            "name": "Cody Gakpo",
+            "note": "A flexible forward who can drift inside, combine, and finish when the Dutch attack finds rhythm."
+          }
         ],
         "away": [
-          "Takefusa Kubo",
-          "Kaoru Mitoma",
-          "Wataru Endo"
+          {
+            "name": "Takefusa Kubo",
+            "note": "Japan's sharpest creator in tight spaces, especially dangerous when he can cut inside onto his left foot."
+          },
+          {
+            "name": "Kaoru Mitoma",
+            "note": "The isolation winger who can beat the first defender and turn patient possession into sudden chances."
+          },
+          {
+            "name": "Wataru Endo",
+            "note": "The midfield anchor, key to Japan's counter-press and the first pass after winning the ball."
+          }
         ]
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-17",
+        "home": "Netherlands are a control team with a strong defensive base and enough technical quality to play through pressure, led by Virgil van Dijk, Frenkie de Jong, and Cody Gakpo. Against Japan, they want to build calmly through De Jong and let Gakpo receive between fullback and center-back; the risk is Japan can turn quick combinations into Kubo or Mitoma isolations.",
+        "away": "Japan are a precise, fast-passing side that can make possession feel sudden and sharp, led by Takefusa Kubo, Kaoru Mitoma, and Wataru Endo. Against Netherlands, they want to move the ball quickly enough for Kubo or Mitoma to receive against a shifting defender; the risk is Netherlands can control possession through De Jong and protect it with Van Dijk's authority."
       }
     },
     {
@@ -813,7 +974,7 @@
       "h2h": {
         "status": "verified-empty",
         "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "No senior meetings were listed by National Football Teams before this fixture.",
+        "summary": "Côte d'Ivoire and Ecuador have never met in a verified senior men's international. This is their first head-to-head meeting.",
         "results": [],
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/209/56/Ivory_Coast_vs_Ecuador.html"
       },
@@ -830,15 +991,38 @@
         "method": "team-watchlist-baseline",
         "basis": "Team-level key-player watchlist; replace with API/squad-sourced fixture notes when available",
         "home": [
-          "Franck Kessie",
-          "Simon Adingra",
-          "Sebastien Haller"
+          {
+            "name": "Franck Kessie",
+            "note": "The power-and-control midfielder, giving Cote d'Ivoire ball-winning, carries, and box arrivals."
+          },
+          {
+            "name": "Simon Adingra",
+            "note": "The wide runner who can stretch back lines and make transition attacks feel immediate."
+          },
+          {
+            "name": "Sebastien Haller",
+            "note": "The central reference point, a finisher in the box who makes crosses and cutbacks matter."
+          }
         ],
         "away": [
-          "Moises Caicedo",
-          "Piero Hincapie",
-          "Enner Valencia"
+          {
+            "name": "Moises Caicedo",
+            "note": "Ecuador's midfield eraser and ball mover, vital for disrupting opponents before they reach the back line."
+          },
+          {
+            "name": "Piero Hincapie",
+            "note": "The left-sided defensive anchor, comfortable stepping out to defend space and start attacks."
+          },
+          {
+            "name": "Enner Valencia",
+            "note": "The veteran finisher and emotional leader, still the quickest route from pressure to goals."
+          }
         ]
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-17",
+        "home": "Côte d'Ivoire are a powerful transition team with enough midfield force to turn loose games in their favor, led by Franck Kessie, Simon Adingra, and Sebastien Haller. Against Ecuador, they want to win the midfield collision and send Adingra into space before Haller attacks the box; the risk is Ecuador can turn Caicedo ball wins and Valencia movement into fast attacks.",
+        "away": "Ecuador are an intense, athletic side that can disrupt stronger opponents through midfield pressure, led by Moises Caicedo, Piero Hincapie, and Enner Valencia. Against Côte d'Ivoire, they want to win the midfield duel through Caicedo and release Valencia before the defense is set; the risk is Côte d'Ivoire can turn Kessie's carries and Adingra's pace into Haller chances."
       }
     },
     {
@@ -906,15 +1090,38 @@
         "method": "team-watchlist-baseline",
         "basis": "Team-level key-player watchlist; replace with API/squad-sourced fixture notes when available",
         "home": [
-          "Alexander Isak",
-          "Viktor Gyokeres",
-          "Dejan Kulusevski"
+          {
+            "name": "Alexander Isak",
+            "note": "The elegant main striker, dangerous when Sweden can find him early in channels or around the box."
+          },
+          {
+            "name": "Viktor Gyokeres",
+            "note": "A relentless power forward whose carries and pressing can turn Sweden from structured to explosive."
+          },
+          {
+            "name": "Dejan Kulusevski",
+            "note": "The left-footed creator who links midfield to attack and gives Sweden craft in open space."
+          }
         ],
         "away": [
-          "Ellyes Skhiri",
-          "Hannibal Mejbri",
-          "Elias Saad"
+          {
+            "name": "Ellyes Skhiri",
+            "note": "The midfield screen, important for keeping Tunisia compact and killing counters at source."
+          },
+          {
+            "name": "Hannibal Mejbri",
+            "note": "The high-energy connector who can lift Tunisia's tempo with pressure, carries, and edge."
+          },
+          {
+            "name": "Elias Saad",
+            "note": "A direct wide threat who gives Tunisia a route forward when the match asks for pace."
+          }
         ]
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-17",
+        "home": "Sweden are a tall, technical attacking side with two forwards who can change the shape of a match, led by Alexander Isak, Viktor Gyokeres, and Dejan Kulusevski. Against Tunisia, they want to combine through Kulusevski and then choose between Isak's polish or Gyokeres' power; the risk is Tunisia can slow the match through Skhiri's screen and break through Saad.",
+        "away": "Tunisia are an organized defensive side that need energy and directness to make their structure bite, led by Ellyes Skhiri, Hannibal Mejbri, and Elias Saad. Against Sweden, they want to stay compact through Skhiri and then use Saad as the first runner into space; the risk is Sweden can alternate between Isak's finesse and Gyokeres' force."
       }
     },
     {
@@ -934,7 +1141,7 @@
       "h2h": {
         "status": "verified-empty",
         "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "No senior meetings were listed by National Football Teams before this fixture.",
+        "summary": "Cabo Verde is playing its first World Cup match. Spain and Cabo Verde have never met in a verified senior men's international, making this their first head-to-head meeting.",
         "results": [],
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/174/37/Spain_vs_Cape_Verde.html"
       },
@@ -951,15 +1158,38 @@
         "method": "team-watchlist-baseline",
         "basis": "Team-level key-player watchlist; replace with API/squad-sourced fixture notes when available",
         "home": [
-          "Lamine Yamal",
-          "Pedri",
-          "Nico Williams"
+          {
+            "name": "Lamine Yamal",
+            "note": "Spain's game-breaking wide creator, able to bend low blocks with dribbling, passing, and shot threat."
+          },
+          {
+            "name": "Pedri",
+            "note": "The rhythm setter in open space, making Spain's possession feel calmer and more incisive."
+          },
+          {
+            "name": "Nico Williams",
+            "note": "The vertical winger who turns switches of play into immediate pressure on the box."
+          }
         ],
         "away": [
-          "Ryan Mendes",
-          "Roberto Lopes",
-          "Vozinha"
+          {
+            "name": "Ryan Mendes",
+            "note": "Cabo Verde's experienced attacking reference, useful when counters need a composed final action."
+          },
+          {
+            "name": "Roberto Lopes",
+            "note": "The defensive organizer, central to keeping Cabo Verde compact through long spells without the ball."
+          },
+          {
+            "name": "Vozinha",
+            "note": "The veteran goalkeeper whose shot-stopping can keep Cabo Verde alive in narrow games."
+          }
         ]
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-17",
+        "home": "Spain are one of the tournament's most polished possession teams, led by Lamine Yamal, Pedri, and Nico Williams. Against Cabo Verde, they want to pin the wide defenders with Yamal and Williams before Pedri plays through the gaps; the risk is Cabo Verde can turn a slow match into one decisive Mendes action.",
+        "away": "Cabo Verde are compact tournament disruptors who need experience and goalkeeping to keep matches close, led by Ryan Mendes, Roberto Lopes, and Vozinha. Against Spain, they want to stay compact long enough for Mendes to find a composed final action; the risk is Spain can stretch the pitch through Yamal and Williams before Pedri breaks the line."
       }
     },
     {
@@ -1037,15 +1267,38 @@
         "method": "team-watchlist-baseline",
         "basis": "Team-level key-player watchlist; replace with API/squad-sourced fixture notes when available",
         "home": [
-          "Kevin De Bruyne",
-          "Romelu Lukaku",
-          "Jeremy Doku"
+          {
+            "name": "Kevin De Bruyne",
+            "note": "Belgium's elite chance architect, able to find early crosses, through balls, and shots before defenses settle."
+          },
+          {
+            "name": "Romelu Lukaku",
+            "note": "The reference point in the box and power finisher, built to punish any service into his stride or feet."
+          },
+          {
+            "name": "Jeremy Doku",
+            "note": "The one-v-one destabilizer, stretching games wide open with direct carries from the flank."
+          }
         ],
         "away": [
-          "Mohamed Salah",
-          "Omar Marmoush",
-          "Mostafa Mohamed"
+          {
+            "name": "Mohamed Salah",
+            "note": "Egypt's decisive outlet, a transition runner and finisher every opponent has to bend their shape around."
+          },
+          {
+            "name": "Omar Marmoush",
+            "note": "A mobile second scoring threat who can attack channels and keep Egypt from becoming one-dimensional."
+          },
+          {
+            "name": "Mostafa Mohamed",
+            "note": "The central target, important when Egypt need hold-up play and a box endpoint."
+          }
         ]
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-17",
+        "home": "Belgium are an elite chance-creation team when their creators get space to face forward, led by Kevin De Bruyne, Romelu Lukaku, and Jeremy Doku. Against Egypt, they want to feed De Bruyne early and use Doku to create the separation Lukaku needs in the box; the risk is Egypt can turn one loose pass into a Salah-led break.",
+        "away": "Egypt are a Salah-led transition team that can look quiet until one direct attack opens the match, led by Mohamed Salah, Omar Marmoush, and Mostafa Mohamed. Against Belgium, they want to release Salah early and let Marmoush arrive as the second wave; the risk is Belgium can turn De Bruyne service and Doku dribbles into Lukaku chances."
       }
     },
     {
@@ -1113,15 +1366,38 @@
         "method": "team-watchlist-baseline",
         "basis": "Team-level key-player watchlist; replace with API/squad-sourced fixture notes when available",
         "home": [
-          "Salem Al-Dawsari",
-          "Firas Al-Buraikan",
-          "Mohammed Al-Owais"
+          {
+            "name": "Salem Al-Dawsari",
+            "note": "Saudi Arabia's big-moment wide attacker, trusted to carry counters and take on defenders."
+          },
+          {
+            "name": "Firas Al-Buraikan",
+            "note": "The mobile striker who links attacks and gives Saudi Arabia a cleaner target in transition."
+          },
+          {
+            "name": "Mohammed Al-Owais",
+            "note": "The experienced goalkeeper, vital if Saudi Arabia spend long stretches defending their box."
+          }
         ],
         "away": [
-          "Federico Valverde",
-          "Darwin Nunez",
-          "Ronald Araujo"
+          {
+            "name": "Federico Valverde",
+            "note": "Uruguay's engine and long-range threat, driving the midfield while covering huge spaces without the ball."
+          },
+          {
+            "name": "Darwin Nunez",
+            "note": "The chaos-forward who can stretch any back line and turn half-chances into high-speed danger."
+          },
+          {
+            "name": "Ronald Araujo",
+            "note": "The recovery defender and duel winner, essential against elite forwards in open grass."
+          }
         ]
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-17",
+        "home": "Saudi Arabia are a fearless pressing underdog with enough big-moment attackers to punish complacency, led by Salem Al-Dawsari, Firas Al-Buraikan, and Mohammed Al-Owais. Against Uruguay, they want to press in bursts and give Al-Dawsari room to attack the first retreating defender; the risk is Uruguay can turn Valverde's engine and Nunez's depth into chaos.",
+        "away": "Uruguay are a South American intensity side with enough running power to turn every phase into a contest, led by Federico Valverde, Darwin Nunez, and Ronald Araujo. Against Saudi Arabia, they want to use Valverde's running to release Nunez before the defense can control the space behind; the risk is Saudi Arabia can turn pressing bursts and Al-Dawsari carries into momentum."
       }
     },
     {
@@ -1169,15 +1445,38 @@
         "method": "team-watchlist-baseline",
         "basis": "Team-level key-player watchlist; replace with API/squad-sourced fixture notes when available",
         "home": [
-          "Mehdi Taremi",
-          "Sardar Azmoun",
-          "Alireza Jahanbakhsh"
+          {
+            "name": "Mehdi Taremi",
+            "note": "Iran's most polished attacking reference, a clever finisher who also wins fouls and links counters."
+          },
+          {
+            "name": "Sardar Azmoun",
+            "note": "A box striker with timing in the air and enough movement to punish loose marking."
+          },
+          {
+            "name": "Alireza Jahanbakhsh",
+            "note": "The experienced wide creator, useful on set pieces and when Iran need a calmer final ball."
+          }
         ],
         "away": [
-          "Chris Wood",
-          "Liberato Cacace",
-          "Sarpreet Singh"
+          {
+            "name": "Chris Wood",
+            "note": "New Zealand's target striker and clearest scoring route, especially from crosses and second balls."
+          },
+          {
+            "name": "Liberato Cacace",
+            "note": "The left-side outlet who can carry New Zealand up the pitch and serve early balls."
+          },
+          {
+            "name": "Sarpreet Singh",
+            "note": "A technical creator who can make New Zealand less predictable when space appears in open space."
+          }
         ]
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-17",
+        "home": "IR Iran are a streetwise counterattacking side with experienced forwards who understand tournament margins, led by Mehdi Taremi, Sardar Azmoun, and Alireza Jahanbakhsh. Against New Zealand, they want to draw contact, slow the rhythm, and then find Taremi or Azmoun around the box; the risk is New Zealand can turn left-side service and Wood's aerial presence into chances.",
+        "away": "New Zealand are an aerial, organized side that need territory and service to keep stronger opponents honest, led by Chris Wood, Liberato Cacace, and Sarpreet Singh. Against IR Iran, they want to move play wide through Cacace and serve Wood before the box gets crowded; the risk is IR Iran can turn fouls, counters, and Taremi's craft into chances."
       }
     },
     {
@@ -1194,10 +1493,33 @@
         "home": 3,
         "away": 1
       },
+      "catchUp": [
+        {
+          "headline": "Mbappé brace lifts France past Senegal",
+          "body": "Kylian Mbappé scored twice as France beat Senegal 3-1 in their Group I opener on June 16.",
+          "meta": "France 3-1 Senegal",
+          "sourceLabel": "FIFA match report",
+          "sourceUrl": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/france-senegal-highlights-match-report",
+          "priority": 8
+        }
+      ],
       "h2h": {
-        "status": "verified-empty",
-        "summary": "",
-        "results": []
+        "status": "loaded",
+        "sourceId": "national-football-teams-h2h-2026-06-17",
+        "summary": "Before this fixture, Senegal had the edge in the verified senior series: 0 France wins, 0 draws, 1 Senegal win, 1 total goal.",
+        "results": [
+          {
+            "date": "2002-05-31",
+            "competition": "World Cup 2002 - Group A",
+            "homeTeamId": "FRA",
+            "awayTeamId": "SEN",
+            "homeScore": 0,
+            "awayScore": 1,
+            "venue": "Seoul World Cup Stadium",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/10910/France_Senegal.html"
+          }
+        ],
+        "sourceUrl": "https://www.national-football-teams.com/encounter/teams/67/163/France_vs_Senegal.html"
       },
       "projection": {
         "sourceId": "editorial-preview-2026-06-17",
@@ -1208,15 +1530,38 @@
       "keyPlayers": {
         "sourceId": "editorial-preview-2026-06-17",
         "home": [
-          "Kylian Mbappe",
-          "Antoine Griezmann",
-          "William Saliba"
+          {
+            "name": "Kylian Mbappe",
+            "note": "France's game-breaking runner and finisher, the player who turns one channel ball into panic."
+          },
+          {
+            "name": "Antoine Griezmann",
+            "note": "The connective creator, balancing France's attack with final passes, pressing work, and set-piece quality."
+          },
+          {
+            "name": "William Saliba",
+            "note": "The defensive stabilizer, calm enough to defend space while France's athletes surge forward."
+          }
         ],
         "away": [
-          "Sadio Mane",
-          "Nicolas Jackson",
-          "Kalidou Koulibaly"
+          {
+            "name": "Sadio Mane",
+            "note": "Senegal's senior attacking leader, still the name who can turn a direct move into a decisive action."
+          },
+          {
+            "name": "Nicolas Jackson",
+            "note": "A mobile striker whose runs behind the line give Senegal a faster, less predictable edge."
+          },
+          {
+            "name": "Kalidou Koulibaly",
+            "note": "The back-line commander, important for duels, organization, and defending set pieces."
+          }
         ]
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-17",
+        "home": "France are an elite transition force with enough individual quality to win without needing long possession spells, led by Kylian Mbappe, Antoine Griezmann, and William Saliba. Against Senegal, they want to create one clean channel for Mbappe and let Griezmann decide when to speed the move up; the risk is Senegal can turn Mane's experience and Jackson's running into direct chances.",
+        "away": "Senegal are an athletic, experienced side with enough defensive presence to survive pressure and enough speed to punish it, led by Sadio Mane, Nicolas Jackson, and Kalidou Koulibaly. Against France, they want to use Mane's timing and Jackson's depth to attack before the opponent's block is set; the risk is France can turn one channel ball into Mbappe running at goal."
       }
     },
     {
@@ -1235,8 +1580,10 @@
       },
       "h2h": {
         "status": "verified-empty",
-        "summary": "",
-        "results": []
+        "sourceId": "national-football-teams-h2h-2026-06-17",
+        "summary": "Iraq and Norway have never met in a verified senior men's international. This is their first head-to-head meeting.",
+        "results": [],
+        "sourceUrl": "https://www.national-football-teams.com/encounter/teams/89/138/Iraq_vs_Norway.html"
       },
       "projection": {
         "sourceId": "editorial-preview-2026-06-17",
@@ -1247,15 +1594,38 @@
       "keyPlayers": {
         "sourceId": "editorial-preview-2026-06-17",
         "home": [
-          "Aymen Hussein",
-          "Ali Jasim",
-          "Zidane Iqbal"
+          {
+            "name": "Aymen Hussein",
+            "note": "Iraq's target in the box, the finisher they look for when attacks become crosses and second balls."
+          },
+          {
+            "name": "Ali Jasim",
+            "note": "A creative dribbler who can give Iraq spark on the break and force defenders into awkward decisions."
+          },
+          {
+            "name": "Zidane Iqbal",
+            "note": "The midfield connector, valuable when Iraq need composure rather than only defensive running."
+          }
         ],
         "away": [
-          "Erling Haaland",
-          "Martin Odegaard",
-          "Antonio Nusa"
+          {
+            "name": "Erling Haaland",
+            "note": "Norway's headline finisher, a box force who changes how every opponent defends crosses and depth."
+          },
+          {
+            "name": "Martin Odegaard",
+            "note": "The left-footed creator and rhythm setter, responsible for turning Norway's possession into service for Haaland."
+          },
+          {
+            "name": "Antonio Nusa",
+            "note": "The young wide spark, able to beat defenders and give Norway a different speed outside the main stars."
+          }
         ]
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-17",
+        "home": "Iraq are a passionate, direct side that need their attacking moments to be clean and immediate, led by Aymen Hussein, Ali Jasim, and Zidane Iqbal. Against Norway, they want to find Ali Jasim between defenders and then play quickly toward Hussein in the box; the risk is Norway can feed Haaland through Odegaard's service and Nusa's change of speed.",
+        "away": "Norway are a direct star-powered side whose attacking question is how quickly they can serve the finisher, led by Erling Haaland, Martin Odegaard, and Antonio Nusa. Against Iraq, they want to get Odegaard facing forward and deliver early enough for Haaland to attack the box; the risk is Iraq can use Ali Jasim's dribbling and Hussein's presence to make counters count."
       }
     },
     {
@@ -1272,10 +1642,33 @@
         "home": 3,
         "away": 0
       },
+      "catchUp": [
+        {
+          "headline": "Messi hat trick opens Argentina's title defence",
+          "body": "Lionel Messi scored all three goals as Argentina beat Algeria 3-0 to start their World Cup defence.",
+          "meta": "Argentina 3-0 Algeria",
+          "sourceLabel": "FIFA match report",
+          "sourceUrl": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/argentina-v-algeria-highlights-match-report",
+          "priority": 9
+        }
+      ],
       "h2h": {
-        "status": "verified-empty",
-        "summary": "",
-        "results": []
+        "status": "loaded",
+        "sourceId": "national-football-teams-h2h-2026-06-17",
+        "summary": "Before this fixture, Argentina had the edge in the verified senior series: 1 Argentina win, 0 draws, 0 Algeria wins, 7 total goals.",
+        "results": [
+          {
+            "date": "2007-06-05",
+            "competition": "Friendly",
+            "homeTeamId": "ALG",
+            "awayTeamId": "ARG",
+            "homeScore": 3,
+            "awayScore": 4,
+            "venue": "L'Estadi Camp Nou",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/12959/Algeria_Argentina.html"
+          }
+        ],
+        "sourceUrl": "https://www.national-football-teams.com/encounter/teams/9/3/Argentina_vs_Algeria.html"
       },
       "projection": {
         "sourceId": "editorial-preview-2026-06-17",
@@ -1286,15 +1679,38 @@
       "keyPlayers": {
         "sourceId": "editorial-preview-2026-06-17",
         "home": [
-          "Julian Alvarez",
-          "Enzo Fernandez",
-          "Emiliano Martinez"
+          {
+            "name": "Julian Alvarez",
+            "note": "Argentina's pressing forward and flexible finisher, dangerous whether he starts moves or attacks the last line."
+          },
+          {
+            "name": "Enzo Fernandez",
+            "note": "The midfield passer who can change the angle of attacks and keep Argentina's control from going stale."
+          },
+          {
+            "name": "Emiliano Martinez",
+            "note": "The commanding goalkeeper and penalty-stage presence, central to Argentina's tournament confidence."
+          }
         ],
         "away": [
-          "Riyad Mahrez",
-          "Ismael Bennacer",
-          "Amine Gouiri"
+          {
+            "name": "Riyad Mahrez",
+            "note": "Algeria's left-footed creator, still the player who can slow a match down and pick the decisive pass."
+          },
+          {
+            "name": "Ismael Bennacer",
+            "note": "The midfield press-breaker, important for helping Algeria play through pressure instead of around it."
+          },
+          {
+            "name": "Amine Gouiri",
+            "note": "A clever forward who can drift, combine, and give Algeria scoring threat away from the obvious lanes."
+          }
         ]
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-17",
+        "home": "Argentina are the defending champions and still one of the most complete tournament teams, led by Julian Alvarez, Enzo Fernandez, and Emiliano Martinez. Against Algeria, they want to press high with Alvarez, win the second ball, and let Enzo Fernandez change the angle of the attack; the risk is Algeria can slow the match through Mahrez and Bennacer before finding Gouiri in open space.",
+        "away": "Algeria are a technical North African side that want the game to run through the left foot and calm of midfield, led by Riyad Mahrez, Ismael Bennacer, and Amine Gouiri. Against Argentina, they want to give Mahrez time on the ball and let Amine Gouiri drift into open space; the risk is Argentina can turn one midfield win into Alvarez movement, Enzo service, and sustained pressure."
       }
     },
     {
@@ -1313,8 +1729,10 @@
       },
       "h2h": {
         "status": "verified-empty",
-        "summary": "",
-        "results": []
+        "sourceId": "national-football-teams-h2h-2026-06-17",
+        "summary": "Jordan is playing its first World Cup match. Austria and Jordan have never met in a verified senior men's international, making this their first head-to-head meeting.",
+        "results": [],
+        "sourceUrl": "https://www.national-football-teams.com/encounter/teams/13/95/Austria_vs_Jordan.html"
       },
       "projection": {
         "sourceId": "editorial-preview-2026-06-17",
@@ -1325,15 +1743,38 @@
       "keyPlayers": {
         "sourceId": "editorial-preview-2026-06-17",
         "home": [
-          "David Alaba",
-          "Marcel Sabitzer",
-          "Christoph Baumgartner"
+          {
+            "name": "David Alaba",
+            "note": "Austria's organizer and set-piece technician, giving the back line leadership and the ball progression."
+          },
+          {
+            "name": "Marcel Sabitzer",
+            "note": "The pressing midfielder with shooting range, dangerous when Austria force turnovers near goal."
+          },
+          {
+            "name": "Christoph Baumgartner",
+            "note": "A smart runner between midfield and attack, often the player who turns pressure into box entries."
+          }
         ],
         "away": [
-          "Mousa Al-Taamari",
-          "Yazan Al-Naimat",
-          "Noor Al-Rawabdeh"
+          {
+            "name": "Mousa Al-Taamari",
+            "note": "Jordan's star ball-carrier, a direct runner who can make counters feel dangerous immediately."
+          },
+          {
+            "name": "Yazan Al-Naimat",
+            "note": "The central finisher and combination forward, key when Jordan turn rare attacks into real chances."
+          },
+          {
+            "name": "Noor Al-Rawabdeh",
+            "note": "The midfield worker who helps Jordan stay compact and connect the first pass forward."
+          }
         ]
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-17",
+        "home": "Austria are a high-pressure European side with enough experience to make the press feel organized rather than wild, led by David Alaba, Marcel Sabitzer, and Christoph Baumgartner. Against Jordan, they want to force rushed passes and turn Sabitzer's pressure into Baumgartner arrivals near goal; the risk is Jordan can counter through Al-Taamari and Al-Naimat before the back line recovers.",
+        "away": "Jordan are a disciplined counterattacking side that can hurt teams through speed and timing, led by Mousa Al-Taamari, Yazan Al-Naimat, and Noor Al-Rawabdeh. Against Austria, they want to spring Al-Taamari into open space and let Al-Naimat attack the first clear chance; the risk is Austria can press the first pass, win territory, and attack before defenses reset."
       }
     },
     {
@@ -1350,10 +1791,23 @@
         "home": 1,
         "away": 1
       },
+      "catchUp": [
+        {
+          "headline": "Portugal and DR Congo split the points",
+          "body": "1-1 keeps Group K open and gives both teams something to carry into the next match.",
+          "standouts": "Joao Neves headed Portugal in front early, while Yoane Wissa's equalizer gave DR Congo the point.",
+          "meta": "Portugal vs DR Congo",
+          "sourceLabel": "Guardian match report",
+          "sourceUrl": "https://www.theguardian.com/football/2026/jun/17/portugal-dr-congo-world-cup-2026-group-k-match-report",
+          "priority": 28
+        }
+      ],
       "h2h": {
         "status": "verified-empty",
-        "summary": "First verified senior A-team meeting. No World Cup, friendly, or competitive history before this group match.",
-        "results": []
+        "sourceId": "national-football-teams-h2h-2026-06-17",
+        "summary": "Portugal and DR Congo have never met in a verified senior men's international. This is their first head-to-head meeting.",
+        "results": [],
+        "sourceUrl": "https://www.national-football-teams.com/encounter/teams/148/55/Portugal_vs_Dr_Congo.html"
       },
       "projection": {
         "sourceId": "editorial-preview-2026-06-17",
@@ -1366,15 +1820,15 @@
         "home": [
           {
             "name": "Cristiano Ronaldo",
-            "note": "The headline finisher and penalty-box reference point, still chasing the World Cup piece missing from his resume."
+            "note": "The headline finisher and reference point in the box, still chasing the World Cup piece missing from his resume."
           },
           {
             "name": "Bruno Fernandes",
-            "note": "Portugal's highest-volume chance creator, dangerous between the lines and from dead-ball situations."
+            "note": "Portugal's highest-volume chance creator, dangerous in open space and from free kicks and corners."
           },
           {
             "name": "Vitinha",
-            "note": "A press-resistant tempo setter who can turn Portugal's possession into cleaner entries around the box."
+            "note": "A press-resistant rhythm setter who can turn Portugal's possession into cleaner entries around the box."
           }
         ],
         "away": [
@@ -1391,6 +1845,11 @@
             "note": "A young midfield runner who matters when DR Congo need to escape pressure and connect the first pass forward."
           }
         ]
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-17",
+        "home": "Portugal are a star-heavy attacking side with enough creators to feed several different scoring routes, led by Cristiano Ronaldo, Bruno Fernandes, and Vitinha. Against DR Congo, they want to let Vitinha control the first pass, then use Bruno Fernandes to find Ronaldo or the far-side runner; the risk is DR Congo can break quickly through Wissa and Sadiki when opponents overcommit.",
+        "away": "DR Congo are an explosive transition side that can make favorites uncomfortable if the match opens up, led by Yoane Wissa, Aaron Wan-Bissaka, and Noah Sadiki. Against Portugal, they want to spring Wissa early and let Sadiki carry the first clean pass out of pressure; the risk is Portugal can feed Ronaldo through Bruno Fernandes and Vitinha's supply."
       }
     },
     {
@@ -1402,11 +1861,22 @@
       "homeTeamId": "ENG",
       "awayTeamId": "CRO",
       "venue": "Dallas Stadium",
-      "status": "LIVE",
+      "status": "FT",
       "score": {
-        "home": 2,
+        "home": 4,
         "away": 2
       },
+      "catchUp": [
+        {
+          "headline": "England look sharp against Croatia",
+          "body": "England's 4-2 win gives them an early foothold in Group L.",
+          "standouts": "Harry Kane scored twice, while Jude Bellingham and Marcus Rashford added second-half goals.",
+          "meta": "England vs Croatia",
+          "sourceLabel": "England match centre",
+          "sourceUrl": "https://www.englandfootball.com/england/mens-senior-team/fixtures-results/2025-26/World-Cup/england-v-croatia-fifa-world-cup-wednesday-17-june-2026-match-centre",
+          "priority": 28
+        }
+      ],
       "h2h": {
         "status": "loaded",
         "summary": "England lead the verified senior series: 6 wins, 2 draws, 3 Croatia wins, 35 total goals.",
@@ -1521,8 +1991,8 @@
       },
       "keyInformation": {
         "sourceId": "editorial-preview-2026-06-17",
-        "home": "For England, watch how Harry Kane and Jude Bellingham work as a pair: Kane often drops away from the center-backs, which can open space for Bellingham to run into. England will likely try to attack from wide areas, then play cutbacks toward late runners instead of only crossing high balls. Declan Rice matters when England lose the ball, because he has to stop Croatia counters before Luka Modric can slow the match down.",
-        "away": "For Croatia, the key is control: Luka Modric and Mateo Kovacic want enough time on the ball to turn the game into a passing rhythm instead of a sprint. Josko Gvardiol is important because he can defend wide spaces and still step forward to help Croatia build attacks. If Croatia keep possession calmly, they can make England chase and create chances through patient midfield combinations."
+        "home": "England are one of the strongest teams in the tournament, built around power, speed, and danger near goal, led by Jude Bellingham, Harry Kane, and Declan Rice. Against Croatia, they want to turn Kane's dropping movements into Bellingham runs and fast cutbacks from wide areas; the risk is Croatia can slow the match through Modric and Kovacic's passing rhythm.",
+        "away": "Croatia are a control team whose tournament identity still runs through midfield calm, led by Luka Modric, Josko Gvardiol, and Mateo Kovacic. Against England, they want to use Modric and Kovacic to turn pressure into possession and move the opponent side to side; the risk is England can attack quickly through Kane and Bellingham while Rice controls the counter."
       },
       "keyPlayers": {
         "sourceId": "editorial-preview-2026-06-17",
@@ -1547,7 +2017,7 @@
           },
           {
             "name": "Josko Gvardiol",
-            "note": "Croatia's defensive anchor on the left side, important against movement between the lines and wide runners."
+            "note": "Croatia's defensive anchor on the left side, important against movement in open space and wide runners."
           },
           {
             "name": "Mateo Kovacic",
@@ -1565,11 +2035,28 @@
       "homeTeamId": "GHA",
       "awayTeamId": "PAN",
       "venue": "Toronto Stadium",
-      "status": "SCHEDULED",
+      "status": "FT",
+      "score": {
+        "home": 1,
+        "away": 0
+      },
+      "catchUp": [
+        {
+          "headline": "Ghana leave it late against Panama",
+          "body": "Ghana's 1-0 win puts them level with England on three points in Group L.",
+          "standouts": "Caleb Yirenkyi scored in stoppage time to settle a tense opener in Toronto.",
+          "meta": "Ghana vs Panama",
+          "sourceLabel": "FIFA match report",
+          "sourceUrl": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/ghana-panama-highlights-match-report",
+          "priority": 28
+        }
+      ],
       "h2h": {
         "status": "verified-empty",
-        "summary": "First verified senior international meeting. There is no prior Ghana-Panama result to lean on.",
-        "results": []
+        "sourceId": "national-football-teams-h2h-2026-06-17",
+        "summary": "Ghana and Panama have never met in a verified senior men's international. This is their first head-to-head meeting.",
+        "results": [],
+        "sourceUrl": "https://www.national-football-teams.com/encounter/teams/72/142/Ghana_vs_Panama.html"
       },
       "projection": {
         "sourceId": "editorial-preview-2026-06-17",
@@ -1596,7 +2083,7 @@
         "away": [
           {
             "name": "Adalberto Carrasquilla",
-            "note": "Panama's midfield organizer. If he dictates tempo, Panama can slow the match and make it uncomfortable."
+            "note": "Panama's midfield organizer. If he sets the rhythm, Panama can slow the match and make it uncomfortable."
           },
           {
             "name": "Michael Murillo",
@@ -1604,9 +2091,14 @@
           },
           {
             "name": "Ismael Diaz",
-            "note": "The final-third spark, capable of turning a compact Panama performance into a real scoring chance."
+            "note": "The attacking spark, capable of turning a compact Panama performance into a real scoring chance."
           }
         ]
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-17",
+        "home": "Ghana are a fast front-line team that need their direct runners to turn defensive work into threat, led by Antoine Semenyo, Inaki Williams, and Jordan Ayew. Against Panama, they want to send Semenyo and Williams into space before the opponent can compress the field; the risk is Panama can disrupt rhythm through Carrasquilla and create right-side surges through Murillo.",
+        "away": "Panama are an organized disruptor side that can make matches uncomfortable through midfield control and wide thrust, led by Adalberto Carrasquilla, Michael Murillo, and Ismael Diaz. Against Ghana, they want to use Carrasquilla to escape pressure and let Murillo turn the right side into territory; the risk is Ghana can attack space early through Semenyo and Williams."
       }
     },
     {
@@ -1618,11 +2110,28 @@
       "homeTeamId": "UZB",
       "awayTeamId": "COL",
       "venue": "Mexico City Stadium",
-      "status": "SCHEDULED",
+      "status": "FT",
+      "score": {
+        "home": 1,
+        "away": 3
+      },
+      "catchUp": [
+        {
+          "headline": "Colombia take control of Group K",
+          "body": "Colombia's 3-1 win over Uzbekistan moves them top after the opening Group K matches.",
+          "standouts": "Luis Diaz scored and helped Colombia answer Uzbekistan's first World Cup goal before Jaminton Campaz sealed it late.",
+          "meta": "Uzbekistan vs Colombia",
+          "sourceLabel": "FIFA match report",
+          "sourceUrl": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/uzbekistan-colombia-match-report-highlights",
+          "priority": 28
+        }
+      ],
       "h2h": {
         "status": "verified-empty",
-        "summary": "First verified senior A-team meeting. No previous World Cup, friendly, or competitive match is listed before 2026.",
-        "results": []
+        "sourceId": "national-football-teams-h2h-2026-06-17",
+        "summary": "Uzbekistan is playing its first World Cup match. Uzbekistan and Colombia have never met in a verified senior men's international, making this their first head-to-head meeting.",
+        "results": [],
+        "sourceUrl": "https://www.national-football-teams.com/encounter/teams/201/43/Uzbekistan_vs_Colombia.html"
       },
       "projection": {
         "sourceId": "editorial-preview-2026-06-17",
@@ -1657,9 +2166,14 @@
           },
           {
             "name": "Luis Suarez",
-            "note": "A central striker arriving off a heavy club scoring season, giving Colombia a direct penalty-box target."
+            "note": "A central striker arriving off a heavy club scoring season, giving Colombia a direct target in the box."
           }
         ]
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-17",
+        "home": "Uzbekistan are a disciplined first-time World Cup side with enough spine quality to make opponents work, led by Eldor Shomurodov, Abdukodir Khusanov, and Abbosbek Fayzullaev. Against Colombia, they want to play through Fayzullaev's movement and give Shomurodov a real target in the box; the risk is Colombia can use Diaz's width and James' invention to create a clear chance in the box.",
+        "away": "Colombia are a rhythm-and-width team with enough individual quality to punish any loose defensive spacing, led by Luis Diaz, James Rodriguez, and Luis Suarez. Against Uzbekistan, they want to let Diaz run behind defenders while James looks for the pass that changes the speed of the move; the risk is Uzbekistan can stay disciplined, then find Shomurodov or Fayzullaev when space opens."
       }
     },
     {
@@ -1701,7 +2215,7 @@
         "home": [
           {
             "name": "Patrik Schick",
-            "note": "Czechia's main penalty-box finisher, especially dangerous when crosses and second balls arrive early."
+            "note": "Czechia's main finisher in the box, especially dangerous when crosses and second balls arrive early."
           },
           {
             "name": "Tomas Soucek",
@@ -1719,13 +2233,18 @@
           },
           {
             "name": "Percy Tau",
-            "note": "The experienced attacking reference, useful between lines and in quick combinations."
+            "note": "The experienced attacking reference, useful in open space and in quick combinations."
           },
           {
             "name": "Lyle Foster",
             "note": "A direct forward who gives South Africa a route behind the defensive line."
           }
         ]
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-17",
+        "home": "Czechia are a set-piece and crossing threat that become dangerous when the game is played in the air, led by Patrik Schick, Tomas Soucek, and Adam Hlozek. Against South Africa, they want to load early service toward Schick and Soucek before the defensive block settles; the risk is South Africa can turn saves from Williams into Tau and Foster counters.",
+        "away": "South Africa are counterattacking underdogs who can stay in games if their goalkeeper and forwards give them belief, led by Ronwen Williams, Percy Tau, and Lyle Foster. Against Czechia, they want to absorb pressure, find Tau in space, and release Foster before the defense recovers; the risk is Czechia can turn crosses, set pieces, and Soucek runs into high-value chances."
       }
     },
     {
@@ -1767,7 +2286,7 @@
         "home": [
           {
             "name": "Granit Xhaka",
-            "note": "Switzerland's tempo setter, controlling where the match is played and when pressure releases."
+            "note": "Switzerland's rhythm setter, controlling where the match is played and when pressure releases."
           },
           {
             "name": "Manuel Akanji",
@@ -1792,6 +2311,11 @@
             "note": "A creative wide option who can add spark if Bosnia need a cleaner final pass."
           }
         ]
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-17",
+        "home": "Switzerland are a tournament-tested structure team who rarely look rushed when the match gets tense, led by Granit Xhaka, Manuel Akanji, and Breel Embolo. Against Bosnia and Herzegovina, they want to let Xhaka dictate the first pass and find Embolo before the opponent can squeeze midfield; the risk is Bosnia and Herzegovina can turn direct service into Dzeko touches and scrappy box pressure.",
+        "away": "Bosnia and Herzegovina are a veteran-leaning side that still carry real danger when the match becomes physical and direct, led by Edin Dzeko, Sead Kolasinac, and Esmir Bajraktarevic. Against Switzerland, they want to play into Dzeko early and build around the second balls that follow; the risk is Switzerland can slow the game through Xhaka and use Embolo as the release valve."
       }
     },
     {
@@ -1847,7 +2371,7 @@
         "away": [
           {
             "name": "Akram Afif",
-            "note": "Qatar's main creator and penalty-box connector, dangerous when he can receive between lines."
+            "note": "Qatar's main creator and box connector, dangerous when he can receive in open space."
           },
           {
             "name": "Almoez Ali",
@@ -1858,6 +2382,11 @@
             "note": "A left-sided runner whose recovery pace and timing can shape Qatar's defensive rhythm."
           }
         ]
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-17",
+        "home": "Canada are a fast, direct host-side threat with enough top-end speed to change games in a few seconds, led by Alphonso Davies, Jonathan David, and Stephen Eustaquio. Against Qatar, they want to release Davies into space and get David facing goal before the opponent's block is set; the risk is Qatar can combine through Afif and Almoez Ali when defenders lose patience.",
+        "away": "Qatar are compact possession builders who need their best attackers to turn long spells into sharper chances, led by Akram Afif, Almoez Ali, and Homam Ahmed. Against Canada, they want to find Afif in pockets and let Almoez Ali attack the first clean service; the risk is Canada can run through Davies and David before defenders can recover."
       }
     },
     {
@@ -2029,7 +2558,7 @@
         "home": [
           {
             "name": "Santiago Gimenez",
-            "note": "Mexico's focal striker, valuable when home pressure turns into repeated penalty-area touches."
+            "note": "Mexico's focal striker, valuable when home pressure turns into repeated box touches."
           },
           {
             "name": "Edson Alvarez",
@@ -2054,6 +2583,11 @@
             "note": "The creative passer who can turn Korea's counters into controlled attacks."
           }
         ]
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-17",
+        "home": "Mexico are a home-side pressure team that want territory, crowd energy, and repeated box touches, led by Santiago Gimenez, Edson Alvarez, and Luis Chavez. Against South Korea, they want to keep the ball in the opponent's half and feed Gimenez before Chavez attacks restarts or rebounds; the risk is South Korea can turn running power and Son's finishing into sudden chances.",
+        "away": "South Korea are a relentless running side with star quality at both ends of the spine, led by Son Heung-min, Kim Min-jae, and Lee Kang-in. Against Mexico, they want to release Son behind the line and let Lee Kang-in choose the final pass; the risk is Mexico can turn home pressure into Gimenez touches and Chavez set-piece looks."
       }
     },
     {
@@ -2127,15 +2661,38 @@
         "method": "team-watchlist-baseline",
         "basis": "Team-level key-player watchlist; replace with API/squad-sourced fixture notes when available",
         "home": [
-          "Christian Pulisic",
-          "Weston McKennie",
-          "Tyler Adams"
+          {
+            "name": "Christian Pulisic",
+            "note": "The primary one-v-one attacker and late-box runner, the player most likely to turn pressure into a clean shot."
+          },
+          {
+            "name": "Weston McKennie",
+            "note": "A box-to-box connector whose second-ball work and set-piece timing give the U.S. midfield bite."
+          },
+          {
+            "name": "Tyler Adams",
+            "note": "The ball-winning organizer at the base of midfield, crucial when the match opens into transition."
+          }
         ],
         "away": [
-          "Mathew Ryan",
-          "Jackson Irvine",
-          "Christian Volpato"
+          {
+            "name": "Mathew Ryan",
+            "note": "The experienced keeper and organizer, important when Australia absorb long spells without the ball."
+          },
+          {
+            "name": "Jackson Irvine",
+            "note": "The midfield tone-setter, valuable for pressing, second balls, and late runs into the area."
+          },
+          {
+            "name": "Christian Volpato",
+            "note": "A creative left-footed option who can give Australia a cleaner final pass in tight matches."
+          }
         ]
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-17",
+        "home": "United States are an athletic pressing team with enough direct attacking talent to make games feel stretched, led by Christian Pulisic, Weston McKennie, and Tyler Adams. Against Australia, they want to press into turnovers and let Pulisic or McKennie attack before the defense resets; the risk is Australia can drag opponents into duels, restarts, and late midfield runs.",
+        "away": "Australia are a durable, physical side built around organization, pressure, and set-piece toughness, led by Mathew Ryan, Jackson Irvine, and Christian Volpato. Against United States, they want to make the match direct enough for Irvine's running and Volpato's left foot to matter; the risk is United States can turn pressure into Pulisic carries and McKennie second-ball runs."
       }
     },
     {
@@ -2179,15 +2736,38 @@
         "method": "team-watchlist-baseline",
         "basis": "Team-level key-player watchlist; replace with API/squad-sourced fixture notes when available",
         "home": [
-          "Scott McTominay",
-          "John McGinn",
-          "Andy Robertson"
+          {
+            "name": "Scott McTominay",
+            "note": "Scotland's late-arriving goal threat, most dangerous when midfield runs crash into the box."
+          },
+          {
+            "name": "John McGinn",
+            "note": "The ball-winning connector who sets the tone physically and keeps Scotland's attacks moving."
+          },
+          {
+            "name": "Andy Robertson",
+            "note": "The captain and left-side engine, giving Scotland delivery, recovery runs, and tournament edge."
+          }
         ],
         "away": [
-          "Achraf Hakimi",
-          "Hakim Ziyech",
-          "Youssef En-Nesyri"
+          {
+            "name": "Achraf Hakimi",
+            "note": "A two-way right-side force whose overlaps, recovery speed, and set pieces shape Morocco's best stretches."
+          },
+          {
+            "name": "Hakim Ziyech",
+            "note": "The left-footed chance creator, dangerous when Morocco can switch play and let him pick final balls."
+          },
+          {
+            "name": "Youssef En-Nesyri",
+            "note": "The reference point in the box and aerial finisher who gives Morocco a direct end point."
+          }
         ]
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-17",
+        "home": "Scotland are a physical midfield side that can make opponents defend deliveries, duels, and late runners, led by Scott McTominay, John McGinn, and Andy Robertson. Against Morocco, they want to work the ball left for Robertson and attack the second phase through McTominay; the risk is Morocco can combine Hakimi surges, Ziyech service, and En-Nesyri's box movement.",
+        "away": "Morocco are a disciplined, dangerous side whose structure lets their flair players attack with freedom, led by Achraf Hakimi, Hakim Ziyech, and Youssef En-Nesyri. Against Scotland, they want to use Hakimi's overlaps to tilt the field before Ziyech finds En-Nesyri; the risk is Scotland can turn Robertson service and McTominay runs into pressure."
       }
     },
     {
@@ -2241,15 +2821,38 @@
         "method": "team-watchlist-baseline",
         "basis": "Team-level key-player watchlist; replace with API/squad-sourced fixture notes when available",
         "home": [
-          "Neymar",
-          "Vinicius Junior",
-          "Casemiro"
+          {
+            "name": "Neymar",
+            "note": "Brazil's imagination hub when they need disguise, combination play, and fouls drawn around the box."
+          },
+          {
+            "name": "Vinicius Junior",
+            "note": "The devastating left-sided runner, capable of breaking a match with one isolation or carry in behind."
+          },
+          {
+            "name": "Casemiro",
+            "note": "The midfield security blanket, important for stopping counters before Brazil's fullbacks are exposed."
+          }
         ],
         "away": [
-          "Duckens Nazon",
-          "Frantzdy Pierrot",
-          "Jean-Ricner Bellegarde"
+          {
+            "name": "Duckens Nazon",
+            "note": "Haiti's emotional attacking focal point, a direct finisher who can turn loose moments into shots."
+          },
+          {
+            "name": "Frantzdy Pierrot",
+            "note": "A powerful target in the box who gives Haiti a route through crosses and second balls."
+          },
+          {
+            "name": "Jean-Ricner Bellegarde",
+            "note": "The rhythm and carrying option in midfield, valuable when Haiti need cleaner exits under pressure."
+          }
         ]
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-17",
+        "home": "Brazil are a top-tier attacking side whose best moments mix individual invention with sudden acceleration, led by Neymar, Vinicius Junior, and Casemiro. Against Haiti, they want to isolate Vinicius Junior quickly and let Neymar combine around the fouls and gaps that creates; the risk is Haiti can turn direct service into Nazon or Pierrot chances.",
+        "away": "Haiti are a direct attacking underdog with enough forward power to punish loose defending, led by Duckens Nazon, Frantzdy Pierrot, and Jean-Ricner Bellegarde. Against Brazil, they want to play forward quickly toward Nazon and Pierrot before the opponent can crowd the box; the risk is Brazil can break a shape through Neymar combinations and Vinicius Junior's speed."
       }
     },
     {
@@ -2293,15 +2896,38 @@
         "method": "team-watchlist-baseline",
         "basis": "Team-level key-player watchlist; replace with API/squad-sourced fixture notes when available",
         "home": [
-          "Hakan Calhanoglu",
-          "Arda Guler",
-          "Kenan Yildiz"
+          {
+            "name": "Hakan Calhanoglu",
+            "note": "The deep playmaker and dead-ball specialist, capable of controlling the rhythm or punishing fouls from distance."
+          },
+          {
+            "name": "Arda Guler",
+            "note": "The creative spark in open space, dangerous when he can receive on the turn near the box."
+          },
+          {
+            "name": "Kenan Yildiz",
+            "note": "A fearless young attacker who can stretch the game with carries and quick combinations."
+          }
         ],
         "away": [
-          "Miguel Almiron",
-          "Julio Enciso",
-          "Gustavo Gomez"
+          {
+            "name": "Miguel Almiron",
+            "note": "The speed outlet who can carry Paraguay out of pressure and attack space before blocks reset."
+          },
+          {
+            "name": "Julio Enciso",
+            "note": "A fearless shot creator from pockets between midfield and defense, capable of making a low-chance match volatile."
+          },
+          {
+            "name": "Gustavo Gomez",
+            "note": "The defensive leader and set-piece target, central to Paraguay's rugged low-scoring path."
+          }
         ]
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-17",
+        "home": "Türkiye are a creative young attacking side with enough set-piece quality to punish small mistakes, led by Hakan Calhanoglu, Arda Guler, and Kenan Yildiz. Against Paraguay, they want to use Calhanoglu's passing to find Guler in space before Yildiz attacks the gap; the risk is Paraguay can turn one Almiron break or Enciso shot into a low-margin swing.",
+        "away": "Paraguay are rugged counterpunchers who are comfortable turning matches into physical, low-margin contests, led by Miguel Almiron, Julio Enciso, and Gustavo Gomez. Against Türkiye, they want to release Almiron into space and let Enciso attack the pocket before defenders settle; the risk is Türkiye can turn Calhanoglu service and Guler invention into sudden chances."
       }
     },
     {
@@ -2505,15 +3131,38 @@
         "method": "team-watchlist-baseline",
         "basis": "Team-level key-player watchlist; replace with API/squad-sourced fixture notes when available",
         "home": [
-          "Virgil van Dijk",
-          "Frenkie de Jong",
-          "Cody Gakpo"
+          {
+            "name": "Virgil van Dijk",
+            "note": "The defensive reference point, controlling aerial duels and giving the Netherlands confidence to hold a higher line."
+          },
+          {
+            "name": "Frenkie de Jong",
+            "note": "The press-resistant midfielder who turns build-up pressure into controlled entries through midfield."
+          },
+          {
+            "name": "Cody Gakpo",
+            "note": "A flexible forward who can drift inside, combine, and finish when the Dutch attack finds rhythm."
+          }
         ],
         "away": [
-          "Alexander Isak",
-          "Viktor Gyokeres",
-          "Dejan Kulusevski"
+          {
+            "name": "Alexander Isak",
+            "note": "The elegant main striker, dangerous when Sweden can find him early in channels or around the box."
+          },
+          {
+            "name": "Viktor Gyokeres",
+            "note": "A relentless power forward whose carries and pressing can turn Sweden from structured to explosive."
+          },
+          {
+            "name": "Dejan Kulusevski",
+            "note": "The left-footed creator who links midfield to attack and gives Sweden craft in open space."
+          }
         ]
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-17",
+        "home": "Netherlands are a control team with a strong defensive base and enough technical quality to play through pressure, led by Virgil van Dijk, Frenkie de Jong, and Cody Gakpo. Against Sweden, they want to build calmly through De Jong and let Gakpo receive between fullback and center-back; the risk is Sweden can alternate between Isak's finesse and Gyokeres' force.",
+        "away": "Sweden are a tall, technical attacking side with two forwards who can change the shape of a match, led by Alexander Isak, Viktor Gyokeres, and Dejan Kulusevski. Against Netherlands, they want to combine through Kulusevski and then choose between Isak's polish or Gyokeres' power; the risk is Netherlands can control possession through De Jong and protect it with Van Dijk's authority."
       }
     },
     {
@@ -2557,15 +3206,38 @@
         "method": "team-watchlist-baseline",
         "basis": "Team-level key-player watchlist; replace with API/squad-sourced fixture notes when available",
         "home": [
-          "Joshua Kimmich",
-          "Jamal Musiala",
-          "Florian Wirtz"
+          {
+            "name": "Joshua Kimmich",
+            "note": "Germany's control valve, setting tempo while also giving the back line protection when possession breaks."
+          },
+          {
+            "name": "Jamal Musiala",
+            "note": "The glide-through-pressure attacker, able to create chaos in crowded central spaces."
+          },
+          {
+            "name": "Florian Wirtz",
+            "note": "A high-IQ creator whose timing and final pass can turn Germany's possession into real chances."
+          }
         ],
         "away": [
-          "Franck Kessie",
-          "Simon Adingra",
-          "Sebastien Haller"
+          {
+            "name": "Franck Kessie",
+            "note": "The power-and-control midfielder, giving Cote d'Ivoire ball-winning, carries, and box arrivals."
+          },
+          {
+            "name": "Simon Adingra",
+            "note": "The wide runner who can stretch back lines and make transition attacks feel immediate."
+          },
+          {
+            "name": "Sebastien Haller",
+            "note": "The central reference point, a finisher in the box who makes crosses and cutbacks matter."
+          }
         ]
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-17",
+        "home": "Germany are a technical control side with enough young creativity to open compact defenses, led by Joshua Kimmich, Jamal Musiala, and Florian Wirtz. Against Côte d'Ivoire, they want to pull midfielders out with Kimmich's passing before Musiala and Wirtz attack the gaps near the box; the risk is Côte d'Ivoire can turn Kessie's carries and Adingra's pace into Haller chances.",
+        "away": "Côte d'Ivoire are a powerful transition team with enough midfield force to turn loose games in their favor, led by Franck Kessie, Simon Adingra, and Sebastien Haller. Against Germany, they want to win the midfield collision and send Adingra into space before Haller attacks the box; the risk is Germany can combine through Kimmich, Musiala, and Wirtz until the block loses its shape."
       }
     },
     {
@@ -2581,7 +3253,7 @@
       "h2h": {
         "status": "verified-empty",
         "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "No senior meetings were listed by National Football Teams before this fixture.",
+        "summary": "Ecuador and Curaçao have never met in a verified senior men's international. This is their first head-to-head meeting, during Curaçao's first World Cup tournament.",
         "results": [],
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/56/280/Ecuador_vs_Curacao.html"
       },
@@ -2598,15 +3270,38 @@
         "method": "team-watchlist-baseline",
         "basis": "Team-level key-player watchlist; replace with API/squad-sourced fixture notes when available",
         "home": [
-          "Moises Caicedo",
-          "Piero Hincapie",
-          "Enner Valencia"
+          {
+            "name": "Moises Caicedo",
+            "note": "Ecuador's midfield eraser and ball mover, vital for disrupting opponents before they reach the back line."
+          },
+          {
+            "name": "Piero Hincapie",
+            "note": "The left-sided defensive anchor, comfortable stepping out to defend space and start attacks."
+          },
+          {
+            "name": "Enner Valencia",
+            "note": "The veteran finisher and emotional leader, still the quickest route from pressure to goals."
+          }
         ],
         "away": [
-          "Juninho Bacuna",
-          "Leandro Bacuna",
-          "Vurnon Anita"
+          {
+            "name": "Juninho Bacuna",
+            "note": "Curacao's most assertive midfield carrier, useful for turning defensive work into forward momentum."
+          },
+          {
+            "name": "Leandro Bacuna",
+            "note": "The experienced set-piece and leadership presence, important when Curacao need calm under pressure."
+          },
+          {
+            "name": "Vurnon Anita",
+            "note": "A veteran organizer who can help Curacao stay compact and connected without the ball."
+          }
         ]
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-17",
+        "home": "Ecuador are an intense, athletic side that can disrupt stronger opponents through midfield pressure, led by Moises Caicedo, Piero Hincapie, and Enner Valencia. Against Curaçao, they want to win the midfield duel through Caicedo and release Valencia before the defense is set; the risk is Curaçao can turn veteran set-piece moments into a way back into the game.",
+        "away": "Curaçao are a veteran-heavy underdog side trying to stay connected and choose their moments carefully, led by Juninho Bacuna, Leandro Bacuna, and Vurnon Anita. Against Ecuador, they want to use the Bacuna brothers to turn pressure relief into set pieces and territory; the risk is Ecuador can turn Caicedo ball wins and Valencia movement into fast attacks."
       }
     },
     {
@@ -2700,15 +3395,38 @@
         "method": "team-watchlist-baseline",
         "basis": "Team-level key-player watchlist; replace with API/squad-sourced fixture notes when available",
         "home": [
-          "Ellyes Skhiri",
-          "Hannibal Mejbri",
-          "Elias Saad"
+          {
+            "name": "Ellyes Skhiri",
+            "note": "The midfield screen, important for keeping Tunisia compact and killing counters at source."
+          },
+          {
+            "name": "Hannibal Mejbri",
+            "note": "The high-energy connector who can lift Tunisia's tempo with pressure, carries, and edge."
+          },
+          {
+            "name": "Elias Saad",
+            "note": "A direct wide threat who gives Tunisia a route forward when the match asks for pace."
+          }
         ],
         "away": [
-          "Takefusa Kubo",
-          "Kaoru Mitoma",
-          "Wataru Endo"
+          {
+            "name": "Takefusa Kubo",
+            "note": "Japan's sharpest creator in tight spaces, especially dangerous when he can cut inside onto his left foot."
+          },
+          {
+            "name": "Kaoru Mitoma",
+            "note": "The isolation winger who can beat the first defender and turn patient possession into sudden chances."
+          },
+          {
+            "name": "Wataru Endo",
+            "note": "The midfield anchor, key to Japan's counter-press and the first pass after winning the ball."
+          }
         ]
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-17",
+        "home": "Tunisia are an organized defensive side that need energy and directness to make their structure bite, led by Ellyes Skhiri, Hannibal Mejbri, and Elias Saad. Against Japan, they want to stay compact through Skhiri and then use Saad as the first runner into space; the risk is Japan can turn quick combinations into Kubo or Mitoma isolations.",
+        "away": "Japan are a precise, fast-passing side that can make possession feel sudden and sharp, led by Takefusa Kubo, Kaoru Mitoma, and Wataru Endo. Against Tunisia, they want to move the ball quickly enough for Kubo or Mitoma to receive against a shifting defender; the risk is Tunisia can slow the match through Skhiri's screen and break through Saad."
       }
     },
     {
@@ -2772,15 +3490,38 @@
         "method": "team-watchlist-baseline",
         "basis": "Team-level key-player watchlist; replace with API/squad-sourced fixture notes when available",
         "home": [
-          "Lamine Yamal",
-          "Pedri",
-          "Nico Williams"
+          {
+            "name": "Lamine Yamal",
+            "note": "Spain's game-breaking wide creator, able to bend low blocks with dribbling, passing, and shot threat."
+          },
+          {
+            "name": "Pedri",
+            "note": "The rhythm setter in open space, making Spain's possession feel calmer and more incisive."
+          },
+          {
+            "name": "Nico Williams",
+            "note": "The vertical winger who turns switches of play into immediate pressure on the box."
+          }
         ],
         "away": [
-          "Salem Al-Dawsari",
-          "Firas Al-Buraikan",
-          "Mohammed Al-Owais"
+          {
+            "name": "Salem Al-Dawsari",
+            "note": "Saudi Arabia's big-moment wide attacker, trusted to carry counters and take on defenders."
+          },
+          {
+            "name": "Firas Al-Buraikan",
+            "note": "The mobile striker who links attacks and gives Saudi Arabia a cleaner target in transition."
+          },
+          {
+            "name": "Mohammed Al-Owais",
+            "note": "The experienced goalkeeper, vital if Saudi Arabia spend long stretches defending their box."
+          }
         ]
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-17",
+        "home": "Spain are one of the tournament's most polished possession teams, led by Lamine Yamal, Pedri, and Nico Williams. Against Saudi Arabia, they want to pin the wide defenders with Yamal and Williams before Pedri plays through the gaps; the risk is Saudi Arabia can turn pressing bursts and Al-Dawsari carries into momentum.",
+        "away": "Saudi Arabia are a fearless pressing underdog with enough big-moment attackers to punish complacency, led by Salem Al-Dawsari, Firas Al-Buraikan, and Mohammed Al-Owais. Against Spain, they want to press in bursts and give Al-Dawsari room to attack the first retreating defender; the risk is Spain can stretch the pitch through Yamal and Williams before Pedri breaks the line."
       }
     },
     {
@@ -2796,7 +3537,7 @@
       "h2h": {
         "status": "verified-empty",
         "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "No senior meetings were listed by National Football Teams before this fixture.",
+        "summary": "Belgium and IR Iran have never met in a verified senior men's international. This is their first head-to-head meeting.",
         "results": [],
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/20/88/Belgium_vs_Iran.html"
       },
@@ -2813,15 +3554,38 @@
         "method": "team-watchlist-baseline",
         "basis": "Team-level key-player watchlist; replace with API/squad-sourced fixture notes when available",
         "home": [
-          "Kevin De Bruyne",
-          "Romelu Lukaku",
-          "Jeremy Doku"
+          {
+            "name": "Kevin De Bruyne",
+            "note": "Belgium's elite chance architect, able to find early crosses, through balls, and shots before defenses settle."
+          },
+          {
+            "name": "Romelu Lukaku",
+            "note": "The reference point in the box and power finisher, built to punish any service into his stride or feet."
+          },
+          {
+            "name": "Jeremy Doku",
+            "note": "The one-v-one destabilizer, stretching games wide open with direct carries from the flank."
+          }
         ],
         "away": [
-          "Mehdi Taremi",
-          "Sardar Azmoun",
-          "Alireza Jahanbakhsh"
+          {
+            "name": "Mehdi Taremi",
+            "note": "Iran's most polished attacking reference, a clever finisher who also wins fouls and links counters."
+          },
+          {
+            "name": "Sardar Azmoun",
+            "note": "A box striker with timing in the air and enough movement to punish loose marking."
+          },
+          {
+            "name": "Alireza Jahanbakhsh",
+            "note": "The experienced wide creator, useful on set pieces and when Iran need a calmer final ball."
+          }
         ]
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-17",
+        "home": "Belgium are an elite chance-creation team when their creators get space to face forward, led by Kevin De Bruyne, Romelu Lukaku, and Jeremy Doku. Against IR Iran, they want to feed De Bruyne early and use Doku to create the separation Lukaku needs in the box; the risk is IR Iran can turn fouls, counters, and Taremi's craft into chances.",
+        "away": "IR Iran are a streetwise counterattacking side with experienced forwards who understand tournament margins, led by Mehdi Taremi, Sardar Azmoun, and Alireza Jahanbakhsh. Against Belgium, they want to draw contact, slow the rhythm, and then find Taremi or Azmoun around the box; the risk is Belgium can turn De Bruyne service and Doku dribbles into Lukaku chances."
       }
     },
     {
@@ -2837,7 +3601,7 @@
       "h2h": {
         "status": "verified-empty",
         "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "No senior meetings were listed by National Football Teams before this fixture.",
+        "summary": "Uruguay and Cabo Verde have never met in a verified senior men's international. This is their first head-to-head meeting, during Cabo Verde's first World Cup tournament.",
         "results": [],
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/198/37/Uruguay_vs_Cape_Verde.html"
       },
@@ -2854,15 +3618,38 @@
         "method": "team-watchlist-baseline",
         "basis": "Team-level key-player watchlist; replace with API/squad-sourced fixture notes when available",
         "home": [
-          "Federico Valverde",
-          "Darwin Nunez",
-          "Ronald Araujo"
+          {
+            "name": "Federico Valverde",
+            "note": "Uruguay's engine and long-range threat, driving the midfield while covering huge spaces without the ball."
+          },
+          {
+            "name": "Darwin Nunez",
+            "note": "The chaos-forward who can stretch any back line and turn half-chances into high-speed danger."
+          },
+          {
+            "name": "Ronald Araujo",
+            "note": "The recovery defender and duel winner, essential against elite forwards in open grass."
+          }
         ],
         "away": [
-          "Ryan Mendes",
-          "Roberto Lopes",
-          "Vozinha"
+          {
+            "name": "Ryan Mendes",
+            "note": "Cabo Verde's experienced attacking reference, useful when counters need a composed final action."
+          },
+          {
+            "name": "Roberto Lopes",
+            "note": "The defensive organizer, central to keeping Cabo Verde compact through long spells without the ball."
+          },
+          {
+            "name": "Vozinha",
+            "note": "The veteran goalkeeper whose shot-stopping can keep Cabo Verde alive in narrow games."
+          }
         ]
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-17",
+        "home": "Uruguay are a South American intensity side with enough running power to turn every phase into a contest, led by Federico Valverde, Darwin Nunez, and Ronald Araujo. Against Cabo Verde, they want to use Valverde's running to release Nunez before the defense can control the space behind; the risk is Cabo Verde can turn a slow match into one decisive Mendes action.",
+        "away": "Cabo Verde are compact tournament disruptors who need experience and goalkeeping to keep matches close, led by Ryan Mendes, Roberto Lopes, and Vozinha. Against Uruguay, they want to stay compact long enough for Mendes to find a composed final action; the risk is Uruguay can turn Valverde's engine and Nunez's depth into chaos."
       }
     },
     {
@@ -2926,15 +3713,38 @@
         "method": "team-watchlist-baseline",
         "basis": "Team-level key-player watchlist; replace with API/squad-sourced fixture notes when available",
         "home": [
-          "Chris Wood",
-          "Liberato Cacace",
-          "Sarpreet Singh"
+          {
+            "name": "Chris Wood",
+            "note": "New Zealand's target striker and clearest scoring route, especially from crosses and second balls."
+          },
+          {
+            "name": "Liberato Cacace",
+            "note": "The left-side outlet who can carry New Zealand up the pitch and serve early balls."
+          },
+          {
+            "name": "Sarpreet Singh",
+            "note": "A technical creator who can make New Zealand less predictable when space appears in open space."
+          }
         ],
         "away": [
-          "Mohamed Salah",
-          "Omar Marmoush",
-          "Mostafa Mohamed"
+          {
+            "name": "Mohamed Salah",
+            "note": "Egypt's decisive outlet, a transition runner and finisher every opponent has to bend their shape around."
+          },
+          {
+            "name": "Omar Marmoush",
+            "note": "A mobile second scoring threat who can attack channels and keep Egypt from becoming one-dimensional."
+          },
+          {
+            "name": "Mostafa Mohamed",
+            "note": "The central target, important when Egypt need hold-up play and a box endpoint."
+          }
         ]
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-17",
+        "home": "New Zealand are an aerial, organized side that need territory and service to keep stronger opponents honest, led by Chris Wood, Liberato Cacace, and Sarpreet Singh. Against Egypt, they want to move play wide through Cacace and serve Wood before the box gets crowded; the risk is Egypt can turn one loose pass into a Salah-led break.",
+        "away": "Egypt are a Salah-led transition team that can look quiet until one direct attack opens the match, led by Mohamed Salah, Omar Marmoush, and Mostafa Mohamed. Against New Zealand, they want to release Salah early and let Marmoush arrive as the second wave; the risk is New Zealand can turn left-side service and Wood's aerial presence into chances."
       }
     },
     {
@@ -2988,15 +3798,38 @@
         "method": "team-watchlist-baseline",
         "basis": "Team-level key-player watchlist; replace with API/squad-sourced fixture notes when available",
         "home": [
-          "Julian Alvarez",
-          "Enzo Fernandez",
-          "Emiliano Martinez"
+          {
+            "name": "Julian Alvarez",
+            "note": "Argentina's pressing forward and flexible finisher, dangerous whether he starts moves or attacks the last line."
+          },
+          {
+            "name": "Enzo Fernandez",
+            "note": "The midfield passer who can change the angle of attacks and keep Argentina's control from going stale."
+          },
+          {
+            "name": "Emiliano Martinez",
+            "note": "The commanding goalkeeper and penalty-stage presence, central to Argentina's tournament confidence."
+          }
         ],
         "away": [
-          "David Alaba",
-          "Marcel Sabitzer",
-          "Christoph Baumgartner"
+          {
+            "name": "David Alaba",
+            "note": "Austria's organizer and set-piece technician, giving the back line leadership and the ball progression."
+          },
+          {
+            "name": "Marcel Sabitzer",
+            "note": "The pressing midfielder with shooting range, dangerous when Austria force turnovers near goal."
+          },
+          {
+            "name": "Christoph Baumgartner",
+            "note": "A smart runner between midfield and attack, often the player who turns pressure into box entries."
+          }
         ]
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-17",
+        "home": "Argentina are the defending champions and still one of the most complete tournament teams, led by Julian Alvarez, Enzo Fernandez, and Emiliano Martinez. Against Austria, they want to press high with Alvarez, win the second ball, and let Enzo Fernandez change the angle of the attack; the risk is Austria can press the first pass, win territory, and attack before defenses reset.",
+        "away": "Austria are a high-pressure European side with enough experience to make the press feel organized rather than wild, led by David Alaba, Marcel Sabitzer, and Christoph Baumgartner. Against Argentina, they want to force rushed passes and turn Sabitzer's pressure into Baumgartner arrivals near goal; the risk is Argentina can turn one midfield win into Alvarez movement, Enzo service, and sustained pressure."
       }
     },
     {
@@ -3012,7 +3845,7 @@
       "h2h": {
         "status": "verified-empty",
         "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "No senior meetings were listed by National Football Teams before this fixture.",
+        "summary": "France and Iraq have never met in a verified senior men's international. This is their first head-to-head meeting.",
         "results": [],
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/67/89/France_vs_Iraq.html"
       },
@@ -3029,15 +3862,38 @@
         "method": "team-watchlist-baseline",
         "basis": "Team-level key-player watchlist; replace with API/squad-sourced fixture notes when available",
         "home": [
-          "Kylian Mbappe",
-          "Antoine Griezmann",
-          "William Saliba"
+          {
+            "name": "Kylian Mbappe",
+            "note": "France's game-breaking runner and finisher, the player who turns one channel ball into panic."
+          },
+          {
+            "name": "Antoine Griezmann",
+            "note": "The connective creator, balancing France's attack with final passes, pressing work, and set-piece quality."
+          },
+          {
+            "name": "William Saliba",
+            "note": "The defensive stabilizer, calm enough to defend space while France's athletes surge forward."
+          }
         ],
         "away": [
-          "Aymen Hussein",
-          "Ali Jasim",
-          "Zidane Iqbal"
+          {
+            "name": "Aymen Hussein",
+            "note": "Iraq's target in the box, the finisher they look for when attacks become crosses and second balls."
+          },
+          {
+            "name": "Ali Jasim",
+            "note": "A creative dribbler who can give Iraq spark on the break and force defenders into awkward decisions."
+          },
+          {
+            "name": "Zidane Iqbal",
+            "note": "The midfield connector, valuable when Iraq need composure rather than only defensive running."
+          }
         ]
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-17",
+        "home": "France are an elite transition force with enough individual quality to win without needing long possession spells, led by Kylian Mbappe, Antoine Griezmann, and William Saliba. Against Iraq, they want to create one clean channel for Mbappe and let Griezmann decide when to speed the move up; the risk is Iraq can use Ali Jasim's dribbling and Hussein's presence to make counters count.",
+        "away": "Iraq are a passionate, direct side that need their attacking moments to be clean and immediate, led by Aymen Hussein, Ali Jasim, and Zidane Iqbal. Against France, they want to find Ali Jasim between defenders and then play quickly toward Hussein in the box; the risk is France can turn one channel ball into Mbappe running at goal."
       }
     },
     {
@@ -3081,15 +3937,38 @@
         "method": "team-watchlist-baseline",
         "basis": "Team-level key-player watchlist; replace with API/squad-sourced fixture notes when available",
         "home": [
-          "Erling Haaland",
-          "Martin Odegaard",
-          "Antonio Nusa"
+          {
+            "name": "Erling Haaland",
+            "note": "Norway's headline finisher, a box force who changes how every opponent defends crosses and depth."
+          },
+          {
+            "name": "Martin Odegaard",
+            "note": "The left-footed creator and rhythm setter, responsible for turning Norway's possession into service for Haaland."
+          },
+          {
+            "name": "Antonio Nusa",
+            "note": "The young wide spark, able to beat defenders and give Norway a different speed outside the main stars."
+          }
         ],
         "away": [
-          "Sadio Mane",
-          "Nicolas Jackson",
-          "Kalidou Koulibaly"
+          {
+            "name": "Sadio Mane",
+            "note": "Senegal's senior attacking leader, still the name who can turn a direct move into a decisive action."
+          },
+          {
+            "name": "Nicolas Jackson",
+            "note": "A mobile striker whose runs behind the line give Senegal a faster, less predictable edge."
+          },
+          {
+            "name": "Kalidou Koulibaly",
+            "note": "The back-line commander, important for duels, organization, and defending set pieces."
+          }
         ]
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-17",
+        "home": "Norway are a direct star-powered side whose attacking question is how quickly they can serve the finisher, led by Erling Haaland, Martin Odegaard, and Antonio Nusa. Against Senegal, they want to get Odegaard facing forward and deliver early enough for Haaland to attack the box; the risk is Senegal can turn Mane's experience and Jackson's running into direct chances.",
+        "away": "Senegal are an athletic, experienced side with enough defensive presence to survive pressure and enough speed to punish it, led by Sadio Mane, Nicolas Jackson, and Kalidou Koulibaly. Against Norway, they want to use Mane's timing and Jackson's depth to attack before the opponent's block is set; the risk is Norway can feed Haaland through Odegaard's service and Nusa's change of speed."
       }
     },
     {
@@ -3133,15 +4012,38 @@
         "method": "team-watchlist-baseline",
         "basis": "Team-level key-player watchlist; replace with API/squad-sourced fixture notes when available",
         "home": [
-          "Mousa Al-Taamari",
-          "Yazan Al-Naimat",
-          "Noor Al-Rawabdeh"
+          {
+            "name": "Mousa Al-Taamari",
+            "note": "Jordan's star ball-carrier, a direct runner who can make counters feel dangerous immediately."
+          },
+          {
+            "name": "Yazan Al-Naimat",
+            "note": "The central finisher and combination forward, key when Jordan turn rare attacks into real chances."
+          },
+          {
+            "name": "Noor Al-Rawabdeh",
+            "note": "The midfield worker who helps Jordan stay compact and connect the first pass forward."
+          }
         ],
         "away": [
-          "Riyad Mahrez",
-          "Ismael Bennacer",
-          "Amine Gouiri"
+          {
+            "name": "Riyad Mahrez",
+            "note": "Algeria's left-footed creator, still the player who can slow a match down and pick the decisive pass."
+          },
+          {
+            "name": "Ismael Bennacer",
+            "note": "The midfield press-breaker, important for helping Algeria play through pressure instead of around it."
+          },
+          {
+            "name": "Amine Gouiri",
+            "note": "A clever forward who can drift, combine, and give Algeria scoring threat away from the obvious lanes."
+          }
         ]
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-17",
+        "home": "Jordan are a disciplined counterattacking side that can hurt teams through speed and timing, led by Mousa Al-Taamari, Yazan Al-Naimat, and Noor Al-Rawabdeh. Against Algeria, they want to spring Al-Taamari into open space and let Al-Naimat attack the first clear chance; the risk is Algeria can slow the match through Mahrez and Bennacer before finding Gouiri in open space.",
+        "away": "Algeria are a technical North African side that want the game to run through the left foot and calm of midfield, led by Riyad Mahrez, Ismael Bennacer, and Amine Gouiri. Against Jordan, they want to give Mahrez time on the ball and let Amine Gouiri drift into open space; the risk is Jordan can counter through Al-Taamari and Al-Naimat before the back line recovers."
       }
     },
     {
@@ -3157,7 +4059,7 @@
       "h2h": {
         "status": "verified-empty",
         "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "No senior meetings were listed by National Football Teams before this fixture.",
+        "summary": "Portugal and Uzbekistan have never met in a verified senior men's international. This is their first head-to-head meeting, during Uzbekistan's first World Cup tournament.",
         "results": [],
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/148/201/Portugal_vs_Uzbekistan.html"
       },
@@ -3176,15 +4078,15 @@
         "home": [
           {
             "name": "Cristiano Ronaldo",
-            "note": "The headline finisher and penalty-box reference point, still chasing the World Cup piece missing from his resume."
+            "note": "The headline finisher and reference point in the box, still chasing the World Cup piece missing from his resume."
           },
           {
             "name": "Bruno Fernandes",
-            "note": "Portugal's highest-volume chance creator, dangerous between the lines and from dead-ball situations."
+            "note": "Portugal's highest-volume chance creator, dangerous in open space and from free kicks and corners."
           },
           {
             "name": "Vitinha",
-            "note": "A press-resistant tempo setter who can turn Portugal's possession into cleaner entries around the box."
+            "note": "A press-resistant rhythm setter who can turn Portugal's possession into cleaner entries around the box."
           }
         ],
         "away": [
@@ -3201,6 +4103,11 @@
             "note": "A creative midfielder who has to carry transition moments before the opposition can reset behind the ball."
           }
         ]
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-17",
+        "home": "Portugal are a star-heavy attacking side with enough creators to feed several different scoring routes, led by Cristiano Ronaldo, Bruno Fernandes, and Vitinha. Against Uzbekistan, they want to let Vitinha control the first pass, then use Bruno Fernandes to find Ronaldo or the far-side runner; the risk is Uzbekistan can stay disciplined, then find Shomurodov or Fayzullaev when space opens.",
+        "away": "Uzbekistan are a disciplined first-time World Cup side with enough spine quality to make opponents work, led by Eldor Shomurodov, Abdukodir Khusanov, and Abbosbek Fayzullaev. Against Portugal, they want to play through Fayzullaev's movement and give Shomurodov a real target in the box; the risk is Portugal can feed Ronaldo through Bruno Fernandes and Vitinha's supply."
       }
     },
     {
@@ -3271,6 +4178,11 @@
             "note": "The experienced captain and pressure valve, useful when Ghana need calm touches instead of rushed attacks."
           }
         ]
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-17",
+        "home": "England are one of the strongest teams in the tournament, built around power, speed, and danger near goal, led by Jude Bellingham, Harry Kane, and Declan Rice. Against Ghana, they want to turn Kane's dropping movements into Bellingham runs and fast cutbacks from wide areas; the risk is Ghana can attack space early through Semenyo and Williams.",
+        "away": "Ghana are a fast front-line team that need their direct runners to turn defensive work into threat, led by Antoine Semenyo, Inaki Williams, and Jordan Ayew. Against England, they want to send Semenyo and Williams into space before the opponent can compress the field; the risk is England can attack quickly through Kane and Bellingham while Rice controls the counter."
       }
     },
     {
@@ -3286,7 +4198,7 @@
       "h2h": {
         "status": "verified-empty",
         "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "No senior meetings were listed by National Football Teams before this fixture.",
+        "summary": "Panama and Croatia have never met in a verified senior men's international. This is their first head-to-head meeting.",
         "results": [],
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/142/47/Panama_vs_Croatia.html"
       },
@@ -3305,7 +4217,7 @@
         "home": [
           {
             "name": "Adalberto Carrasquilla",
-            "note": "Panama's midfield organizer. If he dictates tempo, Panama can slow the match and make it uncomfortable."
+            "note": "Panama's midfield organizer. If he sets the rhythm, Panama can slow the match and make it uncomfortable."
           },
           {
             "name": "Michael Murillo",
@@ -3313,7 +4225,7 @@
           },
           {
             "name": "Ismael Diaz",
-            "note": "The final-third spark, capable of turning a compact Panama performance into a real scoring chance."
+            "note": "The attacking spark, capable of turning a compact Panama performance into a real scoring chance."
           }
         ],
         "away": [
@@ -3323,13 +4235,18 @@
           },
           {
             "name": "Josko Gvardiol",
-            "note": "Croatia's defensive anchor on the left side, important against movement between the lines and wide runners."
+            "note": "Croatia's defensive anchor on the left side, important against movement in open space and wide runners."
           },
           {
             "name": "Mateo Kovacic",
             "note": "The pressure-release midfielder. His carries can break the first line and give Croatia territory."
           }
         ]
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-17",
+        "home": "Panama are an organized disruptor side that can make matches uncomfortable through midfield control and wide thrust, led by Adalberto Carrasquilla, Michael Murillo, and Ismael Diaz. Against Croatia, they want to use Carrasquilla to escape pressure and let Murillo turn the right side into territory; the risk is Croatia can slow the match through Modric and Kovacic's passing rhythm.",
+        "away": "Croatia are a control team whose tournament identity still runs through midfield calm, led by Luka Modric, Josko Gvardiol, and Mateo Kovacic. Against Panama, they want to use Modric and Kovacic to turn pressure into possession and move the opponent side to side; the risk is Panama can disrupt rhythm through Carrasquilla and create right-side surges through Murillo."
       }
     },
     {
@@ -3345,7 +4262,7 @@
       "h2h": {
         "status": "verified-empty",
         "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "No senior meetings were listed by National Football Teams before this fixture.",
+        "summary": "Colombia and DR Congo have never met in a verified senior men's international. This is their first head-to-head meeting.",
         "results": [],
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/43/55/Colombia_vs_Dr_Congo.html"
       },
@@ -3372,7 +4289,7 @@
           },
           {
             "name": "Luis Suarez",
-            "note": "A central striker arriving off a heavy club scoring season, giving Colombia a direct penalty-box target."
+            "note": "A central striker arriving off a heavy club scoring season, giving Colombia a direct target in the box."
           }
         ],
         "away": [
@@ -3389,6 +4306,11 @@
             "note": "A young midfield runner who matters when DR Congo need to escape pressure and connect the first pass forward."
           }
         ]
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-17",
+        "home": "Colombia are a rhythm-and-width team with enough individual quality to punish any loose defensive spacing, led by Luis Diaz, James Rodriguez, and Luis Suarez. Against DR Congo, they want to let Diaz run behind defenders while James looks for the pass that changes the speed of the move; the risk is DR Congo can break quickly through Wissa and Sadiki when opponents overcommit.",
+        "away": "DR Congo are an explosive transition side that can make favorites uncomfortable if the match opens up, led by Yoane Wissa, Aaron Wan-Bissaka, and Noah Sadiki. Against Colombia, they want to spring Wissa early and let Sadiki carry the first clean pass out of pressure; the risk is Colombia can use Diaz's width and James' invention to create a clear chance in the box."
       }
     },
     {
@@ -3434,7 +4356,7 @@
         "home": [
           {
             "name": "Granit Xhaka",
-            "note": "Switzerland's tempo setter, controlling where the match is played and when pressure releases."
+            "note": "Switzerland's rhythm setter, controlling where the match is played and when pressure releases."
           },
           {
             "name": "Manuel Akanji",
@@ -3459,6 +4381,11 @@
             "note": "A midfield stabilizer who helps Canada avoid turning the match into only end-to-end breaks."
           }
         ]
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-17",
+        "home": "Switzerland are a tournament-tested structure team who rarely look rushed when the match gets tense, led by Granit Xhaka, Manuel Akanji, and Breel Embolo. Against Canada, they want to let Xhaka dictate the first pass and find Embolo before the opponent can squeeze midfield; the risk is Canada can run through Davies and David before defenders can recover.",
+        "away": "Canada are a fast, direct host-side threat with enough top-end speed to change games in a few seconds, led by Alphonso Davies, Jonathan David, and Stephen Eustaquio. Against Switzerland, they want to release Davies into space and get David facing goal before the opponent's block is set; the risk is Switzerland can slow the game through Xhaka and use Embolo as the release valve."
       }
     },
     {
@@ -3528,7 +4455,7 @@
         "away": [
           {
             "name": "Akram Afif",
-            "note": "Qatar's main creator and penalty-box connector, dangerous when he can receive between lines."
+            "note": "Qatar's main creator and box connector, dangerous when he can receive in open space."
           },
           {
             "name": "Almoez Ali",
@@ -3539,6 +4466,11 @@
             "note": "A left-sided runner whose recovery pace and timing can shape Qatar's defensive rhythm."
           }
         ]
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-17",
+        "home": "Bosnia and Herzegovina are a veteran-leaning side that still carry real danger when the match becomes physical and direct, led by Edin Dzeko, Sead Kolasinac, and Esmir Bajraktarevic. Against Qatar, they want to play into Dzeko early and build around the second balls that follow; the risk is Qatar can combine through Afif and Almoez Ali when defenders lose patience.",
+        "away": "Qatar are compact possession builders who need their best attackers to turn long spells into sharper chances, led by Akram Afif, Almoez Ali, and Homam Ahmed. Against Bosnia and Herzegovina, they want to find Afif in pockets and let Almoez Ali attack the first clean service; the risk is Bosnia and Herzegovina can turn direct service into Dzeko touches and scrappy box pressure."
       }
     },
     {
@@ -3632,15 +4564,38 @@
         "method": "team-watchlist-baseline",
         "basis": "Team-level key-player watchlist; replace with API/squad-sourced fixture notes when available",
         "home": [
-          "Scott McTominay",
-          "John McGinn",
-          "Andy Robertson"
+          {
+            "name": "Scott McTominay",
+            "note": "Scotland's late-arriving goal threat, most dangerous when midfield runs crash into the box."
+          },
+          {
+            "name": "John McGinn",
+            "note": "The ball-winning connector who sets the tone physically and keeps Scotland's attacks moving."
+          },
+          {
+            "name": "Andy Robertson",
+            "note": "The captain and left-side engine, giving Scotland delivery, recovery runs, and tournament edge."
+          }
         ],
         "away": [
-          "Neymar",
-          "Vinicius Junior",
-          "Casemiro"
+          {
+            "name": "Neymar",
+            "note": "Brazil's imagination hub when they need disguise, combination play, and fouls drawn around the box."
+          },
+          {
+            "name": "Vinicius Junior",
+            "note": "The devastating left-sided runner, capable of breaking a match with one isolation or carry in behind."
+          },
+          {
+            "name": "Casemiro",
+            "note": "The midfield security blanket, important for stopping counters before Brazil's fullbacks are exposed."
+          }
         ]
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-17",
+        "home": "Scotland are a physical midfield side that can make opponents defend deliveries, duels, and late runners, led by Scott McTominay, John McGinn, and Andy Robertson. Against Brazil, they want to work the ball left for Robertson and attack the second phase through McTominay; the risk is Brazil can break a shape through Neymar combinations and Vinicius Junior's speed.",
+        "away": "Brazil are a top-tier attacking side whose best moments mix individual invention with sudden acceleration, led by Neymar, Vinicius Junior, and Casemiro. Against Scotland, they want to isolate Vinicius Junior quickly and let Neymar combine around the fouls and gaps that creates; the risk is Scotland can turn Robertson service and McTominay runs into pressure."
       }
     },
     {
@@ -3656,7 +4611,7 @@
       "h2h": {
         "status": "verified-empty",
         "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "No senior meetings were listed by National Football Teams before this fixture.",
+        "summary": "Morocco and Haiti have never met in a verified senior men's international. This is their first head-to-head meeting.",
         "results": [],
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/125/81/Morocco_vs_Haiti.html"
       },
@@ -3673,15 +4628,38 @@
         "method": "team-watchlist-baseline",
         "basis": "Team-level key-player watchlist; replace with API/squad-sourced fixture notes when available",
         "home": [
-          "Achraf Hakimi",
-          "Hakim Ziyech",
-          "Youssef En-Nesyri"
+          {
+            "name": "Achraf Hakimi",
+            "note": "A two-way right-side force whose overlaps, recovery speed, and set pieces shape Morocco's best stretches."
+          },
+          {
+            "name": "Hakim Ziyech",
+            "note": "The left-footed chance creator, dangerous when Morocco can switch play and let him pick final balls."
+          },
+          {
+            "name": "Youssef En-Nesyri",
+            "note": "The reference point in the box and aerial finisher who gives Morocco a direct end point."
+          }
         ],
         "away": [
-          "Duckens Nazon",
-          "Frantzdy Pierrot",
-          "Jean-Ricner Bellegarde"
+          {
+            "name": "Duckens Nazon",
+            "note": "Haiti's emotional attacking focal point, a direct finisher who can turn loose moments into shots."
+          },
+          {
+            "name": "Frantzdy Pierrot",
+            "note": "A powerful target in the box who gives Haiti a route through crosses and second balls."
+          },
+          {
+            "name": "Jean-Ricner Bellegarde",
+            "note": "The rhythm and carrying option in midfield, valuable when Haiti need cleaner exits under pressure."
+          }
         ]
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-17",
+        "home": "Morocco are a disciplined, dangerous side whose structure lets their flair players attack with freedom, led by Achraf Hakimi, Hakim Ziyech, and Youssef En-Nesyri. Against Haiti, they want to use Hakimi's overlaps to tilt the field before Ziyech finds En-Nesyri; the risk is Haiti can turn direct service into Nazon or Pierrot chances.",
+        "away": "Haiti are a direct attacking underdog with enough forward power to punish loose defending, led by Duckens Nazon, Frantzdy Pierrot, and Jean-Ricner Bellegarde. Against Morocco, they want to play forward quickly toward Nazon and Pierrot before the opponent can crowd the box; the risk is Morocco can combine Hakimi surges, Ziyech service, and En-Nesyri's box movement."
       }
     },
     {
@@ -3727,7 +4705,7 @@
         "home": [
           {
             "name": "Patrik Schick",
-            "note": "Czechia's main penalty-box finisher, especially dangerous when crosses and second balls arrive early."
+            "note": "Czechia's main finisher in the box, especially dangerous when crosses and second balls arrive early."
           },
           {
             "name": "Tomas Soucek",
@@ -3741,7 +4719,7 @@
         "away": [
           {
             "name": "Santiago Gimenez",
-            "note": "Mexico's focal striker, valuable when home pressure turns into repeated penalty-area touches."
+            "note": "Mexico's focal striker, valuable when home pressure turns into repeated box touches."
           },
           {
             "name": "Edson Alvarez",
@@ -3752,6 +4730,11 @@
             "note": "A left-footed set-piece and long-range threat who can punish loose clearances."
           }
         ]
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-17",
+        "home": "Czechia are a set-piece and crossing threat that become dangerous when the game is played in the air, led by Patrik Schick, Tomas Soucek, and Adam Hlozek. Against Mexico, they want to load early service toward Schick and Soucek before the defensive block settles; the risk is Mexico can turn home pressure into Gimenez touches and Chavez set-piece looks.",
+        "away": "Mexico are a home-side pressure team that want territory, crowd energy, and repeated box touches, led by Santiago Gimenez, Edson Alvarez, and Luis Chavez. Against Czechia, they want to keep the ball in the opponent's half and feed Gimenez before Chavez attacks restarts or rebounds; the risk is Czechia can turn crosses, set pieces, and Soucek runs into high-value chances."
       }
     },
     {
@@ -3767,7 +4750,7 @@
       "h2h": {
         "status": "verified-empty",
         "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "No senior meetings were listed by National Football Teams before this fixture.",
+        "summary": "South Africa and South Korea have never met in a verified senior men's international. This is their first head-to-head meeting.",
         "results": [],
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/172/173/South_Africa_vs_South_Korea.html"
       },
@@ -3790,7 +4773,7 @@
           },
           {
             "name": "Percy Tau",
-            "note": "The experienced attacking reference, useful between lines and in quick combinations."
+            "note": "The experienced attacking reference, useful in open space and in quick combinations."
           },
           {
             "name": "Lyle Foster",
@@ -3811,6 +4794,11 @@
             "note": "The creative passer who can turn Korea's counters into controlled attacks."
           }
         ]
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-17",
+        "home": "South Africa are counterattacking underdogs who can stay in games if their goalkeeper and forwards give them belief, led by Ronwen Williams, Percy Tau, and Lyle Foster. Against South Korea, they want to absorb pressure, find Tau in space, and release Foster before the defense recovers; the risk is South Korea can turn running power and Son's finishing into sudden chances.",
+        "away": "South Korea are a relentless running side with star quality at both ends of the spine, led by Son Heung-min, Kim Min-jae, and Lee Kang-in. Against South Africa, they want to release Son behind the line and let Lee Kang-in choose the final pass; the risk is South Africa can turn saves from Williams into Tau and Foster counters."
       }
     },
     {
@@ -3864,15 +4852,38 @@
         "method": "team-watchlist-baseline",
         "basis": "Team-level key-player watchlist; replace with API/squad-sourced fixture notes when available",
         "home": [
-          "Moises Caicedo",
-          "Piero Hincapie",
-          "Enner Valencia"
+          {
+            "name": "Moises Caicedo",
+            "note": "Ecuador's midfield eraser and ball mover, vital for disrupting opponents before they reach the back line."
+          },
+          {
+            "name": "Piero Hincapie",
+            "note": "The left-sided defensive anchor, comfortable stepping out to defend space and start attacks."
+          },
+          {
+            "name": "Enner Valencia",
+            "note": "The veteran finisher and emotional leader, still the quickest route from pressure to goals."
+          }
         ],
         "away": [
-          "Joshua Kimmich",
-          "Jamal Musiala",
-          "Florian Wirtz"
+          {
+            "name": "Joshua Kimmich",
+            "note": "Germany's control valve, setting tempo while also giving the back line protection when possession breaks."
+          },
+          {
+            "name": "Jamal Musiala",
+            "note": "The glide-through-pressure attacker, able to create chaos in crowded central spaces."
+          },
+          {
+            "name": "Florian Wirtz",
+            "note": "A high-IQ creator whose timing and final pass can turn Germany's possession into real chances."
+          }
         ]
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-17",
+        "home": "Ecuador are an intense, athletic side that can disrupt stronger opponents through midfield pressure, led by Moises Caicedo, Piero Hincapie, and Enner Valencia. Against Germany, they want to win the midfield duel through Caicedo and release Valencia before the defense is set; the risk is Germany can combine through Kimmich, Musiala, and Wirtz until the block loses its shape.",
+        "away": "Germany are a technical control side with enough young creativity to open compact defenses, led by Joshua Kimmich, Jamal Musiala, and Florian Wirtz. Against Ecuador, they want to pull midfielders out with Kimmich's passing before Musiala and Wirtz attack the gaps near the box; the risk is Ecuador can turn Caicedo ball wins and Valencia movement into fast attacks."
       }
     },
     {
@@ -3888,7 +4899,7 @@
       "h2h": {
         "status": "verified-empty",
         "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "No senior meetings were listed by National Football Teams before this fixture.",
+        "summary": "Curaçao and Côte d'Ivoire have never met in a verified senior men's international. This is their first head-to-head meeting, during Curaçao's first World Cup tournament.",
         "results": [],
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/280/209/Curacao_vs_Ivory_Coast.html"
       },
@@ -3905,15 +4916,38 @@
         "method": "team-watchlist-baseline",
         "basis": "Team-level key-player watchlist; replace with API/squad-sourced fixture notes when available",
         "home": [
-          "Juninho Bacuna",
-          "Leandro Bacuna",
-          "Vurnon Anita"
+          {
+            "name": "Juninho Bacuna",
+            "note": "Curacao's most assertive midfield carrier, useful for turning defensive work into forward momentum."
+          },
+          {
+            "name": "Leandro Bacuna",
+            "note": "The experienced set-piece and leadership presence, important when Curacao need calm under pressure."
+          },
+          {
+            "name": "Vurnon Anita",
+            "note": "A veteran organizer who can help Curacao stay compact and connected without the ball."
+          }
         ],
         "away": [
-          "Franck Kessie",
-          "Simon Adingra",
-          "Sebastien Haller"
+          {
+            "name": "Franck Kessie",
+            "note": "The power-and-control midfielder, giving Cote d'Ivoire ball-winning, carries, and box arrivals."
+          },
+          {
+            "name": "Simon Adingra",
+            "note": "The wide runner who can stretch back lines and make transition attacks feel immediate."
+          },
+          {
+            "name": "Sebastien Haller",
+            "note": "The central reference point, a finisher in the box who makes crosses and cutbacks matter."
+          }
         ]
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-17",
+        "home": "Curaçao are a veteran-heavy underdog side trying to stay connected and choose their moments carefully, led by Juninho Bacuna, Leandro Bacuna, and Vurnon Anita. Against Côte d'Ivoire, they want to use the Bacuna brothers to turn pressure relief into set pieces and territory; the risk is Côte d'Ivoire can turn Kessie's carries and Adingra's pace into Haller chances.",
+        "away": "Côte d'Ivoire are a powerful transition team with enough midfield force to turn loose games in their favor, led by Franck Kessie, Simon Adingra, and Sebastien Haller. Against Curaçao, they want to win the midfield collision and send Adingra into space before Haller attacks the box; the risk is Curaçao can turn veteran set-piece moments into a way back into the game."
       }
     },
     {
@@ -3987,15 +5021,38 @@
         "method": "team-watchlist-baseline",
         "basis": "Team-level key-player watchlist; replace with API/squad-sourced fixture notes when available",
         "home": [
-          "Takefusa Kubo",
-          "Kaoru Mitoma",
-          "Wataru Endo"
+          {
+            "name": "Takefusa Kubo",
+            "note": "Japan's sharpest creator in tight spaces, especially dangerous when he can cut inside onto his left foot."
+          },
+          {
+            "name": "Kaoru Mitoma",
+            "note": "The isolation winger who can beat the first defender and turn patient possession into sudden chances."
+          },
+          {
+            "name": "Wataru Endo",
+            "note": "The midfield anchor, key to Japan's counter-press and the first pass after winning the ball."
+          }
         ],
         "away": [
-          "Alexander Isak",
-          "Viktor Gyokeres",
-          "Dejan Kulusevski"
+          {
+            "name": "Alexander Isak",
+            "note": "The elegant main striker, dangerous when Sweden can find him early in channels or around the box."
+          },
+          {
+            "name": "Viktor Gyokeres",
+            "note": "A relentless power forward whose carries and pressing can turn Sweden from structured to explosive."
+          },
+          {
+            "name": "Dejan Kulusevski",
+            "note": "The left-footed creator who links midfield to attack and gives Sweden craft in open space."
+          }
         ]
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-17",
+        "home": "Japan are a precise, fast-passing side that can make possession feel sudden and sharp, led by Takefusa Kubo, Kaoru Mitoma, and Wataru Endo. Against Sweden, they want to move the ball quickly enough for Kubo or Mitoma to receive against a shifting defender; the risk is Sweden can alternate between Isak's finesse and Gyokeres' force.",
+        "away": "Sweden are a tall, technical attacking side with two forwards who can change the shape of a match, led by Alexander Isak, Viktor Gyokeres, and Dejan Kulusevski. Against Japan, they want to combine through Kulusevski and then choose between Isak's polish or Gyokeres' power; the risk is Japan can turn quick combinations into Kubo or Mitoma isolations."
       }
     },
     {
@@ -4049,15 +5106,38 @@
         "method": "team-watchlist-baseline",
         "basis": "Team-level key-player watchlist; replace with API/squad-sourced fixture notes when available",
         "home": [
-          "Ellyes Skhiri",
-          "Hannibal Mejbri",
-          "Elias Saad"
+          {
+            "name": "Ellyes Skhiri",
+            "note": "The midfield screen, important for keeping Tunisia compact and killing counters at source."
+          },
+          {
+            "name": "Hannibal Mejbri",
+            "note": "The high-energy connector who can lift Tunisia's tempo with pressure, carries, and edge."
+          },
+          {
+            "name": "Elias Saad",
+            "note": "A direct wide threat who gives Tunisia a route forward when the match asks for pace."
+          }
         ],
         "away": [
-          "Virgil van Dijk",
-          "Frenkie de Jong",
-          "Cody Gakpo"
+          {
+            "name": "Virgil van Dijk",
+            "note": "The defensive reference point, controlling aerial duels and giving the Netherlands confidence to hold a higher line."
+          },
+          {
+            "name": "Frenkie de Jong",
+            "note": "The press-resistant midfielder who turns build-up pressure into controlled entries through midfield."
+          },
+          {
+            "name": "Cody Gakpo",
+            "note": "A flexible forward who can drift inside, combine, and finish when the Dutch attack finds rhythm."
+          }
         ]
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-17",
+        "home": "Tunisia are an organized defensive side that need energy and directness to make their structure bite, led by Ellyes Skhiri, Hannibal Mejbri, and Elias Saad. Against Netherlands, they want to stay compact through Skhiri and then use Saad as the first runner into space; the risk is Netherlands can control possession through De Jong and protect it with Van Dijk's authority.",
+        "away": "Netherlands are a control team with a strong defensive base and enough technical quality to play through pressure, led by Virgil van Dijk, Frenkie de Jong, and Cody Gakpo. Against Tunisia, they want to build calmly through De Jong and let Gakpo receive between fullback and center-back; the risk is Tunisia can slow the match through Skhiri's screen and break through Saad."
       }
     },
     {
@@ -4141,15 +5221,38 @@
         "method": "team-watchlist-baseline",
         "basis": "Team-level key-player watchlist; replace with API/squad-sourced fixture notes when available",
         "home": [
-          "Hakan Calhanoglu",
-          "Arda Guler",
-          "Kenan Yildiz"
+          {
+            "name": "Hakan Calhanoglu",
+            "note": "The deep playmaker and dead-ball specialist, capable of controlling the rhythm or punishing fouls from distance."
+          },
+          {
+            "name": "Arda Guler",
+            "note": "The creative spark in open space, dangerous when he can receive on the turn near the box."
+          },
+          {
+            "name": "Kenan Yildiz",
+            "note": "A fearless young attacker who can stretch the game with carries and quick combinations."
+          }
         ],
         "away": [
-          "Christian Pulisic",
-          "Weston McKennie",
-          "Tyler Adams"
+          {
+            "name": "Christian Pulisic",
+            "note": "The primary one-v-one attacker and late-box runner, the player most likely to turn pressure into a clean shot."
+          },
+          {
+            "name": "Weston McKennie",
+            "note": "A box-to-box connector whose second-ball work and set-piece timing give the U.S. midfield bite."
+          },
+          {
+            "name": "Tyler Adams",
+            "note": "The ball-winning organizer at the base of midfield, crucial when the match opens into transition."
+          }
         ]
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-17",
+        "home": "Türkiye are a creative young attacking side with enough set-piece quality to punish small mistakes, led by Hakan Calhanoglu, Arda Guler, and Kenan Yildiz. Against United States, they want to use Calhanoglu's passing to find Guler in space before Yildiz attacks the gap; the risk is United States can turn pressure into Pulisic carries and McKennie second-ball runs.",
+        "away": "United States are an athletic pressing team with enough direct attacking talent to make games feel stretched, led by Christian Pulisic, Weston McKennie, and Tyler Adams. Against Türkiye, they want to press into turnovers and let Pulisic or McKennie attack before the defense resets; the risk is Türkiye can turn Calhanoglu service and Guler invention into sudden chances."
       }
     },
     {
@@ -4233,15 +5336,38 @@
         "method": "team-watchlist-baseline",
         "basis": "Team-level key-player watchlist; replace with API/squad-sourced fixture notes when available",
         "home": [
-          "Miguel Almiron",
-          "Julio Enciso",
-          "Gustavo Gomez"
+          {
+            "name": "Miguel Almiron",
+            "note": "The speed outlet who can carry Paraguay out of pressure and attack space before blocks reset."
+          },
+          {
+            "name": "Julio Enciso",
+            "note": "A fearless shot creator from pockets between midfield and defense, capable of making a low-chance match volatile."
+          },
+          {
+            "name": "Gustavo Gomez",
+            "note": "The defensive leader and set-piece target, central to Paraguay's rugged low-scoring path."
+          }
         ],
         "away": [
-          "Mathew Ryan",
-          "Jackson Irvine",
-          "Christian Volpato"
+          {
+            "name": "Mathew Ryan",
+            "note": "The experienced keeper and organizer, important when Australia absorb long spells without the ball."
+          },
+          {
+            "name": "Jackson Irvine",
+            "note": "The midfield tone-setter, valuable for pressing, second balls, and late runs into the area."
+          },
+          {
+            "name": "Christian Volpato",
+            "note": "A creative left-footed option who can give Australia a cleaner final pass in tight matches."
+          }
         ]
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-17",
+        "home": "Paraguay are rugged counterpunchers who are comfortable turning matches into physical, low-margin contests, led by Miguel Almiron, Julio Enciso, and Gustavo Gomez. Against Australia, they want to release Almiron into space and let Enciso attack the pocket before defenders settle; the risk is Australia can drag opponents into duels, restarts, and late midfield runs.",
+        "away": "Australia are a durable, physical side built around organization, pressure, and set-piece toughness, led by Mathew Ryan, Jackson Irvine, and Christian Volpato. Against Paraguay, they want to make the match direct enough for Irvine's running and Volpato's left foot to matter; the risk is Paraguay can turn one Almiron break or Enciso shot into a low-margin swing."
       }
     },
     {
@@ -4405,15 +5531,38 @@
         "method": "team-watchlist-baseline",
         "basis": "Team-level key-player watchlist; replace with API/squad-sourced fixture notes when available",
         "home": [
-          "Erling Haaland",
-          "Martin Odegaard",
-          "Antonio Nusa"
+          {
+            "name": "Erling Haaland",
+            "note": "Norway's headline finisher, a box force who changes how every opponent defends crosses and depth."
+          },
+          {
+            "name": "Martin Odegaard",
+            "note": "The left-footed creator and rhythm setter, responsible for turning Norway's possession into service for Haaland."
+          },
+          {
+            "name": "Antonio Nusa",
+            "note": "The young wide spark, able to beat defenders and give Norway a different speed outside the main stars."
+          }
         ],
         "away": [
-          "Kylian Mbappe",
-          "Antoine Griezmann",
-          "William Saliba"
+          {
+            "name": "Kylian Mbappe",
+            "note": "France's game-breaking runner and finisher, the player who turns one channel ball into panic."
+          },
+          {
+            "name": "Antoine Griezmann",
+            "note": "The connective creator, balancing France's attack with final passes, pressing work, and set-piece quality."
+          },
+          {
+            "name": "William Saliba",
+            "note": "The defensive stabilizer, calm enough to defend space while France's athletes surge forward."
+          }
         ]
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-17",
+        "home": "Norway are a direct star-powered side whose attacking question is how quickly they can serve the finisher, led by Erling Haaland, Martin Odegaard, and Antonio Nusa. Against France, they want to get Odegaard facing forward and deliver early enough for Haaland to attack the box; the risk is France can turn one channel ball into Mbappe running at goal.",
+        "away": "France are an elite transition force with enough individual quality to win without needing long possession spells, led by Kylian Mbappe, Antoine Griezmann, and William Saliba. Against Norway, they want to create one clean channel for Mbappe and let Griezmann decide when to speed the move up; the risk is Norway can feed Haaland through Odegaard's service and Nusa's change of speed."
       }
     },
     {
@@ -4429,7 +5578,7 @@
       "h2h": {
         "status": "verified-empty",
         "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "No senior meetings were listed by National Football Teams before this fixture.",
+        "summary": "Senegal and Iraq have never met in a verified senior men's international. This is their first head-to-head meeting.",
         "results": [],
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/163/89/Senegal_vs_Iraq.html"
       },
@@ -4446,15 +5595,38 @@
         "method": "team-watchlist-baseline",
         "basis": "Team-level key-player watchlist; replace with API/squad-sourced fixture notes when available",
         "home": [
-          "Sadio Mane",
-          "Nicolas Jackson",
-          "Kalidou Koulibaly"
+          {
+            "name": "Sadio Mane",
+            "note": "Senegal's senior attacking leader, still the name who can turn a direct move into a decisive action."
+          },
+          {
+            "name": "Nicolas Jackson",
+            "note": "A mobile striker whose runs behind the line give Senegal a faster, less predictable edge."
+          },
+          {
+            "name": "Kalidou Koulibaly",
+            "note": "The back-line commander, important for duels, organization, and defending set pieces."
+          }
         ],
         "away": [
-          "Aymen Hussein",
-          "Ali Jasim",
-          "Zidane Iqbal"
+          {
+            "name": "Aymen Hussein",
+            "note": "Iraq's target in the box, the finisher they look for when attacks become crosses and second balls."
+          },
+          {
+            "name": "Ali Jasim",
+            "note": "A creative dribbler who can give Iraq spark on the break and force defenders into awkward decisions."
+          },
+          {
+            "name": "Zidane Iqbal",
+            "note": "The midfield connector, valuable when Iraq need composure rather than only defensive running."
+          }
         ]
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-17",
+        "home": "Senegal are an athletic, experienced side with enough defensive presence to survive pressure and enough speed to punish it, led by Sadio Mane, Nicolas Jackson, and Kalidou Koulibaly. Against Iraq, they want to use Mane's timing and Jackson's depth to attack before the opponent's block is set; the risk is Iraq can use Ali Jasim's dribbling and Hussein's presence to make counters count.",
+        "away": "Iraq are a passionate, direct side that need their attacking moments to be clean and immediate, led by Aymen Hussein, Ali Jasim, and Zidane Iqbal. Against Senegal, they want to find Ali Jasim between defenders and then play quickly toward Hussein in the box; the risk is Senegal can turn Mane's experience and Jackson's running into direct chances."
       }
     },
     {
@@ -4470,7 +5642,7 @@
       "h2h": {
         "status": "verified-empty",
         "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "No senior meetings were listed by National Football Teams before this fixture.",
+        "summary": "Cabo Verde and Saudi Arabia have never met in a verified senior men's international. This is their first head-to-head meeting, during Cabo Verde's first World Cup tournament.",
         "results": [],
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/37/161/Cape_Verde_vs_Saudi_Arabia.html"
       },
@@ -4487,15 +5659,38 @@
         "method": "team-watchlist-baseline",
         "basis": "Team-level key-player watchlist; replace with API/squad-sourced fixture notes when available",
         "home": [
-          "Ryan Mendes",
-          "Roberto Lopes",
-          "Vozinha"
+          {
+            "name": "Ryan Mendes",
+            "note": "Cabo Verde's experienced attacking reference, useful when counters need a composed final action."
+          },
+          {
+            "name": "Roberto Lopes",
+            "note": "The defensive organizer, central to keeping Cabo Verde compact through long spells without the ball."
+          },
+          {
+            "name": "Vozinha",
+            "note": "The veteran goalkeeper whose shot-stopping can keep Cabo Verde alive in narrow games."
+          }
         ],
         "away": [
-          "Salem Al-Dawsari",
-          "Firas Al-Buraikan",
-          "Mohammed Al-Owais"
+          {
+            "name": "Salem Al-Dawsari",
+            "note": "Saudi Arabia's big-moment wide attacker, trusted to carry counters and take on defenders."
+          },
+          {
+            "name": "Firas Al-Buraikan",
+            "note": "The mobile striker who links attacks and gives Saudi Arabia a cleaner target in transition."
+          },
+          {
+            "name": "Mohammed Al-Owais",
+            "note": "The experienced goalkeeper, vital if Saudi Arabia spend long stretches defending their box."
+          }
         ]
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-17",
+        "home": "Cabo Verde are compact tournament disruptors who need experience and goalkeeping to keep matches close, led by Ryan Mendes, Roberto Lopes, and Vozinha. Against Saudi Arabia, they want to stay compact long enough for Mendes to find a composed final action; the risk is Saudi Arabia can turn pressing bursts and Al-Dawsari carries into momentum.",
+        "away": "Saudi Arabia are a fearless pressing underdog with enough big-moment attackers to punish complacency, led by Salem Al-Dawsari, Firas Al-Buraikan, and Mohammed Al-Owais. Against Cabo Verde, they want to press in bursts and give Al-Dawsari room to attack the first retreating defender; the risk is Cabo Verde can turn a slow match into one decisive Mendes action."
       }
     },
     {
@@ -4599,15 +5794,38 @@
         "method": "team-watchlist-baseline",
         "basis": "Team-level key-player watchlist; replace with API/squad-sourced fixture notes when available",
         "home": [
-          "Federico Valverde",
-          "Darwin Nunez",
-          "Ronald Araujo"
+          {
+            "name": "Federico Valverde",
+            "note": "Uruguay's engine and long-range threat, driving the midfield while covering huge spaces without the ball."
+          },
+          {
+            "name": "Darwin Nunez",
+            "note": "The chaos-forward who can stretch any back line and turn half-chances into high-speed danger."
+          },
+          {
+            "name": "Ronald Araujo",
+            "note": "The recovery defender and duel winner, essential against elite forwards in open grass."
+          }
         ],
         "away": [
-          "Lamine Yamal",
-          "Pedri",
-          "Nico Williams"
+          {
+            "name": "Lamine Yamal",
+            "note": "Spain's game-breaking wide creator, able to bend low blocks with dribbling, passing, and shot threat."
+          },
+          {
+            "name": "Pedri",
+            "note": "The rhythm setter in open space, making Spain's possession feel calmer and more incisive."
+          },
+          {
+            "name": "Nico Williams",
+            "note": "The vertical winger who turns switches of play into immediate pressure on the box."
+          }
         ]
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-17",
+        "home": "Uruguay are a South American intensity side with enough running power to turn every phase into a contest, led by Federico Valverde, Darwin Nunez, and Ronald Araujo. Against Spain, they want to use Valverde's running to release Nunez before the defense can control the space behind; the risk is Spain can stretch the pitch through Yamal and Williams before Pedri breaks the line.",
+        "away": "Spain are one of the tournament's most polished possession teams, led by Lamine Yamal, Pedri, and Nico Williams. Against Uruguay, they want to pin the wide defenders with Yamal and Williams before Pedri plays through the gaps; the risk is Uruguay can turn Valverde's engine and Nunez's depth into chaos."
       }
     },
     {
@@ -4651,15 +5869,38 @@
         "method": "team-watchlist-baseline",
         "basis": "Team-level key-player watchlist; replace with API/squad-sourced fixture notes when available",
         "home": [
-          "Mohamed Salah",
-          "Omar Marmoush",
-          "Mostafa Mohamed"
+          {
+            "name": "Mohamed Salah",
+            "note": "Egypt's decisive outlet, a transition runner and finisher every opponent has to bend their shape around."
+          },
+          {
+            "name": "Omar Marmoush",
+            "note": "A mobile second scoring threat who can attack channels and keep Egypt from becoming one-dimensional."
+          },
+          {
+            "name": "Mostafa Mohamed",
+            "note": "The central target, important when Egypt need hold-up play and a box endpoint."
+          }
         ],
         "away": [
-          "Mehdi Taremi",
-          "Sardar Azmoun",
-          "Alireza Jahanbakhsh"
+          {
+            "name": "Mehdi Taremi",
+            "note": "Iran's most polished attacking reference, a clever finisher who also wins fouls and links counters."
+          },
+          {
+            "name": "Sardar Azmoun",
+            "note": "A box striker with timing in the air and enough movement to punish loose marking."
+          },
+          {
+            "name": "Alireza Jahanbakhsh",
+            "note": "The experienced wide creator, useful on set pieces and when Iran need a calmer final ball."
+          }
         ]
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-17",
+        "home": "Egypt are a Salah-led transition team that can look quiet until one direct attack opens the match, led by Mohamed Salah, Omar Marmoush, and Mostafa Mohamed. Against IR Iran, they want to release Salah early and let Marmoush arrive as the second wave; the risk is IR Iran can turn fouls, counters, and Taremi's craft into chances.",
+        "away": "IR Iran are a streetwise counterattacking side with experienced forwards who understand tournament margins, led by Mehdi Taremi, Sardar Azmoun, and Alireza Jahanbakhsh. Against Egypt, they want to draw contact, slow the rhythm, and then find Taremi or Azmoun around the box; the risk is Egypt can turn one loose pass into a Salah-led break."
       }
     },
     {
@@ -4675,7 +5916,7 @@
       "h2h": {
         "status": "verified-empty",
         "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "No senior meetings were listed by National Football Teams before this fixture.",
+        "summary": "New Zealand and Belgium have never met in a verified senior men's international. This is their first head-to-head meeting.",
         "results": [],
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/132/20/New_Zealand_vs_Belgium.html"
       },
@@ -4692,15 +5933,38 @@
         "method": "team-watchlist-baseline",
         "basis": "Team-level key-player watchlist; replace with API/squad-sourced fixture notes when available",
         "home": [
-          "Chris Wood",
-          "Liberato Cacace",
-          "Sarpreet Singh"
+          {
+            "name": "Chris Wood",
+            "note": "New Zealand's target striker and clearest scoring route, especially from crosses and second balls."
+          },
+          {
+            "name": "Liberato Cacace",
+            "note": "The left-side outlet who can carry New Zealand up the pitch and serve early balls."
+          },
+          {
+            "name": "Sarpreet Singh",
+            "note": "A technical creator who can make New Zealand less predictable when space appears in open space."
+          }
         ],
         "away": [
-          "Kevin De Bruyne",
-          "Romelu Lukaku",
-          "Jeremy Doku"
+          {
+            "name": "Kevin De Bruyne",
+            "note": "Belgium's elite chance architect, able to find early crosses, through balls, and shots before defenses settle."
+          },
+          {
+            "name": "Romelu Lukaku",
+            "note": "The reference point in the box and power finisher, built to punish any service into his stride or feet."
+          },
+          {
+            "name": "Jeremy Doku",
+            "note": "The one-v-one destabilizer, stretching games wide open with direct carries from the flank."
+          }
         ]
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-17",
+        "home": "New Zealand are an aerial, organized side that need territory and service to keep stronger opponents honest, led by Chris Wood, Liberato Cacace, and Sarpreet Singh. Against Belgium, they want to move play wide through Cacace and serve Wood before the box gets crowded; the risk is Belgium can turn De Bruyne service and Doku dribbles into Lukaku chances.",
+        "away": "Belgium are an elite chance-creation team when their creators get space to face forward, led by Kevin De Bruyne, Romelu Lukaku, and Jeremy Doku. Against New Zealand, they want to feed De Bruyne early and use Doku to create the separation Lukaku needs in the box; the risk is New Zealand can turn left-side service and Wood's aerial presence into chances."
       }
     },
     {
@@ -4746,7 +6010,7 @@
         "home": [
           {
             "name": "Adalberto Carrasquilla",
-            "note": "Panama's midfield organizer. If he dictates tempo, Panama can slow the match and make it uncomfortable."
+            "note": "Panama's midfield organizer. If he sets the rhythm, Panama can slow the match and make it uncomfortable."
           },
           {
             "name": "Michael Murillo",
@@ -4754,7 +6018,7 @@
           },
           {
             "name": "Ismael Diaz",
-            "note": "The final-third spark, capable of turning a compact Panama performance into a real scoring chance."
+            "note": "The attacking spark, capable of turning a compact Panama performance into a real scoring chance."
           }
         ],
         "away": [
@@ -4771,6 +6035,11 @@
             "note": "The balance piece in midfield, responsible for stopping counters before opponents can slow the game down."
           }
         ]
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-17",
+        "home": "Panama are an organized disruptor side that can make matches uncomfortable through midfield control and wide thrust, led by Adalberto Carrasquilla, Michael Murillo, and Ismael Diaz. Against England, they want to use Carrasquilla to escape pressure and let Murillo turn the right side into territory; the risk is England can attack quickly through Kane and Bellingham while Rice controls the counter.",
+        "away": "England are one of the strongest teams in the tournament, built around power, speed, and danger near goal, led by Jude Bellingham, Harry Kane, and Declan Rice. Against Panama, they want to turn Kane's dropping movements into Bellingham runs and fast cutbacks from wide areas; the risk is Panama can disrupt rhythm through Carrasquilla and create right-side surges through Murillo."
       }
     },
     {
@@ -4786,7 +6055,7 @@
       "h2h": {
         "status": "verified-empty",
         "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "No senior meetings were listed by National Football Teams before this fixture.",
+        "summary": "Croatia and Ghana have never met in a verified senior men's international. This is their first head-to-head meeting.",
         "results": [],
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/47/72/Croatia_vs_Ghana.html"
       },
@@ -4809,7 +6078,7 @@
           },
           {
             "name": "Josko Gvardiol",
-            "note": "Croatia's defensive anchor on the left side, important against movement between the lines and wide runners."
+            "note": "Croatia's defensive anchor on the left side, important against movement in open space and wide runners."
           },
           {
             "name": "Mateo Kovacic",
@@ -4830,6 +6099,11 @@
             "note": "The experienced captain and pressure valve, useful when Ghana need calm touches instead of rushed attacks."
           }
         ]
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-17",
+        "home": "Croatia are a control team whose tournament identity still runs through midfield calm, led by Luka Modric, Josko Gvardiol, and Mateo Kovacic. Against Ghana, they want to use Modric and Kovacic to turn pressure into possession and move the opponent side to side; the risk is Ghana can attack space early through Semenyo and Williams.",
+        "away": "Ghana are a fast front-line team that need their direct runners to turn defensive work into threat, led by Antoine Semenyo, Inaki Williams, and Jordan Ayew. Against Croatia, they want to send Semenyo and Williams into space before the opponent can compress the field; the risk is Croatia can slow the match through Modric and Kovacic's passing rhythm."
       }
     },
     {
@@ -4845,7 +6119,7 @@
       "h2h": {
         "status": "verified-empty",
         "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "No senior meetings were listed by National Football Teams before this fixture.",
+        "summary": "Colombia and Portugal have never met in a verified senior men's international. This is their first head-to-head meeting.",
         "results": [],
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/43/148/Colombia_vs_Portugal.html"
       },
@@ -4872,23 +6146,28 @@
           },
           {
             "name": "Luis Suarez",
-            "note": "A central striker arriving off a heavy club scoring season, giving Colombia a direct penalty-box target."
+            "note": "A central striker arriving off a heavy club scoring season, giving Colombia a direct target in the box."
           }
         ],
         "away": [
           {
             "name": "Cristiano Ronaldo",
-            "note": "The headline finisher and penalty-box reference point, still chasing the World Cup piece missing from his resume."
+            "note": "The headline finisher and reference point in the box, still chasing the World Cup piece missing from his resume."
           },
           {
             "name": "Bruno Fernandes",
-            "note": "Portugal's highest-volume chance creator, dangerous between the lines and from dead-ball situations."
+            "note": "Portugal's highest-volume chance creator, dangerous in open space and from free kicks and corners."
           },
           {
             "name": "Vitinha",
-            "note": "A press-resistant tempo setter who can turn Portugal's possession into cleaner entries around the box."
+            "note": "A press-resistant rhythm setter who can turn Portugal's possession into cleaner entries around the box."
           }
         ]
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-17",
+        "home": "Colombia are a rhythm-and-width team with enough individual quality to punish any loose defensive spacing, led by Luis Diaz, James Rodriguez, and Luis Suarez. Against Portugal, they want to let Diaz run behind defenders while James looks for the pass that changes the speed of the move; the risk is Portugal can feed Ronaldo through Bruno Fernandes and Vitinha's supply.",
+        "away": "Portugal are a star-heavy attacking side with enough creators to feed several different scoring routes, led by Cristiano Ronaldo, Bruno Fernandes, and Vitinha. Against Colombia, they want to let Vitinha control the first pass, then use Bruno Fernandes to find Ronaldo or the far-side runner; the risk is Colombia can use Diaz's width and James' invention to create a clear chance in the box."
       }
     },
     {
@@ -4904,7 +6183,7 @@
       "h2h": {
         "status": "verified-empty",
         "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "No senior meetings were listed by National Football Teams before this fixture.",
+        "summary": "DR Congo and Uzbekistan have never met in a verified senior men's international. This is their first head-to-head meeting, during Uzbekistan's first World Cup tournament.",
         "results": [],
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/55/201/Dr_Congo_vs_Uzbekistan.html"
       },
@@ -4948,6 +6227,11 @@
             "note": "A creative midfielder who has to carry transition moments before the opposition can reset behind the ball."
           }
         ]
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-17",
+        "home": "DR Congo are an explosive transition side that can make favorites uncomfortable if the match opens up, led by Yoane Wissa, Aaron Wan-Bissaka, and Noah Sadiki. Against Uzbekistan, they want to spring Wissa early and let Sadiki carry the first clean pass out of pressure; the risk is Uzbekistan can stay disciplined, then find Shomurodov or Fayzullaev when space opens.",
+        "away": "Uzbekistan are a disciplined first-time World Cup side with enough spine quality to make opponents work, led by Eldor Shomurodov, Abdukodir Khusanov, and Abbosbek Fayzullaev. Against DR Congo, they want to play through Fayzullaev's movement and give Shomurodov a real target in the box; the risk is DR Congo can break quickly through Wissa and Sadiki when opponents overcommit."
       }
     },
     {
@@ -4991,15 +6275,38 @@
         "method": "team-watchlist-baseline",
         "basis": "Team-level key-player watchlist; replace with API/squad-sourced fixture notes when available",
         "home": [
-          "Riyad Mahrez",
-          "Ismael Bennacer",
-          "Amine Gouiri"
+          {
+            "name": "Riyad Mahrez",
+            "note": "Algeria's left-footed creator, still the player who can slow a match down and pick the decisive pass."
+          },
+          {
+            "name": "Ismael Bennacer",
+            "note": "The midfield press-breaker, important for helping Algeria play through pressure instead of around it."
+          },
+          {
+            "name": "Amine Gouiri",
+            "note": "A clever forward who can drift, combine, and give Algeria scoring threat away from the obvious lanes."
+          }
         ],
         "away": [
-          "David Alaba",
-          "Marcel Sabitzer",
-          "Christoph Baumgartner"
+          {
+            "name": "David Alaba",
+            "note": "Austria's organizer and set-piece technician, giving the back line leadership and the ball progression."
+          },
+          {
+            "name": "Marcel Sabitzer",
+            "note": "The pressing midfielder with shooting range, dangerous when Austria force turnovers near goal."
+          },
+          {
+            "name": "Christoph Baumgartner",
+            "note": "A smart runner between midfield and attack, often the player who turns pressure into box entries."
+          }
         ]
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-17",
+        "home": "Algeria are a technical North African side that want the game to run through the left foot and calm of midfield, led by Riyad Mahrez, Ismael Bennacer, and Amine Gouiri. Against Austria, they want to give Mahrez time on the ball and let Amine Gouiri drift into open space; the risk is Austria can press the first pass, win territory, and attack before defenses reset.",
+        "away": "Austria are a high-pressure European side with enough experience to make the press feel organized rather than wild, led by David Alaba, Marcel Sabitzer, and Christoph Baumgartner. Against Algeria, they want to force rushed passes and turn Sabitzer's pressure into Baumgartner arrivals near goal; the risk is Algeria can slow the match through Mahrez and Bennacer before finding Gouiri in open space."
       }
     },
     {
@@ -5015,7 +6322,7 @@
       "h2h": {
         "status": "verified-empty",
         "sourceId": "national-football-teams-h2h-2026-06-17",
-        "summary": "No senior meetings were listed by National Football Teams before this fixture.",
+        "summary": "Jordan and Argentina have never met in a verified senior men's international. This is their first head-to-head meeting, during Jordan's first World Cup tournament.",
         "results": [],
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/95/9/Jordan_vs_Argentina.html"
       },
@@ -5032,15 +6339,38 @@
         "method": "team-watchlist-baseline",
         "basis": "Team-level key-player watchlist; replace with API/squad-sourced fixture notes when available",
         "home": [
-          "Mousa Al-Taamari",
-          "Yazan Al-Naimat",
-          "Noor Al-Rawabdeh"
+          {
+            "name": "Mousa Al-Taamari",
+            "note": "Jordan's star ball-carrier, a direct runner who can make counters feel dangerous immediately."
+          },
+          {
+            "name": "Yazan Al-Naimat",
+            "note": "The central finisher and combination forward, key when Jordan turn rare attacks into real chances."
+          },
+          {
+            "name": "Noor Al-Rawabdeh",
+            "note": "The midfield worker who helps Jordan stay compact and connect the first pass forward."
+          }
         ],
         "away": [
-          "Julian Alvarez",
-          "Enzo Fernandez",
-          "Emiliano Martinez"
+          {
+            "name": "Julian Alvarez",
+            "note": "Argentina's pressing forward and flexible finisher, dangerous whether he starts moves or attacks the last line."
+          },
+          {
+            "name": "Enzo Fernandez",
+            "note": "The midfield passer who can change the angle of attacks and keep Argentina's control from going stale."
+          },
+          {
+            "name": "Emiliano Martinez",
+            "note": "The commanding goalkeeper and penalty-stage presence, central to Argentina's tournament confidence."
+          }
         ]
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-17",
+        "home": "Jordan are a disciplined counterattacking side that can hurt teams through speed and timing, led by Mousa Al-Taamari, Yazan Al-Naimat, and Noor Al-Rawabdeh. Against Argentina, they want to spring Al-Taamari into open space and let Al-Naimat attack the first clear chance; the risk is Argentina can turn one midfield win into Alvarez movement, Enzo service, and sustained pressure.",
+        "away": "Argentina are the defending champions and still one of the most complete tournament teams, led by Julian Alvarez, Enzo Fernandez, and Emiliano Martinez. Against Jordan, they want to press high with Alvarez, win the second ball, and let Enzo Fernandez change the angle of the attack; the risk is Jordan can counter through Al-Taamari and Al-Naimat before the back line recovers."
       }
     },
     {

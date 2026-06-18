@@ -19,7 +19,7 @@ The site is set up for Vercel. Static pages are served from the repo root and th
 
 Before launch:
 
-1. Confirm the production origin. The current metadata, `robots.txt`, and `sitemap.xml` use `https://worldcupsimplified.com/`.
+1. Confirm the production origin. The current metadata, `robots.txt`, and `sitemap.xml` use `https://world-cup-simplified.vercel.app/`.
 2. Deploy on Vercel so `api/report-issue.js` is available at `/api/report-issue`.
 3. Create a Resend API key.
 4. Add the environment variables below in Vercel.
@@ -32,7 +32,7 @@ Required environment variables:
 RESEND_API_KEY=
 REPORT_TO_EMAIL=
 REPORT_FROM_EMAIL=
-ALLOWED_REPORT_ORIGINS=https://worldcupsimplified.com
+ALLOWED_REPORT_ORIGINS=https://world-cup-simplified.vercel.app
 ```
 
 Optional report-endpoint tuning:
