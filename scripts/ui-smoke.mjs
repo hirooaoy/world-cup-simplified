@@ -80,7 +80,11 @@ const fixturesData = JSON.parse(await readFile(path.join(root, "data/fixtures.js
 const browser = await chromium.launch();
 const page = await browser.newPage();
 
-async function openPageAtTime(nowIso, path = "/?view=matches&date=2026-06-17&tz=America%2FLos_Angeles") {
+async function openPageAtTime(
+  nowIso,
+  path = "/?view=matches&date=2026-06-17&tz=America%2FLos_Angeles",
+  options = {}
+) {
   const context = await browser.newContext();
   await context.addInitScript((mockNowIso) => {
     const RealDate = Date;
@@ -98,6 +102,18 @@ async function openPageAtTime(nowIso, path = "/?view=matches&date=2026-06-17&tz=
 
     window.Date = MockDate;
   }, nowIso);
+
+  if (options.fixtureTransform) {
+    const patchedFixturesData = JSON.parse(JSON.stringify(fixturesData));
+    options.fixtureTransform(patchedFixturesData);
+    await context.route("**/data/fixtures.json*", async (route) => {
+      await route.fulfill({
+        body: JSON.stringify(patchedFixturesData),
+        contentType: "application/json",
+        status: 200
+      });
+    });
+  }
 
   const mockedPage = await context.newPage();
   await mockedPage.goto(`${baseUrl}${path}`, { waitUntil: "load" });
@@ -395,6 +411,28 @@ try {
   }
   await matchStateCheck.context.close();
 
+  const pendingScoreCheck = await openPageAtTime(
+    "2026-06-18T05:30:00.000Z",
+    "/?view=matches&date=2026-06-17&tz=America%2FLos_Angeles",
+    {
+      fixtureTransform(data) {
+        const staleFixture = data.fixtures.find((fixture) => fixture.id === "ghana-panama-2026-06-17");
+        staleFixture.status = "SCHEDULED";
+        delete staleFixture.score;
+      }
+    }
+  );
+  const pendingScoreRow = pendingScoreCheck.page.locator('[data-match-id="ghana-panama-2026-06-17"]');
+  assert(
+    (await pendingScoreRow.locator(".score-status").innerText()).trim() === "Final pending",
+    "A post-match fixture with no loaded score should show a visible pending status."
+  );
+  assert(
+    (await pendingScoreRow.getAttribute("aria-label")).includes("final pending"),
+    "A post-match fixture with no loaded score should expose the pending status to assistive tech."
+  );
+  await pendingScoreCheck.context.close();
+
   const nextScheduledFixture = fixturesData.fixtures
     .filter((fixture) => fixture.status === "SCHEDULED" && fixture.kickoffUtc)
     .sort((a, b) => new Date(a.kickoffUtc) - new Date(b.kickoffUtc))[0];
@@ -416,6 +454,29 @@ try {
       "The Up next pill should use the expected label."
     );
     await upNextCheck.context.close();
+  }
+
+  const pendingScoreFixture = fixturesData.fixtures
+    .filter((fixture) => fixture.status === "SCHEDULED" && fixture.kickoffUtc && !fixture.score)
+    .sort((a, b) => new Date(a.kickoffUtc) - new Date(b.kickoffUtc))[0];
+  if (pendingScoreFixture) {
+    const afterLiveWindow = new Date(
+      new Date(pendingScoreFixture.kickoffUtc).getTime() + 2.5 * 60 * 60 * 1000
+    );
+    const pendingScoreCheck = await openPageAtTime(
+      afterLiveWindow.toISOString(),
+      `/?view=matches&date=${pendingScoreFixture.date}&tz=America%2FLos_Angeles`
+    );
+    await pendingScoreCheck.page.waitForSelector(".match-row");
+    assert(
+      (
+        await pendingScoreCheck.page
+          .locator(`.match-row[data-match-id="${pendingScoreFixture.id}"] .score-status.is-pending`)
+          .innerText()
+      ).trim() === "Final pending",
+      "A kicked-off scheduled match without a verified score should show Final pending."
+    );
+    await pendingScoreCheck.context.close();
   }
 
   const catchUpCheck = await openPageAtTime("2026-06-18T05:30:00.000Z");

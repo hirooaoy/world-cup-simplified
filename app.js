@@ -922,9 +922,33 @@ function getNextMatchId(currentTime, liveMatchIds) {
   );
 }
 
-function renderScore(match) {
-  if (!match.score) {
+function shouldShowScorePending(match, state, currentTime) {
+  if (match.score || !match.kickoffUtc || match.status === "CANCELLED" || match.status === "POSTPONED") {
+    return false;
+  }
+
+  if (match.status === "LIVE" || state === "live") {
+    return true;
+  }
+
+  const kickoffTime = new Date(match.kickoffUtc).getTime();
+  return Number.isFinite(kickoffTime) && currentTime >= kickoffTime + MATCH_LIVE_WINDOW_MS;
+}
+
+function getScorePendingText(match, state, currentTime) {
+  if (!shouldShowScorePending(match, state, currentTime)) {
     return "";
+  }
+
+  return match.status === "LIVE" || state === "live" ? "Score pending" : "Final pending";
+}
+
+function renderScore(match, state, currentTime) {
+  if (!match.score) {
+    const pendingText = getScorePendingText(match, state, currentTime);
+    return pendingText
+      ? `<span class="score-status is-pending" aria-label="${escapeHtml(`${pendingText}; verified score is not loaded yet`)}">${escapeHtml(pendingText)}</span>`
+      : "";
   }
 
   const home = match.homeTeam.name;
@@ -953,12 +977,13 @@ function getMatchTimeLabel(match) {
   return "Final";
 }
 
-function renderMatchRow(match, state) {
+function renderMatchRow(match, state, currentTime = Date.now()) {
   const row = document.createElement("button");
   const homeName = match.homeTeam.name;
   const awayName = match.awayTeam.name;
   const winnerSide = getScoreWinnerSide(match.score?.home, match.score?.away);
   const scoreLabel = match.status === "LIVE" ? "current score" : "final score";
+  const pendingScoreText = getScorePendingText(match, state, currentTime);
   const stateLabel =
     state === "live" ? "Live, " : state === "next" ? "Up next, " : "";
   const statusLabel = match.status === "CANCELLED" ? ", cancelled" : "";
@@ -972,7 +997,9 @@ function renderMatchRow(match, state) {
     `${stateLabel}${homeName} vs ${awayName}${statusLabel}${
       match.score
         ? `, ${scoreLabel} ${match.score.home}-${match.score.away}`
-        : ""
+        : pendingScoreText
+          ? `, ${pendingScoreText.toLowerCase()}`
+          : ""
     }`
   );
   row.innerHTML = `
@@ -983,7 +1010,7 @@ function renderMatchRow(match, state) {
       ${renderTeamInline(match.homeTeam, getTeamClass("team", winnerSide, "home"))}
       <span class="versus">vs</span>
       ${renderTeamInline(match.awayTeam, getTeamClass("team", winnerSide, "away"))}
-      ${renderScore(match)}
+      ${renderScore(match, state, currentTime)}
     </span>
     ${state === "live" ? `<span class="live-pill">Live</span>` : ""}
     ${state === "next" ? `<span class="up-next-pill">Up next</span>` : ""}
@@ -3317,7 +3344,7 @@ function renderSchedule() {
 
   matchList.replaceChildren(
     ...todayMatches.map((match) =>
-      renderMatchRow(match, getMatchState(match, nextMatchId, currentTime))
+      renderMatchRow(match, getMatchState(match, nextMatchId, currentTime), currentTime)
     )
   );
   const activeMatch = todayMatches.find((match) => match.id === activeMatchId);
