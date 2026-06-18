@@ -2,6 +2,7 @@ const DATA_VERSION = "2026-06-18-player-profiles";
 const DATA_URLS = {
   fixtures: `data/fixtures.json?v=${DATA_VERSION}`,
   history: `data/history.json?v=${DATA_VERSION}`,
+  liveData: `api/live-data?v=${DATA_VERSION}`,
   playerProfiles: `data/player-profiles.json?v=${DATA_VERSION}`,
   standings: `data/standings.json?v=${DATA_VERSION}`,
   teams: `data/teams.json?v=${DATA_VERSION}`,
@@ -62,7 +63,6 @@ const timeZones = [
 ];
 const MATCH_LIVE_WINDOW_MS = 2.25 * 60 * 60 * 1000;
 const DATA_REFRESH_INTERVAL_MS = 5 * 60 * 1000;
-const SOURCE_STALE_WARNING_HOURS = 6;
 const CURRENT_STANDINGS_YEAR = 2026;
 const CURRENT_STANDINGS_SUMMARY =
   "Top two in each group advance. The best eight third-place teams also reach the Round of 32.";
@@ -928,7 +928,7 @@ function shouldShowScorePending(match, state, currentTime) {
   }
 
   if (match.status === "LIVE" || state === "live") {
-    return true;
+    return false;
   }
 
   const kickoffTime = new Date(match.kickoffUtc).getTime();
@@ -940,21 +940,53 @@ function getScorePendingText(match, state, currentTime) {
     return "";
   }
 
-  return match.status === "LIVE" || state === "live" ? "Score pending" : "Final pending";
+  return "Final pending";
 }
 
-function renderScore(match, state, currentTime) {
-  if (!match.score) {
-    const pendingText = getScorePendingText(match, state, currentTime);
-    return pendingText
-      ? `<span class="score-status is-pending" aria-label="${escapeHtml(`${pendingText}; verified score is not loaded yet`)}">${escapeHtml(pendingText)}</span>`
-      : "";
+function getDisplayScore(match, state) {
+  if (match.score) {
+    return {
+      home: match.score.home,
+      away: match.score.away,
+      isFallback: false
+    };
+  }
+
+  if (match.status === "LIVE" || state === "live") {
+    return {
+      home: 0,
+      away: 0,
+      isFallback: true
+    };
+  }
+
+  return null;
+}
+
+function renderScore(match, state) {
+  const score = getDisplayScore(match, state);
+  if (!score) {
+    return "";
   }
 
   const home = match.homeTeam.name;
   const away = match.awayTeam.name;
-  const label = match.status === "LIVE" ? "Current score" : "Final score";
-  return `<span class="match-score" aria-label="${label} ${escapeHtml(home)} ${escapeHtml(match.score.home)}, ${escapeHtml(away)} ${escapeHtml(match.score.away)}">${escapeHtml(match.score.home)}-${escapeHtml(match.score.away)}</span>`;
+  const scoreText = `${score.home}-${score.away}`;
+  const label =
+    match.status === "LIVE" || state === "live" ? "Current score" : "Final score";
+  const ariaLabel = score.isFallback
+    ? `Current score not loaded yet; showing ${scoreText}`
+    : `${label} ${home} ${score.home}, ${away} ${score.away}`;
+  const className = `match-score${score.isFallback ? " is-live-fallback" : ""}`;
+
+  return `<span class="${className}" aria-label="${escapeHtml(ariaLabel)}">${escapeHtml(scoreText)}</span>`;
+}
+
+function renderScoreStatus(match, state, currentTime) {
+  const pendingText = getScorePendingText(match, state, currentTime);
+  return pendingText
+    ? `<span class="score-status is-pending" aria-label="${escapeHtml(`${pendingText}; verified score is not loaded yet`)}">${escapeHtml(pendingText)}</span>`
+    : "";
 }
 
 function getMatchDateTimeValue(match) {
@@ -984,9 +1016,18 @@ function renderMatchRow(match, state, currentTime = Date.now()) {
   const winnerSide = getScoreWinnerSide(match.score?.home, match.score?.away);
   const scoreLabel = match.status === "LIVE" ? "current score" : "final score";
   const pendingScoreText = getScorePendingText(match, state, currentTime);
+  const displayScore = getDisplayScore(match, state);
   const stateLabel =
     state === "live" ? "Live, " : state === "next" ? "Up next, " : "";
   const statusLabel = match.status === "CANCELLED" ? ", cancelled" : "";
+  const scoreStatus = renderScoreStatus(match, state, currentTime);
+  const stateBadge =
+    state === "live"
+      ? `<span class="live-pill">Live</span>`
+      : state === "next"
+        ? `<span class="up-next-pill">Up next</span>`
+        : "";
+  const rowMeta = `${scoreStatus}${stateBadge}`;
 
   row.type = "button";
   row.className = `match-row is-${state}`;
@@ -997,9 +1038,11 @@ function renderMatchRow(match, state, currentTime = Date.now()) {
     `${stateLabel}${homeName} vs ${awayName}${statusLabel}${
       match.score
         ? `, ${scoreLabel} ${match.score.home}-${match.score.away}`
-        : pendingScoreText
-          ? `, ${pendingScoreText.toLowerCase()}`
-          : ""
+        : displayScore
+          ? `, score ${displayScore.home}-${displayScore.away}`
+          : pendingScoreText
+            ? `, ${pendingScoreText.toLowerCase()}`
+            : ""
     }`
   );
   row.innerHTML = `
@@ -1008,12 +1051,10 @@ function renderMatchRow(match, state, currentTime = Date.now()) {
     </time>
     <span class="match-teams">
       ${renderTeamInline(match.homeTeam, getTeamClass("team", winnerSide, "home"))}
-      <span class="versus">vs</span>
+      ${renderScore(match, state) || `<span class="versus">vs</span>`}
       ${renderTeamInline(match.awayTeam, getTeamClass("team", winnerSide, "away"))}
-      ${renderScore(match, state, currentTime)}
     </span>
-    ${state === "live" ? `<span class="live-pill">Live</span>` : ""}
-    ${state === "next" ? `<span class="up-next-pill">Up next</span>` : ""}
+    ${rowMeta ? `<span class="match-row-meta">${rowMeta}</span>` : ""}
   `;
 
   row.addEventListener("pointerenter", () => renderMatchInfo(match));
@@ -1366,14 +1407,14 @@ function getProjectionMethodHelp(projection) {
   }
 
   if (projection?.method === "fifa-ranking-baseline") {
-    return "These percentages are a simple estimate based mostly on FIFA ranking strength, with a small boost for host countries. They are not betting odds or a guarantee.";
+    return "Local estimate using FIFA rankings. Not betting odds.";
   }
 
   if (projection?.method === "historical-world-cup-form-baseline") {
-    return "These percentages are a back-then estimate based on prior World Cup results and earlier matches in that tournament. They only use matches played before this fixture, and are not betting odds or a guarantee.";
+    return "Local historical-form estimate. Not betting odds.";
   }
 
-  return "These percentages come from our preview model, which starts with FIFA rankings and gives host countries a small boost. They are a simple guide, not betting odds or a guarantee.";
+  return "Local preview estimate. Not betting odds.";
 }
 
 function renderPredictionHeading(projection) {
@@ -3418,24 +3459,24 @@ function renderSourceNote() {
     (source) => source.type === "official" && coreSourceLabels.has(source.label)
   );
   const officialSourceLinks = coreOfficialSources.map((source) => {
-      const label = compactSourceLabels[source.label] ?? source.label;
-      return source.url
-        ? `<a href="${escapeHtml(source.url)}" target="_blank" rel="noreferrer">${escapeHtml(label)}</a>`
-        : escapeHtml(label);
-    });
+    const label = compactSourceLabels[source.label] ?? source.label;
+    return source.url
+      ? `<a href="${escapeHtml(source.url)}" target="_blank" rel="noreferrer">${escapeHtml(label)}</a>`
+      : escapeHtml(label);
+  });
   const coreCheckLines = coreOfficialSources.map((source) => {
     const checkedAt = getValidCheckDate(source);
     const label = compactSourceLabels[source.label] ?? source.label;
     return `${label}: ${checkedAt ? formatCheckDate(checkedAt) : "unknown"}`;
   });
   const coreCheckDates = coreOfficialSources.map(getValidCheckDate).filter(Boolean);
-  const oldestCoreCheck = coreCheckDates.sort((a, b) => a - b)[0];
+  const oldestCoreCheck = [...coreCheckDates].sort((a, b) => a - b)[0];
   const isCoreSourceStale =
     oldestCoreCheck && getAgeHours(oldestCoreCheck) > SOURCE_STALE_WARNING_HOURS;
   const latestResultCheck = tournament.sources
     .filter(
       (source) =>
-        source.type === "official" &&
+        (source.type === "official" || source.type === "provider") &&
         !coreSourceLabels.has(source.label) &&
         getValidCheckDate(source)
     )
@@ -3452,7 +3493,7 @@ function renderSourceNote() {
     Core checks: ${escapeHtml(coreCheckLines.join("; "))}.
     ${
       latestResultCheck
-        ? `Latest match reports checked ${escapeHtml(formatCheckDate(latestResultCheck))}.`
+        ? `Latest result data checked ${escapeHtml(formatCheckDate(latestResultCheck))}.`
         : ""
     }
   `;
@@ -3470,6 +3511,7 @@ function renderLoadError(error) {
 
 async function loadData() {
   const [
+    liveData,
     fixturesData,
     historyData,
     playerProfilesData,
@@ -3477,6 +3519,7 @@ async function loadData() {
     standingsData,
     tournamentData
   ] = await Promise.all([
+    loadOptionalJson(DATA_URLS.liveData, null),
     loadJson(DATA_URLS.fixtures),
     loadJson(DATA_URLS.history),
     loadOptionalJson(DATA_URLS.playerProfiles, { profiles: {} }),
@@ -3484,6 +3527,9 @@ async function loadData() {
     loadJson(DATA_URLS.standings),
     loadJson(DATA_URLS.tournament)
   ]);
+  const activeFixturesData = liveData?.fixturesData || fixturesData;
+  const activeStandingsData = liveData?.standingsData || standingsData;
+  const activeTournamentData = liveData?.tournamentData || tournamentData;
 
   teamsById = new Map(teamsData.teams.map((team) => [team.id, team]));
   teamsByName = buildTeamNameLookup(teamsData.teams);
@@ -3493,13 +3539,13 @@ async function loadData() {
       profile
     ])
   );
-  fixtures = fixturesData.fixtures;
+  fixtures = activeFixturesData.fixtures;
   history = historyData;
   historicalFixtures = historyData.fixtures || [];
   historicalProjectionCache.clear();
-  standingsByGroup = standingsData.groups;
-  tournament = tournamentData;
-  dataCoverage = fixturesData.coverage || { status: "partial" };
+  standingsByGroup = activeStandingsData.groups;
+  tournament = activeTournamentData;
+  dataCoverage = activeFixturesData.coverage || { status: "partial" };
 }
 
 async function refreshData() {

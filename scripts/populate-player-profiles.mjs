@@ -12,6 +12,8 @@ const userAgent = "WorldCupSimplified/0.1 (local profile enrichment)";
 const requestDelayMs = Number(process.env.WIKI_REQUEST_DELAY_MS || 1800);
 const pageTitleOverrides = new Map([
   ["Cristiano Ronaldo", "Cristiano Ronaldo"],
+  ["Luis Suarez", "Luis Suárez (footballer, born 1997)"],
+  ["Martin Odegaard", "Martin Ødegaard"],
   ["Neymar", "Neymar"]
 ]);
 
@@ -282,11 +284,6 @@ async function searchPlayerPage(player, team) {
     srlimit: "5"
   });
   const results = data.query?.search || [];
-  const exactTitle = results.find((result) => normalizeText(result.title) === normalizeText(player.name));
-  if (exactTitle) {
-    return exactTitle.title;
-  }
-
   const scored = results
     .map((result) => ({ ...result, score: scoreSearchResult(result, player, team) }))
     .sort((a, b) => b.score - a.score);
