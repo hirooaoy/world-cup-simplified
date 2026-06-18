@@ -73,6 +73,7 @@ Match days:
 During live matches:
 - If there is no live API, update `status` manually from `SCHEDULED` to `LIVE`, then to `FT` with `score`.
 - Do not rely on kickoff time alone for live status.
+- Treat a post-match row with no score as a data incident, not an empty state. The UI will label it "Final pending"; the fix is still to update the fixture, standings, and source timestamps before sharing.
 
 For authored `catchUp` entries, keep the headline and body score-focused. Add optional `standouts` only when a source supports the player note; one compact sentence is enough.
 
