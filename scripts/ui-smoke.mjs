@@ -153,6 +153,10 @@ try {
     (await page.locator(".player-link").count()) > 0,
     "Key information should link highlighted player names."
   );
+  assert(
+    (await page.locator(".key-info-team h4 .player-link").count()) > 0,
+    "Key information headings should link player-name taglines."
+  );
   await page.locator(".player-link").first().hover();
   const playerCard = page.locator(".player-card").first();
   await playerCard.waitFor({ state: "visible" });
@@ -167,6 +171,15 @@ try {
   assert(
     (await playerCard.locator(".player-skill-list span").count()) > 0,
     "Player hover card should include skill chips."
+  );
+  const firstCardBox = await playerCard.boundingBox();
+  const viewportSize = page.viewportSize();
+  assert(
+    firstCardBox &&
+      viewportSize &&
+      firstCardBox.x >= 0 &&
+      firstCardBox.x + firstCardBox.width <= viewportSize.width,
+    "Player hover card should stay inside the viewport horizontally."
   );
 
   await page.locator("#matches-tab").focus();

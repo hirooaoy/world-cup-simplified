@@ -189,6 +189,9 @@ function cleanWikiText(value) {
       ) {
         return parts.slice(1).join(", ");
       }
+      if (name === "post-nominals" || name === "postnominals") {
+        return "";
+      }
       if (name === "flagicon" || name === "flagdeco") {
         return "";
       }
@@ -199,6 +202,7 @@ function cleanWikiText(value) {
   text = text
     .replace(/\[\[([^|\]]+)\|([^\]]+)\]\]/g, "$2")
     .replace(/\[\[([^\]]+)\]\]/g, "$1")
+    .replace(/\[\[|\]\]/g, "")
     .replace(/\[[a-z]+:\/\/[^\s\]]+\s+([^\]]+)\]/gi, "$1")
     .replace(/→/g, "")
     .replace(/\s*\(loan\)\s*/gi, "")

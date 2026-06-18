@@ -795,11 +795,12 @@ function getStandingName(team) {
 
 function renderTeamInline(team, className = "team", options = {}) {
   const { showRank = true } = options;
+  const teamName = escapeHtml(team.name);
 
   return `
     <span class="${className}">
       ${renderFlag(team)}
-      <span class="team-name">${escapeHtml(team.name)}</span>
+      <span class="team-name" aria-label="${teamName}" title="${teamName}">${teamName}</span>
       ${showRank ? renderRank(team) : ""}
     </span>
   `;
@@ -1802,6 +1803,32 @@ function renderPlayerMention(label, player) {
   `;
 }
 
+function positionPlayerCard(playerHover) {
+  const card = playerHover?.querySelector(".player-card");
+  if (!card) {
+    return;
+  }
+
+  const viewportMargin = 18;
+  const maxCardWidth = Math.max(0, window.innerWidth - viewportMargin * 2);
+  const cardWidth = Math.min(292, maxCardWidth);
+  const triggerRect = playerHover.getBoundingClientRect();
+  const desiredLeft = Math.max(
+    viewportMargin,
+    Math.min(triggerRect.left, window.innerWidth - cardWidth - viewportMargin)
+  );
+  const shift = desiredLeft - triggerRect.left;
+
+  card.style.setProperty("--player-card-width", `${cardWidth}px`);
+  card.style.setProperty("--player-card-shift", `${Math.round(shift)}px`);
+}
+
+function positionPlayerCards() {
+  matchInfo
+    .querySelectorAll(".player-hover")
+    .forEach((playerHover) => positionPlayerCard(playerHover));
+}
+
 function renderPlayerLinkedText(text, players = []) {
   const entries = getPlayerMentionEntries(players);
   if (!entries.length) {
@@ -2788,6 +2815,7 @@ function renderMatchInfo(match, options = {}) {
 
   if (match.isHistorical) {
     matchInfo.innerHTML = renderHistoricalMatchInfo(match);
+    positionPlayerCards();
     if (options.reveal) {
       revealMatchInfoOnSmallScreens();
     }
@@ -2826,6 +2854,7 @@ function renderMatchInfo(match, options = {}) {
       ${renderPastResults(match)}
     </section>
   `;
+  positionPlayerCards();
 
   if (options.reveal) {
     revealMatchInfoOnSmallScreens();
@@ -3274,14 +3303,35 @@ function getCatchUpItems() {
 function renderCatchUpItem(item) {
   const itemDate = getDateFromKey(item.dateKey || selectedDayKey);
   const standoutText = (item.standouts || []).join("; ");
+  const summaryPoint = item.body
+    ? `
+        <li class="catch-up-point">${escapeHtml(item.body)}</li>
+      `
+    : "";
   const standouts = standoutText
-    ? `<p class="catch-up-standouts"><strong>Standouts:</strong> ${escapeHtml(standoutText)}</p>`
+    ? `
+        <li class="catch-up-point catch-up-standouts"><strong>Standouts:</strong> ${escapeHtml(
+          standoutText
+        )}</li>
+      `
     : "";
+  const points =
+    summaryPoint || standouts
+      ? `<ul class="catch-up-points">${summaryPoint}${standouts}</ul>`
+      : "";
   const sourceLink = item.sourceUrl
-    ? `<a class="catch-up-source" href="${escapeHtml(item.sourceUrl)}" target="_blank" rel="noreferrer">${escapeHtml(
+    ? `<a class="catch-up-source" href="${escapeHtml(item.sourceUrl)}" target="_blank" rel="noreferrer" aria-label="${escapeHtml(
         item.sourceLabel || "Read source"
-      )}</a>`
+      )}" title="${escapeHtml(item.sourceLabel || "Read source")}"><span aria-hidden="true"></span></a>`
     : "";
+  const footer =
+    item.meta
+      ? `
+        <div class="catch-up-footer">
+          <span class="catch-up-meta">${escapeHtml(item.meta)}</span>
+        </div>
+      `
+      : "";
 
   return `
     <article class="catch-up-item">
@@ -3289,11 +3339,12 @@ function renderCatchUpItem(item) {
         catchUpItemDateFormatter.format(itemDate)
       )}</time>
       <div class="catch-up-copy">
-        <h3>${escapeHtml(item.headline)}</h3>
-        ${item.body ? `<p>${escapeHtml(item.body)}</p>` : ""}
-        ${standouts}
-        ${item.meta ? `<span class="catch-up-meta">${escapeHtml(item.meta)}</span>` : ""}
-        ${sourceLink}
+        <div class="catch-up-title-row">
+          <h3>${escapeHtml(item.headline)}</h3>
+          ${sourceLink}
+        </div>
+        ${points}
+        ${footer}
       </div>
     </article>
   `;
@@ -3320,7 +3371,9 @@ function renderCatchUp() {
         )}</time>
         <div class="catch-up-copy">
           <h3>No catch-up notes loaded yet</h3>
-          <p>Yesterday and today do not have finished or live match notes yet.</p>
+          <ul class="catch-up-points">
+            <li class="catch-up-point">Yesterday and today do not have finished or live match notes yet.</li>
+          </ul>
         </div>
       </article>
     `;
@@ -3626,6 +3679,24 @@ matchInfo.addEventListener("click", (event) => {
   revealButton.remove();
 });
 
+matchInfo.addEventListener(
+  "pointerenter",
+  (event) => {
+    const playerHover = event.target.closest(".player-hover");
+    if (playerHover) {
+      positionPlayerCard(playerHover);
+    }
+  },
+  true
+);
+
+matchInfo.addEventListener("focusin", (event) => {
+  const playerHover = event.target.closest(".player-hover");
+  if (playerHover) {
+    positionPlayerCard(playerHover);
+  }
+});
+
 document.addEventListener("pointerdown", (event) => {
   if (
     isCalendarOpen &&
@@ -3673,8 +3744,18 @@ document.addEventListener("keydown", (event) => {
   }
 });
 
-window.addEventListener("resize", positionCatchUpPopover);
-window.addEventListener("scroll", positionCatchUpPopover, true);
+window.addEventListener("resize", () => {
+  positionCatchUpPopover();
+  positionPlayerCards();
+});
+window.addEventListener(
+  "scroll",
+  () => {
+    positionCatchUpPopover();
+    positionPlayerCards();
+  },
+  true
+);
 
 timezoneSelect.addEventListener("change", () => {
   const wasViewingToday =

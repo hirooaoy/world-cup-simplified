@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-18T21:25:43.747Z",
+  "updatedAt": "2026-06-18T21:31:16.933Z",
   "sourceIds": [
     "wikipedia-football-infobox",
     "wikimedia-commons"
@@ -7,7 +7,12 @@
   "profiles": {
     "Aaron Wan-Bissaka": {
       "name": "Aaron Wan-Bissaka",
+      "displayName": "Aaron Wan-Bissaka",
       "teamId": "COD",
+      "position": "Right-back",
+      "club": "West Ham United",
+      "league": "Premier League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Aaron%20Wan-Bissaka%20of%20West%20Ham%20United.jpeg?width=160",
       "skills": [
         "Pressing",
         "Ball winning",
@@ -18,7 +23,12 @@
     },
     "Abbosbek Fayzullaev": {
       "name": "Abbosbek Fayzullaev",
+      "displayName": "Abbosbek Fayzullaev",
       "teamId": "UZB",
+      "position": "Attacking midfielder, winger",
+      "club": "İstanbul Başakşehir",
+      "league": "Süper Lig",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Abbosbek%20Fayzullaev%2011%20%C4%B0stanbul%20Ba%C5%9Fak%C5%9Fehir%20FK%20UECL%2020250821%20(5).jpg?width=160",
       "skills": [
         "Chance creation",
         "Midfield control",
@@ -30,7 +40,12 @@
     },
     "Abdukodir Khusanov": {
       "name": "Abdukodir Khusanov",
+      "displayName": "Abdukodir Khusanov",
       "teamId": "UZB",
+      "position": "Centre-back, Right-back",
+      "club": "Manchester City",
+      "league": "Premier League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Abdukodir%20Khusanov%20(cropped).jpg?width=160",
       "skills": [
         "Runs in behind",
         "Movement",
@@ -41,7 +56,12 @@
     },
     "Achraf Hakimi": {
       "name": "Achraf Hakimi",
+      "displayName": "Achraf Hakimi",
       "teamId": "MAR",
+      "position": "Right-back",
+      "club": "Paris Saint-Germain",
+      "league": "Ligue 1",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Achraf%20Hakimi%20Morocco%20v%20Norway%207%20June%202026-32.jpg?width=160",
       "skills": [
         "Set pieces",
         "Runs in behind",
@@ -52,7 +72,12 @@
     },
     "Adalberto Carrasquilla": {
       "name": "Adalberto Carrasquilla",
+      "displayName": "Adalberto Carrasquilla",
       "teamId": "PAN",
+      "position": "Midfielder",
+      "club": "Pumas UNAM",
+      "league": "Liga MX",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Inter%20Miami%20CF%203-1%20UNAM%20(6%20August%202025)%2027%20(cropped).jpg?width=160",
       "skills": [
         "Midfield control",
         "Defensive control"
@@ -62,7 +87,12 @@
     },
     "Adam Hlozek": {
       "name": "Adam Hlozek",
+      "displayName": "Adam Hložek",
       "teamId": "CZE",
+      "position": "Winger, Attacking Midfielder",
+      "club": "TSG Hoffenheim",
+      "league": "Bundesliga",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Adam%20Hlo%C5%BEek%2C%202022-07-31%2C%20Saisoner%C3%B6ffnung%20Bayer%2004%2C%20Leverkusen%20(2)%20(cropped).jpg?width=160",
       "skills": [
         "Link-up play",
         "Midfield control"
@@ -72,7 +102,12 @@
     },
     "Akram Afif": {
       "name": "Akram Afif",
+      "displayName": "Akram Afif",
       "teamId": "QAT",
+      "position": "Left winger",
+      "club": "Al Sadd",
+      "league": "Qatar Stars League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Qatar%20v%20Lebanon%20(37)%20(cropped).jpg?width=160",
       "skills": [
         "Box presence",
         "Chance creation",
@@ -84,7 +119,12 @@
     },
     "Alexander Isak": {
       "name": "Alexander Isak",
+      "displayName": "Alexander Isak",
       "teamId": "SWE",
+      "position": "Striker",
+      "club": "Liverpool",
+      "league": "Premier League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Alexander%20Isak%20-%20Sweden%20-%20Greece21%20(cropped).jpg?width=160",
       "skills": [
         "Box presence",
         "Finishing",
@@ -95,7 +135,12 @@
     },
     "Ali Jasim": {
       "name": "Ali Jasim",
+      "displayName": "Ali Jasim",
       "teamId": "IRQ",
+      "position": "Forward, winger",
+      "club": "Al-Najma (on loan from Como)",
+      "league": "Saudi First Division League",
+      "imageUrl": "",
       "skills": [
         "Chance creation",
         "Defensive control",
@@ -106,7 +151,12 @@
     },
     "Alireza Jahanbakhsh": {
       "name": "Alireza Jahanbakhsh",
+      "displayName": "Alireza Jahanbakhsh",
       "teamId": "IRN",
+      "position": "Winger, attacking midfielder",
+      "club": "Dender EH",
+      "league": "Belgian Pro League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/File%3A2022%20FIFA%20World%20Cup%20England%206%E2%80%932%20Iran%20-%20(26)%20(cropped).jpg?width=160",
       "skills": [
         "Set pieces",
         "Chance creation",
@@ -118,7 +168,12 @@
     },
     "Almoez Ali": {
       "name": "Almoez Ali",
+      "displayName": "Almoez Ali",
       "teamId": "QAT",
+      "position": "Striker, winger",
+      "club": "Al-Duhail",
+      "league": "Qatar Stars League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Moez%20Ali%20at%20Qatar%20v%20Japan%20%E2%80%93%20AFC%20Asian%20Cup%202019%20final%2032%20(2).jpg?width=160",
       "skills": [
         "Finishing",
         "Runs in behind"
@@ -128,7 +183,12 @@
     },
     "Alphonso Davies": {
       "name": "Alphonso Davies",
+      "displayName": "Alphonso Davies",
       "teamId": "CAN",
+      "position": "wing-back",
+      "club": "Bayern Munich",
+      "league": "Bundesliga",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Alphonso%20Davies%20in%202022.jpg?width=160",
       "skills": [
         "Wide threat"
       ],
@@ -137,7 +197,12 @@
     },
     "Amine Gouiri": {
       "name": "Amine Gouiri",
+      "displayName": "Amine Gouiri",
       "teamId": "ALG",
+      "position": "Striker, left winger",
+      "club": "Marseille",
+      "league": "Ligue 1",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Lens%20-%20Stade%20Rennais%20(20-08-2023)%2022.jpg?width=160",
       "skills": [
         "Link-up play",
         "Movement"
@@ -147,7 +212,12 @@
     },
     "Andy Robertson": {
       "name": "Andy Robertson",
+      "displayName": "Andy Robertson",
       "teamId": "SCO",
+      "position": "Left-back",
+      "club": "Liverpool",
+      "league": "Premier League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Andy%20Robertson%20Scotland%20v%20Bolivia%206%20June%202026-43.jpg?width=160",
       "skills": [
         "Runs in behind",
         "Leadership"
@@ -157,7 +227,12 @@
     },
     "Antoine Griezmann": {
       "name": "Antoine Griezmann",
+      "displayName": "Antoine Griezmann",
       "teamId": "FRA",
+      "position": "Forward, attacking midfielder",
+      "club": "Atlético Madrid",
+      "league": "La Liga",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/FRA-ARG%20(10)%20(cropped).jpg?width=160",
       "skills": [
         "Set pieces",
         "Chance creation",
@@ -169,7 +244,12 @@
     },
     "Antoine Semenyo": {
       "name": "Antoine Semenyo",
+      "displayName": "Antoine Semenyo",
       "teamId": "GHA",
+      "position": "winger",
+      "club": "Manchester City",
+      "league": "Premier League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Antoine%20Semenyo%202026.png?width=160",
       "skills": [
         "Runs in behind",
         "Defensive control"
@@ -179,7 +259,12 @@
     },
     "Antonio Nusa": {
       "name": "Antonio Nusa",
+      "displayName": "Antonio Nusa",
       "teamId": "NOR",
+      "position": "Winger, attacking midfielder",
+      "club": "RB Leipzig",
+      "league": "Bundesliga",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Antonio%20Nusa%20Morocco%20v%20Norway%207%20June%202026-110%20(cropped).jpg?width=160",
       "skills": [
         "Chance creation",
         "Runs in behind",
@@ -191,7 +276,12 @@
     },
     "Arda Guler": {
       "name": "Arda Guler",
+      "displayName": "Arda Güler",
       "teamId": "TUR",
+      "position": "Attacking midfielder,",
+      "club": "Real Madrid",
+      "league": "La Liga",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Derbide%20Fenerbah%C3%A7e%20Yedek%20Oyuncu%20Arda%20G%C3%BCler%20(2021-22%20S%C3%BCper%20Lig%20-%20Cropped).jpg?width=160",
       "skills": [
         "Box presence",
         "Chance creation",
@@ -202,7 +292,12 @@
     },
     "Aymen Hussein": {
       "name": "Aymen Hussein",
+      "displayName": "Aymen Hussein",
       "teamId": "IRQ",
+      "position": "Striker",
+      "club": "Al-Karma",
+      "league": "Iraq Stars League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/4822953%20AE7I9053%20(cropped2).jpg?width=160",
       "skills": [
         "Box presence",
         "Finishing",
@@ -213,7 +308,12 @@
     },
     "Breel Embolo": {
       "name": "Breel Embolo",
+      "displayName": "Breel Embolo",
       "teamId": "SUI",
+      "position": "Forward",
+      "club": "Rennes",
+      "league": "Ligue 1",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/2022128160447%202022-05-08%20Fussball%20Eintracht%20Frankfurt%20vs%20Borussia%20M%C3%B6nchengladbach%20-%20Sven%20-%201D%20X%20MK%20II%20-%201422%20-%20B70I7533%20(cropped).jpg?width=160",
       "skills": [
         "Box presence",
         "Runs in behind",
@@ -224,7 +324,12 @@
     },
     "Bruno Fernandes": {
       "name": "Bruno Fernandes",
+      "displayName": "Bruno Fernandes",
       "teamId": "POR",
+      "position": "Attacking midfielder",
+      "club": "Manchester United",
+      "league": "Premier League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Bruno%20Fernandes%20USMNT%20v%20Portugal%20Mar%2031%202026-27%20(cropped).jpg?width=160",
       "skills": [
         "Chance creation",
         "Runs in behind"
@@ -234,7 +339,12 @@
     },
     "Casemiro": {
       "name": "Casemiro",
+      "displayName": "Casemiro",
       "teamId": "BRA",
+      "position": "Defensive midfielder",
+      "club": "Manchester United",
+      "league": "Premier League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Casemiro%20Brazil%20Austria%20June%202018.jpg?width=160",
       "skills": [
         "Midfield control",
         "Defensive control"
@@ -244,7 +354,12 @@
     },
     "Chris Wood": {
       "name": "Chris Wood",
+      "displayName": "Chris Wood",
       "teamId": "NZL",
+      "position": "Forward",
+      "club": "Nottingham Forest",
+      "league": "Premier League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Chris%20Wood%20(cropped).jpg?width=160",
       "skills": [
         "Box presence",
         "Finishing",
@@ -255,7 +370,12 @@
     },
     "Christian Pulisic": {
       "name": "Christian Pulisic",
+      "displayName": "Christian Pulisic",
       "teamId": "USA",
+      "position": "forward",
+      "club": "AC Milan",
+      "league": "Serie A",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Christian%20Pulisic%20USMNT%20v%20Belgium%20Mar%2028%202026-73%20(cropped).jpg?width=160",
       "skills": [
         "Box presence",
         "Runs in behind",
@@ -266,7 +386,12 @@
     },
     "Christian Volpato": {
       "name": "Christian Volpato",
+      "displayName": "Cristian Volpato",
       "teamId": "AUS",
+      "position": "Attacking midfielder, winger",
+      "club": "Sassuolo",
+      "league": "Serie A",
+      "imageUrl": "",
       "skills": [
         "Chance creation",
         "Long-range shooting"
@@ -276,7 +401,12 @@
     },
     "Christoph Baumgartner": {
       "name": "Christoph Baumgartner",
+      "displayName": "Christoph Baumgartner",
       "teamId": "AUT",
+      "position": "Attacking midfielder, forward",
+      "club": "RB Leipzig",
+      "league": "Bundesliga",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Austria%20national%20under-21%20football%20team%20-%20Teamcamp%20October%202019%20(61)%20(cropped).jpg?width=160",
       "skills": [
         "Box presence",
         "Midfield control",
@@ -288,7 +418,12 @@
     },
     "Cody Gakpo": {
       "name": "Cody Gakpo",
+      "displayName": "Cody Gakpo",
       "teamId": "NED",
+      "position": "Left winger, forward",
+      "club": "Liverpool",
+      "league": "Premier League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Cody%20Gakpo%2006042025%20(2)%20(cropped).jpg?width=160",
       "skills": [
         "Link-up play",
         "Midfield control",
@@ -299,7 +434,12 @@
     },
     "Cristiano Ronaldo": {
       "name": "Cristiano Ronaldo",
+      "displayName": "Cristiano Ronaldo",
       "teamId": "POR",
+      "position": "Forward",
+      "club": "Al-Nassr",
+      "league": "Saudi Pro League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/President%20Donald%20Trump%20meets%20with%20Cristiano%20Ronaldo%20in%20the%20Oval%20Office%20(54933344262)%20(cropped%20and%20rotated).jpg?width=160",
       "skills": [
         "Box presence",
         "Finishing",
@@ -310,7 +450,12 @@
     },
     "Darwin Nunez": {
       "name": "Darwin Nunez",
+      "displayName": "Darwin Núñez",
       "teamId": "URU",
+      "position": "Striker",
+      "club": "Al-Hilal",
+      "league": "Saudi Pro League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Darwin%20N%C3%BA%C3%B1ez%20(cropped).jpg?width=160",
       "skills": [
         "Runs in behind",
         "Wide threat",
@@ -321,7 +466,12 @@
     },
     "David Alaba": {
       "name": "David Alaba",
+      "displayName": "David Alaba",
       "teamId": "AUT",
+      "position": "Centre-back, left-back",
+      "club": "Real Madrid",
+      "league": "La Liga",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/File%3A20180610%20FIFA%20Friendly%20Match%20Austria%20vs.%20Brazil%20David%20Alaba%20850%201632.jpg?width=160",
       "skills": [
         "Set pieces",
         "Defensive control",
@@ -332,7 +482,12 @@
     },
     "Declan Rice": {
       "name": "Declan Rice",
+      "displayName": "Declan Rice",
       "teamId": "ENG",
+      "position": "Midfielder",
+      "club": "Arsenal",
+      "league": "Premier League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Declan%20Rice%20-%2053248276328%20(cropped).jpg?width=160",
       "skills": [
         "Midfield control",
         "Defensive control"
@@ -342,7 +497,12 @@
     },
     "Dejan Kulusevski": {
       "name": "Dejan Kulusevski",
+      "displayName": "Dejan Kuluševski",
       "teamId": "SWE",
+      "position": "Attacking midfielder, winger",
+      "club": "Tottenham Hotspur",
+      "league": "Premier League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Sweden-Slovenia%20Nations%20League%202022-09-27%2017%20Kulusevski%20(cropped).jpg?width=160",
       "skills": [
         "Chance creation",
         "Link-up play",
@@ -354,7 +514,12 @@
     },
     "Duckens Nazon": {
       "name": "Duckens Nazon",
+      "displayName": "Duckens Nazon",
       "teamId": "HAI",
+      "position": "Striker",
+      "club": "Esteghlal",
+      "league": "Persian Gulf Pro League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/2025%20Iran%20Football%20Premier%20League%20Esteghlal%20and%20Zob%20Ahan%20football%20match%203%20Mehr%20(cropped).jpg?width=160",
       "skills": [
         "Finishing",
         "Runs in behind"
@@ -364,7 +529,12 @@
     },
     "Edin Dzeko": {
       "name": "Edin Dzeko",
+      "displayName": "Edin Džeko",
       "teamId": "BIH",
+      "position": "Striker",
+      "club": "Schalke 04",
+      "league": "2. Bundesliga",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/20150331%202026%20AUT%20BIH%202177%20Edin%20D%C5%BEeko%20(cropped).jpg?width=160",
       "skills": [
         "Finishing",
         "Target play",
@@ -375,7 +545,12 @@
     },
     "Edson Alvarez": {
       "name": "Edson Alvarez",
+      "displayName": "Edson Álvarez",
       "teamId": "MEX",
+      "position": "Defensive midfielder, centre-back",
+      "club": "Fenerbahçe (on loan from West Ham United)",
+      "league": "Süper Lig",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Edson%20%C3%81lvarez.png?width=160",
       "skills": [
         "Midfield control",
         "Defensive control"
@@ -385,7 +560,12 @@
     },
     "Eldor Shomurodov": {
       "name": "Eldor Shomurodov",
+      "displayName": "Eldor Shomurodov",
       "teamId": "UZB",
+      "position": "Forward",
+      "club": "İstanbul Başakşehir",
+      "league": "Süper Lig",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Eldor%20Shomurodov%2014%20%C4%B0stanbul%20Ba%C5%9Fak%C5%9Fehir%20FK%2020250731%20(10)%20(cropped).jpg?width=160",
       "skills": [
         "Target play",
         "Leadership"
@@ -395,7 +575,12 @@
     },
     "Elias Saad": {
       "name": "Elias Saad",
+      "displayName": "Elias Saad",
       "teamId": "TUN",
+      "position": "Left winger",
+      "club": "Hannover 96 (on loan from FC Augsburg)",
+      "league": "2. Bundesliga",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/2025-04-23%20-%20FC%20St%20Pauli%20-%20Elias%20Saad.jpg?width=160",
       "skills": [
         "Runs in behind",
         "Wide threat"
@@ -405,7 +590,12 @@
     },
     "Ellyes Skhiri": {
       "name": "Ellyes Skhiri",
+      "displayName": "Ellyes Skhiri",
       "teamId": "TUN",
+      "position": "Defensive midfielder",
+      "club": "Eintracht Frankfurt",
+      "league": "Bundesliga",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/2021-08-08%20FC%20Carl%20Zeiss%20Jena%20gegen%201.%20FC%20K%C3%B6ln%20(DFB-Pokal)%20by%20Sandro%20Halank%E2%80%93182%20(cropped2).jpg?width=160",
       "skills": [
         "Midfield control",
         "Defensive control"
@@ -415,7 +605,12 @@
     },
     "Emiliano Martinez": {
       "name": "Emiliano Martinez",
+      "displayName": "Emiliano Martínez",
       "teamId": "ARG",
+      "position": "Goalkeeper",
+      "club": "Aston Villa",
+      "league": "Premier League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/St.%20Louis%20City%20vs%20Aston%20Villa%20(Jul%202025)%2014%20(Emiliano%20Mart%C3%ADnez).jpg?width=160",
       "skills": [
         "Shot-stopping",
         "Finishing"
@@ -425,7 +620,12 @@
     },
     "Enner Valencia": {
       "name": "Enner Valencia",
+      "displayName": "Enner Valencia",
       "teamId": "ECU",
+      "position": "Forward, winger",
+      "club": "Pachuca",
+      "league": "Liga MX",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Enner%20Valencia%20CONTINUACI%C3%93N%20DE%20LA%20SESI%C3%93N%20N.%C2%BA%20056%20DEL%20PLENO%20DE%20LA%20ASAMBLEA%20NACIONAL.%20ECUADOR%2C%2009%20DE%20DICIEMBRE%20DE%202025%20(cropped).jpg?width=160",
       "skills": [
         "Finishing",
         "Pressing",
@@ -436,7 +636,12 @@
     },
     "Enzo Fernandez": {
       "name": "Enzo Fernandez",
+      "displayName": "Enzo Fernández",
       "teamId": "ARG",
+      "position": "Midfielder",
+      "club": "Chelsea",
+      "league": "Premier League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Enzo%20Fern%C3%A1ndez%202025%20FIFA%20Club%20World%20Cup%20Final.jpg?width=160",
       "skills": [
         "Midfield control"
       ],
@@ -445,7 +650,12 @@
     },
     "Erling Haaland": {
       "name": "Erling Haaland",
+      "displayName": "Erling Haaland",
       "teamId": "NOR",
+      "position": "Striker",
+      "club": "Manchester City",
+      "league": "Premier League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Erling%20Haaland%20Morocco%20v%20Norway%207%20June%202026-51.jpg?width=160",
       "skills": [
         "Box presence",
         "Finishing"
@@ -455,7 +665,12 @@
     },
     "Esmir Bajraktarevic": {
       "name": "Esmir Bajraktarevic",
+      "displayName": "Esmir Bajraktarević",
       "teamId": "BIH",
+      "position": "Winger",
+      "club": "PSV",
+      "league": "Eredivisie",
+      "imageUrl": "",
       "skills": [
         "Chance creation",
         "Wide threat"
@@ -465,7 +680,12 @@
     },
     "Federico Valverde": {
       "name": "Federico Valverde",
+      "displayName": "Federico Valverde",
       "teamId": "URU",
+      "position": "Central midfielder",
+      "club": "Real Madrid",
+      "league": "La Liga",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Federico%20Valverde%202021%20(cropped).jpg?width=160",
       "skills": [
         "Midfield control",
         "Runs in behind",
@@ -476,7 +696,12 @@
     },
     "Firas Al-Buraikan": {
       "name": "Firas Al-Buraikan",
+      "displayName": "Firas Al-Buraikan",
       "teamId": "KSA",
+      "position": "Striker",
+      "club": "Al-Ahli",
+      "league": "Saudi Pro League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Firas%20Al-Buraikan%202026.jpg?width=160",
       "skills": [
         "Finishing",
         "Link-up play",
@@ -488,7 +713,12 @@
     },
     "Florian Wirtz": {
       "name": "Florian Wirtz",
+      "displayName": "Florian Wirtz",
       "teamId": "GER",
+      "position": "Attacking midfielder, left midfielder",
+      "club": "Liverpool",
+      "league": "Premier League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Florian%20Wirtz%2C%202022-07-31%2C%20Saisoner%C3%B6ffnung%20Bayer%2004%2C%20Leverkusen%20(1)%20(cropped).jpg?width=160",
       "skills": [
         "Chance creation"
       ],
@@ -497,7 +727,12 @@
     },
     "Franck Kessie": {
       "name": "Franck Kessie",
+      "displayName": "Franck Kessié",
       "teamId": "CIV",
+      "position": "Central midfielder",
+      "club": "Al-Ahli",
+      "league": "Saudi Pro League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Franck%20Yannick%20Kessi%C3%A9.jpg?width=160",
       "skills": [
         "Box presence",
         "Midfield control",
@@ -509,7 +744,12 @@
     },
     "Frantzdy Pierrot": {
       "name": "Frantzdy Pierrot",
+      "displayName": "Frantzdy Pierrot",
       "teamId": "HAI",
+      "position": "Forward",
+      "club": "Çaykur Rizespor (on loan from AEK Athens)",
+      "league": "Süper Lig",
+      "imageUrl": "",
       "skills": [
         "Box presence",
         "Target play"
@@ -519,7 +759,12 @@
     },
     "Frenkie de Jong": {
       "name": "Frenkie de Jong",
+      "displayName": "Frenkie de Jong",
       "teamId": "NED",
+      "position": "Midfielder",
+      "club": "Barcelona",
+      "league": "La Liga",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/%D0%9C%D0%B0%D1%82%D1%87%20%C2%AB%D0%94%D0%B8%D0%BD%D0%B0%D0%BC%D0%BE%C2%BB%20-%20%C2%AB%D0%91%D0%B0%D1%80%D1%81%D0%B5%D0%BB%D0%BE%D0%BD%D0%B0%C2%BB%200-1.%202%20%D0%BD%D0%BE%D1%8F%D0%B1%D1%80%D1%8F%202021%20%D0%B3%D0%BE%D0%B4%D0%B0.%20II%20%E2%80%94%201289671%20(cropped).jpg?width=160",
       "skills": [
         "Midfield control",
         "Pressing"
@@ -529,7 +774,12 @@
     },
     "Granit Xhaka": {
       "name": "Granit Xhaka",
+      "displayName": "Granit Xhaka",
       "teamId": "SUI",
+      "position": "Defensive midfielder",
+      "club": "Sunderland",
+      "league": "Premier League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Granit%20Xhaka%20(cropped).jpg?width=160",
       "skills": [
         "Midfield control",
         "Pressing"
@@ -539,7 +789,12 @@
     },
     "Gustavo Gomez": {
       "name": "Gustavo Gomez",
+      "displayName": "Gustavo Gómez",
       "teamId": "PAR",
+      "position": "Centre-back",
+      "club": "Palmeiras",
+      "league": "Campeonato Brasileiro Série A",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Gustavo-Gomez-Palmeiras-Athletico-jul-2022-2.jpg?width=160",
       "skills": [
         "Set pieces",
         "Defensive control",
@@ -550,7 +805,12 @@
     },
     "Hakan Calhanoglu": {
       "name": "Hakan Calhanoglu",
+      "displayName": "Hakan Çalhanoğlu",
       "teamId": "TUR",
+      "position": "Midfielder",
+      "club": "Inter Milan",
+      "league": "Serie A",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/AUT%20vs.%20TUR%202016-03-29%20(342).jpg?width=160",
       "skills": [
         "Set pieces",
         "Midfield control"
@@ -560,7 +820,12 @@
     },
     "Hakim Ziyech": {
       "name": "Hakim Ziyech",
+      "displayName": "Hakim Ziyech",
       "teamId": "MAR",
+      "position": "Right winger, attacking midfielder",
+      "club": "Wydad AC",
+      "league": "Botola Pro",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Hakim%20Ziyech%202021.jpg?width=160",
       "skills": [
         "Chance creation",
         "Long-range shooting"
@@ -570,7 +835,12 @@
     },
     "Hannibal Mejbri": {
       "name": "Hannibal Mejbri",
+      "displayName": "Hannibal Mejbri",
       "teamId": "TUN",
+      "position": "Midfielder",
+      "club": "Burnley",
+      "league": "EFL Championship",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Hannibal%20Mejbri%2026042025%20(1).jpg?width=160",
       "skills": [
         "Link-up play",
         "Midfield control",
@@ -582,7 +852,12 @@
     },
     "Harry Kane": {
       "name": "Harry Kane",
+      "displayName": "Harry Kane",
       "teamId": "ENG",
+      "position": "Striker",
+      "club": "Bayern Munich",
+      "league": "Bundesliga",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Harry%20Kane%20on%20October%2010%2C%202023.jpg?width=160",
       "skills": [
         "Finishing",
         "Movement",
@@ -593,7 +868,12 @@
     },
     "Homam Ahmed": {
       "name": "Homam Ahmed",
+      "displayName": "Homam Ahmed",
       "teamId": "QAT",
+      "position": "Left Back",
+      "club": "Cultural Leonesa (on loan from Al-Duhail)",
+      "league": "Segunda División",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Asian%20Nations%20Cup%20Iran%20-%20Qatar%20(8)%20(cropped).jpg?width=160",
       "skills": [
         "Midfield control",
         "Runs in behind",
@@ -604,7 +884,12 @@
     },
     "Inaki Williams": {
       "name": "Inaki Williams",
+      "displayName": "Iñaki Williams",
       "teamId": "GHA",
+      "position": "Forward",
+      "club": "Athletic Bilbao",
+      "league": "La Liga",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/I%C3%B1aki%20Williams.png?width=160",
       "skills": [
         "Runs in behind",
         "Wide threat",
@@ -615,7 +900,12 @@
     },
     "Ismael Bennacer": {
       "name": "Ismael Bennacer",
+      "displayName": "Ismaël Bennacer إِسْمَاعِيل بِن نَاصِر",
       "teamId": "ALG",
+      "position": "Defensive midfielder",
+      "club": "Dinamo Zagreb (on loan from AC Milan)",
+      "league": "Croatian Football League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/BennacerLeB2022.jpg?width=160",
       "skills": [
         "Midfield control",
         "Pressing"
@@ -625,7 +915,12 @@
     },
     "Ismael Diaz": {
       "name": "Ismael Diaz",
+      "displayName": "Ismael Díaz",
       "teamId": "PAN",
+      "position": "Winger",
+      "club": "León",
+      "league": "Liga MX",
+      "imageUrl": "",
       "skills": [
         "Chance creation",
         "Defensive control"
@@ -635,7 +930,12 @@
     },
     "Jackson Irvine": {
       "name": "Jackson Irvine",
+      "displayName": "Jackson Irvine",
       "teamId": "AUS",
+      "position": "Central midfielder",
+      "club": "FC St. Pauli",
+      "league": "Bundesliga",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/4822293%20AE7I6590%20(Jackson%20Irvine).jpg?width=160",
       "skills": [
         "Box presence",
         "Midfield control",
@@ -647,7 +947,12 @@
     },
     "Jamal Musiala": {
       "name": "Jamal Musiala",
+      "displayName": "Jamal Musiala",
       "teamId": "GER",
+      "position": "Attacking midfielder",
+      "club": "Bayern Munich",
+      "league": "Bundesliga",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Jamal%20Musiala%202022%20(cropped).jpg?width=160",
       "skills": [
         "Runs in behind",
         "Pressing"
@@ -657,7 +962,12 @@
     },
     "James Rodriguez": {
       "name": "James Rodriguez",
+      "displayName": "James Rodríguez",
       "teamId": "COL",
+      "position": "Attacking midfielder, winger",
+      "club": "Minnesota United",
+      "league": "Major League Soccer",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/James%20Rodriguez%202018.jpg?width=160",
       "skills": [
         "Chance creation",
         "Link-up play",
@@ -668,7 +978,12 @@
     },
     "Jean-Ricner Bellegarde": {
       "name": "Jean-Ricner Bellegarde",
+      "displayName": "Jean-Ricner Bellegarde",
       "teamId": "HAI",
+      "position": "Midfielder",
+      "club": "Wolverhampton Wanderers",
+      "league": "Premier League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Lens%20B%20-%20AC%20Amiens%20(12-09-2015)%2064%20(cropped).JPG?width=160",
       "skills": [
         "Midfield control",
         "Pressing",
@@ -679,7 +994,12 @@
     },
     "Jeremy Doku": {
       "name": "Jeremy Doku",
+      "displayName": "Jérémy Doku",
       "teamId": "BEL",
+      "position": "Winger",
+      "club": "Manchester City",
+      "league": "Premier League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/J%C3%A9r%C3%A9my%20Doku%20USMNT%20v%20Belgium%20Mar%2028%202026-27%20(cropped).jpg?width=160",
       "skills": [
         "Midfield control",
         "Runs in behind",
@@ -691,7 +1011,12 @@
     },
     "John McGinn": {
       "name": "John McGinn",
+      "displayName": "John McGinn",
       "teamId": "SCO",
+      "position": "Midfielder",
+      "club": "Aston Villa",
+      "league": "Premier League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/John%20McGinn%20Scotland%20v%20Bolivia%206%20June%202026-2.jpg?width=160",
       "skills": [
         "Link-up play"
       ],
@@ -700,7 +1025,12 @@
     },
     "Jonathan David": {
       "name": "Jonathan David",
+      "displayName": "Jonathan David",
       "teamId": "CAN",
+      "position": "Forward",
+      "club": "Juventus",
+      "league": "Serie A",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Jonathan%20David%20asse%20losc%202425%20(cropped).jpg?width=160",
       "skills": [
         "Finishing"
       ],
@@ -709,7 +1039,12 @@
     },
     "Jordan Ayew": {
       "name": "Jordan Ayew",
+      "displayName": "Jordan Ayew",
       "teamId": "GHA",
+      "position": "Winger, forward",
+      "club": "Leicester City",
+      "league": "EFL Championship",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Jordan%20Ayew%2024082024%20(2).jpg?width=160",
       "skills": [
         "Pressing",
         "Leadership"
@@ -719,7 +1054,12 @@
     },
     "Joshua Kimmich": {
       "name": "Joshua Kimmich",
+      "displayName": "Joshua Kimmich",
       "teamId": "GER",
+      "position": "right-back",
+      "club": "Bayern Munich",
+      "league": "Bundesliga",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/2019-06-11%20Fu%C3%9Fball%2C%20M%C3%A4nner%2C%20L%C3%A4nderspiel%2C%20Deutschland-Estland%20StP%202078%20LR10%20by%20Stepro%20(cropped).jpg?width=160",
       "skills": [
         "Midfield control",
         "Defensive control"
@@ -729,7 +1069,12 @@
     },
     "Josko Gvardiol": {
       "name": "Josko Gvardiol",
+      "displayName": "Joško Gvardiol",
       "teamId": "CRO",
+      "position": "Centre-back, left-back",
+      "club": "Manchester City",
+      "league": "Premier League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/2023-10-04%20Fu%C3%9Fball%2C%20M%C3%A4nner%2C%20UEFA%20Champions%20League%2C%20RB%20Leipzig%20-%20Manchester%20City%20FC%201DX%202611%20(Jo%C5%A1ko%20Gvardiol).jpg?width=160",
       "skills": [
         "Runs in behind",
         "Movement",
@@ -741,7 +1086,12 @@
     },
     "Jude Bellingham": {
       "name": "Jude Bellingham",
+      "displayName": "Jude Bellingham",
       "teamId": "ENG",
+      "position": "Midfielder",
+      "club": "Real Madrid",
+      "league": "La Liga",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/25th_Laureus_World_Sports_Awards_-_Red_Carpet_-_Jude_Bellingham_-_240422_190551-2_(cropped).jpg?width=160",
       "skills": [
         "Link-up play",
         "Midfield control",
@@ -752,7 +1102,12 @@
     },
     "Julian Alvarez": {
       "name": "Julian Alvarez",
+      "displayName": "Julián Alvarez",
       "teamId": "ARG",
+      "position": "Forward",
+      "club": "Atlético Madrid",
+      "league": "La Liga",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Argentina%20national%20football%20team%20-%202%20-%202022%20(Juli%C3%A1n%20%C3%81lvarez).jpg?width=160",
       "skills": [
         "Finishing",
         "Pressing"
@@ -762,7 +1117,12 @@
     },
     "Julio Enciso": {
       "name": "Julio Enciso",
+      "displayName": "Julio César Enciso",
       "teamId": "PAR",
+      "position": "Attacking midfielder, left winger",
+      "club": "Strasbourg",
+      "league": "Ligue 1",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Enciso%202022%202.jpg?width=160",
       "skills": [
         "Chance creation",
         "Midfield control"
@@ -772,7 +1132,12 @@
     },
     "Juninho Bacuna": {
       "name": "Juninho Bacuna",
+      "displayName": "Juninho Bacuna",
       "teamId": "CUW",
+      "position": "Central midfielder",
+      "club": "Volendam (on loan from Gaziantep)",
+      "league": "Eredivisie",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Juninho%20bacuna-1531777726.jpeg?width=160",
       "skills": [
         "Midfield control",
         "Defensive control"
@@ -782,7 +1147,12 @@
     },
     "Kalidou Koulibaly": {
       "name": "Kalidou Koulibaly",
+      "displayName": "Kalidou Koulibaly",
       "teamId": "SEN",
+      "position": "Centre-back",
+      "club": "Al-Hilal",
+      "league": "Saudi Pro League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Joueur%20de%20foot.jpg?width=160",
       "skills": [
         "Set pieces",
         "Ball winning",
@@ -793,7 +1163,12 @@
     },
     "Kaoru Mitoma": {
       "name": "Kaoru Mitoma",
+      "displayName": "Kaoru Mitoma 三笘 薫",
       "teamId": "JPN",
+      "position": "Left winger, wide midfielder, attacking midfielder",
+      "club": "Brighton & Hove Albion",
+      "league": "Premier League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Kaoru%20Mitoma%20(2022).jpg?width=160",
       "skills": [
         "Wide threat",
         "Defensive control"
@@ -803,7 +1178,12 @@
     },
     "Kenan Yildiz": {
       "name": "Kenan Yildiz",
+      "displayName": "Kenan Yıldız",
       "teamId": "TUR",
+      "position": "Attacking midfielder, winger",
+      "club": "Juventus",
+      "league": "Serie A",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Kenan%20Y%C4%B1ld%C4%B1z%20in%20the%20international%20match%20(March%202025)%20(cropped).jpg?width=160",
       "skills": [
         "Wide threat",
         "Ball carrying"
@@ -813,7 +1193,12 @@
     },
     "Kevin De Bruyne": {
       "name": "Kevin De Bruyne",
+      "displayName": "Kevin De Bruyne",
       "teamId": "BEL",
+      "position": "Midfielder",
+      "club": "Napoli",
+      "league": "Serie A",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Kevin%20De%20Bruyne%20USMNT%20v%20Belgium%20Mar%2028%202026-64%20(cropped).jpg?width=160",
       "skills": [
         "Box presence"
       ],
@@ -822,7 +1207,12 @@
     },
     "Kim Min-jae": {
       "name": "Kim Min-jae",
+      "displayName": "Kim Min-jae",
       "teamId": "KOR",
+      "position": "Centre-back",
+      "club": "Bayern Munich",
+      "league": "Bundesliga",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/FC%20Red%20Bull%20Salzburg%20gegen%20Bayern%20M%C3%BCnchen%20(2025-01-06%20Testspiel)%2026.jpg?width=160",
       "skills": [
         "Ball winning",
         "Defensive control"
@@ -832,7 +1222,12 @@
     },
     "Kylian Mbappe": {
       "name": "Kylian Mbappe",
+      "displayName": "Kylian Mbappé",
       "teamId": "FRA",
+      "position": "Forward",
+      "club": "Real Madrid",
+      "league": "La Liga",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Picture%20with%20Mbapp%C3%A9%20(cropped%20and%20rotated).jpg?width=160",
       "skills": [
         "Finishing",
         "Runs in behind",
@@ -843,7 +1238,12 @@
     },
     "Lamine Yamal": {
       "name": "Lamine Yamal",
+      "displayName": "Lamine Yamal",
       "teamId": "ESP",
+      "position": "Right winger/right midfielder",
+      "club": "Barcelona",
+      "league": "La Liga",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Lamine%20Yamal%20in%202025.jpg?width=160",
       "skills": [
         "Chance creation",
         "Midfield control",
@@ -854,7 +1254,12 @@
     },
     "Leandro Bacuna": {
       "name": "Leandro Bacuna",
+      "displayName": "Leandro Bacuna",
       "teamId": "CUW",
+      "position": "Midfielder, right-back",
+      "club": "Iğdır FK",
+      "league": "TFF First League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Leandro%20Bacuna.jpg?width=160",
       "skills": [
         "Set pieces",
         "Pressing",
@@ -865,7 +1270,12 @@
     },
     "Lee Kang-in": {
       "name": "Lee Kang-in",
+      "displayName": "Lee Kang-in",
       "teamId": "KOR",
+      "position": "Attacking midfielder, winger",
+      "club": "Paris Saint-Germain",
+      "league": "Ligue 1",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Lee%20Kang-in%20-%202022%20(52551771501)%20(cropped).jpg?width=160",
       "skills": [
         "Chance creation",
         "Midfield control"
@@ -875,7 +1285,12 @@
     },
     "Liberato Cacace": {
       "name": "Liberato Cacace",
+      "displayName": "Liberato Cacace",
       "teamId": "NZL",
+      "position": "Left-back",
+      "club": "Wrexham",
+      "league": "EFL Championship",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Liberato%20Cacace%2030082025%20(1).jpg?width=160",
       "skills": [
         "Ball carrying"
       ],
@@ -884,7 +1299,12 @@
     },
     "Luis Chavez": {
       "name": "Luis Chavez",
+      "displayName": "Luis Chávez",
       "teamId": "MEX",
+      "position": "Midfielder",
+      "club": "Dynamo Moscow",
+      "league": "Russian Premier League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Luis%20Ch%C3%A1vez%20WC%202022%20-%2001.jpg?width=160",
       "skills": [
         "Set pieces",
         "Long-range shooting"
@@ -894,7 +1314,12 @@
     },
     "Luis Diaz": {
       "name": "Luis Diaz",
+      "displayName": "Luis Díaz",
       "teamId": "COL",
+      "position": "Left winger, left midfielder",
+      "club": "Bayern Munich",
+      "league": "Bundesliga",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/FC%20RB%20Salzburg%20gegen%20FC%20Bayern%20M%C3%BCnchen%20(2026-01-06%20Testspiel)%2040%20(Luiz%20D%C3%ADaz).jpg?width=160",
       "skills": [
         "Box presence",
         "Finishing",
@@ -905,7 +1330,12 @@
     },
     "Luis Suarez": {
       "name": "Luis Suarez",
+      "displayName": "Luis Suárez",
       "teamId": "COL",
+      "position": "Forward",
+      "club": "Sporting CP",
+      "league": "Primeira Liga",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Luis%20Javier%20Su%C3%A1rez%20Charris.jpg?width=160",
       "skills": [
         "Box presence",
         "Finishing",
@@ -917,7 +1347,12 @@
     },
     "Luka Modric": {
       "name": "Luka Modric",
+      "displayName": "Luka Modrić",
       "teamId": "CRO",
+      "position": "Central midfielder",
+      "club": "AC Milan",
+      "league": "Serie A",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ofrenda%20de%20la%20Liga%20y%20la%20Champions-57-L.Mill%C3%A1n%20(52109310843)%20(Luka%20Modri%C4%87).jpg?width=160",
       "skills": [
         "Midfield control"
       ],
@@ -926,7 +1361,12 @@
     },
     "Lyle Foster": {
       "name": "Lyle Foster",
+      "displayName": "Lyle Foster",
       "teamId": "RSA",
+      "position": "Forward",
+      "club": "Burnley",
+      "league": "EFL Championship",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Lyle%20Foster%2029112025%20(6).jpg?width=160",
       "skills": [
         "Runs in behind",
         "Defensive control"
@@ -936,7 +1376,12 @@
     },
     "Manuel Akanji": {
       "name": "Manuel Akanji",
+      "displayName": "Manuel Akanji",
       "teamId": "SUI",
+      "position": "Defender",
+      "club": "Inter Milan (on loan from Manchester City)",
+      "league": "Serie A",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/2023-10-04%20Fu%C3%9Fball%2C%20M%C3%A4nner%2C%20UEFA%20Champions%20League%2C%20RB%20Leipzig%20-%20Manchester%20City%20FC%201DX%202792%20(Manuel%20Akanji).jpg?width=160",
       "skills": [
         "Runs in behind",
         "Defensive control"
@@ -946,7 +1391,12 @@
     },
     "Marcel Sabitzer": {
       "name": "Marcel Sabitzer",
+      "displayName": "Marcel Sabitzer",
       "teamId": "AUT",
+      "position": "Midfielder, forward",
+      "club": "Borussia Dortmund",
+      "league": "Bundesliga",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Marcel%20Sabitzer%202020%20(cropped).jpg?width=160",
       "skills": [
         "Finishing",
         "Midfield control",
@@ -957,7 +1407,12 @@
     },
     "Martin Odegaard": {
       "name": "Martin Odegaard",
+      "displayName": "Martin Ødegaard",
       "teamId": "NOR",
+      "position": "Midfielder",
+      "club": "Arsenal",
+      "league": "Premier League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Martin%20Odegaard%20Morocco%20v%20Norway%207%20June%202026-56%20(cropped).jpg?width=160",
       "skills": [
         "Chance creation",
         "Midfield control",
@@ -968,7 +1423,12 @@
     },
     "Mateo Kovacic": {
       "name": "Mateo Kovacic",
+      "displayName": "Mateo Kovačić",
       "teamId": "CRO",
+      "position": "Central midfielder",
+      "club": "Manchester City",
+      "league": "Premier League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Chelsea%20vs.%20Arsenal%2C%2029%20May%202019%2018%20Kovacic.jpg?width=160",
       "skills": [
         "Midfield control",
         "Pressing",
@@ -979,7 +1439,12 @@
     },
     "Mathew Ryan": {
       "name": "Mathew Ryan",
+      "displayName": "Mathew Ryan",
       "teamId": "AUS",
+      "position": "Goalkeeper",
+      "club": "Levante",
+      "league": "La Liga",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ryan%20rcl%20asse%202425.png?width=160",
       "skills": [
         "Shot-stopping",
         "Defensive control",
@@ -990,7 +1455,12 @@
     },
     "Mehdi Taremi": {
       "name": "Mehdi Taremi",
+      "displayName": "Mehdi Taremi",
       "teamId": "IRN",
+      "position": "Striker",
+      "club": "Olympiacos",
+      "league": "Super League Greece",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Iran%20-%20Japan%2C%20AFC%20Asian%20Cup%202019%2042%20(cropped).jpg?width=160",
       "skills": [
         "Finishing",
         "Link-up play",
@@ -1001,7 +1471,12 @@
     },
     "Michael Murillo": {
       "name": "Michael Murillo",
+      "displayName": "Michael Amir Murillo",
       "teamId": "PAN",
+      "position": "Right-back",
+      "club": "Beşiktaş",
+      "league": "Süper Lig",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Michael%20Amir%20Murillo%20vs%20Cincinnati%2C%20May%202019.jpg?width=160",
       "skills": [
         "Box presence",
         "Runs in behind",
@@ -1013,7 +1488,12 @@
     },
     "Miguel Almiron": {
       "name": "Miguel Almiron",
+      "displayName": "Miguel Almirón",
       "teamId": "PAR",
+      "position": "Attacking midfielder, winger",
+      "club": "Atlanta United",
+      "league": "Major League Soccer",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Miguel%20Almir%C3%B3n%20Red%20Bull%20Atlanta%205.31.25-069%20(cropped).jpg?width=160",
       "skills": [
         "Runs in behind",
         "Pressing",
@@ -1024,7 +1504,12 @@
     },
     "Mohamed Salah": {
       "name": "Mohamed Salah",
+      "displayName": "Mohamed Salah",
       "teamId": "EGY",
+      "position": "Right winger",
+      "club": "Liverpool",
+      "league": "Premier League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Mohamed%20Salah%202018.jpg?width=160",
       "skills": [
         "Finishing",
         "Runs in behind",
@@ -1035,7 +1520,12 @@
     },
     "Mohammed Al-Owais": {
       "name": "Mohammed Al-Owais",
+      "displayName": "Mohammed Al-Owais",
       "teamId": "KSA",
+      "position": "Goalkeeper",
+      "club": "Al-Ula",
+      "league": "Saudi First Division League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Mohammed%20Al-Owais%202018.jpg?width=160",
       "skills": [
         "Shot-stopping",
         "Box presence",
@@ -1047,7 +1537,12 @@
     },
     "Moises Caicedo": {
       "name": "Moises Caicedo",
+      "displayName": "Moisés Caicedo",
       "teamId": "ECU",
+      "position": "Central midfielder, Right back",
+      "club": "Chelsea",
+      "league": "Premier League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Moises%20Caicedo%202022%20(cropped).jpg?width=160",
       "skills": [
         "Midfield control",
         "Defensive control"
@@ -1057,7 +1552,12 @@
     },
     "Mostafa Mohamed": {
       "name": "Mostafa Mohamed",
+      "displayName": "Mostafa Mohamed مُصْطَفَى مُحَمَّد",
       "teamId": "EGY",
+      "position": "Striker",
+      "club": "Nantes",
+      "league": "Ligue 1",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Mostafa%20Mohamed.jpg?width=160",
       "skills": [
         "Box presence",
         "Target play"
@@ -1067,7 +1567,12 @@
     },
     "Mousa Al-Taamari": {
       "name": "Mousa Al-Taamari",
+      "displayName": "Musa Al-Taamari",
       "teamId": "JOR",
+      "position": "Right winger",
+      "club": "Rennes",
+      "league": "Ligue 1",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Al%20taamari%20asse%20mhsc%202425.png?width=160",
       "skills": [
         "Runs in behind"
       ],
@@ -1076,7 +1581,12 @@
     },
     "Neymar": {
       "name": "Neymar",
+      "displayName": "Neymar",
       "teamId": "BRA",
+      "position": "Attacking midfielder, forward",
+      "club": "Santos",
+      "league": "Campeonato Brasileiro Série A",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Neymar%20at%202026%20FIFA%20World%20Cup%20by%20YantsImages%20(cropped).jpg?width=160",
       "skills": [
         "Box presence"
       ],
@@ -1085,7 +1595,12 @@
     },
     "Nico Williams": {
       "name": "Nico Williams",
+      "displayName": "Nico Williams",
       "teamId": "ESP",
+      "position": "Winger",
+      "club": "Athletic Bilbao",
+      "league": "La Liga",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/ATHLETIC-OSASUNA%20SEMIFINAL.%20MAIDER%20GOIKOETXEA%20(168)%20(cropped).jpg?width=160",
       "skills": [
         "Box presence",
         "Wide threat",
@@ -1096,7 +1611,12 @@
     },
     "Nicolas Jackson": {
       "name": "Nicolas Jackson",
+      "displayName": "Nicolas Jackson",
       "teamId": "SEN",
+      "position": "winger",
+      "club": "Chelsea",
+      "league": "Premier League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Nicolas%20Jackson%202025%20FIFA%20Club%20World%20Cup%20Final.jpg?width=160",
       "skills": [
         "Finishing",
         "Runs in behind",
@@ -1107,7 +1627,12 @@
     },
     "Noah Sadiki": {
       "name": "Noah Sadiki",
+      "displayName": "Noah Sadiki",
       "teamId": "COD",
+      "position": "Defensive midfielder",
+      "club": "Sunderland",
+      "league": "Premier League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Noah%20Sadiki%20versus%20Real%20Betis%202nd%20August%202025.jpg?width=160",
       "skills": [
         "Link-up play",
         "Midfield control",
@@ -1119,7 +1644,12 @@
     },
     "Noor Al-Rawabdeh": {
       "name": "Noor Al-Rawabdeh",
+      "displayName": "Noor Al-Rawabdeh",
       "teamId": "JOR",
+      "position": "Midfielder",
+      "club": "Selangor",
+      "league": "Malaysia Super League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Noor%20Al-Rawabdeh.png?width=160",
       "skills": [
         "Link-up play",
         "Midfield control",
@@ -1130,7 +1660,12 @@
     },
     "Omar Marmoush": {
       "name": "Omar Marmoush",
+      "displayName": "Omar Marmoush",
       "teamId": "EGY",
+      "position": "Striker, Left winger",
+      "club": "Manchester City",
+      "league": "Premier League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/OmarMarmoush.png?width=160",
       "skills": [
         "Movement"
       ],
@@ -1139,7 +1674,12 @@
     },
     "Patrik Schick": {
       "name": "Patrik Schick",
+      "displayName": "Patrik Schick",
       "teamId": "CZE",
+      "position": "Striker",
+      "club": "Bayer Leverkusen",
+      "league": "Bundesliga",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/File%3A2020-03-10%20Fu%C3%9Fball%2C%20M%C3%A4nner%2C%20UEFA%20Champions%20League%20Achtelfinale%2C%20RB%20Leipzig%20-%20Tottenham%20Hotspur%201DX%203672%20by%20Stepro.jpg?width=160",
       "skills": [
         "Box presence",
         "Finishing"
@@ -1149,7 +1689,12 @@
     },
     "Pedri": {
       "name": "Pedri",
+      "displayName": "Pedri",
       "teamId": "ESP",
+      "position": "Midfielder",
+      "club": "Barcelona",
+      "league": "La Liga",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Pedri.jpg?width=160",
       "skills": [
         "Midfield control",
         "Runs in behind",
@@ -1160,7 +1705,12 @@
     },
     "Percy Tau": {
       "name": "Percy Tau",
+      "displayName": "Percy Tau",
       "teamId": "RSA",
+      "position": "Winger",
+      "club": "Thep Xanh Nam Dinh FC",
+      "league": "V.League 1",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Percy%20Tau%20in%202019%20(cropped).jpg?width=160",
       "skills": [
         "Runs in behind",
         "Target play",
@@ -1171,7 +1721,12 @@
     },
     "Piero Hincapie": {
       "name": "Piero Hincapie",
+      "displayName": "Piero Hincapié",
       "teamId": "ECU",
+      "position": "Centre-back, left-back",
+      "club": "Arsenal (on loan from Bayer Leverkusen)",
+      "league": "Premier League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Piero%20Hincapi%C3%A9%2C%202022-07-31%2C%20Saisoner%C3%B6ffnung%20Bayer%2004%2C%20Leverkusen%20(1).jpg?width=160",
       "skills": [
         "Runs in behind",
         "Defensive control"
@@ -1181,7 +1736,12 @@
     },
     "Riyad Mahrez": {
       "name": "Riyad Mahrez",
+      "displayName": "Riyad Mahrez",
       "teamId": "ALG",
+      "position": "Right winger",
+      "club": "Al-Ahli",
+      "league": "Saudi Pro League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Mahrez%202021.jpg?width=160",
       "skills": [
         "Chance creation",
         "Long-range shooting"
@@ -1191,7 +1751,12 @@
     },
     "Roberto Lopes": {
       "name": "Roberto Lopes",
+      "displayName": "Pico Lopes",
       "teamId": "CPV",
+      "position": "Centre-back",
+      "club": "Shamrock Rovers",
+      "league": "League of Ireland Premier Division",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Roberto%20Lopes%2C%20Jan%202026%20(cropped).jpg?width=160",
       "skills": [
         "Defensive control"
       ],
@@ -1200,7 +1765,12 @@
     },
     "Romelu Lukaku": {
       "name": "Romelu Lukaku",
+      "displayName": "Romelu Lukaku",
       "teamId": "BEL",
+      "position": "Striker",
+      "club": "Napoli",
+      "league": "Serie A",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Romelu%20Lukaku%202021.jpg?width=160",
       "skills": [
         "Box presence",
         "Finishing",
@@ -1211,7 +1781,12 @@
     },
     "Ronald Araujo": {
       "name": "Ronald Araujo",
+      "displayName": "Ronald Araújo",
       "teamId": "URU",
+      "position": "Centre-back",
+      "club": "Barcelona",
+      "league": "La Liga",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/FC%20Red%20Bull%20Salzburg%20gegen%20CF%20Barcelona%20(Testspiel%204.%20August%202021)%2045%20(cropped).jpg?width=160",
       "skills": [
         "Ball winning",
         "Defensive control"
@@ -1221,7 +1796,12 @@
     },
     "Ronwen Williams": {
       "name": "Ronwen Williams",
+      "displayName": "Ronwen Williams",
       "teamId": "RSA",
+      "position": "Goalkeeper",
+      "club": "Mamelodi Sundowns",
+      "league": "South African Premiership",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ronwen%20Williams%20AFCON2025Q%2035.jpg?width=160",
       "skills": [
         "Pressing",
         "Leadership"
@@ -1231,7 +1811,12 @@
     },
     "Ryan Mendes": {
       "name": "Ryan Mendes",
+      "displayName": "Ryan Mendes",
       "teamId": "CPV",
+      "position": "Winger",
+      "club": "Iğdır",
+      "league": "TFF First League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ryan%20Mendes%20(LOSC%20Lille).JPG?width=160",
       "skills": [
         "Target play",
         "Leadership"
@@ -1241,7 +1826,12 @@
     },
     "Sadio Mane": {
       "name": "Sadio Mane",
+      "displayName": "Sadio Mané",
       "teamId": "SEN",
+      "position": "Winger",
+      "club": "Al-Nassr",
+      "league": "Saudi Pro League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Sadio%20Mane%20Al-Nassr.jpg?width=160",
       "skills": [
         "Runs in behind"
       ],
@@ -1250,7 +1840,12 @@
     },
     "Salem Al-Dawsari": {
       "name": "Salem Al-Dawsari",
+      "displayName": "Salem Al-Dawsari",
       "teamId": "KSA",
+      "position": "Left winger",
+      "club": "Al Hilal",
+      "league": "Saudi Pro League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Salem%20Al-Dawsari%202018.jpg?width=160",
       "skills": [
         "Wide threat",
         "Defensive control",
@@ -1261,7 +1856,12 @@
     },
     "Santiago Gimenez": {
       "name": "Santiago Gimenez",
+      "displayName": "Santiago Giménez",
       "teamId": "MEX",
+      "position": "Striker",
+      "club": "AC Milan",
+      "league": "Serie A",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Santiago%20Gim%C3%A9nez.png?width=160",
       "skills": [
         "Box presence",
         "Finishing",
@@ -1272,7 +1872,12 @@
     },
     "Sardar Azmoun": {
       "name": "Sardar Azmoun",
+      "displayName": "Sardar Azmoun سردار آزمون",
       "teamId": "IRN",
+      "position": "Forward",
+      "club": "Shabab Al Ahli",
+      "league": "UAE Pro League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Sardar%20Azmoun%20-%20IRN%20vs%20USA%20-%20FIFA%20WC%202022.jpg?width=160",
       "skills": [
         "Box presence",
         "Finishing",
@@ -1283,7 +1888,12 @@
     },
     "Sarpreet Singh": {
       "name": "Sarpreet Singh",
+      "displayName": "Sarpreet Singh",
       "teamId": "NZL",
+      "position": "Attacking midfielder, winger",
+      "club": "Wellington Phoenix (on loan from TSC)",
+      "league": "A-League Men",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Sarpreet%20Singh%20Training%202019-07-28%20FC%20Bayern%20Munich.png?width=160",
       "skills": [
         "Chance creation",
         "Runs in behind"
@@ -1293,7 +1903,12 @@
     },
     "Scott McTominay": {
       "name": "Scott McTominay",
+      "displayName": "Scott McTominay",
       "teamId": "SCO",
+      "position": "Midfielder",
+      "club": "Napoli",
+      "league": "Serie A",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Scott%20McTominay%20Scotland%20v%20Bolivia%206%20June%202026-41.jpg?width=160",
       "skills": [
         "Box presence",
         "Finishing",
@@ -1305,7 +1920,12 @@
     },
     "Sead Kolasinac": {
       "name": "Sead Kolasinac",
+      "displayName": "Sead Kolašinac",
       "teamId": "BIH",
+      "position": "Centre-back",
+      "club": "Atalanta",
+      "league": "Serie A",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/1%20Sead%20Kola%C5%A1inac%202018%20(cropped2).jpg?width=160",
       "skills": [
         "Ball winning",
         "Defensive control"
@@ -1315,7 +1935,12 @@
     },
     "Sebastien Haller": {
       "name": "Sebastien Haller",
+      "displayName": "Sébastien Haller",
       "teamId": "CIV",
+      "position": "Striker",
+      "club": "Utrecht",
+      "league": "Eredivisie",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/S%C3%A9bastien_Haller_2.jpg?width=160",
       "skills": [
         "Box presence",
         "Finishing",
@@ -1326,7 +1951,12 @@
     },
     "Simon Adingra": {
       "name": "Simon Adingra",
+      "displayName": "Simon Adingra",
       "teamId": "CIV",
+      "position": "Winger",
+      "club": "Monaco (on loan from Sunderland)",
+      "league": "Ligue 1",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Simon%20Adingra%20USG%202023.jpg?width=160",
       "skills": [
         "Runs in behind",
         "Wide threat",
@@ -1337,7 +1967,12 @@
     },
     "Son Heung-min": {
       "name": "Son Heung-min",
+      "displayName": "Son Heung-min",
       "teamId": "KOR",
+      "position": "Forward",
+      "club": "Los Angeles FC",
+      "league": "Major League Soccer",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/BFA%202023%20-2%20Heung-Min%20Son%20(cropped).jpg?width=160",
       "skills": [
         "Runs in behind",
         "Defensive control",
@@ -1348,7 +1983,12 @@
     },
     "Stephen Eustaquio": {
       "name": "Stephen Eustaquio",
+      "displayName": "Stephen Eustáquio",
       "teamId": "CAN",
+      "position": "Midfielder",
+      "club": "Los Angeles (on loan from Porto)",
+      "league": "Major League Soccer",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/S%20Eustaqui%20Canada%20national%20football%20team%20WC2022%20(cropped).jpg?width=160",
       "skills": [
         "Midfield control"
       ],
@@ -1357,7 +1997,12 @@
     },
     "Takefusa Kubo": {
       "name": "Takefusa Kubo",
+      "displayName": "Takefusa Kubo",
       "teamId": "JPN",
+      "position": "Right winger",
+      "club": "Real Sociedad",
+      "league": "La Liga",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Takefusa%20Kubo%202019.png?width=160",
       "skills": [
         "Chance creation",
         "Runs in behind"
@@ -1367,7 +2012,12 @@
     },
     "Tomas Soucek": {
       "name": "Tomas Soucek",
+      "displayName": "Tomáš Souček",
       "teamId": "CZE",
+      "position": "Midfielder",
+      "club": "West Ham United",
+      "league": "Premier League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Tom%C3%A1%C5%A1%20Sou%C4%8Dek%20WHU.jpeg?width=160",
       "skills": [
         "Set pieces",
         "Box presence"
@@ -1377,7 +2027,12 @@
     },
     "Tyler Adams": {
       "name": "Tyler Adams",
+      "displayName": "Tyler Adams",
       "teamId": "USA",
+      "position": "Defensive midfielder",
+      "club": "Bournemouth",
+      "league": "Premier League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Tyler%20Adams%2009052026%20(4).jpg?width=160",
       "skills": [
         "Midfield control",
         "Defensive control"
@@ -1387,7 +2042,12 @@
     },
     "Viktor Gyokeres": {
       "name": "Viktor Gyokeres",
+      "displayName": "Viktor Gyökeres",
       "teamId": "SWE",
+      "position": "Striker",
+      "club": "Arsenal",
+      "league": "Premier League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Viktor%20Gy%C3%B6keres%202026-06-04%201.jpg?width=160",
       "skills": [
         "Pressing",
         "Ball carrying",
@@ -1398,7 +2058,12 @@
     },
     "Vinicius Junior": {
       "name": "Vinicius Junior",
+      "displayName": "Vinícius Júnior",
       "teamId": "BRA",
+      "position": "Forward, left winger",
+      "club": "Real Madrid",
+      "league": "La Liga",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/2023%2005%2006%20Final%20de%20la%20Copa%20del%20Rey%20-%2052879242230%20(cropped).jpg?width=160",
       "skills": [
         "Runs in behind",
         "Ball carrying"
@@ -1408,7 +2073,12 @@
     },
     "Virgil van Dijk": {
       "name": "Virgil van Dijk",
+      "displayName": "Virgil van Dijk",
       "teamId": "NED",
+      "position": "Centre-back",
+      "club": "Liverpool",
+      "league": "Premier League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/20160604%20AUT%20NED%208876%20(cropped).jpg?width=160",
       "skills": [
         "Box presence",
         "Midfield control",
@@ -1420,7 +2090,12 @@
     },
     "Vitinha": {
       "name": "Vitinha",
+      "displayName": "Vitinha",
       "teamId": "POR",
+      "position": "Central midfielder",
+      "club": "Paris Saint-Germain",
+      "league": "Ligue 1",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Vitinha%20USMNT%20v%20Portugal%20Mar%2031%202026-50%20(cropped).jpg?width=160",
       "skills": [
         "Box presence",
         "Midfield control",
@@ -1431,7 +2106,12 @@
     },
     "Vozinha": {
       "name": "Vozinha",
+      "displayName": "Vozinha",
       "teamId": "CPV",
+      "position": "Goalkeeper",
+      "club": "G.D. Chaves",
+      "league": "Liga Portugal 2",
+      "imageUrl": "",
       "skills": [
         "Shot-stopping",
         "Finishing",
@@ -1442,7 +2122,12 @@
     },
     "Vurnon Anita": {
       "name": "Vurnon Anita",
+      "displayName": "Vurnon Anita",
       "teamId": "CUW",
+      "position": "Defensive midfielder",
+      "club": "Ajax Amateurs",
+      "league": "Vierde Divisie",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Go%20Ahead%20Eagles%20-%20RKC%20Waalwijk%20-%2052831380091%20(Vurnon%20Anita).jpg?width=160",
       "skills": [
         "Link-up play",
         "Defensive control",
@@ -1453,7 +2138,12 @@
     },
     "Wataru Endo": {
       "name": "Wataru Endo",
+      "displayName": "Wataru Endo",
       "teamId": "JPN",
+      "position": "Defensive midfielder / Centre-back",
+      "club": "Liverpool",
+      "league": "Premier League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Wataru%20Endo%20at%20Iran-Japan%20pre-match%20conference.jpg?width=160",
       "skills": [
         "Link-up play",
         "Midfield control",
@@ -1465,7 +2155,12 @@
     },
     "Weston McKennie": {
       "name": "Weston McKennie",
+      "displayName": "Weston McKennie",
       "teamId": "USA",
+      "position": "Midfielder",
+      "club": "Juventus",
+      "league": "Serie A",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Weston%20McKennie%20USMNT%20v%20Belgium%20Mar%2028%202026-68%20(cropped).jpg?width=160",
       "skills": [
         "Set pieces",
         "Box presence",
@@ -1477,7 +2172,12 @@
     },
     "William Saliba": {
       "name": "William Saliba",
+      "displayName": "William Saliba",
       "teamId": "FRA",
+      "position": "Centre-back",
+      "club": "Arsenal",
+      "league": "Premier League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Lens%20-%20Marseille%20(22-01-2022)%2015.jpg?width=160",
       "skills": [
         "Midfield control",
         "Runs in behind",
@@ -1489,7 +2189,12 @@
     },
     "Yazan Al-Naimat": {
       "name": "Yazan Al-Naimat",
+      "displayName": "Yazan Al-Naimat",
       "teamId": "JOR",
+      "position": "Forward",
+      "club": "Al-Arabi",
+      "league": "Qatar Stars League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Yazan%20Al-Naimat%202.jpg?width=160",
       "skills": [
         "Finishing"
       ],
@@ -1498,7 +2203,12 @@
     },
     "Yoane Wissa": {
       "name": "Yoane Wissa",
+      "displayName": "Yoane Wissa",
       "teamId": "COD",
+      "position": "Forward, left winger",
+      "club": "Newcastle United",
+      "league": "Premier League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/CAN%202023RD%20Congo%202-1%20Guin%C3%A9e%209939%20(cropped).jpg?width=160",
       "skills": [
         "Runs in behind",
         "Ball carrying"
@@ -1508,7 +2218,12 @@
     },
     "Youssef En-Nesyri": {
       "name": "Youssef En-Nesyri",
+      "displayName": "Youssef En-Nesyri",
       "teamId": "MAR",
+      "position": "Striker",
+      "club": "Al-Ittihad",
+      "league": "Saudi Pro League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ennesyri.jpg?width=160",
       "skills": [
         "Box presence",
         "Finishing",
@@ -1520,7 +2235,12 @@
     },
     "Zidane Iqbal": {
       "name": "Zidane Iqbal",
+      "displayName": "Zidane Iqbal",
       "teamId": "IRQ",
+      "position": "Midfielder",
+      "club": "Utrecht",
+      "league": "Eredivisie",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Zidane%20Iqbal%20debut%20(cropped).jpg?width=160",
       "skills": [
         "Link-up play",
         "Midfield control",
