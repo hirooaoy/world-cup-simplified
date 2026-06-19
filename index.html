@@ -31,7 +31,7 @@
     <meta name="theme-color" content="#ffffff" />
     <link rel="icon" type="image/svg+xml" href="assets/favicon.svg?v=2026-06-17-1209" />
     <link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=2026-06-17-1213" />
-    <link rel="stylesheet" href="styles.css?v=2026-06-18-key-info-player-copy" />
+    <link rel="stylesheet" href="styles.css?v=2026-06-19-dynamic-standing-names-third-place-microcopy" />
   </head>
   <body>
     <header class="site-header">
@@ -127,6 +127,14 @@
             <div class="standings-year-grid" id="standings-year-grid"></div>
           </div>
           <p id="standings-summary">Top two in each group advance. The best eight third-place teams also reach the Round of 32.</p>
+          <nav class="standings-mode-tabs" id="standings-mode-tabs" aria-label="Standings sections">
+            <button class="standings-mode-tab is-active" id="standings-groups-tab" type="button" data-standings-mode="groups" aria-pressed="true">
+              Groups
+            </button>
+            <button class="standings-mode-tab" id="standings-third-place-tab" type="button" data-standings-mode="third-place" aria-pressed="false">
+              Third-Place Race
+            </button>
+          </nav>
         </section>
         <section class="standings-grid" id="standings-grid" aria-live="polite" aria-label="Group standings"></section>
       </section>
@@ -134,10 +142,10 @@
 
     <footer class="site-footer">
       <p id="source-note">
-        Sources: <a href="https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/match-schedule-fixtures-results-teams-stadiums">FIFA schedule</a>, <a href="https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/debutants-cabo-verde-curacao-jordan-uzbekistan">debutants</a>, <a href="https://inside.fifa.com/fifa-world-ranking/men">ranking</a>, <a href="https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/standings">standings</a>. Predictions are unofficial.
+        Sources: <a href="https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/match-schedule-fixtures-results-teams-stadiums">FIFA schedule</a>, <a href="https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/debutants-cabo-verde-curacao-jordan-uzbekistan">debutants</a>, <a href="https://inside.fifa.com/fifa-world-ranking/men">ranking</a>, <a href="https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/standings">standings</a>. Predictions are unofficial. Last updated Jun 19, 2026, 11:29 AM PDT. <a href="report.html">Report issue</a>.
       </p>
     </footer>
 
-    <script type="module" src="app.js?v=2026-06-18-player-alias-hover"></script>
+    <script type="module" src="app.js?v=2026-06-19-dynamic-standing-names-third-place-market-odds"></script>
   </body>
 </html>

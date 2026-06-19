@@ -77,8 +77,41 @@ await new Promise((resolve) => server.listen(0, "127.0.0.1", resolve));
 const { port } = server.address();
 const baseUrl = `http://127.0.0.1:${port}`;
 const fixturesData = JSON.parse(await readFile(path.join(root, "data/fixtures.json"), "utf8"));
+const sourceNoteData = await Promise.all(
+  [
+    "fixtures.json",
+    "history.json",
+    "player-profiles.json",
+    "teams.json",
+    "standings.json",
+    "tournament.json"
+  ].map(async (fileName) => JSON.parse(await readFile(path.join(root, "data", fileName), "utf8")))
+);
+const fifaWorldCupScoresUrl =
+  "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/scores-fixtures";
 const browser = await chromium.launch();
 const page = await browser.newPage();
+
+function getLatestUpdatedAt(items) {
+  const latestTimestamp = items.reduce((latest, item) => {
+    const timestamp = new Date(item?.updatedAt || "").getTime();
+    return Number.isFinite(timestamp) && timestamp > latest ? timestamp : latest;
+  }, 0);
+
+  return latestTimestamp ? new Date(latestTimestamp).toISOString() : "";
+}
+
+function formatExpectedSourceUpdatedAt(value) {
+  return new Intl.DateTimeFormat("en-US", {
+    day: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+    month: "short",
+    timeZone: "America/Los_Angeles",
+    timeZoneName: "short",
+    year: "numeric"
+  }).format(new Date(value));
+}
 
 async function openPageAtTime(
   nowIso,
@@ -126,6 +159,7 @@ try {
   await page.goto(baseUrl, { waitUntil: "load" });
   await page.waitForSelector(".match-row");
 
+  assert(new URL(page.url()).search === "", "The default match view should keep the URL clean.");
   assert(
     !(await page.locator("#match-info").isVisible()),
     "Match detail should stay hidden until a match is chosen."
@@ -165,9 +199,17 @@ try {
     .locator(".key-info-team p .player-link")
     .first()
     .evaluate((link) => getComputedStyle(link).textDecorationLine);
+  const paragraphPlayerOpacity = await page
+    .locator(".key-info-team p .player-link")
+    .first()
+    .evaluate((link) => Number(getComputedStyle(link).opacity));
   assert(
     headingPlayerDecoration.includes("underline") && paragraphPlayerDecoration === "none",
     "Key information should underline heading player mentions, not paragraph mentions."
+  );
+  assert(
+    paragraphPlayerOpacity > 0.8 && paragraphPlayerOpacity < 1,
+    "Paragraph player mentions should be subtly dimmed to signal hover affordance."
   );
   await page.locator(".player-link").first().hover();
   const playerCard = page.locator(".player-card").first();
@@ -177,9 +219,10 @@ try {
     "Player hover card should include a face or initials fallback."
   );
   assert(
-    (await playerCard.locator(".player-card-title strong").count()) === 1 &&
-      (await playerCard.locator(".player-card-title span").count()) === 1,
-    "Player hover card should include position and club lines without repeating the name."
+    (await playerCard.locator(".player-card-name").count()) === 1 &&
+      (await playerCard.locator(".player-card-position").count()) === 1 &&
+      (await playerCard.locator(".player-card-club").count()) === 1,
+    "Player hover card should include name, position, and club lines."
   );
   assert(
     (await playerCard.locator(".player-skill-list span").count()) > 0,
@@ -223,8 +266,9 @@ try {
     "Mexico's unaccented Gimenez tagline alias should open Santiago Giménez's hover card."
   );
   assert(
-    (await gimenezCard.locator(".player-card-title strong").innerText()).trim() === "Striker",
-    "Player hover card should not repeat the linked player name as a subtitle."
+    (await gimenezCard.locator(".player-card-name").innerText()).trim() === "Santiago Giménez" &&
+      (await gimenezCard.locator(".player-card-position").innerText()).trim() === "Striker",
+    "Player hover card should show the display name above the position."
   );
 
   await page.goto(`${baseUrl}?view=matches&date=2026-06-26&tz=America%2FLos_Angeles`, {
@@ -388,9 +432,15 @@ try {
   );
   assert(
     historicalGroupDetailText.includes("Prediction") &&
+      historicalGroupDetailText.includes("Result") &&
       historicalGroupDetailText.includes("Key information") &&
       historicalGroupDetailText.includes("Past matches"),
     "Historical match details should follow the current detail section structure."
+  );
+  assert(
+    historicalGroupDetailText.includes("Ecuador beat Qatar 2-0") &&
+      historicalGroupDetailText.includes("Ecuador took three points from World Cup 2022 / Group A"),
+    "Historical result details should summarize the archived final score."
   );
   assert(
     !historicalGroupDetailText.includes("Archived result shown instead of a pre-match probability"),
@@ -405,6 +455,19 @@ try {
   assert(
     !historicalGroupDetailText.includes("Source") && !historicalGroupDetailText.includes("Goals"),
     "Historical match details should not show source or goals sections."
+  );
+
+  await page.goto(`${baseUrl}?view=matches&date=1930-07-13&tz=America%2FLos_Angeles`, {
+    waitUntil: "load"
+  });
+  await page.waitForSelector(".match-row");
+  await page.locator(".match-row").first().click();
+  const firstHistoricalDetailText = await page.locator("#match-info").innerText();
+  assert(
+    firstHistoricalDetailText.includes("World Cup 1930") &&
+      firstHistoricalDetailText.includes("France beat Mexico 4-1") &&
+      firstHistoricalDetailText.includes("France took three points from World Cup 1930 / Group 1"),
+    "Historical result details should reach back to the first loaded World Cup match."
   );
 
   await page.goto(`${baseUrl}?view=matches&date=2022-12-14&tz=America%2FLos_Angeles`, {
@@ -550,24 +613,40 @@ try {
     '[data-match-id="czechia-south-africa-2026-06-18"]'
   );
   assert(
-    (await liveFallbackRow.locator(".match-score").innerText()).trim() === "0-0",
-    "A live fixture without a loaded score should show a 0-0 fallback score."
+    (await liveFallbackRow.locator(".match-score").count()) === 0,
+    "A live fixture without a loaded score should not show a fallback score."
+  );
+  const liveScoreLink = liveFallbackRow.locator(".live-pill");
+  assert(
+    (await liveScoreLink.count()) === 1,
+    "A live fixture without a loaded score should show a Live score link."
+  );
+  assert(
+    (await liveScoreLink.getAttribute("href")) === fifaWorldCupScoresUrl &&
+      (await liveScoreLink.getAttribute("title")) === "Check score at FIFA" &&
+      (await liveScoreLink.getAttribute("data-tooltip")) === "Check score at FIFA",
+    "The live pill should link to FIFA scores and expose the hover tooltip copy."
   );
   const liveFallbackText = (await liveFallbackRow.innerText()).replace(/\s+/g, " ").trim();
-  const liveFallbackOrder = ["Czechia", "vs", "South Africa", "LIVE", "0-0"].map((text) =>
-    liveFallbackText.indexOf(text)
+  const liveFallbackUpperText = liveFallbackText.toUpperCase();
+  const liveFallbackOrder = ["CZECHIA", "VS", "SOUTH AFRICA", "LIVE"].map((text) =>
+    liveFallbackUpperText.indexOf(text)
   );
   assert(
     liveFallbackOrder.every((index) => index >= 0) &&
       liveFallbackOrder.every((index, itemIndex) => itemIndex === 0 || index > liveFallbackOrder[itemIndex - 1]),
-    "A live fixture without a loaded score should keep vs between teams and show 0-0 after Live."
+    "A live fixture without a loaded score should keep vs between teams and show Live after the matchup."
+  );
+  assert(
+    !liveFallbackText.includes("0-0"),
+    "The visible live row text should not include a guessed 0-0 score."
   );
   const liveFallbackMetaText = await liveFallbackRow
     .locator(".match-row-meta > *")
-    .evaluateAll((items) => items.map((item) => item.innerText.trim()).join("|"));
+    .evaluateAll((items) => items.map((item) => item.innerText.trim().toUpperCase()).join("|"));
   assert(
-    liveFallbackMetaText === "LIVE|0-0",
-    "The live score should sit to the right of the Live pill."
+    liveFallbackMetaText === "LIVE",
+    "The Live pill should be the only live-state metadata when no verified score is loaded."
   );
   assert(
     (await liveFallbackRow.locator(".score-status").count()) === 0,
@@ -610,6 +689,14 @@ try {
     .filter((fixture) => fixture.status === "SCHEDULED" && fixture.kickoffUtc)
     .sort((a, b) => new Date(a.kickoffUtc) - new Date(b.kickoffUtc))[0];
   if (nextScheduledFixture) {
+    const nextKickoffUtc = nextScheduledFixture.kickoffUtc;
+    const nextScheduledFixtureIds = fixturesData.fixtures
+      .filter(
+        (fixture) =>
+          fixture.status === "SCHEDULED" &&
+          fixture.kickoffUtc === nextKickoffUtc
+      )
+      .map((fixture) => fixture.id);
     const beforeKickoff = new Date(
       new Date(nextScheduledFixture.kickoffUtc).getTime() - 5 * 60 * 1000
     );
@@ -619,12 +706,27 @@ try {
     );
     await upNextCheck.page.waitForSelector(".match-row");
     assert(
-      (await upNextCheck.page.locator(".up-next-pill").count()) === 1,
-      "The next scheduled match should show one Up next pill."
+      (await upNextCheck.page.locator(".up-next-pill").count()) === nextScheduledFixtureIds.length,
+      "Every match at the next scheduled kickoff should show an Up next pill."
+    );
+    for (const fixtureId of nextScheduledFixtureIds) {
+      assert(
+        (await upNextCheck.page
+          .locator(`.match-row[data-match-id="${fixtureId}"] .up-next-pill`)
+          .count()) === 1,
+        "Each next scheduled match row should show its own Up next pill."
+      );
+    }
+    assert(
+      (await upNextCheck.page.locator(".match-row.is-next").count()) === nextScheduledFixtureIds.length,
+      "Every match at the next scheduled kickoff should use the next row state."
+    );
+    const upNextPillLabels = await upNextCheck.page.locator(".up-next-pill").evaluateAll((pills) =>
+      pills.map((pill) => pill.textContent.trim())
     );
     assert(
-      (await upNextCheck.page.locator(".up-next-pill").innerText()).trim() === "Up next",
-      "The Up next pill should use the expected label."
+      upNextPillLabels.every((label) => label === "Up next"),
+      "Every Up next pill should use the expected label."
     );
     await upNextCheck.context.close();
   }
@@ -727,21 +829,51 @@ try {
   );
   await catchUpCheck.context.close();
 
+  const latestCatchUpCheck = await openPageAtTime(
+    "2026-06-19T18:20:00.000Z",
+    "/?view=matches&date=2026-06-19&tz=America%2FLos_Angeles"
+  );
+  await latestCatchUpCheck.page.locator("#catch-up-button").click();
+  const latestCatchUpItems = await latestCatchUpCheck.page.locator(".catch-up-item").evaluateAll((items) =>
+    items.map((item) => ({
+      headline: item.querySelector(".catch-up-title-row h3 > span")?.textContent.trim(),
+      sourceHref: item.querySelector(".catch-up-source")?.getAttribute("href") || ""
+    }))
+  );
+  const mexicoCatchUpItem = latestCatchUpItems.find((item) =>
+    item.headline?.includes("Mexico edge South Korea")
+  );
+  const canadaCatchUpItem = latestCatchUpItems.find((item) =>
+    item.headline?.includes("Canada make a statement against Qatar")
+  );
+  assert(
+    mexicoCatchUpItem?.sourceHref.includes("mexico-south-korea-world-cup-2026-group-a-match-report"),
+    "Generated Mexico/South Korea result catch-up should link to its report source."
+  );
+  assert(
+    canadaCatchUpItem?.sourceHref.includes("canada-qatar-world-cup-2026-group-b-match-report"),
+    "Generated Canada/Qatar result catch-up should link to its report source."
+  );
+  await latestCatchUpCheck.context.close();
+
   const sourceFreshnessCheck = await openPageAtTime("2026-06-18T15:57:00.000Z");
   const sourceNote = sourceFreshnessCheck.page.locator("#source-note");
   const sourceNoteText = await sourceNote.innerText();
   const sourceLinkLabels = await sourceNote.locator("a").evaluateAll((links) =>
     links.map((link) => link.textContent.trim()).join("|")
   );
+  const reportIssueHref = await sourceNote.locator("a", { hasText: "Report issue" }).getAttribute("href");
+  const expectedSourceUpdatedAt = formatExpectedSourceUpdatedAt(getLatestUpdatedAt(sourceNoteData));
   assert(
     sourceNoteText ===
-      "Sources: FIFA schedule, debutants, ranking, standings. Predictions are unofficial.",
-    "The source note should stay short and readable."
+      `Sources: FIFA schedule, debutants, ranking, standings. Predictions are unofficial. Last updated ${expectedSourceUpdatedAt}. Report issue.`,
+    "The source note should stay short and show the latest website update time."
   );
   assert(
-    sourceLinkLabels === "FIFA schedule|debutants|ranking|standings",
+    sourceLinkLabels === "FIFA schedule|debutants|ranking|standings|Report issue",
     "The source note should keep the compact official source links."
   );
+  assert(reportIssueHref === "report.html", "The source note should link to the report issue page.");
   assert(
     !sourceNoteText.includes("Core data") &&
       !sourceNoteText.includes("Core checks:") &&
@@ -765,19 +897,9 @@ try {
   await page.waitForFunction(
     () => document.querySelector("#day-label")?.textContent.trim() === "Today"
   );
-  const todayLosAngelesKey = await page.evaluate(() => {
-    const parts = new Intl.DateTimeFormat("en-US", {
-      day: "2-digit",
-      month: "2-digit",
-      timeZone: "America/Los_Angeles",
-      year: "numeric"
-    }).formatToParts(new Date());
-    const values = Object.fromEntries(parts.map((part) => [part.type, part.value]));
-    return `${values.year}-${values.month}-${values.day}`;
-  });
   assert(
-    new URL(page.url()).searchParams.get("date") === todayLosAngelesKey,
-    "Reload should replace stale date state with today's date."
+    !new URL(page.url()).searchParams.has("date"),
+    "Reload should replace stale date state with a clean today URL."
   );
 
   await page.locator("#standings-tab").click();
@@ -800,12 +922,12 @@ try {
     };
   });
   assert(
-    groupOrderCheck.groupB?.join("|") === "Switzerland|Canada|Qatar|Bosnia and Herz...",
+    groupOrderCheck.groupB?.join("|") === "Canada|Switzerland|Bosnia and Herzegovina|Qatar",
     "Group B should preserve the checked table order."
   );
   const bosniaStandingTeam = page
     .locator(".standings-card", { hasText: "Group B" })
-    .locator(".standing-team.has-name-tooltip", { hasText: "Bosnia and Herz..." });
+    .locator(".standing-team", { hasText: "Bosnia and Herzegovina" });
   await bosniaStandingTeam.hover();
   await page.waitForTimeout(160);
   const bosniaTooltip = await bosniaStandingTeam.evaluate((team) => {
@@ -817,16 +939,18 @@ try {
       anchor: Number(getComputedStyle(team).getPropertyValue("--name-tooltip-anchor").replace("px", "")),
       content: tooltipStyle.content,
       expectedAnchor: Math.round(nameRect.left - teamRect.left + nameRect.width / 2),
+      hasTooltip: team.classList.contains("has-name-tooltip"),
       opacity: Number(tooltipStyle.opacity),
       tooltip: team.getAttribute("data-tooltip")
     };
   });
   assert(
     bosniaTooltip.tooltip === "Bosnia and Herzegovina" &&
-      bosniaTooltip.content.includes("Bosnia and Herzegovina") &&
-      Math.abs(bosniaTooltip.anchor - bosniaTooltip.expectedAnchor) <= 1 &&
-      bosniaTooltip.opacity > 0.9,
-    "Bosnia and Herzegovina should reveal its full name when the shortened standings row is hovered."
+      (!bosniaTooltip.hasTooltip ||
+        (bosniaTooltip.content.includes("Bosnia and Herzegovina") &&
+          Math.abs(bosniaTooltip.anchor - bosniaTooltip.expectedAnchor) <= 1 &&
+          bosniaTooltip.opacity > 0.9)),
+    "Bosnia and Herzegovina should use the available standings row width and only show a tooltip if it actually overflows."
   );
   assert(
     groupOrderCheck.groupK?.join("|") === "Colombia|Portugal|DR Congo|Uzbekistan",
@@ -845,6 +969,80 @@ try {
   assert(
     currentStandingsMarkerCheck.advancementPillCount === 0,
     "The current 2026 standings should not show Round of 32 markers."
+  );
+  assert(
+    await page.locator("#standings-mode-tabs").isVisible(),
+    "Current standings should expose section tabs."
+  );
+  assert(
+    (await page.locator(".standings-card", { hasText: "Group B" }).locator(".third-place-pill").innerText()).trim() ===
+      "3rd race 7th",
+    "Group standings should show each current third-place team's cross-group race position."
+  );
+  await page.locator("#standings-third-place-tab").click();
+  assert(
+    new URL(page.url()).searchParams.get("standingsMode") === "third-place",
+    "The third-place race section should be linkable from the URL."
+  );
+  const thirdPlaceRaceCheck = await page.evaluate(() => {
+    const rows = [...document.querySelectorAll(".third-place-table tbody tr:not(.third-place-cut-row)")];
+    const rowSummaries = rows.map((row) => ({
+      rank: row.children[0]?.textContent.trim(),
+      team: row.querySelector(".standing-name")?.textContent.trim(),
+      group: row.children[2]?.textContent.trim(),
+      reason: row.querySelector(".third-place-reason")?.textContent.trim(),
+      status: row.querySelector(".third-place-status")?.textContent.trim()
+    }));
+
+    return {
+      cutLineCount: document.querySelectorAll(".third-place-cut-row").length,
+      cutLineText: document.querySelector(".third-place-cut-row")?.textContent.replace(/\s+/g, " ").trim(),
+      note: document.querySelector(".third-place-note")?.textContent.trim(),
+      rowCount: rows.length,
+      rowSummaries
+    };
+  });
+  assert(thirdPlaceRaceCheck.rowCount === 12, "The third-place race should rank all 12 groups.");
+  assert(
+    thirdPlaceRaceCheck.rowSummaries
+      .slice(0, 4)
+      .map((row) => `${row.rank}:${row.team}`)
+      .join("|") === "1st:Netherlands|2nd:Brazil|3rd:Belgium|4th:DR Congo",
+    "The third-place race should sort by points, goal difference, goals scored, then deterministic fallback."
+  );
+  assert(
+    thirdPlaceRaceCheck.cutLineCount === 1 &&
+      thirdPlaceRaceCheck.cutLineText === "Top 8 advance",
+    "The third-place race should draw one clear top-eight advancement line."
+  );
+  assert(
+    thirdPlaceRaceCheck.rowSummaries[7]?.team === "Ecuador" &&
+      thirdPlaceRaceCheck.rowSummaries[7]?.status === "Tiebreak pending" &&
+      thirdPlaceRaceCheck.rowSummaries[7]?.reason === "Tied on loaded stats for 8th-9th." &&
+      thirdPlaceRaceCheck.rowSummaries[8]?.team === "Panama" &&
+      thirdPlaceRaceCheck.rowSummaries[8]?.status === "Tiebreak pending" &&
+      thirdPlaceRaceCheck.rowSummaries[8]?.reason === "Tied on loaded stats for 8th-9th.",
+    "A cut-line tie without loaded fair-play data should be marked pending on both sides of the line."
+  );
+  assert(
+    thirdPlaceRaceCheck.note.includes("fair-play conduct"),
+    "The third-place race note should explain unresolved fair-play tiebreaks."
+  );
+  await page.locator(".third-place-group-button", { hasText: "Group F" }).click();
+  await page.waitForFunction(
+    () => document.activeElement === document.querySelector('.standings-card[data-group-id="F"]')
+  );
+  assert(
+    await page.locator("#standings-groups-tab").evaluate((tab) => tab.getAttribute("aria-pressed") === "true"),
+    "Clicking a race table group should switch back to the Groups section."
+  );
+  assert(
+    !new URL(page.url()).searchParams.has("standingsMode"),
+    "Clicking a race table group should leave the URL on the default Groups section."
+  );
+  assert(
+    (await page.locator('.standings-card[data-group-id="F"] h2').innerText()).trim() === "Group F",
+    "Clicking a race table group should focus the matching group card."
   );
   await page.locator("#standings-year-button").click();
   assert(

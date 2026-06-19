@@ -23,11 +23,20 @@ const pageTitleOverrides = new Map([
   ["Roberto Lopes", "Roberto Lopes (footballer, born 1992)"]
 ]);
 const profileFieldOverrides = {
+  "Adalberto Carrasquilla": {
+    imageUrl: "https://assets.sorare.com/playerpicture/5c665510-6358-445f-8cee-f1580e299661/picture/avatar-0d77a3aa9a930def1134beb8eca6f2e0.png"
+  },
   "Ali Jasim": {
     imageUrl: "https://resources.saudi-pro-league.pulselive.com/saudi-pro-league/photo/2025/11/13/287545ca-8c56-428c-81ba-cb4620bb94c8/05c43886-bdda-4649-a88b-b22c4eac68af________.jpg"
   },
+  "Amine Gouiri": {
+    imageUrl: "https://assets.sorare.com/playerpicture/3f3077b9-e071-425a-bf5d-d6f4b5797192/picture/avatar-8e78185244d819fa519a4964d757da5d.png"
+  },
+  "Chris Wood": {
+    imageUrl: "https://assets.sorare.com/playerpicture/55068de4-3ec7-4111-bc72-04acadd6271b/avatar-chris-wood_new-zealand_football_2025_home_card_edition_name%3Dcolors_holo_base.png"
+  },
   "Christian Volpato": {
-    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/FC%20Internazionale%20Milano%20v%20US%20Sassuolo%20Calcio%2C%2021%20September%202025%20-%2008%20%28Cristian%20Volpato%29.jpg?width=160"
+    imageUrl: "https://romapress.net/wp-content/uploads/2023/07/Volpato-Christian_sassuolo.jpg"
   },
   "Esmir Bajraktarevic": {
     imageUrl: "https://media.reprezentacija.ba/2025/01/esmir-bajraktarevic-psv-1200x800.jpg"
@@ -35,15 +44,66 @@ const profileFieldOverrides = {
   "Frantzdy Pierrot": {
     imageUrl: "https://www.eaguingamp.com/voy_content/uploads/2020/09/frantzdy-pierrot.png"
   },
+  "Homam Ahmed": {
+    imageUrl: "https://assets.sorare.com/player/9f4c177b-3447-4eab-8275-03ca450574f0/picture/avatar-1d48558ecaadf12ea98960c37ae7d9d4.png"
+  },
   "Ismael Diaz": {
     imageUrl: "https://imagenes.primicias.ec/files/og_thumbnail/uploads/2024/05/25/665295a4a90f8.jpeg"
   },
   "James Rodriguez": { club: "Minnesota United" },
-  "Kenan Yildiz": { position: "Attacking midfielder, winger" },
+  "Jean-Ricner Bellegarde": {
+    imageUrl: "https://assets.sorare.com/playerpicture/563dce7e-7150-4db5-acd0-166ab7f619ee/picture/avatar-dbb7b5dc63acbb97714f8946e94f05de.png"
+  },
+  "Kaoru Mitoma": {
+    imageUrl: "https://assets.sorare.com/playerpicture/6d6121db-5d6b-4ec4-b6f7-c08a2c804d5e/picture/avatar-ae4bc0410e91990a1a38d3bc8f32fec0.png"
+  },
+  "Kenan Yildiz": {
+    position: "Attacking midfielder, winger",
+    imageUrl: "https://www.juventus.com/images/image/private/t_portrait_tablet_desktop/f_png/dev/qwsdrvbuik2f2d7q1qcf.png"
+  },
+  "Lamine Yamal": {
+    imageUrl: "https://assets.sorare.com/playerpicture/c8dd7fff-b3bc-4e8e-a199-99ddaeacaf0a/picture/avatar-44bdd68923075c1703d3b4241f082bb4.png"
+  },
+  "Leandro Bacuna": {
+    imageUrl: "https://assets.sorare.com/playerpicture/dff6b137-2d96-485d-9e6b-9a98f34031ab/picture/avatar-09b13e7e02f8289016e9f98ff71d4c7a.png"
+  },
+  "Luis Suarez": {
+    imageUrl: "https://assets.sorare.com/playerpicture/f945c83f-4b62-4d89-8a50-4408abefa6b7/picture/avatar-a920b0effd55be927d6b9b0a19d85061.png"
+  },
+  "Mohammed Al-Owais": {
+    imageUrl: "https://static-files.saudi-pro-league.pulselive.com/players/headshot/p153885.png"
+  },
+  "Noah Sadiki": {
+    imageUrl: "https://assets.sorare.com/playerpicture/a862377c-35dc-42f1-b2bf-9b1d67677f15/picture/avatar-b5c2d5aee9242262172f9b052897cd41.png"
+  },
+  "Noor Al-Rawabdeh": {
+    imageUrl: "https://assets.selangorfc.com/images/players/t_4607862961048618.%20NOOR%20AL-RAWABDEH.PNG"
+  },
+  Pedri: {
+    imageUrl: "https://assets.sorare.com/playerpicture/2a201362-28b2-46f3-b775-3b46655a89d6/picture/avatar-77add04ba37e6223eb5f2fff5b5aa2e5.png"
+  },
   "Percy Tau": { club: "Thep Xanh Nam Dinh FC" },
+  "Ronwen Williams": {
+    imageUrl: "https://sundownsfc.co.za/wp-content/uploads/2025/09/Williams-1.jpg"
+  },
+  "Ryan Mendes": {
+    imageUrl: "https://assets.sorare.com/playerpicture/19e5f623-11d5-4cb7-b305-610eaf822599/picture/avatar-ed0ebe5f0ea84b8710b99b5ec23451c0.png"
+  },
+  "Salem Al-Dawsari": {
+    imageUrl: "https://static-files.saudi-pro-league.pulselive.com/players/headshot/p109763.png"
+  },
+  "Sarpreet Singh": {
+    imageUrl: "https://assets.sorare.com/playerpicture/5657430a-5e7f-4308-9a11-96b78a856c52/picture/avatar-2ec9453bc6a55005cefb6a3d193422e6.png"
+  },
+  "Tomas Soucek": {
+    imageUrl: "https://assets.sorare.com/playerpicture/79be9611-63e4-4e00-8052-ff2d3825e916/picture/avatar-24c525970580228cb644fcbb1c646cc2.png"
+  },
   Vozinha: {
     club: "G.D. Chaves",
-    imageUrl: "https://i0.statig.com.br/bancodeimagens/4d/4f/vq/4d4fvq90nxcb1y4c2z9un4l6e.jpg"
+    imageUrl: "https://i0.statig.com.br/bancodeimagens/2n/0q/4s/2n0q4syuxijl44exjduci4s7k.jpg"
+  },
+  "Yoane Wissa": {
+    imageUrl: "https://assets.sorare.com/playerpicture/daf7c63d-e2c2-4ef3-ada9-8fcc2951029a/picture/avatar-8dbbfde85f2c3e796388dccc9cb63dad.png"
   }
 };
 const clubLeagueOverrides = {

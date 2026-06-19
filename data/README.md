@@ -34,6 +34,8 @@ node scripts/populate-projections.mjs
 
 The script preserves hand-curated projections by default. Pass `--overwrite` only when you intentionally want every known-team group fixture regenerated from the ranking baseline.
 
+For high-attention fixtures where the ranking baseline feels off, use a sourced market-implied projection instead of copying a single site's pick. Record the source in `data/tournament.json`, normalize public 90-minute moneyline odds to remove the sportsbook margin, and keep the UI labeled as unofficial/not betting advice.
+
 ## Preview Baselines
 
 Run this after fixture updates to populate known-team group fixtures with team watchlists and H2H research placeholders:
@@ -82,6 +84,8 @@ During live matches:
 
 For authored `catchUp` entries, keep the headline and body score-focused. Add optional `standouts` only when a source supports the player note; one compact sentence is enough.
 
+For completed fixture detail pages, add optional `resultHighlights` when the scoreline needs more context than the default source-check note. Keep each highlight to one compact sentence.
+
 ## Required Update Steps
 
 1. Update `data/fixtures.json`.
@@ -99,6 +103,12 @@ node scripts/audit-data.mjs
    - standings tab
    - selected match info card
    - footer source note
+
+## Third-Place Race
+
+The Standings view includes a current 2026 best-third-place race. It uses the same group rows as `data/standings.json`: the current third row from each group is compared by points, goal difference, goals scored, optional fair-play/team-conduct score, and FIFA ranking as the final deterministic fallback.
+
+If reliable conduct data is available, add it to standings rows as `teamConductScore`, `conductScore`, `fairPlayScore`, or `fairPlayPoints` where higher is better. Until conduct is loaded, ties that cross the eighth-place cut line must remain visibly marked as pending.
 
 ## Historical Archive
 

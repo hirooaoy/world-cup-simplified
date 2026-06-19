@@ -7,7 +7,7 @@
     { "id": "CZE", "name": "Czechia", "officialName": "Czechia", "flag": "🇨🇿", "fifaRank": 40, "groupId": "A", "tagline": "Schick finishing, Soucek set pieces" },
     { "id": "RSA", "name": "South Africa", "officialName": "South Africa", "flag": "🇿🇦", "fifaRank": 60, "groupId": "A", "tagline": "Williams saves, Tau counter craft" },
     { "id": "CAN", "name": "Canada", "officialName": "Canada", "flag": "🇨🇦", "fifaRank": 30, "groupId": "B", "tagline": "Davies thrust, David finishing" },
-    { "id": "BIH", "name": "Bosnia and Herzegovina", "standingName": "Bosnia and Herz...", "officialName": "Bosnia and Herzegovina", "flag": "🇧🇦", "fifaRank": 64, "groupId": "B", "tagline": "Dzeko target play, Kolasinac edge" },
+    { "id": "BIH", "name": "Bosnia and Herzegovina", "officialName": "Bosnia and Herzegovina", "flag": "🇧🇦", "fifaRank": 64, "groupId": "B", "tagline": "Dzeko target play, Kolasinac edge" },
     { "id": "QAT", "name": "Qatar", "officialName": "Qatar", "flag": "🇶🇦", "fifaRank": 56, "groupId": "B", "tagline": "Afif creativity, Ali finishing" },
     { "id": "SUI", "name": "Switzerland", "officialName": "Switzerland", "flag": "🇨🇭", "fifaRank": 19, "groupId": "B", "tagline": "Xhaka tempo, Akanji structure" },
     { "id": "BRA", "name": "Brazil", "officialName": "Brazil", "flag": "🇧🇷", "fifaRank": 6, "groupId": "C", "tagline": "Vinicius thrust, Neymar invention" },

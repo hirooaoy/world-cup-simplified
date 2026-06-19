@@ -1,6 +1,11 @@
 {
-  "updatedAt": "2026-06-18T14:22:16-07:00",
+  "updatedAt": "2026-06-19T11:29:38-07:00",
   "coverageNote": "The current seed dataset covers the full official fixture skeleton from June 11 through July 19. Rich previews, scores, live status and knockout participants are updated progressively.",
+  "format": {
+    "automaticAdvancersPerGroup": 2,
+    "bestThirdPlaceAdvancers": 8,
+    "knockoutFieldSize": 32
+  },
   "sources": [
     {
       "id": "fifa-schedule-2026-06-17",
@@ -66,6 +71,314 @@
       "checkedAt": "2026-06-17T11:40:00-07:00"
     },
     {
+      "id": "market-odds-usa-australia-2026-06-19",
+      "label": "USA vs Australia public odds consensus",
+      "url": "https://www.oddschecker.com/us/soccer/world-cup/usa-v-australia",
+      "type": "market-odds",
+      "checkedAt": "2026-06-19T11:05:14-07:00"
+    },
+    {
+      "id": "market-odds-scotland-morocco-2026-06-19",
+      "label": "Scotland vs Morocco public odds consensus",
+      "url": "https://www.covers.com/world-cup/morocco-vs-scotland-prediction-picks-odds-friday-6-19-2026",
+      "type": "market-odds",
+      "checkedAt": "2026-06-19T11:11:14-07:00"
+    },
+    {
+      "id": "market-odds-brazil-haiti-2026-06-19",
+      "label": "Brazil vs Haiti public odds consensus",
+      "url": "https://news.sportsinteraction.com/soccer/fifa-world-cup/story/brazil-vs-haiti-odds-prediction-062026-217248",
+      "type": "market-odds",
+      "checkedAt": "2026-06-19T11:11:14-07:00"
+    },
+    {
+      "id": "market-odds-turkiye-paraguay-2026-06-19",
+      "label": "Türkiye vs Paraguay public odds consensus",
+      "url": "https://www.oddschecker.com/us/soccer/world-cup/turkey-v-paraguay/moneyline",
+      "type": "market-odds",
+      "checkedAt": "2026-06-19T11:11:14-07:00"
+    },
+    {
+      "id": "market-odds-netherlands-sweden-2026-06-20",
+      "label": "Netherlands vs Sweden public odds consensus",
+      "url": "https://www.oddschecker.com/us/soccer/world-cup/netherlands-v-sweden",
+      "type": "market-odds",
+      "checkedAt": "2026-06-19T11:14:25-07:00"
+    },
+    {
+      "id": "market-odds-germany-cote-divoire-2026-06-20",
+      "label": "Germany vs Côte d'Ivoire public odds consensus",
+      "url": "https://www.oddschecker.com/us/soccer/world-cup/germany-v-ivory-coast",
+      "type": "market-odds",
+      "checkedAt": "2026-06-19T11:14:25-07:00"
+    },
+    {
+      "id": "market-odds-ecuador-curacao-2026-06-20",
+      "label": "Ecuador vs Curaçao public odds consensus",
+      "url": "https://kalshi.com/markets/kxwcgame/world-cup-game/kxwcgame-26jun20ecucuw",
+      "type": "market-odds",
+      "checkedAt": "2026-06-19T11:14:25-07:00"
+    },
+    {
+      "id": "market-odds-tunisia-japan-2026-06-21",
+      "label": "Tunisia vs Japan public odds consensus",
+      "url": "https://www.oddschecker.com/us/soccer/world-cup/tunisia-v-japan/moneyline",
+      "type": "market-odds",
+      "checkedAt": "2026-06-19T11:14:25-07:00"
+    },
+    {
+      "id": "market-odds-spain-saudi-arabia-2026-06-21",
+      "label": "Spain vs Saudi Arabia public odds consensus",
+      "url": "https://defirate.com/prediction-markets/world-cup-odds/spain/",
+      "type": "market-odds",
+      "checkedAt": "2026-06-19T11:16:29-07:00"
+    },
+    {
+      "id": "market-odds-belgium-ir-iran-2026-06-21",
+      "label": "Belgium vs IR Iran public odds consensus",
+      "url": "https://www.oddschecker.com/us/soccer/world-cup/belgium-v-iran/moneyline",
+      "type": "market-odds",
+      "checkedAt": "2026-06-19T11:16:29-07:00"
+    },
+    {
+      "id": "market-odds-uruguay-cabo-verde-2026-06-21",
+      "label": "Uruguay vs Cabo Verde public odds consensus",
+      "url": "https://www.oddschecker.com/us/soccer/world-cup/uruguay-v-cape-verde",
+      "type": "market-odds",
+      "checkedAt": "2026-06-19T11:16:29-07:00"
+    },
+    {
+      "id": "market-odds-new-zealand-egypt-2026-06-21",
+      "label": "New Zealand vs Egypt public odds consensus",
+      "url": "https://shekicks.net/new-zealand-v-egypt-predictions/",
+      "type": "market-odds",
+      "checkedAt": "2026-06-19T11:16:29-07:00"
+    },
+    {
+      "id": "market-odds-argentina-austria-2026-06-22",
+      "label": "Argentina vs Austria public odds consensus",
+      "url": "https://kalshi.com/markets/kxwcgame/world-cup-game/kxwcgame-26jun22argaut",
+      "type": "market-odds",
+      "checkedAt": "2026-06-19T11:19:57-07:00"
+    },
+    {
+      "id": "market-odds-france-iraq-2026-06-22",
+      "label": "France vs Iraq public odds consensus",
+      "url": "https://www.oddschecker.com/us/soccer/world-cup/france-v-iraq/moneyline",
+      "type": "market-odds",
+      "checkedAt": "2026-06-19T11:19:57-07:00"
+    },
+    {
+      "id": "market-odds-norway-senegal-2026-06-22",
+      "label": "Norway vs Senegal public odds consensus",
+      "url": "https://www.oddschecker.com/us/soccer/world-cup/norway-v-senegal",
+      "type": "market-odds",
+      "checkedAt": "2026-06-19T11:19:57-07:00"
+    },
+    {
+      "id": "market-odds-jordan-algeria-2026-06-22",
+      "label": "Jordan vs Algeria public odds consensus",
+      "url": "https://kalshi.com/markets/kxwcgame/world-cup-game/kxwcgame-26jun22jordza",
+      "type": "market-odds",
+      "checkedAt": "2026-06-19T11:19:57-07:00"
+    },
+    {
+      "id": "market-odds-portugal-uzbekistan-2026-06-23",
+      "label": "Portugal vs Uzbekistan public odds consensus",
+      "url": "https://www.oddschecker.com/us/soccer/world-cup/portugal-v-uzbekistan/moneyline",
+      "type": "market-odds",
+      "checkedAt": "2026-06-19T11:23:01-07:00"
+    },
+    {
+      "id": "market-odds-england-ghana-2026-06-23",
+      "label": "England vs Ghana public odds consensus",
+      "url": "https://www.oddschecker.com/us/soccer/world-cup/england-v-ghana/moneyline",
+      "type": "market-odds",
+      "checkedAt": "2026-06-19T11:23:01-07:00"
+    },
+    {
+      "id": "market-odds-panama-croatia-2026-06-23",
+      "label": "Panama vs Croatia public odds consensus",
+      "url": "https://www.oddschecker.com/us/soccer/world-cup/panama-v-croatia/moneyline",
+      "type": "market-odds",
+      "checkedAt": "2026-06-19T11:23:01-07:00"
+    },
+    {
+      "id": "market-odds-colombia-dr-congo-2026-06-23",
+      "label": "Colombia vs DR Congo public odds consensus",
+      "url": "https://www.oddschecker.com/us/soccer/world-cup/colombia-v-dr-congo/moneyline",
+      "type": "market-odds",
+      "checkedAt": "2026-06-19T11:23:01-07:00"
+    },
+    {
+      "id": "market-odds-switzerland-canada-2026-06-24",
+      "label": "Switzerland vs Canada public odds consensus",
+      "url": "https://www.oddschecker.com/us/soccer/world-cup/switzerland-v-canada/moneyline",
+      "type": "market-odds",
+      "checkedAt": "2026-06-19T11:24:38-07:00"
+    },
+    {
+      "id": "market-odds-bosnia-qatar-2026-06-24",
+      "label": "Bosnia and Herzegovina vs Qatar public odds consensus",
+      "url": "https://www.oddschecker.com/us/soccer/world-cup/bosnia-and-herzegovina-v-qatar/moneyline",
+      "type": "market-odds",
+      "checkedAt": "2026-06-19T11:24:38-07:00"
+    },
+    {
+      "id": "market-odds-scotland-brazil-2026-06-24",
+      "label": "Scotland vs Brazil public odds consensus",
+      "url": "https://www.oddschecker.com/us/soccer/world-cup/scotland-v-brazil/moneyline",
+      "type": "market-odds",
+      "checkedAt": "2026-06-19T11:24:38-07:00"
+    },
+    {
+      "id": "market-odds-morocco-haiti-2026-06-24",
+      "label": "Morocco vs Haiti public odds consensus",
+      "url": "https://www.oddschecker.com/us/soccer/world-cup/morocco-v-haiti/moneyline",
+      "type": "market-odds",
+      "checkedAt": "2026-06-19T11:24:38-07:00"
+    },
+    {
+      "id": "market-odds-czechia-mexico-2026-06-24",
+      "label": "Czechia vs Mexico public odds consensus",
+      "url": "https://www.oddschecker.com/us/soccer/world-cup/czech-republic-v-mexico/moneyline",
+      "type": "market-odds",
+      "checkedAt": "2026-06-19T11:24:38-07:00"
+    },
+    {
+      "id": "market-odds-south-africa-south-korea-2026-06-24",
+      "label": "South Africa vs South Korea public odds consensus",
+      "url": "https://www.oddschecker.com/us/soccer/world-cup/south-africa-v-south-korea/moneyline",
+      "type": "market-odds",
+      "checkedAt": "2026-06-19T11:24:38-07:00"
+    },
+    {
+      "id": "market-odds-ecuador-germany-2026-06-25",
+      "label": "Ecuador vs Germany public odds consensus",
+      "url": "https://www.oddschecker.com/us/soccer/world-cup/ecuador-v-germany/moneyline",
+      "type": "market-odds",
+      "checkedAt": "2026-06-19T11:26:15-07:00"
+    },
+    {
+      "id": "market-odds-curacao-cote-divoire-2026-06-25",
+      "label": "Curacao vs Cote d'Ivoire public odds consensus",
+      "url": "https://www.oddschecker.com/us/soccer/world-cup/curacao-v-ivory-coast/moneyline",
+      "type": "market-odds",
+      "checkedAt": "2026-06-19T11:26:15-07:00"
+    },
+    {
+      "id": "market-odds-japan-sweden-2026-06-25",
+      "label": "Japan vs Sweden public odds consensus",
+      "url": "https://www.oddschecker.com/us/soccer/world-cup/japan-v-sweden/moneyline",
+      "type": "market-odds",
+      "checkedAt": "2026-06-19T11:26:15-07:00"
+    },
+    {
+      "id": "market-odds-tunisia-netherlands-2026-06-25",
+      "label": "Tunisia vs Netherlands public odds consensus",
+      "url": "https://www.oddschecker.com/us/soccer/world-cup/tunisia-v-netherlands/moneyline",
+      "type": "market-odds",
+      "checkedAt": "2026-06-19T11:26:15-07:00"
+    },
+    {
+      "id": "market-odds-turkiye-united-states-2026-06-25",
+      "label": "Turkiye vs United States public odds consensus",
+      "url": "https://www.oddschecker.com/us/soccer/world-cup/turkey-v-usa/moneyline",
+      "type": "market-odds",
+      "checkedAt": "2026-06-19T11:26:15-07:00"
+    },
+    {
+      "id": "market-odds-paraguay-australia-2026-06-25",
+      "label": "Paraguay vs Australia public odds consensus",
+      "url": "https://www.oddschecker.com/us/soccer/world-cup/paraguay-v-australia/moneyline",
+      "type": "market-odds",
+      "checkedAt": "2026-06-19T11:26:15-07:00"
+    },
+    {
+      "id": "market-odds-norway-france-2026-06-26",
+      "label": "Norway vs France public odds consensus",
+      "url": "https://www.oddschecker.com/us/soccer/world-cup/norway-v-france/moneyline",
+      "type": "market-odds",
+      "checkedAt": "2026-06-19T11:27:53-07:00"
+    },
+    {
+      "id": "market-odds-senegal-iraq-2026-06-26",
+      "label": "Senegal vs Iraq public odds consensus",
+      "url": "https://www.oddschecker.com/us/soccer/world-cup/senegal-v-iraq/moneyline",
+      "type": "market-odds",
+      "checkedAt": "2026-06-19T11:27:53-07:00"
+    },
+    {
+      "id": "market-odds-cabo-verde-saudi-arabia-2026-06-26",
+      "label": "Cabo Verde vs Saudi Arabia public odds consensus",
+      "url": "https://www.oddschecker.com/us/soccer/world-cup/cape-verde-v-saudi-arabia/moneyline",
+      "type": "market-odds",
+      "checkedAt": "2026-06-19T11:27:53-07:00"
+    },
+    {
+      "id": "market-odds-uruguay-spain-2026-06-26",
+      "label": "Uruguay vs Spain public odds consensus",
+      "url": "https://www.oddschecker.com/us/soccer/world-cup/uruguay-v-spain/moneyline",
+      "type": "market-odds",
+      "checkedAt": "2026-06-19T11:27:53-07:00"
+    },
+    {
+      "id": "market-odds-egypt-ir-iran-2026-06-26",
+      "label": "Egypt vs Iran public odds consensus",
+      "url": "https://www.oddschecker.com/us/soccer/world-cup/egypt-v-iran/moneyline",
+      "type": "market-odds",
+      "checkedAt": "2026-06-19T11:27:53-07:00"
+    },
+    {
+      "id": "market-odds-new-zealand-belgium-2026-06-26",
+      "label": "New Zealand vs Belgium public odds consensus",
+      "url": "https://www.oddschecker.com/us/soccer/world-cup/new-zealand-v-belgium/moneyline",
+      "type": "market-odds",
+      "checkedAt": "2026-06-19T11:27:53-07:00"
+    },
+    {
+      "id": "market-odds-panama-england-2026-06-27",
+      "label": "Panama vs England public odds consensus",
+      "url": "https://www.oddschecker.com/us/soccer/world-cup/panama-v-england/moneyline",
+      "type": "market-odds",
+      "checkedAt": "2026-06-19T11:29:38-07:00"
+    },
+    {
+      "id": "market-odds-croatia-ghana-2026-06-27",
+      "label": "Croatia vs Ghana public odds consensus",
+      "url": "https://www.oddschecker.com/us/soccer/world-cup/croatia-v-ghana/moneyline",
+      "type": "market-odds",
+      "checkedAt": "2026-06-19T11:29:38-07:00"
+    },
+    {
+      "id": "market-odds-colombia-portugal-2026-06-27",
+      "label": "Colombia vs Portugal public odds consensus",
+      "url": "https://www.oddschecker.com/us/soccer/world-cup/colombia-v-portugal/moneyline",
+      "type": "market-odds",
+      "checkedAt": "2026-06-19T11:29:38-07:00"
+    },
+    {
+      "id": "market-odds-dr-congo-uzbekistan-2026-06-27",
+      "label": "DR Congo vs Uzbekistan public odds consensus",
+      "url": "https://www.oddschecker.com/us/soccer/world-cup/dr-congo-v-uzbekistan/moneyline",
+      "type": "market-odds",
+      "checkedAt": "2026-06-19T11:29:38-07:00"
+    },
+    {
+      "id": "market-odds-algeria-austria-2026-06-27",
+      "label": "Algeria vs Austria public odds consensus",
+      "url": "https://www.oddschecker.com/us/soccer/world-cup/algeria-v-austria/moneyline",
+      "type": "market-odds",
+      "checkedAt": "2026-06-19T11:29:38-07:00"
+    },
+    {
+      "id": "market-odds-jordan-argentina-2026-06-27",
+      "label": "Jordan vs Argentina public odds consensus",
+      "url": "https://www.oddschecker.com/us/soccer/world-cup/jordan-v-argentina/moneyline",
+      "type": "market-odds",
+      "checkedAt": "2026-06-19T11:29:38-07:00"
+    },
+    {
       "id": "key-player-baseline-2026-06-17",
       "label": "Team key-player watchlist baseline",
       "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/fifa-world-cup-2026-squads-confirmed",
@@ -127,6 +440,20 @@
       "url": "https://www.theguardian.com/football/live/2026/jun/18/switzerland-v-bosnia-and-herzegovina-world-cup-2026-live",
       "type": "cross-check",
       "checkedAt": "2026-06-18T14:22:16-07:00"
+    },
+    {
+      "id": "guardian-canada-qatar-2026-06-18",
+      "label": "Guardian Canada vs Qatar final score cross-check",
+      "url": "https://www.theguardian.com/football/2026/jun/18/canada-qatar-world-cup-2026-group-b-match-report",
+      "type": "cross-check",
+      "checkedAt": "2026-06-19T11:05:14-07:00"
+    },
+    {
+      "id": "guardian-mexico-south-korea-2026-06-19",
+      "label": "Guardian Mexico vs South Korea final score cross-check",
+      "url": "https://www.theguardian.com/football/2026/jun/19/mexico-south-korea-world-cup-2026-group-a-match-report",
+      "type": "cross-check",
+      "checkedAt": "2026-06-19T11:05:14-07:00"
     },
     {
       "id": "openfootball-worldcup-json-2026-06-17",

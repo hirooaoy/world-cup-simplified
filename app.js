@@ -1,4 +1,4 @@
-const DATA_VERSION = "2026-06-18-player-alias-hover";
+const DATA_VERSION = "2026-06-19-dynamic-standing-names-third-place-market-odds";
 const DATA_URLS = {
   fixtures: `data/fixtures.json?v=${DATA_VERSION}`,
   history: `data/history.json?v=${DATA_VERSION}`,
@@ -26,6 +26,8 @@ const catchUpList = document.querySelector("#catch-up-list");
 const standingsYearButton = document.querySelector("#standings-year-button");
 const standingsYearPopover = document.querySelector("#standings-year-popover");
 const standingsYearGrid = document.querySelector("#standings-year-grid");
+const standingsModeTabs = document.querySelectorAll(".standings-mode-tab");
+const standingsModeTabsShell = document.querySelector("#standings-mode-tabs");
 const standingsSummary = document.querySelector("#standings-summary");
 const standingsGrid = document.querySelector("#standings-grid");
 const sourceNote = document.querySelector("#source-note");
@@ -63,9 +65,17 @@ const timeZones = [
 const MATCH_LIVE_WINDOW_MS = 2.25 * 60 * 60 * 1000;
 const DATA_REFRESH_INTERVAL_MS = 5 * 60 * 1000;
 const LIVE_DATA_TIMEOUT_MS = 4000;
+const FIFA_WORLD_CUP_SCORES_URL =
+  "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/scores-fixtures";
 const CURRENT_STANDINGS_YEAR = 2026;
+const DEFAULT_KNOCKOUT_FIELD_SIZE = 32;
+const DEFAULT_AUTOMATIC_ADVANCERS_PER_GROUP = 2;
+const DEFAULT_THIRD_PLACE_ADVANCERS = 8;
+const THIRD_PLACE_STANDING_INDEX = 2;
 const CURRENT_STANDINGS_SUMMARY =
   "Top two in each group advance. The best eight third-place teams also reach the Round of 32.";
+const THIRD_PLACE_STANDINGS_SUMMARY =
+  "Current third-place teams across every group. Top eight advance; unresolved ties are flagged when fair-play data is not loaded.";
 const HISTORICAL_STANDINGS_SUMMARY =
   "Final group tables computed from archived match results.";
 const WALES_FLAG = "\u{1F3F4}\u{E0067}\u{E0062}\u{E0077}\u{E006C}\u{E0073}\u{E007F}";
@@ -189,6 +199,7 @@ let selectedDayKey = getDayKey(initialDate, selectedTimeZone);
 let activeMatchId = "";
 let activeView = "matches";
 let selectedStandingsYear = CURRENT_STANDINGS_YEAR;
+let selectedStandingsMode = "groups";
 let calendarMonthKey = getMonthKeyFromDayKey(selectedDayKey);
 let isCalendarOpen = false;
 let isCatchUpOpen = false;
@@ -203,6 +214,7 @@ let teamsByName = new Map();
 let tournament = { groups: [], stages: [], sources: [] };
 let standingsByGroup = {};
 let dataCoverage = { status: "partial" };
+let siteUpdatedAt = "";
 let syncUrl = true;
 
 const dateFormatter = new Intl.DateTimeFormat(undefined, {
@@ -423,6 +435,38 @@ function getTimeFormatter() {
     minute: "2-digit",
     timeZone: selectedTimeZone
   });
+}
+
+function getValidTimestamp(value) {
+  const timestamp = Date.parse(value || "");
+  return Number.isNaN(timestamp) ? null : timestamp;
+}
+
+function getLatestUpdatedAt(items) {
+  const latestTimestamp = items.reduce((latest, item) => {
+    const timestamp = getValidTimestamp(item?.updatedAt);
+    return timestamp === null || timestamp <= latest ? latest : timestamp;
+  }, 0);
+
+  return latestTimestamp ? new Date(latestTimestamp).toISOString() : "";
+}
+
+function formatSiteUpdatedAt(value) {
+  const timestamp = getValidTimestamp(value);
+
+  if (timestamp === null) {
+    return "";
+  }
+
+  return new Intl.DateTimeFormat("en-US", {
+    day: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+    month: "short",
+    timeZone: selectedTimeZone,
+    timeZoneName: "short",
+    year: "numeric"
+  }).format(new Date(timestamp));
 }
 
 function getTimeZoneAbbreviation(timeZone, date = new Date()) {
@@ -779,9 +823,49 @@ function setStandingsYearOpen(isOpen) {
 
 function selectStandingsYear(year) {
   selectedStandingsYear = getValidStandingsYear(year);
+  if (selectedStandingsYear !== CURRENT_STANDINGS_YEAR) {
+    selectedStandingsMode = "groups";
+  }
   setStandingsYearOpen(false);
   renderStandingsView();
   updateUrlState();
+}
+
+function selectStandingsMode(mode) {
+  selectedStandingsMode = getValidStandingsMode(mode);
+  renderStandingsView();
+  updateUrlState();
+}
+
+function openStandingsGroup(groupId) {
+  if (!groupId) {
+    return;
+  }
+
+  selectedStandingsMode = "groups";
+  renderStandingsView();
+  updateUrlState();
+
+  window.requestAnimationFrame(() => {
+    const card = standingsGrid.querySelector(
+      `.standings-card[data-group-id="${CSS.escape(groupId)}"]`
+    );
+
+    if (!card) {
+      return;
+    }
+
+    card.classList.add("is-drill-target");
+    card.focus({ preventScroll: true });
+    card.scrollIntoView({
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
+      block: "center"
+    });
+
+    window.setTimeout(() => {
+      card.classList.remove("is-drill-target");
+    }, 1400);
+  });
 }
 
 function renderTimeZoneOptions() {
@@ -816,6 +900,13 @@ function renderRank(team) {
 
 function getStandingName(team) {
   return team.standingName || team.name;
+}
+
+function renderMeasuredLabel(label, className) {
+  const labelText = String(label || "");
+  const escapedLabel = escapeHtml(labelText);
+
+  return `<span class="${escapeHtml(className)}" aria-label="${escapedLabel}" title="${escapedLabel}">${escapedLabel}</span>`;
 }
 
 function renderTeamInline(team, className = "team", options = {}) {
@@ -871,12 +962,63 @@ function updateTruncatedTeamTooltips(root = document) {
 }
 
 function updateStandingNameTooltips(root = document) {
-  root.querySelectorAll(".standing-team.has-name-tooltip").forEach((team) => {
+  root.querySelectorAll(".standing-team[data-tooltip]").forEach((team) => {
     const name = team.querySelector(".standing-name");
-    if (name) {
+    if (!name) {
+      team.classList.remove("has-name-tooltip");
+      team.removeAttribute("tabindex");
+      team.style.removeProperty("--name-tooltip-anchor");
+      return;
+    }
+
+    const fullName = team.getAttribute("data-tooltip") || "";
+    const visibleName = name.textContent.trim();
+    const isTruncated = name.scrollWidth > name.clientWidth + 1;
+    const hasDisplayAlias = Boolean(fullName && visibleName && visibleName !== fullName);
+    const hasEllipsisText = visibleName.includes("...");
+    const shouldShowTooltip = isTruncated || hasDisplayAlias || hasEllipsisText;
+
+    team.classList.toggle("has-name-tooltip", shouldShowTooltip);
+
+    if (shouldShowTooltip) {
+      team.tabIndex = 0;
       setNameTooltipAnchor(team, name);
+    } else {
+      team.removeAttribute("tabindex");
+      team.style.removeProperty("--name-tooltip-anchor");
     }
   });
+}
+
+function updateMeasuredLabelTooltips(root = document) {
+  root
+    .querySelectorAll(".prediction-row[data-tooltip], .past-record-row[data-tooltip]")
+    .forEach((row) => {
+      const label = row.querySelector(".prediction-label, .past-record-label");
+      if (!label) {
+        row.classList.remove("has-label-tooltip");
+        row.removeAttribute("tabindex");
+        row.style.removeProperty("--name-tooltip-anchor");
+        return;
+      }
+
+      const fullLabel = row.getAttribute("data-tooltip") || "";
+      const visibleLabel = label.textContent.trim();
+      const isTruncated = label.scrollWidth > label.clientWidth + 1;
+      const hasDisplayAlias = Boolean(fullLabel && visibleLabel && visibleLabel !== fullLabel);
+      const hasEllipsisText = visibleLabel.includes("...");
+      const shouldShowTooltip = isTruncated || hasDisplayAlias || hasEllipsisText;
+
+      row.classList.toggle("has-label-tooltip", shouldShowTooltip);
+
+      if (shouldShowTooltip) {
+        row.tabIndex = 0;
+        setNameTooltipAnchor(row, label);
+      } else {
+        row.removeAttribute("tabindex");
+        row.style.removeProperty("--name-tooltip-anchor");
+      }
+    });
 }
 
 function getVenueLabel(match) {
@@ -940,7 +1082,7 @@ function renderPastScoreline(result, leadingTeamId = "") {
   `;
 }
 
-function getMatchState(match, nextMatchId, currentTime) {
+function getMatchState(match, nextMatchIds, currentTime) {
   if (match.status === "FT") {
     return "complete";
   }
@@ -949,7 +1091,7 @@ function getMatchState(match, nextMatchId, currentTime) {
     return "live";
   }
 
-  if (match.id === nextMatchId) {
+  if (nextMatchIds.has(match.id)) {
     return "next";
   }
 
@@ -978,21 +1120,34 @@ function getLiveMatchIds(currentTime) {
   );
 }
 
-function getNextMatchId(currentTime, liveMatchIds) {
+function getNextMatchIds(currentTime, liveMatchIds) {
   if (liveMatchIds.size > 0) {
-    return "";
+    return new Set();
   }
 
-  return (
-    fixtures
-      .map(hydrateFixture)
-      .filter(
-        (match) =>
-          match.kickoffUtc &&
-          match.status !== "FT" &&
-          new Date(match.kickoffUtc).getTime() > currentTime
-      )
-      .sort((a, b) => new Date(a.kickoffUtc) - new Date(b.kickoffUtc))[0]?.id || ""
+  const upcomingMatches = fixtures
+    .map(hydrateFixture)
+    .map((match) => ({
+      kickoffTime: match.kickoffUtc ? new Date(match.kickoffUtc).getTime() : NaN,
+      match
+    }))
+    .filter(
+      ({ kickoffTime, match }) =>
+        Number.isFinite(kickoffTime) &&
+        kickoffTime > currentTime &&
+        match.status !== "FT"
+    )
+    .sort((a, b) => a.kickoffTime - b.kickoffTime);
+  const nextKickoffTime = upcomingMatches[0]?.kickoffTime;
+
+  if (!Number.isFinite(nextKickoffTime)) {
+    return new Set();
+  }
+
+  return new Set(
+    upcomingMatches
+      .filter(({ kickoffTime }) => kickoffTime === nextKickoffTime)
+      .map(({ match }) => match.id)
   );
 }
 
@@ -1026,14 +1181,6 @@ function getDisplayScore(match, state) {
     };
   }
 
-  if (match.status === "LIVE" || state === "live") {
-    return {
-      home: 0,
-      away: 0,
-      isFallback: true
-    };
-  }
-
   return null;
 }
 
@@ -1063,6 +1210,10 @@ function renderScoreStatus(match, state, currentTime) {
     : "";
 }
 
+function renderLivePill() {
+  return `<a class="live-pill" href="${escapeHtml(FIFA_WORLD_CUP_SCORES_URL)}" target="_blank" rel="noreferrer" title="Check score at FIFA" aria-label="Live: check score at FIFA" data-tooltip="Check score at FIFA">Live</a>`;
+}
+
 function getMatchDateTimeValue(match) {
   return match.kickoffUtc || match.date || "";
 }
@@ -1084,11 +1235,12 @@ function getMatchTimeLabel(match) {
 }
 
 function renderMatchRow(match, state, currentTime = Date.now()) {
-  const row = document.createElement("button");
+  const row = document.createElement("div");
   const homeName = match.homeTeam.name;
   const awayName = match.awayTeam.name;
   const winnerSide = getScoreWinnerSide(match.score?.home, match.score?.away);
-  const scoreLabel = match.status === "LIVE" ? "current score" : "final score";
+  const isLiveState = match.status === "LIVE" || state === "live";
+  const scoreLabel = isLiveState ? "current score" : "final score";
   const pendingScoreText = getScorePendingText(match, state, currentTime);
   const displayScore = getDisplayScore(match, state);
   const stateLabel =
@@ -1097,44 +1249,50 @@ function renderMatchRow(match, state, currentTime = Date.now()) {
   const scoreStatus = renderScoreStatus(match, state, currentTime);
   const stateBadge =
     state === "live"
-      ? `<span class="live-pill">Live</span>`
+      ? renderLivePill()
       : state === "next"
         ? `<span class="up-next-pill">Up next</span>`
         : "";
   const score = renderScore(match, state);
   const rowMeta = `${scoreStatus}${stateBadge}${score}`;
+  const rowLabel = `${stateLabel}${homeName} vs ${awayName}${statusLabel}${
+    match.score
+      ? `, ${scoreLabel} ${match.score.home}-${match.score.away}`
+      : displayScore
+        ? `, score ${displayScore.home}-${displayScore.away}`
+        : pendingScoreText
+          ? `, ${pendingScoreText.toLowerCase()}`
+          : ""
+  }`;
 
-  row.type = "button";
   row.className = `match-row is-${state}`;
   row.dataset.matchId = match.id;
   row.dataset.state = state;
-  row.setAttribute(
-    "aria-label",
-    `${stateLabel}${homeName} vs ${awayName}${statusLabel}${
-      match.score
-        ? `, ${scoreLabel} ${match.score.home}-${match.score.away}`
-        : displayScore
-          ? `, score ${displayScore.home}-${displayScore.away}`
-          : pendingScoreText
-            ? `, ${pendingScoreText.toLowerCase()}`
-            : ""
-    }`
-  );
+  row.setAttribute("role", "group");
+  row.setAttribute("aria-label", rowLabel);
   row.innerHTML = `
-    <time class="match-time" datetime="${escapeHtml(getMatchDateTimeValue(match))}">
-      ${escapeHtml(getMatchTimeLabel(match))}
-    </time>
-    <span class="match-teams">
-      ${renderTeamInline(match.homeTeam, getTeamClass("team", winnerSide, "home"))}
-      <span class="versus">vs</span>
-      ${renderTeamInline(match.awayTeam, getTeamClass("team", winnerSide, "away"))}
-    </span>
+    <button class="match-row-trigger" type="button" aria-label="${escapeHtml(rowLabel)}" aria-pressed="false">
+      <time class="match-time" datetime="${escapeHtml(getMatchDateTimeValue(match))}">
+        ${escapeHtml(getMatchTimeLabel(match))}
+      </time>
+      <span class="match-teams">
+        ${renderTeamInline(match.homeTeam, getTeamClass("team", winnerSide, "home"))}
+        <span class="versus">vs</span>
+        ${renderTeamInline(match.awayTeam, getTeamClass("team", winnerSide, "away"))}
+      </span>
+    </button>
     ${rowMeta ? `<span class="match-row-meta">${rowMeta}</span>` : ""}
   `;
 
   row.addEventListener("pointerenter", () => renderMatchInfo(match));
-  row.addEventListener("focus", () => renderMatchInfo(match));
-  row.addEventListener("click", () => renderMatchInfo(match, { reveal: true }));
+  row.addEventListener("focusin", () => renderMatchInfo(match));
+  row.addEventListener("click", (event) => {
+    if (event.target instanceof Element && event.target.closest("a")) {
+      return;
+    }
+
+    renderMatchInfo(match, { reveal: true });
+  });
 
   return row;
 }
@@ -1145,6 +1303,217 @@ function formatGoalDifference(goalDifference) {
   }
 
   return String(goalDifference);
+}
+
+function formatOrdinal(value) {
+  const number = Number(value);
+
+  if (!Number.isFinite(number)) {
+    return "";
+  }
+
+  const absolute = Math.abs(number);
+  const mod100 = absolute % 100;
+  const suffix =
+    mod100 >= 11 && mod100 <= 13
+      ? "th"
+      : absolute % 10 === 1
+        ? "st"
+        : absolute % 10 === 2
+          ? "nd"
+          : absolute % 10 === 3
+            ? "rd"
+            : "th";
+
+  return `${number}${suffix}`;
+}
+
+function getTournamentFormatNumber(keys, fallback) {
+  const format = tournament.format || {};
+
+  for (const keyPath of keys) {
+    const value = keyPath.split(".").reduce((item, key) => item?.[key], format);
+    const number = Number(value);
+
+    if (Number.isFinite(number)) {
+      return number;
+    }
+  }
+
+  return fallback;
+}
+
+function getThirdPlaceAdvancerCount() {
+  const groupCount = tournament.groups?.length || 0;
+  const configuredAdvancers = getTournamentFormatNumber(
+    ["bestThirdPlaceAdvancers", "thirdPlaceAdvancers", "groupStage.bestThirdPlaceAdvancers"],
+    null
+  );
+
+  if (Number.isInteger(configuredAdvancers) && configuredAdvancers >= 0) {
+    return Math.min(configuredAdvancers, groupCount);
+  }
+
+  const knockoutFieldSize = getTournamentFormatNumber(
+    ["knockoutFieldSize", "roundOf32Size", "knockout.fieldSize"],
+    DEFAULT_KNOCKOUT_FIELD_SIZE
+  );
+  const automaticAdvancersPerGroup = getTournamentFormatNumber(
+    ["automaticAdvancersPerGroup", "groupStage.automaticAdvancersPerGroup"],
+    DEFAULT_AUTOMATIC_ADVANCERS_PER_GROUP
+  );
+  const computedAdvancers = knockoutFieldSize - groupCount * automaticAdvancersPerGroup;
+
+  if (Number.isFinite(computedAdvancers)) {
+    return Math.min(groupCount, Math.max(0, computedAdvancers));
+  }
+
+  return Math.min(DEFAULT_THIRD_PLACE_ADVANCERS, groupCount);
+}
+
+function getFifaRankValue(team) {
+  const rank = Number(team.fifaRank);
+  return Number.isFinite(rank) ? rank : Number.POSITIVE_INFINITY;
+}
+
+function getTeamConductScore(row) {
+  const value =
+    row.teamConductScore ?? row.conductScore ?? row.fairPlayScore ?? row.fairPlayPoints;
+  const score = Number(value);
+
+  return Number.isFinite(score) ? score : null;
+}
+
+function compareThirdPlaceCandidates(a, b) {
+  const conductA = getTeamConductScore(a);
+  const conductB = getTeamConductScore(b);
+
+  return (
+    b.pts - a.pts ||
+    b.gd - a.gd ||
+    b.gf - a.gf ||
+    (conductA !== null && conductB !== null ? conductB - conductA : 0) ||
+    getFifaRankValue(a.team) - getFifaRankValue(b.team) ||
+    a.groupIndex - b.groupIndex ||
+    a.team.name.localeCompare(b.team.name)
+  );
+}
+
+function getThirdPlaceTieSignature(row) {
+  return `${row.pts}|${row.gd}|${row.gf}`;
+}
+
+function getThirdPlaceStatus(candidate, advancerCount) {
+  const isInside = candidate.position <= advancerCount;
+
+  if (candidate.isCutLineTie) {
+    return {
+      kind: "pending",
+      label: "Tiebreak pending",
+      detail: "Tied on loaded stats; fair-play data decides before FIFA ranking."
+    };
+  }
+
+  if (isInside && candidate.position >= advancerCount - 1) {
+    return {
+      kind: "bubble-in",
+      label: "Bubble in",
+      detail: "Inside the top eight right now, but close to the cut line."
+    };
+  }
+
+  if (isInside) {
+    return {
+      kind: "in",
+      label: "Advancing now",
+      detail: "Inside the top eight best third-place teams."
+    };
+  }
+
+  if (candidate.position === advancerCount + 1) {
+    return {
+      kind: "first-out",
+      label: "First out",
+      detail: "Next team outside the top eight."
+    };
+  }
+
+  return {
+    kind: "out",
+    label: "Outside now",
+    detail: "Needs results elsewhere to move into the top eight."
+  };
+}
+
+function annotateThirdPlaceRaceRows(rows, advancerCount) {
+  const annotatedRows = rows.map((row, index) => ({
+    ...row,
+    isCutLineTie: false,
+    isUnresolvedTie: false,
+    position: index + 1,
+    tieGroupEnd: index + 1,
+    tieGroupStart: index + 1
+  }));
+
+  let index = 0;
+  while (index < annotatedRows.length) {
+    const signature = getThirdPlaceTieSignature(annotatedRows[index]);
+    let endIndex = index + 1;
+
+    while (
+      endIndex < annotatedRows.length &&
+      getThirdPlaceTieSignature(annotatedRows[endIndex]) === signature
+    ) {
+      endIndex += 1;
+    }
+
+    const tieGroup = annotatedRows.slice(index, endIndex);
+    const hasMissingConduct = tieGroup.some((row) => getTeamConductScore(row) === null);
+    const isUnresolvedTie = tieGroup.length > 1 && hasMissingConduct;
+    const isCutLineTie = isUnresolvedTie && index < advancerCount && endIndex > advancerCount;
+
+    for (let tieIndex = index; tieIndex < endIndex; tieIndex += 1) {
+      annotatedRows[tieIndex].isCutLineTie = isCutLineTie;
+      annotatedRows[tieIndex].isUnresolvedTie = isUnresolvedTie;
+      annotatedRows[tieIndex].tieGroupStart = index + 1;
+      annotatedRows[tieIndex].tieGroupEnd = endIndex;
+    }
+
+    index = endIndex;
+  }
+
+  return annotatedRows.map((row) => ({
+    ...row,
+    status: getThirdPlaceStatus(row, advancerCount)
+  }));
+}
+
+function getThirdPlaceRaceRows() {
+  const rows = (tournament.groups || [])
+    .map((group, groupIndex) => {
+      const standing = getStandingsRows(group.id)[THIRD_PLACE_STANDING_INDEX];
+
+      if (!standing) {
+        return null;
+      }
+
+      return {
+        ...standing,
+        conductScore: getTeamConductScore(standing),
+        groupId: group.id,
+        groupIndex,
+        groupLabel: group.label || `Group ${group.id}`,
+        team: getTeam(standing.teamId)
+      };
+    })
+    .filter(Boolean)
+    .sort(compareThirdPlaceCandidates);
+
+  return annotateThirdPlaceRaceRows(rows, getThirdPlaceAdvancerCount());
+}
+
+function getThirdPlaceRaceByTeamId() {
+  return new Map(getThirdPlaceRaceRows().map((candidate) => [candidate.teamId, candidate]));
 }
 
 const STANDING_HEADERS = [
@@ -1231,27 +1600,49 @@ function getStandingsRows(groupId) {
   );
 }
 
-function renderStandingRow(row, options = {}) {
-  const team = getTeam(row.teamId);
-  const { showRank = true } = options;
+function renderStandingTeam(team, options = {}) {
+  const { showRank = true, trailingHtml = "" } = options;
   const standingName = getStandingName(team);
   const fullName = team.name || standingName;
-  const hasShortenedName = standingName !== fullName;
-  const teamClasses = ["standing-team", hasShortenedName ? "has-name-tooltip" : ""]
-    .filter(Boolean)
-    .join(" ");
-  const tooltipAttributes = hasShortenedName
-    ? ` data-tooltip="${escapeHtml(fullName)}" tabindex="0"`
-    : "";
+  const teamClasses = "standing-team";
+  const tooltipAttributes = fullName ? ` data-tooltip="${escapeHtml(fullName)}"` : "";
+
+  return `
+    <span class="${teamClasses}" aria-label="${escapeHtml(fullName)}"${tooltipAttributes}>
+      ${renderFlag(team)}
+      <span class="standing-name" aria-label="${escapeHtml(fullName)}" title="${escapeHtml(fullName)}">${escapeHtml(standingName)}</span>
+      ${showRank ? renderRank(team) : ""}
+      ${trailingHtml}
+    </span>
+  `;
+}
+
+function renderThirdPlaceStandingBadge(candidate) {
+  const status = candidate.status || getThirdPlaceStatus(candidate, getThirdPlaceAdvancerCount());
+  const rankLabel = formatOrdinal(candidate.position);
+  const label = `${candidate.team.name} is ${rankLabel} in the best third-place race: ${status.label}`;
+
+  return `
+    <span class="third-place-pill is-${escapeHtml(status.kind)}" aria-label="${escapeHtml(label)}">
+      3rd race ${escapeHtml(rankLabel)}
+    </span>
+  `;
+}
+
+function renderStandingRow(row, options = {}) {
+  const team = getTeam(row.teamId);
+  const { showRank = true, thirdPlaceRaceByTeamId = null } = options;
+  const thirdPlaceCandidate = thirdPlaceRaceByTeamId?.get(row.teamId);
 
   return `
     <tr>
       <td>
-        <span class="${teamClasses}" aria-label="${escapeHtml(fullName)}"${tooltipAttributes}>
-          ${renderFlag(team)}
-          <span class="standing-name" aria-label="${escapeHtml(fullName)}" title="${escapeHtml(fullName)}">${escapeHtml(standingName)}</span>
-          ${showRank ? renderRank(team) : ""}
-        </span>
+        ${renderStandingTeam(team, {
+          showRank,
+          trailingHtml: thirdPlaceCandidate
+            ? renderThirdPlaceStandingBadge(thirdPlaceCandidate)
+            : ""
+        })}
       </td>
       <td>${escapeHtml(row.pts)}</td>
       <td>${escapeHtml(row.wins)}-${escapeHtml(row.draws)}-${escapeHtml(row.losses)}</td>
@@ -1345,11 +1736,12 @@ function getHistoricalGroupStandingsForYear(year, groupName) {
 
 function renderHistoricalStandingTeam(teamName) {
   const team = getHistoricalTeam(teamName);
+  const fullName = team?.name || teamName;
 
   return `
-    <span class="standing-team">
+    <span class="standing-team" aria-label="${escapeHtml(fullName)}" data-tooltip="${escapeHtml(fullName)}">
       ${team ? renderFlag(team) : ""}
-      <span class="standing-name" aria-label="${escapeHtml(teamName)}" title="${escapeHtml(teamName)}">${escapeHtml(teamName)}</span>
+      <span class="standing-name" aria-label="${escapeHtml(fullName)}" title="${escapeHtml(fullName)}">${escapeHtml(teamName)}</span>
     </span>
   `;
 }
@@ -1385,13 +1777,168 @@ function renderHistoricalStandingsTable(year, groupName) {
   `;
 }
 
+function renderThirdPlaceStatus(candidate) {
+  const reason = getThirdPlaceReason(candidate);
+
+  return `
+    <span class="third-place-status-cell">
+      <span class="third-place-status is-${escapeHtml(candidate.status.kind)}" aria-label="${escapeHtml(candidate.status.detail)}">
+        ${escapeHtml(candidate.status.label)}
+      </span>
+      <span class="third-place-reason">${escapeHtml(reason)}</span>
+    </span>
+  `;
+}
+
+function getThirdPlaceReason(candidate) {
+  if (candidate.isCutLineTie) {
+    return `Tied on loaded stats for ${formatOrdinal(candidate.tieGroupStart)}-${formatOrdinal(candidate.tieGroupEnd)}.`;
+  }
+
+  const nearestCandidate = candidate.position <= getThirdPlaceAdvancerCount()
+    ? getThirdPlaceRaceRows()[candidate.position]
+    : getThirdPlaceRaceRows()[candidate.position - 2];
+
+  if (!nearestCandidate) {
+    return `${candidate.pts} pts, ${formatGoalDifference(candidate.gd)} GD, ${candidate.gf} GF.`;
+  }
+
+  if (candidate.pts !== nearestCandidate.pts) {
+    return `${candidate.pts} pts; ${candidate.position <= getThirdPlaceAdvancerCount() ? "above" : "behind"} next team on points.`;
+  }
+
+  if (candidate.gd !== nearestCandidate.gd) {
+    return `${formatGoalDifference(candidate.gd)} GD; ${candidate.position <= getThirdPlaceAdvancerCount() ? "ahead" : "behind"} on goal difference.`;
+  }
+
+  if (candidate.gf !== nearestCandidate.gf) {
+    return `${candidate.gf} GF; ${candidate.position <= getThirdPlaceAdvancerCount() ? "ahead" : "behind"} on goals scored.`;
+  }
+
+  return `${candidate.pts} pts, ${formatGoalDifference(candidate.gd)} GD, ${candidate.gf} GF.`;
+}
+
+function renderThirdPlaceConductCell(candidate) {
+  if (candidate.conductScore === null) {
+    return `<span class="third-place-muted">Not loaded</span>`;
+  }
+
+  return escapeHtml(candidate.conductScore);
+}
+
+function renderThirdPlaceRaceRow(candidate) {
+  const rowClasses = [
+    candidate.position <= getThirdPlaceAdvancerCount() ? "is-inside" : "is-outside",
+    candidate.isCutLineTie ? "is-cut-line-tie" : "",
+    candidate.position === getThirdPlaceAdvancerCount() ? "is-cut-line" : ""
+  ]
+    .filter(Boolean)
+    .join(" ");
+
+  return `
+    <tr class="${escapeHtml(rowClasses)}">
+      <td class="third-place-rank-cell">${escapeHtml(formatOrdinal(candidate.position))}</td>
+      <td>${renderStandingTeam(candidate.team)}</td>
+      <td>
+        <button class="third-place-group-button" type="button" data-group-id="${escapeHtml(candidate.groupId)}" aria-label="Open ${escapeHtml(candidate.groupLabel)} standings">
+          ${escapeHtml(candidate.groupLabel)}
+        </button>
+      </td>
+      <td>${escapeHtml(candidate.pts)}</td>
+      <td>${escapeHtml(formatGoalDifference(candidate.gd))}</td>
+      <td>${escapeHtml(candidate.gf)}</td>
+      <td>${renderThirdPlaceConductCell(candidate)}</td>
+      <td>${renderThirdPlaceStatus(candidate)}</td>
+    </tr>
+  `;
+}
+
+function renderThirdPlaceCutLine(advancerCount) {
+  return `
+    <tr class="third-place-cut-row" aria-hidden="true">
+      <td colspan="8">
+        <span>Top ${escapeHtml(advancerCount)} advance</span>
+      </td>
+    </tr>
+  `;
+}
+
+function renderThirdPlaceRaceTable(rows, advancerCount) {
+  const tableRows = rows
+    .flatMap((candidate) => [
+      renderThirdPlaceRaceRow(candidate),
+      candidate.position === advancerCount ? renderThirdPlaceCutLine(advancerCount) : ""
+    ])
+    .join("");
+
+  return `
+    <div class="third-place-table-shell">
+      <table class="standings-table third-place-table">
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Team</th>
+            <th>Group</th>
+            <th>Pts</th>
+            <th>GD</th>
+            <th>GF</th>
+            <th>Fair play</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>${tableRows}</tbody>
+      </table>
+    </div>
+  `;
+}
+
+function renderThirdPlaceRaceView() {
+  const rows = getThirdPlaceRaceRows();
+  const advancerCount = getThirdPlaceAdvancerCount();
+  const unresolvedCutLine = rows.some((candidate) => candidate.isCutLineTie);
+  const outsideCount = Math.max(0, rows.length - advancerCount);
+  const note = unresolvedCutLine
+    ? "One or more teams around the cut line are tied on points, goal difference and goals scored. The loaded data does not include fair-play conduct yet, so that part is marked pending."
+    : "Tie order follows points, goal difference, goals scored, loaded fair-play conduct when available, then FIFA ranking as the final deterministic fallback.";
+
+  return `
+    <section class="third-place-race" aria-labelledby="third-place-race-heading">
+      <div class="third-place-race-header">
+        <div>
+          <p class="section-note">Live standings lens</p>
+          <h2 id="third-place-race-heading">Best Third-Place Race</h2>
+          <p>Each group contributes its current third-place team. The top ${escapeHtml(advancerCount)} reach the Round of 32.</p>
+        </div>
+        <dl class="third-place-metrics">
+          <div>
+            <dt>Advancing</dt>
+            <dd>${escapeHtml(advancerCount)}</dd>
+          </div>
+          <div>
+            <dt>Outside</dt>
+            <dd>${escapeHtml(outsideCount)}</dd>
+          </div>
+          <div>
+            <dt>Groups</dt>
+            <dd>${escapeHtml(rows.length)}</dd>
+          </div>
+        </dl>
+      </div>
+      ${renderThirdPlaceRaceTable(rows, advancerCount)}
+      <p class="third-place-note">${escapeHtml(note)}</p>
+    </section>
+  `;
+}
+
 function renderCurrentStandingsCards() {
+  const thirdPlaceRaceByTeamId = getThirdPlaceRaceByTeamId();
+
   return tournament.groups
     .map(
       (group) => `
-        <article class="standings-card">
+        <article class="standings-card" data-group-id="${escapeHtml(group.id)}" tabindex="-1">
           <h2>${escapeHtml(group.label)}</h2>
-          ${renderStandings(group.id)}
+          ${renderStandings(group.id, { thirdPlaceRaceByTeamId })}
         </article>
       `
     )
@@ -1422,6 +1969,10 @@ function renderHistoricalStandingsCards(year) {
     .join("");
 }
 
+function getValidStandingsMode(value) {
+  return value === "third-place" ? "third-place" : "groups";
+}
+
 function renderStandingsYearPicker() {
   if (!standingsYearGrid) {
     return;
@@ -1444,6 +1995,23 @@ function renderStandingsYearPicker() {
   );
 }
 
+function updateStandingsModeControls() {
+  const shouldShowModeTabs = selectedStandingsYear === CURRENT_STANDINGS_YEAR;
+
+  if (standingsModeTabsShell) {
+    standingsModeTabsShell.hidden = !shouldShowModeTabs;
+  }
+
+  standingsModeTabs.forEach((tab) => {
+    const isSelected = shouldShowModeTabs && tab.dataset.standingsMode === selectedStandingsMode;
+
+    tab.classList.toggle("is-active", isSelected);
+    tab.disabled = !shouldShowModeTabs;
+    tab.hidden = !shouldShowModeTabs;
+    tab.setAttribute("aria-pressed", String(isSelected));
+  });
+}
+
 function updateStandingsControls() {
   if (standingsYearButton) {
     standingsYearButton.textContent = String(selectedStandingsYear);
@@ -1457,27 +2025,40 @@ function updateStandingsControls() {
   if (standingsSummary) {
     standingsSummary.textContent =
       selectedStandingsYear === CURRENT_STANDINGS_YEAR
-        ? CURRENT_STANDINGS_SUMMARY
+        ? selectedStandingsMode === "third-place"
+          ? THIRD_PLACE_STANDINGS_SUMMARY
+          : CURRENT_STANDINGS_SUMMARY
         : HISTORICAL_STANDINGS_SUMMARY;
   }
 
   renderStandingsYearPicker();
+  updateStandingsModeControls();
 }
 
 function renderStandingsView() {
+  const isCurrentYear = selectedStandingsYear === CURRENT_STANDINGS_YEAR;
+  const isThirdPlaceMode = isCurrentYear && selectedStandingsMode === "third-place";
+
   updateStandingsControls();
-  standingsGrid.innerHTML =
-    selectedStandingsYear === CURRENT_STANDINGS_YEAR
-      ? renderCurrentStandingsCards()
-      : renderHistoricalStandingsCards(selectedStandingsYear);
+  standingsGrid.classList.toggle("is-third-place-race", isThirdPlaceMode);
+  standingsGrid.setAttribute(
+    "aria-label",
+    isThirdPlaceMode ? "Best third-place race" : "Group standings"
+  );
+  standingsGrid.innerHTML = isCurrentYear
+    ? isThirdPlaceMode
+      ? renderThirdPlaceRaceView()
+      : renderCurrentStandingsCards()
+    : renderHistoricalStandingsCards(selectedStandingsYear);
   updateStandingNameTooltips(standingsGrid);
 }
 
 function renderPredictionBar(label, value) {
   const percent = clampPercent(value);
+  const escapedLabel = escapeHtml(label);
   return `
-    <div class="prediction-row">
-      <span>${escapeHtml(label)}</span>
+    <div class="prediction-row" data-tooltip="${escapedLabel}">
+      ${renderMeasuredLabel(label, "prediction-label")}
       <div class="prediction-track" aria-hidden="true">
         <span style="width: ${percent}%"></span>
       </div>
@@ -1493,6 +2074,10 @@ function getProjectionMethodHelp(projection) {
 
   if (projection?.method === "fifa-ranking-baseline") {
     return "Local estimate using FIFA rankings. Not betting odds.";
+  }
+
+  if (projection?.method === "market-implied-consensus") {
+    return "Market-implied consensus from public odds, normalized to remove sportsbook margin. Not betting advice.";
   }
 
   if (projection?.method === "historical-world-cup-form-baseline") {
@@ -1664,13 +2249,118 @@ function renderScoreSummary(match, options = {}) {
   return `<p class="past-empty">${escapeHtml(winner.name)} ${options.live ? "lead" : "beat"} ${escapeHtml(loser.name)} ${escapeHtml(scoreText)}.</p>`;
 }
 
+function getResultHighlights(match) {
+  const authoredHighlights = Array.isArray(match.resultHighlights)
+    ? match.resultHighlights.filter((highlight) => typeof highlight === "string" && highlight.trim())
+    : [];
+
+  return authoredHighlights.length ? authoredHighlights : getGeneratedResultHighlights(match);
+}
+
+function getCatchUpStandout(match) {
+  return Array.isArray(match.catchUp)
+    ? match.catchUp.find((item) => typeof item?.standouts === "string" && item.standouts.trim())?.standouts.trim() || ""
+    : "";
+}
+
+function getGoalWord(count) {
+  return count === 1 ? "goal" : "goals";
+}
+
+function formatStandoutHighlight(standout) {
+  if (!standout) {
+    return "";
+  }
+
+  return standout.startsWith("⚽") ? standout : `⚽ ${standout}`;
+}
+
+function getGeneratedDrawHighlights(match, score, context, standout) {
+  const scoreText = `${score.home}-${score.away}`;
+
+  if (score.home === 0 && score.away === 0) {
+    return [
+      `🧱 ${match.homeTeam.name} and ${match.awayTeam.name} cancelled each other out in a 0-0 draw.`,
+      "🛡️ Both teams left with clean sheets after a tight defensive match.",
+      `📊 Both sides took one point from ${context}.`
+    ];
+  }
+
+  return [
+    formatStandoutHighlight(standout) ||
+      `⚽ ${match.homeTeam.name} and ${match.awayTeam.name} both found goals in a ${scoreText} draw.`,
+    "🔥 Neither side pulled clear, keeping the match balanced through full time.",
+    `📊 Both teams took one point from ${context}.`
+  ];
+}
+
+function getGeneratedWinHighlights(match, score, context, standout) {
+  const winnerSide = getScoreWinnerSide(score.home, score.away);
+  const winner = winnerSide === "home" ? match.homeTeam : match.awayTeam;
+  const loser = winnerSide === "home" ? match.awayTeam : match.homeTeam;
+  const winnerScore = winnerSide === "home" ? score.home : score.away;
+  const loserScore = winnerSide === "home" ? score.away : score.home;
+  const margin = winnerScore - loserScore;
+  const scoreText = `${winnerScore}-${loserScore}`;
+  const scoringNote =
+    formatStandoutHighlight(standout) ||
+    (winnerScore === 1
+      ? `⚽ ${winner.name} found the decisive goal in a ${scoreText} win.`
+      : `⚽ ${winner.name} scored ${winnerScore} ${getGoalWord(winnerScore)} to beat ${loser.name} ${scoreText}.`);
+  const controlNote =
+    loserScore === 0
+      ? `🛡️ ${winner.name} kept ${loser.name} off the scoresheet.`
+      : margin >= 3
+        ? `🔥 ${winner.name}'s attack broke the match open by full time.`
+        : margin === 1
+          ? `⏱️ ${winner.name} protected a one-goal edge through full time.`
+          : `🔥 ${winner.name} created enough separation to control the finish.`;
+
+  return [
+    scoringNote,
+    controlNote,
+    `📊 ${winner.name} took three points from ${context}.`
+  ];
+}
+
+function getGeneratedResultHighlights(match) {
+  const score = getCatchUpScore(match);
+
+  if (!score) {
+    return [];
+  }
+
+  const context = getCatchUpContext(match);
+  const standout = getCatchUpStandout(match);
+
+  if (!getScoreWinnerSide(score.home, score.away)) {
+    return getGeneratedDrawHighlights(match, score, context, standout);
+  }
+
+  return getGeneratedWinHighlights(match, score, context, standout);
+}
+
+function renderResultNotes(match) {
+  const highlights = getResultHighlights(match);
+
+  if (!highlights.length) {
+    return `<p class="data-note">Final score reflected in the current standings after source checks.</p>`;
+  }
+
+  return `
+    <ul class="result-highlights">
+      ${highlights.map((highlight) => `<li>${escapeHtml(highlight)}</li>`).join("")}
+    </ul>
+  `;
+}
+
 function renderMatchStatusBlock(match) {
   if (match.status === "FT") {
     return `
       <section class="info-block">
         <h3>Result</h3>
         ${renderScoreSummary(match)}
-        <p class="data-note">Final score reflected in the current standings after source checks.</p>
+        ${renderResultNotes(match)}
       </section>
       ${renderPredictionBlock(match)}
     `;
@@ -1890,8 +2580,9 @@ function renderPlayerMention(label, player) {
         <span class="player-card-header">
           <span class="player-photo">${renderPlayerPhoto(player, profile)}</span>
           <span class="player-card-title">
-            <strong>${escapeHtml(position)}</strong>
-            <span>${escapeHtml(club)}</span>
+            <strong class="player-card-name">${escapeHtml(displayName)}</strong>
+            <span class="player-card-position">${escapeHtml(position)}</span>
+            <span class="player-card-club">${escapeHtml(club)}</span>
           </span>
         </span>
         <span class="player-skill-list">
@@ -2075,8 +2766,8 @@ function renderPastRecord(match, results) {
       ${items
         .map(
           (item) => `
-            <article class="past-record-row" aria-label="${escapeHtml(item.rowLabel)}">
-              <span class="past-record-label">${escapeHtml(item.label)}</span>
+            <article class="past-record-row" aria-label="${escapeHtml(item.rowLabel)}" data-tooltip="${escapeHtml(item.label)}">
+              ${renderMeasuredLabel(item.label, "past-record-label")}
               <span class="past-record-track" aria-hidden="true">
                 <span style="--record-share: ${escapeHtml(item.share.toFixed(3))}%;"></span>
               </span>
@@ -2650,6 +3341,147 @@ function getHistoricalScorerText(goals = []) {
   return `${formatHistoricalScorerSeries(scoringMoments)}.`;
 }
 
+function getHistoricalScoringHighlight(match, teamName) {
+  const scorerText = getHistoricalScorerText(getHistoricalTeamGoals(match, teamName));
+
+  return scorerText ? `⚽ ${scorerText}` : "";
+}
+
+function getHistoricalDrawScoringHighlight(match) {
+  const scoreText = getHistoricalScoreText(match);
+  const homeScorers = getHistoricalScoringHighlight(match, match.homeTeam.name);
+  const awayScorers = getHistoricalScoringHighlight(match, match.awayTeam.name);
+
+  if (homeScorers && awayScorers) {
+    return `${homeScorers} ${awayScorers.replace("⚽ ", "")}`;
+  }
+
+  return homeScorers || awayScorers || `⚽ ${match.homeTeam.name} and ${match.awayTeam.name} finished level at ${scoreText}.`;
+}
+
+function getHistoricalResultOutcomeHighlight(match) {
+  const winner = getHistoricalWinner(match);
+  const scoreText = getHistoricalScoreText(match);
+
+  if (match.status === "CANCELLED") {
+    return `🚫 ${match.homeTeam.name} vs ${match.awayTeam.name} was cancelled.`;
+  }
+
+  if (!winner) {
+    return `🤝 ${match.homeTeam.name} and ${match.awayTeam.name} drew ${scoreText}.`;
+  }
+
+  const loser = winner === match.homeTeam.name ? match.awayTeam.name : match.homeTeam.name;
+  const penalties = match.scoreDetails?.penalties;
+  const winnerScoreText = formatScorePair(getHistoricalScorePairForTeam(match, winner));
+
+  if (penalties) {
+    return `🎯 ${winner} beat ${loser} on penalties after a ${formatScorePair(match.score)} draw.`;
+  }
+
+  return `🏁 ${winner} beat ${loser} ${winnerScoreText || scoreText}.`;
+}
+
+function getHistoricalResultControlHighlight(match) {
+  if (match.status === "CANCELLED") {
+    return `📌 The cancelled fixture remains in the ${match.tournamentName} archive.`;
+  }
+
+  const winner = getHistoricalWinner(match);
+  const context = getHistoricalContextLabel(match);
+  const penalties = match.scoreDetails?.penalties;
+  const extraTime = match.scoreDetails?.extraTime;
+
+  if (penalties) {
+    return `⏱️ The tie stayed level through extra time before the shootout decided ${context}.`;
+  }
+
+  if (extraTime) {
+    return `⏱️ ${winner || "The match"} was decided after extra time in ${context}.`;
+  }
+
+  if (winner) {
+    const winnerScore = winner === match.homeTeam.name ? Number(match.score?.home) : Number(match.score?.away);
+    const loserScore = winner === match.homeTeam.name ? Number(match.score?.away) : Number(match.score?.home);
+    const loser = winner === match.homeTeam.name ? match.awayTeam.name : match.homeTeam.name;
+
+    if (loserScore === 0) {
+      return `🛡️ ${winner} kept ${loser} off the scoresheet.`;
+    }
+
+    if (winnerScore - loserScore >= 3) {
+      return `🔥 ${winner} broke the match open in ${context}.`;
+    }
+
+    return `📊 ${winner} took the result in ${context}.`;
+  }
+
+  return `📊 Both teams shared the result in ${context}.`;
+}
+
+function getHistoricalResultProgressHighlight(match) {
+  const context = getHistoricalContextLabel(match);
+
+  if (match.status === "CANCELLED") {
+    return `📊 No points or progression came from this cancelled ${context} fixture.`;
+  }
+
+  if (match.group) {
+    const winner = getHistoricalWinner(match);
+
+    if (!winner) {
+      return `📊 Both teams took one point from ${context}.`;
+    }
+
+    return `📊 ${winner} took three points from ${context}.`;
+  }
+
+  const winner = getHistoricalWinner(match);
+
+  if (match.round === "Final" && winner) {
+    return `🏆 ${winner} won the ${match.tournamentName} title.`;
+  }
+
+  if (/third|3rd|place/i.test(match.round || "") && winner) {
+    return `🥉 ${winner} secured third place at ${match.tournamentName}.`;
+  }
+
+  return winner ? `📊 ${winner} advanced from ${context}.` : `📊 ${context} ended level.`;
+}
+
+function getHistoricalResultHighlights(match) {
+  if (match.status === "CANCELLED") {
+    return [
+      getHistoricalResultOutcomeHighlight(match),
+      getHistoricalResultControlHighlight(match),
+      getHistoricalResultProgressHighlight(match)
+    ];
+  }
+
+  const winner = getHistoricalWinner(match);
+  const scoringTeam = winner || match.homeTeam.name;
+
+  return [
+    winner ? getHistoricalScoringHighlight(match, scoringTeam) || getHistoricalResultOutcomeHighlight(match) : getHistoricalDrawScoringHighlight(match),
+    getHistoricalResultControlHighlight(match),
+    getHistoricalResultProgressHighlight(match)
+  ].filter(Boolean);
+}
+
+function renderHistoricalResultBlock(match) {
+  return `
+    <section class="info-block">
+      <h3>Result</h3>
+      <p class="past-empty">${escapeHtml(getHistoricalResultOutcomeHighlight(match))}</p>
+      <ul class="result-highlights">
+        ${getHistoricalResultHighlights(match)
+          .map((highlight) => `<li>${escapeHtml(highlight)}</li>`)
+          .join("")}
+      </ul>
+    </section>
+  `;
+}
+
 function getHistoricalRoundText(match) {
   return match.group ? `${match.group} (${match.round})` : `the ${match.round || "match"}`;
 }
@@ -2792,8 +3624,8 @@ function renderHistoricalPastRecord(match, results) {
       ${items
         .map(
           (item) => `
-            <article class="past-record-row" aria-label="${escapeHtml(item.rowLabel)}">
-              <span class="past-record-label">${escapeHtml(item.label)}</span>
+            <article class="past-record-row" aria-label="${escapeHtml(item.rowLabel)}" data-tooltip="${escapeHtml(item.label)}">
+              ${renderMeasuredLabel(item.label, "past-record-label")}
               <span class="past-record-track" aria-hidden="true">
                 <span style="--record-share: ${escapeHtml(item.share.toFixed(3))}%;"></span>
               </span>
@@ -2882,6 +3714,8 @@ function renderHistoricalMatchInfo(match) {
       <p>${escapeHtml(getVenueLabel(match))}</p>
     </section>
 
+    ${renderHistoricalResultBlock(match)}
+
     ${renderHistoricalContext(match)}
 
     <section class="info-block">
@@ -2910,13 +3744,15 @@ function renderMatchInfo(match, options = {}) {
   document.querySelectorAll(".match-row").forEach((row) => {
     const isSelected = row.dataset.matchId === match.id;
     row.classList.toggle("is-selected", isSelected);
-    row.setAttribute("aria-pressed", String(isSelected));
+    row.querySelector(".match-row-trigger")?.setAttribute("aria-pressed", String(isSelected));
   });
 
   if (match.isHistorical) {
     matchInfo.innerHTML = renderHistoricalMatchInfo(match);
     positionPlayerCards();
     updateTruncatedTeamTooltips(matchInfo);
+    updateStandingNameTooltips(matchInfo);
+    updateMeasuredLabelTooltips(matchInfo);
     if (options.reveal) {
       revealMatchInfoOnSmallScreens();
     }
@@ -2957,6 +3793,8 @@ function renderMatchInfo(match, options = {}) {
   `;
   positionPlayerCards();
   updateTruncatedTeamTooltips(matchInfo);
+  updateStandingNameTooltips(matchInfo);
+  updateMeasuredLabelTooltips(matchInfo);
 
   if (options.reveal) {
     revealMatchInfoOnSmallScreens();
@@ -2968,7 +3806,7 @@ function renderMatchInfoPrompt() {
   viewPanels.matches.classList.remove("has-match-info");
   document.querySelectorAll(".match-row").forEach((row) => {
     row.classList.remove("is-selected");
-    row.setAttribute("aria-pressed", "false");
+    row.querySelector(".match-row-trigger")?.setAttribute("aria-pressed", "false");
   });
   matchInfo.replaceChildren();
   matchInfo.classList.add("is-hidden");
@@ -3127,6 +3965,32 @@ function getCatchUpContext(match) {
   return tournament.stages.find((stage) => stage.id === match.stage)?.label || match.stage;
 }
 
+function getResultSourceForMatch(match) {
+  const sourceMatchText = `${match.homeTeam.name} vs ${match.awayTeam.name}`;
+  const sourceMatchKey = normalizeTextKey(sourceMatchText);
+  const sourceResultPattern = /result|final score|match report|highlights/i;
+  const usableSourceTypes = new Set(["cross-check", "official"]);
+
+  return (tournament.sources || []).find((source) => {
+    if (!source.url || !usableSourceTypes.has(source.type) || !sourceResultPattern.test(source.label)) {
+      return false;
+    }
+
+    return normalizeTextKey(`${source.id} ${source.label} ${source.url}`).includes(sourceMatchKey);
+  });
+}
+
+function getResultSourceFields(match) {
+  const source = getResultSourceForMatch(match);
+
+  return source
+    ? {
+        sourceLabel: source.label,
+        sourceUrl: source.url
+      }
+    : {};
+}
+
 function getResultCatchUpItem(match) {
   const score = getCatchUpScore(match);
   const meta = `${match.homeTeam.name} vs ${match.awayTeam.name}`;
@@ -3185,6 +4049,7 @@ function getResultCatchUpItem(match) {
       headline: `${match.homeTeam.name} and ${match.awayTeam.name} split the points`,
       body: `${score.home}-${score.away} keeps ${context} open and gives both teams something to carry into the next match.`,
       meta,
+      ...getResultSourceFields(match),
       priority: 28,
       sortValue
     };
@@ -3207,6 +4072,7 @@ function getResultCatchUpItem(match) {
     headline,
     body: `${winner.name}'s ${winnerScore}-${loserScore} win gives them an early foothold in ${context}.`,
     meta,
+    ...getResultSourceFields(match),
     priority: 28,
     sortValue
   };
@@ -3521,19 +4387,47 @@ function updateUrlState() {
   }
 
   const params = new URLSearchParams();
-  params.set("view", activeView);
-  params.set("date", selectedDayKey);
-  params.set("tz", selectedTimeZone);
-  params.set("standingsYear", String(selectedStandingsYear));
-  const nextUrl = `${window.location.pathname}?${params.toString()}`;
-  window.history.replaceState(null, "", nextUrl);
+  const todayKey = getDayKey(new Date(), selectedTimeZone);
+
+  if (activeView !== "matches") {
+    params.set("view", activeView);
+  }
+
+  if (activeView === "matches" && selectedDayKey !== todayKey) {
+    params.set("date", selectedDayKey);
+  }
+
+  if (selectedTimeZone !== defaultTimeZone) {
+    params.set("tz", selectedTimeZone);
+  }
+
+  if (activeView === "standings" && selectedStandingsYear !== CURRENT_STANDINGS_YEAR) {
+    params.set("standingsYear", String(selectedStandingsYear));
+  }
+
+  if (
+    activeView === "standings" &&
+    selectedStandingsYear === CURRENT_STANDINGS_YEAR &&
+    selectedStandingsMode !== "groups"
+  ) {
+    params.set("standingsMode", selectedStandingsMode);
+  }
+
+  const queryString = params.toString();
+  const nextUrl = `${window.location.pathname}${queryString ? `?${queryString}` : ""}${window.location.hash}`;
+  const currentUrl = `${window.location.pathname}${window.location.search}${window.location.hash}`;
+
+  if (nextUrl !== currentUrl) {
+    window.history.replaceState(null, "", nextUrl);
+  }
 }
 
 function renderSchedule() {
   const currentTime = Date.now();
   const todayMatches = getMatchesForSelectedDay();
   const liveMatchIds = getLiveMatchIds(currentTime);
-  const nextMatchId = getNextMatchId(currentTime, liveMatchIds);
+  const selectedIsToday = selectedDayKey === getDayKey(new Date(), selectedTimeZone);
+  const nextMatchIds = selectedIsToday ? getNextMatchIds(currentTime, liveMatchIds) : new Set();
 
   updateDateControls();
   if (isCatchUpOpen) {
@@ -3548,7 +4442,7 @@ function renderSchedule() {
 
   matchList.replaceChildren(
     ...todayMatches.map((match) =>
-      renderMatchRow(match, getMatchState(match, nextMatchId, currentTime), currentTime)
+      renderMatchRow(match, getMatchState(match, nextMatchIds, currentTime), currentTime)
     )
   );
   const activeMatch = todayMatches.find((match) => match.id === activeMatchId);
@@ -3586,6 +4480,7 @@ function readUrlState(options = {}) {
   const requestedDate = params.get("date");
   const requestedView = params.get("view");
   const requestedStandingsYear = params.get("standingsYear") || params.get("year");
+  const requestedStandingsMode = params.get("standingsMode") || params.get("standings");
   const shouldUseRequestedDate = !options.forceToday && isDayKey(requestedDate);
 
   if (requestedTimeZone && timeZones.includes(requestedTimeZone)) {
@@ -3600,6 +4495,10 @@ function readUrlState(options = {}) {
 
   activeView = requestedView === "standings" ? "standings" : "matches";
   selectedStandingsYear = getValidStandingsYear(requestedStandingsYear);
+  selectedStandingsMode =
+    selectedStandingsYear === CURRENT_STANDINGS_YEAR
+      ? getValidStandingsMode(requestedStandingsMode)
+      : "groups";
 }
 
 function renderSourceNote() {
@@ -3619,8 +4518,12 @@ function renderSourceNote() {
       ? `<a href="${escapeHtml(source.url)}" target="_blank" rel="noreferrer">${escapeHtml(label)}</a>`
       : escapeHtml(label);
   });
+  const updatedAtText = formatSiteUpdatedAt(siteUpdatedAt);
+  const lastUpdated = updatedAtText
+    ? ` Last updated ${escapeHtml(updatedAtText)}.`
+    : "";
 
-  sourceNote.innerHTML = `Sources: ${officialSourceLinks.join(", ")}. Predictions are unofficial.`;
+  sourceNote.innerHTML = `Sources: ${officialSourceLinks.join(", ")}. Predictions are unofficial.${lastUpdated} <a href="report.html">Report issue</a>.`;
 }
 
 function renderLoadError(error) {
@@ -3676,6 +4579,14 @@ function applyDataSnapshot({
   standingsByGroup = standingsData.groups;
   tournament = tournamentData;
   dataCoverage = fixturesData.coverage || { status: "partial" };
+  siteUpdatedAt = getLatestUpdatedAt([
+    fixturesData,
+    historyData,
+    playerProfilesData,
+    teamsData,
+    standingsData,
+    tournamentData
+  ]);
 }
 
 function applyLiveDataSnapshot(liveData) {
@@ -3683,6 +4594,12 @@ function applyLiveDataSnapshot(liveData) {
   standingsByGroup = liveData.standingsData.groups;
   tournament = liveData.tournamentData;
   dataCoverage = liveData.fixturesData.coverage || { status: "partial" };
+  siteUpdatedAt = getLatestUpdatedAt([
+    { updatedAt: siteUpdatedAt },
+    liveData.fixturesData,
+    liveData.standingsData,
+    liveData.tournamentData
+  ]);
 }
 
 async function loadStaticData() {
@@ -3784,6 +4701,22 @@ viewTabs.forEach((tab) => {
   tab.addEventListener("click", () => {
     setActiveView(tab.dataset.view);
   });
+});
+
+standingsModeTabs.forEach((tab) => {
+  tab.addEventListener("click", () => {
+    selectStandingsMode(tab.dataset.standingsMode);
+  });
+});
+
+standingsGrid.addEventListener("click", (event) => {
+  const groupButton = event.target.closest(".third-place-group-button");
+
+  if (!groupButton) {
+    return;
+  }
+
+  openStandingsGroup(groupButton.dataset.groupId);
 });
 
 dayLabel.addEventListener("click", () => {
@@ -3932,6 +4865,12 @@ window.addEventListener("resize", () => {
   positionPlayerCards();
   updateTruncatedTeamTooltips();
   updateStandingNameTooltips();
+  updateMeasuredLabelTooltips();
+  window.requestAnimationFrame(() => {
+    updateTruncatedTeamTooltips();
+    updateStandingNameTooltips();
+    updateMeasuredLabelTooltips();
+  });
 });
 window.addEventListener(
   "scroll",
@@ -3975,6 +4914,27 @@ viewTabs.forEach((tab, index) => {
     const nextTab = viewTabs[getNextIndex()];
     nextTab.focus();
     setActiveView(nextTab.dataset.view);
+  });
+});
+
+standingsModeTabs.forEach((tab, index) => {
+  tab.addEventListener("keydown", (event) => {
+    const keyActions = {
+      ArrowLeft: () => (index + standingsModeTabs.length - 1) % standingsModeTabs.length,
+      ArrowRight: () => (index + 1) % standingsModeTabs.length,
+      Home: () => 0,
+      End: () => standingsModeTabs.length - 1
+    };
+    const getNextIndex = keyActions[event.key];
+
+    if (!getNextIndex) {
+      return;
+    }
+
+    event.preventDefault();
+    const nextTab = standingsModeTabs[getNextIndex()];
+    nextTab.focus();
+    selectStandingsMode(nextTab.dataset.standingsMode);
   });
 });
 

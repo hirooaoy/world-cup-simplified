@@ -1,19 +1,19 @@
 {
-  "updatedAt": "2026-06-18T14:22:16-07:00",
-  "sourceIds": ["fifa-standings-2026-06-17", "sbn-standings-2026-06-17", "espn-result-2026-06-17", "england-football-england-croatia-2026-06-17", "aljazeera-england-croatia-2026-06-17", "fifa-ghana-panama-result-2026-06-18", "fifa-uzbekistan-colombia-result-2026-06-18", "guardian-czechia-south-africa-2026-06-18", "guardian-switzerland-bosnia-2026-06-18"],
+  "updatedAt": "2026-06-19T11:05:14-07:00",
+  "sourceIds": ["fifa-standings-2026-06-17", "sbn-standings-2026-06-17", "espn-result-2026-06-17", "england-football-england-croatia-2026-06-17", "aljazeera-england-croatia-2026-06-17", "fifa-ghana-panama-result-2026-06-18", "fifa-uzbekistan-colombia-result-2026-06-18", "guardian-czechia-south-africa-2026-06-18", "guardian-switzerland-bosnia-2026-06-18", "guardian-canada-qatar-2026-06-18", "guardian-mexico-south-korea-2026-06-19"],
   "tiebreakerNote": "Rows use the current table order. Points, goal difference and goals scored are included for beginner-friendly context.",
   "groups": {
     "A": [
-      { "teamId": "MEX", "played": 1, "wins": 1, "draws": 0, "losses": 0, "gf": 2, "ga": 0 },
-      { "teamId": "KOR", "played": 1, "wins": 1, "draws": 0, "losses": 0, "gf": 2, "ga": 1 },
+      { "teamId": "MEX", "played": 2, "wins": 2, "draws": 0, "losses": 0, "gf": 3, "ga": 0 },
+      { "teamId": "KOR", "played": 2, "wins": 1, "draws": 0, "losses": 1, "gf": 2, "ga": 2 },
       { "teamId": "CZE", "played": 2, "wins": 0, "draws": 1, "losses": 1, "gf": 2, "ga": 3 },
       { "teamId": "RSA", "played": 2, "wins": 0, "draws": 1, "losses": 1, "gf": 1, "ga": 3 }
     ],
     "B": [
+      { "teamId": "CAN", "played": 2, "wins": 1, "draws": 1, "losses": 0, "gf": 7, "ga": 1 },
       { "teamId": "SUI", "played": 2, "wins": 1, "draws": 1, "losses": 0, "gf": 5, "ga": 2 },
-      { "teamId": "CAN", "played": 1, "wins": 0, "draws": 1, "losses": 0, "gf": 1, "ga": 1 },
-      { "teamId": "QAT", "played": 1, "wins": 0, "draws": 1, "losses": 0, "gf": 1, "ga": 1 },
-      { "teamId": "BIH", "played": 2, "wins": 0, "draws": 1, "losses": 1, "gf": 2, "ga": 5 }
+      { "teamId": "BIH", "played": 2, "wins": 0, "draws": 1, "losses": 1, "gf": 2, "ga": 5 },
+      { "teamId": "QAT", "played": 2, "wins": 0, "draws": 1, "losses": 1, "gf": 1, "ga": 7 }
     ],
     "C": [
       { "teamId": "SCO", "played": 1, "wins": 1, "draws": 0, "losses": 0, "gf": 1, "ga": 0 },

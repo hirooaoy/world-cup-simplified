@@ -133,6 +133,14 @@ for (const team of teamsData.teams || []) {
   assert(!teams.has(team.id), `Duplicate team id "${team.id}"`);
   assert(team.name, `Team "${team.id}" must have a display name`);
   assert(team.officialName, `Team "${team.id}" must have an officialName`);
+  for (const field of ["name", "officialName", "standingName"]) {
+    if (team[field]) {
+      assert(
+        !String(team[field]).includes("...") && !String(team[field]).includes("…"),
+        `Team "${team.id}" ${field} must not include a hard-coded ellipsis`
+      );
+    }
+  }
   assert(groups.has(team.groupId), `Team "${team.id}" references unknown group "${team.groupId}"`);
   assert(isNumber(team.fifaRank), `Team "${team.id}" must have a numeric fifaRank`);
   teams.set(team.id, team);
@@ -239,6 +247,22 @@ for (const fixture of fixturesData.fixtures || []) {
       isNumber(fixture.score?.away)
     ) {
       applyGroupResult(computedStandings.get(fixture.groupId), fixture);
+    }
+  }
+
+  if (fixture.resultHighlights !== undefined) {
+    assert(fixture.status === "FT", `Fixture "${fixture.id}" resultHighlights should only be used after full time`);
+    assert(Array.isArray(fixture.resultHighlights), `Fixture "${fixture.id}" resultHighlights must be an array`);
+
+    for (const [index, highlight] of (fixture.resultHighlights || []).entries()) {
+      assert(
+        typeof highlight === "string" && highlight.trim(),
+        `Fixture "${fixture.id}" resultHighlights[${index}] must be a non-empty string`
+      );
+      assert(
+        typeof highlight === "string" && highlight.trim().length <= 180,
+        `Fixture "${fixture.id}" resultHighlights[${index}] should stay compact`
+      );
     }
   }
 
