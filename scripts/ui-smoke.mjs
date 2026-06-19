@@ -975,18 +975,23 @@ try {
     "The current 2026 standings should not show Round of 32 markers."
   );
   assert(
-    await page.locator("#standings-mode-tabs").isVisible(),
-    "Current standings should expose section tabs."
-  );
-  assert(
     (await page.locator(".standings-card", { hasText: "Group B" }).locator(".third-place-pill").innerText()).trim() ===
       "3rd race 7th",
     "Group standings should show each current third-place team's cross-group race position."
   );
   await page.locator("#standings-third-place-tab").click();
+  await page.waitForFunction(
+    () => document.querySelectorAll(".third-place-table tbody tr:not(.third-place-cut-row)").length === 12
+  );
   assert(
     new URL(page.url()).searchParams.get("standingsMode") === "third-place",
     "The third-place race section should be linkable from the URL."
+  );
+  assert(
+    !(await page.locator(".standings-title").isVisible()) &&
+      !(await page.locator(".third-place-race-header").isVisible()) &&
+      (await page.locator(".third-place-table").isVisible()),
+    "The third-place race should render the table immediately without standings chrome or the lens header."
   );
   const thirdPlaceRaceCheck = await page.evaluate(() => {
     const rows = [...document.querySelectorAll(".third-place-table tbody tr:not(.third-place-cut-row)")];
@@ -1029,8 +1034,8 @@ try {
     "The third-place race should draw one clear top-eight advancement line."
   );
   assert(
-    thirdPlaceRaceCheck.headers.includes("Goals scored") && !thirdPlaceRaceCheck.headers.includes("GF"),
-    "The third-place race should use plain table labels instead of GF jargon."
+    thirdPlaceRaceCheck.headers.includes("Goals") && !thirdPlaceRaceCheck.headers.includes("GF"),
+    "The third-place race should use the short Goals label instead of GF jargon."
   );
   assert(
     thirdPlaceRaceCheck.visibleReasonCount === 0 &&

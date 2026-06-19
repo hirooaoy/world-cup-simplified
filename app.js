@@ -1529,7 +1529,7 @@ const STANDING_HEADERS = [
       "Wins-Draws-Losses shows a team's group record. Wins add points fastest, which helps explain why a team is higher or lower."
   },
   {
-    label: "Goal diff",
+    label: "GD",
     help:
       "Goal difference is goals scored minus goals allowed. If teams are tied on points, a better goal difference can help decide who advances."
   }
@@ -1879,8 +1879,8 @@ function renderThirdPlaceRaceTable(rows, advancerCount) {
             <th>Team</th>
             <th>Group</th>
             <th>Pts</th>
-            <th>Goal diff</th>
-            <th>Goals scored</th>
+            <th>GD</th>
+            <th>Goals</th>
             <th>Status</th>
           </tr>
         </thead>
@@ -1894,34 +1894,12 @@ function renderThirdPlaceRaceView() {
   const rows = getThirdPlaceRaceRows();
   const advancerCount = getThirdPlaceAdvancerCount();
   const unresolvedCutLine = rows.some((candidate) => candidate.isCutLineTie);
-  const outsideCount = Math.max(0, rows.length - advancerCount);
   const note = unresolvedCutLine
     ? "One or more teams around the cut line are tied on points, goal difference and goals scored. The loaded data does not include fair-play conduct yet, so that part is marked pending."
     : "Tie order follows points, goal difference, goals scored, loaded fair-play conduct when available, then FIFA ranking as the final deterministic fallback.";
 
   return `
-    <section class="third-place-race" aria-labelledby="third-place-race-heading">
-      <div class="third-place-race-header">
-        <div>
-          <p class="section-note">Live standings lens</p>
-          <h2 id="third-place-race-heading">Best Third-Place Race</h2>
-          <p>Each group contributes its current third-place team. The top ${escapeHtml(advancerCount)} reach the Round of 32.</p>
-        </div>
-        <dl class="third-place-metrics">
-          <div>
-            <dt>Advancing</dt>
-            <dd>${escapeHtml(advancerCount)}</dd>
-          </div>
-          <div>
-            <dt>Outside</dt>
-            <dd>${escapeHtml(outsideCount)}</dd>
-          </div>
-          <div>
-            <dt>Groups</dt>
-            <dd>${escapeHtml(rows.length)}</dd>
-          </div>
-        </dl>
-      </div>
+    <section class="third-place-race" aria-label="Best third-place race">
       ${renderThirdPlaceRaceTable(rows, advancerCount)}
       <p class="third-place-note">${escapeHtml(note)}</p>
     </section>

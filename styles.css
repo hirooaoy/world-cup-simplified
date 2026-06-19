@@ -355,6 +355,10 @@ a {
   padding: clamp(132px, 17vh, 208px) 0 72px;
 }
 
+.page-shell:has(#standings-view:not([hidden]) .standings-grid.is-third-place-race) {
+  padding-top: clamp(34px, 5vh, 58px);
+}
+
 .page-title {
   position: relative;
   width: min(100%, 1260px);
@@ -1588,6 +1592,10 @@ h1 {
   margin: 0 auto 30px;
 }
 
+#standings-view:has(.standings-grid.is-third-place-race) .standings-title {
+  display: none;
+}
+
 .standings-title h1 {
   display: inline-flex;
   align-items: center;
@@ -1769,7 +1777,7 @@ h1 {
 
 .third-place-race {
   display: grid;
-  gap: 24px;
+  gap: 14px;
   width: 100%;
 }
 
