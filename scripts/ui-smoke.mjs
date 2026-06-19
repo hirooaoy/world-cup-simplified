@@ -203,13 +203,17 @@ try {
     .locator(".key-info-team p .player-link")
     .first()
     .evaluate((link) => Number(getComputedStyle(link).opacity));
+  const paragraphPlayerWeight = await page
+    .locator(".key-info-team p .player-link")
+    .first()
+    .evaluate((link) => Number(getComputedStyle(link).fontWeight));
   assert(
     headingPlayerDecoration.includes("underline") && paragraphPlayerDecoration === "none",
     "Key information should underline heading player mentions, not paragraph mentions."
   );
   assert(
-    paragraphPlayerOpacity > 0.8 && paragraphPlayerOpacity < 1,
-    "Paragraph player mentions should be subtly dimmed to signal hover affordance."
+    paragraphPlayerOpacity === 1 && paragraphPlayerWeight >= 500,
+    "Paragraph player mentions should use full opacity and medium emphasis."
   );
   await page.locator(".player-link").first().hover();
   const playerCard = page.locator(".player-card").first();
@@ -986,20 +990,29 @@ try {
   );
   const thirdPlaceRaceCheck = await page.evaluate(() => {
     const rows = [...document.querySelectorAll(".third-place-table tbody tr:not(.third-place-cut-row)")];
-    const rowSummaries = rows.map((row) => ({
-      rank: row.children[0]?.textContent.trim(),
-      team: row.querySelector(".standing-name")?.textContent.trim(),
-      group: row.children[2]?.textContent.trim(),
-      reason: row.querySelector(".third-place-reason")?.textContent.trim(),
-      status: row.querySelector(".third-place-status")?.textContent.trim()
-    }));
+    const rowSummaries = rows.map((row) => {
+      const statusPill = row.querySelector(".third-place-status");
+
+      return {
+        rank: row.children[0]?.textContent.trim(),
+        team: row.querySelector(".standing-name")?.textContent.trim(),
+        group: row.children[2]?.textContent.trim(),
+        status: statusPill?.textContent.trim(),
+        statusLabel: statusPill?.getAttribute("aria-label"),
+        tooltip: statusPill?.getAttribute("data-tooltip")
+      };
+    });
 
     return {
       cutLineCount: document.querySelectorAll(".third-place-cut-row").length,
       cutLineText: document.querySelector(".third-place-cut-row")?.textContent.replace(/\s+/g, " ").trim(),
+      headers: [...document.querySelectorAll(".third-place-table thead th")].map((header) =>
+        header.textContent.trim()
+      ),
       note: document.querySelector(".third-place-note")?.textContent.trim(),
       rowCount: rows.length,
-      rowSummaries
+      rowSummaries,
+      visibleReasonCount: document.querySelectorAll(".third-place-reason").length
     };
   });
   assert(thirdPlaceRaceCheck.rowCount === 12, "The third-place race should rank all 12 groups.");
@@ -1016,12 +1029,26 @@ try {
     "The third-place race should draw one clear top-eight advancement line."
   );
   assert(
+    thirdPlaceRaceCheck.headers.includes("Goals scored") && !thirdPlaceRaceCheck.headers.includes("GF"),
+    "The third-place race should use plain table labels instead of GF jargon."
+  );
+  assert(
+    thirdPlaceRaceCheck.visibleReasonCount === 0 &&
+      thirdPlaceRaceCheck.rowSummaries.every((row) => row.tooltip && !row.tooltip.includes("GF")),
+    "The third-place race should hide row explanations behind status pill tooltips without GF jargon."
+  );
+  assert(
+    thirdPlaceRaceCheck.rowSummaries.some((row) => row.status === "Just inside") &&
+      thirdPlaceRaceCheck.rowSummaries.every((row) => row.status !== "Bubble in"),
+    "The third-place race should use plain edge-of-cut-line status copy."
+  );
+  assert(
     thirdPlaceRaceCheck.rowSummaries[7]?.team === "Ecuador" &&
       thirdPlaceRaceCheck.rowSummaries[7]?.status === "Tiebreak pending" &&
-      thirdPlaceRaceCheck.rowSummaries[7]?.reason === "Tied on loaded stats for 8th-9th." &&
+      thirdPlaceRaceCheck.rowSummaries[7]?.tooltip === "Tied on loaded stats for 8th-9th." &&
       thirdPlaceRaceCheck.rowSummaries[8]?.team === "Panama" &&
       thirdPlaceRaceCheck.rowSummaries[8]?.status === "Tiebreak pending" &&
-      thirdPlaceRaceCheck.rowSummaries[8]?.reason === "Tied on loaded stats for 8th-9th.",
+      thirdPlaceRaceCheck.rowSummaries[8]?.tooltip === "Tied on loaded stats for 8th-9th.",
     "A cut-line tie without loaded fair-play data should be marked pending on both sides of the line."
   );
   assert(

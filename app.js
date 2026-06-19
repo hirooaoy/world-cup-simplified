@@ -1417,7 +1417,7 @@ function getThirdPlaceStatus(candidate, advancerCount) {
   if (isInside && candidate.position >= advancerCount - 1) {
     return {
       kind: "bubble-in",
-      label: "Bubble in",
+      label: "Just inside",
       detail: "Inside the top eight right now, but close to the cut line."
     };
   }
@@ -1433,7 +1433,7 @@ function getThirdPlaceStatus(candidate, advancerCount) {
   if (candidate.position === advancerCount + 1) {
     return {
       kind: "first-out",
-      label: "First out",
+      label: "Just outside",
       detail: "Next team outside the top eight."
     };
   }
@@ -1529,9 +1529,9 @@ const STANDING_HEADERS = [
       "Wins-Draws-Losses shows a team's group record. Wins add points fastest, which helps explain why a team is higher or lower."
   },
   {
-    label: "GD",
+    label: "Goal diff",
     help:
-      "Goal difference is goals scored minus goals allowed. If teams are tied on points, a better GD can help decide who advances."
+      "Goal difference is goals scored minus goals allowed. If teams are tied on points, a better goal difference can help decide who advances."
   }
 ];
 
@@ -1779,15 +1779,23 @@ function renderHistoricalStandingsTable(year, groupName) {
 
 function renderThirdPlaceStatus(candidate) {
   const reason = getThirdPlaceReason(candidate);
+  const tooltipLabel = `${candidate.status.label}: ${reason}`;
 
   return `
     <span class="third-place-status-cell">
-      <span class="third-place-status is-${escapeHtml(candidate.status.kind)}" aria-label="${escapeHtml(candidate.status.detail)}">
+      <span class="third-place-status is-${escapeHtml(candidate.status.kind)}" tabindex="0" aria-label="${escapeHtml(tooltipLabel)}" data-tooltip="${escapeHtml(reason)}">
         ${escapeHtml(candidate.status.label)}
       </span>
-      <span class="third-place-reason">${escapeHtml(reason)}</span>
     </span>
   `;
+}
+
+function formatStandingPoints(points) {
+  return `${points} ${points === 1 ? "point" : "points"}`;
+}
+
+function formatGoalsScored(goals) {
+  return `${goals} ${goals === 1 ? "goal" : "goals"} scored`;
 }
 
 function getThirdPlaceReason(candidate) {
@@ -1800,30 +1808,22 @@ function getThirdPlaceReason(candidate) {
     : getThirdPlaceRaceRows()[candidate.position - 2];
 
   if (!nearestCandidate) {
-    return `${candidate.pts} pts, ${formatGoalDifference(candidate.gd)} GD, ${candidate.gf} GF.`;
+    return `${formatStandingPoints(candidate.pts)}, ${formatGoalDifference(candidate.gd)} goal difference, ${formatGoalsScored(candidate.gf)}.`;
   }
 
   if (candidate.pts !== nearestCandidate.pts) {
-    return `${candidate.pts} pts; ${candidate.position <= getThirdPlaceAdvancerCount() ? "above" : "behind"} next team on points.`;
+    return `${formatStandingPoints(candidate.pts)}; ${candidate.position <= getThirdPlaceAdvancerCount() ? "above" : "behind"} next team on points.`;
   }
 
   if (candidate.gd !== nearestCandidate.gd) {
-    return `${formatGoalDifference(candidate.gd)} GD; ${candidate.position <= getThirdPlaceAdvancerCount() ? "ahead" : "behind"} on goal difference.`;
+    return `${formatGoalDifference(candidate.gd)} goal difference; ${candidate.position <= getThirdPlaceAdvancerCount() ? "ahead" : "behind"} on goal difference.`;
   }
 
   if (candidate.gf !== nearestCandidate.gf) {
-    return `${candidate.gf} GF; ${candidate.position <= getThirdPlaceAdvancerCount() ? "ahead" : "behind"} on goals scored.`;
+    return `${formatGoalsScored(candidate.gf)}; ${candidate.position <= getThirdPlaceAdvancerCount() ? "ahead" : "behind"} on total goals scored.`;
   }
 
-  return `${candidate.pts} pts, ${formatGoalDifference(candidate.gd)} GD, ${candidate.gf} GF.`;
-}
-
-function renderThirdPlaceConductCell(candidate) {
-  if (candidate.conductScore === null) {
-    return `<span class="third-place-muted">Not loaded</span>`;
-  }
-
-  return escapeHtml(candidate.conductScore);
+  return `${formatStandingPoints(candidate.pts)}, ${formatGoalDifference(candidate.gd)} goal difference, ${formatGoalsScored(candidate.gf)}.`;
 }
 
 function renderThirdPlaceRaceRow(candidate) {
@@ -1847,7 +1847,6 @@ function renderThirdPlaceRaceRow(candidate) {
       <td>${escapeHtml(candidate.pts)}</td>
       <td>${escapeHtml(formatGoalDifference(candidate.gd))}</td>
       <td>${escapeHtml(candidate.gf)}</td>
-      <td>${renderThirdPlaceConductCell(candidate)}</td>
       <td>${renderThirdPlaceStatus(candidate)}</td>
     </tr>
   `;
@@ -1856,7 +1855,7 @@ function renderThirdPlaceRaceRow(candidate) {
 function renderThirdPlaceCutLine(advancerCount) {
   return `
     <tr class="third-place-cut-row" aria-hidden="true">
-      <td colspan="8">
+      <td colspan="7">
         <span>Top ${escapeHtml(advancerCount)} advance</span>
       </td>
     </tr>
@@ -1880,9 +1879,8 @@ function renderThirdPlaceRaceTable(rows, advancerCount) {
             <th>Team</th>
             <th>Group</th>
             <th>Pts</th>
-            <th>GD</th>
-            <th>GF</th>
-            <th>Fair play</th>
+            <th>Goal diff</th>
+            <th>Goals scored</th>
             <th>Status</th>
           </tr>
         </thead>
