@@ -1362,8 +1362,10 @@ try {
       m74Text: text('.r32-match[data-match-number="74"]'),
       m89Text: text('.progress-match[data-match-number="89"]'),
       m97Text: text('.progress-match[data-match-number="97"]'),
+      posterVisible: Boolean(document.querySelector(".tournament-poster-bracket")),
       progressCount: document.querySelectorAll(".progress-match").length,
       r32Count: document.querySelectorAll(".r32-match").length,
+      sideCount: document.querySelectorAll(".poster-side").length,
       roundHeadings: [...document.querySelectorAll(".progress-round h3")].map((heading) =>
         heading.textContent.trim()
       ),
@@ -1373,9 +1375,11 @@ try {
   });
   assert(
     tournamentCheck.tournamentVisible &&
+      tournamentCheck.posterVisible &&
+      tournamentCheck.sideCount === 2 &&
       tournamentCheck.r32Count === 16 &&
       tournamentCheck.progressCount === 15,
-    "The tournament section should show Round of 32 matches plus the progression rounds through the final."
+    "The tournament section should show a two-sided Round of 32 poster plus progression rounds through the final."
   );
   assert(
     tournamentCheck.summary.includes("Finished knockout winners automatically fill the next round") &&

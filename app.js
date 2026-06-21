@@ -1,4 +1,4 @@
-const DATA_VERSION = "2026-06-19-dynamic-standing-names-third-place-market-odds";
+const DATA_VERSION = "2026-06-21-search-restored-tournament-poster";
 const DATA_URLS = {
   fixtures: `data/fixtures.json?v=${DATA_VERSION}`,
   history: `data/history.json?v=${DATA_VERSION}`,
@@ -14,6 +14,10 @@ const matchInfo = document.querySelector("#match-info");
 const timezoneSelect = document.querySelector("#timezone-select");
 const dayLabel = document.querySelector("#day-label");
 const datePopover = document.querySelector("#date-popover");
+const teamSearch = document.querySelector("#team-search");
+const teamSearchToggle = document.querySelector("#team-search-toggle");
+const teamSearchInput = document.querySelector("#team-search-input");
+const teamSearchClear = document.querySelector("#team-search-clear");
 const calendarGrid = document.querySelector("#calendar-grid");
 const calendarMonthLabel = document.querySelector("#calendar-month-label");
 const calendarPrevMonth = document.querySelector("#calendar-prev-month");
@@ -98,6 +102,15 @@ const TOURNAMENT_POSTER_HALVES = [
     matchNumbers: [76, 78, 79, 80, 86, 88, 85, 87]
   }
 ];
+const TEAM_SEARCH_ALIASES_BY_TEAM_ID = {
+  CIV: ["ivory coast", "cote divoire", "cote d ivoire", "cote"],
+  COD: ["congo", "congo dr", "dr congo"],
+  CZE: ["czech republic", "czechia"],
+  IRN: ["iran", "ir iran"],
+  KOR: ["korea", "korea republic", "south korea"],
+  TUR: ["turkey", "turkiye", "türkiye"],
+  USA: ["usa", "us", "united states", "america"]
+};
 const WALES_FLAG = "\u{1F3F4}\u{E0067}\u{E0062}\u{E0077}\u{E006C}\u{E0073}\u{E007F}";
 const HISTORICAL_TEAM_COUNTRY_CODES = {
   Algeria: "DZ",
@@ -220,10 +233,13 @@ let activeMatchId = "";
 let activeView = "matches";
 let selectedStandingsYear = CURRENT_STANDINGS_YEAR;
 let selectedStandingsMode = "groups";
+let teamSearchQuery = "";
 let calendarMonthKey = getMonthKeyFromDayKey(selectedDayKey);
 let isCalendarOpen = false;
 let isCatchUpOpen = false;
 let isStandingsYearOpen = false;
+let isTeamSearchOpen = false;
+let isShowingOlderTeamMatches = false;
 let fixtures = [];
 let historicalFixtures = [];
 let history = { coverage: {}, fixtures: [], source: null, tournaments: [] };
@@ -818,6 +834,7 @@ function setCalendarOpen(isOpen) {
 function selectCalendarDay(dayKey) {
   selectedDayKey = dayKey;
   calendarMonthKey = getMonthKeyFromDayKey(dayKey);
+  clearTeamSearch({ render: false });
   setCalendarOpen(false);
   renderSchedule();
 }
@@ -4409,6 +4426,200 @@ function getMatchesForSelectedDay() {
     .map(hydrateFixture);
 }
 
+function getTeamSearchAliases(team) {
+  return TEAM_SEARCH_ALIASES_BY_TEAM_ID[team?.id] || [];
+}
+
+function getTeamSearchKeys(team) {
+  return [
+    team?.id,
+    team?.name,
+    team?.officialName,
+    team?.standingName,
+    ...getTeamSearchAliases(team)
+  ]
+    .map(normalizeTextKey)
+    .filter(Boolean);
+}
+
+function isTeamSearchMatch(team, queryKey) {
+  if (!queryKey) {
+    return false;
+  }
+
+  return getTeamSearchKeys(team).some(
+    (key) => key === queryKey || key.includes(queryKey) || queryKey.includes(key)
+  );
+}
+
+function getTeamSearchParticipant(match, queryKey) {
+  if (isTeamSearchMatch(match.homeTeam, queryKey)) {
+    return match.homeTeam;
+  }
+
+  if (isTeamSearchMatch(match.awayTeam, queryKey)) {
+    return match.awayTeam;
+  }
+
+  return null;
+}
+
+function getTeamSearchQuery() {
+  return teamSearchQuery.trim();
+}
+
+function hasTeamSearchQuery() {
+  return getTeamSearchQuery().length > 0;
+}
+
+function getTeamSearchMatches(query = getTeamSearchQuery()) {
+  const queryKey = normalizeTextKey(query);
+
+  if (queryKey.length < 2) {
+    return [];
+  }
+
+  return getCalendarFixtures()
+    .map(hydrateFixture)
+    .map((match) => ({
+      match,
+      team: getTeamSearchParticipant(match, queryKey)
+    }))
+    .filter(({ team }) => Boolean(team))
+    .sort((a, b) => getFixtureSortValue(a.match).localeCompare(getFixtureSortValue(b.match)));
+}
+
+function getTeamSearchTitle(matches, query = getTeamSearchQuery()) {
+  const firstTeam = matches.find(({ team }) => team)?.team;
+  return firstTeam ? getStandingName(firstTeam) : query.trim();
+}
+
+function isCurrentTournamentPastSearchMatch(match, currentTime) {
+  if (match.status === "FT" || match.score) {
+    return true;
+  }
+
+  const kickoffTime = match.kickoffUtc ? new Date(match.kickoffUtc).getTime() : NaN;
+  return Number.isFinite(kickoffTime) && currentTime > kickoffTime + MATCH_LIVE_WINDOW_MS;
+}
+
+function createTeamSearchHeading(title, subtitle = "") {
+  const section = document.createElement("section");
+  section.className = "team-search-summary";
+  section.innerHTML = `
+    <p>Country search</p>
+    <h2>${escapeHtml(title)}</h2>
+    ${subtitle ? `<span>${escapeHtml(subtitle)}</span>` : ""}
+  `;
+  return section;
+}
+
+function createTeamSearchSection(title, items, stateForMatch, options = {}) {
+  const section = document.createElement("section");
+  section.className = ["team-search-section", options.className || ""].filter(Boolean).join(" ");
+  section.innerHTML = `<h3>${escapeHtml(title)}</h3>`;
+
+  const list = document.createElement("div");
+  list.className = "team-search-match-list";
+  for (const { match } of items) {
+    const row = renderMatchRow(match, stateForMatch(match), Date.now());
+    row.classList.add("is-country-search-row");
+    list.append(row);
+  }
+
+  section.append(list);
+  return section;
+}
+
+function createOlderWorldCupsToggle(hiddenCount) {
+  const section = document.createElement("section");
+  section.className = "team-search-section team-search-archive-toggle";
+  const button = document.createElement("button");
+  button.className = "past-reveal-button team-search-history-button";
+  button.type = "button";
+  button.dataset.teamHistoryToggle = "true";
+  button.innerHTML = `
+    <span class="past-reveal-action">
+      See previous World Cups (${hiddenCount})
+    </span>
+  `;
+  button.addEventListener("click", () => {
+    isShowingOlderTeamMatches = true;
+    renderSchedule();
+  });
+  section.append(button);
+  return section;
+}
+
+function renderTeamSearchEmptyState(query) {
+  matchList.replaceChildren(createTeamSearchHeading(query, "No loaded World Cup matches found."));
+  renderMatchInfoPrompt();
+  updateUrlState();
+}
+
+function renderTeamSearchResults() {
+  const query = getTeamSearchQuery();
+  const currentTime = Date.now();
+  const searchMatches = getTeamSearchMatches(query);
+
+  updateDateControls();
+  updateTeamSearchControls();
+
+  if (!searchMatches.length) {
+    renderTeamSearchEmptyState(query);
+    return;
+  }
+
+  const currentTournamentMatches = searchMatches.filter(({ match }) => !match.isHistorical);
+  const olderWorldCupMatches = searchMatches
+    .filter(({ match }) => match.isHistorical)
+    .sort((a, b) => getFixtureSortValue(b.match).localeCompare(getFixtureSortValue(a.match)));
+  const upcomingMatches = currentTournamentMatches.filter(
+    ({ match }) => !isCurrentTournamentPastSearchMatch(match, currentTime)
+  );
+  const previousCurrentMatches = currentTournamentMatches
+    .filter(({ match }) => isCurrentTournamentPastSearchMatch(match, currentTime))
+    .sort((a, b) => getFixtureSortValue(b.match).localeCompare(getFixtureSortValue(a.match)));
+  const [nextMatch, ...laterMatches] = upcomingMatches;
+  const liveMatchIds = getLiveMatchIds(currentTime);
+  const nextMatchIds = getNextMatchIds(currentTime, liveMatchIds);
+  const nodes = [
+    createTeamSearchHeading(
+      getTeamSearchTitle(searchMatches, query),
+      "Loaded matches across the current tournament and World Cup archive."
+    )
+  ];
+  const stateForMatch = (match) =>
+    match.isHistorical ? "complete" : getMatchState(match, nextMatchIds, currentTime);
+
+  if (nextMatch) {
+    nodes.push(createTeamSearchSection("Next match", [nextMatch], stateForMatch));
+  }
+
+  if (laterMatches.length) {
+    nodes.push(createTeamSearchSection("Later matches", laterMatches, stateForMatch));
+  }
+
+  if (previousCurrentMatches.length) {
+    nodes.push(createTeamSearchSection("Previous matches", previousCurrentMatches, stateForMatch));
+  }
+
+  if (olderWorldCupMatches.length && isShowingOlderTeamMatches) {
+    nodes.push(
+      createTeamSearchSection("Previous World Cups", olderWorldCupMatches, stateForMatch, {
+        className: "is-archive"
+      })
+    );
+  } else if (olderWorldCupMatches.length) {
+    nodes.push(createOlderWorldCupsToggle(olderWorldCupMatches.length));
+  }
+
+  matchList.replaceChildren(...nodes);
+  renderMatchInfoPrompt();
+  updateTruncatedTeamTooltips(matchList);
+  updateUrlState();
+}
+
 function normalizeCatchUpItem(item, match) {
   if (!item?.headline) {
     return null;
@@ -4934,6 +5145,45 @@ function setCatchUpOpen(isOpen) {
     setStandingsYearOpen(false);
     renderCatchUp();
     positionCatchUpPopover();
+  }
+}
+
+function updateTeamSearchControls() {
+  if (!teamSearch || !teamSearchInput || !teamSearchToggle || !teamSearchClear) {
+    return;
+  }
+
+  const query = getTeamSearchQuery();
+  const isActive = isTeamSearchOpen || query.length > 0;
+  teamSearch.classList.toggle("is-active", isActive);
+  teamSearch.classList.toggle("has-value", query.length > 0);
+  teamSearchInput.value = teamSearchQuery;
+  teamSearchToggle.setAttribute("aria-expanded", String(isActive));
+  teamSearchClear.classList.toggle("is-hidden", query.length === 0);
+}
+
+function setTeamSearchOpen(isOpen, options = {}) {
+  isTeamSearchOpen = isOpen || hasTeamSearchQuery();
+  updateTeamSearchControls();
+
+  if (isTeamSearchOpen && options.focus !== false) {
+    window.setTimeout(() => teamSearchInput?.focus(), 0);
+  }
+}
+
+function clearTeamSearch(options = {}) {
+  teamSearchQuery = "";
+  isShowingOlderTeamMatches = false;
+  isTeamSearchOpen = false;
+  updateTeamSearchControls();
+
+  if (options.focus) {
+    teamSearchInput?.focus();
+    setTeamSearchOpen(true, { focus: false });
+  }
+
+  if (options.render !== false) {
+    renderSchedule();
   }
 }
 
