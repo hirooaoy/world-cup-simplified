@@ -5199,7 +5199,9 @@ function updateUrlState() {
     params.set("view", activeView);
   }
 
-  if (activeView === "matches" && selectedDayKey !== todayKey) {
+  if (activeView === "matches" && hasTeamSearchQuery()) {
+    params.set("team", getTeamSearchQuery());
+  } else if (activeView === "matches" && selectedDayKey !== todayKey) {
     params.set("date", selectedDayKey);
   }
 
@@ -5229,6 +5231,11 @@ function updateUrlState() {
 }
 
 function renderSchedule() {
+  if (hasTeamSearchQuery()) {
+    renderTeamSearchResults();
+    return;
+  }
+
   const currentTime = Date.now();
   const todayMatches = getMatchesForSelectedDay();
   const liveMatchIds = getLiveMatchIds(currentTime);
@@ -5284,6 +5291,7 @@ function readUrlState(options = {}) {
   const params = new URLSearchParams(window.location.search);
   const requestedTimeZone = params.get("tz");
   const requestedDate = params.get("date");
+  const requestedTeam = params.get("team") || params.get("country");
   const requestedView = params.get("view");
   const requestedStandingsYear = params.get("standingsYear") || params.get("year");
   const requestedStandingsMode = params.get("standingsMode") || params.get("standings");
@@ -5300,6 +5308,9 @@ function readUrlState(options = {}) {
   }
 
   activeView = requestedView === "standings" ? "standings" : "matches";
+  teamSearchQuery = activeView === "matches" ? String(requestedTeam || "").trim() : "";
+  isTeamSearchOpen = teamSearchQuery.length > 0;
+  isShowingOlderTeamMatches = false;
   selectedStandingsYear = getValidStandingsYear(requestedStandingsYear);
   selectedStandingsMode =
     selectedStandingsYear === CURRENT_STANDINGS_YEAR
@@ -5453,6 +5464,7 @@ function renderLoadedApp(options = {}) {
   ensureSelectableSelectedDay();
   selectedStandingsYear = getValidStandingsYear(selectedStandingsYear);
   renderTimeZoneOptions();
+  updateTeamSearchControls();
   renderStandingsView();
 
   if (options.syncActiveView) {
@@ -5528,6 +5540,46 @@ standingsGrid.addEventListener("click", (event) => {
 
 dayLabel.addEventListener("click", () => {
   setCalendarOpen(!isCalendarOpen);
+});
+
+teamSearch?.addEventListener("submit", (event) => {
+  event.preventDefault();
+  teamSearchInput?.blur();
+});
+
+teamSearchToggle?.addEventListener("click", () => {
+  setCalendarOpen(false);
+  setCatchUpOpen(false);
+  setTeamSearchOpen(true);
+});
+
+teamSearchInput?.addEventListener("focus", () => {
+  setTeamSearchOpen(true, { focus: false });
+});
+
+teamSearchInput?.addEventListener("input", () => {
+  teamSearchQuery = teamSearchInput.value;
+  isShowingOlderTeamMatches = false;
+  isTeamSearchOpen = true;
+  renderSchedule();
+});
+
+teamSearchInput?.addEventListener("keydown", (event) => {
+  if (event.key !== "Escape") {
+    return;
+  }
+
+  event.stopPropagation();
+  if (hasTeamSearchQuery()) {
+    clearTeamSearch({ focus: true });
+  } else {
+    setTeamSearchOpen(false, { focus: false });
+    teamSearchToggle?.focus();
+  }
+});
+
+teamSearchClear?.addEventListener("click", () => {
+  clearTeamSearch({ focus: true });
 });
 
 standingsYearButton.addEventListener("click", () => {
@@ -5644,6 +5696,15 @@ document.addEventListener("pointerdown", (event) => {
   ) {
     setStandingsYearOpen(false);
   }
+
+  if (
+    isTeamSearchOpen &&
+    !hasTeamSearchQuery() &&
+    teamSearch &&
+    !teamSearch.contains(event.target)
+  ) {
+    setTeamSearchOpen(false, { focus: false });
+  }
 });
 
 document.addEventListener("keydown", (event) => {
@@ -5664,6 +5725,11 @@ document.addEventListener("keydown", (event) => {
   if (isStandingsYearOpen) {
     setStandingsYearOpen(false);
     standingsYearButton.focus();
+  }
+
+  if (isTeamSearchOpen && !hasTeamSearchQuery()) {
+    setTeamSearchOpen(false, { focus: false });
+    teamSearchToggle?.focus();
   }
 });
 
