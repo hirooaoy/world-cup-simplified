@@ -691,6 +691,15 @@ try {
       historicalGroupDetailText.includes("Ecuador took three points from World Cup 2022 / Group A"),
     "Historical result details should summarize the archived final score."
   );
+  const historicalResultHighlights = await page
+    .locator("#match-info .result-highlights li")
+    .evaluateAll((items) => items.map((item) => item.textContent.trim()));
+  assert(
+    historicalResultHighlights.length >= 3 &&
+      historicalResultHighlights.every((text) => text.length <= 95) &&
+      historicalResultHighlights.some((text) => text.startsWith("🌟")),
+    "Historical result bullets should stay compact and use the rewritten outcome/moment/impact style."
+  );
   assert(
     !historicalGroupDetailText.includes("Archived result shown instead of a pre-match probability"),
     "Historical match details should use the back-then prediction card instead of the archive-only result copy."
@@ -842,12 +851,54 @@ try {
         "If no Up next pill is shown in the mocked state, every listed match should be final."
       );
     }
-  }
-  await matchStateCheck.context.close();
+	  }
+	  await matchStateCheck.context.close();
 
-  const liveFallbackScoreCheck = await openPageAtTime(
-    "2026-06-18T16:05:00.000Z",
-    "/?view=matches&date=2026-06-18&tz=America%2FLos_Angeles",
+	  const japanSearchCheck = await openPageAtTime(
+	    "2026-06-21T21:00:00.000Z",
+	    "/?view=matches&team=japan&tz=America%2FLos_Angeles"
+	  );
+	  const japanSearchRows = await japanSearchCheck.page.locator(".match-row").evaluateAll((rows) =>
+	    rows.map((row) => ({
+	      id: row.dataset.matchId,
+	      label: row.getAttribute("aria-label") || ""
+	    }))
+	  );
+	  assert(
+	    japanSearchRows.some((row) => row.id === "japan-sweden-2026-06-25"),
+	    "Japan country search should include Japan vs Sweden."
+	  );
+	  assert(
+	    japanSearchRows.every((row) => row.label.includes("Japan")) &&
+	      !japanSearchRows.some((row) => row.id === "panama-croatia-2026-06-23"),
+	    "Japan country search should not include Panama fixtures through the PAN team id."
+	  );
+	  await japanSearchCheck.context.close();
+
+	  const panSearchCheck = await openPageAtTime(
+	    "2026-06-21T21:00:00.000Z",
+	    "/?view=matches&team=PAN&tz=America%2FLos_Angeles"
+	  );
+	  const panSearchRows = await panSearchCheck.page.locator(".match-row").evaluateAll((rows) =>
+	    rows.map((row) => ({
+	      id: row.dataset.matchId,
+	      label: row.getAttribute("aria-label") || ""
+	    }))
+	  );
+	  assert(
+	    panSearchRows.some((row) => row.id === "panama-croatia-2026-06-23"),
+	    "PAN country search should include Panama vs Croatia."
+	  );
+	  assert(
+	    panSearchRows.every((row) => row.label.includes("Panama")) &&
+	      !panSearchRows.some((row) => row.id === "japan-sweden-2026-06-25"),
+	    "PAN country search should not include Japan fixtures through text inside Japan."
+	  );
+	  await panSearchCheck.context.close();
+
+	  const liveFallbackScoreCheck = await openPageAtTime(
+	    "2026-06-18T16:05:00.000Z",
+	    "/?view=matches&date=2026-06-18&tz=America%2FLos_Angeles",
     {
       fixtureTransform(data) {
         const liveFixture = data.fixtures.find(
@@ -1251,10 +1302,12 @@ try {
     "The third-place race section should be linkable from the URL."
   );
   assert(
-    !(await page.locator(".standings-title").isVisible()) &&
+    (await page.locator("#standings-mode-tabs").isVisible()) &&
+      (await page.locator("#standings-third-place-tab").evaluate((tab) => tab.getAttribute("aria-pressed") === "true")) &&
+      !(await page.locator("#standings-heading").isVisible()) &&
       !(await page.locator(".third-place-race-header").isVisible()) &&
       (await page.locator(".third-place-table").isVisible()),
-    "The third-place race should render the table immediately without standings chrome or the lens header."
+    "The third-place race should keep the section tabs visible while rendering the compact table."
   );
   const thirdPlaceRaceCheck = await page.evaluate(() => {
     const rows = [...document.querySelectorAll(".third-place-table tbody tr:not(.third-place-cut-row)")];
@@ -1333,6 +1386,21 @@ try {
   assert(
     thirdPlaceRaceCheck.note.includes("fair-play conduct"),
     "The third-place race note should explain unresolved fair-play tiebreaks."
+  );
+  await page.locator("#standings-groups-tab").click();
+  await page.waitForFunction(
+    () =>
+      document.querySelector("#standings-groups-tab")?.getAttribute("aria-pressed") === "true" &&
+      document.querySelectorAll(".standings-card").length === 12
+  );
+  assert(
+    !new URL(page.url()).searchParams.has("standingsMode") &&
+      (await page.locator(".third-place-table").count()) === 0,
+    "The visible section tabs should let users leave the third-place race."
+  );
+  await page.locator("#standings-third-place-tab").click();
+  await page.waitForFunction(
+    () => document.querySelectorAll(".third-place-table tbody tr:not(.third-place-cut-row)").length === 12
   );
   await page.locator(".third-place-group-button", { hasText: "Group F" }).click();
   await page.waitForFunction(
@@ -1497,9 +1565,65 @@ try {
     waitUntil: "load"
   });
   await page.waitForSelector(".match-row");
+  const mobileRowMetrics = await page.locator(".match-row").first().evaluate((row) => {
+    const time = row.querySelector(".match-time");
+    const teams = row.querySelector(".match-teams");
+    const meta = row.querySelector(".match-row-meta");
+    const rankPills = row.querySelectorAll(".match-teams .rank-pill");
+    const timeStyle = getComputedStyle(time);
+    const teamsStyle = getComputedStyle(teams);
+    const timeBox = time.getBoundingClientRect();
+    const teamsBox = teams.getBoundingClientRect();
+    const metaBox = meta?.getBoundingClientRect();
+
+    return {
+      metaTop: metaBox?.top || 0,
+      rankCount: rankPills.length,
+      rowHeight: row.getBoundingClientRect().height,
+      teamsFont: Number.parseFloat(teamsStyle.fontSize),
+      teamsTop: teamsBox.top,
+      timeFont: Number.parseFloat(timeStyle.fontSize),
+      timeTop: timeBox.top
+    };
+  });
+  assert(
+    mobileRowMetrics.timeFont <= 14.5 &&
+      mobileRowMetrics.teamsFont <= 15.5 &&
+      mobileRowMetrics.rankCount >= 1,
+    "Mobile match rows should keep compact time/team text with ranking pills visible."
+  );
+  assert(
+    Math.abs(mobileRowMetrics.timeTop - mobileRowMetrics.teamsTop) <= 4 &&
+      Math.abs(mobileRowMetrics.metaTop - mobileRowMetrics.teamsTop) <= 8,
+    "Mobile match rows should keep the teams and score on the same visual row."
+  );
   await page.evaluate(() => window.scrollTo(0, 0));
   await page.locator(".match-row").first().click();
   await page.waitForFunction(() => window.scrollY > 100);
+
+  const touchContext = await browser.newContext({
+    hasTouch: true,
+    isMobile: true,
+    viewport: { width: 390, height: 844 }
+  });
+  const touchPage = await touchContext.newPage();
+  await touchPage.goto(`${baseUrl}?view=matches&date=2026-06-21&tz=America%2FLos_Angeles`, {
+    waitUntil: "load"
+  });
+  await touchPage.waitForSelector(".match-row");
+  await touchPage.locator('[data-match-id="belgium-ir-iran-2026-06-21"]').click();
+  const touchPlayerLink = touchPage.locator(".key-info-team .player-link", { hasText: "Romelu Lukaku" }).first();
+  await touchPlayerLink.click();
+  const touchPlayerCard = touchPlayerLink
+    .locator("xpath=ancestor::span[contains(concat(' ', normalize-space(@class), ' '), ' player-hover ')][1]")
+    .locator(".player-card");
+  await touchPlayerCard.waitFor({ state: "visible" });
+  assert(
+    (await touchPlayerLink.getAttribute("aria-expanded")) === "true" &&
+      (await touchPlayerCard.locator(".player-card-name").innerText()).trim() === "Romelu Lukaku",
+    "On touch devices, the first player-name tap should open the player card instead of navigating away."
+  );
+  await touchContext.close();
 
   console.log("UI smoke tests passed.");
 } finally {

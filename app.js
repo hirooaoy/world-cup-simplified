@@ -1,4 +1,4 @@
-const DATA_VERSION = "2026-06-21-recovered-polish";
+const DATA_VERSION = "2026-06-21-recovered-mobile-polish";
 const DATA_URLS = {
   fixtures: `data/fixtures.json?v=${DATA_VERSION}`,
   history: `data/history.json?v=${DATA_VERSION}`,
@@ -2490,9 +2490,38 @@ function renderTournamentPosterCenter() {
         <span>As it stands</span>
         <h2>Round of 32</h2>
         <div class="poster-trophy" aria-hidden="true">
-          <span class="poster-cup-bowl"></span>
-          <span class="poster-cup-stem"></span>
-          <span class="poster-cup-base"></span>
+          <svg class="poster-trophy-svg" viewBox="0 0 128 160" focusable="false">
+            <defs>
+              <linearGradient id="poster-trophy-gold" x1="21" y1="8" x2="107" y2="151" gradientUnits="userSpaceOnUse">
+                <stop offset="0" stop-color="#f7dd84" />
+                <stop offset="0.45" stop-color="#d7a632" />
+                <stop offset="1" stop-color="#8d5f19" />
+              </linearGradient>
+              <linearGradient id="poster-trophy-bright" x1="35" y1="14" x2="80" y2="126" gradientUnits="userSpaceOnUse">
+                <stop offset="0" stop-color="#fff2b0" />
+                <stop offset="0.54" stop-color="#e7bf53" />
+                <stop offset="1" stop-color="#b27b24" />
+              </linearGradient>
+              <radialGradient id="poster-trophy-globe-light" cx="0.36" cy="0.25" r="0.82">
+                <stop offset="0" stop-color="#fff5b8" />
+                <stop offset="0.58" stop-color="#dfb342" />
+                <stop offset="1" stop-color="#9a681d" />
+              </radialGradient>
+            </defs>
+            <ellipse class="poster-trophy-shadow" cx="64" cy="149" rx="42" ry="7" />
+            <path class="poster-trophy-arm is-left" d="M52 58C34 61 22 73 23 88c1 17 16 29 34 33l4-15c-13-4-22-11-23-22-.7-8 5-15 18-20Z" />
+            <path class="poster-trophy-arm is-right" d="M76 58c18 3 30 15 29 30-1 17-16 29-34 33l-4-15c13-4 22-11 23-22 .7-8-5-15-18-20Z" />
+            <circle class="poster-trophy-globe" cx="64" cy="39" r="29" />
+            <path class="poster-trophy-map" d="M43 30c8 3 13 2 18-3 8-7 17-4 23 2" />
+            <path class="poster-trophy-map" d="M39 43c10-3 18 2 23 8 7 8 18 5 27-2" />
+            <path class="poster-trophy-map" d="M58 15c-6 12-6 31 1 49" />
+            <path class="poster-trophy-map" d="M72 17c6 13 6 28-1 47" />
+            <path class="poster-trophy-core" d="M54 62c-9 17-8 32-1 46 4 8 3 17-3 26h28c-6-9-7-18-3-26 7-14 8-29-1-46-6 4-14 4-20 0Z" />
+            <path class="poster-trophy-highlight" d="M55 67c-5 12-5 24 1 37 3 7 3 14-1 21" />
+            <rect class="poster-trophy-neck" x="43" y="123" width="42" height="12" rx="6" />
+            <rect class="poster-trophy-base-green" x="39" y="133" width="50" height="7" rx="3.5" />
+            <rect class="poster-trophy-base" x="27" y="139" width="74" height="13" rx="6.5" />
+          </svg>
         </div>
         <strong>Winner path below</strong>
       </div>
@@ -3265,7 +3294,7 @@ function renderPlayerMention(label, player) {
   const sourceUrl = profile?.sourceUrl || "";
   const note = getPlayerNote(player) || profile?.note || "";
   const skills = getPlayerSkills(player, profile);
-  const triggerLabel = `aria-label="${escapeHtml(`${displayName}: ${position}, ${club}`)}"`;
+  const triggerLabel = `aria-label="${escapeHtml(`${displayName}: ${position}, ${club}`)}" aria-expanded="false"`;
   const trigger = sourceUrl
     ? `<a class="player-link" href="${escapeHtml(sourceUrl)}" target="_blank" rel="noopener" ${triggerLabel}>${escapeHtml(label)}</a>`
     : `<span class="player-link" role="button" tabindex="0" ${triggerLabel}>${escapeHtml(label)}</span>`;
@@ -3318,6 +3347,37 @@ function positionPlayerCards() {
   matchInfo
     .querySelectorAll(".player-hover")
     .forEach((playerHover) => positionPlayerCard(playerHover));
+}
+
+let activePlayerHover = null;
+
+function isTouchPlayerCardMode() {
+  return window.matchMedia("(hover: none), (pointer: coarse)").matches;
+}
+
+function setPlayerHoverExpanded(playerHover, isExpanded) {
+  const trigger = playerHover?.querySelector(".player-link");
+  playerHover?.classList.toggle("is-card-open", isExpanded);
+  trigger?.setAttribute("aria-expanded", String(isExpanded));
+}
+
+function clearActivePlayerHover() {
+  if (!activePlayerHover) {
+    return;
+  }
+
+  setPlayerHoverExpanded(activePlayerHover, false);
+  activePlayerHover = null;
+}
+
+function openPlayerHoverCard(playerHover) {
+  if (activePlayerHover && activePlayerHover !== playerHover) {
+    setPlayerHoverExpanded(activePlayerHover, false);
+  }
+
+  activePlayerHover = playerHover;
+  setPlayerHoverExpanded(playerHover, true);
+  positionPlayerCard(playerHover);
 }
 
 function renderPlayerLinkedText(text, players = []) {
@@ -4094,11 +4154,11 @@ function getHistoricalResultControlHighlight(match) {
   const extraTime = match.scoreDetails?.extraTime;
 
   if (penalties) {
-    return `⏱️ The tie stayed level through extra time before the shootout decided ${context}.`;
+    return `🌟 The shootout decided ${context}.`;
   }
 
   if (extraTime) {
-    return `⏱️ ${winner || "The match"} was decided after extra time in ${context}.`;
+    return `🌟 ${winner || "The match"} won after extra time.`;
   }
 
   if (winner) {
@@ -4107,17 +4167,17 @@ function getHistoricalResultControlHighlight(match) {
     const loser = winner === match.homeTeam.name ? match.awayTeam.name : match.homeTeam.name;
 
     if (loserScore === 0) {
-      return `🛡️ ${winner} kept ${loser} off the scoresheet.`;
+      return `🌟 ${winner} kept a clean sheet.`;
     }
 
     if (winnerScore - loserScore >= 3) {
-      return `🔥 ${winner} broke the match open in ${context}.`;
+      return `🌟 ${winner} broke the match open.`;
     }
 
-    return `📊 ${winner} took the result in ${context}.`;
+    return `🌟 ${winner} protected the result.`;
   }
 
-  return `📊 Both teams shared the result in ${context}.`;
+  return `🌟 Neither side pulled clear.`;
 }
 
 function getHistoricalResultProgressHighlight(match) {
@@ -4438,6 +4498,7 @@ function renderHistoricalMatchInfo(match) {
 }
 
 function renderMatchInfo(match, options = {}) {
+  clearActivePlayerHover();
   activeMatchId = match.id;
   viewPanels.matches.classList.add("has-match-info");
   matchInfo.classList.remove("is-hidden");
@@ -4573,14 +4634,51 @@ function getTeamSearchKeys(team) {
     .filter(Boolean);
 }
 
+function getTeamSearchTeamForIdQuery(queryKey) {
+  for (const team of teamsById.values()) {
+    if (normalizeTextKey(team.id) === queryKey) {
+      return team;
+    }
+  }
+
+  return null;
+}
+
+function isTeamSearchKeyMatch(key, queryKey) {
+  if (key === queryKey || key.startsWith(queryKey)) {
+    return true;
+  }
+
+  if (key.length >= 4 && queryKey.startsWith(key)) {
+    return true;
+  }
+
+  const keyWords = key.split(" ").filter(Boolean);
+  if (!keyWords.length) {
+    return false;
+  }
+
+  if (!queryKey.includes(" ")) {
+    return keyWords.some((word) => word.startsWith(queryKey));
+  }
+
+  return keyWords.some((_, index) => keyWords.slice(index).join(" ").startsWith(queryKey));
+}
+
 function isTeamSearchMatch(team, queryKey) {
   if (!queryKey) {
     return false;
   }
 
-  return getTeamSearchKeys(team).some(
-    (key) => key === queryKey || key.includes(queryKey) || queryKey.includes(key)
-  );
+  const idQueryTeam = getTeamSearchTeamForIdQuery(queryKey);
+  const teamKeys = getTeamSearchKeys(team);
+
+  if (idQueryTeam) {
+    const idQueryTeamKeys = new Set(getTeamSearchKeys(idQueryTeam));
+    return teamKeys.some((key) => idQueryTeamKeys.has(key));
+  }
+
+  return teamKeys.some((key) => isTeamSearchKeyMatch(key, queryKey));
 }
 
 function getTeamSearchParticipant(match, queryKey) {
@@ -5793,6 +5891,20 @@ matchInfo.addEventListener("click", (event) => {
     return;
   }
 
+  const playerTrigger = event.target.closest(".player-link");
+  const playerHover = playerTrigger?.closest(".player-hover");
+  if (playerTrigger && playerHover && isTouchPlayerCardMode()) {
+    if (activePlayerHover !== playerHover) {
+      event.preventDefault();
+      openPlayerHoverCard(playerHover);
+      return;
+    }
+
+    if (playerTrigger.tagName !== "A") {
+      event.preventDefault();
+    }
+  }
+
   const revealButton = event.target.closest("[data-past-reveal]");
   if (!revealButton) {
     return;
@@ -5828,6 +5940,10 @@ matchInfo.addEventListener("focusin", (event) => {
 });
 
 document.addEventListener("pointerdown", (event) => {
+  if (activePlayerHover && !event.target.closest(".player-hover")) {
+    clearActivePlayerHover();
+  }
+
   if (
     isCalendarOpen &&
     !datePopover.contains(event.target) &&
@@ -5866,6 +5982,8 @@ document.addEventListener("keydown", (event) => {
   if (event.key !== "Escape") {
     return;
   }
+
+  clearActivePlayerHover();
 
   if (isCalendarOpen) {
     setCalendarOpen(false);
