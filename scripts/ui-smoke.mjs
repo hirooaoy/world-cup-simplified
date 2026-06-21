@@ -167,6 +167,19 @@ async function openPageAtTime(
   return { context, page: mockedPage };
 }
 
+function hideFutureStartedFixtures(data, nowIso) {
+  const now = new Date(nowIso).getTime();
+
+  for (const fixture of data.fixtures || []) {
+    if (!fixture.kickoffUtc || new Date(fixture.kickoffUtc).getTime() <= now) {
+      continue;
+    }
+
+    fixture.status = "SCHEDULED";
+    delete fixture.score;
+  }
+}
+
 try {
   await page.goto(baseUrl, { waitUntil: "load" });
   await page.waitForSelector(".match-row");
@@ -856,9 +869,15 @@ try {
   );
   await catchUpCheck.context.close();
 
+  const latestCatchUpNow = "2026-06-19T18:20:00.000Z";
   const latestCatchUpCheck = await openPageAtTime(
-    "2026-06-19T18:20:00.000Z",
-    "/?view=matches&date=2026-06-19&tz=America%2FLos_Angeles"
+    latestCatchUpNow,
+    "/?view=matches&date=2026-06-19&tz=America%2FLos_Angeles",
+    {
+      fixtureTransform(data) {
+        hideFutureStartedFixtures(data, latestCatchUpNow);
+      }
+    }
   );
   await latestCatchUpCheck.page.locator("#catch-up-button").click();
   const latestCatchUpItems = await latestCatchUpCheck.page.locator(".catch-up-item").evaluateAll((items) =>
