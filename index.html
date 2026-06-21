@@ -31,7 +31,7 @@
     <meta name="theme-color" content="#ffffff" />
     <link rel="icon" type="image/svg+xml" href="assets/favicon.svg?v=2026-06-17-1209" />
     <link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=2026-06-17-1213" />
-    <link rel="stylesheet" href="styles.css?v=2026-06-19-dynamic-standing-names-third-place-microcopy" />
+    <link rel="stylesheet" href="styles.css?v=2026-06-21-material-search" />
   </head>
   <body>
     <header class="site-header">
@@ -80,31 +80,43 @@
     <main class="page-shell">
       <section class="view-panel" id="matches-view" role="tabpanel" aria-labelledby="matches-tab">
         <section class="page-title" aria-labelledby="matches-heading">
-          <h1 class="date-nav" id="matches-heading">
-            <button class="date-jump" id="day-label" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="date-popover">
-              Today
-            </button>
-          </h1>
-          <div class="date-popover is-hidden" id="date-popover" role="dialog" aria-label="Choose match date">
-            <div class="calendar-header">
-              <button class="calendar-nav-button is-prev" id="calendar-prev-month" type="button" aria-label="Previous month"></button>
-              <p id="calendar-month-label">Month</p>
-              <button class="calendar-nav-button is-next" id="calendar-next-month" type="button" aria-label="Next month"></button>
+          <div class="match-toolbar">
+            <div class="date-control-shell">
+              <h1 class="date-nav" id="matches-heading">
+                <button class="date-jump" id="day-label" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="date-popover">
+                  Today
+                </button>
+              </h1>
+              <div class="date-popover is-hidden" id="date-popover" role="dialog" aria-label="Choose match date">
+                <div class="calendar-header">
+                  <button class="calendar-nav-button is-prev" id="calendar-prev-month" type="button" aria-label="Previous month"></button>
+                  <p id="calendar-month-label">Month</p>
+                  <button class="calendar-nav-button is-next" id="calendar-next-month" type="button" aria-label="Next month"></button>
+                </div>
+                <div class="calendar-weekdays" aria-hidden="true">
+                  <span>Sun</span>
+                  <span>Mon</span>
+                  <span>Tue</span>
+                  <span>Wed</span>
+                  <span>Thu</span>
+                  <span>Fri</span>
+                  <span>Sat</span>
+                </div>
+                <div class="calendar-grid" id="calendar-grid"></div>
+                <div class="calendar-footer">
+                  <button class="calendar-shortcut-button" id="calendar-yesterday" type="button">Yesterday</button>
+                  <button class="calendar-shortcut-button" id="calendar-today" type="button">Today</button>
+                </div>
+              </div>
             </div>
-            <div class="calendar-weekdays" aria-hidden="true">
-              <span>Sun</span>
-              <span>Mon</span>
-              <span>Tue</span>
-              <span>Wed</span>
-              <span>Thu</span>
-              <span>Fri</span>
-              <span>Sat</span>
-            </div>
-            <div class="calendar-grid" id="calendar-grid"></div>
-            <div class="calendar-footer">
-              <button class="calendar-shortcut-button" id="calendar-yesterday" type="button">Yesterday</button>
-              <button class="calendar-shortcut-button" id="calendar-today" type="button">Today</button>
-            </div>
+            <form class="team-search" id="team-search-form" role="search">
+              <label class="visually-hidden" for="team-search-input">Search country matches</label>
+              <div class="team-search-field">
+                <button class="team-search-toggle" id="team-search-toggle" type="button" aria-label="Search country matches" aria-expanded="false" aria-controls="team-search-input"></button>
+                <input class="team-search-input" id="team-search-input" name="team" type="search" placeholder="Search country" autocomplete="off" spellcheck="false" />
+                <button class="team-search-clear is-hidden" id="team-search-clear" type="button" aria-label="Clear country search" hidden></button>
+              </div>
+            </form>
           </div>
         </section>
 
@@ -134,6 +146,9 @@
             <button class="standings-mode-tab" id="standings-third-place-tab" type="button" data-standings-mode="third-place" aria-pressed="false">
               Third-Place Race
             </button>
+            <button class="standings-mode-tab" id="standings-tournament-tab" type="button" data-standings-mode="tournament" aria-pressed="false">
+              Tournament
+            </button>
           </nav>
         </section>
         <section class="standings-grid" id="standings-grid" aria-live="polite" aria-label="Group standings"></section>
@@ -146,6 +161,6 @@
       </p>
     </footer>
 
-    <script type="module" src="app.js?v=2026-06-19-dynamic-standing-names-third-place-market-odds"></script>
+    <script type="module" src="app.js?v=2026-06-21-search-icon"></script>
   </body>
 </html>

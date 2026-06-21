@@ -436,7 +436,7 @@ for (const fixture of fixturesData.fixtures || []) {
         `Fixture "${fixture.id}" resultHighlights[${index}] must be a non-empty string`
       );
       assert(
-        typeof highlight === "string" && highlight.trim().length <= 180,
+        typeof highlight === "string" && highlight.trim().length <= 95,
         `Fixture "${fixture.id}" resultHighlights[${index}] should stay compact`
       );
     }

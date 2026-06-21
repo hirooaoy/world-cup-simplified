@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-21T19:37:19.085Z",
+  "updatedAt": "2026-06-21T20:11:05.189Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -2416,9 +2416,9 @@
         "away": 0
       },
       "resultHighlights": [
-        "⚽ Jonathan David scored twice in Canada's 6-0 rout.",
-        "🔥 Canada's attack was relentless, scoring six without reply.",
-        "🛡️ Canada cruised to a clean sheet as Qatar struggled to threaten."
+        "⚽ Jonathan David scored twice.",
+        "🔥 Canada scored six without reply.",
+        "🛡️ Canada kept Qatar out."
       ],
       "h2h": {
         "status": "loaded",
@@ -2496,9 +2496,9 @@
         "away": 0
       },
       "resultHighlights": [
-        "⚽ Luis Romo scored the winner for Mexico (50').",
-        "🧤 Raúl Rangel saved Mexico with a huge late double save.",
-        "🛡️ Edson Álvarez defended well, including a key goal-line clearance."
+        "⚽ Luis Romo hit Mexico's winner (50').",
+        "🧤 Raúl Rangel made a huge late double save.",
+        "🛡️ Edson Álvarez cleared one off the line."
       ],
       "h2h": {
         "status": "loaded",
@@ -3681,10 +3681,10 @@
       "projection": {
         "sourceId": "market-odds-belgium-ir-iran-2026-06-21",
         "method": "market-implied-consensus",
-        "basis": "No-vig average of public 90-minute moneyline odds from Oddschecker and DraftKings Network checked on June 19, 2026",
-        "home": 68,
-        "draw": 20,
-        "away": 12
+        "basis": "No-vig public in-play 90-minute moneyline estimate from Oddschecker checked on June 21, 2026",
+        "home": 59,
+        "draw": 30,
+        "away": 11
       },
       "keyPlayers": {
         "sourceId": "key-player-baseline-2026-06-17",
@@ -3749,10 +3749,10 @@
       "projection": {
         "sourceId": "market-odds-uruguay-cabo-verde-2026-06-21",
         "method": "market-implied-consensus",
-        "basis": "No-vig average of public 90-minute moneyline odds from Oddschecker and FanDuel/SportsLine checked on June 19, 2026",
-        "home": 65,
+        "basis": "No-vig public 90-minute moneyline estimate from Oddschecker checked on June 21, 2026",
+        "home": 68,
         "draw": 22,
-        "away": 13
+        "away": 10
       },
       "keyPlayers": {
         "sourceId": "key-player-baseline-2026-06-17",
@@ -3844,7 +3844,7 @@
       "projection": {
         "sourceId": "market-odds-new-zealand-egypt-2026-06-21",
         "method": "market-implied-consensus",
-        "basis": "No-vig average of published operator 90-minute moneyline odds from SheKicks/JuveFC checked on June 19, 2026",
+        "basis": "No-vig estimate from SheKicks' published operator 90-minute moneyline table checked on June 21, 2026",
         "home": 17,
         "draw": 23,
         "away": 60
@@ -3929,10 +3929,10 @@
       "projection": {
         "sourceId": "market-odds-argentina-austria-2026-06-22",
         "method": "market-implied-consensus",
-        "basis": "No-vig blend of public 90-minute moneyline odds from FanDuel and Kalshi event probabilities checked on June 19, 2026",
-        "home": 61,
-        "draw": 24,
-        "away": 15
+        "basis": "No-vig estimate from Kalshi regulation probabilities checked on June 21, 2026",
+        "home": 63,
+        "draw": 23,
+        "away": 14
       },
       "keyPlayers": {
         "sourceId": "key-player-baseline-2026-06-17",
@@ -3993,9 +3993,9 @@
       "projection": {
         "sourceId": "market-odds-france-iraq-2026-06-22",
         "method": "market-implied-consensus",
-        "basis": "No-vig average of public 90-minute moneyline odds from Oddschecker and DraftKings Network checked on June 19, 2026",
-        "home": 88,
-        "draw": 9,
+        "basis": "No-vig public 90-minute moneyline estimate from Oddschecker checked on June 21, 2026",
+        "home": 89,
+        "draw": 8,
         "away": 3
       },
       "keyPlayers": {
@@ -4068,10 +4068,10 @@
       "projection": {
         "sourceId": "market-odds-norway-senegal-2026-06-22",
         "method": "market-implied-consensus",
-        "basis": "No-vig public 90-minute moneyline estimate from Oddschecker checked on June 19, 2026",
-        "home": 46,
+        "basis": "No-vig public 90-minute moneyline estimate from Oddschecker checked on June 21, 2026",
+        "home": 42,
         "draw": 27,
-        "away": 27
+        "away": 31
       },
       "keyPlayers": {
         "sourceId": "key-player-baseline-2026-06-17",
@@ -4143,7 +4143,7 @@
       "projection": {
         "sourceId": "market-odds-jordan-algeria-2026-06-22",
         "method": "market-implied-consensus",
-        "basis": "Prediction-market regulation probabilities from Kalshi checked on June 19, 2026",
+        "basis": "No-vig estimate from Kalshi regulation probabilities checked on June 21, 2026",
         "home": 16,
         "draw": 23,
         "away": 61

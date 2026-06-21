@@ -289,16 +289,16 @@ function getExpectedStandingOrder(groupId) {
   return (standingsData.groups?.[groupId] || []).map((row) => getTeam(row.teamId).name).join("|");
 }
 
-function getDayKeyForTimeZone(value, timeZone = "America/Los_Angeles") {
-  const parts = new Intl.DateTimeFormat("en-US", {
-    day: "2-digit",
-    month: "2-digit",
-    timeZone,
-    year: "numeric"
-  }).formatToParts(new Date(value));
-  const values = Object.fromEntries(parts.map((part) => [part.type, part.value]));
+function getFixtureByMatchNumber(matchNumber) {
+  return fixturesData.fixtures.find((fixture) => Number(fixture.matchNumber) === Number(matchNumber)) || null;
+}
 
-  return `${values.year}-${values.month}-${values.day}`;
+function getExpectedWinnerPathLabels(matchNumber) {
+  const fixture = getFixtureByMatchNumber(matchNumber);
+
+  return [fixture?.homeSlot, fixture?.awaySlot]
+    .filter((slot) => /^Winner match \d+$/i.test(slot || ""))
+    .map((slot) => slot.replace(/^Winner match (\d+)$/i, "Winner M$1"));
 }
 
 function getLatestUpdatedAt(items) {
@@ -320,6 +320,18 @@ function formatExpectedSourceUpdatedAt(value) {
     timeZoneName: "short",
     year: "numeric"
   }).format(new Date(value));
+}
+
+function getDayKeyForTimeZone(value, timeZone) {
+  const parts = new Intl.DateTimeFormat("en-US", {
+    day: "2-digit",
+    month: "2-digit",
+    timeZone,
+    year: "numeric"
+  }).formatToParts(new Date(value));
+  const values = Object.fromEntries(parts.map((part) => [part.type, part.value]));
+
+  return `${values.year}-${values.month}-${values.day}`;
 }
 
 async function openPageAtTime(
@@ -410,13 +422,22 @@ try {
     "Key information should link highlighted player names."
   );
   assert(
-    (await page.locator(".key-info-team h4 .player-link").count()) > 0,
-    "Key information headings should link player-name taglines."
+    (await page.locator(".key-info-team h4 .player-link").count()) === 0,
+    "Key information headings should keep tactical team taglines as plain text."
   );
-  const headingPlayerDecoration = await page
-    .locator(".key-info-team h4 .player-link")
+  assert(
+    (await page.locator(".key-info-team h4 .flag").count()) >= 2,
+    "Key information headings should render team flags."
+  );
+  const firstStylePillCount = await page
+    .locator(".key-info-team")
     .first()
-    .evaluate((link) => getComputedStyle(link).textDecorationLine);
+    .locator(".team-style-pills li")
+    .count();
+  assert(
+    firstStylePillCount >= 2 && firstStylePillCount <= 3,
+    "Key information should show 2-3 tactical style pills for each team."
+  );
   const paragraphPlayerDecoration = await page
     .locator(".key-info-team p .player-link")
     .first()
@@ -430,8 +451,8 @@ try {
     .first()
     .evaluate((link) => Number(getComputedStyle(link).fontWeight));
   assert(
-    headingPlayerDecoration.includes("underline") && paragraphPlayerDecoration === "none",
-    "Key information should underline heading player mentions, not paragraph mentions."
+    paragraphPlayerDecoration === "none",
+    "Paragraph player mentions should not render with link underlines."
   );
   assert(
     paragraphPlayerOpacity === 1 && paragraphPlayerWeight >= 500,
@@ -469,19 +490,33 @@ try {
   });
   await page.waitForSelector(".match-row");
   await page.locator('[data-match-id="mexico-south-africa-2026-06-11"]').click();
-  const mexicoHeadingLinks = await page
+  const mexicoHeading = await page
     .locator(".key-info-team")
     .first()
-    .locator("h4 .player-link")
-    .evaluateAll((links) => links.map((link) => link.textContent.trim()));
+    .locator("h4")
+    .innerText();
   assert(
-    mexicoHeadingLinks.includes("Gimenez") && mexicoHeadingLinks.includes("Alvarez"),
-    "Mexico's accented player aliases should link from the team tagline."
+    mexicoHeading.includes("Home pressure that turns territory into waves"),
+    "Mexico's tactical tagline should render in the key information heading."
+  );
+  assert(
+    (await page.locator(".key-info-team").first().locator("h4 .player-link").count()) === 0,
+    "Mexico's tactical tagline should not create heading player links."
+  );
+  const mexicoStyleText = await page
+    .locator(".key-info-team")
+    .first()
+    .locator(".team-style-pills")
+    .innerText();
+  assert(
+    mexicoStyleText.includes("Box entries"),
+    "Mexico's tactical style pills should render between the heading and body copy."
   );
   const gimenezLink = page
     .locator(".key-info-team")
     .first()
-    .locator("h4 .player-link", { hasText: "Gimenez" });
+    .locator("p .player-link", { hasText: "Gimenez" })
+    .first();
   const gimenezCard = gimenezLink
     .locator("xpath=ancestor::span[contains(concat(' ', normalize-space(@class), ' '), ' player-hover ')][1]")
     .locator(".player-card");
@@ -489,7 +524,7 @@ try {
   await gimenezCard.waitFor({ state: "visible" });
   assert(
     (await gimenezLink.getAttribute("aria-label"))?.startsWith("Santiago Giménez:"),
-    "Mexico's unaccented Gimenez tagline alias should open Santiago Giménez's hover card."
+    "Mexico's unaccented Gimenez mention should open Santiago Giménez's hover card."
   );
   assert(
     (await gimenezCard.locator(".player-card-name").innerText()).trim() === "Santiago Giménez" &&
@@ -630,6 +665,44 @@ try {
   );
   await calendarShortcutCheck.context.close();
 
+  const futureResultCheck = await openPageAtTime(
+    "2026-06-22T22:30:00.000Z",
+    "/?view=matches&date=2026-06-22&tz=America%2FLos_Angeles",
+    {
+      fixtureTransform(data) {
+        const futureFixture = data.fixtures.find(
+          (fixture) => fixture.id === "argentina-austria-2026-06-22"
+        );
+        futureFixture.status = "FT";
+        futureFixture.score = { home: 2, away: 0 };
+      }
+    }
+  );
+  await futureResultCheck.page
+    .locator('[data-match-id="argentina-austria-2026-06-22"]')
+    .click();
+  const futureResultBullets = await futureResultCheck.page
+    .locator("#match-info .result-highlights li")
+    .evaluateAll((items) => items.map((item) => item.textContent.trim()));
+  assert(
+    futureResultBullets.length === 3 &&
+      futureResultBullets[0].startsWith("⚽") &&
+      futureResultBullets[1].startsWith("🌟") &&
+      futureResultBullets[2].startsWith("📊"),
+    "Future fixtures should use the team story, moment, and group impact result bullets once final."
+  );
+  assert(
+    futureResultBullets[0].includes("Argentina") &&
+      futureResultBullets[0].includes("2-0") &&
+      futureResultBullets[2].includes("Group J"),
+    "Future result bullets should be generated from the loaded final score and group context."
+  );
+  assert(
+    futureResultBullets.every((bullet) => bullet.length <= 95),
+    "Future result bullets should stay short."
+  );
+  await futureResultCheck.context.close();
+
   await page.goto(`${baseUrl}?view=matches&date=2022-11-20&tz=America%2FLos_Angeles`, {
     waitUntil: "load"
   });
@@ -644,9 +717,16 @@ try {
   );
   await page.locator(".match-row").first().click();
   const historicalGroupDetailText = await page.locator("#match-info").innerText();
+  const historicalResultBullets = await page
+    .locator("#match-info .result-highlights li")
+    .evaluateAll((items) => items.map((item) => item.textContent.trim()));
   assert(
     historicalGroupDetailText.includes("World Cup 2022"),
     "Historical match details should show tournament context."
+  );
+  assert(
+    historicalResultBullets.every((bullet) => bullet.length <= 95),
+    "Historical result bullets should stay short."
   );
   assert(
     historicalGroupDetailText.includes("Group standings"),
@@ -662,6 +742,14 @@ try {
       historicalGroupDetailText.includes("Key information") &&
       historicalGroupDetailText.includes("Past matches"),
     "Historical match details should follow the current detail section structure."
+  );
+  assert(
+    (await page.locator("#match-info .key-info-team .team-style-pills li").count()) >= 2,
+    "Historical key information should render tactical style pills."
+  );
+  assert(
+    (await page.locator("#match-info .key-info-team h4 .flag").count()) >= 2,
+    "Historical key information headings should render team flags."
   );
   assert(
     historicalGroupDetailText.includes("Ecuador beat Qatar 2-0") &&
@@ -681,6 +769,36 @@ try {
   assert(
     !historicalGroupDetailText.includes("Source") && !historicalGroupDetailText.includes("Goals"),
     "Historical match details should not show source or goals sections."
+  );
+
+  await page.goto(`${baseUrl}?view=matches&date=2002-06-09&tz=America%2FLos_Angeles`, {
+    waitUntil: "load"
+  });
+  await page.waitForSelector(".match-row");
+  const completedHistoricalStatus = page.locator(
+    '[data-match-id="wc-2002-2002-06-09-matchday-2-japan-russia"] .match-time'
+  );
+  assert(
+    (await completedHistoricalStatus.innerText()).trim() === "FT",
+    "Completed historical matches without loaded kickoff times should show FT instead of the ambiguous Final label."
+  );
+  assert(
+    (await completedHistoricalStatus.getAttribute("aria-label")) === "Full time",
+    "Completed historical match status should expose the full label to assistive tech."
+  );
+
+  await page.goto(`${baseUrl}?view=matches&date=1930-07-14&tz=America%2FLos_Angeles`, {
+    waitUntil: "load"
+  });
+  await page.waitForSelector(".match-row");
+  await page.locator('[data-match-id="wc-1930-1930-07-14-matchday-2-yugoslavia-brazil"]').click();
+  const yugoslaviaStyleText = await page
+    .locator('.team-style-pills[aria-label="Yugoslavia tactical style"]')
+    .innerText();
+  assert(
+    yugoslaviaStyleText.includes("Technical midfield") &&
+      yugoslaviaStyleText.includes("Wide combinations"),
+    "Historical-only teams should render fallback tactical style pills."
   );
 
   await page.goto(`${baseUrl}?view=matches&date=1930-07-13&tz=America%2FLos_Angeles`, {
@@ -789,8 +907,11 @@ try {
   const livePillCount = await matchStateCheck.page.locator(".live-pill").count();
   if (livePillCount > 0) {
     assert(livePillCount === 1, "A live match should show one Live pill.");
+    const liveScoreText = (await matchStateCheck.page.locator(".match-row.is-live .match-score").innerText())
+      .replace(/\s+/g, " ")
+      .trim();
     assert(
-      (await matchStateCheck.page.locator(".match-row.is-live .match-score").innerText()).trim() === "2-2",
+      liveScoreText === "2-2" || /^2-2 · (now|\d+ min ago|\d+ hr ago|\d+d ago)$/.test(liveScoreText),
       "A loaded live score should be shown for the live match."
     );
     assert(
@@ -822,6 +943,44 @@ try {
   }
   await matchStateCheck.context.close();
 
+  const loadedLiveScoreCheck = await openPageAtTime(
+    "2026-06-17T20:30:00.000Z",
+    "/?view=matches&date=2026-06-17&tz=America%2FLos_Angeles",
+    {
+      fixtureTransform(data) {
+        const liveFixture = data.fixtures.find(
+          (fixture) => fixture.id === "england-croatia-2026-06-17"
+        );
+        liveFixture.status = "SCHEDULED";
+        liveFixture.score = { home: 2, away: 2 };
+        liveFixture.scoreUpdatedAt = "2026-06-17T20:25:00.000Z";
+      }
+    }
+  );
+  const loadedLiveRow = loadedLiveScoreCheck.page.locator(
+    '[data-match-id="england-croatia-2026-06-17"]'
+  );
+  assert(
+    (await loadedLiveRow.locator(".live-pill").count()) === 1,
+    "A live fixture with a loaded score should still show the Live link."
+  );
+  const loadedLiveScore = loadedLiveRow.locator(".match-score");
+  assert(
+    (await loadedLiveScore.innerText()).replace(/\s+/g, " ").trim() === "2-2 · 5 min ago",
+    "A loaded live score should show when the score was checked."
+  );
+  assert(
+    ((await loadedLiveScore.getAttribute("class")) || "").includes("is-live-score"),
+    "A loaded live score should use the outline live score treatment."
+  );
+  assert(
+    ((await loadedLiveScore.getAttribute("aria-label")) || "").includes(
+      "last checked 5 minutes ago"
+    ),
+    "A loaded live score should expose freshness to assistive tech."
+  );
+  await loadedLiveScoreCheck.context.close();
+
   const liveFallbackScoreCheck = await openPageAtTime(
     "2026-06-18T16:05:00.000Z",
     "/?view=matches&date=2026-06-18&tz=America%2FLos_Angeles",
@@ -849,8 +1008,8 @@ try {
   );
   assert(
     (await liveScoreLink.getAttribute("href")) === fifaWorldCupScoresUrl &&
-      (await liveScoreLink.getAttribute("title")) === "Check score at FIFA" &&
-      (await liveScoreLink.getAttribute("data-tooltip")) === "Check score at FIFA",
+      (await liveScoreLink.getAttribute("title")) === "Check latest score at FIFA" &&
+      (await liveScoreLink.getAttribute("data-tooltip")) === "Check latest score at FIFA",
     "The live pill should link to FIFA scores and expose the hover tooltip copy."
   );
   const liveFallbackText = (await liveFallbackRow.innerText()).replace(/\s+/g, " ").trim();
@@ -926,7 +1085,10 @@ try {
     const beforeKickoff = new Date(
       new Date(nextScheduledFixture.kickoffUtc).getTime() - 5 * 60 * 1000
     );
-    const nextScheduledDate = getDayKeyForTimeZone(nextScheduledFixture.kickoffUtc);
+    const nextScheduledDate = getDayKeyForTimeZone(
+      nextScheduledFixture.kickoffUtc,
+      "America/Los_Angeles"
+    );
     const upNextCheck = await openPageAtTime(
       beforeKickoff.toISOString(),
       `/?view=matches&date=${nextScheduledDate}&tz=America%2FLos_Angeles`,
@@ -1136,9 +1298,15 @@ try {
   );
   await tomorrowDuringKickoff.context.close();
 
+  await page.goto(`${baseUrl}?view=matches&date=2026-06-19&tz=America%2FLos_Angeles`, {
+    waitUntil: "load"
+  });
+  await page.waitForSelector(".match-row");
   await page.reload({ waitUntil: "load" });
   await page.waitForFunction(
-    () => document.querySelector("#day-label")?.textContent.trim() === "Today"
+    () =>
+      document.querySelector("#day-label")?.textContent.trim() === "Today" &&
+      !new URL(window.location.href).searchParams.has("date")
   );
   assert(
     !new URL(page.url()).searchParams.has("date"),
@@ -1227,11 +1395,24 @@ try {
     new URL(page.url()).searchParams.get("standingsMode") === "third-place",
     "The third-place race section should be linkable from the URL."
   );
+  const thirdPlaceChromeCheck = {
+    groupsTabVisible: await page.locator("#standings-groups-tab").isVisible(),
+    raceHeaderVisible: await page.locator(".third-place-race-header").isVisible(),
+    tableVisible: await page.locator(".third-place-table").isVisible(),
+    thirdPlaceTabSelected: await page
+      .locator("#standings-third-place-tab")
+      .evaluate((tab) => tab.getAttribute("aria-pressed") === "true"),
+    thirdPlaceTabVisible: await page.locator("#standings-third-place-tab").isVisible(),
+    titleVisible: await page.locator(".standings-title").isVisible()
+  };
   assert(
-    !(await page.locator(".standings-title").isVisible()) &&
-      !(await page.locator(".third-place-race-header").isVisible()) &&
-      (await page.locator(".third-place-table").isVisible()),
-    "The third-place race should render the table immediately without standings chrome or the lens header."
+    thirdPlaceChromeCheck.titleVisible &&
+      thirdPlaceChromeCheck.groupsTabVisible &&
+      thirdPlaceChromeCheck.thirdPlaceTabVisible &&
+      thirdPlaceChromeCheck.thirdPlaceTabSelected &&
+      !thirdPlaceChromeCheck.raceHeaderVisible &&
+      thirdPlaceChromeCheck.tableVisible,
+    "The third-place race should keep the standings mode tabs visible while showing the table."
   );
   const thirdPlaceRaceCheck = await page.evaluate(() => {
     const rows = [...document.querySelectorAll(".third-place-table tbody tr:not(.third-place-cut-row)")];
@@ -1305,7 +1486,7 @@ try {
       thirdPlaceRaceCheck.rowSummaries[getThirdPlaceAdvancerCount()]?.status === expectedFirstOut.status.label &&
       thirdPlaceRaceCheck.rowSummaries[getThirdPlaceAdvancerCount()]?.tooltip ===
         getExpectedThirdPlaceReason(expectedFirstOut, expectedThirdPlaceRaceRows),
-    "A cut-line tie without loaded fair-play data should be marked pending on both sides of the line."
+    "The cut-line statuses should reflect the current third-place race boundary."
   );
   assert(
     thirdPlaceRaceCheck.note.includes("fair-play conduct"),
@@ -1326,6 +1507,91 @@ try {
   assert(
     (await page.locator('.standings-card[data-group-id="F"] h2').innerText()).trim() === "Group F",
     "Clicking a race table group should focus the matching group card."
+  );
+  await page.locator("#standings-tournament-tab").scrollIntoViewIfNeeded();
+  await page.locator("#standings-tournament-tab").click();
+  await page.waitForFunction(
+    () =>
+      document.querySelector("#standings-tournament-tab")?.getAttribute("aria-pressed") === "true" &&
+      document.querySelectorAll(".poster-match").length === 16 &&
+      document.querySelector('.poster-match[data-match-number="79"]')
+  );
+  assert(
+    new URL(page.url()).searchParams.get("standingsMode") === "tournament",
+    "The tournament section should be linkable from the URL."
+  );
+  const tournamentCheck = await page.evaluate(() => {
+    const match79 = document.querySelector('.poster-match[data-match-number="79"]');
+    const posterTeams = [...document.querySelectorAll(".poster-team")];
+
+    return {
+      centerText: document.querySelector(".poster-center")?.textContent.replace(/\s+/g, " ").trim(),
+      leftCount: document.querySelectorAll(".poster-side.is-left .poster-match").length,
+      match79Text: match79?.textContent.replace(/\s+/g, " ").trim(),
+      match79Tooltips: [...(match79?.querySelectorAll(".poster-team") || [])].map((team) =>
+        team.getAttribute("data-tooltip")
+      ),
+      oldCardCount: document.querySelectorAll(".bracket-r32-card").length,
+      posterVisible: Boolean(document.querySelector(".tournament-poster-bracket")),
+      r32Count: document.querySelectorAll(".poster-match").length,
+      rightCount: document.querySelectorAll(".poster-side.is-right .poster-match").length,
+      roundOf16Sources: [...document.querySelectorAll('.poster-match[data-round-of-16-match="89"]')].map((match) =>
+        match.getAttribute("data-match-number")
+      ),
+      sideCount: document.querySelectorAll(".poster-side").length,
+      summary: document.querySelector("#standings-summary")?.textContent.trim(),
+      tournamentTabSelected:
+        document.querySelector("#standings-tournament-tab")?.getAttribute("aria-pressed") === "true",
+      tooltipCount: posterTeams.length,
+      tooltipSample: posterTeams[0]?.getAttribute("data-tooltip")
+    };
+  });
+  assert(
+    tournamentCheck.posterVisible &&
+      tournamentCheck.tournamentTabSelected &&
+      tournamentCheck.sideCount === 2 &&
+      tournamentCheck.leftCount === 8 &&
+      tournamentCheck.rightCount === 8 &&
+      tournamentCheck.r32Count === 16 &&
+      tournamentCheck.oldCardCount === 0,
+    "The tournament section should render a simplified two-sided Round of 32 poster bracket with its tab selected."
+  );
+  assert(
+      tournamentCheck.summary.includes("Official Round of 32 paths") &&
+      tournamentCheck.centerText.includes("As it stands") &&
+      tournamentCheck.centerText.includes("Round of 32") &&
+      tournamentCheck.match79Text.includes(getTeam(standingsData.groups?.A?.[0]?.teamId).id) &&
+      tournamentCheck.match79Tooltips.some((label) => label?.includes("one of the 8 best 3rd-place teams")) &&
+      !tournamentCheck.match79Text.includes("Winner to") &&
+      !tournamentCheck.match79Text.includes("Likely"),
+    "The Round of 32 poster should keep visible labels simple while moving truth and likely details into hover copy."
+  );
+  assert(
+    tournamentCheck.roundOf16Sources.join("|") === "74|77",
+    "The poster should keep the official path mapping in data without printing future-node clutter."
+  );
+  assert(
+    tournamentCheck.tooltipCount === 32 &&
+      tournamentCheck.tooltipSample.includes("Prediction:") &&
+      tournamentCheck.tooltipSample.includes("simulations"),
+    "Tournament poster teams should expose hover explanations with likely percentages."
+  );
+  const tournamentTooltip = page
+    .locator('.poster-match[data-match-number="79"] .poster-team[data-slot-side="away"]')
+    .first();
+  await tournamentTooltip.hover();
+  await page.waitForTimeout(160);
+  const tournamentTooltipCheck = await tournamentTooltip.evaluate((item) => ({
+    content: getComputedStyle(item, "::after").content,
+    opacity: Number(getComputedStyle(item, "::after").opacity),
+    tooltip: item.getAttribute("data-tooltip")
+  }));
+  assert(
+    tournamentTooltipCheck.tooltip.includes("finish 3rd") &&
+      tournamentTooltipCheck.tooltip.includes("third-place pairing rule") &&
+      tournamentTooltipCheck.content.includes("finish 3rd") &&
+      tournamentTooltipCheck.opacity > 0.9,
+    "Hovering a tournament likelihood should explain what needs to happen."
   );
   await page.locator("#standings-year-button").click();
   assert(

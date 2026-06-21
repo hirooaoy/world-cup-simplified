@@ -8,7 +8,16 @@ const fixturesPath = path.join(root, "data", "fixtures.json");
 const existing = JSON.parse(await readFile(fixturesPath, "utf8"));
 const existingById = new Map(existing.fixtures.map((fixture) => [fixture.id, fixture]));
 
-const sourceIds = ["fifa-schedule-2026-06-17", "fox-schedule-2026-06-17", "editorial-preview-2026-06-17"];
+const sourceIds = [
+  "fifa-schedule-2026-06-20",
+  "fox-schedule-2026-06-17",
+  "editorial-preview-2026-06-17",
+  "fifa-netherlands-sweden-result-2026-06-20",
+  "fifa-germany-cote-divoire-result-2026-06-20",
+  "fifa-ecuador-curacao-result-2026-06-20",
+  "fifa-tunisia-japan-result-2026-06-21",
+  "fox-spain-saudi-arabia-result-2026-06-21"
+];
 
 function groupFixture({
   id,
@@ -69,9 +78,9 @@ function knockoutFixture({
 
 const skeleton = [
   groupFixture({ id: "mexico-south-africa-2026-06-11", kickoffUtc: "2026-06-11T19:00:00Z", groupId: "A", homeTeamId: "MEX", awayTeamId: "RSA", venue: "Mexico City Stadium", status: "FT", score: { home: 2, away: 0 } }),
-  groupFixture({ id: "south-korea-czechia-2026-06-11", kickoffUtc: "2026-06-12T01:00:00Z", groupId: "A", homeTeamId: "KOR", awayTeamId: "CZE", venue: "Estadio Guadalajara", status: "FT", score: { home: 2, away: 1 } }),
+  groupFixture({ id: "south-korea-czechia-2026-06-11", kickoffUtc: "2026-06-12T02:00:00Z", groupId: "A", homeTeamId: "KOR", awayTeamId: "CZE", venue: "Estadio Guadalajara", status: "FT", score: { home: 2, away: 1 } }),
   groupFixture({ id: "canada-bosnia-2026-06-12", kickoffUtc: "2026-06-12T19:00:00Z", groupId: "B", homeTeamId: "CAN", awayTeamId: "BIH", venue: "Toronto Stadium", status: "FT", score: { home: 1, away: 1 } }),
-  groupFixture({ id: "united-states-paraguay-2026-06-12", kickoffUtc: "2026-06-13T02:00:00Z", groupId: "D", homeTeamId: "USA", awayTeamId: "PAR", venue: "Los Angeles Stadium", status: "FT", score: { home: 4, away: 1 } }),
+  groupFixture({ id: "united-states-paraguay-2026-06-12", kickoffUtc: "2026-06-13T01:00:00Z", groupId: "D", homeTeamId: "USA", awayTeamId: "PAR", venue: "Los Angeles Stadium", status: "FT", score: { home: 4, away: 1 } }),
   groupFixture({ id: "qatar-switzerland-2026-06-13", kickoffUtc: "2026-06-13T19:00:00Z", groupId: "B", homeTeamId: "QAT", awayTeamId: "SUI", venue: "San Francisco Bay Area Stadium", status: "FT", score: { home: 1, away: 1 } }),
   groupFixture({ id: "brazil-morocco-2026-06-13", kickoffUtc: "2026-06-13T22:00:00Z", groupId: "C", homeTeamId: "BRA", awayTeamId: "MAR", venue: "New York New Jersey Stadium", status: "FT", score: { home: 1, away: 1 } }),
   groupFixture({ id: "haiti-scotland-2026-06-13", kickoffUtc: "2026-06-14T01:00:00Z", groupId: "C", homeTeamId: "HAI", awayTeamId: "SCO", venue: "Boston Stadium", status: "FT", score: { home: 0, away: 1 } }),
@@ -81,9 +90,9 @@ const skeleton = [
   groupFixture({ id: "cote-divoire-ecuador-2026-06-14", kickoffUtc: "2026-06-14T23:00:00Z", groupId: "E", homeTeamId: "CIV", awayTeamId: "ECU", venue: "Philadelphia Stadium", status: "FT", score: { home: 1, away: 0 } }),
   groupFixture({ id: "sweden-tunisia-2026-06-14", kickoffUtc: "2026-06-15T02:00:00Z", groupId: "F", homeTeamId: "SWE", awayTeamId: "TUN", venue: "Estadio Monterrey", status: "FT", score: { home: 5, away: 1 } }),
   groupFixture({ id: "spain-cabo-verde-2026-06-15", kickoffUtc: "2026-06-15T16:00:00Z", groupId: "H", homeTeamId: "ESP", awayTeamId: "CPV", venue: "Atlanta Stadium", status: "FT", score: { home: 0, away: 0 } }),
-  groupFixture({ id: "belgium-egypt-2026-06-15", kickoffUtc: "2026-06-15T22:00:00Z", groupId: "G", homeTeamId: "BEL", awayTeamId: "EGY", venue: "Seattle Stadium", status: "FT", score: { home: 1, away: 1 } }),
+  groupFixture({ id: "belgium-egypt-2026-06-15", kickoffUtc: "2026-06-15T19:00:00Z", groupId: "G", homeTeamId: "BEL", awayTeamId: "EGY", venue: "Seattle Stadium", status: "FT", score: { home: 1, away: 1 } }),
   groupFixture({ id: "saudi-arabia-uruguay-2026-06-15", kickoffUtc: "2026-06-15T22:00:00Z", groupId: "H", homeTeamId: "KSA", awayTeamId: "URU", venue: "Miami Stadium", status: "FT", score: { home: 1, away: 1 } }),
-  groupFixture({ id: "ir-iran-new-zealand-2026-06-15", kickoffUtc: "2026-06-16T04:00:00Z", groupId: "G", homeTeamId: "IRN", awayTeamId: "NZL", venue: "Los Angeles Stadium", status: "FT", score: { home: 2, away: 2 } }),
+  groupFixture({ id: "ir-iran-new-zealand-2026-06-15", kickoffUtc: "2026-06-16T01:00:00Z", groupId: "G", homeTeamId: "IRN", awayTeamId: "NZL", venue: "Los Angeles Stadium", status: "FT", score: { home: 2, away: 2 } }),
   groupFixture({ id: "france-senegal-2026-06-16", kickoffUtc: "2026-06-16T19:00:00Z", groupId: "I", homeTeamId: "FRA", awayTeamId: "SEN", venue: "New York New Jersey Stadium", status: "FT", score: { home: 3, away: 1 } }),
   groupFixture({ id: "iraq-norway-2026-06-16", kickoffUtc: "2026-06-16T22:00:00Z", groupId: "I", homeTeamId: "IRQ", awayTeamId: "NOR", venue: "Boston Stadium", status: "FT", score: { home: 1, away: 4 } }),
   groupFixture({ id: "argentina-algeria-2026-06-16", kickoffUtc: "2026-06-17T01:00:00Z", groupId: "J", homeTeamId: "ARG", awayTeamId: "ALG", venue: "Kansas City Stadium", status: "FT", score: { home: 3, away: 0 } }),
@@ -96,15 +105,15 @@ const skeleton = [
   groupFixture({ id: "switzerland-bosnia-2026-06-18", kickoffUtc: "2026-06-18T19:00:00Z", groupId: "B", homeTeamId: "SUI", awayTeamId: "BIH", venue: "Los Angeles Stadium" }),
   groupFixture({ id: "canada-qatar-2026-06-18", kickoffUtc: "2026-06-18T22:00:00Z", groupId: "B", homeTeamId: "CAN", awayTeamId: "QAT", venue: "BC Place Vancouver", status: "FT", score: { home: 6, away: 0 } }),
   groupFixture({ id: "mexico-south-korea-2026-06-18", kickoffUtc: "2026-06-19T01:00:00Z", groupId: "A", homeTeamId: "MEX", awayTeamId: "KOR", venue: "Estadio Guadalajara", status: "FT", score: { home: 1, away: 0 } }),
-  groupFixture({ id: "united-states-australia-2026-06-19", kickoffUtc: "2026-06-19T19:00:00Z", groupId: "D", homeTeamId: "USA", awayTeamId: "AUS", venue: "Seattle Stadium" }),
-  groupFixture({ id: "scotland-morocco-2026-06-19", kickoffUtc: "2026-06-19T19:00:00Z", groupId: "C", homeTeamId: "SCO", awayTeamId: "MAR", venue: "Boston Stadium" }),
-  groupFixture({ id: "brazil-haiti-2026-06-19", kickoffUtc: "2026-06-20T01:00:00Z", groupId: "C", homeTeamId: "BRA", awayTeamId: "HAI", venue: "Philadelphia Stadium" }),
-  groupFixture({ id: "turkiye-paraguay-2026-06-19", kickoffUtc: "2026-06-20T04:00:00Z", groupId: "D", homeTeamId: "TUR", awayTeamId: "PAR", venue: "San Francisco Bay Area Stadium" }),
-  groupFixture({ id: "netherlands-sweden-2026-06-20", kickoffUtc: "2026-06-20T17:00:00Z", groupId: "F", homeTeamId: "NED", awayTeamId: "SWE", venue: "Houston Stadium" }),
-  groupFixture({ id: "germany-cote-divoire-2026-06-20", kickoffUtc: "2026-06-20T20:00:00Z", groupId: "E", homeTeamId: "GER", awayTeamId: "CIV", venue: "Toronto Stadium" }),
-  groupFixture({ id: "ecuador-curacao-2026-06-20", kickoffUtc: "2026-06-21T00:00:00Z", groupId: "E", homeTeamId: "ECU", awayTeamId: "CUW", venue: "Kansas City Stadium" }),
-  groupFixture({ id: "tunisia-japan-2026-06-20", kickoffUtc: "2026-06-21T04:00:00Z", groupId: "F", homeTeamId: "TUN", awayTeamId: "JPN", venue: "Estadio Monterrey" }),
-  groupFixture({ id: "spain-saudi-arabia-2026-06-21", kickoffUtc: "2026-06-21T16:00:00Z", groupId: "H", homeTeamId: "ESP", awayTeamId: "KSA", venue: "Atlanta Stadium" }),
+  groupFixture({ id: "united-states-australia-2026-06-19", kickoffUtc: "2026-06-19T19:00:00Z", groupId: "D", homeTeamId: "USA", awayTeamId: "AUS", venue: "Seattle Stadium", status: "FT", score: { home: 2, away: 0 } }),
+  groupFixture({ id: "scotland-morocco-2026-06-19", kickoffUtc: "2026-06-19T22:00:00Z", groupId: "C", homeTeamId: "SCO", awayTeamId: "MAR", venue: "Boston Stadium", status: "FT", score: { home: 0, away: 1 } }),
+  groupFixture({ id: "brazil-haiti-2026-06-19", kickoffUtc: "2026-06-20T00:30:00Z", groupId: "C", homeTeamId: "BRA", awayTeamId: "HAI", venue: "Philadelphia Stadium", status: "FT", score: { home: 3, away: 0 } }),
+  groupFixture({ id: "turkiye-paraguay-2026-06-19", kickoffUtc: "2026-06-20T03:00:00Z", groupId: "D", homeTeamId: "TUR", awayTeamId: "PAR", venue: "San Francisco Bay Area Stadium", status: "FT", score: { home: 0, away: 1 } }),
+  groupFixture({ id: "netherlands-sweden-2026-06-20", kickoffUtc: "2026-06-20T17:00:00Z", groupId: "F", homeTeamId: "NED", awayTeamId: "SWE", venue: "Houston Stadium", status: "FT", score: { home: 5, away: 1 } }),
+  groupFixture({ id: "germany-cote-divoire-2026-06-20", kickoffUtc: "2026-06-20T20:00:00Z", groupId: "E", homeTeamId: "GER", awayTeamId: "CIV", venue: "Toronto Stadium", status: "FT", score: { home: 2, away: 1 } }),
+  groupFixture({ id: "ecuador-curacao-2026-06-20", kickoffUtc: "2026-06-21T00:00:00Z", groupId: "E", homeTeamId: "ECU", awayTeamId: "CUW", venue: "Kansas City Stadium", status: "FT", score: { home: 0, away: 0 } }),
+  groupFixture({ id: "tunisia-japan-2026-06-20", kickoffUtc: "2026-06-21T04:00:00Z", groupId: "F", homeTeamId: "TUN", awayTeamId: "JPN", venue: "Estadio Monterrey", status: "FT", score: { home: 0, away: 4 } }),
+  groupFixture({ id: "spain-saudi-arabia-2026-06-21", kickoffUtc: "2026-06-21T16:00:00Z", groupId: "H", homeTeamId: "ESP", awayTeamId: "KSA", venue: "Atlanta Stadium", status: "FT", score: { home: 4, away: 0 } }),
   groupFixture({ id: "belgium-ir-iran-2026-06-21", kickoffUtc: "2026-06-21T19:00:00Z", groupId: "G", homeTeamId: "BEL", awayTeamId: "IRN", venue: "Los Angeles Stadium" }),
   groupFixture({ id: "uruguay-cabo-verde-2026-06-21", kickoffUtc: "2026-06-21T22:00:00Z", groupId: "H", homeTeamId: "URU", awayTeamId: "CPV", venue: "Miami Stadium" }),
   groupFixture({ id: "new-zealand-egypt-2026-06-21", kickoffUtc: "2026-06-22T01:00:00Z", groupId: "G", homeTeamId: "NZL", awayTeamId: "EGY", venue: "BC Place Vancouver" }),
@@ -191,7 +200,7 @@ const fixtures = skeleton.map((fixture) => ({
 }));
 
 const nextData = {
-  updatedAt: "2026-06-17T11:40:00-07:00",
+  updatedAt: "2026-06-21T12:20:00-07:00",
   sourceIds,
   coverage: {
     status: "complete-schedule",

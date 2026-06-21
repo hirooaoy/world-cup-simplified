@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-21T19:37:19.085Z",
+  "updatedAt": "2026-06-21T20:11:05.189Z",
   "coverageNote": "The current seed dataset covers the full official fixture skeleton from June 11 through July 19. Rich previews, scores, live status and knockout participants are updated progressively.",
   "format": {
     "automaticAdvancersPerGroup": 2,
@@ -61,7 +61,7 @@
       "label": "Editorial preview notes and placeholder projections",
       "url": "",
       "type": "editorial",
-      "checkedAt": "2026-06-17T11:40:00-07:00"
+      "checkedAt": "2026-06-21T13:06:03-07:00"
     },
     {
       "id": "ranking-projection-2026-06-17",
@@ -131,56 +131,56 @@
       "label": "Spain vs Saudi Arabia public odds consensus",
       "url": "https://defirate.com/prediction-markets/world-cup-odds/spain/",
       "type": "market-odds",
-      "checkedAt": "2026-06-19T11:16:29-07:00"
+      "checkedAt": "2026-06-21T13:06:03-07:00"
     },
     {
       "id": "market-odds-belgium-ir-iran-2026-06-21",
       "label": "Belgium vs IR Iran public odds consensus",
       "url": "https://www.oddschecker.com/us/soccer/world-cup/belgium-v-iran/moneyline",
       "type": "market-odds",
-      "checkedAt": "2026-06-19T11:16:29-07:00"
+      "checkedAt": "2026-06-21T13:06:03-07:00"
     },
     {
       "id": "market-odds-uruguay-cabo-verde-2026-06-21",
       "label": "Uruguay vs Cabo Verde public odds consensus",
       "url": "https://www.oddschecker.com/us/soccer/world-cup/uruguay-v-cape-verde",
       "type": "market-odds",
-      "checkedAt": "2026-06-19T11:16:29-07:00"
+      "checkedAt": "2026-06-21T13:06:03-07:00"
     },
     {
       "id": "market-odds-new-zealand-egypt-2026-06-21",
       "label": "New Zealand vs Egypt public odds consensus",
       "url": "https://shekicks.net/new-zealand-v-egypt-predictions/",
       "type": "market-odds",
-      "checkedAt": "2026-06-19T11:16:29-07:00"
+      "checkedAt": "2026-06-21T13:06:03-07:00"
     },
     {
       "id": "market-odds-argentina-austria-2026-06-22",
       "label": "Argentina vs Austria public odds consensus",
       "url": "https://kalshi.com/markets/kxwcgame/world-cup-game/kxwcgame-26jun22argaut",
       "type": "market-odds",
-      "checkedAt": "2026-06-19T11:19:57-07:00"
+      "checkedAt": "2026-06-21T13:06:03-07:00"
     },
     {
       "id": "market-odds-france-iraq-2026-06-22",
       "label": "France vs Iraq public odds consensus",
       "url": "https://www.oddschecker.com/us/soccer/world-cup/france-v-iraq/moneyline",
       "type": "market-odds",
-      "checkedAt": "2026-06-19T11:19:57-07:00"
+      "checkedAt": "2026-06-21T13:06:03-07:00"
     },
     {
       "id": "market-odds-norway-senegal-2026-06-22",
       "label": "Norway vs Senegal public odds consensus",
       "url": "https://www.oddschecker.com/us/soccer/world-cup/norway-v-senegal",
       "type": "market-odds",
-      "checkedAt": "2026-06-19T11:19:57-07:00"
+      "checkedAt": "2026-06-21T13:06:03-07:00"
     },
     {
       "id": "market-odds-jordan-algeria-2026-06-22",
       "label": "Jordan vs Algeria public odds consensus",
       "url": "https://kalshi.com/markets/kxwcgame/world-cup-game/kxwcgame-26jun22jordza",
       "type": "market-odds",
-      "checkedAt": "2026-06-19T11:19:57-07:00"
+      "checkedAt": "2026-06-21T13:06:03-07:00"
     },
     {
       "id": "market-odds-portugal-uzbekistan-2026-06-23",
@@ -390,14 +390,14 @@
       "label": "Al Jazeera Japan 2026 World Cup squad and omissions",
       "url": "https://www.aljazeera.com/sports/2026/5/15/mitoma-fails-to-make-japans-2026-world-cup-squad-due-to-hamstring-injury",
       "type": "cross-check",
-      "checkedAt": "2026-06-20T10:31:28-07:00"
+      "checkedAt": "2026-06-21T13:06:03-07:00"
     },
     {
       "id": "nippon-japan-squad-update-2026-06-15",
       "label": "Nippon.com Japan 2026 World Cup squad update",
       "url": "https://www.nippon.com/en/japan-data/h02782/",
       "type": "cross-check",
-      "checkedAt": "2026-06-20T10:31:28-07:00"
+      "checkedAt": "2026-06-21T13:06:03-07:00"
     },
     {
       "id": "national-football-teams-ned-jpn-h2h-2026-06-17",
@@ -411,7 +411,7 @@
       "label": "National Football Teams H2H encounter records",
       "url": "https://www.national-football-teams.com/",
       "type": "cross-check",
-      "checkedAt": "2026-06-17T14:58:16-07:00"
+      "checkedAt": "2026-06-21T13:06:03-07:00"
     },
     {
       "id": "england-football-england-croatia-2026-06-17",
@@ -537,7 +537,7 @@
       "label": "FIFA official results sync",
       "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/match-schedule-fixtures-results-teams-stadiums",
       "type": "official",
-      "checkedAt": "2026-06-21T19:37:19.085Z",
+      "checkedAt": "2026-06-21T20:11:05.189Z",
       "note": "0 fixture updates merged from 104 matched FIFA fixtures."
     }
   ],
