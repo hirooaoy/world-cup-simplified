@@ -87,10 +87,207 @@ const sourceNoteData = await Promise.all(
     "tournament.json"
   ].map(async (fileName) => JSON.parse(await readFile(path.join(root, "data", fileName), "utf8")))
 );
+const [, , , teamsData, standingsData, tournamentData] = sourceNoteData;
 const fifaWorldCupScoresUrl =
   "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/scores-fixtures";
 const browser = await chromium.launch();
 const page = await browser.newPage();
+const teamsById = new Map((teamsData.teams || []).map((team) => [team.id, team]));
+
+function getTeam(teamId) {
+  return teamsById.get(teamId) || {
+    fifaRank: Number.POSITIVE_INFINITY,
+    id: teamId,
+    name: teamId,
+    officialName: teamId
+  };
+}
+
+function formatOrdinal(value) {
+  const number = Number(value);
+  const suffix =
+    number % 100 >= 11 && number % 100 <= 13
+      ? "th"
+      : { 1: "st", 2: "nd", 3: "rd" }[number % 10] || "th";
+
+  return `${number}${suffix}`;
+}
+
+function formatGoalDifference(goalDifference) {
+  return goalDifference > 0 ? `+${goalDifference}` : String(goalDifference);
+}
+
+function formatStandingPoints(points) {
+  return `${points} ${points === 1 ? "point" : "points"}`;
+}
+
+function formatGoalsScored(goals) {
+  return `${goals} ${goals === 1 ? "goal" : "goals"} scored`;
+}
+
+function getThirdPlaceAdvancerCount() {
+  const groupCount = tournamentData.groups?.length || 0;
+  const configuredAdvancers = Number(tournamentData.format?.bestThirdPlaceAdvancers);
+
+  return Number.isInteger(configuredAdvancers) && configuredAdvancers >= 0
+    ? Math.min(configuredAdvancers, groupCount)
+    : Math.min(8, groupCount);
+}
+
+function getTeamConductScore(row) {
+  const value = row.teamConductScore ?? row.conductScore ?? row.fairPlayScore ?? row.fairPlayPoints;
+  const score = Number(value);
+
+  return Number.isFinite(score) ? score : null;
+}
+
+function getFifaRankValue(team) {
+  const rank = Number(team.fifaRank);
+
+  return Number.isFinite(rank) ? rank : Number.POSITIVE_INFINITY;
+}
+
+function compareThirdPlaceCandidates(a, b) {
+  const conductA = getTeamConductScore(a);
+  const conductB = getTeamConductScore(b);
+
+  return (
+    b.pts - a.pts ||
+    b.gd - a.gd ||
+    b.gf - a.gf ||
+    (conductA !== null && conductB !== null ? conductB - conductA : 0) ||
+    getFifaRankValue(a.team) - getFifaRankValue(b.team) ||
+    a.groupIndex - b.groupIndex ||
+    a.team.name.localeCompare(b.team.name)
+  );
+}
+
+function getThirdPlaceTieSignature(row) {
+  return `${row.pts}|${row.gd}|${row.gf}`;
+}
+
+function getExpectedThirdPlaceStatus(candidate, advancerCount) {
+  const isInside = candidate.position <= advancerCount;
+
+  if (candidate.isCutLineTie) {
+    return { kind: "pending", label: "Tiebreak pending" };
+  }
+
+  if (isInside && candidate.position >= advancerCount - 1) {
+    return { kind: "bubble-in", label: "Just inside" };
+  }
+
+  if (isInside) {
+    return { kind: "in", label: "Advancing now" };
+  }
+
+  if (candidate.position === advancerCount + 1) {
+    return { kind: "first-out", label: "Just outside" };
+  }
+
+  return { kind: "out", label: "Outside now" };
+}
+
+function annotateExpectedThirdPlaceRaceRows(rows, advancerCount) {
+  const annotatedRows = rows.map((row, index) => ({
+    ...row,
+    isCutLineTie: false,
+    isUnresolvedTie: false,
+    position: index + 1,
+    tieGroupEnd: index + 1,
+    tieGroupStart: index + 1
+  }));
+
+  let index = 0;
+  while (index < annotatedRows.length) {
+    const signature = getThirdPlaceTieSignature(annotatedRows[index]);
+    let endIndex = index + 1;
+
+    while (
+      endIndex < annotatedRows.length &&
+      getThirdPlaceTieSignature(annotatedRows[endIndex]) === signature
+    ) {
+      endIndex += 1;
+    }
+
+    const tieGroup = annotatedRows.slice(index, endIndex);
+    const hasMissingConduct = tieGroup.some((row) => getTeamConductScore(row) === null);
+    const isUnresolvedTie = tieGroup.length > 1 && hasMissingConduct;
+    const isCutLineTie = isUnresolvedTie && index < advancerCount && endIndex > advancerCount;
+
+    for (let tieIndex = index; tieIndex < endIndex; tieIndex += 1) {
+      annotatedRows[tieIndex].isCutLineTie = isCutLineTie;
+      annotatedRows[tieIndex].isUnresolvedTie = isUnresolvedTie;
+      annotatedRows[tieIndex].tieGroupStart = index + 1;
+      annotatedRows[tieIndex].tieGroupEnd = endIndex;
+    }
+
+    index = endIndex;
+  }
+
+  return annotatedRows.map((row) => ({
+    ...row,
+    status: getExpectedThirdPlaceStatus(row, advancerCount)
+  }));
+}
+
+function getExpectedThirdPlaceRaceRows() {
+  const rows = (tournamentData.groups || [])
+    .map((group, groupIndex) => {
+      const row = standingsData.groups?.[group.id]?.[2];
+
+      if (!row) {
+        return null;
+      }
+
+      return {
+        ...row,
+        gd: row.gf - row.ga,
+        groupId: group.id,
+        groupIndex,
+        groupLabel: group.label || `Group ${group.id}`,
+        pts: row.wins * 3 + row.draws,
+        team: getTeam(row.teamId)
+      };
+    })
+    .filter(Boolean)
+    .sort(compareThirdPlaceCandidates);
+
+  return annotateExpectedThirdPlaceRaceRows(rows, getThirdPlaceAdvancerCount());
+}
+
+function getExpectedThirdPlaceReason(candidate, rows = getExpectedThirdPlaceRaceRows()) {
+  if (candidate.isCutLineTie) {
+    return `Tied on loaded stats for ${formatOrdinal(candidate.tieGroupStart)}-${formatOrdinal(candidate.tieGroupEnd)}.`;
+  }
+
+  const nearestCandidate =
+    candidate.position <= getThirdPlaceAdvancerCount()
+      ? rows[candidate.position]
+      : rows[candidate.position - 2];
+
+  if (!nearestCandidate) {
+    return `${formatStandingPoints(candidate.pts)}, ${formatGoalDifference(candidate.gd)} goal difference, ${formatGoalsScored(candidate.gf)}.`;
+  }
+
+  if (candidate.pts !== nearestCandidate.pts) {
+    return `${formatStandingPoints(candidate.pts)}; ${candidate.position <= getThirdPlaceAdvancerCount() ? "above" : "behind"} next team on points.`;
+  }
+
+  if (candidate.gd !== nearestCandidate.gd) {
+    return `${formatGoalDifference(candidate.gd)} goal difference; ${candidate.position <= getThirdPlaceAdvancerCount() ? "ahead" : "behind"} on goal difference.`;
+  }
+
+  if (candidate.gf !== nearestCandidate.gf) {
+    return `${formatGoalsScored(candidate.gf)}; ${candidate.position <= getThirdPlaceAdvancerCount() ? "ahead" : "behind"} on total goals scored.`;
+  }
+
+  return `${formatStandingPoints(candidate.pts)}, ${formatGoalDifference(candidate.gd)} goal difference, ${formatGoalsScored(candidate.gf)}.`;
+}
+
+function getExpectedStandingOrder(groupId) {
+  return (standingsData.groups?.[groupId] || []).map((row) => getTeam(row.teamId).name).join("|");
+}
 
 function getDayKeyForTimeZone(value, timeZone = "America/Los_Angeles") {
   const parts = new Intl.DateTimeFormat("en-US", {
@@ -968,7 +1165,7 @@ try {
     };
   });
   assert(
-    groupOrderCheck.groupB?.join("|") === "Canada|Switzerland|Bosnia and Herzegovina|Qatar",
+    groupOrderCheck.groupB?.join("|") === getExpectedStandingOrder("B"),
     "Group B should preserve the checked table order."
   );
   const bosniaStandingTeam = page
@@ -999,7 +1196,7 @@ try {
     "Bosnia and Herzegovina should use the available standings row width and only show a tooltip if it actually overflows."
   );
   assert(
-    groupOrderCheck.groupK?.join("|") === "Colombia|Portugal|DR Congo|Uzbekistan",
+    groupOrderCheck.groupK?.join("|") === getExpectedStandingOrder("K"),
     "Group K should preserve the checked FIFA table order."
   );
   const currentStandingsMarkerCheck = await page.evaluate(() => {
@@ -1017,8 +1214,9 @@ try {
     "The current 2026 standings should not show Round of 32 markers."
   );
   assert(
+    getExpectedThirdPlaceRaceRows().some((candidate) => candidate.groupId === "B") &&
     (await page.locator(".standings-card", { hasText: "Group B" }).locator(".third-place-pill").innerText()).trim() ===
-      "3rd race 7th",
+      `3rd race ${formatOrdinal(getExpectedThirdPlaceRaceRows().find((candidate) => candidate.groupId === "B").position)}`,
     "Group standings should show each current third-place team's cross-group race position."
   );
   await page.locator("#standings-third-place-tab").click();
@@ -1062,12 +1260,19 @@ try {
       visibleReasonCount: document.querySelectorAll(".third-place-reason").length
     };
   });
+  const expectedThirdPlaceRaceRows = getExpectedThirdPlaceRaceRows();
+  const expectedThirdPlaceTopFour = expectedThirdPlaceRaceRows
+    .slice(0, 4)
+    .map((row) => `${formatOrdinal(row.position)}:${row.team.name}`)
+    .join("|");
+  const expectedCutLineInside = expectedThirdPlaceRaceRows[getThirdPlaceAdvancerCount() - 1];
+  const expectedFirstOut = expectedThirdPlaceRaceRows[getThirdPlaceAdvancerCount()];
   assert(thirdPlaceRaceCheck.rowCount === 12, "The third-place race should rank all 12 groups.");
   assert(
     thirdPlaceRaceCheck.rowSummaries
       .slice(0, 4)
       .map((row) => `${row.rank}:${row.team}`)
-      .join("|") === "1st:Netherlands|2nd:Brazil|3rd:Belgium|4th:DR Congo",
+      .join("|") === expectedThirdPlaceTopFour,
     "The third-place race should sort by points, goal difference, goals scored, then deterministic fallback."
   );
   assert(
@@ -1090,12 +1295,16 @@ try {
     "The third-place race should use plain edge-of-cut-line status copy."
   );
   assert(
-    thirdPlaceRaceCheck.rowSummaries[7]?.team === "Ecuador" &&
-      thirdPlaceRaceCheck.rowSummaries[7]?.status === "Tiebreak pending" &&
-      thirdPlaceRaceCheck.rowSummaries[7]?.tooltip === "Tied on loaded stats for 8th-9th." &&
-      thirdPlaceRaceCheck.rowSummaries[8]?.team === "Panama" &&
-      thirdPlaceRaceCheck.rowSummaries[8]?.status === "Tiebreak pending" &&
-      thirdPlaceRaceCheck.rowSummaries[8]?.tooltip === "Tied on loaded stats for 8th-9th.",
+    expectedCutLineInside &&
+      expectedFirstOut &&
+      thirdPlaceRaceCheck.rowSummaries[getThirdPlaceAdvancerCount() - 1]?.team === expectedCutLineInside.team.name &&
+      thirdPlaceRaceCheck.rowSummaries[getThirdPlaceAdvancerCount() - 1]?.status === expectedCutLineInside.status.label &&
+      thirdPlaceRaceCheck.rowSummaries[getThirdPlaceAdvancerCount() - 1]?.tooltip ===
+        getExpectedThirdPlaceReason(expectedCutLineInside, expectedThirdPlaceRaceRows) &&
+      thirdPlaceRaceCheck.rowSummaries[getThirdPlaceAdvancerCount()]?.team === expectedFirstOut.team.name &&
+      thirdPlaceRaceCheck.rowSummaries[getThirdPlaceAdvancerCount()]?.status === expectedFirstOut.status.label &&
+      thirdPlaceRaceCheck.rowSummaries[getThirdPlaceAdvancerCount()]?.tooltip ===
+        getExpectedThirdPlaceReason(expectedFirstOut, expectedThirdPlaceRaceRows),
     "A cut-line tie without loaded fair-play data should be marked pending on both sides of the line."
   );
   assert(
