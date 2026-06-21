@@ -4482,6 +4482,7 @@ function readUrlState(options = {}) {
 function renderSourceNote() {
   const compactSourceLabels = {
     "FIFA World Cup 2026 schedule": "FIFA schedule",
+    "FIFA World Cup 2026 schedule and results": "FIFA schedule",
     "FIFA World Cup 2026 debutants": "debutants",
     "FIFA/Coca-Cola Men's World Ranking": "ranking",
     "FIFA World Cup 2026 standings": "standings"
