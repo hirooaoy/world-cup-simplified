@@ -40,9 +40,9 @@ const profiles = {
   },
   AUT: {
     summary: "are a high-pressure European side with enough experience to make the press feel organized rather than wild",
-    leaderRole: "giving them leadership, shooting range, and smart movement around the box",
-    plan: "They want David Alaba to organize the structure while Marcel Sabitzer and Christoph Baumgartner attack the spaces created by turnovers.",
-    attackPlan: "force rushed passes and turn Sabitzer's pressure into Baumgartner arrivals near goal",
+    leaderRole: "giving them leadership, shooting range, and relentless counter-pressing",
+    plan: "They want David Alaba to organize the structure while Marcel Sabitzer and Konrad Laimer turn pressure into quick second attacks.",
+    attackPlan: "force rushed passes and let Sabitzer and Laimer attack the next ball before defenses reset",
     matchupWin: "make the opponent play at Austria's pressing tempo",
     defensiveTask: "keeping the back line connected behind Alaba",
     threat: "press the first pass, win territory, and attack before defenses reset"
@@ -86,11 +86,11 @@ const profiles = {
   CIV: {
     summary: "are a powerful transition team with enough midfield force to turn loose games in their favor",
     leaderRole: "giving them ball-winning, wing speed, and a box target",
-    plan: "They want Franck Kessie to drive through midfield, Simon Adingra to stretch the flank, and Sebastien Haller to finish the move.",
-    attackPlan: "win the midfield collision and send Adingra into space before Haller attacks the box",
+    plan: "They want Franck Kessie to drive through midfield, Simon Adingra to stretch the flank, and Evann Guessand to attack the penalty area.",
+    attackPlan: "win the midfield collision and send Adingra into space before Guessand attacks the box",
     matchupWin: "make the opponent defend power running instead of calm possession",
     defensiveTask: "keeping the midfield compact when their wide players break forward",
-    threat: "turn Kessie's carries and Adingra's pace into Haller chances"
+    threat: "turn Kessie's carries and Adingra's pace into Guessand chances"
   },
   COD: {
     summary: "are an explosive transition side that can make favorites uncomfortable if the match opens up",
@@ -130,12 +130,12 @@ const profiles = {
   },
   CUW: {
     summary: "are a veteran-heavy underdog side trying to stay connected and choose their moments carefully",
-    leaderRole: "giving them midfield carries, set-piece experience, and defensive calm",
-    plan: "They need Juninho Bacuna to carry them forward, Leandro Bacuna to manage restarts, and Vurnon Anita to keep the shape intact.",
-    attackPlan: "use the Bacuna brothers to turn pressure relief into set pieces and territory",
+    leaderRole: "giving them midfield carries, set-piece experience, and a wide release valve",
+    plan: "They need Juninho Bacuna to carry them forward, Leandro Bacuna to manage restarts, and Tahith Chong to give counters a runner.",
+    attackPlan: "use the Bacuna brothers to turn pressure relief into set pieces before Chong attacks open space",
     matchupWin: "make the match choppy enough that favorites lose rhythm",
-    defensiveTask: "staying compact around Anita when the ball moves quickly",
-    threat: "turn veteran set-piece moments into a way back into the game"
+    defensiveTask: "staying compact enough for Chong's outlet runs to matter",
+    threat: "turn veteran set-piece moments and Chong's running into a way back into the game"
   },
   CZE: {
     summary: "are a set-piece and crossing threat that become dangerous when the game is played in the air",
@@ -238,21 +238,21 @@ const profiles = {
   },
   JOR: {
     summary: "are a disciplined counterattacking side that can hurt teams through speed and timing",
-    leaderRole: "giving them ball-carrying, finishing, and midfield work rate",
-    plan: "They want Mousa Al-Taamari to carry the break, Yazan Al-Naimat to finish it, and Noor Al-Rawabdeh to keep the block connected.",
-    attackPlan: "spring Al-Taamari into open space and let Al-Naimat attack the first clear chance",
+    leaderRole: "giving them ball-carrying, box movement, and midfield work rate",
+    plan: "They want Mousa Al-Taamari to carry the break, Ali Olwan to attack the box, and Noor Al-Rawabdeh to keep the block connected.",
+    attackPlan: "spring Al-Taamari into open space and let Olwan attack the first clear chance",
     matchupWin: "make the opponent nervous about every turnover",
     defensiveTask: "holding midfield distances through Al-Rawabdeh's work",
-    threat: "counter through Al-Taamari and Al-Naimat before the back line recovers"
+    threat: "counter through Al-Taamari and Olwan before the back line recovers"
   },
   JPN: {
     summary: "are a precise, fast-passing side that can make possession feel sudden and sharp",
-    leaderRole: "giving them tight-space craft, wing isolation, and counter-pressing control",
-    plan: "They want Takefusa Kubo and Kaoru Mitoma attacking different kinds of one-v-one moments while Wataru Endo secures the middle.",
-    attackPlan: "move the ball quickly enough for Kubo or Mitoma to receive against a shifting defender",
+    leaderRole: "giving them tight-space craft, left-footed punch, and between-lines timing",
+    plan: "They want Takefusa Kubo to create in tight spaces, Ritsu Doan to attack inside from the right, and Daichi Kamada to connect the final pass.",
+    attackPlan: "move the ball quickly enough for Kubo, Doan, or Kamada to receive between defenders",
     matchupWin: "make the opponent defend repeated changes of angle",
-    defensiveTask: "letting Endo close the first counter before it becomes a sprint",
-    threat: "turn quick combinations into Kubo or Mitoma isolations"
+    defensiveTask: "keeping the first counter controlled after their attacking midfielders commit forward",
+    threat: "turn quick combinations into Kubo, Doan, or Kamada chances"
   },
   KOR: {
     summary: "are a relentless running side with star quality at both ends of the spine",
@@ -274,12 +274,12 @@ const profiles = {
   },
   MAR: {
     summary: "are a disciplined, dangerous side whose structure lets their flair players attack with freedom",
-    leaderRole: "giving them right-side thrust, left-footed service, and aerial finishing",
-    plan: "They want Achraf Hakimi to own the right side, Hakim Ziyech to deliver the killer pass, and Youssef En-Nesyri to attack the box.",
-    attackPlan: "use Hakimi's overlaps to tilt the field before Ziyech finds En-Nesyri",
+    leaderRole: "giving them right-side thrust, central invention, and box finishing",
+    plan: "They want Achraf Hakimi to own the right side, Brahim Diaz to receive between lines, and Ayoub El Kaabi to finish moves.",
+    attackPlan: "use Hakimi's overlaps to tilt the field before Brahim or El Kaabi attacks the final action",
     matchupWin: "make the opponent defend both wide switches and aerial service",
     defensiveTask: "keeping the block compact behind Hakimi's forward runs",
-    threat: "combine Hakimi surges, Ziyech service, and En-Nesyri's box movement"
+    threat: "combine Hakimi surges, Brahim's invention, and El Kaabi's box movement"
   },
   MEX: {
     summary: "are a home-side pressure team that want territory, crowd energy, and repeated penalty-area touches",
@@ -355,12 +355,12 @@ const profiles = {
   },
   RSA: {
     summary: "are counterattacking underdogs who can stay in games if their goalkeeper and forwards give them belief",
-    leaderRole: "giving them shot-stopping, experience in open space, and a direct outlet",
-    plan: "They need Ronwen Williams to hold the scoreline, Percy Tau to connect attacks, and Lyle Foster to threaten behind.",
-    attackPlan: "absorb pressure, find Tau in space, and release Foster before the defense recovers",
+    leaderRole: "giving them shot-stopping, midfield bite, and a direct outlet",
+    plan: "They need Ronwen Williams to hold the scoreline, Teboho Mokoena to compete through midfield, and Lyle Foster to threaten behind.",
+    attackPlan: "absorb pressure, let Mokoena make the first forward pass, and release Foster before the defense recovers",
     matchupWin: "make the favorite chase without finding a clean second goal",
     defensiveTask: "protecting Williams from repeated central shots",
-    threat: "turn saves from Williams into Tau and Foster counters"
+    threat: "turn saves from Williams into Mokoena outlets and Foster counters"
   },
   SCO: {
     summary: "are a physical midfield side that can make opponents defend deliveries, duels, and late runners",
@@ -391,9 +391,9 @@ const profiles = {
   },
   SWE: {
     summary: "are a tall, technical attacking side with two forwards who can change the shape of a match",
-    leaderRole: "giving them elegant finishing, power running, and left-footed craft",
-    plan: "They want Alexander Isak finding clean touches, Viktor Gyokeres forcing contact, and Dejan Kulusevski linking the attack.",
-    attackPlan: "combine through Kulusevski and then choose between Isak's polish or Gyokeres' power",
+    leaderRole: "giving them elegant finishing, power running, and midfield timing",
+    plan: "They want Alexander Isak finding clean touches, Viktor Gyokeres forcing contact, and Yasin Ayari arriving from midfield.",
+    attackPlan: "connect through Ayari and then choose between Isak's polish or Gyokeres' power",
     matchupWin: "make center-backs defend different kinds of striker movement",
     defensiveTask: "preventing the midfield from getting stretched behind the front two",
     threat: "alternate between Isak's finesse and Gyokeres' force"

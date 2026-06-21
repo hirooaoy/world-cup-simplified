@@ -1,7 +1,7 @@
 {
-  "updatedAt": "2026-06-19T11:29:38-07:00",
+  "updatedAt": "2026-06-21T19:37:19.085Z",
   "sourceIds": [
-    "fifa-schedule-2026-06-17",
+    "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
     "espn-result-2026-06-17",
     "editorial-preview-2026-06-17",
@@ -15,6 +15,11 @@
     "market-odds-ecuador-curacao-2026-06-20",
     "market-odds-tunisia-japan-2026-06-21",
     "market-odds-spain-saudi-arabia-2026-06-21",
+    "fifa-netherlands-sweden-result-2026-06-20",
+    "fifa-germany-cote-divoire-result-2026-06-20",
+    "fifa-ecuador-curacao-result-2026-06-20",
+    "fifa-tunisia-japan-result-2026-06-21",
+    "fox-spain-saudi-arabia-result-2026-06-21",
     "market-odds-belgium-ir-iran-2026-06-21",
     "market-odds-uruguay-cabo-verde-2026-06-21",
     "market-odds-new-zealand-egypt-2026-06-21",
@@ -61,7 +66,9 @@
     "guardian-switzerland-bosnia-2026-06-18",
     "guardian-canada-qatar-2026-06-18",
     "guardian-mexico-south-korea-2026-06-19",
-    "fifa-debutants-2026-06-17"
+    "fifa-debutants-2026-06-17",
+    "guardian-belgium-iran-live-2026-06-21",
+    "fifa-official-results-sync-2026-06-21"
   ],
   "coverage": {
     "status": "complete-schedule",
@@ -166,8 +173,8 @@
             "note": "South Africa's captain and shot-stopper, important when opponents turn territory into sustained pressure."
           },
           {
-            "name": "Percy Tau",
-            "note": "The experienced attacking reference, useful in open space and in quick combinations."
+            "name": "Teboho Mokoena",
+            "note": "The midfield competitor and restart threat who can turn a defensive spell into South Africa possession."
           },
           {
             "name": "Lyle Foster",
@@ -177,8 +184,8 @@
       },
       "keyInformation": {
         "sourceId": "editorial-preview-2026-06-17",
-        "home": "Mexico are a home-side pressure team that want territory, crowd energy, and repeated box touches, led by Santiago Gimenez, Edson Alvarez, and Luis Chavez. Against South Africa, they want to keep the ball in the opponent's half and feed Gimenez before Chavez attacks restarts or rebounds; the risk is South Africa can turn saves from Williams into Tau and Foster counters.",
-        "away": "South Africa are counterattacking underdogs who can stay in games if their goalkeeper and forwards give them belief, led by Ronwen Williams, Percy Tau, and Lyle Foster. Against Mexico, they want to absorb pressure, find Tau in space, and release Foster before the defense recovers; the risk is Mexico can turn home pressure into Gimenez touches and Chavez set-piece looks."
+        "home": "Mexico are a home-side pressure team that want territory, crowd energy, and repeated penalty-area touches, led by Santiago Gimenez, Edson Alvarez, and Luis Chavez. Against South Africa, they want to keep the ball in the opponent's half and feed Gimenez before Chavez attacks restarts or rebounds; the risk is South Africa can turn saves from Williams into Mokoena outlets and Foster counters.",
+        "away": "South Africa are counterattacking underdogs who can stay in games if their goalkeeper and forwards give them belief, led by Ronwen Williams, Teboho Mokoena, and Lyle Foster. Against Mexico, they want to absorb pressure, let Mokoena make the first forward pass, and release Foster before the defense recovers; the risk is Mexico can turn home pressure into Gimenez touches and Chavez set-piece looks."
       }
     },
     {
@@ -186,7 +193,7 @@
       "stage": "group",
       "round": "group-stage",
       "groupId": "A",
-      "kickoffUtc": "2026-06-12T01:00:00Z",
+      "kickoffUtc": "2026-06-12T02:00:00Z",
       "homeTeamId": "KOR",
       "awayTeamId": "CZE",
       "venue": "Estadio Guadalajara",
@@ -353,7 +360,7 @@
       "stage": "group",
       "round": "group-stage",
       "groupId": "D",
-      "kickoffUtc": "2026-06-13T02:00:00Z",
+      "kickoffUtc": "2026-06-13T01:00:00Z",
       "homeTeamId": "USA",
       "awayTeamId": "PAR",
       "venue": "Los Angeles Stadium",
@@ -670,19 +677,19 @@
             "note": "A two-way right-side force whose overlaps, recovery speed, and set pieces shape Morocco's best stretches."
           },
           {
-            "name": "Hakim Ziyech",
-            "note": "The left-footed chance creator, dangerous when Morocco can switch play and let him pick final balls."
+            "name": "Brahim Diaz",
+            "note": "The between-lines creator who can receive under pressure and turn Hakimi support into final-third chances."
           },
           {
-            "name": "Youssef En-Nesyri",
-            "note": "The reference point in the box and aerial finisher who gives Morocco a direct end point."
+            "name": "Ayoub El Kaabi",
+            "note": "The box finisher who gives Morocco a direct endpoint when wide pressure turns into service."
           }
         ]
       },
       "keyInformation": {
         "sourceId": "editorial-preview-2026-06-17",
-        "home": "Brazil are a top-tier attacking side whose best moments mix individual invention with sudden acceleration, led by Neymar, Vinicius Junior, and Casemiro. Against Morocco, they want to isolate Vinicius Junior quickly and let Neymar combine around the fouls and gaps that creates; the risk is Morocco can combine Hakimi surges, Ziyech service, and En-Nesyri's box movement.",
-        "away": "Morocco are a disciplined, dangerous side whose structure lets their flair players attack with freedom, led by Achraf Hakimi, Hakim Ziyech, and Youssef En-Nesyri. Against Brazil, they want to use Hakimi's overlaps to tilt the field before Ziyech finds En-Nesyri; the risk is Brazil can break a shape through Neymar combinations and Vinicius Junior's speed."
+        "home": "Brazil are a top-tier attacking side whose best moments mix individual invention with sudden acceleration, led by Neymar, Vinicius Junior, and Casemiro. Against Morocco, they want to isolate Vinicius Junior quickly and let Neymar combine around the fouls and gaps that creates; the risk is Morocco can combine Hakimi surges, Brahim's invention, and El Kaabi's box movement.",
+        "away": "Morocco are a disciplined, dangerous side whose structure lets their flair players attack with freedom, led by Achraf Hakimi, Brahim Diaz, and Ayoub El Kaabi. Against Brazil, they want to use Hakimi's overlaps to tilt the field before Brahim or El Kaabi attacks the final action; the risk is Brazil can break a shape through Neymar combinations and Vinicius Junior's speed."
       }
     },
     {
@@ -896,18 +903,18 @@
           },
           {
             "name": "Leandro Bacuna",
-            "note": "The experienced set-piece and leadership presence, important when Curacao need calm under pressure."
+            "note": "The experienced set-piece and midfield organizer who helps Curaçao slow chaotic stretches."
           },
           {
-            "name": "Vurnon Anita",
-            "note": "A veteran organizer who can help Curacao stay compact and connected without the ball."
+            "name": "Tahith Chong",
+            "note": "A direct wide outlet who gives Curaçao a runner when they escape pressure and attack open space."
           }
         ]
       },
       "keyInformation": {
         "sourceId": "editorial-preview-2026-06-17",
-        "home": "Germany are a technical control side with enough young creativity to open compact defenses, led by Joshua Kimmich, Jamal Musiala, and Florian Wirtz. Against Curaçao, they want to pull midfielders out with Kimmich's passing before Musiala and Wirtz attack the gaps near the box; the risk is Curaçao can turn veteran set-piece moments into a way back into the game.",
-        "away": "Curaçao are a veteran-heavy underdog side trying to stay connected and choose their moments carefully, led by Juninho Bacuna, Leandro Bacuna, and Vurnon Anita. Against Germany, they want to use the Bacuna brothers to turn pressure relief into set pieces and territory; the risk is Germany can combine through Kimmich, Musiala, and Wirtz until the block loses its shape."
+        "home": "Germany are a technical control side with enough young creativity to open compact defenses, led by Joshua Kimmich, Jamal Musiala, and Florian Wirtz. Against Curaçao, they want to pull midfielders out with Kimmich's passing before Musiala and Wirtz attack the gaps near the box; the risk is Curaçao can turn veteran set-piece moments and Chong's running into a way back into the game.",
+        "away": "Curaçao are a veteran-heavy underdog side trying to stay connected and choose their moments carefully, led by Juninho Bacuna, Leandro Bacuna, and Tahith Chong. Against Germany, they want to use the Bacuna brothers to turn pressure relief into set pieces before Chong attacks open space; the risk is Germany can combine through Kimmich, Musiala, and Wirtz until the block loses its shape."
       }
     },
     {
@@ -990,19 +997,19 @@
             "note": "Japan's sharpest creator in tight spaces, especially dangerous when he can cut inside onto his left foot."
           },
           {
-            "name": "Kaoru Mitoma",
-            "note": "The isolation winger who can beat the first defender and turn patient possession into sudden chances."
+            "name": "Ritsu Doan",
+            "note": "A left-footed attacker who can arrive inside from the right and give Japan punch when combinations reach the final third."
           },
           {
-            "name": "Wataru Endo",
-            "note": "The midfield anchor, key to Japan's counter-press and the first pass after winning the ball."
+            "name": "Daichi Kamada",
+            "note": "The between-lines connector, important for turning Japan's fast passing into the final pass or late box run."
           }
         ]
       },
       "keyInformation": {
         "sourceId": "editorial-preview-2026-06-17",
-        "home": "Netherlands are a control team with a strong defensive base and enough technical quality to play through pressure, led by Virgil van Dijk, Frenkie de Jong, and Cody Gakpo. Against Japan, they want to build calmly through De Jong and let Gakpo receive between fullback and center-back; the risk is Japan can turn quick combinations into Kubo or Mitoma isolations.",
-        "away": "Japan are a precise, fast-passing side that can make possession feel sudden and sharp, led by Takefusa Kubo, Kaoru Mitoma, and Wataru Endo. Against Netherlands, they want to move the ball quickly enough for Kubo or Mitoma to receive against a shifting defender; the risk is Netherlands can control possession through De Jong and protect it with Van Dijk's authority."
+        "home": "Netherlands are a control team with a strong defensive base and enough technical quality to play through pressure, led by Virgil van Dijk, Frenkie de Jong, and Cody Gakpo. Against Japan, they want to build calmly through De Jong and let Gakpo receive between fullback and center-back; the risk is Japan can turn quick combinations into Kubo, Doan, or Kamada chances.",
+        "away": "Japan are a precise, fast-passing side that can make possession feel sudden and sharp, led by Takefusa Kubo, Ritsu Doan, and Daichi Kamada. Against Netherlands, they want to move the ball quickly enough for Kubo, Doan, or Kamada to receive between defenders; the risk is Netherlands can control possession through De Jong and protect it with Van Dijk's authority."
       }
     },
     {
@@ -1041,15 +1048,15 @@
         "home": [
           {
             "name": "Franck Kessie",
-            "note": "The power-and-control midfielder, giving Cote d'Ivoire ball-winning, carries, and box arrivals."
+            "note": "The midfield power source, able to carry through pressure and turn duels into forward momentum."
           },
           {
             "name": "Simon Adingra",
-            "note": "The wide runner who can stretch back lines and make transition attacks feel immediate."
+            "note": "The wide accelerator, important when Côte d'Ivoire need to turn a defensive stand into a fast attack."
           },
           {
-            "name": "Sebastien Haller",
-            "note": "The central reference point, a finisher in the box who makes crosses and cutbacks matter."
+            "name": "Evann Guessand",
+            "note": "The current-squad penalty-area forward who gives Côte d'Ivoire a target for Adingra's service and Kessie's carries."
           }
         ],
         "away": [
@@ -1069,8 +1076,8 @@
       },
       "keyInformation": {
         "sourceId": "editorial-preview-2026-06-17",
-        "home": "Côte d'Ivoire are a powerful transition team with enough midfield force to turn loose games in their favor, led by Franck Kessie, Simon Adingra, and Sebastien Haller. Against Ecuador, they want to win the midfield collision and send Adingra into space before Haller attacks the box; the risk is Ecuador can turn Caicedo ball wins and Valencia movement into fast attacks.",
-        "away": "Ecuador are an intense, athletic side that can disrupt stronger opponents through midfield pressure, led by Moises Caicedo, Piero Hincapie, and Enner Valencia. Against Côte d'Ivoire, they want to win the midfield duel through Caicedo and release Valencia before the defense is set; the risk is Côte d'Ivoire can turn Kessie's carries and Adingra's pace into Haller chances."
+        "home": "Côte d'Ivoire are a powerful transition team with enough midfield force to turn loose games in their favor, led by Franck Kessie, Simon Adingra, and Evann Guessand. Against Ecuador, they want to win the midfield collision and send Adingra into space before Guessand attacks the box; the risk is Ecuador can turn Caicedo ball wins and Valencia movement into fast attacks.",
+        "away": "Ecuador are an intense, athletic side that can disrupt stronger opponents through midfield pressure, led by Moises Caicedo, Piero Hincapie, and Enner Valencia. Against Côte d'Ivoire, they want to win the midfield duel through Caicedo and release Valencia before the defense is set; the risk is Côte d'Ivoire can turn Kessie's carries and Adingra's pace into Guessand chances."
       }
     },
     {
@@ -1147,8 +1154,8 @@
             "note": "A relentless power forward whose carries and pressing can turn Sweden from structured to explosive."
           },
           {
-            "name": "Dejan Kulusevski",
-            "note": "The left-footed creator who links midfield to attack and gives Sweden craft in open space."
+            "name": "Yasin Ayari",
+            "note": "A mobile midfield connector whose timing helps Sweden link their two-forward threat to the rest of the side."
           }
         ],
         "away": [
@@ -1168,7 +1175,7 @@
       },
       "keyInformation": {
         "sourceId": "editorial-preview-2026-06-17",
-        "home": "Sweden are a tall, technical attacking side with two forwards who can change the shape of a match, led by Alexander Isak, Viktor Gyokeres, and Dejan Kulusevski. Against Tunisia, they want to combine through Kulusevski and then choose between Isak's polish or Gyokeres' power; the risk is Tunisia can slow the match through Skhiri's screen and break through Saad.",
+        "home": "Sweden are a tall, technical attacking side with two forwards who can change the shape of a match, led by Alexander Isak, Viktor Gyokeres, and Yasin Ayari. Against Tunisia, they want to connect through Ayari and then choose between Isak's polish or Gyokeres' power; the risk is Tunisia can slow the match through Skhiri's screen and break through Saad.",
         "away": "Tunisia are an organized defensive side that need energy and directness to make their structure bite, led by Ellyes Skhiri, Hannibal Mejbri, and Elias Saad. Against Sweden, they want to stay compact through Skhiri and then use Saad as the first runner into space; the risk is Sweden can alternate between Isak's finesse and Gyokeres' force."
       }
     },
@@ -1245,7 +1252,7 @@
       "stage": "group",
       "round": "group-stage",
       "groupId": "G",
-      "kickoffUtc": "2026-06-15T22:00:00Z",
+      "kickoffUtc": "2026-06-15T19:00:00Z",
       "homeTeamId": "BEL",
       "awayTeamId": "EGY",
       "venue": "Seattle Stadium",
@@ -1453,7 +1460,7 @@
       "stage": "group",
       "round": "group-stage",
       "groupId": "G",
-      "kickoffUtc": "2026-06-16T04:00:00Z",
+      "kickoffUtc": "2026-06-16T01:00:00Z",
       "homeTeamId": "IRN",
       "awayTeamId": "NZL",
       "venue": "Los Angeles Stadium",
@@ -1800,8 +1807,8 @@
             "note": "The pressing midfielder with shooting range, dangerous when Austria force turnovers near goal."
           },
           {
-            "name": "Christoph Baumgartner",
-            "note": "A smart runner between midfield and attack, often the player who turns pressure into box entries."
+            "name": "Konrad Laimer",
+            "note": "The counter-pressing engine, useful for turning Austria's pressure into second balls and quick attacks."
           }
         ],
         "away": [
@@ -1810,19 +1817,19 @@
             "note": "Jordan's star ball-carrier, a direct runner who can make counters feel dangerous immediately."
           },
           {
-            "name": "Yazan Al-Naimat",
-            "note": "The central finisher and combination forward, key when Jordan turn rare attacks into real chances."
+            "name": "Ali Olwan",
+            "note": "A box runner and counterattack finisher who gives Jordan a current-squad endpoint around goal."
           },
           {
             "name": "Noor Al-Rawabdeh",
-            "note": "The midfield worker who helps Jordan stay compact and connect the first pass forward."
+            "note": "The midfield worker who helps Jordan's block stay connected before the break is on."
           }
         ]
       },
       "keyInformation": {
         "sourceId": "editorial-preview-2026-06-17",
-        "home": "Austria are a high-pressure European side with enough experience to make the press feel organized rather than wild, led by David Alaba, Marcel Sabitzer, and Christoph Baumgartner. Against Jordan, they want to force rushed passes and turn Sabitzer's pressure into Baumgartner arrivals near goal; the risk is Jordan can counter through Al-Taamari and Al-Naimat before the back line recovers.",
-        "away": "Jordan are a disciplined counterattacking side that can hurt teams through speed and timing, led by Mousa Al-Taamari, Yazan Al-Naimat, and Noor Al-Rawabdeh. Against Austria, they want to spring Al-Taamari into open space and let Al-Naimat attack the first clear chance; the risk is Austria can press the first pass, win territory, and attack before defenses reset."
+        "home": "Austria are a high-pressure European side with enough experience to make the press feel organized rather than wild, led by David Alaba, Marcel Sabitzer, and Konrad Laimer. Against Jordan, they want to force rushed passes and let Sabitzer and Laimer attack the next ball before defenses reset; the risk is Jordan can counter through Al-Taamari and Olwan before the back line recovers.",
+        "away": "Jordan are a disciplined counterattacking side that can hurt teams through speed and timing, led by Mousa Al-Taamari, Ali Olwan, and Noor Al-Rawabdeh. Against Austria, they want to spring Al-Taamari into open space and let Olwan attack the first clear chance; the risk is Austria can press the first pass, win territory, and attack before defenses reset."
       }
     },
     {
@@ -2294,8 +2301,8 @@
             "note": "South Africa's captain and shot-stopper, important when opponents turn territory into sustained pressure."
           },
           {
-            "name": "Percy Tau",
-            "note": "The experienced attacking reference, useful in open space and in quick combinations."
+            "name": "Teboho Mokoena",
+            "note": "The midfield competitor and restart threat who can turn a defensive spell into South Africa possession."
           },
           {
             "name": "Lyle Foster",
@@ -2305,8 +2312,8 @@
       },
       "keyInformation": {
         "sourceId": "editorial-preview-2026-06-17",
-        "home": "Czechia are a set-piece and crossing threat that become dangerous when the game is played in the air, led by Patrik Schick, Tomas Soucek, and Adam Hlozek. Against South Africa, they want to load early service toward Schick and Soucek before the defensive block settles; the risk is South Africa can turn saves from Williams into Tau and Foster counters.",
-        "away": "South Africa are counterattacking underdogs who can stay in games if their goalkeeper and forwards give them belief, led by Ronwen Williams, Percy Tau, and Lyle Foster. Against Czechia, they want to absorb pressure, find Tau in space, and release Foster before the defense recovers; the risk is Czechia can turn crosses, set pieces, and Soucek runs into high-value chances."
+        "home": "Czechia are a set-piece and crossing threat that become dangerous when the game is played in the air, led by Patrik Schick, Tomas Soucek, and Adam Hlozek. Against South Africa, they want to load early service toward Schick and Soucek before the defensive block settles; the risk is South Africa can turn saves from Williams into Mokoena outlets and Foster counters.",
+        "away": "South Africa are counterattacking underdogs who can stay in games if their goalkeeper and forwards give them belief, led by Ronwen Williams, Teboho Mokoena, and Lyle Foster. Against Czechia, they want to absorb pressure, let Mokoena make the first forward pass, and release Foster before the defense recovers; the risk is Czechia can turn crosses, set pieces, and Soucek runs into high-value chances."
       }
     },
     {
@@ -2680,7 +2687,7 @@
       },
       "keyInformation": {
         "sourceId": "editorial-preview-2026-06-17",
-        "home": "Mexico are a home-side pressure team that want territory, crowd energy, and repeated box touches, led by Santiago Gimenez, Edson Alvarez, and Luis Chavez. Against South Korea, they want to keep the ball in the opponent's half and feed Gimenez before Chavez attacks restarts or rebounds; the risk is South Korea can turn running power and Son's finishing into sudden chances.",
+        "home": "Mexico are a home-side pressure team that want territory, crowd energy, and repeated penalty-area touches, led by Santiago Gimenez, Edson Alvarez, and Luis Chavez. Against South Korea, they want to keep the ball in the opponent's half and feed Gimenez before Chavez attacks restarts or rebounds; the risk is South Korea can turn running power and Son's finishing into sudden chances.",
         "away": "South Korea are a relentless running side with star quality at both ends of the spine, led by Son Heung-min, Kim Min-jae, and Lee Kang-in. Against Mexico, they want to release Son behind the line and let Lee Kang-in choose the final pass; the risk is Mexico can turn home pressure into Gimenez touches and Chavez set-piece looks."
       }
     },
@@ -2693,7 +2700,11 @@
       "homeTeamId": "USA",
       "awayTeamId": "AUS",
       "venue": "Seattle Stadium",
-      "status": "SCHEDULED",
+      "status": "FT",
+      "score": {
+        "home": 2,
+        "away": 0
+      },
       "h2h": {
         "status": "loaded",
         "sourceId": "national-football-teams-h2h-2026-06-17",
@@ -2794,11 +2805,15 @@
       "stage": "group",
       "round": "group-stage",
       "groupId": "C",
-      "kickoffUtc": "2026-06-19T19:00:00Z",
+      "kickoffUtc": "2026-06-19T22:00:00Z",
       "homeTeamId": "SCO",
       "awayTeamId": "MAR",
       "venue": "Boston Stadium",
-      "status": "SCHEDULED",
+      "status": "FT",
+      "score": {
+        "home": 0,
+        "away": 1
+      },
       "h2h": {
         "status": "loaded",
         "sourceId": "national-football-teams-h2h-2026-06-17",
@@ -2849,19 +2864,19 @@
             "note": "A two-way right-side force whose overlaps, recovery speed, and set pieces shape Morocco's best stretches."
           },
           {
-            "name": "Hakim Ziyech",
-            "note": "The left-footed chance creator, dangerous when Morocco can switch play and let him pick final balls."
+            "name": "Brahim Diaz",
+            "note": "The between-lines creator who can receive under pressure and turn Hakimi support into final-third chances."
           },
           {
-            "name": "Youssef En-Nesyri",
-            "note": "The reference point in the box and aerial finisher who gives Morocco a direct end point."
+            "name": "Ayoub El Kaabi",
+            "note": "The box finisher who gives Morocco a direct endpoint when wide pressure turns into service."
           }
         ]
       },
       "keyInformation": {
         "sourceId": "editorial-preview-2026-06-17",
-        "home": "Scotland are a physical midfield side that can make opponents defend deliveries, duels, and late runners, led by Scott McTominay, John McGinn, and Andy Robertson. Against Morocco, they want to work the ball left for Robertson and attack the second phase through McTominay; the risk is Morocco can combine Hakimi surges, Ziyech service, and En-Nesyri's box movement.",
-        "away": "Morocco are a disciplined, dangerous side whose structure lets their flair players attack with freedom, led by Achraf Hakimi, Hakim Ziyech, and Youssef En-Nesyri. Against Scotland, they want to use Hakimi's overlaps to tilt the field before Ziyech finds En-Nesyri; the risk is Scotland can turn Robertson service and McTominay runs into pressure."
+        "home": "Scotland are a physical midfield side that can make opponents defend deliveries, duels, and late runners, led by Scott McTominay, John McGinn, and Andy Robertson. Against Morocco, they want to work the ball left for Robertson and attack the second phase through McTominay; the risk is Morocco can combine Hakimi surges, Brahim's invention, and El Kaabi's box movement.",
+        "away": "Morocco are a disciplined, dangerous side whose structure lets their flair players attack with freedom, led by Achraf Hakimi, Brahim Diaz, and Ayoub El Kaabi. Against Scotland, they want to use Hakimi's overlaps to tilt the field before Brahim or El Kaabi attacks the final action; the risk is Scotland can turn Robertson service and McTominay runs into pressure."
       }
     },
     {
@@ -2869,11 +2884,15 @@
       "stage": "group",
       "round": "group-stage",
       "groupId": "C",
-      "kickoffUtc": "2026-06-20T01:00:00Z",
+      "kickoffUtc": "2026-06-20T00:30:00Z",
       "homeTeamId": "BRA",
       "awayTeamId": "HAI",
       "venue": "Philadelphia Stadium",
-      "status": "SCHEDULED",
+      "status": "FT",
+      "score": {
+        "home": 3,
+        "away": 0
+      },
       "h2h": {
         "status": "loaded",
         "sourceId": "national-football-teams-h2h-2026-06-17",
@@ -2954,11 +2973,15 @@
       "stage": "group",
       "round": "group-stage",
       "groupId": "D",
-      "kickoffUtc": "2026-06-20T04:00:00Z",
+      "kickoffUtc": "2026-06-20T03:00:00Z",
       "homeTeamId": "TUR",
       "awayTeamId": "PAR",
       "venue": "San Francisco Bay Area Stadium",
-      "status": "SCHEDULED",
+      "status": "FT",
+      "score": {
+        "home": 0,
+        "away": 1
+      },
       "h2h": {
         "status": "loaded",
         "sourceId": "national-football-teams-h2h-2026-06-17",
@@ -3033,7 +3056,11 @@
       "homeTeamId": "NED",
       "awayTeamId": "SWE",
       "venue": "Houston Stadium",
-      "status": "SCHEDULED",
+      "status": "FT",
+      "score": {
+        "home": 5,
+        "away": 1
+      },
       "h2h": {
         "status": "loaded",
         "sourceId": "national-football-teams-h2h-2026-06-17",
@@ -3248,15 +3275,15 @@
             "note": "A relentless power forward whose carries and pressing can turn Sweden from structured to explosive."
           },
           {
-            "name": "Dejan Kulusevski",
-            "note": "The left-footed creator who links midfield to attack and gives Sweden craft in open space."
+            "name": "Yasin Ayari",
+            "note": "A mobile midfield connector whose timing helps Sweden link their two-forward threat to the rest of the side."
           }
         ]
       },
       "keyInformation": {
         "sourceId": "editorial-preview-2026-06-17",
         "home": "Netherlands are a control team with a strong defensive base and enough technical quality to play through pressure, led by Virgil van Dijk, Frenkie de Jong, and Cody Gakpo. Against Sweden, they want to build calmly through De Jong and let Gakpo receive between fullback and center-back; the risk is Sweden can alternate between Isak's finesse and Gyokeres' force.",
-        "away": "Sweden are a tall, technical attacking side with two forwards who can change the shape of a match, led by Alexander Isak, Viktor Gyokeres, and Dejan Kulusevski. Against Netherlands, they want to combine through Kulusevski and then choose between Isak's polish or Gyokeres' power; the risk is Netherlands can control possession through De Jong and protect it with Van Dijk's authority."
+        "away": "Sweden are a tall, technical attacking side with two forwards who can change the shape of a match, led by Alexander Isak, Viktor Gyokeres, and Yasin Ayari. Against Netherlands, they want to connect through Ayari and then choose between Isak's polish or Gyokeres' power; the risk is Netherlands can control possession through De Jong and protect it with Van Dijk's authority."
       }
     },
     {
@@ -3268,7 +3295,11 @@
       "homeTeamId": "GER",
       "awayTeamId": "CIV",
       "venue": "Toronto Stadium",
-      "status": "SCHEDULED",
+      "status": "FT",
+      "score": {
+        "home": 2,
+        "away": 1
+      },
       "h2h": {
         "status": "loaded",
         "sourceId": "national-football-teams-h2h-2026-06-17",
@@ -3316,22 +3347,22 @@
         "away": [
           {
             "name": "Franck Kessie",
-            "note": "The power-and-control midfielder, giving Cote d'Ivoire ball-winning, carries, and box arrivals."
+            "note": "The midfield power source, able to carry through pressure and turn duels into forward momentum."
           },
           {
             "name": "Simon Adingra",
-            "note": "The wide runner who can stretch back lines and make transition attacks feel immediate."
+            "note": "The wide accelerator, important when Côte d'Ivoire need to turn a defensive stand into a fast attack."
           },
           {
-            "name": "Sebastien Haller",
-            "note": "The central reference point, a finisher in the box who makes crosses and cutbacks matter."
+            "name": "Evann Guessand",
+            "note": "The current-squad penalty-area forward who gives Côte d'Ivoire a target for Adingra's service and Kessie's carries."
           }
         ]
       },
       "keyInformation": {
         "sourceId": "editorial-preview-2026-06-17",
-        "home": "Germany are a technical control side with enough young creativity to open compact defenses, led by Joshua Kimmich, Jamal Musiala, and Florian Wirtz. Against Côte d'Ivoire, they want to pull midfielders out with Kimmich's passing before Musiala and Wirtz attack the gaps near the box; the risk is Côte d'Ivoire can turn Kessie's carries and Adingra's pace into Haller chances.",
-        "away": "Côte d'Ivoire are a powerful transition team with enough midfield force to turn loose games in their favor, led by Franck Kessie, Simon Adingra, and Sebastien Haller. Against Germany, they want to win the midfield collision and send Adingra into space before Haller attacks the box; the risk is Germany can combine through Kimmich, Musiala, and Wirtz until the block loses its shape."
+        "home": "Germany are a technical control side with enough young creativity to open compact defenses, led by Joshua Kimmich, Jamal Musiala, and Florian Wirtz. Against Côte d'Ivoire, they want to pull midfielders out with Kimmich's passing before Musiala and Wirtz attack the gaps near the box; the risk is Côte d'Ivoire can turn Kessie's carries and Adingra's pace into Guessand chances.",
+        "away": "Côte d'Ivoire are a powerful transition team with enough midfield force to turn loose games in their favor, led by Franck Kessie, Simon Adingra, and Evann Guessand. Against Germany, they want to win the midfield collision and send Adingra into space before Guessand attacks the box; the risk is Germany can combine through Kimmich, Musiala, and Wirtz until the block loses its shape."
       }
     },
     {
@@ -3343,7 +3374,11 @@
       "homeTeamId": "ECU",
       "awayTeamId": "CUW",
       "venue": "Kansas City Stadium",
-      "status": "SCHEDULED",
+      "status": "FT",
+      "score": {
+        "home": 0,
+        "away": 0
+      },
       "h2h": {
         "status": "verified-empty",
         "sourceId": "national-football-teams-h2h-2026-06-17",
@@ -3384,18 +3419,18 @@
           },
           {
             "name": "Leandro Bacuna",
-            "note": "The experienced set-piece and leadership presence, important when Curacao need calm under pressure."
+            "note": "The experienced set-piece and midfield organizer who helps Curaçao slow chaotic stretches."
           },
           {
-            "name": "Vurnon Anita",
-            "note": "A veteran organizer who can help Curacao stay compact and connected without the ball."
+            "name": "Tahith Chong",
+            "note": "A direct wide outlet who gives Curaçao a runner when they escape pressure and attack open space."
           }
         ]
       },
       "keyInformation": {
         "sourceId": "editorial-preview-2026-06-17",
-        "home": "Ecuador are an intense, athletic side that can disrupt stronger opponents through midfield pressure, led by Moises Caicedo, Piero Hincapie, and Enner Valencia. Against Curaçao, they want to win the midfield duel through Caicedo and release Valencia before the defense is set; the risk is Curaçao can turn veteran set-piece moments into a way back into the game.",
-        "away": "Curaçao are a veteran-heavy underdog side trying to stay connected and choose their moments carefully, led by Juninho Bacuna, Leandro Bacuna, and Vurnon Anita. Against Ecuador, they want to use the Bacuna brothers to turn pressure relief into set pieces and territory; the risk is Ecuador can turn Caicedo ball wins and Valencia movement into fast attacks."
+        "home": "Ecuador are an intense, athletic side that can disrupt stronger opponents through midfield pressure, led by Moises Caicedo, Piero Hincapie, and Enner Valencia. Against Curaçao, they want to win the midfield duel through Caicedo and release Valencia before the defense is set; the risk is Curaçao can turn veteran set-piece moments and Chong's running into a way back into the game.",
+        "away": "Curaçao are a veteran-heavy underdog side trying to stay connected and choose their moments carefully, led by Juninho Bacuna, Leandro Bacuna, and Tahith Chong. Against Ecuador, they want to use the Bacuna brothers to turn pressure relief into set pieces before Chong attacks open space; the risk is Ecuador can turn Caicedo ball wins and Valencia movement into fast attacks."
       }
     },
     {
@@ -3407,7 +3442,11 @@
       "homeTeamId": "TUN",
       "awayTeamId": "JPN",
       "venue": "Estadio Monterrey",
-      "status": "SCHEDULED",
+      "status": "FT",
+      "score": {
+        "home": 0,
+        "away": 4
+      },
       "h2h": {
         "status": "loaded",
         "sourceId": "national-football-teams-h2h-2026-06-17",
@@ -3508,19 +3547,19 @@
             "note": "Japan's sharpest creator in tight spaces, especially dangerous when he can cut inside onto his left foot."
           },
           {
-            "name": "Kaoru Mitoma",
-            "note": "The isolation winger who can beat the first defender and turn patient possession into sudden chances."
+            "name": "Ritsu Doan",
+            "note": "A left-footed attacker who can arrive inside from the right and give Japan punch when combinations reach the final third."
           },
           {
-            "name": "Wataru Endo",
-            "note": "The midfield anchor, key to Japan's counter-press and the first pass after winning the ball."
+            "name": "Daichi Kamada",
+            "note": "The between-lines connector, important for turning Japan's fast passing into the final pass or late box run."
           }
         ]
       },
       "keyInformation": {
         "sourceId": "editorial-preview-2026-06-17",
-        "home": "Tunisia are an organized defensive side that need energy and directness to make their structure bite, led by Ellyes Skhiri, Hannibal Mejbri, and Elias Saad. Against Japan, they want to stay compact through Skhiri and then use Saad as the first runner into space; the risk is Japan can turn quick combinations into Kubo or Mitoma isolations.",
-        "away": "Japan are a precise, fast-passing side that can make possession feel sudden and sharp, led by Takefusa Kubo, Kaoru Mitoma, and Wataru Endo. Against Tunisia, they want to move the ball quickly enough for Kubo or Mitoma to receive against a shifting defender; the risk is Tunisia can slow the match through Skhiri's screen and break through Saad."
+        "home": "Tunisia are an organized defensive side that need energy and directness to make their structure bite, led by Ellyes Skhiri, Hannibal Mejbri, and Elias Saad. Against Japan, they want to stay compact through Skhiri and then use Saad as the first runner into space; the risk is Japan can turn quick combinations into Kubo, Doan, or Kamada chances.",
+        "away": "Japan are a precise, fast-passing side that can make possession feel sudden and sharp, led by Takefusa Kubo, Ritsu Doan, and Daichi Kamada. Against Tunisia, they want to move the ball quickly enough for Kubo, Doan, or Kamada to receive between defenders; the risk is Tunisia can slow the match through Skhiri's screen and break through Saad."
       }
     },
     {
@@ -3532,7 +3571,11 @@
       "homeTeamId": "ESP",
       "awayTeamId": "KSA",
       "venue": "Atlanta Stadium",
-      "status": "SCHEDULED",
+      "status": "FT",
+      "score": {
+        "home": 4,
+        "away": 0
+      },
       "h2h": {
         "status": "loaded",
         "sourceId": "national-football-teams-h2h-2026-06-17",
@@ -3627,7 +3670,7 @@
       "homeTeamId": "BEL",
       "awayTeamId": "IRN",
       "venue": "Los Angeles Stadium",
-      "status": "SCHEDULED",
+      "status": "LIVE",
       "h2h": {
         "status": "verified-empty",
         "sourceId": "national-football-teams-h2h-2026-06-17",
@@ -3657,8 +3700,8 @@
             "note": "The reference point in the box and power finisher, built to punish any service into his stride or feet."
           },
           {
-            "name": "Jeremy Doku",
-            "note": "The one-v-one destabilizer, stretching games wide open with direct carries from the flank."
+            "name": "Leandro Trossard",
+            "note": "A flexible current-match attacking option who can replace Doku's width with sharper combination play around the box."
           }
         ],
         "away": [
@@ -3678,8 +3721,12 @@
       },
       "keyInformation": {
         "sourceId": "editorial-preview-2026-06-17",
-        "home": "Belgium are an elite chance-creation team when their creators get space to face forward, led by Kevin De Bruyne, Romelu Lukaku, and Jeremy Doku. Against IR Iran, they want to feed De Bruyne early and use Doku to create the separation Lukaku needs in the box; the risk is IR Iran can turn fouls, counters, and Taremi's craft into chances.",
-        "away": "IR Iran are a streetwise counterattacking side with experienced forwards who understand tournament margins, led by Mehdi Taremi, Sardar Azmoun, and Alireza Jahanbakhsh. Against Belgium, they want to draw contact, slow the rhythm, and then find Taremi or Azmoun around the box; the risk is Belgium can turn De Bruyne service and Doku dribbles into Lukaku chances."
+        "home": "Belgium are an elite chance-creation team when their creators get space to face forward, led by Kevin De Bruyne, Romelu Lukaku, and Leandro Trossard. Against IR Iran, they want De Bruyne setting the tempo while Trossard combines around Lukaku instead of relying on Doku's carries; the risk is IR Iran can turn fouls, counters, and Taremi's craft into chances.",
+        "away": "IR Iran are a streetwise counterattacking side with experienced forwards who understand tournament margins, led by Mehdi Taremi, Sardar Azmoun, and Alireza Jahanbakhsh. Against Belgium, they want to draw contact, slow the rhythm, and then find Taremi or Azmoun around the box; the risk is Belgium can turn De Bruyne service and Trossard combinations into Lukaku chances."
+      },
+      "score": {
+        "home": 0,
+        "away": 0
       }
     },
     {
@@ -3915,15 +3962,15 @@
             "note": "The pressing midfielder with shooting range, dangerous when Austria force turnovers near goal."
           },
           {
-            "name": "Christoph Baumgartner",
-            "note": "A smart runner between midfield and attack, often the player who turns pressure into box entries."
+            "name": "Konrad Laimer",
+            "note": "The counter-pressing engine, useful for turning Austria's pressure into second balls and quick attacks."
           }
         ]
       },
       "keyInformation": {
         "sourceId": "editorial-preview-2026-06-17",
         "home": "Argentina are the defending champions and still one of the most complete tournament teams, led by Julian Alvarez, Enzo Fernandez, and Emiliano Martinez. Against Austria, they want to press high with Alvarez, win the second ball, and let Enzo Fernandez change the angle of the attack; the risk is Austria can press the first pass, win territory, and attack before defenses reset.",
-        "away": "Austria are a high-pressure European side with enough experience to make the press feel organized rather than wild, led by David Alaba, Marcel Sabitzer, and Christoph Baumgartner. Against Argentina, they want to force rushed passes and turn Sabitzer's pressure into Baumgartner arrivals near goal; the risk is Argentina can turn one midfield win into Alvarez movement, Enzo service, and sustained pressure."
+        "away": "Austria are a high-pressure European side with enough experience to make the press feel organized rather than wild, led by David Alaba, Marcel Sabitzer, and Konrad Laimer. Against Argentina, they want to force rushed passes and let Sabitzer and Laimer attack the next ball before defenses reset; the risk is Argentina can turn one midfield win into Alvarez movement, Enzo service, and sustained pressure."
       }
     },
     {
@@ -4111,12 +4158,12 @@
             "note": "Jordan's star ball-carrier, a direct runner who can make counters feel dangerous immediately."
           },
           {
-            "name": "Yazan Al-Naimat",
-            "note": "The central finisher and combination forward, key when Jordan turn rare attacks into real chances."
+            "name": "Ali Olwan",
+            "note": "A box runner and counterattack finisher who gives Jordan a current-squad endpoint around goal."
           },
           {
             "name": "Noor Al-Rawabdeh",
-            "note": "The midfield worker who helps Jordan stay compact and connect the first pass forward."
+            "note": "The midfield worker who helps Jordan's block stay connected before the break is on."
           }
         ],
         "away": [
@@ -4136,8 +4183,8 @@
       },
       "keyInformation": {
         "sourceId": "editorial-preview-2026-06-17",
-        "home": "Jordan are a disciplined counterattacking side that can hurt teams through speed and timing, led by Mousa Al-Taamari, Yazan Al-Naimat, and Noor Al-Rawabdeh. Against Algeria, they want to spring Al-Taamari into open space and let Al-Naimat attack the first clear chance; the risk is Algeria can slow the match through Mahrez and Bennacer before finding Gouiri in open space.",
-        "away": "Algeria are a technical North African side that want the game to run through the left foot and calm of midfield, led by Riyad Mahrez, Ismael Bennacer, and Amine Gouiri. Against Jordan, they want to give Mahrez time on the ball and let Amine Gouiri drift into open space; the risk is Jordan can counter through Al-Taamari and Al-Naimat before the back line recovers."
+        "home": "Jordan are a disciplined counterattacking side that can hurt teams through speed and timing, led by Mousa Al-Taamari, Ali Olwan, and Noor Al-Rawabdeh. Against Algeria, they want to spring Al-Taamari into open space and let Olwan attack the first clear chance; the risk is Algeria can slow the match through Mahrez and Bennacer before finding Gouiri in open space.",
+        "away": "Algeria are a technical North African side that want the game to run through the left foot and calm of midfield, led by Riyad Mahrez, Ismael Bennacer, and Amine Gouiri. Against Jordan, they want to give Mahrez time on the ball and let Amine Gouiri drift into open space; the risk is Jordan can counter through Al-Taamari and Olwan before the back line recovers."
       }
     },
     {
@@ -4727,12 +4774,12 @@
             "note": "A two-way right-side force whose overlaps, recovery speed, and set pieces shape Morocco's best stretches."
           },
           {
-            "name": "Hakim Ziyech",
-            "note": "The left-footed chance creator, dangerous when Morocco can switch play and let him pick final balls."
+            "name": "Brahim Diaz",
+            "note": "The between-lines creator who can receive under pressure and turn Hakimi support into final-third chances."
           },
           {
-            "name": "Youssef En-Nesyri",
-            "note": "The reference point in the box and aerial finisher who gives Morocco a direct end point."
+            "name": "Ayoub El Kaabi",
+            "note": "The box finisher who gives Morocco a direct endpoint when wide pressure turns into service."
           }
         ],
         "away": [
@@ -4752,8 +4799,8 @@
       },
       "keyInformation": {
         "sourceId": "editorial-preview-2026-06-17",
-        "home": "Morocco are a disciplined, dangerous side whose structure lets their flair players attack with freedom, led by Achraf Hakimi, Hakim Ziyech, and Youssef En-Nesyri. Against Haiti, they want to use Hakimi's overlaps to tilt the field before Ziyech finds En-Nesyri; the risk is Haiti can turn direct service into Nazon or Pierrot chances.",
-        "away": "Haiti are a direct attacking underdog with enough forward power to punish loose defending, led by Duckens Nazon, Frantzdy Pierrot, and Jean-Ricner Bellegarde. Against Morocco, they want to play forward quickly toward Nazon and Pierrot before the opponent can crowd the box; the risk is Morocco can combine Hakimi surges, Ziyech service, and En-Nesyri's box movement."
+        "home": "Morocco are a disciplined, dangerous side whose structure lets their flair players attack with freedom, led by Achraf Hakimi, Brahim Diaz, and Ayoub El Kaabi. Against Haiti, they want to use Hakimi's overlaps to tilt the field before Brahim or El Kaabi attacks the final action; the risk is Haiti can turn direct service into Nazon or Pierrot chances.",
+        "away": "Haiti are a direct attacking underdog with enough forward power to punish loose defending, led by Duckens Nazon, Frantzdy Pierrot, and Jean-Ricner Bellegarde. Against Morocco, they want to play forward quickly toward Nazon and Pierrot before the opponent can crowd the box; the risk is Morocco can combine Hakimi surges, Brahim's invention, and El Kaabi's box movement."
       }
     },
     {
@@ -4828,7 +4875,7 @@
       "keyInformation": {
         "sourceId": "editorial-preview-2026-06-17",
         "home": "Czechia are a set-piece and crossing threat that become dangerous when the game is played in the air, led by Patrik Schick, Tomas Soucek, and Adam Hlozek. Against Mexico, they want to load early service toward Schick and Soucek before the defensive block settles; the risk is Mexico can turn home pressure into Gimenez touches and Chavez set-piece looks.",
-        "away": "Mexico are a home-side pressure team that want territory, crowd energy, and repeated box touches, led by Santiago Gimenez, Edson Alvarez, and Luis Chavez. Against Czechia, they want to keep the ball in the opponent's half and feed Gimenez before Chavez attacks restarts or rebounds; the risk is Czechia can turn crosses, set pieces, and Soucek runs into high-value chances."
+        "away": "Mexico are a home-side pressure team that want territory, crowd energy, and repeated penalty-area touches, led by Santiago Gimenez, Edson Alvarez, and Luis Chavez. Against Czechia, they want to keep the ball in the opponent's half and feed Gimenez before Chavez attacks restarts or rebounds; the risk is Czechia can turn crosses, set pieces, and Soucek runs into high-value chances."
       }
     },
     {
@@ -4866,8 +4913,8 @@
             "note": "South Africa's captain and shot-stopper, important when opponents turn territory into sustained pressure."
           },
           {
-            "name": "Percy Tau",
-            "note": "The experienced attacking reference, useful in open space and in quick combinations."
+            "name": "Teboho Mokoena",
+            "note": "The midfield competitor and restart threat who can turn a defensive spell into South Africa possession."
           },
           {
             "name": "Lyle Foster",
@@ -4891,8 +4938,8 @@
       },
       "keyInformation": {
         "sourceId": "editorial-preview-2026-06-17",
-        "home": "South Africa are counterattacking underdogs who can stay in games if their goalkeeper and forwards give them belief, led by Ronwen Williams, Percy Tau, and Lyle Foster. Against South Korea, they want to absorb pressure, find Tau in space, and release Foster before the defense recovers; the risk is South Korea can turn running power and Son's finishing into sudden chances.",
-        "away": "South Korea are a relentless running side with star quality at both ends of the spine, led by Son Heung-min, Kim Min-jae, and Lee Kang-in. Against South Africa, they want to release Son behind the line and let Lee Kang-in choose the final pass; the risk is South Africa can turn saves from Williams into Tau and Foster counters."
+        "home": "South Africa are counterattacking underdogs who can stay in games if their goalkeeper and forwards give them belief, led by Ronwen Williams, Teboho Mokoena, and Lyle Foster. Against South Korea, they want to absorb pressure, let Mokoena make the first forward pass, and release Foster before the defense recovers; the risk is South Korea can turn running power and Son's finishing into sudden chances.",
+        "away": "South Korea are a relentless running side with star quality at both ends of the spine, led by Son Heung-min, Kim Min-jae, and Lee Kang-in. Against South Africa, they want to release Son behind the line and let Lee Kang-in choose the final pass; the risk is South Africa can turn saves from Williams into Mokoena outlets and Foster counters."
       }
     },
     {
@@ -5016,32 +5063,32 @@
           },
           {
             "name": "Leandro Bacuna",
-            "note": "The experienced set-piece and leadership presence, important when Curacao need calm under pressure."
+            "note": "The experienced set-piece and midfield organizer who helps Curaçao slow chaotic stretches."
           },
           {
-            "name": "Vurnon Anita",
-            "note": "A veteran organizer who can help Curacao stay compact and connected without the ball."
+            "name": "Tahith Chong",
+            "note": "A direct wide outlet who gives Curaçao a runner when they escape pressure and attack open space."
           }
         ],
         "away": [
           {
             "name": "Franck Kessie",
-            "note": "The power-and-control midfielder, giving Cote d'Ivoire ball-winning, carries, and box arrivals."
+            "note": "The midfield power source, able to carry through pressure and turn duels into forward momentum."
           },
           {
             "name": "Simon Adingra",
-            "note": "The wide runner who can stretch back lines and make transition attacks feel immediate."
+            "note": "The wide accelerator, important when Côte d'Ivoire need to turn a defensive stand into a fast attack."
           },
           {
-            "name": "Sebastien Haller",
-            "note": "The central reference point, a finisher in the box who makes crosses and cutbacks matter."
+            "name": "Evann Guessand",
+            "note": "The current-squad penalty-area forward who gives Côte d'Ivoire a target for Adingra's service and Kessie's carries."
           }
         ]
       },
       "keyInformation": {
         "sourceId": "editorial-preview-2026-06-17",
-        "home": "Curaçao are a veteran-heavy underdog side trying to stay connected and choose their moments carefully, led by Juninho Bacuna, Leandro Bacuna, and Vurnon Anita. Against Côte d'Ivoire, they want to use the Bacuna brothers to turn pressure relief into set pieces and territory; the risk is Côte d'Ivoire can turn Kessie's carries and Adingra's pace into Haller chances.",
-        "away": "Côte d'Ivoire are a powerful transition team with enough midfield force to turn loose games in their favor, led by Franck Kessie, Simon Adingra, and Sebastien Haller. Against Curaçao, they want to win the midfield collision and send Adingra into space before Haller attacks the box; the risk is Curaçao can turn veteran set-piece moments into a way back into the game."
+        "home": "Curaçao are a veteran-heavy underdog side trying to stay connected and choose their moments carefully, led by Juninho Bacuna, Leandro Bacuna, and Tahith Chong. Against Côte d'Ivoire, they want to use the Bacuna brothers to turn pressure relief into set pieces before Chong attacks open space; the risk is Côte d'Ivoire can turn Kessie's carries and Adingra's pace into Guessand chances.",
+        "away": "Côte d'Ivoire are a powerful transition team with enough midfield force to turn loose games in their favor, led by Franck Kessie, Simon Adingra, and Evann Guessand. Against Curaçao, they want to win the midfield collision and send Adingra into space before Guessand attacks the box; the risk is Curaçao can turn veteran set-piece moments and Chong's running into a way back into the game."
       }
     },
     {
@@ -5120,12 +5167,12 @@
             "note": "Japan's sharpest creator in tight spaces, especially dangerous when he can cut inside onto his left foot."
           },
           {
-            "name": "Kaoru Mitoma",
-            "note": "The isolation winger who can beat the first defender and turn patient possession into sudden chances."
+            "name": "Ritsu Doan",
+            "note": "A left-footed attacker who can arrive inside from the right and give Japan punch when combinations reach the final third."
           },
           {
-            "name": "Wataru Endo",
-            "note": "The midfield anchor, key to Japan's counter-press and the first pass after winning the ball."
+            "name": "Daichi Kamada",
+            "note": "The between-lines connector, important for turning Japan's fast passing into the final pass or late box run."
           }
         ],
         "away": [
@@ -5138,15 +5185,15 @@
             "note": "A relentless power forward whose carries and pressing can turn Sweden from structured to explosive."
           },
           {
-            "name": "Dejan Kulusevski",
-            "note": "The left-footed creator who links midfield to attack and gives Sweden craft in open space."
+            "name": "Yasin Ayari",
+            "note": "A mobile midfield connector whose timing helps Sweden link their two-forward threat to the rest of the side."
           }
         ]
       },
       "keyInformation": {
         "sourceId": "editorial-preview-2026-06-17",
-        "home": "Japan are a precise, fast-passing side that can make possession feel sudden and sharp, led by Takefusa Kubo, Kaoru Mitoma, and Wataru Endo. Against Sweden, they want to move the ball quickly enough for Kubo or Mitoma to receive against a shifting defender; the risk is Sweden can alternate between Isak's finesse and Gyokeres' force.",
-        "away": "Sweden are a tall, technical attacking side with two forwards who can change the shape of a match, led by Alexander Isak, Viktor Gyokeres, and Dejan Kulusevski. Against Japan, they want to combine through Kulusevski and then choose between Isak's polish or Gyokeres' power; the risk is Japan can turn quick combinations into Kubo or Mitoma isolations."
+        "home": "Japan are a precise, fast-passing side that can make possession feel sudden and sharp, led by Takefusa Kubo, Ritsu Doan, and Daichi Kamada. Against Sweden, they want to move the ball quickly enough for Kubo, Doan, or Kamada to receive between defenders; the risk is Sweden can alternate between Isak's finesse and Gyokeres' force.",
+        "away": "Sweden are a tall, technical attacking side with two forwards who can change the shape of a match, led by Alexander Isak, Viktor Gyokeres, and Yasin Ayari. Against Japan, they want to connect through Ayari and then choose between Isak's polish or Gyokeres' power; the risk is Japan can turn quick combinations into Kubo, Doan, or Kamada chances."
       }
     },
     {
@@ -6392,15 +6439,15 @@
             "note": "The pressing midfielder with shooting range, dangerous when Austria force turnovers near goal."
           },
           {
-            "name": "Christoph Baumgartner",
-            "note": "A smart runner between midfield and attack, often the player who turns pressure into box entries."
+            "name": "Konrad Laimer",
+            "note": "The counter-pressing engine, useful for turning Austria's pressure into second balls and quick attacks."
           }
         ]
       },
       "keyInformation": {
         "sourceId": "editorial-preview-2026-06-17",
         "home": "Algeria are a technical North African side that want the game to run through the left foot and calm of midfield, led by Riyad Mahrez, Ismael Bennacer, and Amine Gouiri. Against Austria, they want to give Mahrez time on the ball and let Amine Gouiri drift into open space; the risk is Austria can press the first pass, win territory, and attack before defenses reset.",
-        "away": "Austria are a high-pressure European side with enough experience to make the press feel organized rather than wild, led by David Alaba, Marcel Sabitzer, and Christoph Baumgartner. Against Algeria, they want to force rushed passes and turn Sabitzer's pressure into Baumgartner arrivals near goal; the risk is Algeria can slow the match through Mahrez and Bennacer before finding Gouiri in open space."
+        "away": "Austria are a high-pressure European side with enough experience to make the press feel organized rather than wild, led by David Alaba, Marcel Sabitzer, and Konrad Laimer. Against Algeria, they want to force rushed passes and let Sabitzer and Laimer attack the next ball before defenses reset; the risk is Algeria can slow the match through Mahrez and Bennacer before finding Gouiri in open space."
       }
     },
     {
@@ -6438,12 +6485,12 @@
             "note": "Jordan's star ball-carrier, a direct runner who can make counters feel dangerous immediately."
           },
           {
-            "name": "Yazan Al-Naimat",
-            "note": "The central finisher and combination forward, key when Jordan turn rare attacks into real chances."
+            "name": "Ali Olwan",
+            "note": "A box runner and counterattack finisher who gives Jordan a current-squad endpoint around goal."
           },
           {
             "name": "Noor Al-Rawabdeh",
-            "note": "The midfield worker who helps Jordan stay compact and connect the first pass forward."
+            "note": "The midfield worker who helps Jordan's block stay connected before the break is on."
           }
         ],
         "away": [
@@ -6463,8 +6510,8 @@
       },
       "keyInformation": {
         "sourceId": "editorial-preview-2026-06-17",
-        "home": "Jordan are a disciplined counterattacking side that can hurt teams through speed and timing, led by Mousa Al-Taamari, Yazan Al-Naimat, and Noor Al-Rawabdeh. Against Argentina, they want to spring Al-Taamari into open space and let Al-Naimat attack the first clear chance; the risk is Argentina can turn one midfield win into Alvarez movement, Enzo service, and sustained pressure.",
-        "away": "Argentina are the defending champions and still one of the most complete tournament teams, led by Julian Alvarez, Enzo Fernandez, and Emiliano Martinez. Against Jordan, they want to press high with Alvarez, win the second ball, and let Enzo Fernandez change the angle of the attack; the risk is Jordan can counter through Al-Taamari and Al-Naimat before the back line recovers."
+        "home": "Jordan are a disciplined counterattacking side that can hurt teams through speed and timing, led by Mousa Al-Taamari, Ali Olwan, and Noor Al-Rawabdeh. Against Argentina, they want to spring Al-Taamari into open space and let Olwan attack the first clear chance; the risk is Argentina can turn one midfield win into Alvarez movement, Enzo service, and sustained pressure.",
+        "away": "Argentina are the defending champions and still one of the most complete tournament teams, led by Julian Alvarez, Enzo Fernandez, and Emiliano Martinez. Against Jordan, they want to press high with Alvarez, win the second ball, and let Enzo Fernandez change the angle of the attack; the risk is Jordan can counter through Al-Taamari and Olwan before the back line recovers."
       }
     },
     {

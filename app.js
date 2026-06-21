@@ -3944,6 +3944,7 @@ function getCatchUpContext(match) {
 function getResultSourceForMatch(match) {
   const sourceMatchText = `${match.homeTeam.name} vs ${match.awayTeam.name}`;
   const sourceMatchKey = normalizeTextKey(sourceMatchText);
+  const sourcePairKey = normalizeTextKey(`${match.homeTeam.name} ${match.awayTeam.name}`);
   const sourceResultPattern = /result|final score|match report|highlights/i;
   const usableSourceTypes = new Set(["cross-check", "official"]);
 
@@ -3952,7 +3953,8 @@ function getResultSourceForMatch(match) {
       return false;
     }
 
-    return normalizeTextKey(`${source.id} ${source.label} ${source.url}`).includes(sourceMatchKey);
+    const sourceText = normalizeTextKey(`${source.id} ${source.label} ${source.url}`);
+    return sourceText.includes(sourceMatchKey) || sourceText.includes(sourcePairKey);
   });
 }
 
@@ -4480,6 +4482,7 @@ function readUrlState(options = {}) {
 function renderSourceNote() {
   const compactSourceLabels = {
     "FIFA World Cup 2026 schedule": "FIFA schedule",
+    "FIFA World Cup 2026 schedule and results": "FIFA schedule",
     "FIFA World Cup 2026 debutants": "debutants",
     "FIFA/Coca-Cola Men's World Ranking": "ranking",
     "FIFA World Cup 2026 standings": "standings"

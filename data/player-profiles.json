@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-18T21:31:16.933Z",
+  "updatedAt": "2026-06-21T19:26:36.125Z",
   "sourceIds": [
     "wikipedia-football-infobox",
     "wikimedia-commons"
@@ -148,6 +148,22 @@
       ],
       "note": "A creative dribbler who can give Iraq spark on the break and force defenders into awkward decisions.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Ali_Jasim"
+    },
+    "Ali Olwan": {
+      "name": "Ali Olwan",
+      "displayName": "Ali Olwan",
+      "teamId": "JOR",
+      "position": "Forward",
+      "club": "Al Sailiya SC",
+      "league": "",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ali%20Olwan.png?width=160",
+      "skills": [
+        "Box presence",
+        "Finishing",
+        "Runs in behind"
+      ],
+      "note": "A box runner and counterattack finisher who gives Jordan a current-squad endpoint around goal.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Ali_Olwan"
     },
     "Alireza Jahanbakhsh": {
       "name": "Alireza Jahanbakhsh",
@@ -306,6 +322,38 @@
       "note": "Iraq's target in the box, the finisher they look for when attacks become crosses and second balls.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Aymen_Hussein"
     },
+    "Ayoub El Kaabi": {
+      "name": "Ayoub El Kaabi",
+      "displayName": "Ayoub El Kaabi",
+      "teamId": "MAR",
+      "position": "Striker",
+      "club": "Olympiacos",
+      "league": "Super League Greece",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ayoub%20El%20Kaabi%20vs%20Niger%20(cropped).jpg?width=160",
+      "skills": [
+        "Box presence",
+        "Finishing",
+        "Runs in behind",
+        "Wide threat"
+      ],
+      "note": "The box finisher who gives Morocco a direct endpoint when wide pressure turns into service.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Ayoub_El_Kaabi"
+    },
+    "Brahim Diaz": {
+      "name": "Brahim Diaz",
+      "displayName": "Brahim Díaz",
+      "teamId": "MAR",
+      "position": "Attacking midfielder, winger",
+      "club": "Real Madrid",
+      "league": "La Liga",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Brahim%20Diaz%20Morocco%20v%20Norway%207%20June%202026-36%20(cropped).jpg?width=160",
+      "skills": [
+        "Chance creation",
+        "Pressing"
+      ],
+      "note": "The between-lines creator who can receive under pressure and turn Hakimi support into final-third chances.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Brahim_D%C3%ADaz"
+    },
     "Breel Embolo": {
       "name": "Breel Embolo",
       "displayName": "Breel Embolo",
@@ -344,7 +392,7 @@
       "position": "Defensive midfielder",
       "club": "Manchester United",
       "league": "Premier League",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Casemiro%20Brazil%20Austria%20June%202018.jpg?width=160",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Casemiro%20Brazil%20V%20Morocco%2013%20June%202026-76%20(cropped).jpg?width=160",
       "skills": [
         "Midfield control",
         "Defensive control"
@@ -399,23 +447,6 @@
       "note": "A creative left-footed option who can give Australia a cleaner final pass in tight matches.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Cristian_Volpato"
     },
-    "Christoph Baumgartner": {
-      "name": "Christoph Baumgartner",
-      "displayName": "Christoph Baumgartner",
-      "teamId": "AUT",
-      "position": "Attacking midfielder, forward",
-      "club": "RB Leipzig",
-      "league": "Bundesliga",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Austria%20national%20under-21%20football%20team%20-%20Teamcamp%20October%202019%20(61)%20(cropped).jpg?width=160",
-      "skills": [
-        "Box presence",
-        "Midfield control",
-        "Runs in behind",
-        "Pressing"
-      ],
-      "note": "A smart runner between midfield and attack, often the player who turns pressure into box entries.",
-      "sourceUrl": "https://en.wikipedia.org/wiki/Christoph_Baumgartner"
-    },
     "Cody Gakpo": {
       "name": "Cody Gakpo",
       "displayName": "Cody Gakpo",
@@ -447,6 +478,22 @@
       ],
       "note": "The headline finisher and reference point in the box, still chasing the World Cup piece missing from his resume.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Cristiano_Ronaldo"
+    },
+    "Daichi Kamada": {
+      "name": "Daichi Kamada",
+      "displayName": "Daichi Kamada",
+      "teamId": "JPN",
+      "position": "Central midfielder",
+      "club": "Crystal Palace",
+      "league": "",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/2022128173756%202022-05-08%20Fussball%20Eintracht%20Frankfurt%20vs%20Borussia%20M%C3%B6nchengladbach%20-%20Sven%20-%201D%20X%20MK%20II%20-%200725%20-%20AK8I7460%20(Daichi%20Kamada%20cropped).jpg?width=160",
+      "skills": [
+        "Box presence",
+        "Link-up play",
+        "Midfield control"
+      ],
+      "note": "The between-lines connector, important for turning Japan's fast passing into the final pass or late box run.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Daichi_Kamada"
     },
     "Darwin Nunez": {
       "name": "Darwin Nunez",
@@ -494,23 +541,6 @@
       ],
       "note": "The balance piece in midfield, responsible for stopping counters before opponents can slow the game down.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Declan_Rice"
-    },
-    "Dejan Kulusevski": {
-      "name": "Dejan Kulusevski",
-      "displayName": "Dejan Kuluševski",
-      "teamId": "SWE",
-      "position": "Attacking midfielder, winger",
-      "club": "Tottenham Hotspur",
-      "league": "Premier League",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Sweden-Slovenia%20Nations%20League%202022-09-27%2017%20Kulusevski%20(cropped).jpg?width=160",
-      "skills": [
-        "Chance creation",
-        "Link-up play",
-        "Midfield control",
-        "Runs in behind"
-      ],
-      "note": "The left-footed creator who links midfield to attack and gives Sweden craft in open space.",
-      "sourceUrl": "https://en.wikipedia.org/wiki/Dejan_Kulusevski"
     },
     "Duckens Nazon": {
       "name": "Duckens Nazon",
@@ -678,6 +708,21 @@
       "note": "A creative wide option who can add spark if Bosnia need a cleaner final pass.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Esmir_Bajraktarevi%C4%87"
     },
+    "Evann Guessand": {
+      "name": "Evann Guessand",
+      "displayName": "Evann Guessand",
+      "teamId": "CIV",
+      "position": "Forward, attacking midfielder",
+      "club": "Crystal Palace",
+      "league": "",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Guessand%20asse%20ogcn%202425.png?width=160",
+      "skills": [
+        "Ball carrying",
+        "Target play"
+      ],
+      "note": "The current-squad penalty-area forward who gives Côte d'Ivoire a target for Adingra's service and Kessie's carries.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Evann_Guessand"
+    },
     "Federico Valverde": {
       "name": "Federico Valverde",
       "displayName": "Federico Valverde",
@@ -734,12 +779,12 @@
       "league": "Saudi Pro League",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Franck%20Yannick%20Kessi%C3%A9.jpg?width=160",
       "skills": [
-        "Box presence",
         "Midfield control",
-        "Ball carrying",
-        "Target play"
+        "Pressing",
+        "Ball winning",
+        "Ball carrying"
       ],
-      "note": "The power-and-control midfielder, giving Cote d'Ivoire ball-winning, carries, and box arrivals.",
+      "note": "The midfield power source, able to carry through pressure and turn duels into forward momentum.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Franck_Kessi%C3%A9"
     },
     "Frantzdy Pierrot": {
@@ -817,21 +862,6 @@
       ],
       "note": "The deep playmaker and dead-ball specialist, capable of controlling the rhythm or punishing fouls from distance.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Hakan_%C3%87alhano%C4%9Flu"
-    },
-    "Hakim Ziyech": {
-      "name": "Hakim Ziyech",
-      "displayName": "Hakim Ziyech",
-      "teamId": "MAR",
-      "position": "Right winger, attacking midfielder",
-      "club": "Wydad AC",
-      "league": "Botola Pro",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Hakim%20Ziyech%202021.jpg?width=160",
-      "skills": [
-        "Chance creation",
-        "Long-range shooting"
-      ],
-      "note": "The left-footed chance creator, dangerous when Morocco can switch play and let him pick final balls.",
-      "sourceUrl": "https://en.wikipedia.org/wiki/Hakim_Ziyech"
     },
     "Hannibal Mejbri": {
       "name": "Hannibal Mejbri",
@@ -1161,21 +1191,6 @@
       "note": "The back-line commander, important for duels, organization, and defending set pieces.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Kalidou_Koulibaly"
     },
-    "Kaoru Mitoma": {
-      "name": "Kaoru Mitoma",
-      "displayName": "Kaoru Mitoma 三笘 薫",
-      "teamId": "JPN",
-      "position": "Left winger, wide midfielder, attacking midfielder",
-      "club": "Brighton & Hove Albion",
-      "league": "Premier League",
-      "imageUrl": "https://assets.sorare.com/playerpicture/6d6121db-5d6b-4ec4-b6f7-c08a2c804d5e/picture/avatar-ae4bc0410e91990a1a38d3bc8f32fec0.png",
-      "skills": [
-        "Wide threat",
-        "Defensive control"
-      ],
-      "note": "The isolation winger who can beat the first defender and turn patient possession into sudden chances.",
-      "sourceUrl": "https://en.wikipedia.org/wiki/Kaoru_Mitoma"
-    },
     "Kenan Yildiz": {
       "name": "Kenan Yildiz",
       "displayName": "Kenan Yıldız",
@@ -1220,6 +1235,21 @@
       "note": "The defensive anchor, tasked with winning first-contact duels and keeping the back line organized.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Kim_Min-jae_(footballer)"
     },
+    "Konrad Laimer": {
+      "name": "Konrad Laimer",
+      "displayName": "Konrad Laimer",
+      "teamId": "AUT",
+      "position": "midfielder",
+      "club": "Bayern Munich",
+      "league": "Bundesliga",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/2022-07-21%20Fu%C3%9Fball%2C%20M%C3%A4nner%2CFreundschaftsspiel%2C%20RB%20Leipzig%20-%20FC%20Liverpool%201DX%202137%20by%20Stepro%20(cropped).jpg?width=160",
+      "skills": [
+        "Box presence",
+        "Pressing"
+      ],
+      "note": "The counter-pressing engine, useful for turning Austria's pressure into second balls and quick attacks.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Konrad_Laimer"
+    },
     "Kylian Mbappe": {
       "name": "Kylian Mbappe",
       "displayName": "Kylian Mbappé",
@@ -1262,11 +1292,27 @@
       "imageUrl": "https://assets.sorare.com/playerpicture/dff6b137-2d96-485d-9e6b-9a98f34031ab/picture/avatar-09b13e7e02f8289016e9f98ff71d4c7a.png",
       "skills": [
         "Set pieces",
-        "Pressing",
-        "Leadership"
+        "Midfield control",
+        "Wide threat",
+        "Defensive control"
       ],
-      "note": "The experienced set-piece and leadership presence, important when Curacao need calm under pressure.",
+      "note": "The experienced set-piece and midfield organizer who helps Curaçao slow chaotic stretches.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Leandro_Bacuna"
+    },
+    "Leandro Trossard": {
+      "name": "Leandro Trossard",
+      "displayName": "Leandro Trossard",
+      "teamId": "BEL",
+      "position": "Winger, forward",
+      "club": "Arsenal",
+      "league": "Premier League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/RC%20Lens%20-%20Arsenal%20FC%20(03-10-2023)%2026%20(cropped).jpg?width=160",
+      "skills": [
+        "Box presence",
+        "Wide threat"
+      ],
+      "note": "A flexible current-match attacking option who can replace Doku's width with sharper combination play around the box.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Leandro_Trossard"
     },
     "Lee Kang-in": {
       "name": "Lee Kang-in",
@@ -1586,7 +1632,7 @@
       "position": "Attacking midfielder, forward",
       "club": "Santos",
       "league": "Campeonato Brasileiro Série A",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Neymar%20at%202026%20FIFA%20World%20Cup%20by%20YantsImages%20(cropped).jpg?width=160",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Neymar%20Junior%20Brazil%20V%20Morocco%2013%20June%202026-40.jpg?width=160",
       "skills": [
         "Box presence"
       ],
@@ -1652,10 +1698,9 @@
       "imageUrl": "https://assets.selangorfc.com/images/players/t_4607862961048618.%20NOOR%20AL-RAWABDEH.PNG",
       "skills": [
         "Link-up play",
-        "Midfield control",
-        "Defensive control"
+        "Midfield control"
       ],
-      "note": "The midfield worker who helps Jordan stay compact and connect the first pass forward.",
+      "note": "The midfield worker who helps Jordan's block stay connected before the break is on.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Noor_Al-Rawabdeh"
     },
     "Omar Marmoush": {
@@ -1703,22 +1748,6 @@
       "note": "The rhythm setter in open space, making Spain's possession feel calmer and more incisive.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Pedri"
     },
-    "Percy Tau": {
-      "name": "Percy Tau",
-      "displayName": "Percy Tau",
-      "teamId": "RSA",
-      "position": "Winger",
-      "club": "Thep Xanh Nam Dinh FC",
-      "league": "V.League 1",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Percy%20Tau%20in%202019%20(cropped).jpg?width=160",
-      "skills": [
-        "Runs in behind",
-        "Target play",
-        "Leadership"
-      ],
-      "note": "The experienced attacking reference, useful in open space and in quick combinations.",
-      "sourceUrl": "https://en.wikipedia.org/wiki/Percy_Tau"
-    },
     "Piero Hincapie": {
       "name": "Piero Hincapie",
       "displayName": "Piero Hincapié",
@@ -1733,6 +1762,20 @@
       ],
       "note": "The left-sided defensive anchor, comfortable stepping out to defend space and start attacks.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Piero_Hincapi%C3%A9"
+    },
+    "Ritsu Doan": {
+      "name": "Ritsu Doan",
+      "displayName": "Ritsu Dōan",
+      "teamId": "JPN",
+      "position": "Right winger",
+      "club": "Eintracht Frankfurt",
+      "league": "Bundesliga",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ritsu%20Doan%2C%202019%20AFC%20Asian%20Cup%201.jpg?width=160",
+      "skills": [
+        "Long-range shooting"
+      ],
+      "note": "A left-footed attacker who can arrive inside from the right and give Japan punch when combinations reach the final third.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Ritsu_D%C5%8Dan"
     },
     "Riyad Mahrez": {
       "name": "Riyad Mahrez",
@@ -1831,7 +1874,7 @@
       "position": "Winger",
       "club": "Al-Nassr",
       "league": "Saudi Pro League",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Sadio%20Mane%20Al-Nassr.jpg?width=160",
+      "imageUrl": "https://static-files.saudi-pro-league.pulselive.com/players/headshot/p110979.png",
       "skills": [
         "Runs in behind"
       ],
@@ -1925,29 +1968,13 @@
       "position": "Centre-back",
       "club": "Atalanta",
       "league": "Serie A",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/1%20Sead%20Kola%C5%A1inac%202018%20(cropped2).jpg?width=160",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Kolasinac%202015.jpg?width=160",
       "skills": [
         "Ball winning",
         "Defensive control"
       ],
       "note": "A physical left-sided defender who can make the game uncomfortable in duels.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Sead_Kola%C5%A1inac"
-    },
-    "Sebastien Haller": {
-      "name": "Sebastien Haller",
-      "displayName": "Sébastien Haller",
-      "teamId": "CIV",
-      "position": "Striker",
-      "club": "Utrecht",
-      "league": "Eredivisie",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/S%C3%A9bastien_Haller_2.jpg?width=160",
-      "skills": [
-        "Box presence",
-        "Finishing",
-        "Target play"
-      ],
-      "note": "The central reference point, a finisher in the box who makes crosses and cutbacks matter.",
-      "sourceUrl": "https://en.wikipedia.org/wiki/S%C3%A9bastien_Haller"
     },
     "Simon Adingra": {
       "name": "Simon Adingra",
@@ -1958,11 +1985,10 @@
       "league": "Ligue 1",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Simon%20Adingra%20USG%202023.jpg?width=160",
       "skills": [
-        "Runs in behind",
         "Wide threat",
         "Defensive control"
       ],
-      "note": "The wide runner who can stretch back lines and make transition attacks feel immediate.",
+      "note": "The wide accelerator, important when Côte d'Ivoire need to turn a defensive stand into a fast attack.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Simon_Adingra"
     },
     "Son Heung-min": {
@@ -1995,6 +2021,23 @@
       "note": "A midfield stabilizer who helps Canada avoid turning the match into only end-to-end breaks.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Stephen_Eust%C3%A1quio"
     },
+    "Tahith Chong": {
+      "name": "Tahith Chong",
+      "displayName": "Tahith Chong",
+      "teamId": "CUW",
+      "position": "Wide midfielder, attacking midfielder",
+      "club": "Sheffield United",
+      "league": "",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Tahith%20Chong%20(38487929362).jpg?width=160",
+      "skills": [
+        "Runs in behind",
+        "Wide threat",
+        "Pressing",
+        "Ball carrying"
+      ],
+      "note": "A direct wide outlet who gives Curaçao a runner when they escape pressure and attack open space.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Tahith_Chong"
+    },
     "Takefusa Kubo": {
       "name": "Takefusa Kubo",
       "displayName": "Takefusa Kubo",
@@ -2009,6 +2052,22 @@
       ],
       "note": "Japan's sharpest creator in tight spaces, especially dangerous when he can cut inside onto his left foot.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Takefusa_Kubo"
+    },
+    "Teboho Mokoena": {
+      "name": "Teboho Mokoena",
+      "displayName": "Teboho Mokoena",
+      "teamId": "RSA",
+      "position": "Midfielder",
+      "club": "Mamelodi Sundowns",
+      "league": "South African Premiership",
+      "imageUrl": "https://sundownsfc.co.za/wp-content/uploads/2025/09/Mokoena-1.jpg",
+      "skills": [
+        "Set pieces",
+        "Midfield control",
+        "Defensive control"
+      ],
+      "note": "The midfield competitor and restart threat who can turn a defensive spell into South Africa possession.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Teboho_Mokoena"
     },
     "Tomas Soucek": {
       "name": "Tomas Soucek",
@@ -2063,7 +2122,7 @@
       "position": "Forward, left winger",
       "club": "Real Madrid",
       "league": "La Liga",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/2023%2005%2006%20Final%20de%20la%20Copa%20del%20Rey%20-%2052879242230%20(cropped).jpg?width=160",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Vin%C3%ADcius%20J%C3%BAnior%20Brazil%20V%20Morocco%2013%20June%202026-207%20(cropped).jpg?width=160",
       "skills": [
         "Runs in behind",
         "Ball carrying"
@@ -2120,39 +2179,6 @@
       "note": "The veteran goalkeeper whose shot-stopping can keep Cabo Verde alive in narrow games.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Vozinha"
     },
-    "Vurnon Anita": {
-      "name": "Vurnon Anita",
-      "displayName": "Vurnon Anita",
-      "teamId": "CUW",
-      "position": "Defensive midfielder",
-      "club": "Ajax Amateurs",
-      "league": "Vierde Divisie",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Go%20Ahead%20Eagles%20-%20RKC%20Waalwijk%20-%2052831380091%20(Vurnon%20Anita).jpg?width=160",
-      "skills": [
-        "Link-up play",
-        "Defensive control",
-        "Leadership"
-      ],
-      "note": "A veteran organizer who can help Curacao stay compact and connected without the ball.",
-      "sourceUrl": "https://en.wikipedia.org/wiki/Vurnon_Anita"
-    },
-    "Wataru Endo": {
-      "name": "Wataru Endo",
-      "displayName": "Wataru Endo",
-      "teamId": "JPN",
-      "position": "Defensive midfielder / Centre-back",
-      "club": "Liverpool",
-      "league": "Premier League",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Wataru%20Endo%20at%20Iran-Japan%20pre-match%20conference.jpg?width=160",
-      "skills": [
-        "Link-up play",
-        "Midfield control",
-        "Pressing",
-        "Defensive control"
-      ],
-      "note": "The midfield anchor, key to Japan's counter-press and the first pass after winning the ball.",
-      "sourceUrl": "https://en.wikipedia.org/wiki/Wataru_Endo"
-    },
     "Weston McKennie": {
       "name": "Weston McKennie",
       "displayName": "Weston McKennie",
@@ -2187,19 +2213,21 @@
       "note": "The defensive stabilizer, calm enough to defend space while France's athletes surge forward.",
       "sourceUrl": "https://en.wikipedia.org/wiki/William_Saliba"
     },
-    "Yazan Al-Naimat": {
-      "name": "Yazan Al-Naimat",
-      "displayName": "Yazan Al-Naimat",
-      "teamId": "JOR",
-      "position": "Forward",
-      "club": "Al-Arabi",
-      "league": "Qatar Stars League",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Yazan%20Al-Naimat%202.jpg?width=160",
+    "Yasin Ayari": {
+      "name": "Yasin Ayari",
+      "displayName": "Yasin Ayari",
+      "teamId": "SWE",
+      "position": "Midfielder",
+      "club": "Brighton & Hove Albion",
+      "league": "Premier League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Yasin%20Ayari%20-%20Sweden%20-%20Greece20%20(cropped).jpg?width=160",
       "skills": [
-        "Finishing"
+        "Link-up play",
+        "Midfield control",
+        "Movement"
       ],
-      "note": "The central finisher and combination forward, key when Jordan turn rare attacks into real chances.",
-      "sourceUrl": "https://en.wikipedia.org/wiki/Yazan_Al-Naimat"
+      "note": "A mobile midfield connector whose timing helps Sweden link their two-forward threat to the rest of the side.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Yasin_Ayari"
     },
     "Yoane Wissa": {
       "name": "Yoane Wissa",
@@ -2215,23 +2243,6 @@
       ],
       "note": "DR Congo's direct running threat, the outlet who can turn counters into shots when opponents overcommit.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Yoane_Wissa"
-    },
-    "Youssef En-Nesyri": {
-      "name": "Youssef En-Nesyri",
-      "displayName": "Youssef En-Nesyri",
-      "teamId": "MAR",
-      "position": "Striker",
-      "club": "Al-Ittihad",
-      "league": "Saudi Pro League",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ennesyri.jpg?width=160",
-      "skills": [
-        "Box presence",
-        "Finishing",
-        "Runs in behind",
-        "Target play"
-      ],
-      "note": "The reference point in the box and aerial finisher who gives Morocco a direct end point.",
-      "sourceUrl": "https://en.wikipedia.org/wiki/Youssef_En-Nesyri"
     },
     "Zidane Iqbal": {
       "name": "Zidane Iqbal",

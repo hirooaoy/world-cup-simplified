@@ -973,6 +973,7 @@ function mergeProviderFixtures({ checkedAt, fixturesData, provider, providerFixt
     const before = JSON.stringify({
       providerIds: fixture.providerIds,
       score: fixture.score,
+      scoreUpdatedAt: fixture.scoreUpdatedAt,
       status: fixture.status
     });
 
@@ -988,11 +989,15 @@ function mergeProviderFixtures({ checkedAt, fixturesData, provider, providerFixt
 
     if ((nextStatus === "LIVE" || nextStatus === "FT") && providerScore) {
       fixture.score = providerScore;
+      if (nextStatus === "LIVE") {
+        fixture.scoreUpdatedAt = checkedAt;
+      }
     }
 
     const after = JSON.stringify({
       providerIds: fixture.providerIds,
       score: fixture.score,
+      scoreUpdatedAt: fixture.scoreUpdatedAt,
       status: fixture.status
     });
 

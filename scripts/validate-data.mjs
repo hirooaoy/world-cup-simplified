@@ -42,6 +42,68 @@ function isDayKey(value) {
   return /^\d{4}-\d{2}-\d{2}$/.test(value || "") && !Number.isNaN(new Date(`${value}T12:00:00Z`).getTime());
 }
 
+function normalizePlayerName(value) {
+  return String(value || "")
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim();
+}
+
+function getPlayerTokens(value) {
+  const normalized = normalizePlayerName(value);
+  return normalized ? normalized.split(" ").filter(Boolean) : [];
+}
+
+function simplifyPlayerToken(value) {
+  return value.replace(/(.)\1+/g, "$1");
+}
+
+function isPlayerTokenMatch(displayToken, rosterToken) {
+  const simplifiedDisplayToken = simplifyPlayerToken(displayToken);
+  const simplifiedRosterToken = simplifyPlayerToken(rosterToken);
+
+  return (
+    rosterToken === displayToken ||
+    rosterToken.includes(displayToken) ||
+    displayToken.includes(rosterToken) ||
+    simplifiedRosterToken === simplifiedDisplayToken ||
+    simplifiedRosterToken.includes(simplifiedDisplayToken) ||
+    simplifiedDisplayToken.includes(simplifiedRosterToken)
+  );
+}
+
+function isPlayerNameMatch(displayName, rosterName) {
+  const displayTokens = getPlayerTokens(displayName);
+  const rosterTokens = getPlayerTokens(rosterName);
+
+  if (!displayTokens.length || !rosterTokens.length) {
+    return false;
+  }
+
+  return displayTokens.every((displayToken) =>
+    rosterTokens.some((rosterToken) => isPlayerTokenMatch(displayToken, rosterToken))
+  );
+}
+
+function findUnavailablePlayer(records, playerName) {
+  if (!records?.length || !playerName) {
+    return null;
+  }
+
+  const playerNameKey = normalizePlayerName(playerName);
+  return (
+    records.find((record) => normalizePlayerName(record.name) === playerNameKey) ||
+    records.find((record) => isPlayerNameMatch(playerName, record.name) || isPlayerNameMatch(record.name, playerName)) ||
+    null
+  );
+}
+
+function isPlayerInCurrentSquad(playerName, includedNames) {
+  return (includedNames || []).some((rosterName) => isPlayerNameMatch(playerName, rosterName));
+}
+
 function requireSourceIds(sourceIds, sourceIdSet, owner) {
   assert(Array.isArray(sourceIds), `${owner} must include sourceIds`);
   for (const sourceId of sourceIds || []) {
@@ -86,9 +148,18 @@ function applyGroupResult(table, fixture) {
   }
 }
 
-const [fixturesData, historyData, playerProfilesData, standingsData, teamsData, tournamentData] = await Promise.all([
+const [
+  fixturesData,
+  historyData,
+  playerAvailabilityData,
+  playerProfilesData,
+  standingsData,
+  teamsData,
+  tournamentData
+] = await Promise.all([
   readJson("fixtures.json"),
   readJson("history.json"),
+  readOptionalJson("player-availability.json"),
   readOptionalJson("player-profiles.json"),
   readJson("standings.json"),
   readJson("teams.json"),
@@ -107,6 +178,9 @@ for (const source of tournamentData.sources || []) {
 
 requireSourceIds(fixturesData.sourceIds, sourceIds, "fixtures.json");
 requireSourceIds(historyData.sourceIds, sourceIds, "history.json");
+if (playerAvailabilityData) {
+  requireSourceIds(playerAvailabilityData.sourceIds, sourceIds, "player-availability.json");
+}
 requireSourceIds(standingsData.sourceIds, sourceIds, "standings.json");
 requireSourceIds(teamsData.sourceIds, sourceIds, "teams.json");
 
@@ -141,6 +215,23 @@ for (const team of teamsData.teams || []) {
       );
     }
   }
+  if (team.styleTags !== undefined) {
+    assert(Array.isArray(team.styleTags), `Team "${team.id}" styleTags must be an array`);
+    assert(
+      team.styleTags.length >= 2 && team.styleTags.length <= 3,
+      `Team "${team.id}" styleTags must include 2-3 tags`
+    );
+    for (const [index, tag] of team.styleTags.entries()) {
+      assert(
+        typeof tag === "string" && tag.trim(),
+        `Team "${team.id}" styleTags[${index}] must be a non-empty string`
+      );
+      assert(
+        !tag.includes("...") && !tag.includes("…"),
+        `Team "${team.id}" styleTags[${index}] must not include a hard-coded ellipsis`
+      );
+    }
+  }
   assert(groups.has(team.groupId), `Team "${team.id}" references unknown group "${team.groupId}"`);
   assert(isNumber(team.fifaRank), `Team "${team.id}" must have a numeric fifaRank`);
   teams.set(team.id, team);
@@ -159,12 +250,97 @@ if (playerProfilesData) {
 }
 
 const playerProfiles = new Map(Object.entries(playerProfilesData?.profiles || {}));
+const playerAvailabilityByTeam = new Map();
+const fixtureUnavailableRefs = [];
 const requiredProfileNames = new Set();
 
 for (const group of groups.values()) {
   for (const teamId of group.teamIds) {
     assert(teams.has(teamId), `Group "${group.id}" references unknown team "${teamId}"`);
     assert(teams.get(teamId)?.groupId === group.id, `Team "${teamId}" group does not match group "${group.id}"`);
+  }
+}
+
+if (playerAvailabilityData) {
+  assert(
+    typeof playerAvailabilityData.updatedAt === "string" &&
+      !Number.isNaN(new Date(playerAvailabilityData.updatedAt).getTime()),
+    "player-availability.json must include a valid updatedAt"
+  );
+  assert(
+    playerAvailabilityData.teams && typeof playerAvailabilityData.teams === "object",
+    "player-availability.json must include teams"
+  );
+
+  for (const [teamId, availability] of Object.entries(playerAvailabilityData.teams || {})) {
+    assert(teams.has(teamId), `player-availability.json references unknown team "${teamId}"`);
+    assert(
+      availability && typeof availability === "object" && !Array.isArray(availability),
+      `player-availability.json team "${teamId}" must be an object`
+    );
+    if (!availability || typeof availability !== "object" || Array.isArray(availability)) {
+      continue;
+    }
+    assert(
+      !availability.included || Array.isArray(availability.included),
+      `player-availability.json team "${teamId}" included must be an array`
+    );
+    assert(
+      !availability.unavailable || Array.isArray(availability.unavailable),
+      `player-availability.json team "${teamId}" unavailable must be an array`
+    );
+
+    const includedNames = (availability.included || []).filter((name) => typeof name === "string" && name.trim());
+    const unavailable = [];
+    const fixtureUnavailableByFixture = new Map();
+
+    for (const [index, player] of (availability.unavailable || []).entries()) {
+      assert(
+        typeof player?.name === "string" && player.name.trim(),
+        `player-availability.json team "${teamId}" unavailable[${index}] must include a player name`
+      );
+      assert(
+        typeof player?.reason === "string" && player.reason.trim(),
+        `player-availability.json team "${teamId}" unavailable[${index}] must include a reason`
+      );
+      assert(
+        typeof player?.sourceId === "string" && sourceIds.has(player.sourceId),
+        `player-availability.json team "${teamId}" unavailable[${index}] references unknown source`
+      );
+
+      unavailable.push(player);
+    }
+
+    assert(
+      !availability.fixtureUnavailable || Array.isArray(availability.fixtureUnavailable),
+      `player-availability.json team "${teamId}" fixtureUnavailable must be an array`
+    );
+
+    for (const [index, player] of (availability.fixtureUnavailable || []).entries()) {
+      assert(
+        typeof player?.fixtureId === "string" && player.fixtureId.trim(),
+        `player-availability.json team "${teamId}" fixtureUnavailable[${index}] must include a fixtureId`
+      );
+      assert(
+        typeof player?.name === "string" && player.name.trim(),
+        `player-availability.json team "${teamId}" fixtureUnavailable[${index}] must include a player name`
+      );
+      assert(
+        typeof player?.reason === "string" && player.reason.trim(),
+        `player-availability.json team "${teamId}" fixtureUnavailable[${index}] must include a reason`
+      );
+      assert(
+        typeof player?.sourceId === "string" && sourceIds.has(player.sourceId),
+        `player-availability.json team "${teamId}" fixtureUnavailable[${index}] references unknown source`
+      );
+
+      fixtureUnavailableRefs.push({ teamId, index, player });
+      const fixturePlayers = fixtureUnavailableByFixture.get(player.fixtureId) || [];
+      fixturePlayers.push(player);
+      fixtureUnavailableByFixture.set(player.fixtureId, fixturePlayers);
+    }
+
+    playerAvailabilityByTeam.set(teamId, { includedNames, unavailable, fixtureUnavailableByFixture });
   }
 }
 
@@ -279,12 +455,31 @@ for (const fixture of fixturesData.fixtures || []) {
 
     if (fixture.stage === "group") {
       for (const side of ["home", "away"]) {
+        const teamId = side === "home" ? fixture.homeTeamId : fixture.awayTeamId;
+        const availability = playerAvailabilityByTeam.get(teamId);
+
         for (const [index, player] of (fixture.keyPlayers[side] || []).entries()) {
           assert(
             typeof player === "object" && typeof player.name === "string" && player.name.trim(),
             `Fixture "${fixture.id}" keyPlayers.${side}[${index}] must include a player name`
           );
           if (typeof player?.name === "string" && player.name.trim()) {
+            const unavailablePlayer =
+              findUnavailablePlayer(availability?.unavailable, player.name) ||
+              findUnavailablePlayer(availability?.fixtureUnavailableByFixture.get(fixture.id), player.name);
+
+            assert(
+              !unavailablePlayer,
+              `Fixture "${fixture.id}" keyPlayers.${side}[${index}] lists unavailable ${teamId} player "${player.name}": ${unavailablePlayer?.reason || "unavailable"}`
+            );
+
+            if (availability?.includedNames.length) {
+              assert(
+                isPlayerInCurrentSquad(player.name, availability.includedNames),
+                `Fixture "${fixture.id}" keyPlayers.${side}[${index}] lists "${player.name}", who is not in player-availability.json current squad for ${teamId}`
+              );
+            }
+
             requiredProfileNames.add(player.name);
           }
           assert(
@@ -365,6 +560,13 @@ for (const fixture of fixturesData.fixtures || []) {
       }
     }
   }
+}
+
+for (const { teamId, index, player } of fixtureUnavailableRefs) {
+  assert(
+    fixtureIds.has(player.fixtureId),
+    `player-availability.json team "${teamId}" fixtureUnavailable[${index}] references unknown fixture "${player.fixtureId}"`
+  );
 }
 
 for (const playerName of requiredProfileNames) {

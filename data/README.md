@@ -62,12 +62,16 @@ node scripts/populate-player-profiles.mjs
 
 The script uses Wikipedia football infoboxes for current club, position, and photos, then derives skill tags from the editorial key-player notes.
 
+Before publishing tournament-year previews, update `data/player-availability.json` from the latest official FIFA squad list. Use each team's `included` list as the tournament-squad baseline, `unavailable` for players omitted or withdrawn from the tournament, and `fixtureUnavailable` for match-day injuries, illness, or suspensions that apply to one fixture. `scripts/validate-data.mjs` rejects match-card key players who are marked unavailable, and for teams with an `included` squad list it also rejects key players not in that current squad.
+
 ## Update Cadence
 
 Preferred production path:
 - Configure `/api/live-data` with a football-data.org key on the free delayed-score plan.
 - Let the server-side live snapshot merge recent scores/status and recompute standings automatically.
 - Keep manual JSON updates as the editorial/fallback layer, not the main live-update mechanism.
+- Run `pnpm sync:fifa` before match-day checks when updating the committed static fallback data.
+- Run `pnpm matchday:readiness` for a focused today/tomorrow checklist instead of treating every old archive or odds source as equally urgent.
 
 Normal non-match days:
 - Check sources once per day.
@@ -91,14 +95,24 @@ For completed fixture detail pages, add optional `resultHighlights` when the sco
 1. Update `data/fixtures.json`.
 2. Update `data/standings.json` after completed matches.
 3. Update source `checkedAt` timestamps in `data/tournament.json`.
-4. Run:
+4. Or run the official FIFA snapshot sync to merge known live/final scores and recompute standings:
 
 ```bash
+pnpm sync:fifa
+```
+
+5. Run:
+
+```bash
+pnpm matchday:readiness
+node scripts/audit-fifa-schedule.mjs
 node scripts/validate-data.mjs
 node scripts/audit-data.mjs
 ```
 
-5. Open the site and spot-check:
+`audit-fifa-schedule.mjs` requires network access to FIFA's public schedule feed. Treat a kickoff mismatch as a blocking data incident before publishing.
+
+6. Open the site and spot-check:
    - today's match list
    - standings tab
    - selected match info card
