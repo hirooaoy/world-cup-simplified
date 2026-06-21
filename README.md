@@ -12,6 +12,15 @@ pnpm test
 ```
 
 The test script validates the JSON data, audits freshness/status drift, and runs a Playwright smoke test against a local static server.
+On match days, refresh the static snapshot first:
+
+```sh
+pnpm sync:fifa
+pnpm matchday:readiness
+pnpm test
+```
+
+The GitHub Data Quality workflow runs the same FIFA sync before testing, so scheduled CI validates an official results snapshot instead of failing only because committed fallback JSON is a few matches behind.
 
 ## Public Launch
 
@@ -22,6 +31,8 @@ The site is set up for Vercel. Static pages are served from the repo root and th
 The production site tries `/api/live-data` before it falls back to the static JSON files. That API route runs server-side, fetches recent provider fixtures, merges live/final scores into the existing fixtures, recomputes group standings, and returns a CDN-cached snapshot to the browser. Visitors still get the fast static app, but the data can update automatically without exposing the provider key.
 
 The free/default provider is football-data.org. The site defaults to competition `WC` and season `2026`, and uses the delayed-score free tier so the custom UI can update without exposing the provider key.
+
+Important: `/api/live-data` is the automatic production path. The committed JSON files are the static fallback; they only change when `pnpm sync:fifa` is run and the resulting data is committed/deployed. The scheduled Data Quality workflow checks a synced snapshot, but it does not publish fallback JSON by itself.
 
 To enable the free football-data.org sync:
 
@@ -34,6 +45,8 @@ To enable the free football-data.org sync:
 The live endpoint is cached for 5 minutes by default with football-data.org. You can override that with `LIVE_DATA_CACHE_SECONDS` and `LIVE_DATA_STALE_SECONDS`; use higher values if you want fewer provider calls.
 
 API-Football and Sportmonks remain supported as optional providers. Set `LIVE_DATA_PROVIDER=api-football` or `LIVE_DATA_PROVIDER=sportmonks` and add the matching token plus optional league/season IDs.
+
+The static fallback can also update itself through GitHub. The `Sync FIFA Results PR` workflow runs every 30 minutes during the 2026 tournament window, runs `pnpm sync:fifa:pr`, validates the result, and opens or updates a PR on `codex/fifa-results-sync` only when the committed fallback JSON has a real FIFA status/score change. In GitHub, make sure **Settings → Actions → General → Workflow permissions** allows read/write access so the workflow can push the branch and create the PR. If you want that PR's push to trigger every downstream workflow, add a fine-scoped `SYNC_PR_TOKEN` repository secret; otherwise the default `GITHUB_TOKEN` is enough to open the PR and the sync workflow itself runs the data checks.
 
 Before launch:
 

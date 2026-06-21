@@ -6,10 +6,14 @@
   "packageManager": "pnpm@11.0.7",
   "scripts": {
     "audit": "node scripts/audit-data.mjs",
+    "audit:schedule": "node scripts/audit-fifa-schedule.mjs",
     "import:history": "node scripts/import-world-cup-history.mjs",
     "matchups": "node scripts/populate-matchup-key-information.mjs",
+    "matchday:readiness": "node scripts/matchday-readiness.mjs",
     "profiles": "node scripts/populate-player-profiles.mjs",
     "smoke": "node scripts/ui-smoke.mjs",
+    "sync:fifa": "node scripts/sync-fifa-results.mjs",
+    "sync:fifa:pr": "node scripts/sync-fifa-results.mjs --skip-unchanged",
     "test": "node scripts/validate-data.mjs && node scripts/audit-data.mjs && node scripts/ui-smoke.mjs",
     "validate": "node scripts/validate-data.mjs"
   },

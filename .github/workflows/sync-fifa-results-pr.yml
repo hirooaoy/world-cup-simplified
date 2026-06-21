@@ -1,0 +1,120 @@
+name: Sync FIFA Results PR
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "*/30 * 11-30 6 *"
+    - cron: "*/30 * 1-19 7 *"
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: sync-fifa-results-pr
+  cancel-in-progress: true
+
+jobs:
+  sync:
+    name: Sync official fallback data
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.SYNC_PR_TOKEN || github.token }}
+      WORLD_CUP_TZ: America/Los_Angeles
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.SYNC_PR_TOKEN || github.token }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+
+      - name: Set up pnpm
+        run: |
+          corepack enable
+          corepack prepare pnpm@11.0.7 --activate
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Sync FIFA results snapshot
+        run: |
+          set -o pipefail
+          pnpm sync:fifa:pr | tee fifa-sync.log
+
+      - name: Run matchday readiness
+        run: |
+          set -o pipefail
+          pnpm matchday:readiness | tee matchday-readiness.log
+
+      - name: Validate synced data
+        run: |
+          pnpm validate
+          pnpm audit:schedule
+          pnpm audit
+
+      - name: Detect fallback data changes
+        id: changes
+        run: |
+          if [ -n "$(git status --porcelain -- data/fixtures.json data/standings.json data/tournament.json)" ]; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Build pull request body
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          cat > fifa-sync-pr.md <<'EOF'
+          Automated fallback-data sync from FIFA's official match feed.
+
+          This PR updates committed static JSON only. Production visitors should still use `/api/live-data` when a live provider key is configured.
+
+          ## FIFA Sync
+
+          ```text
+          EOF
+          cat fifa-sync.log >> fifa-sync-pr.md
+          cat >> fifa-sync-pr.md <<'EOF'
+          ```
+
+          ## Matchday Readiness
+
+          ```text
+          EOF
+          cat matchday-readiness.log >> fifa-sync-pr.md
+          cat >> fifa-sync-pr.md <<'EOF'
+          ```
+
+          ## Checks
+
+          - `pnpm validate`
+          - `pnpm audit:schedule`
+          - `pnpm audit`
+          EOF
+
+      - name: Commit synced fallback data
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          branch="codex/fifa-results-sync"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -C "$branch"
+          git add data/fixtures.json data/standings.json data/tournament.json
+          git commit -m "Update FIFA results snapshot"
+          git push --force-with-lease origin "$branch"
+
+      - name: Open or update pull request
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          branch="codex/fifa-results-sync"
+          title="Update FIFA results snapshot"
+          if gh pr view "$branch" --base main >/dev/null 2>&1; then
+            gh pr edit "$branch" --base main --title "$title" --body-file fifa-sync-pr.md
+          else
+            gh pr create --base main --head "$branch" --title "$title" --body-file fifa-sync-pr.md
+          fi

@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-19T11:29:38-07:00",
+  "updatedAt": "2026-06-21T19:37:19.085Z",
   "coverageNote": "The current seed dataset covers the full official fixture skeleton from June 11 through July 19. Rich previews, scores, live status and knockout participants are updated progressively.",
   "format": {
     "automaticAdvancersPerGroup": 2,
@@ -8,11 +8,11 @@
   },
   "sources": [
     {
-      "id": "fifa-schedule-2026-06-17",
-      "label": "FIFA World Cup 2026 schedule",
+      "id": "fifa-schedule-2026-06-20",
+      "label": "FIFA World Cup 2026 schedule and results",
       "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/match-schedule-fixtures-results-teams-stadiums",
       "type": "official",
-      "checkedAt": "2026-06-17T12:55:14-07:00"
+      "checkedAt": "2026-06-20T10:32:51-07:00"
     },
     {
       "id": "fifa-debutants-2026-06-17",
@@ -383,7 +383,21 @@
       "label": "Team key-player watchlist baseline",
       "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/fifa-world-cup-2026-squads-confirmed",
       "type": "editorial",
-      "checkedAt": "2026-06-17T11:40:00-07:00"
+      "checkedAt": "2026-06-20T10:31:28-07:00"
+    },
+    {
+      "id": "aljazeera-japan-squad-2026-05-15",
+      "label": "Al Jazeera Japan 2026 World Cup squad and omissions",
+      "url": "https://www.aljazeera.com/sports/2026/5/15/mitoma-fails-to-make-japans-2026-world-cup-squad-due-to-hamstring-injury",
+      "type": "cross-check",
+      "checkedAt": "2026-06-20T10:31:28-07:00"
+    },
+    {
+      "id": "nippon-japan-squad-update-2026-06-15",
+      "label": "Nippon.com Japan 2026 World Cup squad update",
+      "url": "https://www.nippon.com/en/japan-data/h02782/",
+      "type": "cross-check",
+      "checkedAt": "2026-06-20T10:31:28-07:00"
     },
     {
       "id": "national-football-teams-ned-jpn-h2h-2026-06-17",
@@ -456,11 +470,75 @@
       "checkedAt": "2026-06-19T11:05:14-07:00"
     },
     {
+      "id": "fifa-netherlands-sweden-result-2026-06-20",
+      "label": "FIFA Netherlands vs Sweden final score",
+      "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/netherlands-sweden-match-report-highlights",
+      "type": "official",
+      "checkedAt": "2026-06-21T12:20:00-07:00"
+    },
+    {
+      "id": "fifa-germany-cote-divoire-result-2026-06-20",
+      "label": "FIFA Germany vs Côte d'Ivoire final score",
+      "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/germany-cote-divoire-match-report-highlights",
+      "type": "official",
+      "checkedAt": "2026-06-21T12:20:00-07:00"
+    },
+    {
+      "id": "fifa-ecuador-curacao-result-2026-06-20",
+      "label": "FIFA Ecuador vs Curaçao final score",
+      "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/ecuador-curacao-match-report-highlights",
+      "type": "official",
+      "checkedAt": "2026-06-21T12:20:00-07:00"
+    },
+    {
+      "id": "fifa-tunisia-japan-result-2026-06-21",
+      "label": "FIFA Tunisia vs Japan final score",
+      "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/tunisia-japan-match-report-highlights",
+      "type": "official",
+      "checkedAt": "2026-06-21T12:20:00-07:00"
+    },
+    {
+      "id": "fox-spain-saudi-arabia-result-2026-06-21",
+      "label": "FOX Sports Spain vs Saudi Arabia final score cross-check",
+      "url": "https://www.foxsports.com/live-blog/soccer/spain-saudi-arabia-live-updates-score-2026-world-cup",
+      "type": "cross-check",
+      "checkedAt": "2026-06-21T12:20:00-07:00"
+    },
+    {
       "id": "openfootball-worldcup-json-2026-06-17",
       "label": "openfootball World Cup JSON",
       "url": "https://github.com/openfootball/worldcup.json",
       "type": "public-domain-data",
       "checkedAt": "2026-06-17T15:08:00-07:00"
+    },
+    {
+      "id": "fifa-squad-list-2026-06-21",
+      "label": "FIFA World Cup 2026 official squad list",
+      "url": "https://fdp.fifa.org/assetspublic/ce281/pdf/SquadLists-English.pdf",
+      "type": "official",
+      "checkedAt": "2026-06-21T12:24:40-07:00"
+    },
+    {
+      "id": "toi-belgium-doku-illness-2026-06-21",
+      "label": "Times of India Jeremy Doku illness update",
+      "url": "https://timesofindia.indiatimes.com/sports/football/fifa-world-cup/fifa-world-cup-blow-for-belgium-as-jeremy-doku-ruled-out-of-crucial-iran-clash-with-illness/articleshow/131882636.cms",
+      "type": "cross-check",
+      "checkedAt": "2026-06-21T12:24:40-07:00"
+    },
+    {
+      "id": "guardian-belgium-iran-live-2026-06-21",
+      "label": "Guardian Belgium vs IR Iran live match status",
+      "url": "https://www.theguardian.com/football/live/2026/jun/21/belgium-v-iran-world-cup-2026-live",
+      "type": "cross-check",
+      "checkedAt": "2026-06-21T12:31:00-07:00"
+    },
+    {
+      "id": "fifa-official-results-sync-2026-06-21",
+      "label": "FIFA official results sync",
+      "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/match-schedule-fixtures-results-teams-stadiums",
+      "type": "official",
+      "checkedAt": "2026-06-21T19:37:19.085Z",
+      "note": "0 fixture updates merged from 104 matched FIFA fixtures."
     }
   ],
   "groups": [

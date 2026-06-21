@@ -1,79 +1,482 @@
 {
-  "updatedAt": "2026-06-19T11:05:14-07:00",
-  "sourceIds": ["fifa-standings-2026-06-17", "sbn-standings-2026-06-17", "espn-result-2026-06-17", "england-football-england-croatia-2026-06-17", "aljazeera-england-croatia-2026-06-17", "fifa-ghana-panama-result-2026-06-18", "fifa-uzbekistan-colombia-result-2026-06-18", "guardian-czechia-south-africa-2026-06-18", "guardian-switzerland-bosnia-2026-06-18", "guardian-canada-qatar-2026-06-18", "guardian-mexico-south-korea-2026-06-19"],
+  "updatedAt": "2026-06-21T19:37:19.085Z",
+  "sourceIds": [
+    "fifa-schedule-2026-06-20",
+    "fifa-standings-2026-06-17",
+    "sbn-standings-2026-06-17",
+    "espn-result-2026-06-17",
+    "england-football-england-croatia-2026-06-17",
+    "aljazeera-england-croatia-2026-06-17",
+    "fifa-ghana-panama-result-2026-06-18",
+    "fifa-uzbekistan-colombia-result-2026-06-18",
+    "guardian-czechia-south-africa-2026-06-18",
+    "guardian-switzerland-bosnia-2026-06-18",
+    "guardian-canada-qatar-2026-06-18",
+    "guardian-mexico-south-korea-2026-06-19",
+    "fifa-netherlands-sweden-result-2026-06-20",
+    "fifa-germany-cote-divoire-result-2026-06-20",
+    "fifa-ecuador-curacao-result-2026-06-20",
+    "fifa-tunisia-japan-result-2026-06-21",
+    "fox-spain-saudi-arabia-result-2026-06-21",
+    "fifa-official-results-sync-2026-06-21"
+  ],
   "tiebreakerNote": "Rows use the current table order. Points, goal difference and goals scored are included for beginner-friendly context.",
   "groups": {
     "A": [
-      { "teamId": "MEX", "played": 2, "wins": 2, "draws": 0, "losses": 0, "gf": 3, "ga": 0 },
-      { "teamId": "KOR", "played": 2, "wins": 1, "draws": 0, "losses": 1, "gf": 2, "ga": 2 },
-      { "teamId": "CZE", "played": 2, "wins": 0, "draws": 1, "losses": 1, "gf": 2, "ga": 3 },
-      { "teamId": "RSA", "played": 2, "wins": 0, "draws": 1, "losses": 1, "gf": 1, "ga": 3 }
+      {
+        "teamId": "MEX",
+        "played": 2,
+        "wins": 2,
+        "draws": 0,
+        "losses": 0,
+        "gf": 3,
+        "ga": 0
+      },
+      {
+        "teamId": "KOR",
+        "played": 2,
+        "wins": 1,
+        "draws": 0,
+        "losses": 1,
+        "gf": 2,
+        "ga": 2
+      },
+      {
+        "teamId": "CZE",
+        "played": 2,
+        "wins": 0,
+        "draws": 1,
+        "losses": 1,
+        "gf": 2,
+        "ga": 3
+      },
+      {
+        "teamId": "RSA",
+        "played": 2,
+        "wins": 0,
+        "draws": 1,
+        "losses": 1,
+        "gf": 1,
+        "ga": 3
+      }
     ],
     "B": [
-      { "teamId": "CAN", "played": 2, "wins": 1, "draws": 1, "losses": 0, "gf": 7, "ga": 1 },
-      { "teamId": "SUI", "played": 2, "wins": 1, "draws": 1, "losses": 0, "gf": 5, "ga": 2 },
-      { "teamId": "BIH", "played": 2, "wins": 0, "draws": 1, "losses": 1, "gf": 2, "ga": 5 },
-      { "teamId": "QAT", "played": 2, "wins": 0, "draws": 1, "losses": 1, "gf": 1, "ga": 7 }
+      {
+        "teamId": "CAN",
+        "played": 2,
+        "wins": 1,
+        "draws": 1,
+        "losses": 0,
+        "gf": 7,
+        "ga": 1
+      },
+      {
+        "teamId": "SUI",
+        "played": 2,
+        "wins": 1,
+        "draws": 1,
+        "losses": 0,
+        "gf": 5,
+        "ga": 2
+      },
+      {
+        "teamId": "BIH",
+        "played": 2,
+        "wins": 0,
+        "draws": 1,
+        "losses": 1,
+        "gf": 2,
+        "ga": 5
+      },
+      {
+        "teamId": "QAT",
+        "played": 2,
+        "wins": 0,
+        "draws": 1,
+        "losses": 1,
+        "gf": 1,
+        "ga": 7
+      }
     ],
     "C": [
-      { "teamId": "SCO", "played": 1, "wins": 1, "draws": 0, "losses": 0, "gf": 1, "ga": 0 },
-      { "teamId": "MAR", "played": 1, "wins": 0, "draws": 1, "losses": 0, "gf": 1, "ga": 1 },
-      { "teamId": "BRA", "played": 1, "wins": 0, "draws": 1, "losses": 0, "gf": 1, "ga": 1 },
-      { "teamId": "HAI", "played": 1, "wins": 0, "draws": 0, "losses": 1, "gf": 0, "ga": 1 }
+      {
+        "teamId": "BRA",
+        "played": 2,
+        "wins": 1,
+        "draws": 1,
+        "losses": 0,
+        "gf": 4,
+        "ga": 1
+      },
+      {
+        "teamId": "MAR",
+        "played": 2,
+        "wins": 1,
+        "draws": 1,
+        "losses": 0,
+        "gf": 2,
+        "ga": 1
+      },
+      {
+        "teamId": "SCO",
+        "played": 2,
+        "wins": 1,
+        "draws": 0,
+        "losses": 1,
+        "gf": 1,
+        "ga": 1
+      },
+      {
+        "teamId": "HAI",
+        "played": 2,
+        "wins": 0,
+        "draws": 0,
+        "losses": 2,
+        "gf": 0,
+        "ga": 4
+      }
     ],
     "D": [
-      { "teamId": "USA", "played": 1, "wins": 1, "draws": 0, "losses": 0, "gf": 4, "ga": 1 },
-      { "teamId": "AUS", "played": 1, "wins": 1, "draws": 0, "losses": 0, "gf": 2, "ga": 0 },
-      { "teamId": "TUR", "played": 1, "wins": 0, "draws": 0, "losses": 1, "gf": 0, "ga": 2 },
-      { "teamId": "PAR", "played": 1, "wins": 0, "draws": 0, "losses": 1, "gf": 1, "ga": 4 }
+      {
+        "teamId": "USA",
+        "played": 2,
+        "wins": 2,
+        "draws": 0,
+        "losses": 0,
+        "gf": 6,
+        "ga": 1
+      },
+      {
+        "teamId": "AUS",
+        "played": 2,
+        "wins": 1,
+        "draws": 0,
+        "losses": 1,
+        "gf": 2,
+        "ga": 2
+      },
+      {
+        "teamId": "PAR",
+        "played": 2,
+        "wins": 1,
+        "draws": 0,
+        "losses": 1,
+        "gf": 2,
+        "ga": 4
+      },
+      {
+        "teamId": "TUR",
+        "played": 2,
+        "wins": 0,
+        "draws": 0,
+        "losses": 2,
+        "gf": 0,
+        "ga": 3
+      }
     ],
     "E": [
-      { "teamId": "GER", "played": 1, "wins": 1, "draws": 0, "losses": 0, "gf": 7, "ga": 1 },
-      { "teamId": "CIV", "played": 1, "wins": 1, "draws": 0, "losses": 0, "gf": 1, "ga": 0 },
-      { "teamId": "ECU", "played": 1, "wins": 0, "draws": 0, "losses": 1, "gf": 0, "ga": 1 },
-      { "teamId": "CUW", "played": 1, "wins": 0, "draws": 0, "losses": 1, "gf": 1, "ga": 7 }
+      {
+        "teamId": "GER",
+        "played": 2,
+        "wins": 2,
+        "draws": 0,
+        "losses": 0,
+        "gf": 9,
+        "ga": 2
+      },
+      {
+        "teamId": "CIV",
+        "played": 2,
+        "wins": 1,
+        "draws": 0,
+        "losses": 1,
+        "gf": 2,
+        "ga": 2
+      },
+      {
+        "teamId": "ECU",
+        "played": 2,
+        "wins": 0,
+        "draws": 1,
+        "losses": 1,
+        "gf": 0,
+        "ga": 1
+      },
+      {
+        "teamId": "CUW",
+        "played": 2,
+        "wins": 0,
+        "draws": 1,
+        "losses": 1,
+        "gf": 1,
+        "ga": 7
+      }
     ],
     "F": [
-      { "teamId": "SWE", "played": 1, "wins": 1, "draws": 0, "losses": 0, "gf": 5, "ga": 1 },
-      { "teamId": "JPN", "played": 1, "wins": 0, "draws": 1, "losses": 0, "gf": 2, "ga": 2 },
-      { "teamId": "NED", "played": 1, "wins": 0, "draws": 1, "losses": 0, "gf": 2, "ga": 2 },
-      { "teamId": "TUN", "played": 1, "wins": 0, "draws": 0, "losses": 1, "gf": 1, "ga": 5 }
+      {
+        "teamId": "NED",
+        "played": 2,
+        "wins": 1,
+        "draws": 1,
+        "losses": 0,
+        "gf": 7,
+        "ga": 3
+      },
+      {
+        "teamId": "JPN",
+        "played": 2,
+        "wins": 1,
+        "draws": 1,
+        "losses": 0,
+        "gf": 6,
+        "ga": 2
+      },
+      {
+        "teamId": "SWE",
+        "played": 2,
+        "wins": 1,
+        "draws": 0,
+        "losses": 1,
+        "gf": 6,
+        "ga": 6
+      },
+      {
+        "teamId": "TUN",
+        "played": 2,
+        "wins": 0,
+        "draws": 0,
+        "losses": 2,
+        "gf": 1,
+        "ga": 9
+      }
     ],
     "G": [
-      { "teamId": "NZL", "played": 1, "wins": 0, "draws": 1, "losses": 0, "gf": 2, "ga": 2 },
-      { "teamId": "IRN", "played": 1, "wins": 0, "draws": 1, "losses": 0, "gf": 2, "ga": 2 },
-      { "teamId": "BEL", "played": 1, "wins": 0, "draws": 1, "losses": 0, "gf": 1, "ga": 1 },
-      { "teamId": "EGY", "played": 1, "wins": 0, "draws": 1, "losses": 0, "gf": 1, "ga": 1 }
+      {
+        "teamId": "NZL",
+        "played": 1,
+        "wins": 0,
+        "draws": 1,
+        "losses": 0,
+        "gf": 2,
+        "ga": 2
+      },
+      {
+        "teamId": "IRN",
+        "played": 1,
+        "wins": 0,
+        "draws": 1,
+        "losses": 0,
+        "gf": 2,
+        "ga": 2
+      },
+      {
+        "teamId": "BEL",
+        "played": 1,
+        "wins": 0,
+        "draws": 1,
+        "losses": 0,
+        "gf": 1,
+        "ga": 1
+      },
+      {
+        "teamId": "EGY",
+        "played": 1,
+        "wins": 0,
+        "draws": 1,
+        "losses": 0,
+        "gf": 1,
+        "ga": 1
+      }
     ],
     "H": [
-      { "teamId": "URU", "played": 1, "wins": 0, "draws": 1, "losses": 0, "gf": 1, "ga": 1 },
-      { "teamId": "KSA", "played": 1, "wins": 0, "draws": 1, "losses": 0, "gf": 1, "ga": 1 },
-      { "teamId": "ESP", "played": 1, "wins": 0, "draws": 1, "losses": 0, "gf": 0, "ga": 0 },
-      { "teamId": "CPV", "played": 1, "wins": 0, "draws": 1, "losses": 0, "gf": 0, "ga": 0 }
+      {
+        "teamId": "ESP",
+        "played": 2,
+        "wins": 1,
+        "draws": 1,
+        "losses": 0,
+        "gf": 4,
+        "ga": 0
+      },
+      {
+        "teamId": "URU",
+        "played": 1,
+        "wins": 0,
+        "draws": 1,
+        "losses": 0,
+        "gf": 1,
+        "ga": 1
+      },
+      {
+        "teamId": "CPV",
+        "played": 1,
+        "wins": 0,
+        "draws": 1,
+        "losses": 0,
+        "gf": 0,
+        "ga": 0
+      },
+      {
+        "teamId": "KSA",
+        "played": 2,
+        "wins": 0,
+        "draws": 1,
+        "losses": 1,
+        "gf": 1,
+        "ga": 5
+      }
     ],
     "I": [
-      { "teamId": "NOR", "played": 1, "wins": 1, "draws": 0, "losses": 0, "gf": 4, "ga": 1 },
-      { "teamId": "FRA", "played": 1, "wins": 1, "draws": 0, "losses": 0, "gf": 3, "ga": 1 },
-      { "teamId": "SEN", "played": 1, "wins": 0, "draws": 0, "losses": 1, "gf": 1, "ga": 3 },
-      { "teamId": "IRQ", "played": 1, "wins": 0, "draws": 0, "losses": 1, "gf": 1, "ga": 4 }
+      {
+        "teamId": "NOR",
+        "played": 1,
+        "wins": 1,
+        "draws": 0,
+        "losses": 0,
+        "gf": 4,
+        "ga": 1
+      },
+      {
+        "teamId": "FRA",
+        "played": 1,
+        "wins": 1,
+        "draws": 0,
+        "losses": 0,
+        "gf": 3,
+        "ga": 1
+      },
+      {
+        "teamId": "SEN",
+        "played": 1,
+        "wins": 0,
+        "draws": 0,
+        "losses": 1,
+        "gf": 1,
+        "ga": 3
+      },
+      {
+        "teamId": "IRQ",
+        "played": 1,
+        "wins": 0,
+        "draws": 0,
+        "losses": 1,
+        "gf": 1,
+        "ga": 4
+      }
     ],
     "J": [
-      { "teamId": "ARG", "played": 1, "wins": 1, "draws": 0, "losses": 0, "gf": 3, "ga": 0 },
-      { "teamId": "AUT", "played": 1, "wins": 1, "draws": 0, "losses": 0, "gf": 3, "ga": 1 },
-      { "teamId": "JOR", "played": 1, "wins": 0, "draws": 0, "losses": 1, "gf": 1, "ga": 3 },
-      { "teamId": "ALG", "played": 1, "wins": 0, "draws": 0, "losses": 1, "gf": 0, "ga": 3 }
+      {
+        "teamId": "ARG",
+        "played": 1,
+        "wins": 1,
+        "draws": 0,
+        "losses": 0,
+        "gf": 3,
+        "ga": 0
+      },
+      {
+        "teamId": "AUT",
+        "played": 1,
+        "wins": 1,
+        "draws": 0,
+        "losses": 0,
+        "gf": 3,
+        "ga": 1
+      },
+      {
+        "teamId": "JOR",
+        "played": 1,
+        "wins": 0,
+        "draws": 0,
+        "losses": 1,
+        "gf": 1,
+        "ga": 3
+      },
+      {
+        "teamId": "ALG",
+        "played": 1,
+        "wins": 0,
+        "draws": 0,
+        "losses": 1,
+        "gf": 0,
+        "ga": 3
+      }
     ],
     "K": [
-      { "teamId": "COL", "played": 1, "wins": 1, "draws": 0, "losses": 0, "gf": 3, "ga": 1 },
-      { "teamId": "POR", "played": 1, "wins": 0, "draws": 1, "losses": 0, "gf": 1, "ga": 1 },
-      { "teamId": "COD", "played": 1, "wins": 0, "draws": 1, "losses": 0, "gf": 1, "ga": 1 },
-      { "teamId": "UZB", "played": 1, "wins": 0, "draws": 0, "losses": 1, "gf": 1, "ga": 3 }
+      {
+        "teamId": "COL",
+        "played": 1,
+        "wins": 1,
+        "draws": 0,
+        "losses": 0,
+        "gf": 3,
+        "ga": 1
+      },
+      {
+        "teamId": "POR",
+        "played": 1,
+        "wins": 0,
+        "draws": 1,
+        "losses": 0,
+        "gf": 1,
+        "ga": 1
+      },
+      {
+        "teamId": "COD",
+        "played": 1,
+        "wins": 0,
+        "draws": 1,
+        "losses": 0,
+        "gf": 1,
+        "ga": 1
+      },
+      {
+        "teamId": "UZB",
+        "played": 1,
+        "wins": 0,
+        "draws": 0,
+        "losses": 1,
+        "gf": 1,
+        "ga": 3
+      }
     ],
     "L": [
-      { "teamId": "ENG", "played": 1, "wins": 1, "draws": 0, "losses": 0, "gf": 4, "ga": 2 },
-      { "teamId": "GHA", "played": 1, "wins": 1, "draws": 0, "losses": 0, "gf": 1, "ga": 0 },
-      { "teamId": "PAN", "played": 1, "wins": 0, "draws": 0, "losses": 1, "gf": 0, "ga": 1 },
-      { "teamId": "CRO", "played": 1, "wins": 0, "draws": 0, "losses": 1, "gf": 2, "ga": 4 }
+      {
+        "teamId": "ENG",
+        "played": 1,
+        "wins": 1,
+        "draws": 0,
+        "losses": 0,
+        "gf": 4,
+        "ga": 2
+      },
+      {
+        "teamId": "GHA",
+        "played": 1,
+        "wins": 1,
+        "draws": 0,
+        "losses": 0,
+        "gf": 1,
+        "ga": 0
+      },
+      {
+        "teamId": "PAN",
+        "played": 1,
+        "wins": 0,
+        "draws": 0,
+        "losses": 1,
+        "gf": 0,
+        "ga": 1
+      },
+      {
+        "teamId": "CRO",
+        "played": 1,
+        "wins": 0,
+        "draws": 0,
+        "losses": 1,
+        "gf": 2,
+        "ga": 4
+      }
     ]
   }
 }

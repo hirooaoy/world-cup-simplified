@@ -11,16 +11,27 @@ const outputPath = path.join(dataDir, "player-profiles.json");
 const userAgent = "WorldCupSimplified/0.1 (local profile enrichment)";
 const requestDelayMs = Number(process.env.WIKI_REQUEST_DELAY_MS || 1800);
 const pageTitleOverrides = new Map([
+  ["Ali Olwan", "Ali Olwan"],
+  ["Ayoub El Kaabi", "Ayoub El Kaabi"],
+  ["Brahim Diaz", "Brahim Díaz"],
   ["Chris Wood", "Chris Wood (footballer, born 1991)"],
   ["Cristiano Ronaldo", "Cristiano Ronaldo"],
+  ["Daichi Kamada", "Daichi Kamada"],
+  ["Evann Guessand", "Evann Guessand"],
   ["Ismael Diaz", "Ismael Díaz (footballer, born 1997)"],
+  ["Konrad Laimer", "Konrad Laimer"],
+  ["Leandro Trossard", "Leandro Trossard"],
   ["Luis Chavez", "Luis Chávez (footballer)"],
   ["Luis Diaz", "Luis Díaz (footballer, born 1997)"],
   ["Luis Suarez", "Luis Suárez (footballer, born 1997)"],
   ["Martin Odegaard", "Martin Ødegaard"],
   ["Mousa Al-Taamari", "Musa Al-Taamari"],
   ["Neymar", "Neymar"],
-  ["Roberto Lopes", "Roberto Lopes (footballer, born 1992)"]
+  ["Ritsu Doan", "Ritsu Dōan"],
+  ["Roberto Lopes", "Roberto Lopes (footballer, born 1992)"],
+  ["Tahith Chong", "Tahith Chong"],
+  ["Teboho Mokoena", "Teboho Mokoena"],
+  ["Yasin Ayari", "Yasin Ayari"]
 ]);
 const profileFieldOverrides = {
   "Adalberto Carrasquilla": {
@@ -29,9 +40,12 @@ const profileFieldOverrides = {
   "Ali Jasim": {
     imageUrl: "https://resources.saudi-pro-league.pulselive.com/saudi-pro-league/photo/2025/11/13/287545ca-8c56-428c-81ba-cb4620bb94c8/05c43886-bdda-4649-a88b-b22c4eac68af________.jpg"
   },
+  "Ali Olwan": { club: "Al Sailiya SC" },
   "Amine Gouiri": {
     imageUrl: "https://assets.sorare.com/playerpicture/3f3077b9-e071-425a-bf5d-d6f4b5797192/picture/avatar-8e78185244d819fa519a4964d757da5d.png"
   },
+  "Ayoub El Kaabi": { club: "Olympiacos" },
+  "Brahim Diaz": { club: "Real Madrid" },
   "Chris Wood": {
     imageUrl: "https://assets.sorare.com/playerpicture/55068de4-3ec7-4111-bc72-04acadd6271b/avatar-chris-wood_new-zealand_football_2025_home_card_edition_name%3Dcolors_holo_base.png"
   },
@@ -41,6 +55,7 @@ const profileFieldOverrides = {
   "Esmir Bajraktarevic": {
     imageUrl: "https://media.reprezentacija.ba/2025/01/esmir-bajraktarevic-psv-1200x800.jpg"
   },
+  "Evann Guessand": { club: "Crystal Palace" },
   "Frantzdy Pierrot": {
     imageUrl: "https://www.eaguingamp.com/voy_content/uploads/2020/09/frantzdy-pierrot.png"
   },
@@ -54,9 +69,7 @@ const profileFieldOverrides = {
   "Jean-Ricner Bellegarde": {
     imageUrl: "https://assets.sorare.com/playerpicture/563dce7e-7150-4db5-acd0-166ab7f619ee/picture/avatar-dbb7b5dc63acbb97714f8946e94f05de.png"
   },
-  "Kaoru Mitoma": {
-    imageUrl: "https://assets.sorare.com/playerpicture/6d6121db-5d6b-4ec4-b6f7-c08a2c804d5e/picture/avatar-ae4bc0410e91990a1a38d3bc8f32fec0.png"
-  },
+  "Daichi Kamada": { club: "Crystal Palace" },
   "Kenan Yildiz": {
     position: "Attacking midfielder, winger",
     imageUrl: "https://www.juventus.com/images/image/private/t_portrait_tablet_desktop/f_png/dev/qwsdrvbuik2f2d7q1qcf.png"
@@ -64,9 +77,11 @@ const profileFieldOverrides = {
   "Lamine Yamal": {
     imageUrl: "https://assets.sorare.com/playerpicture/c8dd7fff-b3bc-4e8e-a199-99ddaeacaf0a/picture/avatar-44bdd68923075c1703d3b4241f082bb4.png"
   },
+  "Konrad Laimer": { club: "Bayern Munich" },
   "Leandro Bacuna": {
     imageUrl: "https://assets.sorare.com/playerpicture/dff6b137-2d96-485d-9e6b-9a98f34031ab/picture/avatar-09b13e7e02f8289016e9f98ff71d4c7a.png"
   },
+  "Leandro Trossard": { club: "Arsenal" },
   "Luis Suarez": {
     imageUrl: "https://assets.sorare.com/playerpicture/f945c83f-4b62-4d89-8a50-4408abefa6b7/picture/avatar-a920b0effd55be927d6b9b0a19d85061.png"
   },
@@ -82,18 +97,27 @@ const profileFieldOverrides = {
   Pedri: {
     imageUrl: "https://assets.sorare.com/playerpicture/2a201362-28b2-46f3-b775-3b46655a89d6/picture/avatar-77add04ba37e6223eb5f2fff5b5aa2e5.png"
   },
-  "Percy Tau": { club: "Thep Xanh Nam Dinh FC" },
   "Ronwen Williams": {
     imageUrl: "https://sundownsfc.co.za/wp-content/uploads/2025/09/Williams-1.jpg"
   },
+  "Ritsu Doan": { club: "Eintracht Frankfurt" },
   "Ryan Mendes": {
     imageUrl: "https://assets.sorare.com/playerpicture/19e5f623-11d5-4cb7-b305-610eaf822599/picture/avatar-ed0ebe5f0ea84b8710b99b5ec23451c0.png"
+  },
+  "Sadio Mane": {
+    imageUrl: "https://static-files.saudi-pro-league.pulselive.com/players/headshot/p110979.png"
   },
   "Salem Al-Dawsari": {
     imageUrl: "https://static-files.saudi-pro-league.pulselive.com/players/headshot/p109763.png"
   },
   "Sarpreet Singh": {
     imageUrl: "https://assets.sorare.com/playerpicture/5657430a-5e7f-4308-9a11-96b78a856c52/picture/avatar-2ec9453bc6a55005cefb6a3d193422e6.png"
+  },
+  "Tahith Chong": { club: "Sheffield United" },
+  "Teboho Mokoena": {
+    position: "Midfielder",
+    club: "Mamelodi Sundowns",
+    imageUrl: "https://sundownsfc.co.za/wp-content/uploads/2025/09/Mokoena-1.jpg"
   },
   "Tomas Soucek": {
     imageUrl: "https://assets.sorare.com/playerpicture/79be9611-63e4-4e00-8052-ff2d3825e916/picture/avatar-24c525970580228cb644fcbb1c646cc2.png"
@@ -104,7 +128,8 @@ const profileFieldOverrides = {
   },
   "Yoane Wissa": {
     imageUrl: "https://assets.sorare.com/playerpicture/daf7c63d-e2c2-4ef3-ada9-8fcc2951029a/picture/avatar-8dbbfde85f2c3e796388dccc9cb63dad.png"
-  }
+  },
+  "Yasin Ayari": { club: "Brighton & Hove Albion" }
 };
 const clubLeagueOverrides = {
   "AC Milan": "Serie A",
