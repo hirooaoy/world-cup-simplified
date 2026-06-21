@@ -8,6 +8,20 @@
   },
   "sources": [
     {
+      "id": "wikipedia-football-infobox",
+      "label": "Wikipedia football biography infoboxes for player metadata",
+      "url": "https://en.wikipedia.org/wiki/Category:Association_football_player_infobox_templates",
+      "type": "cross-check",
+      "checkedAt": "2026-06-21T13:34:16-07:00"
+    },
+    {
+      "id": "wikimedia-commons",
+      "label": "Wikimedia Commons player image files",
+      "url": "https://commons.wikimedia.org/wiki/Main_Page",
+      "type": "cross-check",
+      "checkedAt": "2026-06-21T13:34:16-07:00"
+    },
+    {
       "id": "fifa-schedule-2026-06-20",
       "label": "FIFA World Cup 2026 schedule and results",
       "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/match-schedule-fixtures-results-teams-stadiums",

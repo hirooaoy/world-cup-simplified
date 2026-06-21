@@ -181,6 +181,9 @@ requireSourceIds(historyData.sourceIds, sourceIds, "history.json");
 if (playerAvailabilityData) {
   requireSourceIds(playerAvailabilityData.sourceIds, sourceIds, "player-availability.json");
 }
+if (playerProfilesData) {
+  requireSourceIds(playerProfilesData.sourceIds, sourceIds, "player-profiles.json");
+}
 requireSourceIds(standingsData.sourceIds, sourceIds, "standings.json");
 requireSourceIds(teamsData.sourceIds, sourceIds, "teams.json");
 

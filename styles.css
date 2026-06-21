@@ -3530,14 +3530,67 @@ h1 {
     min-width: 0;
   }
 
-  .r32-match-grid,
+  .tournament-poster-bracket,
   .progress-rounds {
     grid-template-columns: 1fr;
   }
 
-  .tournament-r32,
+  .tournament-poster-bracket,
   .tournament-progression {
     padding: 14px;
+  }
+
+  .poster-center {
+    order: -1;
+  }
+
+  .poster-center-panel {
+    min-height: auto;
+    padding: 16px 0 18px;
+    border-inline: 0;
+    border-bottom: 1px solid rgba(10, 10, 10, 0.08);
+  }
+
+  .poster-center-panel h2 {
+    max-width: none;
+    font-size: 32px;
+  }
+
+  .poster-trophy {
+    width: 82px;
+    height: 96px;
+  }
+
+  .poster-cup-bowl {
+    width: 58px;
+    height: 46px;
+  }
+
+  .poster-cup-stem {
+    top: 50px;
+    height: 34px;
+  }
+
+  .poster-cup-base {
+    width: 70px;
+    height: 18px;
+  }
+
+  .poster-side::before,
+  .poster-match::after,
+  .progress-round:not(.is-final) .progress-match::after,
+  .progress-round.is-quarter-finals .progress-match::before,
+  .progress-round.is-semi-finals .progress-match::before,
+  .progress-round.is-final .progress-match::before {
+    display: none;
+  }
+
+  .progress-match-list {
+    grid-template-rows: none;
+  }
+
+  .progress-match {
+    grid-row: auto;
   }
 
   .tournament-section-heading {

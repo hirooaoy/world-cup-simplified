@@ -31,7 +31,7 @@
     <meta name="theme-color" content="#ffffff" />
     <link rel="icon" type="image/svg+xml" href="assets/favicon.svg?v=2026-06-17-1209" />
     <link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=2026-06-17-1213" />
-    <link rel="stylesheet" href="styles.css?v=2026-06-19-dynamic-standing-names-third-place-microcopy" />
+    <link rel="stylesheet" href="styles.css?v=2026-06-21-search-restored-tournament-poster" />
   </head>
   <body>
     <header class="site-header">
@@ -80,11 +80,21 @@
     <main class="page-shell">
       <section class="view-panel" id="matches-view" role="tabpanel" aria-labelledby="matches-tab">
         <section class="page-title" aria-labelledby="matches-heading">
-          <h1 class="date-nav" id="matches-heading">
-            <button class="date-jump" id="day-label" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="date-popover">
-              Today
-            </button>
-          </h1>
+          <div class="match-toolbar">
+            <h1 class="date-nav" id="matches-heading">
+              <button class="date-jump" id="day-label" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="date-popover">
+                Today
+              </button>
+            </h1>
+            <form class="team-search" id="team-search" role="search" autocomplete="off">
+              <div class="team-search-field">
+                <button class="team-search-toggle" id="team-search-toggle" type="button" aria-label="Search country matches" aria-expanded="false" aria-controls="team-search-input"></button>
+                <label class="visually-hidden" for="team-search-input">Search country matches</label>
+                <input class="team-search-input" id="team-search-input" type="search" name="team" placeholder="Search country" inputmode="search" />
+                <button class="team-search-clear is-hidden" id="team-search-clear" type="button" aria-label="Clear country search"></button>
+              </div>
+            </form>
+          </div>
           <div class="date-popover is-hidden" id="date-popover" role="dialog" aria-label="Choose match date">
             <div class="calendar-header">
               <button class="calendar-nav-button is-prev" id="calendar-prev-month" type="button" aria-label="Previous month"></button>
@@ -149,6 +159,6 @@
       </p>
     </footer>
 
-    <script type="module" src="app.js?v=2026-06-19-dynamic-standing-names-third-place-market-odds"></script>
+    <script type="module" src="app.js?v=2026-06-21-search-restored-tournament-poster"></script>
   </body>
 </html>
