@@ -92,6 +92,18 @@ const fifaWorldCupScoresUrl =
 const browser = await chromium.launch();
 const page = await browser.newPage();
 
+function getDayKeyForTimeZone(value, timeZone = "America/Los_Angeles") {
+  const parts = new Intl.DateTimeFormat("en-US", {
+    day: "2-digit",
+    month: "2-digit",
+    timeZone,
+    year: "numeric"
+  }).formatToParts(new Date(value));
+  const values = Object.fromEntries(parts.map((part) => [part.type, part.value]));
+
+  return `${values.year}-${values.month}-${values.day}`;
+}
+
 function getLatestUpdatedAt(items) {
   const latestTimestamp = items.reduce((latest, item) => {
     const timestamp = new Date(item?.updatedAt || "").getTime();
@@ -704,9 +716,20 @@ try {
     const beforeKickoff = new Date(
       new Date(nextScheduledFixture.kickoffUtc).getTime() - 5 * 60 * 1000
     );
+    const nextScheduledDate = getDayKeyForTimeZone(nextScheduledFixture.kickoffUtc);
     const upNextCheck = await openPageAtTime(
       beforeKickoff.toISOString(),
-      `/?view=matches&date=${nextScheduledFixture.date}&tz=America%2FLos_Angeles`
+      `/?view=matches&date=${nextScheduledDate}&tz=America%2FLos_Angeles`,
+      {
+        fixtureTransform(data) {
+          for (const fixture of data.fixtures || []) {
+            if (fixture.status === "LIVE") {
+              fixture.status = "FT";
+              fixture.score ||= { home: 0, away: 0 };
+            }
+          }
+        }
+      }
     );
     await upNextCheck.page.waitForSelector(".match-row");
     assert(
