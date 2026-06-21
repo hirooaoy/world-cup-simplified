@@ -528,6 +528,12 @@ h1 {
   color: rgba(10, 10, 10, 0.42);
 }
 
+.team-search-input::-webkit-search-cancel-button,
+.team-search-input::-webkit-search-decoration {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
 .team-search-clear {
   position: relative;
   color: rgba(10, 10, 10, 0.42);
@@ -1789,12 +1795,7 @@ h1 {
 }
 
 #standings-view:has(.standings-grid.is-third-place-race) .standings-title {
-  margin-bottom: 14px;
-}
-
-#standings-view:has(.standings-grid.is-third-place-race) .standings-title h1,
-#standings-view:has(.standings-grid.is-third-place-race) .standings-title p {
-  display: none;
+  margin-bottom: 18px;
 }
 
 #standings-view:has(.standings-grid.is-third-place-race) .standings-mode-tabs {

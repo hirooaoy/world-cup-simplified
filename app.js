@@ -1,4 +1,4 @@
-const DATA_VERSION = "2026-06-21-recovered-mobile-polish";
+const DATA_VERSION = "2026-06-21-trophy-polish";
 const DATA_URLS = {
   fixtures: `data/fixtures.json?v=${DATA_VERSION}`,
   history: `data/history.json?v=${DATA_VERSION}`,

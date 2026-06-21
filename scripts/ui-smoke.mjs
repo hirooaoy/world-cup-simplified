@@ -1304,10 +1304,11 @@ try {
   assert(
     (await page.locator("#standings-mode-tabs").isVisible()) &&
       (await page.locator("#standings-third-place-tab").evaluate((tab) => tab.getAttribute("aria-pressed") === "true")) &&
-      !(await page.locator("#standings-heading").isVisible()) &&
+      (await page.locator("#standings-heading").isVisible()) &&
+      (await page.locator("#standings-summary").innerText()).includes("Current third-place teams") &&
       !(await page.locator(".third-place-race-header").isVisible()) &&
       (await page.locator(".third-place-table").isVisible()),
-    "The third-place race should keep the section tabs visible while rendering the compact table."
+    "The third-place race should keep the standings heading, mode-specific summary, and section tabs visible."
   );
   const thirdPlaceRaceCheck = await page.evaluate(() => {
     const rows = [...document.querySelectorAll(".third-place-table tbody tr:not(.third-place-cut-row)")];
