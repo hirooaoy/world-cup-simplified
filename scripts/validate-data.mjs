@@ -592,6 +592,12 @@ for (const playerName of requiredProfileNames) {
     Array.isArray(profile.skills) && profile.skills.length > 0,
     `player-profiles.json "${playerName}" must include skills`
   );
+  if (profile.uniformNumber !== undefined) {
+    assert(
+      Number.isInteger(profile.uniformNumber) && profile.uniformNumber > 0,
+      `player-profiles.json "${playerName}" uniformNumber must be a positive integer`
+    );
+  }
 }
 
 for (const [groupId, rows] of Object.entries(standingsData.groups || {})) {
