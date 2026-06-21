@@ -76,8 +76,28 @@ const CURRENT_STANDINGS_SUMMARY =
   "Top two in each group advance. The best eight third-place teams also reach the Round of 32.";
 const THIRD_PLACE_STANDINGS_SUMMARY =
   "Current third-place teams across every group. Top eight advance; unresolved ties are flagged when fair-play data is not loaded.";
+const TOURNAMENT_STANDINGS_SUMMARY =
+  "Current knockout bracket paths. Finished knockout winners automatically fill the next round.";
 const HISTORICAL_STANDINGS_SUMMARY =
   "Final group tables computed from archived match results.";
+const TOURNAMENT_PROGRESS_ROUNDS = [
+  { id: "round-of-16", label: "Round of 16", matchNumbers: [89, 90, 91, 92, 93, 94, 95, 96] },
+  { id: "quarter-finals", label: "Quarter-finals", matchNumbers: [97, 98, 99, 100] },
+  { id: "semi-finals", label: "Semi-finals", matchNumbers: [101, 102] },
+  { id: "final", label: "Final", matchNumbers: [104] }
+];
+const TOURNAMENT_POSTER_HALVES = [
+  {
+    side: "left",
+    semifinalMatchNumber: 101,
+    matchNumbers: [74, 77, 73, 75, 83, 84, 81, 82]
+  },
+  {
+    side: "right",
+    semifinalMatchNumber: 102,
+    matchNumbers: [76, 78, 79, 80, 86, 88, 85, 87]
+  }
+];
 const WALES_FLAG = "\u{1F3F4}\u{E0067}\u{E0062}\u{E0077}\u{E006C}\u{E0073}\u{E007F}";
 const HISTORICAL_TEAM_COUNTRY_CODES = {
   Algeria: "DZ",
@@ -1906,6 +1926,535 @@ function renderThirdPlaceRaceView() {
   `;
 }
 
+function getKnockoutFixtures() {
+  return fixtures
+    .filter((fixture) => fixture.stage && fixture.stage !== "group")
+    .sort((a, b) => Number(a.matchNumber) - Number(b.matchNumber));
+}
+
+function getTournamentFixtureByMatchNumber(matchNumber) {
+  return fixtures.find((fixture) => Number(fixture.matchNumber) === Number(matchNumber)) || null;
+}
+
+function getTournamentStageLabel(stageId) {
+  return tournament.stages.find((stage) => stage.id === stageId)?.label || stageId;
+}
+
+function getTournamentTeamCode(team) {
+  const fallback = getStandingName(team || {}).slice(0, 3);
+  const value = String(team?.id || team?.code || fallback || "TBD")
+    .replace(/[^a-z0-9]/gi, "")
+    .toUpperCase();
+
+  return value.slice(0, 3) || "TBD";
+}
+
+function getTournamentSlotKey(match, side) {
+  return `${Number(match?.matchNumber)}:${side}`;
+}
+
+function parseTournamentGroupPlaceSlot(slotText) {
+  const match = /^Group ([A-L]) (winner|runner-up)$/i.exec(slotText || "");
+
+  if (!match) {
+    return null;
+  }
+
+  const groupId = match[1].toUpperCase();
+  const place = match[2].toLowerCase() === "winner" ? 1 : 2;
+
+  return {
+    groupId,
+    kind: "group-place",
+    label: `${place}${groupId}`,
+    place,
+    slotText
+  };
+}
+
+function parseTournamentThirdPlaceSlot(slotText) {
+  const match = /^Group ([A-L](?:\/[A-L])*) third place$/i.exec(slotText || "");
+
+  if (!match) {
+    return null;
+  }
+
+  return {
+    allowedGroupIds: match[1].split("/").map((groupId) => groupId.toUpperCase()),
+    kind: "third-place",
+    label: "3rd",
+    slotText
+  };
+}
+
+function getRoundOf32SlotDefinition(match, side) {
+  const slotText = match?.[`${side}Slot`] || "";
+  const parsedSlot = parseTournamentGroupPlaceSlot(slotText) || parseTournamentThirdPlaceSlot(slotText);
+
+  return {
+    key: getTournamentSlotKey(match, side),
+    side,
+    ...(parsedSlot || {
+      kind: "unknown",
+      label: slotText || "TBD",
+      slotText
+    })
+  };
+}
+
+function getCurrentThirdPlaceAssignment() {
+  const candidates = getThirdPlaceRaceRows()
+    .filter((candidate) => candidate.position <= getThirdPlaceAdvancerCount())
+    .sort((a, b) => a.position - b.position);
+  const usedGroupIds = new Set();
+  const assignments = {};
+
+  for (const fixture of getKnockoutFixtures().filter((match) => match.stage === "round-of-32")) {
+    for (const side of ["home", "away"]) {
+      const slot = getRoundOf32SlotDefinition(fixture, side);
+
+      if (slot.kind !== "third-place") {
+        continue;
+      }
+
+      const candidate = candidates.find(
+        (row) => slot.allowedGroupIds.includes(row.groupId) && !usedGroupIds.has(row.groupId)
+      );
+
+      if (candidate) {
+        assignments[slot.key] = candidate.groupId;
+        usedGroupIds.add(candidate.groupId);
+      }
+    }
+  }
+
+  return assignments;
+}
+
+function getCurrentTournamentSlotTeam(slot, currentThirdPlaceAssignment) {
+  if (slot.kind === "group-place") {
+    const row = getStandingsRows(slot.groupId)[slot.place - 1];
+    return row ? getTeam(row.teamId) : null;
+  }
+
+  if (slot.kind === "third-place") {
+    const groupId = currentThirdPlaceAssignment?.[slot.key];
+    const row = groupId ? getStandingsRows(groupId)[THIRD_PLACE_STANDING_INDEX] : null;
+    return row ? getTeam(row.teamId) : null;
+  }
+
+  return null;
+}
+
+function getTournamentSlotSeedLabel(slot, currentThirdPlaceAssignment) {
+  if (slot.kind === "group-place") {
+    return slot.label;
+  }
+
+  if (slot.kind === "third-place") {
+    const groupId = currentThirdPlaceAssignment?.[slot.key];
+    return groupId ? `3${groupId}` : "3rd";
+  }
+
+  return slot.label || "TBD";
+}
+
+function parseTournamentWinnerSource(slotText) {
+  const match = /^Winner match (\d+)$/i.exec(slotText || "");
+  return match ? Number(match[1]) : null;
+}
+
+function getTournamentWinnerSourceMatchNumbers(match) {
+  return [match?.homeSlot, match?.awaySlot].map(parseTournamentWinnerSource).filter(Boolean);
+}
+
+function getTournamentNextMatchNumber(matchNumber) {
+  const winnerSlot = `Winner match ${Number(matchNumber)}`;
+  return getKnockoutFixtures().find(
+    (fixture) => fixture.homeSlot === winnerSlot || fixture.awaySlot === winnerSlot
+  )?.matchNumber;
+}
+
+function getTournamentMatchDateLabel(match) {
+  if (!match) {
+    return "";
+  }
+
+  const dateKey = getFixtureDayKey(match);
+  const timeLabel = getMatchTimeLabel(match);
+  return [navDateFormatter.format(getDateFromKey(dateKey)), timeLabel].filter(Boolean).join(" / ");
+}
+
+function createTournamentProgressionContext() {
+  return {
+    currentThirdPlaceAssignment: getCurrentThirdPlaceAssignment(),
+    participantsCache: new Map(),
+    winnersCache: new Map()
+  };
+}
+
+function getTournamentPendingParticipant(label, slotText = label, sourceMatchNumber = null) {
+  return {
+    label,
+    seedLabel: "",
+    slotText,
+    sourceMatchNumber,
+    state: "pending",
+    team: null
+  };
+}
+
+function getTournamentMatchParticipant(match, side, context) {
+  const teamId = match?.[`${side}TeamId`];
+
+  if (teamId) {
+    const team = getTeam(teamId);
+    return {
+      label: getTournamentTeamCode(team),
+      seedLabel: "",
+      slotText: getStandingName(team),
+      state: "resolved",
+      team
+    };
+  }
+
+  const slotText = match?.[`${side}Slot`] || "TBD";
+  const sourceMatchNumber = parseTournamentWinnerSource(slotText);
+
+  if (sourceMatchNumber) {
+    const sourceMatch = getTournamentFixtureByMatchNumber(sourceMatchNumber);
+    const winner = getTournamentMatchWinnerTeam(sourceMatch, context);
+
+    if (winner) {
+      return {
+        label: getTournamentTeamCode(winner),
+        seedLabel: `W M${sourceMatchNumber}`,
+        slotText,
+        sourceMatchNumber,
+        state: "resolved",
+        team: winner
+      };
+    }
+
+    return getTournamentPendingParticipant(`Winner M${sourceMatchNumber}`, slotText, sourceMatchNumber);
+  }
+
+  if (match?.stage === "round-of-32") {
+    const slot = getRoundOf32SlotDefinition(match, side);
+    const team = getCurrentTournamentSlotTeam(slot, context.currentThirdPlaceAssignment);
+    const seedLabel = getTournamentSlotSeedLabel(slot, context.currentThirdPlaceAssignment);
+
+    if (team) {
+      return {
+        label: getTournamentTeamCode(team),
+        seedLabel,
+        slotText,
+        state: "resolved",
+        team
+      };
+    }
+
+    return getTournamentPendingParticipant(seedLabel, slotText);
+  }
+
+  return getTournamentPendingParticipant(slotText);
+}
+
+function getTournamentMatchParticipants(match, context) {
+  const cacheKey = Number(match?.matchNumber);
+
+  if (context.participantsCache.has(cacheKey)) {
+    return context.participantsCache.get(cacheKey);
+  }
+
+  const participants = {
+    away: getTournamentMatchParticipant(match, "away", context),
+    home: getTournamentMatchParticipant(match, "home", context)
+  };
+
+  context.participantsCache.set(cacheKey, participants);
+  return participants;
+}
+
+function getTournamentExplicitWinnerTeam(match, participants) {
+  const winnerValue = String(match?.winnerTeamId || match?.winner || "").trim();
+
+  if (!winnerValue) {
+    return null;
+  }
+
+  const candidates = [participants.home.team, participants.away.team].filter(Boolean);
+  const winnerKey = normalizeTextKey(winnerValue);
+  const matchedParticipant = candidates.find((team) =>
+    [team.id, team.name, team.officialName, team.standingName].some(
+      (value) => normalizeTextKey(value) === winnerKey
+    )
+  );
+
+  if (matchedParticipant) {
+    return matchedParticipant;
+  }
+
+  return teamsById.get(winnerValue) || teamsById.get(winnerValue.toUpperCase()) || null;
+}
+
+function getTournamentScoreWinnerSide(match) {
+  const penaltyWinnerSide = getScoreWinnerSide(
+    match?.scoreDetails?.penalties?.home,
+    match?.scoreDetails?.penalties?.away
+  );
+
+  if (penaltyWinnerSide) {
+    return penaltyWinnerSide;
+  }
+
+  if (match?.status !== "FT") {
+    return "";
+  }
+
+  return getScoreWinnerSide(match?.score?.home, match?.score?.away);
+}
+
+function getTournamentMatchWinnerTeam(match, context) {
+  const cacheKey = Number(match?.matchNumber);
+
+  if (!match || !Number.isFinite(cacheKey)) {
+    return null;
+  }
+
+  if (context.winnersCache.has(cacheKey)) {
+    return context.winnersCache.get(cacheKey);
+  }
+
+  context.winnersCache.set(cacheKey, null);
+  const participants = getTournamentMatchParticipants(match, context);
+  const explicitWinner = getTournamentExplicitWinnerTeam(match, participants);
+
+  if (explicitWinner) {
+    context.winnersCache.set(cacheKey, explicitWinner);
+    return explicitWinner;
+  }
+
+  const winnerSide = getTournamentScoreWinnerSide(match);
+  const winner = winnerSide ? participants[winnerSide]?.team || null : null;
+
+  context.winnersCache.set(cacheKey, winner);
+  return winner;
+}
+
+function renderTournamentParticipant(entry, options = {}) {
+  const { isWinner = false } = options;
+  const teamName = entry.team ? getStandingName(entry.team) : entry.slotText || entry.label;
+  const label = entry.team ? getTournamentTeamCode(entry.team) : entry.label;
+  const classes = [
+    "knockout-team",
+    entry.team ? "is-resolved" : "is-pending",
+    isWinner ? "is-winner" : ""
+  ]
+    .filter(Boolean)
+    .join(" ");
+
+  return `
+    <span class="${classes}"${entry.team ? ` data-team-id="${escapeHtml(entry.team.id)}"` : ""}${entry.sourceMatchNumber ? ` data-source-match="${escapeHtml(entry.sourceMatchNumber)}"` : ""} aria-label="${escapeHtml(teamName)}">
+      <span class="knockout-team-flag" aria-hidden="true">${entry.team ? renderFlag(entry.team) : ""}</span>
+      <span class="knockout-team-copy">
+        <strong>${escapeHtml(label)}</strong>
+        <small>${escapeHtml(entry.team ? [entry.seedLabel, teamName].filter(Boolean).join(" / ") : teamName)}</small>
+      </span>
+    </span>
+  `;
+}
+
+function renderTournamentMatchCard(match, context, options = {}) {
+  if (!match) {
+    return "";
+  }
+
+  const participants = getTournamentMatchParticipants(match, context);
+  const winner = getTournamentMatchWinnerTeam(match, context);
+  const nextMatchNumber = getTournamentNextMatchNumber(match.matchNumber);
+  const scoreText = formatScorePair(match.score);
+  const penaltyText = formatScorePair(match.scoreDetails?.penalties);
+  const resultText = scoreText ? `${scoreText}${penaltyText ? ` (${penaltyText} pens)` : ""}` : "";
+  const footerText = winner
+    ? `${getTournamentTeamCode(winner)} advances${nextMatchNumber ? ` to M${nextMatchNumber}` : ""}`
+    : nextMatchNumber
+      ? `Winner to M${nextMatchNumber}`
+      : getTournamentStageLabel(match.stage);
+  const styleText =
+    Number.isFinite(options.pathRow) && Number.isFinite(options.pathSpan)
+      ? ` style="--path-row: ${escapeHtml(options.pathRow)}; --path-span: ${escapeHtml(options.pathSpan)};"`
+      : "";
+
+  return `
+    <article class="${escapeHtml(options.className || "progress-match")}${winner ? " is-complete" : ""}" data-match-number="${escapeHtml(match.matchNumber)}"${nextMatchNumber ? ` data-next-match="${escapeHtml(nextMatchNumber)}"` : ""}${winner ? ` data-winner-team-id="${escapeHtml(winner.id)}"` : ""}${styleText}>
+      <header class="knockout-match-header">
+        <span>M${escapeHtml(match.matchNumber)}</span>
+        <time datetime="${escapeHtml(match.kickoffUtc || "")}">${escapeHtml(getTournamentMatchDateLabel(match))}</time>
+      </header>
+      <div class="knockout-match-pair">
+        ${renderTournamentParticipant(participants.home, {
+          isWinner: Boolean(winner && participants.home.team && winner.id === participants.home.team.id)
+        })}
+        <span class="knockout-versus" aria-label="versus">VS</span>
+        ${renderTournamentParticipant(participants.away, {
+          isWinner: Boolean(winner && participants.away.team && winner.id === participants.away.team.id)
+        })}
+      </div>
+      <footer class="knockout-match-footer">
+        <span>${escapeHtml(footerText)}</span>
+        ${resultText ? `<em>${escapeHtml(resultText)}</em>` : ""}
+      </footer>
+    </article>
+  `;
+}
+
+function renderTournamentPosterParticipant(entry, options = {}) {
+  const { isWinner = false } = options;
+  const teamName = entry.team ? getStandingName(entry.team) : entry.slotText || entry.label;
+  const label = entry.team ? getTournamentTeamCode(entry.team) : entry.label;
+  const classes = [
+    "poster-team",
+    entry.team ? "is-resolved" : "is-pending",
+    isWinner ? "is-winner" : ""
+  ]
+    .filter(Boolean)
+    .join(" ");
+
+  return `
+    <span class="${classes}"${entry.team ? ` data-team-id="${escapeHtml(entry.team.id)}"` : ""} aria-label="${escapeHtml(teamName)}">
+      <span class="poster-team-flag" aria-hidden="true">${entry.team ? renderFlag(entry.team) : ""}</span>
+      <span class="poster-team-code">${escapeHtml(label)}</span>
+      <span class="poster-team-seed">${escapeHtml(entry.team ? entry.seedLabel || teamName : teamName)}</span>
+    </span>
+  `;
+}
+
+function renderTournamentPosterMatch(matchNumber, context, side) {
+  const match = getTournamentFixtureByMatchNumber(matchNumber);
+
+  if (!match) {
+    return "";
+  }
+
+  const participants = getTournamentMatchParticipants(match, context);
+  const winner = getTournamentMatchWinnerTeam(match, context);
+  const nextMatchNumber = getTournamentNextMatchNumber(match.matchNumber);
+
+  return `
+    <article class="poster-match r32-match is-${escapeHtml(side)}${winner ? " is-complete" : ""}" data-match-number="${escapeHtml(match.matchNumber)}"${nextMatchNumber ? ` data-next-match="${escapeHtml(nextMatchNumber)}"` : ""}${winner ? ` data-winner-team-id="${escapeHtml(winner.id)}"` : ""}>
+      <header class="poster-match-meta">
+        <span>M${escapeHtml(match.matchNumber)}</span>
+        ${nextMatchNumber ? `<em>To M${escapeHtml(nextMatchNumber)}</em>` : ""}
+      </header>
+      <div class="poster-match-pair">
+        ${renderTournamentPosterParticipant(participants.home, {
+          isWinner: Boolean(winner && participants.home.team && winner.id === participants.home.team.id)
+        })}
+        <span class="poster-versus" aria-label="versus">VS</span>
+        ${renderTournamentPosterParticipant(participants.away, {
+          isWinner: Boolean(winner && participants.away.team && winner.id === participants.away.team.id)
+        })}
+      </div>
+      <time datetime="${escapeHtml(match.kickoffUtc || "")}">${escapeHtml(getTournamentMatchDateLabel(match))}</time>
+    </article>
+  `;
+}
+
+function renderTournamentPosterSide(half, context) {
+  return `
+    <div class="poster-side is-${escapeHtml(half.side)}" aria-label="${escapeHtml(`Path to match ${half.semifinalMatchNumber}`)}">
+      ${half.matchNumbers.map((matchNumber) => renderTournamentPosterMatch(matchNumber, context, half.side)).join("")}
+    </div>
+  `;
+}
+
+function renderTournamentPosterCenter() {
+  return `
+    <div class="poster-center" aria-label="Round of 32 bracket center">
+      <div class="poster-center-panel">
+        <span>As it stands</span>
+        <h2>Round of 32</h2>
+        <div class="poster-trophy" aria-hidden="true">
+          <span class="poster-cup-bowl"></span>
+          <span class="poster-cup-stem"></span>
+          <span class="poster-cup-base"></span>
+        </div>
+        <strong>Winner path below</strong>
+      </div>
+    </div>
+  `;
+}
+
+function renderTournamentRoundOf32(context) {
+  return `
+    <section class="tournament-r32" aria-label="Round of 32 as it stands">
+      <div class="tournament-poster-bracket">
+        ${renderTournamentPosterSide(TOURNAMENT_POSTER_HALVES[0], context)}
+        ${renderTournamentPosterCenter()}
+        ${renderTournamentPosterSide(TOURNAMENT_POSTER_HALVES[1], context)}
+      </div>
+    </section>
+  `;
+}
+
+function getTournamentProgressPlacement(round, index) {
+  const spanByRound = {
+    final: 8,
+    "quarter-finals": 2,
+    "round-of-16": 1,
+    "semi-finals": 4
+  };
+  const pathSpan = spanByRound[round.id] || 1;
+
+  return {
+    pathRow: index * pathSpan + 1,
+    pathSpan
+  };
+}
+
+function renderTournamentProgressRound(round, context) {
+  return `
+    <section class="progress-round is-${escapeHtml(round.id)}" aria-label="${escapeHtml(round.label)}">
+      <h3>${escapeHtml(round.label)}</h3>
+      <div class="progress-match-list">
+        ${round.matchNumbers
+          .map((matchNumber, index) =>
+            renderTournamentMatchCard(getTournamentFixtureByMatchNumber(matchNumber), context, {
+              ...getTournamentProgressPlacement(round, index)
+            })
+          )
+          .join("")}
+      </div>
+    </section>
+  `;
+}
+
+function renderTournamentProgression(context) {
+  return `
+    <section class="tournament-progression" aria-label="Knockout winner progression">
+      <div class="tournament-section-heading">
+        <span>Winner path</span>
+        <h2>Automatic progression</h2>
+      </div>
+      <div class="progress-rounds">
+        ${TOURNAMENT_PROGRESS_ROUNDS.map((round) => renderTournamentProgressRound(round, context)).join("")}
+      </div>
+    </section>
+  `;
+}
+
+function renderTournamentView() {
+  const context = createTournamentProgressionContext();
+
+  return `
+    <section class="tournament-view" aria-label="Tournament bracket">
+      ${renderTournamentRoundOf32(context)}
+      ${renderTournamentProgression(context)}
+    </section>
+  `;
+}
+
 function renderCurrentStandingsCards() {
   const thirdPlaceRaceByTeamId = getThirdPlaceRaceByTeamId();
 
@@ -1946,7 +2495,7 @@ function renderHistoricalStandingsCards(year) {
 }
 
 function getValidStandingsMode(value) {
-  return value === "third-place" ? "third-place" : "groups";
+  return value === "third-place" || value === "tournament" ? value : "groups";
 }
 
 function renderStandingsYearPicker() {
@@ -2003,6 +2552,8 @@ function updateStandingsControls() {
       selectedStandingsYear === CURRENT_STANDINGS_YEAR
         ? selectedStandingsMode === "third-place"
           ? THIRD_PLACE_STANDINGS_SUMMARY
+          : selectedStandingsMode === "tournament"
+            ? TOURNAMENT_STANDINGS_SUMMARY
           : CURRENT_STANDINGS_SUMMARY
         : HISTORICAL_STANDINGS_SUMMARY;
   }
@@ -2014,15 +2565,23 @@ function updateStandingsControls() {
 function renderStandingsView() {
   const isCurrentYear = selectedStandingsYear === CURRENT_STANDINGS_YEAR;
   const isThirdPlaceMode = isCurrentYear && selectedStandingsMode === "third-place";
+  const isTournamentMode = isCurrentYear && selectedStandingsMode === "tournament";
 
   updateStandingsControls();
   standingsGrid.classList.toggle("is-third-place-race", isThirdPlaceMode);
+  standingsGrid.classList.toggle("is-tournament", isTournamentMode);
   standingsGrid.setAttribute(
     "aria-label",
-    isThirdPlaceMode ? "Best third-place race" : "Group standings"
+    isTournamentMode
+      ? "Tournament bracket"
+      : isThirdPlaceMode
+        ? "Best third-place race"
+        : "Group standings"
   );
   standingsGrid.innerHTML = isCurrentYear
-    ? isThirdPlaceMode
+    ? isTournamentMode
+      ? renderTournamentView()
+      : isThirdPlaceMode
       ? renderThirdPlaceRaceView()
       : renderCurrentStandingsCards()
     : renderHistoricalStandingsCards(selectedStandingsYear);
@@ -2424,6 +2983,21 @@ function getPlayerDisplayName(player, profile = getPlayerProfile(player)) {
   return profile?.displayName || profile?.name || getPlayerName(player);
 }
 
+function getPlayerUniformNumber(player, profile = getPlayerProfile(player)) {
+  const value =
+    profile?.uniformNumber ??
+    profile?.shirtNumber ??
+    profile?.jerseyNumber ??
+    profile?.squadNumber ??
+    player?.uniformNumber ??
+    player?.shirtNumber ??
+    player?.jerseyNumber ??
+    player?.squadNumber;
+  const number = Number(value);
+
+  return Number.isInteger(number) && number > 0 ? number : null;
+}
+
 function getPlayerInitials(name) {
   return String(name || "")
     .split(/\s+/)
@@ -2539,6 +3113,7 @@ function renderPlayerPhoto(player, profile) {
 function renderPlayerMention(label, player) {
   const profile = getPlayerProfile(player);
   const displayName = getPlayerDisplayName(player, profile);
+  const uniformNumber = getPlayerUniformNumber(player, profile);
   const position = profile?.position || "Position to verify";
   const club = getPlayerClubLine(profile);
   const sourceUrl = profile?.sourceUrl || "";
@@ -2556,7 +3131,10 @@ function renderPlayerMention(label, player) {
         <span class="player-card-header">
           <span class="player-photo">${renderPlayerPhoto(player, profile)}</span>
           <span class="player-card-title">
-            <strong class="player-card-name">${escapeHtml(displayName)}</strong>
+            <span class="player-card-name-line">
+              <strong class="player-card-name">${escapeHtml(displayName)}</strong>
+              ${uniformNumber ? `<span class="player-card-number">#${escapeHtml(uniformNumber)}</span>` : ""}
+            </span>
             <span class="player-card-position">${escapeHtml(position)}</span>
             <span class="player-card-club">${escapeHtml(club)}</span>
           </span>

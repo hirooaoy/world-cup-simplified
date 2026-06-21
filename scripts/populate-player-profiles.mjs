@@ -66,9 +66,11 @@ const profileFieldOverrides = {
     imageUrl: "https://imagenes.primicias.ec/files/og_thumbnail/uploads/2024/05/25/665295a4a90f8.jpeg"
   },
   "James Rodriguez": { club: "Minnesota United" },
+  "Jeremy Doku": { uniformNumber: 11 },
   "Jean-Ricner Bellegarde": {
     imageUrl: "https://assets.sorare.com/playerpicture/563dce7e-7150-4db5-acd0-166ab7f619ee/picture/avatar-dbb7b5dc63acbb97714f8946e94f05de.png"
   },
+  "Kevin De Bruyne": { uniformNumber: 7 },
   "Daichi Kamada": { club: "Crystal Palace" },
   "Kenan Yildiz": {
     position: "Attacking midfielder, winger",
@@ -81,7 +83,7 @@ const profileFieldOverrides = {
   "Leandro Bacuna": {
     imageUrl: "https://assets.sorare.com/playerpicture/dff6b137-2d96-485d-9e6b-9a98f34031ab/picture/avatar-09b13e7e02f8289016e9f98ff71d4c7a.png"
   },
-  "Leandro Trossard": { club: "Arsenal" },
+  "Leandro Trossard": { club: "Arsenal", uniformNumber: 10 },
   "Luis Suarez": {
     imageUrl: "https://assets.sorare.com/playerpicture/f945c83f-4b62-4d89-8a50-4408abefa6b7/picture/avatar-a920b0effd55be927d6b9b0a19d85061.png"
   },
@@ -100,6 +102,7 @@ const profileFieldOverrides = {
   "Ronwen Williams": {
     imageUrl: "https://sundownsfc.co.za/wp-content/uploads/2025/09/Williams-1.jpg"
   },
+  "Romelu Lukaku": { uniformNumber: 9 },
   "Ritsu Doan": { club: "Eintracht Frankfurt" },
   "Ryan Mendes": {
     imageUrl: "https://assets.sorare.com/playerpicture/19e5f623-11d5-4cb7-b305-610eaf822599/picture/avatar-ed0ebe5f0ea84b8710b99b5ec23451c0.png"
@@ -594,9 +597,12 @@ function getUniquePlayers(fixturesData, teamsById) {
 async function buildProfile(player) {
   const title = await searchPlayerPage(player, player.team);
   if (!title) {
+    const overrides = profileFieldOverrides[player.name] || {};
+
     return {
       name: player.name,
       teamId: player.team.id,
+      uniformNumber: overrides.uniformNumber,
       skills: inferSkills(player.note),
       note: player.note,
       sourceUrl: ""
@@ -619,6 +625,7 @@ async function buildProfile(player) {
     position: overrides.position || position,
     club: profileClub,
     league: overrides.league || getLeagueForClub(profileClub),
+    uniformNumber: overrides.uniformNumber,
     imageUrl: overrides.imageUrl || imageUrl,
     skills: inferSkills(player.note),
     note: player.note,
@@ -628,9 +635,12 @@ async function buildProfile(player) {
 
 function buildProfileFromWikitext(player, title, wikitext) {
   if (!title || !wikitext) {
+    const overrides = profileFieldOverrides[player.name] || {};
+
     return {
       name: player.name,
       teamId: player.team.id,
+      uniformNumber: overrides.uniformNumber,
       skills: inferSkills(player.note),
       note: player.note,
       sourceUrl: title ? `https://en.wikipedia.org/wiki/${encodeURIComponent(title.replace(/ /g, "_"))}` : ""
@@ -651,6 +661,7 @@ function buildProfileFromWikitext(player, title, wikitext) {
     position: overrides.position || position,
     club: profileClub,
     league: overrides.league || getLeagueForClub(profileClub),
+    uniformNumber: overrides.uniformNumber,
     imageUrl: overrides.imageUrl || imageUrl,
     skills: inferSkills(player.note),
     note: player.note,
@@ -724,7 +735,7 @@ for (const [index, player] of players.entries()) {
 
 const output = {
   updatedAt: new Date().toISOString(),
-  sourceIds: ["wikipedia-football-infobox", "wikimedia-commons"],
+  sourceIds: ["wikipedia-football-infobox", "wikimedia-commons", "belgium-squad-numbers-2026-06"],
   profiles
 };
 

@@ -2,7 +2,8 @@
   "updatedAt": "2026-06-21T19:26:36.125Z",
   "sourceIds": [
     "wikipedia-football-infobox",
-    "wikimedia-commons"
+    "wikimedia-commons",
+    "belgium-squad-numbers-2026-06"
   ],
   "profiles": {
     "Aaron Wan-Bissaka": {
@@ -1026,6 +1027,7 @@
       "name": "Jeremy Doku",
       "displayName": "Jérémy Doku",
       "teamId": "BEL",
+      "uniformNumber": 11,
       "position": "Winger",
       "club": "Manchester City",
       "league": "Premier League",
@@ -1210,6 +1212,7 @@
       "name": "Kevin De Bruyne",
       "displayName": "Kevin De Bruyne",
       "teamId": "BEL",
+      "uniformNumber": 7,
       "position": "Midfielder",
       "club": "Napoli",
       "league": "Serie A",
@@ -1303,6 +1306,7 @@
       "name": "Leandro Trossard",
       "displayName": "Leandro Trossard",
       "teamId": "BEL",
+      "uniformNumber": 10,
       "position": "Winger, forward",
       "club": "Arsenal",
       "league": "Premier League",
@@ -1810,6 +1814,7 @@
       "name": "Romelu Lukaku",
       "displayName": "Romelu Lukaku",
       "teamId": "BEL",
+      "uniformNumber": 9,
       "position": "Striker",
       "club": "Napoli",
       "league": "Serie A",

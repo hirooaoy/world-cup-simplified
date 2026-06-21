@@ -464,6 +464,23 @@ try {
     "Player hover card should stay inside the viewport horizontally."
   );
 
+  await page.goto(`${baseUrl}?view=matches&date=2026-06-21&tz=America%2FLos_Angeles`, {
+    waitUntil: "load"
+  });
+  await page.waitForSelector(".match-row");
+  await page.locator('[data-match-id="belgium-ir-iran-2026-06-21"]').click();
+  const lukakuLink = page.locator(".key-info-team .player-link", { hasText: "Romelu Lukaku" }).first();
+  const lukakuCard = lukakuLink
+    .locator("xpath=ancestor::span[contains(concat(' ', normalize-space(@class), ' '), ' player-hover ')][1]")
+    .locator(".player-card");
+  await lukakuLink.hover();
+  await lukakuCard.waitFor({ state: "visible" });
+  assert(
+    (await lukakuCard.locator(".player-card-name").innerText()).trim() === "Romelu Lukaku" &&
+      (await lukakuCard.locator(".player-card-number").innerText()).trim() === "#9",
+    "Player hover card should show the country-team uniform number beside the name when available."
+  );
+
   await page.goto(`${baseUrl}?view=matches&date=2026-06-11&tz=America%2FLos_Angeles`, {
     waitUntil: "load"
   });
@@ -1327,6 +1344,99 @@ try {
     (await page.locator('.standings-card[data-group-id="F"] h2').innerText()).trim() === "Group F",
     "Clicking a race table group should focus the matching group card."
   );
+  await page.locator("#standings-tournament-tab").click();
+  await page.waitForFunction(
+    () =>
+      document.querySelector("#standings-tournament-tab")?.getAttribute("aria-pressed") === "true" &&
+      document.querySelectorAll(".r32-match").length === 16 &&
+      document.querySelector('.progress-match[data-match-number="89"]')
+  );
+  assert(
+    new URL(page.url()).searchParams.get("standingsMode") === "tournament",
+    "The tournament section should be linkable from the URL."
+  );
+  const tournamentCheck = await page.evaluate(() => {
+    const text = (selector) => document.querySelector(selector)?.textContent.replace(/\s+/g, " ").trim() || "";
+
+    return {
+      m74Text: text('.r32-match[data-match-number="74"]'),
+      m89Text: text('.progress-match[data-match-number="89"]'),
+      m97Text: text('.progress-match[data-match-number="97"]'),
+      progressCount: document.querySelectorAll(".progress-match").length,
+      r32Count: document.querySelectorAll(".r32-match").length,
+      roundHeadings: [...document.querySelectorAll(".progress-round h3")].map((heading) =>
+        heading.textContent.trim()
+      ),
+      summary: document.querySelector("#standings-summary")?.textContent.trim(),
+      tournamentVisible: Boolean(document.querySelector(".tournament-view"))
+    };
+  });
+  assert(
+    tournamentCheck.tournamentVisible &&
+      tournamentCheck.r32Count === 16 &&
+      tournamentCheck.progressCount === 15,
+    "The tournament section should show Round of 32 matches plus the progression rounds through the final."
+  );
+  assert(
+    tournamentCheck.summary.includes("Finished knockout winners automatically fill the next round") &&
+      tournamentCheck.m74Text.includes(getTeam(standingsData.groups?.E?.[0]?.teamId).id) &&
+      tournamentCheck.m89Text.includes("Winner M74") &&
+      tournamentCheck.m89Text.includes("Winner M77") &&
+      tournamentCheck.m97Text.includes("Winner M89") &&
+      tournamentCheck.roundHeadings.join("|") === "Round of 16|Quarter-finals|Semi-finals|Final",
+    "The tournament section should keep pending future slots readable until source winners are final."
+  );
+  const knockoutProgressionCheck = await openPageAtTime(
+    "2026-07-05T12:00:00.000Z",
+    "/?view=matches&date=2026-06-17&tz=America%2FLos_Angeles",
+    {
+      fixtureTransform(data) {
+        const finishMatch = (matchNumber, homeScore, awayScore) => {
+          const fixture = data.fixtures.find((item) => item.matchNumber === matchNumber);
+
+          fixture.status = "FT";
+          fixture.score = { home: homeScore, away: awayScore };
+        };
+
+        finishMatch(74, 2, 0);
+        finishMatch(77, 1, 0);
+        finishMatch(89, 3, 1);
+      }
+    }
+  );
+  await knockoutProgressionCheck.page.locator("#standings-tab").click();
+  await knockoutProgressionCheck.page.locator("#standings-tournament-tab").click();
+  await knockoutProgressionCheck.page.waitForFunction(
+    () => document.querySelector('.progress-match[data-match-number="97"] .knockout-team[data-source-match="89"]')
+  );
+  const progressionResolved = await knockoutProgressionCheck.page.evaluate(() => {
+    const match89 = document.querySelector('.progress-match[data-match-number="89"]');
+    const match97Source = document.querySelector(
+      '.progress-match[data-match-number="97"] .knockout-team[data-source-match="89"]'
+    );
+
+    return {
+      m89TeamIds: [...match89.querySelectorAll(".knockout-team[data-team-id]")].map(
+        (team) => team.dataset.teamId
+      ),
+      m89Text: match89.textContent.replace(/\s+/g, " ").trim(),
+      m89Winner: match89.dataset.winnerTeamId,
+      m97SourceTeamId: match97Source?.dataset.teamId,
+      m97Text: document
+        .querySelector('.progress-match[data-match-number="97"]')
+        ?.textContent.replace(/\s+/g, " ")
+        .trim()
+    };
+  });
+  assert(
+    progressionResolved.m89TeamIds.join("|") === "GER|NOR" &&
+      progressionResolved.m89Winner === "GER" &&
+      progressionResolved.m97SourceTeamId === "GER" &&
+      progressionResolved.m89Text.includes("GER advances to M97") &&
+      progressionResolved.m97Text.includes("GER"),
+    "Finished knockout source matches should automatically place their winners into later fixture slots."
+  );
+  await knockoutProgressionCheck.context.close();
   await page.locator("#standings-year-button").click();
   assert(
     await page.locator("#standings-year-popover").isVisible(),
