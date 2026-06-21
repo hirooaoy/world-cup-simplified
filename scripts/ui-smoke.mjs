@@ -410,13 +410,17 @@ try {
     "Key information should link highlighted player names."
   );
   assert(
-    (await page.locator(".key-info-team h4 .player-link").count()) > 0,
-    "Key information headings should link player-name taglines."
+    (await page.locator(".key-info-team h4 .key-info-heading .flag").count()) > 0,
+    "Key information headings should show the country flag before the label."
   );
-  const headingPlayerDecoration = await page
-    .locator(".key-info-team h4 .player-link")
-    .first()
-    .evaluate((link) => getComputedStyle(link).textDecorationLine);
+  assert(
+    (await page.locator(".key-info-team h4 .player-link").count()) === 0,
+    "Key information headings should use tactical subtext, not player links."
+  );
+  assert(
+    (await page.locator(".key-info-team .team-style-tags li").count()) >= 2,
+    "Key information should show compact tactical style pills."
+  );
   const paragraphPlayerDecoration = await page
     .locator(".key-info-team p .player-link")
     .first()
@@ -429,10 +433,7 @@ try {
     .locator(".key-info-team p .player-link")
     .first()
     .evaluate((link) => Number(getComputedStyle(link).fontWeight));
-  assert(
-    headingPlayerDecoration.includes("underline") && paragraphPlayerDecoration === "none",
-    "Key information should underline heading player mentions, not paragraph mentions."
-  );
+  assert(paragraphPlayerDecoration === "none", "Paragraph player mentions should not be underlined.");
   assert(
     paragraphPlayerOpacity === 1 && paragraphPlayerWeight >= 500,
     "Paragraph player mentions should use full opacity and medium emphasis."
@@ -486,19 +487,24 @@ try {
   });
   await page.waitForSelector(".match-row");
   await page.locator('[data-match-id="mexico-south-africa-2026-06-11"]').click();
-  const mexicoHeadingLinks = await page
+  const mexicoParagraphLinks = await page
     .locator(".key-info-team")
     .first()
-    .locator("h4 .player-link")
+    .locator("p .player-link")
     .evaluateAll((links) => links.map((link) => link.textContent.trim()));
+  const normalizedMexicoParagraphLinks = mexicoParagraphLinks.map((text) =>
+    text.normalize("NFD").replace(/\p{Diacritic}/gu, "")
+  );
   assert(
-    mexicoHeadingLinks.includes("Gimenez") && mexicoHeadingLinks.includes("Alvarez"),
-    "Mexico's accented player aliases should link from the team tagline."
+    normalizedMexicoParagraphLinks.some((text) => text.includes("Gimenez")) &&
+      normalizedMexicoParagraphLinks.some((text) => text.includes("Alvarez")),
+    "Mexico's accented player aliases should link from the matchup paragraph."
   );
   const gimenezLink = page
     .locator(".key-info-team")
     .first()
-    .locator("h4 .player-link", { hasText: "Gimenez" });
+    .locator("p .player-link", { hasText: /^Gim[eé]nez$/ })
+    .first();
   const gimenezCard = gimenezLink
     .locator("xpath=ancestor::span[contains(concat(' ', normalize-space(@class), ' '), ' player-hover ')][1]")
     .locator(".player-card");
@@ -506,7 +512,7 @@ try {
   await gimenezCard.waitFor({ state: "visible" });
   assert(
     (await gimenezLink.getAttribute("aria-label"))?.startsWith("Santiago Giménez:"),
-    "Mexico's unaccented Gimenez tagline alias should open Santiago Giménez's hover card."
+    "Mexico's unaccented Gimenez paragraph alias should open Santiago Giménez's hover card."
   );
   assert(
     (await gimenezCard.locator(".player-card-name").innerText()).trim() === "Santiago Giménez" &&
@@ -866,8 +872,8 @@ try {
   );
   assert(
     (await liveScoreLink.getAttribute("href")) === fifaWorldCupScoresUrl &&
-      (await liveScoreLink.getAttribute("title")) === "Check score at FIFA" &&
-      (await liveScoreLink.getAttribute("data-tooltip")) === "Check score at FIFA",
+      (await liveScoreLink.getAttribute("title")) === "Check latest score at FIFA" &&
+      (await liveScoreLink.getAttribute("data-tooltip")) === "Check latest score at FIFA",
     "The live pill should link to FIFA scores and expose the hover tooltip copy."
   );
   const liveFallbackText = (await liveFallbackRow.innerText()).replace(/\s+/g, " ").trim();

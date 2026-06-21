@@ -233,6 +233,7 @@ for (const team of teamsData.teams || []) {
         !tag.includes("...") && !tag.includes("…"),
         `Team "${team.id}" styleTags[${index}] must not include a hard-coded ellipsis`
       );
+      assert(!tag.includes(":"), `Team "${team.id}" styleTags[${index}] must not include a category prefix`);
     }
   }
   assert(groups.has(team.groupId), `Team "${team.id}" references unknown group "${team.groupId}"`);
@@ -439,7 +440,7 @@ for (const fixture of fixturesData.fixtures || []) {
         `Fixture "${fixture.id}" resultHighlights[${index}] must be a non-empty string`
       );
       assert(
-        typeof highlight === "string" && highlight.trim().length <= 180,
+        typeof highlight === "string" && highlight.trim().length <= 95,
         `Fixture "${fixture.id}" resultHighlights[${index}] should stay compact`
       );
     }

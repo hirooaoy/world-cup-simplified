@@ -1,4 +1,4 @@
-const DATA_VERSION = "2026-06-21-search-restored-tournament-poster";
+const DATA_VERSION = "2026-06-21-recovered-polish";
 const DATA_URLS = {
   fixtures: `data/fixtures.json?v=${DATA_VERSION}`,
   history: `data/history.json?v=${DATA_VERSION}`,
@@ -71,6 +71,7 @@ const DATA_REFRESH_INTERVAL_MS = 5 * 60 * 1000;
 const LIVE_DATA_TIMEOUT_MS = 4000;
 const FIFA_WORLD_CUP_SCORES_URL =
   "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/scores-fixtures";
+const FIFA_LIVE_TOOLTIP = "Check latest score at FIFA";
 const CURRENT_STANDINGS_YEAR = 2026;
 const DEFAULT_KNOCKOUT_FIELD_SIZE = 32;
 const DEFAULT_AUTOMATIC_ADVANCERS_PER_GROUP = 2;
@@ -201,6 +202,22 @@ const HISTORICAL_TEAM_FLAG_OVERRIDES = {
   "Soviet Union": { flagClass: "flag-soviet-union" },
   Yugoslavia: { flagClass: "flag-yugoslavia" }
 };
+const HISTORICAL_STYLE_TAGS_BY_NAME = {
+  Czechoslovakia: ["Technical midfield", "Compact shape", "Set pieces"],
+  "East Germany": ["Organized block", "Direct counters", "Aerial duels"],
+  "Northern Ireland": ["Compact block", "Wide service", "Set pieces"],
+  "Republic of Ireland": ["Defensive grit", "Long diagonals", "Second balls"],
+  "Soviet Union": ["Tempo control", "Wide combinations", "Pressing"],
+  "West Germany": ["Efficient buildup", "Box entries", "Set pieces"],
+  Yugoslavia: ["Technical midfield", "Wide combinations", "Creative passing"],
+  Zaire: ["Deep resilience", "Direct breaks", "Physical duels"]
+};
+const HISTORICAL_STYLE_FALLBACKS = [
+  ["Compact shape", "Counter timing", "Set pieces"],
+  ["Technical midfield", "Wide combinations", "Creative passing"],
+  ["Defensive grit", "Direct service", "Second balls"],
+  ["Possession patience", "Press escape", "Box entries"]
+];
 
 const venueLocations = {
   "Atlanta Stadium": "Atlanta, Georgia, USA",
@@ -251,6 +268,7 @@ let tournament = { groups: [], stages: [], sources: [] };
 let standingsByGroup = {};
 let dataCoverage = { status: "partial" };
 let siteUpdatedAt = "";
+let liveDataCheckedAt = "";
 let syncUrl = true;
 
 const dateFormatter = new Intl.DateTimeFormat(undefined, {
@@ -564,6 +582,17 @@ function getTeam(teamId) {
   };
 }
 
+function getHistoricalStyleTags(teamName) {
+  const explicitTags = HISTORICAL_STYLE_TAGS_BY_NAME[teamName];
+  if (explicitTags) {
+    return explicitTags;
+  }
+
+  const key = normalizeTextKey(teamName);
+  const charTotal = [...key].reduce((total, char) => total + char.charCodeAt(0), 0);
+  return HISTORICAL_STYLE_FALLBACKS[charTotal % HISTORICAL_STYLE_FALLBACKS.length];
+}
+
 function getHistoricalTeam(teamName) {
   const name = String(teamName || "").trim();
   const key = normalizeTextKey(name);
@@ -599,6 +628,7 @@ function getHistoricalTeam(teamName) {
     standingName: name,
     flag,
     flagClass,
+    styleTags: getHistoricalStyleTags(name),
     fifaRank: null
   };
 }
@@ -1221,7 +1251,52 @@ function getDisplayScore(match, state) {
   return null;
 }
 
-function renderScore(match, state) {
+function getScoreFreshnessTimestamp(match) {
+  const candidates = [
+    match.scoreUpdatedAt,
+    match.liveUpdatedAt,
+    match.updatedAt,
+    liveDataCheckedAt,
+    siteUpdatedAt
+  ];
+
+  return candidates.find((value) => Number.isFinite(new Date(value).getTime())) || "";
+}
+
+function formatRelativeScoreFreshness(timestamp, now = Date.now()) {
+  const time = new Date(timestamp).getTime();
+  if (!Number.isFinite(time)) {
+    return "";
+  }
+
+  const elapsedSeconds = Math.max(0, Math.round((now - time) / 1000));
+  if (elapsedSeconds < 45) {
+    return "now";
+  }
+
+  const elapsedMinutes = Math.round(elapsedSeconds / 60);
+  if (elapsedMinutes < 60) {
+    return `${elapsedMinutes} min ago`;
+  }
+
+  const elapsedHours = Math.round(elapsedMinutes / 60);
+  return `${elapsedHours} hr ago`;
+}
+
+function getSearchScoreOutcome(score, searchedSide) {
+  if (!searchedSide || !score) {
+    return "";
+  }
+
+  const winnerSide = getScoreWinnerSide(score.home, score.away);
+  if (!winnerSide) {
+    return "tie";
+  }
+
+  return winnerSide === searchedSide ? "win" : "loss";
+}
+
+function renderScore(match, state, options = {}) {
   const score = getDisplayScore(match, state);
   if (!score) {
     return "";
@@ -1230,14 +1305,28 @@ function renderScore(match, state) {
   const home = match.homeTeam.name;
   const away = match.awayTeam.name;
   const scoreText = `${score.home}-${score.away}`;
+  const isLiveScore = match.status === "LIVE" || state === "live";
+  const freshness = isLiveScore
+    ? formatRelativeScoreFreshness(getScoreFreshnessTimestamp(match))
+    : "";
+  const visibleScoreText = freshness ? `${scoreText} · ${freshness}` : scoreText;
   const label =
-    match.status === "LIVE" || state === "live" ? "Current score" : "Final score";
+    isLiveScore ? "Current score" : "Final score";
   const ariaLabel = score.isFallback
     ? `Current score not loaded yet; showing ${scoreText}`
-    : `${label} ${home} ${score.home}, ${away} ${score.away}`;
-  const className = `match-score${score.isFallback ? " is-live-fallback" : ""}`;
+    : `${label} ${home} ${score.home}, ${away} ${score.away}${
+        freshness ? `, last checked ${freshness}` : ""
+      }`;
+  const outcome = getSearchScoreOutcome(score, options.searchedSide);
+  const className = [
+    "match-score",
+    score.isFallback ? "is-live-fallback" : "",
+    outcome ? `is-search-${outcome}` : ""
+  ]
+    .filter(Boolean)
+    .join(" ");
 
-  return `<span class="${className}" aria-label="${escapeHtml(ariaLabel)}">${escapeHtml(scoreText)}</span>`;
+  return `<span class="${className}" aria-label="${escapeHtml(ariaLabel)}">${escapeHtml(visibleScoreText)}</span>`;
 }
 
 function renderScoreStatus(match, state, currentTime) {
@@ -1248,7 +1337,7 @@ function renderScoreStatus(match, state, currentTime) {
 }
 
 function renderLivePill() {
-  return `<a class="live-pill" href="${escapeHtml(FIFA_WORLD_CUP_SCORES_URL)}" target="_blank" rel="noreferrer" title="Check score at FIFA" aria-label="Live: check score at FIFA" data-tooltip="Check score at FIFA">Live</a>`;
+  return `<a class="live-pill" href="${escapeHtml(FIFA_WORLD_CUP_SCORES_URL)}" target="_blank" rel="noreferrer" title="${escapeHtml(FIFA_LIVE_TOOLTIP)}" aria-label="Live: ${escapeHtml(FIFA_LIVE_TOOLTIP)}" data-tooltip="${escapeHtml(FIFA_LIVE_TOOLTIP)}">Live</a>`;
 }
 
 function getMatchDateTimeValue(match) {
@@ -1268,10 +1357,18 @@ function getMatchTimeLabel(match) {
     return "Canceled";
   }
 
-  return "Final";
+  return match.status === "FT" ? "FT" : "Final";
 }
 
-function renderMatchRow(match, state, currentTime = Date.now()) {
+function getMatchTimeAriaLabel(match) {
+  if (match.status === "FT" && !match.kickoffUtc && !match.localTime) {
+    return "Full time";
+  }
+
+  return getMatchTimeLabel(match);
+}
+
+function renderMatchRow(match, state, currentTime = Date.now(), options = {}) {
   const row = document.createElement("div");
   const homeName = match.homeTeam.name;
   const awayName = match.awayTeam.name;
@@ -1290,7 +1387,7 @@ function renderMatchRow(match, state, currentTime = Date.now()) {
       : state === "next"
         ? `<span class="up-next-pill">Up next</span>`
         : "";
-  const score = renderScore(match, state);
+  const score = renderScore(match, state, options);
   const rowMeta = `${scoreStatus}${stateBadge}${score}`;
   const rowLabel = `${stateLabel}${homeName} vs ${awayName}${statusLabel}${
     match.score
@@ -1309,7 +1406,7 @@ function renderMatchRow(match, state, currentTime = Date.now()) {
   row.setAttribute("aria-label", rowLabel);
   row.innerHTML = `
     <button class="match-row-trigger" type="button" aria-label="${escapeHtml(rowLabel)}" aria-pressed="false">
-      <time class="match-time" datetime="${escapeHtml(getMatchDateTimeValue(match))}">
+      <time class="match-time" datetime="${escapeHtml(getMatchDateTimeValue(match))}" title="${escapeHtml(getMatchTimeAriaLabel(match))}" aria-label="${escapeHtml(getMatchTimeAriaLabel(match))}">
         ${escapeHtml(getMatchTimeLabel(match))}
       </time>
       <span class="match-teams">
@@ -2824,7 +2921,7 @@ function formatStandoutHighlight(standout) {
     return "";
   }
 
-  return standout.startsWith("⚽") ? standout : `⚽ ${standout}`;
+  return standout.startsWith("🌟") ? standout : `🌟 ${standout.replace(/^[⚽🔥🛡️🧤]\s*/, "")}`;
 }
 
 function getGeneratedDrawHighlights(match, score, context, standout) {
@@ -2832,16 +2929,15 @@ function getGeneratedDrawHighlights(match, score, context, standout) {
 
   if (score.home === 0 && score.away === 0) {
     return [
-      `🧱 ${match.homeTeam.name} and ${match.awayTeam.name} cancelled each other out in a 0-0 draw.`,
-      "🛡️ Both teams left with clean sheets after a tight defensive match.",
+      `⚽ ${match.homeTeam.name} and ${match.awayTeam.name} shared a 0-0 draw.`,
+      "🌟 Both clean sheets kept the match tight.",
       `📊 Both sides took one point from ${context}.`
     ];
   }
 
   return [
-    formatStandoutHighlight(standout) ||
-      `⚽ ${match.homeTeam.name} and ${match.awayTeam.name} both found goals in a ${scoreText} draw.`,
-    "🔥 Neither side pulled clear, keeping the match balanced through full time.",
+    `⚽ ${match.homeTeam.name} and ${match.awayTeam.name} finished level at ${scoreText}.`,
+    formatStandoutHighlight(standout) || "🌟 Neither side pulled clear after trading goals.",
     `📊 Both teams took one point from ${context}.`
   ];
 }
@@ -2854,24 +2950,29 @@ function getGeneratedWinHighlights(match, score, context, standout) {
   const loserScore = winnerSide === "home" ? score.away : score.home;
   const margin = winnerScore - loserScore;
   const scoreText = `${winnerScore}-${loserScore}`;
-  const scoringNote =
-    formatStandoutHighlight(standout) ||
-    (winnerScore === 1
+  const scoringNote = margin >= 3
+    ? `⚽ ${winner.name} made a statement with a ${scoreText} win.`
+    : winnerScore === 1
       ? `⚽ ${winner.name} found the decisive goal in a ${scoreText} win.`
-      : `⚽ ${winner.name} scored ${winnerScore} ${getGoalWord(winnerScore)} to beat ${loser.name} ${scoreText}.`);
+      : `⚽ ${winner.name} beat ${loser.name} ${scoreText}.`;
   const controlNote =
-    loserScore === 0
-      ? `🛡️ ${winner.name} kept ${loser.name} off the scoresheet.`
+    formatStandoutHighlight(standout) ||
+    (loserScore === 0
+      ? `🌟 The clean sheet gave ${loser.name} no way back.`
       : margin >= 3
-        ? `🔥 ${winner.name}'s attack broke the match open by full time.`
+        ? `🌟 ${winner.name}'s attack broke the match open.`
         : margin === 1
-          ? `⏱️ ${winner.name} protected a one-goal edge through full time.`
-          : `🔥 ${winner.name} created enough separation to control the finish.`;
+          ? `🌟 ${winner.name} protected a one-goal edge.`
+          : `🌟 ${winner.name} created enough separation to control the finish.`);
+  const groupImpact =
+    match.groupId && margin > 0
+      ? `📊 ${winner.name} took three points and ${formatGoalDifference(margin)} GD in ${context}.`
+      : `📊 ${winner.name} took three points from ${context}.`;
 
   return [
     scoringNote,
     controlNote,
-    `📊 ${winner.name} took three points from ${context}.`
+    groupImpact
   ];
 }
 
@@ -2985,6 +3086,34 @@ function getKeyInformationText(team, info, players = []) {
 function getKeyInformationLabel(team) {
   const label = team?.name || "TBD";
   return team?.tagline ? `${label}: ${team.tagline}` : label;
+}
+
+function getTeamStyleTags(team) {
+  return Array.isArray(team?.styleTags)
+    ? team.styleTags.filter((tag) => typeof tag === "string" && tag.trim()).slice(0, 3)
+    : [];
+}
+
+function renderTeamStyleTags(team) {
+  const tags = getTeamStyleTags(team);
+  if (!tags.length) {
+    return "";
+  }
+
+  return `
+    <ul class="team-style-tags" aria-label="${escapeHtml(team.name)} style notes">
+      ${tags.map((tag) => `<li>${escapeHtml(tag)}</li>`).join("")}
+    </ul>
+  `;
+}
+
+function renderKeyInformationHeading(team, label = getKeyInformationLabel(team)) {
+  return `
+    <span class="key-info-heading">
+      ${renderFlag(team)}
+      <span>${escapeHtml(label)}</span>
+    </span>
+  `;
 }
 
 function getPlayerProfile(player) {
@@ -3237,7 +3366,8 @@ function renderKeyInformationTeam(team, info, players = [], mentionPlayers = pla
   const label = getKeyInformationLabel(team);
   return `
     <article class="key-info-team">
-      <h4>${renderPlayerLinkedText(label, mentionPlayers)}</h4>
+      <h4>${renderKeyInformationHeading(team, label)}</h4>
+      ${renderTeamStyleTags(team)}
       <p>${renderPlayerLinkedText(text, mentionPlayers)}</p>
     </article>
   `;
@@ -4114,12 +4244,13 @@ function getHistoricalTeamKeyBody(match, teamName) {
 function renderHistoricalKeyInformation(match) {
   return `
     <div class="key-info-grid">
-      ${[match.homeTeam.name, match.awayTeam.name]
+      ${[match.homeTeam, match.awayTeam]
         .map(
-          (teamName) => `
+          (team) => `
             <article class="key-info-team">
-              <h4>${escapeHtml(getHistoricalTeamKeyHeadline(match, teamName))}</h4>
-              <p>${escapeHtml(getHistoricalTeamKeyBody(match, teamName))}</p>
+              <h4>${renderKeyInformationHeading(team, getHistoricalTeamKeyHeadline(match, team.name))}</h4>
+              ${renderTeamStyleTags(team)}
+              <p>${escapeHtml(getHistoricalTeamKeyBody(match, team.name))}</p>
             </article>
           `
         )
@@ -4494,6 +4625,26 @@ function getTeamSearchTitle(matches, query = getTeamSearchQuery()) {
   return firstTeam ? getStandingName(firstTeam) : query.trim();
 }
 
+function getTeamSearchMatchedSide(match, team) {
+  if (!team) {
+    return "";
+  }
+
+  const teamKey = normalizeTextKey(team.id || team.name);
+  const homeKey = normalizeTextKey(match.homeTeam?.id || match.homeTeam?.name);
+  const awayKey = normalizeTextKey(match.awayTeam?.id || match.awayTeam?.name);
+
+  if (team === match.homeTeam || teamKey === homeKey) {
+    return "home";
+  }
+
+  if (team === match.awayTeam || teamKey === awayKey) {
+    return "away";
+  }
+
+  return "";
+}
+
 function isCurrentTournamentPastSearchMatch(match, currentTime) {
   if (match.status === "FT" || match.score) {
     return true;
@@ -4521,8 +4672,10 @@ function createTeamSearchSection(title, items, stateForMatch, options = {}) {
 
   const list = document.createElement("div");
   list.className = "team-search-match-list";
-  for (const { match } of items) {
-    const row = renderMatchRow(match, stateForMatch(match), Date.now());
+  for (const { match, team } of items) {
+    const row = renderMatchRow(match, stateForMatch(match), Date.now(), {
+      searchedSide: getTeamSearchMatchedSide(match, team)
+    });
     row.classList.add("is-country-search-row");
     list.append(row);
   }
@@ -5397,6 +5550,7 @@ function applyDataSnapshot({
   standingsByGroup = standingsData.groups;
   tournament = tournamentData;
   dataCoverage = fixturesData.coverage || { status: "partial" };
+  liveDataCheckedAt = "";
   siteUpdatedAt = getLatestUpdatedAt([
     fixturesData,
     historyData,
@@ -5412,6 +5566,7 @@ function applyLiveDataSnapshot(liveData) {
   standingsByGroup = liveData.standingsData.groups;
   tournament = liveData.tournamentData;
   dataCoverage = liveData.fixturesData.coverage || { status: "partial" };
+  liveDataCheckedAt = liveData.syncStatus?.checkedAt || liveData.fixturesData.updatedAt || "";
   siteUpdatedAt = getLatestUpdatedAt([
     { updatedAt: siteUpdatedAt },
     liveData.fixturesData,

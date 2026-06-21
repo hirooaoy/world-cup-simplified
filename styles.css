@@ -883,7 +883,7 @@ h1 {
   color: #ffffff;
   font-size: 11px;
   font-weight: 700;
-  letter-spacing: 0.02em;
+  letter-spacing: 0;
   line-height: 1;
   white-space: nowrap;
 }
@@ -937,6 +937,18 @@ h1 {
 
 .match-score.is-live-fallback {
   background: #171717;
+}
+
+.match-score.is-search-win {
+  background: #147447;
+}
+
+.match-score.is-search-loss {
+  background: #b8322c;
+}
+
+.match-score.is-search-tie {
+  background: #3f3f46;
 }
 
 .score-status {
@@ -2825,6 +2837,40 @@ h1 {
   font-weight: 800;
   letter-spacing: 0;
   line-height: 1.28;
+}
+
+.key-info-heading {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.key-info-heading .flag {
+  flex: 0 0 auto;
+}
+
+.team-style-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin: 0 0 8px;
+  padding: 0;
+  list-style: none;
+}
+
+.team-style-tags li {
+  display: inline-flex;
+  align-items: center;
+  min-height: 23px;
+  padding: 4px 8px;
+  border: 1px solid rgba(10, 10, 10, 0.08);
+  border-radius: 999px;
+  background: rgba(245, 245, 247, 0.78);
+  color: rgba(10, 10, 10, 0.64);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1;
 }
 
 .key-info-team p {
