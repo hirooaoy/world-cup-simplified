@@ -851,54 +851,54 @@ try {
         "If no Up next pill is shown in the mocked state, every listed match should be final."
       );
     }
-	  }
-	  await matchStateCheck.context.close();
+  }
+  await matchStateCheck.context.close();
 
-	  const japanSearchCheck = await openPageAtTime(
-	    "2026-06-21T21:00:00.000Z",
-	    "/?view=matches&team=japan&tz=America%2FLos_Angeles"
-	  );
-	  const japanSearchRows = await japanSearchCheck.page.locator(".match-row").evaluateAll((rows) =>
-	    rows.map((row) => ({
-	      id: row.dataset.matchId,
-	      label: row.getAttribute("aria-label") || ""
-	    }))
-	  );
-	  assert(
-	    japanSearchRows.some((row) => row.id === "japan-sweden-2026-06-25"),
-	    "Japan country search should include Japan vs Sweden."
-	  );
-	  assert(
-	    japanSearchRows.every((row) => row.label.includes("Japan")) &&
-	      !japanSearchRows.some((row) => row.id === "panama-croatia-2026-06-23"),
-	    "Japan country search should not include Panama fixtures through the PAN team id."
-	  );
-	  await japanSearchCheck.context.close();
+  const japanSearchCheck = await openPageAtTime(
+    "2026-06-21T21:00:00.000Z",
+    "/?view=matches&team=japan&tz=America%2FLos_Angeles"
+  );
+  const japanSearchRows = await japanSearchCheck.page.locator(".match-row").evaluateAll((rows) =>
+    rows.map((row) => ({
+      id: row.dataset.matchId,
+      label: row.getAttribute("aria-label") || ""
+    }))
+  );
+  assert(
+    japanSearchRows.some((row) => row.id === "japan-sweden-2026-06-25"),
+    "Japan country search should include Japan vs Sweden."
+  );
+  assert(
+    japanSearchRows.every((row) => row.label.includes("Japan")) &&
+      !japanSearchRows.some((row) => row.id === "panama-croatia-2026-06-23"),
+    "Japan country search should not include Panama fixtures through the PAN team id."
+  );
+  await japanSearchCheck.context.close();
 
-	  const panSearchCheck = await openPageAtTime(
-	    "2026-06-21T21:00:00.000Z",
-	    "/?view=matches&team=PAN&tz=America%2FLos_Angeles"
-	  );
-	  const panSearchRows = await panSearchCheck.page.locator(".match-row").evaluateAll((rows) =>
-	    rows.map((row) => ({
-	      id: row.dataset.matchId,
-	      label: row.getAttribute("aria-label") || ""
-	    }))
-	  );
-	  assert(
-	    panSearchRows.some((row) => row.id === "panama-croatia-2026-06-23"),
-	    "PAN country search should include Panama vs Croatia."
-	  );
-	  assert(
-	    panSearchRows.every((row) => row.label.includes("Panama")) &&
-	      !panSearchRows.some((row) => row.id === "japan-sweden-2026-06-25"),
-	    "PAN country search should not include Japan fixtures through text inside Japan."
-	  );
-	  await panSearchCheck.context.close();
+  const panSearchCheck = await openPageAtTime(
+    "2026-06-21T21:00:00.000Z",
+    "/?view=matches&team=PAN&tz=America%2FLos_Angeles"
+  );
+  const panSearchRows = await panSearchCheck.page.locator(".match-row").evaluateAll((rows) =>
+    rows.map((row) => ({
+      id: row.dataset.matchId,
+      label: row.getAttribute("aria-label") || ""
+    }))
+  );
+  assert(
+    panSearchRows.some((row) => row.id === "panama-croatia-2026-06-23"),
+    "PAN country search should include Panama vs Croatia."
+  );
+  assert(
+    panSearchRows.every((row) => row.label.includes("Panama")) &&
+      !panSearchRows.some((row) => row.id === "japan-sweden-2026-06-25"),
+    "PAN country search should not include Japan fixtures through text inside Japan."
+  );
+  await panSearchCheck.context.close();
 
-	  const liveFallbackScoreCheck = await openPageAtTime(
-	    "2026-06-18T16:05:00.000Z",
-	    "/?view=matches&date=2026-06-18&tz=America%2FLos_Angeles",
+  const liveFallbackScoreCheck = await openPageAtTime(
+    "2026-06-18T16:05:00.000Z",
+    "/?view=matches&date=2026-06-18&tz=America%2FLos_Angeles",
     {
       fixtureTransform(data) {
         const liveFixture = data.fixtures.find(
