@@ -71,10 +71,16 @@
           </div>
         </div>
       </div>
-      <label class="timezone-control">
-        <span class="visually-hidden">Time zone</span>
-        <select class="timezone-select" id="timezone-select"></select>
-      </label>
+      <div class="header-controls">
+        <div class="language-switch" id="language-switch" role="group" aria-label="Language">
+          <button class="language-option is-active" type="button" data-language="en" aria-pressed="true">EN</button>
+          <button class="language-option" type="button" data-language="zh" aria-pressed="false">中文</button>
+        </div>
+        <label class="timezone-control">
+          <span class="visually-hidden">Time zone</span>
+          <select class="timezone-select" id="timezone-select"></select>
+        </label>
+      </div>
     </header>
 
     <main class="page-shell">

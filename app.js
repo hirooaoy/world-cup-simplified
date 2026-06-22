@@ -9,6 +9,725 @@ const DATA_URLS = {
   tournament: `data/tournament.json?v=${DATA_VERSION}`
 };
 
+const LANGUAGE_STORAGE_KEY = "world-cup-simplified-language";
+const DEFAULT_LANGUAGE = "en";
+const LANGUAGE_LOCALES = {
+  en: "en-US",
+  zh: "zh-CN"
+};
+const SUPPORTED_LANGUAGES = new Set(Object.keys(LANGUAGE_LOCALES));
+const UI_TEXT = {
+  en: {
+    appName: "World Cup Simplified",
+    appHomeLabel: "World Cup Simplified home",
+    calendarNextMonth: "Next month",
+    calendarPreviousMonth: "Previous month",
+    calendarToday: "Today",
+    calendarWeekdays: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+    calendarYesterday: "Yesterday",
+    catchUp: "Catch Up",
+    catchUpDialog: "Catch Up",
+    chooseMatchDate: "Choose match date",
+    chooseStandingsYear: "Choose standings year",
+    clearCountrySearch: "Clear country search",
+    countrySearch: "Search country matches",
+    groups: "Groups",
+    language: "Language",
+    languageEnglish: "English",
+    languageChinese: "Chinese",
+    matches: "Matches",
+    matchesHeading: "Matches and selected match details",
+    matchesList: "Matches",
+    month: "Month",
+    searchCountryPlaceholder: "Search country",
+    standings: "Standings",
+    standingsSections: "Standings sections",
+    standingsSummary:
+      "Top two in each group advance. The best eight third-place teams also reach the Round of 32.",
+    thirdPlaceRace: "Third-Place Race",
+    timeZone: "Time zone",
+    tournament: "Tournament",
+    worldCupViews: "World Cup views"
+  },
+  zh: {
+    appName: "世界杯简明指南",
+    appHomeLabel: "世界杯简明指南首页",
+    calendarNextMonth: "下个月",
+    calendarPreviousMonth: "上个月",
+    calendarToday: "今天",
+    calendarWeekdays: ["日", "一", "二", "三", "四", "五", "六"],
+    calendarYesterday: "昨天",
+    catchUp: "速览",
+    catchUpDialog: "比赛速览",
+    chooseMatchDate: "选择比赛日期",
+    chooseStandingsYear: "选择积分榜年份",
+    clearCountrySearch: "清除国家队搜索",
+    countrySearch: "搜索国家队比赛",
+    groups: "小组",
+    language: "语言",
+    languageEnglish: "英文",
+    languageChinese: "中文",
+    matches: "赛程",
+    matchesHeading: "比赛和已选比赛详情",
+    matchesList: "比赛",
+    month: "月份",
+    searchCountryPlaceholder: "搜索国家队",
+    standings: "积分榜",
+    standingsSections: "积分榜分区",
+    standingsSummary: "每组前两名晋级，成绩最好的八支第三名球队也将进入32强。",
+    thirdPlaceRace: "第三名竞争",
+    timeZone: "时区",
+    tournament: "淘汰赛",
+    worldCupViews: "世界杯视图"
+  }
+};
+const ZH_EXACT_TRANSLATIONS = new Map(
+  Object.entries({
+    "After extra time": "加时后",
+    "archive": "存档",
+    "As it stands": "当前形势",
+    "Best third-place race": "最佳第三名竞争",
+    "bracket details are not loaded yet.": "对阵详情尚未载入。",
+    "bracket-ready": "对阵待接入",
+    "Canceled": "已取消",
+    "Cancelled": "已取消",
+    "Check latest score at FIFA": "在FIFA查看最新比分",
+    "Choose match date": "选择比赛日期",
+    "Choose standings year": "选择积分榜年份",
+    "Clear country search": "清除国家队搜索",
+    "Club to verify": "俱乐部待确认",
+    "Country search": "国家队搜索",
+    "Current knockout path with likely winners filled for now. Finished results replace estimates.":
+      "当前淘汰赛路径会先填入暂时更可能晋级的球队，完赛结果会替换估算。",
+    "Current score": "当前比分",
+    "Current third-place teams across every group. Top eight advance; unresolved ties are flagged when fair-play data is not loaded.":
+      "各组当前第三名球队。前八名晋级；若公平竞赛数据尚未载入，未决平局会被标记。",
+    "Algeria": "阿尔及利亚",
+    "Argentina": "阿根廷",
+    "Australia": "澳大利亚",
+    "Austria": "奥地利",
+    "Belgium": "比利时",
+    "Bosnia and Herzegovina": "波斯尼亚和黑塞哥维那",
+    "Brazil": "巴西",
+    "Cabo Verde": "佛得角",
+    "Canada": "加拿大",
+    "Colombia": "哥伦比亚",
+    "Côte d'Ivoire": "科特迪瓦",
+    "Cote d'Ivoire": "科特迪瓦",
+    "Croatia": "克罗地亚",
+    "Curacao": "库拉索",
+    "Curaçao": "库拉索",
+    "Czechia": "捷克",
+    "Data unavailable": "数据不可用",
+    "DR Congo": "刚果民主共和国",
+    "Draw": "平局",
+    "Ecuador": "厄瓜多尔",
+    "Egypt": "埃及",
+    "England": "英格兰",
+    "FIFA schedule": "FIFA赛程",
+    "Final group table computed from archived match results.": "最终小组表由存档比赛结果计算得出。",
+    "Final group tables computed from archived match results.": "最终小组表由存档比赛结果计算得出。",
+    "Final score is not loaded for this fixture yet.": "这场比赛的最终比分尚未载入。",
+    "Final score reflected in the current standings after source checks.":
+      "来源核对后，最终比分已反映在当前积分榜中。",
+    "Final pending": "最终比分待确认",
+    "Final score": "最终比分",
+    "Friendly": "友谊赛",
+    "France": "法国",
+    "FT": "全场",
+    "Full time": "全场结束",
+    "GD": "净胜球",
+    "Germany": "德国",
+    "Ghana": "加纳",
+    "Goal difference is goals scored minus goals allowed. If teams are tied on points, a better goal difference can help decide who advances.":
+      "净胜球为进球数减失球数。若积分相同，净胜球更好可能决定晋级。",
+    "Goals": "进球",
+    "Group": "小组",
+    "Group standings": "小组积分榜",
+    "Group standings are not available for this archived tournament.":
+      "这届存档赛事没有可用的小组积分榜。",
+    "Group table data is not available for this archived match.":
+      "这场存档比赛没有可用的小组表数据。",
+    "Group standings should show each current third-place team's cross-group race position.":
+      "小组积分榜应显示每支当前第三名球队的跨组排名。",
+    "Groups": "小组",
+    "Haiti": "海地",
+    "Half-time": "半场",
+    "IR Iran": "伊朗",
+    "Iraq": "伊拉克",
+    "Japan": "日本",
+    "Jordan": "约旦",
+    "Key information": "关键信息",
+    "Key information is not loaded yet.": "关键信息尚未载入。",
+    "Advancing now": "当前晋级",
+    "Inside the top eight best third-place teams.": "目前位列最佳第三名球队前八。",
+    "Inside the top eight right now, but close to the cut line.": "目前在前八之内，但接近晋级线。",
+    "Just inside": "刚好在内",
+    "Just outside": "刚好在外",
+    "Knockout context": "淘汰赛背景",
+    "Knockout match": "淘汰赛",
+    "Knockout path": "淘汰赛路径",
+    "Knockout winner progression": "淘汰赛胜者晋级",
+    "Likely for now": "当前可能",
+    "likely for now": "当前可能",
+    "Later matches": "后续比赛",
+    "Live": "直播",
+    "Live score": "实时比分",
+    "Live status is manually verified and should be refreshed after full time.":
+      "实时状态为人工核验，完场后应刷新确认。",
+    "Loading matches": "正在加载比赛",
+    "Loaded matches across the current tournament and World Cup archive.":
+      "显示当前赛事和世界杯存档中的已载入比赛。",
+    "Local estimate using FIFA rankings. Not betting odds.":
+      "基于FIFA排名的本地估算，并非博彩赔率。",
+    "Local historical-form estimate. Not betting odds.": "基于历史世界杯状态的本地估算，并非博彩赔率。",
+    "Local preview estimate. Not betting odds.": "本地预览估算，并非博彩赔率。",
+    "Market-implied consensus from public odds, normalized to remove sportsbook margin. Not betting advice.":
+      "由公开赔率推导的市场共识，并已归一化去除庄家利润；这不是投注建议。",
+    "Match plan": "比赛计划",
+    "Matches": "赛程",
+    "Matches and selected match details": "比赛和已选比赛详情",
+    "Mexico": "墨西哥",
+    "Morocco": "摩洛哥",
+    "Netherlands": "荷兰",
+    "New Zealand": "新西兰",
+    "No catch-up notes loaded yet": "尚未载入速览",
+    "No goals because this match was cancelled.": "本场取消，因此没有进球。",
+    "No loaded World Cup matches found.": "未找到已载入的世界杯比赛。",
+    "No matches": "没有比赛",
+    "No next World Cup month": "没有下一个世界杯月份",
+    "No previous men's World Cup meetings are loaded before this match.":
+      "这场比赛之前尚未载入双方男足世界杯交锋记录。",
+    "No previous World Cup month": "没有上一个世界杯月份",
+    "no World Cup matches scheduled": "没有安排世界杯比赛",
+    "No scorer data loaded.": "尚未载入进球者数据。",
+    "No verified projection is loaded for this fixture yet.":
+      "这场比赛尚未载入已核验预测。",
+    "No verified senior meetings found before this match.":
+      "这场比赛前未找到已核验的成年队交锋记录。",
+    "Not loaded": "未载入",
+    "Norway": "挪威",
+    "cancelled": "已取消",
+    "current score": "当前比分",
+    "final score": "最终比分",
+    "now": "刚刚",
+    "Past match research is not loaded for this fixture yet.":
+      "这场比赛的历史交锋研究尚未载入。",
+    "Past matches": "历史交锋",
+    "Path below": "路径见下方",
+    "Penalties": "点球",
+    "Position to verify": "位置待确认",
+    "Prediction": "预测",
+    "Predictions are unofficial.": "预测为非官方内容。",
+    "Previous": "上一轮",
+    "Previous matches": "此前比赛",
+    "Previous World Cups": "历届世界杯",
+    "Pts": "积分",
+    "Panama": "巴拿马",
+    "Paraguay": "巴拉圭",
+    "Portugal": "葡萄牙",
+    "Qatar": "卡塔尔",
+    "Quarter-finals": "四分之一决赛",
+    "Points rank teams in the group: 3 for a win, 1 for a draw, 0 for a loss. More points usually means a better chance to advance.":
+      "积分决定小组排名：胜3分，平1分，负0分。积分越多通常越有机会晋级。",
+    "Rank": "排名",
+    "Read source": "阅读来源",
+    "Report issue": "报告问题",
+    "Result": "赛果",
+    "Round of 16": "16强赛",
+    "Round of 32": "32强赛",
+    "Round of 32 as it stands": "当前32强形势",
+    "Round of 32 bracket center": "32强对阵中心",
+    "Score details are not loaded for this historical record.":
+      "这条历史记录尚未载入比分详情。",
+    "Score unavailable": "比分不可用",
+    "Search country": "搜索国家队",
+    "Search country matches": "搜索国家队比赛",
+    "Quick combinations looking for sudden final-third moments": "快速配合寻找前场突然机会",
+    "Quick passing": "快速传递",
+    "Wide switches": "宽度转移",
+    "Keeper saves": "门将扑救",
+    "Saudi Arabia are a fearless pressing underdog with enough big-moment attackers to punish complacency, led by Salem Al-Dawsari, Firas Al-Buraikan, and Mohammed Al-Owais. Against Uruguay, they want to press in bursts and give Al-Dawsari room to attack the first retreating defender; the risk is Uruguay can turn Valverde's engine and Nunez's depth into chaos.":
+      "沙特阿拉伯是敢于逼抢的弱势一方，也有足够的大场面攻击手惩罚松懈，由Salem Al-Dawsari、Firas Al-Buraikan和Mohammed Al-Owais领衔。面对乌拉圭，他们希望阶段性施压，并给Al-Dawsari空间去冲击第一名回撤防守者；风险在于乌拉圭可能把Valverde的奔跑能力和Nunez的纵深冲击转化为混乱。",
+    "Saudi Arabia are a fearless pressing underdog with enough big-moment attackers to punish complacency, led by Salem Al-Dawsari, Firas Al-Buraikan, and Mohammed Al-Owais. Against Spain, they want to press in bursts and give Al-Dawsari room to attack the first retreating defender; the risk is Spain can stretch the pitch through Yamal and Williams before Pedri breaks the line.":
+      "沙特阿拉伯是敢于逼抢的弱势一方，也有足够的大场面攻击手惩罚松懈，由Salem Al-Dawsari、Firas Al-Buraikan和Mohammed Al-Owais领衔。面对西班牙，他们希望阶段性施压，并给Al-Dawsari空间去冲击第一名回撤防守者；风险在于西班牙可能先通过Yamal和Williams拉宽球场，再由Pedri打穿防线。",
+    "Saudi Arabia are a fearless pressing underdog with enough big-moment attackers to punish complacency, led by Salem Al-Dawsari, Firas Al-Buraikan, and Mohammed Al-Owais. Against Cabo Verde, they want to press in bursts and give Al-Dawsari room to attack the first retreating defender; the risk is Cabo Verde can turn a slow match into one decisive Mendes action.":
+      "沙特阿拉伯是敢于逼抢的弱势一方，也有足够的大场面攻击手惩罚松懈，由Salem Al-Dawsari、Firas Al-Buraikan和Mohammed Al-Owais领衔。面对佛得角，他们希望阶段性施压，并给Al-Dawsari空间去冲击第一名回撤防守者；风险在于佛得角可能把慢节奏比赛变成Mendes的一次决定性行动。",
+    "Saudi Arabia's big-moment wide attacker, trusted to carry counters and take on defenders.":
+      "沙特阿拉伯的大场面边路攻击手，负责带动反击并直接挑战防守者。",
+    "The mobile striker who links attacks and gives Saudi Arabia a cleaner target in transition.":
+      "机动型前锋，能串联进攻，也让沙特阿拉伯在转换中有更清晰的支点。",
+    "The experienced goalkeeper, vital if Saudi Arabia spend long stretches defending their box.":
+      "经验丰富的门将；如果沙特阿拉伯长时间守在禁区前，他会非常关键。",
+    "Relentless passing that breaks defenses apart": "不停传递撕开防线",
+    "Wide overloads": "边路人数优势",
+    "Counter-press": "丢球后反抢",
+    "Interior passing": "肋部传递",
+    "Spain are one of the tournament's most polished possession teams, led by Lamine Yamal, Pedri, and Nico Williams. Against Cabo Verde, they want to pin the wide defenders with Yamal and Williams before Pedri plays through the gaps; the risk is Cabo Verde can turn a slow match into one decisive Mendes action.":
+      "西班牙是本届赛事最成熟的控球球队之一，由Lamine Yamal、Pedri和Nico Williams领衔。面对佛得角，他们希望先用Yamal和Williams牵制边路防守者，再由Pedri从空当送出传递；风险在于佛得角可能把慢节奏比赛变成Mendes的一次决定性行动。",
+    "Spain are one of the tournament's most polished possession teams, led by Lamine Yamal, Pedri, and Nico Williams. Against Saudi Arabia, they want to pin the wide defenders with Yamal and Williams before Pedri plays through the gaps; the risk is Saudi Arabia can turn pressing bursts and Al-Dawsari carries into momentum.":
+      "西班牙是本届赛事最成熟的控球球队之一，由Lamine Yamal、Pedri和Nico Williams领衔。面对沙特阿拉伯，他们希望先用Yamal和Williams牵制边路防守者，再由Pedri从空当送出传递；风险在于沙特阿拉伯可能把阶段性逼抢和Al-Dawsari的持球推进转化为势头。",
+    "Spain are one of the tournament's most polished possession teams, led by Lamine Yamal, Pedri, and Nico Williams. Against Uruguay, they want to pin the wide defenders with Yamal and Williams before Pedri plays through the gaps; the risk is Uruguay can turn Valverde's engine and Nunez's depth into chaos.":
+      "西班牙是本届赛事最成熟的控球球队之一，由Lamine Yamal、Pedri和Nico Williams领衔。面对乌拉圭，他们希望先用Yamal和Williams牵制边路防守者，再由Pedri从空当送出传递；风险在于乌拉圭可能把Valverde的奔跑能力和Nunez的纵深冲击转化为混乱。",
+    "Spain's game-breaking wide creator, able to bend low blocks with dribbling, passing, and shot threat.":
+      "西班牙能改变比赛的边路创造者，可以用盘带、传球和射门威胁撕开低位防线。",
+    "The rhythm setter in open space, making Spain's possession feel calmer and more incisive.":
+      "开放空间里的节奏掌控者，让西班牙的控球更从容也更有穿透力。",
+    "The vertical winger who turns switches of play into immediate pressure on the box.":
+      "纵向冲击型边锋，能把转移球立刻变成禁区压力。",
+    "Saudi Arabia": "沙特阿拉伯",
+    "Scotland": "苏格兰",
+    "Senegal": "塞内加尔",
+    "Semi-finals": "半决赛",
+    "Shown in current table order. Points, record and goal difference are included for context.":
+      "按当前积分榜顺序显示，并包含积分、战绩和净胜球作为参考。",
+    "Show all matches": "显示全部比赛",
+    "Sources:": "来源：",
+    "Standings": "积分榜",
+    "Standings sections": "积分榜分区",
+    "Status": "状态",
+    "selected": "已选择",
+    "South Africa": "南非",
+    "South Korea": "韩国",
+    "Spain": "西班牙",
+    "Sweden": "瑞典",
+    "Switzerland": "瑞士",
+    "Team": "球队",
+    "The match data could not be loaded.": "比赛数据无法载入。",
+    "The match data could not be loaded. Refresh the page to try again.":
+      "比赛数据无法载入。请刷新页面重试。",
+    "The match is marked live, but no verified score is loaded yet.":
+      "本场已标记为直播中，但尚未载入已核验比分。",
+    "The match view could not be displayed.": "比赛视图无法显示。",
+    "The page loaded, but something went wrong while displaying it. Refresh the page to try again.":
+      "页面已载入，但显示时出错。请刷新页面重试。",
+    "The striker Qatar look for when they need a direct finish from limited chances.":
+      "卡塔尔需要在有限机会中直接终结时，会寻找这名前锋。",
+    "Third-Place Race": "第三名竞争",
+    "Tunisia": "突尼斯",
+    "Türkiye": "土耳其",
+    "Tie order follows points, goal difference, goals scored, loaded fair-play conduct when available, then FIFA ranking as the final deterministic fallback.":
+      "平局排序依次参考积分、净胜球、进球数、已载入的公平竞赛表现，最后以FIFA排名作为确定性兜底。",
+    "Needs results elsewhere to move into the top eight.": "需要其他比赛结果帮助才能进入前八。",
+    "Next match": "下一场",
+    "Next team outside the top eight.": "前八名之外的第一支球队。",
+    "Outside now": "当前出局",
+    "Tiebreak pending": "决胜规则待确认",
+    "Tied on loaded stats; fair-play data decides before FIFA ranking.":
+      "已载入数据持平；先看公平竞赛数据，再看FIFA排名。",
+    "To be decided": "待定",
+    "Today": "今天",
+    "today": "今天",
+    "Top two in each group advance. The best eight third-place teams also reach the Round of 32.":
+      "每组前两名晋级，成绩最好的八支第三名球队也将进入32强。",
+    "Tournament": "淘汰赛",
+    "Tournament bracket": "淘汰赛对阵",
+    "Unable to display matches": "无法显示比赛",
+    "United States": "美国",
+    "Up next": "即将开始",
+    "Uruguay": "乌拉圭",
+    "Uzbekistan": "乌兹别克斯坦",
+    "vs": "对",
+    "W-D-L": "胜-平-负",
+    "Winner": "胜者",
+    "Wins-Draws-Losses shows a team's group record. Wins add points fastest, which helps explain why a team is higher or lower.":
+      "胜-平-负显示球队的小组战绩。胜场最快增加积分，有助于解释排名高低。",
+    "World Cup Simplified": "世界杯简明指南",
+    "World Cup views": "世界杯视图",
+    "Yesterday": "昨天",
+    "Yesterday and today do not have finished or live match notes yet.":
+      "昨天和今天还没有已完赛或直播中的比赛速览。",
+    "debutants": "首次参赛球队",
+    "ranking": "排名",
+    "standings": "积分榜"
+  })
+);
+const ZH_PATTERN_TRANSLATIONS = [
+  {
+    pattern: /^(.+) flag$/,
+    replace: (_, teamName) => `${teamName} 旗帜`
+  },
+  {
+    pattern: /^(.+) FIFA world ranking (.+)$/,
+    replace: (_, teamName, rank) => `${teamName} FIFA世界排名 ${rank}`
+  },
+  {
+    pattern: /^(.+) style notes$/,
+    replace: (_, teamName) => `${translateTextToZh(teamName)}风格要点`
+  },
+  {
+    pattern: /^Group ([A-L])$/,
+    replace: (_, groupId) => `${groupId}组`
+  },
+  {
+    pattern: /^Group ([A-L]) Top (\d+)$/,
+    replace: (_, groupId, place) => `${groupId}组第${place}名`
+  },
+  {
+    pattern: /^Open Group ([A-L]) standings$/,
+    replace: (_, groupId) => `打开${groupId}组积分榜`
+  },
+  {
+    pattern: /^(\d+)(?:st|nd|rd|th)$/,
+    replace: (_, value) => `第${value}`
+  },
+  {
+    pattern: /^3rd race (.+)$/,
+    replace: (_, rank) => `第三名竞争 ${translateTextToZh(rank)}`
+  },
+  {
+    pattern: /^Top (\d+) advance$/,
+    replace: (_, count) => `前${count}名晋级`
+  },
+  {
+    pattern: /^Choose match date, (.+)$/,
+    replace: (_, date) => `选择比赛日期：${date}`
+  },
+  {
+    pattern: /^Choose standings year, (.+) selected$/,
+    replace: (_, year) => `选择积分榜年份，已选择${year}`
+  },
+  {
+    pattern: /^Previous World Cup month, (.+)$/,
+    replace: (_, month) => `上一个世界杯月份：${month}`
+  },
+  {
+    pattern: /^Next World Cup month, (.+)$/,
+    replace: (_, month) => `下一个世界杯月份：${month}`
+  },
+  {
+    pattern: /^(\d+) match(?:es)? scheduled$/,
+    replace: (_, count) => `安排了${count}场比赛`
+  },
+  {
+    pattern: /^No matches were found for (.+)\.$/,
+    replace: (_, date) => `${date}没有找到比赛。`
+  },
+  {
+    pattern: /^Verified fixture data is not loaded for (.+)\. This avoids showing a false no-match day\.$/,
+    replace: (_, date) => `${date}的已核验赛程数据尚未载入，以免误显示为无比赛日。`
+  },
+  {
+    pattern: /^Last updated (.+)\.$/,
+    replace: (_, date) => `最后更新：${date}。`
+  },
+  {
+    pattern: /^Sources: (.+)\. Predictions are unofficial\.$/,
+    replace: (_, sources) => `来源：${sources}。预测为非官方内容。`
+  },
+  {
+    pattern: /^(\d+) points?$/,
+    replace: (_, points) => `${points}分`
+  },
+  {
+    pattern: /^(\d+) wins?$/,
+    replace: (_, wins) => `${wins}场胜利`
+  },
+  {
+    pattern: /^(\d+) draws?$/,
+    replace: (_, draws) => `${draws}场平局`
+  },
+  {
+    pattern: /^(\d+) goals? scored$/,
+    replace: (_, goals) => `进${goals}球`
+  },
+  {
+    pattern: /^(.+) goal difference$/,
+    replace: (_, value) => `净胜球${value}`
+  },
+  {
+    pattern: /^(.+) is (.+) in the best third-place race: (.+)$/,
+    replace: (_, teamName, rank, status) =>
+      `${translateTextToZh(teamName)}在最佳第三名竞争中排名${translateTextToZh(rank)}：${translateTextToZh(status)}`
+  },
+  {
+    pattern: /^Tied on loaded stats for (.+)-(.+)\.$/,
+    replace: (_, start, end) =>
+      `已载入数据中${translateTextToZh(start)}至${translateTextToZh(end)}名持平。`
+  },
+  {
+    pattern: /^Show all (\d+) matches$/,
+    replace: (_, count) => `显示全部${count}场比赛`
+  },
+  {
+    pattern: /^See previous World Cups \((\d+)\)$/,
+    replace: (_, count) => `查看历届世界杯（${count}）`
+  },
+  {
+    pattern: /^Head-to-head record across (\d+) match(?:es)?$/,
+    replace: (_, count) => `${count}场交锋记录`
+  },
+  {
+    pattern: /^World Cup head-to-head record across (\d+) matches$/,
+    replace: (_, count) => `${count}场世界杯交锋记录`
+  },
+  {
+    pattern: /^(.+): (\d+) draw(?:s)?, (.+)$/,
+    replace: (_, label, count, percent) => `${translateTextToZh(label)}：${count}场平局，${percent}`
+  },
+  {
+    pattern: /^(.+): (\d+) win(?:s)?, (.+)$/,
+    replace: (_, label, count, percent) => `${translateTextToZh(label)}：${count}场胜利，${percent}`
+  },
+  {
+    pattern: /^Current score (.+) (\d+), (.+) (\d+)(?:, last checked (.+))?$/,
+    replace: (_, home, homeScore, away, awayScore, freshness) =>
+      `当前比分 ${translateTextToZh(home)} ${homeScore}，${translateTextToZh(away)} ${awayScore}${freshness ? `，最后检查 ${translateTextToZh(freshness)}` : ""}`
+  },
+  {
+    pattern: /^Final score (.+) (\d+), (.+) (\d+)$/,
+    replace: (_, home, homeScore, away, awayScore) =>
+      `最终比分 ${translateTextToZh(home)} ${homeScore}，${translateTextToZh(away)} ${awayScore}`
+  },
+  {
+    pattern: /^Current score not loaded yet; showing (.+)$/,
+    replace: (_, score) => `当前比分尚未载入；显示 ${score}`
+  },
+  {
+    pattern: /^(.+) min ago$/,
+    replace: (_, value) => `${value}分钟前`
+  },
+  {
+    pattern: /^(.+) hr ago$/,
+    replace: (_, value) => `${value}小时前`
+  },
+  {
+    pattern: /^(.+) advances$/,
+    replace: (_, team) => `${translateTextToZh(team)} 晋级`
+  },
+  {
+    pattern: /^(.+) advanced$/,
+    replace: (_, team) => `${translateTextToZh(team)} 晋级`
+  },
+  {
+    pattern: /^(.+) won$/,
+    replace: (_, team) => `${translateTextToZh(team)} 取胜`
+  },
+  {
+    pattern: /^(.+) won$/,
+    replace: (_, team) => `${translateTextToZh(team)} 获胜`
+  },
+  {
+    pattern: /^Likely for now: (.+) (\d+)%$/,
+    replace: (_, team, percent) => `当前可能：${team} ${percent}%`
+  },
+  {
+    pattern: /^(.+) have the stronger FIFA rank \(#(\d+) vs #(\d+)\)\. Rough (\d+)%\.$/,
+    replace: (_, favorite, favoriteRank, otherRank, percent) =>
+      `${translateTextToZh(favorite)} 的FIFA排名更高（#${favoriteRank} 对 #${otherRank}）。粗略估计 ${percent}%。`
+  },
+  {
+    pattern: /^(.+) and (.+) are close in FIFA rank\. Rough (\d+)%\.$/,
+    replace: (_, home, away, percent) =>
+      `${translateTextToZh(home)} 和 ${translateTextToZh(away)} 的FIFA排名接近。粗略估计 ${percent}%。`
+  },
+  {
+    pattern: /^(.+) are the only current team in this slot\. Rough (\d+)%\.$/,
+    replace: (_, team, percent) => `${translateTextToZh(team)} 是这个位置当前唯一的球队。粗略估计 ${percent}%。`
+  },
+  {
+    pattern: /^(.+) are the current slot pick\. Rough (\d+)%\.$/,
+    replace: (_, team, percent) => `${translateTextToZh(team)} 是当前位置的暂时选择。粗略估计 ${percent}%。`
+  },
+  {
+    pattern: /^(.+) is underway$/,
+    replace: (_, matchName) => `${translateTextToZh(matchName)} 已经开赛`
+  },
+  {
+    pattern: /^(.+) has moved from preview mode into live tournament business\.$/,
+    replace: (_, context) => `${translateTextToZh(context)} 已从赛前预览进入实时比赛状态。`
+  },
+  {
+    pattern: /^(.+) and (.+) are trading momentum$/,
+    replace: (_, home, away) => `${translateTextToZh(home)} 和 ${translateTextToZh(away)} 正在拉锯`
+  },
+  {
+    pattern: /^It is (.+) live, with both sides close enough for one moment to change the story\.$/,
+    replace: (_, score) => `实时比分 ${score}，双方差距很小，一个瞬间就可能改变走势。`
+  },
+  {
+    pattern: /^(.+) have a live edge over (.+)$/,
+    replace: (_, leader, chaser) => `${translateTextToZh(leader)} 直播中暂时领先 ${translateTextToZh(chaser)}`
+  },
+  {
+    pattern: /^(.+) lead (.+), but (.+) still have time to pull the match back\.$/,
+    replace: (_, leader, score, chaser) => `${translateTextToZh(leader)} 以 ${score} 领先，但 ${translateTextToZh(chaser)} 仍有时间追回比赛。`
+  },
+  {
+    pattern: /^(.+) and (.+) split the points$/,
+    replace: (_, home, away) => `${translateTextToZh(home)} 和 ${translateTextToZh(away)} 各取一分`
+  },
+  {
+    pattern: /^(.+) keeps (.+) open and gives both teams something to carry into the next match\.$/,
+    replace: (_, score, context) => `${score} 让 ${translateTextToZh(context)} 仍有悬念，也给双方带来下一场的延续点。`
+  },
+  {
+    pattern: /^(.+) make a statement against (.+)$/,
+    replace: (_, winner, loser) => `${translateTextToZh(winner)} 面对 ${translateTextToZh(loser)} 打出强势表现`
+  },
+  {
+    pattern: /^(.+) look sharp against (.+)$/,
+    replace: (_, winner, loser) => `${translateTextToZh(winner)} 面对 ${translateTextToZh(loser)} 状态锐利`
+  },
+  {
+    pattern: /^(.+) edge (.+) in a tight one$/,
+    replace: (_, winner, loser) => `${translateTextToZh(winner)} 在胶着比赛中险胜 ${translateTextToZh(loser)}`
+  },
+  {
+    pattern: /^(.+)'s (.+) win gives them an early foothold in (.+)\.$/,
+    replace: (_, winner, score, context) => `${translateTextToZh(winner)} 的 ${score} 胜利让他们在 ${translateTextToZh(context)} 中先占位置。`
+  },
+  {
+    pattern: /^(.+) and (.+) have no shared script$/,
+    replace: (_, home, away) => `${translateTextToZh(home)} 和 ${translateTextToZh(away)} 没有共同交锋剧本`
+  },
+  {
+    pattern: /^(.+) vs (.+) is basically even historically$/,
+    replace: (_, home, away) => `${translateTextToZh(home)} 对 ${translateTextToZh(away)} 的历史对比基本均衡`
+  },
+  {
+    pattern: /^(.+) have the upset-watch angle$/,
+    replace: (_, team) => `${translateTextToZh(team)} 有爆冷看点`
+  },
+  {
+    pattern: /^(.+) enter with the stronger FIFA ranking, so (.+) only need a few loud moments to become the conversation\.$/,
+    replace: (_, favorite, chaser) => `${translateTextToZh(favorite)} 的FIFA排名更高，所以 ${translateTextToZh(chaser)} 只需要几个亮眼瞬间就能成为话题。`
+  },
+  {
+    pattern: /^⚽ (.+) and (.+) shared a 0-0 draw\.$/,
+    replace: (_, home, away) => `⚽ ${translateTextToZh(home)} 和 ${translateTextToZh(away)} 0-0握手言和。`
+  },
+  {
+    pattern: /^⚽ (.+) and (.+) finished level at (.+)\.$/,
+    replace: (_, home, away, score) => `⚽ ${translateTextToZh(home)} 和 ${translateTextToZh(away)} 以 ${score} 战平。`
+  },
+  {
+    pattern: /^⚽ (.+) beat (.+) (.+)\.$/,
+    replace: (_, winner, loser, score) => `⚽ ${translateTextToZh(winner)} 以 ${score} 击败 ${translateTextToZh(loser)}。`
+  },
+  {
+    pattern: /^⚽ (.+) made a statement with a (.+) win\.$/,
+    replace: (_, winner, score) => `⚽ ${translateTextToZh(winner)} 以 ${score} 强势取胜。`
+  },
+  {
+    pattern: /^⚽ (.+) found the decisive goal in a (.+) win\.$/,
+    replace: (_, winner, score) => `⚽ ${translateTextToZh(winner)} 在 ${score} 的胜利中打入制胜球。`
+  },
+  {
+    pattern: /^🌟 The clean sheet gave (.+) no way back\.$/,
+    replace: (_, team) => `🌟 零封让${translateTextToZh(team)}无力追回。`
+  },
+  {
+    pattern: /^🌟 (.+)'s attack broke the match open\.$/,
+    replace: (_, team) => `🌟 ${translateTextToZh(team)}的进攻彻底打开局面。`
+  },
+  {
+    pattern: /^🌟 (.+) protected a one-goal edge\.$/,
+    replace: (_, team) => `🌟 ${translateTextToZh(team)}守住了一球优势。`
+  },
+  {
+    pattern: /^🌟 (.+) created enough separation to control the finish\.$/,
+    replace: (_, team) => `🌟 ${translateTextToZh(team)}拉开足够差距并掌控收官阶段。`
+  },
+  {
+    pattern: /^🌟 Both clean sheets kept the match tight\.$/,
+    replace: () => "🌟 双方零封让比赛始终紧张。"
+  },
+  {
+    pattern: /^🌟 Neither side pulled clear(?: after trading goals)?\.$/,
+    replace: () => "🌟 双方都没能真正拉开差距。"
+  },
+  {
+    pattern: /^📊 Both sides took one point from (.+)\.$/,
+    replace: (_, context) => `📊 双方都从 ${translateTextToZh(context)} 中拿到1分。`
+  },
+  {
+    pattern: /^📊 Both teams took one point from (.+)\.$/,
+    replace: (_, context) => `📊 双方都从 ${translateTextToZh(context)} 中拿到1分。`
+  },
+  {
+    pattern: /^📊 (.+) took three points from (.+)\.$/,
+    replace: (_, winner, context) => `📊 ${translateTextToZh(winner)} 从 ${translateTextToZh(context)} 中拿到3分。`
+  },
+  {
+    pattern: /^📊 (.+) took three points and (.+) GD in (.+)\.$/,
+    replace: (_, winner, gd, context) => `📊 ${translateTextToZh(winner)} 在 ${translateTextToZh(context)} 中拿到3分，并获得 ${gd} 净胜球。`
+  },
+  {
+    pattern: /^(.+) beat (.+) (\d+-\d+)\.$/,
+    replace: (_, winner, loser, score) => `${translateTextToZh(winner)} 以 ${score} 击败 ${translateTextToZh(loser)}。`
+  },
+  {
+    pattern: /^(.+) lead (.+) (\d+-\d+)\.$/,
+    replace: (_, winner, loser, score) => `${translateTextToZh(winner)} 以 ${score} 领先 ${translateTextToZh(loser)}。`
+  },
+  {
+    pattern: /^(.+) and (.+) drew (\d+-\d+)\.$/,
+    replace: (_, home, away, score) => `${translateTextToZh(home)} 和 ${translateTextToZh(away)} 以 ${score} 战平。`
+  },
+  {
+    pattern: /^(.+) and (.+) are level (\d+-\d+)\.$/,
+    replace: (_, home, away, score) => `${translateTextToZh(home)} 和 ${translateTextToZh(away)} 以 ${score} 战平。`
+  },
+  {
+    pattern: /^World Cup (\d+) - Group ([A-Z])$/,
+    replace: (_, year, groupId) => `${year}年世界杯 - ${groupId}组`
+  },
+  {
+    pattern: /^(FIFA|FOX Sports) (.+) vs (.+) final score(?: cross-check)?$/,
+    replace: (_, source, home, away) =>
+      `${source} ${translateTextToZh(home)} 对 ${translateTextToZh(away)} 最终比分`
+  },
+  {
+    pattern: /^(.+) vs (.+) final score(?: cross-check)?$/,
+    replace: (_, home, away) => `${translateTextToZh(home)} 对 ${translateTextToZh(away)} 最终比分`
+  },
+  {
+    pattern: /^(\d+) points?, (.+) goal difference, (\d+) goals? scored\.$/,
+    replace: (_, points, gd, goals) => `${points}分，净胜球${gd}，进${goals}球。`
+  },
+  {
+    pattern: /^(\d+) goals? scored; ahead on total goals scored\.$/,
+    replace: (_, goals) => `进${goals}球；总进球数占优。`
+  },
+  {
+    pattern: /^(\d+) goals? scored; behind on total goals scored\.$/,
+    replace: (_, goals) => `进${goals}球；总进球数落后。`
+  },
+  {
+    pattern: /^(.+) goal difference; ahead on goal difference\.$/,
+    replace: (_, gd) => `净胜球${gd}；净胜球占优。`
+  },
+  {
+    pattern: /^(.+) goal difference; behind on goal difference\.$/,
+    replace: (_, gd) => `净胜球${gd}；净胜球落后。`
+  },
+  {
+    pattern: /^(\d+) points?; above next team on points\.$/,
+    replace: (_, points) => `${points}分；积分高于下一队。`
+  },
+  {
+    pattern: /^(\d+) points?; behind next team on points\.$/,
+    replace: (_, points) => `${points}分；积分落后下一队。`
+  },
+  {
+    pattern: /^Path to match (\d+)$/,
+    replace: (_, matchNumber) => `通往第${matchNumber}场`
+  },
+  {
+    pattern: /^(.+) archive$/,
+    replace: (_, year) => `${year}存档`
+  },
+  {
+    pattern: /^Prediction source: (.+)$/,
+    replace: (_, help) => `预测来源：${translateTextToZh(help)}`
+  },
+  {
+    pattern: /^Final pending; verified score is not loaded yet$/,
+    replace: () => "最终比分待确认；已核验比分尚未载入"
+  }
+];
+
 const matchList = document.querySelector("#match-list");
 const matchInfo = document.querySelector("#match-info");
 const timezoneSelect = document.querySelector("#timezone-select");
@@ -35,6 +754,12 @@ const standingsModeTabsShell = document.querySelector("#standings-mode-tabs");
 const standingsSummary = document.querySelector("#standings-summary");
 const standingsGrid = document.querySelector("#standings-grid");
 const sourceNote = document.querySelector("#source-note");
+const brandHomeLink = document.querySelector(".site-brand");
+const brandLabel = document.querySelector(".site-brand span");
+const languageSwitch = document.querySelector("#language-switch");
+const languageButtons = document.querySelectorAll(".language-option");
+const standingsHeadingText = document.querySelector("#standings-heading span");
+const calendarWeekdayLabels = document.querySelectorAll(".calendar-weekdays span");
 const viewTabs = document.querySelectorAll(".view-tab");
 const viewPanels = {
   matches: document.querySelector("#matches-view"),
@@ -82,10 +807,15 @@ const CURRENT_STANDINGS_SUMMARY =
 const THIRD_PLACE_STANDINGS_SUMMARY =
   "Current third-place teams across every group. Top eight advance; unresolved ties are flagged when fair-play data is not loaded.";
 const TOURNAMENT_STANDINGS_SUMMARY =
-  "Current knockout bracket paths. Finished knockout winners automatically fill the next round.";
+  "Current knockout path with likely winners filled for now. Finished results replace estimates.";
 const HISTORICAL_STANDINGS_SUMMARY =
   "Final group tables computed from archived match results.";
 const TOURNAMENT_PROGRESS_ROUNDS = [
+  {
+    id: "round-of-32",
+    label: "Round of 32",
+    matchNumbers: [74, 77, 73, 75, 83, 84, 81, 82, 76, 78, 79, 80, 86, 88, 85, 87]
+  },
   { id: "round-of-16", label: "Round of 16", matchNumbers: [89, 90, 91, 92, 93, 94, 95, 96] },
   { id: "quarter-finals", label: "Quarter-finals", matchNumbers: [97, 98, 99, 100] },
   { id: "semi-finals", label: "Semi-finals", matchNumbers: [101, 102] },
@@ -239,6 +969,46 @@ const venueLocations = {
   "Vancouver Stadium": "Vancouver, British Columbia, Canada"
 };
 
+const zhVenueNames = {
+  "Atlanta Stadium": "亚特兰大体育场",
+  "Boston Stadium": "波士顿体育场",
+  "Dallas Stadium": "达拉斯体育场",
+  "Estadio Guadalajara": "瓜达拉哈拉体育场",
+  "Estadio Monterrey": "蒙特雷体育场",
+  "Houston Stadium": "休斯敦体育场",
+  "Kansas City Stadium": "堪萨斯城体育场",
+  "Los Angeles Stadium": "洛杉矶体育场",
+  "Mexico City Stadium": "墨西哥城体育场",
+  "Miami Stadium": "迈阿密体育场",
+  "New York New Jersey Stadium": "纽约新泽西体育场",
+  "Philadelphia Stadium": "费城体育场",
+  "San Francisco Bay Area Stadium": "旧金山湾区体育场",
+  "Seattle Stadium": "西雅图体育场",
+  "Toronto Stadium": "多伦多体育场",
+  "BC Place Vancouver": "温哥华BC Place",
+  "Vancouver Stadium": "温哥华体育场"
+};
+
+const zhVenueLocations = {
+  "Atlanta Stadium": "美国乔治亚州亚特兰大",
+  "Boston Stadium": "美国马萨诸塞州福克斯伯勒",
+  "Dallas Stadium": "美国德克萨斯州阿灵顿",
+  "Estadio Guadalajara": "墨西哥哈利斯科州瓜达拉哈拉",
+  "Estadio Monterrey": "墨西哥新莱昂州蒙特雷",
+  "Houston Stadium": "美国德克萨斯州休斯敦",
+  "Kansas City Stadium": "美国密苏里州堪萨斯城",
+  "Los Angeles Stadium": "美国加利福尼亚州英格尔伍德",
+  "Mexico City Stadium": "墨西哥墨西哥城",
+  "Miami Stadium": "美国佛罗里达州迈阿密加登斯",
+  "New York New Jersey Stadium": "美国新泽西州东卢瑟福",
+  "Philadelphia Stadium": "美国宾夕法尼亚州费城",
+  "San Francisco Bay Area Stadium": "美国加利福尼亚州圣克拉拉",
+  "Seattle Stadium": "美国华盛顿州西雅图",
+  "Toronto Stadium": "加拿大安大略省多伦多",
+  "BC Place Vancouver": "加拿大不列颠哥伦比亚省温哥华",
+  "Vancouver Stadium": "加拿大不列颠哥伦比亚省温哥华"
+};
+
 if (!timeZones.includes(defaultTimeZone)) {
   timeZones.unshift(defaultTimeZone);
 }
@@ -270,8 +1040,55 @@ let dataCoverage = { status: "partial" };
 let siteUpdatedAt = "";
 let liveDataCheckedAt = "";
 let syncUrl = true;
+let isInitialLiveDataLoading = false;
 
-const dateFormatter = new Intl.DateTimeFormat(undefined, {
+function normalizeLanguage(value) {
+  const language = String(value || "").trim().toLowerCase();
+  if (SUPPORTED_LANGUAGES.has(language)) {
+    return language;
+  }
+
+  if (language.startsWith("zh")) {
+    return "zh";
+  }
+
+  return "";
+}
+
+function getInitialLanguage() {
+  const params = new URLSearchParams(window.location.search);
+  const requestedLanguage = normalizeLanguage(params.get("lang"));
+  if (requestedLanguage) {
+    return requestedLanguage;
+  }
+
+  const savedLanguage = normalizeLanguage(localStorage.getItem(LANGUAGE_STORAGE_KEY));
+  if (savedLanguage) {
+    return savedLanguage;
+  }
+
+  return DEFAULT_LANGUAGE;
+}
+
+let currentLanguage = getInitialLanguage();
+
+function getAppLocale() {
+  return LANGUAGE_LOCALES[currentLanguage] || LANGUAGE_LOCALES.en;
+}
+
+function createDateFormatter(options) {
+  return new Intl.DateTimeFormat(getAppLocale(), options);
+}
+
+function createFormatterProxy(options) {
+  return {
+    format(date) {
+      return createDateFormatter(options).format(date);
+    }
+  };
+}
+
+const dateFormatter = createFormatterProxy({
   weekday: "long",
   month: "long",
   day: "numeric",
@@ -279,26 +1096,26 @@ const dateFormatter = new Intl.DateTimeFormat(undefined, {
   timeZone: "UTC"
 });
 
-const navDateFormatter = new Intl.DateTimeFormat("en-US", {
+const navDateFormatter = createFormatterProxy({
   month: "short",
   day: "numeric",
   timeZone: "UTC"
 });
 
-const navDateWithYearFormatter = new Intl.DateTimeFormat("en-US", {
+const navDateWithYearFormatter = createFormatterProxy({
   month: "short",
   day: "numeric",
   timeZone: "UTC",
   year: "numeric"
 });
 
-const calendarMonthFormatter = new Intl.DateTimeFormat("en-US", {
+const calendarMonthFormatter = createFormatterProxy({
   month: "long",
   timeZone: "UTC",
   year: "numeric"
 });
 
-const calendarDayLabelFormatter = new Intl.DateTimeFormat("en-US", {
+const calendarDayLabelFormatter = createFormatterProxy({
   day: "numeric",
   month: "long",
   timeZone: "UTC",
@@ -306,7 +1123,7 @@ const calendarDayLabelFormatter = new Intl.DateTimeFormat("en-US", {
   year: "numeric"
 });
 
-const catchUpItemLeadDateFormatter = new Intl.DateTimeFormat("en-US", {
+const catchUpItemLeadDateFormatter = createFormatterProxy({
   day: "numeric",
   month: "long",
   timeZone: "UTC"
@@ -323,6 +1140,168 @@ function escapeHtml(value) {
     };
     return replacements[char];
   });
+}
+
+function t(key) {
+  return UI_TEXT[currentLanguage]?.[key] ?? UI_TEXT.en[key] ?? key;
+}
+
+function translateTextToZh(value) {
+  const text = String(value ?? "");
+  const leadingWhitespace = text.match(/^\s*/)?.[0] || "";
+  const trailingWhitespace = text.match(/\s*$/)?.[0] || "";
+  const compactText = text.trim().replace(/\s+/g, " ");
+
+  if (!compactText) {
+    return text;
+  }
+
+  const exactTranslation = ZH_EXACT_TRANSLATIONS.get(compactText);
+  if (exactTranslation) {
+    return `${leadingWhitespace}${exactTranslation}${trailingWhitespace}`;
+  }
+
+  for (const { pattern, replace } of ZH_PATTERN_TRANSLATIONS) {
+    if (pattern.test(compactText)) {
+      pattern.lastIndex = 0;
+      return `${leadingWhitespace}${compactText.replace(pattern, replace)}${trailingWhitespace}`;
+    }
+  }
+
+  return text;
+}
+
+function localizeText(value) {
+  return currentLanguage === "zh" ? translateTextToZh(value) : String(value ?? "");
+}
+
+function getLocalizedTeamName(teamOrName) {
+  const name = typeof teamOrName === "string" ? teamOrName : teamOrName?.name || "";
+  return localizeText(name);
+}
+
+function getLocalizedStandingName(team) {
+  return localizeText(team ? getStandingName(team) : "");
+}
+
+function renderStaticText() {
+  document.documentElement.lang = currentLanguage === "zh" ? "zh-Hans" : "en";
+  document.title = t("appName");
+  brandHomeLink?.setAttribute("aria-label", t("appHomeLabel"));
+  if (brandLabel) {
+    brandLabel.textContent = t("appName");
+  }
+
+  languageSwitch?.setAttribute("aria-label", t("language"));
+  languageButtons.forEach((button) => {
+    const language = normalizeLanguage(button.dataset.language);
+    const isSelected = language === currentLanguage;
+    button.classList.toggle("is-active", isSelected);
+    button.setAttribute("aria-pressed", String(isSelected));
+    button.setAttribute(
+      "aria-label",
+      language === "zh" ? t("languageChinese") : t("languageEnglish")
+    );
+  });
+
+  const matchesTab = document.querySelector("#matches-tab");
+  const standingsTab = document.querySelector("#standings-tab");
+  if (matchesTab) {
+    matchesTab.textContent = t("matches");
+  }
+  if (standingsTab) {
+    standingsTab.textContent = t("standings");
+  }
+
+  document.querySelector(".view-tabs")?.setAttribute("aria-label", t("worldCupViews"));
+  catchUpButton.textContent = t("catchUp");
+  catchUpPopover?.setAttribute("aria-label", t("catchUpDialog"));
+  document.querySelector(".timezone-control .visually-hidden").textContent = t("timeZone");
+  document.querySelector(".team-search-toggle")?.setAttribute("aria-label", t("countrySearch"));
+  document.querySelector("label[for='team-search-input']").textContent = t("countrySearch");
+  teamSearchInput?.setAttribute("placeholder", t("searchCountryPlaceholder"));
+  teamSearchClear?.setAttribute("aria-label", t("clearCountrySearch"));
+  datePopover?.setAttribute("aria-label", t("chooseMatchDate"));
+  calendarPrevMonth?.setAttribute("aria-label", t("calendarPreviousMonth"));
+  calendarNextMonth?.setAttribute("aria-label", t("calendarNextMonth"));
+  calendarYesterdayButton.textContent = t("calendarYesterday");
+  calendarTodayButton.textContent = t("calendarToday");
+  calendarWeekdayLabels.forEach((label, index) => {
+    label.textContent = t("calendarWeekdays")[index] || label.textContent;
+  });
+  viewPanels.matches?.querySelector(".match-layout")?.setAttribute("aria-label", t("matchesHeading"));
+  matchList?.setAttribute("aria-label", t("matchesList"));
+  standingsHeadingText.textContent = t("standings");
+  standingsYearPopover?.setAttribute("aria-label", t("chooseStandingsYear"));
+  standingsModeTabsShell?.setAttribute("aria-label", t("standingsSections"));
+  document.querySelector("#standings-groups-tab").textContent = t("groups");
+  document.querySelector("#standings-third-place-tab").textContent = t("thirdPlaceRace");
+  document.querySelector("#standings-tournament-tab").textContent = t("tournament");
+}
+
+function shouldLocalizeTextNode(node) {
+  const parent = node.parentElement;
+  return Boolean(
+    parent &&
+      node.nodeValue.trim() &&
+      !parent.closest("script, style, svg, input, textarea, select")
+  );
+}
+
+function localizeRenderedText(root = document.body) {
+  if (currentLanguage !== "zh" || !root) {
+    return;
+  }
+
+  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+    acceptNode(node) {
+      return shouldLocalizeTextNode(node)
+        ? NodeFilter.FILTER_ACCEPT
+        : NodeFilter.FILTER_REJECT;
+    }
+  });
+  const textNodes = [];
+  let node = walker.nextNode();
+
+  while (node) {
+    textNodes.push(node);
+    node = walker.nextNode();
+  }
+
+  textNodes.forEach((textNode) => {
+    const nextText = translateTextToZh(textNode.nodeValue);
+    if (nextText !== textNode.nodeValue) {
+      textNode.nodeValue = nextText;
+    }
+  });
+
+  root
+    .querySelectorAll("[aria-label], [title], [placeholder], [data-tooltip]")
+    .forEach((element) => {
+      for (const attribute of ["aria-label", "title", "placeholder", "data-tooltip"]) {
+        if (!element.hasAttribute(attribute)) {
+          continue;
+        }
+
+        const value = element.getAttribute(attribute);
+        const nextValue = translateTextToZh(value);
+        if (nextValue !== value) {
+          element.setAttribute(attribute, nextValue);
+        }
+      }
+    });
+}
+
+let isApplyingLanguage = false;
+
+function applyLanguageToPage() {
+  isApplyingLanguage = true;
+  try {
+    renderStaticText();
+    localizeRenderedText(document.body);
+  } finally {
+    isApplyingLanguage = false;
+  }
 }
 
 function normalizeTextKey(value) {
@@ -483,7 +1462,7 @@ function isReloadNavigation() {
 }
 
 function getTimeFormatter() {
-  return new Intl.DateTimeFormat(undefined, {
+  return new Intl.DateTimeFormat(getAppLocale(), {
     hour: "numeric",
     hour12: true,
     minute: "2-digit",
@@ -512,7 +1491,7 @@ function formatSiteUpdatedAt(value) {
     return "";
   }
 
-  return new Intl.DateTimeFormat("en-US", {
+  return new Intl.DateTimeFormat(getAppLocale(), {
     day: "numeric",
     hour: "numeric",
     minute: "2-digit",
@@ -739,7 +1718,7 @@ function getSelectedDateLabel() {
   const currentYear = todayKey.slice(0, 4);
 
   if (selectedDayKey === todayKey) {
-    return "Today";
+    return t("calendarToday");
   }
 
   if (selectedYear !== currentYear) {
@@ -755,7 +1734,7 @@ function updateDateControls() {
 
   dayLabel.textContent = getSelectedDateLabel();
   dayLabel.classList.toggle("is-today", isToday);
-  dayLabel.setAttribute("aria-label", `Choose match date, ${selectedDateLabel}`);
+  dayLabel.setAttribute("aria-label", localizeText(`Choose match date, ${selectedDateLabel}`));
   dayLabel.setAttribute("aria-expanded", String(isCalendarOpen));
   renderCalendar();
 }
@@ -788,14 +1767,18 @@ function renderCalendar() {
   calendarPrevMonth.setAttribute(
     "aria-label",
     previousMonthKey
-      ? `Previous World Cup month, ${calendarMonthFormatter.format(getDateFromMonthKey(previousMonthKey))}`
-      : "No previous World Cup month"
+      ? localizeText(
+          `Previous World Cup month, ${calendarMonthFormatter.format(getDateFromMonthKey(previousMonthKey))}`
+        )
+      : localizeText("No previous World Cup month")
   );
   calendarNextMonth.setAttribute(
     "aria-label",
     nextMonthKey
-      ? `Next World Cup month, ${calendarMonthFormatter.format(getDateFromMonthKey(nextMonthKey))}`
-      : "No next World Cup month"
+      ? localizeText(
+          `Next World Cup month, ${calendarMonthFormatter.format(getDateFromMonthKey(nextMonthKey))}`
+        )
+      : localizeText("No next World Cup month")
   );
   calendarYesterdayButton.disabled = getMatchCountForDay(yesterdayKey) === 0;
   calendarTodayButton.disabled = getMatchCountForDay(todayKey) === 0;
@@ -811,15 +1794,15 @@ function renderCalendar() {
       const labelParts = [calendarDayLabelFormatter.format(dayDate)];
 
       if (isToday) {
-        labelParts.push("today");
+        labelParts.push(localizeText("today"));
       }
       if (isSelected) {
-        labelParts.push("selected");
+        labelParts.push(localizeText("selected"));
       }
       if (matchCount) {
-        labelParts.push(`${matchCount} match${matchCount === 1 ? "" : "es"} scheduled`);
+        labelParts.push(localizeText(`${matchCount} match${matchCount === 1 ? "" : "es"} scheduled`));
       } else {
-        labelParts.push("no World Cup matches scheduled");
+        labelParts.push(localizeText("no World Cup matches scheduled"));
       }
 
       button.type = "button";
@@ -954,7 +1937,10 @@ function renderFlag(team) {
 
   const className = ["flag", team.flagClass].filter(Boolean).join(" ");
   const content = team.flagClass ? "" : escapeHtml(team.flag);
-  return `<span class="${escapeHtml(className)}" role="img" aria-label="${escapeHtml(team.name)} flag">${content}</span>`;
+  const teamName = getLocalizedTeamName(team);
+  const label =
+    currentLanguage === "zh" ? `${teamName} 旗帜` : `${teamName} flag`;
+  return `<span class="${escapeHtml(className)}" role="img" aria-label="${escapeHtml(label)}">${content}</span>`;
 }
 
 function renderRank(team) {
@@ -962,7 +1948,12 @@ function renderRank(team) {
     return "";
   }
 
-  return `<span class="rank-pill" aria-label="${escapeHtml(team.name)} FIFA world ranking ${escapeHtml(team.fifaRank)}">#${escapeHtml(team.fifaRank)}</span>`;
+  const teamName = getLocalizedTeamName(team);
+  const label =
+    currentLanguage === "zh"
+      ? `${teamName} FIFA世界排名 ${team.fifaRank}`
+      : `${teamName} FIFA world ranking ${team.fifaRank}`;
+  return `<span class="rank-pill" aria-label="${escapeHtml(label)}">#${escapeHtml(team.fifaRank)}</span>`;
 }
 
 function getStandingName(team) {
@@ -970,7 +1961,7 @@ function getStandingName(team) {
 }
 
 function renderMeasuredLabel(label, className) {
-  const labelText = String(label || "");
+  const labelText = localizeText(label);
   const escapedLabel = escapeHtml(labelText);
 
   return `<span class="${escapeHtml(className)}" aria-label="${escapedLabel}" title="${escapedLabel}">${escapedLabel}</span>`;
@@ -978,7 +1969,7 @@ function renderMeasuredLabel(label, className) {
 
 function renderTeamInline(team, className = "team", options = {}) {
   const { showRank = true } = options;
-  const teamName = team.name || "";
+  const teamName = getLocalizedTeamName(team);
   const escapedTeamName = escapeHtml(teamName);
   const tooltipAttributes = teamName
     ? ` aria-label="${escapedTeamName}" data-tooltip="${escapedTeamName}"`
@@ -1089,6 +2080,12 @@ function updateMeasuredLabelTooltips(root = document) {
 }
 
 function getVenueLabel(match) {
+  if (currentLanguage === "zh") {
+    const venue = zhVenueNames[match.venue] || localizeText(match.venue);
+    const location = zhVenueLocations[match.venue] || localizeText(venueLocations[match.venue] || "");
+    return location ? `${venue} \u2022 ${location}` : venue;
+  }
+
   const location = venueLocations[match.venue];
   return location ? `${match.venue} \u2022 ${location}` : match.venue;
 }
@@ -1137,8 +2134,10 @@ function renderPastScoreline(result, leadingTeamId = "") {
   const scoreNote = result.scoreNote ? ` ${result.scoreNote}` : "";
   const winnerSide = getScoreWinnerSide(leftScore, rightScore);
 
+  const ariaLabel = `${getLocalizedTeamName(leftTeam)} ${scoreText} ${getLocalizedTeamName(rightTeam)}${scoreNote}`;
+
   return `
-    <div class="past-scoreline" aria-label="${escapeHtml(leftTeam.name)} ${escapeHtml(scoreText)} ${escapeHtml(rightTeam.name)}${escapeHtml(scoreNote)}">
+    <div class="past-scoreline" aria-label="${escapeHtml(ariaLabel)}">
       ${renderTeamInline(leftTeam, getTeamClass("past-team", winnerSide, "home", { markLoser: true }), { showRank: false })}
       <strong class="past-score">
         ${escapeHtml(scoreText)}
@@ -1236,7 +2235,7 @@ function getScorePendingText(match, state, currentTime) {
     return "";
   }
 
-  return "Final pending";
+  return localizeText("Final pending");
 }
 
 function getDisplayScore(match, state) {
@@ -1271,16 +2270,16 @@ function formatRelativeScoreFreshness(timestamp, now = Date.now()) {
 
   const elapsedSeconds = Math.max(0, Math.round((now - time) / 1000));
   if (elapsedSeconds < 45) {
-    return "now";
+    return localizeText("now");
   }
 
   const elapsedMinutes = Math.round(elapsedSeconds / 60);
   if (elapsedMinutes < 60) {
-    return `${elapsedMinutes} min ago`;
+    return localizeText(`${elapsedMinutes} min ago`);
   }
 
   const elapsedHours = Math.round(elapsedMinutes / 60);
-  return `${elapsedHours} hr ago`;
+  return localizeText(`${elapsedHours} hr ago`);
 }
 
 function getSearchScoreOutcome(score, searchedSide) {
@@ -1302,8 +2301,8 @@ function renderScore(match, state, options = {}) {
     return "";
   }
 
-  const home = match.homeTeam.name;
-  const away = match.awayTeam.name;
+  const home = getLocalizedTeamName(match.homeTeam);
+  const away = getLocalizedTeamName(match.awayTeam);
   const scoreText = `${score.home}-${score.away}`;
   const isLiveScore = match.status === "LIVE" || state === "live";
   const freshness = isLiveScore
@@ -1311,11 +2310,15 @@ function renderScore(match, state, options = {}) {
     : "";
   const visibleScoreText = freshness ? `${scoreText} · ${freshness}` : scoreText;
   const label =
-    isLiveScore ? "Current score" : "Final score";
+    isLiveScore ? localizeText("Current score") : localizeText("Final score");
   const ariaLabel = score.isFallback
-    ? `Current score not loaded yet; showing ${scoreText}`
+    ? localizeText(`Current score not loaded yet; showing ${scoreText}`)
     : `${label} ${home} ${score.home}, ${away} ${score.away}${
-        freshness ? `, last checked ${freshness}` : ""
+        freshness
+          ? currentLanguage === "zh"
+            ? `，最后检查 ${freshness}`
+            : `, last checked ${freshness}`
+          : ""
       }`;
   const outcome = getSearchScoreOutcome(score, options.searchedSide);
   const className = [
@@ -1331,13 +2334,20 @@ function renderScore(match, state, options = {}) {
 
 function renderScoreStatus(match, state, currentTime) {
   const pendingText = getScorePendingText(match, state, currentTime);
+  const ariaLabel =
+    currentLanguage === "zh"
+      ? `${pendingText}；已核验比分尚未载入`
+      : `${pendingText}; verified score is not loaded yet`;
   return pendingText
-    ? `<span class="score-status is-pending" aria-label="${escapeHtml(`${pendingText}; verified score is not loaded yet`)}">${escapeHtml(pendingText)}</span>`
+    ? `<span class="score-status is-pending" aria-label="${escapeHtml(ariaLabel)}">${escapeHtml(pendingText)}</span>`
     : "";
 }
 
 function renderLivePill() {
-  return `<a class="live-pill" href="${escapeHtml(FIFA_WORLD_CUP_SCORES_URL)}" target="_blank" rel="noreferrer" title="${escapeHtml(FIFA_LIVE_TOOLTIP)}" aria-label="Live: ${escapeHtml(FIFA_LIVE_TOOLTIP)}" data-tooltip="${escapeHtml(FIFA_LIVE_TOOLTIP)}">Live</a>`;
+  const tooltip = localizeText(FIFA_LIVE_TOOLTIP);
+  const ariaLabel =
+    currentLanguage === "zh" ? `直播：${tooltip}` : `Live: ${FIFA_LIVE_TOOLTIP}`;
+  return `<a class="live-pill" href="${escapeHtml(FIFA_WORLD_CUP_SCORES_URL)}" target="_blank" rel="noreferrer" title="${escapeHtml(tooltip)}" aria-label="${escapeHtml(ariaLabel)}" data-tooltip="${escapeHtml(tooltip)}">${escapeHtml(localizeText("Live"))}</a>`;
 }
 
 function getMatchDateTimeValue(match) {
@@ -1354,15 +2364,15 @@ function getMatchTimeLabel(match) {
   }
 
   if (match.status === "CANCELLED") {
-    return "Canceled";
+    return localizeText("Canceled");
   }
 
-  return match.status === "FT" ? "FT" : "Final";
+  return match.status === "FT" ? localizeText("FT") : localizeText("Final");
 }
 
 function getMatchTimeAriaLabel(match) {
   if (match.status === "FT" && !match.kickoffUtc && !match.localTime) {
-    return "Full time";
+    return localizeText("Full time");
   }
 
   return getMatchTimeLabel(match);
@@ -1370,30 +2380,31 @@ function getMatchTimeAriaLabel(match) {
 
 function renderMatchRow(match, state, currentTime = Date.now(), options = {}) {
   const row = document.createElement("div");
-  const homeName = match.homeTeam.name;
-  const awayName = match.awayTeam.name;
+  const homeName = getLocalizedTeamName(match.homeTeam);
+  const awayName = getLocalizedTeamName(match.awayTeam);
+  const versusText = localizeText("vs");
   const winnerSide = getScoreWinnerSide(match.score?.home, match.score?.away);
   const isLiveState = match.status === "LIVE" || state === "live";
-  const scoreLabel = isLiveState ? "current score" : "final score";
+  const scoreLabel = isLiveState ? localizeText("current score") : localizeText("final score");
   const pendingScoreText = getScorePendingText(match, state, currentTime);
   const displayScore = getDisplayScore(match, state);
   const stateLabel =
-    state === "live" ? "Live, " : state === "next" ? "Up next, " : "";
-  const statusLabel = match.status === "CANCELLED" ? ", cancelled" : "";
+    state === "live" ? `${localizeText("Live")}, ` : state === "next" ? `${localizeText("Up next")}, ` : "";
+  const statusLabel = match.status === "CANCELLED" ? `, ${localizeText("cancelled")}` : "";
   const scoreStatus = renderScoreStatus(match, state, currentTime);
   const stateBadge =
     state === "live"
       ? renderLivePill()
       : state === "next"
-        ? `<span class="up-next-pill">Up next</span>`
+        ? `<span class="up-next-pill">${escapeHtml(localizeText("Up next"))}</span>`
         : "";
   const score = renderScore(match, state, options);
   const rowMeta = `${scoreStatus}${stateBadge}${score}`;
-  const rowLabel = `${stateLabel}${homeName} vs ${awayName}${statusLabel}${
+  const rowLabel = `${stateLabel}${homeName} ${versusText} ${awayName}${statusLabel}${
     match.score
       ? `, ${scoreLabel} ${match.score.home}-${match.score.away}`
       : displayScore
-        ? `, score ${displayScore.home}-${displayScore.away}`
+        ? `, ${localizeText("current score")} ${displayScore.home}-${displayScore.away}`
         : pendingScoreText
           ? `, ${pendingScoreText.toLowerCase()}`
           : ""
@@ -1411,7 +2422,7 @@ function renderMatchRow(match, state, currentTime = Date.now(), options = {}) {
       </time>
       <span class="match-teams">
         ${renderTeamInline(match.homeTeam, getTeamClass("team", winnerSide, "home"))}
-        <span class="versus">vs</span>
+        <span class="versus">${escapeHtml(versusText)}</span>
         ${renderTeamInline(match.awayTeam, getTeamClass("team", winnerSide, "away"))}
       </span>
     </button>
@@ -1670,14 +2681,16 @@ const STANDING_HEADERS = [
 ];
 
 function renderStandingHeaderCell(header) {
+  const label = localizeText(header.label);
   if (!header.help) {
-    return `<th>${escapeHtml(header.label)}</th>`;
+    return `<th>${escapeHtml(label)}</th>`;
   }
 
+  const help = localizeText(header.help);
   return `
     <th>
-      <span class="standing-help" tabindex="0" aria-label="${escapeHtml(`${header.label}: ${header.help}`)}" data-tooltip="${escapeHtml(header.help)}">
-        ${escapeHtml(header.label)}
+      <span class="standing-help" tabindex="0" aria-label="${escapeHtml(`${label}: ${help}`)}" data-tooltip="${escapeHtml(help)}">
+        ${escapeHtml(label)}
       </span>
     </th>
   `;
@@ -1736,8 +2749,8 @@ function getStandingsRows(groupId) {
 
 function renderStandingTeam(team, options = {}) {
   const { showRank = true, trailingHtml = "" } = options;
-  const standingName = getStandingName(team);
-  const fullName = team.name || standingName;
+  const standingName = getLocalizedStandingName(team);
+  const fullName = getLocalizedTeamName(team) || standingName;
   const teamClasses = "standing-team";
   const tooltipAttributes = fullName ? ` data-tooltip="${escapeHtml(fullName)}"` : "";
 
@@ -1754,11 +2767,11 @@ function renderStandingTeam(team, options = {}) {
 function renderThirdPlaceStandingBadge(candidate) {
   const status = candidate.status || getThirdPlaceStatus(candidate, getThirdPlaceAdvancerCount());
   const rankLabel = formatOrdinal(candidate.position);
-  const label = `${candidate.team.name} is ${rankLabel} in the best third-place race: ${status.label}`;
+  const label = `${getLocalizedTeamName(candidate.team)} ${localizeText("ranking")} ${localizeText(rankLabel)}：${localizeText(status.label)}`;
 
   return `
     <span class="third-place-pill is-${escapeHtml(status.kind)}" aria-label="${escapeHtml(label)}">
-      3rd race ${escapeHtml(rankLabel)}
+      ${escapeHtml(localizeText(`3rd race ${rankLabel}`))}
     </span>
   `;
 }
@@ -1870,12 +2883,13 @@ function getHistoricalGroupStandingsForYear(year, groupName) {
 
 function renderHistoricalStandingTeam(teamName) {
   const team = getHistoricalTeam(teamName);
-  const fullName = team?.name || teamName;
+  const localizedTeamName = localizeText(teamName);
+  const fullName = getLocalizedTeamName(team) || localizedTeamName;
 
   return `
     <span class="standing-team" aria-label="${escapeHtml(fullName)}" data-tooltip="${escapeHtml(fullName)}">
       ${team ? renderFlag(team) : ""}
-      <span class="standing-name" aria-label="${escapeHtml(fullName)}" title="${escapeHtml(fullName)}">${escapeHtml(teamName)}</span>
+      <span class="standing-name" aria-label="${escapeHtml(fullName)}" title="${escapeHtml(fullName)}">${escapeHtml(localizedTeamName)}</span>
     </span>
   `;
 }
@@ -1912,13 +2926,14 @@ function renderHistoricalStandingsTable(year, groupName) {
 }
 
 function renderThirdPlaceStatus(candidate) {
-  const reason = getThirdPlaceReason(candidate);
-  const tooltipLabel = `${candidate.status.label}: ${reason}`;
+  const reason = localizeText(getThirdPlaceReason(candidate));
+  const statusLabel = localizeText(candidate.status.label);
+  const tooltipLabel = `${statusLabel}：${reason}`;
 
   return `
     <span class="third-place-status-cell">
       <span class="third-place-status is-${escapeHtml(candidate.status.kind)}" tabindex="0" aria-label="${escapeHtml(tooltipLabel)}" data-tooltip="${escapeHtml(reason)}">
-        ${escapeHtml(candidate.status.label)}
+        ${escapeHtml(statusLabel)}
       </span>
     </span>
   `;
@@ -1974,8 +2989,8 @@ function renderThirdPlaceRaceRow(candidate) {
       <td class="third-place-rank-cell">${escapeHtml(formatOrdinal(candidate.position))}</td>
       <td>${renderStandingTeam(candidate.team)}</td>
       <td>
-        <button class="third-place-group-button" type="button" data-group-id="${escapeHtml(candidate.groupId)}" aria-label="Open ${escapeHtml(candidate.groupLabel)} standings">
-          ${escapeHtml(candidate.groupLabel)}
+        <button class="third-place-group-button" type="button" data-group-id="${escapeHtml(candidate.groupId)}" aria-label="${escapeHtml(localizeText(`Open ${candidate.groupLabel} standings`))}">
+          ${escapeHtml(localizeText(candidate.groupLabel))}
         </button>
       </td>
       <td>${escapeHtml(candidate.pts)}</td>
@@ -1990,7 +3005,7 @@ function renderThirdPlaceCutLine(advancerCount) {
   return `
     <tr class="third-place-cut-row" aria-hidden="true">
       <td colspan="7">
-        <span>Top ${escapeHtml(advancerCount)} advance</span>
+        <span>${escapeHtml(localizeText(`Top ${advancerCount} advance`))}</span>
       </td>
     </tr>
   `;
@@ -2009,13 +3024,13 @@ function renderThirdPlaceRaceTable(rows, advancerCount) {
       <table class="standings-table third-place-table">
         <thead>
           <tr>
-            <th>Rank</th>
-            <th>Team</th>
-            <th>Group</th>
-            <th>Pts</th>
-            <th>GD</th>
-            <th>Goals</th>
-            <th>Status</th>
+            <th>${escapeHtml(localizeText("Rank"))}</th>
+            <th>${escapeHtml(localizeText("Team"))}</th>
+            <th>${escapeHtml(localizeText("Group"))}</th>
+            <th>${escapeHtml(localizeText("Pts"))}</th>
+            <th>${escapeHtml(localizeText("GD"))}</th>
+            <th>${escapeHtml(localizeText("Goals"))}</th>
+            <th>${escapeHtml(localizeText("Status"))}</th>
           </tr>
         </thead>
         <tbody>${tableRows}</tbody>
@@ -2033,7 +3048,7 @@ function renderThirdPlaceRaceView() {
     : "Tie order follows points, goal difference, goals scored, loaded fair-play conduct when available, then FIFA ranking as the final deterministic fallback.";
 
   return `
-    <section class="third-place-race" aria-label="Best third-place race">
+    <section class="third-place-race" aria-label="${escapeHtml(localizeText("Best third-place race"))}">
       ${renderThirdPlaceRaceTable(rows, advancerCount)}
       <p class="third-place-note">${escapeHtml(note)}</p>
     </section>
@@ -2051,7 +3066,23 @@ function getTournamentFixtureByMatchNumber(matchNumber) {
 }
 
 function getTournamentStageLabel(stageId) {
-  return tournament.stages.find((stage) => stage.id === stageId)?.label || stageId;
+  return localizeStageLabel(tournament.stages.find((stage) => stage.id === stageId)?.label || stageId);
+}
+
+function localizeStageLabel(label) {
+  if (currentLanguage !== "zh") {
+    return label;
+  }
+
+  return (
+    {
+      Final: "决赛",
+      "Quarter-finals": "四分之一决赛",
+      "Round of 16": "16强赛",
+      "Round of 32": "32强赛",
+      "Semi-finals": "半决赛"
+    }[label] || localizeText(label)
+  );
 }
 
 function getTournamentTeamCode(team) {
@@ -2067,6 +3098,14 @@ function getTournamentSlotKey(match, side) {
   return `${Number(match?.matchNumber)}:${side}`;
 }
 
+function formatTournamentTopSlotLabel(groupId, place) {
+  return `Group ${groupId} Top ${place}`;
+}
+
+function formatTournamentThirdPlaceSlotLabel(groupIds = []) {
+  return `Group ${groupIds.join("/") || "?"} Top 3`;
+}
+
 function parseTournamentGroupPlaceSlot(slotText) {
   const match = /^Group ([A-L]) (winner|runner-up)$/i.exec(slotText || "");
 
@@ -2080,7 +3119,7 @@ function parseTournamentGroupPlaceSlot(slotText) {
   return {
     groupId,
     kind: "group-place",
-    label: `${place}${groupId}`,
+    label: formatTournamentTopSlotLabel(groupId, place),
     place,
     slotText
   };
@@ -2096,7 +3135,7 @@ function parseTournamentThirdPlaceSlot(slotText) {
   return {
     allowedGroupIds: match[1].split("/").map((groupId) => groupId.toUpperCase()),
     kind: "third-place",
-    label: "3rd",
+    label: formatTournamentThirdPlaceSlotLabel(match[1].split("/").map((groupId) => groupId.toUpperCase())),
     slotText
   };
 }
@@ -2162,12 +3201,12 @@ function getCurrentTournamentSlotTeam(slot, currentThirdPlaceAssignment) {
 
 function getTournamentSlotSeedLabel(slot, currentThirdPlaceAssignment) {
   if (slot.kind === "group-place") {
-    return slot.label;
+    return formatTournamentTopSlotLabel(slot.groupId, slot.place);
   }
 
   if (slot.kind === "third-place") {
     const groupId = currentThirdPlaceAssignment?.[slot.key];
-    return groupId ? `3${groupId}` : "3rd";
+    return groupId ? formatTournamentTopSlotLabel(groupId, 3) : formatTournamentThirdPlaceSlotLabel(slot.allowedGroupIds);
   }
 
   return slot.label || "TBD";
@@ -2202,6 +3241,7 @@ function getTournamentMatchDateLabel(match) {
 function createTournamentProgressionContext() {
   return {
     currentThirdPlaceAssignment: getCurrentThirdPlaceAssignment(),
+    likelyWinnersCache: new Map(),
     participantsCache: new Map(),
     winnersCache: new Map()
   };
@@ -2210,11 +3250,127 @@ function createTournamentProgressionContext() {
 function getTournamentPendingParticipant(label, slotText = label, sourceMatchNumber = null) {
   return {
     label,
+    likelihoodPercent: null,
+    likelihoodReason: "",
     seedLabel: "",
     slotText,
     sourceMatchNumber,
     state: "pending",
     team: null
+  };
+}
+
+function getTournamentRankWinEstimate(homeTeam, awayTeam) {
+  const homeRank = getFifaRankValue(homeTeam);
+  const awayRank = getFifaRankValue(awayTeam);
+
+  if (!Number.isFinite(homeRank) || !Number.isFinite(awayRank)) {
+    return { awayPercent: 50, homePercent: 50 };
+  }
+
+  const rankEdge = Math.max(-44, Math.min(44, awayRank - homeRank));
+  let homePercent = clampPercent(Math.round(50 + rankEdge * 0.45));
+
+  if (homePercent === 50 && homeRank !== awayRank) {
+    homePercent = homeRank < awayRank ? 51 : 49;
+  }
+
+  return {
+    awayPercent: 100 - homePercent,
+    homePercent
+  };
+}
+
+function getTournamentLikelihoodReason(favorite, other, percent) {
+  const favoriteName = getStandingName(favorite);
+  const otherName = getStandingName(other);
+  const favoriteRank = getFifaRankValue(favorite);
+  const otherRank = getFifaRankValue(other);
+
+  if (Number.isFinite(favoriteRank) && Number.isFinite(otherRank)) {
+    if (favoriteRank === otherRank) {
+      return `${favoriteName} and ${otherName} are close in FIFA rank. Rough ${percent}%.`;
+    }
+
+    return `${favoriteName} have the stronger FIFA rank (#${favoriteRank} vs #${otherRank}). Rough ${percent}%.`;
+  }
+
+  return `${favoriteName} are the current slot pick. Rough ${percent}%.`;
+}
+
+function getTournamentLikelyWinnerPrediction(match, context) {
+  const cacheKey = Number(match?.matchNumber);
+
+  if (!match || !Number.isFinite(cacheKey)) {
+    return null;
+  }
+
+  if (context.likelyWinnersCache.has(cacheKey)) {
+    return context.likelyWinnersCache.get(cacheKey);
+  }
+
+  context.likelyWinnersCache.set(cacheKey, null);
+  const participants = getTournamentMatchParticipants(match, context);
+  const homeTeam = participants.home.team;
+  const awayTeam = participants.away.team;
+
+  if (!homeTeam && !awayTeam) {
+    return null;
+  }
+
+  if (homeTeam && !awayTeam) {
+    const prediction = {
+      entry: participants.home,
+      percent: 55,
+      reason: `${getStandingName(homeTeam)} are the only current team in this slot. Rough 55%.`,
+      side: "home",
+      team: homeTeam
+    };
+    context.likelyWinnersCache.set(cacheKey, prediction);
+    return prediction;
+  }
+
+  if (!homeTeam && awayTeam) {
+    const prediction = {
+      entry: participants.away,
+      percent: 55,
+      reason: `${getStandingName(awayTeam)} are the only current team in this slot. Rough 55%.`,
+      side: "away",
+      team: awayTeam
+    };
+    context.likelyWinnersCache.set(cacheKey, prediction);
+    return prediction;
+  }
+
+  const estimate = getTournamentRankWinEstimate(homeTeam, awayTeam);
+  const side = estimate.homePercent >= estimate.awayPercent ? "home" : "away";
+  const percent = side === "home" ? estimate.homePercent : estimate.awayPercent;
+  const team = side === "home" ? homeTeam : awayTeam;
+  const otherTeam = side === "home" ? awayTeam : homeTeam;
+  const prediction = {
+    entry: participants[side],
+    percent,
+    reason: getTournamentLikelihoodReason(team, otherTeam, percent),
+    side,
+    team
+  };
+
+  context.likelyWinnersCache.set(cacheKey, prediction);
+  return prediction;
+}
+
+function getTournamentLikelyParticipant(prediction, sourceMatchNumber) {
+  if (!prediction?.entry?.team) {
+    return null;
+  }
+
+  return {
+    ...prediction.entry,
+    label: getTournamentTeamCode(prediction.entry.team),
+    likelihoodPercent: prediction.percent,
+    likelihoodReason: prediction.reason,
+    sourceMatchNumber,
+    state: "likely"
   };
 }
 
@@ -2225,6 +3381,8 @@ function getTournamentMatchParticipant(match, side, context) {
     const team = getTeam(teamId);
     return {
       label: getTournamentTeamCode(team),
+      likelihoodPercent: null,
+      likelihoodReason: "",
       seedLabel: "",
       slotText: getStandingName(team),
       state: "resolved",
@@ -2240,17 +3398,28 @@ function getTournamentMatchParticipant(match, side, context) {
     const winner = getTournamentMatchWinnerTeam(sourceMatch, context);
 
     if (winner) {
+      const sourceParticipants = getTournamentMatchParticipants(sourceMatch, context);
+      const sourceWinnerEntry = [sourceParticipants.home, sourceParticipants.away].find(
+        (entry) => entry.team?.id === winner.id
+      );
+
       return {
+        ...(sourceWinnerEntry || {}),
         label: getTournamentTeamCode(winner),
-        seedLabel: "",
-        slotText,
+        likelihoodPercent: null,
+        likelihoodReason: "",
+        seedLabel: sourceWinnerEntry?.seedLabel || "",
+        slotText: sourceWinnerEntry?.slotText || slotText,
         sourceMatchNumber,
         state: "resolved",
         team: winner
       };
     }
 
-    return getTournamentPendingParticipant("Winner", "To be decided", sourceMatchNumber);
+    const prediction = getTournamentLikelyWinnerPrediction(sourceMatch, context);
+    const likelyParticipant = getTournamentLikelyParticipant(prediction, sourceMatchNumber);
+
+    return likelyParticipant || getTournamentPendingParticipant("Likely", "To be decided", sourceMatchNumber);
   }
 
   if (match?.stage === "round-of-32") {
@@ -2261,6 +3430,8 @@ function getTournamentMatchParticipant(match, side, context) {
     if (team) {
       return {
         label: getTournamentTeamCode(team),
+        likelihoodPercent: null,
+        likelihoodReason: "",
         seedLabel,
         slotText,
         state: "resolved",
@@ -2358,25 +3529,46 @@ function getTournamentMatchWinnerTeam(match, context) {
 
 function renderTournamentParticipant(entry, options = {}) {
   const { isWinner = false } = options;
-  const teamName = entry.team ? getStandingName(entry.team) : entry.slotText || entry.label;
+  const teamName = entry.team ? getLocalizedStandingName(entry.team) : localizeText(entry.slotText || entry.label);
   const label = entry.team ? getTournamentTeamCode(entry.team) : entry.label;
   const classes = [
     "knockout-team",
-    entry.team ? "is-resolved" : "is-pending",
+    entry.state === "likely" ? "is-likely" : entry.team ? "is-resolved" : "is-pending",
     isWinner ? "is-winner" : ""
   ]
     .filter(Boolean)
     .join(" ");
+  const ariaLabel = [
+    teamName,
+    entry.state === "likely" ? localizeText("likely for now") : "",
+    localizeText(entry.seedLabel)
+  ]
+    .filter(Boolean)
+    .join(", ");
 
   return `
-    <span class="${classes}"${entry.team ? ` data-team-id="${escapeHtml(entry.team.id)}"` : ""}${entry.sourceMatchNumber ? ` data-source-match="${escapeHtml(entry.sourceMatchNumber)}"` : ""} aria-label="${escapeHtml(teamName)}">
+    <span class="${classes}"${entry.team ? ` data-team-id="${escapeHtml(entry.team.id)}"` : ""}${entry.sourceMatchNumber ? ` data-source-match="${escapeHtml(entry.sourceMatchNumber)}"` : ""} aria-label="${escapeHtml(ariaLabel)}">
       <span class="knockout-team-flag" aria-hidden="true">${entry.team ? renderFlag(entry.team) : ""}</span>
       <span class="knockout-team-copy">
         <strong>${escapeHtml(label)}</strong>
-        <small>${escapeHtml(entry.team ? [entry.seedLabel, teamName].filter(Boolean).join(" / ") : teamName)}</small>
+        <small>${escapeHtml(entry.team ? [localizeText(entry.seedLabel), teamName].filter(Boolean).join(" / ") : teamName)}</small>
       </span>
     </span>
   `;
+}
+
+function renderTournamentLikelihoodPill(prediction) {
+  if (!prediction?.team) {
+    return "";
+  }
+
+  const label =
+    currentLanguage === "zh"
+      ? `${localizeText("Likely for now")}：${getLocalizedStandingName(prediction.team)} ${prediction.percent}%`
+      : `${localizeText("Likely for now")}: ${getTournamentTeamCode(prediction.team)} ${prediction.percent}%`;
+  const reason = localizeText(prediction.reason);
+
+  return `<span class="knockout-likelihood" tabindex="0" aria-label="${escapeHtml(reason)}" data-tooltip="${escapeHtml(reason)}">${escapeHtml(label)}</span>`;
 }
 
 function renderTournamentMatchCard(match, context, options = {}) {
@@ -2390,11 +3582,12 @@ function renderTournamentMatchCard(match, context, options = {}) {
   const scoreText = formatScorePair(match.score);
   const penaltyText = formatScorePair(match.scoreDetails?.penalties);
   const resultText = scoreText ? `${scoreText}${penaltyText ? ` (${penaltyText} pens)` : ""}` : "";
-  const footerText = winner
-    ? `${getTournamentTeamCode(winner)} advances`
-    : nextMatchNumber
-      ? "Winner advances"
-      : getTournamentStageLabel(match.stage);
+  const prediction = winner ? null : getTournamentLikelyWinnerPrediction(match, context);
+  const footerHtml = winner
+    ? `<span>${escapeHtml(localizeText(`${getTournamentTeamCode(winner)} won`))}</span>`
+    : prediction
+      ? renderTournamentLikelihoodPill(prediction)
+      : `<span>${escapeHtml(getTournamentStageLabel(match.stage))}</span>`;
   const styleText =
     Number.isFinite(options.pathRow) && Number.isFinite(options.pathSpan)
       ? ` style="--path-row: ${escapeHtml(options.pathRow)}; --path-span: ${escapeHtml(options.pathSpan)};"`
@@ -2409,13 +3602,13 @@ function renderTournamentMatchCard(match, context, options = {}) {
         ${renderTournamentParticipant(participants.home, {
           isWinner: Boolean(winner && participants.home.team && winner.id === participants.home.team.id)
         })}
-        <span class="knockout-versus" aria-label="versus">VS</span>
+        <span class="knockout-versus" aria-label="${escapeHtml(localizeText("vs"))}">${escapeHtml(localizeText("vs"))}</span>
         ${renderTournamentParticipant(participants.away, {
           isWinner: Boolean(winner && participants.away.team && winner.id === participants.away.team.id)
         })}
       </div>
       <footer class="knockout-match-footer">
-        <span>${escapeHtml(footerText)}</span>
+        ${footerHtml}
         ${resultText ? `<em>${escapeHtml(resultText)}</em>` : ""}
       </footer>
     </article>
@@ -2424,7 +3617,7 @@ function renderTournamentMatchCard(match, context, options = {}) {
 
 function renderTournamentPosterParticipant(entry, options = {}) {
   const { isWinner = false } = options;
-  const teamName = entry.team ? getStandingName(entry.team) : entry.slotText || entry.label;
+  const teamName = entry.team ? getLocalizedStandingName(entry.team) : localizeText(entry.slotText || entry.label);
   const label = entry.team ? getTournamentTeamCode(entry.team) : entry.label;
   const classes = [
     "poster-team",
@@ -2459,7 +3652,7 @@ function renderTournamentPosterMatch(matchNumber, context, side) {
         ${renderTournamentPosterParticipant(participants.home, {
           isWinner: Boolean(winner && participants.home.team && winner.id === participants.home.team.id)
         })}
-        <span class="poster-versus" aria-label="versus">VS</span>
+        <span class="poster-versus" aria-label="${escapeHtml(localizeText("vs"))}">${escapeHtml(localizeText("vs"))}</span>
         ${renderTournamentPosterParticipant(participants.away, {
           isWinner: Boolean(winner && participants.away.team && winner.id === participants.away.team.id)
         })}
@@ -2471,7 +3664,7 @@ function renderTournamentPosterMatch(matchNumber, context, side) {
 
 function renderTournamentPosterSide(half, context) {
   return `
-    <div class="poster-side is-${escapeHtml(half.side)}" aria-label="${escapeHtml(`Path to match ${half.semifinalMatchNumber}`)}">
+    <div class="poster-side is-${escapeHtml(half.side)}" aria-label="${escapeHtml(localizeText(`Path to match ${half.semifinalMatchNumber}`))}">
       ${half.matchNumbers.map((matchNumber) => renderTournamentPosterMatch(matchNumber, context, half.side)).join("")}
     </div>
   `;
@@ -2479,10 +3672,10 @@ function renderTournamentPosterSide(half, context) {
 
 function renderTournamentPosterCenter() {
   return `
-    <div class="poster-center" aria-label="Round of 32 bracket center">
+    <div class="poster-center" aria-label="${escapeHtml(localizeText("Round of 32 bracket center"))}">
       <div class="poster-center-panel">
-        <span>As it stands</span>
-        <h2>Round of 32</h2>
+        <span>${escapeHtml(localizeText("As it stands"))}</span>
+        <h2>${escapeHtml(localizeText("Round of 32"))}</h2>
         <div class="poster-trophy" aria-hidden="true">
           <svg class="poster-trophy-svg" viewBox="0 0 128 160" focusable="false">
             <defs>
@@ -2517,7 +3710,7 @@ function renderTournamentPosterCenter() {
             <rect class="poster-trophy-base" x="27" y="139" width="74" height="13" rx="6.5" />
           </svg>
         </div>
-        <strong>Winner path below</strong>
+        <strong>${escapeHtml(localizeText("Path below"))}</strong>
       </div>
     </div>
   `;
@@ -2525,7 +3718,7 @@ function renderTournamentPosterCenter() {
 
 function renderTournamentRoundOf32(context) {
   return `
-    <section class="tournament-r32" aria-label="Round of 32 as it stands">
+    <section class="tournament-r32" aria-label="${escapeHtml(localizeText("Round of 32 as it stands"))}">
       <div class="tournament-poster-bracket">
         ${renderTournamentPosterSide(TOURNAMENT_POSTER_HALVES[0], context)}
         ${renderTournamentPosterCenter()}
@@ -2537,10 +3730,11 @@ function renderTournamentRoundOf32(context) {
 
 function getTournamentProgressPlacement(round, index) {
   const spanByRound = {
-    final: 8,
-    "quarter-finals": 2,
-    "round-of-16": 1,
-    "semi-finals": 4
+    final: 16,
+    "quarter-finals": 4,
+    "round-of-16": 2,
+    "round-of-32": 1,
+    "semi-finals": 8
   };
   const pathSpan = spanByRound[round.id] || 1;
 
@@ -2551,9 +3745,10 @@ function getTournamentProgressPlacement(round, index) {
 }
 
 function renderTournamentProgressRound(round, context) {
+  const roundLabel = localizeStageLabel(round.label);
   return `
-    <section class="progress-round is-${escapeHtml(round.id)}" aria-label="${escapeHtml(round.label)}">
-      <h3>${escapeHtml(round.label)}</h3>
+    <section class="progress-round is-${escapeHtml(round.id)}" aria-label="${escapeHtml(roundLabel)}">
+      <h3>${escapeHtml(roundLabel)}</h3>
       <div class="progress-match-list">
         ${round.matchNumbers
           .map((matchNumber, index) =>
@@ -2569,10 +3764,10 @@ function renderTournamentProgressRound(round, context) {
 
 function renderTournamentProgression(context) {
   return `
-    <section class="tournament-progression" aria-label="Knockout winner progression">
+    <section class="tournament-progression" aria-label="${escapeHtml(localizeText("Knockout winner progression"))}">
       <div class="tournament-section-heading">
-        <span>Winner path</span>
-        <h2>Automatic progression</h2>
+        <span>${escapeHtml(localizeText("Likely for now"))}</span>
+        <h2>${escapeHtml(localizeText("Knockout path"))}</h2>
       </div>
       <div class="progress-rounds">
         ${TOURNAMENT_PROGRESS_ROUNDS.map((round) => renderTournamentProgressRound(round, context)).join("")}
@@ -2585,8 +3780,7 @@ function renderTournamentView() {
   const context = createTournamentProgressionContext();
 
   return `
-    <section class="tournament-view" aria-label="Tournament bracket">
-      ${renderTournamentRoundOf32(context)}
+    <section class="tournament-view" aria-label="${escapeHtml(localizeText("Tournament bracket"))}">
       ${renderTournamentProgression(context)}
     </section>
   `;
@@ -2761,13 +3955,14 @@ function getProjectionMethodHelp(projection) {
 
 function renderPredictionHeading(projection) {
   const help = getProjectionMethodHelp(projection);
+  const localizedHelp = help ? localizeText(help) : "";
 
   return `
     <h3 class="info-heading">
-      <span>Prediction</span>
+      <span>${escapeHtml(localizeText("Prediction"))}</span>
       ${
-        help
-          ? `<button class="info-tooltip-button" type="button" aria-label="${escapeHtml(`Prediction source: ${help}`)}" data-tooltip="${escapeHtml(help)}">i</button>`
+        localizedHelp
+          ? `<button class="info-tooltip-button" type="button" aria-label="${escapeHtml(localizeText(`Prediction source: ${help}`))}" data-tooltip="${escapeHtml(localizedHelp)}">i</button>`
           : ""
       }
     </h3>
@@ -2905,20 +4100,25 @@ function renderScoreSummary(match, options = {}) {
   const score = getCatchUpScore(match);
 
   if (!score) {
-    return `<p class="past-empty">${options.live ? "The match is marked live, but no verified score is loaded yet." : "Final score is not loaded for this fixture yet."}</p>`;
+    const text = options.live
+      ? "The match is marked live, but no verified score is loaded yet."
+      : "Final score is not loaded for this fixture yet.";
+    return `<p class="past-empty">${escapeHtml(localizeText(text))}</p>`;
   }
 
   const winnerSide = getScoreWinnerSide(score.home, score.away);
   const scoreText = `${score.home}-${score.away}`;
 
   if (!winnerSide) {
-    return `<p class="past-empty">${escapeHtml(match.homeTeam.name)} and ${escapeHtml(match.awayTeam.name)} ${options.live ? "are level" : "drew"} ${escapeHtml(scoreText)}.</p>`;
+    const text = `${match.homeTeam.name} and ${match.awayTeam.name} ${options.live ? "are level" : "drew"} ${scoreText}.`;
+    return `<p class="past-empty">${escapeHtml(localizeText(text))}</p>`;
   }
 
   const winner = winnerSide === "home" ? match.homeTeam : match.awayTeam;
   const loser = winnerSide === "home" ? match.awayTeam : match.homeTeam;
 
-  return `<p class="past-empty">${escapeHtml(winner.name)} ${options.live ? "lead" : "beat"} ${escapeHtml(loser.name)} ${escapeHtml(scoreText)}.</p>`;
+  const text = `${winner.name} ${options.live ? "lead" : "beat"} ${loser.name} ${scoreText}.`;
+  return `<p class="past-empty">${escapeHtml(localizeText(text))}</p>`;
 }
 
 function getResultHighlights(match) {
@@ -3025,7 +4225,7 @@ function renderResultNotes(match) {
 
   return `
     <ul class="result-highlights">
-      ${highlights.map((highlight) => `<li>${escapeHtml(highlight)}</li>`).join("")}
+      ${highlights.map((highlight) => `<li>${escapeHtml(localizeText(highlight))}</li>`).join("")}
     </ul>
   `;
 }
@@ -3034,7 +4234,7 @@ function renderMatchStatusBlock(match) {
   if (match.status === "FT") {
     return `
       <section class="info-block">
-        <h3>Result</h3>
+        <h3>${escapeHtml(localizeText("Result"))}</h3>
         ${renderScoreSummary(match)}
         ${renderResultNotes(match)}
       </section>
@@ -3045,9 +4245,9 @@ function renderMatchStatusBlock(match) {
   if (match.status === "LIVE") {
     return `
       <section class="info-block">
-        <h3>Live score</h3>
+        <h3>${escapeHtml(localizeText("Live score"))}</h3>
         ${renderScoreSummary(match, { live: true })}
-        <p class="data-note">Live status is manually verified and should be refreshed after full time.</p>
+        <p class="data-note">${escapeHtml(localizeText("Live status is manually verified and should be refreshed after full time."))}</p>
       </section>
     `;
   }
@@ -3088,7 +4288,7 @@ function getNameSeries(names) {
 function getKeyInformationText(team, info, players = []) {
   const specificCopy = getKeyInformationCopy(info);
   if (specificCopy) {
-    return specificCopy;
+    return localizeText(specificCopy);
   }
 
   const names = players
@@ -3100,15 +4300,16 @@ function getKeyInformationText(team, info, players = []) {
     .slice(0, 2);
 
   if (!names.length) {
-    return "Key information is not loaded yet.";
+    return localizeText("Key information is not loaded yet.");
   }
 
-  return `${team.name}'s key pieces here are ${getNameSeries(names)}. ${notes.join(" ")}`;
+  return localizeText(`${team.name}'s key pieces here are ${getNameSeries(names)}. ${notes.join(" ")}`);
 }
 
 function getKeyInformationLabel(team) {
   const label = team?.name || "TBD";
-  return team?.tagline ? `${label}: ${team.tagline}` : label;
+  const localizedLabel = localizeText(label);
+  return team?.tagline ? `${localizedLabel}: ${localizeText(team.tagline)}` : localizedLabel;
 }
 
 function getTeamStyleTags(team) {
@@ -3124,8 +4325,8 @@ function renderTeamStyleTags(team) {
   }
 
   return `
-    <ul class="team-style-tags" aria-label="${escapeHtml(team.name)} style notes">
-      ${tags.map((tag) => `<li>${escapeHtml(tag)}</li>`).join("")}
+    <ul class="team-style-tags" aria-label="${escapeHtml(localizeText(`${team.name} style notes`))}">
+      ${tags.map((tag) => `<li>${escapeHtml(localizeText(tag))}</li>`).join("")}
     </ul>
   `;
 }
@@ -3494,27 +4695,32 @@ function formatPastRecordCount(count, type) {
 function renderPastRecord(match, results) {
   const record = getPastRecord(match, results);
   const items = [
-    { count: record.homeWins, label: match.homeTeam.name, type: "win" },
+    { count: record.homeWins, label: getLocalizedTeamName(match.homeTeam), type: "win" },
     { count: record.draws, label: "Draw", type: "draw" },
-    { count: record.awayWins, label: match.awayTeam.name, type: "win" }
+    { count: record.awayWins, label: getLocalizedTeamName(match.awayTeam), type: "win" }
   ].map((item) => {
     const percent = formatPastRecordPercent(item.count, record.total);
     const share = record.total ? (item.count / record.total) * 100 : 0;
-    const countLabel = formatPastRecordCount(item.count, item.type);
+    const countLabel = localizeText(formatPastRecordCount(item.count, item.type));
     const compactLabel = `${item.count} (${percent})`;
+    const label = localizeText(item.label);
 
     return {
       ...item,
       compactLabel,
       countLabel,
+      label,
       percent,
       share,
-      rowLabel: `${item.label}: ${countLabel}, ${percent}`
+      rowLabel:
+        currentLanguage === "zh"
+          ? `${label}：${countLabel}，${percent}`
+          : `${label}: ${countLabel}, ${percent}`
     };
   });
-  const recordLabel = `Head-to-head record across ${record.total} ${
+  const recordLabel = localizeText(`Head-to-head record across ${record.total} ${
     record.total === 1 ? "match" : "matches"
-  }`;
+  }`);
 
   return `
     <div class="past-record" aria-label="${escapeHtml(recordLabel)}">
@@ -3546,7 +4752,7 @@ function renderPastResultList(results, leadingTeamId = "", options = {}) {
             <li>
               <span class="past-meta">
                 <span>${escapeHtml(result.date)}</span>
-                <em>${escapeHtml(result.competition)}</em>
+                <em>${escapeHtml(localizeText(result.competition))}</em>
               </span>
               ${renderPastScoreline(result, leadingTeamId)}
             </li>
@@ -3593,8 +4799,8 @@ function renderPastResults(match) {
       hiddenCount
         ? `
           <div class="past-reveal">
-            <button class="past-reveal-button" type="button" data-past-reveal aria-controls="${escapeHtml(hiddenResultsId)}" aria-label="Show all ${escapeHtml(totalResults)} matches">
-              <span class="past-reveal-action">Show all matches</span>
+            <button class="past-reveal-button" type="button" data-past-reveal aria-controls="${escapeHtml(hiddenResultsId)}" aria-label="${escapeHtml(localizeText(`Show all ${totalResults} matches`))}">
+              <span class="past-reveal-action">${escapeHtml(localizeText("Show all matches"))}</span>
             </button>
             <div class="past-hidden-results" id="${escapeHtml(hiddenResultsId)}" hidden>
               ${renderPastResultList(hiddenResults, match.homeTeamId)}
@@ -3611,9 +4817,9 @@ function renderMatchContext(match) {
     const group = getGroup(match.groupId);
     return `
       <section class="info-block">
-        <h3>Group standings</h3>
+        <h3>${escapeHtml(localizeText("Group standings"))}</h3>
         ${renderStandings(match.groupId, { showRank: false })}
-        <p class="data-note">Shown in current table order. Points, record and goal difference are included for context.</p>
+        <p class="data-note">${escapeHtml(localizeText("Shown in current table order. Points, record and goal difference are included for context."))}</p>
       </section>
     `;
   }
@@ -3621,8 +4827,8 @@ function renderMatchContext(match) {
   const stage = tournament.stages.find((item) => item.id === match.stage);
   return `
     <section class="info-block">
-      <h3>Knockout context <span class="section-note">bracket-ready</span></h3>
-      <p class="past-empty">${escapeHtml(stage?.label || "Knockout match")} bracket details are not loaded yet.</p>
+      <h3>${escapeHtml(localizeText("Knockout context"))} <span class="section-note">${escapeHtml(localizeText("bracket-ready"))}</span></h3>
+      <p class="past-empty">${escapeHtml(localizeText(stage?.label || "Knockout match"))} ${escapeHtml(localizeText("bracket details are not loaded yet."))}</p>
     </section>
   `;
 }
@@ -3888,15 +5094,15 @@ function renderHistoricalGroupStandings(match) {
   if (!rows.length) {
     return `
       <section class="info-block">
-        <h3>Group standings</h3>
-        <p class="past-empty">Group table data is not available for this archived match.</p>
+        <h3>${escapeHtml(localizeText("Group standings"))}</h3>
+        <p class="past-empty">${escapeHtml(localizeText("Group table data is not available for this archived match."))}</p>
       </section>
     `;
   }
 
   return `
     <section class="info-block">
-      <h3>Group standings</h3>
+      <h3>${escapeHtml(localizeText("Group standings"))}</h3>
       <table class="standings-table">
         ${renderStandingsTableHead()}
         <tbody>
@@ -3916,7 +5122,7 @@ function renderHistoricalGroupStandings(match) {
             .join("")}
         </tbody>
       </table>
-      <p class="data-note">Final group table computed from archived match results.</p>
+      <p class="data-note">${escapeHtml(localizeText("Final group table computed from archived match results."))}</p>
     </section>
   `;
 }
@@ -3955,9 +5161,9 @@ function renderHistoricalBracketMatch(fixture, selectedId) {
 
   return `
     <li class="${isSelected ? "is-selected" : ""}">
-      <span>${escapeHtml(fixture.homeSlot)} vs ${escapeHtml(fixture.awaySlot)}</span>
+      <span>${escapeHtml(localizeText(fixture.homeSlot))} ${escapeHtml(localizeText("vs"))} ${escapeHtml(localizeText(fixture.awaySlot))}</span>
       <strong>${escapeHtml(getHistoricalScoreText(fixture))}</strong>
-      ${winner ? `<em>${escapeHtml(winner)} ${escapeHtml(outcomeVerb)}</em>` : ""}
+      ${winner ? `<em>${escapeHtml(localizeText(`${winner} ${outcomeVerb}`))}</em>` : ""}
     </li>
   `;
 }
@@ -3969,7 +5175,7 @@ function renderHistoricalBracketList(label, fixtures, selectedId) {
 
   return `
     <article>
-      <h4>${escapeHtml(label)}</h4>
+      <h4>${escapeHtml(localizeText(label))}</h4>
       <ul>
         ${fixtures.map((fixture) => renderHistoricalBracketMatch(fixture, selectedId)).join("")}
       </ul>
@@ -3982,7 +5188,7 @@ function renderHistoricalBracketContext(match) {
 
   return `
     <section class="info-block">
-      <h3>Knockout context <span class="section-note">archive</span></h3>
+      <h3>${escapeHtml(localizeText("Knockout context"))} <span class="section-note">${escapeHtml(localizeText("archive"))}</span></h3>
       <div class="historical-bracket">
         ${renderHistoricalBracketList(match.round || "This round", currentRound, match.id)}
         ${renderHistoricalBracketList(secondaryLabel, secondaryRound, match.id)}
@@ -4226,11 +5432,11 @@ function getHistoricalResultHighlights(match) {
 function renderHistoricalResultBlock(match) {
   return `
     <section class="info-block">
-      <h3>Result</h3>
-      <p class="past-empty">${escapeHtml(getHistoricalResultOutcomeHighlight(match))}</p>
+      <h3>${escapeHtml(localizeText("Result"))}</h3>
+      <p class="past-empty">${escapeHtml(localizeText(getHistoricalResultOutcomeHighlight(match)))}</p>
       <ul class="result-highlights">
         ${getHistoricalResultHighlights(match)
-          .map((highlight) => `<li>${escapeHtml(highlight)}</li>`)
+          .map((highlight) => `<li>${escapeHtml(localizeText(highlight))}</li>`)
           .join("")}
       </ul>
     </section>
@@ -4302,9 +5508,9 @@ function renderHistoricalKeyInformation(match) {
         .map(
           (team) => `
             <article class="key-info-team">
-              <h4>${renderKeyInformationHeading(team, getHistoricalTeamKeyHeadline(match, team.name))}</h4>
+              <h4>${renderKeyInformationHeading(team, localizeText(getHistoricalTeamKeyHeadline(match, team.name)))}</h4>
               ${renderTeamStyleTags(team)}
-              <p>${escapeHtml(getHistoricalTeamKeyBody(match, team.name))}</p>
+              <p>${escapeHtml(localizeText(getHistoricalTeamKeyBody(match, team.name)))}</p>
             </article>
           `
         )
@@ -4356,27 +5562,32 @@ function getHistoricalPastRecord(match, results) {
 function renderHistoricalPastRecord(match, results) {
   const record = getHistoricalPastRecord(match, results);
   const items = [
-    { count: record.homeWins, label: match.homeTeam.name, type: "win" },
+    { count: record.homeWins, label: localizeText(match.homeTeam.name), type: "win" },
     { count: record.draws, label: "Draw", type: "draw" },
-    { count: record.awayWins, label: match.awayTeam.name, type: "win" }
+    { count: record.awayWins, label: localizeText(match.awayTeam.name), type: "win" }
   ].map((item) => {
     const percent = formatPastRecordPercent(item.count, record.total);
     const share = record.total ? (item.count / record.total) * 100 : 0;
-    const countLabel = formatPastRecordCount(item.count, item.type);
+    const countLabel = localizeText(formatPastRecordCount(item.count, item.type));
     const compactLabel = `${item.count} (${percent})`;
+    const label = localizeText(item.label);
 
     return {
       ...item,
       compactLabel,
       countLabel,
+      label,
       percent,
       share,
-      rowLabel: `${item.label}: ${countLabel}, ${percent}`
+      rowLabel:
+        currentLanguage === "zh"
+          ? `${label}：${countLabel}，${percent}`
+          : `${label}: ${countLabel}, ${percent}`
     };
   });
 
   return `
-    <div class="past-record" aria-label="World Cup head-to-head record across ${escapeHtml(record.total)} matches">
+    <div class="past-record" aria-label="${escapeHtml(localizeText(`World Cup head-to-head record across ${record.total} matches`))}">
       ${items
         .map(
           (item) => `
@@ -4415,8 +5626,8 @@ function renderHistoricalPastScoreline(result, leadingTeamName = "") {
   const winner = getHistoricalWinner(result);
   const leftTeam = getHistoricalTeam(leftName) || { isSlot: true, name: leftName };
   const rightTeam = getHistoricalTeam(rightName) || { isSlot: true, name: rightName };
-  const scoreLabel = [leftName, scoreText, rightName].filter(Boolean).join(" ");
-  const scoreNoteLabel = scoreNote ? `, ${scoreNote}` : "";
+  const scoreLabel = [localizeText(leftName), scoreText, localizeText(rightName)].filter(Boolean).join(" ");
+  const scoreNoteLabel = scoreNote ? `, ${localizeText(scoreNote)}` : "";
 
   return `
     <div class="past-scoreline historical-past-scoreline" aria-label="${escapeHtml(scoreLabel)}${escapeHtml(scoreNoteLabel)}">
@@ -4447,7 +5658,7 @@ function renderHistoricalPastMatches(match) {
             <li>
               <span class="past-meta">
                 <span>${escapeHtml(result.date)}</span>
-                <em>${escapeHtml(result.tournamentName)} / ${escapeHtml(result.round)}</em>
+                <em>${escapeHtml(localizeText(result.tournamentName))} / ${escapeHtml(localizeText(result.round))}</em>
               </span>
               ${renderHistoricalPastScoreline(result, match.homeTeam.name)}
             </li>
@@ -4464,7 +5675,7 @@ function renderHistoricalMatchInfo(match) {
       <p class="info-kicker">${escapeHtml(getHistoricalContextLabel(match))}</p>
       <h2 class="summary-title">
         ${renderTeamInline(match.homeTeam, "summary-team", { showRank: false })}
-        <span class="versus">vs</span>
+        <span class="versus">${escapeHtml(localizeText("vs"))}</span>
         ${renderTeamInline(match.awayTeam, "summary-team", { showRank: false })}
       </h2>
       <p>${escapeHtml(getVenueLabel(match))}</p>
@@ -4480,12 +5691,12 @@ function renderHistoricalMatchInfo(match) {
     </section>
 
     <section class="info-block">
-      <h3>Key information</h3>
+      <h3>${escapeHtml(localizeText("Key information"))}</h3>
       ${renderHistoricalKeyInformation(match)}
     </section>
 
     <section class="info-block">
-      <h3>Past matches</h3>
+      <h3>${escapeHtml(localizeText("Past matches"))}</h3>
       ${renderHistoricalPastMatches(match)}
     </section>
   `;
@@ -4528,7 +5739,7 @@ function renderMatchInfo(match, options = {}) {
       <p class="info-kicker">${escapeHtml(contextLabel)}</p>
       <h2 class="summary-title">
         ${renderTeamInline(match.homeTeam, "summary-team", { showRank: false })}
-        <span class="versus">vs</span>
+        <span class="versus">${escapeHtml(localizeText("vs"))}</span>
         ${renderTeamInline(match.awayTeam, "summary-team", { showRank: false })}
       </h2>
       <p>${escapeHtml(getVenueLabel(match))}</p>
@@ -4539,12 +5750,12 @@ function renderMatchInfo(match, options = {}) {
     ${renderMatchStatusBlock(match)}
 
     <section class="info-block">
-      <h3>Key information</h3>
+      <h3>${escapeHtml(localizeText("Key information"))}</h3>
       ${renderKeyInformation(match)}
     </section>
 
     <section class="info-block">
-      <h3>Past matches</h3>
+      <h3>${escapeHtml(localizeText("Past matches"))}</h3>
       ${renderPastResults(match)}
     </section>
   `;
@@ -4573,6 +5784,7 @@ function renderMatchInfoPrompt() {
 function renderEmptyState() {
   activeMatchId = "";
   viewPanels.matches.classList.remove("has-match-info");
+  matchList.removeAttribute("aria-busy");
   const selectedDate = dateFormatter.format(getDateFromKey(selectedDayKey));
   const reportUrl = getReportIssueUrl("no-matches");
   const message =
@@ -4588,6 +5800,26 @@ function renderEmptyState() {
         <a class="secondary-button" href="${escapeHtml(reportUrl)}">Report issue</a>
       </div>
     </article>
+  `;
+  matchInfo.replaceChildren();
+  matchInfo.classList.add("is-hidden");
+  matchInfo.hidden = true;
+}
+
+function renderMatchLoadingState() {
+  viewPanels.matches.classList.remove("has-match-info");
+  matchList.setAttribute("aria-busy", "true");
+  matchList.innerHTML = `
+    <div class="match-loading" role="status">
+      <p class="visually-hidden">Loading matches</p>
+      ${Array.from({ length: 4 }, () => `
+        <div class="match-loading-row" aria-hidden="true">
+          <span class="match-loading-line match-loading-time"></span>
+          <span class="match-loading-line match-loading-teams"></span>
+          <span class="match-loading-line match-loading-score"></span>
+        </div>
+      `).join("")}
+    </div>
   `;
   matchInfo.replaceChildren();
   matchInfo.classList.add("is-hidden");
@@ -4714,7 +5946,7 @@ function getTeamSearchMatches(query = getTeamSearchQuery()) {
 
 function getTeamSearchTitle(matches, query = getTeamSearchQuery()) {
   const firstTeam = matches.find(({ team }) => team)?.team;
-  return firstTeam ? getStandingName(firstTeam) : query.trim();
+  return firstTeam ? getLocalizedStandingName(firstTeam) : query.trim();
 }
 
 function getTeamSearchMatchedSide(match, team) {
@@ -4750,9 +5982,9 @@ function createTeamSearchHeading(title, subtitle = "") {
   const section = document.createElement("section");
   section.className = "team-search-summary";
   section.innerHTML = `
-    <p>Country search</p>
-    <h2>${escapeHtml(title)}</h2>
-    ${subtitle ? `<span>${escapeHtml(subtitle)}</span>` : ""}
+    <p>${escapeHtml(localizeText("Country search"))}</p>
+    <h2>${escapeHtml(localizeText(title))}</h2>
+    ${subtitle ? `<span>${escapeHtml(localizeText(subtitle))}</span>` : ""}
   `;
   return section;
 }
@@ -4760,7 +5992,7 @@ function createTeamSearchHeading(title, subtitle = "") {
 function createTeamSearchSection(title, items, stateForMatch, options = {}) {
   const section = document.createElement("section");
   section.className = ["team-search-section", options.className || ""].filter(Boolean).join(" ");
-  section.innerHTML = `<h3>${escapeHtml(title)}</h3>`;
+  section.innerHTML = `<h3>${escapeHtml(localizeText(title))}</h3>`;
 
   const list = document.createElement("div");
   list.className = "team-search-match-list";
@@ -4785,7 +6017,7 @@ function createOlderWorldCupsToggle(hiddenCount) {
   button.dataset.teamHistoryToggle = "true";
   button.innerHTML = `
     <span class="past-reveal-action">
-      See previous World Cups (${hiddenCount})
+      ${escapeHtml(localizeText(`See previous World Cups (${hiddenCount})`))}
     </span>
   `;
   button.addEventListener("click", () => {
@@ -5272,23 +6504,22 @@ function renderCatchUpItem(item) {
   const catchUpBullets = getCatchUpBullets(item.standouts);
   const points = catchUpBullets.length
     ? `<ul class="catch-up-points catch-up-standouts">${catchUpBullets
-        .map((bullet) => `<li class="catch-up-point">${escapeHtml(bullet)}</li>`)
+        .map((bullet) => `<li class="catch-up-point">${escapeHtml(localizeText(bullet))}</li>`)
         .join("")}</ul>`
     : "";
+  const sourceLabel = item.sourceLabel ? localizeText(item.sourceLabel) : localizeText("Read source");
   const sourceLink = item.sourceUrl
-    ? `<a class="catch-up-source" href="${escapeHtml(item.sourceUrl)}" target="_blank" rel="noreferrer" aria-label="${escapeHtml(
-        item.sourceLabel || "Read source"
-      )}" title="${escapeHtml(item.sourceLabel || "Read source")}"><span aria-hidden="true">&#8599;</span></a>`
+    ? `<a class="catch-up-source" href="${escapeHtml(item.sourceUrl)}" target="_blank" rel="noreferrer" aria-label="${escapeHtml(sourceLabel)}" title="${escapeHtml(sourceLabel)}"><span aria-hidden="true">&#8599;</span></a>`
     : "";
 
   return `
     <article class="catch-up-item">
       <div class="catch-up-copy">
         <div class="catch-up-title-row">
-          <h3><span>${escapeHtml(item.headline)}</span></h3>
+          <h3><span>${escapeHtml(localizeText(item.headline))}</span></h3>
           ${sourceLink}
         </div>
-        ${item.body ? `<p class="catch-up-subtitle">${escapeHtml(item.body)}</p>` : ""}
+        ${item.body ? `<p class="catch-up-subtitle">${escapeHtml(localizeText(item.body))}</p>` : ""}
         ${points}
       </div>
     </article>
@@ -5350,9 +6581,9 @@ function renderCatchUp() {
           <article class="catch-up-item">
             <div class="catch-up-copy">
               <div class="catch-up-title-row">
-                <h3><span>No catch-up notes loaded yet</span></h3>
+                <h3><span>${escapeHtml(localizeText("No catch-up notes loaded yet"))}</span></h3>
               </div>
-              <p class="catch-up-subtitle">Yesterday and today do not have finished or live match notes yet.</p>
+              <p class="catch-up-subtitle">${escapeHtml(localizeText("Yesterday and today do not have finished or live match notes yet."))}</p>
             </div>
           </article>
         </div>
@@ -5454,6 +6685,10 @@ function updateUrlState() {
     params.set("tz", selectedTimeZone);
   }
 
+  if (currentLanguage !== DEFAULT_LANGUAGE) {
+    params.set("lang", currentLanguage);
+  }
+
   if (activeView === "standings" && selectedStandingsYear !== CURRENT_STANDINGS_YEAR) {
     params.set("standingsYear", String(selectedStandingsYear));
   }
@@ -5476,6 +6711,16 @@ function updateUrlState() {
 }
 
 function renderSchedule() {
+  if (isInitialLiveDataLoading) {
+    updateDateControls();
+    updateTeamSearchControls();
+    renderMatchLoadingState();
+    updateUrlState();
+    return;
+  }
+
+  matchList.removeAttribute("aria-busy");
+
   if (hasTeamSearchQuery()) {
     renderTeamSearchResults();
     return;
@@ -5535,6 +6780,7 @@ function setActiveView(view) {
 function readUrlState(options = {}) {
   const params = new URLSearchParams(window.location.search);
   const requestedTimeZone = params.get("tz");
+  const requestedLanguage = normalizeLanguage(params.get("lang"));
   const requestedDate = params.get("date");
   const requestedTeam = params.get("team") || params.get("country");
   const requestedView = params.get("view");
@@ -5544,6 +6790,11 @@ function readUrlState(options = {}) {
 
   if (requestedTimeZone && timeZones.includes(requestedTimeZone)) {
     selectedTimeZone = requestedTimeZone;
+  }
+
+  if (requestedLanguage) {
+    currentLanguage = requestedLanguage;
+    localStorage.setItem(LANGUAGE_STORAGE_KEY, currentLanguage);
   }
 
   if (shouldUseRequestedDate) {
@@ -5576,21 +6827,29 @@ function renderSourceNote() {
     (source) => source.type === "official" && coreSourceLabels.has(source.label)
   );
   const officialSourceLinks = coreOfficialSources.map((source) => {
-    const label = compactSourceLabels[source.label] ?? source.label;
+    const label = localizeText(compactSourceLabels[source.label] ?? source.label);
     return source.url
       ? `<a href="${escapeHtml(source.url)}" target="_blank" rel="noreferrer">${escapeHtml(label)}</a>`
       : escapeHtml(label);
   });
   const updatedAtText = formatSiteUpdatedAt(siteUpdatedAt);
+  const sourceSeparator = currentLanguage === "zh" ? "、" : ", ";
+  const sourcesText = currentLanguage === "zh" ? "来源：" : "Sources: ";
+  const sentenceEnd = currentLanguage === "zh" ? "。" : ".";
+  const predictionsText = localizeText("Predictions are unofficial.");
   const lastUpdated = updatedAtText
-    ? ` Last updated ${escapeHtml(updatedAtText)}.`
+    ? currentLanguage === "zh"
+      ? `最后更新：${escapeHtml(updatedAtText)}。`
+      : `Last updated ${escapeHtml(updatedAtText)}.`
     : "";
+  const reportIssueText = localizeText("Report issue");
 
-  sourceNote.innerHTML = `Sources: ${officialSourceLinks.join(", ")}. Predictions are unofficial.${lastUpdated} <a href="report.html">Report issue</a>.`;
+  sourceNote.innerHTML = `${sourcesText}${officialSourceLinks.join(sourceSeparator)}${sentenceEnd} ${predictionsText}${lastUpdated ? ` ${lastUpdated}` : ""} <a href="report.html">${escapeHtml(reportIssueText)}</a>${sentenceEnd}`;
 }
 
 function renderLoadError(error) {
   console.error("Unable to load World Cup data", error);
+  matchList.removeAttribute("aria-busy");
   matchList.innerHTML = `
     <article class="empty-state">
       <h2>Data unavailable</h2>
@@ -5598,10 +6857,12 @@ function renderLoadError(error) {
     </article>
   `;
   matchInfo.innerHTML = `<p class="info-empty">The match data could not be loaded.</p>`;
+  applyLanguageToPage();
 }
 
 function renderAppError(error) {
   console.error("Unable to render World Cup data", error);
+  matchList.removeAttribute("aria-busy");
   matchList.innerHTML = `
     <article class="empty-state">
       <h2>Unable to display matches</h2>
@@ -5609,6 +6870,7 @@ function renderAppError(error) {
     </article>
   `;
   matchInfo.innerHTML = `<p class="info-empty">The match view could not be displayed.</p>`;
+  applyLanguageToPage();
 }
 
 function hasLiveDataSnapshot(liveData) {
@@ -5720,6 +6982,28 @@ function renderLoadedApp(options = {}) {
 
   renderSchedule();
   renderSourceNote();
+  applyLanguageToPage();
+}
+
+function setLanguage(language) {
+  const nextLanguage = normalizeLanguage(language) || DEFAULT_LANGUAGE;
+
+  if (nextLanguage === currentLanguage) {
+    applyLanguageToPage();
+    return;
+  }
+
+  currentLanguage = nextLanguage;
+  localStorage.setItem(LANGUAGE_STORAGE_KEY, currentLanguage);
+
+  const hasLoadedData = fixtures.length || historicalFixtures.length || tournament.groups.length;
+  if (hasLoadedData) {
+    renderLoadedApp({ syncActiveView: true });
+  } else {
+    applyLanguageToPage();
+  }
+
+  updateUrlState();
 }
 
 async function refreshData() {
@@ -5744,6 +7028,23 @@ async function refreshData() {
   }
 }
 
+async function loadInitialLiveData() {
+  try {
+    await loadLiveData();
+  } catch (error) {
+    // Fall back to the bundled snapshot if the first live check is unavailable.
+    console.warn("Unable to load initial live data", error);
+  } finally {
+    isInitialLiveDataLoading = false;
+  }
+
+  try {
+    renderLoadedApp();
+  } catch (error) {
+    renderAppError(error);
+  }
+}
+
 async function boot() {
   try {
     await loadStaticData();
@@ -5754,10 +7055,11 @@ async function boot() {
 
   try {
     readUrlState({ forceToday: isReloadNavigation() });
+    isInitialLiveDataLoading = true;
     renderLoadedApp({ syncActiveView: true });
     setInterval(renderSchedule, 60 * 1000);
     setInterval(refreshData, DATA_REFRESH_INTERVAL_MS);
-    refreshData();
+    loadInitialLiveData();
   } catch (error) {
     renderAppError(error);
   }
@@ -5766,6 +7068,12 @@ async function boot() {
 viewTabs.forEach((tab) => {
   tab.addEventListener("click", () => {
     setActiveView(tab.dataset.view);
+  });
+});
+
+languageButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    setLanguage(button.dataset.language);
   });
 });
 
@@ -6088,6 +7396,32 @@ window.addEventListener("popstate", () => {
   renderSchedule();
   renderSourceNote();
   syncUrl = true;
+});
+
+const languageObserver = new MutationObserver(() => {
+  if (currentLanguage !== "zh" || isApplyingLanguage) {
+    return;
+  }
+
+  window.requestAnimationFrame(() => {
+    if (currentLanguage === "zh" && !isApplyingLanguage) {
+      isApplyingLanguage = true;
+      try {
+        localizeRenderedText(document.body);
+      } finally {
+        isApplyingLanguage = false;
+      }
+    }
+  });
+});
+
+renderStaticText();
+languageObserver.observe(document.body, {
+  attributeFilter: ["aria-label", "data-tooltip", "placeholder", "title"],
+  attributes: true,
+  characterData: true,
+  childList: true,
+  subtree: true
 });
 
 boot();

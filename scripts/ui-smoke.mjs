@@ -1293,6 +1293,20 @@ try {
       `3rd race ${formatOrdinal(getExpectedThirdPlaceRaceRows().find((candidate) => candidate.groupId === "B").position)}`,
     "Group standings should show each current third-place team's cross-group race position."
   );
+  const groupStandingsRhythm = await page.evaluate(() => {
+    const title = document.querySelector(".standings-title").getBoundingClientRect();
+    const summary = document.querySelector("#standings-summary").getBoundingClientRect();
+    const tabs = document.querySelector("#standings-mode-tabs").getBoundingClientRect();
+    const grid = document.querySelector("#standings-grid").getBoundingClientRect();
+    const shell = document.querySelector(".page-shell").getBoundingClientRect();
+
+    return {
+      gridGap: Math.round(grid.top - title.bottom),
+      shellTop: Math.round(shell.top),
+      tabsGap: Math.round(tabs.top - summary.bottom),
+      titleTop: Math.round(title.top)
+    };
+  });
   await page.locator("#standings-third-place-tab").click();
   await page.waitForFunction(
     () => document.querySelectorAll(".third-place-table tbody tr:not(.third-place-cut-row)").length === 12
@@ -1309,6 +1323,27 @@ try {
       !(await page.locator(".third-place-race-header").isVisible()) &&
       (await page.locator(".third-place-table").isVisible()),
     "The third-place race should keep the standings heading, mode-specific summary, and section tabs visible."
+  );
+  const thirdPlaceStandingsRhythm = await page.evaluate(() => {
+    const title = document.querySelector(".standings-title").getBoundingClientRect();
+    const summary = document.querySelector("#standings-summary").getBoundingClientRect();
+    const tabs = document.querySelector("#standings-mode-tabs").getBoundingClientRect();
+    const grid = document.querySelector("#standings-grid").getBoundingClientRect();
+    const shell = document.querySelector(".page-shell").getBoundingClientRect();
+
+    return {
+      gridGap: Math.round(grid.top - title.bottom),
+      shellTop: Math.round(shell.top),
+      tabsGap: Math.round(tabs.top - summary.bottom),
+      titleTop: Math.round(title.top)
+    };
+  });
+  assert(
+    Math.abs(thirdPlaceStandingsRhythm.shellTop - groupStandingsRhythm.shellTop) <= 1 &&
+      Math.abs(thirdPlaceStandingsRhythm.titleTop - groupStandingsRhythm.titleTop) <= 1 &&
+      Math.abs(thirdPlaceStandingsRhythm.tabsGap - groupStandingsRhythm.tabsGap) <= 1 &&
+      Math.abs(thirdPlaceStandingsRhythm.gridGap - groupStandingsRhythm.gridGap) <= 1,
+    "The third-place race should use the same page, tab, and content spacing as the Groups standings section."
   );
   const thirdPlaceRaceCheck = await page.evaluate(() => {
     const rows = [...document.querySelectorAll(".third-place-table tbody tr:not(.third-place-cut-row)")];
@@ -1423,7 +1458,7 @@ try {
   await page.waitForFunction(
     () =>
       document.querySelector("#standings-tournament-tab")?.getAttribute("aria-pressed") === "true" &&
-      document.querySelectorAll(".r32-match").length === 16 &&
+      document.querySelectorAll('.progress-match[data-match-number="74"]').length === 1 &&
       document.querySelector('.progress-match[data-match-number="89"]')
   );
   assert(
@@ -1438,9 +1473,10 @@ try {
         .join(" ");
 
     return {
-      m74Text: text('.r32-match[data-match-number="74"]'),
+      m74ProgressText: text('.progress-match[data-match-number="74"]'),
       m89Text: text('.progress-match[data-match-number="89"]'),
       m97Text: text('.progress-match[data-match-number="97"]'),
+      oldWinnerCopy: allText(".tournament-view").includes(["Winner", "advances"].join(" ")),
       posterMetaCount: document.querySelectorAll(".poster-match-meta").length,
       posterSeedCount: document.querySelectorAll(".poster-team-seed").length,
       posterVisible: Boolean(document.querySelector(".tournament-poster-bracket")),
@@ -1458,22 +1494,24 @@ try {
   });
   assert(
     tournamentCheck.tournamentVisible &&
-      tournamentCheck.posterVisible &&
-      tournamentCheck.sideCount === 2 &&
-      tournamentCheck.r32Count === 16 &&
-      tournamentCheck.progressCount === 15,
-    "The tournament section should show a two-sided Round of 32 poster plus progression rounds through the final."
+      !tournamentCheck.posterVisible &&
+      tournamentCheck.sideCount === 0 &&
+      tournamentCheck.r32Count === 0 &&
+      tournamentCheck.progressCount === 31,
+    "The tournament section should show a progression-only bracket from the Round of 32 through the final."
   );
   assert(
-    tournamentCheck.summary.includes("Finished knockout winners automatically fill the next round") &&
-      tournamentCheck.m74Text.includes(getTeam(standingsData.groups?.E?.[0]?.teamId).id) &&
-      tournamentCheck.m89Text.includes("Winner") &&
-      tournamentCheck.m97Text.includes("Winner") &&
+    tournamentCheck.summary.includes("likely winners filled for now") &&
+      tournamentCheck.m74ProgressText.includes(getTeam(standingsData.groups?.E?.[0]?.teamId).id) &&
+      tournamentCheck.m74ProgressText.includes("Group E Top 1") &&
+      tournamentCheck.m89Text.includes("Likely for now") &&
+      tournamentCheck.m97Text.includes("Likely for now") &&
+      !tournamentCheck.oldWinnerCopy &&
       tournamentCheck.posterMetaCount === 0 &&
       tournamentCheck.posterSeedCount === 0 &&
       !/\b(?:M\d+|To M\d+|Winner M\d+|W M\d+)\b/.test(`${tournamentCheck.r32Text} ${tournamentCheck.progressText}`) &&
-      tournamentCheck.roundHeadings.join("|") === "Round of 16|Quarter-finals|Semi-finals|Final",
-    "The tournament section should keep pending future slots readable without exposing match-number shorthand."
+      tournamentCheck.roundHeadings.join("|") === "Round of 32|Round of 16|Quarter-finals|Semi-finals|Final",
+    "The tournament section should keep future slots readable with group-position labels and no match-number shorthand."
   );
   const knockoutProgressionCheck = await openPageAtTime(
     "2026-07-05T12:00:00.000Z",
@@ -1518,10 +1556,10 @@ try {
     };
   });
   assert(
-    progressionResolved.m89TeamIds.join("|") === "GER|NOR" &&
+      progressionResolved.m89TeamIds.join("|") === "GER|NOR" &&
       progressionResolved.m89Winner === "GER" &&
       progressionResolved.m97SourceTeamId === "GER" &&
-      progressionResolved.m89Text.includes("GER advances") &&
+      progressionResolved.m89Text.includes("GER won") &&
       !progressionResolved.m89Text.includes("M97") &&
       progressionResolved.m97Text.includes("GER"),
     "Finished knockout source matches should automatically place their winners into later fixture slots."
