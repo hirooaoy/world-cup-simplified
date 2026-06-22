@@ -1,4 +1,4 @@
-const DATA_VERSION = "2026-06-22-juggle-faster";
+const DATA_VERSION = "2026-06-22-click-juggle";
 const DATA_URLS = {
   fixtures: `data/fixtures.json?v=${DATA_VERSION}`,
   history: `data/history.json?v=${DATA_VERSION}`,
@@ -12,7 +12,6 @@ const DATA_URLS = {
 const LANGUAGE_STORAGE_KEY = "world-cup-simplified-language";
 const JUGGLE_RECORD_STORAGE_KEY = "world-cup-simplified-juggle-record";
 const JUGGLE_BALL_EMOJI = "⚽";
-const JUGGLE_SPAWN_DELAY_MS = { min: 4500, max: 13000 };
 const JUGGLE_FALL_SPEED = 345;
 const JUGGLE_GRAVITY = 1060;
 const JUGGLE_HIT_RADIUS_MULTIPLIER = 1.25;
@@ -45,6 +44,7 @@ const UI_TEXT = {
     languageChinese: "Chinese",
     juggleBall: "Soccer ball",
     juggleRecord: "Best juggling streak",
+    juggleRecordAction: "Drop soccer ball",
     matches: "Matches",
     matchesHeading: "Matches and selected match details",
     matchesList: "Matches",
@@ -79,6 +79,7 @@ const UI_TEXT = {
     languageChinese: "中文",
     juggleBall: "足球",
     juggleRecord: "最佳颠球纪录",
+    juggleRecordAction: "让足球落下",
     matches: "赛程",
     matchesHeading: "比赛和已选比赛详情",
     matchesList: "比赛",
@@ -220,6 +221,7 @@ const ZH_EXACT_TRANSLATIONS = new Map(
       "这场比赛前未找到已核验的成年队交锋记录。",
     "Not loaded": "未载入",
     "Norway": "挪威",
+    "One-on-one attackers who can tilt any match": "能靠单挑改变比赛走向的攻击手",
     "cancelled": "已取消",
     "current score": "当前比分",
     "final score": "最终比分",
@@ -303,6 +305,7 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "South Africa": "南非",
     "South Korea": "韩国",
     "Spain": "西班牙",
+    "Score pending": "当前比分待确认",
     "Sweden": "瑞典",
     "Switzerland": "瑞士",
     "Team": "球队",
@@ -801,6 +804,7 @@ const ZH_PLAYER_NAME_TRANSLATIONS = {
   "Antonio Nusa": "安东尼奥·努萨",
   "Arda Güler": "阿尔达·居莱尔",
   "Aymen Hussein": "艾曼·侯赛因",
+  "Ayase Ueda": "上田绮世",
   "Ayoub El Kaabi": "阿尤布·埃尔卡比",
   "Brahim Díaz": "布拉欣·迪亚斯",
   "Breel Embolo": "布雷尔·恩博洛",
@@ -1024,6 +1028,7 @@ const ZH_CLUB_NAME_TRANSLATIONS = {
   Esteghlal: "德黑兰独立",
   "FC St. Pauli": "圣保利",
   "Fenerbahçe (on loan from West Ham United)": "费内巴切（从西汉姆联租借）",
+  Feyenoord: "费耶诺德",
   "G.D. Chaves": "查韦斯",
   "Hannover 96 (on loan from FC Augsburg)": "汉诺威96（从奥格斯堡租借）",
   "Inter Milan": "国际米兰",
@@ -1720,6 +1725,24 @@ const ZH_PATTERN_TRANSLATIONS = [
     replace: (_, count) => `${count}场世界杯交锋记录`
   },
   {
+    pattern:
+      /^(.+) and (.+) have never met in a verified senior men's international\. This is their first head-to-head meeting\.$/,
+    replace: (_, home, away) =>
+      `${translateTextToZh(home)}和${translateTextToZh(away)}此前没有已核验的成年男足国际A级赛交锋记录。这是双方首次交手。`
+  },
+  {
+    pattern:
+      /^(.+) and (.+) have never met in a verified senior men's international\. This is their first head-to-head meeting, during (.+)'s first World Cup tournament\.$/,
+    replace: (_, home, away, debutant) =>
+      `${translateTextToZh(home)}和${translateTextToZh(away)}此前没有已核验的成年男足国际A级赛交锋记录。这是双方首次交手，也发生在${translateTextToZh(debutant)}首次世界杯之旅期间。`
+  },
+  {
+    pattern:
+      /^(.+) is playing its first World Cup match\. (.+) and (.+) have never met in a verified senior men's international, making this their first head-to-head meeting\.$/,
+    replace: (_, debutant, home, away) =>
+      `${translateTextToZh(debutant)}将迎来队史首场世界杯比赛。${translateTextToZh(home)}和${translateTextToZh(away)}此前没有已核验的成年男足国际A级赛交锋记录，因此这是双方首次交手。`
+  },
+  {
     pattern: /^(.+): (\d+) draw(?:s)?, (.+)$/,
     replace: (_, label, count, percent) => `${translateTextToZh(label)}：${count}场平局，${percent}`
   },
@@ -2048,6 +2071,10 @@ const ZH_PATTERN_TRANSLATIONS = [
   {
     pattern: /^Final pending; verified score is not loaded yet$/,
     replace: () => "最终比分待确认；已核验比分尚未载入"
+  },
+  {
+    pattern: /^Score pending; verified score is not loaded yet$/,
+    replace: () => "当前比分待确认；已核验比分尚未载入"
   }
 ];
 
@@ -2140,6 +2167,8 @@ const zhTimeZoneNames = {
   "Asia/Tokyo": "东京",
   "Australia/Sydney": "悉尼"
 };
+const CJK_CHARACTER_PATTERN =
+  /[\u1100-\u115f\u2e80-\ua4cf\uac00-\ud7a3\uf900-\ufaff\ufe10-\ufe19\ufe30-\ufe6f\uff00-\uff60\uffe0-\uffe6]/u;
 const MATCH_LIVE_WINDOW_MS = 2.25 * 60 * 60 * 1000;
 const DATA_REFRESH_INTERVAL_MS = 5 * 60 * 1000;
 const LIVE_DATA_TIMEOUT_MS = 4000;
@@ -2435,7 +2464,6 @@ const juggleToy = {
   rotation: 0,
   rotationSpeed: 0,
   size: 38,
-  spawnTimeoutId: 0,
   startTime: 0,
   startX: 0,
   startY: 0,
@@ -2933,16 +2961,13 @@ function renderJuggleRecord() {
   }
 
   const label = t("juggleRecord");
+  const action = t("juggleRecordAction");
+  const title = `${label}: ${juggleToy.best}. ${action}`;
   juggleRecord.hidden = false;
   juggleRecord.textContent = `(${juggleToy.best})`;
-  juggleRecord.setAttribute(
-    "aria-label",
-    `${label}: ${juggleToy.best}`
-  );
-  juggleRecord.setAttribute(
-    "title",
-    `${label}: ${juggleToy.best}`
-  );
+  juggleRecord.disabled = !canLaunchJuggleBall();
+  juggleRecord.setAttribute("aria-label", title);
+  juggleRecord.setAttribute("title", title);
 }
 
 function getRandomNumber(min, max) {
@@ -2970,20 +2995,22 @@ function isJuggleInteractiveTarget(target) {
   );
 }
 
-function scheduleNextJuggle(delay = getRandomNumber(JUGGLE_SPAWN_DELAY_MS.min, JUGGLE_SPAWN_DELAY_MS.max)) {
-  window.clearTimeout(juggleToy.spawnTimeoutId);
+function canLaunchJuggleBall() {
+  return Boolean(
+    juggleToy.element &&
+      juggleToy.phase === "idle" &&
+      !prefersReducedJuggleMotion() &&
+      !document.hidden
+  );
+}
 
-  if (!juggleToy.element || prefersReducedJuggleMotion() || document.hidden) {
-    return;
-  }
-
-  juggleToy.spawnTimeoutId = window.setTimeout(() => {
-    spawnJuggleBall();
-  }, delay);
+function handleJuggleRecordClick() {
+  spawnJuggleBall();
 }
 
 function initializeJuggleToy() {
   renderJuggleRecord();
+  juggleRecord?.addEventListener("click", handleJuggleRecordClick);
 
   if (prefersReducedJuggleMotion()) {
     return;
@@ -3001,22 +3028,21 @@ function initializeJuggleToy() {
     capture: true
   });
   document.addEventListener("visibilitychange", handleJuggleVisibilityChange);
-  scheduleNextJuggle();
+  renderJuggleRecord();
 }
 
 function handleJuggleVisibilityChange() {
   if (document.hidden) {
     finishJuggleRun();
-    window.clearTimeout(juggleToy.spawnTimeoutId);
     return;
   }
 
-  scheduleNextJuggle();
+  renderJuggleRecord();
 }
 
 function spawnJuggleBall() {
-  if (!juggleToy.element || prefersReducedJuggleMotion() || document.hidden) {
-    return;
+  if (!canLaunchJuggleBall()) {
+    return false;
   }
 
   window.cancelAnimationFrame(juggleToy.animationFrameId);
@@ -3051,7 +3077,9 @@ function spawnJuggleBall() {
   juggleToy.element.style.setProperty("--juggle-ball-size", `${size}px`);
   juggleToy.element.classList.add("is-active");
   renderJuggleBall();
+  renderJuggleRecord();
   juggleToy.animationFrameId = window.requestAnimationFrame(updateJuggleBall);
+  return true;
 }
 
 function updateJuggleBall(frameTime) {
@@ -3189,7 +3217,7 @@ function kickJuggleBall(pointerX, pointerY) {
   juggleToy.phase = "juggling";
   juggleToy.count += 1;
   juggleToy.vx = clampNumber(juggleToy.vx * 0.36 + lateralKick, -480, 480);
-  juggleToy.vy = -clampNumber(485 + Math.max(0, verticalOffset) * 105, 470, 610);
+  juggleToy.vy = -clampNumber(555 + Math.max(0, verticalOffset) * 125, 535, 700);
   juggleToy.rotationSpeed = clampNumber(juggleToy.rotationSpeed - horizontalOffset * 260, -520, 520);
   playJuggleTapSound();
 
@@ -3208,8 +3236,7 @@ function finishJuggleRun() {
   window.cancelAnimationFrame(juggleToy.animationFrameId);
   juggleToy.phase = "idle";
   juggleToy.element.classList.remove("is-active");
-
-  scheduleNextJuggle();
+  renderJuggleRecord();
 }
 
 function normalizeTextKey(value) {
@@ -3442,9 +3469,30 @@ function getTimeZoneLabel(timeZone, options = {}) {
   return `${label} (${getTimeZoneAbbreviation(timeZone)})`;
 }
 
+function getEstimatedTimeZoneLabelWidth(label) {
+  return Array.from(label).reduce((width, character) => {
+    if (CJK_CHARACTER_PATTERN.test(character)) {
+      return width + 2;
+    }
+
+    if (
+      character === " " ||
+      character === "/" ||
+      character === "_" ||
+      character === "(" ||
+      character === ")"
+    ) {
+      return width + 0.55;
+    }
+
+    return width + 0.72;
+  }, 0);
+}
+
 function updateTimeZoneControlWidth() {
   const selectedLabel = timezoneSelect?.selectedOptions?.[0]?.textContent.trim() || "";
-  const labelWidth = Math.max(3.5, selectedLabel.length + 0.75);
+  const estimatedWidth = getEstimatedTimeZoneLabelWidth(selectedLabel);
+  const labelWidth = Math.max(3.5, Math.ceil((estimatedWidth + 0.75) * 4) / 4);
   timezoneControl?.style.setProperty("--timezone-label-width", `${labelWidth}ch`);
 }
 
@@ -4188,6 +4236,15 @@ function shouldShowScorePending(match, state, currentTime) {
 }
 
 function getScorePendingText(match, state, currentTime) {
+  if (
+    !match.score &&
+    match.status !== "CANCELLED" &&
+    match.status !== "POSTPONED" &&
+    (match.status === "LIVE" || state === "live")
+  ) {
+    return localizeText("Score pending");
+  }
+
   if (!shouldShowScorePending(match, state, currentTime)) {
     return "";
   }
@@ -4405,7 +4462,7 @@ function renderMatchRow(match, state, currentTime = Date.now(), options = {}) {
         ? `<span class="up-next-pill">${escapeHtml(localizeText("Up next"))}</span>`
         : "";
   const score = renderScore(match, state, options);
-  const rowMeta = `${scoreStatus}${stateBadge}${score}`;
+  const rowMeta = `${stateBadge}${scoreStatus}${score}`;
   const rowLabel = `${stateLabel}${homeName} ${versusText} ${awayName}${rowDateTimeLabel}${statusLabel}${
     match.score
       ? `, ${scoreLabel} ${match.score.home}-${match.score.away}`
@@ -5241,7 +5298,7 @@ function getTournamentMatchDateLabel(match) {
 
   const dateKey = getFixtureDayKey(match);
   const timeLabel = getMatchTimeLabel(match);
-  return [navDateFormatter.format(getDateFromKey(dateKey)), timeLabel].filter(Boolean).join(" / ");
+  return [navDateFormatter.format(getDateFromKey(dateKey)), timeLabel].filter(Boolean).join(" ");
 }
 
 function createTournamentProgressionContext() {
@@ -5480,6 +5537,36 @@ function formatTournamentSlotPercentValue(probability) {
 
 function formatTournamentSlotPercent(probability) {
   return `${formatTournamentSlotPercentValue(probability)}%`;
+}
+
+function getTournamentSlotOddsTone(probability) {
+  const percent = Number(probability) * 100;
+
+  if (!Number.isFinite(percent)) {
+    return "neutral";
+  }
+
+  const displayPercentValue = formatTournamentSlotPercentValue(probability);
+  const displayPercent =
+    displayPercentValue === "<1"
+      ? 0
+      : displayPercentValue === ">99"
+        ? 100
+        : Number(displayPercentValue);
+
+  if (!Number.isFinite(displayPercent)) {
+    return "neutral";
+  }
+
+  if (displayPercent >= 75) {
+    return "high";
+  }
+
+  if (displayPercent <= 25) {
+    return "low";
+  }
+
+  return "neutral";
 }
 
 function getTournamentSlotOddsCandidates(slot, context) {
@@ -5849,6 +5936,7 @@ function renderTournamentParticipant(entry, options = {}) {
   const { isWinner = false } = options;
   const teamName = entry.team ? getLocalizedStandingName(entry.team) : localizeText(entry.slotText || entry.label);
   const label = entry.team ? getTournamentTeamCode(entry.team) : localizeText(entry.label);
+  const detailText = entry.team ? localizeText(entry.seedLabel) || teamName : teamName;
   const classes = [
     "knockout-team",
     entry.state === "likely" ? "is-likely" : entry.team ? "is-resolved" : "is-pending",
@@ -5865,11 +5953,11 @@ function renderTournamentParticipant(entry, options = {}) {
     .join(", ");
 
   return `
-    <span class="${classes}"${entry.team ? ` data-team-id="${escapeHtml(entry.team.id)}"` : ""}${entry.sourceMatchNumber ? ` data-source-match="${escapeHtml(entry.sourceMatchNumber)}"` : ""} aria-label="${escapeHtml(ariaLabel)}">
+    <span class="${classes}"${entry.team ? ` data-team-id="${escapeHtml(entry.team.id)}" data-tooltip="${escapeHtml(teamName)}" tabindex="0"` : ""}${entry.sourceMatchNumber ? ` data-source-match="${escapeHtml(entry.sourceMatchNumber)}"` : ""} aria-label="${escapeHtml(ariaLabel)}">
       <span class="knockout-team-flag" aria-hidden="true">${entry.team ? renderFlag(entry.team) : ""}</span>
       <span class="knockout-team-copy">
         <strong>${escapeHtml(label)}</strong>
-        <small>${escapeHtml(entry.team ? [localizeText(entry.seedLabel), teamName].filter(Boolean).join(" / ") : teamName)}</small>
+        <small>${escapeHtml(detailText)}</small>
       </span>
     </span>
   `;
@@ -5920,8 +6008,9 @@ function renderTournamentSlotOddsPill(slotOdds) {
 
   const label = getLocalizedTournamentSlotOddsLabel(slotOdds);
   const reason = getLocalizedTournamentSlotOddsReason(slotOdds);
+  const tone = getTournamentSlotOddsTone(slotOdds.probability);
 
-  return `<span class="knockout-slot-odds" tabindex="0" aria-label="${escapeHtml(reason)}" data-tooltip="${escapeHtml(reason)}">${escapeHtml(label)}</span>`;
+  return `<span class="knockout-slot-odds is-${escapeHtml(tone)}" tabindex="0" aria-label="${escapeHtml(reason)}" data-tooltip="${escapeHtml(reason)}">${escapeHtml(label)}</span>`;
 }
 
 function renderTournamentSlotOddsFooter(participants) {
@@ -6684,28 +6773,38 @@ function getLocalizedNameSeries(names) {
   return cleanNames.join("、");
 }
 
-function buildLocalizedKeyInformationFallback(team, players = []) {
+function buildLocalizedKeyInformationFallback(team, players = [], opponent = null) {
   const teamName = getLocalizedTeamName(team);
+  const opponentName = opponent ? getLocalizedTeamName(opponent) : "";
   const playerNames = players
     .map((player) => getLocalizedPlayerDisplayName(player))
     .filter(Boolean);
   const tags = getTeamStyleTags(team).map(localizeText).filter(Boolean);
+  const opponentTags = opponent ? getTeamStyleTags(opponent).map(localizeText).filter(Boolean) : [];
   const tagline = team?.tagline ? localizeText(team.tagline) : "";
+  const mainTag = tags[0] || tagline || "自身节奏";
+  const opponentTag = opponentTags[0] || "对方节奏";
   const playerText = playerNames.length
     ? `关键球员：${getLocalizedNameSeries(playerNames)}。`
     : "关键球员信息尚未载入。";
+  const matchupText = opponentName
+    ? `对阵${opponentName}，重点看${teamName}能否把${mainTag}转化为稳定机会。`
+    : "";
   const styleText = tags.length ? `风格关键词：${tags.join("、")}。` : "";
   const taglineText = tagline ? `球队特点：${tagline}。` : "";
+  const riskText = opponentName
+    ? `风险点：${opponentName}的${opponentTag}可能打断这个节奏。`
+    : "";
 
-  return `${teamName}看点。${playerText}${taglineText}${styleText}`;
+  return `${teamName}看点。${playerText}${matchupText}${taglineText}${styleText}${riskText}`;
 }
 
-function getKeyInformationText(team, info, players = []) {
+function getKeyInformationText(team, info, players = [], opponent = null) {
   const specificCopy = getKeyInformationCopy(info);
   if (specificCopy) {
     const localizedCopy = localizeText(specificCopy);
     return currentLanguage === "zh" && localizedCopy === specificCopy
-      ? buildLocalizedKeyInformationFallback(team, players)
+      ? buildLocalizedKeyInformationFallback(team, players, opponent)
       : localizedCopy;
   }
 
@@ -6722,7 +6821,7 @@ function getKeyInformationText(team, info, players = []) {
   }
 
   if (currentLanguage === "zh") {
-    return buildLocalizedKeyInformationFallback(team, players);
+    return buildLocalizedKeyInformationFallback(team, players, opponent);
   }
 
   return `${team.name}'s key pieces here are ${getNameSeries(names)}. ${notes.join(" ")}`;
@@ -7081,8 +7180,8 @@ function getMatchKeyPlayers(match) {
   ].filter((player) => getPlayerName(player));
 }
 
-function renderKeyInformationTeam(team, info, players = [], mentionPlayers = players) {
-  const text = getKeyInformationText(team, info, players);
+function renderKeyInformationTeam(team, info, players = [], mentionPlayers = players, opponent = null) {
+  const text = getKeyInformationText(team, info, players, opponent);
   const label = getKeyInformationLabel(team);
   return `
     <article class="key-info-team">
@@ -7100,8 +7199,8 @@ function renderKeyInformation(match) {
 
   return `
     <div class="key-info-grid">
-      ${renderKeyInformationTeam(match.homeTeam, keyInformation.home, keyPlayers.home, mentionPlayers)}
-      ${renderKeyInformationTeam(match.awayTeam, keyInformation.away, keyPlayers.away, mentionPlayers)}
+      ${renderKeyInformationTeam(match.homeTeam, keyInformation.home, keyPlayers.home, mentionPlayers, match.awayTeam)}
+      ${renderKeyInformationTeam(match.awayTeam, keyInformation.away, keyPlayers.away, mentionPlayers, match.homeTeam)}
     </div>
   `;
 }
@@ -9562,7 +9661,7 @@ function renderSourceNote() {
       : `Last updated ${escapeHtml(updatedAtText)}.`
     : "";
   const reportIssueText = localizeText("Report issue");
-  const creatorLink = `<a href="https://www.linkedin.com/in/hirooaoy" target="_blank" rel="noreferrer">hirooaoy</a>`;
+  const creatorLink = `<a href="https://www.linkedin.com/in/hirooaoy" target="_blank" rel="noreferrer">Hirooaoy</a>`;
   const creatorText = currentLanguage === "zh" ? `由 ${creatorLink} 制作` : `Made by ${creatorLink}`;
 
   const reportUrl = currentLanguage === "zh" ? "report.html?lang=zh" : "report.html";

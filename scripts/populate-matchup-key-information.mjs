@@ -8,7 +8,7 @@ const dataDir = path.join(root, "data");
 const fixturesPath = path.join(dataDir, "fixtures.json");
 const teamsPath = path.join(dataDir, "teams.json");
 
-const sourceId = "editorial-preview-2026-06-17";
+const sourceId = "editorial-preview-2026-06-22";
 
 const profiles = {
   ALG: {
@@ -22,35 +22,35 @@ const profiles = {
   },
   ARG: {
     summary: "are the defending champions and still one of the most complete tournament teams",
-    leaderRole: "giving them pressing, midfield control, and penalty-stage confidence",
-    plan: "They can play with patience, but Julian Alvarez's running and Enzo Fernandez's passing also let them turn pressure into fast attacks.",
-    attackPlan: "press high with Alvarez, win the second ball, and let Enzo Fernandez change the angle of the attack",
-    matchupWin: "keep possession without losing their counter-pressing edge",
+    leaderRole: "giving them between-lines creation, pressing, and midfield control",
+    plan: "They can play with patience, but Lionel Messi's between-lines gravity, Julian Alvarez's running, and Enzo Fernandez's passing also let them turn pressure into fast attacks.",
+    attackPlan: "press high through Alvarez, find Messi in space behind midfield, and let Enzo Fernandez change the angle of the attack",
+    matchupWin: "keep possession without losing pressure after turnovers",
     defensiveTask: "closing central counters before they reach Emiliano Martinez's box",
-    threat: "turn one midfield win into Alvarez movement, Enzo service, and sustained pressure"
+    threat: "turn one midfield win into Messi touches, Alvarez movement, and Enzo service"
   },
   AUS: {
-    summary: "are a durable, physical side built around organization, pressure, and set-piece toughness",
+    summary: "are a durable, physical side built around organization, pressure, and free-kick and corner toughness",
     leaderRole: "giving them goalkeeping security, midfield bite, and a creative release",
-    plan: "They are comfortable in rugged games where Jackson Irvine can hunt second balls and Christian Volpato can add the cleaner pass.",
+    plan: "They are comfortable in rugged games where Jackson Irvine can hunt loose balls after duels and Christian Volpato can add the cleaner pass.",
     attackPlan: "make the match direct enough for Irvine's running and Volpato's left foot to matter",
-    matchupWin: "turn restarts and second balls into territory",
+    matchupWin: "turn free kicks, corners, and loose balls into territory",
     defensiveTask: "keeping Mathew Ryan protected through compact defending",
-    threat: "drag opponents into duels, restarts, and late midfield runs"
+    threat: "drag opponents into duels, free kicks, corners, and late midfield runs"
   },
   AUT: {
     summary: "are a high-pressure European side with enough experience to make the press feel organized rather than wild",
-    leaderRole: "giving them leadership, shooting range, and relentless counter-pressing",
+    leaderRole: "giving them leadership, shooting range, and relentless pressure after losing the ball",
     plan: "They want David Alaba to organize the structure while Marcel Sabitzer and Konrad Laimer turn pressure into quick second attacks.",
     attackPlan: "force rushed passes and let Sabitzer and Laimer attack the next ball before defenses reset",
     matchupWin: "make the opponent play at Austria's pressing tempo",
-    defensiveTask: "keeping the back line connected behind Alaba",
+    defensiveTask: "keeping the defense connected behind Alaba",
     threat: "press the first pass, win territory, and attack before defenses reset"
   },
   BEL: {
     summary: "are an elite chance-creation team when their creators get space to face forward",
     leaderRole: "giving them attacking passing, box power, and one-on-one disruption",
-    plan: "They want Kevin De Bruyne to find early service, Romelu Lukaku to occupy center-backs, and Jeremy Doku to unbalance the far side.",
+    plan: "They want Kevin De Bruyne to find early service, Romelu Lukaku to occupy central defenders, and Jeremy Doku to unbalance the far side.",
     attackPlan: "feed De Bruyne early and use Doku to create the separation Lukaku needs in the box",
     matchupWin: "make the match about chance quality rather than long defensive phases",
     defensiveTask: "stopping counters before their attacking shape gets stretched",
@@ -60,7 +60,7 @@ const profiles = {
     summary: "are a veteran-leaning side that still carry real danger when the match becomes physical and direct",
     leaderRole: "giving them target play, defensive force, and a young creative outlet",
     plan: "They can lean on Edin Dzeko as the reference point, then use Sead Kolasinac's edge and Esmir Bajraktarevic's spark to keep attacks alive.",
-    attackPlan: "play into Dzeko early and build around the second balls that follow",
+    attackPlan: "play into Dzeko early and build around the loose balls that follow",
     matchupWin: "make the game slower, heavier, and more comfortable for their senior players",
     defensiveTask: "holding the left side firm when opponents try to run behind Kolasinac",
     threat: "turn direct service into Dzeko touches and scrappy box pressure"
@@ -70,21 +70,21 @@ const profiles = {
     leaderRole: "giving them improvisation, left-side speed, and midfield cover",
     plan: "They want Neymar to connect the attack, Vinicius Junior to isolate defenders, and Casemiro to stop counters before they grow.",
     attackPlan: "isolate Vinicius Junior quickly and let Neymar combine around the fouls and gaps that creates",
-    matchupWin: "force defenders into one-v-one choices they cannot keep winning",
-    defensiveTask: "using Casemiro to close the space behind Brazil's attacking fullbacks",
+    matchupWin: "force defenders into individual matchups they cannot keep winning",
+    defensiveTask: "using Casemiro to close the space behind Brazil's attacking wide defenders",
     threat: "break a shape through Neymar combinations and Vinicius Junior's speed"
   },
   CAN: {
     summary: "are a fast, direct host-side threat with enough top-end speed to change games in a few seconds",
     leaderRole: "giving them wide thrust, central finishing, and midfield balance",
-    plan: "They are most dangerous when Alphonso Davies can carry from deep and Jonathan David can attack cutbacks or early transition passes.",
-    attackPlan: "release Davies into space and get David facing goal before the opponent's block is set",
+    plan: "They are most dangerous when Alphonso Davies can carry from deep and Jonathan David can attack cutbacks or quick passes after Canada win the ball.",
+    attackPlan: "release Davies into space and get David facing goal before the opponent's defense is set",
     matchupWin: "turn open grass into the defining feature of the match",
-    defensiveTask: "using Stephen Eustaquio to keep transitions from becoming too loose",
+    defensiveTask: "using Stephen Eustaquio to keep quick breaks from becoming too loose",
     threat: "run through Davies and David before defenders can recover"
   },
   CIV: {
-    summary: "are a powerful transition team with enough midfield force to turn loose games in their favor",
+    summary: "are a powerful quick-break team with enough midfield force to turn loose games in their favor",
     leaderRole: "giving them ball-winning, wing speed, and a box target",
     plan: "They want Franck Kessie to drive through midfield, Simon Adingra to stretch the flank, and Evann Guessand to attack the penalty area.",
     attackPlan: "win the midfield collision and send Adingra into space before Guessand attacks the box",
@@ -93,12 +93,12 @@ const profiles = {
     threat: "turn Kessie's carries and Adingra's pace into Guessand chances"
   },
   COD: {
-    summary: "are an explosive transition side that can make favorites uncomfortable if the match opens up",
-    leaderRole: "giving them direct running, one-v-one defending, and midfield escapes",
+    summary: "are an explosive quick-break side that can make favorites uncomfortable if the match opens up",
+    leaderRole: "giving them direct running, individual defending, and midfield escapes",
     plan: "They need Yoane Wissa as the outlet, Aaron Wan-Bissaka to survive wing pressure, and Noah Sadiki to connect the first pass forward.",
     attackPlan: "spring Wissa early and let Sadiki carry the first clean pass out of pressure",
     matchupWin: "turn defensive stands into counters before the opponent can reset",
-    defensiveTask: "surviving wide pressure through Wan-Bissaka's one-v-one defending",
+    defensiveTask: "surviving wide pressure through Wan-Bissaka's individual defending",
     threat: "break quickly through Wissa and Sadiki when opponents overcommit"
   },
   COL: {
@@ -114,7 +114,7 @@ const profiles = {
     summary: "are compact tournament disruptors who need experience and goalkeeping to keep matches close",
     leaderRole: "giving them attacking calm, defensive organization, and shot-stopping resistance",
     plan: "They want Ryan Mendes to make the rare attacking moments count while Roberto Lopes and Vozinha keep the game narrow.",
-    attackPlan: "stay compact long enough for Mendes to find a composed final action",
+    attackPlan: "stay compact long enough for Mendes to find a composed final pass or shot",
     matchupWin: "make the opponent impatient and protect the center of the box",
     defensiveTask: "limiting clean shots so Vozinha's saves can matter",
     threat: "turn a slow match into one decisive Mendes action"
@@ -130,35 +130,35 @@ const profiles = {
   },
   CUW: {
     summary: "are a veteran-heavy underdog side trying to stay connected and choose their moments carefully",
-    leaderRole: "giving them midfield carries, set-piece experience, and a wide release valve",
-    plan: "They need Juninho Bacuna to carry them forward, Leandro Bacuna to manage restarts, and Tahith Chong to give counters a runner.",
-    attackPlan: "use the Bacuna brothers to turn pressure relief into set pieces before Chong attacks open space",
+    leaderRole: "giving them midfield carries, free-kick and corner experience, and a wide release valve",
+    plan: "They need Juninho Bacuna to carry them forward, Leandro Bacuna to manage free kicks and corners, and Tahith Chong to give counters a runner.",
+    attackPlan: "use the Bacuna brothers to turn pressure relief into free kicks and corners before Chong attacks open space",
     matchupWin: "make the match choppy enough that favorites lose rhythm",
     defensiveTask: "staying compact enough for Chong's outlet runs to matter",
-    threat: "turn veteran set-piece moments and Chong's running into a way back into the game"
+    threat: "turn veteran free-kick and corner moments and Chong's running into a way back into the game"
   },
   CZE: {
-    summary: "are a set-piece and crossing threat that become dangerous when the game is played in the air",
+    summary: "are a free-kick, corner, and crossing threat that become dangerous when the game is played in the air",
     leaderRole: "giving them box finishing, aerial power, and attacking flexibility",
     plan: "They want Patrik Schick attacking service, Tomas Soucek crashing the box, and Adam Hlozek connecting play underneath.",
-    attackPlan: "load early service toward Schick and Soucek before the defensive block settles",
-    matchupWin: "make restarts and second balls as important as open play",
-    defensiveTask: "keeping enough bodies behind the ball when fullbacks deliver early",
-    threat: "turn crosses, set pieces, and Soucek runs into high-value chances"
+    attackPlan: "load early service toward Schick and Soucek before the defense settles",
+    matchupWin: "make free kicks, corners, and loose balls as important as open play",
+    defensiveTask: "keeping enough bodies behind the ball when wide defenders deliver early",
+    threat: "turn crosses, free kicks, corners, and Soucek runs into high-value chances"
   },
   ECU: {
     summary: "are an intense, athletic side that can disrupt stronger opponents through midfield pressure",
     leaderRole: "giving them ball-winning, defensive range, and veteran finishing",
-    plan: "They want Moises Caicedo to erase central danger, Piero Hincapie to defend space, and Enner Valencia to finish the transition.",
+    plan: "They want Moises Caicedo to erase central danger, Piero Hincapie to defend space, and Enner Valencia to finish quick breaks.",
     attackPlan: "win the midfield duel through Caicedo and release Valencia before the defense is set",
     matchupWin: "make the middle of the pitch uncomfortable",
     defensiveTask: "using Hincapie to cover the channels when the line steps up",
     threat: "turn Caicedo ball wins and Valencia movement into fast attacks"
   },
   EGY: {
-    summary: "are a Salah-led transition team that can look quiet until one direct attack opens the match",
+    summary: "are a direct team built around Salah's runs that can look quiet until one attack opens the match",
     leaderRole: "giving them elite speed, secondary scoring, and central hold-up play",
-    plan: "They want Mohamed Salah running into space, Omar Marmoush adding a second lane, and Mostafa Mohamed holding the center-backs.",
+    plan: "They want Mohamed Salah running into space, Omar Marmoush adding a second lane, and Mostafa Mohamed holding the central defenders.",
     attackPlan: "release Salah early and let Marmoush arrive as the second wave",
     matchupWin: "make every turnover feel dangerous",
     defensiveTask: "staying compact enough that Salah is not stranded too far from goal",
@@ -179,26 +179,26 @@ const profiles = {
     plan: "They use Lamine Yamal and Nico Williams to stretch the pitch, then trust Pedri to find the pass through the line.",
     attackPlan: "pin the wide defenders with Yamal and Williams before Pedri plays through the gaps",
     matchupWin: "force defenders to choose between stopping the wingers and protecting the middle",
-    defensiveTask: "keeping the counter-press tight behind their fullbacks",
+    defensiveTask: "keeping pressure tight behind their wide defenders",
     threat: "stretch the pitch through Yamal and Williams before Pedri breaks the line"
   },
   FRA: {
-    summary: "are an elite transition force with enough individual quality to win without needing long possession spells",
+    summary: "are an elite quick-break force with enough individual quality to win without needing long possession spells",
     leaderRole: "giving them game-breaking pace, connective craft, and defensive calm",
     plan: "They want Kylian Mbappe attacking space, Antoine Griezmann connecting phases, and William Saliba protecting the open field.",
     attackPlan: "create one clean channel for Mbappe and let Griezmann decide when to speed the move up",
-    matchupWin: "make the opponent defend space behind their back line",
+    matchupWin: "make the opponent defend space behind their defense",
     defensiveTask: "trusting Saliba to control counters when France's attackers push high",
     threat: "turn one channel ball into Mbappe running at goal"
   },
   GER: {
     summary: "are a technical control side with enough young creativity to open compact defenses",
     leaderRole: "giving them rhythm, dribbling through pressure, and final-pass invention",
-    plan: "They want Joshua Kimmich setting the rhythm while Jamal Musiala and Florian Wirtz receive in the pockets.",
+    plan: "They want Joshua Kimmich setting the rhythm while Jamal Musiala and Florian Wirtz receive in small gaps.",
     attackPlan: "pull midfielders out with Kimmich's passing before Musiala and Wirtz attack the gaps near the box",
-    matchupWin: "make the central pockets too crowded to defend cleanly",
+    matchupWin: "make the central gaps too crowded to defend cleanly",
     defensiveTask: "protecting the space behind their advanced midfielders",
-    threat: "combine through Kimmich, Musiala, and Wirtz until the block loses its shape"
+    threat: "combine through Kimmich, Musiala, and Wirtz until the defense loses its shape"
   },
   GHA: {
     summary: "are a fast front-line team that need their direct runners to turn defensive work into threat",
@@ -239,24 +239,24 @@ const profiles = {
   JOR: {
     summary: "are a disciplined counterattacking side that can hurt teams through speed and timing",
     leaderRole: "giving them ball-carrying, box movement, and midfield work rate",
-    plan: "They want Mousa Al-Taamari to carry the break, Ali Olwan to attack the box, and Noor Al-Rawabdeh to keep the block connected.",
+    plan: "They want Mousa Al-Taamari to carry the break, Ali Olwan to attack the box, and Noor Al-Rawabdeh to keep the defense connected.",
     attackPlan: "spring Al-Taamari into open space and let Olwan attack the first clear chance",
     matchupWin: "make the opponent nervous about every turnover",
     defensiveTask: "holding midfield distances through Al-Rawabdeh's work",
-    threat: "counter through Al-Taamari and Olwan before the back line recovers"
+    threat: "counter through Al-Taamari and Olwan before the defense recovers"
   },
   JPN: {
     summary: "are a precise, fast-passing side that can make possession feel sudden and sharp",
-    leaderRole: "giving them tight-space craft, left-footed punch, and between-lines timing",
-    plan: "They want Takefusa Kubo to create in tight spaces, Ritsu Doan to attack inside from the right, and Daichi Kamada to connect the final pass.",
-    attackPlan: "move the ball quickly enough for Kubo, Doan, or Kamada to receive between defenders",
+    leaderRole: "giving them penalty-area finishing, left-footed punch, and timing around the box",
+    plan: "They want the front line to keep moving, Ritsu Doan to attack inside from the right, and Daichi Kamada to connect the final pass.",
+    attackPlan: "move the ball quickly enough for their attackers to receive between defenders",
     matchupWin: "make the opponent defend repeated changes of angle",
     defensiveTask: "keeping the first counter controlled after their attacking midfielders commit forward",
-    threat: "turn quick combinations into Kubo, Doan, or Kamada chances"
+    threat: "turn quick combinations into chances around the box"
   },
   KOR: {
     summary: "are a relentless running side with star quality at both ends of the spine",
-    leaderRole: "giving them elite transition finishing, defensive command, and attacking passing",
+    leaderRole: "giving them elite quick-break finishing, defensive command, and attacking passing",
     plan: "They want Son Heung-min attacking space, Kim Min-jae winning first contact, and Lee Kang-in adding the pass that slows the rush.",
     attackPlan: "release Son behind the line and let Lee Kang-in choose the final pass",
     matchupWin: "make the match stretch vertically",
@@ -276,25 +276,25 @@ const profiles = {
     summary: "are a disciplined, dangerous side whose structure lets their flair players attack with freedom",
     leaderRole: "giving them right-side thrust, central invention, and box finishing",
     plan: "They want Achraf Hakimi to own the right side, Brahim Diaz to receive between lines, and Ayoub El Kaabi to finish moves.",
-    attackPlan: "use Hakimi's overlaps to tilt the field before Brahim or El Kaabi attacks the final action",
-    matchupWin: "make the opponent defend both wide switches and aerial service",
-    defensiveTask: "keeping the block compact behind Hakimi's forward runs",
+    attackPlan: "use Hakimi's overlaps to tilt the field before Brahim or El Kaabi attacks the final pass or shot",
+    matchupWin: "make the opponent defend both long passes across the field and aerial service",
+    defensiveTask: "keeping the defense compact behind Hakimi's forward runs",
     threat: "combine Hakimi surges, Brahim's invention, and El Kaabi's box movement"
   },
   MEX: {
     summary: "are a home-side pressure team that want territory, crowd energy, and repeated penalty-area touches",
-    leaderRole: "giving them a striker reference, midfield steel, and set-piece danger",
-    plan: "They want Santiago Gimenez occupying the center-backs, Edson Alvarez protecting transitions, and Luis Chavez punishing loose clearances.",
-    attackPlan: "keep the ball in the opponent's half and feed Gimenez before Chavez attacks restarts or rebounds",
+    leaderRole: "giving them a striker reference, midfield steel, and free-kick and corner danger",
+    plan: "They want Santiago Gimenez occupying the central defenders, Edson Alvarez protecting quick breaks, and Luis Chavez punishing loose clearances.",
+    attackPlan: "keep the ball in the opponent's half and feed Gimenez before Chavez attacks free kicks, corners, or rebounds",
     matchupWin: "turn pressure into a constant stream of box entries",
     defensiveTask: "letting Alvarez stop counters before they become open-field runs",
-    threat: "turn home pressure into Gimenez touches and Chavez set-piece looks"
+    threat: "turn home pressure into Gimenez touches and Chavez free-kick or corner chances"
   },
   NED: {
     summary: "are a control team with a strong defensive base and enough technical quality to play through pressure",
     leaderRole: "giving them aerial command, midfield carrying, and flexible finishing",
     plan: "They want Virgil van Dijk to hold the line, Frenkie de Jong to escape pressure, and Cody Gakpo to connect the attack.",
-    attackPlan: "build calmly through De Jong and let Gakpo receive between fullback and center-back",
+    attackPlan: "build calmly through De Jong and let Gakpo receive between wide and central defenders",
     matchupWin: "make possession feel secure while still threatening the front line",
     defensiveTask: "using Van Dijk to control depth when the line steps higher",
     threat: "control possession through De Jong and protect it with Van Dijk's authority"
@@ -302,10 +302,10 @@ const profiles = {
   NOR: {
     summary: "are a direct star-powered side whose attacking question is how quickly they can serve the finisher",
     leaderRole: "giving them box gravity, creative supply, and wide unpredictability",
-    plan: "They want Martin Odegaard finding the pass, Antonio Nusa adding speed, and Erling Haaland attacking the final action.",
+    plan: "They want Martin Odegaard finding the pass, Antonio Nusa adding speed, and Erling Haaland attacking the last pass or shot.",
     attackPlan: "get Odegaard facing forward and deliver early enough for Haaland to attack the box",
     matchupWin: "make every deep defending moment feel like a Haaland chance is coming",
-    defensiveTask: "keeping enough pressure on the ball before direct counters reach the back line",
+    defensiveTask: "keeping enough pressure on the ball before direct counters reach the defense",
     threat: "feed Haaland through Odegaard's service and Nusa's change of speed"
   },
   NZL: {
@@ -313,7 +313,7 @@ const profiles = {
     leaderRole: "giving them a target striker, left-side outlet, and technical passing",
     plan: "They want Chris Wood as the endpoint, Liberato Cacace moving them up the left, and Sarpreet Singh adding craft.",
     attackPlan: "move play wide through Cacace and serve Wood before the box gets crowded",
-    matchupWin: "make crosses and second balls meaningful",
+    matchupWin: "make crosses and loose balls meaningful",
     defensiveTask: "staying compact enough that Singh can receive the first pass out",
     threat: "turn left-side service and Wood's aerial presence into chances"
   },
@@ -322,22 +322,22 @@ const profiles = {
     leaderRole: "giving them rhythm, right-side running, and a central finish",
     plan: "They want Adalberto Carrasquilla to calm the ball, Michael Murillo to push the right side, and Ismael Diaz to finish rare openings.",
     attackPlan: "use Carrasquilla to escape pressure and let Murillo turn the right side into territory",
-    matchupWin: "make the opponent work through a stubborn, connected block",
+    matchupWin: "make the opponent work through a stubborn, connected defense",
     defensiveTask: "keeping Diaz close enough to threaten when possession turns",
     threat: "disrupt rhythm through Carrasquilla and create right-side surges through Murillo"
   },
   PAR: {
-    summary: "are rugged counterpunchers who are comfortable turning matches into physical, low-margin contests",
+    summary: "are rugged counterpunchers who are comfortable turning matches into physical, tight contests",
     leaderRole: "giving them speed, shot creation, and defensive command",
     plan: "They want Miguel Almiron carrying them forward, Julio Enciso taking brave shots, and Gustavo Gomez controlling the box.",
     attackPlan: "release Almiron into space and let Enciso attack the pocket before defenders settle",
     matchupWin: "make the opponent deal with duels, fouls, and sudden counters",
     defensiveTask: "leaning on Gomez to organize the penalty area",
-    threat: "turn one Almiron break or Enciso shot into a low-margin swing"
+    threat: "turn one Almiron break or Enciso shot into a tight-game swing"
   },
   POR: {
     summary: "are a star-heavy attacking side with enough creators to feed several different scoring routes",
-    leaderRole: "giving them finishing gravity, chance creation, and press-resistant control",
+    leaderRole: "giving them finishing gravity, chance creation, and calm control under pressure",
     plan: "They want Cristiano Ronaldo occupying the box, Bruno Fernandes creating the chance, and Vitinha setting the rhythm underneath.",
     attackPlan: "let Vitinha control the first pass, then use Bruno Fernandes to find Ronaldo or the far-side runner",
     matchupWin: "make their technical quality show up around the penalty area",
@@ -348,7 +348,7 @@ const profiles = {
     summary: "are compact possession builders who need their best attackers to turn long spells into sharper chances",
     leaderRole: "giving them creativity, finishing, and left-side balance",
     plan: "They want Akram Afif receiving in space, Almoez Ali attacking the final ball, and Homam Ahmed giving them width and recovery runs.",
-    attackPlan: "find Afif in pockets and let Almoez Ali attack the first clean service",
+    attackPlan: "find Afif in small gaps and let Almoez Ali attack the first clean service",
     matchupWin: "make possession patient without becoming harmless",
     defensiveTask: "keeping Ahmed's side secure when the attack pushes up",
     threat: "combine through Afif and Almoez Ali when defenders lose patience"
@@ -375,7 +375,7 @@ const profiles = {
     summary: "are an athletic, experienced side with enough defensive presence to survive pressure and enough speed to punish it",
     leaderRole: "giving them senior leadership, striker movement, and back-line command",
     plan: "They want Sadio Mane leading the attack, Nicolas Jackson stretching the line, and Kalidou Koulibaly winning the defensive duels.",
-    attackPlan: "use Mane's timing and Jackson's depth to attack before the opponent's block is set",
+    attackPlan: "use Mane's timing and Jackson's depth to attack before the opponent's defense is set",
     matchupWin: "make the match feel like a series of athletic duels",
     defensiveTask: "trusting Koulibaly to organize the box under pressure",
     threat: "turn Mane's experience and Jackson's running into direct chances"
@@ -394,7 +394,7 @@ const profiles = {
     leaderRole: "giving them elegant finishing, power running, and midfield timing",
     plan: "They want Alexander Isak finding clean touches, Viktor Gyokeres forcing contact, and Yasin Ayari arriving from midfield.",
     attackPlan: "connect through Ayari and then choose between Isak's polish or Gyokeres' power",
-    matchupWin: "make center-backs defend different kinds of striker movement",
+    matchupWin: "make central defenders handle different kinds of striker movement",
     defensiveTask: "preventing the midfield from getting stretched behind the front two",
     threat: "alternate between Isak's finesse and Gyokeres' force"
   },
@@ -408,7 +408,7 @@ const profiles = {
     threat: "slow the match through Skhiri's screen and break through Saad"
   },
   TUR: {
-    summary: "are a creative young attacking side with enough set-piece quality to punish small mistakes",
+    summary: "are a creative young attacking side with enough free-kick and corner quality to punish small mistakes",
     leaderRole: "giving them deep passing, central spark, and fearless running",
     plan: "They want Hakan Calhanoglu setting the rhythm, Arda Guler creating near the box, and Kenan Yildiz attacking defenders directly.",
     attackPlan: "use Calhanoglu's passing to find Guler in space before Yildiz attacks the gap",
@@ -427,7 +427,7 @@ const profiles = {
   },
   USA: {
     summary: "are an athletic pressing team with enough direct attacking talent to make games feel stretched",
-    leaderRole: "giving them one-v-one threat, box-to-box power, and midfield ball-winning",
+    leaderRole: "giving them individual attacking threat, end-to-end power, and midfield ball-winning",
     plan: "They want Christian Pulisic attacking near goal, Weston McKennie arriving around the box, and Tyler Adams killing counters.",
     attackPlan: "press into turnovers and let Pulisic or McKennie attack before the defense resets",
     matchupWin: "make the game fast enough that their athleticism matters",
@@ -486,7 +486,7 @@ function buildSideCopy(team, opponent, players, opponentPlayers) {
     throw new Error(`Missing key players for ${team.id} vs ${opponent.id}`);
   }
 
-  return `${team.name} ${profile.summary}, led by ${formatList(names)}. Against ${opponent.name}, they want to ${profile.attackPlan}; the risk is ${opponent.name} can ${opponentProfile.threat}.`;
+  return `${team.name} ${profile.summary}, led by ${formatList(names)}. Against ${opponent.name}, they want to ${profile.attackPlan}. The risk is ${opponent.name} can ${opponentProfile.threat}.`;
 }
 
 const [fixturesData, teamsData] = await Promise.all([
@@ -495,6 +495,8 @@ const [fixturesData, teamsData] = await Promise.all([
 ]);
 const teamsById = new Map(teamsData.teams.map((team) => [team.id, team]));
 let populated = 0;
+
+fixturesData.sourceIds = [...new Set([...(fixturesData.sourceIds || []), sourceId])];
 
 fixturesData.fixtures = fixturesData.fixtures.map((fixture) => {
   if (fixture.stage !== "group" || !fixture.homeTeamId || !fixture.awayTeamId) {

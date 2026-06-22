@@ -11,6 +11,7 @@ const keyPlayerSourceId = "key-player-baseline-2026-06-17";
 const overwrite = process.argv.includes("--overwrite");
 
 const teamKeyPlayers = {
+  ARG: ["Lionel Messi", "Julian Alvarez", "Enzo Fernandez"],
   AUT: ["David Alaba", "Marcel Sabitzer", "Konrad Laimer"],
   AUS: ["Mathew Ryan", "Jackson Irvine", "Christian Volpato"],
   BEL: ["Kevin De Bruyne", "Romelu Lukaku", "Jeremy Doku"],
@@ -24,7 +25,7 @@ const teamKeyPlayers = {
   GER: ["Joshua Kimmich", "Jamal Musiala", "Florian Wirtz"],
   HAI: ["Duckens Nazon", "Frantzdy Pierrot", "Jean-Ricner Bellegarde"],
   IRN: ["Mehdi Taremi", "Sardar Azmoun", "Alireza Jahanbakhsh"],
-  JPN: ["Takefusa Kubo", "Ritsu Doan", "Daichi Kamada"],
+  JPN: ["Ayase Ueda", "Ritsu Doan", "Daichi Kamada"],
   JOR: ["Mousa Al-Taamari", "Ali Olwan", "Noor Al-Rawabdeh"],
   KSA: ["Salem Al-Dawsari", "Firas Al-Buraikan", "Mohammed Al-Owais"],
   MAR: ["Achraf Hakimi", "Brahim Diaz", "Ayoub El Kaabi"],

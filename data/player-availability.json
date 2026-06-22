@@ -1,9 +1,10 @@
 {
-  "updatedAt": "2026-06-21T12:24:40-07:00",
+  "updatedAt": "2026-06-22T10:17:00-07:00",
   "sourceIds": [
     "fifa-squad-list-2026-06-21",
     "aljazeera-japan-squad-2026-05-15",
     "nippon-japan-squad-update-2026-06-15",
+    "nippon-kubo-injury-2026-06-18",
     "toi-belgium-doku-illness-2026-06-21"
   ],
   "teams": {
@@ -2146,6 +2147,14 @@
           "name": "Wataru Endo",
           "reason": "Withdrew due to injury on June 11 and was replaced by Shuto Machino.",
           "sourceId": "nippon-japan-squad-update-2026-06-15"
+        }
+      ],
+      "fixtureUnavailable": [
+        {
+          "fixtureId": "tunisia-japan-2026-06-20",
+          "name": "Takefusa Kubo",
+          "reason": "Left knee injury confirmed by MRI after the Netherlands match; unavailable against Tunisia.",
+          "sourceId": "nippon-kubo-injury-2026-06-18"
         }
       ]
     },

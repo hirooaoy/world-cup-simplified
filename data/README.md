@@ -54,6 +54,14 @@ node scripts/populate-matchup-key-information.mjs
 
 These notes are editorial matchup previews. Each group fixture should explain both the team's own plan and how that plan relates to the opponent.
 
+Run this after editing matchup copy, key players, player availability, or final scores to review all preview paragraphs and completed-match result sections together:
+
+```bash
+pnpm run audit:copy
+```
+
+The copy audit checks every group-match team paragraph, including past fixtures, plus the team descriptors and final-score result sections for completed group matches.
+
 Run this after key-player changes or transfer/profile updates to refresh hover-card player metadata:
 
 ```bash

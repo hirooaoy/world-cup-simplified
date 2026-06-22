@@ -482,7 +482,53 @@ try {
     "Player hover card should show the country-team uniform number beside the name when available."
   );
 
-  await page.goto(`${baseUrl}?view=matches&date=2026-06-11&tz=America%2FLos_Angeles`, {
+  await page.goto(`${baseUrl}?view=matches&date=2026-06-20&lang=zh&tz=America%2FLos_Angeles`, {
+    waitUntil: "load"
+  });
+  await page.waitForSelector(".match-row");
+  await page.locator('[data-match-id="tunisia-japan-2026-06-20"]').click();
+  const japanTunisiaChineseInfo = await page.locator(".key-info-team").last().locator("p").innerText();
+  assert(
+    japanTunisiaChineseInfo.includes("上田绮世") &&
+      japanTunisiaChineseInfo.includes("堂安律") &&
+      japanTunisiaChineseInfo.includes("镰田大地") &&
+      japanTunisiaChineseInfo.includes("对阵突尼斯"),
+    "Chinese Japan key information should localize the post-Kubo key-player trio against Tunisia."
+  );
+  assert(
+    !/Takefusa Kubo|久保建英|Ayase Ueda/.test(japanTunisiaChineseInfo),
+    "Chinese Japan key information should not surface Kubo or raw English Ueda after the Tunisia absence update."
+  );
+  const uedaChineseLink = page.locator(".key-info-team").last().locator(".player-link", { hasText: "上田绮世" }).first();
+  assert(
+    (await uedaChineseLink.count()) === 1,
+    "Chinese key information should link Ayase Ueda's localized name."
+  );
+  await uedaChineseLink.hover();
+  const uedaChineseCard = uedaChineseLink
+    .locator("xpath=ancestor::span[contains(concat(' ', normalize-space(@class), ' '), ' player-hover ')][1]")
+    .locator(".player-card");
+  await uedaChineseCard.waitFor({ state: "visible" });
+  assert(
+    (await uedaChineseCard.locator(".player-card-name").innerText()).trim() === "上田绮世" &&
+      (await uedaChineseCard.locator(".player-card-club").innerText()).includes("费耶诺德"),
+    "Chinese Ayase Ueda hover card should localize the display name and club."
+  );
+
+  await page.goto(`${baseUrl}?view=matches&date=2026-06-25&lang=zh&tz=America%2FLos_Angeles`, {
+    waitUntil: "load"
+  });
+  await page.waitForSelector(".match-row");
+  await page.locator('[data-match-id="japan-sweden-2026-06-25"]').click();
+  const japanSwedenChineseInfo = await page.locator(".key-info-team").first().locator("p").innerText();
+  assert(
+    japanSwedenChineseInfo.includes("上田绮世") &&
+      japanSwedenChineseInfo.includes("对阵瑞典") &&
+      !/Takefusa Kubo|久保建英|Ayase Ueda/.test(japanSwedenChineseInfo),
+    "Chinese Japan key information should carry the non-Kubo Japan trio forward against Sweden."
+  );
+
+  await page.goto(`${baseUrl}?view=matches&date=2026-06-11&lang=en&tz=America%2FLos_Angeles`, {
     waitUntil: "load"
   });
   await page.waitForSelector(".match-row");
@@ -1003,16 +1049,16 @@ try {
     .locator(".match-row-meta > *")
     .evaluateAll((items) => items.map((item) => item.innerText.trim().toUpperCase()).join("|"));
   assert(
-    liveFallbackMetaText === "LIVE",
-    "The Live pill should be the only live-state metadata when no verified score is loaded."
+    liveFallbackMetaText === "LIVE|SCORE PENDING",
+    "The live row should label score-pending state when no verified score is loaded."
   );
   assert(
-    (await liveFallbackRow.locator(".score-status").count()) === 0,
-    "A live fixture without a loaded score should not show Score pending."
+    (await liveFallbackRow.locator(".score-status.is-pending").count()) === 1,
+    "A live fixture without a loaded score should show Score pending."
   );
   assert(
-    !(await liveFallbackRow.innerText()).includes("Score pending"),
-    "The visible live row text should not include Score pending."
+    (await liveFallbackRow.innerText()).includes("Score pending"),
+    "The visible live row text should include Score pending."
   );
   const liveFallbackBox = await liveFallbackRow.boundingBox();
   assert(
@@ -1238,21 +1284,21 @@ try {
     links.map((link) => link.textContent.trim()).join("|")
   );
   const reportIssueHref = await sourceNote.locator("a", { hasText: "Report issue" }).getAttribute("href");
-  const creatorHref = await sourceNote.locator("a", { hasText: "hirooaoy" }).getAttribute("href");
+  const creatorHref = await sourceNote.locator("a", { hasText: "Hirooaoy" }).getAttribute("href");
   const expectedSourceUpdatedAt = formatExpectedSourceUpdatedAt(getLatestUpdatedAt(sourceNoteData));
   assert(
     sourceNoteText ===
-      `Sources: FIFA schedule, debutants, ranking, standings. Predictions are unofficial. Last updated ${expectedSourceUpdatedAt}. Report issue. Made by hirooaoy`,
+      `Sources: FIFA schedule, debutants, ranking, standings. Predictions are unofficial. Last updated ${expectedSourceUpdatedAt}. Report issue. Made by Hirooaoy`,
     "The source note should stay short and show the latest website update time."
   );
   assert(
-    sourceLinkLabels === "FIFA schedule|debutants|ranking|standings|Report issue|hirooaoy",
+    sourceLinkLabels === "FIFA schedule|debutants|ranking|standings|Report issue|Hirooaoy",
     "The source note should keep the compact official source links."
   );
   assert(reportIssueHref === "report.html", "The source note should link to the report issue page.");
   assert(
     creatorHref === "https://www.linkedin.com/in/hirooaoy",
-    "The source note should link hirooaoy to LinkedIn."
+    "The source note should link Hirooaoy to LinkedIn."
   );
   assert(
     !sourceNoteText.includes("Core data") &&
@@ -1536,6 +1582,7 @@ try {
         .join(" ");
 
     return {
+      m73ProgressText: text('.progress-match[data-match-number="73"]'),
       m74ProgressText: text('.progress-match[data-match-number="74"]'),
       m89Text: text('.progress-match[data-match-number="89"]'),
       m97Text: text('.progress-match[data-match-number="97"]'),
@@ -1549,7 +1596,22 @@ try {
       r32Text: allText(".r32-match"),
       sectionHeadingVisible: Boolean(document.querySelector(".tournament-section-heading")),
       sideCount: document.querySelectorAll(".poster-side").length,
+      norwayTooltip: document.querySelector('.knockout-team[data-team-id="NOR"]')?.getAttribute("data-tooltip") || "",
       slotOddsCount: document.querySelectorAll(".knockout-slot-odds").length,
+      slotOddsToneMismatches: [...document.querySelectorAll(".knockout-slot-odds")]
+        .filter((element) => {
+          const percentText = element.textContent.match(/(?:<1|>99|\d+)%/)?.[0]?.replace("%", "");
+
+          if (!percentText) {
+            return true;
+          }
+
+          const percent =
+            percentText === "<1" ? 0.5 : percentText === ">99" ? 99.5 : Number(percentText);
+          const expectedClass = percent >= 75 ? "is-high" : percent <= 25 ? "is-low" : "is-neutral";
+          return !element.classList.contains(expectedClass);
+        })
+        .map((element) => element.textContent.replace(/\s+/g, " ").trim()),
       slotOddsText: allText(".knockout-slot-odds"),
       roundHeadings: [...document.querySelectorAll(".progress-round h3")].map((heading) =>
         heading.textContent.trim()
@@ -1568,9 +1630,14 @@ try {
   );
   assert(
     tournamentCheck.summary.includes("Round of 32 slots") &&
+      tournamentCheck.m73ProgressText.includes("Jun 28 12:00PM") &&
+      !tournamentCheck.m73ProgressText.includes("Jun 28 / 12:00PM") &&
       tournamentCheck.m74ProgressText.includes(getTeam(standingsData.groups?.E?.[0]?.teamId).id) &&
       tournamentCheck.m74ProgressText.includes("Group E Top 1") &&
+      !tournamentCheck.m74ProgressText.includes("Group E Top 1 /") &&
+      tournamentCheck.norwayTooltip === "Norway" &&
       tournamentCheck.slotOddsCount >= 16 &&
+      tournamentCheck.slotOddsToneMismatches.length === 0 &&
       tournamentCheck.slotOddsText.includes("here") &&
       tournamentCheck.m89Text.includes("TBD") &&
       tournamentCheck.m97Text.includes("TBD") &&

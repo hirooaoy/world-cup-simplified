@@ -43,10 +43,17 @@ a {
   padding: 24px clamp(20px, 3.5vw, 52px) 0;
 }
 
-.site-brand {
+.site-brand-lockup {
   display: inline-flex;
   align-items: center;
   justify-self: start;
+  gap: 9px;
+  min-width: 0;
+}
+
+.site-brand {
+  display: inline-flex;
+  align-items: center;
   gap: 9px;
   min-width: 0;
   color: var(--text);
@@ -77,12 +84,28 @@ a {
 }
 
 .juggle-record {
+  appearance: none;
   flex: 0 0 auto;
+  border: 0;
+  padding: 0;
+  background: transparent;
   color: rgba(10, 10, 10, 0.46);
+  cursor: pointer;
+  font-family: inherit;
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 0;
   line-height: 1;
+}
+
+.juggle-record:disabled {
+  cursor: default;
+  opacity: 0.58;
+}
+
+.juggle-record:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
 }
 
 .juggle-ball {
@@ -123,6 +146,7 @@ a {
   justify-self: end;
   gap: 12px;
   min-width: 0;
+  transition: gap 180ms ease;
 }
 
 .header-controls-loading {
@@ -394,8 +418,10 @@ a {
   position: relative;
   display: inline-flex;
   align-items: center;
+  width: var(--timezone-label-width, auto);
   max-width: min(48vw, 360px);
   min-width: 0;
+  transition: width 180ms ease, max-width 180ms ease;
 }
 
 .timezone-select {
@@ -902,6 +928,12 @@ h1 {
 
   .juggle-ball {
     display: none;
+  }
+
+  .header-controls,
+  .timezone-control,
+  .timezone-select {
+    transition: none;
   }
 }
 
@@ -2811,11 +2843,52 @@ h1 {
 }
 
 .knockout-team {
+  position: relative;
   display: grid;
   grid-template-columns: 30px minmax(0, 1fr);
   gap: 8px;
   align-items: center;
   min-width: 0;
+  outline: none;
+}
+
+.knockout-team[data-tooltip] {
+  cursor: help;
+}
+
+.knockout-team[data-tooltip]::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 0;
+  z-index: 30;
+  width: max-content;
+  max-width: min(220px, 70vw);
+  padding: 7px 9px;
+  border: 1px solid rgba(10, 10, 10, 0.12);
+  border-radius: 8px;
+  background: rgba(10, 10, 10, 0.92);
+  box-shadow: 0 12px 28px rgba(10, 10, 10, 0.16);
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.25;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(4px);
+  transition: opacity 140ms ease, transform 140ms ease;
+  white-space: normal;
+}
+
+.knockout-team[data-tooltip]:hover::after,
+.knockout-team[data-tooltip]:focus-visible::after {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.knockout-team[data-tooltip]:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
 }
 
 .knockout-team.is-pending {
@@ -2923,16 +2996,33 @@ h1 {
   min-height: 22px;
   padding: 0 8px;
   overflow: visible;
-  border: 1px solid rgba(16, 92, 62, 0.18);
+  border: 1px solid transparent;
   border-radius: 999px;
-  background: rgba(18, 122, 72, 0.08);
-  color: #0d6b3f;
   cursor: help;
   font-size: 10px;
   font-weight: 850;
   line-height: 1;
   outline: none;
   white-space: nowrap;
+}
+
+.knockout-likelihood,
+.knockout-slot-odds.is-high {
+  border-color: rgba(16, 92, 62, 0.18);
+  background: rgba(18, 122, 72, 0.08);
+  color: #0d6b3f;
+}
+
+.knockout-slot-odds.is-neutral {
+  border-color: rgba(10, 10, 10, 0.13);
+  background: rgba(10, 10, 10, 0.045);
+  color: rgba(10, 10, 10, 0.6);
+}
+
+.knockout-slot-odds.is-low {
+  border-color: rgba(152, 104, 18, 0.24);
+  background: rgba(218, 171, 45, 0.14);
+  color: #7a5300;
 }
 
 .knockout-slot-odds-list {
@@ -3936,9 +4026,13 @@ h1 {
     padding: 18px 18px 0;
   }
 
-  .site-brand {
+  .site-brand-lockup {
     justify-self: start;
     max-width: 100%;
+    min-width: 0;
+  }
+
+  .site-brand {
     font-size: 13px;
     overflow: hidden;
   }

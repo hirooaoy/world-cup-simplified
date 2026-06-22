@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-21T20:34:16.718Z",
+  "updatedAt": "2026-06-22T17:17:00.000Z",
   "sourceIds": [
     "wikipedia-football-infobox",
     "wikimedia-commons",
@@ -359,6 +359,23 @@
       ],
       "note": "The box finisher who gives Morocco a direct endpoint when wide pressure turns into service.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Ayoub_El_Kaabi"
+    },
+    "Ayase Ueda": {
+      "name": "Ayase Ueda",
+      "displayName": "Ayase Ueda",
+      "teamId": "JPN",
+      "uniformNumber": 18,
+      "position": "Striker",
+      "club": "Feyenoord",
+      "league": "Eredivisie",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Go%20Ahead%20Eagles%20-%20Feyenoord%20-%2053679351240%20%28Ayase%20Ueda%29.jpg?width=160",
+      "skills": [
+        "Finishing",
+        "Box presence",
+        "Movement"
+      ],
+      "note": "Japan's penalty-area finisher, fresh off a two-goal performance against Tunisia.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Ayase_Ueda"
     },
     "Brahim Diaz": {
       "name": "Brahim Diaz",
@@ -1216,6 +1233,23 @@
       ],
       "note": "Argentina's pressing forward and flexible finisher, dangerous whether he starts moves or attacks the last line.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Juli%C3%A1n_Alvarez"
+    },
+    "Lionel Messi": {
+      "name": "Lionel Messi",
+      "displayName": "Lionel Messi",
+      "teamId": "ARG",
+      "uniformNumber": 10,
+      "position": "Forward",
+      "club": "Inter Miami",
+      "league": "Major League Soccer",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Lionel%20Messi%20White%20House%202026%20%283x4%20cropped%29.jpg?width=160",
+      "skills": [
+        "Chance creation",
+        "Finishing",
+        "Movement"
+      ],
+      "note": "Argentina's central attacking reference, whose between-lines gravity can turn pressure into clean chances.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Lionel_Messi"
     },
     "Julio Enciso": {
       "name": "Julio Enciso",

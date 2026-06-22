@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-22T03:55:49.549Z",
+  "updatedAt": "2026-06-22T17:21:59.493Z",
   "coverageNote": "The current seed dataset covers the full official fixture skeleton from June 11 through July 19. Rich previews, scores, live status and knockout participants are updated progressively.",
   "format": {
     "automaticAdvancersPerGroup": 2,
@@ -76,6 +76,13 @@
       "url": "",
       "type": "editorial",
       "checkedAt": "2026-06-17T11:40:00-07:00"
+    },
+    {
+      "id": "editorial-preview-2026-06-22",
+      "label": "Editorial preview notes and placeholder projections",
+      "url": "",
+      "type": "editorial",
+      "checkedAt": "2026-06-22T10:03:59-07:00"
     },
     {
       "id": "ranking-projection-2026-06-17",
@@ -414,6 +421,13 @@
       "checkedAt": "2026-06-20T10:31:28-07:00"
     },
     {
+      "id": "nippon-kubo-injury-2026-06-18",
+      "label": "Nippon.com Takefusa Kubo left knee injury update",
+      "url": "https://www.nippon.com/en/news/yjj2026061800221/",
+      "type": "cross-check",
+      "checkedAt": "2026-06-22T10:17:00-07:00"
+    },
+    {
       "id": "national-football-teams-ned-jpn-h2h-2026-06-17",
       "label": "National Football Teams Netherlands-Japan H2H cross-check",
       "url": "https://www.national-football-teams.com/encounter/teams/129/94/Netherlands_vs_Japan.html",
@@ -559,8 +573,8 @@
       "label": "FIFA official results sync",
       "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/match-schedule-fixtures-results-teams-stadiums",
       "type": "official",
-      "checkedAt": "2026-06-22T03:55:49.549Z",
-      "note": "3 fixture updates merged from 104 matched FIFA fixtures."
+      "checkedAt": "2026-06-22T17:21:59.493Z",
+      "note": "0 fixture updates merged from 104 matched FIFA fixtures."
     }
   ],
   "groups": [
