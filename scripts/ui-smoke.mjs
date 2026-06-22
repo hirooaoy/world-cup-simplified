@@ -864,6 +864,7 @@ try {
   );
   const japanSearchRows = await japanSearchCheck.page.locator(".match-row").evaluateAll((rows) =>
     rows.map((row) => ({
+      dateTime: row.querySelector(".match-date")?.textContent.trim() || "",
       id: row.dataset.matchId,
       label: row.getAttribute("aria-label") || ""
     }))
@@ -876,6 +877,33 @@ try {
     japanSearchRows.every((row) => row.label.includes("Japan")) &&
       !japanSearchRows.some((row) => row.id === "panama-croatia-2026-06-23"),
     "Japan country search should not include Panama fixtures through the PAN team id."
+  );
+  assert(
+    japanSearchRows.some(
+      (row) =>
+        row.id === "japan-sweden-2026-06-25" &&
+        row.dateTime === "June 25 4:00PM" &&
+        row.label.includes("June 25, 4:00PM")
+    ),
+    "Current country search rows should show and announce the match date and time on one line."
+  );
+  await japanSearchCheck.page.locator('[data-team-history-toggle="true"]').click();
+  const japanArchiveRows = await japanSearchCheck.page
+    .locator(".team-search-section.is-archive .match-row")
+    .evaluateAll((rows) =>
+      rows.map((row) => ({
+        dateTime: row.querySelector(".match-date")?.textContent.trim() || "",
+        label: row.getAttribute("aria-label") || ""
+      }))
+    );
+  assert(
+    japanArchiveRows.some(
+      (row) =>
+        /^June \d{1,2}, \d{4}$/.test(row.dateTime) &&
+        !/\d{1,2}:\d{2}/.test(row.dateTime) &&
+        row.label.includes(row.dateTime)
+    ),
+    "Archived country search rows should show and announce date-only labels with the year."
   );
   await japanSearchCheck.context.close();
 
@@ -1210,17 +1238,22 @@ try {
     links.map((link) => link.textContent.trim()).join("|")
   );
   const reportIssueHref = await sourceNote.locator("a", { hasText: "Report issue" }).getAttribute("href");
+  const creatorHref = await sourceNote.locator("a", { hasText: "hirooaoy" }).getAttribute("href");
   const expectedSourceUpdatedAt = formatExpectedSourceUpdatedAt(getLatestUpdatedAt(sourceNoteData));
   assert(
     sourceNoteText ===
-      `Sources: FIFA schedule, debutants, ranking, standings. Predictions are unofficial. Last updated ${expectedSourceUpdatedAt}. Report issue.`,
+      `Sources: FIFA schedule, debutants, ranking, standings. Predictions are unofficial. Last updated ${expectedSourceUpdatedAt}. Report issue. Made by hirooaoy`,
     "The source note should stay short and show the latest website update time."
   );
   assert(
-    sourceLinkLabels === "FIFA schedule|debutants|ranking|standings|Report issue",
+    sourceLinkLabels === "FIFA schedule|debutants|ranking|standings|Report issue|hirooaoy",
     "The source note should keep the compact official source links."
   );
   assert(reportIssueHref === "report.html", "The source note should link to the report issue page.");
+  assert(
+    creatorHref === "https://www.linkedin.com/in/hirooaoy",
+    "The source note should link hirooaoy to LinkedIn."
+  );
   assert(
     !sourceNoteText.includes("Core data") &&
       !sourceNoteText.includes("Core checks:") &&

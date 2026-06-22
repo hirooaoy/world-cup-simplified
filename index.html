@@ -31,7 +31,7 @@
     <meta name="theme-color" content="#ffffff" />
     <link rel="icon" type="image/svg+xml" href="assets/favicon.svg?v=2026-06-17-1209" />
     <link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=2026-06-17-1213" />
-    <link rel="stylesheet" href="styles.css?v=2026-06-21-trophy-polish" />
+    <link rel="stylesheet" href="styles.css?v=2026-06-22-juggle-faster" />
   </head>
   <body>
     <header class="site-header">
@@ -51,7 +51,8 @@
           <path d="M21.7 55.2c5.5 1.6 15.7 1.6 20.7-.1" />
           <path d="M20.9 58.8c6.6 2 17.2 1.9 22.2-.2" />
         </svg>
-        <span>World Cup Simplified</span>
+        <span class="brand-label">World Cup Simplified</span>
+        <span class="juggle-record" id="juggle-record" hidden></span>
       </a>
       <div class="header-view-actions">
         <nav class="view-tabs" aria-label="World Cup views" role="tablist">
@@ -71,7 +72,11 @@
           </div>
         </div>
       </div>
-      <div class="header-controls">
+      <div class="header-controls is-loading" id="header-controls" aria-busy="true">
+        <div class="header-controls-loading" aria-hidden="true">
+          <span class="match-loading-line header-loading-language"></span>
+          <span class="match-loading-line header-loading-timezone"></span>
+        </div>
         <div class="language-switch" id="language-switch" role="group" aria-label="Language">
           <button class="language-option is-active" type="button" data-language="en" aria-pressed="true">EN</button>
           <button class="language-option" type="button" data-language="zh" aria-pressed="false">中文</button>
@@ -125,7 +130,31 @@
         </section>
 
         <section class="match-layout" aria-label="Matches and selected match details">
-          <section class="match-list" id="match-list" aria-live="polite" aria-label="Matches"></section>
+          <section class="match-list" id="match-list" aria-live="polite" aria-label="Matches" aria-busy="true">
+            <div class="match-loading" role="status">
+              <p class="visually-hidden">Loading matches</p>
+              <div class="match-loading-row" aria-hidden="true">
+                <span class="match-loading-line match-loading-time"></span>
+                <span class="match-loading-line match-loading-teams"></span>
+                <span class="match-loading-line match-loading-score"></span>
+              </div>
+              <div class="match-loading-row" aria-hidden="true">
+                <span class="match-loading-line match-loading-time"></span>
+                <span class="match-loading-line match-loading-teams"></span>
+                <span class="match-loading-line match-loading-score"></span>
+              </div>
+              <div class="match-loading-row" aria-hidden="true">
+                <span class="match-loading-line match-loading-time"></span>
+                <span class="match-loading-line match-loading-teams"></span>
+                <span class="match-loading-line match-loading-score"></span>
+              </div>
+              <div class="match-loading-row" aria-hidden="true">
+                <span class="match-loading-line match-loading-time"></span>
+                <span class="match-loading-line match-loading-teams"></span>
+                <span class="match-loading-line match-loading-score"></span>
+              </div>
+            </div>
+          </section>
 
           <aside class="match-info is-hidden" id="match-info" aria-live="polite" hidden></aside>
         </section>
@@ -155,16 +184,83 @@
             </button>
           </nav>
         </section>
-        <section class="standings-grid" id="standings-grid" aria-live="polite" aria-label="Group standings"></section>
+        <section class="standings-grid is-loading" id="standings-grid" aria-live="polite" aria-label="Group standings" aria-busy="true">
+          <div class="standings-loading" role="status">
+            <p class="visually-hidden">Loading standings</p>
+            <article class="standings-card standings-loading-card" aria-hidden="true">
+              <span class="match-loading-line standings-loading-title"></span>
+              <div class="standings-loading-row">
+                <span class="match-loading-line standings-loading-team"></span>
+                <span class="match-loading-line standings-loading-stat"></span>
+                <span class="match-loading-line standings-loading-stat"></span>
+                <span class="match-loading-line standings-loading-stat"></span>
+              </div>
+              <div class="standings-loading-row">
+                <span class="match-loading-line standings-loading-team"></span>
+                <span class="match-loading-line standings-loading-stat"></span>
+                <span class="match-loading-line standings-loading-stat"></span>
+                <span class="match-loading-line standings-loading-stat"></span>
+              </div>
+              <div class="standings-loading-row">
+                <span class="match-loading-line standings-loading-team"></span>
+                <span class="match-loading-line standings-loading-stat"></span>
+                <span class="match-loading-line standings-loading-stat"></span>
+                <span class="match-loading-line standings-loading-stat"></span>
+              </div>
+            </article>
+            <article class="standings-card standings-loading-card" aria-hidden="true">
+              <span class="match-loading-line standings-loading-title"></span>
+              <div class="standings-loading-row">
+                <span class="match-loading-line standings-loading-team"></span>
+                <span class="match-loading-line standings-loading-stat"></span>
+                <span class="match-loading-line standings-loading-stat"></span>
+                <span class="match-loading-line standings-loading-stat"></span>
+              </div>
+              <div class="standings-loading-row">
+                <span class="match-loading-line standings-loading-team"></span>
+                <span class="match-loading-line standings-loading-stat"></span>
+                <span class="match-loading-line standings-loading-stat"></span>
+                <span class="match-loading-line standings-loading-stat"></span>
+              </div>
+              <div class="standings-loading-row">
+                <span class="match-loading-line standings-loading-team"></span>
+                <span class="match-loading-line standings-loading-stat"></span>
+                <span class="match-loading-line standings-loading-stat"></span>
+                <span class="match-loading-line standings-loading-stat"></span>
+              </div>
+            </article>
+            <article class="standings-card standings-loading-card" aria-hidden="true">
+              <span class="match-loading-line standings-loading-title"></span>
+              <div class="standings-loading-row">
+                <span class="match-loading-line standings-loading-team"></span>
+                <span class="match-loading-line standings-loading-stat"></span>
+                <span class="match-loading-line standings-loading-stat"></span>
+                <span class="match-loading-line standings-loading-stat"></span>
+              </div>
+              <div class="standings-loading-row">
+                <span class="match-loading-line standings-loading-team"></span>
+                <span class="match-loading-line standings-loading-stat"></span>
+                <span class="match-loading-line standings-loading-stat"></span>
+                <span class="match-loading-line standings-loading-stat"></span>
+              </div>
+              <div class="standings-loading-row">
+                <span class="match-loading-line standings-loading-team"></span>
+                <span class="match-loading-line standings-loading-stat"></span>
+                <span class="match-loading-line standings-loading-stat"></span>
+                <span class="match-loading-line standings-loading-stat"></span>
+              </div>
+            </article>
+          </div>
+        </section>
       </section>
     </main>
 
     <footer class="site-footer">
       <p id="source-note">
-        Sources: <a href="https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/match-schedule-fixtures-results-teams-stadiums">FIFA schedule</a>, <a href="https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/debutants-cabo-verde-curacao-jordan-uzbekistan">debutants</a>, <a href="https://inside.fifa.com/fifa-world-ranking/men">ranking</a>, <a href="https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/standings">standings</a>. Predictions are unofficial. Last updated Jun 19, 2026, 11:29 AM PDT. <a href="report.html">Report issue</a>.
+        Sources: <a href="https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/match-schedule-fixtures-results-teams-stadiums">FIFA schedule</a>, <a href="https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/debutants-cabo-verde-curacao-jordan-uzbekistan">debutants</a>, <a href="https://inside.fifa.com/fifa-world-ranking/men">ranking</a>, <a href="https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/standings">standings</a>. Predictions are unofficial. Last updated Jun 19, 2026, 11:29 AM PDT. <a href="report.html">Report issue</a>. Made by <a href="https://www.linkedin.com/in/hirooaoy" target="_blank" rel="noreferrer">hirooaoy</a>
       </p>
     </footer>
 
-    <script type="module" src="app.js?v=2026-06-21-trophy-polish"></script>
+    <script type="module" src="app.js?v=2026-06-22-juggle-faster"></script>
   </body>
 </html>

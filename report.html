@@ -33,7 +33,7 @@
           <path d="M21.7 55.2c5.5 1.6 15.7 1.6 20.7-.1" />
           <path d="M20.9 58.8c6.6 2 17.2 1.9 22.2-.2" />
         </svg>
-        <span>World Cup Simplified</span>
+        <span class="brand-label">World Cup Simplified</span>
       </a>
     </header>
 
@@ -45,7 +45,7 @@
 
       <form class="report-form" id="report-form">
         <label class="form-field">
-          <span>Issue</span>
+          <span data-report-label="issue">Issue</span>
           <select id="issue-type" name="type">
             <option value="no-matches">No matches found for this date</option>
             <option value="wrong-match">Wrong match details</option>
@@ -55,7 +55,7 @@
         </label>
 
         <label class="form-field">
-          <span>Details</span>
+          <span data-report-label="details">Details</span>
           <textarea
             id="issue-details"
             name="details"
@@ -66,7 +66,7 @@
         </label>
 
         <label class="form-field">
-          <span>Reply email <em>optional</em></span>
+          <span data-report-label="email">Reply email <em>optional</em></span>
           <input
             id="reporter-email"
             name="reporterEmail"
@@ -77,7 +77,7 @@
         </label>
 
         <label class="form-field honeypot-field" aria-hidden="true">
-          <span>Website</span>
+          <span data-report-label="website">Website</span>
           <input
             id="website"
             name="website"

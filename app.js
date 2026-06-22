@@ -1,4 +1,4 @@
-const DATA_VERSION = "2026-06-21-trophy-polish";
+const DATA_VERSION = "2026-06-22-juggle-faster";
 const DATA_URLS = {
   fixtures: `data/fixtures.json?v=${DATA_VERSION}`,
   history: `data/history.json?v=${DATA_VERSION}`,
@@ -10,6 +10,14 @@ const DATA_URLS = {
 };
 
 const LANGUAGE_STORAGE_KEY = "world-cup-simplified-language";
+const JUGGLE_RECORD_STORAGE_KEY = "world-cup-simplified-juggle-record";
+const JUGGLE_BALL_EMOJI = "⚽";
+const JUGGLE_SPAWN_DELAY_MS = { min: 4500, max: 13000 };
+const JUGGLE_FALL_SPEED = 345;
+const JUGGLE_GRAVITY = 1060;
+const JUGGLE_HIT_RADIUS_MULTIPLIER = 1.25;
+const JUGGLE_MAX_FRAME_SECONDS = 0.04;
+const JUGGLE_SOUND_DURATION_SECONDS = 0.08;
 const DEFAULT_LANGUAGE = "en";
 const LANGUAGE_LOCALES = {
   en: "en-US",
@@ -35,6 +43,8 @@ const UI_TEXT = {
     language: "Language",
     languageEnglish: "English",
     languageChinese: "Chinese",
+    juggleBall: "Soccer ball",
+    juggleRecord: "Best juggling streak",
     matches: "Matches",
     matchesHeading: "Matches and selected match details",
     matchesList: "Matches",
@@ -67,6 +77,8 @@ const UI_TEXT = {
     language: "语言",
     languageEnglish: "英文",
     languageChinese: "中文",
+    juggleBall: "足球",
+    juggleRecord: "最佳颠球纪录",
     matches: "赛程",
     matchesHeading: "比赛和已选比赛详情",
     matchesList: "比赛",
@@ -176,6 +188,7 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "Live status is manually verified and should be refreshed after full time.":
       "实时状态为人工核验，完场后应刷新确认。",
     "Loading matches": "正在加载比赛",
+    "Loading standings": "正在加载积分榜",
     "Loaded matches across the current tournament and World Cup archive.":
       "显示当前赛事和世界杯存档中的已载入比赛。",
     "Local estimate using FIFA rankings. Not betting odds.":
@@ -323,6 +336,11 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "Tournament": "淘汰赛",
     "Tournament bracket": "淘汰赛对阵",
     "Unable to display matches": "无法显示比赛",
+    "Unable to display standings": "无法显示积分榜",
+    "The standings data could not be loaded. Refresh the page to try again.":
+      "积分榜数据无法载入。请刷新页面重试。",
+    "The standings view could not be displayed. Refresh the page to try again.":
+      "积分榜视图无法显示。请刷新页面重试。",
     "United States": "美国",
     "Up next": "即将开始",
     "Uruguay": "乌拉圭",
@@ -348,8 +366,16 @@ const ZH_ADDITIONAL_EXACT_TRANSLATIONS = {
   "Aerial duels": "空中对抗",
   "Aerial pressure": "空中压迫",
   "Aerial targets": "高空目标点",
+  "Ahmad bin Ali Stadium": "艾哈迈德·本·阿里体育场",
+  "Ahmad bin Ali Stadium, Al Rayyan": "艾哈迈德·本·阿里体育场，赖扬",
   "Aggressive midfield pressure with direct runners": "中场高压配合直接前插",
   "Aggressive wide play with a fearless defensive edge": "大胆边路推进与强硬防守",
+  "Al Bayt Stadium": "海湾球场",
+  "Al Bayt Stadium, Al Khor": "海湾球场，豪尔",
+  "Al Janoub Stadium": "贾努布体育场",
+  "Al Janoub Stadium, Al Wakrah": "贾努布体育场，沃克拉",
+  "Al Thumama Stadium": "阿图玛玛球场",
+  "Al Thumama Stadium, Doha": "阿图玛玛球场，多哈",
   Angola: "安哥拉",
   "Athletic pressing with direct attacking bursts": "运动能力压迫和直接进攻爆发",
   "Attacking midfielder": "攻击型中场",
@@ -451,6 +477,8 @@ const ZH_ADDITIONAL_EXACT_TRANSLATIONS = {
   "Early crosses": "早传中",
   "Early service": "早供给",
   "Early shots": "早射门",
+  "Education City Stadium": "教育城体育场",
+  "Education City Stadium, Al Rayyan": "教育城体育场，赖扬",
   "EFL Championship": "英冠",
   "El Salvador": "萨尔瓦多",
   "Eredivisie": "荷甲",
@@ -497,6 +525,8 @@ const ZH_ADDITIONAL_EXACT_TRANSLATIONS = {
   Israel: "以色列",
   Italy: "意大利",
   Jamaica: "牙买加",
+  "Khalifa International Stadium": "哈利法国际体育场",
+  "Khalifa International Stadium, Al Rayyan": "哈利法国际体育场，赖扬",
   Kuwait: "科威特",
   "La Liga": "西甲",
   Leadership: "领导力",
@@ -518,6 +548,8 @@ const ZH_ADDITIONAL_EXACT_TRANSLATIONS = {
   "Long-range shooting": "远射",
   "Loose-ball pressure": "二点球压力",
   "Low block": "低位防守",
+  "Lusail Iconic Stadium": "卢赛尔体育场",
+  "Lusail Iconic Stadium, Lusail": "卢赛尔体育场，卢赛尔",
   "Major League Soccer": "美国职业足球大联盟",
   "Malaysia Super League": "马来西亚超级联赛",
   "Match for third place": "季军赛",
@@ -607,6 +639,7 @@ const ZH_ADDITIONAL_EXACT_TRANSLATIONS = {
   "Set-piece bite": "定位球威胁",
   "Set-piece threat": "定位球威胁",
   "Set-piece threat with hard-running midfield cover": "定位球威胁配合勤跑中场保护",
+  "Second balls": "二点球",
   "Shot stopping": "扑救",
   "Shot-stopping": "扑救",
   Slovakia: "斯洛伐克",
@@ -619,6 +652,8 @@ const ZH_ADDITIONAL_EXACT_TRANSLATIONS = {
   "Striker, left winger": "中锋、左边锋",
   "Striker, winger": "中锋、边锋",
   "Structured midfield control with disciplined spacing": "结构化中场控制和纪律站位",
+  "Stadium 974": "974体育场",
+  "Stadium 974, Doha": "974体育场，多哈",
   "Super League Greece": "希腊超级联赛",
   "Switches": "转移球",
   "Süper Lig": "土超",
@@ -696,6 +731,45 @@ const ZH_ADDITIONAL_EXACT_TRANSLATIONS = {
   "World Cup 2022": "2022年世界杯",
   Yugoslavia: "南斯拉夫",
   Zaire: "扎伊尔",
+  "1-1 keeps Group K open and gives both teams something to carry into the next match.":
+    "1-1让K组仍有悬念，也给双方带来下一场的延续点。",
+  "Caleb Yirenkyi scored in stoppage time to settle a tense opener in Toronto.":
+    "Caleb Yirenkyi补时破门，在多伦多结束了这场紧张的首战。",
+  "Colombia take control of Group K": "哥伦比亚掌控K组局面",
+  "Colombia's 3-1 win over Uzbekistan moves them top after the opening Group K matches.":
+    "哥伦比亚3-1击败乌兹别克斯坦，在K组首轮比赛后升至榜首。",
+  "Czechia and South Africa share tense draw": "捷克与南非紧张战平",
+  "Czechia scored early through Michal Sadilek, but Teboho Mokoena's late penalty earned South Africa a 1-1 draw in Group A.":
+    "捷克由Michal Sadilek早早破门，但Teboho Mokoena最后阶段点球帮助南非在A组1-1战平。",
+  "England look sharp against Croatia": "英格兰面对克罗地亚状态锐利",
+  "England match centre": "英格兰比赛中心",
+  "England's 4-2 win gives them an early foothold in Group L.":
+    "英格兰4-2取胜，让他们在L组早早占住位置。",
+  "FIFA match report": "FIFA比赛报告",
+  "France 3-1 Senegal": "法国3-1塞内加尔",
+  "Ghana leave it late against Panama": "加纳最后时刻击败巴拿马",
+  "Ghana's 1-0 win puts them level with England on three points in Group L.":
+    "加纳1-0取胜后在L组与英格兰同积3分。",
+  "Guardian live report": "卫报实时战报",
+  "Guardian match report": "卫报比赛报告",
+  "Harry Kane scored twice, while Jude Bellingham and Marcus Rashford added second-half goals.":
+    "Harry Kane梅开二度，Jude Bellingham和Marcus Rashford下半场也取得进球。",
+  "Joao Neves headed Portugal in front early, while Yoane Wissa's equalizer gave DR Congo the point.":
+    "Joao Neves早早头球帮助葡萄牙领先，Yoane Wissa的扳平球让刚果民主共和国拿到1分。",
+  "Johan Manzambi scored twice after halftime as Switzerland beat Bosnia and Herzegovina 4-1 to move top of Group B.":
+    "Johan Manzambi下半场梅开二度，瑞士4-1击败波黑并升至B组榜首。",
+  "Kylian Mbappé scored twice as France beat Senegal 3-1 in their Group I opener on June 16.":
+    "Kylian Mbappé梅开二度，法国在6月16日的I组首战中3-1击败塞内加尔。",
+  "Lionel Messi scored all three goals as Argentina beat Algeria 3-0 to start their World Cup defence.":
+    "Lionel Messi包办三球，阿根廷3-0击败阿尔及利亚开启世界杯卫冕之旅。",
+  "Luis Diaz scored and helped Colombia answer Uzbekistan's first World Cup goal before Jaminton Campaz sealed it late.":
+    "Luis Diaz破门并帮助哥伦比亚回应乌兹别克斯坦队史世界杯首球，Jaminton Campaz最后阶段锁定胜局。",
+  "Manzambi sparks Swiss surge past Bosnia": "Manzambi带动瑞士击败波黑",
+  "Mbappé brace lifts France past Senegal": "Mbappé梅开二度助法国击败塞内加尔",
+  "Messi hat trick opens Argentina's title defence": "Messi帽子戏法开启阿根廷卫冕之旅",
+  "Portugal and DR Congo split the points": "葡萄牙与刚果民主共和国各取一分",
+  "Raúl Rangel made a huge late double save.": "Raúl Rangel最后阶段完成关键连续两连扑。",
+  "Switzerland 4-1 Bosnia and Herzegovina": "瑞士4-1波黑",
   "an opponent": "对手",
   "forward": "前锋",
   "midfielder": "中场",
@@ -706,8 +780,802 @@ const ZH_ADDITIONAL_EXACT_TRANSLATIONS = {
   "score unavailable": "比分不可用"
 };
 
+const ZH_PLAYER_NAME_TRANSLATIONS = {
+  "Aaron Wan-Bissaka": "阿龙·万-比萨卡",
+  "Abbosbek Fayzullaev": "阿博斯别克·法伊祖拉耶夫",
+  "Abdukodir Khusanov": "阿卜杜科迪尔·胡萨诺夫",
+  "Achraf Hakimi": "阿什拉夫·哈基米",
+  "Adalberto Carrasquilla": "阿达尔贝托·卡拉斯基利亚",
+  "Adam Hložek": "亚当·赫洛热克",
+  "Akram Afif": "阿克拉姆·阿菲夫",
+  "Alexander Isak": "亚历山大·伊萨克",
+  "Ali Jasim": "阿里·贾西姆",
+  "Ali Olwan": "阿里·奥尔万",
+  "Alireza Jahanbakhsh": "阿里雷扎·贾汉巴赫什",
+  "Almoez Ali": "阿尔莫埃兹·阿里",
+  "Alphonso Davies": "阿方索·戴维斯",
+  "Amine Gouiri": "阿明·古伊里",
+  "Andy Robertson": "安迪·罗伯逊",
+  "Antoine Griezmann": "安托万·格列兹曼",
+  "Antoine Semenyo": "安托万·塞梅尼奥",
+  "Antonio Nusa": "安东尼奥·努萨",
+  "Arda Güler": "阿尔达·居莱尔",
+  "Aymen Hussein": "艾曼·侯赛因",
+  "Ayoub El Kaabi": "阿尤布·埃尔卡比",
+  "Brahim Díaz": "布拉欣·迪亚斯",
+  "Breel Embolo": "布雷尔·恩博洛",
+  "Bruno Fernandes": "布鲁诺·费尔南德斯",
+  Casemiro: "卡塞米罗",
+  "Chris Wood": "克里斯·伍德",
+  "Christian Pulisic": "克里斯蒂安·普利希奇",
+  "Cody Gakpo": "科迪·加克波",
+  "Cristian Volpato": "克里斯蒂安·沃尔帕托",
+  "Cristiano Ronaldo": "克里斯蒂亚诺·罗纳尔多",
+  "Daichi Kamada": "镰田大地",
+  "Darwin Núñez": "达尔温·努涅斯",
+  "David Alaba": "大卫·阿拉巴",
+  "Declan Rice": "德克兰·赖斯",
+  "Duckens Nazon": "杜肯斯·纳松",
+  "Edin Džeko": "埃丁·哲科",
+  "Edson Álvarez": "埃德森·阿尔瓦雷斯",
+  "Eldor Shomurodov": "埃尔多尔·肖穆罗多夫",
+  "Elias Saad": "埃利亚斯·萨阿德",
+  "Ellyes Skhiri": "埃利耶斯·斯希里",
+  "Emiliano Martínez": "埃米利亚诺·马丁内斯",
+  "Enner Valencia": "恩纳·瓦伦西亚",
+  "Enzo Fernández": "恩佐·费尔南德斯",
+  "Erling Haaland": "埃尔林·哈兰德",
+  "Esmir Bajraktarević": "埃斯米尔·巴伊拉克塔雷维奇",
+  "Evann Guessand": "埃万·盖桑",
+  "Federico Valverde": "费德里科·巴尔韦德",
+  "Firas Al-Buraikan": "菲拉斯·布赖坎",
+  "Florian Wirtz": "弗洛里安·维尔茨",
+  "Franck Kessié": "弗兰克·凯西",
+  "Frantzdy Pierrot": "弗朗茨迪·皮埃罗",
+  "Frenkie de Jong": "弗兰基·德容",
+  "Granit Xhaka": "格拉尼特·扎卡",
+  "Gustavo Gómez": "古斯塔沃·戈麦斯",
+  "Hakan Çalhanoğlu": "哈坎·恰尔汗奥卢",
+  "Hannibal Mejbri": "汉尼拔·梅杰布里",
+  "Harry Kane": "哈里·凯恩",
+  "Homam Ahmed": "霍马姆·艾哈迈德",
+  "Ismael Díaz": "伊斯梅尔·迪亚斯",
+  "Ismaël Bennacer إِسْمَاعِيل بِن نَاصِر": "伊斯梅尔·本纳塞尔",
+  "Iñaki Williams": "伊尼亚基·威廉姆斯",
+  "Jackson Irvine": "杰克逊·欧文",
+  "Jamal Musiala": "贾马尔·穆西亚拉",
+  "James Rodríguez": "哈梅斯·罗德里格斯",
+  "Jean-Ricner Bellegarde": "让-里克内尔·贝勒加德",
+  "John McGinn": "约翰·麦金",
+  "Jonathan David": "乔纳森·戴维",
+  "Jordan Ayew": "乔丹·阿尤",
+  "Joshua Kimmich": "约书亚·基米希",
+  "Joško Gvardiol": "约什科·格瓦迪奥尔",
+  "Jude Bellingham": "裘德·贝林厄姆",
+  "Julio César Enciso": "胡利奥·塞萨尔·恩西索",
+  "Julián Alvarez": "胡利安·阿尔瓦雷斯",
+  "Juninho Bacuna": "儒尼尼奥·巴库纳",
+  "Jérémy Doku": "杰里米·多库",
+  "Kalidou Koulibaly": "卡利杜·库利巴利",
+  "Kenan Yıldız": "凯南·伊尔迪兹",
+  "Kevin De Bruyne": "凯文·德布劳内",
+  "Kim Min-jae": "金玟哉",
+  "Konrad Laimer": "康拉德·莱默",
+  "Kylian Mbappé": "基利安·姆巴佩",
+  "Lamine Yamal": "拉明·亚马尔",
+  "Leandro Bacuna": "莱安德罗·巴库纳",
+  "Leandro Trossard": "莱安德罗·特罗萨德",
+  "Lee Kang-in": "李刚仁",
+  "Liberato Cacace": "利贝拉托·卡卡切",
+  "Luis Chávez": "路易斯·查韦斯",
+  "Luis Díaz": "路易斯·迪亚斯",
+  "Luis Diaz": "路易斯·迪亚斯",
+  "Luis Suárez": "路易斯·苏亚雷斯",
+  "Luka Modrić": "卢卡·莫德里奇",
+  "Lyle Foster": "莱尔·福斯特",
+  "Manuel Akanji": "曼努埃尔·阿坎吉",
+  "Marcel Sabitzer": "马塞尔·萨比策",
+  "Martin Ødegaard": "马丁·厄德高",
+  "Mateo Kovačić": "马特奥·科瓦契奇",
+  "Mathew Ryan": "马修·瑞安",
+  "Mehdi Taremi": "迈赫迪·塔雷米",
+  "Michael Amir Murillo": "迈克尔·阿米尔·穆里略",
+  "Miguel Almirón": "米格尔·阿尔米隆",
+  "Mohamed Salah": "穆罕默德·萨拉赫",
+  "Mohammed Al-Owais": "穆罕默德·奥韦斯",
+  "Moisés Caicedo": "莫伊塞斯·凯塞多",
+  "Mostafa Mohamed مُصْطَفَى مُحَمَّد": "穆斯塔法·穆罕默德",
+  "Musa Al-Taamari": "穆萨·塔马里",
+  Neymar: "内马尔",
+  "Nico Williams": "尼科·威廉姆斯",
+  "Nicolas Jackson": "尼古拉斯·杰克逊",
+  "Noah Sadiki": "诺亚·萨迪基",
+  "Noor Al-Rawabdeh": "努尔·拉瓦布德",
+  "Omar Marmoush": "奥马尔·马尔穆什",
+  "Patrik Schick": "帕特里克·希克",
+  Pedri: "佩德里",
+  "Pico Lopes": "皮科·洛佩斯",
+  "Piero Hincapié": "皮耶罗·因卡皮耶",
+  "Ritsu Dōan": "堂安律",
+  "Riyad Mahrez": "利雅得·马赫雷斯",
+  "Romelu Lukaku": "罗梅卢·卢卡库",
+  "Ronald Araújo": "罗纳德·阿劳霍",
+  "Ronwen Williams": "龙文·威廉姆斯",
+  "Ryan Mendes": "瑞安·门德斯",
+  "Sadio Mané": "萨迪奥·马内",
+  "Salem Al-Dawsari": "萨利姆·多萨里",
+  "Santiago Giménez": "圣地亚哥·希门尼斯",
+  "Sardar Azmoun سردار آزمون": "萨达尔·阿兹蒙",
+  "Sarpreet Singh": "萨普里特·辛格",
+  "Scott McTominay": "斯科特·麦克托米奈",
+  "Sead Kolašinac": "塞亚德·科拉希纳茨",
+  "Simon Adingra": "西蒙·阿丁格拉",
+  "Son Heung-min": "孙兴慜",
+  "Stephen Eustáquio": "斯蒂芬·欧斯塔基奥",
+  "Tahith Chong": "塔希斯·钟",
+  "Takefusa Kubo": "久保建英",
+  "Teboho Mokoena": "特博霍·莫科纳",
+  "Tomáš Souček": "托马什·绍切克",
+  "Tyler Adams": "泰勒·亚当斯",
+  "Viktor Gyökeres": "维克托·约克雷斯",
+  "Vinícius Júnior": "维尼修斯·儒尼奥尔",
+  "Virgil van Dijk": "维吉尔·范戴克",
+  Vitinha: "维蒂尼亚",
+  Vozinha: "沃齐尼亚",
+  "Weston McKennie": "韦斯顿·麦肯尼",
+  "William Saliba": "威廉·萨利巴",
+  "Yasin Ayari": "亚辛·阿亚里",
+  "Yoane Wissa": "约安·维萨",
+  "Zidane Iqbal": "齐达内·伊克巴尔",
+  "Adam Hlozek": "亚当·赫洛热克",
+  "Arda Guler": "阿尔达·居莱尔",
+  "Brahim Diaz": "布拉欣·迪亚斯",
+  "Christian Volpato": "克里斯蒂安·沃尔帕托",
+  "Darwin Nunez": "达尔温·努涅斯",
+  "Edin Dzeko": "埃丁·哲科",
+  "Edson Alvarez": "埃德森·阿尔瓦雷斯",
+  "Emiliano Martinez": "埃米利亚诺·马丁内斯",
+  "Enzo Fernandez": "恩佐·费尔南德斯",
+  "Esmir Bajraktarevic": "埃斯米尔·巴伊拉克塔雷维奇",
+  "Franck Kessie": "弗兰克·凯西",
+  "Gustavo Gomez": "古斯塔沃·戈麦斯",
+  "Hakan Calhanoglu": "哈坎·恰尔汗奥卢",
+  "Inaki Williams": "伊尼亚基·威廉姆斯",
+  "Ismael Bennacer": "伊斯梅尔·本纳塞尔",
+  "Ismael Diaz": "伊斯梅尔·迪亚斯",
+  "James Rodriguez": "哈梅斯·罗德里格斯",
+  "Jeremy Doku": "杰里米·多库",
+  "Josko Gvardiol": "约什科·格瓦迪奥尔",
+  "Julian Alvarez": "胡利安·阿尔瓦雷斯",
+  "Julio Enciso": "胡利奥·塞萨尔·恩西索",
+  "Kenan Yildiz": "凯南·伊尔迪兹",
+  "Kylian Mbappe": "基利安·姆巴佩",
+  "Luis Chavez": "路易斯·查韦斯",
+  "Luis Suarez": "路易斯·苏亚雷斯",
+  "Luka Modric": "卢卡·莫德里奇",
+  "Martin Odegaard": "马丁·厄德高",
+  "Mateo Kovacic": "马特奥·科瓦契奇",
+  "Michael Murillo": "迈克尔·阿米尔·穆里略",
+  "Miguel Almiron": "米格尔·阿尔米隆",
+  "Moises Caicedo": "莫伊塞斯·凯塞多",
+  "Mostafa Mohamed": "穆斯塔法·穆罕默德",
+  "Mousa Al-Taamari": "穆萨·塔马里",
+  "Piero Hincapie": "皮耶罗·因卡皮耶",
+  "Ritsu Doan": "堂安律",
+  "Roberto Lopes": "皮科·洛佩斯",
+  "Ronald Araujo": "罗纳德·阿劳霍",
+  "Sadio Mane": "萨迪奥·马内",
+  "Santiago Gimenez": "圣地亚哥·希门尼斯",
+  "Sardar Azmoun": "萨达尔·阿兹蒙",
+  "Sead Kolasinac": "塞亚德·科拉希纳茨",
+  "Stephen Eustaquio": "斯蒂芬·欧斯塔基奥",
+  "Tomas Soucek": "托马什·绍切克",
+  "Viktor Gyokeres": "维克托·约克雷斯",
+  "Vinicius Junior": "维尼修斯·儒尼奥尔",
+  "Bukayo Saka": "布卡约·萨卡",
+  "Caleb Yirenkyi": "卡莱布·伊伦基",
+  "Jack Grealish": "杰克·格拉利什",
+  "Jaminton Campaz": "哈明顿·坎帕斯",
+  "Joao Neves": "若昂·内维斯",
+  "Johan Manzambi": "约翰·曼赞比",
+  "Marcus Rashford": "马库斯·拉什福德",
+  "Michal Sadilek": "米哈尔·萨迪莱克",
+  Messi: "梅西",
+  Mbappé: "姆巴佩",
+  Manzambi: "曼赞比",
+  "Raheem Sterling": "拉希姆·斯特林",
+  "Raúl Rangel": "劳尔·兰赫尔"
+};
+
+const ZH_CLUB_NAME_TRANSLATIONS = {
+  "AC Milan": "AC米兰",
+  "Al Hilal": "利雅得新月",
+  "Al Sadd": "萨德",
+  "Al Sailiya SC": "赛利亚体育",
+  "Al-Ahli": "吉达国民",
+  "Al-Duhail": "杜海勒",
+  "Al-Hilal": "利雅得新月",
+  "Al-Karma": "卡尔马",
+  "Al-Najma (on loan from Como)": "纳吉马（从科莫租借）",
+  "Al-Nassr": "利雅得胜利",
+  "Al-Ula": "乌拉",
+  Arsenal: "阿森纳",
+  "Arsenal (on loan from Bayer Leverkusen)": "阿森纳（从勒沃库森租借）",
+  "Aston Villa": "阿斯顿维拉",
+  Atalanta: "亚特兰大",
+  "Athletic Bilbao": "毕尔巴鄂竞技",
+  "Atlanta United": "亚特兰大联",
+  "Atlético Madrid": "马德里竞技",
+  Barcelona: "巴塞罗那",
+  "Bayer Leverkusen": "勒沃库森",
+  "Bayern Munich": "拜仁慕尼黑",
+  Beşiktaş: "贝西克塔斯",
+  "Borussia Dortmund": "多特蒙德",
+  Bournemouth: "伯恩茅斯",
+  "Brighton & Hove Albion": "布莱顿",
+  Burnley: "伯恩利",
+  Chelsea: "切尔西",
+  "Crystal Palace": "水晶宫",
+  "Cultural Leonesa (on loan from Al-Duhail)": "莱昂内萨文化（从杜海勒租借）",
+  "Dender EH": "登德尔EH",
+  "Dinamo Zagreb (on loan from AC Milan)": "萨格勒布迪纳摩（从AC米兰租借）",
+  "Dynamo Moscow": "莫斯科迪纳摩",
+  "Eintracht Frankfurt": "法兰克福",
+  Esteghlal: "德黑兰独立",
+  "FC St. Pauli": "圣保利",
+  "Fenerbahçe (on loan from West Ham United)": "费内巴切（从西汉姆联租借）",
+  "G.D. Chaves": "查韦斯",
+  "Hannover 96 (on loan from FC Augsburg)": "汉诺威96（从奥格斯堡租借）",
+  "Inter Milan": "国际米兰",
+  "Inter Milan (on loan from Manchester City)": "国际米兰（从曼城租借）",
+  Iğdır: "厄德尔",
+  "Iğdır FK": "厄德尔FK",
+  Juventus: "尤文图斯",
+  "Leicester City": "莱斯特城",
+  Levante: "莱万特",
+  León: "莱昂",
+  Liverpool: "利物浦",
+  "Los Angeles (on loan from Porto)": "洛杉矶（从波尔图租借）",
+  "Los Angeles FC": "洛杉矶FC",
+  "Mamelodi Sundowns": "马梅洛迪日落",
+  "Manchester City": "曼城",
+  "Manchester United": "曼联",
+  Marseille: "马赛",
+  "Minnesota United": "明尼苏达联",
+  "Monaco (on loan from Sunderland)": "摩纳哥（从桑德兰租借）",
+  Nantes: "南特",
+  Napoli: "那不勒斯",
+  "Newcastle United": "纽卡斯尔联",
+  "Nottingham Forest": "诺丁汉森林",
+  Olympiacos: "奥林匹亚科斯",
+  PSV: "埃因霍温",
+  Pachuca: "帕丘卡",
+  Palmeiras: "帕尔梅拉斯",
+  "Paris Saint-Germain": "巴黎圣日耳曼",
+  "Pumas UNAM": "美洲狮UNAM",
+  "RB Leipzig": "RB莱比锡",
+  "Real Madrid": "皇家马德里",
+  "Real Sociedad": "皇家社会",
+  Rennes: "雷恩",
+  Santos: "桑托斯",
+  Sassuolo: "萨索洛",
+  "Schalke 04": "沙尔克04",
+  Selangor: "雪兰莪",
+  "Shabab Al Ahli": "迪拜青年国民",
+  "Shamrock Rovers": "沙姆洛克流浪",
+  "Sheffield United": "谢菲尔德联",
+  "Sporting CP": "葡萄牙体育",
+  Strasbourg: "斯特拉斯堡",
+  Sunderland: "桑德兰",
+  "TSG Hoffenheim": "霍芬海姆",
+  Utrecht: "乌德勒支",
+  "Volendam (on loan from Gaziantep)": "福伦丹（从加济安泰普租借）",
+  "Wellington Phoenix (on loan from TSC)": "惠灵顿凤凰（从TSC租借）",
+  "West Ham United": "西汉姆联",
+  "Wolverhampton Wanderers": "狼队",
+  Wrexham: "雷克瑟姆",
+  "Çaykur Rizespor (on loan from AEK Athens)": "里泽体育（从雅典AEK租借）",
+  "İstanbul Başakşehir": "伊斯坦布尔巴沙克谢希尔"
+};
+
+const ZH_SOURCE_LABEL_TRANSLATIONS = {
+  "Wikipedia football biography infoboxes for player metadata": "维基百科球员资料框",
+  "Wikimedia Commons player image files": "维基共享资源球员图片",
+  "FIFA World Cup 2026 schedule and results": "FIFA 2026世界杯赛程与赛果",
+  "FIFA World Cup 2026 schedule": "FIFA 2026世界杯赛程",
+  "FIFA World Cup 2026 debutants": "FIFA 2026世界杯首次参赛球队",
+  "FIFA/Coca-Cola Men's World Ranking": "FIFA/可口可乐男足世界排名",
+  "FIFA World Cup 2026 standings": "FIFA 2026世界杯积分榜",
+  "FOX Sports World Cup 2026 schedule cross-check": "FOX Sports 2026世界杯赛程交叉核对",
+  "SB Nation standings cross-check": "SB Nation积分榜交叉核对",
+  "ESPN Portugal vs Congo DR result cross-check": "ESPN葡萄牙对刚果民主共和国赛果交叉核对",
+  "Editorial preview notes and placeholder projections": "编辑预览笔记与占位预测",
+  "Ranking-based projection model": "基于排名的预测模型",
+  "Team key-player watchlist baseline": "球队关键球员观察名单基线",
+  "FIFA World Cup 2026 official squad list": "FIFA 2026世界杯官方名单",
+  "openfootball World Cup JSON": "openfootball世界杯JSON",
+  "FIFA official results sync": "FIFA官方赛果同步"
+};
+
+const ZH_HISTORICAL_SCORER_TRANSLATIONS = {
+  "A. Fathi": "艾哈迈德·法蒂",
+  "Agüero": "阿圭罗",
+  "Andersson": "安德松",
+  "Andre Schürrle": "安德烈·许尔勒",
+  "André Schürrle": "安德烈·许尔勒",
+  "Augustinsson": "奥古斯丁松",
+  "Badelj": "巴代利",
+  "Baggio": "巴乔",
+  "Baloy": "巴洛伊",
+  "Batshuayi": "巴舒亚伊",
+  "Bednarek": "贝德纳雷克",
+  "Behich": "贝希奇",
+  "Brehme": "布雷默",
+  "Cahill": "卡希尔",
+  "Caniggia": "卡尼吉亚",
+  "Carrillo": "卡里略",
+  "Cheryshev": "切里舍夫",
+  "Cionek": "乔内克",
+  "Coutinho": "库蒂尼奥",
+  "Cuadrado": "夸德拉多",
+  "Del Piero": "皮耶罗",
+  "Dzyuba": "久巴",
+  "E. Cavani": "埃丁森·卡瓦尼",
+  "E. Hazard": "埃登·阿扎尔",
+  "En-Nesyri": "恩内斯里",
+  "Eriksen": "埃里克森",
+  "Falcao": "法尔考",
+  "Fernández": "费尔南德斯",
+  "Foden": "福登",
+  "Fred": "弗雷德",
+  "Freuler": "弗罗伊勒",
+  "G. Sigurðsson": "吉尔维·西于尔兹松",
+  "Gareth Bale": "加雷斯·贝尔",
+  "Gavi": "加维",
+  "Giménez": "希门尼斯",
+  "Gonçalo Ramos": "贡萨洛·拉莫斯",
+  "Granqvist": "格兰奎斯特",
+  "Griezmann": "格列兹曼",
+  "Grosso": "格罗索",
+  "Guerrero": "格雷罗",
+  "H. Andersson": "亨里克·安德松",
+  "Hakim Zyiech": "哈基姆·齐耶赫",
+  "Honda": "本田",
+  "Hwang Hee-chan": "黄喜灿",
+  "J. Hernández": "哈维尔·埃尔南德斯",
+  "J. Quintero": "胡安·金特罗",
+  "Javier Hernández": "哈维尔·埃尔南德斯",
+  "Kagawa": "香川",
+  "Kane": "凯恩",
+  "Klose": "克洛泽",
+  "Kroos": "克罗斯",
+  "L. Laurent": "吕西安·洛朗",
+  "L. Suárez": "路易斯·苏亚雷斯",
+  "Leônidas": "莱昂尼达斯",
+  "Lineker": "莱因克尔",
+  "Lingard": "林加德",
+  "Lionel Messi": "利昂内尔·梅西",
+  "Lozano": "洛萨诺",
+  "Lukaku": "卢卡库",
+  "M. Salah": "穆罕默德·萨拉赫",
+  "M. Wagué": "穆萨·瓦格",
+  "Mac Allister": "麦卡利斯特",
+  "Mandžukić": "曼朱基奇",
+  "Mané": "马内",
+  "Marcelo": "马塞洛",
+  "Materazzi": "马特拉齐",
+  "Mbappé": "姆巴佩",
+  "Modrić": "莫德里奇",
+  "Nani": "纳尼",
+  "Neymar Jr": "内马尔",
+  "Osako": "大迫",
+  "Oscar": "奥斯卡",
+  "Paulinho": "保利尼奥",
+  "Pepe": "佩佩",
+  "Piola": "皮奥拉",
+  "Pogba": "博格巴",
+  "Pulisic": "普利希奇",
+  "R. Lukaku": "罗梅卢·卢卡库",
+  "Rakitić": "拉基蒂奇",
+  "Rashford": "拉什福德",
+  "Reus": "罗伊斯",
+  "Richarlison": "理查利森",
+  "Roberto Firmino": "罗伯托·菲尔米诺",
+  "Robin Van Persie": "罗宾·范佩西",
+  "Rodríguez": "罗德里格斯",
+  "Ronaldo": "罗纳尔多",
+  "Sassi": "萨西",
+  "Schiaffino": "斯基亚菲诺",
+  "Schillaci": "斯基拉奇",
+  "Schweinsteiger": "施魏因施泰格",
+  "Shaqiri": "沙奇里",
+  "Son Heung Min": "孙兴慜",
+  "Stones": "斯通斯",
+  "Stábile": "斯塔比莱",
+  "Takashi Inui": "乾贵士",
+  "Takuma Asano": "浅野拓磨",
+  "Thiago Silva": "蒂亚戈·席尔瓦",
+  "Thomas Müller": "托马斯·穆勒",
+  "Tim Cahill": "蒂姆·卡希尔",
+  "Toni Kroos": "托尼·克罗斯",
+  "Vinícius Jr.": "维尼修斯·儒尼奥尔",
+  "Wout Werghost": "沃特·韦霍斯特",
+  "Xabi Alonso": "哈维·阿隆索",
+  "Xhaka": "扎卡",
+  "Xherdan Shaqiri": "谢尔丹·沙奇里",
+  "Y. Mina": "耶里·米纳",
+  "Zidane": "齐达内",
+  "Zizinho": "济济尼奥",
+  "Álvaro Morata": "阿尔瓦罗·莫拉塔",
+  "Ángel Di María": "安赫尔·迪马利亚",
+  "Ángel di María": "安赫尔·迪马利亚"
+};
+
+const ZH_HISTORICAL_VENUE_TRANSLATIONS = {
+  "Camp Nou, Barcelona": "诺坎普，巴塞罗那",
+  "Estadio Azteca, Mexico City": "阿兹特克体育场，墨西哥城",
+  "Estadio Centenario, Montevideo": "百年纪念体育场，蒙得维的亚",
+  "Estadio Monumental, Buenos Aires": "纪念碑体育场，布宜诺斯艾利斯",
+  "Estadio Nacional, Santiago": "国家体育场，圣地亚哥",
+  "Estadio Parque Central, Montevideo": "中央公园体育场，蒙得维的亚",
+  "Estádio do Maracanã, Rio de Janeiro": "马拉卡纳体育场，里约热内卢",
+  "Lusail Iconic Stadium, Lusail": "卢赛尔体育场，卢赛尔",
+  "Old Trafford, Manchester": "老特拉福德，曼彻斯特",
+  "Rose Bowl, Pasadena": "玫瑰碗，帕萨迪纳",
+  "San Siro, Milan": "圣西罗，米兰",
+  "Stade de France, Saint-Denis": "法兰西体育场，圣但尼",
+  "Wembley Stadium, London": "温布利球场，伦敦"
+};
+
+const ZH_HISTORICAL_VENUE_TERMS = {
+  Arena: "竞技场",
+  Bowl: "碗状体育场",
+  Camp: "球场",
+  Central: "中央",
+  City: "城",
+  Cup: "杯",
+  Dome: "巨蛋",
+  Estadio: "体育场",
+  Estádio: "体育场",
+  International: "国际",
+  Main: "主",
+  Municipal: "市政",
+  Nacional: "国家",
+  National: "国家",
+  Nou: "诺",
+  Olímpico: "奥林匹克",
+  Olympic: "奥林匹克",
+  Park: "公园",
+  Parc: "公园",
+  Parque: "公园",
+  Place: "广场",
+  Soccer: "足球",
+  Stade: "体育场",
+  Stadio: "体育场",
+  Stadium: "体育场",
+  Stadion: "体育场",
+  Universitario: "大学",
+  University: "大学",
+  World: "世界",
+  "St.": "圣",
+  Al: "阿尔",
+  da: "",
+  das: "",
+  de: "",
+  del: "",
+  des: "",
+  do: "",
+  dos: "",
+  du: "",
+  la: "",
+  le: "",
+  les: "",
+  Buenos: "布宜诺斯",
+  Aires: "艾利斯",
+  Barcelona: "巴塞罗那",
+  Berlin: "柏林",
+  Bilbao: "毕尔巴鄂",
+  Birmingham: "伯明翰",
+  Bordeaux: "波尔多",
+  Brasilia: "巴西利亚",
+  Brasília: "巴西利亚",
+  Busan: "釜山",
+  Chicago: "芝加哥",
+  Dallas: "达拉斯",
+  Doha: "多哈",
+  Dortmund: "多特蒙德",
+  Durban: "德班",
+  Florence: "佛罗伦萨",
+  Frankfurt: "法兰克福",
+  Geneva: "日内瓦",
+  Guadalajara: "瓜达拉哈拉",
+  Hamburg: "汉堡",
+  Hannover: "汉诺威",
+  Johannesburg: "约翰内斯堡",
+  London: "伦敦",
+  Madrid: "马德里",
+  Manchester: "曼彻斯特",
+  Marseille: "马赛",
+  Mexico: "墨西哥",
+  Milan: "米兰",
+  Montevideo: "蒙得维的亚",
+  Moscow: "莫斯科",
+  München: "慕尼黑",
+  Munich: "慕尼黑",
+  Naples: "那不勒斯",
+  Paris: "巴黎",
+  Pasadena: "帕萨迪纳",
+  Rome: "罗马",
+  Santiago: "圣地亚哥",
+  Seville: "塞维利亚",
+  Seoul: "首尔",
+  Stuttgart: "斯图加特",
+  Turin: "都灵",
+  Valencia: "巴伦西亚",
+  Yokohama: "横滨"
+};
+
+const ZH_NAME_INITIAL_TRANSLITERATIONS = {
+  A: "阿",
+  B: "贝",
+  C: "西",
+  D: "迪",
+  E: "伊",
+  F: "弗",
+  G: "吉",
+  H: "哈",
+  I: "伊",
+  J: "杰",
+  K: "凯",
+  L: "勒",
+  M: "马",
+  N: "恩",
+  O: "奥",
+  P: "佩",
+  Q: "丘",
+  R: "雷",
+  S: "塞",
+  T: "特",
+  U: "乌",
+  V: "维",
+  W: "韦",
+  X: "克斯",
+  Y: "伊",
+  Z: "泽"
+};
+
+const ZH_LATIN_NAME_LETTERS = {
+  a: "阿",
+  b: "布",
+  c: "克",
+  d: "德",
+  e: "埃",
+  f: "夫",
+  g: "格",
+  h: "赫",
+  i: "伊",
+  j: "杰",
+  k: "克",
+  l: "勒",
+  m: "姆",
+  n: "恩",
+  o: "奥",
+  p: "普",
+  q: "库",
+  r: "尔",
+  s: "斯",
+  t: "特",
+  u: "乌",
+  v: "维",
+  w: "沃",
+  x: "克斯",
+  y: "伊",
+  z: "泽"
+};
+
+const ZH_LATIN_NAME_CHUNKS = Object.entries({
+  schw: "施魏",
+  sch: "施",
+  tch: "奇",
+  dzh: "吉",
+  sson: "松",
+  berg: "贝格",
+  mann: "曼",
+  vich: "维奇",
+  vic: "维奇",
+  wicz: "维奇",
+  ich: "伊奇",
+  ski: "斯基",
+  sky: "斯基",
+  gue: "盖",
+  gui: "吉",
+  que: "克",
+  qui: "基",
+  eau: "奥",
+  aux: "奥",
+  eon: "翁",
+  dz: "兹",
+  ch: "奇",
+  sh: "什",
+  th: "特",
+  ph: "夫",
+  ck: "克",
+  qu: "夸",
+  gn: "尼",
+  nh: "尼",
+  lh: "利",
+  ll: "利",
+  rr: "尔",
+  ng: "恩",
+  ai: "艾",
+  au: "奥",
+  ea: "伊",
+  ee: "伊",
+  ei: "艾",
+  eu: "尤",
+  ie: "耶",
+  io: "奥",
+  oa: "奥",
+  oe: "奥",
+  oi: "瓦",
+  oo: "乌",
+  ou: "乌",
+  ua: "瓦",
+  ue: "韦",
+  ui: "维",
+  yy: "伊",
+  ba: "巴",
+  be: "贝",
+  bi: "比",
+  bo: "博",
+  bu: "布",
+  ca: "卡",
+  ce: "塞",
+  ci: "西",
+  co: "科",
+  cu: "库",
+  cy: "西",
+  da: "达",
+  de: "德",
+  di: "迪",
+  do: "多",
+  du: "杜",
+  dy: "迪",
+  fa: "法",
+  fe: "费",
+  fi: "菲",
+  fo: "福",
+  fu: "夫",
+  ga: "加",
+  ge: "格",
+  gi: "吉",
+  go: "戈",
+  gu: "古",
+  gy: "吉",
+  ha: "哈",
+  he: "赫",
+  hi: "希",
+  ho: "霍",
+  hu: "胡",
+  hy: "希",
+  ja: "贾",
+  je: "杰",
+  ji: "吉",
+  jo: "乔",
+  ju: "朱",
+  ka: "卡",
+  ke: "克",
+  ki: "基",
+  ko: "科",
+  ku: "库",
+  ky: "基",
+  la: "拉",
+  le: "莱",
+  li: "利",
+  lo: "洛",
+  lu: "卢",
+  ly: "利",
+  ma: "马",
+  me: "梅",
+  mi: "米",
+  mo: "莫",
+  mu: "穆",
+  my: "米",
+  na: "纳",
+  ne: "内",
+  ni: "尼",
+  no: "诺",
+  nu: "努",
+  ny: "尼",
+  pa: "帕",
+  pe: "佩",
+  pi: "皮",
+  po: "波",
+  pu: "普",
+  py: "皮",
+  qa: "卡",
+  qe: "克",
+  qi: "奇",
+  qo: "科",
+  ra: "拉",
+  re: "雷",
+  ri: "里",
+  ro: "罗",
+  ru: "鲁",
+  ry: "里",
+  sa: "萨",
+  se: "塞",
+  si: "西",
+  so: "索",
+  su: "苏",
+  sy: "西",
+  ta: "塔",
+  te: "特",
+  ti: "蒂",
+  to: "托",
+  tu: "图",
+  ty: "蒂",
+  va: "瓦",
+  ve: "维",
+  vi: "维",
+  vo: "沃",
+  vu: "武",
+  vy: "维",
+  wa: "瓦",
+  we: "韦",
+  wi: "维",
+  wo: "沃",
+  wu: "伍",
+  wy: "维",
+  xa: "克萨",
+  xe: "克塞",
+  xi: "西",
+  xo: "克索",
+  xu: "许",
+  xy: "西",
+  ya: "亚",
+  ye: "耶",
+  yi: "伊",
+  yo: "约",
+  yu: "尤",
+  za: "扎",
+  ze: "泽",
+  zi: "齐",
+  zo: "佐",
+  zu: "祖",
+  zy: "齐",
+  ov: "奥夫",
+  ev: "耶夫",
+  ez: "埃斯",
+  es: "埃斯",
+  is: "伊斯",
+  us: "乌斯",
+  as: "阿斯",
+  os: "奥斯",
+  az: "阿兹",
+  ic: "伊奇",
+  ek: "埃克",
+  er: "尔",
+  en: "恩",
+  on: "翁",
+  an: "安",
+  in: "因",
+  un: "温"
+}).sort((a, b) => b[0].length - a[0].length);
+
 Object.entries(ZH_ADDITIONAL_EXACT_TRANSLATIONS).forEach(([text, translation]) => {
   ZH_EXACT_TRANSLATIONS.set(text, translation);
+});
+[
+  ZH_PLAYER_NAME_TRANSLATIONS,
+  ZH_CLUB_NAME_TRANSLATIONS,
+  ZH_SOURCE_LABEL_TRANSLATIONS,
+  ZH_HISTORICAL_SCORER_TRANSLATIONS,
+  ZH_HISTORICAL_VENUE_TRANSLATIONS
+].forEach((translations) => {
+  Object.entries(translations).forEach(([text, translation]) => {
+    ZH_EXACT_TRANSLATIONS.set(text, translation);
+  });
 });
 Object.entries({
   "Central control": "中路控制",
@@ -1000,8 +1868,20 @@ const ZH_PATTERN_TRANSLATIONS = [
     replace: (_, winner, score) => `⚽ ${translateTextToZh(winner)} 以 ${score} 强势取胜。`
   },
   {
+    pattern: /^⚽ (.+) edged (.+) (.+)\.$/,
+    replace: (_, winner, loser, score) => `⚽ ${translateTextToZh(winner)} 以 ${score} 险胜 ${translateTextToZh(loser)}。`
+  },
+  {
     pattern: /^⚽ (.+) found the decisive goal in a (.+) win\.$/,
     replace: (_, winner, score) => `⚽ ${translateTextToZh(winner)} 在 ${score} 的胜利中打入制胜球。`
+  },
+  {
+    pattern: /^🌟 (.+) scored twice in the rout\.$/,
+    replace: (_, player) => `🌟 ${player}在大胜中梅开二度。`
+  },
+  {
+    pattern: /^🌟 (.+) made a huge late double save\.$/,
+    replace: (_, player) => `🌟 ${player}最后阶段完成关键连续两连扑。`
   },
   {
     pattern: /^🌟 The clean sheet gave (.+) no way back\.$/,
@@ -1040,6 +1920,10 @@ const ZH_PATTERN_TRANSLATIONS = [
     replace: (_, winner, context) => `📊 ${translateTextToZh(winner)} 从 ${translateTextToZh(context)} 中拿到3分。`
   },
   {
+    pattern: /^📊 (.+) took three points in (.+)\.$/,
+    replace: (_, winner, context) => `📊 ${translateTextToZh(winner)} 在 ${translateTextToZh(context)} 中拿到3分。`
+  },
+  {
     pattern: /^📊 (.+) took three points and (.+) GD in (.+)\.$/,
     replace: (_, winner, gd, context) => `📊 ${translateTextToZh(winner)} 在 ${translateTextToZh(context)} 中拿到3分，并获得 ${gd} 净胜球。`
   },
@@ -1076,13 +1960,46 @@ const ZH_PATTERN_TRANSLATIONS = [
     replace: (_, year, groupId) => `${year}年美洲杯 - ${groupId}组`
   },
   {
-    pattern: /^(FIFA|FOX Sports) (.+) vs (.+) final score(?: cross-check)?$/,
+    pattern: /^(Al Jazeera|England Football|ESPN|FIFA|FOX Sports|Guardian) (.+) vs (.+) final score(?: cross-check)?$/,
     replace: (_, source, home, away) =>
       `${source} ${translateTextToZh(home)} 对 ${translateTextToZh(away)} 最终比分`
   },
   {
+    pattern: /^(.+) vs (.+) public odds consensus$/,
+    replace: (_, home, away) => `${translateTextToZh(home)} 对 ${translateTextToZh(away)} 公开赔率共识`
+  },
+  {
+    pattern: /^National Football Teams (.+)-(.+) H2H cross-check$/,
+    replace: (_, home, away) => `National Football Teams ${translateTextToZh(home)}-${translateTextToZh(away)} 交锋记录核对`
+  },
+  {
+    pattern: /^National Football Teams H2H encounter records$/,
+    replace: () => "National Football Teams交锋记录"
+  },
+  {
+    pattern: /^(.+) (.+) illness update$/,
+    replace: (_, source, player) => `${source} ${translateTextToZh(player)} 伤病动态`
+  },
+  {
+    pattern: /^(Al Jazeera|FIFA|Guardian|Nippon\\.com) (.+) squad(?: and omissions| update)?$/,
+    replace: (_, source, team) => `${source} ${translateTextToZh(team)} 阵容消息`
+  },
+  {
+    pattern: /^(Al Jazeera|FIFA|Guardian) (.+) vs (.+) live match status$/,
+    replace: (_, source, home, away) =>
+      `${source} ${translateTextToZh(home)} 对 ${translateTextToZh(away)} 实时比赛状态`
+  },
+  {
     pattern: /^(.+) vs (.+) final score(?: cross-check)?$/,
     replace: (_, home, away) => `${translateTextToZh(home)} 对 ${translateTextToZh(away)} 最终比分`
+  },
+  {
+    pattern: /^(.+) vs (.+)$/,
+    replace: (_, home, away) => `${translateTextToZh(home)} 对 ${translateTextToZh(away)}`
+  },
+  {
+    pattern: /^(.+) (\d+-\d+) (.+)$/,
+    replace: (_, home, score, away) => `${translateTextToZh(home)} ${score} ${translateTextToZh(away)}`
   },
   {
     pattern: /^(\d+) points?, (.+) goal difference, (\d+) goals? scored\.$/,
@@ -1161,7 +2078,9 @@ const standingsSummary = document.querySelector("#standings-summary");
 const standingsGrid = document.querySelector("#standings-grid");
 const sourceNote = document.querySelector("#source-note");
 const brandHomeLink = document.querySelector(".site-brand");
-const brandLabel = document.querySelector(".site-brand span");
+const brandLabel = document.querySelector(".site-brand .brand-label");
+const juggleRecord = document.querySelector("#juggle-record");
+const headerControls = document.querySelector("#header-controls");
 const languageSwitch = document.querySelector("#language-switch");
 const languageButtons = document.querySelectorAll(".language-option");
 const standingsHeadingText = document.querySelector("#standings-heading span");
@@ -1445,6 +2364,7 @@ if (!timeZones.includes(defaultTimeZone)) {
 const initialDate = new Date();
 let selectedTimeZone = defaultTimeZone;
 let selectedDayKey = getDayKey(initialDate, selectedTimeZone);
+let isUsingCompactTimeZoneLabel = null;
 let activeMatchId = "";
 let activeView = "matches";
 let selectedStandingsYear = CURRENT_STANDINGS_YEAR;
@@ -1500,6 +2420,30 @@ function getInitialLanguage() {
 }
 
 let currentLanguage = getInitialLanguage();
+const juggleToy = {
+  animationFrameId: 0,
+  audioContext: null,
+  best: readStoredJuggleRecord(),
+  count: 0,
+  curve: 0,
+  element: null,
+  fallDistance: 0,
+  fallDuration: 0,
+  lastFrameTime: 0,
+  phase: "idle",
+  rotation: 0,
+  rotationSpeed: 0,
+  size: 38,
+  spawnTimeoutId: 0,
+  startTime: 0,
+  startX: 0,
+  startY: 0,
+  targetX: 0,
+  vx: 0,
+  vy: 0,
+  x: 0,
+  y: 0
+};
 
 function getAppLocale() {
   return LANGUAGE_LOCALES[currentLanguage] || LANGUAGE_LOCALES.en;
@@ -1533,6 +2477,19 @@ const navDateFormatter = createFormatterProxy({
 
 const navDateWithYearFormatter = createFormatterProxy({
   month: "short",
+  day: "numeric",
+  timeZone: "UTC",
+  year: "numeric"
+});
+
+const matchRowDateFormatter = createFormatterProxy({
+  month: "long",
+  day: "numeric",
+  timeZone: "UTC"
+});
+
+const matchRowDateWithYearFormatter = createFormatterProxy({
+  month: "long",
   day: "numeric",
   timeZone: "UTC",
   year: "numeric"
@@ -1604,6 +2561,231 @@ function localizeText(value) {
   return currentLanguage === "zh" ? translateTextToZh(value) : String(value ?? "");
 }
 
+function replaceKnownLocalizedEntities(value, translationMap) {
+  const text = String(value ?? "");
+
+  if (currentLanguage !== "zh" || !text) {
+    return text;
+  }
+
+  return Object.entries(translationMap)
+    .sort((a, b) => b[0].length - a[0].length)
+    .reduce(
+      (output, [source, translation]) =>
+        output.replace(new RegExp(escapeRegExp(source), "g"), translation),
+      text
+    );
+}
+
+function localizeKnownPlayerNames(value) {
+  return replaceKnownLocalizedEntities(value, ZH_PLAYER_NAME_TRANSLATIONS);
+}
+
+function normalizeLatinNameForTransliteration(value) {
+  const specialLetters = {
+    Æ: "Ae",
+    æ: "ae",
+    Œ: "Oe",
+    œ: "oe",
+    Ø: "O",
+    ø: "o",
+    Ł: "L",
+    ł: "l",
+    Đ: "D",
+    đ: "d",
+    Ð: "D",
+    ð: "d",
+    Þ: "Th",
+    þ: "th",
+    ß: "ss"
+  };
+
+  return String(value ?? "")
+    .replace(/[ÆæŒœØøŁłĐđÐðÞþß]/g, (letter) => specialLetters[letter] || letter)
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^A-Za-z]/g, "")
+    .toLowerCase();
+}
+
+function transliterateLatinNamePartToZh(value) {
+  const part = String(value ?? "").trim();
+
+  if (!part) {
+    return "";
+  }
+
+  const exact =
+    ZH_HISTORICAL_SCORER_TRANSLATIONS[part] ||
+    ZH_PLAYER_NAME_TRANSLATIONS[part] ||
+    ZH_EXACT_TRANSLATIONS.get(part);
+
+  if (exact) {
+    return exact;
+  }
+
+  if (/^jr\.?$/i.test(part)) {
+    return "儒尼奥尔";
+  }
+
+  const initial = part.match(/^([A-Za-z])\.$/);
+  if (initial) {
+    return ZH_NAME_INITIAL_TRANSLITERATIONS[initial[1].toUpperCase()] || "";
+  }
+
+  if (part.includes("-")) {
+    return part
+      .split("-")
+      .map(transliterateLatinNamePartToZh)
+      .filter(Boolean)
+      .join("-");
+  }
+
+  if (/[’']/.test(part)) {
+    return part
+      .split(/[’']/)
+      .map(transliterateLatinNamePartToZh)
+      .filter(Boolean)
+      .join("");
+  }
+
+  const normalized = normalizeLatinNameForTransliteration(part);
+
+  if (!normalized) {
+    return "";
+  }
+
+  let output = "";
+  let index = 0;
+
+  while (index < normalized.length) {
+    const chunk = ZH_LATIN_NAME_CHUNKS.find(([source]) => normalized.startsWith(source, index));
+
+    if (chunk) {
+      output += chunk[1];
+      index += chunk[0].length;
+      continue;
+    }
+
+    output += ZH_LATIN_NAME_LETTERS[normalized[index]] || "";
+    index += 1;
+  }
+
+  return output;
+}
+
+function transliterateHistoricalScorerName(value) {
+  const compactName = String(value ?? "").trim().replace(/\s+/g, " ");
+
+  if (!compactName) {
+    return "";
+  }
+
+  const exact =
+    ZH_HISTORICAL_SCORER_TRANSLATIONS[compactName] ||
+    ZH_PLAYER_NAME_TRANSLATIONS[compactName] ||
+    ZH_EXACT_TRANSLATIONS.get(compactName);
+
+  if (exact) {
+    return exact;
+  }
+
+  const knownName = localizeKnownPlayerNames(compactName);
+  if (knownName !== compactName && !/[A-Za-z]/.test(knownName)) {
+    return knownName;
+  }
+
+  const parts = compactName
+    .replace(/[,()]/g, " ")
+    .split(/\s+/)
+    .map(transliterateLatinNamePartToZh)
+    .filter(Boolean);
+
+  return parts.length ? parts.join("·") : compactName;
+}
+
+function localizeHistoricalScorerName(value) {
+  return currentLanguage === "zh" ? transliterateHistoricalScorerName(value) : String(value ?? "");
+}
+
+function localizeHistoricalVenuePart(value) {
+  const part = String(value ?? "").trim();
+
+  if (!part) {
+    return "";
+  }
+
+  if (Object.prototype.hasOwnProperty.call(ZH_HISTORICAL_VENUE_TERMS, part)) {
+    return ZH_HISTORICAL_VENUE_TERMS[part];
+  }
+
+  const exact = ZH_HISTORICAL_VENUE_TRANSLATIONS[part] || ZH_EXACT_TRANSLATIONS.get(part);
+
+  if (exact !== undefined) {
+    return exact;
+  }
+
+  if (part.includes("-")) {
+    return part
+      .split("-")
+      .map(localizeHistoricalVenuePart)
+      .filter(Boolean)
+      .join("-");
+  }
+
+  if (/[’']/.test(part)) {
+    return part
+      .split(/[’']/)
+      .map(localizeHistoricalVenuePart)
+      .filter(Boolean)
+      .join("");
+  }
+
+  return transliterateLatinNamePartToZh(part);
+}
+
+function localizeHistoricalVenueText(value) {
+  const compactText = String(value ?? "").trim().replace(/\s+/g, " ");
+
+  if (!compactText) {
+    return "";
+  }
+
+  const exact = ZH_HISTORICAL_VENUE_TRANSLATIONS[compactText] || translateTextToZh(compactText);
+  if (exact && exact !== compactText) {
+    return exact;
+  }
+
+  return compactText
+    .split(",")
+    .map((segment) =>
+      segment
+        .trim()
+        .split(/\s+/)
+        .map(localizeHistoricalVenuePart)
+        .filter(Boolean)
+        .join("")
+    )
+    .filter(Boolean)
+    .join("，");
+}
+
+function localizeKnownDisplayEntities(value) {
+  return [
+    ZH_PLAYER_NAME_TRANSLATIONS,
+    ZH_CLUB_NAME_TRANSLATIONS,
+    ZH_SOURCE_LABEL_TRANSLATIONS,
+    ZH_HISTORICAL_SCORER_TRANSLATIONS
+  ].reduce(
+    (output, translationMap) => replaceKnownLocalizedEntities(output, translationMap),
+    String(value ?? "")
+  );
+}
+
+function localizeDisplayText(value) {
+  return currentLanguage === "zh" ? localizeKnownDisplayEntities(localizeText(value)) : localizeText(value);
+}
+
 function getLocalizedTeamName(teamOrName) {
   const name = typeof teamOrName === "string" ? teamOrName : teamOrName?.name || "";
   return localizeText(name);
@@ -1620,6 +2802,8 @@ function renderStaticText() {
   if (brandLabel) {
     brandLabel.textContent = t("appName");
   }
+  renderJuggleRecord();
+  juggleToy.element?.setAttribute("title", t("juggleBall"));
 
   languageSwitch?.setAttribute("aria-label", t("language"));
   languageButtons.forEach((button) => {
@@ -1731,6 +2915,300 @@ function applyLanguageToPage() {
   } finally {
     isApplyingLanguage = false;
   }
+}
+
+function readStoredJuggleRecord() {
+  const savedRecord = Number(localStorage.getItem(JUGGLE_RECORD_STORAGE_KEY));
+  return Number.isFinite(savedRecord) && savedRecord > 0 ? Math.floor(savedRecord) : 0;
+}
+
+function storeJuggleRecord(record) {
+  localStorage.setItem(JUGGLE_RECORD_STORAGE_KEY, String(record));
+}
+
+function renderJuggleRecord() {
+  if (!juggleRecord) {
+    return;
+  }
+
+  const label = t("juggleRecord");
+  juggleRecord.hidden = false;
+  juggleRecord.textContent = `(${juggleToy.best})`;
+  juggleRecord.setAttribute(
+    "aria-label",
+    `${label}: ${juggleToy.best}`
+  );
+  juggleRecord.setAttribute(
+    "title",
+    `${label}: ${juggleToy.best}`
+  );
+}
+
+function getRandomNumber(min, max) {
+  return min + Math.random() * (max - min);
+}
+
+function clampNumber(value, min, max) {
+  return Math.min(Math.max(value, min), max);
+}
+
+function prefersReducedJuggleMotion() {
+  return window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
+}
+
+function getJuggleBallSize() {
+  return clampNumber(Math.round(window.innerWidth * 0.085), 32, 42);
+}
+
+function isJuggleInteractiveTarget(target) {
+  return Boolean(
+    target instanceof Element &&
+      target.closest(
+        "a, button, input, select, textarea, summary, label, [role='button'], [role='tab'], [tabindex]"
+      )
+  );
+}
+
+function scheduleNextJuggle(delay = getRandomNumber(JUGGLE_SPAWN_DELAY_MS.min, JUGGLE_SPAWN_DELAY_MS.max)) {
+  window.clearTimeout(juggleToy.spawnTimeoutId);
+
+  if (!juggleToy.element || prefersReducedJuggleMotion() || document.hidden) {
+    return;
+  }
+
+  juggleToy.spawnTimeoutId = window.setTimeout(() => {
+    spawnJuggleBall();
+  }, delay);
+}
+
+function initializeJuggleToy() {
+  renderJuggleRecord();
+
+  if (prefersReducedJuggleMotion()) {
+    return;
+  }
+
+  const ball = document.createElement("div");
+  ball.className = "juggle-ball";
+  ball.textContent = JUGGLE_BALL_EMOJI;
+  ball.setAttribute("aria-hidden", "true");
+  ball.setAttribute("title", t("juggleBall"));
+  document.body.append(ball);
+  juggleToy.element = ball;
+
+  document.addEventListener("pointerdown", handleJugglePointerDown, {
+    capture: true
+  });
+  document.addEventListener("visibilitychange", handleJuggleVisibilityChange);
+  scheduleNextJuggle();
+}
+
+function handleJuggleVisibilityChange() {
+  if (document.hidden) {
+    finishJuggleRun();
+    window.clearTimeout(juggleToy.spawnTimeoutId);
+    return;
+  }
+
+  scheduleNextJuggle();
+}
+
+function spawnJuggleBall() {
+  if (!juggleToy.element || prefersReducedJuggleMotion() || document.hidden) {
+    return;
+  }
+
+  window.cancelAnimationFrame(juggleToy.animationFrameId);
+
+  const width = window.innerWidth;
+  const height = window.innerHeight;
+  const size = getJuggleBallSize();
+  const startX = getRandomNumber(8, Math.max(8, width - size - 8));
+  const targetX = getRandomNumber(8, Math.max(8, width - size - 8));
+  const startY = -size - getRandomNumber(8, 72);
+  const fallDistance = height + size - startY;
+  const fallDuration = fallDistance / JUGGLE_FALL_SPEED;
+
+  juggleToy.count = 0;
+  juggleToy.curve = getRandomNumber(-Math.min(140, width * 0.28), Math.min(140, width * 0.28));
+  juggleToy.fallDistance = fallDistance;
+  juggleToy.fallDuration = fallDuration;
+  juggleToy.lastFrameTime = 0;
+  juggleToy.phase = "falling";
+  juggleToy.rotation = getRandomNumber(-24, 24);
+  juggleToy.rotationSpeed = getRandomNumber(-220, 220);
+  juggleToy.size = size;
+  juggleToy.startTime = performance.now();
+  juggleToy.startX = startX;
+  juggleToy.startY = startY;
+  juggleToy.targetX = targetX;
+  juggleToy.vx = (targetX - startX) / fallDuration;
+  juggleToy.vy = JUGGLE_FALL_SPEED;
+  juggleToy.x = startX;
+  juggleToy.y = startY;
+
+  juggleToy.element.style.setProperty("--juggle-ball-size", `${size}px`);
+  juggleToy.element.classList.add("is-active");
+  renderJuggleBall();
+  juggleToy.animationFrameId = window.requestAnimationFrame(updateJuggleBall);
+}
+
+function updateJuggleBall(frameTime) {
+  if (!juggleToy.element || juggleToy.phase === "idle") {
+    return;
+  }
+
+  const previousFrameTime = juggleToy.lastFrameTime || frameTime;
+  const deltaSeconds = clampNumber(
+    (frameTime - previousFrameTime) / 1000,
+    0,
+    JUGGLE_MAX_FRAME_SECONDS
+  );
+  juggleToy.lastFrameTime = frameTime;
+
+  if (juggleToy.phase === "falling") {
+    updateFallingJuggleBall(frameTime);
+  } else {
+    updateKickedJuggleBall(deltaSeconds);
+  }
+
+  juggleToy.rotation += juggleToy.rotationSpeed * deltaSeconds;
+  renderJuggleBall();
+
+  if (juggleToy.y >= window.innerHeight - juggleToy.size) {
+    finishJuggleRun();
+    return;
+  }
+
+  juggleToy.animationFrameId = window.requestAnimationFrame(updateJuggleBall);
+}
+
+function updateFallingJuggleBall(frameTime) {
+  const elapsedSeconds = (frameTime - juggleToy.startTime) / 1000;
+  const progress = clampNumber(elapsedSeconds / juggleToy.fallDuration, 0, 1);
+  const linearX = juggleToy.startX + (juggleToy.targetX - juggleToy.startX) * progress;
+
+  juggleToy.x = clampNumber(
+    linearX + Math.sin(progress * Math.PI) * juggleToy.curve,
+    0,
+    Math.max(0, window.innerWidth - juggleToy.size)
+  );
+  juggleToy.y = juggleToy.startY + juggleToy.fallDistance * progress;
+}
+
+function updateKickedJuggleBall(deltaSeconds) {
+  juggleToy.vy += JUGGLE_GRAVITY * deltaSeconds;
+  juggleToy.x += juggleToy.vx * deltaSeconds;
+  juggleToy.y += juggleToy.vy * deltaSeconds;
+
+  if (juggleToy.x < 0) {
+    juggleToy.x = 0;
+    juggleToy.vx = Math.abs(juggleToy.vx) * 0.76;
+  } else if (juggleToy.x > window.innerWidth - juggleToy.size) {
+    juggleToy.x = Math.max(0, window.innerWidth - juggleToy.size);
+    juggleToy.vx = -Math.abs(juggleToy.vx) * 0.76;
+  }
+}
+
+function renderJuggleBall() {
+  if (!juggleToy.element) {
+    return;
+  }
+
+  juggleToy.element.style.transform = `translate3d(${juggleToy.x}px, ${juggleToy.y}px, 0) rotate(${juggleToy.rotation}deg)`;
+}
+
+function getJuggleAudioContext() {
+  const AudioContextConstructor = window.AudioContext || window.webkitAudioContext;
+  if (!AudioContextConstructor) {
+    return null;
+  }
+
+  if (!juggleToy.audioContext) {
+    juggleToy.audioContext = new AudioContextConstructor();
+  }
+
+  return juggleToy.audioContext;
+}
+
+function playJuggleTapSound() {
+  const audioContext = getJuggleAudioContext();
+  if (!audioContext) {
+    return;
+  }
+
+  if (audioContext.state === "suspended") {
+    audioContext.resume();
+  }
+
+  const startTime = audioContext.currentTime;
+  const endTime = startTime + JUGGLE_SOUND_DURATION_SECONDS;
+  const oscillator = audioContext.createOscillator();
+  const gain = audioContext.createGain();
+
+  oscillator.type = "triangle";
+  oscillator.frequency.setValueAtTime(185, startTime);
+  oscillator.frequency.exponentialRampToValueAtTime(92, endTime);
+  gain.gain.setValueAtTime(0.0001, startTime);
+  gain.gain.exponentialRampToValueAtTime(0.16, startTime + 0.012);
+  gain.gain.exponentialRampToValueAtTime(0.0001, endTime);
+
+  oscillator.connect(gain);
+  gain.connect(audioContext.destination);
+  oscillator.start(startTime);
+  oscillator.stop(endTime);
+}
+
+function handleJugglePointerDown(event) {
+  if (!juggleToy.element || juggleToy.phase === "idle" || isJuggleInteractiveTarget(event.target)) {
+    return;
+  }
+
+  const centerX = juggleToy.x + juggleToy.size / 2;
+  const centerY = juggleToy.y + juggleToy.size / 2;
+  const hitRadius = juggleToy.size * JUGGLE_HIT_RADIUS_MULTIPLIER;
+  const distance = Math.hypot(event.clientX - centerX, event.clientY - centerY);
+
+  if (distance > hitRadius) {
+    return;
+  }
+
+  event.preventDefault();
+  event.stopPropagation();
+  kickJuggleBall(event.clientX, event.clientY);
+}
+
+function kickJuggleBall(pointerX, pointerY) {
+  const centerX = juggleToy.x + juggleToy.size / 2;
+  const centerY = juggleToy.y + juggleToy.size / 2;
+  const horizontalOffset = clampNumber((pointerX - centerX) / (juggleToy.size / 2), -1, 1);
+  const verticalOffset = clampNumber((pointerY - centerY) / (juggleToy.size / 2), -1, 1);
+  const lateralKick = -horizontalOffset * 380;
+
+  juggleToy.phase = "juggling";
+  juggleToy.count += 1;
+  juggleToy.vx = clampNumber(juggleToy.vx * 0.36 + lateralKick, -480, 480);
+  juggleToy.vy = -clampNumber(485 + Math.max(0, verticalOffset) * 105, 470, 610);
+  juggleToy.rotationSpeed = clampNumber(juggleToy.rotationSpeed - horizontalOffset * 260, -520, 520);
+  playJuggleTapSound();
+
+  if (juggleToy.count > juggleToy.best) {
+    juggleToy.best = juggleToy.count;
+    storeJuggleRecord(juggleToy.best);
+    renderJuggleRecord();
+  }
+}
+
+function finishJuggleRun() {
+  if (!juggleToy.element || juggleToy.phase === "idle") {
+    return;
+  }
+
+  window.cancelAnimationFrame(juggleToy.animationFrameId);
+  juggleToy.phase = "idle";
+  juggleToy.element.classList.remove("is-active");
+
+  scheduleNextJuggle();
 }
 
 function normalizeTextKey(value) {
@@ -1947,7 +3425,15 @@ function getTimeZoneAbbreviation(timeZone, date = new Date()) {
   );
 }
 
-function getTimeZoneLabel(timeZone) {
+function shouldUseCompactTimeZoneLabel() {
+  return window.matchMedia("(max-width: 700px)").matches;
+}
+
+function getTimeZoneLabel(timeZone, options = {}) {
+  if (options.compact) {
+    return getTimeZoneAbbreviation(timeZone);
+  }
+
   const label =
     currentLanguage === "zh"
       ? zhTimeZoneNames[timeZone] || timeZone.replace(/_/g, " ")
@@ -2356,15 +3842,41 @@ function openStandingsGroup(groupId) {
 }
 
 function renderTimeZoneOptions() {
+  const useCompactSelectedLabel = shouldUseCompactTimeZoneLabel();
+  isUsingCompactTimeZoneLabel = useCompactSelectedLabel;
+
   timezoneSelect.replaceChildren(
     ...timeZones.map((timeZone) => {
       const option = document.createElement("option");
       option.value = timeZone;
-      option.textContent = getTimeZoneLabel(timeZone);
+      option.textContent = getTimeZoneLabel(timeZone, {
+        compact: useCompactSelectedLabel && timeZone === selectedTimeZone
+      });
       option.selected = timeZone === selectedTimeZone;
       return option;
     })
   );
+}
+
+function setHeaderControlsLoading(isLoading) {
+  if (!headerControls) {
+    return;
+  }
+
+  headerControls.classList.toggle("is-loading", isLoading);
+  if (isLoading) {
+    headerControls.setAttribute("aria-busy", "true");
+  } else {
+    headerControls.removeAttribute("aria-busy");
+  }
+}
+
+function updateTimeZoneLabelForViewport() {
+  const shouldUseCompactLabel = shouldUseCompactTimeZoneLabel();
+
+  if (shouldUseCompactLabel !== isUsingCompactTimeZoneLabel) {
+    renderTimeZoneOptions();
+  }
 }
 
 function renderFlag(team) {
@@ -2518,8 +4030,8 @@ function updateMeasuredLabelTooltips(root = document) {
 
 function getVenueLabel(match) {
   if (currentLanguage === "zh") {
-    const venue = zhVenueNames[match.venue] || localizeText(match.venue);
-    const location = zhVenueLocations[match.venue] || localizeText(venueLocations[match.venue] || "");
+    const venue = zhVenueNames[match.venue] || localizeHistoricalVenueText(match.venue);
+    const location = zhVenueLocations[match.venue] || localizeHistoricalVenueText(venueLocations[match.venue] || "");
     return location ? `${venue} \u2022 ${location}` : venue;
   }
 
@@ -2807,6 +4319,25 @@ function getMatchTimeLabel(match) {
   return match.status === "FT" ? localizeText("FT") : localizeText("Final");
 }
 
+function getMatchDateLabel(match, options = {}) {
+  let dayKey = match.date || "";
+
+  if (!dayKey && match.kickoffUtc) {
+    dayKey = getFixtureDayKey(match);
+  }
+
+  if (!isDayKey(dayKey)) {
+    return "";
+  }
+
+  const currentYear = getDayKey(new Date(), selectedTimeZone).slice(0, 4);
+  const shouldShowYear =
+    options.alwaysShowYear || match.isHistorical || dayKey.slice(0, 4) !== currentYear;
+  const formatter = shouldShowYear ? matchRowDateWithYearFormatter : matchRowDateFormatter;
+
+  return formatter.format(getDateFromKey(dayKey));
+}
+
 function getMatchTimeAriaLabel(match) {
   if (match.status === "FT" && !match.kickoffUtc && !match.localTime) {
     return localizeText("Full time");
@@ -2815,11 +4346,41 @@ function getMatchTimeAriaLabel(match) {
   return getMatchTimeLabel(match);
 }
 
+function getMatchDateTimeAriaLabel(match, options = {}) {
+  const dateLabel = options.showDate ? getMatchDateLabel(match, options) : "";
+  if (!dateLabel) {
+    return getMatchTimeAriaLabel(match);
+  }
+
+  if (match.isHistorical) {
+    return dateLabel;
+  }
+
+  return [dateLabel, getMatchTimeAriaLabel(match)].join(", ");
+}
+
+function getMatchVisibleTimeLabel(match, options = {}) {
+  const dateLabel = options.showDate ? getMatchDateLabel(match, options) : "";
+  if (!dateLabel) {
+    return getMatchTimeLabel(match);
+  }
+
+  if (match.isHistorical) {
+    return dateLabel;
+  }
+
+  return [dateLabel, getMatchTimeLabel(match)].join(" ");
+}
+
 function renderMatchRow(match, state, currentTime = Date.now(), options = {}) {
   const row = document.createElement("div");
   const homeName = getLocalizedTeamName(match.homeTeam);
   const awayName = getLocalizedTeamName(match.awayTeam);
   const versusText = localizeText("vs");
+  const dateLabel = options.showDate ? getMatchDateLabel(match, options) : "";
+  const dateTimeAriaLabel = getMatchDateTimeAriaLabel(match, options);
+  const visibleTimeLabel = getMatchVisibleTimeLabel(match, options);
+  const rowDateTimeLabel = dateLabel ? `, ${dateTimeAriaLabel}` : "";
   const winnerSide = getScoreWinnerSide(match.score?.home, match.score?.away);
   const isLiveState = match.status === "LIVE" || state === "live";
   const scoreLabel = isLiveState ? localizeText("current score") : localizeText("final score");
@@ -2837,7 +4398,7 @@ function renderMatchRow(match, state, currentTime = Date.now(), options = {}) {
         : "";
   const score = renderScore(match, state, options);
   const rowMeta = `${scoreStatus}${stateBadge}${score}`;
-  const rowLabel = `${stateLabel}${homeName} ${versusText} ${awayName}${statusLabel}${
+  const rowLabel = `${stateLabel}${homeName} ${versusText} ${awayName}${rowDateTimeLabel}${statusLabel}${
     match.score
       ? `, ${scoreLabel} ${match.score.home}-${match.score.away}`
       : displayScore
@@ -2854,8 +4415,8 @@ function renderMatchRow(match, state, currentTime = Date.now(), options = {}) {
   row.setAttribute("aria-label", rowLabel);
   row.innerHTML = `
     <button class="match-row-trigger" type="button" aria-label="${escapeHtml(rowLabel)}" aria-pressed="false">
-      <time class="match-time" datetime="${escapeHtml(getMatchDateTimeValue(match))}" title="${escapeHtml(getMatchTimeAriaLabel(match))}" aria-label="${escapeHtml(getMatchTimeAriaLabel(match))}">
-        ${escapeHtml(getMatchTimeLabel(match))}
+      <time class="match-time${dateLabel ? " has-date" : ""}" datetime="${escapeHtml(getMatchDateTimeValue(match))}" title="${escapeHtml(dateTimeAriaLabel)}" aria-label="${escapeHtml(dateTimeAriaLabel)}">
+        <span class="${dateLabel ? "match-date" : "match-clock"}">${escapeHtml(visibleTimeLabel)}</span>
       </time>
       <span class="match-teams">
         ${renderTeamInline(match.homeTeam, getTeamClass("team", winnerSide, "home"))}
@@ -4684,12 +6245,37 @@ function updateStandingsControls() {
   updateStandingsModeControls();
 }
 
+function renderStandingsLoadingState() {
+  standingsGrid.classList.add("is-loading");
+  standingsGrid.setAttribute("aria-busy", "true");
+  standingsGrid.innerHTML = `
+    <div class="standings-loading" role="status">
+      <p class="visually-hidden">${escapeHtml(localizeText("Loading standings"))}</p>
+      ${Array.from({ length: 3 }, () => `
+        <article class="standings-card standings-loading-card" aria-hidden="true">
+          <span class="match-loading-line standings-loading-title"></span>
+          ${Array.from({ length: 3 }, () => `
+            <div class="standings-loading-row">
+              <span class="match-loading-line standings-loading-team"></span>
+              <span class="match-loading-line standings-loading-stat"></span>
+              <span class="match-loading-line standings-loading-stat"></span>
+              <span class="match-loading-line standings-loading-stat"></span>
+            </div>
+          `).join("")}
+        </article>
+      `).join("")}
+    </div>
+  `;
+}
+
 function renderStandingsView() {
   const isCurrentYear = selectedStandingsYear === CURRENT_STANDINGS_YEAR;
   const isThirdPlaceMode = isCurrentYear && selectedStandingsMode === "third-place";
   const isTournamentMode = isCurrentYear && selectedStandingsMode === "tournament";
 
   updateStandingsControls();
+  standingsGrid.classList.remove("is-loading");
+  standingsGrid.removeAttribute("aria-busy");
   standingsGrid.classList.toggle("is-third-place-race", isThirdPlaceMode);
   standingsGrid.classList.toggle("is-tournament", isTournamentMode);
   standingsGrid.setAttribute(
@@ -4938,7 +6524,9 @@ function formatStandoutHighlight(standout) {
     return "";
   }
 
-  return standout.startsWith("🌟") ? standout : `🌟 ${standout.replace(/^[⚽🔥🛡️🧤]\s*/, "")}`;
+  const cleanStandout = standout.replace(/^🌟\s*/, "").replace(/^[⚽🔥🛡️🧤]\s*/, "");
+  const localizedStandout = localizeDisplayText(cleanStandout);
+  return `🌟 ${localizedStandout}`;
 }
 
 function getGeneratedDrawHighlights(match, score, context, standout) {
@@ -5019,7 +6607,7 @@ function renderResultNotes(match) {
 
   return `
     <ul class="result-highlights">
-      ${highlights.map((highlight) => `<li>${escapeHtml(localizeText(highlight))}</li>`).join("")}
+      ${highlights.map((highlight) => `<li>${escapeHtml(localizeDisplayText(highlight))}</li>`).join("")}
     </ul>
   `;
 }
@@ -5091,7 +6679,7 @@ function getLocalizedNameSeries(names) {
 function buildLocalizedKeyInformationFallback(team, players = []) {
   const teamName = getLocalizedTeamName(team);
   const playerNames = players
-    .map((player) => getPlayerDisplayName(player))
+    .map((player) => getLocalizedPlayerDisplayName(player))
     .filter(Boolean);
   const tags = getTeamStyleTags(team).map(localizeText).filter(Boolean);
   const tagline = team?.tagline ? localizeText(team.tagline) : "";
@@ -5179,6 +6767,11 @@ function getPlayerDisplayName(player, profile = getPlayerProfile(player)) {
   return profile?.displayName || profile?.name || getPlayerName(player);
 }
 
+function getLocalizedPlayerDisplayName(player, profile = getPlayerProfile(player)) {
+  const displayName = getPlayerDisplayName(player, profile);
+  return currentLanguage === "zh" ? localizeText(displayName) : displayName;
+}
+
 function getPlayerUniformNumber(player, profile = getPlayerProfile(player)) {
   const value =
     profile?.uniformNumber ??
@@ -5214,9 +6807,9 @@ function getLocalizedPlayerPosition(profile) {
 }
 
 function getLocalizedPlayerClubLine(profile) {
-  const club = profile?.club || localizeText("Club to verify");
+  const club = profile?.club ? localizeText(profile.club) : localizeText("Club to verify");
   const league = profile?.league ? localizeText(profile.league) : "";
-  return league ? `${club} (${league})` : club;
+  return league ? `${club}（${league}）` : club;
 }
 
 function getPlayerSkills(player, profile = getPlayerProfile(player)) {
@@ -5237,7 +6830,7 @@ function getLocalizedPlayerNote(player, profile = getPlayerProfile(player)) {
 
   const localizedNote = localizeText(note);
   if (currentLanguage !== "zh" || localizedNote !== note) {
-    return localizedNote;
+    return localizeKnownPlayerNames(localizedNote);
   }
 
   const skills = getPlayerSkills(player, profile)
@@ -5250,7 +6843,8 @@ function getPlayerAliases(player, allPlayers) {
   const name = getPlayerName(player);
   const profile = getPlayerProfile(player);
   const displayName = getPlayerDisplayName(player, profile);
-  const candidates = [name, displayName];
+  const localizedDisplayName = getLocalizedPlayerDisplayName(player, profile);
+  const candidates = [name, displayName, localizedDisplayName];
   const nameParts = name.split(/\s+/).filter(Boolean);
   const displayParts = displayName.split(/\s+/).filter(Boolean);
 
@@ -5318,7 +6912,7 @@ function getPlayerMentionEntries(players) {
 }
 
 function renderPlayerPhoto(player, profile) {
-  const displayName = getPlayerDisplayName(player, profile);
+  const displayName = getLocalizedPlayerDisplayName(player, profile);
   if (profile?.imageUrl) {
     return `
       <img
@@ -5335,7 +6929,7 @@ function renderPlayerPhoto(player, profile) {
 
 function renderPlayerMention(label, player) {
   const profile = getPlayerProfile(player);
-  const displayName = getPlayerDisplayName(player, profile);
+  const displayName = getLocalizedPlayerDisplayName(player, profile);
   const uniformNumber = getPlayerUniformNumber(player, profile);
   const position = getLocalizedPlayerPosition(profile);
   const club = currentLanguage === "zh" ? getLocalizedPlayerClubLine(profile) : getPlayerClubLine(profile);
@@ -5343,9 +6937,10 @@ function renderPlayerMention(label, player) {
   const note = getLocalizedPlayerNote(player, profile);
   const skills = getPlayerSkills(player, profile).map(localizeText);
   const triggerLabel = `aria-label="${escapeHtml(`${displayName}: ${position}, ${club}`)}" aria-expanded="false"`;
+  const visibleLabel = currentLanguage === "zh" ? displayName : label;
   const trigger = sourceUrl
-    ? `<a class="player-link" href="${escapeHtml(sourceUrl)}" target="_blank" rel="noopener" ${triggerLabel}>${escapeHtml(label)}</a>`
-    : `<span class="player-link" role="button" tabindex="0" ${triggerLabel}>${escapeHtml(label)}</span>`;
+    ? `<a class="player-link" href="${escapeHtml(sourceUrl)}" target="_blank" rel="noopener" ${triggerLabel}>${escapeHtml(visibleLabel)}</a>`
+    : `<span class="player-link" role="button" tabindex="0" ${triggerLabel}>${escapeHtml(visibleLabel)}</span>`;
 
   return `
     <span class="player-hover">
@@ -5430,6 +7025,15 @@ function openPlayerHoverCard(playerHover) {
 
 function renderPlayerLinkedText(text, players = []) {
   const entries = getPlayerMentionEntries(players);
+  if (currentLanguage === "zh") {
+    for (const player of players) {
+      const alias = getLocalizedPlayerDisplayName(player);
+      if (alias && !entries.some((entry) => entry.alias === alias)) {
+        entries.push({ alias, player });
+      }
+    }
+    entries.sort((a, b) => b.alias.length - a.alias.length);
+  }
   if (!entries.length) {
     return escapeHtml(text);
   }
@@ -5776,7 +7380,7 @@ function renderHistoricalGoalTeam(team, goals = []) {
                   const note = formatGoalNote(goal);
                   return `
                     <li>
-                      <span>${escapeHtml(goal.name || "Unknown scorer")}</span>
+                      <span>${escapeHtml(goal.name ? localizeHistoricalScorerName(goal.name) : localizeText("Unknown scorer"))}</span>
                       <em>${escapeHtml([minute, note].filter(Boolean).join(" / "))}</em>
                     </li>
                   `;
@@ -6136,13 +7740,19 @@ function getHistoricalTeamGoals(match, teamName) {
 }
 
 function formatHistoricalGoalName(goal) {
-  const name = goal.name || (currentLanguage === "zh" ? "对手" : "an opponent");
+  const name = goal.name
+    ? currentLanguage === "zh"
+      ? localizeHistoricalScorerName(goal.name)
+      : goal.name
+    : currentLanguage === "zh"
+      ? "对手"
+      : "an opponent";
 
   if (goal.ownGoal) {
     return currentLanguage === "zh" ? `${name}乌龙` : `${name} own goal`;
   }
 
-  return goal.name || localizeText("Unknown scorer");
+  return name || localizeText("Unknown scorer");
 }
 
 function formatHistoricalScorerSeries(items) {
@@ -6203,7 +7813,13 @@ function getHistoricalScorerText(goals = []) {
       continue;
     }
 
-    const name = goal.name || (currentLanguage === "zh" ? "未知进球者" : "Unknown scorer");
+    const name = goal.name
+      ? currentLanguage === "zh"
+        ? localizeHistoricalScorerName(goal.name)
+        : goal.name
+      : currentLanguage === "zh"
+        ? "未知进球者"
+        : "Unknown scorer";
     scorers.set(name, (scorers.get(name) || 0) + 1);
   }
 
@@ -6879,6 +8495,10 @@ function getReportIssueUrl(type) {
     from: window.location.href
   });
 
+  if (currentLanguage !== DEFAULT_LANGUAGE) {
+    params.set("lang", currentLanguage);
+  }
+
   return `report.html?${params.toString()}`;
 }
 
@@ -7065,7 +8685,8 @@ function createTeamSearchSection(title, items, stateForMatch, options = {}) {
   list.className = "team-search-match-list";
   for (const { match, team } of items) {
     const row = renderMatchRow(match, stateForMatch(match), Date.now(), {
-      searchedSide: getTeamSearchMatchedSide(match, team)
+      searchedSide: getTeamSearchMatchedSide(match, team),
+      showDate: true
     });
     row.classList.add("is-country-search-row");
     list.append(row);
@@ -7571,10 +9192,10 @@ function renderCatchUpItem(item) {
   const catchUpBullets = getCatchUpBullets(item.standouts);
   const points = catchUpBullets.length
     ? `<ul class="catch-up-points catch-up-standouts">${catchUpBullets
-        .map((bullet) => `<li class="catch-up-point">${escapeHtml(localizeText(bullet))}</li>`)
+        .map((bullet) => `<li class="catch-up-point">${escapeHtml(localizeDisplayText(bullet))}</li>`)
         .join("")}</ul>`
     : "";
-  const sourceLabel = item.sourceLabel ? localizeText(item.sourceLabel) : localizeText("Read source");
+  const sourceLabel = item.sourceLabel ? localizeDisplayText(item.sourceLabel) : localizeText("Read source");
   const sourceLink = item.sourceUrl
     ? `<a class="catch-up-source" href="${escapeHtml(item.sourceUrl)}" target="_blank" rel="noreferrer" aria-label="${escapeHtml(sourceLabel)}" title="${escapeHtml(sourceLabel)}"><span aria-hidden="true">&#8599;</span></a>`
     : "";
@@ -7583,10 +9204,10 @@ function renderCatchUpItem(item) {
     <article class="catch-up-item">
       <div class="catch-up-copy">
         <div class="catch-up-title-row">
-          <h3><span>${escapeHtml(localizeText(item.headline))}</span></h3>
+          <h3><span>${escapeHtml(localizeDisplayText(item.headline))}</span></h3>
           ${sourceLink}
         </div>
-        ${item.body ? `<p class="catch-up-subtitle">${escapeHtml(localizeText(item.body))}</p>` : ""}
+        ${item.body ? `<p class="catch-up-subtitle">${escapeHtml(localizeDisplayText(item.body))}</p>` : ""}
         ${points}
       </div>
     </article>
@@ -7777,6 +9398,11 @@ function updateUrlState() {
   }
 }
 
+function renderInitialLoadingState() {
+  renderMatchLoadingState();
+  renderStandingsLoadingState();
+}
+
 function renderSchedule() {
   if (isInitialLiveDataLoading) {
     updateDateControls();
@@ -7827,8 +9453,7 @@ function renderSchedule() {
   updateUrlState();
 }
 
-function setActiveView(view) {
-  activeView = view === "standings" ? "standings" : "matches";
+function updateActiveViewElements() {
   viewTabs.forEach((tab) => {
     const isActive = tab.dataset.view === activeView;
     tab.classList.toggle("is-active", isActive);
@@ -7839,9 +9464,28 @@ function setActiveView(view) {
     panel.classList.toggle("is-hidden", panelView !== activeView);
     panel.hidden = panelView !== activeView;
   });
+}
+
+function setActiveView(view) {
+  activeView = view === "standings" ? "standings" : "matches";
+  updateActiveViewElements();
   updateTruncatedTeamTooltips(viewPanels.matches);
   updateStandingNameTooltips(standingsGrid);
   updateUrlState();
+}
+
+function readInitialChromeState() {
+  const params = new URLSearchParams(window.location.search);
+  const requestedTimeZone = params.get("tz");
+  const requestedView = params.get("view");
+
+  if (requestedTimeZone && timeZones.includes(requestedTimeZone)) {
+    selectedTimeZone = requestedTimeZone;
+    selectedDayKey = getDayKey(initialDate, selectedTimeZone);
+    calendarMonthKey = getMonthKeyFromDayKey(selectedDayKey);
+  }
+
+  activeView = requestedView === "standings" ? "standings" : "matches";
 }
 
 function readUrlState(options = {}) {
@@ -7894,7 +9538,7 @@ function renderSourceNote() {
     (source) => source.type === "official" && coreSourceLabels.has(source.label)
   );
   const officialSourceLinks = coreOfficialSources.map((source) => {
-    const label = localizeText(compactSourceLabels[source.label] ?? source.label);
+    const label = localizeDisplayText(compactSourceLabels[source.label] ?? source.label);
     return source.url
       ? `<a href="${escapeHtml(source.url)}" target="_blank" rel="noreferrer">${escapeHtml(label)}</a>`
       : escapeHtml(label);
@@ -7910,8 +9554,11 @@ function renderSourceNote() {
       : `Last updated ${escapeHtml(updatedAtText)}.`
     : "";
   const reportIssueText = localizeText("Report issue");
+  const creatorLink = `<a href="https://www.linkedin.com/in/hirooaoy" target="_blank" rel="noreferrer">hirooaoy</a>`;
+  const creatorText = currentLanguage === "zh" ? `由 ${creatorLink} 制作` : `Made by ${creatorLink}`;
 
-  sourceNote.innerHTML = `${sourcesText}${officialSourceLinks.join(sourceSeparator)}${sentenceEnd} ${predictionsText}${lastUpdated ? ` ${lastUpdated}` : ""} <a href="report.html">${escapeHtml(reportIssueText)}</a>${sentenceEnd}`;
+  const reportUrl = currentLanguage === "zh" ? "report.html?lang=zh" : "report.html";
+  sourceNote.innerHTML = `${sourcesText}${officialSourceLinks.join(sourceSeparator)}${sentenceEnd} ${predictionsText}${lastUpdated ? ` ${lastUpdated}` : ""} <a href="${reportUrl}">${escapeHtml(reportIssueText)}</a>${sentenceEnd} ${creatorText}`;
 }
 
 function renderLoadError(error) {
@@ -7924,6 +9571,14 @@ function renderLoadError(error) {
     </article>
   `;
   matchInfo.innerHTML = `<p class="info-empty">The match data could not be loaded.</p>`;
+  standingsGrid.classList.remove("is-loading");
+  standingsGrid.removeAttribute("aria-busy");
+  standingsGrid.innerHTML = `
+    <article class="standings-card standings-empty-card">
+      <h2>Data unavailable</h2>
+      <p class="past-empty">The standings data could not be loaded. Refresh the page to try again.</p>
+    </article>
+  `;
   applyLanguageToPage();
 }
 
@@ -7937,6 +9592,14 @@ function renderAppError(error) {
     </article>
   `;
   matchInfo.innerHTML = `<p class="info-empty">The match view could not be displayed.</p>`;
+  standingsGrid.classList.remove("is-loading");
+  standingsGrid.removeAttribute("aria-busy");
+  standingsGrid.innerHTML = `
+    <article class="standings-card standings-empty-card">
+      <h2>Unable to display standings</h2>
+      <p class="past-empty">The standings view could not be displayed. Refresh the page to try again.</p>
+    </article>
+  `;
   applyLanguageToPage();
 }
 
@@ -8040,6 +9703,7 @@ function renderLoadedApp(options = {}) {
   ensureSelectableSelectedDay();
   selectedStandingsYear = getValidStandingsYear(selectedStandingsYear);
   renderTimeZoneOptions();
+  setHeaderControlsLoading(false);
   updateTeamSearchControls();
   renderStandingsView();
 
@@ -8376,6 +10040,7 @@ document.addEventListener("keydown", (event) => {
 });
 
 window.addEventListener("resize", () => {
+  updateTimeZoneLabelForViewport();
   positionCatchUpPopover();
   positionPlayerCards();
   updateTruncatedTeamTooltips();
@@ -8482,7 +10147,13 @@ const languageObserver = new MutationObserver(() => {
   });
 });
 
+readInitialChromeState();
 renderStaticText();
+renderTimeZoneOptions();
+setHeaderControlsLoading(false);
+updateActiveViewElements();
+renderInitialLoadingState();
+initializeJuggleToy();
 languageObserver.observe(document.body, {
   attributeFilter: ["aria-label", "data-tooltip", "placeholder", "title"],
   attributes: true,
