@@ -2054,6 +2054,7 @@ const ZH_PATTERN_TRANSLATIONS = [
 const matchList = document.querySelector("#match-list");
 const matchInfo = document.querySelector("#match-info");
 const timezoneSelect = document.querySelector("#timezone-select");
+const timezoneControl = document.querySelector(".timezone-control");
 const dayLabel = document.querySelector("#day-label");
 const datePopover = document.querySelector("#date-popover");
 const teamSearch = document.querySelector("#team-search");
@@ -3441,6 +3442,12 @@ function getTimeZoneLabel(timeZone, options = {}) {
   return `${label} (${getTimeZoneAbbreviation(timeZone)})`;
 }
 
+function updateTimeZoneControlWidth() {
+  const selectedLabel = timezoneSelect?.selectedOptions?.[0]?.textContent.trim() || "";
+  const labelWidth = Math.max(3.5, selectedLabel.length + 0.75);
+  timezoneControl?.style.setProperty("--timezone-label-width", `${labelWidth}ch`);
+}
+
 function getGroup(groupId) {
   return tournament.groups.find((group) => group.id === groupId);
 }
@@ -3856,6 +3863,7 @@ function renderTimeZoneOptions() {
       return option;
     })
   );
+  updateTimeZoneControlWidth();
 }
 
 function setHeaderControlsLoading(isLoading) {

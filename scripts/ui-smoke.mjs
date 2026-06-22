@@ -1686,6 +1686,28 @@ try {
     waitUntil: "load"
   });
   await page.waitForSelector(".match-row");
+  const mobileHeaderMetrics = await page.evaluate(() => {
+    const languageSwitch = document.querySelector("#language-switch").getBoundingClientRect();
+    const timezoneControl = document.querySelector(".timezone-control").getBoundingClientRect();
+
+    return {
+      controlsGap: timezoneControl.left - languageSwitch.right,
+      centerOffset: Math.abs(
+        timezoneControl.top +
+          timezoneControl.height / 2 -
+          (languageSwitch.top + languageSwitch.height / 2)
+      ),
+      timezoneRightGap: document.documentElement.clientWidth - timezoneControl.right
+    };
+  });
+  assert(
+    mobileHeaderMetrics.controlsGap >= 0 && mobileHeaderMetrics.controlsGap <= 10,
+    "Mobile language switch should sit directly beside the timezone label."
+  );
+  assert(
+    mobileHeaderMetrics.centerOffset <= 4 && mobileHeaderMetrics.timezoneRightGap <= 22,
+    "Mobile language and timezone controls should stay right-aligned in the header."
+  );
   const mobileRowMetrics = await page.locator(".match-row").first().evaluate((row) => {
     const time = row.querySelector(".match-time");
     const teams = row.querySelector(".match-teams");

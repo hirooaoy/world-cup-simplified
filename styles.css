@@ -119,6 +119,7 @@ a {
 .header-controls {
   display: inline-flex;
   align-items: center;
+  justify-content: flex-end;
   justify-self: end;
   gap: 12px;
   min-width: 0;
@@ -4025,10 +4026,13 @@ h1 {
   }
 
   .timezone-control {
-    max-width: min(44vw, 190px);
+    flex: 0 0 auto;
+    width: var(--timezone-label-width, 4ch);
+    max-width: min(28vw, 9ch);
   }
 
   .timezone-select {
+    width: 100%;
     font-size: 12px;
     text-align: right;
   }
