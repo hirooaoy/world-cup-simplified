@@ -1432,14 +1432,22 @@ try {
   );
   const tournamentCheck = await page.evaluate(() => {
     const text = (selector) => document.querySelector(selector)?.textContent.replace(/\s+/g, " ").trim() || "";
+    const allText = (selector) =>
+      [...document.querySelectorAll(selector)]
+        .map((element) => element.textContent.replace(/\s+/g, " ").trim())
+        .join(" ");
 
     return {
       m74Text: text('.r32-match[data-match-number="74"]'),
       m89Text: text('.progress-match[data-match-number="89"]'),
       m97Text: text('.progress-match[data-match-number="97"]'),
+      posterMetaCount: document.querySelectorAll(".poster-match-meta").length,
+      posterSeedCount: document.querySelectorAll(".poster-team-seed").length,
       posterVisible: Boolean(document.querySelector(".tournament-poster-bracket")),
       progressCount: document.querySelectorAll(".progress-match").length,
+      progressText: allText(".progress-match"),
       r32Count: document.querySelectorAll(".r32-match").length,
+      r32Text: allText(".r32-match"),
       sideCount: document.querySelectorAll(".poster-side").length,
       roundHeadings: [...document.querySelectorAll(".progress-round h3")].map((heading) =>
         heading.textContent.trim()
@@ -1459,11 +1467,13 @@ try {
   assert(
     tournamentCheck.summary.includes("Finished knockout winners automatically fill the next round") &&
       tournamentCheck.m74Text.includes(getTeam(standingsData.groups?.E?.[0]?.teamId).id) &&
-      tournamentCheck.m89Text.includes("Winner M74") &&
-      tournamentCheck.m89Text.includes("Winner M77") &&
-      tournamentCheck.m97Text.includes("Winner M89") &&
+      tournamentCheck.m89Text.includes("Winner") &&
+      tournamentCheck.m97Text.includes("Winner") &&
+      tournamentCheck.posterMetaCount === 0 &&
+      tournamentCheck.posterSeedCount === 0 &&
+      !/\b(?:M\d+|To M\d+|Winner M\d+|W M\d+)\b/.test(`${tournamentCheck.r32Text} ${tournamentCheck.progressText}`) &&
       tournamentCheck.roundHeadings.join("|") === "Round of 16|Quarter-finals|Semi-finals|Final",
-    "The tournament section should keep pending future slots readable until source winners are final."
+    "The tournament section should keep pending future slots readable without exposing match-number shorthand."
   );
   const knockoutProgressionCheck = await openPageAtTime(
     "2026-07-05T12:00:00.000Z",
@@ -1511,7 +1521,8 @@ try {
     progressionResolved.m89TeamIds.join("|") === "GER|NOR" &&
       progressionResolved.m89Winner === "GER" &&
       progressionResolved.m97SourceTeamId === "GER" &&
-      progressionResolved.m89Text.includes("GER advances to M97") &&
+      progressionResolved.m89Text.includes("GER advances") &&
+      !progressionResolved.m89Text.includes("M97") &&
       progressionResolved.m97Text.includes("GER"),
     "Finished knockout source matches should automatically place their winners into later fixture slots."
   );

@@ -2242,7 +2242,7 @@ function getTournamentMatchParticipant(match, side, context) {
     if (winner) {
       return {
         label: getTournamentTeamCode(winner),
-        seedLabel: `W M${sourceMatchNumber}`,
+        seedLabel: "",
         slotText,
         sourceMatchNumber,
         state: "resolved",
@@ -2250,7 +2250,7 @@ function getTournamentMatchParticipant(match, side, context) {
       };
     }
 
-    return getTournamentPendingParticipant(`Winner M${sourceMatchNumber}`, slotText, sourceMatchNumber);
+    return getTournamentPendingParticipant("Winner", "To be decided", sourceMatchNumber);
   }
 
   if (match?.stage === "round-of-32") {
@@ -2391,9 +2391,9 @@ function renderTournamentMatchCard(match, context, options = {}) {
   const penaltyText = formatScorePair(match.scoreDetails?.penalties);
   const resultText = scoreText ? `${scoreText}${penaltyText ? ` (${penaltyText} pens)` : ""}` : "";
   const footerText = winner
-    ? `${getTournamentTeamCode(winner)} advances${nextMatchNumber ? ` to M${nextMatchNumber}` : ""}`
+    ? `${getTournamentTeamCode(winner)} advances`
     : nextMatchNumber
-      ? `Winner to M${nextMatchNumber}`
+      ? "Winner advances"
       : getTournamentStageLabel(match.stage);
   const styleText =
     Number.isFinite(options.pathRow) && Number.isFinite(options.pathSpan)
@@ -2403,7 +2403,6 @@ function renderTournamentMatchCard(match, context, options = {}) {
   return `
     <article class="${escapeHtml(options.className || "progress-match")}${winner ? " is-complete" : ""}" data-match-number="${escapeHtml(match.matchNumber)}"${nextMatchNumber ? ` data-next-match="${escapeHtml(nextMatchNumber)}"` : ""}${winner ? ` data-winner-team-id="${escapeHtml(winner.id)}"` : ""}${styleText}>
       <header class="knockout-match-header">
-        <span>M${escapeHtml(match.matchNumber)}</span>
         <time datetime="${escapeHtml(match.kickoffUtc || "")}">${escapeHtml(getTournamentMatchDateLabel(match))}</time>
       </header>
       <div class="knockout-match-pair">
@@ -2439,7 +2438,6 @@ function renderTournamentPosterParticipant(entry, options = {}) {
     <span class="${classes}"${entry.team ? ` data-team-id="${escapeHtml(entry.team.id)}"` : ""} aria-label="${escapeHtml(teamName)}">
       <span class="poster-team-flag" aria-hidden="true">${entry.team ? renderFlag(entry.team) : ""}</span>
       <span class="poster-team-code">${escapeHtml(label)}</span>
-      <span class="poster-team-seed">${escapeHtml(entry.team ? entry.seedLabel || teamName : teamName)}</span>
     </span>
   `;
 }
@@ -2457,10 +2455,6 @@ function renderTournamentPosterMatch(matchNumber, context, side) {
 
   return `
     <article class="poster-match r32-match is-${escapeHtml(side)}${winner ? " is-complete" : ""}" data-match-number="${escapeHtml(match.matchNumber)}"${nextMatchNumber ? ` data-next-match="${escapeHtml(nextMatchNumber)}"` : ""}${winner ? ` data-winner-team-id="${escapeHtml(winner.id)}"` : ""}>
-      <header class="poster-match-meta">
-        <span>M${escapeHtml(match.matchNumber)}</span>
-        ${nextMatchNumber ? `<em>To M${escapeHtml(nextMatchNumber)}</em>` : ""}
-      </header>
       <div class="poster-match-pair">
         ${renderTournamentPosterParticipant(participants.home, {
           isWinner: Boolean(winner && participants.home.team && winner.id === participants.home.team.id)

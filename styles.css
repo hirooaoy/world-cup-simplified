@@ -2375,22 +2375,6 @@ h1 {
   background: rgba(18, 122, 72, 0.035);
 }
 
-.poster-match-meta {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  min-width: 0;
-}
-
-.poster-match-meta span {
-  color: rgba(10, 10, 10, 0.72);
-  font-size: 12px;
-  font-weight: 900;
-  line-height: 1;
-}
-
-.poster-match-meta em,
 .poster-match time {
   color: rgba(10, 10, 10, 0.48);
   font-size: 10px;
@@ -2440,18 +2424,6 @@ h1 {
   font-weight: 950;
   letter-spacing: 0;
   line-height: 1;
-}
-
-.poster-team-seed {
-  grid-column: 2;
-  display: block;
-  overflow: hidden;
-  color: rgba(10, 10, 10, 0.52);
-  font-size: 9px;
-  font-weight: 750;
-  line-height: 1;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 .poster-team.is-winner .poster-team-code {
@@ -2634,13 +2606,6 @@ h1 {
 
 .knockout-match-header {
   margin-bottom: 8px;
-}
-
-.knockout-match-header span {
-  color: rgba(10, 10, 10, 0.72);
-  font-size: 12px;
-  font-weight: 850;
-  line-height: 1;
 }
 
 .knockout-match-header time,
