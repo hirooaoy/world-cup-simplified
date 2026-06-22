@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-21T20:31:10.447Z",
+  "updatedAt": "2026-06-22T03:55:49.549Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -68,7 +68,8 @@
     "guardian-mexico-south-korea-2026-06-19",
     "fifa-debutants-2026-06-17",
     "guardian-belgium-iran-live-2026-06-21",
-    "fifa-official-results-sync-2026-06-21"
+    "fifa-official-results-sync-2026-06-21",
+    "fifa-official-results-sync-2026-06-22"
   ],
   "coverage": {
     "status": "complete-schedule",
@@ -3670,7 +3671,7 @@
       "homeTeamId": "BEL",
       "awayTeamId": "IRN",
       "venue": "Los Angeles Stadium",
-      "status": "LIVE",
+      "status": "FT",
       "h2h": {
         "status": "verified-empty",
         "sourceId": "national-football-teams-h2h-2026-06-17",
@@ -3738,7 +3739,7 @@
       "homeTeamId": "URU",
       "awayTeamId": "CPV",
       "venue": "Miami Stadium",
-      "status": "SCHEDULED",
+      "status": "FT",
       "h2h": {
         "status": "verified-empty",
         "sourceId": "national-football-teams-h2h-2026-06-17",
@@ -3791,6 +3792,10 @@
         "sourceId": "editorial-preview-2026-06-17",
         "home": "Uruguay are a South American intensity side with enough running power to turn every phase into a contest, led by Federico Valverde, Darwin Nunez, and Ronald Araujo. Against Cabo Verde, they want to use Valverde's running to release Nunez before the defense can control the space behind; the risk is Cabo Verde can turn a slow match into one decisive Mendes action.",
         "away": "Cabo Verde are compact tournament disruptors who need experience and goalkeeping to keep matches close, led by Ryan Mendes, Roberto Lopes, and Vozinha. Against Uruguay, they want to stay compact long enough for Mendes to find a composed final action; the risk is Uruguay can turn Valverde's engine and Nunez's depth into chaos."
+      },
+      "score": {
+        "home": 2,
+        "away": 2
       }
     },
     {
@@ -3802,7 +3807,7 @@
       "homeTeamId": "NZL",
       "awayTeamId": "EGY",
       "venue": "BC Place Vancouver",
-      "status": "SCHEDULED",
+      "status": "FT",
       "h2h": {
         "status": "loaded",
         "sourceId": "national-football-teams-h2h-2026-06-17",
@@ -3886,6 +3891,10 @@
         "sourceId": "editorial-preview-2026-06-17",
         "home": "New Zealand are an aerial, organized side that need territory and service to keep stronger opponents honest, led by Chris Wood, Liberato Cacace, and Sarpreet Singh. Against Egypt, they want to move play wide through Cacace and serve Wood before the box gets crowded; the risk is Egypt can turn one loose pass into a Salah-led break.",
         "away": "Egypt are a Salah-led transition team that can look quiet until one direct attack opens the match, led by Mohamed Salah, Omar Marmoush, and Mostafa Mohamed. Against New Zealand, they want to release Salah early and let Marmoush arrive as the second wave; the risk is New Zealand can turn left-side service and Wood's aerial presence into chances."
+      },
+      "score": {
+        "home": 1,
+        "away": 3
       }
     },
     {

@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-21T20:31:10.447Z",
+  "updatedAt": "2026-06-22T03:55:49.549Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fifa-standings-2026-06-17",
@@ -18,7 +18,8 @@
     "fifa-ecuador-curacao-result-2026-06-20",
     "fifa-tunisia-japan-result-2026-06-21",
     "fox-spain-saudi-arabia-result-2026-06-21",
-    "fifa-official-results-sync-2026-06-21"
+    "fifa-official-results-sync-2026-06-21",
+    "fifa-official-results-sync-2026-06-22"
   ],
   "tiebreakerNote": "Rows use the current table order. Points, goal difference and goals scored are included for beginner-friendly context.",
   "groups": {
@@ -252,40 +253,40 @@
     ],
     "G": [
       {
-        "teamId": "NZL",
-        "played": 1,
-        "wins": 0,
+        "teamId": "EGY",
+        "played": 2,
+        "wins": 1,
         "draws": 1,
         "losses": 0,
-        "gf": 2,
+        "gf": 4,
         "ga": 2
       },
       {
         "teamId": "IRN",
-        "played": 1,
+        "played": 2,
         "wins": 0,
-        "draws": 1,
+        "draws": 2,
         "losses": 0,
         "gf": 2,
         "ga": 2
       },
       {
         "teamId": "BEL",
-        "played": 1,
+        "played": 2,
         "wins": 0,
-        "draws": 1,
+        "draws": 2,
         "losses": 0,
         "gf": 1,
         "ga": 1
       },
       {
-        "teamId": "EGY",
-        "played": 1,
+        "teamId": "NZL",
+        "played": 2,
         "wins": 0,
         "draws": 1,
-        "losses": 0,
-        "gf": 1,
-        "ga": 1
+        "losses": 1,
+        "gf": 3,
+        "ga": 5
       }
     ],
     "H": [
@@ -300,21 +301,21 @@
       },
       {
         "teamId": "URU",
-        "played": 1,
+        "played": 2,
         "wins": 0,
-        "draws": 1,
+        "draws": 2,
         "losses": 0,
-        "gf": 1,
-        "ga": 1
+        "gf": 3,
+        "ga": 3
       },
       {
         "teamId": "CPV",
-        "played": 1,
+        "played": 2,
         "wins": 0,
-        "draws": 1,
+        "draws": 2,
         "losses": 0,
-        "gf": 0,
-        "ga": 0
+        "gf": 2,
+        "ga": 2
       },
       {
         "teamId": "KSA",
