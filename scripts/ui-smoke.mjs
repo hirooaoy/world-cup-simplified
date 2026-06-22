@@ -525,6 +525,10 @@ try {
   });
   await page.waitForSelector(".match-row");
   await page.locator('[data-match-id="cabo-verde-saudi-arabia-2026-06-26"]').click();
+  assert(
+    (await page.locator("#match-info .standings-table .rank-pill").count()) >= 4,
+    "Current match detail group standings should show FIFA ranking pills."
+  );
   const vozinhaLink = page.locator(".key-info-team .player-link", { hasText: "Vozinha" }).first();
   assert(
     (await vozinhaLink.count()) === 1,
@@ -874,6 +878,32 @@ try {
     "Japan country search should not include Panama fixtures through the PAN team id."
   );
   await japanSearchCheck.context.close();
+
+  const japanChineseSearchCheck = await openPageAtTime(
+    "2026-06-21T21:00:00.000Z",
+    "/?view=matches&team=%E6%97%A5%E6%9C%AC&lang=zh&tz=America%2FLos_Angeles"
+  );
+  const japanChineseSearchRows = await japanChineseSearchCheck.page.locator(".match-row").evaluateAll((rows) =>
+    rows.map((row) => ({
+      id: row.dataset.matchId,
+      label: row.getAttribute("aria-label") || ""
+    }))
+  );
+  assert(
+    japanChineseSearchRows.some((row) => row.id === "japan-sweden-2026-06-25"),
+    "Chinese Japan country search should include Japan vs Sweden."
+  );
+  assert(
+    japanChineseSearchRows.every((row) => row.label.includes("\u65e5\u672c")) &&
+      !japanChineseSearchRows.some((row) => row.id === "panama-croatia-2026-06-23"),
+    "Chinese Japan country search should not include Panama fixtures through the PAN team id."
+  );
+  assert(
+    (await japanChineseSearchCheck.page.locator(".team-search-summary h2").innerText()).trim() ===
+      "\u65e5\u672c",
+    "Chinese Japan country search should show the localized team name in the heading."
+  );
+  await japanChineseSearchCheck.context.close();
 
   const panSearchCheck = await openPageAtTime(
     "2026-06-21T21:00:00.000Z",
@@ -1484,7 +1514,10 @@ try {
       progressText: allText(".progress-match"),
       r32Count: document.querySelectorAll(".r32-match").length,
       r32Text: allText(".r32-match"),
+      sectionHeadingVisible: Boolean(document.querySelector(".tournament-section-heading")),
       sideCount: document.querySelectorAll(".poster-side").length,
+      slotOddsCount: document.querySelectorAll(".knockout-slot-odds").length,
+      slotOddsText: allText(".knockout-slot-odds"),
       roundHeadings: [...document.querySelectorAll(".progress-round h3")].map((heading) =>
         heading.textContent.trim()
       ),
@@ -1501,17 +1534,22 @@ try {
     "The tournament section should show a progression-only bracket from the Round of 32 through the final."
   );
   assert(
-    tournamentCheck.summary.includes("likely winners filled for now") &&
+    tournamentCheck.summary.includes("Round of 32 slots") &&
       tournamentCheck.m74ProgressText.includes(getTeam(standingsData.groups?.E?.[0]?.teamId).id) &&
       tournamentCheck.m74ProgressText.includes("Group E Top 1") &&
-      tournamentCheck.m89Text.includes("Likely for now") &&
-      tournamentCheck.m97Text.includes("Likely for now") &&
+      tournamentCheck.slotOddsCount >= 16 &&
+      tournamentCheck.slotOddsText.includes("here") &&
+      tournamentCheck.m89Text.includes("TBD") &&
+      tournamentCheck.m97Text.includes("TBD") &&
+      !tournamentCheck.m89Text.includes("Likely for now") &&
+      !tournamentCheck.m97Text.includes("Likely for now") &&
+      !tournamentCheck.sectionHeadingVisible &&
       !tournamentCheck.oldWinnerCopy &&
       tournamentCheck.posterMetaCount === 0 &&
       tournamentCheck.posterSeedCount === 0 &&
       !/\b(?:M\d+|To M\d+|Winner M\d+|W M\d+)\b/.test(`${tournamentCheck.r32Text} ${tournamentCheck.progressText}`) &&
       tournamentCheck.roundHeadings.join("|") === "Round of 32|Round of 16|Quarter-finals|Semi-finals|Final",
-    "The tournament section should keep future slots readable with group-position labels and no match-number shorthand."
+    "The tournament section should show Round of 32 slot odds while leaving later rounds unfilled."
   );
   const knockoutProgressionCheck = await openPageAtTime(
     "2026-07-05T12:00:00.000Z",

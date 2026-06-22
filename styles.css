@@ -2792,7 +2792,8 @@ h1 {
   font-style: normal;
 }
 
-.knockout-likelihood {
+.knockout-likelihood,
+.knockout-slot-odds {
   position: relative;
   display: inline-flex;
   align-items: center;
@@ -2812,12 +2813,23 @@ h1 {
   white-space: nowrap;
 }
 
-.knockout-match-footer .knockout-likelihood {
+.knockout-slot-odds-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  min-width: 0;
+  overflow: visible;
+}
+
+.knockout-match-footer .knockout-likelihood,
+.knockout-match-footer .knockout-slot-odds-list,
+.knockout-match-footer .knockout-slot-odds {
   overflow: visible;
   text-overflow: clip;
 }
 
-.knockout-likelihood::after {
+.knockout-likelihood::after,
+.knockout-slot-odds::after {
   content: attr(data-tooltip);
   position: absolute;
   bottom: calc(100% + 8px);
@@ -2842,12 +2854,15 @@ h1 {
 }
 
 .knockout-likelihood:hover::after,
-.knockout-likelihood:focus-visible::after {
+.knockout-likelihood:focus-visible::after,
+.knockout-slot-odds:hover::after,
+.knockout-slot-odds:focus-visible::after {
   opacity: 1;
   transform: translateY(0);
 }
 
-.knockout-likelihood:focus-visible {
+.knockout-likelihood:focus-visible,
+.knockout-slot-odds:focus-visible {
   outline: 2px solid var(--focus);
   outline-offset: 3px;
 }
