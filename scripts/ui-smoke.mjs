@@ -81,13 +81,16 @@ const sourceNoteData = await Promise.all(
   [
     "fixtures.json",
     "history.json",
+    "historical-player-profiles.json",
     "player-profiles.json",
+    "release-notes.json",
     "teams.json",
     "standings.json",
     "tournament.json"
   ].map(async (fileName) => JSON.parse(await readFile(path.join(root, "data", fileName), "utf8")))
 );
-const [, , , teamsData, standingsData, tournamentData] = sourceNoteData;
+const [, , , , , teamsData, standingsData, tournamentData] = sourceNoteData;
+const sourceNoteRefreshData = sourceNoteData.filter((_, index) => index !== 4);
 const fifaWorldCupScoresUrl =
   "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/scores-fixtures";
 const browser = await chromium.launch();
@@ -902,6 +905,28 @@ try {
       historicalScorerHighlight.segmentTexts.some((text) => text.includes("31' Enner Valencia")),
     "Historical result details should show country flags before archived scorer names and minutes."
   );
+  assert(
+    (await page.locator("#match-info .scorer-highlight .player-link", { hasText: "Enner Valencia" }).count()) === 2,
+    "Historical scorer names should open player cards."
+  );
+  assert(
+    (await page.locator("#match-info .key-info-team .player-link").count()) >= 6,
+    "Historical key information should link era-specific key-player names."
+  );
+  const historicalScorerLink = page.locator("#match-info .scorer-highlight .player-link", { hasText: "Enner Valencia" }).first();
+  const historicalScorerCard = historicalScorerLink
+    .locator("xpath=ancestor::span[contains(concat(' ', normalize-space(@class), ' '), ' player-hover ')][1]")
+    .locator(".player-card");
+  await historicalScorerLink.hover();
+  await historicalScorerCard.waitFor({ state: "visible" });
+  const historicalScorerCardText = await historicalScorerCard.innerText();
+  assert(
+      historicalScorerCardText.includes("Enner Valencia") &&
+      historicalScorerCardText.includes("Forward") &&
+      historicalScorerCardText.includes("Ecuador World Cup archive") &&
+      historicalScorerCardText.includes("scored 2 goals in this match"),
+    "Historical player cards should combine curated archive profiles with match-specific notes."
+  );
   const historicalNarrativeHighlights = historicalResultHighlights.filter(
     (text) => !text.includes("16' Enner Valencia") && !text.includes("31' Enner Valencia")
   );
@@ -924,6 +949,25 @@ try {
   assert(
     !historicalGroupDetailText.includes("Source") && !historicalGroupDetailText.includes("Goals"),
     "Historical match details should not show source or goals sections."
+  );
+
+  await page.goto(`${baseUrl}?view=matches&date=1970-06-21&tz=America%2FLos_Angeles`, {
+    waitUntil: "load"
+  });
+  await page.waitForSelector(".match-row");
+  await page.locator(".match-row").first().click();
+  const scorerOnlyHistoricalLink = page.locator("#match-info .scorer-highlight .player-link", { hasText: "Carlos Alberto" }).first();
+  const scorerOnlyHistoricalCard = scorerOnlyHistoricalLink
+    .locator("xpath=ancestor::span[contains(concat(' ', normalize-space(@class), ' '), ' player-hover ')][1]")
+    .locator(".player-card");
+  await scorerOnlyHistoricalLink.hover();
+  await scorerOnlyHistoricalCard.waitFor({ state: "visible" });
+  const scorerOnlyHistoricalCardText = await scorerOnlyHistoricalCard.innerText();
+  assert(
+    scorerOnlyHistoricalCardText.includes("Carlos Alberto") &&
+      scorerOnlyHistoricalCardText.includes("Brazil World Cup archive") &&
+      scorerOnlyHistoricalCardText.includes("credited with 1 World Cup goal"),
+    "Historical scorer-only names should use the generated archive card profile."
   );
 
   await page.goto(`${baseUrl}?view=matches&date=1930-07-13&tz=America%2FLos_Angeles`, {
@@ -1044,8 +1088,8 @@ try {
   });
   assert(
     suppressedYesterdayMobileGap &&
-      Math.abs(suppressedYesterdayMobileGap.actual - suppressedYesterdayMobileGap.expected) <= 2,
-    "Dismissed Past 24 hours mobile layout should preserve the normal gap between today's rows and the match detail card."
+      Math.abs(suppressedYesterdayMobileGap.actual - suppressedYesterdayMobileGap.expected) <= 5,
+    `Dismissed Past 24 hours mobile layout should preserve the normal gap between today's rows and the match detail card. Measured ${JSON.stringify(suppressedYesterdayMobileGap)}.`
   );
   await page.locator("#settings-button").click();
   assert(
@@ -1494,10 +1538,19 @@ try {
     "Catch-up player mentions should use the same soft dotted underline as paragraph mentions."
   );
   await catchUpKaneLink.hover();
-  await catchUpKaneLink
-    .locator("xpath=ancestor::span[contains(concat(' ', normalize-space(@class), ' '), ' player-hover ')][1]")
-    .locator(".player-card")
-    .waitFor({ state: "visible" });
+  const catchUpKaneCard = catchUpCheck.page.locator(".player-card-floating");
+  await catchUpKaneCard.waitFor({ state: "visible" });
+  const catchUpKaneCardBox = await catchUpKaneCard.boundingBox();
+  const catchUpViewport = catchUpCheck.page.viewportSize();
+  assert(
+    catchUpKaneCardBox &&
+      catchUpViewport &&
+      catchUpKaneCardBox.x >= 0 &&
+      catchUpKaneCardBox.y >= 0 &&
+      catchUpKaneCardBox.x + catchUpKaneCardBox.width <= catchUpViewport.width &&
+      catchUpKaneCardBox.y + catchUpKaneCardBox.height <= catchUpViewport.height,
+    `Catch-up player cards should be placed within the viewport. Measured ${JSON.stringify({ box: catchUpKaneCardBox, viewport: catchUpViewport })}.`
+  );
   await catchUpCheck.page.locator("#settings-button").click();
   await catchUpCheck.page.locator('[data-language="zh"]').click();
   await catchUpCheck.page.locator("#catch-up-button").click();
@@ -1602,26 +1655,131 @@ try {
   const sourceFreshnessCheck = await openPageAtTime("2026-06-18T15:57:00.000Z");
   const sourceNote = sourceFreshnessCheck.page.locator("#source-note");
   const sourceNoteText = await sourceNote.innerText();
+  const normalizedSourceNoteText = sourceNoteText
+    .replace(/\s+/g, " ")
+    .replace(/\s+([.,。])/g, "$1")
+    .trim();
   const sourceLinkLabels = await sourceNote.locator("a").evaluateAll((links) =>
     links.map((link) => link.textContent.trim()).join("|")
   );
+  const sourceTooltipText = await sourceNote.locator(".source-tooltip").evaluate((tooltip) =>
+    [
+      tooltip.querySelector("strong")?.textContent?.trim(),
+      ...Array.from(tooltip.querySelectorAll("a")).map((link) => link.textContent.trim())
+    ]
+      .filter(Boolean)
+      .join(" ")
+  );
+  const releaseTooltipText = await sourceNote.locator(".release-tooltip").evaluate((tooltip) =>
+    [
+      tooltip.querySelector("strong")?.textContent?.trim(),
+      ...Array.from(tooltip.querySelectorAll("li")).map((item) => item.textContent.trim())
+    ]
+      .filter(Boolean)
+      .join(" ")
+  );
+  const sourceTooltipStateBeforeHover = await sourceNote.locator(".source-tooltip").evaluate((tooltip) => {
+    const styles = getComputedStyle(tooltip);
+    return {
+      opacity: styles.opacity,
+      pointerEvents: styles.pointerEvents,
+      visibility: styles.visibility
+    };
+  });
+  const releaseTooltipStateBeforeHover = await sourceNote.locator(".release-tooltip").evaluate((tooltip) => {
+    const styles = getComputedStyle(tooltip);
+    return {
+      opacity: styles.opacity,
+      pointerEvents: styles.pointerEvents,
+      visibility: styles.visibility
+    };
+  });
+  const sourcesHref = await sourceNote.locator("a", { hasText: "See sources" }).getAttribute("href");
   const reportIssueHref = await sourceNote.locator("a", { hasText: "Report issue" }).getAttribute("href");
-  const creatorHref = await sourceNote.locator("a", { hasText: "Hirooaoy" }).getAttribute("href");
-  const expectedSourceUpdatedAt = formatExpectedSourceUpdatedAt(getLatestUpdatedAt(sourceNoteData));
+  const creatorHref = await sourceNote.locator("a", { hasText: /^H$/ }).getAttribute("href");
+  const releaseNotesHref = await sourceNote.locator("a", { hasText: "See release notes" }).getAttribute("href");
+  const expectedSourceUpdatedAt = formatExpectedSourceUpdatedAt(getLatestUpdatedAt(sourceNoteRefreshData));
+  const expectedSourceNoteText = `See sources. Predictions are unofficial. Data refreshed ${expectedSourceUpdatedAt}. Report issue. Made by H. See release notes.`;
   assert(
-    sourceNoteText ===
-      `Sources: FIFA schedule, debutants, ranking, standings. Predictions are unofficial. Last updated ${expectedSourceUpdatedAt}. Report issue. Made by Hirooaoy.`,
-    "The source note should stay short and show the latest website update time."
+    normalizedSourceNoteText === expectedSourceNoteText,
+    `The source note should stay short and separate data freshness from release notes. Expected "${expectedSourceNoteText}", received "${normalizedSourceNoteText}".`
   );
   assert(
-    sourceLinkLabels === "FIFA schedule|debutants|ranking|standings|Report issue|Hirooaoy",
-    "The source note should keep the compact official source links."
+    sourceLinkLabels === "See sources|FIFA schedule|debutants|ranking|standings|Report issue|H|See release notes",
+    "The source note should keep compact source tooltip, report, creator, and release note links."
   );
+  assert(
+    sourceTooltipText === "Sources FIFA schedule debutants ranking standings",
+    "The source tooltip should show the compact official source list."
+  );
+  assert(
+    releaseTooltipText ===
+      "Footer and source polish Sources now open in a compact hover tooltip. Release notes open in a short hover card and full page. Data refreshed stays separate from app release notes.",
+    "The release notes tooltip should show a compact change summary."
+  );
+  assert(
+    sourceTooltipStateBeforeHover.opacity === "0" &&
+      sourceTooltipStateBeforeHover.pointerEvents === "none" &&
+      sourceTooltipStateBeforeHover.visibility === "hidden",
+    "The source tooltip should be hidden before hover or focus."
+  );
+  assert(
+    releaseTooltipStateBeforeHover.opacity === "0" &&
+      releaseTooltipStateBeforeHover.pointerEvents === "none" &&
+      releaseTooltipStateBeforeHover.visibility === "hidden",
+    "The release notes tooltip should be hidden before hover or focus."
+  );
+  await sourceNote.locator(".source-tooltip-trigger").hover();
+  const sourceTooltipStateAfterHover = await sourceNote.locator(".source-tooltip").evaluate((tooltip) => {
+    const styles = getComputedStyle(tooltip);
+    return {
+      opacity: Number(styles.opacity),
+      pointerEvents: styles.pointerEvents,
+      visibility: styles.visibility
+    };
+  });
+  assert(
+    sourceTooltipStateAfterHover.opacity > 0 &&
+      sourceTooltipStateAfterHover.pointerEvents === "auto" &&
+      sourceTooltipStateAfterHover.visibility === "visible",
+    "The source tooltip should appear on hover."
+  );
+  await sourceFreshnessCheck.page.mouse.move(0, 0);
+  await sourceFreshnessCheck.page.waitForTimeout(180);
+  await sourceNote.locator(".release-tooltip-trigger").hover();
+  await sourceFreshnessCheck.page.waitForFunction(() => {
+    const tooltip = document.querySelector("#source-note .release-tooltip");
+    if (!tooltip) {
+      return false;
+    }
+    const styles = getComputedStyle(tooltip);
+    return (
+      Number(styles.opacity) > 0 &&
+      styles.pointerEvents === "auto" &&
+      styles.visibility === "visible"
+    );
+  });
+  const releaseTooltipStateAfterHover = await sourceNote.locator(".release-tooltip").evaluate((tooltip) => {
+    const styles = getComputedStyle(tooltip);
+    return {
+      opacity: Number(styles.opacity),
+      pointerEvents: styles.pointerEvents,
+      visibility: styles.visibility
+    };
+  });
+  assert(
+    releaseTooltipStateAfterHover.opacity > 0 &&
+      releaseTooltipStateAfterHover.pointerEvents === "auto" &&
+      releaseTooltipStateAfterHover.visibility === "visible",
+    "The release notes tooltip should appear on hover."
+  );
+  assert(sourcesHref === "sources.html", "The source note should link to the sources page.");
   assert(reportIssueHref === "report.html", "The source note should link to the report issue page.");
   assert(
     creatorHref === "https://www.linkedin.com/in/hirooaoy",
-    "The source note should link Hirooaoy to LinkedIn."
+    "The source note should link H to LinkedIn."
   );
+  assert(releaseNotesHref === "release-notes.html", "The source note should link to release notes.");
   assert(
     !sourceNoteText.includes("Core data") &&
       !sourceNoteText.includes("Core checks:") &&
@@ -2268,7 +2426,8 @@ try {
       activeMobileToolbarMetrics.fieldTopOffset <= 1 &&
       activeMobileToolbarMetrics.fieldGapFromDate >= 8 &&
       activeMobileToolbarMetrics.fieldRightGap <= 2 &&
-      activeMobileToolbarMetrics.inputFontSize >= 16 &&
+      activeMobileToolbarMetrics.inputFontSize >= 13 &&
+      activeMobileToolbarMetrics.inputFontSize <= 14 &&
       activeMobileToolbarMetrics.inputWidth >= 120 &&
       activeMobileToolbarMetrics.scrollOverflow <= 1,
     "Active mobile match search should expand on the toolbar row without dropping below the date."

@@ -252,6 +252,7 @@ function applyGroupResult(table, fixture) {
 const [
   fixturesData,
   historyData,
+  historicalPlayerProfilesData,
   matchupResearchData,
   playerAvailabilityData,
   playerProfilesData,
@@ -261,6 +262,7 @@ const [
 ] = await Promise.all([
   readJson("fixtures.json"),
   readJson("history.json"),
+  readJson("historical-player-profiles.json"),
   readOptionalJson("matchup-research-notes.json"),
   readOptionalJson("player-availability.json"),
   readOptionalJson("player-profiles.json"),
@@ -314,6 +316,7 @@ for (const [index, item] of tournamentCatchUpItems.entries()) {
 
 requireSourceIds(fixturesData.sourceIds, sourceIds, "fixtures.json");
 requireSourceIds(historyData.sourceIds, sourceIds, "history.json");
+requireSourceIds(historicalPlayerProfilesData.sourceIds, sourceIds, "historical-player-profiles.json");
 if (playerAvailabilityData) {
   requireSourceIds(playerAvailabilityData.sourceIds, sourceIds, "player-availability.json");
 }
@@ -391,11 +394,22 @@ if (playerProfilesData) {
     "player-profiles.json must include profiles"
   );
 }
+assert(
+  typeof historicalPlayerProfilesData.updatedAt === "string" &&
+    !Number.isNaN(new Date(historicalPlayerProfilesData.updatedAt).getTime()),
+  "historical-player-profiles.json must include a valid updatedAt"
+);
+assert(
+  historicalPlayerProfilesData.profiles && typeof historicalPlayerProfilesData.profiles === "object",
+  "historical-player-profiles.json must include profiles"
+);
 
 const playerProfiles = new Map(Object.entries(playerProfilesData?.profiles || {}));
+const historicalPlayerProfiles = new Map(Object.entries(historicalPlayerProfilesData?.profiles || {}));
 const playerAvailabilityByTeam = new Map();
 const fixtureUnavailableRefs = [];
 const requiredProfileNames = new Set();
+const requiredHistoricalProfileNames = new Set();
 
 for (const group of groups.values()) {
   for (const teamId of group.teamIds) {
@@ -958,6 +972,20 @@ for (const fixture of historyData.fixtures || []) {
   }
   assert(Array.isArray(fixture.goalsHome), `Historical fixture "${fixture.id}" goalsHome must be an array`);
   assert(Array.isArray(fixture.goalsAway), `Historical fixture "${fixture.id}" goalsAway must be an array`);
+  for (const [field, goals] of [
+    ["goalsHome", fixture.goalsHome || []],
+    ["goalsAway", fixture.goalsAway || []]
+  ]) {
+    for (const [index, goal] of goals.entries()) {
+      assert(
+        typeof goal?.name === "string" && goal.name.trim(),
+        `Historical fixture "${fixture.id}" ${field}[${index}] must include a scorer name`
+      );
+      if (typeof goal?.name === "string" && goal.name.trim()) {
+        requiredHistoricalProfileNames.add(goal.name);
+      }
+    }
+  }
 
   assert(fixture.keyInformation, `Historical fixture "${fixture.id}" must include historical keyInformation`);
   assert(
@@ -1004,12 +1032,63 @@ for (const fixture of historyData.fixtures || []) {
         typeof player?.name === "string" && player.name.trim(),
         `Historical fixture "${fixture.id}" keyPlayers.${side}[${index}] must include a player name`
       );
+      if (typeof player?.name === "string" && player.name.trim()) {
+        requiredHistoricalProfileNames.add(player.name);
+      }
       assert(
         typeof player?.note === "string" && player.note.trim(),
         `Historical fixture "${fixture.id}" keyPlayers.${side}[${index}] must include a historical note`
       );
     }
   }
+}
+
+for (const [profileName, profile] of historicalPlayerProfiles) {
+  const owner = `historical-player-profiles.json "${profileName}"`;
+  assert(profile && typeof profile === "object" && !Array.isArray(profile), `${owner} must be an object`);
+  if (!profile || typeof profile !== "object" || Array.isArray(profile)) {
+    continue;
+  }
+
+  assert(typeof profile.name === "string" && profile.name.trim(), `${owner} must include name`);
+  assert(profile.name === profileName, `${owner} name must match its profile key`);
+  assert(profile.historical === true, `${owner} must be marked historical`);
+  assert(typeof profile.sourceId === "string" && sourceIds.has(profile.sourceId), `${owner} references unknown source`);
+  assert(Array.isArray(profile.teams) && profile.teams.length > 0, `${owner} must include teams`);
+  assert(
+    Array.isArray(profile.tournamentYears) &&
+      profile.tournamentYears.length > 0 &&
+      profile.tournamentYears.every((year) => isNumber(year)),
+    `${owner} must include numeric tournamentYears`
+  );
+  assert(typeof profile.position === "string" && profile.position.trim(), `${owner} must include position`);
+  assert(typeof profile.club === "string" && profile.club.trim(), `${owner} must include archive club line`);
+  assert(Array.isArray(profile.skills) && profile.skills.length > 0, `${owner} must include skills`);
+  assert(typeof profile.note === "string" && profile.note.trim(), `${owner} must include a curated note`);
+  assert(
+    !isGeneratedScorerNote(profile.note),
+    `${owner} note must not expose generated scorer context`
+  );
+  assert(typeof profile.summary === "string" && profile.summary.trim(), `${owner} must include summary`);
+  for (const key of ["goals", "ownGoals", "keyMatchCount", "scorerMatchCount"]) {
+    assert(
+      profile[key] === undefined || (isNumber(profile[key]) && profile[key] >= 0),
+      `${owner} ${key} must be a non-negative number when present`
+    );
+  }
+  if (profile.uniformNumber !== undefined) {
+    assert(
+      Number.isInteger(profile.uniformNumber) && profile.uniformNumber > 0,
+      `${owner} uniformNumber must be a positive integer`
+    );
+  }
+}
+
+for (const playerName of requiredHistoricalProfileNames) {
+  assert(
+    historicalPlayerProfiles.has(playerName),
+    `historical-player-profiles.json is missing "${playerName}"`
+  );
 }
 
 if (errors.length) {

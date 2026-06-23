@@ -730,6 +730,14 @@
       "license": "CC-BY-SA-4.0"
     },
     {
+      "id": "historical-player-card-baseline-2026-06-23",
+      "label": "Historical player-card baseline",
+      "url": "data/historical-player-profiles.json",
+      "type": "editorial",
+      "checkedAt": "2026-06-23T08:10:00-07:00",
+      "note": "Archive player cards are generated from historical World Cup scorer events, match appearances, tournament squads, and curated match-lens notes."
+    },
+    {
       "id": "fifa-squad-list-2026-06-21",
       "label": "FIFA World Cup 2026 official squad list",
       "url": "https://fdp.fifa.org/assetspublic/ce281/pdf/SquadLists-English.pdf",

@@ -84,6 +84,8 @@ Player market values are required for every generated card. Use `marketValueEurM
 
 Before publishing tournament-year previews, update `data/player-availability.json` from the latest official FIFA squad list. Use each team's `included` list as the tournament-squad baseline, `unavailable` for players omitted or withdrawn from the tournament, and `fixtureUnavailable` for match-day injuries, illness, or suspensions that apply to one fixture. `scripts/validate-data.mjs` rejects match-card key players who are marked unavailable, and for teams with an `included` squad list it also rejects key players not in that current squad.
 
+For future completed 2026 matches, any scorer in `goalsHome` / `goalsAway` must also have a curated card in `data/player-profiles.json`. Run `pnpm profiles` after goal-event syncs or manual scorer edits, then review the generated note/photo/value. `pnpm cards:check` gives a focused missing-card report for both current and historical cards.
+
 ## Update Cadence
 
 Preferred production path:
@@ -169,9 +171,12 @@ After importing the match skeleton, sync historical scorer minutes and then run 
 ```bash
 pnpm history:goals
 pnpm history:matchups
+pnpm history:profiles
 ```
 
 `pnpm history:goals` syncs exact scorer-minute arrays from the Fjelstul World Cup Database. `pnpm history:matchups` enriches every archived fixture with era-specific player/style copy. It cross-checks against the same source for historical squads, goals, penalties, bookings, player appearances where available, and tournament squads. Match-level player appearances are available from 1970 onward in that source; older tournaments use scorer and squad context instead, and canceled fixtures are labeled as squad context rather than confirmed match usage. The Fjelstul data is CC-BY-SA 4.0, so keep the source entry and attribution/license trail in `data/tournament.json`.
+
+`pnpm history:profiles` refreshes `data/historical-player-profiles.json`, which must include a card for every player mentioned by historical key-player paragraphs or historical goal records. Historical cards use archive-specific teams, years, positions, shirt numbers, scorer counts, and curated match-lens counts instead of current club/market-value metadata.
 
 The historical archive lives outside the 2026 fixture/standings model on purpose. Past teams do not have to belong to 2026 groups, and historical dates are preserved as tournament-local dates instead of being shifted by the user's selected timezone.
 

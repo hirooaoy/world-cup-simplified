@@ -1,0 +1,14 @@
+{
+  "updatedAt": "2026-06-23T15:25:00-07:00",
+  "releases": [
+    {
+      "date": "2026-06-23",
+      "title": "Footer and source polish",
+      "highlights": [
+        "Sources now open in a compact hover tooltip.",
+        "Release notes open in a short hover card and full page.",
+        "Data refreshed stays separate from app release notes."
+      ]
+    }
+  ]
+}

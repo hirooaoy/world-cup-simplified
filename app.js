@@ -2,8 +2,10 @@ const DATA_VERSION = "2026-06-23-curated-profile-notes";
 const DATA_URLS = {
   fixtures: `data/fixtures.json?v=${DATA_VERSION}`,
   history: `data/history.json?v=${DATA_VERSION}`,
+  historicalPlayerProfiles: `data/historical-player-profiles.json?v=${DATA_VERSION}`,
   liveData: `api/live-data?v=${DATA_VERSION}`,
   playerProfiles: `data/player-profiles.json?v=${DATA_VERSION}`,
+  releaseNotes: `data/release-notes.json?v=${DATA_VERSION}`,
   standings: `data/standings.json?v=${DATA_VERSION}`,
   teams: `data/teams.json?v=${DATA_VERSION}`,
   tournament: `data/tournament.json?v=${DATA_VERSION}`
@@ -13,6 +15,7 @@ const LANGUAGE_STORAGE_KEY = "world-cup-simplified-language";
 const TIMEZONE_STORAGE_KEY = "world-cup-simplified-timezone";
 const SHOW_YESTERDAY_STORAGE_KEY = "world-cup-simplified-show-yesterday";
 const JUGGLE_RECORD_STORAGE_KEY = "world-cup-simplified-juggle-record";
+const TEAM_SEARCH_URL_UPDATE_DELAY_MS = 180;
 const JUGGLE_BALL_EMOJI = "⚽";
 const JUGGLE_FALL_SPEED = 345;
 const JUGGLE_GRAVITY = 1060;
@@ -127,7 +130,6 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "Choose standings year": "选择积分榜年份",
     "Clear country search": "清除国家队搜索",
     "Club to verify": "俱乐部待确认",
-    "Country search": "国家队搜索",
     "Current knockout path with likely winners filled for now. Finished results replace estimates.":
       "当前淘汰赛路径会先填入暂时更可能晋级的球队，完赛结果会替换估算。",
     "Current score": "当前比分",
@@ -155,7 +157,12 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "Ecuador": "厄瓜多尔",
     "Egypt": "埃及",
     "England": "英格兰",
+    "Data refreshed": "数据刷新于",
+    "Data refreshed stays separate from app release notes.": "数据刷新时间与应用发布说明分开显示。",
     "FIFA schedule": "FIFA赛程",
+    "Footer and source polish": "页脚和来源体验优化",
+    "Footer stays short while sources and release notes open on hover.":
+      "页脚保持简短，来源和发布说明可悬停查看。",
     "Final group table computed from archived match results.": "最终小组表由存档比赛结果计算得出。",
     "Final group tables computed from archived match results.": "最终小组表由存档比赛结果计算得出。",
     "Final score is not loaded for this fixture yet.": "这场比赛的最终比分尚未载入。",
@@ -203,6 +210,7 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "Likely for now": "当前可能",
     "likely for now": "当前可能",
     "Later matches": "后续比赛",
+    "Latest changes": "最新更新",
     "Live": "直播",
     "Live score": "实时比分",
     "Live status is manually verified and should be refreshed after full time.":
@@ -210,8 +218,6 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "Loading catch-up notes": "正在加载比赛速览",
     "Loading matches": "正在加载比赛",
     "Loading standings": "正在加载积分榜",
-    "Loaded matches across the current tournament and World Cup archive.":
-      "显示当前赛事和世界杯存档中的已载入比赛。",
     "Local estimate using FIFA rankings. Not betting odds.":
       "基于FIFA排名的本地估算，并非博彩赔率。",
     "Local historical-form estimate. Not betting odds.": "基于历史世界杯状态的本地估算，并非博彩赔率。",
@@ -255,6 +261,8 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "Position to verify": "位置待确认",
     "Prediction": "预测",
     "Predictions are unofficial.": "预测为非官方内容。",
+    "Release notes explain app changes; Data refreshed only shows data freshness.":
+      "发布说明解释应用改动；数据刷新时间只表示数据新鲜度。",
     "Previous": "上一轮",
     "Previous matches": "此前比赛",
     "Previous World Cups": "历届世界杯",
@@ -268,7 +276,10 @@ const ZH_EXACT_TRANSLATIONS = new Map(
       "积分决定小组排名：胜3分，平1分，负0分。积分越多通常越有机会晋级。",
     "Rank": "排名",
     "Read source": "阅读来源",
+    "release notes": "发布说明",
     "Report issue": "报告问题",
+    "Release notes open in a short hover card and full page.":
+      "发布说明可通过简短悬停卡片和完整页面查看。",
     "Result": "赛果",
     "Round of 16": "16强赛",
     "Round of 32": "32强赛",
@@ -318,6 +329,11 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "Shown in current table order. Points, record and goal difference are included for context.":
       "按当前积分榜顺序显示，并包含积分、战绩和净胜球作为参考。",
     "Show all matches": "显示全部比赛",
+    "See release notes": "查看发布说明",
+    "See sources": "查看来源",
+    "Source links still open from the tooltip and the sources page.":
+      "来源链接仍可从提示框和来源页打开。",
+    "Sources now open in a compact hover tooltip.": "来源现在可在紧凑悬停提示框中查看。",
     "Sources:": "来源：",
     "Standings": "积分榜",
     "Standings sections": "积分榜分区",
@@ -2618,11 +2634,13 @@ let fixtures = [];
 let historicalFixtures = [];
 let history = { coverage: {}, fixtures: [], source: null, tournaments: [] };
 const historicalProjectionCache = new Map();
+let historicalPlayerProfilesByName = new Map();
 let playerProfilesByName = new Map();
 let shouldShowPlayerMarketValues = false;
 let teamsById = new Map();
 let teamsByName = new Map();
 let tournament = { groups: [], stages: [], sources: [] };
+let releaseNotes = { releases: [] };
 let standingsByGroup = {};
 let dataCoverage = { status: "partial" };
 let siteUpdatedAt = "";
@@ -2630,6 +2648,10 @@ let liveDataCheckedAt = "";
 let syncUrl = true;
 let isInitialDataLoading = true;
 let isInitialLiveDataLoading = false;
+let teamSearchIndex = [];
+let teamSearchIdKeySetsByQueryKey = new Map();
+let pendingTeamSearchRenderFrame = 0;
+let pendingUrlStateUpdateId = 0;
 
 function setYesterdayLayoutOffset(isOffset) {
   viewPanels.matches?.classList.toggle("is-yesterday-suppressed", Boolean(isOffset));
@@ -2796,6 +2818,11 @@ function translateTextToZh(value) {
     return `${leadingWhitespace}${exactTranslation}${trailingWhitespace}`;
   }
 
+  const longFormTranslation = translateGeneratedLongFormTextToZh(compactText);
+  if (longFormTranslation && longFormTranslation !== compactText) {
+    return `${leadingWhitespace}${longFormTranslation}${trailingWhitespace}`;
+  }
+
   for (const { pattern, replace } of ZH_PATTERN_TRANSLATIONS) {
     if (pattern.test(compactText)) {
       pattern.lastIndex = 0;
@@ -2846,6 +2873,1301 @@ function replaceKnownLocalizedEntities(value, translationMap) {
 
 function localizeKnownPlayerNames(value) {
   return replaceKnownLocalizedEntities(value, ZH_PLAYER_NAME_TRANSLATIONS);
+}
+
+const ZH_GENERATED_COPY_TERMS = {
+  "actual match roster": "实际比赛名单",
+  "aerial command": "高空指挥",
+  "aerial presence": "高空存在感",
+  "aerial service": "高空输送",
+  "aerial strength": "高空能力",
+  "attacking calm": "进攻冷静度",
+  "attacking flexibility": "进攻灵活性",
+  "attacking moments": "进攻时刻",
+  "attacking passing": "进攻传球",
+  "attacking shape": "进攻阵型",
+  "back-line command": "后防线指挥",
+  "back-line leadership": "后防线领导力",
+  "ball progression": "推进出球",
+  "ball-carrier": "带球推进者",
+  "ball-carrying": "带球推进",
+  "ball-winning": "抢回球权",
+  "big-moment attackers": "关键时刻攻击手",
+  "box control": "禁区控制",
+  "box entries": "进入禁区",
+  "box force": "禁区力量点",
+  "box gravity": "禁区牵制力",
+  "box movement": "禁区跑动",
+  "box presence": "禁区存在感",
+  "box target": "禁区目标点",
+  "build-out mistakes": "后场出球失误",
+  "calm control": "冷静控制",
+  "calm first pass": "更冷静的第一脚出球",
+  "central attacking reference": "中路进攻支点",
+  "central defenders": "中后卫",
+  "central finishing": "中路终结",
+  "central hold-up play": "中路支点做球",
+  "central invention": "中路创造力",
+  "central spark": "中路火花",
+  "chance architect": "机会设计者",
+  "chance creation": "机会创造",
+  "channel ball": "肋部传球",
+  "channel runs": "肋部前插",
+  "chaotic depth": "混乱纵深",
+  "clean chances": "清晰机会",
+  "clean first pass": "干净的第一脚传球",
+  "clean service": "清晰输送",
+  "clean shots": "清晰射门",
+  "clean-sheet structure": "零封结构",
+  "composed final action": "冷静的最后处理",
+  "composed final pass": "冷静的最后一传",
+  "counter craft": "反击技巧",
+  "counter route": "反击路径",
+  "counter timing": "反击时机",
+  "counterattacking": "反击型",
+  "counters": "反击",
+  "crowd energy": "主场气势",
+  "creative movement": "创造性跑动",
+  "creative supply": "创造性输送",
+  "creative wide option": "有创造力的边路选择",
+  "crosses": "传中",
+  "crossing threat": "传中威胁",
+  "current-squad endpoint": "当前阵容里的终结点",
+  "decisive outlet": "决定性出口",
+  "decisive pass": "决定性传球",
+  "defensive anchor": "防守锚点",
+  "defensive authority": "防守权威",
+  "defensive balance": "防守平衡",
+  "defensive block": "防守阵型",
+  "defensive command": "防守指挥",
+  "defensive duels": "防守对抗",
+  "defensive line": "防线",
+  "defensive option": "防守选择",
+  "defensive organization": "防守组织",
+  "defensive presence": "防守存在感",
+  "defensive range": "防守覆盖范围",
+  "defensive rhythm": "防守节奏",
+  "defensive security": "防守安全感",
+  "defensive shape": "防守阵型",
+  "defensive work": "防守工作",
+  "defenders": "防守球员",
+  "depth": "纵深",
+  "direct attacks": "直接进攻",
+  "direct balls": "直接传球",
+  "direct chance": "直接机会",
+  "direct chances": "直接机会",
+  "direct finisher": "直接终结者",
+  "direct finishing threat": "直接终结威胁",
+  "direct goal threat": "直接进球威胁",
+  "direct outlet": "直接出球点",
+  "direct running": "直接跑动",
+  "direct runners": "直接前插点",
+  "direct speed": "直接速度",
+  "disrupting opponents": "打乱对手",
+  "dribbling spark": "盘带火花",
+  "early crosses": "早传中",
+  "early service": "早输送",
+  "elite finishing": "顶级终结",
+  "elite quick-break finishing": "顶级快速反击终结",
+  "elite speed": "顶级速度",
+  "emergency defending": "紧急防守",
+  "emotional attacking focal point": "情绪和进攻焦点",
+  "emotional moments": "情绪时刻",
+  "end-to-end breaks": "来回拉锯的转换",
+  "end-to-end power": "往返冲击力",
+  "experienced attackers": "经验丰富的攻击手",
+  "experienced attacking reference": "经验丰富的进攻支点",
+  "experienced calm": "经验带来的冷静",
+  "final ball": "最后一传",
+  "final pass": "最后一传",
+  "final passes": "最后一传",
+  "final-third chances": "前场机会",
+  "final-third threat": "前场威胁",
+  "finishing edge": "终结优势",
+  "finishing gravity": "终结牵制力",
+  "first outlet pass": "第一脚出球",
+  "first phase": "第一阶段推进",
+  "first World Cup tournament": "首次世界杯之旅",
+  "flank": "边路",
+  "flair players": "天才型球员",
+  "flexible finisher": "灵活终结者",
+  "forward momentum": "向前势头",
+  "forward option": "锋线选择",
+  "forward power": "锋线力量",
+  "forward-heavy shape": "锋线人数更多的阵型",
+  "free kicks": "任意球",
+  "free-kick": "任意球",
+  "front line": "锋线",
+  "front-line outlet": "锋线出口",
+  "game-breaking pace": "打破比赛的速度",
+  "game-time decision": "赛前决定",
+  "goalkeeping experience": "门将经验",
+  "goalkeeping option": "门将选择",
+  "goalkeeping security": "门将安全感",
+  "group path": "小组路径",
+  "hard-running midfield cover": "勤跑中场保护",
+  "headline finisher": "头号终结者",
+  "heavy club scoring season": "俱乐部高产赛季",
+  "home pressure": "主场压力",
+  "home-side pressure team": "主场压力型球队",
+  "host-side threat": "东道主威胁",
+  "individual attacking threat": "个人进攻威胁",
+  "individual defending": "个人防守",
+  "left-footed creation": "左脚创造力",
+  "left-footed creator": "左脚创造者",
+  "left-footed option": "左脚选择",
+  "left-footed punch": "左脚冲击",
+  "left-side balance": "左路平衡",
+  "left-side delivery": "左路输送",
+  "left-side explosion": "左路爆发",
+  "left-side outlet": "左路出口",
+  "linking play": "串联进攻",
+  "lock-picking passes": "破密集传球",
+  "long-range threat": "远射威胁",
+  "loose balls": "二点球",
+  "low-chance match": "机会很少的比赛",
+  "match plan": "比赛计划",
+  "match roster": "比赛名单",
+  "match scoring record and tournament squad": "比赛进球记录和赛事名单",
+  "match scoring record": "比赛进球记录",
+  "match spine": "比赛中轴",
+  "match usage": "比赛使用情况",
+  "midfield ball-winning": "中场抢回球权",
+  "midfield balance": "中场平衡",
+  "midfield bite": "中场硬度",
+  "midfield calm": "中场冷静",
+  "midfield carrying": "中场带球推进",
+  "midfield composure": "中场镇定",
+  "midfield control": "中场控制",
+  "midfield drive": "中场推进",
+  "midfield eraser": "中场清道夫",
+  "midfield force": "中场力量",
+  "midfield numbers": "中场人数",
+  "midfield option": "中场选择",
+  "midfield pressure": "中场压迫",
+  "midfield screening": "中场屏障",
+  "midfield steel": "中场硬度",
+  "midfield tempo": "中场节奏",
+  "mobile finishing": "灵活终结",
+  "mobile midfield connector": "机动中场串联者",
+  "mobile second scoring threat": "机动第二得分点",
+  "movement": "跑动",
+  "open space": "开阔空间",
+  "open-field danger": "开阔地威胁",
+  "open-field runs": "开阔地跑动",
+  "open-field speed": "开阔地速度",
+  "opposition": "对手",
+  "overlaps": "套上",
+  "pace": "速度",
+  "pace and movement": "速度和跑动",
+  "patient combinations": "耐心配合",
+  "penalty area": "禁区",
+  "penalty-area finisher": "禁区终结者",
+  "penalty-area touches": "禁区触球",
+  "physical pressure": "身体压力",
+  "polished attacking reference": "成熟进攻支点",
+  "possession": "控球",
+  "press resistance": "抗压能力",
+  "pressing bursts": "压迫爆发",
+  "pressing forward": "压迫型前锋",
+  "pressure breaks": "压迫后的突破",
+  "quick combinations": "快速配合",
+  "quick counters": "快速反击",
+  "quick passes": "快速传球",
+  "recovery runs": "回追跑动",
+  "recovery speed": "回追速度",
+  "repeated box touches": "反复禁区触球",
+  "rhythm setter": "节奏设定者",
+  "right-side escape": "右路摆脱",
+  "right-side running": "右路跑动",
+  "right-side surges": "右路冲击",
+  "route behind": "身后路线",
+  "route forward": "向前路径",
+  "scoring route": "得分路径",
+  "scoring threat": "得分威胁",
+  "second balls": "二点球",
+  "second scoring lane": "第二得分通道",
+  "set pieces": "定位球",
+  "set-piece": "定位球",
+  "set-piece technician": "定位球专家",
+  "shape": "阵型",
+  "shot creator": "射门创造者",
+  "shot creation": "射门创造",
+  "shot-stopping": "扑救",
+  "slow games": "放慢比赛",
+  "spine quality": "中轴质量",
+  "squad context": "阵容背景",
+  "star ball-carrier": "明星带球推进者",
+  "striker movement": "前锋跑动",
+  "striker reference": "中锋支点",
+  "target play": "支点打法",
+  "target striker": "支点中锋",
+  "technical passing": "技术型传球",
+  "the first gap": "第一处空当",
+  "the last line": "最后一道防线",
+  "through balls": "直塞球",
+  "timing around the box": "禁区周边时机",
+  "tournament margins": "杯赛细节",
+  "tournament squad": "赛事名单",
+  "tournament squad record": "赛事名单记录",
+  "transition moments": "转换时刻",
+  "transition runner": "转换跑动者",
+  "vertical speed": "纵向速度",
+  "wide areas": "边路区域",
+  "wide attacking option": "边路进攻选择",
+  "wide bravery": "边路勇气",
+  "wide defensive option": "边路防守选择",
+  "wide delivery": "边路输送",
+  "wide defenders": "边路防守球员",
+  "wide lanes": "边路通道",
+  "wide pressure": "边路压力",
+  "wide release valve": "边路释放点",
+  "wide runners": "边路跑动者",
+  "wide speed": "边路速度",
+  "wide threat": "边路威胁",
+  "wide thrust": "边路推进",
+  "wing craft": "边路技巧",
+  "wing duels": "边路对抗",
+  "World Cup": "世界杯",
+  "back three": "三中卫体系",
+  "Bruno-Vitinha service into Ronaldo": "布鲁诺和维蒂尼亚向罗纳尔多输送",
+  "cleanly": "干净地",
+  "control to become finishing after dropping points in their opener": "在首战丢分后把控制转化为终结",
+  "are a home-side pressure team that want territory, crowd energy, and repeated penalty-area touches":
+    "是主场压迫型球队，追求场地优势、主场气势和反复禁区触球",
+  "are counterattacking underdogs who can stay in games if their goalkeeper and forwards give them belief":
+    "是反击型弱势方，只要门将和前锋带来信心，就能留在比赛里",
+  "creative midfielder": "创造型中场",
+  "defensive centerpiece": "防守核心",
+  "absorb pressure, let Mokoena make the first forward pass, and release Foster before the defense recovers":
+    "吸收压力，让莫科纳完成第一脚向前传球，并在防线回位前释放福斯特",
+  "feed Ronaldo through Bruno Fernandes and Vitinha": "通过布鲁诺·费尔南德斯和维蒂尼亚给罗纳尔多输送机会",
+  "head-to-head meeting": "交锋",
+  "highest-volume chance creator": "最高产的机会创造者",
+  "keep the ball in the opponent's half and feed Gimenez before Chavez attacks free kicks, corners, or rebounds":
+    "把球保持在对手半场，并在查韦斯攻击任意球、角球或反弹球前给希门尼斯输送机会",
+  "keep Bruno Fernandes facing forward while Vitinha finds Ronaldo or the wide runners":
+    "让布鲁诺·费尔南德斯保持面向前场，同时由维蒂尼亚寻找罗纳尔多或边路跑动点",
+  "Khusanov-Fayzullaev compact counters": "胡萨诺夫-法伊祖拉耶夫的紧凑反击",
+  "limited chances matter": "有限机会发挥作用",
+  "missing from his resume": "他履历中缺少的部分",
+  "press-resistant rhythm setter": "抗压节奏掌控者",
+  "release Fayzullaev or Shomurodov from a compact shape": "从紧凑阵型中释放法伊祖拉耶夫或肖穆罗多夫",
+  "stay compact through Khusanov, then release Fayzullaev and Shomurodov early":
+    "依靠胡萨诺夫保持紧凑，然后尽早释放法伊祖拉耶夫和肖穆罗多夫",
+  "turn home pressure into Gimenez touches and Chavez free-kick or corner chances":
+    "把主场压力转化为希门尼斯触球以及查韦斯的任意球或角球机会",
+  "turn saves from Williams into Mokoena outlets and Foster counters":
+    "把威廉姆斯的扑救转化为莫科纳的出球点和福斯特的反击",
+  "first-time World Cup underdogs built to defend deep and break cleanly":
+    "首次参加世界杯的弱势方，立足深度防守并干净反击",
+  "can turn Portugal's possession into cleaner entries around the box":
+    "可以把葡萄牙的控球转化为更干净的禁区周边推进"
+};
+
+const ZH_GENERATED_COPY_WORDS = {
+  a: "",
+  able: "能够",
+  absorb: "吸收",
+  add: "增加",
+  adding: "增加",
+  adds: "增加",
+  advanced: "前压",
+  after: "在之后",
+  against: "面对",
+  alive: "保有机会",
+  all: "全部",
+  alone: "单独",
+  already: "已经",
+  alternate: "交替",
+  although: "虽然",
+  also: "也",
+  ambition: "进取心",
+  any: "任何",
+  around: "围绕",
+  arrive: "插上",
+  arriving: "插上",
+  apart: "被拆开",
+  as: "作为",
+  ask: "要求",
+  asks: "要求",
+  an: "",
+  attack: "攻击",
+  attacking: "攻击",
+  attacks: "攻击",
+  authority: "权威",
+  availability: "出场情况",
+  available: "可以出场",
+  and: "和",
+  avoid: "避免",
+  back: "回到",
+  backed: "支撑",
+  beat: "压过",
+  belief: "信心",
+  becoming: "变成",
+  become: "变成",
+  before: "在之前",
+  behind: "身后",
+  bend: "调整",
+  boosted: "得到提升",
+  both: "双方",
+  box: "禁区",
+  break: "突破",
+  breaking: "打破",
+  breaks: "转换",
+  breakaway: "快速反击",
+  built: "打造",
+  buildup: "组织推进",
+  but: "但",
+  by: "通过",
+  calm: "冷静",
+  calmly: "冷静地",
+  can: "能够",
+  carries: "带球推进",
+  carry: "带起",
+  carrying: "带球推进",
+  central: "中路",
+  chain: "链条",
+  change: "改变",
+  changes: "变化",
+  chase: "追赶",
+  chasing: "追赶",
+  choose: "选择",
+  close: "靠近",
+  clean: "干净",
+  cleaner: "更干净",
+  collapse: "崩盘",
+  compact: "紧凑",
+  compete: "竞争",
+  complacency: "松懈",
+  complete: "完整",
+  concerns: "隐患",
+  concern: "隐患",
+  confidence: "信心",
+  confirmed: "确认",
+  connect: "串联",
+  connected: "保持连接",
+  connecting: "连接",
+  contests: "对抗比赛",
+  control: "控制",
+  controlled: "受控",
+  corners: "角球",
+  count: "发挥作用",
+  counterattacking: "反击",
+  counter: "反击",
+  counters: "反击",
+  counterpunch: "反击回击",
+  counterpunchers: "反击回击者",
+  crowd: "挤压",
+  crowded: "拥挤",
+  crucial: "关键",
+  dangerous: "危险",
+  danger: "危险",
+  decision: "决定",
+  decisions: "决定",
+  deep: "深处",
+  deeper: "更深",
+  defend: "防守",
+  defenders: "防守球员",
+  defense: "防线",
+  defensive: "防守",
+  define: "定义",
+  deliver: "输送",
+  delivers: "输送",
+  depth: "纵深",
+  designed: "设计为",
+  dictate: "主导",
+  direct: "直接",
+  disciplined: "有纪律",
+  disrupt: "打乱",
+  disrupting: "打乱",
+  draw: "吸引",
+  dropping: "丢掉",
+  drops: "下降",
+  drift: "游弋",
+  drought: "荒",
+  during: "在期间",
+  duels: "对抗",
+  duel: "对抗",
+  durable: "耐磨",
+  early: "尽早",
+  edge: "边缘优势",
+  enough: "足够",
+  enter: "进入",
+  endpoint: "终点",
+  expected: "预计",
+  escape: "摆脱",
+  experienced: "有经验",
+  experience: "经验",
+  exposed: "暴露",
+  facing: "面向",
+  favorites: "热门方",
+  fast: "快速",
+  favorite: "热门方",
+  feed: "输送给",
+  field: "球场",
+  final: "最后",
+  find: "找到",
+  finding: "找到",
+  finds: "找到",
+  finisher: "终结者",
+  finishers: "终结者",
+  finishing: "终结",
+  finesse: "细腻处理",
+  first: "第一",
+  fit: "健康",
+  flair: "灵感",
+  flank: "边路",
+  flip: "改变",
+  force: "迫使",
+  forcing: "迫使",
+  forward: "向前",
+  forwards: "前锋",
+  fouls: "犯规",
+  from: "从",
+  gap: "空当",
+  gaps: "空当",
+  game: "比赛",
+  games: "比赛",
+  give: "给",
+  gives: "给",
+  gifting: "送出",
+  goal: "球门",
+  goalkeeper: "门将",
+  gravity: "牵制力",
+  group: "小组",
+  has: "有",
+  have: "有",
+  he: "他",
+  helps: "帮助",
+  high: "高位",
+  higher: "更高",
+  hold: "保持",
+  holding: "保持",
+  holds: "保持",
+  honest: "不敢放松",
+  if: "如果",
+  immediate: "立即",
+  important: "重要",
+  inside: "内侧",
+  in: "在",
+  international: "国际A级赛",
+  into: "转化为",
+  invention: "创造力",
+  injury: "伤病",
+  isolate: "制造一对一",
+  isolation: "一对一",
+  keep: "保持",
+  keeping: "保持",
+  kicks: "任意球",
+  largely: "基本上",
+  lane: "通道",
+  lanes: "通道",
+  late: "后段",
+  lean: "依靠",
+  led: "领衔",
+  left: "左路",
+  less: "更少",
+  let: "让",
+  likely: "很可能",
+  limiting: "限制",
+  limited: "有限",
+  line: "防线",
+  link: "串联",
+  locks: "锁住",
+  load: "压上",
+  long: "长时间",
+  loose: "松散",
+  make: "让",
+  making: "让",
+  manage: "管理",
+  managed: "控制使用",
+  managing: "控制",
+  matters: "发挥作用",
+  major: "主要",
+  middle: "中路",
+  minutes: "出场时间",
+  move: "移动",
+  movement: "跑动",
+  missing: "缺少",
+  must: "必须",
+  need: "需要",
+  needs: "需要",
+  nervous: "紧张",
+  noise: "干扰",
+  no: "没有",
+  not: "不",
+  occupy: "牵制",
+  off: "离开",
+  one: "一个",
+  opener: "首战",
+  opening: "首战",
+  of: "的",
+  only: "只",
+  open: "打开",
+  opens: "打开",
+  opponent: "对手",
+  opponents: "对手",
+  or: "或",
+  organize: "组织",
+  organized: "有组织",
+  overcommit: "投入过多",
+  own: "掌控",
+  pass: "传球",
+  passing: "传球",
+  patience: "耐心",
+  physical: "身体对抗",
+  phases: "阶段",
+  pitch: "球场",
+  played: "进行",
+  play: "比赛",
+  plus: "加上",
+  point: "分",
+  points: "分",
+  player: "球员",
+  piece: "部分",
+  polish: "细腻度",
+  possession: "控球",
+  pressure: "压力",
+  protect: "保护",
+  protecting: "保护",
+  punish: "惩罚",
+  qualification: "晋级",
+  qualify: "晋级",
+  quickly: "快速",
+  rare: "少有",
+  rarely: "很少",
+  receive: "接球",
+  release: "释放",
+  releases: "释放",
+  recovers: "回位",
+  recover: "回位",
+  recoveries: "反抢回合",
+  repeated: "反复",
+  reported: "被报道",
+  response: "回应",
+  retreating: "后撤",
+  reset: "重整",
+  rhythm: "节奏",
+  right: "右路",
+  route: "路径",
+  runner: "跑动点",
+  runners: "跑动点",
+  running: "跑动",
+  rushed: "仓促",
+  saves: "扑救",
+  scoreline: "比分",
+  scoring: "得分",
+  second: "第二",
+  secure: "稳固",
+  serve: "输送给",
+  service: "输送",
+  set: "落位",
+  settle: "站稳",
+  settles: "站稳",
+  sharpest: "最锐利",
+  sharp: "锐利",
+  sharper: "更锐利",
+  shot: "射门",
+  shooting: "射门",
+  shots: "射门",
+  side: "一侧",
+  sides: "两队",
+  slow: "放慢",
+  space: "空间",
+  speed: "速度",
+  spell: "阶段",
+  spells: "阶段",
+  spine: "中轴",
+  spark: "火花",
+  start: "发起",
+  starts: "发起",
+  steady: "稳定",
+  staying: "保持",
+  still: "仍然",
+  stay: "保持",
+  stopping: "阻止",
+  stretch: "拉开",
+  stretched: "被拉开",
+  stretching: "拉开",
+  structure: "结构",
+  structured: "有结构",
+  stronger: "更强",
+  strongest: "最强",
+  sudden: "突然",
+  surges: "冲击",
+  support: "支援",
+  survive: "顶住",
+  survival: "生存",
+  technical: "技术型",
+  tempo: "节奏",
+  the: "",
+  their: "他们的",
+  then: "然后",
+  this: "这",
+  territory: "场地优势",
+  three: "三",
+  threat: "威胁",
+  through: "通过",
+  to: "",
+  tight: "紧凑",
+  timing: "时机",
+  touches: "触球",
+  transition: "转换",
+  transitions: "转换",
+  trust: "信任",
+  trusting: "信任",
+  turn: "转化",
+  turning: "转化",
+  underdogs: "弱势方",
+  underdog: "弱势方",
+  unbalance: "打乱平衡",
+  uncomfortable: "不舒服",
+  unbeaten: "保持不败",
+  unless: "除非",
+  unsettled: "未站稳",
+  until: "直到",
+  use: "利用",
+  useful: "有用",
+  using: "利用",
+  veteran: "经验丰富",
+  vital: "关键",
+  volatile: "充满变数",
+  want: "想要",
+  waves: "浪潮",
+  while: "同时",
+  who: "能够",
+  whose: "其",
+  width: "宽度",
+  wild: "失控",
+  wildcard: "变数",
+  win: "胜利",
+  winning: "赢得",
+  wins: "胜利",
+  with: "配合",
+  work: "工作",
+  workrate: "跑动投入",
+  world: "世界杯",
+  young: "年轻"
+};
+
+let zhNormalizedEntityTranslations = null;
+
+function getKnownGeneratedCopyTranslation(value) {
+  const text = String(value || "").trim().replace(/\s+/g, " ");
+  return text ? ZH_EXACT_TRANSLATIONS.get(text) || ZH_GENERATED_COPY_TERMS[text] || "" : "";
+}
+
+function shouldDebugZhGeneratedCopy() {
+  try {
+    return typeof window !== "undefined" && window.localStorage?.getItem("debug-zh-generated-copy") === "1";
+  } catch (error) {
+    return false;
+  }
+}
+
+function debugZhGeneratedCopy(label, detail) {
+  if (shouldDebugZhGeneratedCopy()) {
+    console.warn("[zh-generated-copy]", label, detail);
+  }
+}
+
+function getZhNormalizedEntityTranslations() {
+  if (zhNormalizedEntityTranslations) {
+    return zhNormalizedEntityTranslations;
+  }
+
+  zhNormalizedEntityTranslations = new Map();
+  [
+    [ZH_PLAYER_NAME_TRANSLATIONS, true],
+    [ZH_HISTORICAL_SCORER_TRANSLATIONS, true],
+    [ZH_CLUB_NAME_TRANSLATIONS, false],
+    [ZH_SOURCE_LABEL_TRANSLATIONS, false],
+    [ZH_ADDITIONAL_EXACT_TRANSLATIONS, false],
+    [Object.fromEntries(ZH_EXACT_TRANSLATIONS), false]
+  ].forEach(([translationMap, allowLastNameAlias]) => {
+    Object.entries(translationMap).forEach(([source, translation]) => {
+      const key = normalizeTextKey(source);
+      if (key && !zhNormalizedEntityTranslations.has(key)) {
+        zhNormalizedEntityTranslations.set(key, translation);
+      }
+
+      const sourceParts = String(source).split(/\s+/).filter(Boolean);
+      const translationParts = String(translation).split("·").filter(Boolean);
+      const lastSourcePart = sourceParts.at(-1);
+      const lastTranslationPart = translationParts.at(-1);
+      const lastSourceKey = normalizeTextKey(lastSourcePart);
+      if (
+        allowLastNameAlias &&
+        sourceParts.length > 1 &&
+        lastSourceKey &&
+        lastTranslationPart &&
+        !zhNormalizedEntityTranslations.has(lastSourceKey)
+      ) {
+        zhNormalizedEntityTranslations.set(lastSourceKey, lastTranslationPart);
+      }
+    });
+  });
+
+  return zhNormalizedEntityTranslations;
+}
+
+function translateEntityNameToZh(value) {
+  const text = String(value || "").trim().replace(/\s+/g, " ");
+  if (!text) {
+    return "";
+  }
+
+  const exact =
+    ZH_PLAYER_NAME_TRANSLATIONS[text] ||
+    ZH_HISTORICAL_SCORER_TRANSLATIONS[text] ||
+    ZH_ADDITIONAL_EXACT_TRANSLATIONS[text] ||
+    ZH_EXACT_TRANSLATIONS.get(text);
+  if (exact) {
+    return exact;
+  }
+
+  const normalized = getZhNormalizedEntityTranslations().get(normalizeTextKey(text));
+  if (normalized) {
+    return normalized;
+  }
+
+  if (text.includes("-")) {
+    const parts = text.split("-").map((part) => part.trim()).filter(Boolean);
+    if (parts.length > 1 && parts.every((part) => /^[A-ZÀ-ÖØ-Þ]/.test(part))) {
+      const translatedParts = parts.map((part) => translateEntityNameToZh(part));
+      if (translatedParts.every((part, index) => part && part !== parts[index])) {
+        return translatedParts.join("-");
+      }
+    }
+  }
+
+  return transliterateHistoricalScorerName(text);
+}
+
+function splitEnglishNameSeries(value) {
+  const text = String(value || "").trim().replace(/\s+/g, " ");
+  if (!text) {
+    return [];
+  }
+
+  return text
+    .replace(/,\s+and\s+/g, ", ")
+    .replace(/\s+and\s+/g, ", ")
+    .split(/\s*,\s*/)
+    .map((part) => part.trim())
+    .filter(Boolean);
+}
+
+function isEnglishNameSeriesPart(value) {
+  const tokens = String(value || "").trim().split(/\s+/).filter(Boolean);
+  if (!tokens.length || tokens.length > 5) {
+    return false;
+  }
+
+  return tokens.every((token) =>
+    /^(?:[A-ZÀ-ÖØ-Þ][A-Za-zÀ-ÖØ-öø-ÿ.'-]*|al|bin|da|de|del|der|di|dos|el|la|le|van|von)$/.test(token)
+  );
+}
+
+function translateNameSeriesToZh(value) {
+  return splitEnglishNameSeries(value).map(translateEntityNameToZh).filter(Boolean).join("、");
+}
+
+function replaceGeneratedCopyEntities(value) {
+  let output = String(value || "");
+
+  output = output.replace(
+    /\b([A-ZÀ-ÖØ-Þ][A-Za-zÀ-ÖØ-öø-ÿ.'-]*(?:\s+[A-ZÀ-ÖØ-Þ][A-Za-zÀ-ÖØ-öø-ÿ.'-]*){0,3})(?:'s|')\b/g,
+    (_, name) => `${translateEntityNameToZh(name)}的`
+  );
+
+  const entityEntries = [
+    ...Object.entries(ZH_PLAYER_NAME_TRANSLATIONS),
+    ...Object.entries(ZH_HISTORICAL_SCORER_TRANSLATIONS),
+    ...Object.entries(ZH_ADDITIONAL_EXACT_TRANSLATIONS),
+    ...Object.entries(Object.fromEntries(ZH_EXACT_TRANSLATIONS))
+  ].sort((a, b) => b[0].length - a[0].length);
+
+  for (const [source, translation] of entityEntries) {
+    output = output.replace(new RegExp(`\\b${escapeRegExp(source)}\\b`, "gi"), translation);
+  }
+
+  return output;
+}
+
+function translateGeneratedSoccerPhraseToZh(value) {
+  const text = String(value || "").trim().replace(/\s+/g, " ");
+  if (!text) {
+    return "";
+  }
+
+  const exact = getKnownGeneratedCopyTranslation(text);
+  if (exact) {
+    return exact;
+  }
+
+  const series = splitEnglishNameSeries(text);
+  if (
+    series.length > 1 &&
+    series.every((part) => isEnglishNameSeriesPart(part) && translateEntityNameToZh(part) !== part)
+  ) {
+    return translateNameSeriesToZh(text);
+  }
+
+  let output = replaceGeneratedCopyEntities(text)
+    .replace(/one-on-one/g, "一对一")
+    .replace(/box-to-box/g, "全能中场")
+    .replace(/low-margin/g, "低容错")
+    .replace(/right-sided/g, "右路")
+    .replace(/left-sided/g, "左路")
+    .replace(/left-footed/g, "左脚")
+    .replace(/two-way/g, "攻守兼备")
+    .replace(/two-forward/g, "双前锋")
+    .replace(/first-time/g, "首次参赛")
+    .replace(/big-moment/g, "关键时刻")
+    .replace(/late-game/g, "比赛后段")
+    .replace(/current-match/g, "当前比赛")
+    .replace(/current-squad/g, "当前阵容")
+    .replace(/set-piece/g, "定位球")
+    .replace(/free-kick/g, "任意球")
+    .replace(/quick-break/g, "快速反击")
+    .replace(/second-ball/g, "二点球")
+    .replace(/between-lines/g, "线间")
+    .replace(/final-third/g, "前场")
+    .replace(/far-side/g, "远端")
+    .replace(/wide-and-service/g, "宽度和输送")
+    .replace(/control-and-release/g, "控制与释放")
+    .replace(/save-to-counter/g, "扑救到反击")
+    .replace(/flank-to-box/g, "边路到禁区")
+    .replace(/duel-and-service/g, "对抗与输送");
+
+  const termEntries = Object.entries(ZH_GENERATED_COPY_TERMS).sort((a, b) => b[0].length - a[0].length);
+  for (const [source, translation] of termEntries) {
+    output = output.replace(new RegExp(`\\b${escapeRegExp(source)}\\b`, "gi"), translation);
+  }
+
+  output = output.replace(/\b[A-Za-zÀ-ÖØ-öø-ÿ][A-Za-zÀ-ÖØ-öø-ÿ'-]*\b/g, (word) => {
+    const lower = word.toLowerCase();
+    if (ZH_GENERATED_COPY_WORDS[lower] !== undefined) {
+      return ZH_GENERATED_COPY_WORDS[lower];
+    }
+
+    if (/^[A-ZÀ-ÖØ-Þ]/.test(word)) {
+      return translateEntityNameToZh(word);
+    }
+
+    return word;
+  });
+
+  if (/[A-Za-z]/.test(output)) {
+    debugZhGeneratedCopy("untranslated phrase", { source: text, output });
+    return "";
+  }
+
+  return output
+    .replace(/\s+/g, "")
+    .replace(/，+/g, "，")
+    .replace(/、+/g, "、")
+    .replace(/，。/g, "。")
+    .trim();
+}
+
+function translateHistoricalBasisToZh(value) {
+  return getKnownGeneratedCopyTranslation(value) || translateGeneratedSoccerPhraseToZh(value);
+}
+
+function translateHistoricalProblemToZh(value) {
+  const text = String(value || "").trim();
+  const scorerMatch = text.match(/^(.+)'s scoring threat through (.+)$/);
+  if (scorerMatch) {
+    return `${translateEntityNameToZh(scorerMatch[1])}通过${translateNameSeriesToZh(scorerMatch[2])}形成的得分威胁`;
+  }
+
+  const cleanSheetMatch = text.match(/^(.+)'s clean-sheet structure$/);
+  if (cleanSheetMatch) {
+    return `${translateEntityNameToZh(cleanSheetMatch[1])}的零封结构`;
+  }
+
+  const spineMatch = text.match(/^(.+)'s match spine of (.+)$/);
+  if (spineMatch) {
+    return `${translateEntityNameToZh(spineMatch[1])}由${translateNameSeriesToZh(spineMatch[2])}组成的比赛中轴`;
+  }
+
+  const shapeMatch = text.match(/^(.+)'s tournament shape$/);
+  if (shapeMatch) {
+    return `${translateEntityNameToZh(shapeMatch[1])}的赛事阵型`;
+  }
+
+  return translateGeneratedSoccerPhraseToZh(text);
+}
+
+function translateHistoricalPlanToZh(value) {
+  const text = String(value || "").trim();
+  const scoringRouteMatch = text.match(/^turning (.+) into the scoring route$/);
+  if (scoringRouteMatch) {
+    return `把${translateNameSeriesToZh(scoringRouteMatch[1])}变成得分路径`;
+  }
+
+  const shootoutMatch = text.match(/^reaching the shootout and trusting (.+)$/);
+  if (shootoutMatch) {
+    return `把比赛拖入点球大战并信任${translateNameSeriesToZh(shootoutMatch[1])}`;
+  }
+
+  const protectedMatch = text.match(/^keeping the box protected around (.+)$/);
+  if (protectedMatch) {
+    const names = protectedMatch[1] === "their defensive shape"
+      ? "防守阵型"
+      : translateNameSeriesToZh(protectedMatch[1]);
+    return `围绕${names}保护禁区`;
+  }
+
+  const forwardShapeMatch = text.match(/^using a forward-heavy shape around (.+)$/);
+  if (forwardShapeMatch) {
+    return `围绕${translateNameSeriesToZh(forwardShapeMatch[1])}采用锋线人数更多的阵型`;
+  }
+
+  const midfieldMatch = text.match(/^using midfield numbers around (.+) to control the game$/);
+  if (midfieldMatch) {
+    return `围绕${translateNameSeriesToZh(midfieldMatch[1])}用中场人数控制比赛`;
+  }
+
+  const defensiveBaseMatch = text.match(/^keeping a defensive base around (.+)$/);
+  if (defensiveBaseMatch) {
+    return `围绕${translateNameSeriesToZh(defensiveBaseMatch[1])}保持防守基础`;
+  }
+
+  const spineMatch = text.match(/^making (.+) the spine of the match plan$/);
+  if (spineMatch) {
+    return `让${translateNameSeriesToZh(spineMatch[1])}成为比赛计划的中轴`;
+  }
+
+  if (text === "staying connected through the tournament squad shape") {
+    return "通过赛事阵容结构保持整体连接";
+  }
+
+  return translateGeneratedSoccerPhraseToZh(text);
+}
+
+function translateHistoricalResultClauseToZh(value) {
+  const text = String(value || "").trim();
+  const winMatch = text.match(/^that route held in the (.+) win$/);
+  if (winMatch) {
+    return `这条路径在${winMatch[1]}胜利中奏效`;
+  }
+
+  const lossMatch = text.match(/^that route was not enough in the (.+) loss$/);
+  if (lossMatch) {
+    return `这条路径在${lossMatch[1]}失利中还不够`;
+  }
+
+  const drawMatch = text.match(/^that route produced a (.+) draw$/);
+  if (drawMatch) {
+    return `这条路径带来${drawMatch[1]}平局`;
+  }
+
+  if (text === "the match was canceled before that test happened") {
+    return "比赛在这次检验发生前已经取消";
+  }
+
+  if (text === "the record does not include a final score") {
+    return "记录中没有最终比分";
+  }
+
+  return translateGeneratedSoccerPhraseToZh(text);
+}
+
+function translateHistoricalRiskToZh(value) {
+  const text = String(value || "").trim().replace(/\.$/, "");
+  const finishMatch = text.match(/^(.+) had already shown the finish to make that pressure count$/);
+  if (finishMatch) {
+    return `${translateEntityNameToZh(finishMatch[1])}已经展现出把压力转化为进球的终结能力。`;
+  }
+
+  const patienceMatch = text.match(/^(.+) could make the match about patience rather than chances$/);
+  if (patienceMatch) {
+    return `${translateEntityNameToZh(patienceMatch[1])}可能让比赛变成耐心而不是机会的较量。`;
+  }
+
+  const tiltMatch = text.match(/^(.+) could still tilt the game through (.+)$/);
+  if (tiltMatch) {
+    return `${translateEntityNameToZh(tiltMatch[1])}仍可能通过${translateNameSeriesToZh(tiltMatch[2])}改变比赛走势。`;
+  }
+
+  const cleanSpellMatch = text.match(/^(.+) could still turn the same matchup with one clean spell$/);
+  if (cleanSpellMatch) {
+    return `${translateEntityNameToZh(cleanSpellMatch[1])}仍可能凭借一段清晰发挥扭转同样的对位。`;
+  }
+
+  return `${translateGeneratedSoccerPhraseToZh(text)}。`;
+}
+
+function translateHistoricalKeyInformationToZh(value) {
+  const text = String(value || "").trim();
+  const canceledMatch = text.match(
+    /^(.+)'s (\d{4}) fixture with (.+) was canceled, so there is no match roster to analyze\. (.+) Against (.+), the useful read is the matchup that never got played, not a confirmed tactical plan\. Treat this as squad context, not match usage\.$/
+  );
+  if (canceledMatch) {
+    const [, teamName, year, opponentName, contextText] = canceledMatch;
+    const periodMatch = contextText.match(/^The period-specific baseline still comes from (.+) in the (.+)\.$/);
+    const noBaselineMatch = contextText.match(
+      /^The imported historical datasets do not include a usable (.+) player baseline for this canceled fixture\.$/
+    );
+    const context = periodMatch
+      ? `这一时期的基线仍来自${translateNameSeriesToZh(periodMatch[1])}，依据${translateHistoricalBasisToZh(periodMatch[2])}。`
+      : noBaselineMatch
+        ? `导入的历史数据集没有为这场取消的比赛提供可用的${translateEntityNameToZh(noBaselineMatch[1])}球员基线。`
+        : `${translateGeneratedSoccerPhraseToZh(contextText)}。`;
+
+    return `${translateEntityNameToZh(teamName)}在${year}年原定对阵${translateEntityNameToZh(opponentName)}的比赛被取消，因此没有可分析的比赛名单。${context}对阵${translateEntityNameToZh(opponentName)}，有用的解读是这场从未进行的对位，而不是已确认的战术计划。请把这视为阵容背景，而不是比赛实际使用情况。`;
+  }
+
+  const playerMatch = text.match(
+    /^(.+)'s (\d{4}) match lens runs through (.+), based on the (.+)\. Against (.+), (.+) had to beat (.+)\. Their own route was (.+), and (.+)\. The risk was that (.+)$/
+  );
+  if (playerMatch) {
+    const [, teamName, year, players, basis, opponentName, subjectName, problem, plan, result, risk] = playerMatch;
+    return `${translateEntityNameToZh(teamName)}在${year}年的比赛观察点集中在${translateNameSeriesToZh(players)}，依据${translateHistoricalBasisToZh(basis)}。对阵${translateEntityNameToZh(opponentName)}，${translateEntityNameToZh(subjectName)}必须破解${translateHistoricalProblemToZh(problem)}。他们自己的路径是${translateHistoricalPlanToZh(plan)}，并且${translateHistoricalResultClauseToZh(result)}。风险在于${translateHistoricalRiskToZh(risk)}`;
+  }
+
+  const basisOnlyMatch = text.match(
+    /^(.+)'s (\d{4}) match lens comes from the (.+)\. Against (.+), (.+) had to beat (.+)\. Their own route was (.+), and (.+)\. The risk was that (.+)$/
+  );
+  if (basisOnlyMatch) {
+    const [, teamName, year, basis, opponentName, subjectName, problem, plan, result, risk] = basisOnlyMatch;
+    return `${translateEntityNameToZh(teamName)}在${year}年的比赛观察点来自${translateHistoricalBasisToZh(basis)}。对阵${translateEntityNameToZh(opponentName)}，${translateEntityNameToZh(subjectName)}必须破解${translateHistoricalProblemToZh(problem)}。他们自己的路径是${translateHistoricalPlanToZh(plan)}，并且${translateHistoricalResultClauseToZh(result)}。风险在于${translateHistoricalRiskToZh(risk)}`;
+  }
+
+  return "";
+}
+
+function translateCurrentContextSentenceToZh(value) {
+  const text = String(value || "").trim();
+  const exactContexts = {
+    "A draw could be enough for Scotland.": "一场平局可能就足以让苏格兰完成目标。",
+    "Algeria remain favored, but their World Cup win drought keeps pressure high.":
+      "阿尔及利亚仍是更被看好的一方，但世界杯胜场荒让压力保持在高位。",
+    "Both teams enter off opening defeats.": "两队都带着首战失利进入这场比赛。",
+    "Canada's Davies question makes tempo control vital.": "加拿大的戴维斯出场疑问让节奏控制变得关键。",
+    "Colombia have a full squad available.": "哥伦比亚可以使用完整阵容。",
+    "Croatia can still protect a top-three path.": "克罗地亚仍然可以守住争夺小组前三的路径。",
+    "Czechia have one point.": "捷克目前有1分。",
+    "Davies is available but has not yet played.": "戴维斯可以出场，但目前还没有登场。",
+    "DR Congo have no major injury concerns reported.": "刚果民主共和国目前没有主要伤病问题被报道。",
+    "Haiti cannot match Morocco's control, so their best route is a clean first pass forward.":
+      "海地很难匹配摩洛哥的控制力，因此最好的路径是完成干净的第一脚向前传球。",
+    "Jordan matched Austria for shots but still lost their opener.": "约旦首战射门数与奥地利接近，但仍然输球。",
+    "Mexico have six points and two clean sheets.": "墨西哥已经拿到6分并完成两场零封。",
+    "Morocco control their group path.": "摩洛哥掌控着自己的小组路径。",
+    "Neymar is available but not expected to start.": "内马尔可以出场，但预计不会首发。",
+    "No Bosnia absences are confirmed.": "波黑目前没有确认缺席的球员。",
+    "No major injury concerns are reported.": "目前没有主要伤病问题被报道。",
+    "No South Africa injury concerns are reported.": "南非目前没有伤病问题被报道。",
+    "Qatar need a win after the Canada collapse.": "卡塔尔在输给加拿大后需要一场胜利。",
+    "Rice and Kane are fit, while Saka is likely managed.": "赖斯和凯恩身体状况良好，萨卡可能会被控制出场时间。",
+    "Ruben Dias is expected back.": "鲁本·迪亚斯预计回归。",
+    "Rustamjon Ashurmatov is a game-time decision.": "鲁斯塔姆琼·阿舒尔马托夫能否出场要到赛前决定。",
+    "Senegal have found wide space but need a cleaner final pass.": "塞内加尔已经找到了边路空间，但还需要更干净的最后一传。",
+    "South Korea are largely fit.": "韩国阵容整体健康。",
+    "Thomas Partey is available after missing the Panama opener.": "托马斯·帕尔特伊缺席巴拿马首战后已经可以出场。"
+  };
+
+  return exactContexts[text] || (text ? `${translateGeneratedSoccerPhraseToZh(text)}。` : "");
+}
+
+function translateCurrentSummaryToZh(value) {
+  const text = String(value || "").trim().replace(/\s+/g, " ");
+  if (!text) {
+    return "";
+  }
+
+  const exact = getKnownGeneratedCopyTranslation(text);
+  if (exact) {
+    return exact;
+  }
+
+  const stateMatch = text.match(/^(?:are|is)\s+(.+)$/);
+  if (stateMatch) {
+    const predicate = translateGeneratedSoccerPhraseToZh(stateMatch[1].replace(/^(?:a|an|the)\s+/, ""));
+    return predicate ? `是${predicate}` : "";
+  }
+
+  const abilityMatch = text.match(/^can\s+(.+)$/);
+  if (abilityMatch) {
+    const ability = translateGeneratedSoccerPhraseToZh(abilityMatch[1]);
+    return ability ? `可以${ability}` : "";
+  }
+
+  const stillHaveMatch = text.match(/^still\s+have\s+(.+)$/);
+  if (stillHaveMatch) {
+    const detail = translateGeneratedSoccerPhraseToZh(stillHaveMatch[1]);
+    return detail ? `仍然拥有${detail}` : "";
+  }
+
+  const activeMatch = text.match(/^(need|must|want|face|carry|playing|boosted by|unbeaten after)\s+(.+)$/);
+  if (activeMatch) {
+    const verbMap = {
+      "boosted by": "因为",
+      carry: "带着",
+      face: "面临",
+      must: "必须",
+      need: "需要",
+      playing: "正在",
+      "unbeaten after": "在之后保持不败，并且",
+      want: "希望"
+    };
+    const detail = translateGeneratedSoccerPhraseToZh(activeMatch[2]);
+    return detail ? `${verbMap[activeMatch[1]]}${detail}` : "";
+  }
+
+  const translated = translateGeneratedSoccerPhraseToZh(text);
+  return translated || "";
+}
+
+function getGeneratedCopyTeamNameCandidates() {
+  const currentTeamNames = [...teamsById.values()].map((team) => team.name).filter(Boolean);
+  const historicalTeamNames =
+    typeof HISTORICAL_TEAM_COUNTRY_CODES === "object" && HISTORICAL_TEAM_COUNTRY_CODES
+      ? Object.keys(HISTORICAL_TEAM_COUNTRY_CODES)
+      : [];
+
+  return [...new Set([...currentTeamNames, ...historicalTeamNames])]
+    .filter(Boolean)
+    .sort((a, b) => b.length - a.length);
+}
+
+function splitGeneratedTeamSummary(value) {
+  const text = String(value || "").trim().replace(/\s+/g, " ");
+  if (!text) {
+    return null;
+  }
+
+  for (const teamName of getGeneratedCopyTeamNameCandidates()) {
+    if (text === teamName || text.startsWith(`${teamName} `)) {
+      return {
+        teamName,
+        summary: text.slice(teamName.length).trim()
+      };
+    }
+  }
+
+  const fallback = text.match(/^(.+?)\s+(.+)$/);
+  return fallback ? { teamName: fallback[1], summary: fallback[2] } : null;
+}
+
+function translateCurrentMatchPreviewToZh(value) {
+  const text = String(value || "").trim();
+  const match = text.match(
+    /^(.+?), led by (.+?)\. Against (.+?), their (.+?) has to beat (.+?)\. (.*?)They want to (.+?)\. The risk is (.+?) can (.+?)\.$/
+  );
+
+  if (!match) {
+    return "";
+  }
+
+  const [, teamSummary, players, opponentName, teamProblem, opponentProblem, contextText, attackPlan, riskTeam, threat] = match;
+  const teamSummaryParts = splitGeneratedTeamSummary(teamSummary);
+  if (!teamSummaryParts) {
+    return "";
+  }
+
+  const { teamName, summary } = teamSummaryParts;
+  const team = translateEntityNameToZh(teamName);
+  const summaryZh = translateCurrentSummaryToZh(summary);
+  const contextZh = String(contextText || "")
+    .trim()
+    .split(/(?<=\.)\s+/)
+    .filter(Boolean)
+    .map(translateCurrentContextSentenceToZh)
+    .join("");
+  const translatedPlayers = translateNameSeriesToZh(players);
+  const teamProblemZh = translateGeneratedSoccerPhraseToZh(teamProblem) || "核心比赛路径";
+  const opponentProblemZh = translateGeneratedSoccerPhraseToZh(opponentProblem) || "对手的核心比赛路径";
+  const attackPlanZh =
+    translateGeneratedSoccerPhraseToZh(attackPlan) ||
+    (translatedPlayers ? `围绕${translatedPlayers}寻找机会` : "围绕关键球员寻找机会");
+  const threatZh = translateGeneratedSoccerPhraseToZh(threat) || "把比赛带回自己的节奏";
+  const summaryText = summaryZh || "有明确的比赛重点";
+
+  return `${team}${summaryText}，由${translatedPlayers}领衔。对阵${translateEntityNameToZh(opponentName)}，他们的${teamProblemZh}必须压过${opponentProblemZh}。${contextZh}他们希望${attackPlanZh}。风险在于${translateEntityNameToZh(riskTeam)}可以${threatZh}。`;
+}
+
+function translatePlayerNoteToZh(value) {
+  const text = String(value || "").trim();
+  const exact = getKnownGeneratedCopyTranslation(text);
+  if (exact) {
+    return exact;
+  }
+
+  const generatedRoleMatch = text.match(/^(.+)'s (goalkeeping|defensive|wide defensive|between-lines|wide attacking|forward|midfield|match-plan) option, useful for (.+)\.$/);
+  if (generatedRoleMatch) {
+    const roleMap = {
+      "between-lines": "线间选择",
+      defensive: "防守选择",
+      forward: "锋线选择",
+      goalkeeping: "门将选择",
+      midfield: "中场选择",
+      "match-plan": "比赛计划选择",
+      "wide attacking": "边路进攻选择",
+      "wide defensive": "边路防守选择"
+    };
+    const roleDetail = translateGeneratedSoccerPhraseToZh(generatedRoleMatch[3]);
+    return roleDetail
+      ? `${translateEntityNameToZh(generatedRoleMatch[1])}的${roleMap[generatedRoleMatch[2]]}，有助于${roleDetail}。`
+      : "";
+  }
+
+  const possessiveTwoSentenceMatch = text.match(/^(.+)'s (.+?)\. If he (.+)\.$/);
+  if (possessiveTwoSentenceMatch) {
+    const role = translateGeneratedSoccerPhraseToZh(possessiveTwoSentenceMatch[2]);
+    const condition = translateGeneratedSoccerPhraseToZh(possessiveTwoSentenceMatch[3]);
+    return role && condition
+      ? `${translateEntityNameToZh(possessiveTwoSentenceMatch[1])}的${role}。如果他${condition}。`
+      : "";
+  }
+
+  const possessiveMatch = text.match(/^(.+)'s (.+?), (.+)\.$/);
+  if (possessiveMatch) {
+    const role = translateGeneratedSoccerPhraseToZh(possessiveMatch[2]);
+    const detail = translateGeneratedSoccerPhraseToZh(possessiveMatch[3]);
+    return role && detail ? `${translateEntityNameToZh(possessiveMatch[1])}的${role}，${detail}。` : "";
+  }
+
+  const articleWhoMatch = text.match(/^(?:A|An|The) (.+?) who (.+)\.$/);
+  if (articleWhoMatch) {
+    const role = translateGeneratedSoccerPhraseToZh(articleWhoMatch[1]);
+    const detail = translateGeneratedSoccerPhraseToZh(articleWhoMatch[2]);
+    return role && detail ? `一名${role}，能够${detail}。` : "";
+  }
+
+  const articleWhoseMatch = text.match(/^(?:A|An|The) (.+?) whose (.+)\.$/);
+  if (articleWhoseMatch) {
+    const role = translateGeneratedSoccerPhraseToZh(articleWhoseMatch[1]);
+    const detail = translateGeneratedSoccerPhraseToZh(articleWhoseMatch[2]);
+    return role && detail ? `一名${role}，其${detail}。` : "";
+  }
+
+  const articleCommaMatch = text.match(/^(?:A|An|The) (.+?), (.+)\.$/);
+  if (articleCommaMatch) {
+    const role = translateGeneratedSoccerPhraseToZh(articleCommaMatch[1]);
+    const detail = translateGeneratedSoccerPhraseToZh(articleCommaMatch[2]);
+    return role && detail ? `${role}，${detail}。` : "";
+  }
+
+  return "";
+}
+
+function translateGeneratedLongFormTextToZh(value) {
+  const text = String(value || "").trim();
+  if (!text || !/[A-Za-z]/.test(text)) {
+    return "";
+  }
+
+  return (
+    translateHistoricalKeyInformationToZh(text) ||
+    translateCurrentMatchPreviewToZh(text) ||
+    translatePlayerNoteToZh(text)
+  );
 }
 
 function normalizeLatinNameForTransliteration(value) {
@@ -7594,6 +8916,10 @@ function renderKeyInformationHeading(team, label = getKeyInformationLabel(team))
 }
 
 function getPlayerProfile(player) {
+  if (isHistoricalPlayerCard(player)) {
+    return null;
+  }
+
   const name = getPlayerName(player);
   if (!name) {
     return null;
@@ -7602,12 +8928,33 @@ function getPlayerProfile(player) {
   return playerProfilesByName.get(normalizeTextKey(name)) || null;
 }
 
+function getHistoricalPlayerProfile(player) {
+  if (!isHistoricalPlayerCard(player)) {
+    return null;
+  }
+
+  const name = getPlayerName(player);
+  if (!name) {
+    return null;
+  }
+
+  return historicalPlayerProfilesByName.get(normalizeTextKey(name)) || null;
+}
+
+function isHistoricalPlayerCard(player) {
+  return Boolean(player && typeof player === "object" && player.historical);
+}
+
 function getPlayerDisplayName(player, profile = getPlayerProfile(player)) {
-  return profile?.displayName || profile?.name || getPlayerName(player);
+  return profile?.displayName || profile?.name || player?.displayName || getPlayerName(player);
 }
 
 function getLocalizedPlayerDisplayName(player, profile = getPlayerProfile(player)) {
   const displayName = getPlayerDisplayName(player, profile);
+  if (isHistoricalPlayerCard(player)) {
+    return localizeHistoricalScorerName(displayName);
+  }
+
   if (currentLanguage !== "zh") {
     return displayName;
   }
@@ -7646,9 +8993,22 @@ function getPlayerInitials(name) {
     .toUpperCase();
 }
 
-function getPlayerClubLine(profile) {
-  const club = profile?.club || "Club to verify";
-  return profile?.league ? `${club} (${profile.league})` : club;
+function getPlayerPositionValue(player, profile = getPlayerProfile(player)) {
+  return profile?.position || player?.position || player?.role || "";
+}
+
+function getPlayerClubValue(player, profile = getPlayerProfile(player)) {
+  return profile?.club || player?.club || "";
+}
+
+function getPlayerLeagueValue(player, profile = getPlayerProfile(player)) {
+  return profile?.league || player?.league || "";
+}
+
+function getPlayerClubLine(player, profile = getPlayerProfile(player)) {
+  const club = getPlayerClubValue(player, profile) || (isHistoricalPlayerCard(player) ? "Historic World Cup record" : "Club to verify");
+  const league = getPlayerLeagueValue(player, profile);
+  return league ? `${club} (${league})` : club;
 }
 
 function formatPlayerPosition(position) {
@@ -7662,13 +9022,17 @@ function formatPlayerPosition(position) {
   });
 }
 
-function getLocalizedPlayerPosition(profile) {
-  return localizeText(formatPlayerPosition(profile?.position) || "Position to verify");
+function getLocalizedPlayerPosition(player, profile = getPlayerProfile(player)) {
+  return localizeText(formatPlayerPosition(getPlayerPositionValue(player, profile)) || "Position to verify");
 }
 
-function getLocalizedPlayerClubLine(profile) {
-  const club = profile?.club ? localizeText(profile.club) : localizeText("Club to verify");
-  const league = profile?.league ? localizeText(profile.league) : "";
+function getLocalizedPlayerClubLine(player, profile = getPlayerProfile(player)) {
+  const club = getPlayerClubValue(player, profile)
+    ? localizeText(getPlayerClubValue(player, profile))
+    : isHistoricalPlayerCard(player)
+      ? "历史世界杯记录"
+      : localizeText("Club to verify");
+  const league = getPlayerLeagueValue(player, profile) ? localizeText(getPlayerLeagueValue(player, profile)) : "";
   return league ? `${club}（${league}）` : club;
 }
 
@@ -7787,6 +9151,31 @@ function getPlayerSkills(player, profile = getPlayerProfile(player)) {
   }
 
   const note = getPlayerNote(player);
+  const position = formatPlayerPosition(getPlayerPositionValue(player, profile));
+  const fallbackSkills = [];
+
+  if (position) {
+    fallbackSkills.push(position);
+  }
+  if (/scored|goal|finisher/i.test(note)) {
+    fallbackSkills.push("Goal threat");
+  }
+  if (/shootout|penalt/i.test(note)) {
+    fallbackSkills.push("Penalty pressure");
+  }
+  if (/started/i.test(note)) {
+    fallbackSkills.push("Starter");
+  }
+  if (/substitute/i.test(note)) {
+    fallbackSkills.push("Impact sub");
+  }
+  if (/clean sheet|goalkeeper/i.test(note) || /goalkeeper/i.test(position)) {
+    fallbackSkills.push("Defensive control");
+  }
+  if (fallbackSkills.length) {
+    return [...new Set(fallbackSkills)].slice(0, 4);
+  }
+
   return note ? [note] : ["Match plan"];
 }
 
@@ -7883,6 +9272,31 @@ function getPlayerMentionEntries(players) {
     .sort((a, b) => b.alias.length - a.alias.length);
 }
 
+function getPlayerMentionEntriesForText(players) {
+  const entries = getPlayerMentionEntries(players);
+
+  if (currentLanguage === "zh") {
+    for (const player of players) {
+      const profile = getPlayerProfile(player) || getHistoricalPlayerProfile(player);
+      const aliases = [
+        getLocalizedPlayerDisplayName(player, profile),
+        localizeDisplayText(getPlayerName(player)),
+        localizeDisplayText(getPlayerDisplayName(player, profile))
+      ];
+
+      for (const alias of aliases) {
+        if (alias && !entries.some((entry) => entry.alias === alias)) {
+          entries.push({ alias, player });
+        }
+      }
+    }
+
+    entries.sort((a, b) => b.alias.length - a.alias.length);
+  }
+
+  return entries;
+}
+
 function renderPlayerPhoto(player, profile) {
   const displayName = getLocalizedPlayerDisplayName(player, profile);
   if (profile?.imageUrl) {
@@ -7900,11 +9314,11 @@ function renderPlayerPhoto(player, profile) {
 }
 
 function renderPlayerMention(label, player) {
-  const profile = getPlayerProfile(player);
+  const profile = getPlayerProfile(player) || getHistoricalPlayerProfile(player);
   const displayName = getLocalizedPlayerDisplayName(player, profile);
   const uniformNumber = getPlayerUniformNumber(player, profile);
-  const position = getLocalizedPlayerPosition(profile);
-  const club = currentLanguage === "zh" ? getLocalizedPlayerClubLine(profile) : getPlayerClubLine(profile);
+  const position = getLocalizedPlayerPosition(player, profile);
+  const club = currentLanguage === "zh" ? getLocalizedPlayerClubLine(player, profile) : getPlayerClubLine(player, profile);
   const sourceUrl = profile?.sourceUrl || "";
   const note = getLocalizedPlayerNote(player, profile);
   const ageLine = getLocalizedPlayerAgeLine(profile);
@@ -7948,6 +9362,124 @@ function renderPlayerMention(label, player) {
   ].join("");
 }
 
+let floatingPlayerCard = null;
+let floatingPlayerCardSource = null;
+let floatingPlayerCardHideTimer = 0;
+
+function ensureFloatingPlayerCard() {
+  if (floatingPlayerCard) {
+    return floatingPlayerCard;
+  }
+
+  floatingPlayerCard = document.createElement("span");
+  floatingPlayerCard.className = "player-card player-card-floating";
+  floatingPlayerCard.setAttribute("role", "tooltip");
+  floatingPlayerCard.setAttribute("aria-hidden", "true");
+  document.body.append(floatingPlayerCard);
+  floatingPlayerCard.addEventListener("pointerenter", () => {
+    window.clearTimeout(floatingPlayerCardHideTimer);
+  });
+  floatingPlayerCard.addEventListener("pointerleave", () => {
+    queueFloatingPlayerCardHide();
+  });
+  floatingPlayerCard.addEventListener("focusin", () => {
+    window.clearTimeout(floatingPlayerCardHideTimer);
+  });
+  floatingPlayerCard.addEventListener("focusout", () => {
+    queueFloatingPlayerCardHide();
+  });
+  return floatingPlayerCard;
+}
+
+function isFloatingPlayerCardActive() {
+  return Boolean(
+    floatingPlayerCardSource?.isConnected &&
+      (floatingPlayerCardSource.matches(":hover, :focus-within") ||
+        floatingPlayerCard?.matches(":hover, :focus-within") ||
+        floatingPlayerCardSource.classList.contains("is-card-open"))
+  );
+}
+
+function hideFloatingPlayerCard() {
+  window.clearTimeout(floatingPlayerCardHideTimer);
+  floatingPlayerCardHideTimer = 0;
+  floatingPlayerCardSource?.classList.remove("is-card-portaled");
+  floatingPlayerCardSource = null;
+  floatingPlayerCard?.classList.remove("is-visible");
+  floatingPlayerCard?.setAttribute("aria-hidden", "true");
+}
+
+function queueFloatingPlayerCardHide() {
+  window.clearTimeout(floatingPlayerCardHideTimer);
+  floatingPlayerCardHideTimer = window.setTimeout(() => {
+    if (!isFloatingPlayerCardActive()) {
+      hideFloatingPlayerCard();
+    }
+  }, 80);
+}
+
+function positionFloatingPlayerCard(playerHover, cardWidth) {
+  const trigger = playerHover?.querySelector(".player-link");
+  const floatingCard = ensureFloatingPlayerCard();
+  if (!trigger) {
+    return;
+  }
+
+  const viewportMargin = 18;
+  const triggerRect = trigger.getBoundingClientRect();
+  floatingCard.style.setProperty("--player-card-width", `${cardWidth}px`);
+  floatingCard.style.setProperty("--player-card-floating-left", `${viewportMargin}px`);
+  floatingCard.style.setProperty("--player-card-floating-top", `${viewportMargin}px`);
+
+  const cardRect = floatingCard.getBoundingClientRect();
+  const cardHeight = cardRect.height || 0;
+  const centeredLeft = triggerRect.left + triggerRect.width / 2 - cardWidth / 2;
+  const maxLeft = Math.max(viewportMargin, window.innerWidth - cardWidth - viewportMargin);
+  const left = Math.min(Math.max(centeredLeft, viewportMargin), maxLeft);
+  const belowTop = triggerRect.bottom + 9;
+  const aboveTop = triggerRect.top - cardHeight - 9;
+  const canFitBelow = belowTop + cardHeight <= window.innerHeight - viewportMargin;
+  const canFitAbove = aboveTop >= viewportMargin;
+  const top = canFitBelow
+    ? belowTop
+    : canFitAbove
+      ? aboveTop
+      : Math.min(
+          Math.max(viewportMargin, belowTop),
+          Math.max(viewportMargin, window.innerHeight - cardHeight - viewportMargin)
+        );
+
+  floatingCard.style.setProperty("--player-card-floating-left", `${Math.round(left)}px`);
+  floatingCard.style.setProperty("--player-card-floating-top", `${Math.round(top)}px`);
+}
+
+function showFloatingPlayerCard(playerHover, cardWidth) {
+  const sourceCard = playerHover?.querySelector(".player-card");
+  const floatingCard = ensureFloatingPlayerCard();
+  if (!sourceCard) {
+    return;
+  }
+
+  if (floatingPlayerCardSource !== playerHover) {
+    floatingPlayerCardSource?.classList.remove("is-card-portaled");
+    floatingPlayerCardSource = playerHover;
+    floatingCard.innerHTML = sourceCard.innerHTML;
+  }
+
+  playerHover.classList.add("is-card-portaled");
+  window.clearTimeout(floatingPlayerCardHideTimer);
+  floatingCard.setAttribute("aria-hidden", "false");
+  positionFloatingPlayerCard(playerHover, cardWidth);
+  floatingCard.classList.add("is-visible");
+  floatingCard.querySelectorAll("img").forEach((image) => {
+    image.addEventListener("load", () => {
+      if (floatingPlayerCardSource === playerHover) {
+        positionFloatingPlayerCard(playerHover, cardWidth);
+      }
+    }, { once: true });
+  });
+}
+
 function positionPlayerCard(playerHover) {
   const card = playerHover?.querySelector(".player-card");
   const trigger = playerHover?.querySelector(".player-link");
@@ -7959,6 +9491,22 @@ function positionPlayerCard(playerHover) {
   const maxCardWidth = Math.max(0, window.innerWidth - viewportMargin * 2);
   const cardWidth = Math.min(292, maxCardWidth);
   const triggerRect = trigger.getBoundingClientRect();
+
+  if (playerHover.closest("#catch-up-popover")) {
+    if (
+      playerHover.matches(":hover, :focus-within") ||
+      playerHover.classList.contains("is-card-open") ||
+      floatingPlayerCardSource === playerHover
+    ) {
+      showFloatingPlayerCard(playerHover, cardWidth);
+    }
+    return;
+  }
+
+  if (floatingPlayerCardSource === playerHover) {
+    hideFloatingPlayerCard();
+  }
+
   const desiredLeft = Math.max(
     viewportMargin,
     Math.min(triggerRect.left, window.innerWidth - cardWidth - viewportMargin)
@@ -7989,11 +9537,13 @@ function setPlayerHoverExpanded(playerHover, isExpanded) {
 
 function clearActivePlayerHover() {
   if (!activePlayerHover) {
+    hideFloatingPlayerCard();
     return;
   }
 
   setPlayerHoverExpanded(activePlayerHover, false);
   activePlayerHover = null;
+  hideFloatingPlayerCard();
 }
 
 function openPlayerHoverCard(playerHover) {
@@ -8007,16 +9557,7 @@ function openPlayerHoverCard(playerHover) {
 }
 
 function renderPlayerLinkedText(text, players = []) {
-  const entries = getPlayerMentionEntries(players);
-  if (currentLanguage === "zh") {
-    for (const player of players) {
-      const alias = getLocalizedPlayerDisplayName(player);
-      if (alias && !entries.some((entry) => entry.alias === alias)) {
-        entries.push({ alias, player });
-      }
-    }
-    entries.sort((a, b) => b.alias.length - a.alias.length);
-  }
+  const entries = getPlayerMentionEntriesForText(players);
   if (!entries.length) {
     return escapeHtml(text);
   }
@@ -8118,6 +9659,55 @@ function getMatchMentionPlayers(match, keyInformation = {}) {
     ...getMatchGoalPlayers(match),
     ...getProfileMentionPlayersFromText(keyInformation.home),
     ...getProfileMentionPlayersFromText(keyInformation.away)
+  ]);
+}
+
+function createHistoricalPlayerCard(player, extra = {}) {
+  const base = typeof player === "string" ? { name: player } : { ...(player || {}) };
+  return {
+    ...base,
+    ...extra,
+    historical: true
+  };
+}
+
+function getHistoricalSideKeyPlayers(match, side) {
+  return (match.keyPlayers?.[side] || [])
+    .filter((player) => getPlayerName(player))
+    .map((player) => createHistoricalPlayerCard(player));
+}
+
+function getHistoricalMatchKeyPlayers(match) {
+  return [
+    ...getHistoricalSideKeyPlayers(match, "home"),
+    ...getHistoricalSideKeyPlayers(match, "away")
+  ];
+}
+
+function findHistoricalMatchPlayerByName(match, name) {
+  const nameKey = normalizeTextKey(name);
+  return getHistoricalMatchKeyPlayers(match).find((player) => normalizeTextKey(getPlayerName(player)) === nameKey) || null;
+}
+
+function getHistoricalGoalPlayer(match, goal) {
+  const matchedPlayer = findHistoricalMatchPlayerByName(match, goal.name);
+  if (matchedPlayer) {
+    return matchedPlayer;
+  }
+
+  return createHistoricalPlayerCard(goal.name || "Unknown scorer", {
+    role: goal.ownGoal ? "Own goal" : "Goal scorer"
+  });
+}
+
+function getHistoricalMatchGoalPlayers(match) {
+  return getHistoricalFixtureGoals(match).map((goal) => getHistoricalGoalPlayer(match, goal));
+}
+
+function getHistoricalMentionPlayers(match) {
+  return getUniqueMentionPlayers([
+    ...getHistoricalMatchKeyPlayers(match),
+    ...getHistoricalMatchGoalPlayers(match)
   ]);
 }
 
@@ -8429,16 +10019,17 @@ function getHistoricalFixtureGoals(match) {
     });
 }
 
-function renderHistoricalGoalScorerSegment(goal) {
+function renderHistoricalGoalScorerSegment(match, goal) {
   const minute = formatGoalMinute(goal);
   const note = formatGoalNote(goal);
   const name = goal.name ? localizeHistoricalScorerName(goal.name) : localizeText("Unknown scorer");
+  const player = getHistoricalGoalPlayer(match, goal);
 
   return `
     <span class="goal-scorer-segment">
       ${renderGoalScorerFlag(goal)}
       ${minute ? `<span class="goal-minute">${escapeHtml(minute)}</span>` : ""}
-      <span class="goal-scorer-name">${escapeHtml(name)}</span>
+      ${renderPlayerMention(name, player)}
       ${note ? `<em>${escapeHtml(note)}</em>` : ""}
     </span>
   `;
@@ -8453,7 +10044,7 @@ function renderHistoricalScoringDetailsHighlight(match) {
   return `
     <li class="scorer-highlight" aria-label="${escapeHtml(localizeText("Goals"))}">
       <span class="goal-scorer-list">
-        ${goals.map(renderHistoricalGoalScorerSegment).join('<span class="goal-separator">•</span>')}
+        ${goals.map((goal) => renderHistoricalGoalScorerSegment(match, goal)).join('<span class="goal-separator">•</span>')}
       </span>
     </li>
   `;
@@ -9133,6 +10724,7 @@ function getHistoricalResultHighlights(match) {
 
 function renderHistoricalResultBlock(match) {
   const scoringHighlight = renderHistoricalScoringDetailsHighlight(match);
+  const mentionPlayers = getHistoricalMentionPlayers(match);
   const highlights = getHistoricalResultHighlights(match).filter(
     (highlight) => !scoringHighlight || !String(highlight).trim().startsWith("⚽")
   );
@@ -9140,11 +10732,11 @@ function renderHistoricalResultBlock(match) {
   return `
     <section class="info-block">
       <h3>${escapeHtml(localizeText("Result"))}</h3>
-      <p class="past-empty">${escapeHtml(localizeText(getHistoricalResultOutcomeHighlight(match)))}</p>
+      <p class="past-empty">${renderPlayerLinkedText(localizeText(getHistoricalResultOutcomeHighlight(match)), mentionPlayers)}</p>
       <ul class="result-highlights">
         ${scoringHighlight}
         ${highlights
-          .map((highlight) => `<li>${escapeHtml(localizeText(highlight))}</li>`)
+          .map((highlight) => `<li>${renderPlayerLinkedText(localizeText(highlight), mentionPlayers)}</li>`)
           .join("")}
       </ul>
     </section>
@@ -9256,12 +10848,17 @@ function getHistoricalTeamKeyBody(match, teamName) {
 
 function renderHistoricalKeyInformation(match) {
   const keyInformation = match.keyInformation || {};
+  const keyPlayers = {
+    home: getHistoricalSideKeyPlayers(match, "home"),
+    away: getHistoricalSideKeyPlayers(match, "away")
+  };
+  const mentionPlayers = getHistoricalMentionPlayers(match);
+
   if (keyInformation.home && keyInformation.away) {
-    const keyPlayers = match.keyPlayers || {};
     return `
       <div class="key-info-grid">
-        ${renderKeyInformationTeam(match.homeTeam, keyInformation.home, keyPlayers.home, [], match.awayTeam)}
-        ${renderKeyInformationTeam(match.awayTeam, keyInformation.away, keyPlayers.away, [], match.homeTeam)}
+        ${renderKeyInformationTeam(match.homeTeam, keyInformation.home, keyPlayers.home, mentionPlayers, match.awayTeam)}
+        ${renderKeyInformationTeam(match.awayTeam, keyInformation.away, keyPlayers.away, mentionPlayers, match.homeTeam)}
       </div>
     `;
   }
@@ -9274,7 +10871,7 @@ function renderHistoricalKeyInformation(match) {
             <article class="key-info-team">
               <h4>${renderKeyInformationHeading(team, localizeText(getHistoricalTeamKeyHeadline(match, team.name)))}</h4>
               ${renderTeamStyleTags(team)}
-              <p>${escapeHtml(localizeText(getHistoricalTeamKeyBody(match, team.name)))}</p>
+              <p>${renderPlayerLinkedText(localizeText(getHistoricalTeamKeyBody(match, team.name)), mentionPlayers)}</p>
             </article>
           `
         )
@@ -9466,8 +11063,20 @@ function renderHistoricalMatchInfo(match) {
   `;
 }
 
+function setMatchInfoEntrance(shouldAnimate) {
+  matchInfo.classList.remove("is-entering");
+
+  if (!shouldAnimate || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    return;
+  }
+
+  void matchInfo.offsetWidth;
+  matchInfo.classList.add("is-entering");
+}
+
 function renderMatchInfo(match, options = {}) {
   clearActivePlayerHover();
+  const shouldAnimateEntrance = matchInfo.hidden || matchInfo.classList.contains("is-hidden");
   activeMatchId = match.id;
   viewPanels.matches.classList.add("has-match-info");
   matchInfo.classList.remove("is-hidden");
@@ -9487,6 +11096,7 @@ function renderMatchInfo(match, options = {}) {
     updateTruncatedTeamTooltips(matchInfo);
     updateStandingNameTooltips(matchInfo);
     updateMeasuredLabelTooltips(matchInfo);
+    setMatchInfoEntrance(shouldAnimateEntrance);
     if (options.reveal) {
       revealMatchInfoOnSmallScreens();
     }
@@ -9530,6 +11140,7 @@ function renderMatchInfo(match, options = {}) {
   updateTruncatedTeamTooltips(matchInfo);
   updateStandingNameTooltips(matchInfo);
   updateMeasuredLabelTooltips(matchInfo);
+  setMatchInfoEntrance(shouldAnimateEntrance);
 
   if (options.reveal) {
     revealMatchInfoOnSmallScreens();
@@ -9830,6 +11441,70 @@ function isTeamSearchMatch(team, queryKey) {
   return teamKeys.some((key) => isTeamSearchKeyMatch(key, queryKey));
 }
 
+function buildTeamSearchIdKeySets() {
+  const idKeySets = new Map();
+
+  for (const team of teamsById.values()) {
+    const idKey = normalizeTextKey(team.id);
+    if (idKey) {
+      idKeySets.set(idKey, new Set(getTeamSearchKeys(team)));
+    }
+  }
+
+  return idKeySets;
+}
+
+function buildTeamSearchIndex() {
+  teamSearchIdKeySetsByQueryKey = buildTeamSearchIdKeySets();
+  teamSearchIndex = getCalendarFixtures()
+    .map(hydrateFixture)
+    .map((match) => ({
+      match,
+      sortValue: getFixtureSortValue(match),
+      homeTeam: match.homeTeam,
+      awayTeam: match.awayTeam,
+      homeKeys: getTeamSearchKeys(match.homeTeam),
+      awayKeys: getTeamSearchKeys(match.awayTeam)
+    }))
+    .sort((a, b) => a.sortValue.localeCompare(b.sortValue));
+}
+
+function getTeamSearchIdKeySet(queryKey) {
+  const indexedKeySet = teamSearchIdKeySetsByQueryKey.get(queryKey);
+  if (indexedKeySet) {
+    return indexedKeySet;
+  }
+
+  const idQueryTeam = getTeamSearchTeamForIdQuery(queryKey);
+  return idQueryTeam ? new Set(getTeamSearchKeys(idQueryTeam)) : null;
+}
+
+function isTeamSearchIndexedKeyMatch(keys, queryKey, idKeySet = getTeamSearchIdKeySet(queryKey)) {
+  if (idKeySet) {
+    return keys.some((key) => idKeySet.has(key));
+  }
+
+  return keys.some((key) => isTeamSearchKeyMatch(key, queryKey));
+}
+
+function getTeamSearchIndexedParticipant(entry, queryKey, idKeySet = getTeamSearchIdKeySet(queryKey)) {
+  if (isTeamSearchIndexedKeyMatch(entry.homeKeys, queryKey, idKeySet)) {
+    return {
+      team: entry.homeTeam,
+      searchedSide: "home"
+    };
+  }
+
+  if (isTeamSearchIndexedKeyMatch(entry.awayKeys, queryKey, idKeySet)) {
+    return {
+      team: entry.awayTeam,
+      searchedSide: "away"
+    };
+  }
+
+  return null;
+}
+
 function getTeamSearchParticipant(match, queryKey) {
   if (isTeamSearchMatch(match.homeTeam, queryKey)) {
     return match.homeTeam;
@@ -9857,19 +11532,42 @@ function getTeamSearchMatches(query = getTeamSearchQuery()) {
     return [];
   }
 
-  return getCalendarFixtures()
-    .map(hydrateFixture)
-    .map((match) => ({
-      match,
-      team: getTeamSearchParticipant(match, queryKey)
-    }))
-    .filter(({ team }) => Boolean(team))
-    .sort((a, b) => getFixtureSortValue(a.match).localeCompare(getFixtureSortValue(b.match)));
+  if (!teamSearchIndex.length && getCalendarFixtures().length) {
+    buildTeamSearchIndex();
+  }
+
+  const matches = [];
+  const idKeySet = getTeamSearchIdKeySet(queryKey);
+
+  for (const entry of teamSearchIndex) {
+    const participant = getTeamSearchIndexedParticipant(entry, queryKey, idKeySet);
+    if (participant) {
+      matches.push({
+        match: entry.match,
+        ...participant
+      });
+    }
+  }
+
+  return matches;
 }
 
-function getTeamSearchTitle(matches, query = getTeamSearchQuery()) {
-  const firstTeam = matches.find(({ team }) => team)?.team;
-  return firstTeam ? getLocalizedStandingName(firstTeam) : query.trim();
+function getTeamSearchResultTitle(searchMatches, query) {
+  const matchedTeams = new Map();
+
+  for (const { team } of searchMatches) {
+    const key = normalizeTextKey(team?.id || team?.name);
+    if (key && !matchedTeams.has(key)) {
+      matchedTeams.set(key, team);
+    }
+  }
+
+  if (matchedTeams.size === 1) {
+    const [team] = matchedTeams.values();
+    return team?.name || query;
+  }
+
+  return query;
 }
 
 function getTeamSearchMatchedSide(match, team) {
@@ -9901,14 +11599,10 @@ function isCurrentTournamentPastSearchMatch(match, currentTime) {
   return Number.isFinite(kickoffTime) && currentTime > kickoffTime + MATCH_LIVE_WINDOW_MS;
 }
 
-function createTeamSearchHeading(title, subtitle = "") {
+function createTeamSearchHeading(title, options = {}) {
   const section = document.createElement("section");
-  section.className = "team-search-summary";
-  section.innerHTML = `
-    <p>${escapeHtml(localizeText("Country search"))}</p>
-    <h2>${escapeHtml(localizeText(title))}</h2>
-    ${subtitle ? `<span>${escapeHtml(localizeText(subtitle))}</span>` : ""}
-  `;
+  section.className = ["team-search-summary", options.isEmpty ? "is-empty" : ""].filter(Boolean).join(" ");
+  section.innerHTML = `<h2>${escapeHtml(localizeText(title))}</h2>`;
   return section;
 }
 
@@ -9918,10 +11612,11 @@ function createTeamSearchSection(title, items, stateForMatch, options = {}) {
   section.innerHTML = `<h3>${escapeHtml(localizeText(title))}</h3>`;
 
   const list = document.createElement("div");
+  const currentTime = options.currentTime || Date.now();
   list.className = "team-search-match-list";
-  for (const { match, team } of items) {
-    const row = renderMatchRow(match, stateForMatch(match), Date.now(), {
-      searchedSide: getTeamSearchMatchedSide(match, team),
+  for (const { match, team, searchedSide } of items) {
+    const row = renderMatchRow(match, stateForMatch(match), currentTime, {
+      searchedSide: searchedSide || getTeamSearchMatchedSide(match, team),
       showDate: true
     });
     row.classList.add("is-country-search-row");
@@ -9952,13 +11647,28 @@ function createOlderWorldCupsToggle(hiddenCount) {
   return section;
 }
 
-function renderTeamSearchEmptyState(query) {
-  matchList.replaceChildren(createTeamSearchHeading(query, "No loaded World Cup matches found."));
-  renderMatchInfoPrompt();
+function updateTeamSearchUrlState(options = {}) {
+  if (options.debounceUrl) {
+    scheduleUrlStateUpdate();
+    return;
+  }
+
   updateUrlState();
 }
 
-function renderTeamSearchResults() {
+function ensureMatchInfoPrompt() {
+  if (activeMatchId || !matchInfo.hidden) {
+    renderMatchInfoPrompt();
+  }
+}
+
+function renderTeamSearchEmptyState(options = {}) {
+  matchList.replaceChildren(createTeamSearchHeading("No loaded World Cup matches found.", { isEmpty: true }));
+  ensureMatchInfoPrompt();
+  updateTeamSearchUrlState(options);
+}
+
+function renderTeamSearchResults(options = {}) {
   const query = getTeamSearchQuery();
   const currentTime = Date.now();
   const searchMatches = getTeamSearchMatches(query);
@@ -9967,7 +11677,7 @@ function renderTeamSearchResults() {
   updateTeamSearchControls();
 
   if (!searchMatches.length) {
-    renderTeamSearchEmptyState(query);
+    renderTeamSearchEmptyState(options);
     return;
   }
 
@@ -9984,31 +11694,27 @@ function renderTeamSearchResults() {
   const [nextMatch, ...laterMatches] = upcomingMatches;
   const liveMatchIds = getLiveMatchIds(currentTime);
   const nextMatchIds = getNextMatchIds(currentTime, liveMatchIds);
-  const nodes = [
-    createTeamSearchHeading(
-      getTeamSearchTitle(searchMatches, query),
-      "Loaded matches across the current tournament and World Cup archive."
-    )
-  ];
+  const nodes = [createTeamSearchHeading(getTeamSearchResultTitle(searchMatches, query))];
   const stateForMatch = (match) =>
     match.isHistorical ? "complete" : getMatchState(match, nextMatchIds, currentTime);
 
   if (nextMatch) {
-    nodes.push(createTeamSearchSection("Next match", [nextMatch], stateForMatch));
+    nodes.push(createTeamSearchSection("Next match", [nextMatch], stateForMatch, { currentTime }));
   }
 
   if (laterMatches.length) {
-    nodes.push(createTeamSearchSection("Later matches", laterMatches, stateForMatch));
+    nodes.push(createTeamSearchSection("Later matches", laterMatches, stateForMatch, { currentTime }));
   }
 
   if (previousCurrentMatches.length) {
-    nodes.push(createTeamSearchSection("Previous matches", previousCurrentMatches, stateForMatch));
+    nodes.push(createTeamSearchSection("Previous matches", previousCurrentMatches, stateForMatch, { currentTime }));
   }
 
   if (olderWorldCupMatches.length && isShowingOlderTeamMatches) {
     nodes.push(
       createTeamSearchSection("Previous World Cups", olderWorldCupMatches, stateForMatch, {
-        className: "is-archive"
+        className: "is-archive",
+        currentTime
       })
     );
   } else if (olderWorldCupMatches.length) {
@@ -10016,9 +11722,9 @@ function renderTeamSearchResults() {
   }
 
   matchList.replaceChildren(...nodes);
-  renderMatchInfoPrompt();
+  ensureMatchInfoPrompt();
   updateTruncatedTeamTooltips(matchList);
-  updateUrlState();
+  updateTeamSearchUrlState(options);
 }
 
 function normalizeCatchUpItem(item, match) {
@@ -10028,12 +11734,21 @@ function normalizeCatchUpItem(item, match) {
 
   const dateKey = item.date || getFixtureDayKey(match);
   const priority = Number(item.priority);
+  const body = item.body || item.note || "";
+  const standouts = normalizeCatchUpStandouts(item.standouts || item.standout || item.playerPulse);
+  const mentionText = [item.headline, body, ...standouts]
+    .map(getCanonicalCatchUpCopyText)
+    .filter(Boolean)
+    .join(" ");
   return {
     dateKey,
     headline: item.headline,
-    body: item.body || item.note || "",
-    standouts: normalizeCatchUpStandouts(item.standouts || item.standout || item.playerPulse),
-    mentionPlayers: getMatchMentionPlayers(match, match.keyInformation || {}),
+    body,
+    standouts,
+    mentionPlayers: getUniqueMentionPlayers([
+      ...getMatchMentionPlayers(match, match.keyInformation || {}),
+      ...getProfileMentionPlayersFromText(mentionText)
+    ]),
     meta: item.meta || `${match.homeTeam.name} vs ${match.awayTeam.name}`,
     sourceLabel: item.sourceLabel || "",
     sourceUrl: item.sourceUrl || item.url || "",
@@ -10131,11 +11846,18 @@ function normalizeTournamentCatchUpItem(item) {
 
   const source = getTournamentSource(item.sourceId);
   const priority = Number(item.priority);
+  const body = item.body || item.note || "";
+  const standouts = normalizeCatchUpStandouts(item.standouts || item.standout || item.playerPulse);
+  const mentionText = [item.headline, body, ...standouts]
+    .map(getCanonicalCatchUpCopyText)
+    .filter(Boolean)
+    .join(" ");
   return {
     dateKey,
     headline: item.headline,
-    body: item.body || item.note || "",
-    standouts: normalizeCatchUpStandouts(item.standouts || item.standout || item.playerPulse),
+    body,
+    standouts,
+    mentionPlayers: getProfileMentionPlayersFromText(mentionText),
     meta: item.meta || item.category || "Tournament",
     sourceLabel: item.sourceLabel || source?.label || "",
     sourceUrl: item.sourceUrl || item.url || source?.url || "",
@@ -10532,9 +12254,10 @@ function renderCatchUpDescription(item) {
     .map((part) => stripCatchUpDescriptionMarker(getLocalizedCatchUpCopyText(part)))
     .filter(Boolean)
     .join(" ");
+  const mentionPlayers = item.mentionPlayers || [];
 
   return description
-    ? `<p class="catch-up-subtitle">${renderPlayerLinkedText(description, item.mentionPlayers || [])}</p>`
+    ? `<p class="catch-up-subtitle">${renderPlayerLinkedText(description, mentionPlayers)}</p>`
     : "";
 }
 
@@ -10690,6 +12413,8 @@ function setCatchUpOpen(isOpen) {
     setStandingsYearOpen(false);
     renderCatchUp();
     positionCatchUpPopover();
+  } else {
+    hideFloatingPlayerCard();
   }
 }
 
@@ -10725,6 +12450,33 @@ function updateTeamSearchControls() {
   teamSearchClear.classList.toggle("is-hidden", query.length === 0);
 }
 
+function cancelPendingTeamSearchRender() {
+  if (!pendingTeamSearchRenderFrame) {
+    return;
+  }
+
+  window.cancelAnimationFrame(pendingTeamSearchRenderFrame);
+  pendingTeamSearchRenderFrame = 0;
+}
+
+function scheduleTeamSearchRender() {
+  if (pendingTeamSearchRenderFrame) {
+    return;
+  }
+
+  pendingTeamSearchRenderFrame = window.requestAnimationFrame(() => {
+    pendingTeamSearchRenderFrame = 0;
+
+    if (isInitialDataLoading || isInitialLiveDataLoading || !hasTeamSearchQuery()) {
+      renderSchedule();
+      return;
+    }
+
+    setYesterdayLayoutOffset(false);
+    renderTeamSearchResults({ debounceUrl: true });
+  });
+}
+
 function setTeamSearchOpen(isOpen, options = {}) {
   isTeamSearchOpen = isOpen || hasTeamSearchQuery();
   updateTeamSearchControls();
@@ -10735,6 +12487,7 @@ function setTeamSearchOpen(isOpen, options = {}) {
 }
 
 function clearTeamSearch(options = {}) {
+  cancelPendingTeamSearchRender();
   teamSearchQuery = "";
   isShowingOlderTeamMatches = false;
   isTeamSearchOpen = false;
@@ -10750,7 +12503,16 @@ function clearTeamSearch(options = {}) {
   }
 }
 
-function updateUrlState() {
+function clearPendingUrlStateUpdate() {
+  if (!pendingUrlStateUpdateId) {
+    return;
+  }
+
+  window.clearTimeout(pendingUrlStateUpdateId);
+  pendingUrlStateUpdateId = 0;
+}
+
+function applyUrlState() {
   if (!syncUrl) {
     return;
   }
@@ -10797,6 +12559,23 @@ function updateUrlState() {
   }
 }
 
+function updateUrlState() {
+  clearPendingUrlStateUpdate();
+  applyUrlState();
+}
+
+function scheduleUrlStateUpdate() {
+  if (!syncUrl) {
+    return;
+  }
+
+  clearPendingUrlStateUpdate();
+  pendingUrlStateUpdateId = window.setTimeout(() => {
+    pendingUrlStateUpdateId = 0;
+    applyUrlState();
+  }, TEAM_SEARCH_URL_UPDATE_DELAY_MS);
+}
+
 function renderInitialLoadingState() {
   renderMatchLoadingState();
   renderStandingsLoadingState();
@@ -10804,6 +12583,8 @@ function renderInitialLoadingState() {
 }
 
 function renderSchedule() {
+  cancelPendingTeamSearchRender();
+
   if (isInitialDataLoading || isInitialLiveDataLoading) {
     setYesterdayLayoutOffset(false);
     updateDateControls();
@@ -10950,6 +12731,13 @@ function readUrlState(options = {}) {
       : "groups";
 }
 
+function getLatestReleaseNote() {
+  const releases = Array.isArray(releaseNotes.releases) ? releaseNotes.releases : [];
+  return releases
+    .filter((release) => release && typeof release === "object")
+    .sort((a, b) => new Date(b.date || 0).getTime() - new Date(a.date || 0).getTime())[0];
+}
+
 function renderSourceNote() {
   const compactSourceLabels = {
     "FIFA World Cup 2026 schedule": "FIFA schedule",
@@ -10969,21 +12757,52 @@ function renderSourceNote() {
       : escapeHtml(label);
   });
   const updatedAtText = formatSiteUpdatedAt(siteUpdatedAt);
-  const sourceSeparator = currentLanguage === "zh" ? "、" : ", ";
-  const sourcesText = currentLanguage === "zh" ? "来源：" : "Sources: ";
   const sentenceEnd = currentLanguage === "zh" ? "。" : ".";
   const predictionsText = localizeText("Predictions are unofficial.");
-  const lastUpdated = updatedAtText
+  const dataRefreshed = updatedAtText
     ? currentLanguage === "zh"
-      ? `最后更新：${escapeHtml(updatedAtText)}。`
-      : `Last updated ${escapeHtml(updatedAtText)}.`
+      ? `${localizeText("Data refreshed")} ${escapeHtml(updatedAtText)}。`
+      : `${localizeText("Data refreshed")} ${escapeHtml(updatedAtText)}.`
     : "";
   const reportIssueText = localizeText("Report issue");
-  const creatorLink = `<a href="https://www.linkedin.com/in/hirooaoy" target="_blank" rel="noreferrer">Hirooaoy</a>`;
+  const seeSourcesText = localizeText("See sources");
+  const releaseNotesText = localizeText("See release notes");
+  const creatorLink = `<a href="https://www.linkedin.com/in/hirooaoy" target="_blank" rel="noreferrer">H</a>`;
   const creatorText = currentLanguage === "zh" ? `由 ${creatorLink} 制作` : `Made by ${creatorLink}`;
 
   const reportUrl = currentLanguage === "zh" ? "report.html?lang=zh" : "report.html";
-  sourceNote.innerHTML = `${sourcesText}${officialSourceLinks.join(sourceSeparator)}${sentenceEnd} ${predictionsText}${lastUpdated ? ` ${lastUpdated}` : ""} <a href="${reportUrl}">${escapeHtml(reportIssueText)}</a>${sentenceEnd} ${creatorText}${sentenceEnd}`;
+  const sourcesUrl = currentLanguage === "zh" ? "sources.html?lang=zh" : "sources.html";
+  const releaseNotesUrl = currentLanguage === "zh" ? "release-notes.html?lang=zh" : "release-notes.html";
+  const sourceTooltipTitle = currentLanguage === "zh" ? "来源" : "Sources";
+  const sourceTooltip = `
+    <span class="source-tooltip-wrapper">
+      <a class="source-tooltip-trigger" href="${sourcesUrl}" aria-describedby="source-tooltip">${escapeHtml(seeSourcesText)}</a>${sentenceEnd}
+      <span class="source-tooltip" id="source-tooltip" role="tooltip">
+        <strong>${escapeHtml(sourceTooltipTitle)}</strong>
+        <span>${officialSourceLinks.join(" ")}</span>
+      </span>
+    </span>
+  `.trim();
+  const latestReleaseNote = getLatestReleaseNote();
+  const releaseTooltipTitle = latestReleaseNote?.title || "Latest changes";
+  const releaseTooltipItems =
+    latestReleaseNote?.highlights?.filter(Boolean).slice(0, 3) || [
+      "Footer stays short while sources and release notes open on hover.",
+      "Release notes explain app changes; Data refreshed only shows data freshness.",
+      "Source links still open from the tooltip and the sources page."
+    ];
+  const releaseTooltip = `
+    <span class="release-tooltip-wrapper">
+      <a class="release-tooltip-trigger" href="${releaseNotesUrl}" aria-describedby="release-tooltip">${escapeHtml(releaseNotesText)}</a>${sentenceEnd}
+      <span class="release-tooltip" id="release-tooltip" role="tooltip">
+        <strong>${escapeHtml(localizeText(releaseTooltipTitle))}</strong>
+        <ul>
+          ${releaseTooltipItems.map((item) => `<li>${escapeHtml(localizeText(item))}</li>`).join("")}
+        </ul>
+      </span>
+    </span>
+  `.trim();
+  sourceNote.innerHTML = `${sourceTooltip} ${predictionsText}${dataRefreshed ? ` ${dataRefreshed}` : ""} <a href="${reportUrl}">${escapeHtml(reportIssueText)}</a>${sentenceEnd} ${creatorText}${sentenceEnd} ${releaseTooltip}`;
 }
 
 function renderLoadError(error) {
@@ -11043,7 +12862,9 @@ function hasLiveDataSnapshot(liveData) {
 function applyDataSnapshot({
   fixturesData,
   historyData,
+  historicalPlayerProfilesData,
   playerProfilesData,
+  releaseNotesData,
   standingsData,
   teamsData,
   tournamentData
@@ -11056,6 +12877,12 @@ function applyDataSnapshot({
       profile
     ])
   );
+  historicalPlayerProfilesByName = new Map(
+    Object.entries(historicalPlayerProfilesData.profiles || {}).map(([name, profile]) => [
+      normalizeTextKey(name),
+      profile
+    ])
+  );
   shouldShowPlayerMarketValues = hasCompletePlayerMarketValues(playerProfilesData);
   fixtures = fixturesData.fixtures;
   history = historyData;
@@ -11063,16 +12890,19 @@ function applyDataSnapshot({
   historicalProjectionCache.clear();
   standingsByGroup = standingsData.groups;
   tournament = tournamentData;
+  releaseNotes = releaseNotesData;
   dataCoverage = fixturesData.coverage || { status: "partial" };
   liveDataCheckedAt = "";
   siteUpdatedAt = getLatestUpdatedAt([
     fixturesData,
     historyData,
+    historicalPlayerProfilesData,
     playerProfilesData,
     teamsData,
     standingsData,
     tournamentData
   ]);
+  buildTeamSearchIndex();
 }
 
 function applyLiveDataSnapshot(liveData) {
@@ -11087,20 +12917,25 @@ function applyLiveDataSnapshot(liveData) {
     liveData.standingsData,
     liveData.tournamentData
   ]);
+  buildTeamSearchIndex();
 }
 
 async function loadStaticData() {
   const [
     fixturesData,
     historyData,
+    historicalPlayerProfilesData,
     playerProfilesData,
+    releaseNotesData,
     teamsData,
     standingsData,
     tournamentData
   ] = await Promise.all([
     loadJson(DATA_URLS.fixtures),
     loadJson(DATA_URLS.history),
+    loadOptionalJson(DATA_URLS.historicalPlayerProfiles, { profiles: {} }),
     loadOptionalJson(DATA_URLS.playerProfiles, { profiles: {} }),
+    loadOptionalJson(DATA_URLS.releaseNotes, { releases: [] }),
     loadJson(DATA_URLS.teams),
     loadJson(DATA_URLS.standings),
     loadJson(DATA_URLS.tournament)
@@ -11109,7 +12944,9 @@ async function loadStaticData() {
   applyDataSnapshot({
     fixturesData,
     historyData,
+    historicalPlayerProfilesData,
     playerProfilesData,
+    releaseNotesData,
     standingsData,
     teamsData,
     tournamentData
@@ -11292,7 +13129,9 @@ teamSearchInput?.addEventListener("input", () => {
   teamSearchQuery = teamSearchInput.value;
   isShowingOlderTeamMatches = false;
   isTeamSearchOpen = true;
-  renderSchedule();
+  updateTeamSearchControls();
+  setYesterdayLayoutOffset(false);
+  scheduleTeamSearchRender();
 });
 
 teamSearchInput?.addEventListener("keydown", (event) => {
@@ -11405,10 +13244,28 @@ function attachPlayerCardPositioning(root) {
     true
   );
 
+  root?.addEventListener(
+    "pointerleave",
+    (event) => {
+      const playerHover = event.target.closest?.(".player-hover");
+      if (playerHover?.closest("#catch-up-popover")) {
+        queueFloatingPlayerCardHide();
+      }
+    },
+    true
+  );
+
   root?.addEventListener("focusin", (event) => {
     const playerHover = event.target.closest(".player-hover");
     if (playerHover) {
       positionPlayerCard(playerHover);
+    }
+  });
+
+  root?.addEventListener("focusout", (event) => {
+    const playerHover = event.target.closest(".player-hover");
+    if (playerHover?.closest("#catch-up-popover")) {
+      queueFloatingPlayerCardHide();
     }
   });
 }

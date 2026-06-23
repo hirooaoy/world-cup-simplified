@@ -6,3 +6,4 @@ node_modules/
 .vercel/
 .vercel
 .tmp-data/
+.codex-preview-server.*
