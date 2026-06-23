@@ -9436,18 +9436,27 @@ function getPlayerMentionEntriesForText(players) {
 
 function renderPlayerPhoto(player, profile) {
   const displayName = getLocalizedPlayerDisplayName(player, profile);
+  const initials = getPlayerInitials(displayName);
   if (profile?.imageUrl) {
     return `
       <img
         src="${escapeHtml(profile.imageUrl)}"
         alt=""
+        data-player-initials="${escapeHtml(initials)}"
         loading="lazy"
         referrerpolicy="no-referrer"
       />
     `;
   }
 
-  return `<span class="player-photo-fallback">${escapeHtml(getPlayerInitials(displayName))}</span>`;
+  return `<span class="player-photo-fallback">${escapeHtml(initials)}</span>`;
+}
+
+function replaceBrokenPlayerPhoto(image) {
+  const fallback = document.createElement("span");
+  fallback.className = "player-photo-fallback";
+  fallback.textContent = image.dataset.playerInitials || "";
+  image.replaceWith(fallback);
 }
 
 function renderPlayerMention(label, player) {
@@ -13552,6 +13561,17 @@ document.addEventListener("keydown", (event) => {
     teamSearchToggle?.focus();
   }
 });
+
+document.addEventListener(
+  "error",
+  (event) => {
+    const image = event.target;
+    if (image instanceof HTMLImageElement && image.matches(".player-photo img")) {
+      replaceBrokenPlayerPhoto(image);
+    }
+  },
+  true
+);
 
 window.addEventListener("resize", () => {
   updateTabIndicators();
