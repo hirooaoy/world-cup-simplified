@@ -1,13 +1,13 @@
 {
-  "updatedAt": "2026-06-23T15:25:00-07:00",
+  "updatedAt": "2026-06-23T09:55:00-07:00",
   "releases": [
     {
       "date": "2026-06-23",
-      "title": "Footer and source polish",
+      "title": "Historical player metadata",
       "highlights": [
-        "Sources now open in a compact hover tooltip.",
-        "Release notes open in a short tooltip.",
-        "Data refreshed stays separate from app release notes."
+        "Historical player cards now show archive-age context and peak values when available.",
+        "Historical photos now use current-player, Transfermarkt, and curated Wikipedia/Wikimedia sources.",
+        "Footer source and release notes now stay in compact in-page tooltips."
       ]
     }
   ]

@@ -161,6 +161,8 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "Data refreshed stays separate from app release notes.": "数据刷新时间与应用发布说明分开显示。",
     "FIFA schedule": "FIFA赛程",
     "Footer and source polish": "页脚和来源体验优化",
+    "Footer source and release notes now stay in compact in-page tooltips.":
+      "页脚来源和发布说明现在保留在紧凑的页面内提示框中。",
     "Footer stays short while sources and release notes open on hover.":
       "页脚保持简短，来源和发布说明可悬停查看。",
     "Final group table computed from archived match results.": "最终小组表由存档比赛结果计算得出。",
@@ -180,6 +182,7 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "Goal difference is goals scored minus goals allowed. If teams are tied on points, a better goal difference can help decide who advances.":
       "净胜球为进球数减失球数。若积分相同，净胜球更好可能决定晋级。",
     "Goals": "进球",
+    "Goal threat": "进球威胁",
     "Group": "小组",
     "Group standings": "小组积分榜",
     "Group standings are not available for this archived tournament.":
@@ -225,6 +228,14 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "Market consensus based on public odds. Not betting advice.":
       "基于公开赔率的市场共识；这不是投注建议。",
     "Match plan": "比赛计划",
+    "Archive standout": "存档代表",
+    "Historical lens": "历史视角",
+    "Historical player cards now show archive-age context and peak values when available.":
+      "历史球员卡现在会在可用时显示当届年龄背景和峰值身价。",
+    "Historical photos now use current-player, Transfermarkt, and curated Wikipedia/Wikimedia sources.":
+      "历史照片现在使用现役球员、Transfermarkt，以及精选的 Wikipedia/Wikimedia 来源。",
+    "Historical player metadata": "历史球员资料",
+    "Impact sub": "替补冲击",
     "Matches": "赛程",
     "Matches and selected match details": "比赛和已选比赛详情",
     "Mexico": "墨西哥",
@@ -235,6 +246,8 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "No goals because this match was cancelled.": "本场取消，因此没有进球。",
     "No loaded World Cup matches found.": "未找到已载入的世界杯比赛。",
     "Past 24 hours": "过去24小时",
+    "Penalty pressure": "点球压力",
+    "Player": "球员",
     "No matches": "没有比赛",
     "No next World Cup month": "没有下一个世界杯月份",
     "No previous men's World Cup meetings are loaded before this match.":
@@ -333,6 +346,7 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "Source links stay available inside the tooltip.": "来源链接仍可在提示框中打开。",
     "Sources now open in a compact hover tooltip.": "来源现在可在紧凑悬停提示框中查看。",
     "Sources:": "来源：",
+    "Starter": "首发",
     "Standings": "积分榜",
     "Standings sections": "积分榜分区",
     "Status": "状态",
@@ -9024,7 +9038,19 @@ function getLocalizedPlayerPosition(player, profile = getPlayerProfile(player)) 
   return localizeText(formatPlayerPosition(getPlayerPositionValue(player, profile)) || "Position to verify");
 }
 
+function getHistoricalArchiveClubLineZh(player, profile) {
+  const teamName =
+    (Array.isArray(profile?.teams) && profile.teams[0]) ||
+    String(getPlayerClubValue(player, profile) || "").replace(/\s+World Cup archive$/i, "").trim();
+
+  return teamName ? `${translateEntityNameToZh(teamName)}世界杯存档` : "历史世界杯存档";
+}
+
 function getLocalizedPlayerClubLine(player, profile = getPlayerProfile(player)) {
+  if (currentLanguage === "zh" && isHistoricalPlayerCard(player)) {
+    return getHistoricalArchiveClubLineZh(player, profile);
+  }
+
   const club = getPlayerClubValue(player, profile)
     ? localizeText(getPlayerClubValue(player, profile))
     : isHistoricalPlayerCard(player)
@@ -9223,6 +9249,68 @@ function getPlayerSkills(player, profile = getPlayerProfile(player)) {
   return note ? [note] : ["Match plan"];
 }
 
+function getHistoricalArchiveYearLabel(profile) {
+  const years = (profile?.tournamentYears || []).map(Number).filter(Number.isFinite).sort((a, b) => a - b);
+  if (!years.length) {
+    return "历史";
+  }
+  if (years.length === 1) {
+    return `${years[0]}`;
+  }
+
+  return `${years[0]}-${years.at(-1)}`;
+}
+
+function getHistoricalRoleNoteZh(profile) {
+  const position = formatPlayerPosition(profile?.position || "");
+  const skills = Array.isArray(profile?.skills) ? profile.skills : [];
+  const hasGoalThreat = Number(profile?.goals) > 0 || skills.includes("Goal threat");
+  const hasPenaltyPressure = skills.includes("Penalty pressure");
+
+  if (/Goalkeeper/i.test(position)) {
+    return "最后防线";
+  }
+  if (/Defender|back/i.test(position)) {
+    return hasGoalThreat ? "防线进球威胁" : "防守控制点";
+  }
+  if (/Midfielder/i.test(position)) {
+    if (hasPenaltyPressure) {
+      return "中场定位球与点球压力";
+    }
+    return hasGoalThreat ? "中场进球威胁" : "中场连接点";
+  }
+  if (/Forward|Winger|Striker/i.test(position)) {
+    return hasGoalThreat ? "锋线进球威胁" : "锋线支点";
+  }
+
+  return `${localizeText(position || "Player")}参考点`;
+}
+
+function formatHistoricalCountZh(count, label) {
+  const number = Number(count);
+  if (!Number.isFinite(number) || number <= 0) {
+    return "";
+  }
+
+  return `${label}${number}次`;
+}
+
+function getHistoricalPlayerNoteZh(player, profile) {
+  const teamName =
+    (Array.isArray(profile?.teams) && profile.teams[0]) ||
+    String(getPlayerClubValue(player, profile) || "").replace(/\s+World Cup archive$/i, "").trim() ||
+    "历史世界杯";
+  const archiveLabel = `${translateEntityNameToZh(teamName)}${getHistoricalArchiveYearLabel(profile)}存档`;
+  const role = getHistoricalRoleNoteZh(profile);
+  const impactParts = [
+    Number(profile?.goals) > 0 ? `世界杯进球${Number(profile.goals)}个` : "",
+    formatHistoricalCountZh(profile?.keyMatchCount, "比赛视角出现")
+  ].filter(Boolean);
+  const impact = impactParts.length ? `，${impactParts.join("，")}` : "";
+
+  return `${archiveLabel}：${role}${impact}。`;
+}
+
 function getPlayerCardNote(player, profile = getPlayerProfile(player)) {
   if (isHistoricalPlayerCard(player)) {
     return profile?.styleNote || profile?.note || getPlayerNote(player) || "";
@@ -9232,6 +9320,10 @@ function getPlayerCardNote(player, profile = getPlayerProfile(player)) {
 }
 
 function getLocalizedPlayerNote(player, profile = getPlayerProfile(player)) {
+  if (currentLanguage === "zh" && isHistoricalPlayerCard(player)) {
+    return getHistoricalPlayerNoteZh(player, profile);
+  }
+
   const note = getPlayerCardNote(player, profile);
   if (!note) {
     return "";

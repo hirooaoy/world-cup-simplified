@@ -1717,7 +1717,7 @@ try {
   );
   assert(
     releaseTooltipText ===
-      "Footer and source polish Sources now open in a compact hover tooltip. Release notes open in a short tooltip. Data refreshed stays separate from app release notes.",
+      "Historical player metadata Historical player cards now show archive-age context and peak values when available. Historical photos now use current-player, Transfermarkt, and curated Wikipedia/Wikimedia sources. Footer source and release notes now stay in compact in-page tooltips.",
     "The release notes tooltip should show a compact change summary."
   );
   assert(
