@@ -321,7 +321,7 @@ body.is-juggle-active {
   stroke: currentColor;
   stroke-linecap: round;
   stroke-linejoin: round;
-  stroke-width: 1.9;
+  stroke-width: 2;
 }
 
 .catch-up-button[aria-expanded="true"] {
@@ -754,6 +754,7 @@ body.is-juggle-active {
 }
 
 #matches-view {
+  --yesterday-suppressed-offset: clamp(44px, 6vh, 72px);
   display: grid;
   grid-template-columns: minmax(500px, 620px) minmax(420px, 560px);
   grid-template-rows: auto 1fr;
@@ -778,7 +779,7 @@ body.is-juggle-active {
 
 #matches-view.is-yesterday-suppressed .page-title,
 #matches-view.is-yesterday-suppressed .match-list {
-  transform: translateY(clamp(44px, 6vh, 72px));
+  transform: translateY(var(--yesterday-suppressed-offset));
 }
 
 h1 {
@@ -4665,6 +4666,7 @@ h1 {
 
 @media (max-width: 1160px) {
   #matches-view {
+    --yesterday-suppressed-offset: clamp(26px, 4.2vh, 46px);
     display: block;
     width: 100%;
     margin: 0;
@@ -4677,7 +4679,7 @@ h1 {
 
   #matches-view.is-yesterday-suppressed .page-title,
   #matches-view.is-yesterday-suppressed .match-list {
-    transform: translateY(clamp(26px, 4.2vh, 46px));
+    transform: translateY(var(--yesterday-suppressed-offset));
   }
 
   .match-layout {
@@ -4713,6 +4715,10 @@ h1 {
     margin-top: 0;
     max-width: none;
     justify-self: stretch;
+  }
+
+  #matches-view.is-yesterday-suppressed.has-match-info .match-info {
+    margin-top: var(--yesterday-suppressed-offset);
   }
 }
 
@@ -4795,6 +4801,10 @@ h1 {
 }
 
 @media (max-width: 700px) {
+  #matches-view {
+    --yesterday-suppressed-offset: clamp(18px, 3.4vh, 30px);
+  }
+
   .site-header {
     grid-template-columns: minmax(52px, 1fr) auto minmax(74px, 1fr);
     gap: 8px;
@@ -4925,11 +4935,6 @@ h1 {
     padding: 68px 0 58px;
   }
 
-  #matches-view.is-yesterday-suppressed .page-title,
-  #matches-view.is-yesterday-suppressed .match-list {
-    transform: translateY(clamp(18px, 3.4vh, 30px));
-  }
-
   .site-footer {
     width: min(calc(100% - 36px), 1180px);
     margin-top: 0;
@@ -4947,12 +4952,24 @@ h1 {
   .match-toolbar {
     display: flex;
     flex-wrap: wrap;
-    gap: 0 10px;
     align-items: center;
+    justify-content: space-between;
+    gap: 0 10px;
+    width: 100%;
+  }
+
+  .match-layout {
+    overflow-x: clip;
+  }
+
+  .team-search {
+    justify-content: flex-end;
+    margin-left: auto;
   }
 
   .team-search.is-active {
     flex: 1 0 100%;
+    margin-left: 0;
     margin-top: 12px;
   }
 

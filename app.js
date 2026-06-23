@@ -19,7 +19,6 @@ const JUGGLE_GRAVITY = 1060;
 const JUGGLE_POINTER_HIT_RADIUS_MULTIPLIER = 1.55;
 const JUGGLE_TOUCH_HIT_RADIUS_MULTIPLIER = 1.72;
 const JUGGLE_HIT_LEAD_SECONDS = 0.05;
-const JUGGLE_BOTTOM_GRACE_MS = 140;
 const JUGGLE_CLICK_BLOCK_MS = 650;
 const JUGGLE_DIFFICULTY_STEP = 5;
 const JUGGLE_MAX_DIFFICULTY_LEVEL = 5;
@@ -64,7 +63,7 @@ const UI_TEXT = {
     past24Hours: "Past 24 hours",
     searchCountryPlaceholder: "Search country",
     settings: "Settings",
-    showYesterday: "Show yesterday",
+    showYesterday: "Show past 24 hours",
     standings: "Standings",
     standingsSections: "Standings sections",
     standingsSummary:
@@ -103,7 +102,7 @@ const UI_TEXT = {
     past24Hours: "过去24小时",
     searchCountryPlaceholder: "搜索国家队",
     settings: "设置",
-    showYesterday: "显示昨天",
+    showYesterday: "显示过去24小时",
     standings: "积分榜",
     standingsSections: "积分榜分区",
     standingsSummary: "每组前两名晋级，成绩最好的八支第三名球队也将进入32强。",
@@ -2603,7 +2602,6 @@ const initialDate = new Date();
 let selectedTimeZone = getStoredTimeZone() || defaultTimeZone;
 let selectedDayKey = getDayKey(initialDate, selectedTimeZone);
 let shouldShowYesterdayMatches = getStoredShowYesterday();
-let isUsingCompactTimeZoneLabel = null;
 let activeMatchId = "";
 let activeView = "matches";
 let selectedStandingsYear = CURRENT_STANDINGS_YEAR;
@@ -2677,7 +2675,6 @@ const juggleToy = {
   element: null,
   fallDistance: 0,
   fallDuration: 0,
-  floorContactStartedAt: 0,
   hasPendingBestSave: false,
   lastFrameTime: 0,
   phase: "idle",
@@ -3470,7 +3467,6 @@ function spawnJuggleBall() {
   juggleToy.difficultyLevel = 0;
   juggleToy.fallDistance = fallDistance;
   juggleToy.fallDuration = fallDuration;
-  juggleToy.floorContactStartedAt = 0;
   juggleToy.lastFrameTime = 0;
   juggleToy.phase = "falling";
   juggleToy.previousX = startX;
@@ -3521,24 +3517,12 @@ function updateJuggleBall(frameTime) {
 
   const floorY = getJuggleFloorY();
   if (juggleToy.y >= floorY) {
-    if (!juggleToy.floorContactStartedAt) {
-      juggleToy.floorContactStartedAt = frameTime;
-    }
-    juggleToy.y = floorY;
-  } else {
-    juggleToy.floorContactStartedAt = 0;
+    finishJuggleRun();
+    return;
   }
 
   juggleToy.rotation += juggleToy.rotationSpeed * deltaSeconds;
   renderJuggleBall();
-
-  if (
-    juggleToy.floorContactStartedAt &&
-    frameTime - juggleToy.floorContactStartedAt >= JUGGLE_BOTTOM_GRACE_MS
-  ) {
-    finishJuggleRun();
-    return;
-  }
 
   juggleToy.animationFrameId = window.requestAnimationFrame(updateJuggleBall);
 }
@@ -3683,7 +3667,6 @@ function kickJuggleBall(pointerX, pointerY) {
   juggleToy.phase = "juggling";
   juggleToy.count += 1;
   juggleToy.difficultyLevel = getJuggleDifficultyLevel();
-  juggleToy.floorContactStartedAt = 0;
   juggleToy.previousX = juggleToy.x;
   juggleToy.previousY = juggleToy.y;
 
@@ -3943,15 +3926,7 @@ function getTimeZoneAbbreviation(timeZone, date = new Date()) {
   );
 }
 
-function shouldUseCompactTimeZoneLabel() {
-  return window.matchMedia("(max-width: 700px)").matches;
-}
-
-function getTimeZoneLabel(timeZone, options = {}) {
-  if (options.compact) {
-    return getTimeZoneAbbreviation(timeZone);
-  }
-
+function getTimeZoneLabel(timeZone) {
   const label =
     currentLanguage === "zh"
       ? zhTimeZoneNames[timeZone] || timeZone.replace(/_/g, " ")
@@ -4444,16 +4419,11 @@ function openStandingsGroup(groupId) {
 }
 
 function renderTimeZoneOptions() {
-  const useCompactSelectedLabel = shouldUseCompactTimeZoneLabel();
-  isUsingCompactTimeZoneLabel = useCompactSelectedLabel;
-
   timezoneSelect.replaceChildren(
     ...timeZones.map((timeZone) => {
       const option = document.createElement("option");
       option.value = timeZone;
-      option.textContent = getTimeZoneLabel(timeZone, {
-        compact: useCompactSelectedLabel && timeZone === selectedTimeZone
-      });
+      option.textContent = getTimeZoneLabel(timeZone);
       option.selected = timeZone === selectedTimeZone;
       return option;
     })
@@ -4475,11 +4445,7 @@ function setHeaderControlsLoading(isLoading) {
 }
 
 function updateTimeZoneLabelForViewport() {
-  const shouldUseCompactLabel = shouldUseCompactTimeZoneLabel();
-
-  if (shouldUseCompactLabel !== isUsingCompactTimeZoneLabel) {
-    renderTimeZoneOptions();
-  }
+  updateTimeZoneControlWidth();
 }
 
 function renderFlag(team) {
@@ -10822,7 +10788,7 @@ function renderInitialLoadingState() {
 }
 
 function renderSchedule() {
-  if (isInitialLiveDataLoading) {
+  if (isInitialDataLoading || isInitialLiveDataLoading) {
     setYesterdayLayoutOffset(false);
     updateDateControls();
     updateTeamSearchControls();

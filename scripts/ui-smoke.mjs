@@ -378,6 +378,36 @@ function hideFutureStartedFixtures(data, nowIso) {
 }
 
 try {
+  const loadingContext = await browser.newContext();
+  let releaseFixtures;
+  const fixturesDelay = new Promise((resolve) => {
+    releaseFixtures = resolve;
+  });
+  await loadingContext.route("**/data/fixtures.json*", async (route) => {
+    await fixturesDelay;
+    await route.fulfill({
+      body: JSON.stringify(fixturesData),
+      contentType: "application/json",
+      status: 200
+    });
+  });
+  const loadingPage = await loadingContext.newPage();
+  await loadingPage.goto(baseUrl, { waitUntil: "domcontentloaded" });
+  await loadingPage.waitForSelector(".header-controls:not(.is-loading)");
+  await loadingPage.locator("#settings-button").click();
+  await loadingPage.locator(".settings-toggle-control").click();
+  assert(
+    (await loadingPage.locator("#match-list .empty-state").count()) === 0,
+    "Toggling Show yesterday during initial data load should not show the no-data report state."
+  );
+  assert(
+    (await loadingPage.locator("#match-list .match-loading-row").count()) === 4,
+    "Toggling Show yesterday during initial data load should keep the match skeleton visible."
+  );
+  releaseFixtures();
+  await loadingPage.waitForSelector(".match-row");
+  await loadingContext.close();
+
   await page.goto(baseUrl, { waitUntil: "load" });
   await page.waitForSelector(".match-row");
 
@@ -990,16 +1020,43 @@ try {
     (await page.locator(".yesterday-section").count()) === 0,
     "A closed Past 24 hours banner should stay hidden on reload."
   );
+  await page.setViewportSize({ width: 640, height: 720 });
+  await page.waitForTimeout(480);
+  await page.locator(".match-row").first().click();
+  await page.waitForSelector("#match-info:not(.is-hidden)");
+  const suppressedYesterdayMobileGap = await page.evaluate(() => {
+    const rows = Array.from(document.querySelectorAll("#match-list > .match-row"));
+    const lastTodayRow = rows.at(-1);
+    const matchInfo = document.querySelector("#match-info");
+    const matchLayout = document.querySelector(".match-layout");
+
+    if (!lastTodayRow || !matchInfo || !matchLayout) {
+      return null;
+    }
+
+    const rowRect = lastTodayRow.getBoundingClientRect();
+    const infoRect = matchInfo.getBoundingClientRect();
+    const layoutStyle = getComputedStyle(matchLayout);
+    return {
+      actual: Math.round(infoRect.top - rowRect.bottom),
+      expected: Math.round(parseFloat(layoutStyle.rowGap || layoutStyle.gap))
+    };
+  });
+  assert(
+    suppressedYesterdayMobileGap &&
+      Math.abs(suppressedYesterdayMobileGap.actual - suppressedYesterdayMobileGap.expected) <= 2,
+    "Dismissed Past 24 hours mobile layout should preserve the normal gap between today's rows and the match detail card."
+  );
   await page.locator("#settings-button").click();
   assert(
     await page.evaluate(() => document.querySelector("#show-yesterday-toggle")?.checked === false),
-    "Closing the Past 24 hours banner should also turn off the Show yesterday setting."
+    "Closing the Past 24 hours banner should also turn off the Show past 24 hours setting."
   );
   await page.locator(".settings-toggle-control").click();
   assert(
     (await page.locator(".yesterday-section").count()) === 1 &&
       (await page.evaluate(() => localStorage.getItem("world-cup-simplified-show-yesterday"))) === "true",
-    "Turning Show yesterday back on should restore the Past 24 hours banner."
+    "Turning Show past 24 hours back on should restore the Past 24 hours banner."
   );
   await page.keyboard.press("Escape");
   assert(
@@ -2128,6 +2185,11 @@ try {
     waitUntil: "load"
   });
   await page.waitForSelector(".match-row");
+  const mobileTimeZoneLabel = await page.locator("#timezone-select option:checked").textContent();
+  assert(
+    mobileTimeZoneLabel?.includes("America/Los Angeles"),
+    "Mobile settings timezone should keep the full desktop-style timezone label."
+  );
   const mobileHeaderMetrics = await page.evaluate(() => {
     const headerControls = document.querySelector("#header-controls").getBoundingClientRect();
     const catchUpButton = document.querySelector("#catch-up-button").getBoundingClientRect();
@@ -2153,6 +2215,29 @@ try {
       mobileHeaderMetrics.controlsRightGap <= 22 &&
       mobileHeaderMetrics.scrollOverflow <= 1,
     "Mobile header controls should stay right-aligned without page overflow."
+  );
+  const mobileToolbarMetrics = await page.evaluate(() => {
+    const toolbar = document.querySelector(".match-toolbar")?.getBoundingClientRect();
+    const dayLabel = document.querySelector("#day-label")?.getBoundingClientRect();
+    const search = document.querySelector("#team-search")?.getBoundingClientRect();
+    const searchToggle = document.querySelector("#team-search-toggle")?.getBoundingClientRect();
+
+    if (!toolbar || !dayLabel || !search || !searchToggle) {
+      return null;
+    }
+
+    return {
+      gapFromDate: Math.round(search.left - dayLabel.right),
+      searchRightGap: Math.round(toolbar.right - search.right),
+      toggleRightGap: Math.round(toolbar.right - searchToggle.right)
+    };
+  });
+  assert(
+    mobileToolbarMetrics &&
+      mobileToolbarMetrics.gapFromDate >= 24 &&
+      mobileToolbarMetrics.searchRightGap <= 2 &&
+      mobileToolbarMetrics.toggleRightGap <= 2,
+    "Mobile match search icon should be right-aligned instead of sitting next to the Today chevron."
   );
   const mobileRowMetrics = await page.locator(".match-row").first().evaluate((row) => {
     const time = row.querySelector(".match-time");
