@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-22T17:17:00.000Z",
+  "updatedAt": "2026-06-23T00:37:08Z",
   "sourceIds": [
     "wikipedia-football-infobox",
     "wikimedia-commons",
@@ -1004,6 +1004,22 @@
       "note": "A vertical forward who stretches defenses and gives Ghana a second route behind the back line.",
       "sourceUrl": "https://en.wikipedia.org/wiki/I%C3%B1aki_Williams"
     },
+    "Houssem Aouar": {
+      "name": "Houssem Aouar",
+      "displayName": "Houssem Aouar",
+      "teamId": "ALG",
+      "uniformNumber": 8,
+      "position": "Midfielder",
+      "club": "Al-Ittihad",
+      "league": "Saudi Pro League",
+      "skills": [
+        "Midfield control",
+        "Chance creation",
+        "Link-up play"
+      ],
+      "note": "The midfield connector, useful when Algeria need cleaner passes between Mahrez and the forwards.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Houssem_Aouar"
+    },
     "Ismael Bennacer": {
       "name": "Ismael Bennacer",
       "displayName": "Ismaël Bennacer إِسْمَاعِيل بِن نَاصِر",
@@ -1379,6 +1395,23 @@
       ],
       "note": "France's game-breaking runner and finisher, the player who turns one channel ball into panic.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Kylian_Mbapp%C3%A9"
+    },
+    "Michael Olise": {
+      "name": "Michael Olise",
+      "displayName": "Michael Olise",
+      "teamId": "FRA",
+      "uniformNumber": 11,
+      "position": "Winger, attacking midfielder",
+      "club": "Bayern Munich",
+      "league": "Bundesliga",
+      "skills": [
+        "Chance creation",
+        "Wide threat",
+        "Link-up play",
+        "Finishing"
+      ],
+      "note": "The current creative hinge, dangerous as a passer, dribbler, or left-footed shooter between defenders.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Michael_Olise"
     },
     "Lamine Yamal": {
       "name": "Lamine Yamal",
@@ -1859,6 +1892,22 @@
       "note": "A mobile second scoring threat who can attack channels and keep Egypt from becoming one-dimensional.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Omar_Marmoush"
     },
+    "Ousmane Dembele": {
+      "name": "Ousmane Dembele",
+      "displayName": "Ousmane Dembélé",
+      "teamId": "FRA",
+      "uniformNumber": 7,
+      "position": "Forward, right winger",
+      "club": "Paris Saint-Germain",
+      "league": "Ligue 1",
+      "skills": [
+        "Chance creation",
+        "Finishing",
+        "Wide threat"
+      ],
+      "note": "France's two-footed wide creator, dangerous when he gets a clean first touch near the box.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Ousmane_Demb%C3%A9l%C3%A9"
+    },
     "Patrik Schick": {
       "name": "Patrik Schick",
       "displayName": "Patrik Schick",
@@ -2083,6 +2132,22 @@
       ],
       "note": "A box striker with timing in the air and enough movement to punish loose marking.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Sardar_Azmoun"
+    },
+    "Saman Ghoddos": {
+      "name": "Saman Ghoddos",
+      "displayName": "Saman Ghoddos",
+      "teamId": "IRN",
+      "uniformNumber": 14,
+      "position": "Attacking midfielder, winger",
+      "club": "Kalba",
+      "league": "UAE Pro League",
+      "skills": [
+        "Chance creation",
+        "Link-up play",
+        "Set pieces"
+      ],
+      "note": "A versatile connector who gives Iran a calmer pass when counters need more than one touch.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Saman_Ghoddos"
     },
     "Sarpreet Singh": {
       "name": "Sarpreet Singh",

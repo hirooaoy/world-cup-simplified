@@ -435,8 +435,8 @@ try {
     .evaluate((link) => Number(getComputedStyle(link).fontWeight));
   assert(paragraphPlayerDecoration === "none", "Paragraph player mentions should not be underlined.");
   assert(
-    paragraphPlayerOpacity === 1 && paragraphPlayerWeight >= 500,
-    "Paragraph player mentions should use full opacity and medium emphasis."
+    paragraphPlayerOpacity === 1 && paragraphPlayerWeight <= 450,
+    "Paragraph player mentions should use full opacity and regular paragraph weight."
   );
   await page.locator(".player-link").first().hover();
   const playerCard = page.locator(".player-card").first();
@@ -743,11 +743,20 @@ try {
   );
   const historicalResultHighlights = await page
     .locator("#match-info .result-highlights li")
-    .evaluateAll((items) => items.map((item) => item.textContent.trim()));
+    .evaluateAll((items) => items.map((item) => item.textContent.replace(/\s+/g, " ").trim()));
+  const historicalScorerHighlight = historicalResultHighlights.find((text) => text.startsWith("⚽"));
   assert(
-    historicalResultHighlights.length >= 3 &&
-      historicalResultHighlights.every((text) => text.length <= 95) &&
-      historicalResultHighlights.some((text) => text.startsWith("🌟")),
+    historicalScorerHighlight?.includes("16' Enner Valencia") &&
+      historicalScorerHighlight.includes("31' Enner Valencia"),
+    "Historical result details should show archived scorer names and minutes."
+  );
+  const historicalNarrativeHighlights = historicalResultHighlights.filter(
+    (text) => !text.startsWith("⚽")
+  );
+  assert(
+    historicalNarrativeHighlights.length >= 2 &&
+      historicalNarrativeHighlights.every((text) => text.length <= 95) &&
+      historicalNarrativeHighlights.some((text) => text.startsWith("🌟")),
     "Historical result bullets should stay compact and use the rewritten outcome/moment/impact style."
   );
   assert(
@@ -755,10 +764,10 @@ try {
     "Historical match details should use the back-then prediction card instead of the archive-only result copy."
   );
   assert(
-    historicalGroupDetailText.includes("Ecuador: won 2-0") &&
-      historicalGroupDetailText.includes("Enner Valencia scored twice") &&
-      historicalGroupDetailText.includes("Next: Matchday 6 vs Netherlands"),
-    "Historical key information should summarize archived scorers and next-match context."
+    historicalGroupDetailText.includes("Qatar's 2022 match lens runs through Akram Afif, Almoez Ali, and Abdulaziz Hatem") &&
+      historicalGroupDetailText.includes("Against Ecuador, Qatar had to beat Ecuador's scoring threat through Enner Valencia") &&
+      historicalGroupDetailText.includes("Ecuador's 2022 match lens runs through Enner Valencia"),
+    "Historical key information should use era-specific roster and matchup copy."
   );
   assert(
     !historicalGroupDetailText.includes("Source") && !historicalGroupDetailText.includes("Goals"),
@@ -1319,13 +1328,23 @@ try {
   );
   await tomorrowDuringKickoff.context.close();
 
+  const todayUrlDate = getDayKeyForTimeZone(new Date().toISOString());
+  await page.goto(`${baseUrl}?view=matches&date=${todayUrlDate}&tz=America%2FLos_Angeles`, {
+    waitUntil: "load"
+  });
   await page.reload({ waitUntil: "load" });
   await page.waitForFunction(
     () => document.querySelector("#day-label")?.textContent.trim() === "Today"
   );
+  await page
+    .waitForFunction(() => !new URL(window.location.href).searchParams.has("date"), null, {
+      timeout: 1000
+    })
+    .catch(() => {});
+  const reloadedTodayUrl = page.url();
   assert(
-    !new URL(page.url()).searchParams.has("date"),
-    "Reload should replace stale date state with a clean today URL."
+    !new URL(reloadedTodayUrl).searchParams.has("date"),
+    `Reload should replace stale date state with a clean today URL. Current URL: ${reloadedTodayUrl}`
   );
 
   await page.locator("#standings-tab").click();
@@ -1570,6 +1589,7 @@ try {
       document.querySelectorAll('.progress-match[data-match-number="74"]').length === 1 &&
       document.querySelector('.progress-match[data-match-number="89"]')
   );
+  await page.waitForFunction(() => document.querySelectorAll(".progress-connectors path").length >= 30);
   assert(
     new URL(page.url()).searchParams.get("standingsMode") === "tournament",
     "The tournament section should be linkable from the URL."
@@ -1591,6 +1611,7 @@ try {
       posterSeedCount: document.querySelectorAll(".poster-team-seed").length,
       posterVisible: Boolean(document.querySelector(".tournament-poster-bracket")),
       progressCount: document.querySelectorAll(".progress-match").length,
+      connectorPathCount: document.querySelectorAll(".progress-connectors path").length,
       progressText: allText(".progress-match"),
       r32Count: document.querySelectorAll(".r32-match").length,
       r32Text: allText(".r32-match"),
@@ -1625,6 +1646,7 @@ try {
       !tournamentCheck.posterVisible &&
       tournamentCheck.sideCount === 0 &&
       tournamentCheck.r32Count === 0 &&
+      tournamentCheck.connectorPathCount >= 30 &&
       tournamentCheck.progressCount === 31,
     "The tournament section should show a progression-only bracket from the Round of 32 through the final."
   );
@@ -1647,10 +1669,60 @@ try {
       !tournamentCheck.oldWinnerCopy &&
       tournamentCheck.posterMetaCount === 0 &&
       tournamentCheck.posterSeedCount === 0 &&
+      !/\bWinner match \d+\b/.test(tournamentCheck.progressText) &&
       !/\b(?:M\d+|To M\d+|Winner M\d+|W M\d+)\b/.test(`${tournamentCheck.r32Text} ${tournamentCheck.progressText}`) &&
       tournamentCheck.roundHeadings.join("|") === "Round of 32|Round of 16|Quarter-finals|Semi-finals|Final",
     "The tournament section should show Round of 32 slot odds while leaving later rounds unfilled."
   );
+  const tournamentLayoutChecks = [];
+  for (const viewport of [
+    { height: 900, width: 1280 },
+    { height: 900, width: 700 },
+    { height: 844, width: 390 },
+    { height: 720, width: 320 }
+  ]) {
+    await page.setViewportSize(viewport);
+    await page.waitForTimeout(80);
+    tournamentLayoutChecks.push(
+      await page.evaluate((viewportWidth) => {
+        const documentElement = document.documentElement;
+        const progression = document.querySelector(".tournament-progression");
+        const match74 = document.querySelector('.progress-match[data-match-number="74"]');
+        const seedLabels = [...document.querySelectorAll('.progress-match[data-match-number="74"] .knockout-seed-label')]
+          .map((label) => [...label.children].map((line) => line.textContent.trim()).join("|"));
+        const connector = document.querySelector(".progress-connectors");
+        const connectorDisplay = connector ? getComputedStyle(connector).display : "";
+        const progressionStyle = progression ? getComputedStyle(progression) : null;
+        const matchStyle = match74 ? getComputedStyle(match74) : null;
+        const matchRect = match74?.getBoundingClientRect();
+
+        return {
+          cardPadding: matchStyle ? Math.round(parseFloat(matchStyle.paddingLeft)) : 0,
+          cardWithinViewport: Boolean(matchRect && matchRect.left >= 0 && matchRect.right <= viewportWidth),
+          connectorDisplay,
+          connectorPathCount: document.querySelectorAll(".progress-connectors path").length,
+          progressionPadding: progressionStyle ? Math.round(parseFloat(progressionStyle.paddingLeft)) : 0,
+          seedLines: seedLabels,
+          scrollOverflow: Math.ceil(documentElement.scrollWidth - documentElement.clientWidth),
+          viewportWidth
+        };
+      }, viewport.width)
+    );
+  }
+  assert(
+    tournamentLayoutChecks.every(
+      (check) =>
+        check.seedLines.includes("Group E|Top 1") &&
+        check.scrollOverflow <= 1 &&
+        check.progressionPadding >= 10 &&
+        check.cardPadding >= 8 &&
+        check.cardWithinViewport &&
+        (check.viewportWidth > 1250 ||
+          (check.connectorDisplay === "none" && check.connectorPathCount === 0))
+    ),
+    "Tournament bracket seed labels should wrap cleanly with correct padding and no horizontal overflow at phone and desktop sizes."
+  );
+  await page.setViewportSize({ width: 1280, height: 720 });
   const knockoutProgressionCheck = await openPageAtTime(
     "2026-07-05T12:00:00.000Z",
     "/?view=matches&date=2026-06-17&tz=America%2FLos_Angeles",
@@ -1675,12 +1747,16 @@ try {
     () => document.querySelector('.progress-match[data-match-number="97"] .knockout-team[data-source-match="89"]')
   );
   const progressionResolved = await knockoutProgressionCheck.page.evaluate(() => {
+    const match74 = document.querySelector('.progress-match[data-match-number="74"]');
+    const match77 = document.querySelector('.progress-match[data-match-number="77"]');
     const match89 = document.querySelector('.progress-match[data-match-number="89"]');
     const match97Source = document.querySelector(
       '.progress-match[data-match-number="97"] .knockout-team[data-source-match="89"]'
     );
 
     return {
+      m74Winner: match74?.dataset.winnerTeamId,
+      m77Winner: match77?.dataset.winnerTeamId,
       m89TeamIds: [...match89.querySelectorAll(".knockout-team[data-team-id]")].map(
         (team) => team.dataset.teamId
       ),
@@ -1694,12 +1770,14 @@ try {
     };
   });
   assert(
-      progressionResolved.m89TeamIds.join("|") === "GER|NOR" &&
-      progressionResolved.m89Winner === "GER" &&
-      progressionResolved.m97SourceTeamId === "GER" &&
-      progressionResolved.m89Text.includes("GER won") &&
+    progressionResolved.m89TeamIds.join("|") ===
+      [progressionResolved.m74Winner, progressionResolved.m77Winner].join("|") &&
+      progressionResolved.m89Winner === progressionResolved.m74Winner &&
+      progressionResolved.m97SourceTeamId === progressionResolved.m74Winner &&
+      progressionResolved.m89Text.includes(`${progressionResolved.m74Winner} won`) &&
+      !progressionResolved.m97Text.includes("Winner match") &&
       !progressionResolved.m89Text.includes("M97") &&
-      progressionResolved.m97Text.includes("GER"),
+      progressionResolved.m97Text.includes(progressionResolved.m74Winner),
     "Finished knockout source matches should automatically place their winners into later fixture slots."
   );
   await knockoutProgressionCheck.context.close();

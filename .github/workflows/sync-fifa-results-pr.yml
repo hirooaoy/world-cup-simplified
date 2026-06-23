@@ -113,8 +113,9 @@ jobs:
         run: |
           branch="codex/fifa-results-sync"
           title="Update FIFA results snapshot"
-          if gh pr view "$branch" --base main >/dev/null 2>&1; then
-            gh pr edit "$branch" --base main --title "$title" --body-file fifa-sync-pr.md
+          pr_number="$(gh pr list --base main --head "$branch" --state open --json number --jq '.[0].number // ""')"
+          if [ -n "$pr_number" ]; then
+            gh pr edit "$pr_number" --base main --title "$title" --body-file fifa-sync-pr.md
           else
             gh pr create --base main --head "$branch" --title "$title" --body-file fifa-sync-pr.md
           fi

@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-22T17:21:59.493Z",
+  "updatedAt": "2026-06-23T00:37:08Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fifa-standings-2026-06-17",
@@ -19,7 +19,9 @@
     "fifa-tunisia-japan-result-2026-06-21",
     "fox-spain-saudi-arabia-result-2026-06-21",
     "fifa-official-results-sync-2026-06-21",
-    "fifa-official-results-sync-2026-06-22"
+    "fifa-official-results-sync-2026-06-22",
+    "bundesliga-argentina-austria-result-2026-06-22",
+    "guardian-france-iraq-result-2026-06-22"
   ],
   "tiebreakerNote": "Rows use the current table order. Points, goal difference and goals scored are included for beginner-friendly context.",
   "groups": {
@@ -329,21 +331,21 @@
     ],
     "I": [
       {
+        "teamId": "FRA",
+        "played": 2,
+        "wins": 2,
+        "draws": 0,
+        "losses": 0,
+        "gf": 6,
+        "ga": 1
+      },
+      {
         "teamId": "NOR",
         "played": 1,
         "wins": 1,
         "draws": 0,
         "losses": 0,
         "gf": 4,
-        "ga": 1
-      },
-      {
-        "teamId": "FRA",
-        "played": 1,
-        "wins": 1,
-        "draws": 0,
-        "losses": 0,
-        "gf": 3,
         "ga": 1
       },
       {
@@ -357,32 +359,32 @@
       },
       {
         "teamId": "IRQ",
-        "played": 1,
+        "played": 2,
         "wins": 0,
         "draws": 0,
-        "losses": 1,
+        "losses": 2,
         "gf": 1,
-        "ga": 4
+        "ga": 7
       }
     ],
     "J": [
       {
         "teamId": "ARG",
-        "played": 1,
-        "wins": 1,
+        "played": 2,
+        "wins": 2,
         "draws": 0,
         "losses": 0,
-        "gf": 3,
+        "gf": 5,
         "ga": 0
       },
       {
         "teamId": "AUT",
-        "played": 1,
+        "played": 2,
         "wins": 1,
         "draws": 0,
-        "losses": 0,
+        "losses": 1,
         "gf": 3,
-        "ga": 1
+        "ga": 3
       },
       {
         "teamId": "JOR",

@@ -7,7 +7,7 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const dataDir = path.join(root, "data");
 const fixturesPath = path.join(dataDir, "fixtures.json");
 
-const keyPlayerSourceId = "key-player-baseline-2026-06-17";
+const keyPlayerSourceId = "key-player-baseline-2026-06-22";
 const overwrite = process.argv.includes("--overwrite");
 
 const teamKeyPlayers = {
@@ -24,7 +24,7 @@ const teamKeyPlayers = {
   ESP: ["Lamine Yamal", "Pedri", "Nico Williams"],
   GER: ["Joshua Kimmich", "Jamal Musiala", "Florian Wirtz"],
   HAI: ["Duckens Nazon", "Frantzdy Pierrot", "Jean-Ricner Bellegarde"],
-  IRN: ["Mehdi Taremi", "Sardar Azmoun", "Alireza Jahanbakhsh"],
+  IRN: ["Mehdi Taremi", "Saman Ghoddos", "Alireza Jahanbakhsh"],
   JPN: ["Ayase Ueda", "Ritsu Doan", "Daichi Kamada"],
   JOR: ["Mousa Al-Taamari", "Ali Olwan", "Noor Al-Rawabdeh"],
   KSA: ["Salem Al-Dawsari", "Firas Al-Buraikan", "Mohammed Al-Owais"],
@@ -38,6 +38,70 @@ const teamKeyPlayers = {
   TUR: ["Hakan Calhanoglu", "Arda Guler", "Kenan Yildiz"],
   URU: ["Federico Valverde", "Darwin Nunez", "Ronald Araujo"],
   USA: ["Christian Pulisic", "Weston McKennie", "Tyler Adams"]
+};
+
+const teamKeyPlayerOverrides = {
+  ALG: [
+    {
+      name: "Riyad Mahrez",
+      note: "Algeria's left-footed creator, still the player who can slow a match down and pick the decisive pass."
+    },
+    {
+      name: "Houssem Aouar",
+      note: "The midfield connector, useful when Algeria need cleaner passes between Mahrez and the forwards."
+    },
+    {
+      name: "Amine Gouiri",
+      note: "A clever forward who can drift, combine, and give Algeria scoring threat away from the obvious lanes."
+    }
+  ],
+  FRA: [
+    {
+      name: "Kylian Mbappe",
+      note: "France's game-breaking runner and finisher, the player who turns one channel ball into panic."
+    },
+    {
+      name: "Michael Olise",
+      note: "The current creative hinge, dangerous as a passer, dribbler, or left-footed shooter between defenders."
+    },
+    {
+      name: "William Saliba",
+      note: "The defensive stabilizer, calm enough to defend space while France's athletes surge forward."
+    }
+  ],
+  IRN: [
+    {
+      name: "Mehdi Taremi",
+      note: "Iran's most polished attacking reference, a clever finisher who also wins fouls and links counters."
+    },
+    {
+      name: "Saman Ghoddos",
+      note: "A versatile connector who gives Iran a calmer pass when counters need more than one touch."
+    },
+    {
+      name: "Alireza Jahanbakhsh",
+      note: "The experienced wide creator, useful on set pieces and when Iran need a calmer final ball."
+    }
+  ]
+};
+
+const fixtureKeyPlayerOverrides = {
+  "belgium-ir-iran-2026-06-21": {
+    home: [
+      {
+        name: "Kevin De Bruyne",
+        note: "Belgium's elite chance architect, able to find early crosses, through balls, and shots before defenses settle."
+      },
+      {
+        name: "Romelu Lukaku",
+        note: "The reference point in the box and power finisher, built to punish any service into his stride or feet."
+      },
+      {
+        name: "Leandro Trossard",
+        note: "A flexible current-match attacking option who can replace Doku's width with sharper combination play around the box."
+      }
+    ]
+  }
 };
 
 async function readJson(filePath) {
@@ -70,12 +134,17 @@ function collectExistingTeamPlayers(fixtures) {
     }
   }
 
+  for (const [teamId, players] of Object.entries(teamKeyPlayerOverrides)) {
+    teamPlayers.set(teamId, players);
+  }
+
   return teamPlayers;
 }
 
 function buildKeyPlayers(fixture, teamPlayers) {
-  const home = teamPlayers.get(fixture.homeTeamId);
-  const away = teamPlayers.get(fixture.awayTeamId);
+  const fixtureOverride = fixtureKeyPlayerOverrides[fixture.id] || {};
+  const home = fixtureOverride.home || teamPlayers.get(fixture.homeTeamId);
+  const away = fixtureOverride.away || teamPlayers.get(fixture.awayTeamId);
 
   if (!hasPlayers(home) || !hasPlayers(away)) {
     return null;
@@ -93,6 +162,9 @@ function buildKeyPlayers(fixture, teamPlayers) {
 function shouldPopulateKeyPlayers(fixture) {
   return (
     overwrite ||
+    Boolean(fixtureKeyPlayerOverrides[fixture.id]) ||
+    Boolean(teamKeyPlayerOverrides[fixture.homeTeamId]) ||
+    Boolean(teamKeyPlayerOverrides[fixture.awayTeamId]) ||
     !hasPlayers(fixture.keyPlayers?.home) ||
     !hasPlayers(fixture.keyPlayers?.away)
   );

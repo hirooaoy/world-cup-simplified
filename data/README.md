@@ -54,6 +54,16 @@ node scripts/populate-matchup-key-information.mjs
 
 These notes are editorial matchup previews. Each group fixture should explain both the team's own plan and how that plan relates to the opponent.
 
+For matchday-quality previews, add source-backed fixture notes to `data/matchup-research-notes.json` before running the matchup generator. Use this for current team news, likely injuries, suspensions, managed minutes, group-table incentives, and opponent-specific tactical pressure points. When notes exist for a fixture, `populate-matchup-key-information.mjs` uses them instead of the static team baseline and can also override that fixture's key-player trio.
+
+Before publishing today/tomorrow fixtures, run:
+
+```bash
+pnpm matchday:readiness
+```
+
+The readiness check flags near-term group matches whose fixture-specific research is missing or older than `MATCHDAY_MATCHUP_RESEARCH_FRESH_HOURS` hours. The default is 24 hours.
+
 Run this after editing matchup copy, key players, player availability, or final scores to review all preview paragraphs and completed-match result sections together:
 
 ```bash
@@ -139,6 +149,14 @@ If reliable conduct data is available, add it to standings rows as `teamConductS
 ```bash
 node scripts/import-world-cup-history.mjs
 ```
+
+After importing the match skeleton, run the historical matchup generator:
+
+```bash
+node scripts/populate-historical-matchup-key-information.mjs
+```
+
+That script enriches every archived fixture with era-specific player/style copy. It cross-checks against the Fjelstul World Cup Database for historical squads, goals, penalties, bookings, player appearances where available, and tournament squads. Match-level player appearances are available from 1970 onward in that source; older tournaments use scorer and squad context instead, and canceled fixtures are labeled as squad context rather than confirmed match usage. The Fjelstul data is CC-BY-SA 4.0, so keep the source entry and attribution/license trail in `data/tournament.json`.
 
 The historical archive lives outside the 2026 fixture/standings model on purpose. Past teams do not have to belong to 2026 groups, and historical dates are preserved as tournament-local dates instead of being shifted by the user's selected timezone.
 

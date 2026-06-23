@@ -2,6 +2,7 @@
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { isPlayerNameMatch, normalizePlayerName } from "./player-name-matching.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const dataDir = path.join(root, "data");
@@ -42,49 +43,11 @@ function isDayKey(value) {
   return /^\d{4}-\d{2}-\d{2}$/.test(value || "") && !Number.isNaN(new Date(`${value}T12:00:00Z`).getTime());
 }
 
-function normalizePlayerName(value) {
+function wordCount(value) {
   return String(value || "")
-    .normalize("NFKD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, " ")
-    .trim();
-}
-
-function getPlayerTokens(value) {
-  const normalized = normalizePlayerName(value);
-  return normalized ? normalized.split(" ").filter(Boolean) : [];
-}
-
-function simplifyPlayerToken(value) {
-  return value.replace(/(.)\1+/g, "$1");
-}
-
-function isPlayerTokenMatch(displayToken, rosterToken) {
-  const simplifiedDisplayToken = simplifyPlayerToken(displayToken);
-  const simplifiedRosterToken = simplifyPlayerToken(rosterToken);
-
-  return (
-    rosterToken === displayToken ||
-    rosterToken.includes(displayToken) ||
-    displayToken.includes(rosterToken) ||
-    simplifiedRosterToken === simplifiedDisplayToken ||
-    simplifiedRosterToken.includes(simplifiedDisplayToken) ||
-    simplifiedDisplayToken.includes(simplifiedRosterToken)
-  );
-}
-
-function isPlayerNameMatch(displayName, rosterName) {
-  const displayTokens = getPlayerTokens(displayName);
-  const rosterTokens = getPlayerTokens(rosterName);
-
-  if (!displayTokens.length || !rosterTokens.length) {
-    return false;
-  }
-
-  return displayTokens.every((displayToken) =>
-    rosterTokens.some((rosterToken) => isPlayerTokenMatch(displayToken, rosterToken))
-  );
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean).length;
 }
 
 function findUnavailablePlayer(records, playerName) {
@@ -151,6 +114,7 @@ function applyGroupResult(table, fixture) {
 const [
   fixturesData,
   historyData,
+  matchupResearchData,
   playerAvailabilityData,
   playerProfilesData,
   standingsData,
@@ -159,6 +123,7 @@ const [
 ] = await Promise.all([
   readJson("fixtures.json"),
   readJson("history.json"),
+  readOptionalJson("matchup-research-notes.json"),
   readOptionalJson("player-availability.json"),
   readOptionalJson("player-profiles.json"),
   readJson("standings.json"),
@@ -183,6 +148,9 @@ if (playerAvailabilityData) {
 }
 if (playerProfilesData) {
   requireSourceIds(playerProfilesData.sourceIds, sourceIds, "player-profiles.json");
+}
+if (matchupResearchData) {
+  requireSourceIds(matchupResearchData.sourceIds, sourceIds, "matchup-research-notes.json");
 }
 requireSourceIds(standingsData.sourceIds, sourceIds, "standings.json");
 requireSourceIds(teamsData.sourceIds, sourceIds, "teams.json");
@@ -500,6 +468,13 @@ for (const fixture of fixturesData.fixtures || []) {
       sourceIds.has(fixture.keyInformation.sourceId),
       `Fixture "${fixture.id}" keyInformation references unknown source`
     );
+    if (fixture.keyInformation.researchSourceIds !== undefined) {
+      requireSourceIds(
+        fixture.keyInformation.researchSourceIds,
+        sourceIds,
+        `Fixture "${fixture.id}" keyInformation.researchSourceIds`
+      );
+    }
   }
 
   if (fixture.stage === "group") {
@@ -561,6 +536,81 @@ for (const fixture of fixturesData.fixtures || []) {
         assert(teams.has(result.homeTeamId), `Fixture "${fixture.id}" h2h result ${index + 1} has unknown homeTeamId "${result.homeTeamId}"`);
         assert(teams.has(result.awayTeamId), `Fixture "${fixture.id}" h2h result ${index + 1} has unknown awayTeamId "${result.awayTeamId}"`);
         assert(result.homeTeamId !== result.awayTeamId, `Fixture "${fixture.id}" h2h result ${index + 1} cannot use the same team twice`);
+      }
+    }
+  }
+}
+
+if (matchupResearchData) {
+  assert(
+    typeof matchupResearchData.updatedAt === "string" &&
+      !Number.isNaN(new Date(matchupResearchData.updatedAt).getTime()),
+    "matchup-research-notes.json must include a valid updatedAt"
+  );
+  assert(
+    matchupResearchData.fixtures && typeof matchupResearchData.fixtures === "object" && !Array.isArray(matchupResearchData.fixtures),
+    "matchup-research-notes.json must include fixtures"
+  );
+
+  for (const [fixtureId, research] of Object.entries(matchupResearchData.fixtures || {})) {
+    assert(fixtureIds.has(fixtureId), `matchup-research-notes.json references unknown fixture "${fixtureId}"`);
+    assert(
+      research && typeof research === "object" && !Array.isArray(research),
+      `matchup-research-notes.json fixture "${fixtureId}" must be an object`
+    );
+    if (!research || typeof research !== "object" || Array.isArray(research)) {
+      continue;
+    }
+
+    assert(
+      ["researched", "needs-refresh"].includes(research.status),
+      `matchup-research-notes.json fixture "${fixtureId}" has invalid status`
+    );
+    assert(
+      typeof research.checkedAt === "string" && !Number.isNaN(new Date(research.checkedAt).getTime()),
+      `matchup-research-notes.json fixture "${fixtureId}" must include a valid checkedAt`
+    );
+    requireSourceIds(research.sourceIds, sourceIds, `matchup-research-notes.json fixture "${fixtureId}"`);
+
+    for (const side of ["home", "away"]) {
+      const sideResearch = research[side];
+      assert(
+        sideResearch && typeof sideResearch === "object" && !Array.isArray(sideResearch),
+        `matchup-research-notes.json fixture "${fixtureId}" ${side} must be an object`
+      );
+      if (!sideResearch || typeof sideResearch !== "object" || Array.isArray(sideResearch)) {
+        continue;
+      }
+
+      for (const field of ["summary", "matchupProblem", "attackPlan", "threat"]) {
+        assert(
+          typeof sideResearch[field] === "string" && sideResearch[field].trim(),
+          `matchup-research-notes.json fixture "${fixtureId}" ${side}.${field} must be a non-empty string`
+        );
+      }
+
+      if (sideResearch.contextSentence !== undefined) {
+        assert(
+          typeof sideResearch.contextSentence === "string" && sideResearch.contextSentence.trim(),
+          `matchup-research-notes.json fixture "${fixtureId}" ${side}.contextSentence must be a non-empty string`
+        );
+      }
+
+      if (sideResearch.keyPlayers !== undefined) {
+        assert(
+          Array.isArray(sideResearch.keyPlayers) && sideResearch.keyPlayers.length >= 3,
+          `matchup-research-notes.json fixture "${fixtureId}" ${side}.keyPlayers must include at least three players`
+        );
+        for (const [index, player] of (sideResearch.keyPlayers || []).entries()) {
+          assert(
+            typeof player?.name === "string" && player.name.trim(),
+            `matchup-research-notes.json fixture "${fixtureId}" ${side}.keyPlayers[${index}] must include a name`
+          );
+          assert(
+            typeof player?.note === "string" && player.note.trim(),
+            `matchup-research-notes.json fixture "${fixtureId}" ${side}.keyPlayers[${index}] must include a note`
+          );
+        }
       }
     }
   }
@@ -671,6 +721,58 @@ for (const fixture of historyData.fixtures || []) {
   }
   assert(Array.isArray(fixture.goalsHome), `Historical fixture "${fixture.id}" goalsHome must be an array`);
   assert(Array.isArray(fixture.goalsAway), `Historical fixture "${fixture.id}" goalsAway must be an array`);
+
+  assert(fixture.keyInformation, `Historical fixture "${fixture.id}" must include historical keyInformation`);
+  assert(
+    sourceIds.has(fixture.keyInformation?.sourceId),
+    `Historical fixture "${fixture.id}" keyInformation references unknown source`
+  );
+  for (const side of ["home", "away"]) {
+    const copy = fixture.keyInformation?.[side];
+    const opponentName = side === "home" ? fixture.awaySlot : fixture.homeSlot;
+    assert(
+      typeof copy === "string" && copy.trim().length >= 160,
+      `Historical fixture "${fixture.id}" keyInformation.${side} must include a detailed historical matchup note`
+    );
+    assert(
+      wordCount(copy) <= 95,
+      `Historical fixture "${fixture.id}" keyInformation.${side} should stay concise`
+    );
+    assert(
+      copy?.includes(`Against ${opponentName}`),
+      `Historical fixture "${fixture.id}" keyInformation.${side} must describe the historical opponent relationship`
+    );
+    if (fixture.status !== "CANCELLED") {
+      assert(
+        copy?.includes(" had to beat "),
+        `Historical fixture "${fixture.id}" keyInformation.${side} must describe the matchup pressure`
+      );
+    }
+  }
+
+  assert(fixture.keyPlayers, `Historical fixture "${fixture.id}" must include historical keyPlayers`);
+  assert(
+    sourceIds.has(fixture.keyPlayers?.sourceId),
+    `Historical fixture "${fixture.id}" keyPlayers references unknown source`
+  );
+  assert(Array.isArray(fixture.keyPlayers?.home), `Historical fixture "${fixture.id}" keyPlayers.home must be an array`);
+  assert(Array.isArray(fixture.keyPlayers?.away), `Historical fixture "${fixture.id}" keyPlayers.away must be an array`);
+  for (const side of ["home", "away"]) {
+    const players = fixture.keyPlayers?.[side] || [];
+    if (fixture.status !== "CANCELLED") {
+      assert(players.length >= 2, `Historical fixture "${fixture.id}" keyPlayers.${side} must include at least two historical players`);
+    }
+    for (const [index, player] of players.entries()) {
+      assert(
+        typeof player?.name === "string" && player.name.trim(),
+        `Historical fixture "${fixture.id}" keyPlayers.${side}[${index}] must include a player name`
+      );
+      assert(
+        typeof player?.note === "string" && player.note.trim(),
+        `Historical fixture "${fixture.id}" keyPlayers.${side}[${index}] must include a historical note`
+      );
+    }
+  }
 }
 
 if (errors.length) {

@@ -1,0 +1,321 @@
+{
+  "updatedAt": "2026-06-23T01:00:00Z",
+  "sourceIds": [
+    "matchup-research-2026-06-23",
+    "fifa-squad-list-2026-06-21",
+    "rotowire-portugal-uzbekistan-preview-2026-06-23",
+    "houstonchronicle-portugal-uzbekistan-preview-2026-06-23",
+    "standard-england-ghana-preview-2026-06-23",
+    "guardian-england-ghana-team-news-2026-06-23",
+    "guardian-norway-senegal-live-2026-06-22",
+    "fox-norway-senegal-preview-2026-06-22",
+    "sofascore-jordan-algeria-preview-2026-06-22",
+    "analyst-jordan-algeria-preview-2026-06-22",
+    "sportsmole-panama-croatia-preview-2026-06-23",
+    "tfa-colombia-dr-congo-preview-2026-06-23",
+    "fox-colombia-dr-congo-leaders-2026-06-23",
+    "olympic-ca-canada-switzerland-questions-2026-06-23",
+    "shekicks-bosnia-qatar-preview-2026-06-23",
+    "sportsmole-scotland-brazil-preview-2026-06-23",
+    "shekicks-morocco-haiti-preview-2026-06-23",
+    "juvefc-czechia-mexico-preview-2026-06-23",
+    "juvefc-south-africa-south-korea-preview-2026-06-23"
+  ],
+  "fixtures": {
+    "norway-senegal-2026-06-22": {
+      "checkedAt": "2026-06-22T18:00:00-07:00",
+      "status": "researched",
+      "sourceIds": [
+        "matchup-research-2026-06-23",
+        "fifa-squad-list-2026-06-21",
+        "guardian-norway-senegal-live-2026-06-22",
+        "fox-norway-senegal-preview-2026-06-22"
+      ],
+      "home": {
+        "summary": "can move toward qualification but need more than Haaland service alone",
+        "matchupProblem": "Odegaard-Haaland central service",
+        "attackPlan": "own the middle through Odegaard and Nusa before Haaland attacks the final pass",
+        "threat": "feed Haaland through Odegaard's service and Nusa's change of speed",
+        "contextSentence": "Julian Ryerson went off early, so Norway's right side needs monitoring."
+      },
+      "away": {
+        "summary": "need a response after losing to France and must make their wing attacks cleaner",
+        "matchupProblem": "Mane-Jackson flank-to-box threat",
+        "attackPlan": "find Mane and Jackson quickly before Norway's central pressure locks the match",
+        "threat": "turn Mane's experience and Jackson's running into direct chances",
+        "contextSentence": "Senegal have found wide space but need a cleaner final pass."
+      }
+    },
+    "jordan-algeria-2026-06-22": {
+      "checkedAt": "2026-06-22T18:00:00-07:00",
+      "status": "researched",
+      "sourceIds": [
+        "matchup-research-2026-06-23",
+        "fifa-squad-list-2026-06-21",
+        "sofascore-jordan-algeria-preview-2026-06-22",
+        "analyst-jordan-algeria-preview-2026-06-22"
+      ],
+      "home": {
+        "summary": "need points before Argentina and can build on Olwan's scoring form",
+        "matchupProblem": "Al-Taamari-Olwan counter timing",
+        "attackPlan": "release Al-Taamari early and give Olwan the first clean look around the box",
+        "threat": "counter through Al-Taamari and Olwan before the defense recovers",
+        "contextSentence": "Jordan matched Austria for shots but still lost their opener."
+      },
+      "away": {
+        "summary": "need their first points and should have more control than against Argentina",
+        "matchupProblem": "Mahrez-Aouar control against Jordan counters",
+        "attackPlan": "give Mahrez time while Aouar connects the next pass toward Gouiri",
+        "threat": "slow the match through Mahrez and Aouar before finding Gouiri",
+        "contextSentence": "Algeria remain favored, but their World Cup win drought keeps pressure high."
+      }
+    },
+    "portugal-uzbekistan-2026-06-23": {
+      "checkedAt": "2026-06-22T17:55:01-07:00",
+      "status": "researched",
+      "sourceIds": [
+        "matchup-research-2026-06-23",
+        "fifa-squad-list-2026-06-21",
+        "rotowire-portugal-uzbekistan-preview-2026-06-23",
+        "houstonchronicle-portugal-uzbekistan-preview-2026-06-23"
+      ],
+      "home": {
+        "summary": "need control to become finishing after dropping points in their opener",
+        "matchupProblem": "Bruno-Vitinha service into Ronaldo",
+        "attackPlan": "keep Bruno Fernandes facing forward while Vitinha finds Ronaldo or the wide runners",
+        "threat": "feed Ronaldo through Bruno Fernandes and Vitinha",
+        "contextSentence": "Ruben Dias is expected back."
+      },
+      "away": {
+        "summary": "are first-time World Cup underdogs built to defend deep and break cleanly",
+        "matchupProblem": "Khusanov-Fayzullaev compact counters",
+        "attackPlan": "stay compact through Khusanov, then release Fayzullaev and Shomurodov early",
+        "threat": "release Fayzullaev or Shomurodov from a compact shape",
+        "contextSentence": "Rustamjon Ashurmatov is a game-time decision."
+      }
+    },
+    "england-ghana-2026-06-23": {
+      "checkedAt": "2026-06-22T17:55:01-07:00",
+      "status": "researched",
+      "sourceIds": [
+        "matchup-research-2026-06-23",
+        "fifa-squad-list-2026-06-21",
+        "standard-england-ghana-preview-2026-06-23",
+        "guardian-england-ghana-team-news-2026-06-23"
+      ],
+      "home": {
+        "summary": "can qualify early but need cleaner defensive control than in the opener",
+        "matchupProblem": "Kane-Bellingham pressure plus Rice cover",
+        "attackPlan": "use Kane's movement to free Bellingham while Rice stops Ghana's first counter pass",
+        "threat": "turn Kane, Bellingham, and Rice into sustained pressure",
+        "contextSentence": "Rice and Kane are fit, while Saka is likely managed."
+      },
+      "away": {
+        "summary": "are unbeaten after a late opening win and dangerous when their forwards can run",
+        "matchupProblem": "Semenyo-Williams speed around Partey's return",
+        "attackPlan": "use Semenyo as the outlet and let Williams or Ayew attack early",
+        "threat": "counter through Semenyo and Williams if England's defense drops too early",
+        "contextSentence": "Thomas Partey is available after missing the Panama opener."
+      }
+    },
+    "panama-croatia-2026-06-23": {
+      "checkedAt": "2026-06-22T17:55:01-07:00",
+      "status": "researched",
+      "sourceIds": [
+        "matchup-research-2026-06-23",
+        "fifa-squad-list-2026-06-21",
+        "sportsmole-panama-croatia-preview-2026-06-23"
+      ],
+      "home": {
+        "summary": "need right-side pressure and midfield calm to keep their tournament alive",
+        "matchupProblem": "Carrasquilla-Murillo right-side escape",
+        "attackPlan": "give Carrasquilla early touches to find Murillo or Diaz before Croatia settle",
+        "threat": "make the match choppy through Carrasquilla and Murillo",
+        "contextSentence": "Both teams enter off opening defeats."
+      },
+      "away": {
+        "summary": "need veteran midfield control to steady their group",
+        "matchupProblem": "Modric-Kovacic control against Panama pressure",
+        "attackPlan": "slow the first press through Modric and Kovacic before Gvardiol carries them out",
+        "threat": "turn Modric and Kovacic's passing rhythm into the calm Panama have to chase",
+        "contextSentence": "Croatia can still protect a top-three path."
+      }
+    },
+    "colombia-dr-congo-2026-06-23": {
+      "checkedAt": "2026-06-22T17:55:01-07:00",
+      "status": "researched",
+      "sourceIds": [
+        "matchup-research-2026-06-23",
+        "fifa-squad-list-2026-06-21",
+        "tfa-colombia-dr-congo-preview-2026-06-23",
+        "fox-colombia-dr-congo-leaders-2026-06-23"
+      ],
+      "home": {
+        "summary": "can push toward qualification after a controlled opening win",
+        "matchupProblem": "Diaz-James isolation against Wan-Bissaka",
+        "attackPlan": "isolate Diaz while James Rodriguez picks the pass before DR Congo slide across",
+        "threat": "use Diaz and James Rodriguez to keep DR Congo defending deep",
+        "contextSentence": "Colombia have a full squad available."
+      },
+      "away": {
+        "summary": "carry belief from holding Portugal and need another disciplined counterpunch",
+        "matchupProblem": "Wissa-Wan-Bissaka survival-and-counter route",
+        "attackPlan": "let Wan-Bissaka survive Diaz and release Wissa before Colombia close the lane",
+        "threat": "use Wissa and Masuaku to make one counter count",
+        "contextSentence": "No major injury concerns are reported."
+      }
+    },
+    "switzerland-canada-2026-06-24": {
+      "checkedAt": "2026-06-22T17:55:01-07:00",
+      "status": "researched",
+      "sourceIds": [
+        "matchup-research-2026-06-23",
+        "fifa-squad-list-2026-06-21",
+        "olympic-ca-canada-switzerland-questions-2026-06-23"
+      ],
+      "home": {
+        "summary": "want tournament experience to become a controlled top-of-group finish",
+        "matchupProblem": "Xhaka-Akanji control against Canada's speed",
+        "attackPlan": "let Xhaka dictate while Akanji keeps David from turning counters into clean shots",
+        "threat": "slow the game through Xhaka and use Embolo as the release valve",
+        "contextSentence": "Canada's Davies question makes tempo control vital."
+      },
+      "away": {
+        "summary": "are a host-side threat while Davies' minutes remain a question",
+        "matchupProblem": "David-Eustaquio attack with Davies as wildcard",
+        "attackPlan": "use Eustaquio to release David, then add Davies' speed if available",
+        "threat": "run through David and Davies before defenders can recover",
+        "contextSentence": "Davies is available but has not yet played."
+      }
+    },
+    "bosnia-qatar-2026-06-24": {
+      "checkedAt": "2026-06-22T17:55:01-07:00",
+      "status": "researched",
+      "sourceIds": [
+        "matchup-research-2026-06-23",
+        "fifa-squad-list-2026-06-21",
+        "shekicks-bosnia-qatar-preview-2026-06-23"
+      ],
+      "home": {
+        "summary": "need direct attacking to cover defensive doubts in a must-win match",
+        "matchupProblem": "Dzeko target play against Qatar's defense",
+        "attackPlan": "play into Dzeko early and use the next runner before Qatar recover",
+        "threat": "turn direct service into Dzeko touches and scrappy box pressure",
+        "contextSentence": "No Bosnia absences are confirmed."
+      },
+      "away": {
+        "summary": "face elimination unless Afif and Almoez Ali sharpen the attack",
+        "matchupProblem": "Afif-Almoez response to Bosnia directness",
+        "attackPlan": "find Afif early enough for Almoez Ali to attack unsettled defenders",
+        "threat": "combine through Afif and Almoez Ali when defenders lose patience",
+        "contextSentence": "Qatar need a win after the Canada collapse."
+      }
+    },
+    "scotland-brazil-2026-06-24": {
+      "checkedAt": "2026-06-22T17:55:01-07:00",
+      "status": "researched",
+      "sourceIds": [
+        "matchup-research-2026-06-23",
+        "fifa-squad-list-2026-06-21",
+        "sportsmole-scotland-brazil-preview-2026-06-23"
+      ],
+      "home": {
+        "summary": "are still alive but need more ambition against the group's strongest side",
+        "matchupProblem": "Robertson-McTominay service against Brazil speed",
+        "attackPlan": "use Robertson's delivery and McTominay's runs before Brazil counter",
+        "threat": "turn Robertson service and McTominay runs into pressure",
+        "contextSentence": "A draw could be enough for Scotland."
+      },
+      "away": {
+        "keyPlayers": [
+          {
+            "name": "Vinicius Junior",
+            "note": "Brazil's main starting runner if Neymar is managed from the bench, built to punish any open channel."
+          },
+          {
+            "name": "Casemiro",
+            "note": "The midfield stabilizer who lets Brazil attack while still protecting the counter."
+          },
+          {
+            "name": "Neymar",
+            "note": "Available again after injury, but current reports expect him to be managed rather than starting."
+          }
+        ],
+        "summary": "are boosted by Neymar's availability but likely start through Vinicius' speed",
+        "matchupProblem": "Vinicius isolation with Neymar as the lever",
+        "attackPlan": "isolate Vinicius while Casemiro protects counters and Neymar waits as the late unlock",
+        "threat": "break a shape through Vinicius Junior's speed and Neymar's late-game craft",
+        "contextSentence": "Neymar is available but not expected to start."
+      }
+    },
+    "morocco-haiti-2026-06-24": {
+      "checkedAt": "2026-06-22T17:55:01-07:00",
+      "status": "researched",
+      "sourceIds": [
+        "matchup-research-2026-06-23",
+        "fifa-squad-list-2026-06-21",
+        "shekicks-morocco-haiti-preview-2026-06-23"
+      ],
+      "home": {
+        "summary": "are unbeaten and can lean on structure plus right-side thrust",
+        "matchupProblem": "Hakimi-Brahim right-side pressure",
+        "attackPlan": "use Hakimi's overlaps before Brahim or El Kaabi attacks the final ball",
+        "threat": "combine Hakimi surges, Brahim's invention, and El Kaabi's box movement",
+        "contextSentence": "Morocco control their group path."
+      },
+      "away": {
+        "summary": "are playing spoiler and need rare direct attacks to count",
+        "matchupProblem": "Nazon-Pierrot direct box pressure",
+        "attackPlan": "play forward quickly toward Nazon and Pierrot before Morocco pin them in",
+        "threat": "turn direct service into Nazon or Pierrot chances",
+        "contextSentence": "Haiti cannot match Morocco's control, so their best route is a clean first pass forward."
+      }
+    },
+    "czechia-mexico-2026-06-24": {
+      "checkedAt": "2026-06-22T17:55:01-07:00",
+      "status": "researched",
+      "sourceIds": [
+        "matchup-research-2026-06-23",
+        "fifa-squad-list-2026-06-21",
+        "juvefc-czechia-mexico-preview-2026-06-23"
+      ],
+      "home": {
+        "summary": "must chase a win, making their aerial strength useful but risky",
+        "matchupProblem": "Schick-Soucek aerial pressure",
+        "attackPlan": "load service toward Schick and Soucek without gifting Mexico counter space",
+        "threat": "turn crosses, free kicks, corners, and Soucek runs into high-value chances",
+        "contextSentence": "Czechia have one point."
+      },
+      "away": {
+        "summary": "control the group but still have home pressure and top spot to protect",
+        "matchupProblem": "Gimenez-Chavez home pressure",
+        "attackPlan": "pin Czechia back through Gimenez and let Chavez punish loose clearances",
+        "threat": "turn home pressure into Gimenez touches and Chavez free-kick or corner chances",
+        "contextSentence": "Mexico have six points and two clean sheets."
+      }
+    },
+    "south-africa-south-korea-2026-06-24": {
+      "checkedAt": "2026-06-22T17:55:01-07:00",
+      "status": "researched",
+      "sourceIds": [
+        "matchup-research-2026-06-23",
+        "fifa-squad-list-2026-06-21",
+        "juvefc-south-africa-south-korea-preview-2026-06-23"
+      ],
+      "home": {
+        "summary": "must chase a win despite scoring only once in two group matches",
+        "matchupProblem": "Mokoena-Foster urgency against Korea speed",
+        "attackPlan": "let Mokoena pass forward and get Foster attacking before Korea settle",
+        "threat": "turn saves from Williams into Mokoena outlets and Foster counters",
+        "contextSentence": "No South Africa injury concerns are reported."
+      },
+      "away": {
+        "summary": "can advance through patience and speed against South Africa's risks",
+        "matchupProblem": "Son-Lee control against South Africa urgency",
+        "attackPlan": "protect the draw position, then release Son from Lee Kang-in's first forward pass",
+        "threat": "turn running power and Son's finishing into sudden chances",
+        "contextSentence": "South Korea are largely fit."
+      }
+    }
+  }
+}

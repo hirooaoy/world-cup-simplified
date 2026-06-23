@@ -1,4 +1,4 @@
-const DATA_VERSION = "2026-06-22-click-juggle";
+const DATA_VERSION = "2026-06-22-goal-scorers-olise-refresh";
 const DATA_URLS = {
   fixtures: `data/fixtures.json?v=${DATA_VERSION}`,
   history: `data/history.json?v=${DATA_VERSION}`,
@@ -14,7 +14,13 @@ const JUGGLE_RECORD_STORAGE_KEY = "world-cup-simplified-juggle-record";
 const JUGGLE_BALL_EMOJI = "⚽";
 const JUGGLE_FALL_SPEED = 345;
 const JUGGLE_GRAVITY = 1060;
-const JUGGLE_HIT_RADIUS_MULTIPLIER = 1.25;
+const JUGGLE_HIT_RADIUS_MULTIPLIER = 1.45;
+const JUGGLE_CLICK_BLOCK_MS = 650;
+const JUGGLE_DIFFICULTY_STEP = 5;
+const JUGGLE_MAX_DIFFICULTY_LEVEL = 5;
+const JUGGLE_GRAVITY_LEVEL_MULTIPLIER = 0.08;
+const JUGGLE_KICK_LEVEL_MULTIPLIER = 0.03;
+const JUGGLE_LATERAL_LEVEL_MULTIPLIER = 0.06;
 const JUGGLE_MAX_FRAME_SECONDS = 0.04;
 const JUGGLE_SOUND_DURATION_SECONDS = 0.08;
 const DEFAULT_LANGUAGE = "en";
@@ -43,6 +49,7 @@ const UI_TEXT = {
     languageEnglish: "English",
     languageChinese: "Chinese",
     juggleBall: "Soccer ball",
+    juggleCurrent: "Current juggling streak",
     juggleRecord: "Best juggling streak",
     juggleRecordAction: "Drop soccer ball",
     matches: "Matches",
@@ -78,6 +85,7 @@ const UI_TEXT = {
     languageEnglish: "英文",
     languageChinese: "中文",
     juggleBall: "足球",
+    juggleCurrent: "当前颠球次数",
     juggleRecord: "最佳颠球纪录",
     juggleRecordAction: "让足球落下",
     matches: "赛程",
@@ -387,6 +395,7 @@ const ZH_ADDITIONAL_EXACT_TRANSLATIONS = {
   "Attacking midfielder, left midfielder": "攻击型中场、左中场",
   "Attacking midfielder, left winger": "攻击型中场、左边锋",
   "Attacking midfielder, winger": "攻击型中场、边锋",
+  "Winger, attacking midfielder": "边锋、攻击型中场",
   "Back-line command": "后防线指挥",
   "Back-line courage": "后防线出球勇气",
   "Back-line passing": "后防线传球",
@@ -843,6 +852,7 @@ const ZH_PLAYER_NAME_TRANSLATIONS = {
   "Hannibal Mejbri": "汉尼拔·梅杰布里",
   "Harry Kane": "哈里·凯恩",
   "Homam Ahmed": "霍马姆·艾哈迈德",
+  "Houssem Aouar": "侯赛姆·奥亚尔",
   "Ismael Díaz": "伊斯梅尔·迪亚斯",
   "Ismaël Bennacer إِسْمَاعِيل بِن نَاصِر": "伊斯梅尔·本纳塞尔",
   "Iñaki Williams": "伊尼亚基·威廉姆斯",
@@ -884,6 +894,7 @@ const ZH_PLAYER_NAME_TRANSLATIONS = {
   "Mathew Ryan": "马修·瑞安",
   "Mehdi Taremi": "迈赫迪·塔雷米",
   "Michael Amir Murillo": "迈克尔·阿米尔·穆里略",
+  "Michael Olise": "迈克尔·奥利塞",
   "Miguel Almirón": "米格尔·阿尔米隆",
   "Mohamed Salah": "穆罕默德·萨拉赫",
   "Mohammed Al-Owais": "穆罕默德·奥韦斯",
@@ -908,6 +919,7 @@ const ZH_PLAYER_NAME_TRANSLATIONS = {
   "Ryan Mendes": "瑞安·门德斯",
   "Sadio Mané": "萨迪奥·马内",
   "Salem Al-Dawsari": "萨利姆·多萨里",
+  "Saman Ghoddos": "萨曼·戈多斯",
   "Santiago Giménez": "圣地亚哥·希门尼斯",
   "Sardar Azmoun سردار آزمون": "萨达尔·阿兹蒙",
   "Sarpreet Singh": "萨普里特·辛格",
@@ -999,6 +1011,7 @@ const ZH_CLUB_NAME_TRANSLATIONS = {
   "Al-Ahli": "吉达国民",
   "Al-Duhail": "杜海勒",
   "Al-Hilal": "利雅得新月",
+  "Al-Ittihad": "吉达联合",
   "Al-Karma": "卡尔马",
   "Al-Najma (on loan from Como)": "纳吉马（从科莫租借）",
   "Al-Nassr": "利雅得胜利",
@@ -1036,6 +1049,7 @@ const ZH_CLUB_NAME_TRANSLATIONS = {
   Iğdır: "厄德尔",
   "Iğdır FK": "厄德尔FK",
   Juventus: "尤文图斯",
+  Kalba: "卡尔巴",
   "Leicester City": "莱斯特城",
   Levante: "莱万特",
   León: "莱昂",
@@ -2454,8 +2468,10 @@ const juggleToy = {
   animationFrameId: 0,
   audioContext: null,
   best: readStoredJuggleRecord(),
+  blockPageClickUntil: 0,
   count: 0,
   curve: 0,
+  difficultyLevel: 0,
   element: null,
   fallDistance: 0,
   fallDuration: 0,
@@ -2960,11 +2976,13 @@ function renderJuggleRecord() {
     return;
   }
 
-  const label = t("juggleRecord");
+  const isActive = isJuggleRunActive();
+  const label = isActive ? t("juggleCurrent") : t("juggleRecord");
   const action = t("juggleRecordAction");
-  const title = `${label}: ${juggleToy.best}. ${action}`;
+  const value = isActive ? juggleToy.count : juggleToy.best;
+  const title = isActive ? `${label}: ${value}` : `${label}: ${value}. ${action}`;
   juggleRecord.hidden = false;
-  juggleRecord.textContent = `(${juggleToy.best})`;
+  juggleRecord.textContent = `(${value})`;
   juggleRecord.disabled = !canLaunchJuggleBall();
   juggleRecord.setAttribute("aria-label", title);
   juggleRecord.setAttribute("title", title);
@@ -2986,15 +3004,6 @@ function getJuggleBallSize() {
   return clampNumber(Math.round(window.innerWidth * 0.085), 32, 42);
 }
 
-function isJuggleInteractiveTarget(target) {
-  return Boolean(
-    target instanceof Element &&
-      target.closest(
-        "a, button, input, select, textarea, summary, label, [role='button'], [role='tab'], [tabindex]"
-      )
-  );
-}
-
 function canLaunchJuggleBall() {
   return Boolean(
     juggleToy.element &&
@@ -3002,6 +3011,30 @@ function canLaunchJuggleBall() {
       !prefersReducedJuggleMotion() &&
       !document.hidden
   );
+}
+
+function isJuggleRunActive() {
+  return Boolean(juggleToy.element && juggleToy.phase !== "idle");
+}
+
+function getJuggleDifficultyLevel(count = juggleToy.count) {
+  return clampNumber(
+    Math.floor(count / JUGGLE_DIFFICULTY_STEP),
+    0,
+    JUGGLE_MAX_DIFFICULTY_LEVEL
+  );
+}
+
+function getJuggleGravity() {
+  return JUGGLE_GRAVITY * (1 + juggleToy.difficultyLevel * JUGGLE_GRAVITY_LEVEL_MULTIPLIER);
+}
+
+function getJuggleKickMultiplier() {
+  return 1 + juggleToy.difficultyLevel * JUGGLE_KICK_LEVEL_MULTIPLIER;
+}
+
+function getJuggleLateralMultiplier() {
+  return 1 + juggleToy.difficultyLevel * JUGGLE_LATERAL_LEVEL_MULTIPLIER;
 }
 
 function handleJuggleRecordClick() {
@@ -3026,6 +3059,14 @@ function initializeJuggleToy() {
 
   document.addEventListener("pointerdown", handleJugglePointerDown, {
     capture: true
+  });
+  document.addEventListener("click", handleJugglePageClick, {
+    capture: true
+  });
+  ["pointerenter", "pointerover", "mouseenter", "mouseover"].forEach((eventName) => {
+    document.addEventListener(eventName, handleJuggleHoverEvent, {
+      capture: true
+    });
   });
   document.addEventListener("visibilitychange", handleJuggleVisibilityChange);
   renderJuggleRecord();
@@ -3058,6 +3099,7 @@ function spawnJuggleBall() {
 
   juggleToy.count = 0;
   juggleToy.curve = getRandomNumber(-Math.min(140, width * 0.28), Math.min(140, width * 0.28));
+  juggleToy.difficultyLevel = 0;
   juggleToy.fallDistance = fallDistance;
   juggleToy.fallDuration = fallDuration;
   juggleToy.lastFrameTime = 0;
@@ -3076,6 +3118,7 @@ function spawnJuggleBall() {
 
   juggleToy.element.style.setProperty("--juggle-ball-size", `${size}px`);
   juggleToy.element.classList.add("is-active");
+  document.body.classList.add("is-juggle-active");
   renderJuggleBall();
   renderJuggleRecord();
   juggleToy.animationFrameId = window.requestAnimationFrame(updateJuggleBall);
@@ -3126,7 +3169,7 @@ function updateFallingJuggleBall(frameTime) {
 }
 
 function updateKickedJuggleBall(deltaSeconds) {
-  juggleToy.vy += JUGGLE_GRAVITY * deltaSeconds;
+  juggleToy.vy += getJuggleGravity() * deltaSeconds;
   juggleToy.x += juggleToy.vx * deltaSeconds;
   juggleToy.y += juggleToy.vy * deltaSeconds;
 
@@ -3189,9 +3232,12 @@ function playJuggleTapSound() {
 }
 
 function handleJugglePointerDown(event) {
-  if (!juggleToy.element || juggleToy.phase === "idle" || isJuggleInteractiveTarget(event.target)) {
+  if (!isJuggleRunActive()) {
     return;
   }
+
+  juggleToy.blockPageClickUntil = performance.now() + JUGGLE_CLICK_BLOCK_MS;
+  blockJugglePageEvent(event);
 
   const centerX = juggleToy.x + juggleToy.size / 2;
   const centerY = juggleToy.y + juggleToy.size / 2;
@@ -3202,9 +3248,25 @@ function handleJugglePointerDown(event) {
     return;
   }
 
+  kickJuggleBall(event.clientX, event.clientY);
+}
+
+function handleJugglePageClick(event) {
+  if (isJuggleRunActive() || performance.now() < juggleToy.blockPageClickUntil) {
+    blockJugglePageEvent(event);
+  }
+}
+
+function handleJuggleHoverEvent(event) {
+  if (isJuggleRunActive()) {
+    blockJugglePageEvent(event);
+  }
+}
+
+function blockJugglePageEvent(event) {
   event.preventDefault();
   event.stopPropagation();
-  kickJuggleBall(event.clientX, event.clientY);
+  event.stopImmediatePropagation();
 }
 
 function kickJuggleBall(pointerX, pointerY) {
@@ -3212,20 +3274,37 @@ function kickJuggleBall(pointerX, pointerY) {
   const centerY = juggleToy.y + juggleToy.size / 2;
   const horizontalOffset = clampNumber((pointerX - centerX) / (juggleToy.size / 2), -1, 1);
   const verticalOffset = clampNumber((pointerY - centerY) / (juggleToy.size / 2), -1, 1);
-  const lateralKick = -horizontalOffset * 380;
 
   juggleToy.phase = "juggling";
   juggleToy.count += 1;
-  juggleToy.vx = clampNumber(juggleToy.vx * 0.36 + lateralKick, -480, 480);
-  juggleToy.vy = -clampNumber(555 + Math.max(0, verticalOffset) * 125, 535, 700);
-  juggleToy.rotationSpeed = clampNumber(juggleToy.rotationSpeed - horizontalOffset * 260, -520, 520);
+  juggleToy.difficultyLevel = getJuggleDifficultyLevel();
+
+  const kickMultiplier = getJuggleKickMultiplier();
+  const lateralMultiplier = getJuggleLateralMultiplier();
+  const lateralKick = -horizontalOffset * 380 * lateralMultiplier;
+  const maxLateralSpeed = 480 * lateralMultiplier;
+  const maxRotationSpeed = 520 * lateralMultiplier;
+  const kickSpeed = clampNumber(555 + Math.max(0, verticalOffset) * 125, 535, 700);
+
+  juggleToy.vx = clampNumber(
+    juggleToy.vx * 0.36 + lateralKick,
+    -maxLateralSpeed,
+    maxLateralSpeed
+  );
+  juggleToy.vy = -(kickSpeed * kickMultiplier);
+  juggleToy.rotationSpeed = clampNumber(
+    juggleToy.rotationSpeed - horizontalOffset * 260 * lateralMultiplier,
+    -maxRotationSpeed,
+    maxRotationSpeed
+  );
   playJuggleTapSound();
 
   if (juggleToy.count > juggleToy.best) {
     juggleToy.best = juggleToy.count;
     storeJuggleRecord(juggleToy.best);
-    renderJuggleRecord();
   }
+
+  renderJuggleRecord();
 }
 
 function finishJuggleRun() {
@@ -3236,6 +3315,7 @@ function finishJuggleRun() {
   window.cancelAnimationFrame(juggleToy.animationFrameId);
   juggleToy.phase = "idle";
   juggleToy.element.classList.remove("is-active");
+  document.body.classList.remove("is-juggle-active");
   renderJuggleRecord();
 }
 
@@ -5936,7 +6016,13 @@ function renderTournamentParticipant(entry, options = {}) {
   const { isWinner = false } = options;
   const teamName = entry.team ? getLocalizedStandingName(entry.team) : localizeText(entry.slotText || entry.label);
   const label = entry.team ? getTournamentTeamCode(entry.team) : localizeText(entry.label);
-  const detailText = entry.team ? localizeText(entry.seedLabel) || teamName : teamName;
+  const detailText = entry.team
+    ? localizeText(entry.seedLabel) || teamName
+    : entry.sourceMatchNumber
+      ? ""
+      : teamName;
+  const ariaName = entry.sourceMatchNumber && !entry.team ? label : teamName;
+  const detailHtml = detailText ? `<small>${renderTournamentParticipantLabel(detailText)}</small>` : "";
   const classes = [
     "knockout-team",
     entry.state === "likely" ? "is-likely" : entry.team ? "is-resolved" : "is-pending",
@@ -5945,7 +6031,7 @@ function renderTournamentParticipant(entry, options = {}) {
     .filter(Boolean)
     .join(" ");
   const ariaLabel = [
-    teamName,
+    ariaName,
     entry.state === "likely" ? localizeText("likely for now") : "",
     localizeText(entry.seedLabel)
   ]
@@ -5956,8 +6042,8 @@ function renderTournamentParticipant(entry, options = {}) {
     <span class="${classes}"${entry.team ? ` data-team-id="${escapeHtml(entry.team.id)}" data-tooltip="${escapeHtml(teamName)}" tabindex="0"` : ""}${entry.sourceMatchNumber ? ` data-source-match="${escapeHtml(entry.sourceMatchNumber)}"` : ""} aria-label="${escapeHtml(ariaLabel)}">
       <span class="knockout-team-flag" aria-hidden="true">${entry.team ? renderFlag(entry.team) : ""}</span>
       <span class="knockout-team-copy">
-        <strong>${escapeHtml(label)}</strong>
-        <small>${escapeHtml(detailText)}</small>
+        <strong>${renderTournamentParticipantLabel(label)}</strong>
+        ${detailHtml}
       </span>
     </span>
   `;
@@ -6020,6 +6106,21 @@ function renderTournamentSlotOddsFooter(participants) {
     .join("");
 
   return pills ? `<span class="knockout-slot-odds-list">${pills}</span>` : "";
+}
+
+function renderTournamentParticipantLabel(label) {
+  const match = /^(Group [A-L](?:\/[A-L])*) (Top \d+)$/i.exec(label || "");
+
+  if (!match) {
+    return escapeHtml(label);
+  }
+
+  return `
+    <span class="knockout-seed-label">
+      <span>${escapeHtml(match[1])}</span>
+      <span>${escapeHtml(match[2])}</span>
+    </span>
+  `;
 }
 
 function renderTournamentMatchCard(match, context, options = {}) {
@@ -6217,6 +6318,7 @@ function renderTournamentProgressRound(round, context) {
 function renderTournamentProgression(context) {
   return `
     <section class="tournament-progression" aria-label="${escapeHtml(localizeText("Knockout winner progression"))}">
+      <svg class="progress-connectors" aria-hidden="true" focusable="false"></svg>
       <div class="progress-rounds">
         ${TOURNAMENT_PROGRESS_ROUNDS.map((round) => renderTournamentProgressRound(round, context)).join("")}
       </div>
@@ -6232,6 +6334,67 @@ function renderTournamentView() {
       ${renderTournamentProgression(context)}
     </section>
   `;
+}
+
+function updateTournamentConnectors() {
+  const progression = standingsGrid?.querySelector(".tournament-progression");
+  const svg = progression?.querySelector(".progress-connectors");
+  const rounds = progression?.querySelector(".progress-rounds");
+
+  if (!progression || !svg || !rounds) {
+    return;
+  }
+
+  const columnCount = getComputedStyle(rounds).gridTemplateColumns.split(" ").filter(Boolean).length;
+  svg.replaceChildren();
+
+  if (columnCount <= 1) {
+    return;
+  }
+
+  const progressionRect = progression.getBoundingClientRect();
+  const width = Math.ceil(progressionRect.width);
+  const height = Math.ceil(progressionRect.height);
+  svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
+  svg.setAttribute("width", String(width));
+  svg.setAttribute("height", String(height));
+
+  const getRelativePoint = (rect, side) => ({
+    x: side === "left" ? rect.left - progressionRect.left : rect.right - progressionRect.left,
+    y: rect.top + rect.height / 2 - progressionRect.top
+  });
+  const roundPoint = (value) => Math.round(value * 2) / 2;
+
+  progression.querySelectorAll(".progress-match[data-next-match]").forEach((source) => {
+    const targetMatchNumber = source.dataset.nextMatch;
+    const target = progression.querySelector(
+      `.progress-match[data-match-number="${CSS.escape(targetMatchNumber)}"]`
+    );
+
+    if (!target) {
+      return;
+    }
+
+    const sourcePoint = getRelativePoint(source.getBoundingClientRect(), "right");
+    const targetPoint = getRelativePoint(target.getBoundingClientRect(), "left");
+
+    if (targetPoint.x <= sourcePoint.x) {
+      return;
+    }
+
+    const joinX = roundPoint(sourcePoint.x + (targetPoint.x - sourcePoint.x) / 2);
+    const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    path.setAttribute(
+      "d",
+      [
+        `M ${roundPoint(sourcePoint.x)} ${roundPoint(sourcePoint.y)}`,
+        `H ${joinX}`,
+        `V ${roundPoint(targetPoint.y)}`,
+        `H ${roundPoint(targetPoint.x)}`
+      ].join(" ")
+    );
+    svg.append(path);
+  });
 }
 
 function renderCurrentStandingsCards() {
@@ -6393,6 +6556,7 @@ function renderStandingsView() {
       : renderCurrentStandingsCards()
     : renderHistoricalStandingsCards(selectedStandingsYear);
   updateStandingNameTooltips(standingsGrid);
+  window.requestAnimationFrame(updateTournamentConnectors);
 }
 
 function renderPredictionBar(label, value) {
@@ -6695,16 +6859,74 @@ function getGeneratedResultHighlights(match) {
   return getGeneratedWinHighlights(match, score, context, standout);
 }
 
-function renderResultNotes(match) {
-  const highlights = getResultHighlights(match);
+function getFixtureGoals(match) {
+  return [
+    ...(match.goalsHome || []).map((goal) => ({ ...goal, side: "home", team: match.homeTeam })),
+    ...(match.goalsAway || []).map((goal) => ({ ...goal, side: "away", team: match.awayTeam }))
+  ]
+    .filter((goal) => typeof goal?.name === "string" && goal.name.trim())
+    .sort((a, b) => {
+      const aMinute = Number.isFinite(Number(a.minute)) ? Number(a.minute) : 0;
+      const bMinute = Number.isFinite(Number(b.minute)) ? Number(b.minute) : 0;
+      const aOffset = Number.isFinite(Number(a.offset)) ? Number(a.offset) : 0;
+      const bOffset = Number.isFinite(Number(b.offset)) ? Number(b.offset) : 0;
+      return aMinute - bMinute || aOffset - bOffset;
+    });
+}
 
-  if (!highlights.length) {
-    return `<p class="data-note">${escapeHtml(localizeText("Final score reflected in the current standings after source checks."))}</p>`;
+function findMatchPlayerByName(match, name) {
+  const nameKey = normalizeTextKey(name);
+  return getMatchKeyPlayers(match).find((player) => normalizeTextKey(getPlayerName(player)) === nameKey) || name;
+}
+
+function renderGoalScorerSegment(match, goal) {
+  const minute = formatGoalMinute(goal);
+  const note = formatGoalNote(goal);
+  const player = findMatchPlayerByName(match, goal.name);
+  const label = getPlayerDisplayName(player);
+
+  return `
+    <span class="goal-scorer-segment">
+      ${minute ? `<span class="goal-minute">${escapeHtml(minute)}</span>` : ""}
+      ${renderPlayerMention(label, player)}
+      ${note ? `<em>${escapeHtml(note)}</em>` : ""}
+    </span>
+  `;
+}
+
+function renderScoringDetailsHighlight(match) {
+  const goals = getFixtureGoals(match);
+  if (!goals.length) {
+    return "";
   }
 
   return `
+    <li class="scorer-highlight" aria-label="${escapeHtml(localizeText("Goals"))}">
+      <span aria-hidden="true">⚽</span>
+      <span class="goal-scorer-list">
+        ${goals.map((goal) => renderGoalScorerSegment(match, goal)).join('<span class="goal-separator">•</span>')}
+      </span>
+    </li>
+  `;
+}
+
+function renderResultNotes(match) {
+  const scoringHighlight = renderScoringDetailsHighlight(match);
+  const highlights = getResultHighlights(match).filter(
+    (highlight) => !scoringHighlight || !String(highlight).trim().startsWith("⚽")
+  );
+
+  if (!scoringHighlight && !highlights.length) {
+    return `<p class="data-note">${escapeHtml(localizeText("Final score reflected in the current standings after source checks."))}</p>`;
+  }
+
+  const mentionPlayers = getMatchKeyPlayers(match);
+  return `
     <ul class="result-highlights">
-      ${highlights.map((highlight) => `<li>${escapeHtml(localizeDisplayText(highlight))}</li>`).join("")}
+      ${scoringHighlight}
+      ${highlights
+        .map((highlight) => `<li>${renderPlayerLinkedText(localizeDisplayText(highlight), mentionPlayers)}</li>`)
+        .join("")}
     </ul>
   `;
 }
@@ -7473,31 +7695,48 @@ function formatGoalNote(goal) {
     .join(", ");
 }
 
-function renderHistoricalGoalTeam(team, goals = []) {
+function getHistoricalFixtureGoals(match) {
+  return [
+    ...(match.goalsHome || []).map((goal) => ({ ...goal, side: "home", team: match.homeTeam })),
+    ...(match.goalsAway || []).map((goal) => ({ ...goal, side: "away", team: match.awayTeam }))
+  ]
+    .filter((goal) => typeof goal?.name === "string" && goal.name.trim())
+    .sort((a, b) => {
+      const aMinute = Number.isFinite(Number(a.minute)) ? Number(a.minute) : 0;
+      const bMinute = Number.isFinite(Number(b.minute)) ? Number(b.minute) : 0;
+      const aOffset = Number.isFinite(Number(a.offset)) ? Number(a.offset) : 0;
+      const bOffset = Number.isFinite(Number(b.offset)) ? Number(b.offset) : 0;
+      return aMinute - bMinute || aOffset - bOffset;
+    });
+}
+
+function renderHistoricalGoalScorerSegment(goal) {
+  const minute = formatGoalMinute(goal);
+  const note = formatGoalNote(goal);
+  const name = goal.name ? localizeHistoricalScorerName(goal.name) : localizeText("Unknown scorer");
+
   return `
-    <article class="historical-goal-team">
-      <h4>${escapeHtml(localizeText(team.name))}</h4>
-      ${
-        goals.length
-          ? `
-            <ul>
-              ${goals
-                .map((goal) => {
-                  const minute = formatGoalMinute(goal);
-                  const note = formatGoalNote(goal);
-                  return `
-                    <li>
-                      <span>${escapeHtml(goal.name ? localizeHistoricalScorerName(goal.name) : localizeText("Unknown scorer"))}</span>
-                      <em>${escapeHtml([minute, note].filter(Boolean).join(" / "))}</em>
-                    </li>
-                  `;
-                })
-                .join("")}
-            </ul>
-          `
-          : `<p class="past-empty">${escapeHtml(localizeText("No scorer data loaded."))}</p>`
-      }
-    </article>
+    <span class="goal-scorer-segment">
+      ${minute ? `<span class="goal-minute">${escapeHtml(minute)}</span>` : ""}
+      <span class="goal-scorer-name">${escapeHtml(name)}</span>
+      ${note ? `<em>${escapeHtml(note)}</em>` : ""}
+    </span>
+  `;
+}
+
+function renderHistoricalScoringDetailsHighlight(match) {
+  const goals = getHistoricalFixtureGoals(match);
+  if (!goals.length) {
+    return "";
+  }
+
+  return `
+    <li class="scorer-highlight" aria-label="${escapeHtml(localizeText("Goals"))}">
+      <span aria-hidden="true">⚽</span>
+      <span class="goal-scorer-list">
+        ${goals.map(renderHistoricalGoalScorerSegment).join('<span class="goal-separator">•</span>')}
+      </span>
+    </li>
   `;
 }
 
@@ -7508,12 +7747,10 @@ function renderHistoricalGoals(match) {
     return `<p class="past-empty">No goals because this match was cancelled.</p>`;
   }
 
-  return `
-    <div class="historical-goals">
-      ${renderHistoricalGoalTeam(match.homeTeam, match.goalsHome)}
-      ${renderHistoricalGoalTeam(match.awayTeam, match.goalsAway)}
-    </div>
-  `;
+  const scoringHighlight = renderHistoricalScoringDetailsHighlight(match);
+  return scoringHighlight
+    ? `<ul class="result-highlights historical-result-highlights">${scoringHighlight}</ul>`
+    : `<p class="past-empty">${escapeHtml(localizeText("No scorer data loaded."))}</p>`;
 }
 
 function getHistoricalContextLabel(match) {
@@ -8152,12 +8389,18 @@ function getHistoricalResultHighlights(match) {
 }
 
 function renderHistoricalResultBlock(match) {
+  const scoringHighlight = renderHistoricalScoringDetailsHighlight(match);
+  const highlights = getHistoricalResultHighlights(match).filter(
+    (highlight) => !scoringHighlight || !String(highlight).trim().startsWith("⚽")
+  );
+
   return `
     <section class="info-block">
       <h3>${escapeHtml(localizeText("Result"))}</h3>
       <p class="past-empty">${escapeHtml(localizeText(getHistoricalResultOutcomeHighlight(match)))}</p>
       <ul class="result-highlights">
-        ${getHistoricalResultHighlights(match)
+        ${scoringHighlight}
+        ${highlights
           .map((highlight) => `<li>${escapeHtml(localizeText(highlight))}</li>`)
           .join("")}
       </ul>
@@ -8269,6 +8512,17 @@ function getHistoricalTeamKeyBody(match, teamName) {
 }
 
 function renderHistoricalKeyInformation(match) {
+  const keyInformation = match.keyInformation || {};
+  if (keyInformation.home && keyInformation.away) {
+    const keyPlayers = match.keyPlayers || {};
+    return `
+      <div class="key-info-grid">
+        ${renderKeyInformationTeam(match.homeTeam, keyInformation.home, keyPlayers.home, [], match.awayTeam)}
+        ${renderKeyInformationTeam(match.awayTeam, keyInformation.away, keyPlayers.away, [], match.homeTeam)}
+      </div>
+    `;
+  }
+
   return `
     <div class="key-info-grid">
       ${[match.homeTeam, match.awayTeam]
@@ -10157,6 +10411,7 @@ window.addEventListener("resize", () => {
     updateTruncatedTeamTooltips();
     updateStandingNameTooltips();
     updateMeasuredLabelTooltips();
+    updateTournamentConnectors();
   });
 });
 window.addEventListener(

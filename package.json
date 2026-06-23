@@ -9,6 +9,7 @@
     "audit:copy": "node scripts/audit-matchup-copy.mjs",
     "audit:schedule": "node scripts/audit-fifa-schedule.mjs",
     "import:history": "node scripts/import-world-cup-history.mjs",
+    "history:matchups": "node scripts/populate-historical-matchup-key-information.mjs",
     "matchups": "node scripts/populate-matchup-key-information.mjs",
     "matchday:readiness": "node scripts/matchday-readiness.mjs",
     "profiles": "node scripts/populate-player-profiles.mjs",

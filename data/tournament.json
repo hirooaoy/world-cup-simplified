@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-22T17:21:59.493Z",
+  "updatedAt": "2026-06-22T18:00:00-07:00",
   "coverageNote": "The current seed dataset covers the full official fixture skeleton from June 11 through July 19. Rich previews, scores, live status and knockout participants are updated progressively.",
   "format": {
     "automaticAdvancersPerGroup": 2,
@@ -82,7 +82,133 @@
       "label": "Editorial preview notes and placeholder projections",
       "url": "",
       "type": "editorial",
-      "checkedAt": "2026-06-22T10:03:59-07:00"
+      "checkedAt": "2026-06-22T17:38:24-07:00"
+    },
+    {
+      "id": "matchup-research-2026-06-23",
+      "label": "Fixture-specific matchup research notes",
+      "url": "data/matchup-research-notes.json",
+      "type": "editorial",
+      "checkedAt": "2026-06-22T17:55:01-07:00"
+    },
+    {
+      "id": "rotowire-portugal-uzbekistan-preview-2026-06-23",
+      "label": "RotoWire Portugal vs Uzbekistan team news and tactical preview",
+      "url": "https://www.rotowire.com/soccer/article/portugal-vs-uzbekistan-preview-predicted-lineups-team-news-tactical-analysis-2026-world-cup-group-k-119186",
+      "type": "cross-check",
+      "checkedAt": "2026-06-22T17:55:01-07:00"
+    },
+    {
+      "id": "houstonchronicle-portugal-uzbekistan-preview-2026-06-23",
+      "label": "Houston Chronicle Portugal vs Uzbekistan players to watch",
+      "url": "https://www.houstonchronicle.com/world-cup/article/portugal-uzbekistan-preview-world-cup-houston-22314778.php",
+      "type": "cross-check",
+      "checkedAt": "2026-06-22T17:55:01-07:00"
+    },
+    {
+      "id": "standard-england-ghana-preview-2026-06-23",
+      "label": "The Standard England vs Ghana team news",
+      "url": "https://www.standard.co.uk/sport/football/england-vs-ghana-prediction-kick-off-time-tv-live-stream-team-news-latest-h2h-results-odds-world-cup-2026-preview-b1286983.html",
+      "type": "cross-check",
+      "checkedAt": "2026-06-22T17:55:01-07:00"
+    },
+    {
+      "id": "guardian-england-ghana-team-news-2026-06-23",
+      "label": "Guardian England vs Ghana defensive and availability notes",
+      "url": "https://www.theguardian.com/football/2026/jun/23/thomas-tuchel-england-ghana-world-cup-defence-improve",
+      "type": "cross-check",
+      "checkedAt": "2026-06-22T17:55:01-07:00"
+    },
+    {
+      "id": "guardian-norway-senegal-live-2026-06-22",
+      "label": "Guardian Norway vs Senegal live match status and tactical notes",
+      "url": "https://www.theguardian.com/football/live/2026/jun/22/norway-v-senegal-world-cup-2026-live",
+      "type": "cross-check",
+      "checkedAt": "2026-06-22T18:00:00-07:00"
+    },
+    {
+      "id": "fox-norway-senegal-preview-2026-06-22",
+      "label": "FOX Sports Norway vs Senegal preview",
+      "url": "https://www.foxsports.com/stories/soccer/2026-world-cup-norway-senegal-odds-prediction-picks",
+      "type": "cross-check",
+      "checkedAt": "2026-06-22T18:00:00-07:00"
+    },
+    {
+      "id": "sofascore-jordan-algeria-preview-2026-06-22",
+      "label": "Sofascore Jordan vs Algeria group preview",
+      "url": "https://www.sofascore.com/news/jordan-vs-algeria-world-cup-group-j-pregame-report",
+      "type": "cross-check",
+      "checkedAt": "2026-06-22T18:00:00-07:00"
+    },
+    {
+      "id": "analyst-jordan-algeria-preview-2026-06-22",
+      "label": "Opta Analyst Jordan vs Algeria preview",
+      "url": "https://theanalyst.com/articles/jordan-vs-algeria-prediction-world-cup-2026-match-preview",
+      "type": "cross-check",
+      "checkedAt": "2026-06-22T18:00:00-07:00"
+    },
+    {
+      "id": "sportsmole-panama-croatia-preview-2026-06-23",
+      "label": "Sports Mole Panama vs Croatia preview",
+      "url": "https://www.sportsmole.co.uk/football/panama/world-cup-2026/preview/panama-vs-croatia-prediction-team-news-lineups_599736.html",
+      "type": "cross-check",
+      "checkedAt": "2026-06-22T17:55:01-07:00"
+    },
+    {
+      "id": "tfa-colombia-dr-congo-preview-2026-06-23",
+      "label": "Total Football Analysis Colombia vs DR Congo preview",
+      "url": "https://totalfootballanalysis.com/competitions/fifa-world-cup-2026/colombia-v-dr-congo-predictions",
+      "type": "cross-check",
+      "checkedAt": "2026-06-22T17:55:01-07:00"
+    },
+    {
+      "id": "fox-colombia-dr-congo-leaders-2026-06-23",
+      "label": "FOX Sports Colombia vs DR Congo team leaders",
+      "url": "https://www.foxsports.com/soccer/fifa-world-cup-men-colombia-vs-dr-congo-jun-23-2026-game-boxscore-647663",
+      "type": "cross-check",
+      "checkedAt": "2026-06-22T17:55:01-07:00"
+    },
+    {
+      "id": "olympic-ca-canada-switzerland-questions-2026-06-23",
+      "label": "Team Canada Switzerland vs Canada Davies status",
+      "url": "https://olympic.ca/2026/06/20/5-big-questions-for-canada-ahead-of-fifa-world-cup-match-versus-switzerland/",
+      "type": "cross-check",
+      "checkedAt": "2026-06-22T17:55:01-07:00"
+    },
+    {
+      "id": "shekicks-bosnia-qatar-preview-2026-06-23",
+      "label": "SheKicks Bosnia and Herzegovina vs Qatar preview",
+      "url": "https://shekicks.net/bosnia-and-herzegovina-v-qatar-predictions/",
+      "type": "cross-check",
+      "checkedAt": "2026-06-22T17:55:01-07:00"
+    },
+    {
+      "id": "sportsmole-scotland-brazil-preview-2026-06-23",
+      "label": "Sports Mole Scotland vs Brazil team news",
+      "url": "https://www.sportsmole.co.uk/football/scotland/world-cup-2026/preview/scotland-vs-brazil-prediction-team-news-lineups_599770.html",
+      "type": "cross-check",
+      "checkedAt": "2026-06-22T17:55:01-07:00"
+    },
+    {
+      "id": "shekicks-morocco-haiti-preview-2026-06-23",
+      "label": "SheKicks Morocco vs Haiti preview",
+      "url": "https://shekicks.net/morocco-v-haiti-predictions/",
+      "type": "cross-check",
+      "checkedAt": "2026-06-22T17:55:01-07:00"
+    },
+    {
+      "id": "juvefc-czechia-mexico-preview-2026-06-23",
+      "label": "JuveFC Czechia vs Mexico preview",
+      "url": "https://www.juvefc.com/czech-republic-v-mexico-predictions/",
+      "type": "cross-check",
+      "checkedAt": "2026-06-22T17:55:01-07:00"
+    },
+    {
+      "id": "juvefc-south-africa-south-korea-preview-2026-06-23",
+      "label": "JuveFC South Africa vs South Korea preview",
+      "url": "https://www.juvefc.com/south-africa-v-south-korea-predictions/",
+      "type": "cross-check",
+      "checkedAt": "2026-06-22T17:55:01-07:00"
     },
     {
       "id": "ranking-projection-2026-06-17",
@@ -407,6 +533,13 @@
       "checkedAt": "2026-06-20T10:31:28-07:00"
     },
     {
+      "id": "key-player-baseline-2026-06-22",
+      "label": "Team key-player watchlist baseline",
+      "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/teams/france/squad",
+      "type": "editorial",
+      "checkedAt": "2026-06-22T17:38:24-07:00"
+    },
+    {
       "id": "aljazeera-japan-squad-2026-05-15",
       "label": "Al Jazeera Japan 2026 World Cup squad and omissions",
       "url": "https://www.aljazeera.com/sports/2026/5/15/mitoma-fails-to-make-japans-2026-world-cup-squad-due-to-hamstring-injury",
@@ -540,6 +673,14 @@
       "checkedAt": "2026-06-17T15:08:00-07:00"
     },
     {
+      "id": "fjelstul-worldcup-json-2026-06-23",
+      "label": "Fjelstul World Cup Database historical squads, appearances and match events",
+      "url": "https://github.com/jfjelstul/worldcup",
+      "type": "cross-check",
+      "checkedAt": "2026-06-22T18:05:00-07:00",
+      "license": "CC-BY-SA-4.0"
+    },
+    {
       "id": "fifa-squad-list-2026-06-21",
       "label": "FIFA World Cup 2026 official squad list",
       "url": "https://fdp.fifa.org/assetspublic/ce281/pdf/SquadLists-English.pdf",
@@ -575,6 +716,20 @@
       "type": "official",
       "checkedAt": "2026-06-22T17:21:59.493Z",
       "note": "0 fixture updates merged from 104 matched FIFA fixtures."
+    },
+    {
+      "id": "bundesliga-argentina-austria-result-2026-06-22",
+      "label": "Bundesliga Argentina vs Austria result cross-check",
+      "url": "https://www.bundesliga.com/en/bundesliga/news/argentina-austria-match-report-highlights-matchday-2-37927",
+      "type": "cross-check",
+      "checkedAt": "2026-06-22T17:37:08-07:00"
+    },
+    {
+      "id": "guardian-france-iraq-result-2026-06-22",
+      "label": "Guardian France vs Iraq live match status and result",
+      "url": "https://www.theguardian.com/football/live/2026/jun/22/france-v-iraq-world-cup-2026-live-updates",
+      "type": "cross-check",
+      "checkedAt": "2026-06-22T17:37:08-07:00"
     }
   ],
   "groups": [

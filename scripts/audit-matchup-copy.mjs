@@ -2,6 +2,7 @@
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { getPlayerTokens, isPlayerNameMatch } from "./player-name-matching.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const dataDir = path.join(root, "data");
@@ -47,42 +48,6 @@ function normalizeText(value) {
     .trim();
 }
 
-function getPlayerTokens(value) {
-  const normalized = normalizeText(value);
-  return normalized ? normalized.split(" ").filter(Boolean) : [];
-}
-
-function simplifyPlayerToken(value) {
-  return value.replace(/(.)\1+/g, "$1");
-}
-
-function isPlayerTokenMatch(displayToken, rosterToken) {
-  const simplifiedDisplayToken = simplifyPlayerToken(displayToken);
-  const simplifiedRosterToken = simplifyPlayerToken(rosterToken);
-
-  return (
-    rosterToken === displayToken ||
-    rosterToken.includes(displayToken) ||
-    displayToken.includes(rosterToken) ||
-    simplifiedRosterToken === simplifiedDisplayToken ||
-    simplifiedRosterToken.includes(simplifiedDisplayToken) ||
-    simplifiedDisplayToken.includes(simplifiedRosterToken)
-  );
-}
-
-function isPlayerNameMatch(displayName, rosterName) {
-  const displayTokens = getPlayerTokens(displayName);
-  const rosterTokens = getPlayerTokens(rosterName);
-
-  if (!displayTokens.length || !rosterTokens.length) {
-    return false;
-  }
-
-  return displayTokens.every((displayToken) =>
-    rosterTokens.some((rosterToken) => isPlayerTokenMatch(displayToken, rosterToken))
-  );
-}
-
 function wordCount(value) {
   return String(value || "")
     .trim()
@@ -97,13 +62,19 @@ function findJargon(value) {
 
 function copyMentionsPlayerName(copy, playerName) {
   const copyTokens = new Set(getPlayerTokens(copy));
+  const normalizedCopy = normalizeText(copy);
+  const normalizedPlayerName = normalizeText(playerName);
+
+  if (normalizedPlayerName && normalizedCopy.includes(normalizedPlayerName)) {
+    return true;
+  }
+
   const playerTokens = getPlayerTokens(playerName).filter((token) => token.length >= 4);
 
   if (!playerTokens.length) {
     return false;
   }
 
-  const normalizedCopy = normalizeText(copy);
   if (normalizedCopy.includes(playerTokens.join(" "))) {
     return true;
   }
@@ -136,9 +107,10 @@ function hasFinalScore(fixture) {
   return isFiniteScore(fixture.score?.home) && isFiniteScore(fixture.score?.away);
 }
 
-const [fixturesData, playerAvailabilityData, playerProfilesData, teamsData, tournamentData] =
+const [fixturesData, historyData, playerAvailabilityData, playerProfilesData, teamsData, tournamentData] =
   await Promise.all([
     readJson("fixtures.json"),
+    readJson("history.json"),
     readJson("player-availability.json"),
     readJson("player-profiles.json"),
     readJson("teams.json"),
@@ -150,6 +122,7 @@ const teamsById = new Map((teamsData.teams || []).map((team) => [team.id, team])
 const profiles = playerProfilesData.profiles || {};
 const appSource = await readFile(path.join(root, "app.js"), "utf8");
 const rows = [];
+const historicalRows = [];
 const resultRows = [];
 const teamTaglineIssues = [];
 const chineseTranslationIssues = [];
@@ -258,6 +231,9 @@ for (const fixture of fixturesData.fixtures || []) {
     if (!text.includes(`Against ${opponent?.name}`)) {
       issues.push(issue("missing opponent relationship", opponent?.name || opponentId));
     }
+    if (!text.includes(" has to beat ")) {
+      issues.push(issue("missing style-vs-style matchup pressure"));
+    }
     if (!/The risk is /.test(text)) {
       issues.push(issue("missing clear risk sentence"));
     }
@@ -297,6 +273,57 @@ for (const fixture of fixturesData.fixtures || []) {
   }
 }
 
+for (const fixture of historyData.fixtures || []) {
+  for (const side of ["home", "away"]) {
+    const team = side === "home" ? fixture.homeSlot : fixture.awaySlot;
+    const opponent = side === "home" ? fixture.awaySlot : fixture.homeSlot;
+    const text = fixture.keyInformation?.[side] || "";
+    const players = fixture.keyPlayers?.[side] || [];
+    const paragraphWords = wordCount(text);
+    const issues = [];
+    const missingNamesInCopy = players
+      .map((player) => player.name)
+      .filter((name) => !copyMentionsPlayerName(text, name));
+    const jargon = findJargon(text);
+
+    if (!fixture.keyInformation) {
+      issues.push(issue("missing keyInformation"));
+    }
+    if (!sourceIds.has(fixture.keyInformation?.sourceId)) {
+      issues.push(issue("unknown keyInformation source", fixture.keyInformation?.sourceId || "none"));
+    }
+    if (paragraphWords < 35 || paragraphWords > 95) {
+      issues.push(issue("word count outside target", String(paragraphWords)));
+    }
+    if (!text.includes(`Against ${opponent}`)) {
+      issues.push(issue("missing historical opponent relationship", opponent));
+    }
+    if (fixture.status !== "CANCELLED" && !text.includes(" had to beat ")) {
+      issues.push(issue("missing historical matchup pressure"));
+    }
+    if (fixture.status !== "CANCELLED" && players.length < 2) {
+      issues.push(issue("not enough historical key players", String(players.length)));
+    }
+    if (missingNamesInCopy.length) {
+      issues.push(issue("historical key player absent from paragraph", missingNamesInCopy.join(", ")));
+    }
+    if (jargon.length) {
+      issues.push(issue("beginner jargon", jargon.join(", ")));
+    }
+
+    historicalRows.push({
+      fixtureId: fixture.id,
+      side,
+      team,
+      opponent,
+      status: fixture.status,
+      words: paragraphWords,
+      issues,
+      text
+    });
+  }
+}
+
 const missingChineseTeamTerms = [...chineseTeamTerms]
   .filter((term) => !hasChineseTranslationEntry(appSource, term))
   .sort();
@@ -312,6 +339,7 @@ if (missingChinesePlayerTerms.length) {
 }
 
 const issueRows = rows.filter((row) => row.issues.length);
+const historicalIssueRows = historicalRows.filter((row) => row.issues.length);
 const resultIssueRows = resultRows.filter((row) => row.issues.length);
 const statusSummary = ["FT", "LIVE", "SCHEDULED"]
   .filter((status) => statusCounts.has(status))
@@ -322,6 +350,7 @@ const generatedResultCount = resultRows.filter((row) => row.generatedFromScore).
 
 console.log("Matchup copy audit");
 console.log(`Paragraphs checked: ${rows.length}`);
+console.log(`Historical paragraphs checked: ${historicalRows.length}`);
 console.log(`Team descriptors checked: ${(teamsData.teams || []).length}`);
 console.log(`Group fixture statuses checked: ${statusSummary || "none"}`);
 console.log(
@@ -331,6 +360,7 @@ console.log(
   `Chinese translation terms checked: ${chineseTeamTerms.size + chinesePlayerTerms.size} (${chineseTeamTerms.size} team/style, ${chinesePlayerTerms.size} key-player)`
 );
 console.log(`Paragraphs needing review: ${issueRows.length}`);
+console.log(`Historical paragraphs needing review: ${historicalIssueRows.length}`);
 console.log(`Team descriptors needing review: ${teamTaglineIssues.length}`);
 console.log(`Finished result sections needing review: ${resultIssueRows.length}`);
 console.log(`Chinese translation terms needing review: ${chineseTranslationIssues.length}`);
@@ -347,6 +377,14 @@ if (issueRows.length) {
   console.log("");
   console.log("Paragraph issues");
   for (const row of issueRows) {
+    console.log(`- ${row.fixtureId} ${row.side} ${row.team}: ${formatIssues(row.issues)}`);
+  }
+}
+
+if (historicalIssueRows.length) {
+  console.log("");
+  console.log("Historical paragraph issues");
+  for (const row of historicalIssueRows) {
     console.log(`- ${row.fixtureId} ${row.side} ${row.team}: ${formatIssues(row.issues)}`);
   }
 }
@@ -378,6 +416,15 @@ if (showDetails) {
   }
 
   console.log("");
+  console.log("Historical paragraph details");
+  for (const row of historicalRows) {
+    console.log("");
+    console.log(`${row.fixtureId} | ${row.side} | ${row.team} vs ${row.opponent} | ${row.status} | ${row.words} words`);
+    console.log(formatIssues(row.issues));
+    console.log(row.text);
+  }
+
+  console.log("");
   console.log("Finished result section details");
   for (const row of resultRows) {
     const source = row.authored ? `${row.authored} authored highlight(s)` : "generated from final score";
@@ -385,6 +432,12 @@ if (showDetails) {
   }
 }
 
-if (issueRows.length || teamTaglineIssues.length || resultIssueRows.length || chineseTranslationIssues.length) {
+if (
+  issueRows.length ||
+  historicalIssueRows.length ||
+  teamTaglineIssues.length ||
+  resultIssueRows.length ||
+  chineseTranslationIssues.length
+) {
   process.exitCode = 1;
 }

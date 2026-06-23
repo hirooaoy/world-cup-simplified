@@ -11,6 +11,7 @@ const statusStaleHours = Number(process.env.MATCHDAY_STATUS_STALE_HOURS || 2.25)
 const marketFreshHours = Number(process.env.MATCHDAY_MARKET_FRESH_HOURS || 24);
 const contextFreshHours = Number(process.env.MATCHDAY_CONTEXT_FRESH_HOURS || 72);
 const squadFreshHours = Number(process.env.MATCHDAY_SQUAD_FRESH_HOURS || 24);
+const matchupResearchFreshHours = Number(process.env.MATCHDAY_MATCHUP_RESEARCH_FRESH_HOURS || 24);
 
 async function readJson(fileName) {
   return JSON.parse(await readFile(path.join(dataDir, fileName), "utf8"));
@@ -70,6 +71,7 @@ function fixtureSourceIds(fixture) {
     fixture.projection?.sourceId,
     fixture.keyPlayers?.sourceId,
     fixture.keyInformation?.sourceId,
+    ...(fixture.keyInformation?.researchSourceIds || []),
     fixture.h2h?.sourceId
   ].filter(Boolean);
 }
@@ -117,11 +119,13 @@ function getFixtureUnavailable(playerAvailabilityData, fixture) {
 
 const [
   fixturesData,
+  matchupResearchData,
   playerAvailabilityData,
   teamsData,
   tournamentData
 ] = await Promise.all([
   readJson("fixtures.json"),
+  readJson("matchup-research-notes.json"),
   readJson("player-availability.json"),
   readJson("teams.json"),
   readJson("tournament.json")
@@ -141,11 +145,18 @@ const focusFixtures = fixtures.filter((fixture) => {
 const blockers = [];
 const actions = [];
 const sourceRefreshes = new Map();
+const matchupResearchRows = [];
+
+function getFixtureResearch(fixture) {
+  return matchupResearchData?.fixtures?.[fixture.id] || null;
+}
 
 for (const fixture of focusFixtures) {
   const kickoff = new Date(fixture.kickoffUtc);
   const hoursSinceKickoff = hoursBetween(now, kickoff);
+  const hoursUntilKickoff = hoursBetween(kickoff, now);
   const label = fixtureName(fixture, teamsById);
+  const fixtureResearch = getFixtureResearch(fixture);
 
   if (fixture.status === "SCHEDULED" && hoursSinceKickoff > 0) {
     const message = `${label} kicked off ${hoursSinceKickoff.toFixed(1)}h ago but is still SCHEDULED. Run pnpm sync:fifa, then verify live status if FIFA has no update.`;
@@ -164,6 +175,29 @@ for (const fixture of focusFixtures) {
 
   if (fixture.status === "FT" && !fixture.score) {
     blockers.push(`${label} is FT but has no score.`);
+  }
+
+  if (fixture.stage === "group" && fixture.status !== "FT" && fixture.homeTeamId && fixture.awayTeamId) {
+    if (!fixtureResearch || fixtureResearch.status !== "researched") {
+      const message = `${label} needs fixture-specific matchup research before publishing.`;
+      if (hoursUntilKickoff <= 24) {
+        blockers.push(message);
+      } else {
+        actions.push(message);
+      }
+    } else {
+      const checkedAt = new Date(fixtureResearch.checkedAt || "");
+      const age = Number.isNaN(checkedAt.getTime()) ? Infinity : hoursBetween(now, checkedAt);
+      matchupResearchRows.push({ fixture, label, research: fixtureResearch, age });
+      if (age > matchupResearchFreshHours) {
+        const message = `${label} matchup research is ${Number.isFinite(age) ? `${age.toFixed(1)}h` : "invalid"} old; refresh source search and rerun matchup generation.`;
+        if (hoursUntilKickoff <= 24) {
+          blockers.push(message);
+        } else {
+          actions.push(message);
+        }
+      }
+    }
   }
 
   for (const sourceId of fixtureSourceIds(fixture)) {
@@ -220,6 +254,18 @@ for (const fixture of focusFixtures) {
 }
 if (!printedAvailability) {
   console.log("- No fixture-specific absences recorded for today/tomorrow.");
+}
+
+console.log("");
+console.log("Fixture matchup research");
+if (!matchupResearchRows.length) {
+  console.log("- No source-backed fixture research notes loaded for today/tomorrow.");
+} else {
+  for (const row of matchupResearchRows) {
+    const sourceCount = row.research.sourceIds?.length || 0;
+    const ageText = Number.isFinite(row.age) ? `${row.age.toFixed(1)}h old` : "invalid checkedAt";
+    console.log(`- ${row.label}: ${row.research.status}, ${ageText}, ${sourceCount} source(s).`);
+  }
 }
 
 console.log("");

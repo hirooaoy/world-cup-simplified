@@ -6,6 +6,7 @@ import { fileURLToPath } from "node:url";
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const dataDir = path.join(root, "data");
 const fixturesPath = path.join(dataDir, "fixtures.json");
+const matchupResearchPath = path.join(dataDir, "matchup-research-notes.json");
 const teamsPath = path.join(dataDir, "teams.json");
 
 const sourceId = "editorial-preview-2026-06-22";
@@ -14,11 +15,11 @@ const profiles = {
   ALG: {
     summary: "are a technical North African side that want the game to run through the left foot and calm of midfield",
     leaderRole: "giving them wing craft, press resistance, and a second scoring lane",
-    plan: "They are at their best when Riyad Mahrez can slow defenders down and Ismael Bennacer can move the ball through pressure instead of around it.",
-    attackPlan: "give Mahrez time on the ball and let Amine Gouiri drift into open space",
+    plan: "They are at their best when Riyad Mahrez can slow defenders down, Houssem Aouar can connect midfield, and Amine Gouiri can drift away from markers.",
+    attackPlan: "give Mahrez time on the ball while Aouar connects the next pass toward Gouiri",
     matchupWin: "make the match about controlled touches rather than long defensive chases",
     defensiveTask: "protecting the space behind their midfield when the ball turns over",
-    threat: "slow the match through Mahrez and Bennacer before finding Gouiri in open space"
+    threat: "slow the match through Mahrez and Aouar before finding Gouiri in open space"
   },
   ARG: {
     summary: "are the defending champions and still one of the most complete tournament teams",
@@ -51,10 +52,10 @@ const profiles = {
     summary: "are an elite chance-creation team when their creators get space to face forward",
     leaderRole: "giving them attacking passing, box power, and one-on-one disruption",
     plan: "They want Kevin De Bruyne to find early service, Romelu Lukaku to occupy central defenders, and Jeremy Doku to unbalance the far side.",
-    attackPlan: "feed De Bruyne early and use Doku to create the separation Lukaku needs in the box",
+    attackPlan: "feed De Bruyne early and create the separation Lukaku needs in the box",
     matchupWin: "make the match about chance quality rather than long defensive phases",
     defensiveTask: "stopping counters before their attacking shape gets stretched",
-    threat: "turn De Bruyne service and Doku dribbles into Lukaku chances"
+    threat: "turn De Bruyne service into Lukaku chances"
   },
   BIH: {
     summary: "are a veteran-leaning side that still carry real danger when the match becomes physical and direct",
@@ -183,13 +184,18 @@ const profiles = {
     threat: "stretch the pitch through Yamal and Williams before Pedri breaks the line"
   },
   FRA: {
-    summary: "are an elite quick-break force with enough individual quality to win without needing long possession spells",
-    leaderRole: "giving them game-breaking pace, connective craft, and defensive calm",
-    plan: "They want Kylian Mbappe attacking space, Antoine Griezmann connecting phases, and William Saliba protecting the open field.",
-    attackPlan: "create one clean channel for Mbappe and let Griezmann decide when to speed the move up",
+    summary: "are an elite attacking side with Mbappe's speed now fed by Olise's left-footed creation",
+    leaderRole: "giving them game-breaking pace, lock-picking passes, and defensive calm",
+    plan: "They want Kylian Mbappe attacking space, Michael Olise choosing the pass or shot, and William Saliba protecting the open field.",
+    attackPlan: "let Olise receive inside, draw pressure, and release Mbappe before the defense can reset",
+    opponentPlans: {
+      IRQ: "use Olise as the lock-picker against a deeper shape before Mbappe attacks the first gap",
+      NOR: "make Olise and Mbappe punish Norway quickly whenever Haaland pressure leaves space to run",
+      SEN: "use Olise's decisions between midfield and defense to release Mbappe before Senegal's athletes can recover"
+    },
     matchupWin: "make the opponent defend space behind their defense",
     defensiveTask: "trusting Saliba to control counters when France's attackers push high",
-    threat: "turn one channel ball into Mbappe running at goal"
+    threat: "combine Olise's final ball with Mbappe's acceleration before Saliba controls the counter"
   },
   GER: {
     summary: "are a technical control side with enough young creativity to open compact defenses",
@@ -219,13 +225,13 @@ const profiles = {
     threat: "turn direct service into Nazon or Pierrot chances"
   },
   IRN: {
-    summary: "are a streetwise counterattacking side with experienced forwards who understand tournament margins",
-    leaderRole: "giving them craft, box movement, and wide delivery",
-    plan: "They want Mehdi Taremi linking play, Sardar Azmoun attacking the area, and Alireza Jahanbakhsh delivering from wide or dead balls.",
-    attackPlan: "draw contact, slow the rhythm, and then find Taremi or Azmoun around the box",
+    summary: "are a streetwise counterattacking side with experienced attackers who understand tournament margins",
+    leaderRole: "giving them craft, final-pass calm, and wide delivery",
+    plan: "They want Mehdi Taremi linking play, Saman Ghoddos adding the clever pass, and Alireza Jahanbakhsh delivering from wide or dead balls.",
+    attackPlan: "draw contact, slow the rhythm, and then find Taremi or Jahanbakhsh around the box",
     matchupWin: "turn a patient defensive shape into selective attacks",
     defensiveTask: "keeping the wide lanes protected before Jahanbakhsh can break out",
-    threat: "turn fouls, counters, and Taremi's craft into chances"
+    threat: "turn fouls, counters, Taremi's craft, and Ghoddos' final pass into chances"
   },
   IRQ: {
     summary: "are a passionate, direct side that need their attacking moments to be clean and immediate",
@@ -445,8 +451,75 @@ const profiles = {
   }
 };
 
+const matchupProblems = {
+  ALG: "Mahrez-Aouar control",
+  ARG: "Messi-Alvarez midfield breaks",
+  AUS: "Irvine-Volpato duel-and-service rhythm",
+  AUT: "Sabitzer-Laimer pressure waves",
+  BEL: "De Bruyne-to-Lukaku chance creation",
+  BIH: "Dzeko target play",
+  BRA: "Neymar-Vinicius isolation speed",
+  CAN: "Davies-David open-field speed",
+  CIV: "Kessie-Adingra power breaks",
+  COD: "Wissa-Sadiki counters",
+  COL: "Diaz-James width-and-service",
+  CPV: "Mendes-led compact counterpunch",
+  CRO: "Modric-Kovacic midfield control",
+  CUW: "Bacuna free-kick and corner play plus Chong outlets",
+  CZE: "Schick-Soucek aerial pressure",
+  ECU: "Caicedo-Hincapie midfield squeeze",
+  EGY: "Salah-Marmoush breakaway threat",
+  ENG: "Kane-Bellingham box entries",
+  ESP: "Yamal-Williams wide stretch",
+  FRA: "Olise-to-Mbappe chance creation",
+  GER: "Kimmich-Musiala-Wirtz central rotations",
+  GHA: "Semenyo-Williams forward running",
+  HAI: "Nazon-Pierrot direct box pressure",
+  IRN: "Taremi-Ghoddos counter craft",
+  IRQ: "Ali Jasim-to-Hussein counter route",
+  JOR: "Al-Taamari-Olwan counter timing",
+  JPN: "Doan-Kamada combination speed",
+  KOR: "Son-Lee quick-break service",
+  KSA: "Al-Dawsari pressing bursts",
+  MAR: "Hakimi-Brahim right-side surges",
+  MEX: "Gimenez-Chavez home pressure",
+  NED: "De Jong-Gakpo controlled buildup",
+  NOR: "Odegaard-to-Haaland supply",
+  NZL: "Cacace-to-Wood aerial service",
+  PAN: "Carrasquilla-Murillo right-side escape",
+  PAR: "Almiron-Enciso counters",
+  POR: "Vitinha-Bruno-Ronaldo supply",
+  QAT: "Afif-Almoez patient combinations",
+  RSA: "Williams-Mokoena-Foster save-to-counter chain",
+  SCO: "Robertson-McTominay left-side service",
+  SEN: "Mane-Jackson direct running",
+  SUI: "Xhaka-Embolo control-and-release",
+  SWE: "Isak-Gyokeres two-striker pressure",
+  TUN: "Skhiri-Saad compact counter route",
+  TUR: "Calhanoglu-Guler-Yildiz creative bursts",
+  URU: "Valverde-Nunez chaos running",
+  USA: "Pulisic-McKennie pressure breaks",
+  UZB: "Fayzullaev-Shomurodov disciplined attacks"
+};
+
 async function readJson(filePath) {
   return JSON.parse(await readFile(filePath, "utf8"));
+}
+
+async function readOptionalJson(filePath) {
+  try {
+    return await readJson(filePath);
+  } catch (error) {
+    if (error?.code === "ENOENT") {
+      return null;
+    }
+
+    throw error;
+  }
+}
+
+function clone(value) {
+  return JSON.parse(JSON.stringify(value));
 }
 
 function formatList(values) {
@@ -467,9 +540,31 @@ function getPlayerNames(players = []) {
     .filter(Boolean);
 }
 
-function buildSideCopy(team, opponent, players, opponentPlayers) {
+function formatPossessiveName(name) {
+  return /s$/i.test(name) ? `${name}'` : `${name}'s`;
+}
+
+function getResearchSourceId(fixtureResearch) {
+  return fixtureResearch?.sourceId || fixtureResearch?.sourceIds?.[0] || sourceId;
+}
+
+function getSideResearch(fixtureResearch, side) {
+  return fixtureResearch?.[side] && typeof fixtureResearch[side] === "object"
+    ? fixtureResearch[side]
+    : null;
+}
+
+function getSidePlayers(fixtureResearch, side, fallbackPlayers) {
+  const researchedPlayers = getSideResearch(fixtureResearch, side)?.keyPlayers;
+  return Array.isArray(researchedPlayers) && researchedPlayers.length ? researchedPlayers : fallbackPlayers;
+}
+
+function buildSideCopy(team, opponent, players, opponentPlayers, fixtureResearch, side) {
   const profile = profiles[team.id];
   const opponentProfile = profiles[opponent.id];
+  const opponentSide = side === "home" ? "away" : "home";
+  const sideResearch = getSideResearch(fixtureResearch, side);
+  const opponentResearch = getSideResearch(fixtureResearch, opponentSide);
 
   if (!profile) {
     throw new Error(`Missing profile for ${team.id}`);
@@ -486,17 +581,28 @@ function buildSideCopy(team, opponent, players, opponentPlayers) {
     throw new Error(`Missing key players for ${team.id} vs ${opponent.id}`);
   }
 
-  return `${team.name} ${profile.summary}, led by ${formatList(names)}. Against ${opponent.name}, they want to ${profile.attackPlan}. The risk is ${opponent.name} can ${opponentProfile.threat}.`;
+  const summary = sideResearch?.summary || profile.summary;
+  const attackPlan = sideResearch?.attackPlan || profile.opponentPlans?.[opponent.id] || profile.attackPlan;
+  const opponentThreat = opponentResearch?.threat || opponentProfile.opponentThreats?.[team.id] || opponentProfile.threat;
+  const teamMatchupProblem = sideResearch?.matchupProblem || matchupProblems[team.id] || profile.threat;
+  const opponentMatchupProblem = opponentResearch?.matchupProblem || matchupProblems[opponent.id] || opponentProfile.threat;
+  const contextSentence = sideResearch?.contextSentence ? `${sideResearch.contextSentence} ` : "";
+
+  return `${team.name} ${summary}, led by ${formatList(names)}. Against ${opponent.name}, their ${teamMatchupProblem} has to beat ${formatPossessiveName(opponent.name)} ${opponentMatchupProblem}. ${contextSentence}They want to ${attackPlan}. The risk is ${opponent.name} can ${opponentThreat}.`;
 }
 
-const [fixturesData, teamsData] = await Promise.all([
+const [fixturesData, teamsData, matchupResearchData] = await Promise.all([
   readJson(fixturesPath),
-  readJson(teamsPath)
+  readJson(teamsPath),
+  readOptionalJson(matchupResearchPath)
 ]);
 const teamsById = new Map(teamsData.teams.map((team) => [team.id, team]));
+const matchupResearchByFixture = matchupResearchData?.fixtures || {};
 let populated = 0;
 
-fixturesData.sourceIds = [...new Set([...(fixturesData.sourceIds || []), sourceId])];
+fixturesData.sourceIds = [
+  ...new Set([...(fixturesData.sourceIds || []), sourceId, ...(matchupResearchData?.sourceIds || [])])
+];
 
 fixturesData.fixtures = fixturesData.fixtures.map((fixture) => {
   if (fixture.stage !== "group" || !fixture.homeTeamId || !fixture.awayTeamId) {
@@ -510,10 +616,29 @@ fixturesData.fixtures = fixturesData.fixtures.map((fixture) => {
     throw new Error(`Missing team for ${fixture.id}`);
   }
 
+  const fixtureResearch = matchupResearchByFixture[fixture.id] || null;
+  const keyInformationSourceId = getResearchSourceId(fixtureResearch);
+  const homePlayers = getSidePlayers(fixtureResearch, "home", fixture.keyPlayers?.home);
+  const awayPlayers = getSidePlayers(fixtureResearch, "away", fixture.keyPlayers?.away);
+
+  if (fixtureResearch) {
+    fixture.keyPlayers = {
+      ...(fixture.keyPlayers || {}),
+      sourceId: keyInformationSourceId,
+      method: "fixture-research-notes",
+      basis:
+        "Fixture-specific source-backed watchlist; uses matchup research notes when current team news changes the emphasis",
+      home: clone(homePlayers),
+      away: clone(awayPlayers)
+    };
+  }
+
   fixture.keyInformation = {
-    sourceId,
-    home: buildSideCopy(homeTeam, awayTeam, fixture.keyPlayers?.home, fixture.keyPlayers?.away),
-    away: buildSideCopy(awayTeam, homeTeam, fixture.keyPlayers?.away, fixture.keyPlayers?.home)
+    sourceId: keyInformationSourceId,
+    ...(fixtureResearch?.checkedAt ? { checkedAt: fixtureResearch.checkedAt } : {}),
+    ...(fixtureResearch?.sourceIds ? { researchSourceIds: fixtureResearch.sourceIds } : {}),
+    home: buildSideCopy(homeTeam, awayTeam, homePlayers, awayPlayers, fixtureResearch, "home"),
+    away: buildSideCopy(awayTeam, homeTeam, awayPlayers, homePlayers, fixtureResearch, "away")
   };
   populated += 2;
 
