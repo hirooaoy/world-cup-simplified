@@ -1,4 +1,4 @@
-const DATA_VERSION = "2026-06-22-catch-up-headlines";
+const DATA_VERSION = "2026-06-22-goal-events-profiles";
 const DATA_URLS = {
   fixtures: `data/fixtures.json?v=${DATA_VERSION}`,
   history: `data/history.json?v=${DATA_VERSION}`,
@@ -1958,6 +1958,77 @@ const ZH_PATTERN_TRANSLATIONS = [
     replace: () => "🌟 双方都没能真正拉开差距。"
   },
   {
+    pattern: /^🌟 (.+) and (.+) carried the duel without a breakthrough\.$/,
+    replace: (_, home, away) =>
+      `🌟 ${translateTextToZh(home)}和${translateTextToZh(away)}都没能打出突破。`
+  },
+  {
+    pattern: /^🌟 (.+) and (.+) traded momentum without a winner\.$/,
+    replace: (_, home, away) =>
+      `🌟 ${translateTextToZh(home)}和${translateTextToZh(away)}互有回应，但没有分出胜负。`
+  },
+  {
+    pattern: /^🌟 (.+) and (.+) cancelled each other out\.$/,
+    replace: (_, home, away) =>
+      `🌟 ${translateTextToZh(home)}和${translateTextToZh(away)}彼此抵消。`
+  },
+  {
+    pattern: /^🌟 No breakthrough came from a tight draw\.$/,
+    replace: () => "🌟 胶着的平局没有产生突破。"
+  },
+  {
+    pattern: /^🌟 (.+) opened it before (.+) finished the scoring\.$/,
+    replace: (_, opener, closer) =>
+      `🌟 ${translateTextToZh(opener)}首开纪录，${translateTextToZh(closer)}完成最后一击。`
+  },
+  {
+    pattern: /^🌟 (.+)'s (\d+(?:\+\d+)?') winner settled it for (.+)\.$/,
+    replace: (_, player, minute, team) =>
+      `🌟 ${translateTextToZh(player)}在${minute}打入制胜球，帮助${translateTextToZh(team)}锁定胜局。`
+  },
+  {
+    pattern: /^🌟 (.+)'s (\d+(?:\+\d+)?') equalizer earned (.+) a point\.$/,
+    replace: (_, player, minute, team) =>
+      `🌟 ${translateTextToZh(player)}在${minute}扳平，帮助${translateTextToZh(team)}拿到1分。`
+  },
+  {
+    pattern: /^🌟 (.+) scored twice as (.+) pulled clear\.$/,
+    replace: (_, player, team) =>
+      `🌟 ${translateTextToZh(player)}梅开二度，帮助${translateTextToZh(team)}拉开差距。`
+  },
+  {
+    pattern: /^🌟 (.+) completed a hat trick as (.+) ran away with it\.$/,
+    replace: (_, player, team) =>
+      `🌟 ${translateTextToZh(player)}完成帽子戏法，${translateTextToZh(team)}彻底拉开比分。`
+  },
+  {
+    pattern: /^🌟 A (\d+(?:\+\d+)?') own goal earned (.+) a point\.$/,
+    replace: (_, minute, team) =>
+      `🌟 ${minute}的乌龙球帮助${translateTextToZh(team)}拿到1分。`
+  },
+  {
+    pattern: /^🌟 A (\d+(?:\+\d+)?') own goal settled it for (.+)\.$/,
+    replace: (_, minute, team) =>
+      `🌟 ${minute}的乌龙球帮助${translateTextToZh(team)}锁定胜局。`
+  },
+  {
+    pattern: /^🌟 (.+)'s late penalty sealed (.+)'s win\.$/,
+    replace: (_, player, team) =>
+      `🌟 ${translateTextToZh(player)}最后阶段罚入点球，锁定${translateTextToZh(team)}的胜利。`
+  },
+  {
+    pattern: /^🌟 Cabo Verde held Spain's possession game to a scoreless tournament debut\.$/,
+    replace: () => "🌟 佛得角顶住西班牙的控球压力，队史世界杯首战收获零封平局。"
+  },
+  {
+    pattern: /^🌟 Curaçao's first World Cup point came through a hard-earned clean sheet\.$/,
+    replace: () => "🌟 库拉索凭借来之不易的零封拿到队史首个世界杯积分。"
+  },
+  {
+    pattern: /^🌟 IR Iran kept Belgium's creators quiet and made the low-margin plan stick\.$/,
+    replace: () => "🌟 伊朗限制住比利时的创造核心，让低比分计划成功落地。"
+  },
+  {
     pattern: /^🌟 (.+) headed (.+) in front early\.$/,
     replace: (_, player, team) =>
       `🌟 ${translateTextToZh(player)}早早头球帮助${translateTextToZh(team)}领先。`
@@ -2270,7 +2341,7 @@ const TOURNAMENT_PROGRESS_ROUNDS = [
     label: "Round of 32",
     matchNumbers: [74, 77, 73, 75, 83, 84, 81, 82, 76, 78, 79, 80, 86, 88, 85, 87]
   },
-  { id: "round-of-16", label: "Round of 16", matchNumbers: [89, 90, 91, 92, 93, 94, 95, 96] },
+  { id: "round-of-16", label: "Round of 16", matchNumbers: [89, 90, 93, 94, 91, 92, 95, 96] },
   { id: "quarter-finals", label: "Quarter-finals", matchNumbers: [97, 98, 99, 100] },
   { id: "semi-finals", label: "Semi-finals", matchNumbers: [101, 102] },
   { id: "final", label: "Final", matchNumbers: [104] }
@@ -6896,20 +6967,46 @@ function formatStandoutHighlight(standout) {
   return `🌟 ${localizedStandout}`;
 }
 
+function getResultFocusName(match, side) {
+  const team = side === "home" ? match.homeTeam : match.awayTeam;
+  const player = (match.keyPlayers?.[side] || []).find((item) => getPlayerName(item));
+  const name = player ? getPlayerDisplayName(player) : "";
+  return name || team?.name || "";
+}
+
+function getGeneratedDrawMoment(match, score) {
+  const homeFocus = getResultFocusName(match, "home");
+  const awayFocus = getResultFocusName(match, "away");
+  const homeName = match.homeTeam?.name || homeFocus;
+  const awayName = match.awayTeam?.name || awayFocus;
+  const candidates =
+    score.home === 0 && score.away === 0
+      ? [
+          `🌟 ${homeFocus} and ${awayFocus} carried the duel without a breakthrough.`,
+          `🌟 ${homeName} and ${awayName} cancelled each other out.`
+        ]
+      : [
+          `🌟 ${homeFocus} and ${awayFocus} traded momentum without a winner.`,
+          `🌟 ${homeName} and ${awayName} traded momentum without a winner.`
+        ];
+
+  return candidates.find((text) => text.length <= 95) || "🌟 No breakthrough came from a tight draw.";
+}
+
 function getGeneratedDrawHighlights(match, score, context, standout) {
   const scoreText = `${score.home}-${score.away}`;
 
   if (score.home === 0 && score.away === 0) {
     return [
       `⚽ ${match.homeTeam.name} and ${match.awayTeam.name} shared a 0-0 draw.`,
-      "🌟 Both clean sheets kept the match tight.",
+      formatStandoutHighlight(standout) || getGeneratedDrawMoment(match, score),
       `📊 Both sides took one point from ${context}.`
     ];
   }
 
   return [
     `⚽ ${match.homeTeam.name} and ${match.awayTeam.name} finished level at ${scoreText}.`,
-    formatStandoutHighlight(standout) || "🌟 Neither side pulled clear after trading goals.",
+    formatStandoutHighlight(standout) || getGeneratedDrawMoment(match, score),
     `📊 Both teams took one point from ${context}.`
   ];
 }
@@ -7265,6 +7362,78 @@ function getLocalizedPlayerClubLine(profile) {
   return league ? `${club}（${league}）` : club;
 }
 
+function getPlayerAge(profile, referenceDate = new Date()) {
+  const birthDate = String(profile?.birthDate || profile?.dateOfBirth || "").trim();
+  const match = birthDate.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if (!match) {
+    return null;
+  }
+
+  const year = Number(match[1]);
+  const month = Number(match[2]);
+  const day = Number(match[3]);
+  if (!year || !month || !day) {
+    return null;
+  }
+
+  let age = referenceDate.getFullYear() - year;
+  const hasHadBirthday =
+    referenceDate.getMonth() + 1 > month ||
+    (referenceDate.getMonth() + 1 === month && referenceDate.getDate() >= day);
+  if (!hasHadBirthday) {
+    age -= 1;
+  }
+
+  return Number.isInteger(age) && age >= 0 && age < 100 ? age : null;
+}
+
+function getLocalizedPlayerAgeLine(profile) {
+  const age = getPlayerAge(profile);
+  if (age === null) {
+    return "";
+  }
+
+  return currentLanguage === "zh" ? `年龄 ${age}` : `Age ${age}`;
+}
+
+function getPlayerMarketValueEurMillions(profile) {
+  const value = Number(profile?.marketValueEurMillions ?? profile?.estimatedMarketValueEurMillions);
+  return Number.isFinite(value) && value > 0 ? value : null;
+}
+
+function formatMarketValueEur(value) {
+  const millions = Number(value);
+  if (!Number.isFinite(millions) || millions <= 0) {
+    return "";
+  }
+
+  if (millions < 1) {
+    return `€${Math.round(millions * 1000)}k`;
+  }
+
+  if (millions >= 1000) {
+    const billions = millions / 1000;
+    return `€${Number.isInteger(billions) ? billions : billions.toFixed(1)}bn`;
+  }
+
+  return `€${Number.isInteger(millions) ? millions : millions.toFixed(1)}m`;
+}
+
+function renderPlayerMarketValueLine(profile) {
+  const value = formatMarketValueEur(getPlayerMarketValueEurMillions(profile));
+  if (!value) {
+    return "";
+  }
+
+  const label = currentLanguage === "zh" ? "身价" : "Value";
+  const tooltip =
+    currentLanguage === "zh"
+      ? "估算市场价值，参考公开估值、年龄、俱乐部层级、角色和近期表现。"
+      : "Estimated market value, shaped by public valuations, age, club level, role, and recent form.";
+
+  return `<span class="player-card-value-help" tabindex="0" aria-label="${escapeHtml(tooltip)}" data-tooltip="${escapeHtml(tooltip)}">${escapeHtml(label)}</span> ${escapeHtml(value)}`;
+}
+
 function getPlayerSkills(player, profile = getPlayerProfile(player)) {
   const skills = Array.isArray(profile?.skills) ? profile.skills.filter(Boolean) : [];
   if (skills.length) {
@@ -7388,6 +7557,8 @@ function renderPlayerMention(label, player) {
   const club = currentLanguage === "zh" ? getLocalizedPlayerClubLine(profile) : getPlayerClubLine(profile);
   const sourceUrl = profile?.sourceUrl || "";
   const note = getLocalizedPlayerNote(player, profile);
+  const ageLine = getLocalizedPlayerAgeLine(profile);
+  const valueLine = renderPlayerMarketValueLine(profile);
   const skills = getPlayerSkills(player, profile).map(localizeText);
   const triggerLabel = `aria-label="${escapeHtml(`${displayName}: ${position}, ${club}`)}" aria-expanded="false"`;
   const visibleLabel = currentLanguage === "zh" ? displayName : label;
@@ -7399,6 +7570,11 @@ function renderPlayerMention(label, player) {
     : "";
   const skillItems = skills.map((skill) => `<span>${escapeHtml(skill)}</span>`).join("");
   const noteMarkup = note ? `<span class="player-card-note">${escapeHtml(note)}</span>` : "";
+  const metaLine = [ageLine ? escapeHtml(ageLine) : "", valueLine].filter(Boolean).join(" • ");
+  const metaMarkup = metaLine ? `<span class="player-card-note">${metaLine}</span>` : "";
+  const copyMarkup = noteMarkup || metaMarkup
+    ? `<span class="player-card-copy">${noteMarkup}${metaMarkup}</span>`
+    : "";
 
   return [
     `<span class="player-hover">`,
@@ -7416,7 +7592,7 @@ function renderPlayerMention(label, player) {
     `</span>`,
     `</span>`,
     `<span class="player-skill-list">${skillItems}</span>`,
-    noteMarkup,
+    copyMarkup,
     `</span>`,
     `</span>`
   ].join("");
@@ -8376,6 +8552,34 @@ function getHistoricalResultOutcomeHighlight(match) {
   return `🏁 ${winner} beat ${loser} ${winnerScoreText || scoreText}.`;
 }
 
+function getHistoricalFocusName(match, side) {
+  const teamName = side === "home" ? match.homeTeam?.name : match.awayTeam?.name;
+  const player = (match.keyPlayers?.[side] || []).find((item) => getPlayerName(item));
+  const name = getPlayerName(player) || teamName || "";
+
+  return currentLanguage === "zh"
+    ? player
+      ? localizeHistoricalScorerName(name)
+      : getLocalizedHistoricalTeamName(name)
+    : name;
+}
+
+function getHistoricalDrawControlHighlight(match) {
+  const homeFocus = getHistoricalFocusName(match, "home");
+  const awayFocus = getHistoricalFocusName(match, "away");
+  const isScoreless = Number(match.score?.home) === 0 && Number(match.score?.away) === 0;
+
+  if (currentLanguage === "zh") {
+    return isScoreless
+      ? `🌟 ${homeFocus}和${awayFocus}都没能打出突破。`
+      : `🌟 ${homeFocus}和${awayFocus}互有回应，比分仍然持平。`;
+  }
+
+  return isScoreless
+    ? `🌟 ${homeFocus} and ${awayFocus} carried the duel without a breakthrough.`
+    : `🌟 ${homeFocus} and ${awayFocus} traded momentum without a winner.`;
+}
+
 function getHistoricalResultControlHighlight(match) {
   if (match.status === "CANCELLED") {
     if (currentLanguage === "zh") {
@@ -8433,11 +8637,7 @@ function getHistoricalResultControlHighlight(match) {
     return `🌟 ${winner} protected the result.`;
   }
 
-  if (currentLanguage === "zh") {
-    return `🌟 双方都没能拉开差距。`;
-  }
-
-  return `🌟 Neither side pulled clear.`;
+  return getHistoricalDrawControlHighlight(match);
 }
 
 function getHistoricalResultProgressHighlight(match) {

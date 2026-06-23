@@ -30,7 +30,7 @@ const pageTitleOverrides = new Map([
   ["Ritsu Doan", "Ritsu Dōan"],
   ["Roberto Lopes", "Roberto Lopes (footballer, born 1992)"],
   ["Tahith Chong", "Tahith Chong"],
-  ["Teboho Mokoena", "Teboho Mokoena"],
+  ["Teboho Mokoena", "Teboho Mokoena (soccer, born 1997)"],
   ["Yasin Ayari", "Yasin Ayari"]
 ]);
 const profileFieldOverrides = {
@@ -62,6 +62,9 @@ const profileFieldOverrides = {
   "Homam Ahmed": {
     imageUrl: "https://assets.sorare.com/player/9f4c177b-3447-4eab-8275-03ca450574f0/picture/avatar-1d48558ecaadf12ea98960c37ae7d9d4.png"
   },
+  "Houssem Aouar": {
+    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Houssem%20Aouar%202017%20(cropped).jpg?width=160"
+  },
   "Ismael Diaz": {
     imageUrl: "https://imagenes.primicias.ec/files/og_thumbnail/uploads/2024/05/25/665295a4a90f8.jpeg"
   },
@@ -85,6 +88,9 @@ const profileFieldOverrides = {
   "Luis Suarez": {
     imageUrl: "https://assets.sorare.com/playerpicture/f945c83f-4b62-4d89-8a50-4408abefa6b7/picture/avatar-a920b0effd55be927d6b9b0a19d85061.png"
   },
+  "Michael Olise": {
+    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Michael%20Olise%20bayern%202025.jpg?width=160"
+  },
   "Mohammed Al-Owais": {
     imageUrl: "https://static-files.saudi-pro-league.pulselive.com/players/headshot/p153885.png"
   },
@@ -93,6 +99,9 @@ const profileFieldOverrides = {
   },
   "Noor Al-Rawabdeh": {
     imageUrl: "https://assets.selangorfc.com/images/players/t_4607862961048618.%20NOOR%20AL-RAWABDEH.PNG"
+  },
+  "Ousmane Dembele": {
+    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Ousmane%20Demb%C3%A9l%C3%A9%202018%20(cropped).jpg?width=160"
   },
   Pedri: {
     imageUrl: "https://assets.sorare.com/playerpicture/2a201362-28b2-46f3-b775-3b46655a89d6/picture/avatar-77add04ba37e6223eb5f2fff5b5aa2e5.png"
@@ -109,6 +118,9 @@ const profileFieldOverrides = {
   },
   "Salem Al-Dawsari": {
     imageUrl: "https://static-files.saudi-pro-league.pulselive.com/players/headshot/p109763.png"
+  },
+  "Saman Ghoddos": {
+    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Saman%20Ghoddos%20at%20Iran%20training.jpg?width=160"
   },
   "Sarpreet Singh": {
     imageUrl: "https://assets.sorare.com/playerpicture/5657430a-5e7f-4308-9a11-96b78a856c52/picture/avatar-2ec9453bc6a55005cefb6a3d193422e6.png"
@@ -317,6 +329,89 @@ function cleanWikiText(value) {
   return text.replace(/^[-–—]\s*/, "");
 }
 
+function formatIsoDate(year, month, day) {
+  const dateParts = [Number(year), Number(month), Number(day)];
+  if (
+    dateParts.some((part) => !Number.isInteger(part)) ||
+    dateParts[0] < 1900 ||
+    dateParts[0] > 2100 ||
+    dateParts[1] < 1 ||
+    dateParts[1] > 12 ||
+    dateParts[2] < 1 ||
+    dateParts[2] > 31
+  ) {
+    return "";
+  }
+
+  return [
+    String(dateParts[0]).padStart(4, "0"),
+    String(dateParts[1]).padStart(2, "0"),
+    String(dateParts[2]).padStart(2, "0")
+  ].join("-");
+}
+
+function parseBirthDateTemplate(value) {
+  for (const template of String(value || "").matchAll(/\{\{([^{}]+)\}\}/g)) {
+    const parts = template[1].split("|").map((part) => part.trim()).filter(Boolean);
+    const templateName = normalizeText(parts[0]);
+    if (!templateName.startsWith("birth date")) {
+      continue;
+    }
+
+    const numericParts = parts
+      .slice(1)
+      .map((part) => cleanWikiText(part).replace(/^[a-z_ -]+\s*=\s*/i, "").trim())
+      .filter((part) => /^\d{1,4}$/.test(part))
+      .map(Number);
+    const yearIndex = numericParts.findIndex((part) => part >= 1900 && part <= 2100);
+    if (yearIndex >= 0 && numericParts.length >= yearIndex + 3) {
+      return formatIsoDate(
+        numericParts[yearIndex],
+        numericParts[yearIndex + 1],
+        numericParts[yearIndex + 2]
+      );
+    }
+  }
+
+  return "";
+}
+
+function parseBirthDateText(value) {
+  const monthLookup = new Map(
+    [
+      "january",
+      "february",
+      "march",
+      "april",
+      "may",
+      "june",
+      "july",
+      "august",
+      "september",
+      "october",
+      "november",
+      "december"
+    ].map((month, index) => [month, index + 1])
+  );
+  const text = cleanWikiText(value).replace(/\s*\([^)]*\)\s*/g, " ").trim();
+  const dayFirst = text.match(/\b(\d{1,2})\s+([A-Za-z]+)\s+(\d{4})\b/);
+  if (dayFirst) {
+    return formatIsoDate(dayFirst[3], monthLookup.get(dayFirst[2].toLowerCase()), dayFirst[1]);
+  }
+
+  const monthFirst = text.match(/\b([A-Za-z]+)\s+(\d{1,2}),?\s+(\d{4})\b/);
+  if (monthFirst) {
+    return formatIsoDate(monthFirst[3], monthLookup.get(monthFirst[1].toLowerCase()), monthFirst[2]);
+  }
+
+  return "";
+}
+
+function getBirthDate(fields) {
+  const rawBirthDate = fields.birth_date || fields.birthdate || fields.dateofbirth || "";
+  return parseBirthDateTemplate(rawBirthDate) || parseBirthDateText(rawBirthDate);
+}
+
 function getInfoboxFields(wikitext) {
   const start = wikitext.search(/\{\{Infobox (?:football biography|footballer)/i);
   if (start < 0) {
@@ -409,6 +504,15 @@ function getLeagueForClub(club) {
 function getUniformNumberOverride(player, overrides = {}) {
   const value = overrides.uniformNumber ?? existingProfilesData.profiles?.[player.name]?.uniformNumber;
   return Number.isInteger(value) && value > 0 ? value : undefined;
+}
+
+function getMarketValueEurMillions(player, overrides = {}) {
+  const value =
+    overrides.marketValueEurMillions ??
+    existingProfilesData.profiles?.[player.name]?.marketValueEurMillions;
+  const number = Number(value);
+
+  return Number.isFinite(number) && number > 0 ? number : undefined;
 }
 
 function inferSkills(note) {
@@ -604,6 +708,8 @@ async function buildProfile(player) {
     return {
       name: player.name,
       teamId: player.team.id,
+      birthDate: existingProfilesData.profiles?.[player.name]?.birthDate,
+      marketValueEurMillions: getMarketValueEurMillions(player, overrides),
       uniformNumber: getUniformNumberOverride(player, overrides),
       skills: inferSkills(player.note),
       note: player.note,
@@ -619,11 +725,14 @@ async function buildProfile(player) {
   const club = cleanWikiText(fields.currentclub || "") || getOpenEndedClub(fields);
   const imageUrl = getCommonsImageUrl(fields.image || "");
   const profileClub = overrides.club || club;
+  const birthDate = overrides.birthDate || getBirthDate(fields);
 
   return {
     name: player.name,
     displayName: cleanWikiText(fields.name || "") || title.replace(/_/g, " "),
     teamId: player.team.id,
+    birthDate,
+    marketValueEurMillions: getMarketValueEurMillions(player, overrides),
     position: overrides.position || position,
     club: profileClub,
     league: overrides.league || getLeagueForClub(profileClub),
@@ -642,6 +751,8 @@ function buildProfileFromWikitext(player, title, wikitext) {
     return {
       name: player.name,
       teamId: player.team.id,
+      birthDate: existingProfilesData.profiles?.[player.name]?.birthDate,
+      marketValueEurMillions: getMarketValueEurMillions(player, overrides),
       uniformNumber: getUniformNumberOverride(player, overrides),
       skills: inferSkills(player.note),
       note: player.note,
@@ -655,11 +766,14 @@ function buildProfileFromWikitext(player, title, wikitext) {
   const club = cleanWikiText(fields.currentclub || "") || getOpenEndedClub(fields);
   const imageUrl = getCommonsImageUrl(fields.image || "");
   const profileClub = overrides.club || club;
+  const birthDate = overrides.birthDate || getBirthDate(fields);
 
   return {
     name: player.name,
     displayName: cleanWikiText(fields.name || "") || title.replace(/_/g, " "),
     teamId: player.team.id,
+    birthDate,
+    marketValueEurMillions: getMarketValueEurMillions(player, overrides),
     position: overrides.position || position,
     club: profileClub,
     league: overrides.league || getLeagueForClub(profileClub),

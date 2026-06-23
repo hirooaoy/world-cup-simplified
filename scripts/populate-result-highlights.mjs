@@ -9,6 +9,16 @@ const fixturesPath = path.join(dataDir, "fixtures.json");
 const teamsPath = path.join(dataDir, "teams.json");
 const tournamentPath = path.join(dataDir, "tournament.json");
 const overwrite = process.argv.includes("--overwrite");
+const refreshGeneric = process.argv.includes("--refresh-generic");
+
+const zeroZeroMoments = new Map([
+  ["spain-cabo-verde-2026-06-15", "🌟 Cabo Verde held Spain's possession game to a scoreless tournament debut."],
+  ["ecuador-curacao-2026-06-20", "🌟 Curaçao's first World Cup point came through a hard-earned clean sheet."],
+  ["belgium-ir-iran-2026-06-21", "🌟 IR Iran kept Belgium's creators quiet and made the low-margin plan stick."]
+]);
+
+const genericMomentPattern =
+  /Both clean sheets kept|Neither side pulled clear|The clean sheet gave|attack broke the match open|protected a one-goal edge|created enough separation|made a statement with|found the decisive goal/i;
 
 async function readJson(filePath) {
   return JSON.parse(await readFile(filePath, "utf8"));
@@ -37,6 +47,10 @@ function pointText(points) {
 
 function goalCount(fixture) {
   return (fixture.goalsHome?.length || 0) + (fixture.goalsAway?.length || 0);
+}
+
+function hasGenericHighlights(fixture) {
+  return (fixture.resultHighlights || []).some((highlight) => genericMomentPattern.test(highlight));
 }
 
 function createStanding(teamId) {
@@ -102,6 +116,101 @@ function shortHighlight(text) {
   return text.length <= 95 ? text : "";
 }
 
+function formatGoalMinute(goal) {
+  if (!Number.isFinite(Number(goal.minute))) {
+    return "";
+  }
+
+  const offset = Number.isFinite(Number(goal.offset)) ? `+${goal.offset}` : "";
+  return `${goal.minute}${offset}'`;
+}
+
+function goalEvents(fixture, teamsById) {
+  return [
+    ...(fixture.goalsHome || []).map((goal) => ({ ...goal, side: "home", team: teamsById.get(fixture.homeTeamId) })),
+    ...(fixture.goalsAway || []).map((goal) => ({ ...goal, side: "away", team: teamsById.get(fixture.awayTeamId) }))
+  ].sort((a, b) => {
+    const aMinute = Number.isFinite(Number(a.minute)) ? Number(a.minute) : 0;
+    const bMinute = Number.isFinite(Number(b.minute)) ? Number(b.minute) : 0;
+    const aOffset = Number.isFinite(Number(a.offset)) ? Number(a.offset) : 0;
+    const bOffset = Number.isFinite(Number(b.offset)) ? Number(b.offset) : 0;
+    return aMinute - bMinute || aOffset - bOffset;
+  });
+}
+
+function scorerCounts(goals) {
+  const counts = new Map();
+
+  for (const goal of goals) {
+    if (goal.ownGoal) {
+      continue;
+    }
+
+    counts.set(goal.name, (counts.get(goal.name) || 0) + 1);
+  }
+
+  return [...counts.entries()].sort((a, b) => b[1] - a[1])[0] || null;
+}
+
+function goalAwareMoment(fixture, teamsById, score, side) {
+  const goals = goalEvents(fixture, teamsById);
+
+  if (!goals.length) {
+    return "";
+  }
+
+  const home = teamsById.get(fixture.homeTeamId);
+  const away = teamsById.get(fixture.awayTeamId);
+  const winner = side === "home" ? home : side === "away" ? away : null;
+  const lastGoal = goals[goals.length - 1];
+  const lastMinute = formatGoalMinute(lastGoal);
+  const topScorer = scorerCounts(goals);
+  const winnerGoals = winner ? goals.filter((goal) => goal.side === side) : [];
+  const lastWinnerGoal = winnerGoals[winnerGoals.length - 1];
+  const lastWinnerMinute = lastWinnerGoal ? formatGoalMinute(lastWinnerGoal) : "";
+
+  const candidates = [];
+
+  if (topScorer?.[1] >= 3 && winner) {
+    candidates.push(`🌟 ${topScorer[0]} completed a hat trick as ${winner.name} ran away with it.`);
+  }
+
+  if (topScorer?.[1] === 2 && winner) {
+    candidates.push(`🌟 ${topScorer[0]} scored twice as ${winner.name} pulled clear.`);
+  }
+
+  if (!side) {
+    if (lastGoal.ownGoal) {
+      candidates.push(`🌟 A ${lastMinute} own goal earned ${lastGoal.team.name} a point.`);
+    } else {
+      candidates.push(`🌟 ${lastGoal.name}'s ${lastMinute} equalizer earned ${lastGoal.team.name} a point.`);
+    }
+  }
+
+  if (winner && Math.abs(score.home - score.away) === 1 && lastWinnerGoal) {
+    candidates.push(
+      lastWinnerGoal.ownGoal
+        ? `🌟 A ${lastWinnerMinute} own goal settled it for ${winner.name}.`
+        : `🌟 ${lastWinnerGoal.name}'s ${lastWinnerMinute} winner settled it for ${winner.name}.`
+    );
+  }
+
+  if (winner && lastWinnerGoal?.penalty) {
+    candidates.push(`🌟 ${lastWinnerGoal.name}'s late penalty sealed ${winner.name}'s win.`);
+  }
+
+  if (winner && goals.length >= 2) {
+    const first = goals[0];
+    candidates.push(`🌟 ${first.name} opened it before ${lastGoal.name} finished the scoring.`);
+  }
+
+  if (winner && goals.length === 1) {
+    candidates.push(`🌟 ${lastGoal.name}'s ${lastMinute} finish was enough for ${winner.name}.`);
+  }
+
+  return candidates.find(shortHighlight) || "";
+}
+
 function getCatchUpStandout(fixture) {
   const standout = Array.isArray(fixture.catchUp)
     ? fixture.catchUp.find((item) => typeof item?.standouts === "string" && item.standouts.trim())?.standouts
@@ -119,6 +228,33 @@ function getCatchUpStandout(fixture) {
   ].map(withPeriod);
 
   return candidates.map((candidate) => `🌟 ${candidate}`).find(shortHighlight) || "";
+}
+
+function keyPlayerName(fixture, side, fallback) {
+  const player = (fixture.keyPlayers?.[side] || []).find((item) =>
+    typeof item === "string" ? item.trim() : item?.name
+  );
+  const name = typeof player === "string" ? player.trim() : player?.name;
+  return name || fallback?.name || "";
+}
+
+function drawMomentHighlight(fixture, teamsById, score) {
+  const home = teamsById.get(fixture.homeTeamId);
+  const away = teamsById.get(fixture.awayTeamId);
+  const homeFocus = keyPlayerName(fixture, "home", home);
+  const awayFocus = keyPlayerName(fixture, "away", away);
+  const candidates =
+    score.home === 0 && score.away === 0
+      ? [
+          `🌟 ${homeFocus} and ${awayFocus} carried the duel without a breakthrough.`,
+          `🌟 ${home.name} and ${away.name} cancelled each other out.`
+        ]
+      : [
+          `🌟 ${homeFocus} and ${awayFocus} traded momentum without a winner.`,
+          `🌟 ${home.name} and ${away.name} traded momentum without a winner.`
+        ];
+
+  return candidates.find(shortHighlight) || "🌟 No breakthrough came from a tight draw.";
 }
 
 function scorelineHighlight(fixture, teamsById) {
@@ -169,9 +305,11 @@ function momentHighlight(fixture, teamsById) {
   const side = winnerSide(score);
 
   if (!side) {
-    return score.home === 0 && score.away === 0
-      ? "🌟 Both clean sheets kept the match tight."
-      : "🌟 Neither side pulled clear after trading goals.";
+    if (score.home === 0 && score.away === 0) {
+      return zeroZeroMoments.get(fixture.id) || drawMomentHighlight(fixture, teamsById, score);
+    }
+
+    return goalAwareMoment(fixture, teamsById, score, side) || drawMomentHighlight(fixture, teamsById, score);
   }
 
   const winner = side === "home" ? home : away;
@@ -179,6 +317,11 @@ function momentHighlight(fixture, teamsById) {
   const winnerScore = side === "home" ? score.home : score.away;
   const loserScore = side === "home" ? score.away : score.home;
   const margin = winnerScore - loserScore;
+  const goalMoment = goalAwareMoment(fixture, teamsById, score, side);
+
+  if (goalMoment) {
+    return goalMoment;
+  }
 
   if (loserScore === 0) {
     return `🌟 The clean sheet gave ${loser.name} no way back.`;
@@ -294,7 +437,7 @@ for (const fixture of finishedGroupFixtures) {
     Array.isArray(fixture.resultHighlights) &&
     fixture.resultHighlights.some((highlight) => typeof highlight === "string" && highlight.trim());
 
-  if (hasAuthoredHighlights && !overwrite) {
+  if (hasAuthoredHighlights && !overwrite && !(refreshGeneric && hasGenericHighlights(fixture))) {
     skipped += 1;
     continue;
   }
@@ -309,5 +452,5 @@ if (populated) {
 }
 
 console.log(
-  `${overwrite ? "Wrote" : "Populated"} ${populated} result highlight set${populated === 1 ? "" : "s"}; skipped ${skipped}.`
+  `${overwrite ? "Wrote" : refreshGeneric ? "Refreshed" : "Populated"} ${populated} result highlight set${populated === 1 ? "" : "s"}; skipped ${skipped}.`
 );

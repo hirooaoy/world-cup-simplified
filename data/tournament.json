@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-23T02:17:10.824Z",
+  "updatedAt": "2026-06-23T02:34:34.838Z",
   "coverageNote": "The current seed dataset covers the full official fixture skeleton from June 11 through July 19. Rich previews, scores, live status and knockout participants are updated progressively.",
   "catchUp": [
     {
@@ -31,6 +31,14 @@
       "url": "https://commons.wikimedia.org/wiki/Main_Page",
       "type": "cross-check",
       "checkedAt": "2026-06-21T13:34:16-07:00"
+    },
+    {
+      "id": "transfermarkt-market-values-2026-06-23",
+      "label": "Transfermarkt player market values",
+      "url": "https://www.transfermarkt.us/spieler-statistik/wertvollstespieler/marktwertetop",
+      "type": "cross-check",
+      "checkedAt": "2026-06-23T02:47:54Z",
+      "note": "Player popup market values are rounded from Transfermarkt profile/search results."
     },
     {
       "id": "fifa-schedule-2026-06-20",
@@ -749,6 +757,14 @@
       "type": "official",
       "checkedAt": "2026-06-23T02:17:10.824Z",
       "note": "1 fixture update merged from 104 matched FIFA fixtures."
+    },
+    {
+      "id": "fifa-goal-events-sync-2026-06-23",
+      "label": "FIFA official goal event timeline sync",
+      "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/match-schedule-fixtures-results-teams-stadiums",
+      "type": "official",
+      "checkedAt": "2026-06-23T02:34:34.838Z",
+      "note": "12 fixture goal-event updates merged from 40 matched FIFA timelines."
     }
   ],
   "groups": [

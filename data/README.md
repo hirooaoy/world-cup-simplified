@@ -111,10 +111,13 @@ For completed fixture detail pages, add optional `resultHighlights` when the sco
 Run this after final-score updates to give every completed group match the compact result treatment:
 
 ```bash
+pnpm sync:fifa:goals
 pnpm results
+pnpm results:check
 ```
 
 The script preserves hand-authored `resultHighlights` by default. It generates the `⚽` scoreline only when scorer-minute data is not loaded; when `goalsHome`/`goalsAway` exists, the UI renders the linked scorer list instead.
+`pnpm results:check` fails when a full-time group match is still missing official goal events or has generic result-moment copy.
 
 ## Required Update Steps
 
@@ -158,13 +161,14 @@ If reliable conduct data is available, add it to standings rows as `teamConductS
 node scripts/import-world-cup-history.mjs
 ```
 
-After importing the match skeleton, run the historical matchup generator:
+After importing the match skeleton, sync historical scorer minutes and then run the historical matchup generator:
 
 ```bash
-node scripts/populate-historical-matchup-key-information.mjs
+pnpm history:goals
+pnpm history:matchups
 ```
 
-That script enriches every archived fixture with era-specific player/style copy. It cross-checks against the Fjelstul World Cup Database for historical squads, goals, penalties, bookings, player appearances where available, and tournament squads. Match-level player appearances are available from 1970 onward in that source; older tournaments use scorer and squad context instead, and canceled fixtures are labeled as squad context rather than confirmed match usage. The Fjelstul data is CC-BY-SA 4.0, so keep the source entry and attribution/license trail in `data/tournament.json`.
+`pnpm history:goals` syncs exact scorer-minute arrays from the Fjelstul World Cup Database. `pnpm history:matchups` enriches every archived fixture with era-specific player/style copy. It cross-checks against the same source for historical squads, goals, penalties, bookings, player appearances where available, and tournament squads. Match-level player appearances are available from 1970 onward in that source; older tournaments use scorer and squad context instead, and canceled fixtures are labeled as squad context rather than confirmed match usage. The Fjelstul data is CC-BY-SA 4.0, so keep the source entry and attribution/license trail in `data/tournament.json`.
 
 The historical archive lives outside the 2026 fixture/standings model on purpose. Past teams do not have to belong to 2026 groups, and historical dates are preserved as tournament-local dates instead of being shifted by the user's selected timezone.
 

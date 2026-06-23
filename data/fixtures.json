@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-23T02:17:28.443Z",
+  "updatedAt": "2026-06-23T02:39:54.875Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -93,7 +93,8 @@
     "fox-norway-senegal-preview-2026-06-22",
     "sofascore-jordan-algeria-preview-2026-06-22",
     "analyst-jordan-algeria-preview-2026-06-22",
-    "fifa-official-results-sync-2026-06-23"
+    "fifa-official-results-sync-2026-06-23",
+    "fifa-goal-events-sync-2026-06-23"
   ],
   "coverage": {
     "status": "complete-schedule",
@@ -213,10 +214,20 @@
         "away": "South Africa are counterattacking underdogs who can stay in games if their goalkeeper and forwards give them belief, led by Ronwen Williams, Teboho Mokoena, and Lyle Foster. Against Mexico, their Williams-Mokoena-Foster save-to-counter chain has to beat Mexico's Gimenez-Chavez home pressure. They want to absorb pressure, let Mokoena make the first forward pass, and release Foster before the defense recovers. The risk is Mexico can turn home pressure into Gimenez touches and Chavez free-kick or corner chances."
       },
       "resultHighlights": [
-        "⚽ Mexico beat South Africa 2-0.",
-        "🌟 The clean sheet gave South Africa no way back.",
+        "🌟 Julian Quinones opened it before Raul Jimenez finished the scoring.",
         "📊 Mexico moved to 3 points in Group A and left South Africa without a point."
-      ]
+      ],
+      "goalsHome": [
+        {
+          "minute": 9,
+          "name": "Julian Quinones"
+        },
+        {
+          "minute": 67,
+          "name": "Raul Jimenez"
+        }
+      ],
+      "goalsAway": []
     },
     {
       "id": "south-korea-czechia-2026-06-11",
@@ -317,9 +328,24 @@
         "away": "Czechia are a free-kick, corner, and crossing threat that become dangerous when the game is played in the air, led by Patrik Schick, Tomas Soucek, and Adam Hlozek. Against South Korea, their Schick-Soucek aerial pressure has to beat South Korea's Son-Lee quick-break service. They want to load early service toward Schick and Soucek before the defense settles. The risk is South Korea can turn running power and Son's finishing into sudden chances."
       },
       "resultHighlights": [
-        "⚽ South Korea beat Czechia 2-1.",
-        "🌟 South Korea protected a one-goal edge.",
+        "🌟 Oh Hyeongyu's 80' winner settled it for South Korea.",
         "📊 South Korea moved to 3 points in Group A and left Czechia without a point."
+      ],
+      "goalsHome": [
+        {
+          "minute": 67,
+          "name": "Hwang Inbeom"
+        },
+        {
+          "minute": 80,
+          "name": "Oh Hyeongyu"
+        }
+      ],
+      "goalsAway": [
+        {
+          "minute": 59,
+          "name": "Ladislav Krejci"
+        }
       ]
     },
     {
@@ -390,9 +416,20 @@
         "away": "Bosnia and Herzegovina are a veteran-leaning side that still carry real danger when the match becomes physical and direct, led by Edin Dzeko, Sead Kolasinac, and Esmir Bajraktarevic. Against Canada, their Dzeko target play has to beat Canada's Davies-David open-field speed. They want to play into Dzeko early and build around the loose balls that follow. The risk is Canada can run through Davies and David before defenders can recover."
       },
       "resultHighlights": [
-        "⚽ Canada and Bosnia and Herzegovina finished level at 1-1.",
-        "🌟 Neither side pulled clear after trading goals.",
+        "🌟 Cyle Larin's 78' equalizer earned Canada a point.",
         "📊 Both teams moved to 1 point in Group B."
+      ],
+      "goalsHome": [
+        {
+          "minute": 78,
+          "name": "Cyle Larin"
+        }
+      ],
+      "goalsAway": [
+        {
+          "minute": 21,
+          "name": "Jovo Lukic"
+        }
       ]
     },
     {
@@ -554,9 +591,35 @@
         "away": "Paraguay are rugged counterpunchers who are comfortable turning matches into physical, tight contests, led by Miguel Almiron, Julio Enciso, and Gustavo Gomez. Against United States, their Almiron-Enciso counters has to beat United States' Pulisic-McKennie pressure breaks. They want to release Almiron into space and let Enciso attack the pocket before defenders settle. The risk is United States can turn pressure into Pulisic carries and McKennie second-ball runs."
       },
       "resultHighlights": [
-        "⚽ United States made a statement with a 4-1 win.",
-        "🌟 United States's attack broke the match open.",
+        "🌟 Folarin Balogun scored twice as United States pulled clear.",
         "📊 United States moved to 3 points in Group D and left Paraguay without a point."
+      ],
+      "goalsHome": [
+        {
+          "minute": 7,
+          "name": "Damian Bobadilla",
+          "ownGoal": true
+        },
+        {
+          "minute": 31,
+          "name": "Folarin Balogun"
+        },
+        {
+          "minute": 45,
+          "offset": 5,
+          "name": "Folarin Balogun"
+        },
+        {
+          "minute": 90,
+          "offset": 8,
+          "name": "Giovanni Reyna"
+        }
+      ],
+      "goalsAway": [
+        {
+          "minute": 73,
+          "name": "Mauricio"
+        }
       ]
     },
     {
@@ -638,9 +701,23 @@
         "away": "Switzerland are a tournament-tested structure team who rarely look rushed when the match gets tense, led by Granit Xhaka, Manuel Akanji, and Breel Embolo. Against Qatar, their Xhaka-Embolo control-and-release has to beat Qatar's Afif-Almoez patient combinations. They want to let Xhaka dictate the first pass and find Embolo before the opponent can squeeze midfield. The risk is Qatar can combine through Afif and Almoez Ali when defenders lose patience."
       },
       "resultHighlights": [
-        "⚽ Qatar and Switzerland finished level at 1-1.",
-        "🌟 Neither side pulled clear after trading goals.",
+        "🌟 A 90+4' own goal earned Qatar a point.",
         "📊 Both teams moved to 1 point in Group B."
+      ],
+      "goalsHome": [
+        {
+          "minute": 90,
+          "offset": 4,
+          "name": "Miro Muheim",
+          "ownGoal": true
+        }
+      ],
+      "goalsAway": [
+        {
+          "minute": 17,
+          "name": "Breel Embolo",
+          "penalty": true
+        }
       ]
     },
     {
@@ -742,9 +819,20 @@
         "away": "Morocco are a disciplined, dangerous side whose structure lets their flair players attack with freedom, led by Achraf Hakimi, Brahim Diaz, and Ayoub El Kaabi. Against Brazil, their Hakimi-Brahim right-side surges has to beat Brazil's Neymar-Vinicius isolation speed. They want to use Hakimi's overlaps to tilt the field before Brahim or El Kaabi attacks the final pass or shot. The risk is Brazil can break a shape through Neymar combinations and Vinicius Junior's speed."
       },
       "resultHighlights": [
-        "⚽ Brazil and Morocco finished level at 1-1.",
-        "🌟 Neither side pulled clear after trading goals.",
+        "🌟 Vinicius Junior's 32' equalizer earned Brazil a point.",
         "📊 Both teams moved to 1 point in Group C."
+      ],
+      "goalsHome": [
+        {
+          "minute": 32,
+          "name": "Vinicius Junior"
+        }
+      ],
+      "goalsAway": [
+        {
+          "minute": 21,
+          "name": "Ismael Saibari"
+        }
       ]
     },
     {
@@ -815,9 +903,15 @@
         "away": "Scotland are a physical midfield side that can make opponents defend deliveries, duels, and late runners, led by Scott McTominay, John McGinn, and Andy Robertson. Against Haiti, their Robertson-McTominay left-side service has to beat Haiti's Nazon-Pierrot direct box pressure. They want to work the ball left for Robertson and attack the second phase through McTominay. The risk is Haiti can turn direct service into Nazon or Pierrot chances."
       },
       "resultHighlights": [
-        "⚽ Scotland found the decisive goal in a 1-0 win.",
-        "🌟 The clean sheet gave Haiti no way back.",
+        "🌟 John McGinn's 28' winner settled it for Scotland.",
         "📊 Scotland moved to 3 points in Group C and left Haiti without a point."
+      ],
+      "goalsHome": [],
+      "goalsAway": [
+        {
+          "minute": 28,
+          "name": "John McGinn"
+        }
       ]
     },
     {
@@ -909,10 +1003,20 @@
         "away": "Türkiye are a creative young attacking side with enough free-kick and corner quality to punish small mistakes, led by Hakan Calhanoglu, Arda Guler, and Kenan Yildiz. Against Australia, their Calhanoglu-Guler-Yildiz creative bursts has to beat Australia's Irvine-Volpato duel-and-service rhythm. They want to use Calhanoglu's passing to find Guler in space before Yildiz attacks the gap. The risk is Australia can drag opponents into duels, free kicks, corners, and late midfield runs."
       },
       "resultHighlights": [
-        "⚽ Australia beat Türkiye 2-0.",
-        "🌟 The clean sheet gave Türkiye no way back.",
+        "🌟 Nestory Irankunda opened it before Connor Metcalfe finished the scoring.",
         "📊 Australia moved to 3 points in Group D and left Türkiye without a point."
-      ]
+      ],
+      "goalsHome": [
+        {
+          "minute": 27,
+          "name": "Nestory Irankunda"
+        },
+        {
+          "minute": 75,
+          "name": "Connor Metcalfe"
+        }
+      ],
+      "goalsAway": []
     },
     {
       "id": "germany-curacao-2026-06-14",
@@ -982,9 +1086,46 @@
         "away": "Curaçao are a veteran-heavy underdog side trying to stay connected and choose their moments carefully, led by Juninho Bacuna, Leandro Bacuna, and Tahith Chong. Against Germany, their Bacuna free-kick and corner play plus Chong outlets has to beat Germany's Kimmich-Musiala-Wirtz central rotations. They want to use the Bacuna brothers to turn pressure relief into free kicks and corners before Chong attacks open space. The risk is Germany can combine through Kimmich, Musiala, and Wirtz until the defense loses its shape."
       },
       "resultHighlights": [
-        "⚽ Germany made a statement with a 7-1 win.",
-        "🌟 Germany's attack broke the match open.",
+        "🌟 Kai Havertz scored twice as Germany pulled clear.",
         "📊 Germany moved to 3 points in Group E and left Curaçao without a point."
+      ],
+      "goalsHome": [
+        {
+          "minute": 6,
+          "name": "Felix Nmecha"
+        },
+        {
+          "minute": 38,
+          "name": "Nico Schlotterbeck"
+        },
+        {
+          "minute": 45,
+          "offset": 5,
+          "name": "Kai Havertz",
+          "penalty": true
+        },
+        {
+          "minute": 47,
+          "name": "Jamal Musiala"
+        },
+        {
+          "minute": 68,
+          "name": "Nathaniel Brown"
+        },
+        {
+          "minute": 78,
+          "name": "Deniz Undav"
+        },
+        {
+          "minute": 88,
+          "name": "Kai Havertz"
+        }
+      ],
+      "goalsAway": [
+        {
+          "minute": 21,
+          "name": "Livano Comenencia"
+        }
       ]
     },
     {
@@ -1082,9 +1223,28 @@
         "away": "Japan are a precise, fast-passing side that can make possession feel sudden and sharp, led by Takefusa Kubo, Ritsu Doan, and Daichi Kamada. Against Netherlands, their Doan-Kamada combination speed has to beat Netherlands' De Jong-Gakpo controlled buildup. They want to move the ball quickly enough for their attackers to receive between defenders. The risk is Netherlands can control possession through De Jong and protect it with Van Dijk's authority."
       },
       "resultHighlights": [
-        "⚽ Netherlands and Japan finished level at 2-2.",
-        "🌟 Neither side pulled clear after trading goals.",
+        "🌟 Daichi Kamada's 88' equalizer earned Japan a point.",
         "📊 Both teams moved to 1 point in Group F."
+      ],
+      "goalsHome": [
+        {
+          "minute": 50,
+          "name": "Virgil van Dijk"
+        },
+        {
+          "minute": 64,
+          "name": "Crysencio Summerville"
+        }
+      ],
+      "goalsAway": [
+        {
+          "minute": 57,
+          "name": "Keito Nakamura"
+        },
+        {
+          "minute": 88,
+          "name": "Daichi Kamada"
+        }
       ]
     },
     {
@@ -1155,10 +1315,16 @@
         "away": "Ecuador are an intense, athletic side that can disrupt stronger opponents through midfield pressure, led by Moises Caicedo, Piero Hincapie, and Enner Valencia. Against Côte d'Ivoire, their Caicedo-Hincapie midfield squeeze has to beat Côte d'Ivoire's Kessie-Adingra power breaks. They want to win the midfield duel through Caicedo and release Valencia before the defense is set. The risk is Côte d'Ivoire can turn Kessie's carries and Adingra's pace into Guessand chances."
       },
       "resultHighlights": [
-        "⚽ Côte d'Ivoire found the decisive goal in a 1-0 win.",
-        "🌟 The clean sheet gave Ecuador no way back.",
+        "🌟 Amad Diallo's 90' winner settled it for Côte d'Ivoire.",
         "📊 Côte d'Ivoire moved to 3 points in Group E and left Ecuador without a point."
-      ]
+      ],
+      "goalsHome": [
+        {
+          "minute": 90,
+          "name": "Amad Diallo"
+        }
+      ],
+      "goalsAway": []
     },
     {
       "id": "sweden-tunisia-2026-06-14",
@@ -1259,9 +1425,37 @@
         "away": "Tunisia are an organized defensive side that need energy and directness to make their structure bite, led by Ellyes Skhiri, Hannibal Mejbri, and Elias Saad. Against Sweden, their Skhiri-Saad compact counter route has to beat Sweden's Isak-Gyokeres two-striker pressure. They want to stay compact through Skhiri and then use Saad as the first runner into space. The risk is Sweden can alternate between Isak's finesse and Gyokeres' force."
       },
       "resultHighlights": [
-        "⚽ Sweden made a statement with a 5-1 win.",
-        "🌟 Sweden's attack broke the match open.",
+        "🌟 Yasin Ayari scored twice as Sweden pulled clear.",
         "📊 Sweden moved to 3 points in Group F and left Tunisia without a point."
+      ],
+      "goalsHome": [
+        {
+          "minute": 7,
+          "name": "Yasin Ayari"
+        },
+        {
+          "minute": 30,
+          "name": "Alexander Isak"
+        },
+        {
+          "minute": 59,
+          "name": "Viktor Gyokeres"
+        },
+        {
+          "minute": 84,
+          "name": "Mattias Svanberg"
+        },
+        {
+          "minute": 90,
+          "offset": 6,
+          "name": "Yasin Ayari"
+        }
+      ],
+      "goalsAway": [
+        {
+          "minute": 43,
+          "name": "Omar Rekik"
+        }
       ]
     },
     {
@@ -1333,7 +1527,7 @@
       },
       "resultHighlights": [
         "⚽ Spain and Cabo Verde shared a 0-0 draw.",
-        "🌟 Both clean sheets kept the match tight.",
+        "🌟 Cabo Verde held Spain's possession game to a scoreless tournament debut.",
         "📊 Both teams moved to 1 point in Group H."
       ]
     },
@@ -1446,9 +1640,21 @@
         "away": "Egypt are a direct team built around Salah's runs that can look quiet until one attack opens the match, led by Mohamed Salah, Omar Marmoush, and Mostafa Mohamed. Against Belgium, their Salah-Marmoush breakaway threat has to beat Belgium's De Bruyne-to-Lukaku chance creation. They want to release Salah early and let Marmoush arrive as the second wave. The risk is Belgium can turn De Bruyne service into Lukaku chances."
       },
       "resultHighlights": [
-        "⚽ Belgium and Egypt finished level at 1-1.",
-        "🌟 Neither side pulled clear after trading goals.",
+        "🌟 A 66' own goal earned Belgium a point.",
         "📊 Both teams moved to 1 point in Group G."
+      ],
+      "goalsHome": [
+        {
+          "minute": 66,
+          "name": "Mohamed Hany",
+          "ownGoal": true
+        }
+      ],
+      "goalsAway": [
+        {
+          "minute": 19,
+          "name": "Emam Ashour"
+        }
       ]
     },
     {
@@ -1550,9 +1756,20 @@
         "away": "Uruguay are a South American intensity side with enough running power to turn every phase into a contest, led by Federico Valverde, Darwin Nunez, and Ronald Araujo. Against Saudi Arabia, their Valverde-Nunez chaos running has to beat Saudi Arabia's Al-Dawsari pressing bursts. They want to use Valverde's running to release Nunez before the defense can control the space behind. The risk is Saudi Arabia can turn pressing bursts and Al-Dawsari carries into momentum."
       },
       "resultHighlights": [
-        "⚽ Saudi Arabia and Uruguay finished level at 1-1.",
-        "🌟 Neither side pulled clear after trading goals.",
+        "🌟 Maxi Araujo's 80' equalizer earned Uruguay a point.",
         "📊 Both teams moved to 1 point in Group H."
+      ],
+      "goalsHome": [
+        {
+          "minute": 41,
+          "name": "Abdulelah Alamri"
+        }
+      ],
+      "goalsAway": [
+        {
+          "minute": 80,
+          "name": "Maxi Araujo"
+        }
       ]
     },
     {
@@ -1634,9 +1851,28 @@
         "away": "New Zealand are an aerial, organized side that need territory and service to keep stronger opponents honest, led by Chris Wood, Liberato Cacace, and Sarpreet Singh. Against IR Iran, their Cacace-to-Wood aerial service has to beat IR Iran's Taremi-Ghoddos counter craft. They want to move play wide through Cacace and serve Wood before the box gets crowded. The risk is IR Iran can turn fouls, counters, Taremi's craft, and Ghoddos' final pass into chances."
       },
       "resultHighlights": [
-        "⚽ IR Iran and New Zealand finished level at 2-2.",
-        "🌟 Neither side pulled clear after trading goals.",
+        "🌟 Mohammad Mohebbi's 64' equalizer earned IR Iran a point.",
         "📊 Both teams moved to 1 point in Group G."
+      ],
+      "goalsHome": [
+        {
+          "minute": 32,
+          "name": "Ramin Rezaeian"
+        },
+        {
+          "minute": 64,
+          "name": "Mohammad Mohebbi"
+        }
+      ],
+      "goalsAway": [
+        {
+          "minute": 7,
+          "name": "Elijah Just"
+        },
+        {
+          "minute": 54,
+          "name": "Elijah Just"
+        }
       ]
     },
     {
@@ -1726,9 +1962,30 @@
         "away": "Senegal are an athletic, experienced side with enough defensive presence to survive pressure and enough speed to punish it, led by Sadio Mane, Nicolas Jackson, and Kalidou Koulibaly. Against France, their Mane-Jackson direct running has to beat France's Olise-to-Mbappe chance creation. They want to use Mane's timing and Jackson's depth to attack before the opponent's defense is set. The risk is France can combine Olise's final ball with Mbappe's acceleration before Saliba controls the counter."
       },
       "resultHighlights": [
-        "⚽ France beat Senegal 3-1.",
-        "🌟 France created enough separation to control the finish.",
+        "🌟 Kylian Mbappe scored twice as France pulled clear.",
         "📊 France moved to 3 points in Group I and left Senegal without a point."
+      ],
+      "goalsHome": [
+        {
+          "minute": 66,
+          "name": "Kylian Mbappe"
+        },
+        {
+          "minute": 82,
+          "name": "Bradley Barcola"
+        },
+        {
+          "minute": 90,
+          "offset": 6,
+          "name": "Kylian Mbappe"
+        }
+      ],
+      "goalsAway": [
+        {
+          "minute": 90,
+          "offset": 5,
+          "name": "Ibrahim Mbaye"
+        }
       ]
     },
     {
@@ -1795,9 +2052,34 @@
         "away": "Norway are a direct star-powered side whose attacking question is how quickly they can serve the finisher, led by Erling Haaland, Martin Odegaard, and Antonio Nusa. Against Iraq, their Odegaard-to-Haaland supply has to beat Iraq's Ali Jasim-to-Hussein counter route. They want to get Odegaard facing forward and deliver early enough for Haaland to attack the box. The risk is Iraq can use Ali Jasim's dribbling and Hussein's presence to make counters count."
       },
       "resultHighlights": [
-        "⚽ Norway made a statement with a 4-1 win.",
-        "🌟 Norway's attack broke the match open.",
+        "🌟 Erling Haaland scored twice as Norway pulled clear.",
         "📊 Norway moved to 3 points in Group I and left Iraq without a point."
+      ],
+      "goalsHome": [
+        {
+          "minute": 39,
+          "name": "Aymen Hussein"
+        }
+      ],
+      "goalsAway": [
+        {
+          "minute": 29,
+          "name": "Erling Haaland"
+        },
+        {
+          "minute": 43,
+          "name": "Erling Haaland"
+        },
+        {
+          "minute": 76,
+          "name": "Leo Ostigard"
+        },
+        {
+          "minute": 90,
+          "offset": 6,
+          "name": "Aymen Hussein",
+          "ownGoal": true
+        }
       ]
     },
     {
@@ -1887,10 +2169,24 @@
         "away": "Algeria are a technical North African side that want the game to run through the left foot and calm of midfield, led by Riyad Mahrez, Houssem Aouar, and Amine Gouiri. Against Argentina, their Mahrez-Aouar control has to beat Argentina's Messi-Alvarez midfield breaks. They want to give Mahrez time on the ball while Aouar connects the next pass toward Gouiri. The risk is Argentina can turn one midfield win into Messi touches, Alvarez movement, and Enzo service."
       },
       "resultHighlights": [
-        "⚽ Argentina made a statement with a 3-0 win.",
-        "🌟 The clean sheet gave Algeria no way back.",
+        "🌟 Lionel Messi completed a hat trick as Argentina ran away with it.",
         "📊 Argentina moved to 3 points in Group J and left Algeria without a point."
-      ]
+      ],
+      "goalsHome": [
+        {
+          "minute": 17,
+          "name": "Lionel Messi"
+        },
+        {
+          "minute": 60,
+          "name": "Lionel Messi"
+        },
+        {
+          "minute": 76,
+          "name": "Lionel Messi"
+        }
+      ],
+      "goalsAway": []
     },
     {
       "id": "austria-jordan-2026-06-16",
@@ -1956,9 +2252,31 @@
         "away": "Jordan are a disciplined counterattacking side that can hurt teams through speed and timing, led by Mousa Al-Taamari, Ali Olwan, and Noor Al-Rawabdeh. Against Austria, their Al-Taamari-Olwan counter timing has to beat Austria's Sabitzer-Laimer pressure waves. They want to spring Al-Taamari into open space and let Olwan attack the first clear chance. The risk is Austria can press the first pass, win territory, and attack before defenses reset."
       },
       "resultHighlights": [
-        "⚽ Austria beat Jordan 3-1.",
-        "🌟 Austria created enough separation to control the finish.",
+        "🌟 Marko Arnautovic's late penalty sealed Austria's win.",
         "📊 Austria moved to 3 points in Group J and left Jordan without a point."
+      ],
+      "goalsHome": [
+        {
+          "minute": 20,
+          "name": "Romano Schmid"
+        },
+        {
+          "minute": 76,
+          "name": "Yazan Alarab",
+          "ownGoal": true
+        },
+        {
+          "minute": 90,
+          "offset": 12,
+          "name": "Marko Arnautovic",
+          "penalty": true
+        }
+      ],
+      "goalsAway": [
+        {
+          "minute": 50,
+          "name": "Ali Olwan"
+        }
       ]
     },
     {
@@ -2039,6 +2357,19 @@
         "⚽ Portugal and DR Congo finished level at 1-1.",
         "🌟 Joao Neves headed Portugal in front early.",
         "📊 Both teams moved to 1 point in Group K."
+      ],
+      "goalsHome": [
+        {
+          "minute": 6,
+          "name": "Joao Neves"
+        }
+      ],
+      "goalsAway": [
+        {
+          "minute": 45,
+          "offset": 5,
+          "name": "Yoane Wissa"
+        }
       ]
     },
     {
@@ -2218,6 +2549,36 @@
         "⚽ England beat Croatia 4-2.",
         "🌟 Harry Kane scored twice, while Jude Bellingham and Marcus Rashford added second-half goals.",
         "📊 England moved to 3 points in Group L and left Croatia without a point."
+      ],
+      "goalsHome": [
+        {
+          "minute": 12,
+          "name": "Harry Kane",
+          "penalty": true
+        },
+        {
+          "minute": 42,
+          "name": "Harry Kane"
+        },
+        {
+          "minute": 47,
+          "name": "Jude Bellingham"
+        },
+        {
+          "minute": 85,
+          "name": "Marcus Rashford"
+        }
+      ],
+      "goalsAway": [
+        {
+          "minute": 36,
+          "name": "Martin Baturina"
+        },
+        {
+          "minute": 45,
+          "offset": 5,
+          "name": "Petar Musa"
+        }
       ]
     },
     {
@@ -2295,10 +2656,17 @@
         "away": "Panama are an organized disruptor side that can make matches uncomfortable through midfield control and wide thrust, led by Adalberto Carrasquilla, Michael Murillo, and Ismael Diaz. Against Ghana, their Carrasquilla-Murillo right-side escape has to beat Ghana's Semenyo-Williams forward running. They want to use Carrasquilla to escape pressure and let Murillo turn the right side into territory. The risk is Ghana can attack space early through Semenyo and Williams."
       },
       "resultHighlights": [
-        "⚽ Ghana found the decisive goal in a 1-0 win.",
         "🌟 Caleb Yirenkyi scored in stoppage time to settle a tense opener in Toronto.",
         "📊 Ghana moved to 3 points in Group L and left Panama without a point."
-      ]
+      ],
+      "goalsHome": [
+        {
+          "minute": 90,
+          "offset": 5,
+          "name": "Caleb Yirenkyi"
+        }
+      ],
+      "goalsAway": []
     },
     {
       "id": "uzbekistan-colombia-2026-06-17",
@@ -2378,6 +2746,27 @@
         "⚽ Colombia beat Uzbekistan 3-1.",
         "🌟 Luis Diaz scored and helped Colombia answer Uzbekistan's first World Cup goal.",
         "📊 Colombia moved to 3 points in Group K and left Uzbekistan without a point."
+      ],
+      "goalsHome": [
+        {
+          "minute": 60,
+          "name": "Abbosbek Fayzullaev"
+        }
+      ],
+      "goalsAway": [
+        {
+          "minute": 40,
+          "name": "Daniel Munoz"
+        },
+        {
+          "minute": 65,
+          "name": "Luis Diaz"
+        },
+        {
+          "minute": 90,
+          "offset": 9,
+          "name": "Jaminton Campaz"
+        }
       ]
     },
     {
@@ -2465,9 +2854,21 @@
         "away": "South Africa are counterattacking underdogs who can stay in games if their goalkeeper and forwards give them belief, led by Ronwen Williams, Teboho Mokoena, and Lyle Foster. Against Czechia, their Williams-Mokoena-Foster save-to-counter chain has to beat Czechia's Schick-Soucek aerial pressure. They want to absorb pressure, let Mokoena make the first forward pass, and release Foster before the defense recovers. The risk is Czechia can turn crosses, free kicks, corners, and Soucek runs into high-value chances."
       },
       "resultHighlights": [
-        "⚽ Czechia and South Africa finished level at 1-1.",
-        "🌟 Neither side pulled clear after trading goals.",
+        "🌟 Teboho Mokoena's 83' equalizer earned South Africa a point.",
         "📊 Both teams moved to 1 point in Group A."
+      ],
+      "goalsHome": [
+        {
+          "minute": 6,
+          "name": "Michal Sadilek"
+        }
+      ],
+      "goalsAway": [
+        {
+          "minute": 83,
+          "name": "Teboho Mokoena",
+          "penalty": true
+        }
       ]
     },
     {
@@ -2555,9 +2956,35 @@
         "away": "Bosnia and Herzegovina are a veteran-leaning side that still carry real danger when the match becomes physical and direct, led by Edin Dzeko, Sead Kolasinac, and Esmir Bajraktarevic. Against Switzerland, their Dzeko target play has to beat Switzerland's Xhaka-Embolo control-and-release. They want to play into Dzeko early and build around the loose balls that follow. The risk is Switzerland can slow the game through Xhaka and use Embolo as the release valve."
       },
       "resultHighlights": [
-        "⚽ Switzerland made a statement with a 4-1 win.",
-        "🌟 Switzerland's attack broke the match open.",
+        "🌟 Johan Manzambi scored twice as Switzerland pulled clear.",
         "📊 Switzerland moved to 4 points in Group B while Bosnia and Herzegovina stayed on 1 point."
+      ],
+      "goalsHome": [
+        {
+          "minute": 74,
+          "name": "Johan Manzambi"
+        },
+        {
+          "minute": 84,
+          "name": "Ruben Vargas"
+        },
+        {
+          "minute": 90,
+          "name": "Johan Manzambi"
+        },
+        {
+          "minute": 90,
+          "offset": 7,
+          "name": "Granit Xhaka",
+          "penalty": true
+        }
+      ],
+      "goalsAway": [
+        {
+          "minute": 90,
+          "offset": 3,
+          "name": "Ermin Mahmic"
+        }
       ]
     },
     {
@@ -2575,9 +3002,8 @@
         "away": 0
       },
       "resultHighlights": [
-        "⚽ Canada made a statement with a 6-0 win.",
-        "🌟 Jonathan David scored twice in the rout.",
-        "📊 Canada took three points and +6 GD in Group B."
+        "🌟 Jonathan David completed a hat trick as Canada ran away with it.",
+        "📊 Canada moved to 4 points in Group B while Qatar stayed on 1 point."
       ],
       "h2h": {
         "status": "loaded",
@@ -2638,7 +3064,37 @@
         "sourceId": "editorial-preview-2026-06-22",
         "home": "Canada are a fast, direct host-side threat with enough top-end speed to change games in a few seconds, led by Alphonso Davies, Jonathan David, and Stephen Eustaquio. Against Qatar, their Davies-David open-field speed has to beat Qatar's Afif-Almoez patient combinations. They want to release Davies into space and get David facing goal before the opponent's defense is set. The risk is Qatar can combine through Afif and Almoez Ali when defenders lose patience.",
         "away": "Qatar are compact possession builders who need their best attackers to turn long spells into sharper chances, led by Akram Afif, Almoez Ali, and Homam Ahmed. Against Canada, their Afif-Almoez patient combinations has to beat Canada's Davies-David open-field speed. They want to find Afif in small gaps and let Almoez Ali attack the first clean service. The risk is Canada can run through Davies and David before defenders can recover."
-      }
+      },
+      "goalsHome": [
+        {
+          "minute": 16,
+          "name": "Cyle Larin"
+        },
+        {
+          "minute": 29,
+          "name": "Jonathan David"
+        },
+        {
+          "minute": 45,
+          "offset": 3,
+          "name": "Jonathan David"
+        },
+        {
+          "minute": 64,
+          "name": "Nathan Saliba"
+        },
+        {
+          "minute": 75,
+          "name": "Mohamed Manai",
+          "ownGoal": true
+        },
+        {
+          "minute": 90,
+          "offset": 2,
+          "name": "Jonathan David"
+        }
+      ],
+      "goalsAway": []
     },
     {
       "id": "mexico-south-korea-2026-06-18",
@@ -2848,7 +3304,14 @@
         "sourceId": "editorial-preview-2026-06-22",
         "home": "Mexico are a home-side pressure team that want territory, crowd energy, and repeated penalty-area touches, led by Santiago Gimenez, Edson Alvarez, and Luis Chavez. Against South Korea, their Gimenez-Chavez home pressure has to beat South Korea's Son-Lee quick-break service. They want to keep the ball in the opponent's half and feed Gimenez before Chavez attacks free kicks, corners, or rebounds. The risk is South Korea can turn running power and Son's finishing into sudden chances.",
         "away": "South Korea are a relentless running side with star quality at both ends of the spine, led by Son Heung-min, Kim Min-jae, and Lee Kang-in. Against Mexico, their Son-Lee quick-break service has to beat Mexico's Gimenez-Chavez home pressure. They want to release Son behind the line and let Lee Kang-in choose the final pass. The risk is Mexico can turn home pressure into Gimenez touches and Chavez free-kick or corner chances."
-      }
+      },
+      "goalsHome": [
+        {
+          "minute": 50,
+          "name": "Luis Romo"
+        }
+      ],
+      "goalsAway": []
     },
     {
       "id": "united-states-australia-2026-06-19",
@@ -2959,10 +3422,21 @@
         "away": "Australia are a durable, physical side built around organization, pressure, and free-kick and corner toughness, led by Mathew Ryan, Jackson Irvine, and Christian Volpato. Against United States, their Irvine-Volpato duel-and-service rhythm has to beat United States' Pulisic-McKennie pressure breaks. They want to make the match direct enough for Irvine's running and Volpato's left foot to matter. The risk is United States can turn pressure into Pulisic carries and McKennie second-ball runs."
       },
       "resultHighlights": [
-        "⚽ United States beat Australia 2-0.",
-        "🌟 The clean sheet gave Australia no way back.",
+        "🌟 Cameron Burgess opened it before Alex Freeman finished the scoring.",
         "📊 United States moved to 6 points in Group D while Australia stayed on 3 points."
-      ]
+      ],
+      "goalsHome": [
+        {
+          "minute": 11,
+          "name": "Cameron Burgess",
+          "ownGoal": true
+        },
+        {
+          "minute": 43,
+          "name": "Alex Freeman"
+        }
+      ],
+      "goalsAway": []
     },
     {
       "id": "scotland-morocco-2026-06-19",
@@ -3043,9 +3517,15 @@
         "away": "Morocco are a disciplined, dangerous side whose structure lets their flair players attack with freedom, led by Achraf Hakimi, Brahim Diaz, and Ayoub El Kaabi. Against Scotland, their Hakimi-Brahim right-side surges has to beat Scotland's Robertson-McTominay left-side service. They want to use Hakimi's overlaps to tilt the field before Brahim or El Kaabi attacks the final pass or shot. The risk is Scotland can turn Robertson service and McTominay runs into pressure."
       },
       "resultHighlights": [
-        "⚽ Morocco found the decisive goal in a 1-0 win.",
-        "🌟 The clean sheet gave Scotland no way back.",
+        "🌟 Ismael Saibari's 2' winner settled it for Morocco.",
         "📊 Morocco moved to 4 points in Group C while Scotland stayed on 3 points."
+      ],
+      "goalsHome": [],
+      "goalsAway": [
+        {
+          "minute": 2,
+          "name": "Ismael Saibari"
+        }
       ]
     },
     {
@@ -3137,10 +3617,25 @@
         "away": "Haiti are a direct attacking underdog with enough forward power to punish loose defending, led by Duckens Nazon, Frantzdy Pierrot, and Jean-Ricner Bellegarde. Against Brazil, their Nazon-Pierrot direct box pressure has to beat Brazil's Neymar-Vinicius isolation speed. They want to play forward quickly toward Nazon and Pierrot before the opponent can crowd the box. The risk is Brazil can break a shape through Neymar combinations and Vinicius Junior's speed."
       },
       "resultHighlights": [
-        "⚽ Brazil made a statement with a 3-0 win.",
-        "🌟 The clean sheet gave Haiti no way back.",
+        "🌟 Matheus Cunha scored twice as Brazil pulled clear.",
         "📊 Brazil moved to 4 points in Group C and left Haiti without a point."
-      ]
+      ],
+      "goalsHome": [
+        {
+          "minute": 23,
+          "name": "Matheus Cunha"
+        },
+        {
+          "minute": 36,
+          "name": "Matheus Cunha"
+        },
+        {
+          "minute": 45,
+          "offset": 3,
+          "name": "Vinicius Junior"
+        }
+      ],
+      "goalsAway": []
     },
     {
       "id": "turkiye-paraguay-2026-06-19",
@@ -3221,9 +3716,15 @@
         "away": "Paraguay are rugged counterpunchers who are comfortable turning matches into physical, tight contests, led by Miguel Almiron, Julio Enciso, and Gustavo Gomez. Against Türkiye, their Almiron-Enciso counters has to beat Türkiye's Calhanoglu-Guler-Yildiz creative bursts. They want to release Almiron into space and let Enciso attack the pocket before defenders settle. The risk is Türkiye can turn Calhanoglu service and Guler invention into sudden chances."
       },
       "resultHighlights": [
-        "⚽ Paraguay found the decisive goal in a 1-0 win.",
-        "🌟 The clean sheet gave Türkiye no way back.",
+        "🌟 Matias Galarza's 2' winner settled it for Paraguay.",
         "📊 Paraguay moved to 3 points in Group D and left Türkiye without a point."
+      ],
+      "goalsHome": [],
+      "goalsAway": [
+        {
+          "minute": 2,
+          "name": "Matias Galarza"
+        }
       ]
     },
     {
@@ -3465,9 +3966,36 @@
         "away": "Sweden are a tall, technical attacking side with two forwards who can change the shape of a match, led by Alexander Isak, Viktor Gyokeres, and Yasin Ayari. Against Netherlands, their Isak-Gyokeres two-striker pressure has to beat Netherlands' De Jong-Gakpo controlled buildup. They want to connect through Ayari and then choose between Isak's polish or Gyokeres' power. The risk is Netherlands can control possession through De Jong and protect it with Van Dijk's authority."
       },
       "resultHighlights": [
-        "⚽ Netherlands made a statement with a 5-1 win.",
-        "🌟 Netherlands's attack broke the match open.",
+        "🌟 Brian Brobbey scored twice as Netherlands pulled clear.",
         "📊 Netherlands moved to 4 points in Group F while Sweden stayed on 3 points."
+      ],
+      "goalsHome": [
+        {
+          "minute": 5,
+          "name": "Brian Brobbey"
+        },
+        {
+          "minute": 17,
+          "name": "Brian Brobbey"
+        },
+        {
+          "minute": 47,
+          "name": "Cody Gakpo"
+        },
+        {
+          "minute": 54,
+          "name": "Cody Gakpo"
+        },
+        {
+          "minute": 89,
+          "name": "Crysencio Summerville"
+        }
+      ],
+      "goalsAway": [
+        {
+          "minute": 59,
+          "name": "Anthony Elanga"
+        }
       ]
     },
     {
@@ -3549,9 +4077,25 @@
         "away": "Côte d'Ivoire are a powerful quick-break team with enough midfield force to turn loose games in their favor, led by Franck Kessie, Simon Adingra, and Evann Guessand. Against Germany, their Kessie-Adingra power breaks has to beat Germany's Kimmich-Musiala-Wirtz central rotations. They want to win the midfield collision and send Adingra into space before Guessand attacks the box. The risk is Germany can combine through Kimmich, Musiala, and Wirtz until the defense loses its shape."
       },
       "resultHighlights": [
-        "⚽ Germany beat Côte d'Ivoire 2-1.",
-        "🌟 Germany protected a one-goal edge.",
+        "🌟 Deniz Undav scored twice as Germany pulled clear.",
         "📊 Germany moved to 6 points in Group E while Côte d'Ivoire stayed on 3 points."
+      ],
+      "goalsHome": [
+        {
+          "minute": 68,
+          "name": "Deniz Undav"
+        },
+        {
+          "minute": 90,
+          "offset": 4,
+          "name": "Deniz Undav"
+        }
+      ],
+      "goalsAway": [
+        {
+          "minute": 30,
+          "name": "Franck Kessie"
+        }
       ]
     },
     {
@@ -3623,7 +4167,7 @@
       },
       "resultHighlights": [
         "⚽ Ecuador and Curaçao shared a 0-0 draw.",
-        "🌟 Both clean sheets kept the match tight.",
+        "🌟 Curaçao's first World Cup point came through a hard-earned clean sheet.",
         "📊 Both teams moved to 1 point in Group E."
       ]
     },
@@ -3756,9 +4300,27 @@
         "away": "Japan are a precise, fast-passing side that can make possession feel sudden and sharp, led by Ayase Ueda, Ritsu Doan, and Daichi Kamada. Against Tunisia, their Doan-Kamada combination speed has to beat Tunisia's Skhiri-Saad compact counter route. They want to move the ball quickly enough for their attackers to receive between defenders. The risk is Tunisia can slow the match through Skhiri's screen and break through Saad."
       },
       "resultHighlights": [
-        "⚽ Japan made a statement with a 4-0 win.",
-        "🌟 The clean sheet gave Tunisia no way back.",
+        "🌟 Ayase Ueda scored twice as Japan pulled clear.",
         "📊 Japan moved to 4 points in Group F and left Tunisia without a point."
+      ],
+      "goalsHome": [],
+      "goalsAway": [
+        {
+          "minute": 4,
+          "name": "Daichi Kamada"
+        },
+        {
+          "minute": 31,
+          "name": "Ayase Ueda"
+        },
+        {
+          "minute": 69,
+          "name": "Junya Ito"
+        },
+        {
+          "minute": 83,
+          "name": "Ayase Ueda"
+        }
       ]
     },
     {
@@ -3860,10 +4422,29 @@
         "away": "Saudi Arabia are a fearless pressing underdog with enough big-moment attackers to punish complacency, led by Salem Al-Dawsari, Firas Al-Buraikan, and Mohammed Al-Owais. Against Spain, their Al-Dawsari pressing bursts has to beat Spain's Yamal-Williams wide stretch. They want to press in bursts and give Al-Dawsari room to attack the first retreating defender. The risk is Spain can stretch the pitch through Yamal and Williams before Pedri breaks the line."
       },
       "resultHighlights": [
-        "⚽ Spain made a statement with a 4-0 win.",
-        "🌟 The clean sheet gave Saudi Arabia no way back.",
+        "🌟 Mikel Oyarzabal scored twice as Spain pulled clear.",
         "📊 Spain moved to 4 points in Group H while Saudi Arabia stayed on 1 point."
-      ]
+      ],
+      "goalsHome": [
+        {
+          "minute": 10,
+          "name": "Lamine Yamal"
+        },
+        {
+          "minute": 21,
+          "name": "Mikel Oyarzabal"
+        },
+        {
+          "minute": 24,
+          "name": "Mikel Oyarzabal"
+        },
+        {
+          "minute": 49,
+          "name": "Hassan Altambakti",
+          "ownGoal": true
+        }
+      ],
+      "goalsAway": []
     },
     {
       "id": "belgium-ir-iran-2026-06-21",
@@ -3934,7 +4515,7 @@
       },
       "resultHighlights": [
         "⚽ Belgium and IR Iran shared a 0-0 draw.",
-        "🌟 Both clean sheets kept the match tight.",
+        "🌟 IR Iran kept Belgium's creators quiet and made the low-margin plan stick.",
         "📊 Both teams moved to 2 points in Group G."
       ]
     },
@@ -4006,9 +4587,29 @@
         "away": 2
       },
       "resultHighlights": [
-        "⚽ Uruguay and Cabo Verde finished level at 2-2.",
-        "🌟 Neither side pulled clear after trading goals.",
+        "🌟 Helio Varela's 61' equalizer earned Cabo Verde a point.",
         "📊 Both teams moved to 2 points in Group H."
+      ],
+      "goalsHome": [
+        {
+          "minute": 44,
+          "name": "Maxi Araujo"
+        },
+        {
+          "minute": 45,
+          "offset": 6,
+          "name": "Agustin Canobbio"
+        }
+      ],
+      "goalsAway": [
+        {
+          "minute": 21,
+          "name": "Kevin Pina"
+        },
+        {
+          "minute": 61,
+          "name": "Helio Varela"
+        }
       ]
     },
     {
@@ -4110,9 +4711,28 @@
         "away": 3
       },
       "resultHighlights": [
-        "⚽ Egypt beat New Zealand 3-1.",
-        "🌟 Egypt created enough separation to control the finish.",
+        "🌟 Finn Surman opened it before Trezeguet finished the scoring.",
         "📊 Egypt moved to 4 points in Group G while New Zealand stayed on 1 point."
+      ],
+      "goalsHome": [
+        {
+          "minute": 15,
+          "name": "Finn Surman"
+        }
+      ],
+      "goalsAway": [
+        {
+          "minute": 58,
+          "name": "Mostafa Zico"
+        },
+        {
+          "minute": 67,
+          "name": "Mohamed Salah"
+        },
+        {
+          "minute": 82,
+          "name": "Trezeguet"
+        }
       ]
     },
     {
@@ -4416,9 +5036,33 @@
         "away": 2
       },
       "resultHighlights": [
-        "⚽ Norway beat Senegal 3-2.",
-        "🌟 Norway protected a one-goal edge.",
+        "🌟 Erling Haaland scored twice as Norway pulled clear.",
         "📊 Norway moved to 6 points in Group I and left Senegal without a point."
+      ],
+      "goalsHome": [
+        {
+          "minute": 43,
+          "name": "Marcus Holmgren Pedersen"
+        },
+        {
+          "minute": 48,
+          "name": "Erling Haaland"
+        },
+        {
+          "minute": 58,
+          "name": "Erling Haaland"
+        }
+      ],
+      "goalsAway": [
+        {
+          "minute": 53,
+          "name": "Ismaila Sarr"
+        },
+        {
+          "minute": 90,
+          "offset": 3,
+          "name": "Ismaila Sarr"
+        }
       ]
     },
     {
