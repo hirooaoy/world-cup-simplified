@@ -107,6 +107,111 @@ function isGeneratedScorerNote(note) {
   return /^Scored for .+ in .+ vs .+\.$/.test(String(note || "").trim());
 }
 
+function escapeRegExp(value) {
+  return String(value).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function titleCaseRosterToken(value) {
+  return String(value || "")
+    .toLocaleLowerCase("en-US")
+    .replace(/(^|[-'])\p{Letter}/gu, (match) => match.toLocaleUpperCase("en-US"));
+}
+
+function titleCaseRosterName(value) {
+  return String(value || "")
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean)
+    .map(titleCaseRosterToken)
+    .join(" ");
+}
+
+function isUppercaseRosterToken(value) {
+  return /\p{Letter}/u.test(value) && !/\p{Ll}/u.test(value);
+}
+
+function getRosterNameCandidates(value) {
+  const tokens = String(value || "").trim().split(/\s+/).filter(Boolean);
+  if (tokens.length < 2) {
+    return [];
+  }
+
+  const candidates = new Set([titleCaseRosterName(tokens.join(" "))]);
+  let mixedCaseStartIndex = 0;
+  while (mixedCaseStartIndex < tokens.length && isUppercaseRosterToken(tokens[mixedCaseStartIndex])) {
+    mixedCaseStartIndex += 1;
+  }
+
+  if (mixedCaseStartIndex > 0 && mixedCaseStartIndex < tokens.length) {
+    candidates.add(titleCaseRosterName([...tokens.slice(mixedCaseStartIndex), ...tokens.slice(0, mixedCaseStartIndex)].join(" ")));
+  }
+
+  return [...candidates].filter((candidate) => {
+    const normalized = normalizePlayerName(candidate);
+    return normalized.length >= 6 && normalized.split(/\s+/).length >= 2;
+  });
+}
+
+function textMentionsFullPlayerName(text, name) {
+  const parts = String(name || "").trim().split(/\s+/).filter(Boolean);
+  if (parts.length < 2) {
+    return false;
+  }
+
+  const pattern = new RegExp(
+    `(^|[^\\p{Letter}\\p{Number}])${parts.map(escapeRegExp).join("[\\s\\u00a0-]+")}('s)?(?=$|[^\\p{Letter}\\p{Number}])`,
+    "iu"
+  );
+  return pattern.test(text || "");
+}
+
+function resolveExistingProfileName(name, profiles = new Map()) {
+  const normalizedName = normalizePlayerName(name);
+  const nameTokens = normalizedName ? normalizedName.split(/\s+/).filter(Boolean) : [];
+  const reversedName = [...nameTokens].reverse().join(" ");
+
+  for (const [profileName, profile] of profiles) {
+    const candidates = [profileName, profile?.displayName].filter(Boolean);
+    for (const candidate of candidates) {
+      const normalizedCandidate = normalizePlayerName(candidate);
+      const candidateTokens = normalizedCandidate ? normalizedCandidate.split(/\s+/).filter(Boolean) : [];
+      if (
+        normalizedCandidate === normalizedName ||
+        normalizedCandidate === reversedName ||
+        candidateTokens.slice(-nameTokens.length).join(" ") === normalizedName
+      ) {
+        return profileName;
+      }
+    }
+  }
+
+  return "";
+}
+
+function getParagraphMentionProfileNames(text, availability, profiles) {
+  const profileNames = [];
+  const seen = new Set();
+
+  for (const rosterName of availability?.includedNames || []) {
+    for (const candidate of getRosterNameCandidates(rosterName)) {
+      if (!textMentionsFullPlayerName(text, candidate)) {
+        continue;
+      }
+
+      const name = resolveExistingProfileName(candidate, profiles) || candidate;
+      const key = normalizePlayerName(name);
+      if (!key || seen.has(key)) {
+        continue;
+      }
+
+      seen.add(key);
+      profileNames.push(name);
+    }
+  }
+
+  return profileNames;
+}
+
 function createEmptyStanding(teamId) {
   return {
     teamId,
@@ -447,6 +552,17 @@ for (const fixture of fixturesData.fixtures || []) {
     assert(teams.get(fixture.awayTeamId)?.groupId === fixture.groupId, `Fixture "${fixture.id}" away team is not in group "${fixture.groupId}"`);
   }
 
+  for (const [side, teamId] of [
+    ["home", fixture.homeTeamId],
+    ["away", fixture.awayTeamId]
+  ]) {
+    const text = fixture.keyInformation?.[side];
+    const availability = playerAvailabilityByTeam.get(teamId);
+    for (const playerName of getParagraphMentionProfileNames(text, availability, playerProfiles)) {
+      requiredProfileNames.add(playerName);
+    }
+  }
+
   if (fixture.status === "FT") {
     assert(fixture.score, `Final fixture "${fixture.id}" must include score`);
     assert(isNumber(fixture.score?.home), `Final fixture "${fixture.id}" must include numeric home score`);
@@ -726,6 +842,10 @@ for (const playerName of requiredProfileNames) {
     `player-profiles.json "${playerName}" must include club`
   );
   assert(
+    typeof profile.imageUrl === "string" && profile.imageUrl.trim(),
+    `player-profiles.json "${playerName}" must include imageUrl`
+  );
+  assert(
     Array.isArray(profile.skills) && profile.skills.length > 0,
     `player-profiles.json "${playerName}" must include skills`
   );
@@ -749,6 +869,26 @@ for (const playerName of requiredProfileNames) {
       `player-profiles.json "${playerName}" uniformNumber must be a positive integer`
     );
   }
+  if (profile.marketValueEurMillions !== undefined) {
+    assert(
+      isNumber(profile.marketValueEurMillions) && profile.marketValueEurMillions > 0,
+      `player-profiles.json "${playerName}" marketValueEurMillions must be a positive number when present`
+    );
+  }
+  if (profile.estimatedMarketValueEurMillions !== undefined) {
+    assert(
+      isNumber(profile.estimatedMarketValueEurMillions) && profile.estimatedMarketValueEurMillions > 0,
+      `player-profiles.json "${playerName}" estimatedMarketValueEurMillions must be a positive number when present`
+    );
+  }
+  assert(
+    profile.marketValueEurMillions !== undefined || profile.estimatedMarketValueEurMillions !== undefined,
+    `player-profiles.json "${playerName}" must include marketValueEurMillions or estimatedMarketValueEurMillions`
+  );
+  assert(
+    !(profile.marketValueEurMillions !== undefined && profile.estimatedMarketValueEurMillions !== undefined),
+    `player-profiles.json "${playerName}" must not include both exact and estimated market values`
+  );
 }
 
 for (const [groupId, rows] of Object.entries(standingsData.groups || {})) {

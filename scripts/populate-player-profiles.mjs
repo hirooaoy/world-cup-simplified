@@ -2,15 +2,21 @@
 import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { gunzipSync } from "node:zlib";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const dataDir = path.join(root, "data");
 const fixturesPath = path.join(dataDir, "fixtures.json");
+const playerAvailabilityPath = path.join(dataDir, "player-availability.json");
 const teamsPath = path.join(dataDir, "teams.json");
 const outputPath = path.join(dataDir, "player-profiles.json");
 const userAgent = "WorldCupSimplified/0.1 (local profile enrichment)";
 const requestDelayMs = Number(process.env.WIKI_REQUEST_DELAY_MS || 1800);
 const wikipediaSummarySourceId = "wikipedia-page-summaries";
+const transfermarktDatasetSourceId = "transfermarkt-market-values-2026-06-23";
+const editorialMarketEstimateSourceId = "editorial-player-market-estimates-2026-06-23";
+const transfermarktPlayersCsvUrl =
+  "https://pub-e682421888d945d684bcae8890b0ec20.r2.dev/data/players.csv.gz";
 const pageTitleOverrides = new Map([
   ["Ali Olwan", "Ali Olwan"],
   ["Ayoub El Kaabi", "Ayoub El Kaabi"],
@@ -73,6 +79,9 @@ const profileFieldOverrides = {
   "Houssem Aouar": {
     imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Houssem%20Aouar%202017%20(cropped).jpg?width=160"
   },
+  "Hwang Inbeom": {
+    transfermarktPlayerCode: "in-beom-hwang"
+  },
   "Ismael Diaz": {
     imageUrl: "https://imagenes.primicias.ec/files/og_thumbnail/uploads/2024/05/25/665295a4a90f8.jpeg"
   },
@@ -92,11 +101,15 @@ const profileFieldOverrides = {
   "Hassan Altambakti": {
     displayName: "Hassan Al-Tambakti",
     position: "Centre-back",
-    club: "Al-Hilal"
+    club: "Al-Hilal",
+    transfermarktPlayerCode: "hassan-tambakti"
   },
   "Kenan Yildiz": {
     position: "Attacking midfielder, winger",
     imageUrl: "https://www.juventus.com/images/image/private/t_portrait_tablet_desktop/f_png/dev/qwsdrvbuik2f2d7q1qcf.png"
+  },
+  "Kevin Pina": {
+    transfermarktPlayerCode: "kevin-lenini"
   },
   "Lamine Yamal": {
     imageUrl: "https://assets.sorare.com/playerpicture/c8dd7fff-b3bc-4e8e-a199-99ddaeacaf0a/picture/avatar-44bdd68923075c1703d3b4241f082bb4.png"
@@ -109,10 +122,14 @@ const profileFieldOverrides = {
   "Luis Suarez": {
     imageUrl: "https://assets.sorare.com/playerpicture/f945c83f-4b62-4d89-8a50-4408abefa6b7/picture/avatar-a920b0effd55be927d6b9b0a19d85061.png"
   },
+  "Marcus Holmgren Pedersen": {
+    transfermarktPlayerCode: "marcus-pedersen"
+  },
   "Matias Galarza": {
     displayName: "Matías Galarza",
     position: "Midfielder",
-    club: "Atlanta United (on loan from River Plate)"
+    club: "Atlanta United (on loan from River Plate)",
+    transfermarktPlayerCode: "matias-galarza"
   },
   Mauricio: {
     displayName: "Maurício",
@@ -122,17 +139,32 @@ const profileFieldOverrides = {
   "Michael Olise": {
     imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Michael%20Olise%20bayern%202025.jpg?width=160"
   },
+  "Mohamed Hany": {
+    transfermarktPlayerCode: "mohamed-hany"
+  },
+  "Mohamed Manai": {
+    imageUrl: "https://img.a.transfermarkt.technology/portrait/header/822935-1740224672.jpg",
+    marketValueEurMillions: 0.3
+  },
   "Mostafa Zico": {
     displayName: "Mostafa Ziko",
     position: "Left winger",
-    club: "Pyramids"
+    club: "Pyramids",
+    imageUrl: "https://tmssl.akamaized.net//images/portrait/header/1205357-1730385107.png",
+    marketValueEurMillions: 1.5
   },
   "Mohammed Al-Owais": {
     imageUrl: "https://static-files.saudi-pro-league.pulselive.com/players/headshot/p153885.png"
   },
+  "Nathan Saliba": {
+    transfermarktPlayerCode: "nathan-dylan-saliba"
+  },
   "Nathaniel Brown": {
     position: "Left-back",
     club: "Eintracht Frankfurt"
+  },
+  "Oh Hyeongyu": {
+    transfermarktPlayerCode: "hyeon-gyu-oh"
   },
   "Noah Sadiki": {
     imageUrl: "https://assets.sorare.com/playerpicture/a862377c-35dc-42f1-b2bf-9b1d67677f15/picture/avatar-b5c2d5aee9242262172f9b052897cd41.png"
@@ -150,6 +182,9 @@ const profileFieldOverrides = {
     imageUrl: "https://sundownsfc.co.za/wp-content/uploads/2025/09/Williams-1.jpg"
   },
   "Ritsu Doan": { club: "Eintracht Frankfurt" },
+  "Rustamjon Ashurmatov": {
+    transfermarktPlayerCode: "rustam-ashurmatov"
+  },
   "Ryan Mendes": {
     imageUrl: "https://assets.sorare.com/playerpicture/19e5f623-11d5-4cb7-b305-610eaf822599/picture/avatar-ed0ebe5f0ea84b8710b99b5ec23451c0.png"
   },
@@ -202,6 +237,8 @@ const clubLeagueOverrides = {
   "Al-Najma": "Saudi First Division League",
   "Al-Nassr": "Saudi Pro League",
   "Al-Ula": "Saudi First Division League",
+  "Al-Qadsiah": "Saudi Pro League",
+  "Al-Shamal": "Qatar Stars League",
   Arsenal: "Premier League",
   "Aston Villa": "Premier League",
   Atalanta: "Serie A",
@@ -219,6 +256,7 @@ const clubLeagueOverrides = {
   "Brighton & Hove Albion": "Premier League",
   Burnley: "EFL Championship",
   Chelsea: "Premier League",
+  Como: "Serie A",
   "Crystal Palace": "Premier League",
   "Cultural Leonesa": "Segunda División",
   "Dender EH": "Belgian Pro League",
@@ -226,10 +264,16 @@ const clubLeagueOverrides = {
   "Dynamo Moscow": "Russian Premier League",
   "Eintracht Frankfurt": "Bundesliga",
   Esteghlal: "Persian Gulf Pro League",
+  "FC Dallas": "Major League Soccer",
+  "FC Seoul": "K League 1",
+  "FC Zürich": "Swiss Super League",
   "FC St. Pauli": "Bundesliga",
   Fenerbahçe: "Süper Lig",
+  Fluminense: "Campeonato Brasileiro Série A",
   Genk: "Belgian Pro League",
   "G.D. Chaves": "Liga Portugal 2",
+  Guadalajara: "Liga MX",
+  "Hamburger SV": "Bundesliga",
   "Hannover 96": "2. Bundesliga",
   "Inter Milan": "Serie A",
   Iğdır: "TFF First League",
@@ -244,17 +288,22 @@ const clubLeagueOverrides = {
   "Mamelodi Sundowns": "South African Premiership",
   "Manchester City": "Premier League",
   "Manchester United": "Premier League",
+  Maribor: "Slovenian PrvaLiga",
   Marseille: "Ligue 1",
+  "Maccabi Tel Aviv": "Israeli Premier League",
   "Minnesota United": "Major League Soccer",
   Monaco: "Ligue 1",
+  Motherwell: "Scottish Premiership",
   Nantes: "Ligue 1",
   Napoli: "Serie A",
   "Newcastle United": "Premier League",
   "Nottingham Forest": "Premier League",
   Olympiacos: "Super League Greece",
+  "Nordsjælland": "Danish Superliga",
   PSV: "Eredivisie",
   Pachuca: "Liga MX",
   Palmeiras: "Campeonato Brasileiro Série A",
+  "Portland Timbers": "Major League Soccer",
   "Paris Saint-Germain": "Ligue 1",
   Pyramids: "Egyptian Premier League",
   "Pumas UNAM": "Liga MX",
@@ -262,19 +311,26 @@ const clubLeagueOverrides = {
   "Real Madrid": "La Liga",
   "Real Sociedad": "La Liga",
   Rennes: "Ligue 1",
+  "Rosario Central": "Argentine Primera División",
+  "Royal Sporting Club Anderlecht": "Belgian Pro League",
   Santos: "Campeonato Brasileiro Série A",
   Sassuolo: "Serie A",
+  "SC Freiburg": "Bundesliga",
   "Schalke 04": "2. Bundesliga",
   Selangor: "Malaysia Super League",
   "Shabab Al Ahli": "UAE Pro League",
   "Shamrock Rovers": "League of Ireland Premier Division",
+  "Slovan Liberec": "Czech First League",
   "Sporting CP": "Primeira Liga",
   Strasbourg: "Ligue 1",
+  "São Paulo": "Campeonato Brasileiro Série A",
   Sunderland: "Premier League",
   "TSG Hoffenheim": "Bundesliga",
   "Thep Xanh Nam Dinh FC": "V.League 1",
   "Tottenham Hotspur": "Premier League",
   Utrecht: "Eredivisie",
+  "Universitatea Cluj": "Liga I",
+  Villarreal: "La Liga",
   Volendam: "Eredivisie",
   "Wellington Phoenix": "A-League Men",
   "West Ham United": "Premier League",
@@ -321,9 +377,356 @@ function normalizeText(value) {
     .normalize("NFKD")
     .replace(/[\u0300-\u036f]/g, "")
     .toLowerCase()
+    .replace(/ø/g, "o")
+    .replace(/đ/g, "d")
+    .replace(/ı/g, "i")
     .replace(/&[^;\s]+;/g, " ")
     .replace(/[^a-z0-9]+/g, " ")
     .trim();
+}
+
+function normalizeTransfermarktCode(value) {
+  return normalizeText(value).replace(/\s+/g, "-");
+}
+
+function parseCsvRows(text) {
+  const rows = [];
+  let row = [];
+  let value = "";
+  let quoted = false;
+
+  for (let index = 0; index < text.length; index += 1) {
+    const char = text[index];
+
+    if (quoted) {
+      if (char === "\"") {
+        if (text[index + 1] === "\"") {
+          value += "\"";
+          index += 1;
+        } else {
+          quoted = false;
+        }
+      } else {
+        value += char;
+      }
+      continue;
+    }
+
+    if (char === "\"") {
+      quoted = true;
+    } else if (char === ",") {
+      row.push(value);
+      value = "";
+    } else if (char === "\n") {
+      row.push(value);
+      rows.push(row);
+      row = [];
+      value = "";
+    } else if (char !== "\r") {
+      value += char;
+    }
+  }
+
+  if (value || row.length) {
+    row.push(value);
+    rows.push(row);
+  }
+
+  return rows;
+}
+
+function parseCsvObjects(text) {
+  const rows = parseCsvRows(text).filter((row) => row.length > 1 || row[0]);
+  const headers = rows[0] || [];
+  return rows.slice(1).map((row) => {
+    const record = {};
+    headers.forEach((header, index) => {
+      record[header] = row[index] || "";
+    });
+    return record;
+  });
+}
+
+async function fetchTransfermarktPlayers() {
+  try {
+    const response = await fetch(transfermarktPlayersCsvUrl, {
+      headers: { "User-Agent": userAgent }
+    });
+
+    if (!response.ok) {
+      throw new Error(`Transfermarkt dataset returned ${response.status}`);
+    }
+
+    const compressed = Buffer.from(await response.arrayBuffer());
+    return parseCsvObjects(gunzipSync(compressed).toString("utf8"));
+  } catch (error) {
+    console.warn(`Transfermarkt enrichment skipped: ${error.message}`);
+    return [];
+  }
+}
+
+function normalizeTransfermarktDate(value) {
+  return String(value || "").slice(0, 10);
+}
+
+function parseEurMillions(value) {
+  const amount = Number(String(value || "").replace(/[^0-9.]/g, ""));
+  return Number.isFinite(amount) && amount > 0 ? Math.round((amount / 1000000) * 10) / 10 : undefined;
+}
+
+function buildTransfermarktIndex(records) {
+  const byCode = new Map();
+  const byName = new Map();
+
+  function add(index, key, record) {
+    if (!key) {
+      return;
+    }
+
+    const list = index.get(key) || [];
+    list.push(record);
+    index.set(key, list);
+  }
+
+  for (const record of records || []) {
+    add(byCode, normalizeTransfermarktCode(record.player_code), record);
+    add(byName, normalizeText(record.name), record);
+    add(byName, normalizeText(`${record.first_name || ""} ${record.last_name || ""}`), record);
+  }
+
+  return { byCode, byName, records: records || [] };
+}
+
+function scoreTransfermarktRecord(record, player, profileSeed = {}) {
+  const wantedTokens = new Set([
+    ...getNormalizedNameTokens(player.name),
+    ...getNormalizedNameTokens(profileSeed.displayName)
+  ]);
+  const recordTokens = new Set(getNormalizedNameTokens(record.name));
+  const codeTokens = new Set(getNormalizedNameTokens(record.player_code));
+  const playerNameKey = normalizeText(player.name);
+  const displayNameKey = normalizeText(profileSeed.displayName);
+  const recordNameKey = normalizeText(record.name);
+  const playerCodeKey = normalizeTransfermarktCode(player.name);
+  const displayCodeKey = normalizeTransfermarktCode(profileSeed.displayName);
+  const recordCodeKey = normalizeTransfermarktCode(record.player_code);
+  let score = 0;
+
+  if (recordNameKey && (recordNameKey === playerNameKey || recordNameKey === displayNameKey)) {
+    score += 100;
+  }
+  if (recordCodeKey && (recordCodeKey === playerCodeKey || recordCodeKey === displayCodeKey)) {
+    score += 100;
+  }
+  for (const token of wantedTokens) {
+    if (recordTokens.has(token)) {
+      score += 4;
+    }
+    if (codeTokens.has(token)) {
+      score += 3;
+    }
+  }
+  if (
+    profileSeed.birthDate &&
+    normalizeTransfermarktDate(record.date_of_birth) === profileSeed.birthDate
+  ) {
+    score += 80;
+  }
+  const recordClubKey = normalizeText(record.current_club_name);
+  const profileClubKey = normalizeText(profileSeed.club);
+  if (
+    recordClubKey &&
+    profileClubKey &&
+    (recordClubKey.includes(profileClubKey) || profileClubKey.includes(recordClubKey))
+  ) {
+    score += 20;
+  }
+
+  return score;
+}
+
+function getTransfermarktRecord(player, profileSeed, overrides = {}, index = {}) {
+  const candidates = [];
+  const seen = new Set();
+
+  function addCandidate(record) {
+    if (!record?.player_id || seen.has(record.player_id)) {
+      return;
+    }
+    seen.add(record.player_id);
+    candidates.push(record);
+  }
+
+  const overrideCodes = [
+    overrides.transfermarktPlayerCode,
+    overrides.transfermarktCode,
+    overrides.transfermarktSlug
+  ]
+    .filter(Boolean)
+    .map(normalizeTransfermarktCode);
+
+  for (const code of overrideCodes) {
+    for (const record of index.byCode?.get(code) || []) {
+      addCandidate(record);
+    }
+  }
+
+  const nameKeys = [
+    player.name,
+    profileSeed.displayName,
+    overrides.displayName,
+    overrides.transfermarktName
+  ]
+    .filter(Boolean)
+    .map(normalizeText);
+
+  for (const key of nameKeys) {
+    for (const record of index.byName?.get(key) || []) {
+      addCandidate(record);
+    }
+  }
+
+  const wantedTokens = new Set([
+    ...getNormalizedNameTokens(player.name),
+    ...getNormalizedNameTokens(profileSeed.displayName)
+  ]);
+  for (const record of index.records || []) {
+    const recordTokens = new Set(getNormalizedNameTokens(record.name));
+    const codeTokens = new Set(getNormalizedNameTokens(record.player_code));
+    if ([...wantedTokens].some((token) => recordTokens.has(token) || codeTokens.has(token))) {
+      addCandidate(record);
+    }
+  }
+
+  const birthDate = profileSeed.birthDate || overrides.birthDate || "";
+  return candidates
+    .map((record) => ({
+      record,
+      score: scoreTransfermarktRecord(record, player, profileSeed),
+      dateMatches:
+        birthDate && normalizeTransfermarktDate(record.date_of_birth) === birthDate
+    }))
+    .filter(({ score, dateMatches, record }) => {
+      const forced = overrideCodes.includes(normalizeTransfermarktCode(record.player_code));
+      return forced || score >= 180 || (dateMatches && score >= 105);
+    })
+    .sort((a, b) => {
+      if (b.score !== a.score) {
+        return b.score - a.score;
+      }
+      return Number(b.dateMatches) - Number(a.dateMatches);
+    })[0]?.record;
+}
+
+function escapeRegExp(value) {
+  return String(value).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function titleCaseRosterToken(value) {
+  return String(value || "")
+    .toLocaleLowerCase("en-US")
+    .replace(/(^|[-'])\p{Letter}/gu, (match) => match.toLocaleUpperCase("en-US"));
+}
+
+function titleCaseRosterName(value) {
+  return String(value || "")
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean)
+    .map(titleCaseRosterToken)
+    .join(" ");
+}
+
+function isUppercaseRosterToken(value) {
+  return /\p{Letter}/u.test(value) && !/\p{Ll}/u.test(value);
+}
+
+function getRosterNameCandidates(value) {
+  const tokens = String(value || "").trim().split(/\s+/).filter(Boolean);
+  if (tokens.length < 2) {
+    return [];
+  }
+
+  const candidates = new Set([titleCaseRosterName(tokens.join(" "))]);
+  let mixedCaseStartIndex = 0;
+  while (mixedCaseStartIndex < tokens.length && isUppercaseRosterToken(tokens[mixedCaseStartIndex])) {
+    mixedCaseStartIndex += 1;
+  }
+
+  if (mixedCaseStartIndex > 0 && mixedCaseStartIndex < tokens.length) {
+    candidates.add(titleCaseRosterName([...tokens.slice(mixedCaseStartIndex), ...tokens.slice(0, mixedCaseStartIndex)].join(" ")));
+  }
+
+  return [...candidates].filter((candidate) => {
+    const normalized = normalizeText(candidate);
+    return normalized.length >= 6 && normalized.split(/\s+/).length >= 2;
+  });
+}
+
+function textMentionsFullPlayerName(text, name) {
+  const parts = String(name || "").trim().split(/\s+/).filter(Boolean);
+  if (parts.length < 2) {
+    return false;
+  }
+
+  const pattern = new RegExp(
+    `(^|[^\\p{Letter}\\p{Number}])${parts.map(escapeRegExp).join("[\\s\\u00a0-]+")}('s)?(?=$|[^\\p{Letter}\\p{Number}])`,
+    "iu"
+  );
+  return pattern.test(text || "");
+}
+
+function getNormalizedNameTokens(value) {
+  const normalized = normalizeText(value);
+  return normalized ? normalized.split(/\s+/).filter(Boolean) : [];
+}
+
+function resolveExistingProfileName(name, profiles = {}) {
+  const normalizedName = normalizeText(name);
+  const nameTokens = getNormalizedNameTokens(name);
+  const reversedName = [...nameTokens].reverse().join(" ");
+
+  for (const [profileName, profile] of Object.entries(profiles || {})) {
+    const candidates = [profileName, profile?.displayName].filter(Boolean);
+    for (const candidate of candidates) {
+      const normalizedCandidate = normalizeText(candidate);
+      const candidateTokens = getNormalizedNameTokens(candidate);
+      if (
+        normalizedCandidate === normalizedName ||
+        normalizedCandidate === reversedName ||
+        candidateTokens.slice(-nameTokens.length).join(" ") === normalizedName
+      ) {
+        return profileName;
+      }
+    }
+  }
+
+  return "";
+}
+
+function getParagraphMentionPlayers(text, team, availabilityByTeam, existingProfiles) {
+  const includedNames = availabilityByTeam.get(team?.id) || [];
+  const players = [];
+  const seen = new Set();
+
+  for (const rosterName of includedNames) {
+    for (const candidate of getRosterNameCandidates(rosterName)) {
+      if (!textMentionsFullPlayerName(text, candidate)) {
+        continue;
+      }
+
+      const name = resolveExistingProfileName(candidate, existingProfiles) || candidate;
+      const key = normalizeText(name);
+      if (!key || seen.has(key)) {
+        continue;
+      }
+
+      seen.add(key);
+      players.push({ name, team, note: "" });
+    }
+  }
+
+  return players;
 }
 
 function decodeEntities(value) {
@@ -576,13 +979,203 @@ function getUniformNumberOverride(player, overrides = {}) {
   return Number.isInteger(value) && value > 0 ? value : undefined;
 }
 
-function getMarketValueEurMillions(player, overrides = {}) {
+function getSourcedMarketValueEurMillions(player, overrides = {}, transfermarktRecord = null) {
   const value =
     overrides.marketValueEurMillions ??
+    parseEurMillions(overrides.transfermarktMarketValueEur) ??
+    parseEurMillions(overrides.transfermarktMarketValueInEur) ??
+    parseEurMillions(transfermarktRecord?.market_value_in_eur) ??
     existingProfilesData.profiles?.[player.name]?.marketValueEurMillions;
   const number = Number(value);
 
   return Number.isFinite(number) && number > 0 ? number : undefined;
+}
+
+function getAgeFromBirthDate(birthDate, referenceDate = new Date()) {
+  const match = String(birthDate || "").match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if (!match) {
+    return null;
+  }
+
+  const year = Number(match[1]);
+  const month = Number(match[2]);
+  const day = Number(match[3]);
+  let age = referenceDate.getFullYear() - year;
+  const hasHadBirthday =
+    referenceDate.getMonth() + 1 > month ||
+    (referenceDate.getMonth() + 1 === month && referenceDate.getDate() >= day);
+  if (!hasHadBirthday) {
+    age -= 1;
+  }
+
+  return Number.isInteger(age) && age >= 15 && age < 50 ? age : null;
+}
+
+function getLeagueMarketBase(league, club) {
+  const key = normalizeText(league || getLeagueForClub(club));
+  const topLeagues = [
+    "premier league",
+    "la liga",
+    "bundesliga",
+    "serie a",
+    "ligue 1"
+  ];
+  const strongLeagues = [
+    "efl championship",
+    "2 bundesliga",
+    "eredivisie",
+    "primeira liga",
+    "belgian pro league",
+    "super lig",
+    "super league greece",
+    "major league soccer",
+    "liga mx",
+    "campeonato brasileiro serie a",
+    "saudi pro league",
+    "croatian football league"
+  ];
+  const solidLeagues = [
+    "argentine primera division",
+    "a league men",
+    "botola pro",
+    "czech first league",
+    "danish superliga",
+    "egyptian premier league",
+    "k league",
+    "liga i",
+    "persian gulf pro league",
+    "qatar stars league",
+    "slovenian prvaliga",
+    "swiss super league",
+    "uae pro league"
+  ];
+
+  if (topLeagues.some((name) => key.includes(name))) {
+    return 8;
+  }
+  if (strongLeagues.some((name) => key.includes(name))) {
+    return 3;
+  }
+  if (solidLeagues.some((name) => key.includes(name))) {
+    return 1.2;
+  }
+
+  return 0.8;
+}
+
+function getAgeMarketFactor(age) {
+  if (!Number.isFinite(age)) {
+    return 1;
+  }
+  if (age <= 20) {
+    return 1.45;
+  }
+  if (age <= 23) {
+    return 1.25;
+  }
+  if (age <= 28) {
+    return 1.05;
+  }
+  if (age <= 31) {
+    return 0.85;
+  }
+  return 0.55;
+}
+
+function getPositionMarketFactor(position) {
+  const key = normalizeText(position);
+  if (/striker|forward|winger|attacking midfielder/.test(key)) {
+    return 1.15;
+  }
+  if (/goalkeeper/.test(key)) {
+    return 0.75;
+  }
+  if (/defender|centre back|center back|right back|left back/.test(key)) {
+    return 0.9;
+  }
+  return 1;
+}
+
+function getTeamRankMarketFactor(team) {
+  const rank = Number(team?.fifaRank);
+  if (!Number.isFinite(rank) || rank <= 0) {
+    return 1;
+  }
+  if (rank <= 10) {
+    return 1.35;
+  }
+  if (rank <= 25) {
+    return 1.18;
+  }
+  if (rank <= 50) {
+    return 1;
+  }
+  if (rank <= 75) {
+    return 0.85;
+  }
+  return 0.7;
+}
+
+function getInternationalMarketFactor(transfermarktRecord) {
+  const caps = Number(transfermarktRecord?.international_caps);
+  if (!Number.isFinite(caps) || caps <= 0) {
+    return 1;
+  }
+  if (caps >= 60) {
+    return 1.25;
+  }
+  if (caps >= 25) {
+    return 1.15;
+  }
+  if (caps >= 10) {
+    return 1.08;
+  }
+  return 1.02;
+}
+
+function roundEstimatedMarketValue(value) {
+  const clamped = Math.max(0.1, Math.min(30, Number(value) || 0));
+  if (clamped < 1) {
+    return Math.round(clamped * 10) / 10;
+  }
+  if (clamped < 10) {
+    return Math.round(clamped * 2) / 2;
+  }
+  return Math.round(clamped);
+}
+
+function getEstimatedMarketValueEurMillions(player, profileSeed, overrides = {}, transfermarktRecord = null) {
+  const overrideValue = overrides.estimatedMarketValueEurMillions;
+  const overrideNumber = Number(overrideValue);
+  if (Number.isFinite(overrideNumber) && overrideNumber > 0) {
+    return overrideNumber;
+  }
+
+  const base = getLeagueMarketBase(profileSeed.league, profileSeed.club);
+  const age = getAgeFromBirthDate(profileSeed.birthDate);
+  const estimate =
+    base *
+    getAgeMarketFactor(age) *
+    getPositionMarketFactor(profileSeed.position) *
+    getTeamRankMarketFactor(player.team) *
+    getInternationalMarketFactor(transfermarktRecord);
+
+  return roundEstimatedMarketValue(estimate);
+}
+
+function getMarketValueFields(player, profileSeed, overrides = {}, transfermarktRecord = null) {
+  const marketValueEurMillions = getSourcedMarketValueEurMillions(player, overrides, transfermarktRecord);
+  if (marketValueEurMillions) {
+    return { marketValueEurMillions };
+  }
+
+  const estimatedMarketValueEurMillions = getEstimatedMarketValueEurMillions(
+    player,
+    profileSeed,
+    overrides,
+    transfermarktRecord
+  );
+  return estimatedMarketValueEurMillions ? { estimatedMarketValueEurMillions } : {};
 }
 
 function inferSkills(note) {
@@ -845,7 +1438,7 @@ async function fetchPageDataBatch(titles) {
   return pages;
 }
 
-function getUniquePlayers(fixturesData, teamsById) {
+function getUniquePlayers(fixturesData, teamsById, availabilityByTeam, existingProfiles) {
   const players = new Map();
 
   function addPlayer(player, team, note = "") {
@@ -869,6 +1462,13 @@ function getUniquePlayers(fixturesData, teamsById) {
   for (const fixture of fixturesData.fixtures || []) {
     const homeTeam = teamsById.get(fixture.homeTeamId);
     const awayTeam = teamsById.get(fixture.awayTeamId);
+
+    for (const player of getParagraphMentionPlayers(fixture.keyInformation?.home || "", homeTeam, availabilityByTeam, existingProfiles)) {
+      addPlayer(player, player.team, player.note);
+    }
+    for (const player of getParagraphMentionPlayers(fixture.keyInformation?.away || "", awayTeam, availabilityByTeam, existingProfiles)) {
+      addPlayer(player, player.team, player.note);
+    }
 
     for (const side of ["home", "away"]) {
       const teamId = side === "home" ? fixture.homeTeamId : fixture.awayTeamId;
@@ -900,24 +1500,41 @@ function getUniquePlayers(fixturesData, teamsById) {
   return [...players.values()].sort((a, b) => a.name.localeCompare(b.name));
 }
 
-async function buildProfile(player) {
+async function buildProfile(player, transfermarktIndex = {}) {
   const title = await searchPlayerPage(player, player.team);
   if (!title) {
     const overrides = profileFieldOverrides[player.name] || {};
     const existingProfile = existingProfilesData.profiles?.[player.name] || {};
     const position = overrides.position || existingProfile.position || "";
+    const profileClub = overrides.club || existingProfile.club || "";
+    const profileLeague = overrides.league || existingProfile.league || getLeagueForClub(profileClub);
+    const displayName = overrides.displayName || existingProfile.displayName || existingProfile.name || player.name;
+    const birthDate = overrides.birthDate || existingProfile.birthDate;
+    const profileSeed = {
+      displayName,
+      birthDate,
+      position,
+      club: profileClub,
+      league: profileLeague
+    };
+    const transfermarktRecord = getTransfermarktRecord(player, profileSeed, overrides, transfermarktIndex);
     const note = getProfileNote(player, existingProfile, position);
 
     return {
       name: player.name,
       teamId: player.team.id,
-      birthDate: existingProfile.birthDate,
+      displayName,
+      birthDate,
       summary: getProfileSummary({
         note: player.note,
         existingSummary: existingProfile.summary
       }),
-      marketValueEurMillions: getMarketValueEurMillions(player, overrides),
+      ...getMarketValueFields(player, profileSeed, overrides, transfermarktRecord),
+      position,
+      club: profileClub,
+      league: profileLeague,
       uniformNumber: getUniformNumberOverride(player, overrides),
+      imageUrl: overrides.imageUrl || transfermarktRecord?.image_url || existingProfile.imageUrl,
       skills: inferSkills(note),
       note,
       sourceUrl: ""
@@ -942,26 +1559,35 @@ async function buildProfile(player) {
   const profileLeague =
     overrides.league || getLeagueFromSummary(summary, profileClub) || getLeagueForClub(profileClub);
   const note = getProfileNote(player, existingProfile, overrides.position || position);
+  const displayName = cleanWikiText(fields.name || "") || title.replace(/_/g, " ");
+  const profileSeed = {
+    displayName,
+    birthDate,
+    position: overrides.position || position,
+    club: profileClub,
+    league: profileLeague
+  };
+  const transfermarktRecord = getTransfermarktRecord(player, profileSeed, overrides, transfermarktIndex);
 
   return {
     name: player.name,
-    displayName: cleanWikiText(fields.name || "") || title.replace(/_/g, " "),
+    displayName,
     teamId: player.team.id,
     birthDate,
     summary,
-    marketValueEurMillions: getMarketValueEurMillions(player, overrides),
+    ...getMarketValueFields(player, profileSeed, overrides, transfermarktRecord),
     position: overrides.position || position,
     club: profileClub,
     league: profileLeague,
     uniformNumber: getUniformNumberOverride(player, overrides),
-    imageUrl: overrides.imageUrl || imageUrl,
+    imageUrl: overrides.imageUrl || imageUrl || transfermarktRecord?.image_url,
     skills: inferSkills(note),
     note,
     sourceUrl: `https://en.wikipedia.org/wiki/${encodeURIComponent(title.replace(/ /g, "_"))}`
   };
 }
 
-function buildProfileFromPageData(player, title, pageData = {}) {
+function buildProfileFromPageData(player, title, pageData = {}, transfermarktIndex = {}) {
   const overrides = profileFieldOverrides[player.name] || {};
   const existingProfile = existingProfilesData.profiles?.[player.name] || {};
   const wikitext = pageData.wikitext || "";
@@ -979,20 +1605,29 @@ function buildProfileFromPageData(player, title, pageData = {}) {
       getLeagueForClub(profileClub) ||
       existingProfile.league;
     const note = getProfileNote(player, existingProfile, overrides.position || existingProfile.position);
+    const displayName = overrides.displayName || existingProfile.displayName || existingProfile.name || player.name;
+    const profileSeed = {
+      displayName,
+      birthDate: overrides.birthDate || existingProfile.birthDate,
+      position: overrides.position || existingProfile.position,
+      club: profileClub,
+      league: profileLeague
+    };
+    const transfermarktRecord = getTransfermarktRecord(player, profileSeed, overrides, transfermarktIndex);
 
     return {
       ...existingProfile,
       name: player.name,
       teamId: player.team.id,
-      displayName: overrides.displayName || existingProfile.displayName || existingProfile.name,
-      birthDate: overrides.birthDate || existingProfile.birthDate,
+      displayName,
+      birthDate: profileSeed.birthDate,
       summary,
-      marketValueEurMillions: getMarketValueEurMillions(player, overrides),
+      ...getMarketValueFields(player, profileSeed, overrides, transfermarktRecord),
       position: overrides.position || existingProfile.position,
       club: profileClub,
       league: profileLeague,
       uniformNumber: getUniformNumberOverride(player, overrides),
-      imageUrl: overrides.imageUrl || existingProfile.imageUrl,
+      imageUrl: overrides.imageUrl || existingProfile.imageUrl || transfermarktRecord?.image_url,
       skills: inferSkills(note),
       note,
       sourceUrl: title
@@ -1018,37 +1653,66 @@ function buildProfileFromPageData(player, title, pageData = {}) {
     getLeagueForClub(profileClub) ||
     existingProfile.league;
   const note = getProfileNote(player, existingProfile, overrides.position || position || existingProfile.position);
+  const displayName =
+    overrides.displayName ||
+    cleanWikiText(fields.name || "") ||
+    existingProfile.displayName ||
+    title.replace(/_/g, " ");
+  const profileSeed = {
+    displayName,
+    birthDate,
+    position: overrides.position || position || existingProfile.position,
+    club: profileClub,
+    league: profileLeague
+  };
+  const transfermarktRecord = getTransfermarktRecord(player, profileSeed, overrides, transfermarktIndex);
 
   return {
     name: player.name,
-    displayName:
-      overrides.displayName ||
-      cleanWikiText(fields.name || "") ||
-      existingProfile.displayName ||
-      title.replace(/_/g, " "),
+    displayName,
     teamId: player.team.id,
     birthDate,
     summary,
-    marketValueEurMillions: getMarketValueEurMillions(player, overrides),
+    ...getMarketValueFields(player, profileSeed, overrides, transfermarktRecord),
     position: overrides.position || position || existingProfile.position,
     club: profileClub,
     league: profileLeague,
     uniformNumber: getUniformNumberOverride(player, overrides),
-    imageUrl: overrides.imageUrl || imageUrl || existingProfile.imageUrl,
+    imageUrl: overrides.imageUrl || imageUrl || existingProfile.imageUrl || transfermarktRecord?.image_url,
     skills: inferSkills(note),
     note,
     sourceUrl: `https://en.wikipedia.org/wiki/${encodeURIComponent(title.replace(/ /g, "_"))}`
   };
 }
 
-const [fixturesData, teamsData] = await Promise.all([readJson(fixturesPath), readJson(teamsPath)]);
+const [fixturesData, playerAvailabilityData, teamsData] = await Promise.all([
+  readJson(fixturesPath),
+  readJson(playerAvailabilityPath).catch(() => ({ teams: {} })),
+  readJson(teamsPath)
+]);
 const existingProfilesData = await readJson(outputPath).catch(() => ({ profiles: {} }));
 const teamsById = new Map((teamsData.teams || []).map((team) => [team.id, team]));
-const players = getUniquePlayers(fixturesData, teamsById);
+const playerAvailabilityByTeam = new Map(
+  Object.entries(playerAvailabilityData.teams || {}).map(([teamId, availability]) => [
+    teamId,
+    (availability.included || []).filter((name) => typeof name === "string" && name.trim())
+  ])
+);
+const players = getUniquePlayers(
+  fixturesData,
+  teamsById,
+  playerAvailabilityByTeam,
+  existingProfilesData.profiles || {}
+);
 const profiles = {};
 const warnings = [];
 const titleByPlayerName = new Map();
 const pageDataByTitle = new Map();
+const transfermarktRecords = await fetchTransfermarktPlayers();
+const transfermarktIndex = buildTransfermarktIndex(transfermarktRecords);
+
+console.log(`Loaded ${transfermarktRecords.length} Transfermarkt player records for enrichment.`);
+console.log("");
 
 console.log(`Finding Wikipedia pages for ${players.length} players...`);
 
@@ -1096,9 +1760,13 @@ console.log(`Building player profiles...`);
 
 for (const [index, player] of players.entries()) {
   const title = titleByPlayerName.get(player.name) || "";
-  const profile = buildProfileFromPageData(player, title, pageDataByTitle.get(title) || {});
+  const profile = buildProfileFromPageData(player, title, pageDataByTitle.get(title) || {}, transfermarktIndex);
   profiles[player.name] = profile;
+  const hasMarketValue = profile.marketValueEurMillions || profile.estimatedMarketValueEurMillions;
   const missing = ["position", "club", "imageUrl", "summary"].filter((key) => !profile[key]);
+  if (!hasMarketValue) {
+    missing.push("market value");
+  }
   if (missing.length) {
     warnings.push(`${player.name}: missing ${missing.join(", ")}`);
   }
@@ -1113,6 +1781,8 @@ const output = {
       wikipediaSummarySourceId,
       "wikimedia-commons",
       "fifa-squad-list-2026-06-21",
+      transfermarktDatasetSourceId,
+      editorialMarketEstimateSourceId,
       ...(existingProfilesData.sourceIds || [])
     ])
   ],

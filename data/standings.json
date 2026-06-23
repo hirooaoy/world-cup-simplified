@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-23T03:26:53.667Z",
+  "updatedAt": "2026-06-23T06:25:53.630Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fifa-standings-2026-06-17",
@@ -388,22 +388,22 @@
         "ga": 3
       },
       {
-        "teamId": "JOR",
-        "played": 1,
-        "wins": 0,
+        "teamId": "ALG",
+        "played": 2,
+        "wins": 1,
         "draws": 0,
         "losses": 1,
-        "gf": 1,
-        "ga": 3
+        "gf": 2,
+        "ga": 4
       },
       {
-        "teamId": "ALG",
-        "played": 1,
+        "teamId": "JOR",
+        "played": 2,
         "wins": 0,
         "draws": 0,
-        "losses": 1,
-        "gf": 0,
-        "ga": 3
+        "losses": 2,
+        "gf": 2,
+        "ga": 5
       }
     ],
     "K": [

@@ -65,28 +65,50 @@
             Standings
           </button>
         </nav>
+      </div>
+      <div class="header-controls is-loading" id="header-controls" aria-busy="true">
         <div class="catch-up-shell">
-          <button class="catch-up-button" id="catch-up-button" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="catch-up-popover">
-            Catch Up
+          <button class="catch-up-button" id="catch-up-button" type="button" aria-label="Catch Up" aria-haspopup="dialog" aria-expanded="false" aria-controls="catch-up-popover">
+            <svg class="catch-up-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M5.5 5.5h11.8a1.7 1.7 0 0 1 1.7 1.7v11.3H6.5A2.5 2.5 0 0 1 4 16V7a1.5 1.5 0 0 1 1.5-1.5Z" />
+              <path d="M8 9h6" />
+              <path d="M8 12.5h8" />
+              <path d="M8 16h5" />
+            </svg>
           </button>
           <div class="catch-up-popover is-hidden" id="catch-up-popover" role="dialog" aria-label="Catch Up">
             <div class="catch-up-list" id="catch-up-list"></div>
           </div>
         </div>
-      </div>
-      <div class="header-controls is-loading" id="header-controls" aria-busy="true">
         <div class="header-controls-loading" aria-hidden="true">
-          <span class="match-loading-line header-loading-language"></span>
-          <span class="match-loading-line header-loading-timezone"></span>
+          <span class="match-loading-line header-loading-settings"></span>
         </div>
-        <div class="language-switch" id="language-switch" role="group" aria-label="Language">
-          <button class="language-option is-active" type="button" data-language="en" aria-pressed="true">EN</button>
-          <button class="language-option" type="button" data-language="zh" aria-pressed="false">中文</button>
+        <div class="settings-shell">
+          <button class="settings-button" id="settings-button" type="button" aria-label="Settings" aria-haspopup="dialog" aria-expanded="false" aria-controls="settings-popover">
+            <svg class="settings-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 15.5A3.5 3.5 0 1 0 12 8a3.5 3.5 0 0 0 0 7.5Z" />
+              <path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 0 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6V21a2 2 0 0 1-4 0v-.1a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1A2 2 0 0 1 4.2 17l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.6-1H3a2 2 0 0 1 0-4h.1a1.7 1.7 0 0 0 1.6-1 1.7 1.7 0 0 0-.3-1.9L4.3 7A2 2 0 0 1 7 4.2l.1.1a1.7 1.7 0 0 0 1.9.3h.1A1.7 1.7 0 0 0 10 3V3a2 2 0 0 1 4 0v.1a1.7 1.7 0 0 0 1 1.6 1.7 1.7 0 0 0 1.9-.3l.1-.1A2 2 0 0 1 19.8 7l-.1.1a1.7 1.7 0 0 0-.3 1.9v.1a1.7 1.7 0 0 0 1.6 1h.1a2 2 0 0 1 0 4H21a1.7 1.7 0 0 0-1.6.9Z" />
+            </svg>
+          </button>
+          <div class="settings-popover is-hidden" id="settings-popover" role="dialog" aria-label="Settings">
+            <section class="settings-section" aria-labelledby="settings-language-label">
+              <p class="settings-label" id="settings-language-label">Language</p>
+              <div class="language-switch" id="language-switch" role="group" aria-labelledby="settings-language-label">
+                <button class="language-option is-active" type="button" data-language="en" aria-pressed="true">English</button>
+                <button class="language-option" type="button" data-language="zh" aria-pressed="false">中文</button>
+              </div>
+            </section>
+            <label class="settings-section timezone-control">
+              <span class="settings-label timezone-label">Time zone</span>
+              <select class="timezone-select" id="timezone-select"></select>
+            </label>
+            <label class="settings-section settings-toggle-control">
+              <span class="settings-label" id="settings-yesterday-label">Show yesterday</span>
+              <input class="settings-toggle-input" id="show-yesterday-toggle" type="checkbox" checked>
+              <span class="settings-toggle-track" aria-hidden="true"></span>
+            </label>
+          </div>
         </div>
-        <label class="timezone-control">
-          <span class="visually-hidden">Time zone</span>
-          <select class="timezone-select" id="timezone-select"></select>
-        </label>
       </div>
     </header>
 

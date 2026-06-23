@@ -44,7 +44,12 @@ jobs:
       - name: Sync FIFA results snapshot
         run: |
           set -o pipefail
-          pnpm sync:fifa:pr | tee fifa-sync.log
+          pnpm sync:fifa:pr | tee fifa-results-sync.log
+
+      - name: Sync FIFA goal events
+        run: |
+          set -o pipefail
+          pnpm sync:fifa:goals | tee fifa-goal-events-sync.log
 
       - name: Run matchday readiness
         run: |
@@ -74,11 +79,19 @@ jobs:
 
           This PR updates committed static JSON only. Production visitors should still use `/api/live-data` when a live provider key is configured.
 
-          ## FIFA Sync
+          ## FIFA Results Sync
 
           ```text
           EOF
-          cat fifa-sync.log >> fifa-sync-pr.md
+          cat fifa-results-sync.log >> fifa-sync-pr.md
+          cat >> fifa-sync-pr.md <<'EOF'
+          ```
+
+          ## FIFA Goal Event Sync
+
+          ```text
+          EOF
+          cat fifa-goal-events-sync.log >> fifa-sync-pr.md
           cat >> fifa-sync-pr.md <<'EOF'
           ```
 
@@ -105,14 +118,14 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git switch -C "$branch"
           git add data/fixtures.json data/standings.json data/tournament.json
-          git commit -m "Update FIFA results snapshot"
+          git commit -m "Update FIFA results and goal events snapshot"
           git push --force-with-lease origin "$branch"
 
       - name: Open or update pull request
         if: steps.changes.outputs.changed == 'true'
         run: |
           branch="codex/fifa-results-sync"
-          title="Update FIFA results snapshot"
+          title="Update FIFA results and goal events snapshot"
           pr_number="$(gh pr list --base main --head "$branch" --state open --json number --jq '.[0].number // ""')"
           if [ -n "$pr_number" ]; then
             gh pr edit "$pr_number" --base main --title "$title" --body-file fifa-sync-pr.md

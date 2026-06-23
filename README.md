@@ -16,11 +16,12 @@ On match days, refresh the static snapshot first:
 
 ```sh
 pnpm sync:fifa
+pnpm sync:fifa:goals
 pnpm matchday:readiness
 pnpm test
 ```
 
-The GitHub Data Quality workflow runs the same FIFA sync before testing, so scheduled CI validates an official results snapshot instead of failing only because committed fallback JSON is a few matches behind.
+The GitHub Data Quality workflow runs the same FIFA score sync before testing, so scheduled CI validates an official results snapshot instead of failing only because committed fallback JSON is a few matches behind.
 
 ## Public Launch
 
@@ -46,7 +47,7 @@ The live endpoint is cached for 5 minutes by default with football-data.org. You
 
 API-Football and Sportmonks remain supported as optional providers. Set `LIVE_DATA_PROVIDER=api-football` or `LIVE_DATA_PROVIDER=sportmonks` and add the matching token plus optional league/season IDs.
 
-The static fallback can also update itself through GitHub. The `Sync FIFA Results PR` workflow runs every 30 minutes during the 2026 tournament window, runs `pnpm sync:fifa:pr`, validates the result, and opens or updates a PR on `codex/fifa-results-sync` only when the committed fallback JSON has a real FIFA status/score change. In GitHub, make sure **Settings → Actions → General → Workflow permissions** allows read/write access so the workflow can push the branch and create the PR. If you want that PR's push to trigger every downstream workflow, add a fine-scoped `SYNC_PR_TOKEN` repository secret; otherwise the default `GITHUB_TOKEN` is enough to open the PR and the sync workflow itself runs the data checks.
+The static fallback can also update itself through GitHub. The `Sync FIFA Results PR` workflow runs every 30 minutes during the 2026 tournament window, runs `pnpm sync:fifa:pr` followed by `pnpm sync:fifa:goals`, validates the result, and opens or updates a PR on `codex/fifa-results-sync` when the committed fallback JSON has a real FIFA status, score, or scorer-event change. In GitHub, make sure **Settings → Actions → General → Workflow permissions** allows read/write access so the workflow can push the branch and create the PR. If you want that PR's push to trigger every downstream workflow, add a fine-scoped `SYNC_PR_TOKEN` repository secret; otherwise the default `GITHUB_TOKEN` is enough to open the PR and the sync workflow itself runs the data checks.
 
 Before launch:
 

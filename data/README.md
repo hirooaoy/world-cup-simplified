@@ -78,7 +78,9 @@ Run this after key-player changes or transfer/profile updates to refresh hover-c
 node scripts/populate-player-profiles.mjs
 ```
 
-The script uses Wikipedia football infoboxes for current club, position, and photos, plus short Wikipedia lead extracts for profile metadata. `keyPlayers` still controls which players a fixture preview features, but every player profile card must have its own curated display note. Goal scorers who were not already key players should get a role-style card note, never a raw "Scored for..." event sentence.
+The script uses Wikipedia football infoboxes for current club, position, and photos, short Wikipedia lead extracts for profile metadata, and the Transfermarkt datasets players CSV for repeatable photo/value enrichment. `keyPlayers` still controls which players a fixture preview features, but every player profile card must have its own curated display note. Goal scorers who were not already key players should get a role-style card note, never a raw "Scored for..." event sentence. Full-name player mentions in fixture paragraphs are matched against the current squad list and also require/generated profile cards, so paragraph-only names do not silently miss hover-card coverage.
+
+Player market values are required for every generated card. Use `marketValueEurMillions` for source-backed values and `estimatedMarketValueEurMillions` only when the external player record exists but the value is blank; the UI labels those rows as estimates. Validation also requires `imageUrl`, so future scorers or newly mentioned paragraph players cannot quietly ship with initials-only cards.
 
 Before publishing tournament-year previews, update `data/player-availability.json` from the latest official FIFA squad list. Use each team's `included` list as the tournament-squad baseline, `unavailable` for players omitted or withdrawn from the tournament, and `fixtureUnavailable` for match-day injuries, illness, or suspensions that apply to one fixture. `scripts/validate-data.mjs` rejects match-card key players who are marked unavailable, and for teams with an `included` squad list it also rejects key players not in that current squad.
 
@@ -117,6 +119,7 @@ pnpm results:check
 ```
 
 The script preserves hand-authored `resultHighlights` by default. It generates the `⚽` scoreline only when scorer-minute data is not loaded; when `goalsHome`/`goalsAway` exists, the UI renders the linked scorer list instead.
+The scheduled `Sync FIFA Results PR` workflow runs `pnpm sync:fifa:goals` after the score/status sync, so newly finished matches can open a fallback-data PR as soon as FIFA timeline scorer events are available.
 `pnpm results:check` fails when a full-time group match is still missing official goal events or has generic result-moment copy.
 
 ## Required Update Steps

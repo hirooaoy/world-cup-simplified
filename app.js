@@ -10,11 +10,16 @@ const DATA_URLS = {
 };
 
 const LANGUAGE_STORAGE_KEY = "world-cup-simplified-language";
+const TIMEZONE_STORAGE_KEY = "world-cup-simplified-timezone";
+const SHOW_YESTERDAY_STORAGE_KEY = "world-cup-simplified-show-yesterday";
 const JUGGLE_RECORD_STORAGE_KEY = "world-cup-simplified-juggle-record";
 const JUGGLE_BALL_EMOJI = "⚽";
 const JUGGLE_FALL_SPEED = 345;
 const JUGGLE_GRAVITY = 1060;
-const JUGGLE_HIT_RADIUS_MULTIPLIER = 1.45;
+const JUGGLE_POINTER_HIT_RADIUS_MULTIPLIER = 1.55;
+const JUGGLE_TOUCH_HIT_RADIUS_MULTIPLIER = 1.72;
+const JUGGLE_HIT_LEAD_SECONDS = 0.05;
+const JUGGLE_BOTTOM_GRACE_MS = 140;
 const JUGGLE_CLICK_BLOCK_MS = 650;
 const JUGGLE_DIFFICULTY_STEP = 5;
 const JUGGLE_MAX_DIFFICULTY_LEVEL = 5;
@@ -56,7 +61,10 @@ const UI_TEXT = {
     matchesHeading: "Matches and selected match details",
     matchesList: "Matches",
     month: "Month",
+    past24Hours: "Past 24 hours",
     searchCountryPlaceholder: "Search country",
+    settings: "Settings",
+    showYesterday: "Show yesterday",
     standings: "Standings",
     standingsSections: "Standings sections",
     standingsSummary:
@@ -92,7 +100,10 @@ const UI_TEXT = {
     matchesHeading: "比赛和已选比赛详情",
     matchesList: "比赛",
     month: "月份",
+    past24Hours: "过去24小时",
     searchCountryPlaceholder: "搜索国家队",
+    settings: "设置",
+    showYesterday: "显示昨天",
     standings: "积分榜",
     standingsSections: "积分榜分区",
     standingsSummary: "每组前两名晋级，成绩最好的八支第三名球队也将进入32强。",
@@ -121,8 +132,8 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "Current knockout path with likely winners filled for now. Finished results replace estimates.":
       "当前淘汰赛路径会先填入暂时更可能晋级的球队，完赛结果会替换估算。",
     "Current score": "当前比分",
-    "Current third-place teams across every group. Top eight advance; unresolved ties are flagged when fair-play data is not loaded.":
-      "各组当前第三名球队。前八名晋级；若公平竞赛数据尚未载入，未决平局会被标记。",
+    "Third-place standings across all groups. The top eight advance; ties are flagged when fair-play data is unavailable.":
+      "所有小组第三名排名。前八名晋级；若公平竞赛数据不可用，平局会被标记。",
     "Algeria": "阿尔及利亚",
     "Argentina": "阿根廷",
     "Australia": "澳大利亚",
@@ -174,6 +185,7 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "Groups": "小组",
     "Haiti": "海地",
     "Half-time": "半场",
+    "Hide Past 24 hours": "隐藏过去24小时",
     "IR Iran": "伊朗",
     "Iraq": "伊拉克",
     "Japan": "日本",
@@ -196,6 +208,7 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "Live score": "实时比分",
     "Live status is manually verified and should be refreshed after full time.":
       "实时状态为人工核验，完场后应刷新确认。",
+    "Loading catch-up notes": "正在加载比赛速览",
     "Loading matches": "正在加载比赛",
     "Loading standings": "正在加载积分榜",
     "Loaded matches across the current tournament and World Cup archive.":
@@ -204,8 +217,8 @@ const ZH_EXACT_TRANSLATIONS = new Map(
       "基于FIFA排名的本地估算，并非博彩赔率。",
     "Local historical-form estimate. Not betting odds.": "基于历史世界杯状态的本地估算，并非博彩赔率。",
     "Local preview estimate. Not betting odds.": "本地预览估算，并非博彩赔率。",
-    "Market-implied consensus from public odds, normalized to remove sportsbook margin. Not betting advice.":
-      "由公开赔率推导的市场共识，并已归一化去除庄家利润；这不是投注建议。",
+    "Market consensus based on public odds. Not betting advice.":
+      "基于公开赔率的市场共识；这不是投注建议。",
     "Match plan": "比赛计划",
     "Matches": "赛程",
     "Matches and selected match details": "比赛和已选比赛详情",
@@ -216,6 +229,7 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "No catch-up notes loaded yet": "尚未载入速览",
     "No goals because this match was cancelled.": "本场取消，因此没有进球。",
     "No loaded World Cup matches found.": "未找到已载入的世界杯比赛。",
+    "Past 24 hours": "过去24小时",
     "No matches": "没有比赛",
     "No next World Cup month": "没有下一个世界杯月份",
     "No previous men's World Cup meetings are loaded before this match.":
@@ -383,6 +397,7 @@ const ZH_ADDITIONAL_EXACT_TRANSLATIONS = {
   "Aggressive wide play with a fearless defensive edge": "大胆边路推进与强硬防守",
   "Al Bayt Stadium": "海湾球场",
   "Al Bayt Stadium, Al Khor": "海湾球场，豪尔",
+  "Al Ahly": "开罗国民",
   "Al Janoub Stadium": "贾努布体育场",
   "Al Janoub Stadium, Al Wakrah": "贾努布体育场，沃克拉",
   "Al Thumama Stadium": "阿图玛玛球场",
@@ -420,6 +435,7 @@ const ZH_ADDITIONAL_EXACT_TRANSLATIONS = {
   "Campeonato Brasileiro Série A": "巴甲",
   "Central midfielder": "中前卫",
   "Central midfielder, Right back": "中前卫、右后卫",
+  "Central defender": "中后卫",
   "Central overloads": "中路人数优势",
   "Central rhythm": "中路节奏",
   "Centre-back": "中后卫",
@@ -493,6 +509,7 @@ const ZH_ADDITIONAL_EXACT_TRANSLATIONS = {
   "Education City Stadium, Al Rayyan": "教育城体育场，赖扬",
   "EFL Championship": "英冠",
   "El Salvador": "萨尔瓦多",
+  "Egyptian Premier League": "埃及超级联赛",
   "Eredivisie": "荷甲",
   "Explosive runners turning pressure into open-field danger": "爆发型跑动者把压力转为开阔地威胁",
   "Explosive transitions layered over deep attacking talent": "深厚进攻天赋叠加爆发转换",
@@ -627,7 +644,9 @@ const ZH_ADDITIONAL_EXACT_TRANSLATIONS = {
   "Pressing lines": "压迫线",
   "Pressing traps": "压迫陷阱",
   "Pressing waves": "连续压迫",
+  "Portland Timbers": "波特兰伐木者",
   "Primeira Liga": "葡超",
+  Pyramids: "金字塔俱乐部",
   "Qatar Stars League": "卡塔尔星级联赛",
   Quarterfinals: "四分之一决赛",
   "Quick releases": "快速出球",
@@ -640,6 +659,7 @@ const ZH_ADDITIONAL_EXACT_TRANSLATIONS = {
   Romania: "罗马尼亚",
   Russia: "俄罗斯",
   "Russian Premier League": "俄超",
+  "Runs in behind": "身后前插",
   "Saudi First Division League": "沙特甲级联赛",
   "Saudi Pro League": "沙特职业联赛",
   Segunda: "西乙",
@@ -853,6 +873,7 @@ const ZH_PLAYER_NAME_TRANSLATIONS = {
   "Esmir Bajraktarević": "埃斯米尔·巴伊拉克塔雷维奇",
   "Evann Guessand": "埃万·盖桑",
   "Federico Valverde": "费德里科·巴尔韦德",
+  "Finn Surman": "芬恩·瑟曼",
   "Firas Al-Buraikan": "菲拉斯·布赖坎",
   "Florian Wirtz": "弗洛里安·维尔茨",
   "Franck Kessié": "弗兰克·凯西",
@@ -912,6 +933,8 @@ const ZH_PLAYER_NAME_TRANSLATIONS = {
   "Mohammed Al-Owais": "穆罕默德·奥韦斯",
   "Moisés Caicedo": "莫伊塞斯·凯塞多",
   "Mostafa Mohamed مُصْطَفَى مُحَمَّد": "穆斯塔法·穆罕默德",
+  "Mostafa Zico": "穆斯塔法·齐科",
+  "Mostafa Ziko": "穆斯塔法·齐科",
   "Musa Al-Taamari": "穆萨·塔马里",
   Neymar: "内马尔",
   "Nico Williams": "尼科·威廉姆斯",
@@ -944,6 +967,7 @@ const ZH_PLAYER_NAME_TRANSLATIONS = {
   "Takefusa Kubo": "久保建英",
   "Teboho Mokoena": "特博霍·莫科纳",
   "Tomáš Souček": "托马什·绍切克",
+  Trézéguet: "特雷泽盖",
   "Tyler Adams": "泰勒·亚当斯",
   "Viktor Gyökeres": "维克托·约克雷斯",
   "Vinícius Júnior": "维尼修斯·儒尼奥尔",
@@ -998,6 +1022,7 @@ const ZH_PLAYER_NAME_TRANSLATIONS = {
   "Sead Kolasinac": "塞亚德·科拉希纳茨",
   "Stephen Eustaquio": "斯蒂芬·欧斯塔基奥",
   "Tomas Soucek": "托马什·绍切克",
+  Trezeguet: "特雷泽盖",
   "Viktor Gyokeres": "维克托·约克雷斯",
   "Vinicius Junior": "维尼修斯·儒尼奥尔",
   "Bukayo Saka": "布卡约·萨卡",
@@ -1853,7 +1878,7 @@ const ZH_PATTERN_TRANSLATIONS = [
     replace: (_, score) => `实时比分 ${score}，双方差距很小，一个瞬间就可能改变走势。`
   },
   {
-    pattern: /^(.+) have a live edge over (.+)$/,
+    pattern: /^(.+) lead (.+) for now$/,
     replace: (_, leader, chaser) => `${translateTextToZh(leader)} 直播中暂时领先 ${translateTextToZh(chaser)}`
   },
   {
@@ -1877,7 +1902,7 @@ const ZH_PATTERN_TRANSLATIONS = [
     replace: (_, winner, loser) => `${translateTextToZh(winner)} 面对 ${translateTextToZh(loser)} 状态锐利`
   },
   {
-    pattern: /^(.+) edge (.+) in a tight one$/,
+    pattern: /^(.+) narrowly beat (.+)$/,
     replace: (_, winner, loser) => `${translateTextToZh(winner)} 在胶着比赛中险胜 ${translateTextToZh(loser)}`
   },
   {
@@ -2255,10 +2280,17 @@ const brandHomeLink = document.querySelector(".site-brand");
 const brandLabel = document.querySelector(".site-brand .brand-label");
 const juggleRecord = document.querySelector("#juggle-record");
 const headerControls = document.querySelector("#header-controls");
+const settingsButton = document.querySelector("#settings-button");
+const settingsPopover = document.querySelector("#settings-popover");
 const languageSwitch = document.querySelector("#language-switch");
 const languageButtons = document.querySelectorAll(".language-option");
+const settingsLanguageLabel = document.querySelector("#settings-language-label");
+const timezoneLabel = document.querySelector(".timezone-label");
+const settingsYesterdayLabel = document.querySelector("#settings-yesterday-label");
+const showYesterdayToggle = document.querySelector("#show-yesterday-toggle");
 const standingsHeadingText = document.querySelector("#standings-heading span");
 const calendarWeekdayLabels = document.querySelectorAll(".calendar-weekdays span");
+const viewTabsShell = document.querySelector(".view-tabs");
 const viewTabs = document.querySelectorAll(".view-tab");
 const viewPanels = {
   matches: document.querySelector("#matches-view"),
@@ -2329,7 +2361,7 @@ const THIRD_PLACE_STANDING_INDEX = 2;
 const CURRENT_STANDINGS_SUMMARY =
   "Top two in each group advance. The best eight third-place teams also reach the Round of 32.";
 const THIRD_PLACE_STANDINGS_SUMMARY =
-  "Current third-place teams across every group. Top eight advance; unresolved ties are flagged when fair-play data is not loaded.";
+  "Third-place standings across all groups. The top eight advance; ties are flagged when fair-play data is unavailable.";
 const TOURNAMENT_STANDINGS_SUMMARY =
   "Round of 32 slots use current standings and remaining projections. Later rounds fill in after results.";
 const HISTORICAL_STANDINGS_SUMMARY =
@@ -2537,9 +2569,40 @@ if (!timeZones.includes(defaultTimeZone)) {
   timeZones.unshift(defaultTimeZone);
 }
 
+function getStoredTimeZone() {
+  const storedTimeZone = String(localStorage.getItem(TIMEZONE_STORAGE_KEY) || "");
+  return timeZones.includes(storedTimeZone) ? storedTimeZone : "";
+}
+
+function storeTimeZone(timeZone) {
+  if (timeZones.includes(timeZone)) {
+    localStorage.setItem(TIMEZONE_STORAGE_KEY, timeZone);
+  }
+}
+
+function getStoredShowYesterday() {
+  return localStorage.getItem(SHOW_YESTERDAY_STORAGE_KEY) !== "false";
+}
+
+function storeShowYesterday(value) {
+  localStorage.setItem(SHOW_YESTERDAY_STORAGE_KEY, value ? "true" : "false");
+}
+
+function setShowYesterdayMatches(value, options = {}) {
+  shouldShowYesterdayMatches = Boolean(value);
+  storeShowYesterday(shouldShowYesterdayMatches);
+  if (showYesterdayToggle) {
+    showYesterdayToggle.checked = shouldShowYesterdayMatches;
+  }
+  if (options.render !== false) {
+    renderSchedule();
+  }
+}
+
 const initialDate = new Date();
-let selectedTimeZone = defaultTimeZone;
+let selectedTimeZone = getStoredTimeZone() || defaultTimeZone;
 let selectedDayKey = getDayKey(initialDate, selectedTimeZone);
+let shouldShowYesterdayMatches = getStoredShowYesterday();
 let isUsingCompactTimeZoneLabel = null;
 let activeMatchId = "";
 let activeView = "matches";
@@ -2549,6 +2612,7 @@ let teamSearchQuery = "";
 let calendarMonthKey = getMonthKeyFromDayKey(selectedDayKey);
 let isCalendarOpen = false;
 let isCatchUpOpen = false;
+let isSettingsOpen = false;
 let isStandingsYearOpen = false;
 let isTeamSearchOpen = false;
 let isShowingOlderTeamMatches = false;
@@ -2557,6 +2621,7 @@ let historicalFixtures = [];
 let history = { coverage: {}, fixtures: [], source: null, tournaments: [] };
 const historicalProjectionCache = new Map();
 let playerProfilesByName = new Map();
+let shouldShowPlayerMarketValues = false;
 let teamsById = new Map();
 let teamsByName = new Map();
 let tournament = { groups: [], stages: [], sources: [] };
@@ -2565,7 +2630,12 @@ let dataCoverage = { status: "partial" };
 let siteUpdatedAt = "";
 let liveDataCheckedAt = "";
 let syncUrl = true;
+let isInitialDataLoading = true;
 let isInitialLiveDataLoading = false;
+
+function setYesterdayLayoutOffset(isOffset) {
+  viewPanels.matches?.classList.toggle("is-yesterday-suppressed", Boolean(isOffset));
+}
 
 function normalizeLanguage(value) {
   const language = String(value || "").trim().toLowerCase();
@@ -2607,9 +2677,12 @@ const juggleToy = {
   element: null,
   fallDistance: 0,
   fallDuration: 0,
+  floorContactStartedAt: 0,
   hasPendingBestSave: false,
   lastFrameTime: 0,
   phase: "idle",
+  previousX: 0,
+  previousY: 0,
   rotation: 0,
   rotationSpeed: 0,
   shadowElement: null,
@@ -3002,12 +3075,19 @@ function renderStaticText() {
   renderJuggleRecord();
   juggleToy.element?.setAttribute("title", t("juggleBall"));
 
+  settingsButton?.setAttribute("aria-label", t("settings"));
+  settingsButton?.setAttribute("title", t("settings"));
+  settingsPopover?.setAttribute("aria-label", t("settings"));
+  if (settingsLanguageLabel) {
+    settingsLanguageLabel.textContent = t("language");
+  }
   languageSwitch?.setAttribute("aria-label", t("language"));
   languageButtons.forEach((button) => {
     const language = normalizeLanguage(button.dataset.language);
     const isSelected = language === currentLanguage;
     button.classList.toggle("is-active", isSelected);
     button.setAttribute("aria-pressed", String(isSelected));
+    button.textContent = language === "zh" ? "中文" : "English";
     button.setAttribute(
       "aria-label",
       language === "zh" ? t("languageChinese") : t("languageEnglish")
@@ -3024,9 +3104,19 @@ function renderStaticText() {
   }
 
   document.querySelector(".view-tabs")?.setAttribute("aria-label", t("worldCupViews"));
-  catchUpButton.textContent = t("catchUp");
+  catchUpButton?.setAttribute("aria-label", t("catchUp"));
+  catchUpButton?.setAttribute("title", t("catchUp"));
   catchUpPopover?.setAttribute("aria-label", t("catchUpDialog"));
-  document.querySelector(".timezone-control .visually-hidden").textContent = t("timeZone");
+  if (timezoneLabel) {
+    timezoneLabel.textContent = t("timeZone");
+  }
+  if (settingsYesterdayLabel) {
+    settingsYesterdayLabel.textContent = t("showYesterday");
+  }
+  if (showYesterdayToggle) {
+    showYesterdayToggle.checked = shouldShowYesterdayMatches;
+    showYesterdayToggle.setAttribute("aria-label", t("showYesterday"));
+  }
   document.querySelector(".team-search-toggle")?.setAttribute("aria-label", t("countrySearch"));
   document.querySelector("label[for='team-search-input']").textContent = t("countrySearch");
   teamSearchInput?.setAttribute("placeholder", t("searchCountryPlaceholder"));
@@ -3047,6 +3137,7 @@ function renderStaticText() {
   document.querySelector("#standings-groups-tab").textContent = t("groups");
   document.querySelector("#standings-third-place-tab").textContent = t("thirdPlaceRace");
   document.querySelector("#standings-tournament-tab").textContent = t("tournament");
+  queueTabIndicatorUpdate();
 }
 
 function shouldLocalizeTextNode(node) {
@@ -3206,6 +3297,106 @@ function getJuggleLateralMultiplier() {
   return 1 + juggleToy.difficultyLevel * JUGGLE_LATERAL_LEVEL_MULTIPLIER;
 }
 
+function getJuggleFloorY() {
+  return Math.max(0, window.innerHeight - juggleToy.size);
+}
+
+function getJuggleHitRadius(event) {
+  const pointerType = String(event.pointerType || "").toLowerCase();
+  const multiplier =
+    pointerType === "touch" || pointerType === "pen"
+      ? JUGGLE_TOUCH_HIT_RADIUS_MULTIPLIER
+      : JUGGLE_POINTER_HIT_RADIUS_MULTIPLIER;
+
+  return juggleToy.size * multiplier;
+}
+
+function getJuggleBallCenter(position) {
+  return {
+    x: position.x + juggleToy.size / 2,
+    y: position.y + juggleToy.size / 2
+  };
+}
+
+function getDistanceToLineSegment(point, start, end) {
+  const segmentX = end.x - start.x;
+  const segmentY = end.y - start.y;
+  const segmentLengthSquared = segmentX * segmentX + segmentY * segmentY;
+
+  if (!segmentLengthSquared) {
+    return Math.hypot(point.x - start.x, point.y - start.y);
+  }
+
+  const progress = clampNumber(
+    ((point.x - start.x) * segmentX + (point.y - start.y) * segmentY) / segmentLengthSquared,
+    0,
+    1
+  );
+  const closestX = start.x + segmentX * progress;
+  const closestY = start.y + segmentY * progress;
+
+  return Math.hypot(point.x - closestX, point.y - closestY);
+}
+
+function getFallingJuggleBallPosition(frameTime) {
+  const elapsedSeconds = (frameTime - juggleToy.startTime) / 1000;
+  const progress = clampNumber(elapsedSeconds / juggleToy.fallDuration, 0, 1);
+  const linearX = juggleToy.startX + (juggleToy.targetX - juggleToy.startX) * progress;
+  const x = clampNumber(
+    linearX + Math.sin(progress * Math.PI) * juggleToy.curve,
+    0,
+    Math.max(0, window.innerWidth - juggleToy.size)
+  );
+
+  return {
+    x,
+    y: juggleToy.startY + juggleToy.fallDistance * progress
+  };
+}
+
+function getProjectedJuggleBallPosition() {
+  if (juggleToy.phase === "falling") {
+    const position = getFallingJuggleBallPosition(
+      performance.now() + JUGGLE_HIT_LEAD_SECONDS * 1000
+    );
+
+    return {
+      x: position.x,
+      y: Math.min(position.y, getJuggleFloorY())
+    };
+  }
+
+  const leadSeconds = JUGGLE_HIT_LEAD_SECONDS;
+  const projectedX = juggleToy.x + juggleToy.vx * leadSeconds;
+  const projectedY =
+    juggleToy.y +
+    juggleToy.vy * leadSeconds +
+    0.5 * getJuggleGravity() * leadSeconds * leadSeconds;
+
+  return {
+    x: clampNumber(projectedX, 0, Math.max(0, window.innerWidth - juggleToy.size)),
+    y: Math.min(projectedY, getJuggleFloorY())
+  };
+}
+
+function getJuggleHitDistance(pointerX, pointerY) {
+  const pointer = { x: pointerX, y: pointerY };
+  const previousCenter = getJuggleBallCenter({
+    x: juggleToy.previousX,
+    y: juggleToy.previousY
+  });
+  const currentCenter = getJuggleBallCenter({
+    x: juggleToy.x,
+    y: juggleToy.y
+  });
+  const projectedCenter = getJuggleBallCenter(getProjectedJuggleBallPosition());
+
+  return Math.min(
+    getDistanceToLineSegment(pointer, previousCenter, currentCenter),
+    getDistanceToLineSegment(pointer, currentCenter, projectedCenter)
+  );
+}
+
 function handleJuggleRecordClick() {
   spawnJuggleBall();
 }
@@ -3279,8 +3470,11 @@ function spawnJuggleBall() {
   juggleToy.difficultyLevel = 0;
   juggleToy.fallDistance = fallDistance;
   juggleToy.fallDuration = fallDuration;
+  juggleToy.floorContactStartedAt = 0;
   juggleToy.lastFrameTime = 0;
   juggleToy.phase = "falling";
+  juggleToy.previousX = startX;
+  juggleToy.previousY = startY;
   juggleToy.rotation = getRandomNumber(-24, 24);
   juggleToy.rotationSpeed = getRandomNumber(-220, 220);
   juggleToy.size = size;
@@ -3316,6 +3510,8 @@ function updateJuggleBall(frameTime) {
     JUGGLE_MAX_FRAME_SECONDS
   );
   juggleToy.lastFrameTime = frameTime;
+  juggleToy.previousX = juggleToy.x;
+  juggleToy.previousY = juggleToy.y;
 
   if (juggleToy.phase === "falling") {
     updateFallingJuggleBall(frameTime);
@@ -3323,10 +3519,23 @@ function updateJuggleBall(frameTime) {
     updateKickedJuggleBall(deltaSeconds);
   }
 
+  const floorY = getJuggleFloorY();
+  if (juggleToy.y >= floorY) {
+    if (!juggleToy.floorContactStartedAt) {
+      juggleToy.floorContactStartedAt = frameTime;
+    }
+    juggleToy.y = floorY;
+  } else {
+    juggleToy.floorContactStartedAt = 0;
+  }
+
   juggleToy.rotation += juggleToy.rotationSpeed * deltaSeconds;
   renderJuggleBall();
 
-  if (juggleToy.y >= window.innerHeight - juggleToy.size) {
+  if (
+    juggleToy.floorContactStartedAt &&
+    frameTime - juggleToy.floorContactStartedAt >= JUGGLE_BOTTOM_GRACE_MS
+  ) {
     finishJuggleRun();
     return;
   }
@@ -3335,16 +3544,9 @@ function updateJuggleBall(frameTime) {
 }
 
 function updateFallingJuggleBall(frameTime) {
-  const elapsedSeconds = (frameTime - juggleToy.startTime) / 1000;
-  const progress = clampNumber(elapsedSeconds / juggleToy.fallDuration, 0, 1);
-  const linearX = juggleToy.startX + (juggleToy.targetX - juggleToy.startX) * progress;
-
-  juggleToy.x = clampNumber(
-    linearX + Math.sin(progress * Math.PI) * juggleToy.curve,
-    0,
-    Math.max(0, window.innerWidth - juggleToy.size)
-  );
-  juggleToy.y = juggleToy.startY + juggleToy.fallDistance * progress;
+  const position = getFallingJuggleBallPosition(frameTime);
+  juggleToy.x = position.x;
+  juggleToy.y = position.y;
 }
 
 function updateKickedJuggleBall(deltaSeconds) {
@@ -3444,10 +3646,8 @@ function handleJugglePointerDown(event) {
   juggleToy.blockPageClickUntil = performance.now() + JUGGLE_CLICK_BLOCK_MS;
   blockJugglePageEvent(event);
 
-  const centerX = juggleToy.x + juggleToy.size / 2;
-  const centerY = juggleToy.y + juggleToy.size / 2;
-  const hitRadius = juggleToy.size * JUGGLE_HIT_RADIUS_MULTIPLIER;
-  const distance = Math.hypot(event.clientX - centerX, event.clientY - centerY);
+  const hitRadius = getJuggleHitRadius(event);
+  const distance = getJuggleHitDistance(event.clientX, event.clientY);
 
   if (distance > hitRadius) {
     return;
@@ -3483,6 +3683,9 @@ function kickJuggleBall(pointerX, pointerY) {
   juggleToy.phase = "juggling";
   juggleToy.count += 1;
   juggleToy.difficultyLevel = getJuggleDifficultyLevel();
+  juggleToy.floorContactStartedAt = 0;
+  juggleToy.previousX = juggleToy.x;
+  juggleToy.previousY = juggleToy.y;
 
   const kickMultiplier = getJuggleKickMultiplier();
   const lateralMultiplier = getJuggleLateralMultiplier();
@@ -4096,6 +4299,7 @@ function renderCalendar() {
 function setCalendarOpen(isOpen) {
   if (isOpen) {
     setCatchUpOpen(false);
+    setSettingsOpen(false);
     setStandingsYearOpen(false);
   }
 
@@ -4125,6 +4329,7 @@ function setStandingsYearOpen(isOpen) {
   if (isOpen) {
     setCalendarOpen(false);
     setCatchUpOpen(false);
+    setSettingsOpen(false);
   }
 
   isStandingsYearOpen = isOpen;
@@ -4134,6 +4339,61 @@ function setStandingsYearOpen(isOpen) {
   if (isOpen) {
     renderStandingsYearPicker();
   }
+}
+
+function updateTabIndicator(shell, activeTab) {
+  if (!shell || !activeTab || shell.hidden || activeTab.hidden) {
+    shell?.style.removeProperty("--active-tab-left");
+    shell?.style.removeProperty("--active-tab-width");
+    return;
+  }
+
+  const shellRect = shell.getBoundingClientRect();
+  const tabRect = activeTab.getBoundingClientRect();
+
+  if (!shellRect.width || !tabRect.width) {
+    shell.style.removeProperty("--active-tab-left");
+    shell.style.removeProperty("--active-tab-width");
+    return;
+  }
+
+  shell.style.setProperty("--active-tab-left", `${tabRect.left - shellRect.left}px`);
+  shell.style.setProperty("--active-tab-width", `${tabRect.width}px`);
+}
+
+function updateViewTabIndicator() {
+  updateTabIndicator(
+    viewTabsShell,
+    Array.from(viewTabs).find((tab) => tab.dataset.view === activeView)
+  );
+}
+
+function updateStandingsModeTabIndicator() {
+  updateTabIndicator(
+    standingsModeTabsShell,
+    Array.from(standingsModeTabs).find(
+      (tab) => tab.dataset.standingsMode === selectedStandingsMode
+    )
+  );
+}
+
+function updateLanguageTabIndicator() {
+  updateTabIndicator(
+    languageSwitch,
+    Array.from(languageButtons).find(
+      (button) => normalizeLanguage(button.dataset.language) === currentLanguage
+    )
+  );
+}
+
+function updateTabIndicators() {
+  updateViewTabIndicator();
+  updateStandingsModeTabIndicator();
+  updateLanguageTabIndicator();
+}
+
+function queueTabIndicatorUpdate() {
+  window.requestAnimationFrame(updateTabIndicators);
 }
 
 function selectStandingsYear(year) {
@@ -4289,7 +4549,9 @@ function setNameTooltipAnchor(container, name) {
 
 function updateTruncatedTeamTooltips(root = document) {
   root
-    .querySelectorAll(".team[data-tooltip], .past-team[data-tooltip], .summary-team[data-tooltip]")
+    .querySelectorAll(
+      ".team[data-tooltip], .past-team[data-tooltip], .summary-team[data-tooltip], .yesterday-team[data-tooltip]"
+    )
     .forEach((team) => {
       const name = team.querySelector(".team-name");
       if (!name) {
@@ -5961,9 +6223,11 @@ function getTournamentSlotOdds(slot, context) {
     hasRemainingFixtures && primary.probability >= 1 ? 0.995 : primary.probability;
   const odds = {
     alternatives,
+    groupId: primary.groupId,
     label: `${getTournamentTeamCode(primary.team)} ${formatTournamentSlotPercent(
       displayProbability
     )} here`,
+    place: primary.place,
     probability: primary.probability,
     reason: `${standingText}${scopeText}${alternativeText}`,
     slotLabel,
@@ -6117,17 +6381,22 @@ function getTournamentMatchParticipant(match, side, context) {
     const team = getCurrentTournamentSlotTeam(slot, context.currentThirdPlaceAssignment);
     const seedLabel = getTournamentSlotSeedLabel(slot, context.currentThirdPlaceAssignment);
     const slotOdds = getTournamentSlotOdds(slot, context);
+    const displayTeam = team || slotOdds?.team || null;
 
-    if (team) {
+    if (displayTeam) {
+      const displaySeedLabel =
+        team || !slotOdds?.groupId
+          ? seedLabel
+          : formatTournamentTopSlotLabel(slotOdds.groupId, slotOdds.place || 3);
       return {
-        label: getTournamentTeamCode(team),
+        label: getTournamentTeamCode(displayTeam),
         likelihoodPercent: null,
         likelihoodReason: "",
-        seedLabel,
+        seedLabel: displaySeedLabel,
         slotOdds,
         slotText,
-        state: "resolved",
-        team
+        state: team ? "resolved" : "likely",
+        team: displayTeam
       };
     }
 
@@ -6684,6 +6953,7 @@ function updateStandingsModeControls() {
     tab.hidden = !shouldShowModeTabs;
     tab.setAttribute("aria-pressed", String(isSelected));
   });
+  updateStandingsModeTabIndicator();
 }
 
 function updateStandingsControls() {
@@ -6791,7 +7061,7 @@ function getProjectionMethodHelp(projection) {
   }
 
   if (projection?.method === "market-implied-consensus") {
-    return "Market-implied consensus from public odds, normalized to remove sportsbook margin. Not betting advice.";
+    return "Market consensus based on public odds. Not betting advice.";
   }
 
   if (projection?.method === "historical-world-cup-form-baseline") {
@@ -7112,6 +7382,17 @@ function findMatchPlayerByName(match, name) {
   return getMatchKeyPlayers(match).find((player) => normalizeTextKey(getPlayerName(player)) === nameKey) || name;
 }
 
+function getGoalScorerTeam(goal, player) {
+  const profile = getPlayerProfile(player);
+  return (profile?.teamId ? teamsById.get(profile.teamId) : null) || goal.team || null;
+}
+
+function renderGoalScorerFlag(goal, player) {
+  const team = getGoalScorerTeam(goal, player);
+  const flag = team ? renderFlag(team) : "";
+  return flag ? `<span class="goal-scorer-flag">${flag}</span>` : "";
+}
+
 function renderGoalScorerSegment(match, goal) {
   const minute = formatGoalMinute(goal);
   const note = formatGoalNote(goal);
@@ -7120,6 +7401,7 @@ function renderGoalScorerSegment(match, goal) {
 
   return `
     <span class="goal-scorer-segment">
+      ${renderGoalScorerFlag(goal, player)}
       ${minute ? `<span class="goal-minute">${escapeHtml(minute)}</span>` : ""}
       ${renderPlayerMention(label, player)}
       ${note ? `<em>${escapeHtml(note)}</em>` : ""}
@@ -7135,7 +7417,6 @@ function renderScoringDetailsHighlight(match) {
 
   return `
     <li class="scorer-highlight" aria-label="${escapeHtml(localizeText("Goals"))}">
-      <span aria-hidden="true">⚽</span>
       <span class="goal-scorer-list">
         ${goals.map((goal) => renderGoalScorerSegment(match, goal)).join('<span class="goal-separator">•</span>')}
       </span>
@@ -7170,7 +7451,7 @@ function renderResultNotes(match) {
     return `<p class="data-note">${escapeHtml(localizeText("Final score reflected in the current standings after source checks."))}</p>`;
   }
 
-  const mentionPlayers = getMatchKeyPlayers(match);
+  const mentionPlayers = getMatchMentionPlayers(match, match.keyInformation || {});
   return `
     <ul class="result-highlights">
       ${scoringHighlight}
@@ -7349,7 +7630,17 @@ function getPlayerDisplayName(player, profile = getPlayerProfile(player)) {
 
 function getLocalizedPlayerDisplayName(player, profile = getPlayerProfile(player)) {
   const displayName = getPlayerDisplayName(player, profile);
-  return currentLanguage === "zh" ? localizeText(displayName) : displayName;
+  if (currentLanguage !== "zh") {
+    return displayName;
+  }
+
+  const sourceName = getPlayerName(player);
+  const localizedSourceName = localizeDisplayText(sourceName);
+  if (localizedSourceName && localizedSourceName !== sourceName) {
+    return localizedSourceName;
+  }
+
+  return localizeDisplayText(displayName);
 }
 
 function getPlayerUniformNumber(player, profile = getPlayerProfile(player)) {
@@ -7382,8 +7673,19 @@ function getPlayerClubLine(profile) {
   return profile?.league ? `${club} (${profile.league})` : club;
 }
 
+function formatPlayerPosition(position) {
+  const text = String(position || "").trim().replace(/\s+/g, " ");
+  if (!text) {
+    return "";
+  }
+
+  return text.replace(/(^|[,/]\s*)(\p{Letter})/gu, (_, prefix, letter) => {
+    return `${prefix}${letter.toLocaleUpperCase("en-US")}`;
+  });
+}
+
 function getLocalizedPlayerPosition(profile) {
-  return localizeText(profile?.position || "Position to verify");
+  return localizeText(formatPlayerPosition(profile?.position) || "Position to verify");
 }
 
 function getLocalizedPlayerClubLine(profile) {
@@ -7426,9 +7728,31 @@ function getLocalizedPlayerAgeLine(profile) {
   return currentLanguage === "zh" ? `年龄 ${age}` : `Age ${age}`;
 }
 
+function getPlayerMarketValueInfo(profile) {
+  const exact = Number(profile?.marketValueEurMillions);
+  if (Number.isFinite(exact) && exact > 0) {
+    return { value: exact, estimated: false };
+  }
+
+  const estimated = Number(profile?.estimatedMarketValueEurMillions);
+  if (Number.isFinite(estimated) && estimated > 0) {
+    return { value: estimated, estimated: true };
+  }
+
+  return null;
+}
+
 function getPlayerMarketValueEurMillions(profile) {
-  const value = Number(profile?.marketValueEurMillions ?? profile?.estimatedMarketValueEurMillions);
-  return Number.isFinite(value) && value > 0 ? value : null;
+  return getPlayerMarketValueInfo(profile)?.value ?? null;
+}
+
+function hasPlayerMarketValue(profile) {
+  return getPlayerMarketValueEurMillions(profile) !== null;
+}
+
+function hasCompletePlayerMarketValues(profilesData) {
+  const profiles = Object.values(profilesData?.profiles || {});
+  return profiles.length > 0 && profiles.every(hasPlayerMarketValue);
 }
 
 function formatMarketValueEur(value) {
@@ -7450,16 +7774,30 @@ function formatMarketValueEur(value) {
 }
 
 function renderPlayerMarketValueLine(profile) {
-  const value = formatMarketValueEur(getPlayerMarketValueEurMillions(profile));
+  if (!shouldShowPlayerMarketValues) {
+    return "";
+  }
+
+  const marketValue = getPlayerMarketValueInfo(profile);
+  const value = formatMarketValueEur(marketValue?.value);
   if (!value) {
     return "";
   }
 
-  const label = currentLanguage === "zh" ? "身价" : "Value";
-  const tooltip =
-    currentLanguage === "zh"
+  const label = marketValue.estimated
+    ? currentLanguage === "zh"
+      ? "估值"
+      : "Est. value"
+    : currentLanguage === "zh"
+      ? "身价"
+      : "Value";
+  const tooltip = marketValue.estimated
+    ? currentLanguage === "zh"
       ? "估算市场价值，参考公开估值、年龄、俱乐部层级、角色和近期表现。"
-      : "Estimated market value, shaped by public valuations, age, club level, role, and recent form.";
+      : "Estimated market value, shaped by public valuations, age, club level, role, and recent form."
+    : currentLanguage === "zh"
+      ? "来自公开球员估值数据的市场价值。"
+      : "Market value from sourced player valuation data.";
 
   return `<span class="player-card-value-help" tabindex="0" aria-label="${escapeHtml(tooltip)}" data-tooltip="${escapeHtml(tooltip)}">${escapeHtml(label)}</span> ${escapeHtml(value)}`;
 }
@@ -7499,6 +7837,10 @@ function getPlayerAliases(player, allPlayers) {
   const candidates = [name, displayName, localizedDisplayName];
   const nameParts = name.split(/\s+/).filter(Boolean);
   const displayParts = displayName.split(/\s+/).filter(Boolean);
+
+  if (currentLanguage === "zh") {
+    candidates.push(localizeDisplayText(name), localizeDisplayText(displayName));
+  }
 
   if (nameParts.length > 1) {
     candidates.push(nameParts.at(-1));
@@ -7630,14 +7972,15 @@ function renderPlayerMention(label, player) {
 
 function positionPlayerCard(playerHover) {
   const card = playerHover?.querySelector(".player-card");
-  if (!card) {
+  const trigger = playerHover?.querySelector(".player-link");
+  if (!card || !trigger) {
     return;
   }
 
   const viewportMargin = 18;
   const maxCardWidth = Math.max(0, window.innerWidth - viewportMargin * 2);
   const cardWidth = Math.min(292, maxCardWidth);
-  const triggerRect = playerHover.getBoundingClientRect();
+  const triggerRect = trigger.getBoundingClientRect();
   const desiredLeft = Math.max(
     viewportMargin,
     Math.min(triggerRect.left, window.innerWidth - cardWidth - viewportMargin)
@@ -7649,7 +7992,7 @@ function positionPlayerCard(playerHover) {
 }
 
 function positionPlayerCards() {
-  matchInfo
+  document
     .querySelectorAll(".player-hover")
     .forEach((playerHover) => positionPlayerCard(playerHover));
 }
@@ -7735,6 +8078,71 @@ function getMatchKeyPlayers(match) {
   ].filter((player) => getPlayerName(player));
 }
 
+function textMentionsFullPlayerName(text, name) {
+  const parts = String(name || "").trim().split(/\s+/).filter(Boolean);
+  if (parts.length < 2) {
+    return false;
+  }
+
+  const pattern = new RegExp(
+    `(^|[^\\p{Letter}\\p{Number}])${parts.map(escapeRegExp).join("[\\s\\u00a0-]+")}('s)?(?=$|[^\\p{Letter}\\p{Number}])`,
+    "iu"
+  );
+  return pattern.test(text || "");
+}
+
+function getProfileMentionPlayersFromText(text) {
+  if (!text) {
+    return [];
+  }
+
+  return [...playerProfilesByName.values()]
+    .filter((profile) =>
+      [profile.name, profile.displayName]
+        .filter(Boolean)
+        .some((name) => textMentionsFullPlayerName(text, name))
+    )
+    .map((profile) => ({
+      name: profile.name || profile.displayName,
+      team: teamsById.get(profile.teamId),
+      note: profile.note
+    }));
+}
+
+function getMatchGoalPlayers(match) {
+  return getFixtureGoals(match).map((goal) => ({
+    name: goal.name,
+    team: goal.team,
+    note: ""
+  }));
+}
+
+function getUniqueMentionPlayers(players) {
+  const seen = new Set();
+  const uniquePlayers = [];
+
+  for (const player of players) {
+    const name = getPlayerName(player);
+    const key = normalizeTextKey(name);
+    if (!key || seen.has(key)) {
+      continue;
+    }
+    seen.add(key);
+    uniquePlayers.push(player);
+  }
+
+  return uniquePlayers;
+}
+
+function getMatchMentionPlayers(match, keyInformation = {}) {
+  return getUniqueMentionPlayers([
+    ...getMatchKeyPlayers(match),
+    ...getMatchGoalPlayers(match),
+    ...getProfileMentionPlayersFromText(keyInformation.home),
+    ...getProfileMentionPlayersFromText(keyInformation.away)
+  ]);
+}
+
 function renderKeyInformationTeam(team, info, players = [], mentionPlayers = players, opponent = null) {
   const text = getKeyInformationText(team, info, players, opponent);
   const label = getKeyInformationLabel(team);
@@ -7750,7 +8158,7 @@ function renderKeyInformationTeam(team, info, players = [], mentionPlayers = pla
 function renderKeyInformation(match) {
   const keyInformation = match.keyInformation || {};
   const keyPlayers = match.keyPlayers || {};
-  const mentionPlayers = getMatchKeyPlayers(match);
+  const mentionPlayers = getMatchMentionPlayers(match, keyInformation);
 
   return `
     <div class="key-info-grid">
@@ -8050,6 +8458,7 @@ function renderHistoricalGoalScorerSegment(goal) {
 
   return `
     <span class="goal-scorer-segment">
+      ${renderGoalScorerFlag(goal)}
       ${minute ? `<span class="goal-minute">${escapeHtml(minute)}</span>` : ""}
       <span class="goal-scorer-name">${escapeHtml(name)}</span>
       ${note ? `<em>${escapeHtml(note)}</em>` : ""}
@@ -8065,7 +8474,6 @@ function renderHistoricalScoringDetailsHighlight(match) {
 
   return `
     <li class="scorer-highlight" aria-label="${escapeHtml(localizeText("Goals"))}">
-      <span aria-hidden="true">⚽</span>
       <span class="goal-scorer-list">
         ${goals.map(renderHistoricalGoalScorerSegment).join('<span class="goal-separator">•</span>')}
       </span>
@@ -9087,10 +9495,12 @@ function renderMatchInfo(match, options = {}) {
   matchInfo.classList.remove("is-hidden");
   matchInfo.hidden = false;
 
-  document.querySelectorAll(".match-row").forEach((row) => {
+  document.querySelectorAll(".match-row, .yesterday-match-card").forEach((row) => {
     const isSelected = row.dataset.matchId === match.id;
     row.classList.toggle("is-selected", isSelected);
-    row.querySelector(".match-row-trigger")?.setAttribute("aria-pressed", String(isSelected));
+    row
+      .querySelector(".match-row-trigger, .yesterday-match-button")
+      ?.setAttribute("aria-pressed", String(isSelected));
   });
 
   if (match.isHistorical) {
@@ -9151,19 +9561,18 @@ function renderMatchInfo(match, options = {}) {
 function renderMatchInfoPrompt() {
   activeMatchId = "";
   viewPanels.matches.classList.remove("has-match-info");
-  document.querySelectorAll(".match-row").forEach((row) => {
+  document.querySelectorAll(".match-row, .yesterday-match-card").forEach((row) => {
     row.classList.remove("is-selected");
-    row.querySelector(".match-row-trigger")?.setAttribute("aria-pressed", "false");
+    row
+      .querySelector(".match-row-trigger, .yesterday-match-button")
+      ?.setAttribute("aria-pressed", "false");
   });
   matchInfo.replaceChildren();
   matchInfo.classList.add("is-hidden");
   matchInfo.hidden = true;
 }
 
-function renderEmptyState() {
-  activeMatchId = "";
-  viewPanels.matches.classList.remove("has-match-info");
-  matchList.removeAttribute("aria-busy");
+function createEmptyStateElement() {
   const selectedDate = dateFormatter.format(getDateFromKey(selectedDayKey));
   const reportUrl = getReportIssueUrl("no-matches");
   const message =
@@ -9171,15 +9580,23 @@ function renderEmptyState() {
       ? `Verified fixture data is not loaded for ${selectedDate}. This avoids showing a false no-match day.`
       : `No matches were found for ${selectedDate}.`;
 
-  matchList.innerHTML = `
-    <article class="empty-state">
-      <h2>${escapeHtml(localizeText(dataCoverage.status === "partial" ? "Not loaded" : "No matches"))}</h2>
-      <p>${escapeHtml(localizeText(message))}</p>
-      <div class="empty-actions">
-        <a class="secondary-button" href="${escapeHtml(reportUrl)}">${escapeHtml(localizeText("Report issue"))}</a>
-      </div>
-    </article>
+  const article = document.createElement("article");
+  article.className = "empty-state";
+  article.innerHTML = `
+    <h2>${escapeHtml(localizeText(dataCoverage.status === "partial" ? "Not loaded" : "No matches"))}</h2>
+    <p>${escapeHtml(localizeText(message))}</p>
+    <div class="empty-actions">
+      <a class="secondary-button" href="${escapeHtml(reportUrl)}">${escapeHtml(localizeText("Report issue"))}</a>
+    </div>
   `;
+  return article;
+}
+
+function renderEmptyState() {
+  activeMatchId = "";
+  viewPanels.matches.classList.remove("has-match-info");
+  matchList.removeAttribute("aria-busy");
+  matchList.replaceChildren(createEmptyStateElement());
   matchInfo.replaceChildren();
   matchInfo.classList.add("is-hidden");
   matchInfo.hidden = true;
@@ -9225,6 +9642,125 @@ function getMatchesForSelectedDay() {
     .filter((fixture) => getFixtureDayKey(fixture) === selectedDayKey)
     .sort((a, b) => getFixtureSortValue(a).localeCompare(getFixtureSortValue(b)))
     .map(hydrateFixture);
+}
+
+function isPastMatchPreviewReady(match, currentTime) {
+  if (hasMatchStarted(match) || match.score) {
+    return true;
+  }
+
+  const kickoffTime = match.kickoffUtc ? new Date(match.kickoffUtc).getTime() : NaN;
+  return Number.isFinite(kickoffTime) && currentTime >= kickoffTime;
+}
+
+function getYesterdayMatches(currentTime = Date.now()) {
+  const previousDayKey = getRelativeDayKey(selectedDayKey, -1);
+  return getCalendarFixtures()
+    .filter((fixture) => getFixtureDayKey(fixture) === previousDayKey)
+    .map(hydrateFixture)
+    .filter((match) => isPastMatchPreviewReady(match, currentTime))
+    .sort((a, b) => getFixtureSortValue(a).localeCompare(getFixtureSortValue(b)));
+}
+
+function renderCompactMatchScore(match, state) {
+  const score = getDisplayScore(match, state);
+  if (!score) {
+    return "";
+  }
+
+  const home = getLocalizedTeamName(match.homeTeam);
+  const away = getLocalizedTeamName(match.awayTeam);
+  const scoreText = `${score.home}-${score.away}`;
+  const label =
+    match.status === "LIVE" || state === "live"
+      ? localizeText("Current score")
+      : localizeText("Final score");
+  const ariaLabel = `${label} ${home} ${score.home}, ${away} ${score.away}`;
+
+  return `<span class="match-score" aria-label="${escapeHtml(ariaLabel)}">${escapeHtml(scoreText)}</span>`;
+}
+
+function getCompactMatchMeta(match, state, currentTime) {
+  return (
+    renderCompactMatchScore(match, state) ||
+    renderScoreStatus(match, state, currentTime) ||
+    (state === "live"
+      ? `<span class="live-pill">${escapeHtml(localizeText("Live"))}</span>`
+      : "")
+  );
+}
+
+function createYesterdayMatchCard(match, currentTime) {
+  const state = getMatchState(match, new Set(), currentTime);
+  const card = document.createElement("article");
+  const button = document.createElement("button");
+  const homeName = getLocalizedTeamName(match.homeTeam);
+  const awayName = getLocalizedTeamName(match.awayTeam);
+  const versusText = localizeText("vs");
+  const timeLabel = getMatchTimeLabel(match);
+  const score = getCompactMatchMeta(match, state, currentTime);
+  const scoreText = match.score
+    ? `, ${localizeText("final score")} ${match.score.home}-${match.score.away}`
+    : "";
+  const label = `${homeName} ${versusText} ${awayName}, ${timeLabel}${scoreText}`;
+  const winnerSide = getScoreWinnerSide(match.score?.home, match.score?.away);
+
+  card.className = "yesterday-match-card";
+  card.dataset.matchId = match.id;
+  button.className = "yesterday-match-button";
+  button.type = "button";
+  button.setAttribute("aria-label", label);
+  button.setAttribute("aria-pressed", String(activeMatchId === match.id));
+  button.innerHTML = `
+    <span class="yesterday-match-time">${escapeHtml(timeLabel)}</span>
+    <span class="yesterday-match-pair">
+      ${renderTeamInline(match.homeTeam, getTeamClass("yesterday-team", winnerSide, "home", { markLoser: true }), { showRank: false })}
+      <span class="versus">${escapeHtml(versusText)}</span>
+      ${renderTeamInline(match.awayTeam, getTeamClass("yesterday-team", winnerSide, "away", { markLoser: true }), { showRank: false })}
+    </span>
+    ${score ? `<span class="yesterday-match-meta">${score}</span>` : ""}
+  `;
+
+  card.append(button);
+  card.addEventListener("pointerenter", () => renderMatchInfo(match));
+  card.addEventListener("focusin", () => renderMatchInfo(match));
+  card.addEventListener("click", () => renderMatchInfo(match, { reveal: true }));
+  return card;
+}
+
+function createYesterdayMatchesSection(matches, currentTime) {
+  if (!matches.length) {
+    return null;
+  }
+
+  const previousDayKey = getRelativeDayKey(selectedDayKey, -1);
+  const dateLabel = navDateFormatter.format(getDateFromKey(previousDayKey));
+  const section = document.createElement("section");
+  const list = document.createElement("div");
+  const title = localizeText("Past 24 hours");
+  section.className = "yesterday-section";
+  section.setAttribute(
+    "aria-label",
+    `${title}, ${dateFormatter.format(getDateFromKey(previousDayKey))}`
+  );
+  section.innerHTML = `
+    <div class="yesterday-section-header">
+      <h2>${escapeHtml(title)} <time datetime="${escapeHtml(previousDayKey)}">(${escapeHtml(dateLabel)})</time></h2>
+      <button class="yesterday-dismiss" type="button" aria-label="${escapeHtml(localizeText("Hide Past 24 hours"))}">
+        <span class="yesterday-dismiss-icon" aria-hidden="true"></span>
+      </button>
+    </div>
+  `;
+  section.querySelector(".yesterday-dismiss")?.addEventListener("click", (event) => {
+    event.stopPropagation();
+    setShowYesterdayMatches(false);
+  });
+  list.className = "yesterday-match-grid";
+  matches.forEach((match) => {
+    list.append(createYesterdayMatchCard(match, currentTime));
+  });
+  section.append(list);
+  return section;
 }
 
 function getTeamSearchAliases(team) {
@@ -9515,6 +10051,7 @@ function normalizeCatchUpItem(item, match) {
     headline: item.headline,
     body: item.body || item.note || "",
     standouts: normalizeCatchUpStandouts(item.standouts || item.standout || item.playerPulse),
+    mentionPlayers: getMatchMentionPlayers(match, match.keyInformation || {}),
     meta: item.meta || `${match.homeTeam.name} vs ${match.awayTeam.name}`,
     sourceLabel: item.sourceLabel || "",
     sourceUrl: item.sourceUrl || item.url || "",
@@ -9734,6 +10271,7 @@ function getResultCatchUpItem(match) {
   const dateKey = getFixtureDayKey(match);
   const sortValue = getFixtureSortValue(match);
   const context = getCatchUpContext(match);
+  const mentionPlayers = getMatchMentionPlayers(match, match.keyInformation || {});
 
   if (match.status === "LIVE") {
     if (!score) {
@@ -9741,6 +10279,7 @@ function getResultCatchUpItem(match) {
         dateKey,
         headline: `${match.homeTeam.name} vs ${match.awayTeam.name} is underway`,
         body: `${context} has moved from preview mode into live tournament business.`,
+        mentionPlayers,
         meta,
         priority: 18,
         sortValue
@@ -9753,6 +10292,7 @@ function getResultCatchUpItem(match) {
         dateKey,
         headline: `${match.homeTeam.name} and ${match.awayTeam.name} are trading momentum`,
         body: `It is ${score.home}-${score.away} live, with both sides close enough for one moment to change the story.`,
+        mentionPlayers,
         meta,
         priority: 16,
         sortValue
@@ -9766,8 +10306,9 @@ function getResultCatchUpItem(match) {
 
     return {
       dateKey,
-      headline: `${leader.name} have a live edge over ${chaser.name}`,
+      headline: `${leader.name} lead ${chaser.name} for now`,
       body: `${leader.name} lead ${leaderScore}-${chaserScore}, but ${chaser.name} still have time to pull the match back.`,
+      mentionPlayers,
       meta,
       priority: 16,
       sortValue
@@ -9786,6 +10327,7 @@ function getResultCatchUpItem(match) {
       headline: `${match.homeTeam.name} and ${match.awayTeam.name} split the points`,
       body: `${score.home}-${score.away} keeps ${context} open and gives both teams something to carry into the next match.`,
       standouts: getResultCatchUpStandouts(match),
+      mentionPlayers,
       meta,
       ...getResultSourceFields(match),
       priority: 28,
@@ -9803,13 +10345,14 @@ function getResultCatchUpItem(match) {
       ? `${winner.name} make a statement against ${loser.name}`
       : margin === 2
         ? `${winner.name} look sharp against ${loser.name}`
-        : `${winner.name} edge ${loser.name} in a tight one`;
+        : `${winner.name} narrowly beat ${loser.name}`;
 
   return {
     dateKey,
     headline,
     body: `${winner.name}'s ${winnerScore}-${loserScore} win gives them an early foothold in ${context}.`,
     standouts: getResultCatchUpStandouts(match),
+    mentionPlayers,
     meta,
     ...getResultSourceFields(match),
     priority: 28,
@@ -10008,7 +10551,9 @@ function renderCatchUpDescription(item) {
     .filter(Boolean)
     .join(" ");
 
-  return description ? `<p class="catch-up-subtitle">${escapeHtml(description)}</p>` : "";
+  return description
+    ? `<p class="catch-up-subtitle">${renderPlayerLinkedText(description, item.mentionPlayers || [])}</p>`
+    : "";
 }
 
 function renderCatchUpItem(item) {
@@ -10063,10 +10608,46 @@ function renderCatchUpGroups(items) {
   return groups.map((group) => renderCatchUpGroup(group.dateKey, group.items)).join("");
 }
 
+function isCatchUpLoading() {
+  return isInitialDataLoading || isInitialLiveDataLoading;
+}
+
+function renderCatchUpLoadingState() {
+  if (!catchUpList) {
+    return;
+  }
+
+  catchUpList.setAttribute("aria-busy", "true");
+  catchUpList.innerHTML = `
+    <section class="catch-up-group catch-up-loading" role="status">
+      <p class="visually-hidden">${escapeHtml(localizeText("Loading catch-up notes"))}</p>
+      <span class="match-loading-line catch-up-loading-date" aria-hidden="true"></span>
+      <div class="catch-up-group-items" aria-hidden="true">
+        ${Array.from({ length: 3 }, (_, index) => `
+          <article class="catch-up-item catch-up-loading-item">
+            <div class="catch-up-copy">
+              <span class="match-loading-line catch-up-loading-title"></span>
+              <span class="match-loading-line catch-up-loading-subtitle"></span>
+              <span class="match-loading-line catch-up-loading-subtitle ${index === 2 ? "is-short" : ""}"></span>
+            </div>
+          </article>
+        `).join("")}
+      </div>
+    </section>
+  `;
+}
+
 function renderCatchUp() {
   if (!catchUpList) {
     return;
   }
+
+  if (isCatchUpLoading()) {
+    renderCatchUpLoadingState();
+    return;
+  }
+
+  catchUpList.removeAttribute("aria-busy");
 
   const dayKeys = getCatchUpWindowDayKeys();
   const latestKey = dayKeys.at(-1) || selectedDayKey;
@@ -10123,9 +10704,28 @@ function setCatchUpOpen(isOpen) {
 
   if (isOpen) {
     setCalendarOpen(false);
+    setSettingsOpen(false);
     setStandingsYearOpen(false);
     renderCatchUp();
     positionCatchUpPopover();
+  }
+}
+
+function setSettingsOpen(isOpen) {
+  if (!settingsButton || !settingsPopover) {
+    return;
+  }
+
+  isSettingsOpen = isOpen;
+  settingsPopover.classList.toggle("is-hidden", !isOpen);
+  settingsButton.setAttribute("aria-expanded", String(isOpen));
+
+  if (isOpen) {
+    setCalendarOpen(false);
+    setCatchUpOpen(false);
+    setStandingsYearOpen(false);
+    setTeamSearchOpen(false, { focus: false });
+    queueTabIndicatorUpdate();
   }
 }
 
@@ -10218,10 +10818,12 @@ function updateUrlState() {
 function renderInitialLoadingState() {
   renderMatchLoadingState();
   renderStandingsLoadingState();
+  renderCatchUpLoadingState();
 }
 
 function renderSchedule() {
   if (isInitialLiveDataLoading) {
+    setYesterdayLayoutOffset(false);
     updateDateControls();
     updateTeamSearchControls();
     renderMatchLoadingState();
@@ -10232,12 +10834,16 @@ function renderSchedule() {
   matchList.removeAttribute("aria-busy");
 
   if (hasTeamSearchQuery()) {
+    setYesterdayLayoutOffset(false);
     renderTeamSearchResults();
     return;
   }
 
   const currentTime = Date.now();
   const todayMatches = getMatchesForSelectedDay();
+  const yesterdayMatches = shouldShowYesterdayMatches ? getYesterdayMatches(currentTime) : [];
+  const yesterdaySection = createYesterdayMatchesSection(yesterdayMatches, currentTime);
+  setYesterdayLayoutOffset(!shouldShowYesterdayMatches && todayMatches.length > 0);
   const liveMatchIds = getLiveMatchIds(currentTime);
   const selectedIsToday = selectedDayKey === getDayKey(new Date(), selectedTimeZone);
   const nextMatchIds = selectedIsToday ? getNextMatchIds(currentTime, liveMatchIds) : new Set();
@@ -10248,7 +10854,21 @@ function renderSchedule() {
   }
 
   if (todayMatches.length === 0) {
-    renderEmptyState();
+    if (!yesterdaySection) {
+      setYesterdayLayoutOffset(false);
+      renderEmptyState();
+      updateUrlState();
+      return;
+    }
+
+    matchList.replaceChildren(createEmptyStateElement(), yesterdaySection);
+    const activeMatch = yesterdayMatches.find((match) => match.id === activeMatchId);
+    if (activeMatch) {
+      renderMatchInfo(activeMatch);
+    } else {
+      renderMatchInfoPrompt();
+    }
+    updateTruncatedTeamTooltips(matchList);
     updateUrlState();
     return;
   }
@@ -10256,9 +10876,12 @@ function renderSchedule() {
   matchList.replaceChildren(
     ...todayMatches.map((match) =>
       renderMatchRow(match, getMatchState(match, nextMatchIds, currentTime), currentTime)
-    )
+    ),
+    ...(yesterdaySection ? [yesterdaySection] : [])
   );
-  const activeMatch = todayMatches.find((match) => match.id === activeMatchId);
+  const activeMatch = [...todayMatches, ...yesterdayMatches].find(
+    (match) => match.id === activeMatchId
+  );
 
   if (activeMatch) {
     renderMatchInfo(activeMatch);
@@ -10281,6 +10904,7 @@ function updateActiveViewElements() {
     panel.classList.toggle("is-hidden", panelView !== activeView);
     panel.hidden = panelView !== activeView;
   });
+  updateTabIndicators();
 }
 
 function setActiveView(view) {
@@ -10298,6 +10922,7 @@ function readInitialChromeState() {
 
   if (requestedTimeZone && timeZones.includes(requestedTimeZone)) {
     selectedTimeZone = requestedTimeZone;
+    storeTimeZone(selectedTimeZone);
     selectedDayKey = getDayKey(initialDate, selectedTimeZone);
     calendarMonthKey = getMonthKeyFromDayKey(selectedDayKey);
   }
@@ -10318,6 +10943,7 @@ function readUrlState(options = {}) {
 
   if (requestedTimeZone && timeZones.includes(requestedTimeZone)) {
     selectedTimeZone = requestedTimeZone;
+    storeTimeZone(selectedTimeZone);
   }
 
   if (requestedLanguage) {
@@ -10380,6 +11006,8 @@ function renderSourceNote() {
 
 function renderLoadError(error) {
   console.error("Unable to load World Cup data", error);
+  isInitialDataLoading = false;
+  isInitialLiveDataLoading = false;
   matchList.removeAttribute("aria-busy");
   matchList.innerHTML = `
     <article class="empty-state">
@@ -10401,6 +11029,8 @@ function renderLoadError(error) {
 
 function renderAppError(error) {
   console.error("Unable to render World Cup data", error);
+  isInitialDataLoading = false;
+  isInitialLiveDataLoading = false;
   matchList.removeAttribute("aria-busy");
   matchList.innerHTML = `
     <article class="empty-state">
@@ -10444,6 +11074,7 @@ function applyDataSnapshot({
       profile
     ])
   );
+  shouldShowPlayerMarketValues = hasCompletePlayerMarketValues(playerProfilesData);
   fixtures = fixturesData.fixtures;
   history = historyData;
   historicalFixtures = historyData.fixtures || [];
@@ -10501,6 +11132,7 @@ async function loadStaticData() {
     teamsData,
     tournamentData
   });
+  isInitialDataLoading = false;
 }
 
 async function loadLiveData() {
@@ -10634,6 +11266,10 @@ languageButtons.forEach((button) => {
   });
 });
 
+showYesterdayToggle?.addEventListener("change", () => {
+  setShowYesterdayMatches(showYesterdayToggle.checked);
+});
+
 standingsModeTabs.forEach((tab) => {
   tab.addEventListener("click", () => {
     selectStandingsMode(tab.dataset.standingsMode);
@@ -10662,6 +11298,7 @@ teamSearch?.addEventListener("submit", (event) => {
 teamSearchToggle?.addEventListener("click", () => {
   setCalendarOpen(false);
   setCatchUpOpen(false);
+  setSettingsOpen(false);
   setTeamSearchOpen(true);
 });
 
@@ -10700,6 +11337,10 @@ standingsYearButton.addEventListener("click", () => {
 
 catchUpButton.addEventListener("click", () => {
   setCatchUpOpen(!isCatchUpOpen);
+});
+
+settingsButton?.addEventListener("click", () => {
+  setSettingsOpen(!isSettingsOpen);
 });
 
 calendarPrevMonth.addEventListener("click", () => {
@@ -10745,23 +11386,58 @@ standingsYearGrid.addEventListener("click", (event) => {
   selectStandingsYear(yearButton.dataset.standingsYear);
 });
 
+function handlePlayerLinkClick(event) {
+  if (!(event.target instanceof Element)) {
+    return false;
+  }
+
+  const playerTrigger = event.target.closest(".player-link");
+  const playerHover = playerTrigger?.closest(".player-hover");
+  if (!playerTrigger || !playerHover || !isTouchPlayerCardMode()) {
+    return false;
+  }
+
+  if (activePlayerHover !== playerHover) {
+    event.preventDefault();
+    openPlayerHoverCard(playerHover);
+    return true;
+  }
+
+  if (playerTrigger.tagName !== "A") {
+    event.preventDefault();
+    return true;
+  }
+
+  return false;
+}
+
+function attachPlayerCardPositioning(root) {
+  root?.addEventListener(
+    "pointerenter",
+    (event) => {
+      const playerHover = event.target.closest(".player-hover");
+      if (playerHover) {
+        positionPlayerCard(playerHover);
+      }
+    },
+    true
+  );
+
+  root?.addEventListener("focusin", (event) => {
+    const playerHover = event.target.closest(".player-hover");
+    if (playerHover) {
+      positionPlayerCard(playerHover);
+    }
+  });
+}
+
 matchInfo.addEventListener("click", (event) => {
   if (!(event.target instanceof Element)) {
     return;
   }
 
-  const playerTrigger = event.target.closest(".player-link");
-  const playerHover = playerTrigger?.closest(".player-hover");
-  if (playerTrigger && playerHover && isTouchPlayerCardMode()) {
-    if (activePlayerHover !== playerHover) {
-      event.preventDefault();
-      openPlayerHoverCard(playerHover);
-      return;
-    }
-
-    if (playerTrigger.tagName !== "A") {
-      event.preventDefault();
-    }
+  if (handlePlayerLinkClick(event)) {
+    return;
   }
 
   const revealButton = event.target.closest("[data-past-reveal]");
@@ -10780,23 +11456,12 @@ matchInfo.addEventListener("click", (event) => {
   revealButton.remove();
 });
 
-matchInfo.addEventListener(
-  "pointerenter",
-  (event) => {
-    const playerHover = event.target.closest(".player-hover");
-    if (playerHover) {
-      positionPlayerCard(playerHover);
-    }
-  },
-  true
-);
-
-matchInfo.addEventListener("focusin", (event) => {
-  const playerHover = event.target.closest(".player-hover");
-  if (playerHover) {
-    positionPlayerCard(playerHover);
-  }
+catchUpPopover.addEventListener("click", (event) => {
+  handlePlayerLinkClick(event);
 });
+
+attachPlayerCardPositioning(matchInfo);
+attachPlayerCardPositioning(catchUpPopover);
 
 document.addEventListener("pointerdown", (event) => {
   if (activePlayerHover && !event.target.closest(".player-hover")) {
@@ -10814,10 +11479,19 @@ document.addEventListener("pointerdown", (event) => {
   if (
     isCatchUpOpen &&
     !catchUpPopover.contains(event.target) &&
-    !catchUpButton.contains(event.target) &&
-    !languageSwitch?.contains(event.target)
+    !catchUpButton.contains(event.target)
   ) {
     setCatchUpOpen(false);
+  }
+
+  if (
+    isSettingsOpen &&
+    settingsPopover &&
+    settingsButton &&
+    !settingsPopover.contains(event.target) &&
+    !settingsButton.contains(event.target)
+  ) {
+    setSettingsOpen(false);
   }
 
   if (
@@ -10855,6 +11529,11 @@ document.addEventListener("keydown", (event) => {
     catchUpButton.focus();
   }
 
+  if (isSettingsOpen) {
+    setSettingsOpen(false);
+    settingsButton?.focus();
+  }
+
   if (isStandingsYearOpen) {
     setStandingsYearOpen(false);
     standingsYearButton.focus();
@@ -10867,6 +11546,7 @@ document.addEventListener("keydown", (event) => {
 });
 
 window.addEventListener("resize", () => {
+  updateTabIndicators();
   updateTimeZoneLabelForViewport();
   positionCatchUpPopover();
   positionPlayerCards();
@@ -10878,6 +11558,7 @@ window.addEventListener("resize", () => {
     updateStandingNameTooltips();
     updateMeasuredLabelTooltips();
     updateTournamentConnectors();
+    updateTabIndicators();
   });
 });
 window.addEventListener(
@@ -10893,6 +11574,7 @@ timezoneSelect.addEventListener("change", () => {
   const wasViewingToday =
     selectedDayKey === getDayKey(new Date(), selectedTimeZone);
   selectedTimeZone = timezoneSelect.value;
+  storeTimeZone(selectedTimeZone);
   if (wasViewingToday) {
     selectedDayKey = getDayKey(new Date(), selectedTimeZone);
     calendarMonthKey = getMonthKeyFromDayKey(selectedDayKey);

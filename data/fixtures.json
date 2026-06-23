@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-23T03:26:53.667Z",
+  "updatedAt": "2026-06-23T06:27:46.959Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -5074,7 +5074,7 @@
       "homeTeamId": "JOR",
       "awayTeamId": "ALG",
       "venue": "San Francisco Bay Area Stadium",
-      "status": "LIVE",
+      "status": "FT",
       "h2h": {
         "status": "loaded",
         "sourceId": "national-football-teams-h2h-2026-06-17",
@@ -5147,9 +5147,29 @@
         "away": "Algeria need their first points and should have more control than against Argentina, led by Riyad Mahrez, Houssem Aouar, and Amine Gouiri. Against Jordan, their Mahrez-Aouar control against Jordan counters has to beat Jordan's Al-Taamari-Olwan counter timing. Algeria remain favored, but their World Cup win drought keeps pressure high. They want to give Mahrez time while Aouar connects the next pass toward Gouiri. The risk is Jordan can counter through Al-Taamari and Olwan before the defense recovers."
       },
       "score": {
-        "home": 0,
-        "away": 0
-      }
+        "home": 1,
+        "away": 2
+      },
+      "goalsHome": [
+        {
+          "minute": 36,
+          "name": "Nizar Alrashdan"
+        }
+      ],
+      "goalsAway": [
+        {
+          "minute": 69,
+          "name": "Nadhir Benbouali"
+        },
+        {
+          "minute": 82,
+          "name": "Amine Gouiri"
+        }
+      ],
+      "resultHighlights": [
+        "🌟 Amine Gouiri's 82' winner settled it for Algeria.",
+        "📊 Algeria moved to 3 points in Group J and left Jordan without a point."
+      ]
     },
     {
       "id": "portugal-uzbekistan-2026-06-23",

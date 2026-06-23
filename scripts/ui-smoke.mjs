@@ -425,6 +425,10 @@ try {
     .locator(".key-info-team p .player-link")
     .first()
     .evaluate((link) => getComputedStyle(link).textDecorationLine);
+  const paragraphPlayerDecorationStyle = await page
+    .locator(".key-info-team p .player-link")
+    .first()
+    .evaluate((link) => getComputedStyle(link).textDecorationStyle);
   const paragraphPlayerOpacity = await page
     .locator(".key-info-team p .player-link")
     .first()
@@ -433,7 +437,10 @@ try {
     .locator(".key-info-team p .player-link")
     .first()
     .evaluate((link) => Number(getComputedStyle(link).fontWeight));
-  assert(paragraphPlayerDecoration === "none", "Paragraph player mentions should not be underlined.");
+  assert(
+    paragraphPlayerDecoration === "underline" && paragraphPlayerDecorationStyle === "dotted",
+    "Paragraph player mentions should use a soft dotted underline."
+  );
   assert(
     paragraphPlayerOpacity === 1 && paragraphPlayerWeight <= 450,
     "Paragraph player mentions should use full opacity and regular paragraph weight."
@@ -463,6 +470,22 @@ try {
       firstCardBox.x >= 0 &&
       firstCardBox.x + firstCardBox.width <= viewportSize.width,
     "Player hover card should stay inside the viewport horizontally."
+  );
+
+  await page.goto(`${baseUrl}?view=matches&date=2026-06-20&tz=America%2FLos_Angeles`, {
+    waitUntil: "load"
+  });
+  await page.waitForSelector(".match-row");
+  await page.locator('[data-match-id="netherlands-sweden-2026-06-20"]').click();
+  const summervilleLink = page.locator(".player-link", { hasText: "Crysencio Summerville" }).first();
+  await summervilleLink.hover();
+  const summervilleCard = summervilleLink
+    .locator("xpath=ancestor::*[contains(concat(' ', normalize-space(@class), ' '), ' player-hover ')]")
+    .locator(".player-card");
+  await summervilleCard.waitFor({ state: "visible" });
+  assert(
+    (await summervilleCard.locator(".player-card-position").innerText()).trim() === "Winger",
+    "Player hover card should normalize lowercase source positions for display."
   );
 
   await page.goto(`${baseUrl}?view=matches&date=2026-06-22&tz=America%2FLos_Angeles`, {
@@ -497,27 +520,61 @@ try {
   );
 
   await page.setViewportSize({ width: 360, height: 760 });
-  await page.goto(`${baseUrl}?view=matches&date=2026-06-22&tz=America%2FLos_Angeles`, {
+  await page.goto(`${baseUrl}?view=matches&date=2026-06-21&tz=America%2FLos_Angeles`, {
     waitUntil: "load"
   });
   await page.waitForSelector(".match-row");
-  await page.locator('[data-match-id="norway-senegal-2026-06-22"]').click();
+  await page.locator('[data-match-id="new-zealand-egypt-2026-06-21"]').click();
   const scorerHighlightMetrics = await page.locator("#match-info .scorer-highlight").evaluate((item) => {
-    const icon = item.querySelector('[aria-hidden="true"]');
-    const firstScorer = item.querySelector(".goal-scorer-segment");
-    const iconBox = icon.getBoundingClientRect();
-    const firstScorerBox = firstScorer.getBoundingClientRect();
+    const segments = [...item.querySelectorAll(".goal-scorer-segment")];
 
     return {
-      firstScorerLeftGap: firstScorerBox.left - iconBox.right,
-      firstScorerTop: firstScorerBox.top,
-      iconBottom: iconBox.bottom
+      hasStandaloneSoccerIcon: [...item.children].some((child) => child.textContent.trim() === "⚽"),
+      segmentCount: segments.length,
+      segmentTexts: segments.map((segment) => segment.textContent.trim()),
+      segmentFlags: segments.map((segment) => {
+        const flag = segment.querySelector(".goal-scorer-flag .flag");
+        const minute = segment.querySelector(".goal-minute");
+        const flagBox = flag?.getBoundingClientRect();
+        const minuteBox = minute?.getBoundingClientRect();
+
+        return {
+          label: flag?.getAttribute("aria-label") || "",
+          hasFlag: Boolean(flag),
+          flagBeforeMinute: Boolean(flagBox && minuteBox && flagBox.right <= minuteBox.left),
+          verticalDelta:
+            flagBox && minuteBox
+              ? Math.abs((flagBox.top + flagBox.bottom - minuteBox.top - minuteBox.bottom) / 2)
+              : Number.POSITIVE_INFINITY
+        };
+      })
     };
   });
+  const scorerPlayerDecoration = await page
+    .locator("#match-info .scorer-highlight .player-link")
+    .first()
+    .evaluate((link) => getComputedStyle(link).textDecorationLine);
+  const scorerPlayerDecorationStyle = await page
+    .locator("#match-info .scorer-highlight .player-link")
+    .first()
+    .evaluate((link) => getComputedStyle(link).textDecorationStyle);
   assert(
-    scorerHighlightMetrics.firstScorerTop <= scorerHighlightMetrics.iconBottom + 1 &&
-      scorerHighlightMetrics.firstScorerLeftGap >= 0,
-    "Scorer highlights should keep the soccer ball and first scorer on the same line."
+    !scorerHighlightMetrics.hasStandaloneSoccerIcon &&
+      scorerHighlightMetrics.segmentCount === 4 &&
+      scorerHighlightMetrics.segmentTexts[0].includes("15'") &&
+      scorerHighlightMetrics.segmentTexts[0].includes("Finn Surman") &&
+      scorerHighlightMetrics.segmentTexts[1].includes("58'") &&
+      scorerHighlightMetrics.segmentTexts[1].includes("Mostafa Ziko") &&
+      scorerHighlightMetrics.segmentFlags[0]?.label === "New Zealand flag" &&
+      scorerHighlightMetrics.segmentFlags.slice(1).every((flag) => flag.label === "Egypt flag") &&
+      scorerHighlightMetrics.segmentFlags.every(
+        (flag) => flag.hasFlag && flag.flagBeforeMinute && flag.verticalDelta <= 4
+      ),
+    "Scorer highlights should replace the standalone soccer ball with country flags before each scorer minute."
+  );
+  assert(
+    scorerPlayerDecoration === "underline" && scorerPlayerDecorationStyle === "dotted",
+    "Scorer player mentions should use the same soft dotted underline as paragraph mentions."
   );
   await page.setViewportSize({ width: 1280, height: 720 });
 
@@ -800,14 +857,23 @@ try {
   const historicalResultHighlights = await page
     .locator("#match-info .result-highlights li")
     .evaluateAll((items) => items.map((item) => item.textContent.replace(/\s+/g, " ").trim()));
-  const historicalScorerHighlight = historicalResultHighlights.find((text) => text.startsWith("⚽"));
+  const historicalScorerHighlight = await page.locator("#match-info .scorer-highlight").evaluate((item) => {
+    const segments = [...item.querySelectorAll(".goal-scorer-segment")];
+    return {
+      hasStandaloneSoccerIcon: [...item.children].some((child) => child.textContent.trim() === "⚽"),
+      segmentFlags: segments.map((segment) => segment.querySelector(".goal-scorer-flag .flag")?.getAttribute("aria-label") || ""),
+      segmentTexts: segments.map((segment) => segment.textContent.replace(/\s+/g, " ").trim())
+    };
+  });
   assert(
-    historicalScorerHighlight?.includes("16' Enner Valencia") &&
-      historicalScorerHighlight.includes("31' Enner Valencia"),
-    "Historical result details should show archived scorer names and minutes."
+    !historicalScorerHighlight.hasStandaloneSoccerIcon &&
+      historicalScorerHighlight.segmentFlags.every((label) => label === "Ecuador flag") &&
+      historicalScorerHighlight.segmentTexts.some((text) => text.includes("16' Enner Valencia")) &&
+      historicalScorerHighlight.segmentTexts.some((text) => text.includes("31' Enner Valencia")),
+    "Historical result details should show country flags before archived scorer names and minutes."
   );
   const historicalNarrativeHighlights = historicalResultHighlights.filter(
-    (text) => !text.startsWith("⚽")
+    (text) => !text.includes("16' Enner Valencia") && !text.includes("31' Enner Valencia")
   );
   assert(
     historicalNarrativeHighlights.length >= 2 &&
@@ -865,10 +931,25 @@ try {
   await page.waitForSelector(".match-row");
   const beforeTimeZoneText = await page.locator("#day-label").innerText();
   assert(beforeTimeZoneText.trim() === "Today", "Initial default date should be Today.");
+  await page.locator("#settings-button").click();
+  assert(
+    await page.locator("#settings-popover").isVisible(),
+    "Settings should reveal language and timezone controls."
+  );
   await page.locator("#timezone-select").selectOption("Asia/Tokyo");
   assert(
     (await page.locator("#day-label").innerText()).trim() === "Today",
     "Changing timezone while viewing Today should keep the view on Today."
+  );
+  assert(
+    (await page.evaluate(() => localStorage.getItem("world-cup-simplified-timezone"))) === "Asia/Tokyo",
+    "Changing timezone should persist the selection for account-free reloads."
+  );
+  await page.goto(baseUrl, { waitUntil: "load" });
+  await page.waitForSelector(".match-row");
+  assert(
+    (await page.locator("#timezone-select").inputValue()) === "Asia/Tokyo",
+    "A saved timezone should be restored on a clean visit without requiring an account."
   );
 
   await page.goto(`${baseUrl}?view=matches&date=2026-06-18&tz=America%2FLos_Angeles`, {
@@ -879,6 +960,51 @@ try {
   assert(
     datedLinkLabel === "Jun 18" || datedLinkLabel === "Today",
     "Dated links should open the requested match date."
+  );
+  assert(
+    (await page.locator(".yesterday-section").count()) === 1,
+    "Past 24 hours banner should be shown by default when previous-day matches are available."
+  );
+  assert(
+    (await page.locator(".yesterday-section-header h2").innerText()).includes("Past 24 hours (Jun 17)"),
+    "Previous-day match banner should use the Past 24 hours title with an abbreviated date."
+  );
+  assert(
+    (await page.locator(".yesterday-dismiss-icon").count()) === 1,
+    "Past 24 hours dismiss control should render an icon glyph."
+  );
+  await page.locator(".yesterday-dismiss").click();
+  assert(
+    (await page.evaluate(() => localStorage.getItem("world-cup-simplified-show-yesterday"))) === "false",
+    "Closing the Past 24 hours banner should persist the account-free display preference."
+  );
+  assert(
+    (await page.locator(".yesterday-section").count()) === 0,
+    "Closing the Past 24 hours banner should hide it immediately."
+  );
+  await page.goto(`${baseUrl}?view=matches&date=2026-06-18&tz=America%2FLos_Angeles`, {
+    waitUntil: "load"
+  });
+  await page.waitForSelector(".match-row");
+  assert(
+    (await page.locator(".yesterday-section").count()) === 0,
+    "A closed Past 24 hours banner should stay hidden on reload."
+  );
+  await page.locator("#settings-button").click();
+  assert(
+    await page.evaluate(() => document.querySelector("#show-yesterday-toggle")?.checked === false),
+    "Closing the Past 24 hours banner should also turn off the Show yesterday setting."
+  );
+  await page.locator(".settings-toggle-control").click();
+  assert(
+    (await page.locator(".yesterday-section").count()) === 1 &&
+      (await page.evaluate(() => localStorage.getItem("world-cup-simplified-show-yesterday"))) === "true",
+    "Turning Show yesterday back on should restore the Past 24 hours banner."
+  );
+  await page.keyboard.press("Escape");
+  assert(
+    !(await page.locator("#settings-popover").isVisible()),
+    "Settings should close before testing match-row interactions underneath it."
   );
   await page.setViewportSize({ width: 640, height: 720 });
   await page.waitForTimeout(80);
@@ -926,7 +1052,7 @@ try {
   );
 
   const matchStateCheck = await openPageAtTime("2026-06-18T05:30:00.000Z");
-  const june17Scores = await matchStateCheck.page.locator(".match-score").evaluateAll((scores) =>
+  const june17Scores = await matchStateCheck.page.locator("#match-list > .match-row .match-score").evaluateAll((scores) =>
     scores.map((score) => score.textContent.trim())
   );
   assert(
@@ -1291,10 +1417,40 @@ try {
     "The Uzbekistan/Colombia catch-up item should link to the FIFA match report."
   );
   assert(
-    catchUpText.includes("England look sharp against Croatia") &&
-      catchUpText.includes("England's 4-2 win gives them an early foothold in Group L") &&
-      catchUpText.includes("Harry Kane scored twice"),
+    englandCatchUpItem?.headline === "England look sharp against Croatia" &&
+      englandCatchUpItem.subtitle?.includes("England's 4-2 win gives them an early foothold in Group L") &&
+      englandCatchUpItem.subtitle?.includes("scored twice"),
     "The completed England/Croatia match should render a title plus result description."
+  );
+  const catchUpKaneLink = catchUpCheck.page
+    .locator(".catch-up-subtitle .player-link", { hasText: "Harry Kane" })
+    .first();
+  assert((await catchUpKaneLink.count()) === 1, "Catch-up player mentions should become player links.");
+  const catchUpKaneDecoration = await catchUpKaneLink.evaluate(
+    (link) => getComputedStyle(link).textDecorationLine
+  );
+  const catchUpKaneDecorationStyle = await catchUpKaneLink.evaluate(
+    (link) => getComputedStyle(link).textDecorationStyle
+  );
+  assert(
+    catchUpKaneDecoration === "underline" && catchUpKaneDecorationStyle === "dotted",
+    "Catch-up player mentions should use the same soft dotted underline as paragraph mentions."
+  );
+  await catchUpKaneLink.hover();
+  await catchUpKaneLink
+    .locator("xpath=ancestor::span[contains(concat(' ', normalize-space(@class), ' '), ' player-hover ')][1]")
+    .locator(".player-card")
+    .waitFor({ state: "visible" });
+  await catchUpCheck.page.locator("#settings-button").click();
+  await catchUpCheck.page.locator('[data-language="zh"]').click();
+  await catchUpCheck.page.locator("#catch-up-button").click();
+  await catchUpCheck.page.locator("#catch-up-popover").waitFor({ state: "visible" });
+  const catchUpChineseLinks = await catchUpCheck.page
+    .locator(".catch-up-subtitle .player-link")
+    .evaluateAll((links) => links.map((link) => link.textContent.trim()));
+  assert(
+    catchUpChineseLinks.includes("哈里·凯恩") && catchUpChineseLinks.includes("若昂·内维斯"),
+    "Chinese catch-up player mentions should use localized player links."
   );
   assert(
     catchUpItems.every((item) => item.subtitle && !item.standouts && item.standoutBullets.length === 0),
@@ -1324,7 +1480,7 @@ try {
     }))
   );
   const mexicoCatchUpItem = latestCatchUpItems.find((item) =>
-    item.headline?.includes("Mexico edge South Korea")
+    item.headline?.includes("Mexico narrowly beat South Korea")
   );
   const canadaCatchUpItem = latestCatchUpItems.find((item) =>
     item.headline?.includes("Canada make a statement against Qatar")
@@ -1370,7 +1526,10 @@ try {
     messiLeaderboardItem?.sourceHref.includes("argentina-austria-match-report-highlights"),
     "Tournament-level catch-up should resolve source links from tournament source IDs."
   );
+  await tournamentCatchUpCheck.page.locator("#settings-button").click();
   await tournamentCatchUpCheck.page.locator('[data-language="zh"]').click();
+  await tournamentCatchUpCheck.page.locator("#catch-up-button").click();
+  await tournamentCatchUpCheck.page.locator("#catch-up-popover").waitFor({ state: "visible" });
   const tournamentCatchUpChineseText = await tournamentCatchUpCheck.page.locator("#catch-up-popover").innerText();
   assert(
     tournamentCatchUpChineseText.includes("梅西以5球领跑世界杯射手榜"),
@@ -1544,7 +1703,7 @@ try {
     (await page.locator("#standings-mode-tabs").isVisible()) &&
       (await page.locator("#standings-third-place-tab").evaluate((tab) => tab.getAttribute("aria-pressed") === "true")) &&
       (await page.locator("#standings-heading").isVisible()) &&
-      (await page.locator("#standings-summary").innerText()).includes("Current third-place teams") &&
+      (await page.locator("#standings-summary").innerText()).includes("Third-place standings across all groups") &&
       !(await page.locator(".third-place-race-header").isVisible()) &&
       (await page.locator(".third-place-table").isVisible()),
     "The third-place race should keep the standings heading, mode-specific summary, and section tabs visible."
@@ -1701,6 +1860,9 @@ try {
     return {
       m73ProgressText: text('.progress-match[data-match-number="73"]'),
       m74ProgressText: text('.progress-match[data-match-number="74"]'),
+      m81TeamIds: [...document.querySelectorAll('.progress-match[data-match-number="81"] .knockout-team[data-team-id]')]
+        .map((element) => element.dataset.teamId),
+      m81Text: text('.progress-match[data-match-number="81"]'),
       m89Text: text('.progress-match[data-match-number="89"]'),
       m97Text: text('.progress-match[data-match-number="97"]'),
       oldWinnerCopy: allText(".tournament-view").includes(["Winner", "advances"].join(" ")),
@@ -1754,6 +1916,8 @@ try {
       tournamentCheck.m74ProgressText.includes(getTeam(standingsData.groups?.E?.[0]?.teamId).id) &&
       tournamentCheck.m74ProgressText.includes("Group E Top 1") &&
       !tournamentCheck.m74ProgressText.includes("Group E Top 1 /") &&
+      tournamentCheck.m81TeamIds.length === 2 &&
+      !tournamentCheck.m81Text.includes("Group B/E/F/I/J third place") &&
       tournamentCheck.norwayTooltip === "Norway" &&
       tournamentCheck.slotOddsCount >= 16 &&
       tournamentCheck.slotOddsToneMismatches.length === 0 &&
@@ -1792,12 +1956,25 @@ try {
         const progressionStyle = progression ? getComputedStyle(progression) : null;
         const matchStyle = match74 ? getComputedStyle(match74) : null;
         const matchRect = match74?.getBoundingClientRect();
+        const overflowingParticipantLabels = [...document.querySelectorAll(".progress-match .knockout-team-copy")]
+          .filter((copy) => {
+            const copyRect = copy.getBoundingClientRect();
+            const cardRect = copy.closest(".progress-match")?.getBoundingClientRect();
+
+            return Boolean(
+              cardRect &&
+                (copyRect.left < cardRect.left - 1 ||
+                  copyRect.right > cardRect.right + 1)
+            );
+          })
+          .length;
 
         return {
           cardPadding: matchStyle ? Math.round(parseFloat(matchStyle.paddingLeft)) : 0,
           cardWithinViewport: Boolean(matchRect && matchRect.left >= 0 && matchRect.right <= viewportWidth),
           connectorDisplay,
           connectorPathCount: document.querySelectorAll(".progress-connectors path").length,
+          overflowingParticipantLabels,
           progressionPadding: progressionStyle ? Math.round(parseFloat(progressionStyle.paddingLeft)) : 0,
           seedLines: seedLabels,
           scrollOverflow: Math.ceil(documentElement.scrollWidth - documentElement.clientWidth),
@@ -1810,6 +1987,7 @@ try {
     tournamentLayoutChecks.every(
       (check) =>
         check.seedLines.includes("Group E|Top 1") &&
+        check.overflowingParticipantLabels === 0 &&
         check.scrollOverflow <= 1 &&
         check.progressionPadding >= 10 &&
         check.cardPadding >= 8 &&
@@ -1922,6 +2100,28 @@ try {
     "Historical standings should explain their archived data source."
   );
 
+  await page.setViewportSize({ width: 800, height: 900 });
+  await page.goto(`${baseUrl}?view=matches&date=2026-06-17&tz=America%2FLos_Angeles`, {
+    waitUntil: "load"
+  });
+  await page.waitForSelector(".match-row");
+  const tabletHeaderMetrics = await page.evaluate(() => {
+    const catchUpButton = document.querySelector("#catch-up-button").getBoundingClientRect();
+    const settingsButton = document.querySelector("#settings-button").getBoundingClientRect();
+
+    return {
+      overlapsSettings:
+        catchUpButton.right > settingsButton.left &&
+        catchUpButton.left < settingsButton.right &&
+        catchUpButton.bottom > settingsButton.top &&
+        catchUpButton.top < settingsButton.bottom
+    };
+  });
+  assert(
+    !tabletHeaderMetrics.overlapsSettings,
+    "Catch Up should not overlap the Settings button at tablet widths."
+  );
+
   await page.setViewportSize({ width: 390, height: 844 });
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto(`${baseUrl}?view=matches&date=2026-06-17&tz=America%2FLos_Angeles`, {
@@ -1929,26 +2129,30 @@ try {
   });
   await page.waitForSelector(".match-row");
   const mobileHeaderMetrics = await page.evaluate(() => {
-    const languageSwitch = document.querySelector("#language-switch").getBoundingClientRect();
-    const timezoneControl = document.querySelector(".timezone-control").getBoundingClientRect();
+    const headerControls = document.querySelector("#header-controls").getBoundingClientRect();
+    const catchUpButton = document.querySelector("#catch-up-button").getBoundingClientRect();
+    const settingsButton = document.querySelector("#settings-button").getBoundingClientRect();
 
     return {
-      controlsGap: timezoneControl.left - languageSwitch.right,
+      controlsGap: settingsButton.left - catchUpButton.right,
       centerOffset: Math.abs(
-        timezoneControl.top +
-          timezoneControl.height / 2 -
-          (languageSwitch.top + languageSwitch.height / 2)
+        settingsButton.top +
+          settingsButton.height / 2 -
+          (catchUpButton.top + catchUpButton.height / 2)
       ),
-      timezoneRightGap: document.documentElement.clientWidth - timezoneControl.right
+      controlsRightGap: document.documentElement.clientWidth - headerControls.right,
+      scrollOverflow: document.documentElement.scrollWidth - document.documentElement.clientWidth
     };
   });
   assert(
     mobileHeaderMetrics.controlsGap >= 0 && mobileHeaderMetrics.controlsGap <= 10,
-    "Mobile language switch should sit directly beside the timezone label."
+    "Mobile Catch Up and Settings buttons should sit beside each other."
   );
   assert(
-    mobileHeaderMetrics.centerOffset <= 4 && mobileHeaderMetrics.timezoneRightGap <= 22,
-    "Mobile language and timezone controls should stay right-aligned in the header."
+    mobileHeaderMetrics.centerOffset <= 4 &&
+      mobileHeaderMetrics.controlsRightGap <= 22 &&
+      mobileHeaderMetrics.scrollOverflow <= 1,
+    "Mobile header controls should stay right-aligned without page overflow."
   );
   const mobileRowMetrics = await page.locator(".match-row").first().evaluate((row) => {
     const time = row.querySelector(".match-time");
