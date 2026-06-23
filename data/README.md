@@ -108,6 +108,14 @@ For authored `catchUp` entries, keep the headline and body score-focused. Add op
 
 For completed fixture detail pages, add optional `resultHighlights` when the scoreline needs more context than the default source-check note. Keep each highlight to one compact sentence.
 
+Run this after final-score updates to give every completed group match the compact result treatment:
+
+```bash
+pnpm results
+```
+
+The script preserves hand-authored `resultHighlights` by default. It generates the `⚽` scoreline only when scorer-minute data is not loaded; when `goalsHome`/`goalsAway` exists, the UI renders the linked scorer list instead.
+
 ## Required Update Steps
 
 1. Update `data/fixtures.json`.

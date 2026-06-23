@@ -1,4 +1,4 @@
-const DATA_VERSION = "2026-06-22-goal-scorers-olise-refresh";
+const DATA_VERSION = "2026-06-22-player-link-spacing";
 const DATA_URLS = {
   fixtures: `data/fixtures.json?v=${DATA_VERSION}`,
   history: `data/history.json?v=${DATA_VERSION}`,
@@ -2475,6 +2475,7 @@ const juggleToy = {
   element: null,
   fallDistance: 0,
   fallDuration: 0,
+  hasPendingBestSave: false,
   lastFrameTime: 0,
   phase: "idle",
   rotation: 0,
@@ -2968,7 +2969,20 @@ function readStoredJuggleRecord() {
 }
 
 function storeJuggleRecord(record) {
-  localStorage.setItem(JUGGLE_RECORD_STORAGE_KEY, String(record));
+  try {
+    localStorage.setItem(JUGGLE_RECORD_STORAGE_KEY, String(record));
+  } catch (error) {
+    console.warn("Unable to store juggling record", error);
+  }
+}
+
+function persistPendingJuggleRecord() {
+  if (!juggleToy.hasPendingBestSave) {
+    return;
+  }
+
+  storeJuggleRecord(juggleToy.best);
+  juggleToy.hasPendingBestSave = false;
 }
 
 function renderJuggleRecord() {
@@ -3069,6 +3083,7 @@ function initializeJuggleToy() {
     });
   });
   document.addEventListener("visibilitychange", handleJuggleVisibilityChange);
+  window.addEventListener("pagehide", persistPendingJuggleRecord);
   renderJuggleRecord();
 }
 
@@ -3087,6 +3102,7 @@ function spawnJuggleBall() {
   }
 
   window.cancelAnimationFrame(juggleToy.animationFrameId);
+  primeJuggleAudioContext();
 
   const width = window.innerWidth;
   const height = window.innerHeight;
@@ -3203,6 +3219,15 @@ function getJuggleAudioContext() {
   return juggleToy.audioContext;
 }
 
+function primeJuggleAudioContext() {
+  const audioContext = getJuggleAudioContext();
+  if (!audioContext || audioContext.state !== "suspended") {
+    return;
+  }
+
+  void audioContext.resume().catch(() => {});
+}
+
 function playJuggleTapSound() {
   const audioContext = getJuggleAudioContext();
   if (!audioContext) {
@@ -3210,7 +3235,7 @@ function playJuggleTapSound() {
   }
 
   if (audioContext.state === "suspended") {
-    audioContext.resume();
+    void audioContext.resume().catch(() => {});
   }
 
   const startTime = audioContext.currentTime;
@@ -3301,7 +3326,7 @@ function kickJuggleBall(pointerX, pointerY) {
 
   if (juggleToy.count > juggleToy.best) {
     juggleToy.best = juggleToy.count;
-    storeJuggleRecord(juggleToy.best);
+    juggleToy.hasPendingBestSave = true;
   }
 
   renderJuggleRecord();
@@ -3313,6 +3338,7 @@ function finishJuggleRun() {
   }
 
   window.cancelAnimationFrame(juggleToy.animationFrameId);
+  persistPendingJuggleRecord();
   juggleToy.phase = "idle";
   juggleToy.element.classList.remove("is-active");
   document.body.classList.remove("is-juggle-active");
@@ -7270,29 +7296,32 @@ function renderPlayerMention(label, player) {
   const trigger = sourceUrl
     ? `<a class="player-link" href="${escapeHtml(sourceUrl)}" target="_blank" rel="noopener" ${triggerLabel}>${escapeHtml(visibleLabel)}</a>`
     : `<span class="player-link" role="button" tabindex="0" ${triggerLabel}>${escapeHtml(visibleLabel)}</span>`;
+  const numberBadge = uniformNumber
+    ? `<span class="player-card-number">#${escapeHtml(uniformNumber)}</span>`
+    : "";
+  const skillItems = skills.map((skill) => `<span>${escapeHtml(skill)}</span>`).join("");
+  const noteMarkup = note ? `<span class="player-card-note">${escapeHtml(note)}</span>` : "";
 
-  return `
-    <span class="player-hover">
-      ${trigger}
-      <span class="player-card" role="tooltip">
-        <span class="player-card-header">
-          <span class="player-photo">${renderPlayerPhoto(player, profile)}</span>
-          <span class="player-card-title">
-            <span class="player-card-name-line">
-              <strong class="player-card-name">${escapeHtml(displayName)}</strong>
-              ${uniformNumber ? `<span class="player-card-number">#${escapeHtml(uniformNumber)}</span>` : ""}
-            </span>
-            <span class="player-card-position">${escapeHtml(position)}</span>
-            <span class="player-card-club">${escapeHtml(club)}</span>
-          </span>
-        </span>
-        <span class="player-skill-list">
-          ${skills.map((skill) => `<span>${escapeHtml(skill)}</span>`).join("")}
-        </span>
-        ${note ? `<span class="player-card-note">${escapeHtml(note)}</span>` : ""}
-      </span>
-    </span>
-  `;
+  return [
+    `<span class="player-hover">`,
+    trigger,
+    `<span class="player-card" role="tooltip">`,
+    `<span class="player-card-header">`,
+    `<span class="player-photo">${renderPlayerPhoto(player, profile)}</span>`,
+    `<span class="player-card-title">`,
+    `<span class="player-card-name-line">`,
+    `<strong class="player-card-name">${escapeHtml(displayName)}</strong>`,
+    numberBadge,
+    `</span>`,
+    `<span class="player-card-position">${escapeHtml(position)}</span>`,
+    `<span class="player-card-club">${escapeHtml(club)}</span>`,
+    `</span>`,
+    `</span>`,
+    `<span class="player-skill-list">${skillItems}</span>`,
+    noteMarkup,
+    `</span>`,
+    `</span>`
+  ].join("");
 }
 
 function positionPlayerCard(playerHover) {

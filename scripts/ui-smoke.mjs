@@ -465,6 +465,37 @@ try {
     "Player hover card should stay inside the viewport horizontally."
   );
 
+  await page.goto(`${baseUrl}?view=matches&date=2026-06-22&tz=America%2FLos_Angeles`, {
+    waitUntil: "load"
+  });
+  await page.waitForSelector(".match-row");
+  await page.locator('[data-match-id="france-iraq-2026-06-22"]').click();
+  const franceMentionCommaGap = await page
+    .locator(".key-info-team")
+    .first()
+    .locator("p")
+    .evaluate((paragraph) => {
+      const link = [...paragraph.querySelectorAll(".player-link")].find(
+        (candidate) => candidate.textContent.trim() === "Kylian Mbappe"
+      );
+      const hover = link?.closest(".player-hover");
+      const nextText = hover?.nextSibling;
+
+      if (!link || nextText?.nodeType !== Node.TEXT_NODE || !nextText.textContent.startsWith(",")) {
+        return Number.POSITIVE_INFINITY;
+      }
+
+      const commaRange = document.createRange();
+      commaRange.setStart(nextText, 0);
+      commaRange.setEnd(nextText, 1);
+
+      return commaRange.getBoundingClientRect().left - link.getBoundingClientRect().right;
+    });
+  assert(
+    franceMentionCommaGap >= 0 && franceMentionCommaGap < 1,
+    "Linked player mentions should not insert spaces before comma punctuation."
+  );
+
   await page.goto(`${baseUrl}?view=matches&date=2026-06-21&tz=America%2FLos_Angeles`, {
     waitUntil: "load"
   });
