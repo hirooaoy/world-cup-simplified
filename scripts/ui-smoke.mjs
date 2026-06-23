@@ -1716,6 +1716,18 @@ try {
     "The release notes tooltip should be hidden before hover or focus."
   );
   await sourceNote.locator(".source-tooltip-trigger").hover();
+  await sourceFreshnessCheck.page.waitForFunction(() => {
+    const tooltip = document.querySelector("#source-note .source-tooltip");
+    if (!tooltip) {
+      return false;
+    }
+    const styles = getComputedStyle(tooltip);
+    return (
+      Number(styles.opacity) > 0 &&
+      styles.pointerEvents === "auto" &&
+      styles.visibility === "visible"
+    );
+  });
   const sourceTooltipStateAfterHover = await sourceNote.locator(".source-tooltip").evaluate((tooltip) => {
     const styles = getComputedStyle(tooltip);
     return {

@@ -1,14 +1,17 @@
 {
-  "updatedAt": "2026-06-23T15:45:52.283Z",
+  "updatedAt": "2026-06-23T15:51:35.654Z",
   "sourceIds": [
     "openfootball-worldcup-json-2026-06-17",
     "fjelstul-worldcup-json-2026-06-23",
     "historical-player-card-baseline-2026-06-23",
-    "wikimedia-commons"
+    "wikimedia-commons",
+    "wikipedia-page-summaries"
   ],
   "coverage": {
     "status": "complete-men-1930-2022-key-players-and-scorers",
-    "note": "One historical card profile for every player mentioned by archived key-player paragraphs or historical goal records."
+    "note": "One historical card profile for every player mentioned by archived key-player paragraphs or historical goal records.",
+    "imageStatus": "current-card-reuse-plus-curated-wikipedia-wikimedia",
+    "imageNote": "Historical cards reuse current profile photos for matching active players and add Wikipedia/Wikimedia photos only when the page match passes conservative footballer checks or a curated title override."
   },
   "profiles": {
     "Aaron Lennon": {
@@ -6826,7 +6829,12 @@
       ],
       "note": "Italy's World Cup archive midfielder; credited with 1 World Cup goal and featured in 4 curated match-lens cards across World Cups 2006 and 2014.",
       "summary": "Historical card generated from World Cup scorer events, match appearances, tournament squads, and curated match-lens notes. Archive teams: Italy. Archive tournaments: World Cups 2006 and 2014.",
-      "sourceUrl": "https://github.com/jfjelstul/worldcup"
+      "sourceUrl": "https://github.com/jfjelstul/worldcup",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/20150616_-_Portugal_-_Italie_-_Gen%C3%A8ve_-_Andrea_Pirlo_%28cropped%29.jpg/330px-20150616_-_Portugal_-_Italie_-_Gen%C3%A8ve_-_Andrea_Pirlo_%28cropped%29.jpg",
+      "imageSource": "wikipedia-page-summaries",
+      "imageSourceUrl": "https://en.wikipedia.org/wiki/Andrea_Pirlo",
+      "imagePageTitle": "Andrea Pirlo",
+      "imagePageUrl": "https://en.wikipedia.org/wiki/Andrea_Pirlo"
     },
     "Andreas Brehme": {
       "name": "Andreas Brehme",
@@ -7253,7 +7261,12 @@
       ],
       "note": "Spain's World Cup archive forward; credited with 2 World Cup goals and featured in 7 curated match-lens cards across World Cups 2010, 2014, and 2018.",
       "summary": "Historical card generated from World Cup scorer events, match appearances, tournament squads, and curated match-lens notes. Archive teams: Spain. Archive tournaments: World Cups 2010, 2014, and 2018.",
-      "sourceUrl": "https://github.com/jfjelstul/worldcup"
+      "sourceUrl": "https://github.com/jfjelstul/worldcup",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Andr%C3%A9s_Iniesta_2019.jpg/330px-Andr%C3%A9s_Iniesta_2019.jpg",
+      "imageSource": "wikipedia-page-summaries",
+      "imageSourceUrl": "https://en.wikipedia.org/wiki/Andr%C3%A9s_Iniesta",
+      "imagePageTitle": "Andrés Iniesta",
+      "imagePageUrl": "https://en.wikipedia.org/wiki/Andr%C3%A9s_Iniesta"
     },
     "Andrés Prieto": {
       "name": "Andrés Prieto",
@@ -11218,7 +11231,12 @@
       ],
       "note": "Germany's World Cup archive midfielder; credited with 2 World Cup goals and featured in 1 curated match-lens card across World Cup 2006.",
       "summary": "Historical card generated from World Cup scorer events, match appearances, tournament squads, and curated match-lens notes. Archive teams: Germany. Archive tournaments: World Cup 2006.",
-      "sourceUrl": "https://github.com/jfjelstul/worldcup"
+      "sourceUrl": "https://github.com/jfjelstul/worldcup",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Re-publica_23_-_Tag_3_%2852957826298%29_%28cropped%29.jpg/330px-Re-publica_23_-_Tag_3_%2852957826298%29_%28cropped%29.jpg",
+      "imageSource": "wikipedia-page-summaries",
+      "imageSourceUrl": "https://en.wikipedia.org/wiki/Bastian_Schweinsteiger",
+      "imagePageTitle": "Bastian Schweinsteiger",
+      "imagePageUrl": "https://en.wikipedia.org/wiki/Bastian_Schweinsteiger"
     },
     "Bebeto": {
       "name": "Bebeto",
@@ -12726,7 +12744,12 @@
       ],
       "note": "England's World Cup archive forward; credited with 4 World Cup goals and featured in 6 curated match-lens cards across World Cups 1958, 1962, and 1966.",
       "summary": "Historical card generated from World Cup scorer events, match appearances, tournament squads, and curated match-lens notes. Archive teams: England. Archive tournaments: World Cups 1958, 1962, and 1966.",
-      "sourceUrl": "https://github.com/jfjelstul/worldcup"
+      "sourceUrl": "https://github.com/jfjelstul/worldcup",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/LondonHouseAmsterdam1966_Bobby_Charlton.jpg/330px-LondonHouseAmsterdam1966_Bobby_Charlton.jpg",
+      "imageSource": "wikipedia-page-summaries",
+      "imageSourceUrl": "https://en.wikipedia.org/wiki/Bobby_Charlton",
+      "imagePageTitle": "Bobby Charlton",
+      "imagePageUrl": "https://en.wikipedia.org/wiki/Bobby_Charlton"
     },
     "Bobby Collins": {
       "name": "Bobby Collins",
@@ -14525,7 +14548,12 @@
       ],
       "note": "Brazil's World Cup archive defender; featured in 1 curated match-lens card across World Cup 2006.",
       "summary": "Historical card generated from World Cup scorer events, match appearances, tournament squads, and curated match-lens notes. Archive teams: Brazil. Archive tournaments: World Cup 2006.",
-      "sourceUrl": "https://github.com/jfjelstul/worldcup"
+      "sourceUrl": "https://github.com/jfjelstul/worldcup",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/26.02.2026_-_Cerim%C3%B4nia_de_apresenta%C3%A7%C3%A3o_das_ta%C3%A7as_da_Copa_do_Mundo_de_2026_e_da_Copa_do_Mundo_Feminina_de_2027_%2855118283428%29_%28cropped%29.jpg/330px-26.02.2026_-_Cerim%C3%B4nia_de_apresenta%C3%A7%C3%A3o_das_ta%C3%A7as_da_Copa_do_Mundo_de_2026_e_da_Copa_do_Mundo_Feminina_de_2027_%2855118283428%29_%28cropped%29.jpg",
+      "imageSource": "wikipedia-page-summaries",
+      "imageSourceUrl": "https://en.wikipedia.org/wiki/Cafu",
+      "imagePageTitle": "Cafu",
+      "imagePageUrl": "https://en.wikipedia.org/wiki/Cafu"
     },
     "Caju": {
       "name": "Caju",
@@ -14714,7 +14742,12 @@
       ],
       "note": "Spain's World Cup archive defender; credited with 1 World Cup goal and featured in 5 curated match-lens cards across World Cups 2002 and 2010.",
       "summary": "Historical card generated from World Cup scorer events, match appearances, tournament squads, and curated match-lens notes. Archive teams: Spain. Archive tournaments: World Cups 2002 and 2010.",
-      "sourceUrl": "https://github.com/jfjelstul/worldcup"
+      "sourceUrl": "https://github.com/jfjelstul/worldcup",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/Premios_Goya_2020_-_Carles_Pujol.jpg/330px-Premios_Goya_2020_-_Carles_Pujol.jpg",
+      "imageSource": "wikipedia-page-summaries",
+      "imageSourceUrl": "https://en.wikipedia.org/wiki/Carles_Puyol",
+      "imagePageTitle": "Carles Puyol",
+      "imagePageUrl": "https://en.wikipedia.org/wiki/Carles_Puyol"
     },
     "Carles Rexach": {
       "name": "Carles Rexach",
@@ -14934,7 +14967,12 @@
       ],
       "note": "Brazil's World Cup archive player; credited with 1 World Cup goal across World Cup 1970.",
       "summary": "Historical card generated from World Cup scorer events, match appearances, tournament squads, and curated match-lens notes. Archive teams: Brazil. Archive tournaments: World Cup 1970.",
-      "sourceUrl": "https://github.com/jfjelstul/worldcup"
+      "sourceUrl": "https://github.com/jfjelstul/worldcup",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Carlos_alberto_cosmos.jpg/330px-Carlos_alberto_cosmos.jpg",
+      "imageSource": "wikipedia-page-summaries",
+      "imageSourceUrl": "https://en.wikipedia.org/wiki/Carlos_Alberto_Torres",
+      "imagePageTitle": "Carlos Alberto Torres",
+      "imagePageUrl": "https://en.wikipedia.org/wiki/Carlos_Alberto_Torres"
     },
     "Carlos Babington": {
       "name": "Carlos Babington",
@@ -20937,7 +20975,12 @@
       ],
       "note": "Spain's World Cup archive forward; credited with 9 World Cup goals and featured in 9 curated match-lens cards across World Cups 2006, 2010, and 2014.",
       "summary": "Historical card generated from World Cup scorer events, match appearances, tournament squads, and curated match-lens notes. Archive teams: Spain. Archive tournaments: World Cups 2006, 2010, and 2014.",
-      "sourceUrl": "https://github.com/jfjelstul/worldcup"
+      "sourceUrl": "https://github.com/jfjelstul/worldcup",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Spain-Tahiti%2C_Confederations_Cup_2013_%2802%29_%28Villa_crop%29.jpg/330px-Spain-Tahiti%2C_Confederations_Cup_2013_%2802%29_%28Villa_crop%29.jpg",
+      "imageSource": "wikipedia-page-summaries",
+      "imageSourceUrl": "https://en.wikipedia.org/wiki/David_Villa",
+      "imagePageTitle": "David Villa",
+      "imagePageUrl": "https://en.wikipedia.org/wiki/David_Villa"
     },
     "Davinson Sánchez": {
       "name": "Davinson Sánchez",
@@ -21022,7 +21065,12 @@
       ],
       "note": "Croatia's World Cup archive forward; credited with 6 World Cup goals and featured in 8 curated match-lens cards across World Cups 1998 and 2002.",
       "summary": "Historical card generated from World Cup scorer events, match appearances, tournament squads, and curated match-lens notes. Archive teams: Croatia. Archive tournaments: World Cups 1998 and 2002.",
-      "sourceUrl": "https://github.com/jfjelstul/worldcup"
+      "sourceUrl": "https://github.com/jfjelstul/worldcup",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Football_against_poverty_2014_-_Davor_%C5%A0uker_%28cropped%29.jpg/330px-Football_against_poverty_2014_-_Davor_%C5%A0uker_%28cropped%29.jpg",
+      "imageSource": "wikipedia-page-summaries",
+      "imageSourceUrl": "https://en.wikipedia.org/wiki/Davor_%C5%A0uker",
+      "imagePageTitle": "Davor Šuker",
+      "imagePageUrl": "https://en.wikipedia.org/wiki/Davor_%C5%A0uker"
     },
     "Davy Klaassen": {
       "name": "Davy Klaassen",
@@ -22190,7 +22238,12 @@
       ],
       "note": "Uruguay's World Cup archive forward; credited with 6 World Cup goals and featured in 8 curated match-lens cards across World Cups 2002, 2010, and 2014.",
       "summary": "Historical card generated from World Cup scorer events, match appearances, tournament squads, and curated match-lens notes. Archive teams: Uruguay. Archive tournaments: World Cups 2002, 2010, and 2014.",
-      "sourceUrl": "https://github.com/jfjelstul/worldcup"
+      "sourceUrl": "https://github.com/jfjelstul/worldcup",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/U10_Diego_Forl%C3%A1n_7524.jpg/330px-U10_Diego_Forl%C3%A1n_7524.jpg",
+      "imageSource": "wikipedia-page-summaries",
+      "imageSourceUrl": "https://en.wikipedia.org/wiki/Diego_Forl%C3%A1n",
+      "imagePageTitle": "Diego Forlán",
+      "imagePageUrl": "https://en.wikipedia.org/wiki/Diego_Forl%C3%A1n"
     },
     "Diego Godín": {
       "name": "Diego Godín",
@@ -22280,7 +22333,12 @@
       ],
       "note": "Argentina's World Cup archive midfielder; credited with 8 World Cup goals and featured in 9 curated match-lens cards across World Cups 1982-1994.",
       "summary": "Historical card generated from World Cup scorer events, match appearances, tournament squads, and curated match-lens notes. Archive teams: Argentina. Archive tournaments: World Cups 1982-1994.",
-      "sourceUrl": "https://github.com/jfjelstul/worldcup"
+      "sourceUrl": "https://github.com/jfjelstul/worldcup",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Argentina_celebrando_copa_%28cropped%29.jpg/330px-Argentina_celebrando_copa_%28cropped%29.jpg",
+      "imageSource": "wikipedia-page-summaries",
+      "imageSourceUrl": "https://en.wikipedia.org/wiki/Diego_Maradona",
+      "imagePageTitle": "Diego Maradona",
+      "imagePageUrl": "https://en.wikipedia.org/wiki/Diego_Maradona"
     },
     "Diego Placente": {
       "name": "Diego Placente",
@@ -22642,7 +22700,12 @@
       ],
       "note": "Italy's World Cup archive goalkeeper; featured in 5 curated match-lens cards across World Cups 1978 and 1982.",
       "summary": "Historical card generated from World Cup scorer events, match appearances, tournament squads, and curated match-lens notes. Archive teams: Italy. Archive tournaments: World Cups 1978 and 1982.",
-      "sourceUrl": "https://github.com/jfjelstul/worldcup"
+      "sourceUrl": "https://github.com/jfjelstul/worldcup",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Dino_Zoff_-_1972_-_Juventus_FC_%28cropped%29.jpg/330px-Dino_Zoff_-_1972_-_Juventus_FC_%28cropped%29.jpg",
+      "imageSource": "wikipedia-page-summaries",
+      "imageSourceUrl": "https://en.wikipedia.org/wiki/Dino_Zoff",
+      "imagePageTitle": "Dino Zoff",
+      "imagePageUrl": "https://en.wikipedia.org/wiki/Dino_Zoff"
     },
     "Diogo Costa": {
       "name": "Diogo Costa",
@@ -27179,7 +27242,12 @@
       ],
       "note": "Portugal's World Cup archive forward; credited with 9 World Cup goals and featured in 5 curated match-lens cards across World Cup 1966.",
       "summary": "Historical card generated from World Cup scorer events, match appearances, tournament squads, and curated match-lens notes. Archive teams: Portugal. Archive tournaments: World Cup 1966.",
-      "sourceUrl": "https://github.com/jfjelstul/worldcup"
+      "sourceUrl": "https://github.com/jfjelstul/worldcup",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Eusebio_en_1973.jpg/330px-Eusebio_en_1973.jpg",
+      "imageSource": "wikipedia-page-summaries",
+      "imageSourceUrl": "https://en.wikipedia.org/wiki/Eus%C3%A9bio",
+      "imagePageTitle": "Eusébio",
+      "imagePageUrl": "https://en.wikipedia.org/wiki/Eus%C3%A9bio"
     },
     "Eusebio Escobar": {
       "name": "Eusebio Escobar",
@@ -28330,7 +28398,12 @@
       ],
       "note": "Hungary's World Cup archive forward; credited with 4 World Cup goals and featured in 3 curated match-lens cards across World Cup 1954.",
       "summary": "Historical card generated from World Cup scorer events, match appearances, tournament squads, and curated match-lens notes. Archive teams: Hungary. Archive tournaments: World Cup 1954.",
-      "sourceUrl": "https://github.com/jfjelstul/worldcup"
+      "sourceUrl": "https://github.com/jfjelstul/worldcup",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/9/93/Ferenc_Puskas_en_1965.jpg",
+      "imageSource": "wikipedia-page-summaries",
+      "imageSourceUrl": "https://en.wikipedia.org/wiki/Ferenc_Pusk%C3%A1s",
+      "imagePageTitle": "Ferenc Puskás",
+      "imagePageUrl": "https://en.wikipedia.org/wiki/Ferenc_Pusk%C3%A1s"
     },
     "Ferenc Sas": {
       "name": "Ferenc Sas",
@@ -30052,7 +30125,12 @@
       ],
       "note": "West Germany's World Cup archive midfielder; credited with 5 World Cup goals and featured in 4 curated match-lens cards across World Cups 1966 and 1970.",
       "summary": "Historical card generated from World Cup scorer events, match appearances, tournament squads, and curated match-lens notes. Archive teams: West Germany. Archive tournaments: World Cups 1966 and 1970.",
-      "sourceUrl": "https://github.com/jfjelstul/worldcup"
+      "sourceUrl": "https://github.com/jfjelstul/worldcup",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Franz_Beckenbauer_%281975%29.jpg/330px-Franz_Beckenbauer_%281975%29.jpg",
+      "imageSource": "wikipedia-page-summaries",
+      "imageSourceUrl": "https://en.wikipedia.org/wiki/Franz_Beckenbauer",
+      "imagePageTitle": "Franz Beckenbauer",
+      "imagePageUrl": "https://en.wikipedia.org/wiki/Franz_Beckenbauer"
     },
     "Franz Dienert": {
       "name": "Franz Dienert",
@@ -30935,7 +31013,12 @@
       ],
       "note": "Brazil's World Cup archive forward; credited with 5 World Cup goals and featured in 4 curated match-lens cards across World Cups 1962 and 1966.",
       "summary": "Historical card generated from World Cup scorer events, match appearances, tournament squads, and curated match-lens notes. Archive teams: Brazil. Archive tournaments: World Cups 1962 and 1966.",
-      "sourceUrl": "https://github.com/jfjelstul/worldcup"
+      "sourceUrl": "https://github.com/jfjelstul/worldcup",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Manoel_Francisco_dos_Santos-Garrincha.jpg/330px-Manoel_Francisco_dos_Santos-Garrincha.jpg",
+      "imageSource": "wikipedia-page-summaries",
+      "imageSourceUrl": "https://en.wikipedia.org/wiki/Garrincha",
+      "imagePageTitle": "Garrincha",
+      "imagePageUrl": "https://en.wikipedia.org/wiki/Garrincha"
     },
     "Gary Breen": {
       "name": "Gary Breen",
@@ -31049,7 +31132,12 @@
       ],
       "note": "England's World Cup archive forward; credited with 10 World Cup goals and featured in 8 curated match-lens cards across World Cups 1986 and 1990.",
       "summary": "Historical card generated from World Cup scorer events, match appearances, tournament squads, and curated match-lens notes. Archive teams: England. Archive tournaments: World Cups 1986 and 1990.",
-      "sourceUrl": "https://github.com/jfjelstul/worldcup"
+      "sourceUrl": "https://github.com/jfjelstul/worldcup",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Prime_Minister_Keir_Starmer_hosts_St_George%27s_Day_Reception_%2854470857860%29_%28cropped%29.jpg/330px-Prime_Minister_Keir_Starmer_hosts_St_George%27s_Day_Reception_%2854470857860%29_%28cropped%29.jpg",
+      "imageSource": "wikipedia-page-summaries",
+      "imageSourceUrl": "https://en.wikipedia.org/wiki/Gary_Lineker",
+      "imagePageTitle": "Gary Lineker",
+      "imagePageUrl": "https://en.wikipedia.org/wiki/Gary_Lineker"
     },
     "Gary Medel": {
       "name": "Gary Medel",
@@ -31383,7 +31471,12 @@
       ],
       "note": "England's World Cup archive forward; credited with 5 World Cup goals and featured in 5 curated match-lens cards across World Cups 1966 and 1970.",
       "summary": "Historical card generated from World Cup scorer events, match appearances, tournament squads, and curated match-lens notes. Archive teams: England. Archive tournaments: World Cups 1966 and 1970.",
-      "sourceUrl": "https://github.com/jfjelstul/worldcup"
+      "sourceUrl": "https://github.com/jfjelstul/worldcup",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Geoff_Hurst_%282%29.jpg/330px-Geoff_Hurst_%282%29.jpg",
+      "imageSource": "wikipedia-page-summaries",
+      "imageSourceUrl": "https://en.wikipedia.org/wiki/Geoff_Hurst",
+      "imagePageTitle": "Geoff Hurst",
+      "imagePageUrl": "https://en.wikipedia.org/wiki/Geoff_Hurst"
     },
     "Georg Braun": {
       "name": "Georg Braun",
@@ -31935,7 +32028,12 @@
       ],
       "note": "West Germany's World Cup archive forward; credited with 14 World Cup goals and featured in 10 curated match-lens cards across World Cups 1970 and 1974.",
       "summary": "Historical card generated from World Cup scorer events, match appearances, tournament squads, and curated match-lens notes. Archive teams: West Germany. Archive tournaments: World Cups 1970 and 1974.",
-      "sourceUrl": "https://github.com/jfjelstul/worldcup"
+      "sourceUrl": "https://github.com/jfjelstul/worldcup",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Gerd_M%C3%BCller_c1973_%28cropped%29.jpg/330px-Gerd_M%C3%BCller_c1973_%28cropped%29.jpg",
+      "imageSource": "wikipedia-page-summaries",
+      "imageSourceUrl": "https://en.wikipedia.org/wiki/Gerd_M%C3%BCller",
+      "imagePageTitle": "Gerd Müller",
+      "imagePageUrl": "https://en.wikipedia.org/wiki/Gerd_M%C3%BCller"
     },
     "Gerhard Lusenti": {
       "name": "Gerhard Lusenti",
@@ -32622,7 +32720,12 @@
       ],
       "note": "Italy's World Cup archive goalkeeper; featured in 6 curated match-lens cards across World Cups 2002 and 2006.",
       "summary": "Historical card generated from World Cup scorer events, match appearances, tournament squads, and curated match-lens notes. Archive teams: Italy. Archive tournaments: World Cups 2002 and 2006.",
-      "sourceUrl": "https://github.com/jfjelstul/worldcup"
+      "sourceUrl": "https://github.com/jfjelstul/worldcup",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Norway_Italy_-_June_2025_A_44_%28Gianluigi_Buffon%29.jpg/330px-Norway_Italy_-_June_2025_A_44_%28Gianluigi_Buffon%29.jpg",
+      "imageSource": "wikipedia-page-summaries",
+      "imageSourceUrl": "https://en.wikipedia.org/wiki/Gianluigi_Buffon",
+      "imagePageTitle": "Gianluigi Buffon",
+      "imagePageUrl": "https://en.wikipedia.org/wiki/Gianluigi_Buffon"
     },
     "Gianni Rivera": {
       "name": "Gianni Rivera",
@@ -33613,7 +33716,12 @@
       ],
       "note": "England's World Cup archive goalkeeper; featured in 6 curated match-lens cards across World Cups 1966 and 1970.",
       "summary": "Historical card generated from World Cup scorer events, match appearances, tournament squads, and curated match-lens notes. Archive teams: England. Archive tournaments: World Cups 1966 and 1970.",
-      "sourceUrl": "https://github.com/jfjelstul/worldcup"
+      "sourceUrl": "https://github.com/jfjelstul/worldcup",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/a/a3/Gordon_Banks_2007.jpg",
+      "imageSource": "wikipedia-page-summaries",
+      "imageSourceUrl": "https://en.wikipedia.org/wiki/Gordon_Banks",
+      "imagePageTitle": "Gordon Banks",
+      "imagePageUrl": "https://en.wikipedia.org/wiki/Gordon_Banks"
     },
     "Gordon Durie": {
       "name": "Gordon Durie",
@@ -40160,7 +40268,12 @@
       ],
       "note": "Brazil's World Cup archive forward; credited with 9 World Cup goals and featured in 8 curated match-lens cards across World Cups 1970 and 1974.",
       "summary": "Historical card generated from World Cup scorer events, match appearances, tournament squads, and curated match-lens notes. Archive teams: Brazil. Archive tournaments: World Cups 1970 and 1974.",
-      "sourceUrl": "https://github.com/jfjelstul/worldcup"
+      "sourceUrl": "https://github.com/jfjelstul/worldcup",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Jairzinho_1970s.jpg/330px-Jairzinho_1970s.jpg",
+      "imageSource": "wikipedia-page-summaries",
+      "imageSourceUrl": "https://en.wikipedia.org/wiki/Jairzinho",
+      "imagePageTitle": "Jairzinho",
+      "imagePageUrl": "https://en.wikipedia.org/wiki/Jairzinho"
     },
     "Jakub Błaszczykowski": {
       "name": "Jakub Błaszczykowski",
@@ -43172,7 +43285,12 @@
       ],
       "note": "Netherlands's World Cup archive forward; credited with 3 World Cup goals and featured in 3 curated match-lens cards across World Cup 1974.",
       "summary": "Historical card generated from World Cup scorer events, match appearances, tournament squads, and curated match-lens notes. Archive teams: Netherlands. Archive tournaments: World Cup 1974.",
-      "sourceUrl": "https://github.com/jfjelstul/worldcup"
+      "sourceUrl": "https://github.com/jfjelstul/worldcup",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Johan_Cruijff_%281974%29.jpg/330px-Johan_Cruijff_%281974%29.jpg",
+      "imageSource": "wikipedia-page-summaries",
+      "imageSourceUrl": "https://en.wikipedia.org/wiki/Johan_Cruyff",
+      "imagePageTitle": "Johan Cruyff",
+      "imagePageUrl": "https://en.wikipedia.org/wiki/Johan_Cruyff"
     },
     "Johan Neeskens": {
       "name": "Johan Neeskens",
@@ -47847,7 +47965,12 @@
       ],
       "note": "France's World Cup archive forward; credited with 13 World Cup goals and featured in 6 curated match-lens cards across World Cup 1958.",
       "summary": "Historical card generated from World Cup scorer events, match appearances, tournament squads, and curated match-lens notes. Archive teams: France. Archive tournaments: World Cup 1958.",
-      "sourceUrl": "https://github.com/jfjelstul/worldcup"
+      "sourceUrl": "https://github.com/jfjelstul/worldcup",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/23.05.66_Just_Fontaine_dans_son_magasin_%281966%29_-_53Fi634_%28Cropped%29.jpg/330px-23.05.66_Just_Fontaine_dans_son_magasin_%281966%29_-_53Fi634_%28Cropped%29.jpg",
+      "imageSource": "wikipedia-page-summaries",
+      "imageSourceUrl": "https://en.wikipedia.org/wiki/Just_Fontaine",
+      "imagePageTitle": "Just Fontaine",
+      "imagePageUrl": "https://en.wikipedia.org/wiki/Just_Fontaine"
     },
     "Justo Villar": {
       "name": "Justo Villar",
@@ -51722,7 +51845,12 @@
       ],
       "note": "Soviet Union's World Cup archive goalkeeper; featured in 4 curated match-lens cards across World Cups 1958, 1962, and 1966.",
       "summary": "Historical card generated from World Cup scorer events, match appearances, tournament squads, and curated match-lens notes. Archive teams: Soviet Union. Archive tournaments: World Cups 1958, 1962, and 1966.",
-      "sourceUrl": "https://github.com/jfjelstul/worldcup"
+      "sourceUrl": "https://github.com/jfjelstul/worldcup",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/LevYashin.JPG/330px-LevYashin.JPG",
+      "imageSource": "wikipedia-page-summaries",
+      "imageSourceUrl": "https://en.wikipedia.org/wiki/Lev_Yashin",
+      "imagePageTitle": "Lev Yashin",
+      "imagePageUrl": "https://en.wikipedia.org/wiki/Lev_Yashin"
     },
     "Liédson": {
       "name": "Liédson",
@@ -58384,7 +58512,12 @@
       ],
       "note": "Germany's World Cup archive forward; credited with 16 World Cup goals and featured in 16 curated match-lens cards across World Cups 2002-2014.",
       "summary": "Historical card generated from World Cup scorer events, match appearances, tournament squads, and curated match-lens notes. Archive teams: Germany. Archive tournaments: World Cups 2002-2014.",
-      "sourceUrl": "https://github.com/jfjelstul/worldcup"
+      "sourceUrl": "https://github.com/jfjelstul/worldcup",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/2016209185719_2016-07-27_Champions_for_Charity_-_Sven_-_1D_X_-_0149_-_DV3P4742_mod.jpg/330px-2016209185719_2016-07-27_Champions_for_Charity_-_Sven_-_1D_X_-_0149_-_DV3P4742_mod.jpg",
+      "imageSource": "wikipedia-page-summaries",
+      "imageSourceUrl": "https://en.wikipedia.org/wiki/Miroslav_Klose",
+      "imagePageTitle": "Miroslav Klose",
+      "imagePageUrl": "https://en.wikipedia.org/wiki/Miroslav_Klose"
     },
     "Mislav Oršić": {
       "name": "Mislav Oršić",
@@ -62139,7 +62272,12 @@
       ],
       "note": "Italy's World Cup archive forward; credited with 9 World Cup goals and featured in 10 curated match-lens cards across World Cups 1978 and 1982.",
       "summary": "Historical card generated from World Cup scorer events, match appearances, tournament squads, and curated match-lens notes. Archive teams: Italy. Archive tournaments: World Cups 1978 and 1982.",
-      "sourceUrl": "https://github.com/jfjelstul/worldcup"
+      "sourceUrl": "https://github.com/jfjelstul/worldcup",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Paolo_Rossi_Vicenza_%28cropped%29.jpg/330px-Paolo_Rossi_Vicenza_%28cropped%29.jpg",
+      "imageSource": "wikipedia-page-summaries",
+      "imageSourceUrl": "https://en.wikipedia.org/wiki/Paolo_Rossi",
+      "imagePageTitle": "Paolo Rossi",
+      "imagePageUrl": "https://en.wikipedia.org/wiki/Paolo_Rossi"
     },
     "Papa Bouba Diop": {
       "name": "Papa Bouba Diop",
@@ -63289,7 +63427,12 @@
       ],
       "note": "Brazil's World Cup archive forward; credited with 12 World Cup goals and featured in 8 curated match-lens cards across World Cups 1958-1970.",
       "summary": "Historical card generated from World Cup scorer events, match appearances, tournament squads, and curated match-lens notes. Archive teams: Brazil. Archive tournaments: World Cups 1958-1970.",
-      "sourceUrl": "https://github.com/jfjelstul/worldcup"
+      "sourceUrl": "https://github.com/jfjelstul/worldcup",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Pele_con_brasil_%28cropped%29.jpg/330px-Pele_con_brasil_%28cropped%29.jpg",
+      "imageSource": "wikipedia-page-summaries",
+      "imageSourceUrl": "https://en.wikipedia.org/wiki/Pel%C3%A9",
+      "imagePageTitle": "Pelé",
+      "imagePageUrl": "https://en.wikipedia.org/wiki/Pel%C3%A9"
     },
     "Pepe": {
       "name": "Pepe",
@@ -66891,7 +67034,12 @@
       ],
       "note": "Brazil's World Cup archive midfielder; credited with 8 World Cup goals and featured in 7 curated match-lens cards across World Cups 1998 and 2002.",
       "summary": "Historical card generated from World Cup scorer events, match appearances, tournament squads, and curated match-lens notes. Archive teams: Brazil. Archive tournaments: World Cups 1998 and 2002.",
-      "sourceUrl": "https://github.com/jfjelstul/worldcup"
+      "sourceUrl": "https://github.com/jfjelstul/worldcup",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/8/8e/Rivaldo.jpg",
+      "imageSource": "wikipedia-page-summaries",
+      "imageSourceUrl": "https://en.wikipedia.org/wiki/Rivaldo",
+      "imagePageTitle": "Rivaldo",
+      "imagePageUrl": "https://en.wikipedia.org/wiki/Rivaldo"
     },
     "Rivellino": {
       "name": "Rivellino",
@@ -67423,7 +67571,12 @@
       ],
       "note": "Italy's World Cup archive forward; credited with 9 World Cup goals and featured in 10 curated match-lens cards across World Cups 1990, 1994, and 1998.",
       "summary": "Historical card generated from World Cup scorer events, match appearances, tournament squads, and curated match-lens notes. Archive teams: Italy. Archive tournaments: World Cups 1990, 1994, and 1998.",
-      "sourceUrl": "https://github.com/jfjelstul/worldcup"
+      "sourceUrl": "https://github.com/jfjelstul/worldcup",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/%D8%B1%D9%88%D8%A8%D8%B1%D8%AA%D9%88_%D8%A8%D8%A7%D8%AC%D9%88_%28cropped%29.jpg/330px-%D8%B1%D9%88%D8%A8%D8%B1%D8%AA%D9%88_%D8%A8%D8%A7%D8%AC%D9%88_%28cropped%29.jpg",
+      "imageSource": "wikipedia-page-summaries",
+      "imageSourceUrl": "https://en.wikipedia.org/wiki/Roberto_Baggio",
+      "imagePageTitle": "Roberto Baggio",
+      "imagePageUrl": "https://en.wikipedia.org/wiki/Roberto_Baggio"
     },
     "Roberto Bettega": {
       "name": "Roberto Bettega",
@@ -67535,7 +67688,12 @@
       ],
       "note": "Brazil's World Cup archive left wing back; credited with 1 World Cup goal and featured in 1 curated match-lens card across World Cup 2002.",
       "summary": "Historical card generated from World Cup scorer events, match appearances, tournament squads, and curated match-lens notes. Archive teams: Brazil. Archive tournaments: World Cup 2002.",
-      "sourceUrl": "https://github.com/jfjelstul/worldcup"
+      "sourceUrl": "https://github.com/jfjelstul/worldcup",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/LS3_1288_%2853332367864%29_%28cropped%29.jpg/330px-LS3_1288_%2853332367864%29_%28cropped%29.jpg",
+      "imageSource": "wikipedia-page-summaries",
+      "imageSourceUrl": "https://en.wikipedia.org/wiki/Roberto_Carlos",
+      "imagePageTitle": "Roberto Carlos",
+      "imagePageUrl": "https://en.wikipedia.org/wiki/Roberto_Carlos"
     },
     "Roberto Challe": {
       "name": "Roberto Challe",
@@ -68335,7 +68493,12 @@
       ],
       "note": "Brazil's World Cup archive forward; credited with 5 World Cup goals and featured in 6 curated match-lens cards across World Cup 1994.",
       "summary": "Historical card generated from World Cup scorer events, match appearances, tournament squads, and curated match-lens notes. Archive teams: Brazil. Archive tournaments: World Cup 1994.",
-      "sourceUrl": "https://github.com/jfjelstul/worldcup"
+      "sourceUrl": "https://github.com/jfjelstul/worldcup",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Senadores_da_57%C2%AA_Legislatura_%2852689451805%29.jpg/330px-Senadores_da_57%C2%AA_Legislatura_%2852689451805%29.jpg",
+      "imageSource": "wikipedia-page-summaries",
+      "imageSourceUrl": "https://en.wikipedia.org/wiki/Rom%C3%A1rio",
+      "imagePageTitle": "Romário",
+      "imagePageUrl": "https://en.wikipedia.org/wiki/Rom%C3%A1rio"
     },
     "Romelu Lukaku": {
       "name": "Romelu Lukaku",
@@ -68648,7 +68811,12 @@
       ],
       "note": "Brazil's World Cup archive forward; credited with 2 World Cup goals and featured in 2 curated match-lens cards across World Cups 2002 and 2006.",
       "summary": "Historical card generated from World Cup scorer events, match appearances, tournament squads, and curated match-lens notes. Archive teams: Brazil. Archive tournaments: World Cups 2002 and 2006.",
-      "sourceUrl": "https://github.com/jfjelstul/worldcup"
+      "sourceUrl": "https://github.com/jfjelstul/worldcup",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Ronaldinho_in_2019.jpg/330px-Ronaldinho_in_2019.jpg",
+      "imageSource": "wikipedia-page-summaries",
+      "imageSourceUrl": "https://en.wikipedia.org/wiki/Ronaldinho",
+      "imagePageTitle": "Ronaldinho",
+      "imagePageUrl": "https://en.wikipedia.org/wiki/Ronaldinho"
     },
     "Ronaldo": {
       "name": "Ronaldo",
@@ -68678,7 +68846,12 @@
       ],
       "note": "Brazil's World Cup archive forward; credited with 15 World Cup goals and featured in 17 curated match-lens cards across World Cups 1998, 2002, and 2006.",
       "summary": "Historical card generated from World Cup scorer events, match appearances, tournament squads, and curated match-lens notes. Archive teams: Brazil. Archive tournaments: World Cups 1998, 2002, and 2006.",
-      "sourceUrl": "https://github.com/jfjelstul/worldcup"
+      "sourceUrl": "https://github.com/jfjelstul/worldcup",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Ronaldo_Lu%C3%ADs_Naz%C3%A1rio_de_Lima_2019_%283x4_cropped%29.jpg/330px-Ronaldo_Lu%C3%ADs_Naz%C3%A1rio_de_Lima_2019_%283x4_cropped%29.jpg",
+      "imageSource": "wikipedia-page-summaries",
+      "imageSourceUrl": "https://en.wikipedia.org/wiki/Ronaldo_(Brazilian_footballer)",
+      "imagePageTitle": "Ronaldo (Brazilian footballer)",
+      "imagePageUrl": "https://en.wikipedia.org/wiki/Ronaldo_(Brazilian_footballer)"
     },
     "Ronnie Hellström": {
       "name": "Ronnie Hellström",
@@ -79032,7 +79205,12 @@
       ],
       "note": "France's World Cup archive midfielder; credited with 5 World Cup goals and featured in 5 curated match-lens cards across World Cups 1998 and 2006.",
       "summary": "Historical card generated from World Cup scorer events, match appearances, tournament squads, and curated match-lens notes. Archive teams: France. Archive tournaments: World Cups 1998 and 2006.",
-      "sourceUrl": "https://github.com/jfjelstul/worldcup"
+      "sourceUrl": "https://github.com/jfjelstul/worldcup",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Zinedine_Zidane_by_Tasnim_03.jpg/330px-Zinedine_Zidane_by_Tasnim_03.jpg",
+      "imageSource": "wikipedia-page-summaries",
+      "imageSourceUrl": "https://en.wikipedia.org/wiki/Zinedine_Zidane",
+      "imagePageTitle": "Zinedine Zidane",
+      "imagePageUrl": "https://en.wikipedia.org/wiki/Zinedine_Zidane"
     },
     "Zito": {
       "name": "Zito",

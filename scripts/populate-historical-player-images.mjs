@@ -10,6 +10,7 @@ const historicalProfilesPath = path.join(dataDir, "historical-player-profiles.js
 const currentProfilesPath = path.join(dataDir, "player-profiles.json");
 const wikipediaApiUrl = "https://en.wikipedia.org/w/api.php";
 const commonsSourceId = "wikimedia-commons";
+const wikipediaSummarySourceId = "wikipedia-page-summaries";
 const inheritedImageSource = "current-player-profile";
 const requestDelayMs = Number(process.env.HISTORICAL_IMAGE_REQUEST_DELAY_MS || 100);
 const lookupLimit = Number(process.env.HISTORICAL_IMAGE_LOOKUP_LIMIT || 0);
@@ -78,6 +79,7 @@ const curatedTitleOverrides = new Map(
     ["Mesut Özil", "Mesut Özil"]
   ].map(([name, title]) => [normalizePlayerName(name), title])
 );
+const curatedPriorityByName = new Map([...curatedTitleOverrides.keys()].map((nameKey, index) => [nameKey, index]));
 
 async function readJson(filePath) {
   return JSON.parse(await readFile(filePath, "utf8"));
@@ -116,7 +118,7 @@ function hasJuniorMismatch(profileName, title) {
 }
 
 function isFootballerExtract(extract) {
-  return /\b(footballer|association football|soccer player|football manager|played as a)\b/i.test(extract || "");
+  return /\b(footballer|football player|association football|soccer player|football manager|played as a)\b/i.test(extract || "");
 }
 
 function hasTeamClue(profile, text) {
@@ -191,6 +193,21 @@ async function fetchWikipedia(params, attempt = 0) {
   }
   if (!response.ok) {
     throw new Error(`Wikipedia API request failed: ${response.status} ${response.statusText}`);
+  }
+
+  return response.json();
+}
+
+async function fetchPageSummary(title) {
+  const normalizedTitle = String(title || "").trim().replace(/ /g, "_");
+  const response = await fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(normalizedTitle)}`, {
+    headers: {
+      "Api-User-Agent": apiUserAgent,
+      "User-Agent": apiUserAgent
+    }
+  });
+  if (!response.ok) {
+    throw new Error(`Wikipedia summary request failed: ${response.status} ${response.statusText}`);
   }
 
   return response.json();
@@ -277,6 +294,29 @@ async function lookupCommonsImage(profile) {
   let pages = [];
 
   if (overrideTitle) {
+    const summary = await fetchPageSummary(overrideTitle);
+    const summaryImageUrl = summary?.thumbnail?.source || summary?.originalimage?.source || "";
+    const summaryPage = {
+      title: summary?.title || overrideTitle,
+      extract: summary?.extract || "",
+      pageimage: summaryImageUrl,
+      fullurl: summary?.content_urls?.desktop?.page || ""
+    };
+
+    if (summaryImageUrl && isLikelyPlayerPage(profile, summaryPage, overrideTitle)) {
+      return {
+        imageUrl: summaryImageUrl,
+        imageSource: wikipediaSummarySourceId,
+        imageSourceUrl: summaryPage.fullurl,
+        imagePageTitle: summaryPage.title,
+        imagePageUrl: summaryPage.fullurl
+      };
+    }
+
+    if (curatedOnly) {
+      return null;
+    }
+
     const page = await fetchPageByTitle(overrideTitle);
     pages = page ? [page] : [];
   } else {
@@ -347,6 +387,10 @@ const missingProfiles = Object.values(profiles).filter((profile) => {
     return true;
   }
   return curatedTitleOverrides.has(normalizePlayerName(profile.name));
+}).sort((a, b) => {
+  const priorityA = curatedPriorityByName.get(normalizePlayerName(a.name)) ?? Number.MAX_SAFE_INTEGER;
+  const priorityB = curatedPriorityByName.get(normalizePlayerName(b.name)) ?? Number.MAX_SAFE_INTEGER;
+  return priorityA - priorityB || a.name.localeCompare(b.name);
 });
 const lookupProfiles = lookupLimit > 0 ? missingProfiles.slice(0, lookupLimit) : missingProfiles;
 
@@ -376,6 +420,9 @@ const sourceIds = new Set(historicalProfilesData.sourceIds || []);
 if (imageCount > 0) {
   sourceIds.add(commonsSourceId);
 }
+if (Object.values(profiles).some((profile) => profile.imageSource === wikipediaSummarySourceId)) {
+  sourceIds.add(wikipediaSummarySourceId);
+}
 
 const output = {
   ...historicalProfilesData,
@@ -383,9 +430,9 @@ const output = {
   sourceIds: [...sourceIds],
   coverage: {
     ...(historicalProfilesData.coverage || {}),
-    imageStatus: "current-card-reuse-plus-conservative-wikimedia-commons",
+    imageStatus: "current-card-reuse-plus-curated-wikipedia-wikimedia",
     imageNote:
-      "Historical cards reuse current profile photos for matching active players and add Wikimedia Commons photos only when the page match passes conservative footballer checks."
+      "Historical cards reuse current profile photos for matching active players and add Wikipedia/Wikimedia photos only when the page match passes conservative footballer checks or a curated title override."
   },
   profiles
 };
@@ -398,7 +445,7 @@ console.log(
   [
     `Historical player images ${dryRun ? "checked" : "populated"}: ${imageCount}/${Object.keys(profiles).length} profiles now have photos.`,
     `Inherited from current profiles: ${inheritedCount}.`,
-    `Added from Wikimedia Commons: ${wikimediaCount}.`,
+    `Added from Wikipedia/Wikimedia: ${wikimediaCount}.`,
     `Already had photos: ${skippedExistingCount}.`,
     `Wikimedia lookups attempted: ${lookedUpCount}.`,
     lookupLimit > 0 ? `Lookup limit applied: ${lookupLimit}.` : "",
