@@ -92,7 +92,7 @@ Preferred production path:
 - Configure `/api/live-data` with a football-data.org key on the free delayed-score plan.
 - Let the server-side live snapshot merge recent scores/status, enrich missing scorer-minute arrays from FIFA official timelines when available, and recompute standings automatically.
 - Keep manual JSON updates as the editorial/fallback layer, not the main live-update mechanism.
-- Run `pnpm sync:fifa` before match-day checks when updating the committed static fallback data.
+- Run `pnpm matchday:update` when updating the committed static fallback data.
 - Run `pnpm matchday:readiness` for a focused today/tomorrow checklist instead of treating every old archive or odds source as equally urgent.
 
 Normal non-match days:
@@ -113,9 +113,16 @@ For authored `catchUp` entries, keep the headline and body score-focused. Add op
 
 For completed fixture detail pages, add optional `resultHighlights` when the scoreline needs more context than the default source-check note. Keep each highlight to one compact sentence.
 
-Run this after final-score updates to give every completed group match the compact result treatment:
+Run this on match days to refresh the committed static fallback and verify it:
 
 ```bash
+pnpm matchday:update
+```
+
+That command runs the official score/status sync, FIFA goal-event sync, player-profile generation only when validation finds stale cards, result-highlight generation, and the full data/UI verification chain. The lower-level commands are still useful when you need to isolate one part of the pipeline:
+
+```bash
+pnpm sync:fifa
 pnpm sync:fifa:goals
 pnpm results
 pnpm results:check

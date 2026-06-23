@@ -15,11 +15,10 @@ The test script validates the JSON data, audits freshness/status drift, and runs
 On match days, refresh the static snapshot first:
 
 ```sh
-pnpm sync:fifa
-pnpm sync:fifa:goals
-pnpm matchday:readiness
-pnpm test
+pnpm matchday:update
 ```
+
+`pnpm matchday:update` runs the score/status sync, goal-event sync, player-profile refresh when validation proves cards are stale, result-highlight refresh, and the same verification checks used by `pnpm test`. The individual scripts remain available for targeted maintenance.
 
 The GitHub Data Quality workflow runs the same FIFA score sync before testing, so scheduled CI validates an official results snapshot instead of failing only because committed fallback JSON is a few matches behind.
 
