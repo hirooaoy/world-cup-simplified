@@ -161,8 +161,6 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "Data refreshed stays separate from app release notes.": "数据刷新时间与应用发布说明分开显示。",
     "FIFA schedule": "FIFA赛程",
     "Footer and source polish": "页脚和来源体验优化",
-    "Footer source and release notes now stay in compact in-page tooltips.":
-      "页脚来源和发布说明现在保留在紧凑的页面内提示框中。",
     "Footer stays short while sources and release notes open on hover.":
       "页脚保持简短，来源和发布说明可悬停查看。",
     "Final group table computed from archived match results.": "最终小组表由存档比赛结果计算得出。",
@@ -230,11 +228,6 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "Match plan": "比赛计划",
     "Archive standout": "存档代表",
     "Historical lens": "历史视角",
-    "Historical player cards now show archive-age context and peak values when available.":
-      "历史球员卡现在会在可用时显示当届年龄背景和峰值身价。",
-    "Historical photos now use current-player, Transfermarkt, and curated Wikipedia/Wikimedia sources.":
-      "历史照片现在使用现役球员、Transfermarkt，以及精选的 Wikipedia/Wikimedia 来源。",
-    "Historical player metadata": "历史球员资料",
     "Impact sub": "替补冲击",
     "Matches": "赛程",
     "Matches and selected match details": "比赛和已选比赛详情",
@@ -12895,6 +12888,32 @@ function getLatestReleaseNote() {
     .sort((a, b) => new Date(b.date || 0).getTime() - new Date(a.date || 0).getTime())[0];
 }
 
+function getReleaseNoteTitle(releaseNote) {
+  if (currentLanguage === "zh") {
+    return String(releaseNote?.titleZh || "").trim() || localizeText(releaseNote?.title || "Latest changes");
+  }
+
+  return String(releaseNote?.title || "").trim() || "Latest changes";
+}
+
+function getReleaseNoteHighlights(releaseNote) {
+  const hasLocalizedHighlights = currentLanguage === "zh" && Array.isArray(releaseNote?.highlightsZh);
+  const sourceHighlights = hasLocalizedHighlights ? releaseNote.highlightsZh : releaseNote?.highlights;
+  const highlights = Array.isArray(sourceHighlights)
+    ? sourceHighlights.map((item) => String(item || "").trim()).filter(Boolean).slice(0, 3)
+    : [];
+
+  if (highlights.length) {
+    return currentLanguage === "zh" && !hasLocalizedHighlights ? highlights.map(localizeText) : highlights;
+  }
+
+  return [
+    "Footer stays short while sources and release notes open on hover.",
+    "Release notes explain app changes; Data refreshed only shows data freshness.",
+    "Source links stay available inside the tooltip."
+  ].map(localizeText);
+}
+
 function renderSourceNote() {
   const compactSourceLabels = {
     "FIFA World Cup 2026 schedule": "FIFA schedule",
@@ -12939,20 +12958,15 @@ function renderSourceNote() {
     </span>
   `.trim();
   const latestReleaseNote = getLatestReleaseNote();
-  const releaseTooltipTitle = latestReleaseNote?.title || "Latest changes";
-  const releaseTooltipItems =
-    latestReleaseNote?.highlights?.filter(Boolean).slice(0, 3) || [
-      "Footer stays short while sources and release notes open on hover.",
-      "Release notes explain app changes; Data refreshed only shows data freshness.",
-      "Source links stay available inside the tooltip."
-    ];
+  const releaseTooltipTitle = getReleaseNoteTitle(latestReleaseNote);
+  const releaseTooltipItems = getReleaseNoteHighlights(latestReleaseNote);
   const releaseTooltip = `
     <span class="release-tooltip-wrapper">
       <button class="release-tooltip-trigger" type="button" aria-describedby="release-tooltip">${escapeHtml(releaseNotesText)}</button>${sentenceEnd}
       <span class="release-tooltip" id="release-tooltip" role="tooltip">
-        <strong>${escapeHtml(localizeText(releaseTooltipTitle))}</strong>
+        <strong>${escapeHtml(releaseTooltipTitle)}</strong>
         <ul>
-          ${releaseTooltipItems.map((item) => `<li>${escapeHtml(localizeText(item))}</li>`).join("")}
+          ${releaseTooltipItems.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}
         </ul>
       </span>
     </span>

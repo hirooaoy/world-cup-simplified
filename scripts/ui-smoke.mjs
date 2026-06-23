@@ -89,7 +89,7 @@ const sourceNoteData = await Promise.all(
     "tournament.json"
   ].map(async (fileName) => JSON.parse(await readFile(path.join(root, "data", fileName), "utf8")))
 );
-const [, , , , , teamsData, standingsData, tournamentData] = sourceNoteData;
+const [, , , , releaseNotesData, teamsData, standingsData, tournamentData] = sourceNoteData;
 const sourceNoteRefreshData = sourceNoteData.filter((_, index) => index !== 4);
 const fifaWorldCupScoresUrl =
   "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/scores-fixtures";
@@ -323,6 +323,18 @@ function formatExpectedSourceUpdatedAt(value) {
     timeZoneName: "short",
     year: "numeric"
   }).format(new Date(value));
+}
+
+function getExpectedReleaseTooltipText(data) {
+  const release = (data.releases || [])
+    .filter((item) => item && typeof item === "object")
+    .sort((a, b) => new Date(b.date || 0).getTime() - new Date(a.date || 0).getTime())[0];
+  const title = String(release?.title || "Latest changes").trim();
+  const highlights = Array.isArray(release?.highlights)
+    ? release.highlights.map((item) => String(item || "").trim()).filter(Boolean).slice(0, 3)
+    : [];
+
+  return [title, ...highlights].filter(Boolean).join(" ");
 }
 
 async function openPageAtTime(
@@ -1716,8 +1728,7 @@ try {
     "The source tooltip should show the compact official source list."
   );
   assert(
-    releaseTooltipText ===
-      "Historical player metadata Historical player cards now show archive-age context and peak values when available. Historical photos now use current-player, Transfermarkt, and curated Wikipedia/Wikimedia sources. Footer source and release notes now stay in compact in-page tooltips.",
+    releaseTooltipText === getExpectedReleaseTooltipText(releaseNotesData),
     "The release notes tooltip should show a compact change summary."
   );
   assert(

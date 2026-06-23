@@ -4,10 +4,16 @@
     {
       "date": "2026-06-23",
       "title": "Historical player metadata",
+      "titleZh": "历史球员资料",
       "highlights": [
         "Historical player cards now show archive-age context and peak values when available.",
         "Historical photos now use current-player, Transfermarkt, and curated Wikipedia/Wikimedia sources.",
         "Footer source and release notes now stay in compact in-page tooltips."
+      ],
+      "highlightsZh": [
+        "历史球员卡现在会在可用时显示当届年龄背景和峰值身价。",
+        "历史照片现在使用现役球员、Transfermarkt，以及精选的 Wikipedia/Wikimedia 来源。",
+        "页脚来源和发布说明现在保留在紧凑的页面内提示框中。"
       ]
     }
   ]
