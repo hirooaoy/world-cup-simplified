@@ -712,6 +712,20 @@ try {
     "Chinese Ayase Ueda hover card should localize the display name and club."
   );
 
+  await page.goto(`${baseUrl}?view=matches&date=2026-06-23&lang=zh&tz=America%2FLos_Angeles`, {
+    waitUntil: "load"
+  });
+  await page.waitForSelector(".match-row");
+  await page.locator('[data-match-id="portugal-uzbekistan-2026-06-23"]').click();
+  const portugalChineseScorerText = await page.locator("#match-info .scorer-highlight").innerText();
+  assert(
+    portugalChineseScorerText.includes("努诺·门德斯") &&
+      portugalChineseScorerText.includes("阿卜杜沃希德·内马托夫") &&
+      portugalChineseScorerText.includes("拉斐尔·莱奥") &&
+      !/Nuno Mendes|Abduvohid Nematov|Rafael Le(?:ao|ão)/.test(portugalChineseScorerText),
+    "Chinese Portugal scorer highlights should localize newly loaded scorer and own-goal names."
+  );
+
   await page.goto(`${baseUrl}?view=matches&date=2026-06-25&lang=zh&tz=America%2FLos_Angeles`, {
     waitUntil: "load"
   });
@@ -2623,6 +2637,15 @@ try {
     "On touch devices, the first player-name tap should open the player card instead of navigating away."
   );
   const secondTouchPlayerLink = touchPage.locator(".key-info-team .player-link", { hasText: "Kevin De Bruyne" }).first();
+  await secondTouchPlayerLink.evaluate((link) => {
+    link.closest(".player-hover")?.dispatchEvent(new PointerEvent("pointerenter", { pointerType: "touch" }));
+  });
+  const visibleTouchHoverPlayerCards = touchPage.locator(".player-card:visible");
+  assert(
+    (await visibleTouchHoverPlayerCards.count()) === 1 &&
+      (await visibleTouchHoverPlayerCards.first().locator(".player-card-name").innerText()).trim() === "Romelu Lukaku",
+    "On touch devices, touch hover events should not preview a second player card before tap."
+  );
   await secondTouchPlayerLink.click();
   const visibleTouchPlayerCards = touchPage.locator(".player-card:visible");
   await visibleTouchPlayerCards.first().waitFor({ state: "visible" });
@@ -2632,6 +2655,13 @@ try {
       (await touchPlayerLink.getAttribute("aria-expanded")) === "false" &&
       (await visibleTouchPlayerCards.first().locator(".player-card-name").innerText()).trim() === "Kevin De Bruyne",
     "On touch devices, tapping a second player name should replace the first player card instead of showing two."
+  );
+  await touchPage.locator("#match-info .match-summary").click();
+  await touchPage.locator(".player-card:visible").first().waitFor({ state: "hidden" });
+  assert(
+    (await touchPage.locator(".player-card:visible").count()) === 0 &&
+      (await secondTouchPlayerLink.getAttribute("aria-expanded")) === "false",
+    "On touch devices, tapping outside an open player card should close it."
   );
   await touchContext.close();
 

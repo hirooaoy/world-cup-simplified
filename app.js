@@ -849,6 +849,7 @@ const ZH_PLAYER_NAME_TRANSLATIONS = {
   "Aaron Wan-Bissaka": "阿龙·万-比萨卡",
   "Abbosbek Fayzullaev": "阿博斯别克·法伊祖拉耶夫",
   "Abdukodir Khusanov": "阿卜杜科迪尔·胡萨诺夫",
+  "Abduvohid Nematov": "阿卜杜沃希德·内马托夫",
   "Achraf Hakimi": "阿什拉夫·哈基米",
   "Adalberto Carrasquilla": "阿达尔贝托·卡拉斯基利亚",
   "Adam Hložek": "亚当·赫洛热克",
@@ -962,6 +963,7 @@ const ZH_PLAYER_NAME_TRANSLATIONS = {
   "Nicolas Jackson": "尼古拉斯·杰克逊",
   "Noah Sadiki": "诺亚·萨迪基",
   "Noor Al-Rawabdeh": "努尔·拉瓦布德",
+  "Nuno Mendes": "努诺·门德斯",
   "Omar Marmoush": "奥马尔·马尔穆什",
   "Patrik Schick": "帕特里克·希克",
   Pedri: "佩德里",
@@ -1058,6 +1060,8 @@ const ZH_PLAYER_NAME_TRANSLATIONS = {
   Mbappé: "姆巴佩",
   Manzambi: "曼赞比",
   "Raheem Sterling": "拉希姆·斯特林",
+  "Rafael Leao": "拉斐尔·莱奥",
+  "Rafael Leão": "拉斐尔·莱奥",
   "Raúl Rangel": "劳尔·兰赫尔"
 };
 
@@ -8984,7 +8988,12 @@ function getLocalizedPlayerDisplayName(player, profile = getPlayerProfile(player
     return localizedSourceName;
   }
 
-  return localizeDisplayText(displayName);
+  const localizedDisplayName = localizeDisplayText(displayName);
+  if (localizedDisplayName && localizedDisplayName !== displayName) {
+    return localizedDisplayName;
+  }
+
+  return translateEntityNameToZh(displayName) || displayName;
 }
 
 function getPlayerUniformNumber(player, profile = getPlayerProfile(player)) {
@@ -9625,6 +9634,9 @@ function showFloatingPlayerCard(playerHover, cardWidth) {
   }
 
   if (floatingPlayerCardSource !== playerHover) {
+    if (floatingPlayerCardSource) {
+      setPlayerHoverExpanded(floatingPlayerCardSource, false);
+    }
     floatingPlayerCardSource?.classList.remove("is-card-portaled");
     floatingPlayerCardSource = playerHover;
     floatingCard.innerHTML = sourceCard.innerHTML;
@@ -9695,13 +9707,36 @@ function isTouchPlayerCardMode() {
   return window.matchMedia("(hover: none), (pointer: coarse)").matches;
 }
 
+function shouldPreviewPlayerCardOnHover(event) {
+  if (event.pointerType && event.pointerType !== "mouse") {
+    return false;
+  }
+
+  return !isTouchPlayerCardMode();
+}
+
 function setPlayerHoverExpanded(playerHover, isExpanded) {
   const trigger = playerHover?.querySelector(".player-link");
   playerHover?.classList.toggle("is-card-open", isExpanded);
   trigger?.setAttribute("aria-expanded", String(isExpanded));
 }
 
+function closeInactivePlayerHovers(currentPlayerHover = null) {
+  document
+    .querySelectorAll(".player-hover.is-card-open, .player-hover.is-card-portaled")
+    .forEach((playerHover) => {
+      if (playerHover === currentPlayerHover) {
+        return;
+      }
+
+      setPlayerHoverExpanded(playerHover, false);
+      playerHover.classList.remove("is-card-portaled");
+    });
+}
+
 function clearActivePlayerHover() {
+  closeInactivePlayerHovers();
+
   if (!activePlayerHover) {
     hideFloatingPlayerCard();
     return;
@@ -9713,9 +9748,7 @@ function clearActivePlayerHover() {
 }
 
 function openPlayerHoverCard(playerHover) {
-  if (activePlayerHover && activePlayerHover !== playerHover) {
-    setPlayerHoverExpanded(activePlayerHover, false);
-  }
+  closeInactivePlayerHovers(playerHover);
 
   activePlayerHover = playerHover;
   setPlayerHoverExpanded(playerHover, true);
@@ -13467,6 +13500,10 @@ function attachPlayerCardPositioning(root) {
   root?.addEventListener(
     "pointerenter",
     (event) => {
+      if (!shouldPreviewPlayerCardOnHover(event)) {
+        return;
+      }
+
       const playerHover = event.target.closest(".player-hover");
       if (playerHover) {
         positionPlayerCard(playerHover, { forceFloating: true });
