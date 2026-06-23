@@ -1,4 +1,4 @@
-const DATA_VERSION = "2026-06-22-goal-events-profiles";
+const DATA_VERSION = "2026-06-23-scorer-profiles";
 const DATA_URLS = {
   fixtures: `data/fixtures.json?v=${DATA_VERSION}`,
   history: `data/history.json?v=${DATA_VERSION}`,
@@ -782,7 +782,6 @@ const ZH_ADDITIONAL_EXACT_TRANSLATIONS = {
   "Mbappé double carries France past Iraq": "姆巴佩梅开二度带法国击败伊拉克",
   "Messi hat trick opens Argentina's title defence": "Messi帽子戏法开启阿根廷卫冕之旅",
   "Messi brace sends Argentina through": "梅西梅开二度送阿根廷晋级",
-  "Messi leads all scorers with five World Cup goals": "梅西以5球领跑世界杯射手榜",
   "Lionel Messi scored in the 38th and 90+5th minutes as Argentina beat Austria 2-0 in Group J.":
     "利昂内尔·梅西在第38分钟和90+5分钟破门，阿根廷在J组2-0击败奥地利。",
   "Austria's press kept the match scrappy, but Argentina's midfield recovered control and the late pressure finally broke through.":
@@ -2613,6 +2612,7 @@ const juggleToy = {
   phase: "idle",
   rotation: 0,
   rotationSpeed: 0,
+  shadowElement: null,
   size: 38,
   startTime: 0,
   startX: 0,
@@ -3054,7 +3054,7 @@ function shouldLocalizeTextNode(node) {
   return Boolean(
     parent &&
       node.nodeValue.trim() &&
-      !parent.closest("script, style, svg, input, textarea, select")
+      !parent.closest("script, style, svg, input, textarea, select, #catch-up-list")
   );
 }
 
@@ -3088,6 +3088,10 @@ function localizeRenderedText(root = document.body) {
   root
     .querySelectorAll("[aria-label], [title], [placeholder], [data-tooltip]")
     .forEach((element) => {
+      if (element.closest("#catch-up-list")) {
+        return;
+      }
+
       for (const attribute of ["aria-label", "title", "placeholder", "data-tooltip"]) {
         if (!element.hasAttribute(attribute)) {
           continue;
@@ -3222,6 +3226,12 @@ function initializeJuggleToy() {
   document.body.append(ball);
   juggleToy.element = ball;
 
+  const shadow = document.createElement("div");
+  shadow.className = "juggle-ball-shadow";
+  shadow.setAttribute("aria-hidden", "true");
+  document.body.append(shadow);
+  juggleToy.shadowElement = shadow;
+
   document.addEventListener("pointerdown", handleJugglePointerDown, {
     capture: true
   });
@@ -3284,7 +3294,9 @@ function spawnJuggleBall() {
   juggleToy.y = startY;
 
   juggleToy.element.style.setProperty("--juggle-ball-size", `${size}px`);
+  juggleToy.shadowElement?.style.setProperty("--juggle-ball-size", `${size}px`);
   juggleToy.element.classList.add("is-active");
+  juggleToy.shadowElement?.classList.add("is-active");
   document.body.classList.add("is-juggle-active");
   renderJuggleBall();
   renderJuggleRecord();
@@ -3355,6 +3367,23 @@ function renderJuggleBall() {
   }
 
   juggleToy.element.style.transform = `translate3d(${juggleToy.x}px, ${juggleToy.y}px, 0) rotate(${juggleToy.rotation}deg)`;
+
+  if (!juggleToy.shadowElement) {
+    return;
+  }
+
+  const distanceFromBottom = Math.max(0, window.innerHeight - (juggleToy.y + juggleToy.size));
+  const liftRatio = clampNumber(distanceFromBottom / Math.max(220, window.innerHeight * 0.32), 0, 1);
+  const shadowScale = 1 - liftRatio * 0.28;
+  const shadowOpacity = 0.2 - liftRatio * 0.07;
+  const shadowX = juggleToy.x + juggleToy.size * 0.12;
+  const shadowY = Math.min(
+    window.innerHeight - juggleToy.size * 0.14,
+    juggleToy.y + juggleToy.size * 0.86
+  );
+
+  juggleToy.shadowElement.style.setProperty("--juggle-ball-shadow-opacity", shadowOpacity.toFixed(3));
+  juggleToy.shadowElement.style.transform = `translate3d(${shadowX}px, ${shadowY}px, 0) scale(${shadowScale.toFixed(3)})`;
 }
 
 function getJuggleAudioContext() {
@@ -3492,6 +3521,7 @@ function finishJuggleRun() {
   persistPendingJuggleRecord();
   juggleToy.phase = "idle";
   juggleToy.element.classList.remove("is-active");
+  juggleToy.shadowElement?.classList.remove("is-active");
   document.body.classList.remove("is-juggle-active");
   renderJuggleRecord();
 }
@@ -9474,7 +9504,7 @@ function renderTeamSearchResults() {
 }
 
 function normalizeCatchUpItem(item, match) {
-  if (!item?.headline) {
+  if (!getCanonicalCatchUpCopyText(item?.headline)) {
     return null;
   }
 
@@ -9501,9 +9531,42 @@ function getTournamentSource(sourceId) {
   return (tournament.sources || []).find((source) => source.id === sourceId) || null;
 }
 
+function isLocalizedCatchUpCopy(value) {
+  return Boolean(value && typeof value === "object" && !Array.isArray(value) && typeof value.en === "string");
+}
+
+function getCanonicalCatchUpCopyText(value) {
+  if (typeof value === "string") {
+    return value.trim();
+  }
+
+  if (!value || typeof value !== "object" || Array.isArray(value)) {
+    return "";
+  }
+
+  return String(value.en || Object.values(value).find((candidate) => typeof candidate === "string") || "").trim();
+}
+
+function getLocalizedCatchUpCopyText(value) {
+  if (!isLocalizedCatchUpCopy(value)) {
+    return localizeDisplayText(value);
+  }
+
+  const localized = String(value[currentLanguage] || value.en || "").trim();
+  if (localized || currentLanguage !== "zh") {
+    return localized;
+  }
+
+  return localizeDisplayText(value.en);
+}
+
 function normalizeCatchUpStandout(standout) {
   if (typeof standout === "string") {
     return standout.trim();
+  }
+
+  if (isLocalizedCatchUpCopy(standout)) {
+    return standout;
   }
 
   const name = standout?.playerName || standout?.name || "";
@@ -9534,7 +9597,7 @@ function getAuthoredCatchUpItems(match) {
 }
 
 function normalizeTournamentCatchUpItem(item) {
-  if (!item?.headline) {
+  if (!getCanonicalCatchUpCopyText(item?.headline)) {
     return null;
   }
 
@@ -9658,6 +9721,13 @@ function getResultSourceFields(match) {
     : {};
 }
 
+function getResultCatchUpStandouts(match) {
+  return getResultHighlights(match)
+    .filter((highlight) => typeof highlight === "string" && highlight.trim())
+    .filter((highlight) => !highlight.trim().startsWith("⚽"))
+    .slice(0, 2);
+}
+
 function getResultCatchUpItem(match) {
   const score = getCatchUpScore(match);
   const meta = `${match.homeTeam.name} vs ${match.awayTeam.name}`;
@@ -9715,6 +9785,7 @@ function getResultCatchUpItem(match) {
       dateKey,
       headline: `${match.homeTeam.name} and ${match.awayTeam.name} split the points`,
       body: `${score.home}-${score.away} keeps ${context} open and gives both teams something to carry into the next match.`,
+      standouts: getResultCatchUpStandouts(match),
       meta,
       ...getResultSourceFields(match),
       priority: 28,
@@ -9738,6 +9809,7 @@ function getResultCatchUpItem(match) {
     dateKey,
     headline,
     body: `${winner.name}'s ${winnerScore}-${loserScore} win gives them an early foothold in ${context}.`,
+    standouts: getResultCatchUpStandouts(match),
     meta,
     ...getResultSourceFields(match),
     priority: 28,
@@ -9884,7 +9956,7 @@ function compareCatchUpItemsByRecency(a, b) {
     (b.sortValue || "").localeCompare(a.sortValue || "") ||
     (b.dateKey || "").localeCompare(a.dateKey || "") ||
     (a.priority ?? 99) - (b.priority ?? 99) ||
-    a.headline.localeCompare(b.headline)
+    getCanonicalCatchUpCopyText(a.headline).localeCompare(getCanonicalCatchUpCopyText(b.headline))
   );
 }
 
@@ -9908,9 +9980,40 @@ function getCatchUpItems() {
     .slice(0, 5);
 }
 
+function stripCatchUpDescriptionMarker(text) {
+  return String(text || "").trim().replace(/^(?:⚽|🔥|🛡️|🧤|🌟|📊)\s*/u, "");
+}
+
+function getCatchUpDescriptionParts(item) {
+  const standouts = Array.isArray(item.standouts) ? item.standouts : [];
+  const seen = new Set();
+
+  return [item.body, ...standouts]
+    .filter((part) => getCanonicalCatchUpCopyText(part))
+    .filter((part) => {
+      const key = stripCatchUpDescriptionMarker(getCanonicalCatchUpCopyText(part)).toLowerCase();
+      if (!key || seen.has(key)) {
+        return false;
+      }
+
+      seen.add(key);
+      return true;
+    })
+    .slice(0, 3);
+}
+
+function renderCatchUpDescription(item) {
+  const description = getCatchUpDescriptionParts(item)
+    .map((part) => stripCatchUpDescriptionMarker(getLocalizedCatchUpCopyText(part)))
+    .filter(Boolean)
+    .join(" ");
+
+  return description ? `<p class="catch-up-subtitle">${escapeHtml(description)}</p>` : "";
+}
+
 function renderCatchUpItem(item) {
-  const headline = localizeDisplayText(item.headline);
-  const sourceLabel = item.sourceLabel ? localizeDisplayText(item.sourceLabel) : localizeText("Read source");
+  const headline = getLocalizedCatchUpCopyText(item.headline);
+  const sourceLabel = item.sourceLabel ? getLocalizedCatchUpCopyText(item.sourceLabel) : localizeText("Read source");
   const sourceLink = item.sourceUrl
     ? `<a class="catch-up-source" href="${escapeHtml(item.sourceUrl)}" target="_blank" rel="noreferrer" aria-label="${escapeHtml(sourceLabel)}" title="${escapeHtml(sourceLabel)}"><span aria-hidden="true">&#8599;</span></a>`
     : "";
@@ -9922,6 +10025,7 @@ function renderCatchUpItem(item) {
           <h3 title="${escapeHtml(headline)}"><span>${escapeHtml(headline)}</span></h3>
           ${sourceLink}
         </div>
+        ${renderCatchUpDescription(item)}
       </div>
     </article>
   `;
@@ -10434,6 +10538,10 @@ function setLanguage(language) {
 
   if (nextLanguage === currentLanguage) {
     applyLanguageToPage();
+    if (isCatchUpOpen) {
+      renderCatchUp();
+      positionCatchUpPopover();
+    }
     return;
   }
 
@@ -10445,6 +10553,11 @@ function setLanguage(language) {
     renderLoadedApp({ syncActiveView: true });
   } else {
     applyLanguageToPage();
+  }
+
+  if (isCatchUpOpen) {
+    renderCatchUp();
+    positionCatchUpPopover();
   }
 
   updateUrlState();
@@ -10701,7 +10814,8 @@ document.addEventListener("pointerdown", (event) => {
   if (
     isCatchUpOpen &&
     !catchUpPopover.contains(event.target) &&
-    !catchUpButton.contains(event.target)
+    !catchUpButton.contains(event.target) &&
+    !languageSwitch?.contains(event.target)
   ) {
     setCatchUpOpen(false);
   }

@@ -125,7 +125,6 @@ a {
   line-height: 1;
   opacity: 0;
   pointer-events: none;
-  text-shadow: 0 8px 12px rgba(10, 10, 10, 0.18);
   transform-origin: center;
   user-select: none;
   contain: layout paint style;
@@ -136,6 +135,32 @@ a {
 
 .juggle-ball.is-active {
   opacity: 1;
+}
+
+.juggle-ball-shadow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 19;
+  width: calc(var(--juggle-ball-size, 38px) * 0.76);
+  height: calc(var(--juggle-ball-size, 38px) * 0.22);
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(10, 10, 10, 0.2) 0%,
+    rgba(10, 10, 10, 0.13) 44%,
+    rgba(10, 10, 10, 0) 72%
+  );
+  opacity: 0;
+  pointer-events: none;
+  transform-origin: center;
+  contain: layout paint style;
+  filter: blur(0.5px);
+  will-change: opacity, transform;
+}
+
+.juggle-ball-shadow.is-active {
+  opacity: var(--juggle-ball-shadow-opacity, 0.2);
 }
 
 body.is-juggle-active > :not(.juggle-ball) {
@@ -952,6 +977,10 @@ h1 {
   }
 
   .juggle-ball {
+    display: none;
+  }
+
+  .juggle-ball-shadow {
     display: none;
   }
 
@@ -3632,14 +3661,16 @@ h1 {
   display: flex;
   align-items: baseline;
   gap: 8px;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
 }
 
 .goal-scorer-list {
   display: inline-flex;
   align-items: baseline;
+  flex: 1 1 auto;
   gap: 7px;
   flex-wrap: wrap;
+  min-width: 0;
 }
 
 .goal-scorer-segment {

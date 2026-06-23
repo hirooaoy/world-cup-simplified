@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-23T02:47:54Z",
+  "updatedAt": "2026-06-23T03:14:11.651Z",
   "sourceIds": [
     "wikipedia-football-infobox",
     "wikimedia-commons",
@@ -13,10 +13,10 @@
       "teamId": "COD",
       "birthDate": "1997-11-26",
       "marketValueEurMillions": 15,
-      "uniformNumber": 2,
       "position": "Right-back",
       "club": "West Ham United",
       "league": "Premier League",
+      "uniformNumber": 2,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Aaron%20Wan-Bissaka%20of%20West%20Ham%20United.jpeg?width=160",
       "skills": [
         "Pressing",
@@ -32,10 +32,10 @@
       "teamId": "UZB",
       "birthDate": "2003-10-03",
       "marketValueEurMillions": 7,
-      "uniformNumber": 22,
       "position": "Attacking midfielder, winger",
       "club": "İstanbul Başakşehir",
       "league": "Süper Lig",
+      "uniformNumber": 22,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Abbosbek%20Fayzullaev%2011%20%C4%B0stanbul%20Ba%C5%9Fak%C5%9Fehir%20FK%20UECL%2020250821%20(5).jpg?width=160",
       "skills": [
         "Chance creation",
@@ -52,10 +52,10 @@
       "teamId": "UZB",
       "birthDate": "2004-02-29",
       "marketValueEurMillions": 50,
-      "uniformNumber": 2,
       "position": "Centre-back, Right-back",
       "club": "Manchester City",
       "league": "Premier League",
+      "uniformNumber": 2,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Abdukodir%20Khusanov%20(cropped).jpg?width=160",
       "skills": [
         "Runs in behind",
@@ -65,17 +65,32 @@
       "note": "The defensive centerpiece in a back three, crucial against pace and movement across the front line.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Abdukodir_Khusanov"
     },
+    "Abdulelah Alamri": {
+      "name": "Abdulelah Alamri",
+      "displayName": "Abdulelah Al-Amri",
+      "teamId": "KSA",
+      "birthDate": "1997-01-15",
+      "position": "Centre-back",
+      "club": "Al-Nassr",
+      "league": "Saudi Pro League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Abdulelah%20Al-Amri%202023%20(cropped).jpg?width=160",
+      "skills": [
+        "Finishing"
+      ],
+      "note": "Scored for Saudi Arabia in Saudi Arabia vs Uruguay.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Abdulelah_Al-Amri"
+    },
     "Achraf Hakimi": {
       "name": "Achraf Hakimi",
       "displayName": "Achraf Hakimi",
       "teamId": "MAR",
       "birthDate": "1998-11-04",
       "marketValueEurMillions": 80,
-      "uniformNumber": 2,
       "position": "Right-back",
       "club": "Paris Saint-Germain",
       "league": "Ligue 1",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Achraf%20Hakimi%20Morocco%20v%20Norway%207%20June%202026-32.jpg?width=160",
+      "uniformNumber": 2,
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Achraf%20Hakimi%20Brazil%20V%20Morocco%2013%20June%202026-156.jpg?width=160",
       "skills": [
         "Set pieces",
         "Runs in behind",
@@ -90,10 +105,10 @@
       "teamId": "PAN",
       "birthDate": "1998-11-28",
       "marketValueEurMillions": 4,
-      "uniformNumber": 8,
       "position": "Midfielder",
       "club": "Pumas UNAM",
       "league": "Liga MX",
+      "uniformNumber": 8,
       "imageUrl": "https://assets.sorare.com/playerpicture/5c665510-6358-445f-8cee-f1580e299661/picture/avatar-0d77a3aa9a930def1134beb8eca6f2e0.png",
       "skills": [
         "Midfield control",
@@ -108,10 +123,10 @@
       "teamId": "CZE",
       "birthDate": "2002-07-25",
       "marketValueEurMillions": 10,
-      "uniformNumber": 9,
       "position": "Winger, Attacking Midfielder",
       "club": "TSG Hoffenheim",
       "league": "Bundesliga",
+      "uniformNumber": 9,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Adam%20Hlo%C5%BEek%2C%202022-07-31%2C%20Saisoner%C3%B6ffnung%20Bayer%2004%2C%20Leverkusen%20(2)%20(cropped).jpg?width=160",
       "skills": [
         "Link-up play",
@@ -120,16 +135,31 @@
       "note": "A flexible attacker who can connect midfield to Schick and make Czechia less predictable.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Adam_Hlo%C5%BEek"
     },
+    "Agustin Canobbio": {
+      "name": "Agustin Canobbio",
+      "displayName": "Agustín Canobbio",
+      "teamId": "URU",
+      "birthDate": "1998-10-01",
+      "position": "Attacking midfielder, winger",
+      "club": "Fluminense",
+      "league": "",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Agust%C3%ADn%20Canobbio%202018.jpg?width=160",
+      "skills": [
+        "Finishing"
+      ],
+      "note": "Scored for Uruguay in Uruguay vs Cabo Verde.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Agust%C3%ADn_Canobbio"
+    },
     "Akram Afif": {
       "name": "Akram Afif",
       "displayName": "Akram Afif",
       "teamId": "QAT",
       "birthDate": "1996-11-18",
       "marketValueEurMillions": 8,
-      "uniformNumber": 11,
       "position": "Left winger",
       "club": "Al Sadd",
       "league": "Qatar Stars League",
+      "uniformNumber": 11,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Qatar%20v%20Lebanon%20(37)%20(cropped).jpg?width=160",
       "skills": [
         "Box presence",
@@ -140,16 +170,31 @@
       "note": "Qatar's main creator and box connector, dangerous when he can receive in open space.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Akram_Afif"
     },
+    "Alex Freeman": {
+      "name": "Alex Freeman",
+      "displayName": "Alex Freeman",
+      "teamId": "USA",
+      "birthDate": "2004-08-09",
+      "position": "center back",
+      "club": "Villarreal",
+      "league": "",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Alex%20Freeman%20USMNT%20v%20Belgium%20Mar%2028%202026-59%20(cropped).jpg?width=160",
+      "skills": [
+        "Finishing"
+      ],
+      "note": "Scored for United States in United States vs Australia.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Alex_Freeman"
+    },
     "Alexander Isak": {
       "name": "Alexander Isak",
       "displayName": "Alexander Isak",
       "teamId": "SWE",
       "birthDate": "1999-09-21",
       "marketValueEurMillions": 85,
-      "uniformNumber": 9,
       "position": "Striker",
       "club": "Liverpool",
       "league": "Premier League",
+      "uniformNumber": 9,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Alexander%20Isak%20-%20Sweden%20-%20Greece21%20(cropped).jpg?width=160",
       "skills": [
         "Box presence",
@@ -165,10 +210,10 @@
       "teamId": "IRQ",
       "birthDate": "2004-01-20",
       "marketValueEurMillions": 0.5,
-      "uniformNumber": 17,
       "position": "Forward, winger",
       "club": "Al-Najma (on loan from Como)",
       "league": "Saudi First Division League",
+      "uniformNumber": 17,
       "imageUrl": "https://resources.saudi-pro-league.pulselive.com/saudi-pro-league/photo/2025/11/13/287545ca-8c56-428c-81ba-cb4620bb94c8/05c43886-bdda-4649-a88b-b22c4eac68af________.jpg",
       "skills": [
         "Chance creation",
@@ -184,10 +229,10 @@
       "teamId": "JOR",
       "birthDate": "2000-03-26",
       "marketValueEurMillions": 0.8,
-      "uniformNumber": 9,
       "position": "Forward",
       "club": "Al Sailiya SC",
       "league": "",
+      "uniformNumber": 9,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ali%20Olwan.png?width=160",
       "skills": [
         "Box presence",
@@ -203,10 +248,10 @@
       "teamId": "IRN",
       "birthDate": "1993-08-11",
       "marketValueEurMillions": 0.5,
-      "uniformNumber": 7,
       "position": "Winger, attacking midfielder",
       "club": "Dender EH",
       "league": "Belgian Pro League",
+      "uniformNumber": 7,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/File%3A2022%20FIFA%20World%20Cup%20England%206%E2%80%932%20Iran%20-%20(26)%20(cropped).jpg?width=160",
       "skills": [
         "Set pieces",
@@ -223,10 +268,10 @@
       "teamId": "QAT",
       "birthDate": "1996-08-19",
       "marketValueEurMillions": 2.5,
-      "uniformNumber": 19,
       "position": "Striker, winger",
       "club": "Al-Duhail",
       "league": "Qatar Stars League",
+      "uniformNumber": 19,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Moez%20Ali%20at%20Qatar%20v%20Japan%20%E2%80%93%20AFC%20Asian%20Cup%202019%20final%2032%20(2).jpg?width=160",
       "skills": [
         "Finishing",
@@ -241,10 +286,10 @@
       "teamId": "CAN",
       "birthDate": "2000-11-02",
       "marketValueEurMillions": 40,
-      "uniformNumber": 19,
       "position": "wing-back",
       "club": "Bayern Munich",
       "league": "Bundesliga",
+      "uniformNumber": 19,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Alphonso%20Davies%20in%202022.jpg?width=160",
       "skills": [
         "Wide threat"
@@ -252,16 +297,31 @@
       "note": "Canada's most explosive ball-carrier, able to flip the match with one run from wide areas.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Alphonso_Davies"
     },
+    "Amad Diallo": {
+      "name": "Amad Diallo",
+      "displayName": "Amad Diallo",
+      "teamId": "CIV",
+      "birthDate": "2002-07-11",
+      "position": "Winger, attacking midfielder",
+      "club": "Manchester United",
+      "league": "Premier League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Manchester%20United%20v%20BSC%20Young%20Boys%2C%208%20December%202021%20(17)%20(cropped).jpg?width=160",
+      "skills": [
+        "Finishing"
+      ],
+      "note": "Scored for Côte d'Ivoire in Côte d'Ivoire vs Ecuador.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Amad_Diallo"
+    },
     "Amine Gouiri": {
       "name": "Amine Gouiri",
       "displayName": "Amine Gouiri",
       "teamId": "ALG",
       "birthDate": "2000-02-16",
       "marketValueEurMillions": 28,
-      "uniformNumber": 9,
       "position": "Striker, left winger",
       "club": "Marseille",
       "league": "Ligue 1",
+      "uniformNumber": 9,
       "imageUrl": "https://assets.sorare.com/playerpicture/3f3077b9-e071-425a-bf5d-d6f4b5797192/picture/avatar-8e78185244d819fa519a4964d757da5d.png",
       "skills": [
         "Link-up play",
@@ -276,10 +336,10 @@
       "teamId": "SCO",
       "birthDate": "1994-03-11",
       "marketValueEurMillions": 7,
-      "uniformNumber": 3,
       "position": "Left-back",
       "club": "Liverpool",
       "league": "Premier League",
+      "uniformNumber": 3,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Andy%20Robertson%20Scotland%20v%20Bolivia%206%20June%202026-43.jpg?width=160",
       "skills": [
         "Runs in behind",
@@ -288,24 +348,20 @@
       "note": "The captain and left-side engine, giving Scotland delivery, recovery runs, and tournament edge.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Andy_Robertson"
     },
-    "Antoine Griezmann": {
-      "name": "Antoine Griezmann",
-      "displayName": "Antoine Griezmann",
-      "teamId": "FRA",
-      "birthDate": "1991-03-21",
-      "marketValueEurMillions": 8,
-      "position": "Forward, attacking midfielder",
-      "club": "Atlético Madrid",
-      "league": "La Liga",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/FRA-ARG%20(10)%20(cropped).jpg?width=160",
+    "Anthony Elanga": {
+      "name": "Anthony Elanga",
+      "displayName": "Anthony Elanga",
+      "teamId": "SWE",
+      "birthDate": "2002-04-27",
+      "position": "Forward, winger",
+      "club": "Newcastle United",
+      "league": "Premier League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Anthony%20Elanga%20(Sweden%20vs%20Moldova%2C%2012%20October%202023).jpg?width=160",
       "skills": [
-        "Set pieces",
-        "Chance creation",
-        "Link-up play",
-        "Pressing"
+        "Finishing"
       ],
-      "note": "The connective creator, balancing France's attack with final passes, pressing work, and set-piece quality.",
-      "sourceUrl": "https://en.wikipedia.org/wiki/Antoine_Griezmann"
+      "note": "Scored for Sweden in Netherlands vs Sweden.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Anthony_Elanga"
     },
     "Antoine Semenyo": {
       "name": "Antoine Semenyo",
@@ -313,10 +369,10 @@
       "teamId": "GHA",
       "birthDate": "2000-01-07",
       "marketValueEurMillions": 80,
-      "uniformNumber": 11,
       "position": "winger",
       "club": "Manchester City",
       "league": "Premier League",
+      "uniformNumber": 11,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Antoine%20Semenyo%202026.png?width=160",
       "skills": [
         "Runs in behind",
@@ -331,10 +387,10 @@
       "teamId": "NOR",
       "birthDate": "2005-04-17",
       "marketValueEurMillions": 32,
-      "uniformNumber": 20,
       "position": "Winger, attacking midfielder",
       "club": "RB Leipzig",
       "league": "Bundesliga",
+      "uniformNumber": 20,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Antonio%20Nusa%20Morocco%20v%20Norway%207%20June%202026-110%20(cropped).jpg?width=160",
       "skills": [
         "Chance creation",
@@ -351,10 +407,10 @@
       "teamId": "TUR",
       "birthDate": "2005-02-25",
       "marketValueEurMillions": 90,
-      "uniformNumber": 8,
       "position": "Attacking midfielder,",
       "club": "Real Madrid",
       "league": "La Liga",
+      "uniformNumber": 8,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Derbide%20Fenerbah%C3%A7e%20Yedek%20Oyuncu%20Arda%20G%C3%BCler%20(2021-22%20S%C3%BCper%20Lig%20-%20Cropped).jpg?width=160",
       "skills": [
         "Box presence",
@@ -364,16 +420,33 @@
       "note": "The creative spark in open space, dangerous when he can receive on the turn near the box.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Arda_G%C3%BCler"
     },
+    "Ayase Ueda": {
+      "name": "Ayase Ueda",
+      "displayName": "Ayase Ueda",
+      "teamId": "JPN",
+      "birthDate": "1998-08-28",
+      "marketValueEurMillions": 17,
+      "position": "Striker",
+      "club": "Feyenoord",
+      "league": "",
+      "uniformNumber": 18,
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Go%20Ahead%20Eagles%20-%20Feyenoord%20-%2053679351240%20(Ayase%20Ueda).jpg?width=160",
+      "skills": [
+        "Finishing"
+      ],
+      "note": "Japan's penalty-area finisher, fresh off a two-goal performance against Tunisia.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Ayase_Ueda"
+    },
     "Aymen Hussein": {
       "name": "Aymen Hussein",
       "displayName": "Aymen Hussein",
       "teamId": "IRQ",
       "birthDate": "1996-03-22",
       "marketValueEurMillions": 0.4,
-      "uniformNumber": 18,
       "position": "Striker",
       "club": "Al-Karma",
       "league": "Iraq Stars League",
+      "uniformNumber": 18,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/4822953%20AE7I9053%20(cropped2).jpg?width=160",
       "skills": [
         "Box presence",
@@ -389,10 +462,10 @@
       "teamId": "MAR",
       "birthDate": "1993-06-25",
       "marketValueEurMillions": 4.5,
-      "uniformNumber": 20,
       "position": "Striker",
       "club": "Olympiacos",
       "league": "Super League Greece",
+      "uniformNumber": 20,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ayoub%20El%20Kaabi%20vs%20Niger%20(cropped).jpg?width=160",
       "skills": [
         "Box presence",
@@ -403,24 +476,20 @@
       "note": "The box finisher who gives Morocco a direct endpoint when wide pressure turns into service.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Ayoub_El_Kaabi"
     },
-    "Ayase Ueda": {
-      "name": "Ayase Ueda",
-      "displayName": "Ayase Ueda",
-      "teamId": "JPN",
-      "birthDate": "1998-08-28",
-      "marketValueEurMillions": 17,
-      "uniformNumber": 18,
-      "position": "Striker",
-      "club": "Feyenoord",
-      "league": "Eredivisie",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Go%20Ahead%20Eagles%20-%20Feyenoord%20-%2053679351240%20%28Ayase%20Ueda%29.jpg?width=160",
+    "Bradley Barcola": {
+      "name": "Bradley Barcola",
+      "displayName": "Bradley Barcola",
+      "teamId": "FRA",
+      "birthDate": "2002-09-02",
+      "position": "Forward",
+      "club": "Paris Saint-Germain",
+      "league": "Ligue 1",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Barcola%20asse%20psg%202425.png?width=160",
       "skills": [
-        "Finishing",
-        "Box presence",
-        "Movement"
+        "Finishing"
       ],
-      "note": "Japan's penalty-area finisher, fresh off a two-goal performance against Tunisia.",
-      "sourceUrl": "https://en.wikipedia.org/wiki/Ayase_Ueda"
+      "note": "Scored for France in France vs Senegal.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Bradley_Barcola"
     },
     "Brahim Diaz": {
       "name": "Brahim Diaz",
@@ -428,10 +497,10 @@
       "teamId": "MAR",
       "birthDate": "1999-08-03",
       "marketValueEurMillions": 35,
-      "uniformNumber": 10,
       "position": "Attacking midfielder, winger",
       "club": "Real Madrid",
       "league": "La Liga",
+      "uniformNumber": 10,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Brahim%20Diaz%20Morocco%20v%20Norway%207%20June%202026-36%20(cropped).jpg?width=160",
       "skills": [
         "Chance creation",
@@ -446,10 +515,10 @@
       "teamId": "SUI",
       "birthDate": "1997-02-14",
       "marketValueEurMillions": 15,
-      "uniformNumber": 7,
       "position": "Forward",
       "club": "Rennes",
       "league": "Ligue 1",
+      "uniformNumber": 7,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/2022128160447%202022-05-08%20Fussball%20Eintracht%20Frankfurt%20vs%20Borussia%20M%C3%B6nchengladbach%20-%20Sven%20-%201D%20X%20MK%20II%20-%201422%20-%20B70I7533%20(cropped).jpg?width=160",
       "skills": [
         "Box presence",
@@ -459,16 +528,31 @@
       "note": "A powerful runner who can turn Switzerland's possession into box entries.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Breel_Embolo"
     },
+    "Brian Brobbey": {
+      "name": "Brian Brobbey",
+      "displayName": "Brian Brobbey",
+      "teamId": "NED",
+      "birthDate": "2002-02-01",
+      "position": "Striker",
+      "club": "Sunderland",
+      "league": "Premier League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/GAE%20-%20Ajax%20-%2052788469380%20(Brobbey).jpg?width=160",
+      "skills": [
+        "Finishing"
+      ],
+      "note": "Scored for Netherlands in Netherlands vs Sweden.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Brian_Brobbey"
+    },
     "Bruno Fernandes": {
       "name": "Bruno Fernandes",
       "displayName": "Bruno Fernandes",
       "teamId": "POR",
       "birthDate": "1994-09-08",
       "marketValueEurMillions": 35,
-      "uniformNumber": 8,
       "position": "Attacking midfielder",
       "club": "Manchester United",
       "league": "Premier League",
+      "uniformNumber": 8,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Bruno%20Fernandes%20USMNT%20v%20Portugal%20Mar%2031%202026-27%20(cropped).jpg?width=160",
       "skills": [
         "Chance creation",
@@ -477,16 +561,46 @@
       "note": "Portugal's highest-volume chance creator, dangerous in open space and from free kicks and corners.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Bruno_Fernandes"
     },
+    "Caleb Yirenkyi": {
+      "name": "Caleb Yirenkyi",
+      "displayName": "Caleb Yirenkyi",
+      "teamId": "GHA",
+      "birthDate": "2006-01-15",
+      "position": "Midfielder",
+      "club": "Nordsjælland",
+      "league": "",
+      "imageUrl": "",
+      "skills": [
+        "Finishing"
+      ],
+      "note": "Scored for Ghana in Ghana vs Panama.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Caleb_Yirenkyi"
+    },
+    "Cameron Burgess": {
+      "name": "Cameron Burgess",
+      "displayName": "Cameron Burgess",
+      "teamId": "AUS",
+      "birthDate": "1995-10-21",
+      "position": "Centre-back",
+      "club": "Swansea City",
+      "league": "",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Cameron%20Burgess%20(cropped).jpg?width=160",
+      "skills": [
+        "Match impact"
+      ],
+      "note": "",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Cameron_Burgess"
+    },
     "Casemiro": {
       "name": "Casemiro",
       "displayName": "Casemiro",
       "teamId": "BRA",
       "birthDate": "1992-02-23",
       "marketValueEurMillions": 6,
-      "uniformNumber": 5,
       "position": "Defensive midfielder",
       "club": "Manchester United",
       "league": "Premier League",
+      "uniformNumber": 5,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Casemiro%20Brazil%20V%20Morocco%2013%20June%202026-76%20(cropped).jpg?width=160",
       "skills": [
         "Midfield control",
@@ -501,10 +615,10 @@
       "teamId": "NZL",
       "birthDate": "1991-12-07",
       "marketValueEurMillions": 5,
-      "uniformNumber": 9,
       "position": "Forward",
       "club": "Nottingham Forest",
       "league": "Premier League",
+      "uniformNumber": 9,
       "imageUrl": "https://assets.sorare.com/playerpicture/55068de4-3ec7-4111-bc72-04acadd6271b/avatar-chris-wood_new-zealand_football_2025_home_card_edition_name%3Dcolors_holo_base.png",
       "skills": [
         "Box presence",
@@ -520,10 +634,10 @@
       "teamId": "USA",
       "birthDate": "1998-09-18",
       "marketValueEurMillions": 40,
-      "uniformNumber": 10,
       "position": "forward",
       "club": "AC Milan",
       "league": "Serie A",
+      "uniformNumber": 10,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Christian%20Pulisic%20USMNT%20v%20Belgium%20Mar%2028%202026-73%20(cropped).jpg?width=160",
       "skills": [
         "Box presence",
@@ -539,10 +653,10 @@
       "teamId": "AUS",
       "birthDate": "2003-11-15",
       "marketValueEurMillions": 10,
-      "uniformNumber": 20,
       "position": "Attacking midfielder, winger",
       "club": "Sassuolo",
       "league": "Serie A",
+      "uniformNumber": 20,
       "imageUrl": "https://romapress.net/wp-content/uploads/2023/07/Volpato-Christian_sassuolo.jpg",
       "skills": [
         "Chance creation",
@@ -557,10 +671,10 @@
       "teamId": "NED",
       "birthDate": "1999-05-07",
       "marketValueEurMillions": 60,
-      "uniformNumber": 11,
       "position": "Left winger, forward",
       "club": "Liverpool",
       "league": "Premier League",
+      "uniformNumber": 11,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Cody%20Gakpo%2006042025%20(2)%20(cropped).jpg?width=160",
       "skills": [
         "Link-up play",
@@ -570,16 +684,31 @@
       "note": "A flexible forward who can drift inside, combine, and finish when the Dutch attack finds rhythm.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Cody_Gakpo"
     },
+    "Connor Metcalfe": {
+      "name": "Connor Metcalfe",
+      "displayName": "Connor Metcalfe",
+      "teamId": "AUS",
+      "birthDate": "1999-11-05",
+      "position": "Central midfielder",
+      "club": "FC St. Pauli",
+      "league": "Bundesliga",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/4822293%20AE7I6590%20-%20Connor%20Metcalfe.jpg?width=160",
+      "skills": [
+        "Finishing"
+      ],
+      "note": "Scored for Australia in Australia vs Türkiye.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Connor_Metcalfe"
+    },
     "Cristiano Ronaldo": {
       "name": "Cristiano Ronaldo",
       "displayName": "Cristiano Ronaldo",
       "teamId": "POR",
       "birthDate": "1985-02-05",
       "marketValueEurMillions": 10,
-      "uniformNumber": 7,
       "position": "Forward",
       "club": "Al-Nassr",
       "league": "Saudi Pro League",
+      "uniformNumber": 7,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/President%20Donald%20Trump%20meets%20with%20Cristiano%20Ronaldo%20in%20the%20Oval%20Office%20(54933344262)%20(cropped%20and%20rotated).jpg?width=160",
       "skills": [
         "Box presence",
@@ -589,16 +718,46 @@
       "note": "The headline finisher and reference point in the box, still chasing the World Cup piece missing from his resume.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Cristiano_Ronaldo"
     },
+    "Crysencio Summerville": {
+      "name": "Crysencio Summerville",
+      "displayName": "Crysencio Summerville",
+      "teamId": "NED",
+      "birthDate": "2001-10-30",
+      "position": "winger",
+      "club": "West Ham United",
+      "league": "Premier League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Crysencio%20Summerville%20of%20West%20Ham%20United.jpeg?width=160",
+      "skills": [
+        "Finishing"
+      ],
+      "note": "Scored for Netherlands in Netherlands vs Japan.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Crysencio_Summerville"
+    },
+    "Cyle Larin": {
+      "name": "Cyle Larin",
+      "displayName": "Cyle Larin",
+      "teamId": "CAN",
+      "birthDate": "1995-04-17",
+      "position": "Forward",
+      "club": "Southampton",
+      "league": "",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Cyle%20Larin%20(2021-22%20S%C3%BCper%20Lig)%20-%20Resim1%20(cropped).png?width=160",
+      "skills": [
+        "Finishing"
+      ],
+      "note": "Scored for Canada in Canada vs Bosnia and Herzegovina.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Cyle_Larin"
+    },
     "Daichi Kamada": {
       "name": "Daichi Kamada",
       "displayName": "Daichi Kamada",
       "teamId": "JPN",
       "birthDate": "1996-08-05",
       "marketValueEurMillions": 10,
-      "uniformNumber": 15,
       "position": "Central midfielder",
       "club": "Crystal Palace",
       "league": "",
+      "uniformNumber": 15,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/2022128173756%202022-05-08%20Fussball%20Eintracht%20Frankfurt%20vs%20Borussia%20M%C3%B6nchengladbach%20-%20Sven%20-%201D%20X%20MK%20II%20-%200725%20-%20AK8I7460%20(Daichi%20Kamada%20cropped).jpg?width=160",
       "skills": [
         "Box presence",
@@ -608,16 +767,46 @@
       "note": "The between-lines connector, important for turning Japan's fast passing into the final pass or late box run.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Daichi_Kamada"
     },
+    "Damian Bobadilla": {
+      "name": "Damian Bobadilla",
+      "displayName": "Damián Bobadilla",
+      "teamId": "PAR",
+      "birthDate": "2001-07-11",
+      "position": "Midfielder",
+      "club": "São Paulo",
+      "league": "",
+      "imageUrl": "",
+      "skills": [
+        "Match impact"
+      ],
+      "note": "",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Dami%C3%A1n_Bobadilla"
+    },
+    "Daniel Munoz": {
+      "name": "Daniel Munoz",
+      "displayName": "Daniel Muñoz",
+      "teamId": "COL",
+      "birthDate": "1996-05-26",
+      "position": "Right-back, right wing-back",
+      "club": "Crystal Palace",
+      "league": "Premier League",
+      "imageUrl": "",
+      "skills": [
+        "Finishing"
+      ],
+      "note": "Scored for Colombia in Uzbekistan vs Colombia.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Daniel_Mu%C3%B1oz_(footballer)"
+    },
     "Darwin Nunez": {
       "name": "Darwin Nunez",
       "displayName": "Darwin Núñez",
       "teamId": "URU",
       "birthDate": "1999-06-24",
       "marketValueEurMillions": 20,
-      "uniformNumber": 9,
       "position": "Striker",
       "club": "Al-Hilal",
       "league": "Saudi Pro League",
+      "uniformNumber": 9,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Darwin%20N%C3%BA%C3%B1ez%20(cropped).jpg?width=160",
       "skills": [
         "Runs in behind",
@@ -633,10 +822,10 @@
       "teamId": "AUT",
       "birthDate": "1992-06-24",
       "marketValueEurMillions": 3,
-      "uniformNumber": 8,
       "position": "Centre-back, left-back",
       "club": "Real Madrid",
       "league": "La Liga",
+      "uniformNumber": 8,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/File%3A20180610%20FIFA%20Friendly%20Match%20Austria%20vs.%20Brazil%20David%20Alaba%20850%201632.jpg?width=160",
       "skills": [
         "Set pieces",
@@ -652,10 +841,10 @@
       "teamId": "ENG",
       "birthDate": "1999-01-14",
       "marketValueEurMillions": 120,
-      "uniformNumber": 4,
       "position": "Midfielder",
       "club": "Arsenal",
       "league": "Premier League",
+      "uniformNumber": 4,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Declan%20Rice%20-%2053248276328%20(cropped).jpg?width=160",
       "skills": [
         "Midfield control",
@@ -664,16 +853,31 @@
       "note": "The balance piece in midfield, responsible for stopping counters before opponents can slow the game down.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Declan_Rice"
     },
+    "Deniz Undav": {
+      "name": "Deniz Undav",
+      "displayName": "Deniz Undav",
+      "teamId": "GER",
+      "birthDate": "1996-07-19",
+      "position": "Forward",
+      "club": "VfB Stuttgart",
+      "league": "",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Deniz%20undav.jpg?width=160",
+      "skills": [
+        "Finishing"
+      ],
+      "note": "Scored for Germany in Germany vs Curaçao.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Deniz_Undav"
+    },
     "Duckens Nazon": {
       "name": "Duckens Nazon",
       "displayName": "Duckens Nazon",
       "teamId": "HAI",
       "birthDate": "1994-04-07",
       "marketValueEurMillions": 0.8,
-      "uniformNumber": 9,
       "position": "Striker",
       "club": "Esteghlal",
       "league": "Persian Gulf Pro League",
+      "uniformNumber": 9,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/2025%20Iran%20Football%20Premier%20League%20Esteghlal%20and%20Zob%20Ahan%20football%20match%203%20Mehr%20(cropped).jpg?width=160",
       "skills": [
         "Finishing",
@@ -688,10 +892,10 @@
       "teamId": "BIH",
       "birthDate": "1986-03-17",
       "marketValueEurMillions": 1,
-      "uniformNumber": 11,
       "position": "Striker",
       "club": "Schalke 04",
       "league": "2. Bundesliga",
+      "uniformNumber": 11,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/20150331%202026%20AUT%20BIH%202177%20Edin%20D%C5%BEeko%20(cropped).jpg?width=160",
       "skills": [
         "Finishing",
@@ -707,10 +911,10 @@
       "teamId": "MEX",
       "birthDate": "1997-10-24",
       "marketValueEurMillions": 15,
-      "uniformNumber": 4,
       "position": "Defensive midfielder, centre-back",
       "club": "Fenerbahçe (on loan from West Ham United)",
       "league": "Süper Lig",
+      "uniformNumber": 4,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Edson%20%C3%81lvarez.png?width=160",
       "skills": [
         "Midfield control",
@@ -725,10 +929,10 @@
       "teamId": "UZB",
       "birthDate": "1995-06-29",
       "marketValueEurMillions": 7,
-      "uniformNumber": 14,
       "position": "Forward",
       "club": "İstanbul Başakşehir",
       "league": "Süper Lig",
+      "uniformNumber": 14,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Eldor%20Shomurodov%2014%20%C4%B0stanbul%20Ba%C5%9Fak%C5%9Fehir%20FK%2020250731%20(10)%20(cropped).jpg?width=160",
       "skills": [
         "Target play",
@@ -743,10 +947,10 @@
       "teamId": "TUN",
       "birthDate": "1999-12-27",
       "marketValueEurMillions": 2,
-      "uniformNumber": 8,
       "position": "Left winger",
       "club": "Hannover 96 (on loan from FC Augsburg)",
       "league": "2. Bundesliga",
+      "uniformNumber": 8,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/2025-04-23%20-%20FC%20St%20Pauli%20-%20Elias%20Saad.jpg?width=160",
       "skills": [
         "Runs in behind",
@@ -755,16 +959,31 @@
       "note": "A direct wide threat who gives Tunisia a route forward when the match asks for pace.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Elias_Saad"
     },
+    "Elijah Just": {
+      "name": "Elijah Just",
+      "displayName": "Elijah Just",
+      "teamId": "NZL",
+      "birthDate": "2000-05-01",
+      "position": "Right winger",
+      "club": "Motherwell",
+      "league": "",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Elijah%20Just%20(cropped).jpg?width=160",
+      "skills": [
+        "Finishing"
+      ],
+      "note": "Scored for New Zealand in IR Iran vs New Zealand.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Elijah_Just"
+    },
     "Ellyes Skhiri": {
       "name": "Ellyes Skhiri",
       "displayName": "Ellyes Skhiri",
       "teamId": "TUN",
       "birthDate": "1995-05-10",
       "marketValueEurMillions": 5,
-      "uniformNumber": 17,
       "position": "Defensive midfielder",
       "club": "Eintracht Frankfurt",
       "league": "Bundesliga",
+      "uniformNumber": 17,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/2021-08-08%20FC%20Carl%20Zeiss%20Jena%20gegen%201.%20FC%20K%C3%B6ln%20(DFB-Pokal)%20by%20Sandro%20Halank%E2%80%93182%20(cropped2).jpg?width=160",
       "skills": [
         "Midfield control",
@@ -773,23 +992,20 @@
       "note": "The midfield screen, important for keeping Tunisia compact and killing counters at source.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Ellyes_Skhiri"
     },
-    "Emiliano Martinez": {
-      "name": "Emiliano Martinez",
-      "displayName": "Emiliano Martínez",
-      "teamId": "ARG",
-      "birthDate": "1992-09-02",
-      "marketValueEurMillions": 12,
-      "uniformNumber": 23,
-      "position": "Goalkeeper",
-      "club": "Aston Villa",
-      "league": "Premier League",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/St.%20Louis%20City%20vs%20Aston%20Villa%20(Jul%202025)%2014%20(Emiliano%20Mart%C3%ADnez).jpg?width=160",
+    "Emam Ashour": {
+      "name": "Emam Ashour",
+      "displayName": "Emam Ashour",
+      "teamId": "EGY",
+      "birthDate": "1998-02-20",
+      "position": "Midfielder / Winger",
+      "club": "Al Ahly",
+      "league": "",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/File%3AEmam22.jpg?width=160",
       "skills": [
-        "Shot-stopping",
         "Finishing"
       ],
-      "note": "The commanding goalkeeper and penalty-stage presence, central to Argentina's tournament confidence.",
-      "sourceUrl": "https://en.wikipedia.org/wiki/Emiliano_Mart%C3%ADnez"
+      "note": "Scored for Egypt in Belgium vs Egypt.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Emam_Ashour"
     },
     "Enner Valencia": {
       "name": "Enner Valencia",
@@ -797,10 +1013,10 @@
       "teamId": "ECU",
       "birthDate": "1989-11-04",
       "marketValueEurMillions": 1,
-      "uniformNumber": 13,
       "position": "Forward, winger",
       "club": "Pachuca",
       "league": "Liga MX",
+      "uniformNumber": 13,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Enner%20Valencia%20CONTINUACI%C3%93N%20DE%20LA%20SESI%C3%93N%20N.%C2%BA%20056%20DEL%20PLENO%20DE%20LA%20ASAMBLEA%20NACIONAL.%20ECUADOR%2C%2009%20DE%20DICIEMBRE%20DE%202025%20(cropped).jpg?width=160",
       "skills": [
         "Finishing",
@@ -816,10 +1032,10 @@
       "teamId": "ARG",
       "birthDate": "2001-01-17",
       "marketValueEurMillions": 90,
-      "uniformNumber": 24,
       "position": "Midfielder",
       "club": "Chelsea",
       "league": "Premier League",
+      "uniformNumber": 24,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Enzo%20Fern%C3%A1ndez%202025%20FIFA%20Club%20World%20Cup%20Final.jpg?width=160",
       "skills": [
         "Midfield control"
@@ -833,10 +1049,10 @@
       "teamId": "NOR",
       "birthDate": "2000-07-21",
       "marketValueEurMillions": 200,
-      "uniformNumber": 9,
       "position": "Striker",
       "club": "Manchester City",
       "league": "Premier League",
+      "uniformNumber": 9,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Erling%20Haaland%20Morocco%20v%20Norway%207%20June%202026-51.jpg?width=160",
       "skills": [
         "Box presence",
@@ -845,16 +1061,31 @@
       "note": "Norway's headline finisher, a box force who changes how every opponent defends crosses and depth.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Erling_Haaland"
     },
+    "Ermin Mahmic": {
+      "name": "Ermin Mahmic",
+      "displayName": "Ermin Mahmić",
+      "teamId": "BIH",
+      "birthDate": "2005-03-14",
+      "position": "Attacking midfielder",
+      "club": "Slovan Liberec",
+      "league": "",
+      "imageUrl": "",
+      "skills": [
+        "Finishing"
+      ],
+      "note": "Scored for Bosnia and Herzegovina in Switzerland vs Bosnia and Herzegovina.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Ermin_Mahmi%C4%87"
+    },
     "Esmir Bajraktarevic": {
       "name": "Esmir Bajraktarevic",
       "displayName": "Esmir Bajraktarević",
       "teamId": "BIH",
       "birthDate": "2005-03-10",
       "marketValueEurMillions": 8,
-      "uniformNumber": 20,
       "position": "Winger",
       "club": "PSV",
       "league": "Eredivisie",
+      "uniformNumber": 20,
       "imageUrl": "https://media.reprezentacija.ba/2025/01/esmir-bajraktarevic-psv-1200x800.jpg",
       "skills": [
         "Chance creation",
@@ -869,10 +1100,10 @@
       "teamId": "CIV",
       "birthDate": "2001-07-01",
       "marketValueEurMillions": 25,
-      "uniformNumber": 22,
       "position": "Forward, attacking midfielder",
       "club": "Crystal Palace",
       "league": "",
+      "uniformNumber": 22,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Guessand%20asse%20ogcn%202425.png?width=160",
       "skills": [
         "Ball carrying",
@@ -887,10 +1118,10 @@
       "teamId": "URU",
       "birthDate": "1998-07-22",
       "marketValueEurMillions": 90,
-      "uniformNumber": 8,
       "position": "Central midfielder",
       "club": "Real Madrid",
       "league": "La Liga",
+      "uniformNumber": 8,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Federico%20Valverde%202021%20(cropped).jpg?width=160",
       "skills": [
         "Midfield control",
@@ -900,16 +1131,46 @@
       "note": "Uruguay's engine and long-range threat, driving the midfield while covering huge spaces without the ball.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Federico_Valverde"
     },
+    "Felix Nmecha": {
+      "name": "Felix Nmecha",
+      "displayName": "Felix Nmecha",
+      "teamId": "GER",
+      "birthDate": "2000-10-10",
+      "position": "Midfielder",
+      "club": "Borussia Dortmund",
+      "league": "Bundesliga",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Felix%20Nmecha%202021.jpg?width=160",
+      "skills": [
+        "Finishing"
+      ],
+      "note": "Scored for Germany in Germany vs Curaçao.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Felix_Nmecha"
+    },
+    "Finn Surman": {
+      "name": "Finn Surman",
+      "displayName": "Finn Surman",
+      "teamId": "NZL",
+      "birthDate": "2003-09-23",
+      "position": "Central defender",
+      "club": "Portland Timbers",
+      "league": "",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Finn_Surman.jpg?width=160",
+      "skills": [
+        "Finishing"
+      ],
+      "note": "Scored for New Zealand in New Zealand vs Egypt.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Finn_Surman"
+    },
     "Firas Al-Buraikan": {
       "name": "Firas Al-Buraikan",
       "displayName": "Firas Al-Buraikan",
       "teamId": "KSA",
       "birthDate": "2000-05-14",
       "marketValueEurMillions": 3.5,
-      "uniformNumber": 9,
       "position": "Striker",
       "club": "Al-Ahli",
       "league": "Saudi Pro League",
+      "uniformNumber": 9,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Firas%20Al-Buraikan%202026.jpg?width=160",
       "skills": [
         "Finishing",
@@ -926,10 +1187,10 @@
       "teamId": "GER",
       "birthDate": "2003-05-03",
       "marketValueEurMillions": 100,
-      "uniformNumber": 17,
       "position": "Attacking midfielder, left midfielder",
       "club": "Liverpool",
       "league": "Premier League",
+      "uniformNumber": 17,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Florian%20Wirtz%2C%202022-07-31%2C%20Saisoner%C3%B6ffnung%20Bayer%2004%2C%20Leverkusen%20(1)%20(cropped).jpg?width=160",
       "skills": [
         "Chance creation"
@@ -937,16 +1198,31 @@
       "note": "A high-IQ creator whose timing and final pass can turn Germany's possession into real chances.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Florian_Wirtz"
     },
+    "Folarin Balogun": {
+      "name": "Folarin Balogun",
+      "displayName": "Folarin Balogun",
+      "teamId": "USA",
+      "birthDate": "2001-07-03",
+      "position": "Striker",
+      "club": "Monaco",
+      "league": "Ligue 1",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Folarin%20Balogun%20USMNT%20v%20Belgium%20Mar%2028%202026-69%20(cropped).jpg?width=160",
+      "skills": [
+        "Finishing"
+      ],
+      "note": "Scored for United States in United States vs Paraguay.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Folarin_Balogun"
+    },
     "Franck Kessie": {
       "name": "Franck Kessie",
       "displayName": "Franck Kessié",
       "teamId": "CIV",
       "birthDate": "1996-12-19",
       "marketValueEurMillions": 12,
-      "uniformNumber": 8,
       "position": "Central midfielder",
       "club": "Al-Ahli",
       "league": "Saudi Pro League",
+      "uniformNumber": 8,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Franck%20Yannick%20Kessi%C3%A9.jpg?width=160",
       "skills": [
         "Midfield control",
@@ -963,10 +1239,10 @@
       "teamId": "HAI",
       "birthDate": "1995-03-29",
       "marketValueEurMillions": 1.5,
-      "uniformNumber": 20,
       "position": "Forward",
       "club": "Çaykur Rizespor (on loan from AEK Athens)",
       "league": "Süper Lig",
+      "uniformNumber": 20,
       "imageUrl": "https://www.eaguingamp.com/voy_content/uploads/2020/09/frantzdy-pierrot.png",
       "skills": [
         "Box presence",
@@ -981,10 +1257,10 @@
       "teamId": "NED",
       "birthDate": "1997-05-12",
       "marketValueEurMillions": 35,
-      "uniformNumber": 21,
       "position": "Midfielder",
       "club": "Barcelona",
       "league": "La Liga",
+      "uniformNumber": 21,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/%D0%9C%D0%B0%D1%82%D1%87%20%C2%AB%D0%94%D0%B8%D0%BD%D0%B0%D0%BC%D0%BE%C2%BB%20-%20%C2%AB%D0%91%D0%B0%D1%80%D1%81%D0%B5%D0%BB%D0%BE%D0%BD%D0%B0%C2%BB%200-1.%202%20%D0%BD%D0%BE%D1%8F%D0%B1%D1%80%D1%8F%202021%20%D0%B3%D0%BE%D0%B4%D0%B0.%20II%20%E2%80%94%201289671%20(cropped).jpg?width=160",
       "skills": [
         "Midfield control",
@@ -993,16 +1269,31 @@
       "note": "The press-resistant midfielder who turns build-up pressure into controlled entries through midfield.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Frenkie_de_Jong"
     },
+    "Giovanni Reyna": {
+      "name": "Giovanni Reyna",
+      "displayName": "Giovanni Reyna",
+      "teamId": "USA",
+      "birthDate": "2002-11-13",
+      "position": "Attacking midfielder, winger",
+      "club": "Borussia Mönchengladbach",
+      "league": "Bundesliga",
+      "imageUrl": "",
+      "skills": [
+        "Finishing"
+      ],
+      "note": "Scored for United States in United States vs Paraguay.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Giovanni_Reyna"
+    },
     "Granit Xhaka": {
       "name": "Granit Xhaka",
       "displayName": "Granit Xhaka",
       "teamId": "SUI",
       "birthDate": "1992-09-27",
       "marketValueEurMillions": 8,
-      "uniformNumber": 10,
       "position": "Defensive midfielder",
       "club": "Sunderland",
       "league": "Premier League",
+      "uniformNumber": 10,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Granit%20Xhaka%20(cropped).jpg?width=160",
       "skills": [
         "Midfield control",
@@ -1017,10 +1308,10 @@
       "teamId": "PAR",
       "birthDate": "1993-05-06",
       "marketValueEurMillions": 3.5,
-      "uniformNumber": 15,
       "position": "Centre-back",
       "club": "Palmeiras",
       "league": "Campeonato Brasileiro Série A",
+      "uniformNumber": 15,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Gustavo-Gomez-Palmeiras-Athletico-jul-2022-2.jpg?width=160",
       "skills": [
         "Set pieces",
@@ -1036,10 +1327,10 @@
       "teamId": "TUR",
       "birthDate": "1994-02-08",
       "marketValueEurMillions": 16,
-      "uniformNumber": 10,
       "position": "Midfielder",
       "club": "Inter Milan",
       "league": "Serie A",
+      "uniformNumber": 10,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/AUT%20vs.%20TUR%202016-03-29%20(342).jpg?width=160",
       "skills": [
         "Set pieces",
@@ -1054,10 +1345,10 @@
       "teamId": "TUN",
       "birthDate": "2003-01-21",
       "marketValueEurMillions": 15,
-      "uniformNumber": 10,
       "position": "Midfielder",
       "club": "Burnley",
       "league": "EFL Championship",
+      "uniformNumber": 10,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Hannibal%20Mejbri%2026042025%20(1).jpg?width=160",
       "skills": [
         "Link-up play",
@@ -1074,10 +1365,10 @@
       "teamId": "ENG",
       "birthDate": "1993-07-28",
       "marketValueEurMillions": 60,
-      "uniformNumber": 9,
       "position": "Striker",
       "club": "Bayern Munich",
       "league": "Bundesliga",
+      "uniformNumber": 9,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Harry%20Kane%20on%20October%2010%2C%202023.jpg?width=160",
       "skills": [
         "Finishing",
@@ -1087,16 +1378,46 @@
       "note": "England's captain and central finisher. His dropping movements can pull center-backs out of shape.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Harry_Kane"
     },
+    "Hassan Altambakti": {
+      "name": "Hassan Altambakti",
+      "displayName": "Hassan Al-Tambakti",
+      "teamId": "KSA",
+      "birthDate": "1999-02-09",
+      "position": "Centre-back",
+      "club": "Al-Hilal",
+      "league": "Saudi Pro League",
+      "imageUrl": "",
+      "skills": [
+        "Match impact"
+      ],
+      "note": "",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Hassan_Al-Tambakti"
+    },
+    "Helio Varela": {
+      "name": "Helio Varela",
+      "displayName": "Hélio Varela",
+      "teamId": "CPV",
+      "birthDate": "2002-05-03",
+      "position": "Winger",
+      "club": "Maccabi Tel Aviv",
+      "league": "",
+      "imageUrl": "",
+      "skills": [
+        "Finishing"
+      ],
+      "note": "Scored for Cabo Verde in Uruguay vs Cabo Verde.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/H%C3%A9lio_Varela"
+    },
     "Homam Ahmed": {
       "name": "Homam Ahmed",
       "displayName": "Homam Ahmed",
       "teamId": "QAT",
       "birthDate": "1999-08-25",
       "marketValueEurMillions": 0.5,
-      "uniformNumber": 14,
       "position": "Left Back",
       "club": "Cultural Leonesa (on loan from Al-Duhail)",
       "league": "Segunda División",
+      "uniformNumber": 14,
       "imageUrl": "https://assets.sorare.com/player/9f4c177b-3447-4eab-8275-03ca450574f0/picture/avatar-1d48558ecaadf12ea98960c37ae7d9d4.png",
       "skills": [
         "Midfield control",
@@ -1106,16 +1427,64 @@
       "note": "A left-sided runner whose recovery pace and timing can shape Qatar's defensive rhythm.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Homam_Ahmed"
     },
+    "Houssem Aouar": {
+      "name": "Houssem Aouar",
+      "displayName": "Houssem Aouar",
+      "teamId": "ALG",
+      "birthDate": "1998-06-30",
+      "marketValueEurMillions": 8,
+      "position": "Midfielder",
+      "club": "Al-Ittihad",
+      "league": "Saudi Pro League",
+      "uniformNumber": 8,
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Houssem%20Aouar%202017%20(cropped).jpg?width=160",
+      "skills": [
+        "Link-up play",
+        "Midfield control"
+      ],
+      "note": "The midfield connector, useful when Algeria need cleaner passes between Mahrez and the forwards.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Houssem_Aouar"
+    },
+    "Hwang Inbeom": {
+      "name": "Hwang Inbeom",
+      "displayName": "Hwang In-beom",
+      "teamId": "KOR",
+      "birthDate": "1996-09-20",
+      "position": "Midfielder",
+      "club": "Feyenoord",
+      "league": "",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/240611%20%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD%20vs%20%EC%A4%91%EA%B5%AD%20(%ED%99%A9%EC%9D%B8%EB%B2%94).jpg?width=160",
+      "skills": [
+        "Finishing"
+      ],
+      "note": "Scored for South Korea in South Korea vs Czechia.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Hwang_In-beom"
+    },
+    "Ibrahim Mbaye": {
+      "name": "Ibrahim Mbaye",
+      "displayName": "Ibrahim Mbaye",
+      "teamId": "SEN",
+      "birthDate": "2008-01-24",
+      "position": "Forward",
+      "club": "Paris Saint-Germain",
+      "league": "Ligue 1",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ibrahim%20Mbaye%20France%20v%20Senegal%2016%20June%202026-256.jpg?width=160",
+      "skills": [
+        "Finishing"
+      ],
+      "note": "Scored for Senegal in France vs Senegal.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Ibrahim_Mbaye"
+    },
     "Inaki Williams": {
       "name": "Inaki Williams",
       "displayName": "Iñaki Williams",
       "teamId": "GHA",
       "birthDate": "1994-06-15",
       "marketValueEurMillions": 8,
-      "uniformNumber": 19,
       "position": "Forward",
       "club": "Athletic Bilbao",
       "league": "La Liga",
+      "uniformNumber": 19,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/I%C3%B1aki%20Williams.png?width=160",
       "skills": [
         "Runs in behind",
@@ -1125,52 +1494,16 @@
       "note": "A vertical forward who stretches defenses and gives Ghana a second route behind the back line.",
       "sourceUrl": "https://en.wikipedia.org/wiki/I%C3%B1aki_Williams"
     },
-    "Houssem Aouar": {
-      "name": "Houssem Aouar",
-      "displayName": "Houssem Aouar",
-      "teamId": "ALG",
-      "birthDate": "1998-06-30",
-      "marketValueEurMillions": 8,
-      "uniformNumber": 8,
-      "position": "Midfielder",
-      "club": "Al-Ittihad",
-      "league": "Saudi Pro League",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Houssem%20Aouar%202017%20(cropped).jpg?width=160",
-      "skills": [
-        "Midfield control",
-        "Chance creation",
-        "Link-up play"
-      ],
-      "note": "The midfield connector, useful when Algeria need cleaner passes between Mahrez and the forwards.",
-      "sourceUrl": "https://en.wikipedia.org/wiki/Houssem_Aouar"
-    },
-    "Ismael Bennacer": {
-      "name": "Ismael Bennacer",
-      "displayName": "Ismaël Bennacer إِسْمَاعِيل بِن نَاصِر",
-      "teamId": "ALG",
-      "birthDate": "1997-12-01",
-      "marketValueEurMillions": 8,
-      "position": "Defensive midfielder",
-      "club": "Dinamo Zagreb (on loan from AC Milan)",
-      "league": "Croatian Football League",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/BennacerLeB2022.jpg?width=160",
-      "skills": [
-        "Midfield control",
-        "Pressing"
-      ],
-      "note": "The midfield press-breaker, important for helping Algeria play through pressure instead of around it.",
-      "sourceUrl": "https://en.wikipedia.org/wiki/Isma%C3%ABl_Bennacer"
-    },
     "Ismael Diaz": {
       "name": "Ismael Diaz",
       "displayName": "Ismael Díaz",
       "teamId": "PAN",
       "birthDate": "1997-05-12",
       "marketValueEurMillions": 1.8,
-      "uniformNumber": 10,
       "position": "Winger",
       "club": "León",
       "league": "Liga MX",
+      "uniformNumber": 10,
       "imageUrl": "https://imagenes.primicias.ec/files/og_thumbnail/uploads/2024/05/25/665295a4a90f8.jpeg",
       "skills": [
         "Chance creation",
@@ -1179,16 +1512,46 @@
       "note": "The attacking spark, capable of turning a compact Panama performance into a real scoring chance.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Ismael_D%C3%ADaz_(footballer%2C_born_1997)"
     },
+    "Ismael Saibari": {
+      "name": "Ismael Saibari",
+      "displayName": "Ismael Saibari",
+      "teamId": "MAR",
+      "birthDate": "2001-01-28",
+      "position": "Attacking midfielder, forward",
+      "club": "PSV Eindhoven",
+      "league": "",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ismael%20Saibari%20Brazil%20V%20Morocco%2013%20June%202026-152.jpg?width=160",
+      "skills": [
+        "Finishing"
+      ],
+      "note": "Scored for Morocco in Brazil vs Morocco.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Ismael_Saibari"
+    },
+    "Ismaila Sarr": {
+      "name": "Ismaila Sarr",
+      "displayName": "Ismaïla Sarr",
+      "teamId": "SEN",
+      "birthDate": "1998-02-25",
+      "position": "forward, winger",
+      "club": "Crystal Palace",
+      "league": "",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ismaila%20Sarr%20France%20v%20Senegal%2016%20June%202026-425%20(cropped).jpg?width=160",
+      "skills": [
+        "Finishing"
+      ],
+      "note": "Scored for Senegal in Norway vs Senegal.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Isma%C3%AFla_Sarr"
+    },
     "Jackson Irvine": {
       "name": "Jackson Irvine",
       "displayName": "Jackson Irvine",
       "teamId": "AUS",
       "birthDate": "1993-03-07",
       "marketValueEurMillions": 1,
-      "uniformNumber": 22,
       "position": "Central midfielder",
       "club": "FC St. Pauli",
       "league": "Bundesliga",
+      "uniformNumber": 22,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/4822293%20AE7I6590%20(Jackson%20Irvine).jpg?width=160",
       "skills": [
         "Box presence",
@@ -1205,10 +1568,10 @@
       "teamId": "GER",
       "birthDate": "2003-02-26",
       "marketValueEurMillions": 100,
-      "uniformNumber": 10,
       "position": "Attacking midfielder",
       "club": "Bayern Munich",
       "league": "Bundesliga",
+      "uniformNumber": 10,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Jamal%20Musiala%202022%20(cropped).jpg?width=160",
       "skills": [
         "Runs in behind",
@@ -1223,10 +1586,10 @@
       "teamId": "COL",
       "birthDate": "1991-07-12",
       "marketValueEurMillions": 1.5,
-      "uniformNumber": 10,
       "position": "Attacking midfielder, winger",
       "club": "Minnesota United",
       "league": "Major League Soccer",
+      "uniformNumber": 10,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/James%20Rodriguez%202018.jpg?width=160",
       "skills": [
         "Chance creation",
@@ -1236,16 +1599,31 @@
       "note": "The experienced creator who still connects Colombia's attack, especially when the match slows near the area.",
       "sourceUrl": "https://en.wikipedia.org/wiki/James_Rodr%C3%ADguez"
     },
+    "Jaminton Campaz": {
+      "name": "Jaminton Campaz",
+      "displayName": "Jaminton Campaz",
+      "teamId": "COL",
+      "birthDate": "2000-05-24",
+      "position": "Attacking midfielder",
+      "club": "Rosario Central",
+      "league": "",
+      "imageUrl": "",
+      "skills": [
+        "Finishing"
+      ],
+      "note": "Scored for Colombia in Uzbekistan vs Colombia.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Jaminton_Campaz"
+    },
     "Jean-Ricner Bellegarde": {
       "name": "Jean-Ricner Bellegarde",
       "displayName": "Jean-Ricner Bellegarde",
       "teamId": "HAI",
       "birthDate": "1998-06-27",
       "marketValueEurMillions": 16,
-      "uniformNumber": 10,
       "position": "Midfielder",
       "club": "Wolverhampton Wanderers",
       "league": "Premier League",
+      "uniformNumber": 10,
       "imageUrl": "https://assets.sorare.com/playerpicture/563dce7e-7150-4db5-acd0-166ab7f619ee/picture/avatar-dbb7b5dc63acbb97714f8946e94f05de.png",
       "skills": [
         "Midfield control",
@@ -1261,10 +1639,10 @@
       "teamId": "BEL",
       "birthDate": "2002-05-27",
       "marketValueEurMillions": 75,
-      "uniformNumber": 11,
       "position": "Winger",
       "club": "Manchester City",
       "league": "Premier League",
+      "uniformNumber": 11,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/J%C3%A9r%C3%A9my%20Doku%20USMNT%20v%20Belgium%20Mar%2028%202026-27%20(cropped).jpg?width=160",
       "skills": [
         "Midfield control",
@@ -1275,16 +1653,46 @@
       "note": "The one-v-one destabilizer, stretching games wide open with direct carries from the flank.",
       "sourceUrl": "https://en.wikipedia.org/wiki/J%C3%A9r%C3%A9my_Doku"
     },
+    "Joao Neves": {
+      "name": "Joao Neves",
+      "displayName": "João Neves",
+      "teamId": "POR",
+      "birthDate": "2004-09-27",
+      "position": "Midfielder",
+      "club": "Paris Saint-Germain",
+      "league": "Ligue 1",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Jo%C3%A3o%20Neves%20USMNT%20v%20Portugal%20Mar%2031%202026-18%20(cropped).jpg?width=160",
+      "skills": [
+        "Finishing"
+      ],
+      "note": "Scored for Portugal in Portugal vs DR Congo.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Jo%C3%A3o_Neves"
+    },
+    "Johan Manzambi": {
+      "name": "Johan Manzambi",
+      "displayName": "Johan Manzambi",
+      "teamId": "SUI",
+      "birthDate": "2005-10-14",
+      "position": "Midfielder",
+      "club": "SC Freiburg",
+      "league": "",
+      "imageUrl": "",
+      "skills": [
+        "Finishing"
+      ],
+      "note": "Scored for Switzerland in Switzerland vs Bosnia and Herzegovina.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Johan_Manzambi"
+    },
     "John McGinn": {
       "name": "John McGinn",
       "displayName": "John McGinn",
       "teamId": "SCO",
       "birthDate": "1994-10-18",
       "marketValueEurMillions": 13,
-      "uniformNumber": 7,
       "position": "Midfielder",
       "club": "Aston Villa",
       "league": "Premier League",
+      "uniformNumber": 7,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/John%20McGinn%20Scotland%20v%20Bolivia%206%20June%202026-2.jpg?width=160",
       "skills": [
         "Link-up play"
@@ -1298,10 +1706,10 @@
       "teamId": "CAN",
       "birthDate": "2000-01-14",
       "marketValueEurMillions": 30,
-      "uniformNumber": 10,
       "position": "Forward",
       "club": "Juventus",
       "league": "Serie A",
+      "uniformNumber": 10,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Jonathan%20David%20asse%20losc%202425%20(cropped).jpg?width=160",
       "skills": [
         "Finishing"
@@ -1315,10 +1723,10 @@
       "teamId": "GHA",
       "birthDate": "1991-09-11",
       "marketValueEurMillions": 1,
-      "uniformNumber": 9,
       "position": "Winger, forward",
       "club": "Leicester City",
       "league": "EFL Championship",
+      "uniformNumber": 9,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Jordan%20Ayew%2024082024%20(2).jpg?width=160",
       "skills": [
         "Pressing",
@@ -1333,10 +1741,10 @@
       "teamId": "GER",
       "birthDate": "1995-02-08",
       "marketValueEurMillions": 35,
-      "uniformNumber": 6,
       "position": "right-back",
       "club": "Bayern Munich",
       "league": "Bundesliga",
+      "uniformNumber": 6,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/2019-06-11%20Fu%C3%9Fball%2C%20M%C3%A4nner%2C%20L%C3%A4nderspiel%2C%20Deutschland-Estland%20StP%202078%20LR10%20by%20Stepro%20(cropped).jpg?width=160",
       "skills": [
         "Midfield control",
@@ -1351,10 +1759,10 @@
       "teamId": "CRO",
       "birthDate": "2002-01-22",
       "marketValueEurMillions": 70,
-      "uniformNumber": 4,
       "position": "Centre-back, left-back",
       "club": "Manchester City",
       "league": "Premier League",
+      "uniformNumber": 4,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/2023-10-04%20Fu%C3%9Fball%2C%20M%C3%A4nner%2C%20UEFA%20Champions%20League%2C%20RB%20Leipzig%20-%20Manchester%20City%20FC%201DX%202611%20(Jo%C5%A1ko%20Gvardiol).jpg?width=160",
       "skills": [
         "Runs in behind",
@@ -1365,16 +1773,31 @@
       "note": "Croatia's defensive anchor on the left side, important against movement in open space and wide runners.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Jo%C5%A1ko_Gvardiol"
     },
+    "Jovo Lukic": {
+      "name": "Jovo Lukic",
+      "displayName": "Jovo Lukić",
+      "teamId": "BIH",
+      "birthDate": "1998-11-28",
+      "position": "Forward",
+      "club": "Universitatea Cluj",
+      "league": "",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Jovo%20Luki%C4%87%2097%20(cropped).jpg?width=160",
+      "skills": [
+        "Finishing"
+      ],
+      "note": "Scored for Bosnia and Herzegovina in Canada vs Bosnia and Herzegovina.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Jovo_Luki%C4%87"
+    },
     "Jude Bellingham": {
       "name": "Jude Bellingham",
       "displayName": "Jude Bellingham",
       "teamId": "ENG",
       "birthDate": "2003-06-29",
       "marketValueEurMillions": 130,
-      "uniformNumber": 10,
       "position": "Midfielder",
       "club": "Real Madrid",
       "league": "La Liga",
+      "uniformNumber": 10,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/25th_Laureus_World_Sports_Awards_-_Red_Carpet_-_Jude_Bellingham_-_240422_190551-2_(cropped).jpg?width=160",
       "skills": [
         "Link-up play",
@@ -1390,10 +1813,10 @@
       "teamId": "ARG",
       "birthDate": "2000-01-31",
       "marketValueEurMillions": 100,
-      "uniformNumber": 9,
       "position": "Forward",
       "club": "Atlético Madrid",
       "league": "La Liga",
+      "uniformNumber": 9,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Argentina%20national%20football%20team%20-%202%20-%202022%20(Juli%C3%A1n%20%C3%81lvarez).jpg?width=160",
       "skills": [
         "Finishing",
@@ -1402,24 +1825,20 @@
       "note": "Argentina's pressing forward and flexible finisher, dangerous whether he starts moves or attacks the last line.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Juli%C3%A1n_Alvarez"
     },
-    "Lionel Messi": {
-      "name": "Lionel Messi",
-      "displayName": "Lionel Messi",
-      "teamId": "ARG",
-      "birthDate": "1987-06-24",
-      "marketValueEurMillions": 15,
-      "uniformNumber": 10,
-      "position": "Forward",
-      "club": "Inter Miami",
-      "league": "Major League Soccer",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Lionel%20Messi%20White%20House%202026%20%283x4%20cropped%29.jpg?width=160",
+    "Julian Quinones": {
+      "name": "Julian Quinones",
+      "displayName": "Julián Quiñones",
+      "teamId": "MEX",
+      "birthDate": "1997-03-24",
+      "position": "Forward, winger",
+      "club": "Al-Qadsiah",
+      "league": "",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Juli%C3%A1n%20Qui%C3%B1ones.png?width=160",
       "skills": [
-        "Chance creation",
-        "Finishing",
-        "Movement"
+        "Finishing"
       ],
-      "note": "Argentina's central attacking reference, whose between-lines gravity can turn pressure into clean chances.",
-      "sourceUrl": "https://en.wikipedia.org/wiki/Lionel_Messi"
+      "note": "Scored for Mexico in Mexico vs South Africa.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Juli%C3%A1n_Qui%C3%B1ones"
     },
     "Julio Enciso": {
       "name": "Julio Enciso",
@@ -1427,10 +1846,10 @@
       "teamId": "PAR",
       "birthDate": "2004-01-23",
       "marketValueEurMillions": 25,
-      "uniformNumber": 19,
       "position": "Attacking midfielder, left winger",
       "club": "Strasbourg",
       "league": "Ligue 1",
+      "uniformNumber": 19,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Enciso%202022%202.jpg?width=160",
       "skills": [
         "Chance creation",
@@ -1445,10 +1864,10 @@
       "teamId": "CUW",
       "birthDate": "1997-08-07",
       "marketValueEurMillions": 1.7,
-      "uniformNumber": 7,
       "position": "Central midfielder",
       "club": "Volendam (on loan from Gaziantep)",
       "league": "Eredivisie",
+      "uniformNumber": 7,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Juninho%20bacuna-1531777726.jpeg?width=160",
       "skills": [
         "Midfield control",
@@ -1457,16 +1876,46 @@
       "note": "Curacao's most assertive midfield carrier, useful for turning defensive work into forward momentum.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Juninho_Bacuna"
     },
+    "Junya Ito": {
+      "name": "Junya Ito",
+      "displayName": "Junya Itō",
+      "teamId": "JPN",
+      "birthDate": "1993-03-09",
+      "position": "Winger, forward",
+      "club": "Genk",
+      "league": "",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ito%20asse%20sr%202425.png?width=160",
+      "skills": [
+        "Finishing"
+      ],
+      "note": "Scored for Japan in Tunisia vs Japan.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Junya_It%C5%8D"
+    },
+    "Kai Havertz": {
+      "name": "Kai Havertz",
+      "displayName": "Kai Havertz",
+      "teamId": "GER",
+      "birthDate": "1999-06-11",
+      "position": "Forward, Attacking midfielder",
+      "club": "Arsenal",
+      "league": "Premier League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/1%20kai%20havertz%202026%20(cropped).jpg?width=160",
+      "skills": [
+        "Finishing"
+      ],
+      "note": "Scored for Germany in Germany vs Curaçao.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Kai_Havertz"
+    },
     "Kalidou Koulibaly": {
       "name": "Kalidou Koulibaly",
       "displayName": "Kalidou Koulibaly",
       "teamId": "SEN",
       "birthDate": "1991-06-20",
       "marketValueEurMillions": 4.5,
-      "uniformNumber": 3,
       "position": "Centre-back",
       "club": "Al-Hilal",
       "league": "Saudi Pro League",
+      "uniformNumber": 3,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Joueur%20de%20foot.jpg?width=160",
       "skills": [
         "Set pieces",
@@ -1476,16 +1925,31 @@
       "note": "The back-line commander, important for duels, organization, and defending set pieces.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Kalidou_Koulibaly"
     },
+    "Keito Nakamura": {
+      "name": "Keito Nakamura",
+      "displayName": "Keito Nakamura",
+      "teamId": "JPN",
+      "birthDate": "2000-07-28",
+      "position": "Left winger, forward",
+      "club": "Reims",
+      "league": "",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Nakamura%20asse%20sr%202425.png?width=160",
+      "skills": [
+        "Finishing"
+      ],
+      "note": "Scored for Japan in Netherlands vs Japan.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Keito_Nakamura"
+    },
     "Kenan Yildiz": {
       "name": "Kenan Yildiz",
       "displayName": "Kenan Yıldız",
       "teamId": "TUR",
       "birthDate": "2005-05-04",
       "marketValueEurMillions": 75,
-      "uniformNumber": 11,
       "position": "Attacking midfielder, winger",
       "club": "Juventus",
       "league": "Serie A",
+      "uniformNumber": 11,
       "imageUrl": "https://www.juventus.com/images/image/private/t_portrait_tablet_desktop/f_png/dev/qwsdrvbuik2f2d7q1qcf.png",
       "skills": [
         "Wide threat",
@@ -1500,10 +1964,10 @@
       "teamId": "BEL",
       "birthDate": "1991-06-28",
       "marketValueEurMillions": 8,
-      "uniformNumber": 7,
       "position": "Midfielder",
       "club": "Napoli",
       "league": "Serie A",
+      "uniformNumber": 7,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Kevin%20De%20Bruyne%20USMNT%20v%20Belgium%20Mar%2028%202026-64%20(cropped).jpg?width=160",
       "skills": [
         "Box presence"
@@ -1511,16 +1975,31 @@
       "note": "Belgium's elite chance architect, able to find early crosses, through balls, and shots before defenses settle.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Kevin_De_Bruyne"
     },
+    "Kevin Pina": {
+      "name": "Kevin Pina",
+      "displayName": "Kevin Pina",
+      "teamId": "CPV",
+      "birthDate": "1997-01-27",
+      "position": "Defensive midfielder",
+      "club": "Krasnodar",
+      "league": "",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Kevin%20Pina%20(footballer)%202022.jpg?width=160",
+      "skills": [
+        "Finishing"
+      ],
+      "note": "Scored for Cabo Verde in Uruguay vs Cabo Verde.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Kevin_Pina_(footballer)"
+    },
     "Kim Min-jae": {
       "name": "Kim Min-jae",
       "displayName": "Kim Min-jae",
       "teamId": "KOR",
       "birthDate": "1996-11-15",
       "marketValueEurMillions": 20,
-      "uniformNumber": 4,
       "position": "Centre-back",
       "club": "Bayern Munich",
       "league": "Bundesliga",
+      "uniformNumber": 4,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/FC%20Red%20Bull%20Salzburg%20gegen%20Bayern%20M%C3%BCnchen%20(2025-01-06%20Testspiel)%2026.jpg?width=160",
       "skills": [
         "Ball winning",
@@ -1535,10 +2014,10 @@
       "teamId": "AUT",
       "birthDate": "1997-05-27",
       "marketValueEurMillions": 32,
-      "uniformNumber": 20,
-      "position": "midfielder",
+      "position": "full-back",
       "club": "Bayern Munich",
       "league": "Bundesliga",
+      "uniformNumber": 20,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/2022-07-21%20Fu%C3%9Fball%2C%20M%C3%A4nner%2CFreundschaftsspiel%2C%20RB%20Leipzig%20-%20FC%20Liverpool%201DX%202137%20by%20Stepro%20(cropped).jpg?width=160",
       "skills": [
         "Box presence",
@@ -1553,11 +2032,11 @@
       "teamId": "FRA",
       "birthDate": "1998-12-20",
       "marketValueEurMillions": 180,
-      "uniformNumber": 10,
       "position": "Forward",
       "club": "Real Madrid",
       "league": "La Liga",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Picture%20with%20Mbapp%C3%A9%20(cropped%20and%20rotated).jpg?width=160",
+      "uniformNumber": 10,
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Kylian%20Mbappe%20France%20v%20Senegal%2016%20June%202026-391%20(cropped).jpg?width=160",
       "skills": [
         "Finishing",
         "Runs in behind",
@@ -1566,25 +2045,20 @@
       "note": "France's game-breaking runner and finisher, the player who turns one channel ball into panic.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Kylian_Mbapp%C3%A9"
     },
-    "Michael Olise": {
-      "name": "Michael Olise",
-      "displayName": "Michael Olise",
-      "teamId": "FRA",
-      "birthDate": "2001-12-12",
-      "marketValueEurMillions": 150,
-      "uniformNumber": 11,
-      "position": "Winger, attacking midfielder",
-      "club": "Bayern Munich",
-      "league": "Bundesliga",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Michael%20Olise%20bayern%202025.jpg?width=160",
+    "Ladislav Krejci": {
+      "name": "Ladislav Krejci",
+      "displayName": "Ladislav Krejčí",
+      "teamId": "CZE",
+      "birthDate": "1999-04-20",
+      "position": "Centre-back, defensive midfielder",
+      "club": "Wolverhampton Wanderers (on loan from Girona)",
+      "league": "Premier League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ladislav%20Krej%C4%8D%C3%AD%2001112025%20(1).jpg?width=160",
       "skills": [
-        "Chance creation",
-        "Wide threat",
-        "Link-up play",
         "Finishing"
       ],
-      "note": "The current creative hinge, dangerous as a passer, dribbler, or left-footed shooter between defenders.",
-      "sourceUrl": "https://en.wikipedia.org/wiki/Michael_Olise"
+      "note": "Scored for Czechia in South Korea vs Czechia.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Ladislav_Krej%C4%8D%C3%AD_(footballer%2C_born_1999)"
     },
     "Lamine Yamal": {
       "name": "Lamine Yamal",
@@ -1592,10 +2066,10 @@
       "teamId": "ESP",
       "birthDate": "2007-07-13",
       "marketValueEurMillions": 200,
-      "uniformNumber": 19,
       "position": "Right winger/right midfielder",
       "club": "Barcelona",
       "league": "La Liga",
+      "uniformNumber": 19,
       "imageUrl": "https://assets.sorare.com/playerpicture/c8dd7fff-b3bc-4e8e-a199-99ddaeacaf0a/picture/avatar-44bdd68923075c1703d3b4241f082bb4.png",
       "skills": [
         "Chance creation",
@@ -1611,10 +2085,10 @@
       "teamId": "CUW",
       "birthDate": "1991-08-21",
       "marketValueEurMillions": 0.3,
-      "uniformNumber": 10,
       "position": "Midfielder, right-back",
       "club": "Iğdır FK",
       "league": "TFF First League",
+      "uniformNumber": 10,
       "imageUrl": "https://assets.sorare.com/playerpicture/dff6b137-2d96-485d-9e6b-9a98f34031ab/picture/avatar-09b13e7e02f8289016e9f98ff71d4c7a.png",
       "skills": [
         "Set pieces",
@@ -1631,10 +2105,10 @@
       "teamId": "BEL",
       "birthDate": "1994-12-04",
       "marketValueEurMillions": 18,
-      "uniformNumber": 10,
       "position": "Winger, forward",
       "club": "Arsenal",
       "league": "Premier League",
+      "uniformNumber": 10,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/RC%20Lens%20-%20Arsenal%20FC%20(03-10-2023)%2026%20(cropped).jpg?width=160",
       "skills": [
         "Box presence",
@@ -1649,10 +2123,10 @@
       "teamId": "KOR",
       "birthDate": "2001-02-19",
       "marketValueEurMillions": 28,
-      "uniformNumber": 19,
       "position": "Attacking midfielder, winger",
       "club": "Paris Saint-Germain",
       "league": "Ligue 1",
+      "uniformNumber": 19,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Lee%20Kang-in%20-%202022%20(52551771501)%20(cropped).jpg?width=160",
       "skills": [
         "Chance creation",
@@ -1661,16 +2135,31 @@
       "note": "The creative passer who can turn Korea's counters into controlled attacks.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Lee_Kang-in"
     },
+    "Leo Ostigard": {
+      "name": "Leo Ostigard",
+      "displayName": "Leo Østigård",
+      "teamId": "NOR",
+      "birthDate": "1999-11-28",
+      "position": "Centre-back",
+      "club": "Genoa",
+      "league": "",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Leo%20Ostigard%20Morocco%20v%20Norway%207%20June%202026-20.jpg?width=160",
+      "skills": [
+        "Finishing"
+      ],
+      "note": "Scored for Norway in Iraq vs Norway.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Leo_%C3%98stig%C3%A5rd"
+    },
     "Liberato Cacace": {
       "name": "Liberato Cacace",
       "displayName": "Liberato Cacace",
       "teamId": "NZL",
       "birthDate": "2000-09-27",
       "marketValueEurMillions": 2.5,
-      "uniformNumber": 13,
       "position": "Left-back",
       "club": "Wrexham",
       "league": "EFL Championship",
+      "uniformNumber": 13,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Liberato%20Cacace%2030082025%20(1).jpg?width=160",
       "skills": [
         "Ball carrying"
@@ -1678,16 +2167,49 @@
       "note": "The left-side outlet who can carry New Zealand up the pitch and serve early balls.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Liberato_Cacace"
     },
+    "Lionel Messi": {
+      "name": "Lionel Messi",
+      "displayName": "Lionel Messi",
+      "teamId": "ARG",
+      "birthDate": "1987-06-24",
+      "marketValueEurMillions": 15,
+      "position": "Forward",
+      "club": "Inter Miami",
+      "league": "",
+      "uniformNumber": 10,
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Lionel%20Messi%20White%20House%202026%20(3x4%20cropped).jpg?width=160",
+      "skills": [
+        "Pressing",
+        "Target play"
+      ],
+      "note": "Argentina's central attacking reference, whose between-lines gravity can turn pressure into clean chances.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Lionel_Messi"
+    },
+    "Livano Comenencia": {
+      "name": "Livano Comenencia",
+      "displayName": "Livano Comenencia",
+      "teamId": "CUW",
+      "birthDate": "2004-02-03",
+      "position": "Right-back",
+      "club": "Zürich",
+      "league": "",
+      "imageUrl": "",
+      "skills": [
+        "Finishing"
+      ],
+      "note": "Scored for Curaçao in Germany vs Curaçao.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Livano_Comenencia"
+    },
     "Luis Chavez": {
       "name": "Luis Chavez",
       "displayName": "Luis Chávez",
       "teamId": "MEX",
       "birthDate": "1996-01-15",
       "marketValueEurMillions": 6,
-      "uniformNumber": 24,
       "position": "Midfielder",
       "club": "Dynamo Moscow",
       "league": "Russian Premier League",
+      "uniformNumber": 24,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Luis%20Ch%C3%A1vez%20WC%202022%20-%2001.jpg?width=160",
       "skills": [
         "Set pieces",
@@ -1702,10 +2224,10 @@
       "teamId": "COL",
       "birthDate": "1997-01-13",
       "marketValueEurMillions": 70,
-      "uniformNumber": 7,
       "position": "Left winger, left midfielder",
       "club": "Bayern Munich",
       "league": "Bundesliga",
+      "uniformNumber": 7,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/FC%20RB%20Salzburg%20gegen%20FC%20Bayern%20M%C3%BCnchen%20(2026-01-06%20Testspiel)%2040%20(Luiz%20D%C3%ADaz).jpg?width=160",
       "skills": [
         "Box presence",
@@ -1715,16 +2237,31 @@
       "note": "Colombia's most explosive wide threat, dangerous attacking the box from the left and finishing moves himself.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Luis_D%C3%ADaz_(footballer%2C_born_1997)"
     },
+    "Luis Romo": {
+      "name": "Luis Romo",
+      "displayName": "Luis Romo",
+      "teamId": "MEX",
+      "birthDate": "1995-06-05",
+      "position": "Defensive midfielder, centre-back",
+      "club": "Guadalajara",
+      "league": "",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Luis%20Romo.png?width=160",
+      "skills": [
+        "Finishing"
+      ],
+      "note": "Scored for Mexico in Mexico vs South Korea.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Luis_Romo"
+    },
     "Luis Suarez": {
       "name": "Luis Suarez",
       "displayName": "Luis Suárez",
       "teamId": "COL",
       "birthDate": "1997-12-02",
       "marketValueEurMillions": 1.5,
-      "uniformNumber": 25,
       "position": "Forward",
       "club": "Sporting CP",
       "league": "Primeira Liga",
+      "uniformNumber": 25,
       "imageUrl": "https://assets.sorare.com/playerpicture/f945c83f-4b62-4d89-8a50-4408abefa6b7/picture/avatar-a920b0effd55be927d6b9b0a19d85061.png",
       "skills": [
         "Box presence",
@@ -1741,10 +2278,10 @@
       "teamId": "CRO",
       "birthDate": "1985-09-09",
       "marketValueEurMillions": 3.5,
-      "uniformNumber": 10,
       "position": "Central midfielder",
       "club": "AC Milan",
       "league": "Serie A",
+      "uniformNumber": 10,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ofrenda%20de%20la%20Liga%20y%20la%20Champions-57-L.Mill%C3%A1n%20(52109310843)%20(Luka%20Modri%C4%87).jpg?width=160",
       "skills": [
         "Midfield control"
@@ -1758,10 +2295,10 @@
       "teamId": "RSA",
       "birthDate": "2000-09-03",
       "marketValueEurMillions": 8,
-      "uniformNumber": 9,
       "position": "Forward",
       "club": "Burnley",
       "league": "EFL Championship",
+      "uniformNumber": 9,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Lyle%20Foster%2029112025%20(6).jpg?width=160",
       "skills": [
         "Runs in behind",
@@ -1776,10 +2313,10 @@
       "teamId": "SUI",
       "birthDate": "1995-07-19",
       "marketValueEurMillions": 17,
-      "uniformNumber": 5,
       "position": "Defender",
       "club": "Inter Milan (on loan from Manchester City)",
       "league": "Serie A",
+      "uniformNumber": 5,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/2023-10-04%20Fu%C3%9Fball%2C%20M%C3%A4nner%2C%20UEFA%20Champions%20League%2C%20RB%20Leipzig%20-%20Manchester%20City%20FC%201DX%202792%20(Manuel%20Akanji).jpg?width=160",
       "skills": [
         "Runs in behind",
@@ -1794,10 +2331,10 @@
       "teamId": "AUT",
       "birthDate": "1994-03-17",
       "marketValueEurMillions": 6,
-      "uniformNumber": 9,
       "position": "Midfielder, forward",
       "club": "Borussia Dortmund",
       "league": "Bundesliga",
+      "uniformNumber": 9,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Marcel%20Sabitzer%202020%20(cropped).jpg?width=160",
       "skills": [
         "Finishing",
@@ -1807,16 +2344,76 @@
       "note": "The pressing midfielder with shooting range, dangerous when Austria force turnovers near goal.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Marcel_Sabitzer"
     },
+    "Marcus Holmgren Pedersen": {
+      "name": "Marcus Holmgren Pedersen",
+      "displayName": "Marcus Holmgren Pedersen",
+      "teamId": "NOR",
+      "birthDate": "2000-07-16",
+      "position": "Right-back",
+      "club": "Torino",
+      "league": "",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Marcus%20Holmgren%20Pedersen%202022%20FC%20RB%20Salzburg%20gegen%20Feyenoord%20Rotterdam%20(cropped).jpg?width=160",
+      "skills": [
+        "Finishing"
+      ],
+      "note": "Scored for Norway in Norway vs Senegal.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Marcus_Holmgren_Pedersen"
+    },
+    "Marcus Rashford": {
+      "name": "Marcus Rashford",
+      "displayName": "Marcus Rashford",
+      "teamId": "ENG",
+      "birthDate": "1997-10-31",
+      "position": "Forward",
+      "club": "Barcelona (on loan from Manchester United F.C., Manchester United)",
+      "league": "La Liga",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Marcus%20Rashford%20in%202023.jpg?width=160",
+      "skills": [
+        "Finishing"
+      ],
+      "note": "Scored for England in England vs Croatia.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Marcus_Rashford"
+    },
+    "Marko Arnautovic": {
+      "name": "Marko Arnautovic",
+      "displayName": "Marko Arnautović",
+      "teamId": "AUT",
+      "birthDate": "1989-04-19",
+      "position": "Striker",
+      "club": "Red Star Belgrade",
+      "league": "",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/20180610%20FIFA%20Friendly%20Match%20Austria%20vs.%20Brazil%20Marko%20Arnautovi%C4%87%20850%201633.jpg?width=160",
+      "skills": [
+        "Finishing"
+      ],
+      "note": "Scored for Austria in Austria vs Jordan.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Marko_Arnautovi%C4%87"
+    },
+    "Martin Baturina": {
+      "name": "Martin Baturina",
+      "displayName": "Martin Baturina",
+      "teamId": "CRO",
+      "birthDate": "2003-02-16",
+      "position": "Attacking midfielder",
+      "club": "Como",
+      "league": "",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/FC%20Salzburg%20gegen%20GNK%20Dinamo%20Zagreb%20(UEFA%20Championsleague%202022-10-05)%2052%20(cropped).jpg?width=160",
+      "skills": [
+        "Finishing"
+      ],
+      "note": "Scored for Croatia in England vs Croatia.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Martin_Baturina"
+    },
     "Martin Odegaard": {
       "name": "Martin Odegaard",
       "displayName": "Martin Ødegaard",
       "teamId": "NOR",
       "birthDate": "1998-12-17",
       "marketValueEurMillions": 65,
-      "uniformNumber": 10,
       "position": "Midfielder",
       "club": "Arsenal",
       "league": "Premier League",
+      "uniformNumber": 10,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Martin%20Odegaard%20Morocco%20v%20Norway%207%20June%202026-56%20(cropped).jpg?width=160",
       "skills": [
         "Chance creation",
@@ -1832,10 +2429,10 @@
       "teamId": "CRO",
       "birthDate": "1994-05-06",
       "marketValueEurMillions": 10,
-      "uniformNumber": 8,
       "position": "Central midfielder",
       "club": "Manchester City",
       "league": "Premier League",
+      "uniformNumber": 8,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Chelsea%20vs.%20Arsenal%2C%2029%20May%202019%2018%20Kovacic.jpg?width=160",
       "skills": [
         "Midfield control",
@@ -1845,16 +2442,31 @@
       "note": "The pressure-release midfielder. His carries can break the first line and give Croatia territory.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Mateo_Kova%C4%8Di%C4%87"
     },
+    "Matheus Cunha": {
+      "name": "Matheus Cunha",
+      "displayName": "Matheus Cunha",
+      "teamId": "BRA",
+      "birthDate": "1999-05-27",
+      "position": "Forward",
+      "club": "Manchester United",
+      "league": "Premier League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Matheus%20Cunha%20Brazil%20V%20Morocco%2013%20June%202026-178%20(cropped).jpg?width=160",
+      "skills": [
+        "Finishing"
+      ],
+      "note": "Scored for Brazil in Brazil vs Haiti.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Matheus_Cunha"
+    },
     "Mathew Ryan": {
       "name": "Mathew Ryan",
       "displayName": "Mathew Ryan",
       "teamId": "AUS",
       "birthDate": "1992-04-08",
       "marketValueEurMillions": 1.8,
-      "uniformNumber": 1,
       "position": "Goalkeeper",
       "club": "Levante",
       "league": "La Liga",
+      "uniformNumber": 1,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ryan%20rcl%20asse%202425.png?width=160",
       "skills": [
         "Shot-stopping",
@@ -1864,16 +2476,76 @@
       "note": "The experienced keeper and organizer, important when Australia absorb long spells without the ball.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Mathew_Ryan"
     },
+    "Matias Galarza": {
+      "name": "Matias Galarza",
+      "displayName": "Matías Galarza",
+      "teamId": "PAR",
+      "birthDate": "2002-02-11",
+      "position": "Midfielder",
+      "club": "Atlanta United (on loan from River Plate)",
+      "league": "Major League Soccer",
+      "imageUrl": "",
+      "skills": [
+        "Finishing"
+      ],
+      "note": "Scored for Paraguay in Türkiye vs Paraguay.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Mat%C3%ADas_Galarza_(Paraguayan_footballer)"
+    },
+    "Mattias Svanberg": {
+      "name": "Mattias Svanberg",
+      "displayName": "Mattias Svanberg",
+      "teamId": "SWE",
+      "birthDate": "1999-01-05",
+      "position": "Midfielder",
+      "club": "VfL Wolfsburg",
+      "league": "",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Sweden%20-%20Greece8%20(cropped).jpg?width=160",
+      "skills": [
+        "Finishing"
+      ],
+      "note": "Scored for Sweden in Sweden vs Tunisia.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Mattias_Svanberg"
+    },
+    "Mauricio": {
+      "name": "Mauricio",
+      "displayName": "Maurício",
+      "teamId": "PAR",
+      "birthDate": "2001-06-22",
+      "position": "Attacking midfielder",
+      "club": "Palmeiras",
+      "league": "Campeonato Brasileiro Série A",
+      "imageUrl": "",
+      "skills": [
+        "Finishing"
+      ],
+      "note": "Scored for Paraguay in United States vs Paraguay.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Maur%C3%ADcio_(footballer,_born_2001)"
+    },
+    "Maxi Araujo": {
+      "name": "Maxi Araujo",
+      "displayName": "Maximiliano Araújo",
+      "teamId": "URU",
+      "birthDate": "2000-02-15",
+      "position": "Left-winger, left-back",
+      "club": "Sporting CP",
+      "league": "Primeira Liga",
+      "imageUrl": "",
+      "skills": [
+        "Finishing"
+      ],
+      "note": "Scored for Uruguay in Saudi Arabia vs Uruguay.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Maximiliano_Ara%C3%BAjo"
+    },
     "Mehdi Taremi": {
       "name": "Mehdi Taremi",
       "displayName": "Mehdi Taremi",
       "teamId": "IRN",
       "birthDate": "1992-07-18",
       "marketValueEurMillions": 2,
-      "uniformNumber": 9,
       "position": "Striker",
       "club": "Olympiacos",
       "league": "Super League Greece",
+      "uniformNumber": 9,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Iran%20-%20Japan%2C%20AFC%20Asian%20Cup%202019%2042%20(cropped).jpg?width=160",
       "skills": [
         "Finishing",
@@ -1889,10 +2561,10 @@
       "teamId": "PAN",
       "birthDate": "1996-02-11",
       "marketValueEurMillions": 7,
-      "uniformNumber": 23,
       "position": "Right-back",
       "club": "Beşiktaş",
       "league": "Süper Lig",
+      "uniformNumber": 23,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Michael%20Amir%20Murillo%20vs%20Cincinnati%2C%20May%202019.jpg?width=160",
       "skills": [
         "Box presence",
@@ -1903,16 +2575,51 @@
       "note": "An experienced right-sided defender who adds recovery speed and crossing threat from wide areas.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Michael_Amir_Murillo"
     },
+    "Michael Olise": {
+      "name": "Michael Olise",
+      "displayName": "Michael Olise",
+      "teamId": "FRA",
+      "birthDate": "2001-12-12",
+      "marketValueEurMillions": 150,
+      "position": "Winger, attacking midfielder",
+      "club": "Bayern Munich",
+      "league": "Bundesliga",
+      "uniformNumber": 11,
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Michael%20Olise%20bayern%202025.jpg?width=160",
+      "skills": [
+        "Chance creation",
+        "Defensive control",
+        "Ball carrying",
+        "Long-range shooting"
+      ],
+      "note": "The current creative hinge, dangerous as a passer, dribbler, or left-footed shooter between defenders.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Michael_Olise"
+    },
+    "Michal Sadilek": {
+      "name": "Michal Sadilek",
+      "displayName": "Michal Sadílek",
+      "teamId": "CZE",
+      "birthDate": "1999-05-31",
+      "position": "Midfielder",
+      "club": "Slavia Prague",
+      "league": "",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Michal%20Sad%C3%ADlek%20CZE-KUW%202021-11-11%20(cropped).jpg?width=160",
+      "skills": [
+        "Finishing"
+      ],
+      "note": "Scored for Czechia in Czechia vs South Africa.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Michal_Sad%C3%ADlek"
+    },
     "Miguel Almiron": {
       "name": "Miguel Almiron",
       "displayName": "Miguel Almirón",
       "teamId": "PAR",
       "birthDate": "1994-02-10",
       "marketValueEurMillions": 7,
-      "uniformNumber": 10,
       "position": "Attacking midfielder, winger",
       "club": "Atlanta United",
       "league": "Major League Soccer",
+      "uniformNumber": 10,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Miguel%20Almir%C3%B3n%20Red%20Bull%20Atlanta%205.31.25-069%20(cropped).jpg?width=160",
       "skills": [
         "Runs in behind",
@@ -1922,16 +2629,76 @@
       "note": "The speed outlet who can carry Paraguay out of pressure and attack space before blocks reset.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Miguel_Almir%C3%B3n"
     },
+    "Mikel Oyarzabal": {
+      "name": "Mikel Oyarzabal",
+      "displayName": "Mikel Oyarzabal",
+      "teamId": "ESP",
+      "birthDate": "1997-04-21",
+      "position": "Forward",
+      "club": "Real Sociedad",
+      "league": "La Liga",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/UEFA%20EURO%20qualifiers%20Sweden%20vs%20Spain%2020191015%20108%20(cropped).jpg?width=160",
+      "skills": [
+        "Finishing"
+      ],
+      "note": "Scored for Spain in Spain vs Saudi Arabia.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Mikel_Oyarzabal"
+    },
+    "Miro Muheim": {
+      "name": "Miro Muheim",
+      "displayName": "Miro Muheim",
+      "teamId": "SUI",
+      "birthDate": "1998-03-24",
+      "position": "Midfielder",
+      "club": "Hamburger SV",
+      "league": "",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/2025-05-16%20Hamburger%20SV%20Miro%20Muheim%20(cropped).jpg?width=160",
+      "skills": [
+        "Match impact"
+      ],
+      "note": "",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Miro_Muheim"
+    },
+    "Mohamed Hany": {
+      "name": "Mohamed Hany",
+      "displayName": "Mohamed Hany",
+      "teamId": "EGY",
+      "birthDate": "1996-02-02",
+      "position": "Right-back",
+      "club": "Al Ahly",
+      "league": "",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Mohamed%20Hany%20in%202021%20FIFA%20Club%20World%20Cup.jpg?width=160",
+      "skills": [
+        "Match impact"
+      ],
+      "note": "",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Mohamed_Hany"
+    },
+    "Mohamed Manai": {
+      "name": "Mohamed Manai",
+      "displayName": "Mohamed Manai",
+      "teamId": "QAT",
+      "birthDate": "2002-10-25",
+      "position": "Defensive midfielder",
+      "club": "Al-Shamal",
+      "league": "",
+      "imageUrl": "",
+      "skills": [
+        "Match impact"
+      ],
+      "note": "",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Mohamed_Manai"
+    },
     "Mohamed Salah": {
       "name": "Mohamed Salah",
       "displayName": "Mohamed Salah",
       "teamId": "EGY",
       "birthDate": "1992-06-15",
       "marketValueEurMillions": 22,
-      "uniformNumber": 10,
       "position": "Right winger",
       "club": "Liverpool",
       "league": "Premier League",
+      "uniformNumber": 10,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Mohamed%20Salah%202018.jpg?width=160",
       "skills": [
         "Finishing",
@@ -1941,16 +2708,31 @@
       "note": "Egypt's decisive outlet, a transition runner and finisher every opponent has to bend their shape around.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Mohamed_Salah"
     },
+    "Mohammad Mohebbi": {
+      "name": "Mohammad Mohebbi",
+      "displayName": "Mohammad Mehdi Mohebi",
+      "teamId": "IRN",
+      "birthDate": "2000-02-10",
+      "position": "Winger",
+      "club": "Sepahan (on loan from Kalba)",
+      "league": "",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Iran%20v%20North%20Korea%2C%2010%20June%202025%2018%20Tasnim%20(cropped)%20Mohammad%20Mehdi%20Mohebi.jpg?width=160",
+      "skills": [
+        "Finishing"
+      ],
+      "note": "Scored for IR Iran in IR Iran vs New Zealand.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Mohammad_Mehdi_Mohebi"
+    },
     "Mohammed Al-Owais": {
       "name": "Mohammed Al-Owais",
       "displayName": "Mohammed Al-Owais",
       "teamId": "KSA",
       "birthDate": "1991-10-10",
       "marketValueEurMillions": 0.3,
-      "uniformNumber": 21,
       "position": "Goalkeeper",
       "club": "Al-Ula",
       "league": "Saudi First Division League",
+      "uniformNumber": 21,
       "imageUrl": "https://static-files.saudi-pro-league.pulselive.com/players/headshot/p153885.png",
       "skills": [
         "Shot-stopping",
@@ -1967,10 +2749,10 @@
       "teamId": "ECU",
       "birthDate": "2001-11-02",
       "marketValueEurMillions": 100,
-      "uniformNumber": 23,
       "position": "Central midfielder, Right back",
       "club": "Chelsea",
       "league": "Premier League",
+      "uniformNumber": 23,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Moises%20Caicedo%202022%20(cropped).jpg?width=160",
       "skills": [
         "Midfield control",
@@ -1996,16 +2778,31 @@
       "note": "The central target, important when Egypt need hold-up play and a box endpoint.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Mostafa_Mohamed_(footballer)"
     },
+    "Mostafa Zico": {
+      "name": "Mostafa Zico",
+      "displayName": "Mostafa Ziko",
+      "teamId": "EGY",
+      "birthDate": "1997-04-27",
+      "position": "Left winger",
+      "club": "Pyramids",
+      "league": "Egyptian Premier League",
+      "imageUrl": "",
+      "skills": [
+        "Finishing"
+      ],
+      "note": "Scored for Egypt in New Zealand vs Egypt.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Mostafa_Ziko"
+    },
     "Mousa Al-Taamari": {
       "name": "Mousa Al-Taamari",
       "displayName": "Musa Al-Taamari",
       "teamId": "JOR",
       "birthDate": "1997-06-10",
       "marketValueEurMillions": 10,
-      "uniformNumber": 10,
       "position": "Right winger",
       "club": "Rennes",
       "league": "Ligue 1",
+      "uniformNumber": 10,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Al%20taamari%20asse%20mhsc%202425.png?width=160",
       "skills": [
         "Runs in behind"
@@ -2013,16 +2810,61 @@
       "note": "Jordan's star ball-carrier, a direct runner who can make counters feel dangerous immediately.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Musa_Al-Taamari"
     },
+    "Nathan Saliba": {
+      "name": "Nathan Saliba",
+      "displayName": "Nathan Saliba",
+      "teamId": "CAN",
+      "birthDate": "2004-02-07",
+      "position": "Midfielder",
+      "club": "Anderlecht",
+      "league": "",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Nathan-Dylan_Saliba_RSC_Anderlecht_2025.jpg?width=160",
+      "skills": [
+        "Finishing"
+      ],
+      "note": "Scored for Canada in Canada vs Qatar.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Nathan_Saliba"
+    },
+    "Nathaniel Brown": {
+      "name": "Nathaniel Brown",
+      "displayName": "Nathaniel Brown",
+      "teamId": "GER",
+      "birthDate": "2003-06-16",
+      "position": "Left-back",
+      "club": "Eintracht Frankfurt",
+      "league": "Bundesliga",
+      "imageUrl": "",
+      "skills": [
+        "Finishing"
+      ],
+      "note": "Scored for Germany in Germany vs Curaçao.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Nathaniel_Brown_(footballer)"
+    },
+    "Nestory Irankunda": {
+      "name": "Nestory Irankunda",
+      "displayName": "Nestory Irankunda",
+      "teamId": "AUS",
+      "birthDate": "2006-02-09",
+      "position": "Winger",
+      "club": "Watford",
+      "league": "",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/File%3ANestory%20Irankunda%20and%20Kwadwo%20Baah%2009082025%20(1)%20(cropped).jpg?width=160",
+      "skills": [
+        "Finishing"
+      ],
+      "note": "Scored for Australia in Australia vs Türkiye.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Nestory_Irankunda"
+    },
     "Neymar": {
       "name": "Neymar",
       "displayName": "Neymar",
       "teamId": "BRA",
       "birthDate": "1992-02-05",
       "marketValueEurMillions": 8,
-      "uniformNumber": 10,
       "position": "Attacking midfielder, forward",
       "club": "Santos",
       "league": "Campeonato Brasileiro Série A",
+      "uniformNumber": 10,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Neymar%20Junior%20Brazil%20V%20Morocco%2013%20June%202026-40.jpg?width=160",
       "skills": [
         "Box presence"
@@ -2030,16 +2872,31 @@
       "note": "Brazil's imagination hub when they need disguise, combination play, and fouls drawn around the box.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Neymar"
     },
+    "Nico Schlotterbeck": {
+      "name": "Nico Schlotterbeck",
+      "displayName": "Nico Schlotterbeck",
+      "teamId": "GER",
+      "birthDate": "1999-12-01",
+      "position": "Centre-back",
+      "club": "Borussia Dortmund",
+      "league": "Bundesliga",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/2023-08-12%20TSV%20Schott%20Mainz%20gegen%20Borussia%20Dortmund%20(DFB-Pokal%202023-24)%20by%20Sandro%20Halank%E2%80%93069.jpg?width=160",
+      "skills": [
+        "Finishing"
+      ],
+      "note": "Scored for Germany in Germany vs Curaçao.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Nico_Schlotterbeck"
+    },
     "Nico Williams": {
       "name": "Nico Williams",
       "displayName": "Nico Williams",
       "teamId": "ESP",
       "birthDate": "2002-07-12",
       "marketValueEurMillions": 40,
-      "uniformNumber": 17,
       "position": "Winger",
       "club": "Athletic Bilbao",
       "league": "La Liga",
+      "uniformNumber": 17,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/ATHLETIC-OSASUNA%20SEMIFINAL.%20MAIDER%20GOIKOETXEA%20(168)%20(cropped).jpg?width=160",
       "skills": [
         "Box presence",
@@ -2055,11 +2912,11 @@
       "teamId": "SEN",
       "birthDate": "2001-06-20",
       "marketValueEurMillions": 40,
-      "uniformNumber": 11,
       "position": "winger",
       "club": "Chelsea",
       "league": "Premier League",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Nicolas%20Jackson%202025%20FIFA%20Club%20World%20Cup%20Final.jpg?width=160",
+      "uniformNumber": 11,
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Nicolas%20Jackson%20France%20v%20Senegal%2016%20June%202026-369%20(cropped).jpg?width=160",
       "skills": [
         "Finishing",
         "Runs in behind",
@@ -2074,10 +2931,10 @@
       "teamId": "COD",
       "birthDate": "2004-12-17",
       "marketValueEurMillions": 35,
-      "uniformNumber": 14,
       "position": "Defensive midfielder",
       "club": "Sunderland",
       "league": "Premier League",
+      "uniformNumber": 14,
       "imageUrl": "https://assets.sorare.com/playerpicture/a862377c-35dc-42f1-b2bf-9b1d67677f15/picture/avatar-b5c2d5aee9242262172f9b052897cd41.png",
       "skills": [
         "Link-up play",
@@ -2094,10 +2951,10 @@
       "teamId": "JOR",
       "birthDate": "1997-02-24",
       "marketValueEurMillions": 0.5,
-      "uniformNumber": 8,
       "position": "Midfielder",
       "club": "Selangor",
       "league": "Malaysia Super League",
+      "uniformNumber": 8,
       "imageUrl": "https://assets.selangorfc.com/images/players/t_4607862961048618.%20NOOR%20AL-RAWABDEH.PNG",
       "skills": [
         "Link-up play",
@@ -2106,16 +2963,31 @@
       "note": "The midfield worker who helps Jordan's block stay connected before the break is on.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Noor_Al-Rawabdeh"
     },
+    "Oh Hyeongyu": {
+      "name": "Oh Hyeongyu",
+      "displayName": "Oh Hyeon-gyu",
+      "teamId": "KOR",
+      "birthDate": "2001-04-12",
+      "position": "Forward",
+      "club": "Beşiktaş",
+      "league": "Süper Lig",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Oh%20Hyeon-gyu%20BJK.jpeg?width=160",
+      "skills": [
+        "Finishing"
+      ],
+      "note": "Scored for South Korea in South Korea vs Czechia.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Oh_Hyeon-gyu"
+    },
     "Omar Marmoush": {
       "name": "Omar Marmoush",
       "displayName": "Omar Marmoush",
       "teamId": "EGY",
       "birthDate": "1999-02-07",
       "marketValueEurMillions": 50,
-      "uniformNumber": 22,
       "position": "Striker, Left winger",
       "club": "Manchester City",
       "league": "Premier League",
+      "uniformNumber": 22,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/OmarMarmoush.png?width=160",
       "skills": [
         "Movement"
@@ -2123,23 +2995,36 @@
       "note": "A mobile second scoring threat who can attack channels and keep Egypt from becoming one-dimensional.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Omar_Marmoush"
     },
+    "Omar Rekik": {
+      "name": "Omar Rekik",
+      "displayName": "Omar Rekik",
+      "teamId": "TUN",
+      "birthDate": "2001-12-20",
+      "position": "Centre-back",
+      "club": "Maribor",
+      "league": "",
+      "imageUrl": "",
+      "skills": [
+        "Finishing"
+      ],
+      "note": "Scored for Tunisia in Sweden vs Tunisia.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Omar_Rekik"
+    },
     "Ousmane Dembele": {
       "name": "Ousmane Dembele",
       "displayName": "Ousmane Dembélé",
       "teamId": "FRA",
       "birthDate": "1997-05-15",
       "marketValueEurMillions": 100,
-      "uniformNumber": 7,
       "position": "Forward, right winger",
       "club": "Paris Saint-Germain",
       "league": "Ligue 1",
+      "uniformNumber": 7,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ousmane%20Demb%C3%A9l%C3%A9%202018%20(cropped).jpg?width=160",
       "skills": [
-        "Chance creation",
-        "Finishing",
-        "Wide threat"
+        "Finishing"
       ],
-      "note": "France's two-footed wide creator, dangerous when he gets a clean first touch near the box.",
+      "note": "Scored for France in France vs Iraq.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Ousmane_Demb%C3%A9l%C3%A9"
     },
     "Patrik Schick": {
@@ -2148,10 +3033,10 @@
       "teamId": "CZE",
       "birthDate": "1996-01-24",
       "marketValueEurMillions": 18,
-      "uniformNumber": 10,
       "position": "Striker",
       "club": "Bayer Leverkusen",
       "league": "Bundesliga",
+      "uniformNumber": 10,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/File%3A2020-03-10%20Fu%C3%9Fball%2C%20M%C3%A4nner%2C%20UEFA%20Champions%20League%20Achtelfinale%2C%20RB%20Leipzig%20-%20Tottenham%20Hotspur%201DX%203672%20by%20Stepro.jpg?width=160",
       "skills": [
         "Box presence",
@@ -2166,10 +3051,10 @@
       "teamId": "ESP",
       "birthDate": "2002-11-25",
       "marketValueEurMillions": 150,
-      "uniformNumber": 20,
       "position": "Midfielder",
       "club": "Barcelona",
       "league": "La Liga",
+      "uniformNumber": 20,
       "imageUrl": "https://assets.sorare.com/playerpicture/2a201362-28b2-46f3-b775-3b46655a89d6/picture/avatar-77add04ba37e6223eb5f2fff5b5aa2e5.png",
       "skills": [
         "Midfield control",
@@ -2179,16 +3064,31 @@
       "note": "The rhythm setter in open space, making Spain's possession feel calmer and more incisive.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Pedri"
     },
+    "Petar Musa": {
+      "name": "Petar Musa",
+      "displayName": "Petar Musa",
+      "teamId": "CRO",
+      "birthDate": "1998-03-04",
+      "position": "Striker",
+      "club": "FC Dallas",
+      "league": "",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Petar%20Musa%20NY%20Red%20Bulls%20v%20FC%20Dallas%202%20May%202026-53%20(cropped).jpg?width=160",
+      "skills": [
+        "Finishing"
+      ],
+      "note": "Scored for Croatia in England vs Croatia.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Petar_Musa"
+    },
     "Piero Hincapie": {
       "name": "Piero Hincapie",
       "displayName": "Piero Hincapié",
       "teamId": "ECU",
       "birthDate": "2002-01-09",
       "marketValueEurMillions": 50,
-      "uniformNumber": 3,
       "position": "Centre-back, left-back",
       "club": "Arsenal (on loan from Bayer Leverkusen)",
       "league": "Premier League",
+      "uniformNumber": 3,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Piero%20Hincapi%C3%A9%2C%202022-07-31%2C%20Saisoner%C3%B6ffnung%20Bayer%2004%2C%20Leverkusen%20(1).jpg?width=160",
       "skills": [
         "Runs in behind",
@@ -2197,16 +3097,46 @@
       "note": "The left-sided defensive anchor, comfortable stepping out to defend space and start attacks.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Piero_Hincapi%C3%A9"
     },
+    "Ramin Rezaeian": {
+      "name": "Ramin Rezaeian",
+      "displayName": "Ramin Rezaeian",
+      "teamId": "IRN",
+      "birthDate": "1990-03-21",
+      "position": "Right back, winger",
+      "club": "Esteghlal",
+      "league": "Persian Gulf Pro League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ramin%20Rezaeian%20in%20Sepahan.jpg?width=160",
+      "skills": [
+        "Finishing"
+      ],
+      "note": "Scored for IR Iran in IR Iran vs New Zealand.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Ramin_Rezaeian"
+    },
+    "Raul Jimenez": {
+      "name": "Raul Jimenez",
+      "displayName": "Raúl Jiménez",
+      "teamId": "MEX",
+      "birthDate": "1991-05-05",
+      "position": "Striker",
+      "club": "Wolverhampton Wanderers",
+      "league": "Premier League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ra%C3%BAl%20Jim%C3%A9nez%2004032026%20(1).jpg?width=160",
+      "skills": [
+        "Finishing"
+      ],
+      "note": "Scored for Mexico in Mexico vs South Africa.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Ra%C3%BAl_Jim%C3%A9nez"
+    },
     "Ritsu Doan": {
       "name": "Ritsu Doan",
       "displayName": "Ritsu Dōan",
       "teamId": "JPN",
       "birthDate": "1998-06-16",
       "marketValueEurMillions": 17,
-      "uniformNumber": 10,
       "position": "Right winger",
       "club": "Eintracht Frankfurt",
       "league": "Bundesliga",
+      "uniformNumber": 10,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ritsu%20Doan%2C%202019%20AFC%20Asian%20Cup%201.jpg?width=160",
       "skills": [
         "Long-range shooting"
@@ -2220,10 +3150,10 @@
       "teamId": "ALG",
       "birthDate": "1991-02-21",
       "marketValueEurMillions": 5,
-      "uniformNumber": 7,
       "position": "Right winger",
       "club": "Al-Ahli",
       "league": "Saudi Pro League",
+      "uniformNumber": 7,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Mahrez%202021.jpg?width=160",
       "skills": [
         "Chance creation",
@@ -2238,10 +3168,10 @@
       "teamId": "CPV",
       "birthDate": "1992-06-17",
       "marketValueEurMillions": 0.3,
-      "uniformNumber": 4,
       "position": "Centre-back",
       "club": "Shamrock Rovers",
       "league": "League of Ireland Premier Division",
+      "uniformNumber": 4,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Roberto%20Lopes%2C%20Jan%202026%20(cropped).jpg?width=160",
       "skills": [
         "Defensive control"
@@ -2249,16 +3179,31 @@
       "note": "The defensive organizer, central to keeping Cabo Verde compact through long spells without the ball.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Roberto_Lopes_(footballer%2C_born_1992)"
     },
+    "Romano Schmid": {
+      "name": "Romano Schmid",
+      "displayName": "Romano Schmid",
+      "teamId": "AUT",
+      "birthDate": "2000-01-27",
+      "position": "Attacking midfielder",
+      "club": "Werder Bremen",
+      "league": "",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/UEFA%20Euro%202023%20Qualifiers%20Austria%20vs.%20Finland%20(2022-06-03)%2030.jpg?width=160",
+      "skills": [
+        "Finishing"
+      ],
+      "note": "Scored for Austria in Austria vs Jordan.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Romano_Schmid"
+    },
     "Romelu Lukaku": {
       "name": "Romelu Lukaku",
       "displayName": "Romelu Lukaku",
       "teamId": "BEL",
       "birthDate": "1993-05-13",
       "marketValueEurMillions": 6,
-      "uniformNumber": 9,
       "position": "Striker",
       "club": "Napoli",
       "league": "Serie A",
+      "uniformNumber": 9,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Romelu%20Lukaku%202021.jpg?width=160",
       "skills": [
         "Box presence",
@@ -2274,10 +3219,10 @@
       "teamId": "URU",
       "birthDate": "1999-03-07",
       "marketValueEurMillions": 20,
-      "uniformNumber": 4,
       "position": "Centre-back",
       "club": "Barcelona",
       "league": "La Liga",
+      "uniformNumber": 4,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/FC%20Red%20Bull%20Salzburg%20gegen%20CF%20Barcelona%20(Testspiel%204.%20August%202021)%2045%20(cropped).jpg?width=160",
       "skills": [
         "Ball winning",
@@ -2292,10 +3237,10 @@
       "teamId": "RSA",
       "birthDate": "1992-01-21",
       "marketValueEurMillions": 0.8,
-      "uniformNumber": 1,
       "position": "Goalkeeper",
       "club": "Mamelodi Sundowns",
       "league": "South African Premiership",
+      "uniformNumber": 1,
       "imageUrl": "https://sundownsfc.co.za/wp-content/uploads/2025/09/Williams-1.jpg",
       "skills": [
         "Pressing",
@@ -2304,16 +3249,31 @@
       "note": "South Africa's captain and shot-stopper, important when opponents turn territory into sustained pressure.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Ronwen_Williams"
     },
+    "Ruben Vargas": {
+      "name": "Ruben Vargas",
+      "displayName": "Rubén Vargas",
+      "teamId": "SUI",
+      "birthDate": "1998-08-05",
+      "position": "Winger, attacking midfielder",
+      "club": "Sevilla",
+      "league": "",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ruben%20Vargas%20SFV%202019.jpg?width=160",
+      "skills": [
+        "Finishing"
+      ],
+      "note": "Scored for Switzerland in Switzerland vs Bosnia and Herzegovina.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Rub%C3%A9n_Vargas"
+    },
     "Ryan Mendes": {
       "name": "Ryan Mendes",
       "displayName": "Ryan Mendes",
       "teamId": "CPV",
       "birthDate": "1990-01-08",
       "marketValueEurMillions": 0.2,
-      "uniformNumber": 20,
       "position": "Winger",
       "club": "Iğdır",
       "league": "TFF First League",
+      "uniformNumber": 20,
       "imageUrl": "https://assets.sorare.com/playerpicture/19e5f623-11d5-4cb7-b305-610eaf822599/picture/avatar-ed0ebe5f0ea84b8710b99b5ec23451c0.png",
       "skills": [
         "Target play",
@@ -2328,10 +3288,10 @@
       "teamId": "SEN",
       "birthDate": "1992-04-10",
       "marketValueEurMillions": 6,
-      "uniformNumber": 10,
       "position": "Winger",
       "club": "Al-Nassr",
       "league": "Saudi Pro League",
+      "uniformNumber": 10,
       "imageUrl": "https://static-files.saudi-pro-league.pulselive.com/players/headshot/p110979.png",
       "skills": [
         "Runs in behind"
@@ -2345,10 +3305,10 @@
       "teamId": "KSA",
       "birthDate": "1991-08-19",
       "marketValueEurMillions": 1.2,
-      "uniformNumber": 10,
       "position": "Left winger",
       "club": "Al Hilal",
       "league": "Saudi Pro League",
+      "uniformNumber": 10,
       "imageUrl": "https://static-files.saudi-pro-league.pulselive.com/players/headshot/p109763.png",
       "skills": [
         "Wide threat",
@@ -2358,16 +3318,34 @@
       "note": "Saudi Arabia's big-moment wide attacker, trusted to carry counters and take on defenders.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Salem_Al-Dawsari"
     },
+    "Saman Ghoddos": {
+      "name": "Saman Ghoddos",
+      "displayName": "Saman Ghoddos",
+      "teamId": "IRN",
+      "birthDate": "1993-09-06",
+      "marketValueEurMillions": 1.2,
+      "position": "Attacking midfielder, winger, wing-back, full-back",
+      "club": "Kalba",
+      "league": "",
+      "uniformNumber": 14,
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Saman%20Ghoddos%20at%20Iran%20training.jpg?width=160",
+      "skills": [
+        "Link-up play",
+        "Leadership"
+      ],
+      "note": "A versatile connector who gives Iran a calmer pass when counters need more than one touch.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Saman_Ghoddos"
+    },
     "Santiago Gimenez": {
       "name": "Santiago Gimenez",
       "displayName": "Santiago Giménez",
       "teamId": "MEX",
       "birthDate": "2001-04-18",
       "marketValueEurMillions": 18,
-      "uniformNumber": 11,
       "position": "Striker",
       "club": "AC Milan",
       "league": "Serie A",
+      "uniformNumber": 11,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Santiago%20Gim%C3%A9nez.png?width=160",
       "skills": [
         "Box presence",
@@ -2377,53 +3355,16 @@
       "note": "Mexico's focal striker, valuable when home pressure turns into repeated box touches.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Santiago_Gim%C3%A9nez"
     },
-    "Sardar Azmoun": {
-      "name": "Sardar Azmoun",
-      "displayName": "Sardar Azmoun سردار آزمون",
-      "teamId": "IRN",
-      "birthDate": "1995-01-01",
-      "marketValueEurMillions": 6,
-      "position": "Forward",
-      "club": "Shabab Al Ahli",
-      "league": "UAE Pro League",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Sardar%20Azmoun%20-%20IRN%20vs%20USA%20-%20FIFA%20WC%202022.jpg?width=160",
-      "skills": [
-        "Box presence",
-        "Finishing",
-        "Movement"
-      ],
-      "note": "A box striker with timing in the air and enough movement to punish loose marking.",
-      "sourceUrl": "https://en.wikipedia.org/wiki/Sardar_Azmoun"
-    },
-    "Saman Ghoddos": {
-      "name": "Saman Ghoddos",
-      "displayName": "Saman Ghoddos",
-      "teamId": "IRN",
-      "birthDate": "1993-09-06",
-      "marketValueEurMillions": 1.2,
-      "uniformNumber": 14,
-      "position": "Attacking midfielder, winger",
-      "club": "Kalba",
-      "league": "UAE Pro League",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Saman%20Ghoddos%20at%20Iran%20training.jpg?width=160",
-      "skills": [
-        "Chance creation",
-        "Link-up play",
-        "Set pieces"
-      ],
-      "note": "A versatile connector who gives Iran a calmer pass when counters need more than one touch.",
-      "sourceUrl": "https://en.wikipedia.org/wiki/Saman_Ghoddos"
-    },
     "Sarpreet Singh": {
       "name": "Sarpreet Singh",
       "displayName": "Sarpreet Singh",
       "teamId": "NZL",
       "birthDate": "1999-02-20",
       "marketValueEurMillions": 0.5,
-      "uniformNumber": 10,
       "position": "Attacking midfielder, winger",
       "club": "Wellington Phoenix (on loan from TSC)",
       "league": "A-League Men",
+      "uniformNumber": 10,
       "imageUrl": "https://assets.sorare.com/playerpicture/5657430a-5e7f-4308-9a11-96b78a856c52/picture/avatar-2ec9453bc6a55005cefb6a3d193422e6.png",
       "skills": [
         "Chance creation",
@@ -2438,10 +3379,10 @@
       "teamId": "SCO",
       "birthDate": "1996-12-08",
       "marketValueEurMillions": 40,
-      "uniformNumber": 4,
       "position": "Midfielder",
       "club": "Napoli",
       "league": "Serie A",
+      "uniformNumber": 4,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Scott%20McTominay%20Scotland%20v%20Bolivia%206%20June%202026-41.jpg?width=160",
       "skills": [
         "Box presence",
@@ -2458,10 +3399,10 @@
       "teamId": "BIH",
       "birthDate": "1993-06-20",
       "marketValueEurMillions": 4,
-      "uniformNumber": 5,
       "position": "Centre-back",
       "club": "Atalanta",
       "league": "Serie A",
+      "uniformNumber": 5,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Kolasinac%202015.jpg?width=160",
       "skills": [
         "Ball winning",
@@ -2476,10 +3417,10 @@
       "teamId": "CIV",
       "birthDate": "2002-01-01",
       "marketValueEurMillions": 22,
-      "uniformNumber": 10,
       "position": "Winger",
       "club": "Monaco (on loan from Sunderland)",
       "league": "Ligue 1",
+      "uniformNumber": 10,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Simon%20Adingra%20USG%202023.jpg?width=160",
       "skills": [
         "Wide threat",
@@ -2494,10 +3435,10 @@
       "teamId": "KOR",
       "birthDate": "1992-07-08",
       "marketValueEurMillions": 15,
-      "uniformNumber": 7,
       "position": "Forward",
       "club": "Los Angeles FC",
       "league": "Major League Soccer",
+      "uniformNumber": 7,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/BFA%202023%20-2%20Heung-Min%20Son%20(cropped).jpg?width=160",
       "skills": [
         "Runs in behind",
@@ -2513,10 +3454,10 @@
       "teamId": "CAN",
       "birthDate": "1996-12-21",
       "marketValueEurMillions": 6,
-      "uniformNumber": 7,
       "position": "Midfielder",
       "club": "Los Angeles (on loan from Porto)",
       "league": "Major League Soccer",
+      "uniformNumber": 7,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/S%20Eustaqui%20Canada%20national%20football%20team%20WC2022%20(cropped).jpg?width=160",
       "skills": [
         "Midfield control"
@@ -2530,10 +3471,10 @@
       "teamId": "CUW",
       "birthDate": "1999-12-04",
       "marketValueEurMillions": 3.5,
-      "uniformNumber": 21,
       "position": "Wide midfielder, attacking midfielder",
       "club": "Sheffield United",
       "league": "",
+      "uniformNumber": 21,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Tahith%20Chong%20(38487929362).jpg?width=160",
       "skills": [
         "Runs in behind",
@@ -2550,10 +3491,10 @@
       "teamId": "JPN",
       "birthDate": "2001-06-04",
       "marketValueEurMillions": 20,
-      "uniformNumber": 8,
       "position": "Right winger",
       "club": "Real Sociedad",
       "league": "La Liga",
+      "uniformNumber": 8,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Takefusa%20Kubo%202019.png?width=160",
       "skills": [
         "Chance creation",
@@ -2568,10 +3509,10 @@
       "teamId": "RSA",
       "birthDate": "1997-01-24",
       "marketValueEurMillions": 2.8,
-      "uniformNumber": 4,
       "position": "Midfielder",
       "club": "Mamelodi Sundowns",
       "league": "South African Premiership",
+      "uniformNumber": 4,
       "imageUrl": "https://sundownsfc.co.za/wp-content/uploads/2025/09/Mokoena-1.jpg",
       "skills": [
         "Set pieces",
@@ -2579,7 +3520,7 @@
         "Defensive control"
       ],
       "note": "The midfield competitor and restart threat who can turn a defensive spell into South Africa possession.",
-      "sourceUrl": "https://en.wikipedia.org/wiki/Teboho_Mokoena_(soccer,_born_1997)"
+      "sourceUrl": "https://en.wikipedia.org/wiki/Teboho_Mokoena_(soccer%2C_born_1997)"
     },
     "Tomas Soucek": {
       "name": "Tomas Soucek",
@@ -2587,10 +3528,10 @@
       "teamId": "CZE",
       "birthDate": "1995-02-27",
       "marketValueEurMillions": 10,
-      "uniformNumber": 22,
       "position": "Midfielder",
       "club": "West Ham United",
       "league": "Premier League",
+      "uniformNumber": 22,
       "imageUrl": "https://assets.sorare.com/playerpicture/79be9611-63e4-4e00-8052-ff2d3825e916/picture/avatar-24c525970580228cb644fcbb1c646cc2.png",
       "skills": [
         "Set pieces",
@@ -2599,16 +3540,31 @@
       "note": "A set-piece and late-run threat whose aerial presence can tilt a tight group match.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Tom%C3%A1%C5%A1_Sou%C4%8Dek"
     },
+    "Trezeguet": {
+      "name": "Trezeguet",
+      "displayName": "Trézéguet",
+      "teamId": "EGY",
+      "birthDate": "1994-10-01",
+      "position": "Left winger",
+      "club": "Al Ahly",
+      "league": "Egyptian Premier League",
+      "imageUrl": "",
+      "skills": [
+        "Finishing"
+      ],
+      "note": "Scored for Egypt in New Zealand vs Egypt.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Tr%C3%A9z%C3%A9guet_(Egyptian_footballer)"
+    },
     "Tyler Adams": {
       "name": "Tyler Adams",
       "displayName": "Tyler Adams",
       "teamId": "USA",
       "birthDate": "1999-02-14",
       "marketValueEurMillions": 25,
-      "uniformNumber": 4,
       "position": "Defensive midfielder",
       "club": "Bournemouth",
       "league": "Premier League",
+      "uniformNumber": 4,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Tyler%20Adams%2009052026%20(4).jpg?width=160",
       "skills": [
         "Midfield control",
@@ -2623,10 +3579,10 @@
       "teamId": "SWE",
       "birthDate": "1998-06-04",
       "marketValueEurMillions": 65,
-      "uniformNumber": 17,
       "position": "Striker",
       "club": "Arsenal",
       "league": "Premier League",
+      "uniformNumber": 17,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Viktor%20Gy%C3%B6keres%202026-06-04%201.jpg?width=160",
       "skills": [
         "Pressing",
@@ -2642,10 +3598,10 @@
       "teamId": "BRA",
       "birthDate": "2000-07-12",
       "marketValueEurMillions": 140,
-      "uniformNumber": 7,
       "position": "Forward, left winger",
       "club": "Real Madrid",
       "league": "La Liga",
+      "uniformNumber": 7,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Vin%C3%ADcius%20J%C3%BAnior%20Brazil%20V%20Morocco%2013%20June%202026-207%20(cropped).jpg?width=160",
       "skills": [
         "Runs in behind",
@@ -2660,10 +3616,10 @@
       "teamId": "NED",
       "birthDate": "1991-07-08",
       "marketValueEurMillions": 15,
-      "uniformNumber": 4,
       "position": "Centre-back",
       "club": "Liverpool",
       "league": "Premier League",
+      "uniformNumber": 4,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/20160604%20AUT%20NED%208876%20(cropped).jpg?width=160",
       "skills": [
         "Box presence",
@@ -2680,10 +3636,10 @@
       "teamId": "POR",
       "birthDate": "2000-02-13",
       "marketValueEurMillions": 140,
-      "uniformNumber": 23,
       "position": "Central midfielder",
       "club": "Paris Saint-Germain",
       "league": "Ligue 1",
+      "uniformNumber": 23,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Vitinha%20USMNT%20v%20Portugal%20Mar%2031%202026-50%20(cropped).jpg?width=160",
       "skills": [
         "Box presence",
@@ -2699,10 +3655,10 @@
       "teamId": "CPV",
       "birthDate": "1986-06-03",
       "marketValueEurMillions": 0.1,
-      "uniformNumber": 1,
       "position": "Goalkeeper",
       "club": "G.D. Chaves",
       "league": "Liga Portugal 2",
+      "uniformNumber": 1,
       "imageUrl": "https://i0.statig.com.br/bancodeimagens/2n/0q/4s/2n0q4syuxijl44exjduci4s7k.jpg",
       "skills": [
         "Shot-stopping",
@@ -2718,10 +3674,10 @@
       "teamId": "USA",
       "birthDate": "1998-08-28",
       "marketValueEurMillions": 30,
-      "uniformNumber": 8,
       "position": "Midfielder",
       "club": "Juventus",
       "league": "Serie A",
+      "uniformNumber": 8,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Weston%20McKennie%20USMNT%20v%20Belgium%20Mar%2028%202026-68%20(cropped).jpg?width=160",
       "skills": [
         "Set pieces",
@@ -2738,11 +3694,11 @@
       "teamId": "FRA",
       "birthDate": "2001-03-24",
       "marketValueEurMillions": 100,
-      "uniformNumber": 17,
       "position": "Centre-back",
       "club": "Arsenal",
       "league": "Premier League",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Lens%20-%20Marseille%20(22-01-2022)%2015.jpg?width=160",
+      "uniformNumber": 17,
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/William%20Saliba%20France%20v%20Senegal%2016%20June%202026-336%20(cropped).jpg?width=160",
       "skills": [
         "Midfield control",
         "Runs in behind",
@@ -2758,10 +3714,10 @@
       "teamId": "SWE",
       "birthDate": "2003-10-06",
       "marketValueEurMillions": 35,
-      "uniformNumber": 18,
       "position": "Midfielder",
       "club": "Brighton & Hove Albion",
       "league": "Premier League",
+      "uniformNumber": 18,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Yasin%20Ayari%20-%20Sweden%20-%20Greece20%20(cropped).jpg?width=160",
       "skills": [
         "Link-up play",
@@ -2771,16 +3727,31 @@
       "note": "A mobile midfield connector whose timing helps Sweden link their two-forward threat to the rest of the side.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Yasin_Ayari"
     },
+    "Yazan Alarab": {
+      "name": "Yazan Alarab",
+      "displayName": "Yazan Al-Arab",
+      "teamId": "JOR",
+      "birthDate": "1996-01-31",
+      "position": "Centre-back",
+      "club": "FC Seoul",
+      "league": "",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/250720%20FC%20%EC%84%9C%EC%9A%B8%20vs%20%EC%9A%B8%EC%82%B0%20(Yazan%20Al-Arab)%201.jpg?width=160",
+      "skills": [
+        "Match impact"
+      ],
+      "note": "",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Yazan_Al-Arab"
+    },
     "Yoane Wissa": {
       "name": "Yoane Wissa",
       "displayName": "Yoane Wissa",
       "teamId": "COD",
       "birthDate": "1996-09-03",
       "marketValueEurMillions": 25,
-      "uniformNumber": 20,
       "position": "Forward, left winger",
       "club": "Newcastle United",
       "league": "Premier League",
+      "uniformNumber": 20,
       "imageUrl": "https://assets.sorare.com/playerpicture/daf7c63d-e2c2-4ef3-ada9-8fcc2951029a/picture/avatar-8dbbfde85f2c3e796388dccc9cb63dad.png",
       "skills": [
         "Runs in behind",
@@ -2795,10 +3766,10 @@
       "teamId": "IRQ",
       "birthDate": "2003-04-27",
       "marketValueEurMillions": 1,
-      "uniformNumber": 14,
       "position": "Midfielder",
       "club": "Utrecht",
       "league": "Eredivisie",
+      "uniformNumber": 14,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Zidane%20Iqbal%20debut%20(cropped).jpg?width=160",
       "skills": [
         "Link-up play",

@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-23T02:39:54.875Z",
+  "updatedAt": "2026-06-23T03:26:53.667Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -5074,7 +5074,7 @@
       "homeTeamId": "JOR",
       "awayTeamId": "ALG",
       "venue": "San Francisco Bay Area Stadium",
-      "status": "SCHEDULED",
+      "status": "LIVE",
       "h2h": {
         "status": "loaded",
         "sourceId": "national-football-teams-h2h-2026-06-17",
@@ -5145,6 +5145,10 @@
         ],
         "home": "Jordan need points before Argentina and can build on Olwan's scoring form, led by Mousa Al-Taamari, Ali Olwan, and Noor Al-Rawabdeh. Against Algeria, their Al-Taamari-Olwan counter timing has to beat Algeria's Mahrez-Aouar control against Jordan counters. Jordan matched Austria for shots but still lost their opener. They want to release Al-Taamari early and give Olwan the first clean look around the box. The risk is Algeria can slow the match through Mahrez and Aouar before finding Gouiri.",
         "away": "Algeria need their first points and should have more control than against Argentina, led by Riyad Mahrez, Houssem Aouar, and Amine Gouiri. Against Jordan, their Mahrez-Aouar control against Jordan counters has to beat Jordan's Al-Taamari-Olwan counter timing. Algeria remain favored, but their World Cup win drought keeps pressure high. They want to give Mahrez time while Aouar connects the next pass toward Gouiri. The risk is Jordan can counter through Al-Taamari and Olwan before the defense recovers."
+      },
+      "score": {
+        "home": 0,
+        "away": 0
       }
     },
     {

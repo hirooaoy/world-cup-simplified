@@ -161,17 +161,32 @@ function isChineseAuthoredCopyCovered(source, value) {
   );
 }
 
+function isLocalizedCopy(value) {
+  return Boolean(value && typeof value === "object" && !Array.isArray(value) && typeof value.en === "string");
+}
+
+function getChineseCoverageFields(value, field) {
+  if (typeof value === "string" && value.trim()) {
+    return [{ field, text: value.trim() }];
+  }
+
+  if (isLocalizedCopy(value)) {
+    return value.zh?.trim() ? [] : [{ field: `${field}.en`, text: value.en.trim() }];
+  }
+
+  if (Array.isArray(value)) {
+    return value.flatMap((item, index) => getChineseCoverageFields(item, `${field}[${index}]`));
+  }
+
+  return [];
+}
+
 function getAuthoredCatchUpChineseCopyFields(items, fieldPrefix) {
   const fields = [];
 
   for (const [itemIndex, item] of (items || []).entries()) {
     for (const key of ["headline", "body", "meta", "standouts", "sourceLabel"]) {
-      if (typeof item?.[key] === "string" && item[key].trim()) {
-        fields.push({
-          field: `${fieldPrefix}[${itemIndex}].${key}`,
-          text: item[key].trim()
-        });
-      }
+      fields.push(...getChineseCoverageFields(item?.[key], `${fieldPrefix}[${itemIndex}].${key}`));
     }
   }
 

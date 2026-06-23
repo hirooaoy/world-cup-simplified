@@ -496,6 +496,31 @@ try {
     "Linked player mentions should not insert spaces before comma punctuation."
   );
 
+  await page.setViewportSize({ width: 360, height: 760 });
+  await page.goto(`${baseUrl}?view=matches&date=2026-06-22&tz=America%2FLos_Angeles`, {
+    waitUntil: "load"
+  });
+  await page.waitForSelector(".match-row");
+  await page.locator('[data-match-id="norway-senegal-2026-06-22"]').click();
+  const scorerHighlightMetrics = await page.locator("#match-info .scorer-highlight").evaluate((item) => {
+    const icon = item.querySelector('[aria-hidden="true"]');
+    const firstScorer = item.querySelector(".goal-scorer-segment");
+    const iconBox = icon.getBoundingClientRect();
+    const firstScorerBox = firstScorer.getBoundingClientRect();
+
+    return {
+      firstScorerLeftGap: firstScorerBox.left - iconBox.right,
+      firstScorerTop: firstScorerBox.top,
+      iconBottom: iconBox.bottom
+    };
+  });
+  assert(
+    scorerHighlightMetrics.firstScorerTop <= scorerHighlightMetrics.iconBottom + 1 &&
+      scorerHighlightMetrics.firstScorerLeftGap >= 0,
+    "Scorer highlights should keep the soccer ball and first scorer on the same line."
+  );
+  await page.setViewportSize({ width: 1280, height: 720 });
+
   await page.goto(`${baseUrl}?view=matches&date=2026-06-21&tz=America%2FLos_Angeles`, {
     waitUntil: "load"
   });
@@ -1267,12 +1292,13 @@ try {
   );
   assert(
     catchUpText.includes("England look sharp against Croatia") &&
-      !catchUpText.includes("England's 4-2 win gives them an early foothold in Group L"),
-    "The completed England/Croatia match should render only the final-score headline."
+      catchUpText.includes("England's 4-2 win gives them an early foothold in Group L") &&
+      catchUpText.includes("Harry Kane scored twice"),
+    "The completed England/Croatia match should render a title plus result description."
   );
   assert(
-    catchUpItems.every((item) => !item.subtitle && !item.standouts && item.standoutBullets.length === 0),
-    "The catch-up feed should keep each news item to one headline line."
+    catchUpItems.every((item) => item.subtitle && !item.standouts && item.standoutBullets.length === 0),
+    "The catch-up feed should show each news item as a headline with an inline subtitle."
   );
   assert(
     !/main goal threat|Golden Boot chase/i.test(catchUpText),
@@ -1323,6 +1349,7 @@ try {
     .evaluateAll((items) =>
       items.map((item) => ({
         headline: item.querySelector(".catch-up-title-row h3 > span")?.textContent.trim(),
+        subtitle: item.querySelector(".catch-up-subtitle")?.textContent.trim() || "",
         sourceHref: item.querySelector(".catch-up-source")?.getAttribute("href") || ""
       }))
     );
@@ -1330,6 +1357,15 @@ try {
     item.headline?.includes("Messi leads all scorers with five World Cup goals")
   );
   assert(messiLeaderboardItem, "Tournament-level catch-up should include the Messi scoring-leader story.");
+  assert(
+    messiLeaderboardItem?.subtitle.includes("five goals from Argentina's first two matches") &&
+      messiLeaderboardItem?.subtitle.includes("Golden Boot race"),
+    "Tournament-level catch-up should show the scoring-leader story description."
+  );
+  assert(
+    tournamentCatchUpItems.every((item) => !/[⚽🌟📊]/u.test(item.subtitle)),
+    "Catch-up subtitles should render clean prose without result-highlight icons."
+  );
   assert(
     messiLeaderboardItem?.sourceHref.includes("argentina-austria-match-report-highlights"),
     "Tournament-level catch-up should resolve source links from tournament source IDs."
@@ -1339,6 +1375,11 @@ try {
   assert(
     tournamentCatchUpChineseText.includes("梅西以5球领跑世界杯射手榜"),
     "Tournament-level catch-up should translate authored news in Chinese."
+  );
+  assert(
+    tournamentCatchUpChineseText.includes("前两场比赛后达到5球") &&
+      tournamentCatchUpChineseText.includes("独自领跑金靴奖竞争"),
+    "Tournament-level localized catch-up objects should render Chinese subtitles from data."
   );
   await tournamentCatchUpCheck.context.close();
 

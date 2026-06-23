@@ -43,6 +43,35 @@ function isDayKey(value) {
   return /^\d{4}-\d{2}-\d{2}$/.test(value || "") && !Number.isNaN(new Date(`${value}T12:00:00Z`).getTime());
 }
 
+function isLocalizedCopy(value) {
+  return Boolean(value && typeof value === "object" && !Array.isArray(value));
+}
+
+function getDefaultCopyText(value) {
+  if (typeof value === "string") {
+    return value.trim();
+  }
+
+  if (!isLocalizedCopy(value)) {
+    return "";
+  }
+
+  return String(value.en || "").trim();
+}
+
+function validateLocalizedCopy(value, owner) {
+  if (!isLocalizedCopy(value)) {
+    return;
+  }
+
+  assert(typeof value.en === "string" && value.en.trim(), `${owner} localized copy must include en`);
+  assert(typeof value.zh === "string" && value.zh.trim(), `${owner} localized copy must include zh`);
+
+  for (const [language, text] of Object.entries(value)) {
+    assert(typeof text === "string" && text.trim(), `${owner}.${language} must be a non-empty string`);
+  }
+}
+
 function wordCount(value) {
   return String(value || "")
     .trim()
@@ -149,7 +178,17 @@ for (const [index, item] of tournamentCatchUpItems.entries()) {
   const owner = `tournament catch-up item ${index + 1}`;
   const timestamp = item?.publishedAt || item?.updatedAt || "";
 
-  assert(item?.headline, `${owner} must include a headline`);
+  assert(getDefaultCopyText(item?.headline), `${owner} must include a headline`);
+  for (const key of ["headline", "body", "meta", "sourceLabel"]) {
+    validateLocalizedCopy(item?.[key], `${owner}.${key}`);
+  }
+  if (Array.isArray(item?.standouts)) {
+    item.standouts.forEach((standout, standoutIndex) => {
+      validateLocalizedCopy(standout, `${owner}.standouts[${standoutIndex}]`);
+    });
+  } else {
+    validateLocalizedCopy(item?.standouts, `${owner}.standouts`);
+  }
   assert(
     isDayKey(item?.date) || !Number.isNaN(new Date(timestamp).getTime()),
     `${owner} must include a valid date, publishedAt, or updatedAt`
@@ -441,6 +480,23 @@ for (const fixture of fixturesData.fixtures || []) {
     const total = fixture.projection.home + fixture.projection.draw + fixture.projection.away;
     assert(sourceIds.has(fixture.projection.sourceId), `Fixture "${fixture.id}" projection references unknown source`);
     assert(total === 100, `Fixture "${fixture.id}" projection must total 100`);
+  }
+
+  for (const field of ["goalsHome", "goalsAway"]) {
+    if (fixture[field] === undefined) {
+      continue;
+    }
+
+    assert(Array.isArray(fixture[field]), `Fixture "${fixture.id}" ${field} must be an array`);
+    for (const [index, goal] of (fixture[field] || []).entries()) {
+      assert(
+        typeof goal?.name === "string" && goal.name.trim(),
+        `Fixture "${fixture.id}" ${field}[${index}] must include a scorer name`
+      );
+      if (typeof goal?.name === "string" && goal.name.trim()) {
+        requiredProfileNames.add(goal.name);
+      }
+    }
   }
 
   if (fixture.keyPlayers) {

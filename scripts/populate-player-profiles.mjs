@@ -17,7 +17,9 @@ const pageTitleOverrides = new Map([
   ["Chris Wood", "Chris Wood (footballer, born 1991)"],
   ["Cristiano Ronaldo", "Cristiano Ronaldo"],
   ["Daichi Kamada", "Daichi Kamada"],
+  ["Daniel Munoz", "Daniel Muñoz (footballer)"],
   ["Evann Guessand", "Evann Guessand"],
+  ["Hassan Altambakti", "Hassan Al-Tambakti"],
   ["Ismael Diaz", "Ismael Díaz (footballer, born 1997)"],
   ["Konrad Laimer", "Konrad Laimer"],
   ["Leandro Trossard", "Leandro Trossard"],
@@ -25,12 +27,17 @@ const pageTitleOverrides = new Map([
   ["Luis Diaz", "Luis Díaz (footballer, born 1997)"],
   ["Luis Suarez", "Luis Suárez (footballer, born 1997)"],
   ["Martin Odegaard", "Martin Ødegaard"],
+  ["Matias Galarza", "Matías Galarza (Paraguayan footballer)"],
+  ["Mauricio", "Maurício (footballer, born 2001)"],
   ["Mousa Al-Taamari", "Musa Al-Taamari"],
+  ["Mostafa Zico", "Mostafa Ziko"],
+  ["Nathaniel Brown", "Nathaniel Brown (footballer)"],
   ["Neymar", "Neymar"],
   ["Ritsu Doan", "Ritsu Dōan"],
   ["Roberto Lopes", "Roberto Lopes (footballer, born 1992)"],
   ["Tahith Chong", "Tahith Chong"],
   ["Teboho Mokoena", "Teboho Mokoena (soccer, born 1997)"],
+  ["Trezeguet", "Trézéguet (Egyptian footballer)"],
   ["Yasin Ayari", "Yasin Ayari"]
 ]);
 const profileFieldOverrides = {
@@ -73,6 +80,19 @@ const profileFieldOverrides = {
     imageUrl: "https://assets.sorare.com/playerpicture/563dce7e-7150-4db5-acd0-166ab7f619ee/picture/avatar-dbb7b5dc63acbb97714f8946e94f05de.png"
   },
   "Daichi Kamada": { club: "Crystal Palace" },
+  "Daniel Munoz": {
+    position: "Right-back, right wing-back",
+    club: "Crystal Palace"
+  },
+  "Giovanni Reyna": {
+    position: "Attacking midfielder, winger",
+    club: "Borussia Mönchengladbach"
+  },
+  "Hassan Altambakti": {
+    displayName: "Hassan Al-Tambakti",
+    position: "Centre-back",
+    club: "Al-Hilal"
+  },
   "Kenan Yildiz": {
     position: "Attacking midfielder, winger",
     imageUrl: "https://www.juventus.com/images/image/private/t_portrait_tablet_desktop/f_png/dev/qwsdrvbuik2f2d7q1qcf.png"
@@ -88,11 +108,30 @@ const profileFieldOverrides = {
   "Luis Suarez": {
     imageUrl: "https://assets.sorare.com/playerpicture/f945c83f-4b62-4d89-8a50-4408abefa6b7/picture/avatar-a920b0effd55be927d6b9b0a19d85061.png"
   },
+  "Matias Galarza": {
+    displayName: "Matías Galarza",
+    position: "Midfielder",
+    club: "Atlanta United (on loan from River Plate)"
+  },
+  Mauricio: {
+    displayName: "Maurício",
+    position: "Attacking midfielder",
+    club: "Palmeiras"
+  },
   "Michael Olise": {
     imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Michael%20Olise%20bayern%202025.jpg?width=160"
   },
+  "Mostafa Zico": {
+    displayName: "Mostafa Ziko",
+    position: "Left winger",
+    club: "Pyramids"
+  },
   "Mohammed Al-Owais": {
     imageUrl: "https://static-files.saudi-pro-league.pulselive.com/players/headshot/p153885.png"
+  },
+  "Nathaniel Brown": {
+    position: "Left-back",
+    club: "Eintracht Frankfurt"
   },
   "Noah Sadiki": {
     imageUrl: "https://assets.sorare.com/playerpicture/a862377c-35dc-42f1-b2bf-9b1d67677f15/picture/avatar-b5c2d5aee9242262172f9b052897cd41.png"
@@ -131,6 +170,11 @@ const profileFieldOverrides = {
     club: "Mamelodi Sundowns",
     imageUrl: "https://sundownsfc.co.za/wp-content/uploads/2025/09/Mokoena-1.jpg"
   },
+  Trezeguet: {
+    displayName: "Trézéguet",
+    position: "Left winger",
+    club: "Al Ahly"
+  },
   "Tomas Soucek": {
     imageUrl: "https://assets.sorare.com/playerpicture/79be9611-63e4-4e00-8052-ff2d3825e916/picture/avatar-24c525970580228cb644fcbb1c646cc2.png"
   },
@@ -163,15 +207,18 @@ const clubLeagueOverrides = {
   "Athletic Bilbao": "La Liga",
   "Atlanta United": "Major League Soccer",
   "Atlético Madrid": "La Liga",
+  "Al Ahly": "Egyptian Premier League",
   Barcelona: "La Liga",
   "Bayer Leverkusen": "Bundesliga",
   "Bayern Munich": "Bundesliga",
   Beşiktaş: "Süper Lig",
   "Borussia Dortmund": "Bundesliga",
+  "Borussia Mönchengladbach": "Bundesliga",
   Bournemouth: "Premier League",
   "Brighton & Hove Albion": "Premier League",
   Burnley: "EFL Championship",
   Chelsea: "Premier League",
+  "Crystal Palace": "Premier League",
   "Cultural Leonesa": "Segunda División",
   "Dender EH": "Belgian Pro League",
   "Dinamo Zagreb": "Croatian Football League",
@@ -207,6 +254,7 @@ const clubLeagueOverrides = {
   Pachuca: "Liga MX",
   Palmeiras: "Campeonato Brasileiro Série A",
   "Paris Saint-Germain": "Ligue 1",
+  Pyramids: "Egyptian Premier League",
   "Pumas UNAM": "Liga MX",
   "RB Leipzig": "Bundesliga",
   "Real Madrid": "La Liga",
@@ -239,7 +287,7 @@ const skillRules = [
   ["goalkeeper|shot-stopper|saves?|keeper", "Shot-stopping"],
   ["set-piece|set piece|dead-ball|dead ball|restart", "Set pieces"],
   ["aerial|crosses|crossing|second balls|box", "Box presence"],
-  ["finisher|finishing|striker|scorer|penalty-box|goal", "Finishing"],
+  ["finisher|finishing|striker|scorer|scored|penalty-box|goal", "Finishing"],
   ["creative|creator|invention|final passes|connects|orchestrator|spark", "Chance creation"],
   ["connect|connector|combine|link|first pass", "Link-up play"],
   ["tempo|control|rhythm|dictate|passing|stabilizer|balance|midfield", "Midfield control"],
@@ -675,24 +723,51 @@ async function fetchPageWikitextBatch(titles) {
 function getUniquePlayers(fixturesData, teamsById) {
   const players = new Map();
 
+  function addPlayer(player, team, note = "") {
+    if (!player?.name || !team) {
+      return;
+    }
+
+    const existing = players.get(player.name) || {
+      name: player.name,
+      note: "",
+      team
+    };
+
+    existing.team = existing.team || team;
+    if (!existing.note && note) {
+      existing.note = note;
+    }
+    players.set(player.name, existing);
+  }
+
   for (const fixture of fixturesData.fixtures || []) {
+    const homeTeam = teamsById.get(fixture.homeTeamId);
+    const awayTeam = teamsById.get(fixture.awayTeamId);
+
     for (const side of ["home", "away"]) {
       const teamId = side === "home" ? fixture.homeTeamId : fixture.awayTeamId;
       const team = teamsById.get(teamId);
       for (const player of fixture.keyPlayers?.[side] || []) {
-        if (!player?.name || !team) {
-          continue;
-        }
+        addPlayer(player, team, player.note || "");
+      }
+    }
 
-        const existing = players.get(player.name) || {
-          name: player.name,
-          note: player.note || "",
-          team
-        };
-        if (!existing.note && player.note) {
-          existing.note = player.note;
-        }
-        players.set(player.name, existing);
+    const goalSources = [
+      { goals: fixture.goalsHome || [], scoringTeam: homeTeam, ownGoalTeam: awayTeam },
+      { goals: fixture.goalsAway || [], scoringTeam: awayTeam, ownGoalTeam: homeTeam }
+    ];
+    const fixtureLabel =
+      homeTeam && awayTeam ? `${homeTeam.name} vs ${awayTeam.name}` : fixture.id || "a completed match";
+
+    for (const { goals, scoringTeam, ownGoalTeam } of goalSources) {
+      for (const goal of goals) {
+        const team = goal?.ownGoal ? ownGoalTeam : scoringTeam;
+        const note =
+          goal?.ownGoal || !team
+            ? ""
+            : `Scored for ${team.name} in ${fixtureLabel}.`;
+        addPlayer(goal, team, note);
       }
     }
   }
@@ -745,42 +820,56 @@ async function buildProfile(player) {
 }
 
 function buildProfileFromWikitext(player, title, wikitext) {
+  const overrides = profileFieldOverrides[player.name] || {};
+  const existingProfile = existingProfilesData.profiles?.[player.name] || {};
+
   if (!title || !wikitext) {
-    const overrides = profileFieldOverrides[player.name] || {};
+    const profileClub = overrides.club || existingProfile.club || "";
 
     return {
+      ...existingProfile,
       name: player.name,
       teamId: player.team.id,
-      birthDate: existingProfilesData.profiles?.[player.name]?.birthDate,
+      displayName: overrides.displayName || existingProfile.displayName || existingProfile.name,
+      birthDate: overrides.birthDate || existingProfile.birthDate,
       marketValueEurMillions: getMarketValueEurMillions(player, overrides),
+      position: overrides.position || existingProfile.position,
+      club: profileClub,
+      league: overrides.league || getLeagueForClub(profileClub) || existingProfile.league,
       uniformNumber: getUniformNumberOverride(player, overrides),
-      skills: inferSkills(player.note),
-      note: player.note,
-      sourceUrl: title ? `https://en.wikipedia.org/wiki/${encodeURIComponent(title.replace(/ /g, "_"))}` : ""
+      imageUrl: overrides.imageUrl || existingProfile.imageUrl,
+      skills: player.note ? inferSkills(player.note) : existingProfile.skills || inferSkills(player.note),
+      note: player.note || existingProfile.note,
+      sourceUrl: title
+        ? `https://en.wikipedia.org/wiki/${encodeURIComponent(title.replace(/ /g, "_"))}`
+        : existingProfile.sourceUrl || ""
     };
   }
 
   const fields = getInfoboxFields(wikitext);
-  const overrides = profileFieldOverrides[player.name] || {};
   const position = cleanWikiText(fields.position || "");
   const club = cleanWikiText(fields.currentclub || "") || getOpenEndedClub(fields);
   const imageUrl = getCommonsImageUrl(fields.image || "");
-  const profileClub = overrides.club || club;
-  const birthDate = overrides.birthDate || getBirthDate(fields);
+  const profileClub = overrides.club || club || existingProfile.club || "";
+  const birthDate = overrides.birthDate || getBirthDate(fields) || existingProfile.birthDate;
 
   return {
     name: player.name,
-    displayName: cleanWikiText(fields.name || "") || title.replace(/_/g, " "),
+    displayName:
+      overrides.displayName ||
+      cleanWikiText(fields.name || "") ||
+      existingProfile.displayName ||
+      title.replace(/_/g, " "),
     teamId: player.team.id,
     birthDate,
     marketValueEurMillions: getMarketValueEurMillions(player, overrides),
-    position: overrides.position || position,
+    position: overrides.position || position || existingProfile.position,
     club: profileClub,
-    league: overrides.league || getLeagueForClub(profileClub),
+    league: overrides.league || getLeagueForClub(profileClub) || existingProfile.league,
     uniformNumber: getUniformNumberOverride(player, overrides),
-    imageUrl: overrides.imageUrl || imageUrl,
-    skills: inferSkills(player.note),
-    note: player.note,
+    imageUrl: overrides.imageUrl || imageUrl || existingProfile.imageUrl,
+    skills: player.note ? inferSkills(player.note) : existingProfile.skills || inferSkills(player.note),
+    note: player.note || existingProfile.note,
     sourceUrl: `https://en.wikipedia.org/wiki/${encodeURIComponent(title.replace(/ /g, "_"))}`
   };
 }
@@ -851,7 +940,14 @@ for (const [index, player] of players.entries()) {
 
 const output = {
   updatedAt: new Date().toISOString(),
-  sourceIds: ["wikipedia-football-infobox", "wikimedia-commons", "fifa-squad-list-2026-06-21"],
+  sourceIds: [
+    ...new Set([
+      "wikipedia-football-infobox",
+      "wikimedia-commons",
+      "fifa-squad-list-2026-06-21",
+      ...(existingProfilesData.sourceIds || [])
+    ])
+  ],
   profiles
 };
 
