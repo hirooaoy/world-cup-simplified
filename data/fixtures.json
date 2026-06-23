@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-23T06:27:46.959Z",
+  "updatedAt": "2026-06-23T21:11:38.043Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -5180,7 +5180,7 @@
       "homeTeamId": "POR",
       "awayTeamId": "UZB",
       "venue": "Houston Stadium",
-      "status": "SCHEDULED",
+      "status": "FT",
       "h2h": {
         "status": "verified-empty",
         "sourceId": "national-football-teams-h2h-2026-06-17",
@@ -5240,7 +5240,39 @@
         ],
         "home": "Portugal need control to become finishing after dropping points in their opener, led by Cristiano Ronaldo, Bruno Fernandes, and Vitinha. Against Uzbekistan, their Bruno-Vitinha service into Ronaldo has to beat Uzbekistan's Khusanov-Fayzullaev compact counters. Ruben Dias is expected back. They want to keep Bruno Fernandes facing forward while Vitinha finds Ronaldo or the wide runners. The risk is Uzbekistan can release Fayzullaev or Shomurodov from a compact shape.",
         "away": "Uzbekistan are first-time World Cup underdogs built to defend deep and break cleanly, led by Eldor Shomurodov, Abdukodir Khusanov, and Abbosbek Fayzullaev. Against Portugal, their Khusanov-Fayzullaev compact counters has to beat Portugal's Bruno-Vitinha service into Ronaldo. Rustamjon Ashurmatov is a game-time decision. They want to stay compact through Khusanov, then release Fayzullaev and Shomurodov early. The risk is Portugal can feed Ronaldo through Bruno Fernandes and Vitinha."
-      }
+      },
+      "score": {
+        "home": 5,
+        "away": 0
+      },
+      "goalsHome": [
+        {
+          "minute": 6,
+          "name": "Cristiano Ronaldo"
+        },
+        {
+          "minute": 17,
+          "name": "Nuno Mendes"
+        },
+        {
+          "minute": 39,
+          "name": "Cristiano Ronaldo"
+        },
+        {
+          "minute": 60,
+          "name": "Abduvohid Nematov",
+          "ownGoal": true
+        },
+        {
+          "minute": 87,
+          "name": "Rafael Leao"
+        }
+      ],
+      "goalsAway": [],
+      "resultHighlights": [
+        "🌟 Cristiano Ronaldo scored twice as Portugal pulled clear.",
+        "📊 Portugal moved to 4 points in Group K and left Uzbekistan without a point."
+      ]
     },
     {
       "id": "england-ghana-2026-06-23",
@@ -5251,7 +5283,7 @@
       "homeTeamId": "ENG",
       "awayTeamId": "GHA",
       "venue": "Boston Stadium",
-      "status": "SCHEDULED",
+      "status": "LIVE",
       "h2h": {
         "status": "loaded",
         "sourceId": "national-football-teams-h2h-2026-06-17",
@@ -5322,6 +5354,10 @@
         ],
         "home": "England can qualify early but need cleaner defensive control than in the opener, led by Jude Bellingham, Harry Kane, and Declan Rice. Against Ghana, their Kane-Bellingham pressure plus Rice cover has to beat Ghana's Semenyo-Williams speed around Partey's return. Rice and Kane are fit, while Saka is likely managed. They want to use Kane's movement to free Bellingham while Rice stops Ghana's first counter pass. The risk is Ghana can counter through Semenyo and Williams if England's defense drops too early.",
         "away": "Ghana are unbeaten after a late opening win and dangerous when their forwards can run, led by Antoine Semenyo, Inaki Williams, and Jordan Ayew. Against England, their Semenyo-Williams speed around Partey's return has to beat England's Kane-Bellingham pressure plus Rice cover. Thomas Partey is available after missing the Panama opener. They want to use Semenyo as the outlet and let Williams or Ayew attack early. The risk is England can turn Kane, Bellingham, and Rice into sustained pressure."
+      },
+      "score": {
+        "home": 0,
+        "away": 0
       }
     },
     {

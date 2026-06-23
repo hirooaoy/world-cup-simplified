@@ -40,6 +40,7 @@ const pageTitleOverrides = new Map([
   ["Mostafa Zico", "Mostafa Ziko"],
   ["Nathaniel Brown", "Nathaniel Brown (footballer)"],
   ["Neymar", "Neymar"],
+  ["Nuno Mendes", "Nuno Mendes (footballer, born 2002)"],
   ["Ritsu Doan", "Ritsu Dōan"],
   ["Roberto Lopes", "Roberto Lopes (footballer, born 1992)"],
   ["Tahith Chong", "Tahith Chong"],
@@ -171,6 +172,10 @@ const profileFieldOverrides = {
   },
   "Noor Al-Rawabdeh": {
     imageUrl: "https://assets.selangorfc.com/images/players/t_4607862961048618.%20NOOR%20AL-RAWABDEH.PNG"
+  },
+  "Nuno Mendes": {
+    position: "Left-back, wing-back",
+    club: "Paris Saint-Germain"
   },
   "Ousmane Dembele": {
     imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Ousmane%20Demb%C3%A9l%C3%A9%202018%20(cropped).jpg?width=160"

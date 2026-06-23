@@ -218,6 +218,7 @@ const ZH_EXACT_TRANSLATIONS = new Map(
       "实时状态为人工核验，完场后应刷新确认。",
     "Loading catch-up notes": "正在加载比赛速览",
     "Loading matches": "正在加载比赛",
+    "Loading release notes": "正在加载发布说明",
     "Loading standings": "正在加载积分榜",
     "Local estimate using FIFA rankings. Not betting odds.":
       "基于FIFA排名的本地估算，并非博彩赔率。",
@@ -2646,6 +2647,7 @@ let teamsById = new Map();
 let teamsByName = new Map();
 let tournament = { groups: [], stages: [], sources: [] };
 let releaseNotes = { releases: [] };
+let isReleaseNotesLoading = true;
 let standingsByGroup = {};
 let dataCoverage = { status: "partial" };
 let siteUpdatedAt = "";
@@ -5832,11 +5834,20 @@ function renderTeamInline(team, className = "team", options = {}) {
 function setNameTooltipAnchor(container, name) {
   const containerRect = container.getBoundingClientRect();
   const nameRect = name.getBoundingClientRect();
-  if (!containerRect.width || !nameRect.width) {
+  if (!containerRect.width) {
     return;
   }
 
-  const anchorX = nameRect.left - containerRect.left + nameRect.width / 2;
+  const nameStart = nameRect.left - containerRect.left;
+  const availableNameWidth = Math.max(0, containerRect.width - nameStart);
+  const visibleNameWidth =
+    nameRect.width || name.clientWidth || Math.min(name.scrollWidth, availableNameWidth);
+
+  if (!visibleNameWidth) {
+    return;
+  }
+
+  const anchorX = nameStart + visibleNameWidth / 2;
   container.style.setProperty("--name-tooltip-anchor", `${Math.round(anchorX)}px`);
 }
 
@@ -5872,6 +5883,7 @@ function updateStandingNameTooltips(root = document) {
     if (!name) {
       team.classList.remove("has-name-tooltip");
       team.removeAttribute("tabindex");
+      team.removeAttribute("title");
       team.style.removeProperty("--name-tooltip-anchor");
       return;
     }
@@ -5887,9 +5899,11 @@ function updateStandingNameTooltips(root = document) {
 
     if (shouldShowTooltip) {
       team.tabIndex = 0;
+      team.setAttribute("title", fullName);
       setNameTooltipAnchor(team, name);
     } else {
       team.removeAttribute("tabindex");
+      team.removeAttribute("title");
       team.style.removeProperty("--name-tooltip-anchor");
     }
   });
@@ -12739,6 +12753,7 @@ function renderInitialLoadingState() {
   renderMatchLoadingState();
   renderStandingsLoadingState();
   renderCatchUpLoadingState();
+  renderReleaseTooltipLoadingState();
 }
 
 function renderSchedule() {
@@ -12923,6 +12938,44 @@ function getReleaseNoteHighlights(releaseNote) {
   ].map(localizeText);
 }
 
+function getReleaseTooltipLoadingMarkup() {
+  return `
+    <strong>${escapeHtml(localizeText("Latest changes"))}</strong>
+    <span class="release-tooltip-loading" role="status">
+      <span>${escapeHtml(localizeText("Loading release notes"))}</span>
+    </span>
+  `.trim();
+}
+
+function renderReleaseTooltipLoadingState() {
+  const releaseTooltip = document.querySelector("#release-tooltip");
+
+  if (!releaseTooltip) {
+    return;
+  }
+
+  releaseTooltip.classList.add("is-loading");
+  releaseTooltip.setAttribute("aria-busy", "true");
+  releaseTooltip.innerHTML = getReleaseTooltipLoadingMarkup();
+}
+
+function getReleaseTooltipMarkup() {
+  if (isReleaseNotesLoading) {
+    return getReleaseTooltipLoadingMarkup();
+  }
+
+  const latestReleaseNote = getLatestReleaseNote();
+  const releaseTooltipTitle = getReleaseNoteTitle(latestReleaseNote);
+  const releaseTooltipItems = getReleaseNoteHighlights(latestReleaseNote);
+
+  return `
+    <strong>${escapeHtml(releaseTooltipTitle)}</strong>
+    <ul>
+      ${releaseTooltipItems.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}
+    </ul>
+  `.trim();
+}
+
 function renderSourceNote() {
   const compactSourceLabels = {
     "FIFA World Cup 2026 schedule": "FIFA schedule",
@@ -12966,17 +13019,12 @@ function renderSourceNote() {
       </span>
     </span>
   `.trim();
-  const latestReleaseNote = getLatestReleaseNote();
-  const releaseTooltipTitle = getReleaseNoteTitle(latestReleaseNote);
-  const releaseTooltipItems = getReleaseNoteHighlights(latestReleaseNote);
+  const releaseTooltipClass = isReleaseNotesLoading ? "release-tooltip is-loading" : "release-tooltip";
   const releaseTooltip = `
     <span class="release-tooltip-wrapper">
       <button class="release-tooltip-trigger" type="button" aria-describedby="release-tooltip">${escapeHtml(releaseNotesText)}</button>${sentenceEnd}
-      <span class="release-tooltip" id="release-tooltip" role="tooltip">
-        <strong>${escapeHtml(releaseTooltipTitle)}</strong>
-        <ul>
-          ${releaseTooltipItems.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}
-        </ul>
+      <span class="${releaseTooltipClass}" id="release-tooltip" role="tooltip" aria-busy="${isReleaseNotesLoading ? "true" : "false"}">
+        ${getReleaseTooltipMarkup()}
       </span>
     </span>
   `.trim();
@@ -13042,7 +13090,6 @@ function applyDataSnapshot({
   historyData,
   historicalPlayerProfilesData,
   playerProfilesData,
-  releaseNotesData,
   standingsData,
   teamsData,
   tournamentData
@@ -13068,7 +13115,6 @@ function applyDataSnapshot({
   historicalProjectionCache.clear();
   standingsByGroup = standingsData.groups;
   tournament = tournamentData;
-  releaseNotes = releaseNotesData;
   dataCoverage = fixturesData.coverage || { status: "partial" };
   liveDataCheckedAt = "";
   siteUpdatedAt = getLatestUpdatedAt([
@@ -13104,7 +13150,6 @@ async function loadStaticData() {
     historyData,
     historicalPlayerProfilesData,
     playerProfilesData,
-    releaseNotesData,
     teamsData,
     standingsData,
     tournamentData
@@ -13113,7 +13158,6 @@ async function loadStaticData() {
     loadJson(DATA_URLS.history),
     loadOptionalJson(DATA_URLS.historicalPlayerProfiles, { profiles: {} }),
     loadOptionalJson(DATA_URLS.playerProfiles, { profiles: {} }),
-    loadOptionalJson(DATA_URLS.releaseNotes, { releases: [] }),
     loadJson(DATA_URLS.teams),
     loadJson(DATA_URLS.standings),
     loadJson(DATA_URLS.tournament)
@@ -13124,12 +13168,20 @@ async function loadStaticData() {
     historyData,
     historicalPlayerProfilesData,
     playerProfilesData,
-    releaseNotesData,
     standingsData,
     teamsData,
     tournamentData
   });
   isInitialDataLoading = false;
+}
+
+async function loadReleaseNotes() {
+  isReleaseNotesLoading = true;
+  renderReleaseTooltipLoadingState();
+
+  releaseNotes = await loadOptionalJson(DATA_URLS.releaseNotes, { releases: [] });
+  isReleaseNotesLoading = false;
+  renderSourceNote();
 }
 
 async function loadLiveData() {
@@ -13234,6 +13286,7 @@ async function loadInitialLiveData() {
 async function boot() {
   try {
     await loadStaticData();
+    loadReleaseNotes();
   } catch (error) {
     renderLoadError(error);
     return;

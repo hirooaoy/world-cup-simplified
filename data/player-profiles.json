@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-23T06:27:23.803Z",
+  "updatedAt": "2026-06-23T21:11:32.854Z",
   "sourceIds": [
     "wikipedia-football-infobox",
     "wikipedia-page-summaries",
@@ -90,6 +90,24 @@
       "note": "Saudi Arabia's defensive option, useful for protecting the box and giving the team a calmer first pass.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Abdulelah_Al-Amri"
     },
+    "Abduvohid Nematov": {
+      "name": "Abduvohid Nematov",
+      "displayName": "Abduvohid Nematov",
+      "teamId": "UZB",
+      "birthDate": "2001-03-20",
+      "summary": "Abduvohid Nematov (Uzbek: Abduvohid Neʼmatov, Абдувоҳид Неъматов; born 20 March 2001) is an Uzbek professional footballer who plays as a goalkeeper for Nasaf and the Uzbekistan national team.",
+      "estimatedMarketValueEurMillions": 0.6,
+      "position": "Goalkeeper",
+      "club": "Nasaf",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Abduvohid%20Nematov%20(cropped).jpg?width=160",
+      "skills": [
+        "Box presence",
+        "Finishing",
+        "Midfield control"
+      ],
+      "note": "Uzbekistan's goalkeeping option, useful for shot-stopping, box control, and starting attacks cleanly.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Abduvohid_Nematov"
+    },
     "Achraf Hakimi": {
       "name": "Achraf Hakimi",
       "displayName": "Achraf Hakimi",
@@ -101,7 +119,7 @@
       "club": "Paris Saint-Germain",
       "league": "Ligue 1",
       "uniformNumber": 2,
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Achraf%20Hakimi%20Brazil%20V%20Morocco%2013%20June%202026-156.jpg?width=160",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Achraf%20Hakimi%20Morocco%20v%20Norway%207%20June%202026-16.jpg?width=160",
       "skills": [
         "Set pieces",
         "Runs in behind",
@@ -937,7 +955,7 @@
       "club": "Arsenal",
       "league": "Premier League",
       "uniformNumber": 4,
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Declan%20Rice%20-%2053248276328%20(cropped).jpg?width=160",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/The%20Prime%20Minister%20visits%20St%20George's%20Park%20-%2053248339219%20(cropped2).jpg?width=160",
       "skills": [
         "Midfield control",
         "Defensive control"
@@ -1818,7 +1836,7 @@
       "displayName": "Jérémy Doku",
       "teamId": "BEL",
       "birthDate": "2002-05-27",
-      "summary": "Jérémy Baffour Doku (French pronunciation: [ʒeʁemi bafuʁ doku]; born 27 May 2002) is a Belgian professional footballer who plays as a winger for Premier League club Manchester City and the Belgium national team.",
+      "summary": "Jérémy Baffour Doku (French pronunciation: [ʒeʁemi bafuʁ dɔku]; born 27 May 2002) is a Belgian professional footballer who plays as a winger for Premier League club Manchester City and the Belgium national team.",
       "marketValueEurMillions": 65,
       "position": "Winger",
       "club": "Manchester City",
@@ -1916,7 +1934,7 @@
       "summary": "Jordan Pierre Ayew (born 11 September 1991) is a professional footballer who plays as a winger or forward for EFL League One club Leicester City. Born in France, he plays for the Ghana national team.",
       "marketValueEurMillions": 1.8,
       "position": "Winger, forward",
-      "club": "Leicester City",
+      "club": "Free Agent",
       "league": "EFL Championship",
       "uniformNumber": 9,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Jordan%20Ayew%2024082024%20(2).jpg?width=160",
@@ -2147,7 +2165,7 @@
       "club": "Al-Hilal",
       "league": "Saudi Pro League",
       "uniformNumber": 3,
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Joueur%20de%20foot.jpg?width=160",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Kalidou%20Koulibaly%20France%20v%20Senegal%2016%20June%202026-370%20(cropped).jpg?width=160",
       "skills": [
         "Set pieces",
         "Ball winning",
@@ -2436,7 +2454,7 @@
       "club": "Inter Miami",
       "league": "Major League Soccer",
       "uniformNumber": 10,
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Lionel%20Messi%20White%20House%202026%20(3x4%20cropped).jpg?width=160",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Lionel%20Messi%20NE%20Revolution%20Inter%20Miami%207.9.25-178%20(cropped%202).jpg?width=160",
       "skills": [
         "Pressing",
         "Target play"
@@ -2740,16 +2758,16 @@
       "birthDate": "1999-05-27",
       "summary": "Matheus Santos Carneiro da Cunha (Brazilian Portuguese: [maˈtews ˈkũ.ɲɐ], born 27 May 1999) is a Brazilian professional footballer who plays as a forward, attacking midfielder, or winger for Premier League club Manchester United and the Brazil national team.",
       "marketValueEurMillions": 45,
-      "position": "Forward",
+      "position": "Forward, attacking midfielder, winger",
       "club": "Manchester United",
       "league": "Premier League",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Matheus%20Cunha%20Brazil%20V%20Morocco%2013%20June%202026-178%20(cropped).jpg?width=160",
       "skills": [
         "Box presence",
-        "Finishing",
+        "Chance creation",
         "Runs in behind"
       ],
-      "note": "Brazil's forward option, useful for box presence, depth, and a direct finishing threat.",
+      "note": "Brazil's between-lines option, useful for turning possession into final passes and late box runs.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Matheus_Cunha"
     },
     "Mathew Ryan": {
@@ -2893,7 +2911,7 @@
       "displayName": "Michael Olise",
       "teamId": "FRA",
       "birthDate": "2001-12-12",
-      "summary": "Michael Akpovie Olise (; o-LEE-say; Urhobo: [à.k͡pɔ̀.vjɛ̀ ɔ̀.lí.sɛ̀]; French: [maikəl olisɛ]; born 12 December 2001) is a professional footballer who plays as a winger or attacking midfielder for Bundesliga club Bayern Munich.",
+      "summary": "Michael Akpovie Olise (; o-LEE-say; Urhobo: [à.k͡pɔ̀.vjɛ̀ ɔ̀.lí.sɛ̀]; French: [maikəl olisɛ]; born 12 December 2001) is a French professional footballer who plays as a winger or attacking midfielder for Bundesliga club Bayern Munich.",
       "marketValueEurMillions": 130,
       "position": "Winger, attacking midfielder",
       "club": "Bayern Munich",
@@ -3365,6 +3383,24 @@
       "note": "The midfield worker who helps Jordan's block stay connected before the break is on.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Noor_Al-Rawabdeh"
     },
+    "Nuno Mendes": {
+      "name": "Nuno Mendes",
+      "displayName": "Nuno Mendes",
+      "teamId": "POR",
+      "birthDate": "2002-06-19",
+      "summary": "Nuno Alexandre Tavares Mendes (Portuguese pronunciation: [ˈnunu ˈmẽdɨʃ]; born 19 June 2002) is a Portuguese professional footballer who plays as a left-back for Ligue 1 club Paris Saint-Germain and the Portugal national team.",
+      "marketValueEurMillions": 75,
+      "position": "Left-back, wing-back",
+      "club": "Paris Saint-Germain",
+      "league": "Ligue 1",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Nuno%20Mendes%20USMNT%20v%20Portugal%20Mar%2031%202026-239%20(cropped).jpg?width=160",
+      "skills": [
+        "Wide threat",
+        "Defensive control"
+      ],
+      "note": "Portugal's wide defensive option, useful for stretching the flank and recovering into the back line.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Nuno_Mendes_(footballer%2C_born_2002)"
+    },
     "Oh Hyeongyu": {
       "name": "Oh Hyeongyu",
       "displayName": "Oh Hyeon-gyu",
@@ -3517,6 +3553,25 @@
       ],
       "note": "The left-sided defensive anchor, comfortable stepping out to defend space and start attacks.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Piero_Hincapi%C3%A9"
+    },
+    "Rafael Leao": {
+      "name": "Rafael Leao",
+      "displayName": "Rafael Leão",
+      "teamId": "POR",
+      "birthDate": "1999-06-10",
+      "summary": "Rafael \"Rafa\" Alexandre da Conceição Leão (Portuguese pronunciation: [ʁɐfɐˈɛl ˈljɐ̃w]; born 10 June 1999) is a Portuguese professional footballer who plays as a left winger and forward for Serie A club AC Milan and the Portugal national team.",
+      "marketValueEurMillions": 90,
+      "position": "forward",
+      "club": "AC Milan",
+      "league": "Serie A",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/RafaelLe%C3%A3oPortugal23.jpg?width=160",
+      "skills": [
+        "Box presence",
+        "Finishing",
+        "Runs in behind"
+      ],
+      "note": "Portugal's forward option, useful for box presence, depth, and a direct finishing threat.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Rafael_Le%C3%A3o"
     },
     "Ramin Rezaeian": {
       "name": "Ramin Rezaeian",

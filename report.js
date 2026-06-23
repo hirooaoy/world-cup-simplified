@@ -195,6 +195,18 @@ function setStatus(message, state = "") {
   formStatus.dataset.state = state;
 }
 
+function setSubmitLoading(isLoading) {
+  submitButton.disabled = isLoading;
+  submitButton.classList.toggle("is-loading", isLoading);
+  submitButton.textContent = isLoading ? t.sending : t.sendReport;
+
+  if (isLoading) {
+    submitButton.setAttribute("aria-busy", "true");
+  } else {
+    submitButton.removeAttribute("aria-busy");
+  }
+}
+
 function formatTimeZoneLabel(timeZone) {
   if (currentLanguage === "zh") {
     return zhTimeZoneNames[timeZone] || timeZone.replace(/_/g, " ");
@@ -251,7 +263,7 @@ reportForm.addEventListener("submit", async (event) => {
     return;
   }
 
-  submitButton.disabled = true;
+  setSubmitLoading(true);
   setStatus(t.sending);
 
   try {
@@ -273,6 +285,6 @@ reportForm.addEventListener("submit", async (event) => {
   } catch {
     setStatus(t.reportFailed, "error");
   } finally {
-    submitButton.disabled = false;
+    setSubmitLoading(false);
   }
 });

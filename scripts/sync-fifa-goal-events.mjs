@@ -287,7 +287,7 @@ async function processFixture(fixture) {
     return {
       matched: true,
       updated: false,
-      warnings: [`${fixture.id}: timeline goal count ${total} does not match final score total ${expectedTotal}`]
+      warnings: [`${fixture.id}: timeline goal count ${total} does not match score total ${expectedTotal}`]
     };
   }
 
@@ -301,7 +301,10 @@ async function processFixture(fixture) {
 }
 
 const targetFixtures = (fixturesData.fixtures || []).filter(
-  (fixture) => fixture.stage === "group" && fixture.status === "FT" && scoreTotal(fixture.score) > 0
+  (fixture) =>
+    fixture.stage === "group" &&
+    ["LIVE", "FT"].includes(fixture.status) &&
+    scoreTotal(fixture.score) > 0
 );
 const skippedCount = (fixturesData.fixtures || []).length - targetFixtures.length;
 const warnings = [];

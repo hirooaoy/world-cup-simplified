@@ -423,6 +423,51 @@ try {
   await loadingPage.waitForSelector(".match-row");
   await loadingContext.close();
 
+  const releaseNotesLoadingContext = await browser.newContext();
+  let releaseReleaseNotes;
+  const releaseNotesDelay = new Promise((resolve) => {
+    releaseReleaseNotes = resolve;
+  });
+  await releaseNotesLoadingContext.route("**/data/release-notes.json*", async (route) => {
+    await releaseNotesDelay;
+    await route.fulfill({
+      body: JSON.stringify(releaseNotesData),
+      contentType: "application/json",
+      status: 200
+    });
+  });
+  const releaseNotesLoadingPage = await releaseNotesLoadingContext.newPage();
+  await releaseNotesLoadingPage.goto(baseUrl, { waitUntil: "domcontentloaded" });
+  await releaseNotesLoadingPage.waitForSelector(".match-row");
+  const releaseNotesLoadingTooltip = releaseNotesLoadingPage.locator("#source-note .release-tooltip");
+  const releaseNotesLoadingText = await releaseNotesLoadingTooltip.evaluate((tooltip) =>
+    tooltip.textContent.replace(/\s+/g, " ").trim()
+  );
+  assert(
+    (await releaseNotesLoadingTooltip.getAttribute("aria-busy")) === "true",
+    "The release notes tooltip should be marked busy while release notes are loading."
+  );
+  assert(
+    releaseNotesLoadingText === "Latest changes Loading release notes",
+    "The release notes tooltip should show a compact loading state while release notes are loading."
+  );
+  releaseReleaseNotes();
+  await releaseNotesLoadingPage.waitForFunction((expectedText) => {
+    const tooltip = document.querySelector("#source-note .release-tooltip");
+    const tooltipText = [
+      tooltip?.querySelector("strong")?.textContent?.trim(),
+      ...Array.from(tooltip?.querySelectorAll("li") || []).map((item) => item.textContent.trim())
+    ]
+      .filter(Boolean)
+      .join(" ");
+
+    return (
+      tooltip?.getAttribute("aria-busy") === "false" &&
+      tooltipText === expectedText
+    );
+  }, getExpectedReleaseTooltipText(releaseNotesData));
+  await releaseNotesLoadingContext.close();
+
   await page.goto(baseUrl, { waitUntil: "load" });
   await page.waitForSelector(".match-row");
 
@@ -751,6 +796,33 @@ try {
   }));
   assert(visibility.matchesDisplay === "none", "Matches panel should be hidden on Standings.");
   assert(visibility.standingsDisplay !== "none", "Standings panel should be visible.");
+
+  await page.setViewportSize({ width: 1100, height: 760 });
+  await page.goto(`${baseUrl}?view=standings`, { waitUntil: "load" });
+  await page.waitForSelector('.standings-card[data-group-id="C"] .standing-team');
+  const scotlandStandingTeam = page
+    .locator('.standings-card[data-group-id="C"] .standing-team', { hasText: "Scotland" })
+    .first();
+  const scotlandTooltipState = await scotlandStandingTeam.evaluate((team) => ({
+    anchor: team.style.getPropertyValue("--name-tooltip-anchor"),
+    hasTooltipClass: team.classList.contains("has-name-tooltip"),
+    title: team.getAttribute("title"),
+    tooltip: team.getAttribute("data-tooltip")
+  }));
+  assert(
+    scotlandTooltipState.hasTooltipClass &&
+      scotlandTooltipState.title === "Scotland" &&
+      scotlandTooltipState.tooltip === "Scotland" &&
+      scotlandTooltipState.anchor.length > 0,
+    "Truncated Scotland standings row should expose a full-name tooltip with a usable anchor."
+  );
+  await scotlandStandingTeam.hover();
+  await page.waitForTimeout(160);
+  assert(
+    (await scotlandStandingTeam.evaluate((team) => getComputedStyle(team, "::after").opacity)) === "1",
+    "Hovering the truncated Scotland standings row should reveal the full-name tooltip."
+  );
+  await page.setViewportSize({ width: 1280, height: 720 });
 
   await page.goto(`${baseUrl}?view=matches&date=2026-06-17&tz=America%2FLos_Angeles`, {
     waitUntil: "load"
@@ -2549,6 +2621,17 @@ try {
     (await touchPlayerLink.getAttribute("aria-expanded")) === "true" &&
       (await touchPlayerCard.locator(".player-card-name").innerText()).trim() === "Romelu Lukaku",
     "On touch devices, the first player-name tap should open the player card instead of navigating away."
+  );
+  const secondTouchPlayerLink = touchPage.locator(".key-info-team .player-link", { hasText: "Kevin De Bruyne" }).first();
+  await secondTouchPlayerLink.click();
+  const visibleTouchPlayerCards = touchPage.locator(".player-card:visible");
+  await visibleTouchPlayerCards.first().waitFor({ state: "visible" });
+  assert(
+    (await visibleTouchPlayerCards.count()) === 1 &&
+      (await secondTouchPlayerLink.getAttribute("aria-expanded")) === "true" &&
+      (await touchPlayerLink.getAttribute("aria-expanded")) === "false" &&
+      (await visibleTouchPlayerCards.first().locator(".player-card-name").innerText()).trim() === "Kevin De Bruyne",
+    "On touch devices, tapping a second player name should replace the first player card instead of showing two."
   );
   await touchContext.close();
 

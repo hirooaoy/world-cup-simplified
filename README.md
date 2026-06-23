@@ -29,7 +29,7 @@ The site is set up for Vercel. Static pages are served from the repo root and th
 
 ## Automatic Data Updates
 
-The production site tries `/api/live-data` before it falls back to the static JSON files. That API route runs server-side, fetches recent provider fixtures, merges live/final scores into the existing fixtures, recomputes group standings, and returns a CDN-cached snapshot to the browser. Visitors still get the fast static app, but the data can update automatically without exposing the provider key.
+The production site tries `/api/live-data` before it falls back to the static JSON files. That API route runs server-side, fetches recent provider fixtures, merges live/final scores into the existing fixtures, enriches scored matches with official FIFA goal-event timelines when available, recomputes group standings, and returns a CDN-cached snapshot to the browser. Visitors still get the fast static app, but the data can update automatically without exposing the provider key.
 
 The free/default provider is football-data.org. The site defaults to competition `WC` and season `2026`, and uses the delayed-score free tier so the custom UI can update without exposing the provider key.
 
@@ -43,7 +43,7 @@ To enable the free football-data.org sync:
 4. Optionally copy `data/provider-map.example.json` to `data/provider-map.json` and fill in provider IDs if name matching is not enough.
 5. Deploy. The site will use live provider data automatically when `/api/live-data` succeeds, and static JSON when it does not.
 
-The live endpoint is cached for 5 minutes by default with football-data.org. You can override that with `LIVE_DATA_CACHE_SECONDS` and `LIVE_DATA_STALE_SECONDS`; use higher values if you want fewer provider calls.
+The live endpoint is cached for 5 minutes by default with football-data.org. You can override that with `LIVE_DATA_CACHE_SECONDS` and `LIVE_DATA_STALE_SECONDS`; use higher values if you want fewer provider calls. Goal-scorer enrichment uses FIFA's public match timeline only for scored live/final fixtures whose `goalsHome` / `goalsAway` arrays are missing or incomplete. Set `FIFA_GOAL_EVENTS_ENABLED=false` to disable it, or lower `FIFA_GOAL_EVENTS_MAX_FIXTURES` if the endpoint ever needs stricter request bounds.
 
 API-Football and Sportmonks remain supported as optional providers. Set `LIVE_DATA_PROVIDER=api-football` or `LIVE_DATA_PROVIDER=sportmonks` and add the matching token plus optional league/season IDs.
 
@@ -88,6 +88,9 @@ FOOTBALL_DATA_SEASON=2026
 FOOTBALL_DATA_WINDOW_BEFORE_DAYS=2
 FOOTBALL_DATA_WINDOW_AFTER_DAYS=2
 FOOTBALL_DATA_TIMEOUT_MS=8000
+FIFA_GOAL_EVENTS_ENABLED=true
+FIFA_GOAL_EVENTS_TIMEOUT_MS=5000
+FIFA_GOAL_EVENTS_MAX_FIXTURES=8
 API_FOOTBALL_API_KEY=
 API_FOOTBALL_LEAGUE_ID=1
 API_FOOTBALL_SEASON=2026

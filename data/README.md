@@ -90,7 +90,7 @@ For future completed 2026 matches, any scorer in `goalsHome` / `goalsAway` must 
 
 Preferred production path:
 - Configure `/api/live-data` with a football-data.org key on the free delayed-score plan.
-- Let the server-side live snapshot merge recent scores/status and recompute standings automatically.
+- Let the server-side live snapshot merge recent scores/status, enrich missing scorer-minute arrays from FIFA official timelines when available, and recompute standings automatically.
 - Keep manual JSON updates as the editorial/fallback layer, not the main live-update mechanism.
 - Run `pnpm sync:fifa` before match-day checks when updating the committed static fallback data.
 - Run `pnpm matchday:readiness` for a focused today/tomorrow checklist instead of treating every old archive or odds source as equally urgent.
@@ -106,6 +106,7 @@ Match days:
 During live matches:
 - If there is no live API, or the free API quota/cache delay is not fresh enough, update `status` manually from `SCHEDULED` to `LIVE`, then to `FT` with `score`.
 - Do not rely on kickoff time alone for live status.
+- When a live or final score has goals but no scorers, `/api/live-data` will try FIFA's official timeline. The static fallback can do the same with `pnpm sync:fifa:goals`.
 - Treat a post-match row with no score as a data incident, not an empty state. The UI will label it "Final pending"; the fix is still to update the fixture, standings, and source timestamps before sharing.
 
 For authored `catchUp` entries, keep the headline and body score-focused. Add optional `standouts` only when a source supports the player note; one compact sentence is enough.
