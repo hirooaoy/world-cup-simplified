@@ -729,16 +729,18 @@ for (const playerName of requiredProfileNames) {
     Array.isArray(profile.skills) && profile.skills.length > 0,
     `player-profiles.json "${playerName}" must include skills`
   );
+  assert(
+    typeof profile.note === "string" && profile.note.trim(),
+    `player-profiles.json "${playerName}" must include a curated note`
+  );
+  assert(
+    !isGeneratedScorerNote(profile.note),
+    `player-profiles.json "${playerName}" note must not expose generated scorer context`
+  );
   if (profile.summary !== undefined) {
     assert(
       typeof profile.summary === "string" && profile.summary.trim(),
       `player-profiles.json "${playerName}" summary must be a non-empty string when present`
-    );
-  }
-  if (isGeneratedScorerNote(profile.note)) {
-    assert(
-      typeof profile.summary === "string" && profile.summary.trim(),
-      `player-profiles.json "${playerName}" must include summary because its note is only scorer context`
     );
   }
   if (profile.uniformNumber !== undefined) {

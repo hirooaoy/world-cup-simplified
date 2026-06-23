@@ -598,8 +598,57 @@ function inferSkills(note) {
   return (skills.length ? skills : ["Match impact"]).slice(0, 4);
 }
 
+function teamPossessive(team) {
+  const name = team?.name || "The team";
+  return name.endsWith("s") ? `${name}'` : `${name}'s`;
+}
+
 function isGeneratedScorerNote(note) {
   return /^Scored for .+ in .+ vs .+\.$/.test(String(note || "").trim());
+}
+
+function getGeneratedRoleNote(player, position) {
+  const possessive = teamPossessive(player.team);
+  const lowerPosition = normalizeText(position);
+
+  if (/goalkeeper|keeper/.test(lowerPosition)) {
+    return `${possessive} goalkeeping option, useful for shot-stopping, box control, and starting attacks cleanly.`;
+  }
+
+  if (/centre back|center back|central defender|defender/.test(lowerPosition)) {
+    return `${possessive} defensive option, useful for protecting the box and giving the team a calmer first pass.`;
+  }
+
+  if (/right back|left back|wing back|full back/.test(lowerPosition)) {
+    return `${possessive} wide defensive option, useful for stretching the flank and recovering into the back line.`;
+  }
+
+  if (/attacking midfielder|playmaker/.test(lowerPosition)) {
+    return `${possessive} between-lines option, useful for turning possession into final passes and late box runs.`;
+  }
+
+  if (/winger|wide midfielder/.test(lowerPosition)) {
+    return `${possessive} wide attacking option, useful for stretching the field, running behind, and adding final-third threat.`;
+  }
+
+  if (/striker|forward|centre forward|center forward/.test(lowerPosition)) {
+    return `${possessive} forward option, useful for box presence, depth, and a direct finishing threat.`;
+  }
+
+  if (/midfielder|midfield/.test(lowerPosition)) {
+    return `${possessive} midfield option, useful for connecting phases and keeping the team moving through pressure.`;
+  }
+
+  return `${possessive} match-plan option, useful for adding another route when the game opens up.`;
+}
+
+function getProfileNote(player, existingProfile, position) {
+  const note = String(player.note || existingProfile.note || "").trim();
+  if (note && !isGeneratedScorerNote(note)) {
+    return note;
+  }
+
+  return getGeneratedRoleNote(player, position || existingProfile.position || "");
 }
 
 function firstSentences(text, maxSentences = 2, maxLength = 260) {
@@ -855,19 +904,22 @@ async function buildProfile(player) {
   const title = await searchPlayerPage(player, player.team);
   if (!title) {
     const overrides = profileFieldOverrides[player.name] || {};
+    const existingProfile = existingProfilesData.profiles?.[player.name] || {};
+    const position = overrides.position || existingProfile.position || "";
+    const note = getProfileNote(player, existingProfile, position);
 
     return {
       name: player.name,
       teamId: player.team.id,
-      birthDate: existingProfilesData.profiles?.[player.name]?.birthDate,
+      birthDate: existingProfile.birthDate,
       summary: getProfileSummary({
         note: player.note,
-        existingSummary: existingProfilesData.profiles?.[player.name]?.summary
+        existingSummary: existingProfile.summary
       }),
       marketValueEurMillions: getMarketValueEurMillions(player, overrides),
       uniformNumber: getUniformNumberOverride(player, overrides),
-      skills: inferSkills(player.note),
-      note: player.note,
+      skills: inferSkills(note),
+      note,
       sourceUrl: ""
     };
   }
@@ -889,6 +941,7 @@ async function buildProfile(player) {
   });
   const profileLeague =
     overrides.league || getLeagueFromSummary(summary, profileClub) || getLeagueForClub(profileClub);
+  const note = getProfileNote(player, existingProfile, overrides.position || position);
 
   return {
     name: player.name,
@@ -902,8 +955,8 @@ async function buildProfile(player) {
     league: profileLeague,
     uniformNumber: getUniformNumberOverride(player, overrides),
     imageUrl: overrides.imageUrl || imageUrl,
-    skills: inferSkills(player.note),
-    note: player.note,
+    skills: inferSkills(note),
+    note,
     sourceUrl: `https://en.wikipedia.org/wiki/${encodeURIComponent(title.replace(/ /g, "_"))}`
   };
 }
@@ -925,6 +978,7 @@ function buildProfileFromPageData(player, title, pageData = {}) {
       getLeagueFromSummary(summary, profileClub) ||
       getLeagueForClub(profileClub) ||
       existingProfile.league;
+    const note = getProfileNote(player, existingProfile, overrides.position || existingProfile.position);
 
     return {
       ...existingProfile,
@@ -939,8 +993,8 @@ function buildProfileFromPageData(player, title, pageData = {}) {
       league: profileLeague,
       uniformNumber: getUniformNumberOverride(player, overrides),
       imageUrl: overrides.imageUrl || existingProfile.imageUrl,
-      skills: player.note ? inferSkills(player.note) : existingProfile.skills || inferSkills(player.note),
-      note: player.note || existingProfile.note,
+      skills: inferSkills(note),
+      note,
       sourceUrl: title
         ? `https://en.wikipedia.org/wiki/${encodeURIComponent(title.replace(/ /g, "_"))}`
         : existingProfile.sourceUrl || ""
@@ -963,6 +1017,7 @@ function buildProfileFromPageData(player, title, pageData = {}) {
     getLeagueFromSummary(summary, profileClub) ||
     getLeagueForClub(profileClub) ||
     existingProfile.league;
+  const note = getProfileNote(player, existingProfile, overrides.position || position || existingProfile.position);
 
   return {
     name: player.name,
@@ -980,8 +1035,8 @@ function buildProfileFromPageData(player, title, pageData = {}) {
     league: profileLeague,
     uniformNumber: getUniformNumberOverride(player, overrides),
     imageUrl: overrides.imageUrl || imageUrl || existingProfile.imageUrl,
-    skills: player.note ? inferSkills(player.note) : existingProfile.skills || inferSkills(player.note),
-    note: player.note || existingProfile.note,
+    skills: inferSkills(note),
+    note,
     sourceUrl: `https://en.wikipedia.org/wiki/${encodeURIComponent(title.replace(/ /g, "_"))}`
   };
 }

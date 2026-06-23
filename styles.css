@@ -3532,18 +3532,6 @@ h1 {
   gap: 4px;
 }
 
-.player-card-summary {
-  display: -webkit-box;
-  overflow: hidden;
-  color: rgba(10, 10, 10, 0.76);
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0;
-  line-height: 1.42;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
-}
-
 .player-card-note {
   color: rgba(10, 10, 10, 0.62);
   font-size: 11px;

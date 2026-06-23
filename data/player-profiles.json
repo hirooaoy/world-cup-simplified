@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-23T03:42:04.123Z",
+  "updatedAt": "2026-06-23T03:57:12.474Z",
   "sourceIds": [
     "wikipedia-football-infobox",
     "wikipedia-page-summaries",
@@ -80,9 +80,12 @@
       "league": "Saudi Pro League",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Abdulelah%20Al-Amri%202023%20(cropped).jpg?width=160",
       "skills": [
-        "Finishing"
+        "Box presence",
+        "Link-up play",
+        "Defensive control",
+        "Leadership"
       ],
-      "note": "Scored for Saudi Arabia in Saudi Arabia vs Uruguay.",
+      "note": "Saudi Arabia's defensive option, useful for protecting the box and giving the team a calmer first pass.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Abdulelah_Al-Amri"
     },
     "Achraf Hakimi": {
@@ -154,9 +157,11 @@
       "league": "Campeonato Brasileiro Série A",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Agust%C3%ADn%20Canobbio%202018.jpg?width=160",
       "skills": [
-        "Finishing"
+        "Box presence",
+        "Chance creation",
+        "Runs in behind"
       ],
-      "note": "Scored for Uruguay in Uruguay vs Cabo Verde.",
+      "note": "Uruguay's between-lines option, useful for turning possession into final passes and late box runs.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Agust%C3%ADn_Canobbio"
     },
     "Akram Afif": {
@@ -191,9 +196,12 @@
       "league": "La Liga",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Alex%20Freeman%20USMNT%20v%20Belgium%20Mar%2028%202026-59%20(cropped).jpg?width=160",
       "skills": [
-        "Finishing"
+        "Box presence",
+        "Link-up play",
+        "Defensive control",
+        "Leadership"
       ],
-      "note": "Scored for United States in United States vs Australia.",
+      "note": "United States' defensive option, useful for protecting the box and giving the team a calmer first pass.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Alex_Freeman"
     },
     "Alexander Isak": {
@@ -325,9 +333,11 @@
       "league": "Premier League",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Manchester%20United%20v%20BSC%20Young%20Boys%2C%208%20December%202021%20(17)%20(cropped).jpg?width=160",
       "skills": [
-        "Finishing"
+        "Box presence",
+        "Chance creation",
+        "Runs in behind"
       ],
-      "note": "Scored for Côte d'Ivoire in Côte d'Ivoire vs Ecuador.",
+      "note": "Côte d'Ivoire's between-lines option, useful for turning possession into final passes and late box runs.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Amad_Diallo"
     },
     "Amine Gouiri": {
@@ -379,9 +389,10 @@
       "league": "Premier League",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Anthony%20Elanga%20(Sweden%20vs%20Moldova%2C%2012%20October%202023).jpg?width=160",
       "skills": [
-        "Finishing"
+        "Runs in behind",
+        "Wide threat"
       ],
-      "note": "Scored for Sweden in Netherlands vs Sweden.",
+      "note": "Sweden's wide attacking option, useful for stretching the field, running behind, and adding final-third threat.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Anthony_Elanga"
     },
     "Antoine Semenyo": {
@@ -514,9 +525,11 @@
       "league": "Ligue 1",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Barcola%20asse%20psg%202425.png?width=160",
       "skills": [
-        "Finishing"
+        "Box presence",
+        "Finishing",
+        "Runs in behind"
       ],
-      "note": "Scored for France in France vs Senegal.",
+      "note": "France's forward option, useful for box presence, depth, and a direct finishing threat.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Bradley_Barcola"
     },
     "Brahim Diaz": {
@@ -569,9 +582,11 @@
       "league": "Premier League",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/GAE%20-%20Ajax%20-%2052788469380%20(Brobbey).jpg?width=160",
       "skills": [
-        "Finishing"
+        "Box presence",
+        "Finishing",
+        "Runs in behind"
       ],
-      "note": "Scored for Netherlands in Netherlands vs Sweden.",
+      "note": "Netherlands' forward option, useful for box presence, depth, and a direct finishing threat.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Brian_Brobbey"
     },
     "Bruno Fernandes": {
@@ -604,9 +619,11 @@
       "league": "",
       "imageUrl": "",
       "skills": [
-        "Finishing"
+        "Link-up play",
+        "Midfield control",
+        "Pressing"
       ],
-      "note": "Scored for Ghana in Ghana vs Panama.",
+      "note": "Ghana's midfield option, useful for connecting phases and keeping the team moving through pressure.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Caleb_Yirenkyi"
     },
     "Cameron Burgess": {
@@ -620,9 +637,12 @@
       "league": "EFL Championship",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Cameron%20Burgess%20(cropped).jpg?width=160",
       "skills": [
-        "Match impact"
+        "Box presence",
+        "Link-up play",
+        "Defensive control",
+        "Leadership"
       ],
-      "note": "",
+      "note": "Australia's defensive option, useful for protecting the box and giving the team a calmer first pass.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Cameron_Burgess"
     },
     "Casemiro": {
@@ -734,9 +754,11 @@
       "league": "2. Bundesliga",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/4822293%20AE7I6590%20-%20Connor%20Metcalfe.jpg?width=160",
       "skills": [
-        "Finishing"
+        "Link-up play",
+        "Midfield control",
+        "Pressing"
       ],
-      "note": "Scored for Australia in Australia vs Türkiye.",
+      "note": "Australia's midfield option, useful for connecting phases and keeping the team moving through pressure.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Connor_Metcalfe"
     },
     "Cristiano Ronaldo": {
@@ -770,9 +792,10 @@
       "league": "EFL Championship",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Crysencio%20Summerville%20of%20West%20Ham%20United.jpeg?width=160",
       "skills": [
-        "Finishing"
+        "Runs in behind",
+        "Wide threat"
       ],
-      "note": "Scored for Netherlands in Netherlands vs Japan.",
+      "note": "Netherlands' wide attacking option, useful for stretching the field, running behind, and adding final-third threat.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Crysencio_Summerville"
     },
     "Cyle Larin": {
@@ -786,9 +809,11 @@
       "league": "EFL Championship",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Cyle%20Larin%20(2021-22%20S%C3%BCper%20Lig)%20-%20Resim1%20(cropped).png?width=160",
       "skills": [
-        "Finishing"
+        "Box presence",
+        "Finishing",
+        "Runs in behind"
       ],
-      "note": "Scored for Canada in Canada vs Bosnia and Herzegovina.",
+      "note": "Canada's forward option, useful for box presence, depth, and a direct finishing threat.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Cyle_Larin"
     },
     "Daichi Kamada": {
@@ -822,9 +847,11 @@
       "league": "Campeonato Brasileiro Série A",
       "imageUrl": "",
       "skills": [
-        "Match impact"
+        "Link-up play",
+        "Midfield control",
+        "Pressing"
       ],
-      "note": "",
+      "note": "Paraguay's midfield option, useful for connecting phases and keeping the team moving through pressure.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Dami%C3%A1n_Bobadilla"
     },
     "Daniel Munoz": {
@@ -838,9 +865,10 @@
       "league": "Premier League",
       "imageUrl": "",
       "skills": [
-        "Finishing"
+        "Wide threat",
+        "Defensive control"
       ],
-      "note": "Scored for Colombia in Uzbekistan vs Colombia.",
+      "note": "Colombia's wide defensive option, useful for stretching the flank and recovering into the back line.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Daniel_Mu%C3%B1oz_(footballer)"
     },
     "Darwin Nunez": {
@@ -913,9 +941,11 @@
       "league": "Bundesliga",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Deniz%20undav.jpg?width=160",
       "skills": [
-        "Finishing"
+        "Box presence",
+        "Finishing",
+        "Runs in behind"
       ],
-      "note": "Scored for Germany in Germany vs Curaçao.",
+      "note": "Germany's forward option, useful for box presence, depth, and a direct finishing threat.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Deniz_Undav"
     },
     "Duckens Nazon": {
@@ -1025,9 +1055,10 @@
       "league": "",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Elijah%20Just%20(cropped).jpg?width=160",
       "skills": [
-        "Finishing"
+        "Runs in behind",
+        "Wide threat"
       ],
-      "note": "Scored for New Zealand in IR Iran vs New Zealand.",
+      "note": "New Zealand's wide attacking option, useful for stretching the field, running behind, and adding final-third threat.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Elijah_Just"
     },
     "Ellyes Skhiri": {
@@ -1060,9 +1091,10 @@
       "league": "Egyptian Premier League",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/File%3AEmam22.jpg?width=160",
       "skills": [
-        "Finishing"
+        "Runs in behind",
+        "Wide threat"
       ],
-      "note": "Scored for Egypt in Belgium vs Egypt.",
+      "note": "Egypt's wide attacking option, useful for stretching the field, running behind, and adding final-third threat.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Emam_Ashour"
     },
     "Enner Valencia": {
@@ -1133,9 +1165,11 @@
       "league": "",
       "imageUrl": "",
       "skills": [
-        "Finishing"
+        "Box presence",
+        "Chance creation",
+        "Runs in behind"
       ],
-      "note": "Scored for Bosnia and Herzegovina in Switzerland vs Bosnia and Herzegovina.",
+      "note": "Bosnia and Herzegovina's between-lines option, useful for turning possession into final passes and late box runs.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Ermin_Mahmi%C4%87"
     },
     "Esmir Bajraktarevic": {
@@ -1207,9 +1241,11 @@
       "league": "Bundesliga",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Felix%20Nmecha%202021.jpg?width=160",
       "skills": [
-        "Finishing"
+        "Link-up play",
+        "Midfield control",
+        "Pressing"
       ],
-      "note": "Scored for Germany in Germany vs Curaçao.",
+      "note": "Germany's midfield option, useful for connecting phases and keeping the team moving through pressure.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Felix_Nmecha"
     },
     "Finn Surman": {
@@ -1223,9 +1259,12 @@
       "league": "",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Finn_Surman.jpg?width=160",
       "skills": [
-        "Finishing"
+        "Box presence",
+        "Link-up play",
+        "Defensive control",
+        "Leadership"
       ],
-      "note": "Scored for New Zealand in New Zealand vs Egypt.",
+      "note": "New Zealand's defensive option, useful for protecting the box and giving the team a calmer first pass.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Finn_Surman"
     },
     "Firas Al-Buraikan": {
@@ -1278,9 +1317,11 @@
       "league": "Ligue 1",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Folarin%20Balogun%20USMNT%20v%20Belgium%20Mar%2028%202026-69%20(cropped).jpg?width=160",
       "skills": [
-        "Finishing"
+        "Box presence",
+        "Finishing",
+        "Runs in behind"
       ],
-      "note": "Scored for United States in United States vs Paraguay.",
+      "note": "United States' forward option, useful for box presence, depth, and a direct finishing threat.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Folarin_Balogun"
     },
     "Franck Kessie": {
@@ -1353,9 +1394,11 @@
       "league": "Bundesliga",
       "imageUrl": "",
       "skills": [
-        "Finishing"
+        "Box presence",
+        "Chance creation",
+        "Runs in behind"
       ],
-      "note": "Scored for United States in United States vs Paraguay.",
+      "note": "United States' between-lines option, useful for turning possession into final passes and late box runs.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Giovanni_Reyna"
     },
     "Granit Xhaka": {
@@ -1468,9 +1511,12 @@
       "league": "Saudi Pro League",
       "imageUrl": "",
       "skills": [
-        "Match impact"
+        "Box presence",
+        "Link-up play",
+        "Defensive control",
+        "Leadership"
       ],
-      "note": "",
+      "note": "Saudi Arabia's defensive option, useful for protecting the box and giving the team a calmer first pass.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Hassan_Al-Tambakti"
     },
     "Helio Varela": {
@@ -1484,9 +1530,10 @@
       "league": "Premier League",
       "imageUrl": "",
       "skills": [
-        "Finishing"
+        "Runs in behind",
+        "Wide threat"
       ],
-      "note": "Scored for Cabo Verde in Uruguay vs Cabo Verde.",
+      "note": "Cabo Verde's wide attacking option, useful for stretching the field, running behind, and adding final-third threat.",
       "sourceUrl": "https://en.wikipedia.org/wiki/H%C3%A9lio_Varela"
     },
     "Homam Ahmed": {
@@ -1539,9 +1586,11 @@
       "league": "Eredivisie",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/240611%20%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD%20vs%20%EC%A4%91%EA%B5%AD%20(%ED%99%A9%EC%9D%B8%EB%B2%94).jpg?width=160",
       "skills": [
-        "Finishing"
+        "Link-up play",
+        "Midfield control",
+        "Pressing"
       ],
-      "note": "Scored for South Korea in South Korea vs Czechia.",
+      "note": "South Korea's midfield option, useful for connecting phases and keeping the team moving through pressure.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Hwang_In-beom"
     },
     "Ibrahim Mbaye": {
@@ -1555,9 +1604,11 @@
       "league": "Ligue 1",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ibrahim%20Mbaye%20France%20v%20Senegal%2016%20June%202026-256.jpg?width=160",
       "skills": [
-        "Finishing"
+        "Box presence",
+        "Finishing",
+        "Runs in behind"
       ],
-      "note": "Scored for Senegal in France vs Senegal.",
+      "note": "Senegal's forward option, useful for box presence, depth, and a direct finishing threat.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Ibrahim_Mbaye"
     },
     "Inaki Williams": {
@@ -1610,9 +1661,11 @@
       "league": "Eredivisie",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ismael%20Saibari%20Brazil%20V%20Morocco%2013%20June%202026-152.jpg?width=160",
       "skills": [
-        "Finishing"
+        "Box presence",
+        "Chance creation",
+        "Runs in behind"
       ],
-      "note": "Scored for Morocco in Brazil vs Morocco.",
+      "note": "Morocco's between-lines option, useful for turning possession into final passes and late box runs.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Ismael_Saibari"
     },
     "Ismaila Sarr": {
@@ -1626,9 +1679,10 @@
       "league": "Premier League",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ismaila%20Sarr%20France%20v%20Senegal%2016%20June%202026-425%20(cropped).jpg?width=160",
       "skills": [
-        "Finishing"
+        "Runs in behind",
+        "Wide threat"
       ],
-      "note": "Scored for Senegal in Norway vs Senegal.",
+      "note": "Senegal's wide attacking option, useful for stretching the field, running behind, and adding final-third threat.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Isma%C3%AFla_Sarr"
     },
     "Jackson Irvine": {
@@ -1702,9 +1756,11 @@
       "league": "",
       "imageUrl": "",
       "skills": [
-        "Finishing"
+        "Box presence",
+        "Chance creation",
+        "Runs in behind"
       ],
-      "note": "Scored for Colombia in Uzbekistan vs Colombia.",
+      "note": "Colombia's between-lines option, useful for turning possession into final passes and late box runs.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Jaminton_Campaz"
     },
     "Jean-Ricner Bellegarde": {
@@ -1759,9 +1815,11 @@
       "league": "Ligue 1",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Jo%C3%A3o%20Neves%20USMNT%20v%20Portugal%20Mar%2031%202026-18%20(cropped).jpg?width=160",
       "skills": [
-        "Finishing"
+        "Link-up play",
+        "Midfield control",
+        "Pressing"
       ],
-      "note": "Scored for Portugal in Portugal vs DR Congo.",
+      "note": "Portugal's midfield option, useful for connecting phases and keeping the team moving through pressure.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Jo%C3%A3o_Neves"
     },
     "Johan Manzambi": {
@@ -1775,9 +1833,11 @@
       "league": "Bundesliga",
       "imageUrl": "",
       "skills": [
-        "Finishing"
+        "Link-up play",
+        "Midfield control",
+        "Pressing"
       ],
-      "note": "Scored for Switzerland in Switzerland vs Bosnia and Herzegovina.",
+      "note": "Switzerland's midfield option, useful for connecting phases and keeping the team moving through pressure.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Johan_Manzambi"
     },
     "John McGinn": {
@@ -1886,9 +1946,11 @@
       "league": "",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Jovo%20Luki%C4%87%2097%20(cropped).jpg?width=160",
       "skills": [
-        "Finishing"
+        "Box presence",
+        "Finishing",
+        "Runs in behind"
       ],
-      "note": "Scored for Bosnia and Herzegovina in Canada vs Bosnia and Herzegovina.",
+      "note": "Bosnia and Herzegovina's forward option, useful for box presence, depth, and a direct finishing threat.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Jovo_Luki%C4%87"
     },
     "Jude Bellingham": {
@@ -1941,9 +2003,10 @@
       "league": "Saudi Pro League",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Juli%C3%A1n%20Qui%C3%B1ones.png?width=160",
       "skills": [
-        "Finishing"
+        "Runs in behind",
+        "Wide threat"
       ],
-      "note": "Scored for Mexico in Mexico vs South Africa.",
+      "note": "Mexico's wide attacking option, useful for stretching the field, running behind, and adding final-third threat.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Juli%C3%A1n_Qui%C3%B1ones"
     },
     "Julio Enciso": {
@@ -1995,9 +2058,10 @@
       "league": "Belgian Pro League",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ito%20asse%20sr%202425.png?width=160",
       "skills": [
-        "Finishing"
+        "Runs in behind",
+        "Wide threat"
       ],
-      "note": "Scored for Japan in Tunisia vs Japan.",
+      "note": "Japan's wide attacking option, useful for stretching the field, running behind, and adding final-third threat.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Junya_It%C5%8D"
     },
     "Kai Havertz": {
@@ -2011,9 +2075,11 @@
       "league": "Premier League",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/1%20kai%20havertz%202026%20(cropped).jpg?width=160",
       "skills": [
-        "Finishing"
+        "Box presence",
+        "Chance creation",
+        "Runs in behind"
       ],
-      "note": "Scored for Germany in Germany vs Curaçao.",
+      "note": "Germany's between-lines option, useful for turning possession into final passes and late box runs.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Kai_Havertz"
     },
     "Kalidou Koulibaly": {
@@ -2047,9 +2113,10 @@
       "league": "",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Nakamura%20asse%20sr%202425.png?width=160",
       "skills": [
-        "Finishing"
+        "Runs in behind",
+        "Wide threat"
       ],
-      "note": "Scored for Japan in Netherlands vs Japan.",
+      "note": "Japan's wide attacking option, useful for stretching the field, running behind, and adding final-third threat.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Keito_Nakamura"
     },
     "Kenan Yildiz": {
@@ -2100,9 +2167,11 @@
       "league": "",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Kevin%20Pina%20(footballer)%202022.jpg?width=160",
       "skills": [
-        "Finishing"
+        "Link-up play",
+        "Midfield control",
+        "Pressing"
       ],
-      "note": "Scored for Cabo Verde in Uruguay vs Cabo Verde.",
+      "note": "Cabo Verde's midfield option, useful for connecting phases and keeping the team moving through pressure.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Kevin_Pina_(footballer)"
     },
     "Kim Min-jae": {
@@ -2174,9 +2243,12 @@
       "league": "EFL Championship",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ladislav%20Krej%C4%8D%C3%AD%2001112025%20(1).jpg?width=160",
       "skills": [
-        "Finishing"
+        "Box presence",
+        "Link-up play",
+        "Defensive control",
+        "Leadership"
       ],
-      "note": "Scored for Czechia in South Korea vs Czechia.",
+      "note": "Czechia's defensive option, useful for protecting the box and giving the team a calmer first pass.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Ladislav_Krej%C4%8D%C3%AD_(footballer%2C_born_1999)"
     },
     "Lamine Yamal": {
@@ -2269,9 +2341,12 @@
       "league": "Serie A",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Leo%20Ostigard%20Morocco%20v%20Norway%207%20June%202026-20.jpg?width=160",
       "skills": [
-        "Finishing"
+        "Box presence",
+        "Link-up play",
+        "Defensive control",
+        "Leadership"
       ],
-      "note": "Scored for Norway in Iraq vs Norway.",
+      "note": "Norway's defensive option, useful for protecting the box and giving the team a calmer first pass.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Leo_%C3%98stig%C3%A5rd"
     },
     "Liberato Cacace": {
@@ -2322,9 +2397,10 @@
       "league": "",
       "imageUrl": "",
       "skills": [
-        "Finishing"
+        "Wide threat",
+        "Defensive control"
       ],
-      "note": "Scored for Curaçao in Germany vs Curaçao.",
+      "note": "Curaçao's wide defensive option, useful for stretching the flank and recovering into the back line.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Livano_Comenencia"
     },
     "Luis Chavez": {
@@ -2377,9 +2453,12 @@
       "league": "Liga MX",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Luis%20Romo.png?width=160",
       "skills": [
-        "Finishing"
+        "Box presence",
+        "Link-up play",
+        "Defensive control",
+        "Leadership"
       ],
-      "note": "Scored for Mexico in Mexico vs South Korea.",
+      "note": "Mexico's defensive option, useful for protecting the box and giving the team a calmer first pass.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Luis_Romo"
     },
     "Luis Suarez": {
@@ -2490,9 +2569,10 @@
       "league": "Serie A",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Marcus%20Holmgren%20Pedersen%202022%20FC%20RB%20Salzburg%20gegen%20Feyenoord%20Rotterdam%20(cropped).jpg?width=160",
       "skills": [
-        "Finishing"
+        "Wide threat",
+        "Defensive control"
       ],
-      "note": "Scored for Norway in Norway vs Senegal.",
+      "note": "Norway's wide defensive option, useful for stretching the flank and recovering into the back line.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Marcus_Holmgren_Pedersen"
     },
     "Marcus Rashford": {
@@ -2506,9 +2586,11 @@
       "league": "La Liga",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Marcus%20Rashford%20in%202023.jpg?width=160",
       "skills": [
-        "Finishing"
+        "Box presence",
+        "Finishing",
+        "Runs in behind"
       ],
-      "note": "Scored for England in England vs Croatia.",
+      "note": "England's forward option, useful for box presence, depth, and a direct finishing threat.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Marcus_Rashford"
     },
     "Marko Arnautovic": {
@@ -2522,9 +2604,11 @@
       "league": "",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/20180610%20FIFA%20Friendly%20Match%20Austria%20vs.%20Brazil%20Marko%20Arnautovi%C4%87%20850%201633.jpg?width=160",
       "skills": [
-        "Finishing"
+        "Box presence",
+        "Finishing",
+        "Runs in behind"
       ],
-      "note": "Scored for Austria in Austria vs Jordan.",
+      "note": "Austria's forward option, useful for box presence, depth, and a direct finishing threat.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Marko_Arnautovi%C4%87"
     },
     "Martin Baturina": {
@@ -2538,9 +2622,11 @@
       "league": "Serie A",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/FC%20Salzburg%20gegen%20GNK%20Dinamo%20Zagreb%20(UEFA%20Championsleague%202022-10-05)%2052%20(cropped).jpg?width=160",
       "skills": [
-        "Finishing"
+        "Box presence",
+        "Chance creation",
+        "Runs in behind"
       ],
-      "note": "Scored for Croatia in England vs Croatia.",
+      "note": "Croatia's between-lines option, useful for turning possession into final passes and late box runs.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Martin_Baturina"
     },
     "Martin Odegaard": {
@@ -2594,9 +2680,11 @@
       "league": "Premier League",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Matheus%20Cunha%20Brazil%20V%20Morocco%2013%20June%202026-178%20(cropped).jpg?width=160",
       "skills": [
-        "Finishing"
+        "Box presence",
+        "Finishing",
+        "Runs in behind"
       ],
-      "note": "Scored for Brazil in Brazil vs Haiti.",
+      "note": "Brazil's forward option, useful for box presence, depth, and a direct finishing threat.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Matheus_Cunha"
     },
     "Mathew Ryan": {
@@ -2630,9 +2718,11 @@
       "league": "Major League Soccer",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Mat%C3%ADas%20Galarza%20-%20Brasileir%C3%A3o%20S%C3%A9rie%20A-%20Bragantino%204%20x%202%20Coritiba%20-%2052150854647%20(cropped).jpg?width=160",
       "skills": [
-        "Finishing"
+        "Link-up play",
+        "Midfield control",
+        "Pressing"
       ],
-      "note": "Scored for Paraguay in Türkiye vs Paraguay.",
+      "note": "Paraguay's midfield option, useful for connecting phases and keeping the team moving through pressure.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Mat%C3%ADas_Galarza_(Paraguayan_footballer)"
     },
     "Mattias Svanberg": {
@@ -2646,9 +2736,11 @@
       "league": "2. Bundesliga",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Sweden%20-%20Greece8%20(cropped).jpg?width=160",
       "skills": [
-        "Finishing"
+        "Link-up play",
+        "Midfield control",
+        "Pressing"
       ],
-      "note": "Scored for Sweden in Sweden vs Tunisia.",
+      "note": "Sweden's midfield option, useful for connecting phases and keeping the team moving through pressure.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Mattias_Svanberg"
     },
     "Mauricio": {
@@ -2662,9 +2754,11 @@
       "league": "Serie A",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Mauricio-palmeiras-sport-ago-25%20(cropped).jpg?width=160",
       "skills": [
-        "Finishing"
+        "Box presence",
+        "Chance creation",
+        "Runs in behind"
       ],
-      "note": "Scored for Paraguay in United States vs Paraguay.",
+      "note": "Paraguay's between-lines option, useful for turning possession into final passes and late box runs.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Maur%C3%ADcio_(footballer%2C_born_2001)"
     },
     "Maxi Araujo": {
@@ -2678,9 +2772,10 @@
       "league": "Primeira Liga",
       "imageUrl": "",
       "skills": [
-        "Finishing"
+        "Wide threat",
+        "Defensive control"
       ],
-      "note": "Scored for Uruguay in Saudi Arabia vs Uruguay.",
+      "note": "Uruguay's wide defensive option, useful for stretching the flank and recovering into the back line.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Maximiliano_Ara%C3%BAjo"
     },
     "Mehdi Taremi": {
@@ -2756,9 +2851,11 @@
       "league": "",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Michal%20Sad%C3%ADlek%20CZE-KUW%202021-11-11%20(cropped).jpg?width=160",
       "skills": [
-        "Finishing"
+        "Link-up play",
+        "Midfield control",
+        "Pressing"
       ],
-      "note": "Scored for Czechia in Czechia vs South Africa.",
+      "note": "Czechia's midfield option, useful for connecting phases and keeping the team moving through pressure.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Michal_Sad%C3%ADlek"
     },
     "Miguel Almiron": {
@@ -2792,9 +2889,11 @@
       "league": "La Liga",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/UEFA%20EURO%20qualifiers%20Sweden%20vs%20Spain%2020191015%20108%20(cropped).jpg?width=160",
       "skills": [
-        "Finishing"
+        "Box presence",
+        "Finishing",
+        "Runs in behind"
       ],
-      "note": "Scored for Spain in Spain vs Saudi Arabia.",
+      "note": "Spain's forward option, useful for box presence, depth, and a direct finishing threat.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Mikel_Oyarzabal"
     },
     "Miro Muheim": {
@@ -2808,9 +2907,11 @@
       "league": "Bundesliga",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/2025-05-16%20Hamburger%20SV%20Miro%20Muheim%20(cropped).jpg?width=160",
       "skills": [
-        "Match impact"
+        "Link-up play",
+        "Midfield control",
+        "Pressing"
       ],
-      "note": "",
+      "note": "Switzerland's midfield option, useful for connecting phases and keeping the team moving through pressure.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Miro_Muheim"
     },
     "Mohamed Hany": {
@@ -2824,9 +2925,10 @@
       "league": "Egyptian Premier League",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Mohamed%20Hany%20in%202021%20FIFA%20Club%20World%20Cup.jpg?width=160",
       "skills": [
-        "Match impact"
+        "Wide threat",
+        "Defensive control"
       ],
-      "note": "",
+      "note": "Egypt's wide defensive option, useful for stretching the flank and recovering into the back line.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Mohamed_Hany"
     },
     "Mohamed Manai": {
@@ -2840,9 +2942,11 @@
       "league": "Qatar Stars League",
       "imageUrl": "",
       "skills": [
-        "Match impact"
+        "Link-up play",
+        "Midfield control",
+        "Pressing"
       ],
-      "note": "",
+      "note": "Qatar's midfield option, useful for connecting phases and keeping the team moving through pressure.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Mohamed_Manai"
     },
     "Mohamed Salah": {
@@ -2876,9 +2980,10 @@
       "league": "",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Iran%20v%20North%20Korea%2C%2010%20June%202025%2018%20Tasnim%20(cropped)%20Mohammad%20Mehdi%20Mohebi.jpg?width=160",
       "skills": [
-        "Finishing"
+        "Runs in behind",
+        "Wide threat"
       ],
-      "note": "Scored for IR Iran in IR Iran vs New Zealand.",
+      "note": "IR Iran's wide attacking option, useful for stretching the field, running behind, and adding final-third threat.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Mohammad_Mehdi_Mohebi"
     },
     "Mohammed Al-Owais": {
@@ -2950,9 +3055,10 @@
       "league": "Egyptian Premier League",
       "imageUrl": "",
       "skills": [
-        "Finishing"
+        "Runs in behind",
+        "Wide threat"
       ],
-      "note": "Scored for Egypt in New Zealand vs Egypt.",
+      "note": "Egypt's wide attacking option, useful for stretching the field, running behind, and adding final-third threat.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Mostafa_Ziko"
     },
     "Mousa Al-Taamari": {
@@ -2984,9 +3090,11 @@
       "league": "Belgian Pro League",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Nathan-Dylan_Saliba_RSC_Anderlecht_2025.jpg?width=160",
       "skills": [
-        "Finishing"
+        "Link-up play",
+        "Midfield control",
+        "Pressing"
       ],
-      "note": "Scored for Canada in Canada vs Qatar.",
+      "note": "Canada's midfield option, useful for connecting phases and keeping the team moving through pressure.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Nathan_Saliba"
     },
     "Nathaniel Brown": {
@@ -3000,9 +3108,10 @@
       "league": "Bundesliga",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/File%3A(Nathaniel%20Brown)%202026%20FIFA%20World%20Cup%2C%20Germany%20v%20Ivory%20Coast%20players%20(cropped).jpg?width=160",
       "skills": [
-        "Finishing"
+        "Wide threat",
+        "Defensive control"
       ],
-      "note": "Scored for Germany in Germany vs Curaçao.",
+      "note": "Germany's wide defensive option, useful for stretching the flank and recovering into the back line.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Nathaniel_Brown_(footballer)"
     },
     "Nestory Irankunda": {
@@ -3016,9 +3125,10 @@
       "league": "EFL Championship",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/File%3ANestory%20Irankunda%20and%20Kwadwo%20Baah%2009082025%20(1)%20(cropped).jpg?width=160",
       "skills": [
-        "Finishing"
+        "Runs in behind",
+        "Wide threat"
       ],
-      "note": "Scored for Australia in Australia vs Türkiye.",
+      "note": "Australia's wide attacking option, useful for stretching the field, running behind, and adding final-third threat.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Nestory_Irankunda"
     },
     "Neymar": {
@@ -3050,9 +3160,12 @@
       "league": "Bundesliga",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/2023-08-12%20TSV%20Schott%20Mainz%20gegen%20Borussia%20Dortmund%20(DFB-Pokal%202023-24)%20by%20Sandro%20Halank%E2%80%93069.jpg?width=160",
       "skills": [
-        "Finishing"
+        "Box presence",
+        "Link-up play",
+        "Defensive control",
+        "Leadership"
       ],
-      "note": "Scored for Germany in Germany vs Curaçao.",
+      "note": "Germany's defensive option, useful for protecting the box and giving the team a calmer first pass.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Nico_Schlotterbeck"
     },
     "Nico Williams": {
@@ -3146,9 +3259,11 @@
       "league": "Süper Lig",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Oh%20Hyeon-gyu%20BJK.jpeg?width=160",
       "skills": [
-        "Finishing"
+        "Box presence",
+        "Finishing",
+        "Runs in behind"
       ],
-      "note": "Scored for South Korea in South Korea vs Czechia.",
+      "note": "South Korea's forward option, useful for box presence, depth, and a direct finishing threat.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Oh_Hyeon-gyu"
     },
     "Omar Marmoush": {
@@ -3180,9 +3295,12 @@
       "league": "",
       "imageUrl": "",
       "skills": [
-        "Finishing"
+        "Box presence",
+        "Link-up play",
+        "Defensive control",
+        "Leadership"
       ],
-      "note": "Scored for Tunisia in Sweden vs Tunisia.",
+      "note": "Tunisia's defensive option, useful for protecting the box and giving the team a calmer first pass.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Omar_Rekik"
     },
     "Ousmane Dembele": {
@@ -3198,9 +3316,10 @@
       "uniformNumber": 7,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ousmane%20Demb%C3%A9l%C3%A9%202018%20(cropped).jpg?width=160",
       "skills": [
-        "Finishing"
+        "Runs in behind",
+        "Wide threat"
       ],
-      "note": "Scored for France in France vs Iraq.",
+      "note": "France's wide attacking option, useful for stretching the field, running behind, and adding final-third threat.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Ousmane_Demb%C3%A9l%C3%A9"
     },
     "Patrik Schick": {
@@ -3253,9 +3372,11 @@
       "league": "Major League Soccer",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Petar%20Musa%20NY%20Red%20Bulls%20v%20FC%20Dallas%202%20May%202026-53%20(cropped).jpg?width=160",
       "skills": [
-        "Finishing"
+        "Box presence",
+        "Finishing",
+        "Runs in behind"
       ],
-      "note": "Scored for Croatia in England vs Croatia.",
+      "note": "Croatia's forward option, useful for box presence, depth, and a direct finishing threat.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Petar_Musa"
     },
     "Piero Hincapie": {
@@ -3288,9 +3409,10 @@
       "league": "Persian Gulf Pro League",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ramin%20Rezaeian%20in%20Sepahan.jpg?width=160",
       "skills": [
-        "Finishing"
+        "Wide threat",
+        "Defensive control"
       ],
-      "note": "Scored for IR Iran in IR Iran vs New Zealand.",
+      "note": "IR Iran's wide defensive option, useful for stretching the flank and recovering into the back line.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Ramin_Rezaeian"
     },
     "Raul Jimenez": {
@@ -3304,9 +3426,11 @@
       "league": "EFL Championship",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ra%C3%BAl%20Jim%C3%A9nez%2004032026%20(1).jpg?width=160",
       "skills": [
-        "Finishing"
+        "Box presence",
+        "Finishing",
+        "Runs in behind"
       ],
-      "note": "Scored for Mexico in Mexico vs South Africa.",
+      "note": "Mexico's forward option, useful for box presence, depth, and a direct finishing threat.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Ra%C3%BAl_Jim%C3%A9nez"
     },
     "Ritsu Doan": {
@@ -3375,9 +3499,11 @@
       "league": "Bundesliga",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/UEFA%20Euro%202023%20Qualifiers%20Austria%20vs.%20Finland%20(2022-06-03)%2030.jpg?width=160",
       "skills": [
-        "Finishing"
+        "Box presence",
+        "Chance creation",
+        "Runs in behind"
       ],
-      "note": "Scored for Austria in Austria vs Jordan.",
+      "note": "Austria's between-lines option, useful for turning possession into final passes and late box runs.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Romano_Schmid"
     },
     "Romelu Lukaku": {
@@ -3449,9 +3575,11 @@
       "league": "La Liga",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ruben%20Vargas%20SFV%202019.jpg?width=160",
       "skills": [
-        "Finishing"
+        "Box presence",
+        "Chance creation",
+        "Runs in behind"
       ],
-      "note": "Scored for Switzerland in Switzerland vs Bosnia and Herzegovina.",
+      "note": "Switzerland's between-lines option, useful for turning possession into final passes and late box runs.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Rub%C3%A9n_Vargas"
     },
     "Ryan Mendes": {
@@ -3756,9 +3884,10 @@
       "league": "Egyptian Premier League",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/KSA-EGY%20(10).jpg?width=160",
       "skills": [
-        "Finishing"
+        "Runs in behind",
+        "Wide threat"
       ],
-      "note": "Scored for Egypt in New Zealand vs Egypt.",
+      "note": "Egypt's wide attacking option, useful for stretching the field, running behind, and adding final-third threat.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Tr%C3%A9z%C3%A9guet_(Egyptian_footballer)"
     },
     "Tyler Adams": {
@@ -3953,9 +4082,12 @@
       "league": "",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/250720%20FC%20%EC%84%9C%EC%9A%B8%20vs%20%EC%9A%B8%EC%82%B0%20(Yazan%20Al-Arab)%201.jpg?width=160",
       "skills": [
-        "Match impact"
+        "Box presence",
+        "Link-up play",
+        "Defensive control",
+        "Leadership"
       ],
-      "note": "",
+      "note": "Jordan's defensive option, useful for protecting the box and giving the team a calmer first pass.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Yazan_Al-Arab"
     },
     "Yoane Wissa": {
