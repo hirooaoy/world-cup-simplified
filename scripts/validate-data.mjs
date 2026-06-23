@@ -103,6 +103,10 @@ function requireSourceIds(sourceIds, sourceIdSet, owner) {
   }
 }
 
+function isGeneratedScorerNote(note) {
+  return /^Scored for .+ in .+ vs .+\.$/.test(String(note || "").trim());
+}
+
 function createEmptyStanding(teamId) {
   return {
     teamId,
@@ -725,6 +729,18 @@ for (const playerName of requiredProfileNames) {
     Array.isArray(profile.skills) && profile.skills.length > 0,
     `player-profiles.json "${playerName}" must include skills`
   );
+  if (profile.summary !== undefined) {
+    assert(
+      typeof profile.summary === "string" && profile.summary.trim(),
+      `player-profiles.json "${playerName}" summary must be a non-empty string when present`
+    );
+  }
+  if (isGeneratedScorerNote(profile.note)) {
+    assert(
+      typeof profile.summary === "string" && profile.summary.trim(),
+      `player-profiles.json "${playerName}" must include summary because its note is only scorer context`
+    );
+  }
   if (profile.uniformNumber !== undefined) {
     assert(
       Number.isInteger(profile.uniformNumber) && profile.uniformNumber > 0,

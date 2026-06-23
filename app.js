@@ -7474,6 +7474,15 @@ function getPlayerSkills(player, profile = getPlayerProfile(player)) {
   return note ? [note] : ["Match plan"];
 }
 
+function getPlayerSummary(profile) {
+  return String(profile?.summary || profile?.description || "").trim();
+}
+
+function getLocalizedPlayerSummary(profile) {
+  const summary = getPlayerSummary(profile);
+  return summary ? localizeText(summary) : "";
+}
+
 function getLocalizedPlayerNote(player, profile = getPlayerProfile(player)) {
   const note = getPlayerNote(player) || profile?.note || "";
   if (!note) {
@@ -7489,6 +7498,14 @@ function getLocalizedPlayerNote(player, profile = getPlayerProfile(player)) {
     .map(localizeText)
     .filter(Boolean);
   return skills.length ? `球员看点：${skills.join("、")}。` : "";
+}
+
+function shouldRenderPlayerNote(note, summary) {
+  if (!note) {
+    return false;
+  }
+
+  return normalizeTextKey(note) !== normalizeTextKey(summary);
 }
 
 function getPlayerAliases(player, allPlayers) {
@@ -7586,6 +7603,7 @@ function renderPlayerMention(label, player) {
   const position = getLocalizedPlayerPosition(profile);
   const club = currentLanguage === "zh" ? getLocalizedPlayerClubLine(profile) : getPlayerClubLine(profile);
   const sourceUrl = profile?.sourceUrl || "";
+  const summary = getLocalizedPlayerSummary(profile);
   const note = getLocalizedPlayerNote(player, profile);
   const ageLine = getLocalizedPlayerAgeLine(profile);
   const valueLine = renderPlayerMarketValueLine(profile);
@@ -7599,11 +7617,16 @@ function renderPlayerMention(label, player) {
     ? `<span class="player-card-number">#${escapeHtml(uniformNumber)}</span>`
     : "";
   const skillItems = skills.map((skill) => `<span>${escapeHtml(skill)}</span>`).join("");
-  const noteMarkup = note ? `<span class="player-card-note">${escapeHtml(note)}</span>` : "";
+  const summaryMarkup = summary
+    ? `<span class="player-card-summary">${escapeHtml(summary)}</span>`
+    : "";
+  const noteMarkup = shouldRenderPlayerNote(note, summary)
+    ? `<span class="player-card-note">${escapeHtml(note)}</span>`
+    : "";
   const metaLine = [ageLine ? escapeHtml(ageLine) : "", valueLine].filter(Boolean).join(" • ");
   const metaMarkup = metaLine ? `<span class="player-card-note">${metaLine}</span>` : "";
-  const copyMarkup = noteMarkup || metaMarkup
-    ? `<span class="player-card-copy">${noteMarkup}${metaMarkup}</span>`
+  const copyMarkup = summaryMarkup || noteMarkup || metaMarkup
+    ? `<span class="player-card-copy">${summaryMarkup}${noteMarkup}${metaMarkup}</span>`
     : "";
 
   return [

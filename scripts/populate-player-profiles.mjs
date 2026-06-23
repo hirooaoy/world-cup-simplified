@@ -10,6 +10,7 @@ const teamsPath = path.join(dataDir, "teams.json");
 const outputPath = path.join(dataDir, "player-profiles.json");
 const userAgent = "WorldCupSimplified/0.1 (local profile enrichment)";
 const requestDelayMs = Number(process.env.WIKI_REQUEST_DELAY_MS || 1800);
+const wikipediaSummarySourceId = "wikipedia-page-summaries";
 const pageTitleOverrides = new Map([
   ["Ali Olwan", "Ali Olwan"],
   ["Ayoub El Kaabi", "Ayoub El Kaabi"],
@@ -227,6 +228,7 @@ const clubLeagueOverrides = {
   Esteghlal: "Persian Gulf Pro League",
   "FC St. Pauli": "Bundesliga",
   Fenerbahçe: "Süper Lig",
+  Genk: "Belgian Pro League",
   "G.D. Chaves": "Liga Portugal 2",
   "Hannover 96": "2. Bundesliga",
   "Inter Milan": "Serie A",
@@ -282,6 +284,9 @@ const clubLeagueOverrides = {
   "Çaykur Rizespor": "Süper Lig",
   "İstanbul Başakşehir": "Süper Lig"
 };
+const knownLeagueNames = [...new Set(Object.values(clubLeagueOverrides).filter(Boolean))].sort(
+  (a, b) => b.length - a.length
+);
 
 const skillRules = [
   ["goalkeeper|shot-stopper|saves?|keeper", "Shot-stopping"],
@@ -549,6 +554,23 @@ function getLeagueForClub(club) {
   return clubLeagueOverrides[club] || clubLeagueOverrides[getBaseClubName(club)] || "";
 }
 
+function getLeagueFromSummary(summary, club) {
+  const summaryKey = normalizeText(summary);
+  const clubKey = normalizeText(getBaseClubName(club));
+  if (!summaryKey || !clubKey) {
+    return "";
+  }
+
+  const clubMarker = ` club ${clubKey}`;
+  const markerIndex = summaryKey.indexOf(clubMarker);
+  if (markerIndex < 0) {
+    return "";
+  }
+
+  const context = summaryKey.slice(Math.max(0, markerIndex - 90), markerIndex);
+  return knownLeagueNames.find((league) => context.includes(normalizeText(league))) || "";
+}
+
 function getUniformNumberOverride(player, overrides = {}) {
   const value = overrides.uniformNumber ?? existingProfilesData.profiles?.[player.name]?.uniformNumber;
   return Number.isInteger(value) && value > 0 ? value : undefined;
@@ -574,6 +596,55 @@ function inferSkills(note) {
   }
 
   return (skills.length ? skills : ["Match impact"]).slice(0, 4);
+}
+
+function isGeneratedScorerNote(note) {
+  return /^Scored for .+ in .+ vs .+\.$/.test(String(note || "").trim());
+}
+
+function firstSentences(text, maxSentences = 2, maxLength = 260) {
+  const compact = String(text || "").replace(/\s+/g, " ").trim();
+  if (!compact) {
+    return "";
+  }
+
+  const dotToken = "<dot>";
+  const protectedText = compact
+    .replace(/\b(?:[A-Z]\.){2,}/g, (match) => match.replaceAll(".", dotToken))
+    .replace(/\b(St|Mt|Mr|Mrs|Ms|Dr|Prof|Sr|Jr|No)\./g, `$1${dotToken}`)
+    .replace(/\b(\d+)\.\s+(?=[A-Z])/g, `$1${dotToken} `);
+  const sentences = protectedText
+    .split(/(?<=[.!?])\s+/)
+    .map((sentence) => sentence.replaceAll(dotToken, ".").trim())
+    .filter(Boolean);
+  let summary = "";
+  for (const sentence of sentences.slice(0, maxSentences)) {
+    const next = `${summary ? `${summary} ` : ""}${sentence.trim()}`.trim();
+    if (next.length > maxLength && summary) {
+      break;
+    }
+    summary = next;
+  }
+
+  if (summary.length <= maxLength) {
+    return summary;
+  }
+
+  const clipped = summary.slice(0, maxLength + 1);
+  return `${clipped.slice(0, Math.max(0, clipped.lastIndexOf(" "))).trim()}...`;
+}
+
+function getProfileSummary({ extract = "", note = "", existingSummary = "" }) {
+  const extractedSummary = firstSentences(cleanWikiText(extract));
+  if (extractedSummary) {
+    return extractedSummary;
+  }
+
+  if (existingSummary) {
+    return existingSummary;
+  }
+
+  return isGeneratedScorerNote(note) ? "" : firstSentences(note);
 }
 
 async function wikiJson(params) {
@@ -693,11 +764,13 @@ async function fetchPageWikitext(title) {
   return page?.revisions?.[0]?.slots?.main?.content || "";
 }
 
-async function fetchPageWikitextBatch(titles) {
+async function fetchPageDataBatch(titles) {
   const data = await wikiJson({
     action: "query",
-    prop: "revisions",
+    prop: "revisions|extracts",
     redirects: "1",
+    exintro: "1",
+    explaintext: "1",
     rvprop: "content",
     rvslots: "main",
     titles: titles.join("|")
@@ -708,7 +781,10 @@ async function fetchPageWikitextBatch(titles) {
   );
 
   for (const page of data.query?.pages || []) {
-    pages.set(page.title, page.revisions?.[0]?.slots?.main?.content || "");
+    pages.set(page.title, {
+      extract: page.extract || "",
+      wikitext: page.revisions?.[0]?.slots?.main?.content || ""
+    });
   }
 
   for (const [from, to] of redirectTargets) {
@@ -784,6 +860,10 @@ async function buildProfile(player) {
       name: player.name,
       teamId: player.team.id,
       birthDate: existingProfilesData.profiles?.[player.name]?.birthDate,
+      summary: getProfileSummary({
+        note: player.note,
+        existingSummary: existingProfilesData.profiles?.[player.name]?.summary
+      }),
       marketValueEurMillions: getMarketValueEurMillions(player, overrides),
       uniformNumber: getUniformNumberOverride(player, overrides),
       skills: inferSkills(player.note),
@@ -801,16 +881,25 @@ async function buildProfile(player) {
   const imageUrl = getCommonsImageUrl(fields.image || "");
   const profileClub = overrides.club || club;
   const birthDate = overrides.birthDate || getBirthDate(fields);
+  const existingProfile = existingProfilesData.profiles?.[player.name] || {};
+  const summary = getProfileSummary({
+    extract: "",
+    note: player.note,
+    existingSummary: existingProfile.summary
+  });
+  const profileLeague =
+    overrides.league || getLeagueFromSummary(summary, profileClub) || getLeagueForClub(profileClub);
 
   return {
     name: player.name,
     displayName: cleanWikiText(fields.name || "") || title.replace(/_/g, " "),
     teamId: player.team.id,
     birthDate,
+    summary,
     marketValueEurMillions: getMarketValueEurMillions(player, overrides),
     position: overrides.position || position,
     club: profileClub,
-    league: overrides.league || getLeagueForClub(profileClub),
+    league: profileLeague,
     uniformNumber: getUniformNumberOverride(player, overrides),
     imageUrl: overrides.imageUrl || imageUrl,
     skills: inferSkills(player.note),
@@ -819,12 +908,23 @@ async function buildProfile(player) {
   };
 }
 
-function buildProfileFromWikitext(player, title, wikitext) {
+function buildProfileFromPageData(player, title, pageData = {}) {
   const overrides = profileFieldOverrides[player.name] || {};
   const existingProfile = existingProfilesData.profiles?.[player.name] || {};
+  const wikitext = pageData.wikitext || "";
 
   if (!title || !wikitext) {
     const profileClub = overrides.club || existingProfile.club || "";
+    const summary = getProfileSummary({
+      extract: pageData.extract,
+      note: player.note || existingProfile.note,
+      existingSummary: existingProfile.summary
+    });
+    const profileLeague =
+      overrides.league ||
+      getLeagueFromSummary(summary, profileClub) ||
+      getLeagueForClub(profileClub) ||
+      existingProfile.league;
 
     return {
       ...existingProfile,
@@ -832,10 +932,11 @@ function buildProfileFromWikitext(player, title, wikitext) {
       teamId: player.team.id,
       displayName: overrides.displayName || existingProfile.displayName || existingProfile.name,
       birthDate: overrides.birthDate || existingProfile.birthDate,
+      summary,
       marketValueEurMillions: getMarketValueEurMillions(player, overrides),
       position: overrides.position || existingProfile.position,
       club: profileClub,
-      league: overrides.league || getLeagueForClub(profileClub) || existingProfile.league,
+      league: profileLeague,
       uniformNumber: getUniformNumberOverride(player, overrides),
       imageUrl: overrides.imageUrl || existingProfile.imageUrl,
       skills: player.note ? inferSkills(player.note) : existingProfile.skills || inferSkills(player.note),
@@ -852,6 +953,16 @@ function buildProfileFromWikitext(player, title, wikitext) {
   const imageUrl = getCommonsImageUrl(fields.image || "");
   const profileClub = overrides.club || club || existingProfile.club || "";
   const birthDate = overrides.birthDate || getBirthDate(fields) || existingProfile.birthDate;
+  const summary = getProfileSummary({
+    extract: pageData.extract,
+    note: player.note || existingProfile.note,
+    existingSummary: existingProfile.summary
+  });
+  const profileLeague =
+    overrides.league ||
+    getLeagueFromSummary(summary, profileClub) ||
+    getLeagueForClub(profileClub) ||
+    existingProfile.league;
 
   return {
     name: player.name,
@@ -862,10 +973,11 @@ function buildProfileFromWikitext(player, title, wikitext) {
       title.replace(/_/g, " "),
     teamId: player.team.id,
     birthDate,
+    summary,
     marketValueEurMillions: getMarketValueEurMillions(player, overrides),
     position: overrides.position || position || existingProfile.position,
     club: profileClub,
-    league: overrides.league || getLeagueForClub(profileClub) || existingProfile.league,
+    league: profileLeague,
     uniformNumber: getUniformNumberOverride(player, overrides),
     imageUrl: overrides.imageUrl || imageUrl || existingProfile.imageUrl,
     skills: player.note ? inferSkills(player.note) : existingProfile.skills || inferSkills(player.note),
@@ -881,7 +993,7 @@ const players = getUniquePlayers(fixturesData, teamsById);
 const profiles = {};
 const warnings = [];
 const titleByPlayerName = new Map();
-const wikitextByTitle = new Map();
+const pageDataByTitle = new Map();
 
 console.log(`Finding Wikipedia pages for ${players.length} players...`);
 
@@ -912,9 +1024,9 @@ console.log(`Fetching ${titles.length} profile pages in batches...`);
 for (let index = 0; index < titles.length; index += 20) {
   const batch = titles.slice(index, index + 20);
   try {
-    const pages = await fetchPageWikitextBatch(batch);
-    for (const [title, wikitext] of pages) {
-      wikitextByTitle.set(title, wikitext);
+    const pages = await fetchPageDataBatch(batch);
+    for (const [title, pageData] of pages) {
+      pageDataByTitle.set(title, pageData);
     }
     console.log(`${Math.min(index + batch.length, titles.length)}/${titles.length} pages fetched`);
   } catch (error) {
@@ -929,9 +1041,9 @@ console.log(`Building player profiles...`);
 
 for (const [index, player] of players.entries()) {
   const title = titleByPlayerName.get(player.name) || "";
-  const profile = buildProfileFromWikitext(player, title, wikitextByTitle.get(title) || "");
+  const profile = buildProfileFromPageData(player, title, pageDataByTitle.get(title) || {});
   profiles[player.name] = profile;
-  const missing = ["position", "club", "imageUrl"].filter((key) => !profile[key]);
+  const missing = ["position", "club", "imageUrl", "summary"].filter((key) => !profile[key]);
   if (missing.length) {
     warnings.push(`${player.name}: missing ${missing.join(", ")}`);
   }
@@ -943,6 +1055,7 @@ const output = {
   sourceIds: [
     ...new Set([
       "wikipedia-football-infobox",
+      wikipediaSummarySourceId,
       "wikimedia-commons",
       "fifa-squad-list-2026-06-21",
       ...(existingProfilesData.sourceIds || [])

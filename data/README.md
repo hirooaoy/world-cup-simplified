@@ -78,7 +78,7 @@ Run this after key-player changes or transfer/profile updates to refresh hover-c
 node scripts/populate-player-profiles.mjs
 ```
 
-The script uses Wikipedia football infoboxes for current club, position, and photos, then derives skill tags from the editorial key-player notes.
+The script uses Wikipedia football infoboxes for current club, position, and photos, short Wikipedia lead extracts for profile summaries, then derives skill tags from the editorial key-player notes. Goal scorers who were not already key players should still get a real summary when a matching player page exists; their generated scoring note is only match context.
 
 Before publishing tournament-year previews, update `data/player-availability.json` from the latest official FIFA squad list. Use each team's `included` list as the tournament-squad baseline, `unavailable` for players omitted or withdrawn from the tournament, and `fixtureUnavailable` for match-day injuries, illness, or suspensions that apply to one fixture. `scripts/validate-data.mjs` rejects match-card key players who are marked unavailable, and for teams with an `included` squad list it also rejects key players not in that current squad.
 

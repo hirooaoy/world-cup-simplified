@@ -40,6 +40,14 @@
       "checkedAt": "2026-06-21T13:34:16-07:00"
     },
     {
+      "id": "wikipedia-page-summaries",
+      "label": "Wikipedia player page lead summaries",
+      "url": "https://www.mediawiki.org/wiki/API:Extracts",
+      "type": "cross-check",
+      "checkedAt": "2026-06-23T03:36:53Z",
+      "note": "Player hover-card summaries use short lead extracts from the matched English Wikipedia biography page."
+    },
+    {
       "id": "wikimedia-commons",
       "label": "Wikimedia Commons player image files",
       "url": "https://commons.wikimedia.org/wiki/Main_Page",
