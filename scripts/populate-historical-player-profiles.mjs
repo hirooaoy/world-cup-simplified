@@ -2,15 +2,39 @@
 import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { normalizePlayerName } from "./player-name-matching.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const dataDir = path.join(root, "data");
 const historyPath = path.join(dataDir, "history.json");
 const outputPath = path.join(dataDir, "historical-player-profiles.json");
+const playerProfilesPath = path.join(dataDir, "player-profiles.json");
 const sourceId = "historical-player-card-baseline-2026-06-23";
+const inheritedImageSource = "current-player-profile";
+const imageFieldNames = [
+  "imageUrl",
+  "imageSource",
+  "imageSourceUrl",
+  "imageCredit",
+  "imageLicense",
+  "imagePageTitle",
+  "imagePageUrl"
+];
 
 async function readJson(filePath) {
   return JSON.parse(await readFile(filePath, "utf8"));
+}
+
+async function readOptionalJson(filePath) {
+  try {
+    return await readJson(filePath);
+  } catch (error) {
+    if (error?.code === "ENOENT") {
+      return null;
+    }
+
+    throw error;
+  }
 }
 
 function increment(map, key, amount = 1) {
@@ -74,6 +98,75 @@ function formatPosition(position) {
 function lowerFirst(value) {
   const text = String(value || "").trim();
   return text ? `${text[0].toLocaleLowerCase("en-US")}${text.slice(1)}` : "";
+}
+
+function addProfileAliases(map, profile) {
+  if (!profile || typeof profile !== "object") {
+    return;
+  }
+
+  for (const name of [profile.name, profile.displayName]) {
+    const key = normalizePlayerName(name);
+    if (key && !map.has(key)) {
+      map.set(key, profile);
+    }
+  }
+}
+
+function pickImageFields(profile) {
+  if (!profile?.imageUrl) {
+    return {};
+  }
+
+  return Object.fromEntries(
+    imageFieldNames
+      .filter((fieldName) => profile[fieldName] !== undefined)
+      .map((fieldName) => [fieldName, profile[fieldName]])
+  );
+}
+
+function createHistoricalImageLookup(profilesData) {
+  const lookup = new Map();
+  for (const profile of Object.values(profilesData?.profiles || {})) {
+    if (!profile?.imageUrl) {
+      continue;
+    }
+    addProfileAliases(lookup, {
+      ...pickImageFields(profile),
+      name: profile.name,
+      displayName: profile.displayName
+    });
+  }
+  return lookup;
+}
+
+function createCurrentImageLookup(profilesData) {
+  const lookup = new Map();
+  for (const profile of Object.values(profilesData?.profiles || {})) {
+    if (!profile?.imageUrl) {
+      continue;
+    }
+
+    const imageProfile = {
+      name: profile.name,
+      displayName: profile.displayName,
+      imageUrl: profile.imageUrl,
+      imageSource: inheritedImageSource,
+      imageSourceUrl: profile.sourceUrl || profile.imageUrl
+    };
+    addProfileAliases(lookup, imageProfile);
+  }
+  return lookup;
+}
+
+function getImageFieldsForName(name, historicalImageLookup, currentImageLookup) {
+  const key = normalizePlayerName(name);
+  const historicalImageFields = pickImageFields(historicalImageLookup.get(key));
+  if (historicalImageFields.imageUrl) {
+    return historicalImageFields;
+  }
+
+  return pickImageFields(currentImageLookup.get(key));
 }
 
 function getRecord(records, name) {
@@ -207,7 +300,7 @@ function buildSummary(record, primaryTeam, teams, years) {
   return `Historical card generated from World Cup scorer events, match appearances, tournament squads, and curated match-lens notes. Archive teams: ${teamText}. Archive tournaments: ${formatYearSeries(years)}.`;
 }
 
-function buildProfile(record) {
+function buildProfile(record, imageFields = {}) {
   const primaryTeam = mode(record.teams) || "Historical";
   const teams = [...record.teams.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0])).map(([team]) => team);
   const years = [...record.years].sort((a, b) => a - b);
@@ -232,11 +325,16 @@ function buildProfile(record) {
     skills,
     note: buildNote(record, primaryTeam, position),
     summary: buildSummary(record, primaryTeam, teams, record.years),
+    ...imageFields,
     sourceUrl: "https://github.com/jfjelstul/worldcup"
   };
 }
 
 const historyData = await readJson(historyPath);
+const existingHistoricalProfilesData = await readOptionalJson(outputPath);
+const currentPlayerProfilesData = await readOptionalJson(playerProfilesPath);
+const historicalImageLookup = createHistoricalImageLookup(existingHistoricalProfilesData);
+const currentImageLookup = createCurrentImageLookup(currentPlayerProfilesData);
 const records = new Map();
 
 for (const fixture of historyData.fixtures || []) {
@@ -257,15 +355,18 @@ for (const fixture of historyData.fixtures || []) {
 const profiles = Object.fromEntries(
   [...records.values()]
     .sort((a, b) => a.name.localeCompare(b.name))
-    .map((record) => [record.name, buildProfile(record)])
+    .map((record) => [record.name, buildProfile(record, getImageFieldsForName(record.name, historicalImageLookup, currentImageLookup))])
 );
+
+const hasImages = Object.values(profiles).some((profile) => profile.imageUrl);
 
 const output = {
   updatedAt: new Date().toISOString(),
   sourceIds: [
     "openfootball-worldcup-json-2026-06-17",
     "fjelstul-worldcup-json-2026-06-23",
-    sourceId
+    sourceId,
+    ...(hasImages ? ["wikimedia-commons"] : [])
   ],
   coverage: {
     status: "complete-men-1930-2022-key-players-and-scorers",

@@ -11,6 +11,7 @@
     "history:goals": "node scripts/sync-historical-goal-events.mjs",
     "import:history": "node scripts/import-world-cup-history.mjs",
     "history:matchups": "node scripts/populate-historical-matchup-key-information.mjs",
+    "history:images": "node scripts/populate-historical-player-images.mjs",
     "history:profiles": "node scripts/populate-historical-player-profiles.mjs",
     "matchups": "node scripts/populate-matchup-key-information.mjs",
     "matchday:readiness": "node scripts/matchday-readiness.mjs",

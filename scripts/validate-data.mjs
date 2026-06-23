@@ -1070,6 +1070,28 @@ for (const [profileName, profile] of historicalPlayerProfiles) {
     `${owner} note must not expose generated scorer context`
   );
   assert(typeof profile.summary === "string" && profile.summary.trim(), `${owner} must include summary`);
+  if (profile.imageUrl !== undefined) {
+    assert(typeof profile.imageUrl === "string" && profile.imageUrl.trim(), `${owner} imageUrl must be a non-empty string when present`);
+    assert(
+      typeof profile.imageSource === "string" && profile.imageSource.trim(),
+      `${owner} imageSource must be a non-empty string when imageUrl is present`
+    );
+    assert(
+      typeof profile.imageSourceUrl === "string" && /^https?:\/\//.test(profile.imageSourceUrl),
+      `${owner} imageSourceUrl must be an http(s) URL when imageUrl is present`
+    );
+    if (profile.imageSource === "wikimedia-commons") {
+      assert(
+        profile.imageSourceUrl.includes("commons.wikimedia.org/wiki/File:"),
+        `${owner} Wikimedia imageSourceUrl must point to a Commons file page`
+      );
+    }
+    for (const key of ["imageCredit", "imageLicense", "imagePageTitle", "imagePageUrl"]) {
+      if (profile[key] !== undefined) {
+        assert(typeof profile[key] === "string" && profile[key].trim(), `${owner} ${key} must be a non-empty string when present`);
+      }
+    }
+  }
   for (const key of ["goals", "ownGoals", "keyMatchCount", "scorerMatchCount"]) {
     assert(
       profile[key] === undefined || (isNumber(profile[key]) && profile[key] >= 0),

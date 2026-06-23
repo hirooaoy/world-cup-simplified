@@ -172,11 +172,14 @@ After importing the match skeleton, sync historical scorer minutes and then run 
 pnpm history:goals
 pnpm history:matchups
 pnpm history:profiles
+pnpm history:images
 ```
 
 `pnpm history:goals` syncs exact scorer-minute arrays from the Fjelstul World Cup Database. `pnpm history:matchups` enriches every archived fixture with era-specific player/style copy. It cross-checks against the same source for historical squads, goals, penalties, bookings, player appearances where available, and tournament squads. Match-level player appearances are available from 1970 onward in that source; older tournaments use scorer and squad context instead, and canceled fixtures are labeled as squad context rather than confirmed match usage. The Fjelstul data is CC-BY-SA 4.0, so keep the source entry and attribution/license trail in `data/tournament.json`.
 
 `pnpm history:profiles` refreshes `data/historical-player-profiles.json`, which must include a card for every player mentioned by historical key-player paragraphs or historical goal records. Historical cards use archive-specific teams, years, positions, shirt numbers, scorer counts, and curated match-lens counts instead of current club/market-value metadata.
+
+`pnpm history:images` enriches historical cards with photos. It first reuses the existing current-player profile photo for exact normalized player matches, so a player like Kylian Mbappé shares one image across current and past World Cup appearances. For historical-only players, it adds Wikimedia Commons image URLs only when the Wikipedia page match passes conservative footballer checks or a curated title override. The photo source fields stay on each profile so image attribution can be audited.
 
 The historical archive lives outside the 2026 fixture/standings model on purpose. Past teams do not have to belong to 2026 groups, and historical dates are preserved as tournament-local dates instead of being shifted by the user's selected timezone.
 

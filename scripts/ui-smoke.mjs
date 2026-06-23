@@ -479,7 +479,7 @@ try {
     "Paragraph player mentions should use full opacity and regular paragraph weight."
   );
   await page.locator(".player-link").first().hover();
-  const playerCard = page.locator(".player-card").first();
+  const playerCard = page.locator(".player-card:visible").first();
   await playerCard.waitFor({ state: "visible" });
   assert(
     (await playerCard.locator(".player-photo img, .player-photo-fallback").count()) === 1,
@@ -512,9 +512,7 @@ try {
   await page.locator('[data-match-id="netherlands-sweden-2026-06-20"]').click();
   const summervilleLink = page.locator(".player-link", { hasText: "Crysencio Summerville" }).first();
   await summervilleLink.hover();
-  const summervilleCard = summervilleLink
-    .locator("xpath=ancestor::*[contains(concat(' ', normalize-space(@class), ' '), ' player-hover ')]")
-    .locator(".player-card");
+  const summervilleCard = page.locator(".player-card:visible").first();
   await summervilleCard.waitFor({ state: "visible" });
   assert(
     (await summervilleCard.locator(".player-card-position").innerText()).trim() === "Winger",
@@ -617,10 +615,8 @@ try {
   await page.waitForSelector(".match-row");
   await page.locator('[data-match-id="belgium-ir-iran-2026-06-21"]').click();
   const lukakuLink = page.locator(".key-info-team .player-link", { hasText: "Romelu Lukaku" }).first();
-  const lukakuCard = lukakuLink
-    .locator("xpath=ancestor::span[contains(concat(' ', normalize-space(@class), ' '), ' player-hover ')][1]")
-    .locator(".player-card");
   await lukakuLink.hover();
+  const lukakuCard = page.locator(".player-card:visible").first();
   await lukakuCard.waitFor({ state: "visible" });
   assert(
     (await lukakuCard.locator(".player-card-name").innerText()).trim() === "Romelu Lukaku" &&
@@ -651,9 +647,7 @@ try {
     "Chinese key information should link Ayase Ueda's localized name."
   );
   await uedaChineseLink.hover();
-  const uedaChineseCard = uedaChineseLink
-    .locator("xpath=ancestor::span[contains(concat(' ', normalize-space(@class), ' '), ' player-hover ')][1]")
-    .locator(".player-card");
+  const uedaChineseCard = page.locator(".player-card:visible").first();
   await uedaChineseCard.waitFor({ state: "visible" });
   assert(
     (await uedaChineseCard.locator(".player-card-name").innerText()).trim() === "上田绮世" &&
@@ -697,10 +691,8 @@ try {
     .first()
     .locator("p .player-link", { hasText: /^Gim[eé]nez$/ })
     .first();
-  const gimenezCard = gimenezLink
-    .locator("xpath=ancestor::span[contains(concat(' ', normalize-space(@class), ' '), ' player-hover ')][1]")
-    .locator(".player-card");
   await gimenezLink.hover();
+  const gimenezCard = page.locator(".player-card:visible").first();
   await gimenezCard.waitFor({ state: "visible" });
   assert(
     (await gimenezLink.getAttribute("aria-label"))?.startsWith("Santiago Giménez:"),
@@ -726,10 +718,8 @@ try {
     (await vozinhaLink.count()) === 1,
     "Single-name player aliases should link from key information."
   );
-  const vozinhaCard = vozinhaLink
-    .locator("xpath=ancestor::span[contains(concat(' ', normalize-space(@class), ' '), ' player-hover ')][1]")
-    .locator(".player-card");
   await vozinhaLink.hover();
+  const vozinhaCard = page.locator(".player-card:visible").first();
   await vozinhaCard.waitFor({ state: "visible" });
   assert(
     (await vozinhaCard.locator(".player-photo img, .player-photo-fallback").count()) === 1,
@@ -914,10 +904,8 @@ try {
     "Historical key information should link era-specific key-player names."
   );
   const historicalScorerLink = page.locator("#match-info .scorer-highlight .player-link", { hasText: "Enner Valencia" }).first();
-  const historicalScorerCard = historicalScorerLink
-    .locator("xpath=ancestor::span[contains(concat(' ', normalize-space(@class), ' '), ' player-hover ')][1]")
-    .locator(".player-card");
   await historicalScorerLink.hover();
+  const historicalScorerCard = page.locator(".player-card:visible").first();
   await historicalScorerCard.waitFor({ state: "visible" });
   const historicalScorerCardText = await historicalScorerCard.innerText();
   assert(
@@ -957,10 +945,8 @@ try {
   await page.waitForSelector(".match-row");
   await page.locator(".match-row").first().click();
   const scorerOnlyHistoricalLink = page.locator("#match-info .scorer-highlight .player-link", { hasText: "Carlos Alberto" }).first();
-  const scorerOnlyHistoricalCard = scorerOnlyHistoricalLink
-    .locator("xpath=ancestor::span[contains(concat(' ', normalize-space(@class), ' '), ' player-hover ')][1]")
-    .locator(".player-card");
   await scorerOnlyHistoricalLink.hover();
+  const scorerOnlyHistoricalCard = page.locator(".player-card:visible").first();
   await scorerOnlyHistoricalCard.waitFor({ state: "visible" });
   const scorerOnlyHistoricalCardText = await scorerOnlyHistoricalCard.innerText();
   assert(
@@ -2519,9 +2505,7 @@ try {
   await touchPage.locator('[data-match-id="belgium-ir-iran-2026-06-21"]').click();
   const touchPlayerLink = touchPage.locator(".key-info-team .player-link", { hasText: "Romelu Lukaku" }).first();
   await touchPlayerLink.click();
-  const touchPlayerCard = touchPlayerLink
-    .locator("xpath=ancestor::span[contains(concat(' ', normalize-space(@class), ' '), ' player-hover ')][1]")
-    .locator(".player-card");
+  const touchPlayerCard = touchPage.locator(".player-card:visible").first();
   await touchPlayerCard.waitFor({ state: "visible" });
   assert(
     (await touchPlayerLink.getAttribute("aria-expanded")) === "true" &&

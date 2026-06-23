@@ -9418,6 +9418,10 @@ function queueFloatingPlayerCardHide() {
   }, 80);
 }
 
+function shouldUseFloatingPlayerCard(playerHover) {
+  return Boolean(playerHover?.closest("#catch-up-popover, #match-info"));
+}
+
 function positionFloatingPlayerCard(playerHover, cardWidth) {
   const trigger = playerHover?.querySelector(".player-link");
   const floatingCard = ensureFloatingPlayerCard();
@@ -9480,7 +9484,8 @@ function showFloatingPlayerCard(playerHover, cardWidth) {
   });
 }
 
-function positionPlayerCard(playerHover) {
+function positionPlayerCard(playerHover, options = {}) {
+  const { forceFloating = false } = options;
   const card = playerHover?.querySelector(".player-card");
   const trigger = playerHover?.querySelector(".player-link");
   if (!card || !trigger) {
@@ -9492,8 +9497,9 @@ function positionPlayerCard(playerHover) {
   const cardWidth = Math.min(292, maxCardWidth);
   const triggerRect = trigger.getBoundingClientRect();
 
-  if (playerHover.closest("#catch-up-popover")) {
+  if (shouldUseFloatingPlayerCard(playerHover)) {
     if (
+      forceFloating ||
       playerHover.matches(":hover, :focus-within") ||
       playerHover.classList.contains("is-card-open") ||
       floatingPlayerCardSource === playerHover
@@ -13238,7 +13244,7 @@ function attachPlayerCardPositioning(root) {
     (event) => {
       const playerHover = event.target.closest(".player-hover");
       if (playerHover) {
-        positionPlayerCard(playerHover);
+        positionPlayerCard(playerHover, { forceFloating: true });
       }
     },
     true
@@ -13248,7 +13254,7 @@ function attachPlayerCardPositioning(root) {
     "pointerleave",
     (event) => {
       const playerHover = event.target.closest?.(".player-hover");
-      if (playerHover?.closest("#catch-up-popover")) {
+      if (shouldUseFloatingPlayerCard(playerHover)) {
         queueFloatingPlayerCardHide();
       }
     },
@@ -13264,7 +13270,7 @@ function attachPlayerCardPositioning(root) {
 
   root?.addEventListener("focusout", (event) => {
     const playerHover = event.target.closest(".player-hover");
-    if (playerHover?.closest("#catch-up-popover")) {
+    if (shouldUseFloatingPlayerCard(playerHover)) {
       queueFloatingPlayerCardHide();
     }
   });

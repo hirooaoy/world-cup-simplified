@@ -56,12 +56,24 @@ function profileNameSet(profilesData) {
   return new Set(Object.keys(profilesData.profiles || {}).map(normalizePlayerName));
 }
 
+function profileMapByNormalizedName(profilesData) {
+  return new Map(Object.entries(profilesData.profiles || {}).map(([name, profile]) => [normalizePlayerName(name), profile]));
+}
+
 function getMissingNames(requiredNames, profilesData) {
   const profileNames = profileNameSet(profilesData);
   return [...requiredNames.entries()]
     .filter(([key]) => !profileNames.has(key))
     .map(([, name]) => name)
     .sort((a, b) => a.localeCompare(b));
+}
+
+function countRequiredProfileImages(requiredNames, profilesData) {
+  const profilesByName = profileMapByNormalizedName(profilesData);
+  return [...requiredNames.keys()].filter((nameKey) => {
+    const profile = profilesByName.get(nameKey);
+    return typeof profile?.imageUrl === "string" && profile.imageUrl.trim();
+  }).length;
 }
 
 const [
@@ -80,6 +92,8 @@ const currentNames = collectCurrentNames(fixturesData);
 const historicalNames = collectHistoricalNames(historyData);
 const missingCurrent = getMissingNames(currentNames, playerProfilesData);
 const missingHistorical = getMissingNames(historicalNames, historicalPlayerProfilesData);
+const currentImageCount = countRequiredProfileImages(currentNames, playerProfilesData);
+const historicalImageCount = countRequiredProfileImages(historicalNames, historicalPlayerProfilesData);
 
 if (missingCurrent.length || missingHistorical.length) {
   console.error("Player card coverage audit failed.");
@@ -105,5 +119,9 @@ if (missingCurrent.length || missingHistorical.length) {
 }
 
 console.log(
-  `Player card coverage passed: ${currentNames.size} current profiles and ${historicalNames.size} historical profiles.`
+  [
+    `Player card coverage passed: ${currentNames.size} current profiles and ${historicalNames.size} historical profiles.`,
+    `Current profile photos: ${currentImageCount}/${currentNames.size}.`,
+    `Historical profile photos: ${historicalImageCount}/${historicalNames.size}.`
+  ].join("\n")
 );
