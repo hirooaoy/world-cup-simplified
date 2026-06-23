@@ -4952,6 +4952,14 @@ function getMatchVisibleTimeLabel(match, options = {}) {
   return [dateLabel, getMatchTimeLabel(match)].join(" ");
 }
 
+function shouldPreviewMatchInfoOnHover(event) {
+  if (event.pointerType && event.pointerType !== "mouse") {
+    return false;
+  }
+
+  return !window.matchMedia("(hover: none), (pointer: coarse)").matches;
+}
+
 function renderMatchRow(match, state, currentTime = Date.now(), options = {}) {
   const row = document.createElement("div");
   const homeName = getLocalizedTeamName(match.homeTeam);
@@ -5007,7 +5015,11 @@ function renderMatchRow(match, state, currentTime = Date.now(), options = {}) {
     ${rowMeta ? `<span class="match-row-meta">${rowMeta}</span>` : ""}
   `;
 
-  row.addEventListener("pointerenter", () => renderMatchInfo(match));
+  row.addEventListener("pointerenter", (event) => {
+    if (shouldPreviewMatchInfoOnHover(event)) {
+      renderMatchInfo(match);
+    }
+  });
   row.addEventListener("focusin", () => renderMatchInfo(match));
   row.addEventListener("click", (event) => {
     if (event.target instanceof Element && event.target.closest("a")) {
@@ -9688,7 +9700,11 @@ function createYesterdayMatchCard(match, currentTime) {
   `;
 
   card.append(button);
-  card.addEventListener("pointerenter", () => renderMatchInfo(match));
+  card.addEventListener("pointerenter", (event) => {
+    if (shouldPreviewMatchInfoOnHover(event)) {
+      renderMatchInfo(match);
+    }
+  });
   card.addEventListener("focusin", () => renderMatchInfo(match));
   card.addEventListener("click", () => renderMatchInfo(match, { reveal: true }));
   return card;

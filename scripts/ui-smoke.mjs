@@ -2316,6 +2316,43 @@ try {
     viewport: { width: 390, height: 844 }
   });
   const touchPage = await touchContext.newPage();
+  await touchPage.goto(`${baseUrl}?view=matches&date=2026-06-18&tz=America%2FLos_Angeles`, {
+    waitUntil: "load"
+  });
+  await touchPage.waitForSelector(".match-row");
+  const touchTodayRow = touchPage.locator('[data-match-id="switzerland-bosnia-2026-06-18"]');
+  const touchYesterdayCard = touchPage.locator(
+    '.yesterday-match-card[data-match-id="england-croatia-2026-06-17"]'
+  );
+  await touchTodayRow.evaluate((row) => {
+    row.dispatchEvent(new PointerEvent("pointerenter", { pointerType: "touch" }));
+  });
+  await touchYesterdayCard.evaluate((card) => {
+    card.dispatchEvent(new PointerEvent("pointerenter", { pointerType: "touch" }));
+  });
+  assert(
+    !(await touchPage.locator("#match-info").isVisible()) &&
+      (await touchPage.locator(".match-row.is-selected, .yesterday-match-card.is-selected").count()) === 0,
+    "On touch devices, today and Past 24 hours rows should not open match details from hover preview events."
+  );
+  await touchTodayRow.click();
+  await touchPage.waitForSelector("#match-info:not(.is-hidden)");
+  const touchTodayDetailText = await touchPage.locator("#match-info").innerText();
+  assert(
+    touchTodayDetailText.includes("Switzerland") &&
+      touchTodayDetailText.includes("Bosnia and Herzegovina") &&
+      (await touchTodayRow.locator(".match-row-trigger").getAttribute("aria-pressed")) === "true",
+    "On touch devices, tapping a today's match row should open its match detail card."
+  );
+  await touchYesterdayCard.click();
+  const touchYesterdayDetailText = await touchPage.locator("#match-info").innerText();
+  assert(
+    touchYesterdayDetailText.includes("England") &&
+      touchYesterdayDetailText.includes("Croatia") &&
+      (await touchYesterdayCard.locator(".yesterday-match-button").getAttribute("aria-pressed")) === "true",
+    "On touch devices, tapping a Past 24 hours card should open its match detail card."
+  );
+
   await touchPage.goto(`${baseUrl}?view=matches&date=2026-06-21&tz=America%2FLos_Angeles`, {
     waitUntil: "load"
   });
