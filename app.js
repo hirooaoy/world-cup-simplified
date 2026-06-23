@@ -278,8 +278,7 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "Read source": "阅读来源",
     "release notes": "发布说明",
     "Report issue": "报告问题",
-    "Release notes open in a short hover card and full page.":
-      "发布说明可通过简短悬停卡片和完整页面查看。",
+    "Release notes open in a short tooltip.": "发布说明可通过简短提示框查看。",
     "Result": "赛果",
     "Round of 16": "16强赛",
     "Round of 32": "32强赛",
@@ -331,8 +330,7 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "Show all matches": "显示全部比赛",
     "See release notes": "查看发布说明",
     "See sources": "查看来源",
-    "Source links still open from the tooltip and the sources page.":
-      "来源链接仍可从提示框和来源页打开。",
+    "Source links stay available inside the tooltip.": "来源链接仍可在提示框中打开。",
     "Sources now open in a compact hover tooltip.": "来源现在可在紧凑悬停提示框中查看。",
     "Sources:": "来源：",
     "Standings": "积分榜",
@@ -9036,6 +9034,20 @@ function getLocalizedPlayerClubLine(player, profile = getPlayerProfile(player)) 
   return league ? `${club}（${league}）` : club;
 }
 
+function getPlayerReferenceDate(player) {
+  const matchDate = String(player?.matchDate || player?.date || "").trim();
+  if (/^\d{4}-\d{2}-\d{2}$/.test(matchDate)) {
+    return new Date(`${matchDate}T12:00:00Z`);
+  }
+
+  const tournamentYear = Number(player?.tournamentYear || player?.year);
+  if (Number.isInteger(tournamentYear) && tournamentYear > 0) {
+    return new Date(`${tournamentYear}-07-01T12:00:00Z`);
+  }
+
+  return new Date();
+}
+
 function getPlayerAge(profile, referenceDate = new Date()) {
   const birthDate = String(profile?.birthDate || profile?.dateOfBirth || "").trim();
   const match = birthDate.match(/^(\d{4})-(\d{2})-(\d{2})$/);
@@ -9061,10 +9073,19 @@ function getPlayerAge(profile, referenceDate = new Date()) {
   return Number.isInteger(age) && age >= 0 && age < 100 ? age : null;
 }
 
-function getLocalizedPlayerAgeLine(profile) {
-  const age = getPlayerAge(profile);
+function getLocalizedPlayerAgeLine(player, profile) {
+  const referenceDate = isHistoricalPlayerCard(player) ? getPlayerReferenceDate(player) : new Date();
+  const age = getPlayerAge(profile, referenceDate);
   if (age === null) {
     return "";
+  }
+
+  if (isHistoricalPlayerCard(player)) {
+    const tournamentYear = Number(player?.tournamentYear || player?.year);
+    if (Number.isInteger(tournamentYear) && tournamentYear > 0) {
+      return currentLanguage === "zh" ? `${tournamentYear}年年龄 ${age}` : `${tournamentYear} age ${age}`;
+    }
+    return currentLanguage === "zh" ? `当时年龄 ${age}` : `Age then ${age}`;
   }
 
   return currentLanguage === "zh" ? `年龄 ${age}` : `Age ${age}`;
@@ -9144,6 +9165,29 @@ function renderPlayerMarketValueLine(profile) {
   return `<span class="player-card-value-help" tabindex="0" aria-label="${escapeHtml(tooltip)}" data-tooltip="${escapeHtml(tooltip)}">${escapeHtml(label)}</span> ${escapeHtml(value)}`;
 }
 
+function renderHistoricalPeakValueLine(profile) {
+  const value = formatMarketValueEur(profile?.peakMarketValueEurMillions);
+  if (!value) {
+    return "";
+  }
+
+  const label = currentLanguage === "zh" ? "峰值身价" : "Peak value";
+  const tooltip =
+    currentLanguage === "zh"
+      ? "来自Transfermarkt数据集的球员生涯峰值市场价值；不是这场比赛当天的精确身价。"
+      : "Career peak market value from the Transfermarkt dataset; not an exact match-day value.";
+
+  return `<span class="player-card-value-help" tabindex="0" aria-label="${escapeHtml(tooltip)}" data-tooltip="${escapeHtml(tooltip)}">${escapeHtml(label)}</span> ${escapeHtml(value)}`;
+}
+
+function renderPlayerValueLine(player, profile) {
+  if (isHistoricalPlayerCard(player)) {
+    return renderHistoricalPeakValueLine(profile);
+  }
+
+  return renderPlayerMarketValueLine(profile);
+}
+
 function getPlayerSkills(player, profile = getPlayerProfile(player)) {
   const skills = Array.isArray(profile?.skills) ? profile.skills.filter(Boolean) : [];
   if (skills.length) {
@@ -9179,8 +9223,16 @@ function getPlayerSkills(player, profile = getPlayerProfile(player)) {
   return note ? [note] : ["Match plan"];
 }
 
+function getPlayerCardNote(player, profile = getPlayerProfile(player)) {
+  if (isHistoricalPlayerCard(player)) {
+    return profile?.styleNote || profile?.note || getPlayerNote(player) || "";
+  }
+
+  return getPlayerNote(player) || profile?.note || "";
+}
+
 function getLocalizedPlayerNote(player, profile = getPlayerProfile(player)) {
-  const note = getPlayerNote(player) || profile?.note || "";
+  const note = getPlayerCardNote(player, profile);
   if (!note) {
     return "";
   }
@@ -9321,8 +9373,8 @@ function renderPlayerMention(label, player) {
   const club = currentLanguage === "zh" ? getLocalizedPlayerClubLine(player, profile) : getPlayerClubLine(player, profile);
   const sourceUrl = profile?.sourceUrl || "";
   const note = getLocalizedPlayerNote(player, profile);
-  const ageLine = getLocalizedPlayerAgeLine(profile);
-  const valueLine = renderPlayerMarketValueLine(profile);
+  const ageLine = getLocalizedPlayerAgeLine(player, profile);
+  const valueLine = renderPlayerValueLine(player, profile);
   const skills = getPlayerSkills(player, profile).map(localizeText);
   const triggerLabel = `aria-label="${escapeHtml(`${displayName}: ${position}, ${club}`)}" aria-expanded="false"`;
   const visibleLabel = currentLanguage === "zh" ? displayName : label;
@@ -9680,7 +9732,12 @@ function createHistoricalPlayerCard(player, extra = {}) {
 function getHistoricalSideKeyPlayers(match, side) {
   return (match.keyPlayers?.[side] || [])
     .filter((player) => getPlayerName(player))
-    .map((player) => createHistoricalPlayerCard(player));
+    .map((player) =>
+      createHistoricalPlayerCard(player, {
+        matchDate: match.date,
+        tournamentYear: Number(match.tournamentYear)
+      })
+    );
 }
 
 function getHistoricalMatchKeyPlayers(match) {
@@ -9702,7 +9759,9 @@ function getHistoricalGoalPlayer(match, goal) {
   }
 
   return createHistoricalPlayerCard(goal.name || "Unknown scorer", {
-    role: goal.ownGoal ? "Own goal" : "Goal scorer"
+    matchDate: match.date,
+    role: goal.ownGoal ? "Own goal" : "Goal scorer",
+    tournamentYear: Number(match.tournamentYear)
   });
 }
 
@@ -12777,12 +12836,10 @@ function renderSourceNote() {
   const creatorText = currentLanguage === "zh" ? `由 ${creatorLink} 制作` : `Made by ${creatorLink}`;
 
   const reportUrl = currentLanguage === "zh" ? "report.html?lang=zh" : "report.html";
-  const sourcesUrl = currentLanguage === "zh" ? "sources.html?lang=zh" : "sources.html";
-  const releaseNotesUrl = currentLanguage === "zh" ? "release-notes.html?lang=zh" : "release-notes.html";
   const sourceTooltipTitle = currentLanguage === "zh" ? "来源" : "Sources";
   const sourceTooltip = `
     <span class="source-tooltip-wrapper">
-      <a class="source-tooltip-trigger" href="${sourcesUrl}" aria-describedby="source-tooltip">${escapeHtml(seeSourcesText)}</a>${sentenceEnd}
+      <button class="source-tooltip-trigger" type="button" aria-describedby="source-tooltip">${escapeHtml(seeSourcesText)}</button>${sentenceEnd}
       <span class="source-tooltip" id="source-tooltip" role="tooltip">
         <strong>${escapeHtml(sourceTooltipTitle)}</strong>
         <span>${officialSourceLinks.join(" ")}</span>
@@ -12795,11 +12852,11 @@ function renderSourceNote() {
     latestReleaseNote?.highlights?.filter(Boolean).slice(0, 3) || [
       "Footer stays short while sources and release notes open on hover.",
       "Release notes explain app changes; Data refreshed only shows data freshness.",
-      "Source links still open from the tooltip and the sources page."
+      "Source links stay available inside the tooltip."
     ];
   const releaseTooltip = `
     <span class="release-tooltip-wrapper">
-      <a class="release-tooltip-trigger" href="${releaseNotesUrl}" aria-describedby="release-tooltip">${escapeHtml(releaseNotesText)}</a>${sentenceEnd}
+      <button class="release-tooltip-trigger" type="button" aria-describedby="release-tooltip">${escapeHtml(releaseNotesText)}</button>${sentenceEnd}
       <span class="release-tooltip" id="release-tooltip" role="tooltip">
         <strong>${escapeHtml(localizeText(releaseTooltipTitle))}</strong>
         <ul>

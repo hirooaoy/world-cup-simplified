@@ -4561,10 +4561,28 @@ h1 {
   text-align: center;
 }
 
-.site-footer a {
+.site-footer a,
+.site-footer button {
+  color: inherit;
+  font: inherit;
   text-decoration: underline;
   text-decoration-thickness: 1px;
   text-underline-offset: 2px;
+}
+
+.site-footer button {
+  appearance: none;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  cursor: help;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.site-footer button:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+  border-radius: 4px;
 }
 
 .source-tooltip-wrapper {

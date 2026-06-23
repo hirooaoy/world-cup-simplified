@@ -912,8 +912,11 @@ try {
       historicalScorerCardText.includes("Enner Valencia") &&
       historicalScorerCardText.includes("Forward") &&
       historicalScorerCardText.includes("Ecuador World Cup archive") &&
-      historicalScorerCardText.includes("scored 2 goals in this match"),
-    "Historical player cards should combine curated archive profiles with match-specific notes."
+      historicalScorerCardText.includes("Ecuador 2014-2022 archive: front-line scoring threat") &&
+      historicalScorerCardText.includes("2022 age 33") &&
+      historicalScorerCardText.includes("Peak value €11m") &&
+      !historicalScorerCardText.includes("scored 2 goals in this match"),
+    "Historical player cards should use archive-style profile copy instead of raw match-event notes."
   );
   const historicalNarrativeHighlights = historicalResultHighlights.filter(
     (text) => !text.includes("16' Enner Valencia") && !text.includes("31' Enner Valencia")
@@ -952,7 +955,8 @@ try {
   assert(
     scorerOnlyHistoricalCardText.includes("Carlos Alberto") &&
       scorerOnlyHistoricalCardText.includes("Brazil World Cup archive") &&
-      scorerOnlyHistoricalCardText.includes("credited with 1 World Cup goal"),
+      scorerOnlyHistoricalCardText.includes("Brazil 1970 archive: player reference, with 1 World Cup goal.") &&
+      !scorerOnlyHistoricalCardText.includes("credited with 1 World Cup goal"),
     "Historical scorer-only names should use the generated archive card profile."
   );
 
@@ -1648,6 +1652,14 @@ try {
   const sourceLinkLabels = await sourceNote.locator("a").evaluateAll((links) =>
     links.map((link) => link.textContent.trim()).join("|")
   );
+  const sourceTriggerTag = await sourceNote
+    .locator(".source-tooltip-trigger")
+    .evaluate((trigger) => trigger.tagName.toLowerCase());
+  const releaseTriggerTag = await sourceNote
+    .locator(".release-tooltip-trigger")
+    .evaluate((trigger) => trigger.tagName.toLowerCase());
+  const sourceTriggerHref = await sourceNote.locator(".source-tooltip-trigger").getAttribute("href");
+  const releaseTriggerHref = await sourceNote.locator(".release-tooltip-trigger").getAttribute("href");
   const sourceTooltipText = await sourceNote.locator(".source-tooltip").evaluate((tooltip) =>
     [
       tooltip.querySelector("strong")?.textContent?.trim(),
@@ -1680,10 +1692,8 @@ try {
       visibility: styles.visibility
     };
   });
-  const sourcesHref = await sourceNote.locator("a", { hasText: "See sources" }).getAttribute("href");
   const reportIssueHref = await sourceNote.locator("a", { hasText: "Report issue" }).getAttribute("href");
   const creatorHref = await sourceNote.locator("a", { hasText: /^H$/ }).getAttribute("href");
-  const releaseNotesHref = await sourceNote.locator("a", { hasText: "See release notes" }).getAttribute("href");
   const expectedSourceUpdatedAt = formatExpectedSourceUpdatedAt(getLatestUpdatedAt(sourceNoteRefreshData));
   const expectedSourceNoteText = `See sources. Predictions are unofficial. Data refreshed ${expectedSourceUpdatedAt}. Report issue. Made by H. See release notes.`;
   assert(
@@ -1691,8 +1701,15 @@ try {
     `The source note should stay short and separate data freshness from release notes. Expected "${expectedSourceNoteText}", received "${normalizedSourceNoteText}".`
   );
   assert(
-    sourceLinkLabels === "See sources|FIFA schedule|debutants|ranking|standings|Report issue|H|See release notes",
-    "The source note should keep compact source tooltip, report, creator, and release note links."
+    sourceLinkLabels === "FIFA schedule|debutants|ranking|standings|Report issue|H",
+    "The source note should keep compact source tooltip links, report, and creator links."
+  );
+  assert(
+    sourceTriggerTag === "button" &&
+      releaseTriggerTag === "button" &&
+      sourceTriggerHref === null &&
+      releaseTriggerHref === null,
+    "The source and release note triggers should be in-page tooltip buttons, not navigation links."
   );
   assert(
     sourceTooltipText === "Sources FIFA schedule debutants ranking standings",
@@ -1700,7 +1717,7 @@ try {
   );
   assert(
     releaseTooltipText ===
-      "Footer and source polish Sources now open in a compact hover tooltip. Release notes open in a short hover card and full page. Data refreshed stays separate from app release notes.",
+      "Footer and source polish Sources now open in a compact hover tooltip. Release notes open in a short tooltip. Data refreshed stays separate from app release notes.",
     "The release notes tooltip should show a compact change summary."
   );
   assert(
@@ -1771,13 +1788,11 @@ try {
       releaseTooltipStateAfterHover.visibility === "visible",
     "The release notes tooltip should appear on hover."
   );
-  assert(sourcesHref === "sources.html", "The source note should link to the sources page.");
   assert(reportIssueHref === "report.html", "The source note should link to the report issue page.");
   assert(
     creatorHref === "https://www.linkedin.com/in/hirooaoy",
     "The source note should link H to LinkedIn."
   );
-  assert(releaseNotesHref === "release-notes.html", "The source note should link to release notes.");
   assert(
     !sourceNoteText.includes("Core data") &&
       !sourceNoteText.includes("Core checks:") &&

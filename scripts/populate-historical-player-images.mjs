@@ -2,6 +2,7 @@
 import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { gunzipSync } from "node:zlib";
 import { isPlayerNameMatch, normalizePlayerName } from "./player-name-matching.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -11,13 +12,27 @@ const currentProfilesPath = path.join(dataDir, "player-profiles.json");
 const wikipediaApiUrl = "https://en.wikipedia.org/w/api.php";
 const commonsSourceId = "wikimedia-commons";
 const wikipediaSummarySourceId = "wikipedia-page-summaries";
+const transfermarktSourceId = "transfermarkt-market-values-2026-06-23";
+const transfermarktPlayersCsvUrl =
+  "https://pub-e682421888d945d684bcae8890b0ec20.r2.dev/data/players.csv.gz";
 const inheritedImageSource = "current-player-profile";
+const transfermarktImageSource = "transfermarkt-datasets";
 const requestDelayMs = Number(process.env.HISTORICAL_IMAGE_REQUEST_DELAY_MS || 100);
 const lookupLimit = Number(process.env.HISTORICAL_IMAGE_LOOKUP_LIMIT || 0);
 const dryRun = process.argv.includes("--dry-run");
 const allWikimediaLookup = process.argv.includes("--all") || process.env.HISTORICAL_IMAGE_CURATED_ONLY === "0";
 const curatedOnly = !allWikimediaLookup;
 const apiUserAgent = "WorldCupSimplified/0.1 (local historical player image enrichment)";
+
+const countryAliases = new Map([
+  ["cote d ivoire", "ivory coast"],
+  ["dr congo", "congo dr"],
+  ["ir iran", "iran"],
+  ["korea republic", "south korea"],
+  ["republic of ireland", "ireland"],
+  ["usa", "united states"],
+  ["u s a", "united states"]
+]);
 
 const curatedTitleOverrides = new Map(
   [
@@ -83,6 +98,191 @@ const curatedPriorityByName = new Map([...curatedTitleOverrides.keys()].map((nam
 
 async function readJson(filePath) {
   return JSON.parse(await readFile(filePath, "utf8"));
+}
+
+function parseCsv(text) {
+  const rows = [];
+  let row = [];
+  let value = "";
+  let quoted = false;
+
+  for (let index = 0; index < text.length; index += 1) {
+    const char = text[index];
+    const nextChar = text[index + 1];
+
+    if (quoted) {
+      if (char === "\"" && nextChar === "\"") {
+        value += "\"";
+        index += 1;
+      } else if (char === "\"") {
+        quoted = false;
+      } else {
+        value += char;
+      }
+      continue;
+    }
+
+    if (char === "\"") {
+      quoted = true;
+    } else if (char === ",") {
+      row.push(value);
+      value = "";
+    } else if (char === "\n") {
+      row.push(value);
+      rows.push(row);
+      row = [];
+      value = "";
+    } else if (char !== "\r") {
+      value += char;
+    }
+  }
+
+  if (value || row.length) {
+    row.push(value);
+    rows.push(row);
+  }
+
+  return rows;
+}
+
+async function fetchTransfermarktPlayers() {
+  const response = await fetch(transfermarktPlayersCsvUrl, {
+    headers: {
+      "User-Agent": apiUserAgent
+    }
+  });
+  if (!response.ok) {
+    throw new Error(`Transfermarkt dataset request failed: ${response.status} ${response.statusText}`);
+  }
+
+  const text = gunzipSync(Buffer.from(await response.arrayBuffer())).toString("utf8");
+  const [headerRow, ...rows] = parseCsv(text);
+  return rows
+    .filter((row) => row.length === headerRow.length)
+    .map((row) => Object.fromEntries(headerRow.map((key, index) => [key, row[index]])));
+}
+
+function normalizeCountry(value) {
+  const normalized = String(value || "")
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/&/g, " and ")
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim();
+
+  return countryAliases.get(normalized) || normalized;
+}
+
+function normalizeTransfermarktDate(value) {
+  return String(value || "").slice(0, 10);
+}
+
+function parseEurMillions(value) {
+  const number = Number(String(value || "").replace(/[^0-9.]/g, ""));
+  return Number.isFinite(number) && number > 0 ? number / 1_000_000 : null;
+}
+
+function getBirthYear(birthDate) {
+  const match = String(birthDate || "").match(/^(\d{4})-\d{2}-\d{2}$/);
+  return match ? Number(match[1]) : null;
+}
+
+function isBirthDatePlausibleForProfile(profile, birthDate) {
+  const birthYear = getBirthYear(birthDate);
+  const years = (profile.tournamentYears || []).map(Number).filter(Number.isFinite);
+  if (!birthYear || !years.length) {
+    return false;
+  }
+
+  return years.some((year) => {
+    const age = year - birthYear;
+    return age >= 15 && age <= 45;
+  });
+}
+
+function addTransfermarktCandidate(index, key, record) {
+  if (!key) {
+    return;
+  }
+
+  const bucket = index.get(key) || [];
+  if (bucket.some((candidate) => candidate.player_id === record.player_id)) {
+    return;
+  }
+  bucket.push(record);
+  index.set(key, bucket);
+}
+
+function buildTransfermarktIndex(records) {
+  const index = new Map();
+  for (const record of records) {
+    for (const value of [
+      record.name,
+      [record.first_name, record.last_name].filter(Boolean).join(" ")
+    ]) {
+      addTransfermarktCandidate(index, normalizePlayerName(value), record);
+    }
+  }
+
+  return index;
+}
+
+function hasTransfermarktTeamClue(profile, record) {
+  const recordCountries = [
+    normalizeCountry(record.country_of_citizenship),
+    normalizeCountry(record.country_of_birth)
+  ].filter(Boolean);
+  if (!recordCountries.length) {
+    return false;
+  }
+
+  return (profile.teams || []).some((team) => {
+    const teamKey = normalizeCountry(team);
+    return recordCountries.includes(teamKey);
+  });
+}
+
+function pickTransfermarktRecord(profile, transfermarktIndex) {
+  const candidates = transfermarktIndex.get(normalizePlayerName(profile.name)) || [];
+  if (!candidates.length) {
+    return null;
+  }
+
+  const teamMatches = candidates.filter((record) => hasTransfermarktTeamClue(profile, record));
+  if (teamMatches.length === 1) {
+    return teamMatches[0];
+  }
+
+  if (!teamMatches.length && candidates.length === 1) {
+    return candidates[0];
+  }
+
+  return null;
+}
+
+function getTransfermarktProfileFields(profile, transfermarktIndex) {
+  const record = pickTransfermarktRecord(profile, transfermarktIndex);
+  if (!record) {
+    return null;
+  }
+
+  const birthDate = normalizeTransfermarktDate(record.date_of_birth);
+  if (!isBirthDatePlausibleForProfile(profile, birthDate)) {
+    return null;
+  }
+
+  const peakValue = parseEurMillions(record.highest_market_value_in_eur);
+
+  return {
+    birthDate: /^\d{4}-\d{2}-\d{2}$/.test(birthDate) ? birthDate : undefined,
+    imageUrl: record.image_url || undefined,
+    imageSource: transfermarktImageSource,
+    imageSourceUrl: record.url || undefined,
+    peakMarketValueEurMillions: peakValue || undefined,
+    peakMarketValueSource: transfermarktSourceId,
+    peakMarketValueSourceUrl: record.url || undefined
+  };
 }
 
 function sleep(ms) {
@@ -289,6 +489,53 @@ function applyImageFields(profile, imageFields) {
   }
 }
 
+function applyTransfermarktFields(profile, fields) {
+  if (!fields) {
+    return false;
+  }
+
+  let applied = false;
+  for (const fieldName of ["birthDate", "peakMarketValueEurMillions", "peakMarketValueSource", "peakMarketValueSourceUrl"]) {
+    const value = fields[fieldName];
+    if (profile[fieldName] === undefined && value !== undefined && value !== "") {
+      profile[fieldName] = value;
+      applied = true;
+    }
+  }
+
+  if (!profile.imageUrl && fields.imageUrl) {
+    for (const fieldName of ["imageUrl", "imageSource", "imageSourceUrl"]) {
+      const value = fields[fieldName];
+      if (value !== undefined && value !== "") {
+        profile[fieldName] = value;
+      }
+    }
+    applied = true;
+  }
+
+  return applied;
+}
+
+function clearInvalidTransfermarktFields(profile) {
+  if (!profile.birthDate || isBirthDatePlausibleForProfile(profile, profile.birthDate)) {
+    return false;
+  }
+
+  delete profile.birthDate;
+  if (profile.peakMarketValueSource === transfermarktSourceId) {
+    delete profile.peakMarketValueEurMillions;
+    delete profile.peakMarketValueSource;
+    delete profile.peakMarketValueSourceUrl;
+  }
+  if (profile.imageSource === transfermarktImageSource) {
+    delete profile.imageUrl;
+    delete profile.imageSource;
+    delete profile.imageSourceUrl;
+  }
+
+  return true;
+}
+
 async function lookupCommonsImage(profile) {
   const overrideTitle = curatedTitleOverrides.get(normalizePlayerName(profile.name)) || "";
   let pages = [];
@@ -358,24 +605,50 @@ const [historicalProfilesData, currentProfilesData] = await Promise.all([
 ]);
 
 const currentImageLookup = createCurrentImageLookup(currentProfilesData);
+const transfermarktRecords = await fetchTransfermarktPlayers();
+const transfermarktIndex = buildTransfermarktIndex(transfermarktRecords);
 const profiles = historicalProfilesData.profiles || {};
 let inheritedCount = 0;
+let transfermarktCount = 0;
+let transfermarktImageCount = 0;
+let transfermarktBirthDateCount = 0;
+let transfermarktPeakValueCount = 0;
+let invalidTransfermarktCount = 0;
 let wikimediaCount = 0;
 let skippedExistingCount = 0;
 let lookedUpCount = 0;
 const lookupFailures = [];
 
 for (const profile of Object.values(profiles)) {
-  if (profile.imageUrl) {
-    skippedExistingCount += 1;
-    continue;
+  if (clearInvalidTransfermarktFields(profile)) {
+    invalidTransfermarktCount += 1;
   }
 
-  const inheritedImageFields = currentImageLookup.get(normalizePlayerName(profile.name));
-  if (inheritedImageFields?.imageUrl) {
-    applyImageFields(profile, inheritedImageFields);
-    inheritedCount += 1;
-    continue;
+  if (profile.imageUrl) {
+    skippedExistingCount += 1;
+  } else {
+    const inheritedImageFields = currentImageLookup.get(normalizePlayerName(profile.name));
+    if (inheritedImageFields?.imageUrl) {
+      applyImageFields(profile, inheritedImageFields);
+      inheritedCount += 1;
+    }
+  }
+
+  const hadImage = Boolean(profile.imageUrl);
+  const hadBirthDate = Boolean(profile.birthDate);
+  const hadPeakValue = Boolean(profile.peakMarketValueEurMillions);
+  const appliedTransfermarkt = applyTransfermarktFields(profile, getTransfermarktProfileFields(profile, transfermarktIndex));
+  if (appliedTransfermarkt) {
+    transfermarktCount += 1;
+    if (!hadImage && profile.imageUrl) {
+      transfermarktImageCount += 1;
+    }
+    if (!hadBirthDate && profile.birthDate) {
+      transfermarktBirthDateCount += 1;
+    }
+    if (!hadPeakValue && profile.peakMarketValueEurMillions) {
+      transfermarktPeakValueCount += 1;
+    }
   }
 }
 
@@ -420,6 +693,9 @@ const sourceIds = new Set(historicalProfilesData.sourceIds || []);
 if (imageCount > 0) {
   sourceIds.add(commonsSourceId);
 }
+if (transfermarktCount > 0) {
+  sourceIds.add(transfermarktSourceId);
+}
 if (Object.values(profiles).some((profile) => profile.imageSource === wikipediaSummarySourceId)) {
   sourceIds.add(wikipediaSummarySourceId);
 }
@@ -430,9 +706,9 @@ const output = {
   sourceIds: [...sourceIds],
   coverage: {
     ...(historicalProfilesData.coverage || {}),
-    imageStatus: "current-card-reuse-plus-curated-wikipedia-wikimedia",
+    imageStatus: "current-card-reuse-plus-transfermarkt-plus-curated-wikipedia-wikimedia",
     imageNote:
-      "Historical cards reuse current profile photos for matching active players and add Wikipedia/Wikimedia photos only when the page match passes conservative footballer checks or a curated title override."
+      "Historical cards reuse current profile photos for matching active players, add conservative Transfermarkt dataset photos/birth dates/peak values when name and country match, and add Wikipedia/Wikimedia photos when the page match passes footballer checks or a curated title override."
   },
   profiles
 };
@@ -445,6 +721,8 @@ console.log(
   [
     `Historical player images ${dryRun ? "checked" : "populated"}: ${imageCount}/${Object.keys(profiles).length} profiles now have photos.`,
     `Inherited from current profiles: ${inheritedCount}.`,
+    `Enriched from Transfermarkt dataset: ${transfermarktCount} profiles (${transfermarktImageCount} photos, ${transfermarktBirthDateCount} birth dates, ${transfermarktPeakValueCount} peak values).`,
+    invalidTransfermarktCount ? `Removed implausible Transfermarkt matches: ${invalidTransfermarktCount}.` : "",
     `Added from Wikipedia/Wikimedia: ${wikimediaCount}.`,
     `Already had photos: ${skippedExistingCount}.`,
     `Wikimedia lookups attempted: ${lookedUpCount}.`,
