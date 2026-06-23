@@ -1610,7 +1610,7 @@ try {
   const expectedSourceUpdatedAt = formatExpectedSourceUpdatedAt(getLatestUpdatedAt(sourceNoteData));
   assert(
     sourceNoteText ===
-      `Sources: FIFA schedule, debutants, ranking, standings. Predictions are unofficial. Last updated ${expectedSourceUpdatedAt}. Report issue. Made by Hirooaoy`,
+      `Sources: FIFA schedule, debutants, ranking, standings. Predictions are unofficial. Last updated ${expectedSourceUpdatedAt}. Report issue. Made by Hirooaoy.`,
     "The source note should stay short and show the latest website update time."
   );
   assert(
@@ -2239,6 +2239,41 @@ try {
       mobileToolbarMetrics.toggleRightGap <= 2,
     "Mobile match search icon should be right-aligned instead of sitting next to the Today chevron."
   );
+  await page.locator("#team-search-toggle").click();
+  await page.waitForTimeout(220);
+  const activeMobileToolbarMetrics = await page.evaluate(() => {
+    const toolbar = document.querySelector(".match-toolbar")?.getBoundingClientRect();
+    const dayLabel = document.querySelector("#day-label")?.getBoundingClientRect();
+    const searchField = document.querySelector(".team-search-field")?.getBoundingClientRect();
+    const searchInputElement = document.querySelector("#team-search-input");
+    const searchInput = searchInputElement?.getBoundingClientRect();
+
+    if (!toolbar || !dayLabel || !searchField || !searchInput || !searchInputElement) {
+      return null;
+    }
+
+    return {
+      fieldGapFromDate: Math.round(searchField.left - dayLabel.right),
+      fieldRightGap: Math.round(toolbar.right - searchField.right),
+      fieldTopOffset: Math.round(searchField.top - toolbar.top),
+      inputFontSize: Number.parseFloat(getComputedStyle(searchInputElement).fontSize),
+      inputWidth: Math.round(searchInput.width),
+      scrollOverflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
+      toolbarHeight: Math.round(toolbar.height)
+    };
+  });
+  assert(
+    activeMobileToolbarMetrics &&
+      activeMobileToolbarMetrics.toolbarHeight <= 42 &&
+      activeMobileToolbarMetrics.fieldTopOffset <= 1 &&
+      activeMobileToolbarMetrics.fieldGapFromDate >= 8 &&
+      activeMobileToolbarMetrics.fieldRightGap <= 2 &&
+      activeMobileToolbarMetrics.inputFontSize >= 16 &&
+      activeMobileToolbarMetrics.inputWidth >= 120 &&
+      activeMobileToolbarMetrics.scrollOverflow <= 1,
+    "Active mobile match search should expand on the toolbar row without dropping below the date."
+  );
+  await page.locator("#team-search-input").press("Escape");
   const mobileRowMetrics = await page.locator(".match-row").first().evaluate((row) => {
     const time = row.querySelector(".match-time");
     const teams = row.querySelector(".match-teams");

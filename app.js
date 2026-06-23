@@ -10967,7 +10967,7 @@ function renderSourceNote() {
   const creatorText = currentLanguage === "zh" ? `由 ${creatorLink} 制作` : `Made by ${creatorLink}`;
 
   const reportUrl = currentLanguage === "zh" ? "report.html?lang=zh" : "report.html";
-  sourceNote.innerHTML = `${sourcesText}${officialSourceLinks.join(sourceSeparator)}${sentenceEnd} ${predictionsText}${lastUpdated ? ` ${lastUpdated}` : ""} <a href="${reportUrl}">${escapeHtml(reportIssueText)}</a>${sentenceEnd} ${creatorText}`;
+  sourceNote.innerHTML = `${sourcesText}${officialSourceLinks.join(sourceSeparator)}${sentenceEnd} ${predictionsText}${lastUpdated ? ` ${lastUpdated}` : ""} <a href="${reportUrl}">${escapeHtml(reportIssueText)}</a>${sentenceEnd} ${creatorText}${sentenceEnd}`;
 }
 
 function renderLoadError(error) {

@@ -1430,6 +1430,8 @@ h1 {
   .timezone-select,
   #matches-view .page-title,
   #matches-view .match-list,
+  .team-search-field,
+  .team-search-input,
   .settings-toggle-track,
   .settings-toggle-track::after,
   .view-tabs::before,
@@ -4967,15 +4969,23 @@ h1 {
     margin-left: auto;
   }
 
+  .team-search-field {
+    transition: border-color 140ms ease, background 140ms ease, box-shadow 140ms ease;
+  }
+
   .team-search.is-active {
-    flex: 1 0 100%;
+    flex: 1 1 180px;
     margin-left: 0;
-    margin-top: 12px;
+    margin-top: 0;
   }
 
   .team-search.is-active .team-search-field {
     grid-template-columns: 36px minmax(0, 1fr) 30px;
     width: min(100%, 360px);
+  }
+
+  .team-search-input {
+    font-size: 16px;
   }
 
   .date-popover {
