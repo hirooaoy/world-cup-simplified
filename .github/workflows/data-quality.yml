@@ -39,6 +39,12 @@ jobs:
       - name: Sync FIFA results snapshot
         run: pnpm sync:fifa
 
+      - name: Sync FIFA goal events
+        run: pnpm sync:fifa:goals
+
+      - name: Refresh result highlights
+        run: pnpm results
+
       - name: Install Chromium
         run: pnpm exec playwright install --with-deps chromium
 

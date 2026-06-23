@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-23T21:11:38.043Z",
+  "updatedAt": "2026-06-23T22:09:27.082Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -5283,7 +5283,7 @@
       "homeTeamId": "ENG",
       "awayTeamId": "GHA",
       "venue": "Boston Stadium",
-      "status": "LIVE",
+      "status": "FT",
       "h2h": {
         "status": "loaded",
         "sourceId": "national-football-teams-h2h-2026-06-17",
@@ -5358,7 +5358,12 @@
       "score": {
         "home": 0,
         "away": 0
-      }
+      },
+      "resultHighlights": [
+        "⚽ England and Ghana shared a 0-0 draw.",
+        "🌟 Jude Bellingham and Antoine Semenyo carried the duel without a breakthrough.",
+        "📊 Both teams moved to 4 points in Group L."
+      ]
     },
     {
       "id": "panama-croatia-2026-06-23",

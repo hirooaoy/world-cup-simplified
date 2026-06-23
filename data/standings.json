@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-23T21:06:46.729Z",
+  "updatedAt": "2026-06-23T22:09:27.082Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fifa-standings-2026-06-17",
@@ -447,18 +447,18 @@
     "L": [
       {
         "teamId": "ENG",
-        "played": 1,
+        "played": 2,
         "wins": 1,
-        "draws": 0,
+        "draws": 1,
         "losses": 0,
         "gf": 4,
         "ga": 2
       },
       {
         "teamId": "GHA",
-        "played": 1,
+        "played": 2,
         "wins": 1,
-        "draws": 0,
+        "draws": 1,
         "losses": 0,
         "gf": 1,
         "ga": 0

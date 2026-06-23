@@ -129,7 +129,7 @@ pnpm results:check
 ```
 
 The script preserves hand-authored `resultHighlights` by default. It generates the `⚽` scoreline only when scorer-minute data is not loaded; when `goalsHome`/`goalsAway` exists, the UI renders the linked scorer list instead.
-The scheduled `Sync FIFA Results PR` workflow runs `pnpm sync:fifa:goals` after the score/status sync, so newly finished matches can open a fallback-data PR as soon as FIFA timeline scorer events are available.
+The scheduled `Sync FIFA Results PR` workflow runs `pnpm sync:fifa:goals` and `pnpm results` after the score/status sync, so newly finished matches can open a fallback-data PR as soon as FIFA timeline scorer events and result highlights are available.
 `pnpm results:check` fails when a full-time group match is still missing official goal events or has generic result-moment copy.
 
 ## Required Update Steps

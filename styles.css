@@ -3949,7 +3949,10 @@ h1 {
 }
 
 @media (hover: none), (pointer: coarse) {
-  .player-hover:not(.is-card-open) > .player-card {
+  .player-hover > .player-card,
+  .player-hover:hover > .player-card,
+  .player-hover:focus-within > .player-card,
+  .player-hover.is-card-open > .player-card {
     opacity: 0;
     pointer-events: none;
     transition: none;

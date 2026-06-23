@@ -2663,6 +2663,38 @@ try {
       (await secondTouchPlayerLink.getAttribute("aria-expanded")) === "false",
     "On touch devices, tapping outside an open player card should close it."
   );
+  await touchPage.goto(`${baseUrl}?view=matches&date=2026-06-23&tz=America%2FLos_Angeles`, {
+    waitUntil: "load"
+  });
+  await touchPage.waitForSelector(".match-row");
+  await touchPage.locator('[data-match-id="england-ghana-2026-06-23"]').click();
+  const bellinghamTouchLink = touchPage
+    .locator(".key-info-team .player-link", { hasText: "Jude Bellingham" })
+    .first();
+  const riceTouchLink = touchPage.locator(".key-info-team .player-link", { hasText: "Declan Rice" }).first();
+  await bellinghamTouchLink.click();
+  await touchPage.locator(".player-card-floating:visible").waitFor({ state: "visible" });
+  await riceTouchLink.focus();
+  assert(
+    (await touchPage.locator(".player-card:visible").count()) === 1 &&
+      (await touchPage.locator(".player-hover > .player-card:visible").count()) === 0,
+    "On touch devices, player-link focus should not reveal an inline source card beside the floating card."
+  );
+  await riceTouchLink.click();
+  await touchPage.locator(".player-card-floating:visible").waitFor({ state: "visible" });
+  const englandGhanaTouchCards = touchPage.locator(".player-card:visible");
+  const englandGhanaVisibleNames = await englandGhanaTouchCards
+    .locator(".player-card-name")
+    .evaluateAll((names) => names.map((name) => name.textContent.trim()));
+  assert(
+    (await englandGhanaTouchCards.count()) === 1 &&
+      (await touchPage.locator(".player-hover > .player-card:visible").count()) === 0 &&
+      (await touchPage.locator(".player-card-floating:visible").count()) === 1 &&
+      englandGhanaVisibleNames[0] === "Declan Rice" &&
+      (await bellinghamTouchLink.getAttribute("aria-expanded")) === "false" &&
+      (await riceTouchLink.getAttribute("aria-expanded")) === "true",
+    "On touch devices, England-Ghana player taps should render only one floating player card with no inline source card."
+  );
   await touchContext.close();
 
   console.log("UI smoke tests passed.");

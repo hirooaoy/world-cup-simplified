@@ -9588,7 +9588,7 @@ function queueFloatingPlayerCardHide() {
 }
 
 function shouldUseFloatingPlayerCard(playerHover) {
-  return Boolean(playerHover?.closest("#catch-up-popover, #match-info"));
+  return isTouchPlayerCardMode() || Boolean(playerHover?.closest("#catch-up-popover, #match-info"));
 }
 
 function positionFloatingPlayerCard(playerHover, cardWidth) {
@@ -9719,6 +9719,14 @@ function setPlayerHoverExpanded(playerHover, isExpanded) {
   const trigger = playerHover?.querySelector(".player-link");
   playerHover?.classList.toggle("is-card-open", isExpanded);
   trigger?.setAttribute("aria-expanded", String(isExpanded));
+}
+
+function getClosestPlayerHover(target) {
+  if (!(target instanceof Element)) {
+    return null;
+  }
+
+  return target.closest(".player-hover");
 }
 
 function closeInactivePlayerHovers(currentPlayerHover = null) {
@@ -13524,6 +13532,10 @@ function attachPlayerCardPositioning(root) {
   );
 
   root?.addEventListener("focusin", (event) => {
+    if (isTouchPlayerCardMode()) {
+      return;
+    }
+
     const playerHover = event.target.closest(".player-hover");
     if (playerHover) {
       positionPlayerCard(playerHover);
@@ -13531,6 +13543,10 @@ function attachPlayerCardPositioning(root) {
   });
 
   root?.addEventListener("focusout", (event) => {
+    if (isTouchPlayerCardMode()) {
+      return;
+    }
+
     const playerHover = event.target.closest(".player-hover");
     if (shouldUseFloatingPlayerCard(playerHover)) {
       queueFloatingPlayerCardHide();
@@ -13571,7 +13587,7 @@ attachPlayerCardPositioning(matchInfo);
 attachPlayerCardPositioning(catchUpPopover);
 
 document.addEventListener("pointerdown", (event) => {
-  if (activePlayerHover && !event.target.closest(".player-hover")) {
+  if (activePlayerHover && !getClosestPlayerHover(event.target)) {
     clearActivePlayerHover();
   }
 
