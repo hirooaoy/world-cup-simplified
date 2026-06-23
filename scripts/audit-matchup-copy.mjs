@@ -35,6 +35,40 @@ const beginnerJargon = [
   "centre-back"
 ];
 
+const authoredChineseCopyPatterns = [
+  /^⚽ (.+) and (.+) shared a 0-0 draw\.$/,
+  /^⚽ (.+) and (.+) finished level at (.+)\.$/,
+  /^⚽ (.+) beat (.+) (.+)\.$/,
+  /^⚽ (.+) made a statement with a (.+) win\.$/,
+  /^⚽ (.+) edged (.+) (.+)\.$/,
+  /^⚽ (.+) found the decisive goal in a (.+) win\.$/,
+  /^🌟 (.+) scored twice in the rout\.$/,
+  /^🌟 (.+) made a huge late double save\.$/,
+  /^🌟 The clean sheet gave (.+) no way back\.$/,
+  /^🌟 (.+)'s attack broke the match open\.$/,
+  /^🌟 (.+) protected a one-goal edge\.$/,
+  /^🌟 (.+) created enough separation to control the finish\.$/,
+  /^🌟 Both clean sheets kept the match tight\.$/,
+  /^🌟 Neither side pulled clear(?: after trading goals)?\.$/,
+  /^🌟 (.+) headed (.+) in front early\.$/,
+  /^🌟 (.+) scored twice, while (.+) and (.+) added second-half goals\.$/,
+  /^🌟 (.+) scored in stoppage time to settle a tense opener in (.+)\.$/,
+  /^🌟 (.+) scored and helped (.+) answer (.+)'s first World Cup goal\.$/,
+  /^🌟 (.+)'s press made it scrappy, but (.+) sealed (.+)'s control late\.$/,
+  /^🌟 (.+) started bravely, then the wet restart exposed their build-out mistakes\.$/,
+  /^📊 Both sides took one point from (.+)\.$/,
+  /^📊 Both teams took one point from (.+)\.$/,
+  /^📊 (.+) took three points from (.+)\.$/,
+  /^📊 (.+) took three points in (.+)\.$/,
+  /^📊 (.+) took three points and (.+) GD in (.+)\.$/,
+  /^📊 Both teams moved to (.+) point(?:s)? in Group ([A-L])\.$/,
+  /^📊 (.+) moved to (.+) point(?:s)? in Group ([A-L]) and left (.+) without a point\.$/,
+  /^📊 (.+) moved to (.+) point(?:s)? in Group ([A-L]) while (.+) stayed on (.+) point(?:s)?\.$/,
+  /^📊 (.+) reached (.+) point(?:s)? in Group ([A-L]) and booked a Round of 32 place\.$/,
+  /^(.+) (\d+-\d+) (.+)$/,
+  /^(.+) vs (.+)$/
+];
+
 async function readJson(fileName) {
   return JSON.parse(await readFile(path.join(dataDir, fileName), "utf8"));
 }
@@ -99,6 +133,60 @@ function hasChineseTranslationEntry(source, value) {
   return source.includes(`${JSON.stringify(text)}:`) || source.includes(`${text}:`);
 }
 
+function isChineseAuthoredCopyCovered(source, value) {
+  const text = String(value || "").trim().replace(/\s+/g, " ");
+
+  if (!text || !/[A-Za-z]/.test(text)) {
+    return true;
+  }
+
+  return (
+    hasChineseTranslationEntry(source, text) ||
+    authoredChineseCopyPatterns.some((pattern) => pattern.test(text))
+  );
+}
+
+function getAuthoredCatchUpChineseCopyFields(items, fieldPrefix) {
+  const fields = [];
+
+  for (const [itemIndex, item] of (items || []).entries()) {
+    for (const key of ["headline", "body", "meta", "standouts", "sourceLabel"]) {
+      if (typeof item?.[key] === "string" && item[key].trim()) {
+        fields.push({
+          field: `${fieldPrefix}[${itemIndex}].${key}`,
+          text: item[key].trim()
+        });
+      }
+    }
+  }
+
+  return fields;
+}
+
+function getAuthoredChineseCopyFields(fixture) {
+  const fields = [];
+
+  for (const [index, highlight] of (fixture.resultHighlights || []).entries()) {
+    if (typeof highlight === "string" && highlight.trim()) {
+      fields.push({
+        field: `resultHighlights[${index}]`,
+        text: highlight.trim()
+      });
+    }
+  }
+
+  fields.push(...getAuthoredCatchUpChineseCopyFields(fixture.catchUp, "catchUp"));
+
+  return fields;
+}
+
+function getTournamentAuthoredChineseCopyFields(tournament) {
+  return [
+    ...getAuthoredCatchUpChineseCopyFields(tournament.catchUp, "tournament.catchUp"),
+    ...getAuthoredCatchUpChineseCopyFields(tournament.news, "tournament.news")
+  ];
+}
+
 function isFiniteScore(value) {
   return Number.isFinite(Number(value));
 }
@@ -124,6 +212,7 @@ const appSource = await readFile(path.join(root, "app.js"), "utf8");
 const rows = [];
 const historicalRows = [];
 const resultRows = [];
+const authoredChineseCopyRows = [];
 const teamTaglineIssues = [];
 const chineseTranslationIssues = [];
 const statusCounts = new Map();
@@ -157,16 +246,44 @@ for (const team of teamsData.teams || []) {
   }
 }
 
+const tournamentAuthoredChineseCopyFields = getTournamentAuthoredChineseCopyFields(tournamentData);
+if (tournamentAuthoredChineseCopyFields.length) {
+  const issues = tournamentAuthoredChineseCopyFields
+    .filter(({ text }) => !isChineseAuthoredCopyCovered(appSource, text))
+    .map(({ field, text }) => issue(`${field} missing Chinese coverage`, text));
+
+  authoredChineseCopyRows.push({
+    fixtureId: "tournament",
+    fixture: "Tournament news",
+    checked: tournamentAuthoredChineseCopyFields.length,
+    issues
+  });
+}
+
 for (const fixture of fixturesData.fixtures || []) {
   if (fixture.stage !== "group") {
     continue;
   }
 
   statusCounts.set(fixture.status, (statusCounts.get(fixture.status) || 0) + 1);
+  const home = teamsById.get(fixture.homeTeamId);
+  const away = teamsById.get(fixture.awayTeamId);
+  const authoredChineseCopyFields = getAuthoredChineseCopyFields(fixture);
+
+  if (authoredChineseCopyFields.length) {
+    const issues = authoredChineseCopyFields
+      .filter(({ text }) => !isChineseAuthoredCopyCovered(appSource, text))
+      .map(({ field, text }) => issue(`${field} missing Chinese coverage`, text));
+
+    authoredChineseCopyRows.push({
+      fixtureId: fixture.id,
+      fixture: `${home?.name || fixture.homeTeamId} vs ${away?.name || fixture.awayTeamId}`,
+      checked: authoredChineseCopyFields.length,
+      issues
+    });
+  }
 
   if (fixture.status === "FT") {
-    const home = teamsById.get(fixture.homeTeamId);
-    const away = teamsById.get(fixture.awayTeamId);
     const authoredHighlights = Array.isArray(fixture.resultHighlights)
       ? fixture.resultHighlights.filter((highlight) => typeof highlight === "string" && highlight.trim())
       : [];
@@ -341,12 +458,14 @@ if (missingChinesePlayerTerms.length) {
 const issueRows = rows.filter((row) => row.issues.length);
 const historicalIssueRows = historicalRows.filter((row) => row.issues.length);
 const resultIssueRows = resultRows.filter((row) => row.issues.length);
+const authoredChineseCopyIssueRows = authoredChineseCopyRows.filter((row) => row.issues.length);
 const statusSummary = ["FT", "LIVE", "SCHEDULED"]
   .filter((status) => statusCounts.has(status))
   .map((status) => `${status}: ${statusCounts.get(status)}`)
   .join(", ");
 const authoredResultCount = resultRows.filter((row) => row.authored).length;
 const generatedResultCount = resultRows.filter((row) => row.generatedFromScore).length;
+const authoredChineseCopyCount = authoredChineseCopyRows.reduce((total, row) => total + row.checked, 0);
 
 console.log("Matchup copy audit");
 console.log(`Paragraphs checked: ${rows.length}`);
@@ -356,6 +475,7 @@ console.log(`Group fixture statuses checked: ${statusSummary || "none"}`);
 console.log(
   `Finished result sections checked: ${resultRows.length} (${authoredResultCount} authored, ${generatedResultCount} generated from final score)`
 );
+console.log(`Authored Chinese match/news copy checked: ${authoredChineseCopyCount}`);
 console.log(
   `Chinese translation terms checked: ${chineseTeamTerms.size + chinesePlayerTerms.size} (${chineseTeamTerms.size} team/style, ${chinesePlayerTerms.size} key-player)`
 );
@@ -363,6 +483,7 @@ console.log(`Paragraphs needing review: ${issueRows.length}`);
 console.log(`Historical paragraphs needing review: ${historicalIssueRows.length}`);
 console.log(`Team descriptors needing review: ${teamTaglineIssues.length}`);
 console.log(`Finished result sections needing review: ${resultIssueRows.length}`);
+console.log(`Authored Chinese match/news copy needing review: ${authoredChineseCopyIssueRows.length}`);
 console.log(`Chinese translation terms needing review: ${chineseTranslationIssues.length}`);
 
 if (teamTaglineIssues.length) {
@@ -393,6 +514,14 @@ if (resultIssueRows.length) {
   console.log("");
   console.log("Finished result section issues");
   for (const row of resultIssueRows) {
+    console.log(`- ${row.fixtureId} ${row.fixture}: ${formatIssues(row.issues)}`);
+  }
+}
+
+if (authoredChineseCopyIssueRows.length) {
+  console.log("");
+  console.log("Authored Chinese match/news copy issues");
+  for (const row of authoredChineseCopyIssueRows) {
     console.log(`- ${row.fixtureId} ${row.fixture}: ${formatIssues(row.issues)}`);
   }
 }
@@ -430,6 +559,12 @@ if (showDetails) {
     const source = row.authored ? `${row.authored} authored highlight(s)` : "generated from final score";
     console.log(`${row.fixtureId} | ${row.fixture} | ${source} | ${formatIssues(row.issues)}`);
   }
+
+  console.log("");
+  console.log("Authored Chinese match/news copy details");
+  for (const row of authoredChineseCopyRows) {
+    console.log(`${row.fixtureId} | ${row.fixture} | ${row.checked} field(s) | ${formatIssues(row.issues)}`);
+  }
 }
 
 if (
@@ -437,6 +572,7 @@ if (
   historicalIssueRows.length ||
   teamTaglineIssues.length ||
   resultIssueRows.length ||
+  authoredChineseCopyIssueRows.length ||
   chineseTranslationIssues.length
 ) {
   process.exitCode = 1;

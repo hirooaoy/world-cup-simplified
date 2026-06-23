@@ -1,4 +1,4 @@
-const DATA_VERSION = "2026-06-22-player-link-spacing";
+const DATA_VERSION = "2026-06-22-catch-up-headlines";
 const DATA_URLS = {
   fixtures: `data/fixtures.json?v=${DATA_VERSION}`,
   history: `data/history.json?v=${DATA_VERSION}`,
@@ -764,6 +764,7 @@ const ZH_ADDITIONAL_EXACT_TRANSLATIONS = {
     "加纳1-0取胜后在L组与英格兰同积3分。",
   "Guardian live report": "卫报实时战报",
   "Guardian match report": "卫报比赛报告",
+  "Golden Boot race": "金靴奖竞争",
   "Harry Kane scored twice, while Jude Bellingham and Marcus Rashford added second-half goals.":
     "Harry Kane梅开二度，Jude Bellingham和Marcus Rashford下半场也取得进球。",
   "Joao Neves headed Portugal in front early, while Yoane Wissa's equalizer gave DR Congo the point.":
@@ -778,7 +779,19 @@ const ZH_ADDITIONAL_EXACT_TRANSLATIONS = {
     "Luis Diaz破门并帮助哥伦比亚回应乌兹别克斯坦队史世界杯首球，Jaminton Campaz最后阶段锁定胜局。",
   "Manzambi sparks Swiss surge past Bosnia": "Manzambi带动瑞士击败波黑",
   "Mbappé brace lifts France past Senegal": "Mbappé梅开二度助法国击败塞内加尔",
+  "Mbappé double carries France past Iraq": "姆巴佩梅开二度带法国击败伊拉克",
   "Messi hat trick opens Argentina's title defence": "Messi帽子戏法开启阿根廷卫冕之旅",
+  "Messi brace sends Argentina through": "梅西梅开二度送阿根廷晋级",
+  "Messi leads all scorers with five World Cup goals": "梅西以5球领跑世界杯射手榜",
+  "Lionel Messi scored in the 38th and 90+5th minutes as Argentina beat Austria 2-0 in Group J.":
+    "利昂内尔·梅西在第38分钟和90+5分钟破门，阿根廷在J组2-0击败奥地利。",
+  "Austria's press kept the match scrappy, but Argentina's midfield recovered control and the late pressure finally broke through.":
+    "奥地利的逼抢让比赛很零碎，但阿根廷中场重新掌控节奏，最后阶段的持续压力终于打开局面。",
+  "Bundesliga match report": "德甲官网比赛报告",
+  "Kylian Mbappé scored in the 14th and 54th minutes before Ousmane Dembélé added the third in a storm-delayed 3-0 win.":
+    "基利安·姆巴佩在第14和第54分钟破门，奥斯曼·登贝莱随后打入第三球，法国在一场因暴风雨延迟的比赛中3-0取胜。",
+  "Iraq played out bravely early, but two build-out mistakes after the long weather delay let France kill the match.":
+    "伊拉克开局勇敢地从后场组织，但漫长天气延迟后的两次后场出球失误让法国杀死比赛。",
   "Portugal and DR Congo split the points": "葡萄牙与刚果民主共和国各取一分",
   "Raúl Rangel made a huge late double save.": "Raúl Rangel最后阶段完成关键连续两连扑。",
   "Switzerland 4-1 Bosnia and Herzegovina": "瑞士4-1波黑",
@@ -1945,6 +1958,36 @@ const ZH_PATTERN_TRANSLATIONS = [
     replace: () => "🌟 双方都没能真正拉开差距。"
   },
   {
+    pattern: /^🌟 (.+) headed (.+) in front early\.$/,
+    replace: (_, player, team) =>
+      `🌟 ${translateTextToZh(player)}早早头球帮助${translateTextToZh(team)}领先。`
+  },
+  {
+    pattern: /^🌟 (.+) scored twice, while (.+) and (.+) added second-half goals\.$/,
+    replace: (_, firstPlayer, secondPlayer, thirdPlayer) =>
+      `🌟 ${translateTextToZh(firstPlayer)}梅开二度，${translateTextToZh(secondPlayer)}和${translateTextToZh(thirdPlayer)}下半场也取得进球。`
+  },
+  {
+    pattern: /^🌟 (.+) scored in stoppage time to settle a tense opener in (.+)\.$/,
+    replace: (_, player, city) =>
+      `🌟 ${translateTextToZh(player)}补时破门，在${translateTextToZh(city)}结束了这场紧张的首战。`
+  },
+  {
+    pattern: /^🌟 (.+) scored and helped (.+) answer (.+)'s first World Cup goal\.$/,
+    replace: (_, player, team, opponent) =>
+      `🌟 ${translateTextToZh(player)}破门，并帮助${translateTextToZh(team)}回应${translateTextToZh(opponent)}队史世界杯首球。`
+  },
+  {
+    pattern: /^🌟 (.+)'s press made it scrappy, but (.+) sealed (.+)'s control late\.$/,
+    replace: (_, pressingTeam, player, controllingTeam) =>
+      `🌟 ${translateTextToZh(pressingTeam)}的逼抢让比赛很零碎，但${translateTextToZh(player)}最后阶段锁定了${translateTextToZh(controllingTeam)}的控制。`
+  },
+  {
+    pattern: /^🌟 (.+) started bravely, then the wet restart exposed their build-out mistakes\.$/,
+    replace: (_, team) =>
+      `🌟 ${translateTextToZh(team)}开局很勇敢，但雨后重启暴露了他们的后场出球失误。`
+  },
+  {
     pattern: /^📊 Both sides took one point from (.+)\.$/,
     replace: (_, context) => `📊 双方都从 ${translateTextToZh(context)} 中拿到1分。`
   },
@@ -1963,6 +2006,25 @@ const ZH_PATTERN_TRANSLATIONS = [
   {
     pattern: /^📊 (.+) took three points and (.+) GD in (.+)\.$/,
     replace: (_, winner, gd, context) => `📊 ${translateTextToZh(winner)} 在 ${translateTextToZh(context)} 中拿到3分，并获得 ${gd} 净胜球。`
+  },
+  {
+    pattern: /^📊 Both teams moved to (.+) point(?:s)? in Group ([A-L])\.$/,
+    replace: (_, points, groupId) => `📊 双方都在${groupId}组达到${formatZhPointCount(points)}。`
+  },
+  {
+    pattern: /^📊 (.+) moved to (.+) point(?:s)? in Group ([A-L]) and left (.+) without a point\.$/,
+    replace: (_, winner, points, groupId, loser) =>
+      `📊 ${translateTextToZh(winner)}在${groupId}组达到${formatZhPointCount(points)}，${translateTextToZh(loser)}仍未拿分。`
+  },
+  {
+    pattern: /^📊 (.+) moved to (.+) point(?:s)? in Group ([A-L]) while (.+) stayed on (.+) point(?:s)?\.$/,
+    replace: (_, winner, winnerPoints, groupId, otherTeam, otherPoints) =>
+      `📊 ${translateTextToZh(winner)}在${groupId}组达到${formatZhPointCount(winnerPoints)}，${translateTextToZh(otherTeam)}仍是${formatZhPointCount(otherPoints)}。`
+  },
+  {
+    pattern: /^📊 (.+) reached (.+) point(?:s)? in Group ([A-L]) and booked a Round of 32 place\.$/,
+    replace: (_, team, points, groupId) =>
+      `📊 ${translateTextToZh(team)}在${groupId}组达到${formatZhPointCount(points)}，并锁定32强席位。`
   },
   {
     pattern: /^(.+) beat (.+) (\d+-\d+)\.$/,
@@ -2601,6 +2663,24 @@ function translateTextToZh(value) {
   }
 
   return text;
+}
+
+function formatZhPointCount(value) {
+  const normalized = String(value ?? "").trim().toLowerCase();
+  const wordCounts = {
+    one: "1",
+    two: "2",
+    three: "3",
+    four: "4",
+    five: "5",
+    six: "6",
+    seven: "7",
+    eight: "8",
+    nine: "9"
+  };
+  const count = wordCounts[normalized] || normalized;
+
+  return `${count}分`;
 }
 
 function localizeText(value) {
@@ -6936,6 +7016,23 @@ function renderScoringDetailsHighlight(match) {
   `;
 }
 
+function renderScoringDetailsList(match, options = {}) {
+  const scoringHighlight = renderScoringDetailsHighlight(match);
+  if (scoringHighlight) {
+    return `<ul class="result-highlights">${scoringHighlight}</ul>`;
+  }
+
+  if (!options.showMissingWhenGoalsScored) {
+    return "";
+  }
+
+  const score = getCatchUpScore(match);
+  const totalGoals = Number(score?.home) + Number(score?.away);
+  return Number.isFinite(totalGoals) && totalGoals > 0
+    ? `<p class="data-note">${escapeHtml(localizeText("No scorer data loaded."))}</p>`
+    : "";
+}
+
 function renderResultNotes(match) {
   const scoringHighlight = renderScoringDetailsHighlight(match);
   const highlights = getResultHighlights(match).filter(
@@ -6974,6 +7071,7 @@ function renderMatchStatusBlock(match) {
       <section class="info-block">
         <h3>${escapeHtml(localizeText("Live score"))}</h3>
         ${renderScoreSummary(match, { live: true })}
+        ${renderScoringDetailsList(match, { showMissingWhenGoalsScored: true })}
         <p class="data-note">${escapeHtml(localizeText("Live status is manually verified and should be refreshed after full time."))}</p>
       </section>
     `;
@@ -9195,6 +9293,14 @@ function normalizeCatchUpItem(item, match) {
   };
 }
 
+function getTournamentSource(sourceId) {
+  if (!sourceId) {
+    return null;
+  }
+
+  return (tournament.sources || []).find((source) => source.id === sourceId) || null;
+}
+
 function normalizeCatchUpStandout(standout) {
   if (typeof standout === "string") {
     return standout.trim();
@@ -9225,6 +9331,45 @@ function getAuthoredCatchUpItems(match) {
   }
 
   return sourceItems.map((item) => normalizeCatchUpItem(item, match)).filter(Boolean);
+}
+
+function normalizeTournamentCatchUpItem(item) {
+  if (!item?.headline) {
+    return null;
+  }
+
+  const timestamp = item.publishedAt || item.updatedAt || "";
+  const timestampValue = getValidTimestamp(timestamp);
+  const dateKey =
+    item.date || (timestampValue === null ? "" : getDayKey(new Date(timestampValue), selectedTimeZone));
+
+  if (!dateKey) {
+    return null;
+  }
+
+  const source = getTournamentSource(item.sourceId);
+  const priority = Number(item.priority);
+  return {
+    dateKey,
+    headline: item.headline,
+    body: item.body || item.note || "",
+    standouts: normalizeCatchUpStandouts(item.standouts || item.standout || item.playerPulse),
+    meta: item.meta || item.category || "Tournament",
+    sourceLabel: item.sourceLabel || source?.label || "",
+    sourceUrl: item.sourceUrl || item.url || source?.url || "",
+    priority: Number.isFinite(priority) ? priority : 12,
+    sortValue: item.sortValue || item.publishedAt || item.updatedAt || `${dateKey}T12:00:00Z`
+  };
+}
+
+function getTournamentCatchUpItems(dayKeys) {
+  const sourceItems = [tournament.catchUp, tournament.news].flatMap((items) =>
+    Array.isArray(items) ? items : []
+  );
+
+  return sourceItems
+    .map(normalizeTournamentCatchUpItem)
+    .filter((item) => item && dayKeys.has(item.dateKey));
 }
 
 function getPlayerName(player) {
@@ -9545,8 +9690,7 @@ function compareCatchUpItemsByRecency(a, b) {
 
 function getCatchUpItems() {
   const dayKeys = new Set(getCatchUpWindowDayKeys());
-
-  return fixtures
+  const matchItems = fixtures
     .filter((fixture) => dayKeys.has(getFixtureDayKey(fixture)) && hasMatchStarted(fixture))
     .sort(
       (a, b) =>
@@ -9557,34 +9701,15 @@ function getCatchUpItems() {
     .flatMap((match) => {
       const authoredItems = getAuthoredCatchUpItems(match);
       return authoredItems.length ? authoredItems : getGeneratedCatchUpItems(match);
-    })
+    });
+
+  return [...getTournamentCatchUpItems(dayKeys), ...matchItems]
     .sort(compareCatchUpItemsByRecency)
     .slice(0, 5);
 }
 
-function splitCatchUpBullet(text) {
-  const trimmed = text.trim();
-  if (!trimmed) {
-    return [];
-  }
-
-  return trimmed
-    .split(/;\s+|,\s+while\s+/i)
-    .map((part) => part.trim())
-    .filter(Boolean);
-}
-
-function getCatchUpBullets(standouts) {
-  return (standouts || []).flatMap(splitCatchUpBullet);
-}
-
 function renderCatchUpItem(item) {
-  const catchUpBullets = getCatchUpBullets(item.standouts);
-  const points = catchUpBullets.length
-    ? `<ul class="catch-up-points catch-up-standouts">${catchUpBullets
-        .map((bullet) => `<li class="catch-up-point">${escapeHtml(localizeDisplayText(bullet))}</li>`)
-        .join("")}</ul>`
-    : "";
+  const headline = localizeDisplayText(item.headline);
   const sourceLabel = item.sourceLabel ? localizeDisplayText(item.sourceLabel) : localizeText("Read source");
   const sourceLink = item.sourceUrl
     ? `<a class="catch-up-source" href="${escapeHtml(item.sourceUrl)}" target="_blank" rel="noreferrer" aria-label="${escapeHtml(sourceLabel)}" title="${escapeHtml(sourceLabel)}"><span aria-hidden="true">&#8599;</span></a>`
@@ -9594,11 +9719,9 @@ function renderCatchUpItem(item) {
     <article class="catch-up-item">
       <div class="catch-up-copy">
         <div class="catch-up-title-row">
-          <h3><span>${escapeHtml(localizeDisplayText(item.headline))}</span></h3>
+          <h3 title="${escapeHtml(headline)}"><span>${escapeHtml(headline)}</span></h3>
           ${sourceLink}
         </div>
-        ${item.body ? `<p class="catch-up-subtitle">${escapeHtml(localizeDisplayText(item.body))}</p>` : ""}
-        ${points}
       </div>
     </article>
   `;

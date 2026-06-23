@@ -141,6 +141,29 @@ for (const source of tournamentData.sources || []) {
   assert(!Number.isNaN(new Date(source.checkedAt).getTime()), `Source "${source.id}" must have a valid checkedAt`);
 }
 
+const tournamentCatchUpItems = [tournamentData.catchUp, tournamentData.news].flatMap((items) =>
+  Array.isArray(items) ? items : []
+);
+
+for (const [index, item] of tournamentCatchUpItems.entries()) {
+  const owner = `tournament catch-up item ${index + 1}`;
+  const timestamp = item?.publishedAt || item?.updatedAt || "";
+
+  assert(item?.headline, `${owner} must include a headline`);
+  assert(
+    isDayKey(item?.date) || !Number.isNaN(new Date(timestamp).getTime()),
+    `${owner} must include a valid date, publishedAt, or updatedAt`
+  );
+
+  if (item?.sourceId) {
+    assert(sourceIds.has(item.sourceId), `${owner} references unknown source "${item.sourceId}"`);
+  }
+
+  if (item?.priority !== undefined) {
+    assert(Number.isFinite(Number(item.priority)), `${owner} priority must be numeric`);
+  }
+}
+
 requireSourceIds(fixturesData.sourceIds, sourceIds, "fixtures.json");
 requireSourceIds(historyData.sourceIds, sourceIds, "history.json");
 if (playerAvailabilityData) {

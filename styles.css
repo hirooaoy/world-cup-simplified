@@ -335,13 +335,14 @@ body.is-juggle-active {
 
 .catch-up-title-row {
   display: flex;
-  align-items: start;
+  align-items: center;
   justify-content: space-between;
   gap: 8px;
   min-width: 0;
 }
 
 .catch-up-title-row h3 {
+  flex: 1 1 auto;
   min-width: 0;
 }
 
@@ -352,6 +353,13 @@ body.is-juggle-active {
   font-weight: 700;
   letter-spacing: 0;
   line-height: 1.22;
+}
+
+.catch-up-copy h3 span {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .catch-up-subtitle {
@@ -385,6 +393,7 @@ body.is-juggle-active {
 }
 
 .catch-up-source {
+  flex: 0 0 20px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -1184,7 +1193,7 @@ h1 {
 .match-time.has-date {
   display: inline-flex;
   align-items: flex-start;
-  justify-content: center;
+  justify-content: flex-start;
   min-width: 172px;
   letter-spacing: 0;
 }

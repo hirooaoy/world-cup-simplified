@@ -1267,16 +1267,12 @@ try {
   );
   assert(
     catchUpText.includes("England look sharp against Croatia") &&
-      catchUpText.includes("England's 4-2 win gives them an early foothold in Group L"),
-    "The completed England/Croatia match should use the final-score catch-up story."
+      !catchUpText.includes("England's 4-2 win gives them an early foothold in Group L"),
+    "The completed England/Croatia match should render only the final-score headline."
   );
   assert(
-    englandCatchUpItem?.standoutBullets.join("|") ===
-      [
-        "Harry Kane scored twice",
-        "Jude Bellingham and Marcus Rashford added second-half goals."
-      ].join("|"),
-    "The completed England/Croatia match should include sourced standout player context."
+    catchUpItems.every((item) => !item.subtitle && !item.standouts && item.standoutBullets.length === 0),
+    "The catch-up feed should keep each news item to one headline line."
   );
   assert(
     !/main goal threat|Golden Boot chase/i.test(catchUpText),
@@ -1316,6 +1312,35 @@ try {
     "Generated Canada/Qatar result catch-up should link to its report source."
   );
   await latestCatchUpCheck.context.close();
+
+  const tournamentCatchUpCheck = await openPageAtTime(
+    "2026-06-23T02:08:00.000Z",
+    "/?view=matches&date=2026-06-22&tz=America%2FLos_Angeles"
+  );
+  await tournamentCatchUpCheck.page.locator("#catch-up-button").click();
+  const tournamentCatchUpItems = await tournamentCatchUpCheck.page
+    .locator(".catch-up-item")
+    .evaluateAll((items) =>
+      items.map((item) => ({
+        headline: item.querySelector(".catch-up-title-row h3 > span")?.textContent.trim(),
+        sourceHref: item.querySelector(".catch-up-source")?.getAttribute("href") || ""
+      }))
+    );
+  const messiLeaderboardItem = tournamentCatchUpItems.find((item) =>
+    item.headline?.includes("Messi leads all scorers with five World Cup goals")
+  );
+  assert(messiLeaderboardItem, "Tournament-level catch-up should include the Messi scoring-leader story.");
+  assert(
+    messiLeaderboardItem?.sourceHref.includes("argentina-austria-match-report-highlights"),
+    "Tournament-level catch-up should resolve source links from tournament source IDs."
+  );
+  await tournamentCatchUpCheck.page.locator('[data-language="zh"]').click();
+  const tournamentCatchUpChineseText = await tournamentCatchUpCheck.page.locator("#catch-up-popover").innerText();
+  assert(
+    tournamentCatchUpChineseText.includes("梅西以5球领跑世界杯射手榜"),
+    "Tournament-level catch-up should translate authored news in Chinese."
+  );
+  await tournamentCatchUpCheck.context.close();
 
   const sourceFreshnessCheck = await openPageAtTime("2026-06-18T15:57:00.000Z");
   const sourceNote = sourceFreshnessCheck.page.locator("#source-note");

@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-23T01:44:03.236Z",
+  "updatedAt": "2026-06-23T02:17:28.443Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -4338,7 +4338,7 @@
       "homeTeamId": "NOR",
       "awayTeamId": "SEN",
       "venue": "New York New Jersey Stadium",
-      "status": "LIVE",
+      "status": "FT",
       "liveStatusSourceId": "guardian-norway-senegal-live-2026-06-22",
       "h2h": {
         "status": "loaded",
@@ -4413,8 +4413,13 @@
       },
       "score": {
         "home": 3,
-        "away": 1
-      }
+        "away": 2
+      },
+      "resultHighlights": [
+        "⚽ Norway beat Senegal 3-2.",
+        "🌟 Norway protected a one-goal edge.",
+        "📊 Norway moved to 6 points in Group I and left Senegal without a point."
+      ]
     },
     {
       "id": "jordan-algeria-2026-06-22",
