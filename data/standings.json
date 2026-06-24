@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-23T22:09:27.082Z",
+  "updatedAt": "2026-06-24T21:48:22.436Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fifa-standings-2026-06-17",
@@ -22,7 +22,8 @@
     "fifa-official-results-sync-2026-06-22",
     "bundesliga-argentina-austria-result-2026-06-22",
     "guardian-france-iraq-result-2026-06-22",
-    "fifa-official-results-sync-2026-06-23"
+    "fifa-official-results-sync-2026-06-23",
+    "fifa-official-results-sync-2026-06-24"
   ],
   "tiebreakerNote": "Rows use the current table order. Points, goal difference and goals scored are included for beginner-friendly context.",
   "groups": {
@@ -66,40 +67,40 @@
     ],
     "B": [
       {
-        "teamId": "CAN",
-        "played": 2,
-        "wins": 1,
+        "teamId": "SUI",
+        "played": 3,
+        "wins": 2,
         "draws": 1,
         "losses": 0,
         "gf": 7,
-        "ga": 1
+        "ga": 3
       },
       {
-        "teamId": "SUI",
-        "played": 2,
+        "teamId": "CAN",
+        "played": 3,
         "wins": 1,
         "draws": 1,
-        "losses": 0,
-        "gf": 5,
-        "ga": 2
+        "losses": 1,
+        "gf": 8,
+        "ga": 3
       },
       {
         "teamId": "BIH",
-        "played": 2,
-        "wins": 0,
+        "played": 3,
+        "wins": 1,
         "draws": 1,
         "losses": 1,
-        "gf": 2,
-        "ga": 5
+        "gf": 5,
+        "ga": 6
       },
       {
         "teamId": "QAT",
-        "played": 2,
+        "played": 3,
         "wins": 0,
         "draws": 1,
-        "losses": 1,
-        "gf": 1,
-        "ga": 7
+        "losses": 2,
+        "gf": 2,
+        "ga": 10
       }
     ],
     "C": [
@@ -408,6 +409,15 @@
     ],
     "K": [
       {
+        "teamId": "COL",
+        "played": 2,
+        "wins": 2,
+        "draws": 0,
+        "losses": 0,
+        "gf": 4,
+        "ga": 1
+      },
+      {
         "teamId": "POR",
         "played": 2,
         "wins": 1,
@@ -417,22 +427,13 @@
         "ga": 1
       },
       {
-        "teamId": "COL",
-        "played": 1,
-        "wins": 1,
-        "draws": 0,
-        "losses": 0,
-        "gf": 3,
-        "ga": 1
-      },
-      {
         "teamId": "COD",
-        "played": 1,
+        "played": 2,
         "wins": 0,
         "draws": 1,
-        "losses": 0,
+        "losses": 1,
         "gf": 1,
-        "ga": 1
+        "ga": 2
       },
       {
         "teamId": "UZB",
@@ -464,22 +465,22 @@
         "ga": 0
       },
       {
-        "teamId": "PAN",
-        "played": 1,
-        "wins": 0,
+        "teamId": "CRO",
+        "played": 2,
+        "wins": 1,
         "draws": 0,
         "losses": 1,
-        "gf": 0,
-        "ga": 1
+        "gf": 3,
+        "ga": 4
       },
       {
-        "teamId": "CRO",
-        "played": 1,
+        "teamId": "PAN",
+        "played": 2,
         "wins": 0,
         "draws": 0,
-        "losses": 1,
-        "gf": 2,
-        "ga": 4
+        "losses": 2,
+        "gf": 0,
+        "ga": 2
       }
     ]
   }

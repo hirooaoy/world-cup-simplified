@@ -2296,6 +2296,9 @@ try {
       sectionHeadingVisible: Boolean(document.querySelector(".tournament-section-heading")),
       sideCount: document.querySelectorAll(".poster-side").length,
       norwayTooltip: document.querySelector('.knockout-team[data-team-id="NOR"]')?.getAttribute("data-tooltip") || "",
+      thirdPlaceSeedTeamIds: [...document.querySelectorAll(".progress-match .knockout-team[data-team-id]")]
+        .filter((element) => element.querySelector("small")?.textContent.includes("Top 3"))
+        .map((element) => element.dataset.teamId),
       slotOddsCount: document.querySelectorAll(".knockout-slot-odds").length,
       slotOddsToneMismatches: [...document.querySelectorAll(".knockout-slot-odds")]
         .filter((element) => {
@@ -2349,10 +2352,12 @@ try {
       !tournamentCheck.oldWinnerCopy &&
       tournamentCheck.posterMetaCount === 0 &&
       tournamentCheck.posterSeedCount === 0 &&
+      tournamentCheck.thirdPlaceSeedTeamIds.length === getThirdPlaceAdvancerCount() &&
+      new Set(tournamentCheck.thirdPlaceSeedTeamIds).size === tournamentCheck.thirdPlaceSeedTeamIds.length &&
       !/\bWinner match \d+\b/.test(tournamentCheck.progressText) &&
       !/\b(?:M\d+|To M\d+|Winner M\d+|W M\d+)\b/.test(`${tournamentCheck.r32Text} ${tournamentCheck.progressText}`) &&
       tournamentCheck.roundHeadings.join("|") === "Round of 32|Round of 16|Quarter-finals|Semi-finals|Final",
-    "The tournament section should show Round of 32 slot odds while leaving later rounds unfilled."
+    "The tournament section should show unique Round of 32 third-place slot picks and odds while leaving later rounds unfilled."
   );
   const tournamentLayoutChecks = [];
   for (const viewport of [

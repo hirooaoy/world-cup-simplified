@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-23T22:09:27.082Z",
+  "updatedAt": "2026-06-24T21:48:22.436Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -94,7 +94,8 @@
     "sofascore-jordan-algeria-preview-2026-06-22",
     "analyst-jordan-algeria-preview-2026-06-22",
     "fifa-official-results-sync-2026-06-23",
-    "fifa-goal-events-sync-2026-06-23"
+    "fifa-goal-events-sync-2026-06-23",
+    "fifa-official-results-sync-2026-06-24"
   ],
   "coverage": {
     "status": "complete-schedule",
@@ -227,7 +228,14 @@
           "name": "Raul Jimenez"
         }
       ],
-      "goalsAway": []
+      "goalsAway": [],
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021443",
+          "matchNumber": 1
+        }
+      },
+      "matchNumber": 1
     },
     {
       "id": "south-korea-czechia-2026-06-11",
@@ -346,7 +354,14 @@
           "minute": 59,
           "name": "Ladislav Krejci"
         }
-      ]
+      ],
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021441",
+          "matchNumber": 2
+        }
+      },
+      "matchNumber": 2
     },
     {
       "id": "canada-bosnia-2026-06-12",
@@ -430,7 +445,14 @@
           "minute": 21,
           "name": "Jovo Lukic"
         }
-      ]
+      ],
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021449",
+          "matchNumber": 3
+        }
+      },
+      "matchNumber": 3
     },
     {
       "id": "united-states-paraguay-2026-06-12",
@@ -620,7 +642,14 @@
           "minute": 73,
           "name": "Mauricio"
         }
-      ]
+      ],
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021458",
+          "matchNumber": 4
+        }
+      },
+      "matchNumber": 4
     },
     {
       "id": "qatar-switzerland-2026-06-13",
@@ -718,7 +747,14 @@
           "name": "Breel Embolo",
           "penalty": true
         }
-      ]
+      ],
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021447",
+          "matchNumber": 8
+        }
+      },
+      "matchNumber": 8
     },
     {
       "id": "brazil-morocco-2026-06-13",
@@ -833,7 +869,14 @@
           "minute": 21,
           "name": "Ismael Saibari"
         }
-      ]
+      ],
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021456",
+          "matchNumber": 7
+        }
+      },
+      "matchNumber": 7
     },
     {
       "id": "haiti-scotland-2026-06-13",
@@ -912,7 +955,14 @@
           "minute": 28,
           "name": "John McGinn"
         }
-      ]
+      ],
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021453",
+          "matchNumber": 5
+        }
+      },
+      "matchNumber": 5
     },
     {
       "id": "australia-turkiye-2026-06-13",
@@ -1016,7 +1066,14 @@
           "name": "Connor Metcalfe"
         }
       ],
-      "goalsAway": []
+      "goalsAway": [],
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021463",
+          "matchNumber": 6
+        }
+      },
+      "matchNumber": 6
     },
     {
       "id": "germany-curacao-2026-06-14",
@@ -1126,7 +1183,14 @@
           "minute": 21,
           "name": "Livano Comenencia"
         }
-      ]
+      ],
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021464",
+          "matchNumber": 10
+        }
+      },
+      "matchNumber": 10
     },
     {
       "id": "netherlands-japan-2026-06-14",
@@ -1245,7 +1309,14 @@
           "minute": 88,
           "name": "Daichi Kamada"
         }
-      ]
+      ],
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021470",
+          "matchNumber": 11
+        }
+      },
+      "matchNumber": 11
     },
     {
       "id": "cote-divoire-ecuador-2026-06-14",
@@ -1324,7 +1395,14 @@
           "name": "Amad Diallo"
         }
       ],
-      "goalsAway": []
+      "goalsAway": [],
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021467",
+          "matchNumber": 9
+        }
+      },
+      "matchNumber": 9
     },
     {
       "id": "sweden-tunisia-2026-06-14",
@@ -1456,7 +1534,14 @@
           "minute": 43,
           "name": "Omar Rekik"
         }
-      ]
+      ],
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021474",
+          "matchNumber": 12
+        }
+      },
+      "matchNumber": 12
     },
     {
       "id": "spain-cabo-verde-2026-06-15",
@@ -1529,7 +1614,14 @@
         "⚽ Spain and Cabo Verde shared a 0-0 draw.",
         "🌟 Cabo Verde held Spain's possession game to a scoreless tournament debut.",
         "📊 Both teams moved to 1 point in Group H."
-      ]
+      ],
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021482",
+          "matchNumber": 14
+        }
+      },
+      "matchNumber": 14
     },
     {
       "id": "belgium-egypt-2026-06-15",
@@ -1655,7 +1747,14 @@
           "minute": 19,
           "name": "Emam Ashour"
         }
-      ]
+      ],
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021478",
+          "matchNumber": 16
+        }
+      },
+      "matchNumber": 16
     },
     {
       "id": "saudi-arabia-uruguay-2026-06-15",
@@ -1770,7 +1869,14 @@
           "minute": 80,
           "name": "Maxi Araujo"
         }
-      ]
+      ],
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021486",
+          "matchNumber": 13
+        }
+      },
+      "matchNumber": 13
     },
     {
       "id": "ir-iran-new-zealand-2026-06-15",
@@ -1873,7 +1979,14 @@
           "minute": 54,
           "name": "Elijah Just"
         }
-      ]
+      ],
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021476",
+          "matchNumber": 15
+        }
+      },
+      "matchNumber": 15
     },
     {
       "id": "france-senegal-2026-06-16",
@@ -1986,7 +2099,14 @@
           "offset": 5,
           "name": "Ibrahim Mbaye"
         }
-      ]
+      ],
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021490",
+          "matchNumber": 17
+        }
+      },
+      "matchNumber": 17
     },
     {
       "id": "iraq-norway-2026-06-16",
@@ -2080,7 +2200,14 @@
           "name": "Aymen Hussein",
           "ownGoal": true
         }
-      ]
+      ],
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021488",
+          "matchNumber": 18
+        }
+      },
+      "matchNumber": 18
     },
     {
       "id": "argentina-algeria-2026-06-16",
@@ -2186,7 +2313,14 @@
           "name": "Lionel Messi"
         }
       ],
-      "goalsAway": []
+      "goalsAway": [],
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021496",
+          "matchNumber": 19
+        }
+      },
+      "matchNumber": 19
     },
     {
       "id": "austria-jordan-2026-06-16",
@@ -2277,7 +2411,14 @@
           "minute": 50,
           "name": "Ali Olwan"
         }
-      ]
+      ],
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021498",
+          "matchNumber": 20
+        }
+      },
+      "matchNumber": 20
     },
     {
       "id": "portugal-dr-congo-2026-06-17",
@@ -2370,7 +2511,14 @@
           "offset": 5,
           "name": "Yoane Wissa"
         }
-      ]
+      ],
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021502",
+          "matchNumber": 23
+        }
+      },
+      "matchNumber": 23
     },
     {
       "id": "england-croatia-2026-06-17",
@@ -2579,7 +2727,14 @@
           "offset": 5,
           "name": "Petar Musa"
         }
-      ]
+      ],
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021507",
+          "matchNumber": 22
+        }
+      },
+      "matchNumber": 22
     },
     {
       "id": "ghana-panama-2026-06-17",
@@ -2666,7 +2821,14 @@
           "name": "Caleb Yirenkyi"
         }
       ],
-      "goalsAway": []
+      "goalsAway": [],
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021510",
+          "matchNumber": 21
+        }
+      },
+      "matchNumber": 21
     },
     {
       "id": "uzbekistan-colombia-2026-06-17",
@@ -2767,7 +2929,14 @@
           "offset": 9,
           "name": "Jaminton Campaz"
         }
-      ]
+      ],
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021504",
+          "matchNumber": 24
+        }
+      },
+      "matchNumber": 24
     },
     {
       "id": "czechia-south-africa-2026-06-18",
@@ -2869,7 +3038,14 @@
           "name": "Teboho Mokoena",
           "penalty": true
         }
-      ]
+      ],
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021440",
+          "matchNumber": 25
+        }
+      },
+      "matchNumber": 25
     },
     {
       "id": "switzerland-bosnia-2026-06-18",
@@ -2985,7 +3161,14 @@
           "offset": 3,
           "name": "Ermin Mahmic"
         }
-      ]
+      ],
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021446",
+          "matchNumber": 26
+        }
+      },
+      "matchNumber": 26
     },
     {
       "id": "canada-qatar-2026-06-18",
@@ -3094,7 +3277,14 @@
           "name": "Jonathan David"
         }
       ],
-      "goalsAway": []
+      "goalsAway": [],
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021450",
+          "matchNumber": 27
+        }
+      },
+      "matchNumber": 27
     },
     {
       "id": "mexico-south-korea-2026-06-18",
@@ -3311,7 +3501,14 @@
           "name": "Luis Romo"
         }
       ],
-      "goalsAway": []
+      "goalsAway": [],
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021442",
+          "matchNumber": 28
+        }
+      },
+      "matchNumber": 28
     },
     {
       "id": "united-states-australia-2026-06-19",
@@ -3436,7 +3633,14 @@
           "name": "Alex Freeman"
         }
       ],
-      "goalsAway": []
+      "goalsAway": [],
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021462",
+          "matchNumber": 32
+        }
+      },
+      "matchNumber": 32
     },
     {
       "id": "scotland-morocco-2026-06-19",
@@ -3526,7 +3730,14 @@
           "minute": 2,
           "name": "Ismael Saibari"
         }
-      ]
+      ],
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021454",
+          "matchNumber": 30
+        }
+      },
+      "matchNumber": 30
     },
     {
       "id": "brazil-haiti-2026-06-19",
@@ -3635,7 +3846,14 @@
           "name": "Vinicius Junior"
         }
       ],
-      "goalsAway": []
+      "goalsAway": [],
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021457",
+          "matchNumber": 29
+        }
+      },
+      "matchNumber": 29
     },
     {
       "id": "turkiye-paraguay-2026-06-19",
@@ -3725,7 +3943,14 @@
           "minute": 2,
           "name": "Matias Galarza"
         }
-      ]
+      ],
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021460",
+          "matchNumber": 31
+        }
+      },
+      "matchNumber": 31
     },
     {
       "id": "netherlands-sweden-2026-06-20",
@@ -3996,7 +4221,14 @@
           "minute": 59,
           "name": "Anthony Elanga"
         }
-      ]
+      ],
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021472",
+          "matchNumber": 35
+        }
+      },
+      "matchNumber": 35
     },
     {
       "id": "germany-cote-divoire-2026-06-20",
@@ -4096,7 +4328,14 @@
           "minute": 30,
           "name": "Franck Kessie"
         }
-      ]
+      ],
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021469",
+          "matchNumber": 33
+        }
+      },
+      "matchNumber": 33
     },
     {
       "id": "ecuador-curacao-2026-06-20",
@@ -4169,7 +4408,14 @@
         "⚽ Ecuador and Curaçao shared a 0-0 draw.",
         "🌟 Curaçao's first World Cup point came through a hard-earned clean sheet.",
         "📊 Both teams moved to 1 point in Group E."
-      ]
+      ],
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021465",
+          "matchNumber": 34
+        }
+      },
+      "matchNumber": 34
     },
     {
       "id": "tunisia-japan-2026-06-20",
@@ -4321,7 +4567,14 @@
           "minute": 83,
           "name": "Ayase Ueda"
         }
-      ]
+      ],
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021475",
+          "matchNumber": 36
+        }
+      },
+      "matchNumber": 36
     },
     {
       "id": "spain-saudi-arabia-2026-06-21",
@@ -4444,7 +4697,14 @@
           "ownGoal": true
         }
       ],
-      "goalsAway": []
+      "goalsAway": [],
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021483",
+          "matchNumber": 38
+        }
+      },
+      "matchNumber": 38
     },
     {
       "id": "belgium-ir-iran-2026-06-21",
@@ -4517,7 +4777,14 @@
         "⚽ Belgium and IR Iran shared a 0-0 draw.",
         "🌟 IR Iran kept Belgium's creators quiet and made the low-margin plan stick.",
         "📊 Both teams moved to 2 points in Group G."
-      ]
+      ],
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021477",
+          "matchNumber": 39
+        }
+      },
+      "matchNumber": 39
     },
     {
       "id": "uruguay-cabo-verde-2026-06-21",
@@ -4610,7 +4877,14 @@
           "minute": 61,
           "name": "Helio Varela"
         }
-      ]
+      ],
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021487",
+          "matchNumber": 37
+        }
+      },
+      "matchNumber": 37
     },
     {
       "id": "new-zealand-egypt-2026-06-21",
@@ -4733,7 +5007,14 @@
           "minute": 82,
           "name": "Trezeguet"
         }
-      ]
+      ],
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021480",
+          "matchNumber": 40
+        }
+      },
+      "matchNumber": 40
     },
     {
       "id": "argentina-austria-2026-06-22",
@@ -4849,7 +5130,14 @@
         "sourceId": "editorial-preview-2026-06-22",
         "home": "Argentina are the defending champions and still one of the most complete tournament teams, led by Lionel Messi, Julian Alvarez, and Enzo Fernandez. Against Austria, their Messi-Alvarez midfield breaks has to beat Austria's Sabitzer-Laimer pressure waves. They want to press high through Alvarez, find Messi in space behind midfield, and let Enzo Fernandez change the angle of the attack. The risk is Austria can press the first pass, win territory, and attack before defenses reset.",
         "away": "Austria are a high-pressure European side with enough experience to make the press feel organized rather than wild, led by David Alaba, Marcel Sabitzer, and Konrad Laimer. Against Argentina, their Sabitzer-Laimer pressure waves has to beat Argentina's Messi-Alvarez midfield breaks. They want to force rushed passes and let Sabitzer and Laimer attack the next ball before defenses reset. The risk is Argentina can turn one midfield win into Messi touches, Alvarez movement, and Enzo service."
-      }
+      },
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021494",
+          "matchNumber": 43
+        }
+      },
+      "matchNumber": 43
     },
     {
       "id": "france-iraq-2026-06-22",
@@ -4947,7 +5235,14 @@
         "sourceId": "editorial-preview-2026-06-22",
         "home": "France are an elite attacking side with Mbappe's speed now fed by Olise's left-footed creation, led by Kylian Mbappe, Michael Olise, and William Saliba. Against Iraq, their Olise-to-Mbappe chance creation has to beat Iraq's Ali Jasim-to-Hussein counter route. They want to use Olise as the lock-picker against a deeper shape before Mbappe attacks the first gap. The risk is Iraq can use Ali Jasim's dribbling and Hussein's presence to make counters count.",
         "away": "Iraq are a passionate, direct side that need their attacking moments to be clean and immediate, led by Aymen Hussein, Ali Jasim, and Zidane Iqbal. Against France, their Ali Jasim-to-Hussein counter route has to beat France's Olise-to-Mbappe chance creation. They want to find Ali Jasim between defenders and then play quickly toward Hussein in the box. The risk is France can combine Olise's final ball with Mbappe's acceleration before Saliba controls the counter."
-      }
+      },
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021492",
+          "matchNumber": 42
+        }
+      },
+      "matchNumber": 42
     },
     {
       "id": "norway-senegal-2026-06-22",
@@ -5063,7 +5358,14 @@
           "offset": 3,
           "name": "Ismaila Sarr"
         }
-      ]
+      ],
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021491",
+          "matchNumber": 41
+        }
+      },
+      "matchNumber": 41
     },
     {
       "id": "jordan-algeria-2026-06-22",
@@ -5169,7 +5471,14 @@
       "resultHighlights": [
         "🌟 Amine Gouiri's 82' winner settled it for Algeria.",
         "📊 Algeria moved to 3 points in Group J and left Jordan without a point."
-      ]
+      ],
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021499",
+          "matchNumber": 44
+        }
+      },
+      "matchNumber": 44
     },
     {
       "id": "portugal-uzbekistan-2026-06-23",
@@ -5272,7 +5581,14 @@
       "resultHighlights": [
         "🌟 Cristiano Ronaldo scored twice as Portugal pulled clear.",
         "📊 Portugal moved to 4 points in Group K and left Uzbekistan without a point."
-      ]
+      ],
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021503",
+          "matchNumber": 47
+        }
+      },
+      "matchNumber": 47
     },
     {
       "id": "england-ghana-2026-06-23",
@@ -5363,7 +5679,14 @@
         "⚽ England and Ghana shared a 0-0 draw.",
         "🌟 Jude Bellingham and Antoine Semenyo carried the duel without a breakthrough.",
         "📊 Both teams moved to 4 points in Group L."
-      ]
+      ],
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021506",
+          "matchNumber": 45
+        }
+      },
+      "matchNumber": 45
     },
     {
       "id": "panama-croatia-2026-06-23",
@@ -5374,7 +5697,7 @@
       "homeTeamId": "PAN",
       "awayTeamId": "CRO",
       "venue": "Toronto Stadium",
-      "status": "SCHEDULED",
+      "status": "FT",
       "h2h": {
         "status": "verified-empty",
         "sourceId": "national-football-teams-h2h-2026-06-17",
@@ -5433,6 +5756,17 @@
         ],
         "home": "Panama need right-side pressure and midfield calm to keep their tournament alive, led by Adalberto Carrasquilla, Michael Murillo, and Ismael Diaz. Against Croatia, their Carrasquilla-Murillo right-side escape has to beat Croatia's Modric-Kovacic control against Panama pressure. Both teams enter off opening defeats. They want to give Carrasquilla early touches to find Murillo or Diaz before Croatia settle. The risk is Croatia can turn Modric and Kovacic's passing rhythm into the calm Panama have to chase.",
         "away": "Croatia need veteran midfield control to steady their group, led by Luka Modric, Josko Gvardiol, and Mateo Kovacic. Against Panama, their Modric-Kovacic control against Panama pressure has to beat Panama's Carrasquilla-Murillo right-side escape. Croatia can still protect a top-three path. They want to slow the first press through Modric and Kovacic before Gvardiol carries them out. The risk is Panama can make the match choppy through Carrasquilla and Murillo."
+      },
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021511",
+          "matchNumber": 46
+        }
+      },
+      "matchNumber": 46,
+      "score": {
+        "home": 0,
+        "away": 1
       }
     },
     {
@@ -5444,7 +5778,7 @@
       "homeTeamId": "COL",
       "awayTeamId": "COD",
       "venue": "Estadio Guadalajara",
-      "status": "SCHEDULED",
+      "status": "FT",
       "h2h": {
         "status": "verified-empty",
         "sourceId": "national-football-teams-h2h-2026-06-17",
@@ -5504,6 +5838,17 @@
         ],
         "home": "Colombia can push toward qualification after a controlled opening win, led by Luis Diaz, James Rodriguez, and Luis Suarez. Against DR Congo, their Diaz-James isolation against Wan-Bissaka has to beat DR Congo's Wissa-Wan-Bissaka survival-and-counter route. Colombia have a full squad available. They want to isolate Diaz while James Rodriguez picks the pass before DR Congo slide across. The risk is DR Congo can use Wissa and Masuaku to make one counter count.",
         "away": "DR Congo carry belief from holding Portugal and need another disciplined counterpunch, led by Yoane Wissa, Aaron Wan-Bissaka, and Noah Sadiki. Against Colombia, their Wissa-Wan-Bissaka survival-and-counter route has to beat Colombia's Diaz-James isolation against Wan-Bissaka. No major injury concerns are reported. They want to let Wan-Bissaka survive Diaz and release Wissa before Colombia close the lane. The risk is Colombia can use Diaz and James Rodriguez to keep DR Congo defending deep."
+      },
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021501",
+          "matchNumber": 48
+        }
+      },
+      "matchNumber": 48,
+      "score": {
+        "home": 1,
+        "away": 0
       }
     },
     {
@@ -5515,7 +5860,7 @@
       "homeTeamId": "SUI",
       "awayTeamId": "CAN",
       "venue": "BC Place Vancouver",
-      "status": "SCHEDULED",
+      "status": "FT",
       "h2h": {
         "status": "loaded",
         "sourceId": "national-football-teams-h2h-2026-06-17",
@@ -5585,6 +5930,17 @@
         ],
         "home": "Switzerland want tournament experience to become a controlled top-of-group finish, led by Granit Xhaka, Manuel Akanji, and Breel Embolo. Against Canada, their Xhaka-Akanji control against Canada's speed has to beat Canada's David-Eustaquio attack with Davies as wildcard. Canada's Davies question makes tempo control vital. They want to let Xhaka dictate while Akanji keeps David from turning counters into clean shots. The risk is Canada can run through David and Davies before defenders can recover.",
         "away": "Canada are a host-side threat while Davies' minutes remain a question, led by Alphonso Davies, Jonathan David, and Stephen Eustaquio. Against Switzerland, their David-Eustaquio attack with Davies as wildcard has to beat Switzerland's Xhaka-Akanji control against Canada's speed. Davies is available but has not yet played. They want to use Eustaquio to release David, then add Davies' speed if available. The risk is Switzerland can slow the game through Xhaka and use Embolo as the release valve."
+      },
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021451",
+          "matchNumber": 51
+        }
+      },
+      "matchNumber": 51,
+      "score": {
+        "home": 2,
+        "away": 1
       }
     },
     {
@@ -5596,7 +5952,7 @@
       "homeTeamId": "BIH",
       "awayTeamId": "QAT",
       "venue": "Seattle Stadium",
-      "status": "SCHEDULED",
+      "status": "FT",
       "h2h": {
         "status": "loaded",
         "sourceId": "national-football-teams-h2h-2026-06-17",
@@ -5676,6 +6032,17 @@
         ],
         "home": "Bosnia and Herzegovina need direct attacking to cover defensive doubts in a must-win match, led by Edin Dzeko, Sead Kolasinac, and Esmir Bajraktarevic. Against Qatar, their Dzeko target play against Qatar's defense has to beat Qatar's Afif-Almoez response to Bosnia directness. No Bosnia absences are confirmed. They want to play into Dzeko early and use the next runner before Qatar recover. The risk is Qatar can combine through Afif and Almoez Ali when defenders lose patience.",
         "away": "Qatar face elimination unless Afif and Almoez Ali sharpen the attack, led by Akram Afif, Almoez Ali, and Homam Ahmed. Against Bosnia and Herzegovina, their Afif-Almoez response to Bosnia directness has to beat Bosnia and Herzegovina's Dzeko target play against Qatar's defense. Qatar need a win after the Canada collapse. They want to find Afif early enough for Almoez Ali to attack unsettled defenders. The risk is Bosnia and Herzegovina can turn direct service into Dzeko touches and scrappy box pressure."
+      },
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021448",
+          "matchNumber": 52
+        }
+      },
+      "matchNumber": 52,
+      "score": {
+        "home": 3,
+        "away": 1
       }
     },
     {
@@ -5807,7 +6174,14 @@
         ],
         "home": "Scotland are still alive but need more ambition against the group's strongest side, led by Scott McTominay, John McGinn, and Andy Robertson. Against Brazil, their Robertson-McTominay service against Brazil speed has to beat Brazil's Vinicius isolation with Neymar as the lever. A draw could be enough for Scotland. They want to use Robertson's delivery and McTominay's runs before Brazil counter. The risk is Brazil can break a shape through Vinicius Junior's speed and Neymar's late-game craft.",
         "away": "Brazil are boosted by Neymar's availability but likely start through Vinicius' speed, led by Vinicius Junior, Casemiro, and Neymar. Against Scotland, their Vinicius isolation with Neymar as the lever has to beat Scotland's Robertson-McTominay service against Brazil speed. Neymar is available but not expected to start. They want to isolate Vinicius while Casemiro protects counters and Neymar waits as the late unlock. The risk is Scotland can turn Robertson service and McTominay runs into pressure."
-      }
+      },
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021455",
+          "matchNumber": 49
+        }
+      },
+      "matchNumber": 49
     },
     {
       "id": "morocco-haiti-2026-06-24",
@@ -5877,7 +6251,14 @@
         ],
         "home": "Morocco are unbeaten and can lean on structure plus right-side thrust, led by Achraf Hakimi, Brahim Diaz, and Ayoub El Kaabi. Against Haiti, their Hakimi-Brahim right-side pressure has to beat Haiti's Nazon-Pierrot direct box pressure. Morocco control their group path. They want to use Hakimi's overlaps before Brahim or El Kaabi attacks the final ball. The risk is Haiti can turn direct service into Nazon or Pierrot chances.",
         "away": "Haiti are playing spoiler and need rare direct attacks to count, led by Duckens Nazon, Frantzdy Pierrot, and Jean-Ricner Bellegarde. Against Morocco, their Nazon-Pierrot direct box pressure has to beat Morocco's Hakimi-Brahim right-side pressure. Haiti cannot match Morocco's control, so their best route is a clean first pass forward. They want to play forward quickly toward Nazon and Pierrot before Morocco pin them in. The risk is Morocco can combine Hakimi surges, Brahim's invention, and El Kaabi's box movement."
-      }
+      },
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021452",
+          "matchNumber": 50
+        }
+      },
+      "matchNumber": 50
     },
     {
       "id": "czechia-mexico-2026-06-24",
@@ -5958,7 +6339,14 @@
         ],
         "home": "Czechia must chase a win, making their aerial strength useful but risky, led by Patrik Schick, Tomas Soucek, and Adam Hlozek. Against Mexico, their Schick-Soucek aerial pressure has to beat Mexico's Gimenez-Chavez home pressure. Czechia have one point. They want to load service toward Schick and Soucek without gifting Mexico counter space. The risk is Mexico can turn home pressure into Gimenez touches and Chavez free-kick or corner chances.",
         "away": "Mexico control the group but still have home pressure and top spot to protect, led by Santiago Gimenez, Edson Alvarez, and Luis Chavez. Against Czechia, their Gimenez-Chavez home pressure has to beat Czechia's Schick-Soucek aerial pressure. Mexico have six points and two clean sheets. They want to pin Czechia back through Gimenez and let Chavez punish loose clearances. The risk is Czechia can turn crosses, free kicks, corners, and Soucek runs into high-value chances."
-      }
+      },
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021444",
+          "matchNumber": 53
+        }
+      },
+      "matchNumber": 53
     },
     {
       "id": "south-africa-south-korea-2026-06-24",
@@ -6028,7 +6416,14 @@
         ],
         "home": "South Africa must chase a win despite scoring only once in two group matches, led by Ronwen Williams, Teboho Mokoena, and Lyle Foster. Against South Korea, their Mokoena-Foster urgency against Korea speed has to beat South Korea's Son-Lee control against South Africa urgency. No South Africa injury concerns are reported. They want to let Mokoena pass forward and get Foster attacking before Korea settle. The risk is South Korea can turn running power and Son's finishing into sudden chances.",
         "away": "South Korea can advance through patience and speed against South Africa's risks, led by Son Heung-min, Kim Min-jae, and Lee Kang-in. Against South Africa, their Son-Lee control against South Africa urgency has to beat South Africa's Mokoena-Foster urgency against Korea speed. South Korea are largely fit. They want to protect the draw position, then release Son from Lee Kang-in's first forward pass. The risk is South Africa can turn saves from Williams into Mokoena outlets and Foster counters."
-      }
+      },
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021445",
+          "matchNumber": 54
+        }
+      },
+      "matchNumber": 54
     },
     {
       "id": "ecuador-germany-2026-06-25",
@@ -6113,7 +6508,14 @@
         "sourceId": "editorial-preview-2026-06-22",
         "home": "Ecuador are an intense, athletic side that can disrupt stronger opponents through midfield pressure, led by Moises Caicedo, Piero Hincapie, and Enner Valencia. Against Germany, their Caicedo-Hincapie midfield squeeze has to beat Germany's Kimmich-Musiala-Wirtz central rotations. They want to win the midfield duel through Caicedo and release Valencia before the defense is set. The risk is Germany can combine through Kimmich, Musiala, and Wirtz until the defense loses its shape.",
         "away": "Germany are a technical control side with enough young creativity to open compact defenses, led by Joshua Kimmich, Jamal Musiala, and Florian Wirtz. Against Ecuador, their Kimmich-Musiala-Wirtz central rotations has to beat Ecuador's Caicedo-Hincapie midfield squeeze. They want to pull midfielders out with Kimmich's passing before Musiala and Wirtz attack the gaps near the box. The risk is Ecuador can turn Caicedo ball wins and Valencia movement into fast attacks."
-      }
+      },
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021466",
+          "matchNumber": 56
+        }
+      },
+      "matchNumber": 56
     },
     {
       "id": "curacao-cote-divoire-2026-06-25",
@@ -6177,7 +6579,14 @@
         "sourceId": "editorial-preview-2026-06-22",
         "home": "Curaçao are a veteran-heavy underdog side trying to stay connected and choose their moments carefully, led by Juninho Bacuna, Leandro Bacuna, and Tahith Chong. Against Côte d'Ivoire, their Bacuna free-kick and corner play plus Chong outlets has to beat Côte d'Ivoire's Kessie-Adingra power breaks. They want to use the Bacuna brothers to turn pressure relief into free kicks and corners before Chong attacks open space. The risk is Côte d'Ivoire can turn Kessie's carries and Adingra's pace into Guessand chances.",
         "away": "Côte d'Ivoire are a powerful quick-break team with enough midfield force to turn loose games in their favor, led by Franck Kessie, Simon Adingra, and Evann Guessand. Against Curaçao, their Kessie-Adingra power breaks has to beat Curaçao's Bacuna free-kick and corner play plus Chong outlets. They want to win the midfield collision and send Adingra into space before Guessand attacks the box. The risk is Curaçao can turn veteran free-kick and corner moments and Chong's running into a way back into the game."
-      }
+      },
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021468",
+          "matchNumber": 55
+        }
+      },
+      "matchNumber": 55
     },
     {
       "id": "japan-sweden-2026-06-25",
@@ -6282,7 +6691,14 @@
         "sourceId": "editorial-preview-2026-06-22",
         "home": "Japan are a precise, fast-passing side that can make possession feel sudden and sharp, led by Ayase Ueda, Ritsu Doan, and Daichi Kamada. Against Sweden, their Doan-Kamada combination speed has to beat Sweden's Isak-Gyokeres two-striker pressure. They want to move the ball quickly enough for their attackers to receive between defenders. The risk is Sweden can alternate between Isak's finesse and Gyokeres' force.",
         "away": "Sweden are a tall, technical attacking side with two forwards who can change the shape of a match, led by Alexander Isak, Viktor Gyokeres, and Yasin Ayari. Against Japan, their Isak-Gyokeres two-striker pressure has to beat Japan's Doan-Kamada combination speed. They want to connect through Ayari and then choose between Isak's polish or Gyokeres' power. The risk is Japan can turn quick combinations into chances around the box."
-      }
+      },
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021471",
+          "matchNumber": 57
+        }
+      },
+      "matchNumber": 57
     },
     {
       "id": "tunisia-netherlands-2026-06-25",
@@ -6367,7 +6783,14 @@
         "sourceId": "editorial-preview-2026-06-22",
         "home": "Tunisia are an organized defensive side that need energy and directness to make their structure bite, led by Ellyes Skhiri, Hannibal Mejbri, and Elias Saad. Against Netherlands, their Skhiri-Saad compact counter route has to beat Netherlands' De Jong-Gakpo controlled buildup. They want to stay compact through Skhiri and then use Saad as the first runner into space. The risk is Netherlands can control possession through De Jong and protect it with Van Dijk's authority.",
         "away": "Netherlands are a control team with a strong defensive base and enough technical quality to play through pressure, led by Virgil van Dijk, Frenkie de Jong, and Cody Gakpo. Against Tunisia, their De Jong-Gakpo controlled buildup has to beat Tunisia's Skhiri-Saad compact counter route. They want to build calmly through De Jong and let Gakpo receive between wide and central defenders. The risk is Tunisia can slow the match through Skhiri's screen and break through Saad."
-      }
+      },
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021473",
+          "matchNumber": 58
+        }
+      },
+      "matchNumber": 58
     },
     {
       "id": "turkiye-united-states-2026-06-25",
@@ -6482,7 +6905,14 @@
         "sourceId": "editorial-preview-2026-06-22",
         "home": "Türkiye are a creative young attacking side with enough free-kick and corner quality to punish small mistakes, led by Hakan Calhanoglu, Arda Guler, and Kenan Yildiz. Against United States, their Calhanoglu-Guler-Yildiz creative bursts has to beat United States' Pulisic-McKennie pressure breaks. They want to use Calhanoglu's passing to find Guler in space before Yildiz attacks the gap. The risk is United States can turn pressure into Pulisic carries and McKennie second-ball runs.",
         "away": "United States are an athletic pressing team with enough direct attacking talent to make games feel stretched, led by Christian Pulisic, Weston McKennie, and Tyler Adams. Against Türkiye, their Pulisic-McKennie pressure breaks has to beat Türkiye's Calhanoglu-Guler-Yildiz creative bursts. They want to press into turnovers and let Pulisic or McKennie attack before the defense resets. The risk is Türkiye can turn Calhanoglu service and Guler invention into sudden chances."
-      }
+      },
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021459",
+          "matchNumber": 59
+        }
+      },
+      "matchNumber": 59
     },
     {
       "id": "paraguay-australia-2026-06-25",
@@ -6597,7 +7027,14 @@
         "sourceId": "editorial-preview-2026-06-22",
         "home": "Paraguay are rugged counterpunchers who are comfortable turning matches into physical, tight contests, led by Miguel Almiron, Julio Enciso, and Gustavo Gomez. Against Australia, their Almiron-Enciso counters has to beat Australia's Irvine-Volpato duel-and-service rhythm. They want to release Almiron into space and let Enciso attack the pocket before defenders settle. The risk is Australia can drag opponents into duels, free kicks, corners, and late midfield runs.",
         "away": "Australia are a durable, physical side built around organization, pressure, and free-kick and corner toughness, led by Mathew Ryan, Jackson Irvine, and Christian Volpato. Against Paraguay, their Irvine-Volpato duel-and-service rhythm has to beat Paraguay's Almiron-Enciso counters. They want to make the match direct enough for Irvine's running and Volpato's left foot to matter. The risk is Paraguay can turn one Almiron break or Enciso shot into a tight-game swing."
-      }
+      },
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021461",
+          "matchNumber": 60
+        }
+      },
+      "matchNumber": 60
     },
     {
       "id": "norway-france-2026-06-26",
@@ -6792,7 +7229,14 @@
         "sourceId": "editorial-preview-2026-06-22",
         "home": "Norway are a direct star-powered side whose attacking question is how quickly they can serve the finisher, led by Erling Haaland, Martin Odegaard, and Antonio Nusa. Against France, their Odegaard-to-Haaland supply has to beat France's Olise-to-Mbappe chance creation. They want to get Odegaard facing forward and deliver early enough for Haaland to attack the box. The risk is France can combine Olise's final ball with Mbappe's acceleration before Saliba controls the counter.",
         "away": "France are an elite attacking side with Mbappe's speed now fed by Olise's left-footed creation, led by Kylian Mbappe, Michael Olise, and William Saliba. Against Norway, their Olise-to-Mbappe chance creation has to beat Norway's Odegaard-to-Haaland supply. They want to make Olise and Mbappe punish Norway quickly whenever Haaland pressure leaves space to run. The risk is Norway can feed Haaland through Odegaard's service and Nusa's change of speed."
-      }
+      },
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021489",
+          "matchNumber": 61
+        }
+      },
+      "matchNumber": 61
     },
     {
       "id": "senegal-iraq-2026-06-26",
@@ -6856,7 +7300,14 @@
         "sourceId": "editorial-preview-2026-06-22",
         "home": "Senegal are an athletic, experienced side with enough defensive presence to survive pressure and enough speed to punish it, led by Sadio Mane, Nicolas Jackson, and Kalidou Koulibaly. Against Iraq, their Mane-Jackson direct running has to beat Iraq's Ali Jasim-to-Hussein counter route. They want to use Mane's timing and Jackson's depth to attack before the opponent's defense is set. The risk is Iraq can use Ali Jasim's dribbling and Hussein's presence to make counters count.",
         "away": "Iraq are a passionate, direct side that need their attacking moments to be clean and immediate, led by Aymen Hussein, Ali Jasim, and Zidane Iqbal. Against Senegal, their Ali Jasim-to-Hussein counter route has to beat Senegal's Mane-Jackson direct running. They want to find Ali Jasim between defenders and then play quickly toward Hussein in the box. The risk is Senegal can turn Mane's experience and Jackson's running into direct chances."
-      }
+      },
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021493",
+          "matchNumber": 62
+        }
+      },
+      "matchNumber": 62
     },
     {
       "id": "cabo-verde-saudi-arabia-2026-06-26",
@@ -6920,7 +7371,14 @@
         "sourceId": "editorial-preview-2026-06-22",
         "home": "Cabo Verde are compact tournament disruptors who need experience and goalkeeping to keep matches close, led by Ryan Mendes, Roberto Lopes, and Vozinha. Against Saudi Arabia, their Mendes-led compact counterpunch has to beat Saudi Arabia's Al-Dawsari pressing bursts. They want to stay compact long enough for Mendes to find a composed final pass or shot. The risk is Saudi Arabia can turn pressing bursts and Al-Dawsari carries into momentum.",
         "away": "Saudi Arabia are a fearless pressing underdog with enough big-moment attackers to punish complacency, led by Salem Al-Dawsari, Firas Al-Buraikan, and Mohammed Al-Owais. Against Cabo Verde, their Al-Dawsari pressing bursts has to beat Cabo Verde's Mendes-led compact counterpunch. They want to press in bursts and give Al-Dawsari room to attack the first retreating defender. The risk is Cabo Verde can turn a slow match into one decisive Mendes action."
-      }
+      },
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021485",
+          "matchNumber": 65
+        }
+      },
+      "matchNumber": 65
     },
     {
       "id": "uruguay-spain-2026-06-26",
@@ -7055,7 +7513,14 @@
         "sourceId": "editorial-preview-2026-06-22",
         "home": "Uruguay are a South American intensity side with enough running power to turn every phase into a contest, led by Federico Valverde, Darwin Nunez, and Ronald Araujo. Against Spain, their Valverde-Nunez chaos running has to beat Spain's Yamal-Williams wide stretch. They want to use Valverde's running to release Nunez before the defense can control the space behind. The risk is Spain can stretch the pitch through Yamal and Williams before Pedri breaks the line.",
         "away": "Spain are one of the tournament's most polished possession teams, led by Lamine Yamal, Pedri, and Nico Williams. Against Uruguay, their Yamal-Williams wide stretch has to beat Uruguay's Valverde-Nunez chaos running. They want to pin the wide defenders with Yamal and Williams before Pedri plays through the gaps. The risk is Uruguay can turn Valverde's engine and Nunez's depth into chaos."
-      }
+      },
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021484",
+          "matchNumber": 66
+        }
+      },
+      "matchNumber": 66
     },
     {
       "id": "egypt-ir-iran-2026-06-26",
@@ -7130,7 +7595,14 @@
         "sourceId": "editorial-preview-2026-06-22",
         "home": "Egypt are a direct team built around Salah's runs that can look quiet until one attack opens the match, led by Mohamed Salah, Omar Marmoush, and Mostafa Mohamed. Against IR Iran, their Salah-Marmoush breakaway threat has to beat IR Iran's Taremi-Ghoddos counter craft. They want to release Salah early and let Marmoush arrive as the second wave. The risk is IR Iran can turn fouls, counters, Taremi's craft, and Ghoddos' final pass into chances.",
         "away": "IR Iran are a streetwise counterattacking side with experienced attackers who understand tournament margins, led by Mehdi Taremi, Saman Ghoddos, and Alireza Jahanbakhsh. Against Egypt, their Taremi-Ghoddos counter craft has to beat Egypt's Salah-Marmoush breakaway threat. They want to draw contact, slow the rhythm, and then find Taremi or Jahanbakhsh around the box. The risk is Egypt can turn one loose pass into a Salah-led break."
-      }
+      },
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021479",
+          "matchNumber": 63
+        }
+      },
+      "matchNumber": 63
     },
     {
       "id": "new-zealand-belgium-2026-06-26",
@@ -7194,7 +7666,14 @@
         "sourceId": "editorial-preview-2026-06-22",
         "home": "New Zealand are an aerial, organized side that need territory and service to keep stronger opponents honest, led by Chris Wood, Liberato Cacace, and Sarpreet Singh. Against Belgium, their Cacace-to-Wood aerial service has to beat Belgium's De Bruyne-to-Lukaku chance creation. They want to move play wide through Cacace and serve Wood before the box gets crowded. The risk is Belgium can turn De Bruyne service into Lukaku chances.",
         "away": "Belgium are an elite chance-creation team when their creators get space to face forward, led by Kevin De Bruyne, Romelu Lukaku, and Jeremy Doku. Against New Zealand, their De Bruyne-to-Lukaku chance creation has to beat New Zealand's Cacace-to-Wood aerial service. They want to feed De Bruyne early and create the separation Lukaku needs in the box. The risk is New Zealand can turn left-side service and Wood's aerial presence into chances."
-      }
+      },
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021481",
+          "matchNumber": 64
+        }
+      },
+      "matchNumber": 64
     },
     {
       "id": "panama-england-2026-06-27",
@@ -7269,7 +7748,14 @@
         "sourceId": "editorial-preview-2026-06-22",
         "home": "Panama are an organized disruptor side that can make matches uncomfortable through midfield control and wide thrust, led by Adalberto Carrasquilla, Michael Murillo, and Ismael Diaz. Against England, their Carrasquilla-Murillo right-side escape has to beat England's Kane-Bellingham box entries. They want to use Carrasquilla to escape pressure and let Murillo turn the right side into territory. The risk is England can attack quickly through Kane and Bellingham while Rice controls the counter.",
         "away": "England are one of the strongest teams in the tournament, built around power, speed, and danger near goal, led by Jude Bellingham, Harry Kane, and Declan Rice. Against Panama, their Kane-Bellingham box entries has to beat Panama's Carrasquilla-Murillo right-side escape. They want to turn Kane's dropping movements into Bellingham runs and fast cutbacks from wide areas. The risk is Panama can disrupt rhythm through Carrasquilla and create right-side surges through Murillo."
-      }
+      },
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021508",
+          "matchNumber": 67
+        }
+      },
+      "matchNumber": 67
     },
     {
       "id": "croatia-ghana-2026-06-27",
@@ -7333,7 +7819,14 @@
         "sourceId": "editorial-preview-2026-06-22",
         "home": "Croatia are a control team whose tournament identity still runs through midfield calm, led by Luka Modric, Josko Gvardiol, and Mateo Kovacic. Against Ghana, their Modric-Kovacic midfield control has to beat Ghana's Semenyo-Williams forward running. They want to use Modric and Kovacic to turn pressure into possession and move the opponent side to side. The risk is Ghana can attack space early through Semenyo and Williams.",
         "away": "Ghana are a fast front-line team that need their direct runners to turn defensive work into threat, led by Antoine Semenyo, Inaki Williams, and Jordan Ayew. Against Croatia, their Semenyo-Williams forward running has to beat Croatia's Modric-Kovacic midfield control. They want to send Semenyo and Williams into space before the opponent can compress the field. The risk is Croatia can slow the match through Modric and Kovacic's passing rhythm."
-      }
+      },
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021509",
+          "matchNumber": 68
+        }
+      },
+      "matchNumber": 68
     },
     {
       "id": "colombia-portugal-2026-06-27",
@@ -7397,7 +7890,14 @@
         "sourceId": "editorial-preview-2026-06-22",
         "home": "Colombia are a rhythm-and-width team with enough individual quality to punish any loose defensive spacing, led by Luis Diaz, James Rodriguez, and Luis Suarez. Against Portugal, their Diaz-James width-and-service has to beat Portugal's Vitinha-Bruno-Ronaldo supply. They want to let Diaz run behind defenders while James looks for the pass that changes the speed of the move. The risk is Portugal can feed Ronaldo through Bruno Fernandes and Vitinha's supply.",
         "away": "Portugal are a star-heavy attacking side with enough creators to feed several different scoring routes, led by Cristiano Ronaldo, Bruno Fernandes, and Vitinha. Against Colombia, their Vitinha-Bruno-Ronaldo supply has to beat Colombia's Diaz-James width-and-service. They want to let Vitinha control the first pass, then use Bruno Fernandes to find Ronaldo or the far-side runner. The risk is Colombia can use Diaz's width and James' invention to create a clear chance in the box."
-      }
+      },
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021505",
+          "matchNumber": 71
+        }
+      },
+      "matchNumber": 71
     },
     {
       "id": "dr-congo-uzbekistan-2026-06-27",
@@ -7461,7 +7961,14 @@
         "sourceId": "editorial-preview-2026-06-22",
         "home": "DR Congo are an explosive quick-break side that can make favorites uncomfortable if the match opens up, led by Yoane Wissa, Aaron Wan-Bissaka, and Noah Sadiki. Against Uzbekistan, their Wissa-Sadiki counters has to beat Uzbekistan's Fayzullaev-Shomurodov disciplined attacks. They want to spring Wissa early and let Sadiki carry the first clean pass out of pressure. The risk is Uzbekistan can stay disciplined, then find Shomurodov or Fayzullaev when space opens.",
         "away": "Uzbekistan are a disciplined first-time World Cup side with enough spine quality to make opponents work, led by Eldor Shomurodov, Abdukodir Khusanov, and Abbosbek Fayzullaev. Against DR Congo, their Fayzullaev-Shomurodov disciplined attacks has to beat DR Congo's Wissa-Sadiki counters. They want to play through Fayzullaev's movement and give Shomurodov a real target in the box. The risk is DR Congo can break quickly through Wissa and Sadiki when opponents overcommit."
-      }
+      },
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021500",
+          "matchNumber": 72
+        }
+      },
+      "matchNumber": 72
     },
     {
       "id": "algeria-austria-2026-06-27",
@@ -7536,7 +8043,14 @@
         "sourceId": "editorial-preview-2026-06-22",
         "home": "Algeria are a technical North African side that want the game to run through the left foot and calm of midfield, led by Riyad Mahrez, Houssem Aouar, and Amine Gouiri. Against Austria, their Mahrez-Aouar control has to beat Austria's Sabitzer-Laimer pressure waves. They want to give Mahrez time on the ball while Aouar connects the next pass toward Gouiri. The risk is Austria can press the first pass, win territory, and attack before defenses reset.",
         "away": "Austria are a high-pressure European side with enough experience to make the press feel organized rather than wild, led by David Alaba, Marcel Sabitzer, and Konrad Laimer. Against Algeria, their Sabitzer-Laimer pressure waves has to beat Algeria's Mahrez-Aouar control. They want to force rushed passes and let Sabitzer and Laimer attack the next ball before defenses reset. The risk is Algeria can slow the match through Mahrez and Aouar before finding Gouiri in open space."
-      }
+      },
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021497",
+          "matchNumber": 69
+        }
+      },
+      "matchNumber": 69
     },
     {
       "id": "jordan-argentina-2026-06-27",
@@ -7600,7 +8114,14 @@
         "sourceId": "editorial-preview-2026-06-22",
         "home": "Jordan are a disciplined counterattacking side that can hurt teams through speed and timing, led by Mousa Al-Taamari, Ali Olwan, and Noor Al-Rawabdeh. Against Argentina, their Al-Taamari-Olwan counter timing has to beat Argentina's Messi-Alvarez midfield breaks. They want to spring Al-Taamari into open space and let Olwan attack the first clear chance. The risk is Argentina can turn one midfield win into Messi touches, Alvarez movement, and Enzo service.",
         "away": "Argentina are the defending champions and still one of the most complete tournament teams, led by Lionel Messi, Julian Alvarez, and Enzo Fernandez. Against Jordan, their Messi-Alvarez midfield breaks has to beat Jordan's Al-Taamari-Olwan counter timing. They want to press high through Alvarez, find Messi in space behind midfield, and let Enzo Fernandez change the angle of the attack. The risk is Jordan can counter through Al-Taamari and Olwan before the defense recovers."
-      }
+      },
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021495",
+          "matchNumber": 70
+        }
+      },
+      "matchNumber": 70
     },
     {
       "id": "match-73-round-of-32-2026-06-28",
@@ -7616,6 +8137,12 @@
         "status": "not-loaded",
         "summary": "Teams are not known yet. Past match research will load after the matchup is set.",
         "results": null
+      },
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021518",
+          "matchNumber": 73
+        }
       }
     },
     {
@@ -7632,6 +8159,12 @@
         "status": "not-loaded",
         "summary": "Teams are not known yet. Past match research will load after the matchup is set.",
         "results": null
+      },
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021513",
+          "matchNumber": 74
+        }
       }
     },
     {
@@ -7648,6 +8181,12 @@
         "status": "not-loaded",
         "summary": "Teams are not known yet. Past match research will load after the matchup is set.",
         "results": null
+      },
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021522",
+          "matchNumber": 75
+        }
       }
     },
     {
@@ -7664,6 +8203,12 @@
         "status": "not-loaded",
         "summary": "Teams are not known yet. Past match research will load after the matchup is set.",
         "results": null
+      },
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021516",
+          "matchNumber": 76
+        }
       }
     },
     {
@@ -7680,6 +8225,12 @@
         "status": "not-loaded",
         "summary": "Teams are not known yet. Past match research will load after the matchup is set.",
         "results": null
+      },
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021523",
+          "matchNumber": 77
+        }
       }
     },
     {
@@ -7696,6 +8247,12 @@
         "status": "not-loaded",
         "summary": "Teams are not known yet. Past match research will load after the matchup is set.",
         "results": null
+      },
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021514",
+          "matchNumber": 78
+        }
       }
     },
     {
@@ -7712,6 +8269,12 @@
         "status": "not-loaded",
         "summary": "Teams are not known yet. Past match research will load after the matchup is set.",
         "results": null
+      },
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021520",
+          "matchNumber": 79
+        }
       }
     },
     {
@@ -7728,6 +8291,12 @@
         "status": "not-loaded",
         "summary": "Teams are not known yet. Past match research will load after the matchup is set.",
         "results": null
+      },
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021512",
+          "matchNumber": 80
+        }
       }
     },
     {
@@ -7744,6 +8313,12 @@
         "status": "not-loaded",
         "summary": "Teams are not known yet. Past match research will load after the matchup is set.",
         "results": null
+      },
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021524",
+          "matchNumber": 81
+        }
       }
     },
     {
@@ -7760,6 +8335,12 @@
         "status": "not-loaded",
         "summary": "Teams are not known yet. Past match research will load after the matchup is set.",
         "results": null
+      },
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021525",
+          "matchNumber": 82
+        }
       }
     },
     {
@@ -7776,6 +8357,12 @@
         "status": "not-loaded",
         "summary": "Teams are not known yet. Past match research will load after the matchup is set.",
         "results": null
+      },
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021526",
+          "matchNumber": 83
+        }
       }
     },
     {
@@ -7792,6 +8379,12 @@
         "status": "not-loaded",
         "summary": "Teams are not known yet. Past match research will load after the matchup is set.",
         "results": null
+      },
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021519",
+          "matchNumber": 84
+        }
       }
     },
     {
@@ -7808,6 +8401,12 @@
         "status": "not-loaded",
         "summary": "Teams are not known yet. Past match research will load after the matchup is set.",
         "results": null
+      },
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021527",
+          "matchNumber": 85
+        }
       }
     },
     {
@@ -7824,6 +8423,12 @@
         "status": "not-loaded",
         "summary": "Teams are not known yet. Past match research will load after the matchup is set.",
         "results": null
+      },
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021521",
+          "matchNumber": 86
+        }
       }
     },
     {
@@ -7840,6 +8445,12 @@
         "status": "not-loaded",
         "summary": "Teams are not known yet. Past match research will load after the matchup is set.",
         "results": null
+      },
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021517",
+          "matchNumber": 87
+        }
       }
     },
     {
@@ -7856,6 +8467,12 @@
         "status": "not-loaded",
         "summary": "Teams are not known yet. Past match research will load after the matchup is set.",
         "results": null
+      },
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021515",
+          "matchNumber": 88
+        }
       }
     },
     {
@@ -7872,6 +8489,12 @@
         "status": "not-loaded",
         "summary": "Teams are not known yet. Past match research will load after the matchup is set.",
         "results": null
+      },
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021533",
+          "matchNumber": 89
+        }
       }
     },
     {
@@ -7888,6 +8511,12 @@
         "status": "not-loaded",
         "summary": "Teams are not known yet. Past match research will load after the matchup is set.",
         "results": null
+      },
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021530",
+          "matchNumber": 90
+        }
       }
     },
     {
@@ -7904,6 +8533,12 @@
         "status": "not-loaded",
         "summary": "Teams are not known yet. Past match research will load after the matchup is set.",
         "results": null
+      },
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021532",
+          "matchNumber": 91
+        }
       }
     },
     {
@@ -7920,6 +8555,12 @@
         "status": "not-loaded",
         "summary": "Teams are not known yet. Past match research will load after the matchup is set.",
         "results": null
+      },
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021531",
+          "matchNumber": 92
+        }
       }
     },
     {
@@ -7936,6 +8577,12 @@
         "status": "not-loaded",
         "summary": "Teams are not known yet. Past match research will load after the matchup is set.",
         "results": null
+      },
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021529",
+          "matchNumber": 93
+        }
       }
     },
     {
@@ -7952,6 +8599,12 @@
         "status": "not-loaded",
         "summary": "Teams are not known yet. Past match research will load after the matchup is set.",
         "results": null
+      },
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021534",
+          "matchNumber": 94
+        }
       }
     },
     {
@@ -7968,6 +8621,12 @@
         "status": "not-loaded",
         "summary": "Teams are not known yet. Past match research will load after the matchup is set.",
         "results": null
+      },
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021528",
+          "matchNumber": 95
+        }
       }
     },
     {
@@ -7984,6 +8643,12 @@
         "status": "not-loaded",
         "summary": "Teams are not known yet. Past match research will load after the matchup is set.",
         "results": null
+      },
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021535",
+          "matchNumber": 96
+        }
       }
     },
     {
@@ -8000,6 +8665,12 @@
         "status": "not-loaded",
         "summary": "Teams are not known yet. Past match research will load after the matchup is set.",
         "results": null
+      },
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021536",
+          "matchNumber": 97
+        }
       }
     },
     {
@@ -8016,6 +8687,12 @@
         "status": "not-loaded",
         "summary": "Teams are not known yet. Past match research will load after the matchup is set.",
         "results": null
+      },
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021538",
+          "matchNumber": 98
+        }
       }
     },
     {
@@ -8032,6 +8709,12 @@
         "status": "not-loaded",
         "summary": "Teams are not known yet. Past match research will load after the matchup is set.",
         "results": null
+      },
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021539",
+          "matchNumber": 99
+        }
       }
     },
     {
@@ -8048,6 +8731,12 @@
         "status": "not-loaded",
         "summary": "Teams are not known yet. Past match research will load after the matchup is set.",
         "results": null
+      },
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021537",
+          "matchNumber": 100
+        }
       }
     },
     {
@@ -8064,6 +8753,12 @@
         "status": "not-loaded",
         "summary": "Teams are not known yet. Past match research will load after the matchup is set.",
         "results": null
+      },
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021541",
+          "matchNumber": 101
+        }
       }
     },
     {
@@ -8080,6 +8775,12 @@
         "status": "not-loaded",
         "summary": "Teams are not known yet. Past match research will load after the matchup is set.",
         "results": null
+      },
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021540",
+          "matchNumber": 102
+        }
       }
     },
     {
@@ -8096,6 +8797,12 @@
         "status": "not-loaded",
         "summary": "Teams are not known yet. Past match research will load after the matchup is set.",
         "results": null
+      },
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021542",
+          "matchNumber": 103
+        }
       }
     },
     {
@@ -8112,6 +8819,12 @@
         "status": "not-loaded",
         "summary": "Teams are not known yet. Past match research will load after the matchup is set.",
         "results": null
+      },
+      "providerIds": {
+        "fifa": {
+          "matchId": "400021543",
+          "matchNumber": 104
+        }
       }
     }
   ]

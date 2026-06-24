@@ -7135,25 +7135,59 @@ function getCurrentThirdPlaceAssignment() {
   const candidates = getThirdPlaceRaceRows()
     .filter((candidate) => candidate.position <= getThirdPlaceAdvancerCount())
     .sort((a, b) => a.position - b.position);
-  const usedGroupIds = new Set();
+  const slots = getKnockoutFixtures()
+    .filter((match) => match.stage === "round-of-32")
+    .flatMap((match) =>
+      ["home", "away"]
+        .map((side) => getRoundOf32SlotDefinition(match, side))
+        .filter((slot) => slot.kind === "third-place")
+    );
   const assignments = {};
+  const usedGroupIds = new Set();
 
-  for (const fixture of getKnockoutFixtures().filter((match) => match.stage === "round-of-32")) {
-    for (const side of ["home", "away"]) {
-      const slot = getRoundOf32SlotDefinition(fixture, side);
+  function visit(slotIndex) {
+    if (slotIndex >= slots.length) {
+      return true;
+    }
 
-      if (slot.kind !== "third-place") {
+    const slot = slots[slotIndex];
+
+    for (const candidate of candidates) {
+      if (usedGroupIds.has(candidate.groupId) || !slot.allowedGroupIds.includes(candidate.groupId)) {
         continue;
       }
 
-      const candidate = candidates.find(
-        (row) => slot.allowedGroupIds.includes(row.groupId) && !usedGroupIds.has(row.groupId)
-      );
+      assignments[slot.key] = candidate.groupId;
+      usedGroupIds.add(candidate.groupId);
 
-      if (candidate) {
-        assignments[slot.key] = candidate.groupId;
-        usedGroupIds.add(candidate.groupId);
+      if (visit(slotIndex + 1)) {
+        return true;
       }
+
+      usedGroupIds.delete(candidate.groupId);
+      delete assignments[slot.key];
+    }
+
+    return false;
+  }
+
+  if (visit(0)) {
+    return assignments;
+  }
+
+  for (const key of Object.keys(assignments)) {
+    delete assignments[key];
+  }
+  usedGroupIds.clear();
+
+  for (const slot of slots) {
+    const candidate = candidates.find(
+      (row) => slot.allowedGroupIds.includes(row.groupId) && !usedGroupIds.has(row.groupId)
+    );
+
+    if (candidate) {
+      assignments[slot.key] = candidate.groupId;
+      usedGroupIds.add(candidate.groupId);
     }
   }
 
@@ -7745,7 +7779,7 @@ function getTournamentMatchParticipant(match, side, context) {
     const team = getCurrentTournamentSlotTeam(slot, context.currentThirdPlaceAssignment);
     const seedLabel = getTournamentSlotSeedLabel(slot, context.currentThirdPlaceAssignment);
     const slotOdds = getTournamentSlotOdds(slot, context);
-    const displayTeam = team || slotOdds?.team || null;
+    const displayTeam = team || (slot.kind === "third-place" ? null : slotOdds?.team || null);
 
     if (displayTeam) {
       const displaySeedLabel =
@@ -7764,7 +7798,10 @@ function getTournamentMatchParticipant(match, side, context) {
       };
     }
 
-    return getTournamentPendingParticipant(seedLabel, slotText);
+    return {
+      ...getTournamentPendingParticipant(seedLabel, slotText),
+      slotOdds
+    };
   }
 
   return getTournamentPendingParticipant(slotText);
