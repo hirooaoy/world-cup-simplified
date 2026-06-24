@@ -97,6 +97,8 @@ function getOfficialParticipantNames(participant) {
 
   return [
     participant.Abbreviation,
+    participant.IdCountry,
+    participant.IdAssociation,
     participant.Name,
     participant.ShortName,
     participant.DisplayName,
