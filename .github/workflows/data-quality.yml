@@ -54,4 +54,9 @@ jobs:
         run: pnpm exec playwright install --with-deps chromium
 
       - name: Run data and UI checks
-        run: pnpm test
+        run: |
+          pnpm validate:profiles
+          pnpm run audit
+          pnpm results:check
+          pnpm cards:check
+          pnpm smoke

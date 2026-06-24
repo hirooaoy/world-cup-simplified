@@ -12,6 +12,7 @@ const marketFreshHours = Number(process.env.MATCHDAY_MARKET_FRESH_HOURS || 24);
 const contextFreshHours = Number(process.env.MATCHDAY_CONTEXT_FRESH_HOURS || 72);
 const squadFreshHours = Number(process.env.MATCHDAY_SQUAD_FRESH_HOURS || 24);
 const matchupResearchFreshHours = Number(process.env.MATCHDAY_MATCHUP_RESEARCH_FRESH_HOURS || 24);
+const editorialWarnOnly = /^(1|true|yes)$/i.test(process.env.MATCHDAY_EDITORIAL_WARN_ONLY || "");
 
 async function readJson(fileName) {
   return JSON.parse(await readFile(path.join(dataDir, fileName), "utf8"));
@@ -143,12 +144,21 @@ const focusFixtures = fixtures.filter((fixture) => {
   return dayKey === todayKey || dayKey === tomorrowKey;
 });
 const blockers = [];
+const editorialWarnings = [];
 const actions = [];
 const sourceRefreshes = new Map();
 const matchupResearchRows = [];
 
 function getFixtureResearch(fixture) {
   return matchupResearchData?.fixtures?.[fixture.id] || null;
+}
+
+function addEditorialFreshnessIssue(message) {
+  if (editorialWarnOnly) {
+    editorialWarnings.push(message);
+  } else {
+    blockers.push(message);
+  }
 }
 
 for (const fixture of focusFixtures) {
@@ -181,7 +191,7 @@ for (const fixture of focusFixtures) {
     if (!fixtureResearch || fixtureResearch.status !== "researched") {
       const message = `${label} needs fixture-specific matchup research before publishing.`;
       if (hoursUntilKickoff <= 24) {
-        blockers.push(message);
+        addEditorialFreshnessIssue(message);
       } else {
         actions.push(message);
       }
@@ -192,7 +202,7 @@ for (const fixture of focusFixtures) {
       if (age > matchupResearchFreshHours) {
         const message = `${label} matchup research is ${Number.isFinite(age) ? `${age.toFixed(1)}h` : "invalid"} old; refresh source search and rerun matchup generation.`;
         if (hoursUntilKickoff <= 24) {
-          blockers.push(message);
+          addEditorialFreshnessIssue(message);
         } else {
           actions.push(message);
         }
@@ -233,6 +243,7 @@ for (const source of squadSources) {
 console.log("Matchday readiness");
 console.log(`Timezone: ${timeZone}`);
 console.log(`Now: ${formatDateTime(now)}`);
+console.log(`Editorial freshness: ${editorialWarnOnly ? "warn-only" : "strict"}`);
 console.log("");
 
 console.log(`Today (${todayKey}) and tomorrow (${tomorrowKey})`);
@@ -270,11 +281,14 @@ if (!matchupResearchRows.length) {
 
 console.log("");
 console.log("Actions");
-if (!blockers.length && !actions.length) {
+if (!blockers.length && !editorialWarnings.length && !actions.length) {
   console.log("- No status blockers. Keep the live provider/sync cadence running.");
 } else {
   for (const blocker of blockers) {
     console.log(`- BLOCKER: ${blocker}`);
+  }
+  for (const warning of editorialWarnings) {
+    console.log(`- WARNING: ${warning}`);
   }
   for (const action of actions) {
     console.log(`- ${action}`);

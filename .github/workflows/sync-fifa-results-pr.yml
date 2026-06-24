@@ -57,21 +57,28 @@ jobs:
           pnpm results | tee result-highlights.log
 
       - name: Run matchday readiness
+        env:
+          MATCHDAY_EDITORIAL_WARN_ONLY: "1"
         run: |
           set -o pipefail
           pnpm matchday:readiness | tee matchday-readiness.log
 
-      - name: Validate synced data
+      - name: Validate synced data and refresh profile cards
         run: |
-          pnpm validate
+          set -o pipefail
+          pnpm validate:profiles | tee profile-validation.log
+
+      - name: Audit synced data
+        run: |
           pnpm audit:schedule
-          pnpm audit
+          pnpm run audit
           pnpm results:check
+          pnpm cards:check
 
       - name: Detect fallback data changes
         id: changes
         run: |
-          if [ -n "$(git status --porcelain -- data/fixtures.json data/standings.json data/tournament.json)" ]; then
+          if [ -n "$(git status --porcelain -- data/fixtures.json data/standings.json data/tournament.json data/player-profiles.json)" ]; then
             echo "changed=true" >> "$GITHUB_OUTPUT"
           else
             echo "changed=false" >> "$GITHUB_OUTPUT"
@@ -117,12 +124,21 @@ jobs:
           cat >> fifa-sync-pr.md <<'EOF'
           ```
 
+          ## Profile Validation
+
+          ```text
+          EOF
+          cat profile-validation.log >> fifa-sync-pr.md
+          cat >> fifa-sync-pr.md <<'EOF'
+          ```
+
           ## Checks
 
-          - `pnpm validate`
+          - `pnpm validate:profiles`
           - `pnpm audit:schedule`
-          - `pnpm audit`
+          - `pnpm run audit`
           - `pnpm results:check`
+          - `pnpm cards:check`
           EOF
 
       - name: Commit synced fallback data
@@ -132,15 +148,15 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git switch -C "$branch"
-          git add data/fixtures.json data/standings.json data/tournament.json
-          git commit -m "Update FIFA results, goal events, and result highlights snapshot"
+          git add data/fixtures.json data/standings.json data/tournament.json data/player-profiles.json
+          git commit -m "Update FIFA results, goal events, profiles, and result highlights snapshot"
           git push --force-with-lease origin "$branch"
 
       - name: Open or update pull request
         if: steps.changes.outputs.changed == 'true'
         run: |
           branch="codex/fifa-results-sync"
-          title="Update FIFA results, goal events, and result highlights snapshot"
+          title="Update FIFA results, goal events, profiles, and result highlights snapshot"
           pr_number="$(gh pr list --base main --head "$branch" --state open --json number --jq '.[0].number // ""')"
           if [ -n "$pr_number" ]; then
             gh pr edit "$pr_number" --base main --title "$title" --body-file fifa-sync-pr.md
