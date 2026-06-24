@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-24T21:48:22.436Z",
+  "updatedAt": "2026-06-24T22:30:05.562Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -6054,7 +6054,7 @@
       "homeTeamId": "SCO",
       "awayTeamId": "BRA",
       "venue": "Miami Stadium",
-      "status": "SCHEDULED",
+      "status": "LIVE",
       "h2h": {
         "status": "loaded",
         "sourceId": "national-football-teams-h2h-2026-06-17",
@@ -6181,7 +6181,11 @@
           "matchNumber": 49
         }
       },
-      "matchNumber": 49
+      "matchNumber": 49,
+      "score": {
+        "home": 0,
+        "away": 1
+      }
     },
     {
       "id": "morocco-haiti-2026-06-24",
@@ -6192,7 +6196,7 @@
       "homeTeamId": "MAR",
       "awayTeamId": "HAI",
       "venue": "Atlanta Stadium",
-      "status": "SCHEDULED",
+      "status": "LIVE",
       "h2h": {
         "status": "verified-empty",
         "sourceId": "national-football-teams-h2h-2026-06-17",
@@ -6258,7 +6262,11 @@
           "matchNumber": 50
         }
       },
-      "matchNumber": 50
+      "matchNumber": 50,
+      "score": {
+        "home": 0,
+        "away": 1
+      }
     },
     {
       "id": "czechia-mexico-2026-06-24",
