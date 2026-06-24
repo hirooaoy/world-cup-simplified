@@ -1,4 +1,4 @@
-name: Sync FIFA Results PR
+name: Sync FIFA Results Hybrid
 
 on:
   workflow_dispatch:
@@ -11,7 +11,7 @@ permissions:
   pull-requests: write
 
 concurrency:
-  group: sync-fifa-results-pr
+  group: sync-fifa-results-hybrid
   cancel-in-progress: true
 
 jobs:
@@ -46,6 +46,41 @@ jobs:
           set -o pipefail
           pnpm sync:fifa:pr | tee fifa-results-sync.log
 
+      - name: Run matchday readiness
+        env:
+          MATCHDAY_EDITORIAL_WARN_ONLY: "1"
+        run: |
+          set -o pipefail
+          pnpm matchday:readiness | tee matchday-readiness.log
+
+      - name: Validate official fallback data
+        run: |
+          set -o pipefail
+          pnpm validate | tee official-validation.log
+
+      - name: Audit official fallback data
+        run: |
+          pnpm audit:schedule
+          pnpm run audit
+
+      - name: Detect official fallback data changes
+        id: official_changes
+        run: |
+          if [ -n "$(git status --porcelain -- data/fixtures.json data/standings.json data/tournament.json)" ]; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Commit official fallback data to main
+        if: steps.official_changes.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/fixtures.json data/standings.json data/tournament.json
+          git commit -m "Update official FIFA fallback snapshot"
+          git push origin HEAD:main
+
       - name: Sync FIFA goal events
         run: |
           set -o pipefail
@@ -56,41 +91,34 @@ jobs:
           set -o pipefail
           pnpm results | tee result-highlights.log
 
-      - name: Run matchday readiness
-        env:
-          MATCHDAY_EDITORIAL_WARN_ONLY: "1"
-        run: |
-          set -o pipefail
-          pnpm matchday:readiness | tee matchday-readiness.log
-
-      - name: Validate synced data and refresh profile cards
+      - name: Validate generated review data and refresh profile cards
         run: |
           set -o pipefail
           pnpm validate:profiles | tee profile-validation.log
 
-      - name: Audit synced data
+      - name: Audit generated review data
         run: |
-          pnpm audit:schedule
           pnpm run audit
           pnpm results:check
           pnpm cards:check
 
-      - name: Detect fallback data changes
-        id: changes
+      - name: Detect generated review changes
+        id: review_changes
         run: |
-          if [ -n "$(git status --porcelain -- data/fixtures.json data/standings.json data/tournament.json data/player-profiles.json)" ]; then
+          if [ -n "$(git status --porcelain -- data/fixtures.json data/player-profiles.json)" ]; then
             echo "changed=true" >> "$GITHUB_OUTPUT"
           else
             echo "changed=false" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Build pull request body
-        if: steps.changes.outputs.changed == 'true'
+        if: steps.review_changes.outputs.changed == 'true'
         run: |
           cat > fifa-sync-pr.md <<'EOF'
-          Automated fallback-data sync from FIFA's official match feed.
+          Automated generated-data follow-up from FIFA's official match feed.
 
-          This PR updates committed static JSON only. Production visitors should still use `/api/live-data` when a live provider key is configured.
+          Official score/status/standings fallback JSON is committed directly to `main` after validation.
+          This PR keeps generated scorer events, result highlights, and player-card/profile curation reviewable.
 
           ## FIFA Results Sync
 
@@ -135,28 +163,27 @@ jobs:
           ## Checks
 
           - `pnpm validate:profiles`
-          - `pnpm audit:schedule`
           - `pnpm run audit`
           - `pnpm results:check`
           - `pnpm cards:check`
           EOF
 
-      - name: Commit synced fallback data
-        if: steps.changes.outputs.changed == 'true'
+      - name: Commit generated review data
+        if: steps.review_changes.outputs.changed == 'true'
         run: |
           branch="codex/fifa-results-sync"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git switch -C "$branch"
-          git add data/fixtures.json data/standings.json data/tournament.json data/player-profiles.json
-          git commit -m "Update FIFA results, goal events, profiles, and result highlights snapshot"
+          git add data/fixtures.json data/player-profiles.json
+          git commit -m "Update FIFA goal events, profiles, and result highlights"
           git push --force-with-lease origin "$branch"
 
       - name: Open or update pull request
-        if: steps.changes.outputs.changed == 'true'
+        if: steps.review_changes.outputs.changed == 'true'
         run: |
           branch="codex/fifa-results-sync"
-          title="Update FIFA results, goal events, profiles, and result highlights snapshot"
+          title="Update FIFA goal events, profiles, and result highlights"
           pr_number="$(gh pr list --base main --head "$branch" --state open --json number --jq '.[0].number // ""')"
           if [ -n "$pr_number" ]; then
             gh pr edit "$pr_number" --base main --title "$title" --body-file fifa-sync-pr.md
