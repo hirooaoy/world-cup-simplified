@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-24T22:51:04.037Z",
+  "updatedAt": "2026-06-24T23:13:21.712Z",
   "sourceIds": [
     "wikipedia-football-infobox",
     "wikipedia-page-summaries",
@@ -191,19 +191,19 @@
       "teamId": "QAT",
       "birthDate": "1996-11-18",
       "summary": "Akram Hassan Afif Yahya Afif (Arabic: أَكْرَم حَسَن عَفِيف يَحْيَى عَفِيف; born 18 November 1996) is a Qatari professional footballer who plays as a left winger for Qatar Stars League club Al Sadd and the Qatar national team.",
-      "marketValueEurMillions": 4.5,
+      "marketValueEurMillions": 8,
       "position": "Left winger",
       "club": "Al Sadd",
       "league": "Qatar Stars League",
       "uniformNumber": 11,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Qatar%20v%20Lebanon%20(37)%20(cropped).jpg?width=160",
       "skills": [
-        "Box presence",
         "Chance creation",
-        "Link-up play",
-        "Runs in behind"
+        "Left-side dribbling",
+        "Set pieces"
       ],
-      "note": "Qatar's main creator and box connector, dangerous when he can receive in open space.",
+      "note": "Qatar's main creative winger, turning left-side touches into dribbles, set-piece service, and final passes for runners.",
+      "noteZh": "阿克拉姆·阿菲夫是卡塔尔主要创造型边锋，能把左路触球转化为带球突破、定位球输送，以及给前插队友的最后一传。",
       "sourceUrl": "https://en.wikipedia.org/wiki/Akram_Afif"
     },
     "Alex Freeman": {
@@ -320,10 +320,12 @@
       "uniformNumber": 19,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Moez%20Ali%20at%20Qatar%20v%20Japan%20%E2%80%93%20AFC%20Asian%20Cup%202019%20final%2032%20(2).jpg?width=160",
       "skills": [
-        "Finishing",
-        "Runs in behind"
+        "Penalty-box runs",
+        "Link play",
+        "Tournament finishing"
       ],
-      "note": "The striker Qatar look for when they need a direct finish from limited chances.",
+      "note": "Qatar's central scoring reference, giving them penalty-box runs, quick combinations, and proven finishing in tournament matches.",
+      "noteZh": "阿尔莫埃兹·阿里是卡塔尔中路得分支点，能提供禁区跑动、快速配合，以及大赛中证明过的终结能力。",
       "sourceUrl": "https://en.wikipedia.org/wiki/Almoez_Ali"
     },
     "Alphonso Davies": {
@@ -391,17 +393,16 @@
       "teamId": "SCO",
       "birthDate": "1994-03-11",
       "summary": "Andrew Henry Robertson (born 11 March 1994) is a Scottish professional footballer who plays as a left-back for Premier League club Liverpool and captains the Scotland national team.",
-      "marketValueEurMillions": 30,
+      "marketValueEurMillions": 7,
       "position": "Left-back",
       "club": "Liverpool",
       "league": "Premier League",
       "uniformNumber": 3,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Andy%20Robertson%20Scotland%20v%20Bolivia%206%20June%202026-43.jpg?width=160",
       "skills": [
-        "Runs in behind",
-        "Leadership"
+        "Match impact"
       ],
-      "note": "The captain and left-side engine, giving Scotland delivery, recovery runs, and tournament edge.",
+      "note": "Andy Robertson is part of Scotland's current World Cup squad pool.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Andy_Robertson"
     },
     "Anthony Elanga": {
@@ -1013,18 +1014,19 @@
       "teamId": "BIH",
       "birthDate": "1986-03-17",
       "summary": "Edin Džeko (Bosnian pronunciation: [ědin dʒêːko]; born 17 March 1986) is a Bosnian professional footballer who plays as a striker for Bundesliga club Schalke 04 and captains the Bosnia and Herzegovina national team.",
-      "marketValueEurMillions": 2.7,
+      "marketValueEurMillions": 1,
       "position": "Striker",
       "club": "Schalke 04",
       "league": "Bundesliga",
       "uniformNumber": 11,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/20150331%202026%20AUT%20BIH%202177%20Edin%20D%C5%BEeko%20(cropped).jpg?width=160",
       "skills": [
-        "Finishing",
         "Target play",
+        "Penalty-box finishing",
         "Leadership"
       ],
-      "note": "The veteran finisher and target, still the player Bosnia can build attacks around.",
+      "note": "Bosnia's captain and reference striker, turning direct service into hold-up play, box finishing, and calm leadership late in matches.",
+      "noteZh": "埃丁·哲科是波黑队长和锋线支点，能把直接传球转化为背身拿球、禁区终结，以及比赛后段的冷静领导力。",
       "sourceUrl": "https://en.wikipedia.org/wiki/Edin_D%C5%BEeko"
     },
     "Edson Alvarez": {
@@ -1202,17 +1204,18 @@
       "teamId": "BIH",
       "birthDate": "2005-03-14",
       "summary": "Ermin Mahmić (pronounced [ěrmin mâːxmitɕ]; born 14 March 2005) is a professional footballer who plays as an attacking midfielder for Czech First League club Slovan Liberec. Born in Austria, he plays for the Bosnia and Herzegovina national team.",
-      "estimatedMarketValueEurMillions": 1.5,
+      "marketValueEurMillions": 5,
       "position": "Attacking midfielder",
       "club": "Slovan Liberec",
       "league": "Czech First League",
-      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/803049-1764432914.png?lm=1",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/FC%20Liefering%20gegen%20SV%20Lafnitz%20(2024-05-25)%2025%20(Ermin%20Mahmi%C4%87).jpg?width=160",
       "skills": [
-        "Box presence",
-        "Chance creation",
-        "Runs in behind"
+        "Pocket receiving",
+        "Final pass",
+        "Quick turns"
       ],
-      "note": "Bosnia and Herzegovina's between-lines option, useful for turning possession into final passes and late box runs.",
+      "note": "Bosnia's young attacking midfielder, useful for receiving between lines, turning quickly, and slipping passes into runners.",
+      "noteZh": "埃尔明·马赫米奇是波黑年轻攻击型中场，能在两线之间接球、快速转身，并把传球塞给前插队友。",
       "sourceUrl": "https://en.wikipedia.org/wiki/Ermin_Mahmi%C4%87"
     },
     "Esmir Bajraktarevic": {
@@ -1221,17 +1224,19 @@
       "teamId": "BIH",
       "birthDate": "2005-03-10",
       "summary": "Esmir Bajraktarević (pronounced [ěsmir bajraktâːreʋitɕ]; born 10 March 2005) is a professional footballer who plays as a winger for Eredivisie club PSV. Born in the United States, he plays for the Bosnia and Herzegovina national team.",
-      "marketValueEurMillions": 5,
+      "marketValueEurMillions": 8,
       "position": "Winger",
       "club": "PSV",
       "league": "Eredivisie",
       "uniformNumber": 20,
       "imageUrl": "https://media.reprezentacija.ba/2025/01/esmir-bajraktarevic-psv-1200x800.jpg",
       "skills": [
-        "Chance creation",
-        "Wide threat"
+        "One-on-one dribbling",
+        "Left-footed delivery",
+        "Transition speed"
       ],
-      "note": "A creative wide option who can add spark if Bosnia need a cleaner final pass.",
+      "note": "Bosnia's creative winger, giving them one-on-one threat, left-footed service, and quick transition carries from wide areas.",
+      "noteZh": "埃斯米尔·巴伊拉克塔雷维奇是波黑创造型边锋，能提供一对一威胁、左脚输送，以及从边路发起的快速转换推进。",
       "sourceUrl": "https://en.wikipedia.org/wiki/Esmir_Bajraktarevi%C4%87"
     },
     "Evann Guessand": {
@@ -1598,11 +1603,12 @@
       "uniformNumber": 14,
       "imageUrl": "https://assets.sorare.com/player/9f4c177b-3447-4eab-8275-03ca450574f0/picture/avatar-1d48558ecaadf12ea98960c37ae7d9d4.png",
       "skills": [
-        "Midfield control",
-        "Runs in behind",
-        "Defensive control"
+        "Left-back overlaps",
+        "Recovery runs",
+        "Low delivery"
       ],
-      "note": "A left-sided runner whose recovery pace and timing can shape Qatar's defensive rhythm.",
+      "note": "Qatar's left-back outlet, giving them overlap runs, recovery pace, and low delivery when attacks reach the byline.",
+      "noteZh": "胡马姆·艾哈迈德是卡塔尔左后卫出口，能套边前插、快速回追，并在进攻推进到底线时送出低平传中。",
       "sourceUrl": "https://en.wikipedia.org/wiki/Homam_Ahmed"
     },
     "Houssem Aouar": {
@@ -1904,16 +1910,16 @@
       "teamId": "SCO",
       "birthDate": "1994-10-18",
       "summary": "John McGinn (born 18 October 1994) is a Scottish footballer who plays as a midfielder for Premier League club Aston Villa, which he captains, and the Scotland national team. Having grown up in a footballing family, McGinn started his career with St Mirren.",
-      "marketValueEurMillions": 15,
+      "marketValueEurMillions": 13,
       "position": "Midfielder",
       "club": "Aston Villa",
       "league": "Premier League",
       "uniformNumber": 7,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/John%20McGinn%20Scotland%20v%20Bolivia%206%20June%202026-2.jpg?width=160",
       "skills": [
-        "Link-up play"
+        "Match impact"
       ],
-      "note": "The ball-winning connector who sets the tone physically and keeps Scotland's attacks moving.",
+      "note": "John McGinn is part of Scotland's current World Cup squad pool.",
       "sourceUrl": "https://en.wikipedia.org/wiki/John_McGinn"
     },
     "Jonathan David": {
@@ -2002,17 +2008,18 @@
       "teamId": "BIH",
       "birthDate": "1998-11-28",
       "summary": "Jovo Lukić (Serbian Cyrillic: Јово Лукић, Serbian pronunciation: [jôːʋo lǔkitɕ]; born 28 November 1998) is a professional footballer who plays as a forward for Liga I club Universitatea Cluj.",
-      "estimatedMarketValueEurMillions": 1.5,
+      "marketValueEurMillions": 2.2,
       "position": "Forward",
       "club": "Universitatea Cluj",
       "league": "Liga I",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Jovo%20Luki%C4%87%2097%20(cropped).jpg?width=160",
       "skills": [
-        "Box presence",
-        "Finishing",
-        "Runs in behind"
+        "Hold-up play",
+        "Penalty-area strength",
+        "Short layoffs"
       ],
-      "note": "Bosnia and Herzegovina's forward option, useful for box presence, depth, and a direct finishing threat.",
+      "note": "Bosnia's physical forward option, giving them hold-up strength, short layoff passes, and a body to attack crowded penalty areas.",
+      "noteZh": "约沃·卢基奇是波黑力量型锋线选择，能背身拿球、做出短距离回做，并在拥挤禁区里提供冲击点。",
       "sourceUrl": "https://en.wikipedia.org/wiki/Jovo_Luki%C4%87"
     },
     "Jude Bellingham": {
@@ -3050,11 +3057,12 @@
       "league": "Qatar Stars League",
       "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/822935-1740224672.jpg",
       "skills": [
-        "Link-up play",
-        "Midfield control",
-        "Pressing"
+        "Midfield screening",
+        "Tackle timing",
+        "Safe outlets"
       ],
-      "note": "Qatar's midfield option, useful for connecting phases and keeping the team moving through pressure.",
+      "note": "Qatar's defensive-midfield depth, useful for screening the back line, timing tackles, and offering safe outlets under pressure.",
+      "noteZh": "穆罕默德·马奈是卡塔尔防守型中场深度，能保护后防线、把握抢断时机，并在压力下提供安全接应。",
       "sourceUrl": "https://en.wikipedia.org/wiki/Mohamed_Manai"
     },
     "Mohamed Salah": {
@@ -3939,19 +3947,16 @@
       "teamId": "SCO",
       "birthDate": "1996-12-08",
       "summary": "Scott Francis McTominay (born 8 December 1996) is a professional footballer who plays as a midfielder for Serie A club Napoli. Born in England, he plays for the Scotland national team.",
-      "marketValueEurMillions": 45,
+      "marketValueEurMillions": 40,
       "position": "Midfielder",
       "club": "Napoli",
       "league": "Serie A",
       "uniformNumber": 4,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Scott%20McTominay%20Scotland%20v%20Bolivia%206%20June%202026-41.jpg?width=160",
       "skills": [
-        "Box presence",
-        "Finishing",
-        "Midfield control",
-        "Runs in behind"
+        "Match impact"
       ],
-      "note": "Scotland's late-arriving goal threat, most dangerous when midfield runs crash into the box.",
+      "note": "Scott McTominay is part of Scotland's current World Cup squad pool.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Scott_McTominay"
     },
     "Sead Kolasinac": {
@@ -3960,17 +3965,19 @@
       "teamId": "BIH",
       "birthDate": "1993-06-20",
       "summary": "Sead Kolašinac (pronounced [sěad kolaʃîːnats]; born 20 June 1993) is a professional footballer who plays as a centre-back for Serie A club Atalanta. Born in Germany, he plays for the Bosnia and Herzegovina national team.",
-      "marketValueEurMillions": 10,
+      "marketValueEurMillions": 4,
       "position": "Centre-back",
       "club": "Atalanta",
       "league": "Serie A",
       "uniformNumber": 5,
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Kolasinac%202015.jpg?width=160",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/1%20Sead%20Kola%C5%A1inac%202018%20(cropped2).jpg?width=160",
       "skills": [
-        "Ball winning",
-        "Defensive control"
+        "Defensive power",
+        "Left-side cover",
+        "Carrying out"
       ],
-      "note": "A physical left-sided defender who can make the game uncomfortable in duels.",
+      "note": "Bosnia's powerful left-sided defender, giving them duel strength, recovery cover, and the ability to carry out of pressure.",
+      "noteZh": "塞亚德·科拉希纳茨是波黑强力左侧后卫，能提供对抗强度、回追保护，并带球摆脱压力。",
       "sourceUrl": "https://en.wikipedia.org/wiki/Sead_Kola%C5%A1inac"
     },
     "Simon Adingra": {
@@ -4622,7 +4629,7 @@
         "Late box runs"
       ],
       "note": "Qatar's veteran attacking leader, useful for calm final passes, set-piece delivery, and late runs into scoring spots.",
-      "noteZh": "卡塔尔经验丰富的进攻领袖，能提供冷静的最后一传、定位球输送，以及后插上进入得分位置的跑动。",
+      "noteZh": "哈桑·海多斯是卡塔尔经验丰富的进攻领袖，能提供冷静的最后一传、定位球输送，以及后插上进入得分位置的跑动。",
       "sourceUrl": "https://en.wikipedia.org/wiki/Hassan_Al-Haydos"
     },
     "Kerim Alajbegovic": {
@@ -4637,10 +4644,12 @@
       "league": "Austrian Bundesliga",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Jahresbeginnfeier%20FC%20RB%20Salzburg%20(2026-01-25%20RB%20Arena)%2010.jpg?width=160",
       "skills": [
-        "Runs in behind",
-        "Wide threat"
+        "Wide acceleration",
+        "Inside cuts",
+        "Final-third invention"
       ],
-      "note": "Bosnia and Herzegovina's wide attacking option, useful for stretching the field, running behind, and adding final-third threat.",
+      "note": "Bosnia's teenage winger, useful for sudden acceleration, cutting inside from the flank, and adding invention around the box.",
+      "noteZh": "克里姆·阿拉伊贝戈维奇是波黑年轻边锋，能突然加速、从边路内切，并在禁区周围增加创造力。",
       "sourceUrl": "https://en.wikipedia.org/wiki/Kerim_Alajbegovi%C4%87"
     },
     "Lenny Joseph": {
@@ -4697,7 +4706,7 @@
         "Distribution"
       ],
       "note": "Qatar's shot-stopping goalkeeper, giving the team box control and a steadier platform when pressure reaches the area.",
-      "noteZh": "卡塔尔的扑救型门将，在压力进入禁区时帮助球队控制禁区，并提供更稳定的出球基础。",
+      "noteZh": "马哈茂德·阿布纳达是卡塔尔的扑救型门将，在压力进入禁区时帮助球队控制禁区，并提供更稳定的出球基础。",
       "sourceUrl": "https://en.wikipedia.org/wiki/Mahmud_Abunada"
     },
     "Marvin Keller": {
@@ -5340,6 +5349,1210 @@
       "note": "Morocco's established goalkeeper, giving them reflex saves, penalty-area command, and calm distribution after pressure.",
       "noteZh": "亚辛·布努是摩洛哥的主力门将，能提供反应扑救、禁区指挥，以及受压后的冷静出球。",
       "sourceUrl": "https://en.wikipedia.org/wiki/Yassine_Bounou"
+    },
+    "Amar Dedic": {
+      "name": "Amar Dedic",
+      "displayName": "Amar Dedić",
+      "teamId": "BIH",
+      "birthDate": "2002-08-18",
+      "summary": "Amar Dedić (pronounced [ǎmar dêːditɕ]; born 18 August 2002) is a professional footballer who plays as a right-back for Primeira Liga club Benfica. Born in Austria, he plays for the Bosnia and Herzegovina national team.",
+      "marketValueEurMillions": 16,
+      "position": "Right-back",
+      "club": "Benfica",
+      "league": "Primeira Liga",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/(2024-09-10%20)%20FC%20RB%20Salzburg%20gegen%20SCR%20Altach%2024.jpg?width=160",
+      "skills": [
+        "Right-side carries",
+        "Recovery speed",
+        "Early crossing"
+      ],
+      "note": "Bosnia's high-energy right-back, useful for carrying play up the flank, recovering quickly, and serving early balls into the box.",
+      "noteZh": "阿马尔·德迪奇是波黑高能量右后卫，能沿边路推进、快速回追，并早早把球送入禁区。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Amar_Dedi%C4%87"
+    },
+    "Amar Memic": {
+      "name": "Amar Memic",
+      "displayName": "Amar Memić",
+      "teamId": "BIH",
+      "birthDate": "2001-01-20",
+      "summary": "Amar Memić (pronounced [ǎmar měmitɕ]; born 20 January 2001) is a Bosnian professional footballer who plays as a winger for Czech First League club Viktoria Plzeň and the Bosnia and Herzegovina national team.",
+      "marketValueEurMillions": 4.5,
+      "position": "Winger",
+      "club": "Viktoria Plzeň",
+      "league": "Czech First League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/638990-1781813641.jpg?lm=1",
+      "skills": [
+        "Wide dribbling",
+        "Diagonal runs",
+        "Pressing"
+      ],
+      "note": "Bosnia's direct wide runner, giving them dribbles from the flank, diagonal movement inside, and pressure on opposing full-backs.",
+      "noteZh": "阿马尔·梅米奇是波黑直接型边路球员，能从边路带球、斜插内线，并向对方边后卫施压。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Amar_Memi%C4%87"
+    },
+    "Amir Hadziahmetovic": {
+      "name": "Amir Hadziahmetovic",
+      "displayName": "Amir Hadžiahmetović",
+      "teamId": "BIH",
+      "birthDate": "1997-03-08",
+      "summary": "Amir Hadžiahmetović (pronounced [âːmir xadʒiaxmêːtoʋitɕ]; born 8 March 1997) is a professional footballer who plays as a defensive midfielder for Premier League club Hull City, on loan from Beşiktaş.",
+      "marketValueEurMillions": 4,
+      "position": "Defensive midfielder",
+      "club": "Hull City (on loan from Beşiktaş)",
+      "league": "Premier League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Amir%20Had%C5%BEiahmetovi%C4%87%20playing%20for%20Be%C5%9Fikta%C5%9F.jpg?width=160",
+      "skills": [
+        "Midfield screening",
+        "First pass",
+        "Tempo control"
+      ],
+      "note": "Bosnia's midfield stabilizer, useful for screening counterattacks, playing the first forward pass, and calming possession after pressure.",
+      "noteZh": "阿米尔·哈季艾哈迈托维奇是波黑中场稳定器，能保护反击路线、送出第一脚向前传球，并在受压后稳住控球。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Amir_Had%C5%BEiahmetovi%C4%87"
+    },
+    "Arjan Malic": {
+      "name": "Arjan Malic",
+      "displayName": "Arjan Malić",
+      "teamId": "BIH",
+      "birthDate": "2005-08-28",
+      "summary": "Arjan Malić (pronounced [ǎrjan mâːlitɕ]; born 28 August 2005) is a professional footballer who plays as a right-back for Austrian Bundesliga club Sturm Graz. Born in Slovenia, he plays for the Bosnia and Herzegovina national team.",
+      "marketValueEurMillions": 1.8,
+      "position": "Right-back",
+      "club": "Sturm Graz",
+      "league": "Austrian Bundesliga",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/SV%20Ried%20gegen%20FC%20Liefering%20(2024-03-15)a%2004.jpg?width=160",
+      "skills": [
+        "Defensive timing",
+        "Overlap support",
+        "Back-post cover"
+      ],
+      "note": "Bosnia's young right-back option, helping with timed challenges, overlap support, and back-post cover when the far side is overloaded.",
+      "noteZh": "阿尔扬·马利奇是波黑年轻右后卫选择，能把握抢断时机、支援套边，并在远端被压制时保护后点。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Arjan_Mali%C4%87"
+    },
+    "Armin Gigovic": {
+      "name": "Armin Gigovic",
+      "displayName": "Armin Gigović",
+      "teamId": "BIH",
+      "birthDate": "2002-04-06",
+      "summary": "Armin Gigović (pronounced [ǎrmin ɡîːgoʋitɕ]; born 6 April 2002) is a professional footballer who plays as a midfielder for Swiss Super League club Young Boys. Born in Sweden, he plays for the Bosnia and Herzegovina national team.",
+      "marketValueEurMillions": 2.5,
+      "position": "Midfielder",
+      "club": "Young Boys",
+      "league": "Swiss Super League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/2025-03-05%20Armin%20Gigovic%20Holstein%20Kiel%20pic1.jpg?width=160",
+      "skills": [
+        "Box-to-box running",
+        "Second balls",
+        "Late support"
+      ],
+      "note": "Bosnia's box-to-box runner, giving them second-ball energy, vertical midfield support, and late arrivals around the penalty area.",
+      "noteZh": "阿明·吉戈维奇是波黑的往返型中场，能争抢第二落点、纵向支援中场，并后插上到禁区周围。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Armin_Gigovi%C4%87"
+    },
+    "Benjamin Tahirovic": {
+      "name": "Benjamin Tahirovic",
+      "displayName": "Benjamin Tahirović",
+      "teamId": "BIH",
+      "birthDate": "2003-03-03",
+      "summary": "Benjamin Tahirović (pronounced [běɲamin tâːxiroʋitɕ]; born 3 March 2003) is a professional footballer who plays as a defensive midfielder for Danish Superliga club Brøndby. Born in Sweden, he plays for the Bosnia and Herzegovina national team.",
+      "marketValueEurMillions": 4.5,
+      "position": "Defensive midfielder",
+      "club": "Brøndby",
+      "league": "Danish Superliga",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Benjamin%20Tahirovic%20for%20Br%C3%B8ndby.jpg?width=160",
+      "skills": [
+        "Holding midfield",
+        "Passing range",
+        "Aerial duels"
+      ],
+      "note": "Bosnia's holding midfielder, useful for protecting the centre, switching play, and adding height when midfield duels become physical.",
+      "noteZh": "本亚明·塔希罗维奇是波黑的拖后中场，能保护中路、转移进攻，并在中场对抗变得强硬时增加高度。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Benjamin_Tahirovi%C4%87"
+    },
+    "Dennis Hadzikadunic": {
+      "name": "Dennis Hadzikadunic",
+      "displayName": "Dennis Hadžikadunić",
+      "teamId": "BIH",
+      "birthDate": "1998-07-09",
+      "summary": "Dennis Hadžikadunić (pronounced [dêːnis xǎdʒikadunitɕ]; born 9 July 1998) is a professional footballer who plays as a centre-back for Serie B club Sampdoria, on loan from Rostov. Born in Sweden, he plays for the Bosnia and Herzegovina national team.",
+      "marketValueEurMillions": 1.2,
+      "position": "Centre-back",
+      "club": "Sampdoria (on loan from Rostov)",
+      "league": "Serie B",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Dennis%20Had%C5%BEikaduni%C4%87%202021.jpg?width=160",
+      "skills": [
+        "Centre-back duels",
+        "Line holding",
+        "Set-piece defending"
+      ],
+      "note": "Bosnia's centre-back marker, giving them duel strength, a steadier defensive line, and reliable set-piece defending.",
+      "noteZh": "丹尼斯·哈季卡杜尼奇是波黑中卫盯防者，能提供对抗强度、更稳定的防线，以及可靠的定位球防守。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Dennis_Had%C5%BEikaduni%C4%87"
+    },
+    "Dzenis Burnic": {
+      "name": "Dzenis Burnic",
+      "displayName": "Dženis Burnić",
+      "teamId": "BIH",
+      "birthDate": "1998-05-22",
+      "summary": "Dženis Burnić (pronounced [dʒêːnis bǔrnitɕ]; born 22 May 1998) is a professional footballer who plays as a midfielder for 2. Bundesliga club Karlsruher SC. Born in Germany, he plays for the Bosnia and Herzegovina national team.",
+      "marketValueEurMillions": 1.2,
+      "position": "Midfielder",
+      "club": "Karlsruher SC",
+      "league": "2. Bundesliga",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/D%C5%BEenis%20Burni%C4%87.jpg?width=160",
+      "skills": [
+        "Midfield bite",
+        "Short passing",
+        "Press resistance"
+      ],
+      "note": "Bosnia's combative midfielder, useful for disrupting rhythm, keeping short passes moving, and playing through pressure in central areas.",
+      "noteZh": "杰尼斯·布尔尼奇是波黑强硬型中场，能打断对手节奏、保持短传流动，并在中路压力下完成出球。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/D%C5%BEenis_Burni%C4%87"
+    },
+    "Ermedin Demirovic": {
+      "name": "Ermedin Demirovic",
+      "displayName": "Ermedin Demirović",
+      "teamId": "BIH",
+      "birthDate": "1998-03-25",
+      "summary": "Ermedin Demirović (pronounced [ermědin děmiroʋitɕ]; born 25 March 1998) is a professional footballer who plays as a forward for Bundesliga club VfB Stuttgart. Born in Germany, he plays for the Bosnia and Herzegovina national team.",
+      "marketValueEurMillions": 22,
+      "position": "Forward",
+      "club": "VfB Stuttgart",
+      "league": "Bundesliga",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/335457-1723707508.jpg?lm=1",
+      "skills": [
+        "Forward pressing",
+        "Link play",
+        "Near-post runs"
+      ],
+      "note": "Bosnia's mobile forward, giving them front-line pressing, clean link play, and aggressive near-post movement when crosses arrive.",
+      "noteZh": "埃尔梅丁·德米罗维奇是波黑机动型前锋，能前场压迫、清晰衔接进攻，并在传中到来时冲击前点。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Ermedin_Demirovi%C4%87"
+    },
+    "Haris Tabakovic": {
+      "name": "Haris Tabakovic",
+      "displayName": "Haris Tabaković",
+      "teamId": "BIH",
+      "birthDate": "1994-06-20",
+      "summary": "Haris Tabaković (pronounced [xâːris tǎbakoʋitɕ]; born 20 June 1994) is a professional footballer who plays as a forward for Bundesliga club Borussia Mönchengladbach, on loan from TSG Hoffenheim.",
+      "marketValueEurMillions": 3.5,
+      "position": "Forward",
+      "club": "Borussia Mönchengladbach (on loan from TSG Hoffenheim)",
+      "league": "Bundesliga",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/FC%20RB%20Salzburg%20vs.%20FK%20Austria%20Wien%20(2023-04-09)%2045%20(Haris%20Tabakovi%C4%87).jpg?width=160",
+      "skills": [
+        "Aerial finishing",
+        "Box positioning",
+        "Second-phase shots"
+      ],
+      "note": "Bosnia's penalty-area finisher, useful for attacking crosses, finding space between centre-backs, and shooting from loose second phases.",
+      "noteZh": "哈里斯·塔巴科维奇是波黑禁区终结者，能冲击传中、在中卫之间找空间，并在二次进攻乱战中完成射门。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Haris_Tabakovi%C4%87"
+    },
+    "Ivan Basic": {
+      "name": "Ivan Basic",
+      "displayName": "Ivan Bašić",
+      "teamId": "BIH",
+      "birthDate": "2002-04-30",
+      "summary": "Ivan Bašić (pronounced [ǐʋan bǎʃitɕ]; born 30 April 2002) is a professional footballer who plays as a midfielder for Kazakhstan Premier League club Astana. Born in Croatia, he plays for the Bosnia and Herzegovina national team.",
+      "marketValueEurMillions": 1.5,
+      "position": "Midfielder",
+      "club": "Astana",
+      "league": "Kazakhstan Premier League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ivan%20Ba%C5%A1i%C4%87%202022.jpg?width=160",
+      "skills": [
+        "Central carrying",
+        "Support angles",
+        "Ball retention"
+      ],
+      "note": "Bosnia's central connector, helping the midfield carry into space, offer safer passing angles, and keep attacks from breaking down.",
+      "noteZh": "伊万·巴希奇是波黑中路连接点，能帮助中场带球进入空间、提供更安全的传球角度，并避免进攻轻易中断。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Ivan_Ba%C5%A1i%C4%87"
+    },
+    "Ivan Sunjic": {
+      "name": "Ivan Sunjic",
+      "displayName": "Ivan Šunjić",
+      "teamId": "BIH",
+      "birthDate": "1996-10-09",
+      "summary": "Ivan Šunjić (born 9 October 1996) is a Bosnian professional footballer who plays as a defensive midfielder for Cyprus First Division club Pafos and the Bosnia and Herzegovina national team.",
+      "marketValueEurMillions": 2,
+      "position": "Defensive midfielder",
+      "club": "Pafos",
+      "league": "Cyprus First Division",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ivan%20%C5%A0unji%C4%87%202022.jpg?width=160",
+      "skills": [
+        "Ball winning",
+        "Midfield screening",
+        "Simple distribution"
+      ],
+      "note": "Bosnia's defensive-midfield shield, useful for winning loose balls, blocking central lanes, and moving possession on simply.",
+      "noteZh": "伊万·舒尼奇是波黑防守型中场屏障，能争回散落球、封住中路线路，并用简洁传球继续控球。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Ivan_%C5%A0unji%C4%87"
+    },
+    "Martin Zlomislic": {
+      "name": "Martin Zlomislic",
+      "displayName": "Martin Zlomislić",
+      "teamId": "BIH",
+      "birthDate": "1998-08-16",
+      "summary": "Martin Zlomislić (born 16 August 1998) is a Bosnian professional footballer who plays as a goalkeeper for Azerbaijan Premier League club Qarabağ FK and Bosnia and Herzegovina national team.",
+      "marketValueEurMillions": 2,
+      "position": "Goalkeeper",
+      "club": "Qarabağ",
+      "league": "Azerbaijan Premier League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/495320-1775026837.jpg?lm=1",
+      "skills": [
+        "Shot stopping",
+        "Cross claiming",
+        "Calm restarts"
+      ],
+      "note": "Bosnia's goalkeeping option, giving them shot-stopping depth, cross claiming, and calmer restarts after defensive pressure.",
+      "noteZh": "马丁·兹洛米斯利奇是波黑门将选择，能提供扑救深度、摘下传中，并在防守受压后冷静重新开球。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Martin_Zlomisli%C4%87"
+    },
+    "Mladen Jurkas": {
+      "name": "Mladen Jurkas",
+      "displayName": "Mladen Jurkas",
+      "teamId": "BIH",
+      "birthDate": "2007-10-07",
+      "summary": "Mladen Jurkas (born 7 October 2007) is a Bosnian professional footballer who plays as a goalkeeper for Bosnian Premier League club Borac Banja Luka and the Bosnia and Herzegovina national team.",
+      "marketValueEurMillions": 0.7,
+      "position": "Goalkeeper",
+      "club": "Borac Banja Luka",
+      "league": "Bosnian Premier League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/big/952692-1771005082.PNG?lm=1",
+      "skills": [
+        "Shot stopping",
+        "Reach",
+        "Box command"
+      ],
+      "note": "Bosnia's young goalkeeper, useful for his reach, shot-stopping base, and added depth behind the senior keeper group.",
+      "noteZh": "姆拉登·尤尔卡斯是波黑年轻门将，能依靠臂展和扑救基础，为资深门将组身后增加深度。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Mladen_Jurkas"
+    },
+    "Nihad Mujakic": {
+      "name": "Nihad Mujakic",
+      "displayName": "Nihad Mujakić",
+      "teamId": "BIH",
+      "birthDate": "1998-04-15",
+      "summary": "Nihad Mujakić (pronounced [nǐxad mǔjakitɕ]; born 15 April 1998) is a Bosnian professional footballer who plays as a centre-back for Süper Lig club Gaziantep, on loan from Partizan, and the Bosnia and Herzegovina national team.",
+      "marketValueEurMillions": 1.2,
+      "position": "Centre-back",
+      "club": "Gaziantep (on loan from Partizan)",
+      "league": "Süper Lig",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/380919-1761574168.jpg?lm=1",
+      "skills": [
+        "Left-side defending",
+        "Aerial duels",
+        "Cover tackles"
+      ],
+      "note": "Bosnia's left-sided centre-back, helping them defend aerially, cover space behind the full-back, and clear pressure from the box.",
+      "noteZh": "尼哈德·穆亚基奇是波黑左侧中卫，能争顶防守、覆盖边后卫身后空间，并把禁区压力解围出去。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Nihad_Mujaki%C4%87"
+    },
+    "Nikola Katic": {
+      "name": "Nikola Katic",
+      "displayName": "Nikola Katić",
+      "teamId": "BIH",
+      "birthDate": "1996-10-10",
+      "summary": "Nikola Katić (pronounced [nǐkola kâtitɕ]; born 10 October 1996) is a Bosnian professional footballer who plays as a centre-back for Bundesliga club Schalke 04 and the Bosnia and Herzegovina national team.",
+      "marketValueEurMillions": 1.8,
+      "position": "Centre-back",
+      "club": "Schalke 04",
+      "league": "Bundesliga",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/SM-Rangers18%20(16).jpg?width=160",
+      "skills": [
+        "Aerial defending",
+        "Set-piece threat",
+        "Centre-back aggression"
+      ],
+      "note": "Bosnia's aggressive centre-back, giving them aerial defending, set-piece presence, and front-foot challenges against target forwards.",
+      "noteZh": "尼科拉·卡蒂奇是波黑主动型中卫，能提供空中防守、定位球存在感，并前压对抗支点前锋。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Nikola_Kati%C4%87"
+    },
+    "Nikola Vasilj": {
+      "name": "Nikola Vasilj",
+      "displayName": "Nikola Vasilj",
+      "teamId": "BIH",
+      "birthDate": "1995-12-02",
+      "summary": "Nikola Vasilj (pronounced [nǐkola ʋǎsiʎ]; born 2 December 1995) is a Bosnian professional footballer who plays as a goalkeeper for 2. Bundesliga club FC St. Pauli and the Bosnia and Herzegovina national team.",
+      "marketValueEurMillions": 4.5,
+      "position": "Goalkeeper",
+      "club": "FC St. Pauli",
+      "league": "2. Bundesliga",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/2025-04-23%20-%20FC%20St%20Pauli%20-%20Nikola%20Vasilj.jpg?width=160",
+      "skills": [
+        "Reflex saves",
+        "Area control",
+        "Distribution"
+      ],
+      "note": "Bosnia's senior goalkeeper, giving the back line reflex saves, area control, and a reliable first pass after saves.",
+      "noteZh": "尼科拉·瓦西利是波黑资深门将，能为防线提供反应扑救、禁区控制，以及扑救后的可靠第一脚传球。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Nikola_Vasilj"
+    },
+    "Samed Bazdar": {
+      "name": "Samed Bazdar",
+      "displayName": "Samed Baždar",
+      "teamId": "BIH",
+      "birthDate": "2004-01-31",
+      "summary": "Samed Baždar (pronounced [sǎmed bǎʒdar]; born 31 January 2004) is a professional footballer who plays as a forward for Spanish club Real Zaragoza. Born in Serbia, he plays for the Bosnia and Herzegovina national team.",
+      "marketValueEurMillions": 1.5,
+      "position": "Forward",
+      "club": "Real Zaragoza",
+      "league": "Segunda División",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/710969-1732366805.jpg?lm=1",
+      "skills": [
+        "Channel running",
+        "Quick finishing",
+        "Forward pressing"
+      ],
+      "note": "Bosnia's sharp forward runner, useful for attacking channels, pressing centre-backs, and finishing before defenders can reset.",
+      "noteZh": "萨梅德·巴日达尔是波黑犀利的前插型前锋，能冲击肋部通道、压迫中卫，并在防守重组前完成终结。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Samed_Ba%C5%BEdar"
+    },
+    "Stjepan Radeljic": {
+      "name": "Stjepan Radeljic",
+      "displayName": "Stjepan Radeljić",
+      "teamId": "BIH",
+      "birthDate": "1997-09-05",
+      "summary": "Stjepan Radeljić (pronounced [stjêpan rǎdeʎitɕ]; born 5 September 1997) is a Bosnian professional footballer who plays as a centre-back for Croatian Football League club Rijeka and the Bosnia and Herzegovina national team.",
+      "marketValueEurMillions": 2.8,
+      "position": "Centre-back",
+      "club": "Rijeka",
+      "league": "Croatian Football League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/384568-1613461727.png?lm=1",
+      "skills": [
+        "Central defending",
+        "Aerial clearances",
+        "Simple build-up"
+      ],
+      "note": "Bosnia's reliable centre-back depth, useful for aerial clearances, compact defending, and simple passes into midfield.",
+      "noteZh": "斯捷潘·拉德利奇是波黑可靠的中卫深度，能完成空中解围、保持紧凑防守，并把球简单传入中场。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Stjepan_Radelji%C4%87"
+    },
+    "Tarik Muharemovic": {
+      "name": "Tarik Muharemovic",
+      "displayName": "Tarik Muharemović",
+      "teamId": "BIH",
+      "birthDate": "2003-02-28",
+      "summary": "Tarik Muharemović (pronounced [tâːrik muxâːremoʋitɕ]; born 28 February 2003) is a professional footballer who plays as a centre-back for Serie A club Sassuolo. Born in Slovenia, he plays for the Bosnia and Herzegovina national team.",
+      "marketValueEurMillions": 25,
+      "position": "Centre-back",
+      "club": "Sassuolo",
+      "league": "Serie A",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/679423-1751529111.jpg?lm=1",
+      "skills": [
+        "Composed defending",
+        "Progressive passing",
+        "Back-line recovery"
+      ],
+      "note": "Bosnia's composed young centre-back, giving them progressive passing, recovery speed, and another calm option under pressure.",
+      "noteZh": "塔里克·穆哈雷莫维奇是波黑冷静的年轻中卫，能提供向前传球、回追速度，以及受压时的另一名稳定选择。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Tarik_Muharemovi%C4%87"
+    },
+    "Abdulaziz Hatem": {
+      "name": "Abdulaziz Hatem",
+      "displayName": "Abdulaziz Hatem",
+      "teamId": "QAT",
+      "birthDate": "1990-01-01",
+      "summary": "Abdulaziz Hatem Mohammed Abdullah (Arabic: عَبْد الْعَزِيز حَاتِم مُحَمَّد عَبْد الله; born 1 January 1990) is a Qatari professional footballer who plays as a midfielder for Al Rayyan and captains the Qatar national team.",
+      "estimatedMarketValueEurMillions": 0.6,
+      "position": "Midfielder",
+      "club": "Al-Rayyan",
+      "league": "Qatar Stars League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Abdulaziz%20Hatem.jpg?width=160",
+      "skills": [
+        "Midfield leadership",
+        "Switching play",
+        "Late shooting"
+      ],
+      "note": "Qatar's experienced midfield captain, useful for switching play, steadying possession, and arriving late for shots around the box.",
+      "noteZh": "阿卜杜勒阿齐兹·哈特姆是卡塔尔经验丰富的中场队长，能转移进攻、稳住控球，并后插上到禁区周围射门。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Abdulaziz_Hatem"
+    },
+    "Ahmed Alaaeldin": {
+      "name": "Ahmed Alaaeldin",
+      "displayName": "Ahmed Alaaeldin",
+      "teamId": "QAT",
+      "birthDate": "1993-01-31",
+      "summary": "Ahmed Alaaeldin Abdelmotaal (Arabic: أحمد علاء الدين عبد المتعال; born 31 January 1993), simply known as Ahmed Alaaeldin or Alaa, is a professional footballer who plays for Al-Rayyan. Born in Egypt, he plays for the Qatar national team.",
+      "marketValueEurMillions": 0.3,
+      "position": "Forward",
+      "club": "Al-Rayyan",
+      "league": "Qatar Stars League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Qatar%20v%20Japan%20%E2%80%93%20AFC%20Asian%20Cup%202019%20final%2004%20(cropped).jpg?width=160",
+      "skills": [
+        "Forward movement",
+        "Pressing",
+        "Direct finishing"
+      ],
+      "note": "Qatar's forward runner, giving them pressing from the front, direct movement beyond defenders, and quick finishes from loose chances.",
+      "noteZh": "艾哈迈德·阿拉埃尔丁是卡塔尔前场跑动点，能从前场压迫、直接冲到后卫身后，并把零散机会快速终结。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Ahmed_Alaaeldin"
+    },
+    "Ahmed Alganehi": {
+      "name": "Ahmed Alganehi",
+      "displayName": "Ahmed Al-Ganehi",
+      "teamId": "QAT",
+      "birthDate": "2000-09-22",
+      "summary": "Ahmed Al-Ganehi is a Qatari professional footballer who plays as a right winger for Al-Gharafa and the Qatar national team.",
+      "marketValueEurMillions": 0.5,
+      "position": "Right winger",
+      "club": "Al-Gharafa",
+      "league": "Qatar Stars League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/big/670659-1738110806.jpg?lm=1",
+      "skills": [
+        "Right-wing speed",
+        "One-on-one attacks",
+        "Low crosses"
+      ],
+      "note": "Qatar's right-sided winger, useful for stretching the touchline, attacking full-backs one-on-one, and cutting low balls across goal.",
+      "noteZh": "艾哈迈德·阿尔-加内希是卡塔尔右路边锋，能拉开边线宽度、一对一冲击边后卫，并把低平球横扫到门前。",
+      "sourceUrl": "https://www.transfermarkt.com/ahmed-al-ganehi/profil/spieler/670659"
+    },
+    "Ahmed Fathy": {
+      "name": "Ahmed Fathy",
+      "displayName": "Ahmed Fathy",
+      "teamId": "QAT",
+      "birthDate": "1993-01-25",
+      "summary": "Ahmed Fathy Mansi Abdulla (also spelled Fatehi, Arabic: أحمد فتحي, born 25 January 1993) is a professional footballer who plays as a midfielder for Al-Arabi. Born in Egypt, he represents the Qatar national team.",
+      "marketValueEurMillions": 0.25,
+      "position": "Defensive midfielder",
+      "club": "Al-Arabi",
+      "league": "Qatar Stars League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/big/251183-1725823489.png?lm=1",
+      "skills": [
+        "Ball winning",
+        "Midfield screening",
+        "Short circulation"
+      ],
+      "note": "Qatar's defensive-midfield organiser, helping them win second balls, block central lanes, and keep short passes moving under pressure.",
+      "noteZh": "艾哈迈德·法蒂是卡塔尔防守型中场组织者，能争回第二落点、封住中路线路，并在压力下保持短传运转。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Ahmed_Fathy_(Qatari_footballer)"
+    },
+    "Alhashmi Alhussein": {
+      "name": "Alhashmi Alhussein",
+      "displayName": "Al-Hashmi Al-Hussain",
+      "teamId": "QAT",
+      "birthDate": "2003-08-15",
+      "summary": "Al-Hashmi Al-Hussain Mohialdin (Arabic: الهاشمي الحسين محي الدين; born 15 August 2003) is a Qatari professional footballer who plays as a defender for Qatar Stars League club Al-Arabi and the Qatar national team.",
+      "marketValueEurMillions": 0.25,
+      "position": "Centre-back",
+      "club": "Al-Arabi",
+      "league": "Qatar Stars League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/big/943150-1762258519.jpg?lm=1",
+      "skills": [
+        "Centre-back duels",
+        "Aerial cover",
+        "Simple build-up"
+      ],
+      "note": "Qatar's young centre-back, useful for defensive duels, aerial cover, and simple first passes when the back line resets.",
+      "noteZh": "阿尔-哈什米·阿尔-侯赛因是卡塔尔年轻中卫，能完成防守对抗、提供空中保护，并在防线重组时送出简洁第一传。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Al-Hashmi_Al-Hussain"
+    },
+    "Assim Madibo": {
+      "name": "Assim Madibo",
+      "displayName": "Assim Madibo",
+      "teamId": "QAT",
+      "birthDate": "1996-10-22",
+      "summary": "Assim Omer Al Haj Madibo (Arabic: عاصم ماديبو; born 22 October 1996) is a footballer who plays as a midfielder for Al-Wakrah, on loan from Al-Duhail. Born in Sudan, he plays for the Qatar national team.",
+      "marketValueEurMillions": 0.4,
+      "position": "Midfielder",
+      "club": "Al-Wakrah (on loan from Al-Duhail)",
+      "league": "Qatar Stars League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Qatar%20-%20Japan%2C%20AFC%20Asian%20Cup%202019%2058%20-%20Assim%20Madibo.jpg?width=160",
+      "skills": [
+        "Midfield ball winning",
+        "Pressure cover",
+        "Simple passing"
+      ],
+      "note": "Qatar's ball-winning midfielder, helping them cover pressure, break up counters, and restart attacks with simple passes.",
+      "noteZh": "阿西姆·马迪博是卡塔尔抢断型中场，能补位压力区域、打断反击，并用简单传球重新发起进攻。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Assim_Madibo"
+    },
+    "Ayoub Aloui": {
+      "name": "Ayoub Aloui",
+      "displayName": "Ayoub Aloui",
+      "teamId": "QAT",
+      "summary": "Ayoub Mohamed Aloui is a Qatari defender who plays for Al-Gharafa and has represented Qatar at youth and senior national-team level.",
+      "estimatedMarketValueEurMillions": 0.7,
+      "club": "Al-Gharafa",
+      "skills": [
+        "Defensive recovery",
+        "Wide cover",
+        "Aerial contests"
+      ],
+      "note": "Qatar's young defender, useful for recovery runs, covering wide spaces, and adding size when defending crosses.",
+      "sourceUrl": "https://qatarfoot.com/player/ayoub-aloui/",
+      "birthDate": "2005-03-11",
+      "position": "Defender",
+      "league": "Qatar Stars League",
+      "imageUrl": "https://qatarfoot.com/wp-content/uploads/2026/02/Ayoub-Aloui-360x495.avif",
+      "noteZh": "阿尤布·阿卢伊是卡塔尔年轻后卫，能完成回追、覆盖边路空间，并在防守传中时增加身高对抗。"
+    },
+    "Boualem Khoukhi": {
+      "name": "Boualem Khoukhi",
+      "displayName": "Boualem Khoukhi",
+      "teamId": "QAT",
+      "birthDate": "1990-07-09",
+      "summary": "Boualem Khoukhi (Arabic: بوعلام خوخي; born 9 July 1990) is a professional footballer who plays as a centre-back for Al Sadd in the Qatar Stars League. Born in Algeria, he represents the Qatar national team.",
+      "marketValueEurMillions": 0.2,
+      "position": "Defender / Midfielder",
+      "club": "Al Sadd",
+      "league": "Qatar Stars League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Boualem%20Khoukhi.png?width=160",
+      "skills": [
+        "Hybrid defending",
+        "Aerial duels",
+        "Midfield stepping"
+      ],
+      "note": "Qatar's experienced hybrid defender, giving them aerial strength, cover at centre-back, and the option to step into midfield.",
+      "noteZh": "布阿莱姆·胡希是卡塔尔经验丰富的多功能防守者，能提供空中力量、中卫保护，并在需要时前提到中场。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Boualem_Khoukhi"
+    },
+    "Edmilson Junior": {
+      "name": "Edmilson Junior",
+      "displayName": "Edmilson Junior",
+      "teamId": "QAT",
+      "birthDate": "1994-08-19",
+      "summary": "Edmilson Paulo da Silva Junior (born 19 August 1994) is a professional footballer who plays as a winger for Qatari club Al-Duhail. Born in Belgium, he plays for the Qatar national team.",
+      "marketValueEurMillions": 1.8,
+      "position": "Winger",
+      "club": "Al-Duhail",
+      "league": "Qatar Stars League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Edmilson%20Junior%202018.jpg?width=160",
+      "skills": [
+        "Wide acceleration",
+        "Inside cuts",
+        "Final-third carries"
+      ],
+      "note": "Qatar's explosive winger, useful for accelerating past markers, cutting inside, and carrying attacks into shooting areas.",
+      "noteZh": "埃德米尔森·儒尼奥尔是卡塔尔爆发型边锋，能加速摆脱盯防、内切推进，并把进攻带入射门区域。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Edmilson_Junior"
+    },
+    "Issa Laye": {
+      "name": "Issa Laye",
+      "displayName": "Issa Laye",
+      "teamId": "QAT",
+      "birthDate": "1997-12-22",
+      "summary": "Gueye Seydinaissa Laye (Arabic: عيسى لاي; born 22 December 1997) is a professional footballer who plays as a center back or defensive midfielder for Qatar Stars League club Al-Arabi. Born in Senegal, he represents the Qatar national team.",
+      "marketValueEurMillions": 0.2,
+      "position": "Center-back, defensive midfielder",
+      "club": "Al-Arabi",
+      "league": "Qatar Stars League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/1264176-1741193319.JPG?lm=1",
+      "skills": [
+        "Centre-back cover",
+        "Defensive midfield depth",
+        "Aerial duels"
+      ],
+      "note": "Qatar's centre-back and midfield cover, useful for aerial duels, protecting the central channel, and closing games with extra structure.",
+      "noteZh": "伊萨·拉耶是卡塔尔中卫和中场保护选择，能争顶对抗、保护中路通道，并在收比赛时增加阵型稳定。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Issa_Laye"
+    },
+    "Jassem Gaber": {
+      "name": "Jassem Gaber",
+      "displayName": "Jassem Gaber",
+      "teamId": "QAT",
+      "birthDate": "2002-02-20",
+      "summary": "Jassem Gaber El-Sayed Abdulsalam (Arabic: جَاسِم جَابِر السَّيِّد عَبْد السَّلَام; born 20 February 2002), commonly known as Jassem Gaber, is a Qatari professional footballer who plays as a centre-back or defensive midfielder for Qatar Stars League club...",
+      "marketValueEurMillions": 0.5,
+      "position": "Centre-back, defensive midfielder",
+      "club": "Al-Rayyan",
+      "league": "Qatar Stars League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Asian%20Nations%20Cup%20Iran%20-%20Qatar%20(5)%20(cropped).jpg?width=160",
+      "skills": [
+        "Centre-back passing",
+        "Midfield cover",
+        "Defensive anticipation"
+      ],
+      "note": "Qatar's flexible defender, giving them centre-back passing, defensive-midfield cover, and early reads against counterattacks.",
+      "noteZh": "贾西姆·加伯是卡塔尔灵活防守者，能提供中卫出球、防守型中场保护，并提前判断对手反击。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Jassem_Gaber"
+    },
+    "Karim Boudiaf": {
+      "name": "Karim Boudiaf",
+      "displayName": "Karim Boudiaf",
+      "teamId": "QAT",
+      "birthDate": "1990-09-16",
+      "summary": "Karim Boudiaf (Arabic: كريم بوضياف; born 16 September 1990) is a professional footballer who plays for Al-Duhail in the Qatar Stars League. He can play as a central defender and as a defensive midfielder.",
+      "marketValueEurMillions": 0.2,
+      "position": "Defender, midfielder",
+      "club": "Al-Duhail",
+      "league": "Qatar Stars League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Karim%20Boudiaf%202011%201.jpg?width=160",
+      "skills": [
+        "Defensive versatility",
+        "Midfield experience",
+        "Aerial cover"
+      ],
+      "note": "Qatar's veteran defensive utility player, helping them shift between midfield and defence while keeping aerial cover and experience.",
+      "noteZh": "卡里姆·布迪亚夫是卡塔尔老练的防守多面手，能在中场和防线之间切换，同时提供空中保护和经验。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Karim_Boudiaf"
+    },
+    "Lucas Mendes": {
+      "name": "Lucas Mendes",
+      "displayName": "Lucas Mendes",
+      "teamId": "QAT",
+      "birthDate": "1990-07-03",
+      "summary": "Lucas Michel Mendes (born 3 July 1990) is a professional footballer who plays as a centre-back or left-back for Qatari club Al-Wakrah. Born in Brazil, he plays for the Qatar national team.",
+      "marketValueEurMillions": 0.4,
+      "position": "Left-back, centre-back",
+      "club": "Al-Wakrah",
+      "league": "Qatar Stars League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Valais%20Cup%202013%20-%20OM-FC%20Porto%2013-07-2013%20-%20Lucas%20Mendes.jpg?width=160",
+      "skills": [
+        "Left-footed defending",
+        "Back-line organisation",
+        "Long passing"
+      ],
+      "note": "Qatar's left-sided defensive organiser, useful for back-line communication, left-footed exits, and longer passes into wide runners.",
+      "noteZh": "卢卡斯·门德斯是卡塔尔左侧防线组织者，能指挥后防、用左脚出球，并把长传送到边路跑动点。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Lucas_Mendes_(footballer%2C_born_1990)"
+    },
+    "Meshaal Barsham": {
+      "name": "Meshaal Barsham",
+      "displayName": "Meshaal Barsham",
+      "teamId": "QAT",
+      "birthDate": "1998-02-14",
+      "summary": "Meshaal Essa Barsham (Arabic: مَشْعَل عِيسَى بَرْشَم; born 14 February 1998) is a football player who plays as a goalkeeper for Al Sadd. Born in Qatar, he plays for the Qatar national team.",
+      "marketValueEurMillions": 0.7,
+      "position": "Goalkeeper",
+      "club": "Al Sadd",
+      "league": "Qatar Stars League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Qatar%20v%20Lebanon%20(32)%20(cropped).jpg?width=160",
+      "skills": [
+        "Reflex saves",
+        "Penalty moments",
+        "Quick restarts"
+      ],
+      "note": "Qatar's established goalkeeper, giving them reflex saves, penalty confidence, and quick restarts after claiming the ball.",
+      "noteZh": "梅沙尔·巴沙姆是卡塔尔主力级门将，能提供反应扑救、点球时刻的信心，并在拿到球后快速重新发动。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Meshaal_Barsham"
+    },
+    "Mohammed Muntari": {
+      "name": "Mohammed Muntari",
+      "displayName": "Mohammed Muntari",
+      "teamId": "QAT",
+      "birthDate": "1993-12-20",
+      "summary": "Mohammed Muntari (Arabic: محمد مونتاري; born 20 December 1993) is a professional footballer who currently plays as a striker for Al-Gharafa. Born in Ghana, he plays for the Qatar national team.",
+      "marketValueEurMillions": 0.2,
+      "position": "Striker",
+      "club": "Al-Gharafa",
+      "league": "Qatar Stars League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Esteghlal%20FC%20vs%20Al-Gharafa%20FC%2C%2016%20September%202024%20-%2002.jpg?width=160",
+      "skills": [
+        "Target play",
+        "Aerial finishing",
+        "Box presence"
+      ],
+      "note": "Qatar's physical striker option, giving them a target for direct balls, aerial finishing, and presence against packed boxes.",
+      "noteZh": "穆罕默德·蒙塔里是卡塔尔力量型中锋选择，能接应直接传球、完成头球终结，并在密集禁区里提供存在感。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Mohammed_Muntari"
+    },
+    "Pedro Miguel": {
+      "name": "Pedro Miguel",
+      "displayName": "Pedro Miguel",
+      "teamId": "QAT",
+      "birthDate": "1990-08-06",
+      "summary": "Pedro Miguel Carvalho Deus Correia (Arabic: بيدرو ميغيل كارفاليو ديوس كورييا; born 6 August 1990), known as Pedro Miguel and also Ró-Ró (Arabic: رُو رُو), is a professional footballer who plays for Al Sadd and the Qatar national team as a right-back or a...",
+      "marketValueEurMillions": 0.2,
+      "position": "Defender",
+      "club": "Al Sadd",
+      "league": "Qatar Stars League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/R%C3%B3-R%C3%B3%2C%20Qatar%20v%20Japan%20%E2%80%93%20AFC%20Asian%20Cup%202019%20final%2029%20(crop).jpg?width=160",
+      "skills": [
+        "Right-back power",
+        "Cross defending",
+        "Set-piece threat"
+      ],
+      "note": "Qatar's powerful right-back, useful for defending crosses, winning back-post duels, and adding size on attacking set pieces.",
+      "noteZh": "佩德罗·米格尔是卡塔尔强力右后卫，能防守传中、赢下后点对抗，并在进攻定位球中增加高度。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Pedro_Miguel_(footballer)"
+    },
+    "Salah Zakaria": {
+      "name": "Salah Zakaria",
+      "displayName": "Salah Zakaria",
+      "teamId": "QAT",
+      "birthDate": "1999-04-24",
+      "summary": "Salah Zakaria Hassan (born 24 April 1999) is a Qatari professional footballer who plays as a goalkeeper for Al-Duhail and the Qatar national team.",
+      "marketValueEurMillions": 0.4,
+      "position": "Goalkeeper",
+      "club": "Al-Duhail",
+      "league": "Qatar Stars League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/632912-1737911673.jpg?lm=1",
+      "skills": [
+        "Shot stopping",
+        "Keeper depth",
+        "Area control"
+      ],
+      "note": "Qatar's goalkeeper depth, giving them another shot-stopping option and extra security when managing the penalty area.",
+      "noteZh": "萨拉赫·扎卡里亚是卡塔尔门将深度，能提供另一名扑救选择，并在管理禁区时增加安全感。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Salah_Zakaria"
+    },
+    "Sultan Albrake": {
+      "name": "Sultan Albrake",
+      "displayName": "Sultan Al-Brake",
+      "teamId": "QAT",
+      "birthDate": "1996-04-07",
+      "summary": "Sultan Hussain Al-Brake (Arabic: سلطان البريكي; born 7 April 1996) is a Qatari professional footballer who plays as a left-back for Qatari club Al-Duhail and the Qatar national team. Al-Brake was part of the Qatar squad that won the 2023 AFC Asian Cup.",
+      "marketValueEurMillions": 0.3,
+      "position": "Left-back",
+      "club": "Al-Duhail",
+      "league": "Qatar Stars League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/big/336665-1737911354.jpg?lm=1",
+      "skills": [
+        "Left-back defending",
+        "Overlap timing",
+        "Recovery cover"
+      ],
+      "note": "Qatar's left-back cover, useful for timing overlaps, recovering into the defensive line, and protecting the far post.",
+      "noteZh": "苏丹·布拉克是卡塔尔左后卫保护选择，能把握套边时机、回收到防线，并保护远端后点。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Sultan_Al-Brake"
+    },
+    "Tahsin Mohammed": {
+      "name": "Tahsin Mohammed",
+      "displayName": "Tahsin Mohammed Jamshid",
+      "teamId": "QAT",
+      "birthDate": "2006-06-16",
+      "summary": "Tahsin Mohammed Jamshid (born 16 June 2006) is a Qatari professional footballer who plays as a winger for Qatar Stars League club Al-Duhail and the Qatar national team.",
+      "marketValueEurMillions": 0.2,
+      "position": "Winger",
+      "club": "Al-Duhail",
+      "league": "Qatar Stars League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/big/1143849-1762259649.jpg?lm=1",
+      "skills": [
+        "Wide acceleration",
+        "Left-wing dribbling",
+        "Youthful energy"
+      ],
+      "note": "Qatar's young winger, giving them acceleration from wide areas, fearless dribbling, and fresh energy as matches open up.",
+      "noteZh": "塔赫辛·穆罕默德·贾姆希德是卡塔尔年轻边锋，能从边路加速、无畏带球，并在比赛拉开后带来新鲜活力。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Tahsin_Jamshid"
+    },
+    "Yusuf Abdurisag": {
+      "name": "Yusuf Abdurisag",
+      "displayName": "Yusuf Abdurisag",
+      "teamId": "QAT",
+      "birthDate": "1999-08-06",
+      "summary": "Yusuf Abdurisag Yusuf (Somali: Yusuf Abdirisaq Yusuf, born 6 August 1999) is a professional footballer who plays as a winger for Qatar Stars League side Al-Wakrah, on loan from Al Sadd. Born in Somalia, he plays for the Qatar national team.",
+      "marketValueEurMillions": 0.3,
+      "position": "Winger",
+      "club": "Al-Wakrah (on loan from Al Sadd)",
+      "league": "Qatar Stars League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/589099-1725787818.jpg?lm=1",
+      "skills": [
+        "Wide pressing",
+        "Diagonal runs",
+        "Counterattack support"
+      ],
+      "note": "Qatar's wide forward option, useful for pressing full-backs, making diagonal runs, and supporting counters from the flank.",
+      "noteZh": "优素福·阿卜杜里萨格是卡塔尔边路前锋选择，能压迫边后卫、斜线前插，并从边路支援反击。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Yusuf_Abdurisag"
+    },
+    "Aaron Hickey": {
+      "name": "Aaron Hickey",
+      "displayName": "Aaron Hickey",
+      "teamId": "SCO",
+      "birthDate": "2002-06-10",
+      "summary": "Aaron Buchanan Hickey (born 10 June 2002) is a Scottish professional footballer who plays as a full-back for Premier League club Brentford and the Scotland national team.",
+      "marketValueEurMillions": 16,
+      "position": "Full-back",
+      "club": "Brentford",
+      "league": "Premier League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Aaron%20Hickey%20Scotland%20v%20Bolivia%206%20June%202026-87%20(cropped).jpg?width=160",
+      "skills": [
+        "Match impact"
+      ],
+      "note": "Aaron Hickey is part of Scotland's current World Cup squad pool.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Aaron_Hickey"
+    },
+    "Andrew Henry Robertson": {
+      "name": "Andrew Henry Robertson",
+      "displayName": "Andrew Watson",
+      "teamId": "SCO",
+      "summary": "Andrew Watson (24 May 1856 – 8 March 1921) was a Scottish footballer who is widely considered to be the first black person to play association football at international level.",
+      "estimatedMarketValueEurMillions": 0.8,
+      "position": "Full back",
+      "club": "",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Andrew%20Watson%20Footballer%20(alt)%20(cropped).jpg?width=160",
+      "skills": [
+        "Match impact"
+      ],
+      "note": "Andrew Henry Robertson is part of Scotland's current World Cup squad pool.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Andrew_Watson_(footballer%2C_born_1856)"
+    },
+    "Angus Gunn": {
+      "name": "Angus Gunn",
+      "displayName": "Angus Gunn",
+      "teamId": "SCO",
+      "birthDate": "1996-01-22",
+      "summary": "Angus Fraser James Gunn (born 22 January 1996) is a professional footballer who plays as a goalkeeper, most recently for Premier League club Nottingham Forest. Born in England, he represents the Scotland national team.",
+      "marketValueEurMillions": 1,
+      "position": "Goalkeeper",
+      "club": "",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/File%3AAngus%20Gunn%20Scotland%20v%20Bolivia%206%20June%202026-42.jpg?width=160",
+      "skills": [
+        "Match impact"
+      ],
+      "note": "Angus Gunn is part of Scotland's current World Cup squad pool.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Angus_Gunn"
+    },
+    "Anthony Ralston": {
+      "name": "Anthony Ralston",
+      "displayName": "Anthony Ralston",
+      "teamId": "SCO",
+      "birthDate": "1998-11-16",
+      "summary": "Anthony Ralston (born 16 November 1998) is a Scottish professional footballer who plays as a right-back for Scottish Premiership club Celtic and the Scotland national team.",
+      "marketValueEurMillions": 1.5,
+      "position": "Right-back",
+      "club": "Celtic",
+      "league": "Scottish Premiership",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Anthony%20Ralston%20Scotland%20v%20Bolivia%206%20June%202026-9%20(cropped).jpg?width=160",
+      "skills": [
+        "Match impact"
+      ],
+      "note": "Anthony Ralston is part of Scotland's current World Cup squad pool.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Anthony_Ralston"
+    },
+    "Che Adams": {
+      "name": "Che Adams",
+      "displayName": "Ché Adams",
+      "teamId": "SCO",
+      "birthDate": "1996-07-13",
+      "summary": "Che Sac Everton Fred Adams (born 13 July 1996), known as Ché Adams, is a professional footballer who plays as a forward for Serie A club Torino and the Scotland national team.",
+      "marketValueEurMillions": 5,
+      "position": "Forward",
+      "club": "Torino",
+      "league": "Serie A",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Che%20Adams%20Scotland%20v%20Bolivia%206%20June%202026-37%20(cropped).jpg?width=160",
+      "skills": [
+        "Match impact"
+      ],
+      "note": "Che Adams is part of Scotland's current World Cup squad pool.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Ch%C3%A9_Adams"
+    },
+    "Craig Gordon": {
+      "name": "Craig Gordon",
+      "displayName": "Craig Gordon",
+      "teamId": "SCO",
+      "birthDate": "1982-12-31",
+      "summary": "Craig Sinclair Gordon (born 31 December 1982) is a Scottish professional footballer who plays as a goalkeeper for Scottish Premiership club Heart of Midlothian and the Scotland national team.",
+      "marketValueEurMillions": 0.1,
+      "position": "Goalkeeper",
+      "club": "Heart of Midlothian",
+      "league": "Scottish Premiership",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Craig%20Gordon%20Scotland%20v%20Bolivia%206%20June%202026-19.jpg?width=160",
+      "skills": [
+        "Match impact"
+      ],
+      "note": "Craig Gordon is part of Scotland's current World Cup squad pool.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Craig_Gordon"
+    },
+    "Dominic Hyam": {
+      "name": "Dominic Hyam",
+      "displayName": "Dominic Hyam",
+      "teamId": "SCO",
+      "birthDate": "1995-12-20",
+      "summary": "Dominic John Hyam (born 20 December 1995) is a Scottish professional footballer who plays for EFL Championship club Wrexham, whom he captains, and the Scotland national team. He is known as a reliable, robust and consistent centre-back.",
+      "estimatedMarketValueEurMillions": 2.5,
+      "position": "Centre back",
+      "club": "Wrexham",
+      "league": "EFL Championship",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Dominic%20Hyam%20Scotland%20v%20Bolivia%206%20June%202026-59.jpg?width=160",
+      "skills": [
+        "Match impact"
+      ],
+      "note": "Dominic Hyam is part of Scotland's current World Cup squad pool.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Dominic_Hyam"
+    },
+    "Findlay Curtis": {
+      "name": "Findlay Curtis",
+      "displayName": "Findlay Curtis",
+      "teamId": "SCO",
+      "birthDate": "2006-06-09",
+      "summary": "Findlay Kenneth Curtis (born 9 June 2006) is a Scottish professional footballer who plays as a midfielder for Rangers and the Scotland national team.",
+      "marketValueEurMillions": 2,
+      "position": "Midfielder",
+      "club": "Rangers",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Findlay%20Curtis%20Scotland%20v%20Bolivia%206%20June%202026-56.jpg?width=160",
+      "skills": [
+        "Match impact"
+      ],
+      "note": "Findlay Curtis is part of Scotland's current World Cup squad pool.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Findlay_Curtis"
+    },
+    "Gannon Doak": {
+      "name": "Gannon Doak",
+      "displayName": "Ben Gannon-Doak",
+      "teamId": "SCO",
+      "birthDate": "2005-11-11",
+      "summary": "Ben Gannon-Doak (né Doak; born 11 November 2005) is a Scottish professional footballer who plays as a right winger or attacking midfielder for Premier League club Bournemouth and the Scotland national team.",
+      "marketValueEurMillions": 15,
+      "position": "Right winger, attacking midfielder",
+      "club": "Bournemouth",
+      "league": "Premier League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ben%20Gannon-Doak%20Scotland%20v%20Bolivia%206%20June%202026-68%20(cropped).jpg?width=160",
+      "skills": [
+        "Match impact"
+      ],
+      "note": "Gannon Doak is part of Scotland's current World Cup squad pool.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Ben_Gannon-Doak"
+    },
+    "George Hirst": {
+      "name": "George Hirst",
+      "displayName": "George Hirst",
+      "teamId": "SCO",
+      "birthDate": "1999-02-15",
+      "summary": "George David Eric Hirst (born 15 February 1999) is a professional footballer who plays as a forward for Premier League club Ipswich Town. Born in England, he plays for the Scotland national team.",
+      "marketValueEurMillions": 10,
+      "position": "Forward",
+      "club": "Ipswich Town",
+      "league": "Premier League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/George%20Hirst%20Scotland%20v%20Bolivia%206%20June%202026-7.jpg?width=160",
+      "skills": [
+        "Match impact"
+      ],
+      "note": "George Hirst is part of Scotland's current World Cup squad pool.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/George_Hirst_(footballer)"
+    },
+    "Grant Hanley": {
+      "name": "Grant Hanley",
+      "displayName": "Grant Hanley",
+      "teamId": "SCO",
+      "birthDate": "1991-11-20",
+      "summary": "Grant Campbell Hanley (born 20 November 1991) is a Scottish professional footballer who plays as a centre-back for Scottish Premiership club Hibernian and the Scotland national team.",
+      "marketValueEurMillions": 0.2,
+      "position": "Centre-back",
+      "club": "Hibernian",
+      "league": "Scottish Premiership",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Grant%20Hanley%20Scotland%20v%20Bolivia%206%20June%202026-39%20(cropped).jpg?width=160",
+      "skills": [
+        "Match impact"
+      ],
+      "note": "Grant Hanley is part of Scotland's current World Cup squad pool.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Grant_Hanley"
+    },
+    "Jack Hendry": {
+      "name": "Jack Hendry",
+      "displayName": "Jack Hendry",
+      "teamId": "SCO",
+      "birthDate": "1995-05-07",
+      "summary": "Jack William Hendry (born 7 May 1995) is a Scottish professional footballer who plays as a centre-back for Saudi Pro League club Al-Ettifaq and the Scotland national team.",
+      "marketValueEurMillions": 2.5,
+      "position": "Centre-back",
+      "club": "Al-Ettifaq",
+      "league": "Saudi Pro League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Jack%20Hendry%20Scotland%20v%20Bolivia%206%20June%202026-35.jpg?width=160",
+      "skills": [
+        "Match impact"
+      ],
+      "note": "Jack Hendry is part of Scotland's current World Cup squad pool.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Jack_Hendry_(footballer%2C_born_1995)"
+    },
+    "John Souttar": {
+      "name": "John Souttar",
+      "displayName": "John Souttar",
+      "teamId": "SCO",
+      "birthDate": "1996-09-25",
+      "summary": "John Francis Souttar (born 25 September 1996) is a Scottish professional footballer who plays for Scottish Premiership club Rangers and the Scotland national team.",
+      "marketValueEurMillions": 2,
+      "position": "Centre-back",
+      "club": "Rangers",
+      "league": "Scottish Premiership",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/File%3AJohn%20Souttar%20Scotland%20v%20Bolivia%206%20June%202026-163.jpg?width=160",
+      "skills": [
+        "Match impact"
+      ],
+      "note": "John Souttar is part of Scotland's current World Cup squad pool.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/John_Souttar"
+    },
+    "Kenneth Mclean": {
+      "name": "Kenneth Mclean",
+      "displayName": "McLean",
+      "teamId": "SCO",
+      "summary": "MacLean, also spelt McLean, is a Scottish Gaelic surname (Mac Gille Eathain, or, Mac Giolla Eóin in Irish Gaelic), Eóin being a Gaelic form of Johannes (John).",
+      "estimatedMarketValueEurMillions": 0.8,
+      "club": "",
+      "skills": [
+        "Match impact"
+      ],
+      "note": "Kenneth Mclean is part of Scotland's current World Cup squad pool.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/McLean"
+    },
+    "Kieran Tierney": {
+      "name": "Kieran Tierney",
+      "displayName": "Kieran Tierney",
+      "teamId": "SCO",
+      "birthDate": "1997-06-05",
+      "summary": "Kieran Tierney (born 5 June 1997) is a Scottish professional footballer who plays as a left-back for Scottish Premiership club Celtic and the Scotland national team.",
+      "marketValueEurMillions": 8,
+      "position": "Left-back, centre-back",
+      "club": "Celtic",
+      "league": "Scottish Premiership",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Kieran%20Tierney%20Scotland%20v%20Bolivia%206%20June%202026-6.jpg?width=160",
+      "skills": [
+        "Match impact"
+      ],
+      "note": "Kieran Tierney is part of Scotland's current World Cup squad pool.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Kieran_Tierney"
+    },
+    "Lawrence Shankland": {
+      "name": "Lawrence Shankland",
+      "displayName": "Lawrence Shankland",
+      "teamId": "SCO",
+      "birthDate": "1995-08-10",
+      "summary": "Lawrence Shankland (born 10 August 1995) is a Scottish professional footballer who plays as a striker for Scottish Premiership club Rangers and the Scotland national team.",
+      "marketValueEurMillions": 3,
+      "position": "Striker",
+      "club": "Rangers",
+      "league": "Scottish Premiership",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Lawrence%20Shankland%20Scotland%20v%20Bolivia%206%20June%202026-66.jpg?width=160",
+      "skills": [
+        "Match impact"
+      ],
+      "note": "Lawrence Shankland is part of Scotland's current World Cup squad pool.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Lawrence_Shankland"
+    },
+    "Lewis Ferguson": {
+      "name": "Lewis Ferguson",
+      "displayName": "Lewis Ferguson",
+      "teamId": "SCO",
+      "birthDate": "1999-08-24",
+      "summary": "Lewis Ferguson (born 24 August 1999) is a Scottish professional footballer who plays as an attacking midfielder for Serie A club Bologna, whom he captains, and the Scotland national team.",
+      "marketValueEurMillions": 14,
+      "position": "Attacking midfielder",
+      "club": "Bologna",
+      "league": "Serie A",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Lewis%20Ferguson%20Scotland%20v%20Bolivia%206%20June%202026-52.jpg?width=160",
+      "skills": [
+        "Match impact"
+      ],
+      "note": "Lewis Ferguson is part of Scotland's current World Cup squad pool.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Lewis_Ferguson"
+    },
+    "Liam Kelly": {
+      "name": "Liam Kelly",
+      "displayName": "Liam Kelly",
+      "teamId": "SCO",
+      "summary": "Liam Kelly may refer to: Liam Kelly (footballer, born 1975), Irish former football player Liam Kelly (footballer, born 1990), English-born Scottish international footballer, for Rotherham United FC Liam Kelly (footballer, born 1995), Irish football player, for...",
+      "marketValueEurMillions": 0.6,
+      "club": "",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/106643-1548769787.jpg?lm=1",
+      "skills": [
+        "Match impact"
+      ],
+      "note": "Liam Kelly is part of Scotland's current World Cup squad pool.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Liam_Kelly"
+    },
+    "Lyndon Dykes": {
+      "name": "Lyndon Dykes",
+      "displayName": "Lyndon Dykes",
+      "teamId": "SCO",
+      "birthDate": "1995-10-07",
+      "summary": "Lyndon John Dykes (born 7 October 1995) is a professional footballer who plays as a striker for EFL Championship club Charlton Athletic. Born and raised in Australia to Scottish parents, he plays for the Scotland national team.",
+      "marketValueEurMillions": 0.8,
+      "position": "Striker",
+      "club": "Charlton Athletic",
+      "league": "EFL Championship",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/File%3ALyndon%20Dykes%20Scotland%20v%20Bolivia%206%20June%202026-65.jpg?width=160",
+      "skills": [
+        "Match impact"
+      ],
+      "note": "Lyndon Dykes is part of Scotland's current World Cup squad pool.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Lyndon_Dykes"
+    },
+    "Mckenna Scott": {
+      "name": "Mckenna Scott",
+      "displayName": "Scott McKenna",
+      "teamId": "SCO",
+      "birthDate": "1996-11-12",
+      "summary": "Scott Fraser McKenna (born 12 November 1996) is a Scottish professional footballer who plays as a centre-back for HNL club Dinamo Zagreb and the Scotland national team.",
+      "marketValueEurMillions": 4,
+      "position": "Centre-back",
+      "club": "Dinamo Zagreb",
+      "league": "Croatian Football League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/File%3AFirst%20Minister%20meets%20with%20Scottish%20National%20Football%20Team%20-%2055168603663%20(Scott%20McKenna%20cropped).jpg?width=160",
+      "skills": [
+        "Match impact"
+      ],
+      "note": "Mckenna Scott is part of Scotland's current World Cup squad pool.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Scott_McKenna"
+    },
+    "Mclean Kenny": {
+      "name": "Mclean Kenny",
+      "displayName": "McLean",
+      "teamId": "SCO",
+      "summary": "MacLean, also spelt McLean, is a Scottish Gaelic surname (Mac Gille Eathain, or, Mac Giolla Eóin in Irish Gaelic), Eóin being a Gaelic form of Johannes (John).",
+      "estimatedMarketValueEurMillions": 0.8,
+      "club": "",
+      "skills": [
+        "Match impact"
+      ],
+      "note": "Mclean Kenny is part of Scotland's current World Cup squad pool.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/McLean"
+    },
+    "Nathan Patterson": {
+      "name": "Nathan Patterson",
+      "displayName": "Nathan Patterson",
+      "teamId": "SCO",
+      "summary": "Nathan Patterson may refer to: Nathan Patterson (baseball) (born 1996), American baseball player Nathan Patterson (footballer) (born 2001), Scottish footballer",
+      "marketValueEurMillions": 10,
+      "club": "",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/424015-1736161412.jpg?lm=1",
+      "skills": [
+        "Match impact"
+      ],
+      "note": "Nathan Patterson is part of Scotland's current World Cup squad pool.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Nathan_Patterson"
+    },
+    "Ross Stewart": {
+      "name": "Ross Stewart",
+      "displayName": "Ross Stewart",
+      "teamId": "SCO",
+      "summary": "Ross Stewart may refer to: Ross Stewart (footballer, born 1995) (Ross M. Stewart), Scottish football goalkeeper for Queen of the South F.C. Ross Stewart (footballer, born 1996) (Ross C.",
+      "marketValueEurMillions": 0.2,
+      "club": "",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/203405-1624629939.jpg?lm=1",
+      "skills": [
+        "Match impact"
+      ],
+      "note": "Ross Stewart is part of Scotland's current World Cup squad pool.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Ross_Stewart"
+    },
+    "Ryan Christie": {
+      "name": "Ryan Christie",
+      "displayName": "Ryan Christie",
+      "teamId": "SCO",
+      "birthDate": "1995-02-22",
+      "summary": "Ryan Christie (born 22 February 1995) is a Scottish professional footballer who plays as a midfielder or winger for Premier League club Bournemouth and the Scotland national team.",
+      "marketValueEurMillions": 8,
+      "position": "Attacking midfielder, winger",
+      "club": "Bournemouth",
+      "league": "Premier League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/File%3ARyan%20Christie%20Bournemouth%20(cropped).png?width=160",
+      "skills": [
+        "Match impact"
+      ],
+      "note": "Ryan Christie is part of Scotland's current World Cup squad pool.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Ryan_Christie"
+    },
+    "Tyler Fletcher": {
+      "name": "Tyler Fletcher",
+      "displayName": "Tyler Fletcher",
+      "teamId": "SCO",
+      "birthDate": "2007-03-19",
+      "summary": "Tyler Robert Fletcher (born 19 March 2007) is a professional footballer who plays as a midfielder for Premier League club Manchester United. Born in England, he represents the Scotland national team.",
+      "marketValueEurMillions": 1,
+      "position": "Midfielder",
+      "club": "Manchester United",
+      "league": "Premier League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Tyler%20Fletcher%20Scotland%20v%20Bolivia%206%20June%202026-4.jpg?width=160",
+      "skills": [
+        "Match impact"
+      ],
+      "note": "Tyler Fletcher is part of Scotland's current World Cup squad pool.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Tyler_Fletcher"
     }
   }
 }

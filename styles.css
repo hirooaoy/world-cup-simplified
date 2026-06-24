@@ -2534,6 +2534,40 @@ h1 {
   white-space: nowrap;
 }
 
+.standing-team.has-standing-badges {
+  flex-wrap: wrap;
+  align-items: flex-start;
+  position: relative;
+  row-gap: 5px;
+  padding-left: 27px;
+}
+
+.standing-team.has-standing-badges > .flag {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%) scale(0.86);
+  transform-origin: center;
+}
+
+.standing-team.has-standing-badges .standing-name {
+  flex: 1 1 calc(100% - 28px);
+  overflow: visible;
+  overflow-wrap: anywhere;
+  text-overflow: clip;
+  white-space: normal;
+}
+
+.standing-team.has-standing-badges .rank-pill {
+  margin-left: 0;
+}
+
+.standing-team.has-standing-badges .standing-status-pill,
+.standing-team.has-standing-badges .third-place-pill,
+.standing-team.has-standing-badges .standing-live-pill {
+  max-width: 100%;
+}
+
 .standings-table .flag {
   transform: scale(0.86);
   transform-origin: left center;
@@ -2998,6 +3032,7 @@ h1 {
   background: rgba(10, 10, 10, 0.12);
 }
 
+.standing-status-pill,
 .third-place-pill,
 .third-place-status {
   display: inline-flex;
@@ -3019,6 +3054,7 @@ h1 {
   min-width: 0;
 }
 
+.standing-status-pill,
 .third-place-pill {
   min-height: 18px;
   padding: 0 7px;
@@ -3035,20 +3071,23 @@ h1 {
   padding: 0 9px;
 }
 
+.standing-status-pill[data-tooltip],
+.third-place-pill[data-tooltip],
 .third-place-status[data-tooltip] {
   position: relative;
   cursor: help;
   outline: none;
 }
 
+.standing-status-pill[data-tooltip]::after,
+.third-place-pill[data-tooltip]::after,
 .third-place-status[data-tooltip]::after {
   content: attr(data-tooltip);
   position: absolute;
-  right: 0;
   bottom: calc(100% + 8px);
   z-index: 30;
   width: max-content;
-  max-width: min(250px, 68vw);
+  max-width: min(285px, 72vw);
   padding: 8px 10px;
   border: 1px solid rgba(10, 10, 10, 0.12);
   border-radius: 8px;
@@ -3061,17 +3100,44 @@ h1 {
   opacity: 0;
   pointer-events: none;
   text-align: left;
-  transform: translateY(4px);
   transition: opacity 140ms ease, transform 140ms ease;
   white-space: normal;
 }
 
+.standing-status-pill[data-tooltip]::after,
+.third-place-pill[data-tooltip]::after {
+  left: calc(50% + var(--tooltip-shift-x, 0px));
+  transform: translate(-50%, 4px);
+}
+
+.third-place-status[data-tooltip]::after {
+  right: 0;
+  transform: translateY(4px);
+}
+
+.standing-status-pill[data-tooltip]:hover::after,
+.standing-status-pill[data-tooltip]:focus-visible::after,
+.third-place-pill[data-tooltip]:hover::after,
+.third-place-pill[data-tooltip]:focus-visible::after,
 .third-place-status[data-tooltip]:hover::after,
 .third-place-status[data-tooltip]:focus-visible::after {
   opacity: 1;
+}
+
+.standing-status-pill[data-tooltip]:hover::after,
+.standing-status-pill[data-tooltip]:focus-visible::after,
+.third-place-pill[data-tooltip]:hover::after,
+.third-place-pill[data-tooltip]:focus-visible::after {
+  transform: translate(-50%, 0);
+}
+
+.third-place-status[data-tooltip]:hover::after,
+.third-place-status[data-tooltip]:focus-visible::after {
   transform: translateY(0);
 }
 
+.standing-status-pill[data-tooltip]:focus-visible,
+.third-place-pill[data-tooltip]:focus-visible,
 .third-place-status[data-tooltip]:focus-visible {
   outline: 2px solid var(--focus);
   outline-offset: 3px;
@@ -3101,6 +3167,11 @@ h1 {
 .third-place-status.is-out {
   background: rgba(10, 10, 10, 0.08);
   color: rgba(10, 10, 10, 0.58);
+}
+
+.standing-status-pill.is-eliminated {
+  background: rgba(146, 35, 35, 0.1);
+  color: #8c2525;
 }
 
 .third-place-muted {
@@ -5540,38 +5611,6 @@ h1 {
     text-align: left;
   }
 
-  .standing-team:has(.third-place-pill) {
-    flex-wrap: wrap;
-    align-items: flex-start;
-    position: relative;
-    row-gap: 5px;
-    padding-left: 27px;
-  }
-
-  .standing-team:has(.third-place-pill) > .flag {
-    position: absolute;
-    top: 50%;
-    left: 0;
-    transform: translateY(-50%) scale(0.86);
-    transform-origin: center;
-  }
-
-  .standing-team:has(.third-place-pill) .standing-name {
-    flex: 1 1 calc(100% - 28px);
-    overflow: visible;
-    text-overflow: clip;
-    white-space: normal;
-  }
-
-  .standing-team:has(.third-place-pill) .rank-pill {
-    margin-left: 0;
-  }
-
-  .standing-team:has(.third-place-pill) .third-place-pill,
-  .standing-team:has(.third-place-pill) .standing-live-pill {
-    max-width: 100%;
-  }
-
   .catch-up-popover {
     width: min(340px, calc(100vw - 64px));
   }
@@ -5894,11 +5933,13 @@ h1 {
     margin-left: 0;
   }
 
+  .standing-team .standing-status-pill,
   .standing-team .third-place-pill,
   .standing-team .standing-live-pill {
     max-width: 100%;
   }
 
+  .standing-team .standing-status-pill,
   .standing-team .third-place-pill,
   .standing-team .standing-live-pill {
     min-height: 17px;

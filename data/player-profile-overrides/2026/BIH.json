@@ -1,0 +1,299 @@
+{
+  "edition": "2026-world-cup",
+  "teamId": "BIH",
+  "teamName": "Bosnia and Herzegovina",
+  "profiles": {
+    "Amar Dedic": {
+      "displayName": "Amar Dedić",
+      "sourceTitle": "Amar Dedić",
+      "skills": [
+        "Right-side carries",
+        "Recovery speed",
+        "Early crossing"
+      ],
+      "note": "Bosnia's high-energy right-back, useful for carrying play up the flank, recovering quickly, and serving early balls into the box.",
+      "noteZh": "阿马尔·德迪奇是波黑高能量右后卫，能沿边路推进、快速回追，并早早把球送入禁区。"
+    },
+    "Amar Memic": {
+      "displayName": "Amar Memić",
+      "sourceTitle": "Amar Memić",
+      "skills": [
+        "Wide dribbling",
+        "Diagonal runs",
+        "Pressing"
+      ],
+      "note": "Bosnia's direct wide runner, giving them dribbles from the flank, diagonal movement inside, and pressure on opposing full-backs.",
+      "noteZh": "阿马尔·梅米奇是波黑直接型边路球员，能从边路带球、斜插内线，并向对方边后卫施压。"
+    },
+    "Amir Hadziahmetovic": {
+      "displayName": "Amir Hadžiahmetović",
+      "sourceTitle": "Amir Hadžiahmetović",
+      "skills": [
+        "Midfield screening",
+        "First pass",
+        "Tempo control"
+      ],
+      "note": "Bosnia's midfield stabilizer, useful for screening counterattacks, playing the first forward pass, and calming possession after pressure.",
+      "noteZh": "阿米尔·哈季艾哈迈托维奇是波黑中场稳定器，能保护反击路线、送出第一脚向前传球，并在受压后稳住控球。"
+    },
+    "Arjan Malic": {
+      "displayName": "Arjan Malić",
+      "sourceTitle": "Arjan Malić",
+      "skills": [
+        "Defensive timing",
+        "Overlap support",
+        "Back-post cover"
+      ],
+      "note": "Bosnia's young right-back option, helping with timed challenges, overlap support, and back-post cover when the far side is overloaded.",
+      "noteZh": "阿尔扬·马利奇是波黑年轻右后卫选择，能把握抢断时机、支援套边，并在远端被压制时保护后点。"
+    },
+    "Armin Gigovic": {
+      "displayName": "Armin Gigović",
+      "sourceTitle": "Armin Gigović",
+      "skills": [
+        "Box-to-box running",
+        "Second balls",
+        "Late support"
+      ],
+      "note": "Bosnia's box-to-box runner, giving them second-ball energy, vertical midfield support, and late arrivals around the penalty area.",
+      "noteZh": "阿明·吉戈维奇是波黑的往返型中场，能争抢第二落点、纵向支援中场，并后插上到禁区周围。"
+    },
+    "Benjamin Tahirovic": {
+      "displayName": "Benjamin Tahirović",
+      "sourceTitle": "Benjamin Tahirović",
+      "skills": [
+        "Holding midfield",
+        "Passing range",
+        "Aerial duels"
+      ],
+      "note": "Bosnia's holding midfielder, useful for protecting the centre, switching play, and adding height when midfield duels become physical.",
+      "noteZh": "本亚明·塔希罗维奇是波黑的拖后中场，能保护中路、转移进攻，并在中场对抗变得强硬时增加高度。"
+    },
+    "Dennis Hadzikadunic": {
+      "displayName": "Dennis Hadžikadunić",
+      "sourceTitle": "Dennis Hadžikadunić",
+      "skills": [
+        "Centre-back duels",
+        "Line holding",
+        "Set-piece defending"
+      ],
+      "note": "Bosnia's centre-back marker, giving them duel strength, a steadier defensive line, and reliable set-piece defending.",
+      "noteZh": "丹尼斯·哈季卡杜尼奇是波黑中卫盯防者，能提供对抗强度、更稳定的防线，以及可靠的定位球防守。"
+    },
+    "Dzenis Burnic": {
+      "displayName": "Dženis Burnić",
+      "sourceTitle": "Dženis Burnić",
+      "skills": [
+        "Midfield bite",
+        "Short passing",
+        "Press resistance"
+      ],
+      "note": "Bosnia's combative midfielder, useful for disrupting rhythm, keeping short passes moving, and playing through pressure in central areas.",
+      "noteZh": "杰尼斯·布尔尼奇是波黑强硬型中场，能打断对手节奏、保持短传流动，并在中路压力下完成出球。"
+    },
+    "Edin Dzeko": {
+      "displayName": "Edin Džeko",
+      "sourceTitle": "Edin Džeko",
+      "skills": [
+        "Target play",
+        "Penalty-box finishing",
+        "Leadership"
+      ],
+      "note": "Bosnia's captain and reference striker, turning direct service into hold-up play, box finishing, and calm leadership late in matches.",
+      "noteZh": "埃丁·哲科是波黑队长和锋线支点，能把直接传球转化为背身拿球、禁区终结，以及比赛后段的冷静领导力。"
+    },
+    "Ermedin Demirovic": {
+      "displayName": "Ermedin Demirović",
+      "sourceTitle": "Ermedin Demirović",
+      "skills": [
+        "Forward pressing",
+        "Link play",
+        "Near-post runs"
+      ],
+      "note": "Bosnia's mobile forward, giving them front-line pressing, clean link play, and aggressive near-post movement when crosses arrive.",
+      "noteZh": "埃尔梅丁·德米罗维奇是波黑机动型前锋，能前场压迫、清晰衔接进攻，并在传中到来时冲击前点。"
+    },
+    "Ermin Mahmic": {
+      "displayName": "Ermin Mahmić",
+      "sourceTitle": "Ermin Mahmić",
+      "skills": [
+        "Pocket receiving",
+        "Final pass",
+        "Quick turns"
+      ],
+      "note": "Bosnia's young attacking midfielder, useful for receiving between lines, turning quickly, and slipping passes into runners.",
+      "noteZh": "埃尔明·马赫米奇是波黑年轻攻击型中场，能在两线之间接球、快速转身，并把传球塞给前插队友。"
+    },
+    "Esmir Bajraktarevic": {
+      "displayName": "Esmir Bajraktarević",
+      "sourceTitle": "Esmir Bajraktarević",
+      "skills": [
+        "One-on-one dribbling",
+        "Left-footed delivery",
+        "Transition speed"
+      ],
+      "note": "Bosnia's creative winger, giving them one-on-one threat, left-footed service, and quick transition carries from wide areas.",
+      "noteZh": "埃斯米尔·巴伊拉克塔雷维奇是波黑创造型边锋，能提供一对一威胁、左脚输送，以及从边路发起的快速转换推进。"
+    },
+    "Haris Tabakovic": {
+      "displayName": "Haris Tabaković",
+      "sourceTitle": "Haris Tabaković",
+      "skills": [
+        "Aerial finishing",
+        "Box positioning",
+        "Second-phase shots"
+      ],
+      "note": "Bosnia's penalty-area finisher, useful for attacking crosses, finding space between centre-backs, and shooting from loose second phases.",
+      "noteZh": "哈里斯·塔巴科维奇是波黑禁区终结者，能冲击传中、在中卫之间找空间，并在二次进攻乱战中完成射门。"
+    },
+    "Ivan Basic": {
+      "displayName": "Ivan Bašić",
+      "sourceTitle": "Ivan Bašić",
+      "league": "Kazakhstan Premier League",
+      "skills": [
+        "Central carrying",
+        "Support angles",
+        "Ball retention"
+      ],
+      "note": "Bosnia's central connector, helping the midfield carry into space, offer safer passing angles, and keep attacks from breaking down.",
+      "noteZh": "伊万·巴希奇是波黑中路连接点，能帮助中场带球进入空间、提供更安全的传球角度，并避免进攻轻易中断。"
+    },
+    "Ivan Sunjic": {
+      "displayName": "Ivan Šunjić",
+      "sourceTitle": "Ivan Šunjić",
+      "league": "Cyprus First Division",
+      "skills": [
+        "Ball winning",
+        "Midfield screening",
+        "Simple distribution"
+      ],
+      "note": "Bosnia's defensive-midfield shield, useful for winning loose balls, blocking central lanes, and moving possession on simply.",
+      "noteZh": "伊万·舒尼奇是波黑防守型中场屏障，能争回散落球、封住中路线路，并用简洁传球继续控球。"
+    },
+    "Jovo Lukic": {
+      "displayName": "Jovo Lukić",
+      "sourceTitle": "Jovo Lukić",
+      "skills": [
+        "Hold-up play",
+        "Penalty-area strength",
+        "Short layoffs"
+      ],
+      "note": "Bosnia's physical forward option, giving them hold-up strength, short layoff passes, and a body to attack crowded penalty areas.",
+      "noteZh": "约沃·卢基奇是波黑力量型锋线选择，能背身拿球、做出短距离回做，并在拥挤禁区里提供冲击点。"
+    },
+    "Kerim Alajbegovic": {
+      "displayName": "Kerim Alajbegović",
+      "sourceTitle": "Kerim Alajbegović",
+      "skills": [
+        "Wide acceleration",
+        "Inside cuts",
+        "Final-third invention"
+      ],
+      "note": "Bosnia's teenage winger, useful for sudden acceleration, cutting inside from the flank, and adding invention around the box.",
+      "noteZh": "克里姆·阿拉伊贝戈维奇是波黑年轻边锋，能突然加速、从边路内切，并在禁区周围增加创造力。"
+    },
+    "Martin Zlomislic": {
+      "displayName": "Martin Zlomislić",
+      "sourceTitle": "Martin Zlomislić",
+      "skills": [
+        "Shot stopping",
+        "Cross claiming",
+        "Calm restarts"
+      ],
+      "note": "Bosnia's goalkeeping option, giving them shot-stopping depth, cross claiming, and calmer restarts after defensive pressure.",
+      "noteZh": "马丁·兹洛米斯利奇是波黑门将选择，能提供扑救深度、摘下传中，并在防守受压后冷静重新开球。"
+    },
+    "Mladen Jurkas": {
+      "displayName": "Mladen Jurkas",
+      "sourceTitle": "Mladen Jurkas",
+      "league": "Bosnian Premier League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/big/952692-1771005082.PNG?lm=1",
+      "marketValueEurMillions": 0.7,
+      "skills": [
+        "Shot stopping",
+        "Reach",
+        "Box command"
+      ],
+      "note": "Bosnia's young goalkeeper, useful for his reach, shot-stopping base, and added depth behind the senior keeper group.",
+      "noteZh": "姆拉登·尤尔卡斯是波黑年轻门将，能依靠臂展和扑救基础，为资深门将组身后增加深度。"
+    },
+    "Nihad Mujakic": {
+      "displayName": "Nihad Mujakić",
+      "sourceTitle": "Nihad Mujakić",
+      "skills": [
+        "Left-side defending",
+        "Aerial duels",
+        "Cover tackles"
+      ],
+      "note": "Bosnia's left-sided centre-back, helping them defend aerially, cover space behind the full-back, and clear pressure from the box.",
+      "noteZh": "尼哈德·穆亚基奇是波黑左侧中卫，能争顶防守、覆盖边后卫身后空间，并把禁区压力解围出去。"
+    },
+    "Nikola Katic": {
+      "displayName": "Nikola Katić",
+      "sourceTitle": "Nikola Katić",
+      "skills": [
+        "Aerial defending",
+        "Set-piece threat",
+        "Centre-back aggression"
+      ],
+      "note": "Bosnia's aggressive centre-back, giving them aerial defending, set-piece presence, and front-foot challenges against target forwards.",
+      "noteZh": "尼科拉·卡蒂奇是波黑主动型中卫，能提供空中防守、定位球存在感，并前压对抗支点前锋。"
+    },
+    "Nikola Vasilj": {
+      "displayName": "Nikola Vasilj",
+      "sourceTitle": "Nikola Vasilj",
+      "skills": [
+        "Reflex saves",
+        "Area control",
+        "Distribution"
+      ],
+      "note": "Bosnia's senior goalkeeper, giving the back line reflex saves, area control, and a reliable first pass after saves.",
+      "noteZh": "尼科拉·瓦西利是波黑资深门将，能为防线提供反应扑救、禁区控制，以及扑救后的可靠第一脚传球。"
+    },
+    "Samed Bazdar": {
+      "displayName": "Samed Baždar",
+      "sourceTitle": "Samed Baždar",
+      "league": "Segunda División",
+      "skills": [
+        "Channel running",
+        "Quick finishing",
+        "Forward pressing"
+      ],
+      "note": "Bosnia's sharp forward runner, useful for attacking channels, pressing centre-backs, and finishing before defenders can reset.",
+      "noteZh": "萨梅德·巴日达尔是波黑犀利的前插型前锋，能冲击肋部通道、压迫中卫，并在防守重组前完成终结。"
+    },
+    "Sead Kolasinac": {
+      "displayName": "Sead Kolašinac",
+      "sourceTitle": "Sead Kolašinac",
+      "skills": [
+        "Defensive power",
+        "Left-side cover",
+        "Carrying out"
+      ],
+      "note": "Bosnia's powerful left-sided defender, giving them duel strength, recovery cover, and the ability to carry out of pressure.",
+      "noteZh": "塞亚德·科拉希纳茨是波黑强力左侧后卫，能提供对抗强度、回追保护，并带球摆脱压力。"
+    },
+    "Stjepan Radeljic": {
+      "displayName": "Stjepan Radeljić",
+      "sourceTitle": "Stjepan Radeljić",
+      "skills": [
+        "Central defending",
+        "Aerial clearances",
+        "Simple build-up"
+      ],
+      "note": "Bosnia's reliable centre-back depth, useful for aerial clearances, compact defending, and simple passes into midfield.",
+      "noteZh": "斯捷潘·拉德利奇是波黑可靠的中卫深度，能完成空中解围、保持紧凑防守，并把球简单传入中场。"
+    },
+    "Tarik Muharemovic": {
+      "displayName": "Tarik Muharemović",
+      "sourceTitle": "Tarik Muharemović",
+      "skills": [
+        "Composed defending",
+        "Progressive passing",
+        "Back-line recovery"
+      ],
+      "note": "Bosnia's composed young centre-back, giving them progressive passing, recovery speed, and another calm option under pressure.",
+      "noteZh": "塔里克·穆哈雷莫维奇是波黑冷静的年轻中卫，能提供向前传球、回追速度，以及受压时的另一名稳定选择。"
+    }
+  }
+}

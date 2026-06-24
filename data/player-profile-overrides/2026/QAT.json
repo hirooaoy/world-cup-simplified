@@ -2,7 +2,171 @@
   "edition": "2026-world-cup",
   "teamId": "QAT",
   "teamName": "Qatar",
+  "rosterNameOverrides": {
+    "Gueye SEYDINAISSALAYE": "Issa Laye"
+  },
+  "removeProfiles": [
+    "Gueye Seydinaissalaye"
+  ],
   "profiles": {
+    "Abdulaziz Hatem": {
+      "displayName": "Abdulaziz Hatem",
+      "sourceTitle": "Abdulaziz Hatem",
+      "club": "Al-Rayyan",
+      "league": "Qatar Stars League",
+      "skills": [
+        "Midfield leadership",
+        "Switching play",
+        "Late shooting"
+      ],
+      "note": "Qatar's experienced midfield captain, useful for switching play, steadying possession, and arriving late for shots around the box.",
+      "noteZh": "阿卜杜勒阿齐兹·哈特姆是卡塔尔经验丰富的中场队长，能转移进攻、稳住控球，并后插上到禁区周围射门。"
+    },
+    "Ahmed Alaaeldin": {
+      "displayName": "Ahmed Alaaeldin",
+      "sourceTitle": "Ahmed Alaaeldin",
+      "league": "Qatar Stars League",
+      "skills": [
+        "Forward movement",
+        "Pressing",
+        "Direct finishing"
+      ],
+      "note": "Qatar's forward runner, giving them pressing from the front, direct movement beyond defenders, and quick finishes from loose chances.",
+      "noteZh": "艾哈迈德·阿拉埃尔丁是卡塔尔前场跑动点，能从前场压迫、直接冲到后卫身后，并把零散机会快速终结。"
+    },
+    "Ahmed Alganehi": {
+      "displayName": "Ahmed Al-Ganehi",
+      "sourceTitle": "Ahmed Al-Ganehi",
+      "transfermarktPlayerCode": "ahmed-al-ganehi",
+      "birthDate": "2000-09-22",
+      "summary": "Ahmed Al-Ganehi is a Qatari professional footballer who plays as a right winger for Al-Gharafa and the Qatar national team.",
+      "position": "Right winger",
+      "club": "Al-Gharafa",
+      "league": "Qatar Stars League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/big/670659-1738110806.jpg?lm=1",
+      "marketValueEurMillions": 0.5,
+      "skills": [
+        "Right-wing speed",
+        "One-on-one attacks",
+        "Low crosses"
+      ],
+      "note": "Qatar's right-sided winger, useful for stretching the touchline, attacking full-backs one-on-one, and cutting low balls across goal.",
+      "noteZh": "艾哈迈德·阿尔-加内希是卡塔尔右路边锋，能拉开边线宽度、一对一冲击边后卫，并把低平球横扫到门前。",
+      "sourceUrl": "https://www.transfermarkt.com/ahmed-al-ganehi/profil/spieler/670659"
+    },
+    "Ahmed Fathy": {
+      "displayName": "Ahmed Fathy",
+      "sourceTitle": "Ahmed Fathy (Qatari footballer)",
+      "transfermarktPlayerCode": "ahmed-fathi",
+      "birthDate": "1993-01-25",
+      "position": "Defensive midfielder",
+      "club": "Al-Arabi",
+      "league": "Qatar Stars League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/big/251183-1725823489.png?lm=1",
+      "marketValueEurMillions": 0.25,
+      "skills": [
+        "Ball winning",
+        "Midfield screening",
+        "Short circulation"
+      ],
+      "note": "Qatar's defensive-midfield organiser, helping them win second balls, block central lanes, and keep short passes moving under pressure.",
+      "noteZh": "艾哈迈德·法蒂是卡塔尔防守型中场组织者，能争回第二落点、封住中路线路，并在压力下保持短传运转。"
+    },
+    "Akram Afif": {
+      "displayName": "Akram Afif",
+      "sourceTitle": "Akram Afif",
+      "skills": [
+        "Chance creation",
+        "Left-side dribbling",
+        "Set pieces"
+      ],
+      "note": "Qatar's main creative winger, turning left-side touches into dribbles, set-piece service, and final passes for runners.",
+      "noteZh": "阿克拉姆·阿菲夫是卡塔尔主要创造型边锋，能把左路触球转化为带球突破、定位球输送，以及给前插队友的最后一传。"
+    },
+    "Alhashmi Alhussein": {
+      "displayName": "Al-Hashmi Al-Hussain",
+      "sourceTitle": "Al-Hashmi Al-Hussain",
+      "transfermarktPlayerCode": "al-hashmi-al-hussain",
+      "birthDate": "2003-08-15",
+      "position": "Centre-back",
+      "club": "Al-Arabi",
+      "league": "Qatar Stars League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/big/943150-1762258519.jpg?lm=1",
+      "marketValueEurMillions": 0.25,
+      "skills": [
+        "Centre-back duels",
+        "Aerial cover",
+        "Simple build-up"
+      ],
+      "note": "Qatar's young centre-back, useful for defensive duels, aerial cover, and simple first passes when the back line resets.",
+      "noteZh": "阿尔-哈什米·阿尔-侯赛因是卡塔尔年轻中卫，能完成防守对抗、提供空中保护，并在防线重组时送出简洁第一传。"
+    },
+    "Almoez Ali": {
+      "displayName": "Almoez Ali",
+      "sourceTitle": "Almoez Ali",
+      "skills": [
+        "Penalty-box runs",
+        "Link play",
+        "Tournament finishing"
+      ],
+      "note": "Qatar's central scoring reference, giving them penalty-box runs, quick combinations, and proven finishing in tournament matches.",
+      "noteZh": "阿尔莫埃兹·阿里是卡塔尔中路得分支点，能提供禁区跑动、快速配合，以及大赛中证明过的终结能力。"
+    },
+    "Assim Madibo": {
+      "displayName": "Assim Madibo",
+      "sourceTitle": "Assim Madibo",
+      "league": "Qatar Stars League",
+      "skills": [
+        "Midfield ball winning",
+        "Pressure cover",
+        "Simple passing"
+      ],
+      "note": "Qatar's ball-winning midfielder, helping them cover pressure, break up counters, and restart attacks with simple passes.",
+      "noteZh": "阿西姆·马迪博是卡塔尔抢断型中场，能补位压力区域、打断反击，并用简单传球重新发起进攻。"
+    },
+    "Ayoub Aloui": {
+      "displayName": "Ayoub Aloui",
+      "sourceTitle": "Ayoub Mohamed Aloui",
+      "birthDate": "2005-03-11",
+      "summary": "Ayoub Mohamed Aloui is a Qatari defender who plays for Al-Gharafa and has represented Qatar at youth and senior national-team level.",
+      "position": "Defender",
+      "club": "Al-Gharafa",
+      "league": "Qatar Stars League",
+      "imageUrl": "https://qatarfoot.com/wp-content/uploads/2026/02/Ayoub-Aloui-360x495.avif",
+      "estimatedMarketValueEurMillions": 0.7,
+      "skills": [
+        "Defensive recovery",
+        "Wide cover",
+        "Aerial contests"
+      ],
+      "note": "Qatar's young defender, useful for recovery runs, covering wide spaces, and adding size when defending crosses.",
+      "noteZh": "阿尤布·阿卢伊是卡塔尔年轻后卫，能完成回追、覆盖边路空间，并在防守传中时增加身高对抗。",
+      "sourceUrl": "https://qatarfoot.com/player/ayoub-aloui/"
+    },
+    "Boualem Khoukhi": {
+      "displayName": "Boualem Khoukhi",
+      "sourceTitle": "Boualem Khoukhi",
+      "skills": [
+        "Hybrid defending",
+        "Aerial duels",
+        "Midfield stepping"
+      ],
+      "note": "Qatar's experienced hybrid defender, giving them aerial strength, cover at centre-back, and the option to step into midfield.",
+      "noteZh": "布阿莱姆·胡希是卡塔尔经验丰富的多功能防守者，能提供空中力量、中卫保护，并在需要时前提到中场。"
+    },
+    "Edmilson Junior": {
+      "displayName": "Edmilson Junior",
+      "sourceTitle": "Edmilson Junior",
+      "club": "Al-Duhail",
+      "league": "Qatar Stars League",
+      "skills": [
+        "Wide acceleration",
+        "Inside cuts",
+        "Final-third carries"
+      ],
+      "note": "Qatar's explosive winger, useful for accelerating past markers, cutting inside, and carrying attacks into shooting areas.",
+      "noteZh": "埃德米尔森·儒尼奥尔是卡塔尔爆发型边锋，能加速摆脱盯防、内切推进，并把进攻带入射门区域。"
+    },
     "Hassan Alhaydos": {
       "displayName": "Hassan Al-Haydos",
       "sourceTitle": "Hassan Al-Haydos",
@@ -19,7 +183,64 @@
         "Late box runs"
       ],
       "note": "Qatar's veteran attacking leader, useful for calm final passes, set-piece delivery, and late runs into scoring spots.",
-      "noteZh": "卡塔尔经验丰富的进攻领袖，能提供冷静的最后一传、定位球输送，以及后插上进入得分位置的跑动。"
+      "noteZh": "哈桑·海多斯是卡塔尔经验丰富的进攻领袖，能提供冷静的最后一传、定位球输送，以及后插上进入得分位置的跑动。"
+    },
+    "Homam Ahmed": {
+      "displayName": "Homam Ahmed",
+      "sourceTitle": "Homam Ahmed",
+      "skills": [
+        "Left-back overlaps",
+        "Recovery runs",
+        "Low delivery"
+      ],
+      "note": "Qatar's left-back outlet, giving them overlap runs, recovery pace, and low delivery when attacks reach the byline.",
+      "noteZh": "胡马姆·艾哈迈德是卡塔尔左后卫出口，能套边前插、快速回追，并在进攻推进到底线时送出低平传中。"
+    },
+    "Issa Laye": {
+      "displayName": "Issa Laye",
+      "sourceTitle": "Issa Laye",
+      "skills": [
+        "Centre-back cover",
+        "Defensive midfield depth",
+        "Aerial duels"
+      ],
+      "note": "Qatar's centre-back and midfield cover, useful for aerial duels, protecting the central channel, and closing games with extra structure.",
+      "noteZh": "伊萨·拉耶是卡塔尔中卫和中场保护选择，能争顶对抗、保护中路通道，并在收比赛时增加阵型稳定。"
+    },
+    "Jassem Gaber": {
+      "displayName": "Jassem Gaber",
+      "sourceTitle": "Jassem Gaber",
+      "league": "Qatar Stars League",
+      "skills": [
+        "Centre-back passing",
+        "Midfield cover",
+        "Defensive anticipation"
+      ],
+      "note": "Qatar's flexible defender, giving them centre-back passing, defensive-midfield cover, and early reads against counterattacks.",
+      "noteZh": "贾西姆·加伯是卡塔尔灵活防守者，能提供中卫出球、防守型中场保护，并提前判断对手反击。"
+    },
+    "Karim Boudiaf": {
+      "displayName": "Karim Boudiaf",
+      "sourceTitle": "Karim Boudiaf",
+      "skills": [
+        "Defensive versatility",
+        "Midfield experience",
+        "Aerial cover"
+      ],
+      "note": "Qatar's veteran defensive utility player, helping them shift between midfield and defence while keeping aerial cover and experience.",
+      "noteZh": "卡里姆·布迪亚夫是卡塔尔老练的防守多面手，能在中场和防线之间切换，同时提供空中保护和经验。"
+    },
+    "Lucas Mendes": {
+      "displayName": "Lucas Mendes",
+      "sourceTitle": "Lucas Mendes (footballer, born 1990)",
+      "league": "Qatar Stars League",
+      "skills": [
+        "Left-footed defending",
+        "Back-line organisation",
+        "Long passing"
+      ],
+      "note": "Qatar's left-sided defensive organiser, useful for back-line communication, left-footed exits, and longer passes into wide runners.",
+      "noteZh": "卢卡斯·门德斯是卡塔尔左侧防线组织者，能指挥后防、用左脚出球，并把长传送到边路跑动点。"
     },
     "Mahmoud Abunada": {
       "displayName": "Mahmoud Abunada",
@@ -37,7 +258,111 @@
         "Distribution"
       ],
       "note": "Qatar's shot-stopping goalkeeper, giving the team box control and a steadier platform when pressure reaches the area.",
-      "noteZh": "卡塔尔的扑救型门将，在压力进入禁区时帮助球队控制禁区，并提供更稳定的出球基础。"
+      "noteZh": "马哈茂德·阿布纳达是卡塔尔的扑救型门将，在压力进入禁区时帮助球队控制禁区，并提供更稳定的出球基础。"
+    },
+    "Meshaal Barsham": {
+      "displayName": "Meshaal Barsham",
+      "sourceTitle": "Meshaal Barsham",
+      "skills": [
+        "Reflex saves",
+        "Penalty moments",
+        "Quick restarts"
+      ],
+      "note": "Qatar's established goalkeeper, giving them reflex saves, penalty confidence, and quick restarts after claiming the ball.",
+      "noteZh": "梅沙尔·巴沙姆是卡塔尔主力级门将，能提供反应扑救、点球时刻的信心，并在拿到球后快速重新发动。"
+    },
+    "Mohamed Manai": {
+      "displayName": "Mohamed Manai",
+      "sourceTitle": "Mohamed Manai",
+      "skills": [
+        "Midfield screening",
+        "Tackle timing",
+        "Safe outlets"
+      ],
+      "note": "Qatar's defensive-midfield depth, useful for screening the back line, timing tackles, and offering safe outlets under pressure.",
+      "noteZh": "穆罕默德·马奈是卡塔尔防守型中场深度，能保护后防线、把握抢断时机，并在压力下提供安全接应。"
+    },
+    "Mohammed Muntari": {
+      "displayName": "Mohammed Muntari",
+      "sourceTitle": "Mohammed Muntari",
+      "league": "Qatar Stars League",
+      "skills": [
+        "Target play",
+        "Aerial finishing",
+        "Box presence"
+      ],
+      "note": "Qatar's physical striker option, giving them a target for direct balls, aerial finishing, and presence against packed boxes.",
+      "noteZh": "穆罕默德·蒙塔里是卡塔尔力量型中锋选择，能接应直接传球、完成头球终结，并在密集禁区里提供存在感。"
+    },
+    "Pedro Miguel": {
+      "displayName": "Pedro Miguel",
+      "sourceTitle": "Pedro Miguel (footballer)",
+      "skills": [
+        "Right-back power",
+        "Cross defending",
+        "Set-piece threat"
+      ],
+      "note": "Qatar's powerful right-back, useful for defending crosses, winning back-post duels, and adding size on attacking set pieces.",
+      "noteZh": "佩德罗·米格尔是卡塔尔强力右后卫，能防守传中、赢下后点对抗，并在进攻定位球中增加高度。"
+    },
+    "Salah Zakaria": {
+      "displayName": "Salah Zakaria",
+      "sourceTitle": "Salah Zakaria",
+      "skills": [
+        "Shot stopping",
+        "Keeper depth",
+        "Area control"
+      ],
+      "note": "Qatar's goalkeeper depth, giving them another shot-stopping option and extra security when managing the penalty area.",
+      "noteZh": "萨拉赫·扎卡里亚是卡塔尔门将深度，能提供另一名扑救选择，并在管理禁区时增加安全感。"
+    },
+    "Sultan Albrake": {
+      "displayName": "Sultan Al-Brake",
+      "sourceTitle": "Sultan Al-Brake",
+      "transfermarktPlayerCode": "sultan-al-brake",
+      "birthDate": "1996-04-07",
+      "position": "Left-back",
+      "club": "Al-Duhail",
+      "league": "Qatar Stars League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/big/336665-1737911354.jpg?lm=1",
+      "marketValueEurMillions": 0.3,
+      "skills": [
+        "Left-back defending",
+        "Overlap timing",
+        "Recovery cover"
+      ],
+      "note": "Qatar's left-back cover, useful for timing overlaps, recovering into the defensive line, and protecting the far post.",
+      "noteZh": "苏丹·布拉克是卡塔尔左后卫保护选择，能把握套边时机、回收到防线，并保护远端后点。"
+    },
+    "Tahsin Mohammed": {
+      "displayName": "Tahsin Mohammed Jamshid",
+      "sourceTitle": "Tahsin Jamshid",
+      "transfermarktPlayerCode": "tahsin-mohammed-jamshid",
+      "birthDate": "2006-06-16",
+      "position": "Winger",
+      "club": "Al-Duhail",
+      "league": "Qatar Stars League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/big/1143849-1762259649.jpg?lm=1",
+      "marketValueEurMillions": 0.2,
+      "skills": [
+        "Wide acceleration",
+        "Left-wing dribbling",
+        "Youthful energy"
+      ],
+      "note": "Qatar's young winger, giving them acceleration from wide areas, fearless dribbling, and fresh energy as matches open up.",
+      "noteZh": "塔赫辛·穆罕默德·贾姆希德是卡塔尔年轻边锋，能从边路加速、无畏带球，并在比赛拉开后带来新鲜活力。"
+    },
+    "Yusuf Abdurisag": {
+      "displayName": "Yusuf Abdurisag",
+      "sourceTitle": "Yusuf Abdurisag",
+      "league": "Qatar Stars League",
+      "skills": [
+        "Wide pressing",
+        "Diagonal runs",
+        "Counterattack support"
+      ],
+      "note": "Qatar's wide forward option, useful for pressing full-backs, making diagonal runs, and supporting counters from the flank.",
+      "noteZh": "优素福·阿卜杜里萨格是卡塔尔边路前锋选择，能压迫边后卫、斜线前插，并从边路支援反击。"
     }
   }
 }

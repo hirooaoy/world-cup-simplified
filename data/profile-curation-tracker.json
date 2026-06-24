@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-24T22:35:44.251Z",
+  "updatedAt": "2026-06-24T23:11:22.324Z",
   "currentTournament": {
     "edition": "2026-world-cup",
     "scope": "Generate and audit every official squad player card country by country.",
@@ -31,17 +31,17 @@
         "order": 3,
         "teamId": "BIH",
         "teamName": "Bosnia and Herzegovina",
-        "status": "pending",
-        "profileCount": 0,
-        "lastAudit": ""
+        "status": "ready",
+        "profileCount": 26,
+        "lastAudit": "passed strict country workflow at 2026-06-24T23:04:24.508Z"
       },
       {
         "order": 4,
         "teamId": "QAT",
         "teamName": "Qatar",
-        "status": "pending",
-        "profileCount": 0,
-        "lastAudit": ""
+        "status": "ready",
+        "profileCount": 26,
+        "lastAudit": "passed strict country workflow at 2026-06-24T23:11:22.324Z"
       },
       {
         "order": 5,

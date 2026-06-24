@@ -312,6 +312,7 @@ let profileFieldOverrides = {
   },
   "Yasin Ayari": { club: "Brighton & Hove Albion" }
 };
+const profileRemovalNames = new Set();
 const rosterNameOverrides = new Map();
 
 function hasArg(name) {
@@ -555,6 +556,12 @@ async function loadPlayerProfileOverrideFiles(teamFilter = new Set()) {
         `${fileTeamId}:${rawName}`,
         values.filter((candidate) => typeof candidate === "string" && candidate.trim())
       );
+    }
+
+    for (const profileName of overrideFile.removeProfiles || []) {
+      if (typeof profileName === "string" && profileName.trim()) {
+        profileRemovalNames.add(profileName.trim());
+      }
     }
   }
 }
@@ -2003,16 +2010,17 @@ async function buildProfile(player, transfermarktIndex = {}) {
       league: profileLeague
     };
     const note = overrides.note || getProfileNote(player, existingProfile, position);
+    const summary = overrides.summary || getProfileSummary({
+      note: player.note,
+      existingSummary: existingProfile.summary
+    });
 
     return {
       name: player.name,
       teamId: player.team.id,
       displayName,
       birthDate,
-      summary: getProfileSummary({
-        note: player.note,
-        existingSummary: existingProfile.summary
-      }),
+      summary,
       ...getMarketValueFields(player, profileSeed, overrides, transfermarktRecord),
       position,
       club: profileClub,
@@ -2022,7 +2030,7 @@ async function buildProfile(player, transfermarktIndex = {}) {
       skills: overrides.skills || inferSkills(note),
       note,
       noteZh: overrides.noteZh || existingProfile.noteZh,
-      sourceUrl: transfermarktRecord?.url || ""
+      sourceUrl: overrides.sourceUrl || transfermarktRecord?.url || ""
     };
   }
 
@@ -2036,7 +2044,7 @@ async function buildProfile(player, transfermarktIndex = {}) {
   const profileClub = overrides.club || club;
   const birthDate = overrides.birthDate || getBirthDate(fields);
   const existingProfile = existingProfilesData.profiles?.[player.name] || {};
-  const summary = getProfileSummary({
+  const summary = overrides.summary || getProfileSummary({
     extract: "",
     note: player.note,
     existingSummary: existingProfile.summary
@@ -2069,7 +2077,7 @@ async function buildProfile(player, transfermarktIndex = {}) {
     skills: overrides.skills || inferSkills(note),
     note,
     noteZh: overrides.noteZh || existingProfile.noteZh,
-    sourceUrl: `https://en.wikipedia.org/wiki/${encodeURIComponent(title.replace(/ /g, "_"))}`
+    sourceUrl: overrides.sourceUrl || `https://en.wikipedia.org/wiki/${encodeURIComponent(title.replace(/ /g, "_"))}`
   };
 }
 
@@ -2080,7 +2088,7 @@ function buildProfileFromPageData(player, title, pageData = {}, transfermarktInd
 
   if (!title || !wikitext) {
     const profileClub = overrides.club || existingProfile.club || "";
-    const summary = getProfileSummary({
+    const summary = overrides.summary || getProfileSummary({
       extract: pageData.extract,
       note: player.note || existingProfile.note,
       existingSummary: existingProfile.summary
@@ -2126,9 +2134,9 @@ function buildProfileFromPageData(player, title, pageData = {}, transfermarktInd
       skills: overrides.skills || inferSkills(note),
       note,
       noteZh: overrides.noteZh || existingProfile.noteZh,
-      sourceUrl: title
+      sourceUrl: overrides.sourceUrl || (title
         ? `https://en.wikipedia.org/wiki/${encodeURIComponent(title.replace(/ /g, "_"))}`
-        : existingProfile.sourceUrl || transfermarktRecord?.url || ""
+        : existingProfile.sourceUrl || transfermarktRecord?.url || "")
     };
   }
 
@@ -2138,7 +2146,7 @@ function buildProfileFromPageData(player, title, pageData = {}, transfermarktInd
   const imageUrl = getCommonsImageUrl(fields.image || "");
   const profileClub = overrides.club || club || existingProfile.club || "";
   const birthDate = overrides.birthDate || getBirthDate(fields) || existingProfile.birthDate;
-  const summary = getProfileSummary({
+  const summary = overrides.summary || getProfileSummary({
     extract: pageData.extract,
     note: player.note || existingProfile.note,
     existingSummary: existingProfile.summary
@@ -2178,7 +2186,7 @@ function buildProfileFromPageData(player, title, pageData = {}, transfermarktInd
     skills: overrides.skills || inferSkills(note),
     note,
     noteZh: overrides.noteZh || existingProfile.noteZh,
-    sourceUrl: `https://en.wikipedia.org/wiki/${encodeURIComponent(title.replace(/ /g, "_"))}`
+    sourceUrl: overrides.sourceUrl || `https://en.wikipedia.org/wiki/${encodeURIComponent(title.replace(/ /g, "_"))}`
   };
 }
 
@@ -2335,7 +2343,11 @@ const output = {
   ],
   profiles: preserveExistingProfiles
     ? {
-        ...(existingProfilesData.profiles || {}),
+        ...Object.fromEntries(
+          Object.entries(existingProfilesData.profiles || {}).filter(
+            ([profileName]) => !profileRemovalNames.has(profileName)
+          )
+        ),
         ...profiles
       }
     : profiles

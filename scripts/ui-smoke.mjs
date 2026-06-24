@@ -128,6 +128,10 @@ function formatGoalsScored(goals) {
   return `${goals} ${goals === 1 ? "goal" : "goals"} scored`;
 }
 
+function formatExpectedThirdPlaceCandidateSummary(candidate) {
+  return `${formatStandingPoints(candidate.pts)}, ${formatGoalDifference(candidate.gd)} goal difference, ${formatGoalsScored(candidate.gf)}`;
+}
+
 function getThirdPlaceAdvancerCount() {
   const groupCount = tournamentData.groups?.length || 0;
   const configuredAdvancers = Number(tournamentData.format?.bestThirdPlaceAdvancers);
@@ -259,33 +263,87 @@ function getExpectedThirdPlaceRaceRows() {
   return annotateExpectedThirdPlaceRaceRows(rows, getThirdPlaceAdvancerCount());
 }
 
-function getExpectedThirdPlaceReason(candidate, rows = getExpectedThirdPlaceRaceRows()) {
-  if (candidate.isCutLineTie) {
-    return `Tied on loaded stats for ${formatOrdinal(candidate.tieGroupStart)}-${formatOrdinal(candidate.tieGroupEnd)}.`;
+function getExpectedThirdPlaceComparisonTarget(candidate, rows = getExpectedThirdPlaceRaceRows()) {
+  if (rows.length <= 1) {
+    return null;
   }
 
-  const nearestCandidate =
-    candidate.position <= getThirdPlaceAdvancerCount()
-      ? rows[candidate.position]
-      : rows[candidate.position - 2];
+  const targetIndex = candidate.position > 1 ? candidate.position - 2 : 1;
+  return rows[targetIndex] || null;
+}
+
+function getExpectedThirdPlaceComparisonDecider(candidate, target) {
+  if (candidate.pts !== target.pts) {
+    return {
+      label: "points",
+      candidateValue: formatStandingPoints(candidate.pts),
+      targetValue: formatStandingPoints(target.pts)
+    };
+  }
+
+  if (candidate.gd !== target.gd) {
+    return {
+      label: "goal difference",
+      candidateValue: formatGoalDifference(candidate.gd),
+      targetValue: formatGoalDifference(target.gd)
+    };
+  }
+
+  if (candidate.gf !== target.gf) {
+    return {
+      label: "goals scored",
+      candidateValue: String(candidate.gf),
+      targetValue: String(target.gf)
+    };
+  }
+
+  const candidateConduct = getTeamConductScore(candidate);
+  const targetConduct = getTeamConductScore(target);
+  if (candidateConduct !== null && targetConduct !== null && candidateConduct !== targetConduct) {
+    return {
+      label: "loaded fair-play conduct",
+      candidateValue: String(candidateConduct),
+      targetValue: String(targetConduct)
+    };
+  }
+
+  const candidateRank = getFifaRankValue(candidate.team);
+  const targetRank = getFifaRankValue(target.team);
+  if (Number.isFinite(candidateRank) && Number.isFinite(targetRank) && candidateRank !== targetRank) {
+    return {
+      label: "FIFA ranking fallback",
+      candidateValue: `#${candidateRank}`,
+      targetValue: `#${targetRank}`
+    };
+  }
+
+  return {
+    label: "deterministic loaded order",
+    candidateValue: formatOrdinal(candidate.position),
+    targetValue: formatOrdinal(target.position)
+  };
+}
+
+function getExpectedThirdPlaceReason(candidate, rows = getExpectedThirdPlaceRaceRows()) {
+  const summary = `${formatOrdinal(candidate.position)}: ${formatExpectedThirdPlaceCandidateSummary(candidate)}.`;
+
+  if (candidate.isCutLineTie) {
+    return `${summary} Tied on loaded points, goal difference and goals scored for ${formatOrdinal(candidate.tieGroupStart)}-${formatOrdinal(candidate.tieGroupEnd)}; fair-play data is pending.`;
+  }
+
+  const nearestCandidate = getExpectedThirdPlaceComparisonTarget(candidate, rows);
 
   if (!nearestCandidate) {
-    return `${formatStandingPoints(candidate.pts)}, ${formatGoalDifference(candidate.gd)} goal difference, ${formatGoalsScored(candidate.gf)}.`;
+    return summary;
   }
 
-  if (candidate.pts !== nearestCandidate.pts) {
-    return `${formatStandingPoints(candidate.pts)}; ${candidate.position <= getThirdPlaceAdvancerCount() ? "above" : "behind"} next team on points.`;
+  if (candidate.isUnresolvedTie && getThirdPlaceTieSignature(candidate) === getThirdPlaceTieSignature(nearestCandidate)) {
+    return `${summary} Level with ${nearestCandidate.team.name} (${formatOrdinal(nearestCandidate.position)}) on loaded points, goal difference and goals scored; fair-play data is pending.`;
   }
 
-  if (candidate.gd !== nearestCandidate.gd) {
-    return `${formatGoalDifference(candidate.gd)} goal difference; ${candidate.position <= getThirdPlaceAdvancerCount() ? "ahead" : "behind"} on goal difference.`;
-  }
-
-  if (candidate.gf !== nearestCandidate.gf) {
-    return `${formatGoalsScored(candidate.gf)}; ${candidate.position <= getThirdPlaceAdvancerCount() ? "ahead" : "behind"} on total goals scored.`;
-  }
-
-  return `${formatStandingPoints(candidate.pts)}, ${formatGoalDifference(candidate.gd)} goal difference, ${formatGoalsScored(candidate.gf)}.`;
+  const relation = candidate.position < nearestCandidate.position ? "Ahead of" : "Behind";
+  const decider = getExpectedThirdPlaceComparisonDecider(candidate, nearestCandidate);
+  return `${summary} ${relation} ${nearestCandidate.team.name} (${formatOrdinal(nearestCandidate.position)}) on ${decider.label}: ${decider.candidateValue} vs ${decider.targetValue}.`;
 }
 
 function getExpectedStandingOrder(groupId) {
@@ -922,6 +980,25 @@ try {
     "Single-name player hover cards should include a face or initials fallback."
   );
 
+  await page.goto(`${baseUrl}?view=matches&date=2026-06-24&tz=America%2FLos_Angeles`, {
+    waitUntil: "load"
+  });
+  await page.waitForSelector(".match-row");
+  await page.locator('[data-match-id="bosnia-qatar-2026-06-24"]').click();
+  assert(
+    (await page.locator("#match-info .standing-status-pill.is-eliminated", { hasText: "Eliminated" }).count()) === 1,
+    "Match detail group standings should mark eliminated teams after a group is complete."
+  );
+  await page.goto(`${baseUrl}?view=matches&date=2026-06-25&tz=America%2FLos_Angeles`, {
+    waitUntil: "load"
+  });
+  await page.waitForSelector(".match-row");
+  await page.locator('[data-match-id="turkiye-united-states-2026-06-25"]').click();
+  assert(
+    (await page.locator("#match-info .standing-team", { hasText: "Türkiye" }).locator(".standing-status-pill.is-eliminated").innerText()) === "Eliminated",
+    "Match detail group standings should mathematically mark eliminated teams before their group is complete."
+  );
+
   await page.locator("#matches-tab").focus();
   await page.keyboard.press("ArrowRight");
   assert(
@@ -942,24 +1019,51 @@ try {
   const scotlandStandingTeam = page
     .locator('.standings-card[data-group-id="C"] .standing-team', { hasText: "Scotland" })
     .first();
-  const scotlandTooltipState = await scotlandStandingTeam.evaluate((team) => ({
+  const scotlandBadgeLayoutState = await scotlandStandingTeam.evaluate((team) => {
+    const name = team.querySelector(".standing-name");
+    const badge = team.querySelector(".third-place-pill");
+    const nameRect = name?.getBoundingClientRect();
+
+    return {
+      badgeText: badge?.textContent.trim() || "",
+      nameText: name?.textContent.trim() || "",
+      nameWidth: nameRect?.width || 0,
+      whiteSpace: name ? getComputedStyle(name).whiteSpace : "",
+      hasBadgeClass: team.classList.contains("has-standing-badges"),
+      hasTooltipClass: team.classList.contains("has-name-tooltip")
+    };
+  });
+  assert(
+    scotlandBadgeLayoutState.hasBadgeClass &&
+      scotlandBadgeLayoutState.nameText === "Scotland" &&
+      scotlandBadgeLayoutState.nameWidth > 40 &&
+      scotlandBadgeLayoutState.whiteSpace === "normal" &&
+      scotlandBadgeLayoutState.badgeText.includes("3rd race") &&
+      !scotlandBadgeLayoutState.hasTooltipClass,
+    "Badge-bearing standings rows should keep the team name visible instead of collapsing into a tooltip-only row."
+  );
+
+  const southKoreaStandingTeam = page
+    .locator('.standings-card[data-group-id="A"] .standing-team', { hasText: "South Korea" })
+    .first();
+  const southKoreaTooltipState = await southKoreaStandingTeam.evaluate((team) => ({
     anchor: team.style.getPropertyValue("--name-tooltip-anchor"),
     hasTooltipClass: team.classList.contains("has-name-tooltip"),
     title: team.getAttribute("title"),
     tooltip: team.getAttribute("data-tooltip")
   }));
   assert(
-    scotlandTooltipState.hasTooltipClass &&
-      scotlandTooltipState.title === "Scotland" &&
-      scotlandTooltipState.tooltip === "Scotland" &&
-      scotlandTooltipState.anchor.length > 0,
-    "Truncated Scotland standings row should expose a full-name tooltip with a usable anchor."
+    southKoreaTooltipState.hasTooltipClass &&
+      southKoreaTooltipState.title === "South Korea" &&
+      southKoreaTooltipState.tooltip === "South Korea" &&
+      southKoreaTooltipState.anchor.length > 0,
+    "Truncated non-badge standings rows should expose a full-name tooltip with a usable anchor."
   );
-  await scotlandStandingTeam.hover();
+  await southKoreaStandingTeam.hover();
   await page.waitForTimeout(160);
   assert(
-    (await scotlandStandingTeam.evaluate((team) => getComputedStyle(team, "::after").opacity)) === "1",
-    "Hovering the truncated Scotland standings row should reveal the full-name tooltip."
+    (await southKoreaStandingTeam.evaluate((team) => getComputedStyle(team, "::after").opacity)) === "1",
+    "Hovering a truncated non-badge standings row should reveal the full-name tooltip."
   );
   await page.setViewportSize({ width: 1280, height: 720 });
 
@@ -1380,7 +1484,7 @@ try {
     june17Scores.join("|") === "1-1|4-2|1-0|1-3",
     "The finalized Jun 17 match list should show all four score pills."
   );
-  const livePillCount = await matchStateCheck.page.locator(".live-pill").count();
+  const livePillCount = await matchStateCheck.page.locator("#match-list .live-pill").count();
   if (livePillCount > 0) {
     assert(livePillCount === 1, "A live match should show one Live pill.");
     assert(
@@ -2184,11 +2288,58 @@ try {
     currentStandingsMarkerCheck.advancementPillCount === 0,
     "The current 2026 standings should not show Round of 32 markers."
   );
+  const expectedGroupBThirdPlaceCandidate = getExpectedThirdPlaceRaceRows().find(
+    (candidate) => candidate.groupId === "B"
+  );
+  const groupBThirdPlacePill = page.locator(".standings-card", { hasText: "Group B" }).locator(".third-place-pill");
   assert(
-    getExpectedThirdPlaceRaceRows().some((candidate) => candidate.groupId === "B") &&
-    (await page.locator(".standings-card", { hasText: "Group B" }).locator(".third-place-pill").innerText()).trim() ===
-      `3rd race ${formatOrdinal(getExpectedThirdPlaceRaceRows().find((candidate) => candidate.groupId === "B").position)}`,
+    expectedGroupBThirdPlaceCandidate &&
+      (await groupBThirdPlacePill.innerText()).trim() ===
+        `3rd race ${formatOrdinal(expectedGroupBThirdPlaceCandidate.position)}`,
     "Group standings should show each current third-place team's cross-group race position."
+  );
+  const groupBThirdPlacePillTooltip = await groupBThirdPlacePill.getAttribute("data-tooltip");
+  assert(
+    groupBThirdPlacePillTooltip ===
+      getExpectedThirdPlaceReason(expectedGroupBThirdPlaceCandidate, getExpectedThirdPlaceRaceRows()),
+    "Group standings third-place race pills should explain the cross-group rank on hover."
+  );
+  const expectedStandingsLiveThirdPlaceTeams = new Set(
+    fixturesData.fixtures
+      .filter((fixture) => fixture.status === "LIVE")
+      .flatMap((fixture) => [fixture.homeTeamId, fixture.awayTeamId])
+      .filter((teamId) => getExpectedThirdPlaceRaceRows().some((candidate) => candidate.teamId === teamId))
+      .map((teamId) => getTeam(teamId).name)
+  );
+  const groupStandingsLiveRows = await page.evaluate(() =>
+    [...document.querySelectorAll(".standings-card tbody tr")].map((row) => ({
+      live: row.querySelector(".standing-live-pill")?.textContent.trim() || "",
+      race: row.querySelector(".third-place-pill")?.textContent.trim() || "",
+      team: row.querySelector(".standing-name")?.textContent.trim() || ""
+    }))
+  );
+  assert(
+    groupStandingsLiveRows.every((row) =>
+      expectedStandingsLiveThirdPlaceTeams.has(row.team) ? row.live === "Live" : row.live === ""
+    ) &&
+      groupStandingsLiveRows
+        .filter((row) => expectedStandingsLiveThirdPlaceTeams.has(row.team))
+        .every((row) => row.race.startsWith("3rd race")),
+    "Group standings should show LIVE only beside current third-place candidates playing live."
+  );
+  assert(
+    (await page
+      .locator('.standings-card[data-group-id="B"] .standing-team', { hasText: "Qatar" })
+      .locator(".standing-status-pill.is-eliminated")
+      .innerText()) === "Eliminated",
+    "Completed group standings should mark teams outside any group-stage path as eliminated."
+  );
+  assert(
+    (await page
+      .locator('.standings-card[data-group-id="D"] .standing-team', { hasText: "Türkiye" })
+      .locator(".standing-status-pill.is-eliminated")
+      .innerText()) === "Eliminated",
+    "Group standings should use completed head-to-head results to mark mathematically eliminated teams before the group is complete."
   );
   const groupStandingsRhythm = await page.evaluate(() => {
     const title = document.querySelector(".standings-title").getBoundingClientRect();
@@ -2251,6 +2402,7 @@ try {
         rank: row.children[0]?.textContent.trim(),
         team: row.querySelector(".standing-name")?.textContent.trim(),
         group: row.children[2]?.textContent.trim(),
+        live: row.querySelector(".standing-live-pill")?.textContent.trim() || "",
         status: statusPill?.textContent.trim(),
         statusLabel: statusPill?.getAttribute("aria-label"),
         tooltip: statusPill?.getAttribute("data-tooltip")
@@ -2295,8 +2447,26 @@ try {
   );
   assert(
     thirdPlaceRaceCheck.visibleReasonCount === 0 &&
-      thirdPlaceRaceCheck.rowSummaries.every((row) => row.tooltip && !row.tooltip.includes("GF")),
+      thirdPlaceRaceCheck.rowSummaries.every((row) => row.tooltip && !row.tooltip.includes("GF")) &&
+      thirdPlaceRaceCheck.rowSummaries.some((row) =>
+        /^(Ahead of|Behind|Level with)/.test(
+          row.tooltip.replace(/^\d+(?:st|nd|rd|th): .*?\. /, "")
+        )
+      ),
     "The third-place race should hide row explanations behind status pill tooltips without GF jargon."
+  );
+  const expectedLiveThirdPlaceTeams = new Set(
+    fixturesData.fixtures
+      .filter((fixture) => fixture.status === "LIVE")
+      .flatMap((fixture) => [fixture.homeTeamId, fixture.awayTeamId])
+      .filter((teamId) => expectedThirdPlaceRaceRows.some((candidate) => candidate.teamId === teamId))
+      .map((teamId) => getTeam(teamId).name)
+  );
+  assert(
+    thirdPlaceRaceCheck.rowSummaries.every((row) =>
+      expectedLiveThirdPlaceTeams.has(row.team) ? row.live === "Live" : row.live === ""
+    ),
+    "The third-place race should show LIVE only for active matches involving current third-place candidates."
   );
   assert(
     thirdPlaceRaceCheck.rowSummaries.some((row) => row.status === "Just inside") &&

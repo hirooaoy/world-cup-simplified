@@ -132,6 +132,7 @@ export default async function handler(request, response) {
       fixturesData: goalEventMerge.fixturesData,
       provider,
       standingsData,
+      teams: teamsData.teams,
       tournamentData
     });
     const providerTournamentData = addProviderSource({
@@ -1799,8 +1800,8 @@ function addOfficialGoalEventsSource({ checkedAt, goalEventMerge, tournamentData
   };
 }
 
-function createEmptyStanding(teamId) {
-  return {
+function createEmptyStanding(teamId, sourceRow = {}) {
+  const row = {
     teamId,
     played: 0,
     wins: 0,
@@ -1809,6 +1810,14 @@ function createEmptyStanding(teamId) {
     gf: 0,
     ga: 0
   };
+
+  for (const key of ["teamConductScore", "conductScore", "fairPlayScore", "fairPlayPoints"]) {
+    if (sourceRow[key] !== undefined) {
+      row[key] = sourceRow[key];
+    }
+  }
+
+  return row;
 }
 
 function applyResult(table, fixture) {
@@ -1846,16 +1855,161 @@ function goalDifference(row) {
   return row.gf - row.ga;
 }
 
-function recomputeStandings({ checkedAt, fixturesData, provider, standingsData, tournamentData }) {
-  const existingOrder = new Map();
-  for (const [groupId, rows] of Object.entries(standingsData.groups || {})) {
-    rows.forEach((row, index) => existingOrder.set(`${groupId}:${row.teamId}`, index));
+function getTeamConductScore(row) {
+  const value =
+    row.teamConductScore ?? row.conductScore ?? row.fairPlayScore ?? row.fairPlayPoints;
+  const score = Number(value);
+
+  return Number.isFinite(score) ? score : null;
+}
+
+function buildTeamsById(teams = []) {
+  return new Map(teams.map((team) => [team.id, team]));
+}
+
+function getFifaRankValue(teamId, teamsById) {
+  const rank = Number(teamsById.get(teamId)?.fifaRank);
+
+  return Number.isFinite(rank) ? rank : Number.POSITIVE_INFINITY;
+}
+
+function buildExistingStandingLookups(standingsData) {
+  const order = new Map();
+  const rows = new Map();
+
+  for (const [groupId, groupRows] of Object.entries(standingsData.groups || {})) {
+    groupRows.forEach((row, index) => {
+      const key = `${groupId}:${row.teamId}`;
+      order.set(key, index);
+      rows.set(key, row);
+    });
   }
+
+  return { order, rows };
+}
+
+function splitEqualRuns(rows, getSignature) {
+  const groups = [];
+
+  for (const row of rows) {
+    const signature = getSignature(row);
+    const lastGroup = groups.at(-1);
+
+    if (lastGroup?.signature === signature) {
+      lastGroup.rows.push(row);
+    } else {
+      groups.push({ rows: [row], signature });
+    }
+  }
+
+  return groups.map((group) => group.rows);
+}
+
+function getExistingOrder(row, context) {
+  return context.existingOrder.get(`${context.groupId}:${row.teamId}`) ?? 99;
+}
+
+function compareOverallTiebreakers(a, b, context) {
+  const conductA = getTeamConductScore(a);
+  const conductB = getTeamConductScore(b);
+
+  return (
+    goalDifference(b) - goalDifference(a) ||
+    b.gf - a.gf ||
+    (conductA !== null && conductB !== null ? conductB - conductA : 0) ||
+    getFifaRankValue(a.teamId, context.teamsById) - getFifaRankValue(b.teamId, context.teamsById) ||
+    getExistingOrder(a, context) - getExistingOrder(b, context)
+  );
+}
+
+function rankByOverallTiebreakers(rows, context) {
+  return [...rows].sort((a, b) => compareOverallTiebreakers(a, b, context));
+}
+
+function getHeadToHeadStats(rows, context) {
+  const teamIds = new Set(rows.map((row) => row.teamId));
+  const stats = new Map(rows.map((row) => [row.teamId, createEmptyStanding(row.teamId, row)]));
+
+  for (const fixture of context.fixtures) {
+    if (
+      fixture.groupId === context.groupId &&
+      teamIds.has(fixture.homeTeamId) &&
+      teamIds.has(fixture.awayTeamId)
+    ) {
+      applyResult(stats, fixture);
+    }
+  }
+
+  return stats;
+}
+
+function getHeadToHeadSignature(row, stats) {
+  const h2h = stats.get(row.teamId) || createEmptyStanding(row.teamId);
+
+  return [points(h2h), goalDifference(h2h), h2h.gf].join("|");
+}
+
+function compareHeadToHead(a, b, stats) {
+  const h2hA = stats.get(a.teamId) || createEmptyStanding(a.teamId);
+  const h2hB = stats.get(b.teamId) || createEmptyStanding(b.teamId);
+
+  return (
+    points(h2hB) - points(h2hA) ||
+    goalDifference(h2hB) - goalDifference(h2hA) ||
+    h2hB.gf - h2hA.gf
+  );
+}
+
+function rankByHeadToHead(rows, context) {
+  if (rows.length <= 1) {
+    return rows;
+  }
+
+  const stats = getHeadToHeadStats(rows, context);
+  const sortedRows = [...rows].sort((a, b) => compareHeadToHead(a, b, stats));
+  const groups = splitEqualRuns(sortedRows, (row) => getHeadToHeadSignature(row, stats));
+
+  if (groups.length === 1) {
+    return null;
+  }
+
+  return groups.flatMap((group) => {
+    if (group.length === 1) {
+      return group;
+    }
+
+    return rankByHeadToHead(group, context) || rankByOverallTiebreakers(group, context);
+  });
+}
+
+function rankEqualPointRows(rows, context) {
+  return rankByHeadToHead(rows, context) || rankByOverallTiebreakers(rows, context);
+}
+
+function rankGroupStandings(rows, context) {
+  const sortedByPoints = [...rows].sort(
+    (a, b) => points(b) - points(a) || getExistingOrder(a, context) - getExistingOrder(b, context)
+  );
+
+  return splitEqualRuns(sortedByPoints, (row) => String(points(row))).flatMap((group) =>
+    group.length === 1 ? group : rankEqualPointRows(group, context)
+  );
+}
+
+function recomputeStandings({ checkedAt, fixturesData, provider, standingsData, teams = [], tournamentData }) {
+  const existing = buildExistingStandingLookups(standingsData);
+  const includedFixtures = [];
+  const teamsById = buildTeamsById(teams);
 
   const groups = Object.fromEntries(
     (tournamentData.groups || []).map((group) => [
       group.id,
-      new Map(group.teamIds.map((teamId) => [teamId, createEmptyStanding(teamId)]))
+      new Map(
+        group.teamIds.map((teamId) => [
+          teamId,
+          createEmptyStanding(teamId, existing.rows.get(`${group.id}:${teamId}`))
+        ])
+      )
     ])
   );
 
@@ -1867,19 +2021,18 @@ function recomputeStandings({ checkedAt, fixturesData, provider, standingsData, 
       groups[fixture.groupId]
     ) {
       applyResult(groups[fixture.groupId], fixture);
+      includedFixtures.push(fixture);
     }
   }
 
   const standingsGroups = {};
   for (const [groupId, table] of Object.entries(groups)) {
-    standingsGroups[groupId] = [...table.values()].sort(
-      (a, b) =>
-        points(b) - points(a) ||
-        goalDifference(b) - goalDifference(a) ||
-        b.gf - a.gf ||
-        (existingOrder.get(`${groupId}:${a.teamId}`) ?? 99) -
-          (existingOrder.get(`${groupId}:${b.teamId}`) ?? 99)
-    );
+    standingsGroups[groupId] = rankGroupStandings([...table.values()], {
+      existingOrder: existing.order,
+      fixtures: includedFixtures,
+      groupId,
+      teamsById
+    });
   }
 
   return {
