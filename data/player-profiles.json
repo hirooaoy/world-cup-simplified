@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-24T23:27:19.194Z",
+  "updatedAt": "2026-06-24T23:31:09.161Z",
   "sourceIds": [
     "wikipedia-football-infobox",
     "wikipedia-page-summaries",
@@ -119,12 +119,15 @@
       "club": "Paris Saint-Germain",
       "league": "Ligue 1",
       "uniformNumber": 2,
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Achraf%20Hakimi%20Morocco%20v%20Norway%207%20June%202026-16.jpg?width=160",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/398073-1672304327.jpg?lm=1",
       "skills": [
-        "Match impact"
+        "Right-side acceleration",
+        "Overlap timing",
+        "Recovery defending"
       ],
-      "note": "Achraf Hakimi is part of Morocco's current World Cup squad pool.",
-      "sourceUrl": "https://en.wikipedia.org/wiki/Achraf_Hakimi"
+      "note": "Morocco's right-side captain, driving overlaps, recovery sprints, and the transition threat that turns defense into attack.",
+      "noteZh": "阿什拉夫·哈基米是摩洛哥右路队长，能推动套边、回追冲刺，并把防守转换成进攻威胁。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/achraf-hakimi/profil/spieler/398073"
     },
     "Adalberto Carrasquilla": {
       "name": "Adalberto Carrasquilla",
@@ -529,16 +532,19 @@
       "birthDate": "1993-06-25",
       "summary": "Ayoub El Kaabi (Arabic: أَيُّوب الْكَعْبِيّ, Berber languages: ⴰⵢⵓⴱ ⴻⵍ ⴽⴰⴰⴱⵉ; born 25 June 1993) is a Moroccan professional footballer who plays as a striker for Super League Greece club Olympiacos and the Morocco national team.",
       "marketValueEurMillions": 4.5,
-      "position": "Striker",
+      "position": "Centre-forward",
       "club": "Olympiacos",
       "league": "Super League Greece",
       "uniformNumber": 20,
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ayoub%20El%20Kaabi%20vs%20Niger%20(cropped).jpg?width=160",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/521127-1717008763.jpg?lm=1",
       "skills": [
-        "Match impact"
+        "Box movement",
+        "First-time finishing",
+        "Near-post runs"
       ],
-      "note": "Ayoub El Kaabi is part of Morocco's current World Cup squad pool.",
-      "sourceUrl": "https://en.wikipedia.org/wiki/Ayoub_El_Kaabi"
+      "note": "Morocco's penalty-box reference, living on near-post runs, first-time finishes, and little movements between centre-backs.",
+      "noteZh": "阿尤布·埃尔卡比是摩洛哥禁区支点，依靠前点冲刺、第一时间终结，以及中卫之间的小幅移动制造机会。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/ayoub-el-kaabi/profil/spieler/521127"
     },
     "Bradley Barcola": {
       "name": "Bradley Barcola",
@@ -570,12 +576,15 @@
       "club": "Real Madrid",
       "league": "La Liga",
       "uniformNumber": 10,
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Brahim%20Diaz%20Morocco%20v%20Norway%207%20June%202026-36%20(cropped).jpg?width=160",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/314678-1744193327.jpg?lm=1",
       "skills": [
-        "Match impact"
+        "Half-space dribbling",
+        "Final pass disguise",
+        "Cut-inside shooting"
       ],
-      "note": "Brahim Diaz is part of Morocco's current World Cup squad pool.",
-      "sourceUrl": "https://en.wikipedia.org/wiki/Brahim_D%C3%ADaz"
+      "note": "Morocco's half-space creator, using quick feet, disguised passes, and cut-inside shots to turn control into chances.",
+      "noteZh": "布拉欣·迪亚斯是摩洛哥肋部创造者，能用快速脚下、隐蔽传球和内切射门，把控球转化为机会。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/brahim-diaz/profil/spieler/314678"
     },
     "Breel Embolo": {
       "name": "Breel Embolo",
@@ -1713,15 +1722,18 @@
       "birthDate": "2001-01-28",
       "summary": "Ismael Saibari (born 28 January 2001) is a professional footballer who plays as a attacking midfielder or forward for Eredivisie club PSV Eindhoven. Born in Spain, he represents the Morocco national team.",
       "marketValueEurMillions": 40,
-      "position": "Attacking midfielder, forward",
+      "position": "Attacking midfielder",
       "club": "PSV Eindhoven",
       "league": "Eredivisie",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ismael%20Saibari%20Brazil%20V%20Morocco%2013%20June%202026-152.jpg?width=160",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/702869-1765214009.jpg?lm=1",
       "skills": [
-        "Match impact"
+        "Late box runs",
+        "Combination play",
+        "Goal threat"
       ],
-      "note": "Ismael Saibari is part of Morocco's current World Cup squad pool.",
-      "sourceUrl": "https://en.wikipedia.org/wiki/Ismael_Saibari"
+      "note": "Morocco's attacking midfield runner, turning combinations into late box arrivals and real scoring pressure.",
+      "noteZh": "伊斯梅尔·赛巴里是摩洛哥前腰跑动点，能把配合转化为后插上进禁区，并形成真实得分压力。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/ismael-saibari/profil/spieler/702869"
     },
     "Ismaila Sarr": {
       "name": "Ismaila Sarr",
@@ -5349,15 +5361,15 @@
       "position": "Goalkeeper",
       "club": "Al Hilal",
       "league": "Saudi Pro League",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Yassine%20Bounou%20Brazil%20V%20Morocco%2013%20June%202026-169.jpg?width=160",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/207834-1668503728.jpg?lm=1",
       "skills": [
         "Shot stopping",
         "Penalty saves",
         "Box command"
       ],
       "note": "Morocco's established goalkeeper, giving them reflex saves, penalty-area command, and calm distribution after pressure.",
-      "noteZh": "亚辛·布努是摩洛哥的主力门将，能提供反应扑救、禁区指挥，以及受压后的冷静出球。",
-      "sourceUrl": "https://en.wikipedia.org/wiki/Yassine_Bounou"
+      "noteZh": "亚辛·布努是摩洛哥主力门将，能提供反应扑救、禁区指挥，以及受压后的冷静出球。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/yassine-bounou/profil/spieler/207834"
     },
     "Amar Dedic": {
       "name": "Amar Dedic",
@@ -7065,15 +7077,18 @@
       "teamId": "MAR",
       "birthDate": "1996-04-05",
       "summary": "Ahmed Reda Tagnaouti (Arabic: أحمد رضا التكناوتي; born 5 April 1996) is a Moroccan professional footballer who plays as goalkeeper for Botola Pro club AS FAR and the Morocco national team.",
-      "estimatedMarketValueEurMillions": 1,
+      "marketValueEurMillions": 1,
       "position": "Goalkeeper",
       "club": "AS FAR",
       "league": "Botola Pro",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ahmed%20Reda%20Tagnaouti%20Morocco%20v%20Norway%207%20June%202026-18.jpg?width=160",
       "skills": [
-        "Match impact"
+        "Goalkeeper depth",
+        "Shot stopping",
+        "Calm restarts"
       ],
-      "note": "Ahmed Reda Tagnaouti is part of Morocco's current World Cup squad pool.",
+      "note": "Morocco's domestic goalkeeper depth, giving them shot-stopping cover and calm restarts if the match demands rotation.",
+      "noteZh": "艾哈迈德·雷达·塔格纳乌蒂是摩洛哥的本土门将深度，能在需要轮换时提供扑救保障和冷静重新开球。",
       "sourceUrl": "https://en.wikipedia.org/wiki/Ahmed_Reda_Tagnaouti"
     },
     "Amine Sbai": {
@@ -7083,15 +7098,18 @@
       "birthDate": "2000-11-05",
       "summary": "Mohamed Amine Sbaï (born 5 November 2000) is a Moroccan professional footballer who plays as a winger for Ligue 1 club Angers and the Morocco national team.",
       "marketValueEurMillions": 4,
-      "position": "Winger",
+      "position": "Left winger",
       "club": "Angers",
       "league": "Ligue 1",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Amine%20Sbai%20Brazil%20V%20Morocco%2013%20June%202026-64.jpg?width=160",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/851220-1759940291.jpg?lm=1",
       "skills": [
-        "Match impact"
+        "Left-wing dribbling",
+        "Bench spark",
+        "Direct carries"
       ],
-      "note": "Amine Sbai is part of Morocco's current World Cup squad pool.",
-      "sourceUrl": "https://en.wikipedia.org/wiki/Amine_Sba%C3%AF"
+      "note": "Morocco's left-wing spark, useful for direct carries, one-on-one pressure, and changing the rhythm off the bench.",
+      "noteZh": "阿明·斯巴伊是摩洛哥左路的活力点，能直接带球、一对一施压，并在替补登场后改变节奏。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/amine-sbai/profil/spieler/851220"
     },
     "Anass Salah Eddine": {
       "name": "Anass Salah Eddine",
@@ -7100,32 +7118,38 @@
       "birthDate": "2002-01-18",
       "summary": "Anass Salah-Eddine (Arabic: أنس صلاح الدين; born 18 January 2002) is a professional footballer who plays as a left-back or left wing-back for Eredivisie club PSV, on loan from Serie A club Roma, and the Morocco national team.",
       "marketValueEurMillions": 12,
-      "position": "Left-back, left wing-back",
-      "club": "Roma",
+      "position": "Left-back",
+      "club": "PSV Eindhoven",
       "league": "Eredivisie",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Anass_Salah-Eddine_against_Paraguay_(cropped).jpg?width=160",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/485584-1766406432.jpg?lm=1",
       "skills": [
-        "Match impact"
+        "Left-back buildup",
+        "Inverted support",
+        "Recovery speed"
       ],
-      "note": "Anass Salah Eddine is part of Morocco's current World Cup squad pool.",
-      "sourceUrl": "https://en.wikipedia.org/wiki/Anass_Salah-Eddine"
+      "note": "Morocco's left-back connector, helping buildup by stepping inside, supporting combinations, and recovering when the flank opens.",
+      "noteZh": "阿纳斯·萨拉赫-埃丁是摩洛哥左后卫连接点，能内收帮助出球、支援配合，并在边路打开时回追。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/anass-salah-eddine/profil/spieler/485584"
     },
     "Ayoube Amaimouni": {
       "name": "Ayoube Amaimouni",
-      "displayName": "Ayoube Amaimouni",
+      "displayName": "Ayoube Amaimouni-Echghouyab",
       "teamId": "MAR",
       "birthDate": "2004-11-30",
       "summary": "Ayoube Amaimouni-Echghouyabe (Arabic: أيوب الميموني; born 30 November 2004) is a professional footballer who plays as a winger for German Bundesliga club Eintracht Frankfurt. Born in Spain, he plays for the Morocco national team.",
       "marketValueEurMillions": 10,
-      "position": "Winger",
+      "position": "Right winger",
       "club": "Eintracht Frankfurt",
       "league": "Bundesliga",
       "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/799993-1773653073.jpg?lm=1",
       "skills": [
-        "Match impact"
+        "Right-wing pace",
+        "Direct running",
+        "Fresh pressing"
       ],
-      "note": "Ayoube Amaimouni is part of Morocco's current World Cup squad pool.",
-      "sourceUrl": "https://en.wikipedia.org/wiki/Ayoube_Amaimouni"
+      "note": "Morocco's young right-sided runner, giving them pace, direct carries, and fresh pressing when the wide lanes loosen.",
+      "noteZh": "阿尤布·阿迈穆尼-埃什古亚布是摩洛哥年轻的右路跑动点，能在边路变松时提供速度、直接推进和新鲜压迫。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/ayoube-amaimouni-echghouyab/profil/spieler/799993"
     },
     "Ayyoub Bouaddi": {
       "name": "Ayyoub Bouaddi",
@@ -7134,15 +7158,18 @@
       "birthDate": "2007-10-02",
       "summary": "Ayyoub Bouaddi (Arabic: أيوب بوعدي, Berber languages: ⴰⵢⵢⵓⴱ ⴱⵓⵄⴰⴷⴷⵉ; born 2 October 2007) is a professional footballer who plays as a midfielder for Ligue 1 club Lille. Born in France, he plays for the Morocco national team.",
       "marketValueEurMillions": 50,
-      "position": "Midfielder",
+      "position": "Central midfielder",
       "club": "Lille",
       "league": "Ligue 1",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ayyoub_Bouaddi_Morocco_v_Norway_7_June_2026-71.jpg?width=160",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/1097139-1741119960.jpg?lm=1",
       "skills": [
-        "Match impact"
+        "Teenage composure",
+        "Central passing",
+        "Press resistance"
       ],
-      "note": "Ayyoub Bouaddi is part of Morocco's current World Cup squad pool.",
-      "sourceUrl": "https://en.wikipedia.org/wiki/Ayyoub_Bouaddi"
+      "note": "Morocco's composed teenage midfielder, trusted to receive under pressure, keep central passes moving, and slow frantic games.",
+      "noteZh": "阿尤布·布阿迪是摩洛哥沉稳的年轻中场，能在压力下接球、保持中路传递，并让混乱比赛降速。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/ayyoub-bouaddi/profil/spieler/1097139"
     },
     "Azzedine Ounahi": {
       "name": "Azzedine Ounahi",
@@ -7151,15 +7178,18 @@
       "birthDate": "2000-04-19",
       "summary": "Azzedine Ounahi (Arabic: عز الدين أوناحي, pronounced [ʕiz ʔad.di:n u:na:ħi:]; born 19 April 2000) is a Moroccan professional footballer who plays as a midfielder for Segunda División club Girona and the Morocco national team.",
       "marketValueEurMillions": 10,
-      "position": "Midfielder",
+      "position": "Central midfielder",
       "club": "Girona",
-      "league": "Segunda División",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Azzedine%20Ounahi%20Brazil%20V%20Morocco%2013%20June%202026-159%20(cropped).jpg?width=160",
+      "league": "La Liga",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/593482-1668080946.jpg?lm=1",
       "skills": [
-        "Match impact"
+        "Gliding carries",
+        "Line breaking",
+        "Midfield tempo"
       ],
-      "note": "Azzedine Ounahi is part of Morocco's current World Cup squad pool.",
-      "sourceUrl": "https://en.wikipedia.org/wiki/Azzedine_Ounahi"
+      "note": "Morocco's gliding midfielder, carrying through pressure, breaking lines, and giving their possession a smoother rhythm.",
+      "noteZh": "阿泽丁·乌纳希是摩洛哥灵动的中场，能带球穿过压力、打破防线，并让球队控球节奏更顺。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/azzedine-ounahi/profil/spieler/593482"
     },
     "Chadi Riad": {
       "name": "Chadi Riad",
@@ -7171,12 +7201,15 @@
       "position": "Centre-back",
       "club": "Crystal Palace",
       "league": "Premier League",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Chadi%20Riad%20Brazil%20V%20Morocco%2013%20June%202026-162.jpg?width=160",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/689637-1704399972.jpg?lm=1",
       "skills": [
-        "Match impact"
+        "Left-footed defending",
+        "Progressive passing",
+        "Aerial cover"
       ],
-      "note": "Chadi Riad is part of Morocco's current World Cup squad pool.",
-      "sourceUrl": "https://en.wikipedia.org/wiki/Chadi_Riad"
+      "note": "Morocco's left-footed centre-back, useful for progressive passes, aerial cover, and keeping the back line composed.",
+      "noteZh": "查迪·里亚德是摩洛哥左脚中卫，能送出推进传球、提供空中保护，并让后防线保持镇定。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/chadi-riad/profil/spieler/689637"
     },
     "Chemsdine Talbi": {
       "name": "Chemsdine Talbi",
@@ -7185,92 +7218,18 @@
       "birthDate": "2005-05-09",
       "summary": "Chemsdine Talbi (Arabic: شَمْس الدِّين الطَّالِبِيّ; born 9 May 2005) is a professional footballer who plays as a winger for Premier League club Sunderland. Born in Belgium, he plays for the Morocco national team.",
       "marketValueEurMillions": 25,
-      "position": "Winger",
+      "position": "Right winger",
       "club": "Sunderland",
       "league": "Premier League",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Chemsdine%20Talbi%20Brazil%20V%20Morocco%2013%20June%202026-203.jpg?width=160",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/743384-1764837422.jpg?lm=1",
       "skills": [
-        "Match impact"
+        "Right-wing acceleration",
+        "One-on-one dribbling",
+        "Early delivery"
       ],
-      "note": "Chemsdine Talbi is part of Morocco's current World Cup squad pool.",
-      "sourceUrl": "https://en.wikipedia.org/wiki/Chemsdine_Talbi"
-    },
-    "El Aynaoui": {
-      "name": "El Aynaoui",
-      "displayName": "Neil El Aynaoui",
-      "teamId": "MAR",
-      "birthDate": "2001-07-02",
-      "summary": "Neil Yoni El Aynaoui (Arabic: نائل العيناوي; born 2 July 2001) is a professional footballer who plays as a midfielder for Serie A club Roma and the Morocco national team.",
-      "marketValueEurMillions": 23,
-      "position": "Midfielder",
-      "club": "Roma",
-      "league": "Serie A",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Neil%20El%20Aynaoui%20Neil%20El%20Aynaoui%20Morocco%20v%20Norway%207%20June%202026-13%20(cropped).jpg?width=160",
-      "skills": [
-        "Match impact"
-      ],
-      "note": "El Aynaoui is part of Morocco's current World Cup squad pool.",
-      "sourceUrl": "https://en.wikipedia.org/wiki/Neil_El_Aynaoui"
-    },
-    "El Kajoui": {
-      "name": "El Kajoui",
-      "displayName": "Morocco at the 2024 Summer Olympics",
-      "teamId": "MAR",
-      "summary": "Morocco competed at the 2024 Summer Olympics in Paris from 26 July to 11 August 2024. It was the nation's sixteenth appearance at the Summer Olympics, except Moscow 1980, as part of the United States-led boycott.",
-      "estimatedMarketValueEurMillions": 1,
-      "club": "",
-      "skills": [
-        "Match impact"
-      ],
-      "note": "El Kajoui is part of Morocco's current World Cup squad pool.",
-      "sourceUrl": "https://en.wikipedia.org/wiki/Morocco_at_the_2024_Summer_Olympics"
-    },
-    "El Khannouss": {
-      "name": "El Khannouss",
-      "displayName": "Bilal El Khannouss",
-      "teamId": "MAR",
-      "birthDate": "2004-05-10",
-      "summary": "Bilal El Khannouss (Arabic: بلال الخنوس; born 10 May 2004) is a professional footballer who plays as an attacking midfielder for Bundesliga club VfB Stuttgart and the Morocco national team.",
-      "marketValueEurMillions": 35,
-      "position": "Attacking midfielder",
-      "club": "VfB Stuttgart",
-      "league": "Bundesliga",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Bilal%20El%20Khannouss%20Brazil%20V%20Morocco%2013%20June%202026-91.jpg?width=160",
-      "skills": [
-        "Match impact"
-      ],
-      "note": "El Khannouss is part of Morocco's current World Cup squad pool.",
-      "sourceUrl": "https://en.wikipedia.org/wiki/Bilal_El_Khannouss"
-    },
-    "El Mourabet": {
-      "name": "El Mourabet",
-      "displayName": "El Mourabet",
-      "teamId": "MAR",
-      "summary": "Belloumou is a Moroccan surname. Notable people with the surname include: Karim El Mourabet (born 1987), French footballer Samir El Mourabet (born 2005), Moroccan footballer",
-      "estimatedMarketValueEurMillions": 1,
-      "club": "",
-      "skills": [
-        "Match impact"
-      ],
-      "note": "El Mourabet is part of Morocco's current World Cup squad pool.",
-      "sourceUrl": "https://en.wikipedia.org/wiki/El_Mourabet"
-    },
-    "El Ouahdi": {
-      "name": "El Ouahdi",
-      "displayName": "Zakaria El Ouahdi",
-      "teamId": "MAR",
-      "birthDate": "2001-12-31",
-      "summary": "Zakaria El Ouahdi (Moroccan Arabic: زكرياء الواحدي; born 31 December 2001), is a professional footballer who plays as a right winger or a right-back for Belgian Pro League club Genk. Born in Belgium, he plays for the Morocco national team.",
-      "marketValueEurMillions": 17,
-      "position": "Right winger, right-back",
-      "club": "Genk",
-      "league": "Belgian Pro League",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Zakaria%20El%20Ouahdi%20at%20the%20Olympic%20Games%202024%20(cropped).jpg?width=160",
-      "skills": [
-        "Match impact"
-      ],
-      "note": "El Ouahdi is part of Morocco's current World Cup squad pool.",
-      "sourceUrl": "https://en.wikipedia.org/wiki/Zakaria_El_Ouahdi"
+      "note": "Morocco's explosive right winger, stretching full-backs with one-on-one pace and early balls before defenses can set.",
+      "noteZh": "谢姆斯丁·塔尔比是摩洛哥爆发力强的右边锋，能用一对一速度拉扯边后卫，并在防线站稳前早早传球。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/chemsdine-talbi/profil/spieler/743384"
     },
     "Gessime Yassine": {
       "name": "Gessime Yassine",
@@ -7279,29 +7238,38 @@
       "birthDate": "2005-11-22",
       "summary": "Gessime Ben Youssef Mustapha Yassine (born 22 November 2005) is a professional footballer who plays as a winger for Ligue 1 club Strasbourg. Born in France, he represents the Morocco national team.",
       "marketValueEurMillions": 12,
-      "position": "Winger",
+      "position": "Right winger",
       "club": "Strasbourg",
       "league": "Ligue 1",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Gessime%20Yassine%20against%20Paraguay%202%20(cropped).jpg?width=160",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/1151929-1780320928.jpg?lm=1",
       "skills": [
-        "Match impact"
+        "Right-wing speed",
+        "Direct dribbling",
+        "Transition carries"
       ],
-      "note": "Gessime Yassine is part of Morocco's current World Cup squad pool.",
-      "sourceUrl": "https://en.wikipedia.org/wiki/Gessime_Yassine"
+      "note": "Morocco's young transition winger, giving them right-side speed, direct dribbling, and carries into open grass.",
+      "noteZh": "杰西姆·亚辛是摩洛哥年轻的转换边锋，能提供右路速度、直接盘带，并带球冲入开阔空间。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/gessime-yassine/profil/spieler/1151929"
     },
     "Issa Diop": {
       "name": "Issa Diop",
       "displayName": "Issa Diop",
       "teamId": "MAR",
-      "summary": "Issa Diop may refer to: Issa (Senegalese singer), born Issa Diop, singer, songwriter, and record producer Issa Diop (footballer) (born 1997), Moroccan footballer Issa Rae, born Jo-Issa Rae Diop, actress, writer, and producer.",
+      "birthDate": "1997-01-09",
+      "summary": "Issa Diop is a Morocco centre-back who plays for Fulham and adds aerial defending, physical duels, and back-line depth to the national team.",
       "marketValueEurMillions": 8,
-      "club": "",
+      "position": "Centre-back",
+      "club": "Fulham",
+      "league": "Premier League",
       "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/272622-1660565295.jpg?lm=1",
       "skills": [
-        "Match impact"
+        "Aerial defending",
+        "Back-line depth",
+        "Physical duels"
       ],
-      "note": "Issa Diop is part of Morocco's current World Cup squad pool.",
-      "sourceUrl": "https://en.wikipedia.org/wiki/Issa_Diop"
+      "note": "Morocco's physical centre-back depth, useful for aerial defending, late-game duels, and protecting the box under direct pressure.",
+      "noteZh": "伊萨·迪奥普是摩洛哥身体型中卫深度，能在直接压力下争顶、防守比赛后段对抗，并保护禁区。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/issa-diop/profil/spieler/272622"
     },
     "Marwane Saadane": {
       "name": "Marwane Saadane",
@@ -7310,14 +7278,18 @@
       "birthDate": "1992-01-17",
       "summary": "Marwane Saâdane (Arabic: مروان سعدان; born 17 January 1992) is a Moroccan professional football player who plays for Saudi Professional League club Al-Fateh and the Morocco national team.",
       "marketValueEurMillions": 0.4,
-      "position": "Centre-back, defensive midfielder",
+      "position": "Centre-back",
       "club": "Al-Fateh",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Marwane%20Saadane%20Morocco%20v%20Norway%207%20June%202026-249%20(cropped).jpg?width=160",
+      "league": "Saudi Pro League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/210009-1716742235.png?lm=1",
       "skills": [
-        "Match impact"
+        "Defensive cover",
+        "Aerial duels",
+        "Midfield emergency"
       ],
-      "note": "Marwane Saadane is part of Morocco's current World Cup squad pool.",
-      "sourceUrl": "https://en.wikipedia.org/wiki/Marwane_Sa%C3%A2dane"
+      "note": "Morocco's experienced defensive cover, able to handle aerial duels and step into midfield if the game needs protection.",
+      "noteZh": "马尔万·萨阿丹是摩洛哥经验型防守替补，能处理空中对抗，并在比赛需要保护时顶到中场。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/marwane-saadane/profil/spieler/210009"
     },
     "Noussair Mazraoui": {
       "name": "Noussair Mazraoui",
@@ -7326,15 +7298,18 @@
       "birthDate": "1997-11-14",
       "summary": "Noussair Mazraoui (Arabic: نُصَيْر مَزرَاوِيّ; born 14 November 1997) is a professional footballer who plays as a defender for Premier League club Manchester United and the Morocco national team.",
       "marketValueEurMillions": 18,
-      "position": "Defender",
+      "position": "Full-back",
       "club": "Manchester United",
       "league": "Premier League",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Noussair_Mazraoui_at_2026_FIFA_World_Cup_by_YantsImages_(cropped).jpg?width=160",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/340456-1700207898.jpg?lm=1",
       "skills": [
-        "Match impact"
+        "Two-sided full-back play",
+        "Inverted buildup",
+        "Calm defending"
       ],
-      "note": "Noussair Mazraoui is part of Morocco's current World Cup squad pool.",
-      "sourceUrl": "https://en.wikipedia.org/wiki/Noussair_Mazraoui"
+      "note": "Morocco's adaptable full-back, comfortable on either side while stepping inside to help buildup and calm defensive possessions.",
+      "noteZh": "努赛尔·马兹拉维是摩洛哥适应性强的边后卫，左右两侧都能胜任，也能内收帮助出球并稳定防守回合。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/noussair-mazraoui/profil/spieler/340456"
     },
     "Redouane Halhal": {
       "name": "Redouane Halhal",
@@ -7345,12 +7320,16 @@
       "marketValueEurMillions": 5,
       "position": "Centre-back",
       "club": "Mechelen",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Redouane%20Halhal%20vs%20Paraguay%20(cropped).jpg?width=160",
+      "league": "Belgian Pro League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/913660-1726297099.jpg?lm=1",
       "skills": [
-        "Match impact"
+        "Centre-back duels",
+        "Aerial reach",
+        "Simple exits"
       ],
-      "note": "Redouane Halhal is part of Morocco's current World Cup squad pool.",
-      "sourceUrl": "https://en.wikipedia.org/wiki/Redouane_Halhal"
+      "note": "Morocco's young centre-back option, giving them reach in aerial duels and simple exits when they need to reset the game.",
+      "noteZh": "雷杜安·哈尔哈尔是摩洛哥年轻中卫选择，能在空中对抗中提供覆盖范围，并用简洁出球重置比赛。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/redouane-halhal/profil/spieler/913660"
     },
     "Sofyan Amrabat": {
       "name": "Sofyan Amrabat",
@@ -7360,27 +7339,17 @@
       "summary": "Sofyan Amrabat (Arabic: سفيان أمرابط, Berber languages: ⵙⵓⴼⵢⴰⵏ ⴰⵎⵕⴰⴱⵟ; born 21 August 1996) is a professional footballer who plays as a defensive midfielder for La Liga club Real Betis, on loan from Süper Lig side Fenerbahçe, and the Morocco national team.",
       "marketValueEurMillions": 10,
       "position": "Defensive midfielder",
-      "club": "Betis (on loan from Fenerbahçe)",
+      "club": "Real Betis",
       "league": "La Liga",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Sofyan%20Amrabat%20Brazil%20V%20Morocco%2013%20June%202026-63.jpg?width=160",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/287579-1693604574.jpg?lm=1",
       "skills": [
-        "Match impact"
+        "Midfield screening",
+        "Counter control",
+        "Ball circulation"
       ],
-      "note": "Sofyan Amrabat is part of Morocco's current World Cup squad pool.",
-      "sourceUrl": "https://en.wikipedia.org/wiki/Sofyan_Amrabat"
-    },
-    "Souane Rahimi": {
-      "name": "Souane Rahimi",
-      "displayName": "Amin (name)",
-      "teamId": "MAR",
-      "summary": "Amin (Arabic: أمين, romanized: ʾāmīn), cognate to amen (Arabic: آمين, āmīn), is an Arabic masculine given name and surname, meaning \"devoted, honest, straightforward, trusty, worthy of belief, loyal, faithful, obedient\".",
-      "estimatedMarketValueEurMillions": 1,
-      "club": "",
-      "skills": [
-        "Match impact"
-      ],
-      "note": "Souane Rahimi is part of Morocco's current World Cup squad pool.",
-      "sourceUrl": "https://en.wikipedia.org/wiki/Amin_(name)"
+      "note": "Morocco's midfield shield, slowing counters, winning loose balls, and keeping possession connected through tense spells.",
+      "noteZh": "索菲扬·阿姆拉巴特是摩洛哥中场屏障，能拖慢反击、赢下第二落点，并在紧张阶段保持控球连接。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/sofyan-amrabat/profil/spieler/287579"
     },
     "Youssef Belammari": {
       "name": "Youssef Belammari",
@@ -7389,15 +7358,138 @@
       "birthDate": "1998-09-20",
       "summary": "Youssef Belammari (Arabic: يُوسُف بَلْعُمَرِيّ; born 20 September 1998) is a Moroccan professional footballer who plays as a left-back for Egyptian Premier League club Al Ahly and the Morocco national team.",
       "marketValueEurMillions": 1.2,
-      "position": "Left-back, left midfielder",
+      "position": "Left-back",
       "club": "Al Ahly",
       "league": "Egyptian Premier League",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Youssef%20Belammari%20vs%20Niger%20(cropped).jpg?width=160",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/518804-1755166034.jpeg?lm=1",
       "skills": [
-        "Match impact"
+        "Left-back cover",
+        "Wide defending",
+        "Support runs"
       ],
-      "note": "Youssef Belammari is part of Morocco's current World Cup squad pool.",
-      "sourceUrl": "https://en.wikipedia.org/wiki/Youssef_Belammari"
+      "note": "Morocco's left-side cover, useful for wide defending, support runs, and keeping the flank secure in rotation.",
+      "noteZh": "优素福·贝拉马里是摩洛哥左路替补保障，能完成边路防守、支援跑动，并在轮换时稳住这一侧。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/youssef-belammari/profil/spieler/518804"
+    },
+    "Bilal El Khannouss": {
+      "name": "Bilal El Khannouss",
+      "displayName": "Bilal El Khannouss",
+      "teamId": "MAR",
+      "birthDate": "2004-05-10",
+      "summary": "Bilal El Khannouss (Arabic: بلال الخنوس; born 10 May 2004) is a professional footballer who plays as an attacking midfielder for Bundesliga club VfB Stuttgart and the Morocco national team.",
+      "marketValueEurMillions": 35,
+      "position": "Attacking midfielder",
+      "club": "VfB Stuttgart",
+      "league": "Bundesliga",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/654982-1714038053.png?lm=1",
+      "skills": [
+        "Final-third passing",
+        "Between-lines touch",
+        "Pressing angles"
+      ],
+      "note": "Morocco's young final-third passer, receiving between lines and finding the next touch before defenders can close him.",
+      "noteZh": "比拉尔·埃尔哈努斯是摩洛哥年轻的前场传球手，能在线间接球，并在后卫靠近前找到下一脚处理。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/bilal-el-khannouss/profil/spieler/654982"
+    },
+    "Munir El Kajoui": {
+      "name": "Munir El Kajoui",
+      "displayName": "Munir El Kajoui",
+      "teamId": "MAR",
+      "birthDate": "1989-05-10",
+      "summary": "Munir El Kajoui (Arabic: منير الكجوي; born 10 May 1989), known as Munir, is a professional footballer who plays as a goalkeeper for Botola Pro club RS Berkane, whom he captains, and the Morocco national team.",
+      "marketValueEurMillions": 0.6,
+      "position": "Goalkeeper",
+      "club": "RS Berkane",
+      "league": "Botola Pro",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/97925-1685533226.JPG?lm=1",
+      "skills": [
+        "Veteran goalkeeping",
+        "Tournament experience",
+        "Box command"
+      ],
+      "note": "Morocco's veteran goalkeeper cover, bringing tournament experience, box command, and a steady option behind Bounou.",
+      "noteZh": "穆尼尔·埃尔卡朱伊是摩洛哥老将门将替补，能带来大赛经验、禁区指挥，并在布努身后提供稳定选择。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/munir-el-kajoui/profil/spieler/97925"
+    },
+    "Neil El Aynaoui": {
+      "name": "Neil El Aynaoui",
+      "displayName": "Neil El Aynaoui",
+      "teamId": "MAR",
+      "birthDate": "2001-07-02",
+      "summary": "Neil Yoni El Aynaoui (Arabic: نائل العيناوي; born 2 July 2001) is a professional footballer who plays as a midfielder for Serie A club Roma and the Morocco national team.",
+      "marketValueEurMillions": 23,
+      "position": "Central midfielder",
+      "club": "Roma",
+      "league": "Serie A",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/901019-1757603917.jpg?lm=1",
+      "skills": [
+        "Midfield carrying",
+        "Ball winning",
+        "Tempo support"
+      ],
+      "note": "Morocco's two-way midfielder, helping them win contact, carry out of pressure, and support the tempo next to Amrabat.",
+      "noteZh": "尼尔·埃尔艾纳维是摩洛哥攻守兼备的中场，能赢下身体接触、带球摆脱压力，并在阿姆拉巴特身边支撑节奏。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/neil-el-aynaoui/profil/spieler/901019"
+    },
+    "Samir El Mourabet": {
+      "name": "Samir El Mourabet",
+      "displayName": "Samir El Mourabet",
+      "teamId": "MAR",
+      "birthDate": "2005-10-06",
+      "summary": "Samir El Mourabet (Arabic: سمير المرابط; born 6 October 2005) is a professional football player who plays as a midfielder for Ligue 1 club Strasbourg. Born in France, he represents the Morocco national team.",
+      "marketValueEurMillions": 22,
+      "position": "Central midfielder",
+      "club": "Strasbourg",
+      "league": "Ligue 1",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/1130514-1780319759.jpg?lm=1",
+      "skills": [
+        "Central mobility",
+        "Press resistance",
+        "Youthful ball winning"
+      ],
+      "note": "Morocco's young central midfielder, giving them mobility, press resistance, and extra ball-winning energy late in games.",
+      "noteZh": "萨米尔·埃尔穆拉贝特是摩洛哥年轻中场，能提供机动性、抗压接球，以及比赛后段额外的抢球能量。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/samir-el-mourabet/profil/spieler/1130514"
+    },
+    "Soufiane Rahimi": {
+      "name": "Soufiane Rahimi",
+      "displayName": "Soufiane Rahimi",
+      "teamId": "MAR",
+      "birthDate": "1996-06-02",
+      "summary": "Soufiane Rahimi (Arabic: سُفْيَان رَحِيمِيّ; born 2 June 1996) is a Moroccan professional footballer who plays as a forward for UAE Pro League club Al Ain and the Morocco national team.",
+      "marketValueEurMillions": 6,
+      "position": "Forward, winger",
+      "club": "Al Ain",
+      "league": "UAE Pro League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/598506-1723144724.jpg?lm=1",
+      "skills": [
+        "Direct finishing",
+        "Wide-forward runs",
+        "Transition threat"
+      ],
+      "note": "Morocco's direct forward runner, dangerous from wide-forward lanes, transition breaks, and quick finishes after the first touch.",
+      "noteZh": "苏菲安·拉希米是摩洛哥直接型前锋跑动点，能从边锋通道、转换反击和第一脚后的快速终结制造危险。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/soufiane-rahimi/profil/spieler/598506"
+    },
+    "Zakaria El Ouahdi": {
+      "name": "Zakaria El Ouahdi",
+      "displayName": "Zakaria El Ouahdi",
+      "teamId": "MAR",
+      "birthDate": "2001-12-31",
+      "summary": "Zakaria El Ouahdi (Moroccan Arabic: زكرياء الواحدي; born 31 December 2001), is a professional footballer who plays as a right winger or a right-back for Belgian Pro League club Genk. Born in Belgium, he plays for the Morocco national team.",
+      "marketValueEurMillions": 17,
+      "position": "Right-back",
+      "club": "Genk",
+      "league": "Belgian Pro League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/820474-1714037470.png?lm=1",
+      "skills": [
+        "Right-back energy",
+        "Wide recovery",
+        "Underlap runs"
+      ],
+      "note": "Morocco's energetic right-back option, useful for wide recovery, underlapping support, and keeping pressure on tired flanks.",
+      "noteZh": "扎卡里亚·埃尔瓦赫迪是摩洛哥活力型右后卫选择，能回追边路、内切支援，并持续压迫疲劳的边路。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/zakaria-el-ouahdi/profil/spieler/820474"
     }
   }
 }

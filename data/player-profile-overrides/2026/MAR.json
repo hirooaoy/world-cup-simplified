@@ -2,7 +2,503 @@
   "edition": "2026-world-cup",
   "teamId": "MAR",
   "teamName": "Morocco",
+  "rosterNameOverrides": {
+    "Azz-Eddine OUNAHI": "Azzedine Ounahi",
+    "BELAMMARI": "Youssef Belammari",
+    "BELAMMARI Youssef": "Youssef Belammari",
+    "Bilal EL KHANNOUSS": "Bilal El Khannouss",
+    "BONO": "Yassine Bounou",
+    "BOUNOU Yassine": "Yassine Bounou",
+    "BRAHIM": "Brahim Diaz",
+    "Brahim ABDELKADER DIAZ": "Brahim Diaz",
+    "EL AYNAOUI": "Neil El Aynaoui",
+    "EL AYNAOUI Neil": "Neil El Aynaoui",
+    "EL KAJOUI": "Munir El Kajoui",
+    "EL KAJOUI Munir": "Munir El Kajoui",
+    "EL KHANNOUSS": "Bilal El Khannouss",
+    "EL KHANNOUSS Bilal": "Bilal El Khannouss",
+    "EL MOURABET": "Samir El Mourabet",
+    "EL MOURABET Samir": "Samir El Mourabet",
+    "EL OUAHDI": "Zakaria El Ouahdi",
+    "EL OUAHDI Zakaria": "Zakaria El Ouahdi",
+    "Gessime Ben Youssef Mustapha YASSINE": "Gessime Yassine",
+    "ISSA": "Issa Diop",
+    "Issa Laye Lucas Jean DIOP": "Issa Diop",
+    "Mohamed Amine SBAI": "Amine Sbai",
+    "Monir EL KAJOUI": "Munir El Kajoui",
+    "Neil Yoni EL AYNAOUI": "Neil El Aynaoui",
+    "RAHIMI": "Soufiane Rahimi",
+    "RAHIMI Souane": "Soufiane Rahimi",
+    "SBAÏ": "Amine Sbai",
+    "SBAI Amine": "Amine Sbai",
+    "Souane RAHIMI": "Soufiane Rahimi",
+    "YASSINE": "Gessime Yassine"
+  },
+  "removeProfiles": [
+    "El Aynaoui",
+    "El Kajoui",
+    "El Khannouss",
+    "El Mourabet",
+    "El Ouahdi",
+    "Souane Rahimi"
+  ],
   "profiles": {
+    "Achraf Hakimi": {
+      "displayName": "Achraf Hakimi",
+      "sourceTitle": "Achraf Hakimi",
+      "transfermarktPlayerCode": "achraf-hakimi",
+      "birthDate": "1998-11-04",
+      "position": "Right-back",
+      "club": "Paris Saint-Germain",
+      "league": "Ligue 1",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/398073-1672304327.jpg?lm=1",
+      "marketValueEurMillions": 80,
+      "skills": [
+        "Right-side acceleration",
+        "Overlap timing",
+        "Recovery defending"
+      ],
+      "note": "Morocco's right-side captain, driving overlaps, recovery sprints, and the transition threat that turns defense into attack.",
+      "noteZh": "阿什拉夫·哈基米是摩洛哥右路队长，能推动套边、回追冲刺，并把防守转换成进攻威胁。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/achraf-hakimi/profil/spieler/398073"
+    },
+    "Ahmed Reda Tagnaouti": {
+      "displayName": "Ahmed Reda Tagnaouti",
+      "sourceTitle": "Ahmed Reda Tagnaouti",
+      "birthDate": "1996-04-05",
+      "position": "Goalkeeper",
+      "club": "AS FAR",
+      "league": "Botola Pro",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ahmed%20Reda%20Tagnaouti%20Morocco%20v%20Norway%207%20June%202026-18.jpg?width=160",
+      "marketValueEurMillions": 1,
+      "skills": [
+        "Goalkeeper depth",
+        "Shot stopping",
+        "Calm restarts"
+      ],
+      "note": "Morocco's domestic goalkeeper depth, giving them shot-stopping cover and calm restarts if the match demands rotation.",
+      "noteZh": "艾哈迈德·雷达·塔格纳乌蒂是摩洛哥的本土门将深度，能在需要轮换时提供扑救保障和冷静重新开球。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Ahmed_Reda_Tagnaouti"
+    },
+    "Amine Sbai": {
+      "displayName": "Amine Sbaï",
+      "sourceTitle": "Amine Sbaï",
+      "transfermarktPlayerCode": "amine-sbai",
+      "birthDate": "2000-11-05",
+      "position": "Left winger",
+      "club": "Angers",
+      "league": "Ligue 1",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/851220-1759940291.jpg?lm=1",
+      "marketValueEurMillions": 4,
+      "skills": [
+        "Left-wing dribbling",
+        "Bench spark",
+        "Direct carries"
+      ],
+      "note": "Morocco's left-wing spark, useful for direct carries, one-on-one pressure, and changing the rhythm off the bench.",
+      "noteZh": "阿明·斯巴伊是摩洛哥左路的活力点，能直接带球、一对一施压，并在替补登场后改变节奏。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/amine-sbai/profil/spieler/851220"
+    },
+    "Anass Salah Eddine": {
+      "displayName": "Anass Salah-Eddine",
+      "sourceTitle": "Anass Salah-Eddine",
+      "transfermarktPlayerCode": "anass-salah-eddine",
+      "birthDate": "2002-01-18",
+      "position": "Left-back",
+      "club": "PSV Eindhoven",
+      "league": "Eredivisie",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/485584-1766406432.jpg?lm=1",
+      "marketValueEurMillions": 12,
+      "skills": [
+        "Left-back buildup",
+        "Inverted support",
+        "Recovery speed"
+      ],
+      "note": "Morocco's left-back connector, helping buildup by stepping inside, supporting combinations, and recovering when the flank opens.",
+      "noteZh": "阿纳斯·萨拉赫-埃丁是摩洛哥左后卫连接点，能内收帮助出球、支援配合，并在边路打开时回追。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/anass-salah-eddine/profil/spieler/485584"
+    },
+    "Ayoub El Kaabi": {
+      "displayName": "Ayoub El Kaabi",
+      "sourceTitle": "Ayoub El Kaabi",
+      "transfermarktPlayerCode": "ayoub-el-kaabi",
+      "birthDate": "1993-06-25",
+      "position": "Centre-forward",
+      "club": "Olympiacos",
+      "league": "Super League Greece",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/521127-1717008763.jpg?lm=1",
+      "marketValueEurMillions": 4.5,
+      "skills": [
+        "Box movement",
+        "First-time finishing",
+        "Near-post runs"
+      ],
+      "note": "Morocco's penalty-box reference, living on near-post runs, first-time finishes, and little movements between centre-backs.",
+      "noteZh": "阿尤布·埃尔卡比是摩洛哥禁区支点，依靠前点冲刺、第一时间终结，以及中卫之间的小幅移动制造机会。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/ayoub-el-kaabi/profil/spieler/521127"
+    },
+    "Ayoube Amaimouni": {
+      "displayName": "Ayoube Amaimouni-Echghouyab",
+      "sourceTitle": "Ayoube Amaimouni",
+      "transfermarktPlayerCode": "ayoube-amaimouni-echghouyab",
+      "birthDate": "2004-11-30",
+      "position": "Right winger",
+      "club": "Eintracht Frankfurt",
+      "league": "Bundesliga",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/799993-1773653073.jpg?lm=1",
+      "marketValueEurMillions": 10,
+      "skills": [
+        "Right-wing pace",
+        "Direct running",
+        "Fresh pressing"
+      ],
+      "note": "Morocco's young right-sided runner, giving them pace, direct carries, and fresh pressing when the wide lanes loosen.",
+      "noteZh": "阿尤布·阿迈穆尼-埃什古亚布是摩洛哥年轻的右路跑动点，能在边路变松时提供速度、直接推进和新鲜压迫。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/ayoube-amaimouni-echghouyab/profil/spieler/799993"
+    },
+    "Ayyoub Bouaddi": {
+      "displayName": "Ayyoub Bouaddi",
+      "sourceTitle": "Ayyoub Bouaddi",
+      "transfermarktPlayerCode": "ayyoub-bouaddi",
+      "birthDate": "2007-10-02",
+      "position": "Central midfielder",
+      "club": "Lille",
+      "league": "Ligue 1",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/1097139-1741119960.jpg?lm=1",
+      "marketValueEurMillions": 50,
+      "skills": [
+        "Teenage composure",
+        "Central passing",
+        "Press resistance"
+      ],
+      "note": "Morocco's composed teenage midfielder, trusted to receive under pressure, keep central passes moving, and slow frantic games.",
+      "noteZh": "阿尤布·布阿迪是摩洛哥沉稳的年轻中场，能在压力下接球、保持中路传递，并让混乱比赛降速。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/ayyoub-bouaddi/profil/spieler/1097139"
+    },
+    "Azzedine Ounahi": {
+      "displayName": "Azzedine Ounahi",
+      "sourceTitle": "Azzedine Ounahi",
+      "transfermarktPlayerCode": "azzedine-ounahi",
+      "birthDate": "2000-04-19",
+      "position": "Central midfielder",
+      "club": "Girona",
+      "league": "La Liga",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/593482-1668080946.jpg?lm=1",
+      "marketValueEurMillions": 10,
+      "skills": [
+        "Gliding carries",
+        "Line breaking",
+        "Midfield tempo"
+      ],
+      "note": "Morocco's gliding midfielder, carrying through pressure, breaking lines, and giving their possession a smoother rhythm.",
+      "noteZh": "阿泽丁·乌纳希是摩洛哥灵动的中场，能带球穿过压力、打破防线，并让球队控球节奏更顺。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/azzedine-ounahi/profil/spieler/593482"
+    },
+    "Brahim Diaz": {
+      "displayName": "Brahim Díaz",
+      "sourceTitle": "Brahim Díaz",
+      "transfermarktPlayerCode": "brahim-diaz",
+      "birthDate": "1999-08-03",
+      "position": "Attacking midfielder, winger",
+      "club": "Real Madrid",
+      "league": "La Liga",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/314678-1744193327.jpg?lm=1",
+      "marketValueEurMillions": 35,
+      "skills": [
+        "Half-space dribbling",
+        "Final pass disguise",
+        "Cut-inside shooting"
+      ],
+      "note": "Morocco's half-space creator, using quick feet, disguised passes, and cut-inside shots to turn control into chances.",
+      "noteZh": "布拉欣·迪亚斯是摩洛哥肋部创造者，能用快速脚下、隐蔽传球和内切射门，把控球转化为机会。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/brahim-diaz/profil/spieler/314678"
+    },
+    "Chadi Riad": {
+      "displayName": "Chadi Riad",
+      "sourceTitle": "Chadi Riad",
+      "transfermarktPlayerCode": "chadi-riad",
+      "birthDate": "2003-06-17",
+      "position": "Centre-back",
+      "club": "Crystal Palace",
+      "league": "Premier League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/689637-1704399972.jpg?lm=1",
+      "marketValueEurMillions": 15,
+      "skills": [
+        "Left-footed defending",
+        "Progressive passing",
+        "Aerial cover"
+      ],
+      "note": "Morocco's left-footed centre-back, useful for progressive passes, aerial cover, and keeping the back line composed.",
+      "noteZh": "查迪·里亚德是摩洛哥左脚中卫，能送出推进传球、提供空中保护，并让后防线保持镇定。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/chadi-riad/profil/spieler/689637"
+    },
+    "Chemsdine Talbi": {
+      "displayName": "Chemsdine Talbi",
+      "sourceTitle": "Chemsdine Talbi",
+      "transfermarktPlayerCode": "chemsdine-talbi",
+      "birthDate": "2005-05-09",
+      "position": "Right winger",
+      "club": "Sunderland",
+      "league": "Premier League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/743384-1764837422.jpg?lm=1",
+      "marketValueEurMillions": 25,
+      "skills": [
+        "Right-wing acceleration",
+        "One-on-one dribbling",
+        "Early delivery"
+      ],
+      "note": "Morocco's explosive right winger, stretching full-backs with one-on-one pace and early balls before defenses can set.",
+      "noteZh": "谢姆斯丁·塔尔比是摩洛哥爆发力强的右边锋，能用一对一速度拉扯边后卫，并在防线站稳前早早传球。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/chemsdine-talbi/profil/spieler/743384"
+    },
+    "Neil El Aynaoui": {
+      "displayName": "Neil El Aynaoui",
+      "sourceTitle": "Neil El Aynaoui",
+      "transfermarktPlayerCode": "neil-el-aynaoui",
+      "birthDate": "2001-07-02",
+      "position": "Central midfielder",
+      "club": "Roma",
+      "league": "Serie A",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/901019-1757603917.jpg?lm=1",
+      "marketValueEurMillions": 23,
+      "skills": [
+        "Midfield carrying",
+        "Ball winning",
+        "Tempo support"
+      ],
+      "note": "Morocco's two-way midfielder, helping them win contact, carry out of pressure, and support the tempo next to Amrabat.",
+      "noteZh": "尼尔·埃尔艾纳维是摩洛哥攻守兼备的中场，能赢下身体接触、带球摆脱压力，并在阿姆拉巴特身边支撑节奏。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/neil-el-aynaoui/profil/spieler/901019"
+    },
+    "Munir El Kajoui": {
+      "displayName": "Munir El Kajoui",
+      "sourceTitle": "Munir Mohamedi",
+      "transfermarktPlayerCode": "munir-el-kajoui",
+      "birthDate": "1989-05-10",
+      "position": "Goalkeeper",
+      "club": "RS Berkane",
+      "league": "Botola Pro",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/97925-1685533226.JPG?lm=1",
+      "marketValueEurMillions": 0.6,
+      "skills": [
+        "Veteran goalkeeping",
+        "Tournament experience",
+        "Box command"
+      ],
+      "note": "Morocco's veteran goalkeeper cover, bringing tournament experience, box command, and a steady option behind Bounou.",
+      "noteZh": "穆尼尔·埃尔卡朱伊是摩洛哥老将门将替补，能带来大赛经验、禁区指挥，并在布努身后提供稳定选择。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/munir-el-kajoui/profil/spieler/97925"
+    },
+    "Bilal El Khannouss": {
+      "displayName": "Bilal El Khannouss",
+      "sourceTitle": "Bilal El Khannouss",
+      "transfermarktPlayerCode": "bilal-el-khannouss",
+      "birthDate": "2004-05-10",
+      "position": "Attacking midfielder",
+      "club": "VfB Stuttgart",
+      "league": "Bundesliga",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/654982-1714038053.png?lm=1",
+      "marketValueEurMillions": 35,
+      "skills": [
+        "Final-third passing",
+        "Between-lines touch",
+        "Pressing angles"
+      ],
+      "note": "Morocco's young final-third passer, receiving between lines and finding the next touch before defenders can close him.",
+      "noteZh": "比拉尔·埃尔哈努斯是摩洛哥年轻的前场传球手，能在线间接球，并在后卫靠近前找到下一脚处理。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/bilal-el-khannouss/profil/spieler/654982"
+    },
+    "Samir El Mourabet": {
+      "displayName": "Samir El Mourabet",
+      "sourceTitle": "Samir El Mourabet",
+      "transfermarktPlayerCode": "samir-el-mourabet",
+      "birthDate": "2005-10-06",
+      "position": "Central midfielder",
+      "club": "Strasbourg",
+      "league": "Ligue 1",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/1130514-1780319759.jpg?lm=1",
+      "marketValueEurMillions": 22,
+      "skills": [
+        "Central mobility",
+        "Press resistance",
+        "Youthful ball winning"
+      ],
+      "note": "Morocco's young central midfielder, giving them mobility, press resistance, and extra ball-winning energy late in games.",
+      "noteZh": "萨米尔·埃尔穆拉贝特是摩洛哥年轻中场，能提供机动性、抗压接球，以及比赛后段额外的抢球能量。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/samir-el-mourabet/profil/spieler/1130514"
+    },
+    "Zakaria El Ouahdi": {
+      "displayName": "Zakaria El Ouahdi",
+      "sourceTitle": "Zakaria El Ouahdi",
+      "transfermarktPlayerCode": "zakaria-el-ouahdi",
+      "birthDate": "2001-12-31",
+      "position": "Right-back",
+      "club": "Genk",
+      "league": "Belgian Pro League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/820474-1714037470.png?lm=1",
+      "marketValueEurMillions": 17,
+      "skills": [
+        "Right-back energy",
+        "Wide recovery",
+        "Underlap runs"
+      ],
+      "note": "Morocco's energetic right-back option, useful for wide recovery, underlapping support, and keeping pressure on tired flanks.",
+      "noteZh": "扎卡里亚·埃尔瓦赫迪是摩洛哥活力型右后卫选择，能回追边路、内切支援，并持续压迫疲劳的边路。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/zakaria-el-ouahdi/profil/spieler/820474"
+    },
+    "Gessime Yassine": {
+      "displayName": "Gessime Yassine",
+      "sourceTitle": "Gessime Yassine",
+      "transfermarktPlayerCode": "gessime-yassine",
+      "birthDate": "2005-11-22",
+      "position": "Right winger",
+      "club": "Strasbourg",
+      "league": "Ligue 1",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/1151929-1780320928.jpg?lm=1",
+      "marketValueEurMillions": 12,
+      "skills": [
+        "Right-wing speed",
+        "Direct dribbling",
+        "Transition carries"
+      ],
+      "note": "Morocco's young transition winger, giving them right-side speed, direct dribbling, and carries into open grass.",
+      "noteZh": "杰西姆·亚辛是摩洛哥年轻的转换边锋，能提供右路速度、直接盘带，并带球冲入开阔空间。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/gessime-yassine/profil/spieler/1151929"
+    },
+    "Ismael Saibari": {
+      "displayName": "Ismael Saibari",
+      "sourceTitle": "Ismael Saibari",
+      "transfermarktPlayerCode": "ismael-saibari",
+      "birthDate": "2001-01-28",
+      "position": "Attacking midfielder",
+      "club": "PSV Eindhoven",
+      "league": "Eredivisie",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/702869-1765214009.jpg?lm=1",
+      "marketValueEurMillions": 40,
+      "skills": [
+        "Late box runs",
+        "Combination play",
+        "Goal threat"
+      ],
+      "note": "Morocco's attacking midfield runner, turning combinations into late box arrivals and real scoring pressure.",
+      "noteZh": "伊斯梅尔·赛巴里是摩洛哥前腰跑动点，能把配合转化为后插上进禁区，并形成真实得分压力。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/ismael-saibari/profil/spieler/702869"
+    },
+    "Issa Diop": {
+      "displayName": "Issa Diop",
+      "sourceTitle": "Issa Diop (footballer)",
+      "transfermarktPlayerCode": "issa-diop",
+      "birthDate": "1997-01-09",
+      "summary": "Issa Diop is a Morocco centre-back who plays for Fulham and adds aerial defending, physical duels, and back-line depth to the national team.",
+      "position": "Centre-back",
+      "club": "Fulham",
+      "league": "Premier League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/272622-1660565295.jpg?lm=1",
+      "marketValueEurMillions": 8,
+      "skills": [
+        "Aerial defending",
+        "Back-line depth",
+        "Physical duels"
+      ],
+      "note": "Morocco's physical centre-back depth, useful for aerial defending, late-game duels, and protecting the box under direct pressure.",
+      "noteZh": "伊萨·迪奥普是摩洛哥身体型中卫深度，能在直接压力下争顶、防守比赛后段对抗，并保护禁区。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/issa-diop/profil/spieler/272622"
+    },
+    "Marwane Saadane": {
+      "displayName": "Marwane Saâdane",
+      "sourceTitle": "Marwane Saâdane",
+      "transfermarktPlayerCode": "marwane-saadane",
+      "birthDate": "1992-01-17",
+      "position": "Centre-back",
+      "club": "Al-Fateh",
+      "league": "Saudi Pro League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/210009-1716742235.png?lm=1",
+      "marketValueEurMillions": 0.4,
+      "skills": [
+        "Defensive cover",
+        "Aerial duels",
+        "Midfield emergency"
+      ],
+      "note": "Morocco's experienced defensive cover, able to handle aerial duels and step into midfield if the game needs protection.",
+      "noteZh": "马尔万·萨阿丹是摩洛哥经验型防守替补，能处理空中对抗，并在比赛需要保护时顶到中场。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/marwane-saadane/profil/spieler/210009"
+    },
+    "Noussair Mazraoui": {
+      "displayName": "Noussair Mazraoui",
+      "sourceTitle": "Noussair Mazraoui",
+      "transfermarktPlayerCode": "noussair-mazraoui",
+      "birthDate": "1997-11-14",
+      "position": "Full-back",
+      "club": "Manchester United",
+      "league": "Premier League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/340456-1700207898.jpg?lm=1",
+      "marketValueEurMillions": 18,
+      "skills": [
+        "Two-sided full-back play",
+        "Inverted buildup",
+        "Calm defending"
+      ],
+      "note": "Morocco's adaptable full-back, comfortable on either side while stepping inside to help buildup and calm defensive possessions.",
+      "noteZh": "努赛尔·马兹拉维是摩洛哥适应性强的边后卫，左右两侧都能胜任，也能内收帮助出球并稳定防守回合。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/noussair-mazraoui/profil/spieler/340456"
+    },
+    "Redouane Halhal": {
+      "displayName": "Redouane Halhal",
+      "sourceTitle": "Redouane Halhal",
+      "transfermarktPlayerCode": "redouane-halhal",
+      "birthDate": "2003-03-05",
+      "position": "Centre-back",
+      "club": "Mechelen",
+      "league": "Belgian Pro League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/913660-1726297099.jpg?lm=1",
+      "marketValueEurMillions": 5,
+      "skills": [
+        "Centre-back duels",
+        "Aerial reach",
+        "Simple exits"
+      ],
+      "note": "Morocco's young centre-back option, giving them reach in aerial duels and simple exits when they need to reset the game.",
+      "noteZh": "雷杜安·哈尔哈尔是摩洛哥年轻中卫选择，能在空中对抗中提供覆盖范围，并用简洁出球重置比赛。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/redouane-halhal/profil/spieler/913660"
+    },
+    "Sofyan Amrabat": {
+      "displayName": "Sofyan Amrabat",
+      "sourceTitle": "Sofyan Amrabat",
+      "transfermarktPlayerCode": "sofyan-amrabat",
+      "birthDate": "1996-08-21",
+      "position": "Defensive midfielder",
+      "club": "Real Betis",
+      "league": "La Liga",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/287579-1693604574.jpg?lm=1",
+      "marketValueEurMillions": 10,
+      "skills": [
+        "Midfield screening",
+        "Counter control",
+        "Ball circulation"
+      ],
+      "note": "Morocco's midfield shield, slowing counters, winning loose balls, and keeping possession connected through tense spells.",
+      "noteZh": "索菲扬·阿姆拉巴特是摩洛哥中场屏障，能拖慢反击、赢下第二落点，并在紧张阶段保持控球连接。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/sofyan-amrabat/profil/spieler/287579"
+    },
+    "Soufiane Rahimi": {
+      "displayName": "Soufiane Rahimi",
+      "sourceTitle": "Soufiane Rahimi",
+      "transfermarktPlayerCode": "soufiane-rahimi",
+      "birthDate": "1996-06-02",
+      "position": "Forward, winger",
+      "club": "Al Ain",
+      "league": "UAE Pro League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/598506-1723144724.jpg?lm=1",
+      "marketValueEurMillions": 6,
+      "skills": [
+        "Direct finishing",
+        "Wide-forward runs",
+        "Transition threat"
+      ],
+      "note": "Morocco's direct forward runner, dangerous from wide-forward lanes, transition breaks, and quick finishes after the first touch.",
+      "noteZh": "苏菲安·拉希米是摩洛哥直接型前锋跑动点，能从边锋通道、转换反击和第一脚后的快速终结制造危险。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/soufiane-rahimi/profil/spieler/598506"
+    },
     "Yassine Bounou": {
       "displayName": "Yassine Bounou",
       "sourceTitle": "Yassine Bounou",
@@ -11,7 +507,7 @@
       "position": "Goalkeeper",
       "club": "Al Hilal",
       "league": "Saudi Pro League",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Yassine%20Bounou%20Brazil%20V%20Morocco%2013%20June%202026-169.jpg?width=160",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/207834-1668503728.jpg?lm=1",
       "marketValueEurMillions": 3,
       "skills": [
         "Shot stopping",
@@ -19,7 +515,27 @@
         "Box command"
       ],
       "note": "Morocco's established goalkeeper, giving them reflex saves, penalty-area command, and calm distribution after pressure.",
-      "noteZh": "亚辛·布努是摩洛哥的主力门将，能提供反应扑救、禁区指挥，以及受压后的冷静出球。"
+      "noteZh": "亚辛·布努是摩洛哥主力门将，能提供反应扑救、禁区指挥，以及受压后的冷静出球。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/yassine-bounou/profil/spieler/207834"
+    },
+    "Youssef Belammari": {
+      "displayName": "Youssef Belammari",
+      "sourceTitle": "Youssef Belammari",
+      "transfermarktPlayerCode": "youssef-belammari",
+      "birthDate": "1998-09-20",
+      "position": "Left-back",
+      "club": "Al Ahly",
+      "league": "Egyptian Premier League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/518804-1755166034.jpeg?lm=1",
+      "marketValueEurMillions": 1.2,
+      "skills": [
+        "Left-back cover",
+        "Wide defending",
+        "Support runs"
+      ],
+      "note": "Morocco's left-side cover, useful for wide defending, support runs, and keeping the flank secure in rotation.",
+      "noteZh": "优素福·贝拉马里是摩洛哥左路替补保障，能完成边路防守、支援跑动，并在轮换时稳住这一侧。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/youssef-belammari/profil/spieler/518804"
     }
   }
 }

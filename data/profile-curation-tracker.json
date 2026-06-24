@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-24T23:25:41.348Z",
+  "updatedAt": "2026-06-24T23:31:43.077Z",
   "currentTournament": {
     "edition": "2026-world-cup",
     "scope": "Generate and audit every official squad player card country by country.",
@@ -63,9 +63,9 @@
         "order": 7,
         "teamId": "MAR",
         "teamName": "Morocco",
-        "status": "pending",
-        "profileCount": 0,
-        "lastAudit": ""
+        "status": "ready",
+        "profileCount": 26,
+        "lastAudit": "passed strict country workflow at 2026-06-24T23:31:43.077Z"
       },
       {
         "order": 8,
