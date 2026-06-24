@@ -3024,6 +3024,12 @@ h1 {
   padding: 0 7px;
 }
 
+.standing-live-pill {
+  height: 18px;
+  padding: 0 7px;
+  font-size: 10px;
+}
+
 .third-place-status {
   min-height: 24px;
   padding: 0 9px;
@@ -5561,7 +5567,8 @@ h1 {
     margin-left: 0;
   }
 
-  .standing-team:has(.third-place-pill) .third-place-pill {
+  .standing-team:has(.third-place-pill) .third-place-pill,
+  .standing-team:has(.third-place-pill) .standing-live-pill {
     max-width: 100%;
   }
 
@@ -5887,12 +5894,15 @@ h1 {
     margin-left: 0;
   }
 
-  .standing-team .third-place-pill {
+  .standing-team .third-place-pill,
+  .standing-team .standing-live-pill {
     max-width: 100%;
   }
 
-  .standing-team .third-place-pill {
+  .standing-team .third-place-pill,
+  .standing-team .standing-live-pill {
     min-height: 17px;
+    height: 17px;
     padding: 0 6px;
     font-size: 10px;
   }

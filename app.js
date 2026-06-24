@@ -6230,6 +6230,20 @@ function getLiveMatchIds(currentTime) {
   );
 }
 
+function getLiveThirdPlaceTeamIds(thirdPlaceRaceByTeamId, currentTime = Date.now()) {
+  if (!thirdPlaceRaceByTeamId?.size) {
+    return new Set();
+  }
+
+  return new Set(
+    fixtures
+      .map(hydrateFixture)
+      .filter((match) => isMatchLive(match, currentTime))
+      .flatMap((match) => [match.homeTeamId, match.awayTeamId])
+      .filter((teamId) => thirdPlaceRaceByTeamId.has(teamId))
+  );
+}
+
 function getNextMatchIds(currentTime, liveMatchIds) {
   if (liveMatchIds.size > 0) {
     return new Set();
@@ -6396,11 +6410,12 @@ function renderScoreStatus(match, state, currentTime) {
     : "";
 }
 
-function renderLivePill() {
+function renderLivePill(options = {}) {
+  const className = ["live-pill", options.className || ""].filter(Boolean).join(" ");
   const tooltip = localizeText(FIFA_LIVE_TOOLTIP);
   const ariaLabel =
     currentLanguage === "zh" ? `直播：${tooltip}` : `Live: ${FIFA_LIVE_TOOLTIP}`;
-  return `<a class="live-pill" href="${escapeHtml(FIFA_WORLD_CUP_SCORES_URL)}" target="_blank" rel="noreferrer" title="${escapeHtml(tooltip)}" aria-label="${escapeHtml(ariaLabel)}" data-tooltip="${escapeHtml(tooltip)}">${escapeHtml(localizeText("Live"))}</a>`;
+  return `<a class="${escapeHtml(className)}" href="${escapeHtml(FIFA_WORLD_CUP_SCORES_URL)}" target="_blank" rel="noreferrer" title="${escapeHtml(tooltip)}" aria-label="${escapeHtml(ariaLabel)}" data-tooltip="${escapeHtml(tooltip)}">${escapeHtml(localizeText("Live"))}</a>`;
 }
 
 function getMatchDateTimeValue(match) {
@@ -6892,17 +6907,21 @@ function renderThirdPlaceStandingBadge(candidate) {
 
 function renderStandingRow(row, options = {}) {
   const team = getTeam(row.teamId);
-  const { showRank = true, thirdPlaceRaceByTeamId = null } = options;
+  const { liveThirdPlaceTeamIds = null, showRank = true, thirdPlaceRaceByTeamId = null } = options;
   const thirdPlaceCandidate = thirdPlaceRaceByTeamId?.get(row.teamId);
+  const standingBadges = [
+    thirdPlaceCandidate ? renderThirdPlaceStandingBadge(thirdPlaceCandidate) : "",
+    thirdPlaceCandidate && liveThirdPlaceTeamIds?.has(row.teamId)
+      ? renderLivePill({ className: "standing-live-pill" })
+      : ""
+  ].join("");
 
   return `
     <tr>
       <td>
         ${renderStandingTeam(team, {
           showRank,
-          trailingHtml: thirdPlaceCandidate
-            ? renderThirdPlaceStandingBadge(thirdPlaceCandidate)
-            : ""
+          trailingHtml: standingBadges
         })}
       </td>
       <td>${escapeHtml(row.pts)}</td>
@@ -10548,10 +10567,12 @@ function renderPastResults(match) {
 function renderMatchContext(match) {
   if (match.stage === "group") {
     const group = getGroup(match.groupId);
+    const thirdPlaceRaceByTeamId = getThirdPlaceRaceByTeamId();
+    const liveThirdPlaceTeamIds = getLiveThirdPlaceTeamIds(thirdPlaceRaceByTeamId);
     return `
       <section class="info-block">
         <h3>${escapeHtml(localizeText("Group standings"))}</h3>
-        ${renderStandings(match.groupId)}
+        ${renderStandings(match.groupId, { liveThirdPlaceTeamIds, thirdPlaceRaceByTeamId })}
         <p class="data-note">${escapeHtml(localizeText("Shown in current table order. Points, record and goal difference are included for context."))}</p>
       </section>
     `;

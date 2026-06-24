@@ -1862,7 +1862,7 @@ function recomputeStandings({ checkedAt, fixturesData, provider, standingsData, 
   for (const fixture of fixturesData.fixtures || []) {
     if (
       fixture.stage === "group" &&
-      fixture.status === "FT" &&
+      ["FT", "LIVE"].includes(fixture.status) &&
       fixture.score &&
       groups[fixture.groupId]
     ) {
