@@ -1,6 +1,21 @@
 {
-  "updatedAt": "2026-06-23T09:55:00-07:00",
+  "updatedAt": "2026-06-23T21:34:00-07:00",
   "releases": [
+    {
+      "date": "2026-06-23",
+      "title": "Live scorer reliability",
+      "titleZh": "实时进球者可靠性",
+      "highlights": [
+        "Live and final scorer matching now falls back from FIFA match IDs to match numbers, country IDs, and normalized team names.",
+        "FIFA timeline lookups now include the full UTC date window for late local kickoffs.",
+        "Colombia vs DR Congo now resolves Daniel Muñoz's 76th-minute winner from FIFA's official timeline."
+      ],
+      "highlightsZh": [
+        "实时和完场进球者匹配现在会从 FIFA 比赛 ID 依次回退到比赛编号、国家 ID 和标准化队名。",
+        "FIFA 时间线查询现在会覆盖本地晚场开球所需的完整 UTC 日期窗口。",
+        "哥伦比亚对阵刚果民主共和国现在会从 FIFA 官方时间线解析 Daniel Muñoz 第 76 分钟的制胜球。"
+      ]
+    },
     {
       "date": "2026-06-23",
       "title": "Historical player metadata",
