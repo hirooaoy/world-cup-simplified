@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-24T22:35:42.360Z",
+  "updatedAt": "2026-06-24T22:51:04.037Z",
   "sourceIds": [
     "wikipedia-football-infobox",
     "wikipedia-page-summaries",
@@ -4617,10 +4617,9 @@
       "league": "Qatar Stars League",
       "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/d/df/Qatar_-_Japan%2C_AFC_Asian_Cup_2019_58_-_Hassan_Al_Haydos.jpg",
       "skills": [
+        "Final pass",
         "Set pieces",
-        "Chance creation",
-        "Runs in behind",
-        "Leadership"
+        "Late box runs"
       ],
       "note": "Qatar's veteran attacking leader, useful for calm final passes, set-piece delivery, and late runs into scoring spots.",
       "noteZh": "卡塔尔经验丰富的进攻领袖，能提供冷静的最后一传、定位球输送，以及后插上进入得分位置的跑动。",
@@ -4693,10 +4692,9 @@
       "league": "Qatar Stars League",
       "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/669629-1725823800.png?lm=1",
       "skills": [
-        "Shot-stopping",
-        "Box presence",
-        "Finishing",
-        "Midfield control"
+        "Shot stopping",
+        "Box command",
+        "Distribution"
       ],
       "note": "Qatar's shot-stopping goalkeeper, giving the team box control and a steadier platform when pressure reaches the area.",
       "noteZh": "卡塔尔的扑救型门将，在压力进入禁区时帮助球队控制禁区，并提供更稳定的出球基础。",
@@ -5302,6 +5300,46 @@
       "note": "Marcelo Flores gives Canada a crafty final-third option, drifting inside to combine, dribble, and slip passes into runners.",
       "noteZh": "马塞洛·弗洛雷斯为加拿大提供灵巧的进攻三区选择，能内收配合、带球突破，并把传球送到前插队友脚下。",
       "sourceUrl": "https://en.wikipedia.org/wiki/Marcelo_Flores"
+    },
+    "Wilson Isidor": {
+      "name": "Wilson Isidor",
+      "displayName": "Wilson Isidor",
+      "teamId": "HAI",
+      "birthDate": "2000-08-27",
+      "summary": "Wilson Isidor (born 27 August 2000) is a professional footballer who plays as a forward for Premier League club Sunderland. Born in France, he represents the Haiti national team.",
+      "marketValueEurMillions": 18,
+      "position": "Striker",
+      "club": "Sunderland",
+      "league": "Premier League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Wilson%20Isidor%202022.jpg?width=160",
+      "skills": [
+        "Runs in behind",
+        "Penalty-box movement",
+        "Quick finishing"
+      ],
+      "note": "Haiti's direct striker, giving them sharp runs behind the back line, penalty-area movement, and first-time finishing when chances arrive.",
+      "noteZh": "威尔逊·伊西多是海地的直接型前锋，能冲击防线身后，在禁区内找到接应位置，并在机会出现时完成第一时间终结。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Wilson_Isidor"
+    },
+    "Yassine Bounou": {
+      "name": "Yassine Bounou",
+      "displayName": "Yassine Bounou",
+      "teamId": "MAR",
+      "birthDate": "1991-04-05",
+      "summary": "Yassine Bounou (born 5 April 1991), also known mononymously as Bono, is a Moroccan professional footballer who plays as a goalkeeper for Saudi Pro League club Al Hilal and the Morocco national team. Bono began his youth career in Morocco, playing for Wydad AC.",
+      "marketValueEurMillions": 3,
+      "position": "Goalkeeper",
+      "club": "Al Hilal",
+      "league": "Saudi Pro League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Yassine%20Bounou%20Brazil%20V%20Morocco%2013%20June%202026-169.jpg?width=160",
+      "skills": [
+        "Shot stopping",
+        "Penalty saves",
+        "Box command"
+      ],
+      "note": "Morocco's established goalkeeper, giving them reflex saves, penalty-area command, and calm distribution after pressure.",
+      "noteZh": "亚辛·布努是摩洛哥的主力门将，能提供反应扑救、禁区指挥，以及受压后的冷静出球。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Yassine_Bounou"
     }
   }
 }

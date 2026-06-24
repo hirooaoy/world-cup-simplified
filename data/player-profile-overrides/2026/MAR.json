@@ -1,0 +1,25 @@
+{
+  "edition": "2026-world-cup",
+  "teamId": "MAR",
+  "teamName": "Morocco",
+  "profiles": {
+    "Yassine Bounou": {
+      "displayName": "Yassine Bounou",
+      "sourceTitle": "Yassine Bounou",
+      "transfermarktPlayerCode": "yassine-bounou",
+      "birthDate": "1991-04-05",
+      "position": "Goalkeeper",
+      "club": "Al Hilal",
+      "league": "Saudi Pro League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Yassine%20Bounou%20Brazil%20V%20Morocco%2013%20June%202026-169.jpg?width=160",
+      "marketValueEurMillions": 3,
+      "skills": [
+        "Shot stopping",
+        "Penalty saves",
+        "Box command"
+      ],
+      "note": "Morocco's established goalkeeper, giving them reflex saves, penalty-area command, and calm distribution after pressure.",
+      "noteZh": "亚辛·布努是摩洛哥的主力门将，能提供反应扑救、禁区指挥，以及受压后的冷静出球。"
+    }
+  }
+}

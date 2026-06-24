@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-24T22:30:05.562Z",
+  "updatedAt": "2026-06-24T22:49:54.030Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -6252,12 +6252,17 @@
       "matchNumber": 49,
       "score": {
         "home": 0,
-        "away": 1
+        "away": 2
       },
       "goalsHome": [],
       "goalsAway": [
         {
           "minute": 7,
+          "name": "Vinicius Junior"
+        },
+        {
+          "minute": 45,
+          "offset": 3,
           "name": "Vinicius Junior"
         }
       ]
@@ -6339,14 +6344,29 @@
       },
       "matchNumber": 50,
       "score": {
-        "home": 0,
-        "away": 1
+        "home": 2,
+        "away": 2
       },
-      "goalsHome": [],
+      "goalsHome": [
+        {
+          "minute": 39,
+          "name": "Achraf Hakimi"
+        },
+        {
+          "minute": 45,
+          "offset": 1,
+          "name": "Ismael Saibari"
+        }
+      ],
       "goalsAway": [
         {
           "minute": 10,
-          "name": "Lenny Joseph"
+          "name": "Yassine Bounou",
+          "ownGoal": true
+        },
+        {
+          "minute": 43,
+          "name": "Wilson Isidor"
         }
       ]
     },

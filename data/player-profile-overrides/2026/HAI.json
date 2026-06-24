@@ -1,0 +1,25 @@
+{
+  "edition": "2026-world-cup",
+  "teamId": "HAI",
+  "teamName": "Haiti",
+  "profiles": {
+    "Wilson Isidor": {
+      "displayName": "Wilson Isidor",
+      "sourceTitle": "Wilson Isidor",
+      "transfermarktPlayerCode": "wilson-isidor",
+      "birthDate": "2000-08-27",
+      "position": "Striker",
+      "club": "Sunderland",
+      "league": "Premier League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Wilson%20Isidor%202022.jpg?width=160",
+      "marketValueEurMillions": 18,
+      "skills": [
+        "Runs in behind",
+        "Penalty-box movement",
+        "Quick finishing"
+      ],
+      "note": "Haiti's direct striker, giving them sharp runs behind the back line, penalty-area movement, and first-time finishing when chances arrive.",
+      "noteZh": "威尔逊·伊西多是海地的直接型前锋，能冲击防线身后，在禁区内找到接应位置，并在机会出现时完成第一时间终结。"
+    }
+  }
+}
