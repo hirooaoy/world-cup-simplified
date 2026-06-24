@@ -1210,6 +1210,7 @@ h1 {
   border: 1px solid rgba(10, 10, 10, 0.04);
   border-radius: 12px;
   background: rgba(10, 10, 10, 0.032);
+  transition: opacity 160ms ease;
 }
 
 @media (min-width: 1161px) {
@@ -1641,6 +1642,10 @@ h1 {
 }
 
 .match-list.has-live-today-match > .match-row:not(.is-live) {
+  opacity: 0.42;
+}
+
+.match-list.has-live-today-match > .yesterday-section {
   opacity: 0.42;
 }
 
@@ -2457,6 +2462,7 @@ h1 {
 
 .standings-table tbody tr:last-child td {
   border-bottom: 0;
+  padding-bottom: 6px;
 }
 
 .standings-table th:not(:first-child),
@@ -2731,6 +2737,7 @@ h1 {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 18px;
+  align-items: start;
   width: min(100%, 1260px);
   margin: 0 auto;
 }
@@ -2745,7 +2752,7 @@ h1 {
 
 .standings-card {
   min-width: 0;
-  padding: 20px;
+  padding: 20px 20px 14px;
   border: 1px solid var(--hairline);
   border-radius: 18px;
   background: #ffffff;
@@ -3060,10 +3067,11 @@ h1 {
   padding: 0 7px;
 }
 
-.standing-live-pill {
+.standing-team .standing-live-pill {
+  min-height: 18px;
   height: 18px;
   padding: 0 7px;
-  font-size: 10px;
+  font-size: 11px;
 }
 
 .third-place-status {

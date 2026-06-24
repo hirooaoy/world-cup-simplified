@@ -6235,7 +6235,7 @@ function getLiveMatchIds(currentTime) {
   );
 }
 
-function getLiveThirdPlaceTeamIds(thirdPlaceRaceByTeamId) {
+function getLiveThirdPlaceTeamIds(thirdPlaceRaceByTeamId, currentTime = Date.now()) {
   if (!thirdPlaceRaceByTeamId?.size) {
     return new Set();
   }
@@ -6243,7 +6243,7 @@ function getLiveThirdPlaceTeamIds(thirdPlaceRaceByTeamId) {
   return new Set(
     fixtures
       .map(hydrateFixture)
-      .filter((match) => match.status === "LIVE")
+      .filter((match) => isMatchLive(match, currentTime))
       .flatMap((match) => [match.homeTeamId, match.awayTeamId])
       .filter((teamId) => thirdPlaceRaceByTeamId.has(teamId))
   );
@@ -6833,10 +6833,14 @@ function isGroupStageFinished() {
 
 function createGroupQualificationStates(groupId) {
   const group = getGroup(groupId);
+  const sourceRowsByTeamId = new Map(
+    (standingsByGroup[groupId] || []).map((row) => [row.teamId, row])
+  );
   const states = new Map(
     (group?.teamIds || []).map((teamId, index) => [
       teamId,
       {
+        conductScore: getTeamConductScore(sourceRowsByTeamId.get(teamId)),
         draws: 0,
         ga: 0,
         gd: 0,
@@ -6992,6 +6996,16 @@ function getHeadToHeadStats(tiedTeamIds, results) {
   return stats;
 }
 
+function hasUnfixedResultForTeams(teamIds, results) {
+  const teamIdSet = new Set(teamIds);
+
+  return results.some(
+    (result) =>
+      !result.fixed &&
+      (teamIdSet.has(result.homeTeamId) || teamIdSet.has(result.awayTeamId))
+  );
+}
+
 function isTeamDefinitelyAboveInTie(otherTeamId, targetTeamId, tiedTeamIds, states, results) {
   const headToHeadStats = getHeadToHeadStats(tiedTeamIds, results);
   const otherHeadToHead = headToHeadStats.get(otherTeamId);
@@ -7018,19 +7032,35 @@ function isTeamDefinitelyAboveInTie(otherTeamId, targetTeamId, tiedTeamIds, stat
     return otherHeadToHead.gf > targetHeadToHead.gf;
   }
 
+  if (hasUnfixedResultForTeams(tiedTeamIds, results)) {
+    return false;
+  }
+
   const other = states.get(otherTeamId);
   const target = states.get(targetTeamId);
   if (!other || !target) {
     return false;
   }
 
-  return (
-    other.gd > target.gd ||
-    (other.gd === target.gd && other.gf > target.gf) ||
-    (other.gd === target.gd &&
-      other.gf === target.gf &&
-      getFifaRankValue(getTeam(otherTeamId)) < getFifaRankValue(getTeam(targetTeamId)))
-  );
+  if (other.gd !== target.gd) {
+    return other.gd > target.gd;
+  }
+
+  if (other.gf !== target.gf) {
+    return other.gf > target.gf;
+  }
+
+  const otherConduct = getTeamConductScore(other);
+  const targetConduct = getTeamConductScore(target);
+  if (otherConduct === null || targetConduct === null) {
+    return false;
+  }
+
+  if (otherConduct !== targetConduct) {
+    return otherConduct > targetConduct;
+  }
+
+  return getFifaRankValue(getTeam(otherTeamId)) < getFifaRankValue(getTeam(targetTeamId));
 }
 
 function canTeamReachGroupStagePathInScenario(teamId, states, results, pathPlaceCount) {

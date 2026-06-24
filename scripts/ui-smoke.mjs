@@ -93,6 +93,7 @@ const [, , , , releaseNotesData, teamsData, standingsData, tournamentData] = sou
 const sourceNoteRefreshData = sourceNoteData.filter((_, index) => index !== 4);
 const fifaWorldCupScoresUrl =
   "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/scores-fixtures";
+const matchLiveWindowMs = 2.25 * 60 * 60 * 1000;
 const browser = await chromium.launch();
 const page = await browser.newPage();
 const teamsById = new Map((teamsData.teams || []).map((team) => [team.id, team]));
@@ -152,6 +153,19 @@ function getFifaRankValue(team) {
   const rank = Number(team.fifaRank);
 
   return Number.isFinite(rank) ? rank : Number.POSITIVE_INFINITY;
+}
+
+function isFixtureLive(fixture, currentTime = Date.now()) {
+  if (fixture.status === "LIVE") {
+    return true;
+  }
+
+  if (fixture.status !== "SCHEDULED" || !fixture.kickoffUtc) {
+    return false;
+  }
+
+  const kickoffTime = new Date(fixture.kickoffUtc).getTime();
+  return Number.isFinite(kickoffTime) && currentTime >= kickoffTime && currentTime < kickoffTime + matchLiveWindowMs;
 }
 
 function compareThirdPlaceCandidates(a, b) {
@@ -1680,18 +1694,22 @@ try {
   const liveTodayFocusState = await liveFallbackScoreCheck.page.locator("#match-list").evaluate((list) => {
     const liveRow = list.querySelector(":scope > .match-row.is-live");
     const fadedRows = Array.from(list.querySelectorAll(":scope > .match-row:not(.is-live)"));
+    const yesterdaySection = list.querySelector(":scope > .yesterday-section");
     return {
       hasLiveTodayMatch: list.classList.contains("has-live-today-match"),
       liveOpacity: liveRow ? Number(getComputedStyle(liveRow).opacity) : 0,
-      fadedOpacities: fadedRows.map((row) => Number(getComputedStyle(row).opacity))
+      fadedOpacities: fadedRows.map((row) => Number(getComputedStyle(row).opacity)),
+      yesterdaySectionOpacity: yesterdaySection ? Number(getComputedStyle(yesterdaySection).opacity) : null
     };
   });
   assert(
     liveTodayFocusState.hasLiveTodayMatch &&
       liveTodayFocusState.liveOpacity === 1 &&
       liveTodayFocusState.fadedOpacities.length > 0 &&
-      liveTodayFocusState.fadedOpacities.every((opacity) => opacity < 0.6),
-    `When Today has a live match, non-live rows should fade while live rows stay full opacity. Measured ${JSON.stringify(liveTodayFocusState)}.`
+      liveTodayFocusState.fadedOpacities.every((opacity) => opacity < 0.6) &&
+      liveTodayFocusState.yesterdaySectionOpacity !== null &&
+      liveTodayFocusState.yesterdaySectionOpacity < 0.6,
+    `When Today has a live match, non-live rows and the Past 24 hours section should fade while live rows stay full opacity. Measured ${JSON.stringify(liveTodayFocusState)}.`
   );
   await liveFallbackScoreCheck.page.setViewportSize({ width: 390, height: 844 });
   await liveFallbackScoreCheck.page.waitForTimeout(80);
@@ -2063,10 +2081,12 @@ try {
   const reportIssueHref = await sourceNote.locator("a", { hasText: "Report issue" }).getAttribute("href");
   const creatorHref = await sourceNote.locator("a", { hasText: /^H$/ }).getAttribute("href");
   const expectedSourceUpdatedAt = formatExpectedSourceUpdatedAt(getLatestUpdatedAt(sourceNoteRefreshData));
+  const expectedSourceUpdatedAtPattern = expectedSourceUpdatedAt
+    .replace(/\d{1,2}:\d{2}/, "__SOURCE_TIME__")
+    .replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
+    .replace("__SOURCE_TIME__", "\\d{1,2}:\\d{2}");
   const expectedSourceNotePattern = new RegExp(
-    `^See sources\\. Predictions are unofficial\\. Data refreshed ${expectedSourceUpdatedAt
-      .replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
-      .replace(/\\d{1,2}:\\d{2}/, "\\d{1,2}:\\d{2}")}\\. Report issue\\. Made by H\\. See release notes\\.$`
+    `^See sources\\. Predictions are unofficial\\. Data refreshed ${expectedSourceUpdatedAtPattern}\\. Report issue\\. Made by H\\. See release notes\\.$`
   );
   assert(
     expectedSourceNotePattern.test(normalizedSourceNoteText),
@@ -2306,17 +2326,23 @@ try {
   );
   const expectedStandingsLiveThirdPlaceTeams = new Set(
     fixturesData.fixtures
-      .filter((fixture) => fixture.status === "LIVE")
+      .filter((fixture) => isFixtureLive(fixture))
       .flatMap((fixture) => [fixture.homeTeamId, fixture.awayTeamId])
       .filter((teamId) => getExpectedThirdPlaceRaceRows().some((candidate) => candidate.teamId === teamId))
       .map((teamId) => getTeam(teamId).name)
   );
   const groupStandingsLiveRows = await page.evaluate(() =>
-    [...document.querySelectorAll(".standings-card tbody tr")].map((row) => ({
-      live: row.querySelector(".standing-live-pill")?.textContent.trim() || "",
-      race: row.querySelector(".third-place-pill")?.textContent.trim() || "",
-      team: row.querySelector(".standing-name")?.textContent.trim() || ""
-    }))
+    [...document.querySelectorAll(".standings-card tbody tr")].map((row) => {
+      const livePill = row.querySelector(".standing-live-pill");
+      const racePill = row.querySelector(".third-place-pill");
+      return {
+        live: livePill?.textContent.trim() || "",
+        liveHeight: livePill ? Math.round(livePill.getBoundingClientRect().height) : null,
+        race: racePill?.textContent.trim() || "",
+        raceHeight: racePill ? Math.round(racePill.getBoundingClientRect().height) : null,
+        team: row.querySelector(".standing-name")?.textContent.trim() || ""
+      };
+    })
   );
   assert(
     groupStandingsLiveRows.every((row) =>
@@ -2326,6 +2352,13 @@ try {
         .filter((row) => expectedStandingsLiveThirdPlaceTeams.has(row.team))
         .every((row) => row.race.startsWith("3rd race")),
     "Group standings should show LIVE only beside current third-place candidates playing live."
+  );
+  const groupStandingsLiveBadgeMetrics = groupStandingsLiveRows.filter((row) => row.live);
+  assert(
+    groupStandingsLiveBadgeMetrics.every(
+      (row) => row.raceHeight !== null && Math.abs(row.liveHeight - row.raceHeight) <= 1
+    ),
+    `Standing LIVE pills should match third-place race pill height. Measured ${JSON.stringify(groupStandingsLiveBadgeMetrics)}.`
   );
   assert(
     (await page
@@ -2457,7 +2490,7 @@ try {
   );
   const expectedLiveThirdPlaceTeams = new Set(
     fixturesData.fixtures
-      .filter((fixture) => fixture.status === "LIVE")
+      .filter((fixture) => isFixtureLive(fixture))
       .flatMap((fixture) => [fixture.homeTeamId, fixture.awayTeamId])
       .filter((teamId) => expectedThirdPlaceRaceRows.some((candidate) => candidate.teamId === teamId))
       .map((teamId) => getTeam(teamId).name)
