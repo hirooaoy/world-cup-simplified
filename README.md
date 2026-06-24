@@ -22,6 +22,8 @@ pnpm matchday:update
 
 The GitHub Data Quality workflow runs the same FIFA score, goal-event, and result-highlight refreshes before testing, so scheduled CI validates an official results snapshot instead of failing only because committed fallback JSON is a few matches behind.
 
+User-facing app/API/UI changes should update `data/release-notes.json` in the same change. CI runs `pnpm release-notes:check` to catch product changes that forgot release notes; pure fixture/source data refreshes remain covered by the separate data freshness timestamps.
+
 ## Public Launch
 
 The site is set up for Vercel. Static pages are served from the repo root and the `Report issue` flow posts to `/api/report-issue`.
