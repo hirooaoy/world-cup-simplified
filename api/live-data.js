@@ -30,6 +30,7 @@ const FIFA_SCHEDULE_URL =
   "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/match-schedule-fixtures-results-teams-stadiums";
 const FIFA_DEFAULT_COMPETITION_ID = "17";
 const FIFA_DEFAULT_SEASON_ID = "285023";
+const FIFA_PROVIDER_KEY = "fifa";
 const FIFA_GOAL_EVENTS_SOURCE_PREFIX = "fifa-official-goal-events-auto";
 const DEFAULT_FIFA_GOAL_EVENTS_TIMEOUT_MS = 5000;
 const DEFAULT_FIFA_GOAL_EVENTS_MAX_FIXTURES = 8;
@@ -111,6 +112,7 @@ export default async function handler(request, response) {
     const goalEventMerge = await mergeOfficialGoalEvents({
       checkedAt,
       fixturesData: merge.fixturesData,
+      teams: teamsData.teams,
       timeZone: process.env.SYNC_TIMEZONE || DEFAULT_TIME_ZONE
     });
     const mergedStandingsData = recomputeStandings({
@@ -1042,7 +1044,7 @@ function mergeProviderFixtures({ checkedAt, fixturesData, provider, providerFixt
   };
 }
 
-async function mergeOfficialGoalEvents({ checkedAt, fixturesData, timeZone }) {
+async function mergeOfficialGoalEvents({ checkedAt, fixturesData, teams, timeZone }) {
   if (!isOfficialGoalEventsEnabled()) {
     return {
       fixturesData,
@@ -1065,7 +1067,10 @@ async function mergeOfficialGoalEvents({ checkedAt, fixturesData, timeZone }) {
 
   try {
     const officialMatches = await fetchOfficialMatchesForGoalEvents(candidates, timeZone);
-    const officialIndex = indexOfficialGoalEventMatches(officialMatches);
+    const officialIndex = indexOfficialGoalEventMatches(
+      officialMatches,
+      buildTeamLookup(teams || [], {}, FIFA_PROVIDER_KEY)
+    );
     const warnings = [];
     let matchedCount = 0;
     let updateCount = 0;
@@ -1079,6 +1084,8 @@ async function mergeOfficialGoalEvents({ checkedAt, fixturesData, timeZone }) {
         }
 
         matchedCount += 1;
+        const metadataUpdated = mergeOfficialGoalEventMetadata(fixture, officialMatch);
+        let fixtureUpdated = metadataUpdated;
 
         try {
           const timeline = await fetchOfficialGoalTimeline(officialMatch.IdMatch);
@@ -1090,15 +1097,25 @@ async function mergeOfficialGoalEvents({ checkedAt, fixturesData, timeZone }) {
             warnings.push(
               `${fixture.id}: timeline goal count ${actualTotal} does not match score total ${expectedTotal}`
             );
+            if (fixtureUpdated) {
+              updateCount += 1;
+            }
             return;
           }
 
           if (!sameGoals(fixture.goalsHome, goals.home) || !sameGoals(fixture.goalsAway, goals.away)) {
             fixture.goalsHome = goals.home;
             fixture.goalsAway = goals.away;
+            fixtureUpdated = true;
+          }
+
+          if (fixtureUpdated) {
             updateCount += 1;
           }
         } catch (error) {
+          if (fixtureUpdated) {
+            updateCount += 1;
+          }
           warnings.push(`${fixture.id}: ${error.message || "unable to fetch FIFA timeline"}`);
         }
       })
@@ -1225,24 +1242,119 @@ function officialParticipantAbbreviation(match, side) {
   return match?.[side]?.Abbreviation || "";
 }
 
-function indexOfficialGoalEventMatches(matches) {
+function officialDescriptions(values) {
+  return Array.isArray(values)
+    ? values.map((value) => value?.Description).filter(Boolean)
+    : [];
+}
+
+function officialParticipantNames(participant) {
+  if (!participant) {
+    return [];
+  }
+
+  return [
+    participant.Abbreviation,
+    participant.Name,
+    participant.ShortName,
+    participant.DisplayName,
+    ...officialDescriptions(participant.TeamName),
+    ...officialDescriptions(participant.NameLocalized),
+    ...officialDescriptions(participant.ShortClubName)
+  ].filter(Boolean);
+}
+
+function officialParticipantTeamId(participant, teamLookup) {
+  for (const name of officialParticipantNames(participant)) {
+    const teamId = teamLookup.byName.get(normalizeKey(name));
+    if (teamId) {
+      return teamId;
+    }
+  }
+
+  return "";
+}
+
+function officialGoalEventPairKey(match, teamLookup) {
+  const home =
+    officialParticipantAbbreviation(match, "Home") ||
+    officialParticipantTeamId(match?.Home, teamLookup);
+  const away =
+    officialParticipantAbbreviation(match, "Away") ||
+    officialParticipantTeamId(match?.Away, teamLookup);
+
+  return home && away ? `${home}:${away}` : "";
+}
+
+function getFixtureFifaMatchId(fixture) {
+  return (
+    fixture.providerIds?.[FIFA_PROVIDER_KEY]?.matchId ||
+    fixture.providerIds?.[FIFA_PROVIDER_KEY]?.idMatch ||
+    fixture.fifaMatchId ||
+    ""
+  );
+}
+
+function getOfficialGoalEventProviderIds(match) {
+  const providerIds = {};
+  const matchNumber = Number(match.MatchNumber);
+
+  if (match.IdMatch) {
+    providerIds.matchId = String(match.IdMatch);
+  }
+
+  if (Number.isInteger(matchNumber) && matchNumber > 0) {
+    providerIds.matchNumber = matchNumber;
+  }
+
+  return providerIds;
+}
+
+function mergeOfficialGoalEventMetadata(fixture, match) {
+  const providerIds = getOfficialGoalEventProviderIds(match);
+  const matchNumber = Number(match.MatchNumber);
+  let updated = false;
+
+  if (Object.keys(providerIds).length) {
+    const before = JSON.stringify(fixture.providerIds?.[FIFA_PROVIDER_KEY] || {});
+    fixture.providerIds = {
+      ...(fixture.providerIds || {}),
+      [FIFA_PROVIDER_KEY]: {
+        ...(fixture.providerIds?.[FIFA_PROVIDER_KEY] || {}),
+        ...providerIds
+      }
+    };
+    updated = updated || before !== JSON.stringify(fixture.providerIds[FIFA_PROVIDER_KEY]);
+  }
+
+  if (Number.isInteger(matchNumber) && matchNumber > 0 && fixture.matchNumber !== matchNumber) {
+    fixture.matchNumber = matchNumber;
+    updated = true;
+  }
+
+  return updated;
+}
+
+function indexOfficialGoalEventMatches(matches, teamLookup) {
+  const byMatchId = new Map();
   const byMatchNumber = new Map();
   const byParticipants = new Map();
   const byParticipantsAndKickoff = new Map();
 
   for (const match of matches) {
-    const home = officialParticipantAbbreviation(match, "Home");
-    const away = officialParticipantAbbreviation(match, "Away");
+    if (match.IdMatch) {
+      byMatchId.set(String(match.IdMatch), match);
+    }
 
     if (match.MatchNumber) {
       byMatchNumber.set(Number(match.MatchNumber), match);
     }
 
-    if (!home || !away) {
+    const pairKey = officialGoalEventPairKey(match, teamLookup);
+    if (!pairKey) {
       continue;
     }
 
-    const pairKey = `${home}:${away}`;
     if (!byParticipants.has(pairKey)) {
       byParticipants.set(pairKey, []);
     }
@@ -1253,10 +1365,18 @@ function indexOfficialGoalEventMatches(matches) {
     }
   }
 
-  return { byMatchNumber, byParticipants, byParticipantsAndKickoff };
+  return { byMatchId, byMatchNumber, byParticipants, byParticipantsAndKickoff };
 }
 
 function findOfficialGoalEventMatch(fixture, officialIndex) {
+  const fifaMatchId = getFixtureFifaMatchId(fixture);
+  if (fifaMatchId) {
+    const match = officialIndex.byMatchId.get(String(fifaMatchId));
+    if (match) {
+      return match;
+    }
+  }
+
   if (fixture.matchNumber) {
     return officialIndex.byMatchNumber.get(Number(fixture.matchNumber)) || null;
   }
