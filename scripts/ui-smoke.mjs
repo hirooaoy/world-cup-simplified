@@ -423,6 +423,94 @@ try {
   await loadingPage.waitForSelector(".match-row");
   await loadingContext.close();
 
+  const thirdPlaceLoadingContext = await browser.newContext();
+  let releaseStandings;
+  const standingsDelay = new Promise((resolve) => {
+    releaseStandings = resolve;
+  });
+  await thirdPlaceLoadingContext.route("**/data/standings.json*", async (route) => {
+    await standingsDelay;
+    await route.fulfill({
+      body: JSON.stringify(standingsData),
+      contentType: "application/json",
+      status: 200
+    });
+  });
+  const thirdPlaceLoadingPage = await thirdPlaceLoadingContext.newPage();
+  await thirdPlaceLoadingPage.goto(`${baseUrl}?view=standings&standingsMode=third-place`, {
+    waitUntil: "domcontentloaded"
+  });
+  await thirdPlaceLoadingPage.waitForSelector(".third-place-loading-row");
+  const thirdPlaceLoadingState = await thirdPlaceLoadingPage.evaluate(() => ({
+    ariaBusy: document.querySelector("#standings-grid")?.getAttribute("aria-busy"),
+    headers: [...document.querySelectorAll(".third-place-table thead th")].map((header) =>
+      header.textContent.trim()
+    ),
+    rowCount: document.querySelectorAll(".third-place-loading-row").length,
+    realRowCount: document.querySelectorAll(".third-place-table tbody tr:not(.third-place-loading-row)").length,
+    summary: document.querySelector("#standings-summary")?.textContent.trim(),
+    tabPressed: document.querySelector("#standings-third-place-tab")?.getAttribute("aria-pressed")
+  }));
+  assert(
+    thirdPlaceLoadingState.ariaBusy === "true" &&
+      thirdPlaceLoadingState.tabPressed === "true" &&
+      thirdPlaceLoadingState.summary.includes("Third-place standings across all groups") &&
+      thirdPlaceLoadingState.headers.join("|") === "Rank|Team|Group|Pts|GD|Goals|Status" &&
+      thirdPlaceLoadingState.rowCount === 8 &&
+      thirdPlaceLoadingState.realRowCount === 0,
+    "Direct third-place standings loads should show a table-shaped skeleton while standings data is loading."
+  );
+  releaseStandings();
+  await thirdPlaceLoadingPage.waitForFunction(
+    () => document.querySelectorAll(".third-place-table tbody tr:not(.third-place-cut-row)").length === 12
+  );
+  await thirdPlaceLoadingContext.close();
+
+  const tournamentLoadingContext = await browser.newContext();
+  let releaseTournamentStandings;
+  const tournamentStandingsDelay = new Promise((resolve) => {
+    releaseTournamentStandings = resolve;
+  });
+  await tournamentLoadingContext.route("**/data/standings.json*", async (route) => {
+    await tournamentStandingsDelay;
+    await route.fulfill({
+      body: JSON.stringify(standingsData),
+      contentType: "application/json",
+      status: 200
+    });
+  });
+  const tournamentLoadingPage = await tournamentLoadingContext.newPage();
+  await tournamentLoadingPage.goto(`${baseUrl}?view=standings&standingsMode=tournament`, {
+    waitUntil: "domcontentloaded"
+  });
+  await tournamentLoadingPage.waitForSelector(".tournament-loading-match");
+  const tournamentLoadingState = await tournamentLoadingPage.evaluate(() => ({
+    ariaBusy: document.querySelector("#standings-grid")?.getAttribute("aria-busy"),
+    loadingCards: document.querySelectorAll(".tournament-loading-match").length,
+    realCards: document.querySelectorAll(".progress-match:not(.tournament-loading-match)").length,
+    roundHeadings: [...document.querySelectorAll(".progress-round h3")].map((heading) =>
+      heading.textContent.trim()
+    ),
+    summary: document.querySelector("#standings-summary")?.textContent.trim(),
+    tabPressed: document.querySelector("#standings-tournament-tab")?.getAttribute("aria-pressed")
+  }));
+  assert(
+    tournamentLoadingState.ariaBusy === "true" &&
+      tournamentLoadingState.tabPressed === "true" &&
+      tournamentLoadingState.summary.includes("Round of 32 slots") &&
+      tournamentLoadingState.roundHeadings.join("|") === "Round of 32|Round of 16|Quarter-finals|Semi-finals|Final" &&
+      tournamentLoadingState.loadingCards === 31 &&
+      tournamentLoadingState.realCards === 0,
+    "Direct tournament standings loads should show a bracket-shaped skeleton while standings data is loading."
+  );
+  releaseTournamentStandings();
+  await tournamentLoadingPage.waitForFunction(
+    () =>
+      document.querySelectorAll(".progress-match:not(.tournament-loading-match)").length === 31 &&
+      document.querySelectorAll(".tournament-loading-match").length === 0
+  );
+  await tournamentLoadingContext.close();
+
   const releaseNotesLoadingContext = await browser.newContext();
   let releaseReleaseNotes;
   const releaseNotesDelay = new Promise((resolve) => {
@@ -440,16 +528,22 @@ try {
   await releaseNotesLoadingPage.goto(baseUrl, { waitUntil: "domcontentloaded" });
   await releaseNotesLoadingPage.waitForSelector(".match-row");
   const releaseNotesLoadingTooltip = releaseNotesLoadingPage.locator("#source-note .release-tooltip");
-  const releaseNotesLoadingText = await releaseNotesLoadingTooltip.evaluate((tooltip) =>
-    tooltip.textContent.replace(/\s+/g, " ").trim()
-  );
+  const releaseNotesLoadingState = await releaseNotesLoadingTooltip.evaluate((tooltip) => ({
+    title: tooltip.querySelector("strong")?.textContent?.trim(),
+    status: tooltip.querySelector(".release-tooltip-loading .visually-hidden")?.textContent?.trim(),
+    rows: tooltip.querySelectorAll(".release-tooltip-loading-row").length,
+    lines: tooltip.querySelectorAll(".release-tooltip-loading .match-loading-line").length
+  }));
   assert(
     (await releaseNotesLoadingTooltip.getAttribute("aria-busy")) === "true",
     "The release notes tooltip should be marked busy while release notes are loading."
   );
   assert(
-    releaseNotesLoadingText === "Latest changes Loading release notes",
-    "The release notes tooltip should show a compact loading state while release notes are loading."
+    releaseNotesLoadingState.title === "Latest changes" &&
+      releaseNotesLoadingState.status === "Loading release notes" &&
+      releaseNotesLoadingState.rows === 3 &&
+      releaseNotesLoadingState.lines === 3,
+    "The release notes tooltip should show a compact skeleton state while release notes are loading."
   );
   releaseReleaseNotes();
   await releaseNotesLoadingPage.waitForFunction((expectedText) => {

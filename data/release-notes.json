@@ -1,6 +1,21 @@
 {
-  "updatedAt": "2026-06-23T21:34:00-07:00",
+  "updatedAt": "2026-06-23T21:54:00-07:00",
   "releases": [
+    {
+      "date": "2026-06-23",
+      "title": "Loading polish",
+      "titleZh": "加载状态优化",
+      "highlights": [
+        "Release notes now use the same rounded skeleton loading style as the rest of the app.",
+        "Third-place standings now show table-shaped loading rows instead of an empty body.",
+        "The tournament bracket now shows bracket-shaped loading cards while standings data loads."
+      ],
+      "highlightsZh": [
+        "发布说明现在使用与应用其他区域一致的圆角骨架加载样式。",
+        "最佳第三名积分榜现在会显示表格形骨架行，而不是空白表体。",
+        "淘汰赛对阵在积分数据加载时会显示对阵形骨架卡片。"
+      ]
+    },
     {
       "date": "2026-06-23",
       "title": "Live scorer reliability",

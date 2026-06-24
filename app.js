@@ -6946,6 +6946,22 @@ function renderThirdPlaceCutLine(advancerCount) {
   `;
 }
 
+function renderThirdPlaceRaceTableHead() {
+  return `
+    <thead>
+      <tr>
+        <th>${escapeHtml(localizeText("Rank"))}</th>
+        <th>${escapeHtml(localizeText("Team"))}</th>
+        <th>${escapeHtml(localizeText("Group"))}</th>
+        <th>${escapeHtml(localizeText("Pts"))}</th>
+        <th>${escapeHtml(localizeText("GD"))}</th>
+        <th>${escapeHtml(localizeText("Goals"))}</th>
+        <th>${escapeHtml(localizeText("Status"))}</th>
+      </tr>
+    </thead>
+  `;
+}
+
 function renderThirdPlaceRaceTable(rows, advancerCount) {
   const tableRows = rows
     .flatMap((candidate) => [
@@ -6957,20 +6973,45 @@ function renderThirdPlaceRaceTable(rows, advancerCount) {
   return `
     <div class="third-place-table-shell">
       <table class="standings-table third-place-table">
-        <thead>
-          <tr>
-            <th>${escapeHtml(localizeText("Rank"))}</th>
-            <th>${escapeHtml(localizeText("Team"))}</th>
-            <th>${escapeHtml(localizeText("Group"))}</th>
-            <th>${escapeHtml(localizeText("Pts"))}</th>
-            <th>${escapeHtml(localizeText("GD"))}</th>
-            <th>${escapeHtml(localizeText("Goals"))}</th>
-            <th>${escapeHtml(localizeText("Status"))}</th>
-          </tr>
-        </thead>
+        ${renderThirdPlaceRaceTableHead()}
         <tbody>${tableRows}</tbody>
       </table>
     </div>
+  `;
+}
+
+function renderThirdPlaceRaceLoadingRow(index) {
+  const rankClass = ["match-loading-line", "third-place-loading-rank", index >= 9 ? "is-wide" : ""]
+    .filter(Boolean)
+    .join(" ");
+
+  return `
+    <tr class="third-place-loading-row" aria-hidden="true">
+      <td><span class="${rankClass}"></span></td>
+      <td><span class="match-loading-line third-place-loading-team"></span></td>
+      <td><span class="match-loading-line third-place-loading-group"></span></td>
+      <td><span class="match-loading-line third-place-loading-stat"></span></td>
+      <td><span class="match-loading-line third-place-loading-stat"></span></td>
+      <td><span class="match-loading-line third-place-loading-goals"></span></td>
+      <td><span class="match-loading-line third-place-loading-status"></span></td>
+    </tr>
+  `;
+}
+
+function renderThirdPlaceRaceLoadingView() {
+  return `
+    <section class="third-place-race third-place-race-loading" aria-label="${escapeHtml(localizeText("Best third-place race"))}">
+      <div class="third-place-table-shell" role="status" aria-busy="true">
+        <table class="standings-table third-place-table">
+          <caption class="visually-hidden">${escapeHtml(localizeText("Loading standings"))}</caption>
+          ${renderThirdPlaceRaceTableHead()}
+          <tbody>
+            ${Array.from({ length: 8 }, (_, index) => renderThirdPlaceRaceLoadingRow(index)).join("")}
+          </tbody>
+        </table>
+      </div>
+      <p class="third-place-note">${escapeHtml(localizeText("Tie order follows points, goal difference, goals scored, loaded fair-play conduct when available, then FIFA ranking as the final deterministic fallback."))}</p>
+    </section>
   `;
 }
 
@@ -8114,6 +8155,59 @@ function renderTournamentProgressRound(round, context) {
   `;
 }
 
+function renderTournamentLoadingMatch(round, index) {
+  const { pathRow, pathSpan } = getTournamentProgressPlacement(round, index);
+
+  return `
+    <article class="progress-match tournament-loading-match" style="--path-row: ${escapeHtml(pathRow)}; --path-span: ${escapeHtml(pathSpan)};" aria-hidden="true">
+      <header class="knockout-match-header">
+        <span class="match-loading-line tournament-loading-date"></span>
+      </header>
+      <div class="knockout-match-pair">
+        <span class="tournament-loading-team">
+          <span class="match-loading-line tournament-loading-flag"></span>
+          <span class="match-loading-line tournament-loading-code"></span>
+        </span>
+        <span class="match-loading-line tournament-loading-versus"></span>
+        <span class="tournament-loading-team">
+          <span class="match-loading-line tournament-loading-flag"></span>
+          <span class="match-loading-line tournament-loading-code"></span>
+        </span>
+      </div>
+      <footer class="knockout-match-footer">
+        <span class="match-loading-line tournament-loading-footer"></span>
+      </footer>
+    </article>
+  `;
+}
+
+function renderTournamentLoadingRound(round) {
+  const roundLabel = localizeStageLabel(round.label);
+
+  return `
+    <section class="progress-round is-${escapeHtml(round.id)}" aria-label="${escapeHtml(roundLabel)}">
+      <h3>${escapeHtml(roundLabel)}</h3>
+      <div class="progress-match-list">
+        ${round.matchNumbers.map((_, index) => renderTournamentLoadingMatch(round, index)).join("")}
+      </div>
+    </section>
+  `;
+}
+
+function renderTournamentLoadingView() {
+  return `
+    <section class="tournament-view tournament-view-loading" aria-label="${escapeHtml(localizeText("Tournament bracket"))}" role="status" aria-busy="true">
+      <span class="visually-hidden">${escapeHtml(localizeText("Loading standings"))}</span>
+      <section class="tournament-progression" aria-label="${escapeHtml(localizeText("Knockout winner progression"))}">
+        <svg class="progress-connectors" aria-hidden="true" focusable="false"></svg>
+        <div class="progress-rounds">
+          ${TOURNAMENT_PROGRESS_ROUNDS.map(renderTournamentLoadingRound).join("")}
+        </div>
+      </section>
+    </section>
+  `;
+}
+
 function renderTournamentProgression(context) {
   return `
     <section class="tournament-progression" aria-label="${escapeHtml(localizeText("Knockout winner progression"))}">
@@ -8306,9 +8400,26 @@ function updateStandingsControls() {
 }
 
 function renderStandingsLoadingState() {
+  const isCurrentYear = selectedStandingsYear === CURRENT_STANDINGS_YEAR;
+  const isThirdPlaceMode = isCurrentYear && selectedStandingsMode === "third-place";
+  const isTournamentMode = isCurrentYear && selectedStandingsMode === "tournament";
+
+  updateStandingsControls();
   standingsGrid.classList.add("is-loading");
+  standingsGrid.classList.toggle("is-third-place-race", isThirdPlaceMode);
+  standingsGrid.classList.toggle("is-tournament", isTournamentMode);
   standingsGrid.setAttribute("aria-busy", "true");
-  standingsGrid.innerHTML = `
+  standingsGrid.setAttribute(
+    "aria-label",
+    localizeText(
+      isTournamentMode
+        ? "Tournament bracket"
+        : isThirdPlaceMode
+          ? "Best third-place race"
+          : "Group standings"
+    )
+  );
+  let standingsLoadingMarkup = `
     <div class="standings-loading" role="status">
       <p class="visually-hidden">${escapeHtml(localizeText("Loading standings"))}</p>
       ${Array.from({ length: 3 }, () => `
@@ -8326,9 +8437,22 @@ function renderStandingsLoadingState() {
       `).join("")}
     </div>
   `;
+
+  if (isTournamentMode) {
+    standingsLoadingMarkup = renderTournamentLoadingView();
+  } else if (isThirdPlaceMode) {
+    standingsLoadingMarkup = renderThirdPlaceRaceLoadingView();
+  }
+
+  standingsGrid.innerHTML = standingsLoadingMarkup;
 }
 
 function renderStandingsView() {
+  if (isInitialDataLoading) {
+    renderStandingsLoadingState();
+    return;
+  }
+
   const isCurrentYear = selectedStandingsYear === CURRENT_STANDINGS_YEAR;
   const isThirdPlaceMode = isCurrentYear && selectedStandingsMode === "third-place";
   const isTournamentMode = isCurrentYear && selectedStandingsMode === "tournament";
@@ -12897,6 +13021,8 @@ function readInitialChromeState() {
   const params = new URLSearchParams(window.location.search);
   const requestedTimeZone = params.get("tz");
   const requestedView = params.get("view");
+  const requestedStandingsYear = params.get("standingsYear") || params.get("year");
+  const requestedStandingsMode = params.get("standingsMode") || params.get("standings");
 
   if (requestedTimeZone && timeZones.includes(requestedTimeZone)) {
     selectedTimeZone = requestedTimeZone;
@@ -12906,6 +13032,11 @@ function readInitialChromeState() {
   }
 
   activeView = requestedView === "standings" ? "standings" : "matches";
+  selectedStandingsYear = getValidStandingsYear(requestedStandingsYear);
+  selectedStandingsMode =
+    selectedStandingsYear === CURRENT_STANDINGS_YEAR
+      ? getValidStandingsMode(requestedStandingsMode)
+      : "groups";
 }
 
 function readUrlState(options = {}) {
@@ -12983,7 +13114,13 @@ function getReleaseTooltipLoadingMarkup() {
   return `
     <strong>${escapeHtml(localizeText("Latest changes"))}</strong>
     <span class="release-tooltip-loading" role="status">
-      <span>${escapeHtml(localizeText("Loading release notes"))}</span>
+      <span class="visually-hidden">${escapeHtml(localizeText("Loading release notes"))}</span>
+      ${Array.from({ length: 3 }, (_, index) => `
+        <span class="release-tooltip-loading-row" aria-hidden="true">
+          <span class="release-tooltip-loading-dot"></span>
+          <span class="match-loading-line release-tooltip-loading-line ${index === 2 ? "is-short" : ""}"></span>
+        </span>
+      `).join("")}
     </span>
   `.trim();
 }
