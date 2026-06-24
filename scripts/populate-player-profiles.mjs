@@ -934,9 +934,9 @@ function getSquadCandidateScore(candidate, rawName, existingProfiles, teamId = "
   return score;
 }
 
-function isUsableSquadProfileCandidate(candidate) {
+function isUsableSquadProfileCandidate(candidate, { allowMononym = false } = {}) {
   const tokens = candidate.split(/\s+/).filter(Boolean);
-  if (tokens.length < 2 || tokens.length > 4 || hasInitialRosterToken(candidate)) {
+  if (tokens.length < (allowMononym ? 1 : 2) || tokens.length > 4 || hasInitialRosterToken(candidate)) {
     return false;
   }
 
@@ -968,8 +968,9 @@ function getSelectedSquadProfileCandidates(availabilityByTeam, teamsById, existi
 
     const candidatesByTokenSet = new Map();
     for (const rawName of includedNames) {
+      const hasExplicitRosterOverride = rosterNameOverrides.has(`${teamId}:${rawName}`);
       for (const candidate of getRosterNameCandidatesForTeam(rawName, teamId)) {
-        if (!isUsableSquadProfileCandidate(candidate)) {
+        if (!isUsableSquadProfileCandidate(candidate, { allowMononym: hasExplicitRosterOverride })) {
           continue;
         }
 
@@ -990,11 +991,13 @@ function getSelectedSquadProfileCandidates(availabilityByTeam, teamsById, existi
             rawNames: new Set([rawName]),
             candidateNames: new Set([candidate]),
             existingProfileName,
-            existingProfileTeamId: existingProfiles[existingProfileName]?.teamId || ""
+            existingProfileTeamId: existingProfiles[existingProfileName]?.teamId || "",
+            explicitRosterOverride: hasExplicitRosterOverride
           });
         } else if (existing?.name === name) {
           existing.rawNames.add(rawName);
           existing.candidateNames.add(candidate);
+          existing.explicitRosterOverride ||= hasExplicitRosterOverride;
         }
       }
     }
@@ -1120,7 +1123,7 @@ function getSquadCandidateAuditRows(availabilityByTeam, teamsById, existingProfi
     if (crossTeamAliasOwners.length) {
       issues.push(`cross-team alias collision with ${crossTeamAliasOwners.join(", ")}`);
     }
-    if (!existingProfile && nameTokens.length < 2) {
+    if (!existingProfile && nameTokens.length < 2 && !candidate.explicitRosterOverride) {
       issues.push("candidate is not a full name");
     }
     if (hasInitialRosterToken(candidate.name)) {

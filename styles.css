@@ -2462,7 +2462,7 @@ h1 {
 
 .standings-table tbody tr:last-child td {
   border-bottom: 0;
-  padding-bottom: 6px;
+  padding-bottom: 3px;
 }
 
 .standings-table th:not(:first-child),
@@ -2540,6 +2540,15 @@ h1 {
   white-space: nowrap;
 }
 
+.standing-badge-row {
+  display: inline-flex;
+  align-items: center;
+  flex: 0 1 auto;
+  flex-wrap: wrap;
+  gap: 6px;
+  min-width: 0;
+}
+
 .standing-team.has-standing-badges {
   flex-wrap: wrap;
   align-items: flex-start;
@@ -2557,7 +2566,8 @@ h1 {
 }
 
 .standing-team.has-standing-badges .standing-name {
-  flex: 1 1 calc(100% - 28px);
+  flex: 0 1 auto;
+  max-width: 100%;
   overflow: visible;
   overflow-wrap: anywhere;
   text-overflow: clip;
@@ -2566,6 +2576,10 @@ h1 {
 
 .standing-team.has-standing-badges .rank-pill {
   margin-left: 0;
+}
+
+.standing-team.has-standing-badges .standing-badge-row {
+  max-width: 100%;
 }
 
 .standing-team.has-standing-badges .standing-status-pill,
@@ -3178,8 +3192,8 @@ h1 {
 }
 
 .standing-status-pill.is-eliminated {
-  background: rgba(146, 35, 35, 0.1);
-  color: #8c2525;
+  background: rgba(10, 10, 10, 0.08);
+  color: rgba(10, 10, 10, 0.58);
 }
 
 .third-place-muted {
@@ -5931,8 +5945,10 @@ h1 {
   }
 
   .standing-name {
-    flex: 1 1 calc(100% - 27px);
+    flex: 0 1 auto;
+    max-width: 100%;
     overflow: visible;
+    overflow-wrap: anywhere;
     text-overflow: clip;
     white-space: normal;
   }

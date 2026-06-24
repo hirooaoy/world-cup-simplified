@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-24T23:17:34.819Z",
+  "updatedAt": "2026-06-24T23:27:19.194Z",
   "sourceIds": [
     "wikipedia-football-infobox",
     "wikipedia-page-summaries",
@@ -121,11 +121,9 @@
       "uniformNumber": 2,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Achraf%20Hakimi%20Morocco%20v%20Norway%207%20June%202026-16.jpg?width=160",
       "skills": [
-        "Set pieces",
-        "Runs in behind",
-        "Wide threat"
+        "Match impact"
       ],
-      "note": "A two-way right-side force whose overlaps, recovery speed, and set pieces shape Morocco's best stretches.",
+      "note": "Achraf Hakimi is part of Morocco's current World Cup squad pool.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Achraf_Hakimi"
     },
     "Adalberto Carrasquilla": {
@@ -530,19 +528,16 @@
       "teamId": "MAR",
       "birthDate": "1993-06-25",
       "summary": "Ayoub El Kaabi (Arabic: أَيُّوب الْكَعْبِيّ, Berber languages: ⴰⵢⵓⴱ ⴻⵍ ⴽⴰⴰⴱⵉ; born 25 June 1993) is a Moroccan professional footballer who plays as a striker for Super League Greece club Olympiacos and the Morocco national team.",
-      "marketValueEurMillions": 5,
+      "marketValueEurMillions": 4.5,
       "position": "Striker",
       "club": "Olympiacos",
       "league": "Super League Greece",
       "uniformNumber": 20,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ayoub%20El%20Kaabi%20vs%20Niger%20(cropped).jpg?width=160",
       "skills": [
-        "Box presence",
-        "Finishing",
-        "Runs in behind",
-        "Wide threat"
+        "Match impact"
       ],
-      "note": "The box finisher who gives Morocco a direct endpoint when wide pressure turns into service.",
+      "note": "Ayoub El Kaabi is part of Morocco's current World Cup squad pool.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Ayoub_El_Kaabi"
     },
     "Bradley Barcola": {
@@ -569,18 +564,17 @@
       "displayName": "Brahim Díaz",
       "teamId": "MAR",
       "birthDate": "1999-08-03",
-      "summary": "Brahim Abdelkader Díaz (Arabic: إبراهيم عبد القادر دياز; born 3 August 1999), also known mononymously as Brahim, is a professional footballer who plays as an attacking midfielder or winger for La Liga club Real Madrid.",
-      "marketValueEurMillions": 40,
+      "summary": "Brahim Abdelkader Díaz (born 3 August 1999), also known mononymously as Brahim, is a professional footballer who plays as an attacking midfielder or winger for La Liga club Real Madrid. Born in Spain, he plays for the Morocco national team.",
+      "marketValueEurMillions": 35,
       "position": "Attacking midfielder, winger",
       "club": "Real Madrid",
       "league": "La Liga",
       "uniformNumber": 10,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Brahim%20Diaz%20Morocco%20v%20Norway%207%20June%202026-36%20(cropped).jpg?width=160",
       "skills": [
-        "Chance creation",
-        "Pressing"
+        "Match impact"
       ],
-      "note": "The between-lines creator who can receive under pressure and turn Hakimi support into final-third chances.",
+      "note": "Brahim Diaz is part of Morocco's current World Cup squad pool.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Brahim_D%C3%ADaz"
     },
     "Breel Embolo": {
@@ -688,18 +682,20 @@
       "teamId": "BRA",
       "birthDate": "1992-02-23",
       "summary": "Carlos Henrique Casimiro (born 23 February 1992), also known mononymously as Casemiro [ka.zeˈmi.ɾu], is a Brazilian professional footballer who plays as a defensive midfielder for Premier League club Manchester United and the Brazil national team.",
-      "marketValueEurMillions": 8,
+      "marketValueEurMillions": 6,
       "position": "Defensive midfielder",
       "club": "Manchester United",
       "league": "Premier League",
       "uniformNumber": 5,
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Casemiro%20Brazil%20V%20Morocco%2013%20June%202026-76%20(cropped).jpg?width=160",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/16306-1699018876.jpg?lm=1",
       "skills": [
-        "Midfield control",
-        "Defensive control"
+        "Counter protection",
+        "Defensive positioning",
+        "Set-piece threat"
       ],
-      "note": "The midfield security blanket, important for stopping counters before Brazil's fullbacks are exposed.",
-      "sourceUrl": "https://en.wikipedia.org/wiki/Casemiro"
+      "note": "Brazil's midfield safety lock, closing counter lanes, organizing second balls, and still threatening the box on set pieces.",
+      "noteZh": "卡塞米罗是巴西中场的安全锁，能封住反击线路、组织第二落点，并在定位球中继续威胁禁区。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/casemiro/profil/spieler/16306"
     },
     "Chris Wood": {
       "name": "Chris Wood",
@@ -1715,18 +1711,16 @@
       "displayName": "Ismael Saibari",
       "teamId": "MAR",
       "birthDate": "2001-01-28",
-      "summary": "Ismael Saibari (Arabic: إسماعيل صيباري, Berber languages: ⵉⵙⵎⴰⴻⵍ ⵙⴰⵉⴱⴰⵔⵉ; born 28 January 2001) is a professional footballer who plays as a attacking midfielder or forward for Eredivisie club PSV Eindhoven.",
-      "marketValueEurMillions": 32,
+      "summary": "Ismael Saibari (born 28 January 2001) is a professional footballer who plays as a attacking midfielder or forward for Eredivisie club PSV Eindhoven. Born in Spain, he represents the Morocco national team.",
+      "marketValueEurMillions": 40,
       "position": "Attacking midfielder, forward",
       "club": "PSV Eindhoven",
       "league": "Eredivisie",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ismael%20Saibari%20Brazil%20V%20Morocco%2013%20June%202026-152.jpg?width=160",
       "skills": [
-        "Box presence",
-        "Chance creation",
-        "Runs in behind"
+        "Match impact"
       ],
-      "note": "Morocco's between-lines option, useful for turning possession into final passes and late box runs.",
+      "note": "Ismael Saibari is part of Morocco's current World Cup squad pool.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Ismael_Saibari"
     },
     "Ismaila Sarr": {
@@ -2784,18 +2778,19 @@
       "teamId": "BRA",
       "birthDate": "1999-05-27",
       "summary": "Matheus Santos Carneiro da Cunha (Brazilian Portuguese: [maˈtews ˈkũ.ɲɐ], born 27 May 1999) is a Brazilian professional footballer who plays as a forward, attacking midfielder, or winger for Premier League club Manchester United and the Brazil national team.",
-      "marketValueEurMillions": 45,
-      "position": "Forward, attacking midfielder, winger",
+      "marketValueEurMillions": 75,
+      "position": "Forward",
       "club": "Manchester United",
       "league": "Premier League",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Matheus%20Cunha%20Brazil%20V%20Morocco%2013%20June%202026-178%20(cropped).jpg?width=160",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/517894-1780390711.jpg?lm=1",
       "skills": [
-        "Box presence",
-        "Chance creation",
-        "Runs in behind"
+        "Forward carrying",
+        "Combination play",
+        "Penalty-area timing"
       ],
-      "note": "Brazil's between-lines option, useful for turning possession into final passes and late box runs.",
-      "sourceUrl": "https://en.wikipedia.org/wiki/Matheus_Cunha"
+      "note": "Brazil's roaming forward, linking with wide runners, carrying through central gaps, and arriving in the box at awkward angles.",
+      "noteZh": "马特乌斯·库尼亚是巴西游动型前锋，能和边路跑动点衔接、从中路空当推进，并以刁钻角度进入禁区。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/matheus-cunha/profil/spieler/517894"
     },
     "Mathew Ryan": {
       "name": "Mathew Ryan",
@@ -3283,17 +3278,20 @@
       "teamId": "BRA",
       "birthDate": "1992-02-05",
       "summary": "Neymar da Silva Santos Júnior (Brazilian Portuguese pronunciation: [nejˈmaʁ dɐ ˈsiwvɐ ˈsɐ̃tuz ˈʒuni.oʁ] ; born 5 February 1992), simply known as Neymar Júnior (shortened to Neymar Jr) or mononymously as Neymar, is a Brazilian professional footballer who plays...",
-      "marketValueEurMillions": 50,
-      "position": "Attacking midfielder, forward",
+      "marketValueEurMillions": 8,
+      "position": "Attacking midfielder",
       "club": "Santos",
       "league": "Campeonato Brasileiro Série A",
       "uniformNumber": 10,
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Neymar%20Junior%20Brazil%20V%20Morocco%2013%20June%202026-40.jpg?width=160",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/68290-1692601435.jpg?lm=1",
       "skills": [
-        "Box presence"
+        "Final-third invention",
+        "Fouls drawn",
+        "Disguised passing"
       ],
-      "note": "Brazil's imagination hub when they need disguise, combination play, and fouls drawn around the box.",
-      "sourceUrl": "https://en.wikipedia.org/wiki/Neymar"
+      "note": "Brazil's late-game invention hub, drawing fouls, disguising final passes, and bending crowded attacks into one clean chance.",
+      "noteZh": "内马尔是巴西比赛后段的创造核心，能制造犯规、隐藏最后一传，并把拥挤进攻拧成一次清晰机会。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/neymar/profil/spieler/68290"
     },
     "Nico Schlotterbeck": {
       "name": "Nico Schlotterbeck",
@@ -4210,18 +4208,20 @@
       "teamId": "BRA",
       "birthDate": "2000-07-12",
       "summary": "Vinícius José Paixão de Oliveira Júnior (Brazilian Portuguese: [viˈni.sjuz ʒoˈzɛ pajˈʃɐ̃w̃ dʒi oliˈvej.ɾɐ ˈʒu.njoʁ]; born 12 July 2000), commonly known as Vinícius Júnior or Vini Jr., is a Brazilian professional footballer who plays as a forward for La Liga...",
-      "marketValueEurMillions": 180,
-      "position": "Forward, left winger",
+      "marketValueEurMillions": 140,
+      "position": "Left winger",
       "club": "Real Madrid",
       "league": "La Liga",
       "uniformNumber": 7,
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Vin%C3%ADcius%20J%C3%BAnior%20Brazil%20V%20Morocco%2013%20June%202026-207%20(cropped).jpg?width=160",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/371998-1761575144.jpg?lm=1",
       "skills": [
-        "Runs in behind",
-        "Ball carrying"
+        "Left-wing isolation",
+        "Explosive dribbling",
+        "Transition finishing"
       ],
-      "note": "The devastating left-sided runner, capable of breaking a match with one isolation or carry in behind.",
-      "sourceUrl": "https://en.wikipedia.org/wiki/Vin%C3%ADcius_J%C3%BAnior"
+      "note": "Brazil's main isolation weapon, stretching the left side with explosive dribbles, transition runs, and sharp finishes after contact.",
+      "noteZh": "维尼修斯·儒尼奥尔是巴西主要的一对一武器，能用爆发带球、转换冲刺，以及对抗后的敏锐终结拉开左路。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/vinicius-junior/profil/spieler/371998"
     },
     "Virgil van Dijk": {
       "name": "Virgil van Dijk",
@@ -6618,6 +6618,786 @@
       "note": "Scotland's left-footed centre-back, giving them aerial clearances, physical cover, and balance on the left side of defence.",
       "noteZh": "斯科特·麦肯纳是苏格兰左脚中卫，能完成空中解围、提供身体保护，并平衡防线左侧。",
       "sourceUrl": "https://en.wikipedia.org/wiki/Scott_McKenna"
+    },
+    "Alex Sandro": {
+      "name": "Alex Sandro",
+      "displayName": "Alex Sandro",
+      "teamId": "BRA",
+      "birthDate": "1991-01-26",
+      "summary": "Alex Sandro Lobo Silva (born 26 January 1991), better known as Alex Sandro (Brazilian Portuguese: [aˈlɛks ˈsɐ̃dɾʊ]) is a Brazilian professional footballer who plays as a left-back for Campeonato Brasileiro Série A club Flamengo and the Brazil national team.",
+      "marketValueEurMillions": 1,
+      "position": "Left-back",
+      "club": "Flamengo",
+      "league": "Campeonato Brasileiro Série A",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/79960-1751370710.jpg?lm=1",
+      "skills": [
+        "Left-back control",
+        "Back-post defending",
+        "Experienced buildup"
+      ],
+      "note": "Brazil's veteran left-back option, useful for back-post defending, calmer buildup, and protecting leads when the tempo gets stretched.",
+      "noteZh": "阿莱士·桑德罗是巴西的老将左后卫选择，能防守后点、稳住后场出球，并在节奏被拉开时保护领先。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/alex-sandro/profil/spieler/79960"
+    },
+    "Alisson Becker": {
+      "name": "Alisson Becker",
+      "displayName": "Alisson Becker",
+      "teamId": "BRA",
+      "birthDate": "1992-10-02",
+      "summary": "Álisson Ramsés Becker (Portuguese pronunciation: [ˈalisõ ˈbɛkeʁ]; born 2 October 1992), better known as Alisson Becker or simply Alisson, is a Brazilian professional footballer who plays as a goalkeeper for Premier League club Liverpool and the Brazil national...",
+      "marketValueEurMillions": 15,
+      "position": "Goalkeeper",
+      "club": "Liverpool",
+      "league": "Premier League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/105470-1780389358.jpg?lm=1",
+      "skills": [
+        "One-on-one saves",
+        "Sweeper-keeper range",
+        "Calm distribution"
+      ],
+      "note": "Brazil's commanding goalkeeper, giving them one-on-one saves, sweeper cover behind a high line, and composed restarts under pressure.",
+      "noteZh": "阿利松·贝克尔是巴西的指挥型门将，能完成一对一扑救、在高位防线身后清扫，并在压力下冷静重新组织。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/alisson/profil/spieler/105470"
+    },
+    "Bremer": {
+      "name": "Bremer",
+      "displayName": "Bremer",
+      "teamId": "BRA",
+      "birthDate": "1997-03-18",
+      "summary": "Gleison Bremer Silva Nascimento (born 18 March 1997), known as Gleison Bremer (Brazilian Portuguese: [ˈɡlejsõ ˈbɾẽmeʁ]) or simply Bremer, is a Brazilian professional footballer who plays as a centre-back for Serie A club Juventus and the Brazil national team.",
+      "marketValueEurMillions": 35,
+      "position": "Centre-back",
+      "club": "Juventus",
+      "league": "Serie A",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/516716-1725531520.jpg?lm=1",
+      "skills": [
+        "Aerial duels",
+        "Front-foot defending",
+        "Box clearances"
+      ],
+      "note": "Brazil's front-foot centre-back, useful for attacking aerial balls, stepping into duels, and clearing the box when crosses pile up.",
+      "noteZh": "布雷默是巴西主动上抢的中卫，能争顶高空球、前顶进入对抗，并在传中增多时完成禁区解围。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/bremer/profil/spieler/516716"
+    },
+    "Bruno Guimaraes": {
+      "name": "Bruno Guimaraes",
+      "displayName": "Bruno Guimarães",
+      "teamId": "BRA",
+      "birthDate": "1997-11-16",
+      "summary": "Bruno Guimarães Rodriguez Moura (Brazilian Portuguese pronunciation: [ˈbɾũ.nu ɡi.maˈɾɐ̃j̃s]; born 16 November 1997), known as Bruno Guimarães, is a Brazilian professional footballer who plays as a midfielder for Premier League club Newcastle United, which he...",
+      "marketValueEurMillions": 70,
+      "position": "Central midfielder",
+      "club": "Newcastle United",
+      "league": "Premier League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/520624-1780929894.jpg?lm=1",
+      "skills": [
+        "Central progression",
+        "Pressure escapes",
+        "Tempo changes"
+      ],
+      "note": "Brazil's midfield progressor, turning tight touches and pressure escapes into faster attacks through the middle.",
+      "noteZh": "布鲁诺·吉马良斯是巴西的中场推进者，能用小范围触球和摆脱压力，把中路进攻提速。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/bruno-guimaraes/profil/spieler/520624"
+    },
+    "Danilo": {
+      "name": "Danilo",
+      "displayName": "Danilo",
+      "teamId": "BRA",
+      "birthDate": "1991-07-15",
+      "summary": "Danilo Luiz da Silva (born 15 July 1991), known as Danilo (Brazilian Portuguese: [dɐ̃ˈnilʊ]), is a Brazilian professional footballer who plays as a centre-back or right-back for Campeonato Brasileiro Série A club Flamengo and the Brazil national team.",
+      "marketValueEurMillions": 2,
+      "position": "Centre-back, right-back",
+      "club": "Flamengo",
+      "league": "Campeonato Brasileiro Série A",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/145707-1663577215.jpg?lm=1",
+      "skills": [
+        "Defensive leadership",
+        "Right-side cover",
+        "Back-line balance"
+      ],
+      "note": "Brazil's experienced defensive organizer, able to slide between centre-back and right-back while keeping the back line balanced.",
+      "noteZh": "达尼洛是巴西经验丰富的防线组织者，能在中卫和右后卫之间切换，并保持后防线平衡。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/danilo/profil/spieler/145707"
+    },
+    "Danilo Santos": {
+      "name": "Danilo Santos",
+      "displayName": "Danilo Santos",
+      "teamId": "BRA",
+      "birthDate": "2001-04-29",
+      "summary": "Danilo dos Santos de Oliveira (born 29 April 2001), known simply as Danilo, Danilo Oliveira or Danilo Santos, (Brazilian Portuguese pronunciation: [dɐˈnilu ˈsɐ̃tus]) is a Brazilian professional footballer who plays as a midfielder for Campeonato Brasileiro...",
+      "marketValueEurMillions": 32,
+      "position": "Central midfielder",
+      "club": "Botafogo",
+      "league": "Campeonato Brasileiro Série A",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/808509-1780390517.jpg?lm=1",
+      "skills": [
+        "Ball-winning midfield",
+        "Forward surges",
+        "Second-ball pressure"
+      ],
+      "note": "Brazil's younger Danilo profile, adding midfield ball-winning, vertical carries, and second-ball pressure when they need fresh legs.",
+      "noteZh": "达尼洛·桑托斯是巴西阵中较年轻的达尼洛，能提供中场抢断、纵向推进，以及需要活力时的第二落点压迫。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/danilo/profil/spieler/808509"
+    },
+    "Douglas Santos": {
+      "name": "Douglas Santos",
+      "displayName": "Douglas Santos",
+      "teamId": "BRA",
+      "birthDate": "1994-03-22",
+      "summary": "Douglas dos Santos Justino de Melo (Russian: Дуглас До Сантос Жустино Де Мело; born 22 March 1994), known as Douglas Santos or simply Douglas (Brazilian Portuguese: [ˈdowglɐs ˈsɐ̃tʊs]), is a Brazilian professional footballer who plays as a left-back for...",
+      "marketValueEurMillions": 7.5,
+      "position": "Left-back",
+      "club": "Zenit Saint Petersburg",
+      "league": "Russian Premier League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/220793-1756746479.png?lm=1",
+      "skills": [
+        "Left-back circulation",
+        "Overlap timing",
+        "Defensive recovery"
+      ],
+      "note": "Brazil's left-back rotation piece, useful for clean circulation, measured overlaps, and recovery runs if the flank opens.",
+      "noteZh": "道格拉斯·桑托斯是巴西左后卫轮换选择，能完成干净传导、把握套边时机，并在边路被打开时回追补位。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/douglas-santos/profil/spieler/220793"
+    },
+    "Ederson": {
+      "name": "Ederson",
+      "displayName": "Ederson",
+      "teamId": "BRA",
+      "birthDate": "1993-08-17",
+      "summary": "Ederson Santana de Moraes (born 17 August 1993), simply known as Ederson (Brazilian Portuguese: [ˈɛdɛʁsõ]), is a Brazilian professional footballer who plays as a goalkeeper for Süper Lig club Fenerbahçe and the Brazil national team.",
+      "marketValueEurMillions": 10,
+      "position": "Goalkeeper",
+      "club": "Fenerbahçe",
+      "league": "Süper Lig",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/238223-1765380595.jpg?lm=1",
+      "skills": [
+        "Long distribution",
+        "Sweeper positioning",
+        "Fast restarts"
+      ],
+      "note": "Brazil's aggressive goalkeeper option, capable of sweeping behind the line and turning catches into long, fast distribution.",
+      "noteZh": "埃德森是巴西更主动的门将选择，能在防线身后清扫，并把接球快速转化成长距离出球。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/ederson/profil/spieler/238223"
+    },
+    "Ederson Silva": {
+      "name": "Ederson Silva",
+      "displayName": "Ederson Silva",
+      "teamId": "BRA",
+      "birthDate": "1999-07-07",
+      "summary": "Éderson José dos Santos Lourenço da Silva (born 7 July 1999), simply known as Éderson (Brazilian Portuguese: [ˈɛ.deʁ.sõ(w̃)]), is a Brazilian professional footballer who plays as a midfielder for Serie A club Atalanta and the Brazil national team.",
+      "marketValueEurMillions": 45,
+      "position": "Central midfielder",
+      "club": "Atalanta",
+      "league": "Serie A",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/607854-1646648856.jpg?lm=1",
+      "skills": [
+        "Box-to-box running",
+        "Counter-pressing",
+        "Midfield arrivals"
+      ],
+      "note": "Brazil's high-energy midfielder, giving them counter-pressing, box-to-box coverage, and late arrivals around the edge of the area.",
+      "noteZh": "埃德森·席尔瓦是巴西高能量中场，能提供反抢、覆盖两个禁区，并后插上到禁区前沿。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/ederson/profil/spieler/607854"
+    },
+    "Endrick": {
+      "name": "Endrick",
+      "displayName": "Endrick",
+      "teamId": "BRA",
+      "birthDate": "2006-07-21",
+      "summary": "Endrick Felipe Moreira de Sousa Pessoa (born 21 July 2006), known as Endrick (Brazilian Portuguese: [ˈẽ(j̃)dɾik (i)]), is a Brazilian professional footballer who plays as a striker for Ligue 1 club Lyon, on loan from La Liga club Real Madrid, and the Brazil...",
+      "marketValueEurMillions": 40,
+      "position": "Centre-forward",
+      "club": "Lyon (on loan from Real Madrid)",
+      "league": "Ligue 1",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/971570-1723665994.jpg?lm=1",
+      "skills": [
+        "Explosive finishing",
+        "Near-post runs",
+        "Fearless shooting"
+      ],
+      "note": "Brazil's explosive young striker, built for near-post darts, quick snapshots, and changing a game before defenders settle.",
+      "noteZh": "恩德里克是巴西爆发力十足的年轻中锋，擅长前点冲刺、快速起脚，并在后卫站稳前改变比赛。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/endrick/profil/spieler/971570"
+    },
+    "Fabinho": {
+      "name": "Fabinho",
+      "displayName": "Fabinho",
+      "teamId": "BRA",
+      "birthDate": "1993-10-23",
+      "summary": "Fábio Henrique Tavares (born 23 October 1993), known as Fabinho (Brazilian Portuguese: [faˈbĩɲu]), is a Brazilian professional footballer who plays as a defensive midfielder for and captains Saudi Pro League club Al-Ittihad and the Brazil national team.",
+      "marketValueEurMillions": 12,
+      "position": "Defensive midfielder",
+      "club": "Al-Ittihad",
+      "league": "Saudi Pro League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/225693-1703282636.png?lm=1",
+      "skills": [
+        "Midfield screening",
+        "Tactical fouls",
+        "Simple progression"
+      ],
+      "note": "Brazil's screening midfielder, useful for slowing counters, covering centre-backs, and restarting attacks with simple passes.",
+      "noteZh": "法比尼奥是巴西的屏障型中场，能拖慢反击、保护中卫，并用简洁传球重新发起进攻。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/fabinho/profil/spieler/225693"
+    },
+    "Gabriel Magalhaes": {
+      "name": "Gabriel Magalhaes",
+      "displayName": "Gabriel Magalhães",
+      "teamId": "BRA",
+      "birthDate": "1997-12-19",
+      "summary": "Gabriel dos Santos Magalhães (Portuguese pronunciation: [ɡabɾiˈɛw dus ˈsɐ̃tuz maɡaˈʎɐ̃js]; born 19 December 1997), also known mononymously as Gabriel, is a Brazilian professional footballer who plays as centre-back for Premier League club Arsenal and the...",
+      "marketValueEurMillions": 75,
+      "position": "Centre-back",
+      "club": "Arsenal",
+      "league": "Premier League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/435338-1684162833.jpg?lm=1",
+      "skills": [
+        "Left-sided defending",
+        "Aerial dominance",
+        "Set-piece threat"
+      ],
+      "note": "Brazil's dominant left centre-back, bringing aerial power, aggressive box defending, and danger when he attacks set pieces.",
+      "noteZh": "加布里埃尔·马加良斯是巴西强势的左中卫，能提供空中优势、主动禁区防守，并在进攻定位球中制造威胁。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/gabriel/profil/spieler/435338"
+    },
+    "Gabriel Martinelli": {
+      "name": "Gabriel Martinelli",
+      "displayName": "Gabriel Martinelli",
+      "teamId": "BRA",
+      "birthDate": "2001-06-18",
+      "summary": "Gabriel Teodoro Martinelli Silva (Brazilian Portuguese: [ga.bɾiˈɛw maʁ.tʃiˈnɛ.lɪ], born 18 June 2001) is a Brazilian professional footballer who plays as a forward or left winger for Premier League club Arsenal and the Brazil national team.",
+      "marketValueEurMillions": 45,
+      "position": "Left winger",
+      "club": "Arsenal",
+      "league": "Premier League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/655488-1682689091.jpg?lm=1",
+      "skills": [
+        "Left-wing pressing",
+        "Runs in behind",
+        "Transition speed"
+      ],
+      "note": "Brazil's left-wing accelerator, giving them pressing bite, runs behind the full-back, and instant speed in transition.",
+      "noteZh": "加布里埃尔·马丁内利是巴西左路加速器，能提供压迫强度、冲击边后卫身后，并在转换中立刻提速。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/gabriel-martinelli/profil/spieler/655488"
+    },
+    "Igor Thiago": {
+      "name": "Igor Thiago",
+      "displayName": "Igor Thiago",
+      "teamId": "BRA",
+      "birthDate": "2001-06-26",
+      "summary": "Igor Thiago Nascimento Rodrigues (born 26 June 2001), known simply as Igor Thiago (Brazilian Portuguese pronunciation: [ˈiɡoʁ tʃiˈaɡu]), is a Brazilian professional footballer who plays as a striker for Premier League club Brentford and the Brazil national...",
+      "marketValueEurMillions": 65,
+      "position": "Centre-forward",
+      "club": "Brentford",
+      "league": "Premier League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/739443-1770372295.jpg?lm=1",
+      "skills": [
+        "Target play",
+        "Penalty-box finishing",
+        "Aerial presence"
+      ],
+      "note": "Brazil's powerful centre-forward option, giving them a true target, aerial pressure, and penalty-box finishes from direct service.",
+      "noteZh": "伊戈尔·蒂亚戈是巴西强力中锋选择，能提供真正支点、空中压力，并接应直接传球完成禁区终结。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/igor-thiago/profil/spieler/739443"
+    },
+    "Léo Pereira": {
+      "name": "Léo Pereira",
+      "displayName": "Léo Pereira",
+      "teamId": "BRA",
+      "birthDate": "1996-01-31",
+      "summary": "Leonardo \"Léo\" Pereira (Portuguese pronunciation: [ˈlɛ.u peˈɾejɾɐ]; born 31 January 1996) is a Brazilian footballer who plays as a central defender for Campeonato Brasileiro Série A club Flamengo and the Brazil national team.",
+      "marketValueEurMillions": 12,
+      "position": "Centre-back",
+      "club": "Flamengo",
+      "league": "Campeonato Brasileiro Série A",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/288431-1751370674.jpg?lm=1",
+      "skills": [
+        "Centre-back passing",
+        "Long diagonals",
+        "Box defending"
+      ],
+      "note": "Brazil's Flamengo centre-back, useful for long diagonal passing, clean box defending, and settling possession from the back.",
+      "noteZh": "莱奥·佩雷拉是巴西的弗拉门戈中卫，能送出长距离斜传、干净防守禁区，并从后场稳住控球。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/leo-pereira/profil/spieler/288431"
+    },
+    "Lucas Paqueta": {
+      "name": "Lucas Paqueta",
+      "displayName": "Lucas Paquetá",
+      "teamId": "BRA",
+      "birthDate": "1997-08-27",
+      "summary": "Lucas Tolentino Coelho de Lima (born 27 August 1997), better known as Lucas Paquetá (Brazilian Portuguese: [ˈlukas pakɛˈta]), is a Brazilian professional footballer who plays as an attacking midfielder for Campeonato Brasileiro Série A club Flamengo and the...",
+      "marketValueEurMillions": 32,
+      "position": "Attacking midfielder",
+      "club": "Flamengo",
+      "league": "Campeonato Brasileiro Série A",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/444523-1780929763.jpg?lm=1",
+      "skills": [
+        "Between-lines passing",
+        "Late box runs",
+        "Creative pressing"
+      ],
+      "note": "Brazil's between-lines connector, useful for disguised passes, late box runs, and pressing the ball after risky combinations.",
+      "noteZh": "卢卡斯·帕奎塔是巴西的线间连接点，能送出隐蔽传球、后插上进禁区，并在冒险配合后立刻压迫持球人。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/lucas-paqueta/profil/spieler/444523"
+    },
+    "Luiz Henrique": {
+      "name": "Luiz Henrique",
+      "displayName": "Luiz Henrique",
+      "teamId": "BRA",
+      "birthDate": "2001-01-02",
+      "summary": "Luiz Henrique André Rosa da Silva (born 2 January 2001), commonly known as Luiz Henrique (Brazilian Portuguese pronunciation: [luˈiz͜ ẽj̃ˈʁi.ki]), is a Brazilian professional footballer who plays as a right winger for Russian Premier League club Zenit Saint...",
+      "marketValueEurMillions": 24,
+      "position": "Right winger",
+      "club": "Zenit Saint Petersburg",
+      "league": "Russian Premier League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/800175-1756746940.png?lm=1",
+      "skills": [
+        "Right-wing dribbling",
+        "Inside cuts",
+        "Carry-and-shoot threat"
+      ],
+      "note": "Brazil's right-wing dribbler, able to isolate a full-back, cut inside onto shots, and keep attacks alive through contact.",
+      "noteZh": "路易斯·恩里克是巴西右路带球手，能单挑边后卫、内切射门，并在身体接触中延续进攻。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/luiz-henrique/profil/spieler/800175"
+    },
+    "Marquinhos": {
+      "name": "Marquinhos",
+      "displayName": "Marquinhos",
+      "teamId": "BRA",
+      "birthDate": "1994-05-14",
+      "summary": "Marcos Aoás Corrêa (born 14 May 1994), better known as Marquinhos (Brazilian Portuguese: [maʁˈkĩɲus]), is a Brazilian professional footballer who plays as a centre-back for and captains both Ligue 1 club Paris Saint-Germain and the Brazil national team.",
+      "marketValueEurMillions": 28,
+      "position": "Centre-back",
+      "club": "Paris Saint-Germain",
+      "league": "Ligue 1",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/181767-1672303747.jpg?lm=1",
+      "skills": [
+        "Back-line leadership",
+        "Cover defending",
+        "Clean distribution"
+      ],
+      "note": "Brazil's defensive leader, organizing the line, covering space behind aggressive full-backs, and passing out without panic.",
+      "noteZh": "马尔基尼奥斯是巴西防线领袖，能组织后防线、覆盖激进边后卫身后的空间，并冷静出球。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/marquinhos/profil/spieler/181767"
+    },
+    "Raphinha": {
+      "name": "Raphinha",
+      "displayName": "Raphinha",
+      "teamId": "BRA",
+      "birthDate": "1996-12-14",
+      "summary": "Raphael Dias Belloli (Portuguese pronunciation: [ʁɐˈfiɲɐ]; born 14 December 1996), known mononymously as Raphinha, is a Brazilian professional footballer who plays as a winger or forward for La Liga club Barcelona and the Brazil national team.",
+      "marketValueEurMillions": 70,
+      "position": "Winger",
+      "club": "Barcelona",
+      "league": "La Liga",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/411295-1729754479.png?lm=1",
+      "skills": [
+        "Wide pressing",
+        "Left-footed delivery",
+        "Diagonal runs"
+      ],
+      "note": "Brazil's relentless wide threat, combining pressing work with left-footed deliveries and diagonal runs into scoring lanes.",
+      "noteZh": "拉菲尼亚是巴西不知疲倦的边路威胁，能把压迫工作、左脚传中，以及斜插得分线路结合起来。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/raphinha/profil/spieler/411295"
+    },
+    "Rayan": {
+      "name": "Rayan",
+      "displayName": "Rayan",
+      "teamId": "BRA",
+      "birthDate": "2006-08-03",
+      "summary": "Rayan Vitor Simplício Rocha (born 3 August 2006), known simply as Rayan (Brazilian Portuguese pronunciation: [ʁaˈjɐ̃]), is a Brazilian professional footballer who plays as a right winger or forward for Premier League club Bournemouth and the Brazil national...",
+      "marketValueEurMillions": 60,
+      "position": "Right winger, forward",
+      "club": "Bournemouth",
+      "league": "Premier League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/1012564-1780390891.jpg?lm=1",
+      "skills": [
+        "Direct running",
+        "Right-side power",
+        "Early shooting"
+      ],
+      "note": "Brazil's powerful young right-sided runner, built to attack space early, shoot before pressure arrives, and stretch tired defenders.",
+      "noteZh": "拉扬是巴西年轻有力的右路冲击点，能提前攻击空间、在压力到来前射门，并拉扯疲劳的后卫。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/rayan/profil/spieler/1012564"
+    },
+    "Roger Ibanez": {
+      "name": "Roger Ibanez",
+      "displayName": "Roger Ibañez",
+      "teamId": "BRA",
+      "birthDate": "1998-11-23",
+      "summary": "Roger Ibañez da Silva (Portuguese pronunciation: [ʁɔˈʒɛʁ iˈbaɲis dɐ ˈsiwvɐ]; born 23 November 1998) is a Brazilian professional footballer who plays as a centre-back for Saudi Pro League club Al-Ahli and the Brazil national team.",
+      "marketValueEurMillions": 18,
+      "position": "Centre-back",
+      "club": "Al-Ahli",
+      "league": "Saudi Pro League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/524481-1663581987.jpg?lm=1",
+      "skills": [
+        "Recovery defending",
+        "Ball carrying",
+        "Right-sided cover"
+      ],
+      "note": "Brazil's athletic centre-back option, useful for recovery defending, carrying into midfield, and covering wide defensive gaps.",
+      "noteZh": "罗热·伊巴涅斯是巴西运动能力强的中卫选择，能回追防守、带球进入中场，并覆盖边路防守空当。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/roger-ibanez/profil/spieler/524481"
+    },
+    "Weverton": {
+      "name": "Weverton",
+      "displayName": "Weverton",
+      "teamId": "BRA",
+      "birthDate": "1987-12-13",
+      "summary": "Weverton Pereira da Silva (born 13 December 1987), simply known as Weverton (Brazilian Portuguese: [ˈwɛveʁtõ]), is a Brazilian professional footballer who plays as a goalkeeper for Campeonato Brasileiro Série A club Grêmio and the Brazil national team.",
+      "marketValueEurMillions": 0.7,
+      "position": "Goalkeeper",
+      "club": "Grêmio",
+      "league": "Campeonato Brasileiro Série A",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/69400-1751657170.jpg?lm=1",
+      "skills": [
+        "Veteran goalkeeping",
+        "Penalty experience",
+        "Box organization"
+      ],
+      "note": "Brazil's veteran goalkeeper depth, bringing penalty experience, box organization, and a steady voice if rotation is needed.",
+      "noteZh": "韦弗顿是巴西老将门将深度选择，能带来点球经验、禁区组织，以及需要轮换时的稳定声音。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/weverton/profil/spieler/69400"
+    },
+    "Ahmed Reda Tagnaouti": {
+      "name": "Ahmed Reda Tagnaouti",
+      "displayName": "Ahmed Reda Tagnaouti",
+      "teamId": "MAR",
+      "birthDate": "1996-04-05",
+      "summary": "Ahmed Reda Tagnaouti (Arabic: أحمد رضا التكناوتي; born 5 April 1996) is a Moroccan professional footballer who plays as goalkeeper for Botola Pro club AS FAR and the Morocco national team.",
+      "estimatedMarketValueEurMillions": 1,
+      "position": "Goalkeeper",
+      "club": "AS FAR",
+      "league": "Botola Pro",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ahmed%20Reda%20Tagnaouti%20Morocco%20v%20Norway%207%20June%202026-18.jpg?width=160",
+      "skills": [
+        "Match impact"
+      ],
+      "note": "Ahmed Reda Tagnaouti is part of Morocco's current World Cup squad pool.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Ahmed_Reda_Tagnaouti"
+    },
+    "Amine Sbai": {
+      "name": "Amine Sbai",
+      "displayName": "Amine Sbaï",
+      "teamId": "MAR",
+      "birthDate": "2000-11-05",
+      "summary": "Mohamed Amine Sbaï (born 5 November 2000) is a Moroccan professional footballer who plays as a winger for Ligue 1 club Angers and the Morocco national team.",
+      "marketValueEurMillions": 4,
+      "position": "Winger",
+      "club": "Angers",
+      "league": "Ligue 1",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Amine%20Sbai%20Brazil%20V%20Morocco%2013%20June%202026-64.jpg?width=160",
+      "skills": [
+        "Match impact"
+      ],
+      "note": "Amine Sbai is part of Morocco's current World Cup squad pool.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Amine_Sba%C3%AF"
+    },
+    "Anass Salah Eddine": {
+      "name": "Anass Salah Eddine",
+      "displayName": "Anass Salah-Eddine",
+      "teamId": "MAR",
+      "birthDate": "2002-01-18",
+      "summary": "Anass Salah-Eddine (Arabic: أنس صلاح الدين; born 18 January 2002) is a professional footballer who plays as a left-back or left wing-back for Eredivisie club PSV, on loan from Serie A club Roma, and the Morocco national team.",
+      "marketValueEurMillions": 12,
+      "position": "Left-back, left wing-back",
+      "club": "Roma",
+      "league": "Eredivisie",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Anass_Salah-Eddine_against_Paraguay_(cropped).jpg?width=160",
+      "skills": [
+        "Match impact"
+      ],
+      "note": "Anass Salah Eddine is part of Morocco's current World Cup squad pool.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Anass_Salah-Eddine"
+    },
+    "Ayoube Amaimouni": {
+      "name": "Ayoube Amaimouni",
+      "displayName": "Ayoube Amaimouni",
+      "teamId": "MAR",
+      "birthDate": "2004-11-30",
+      "summary": "Ayoube Amaimouni-Echghouyabe (Arabic: أيوب الميموني; born 30 November 2004) is a professional footballer who plays as a winger for German Bundesliga club Eintracht Frankfurt. Born in Spain, he plays for the Morocco national team.",
+      "marketValueEurMillions": 10,
+      "position": "Winger",
+      "club": "Eintracht Frankfurt",
+      "league": "Bundesliga",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/799993-1773653073.jpg?lm=1",
+      "skills": [
+        "Match impact"
+      ],
+      "note": "Ayoube Amaimouni is part of Morocco's current World Cup squad pool.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Ayoube_Amaimouni"
+    },
+    "Ayyoub Bouaddi": {
+      "name": "Ayyoub Bouaddi",
+      "displayName": "Ayyoub Bouaddi",
+      "teamId": "MAR",
+      "birthDate": "2007-10-02",
+      "summary": "Ayyoub Bouaddi (Arabic: أيوب بوعدي, Berber languages: ⴰⵢⵢⵓⴱ ⴱⵓⵄⴰⴷⴷⵉ; born 2 October 2007) is a professional footballer who plays as a midfielder for Ligue 1 club Lille. Born in France, he plays for the Morocco national team.",
+      "marketValueEurMillions": 50,
+      "position": "Midfielder",
+      "club": "Lille",
+      "league": "Ligue 1",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ayyoub_Bouaddi_Morocco_v_Norway_7_June_2026-71.jpg?width=160",
+      "skills": [
+        "Match impact"
+      ],
+      "note": "Ayyoub Bouaddi is part of Morocco's current World Cup squad pool.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Ayyoub_Bouaddi"
+    },
+    "Azzedine Ounahi": {
+      "name": "Azzedine Ounahi",
+      "displayName": "Azzedine Ounahi",
+      "teamId": "MAR",
+      "birthDate": "2000-04-19",
+      "summary": "Azzedine Ounahi (Arabic: عز الدين أوناحي, pronounced [ʕiz ʔad.di:n u:na:ħi:]; born 19 April 2000) is a Moroccan professional footballer who plays as a midfielder for Segunda División club Girona and the Morocco national team.",
+      "marketValueEurMillions": 10,
+      "position": "Midfielder",
+      "club": "Girona",
+      "league": "Segunda División",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Azzedine%20Ounahi%20Brazil%20V%20Morocco%2013%20June%202026-159%20(cropped).jpg?width=160",
+      "skills": [
+        "Match impact"
+      ],
+      "note": "Azzedine Ounahi is part of Morocco's current World Cup squad pool.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Azzedine_Ounahi"
+    },
+    "Chadi Riad": {
+      "name": "Chadi Riad",
+      "displayName": "Chadi Riad",
+      "teamId": "MAR",
+      "birthDate": "2003-06-17",
+      "summary": "Chadi Riad Dnanou (Arabic: شادي رياض دنانو; born 17 June 2003) is a professional footballer who plays as a centre-back for Premier League club Crystal Palace. Born in Spain, he plays for the Morocco national team.",
+      "marketValueEurMillions": 15,
+      "position": "Centre-back",
+      "club": "Crystal Palace",
+      "league": "Premier League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Chadi%20Riad%20Brazil%20V%20Morocco%2013%20June%202026-162.jpg?width=160",
+      "skills": [
+        "Match impact"
+      ],
+      "note": "Chadi Riad is part of Morocco's current World Cup squad pool.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Chadi_Riad"
+    },
+    "Chemsdine Talbi": {
+      "name": "Chemsdine Talbi",
+      "displayName": "Chemsdine Talbi",
+      "teamId": "MAR",
+      "birthDate": "2005-05-09",
+      "summary": "Chemsdine Talbi (Arabic: شَمْس الدِّين الطَّالِبِيّ; born 9 May 2005) is a professional footballer who plays as a winger for Premier League club Sunderland. Born in Belgium, he plays for the Morocco national team.",
+      "marketValueEurMillions": 25,
+      "position": "Winger",
+      "club": "Sunderland",
+      "league": "Premier League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Chemsdine%20Talbi%20Brazil%20V%20Morocco%2013%20June%202026-203.jpg?width=160",
+      "skills": [
+        "Match impact"
+      ],
+      "note": "Chemsdine Talbi is part of Morocco's current World Cup squad pool.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Chemsdine_Talbi"
+    },
+    "El Aynaoui": {
+      "name": "El Aynaoui",
+      "displayName": "Neil El Aynaoui",
+      "teamId": "MAR",
+      "birthDate": "2001-07-02",
+      "summary": "Neil Yoni El Aynaoui (Arabic: نائل العيناوي; born 2 July 2001) is a professional footballer who plays as a midfielder for Serie A club Roma and the Morocco national team.",
+      "marketValueEurMillions": 23,
+      "position": "Midfielder",
+      "club": "Roma",
+      "league": "Serie A",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Neil%20El%20Aynaoui%20Neil%20El%20Aynaoui%20Morocco%20v%20Norway%207%20June%202026-13%20(cropped).jpg?width=160",
+      "skills": [
+        "Match impact"
+      ],
+      "note": "El Aynaoui is part of Morocco's current World Cup squad pool.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Neil_El_Aynaoui"
+    },
+    "El Kajoui": {
+      "name": "El Kajoui",
+      "displayName": "Morocco at the 2024 Summer Olympics",
+      "teamId": "MAR",
+      "summary": "Morocco competed at the 2024 Summer Olympics in Paris from 26 July to 11 August 2024. It was the nation's sixteenth appearance at the Summer Olympics, except Moscow 1980, as part of the United States-led boycott.",
+      "estimatedMarketValueEurMillions": 1,
+      "club": "",
+      "skills": [
+        "Match impact"
+      ],
+      "note": "El Kajoui is part of Morocco's current World Cup squad pool.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Morocco_at_the_2024_Summer_Olympics"
+    },
+    "El Khannouss": {
+      "name": "El Khannouss",
+      "displayName": "Bilal El Khannouss",
+      "teamId": "MAR",
+      "birthDate": "2004-05-10",
+      "summary": "Bilal El Khannouss (Arabic: بلال الخنوس; born 10 May 2004) is a professional footballer who plays as an attacking midfielder for Bundesliga club VfB Stuttgart and the Morocco national team.",
+      "marketValueEurMillions": 35,
+      "position": "Attacking midfielder",
+      "club": "VfB Stuttgart",
+      "league": "Bundesliga",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Bilal%20El%20Khannouss%20Brazil%20V%20Morocco%2013%20June%202026-91.jpg?width=160",
+      "skills": [
+        "Match impact"
+      ],
+      "note": "El Khannouss is part of Morocco's current World Cup squad pool.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Bilal_El_Khannouss"
+    },
+    "El Mourabet": {
+      "name": "El Mourabet",
+      "displayName": "El Mourabet",
+      "teamId": "MAR",
+      "summary": "Belloumou is a Moroccan surname. Notable people with the surname include: Karim El Mourabet (born 1987), French footballer Samir El Mourabet (born 2005), Moroccan footballer",
+      "estimatedMarketValueEurMillions": 1,
+      "club": "",
+      "skills": [
+        "Match impact"
+      ],
+      "note": "El Mourabet is part of Morocco's current World Cup squad pool.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/El_Mourabet"
+    },
+    "El Ouahdi": {
+      "name": "El Ouahdi",
+      "displayName": "Zakaria El Ouahdi",
+      "teamId": "MAR",
+      "birthDate": "2001-12-31",
+      "summary": "Zakaria El Ouahdi (Moroccan Arabic: زكرياء الواحدي; born 31 December 2001), is a professional footballer who plays as a right winger or a right-back for Belgian Pro League club Genk. Born in Belgium, he plays for the Morocco national team.",
+      "marketValueEurMillions": 17,
+      "position": "Right winger, right-back",
+      "club": "Genk",
+      "league": "Belgian Pro League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Zakaria%20El%20Ouahdi%20at%20the%20Olympic%20Games%202024%20(cropped).jpg?width=160",
+      "skills": [
+        "Match impact"
+      ],
+      "note": "El Ouahdi is part of Morocco's current World Cup squad pool.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Zakaria_El_Ouahdi"
+    },
+    "Gessime Yassine": {
+      "name": "Gessime Yassine",
+      "displayName": "Gessime Yassine",
+      "teamId": "MAR",
+      "birthDate": "2005-11-22",
+      "summary": "Gessime Ben Youssef Mustapha Yassine (born 22 November 2005) is a professional footballer who plays as a winger for Ligue 1 club Strasbourg. Born in France, he represents the Morocco national team.",
+      "marketValueEurMillions": 12,
+      "position": "Winger",
+      "club": "Strasbourg",
+      "league": "Ligue 1",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Gessime%20Yassine%20against%20Paraguay%202%20(cropped).jpg?width=160",
+      "skills": [
+        "Match impact"
+      ],
+      "note": "Gessime Yassine is part of Morocco's current World Cup squad pool.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Gessime_Yassine"
+    },
+    "Issa Diop": {
+      "name": "Issa Diop",
+      "displayName": "Issa Diop",
+      "teamId": "MAR",
+      "summary": "Issa Diop may refer to: Issa (Senegalese singer), born Issa Diop, singer, songwriter, and record producer Issa Diop (footballer) (born 1997), Moroccan footballer Issa Rae, born Jo-Issa Rae Diop, actress, writer, and producer.",
+      "marketValueEurMillions": 8,
+      "club": "",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/272622-1660565295.jpg?lm=1",
+      "skills": [
+        "Match impact"
+      ],
+      "note": "Issa Diop is part of Morocco's current World Cup squad pool.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Issa_Diop"
+    },
+    "Marwane Saadane": {
+      "name": "Marwane Saadane",
+      "displayName": "Marwane Saâdane",
+      "teamId": "MAR",
+      "birthDate": "1992-01-17",
+      "summary": "Marwane Saâdane (Arabic: مروان سعدان; born 17 January 1992) is a Moroccan professional football player who plays for Saudi Professional League club Al-Fateh and the Morocco national team.",
+      "marketValueEurMillions": 0.4,
+      "position": "Centre-back, defensive midfielder",
+      "club": "Al-Fateh",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Marwane%20Saadane%20Morocco%20v%20Norway%207%20June%202026-249%20(cropped).jpg?width=160",
+      "skills": [
+        "Match impact"
+      ],
+      "note": "Marwane Saadane is part of Morocco's current World Cup squad pool.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Marwane_Sa%C3%A2dane"
+    },
+    "Noussair Mazraoui": {
+      "name": "Noussair Mazraoui",
+      "displayName": "Noussair Mazraoui",
+      "teamId": "MAR",
+      "birthDate": "1997-11-14",
+      "summary": "Noussair Mazraoui (Arabic: نُصَيْر مَزرَاوِيّ; born 14 November 1997) is a professional footballer who plays as a defender for Premier League club Manchester United and the Morocco national team.",
+      "marketValueEurMillions": 18,
+      "position": "Defender",
+      "club": "Manchester United",
+      "league": "Premier League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Noussair_Mazraoui_at_2026_FIFA_World_Cup_by_YantsImages_(cropped).jpg?width=160",
+      "skills": [
+        "Match impact"
+      ],
+      "note": "Noussair Mazraoui is part of Morocco's current World Cup squad pool.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Noussair_Mazraoui"
+    },
+    "Redouane Halhal": {
+      "name": "Redouane Halhal",
+      "displayName": "Redouane Halhal",
+      "teamId": "MAR",
+      "birthDate": "2003-03-05",
+      "summary": "Redouane Halhal (Arabic: رضوان حلحل; born 5 March 2003) is a footballer who plays as a defender for Belgian club Mechelen. Born in France, he represents the Morocco national team.",
+      "marketValueEurMillions": 5,
+      "position": "Centre-back",
+      "club": "Mechelen",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Redouane%20Halhal%20vs%20Paraguay%20(cropped).jpg?width=160",
+      "skills": [
+        "Match impact"
+      ],
+      "note": "Redouane Halhal is part of Morocco's current World Cup squad pool.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Redouane_Halhal"
+    },
+    "Sofyan Amrabat": {
+      "name": "Sofyan Amrabat",
+      "displayName": "Sofyan Amrabat",
+      "teamId": "MAR",
+      "birthDate": "1996-08-21",
+      "summary": "Sofyan Amrabat (Arabic: سفيان أمرابط, Berber languages: ⵙⵓⴼⵢⴰⵏ ⴰⵎⵕⴰⴱⵟ; born 21 August 1996) is a professional footballer who plays as a defensive midfielder for La Liga club Real Betis, on loan from Süper Lig side Fenerbahçe, and the Morocco national team.",
+      "marketValueEurMillions": 10,
+      "position": "Defensive midfielder",
+      "club": "Betis (on loan from Fenerbahçe)",
+      "league": "La Liga",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Sofyan%20Amrabat%20Brazil%20V%20Morocco%2013%20June%202026-63.jpg?width=160",
+      "skills": [
+        "Match impact"
+      ],
+      "note": "Sofyan Amrabat is part of Morocco's current World Cup squad pool.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Sofyan_Amrabat"
+    },
+    "Souane Rahimi": {
+      "name": "Souane Rahimi",
+      "displayName": "Amin (name)",
+      "teamId": "MAR",
+      "summary": "Amin (Arabic: أمين, romanized: ʾāmīn), cognate to amen (Arabic: آمين, āmīn), is an Arabic masculine given name and surname, meaning \"devoted, honest, straightforward, trusty, worthy of belief, loyal, faithful, obedient\".",
+      "estimatedMarketValueEurMillions": 1,
+      "club": "",
+      "skills": [
+        "Match impact"
+      ],
+      "note": "Souane Rahimi is part of Morocco's current World Cup squad pool.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Amin_(name)"
+    },
+    "Youssef Belammari": {
+      "name": "Youssef Belammari",
+      "displayName": "Youssef Belammari",
+      "teamId": "MAR",
+      "birthDate": "1998-09-20",
+      "summary": "Youssef Belammari (Arabic: يُوسُف بَلْعُمَرِيّ; born 20 September 1998) is a Moroccan professional footballer who plays as a left-back for Egyptian Premier League club Al Ahly and the Morocco national team.",
+      "marketValueEurMillions": 1.2,
+      "position": "Left-back, left midfielder",
+      "club": "Al Ahly",
+      "league": "Egyptian Premier League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Youssef%20Belammari%20vs%20Niger%20(cropped).jpg?width=160",
+      "skills": [
+        "Match impact"
+      ],
+      "note": "Youssef Belammari is part of Morocco's current World Cup squad pool.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Youssef_Belammari"
     }
   }
 }

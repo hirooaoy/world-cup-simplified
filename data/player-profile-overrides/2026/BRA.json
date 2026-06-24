@@ -1,0 +1,571 @@
+{
+  "edition": "2026-world-cup",
+  "teamId": "BRA",
+  "teamName": "Brazil",
+  "rosterNameOverrides": {
+    "A. BECKER": "Alisson Becker",
+    "Álisson Ramsés BECKER": "Alisson Becker",
+    "BREMER": "Bremer",
+    "Bruno GUIMARÃES RODRIGUEZ MOURA": "Bruno Guimaraes",
+    "Carlos Henrique CASIMIRO": "Casemiro",
+    "CASEMIRO": "Casemiro",
+    "CUNHA": "Matheus Cunha",
+    "DANILO": "Danilo",
+    "Danilo DOS SANTOS DE OLIVEIRA": "Danilo Santos",
+    "Danilo Luiz DA SILVA": "Danilo",
+    "DANILO S.": "Danilo Santos",
+    "DANILO SANTOS": "Danilo Santos",
+    "Douglas DOS SANTOS JUSTINO DE MELO": "Douglas Santos",
+    "DOUGLAS S.": "Douglas Santos",
+    "DOUGLAS SANTOS": "Douglas Santos",
+    "EDERSON": "Ederson",
+    "Éderson José DOS SANTOS LOURENÇO DA SILVA": "Ederson Silva",
+    "ÉDERSON S.": "Ederson Silva",
+    "Ederson SANTANA DE MORAES": "Ederson",
+    "EDERSON SILVA": "Ederson Silva",
+    "ENDRICK": "Endrick",
+    "Endrick Felipe MOREIRA DE SOUSA PESSOA": "Endrick",
+    "FABINHO": "Fabinho",
+    "Fabio Henrique TAVARES": "Fabinho",
+    "GABRIEL": "Gabriel Magalhaes",
+    "Gabriel DOS SANTOS MAGALHÃES": "Gabriel Magalhaes",
+    "Gabriel TEODORO MARTINELLI SILVA": "Gabriel Martinelli",
+    "Gleison Bremer SILVA NASCIMENTO": "Bremer",
+    "IBAÑEZ": "Roger Ibanez",
+    "IGOR THIAGO": "Igor Thiago",
+    "Igor Thiago NASCIMENTO RODRIGUES": "Igor Thiago",
+    "L. HENRIQUE": "Luiz Henrique",
+    "L. PAQUETÁ": "Lucas Paqueta",
+    "LEO PEREIRA": "Léo Pereira",
+    "LÉO PEREIRA": "Léo Pereira",
+    "Leonardo PEREIRA": "Léo Pereira",
+    "Lucas TOLENTINO COELHO DE LIMA": "Lucas Paqueta",
+    "Luiz Henrique André ROSA DA SILVA": "Luiz Henrique",
+    "Marcos AOAS CORREA": "Marquinhos",
+    "MARQUINHOS": "Marquinhos",
+    "MARTINELLI": "Gabriel Martinelli",
+    "Matheus SANTOS CARNEIRO DA CUNHA": "Matheus Cunha",
+    "Neymar DA SILVA SANTOS JÚNIOR": "Neymar",
+    "NEYMAR JR": "Neymar",
+    "Raphael DIAS BELLOLI": "Raphinha",
+    "RAPHINHA": "Raphinha",
+    "RAYAN": "Rayan",
+    "Rayan Vitor SIMPLICIO ROCHA": "Rayan",
+    "ROGER IBANEZ": "Roger Ibanez",
+    "Roger IBAÑEZ DA SILVA": "Roger Ibanez",
+    "THIAGO": "Igor Thiago",
+    "VINI JR.": "Vinicius Junior",
+    "Vinicius José PAIXÃO DE OLIVEIRA JÚNIOR": "Vinicius Junior",
+    "WEVERTON": "Weverton",
+    "Weverton PEREIRA DA SILVA": "Weverton"
+  },
+  "removeProfiles": [
+    "Álisson Ramsés Becker",
+    "Danilo Luiz Da Silva",
+    "Douglas Santos",
+    "Ederson Santana De Moraes",
+    "Ederson Silva",
+    "Fabio Henrique Tavares",
+    "Gleison Bremer Silva Nascimento",
+    "Leonardo Pereira",
+    "Marcos Aoas Correa",
+    "Raphael Dias Belloli",
+    "Rayan Vitor Simplicio Rocha",
+    "Weverton Pereira Da Silva"
+  ],
+  "profiles": {
+    "Alex Sandro": {
+      "displayName": "Alex Sandro",
+      "sourceTitle": "Alex Sandro",
+      "birthDate": "1991-01-26",
+      "position": "Left-back",
+      "club": "Flamengo",
+      "league": "Campeonato Brasileiro Série A",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/79960-1751370710.jpg?lm=1",
+      "marketValueEurMillions": 1,
+      "skills": [
+        "Left-back control",
+        "Back-post defending",
+        "Experienced buildup"
+      ],
+      "note": "Brazil's veteran left-back option, useful for back-post defending, calmer buildup, and protecting leads when the tempo gets stretched.",
+      "noteZh": "阿莱士·桑德罗是巴西的老将左后卫选择，能防守后点、稳住后场出球，并在节奏被拉开时保护领先。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/alex-sandro/profil/spieler/79960"
+    },
+    "Alisson Becker": {
+      "displayName": "Alisson Becker",
+      "sourceTitle": "Alisson Becker",
+      "transfermarktPlayerCode": "alisson",
+      "birthDate": "1992-10-02",
+      "position": "Goalkeeper",
+      "club": "Liverpool",
+      "league": "Premier League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/105470-1780389358.jpg?lm=1",
+      "marketValueEurMillions": 15,
+      "skills": [
+        "One-on-one saves",
+        "Sweeper-keeper range",
+        "Calm distribution"
+      ],
+      "note": "Brazil's commanding goalkeeper, giving them one-on-one saves, sweeper cover behind a high line, and composed restarts under pressure.",
+      "noteZh": "阿利松·贝克尔是巴西的指挥型门将，能完成一对一扑救、在高位防线身后清扫，并在压力下冷静重新组织。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/alisson/profil/spieler/105470"
+    },
+    "Bremer": {
+      "displayName": "Bremer",
+      "sourceTitle": "Gleison Bremer",
+      "transfermarktPlayerCode": "bremer",
+      "birthDate": "1997-03-18",
+      "position": "Centre-back",
+      "club": "Juventus",
+      "league": "Serie A",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/516716-1725531520.jpg?lm=1",
+      "marketValueEurMillions": 35,
+      "skills": [
+        "Aerial duels",
+        "Front-foot defending",
+        "Box clearances"
+      ],
+      "note": "Brazil's front-foot centre-back, useful for attacking aerial balls, stepping into duels, and clearing the box when crosses pile up.",
+      "noteZh": "布雷默是巴西主动上抢的中卫，能争顶高空球、前顶进入对抗，并在传中增多时完成禁区解围。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/bremer/profil/spieler/516716"
+    },
+    "Bruno Guimaraes": {
+      "displayName": "Bruno Guimarães",
+      "sourceTitle": "Bruno Guimarães",
+      "transfermarktPlayerCode": "bruno-guimaraes",
+      "birthDate": "1997-11-16",
+      "position": "Central midfielder",
+      "club": "Newcastle United",
+      "league": "Premier League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/520624-1780929894.jpg?lm=1",
+      "marketValueEurMillions": 70,
+      "skills": [
+        "Central progression",
+        "Pressure escapes",
+        "Tempo changes"
+      ],
+      "note": "Brazil's midfield progressor, turning tight touches and pressure escapes into faster attacks through the middle.",
+      "noteZh": "布鲁诺·吉马良斯是巴西的中场推进者，能用小范围触球和摆脱压力，把中路进攻提速。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/bruno-guimaraes/profil/spieler/520624"
+    },
+    "Casemiro": {
+      "displayName": "Casemiro",
+      "sourceTitle": "Casemiro",
+      "transfermarktPlayerCode": "casemiro",
+      "birthDate": "1992-02-23",
+      "position": "Defensive midfielder",
+      "club": "Manchester United",
+      "league": "Premier League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/16306-1699018876.jpg?lm=1",
+      "marketValueEurMillions": 6,
+      "skills": [
+        "Counter protection",
+        "Defensive positioning",
+        "Set-piece threat"
+      ],
+      "note": "Brazil's midfield safety lock, closing counter lanes, organizing second balls, and still threatening the box on set pieces.",
+      "noteZh": "卡塞米罗是巴西中场的安全锁，能封住反击线路、组织第二落点，并在定位球中继续威胁禁区。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/casemiro/profil/spieler/16306"
+    },
+    "Danilo": {
+      "displayName": "Danilo",
+      "sourceTitle": "Danilo (footballer, born July 1991)",
+      "transfermarktPlayerCode": "danilo",
+      "birthDate": "1991-07-15",
+      "position": "Centre-back, right-back",
+      "club": "Flamengo",
+      "league": "Campeonato Brasileiro Série A",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/145707-1663577215.jpg?lm=1",
+      "marketValueEurMillions": 2,
+      "skills": [
+        "Defensive leadership",
+        "Right-side cover",
+        "Back-line balance"
+      ],
+      "note": "Brazil's experienced defensive organizer, able to slide between centre-back and right-back while keeping the back line balanced.",
+      "noteZh": "达尼洛是巴西经验丰富的防线组织者，能在中卫和右后卫之间切换，并保持后防线平衡。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/danilo/profil/spieler/145707"
+    },
+    "Danilo Santos": {
+      "displayName": "Danilo Santos",
+      "sourceTitle": "Danilo (footballer, born 2001)",
+      "transfermarktPlayerCode": "danilo",
+      "birthDate": "2001-04-29",
+      "position": "Central midfielder",
+      "club": "Botafogo",
+      "league": "Campeonato Brasileiro Série A",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/808509-1780390517.jpg?lm=1",
+      "marketValueEurMillions": 32,
+      "skills": [
+        "Ball-winning midfield",
+        "Forward surges",
+        "Second-ball pressure"
+      ],
+      "note": "Brazil's younger Danilo profile, adding midfield ball-winning, vertical carries, and second-ball pressure when they need fresh legs.",
+      "noteZh": "达尼洛·桑托斯是巴西阵中较年轻的达尼洛，能提供中场抢断、纵向推进，以及需要活力时的第二落点压迫。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/danilo/profil/spieler/808509"
+    },
+    "Douglas Santos": {
+      "displayName": "Douglas Santos",
+      "sourceTitle": "Douglas Santos (footballer, born 1994)",
+      "transfermarktPlayerCode": "douglas-santos",
+      "birthDate": "1994-03-22",
+      "position": "Left-back",
+      "club": "Zenit Saint Petersburg",
+      "league": "Russian Premier League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/220793-1756746479.png?lm=1",
+      "marketValueEurMillions": 7.5,
+      "skills": [
+        "Left-back circulation",
+        "Overlap timing",
+        "Defensive recovery"
+      ],
+      "note": "Brazil's left-back rotation piece, useful for clean circulation, measured overlaps, and recovery runs if the flank opens.",
+      "noteZh": "道格拉斯·桑托斯是巴西左后卫轮换选择，能完成干净传导、把握套边时机，并在边路被打开时回追补位。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/douglas-santos/profil/spieler/220793"
+    },
+    "Ederson": {
+      "displayName": "Ederson",
+      "sourceTitle": "Ederson (footballer, born 1993)",
+      "transfermarktPlayerCode": "ederson",
+      "birthDate": "1993-08-17",
+      "position": "Goalkeeper",
+      "club": "Fenerbahçe",
+      "league": "Süper Lig",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/238223-1765380595.jpg?lm=1",
+      "marketValueEurMillions": 10,
+      "skills": [
+        "Long distribution",
+        "Sweeper positioning",
+        "Fast restarts"
+      ],
+      "note": "Brazil's aggressive goalkeeper option, capable of sweeping behind the line and turning catches into long, fast distribution.",
+      "noteZh": "埃德森是巴西更主动的门将选择，能在防线身后清扫，并把接球快速转化成长距离出球。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/ederson/profil/spieler/238223"
+    },
+    "Ederson Silva": {
+      "displayName": "Ederson Silva",
+      "sourceTitle": "Éderson (footballer, born 1999)",
+      "transfermarktPlayerCode": "ederson",
+      "birthDate": "1999-07-07",
+      "position": "Central midfielder",
+      "club": "Atalanta",
+      "league": "Serie A",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/607854-1646648856.jpg?lm=1",
+      "marketValueEurMillions": 45,
+      "skills": [
+        "Box-to-box running",
+        "Counter-pressing",
+        "Midfield arrivals"
+      ],
+      "note": "Brazil's high-energy midfielder, giving them counter-pressing, box-to-box coverage, and late arrivals around the edge of the area.",
+      "noteZh": "埃德森·席尔瓦是巴西高能量中场，能提供反抢、覆盖两个禁区，并后插上到禁区前沿。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/ederson/profil/spieler/607854"
+    },
+    "Endrick": {
+      "displayName": "Endrick",
+      "sourceTitle": "Endrick (footballer, born 2006)",
+      "transfermarktPlayerCode": "endrick",
+      "birthDate": "2006-07-21",
+      "position": "Centre-forward",
+      "club": "Lyon (on loan from Real Madrid)",
+      "league": "Ligue 1",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/971570-1723665994.jpg?lm=1",
+      "marketValueEurMillions": 40,
+      "skills": [
+        "Explosive finishing",
+        "Near-post runs",
+        "Fearless shooting"
+      ],
+      "note": "Brazil's explosive young striker, built for near-post darts, quick snapshots, and changing a game before defenders settle.",
+      "noteZh": "恩德里克是巴西爆发力十足的年轻中锋，擅长前点冲刺、快速起脚，并在后卫站稳前改变比赛。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/endrick/profil/spieler/971570"
+    },
+    "Fabinho": {
+      "displayName": "Fabinho",
+      "sourceTitle": "Fabinho (footballer, born 1993)",
+      "transfermarktPlayerCode": "fabinho",
+      "birthDate": "1993-10-23",
+      "position": "Defensive midfielder",
+      "club": "Al-Ittihad",
+      "league": "Saudi Pro League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/225693-1703282636.png?lm=1",
+      "marketValueEurMillions": 12,
+      "skills": [
+        "Midfield screening",
+        "Tactical fouls",
+        "Simple progression"
+      ],
+      "note": "Brazil's screening midfielder, useful for slowing counters, covering centre-backs, and restarting attacks with simple passes.",
+      "noteZh": "法比尼奥是巴西的屏障型中场，能拖慢反击、保护中卫，并用简洁传球重新发起进攻。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/fabinho/profil/spieler/225693"
+    },
+    "Gabriel Magalhaes": {
+      "displayName": "Gabriel Magalhães",
+      "sourceTitle": "Gabriel Magalhães",
+      "transfermarktPlayerCode": "gabriel",
+      "birthDate": "1997-12-19",
+      "position": "Centre-back",
+      "club": "Arsenal",
+      "league": "Premier League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/435338-1684162833.jpg?lm=1",
+      "marketValueEurMillions": 75,
+      "skills": [
+        "Left-sided defending",
+        "Aerial dominance",
+        "Set-piece threat"
+      ],
+      "note": "Brazil's dominant left centre-back, bringing aerial power, aggressive box defending, and danger when he attacks set pieces.",
+      "noteZh": "加布里埃尔·马加良斯是巴西强势的左中卫，能提供空中优势、主动禁区防守，并在进攻定位球中制造威胁。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/gabriel/profil/spieler/435338"
+    },
+    "Gabriel Martinelli": {
+      "displayName": "Gabriel Martinelli",
+      "sourceTitle": "Gabriel Martinelli",
+      "transfermarktPlayerCode": "gabriel-martinelli",
+      "birthDate": "2001-06-18",
+      "position": "Left winger",
+      "club": "Arsenal",
+      "league": "Premier League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/655488-1682689091.jpg?lm=1",
+      "marketValueEurMillions": 45,
+      "skills": [
+        "Left-wing pressing",
+        "Runs in behind",
+        "Transition speed"
+      ],
+      "note": "Brazil's left-wing accelerator, giving them pressing bite, runs behind the full-back, and instant speed in transition.",
+      "noteZh": "加布里埃尔·马丁内利是巴西左路加速器，能提供压迫强度、冲击边后卫身后，并在转换中立刻提速。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/gabriel-martinelli/profil/spieler/655488"
+    },
+    "Igor Thiago": {
+      "displayName": "Igor Thiago",
+      "sourceTitle": "Igor Thiago",
+      "transfermarktPlayerCode": "igor-thiago",
+      "birthDate": "2001-06-26",
+      "position": "Centre-forward",
+      "club": "Brentford",
+      "league": "Premier League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/739443-1770372295.jpg?lm=1",
+      "marketValueEurMillions": 65,
+      "skills": [
+        "Target play",
+        "Penalty-box finishing",
+        "Aerial presence"
+      ],
+      "note": "Brazil's powerful centre-forward option, giving them a true target, aerial pressure, and penalty-box finishes from direct service.",
+      "noteZh": "伊戈尔·蒂亚戈是巴西强力中锋选择，能提供真正支点、空中压力，并接应直接传球完成禁区终结。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/igor-thiago/profil/spieler/739443"
+    },
+    "Léo Pereira": {
+      "displayName": "Léo Pereira",
+      "sourceTitle": "Léo Pereira (footballer, born 1996)",
+      "transfermarktPlayerCode": "leo-pereira",
+      "birthDate": "1996-01-31",
+      "position": "Centre-back",
+      "club": "Flamengo",
+      "league": "Campeonato Brasileiro Série A",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/288431-1751370674.jpg?lm=1",
+      "marketValueEurMillions": 12,
+      "skills": [
+        "Centre-back passing",
+        "Long diagonals",
+        "Box defending"
+      ],
+      "note": "Brazil's Flamengo centre-back, useful for long diagonal passing, clean box defending, and settling possession from the back.",
+      "noteZh": "莱奥·佩雷拉是巴西的弗拉门戈中卫，能送出长距离斜传、干净防守禁区，并从后场稳住控球。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/leo-pereira/profil/spieler/288431"
+    },
+    "Lucas Paqueta": {
+      "displayName": "Lucas Paquetá",
+      "sourceTitle": "Lucas Paquetá",
+      "transfermarktPlayerCode": "lucas-paqueta",
+      "birthDate": "1997-08-27",
+      "position": "Attacking midfielder",
+      "club": "Flamengo",
+      "league": "Campeonato Brasileiro Série A",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/444523-1780929763.jpg?lm=1",
+      "marketValueEurMillions": 32,
+      "skills": [
+        "Between-lines passing",
+        "Late box runs",
+        "Creative pressing"
+      ],
+      "note": "Brazil's between-lines connector, useful for disguised passes, late box runs, and pressing the ball after risky combinations.",
+      "noteZh": "卢卡斯·帕奎塔是巴西的线间连接点，能送出隐蔽传球、后插上进禁区，并在冒险配合后立刻压迫持球人。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/lucas-paqueta/profil/spieler/444523"
+    },
+    "Luiz Henrique": {
+      "displayName": "Luiz Henrique",
+      "sourceTitle": "Luiz Henrique (footballer, born 2001)",
+      "transfermarktPlayerCode": "luiz-henrique",
+      "birthDate": "2001-01-02",
+      "position": "Right winger",
+      "club": "Zenit Saint Petersburg",
+      "league": "Russian Premier League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/800175-1756746940.png?lm=1",
+      "marketValueEurMillions": 24,
+      "skills": [
+        "Right-wing dribbling",
+        "Inside cuts",
+        "Carry-and-shoot threat"
+      ],
+      "note": "Brazil's right-wing dribbler, able to isolate a full-back, cut inside onto shots, and keep attacks alive through contact.",
+      "noteZh": "路易斯·恩里克是巴西右路带球手，能单挑边后卫、内切射门，并在身体接触中延续进攻。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/luiz-henrique/profil/spieler/800175"
+    },
+    "Marquinhos": {
+      "displayName": "Marquinhos",
+      "sourceTitle": "Marquinhos",
+      "transfermarktPlayerCode": "marquinhos",
+      "birthDate": "1994-05-14",
+      "position": "Centre-back",
+      "club": "Paris Saint-Germain",
+      "league": "Ligue 1",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/181767-1672303747.jpg?lm=1",
+      "marketValueEurMillions": 28,
+      "skills": [
+        "Back-line leadership",
+        "Cover defending",
+        "Clean distribution"
+      ],
+      "note": "Brazil's defensive leader, organizing the line, covering space behind aggressive full-backs, and passing out without panic.",
+      "noteZh": "马尔基尼奥斯是巴西防线领袖，能组织后防线、覆盖激进边后卫身后的空间，并冷静出球。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/marquinhos/profil/spieler/181767"
+    },
+    "Matheus Cunha": {
+      "displayName": "Matheus Cunha",
+      "sourceTitle": "Matheus Cunha",
+      "transfermarktPlayerCode": "matheus-cunha",
+      "birthDate": "1999-05-27",
+      "position": "Forward",
+      "club": "Manchester United",
+      "league": "Premier League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/517894-1780390711.jpg?lm=1",
+      "marketValueEurMillions": 75,
+      "skills": [
+        "Forward carrying",
+        "Combination play",
+        "Penalty-area timing"
+      ],
+      "note": "Brazil's roaming forward, linking with wide runners, carrying through central gaps, and arriving in the box at awkward angles.",
+      "noteZh": "马特乌斯·库尼亚是巴西游动型前锋，能和边路跑动点衔接、从中路空当推进，并以刁钻角度进入禁区。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/matheus-cunha/profil/spieler/517894"
+    },
+    "Neymar": {
+      "displayName": "Neymar",
+      "sourceTitle": "Neymar",
+      "transfermarktPlayerCode": "neymar",
+      "birthDate": "1992-02-05",
+      "position": "Attacking midfielder",
+      "club": "Santos",
+      "league": "Campeonato Brasileiro Série A",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/68290-1692601435.jpg?lm=1",
+      "marketValueEurMillions": 8,
+      "skills": [
+        "Final-third invention",
+        "Fouls drawn",
+        "Disguised passing"
+      ],
+      "note": "Brazil's late-game invention hub, drawing fouls, disguising final passes, and bending crowded attacks into one clean chance.",
+      "noteZh": "内马尔是巴西比赛后段的创造核心，能制造犯规、隐藏最后一传，并把拥挤进攻拧成一次清晰机会。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/neymar/profil/spieler/68290"
+    },
+    "Raphinha": {
+      "displayName": "Raphinha",
+      "sourceTitle": "Raphinha",
+      "transfermarktPlayerCode": "raphinha",
+      "birthDate": "1996-12-14",
+      "position": "Winger",
+      "club": "Barcelona",
+      "league": "La Liga",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/411295-1729754479.png?lm=1",
+      "marketValueEurMillions": 70,
+      "skills": [
+        "Wide pressing",
+        "Left-footed delivery",
+        "Diagonal runs"
+      ],
+      "note": "Brazil's relentless wide threat, combining pressing work with left-footed deliveries and diagonal runs into scoring lanes.",
+      "noteZh": "拉菲尼亚是巴西不知疲倦的边路威胁，能把压迫工作、左脚传中，以及斜插得分线路结合起来。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/raphinha/profil/spieler/411295"
+    },
+    "Rayan": {
+      "displayName": "Rayan",
+      "sourceTitle": "Rayan (footballer, born 2006)",
+      "transfermarktPlayerCode": "rayan",
+      "birthDate": "2006-08-03",
+      "position": "Right winger, forward",
+      "club": "Bournemouth",
+      "league": "Premier League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/1012564-1780390891.jpg?lm=1",
+      "marketValueEurMillions": 60,
+      "skills": [
+        "Direct running",
+        "Right-side power",
+        "Early shooting"
+      ],
+      "note": "Brazil's powerful young right-sided runner, built to attack space early, shoot before pressure arrives, and stretch tired defenders.",
+      "noteZh": "拉扬是巴西年轻有力的右路冲击点，能提前攻击空间、在压力到来前射门，并拉扯疲劳的后卫。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/rayan/profil/spieler/1012564"
+    },
+    "Roger Ibanez": {
+      "displayName": "Roger Ibañez",
+      "sourceTitle": "Roger Ibañez",
+      "transfermarktPlayerCode": "roger-ibanez",
+      "birthDate": "1998-11-23",
+      "position": "Centre-back",
+      "club": "Al-Ahli",
+      "league": "Saudi Pro League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/524481-1663581987.jpg?lm=1",
+      "marketValueEurMillions": 18,
+      "skills": [
+        "Recovery defending",
+        "Ball carrying",
+        "Right-sided cover"
+      ],
+      "note": "Brazil's athletic centre-back option, useful for recovery defending, carrying into midfield, and covering wide defensive gaps.",
+      "noteZh": "罗热·伊巴涅斯是巴西运动能力强的中卫选择，能回追防守、带球进入中场，并覆盖边路防守空当。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/roger-ibanez/profil/spieler/524481"
+    },
+    "Vinicius Junior": {
+      "displayName": "Vinícius Júnior",
+      "sourceTitle": "Vinícius Júnior",
+      "transfermarktPlayerCode": "vinicius-junior",
+      "birthDate": "2000-07-12",
+      "position": "Left winger",
+      "club": "Real Madrid",
+      "league": "La Liga",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/371998-1761575144.jpg?lm=1",
+      "marketValueEurMillions": 140,
+      "skills": [
+        "Left-wing isolation",
+        "Explosive dribbling",
+        "Transition finishing"
+      ],
+      "note": "Brazil's main isolation weapon, stretching the left side with explosive dribbles, transition runs, and sharp finishes after contact.",
+      "noteZh": "维尼修斯·儒尼奥尔是巴西主要的一对一武器，能用爆发带球、转换冲刺，以及对抗后的敏锐终结拉开左路。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/vinicius-junior/profil/spieler/371998"
+    },
+    "Weverton": {
+      "displayName": "Weverton",
+      "sourceTitle": "Weverton (footballer, born 1987)",
+      "transfermarktPlayerCode": "weverton",
+      "birthDate": "1987-12-13",
+      "position": "Goalkeeper",
+      "club": "Grêmio",
+      "league": "Campeonato Brasileiro Série A",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/69400-1751657170.jpg?lm=1",
+      "marketValueEurMillions": 0.7,
+      "skills": [
+        "Veteran goalkeeping",
+        "Penalty experience",
+        "Box organization"
+      ],
+      "note": "Brazil's veteran goalkeeper depth, bringing penalty experience, box organization, and a steady voice if rotation is needed.",
+      "noteZh": "韦弗顿是巴西老将门将深度选择，能带来点球经验、禁区组织，以及需要轮换时的稳定声音。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/weverton/profil/spieler/69400"
+    }
+  }
+}

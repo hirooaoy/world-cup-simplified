@@ -360,6 +360,295 @@ function getExpectedThirdPlaceReason(candidate, rows = getExpectedThirdPlaceRace
   return `${summary} ${relation} ${nearestCandidate.team.name} (${formatOrdinal(nearestCandidate.position)}) on ${decider.label}: ${decider.candidateValue} vs ${decider.targetValue}.`;
 }
 
+function getAutomaticAdvancersPerGroup() {
+  const value = Number(tournamentData.format?.automaticAdvancersPerGroup);
+  return Number.isFinite(value) ? value : 2;
+}
+
+function getGroupStagePathPlaceCount(rowCount = 0) {
+  const possiblePlaces = getAutomaticAdvancersPerGroup() + (getThirdPlaceAdvancerCount() > 0 ? 1 : 0);
+  return rowCount > 0 ? Math.min(rowCount, possiblePlaces) : possiblePlaces;
+}
+
+function hasUsableScore(fixture) {
+  return Number.isFinite(Number(fixture?.score?.home)) && Number.isFinite(Number(fixture?.score?.away));
+}
+
+function getGroupFixtures(groupId) {
+  return fixturesData.fixtures.filter((fixture) => fixture.stage === "group" && fixture.groupId === groupId);
+}
+
+function isGroupStageFinished() {
+  const groupFixtures = fixturesData.fixtures.filter((fixture) => fixture.stage === "group");
+  return groupFixtures.length > 0 && groupFixtures.every((fixture) => fixture.status === "FT");
+}
+
+function createExpectedGroupQualificationStates(group) {
+  const sourceRowsByTeamId = new Map((standingsData.groups?.[group.id] || []).map((row) => [row.teamId, row]));
+  return new Map(
+    (group.teamIds || []).map((teamId, index) => [
+      teamId,
+      {
+        conductScore: getTeamConductScore(sourceRowsByTeamId.get(teamId)),
+        ga: 0,
+        gd: 0,
+        gf: 0,
+        played: 0,
+        pts: 0,
+        seededOrder: index,
+        teamId
+      }
+    ])
+  );
+}
+
+function cloneExpectedGroupQualificationStates(states) {
+  return new Map([...states.entries()].map(([teamId, state]) => [teamId, { ...state }]));
+}
+
+function applyExpectedGroupQualificationResult(states, result) {
+  const home = states.get(result.homeTeamId);
+  const away = states.get(result.awayTeamId);
+
+  if (!home || !away) {
+    return;
+  }
+
+  const homeGoals = Number(result.homeGoals);
+  const awayGoals = Number(result.awayGoals);
+  home.played += 1;
+  away.played += 1;
+  home.gf += homeGoals;
+  home.ga += awayGoals;
+  home.gd += homeGoals - awayGoals;
+  away.gf += awayGoals;
+  away.ga += homeGoals;
+  away.gd += awayGoals - homeGoals;
+
+  if (homeGoals > awayGoals) {
+    home.pts += 3;
+  } else if (awayGoals > homeGoals) {
+    away.pts += 3;
+  } else {
+    home.pts += 1;
+    away.pts += 1;
+  }
+}
+
+function getExpectedCompletedGroupQualificationResults(groupFixtures) {
+  return groupFixtures
+    .filter((fixture) => fixture.status === "FT" && hasUsableScore(fixture))
+    .map((fixture) => ({
+      awayGoals: Number(fixture.score.away),
+      awayTeamId: fixture.awayTeamId,
+      fixed: true,
+      homeGoals: Number(fixture.score.home),
+      homeTeamId: fixture.homeTeamId
+    }));
+}
+
+function getExpectedHeadToHeadStats(tiedTeamIds, results) {
+  const tiedTeamSet = new Set(tiedTeamIds);
+  const stats = new Map(
+    tiedTeamIds.map((teamId) => [
+      teamId,
+      {
+        fixedOnly: true,
+        gd: 0,
+        gf: 0,
+        pts: 0,
+        teamId
+      }
+    ])
+  );
+
+  results
+    .filter((result) => tiedTeamSet.has(result.homeTeamId) && tiedTeamSet.has(result.awayTeamId))
+    .forEach((result) => {
+      const home = stats.get(result.homeTeamId);
+      const away = stats.get(result.awayTeamId);
+      const homeGoals = Number(result.homeGoals);
+      const awayGoals = Number(result.awayGoals);
+
+      home.fixedOnly = home.fixedOnly && result.fixed;
+      away.fixedOnly = away.fixedOnly && result.fixed;
+      home.gf += homeGoals;
+      home.gd += homeGoals - awayGoals;
+      away.gf += awayGoals;
+      away.gd += awayGoals - homeGoals;
+
+      if (homeGoals > awayGoals) {
+        home.pts += 3;
+      } else if (awayGoals > homeGoals) {
+        away.pts += 3;
+      } else {
+        home.pts += 1;
+        away.pts += 1;
+      }
+    });
+
+  return stats;
+}
+
+function hasUnfixedExpectedResultForTeams(teamIds, results) {
+  const teamIdSet = new Set(teamIds);
+  return results.some(
+    (result) => !result.fixed && (teamIdSet.has(result.homeTeamId) || teamIdSet.has(result.awayTeamId))
+  );
+}
+
+function isExpectedTeamDefinitelyAboveInTie(otherTeamId, targetTeamId, tiedTeamIds, states, results) {
+  const headToHeadStats = getExpectedHeadToHeadStats(tiedTeamIds, results);
+  const otherHeadToHead = headToHeadStats.get(otherTeamId);
+  const targetHeadToHead = headToHeadStats.get(targetTeamId);
+
+  if (!otherHeadToHead || !targetHeadToHead) {
+    return false;
+  }
+
+  if (otherHeadToHead.pts !== targetHeadToHead.pts) {
+    return otherHeadToHead.pts > targetHeadToHead.pts;
+  }
+
+  const fixedHeadToHead = [...headToHeadStats.values()].every((stat) => stat.fixedOnly);
+  if (!fixedHeadToHead) {
+    return false;
+  }
+
+  if (otherHeadToHead.gd !== targetHeadToHead.gd) {
+    return otherHeadToHead.gd > targetHeadToHead.gd;
+  }
+
+  if (otherHeadToHead.gf !== targetHeadToHead.gf) {
+    return otherHeadToHead.gf > targetHeadToHead.gf;
+  }
+
+  if (hasUnfixedExpectedResultForTeams(tiedTeamIds, results)) {
+    return false;
+  }
+
+  const other = states.get(otherTeamId);
+  const target = states.get(targetTeamId);
+  if (!other || !target) {
+    return false;
+  }
+
+  if (other.gd !== target.gd) {
+    return other.gd > target.gd;
+  }
+
+  if (other.gf !== target.gf) {
+    return other.gf > target.gf;
+  }
+
+  const otherConduct = getTeamConductScore(other);
+  const targetConduct = getTeamConductScore(target);
+  if (otherConduct === null || targetConduct === null) {
+    return false;
+  }
+
+  if (otherConduct !== targetConduct) {
+    return otherConduct > targetConduct;
+  }
+
+  return getFifaRankValue(getTeam(otherTeamId)) < getFifaRankValue(getTeam(targetTeamId));
+}
+
+function canExpectedTeamReachGroupStagePathInScenario(teamId, states, results, pathPlaceCount) {
+  const target = states.get(teamId);
+
+  if (!target) {
+    return false;
+  }
+
+  const tiedTeamIds = [...states.values()]
+    .filter((state) => state.pts === target.pts)
+    .map((state) => state.teamId);
+  const teamsDefinitelyAbove = [...states.values()].filter((state) => {
+    if (state.teamId === teamId) {
+      return false;
+    }
+
+    if (state.pts !== target.pts) {
+      return state.pts > target.pts;
+    }
+
+    return isExpectedTeamDefinitelyAboveInTie(state.teamId, teamId, tiedTeamIds, states, results);
+  });
+
+  return teamsDefinitelyAbove.length < pathPlaceCount;
+}
+
+function canExpectedTeamStillReachGroupStagePath(teamId, group, pathPlaceCount) {
+  const groupFixtures = getGroupFixtures(group.id);
+  const completedGroupFixtures = groupFixtures.filter((fixture) => fixture.status === "FT");
+
+  if (completedGroupFixtures.some((fixture) => !hasUsableScore(fixture))) {
+    return true;
+  }
+
+  const baseStates = createExpectedGroupQualificationStates(group);
+  const completedResults = getExpectedCompletedGroupQualificationResults(groupFixtures);
+  completedResults.forEach((result) => applyExpectedGroupQualificationResult(baseStates, result));
+  const remainingFixtures = groupFixtures.filter(
+    (fixture) => fixture.status !== "FT" && fixture.homeTeamId && fixture.awayTeamId
+  );
+  const outcomes = [
+    { homeGoals: 1, awayGoals: 0 },
+    { homeGoals: 0, awayGoals: 0 },
+    { homeGoals: 0, awayGoals: 1 }
+  ];
+
+  function visit(fixtureIndex, states, results) {
+    if (fixtureIndex >= remainingFixtures.length) {
+      return canExpectedTeamReachGroupStagePathInScenario(teamId, states, results, pathPlaceCount);
+    }
+
+    const fixture = remainingFixtures[fixtureIndex];
+    return outcomes.some((outcome) => {
+      const nextStates = cloneExpectedGroupQualificationStates(states);
+      const result = {
+        awayGoals: outcome.awayGoals,
+        awayTeamId: fixture.awayTeamId,
+        fixed: false,
+        homeGoals: outcome.homeGoals,
+        homeTeamId: fixture.homeTeamId
+      };
+      applyExpectedGroupQualificationResult(nextStates, result);
+      return visit(fixtureIndex + 1, nextStates, [...results, result]);
+    });
+  }
+
+  return visit(0, baseStates, completedResults);
+}
+
+function getExpectedEliminatedTeamNames() {
+  const raceRowsByTeamId = new Map(getExpectedThirdPlaceRaceRows().map((candidate) => [candidate.teamId, candidate]));
+  const groupStageFinished = isGroupStageFinished();
+  const eliminated = [];
+
+  for (const group of tournamentData.groups || []) {
+    const rows = standingsData.groups?.[group.id] || [];
+    const pathPlaceCount = getGroupStagePathPlaceCount(rows.length);
+
+    for (const row of rows) {
+      const thirdPlaceCandidate = raceRowsByTeamId.get(row.teamId);
+      const eliminatedByGroupPath = !canExpectedTeamStillReachGroupStagePath(row.teamId, group, pathPlaceCount);
+      const eliminatedByThirdPlaceCut =
+        thirdPlaceCandidate &&
+        groupStageFinished &&
+        !thirdPlaceCandidate.isCutLineTie &&
+        thirdPlaceCandidate.position > getThirdPlaceAdvancerCount();
+
+      if (eliminatedByGroupPath || eliminatedByThirdPlaceCut) {
+        eliminated.push(getTeam(row.teamId).name);
+      }
+    }
+  }
+
+  return eliminated.sort();
+}
+
 function getExpectedStandingOrder(groupId) {
   return (standingsData.groups?.[groupId] || []).map((row) => getTeam(row.teamId).name).join("|");
 }
@@ -446,7 +735,9 @@ async function openPageAtTime(
 
   const mockedPage = await context.newPage();
   await mockedPage.goto(`${baseUrl}${path}`, { waitUntil: "load" });
-  await mockedPage.waitForSelector(".match-row");
+  await mockedPage.waitForSelector(path.includes("view=standings") ? ".standings-card" : ".match-row", {
+    state: "attached"
+  });
 
   return { context, page: mockedPage };
 }
@@ -824,7 +1115,7 @@ try {
       scorerHighlightMetrics.segmentFlags.every(
         (flag) => flag.hasFlag && flag.flagBeforeMinute && flag.verticalDelta <= 4
       ),
-    "Scorer highlights should replace the standalone soccer ball with country flags before each scorer minute."
+    `Scorer highlights should replace the standalone soccer ball with country flags before each scorer minute. Measured ${JSON.stringify(scorerHighlightMetrics)}.`
   );
   assert(
     scorerPlayerDecoration === "underline" && scorerPlayerDecorationStyle === "dotted",
@@ -998,16 +1289,75 @@ try {
     waitUntil: "load"
   });
   await page.waitForSelector(".match-row");
-  await page.locator('[data-match-id="bosnia-qatar-2026-06-24"]').click();
+  const openMatchDetailById = async (matchId, expectedSummaryText) => {
+    await page.locator(`[data-match-id="${matchId}"]`).first().evaluate((row) => row.click());
+    await page.locator("#match-info .summary-title", { hasText: expectedSummaryText }).waitFor();
+  };
+
+  await openMatchDetailById("bosnia-qatar-2026-06-24", "Qatar");
   assert(
     (await page.locator("#match-info .standing-status-pill.is-eliminated", { hasText: "Eliminated" }).count()) === 1,
     "Match detail group standings should mark eliminated teams after a group is complete."
+  );
+  await page.setViewportSize({ width: 696, height: 760 });
+  await page.goto(`${baseUrl}?view=matches&date=2026-06-24&tz=America%2FLos_Angeles`, {
+    waitUntil: "load"
+  });
+  await page.waitForSelector(".match-row");
+  await openMatchDetailById("morocco-haiti-2026-06-24", "Haiti");
+  const readHaitiStandingBadgeLayout = () =>
+    page.locator("#match-info .standing-team", { hasText: "Haiti" }).evaluate((team) => {
+      const rect = (node) => {
+        const bounds = node?.getBoundingClientRect();
+
+        return bounds
+          ? {
+              top: Math.round(bounds.top),
+              left: Math.round(bounds.left),
+              width: Math.round(bounds.width),
+              height: Math.round(bounds.height)
+            }
+          : null;
+      };
+
+      return {
+        name: rect(team.querySelector(".standing-name")),
+        badgeRow: rect(team.querySelector(".standing-badge-row")),
+        rank: rect(team.querySelector(".rank-pill")),
+        eliminated: rect(team.querySelector(".standing-status-pill.is-eliminated"))
+      };
+    });
+  const haitiWideBadgeLayout = await readHaitiStandingBadgeLayout();
+  assert(
+    haitiWideBadgeLayout.name &&
+      haitiWideBadgeLayout.rank &&
+      haitiWideBadgeLayout.eliminated &&
+      Math.abs(haitiWideBadgeLayout.name.top - haitiWideBadgeLayout.rank.top) <= 3 &&
+      Math.abs(haitiWideBadgeLayout.name.top - haitiWideBadgeLayout.eliminated.top) <= 3,
+    `Short eliminated standings rows should keep the name, ranking, and status on one line when space allows. Measured ${JSON.stringify(haitiWideBadgeLayout)}.`
+  );
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto(`${baseUrl}?view=matches&date=2026-06-24&tz=America%2FLos_Angeles`, {
+    waitUntil: "load"
+  });
+  await page.waitForSelector(".match-row");
+  await openMatchDetailById("morocco-haiti-2026-06-24", "Haiti");
+  const haitiMobileBadgeLayout = await readHaitiStandingBadgeLayout();
+  assert(
+    haitiMobileBadgeLayout.name &&
+      haitiMobileBadgeLayout.rank &&
+      haitiMobileBadgeLayout.eliminated &&
+      haitiMobileBadgeLayout.badgeRow &&
+      haitiMobileBadgeLayout.rank.left >= haitiMobileBadgeLayout.badgeRow.left &&
+      Math.abs(haitiMobileBadgeLayout.rank.top - haitiMobileBadgeLayout.eliminated.top) <= 3 &&
+      haitiMobileBadgeLayout.name.top < haitiMobileBadgeLayout.rank.top,
+    `Short eliminated standings rows should wrap the rank and status together on narrow screens. Measured ${JSON.stringify(haitiMobileBadgeLayout)}.`
   );
   await page.goto(`${baseUrl}?view=matches&date=2026-06-25&tz=America%2FLos_Angeles`, {
     waitUntil: "load"
   });
   await page.waitForSelector(".match-row");
-  await page.locator('[data-match-id="turkiye-united-states-2026-06-25"]').click();
+  await openMatchDetailById("turkiye-united-states-2026-06-25", "United States");
   assert(
     (await page.locator("#match-info .standing-team", { hasText: "Türkiye" }).locator(".standing-status-pill.is-eliminated").innerText()) === "Eliminated",
     "Match detail group standings should mathematically mark eliminated teams before their group is complete."
@@ -2228,22 +2578,24 @@ try {
       "2026 Standings",
     "The current standings heading should specify 2026."
   );
-  const groupOrderCheck = await page.evaluate(() => {
-    const groups = new Map(
-      [...document.querySelectorAll(".standings-card")].map((card) => [
-        card.querySelector("h2")?.textContent.trim(),
+  const groupOrderCheck = await page.evaluate(() =>
+    Object.fromEntries(
+      [...document.querySelectorAll(".standings-card[data-group-id]")].map((card) => [
+        card.dataset.groupId,
         [...card.querySelectorAll(".standing-name")].map((team) => team.textContent.trim())
       ])
-    );
-
-    return {
-      groupB: groups.get("Group B"),
-      groupK: groups.get("Group K")
-    };
-  });
+    )
+  );
+  const groupOrderMismatches = (tournamentData.groups || [])
+    .map((group) => ({
+      actual: groupOrderCheck[group.id]?.join("|") || "",
+      expected: getExpectedStandingOrder(group.id),
+      groupId: group.id
+    }))
+    .filter((group) => group.actual !== group.expected);
   assert(
-    groupOrderCheck.groupB?.join("|") === getExpectedStandingOrder("B"),
-    "Group B should preserve the checked table order."
+    groupOrderMismatches.length === 0,
+    `Every current group should preserve the checked table order. Mismatches: ${JSON.stringify(groupOrderMismatches)}.`
   );
   const bosniaStandingTeam = page
     .locator(".standings-card", { hasText: "Group B" })
@@ -2290,10 +2642,6 @@ try {
     `Wrapped standings rows should vertically center the flag against the full team block. Measured ${JSON.stringify(bosniaStandingFlagAlignment)}.`
   );
   await page.setViewportSize({ width: 1280, height: 720 });
-  assert(
-    groupOrderCheck.groupK?.join("|") === getExpectedStandingOrder("K"),
-    "Group K should preserve the checked FIFA table order."
-  );
   const currentStandingsMarkerCheck = await page.evaluate(() => {
     return {
       advancingCount: document.querySelectorAll(".standings-card tbody tr.is-advancing").length,
@@ -2332,17 +2680,11 @@ try {
       .map((teamId) => getTeam(teamId).name)
   );
   const groupStandingsLiveRows = await page.evaluate(() =>
-    [...document.querySelectorAll(".standings-card tbody tr")].map((row) => {
-      const livePill = row.querySelector(".standing-live-pill");
-      const racePill = row.querySelector(".third-place-pill");
-      return {
-        live: livePill?.textContent.trim() || "",
-        liveHeight: livePill ? Math.round(livePill.getBoundingClientRect().height) : null,
-        race: racePill?.textContent.trim() || "",
-        raceHeight: racePill ? Math.round(racePill.getBoundingClientRect().height) : null,
-        team: row.querySelector(".standing-name")?.textContent.trim() || ""
-      };
-    })
+    [...document.querySelectorAll(".standings-card tbody tr")].map((row) => ({
+      live: row.querySelector(".standing-live-pill")?.textContent.trim() || "",
+      race: row.querySelector(".third-place-pill")?.textContent.trim() || "",
+      team: row.querySelector(".standing-name")?.textContent.trim() || ""
+    }))
   );
   assert(
     groupStandingsLiveRows.every((row) =>
@@ -2353,13 +2695,68 @@ try {
         .every((row) => row.race.startsWith("3rd race")),
     "Group standings should show LIVE only beside current third-place candidates playing live."
   );
-  const groupStandingsLiveBadgeMetrics = groupStandingsLiveRows.filter((row) => row.live);
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.waitForTimeout(80);
+  const groupStandingsLiveBadgeMetrics = await page.evaluate(() =>
+    [...document.querySelectorAll(".standings-card tbody tr")]
+      .map((row) => {
+        const livePill = row.querySelector(".standing-live-pill");
+        const racePill = row.querySelector(".third-place-pill");
+        return livePill
+          ? {
+              liveHeight: Math.round(livePill.getBoundingClientRect().height),
+              raceHeight: racePill ? Math.round(racePill.getBoundingClientRect().height) : null,
+              team: row.querySelector(".standing-name")?.textContent.trim() || ""
+            }
+          : null;
+      })
+      .filter(Boolean)
+  );
   assert(
-    groupStandingsLiveBadgeMetrics.every(
-      (row) => row.raceHeight !== null && Math.abs(row.liveHeight - row.raceHeight) <= 1
-    ),
+    expectedStandingsLiveThirdPlaceTeams.size === 0 ||
+      (groupStandingsLiveBadgeMetrics.length === expectedStandingsLiveThirdPlaceTeams.size &&
+        groupStandingsLiveBadgeMetrics.every(
+          (row) => row.raceHeight !== null && Math.abs(row.liveHeight - row.raceHeight) <= 1
+        )),
     `Standing LIVE pills should match third-place race pill height. Measured ${JSON.stringify(groupStandingsLiveBadgeMetrics)}.`
   );
+  await page.setViewportSize({ width: 1280, height: 720 });
+  const scheduledLiveWindowCheck = await openPageAtTime(
+    "2026-06-25T23:30:00.000Z",
+    "/?view=standings&tz=America%2FLos_Angeles"
+  );
+  await scheduledLiveWindowCheck.page.waitForSelector('.standings-card[data-group-id="F"] .standing-team');
+  const groupFScheduledWindowRows = await scheduledLiveWindowCheck.page.evaluate(() =>
+    [...document.querySelectorAll('.standings-card[data-group-id="F"] tbody tr')].map((row) => ({
+      live: row.querySelector(".standing-live-pill")?.textContent.trim() || "",
+      race: row.querySelector(".third-place-pill")?.textContent.trim() || "",
+      team: row.querySelector(".standing-name")?.textContent.trim() || ""
+    }))
+  );
+  assert(
+    groupFScheduledWindowRows.some(
+      (row) => row.team === "Sweden" && row.race.startsWith("3rd race") && row.live === "Live"
+    ) &&
+      groupFScheduledWindowRows
+        .filter((row) => row.team !== "Sweden")
+        .every((row) => row.live === ""),
+    "Third-place standings live pills should follow the live-window rule when source status is still scheduled."
+  );
+  await scheduledLiveWindowCheck.page.locator("#standings-third-place-tab").click();
+  await scheduledLiveWindowCheck.page.waitForFunction(
+    () => document.querySelectorAll(".third-place-table tbody tr:not(.third-place-cut-row)").length === 12
+  );
+  const thirdPlaceScheduledWindowRows = await scheduledLiveWindowCheck.page.evaluate(() =>
+    [...document.querySelectorAll(".third-place-table tbody tr:not(.third-place-cut-row)")].map((row) => ({
+      live: row.querySelector(".standing-live-pill")?.textContent.trim() || "",
+      team: row.querySelector(".standing-name")?.textContent.trim() || ""
+    }))
+  );
+  assert(
+    thirdPlaceScheduledWindowRows.some((row) => row.team === "Sweden" && row.live === "Live"),
+    "The third-place race table should mark a current third-place candidate as live during its scheduled live window."
+  );
+  await scheduledLiveWindowCheck.context.close();
   assert(
     (await page
       .locator('.standings-card[data-group-id="B"] .standing-team', { hasText: "Qatar" })
@@ -2373,6 +2770,19 @@ try {
       .locator(".standing-status-pill.is-eliminated")
       .innerText()) === "Eliminated",
     "Group standings should use completed head-to-head results to mark mathematically eliminated teams before the group is complete."
+  );
+  const expectedEliminatedTeamNames = getExpectedEliminatedTeamNames();
+  const actualEliminatedTeamNames = (
+    await page.evaluate(() =>
+      [...document.querySelectorAll(".standings-card tbody tr")]
+        .filter((row) => row.querySelector(".standing-status-pill.is-eliminated"))
+        .map((row) => row.querySelector(".standing-name")?.textContent.trim() || "")
+        .filter(Boolean)
+    )
+  ).sort();
+  assert(
+    actualEliminatedTeamNames.join("|") === expectedEliminatedTeamNames.join("|"),
+    `Current standings eliminated pills should match every group. Expected ${expectedEliminatedTeamNames.join("|")}, received ${actualEliminatedTeamNames.join("|")}.`
   );
   const groupStandingsRhythm = await page.evaluate(() => {
     const title = document.querySelector(".standings-title").getBoundingClientRect();

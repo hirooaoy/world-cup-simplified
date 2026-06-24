@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-24T15:45:00-07:00",
+  "updatedAt": "2026-06-24T16:23:00-07:00",
   "releases": [
     {
       "date": "2026-06-24",
@@ -9,12 +9,14 @@
         "Live scores now apply FIFA official score/status corrections after the general provider sync.",
         "Provider-only score drift can now be corrected before scorer timelines and standings are recomputed.",
         "Live group standings now reflect in-progress scores with FIFA head-to-head tiebreakers, flag third-place candidates in active matches, explain race rank on hover, and mathematically mark eliminated teams as soon as every group-stage path is closed.",
+        "Live standings badges now stay grouped on narrow screens, and Past 24 hours fades with other non-live rows while live matches are in focus.",
         "The live-data API now reports how many FIFA official score corrections ran."
       ],
       "highlightsZh": [
         "实时比分现在会在通用数据源同步后应用 FIFA 官方比分和状态校正。",
         "单一数据源的比分偏差现在会在进球时间线和积分榜重新计算前被校正。",
         "小组实时积分榜现在会按 FIFA 交锋优先的规则反映进行中的比分，标记正在比赛的第三名候选球队，可悬停查看排名原因，并在所有小组出线路径被数学封死时立即标记已淘汰球队。",
+        "实时积分榜徽章现在会在窄屏上保持成组显示，且实时比赛聚焦时，“过去 24 小时”会与其他非实时行一起淡化。",
         "实时数据 API 现在会报告本次运行了多少项 FIFA 官方比分校正。"
       ]
     },

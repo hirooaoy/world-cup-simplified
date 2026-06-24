@@ -7230,13 +7230,15 @@ function renderStandingTeam(team, options = {}) {
   const hasStandingBadges = Boolean(trailingHtml.trim());
   const teamClasses = `standing-team${hasStandingBadges ? " has-standing-badges" : ""}`;
   const tooltipAttributes = fullName ? ` data-tooltip="${escapeHtml(fullName)}"` : "";
+  const badgeHtml = [showRank ? renderRank(team) : "", trailingHtml]
+    .filter((html) => html.trim())
+    .join("");
 
   return `
     <span class="${teamClasses}" aria-label="${escapeHtml(fullName)}"${tooltipAttributes}>
       ${renderFlag(team)}
       <span class="standing-name" aria-label="${escapeHtml(fullName)}" title="${escapeHtml(fullName)}">${escapeHtml(standingName)}</span>
-      ${showRank ? renderRank(team) : ""}
-      ${trailingHtml}
+      ${badgeHtml ? `<span class="standing-badge-row">${badgeHtml}</span>` : ""}
     </span>
   `;
 }
