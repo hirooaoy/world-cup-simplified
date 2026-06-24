@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-24T23:13:21.712Z",
+  "updatedAt": "2026-06-24T23:17:34.819Z",
   "sourceIds": [
     "wikipedia-football-infobox",
     "wikipedia-page-summaries",
@@ -400,9 +400,12 @@
       "uniformNumber": 3,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Andy%20Robertson%20Scotland%20v%20Bolivia%206%20June%202026-43.jpg?width=160",
       "skills": [
-        "Match impact"
+        "Left-back leadership",
+        "Crossing volume",
+        "Recovery runs"
       ],
-      "note": "Andy Robertson is part of Scotland's current World Cup squad pool.",
+      "note": "Scotland's captain and left-side engine, giving them crossing volume, recovery runs, and emotional control in tense stretches.",
+      "noteZh": "安迪·罗伯逊是苏格兰队长和左路发动机，能提供大量传中、回追跑动，以及紧张阶段的情绪控制。",
       "sourceUrl": "https://en.wikipedia.org/wiki/Andy_Robertson"
     },
     "Anthony Elanga": {
@@ -1917,9 +1920,12 @@
       "uniformNumber": 7,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/John%20McGinn%20Scotland%20v%20Bolivia%206%20June%202026-2.jpg?width=160",
       "skills": [
-        "Match impact"
+        "Midfield carrying",
+        "Ball shielding",
+        "Late box runs"
       ],
-      "note": "John McGinn is part of Scotland's current World Cup squad pool.",
+      "note": "Scotland's midfield driver, turning shoulder checks and ball shielding into forward carries and late runs into scoring areas.",
+      "noteZh": "约翰·麦金是苏格兰中场推进器，能用观察和护球转化为向前带球，并后插上进入得分区域。",
       "sourceUrl": "https://en.wikipedia.org/wiki/John_McGinn"
     },
     "Jonathan David": {
@@ -3954,9 +3960,12 @@
       "uniformNumber": 4,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Scott%20McTominay%20Scotland%20v%20Bolivia%206%20June%202026-41.jpg?width=160",
       "skills": [
-        "Match impact"
+        "Box crashing",
+        "Midfield power",
+        "Long-range shooting"
       ],
-      "note": "Scott McTominay is part of Scotland's current World Cup squad pool.",
+      "note": "Scotland's power midfielder, turning late box runs, long-range shots, and physical duels into their clearest attacking surges.",
+      "noteZh": "斯科特·麦克托米奈是苏格兰力量型中场，能把后插上、远射和身体对抗转化为最直接的进攻冲击。",
       "sourceUrl": "https://en.wikipedia.org/wiki/Scott_McTominay"
     },
     "Sead Kolasinac": {
@@ -6162,41 +6171,33 @@
       "league": "Premier League",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Aaron%20Hickey%20Scotland%20v%20Bolivia%206%20June%202026-87%20(cropped).jpg?width=160",
       "skills": [
-        "Match impact"
+        "Two-sided full-back play",
+        "Recovery speed",
+        "Underlap timing"
       ],
-      "note": "Aaron Hickey is part of Scotland's current World Cup squad pool.",
+      "note": "Scotland's flexible full-back, useful on either side for recovery runs, underlaps, and carrying pressure into midfield.",
+      "noteZh": "阿伦·希基是苏格兰灵活的边后卫，左右两侧都能回追、内切套跑，并把压力带入中场。",
       "sourceUrl": "https://en.wikipedia.org/wiki/Aaron_Hickey"
-    },
-    "Andrew Henry Robertson": {
-      "name": "Andrew Henry Robertson",
-      "displayName": "Andrew Watson",
-      "teamId": "SCO",
-      "summary": "Andrew Watson (24 May 1856 – 8 March 1921) was a Scottish footballer who is widely considered to be the first black person to play association football at international level.",
-      "estimatedMarketValueEurMillions": 0.8,
-      "position": "Full back",
-      "club": "",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Andrew%20Watson%20Footballer%20(alt)%20(cropped).jpg?width=160",
-      "skills": [
-        "Match impact"
-      ],
-      "note": "Andrew Henry Robertson is part of Scotland's current World Cup squad pool.",
-      "sourceUrl": "https://en.wikipedia.org/wiki/Andrew_Watson_(footballer%2C_born_1856)"
     },
     "Angus Gunn": {
       "name": "Angus Gunn",
       "displayName": "Angus Gunn",
       "teamId": "SCO",
       "birthDate": "1996-01-22",
-      "summary": "Angus Fraser James Gunn (born 22 January 1996) is a professional footballer who plays as a goalkeeper, most recently for Premier League club Nottingham Forest. Born in England, he represents the Scotland national team.",
+      "summary": "Angus Gunn is a Scotland goalkeeper who most recently played for Nottingham Forest and has been Scotland's first-choice keeper during the 2026 World Cup.",
       "marketValueEurMillions": 1,
       "position": "Goalkeeper",
-      "club": "",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/File%3AAngus%20Gunn%20Scotland%20v%20Bolivia%206%20June%202026-42.jpg?width=160",
+      "club": "Free agent",
+      "league": "Last club: Nottingham Forest",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/big/201574-1716378186.jpg?lm=1",
       "skills": [
-        "Match impact"
+        "Shot stopping",
+        "Keeper communication",
+        "Calm restarts"
       ],
-      "note": "Angus Gunn is part of Scotland's current World Cup squad pool.",
-      "sourceUrl": "https://en.wikipedia.org/wiki/Angus_Gunn"
+      "note": "Scotland's first-choice goalkeeper, giving them shot-stopping, clear defensive calls, and calm restarts after saves.",
+      "noteZh": "安格斯·冈恩是苏格兰一号门将，能提供扑救、清晰的防线指挥，以及扑救后的冷静重新开球。",
+      "sourceUrl": "https://talksport.com/football/4320406/scotland-world-cup-nottingham-forest-angus-gunn-released/"
     },
     "Anthony Ralston": {
       "name": "Anthony Ralston",
@@ -6210,9 +6211,12 @@
       "league": "Scottish Premiership",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Anthony%20Ralston%20Scotland%20v%20Bolivia%206%20June%202026-9%20(cropped).jpg?width=160",
       "skills": [
-        "Match impact"
+        "Right-back defending",
+        "Back-post cover",
+        "Set-piece edge"
       ],
-      "note": "Anthony Ralston is part of Scotland's current World Cup squad pool.",
+      "note": "Scotland's rugged right-back, useful for back-post defending, close-range duels, and adding edge on set pieces.",
+      "noteZh": "安东尼·拉尔斯顿是苏格兰硬朗右后卫，能防守后点、完成近距离对抗，并在定位球中增加强度。",
       "sourceUrl": "https://en.wikipedia.org/wiki/Anthony_Ralston"
     },
     "Che Adams": {
@@ -6227,9 +6231,12 @@
       "league": "Serie A",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Che%20Adams%20Scotland%20v%20Bolivia%206%20June%202026-37%20(cropped).jpg?width=160",
       "skills": [
-        "Match impact"
+        "Channel running",
+        "Forward link play",
+        "Pressing"
       ],
-      "note": "Che Adams is part of Scotland's current World Cup squad pool.",
+      "note": "Scotland's mobile forward, useful for running channels, linking attacks quickly, and pressing centre-backs before they settle.",
+      "noteZh": "切·亚当斯是苏格兰机动型前锋，能冲击肋部通道、快速衔接进攻，并在中卫站稳前完成压迫。",
       "sourceUrl": "https://en.wikipedia.org/wiki/Ch%C3%A9_Adams"
     },
     "Craig Gordon": {
@@ -6244,9 +6251,12 @@
       "league": "Scottish Premiership",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Craig%20Gordon%20Scotland%20v%20Bolivia%206%20June%202026-19.jpg?width=160",
       "skills": [
-        "Match impact"
+        "Veteran goalkeeping",
+        "Reflex saves",
+        "Box command"
       ],
-      "note": "Craig Gordon is part of Scotland's current World Cup squad pool.",
+      "note": "Scotland's veteran goalkeeper, giving the squad reflex saves, box command, and experience if the game turns chaotic.",
+      "noteZh": "克雷格·戈登是苏格兰老将门将，能在比赛变乱时提供反应扑救、禁区指挥和经验。",
       "sourceUrl": "https://en.wikipedia.org/wiki/Craig_Gordon"
     },
     "Dominic Hyam": {
@@ -6261,9 +6271,12 @@
       "league": "EFL Championship",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Dominic%20Hyam%20Scotland%20v%20Bolivia%206%20June%202026-59.jpg?width=160",
       "skills": [
-        "Match impact"
+        "Centre-back positioning",
+        "Aerial defending",
+        "Calm clearances"
       ],
-      "note": "Dominic Hyam is part of Scotland's current World Cup squad pool.",
+      "note": "Scotland's steady centre-back option, useful for aerial defending, compact positioning, and clearing pressure without panic.",
+      "noteZh": "多米尼克·海亚姆是苏格兰稳健的中卫选择，能完成空中防守、保持紧凑站位，并冷静解围压力。",
       "sourceUrl": "https://en.wikipedia.org/wiki/Dominic_Hyam"
     },
     "Findlay Curtis": {
@@ -6274,30 +6287,17 @@
       "summary": "Findlay Kenneth Curtis (born 9 June 2006) is a Scottish professional footballer who plays as a midfielder for Rangers and the Scotland national team.",
       "marketValueEurMillions": 2,
       "position": "Midfielder",
-      "club": "Rangers",
+      "club": "Kilmarnock (on loan from Rangers)",
+      "league": "Scottish Premiership",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Findlay%20Curtis%20Scotland%20v%20Bolivia%206%20June%202026-56.jpg?width=160",
       "skills": [
-        "Match impact"
+        "Left-wing energy",
+        "Direct runs",
+        "Youthful pressing"
       ],
-      "note": "Findlay Curtis is part of Scotland's current World Cup squad pool.",
+      "note": "Scotland's emerging wide runner, giving them left-side energy, direct movement, and fresh pressing legs off the bench.",
+      "noteZh": "芬德利·柯蒂斯是苏格兰新兴边路跑动点，能带来左路活力、直接前插，以及替补登场后的压迫体能。",
       "sourceUrl": "https://en.wikipedia.org/wiki/Findlay_Curtis"
-    },
-    "Gannon Doak": {
-      "name": "Gannon Doak",
-      "displayName": "Ben Gannon-Doak",
-      "teamId": "SCO",
-      "birthDate": "2005-11-11",
-      "summary": "Ben Gannon-Doak (né Doak; born 11 November 2005) is a Scottish professional footballer who plays as a right winger or attacking midfielder for Premier League club Bournemouth and the Scotland national team.",
-      "marketValueEurMillions": 15,
-      "position": "Right winger, attacking midfielder",
-      "club": "Bournemouth",
-      "league": "Premier League",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ben%20Gannon-Doak%20Scotland%20v%20Bolivia%206%20June%202026-68%20(cropped).jpg?width=160",
-      "skills": [
-        "Match impact"
-      ],
-      "note": "Gannon Doak is part of Scotland's current World Cup squad pool.",
-      "sourceUrl": "https://en.wikipedia.org/wiki/Ben_Gannon-Doak"
     },
     "George Hirst": {
       "name": "George Hirst",
@@ -6311,9 +6311,12 @@
       "league": "Premier League",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/George%20Hirst%20Scotland%20v%20Bolivia%206%20June%202026-7.jpg?width=160",
       "skills": [
-        "Match impact"
+        "Centre-forward presence",
+        "Aerial targets",
+        "Penalty-box finishing"
       ],
-      "note": "George Hirst is part of Scotland's current World Cup squad pool.",
+      "note": "Scotland's centre-forward target, useful for attacking crosses, occupying centre-backs, and finishing from crowded penalty areas.",
+      "noteZh": "乔治·赫斯特是苏格兰中锋支点，能冲击传中、牵制中卫，并在拥挤禁区中完成终结。",
       "sourceUrl": "https://en.wikipedia.org/wiki/George_Hirst_(footballer)"
     },
     "Grant Hanley": {
@@ -6328,9 +6331,12 @@
       "league": "Scottish Premiership",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Grant%20Hanley%20Scotland%20v%20Bolivia%206%20June%202026-39%20(cropped).jpg?width=160",
       "skills": [
-        "Match impact"
+        "Defensive leadership",
+        "Aerial duels",
+        "Deep-block organisation"
       ],
-      "note": "Grant Hanley is part of Scotland's current World Cup squad pool.",
+      "note": "Scotland's experienced centre-back, giving them aerial power, deep-block organisation, and leadership when defending late pressure.",
+      "noteZh": "格兰特·汉利是苏格兰经验丰富的中卫，能提供空中力量、低位防守组织，以及抵挡比赛后段压力时的领导力。",
       "sourceUrl": "https://en.wikipedia.org/wiki/Grant_Hanley"
     },
     "Jack Hendry": {
@@ -6345,9 +6351,12 @@
       "league": "Saudi Pro League",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Jack%20Hendry%20Scotland%20v%20Bolivia%206%20June%202026-35.jpg?width=160",
       "skills": [
-        "Match impact"
+        "Back-line recovery",
+        "Progressive passing",
+        "Set-piece defending"
       ],
-      "note": "Jack Hendry is part of Scotland's current World Cup squad pool.",
+      "note": "Scotland's mobile centre-back, useful for recovery runs, passing through the first line, and defending set-piece traffic.",
+      "noteZh": "杰克·亨德里是苏格兰机动中卫，能回追补位、穿过第一道压力出球，并防守定位球混战。",
       "sourceUrl": "https://en.wikipedia.org/wiki/Jack_Hendry_(footballer%2C_born_1995)"
     },
     "John Souttar": {
@@ -6362,23 +6371,13 @@
       "league": "Scottish Premiership",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/File%3AJohn%20Souttar%20Scotland%20v%20Bolivia%206%20June%202026-163.jpg?width=160",
       "skills": [
-        "Match impact"
+        "Centre-back duels",
+        "Passing lanes",
+        "Box defending"
       ],
-      "note": "John Souttar is part of Scotland's current World Cup squad pool.",
+      "note": "Scotland's right-sided centre-back option, helping them win duels, find passing lanes, and defend the box cleanly.",
+      "noteZh": "约翰·苏塔尔是苏格兰右侧中卫选择，能赢下对抗、找到传球线路，并干净地防守禁区。",
       "sourceUrl": "https://en.wikipedia.org/wiki/John_Souttar"
-    },
-    "Kenneth Mclean": {
-      "name": "Kenneth Mclean",
-      "displayName": "McLean",
-      "teamId": "SCO",
-      "summary": "MacLean, also spelt McLean, is a Scottish Gaelic surname (Mac Gille Eathain, or, Mac Giolla Eóin in Irish Gaelic), Eóin being a Gaelic form of Johannes (John).",
-      "estimatedMarketValueEurMillions": 0.8,
-      "club": "",
-      "skills": [
-        "Match impact"
-      ],
-      "note": "Kenneth Mclean is part of Scotland's current World Cup squad pool.",
-      "sourceUrl": "https://en.wikipedia.org/wiki/McLean"
     },
     "Kieran Tierney": {
       "name": "Kieran Tierney",
@@ -6392,9 +6391,12 @@
       "league": "Scottish Premiership",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Kieran%20Tierney%20Scotland%20v%20Bolivia%206%20June%202026-6.jpg?width=160",
       "skills": [
-        "Match impact"
+        "Left-side defending",
+        "Overlap timing",
+        "Back-three cover"
       ],
-      "note": "Kieran Tierney is part of Scotland's current World Cup squad pool.",
+      "note": "Scotland's left-side defender, giving them overlap timing, back-three cover, and sharp recovery runs when the flank opens.",
+      "noteZh": "基兰·蒂尔尼是苏格兰左侧防守者，能把握套边时机、覆盖三中卫体系，并在边路打开时快速回追。",
       "sourceUrl": "https://en.wikipedia.org/wiki/Kieran_Tierney"
     },
     "Lawrence Shankland": {
@@ -6409,9 +6411,12 @@
       "league": "Scottish Premiership",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Lawrence%20Shankland%20Scotland%20v%20Bolivia%206%20June%202026-66.jpg?width=160",
       "skills": [
-        "Match impact"
+        "Penalty-box finishing",
+        "First-time shots",
+        "Near-post movement"
       ],
-      "note": "Lawrence Shankland is part of Scotland's current World Cup squad pool.",
+      "note": "Scotland's penalty-box finisher, useful for first-time shots, near-post runs, and turning half-chances into attempts.",
+      "noteZh": "劳伦斯·尚克兰是苏格兰禁区终结者，能完成第一时间射门、冲击前点，并把半机会转化为射门。",
       "sourceUrl": "https://en.wikipedia.org/wiki/Lawrence_Shankland"
     },
     "Lewis Ferguson": {
@@ -6426,24 +6431,33 @@
       "league": "Serie A",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Lewis%20Ferguson%20Scotland%20v%20Bolivia%206%20June%202026-52.jpg?width=160",
       "skills": [
-        "Match impact"
+        "Midfield timing",
+        "Late arrivals",
+        "Pressing angles"
       ],
-      "note": "Lewis Ferguson is part of Scotland's current World Cup squad pool.",
+      "note": "Scotland's timing midfielder, giving them late box arrivals, smart pressing angles, and calm touches between the lines.",
+      "noteZh": "刘易斯·弗格森是苏格兰擅长把握时机的中场，能后插上到禁区、选择聪明压迫角度，并在两线之间冷静处理球。",
       "sourceUrl": "https://en.wikipedia.org/wiki/Lewis_Ferguson"
     },
     "Liam Kelly": {
       "name": "Liam Kelly",
       "displayName": "Liam Kelly",
       "teamId": "SCO",
-      "summary": "Liam Kelly may refer to: Liam Kelly (footballer, born 1975), Irish former football player Liam Kelly (footballer, born 1990), English-born Scottish international footballer, for Rotherham United FC Liam Kelly (footballer, born 1995), Irish football player, for...",
-      "marketValueEurMillions": 0.6,
-      "club": "",
-      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/106643-1548769787.jpg?lm=1",
+      "birthDate": "1996-01-23",
+      "summary": "Liam Patrick Kelly (born 23 January 1996) is a Scottish professional footballer who plays as a goalkeeper for Scottish Premiership club Rangers and the Scotland national team.",
+      "marketValueEurMillions": 0.8,
+      "position": "Goalkeeper",
+      "club": "Rangers",
+      "league": "Scottish Premiership",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/big/208772-1701544031.jpg?lm=1",
       "skills": [
-        "Match impact"
+        "Keeper depth",
+        "Penalty saves",
+        "Shot stopping"
       ],
-      "note": "Liam Kelly is part of Scotland's current World Cup squad pool.",
-      "sourceUrl": "https://en.wikipedia.org/wiki/Liam_Kelly"
+      "note": "Scotland's goalkeeping depth, giving them penalty-save confidence, shot-stopping cover, and a trusted dressing-room presence.",
+      "noteZh": "利亚姆·凯利是苏格兰门将深度，能提供扑点信心、扑救保护，以及更衣室中值得信任的存在。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Liam_Kelly_(footballer%2C_born_1996)"
     },
     "Lyndon Dykes": {
       "name": "Lyndon Dykes",
@@ -6457,68 +6471,53 @@
       "league": "EFL Championship",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/File%3ALyndon%20Dykes%20Scotland%20v%20Bolivia%206%20June%202026-65.jpg?width=160",
       "skills": [
-        "Match impact"
+        "Target play",
+        "Aerial duels",
+        "Pressing work"
       ],
-      "note": "Lyndon Dykes is part of Scotland's current World Cup squad pool.",
+      "note": "Scotland's physical forward, useful for target play, aerial duels, and grinding centre-backs through repeated pressing work.",
+      "noteZh": "林登·戴克斯是苏格兰力量型前锋，能作为支点、争顶对抗，并通过持续压迫消耗中卫。",
       "sourceUrl": "https://en.wikipedia.org/wiki/Lyndon_Dykes"
-    },
-    "Mckenna Scott": {
-      "name": "Mckenna Scott",
-      "displayName": "Scott McKenna",
-      "teamId": "SCO",
-      "birthDate": "1996-11-12",
-      "summary": "Scott Fraser McKenna (born 12 November 1996) is a Scottish professional footballer who plays as a centre-back for HNL club Dinamo Zagreb and the Scotland national team.",
-      "marketValueEurMillions": 4,
-      "position": "Centre-back",
-      "club": "Dinamo Zagreb",
-      "league": "Croatian Football League",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/File%3AFirst%20Minister%20meets%20with%20Scottish%20National%20Football%20Team%20-%2055168603663%20(Scott%20McKenna%20cropped).jpg?width=160",
-      "skills": [
-        "Match impact"
-      ],
-      "note": "Mckenna Scott is part of Scotland's current World Cup squad pool.",
-      "sourceUrl": "https://en.wikipedia.org/wiki/Scott_McKenna"
-    },
-    "Mclean Kenny": {
-      "name": "Mclean Kenny",
-      "displayName": "McLean",
-      "teamId": "SCO",
-      "summary": "MacLean, also spelt McLean, is a Scottish Gaelic surname (Mac Gille Eathain, or, Mac Giolla Eóin in Irish Gaelic), Eóin being a Gaelic form of Johannes (John).",
-      "estimatedMarketValueEurMillions": 0.8,
-      "club": "",
-      "skills": [
-        "Match impact"
-      ],
-      "note": "Mclean Kenny is part of Scotland's current World Cup squad pool.",
-      "sourceUrl": "https://en.wikipedia.org/wiki/McLean"
     },
     "Nathan Patterson": {
       "name": "Nathan Patterson",
       "displayName": "Nathan Patterson",
       "teamId": "SCO",
-      "summary": "Nathan Patterson may refer to: Nathan Patterson (baseball) (born 1996), American baseball player Nathan Patterson (footballer) (born 2001), Scottish footballer",
+      "birthDate": "2001-10-16",
+      "summary": "Nathan Kenneth Patterson (born 16 October 2001) is a Scottish professional footballer who plays as a right-back for Premier League club Everton and the Scotland national team.",
       "marketValueEurMillions": 10,
-      "club": "",
-      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/424015-1736161412.jpg?lm=1",
+      "position": "Right-back",
+      "club": "Everton",
+      "league": "Premier League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/big/424015-1736161412.jpg?lm=1",
       "skills": [
-        "Match impact"
+        "Right-back pace",
+        "Overlap runs",
+        "Recovery defending"
       ],
-      "note": "Nathan Patterson is part of Scotland's current World Cup squad pool.",
-      "sourceUrl": "https://en.wikipedia.org/wiki/Nathan_Patterson"
+      "note": "Scotland's pacey right-back, giving them overlap runs, recovery defending, and a direct outlet when the right side opens.",
+      "noteZh": "内森·帕特森是苏格兰速度型右后卫，能套边前插、回追防守，并在右路打开时提供直接出口。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Nathan_Patterson_(footballer)"
     },
     "Ross Stewart": {
       "name": "Ross Stewart",
       "displayName": "Ross Stewart",
       "teamId": "SCO",
-      "summary": "Ross Stewart may refer to: Ross Stewart (footballer, born 1995) (Ross M. Stewart), Scottish football goalkeeper for Queen of the South F.C. Ross Stewart (footballer, born 1996) (Ross C.",
-      "marketValueEurMillions": 0.2,
-      "club": "",
-      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/203405-1624629939.jpg?lm=1",
+      "birthDate": "1996-07-11",
+      "summary": "Ross Cameron Stewart (born 11 July 1996) is a Scottish professional footballer who plays as a forward for EFL Championship club Southampton and the Scotland national team.",
+      "marketValueEurMillions": 2.5,
+      "position": "Centre-forward",
+      "club": "Free agent",
+      "league": "Last club: Southampton",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/big/447995-1645779367.jpg?lm=1",
       "skills": [
-        "Match impact"
+        "Aerial target",
+        "Box presence",
+        "Direct finishing"
       ],
-      "note": "Ross Stewart is part of Scotland's current World Cup squad pool.",
-      "sourceUrl": "https://en.wikipedia.org/wiki/Ross_Stewart"
+      "note": "Scotland's tall centre-forward option, useful for aerial targets, penalty-box presence, and direct finishing from crosses.",
+      "noteZh": "罗斯·斯图尔特是苏格兰高点中锋选择，能作为空中目标、提供禁区存在感，并接传中直接终结。",
+      "sourceUrl": "https://talksport.com/football/4326851/scotland-star-released-world-cup-ross-stewart-southampton/"
     },
     "Ryan Christie": {
       "name": "Ryan Christie",
@@ -6532,9 +6531,12 @@
       "league": "Premier League",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/File%3ARyan%20Christie%20Bournemouth%20(cropped).png?width=160",
       "skills": [
-        "Match impact"
+        "Pressing engine",
+        "Between-lines receiving",
+        "Set-piece delivery"
       ],
-      "note": "Ryan Christie is part of Scotland's current World Cup squad pool.",
+      "note": "Scotland's pressing engine, useful for receiving between lines, chasing second balls, and delivering set pieces with his left foot.",
+      "noteZh": "瑞安·克里斯蒂是苏格兰压迫发动机，能在两线之间接球、追抢第二落点，并用左脚主罚定位球。",
       "sourceUrl": "https://en.wikipedia.org/wiki/Ryan_Christie"
     },
     "Tyler Fletcher": {
@@ -6549,10 +6551,73 @@
       "league": "Premier League",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Tyler%20Fletcher%20Scotland%20v%20Bolivia%206%20June%202026-4.jpg?width=160",
       "skills": [
-        "Match impact"
+        "Midfield energy",
+        "Press resistance",
+        "Forward passing"
       ],
-      "note": "Tyler Fletcher is part of Scotland's current World Cup squad pool.",
+      "note": "Scotland's young midfield option, giving them fresh energy, pressure resistance, and forward passes when legs tire.",
+      "noteZh": "泰勒·弗莱彻是苏格兰年轻中场选择，能在体能下降时带来新鲜活力、抗压能力和向前传球。",
       "sourceUrl": "https://en.wikipedia.org/wiki/Tyler_Fletcher"
+    },
+    "Ben Gannon-Doak": {
+      "name": "Ben Gannon-Doak",
+      "displayName": "Ben Gannon-Doak",
+      "teamId": "SCO",
+      "birthDate": "2005-11-11",
+      "summary": "Ben Gannon-Doak (né Doak; born 11 November 2005) is a Scottish professional footballer who plays as a right winger or attacking midfielder for Premier League club Bournemouth and the Scotland national team.",
+      "marketValueEurMillions": 15,
+      "position": "Right winger",
+      "club": "Bournemouth",
+      "league": "Premier League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ben%20Gannon-Doak%20Scotland%20v%20Bolivia%206%20June%202026-68%20(cropped).jpg?width=160",
+      "skills": [
+        "Right-wing acceleration",
+        "One-on-one dribbling",
+        "Fearless carries"
+      ],
+      "note": "Scotland's fearless young winger, giving them right-side acceleration, one-on-one dribbling, and direct carries that unsettle defenders.",
+      "noteZh": "本·甘农-多克是苏格兰无畏的年轻边锋，能在右路加速、一对一带球，并用直接推进扰乱后卫。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Ben_Gannon-Doak"
+    },
+    "Kenny McLean": {
+      "name": "Kenny McLean",
+      "displayName": "Kenny McLean",
+      "teamId": "SCO",
+      "birthDate": "1992-01-08",
+      "summary": "Kenneth McLean (born 8 January 1992) is a Scottish professional footballer who plays as a central midfielder or left midfielder for EFL Championship club Norwich City, whom he captains, and the Scotland national team.",
+      "marketValueEurMillions": 0.4,
+      "position": "Central midfielder",
+      "club": "Norwich City",
+      "league": "EFL Championship",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/big/126600-1701543723.jpg?lm=1",
+      "skills": [
+        "Central control",
+        "Left-footed passing",
+        "Game management"
+      ],
+      "note": "Scotland's experienced central midfielder, useful for left-footed circulation, game management, and keeping possession connected.",
+      "noteZh": "肯尼·麦克莱恩是苏格兰经验丰富的中前卫，能用左脚组织传导、管理比赛节奏，并保持控球衔接。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Kenny_McLean"
+    },
+    "Scott McKenna": {
+      "name": "Scott McKenna",
+      "displayName": "Scott McKenna",
+      "teamId": "SCO",
+      "birthDate": "1996-11-12",
+      "summary": "Scott Fraser McKenna (born 12 November 1996) is a Scottish professional footballer who plays as a centre-back for HNL club Dinamo Zagreb and the Scotland national team.",
+      "marketValueEurMillions": 4,
+      "position": "Centre-back",
+      "club": "Dinamo Zagreb",
+      "league": "Croatian Football League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/File%3AFirst%20Minister%20meets%20with%20Scottish%20National%20Football%20Team%20-%2055168603663%20(Scott%20McKenna%20cropped).jpg?width=160",
+      "skills": [
+        "Left-footed defending",
+        "Aerial clearances",
+        "Back-line strength"
+      ],
+      "note": "Scotland's left-footed centre-back, giving them aerial clearances, physical cover, and balance on the left side of defence.",
+      "noteZh": "斯科特·麦肯纳是苏格兰左脚中卫，能完成空中解围、提供身体保护，并平衡防线左侧。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Scott_McKenna"
     }
   }
 }

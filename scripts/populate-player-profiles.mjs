@@ -507,6 +507,12 @@ function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
+function getRetainedExistingProfiles(profiles = {}) {
+  return Object.fromEntries(
+    Object.entries(profiles || {}).filter(([profileName]) => !profileRemovalNames.has(profileName))
+  );
+}
+
 async function readJson(filePath) {
   return JSON.parse(await readFile(filePath, "utf8"));
 }
@@ -2210,14 +2216,15 @@ if (squadOnlyProfiles && (!includeSquadProfiles || !squadProfileTeamFilter.size)
 }
 
 await loadPlayerProfileOverrideFiles(squadProfileTeamFilter);
+const existingProfilesForSelection = getRetainedExistingProfiles(existingProfilesData.profiles || {});
 
 if (shouldAuditSquadCandidates) {
   const rows = getSquadCandidateAuditRows(
     playerAvailabilityByTeam,
     teamsById,
-    existingProfilesData.profiles || {}
+    existingProfilesForSelection
   );
-  printSquadCandidateAudit(rows, existingProfilesData.profiles || {});
+  printSquadCandidateAudit(rows, existingProfilesForSelection);
   process.exit(process.exitCode || 0);
 }
 
@@ -2225,7 +2232,7 @@ let players = getUniquePlayers(
   fixturesData,
   teamsById,
   playerAvailabilityByTeam,
-  existingProfilesData.profiles || {},
+  existingProfilesForSelection,
   { includeSquadProfiles, squadOnlyProfiles }
 );
 
@@ -2243,7 +2250,7 @@ const titleByPlayerName = new Map();
 const pageDataByTitle = new Map();
 
 if (shouldListPlayersOnly) {
-  const existingCount = players.filter((player) => existingProfilesData.profiles?.[player.name]).length;
+  const existingCount = players.filter((player) => existingProfilesForSelection?.[player.name]).length;
   const newCount = players.length - existingCount;
   console.log(
     [
@@ -2343,11 +2350,7 @@ const output = {
   ],
   profiles: preserveExistingProfiles
     ? {
-        ...Object.fromEntries(
-          Object.entries(existingProfilesData.profiles || {}).filter(
-            ([profileName]) => !profileRemovalNames.has(profileName)
-          )
-        ),
+        ...existingProfilesForSelection,
         ...profiles
       }
     : profiles

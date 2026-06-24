@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-24T23:11:22.324Z",
+  "updatedAt": "2026-06-24T23:18:07.496Z",
   "currentTournament": {
     "edition": "2026-world-cup",
     "scope": "Generate and audit every official squad player card country by country.",
@@ -47,9 +47,9 @@
         "order": 5,
         "teamId": "SCO",
         "teamName": "Scotland",
-        "status": "pending",
-        "profileCount": 0,
-        "lastAudit": ""
+        "status": "ready",
+        "profileCount": 26,
+        "lastAudit": "passed strict country workflow at 2026-06-24T23:18:07.496Z"
       },
       {
         "order": 6,
