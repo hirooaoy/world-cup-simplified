@@ -1206,7 +1206,7 @@ async function fetchOfficialMatchesForGoalEvents(fixtures, timeZone) {
   url.searchParams.set("idCompetition", process.env.FIFA_COMPETITION_ID || FIFA_DEFAULT_COMPETITION_ID);
   url.searchParams.set("idSeason", process.env.FIFA_SEASON_ID || FIFA_DEFAULT_SEASON_ID);
   url.searchParams.set("from", startKey);
-  url.searchParams.set("to", endKey);
+  url.searchParams.set("to", shiftDayKey(endKey, 1));
 
   const payload = await fetchJsonWithTimeout(url, "FIFA schedule");
   return asArray(payload.Results || payload.results || payload);
