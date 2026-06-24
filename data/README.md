@@ -64,6 +64,8 @@ pnpm matchday:readiness
 
 The readiness check flags near-term group matches whose fixture-specific research is missing or older than `MATCHDAY_MATCHUP_RESEARCH_FRESH_HOURS` hours. The default is 24 hours.
 
+Automated official-score sync jobs can set `MATCHDAY_EDITORIAL_WARN_ONLY=1` so stale fixture research is reported as a warning while status and score blockers still fail the run. Keep the default strict mode for manual publishing checks.
+
 Run this after editing matchup copy, key players, player availability, or final scores to review all preview paragraphs and completed-match result sections together:
 
 ```bash
@@ -78,7 +80,15 @@ Run this after key-player changes or transfer/profile updates to refresh hover-c
 node scripts/populate-player-profiles.mjs
 ```
 
-The script uses Wikipedia football infoboxes for current club, position, and photos, short Wikipedia lead extracts for profile metadata, and the Transfermarkt datasets players CSV for repeatable photo/value enrichment. `keyPlayers` still controls which players a fixture preview features, but every player profile card must have its own curated display note. Goal scorers who were not already key players should get a role-style card note, never a raw "Scored for..." event sentence. Full-name player mentions in fixture paragraphs are matched against the current squad list and also require/generated profile cards, so paragraph-only names do not silently miss hover-card coverage.
+The script uses Wikipedia football infoboxes for current club, position, and photos, short Wikipedia lead extracts for profile metadata, and the Transfermarkt datasets players CSV for repeatable photo/value enrichment. It preserves existing profiles by default; use `--replace-existing-profiles` only for an intentional prune/rebuild. `keyPlayers` still controls which players a fixture preview features, but every player profile card must have its own curated display note. Goal scorers who were not already key players should get a role-style card note, never a raw "Scored for..." event sentence. Full-name player mentions in fixture paragraphs are matched against the current squad list and also require/generated profile cards, so paragraph-only names do not silently miss hover-card coverage.
+
+To reduce runtime-only scorer fallbacks before a match, prebuild squad cards for the teams you are about to feature:
+
+```bash
+pnpm profiles:country -- --teams=CRO,PAN
+```
+
+The country workflow is the publishing path. It runs a strict candidate preflight from `data/player-availability.json`, blocks unsafe aliases before writing, loads editorial overrides from `data/player-profile-overrides/2026/{TEAM}.json`, generates only the selected countries' squad cards while preserving profiles already built for other countries, audits the generated country cards for position, club, league, image, source, and disambiguation-like summaries, then runs validation/card checks/UI smoke. For fast iteration, add `--skip-smoke`; for low-level debugging only, use `pnpm profiles:squads -- --squad-teams=CRO,PAN --audit-squad-candidates --strict-squad-audit` or `pnpm profiles:squads -- --squad-teams=CRO,PAN --list-players`.
 
 Player market values are required for every generated card. Use `marketValueEurMillions` for source-backed values and `estimatedMarketValueEurMillions` only when the external player record exists but the value is blank; the UI labels those rows as estimates. Validation also requires `imageUrl`, so future scorers or newly mentioned paragraph players cannot quietly ship with initials-only cards.
 
@@ -113,23 +123,32 @@ For authored `catchUp` entries, keep the headline and body score-focused. Add op
 
 For completed fixture detail pages, add optional `resultHighlights` when the scoreline needs more context than the default source-check note. Keep each highlight to one compact sentence.
 
-Run this on match days to refresh the committed static fallback and verify it:
+## Matchday Card/Result Workflow
+
+Use one command for matchday data publishing:
 
 ```bash
 pnpm matchday:update
 ```
 
-That command runs the official score/status sync, FIFA goal-event sync, player-profile generation only when validation finds stale cards, result-highlight generation, and the full data/UI verification chain. The lower-level commands are still useful when you need to isolate one part of the pipeline:
+That is the auto-curated path for committed data. It runs the official score/status sync, FIFA goal-event sync, player-profile generation when newly synced scorers or player mentions need cards, result-highlight generation, and the full data/UI verification chain. When validation identifies broken cards, the profile repair step refreshes only those named players instead of rewriting every current profile. Review the data diff after it finishes, then publish.
+
+The live `/api/live-data` response can temporarily show a scorer before that scorer exists in `data/player-profiles.json`. The UI renders a contextual goal card for that runtime-only scorer; `pnpm matchday:update` is still the step that turns the scorer into a fully curated profile with position, club, photo, value, and reviewed note.
+
+Use lower-level commands only when debugging one part of the pipeline:
 
 ```bash
 pnpm sync:fifa
 pnpm sync:fifa:goals
+pnpm profiles
+pnpm profiles:country -- --teams=CRO,PAN
+pnpm cards:check
 pnpm results
 pnpm results:check
 ```
 
 The script preserves hand-authored `resultHighlights` by default. It generates the `⚽` scoreline only when scorer-minute data is not loaded; when `goalsHome`/`goalsAway` exists, the UI renders the linked scorer list instead.
-The scheduled `Sync FIFA Results PR` workflow runs `pnpm sync:fifa:goals` and `pnpm results` after the score/status sync, so newly finished matches can open a fallback-data PR as soon as FIFA timeline scorer events and result highlights are available.
+The scheduled `Sync FIFA Results PR` workflow runs `pnpm sync:fifa:goals`, `pnpm results`, and `pnpm validate:profiles` after the score/status sync, so newly finished matches can open a fallback-data PR as soon as FIFA timeline scorer events, result highlights, and any newly required player cards are available.
 `pnpm results:check` fails when a full-time group match is still missing official goal events or has generic result-moment copy.
 
 ## Required Update Steps

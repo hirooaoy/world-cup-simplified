@@ -1,6 +1,21 @@
 {
-  "updatedAt": "2026-06-23T21:54:00-07:00",
+  "updatedAt": "2026-06-24T15:45:00-07:00",
   "releases": [
+    {
+      "date": "2026-06-24",
+      "title": "Official live-score corrections",
+      "titleZh": "官方实时比分校正",
+      "highlights": [
+        "Live scores now apply FIFA official score/status corrections after the general provider sync.",
+        "Provider-only score drift can now be corrected before scorer timelines and standings are recomputed.",
+        "The live-data API now reports how many FIFA official score corrections ran."
+      ],
+      "highlightsZh": [
+        "实时比分现在会在通用数据源同步后应用 FIFA 官方比分和状态校正。",
+        "单一数据源的比分偏差现在会在进球时间线和积分榜重新计算前被校正。",
+        "实时数据 API 现在会报告本次运行了多少项 FIFA 官方比分校正。"
+      ]
+    },
     {
       "date": "2026-06-23",
       "title": "Loading polish",

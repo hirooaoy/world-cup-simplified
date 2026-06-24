@@ -46,7 +46,10 @@ const PROVIDER_ALIASES = {
   apisports: API_FOOTBALL_PROVIDER_KEY,
   "api-sports": API_FOOTBALL_PROVIDER_KEY,
   "api sports": API_FOOTBALL_PROVIDER_KEY,
-  sportmonks: SPORTMONKS_PROVIDER_KEY
+  sportmonks: SPORTMONKS_PROVIDER_KEY,
+  fifa: FIFA_PROVIDER_KEY,
+  "fifa official": FIFA_PROVIDER_KEY,
+  "official fifa": FIFA_PROVIDER_KEY
 };
 const TEAM_NAME_ALIASES = {
   "bosnia herzegovina": "BIH",
@@ -97,9 +100,10 @@ export default async function handler(request, response) {
   }
 
   try {
+    const timeZone = process.env.SYNC_TIMEZONE || DEFAULT_TIME_ZONE;
     const providerFixtures = await provider.fetchFixtures({
       providerMap,
-      timeZone: process.env.SYNC_TIMEZONE || DEFAULT_TIME_ZONE
+      timeZone
     });
     const merge = mergeProviderFixtures({
       checkedAt,
@@ -109,11 +113,19 @@ export default async function handler(request, response) {
       providerMap,
       teams: teamsData.teams
     });
-    const goalEventMerge = await mergeOfficialGoalEvents({
+    const officialScoreMerge = await mergeOfficialScoreCorrections({
       checkedAt,
       fixturesData: merge.fixturesData,
+      provider,
+      providerMap,
       teams: teamsData.teams,
-      timeZone: process.env.SYNC_TIMEZONE || DEFAULT_TIME_ZONE
+      timeZone
+    });
+    const goalEventMerge = await mergeOfficialGoalEvents({
+      checkedAt,
+      fixturesData: officialScoreMerge.fixturesData,
+      teams: teamsData.teams,
+      timeZone
     });
     const mergedStandingsData = recomputeStandings({
       checkedAt,
@@ -128,10 +140,15 @@ export default async function handler(request, response) {
       tournamentData,
       updateCount: merge.updateCount
     });
+    const officialScoreTournamentData = addOfficialScoreSource({
+      checkedAt,
+      scoreMerge: officialScoreMerge,
+      tournamentData: providerTournamentData
+    });
     const mergedTournamentData = addOfficialGoalEventsSource({
       checkedAt,
       goalEventMerge,
-      tournamentData: providerTournamentData
+      tournamentData: officialScoreTournamentData
     });
 
     sendJson(
@@ -148,6 +165,9 @@ export default async function handler(request, response) {
           goalEventUpdates: goalEventMerge.updateCount,
           matchedFixtures: merge.matchedCount,
           ok: true,
+          officialScoreFixtures: officialScoreMerge.matchedCount,
+          officialScoreReason: officialScoreMerge.reason || undefined,
+          officialScoreUpdates: officialScoreMerge.updateCount,
           provider: provider.name,
           updatedFixtures: merge.updateCount
         }
@@ -255,6 +275,10 @@ function getLiveDataProvider() {
       : missingProvider("sportmonks", "SPORTMONKS_API_TOKEN is not configured");
   }
 
+  if (requestedProvider === FIFA_PROVIDER_KEY) {
+    return createFifaOfficialProvider();
+  }
+
   if (footballDataToken) {
     return createFootballDataProvider(footballDataToken);
   }
@@ -267,10 +291,7 @@ function getLiveDataProvider() {
     return createSportmonksProvider(sportmonksToken);
   }
 
-  return missingProvider(
-    "none",
-    "No live data provider is configured. Add FOOTBALL_DATA_API_KEY for free delayed-score sync."
-  );
+  return createFifaOfficialProvider();
 }
 
 function getRequestedProviderKey() {
@@ -363,6 +384,21 @@ function createSportmonksProvider(token) {
     name: "sportmonks",
     ok: true,
     sourcePrefix: "sportmonks-auto"
+  };
+}
+
+function createFifaOfficialProvider() {
+  return {
+    defaultCacheSeconds: 60,
+    defaultStaleSeconds: 60,
+    docsUrl: FIFA_SCHEDULE_URL,
+    fetchFixtures: ({ timeZone }) => fetchFifaOfficialFixtures({ timeZone }),
+    key: FIFA_PROVIDER_KEY,
+    label: "FIFA official live score sync",
+    name: "FIFA official",
+    ok: true,
+    sourcePrefix: "fifa-official-live-sync",
+    sourceType: "official"
   };
 }
 
@@ -686,6 +722,24 @@ async function fetchSportmonksFixtures({ providerMap, sportmonks, timeZone }) {
   });
 }
 
+async function fetchFifaOfficialFixtures({ timeZone }) {
+  const { endKey, startKey } = getSyncWindow({
+    afterDays: process.env.FIFA_WINDOW_AFTER_DAYS,
+    beforeDays: process.env.FIFA_WINDOW_BEFORE_DAYS,
+    timeZone
+  });
+  const url = new URL(FIFA_API_URL);
+  url.searchParams.set("language", "en");
+  url.searchParams.set("count", "500");
+  url.searchParams.set("idCompetition", process.env.FIFA_COMPETITION_ID || FIFA_DEFAULT_COMPETITION_ID);
+  url.searchParams.set("idSeason", process.env.FIFA_SEASON_ID || FIFA_DEFAULT_SEASON_ID);
+  url.searchParams.set("from", startKey);
+  url.searchParams.set("to", shiftDayKey(endKey, 1));
+
+  const payload = await fetchJsonWithTimeout(url, "FIFA official live score");
+  return asArray(payload.Results || payload.results || payload);
+}
+
 function buildTeamLookup(teams, providerMap, providerKey) {
   const byName = new Map();
   const byProviderId = new Map();
@@ -713,6 +767,13 @@ function buildTeamLookup(teams, providerMap, providerKey) {
 }
 
 function getProviderParticipants(providerFixture, providerKey) {
+  if (providerKey === FIFA_PROVIDER_KEY) {
+    return {
+      away: normalizeFifaParticipant(providerFixture.Away, "away"),
+      home: normalizeFifaParticipant(providerFixture.Home, "home")
+    };
+  }
+
   if (providerKey === FOOTBALL_DATA_PROVIDER_KEY) {
     return {
       away: normalizeFootballDataParticipant(providerFixture.awayTeam, "away"),
@@ -753,6 +814,21 @@ function normalizeApiFootballParticipant(team, location) {
   };
 }
 
+function normalizeFifaParticipant(team, location) {
+  return {
+    id: team?.Abbreviation || team?.IdCountry || team?.IdAssociation,
+    location,
+    name:
+      description(team?.TeamName) ||
+      description(team?.NameLocalized) ||
+      description(team?.ShortClubName) ||
+      team?.DisplayName ||
+      team?.Name ||
+      team?.ShortName ||
+      team?.Abbreviation
+  };
+}
+
 function getParticipantLocation(participant) {
   return normalizeKey(
     participant?.meta?.location ||
@@ -786,7 +862,7 @@ function findMatchingFixture({ fixtures, provider, providerFixture, providerMap,
 
   const mappedFixture = fixtures.find(
     (fixture) =>
-      String(fixture.providerIds?.[provider.key]?.fixtureId || "") === String(providerFixtureId)
+      String(getStoredProviderFixtureId(fixture, provider.key) || "") === String(providerFixtureId)
   );
   if (mappedFixture) {
     return mappedFixture;
@@ -811,6 +887,10 @@ function findMatchingFixture({ fixtures, provider, providerFixture, providerMap,
 }
 
 function getProviderFixtureId(providerFixture, providerKey) {
+  if (providerKey === FIFA_PROVIDER_KEY) {
+    return providerFixture.IdMatch;
+  }
+
   if (providerKey === API_FOOTBALL_PROVIDER_KEY) {
     return providerFixture.fixture?.id;
   }
@@ -818,7 +898,21 @@ function getProviderFixtureId(providerFixture, providerKey) {
   return providerFixture.id;
 }
 
+function getStoredProviderFixtureId(fixture, providerKey) {
+  const providerIds = fixture.providerIds?.[providerKey] || {};
+
+  if (providerKey === FIFA_PROVIDER_KEY) {
+    return providerIds.matchId || providerIds.idMatch || fixture.fifaMatchId;
+  }
+
+  return providerIds.fixtureId;
+}
+
 function getProviderKickoff(providerFixture, providerKey) {
+  if (providerKey === FIFA_PROVIDER_KEY) {
+    return providerFixture.Date;
+  }
+
   if (providerKey === FOOTBALL_DATA_PROVIDER_KEY) {
     return providerFixture.utcDate;
   }
@@ -840,6 +934,43 @@ function toProviderDate(value) {
 }
 
 function getProviderStatus(providerFixture, providerKey) {
+  if (providerKey === FIFA_PROVIDER_KEY) {
+    const score = getFifaScore(providerFixture);
+    const statusCode = Number(providerFixture.MatchStatus);
+    const statusText = normalizeKey(
+      [
+        description(providerFixture.MatchStatusName),
+        providerFixture.Status,
+        providerFixture.MatchStatusDescription,
+        providerFixture.ResultType
+      ]
+        .filter(Boolean)
+        .join(" ")
+    );
+
+    if (/cancel/.test(statusText)) {
+      return "CANCELLED";
+    }
+
+    if (/postpon/.test(statusText)) {
+      return "POSTPONED";
+    }
+
+    if (statusCode === 0 && score) {
+      return "FT";
+    }
+
+    if (statusCode === 3 || /live|half|1st|2nd|in play/.test(statusText)) {
+      return "LIVE";
+    }
+
+    if (statusCode === 1 || !score) {
+      return "SCHEDULED";
+    }
+
+    return "LIVE";
+  }
+
   if (providerKey === FOOTBALL_DATA_PROVIDER_KEY) {
     const status = String(providerFixture.status || "").toUpperCase();
 
@@ -916,6 +1047,10 @@ function getProviderStatus(providerFixture, providerKey) {
 }
 
 function getProviderScore(providerFixture, participants, providerKey) {
+  if (providerKey === FIFA_PROVIDER_KEY) {
+    return getFifaScore(providerFixture);
+  }
+
   if (providerKey === FOOTBALL_DATA_PROVIDER_KEY) {
     const fullTime = providerFixture.score?.fullTime || {};
     const home = Number(fullTime.home ?? fullTime.homeTeam);
@@ -959,6 +1094,12 @@ function getProviderScore(providerFixture, participants, providerKey) {
   return Number.isFinite(score.home) && Number.isFinite(score.away) ? score : null;
 }
 
+function getFifaScore(match) {
+  const home = scoreValue(match?.HomeTeamScore);
+  const away = scoreValue(match?.AwayTeamScore);
+  return home === null || away === null ? null : { away, home };
+}
+
 function statusRank(status) {
   return {
     SCHEDULED: 0,
@@ -969,7 +1110,15 @@ function statusRank(status) {
   }[status] ?? 0;
 }
 
-function mergeProviderFixtures({ checkedAt, fixturesData, provider, providerFixtures, providerMap, teams }) {
+function mergeProviderFixtures({
+  checkedAt,
+  fixturesData,
+  forceStatus = false,
+  provider,
+  providerFixtures,
+  providerMap,
+  teams
+}) {
   const teamLookup = buildTeamLookup(teams, providerMap, provider.key);
   const fixtures = fixturesData.fixtures.map((fixture) => ({ ...fixture }));
   let matchedCount = 0;
@@ -993,7 +1142,9 @@ function mergeProviderFixtures({ checkedAt, fixturesData, provider, providerFixt
     const providerStatus = getProviderStatus(providerFixture, provider.key);
     const providerScore = getProviderScore(providerFixture, participants, provider.key);
     const nextStatus =
-      statusRank(providerStatus) >= statusRank(fixture.status) ? providerStatus : fixture.status;
+      forceStatus || statusRank(providerStatus) >= statusRank(fixture.status)
+        ? providerStatus
+        : fixture.status;
     const before = JSON.stringify({
       providerIds: fixture.providerIds,
       score: fixture.score,
@@ -1004,11 +1155,12 @@ function mergeProviderFixtures({ checkedAt, fixturesData, provider, providerFixt
     fixture.status = nextStatus;
     fixture.providerIds = {
       ...(fixture.providerIds || {}),
-      [provider.key]: {
-        awayParticipantId: participants.away?.id || null,
-        fixtureId: getProviderFixtureId(providerFixture, provider.key),
-        homeParticipantId: participants.home?.id || null
-      }
+      [provider.key]: getMergedProviderIds({
+        participants,
+        providerFixture,
+        providerKey: provider.key,
+        storedProviderIds: fixture.providerIds?.[provider.key]
+      })
     };
 
     if ((nextStatus === "LIVE" || nextStatus === "FT") && providerScore) {
@@ -1042,6 +1194,73 @@ function mergeProviderFixtures({ checkedAt, fixturesData, provider, providerFixt
     matchedCount,
     updateCount
   };
+}
+
+async function mergeOfficialScoreCorrections({
+  checkedAt,
+  fixturesData,
+  provider,
+  providerMap,
+  teams,
+  timeZone
+}) {
+  if (provider.key === FIFA_PROVIDER_KEY) {
+    return {
+      fixturesData,
+      matchedCount: 0,
+      reason: "Primary provider is already FIFA official",
+      updateCount: 0
+    };
+  }
+
+  const officialProvider = createFifaOfficialProvider();
+
+  try {
+    const officialFixtures = await officialProvider.fetchFixtures({
+      providerMap,
+      timeZone
+    });
+
+    return mergeProviderFixtures({
+      checkedAt,
+      fixturesData,
+      forceStatus: true,
+      provider: officialProvider,
+      providerFixtures: officialFixtures,
+      providerMap,
+      teams
+    });
+  } catch (error) {
+    return {
+      fixturesData,
+      matchedCount: 0,
+      reason: error.message || "Unable to sync FIFA official scores",
+      updateCount: 0
+    };
+  }
+}
+
+function getMergedProviderIds({ participants, providerFixture, providerKey, storedProviderIds }) {
+  const nextProviderIds = {
+    ...(storedProviderIds || {}),
+    awayParticipantId: participants.away?.id || null,
+    fixtureId: getProviderFixtureId(providerFixture, providerKey),
+    homeParticipantId: participants.home?.id || null
+  };
+
+  if (providerKey === FIFA_PROVIDER_KEY) {
+    const matchNumber = Number(providerFixture.MatchNumber);
+
+    if (providerFixture.IdMatch) {
+      nextProviderIds.matchId = String(providerFixture.IdMatch);
+    }
+
+    if (Number.isInteger(matchNumber) && matchNumber > 0) {
+      nextProviderIds.matchNumber = matchNumber;
+    }
+  }
+
+  return nextProviderIds;
 }
 
 async function mergeOfficialGoalEvents({ checkedAt, fixturesData, teams, timeZone }) {
@@ -1509,13 +1728,43 @@ function addProviderSource({ checkedAt, provider, tournamentData, updateCount })
     id: sourceId,
     label: provider.label,
     url: provider.docsUrl,
-    type: "provider",
+    type: provider.sourceType || "provider",
     checkedAt,
     note: `${updateCount} fixture update${updateCount === 1 ? "" : "s"} merged from provider data.`
   });
 
   return {
     ...tournamentData,
+    sources: nextSources,
+    updatedAt: checkedAt
+  };
+}
+
+function addOfficialScoreSource({ checkedAt, scoreMerge, tournamentData }) {
+  if (!scoreMerge.matchedCount && !scoreMerge.updateCount) {
+    return tournamentData;
+  }
+
+  const officialProvider = createFifaOfficialProvider();
+  const sourceId = getProviderSourceId(officialProvider, checkedAt);
+  const nextSources = (tournamentData.sources || []).filter((source) => source.id !== sourceId);
+
+  nextSources.push({
+    id: sourceId,
+    label: "FIFA official score correction sync",
+    url: FIFA_SCHEDULE_URL,
+    type: "official",
+    checkedAt,
+    note: `${scoreMerge.updateCount} fixture official score/status correction${
+      scoreMerge.updateCount === 1 ? "" : "s"
+    } merged from ${scoreMerge.matchedCount} matched FIFA fixture${
+      scoreMerge.matchedCount === 1 ? "" : "s"
+    }.`
+  });
+
+  return {
+    ...tournamentData,
+    sourceIds: [...new Set([...(tournamentData.sourceIds || []), sourceId])],
     sources: nextSources,
     updatedAt: checkedAt
   };

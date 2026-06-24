@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-23T21:11:32.854Z",
+  "updatedAt": "2026-06-24T22:35:42.360Z",
   "sourceIds": [
     "wikipedia-football-infobox",
     "wikipedia-page-summaries",
@@ -332,16 +332,19 @@
       "teamId": "CAN",
       "birthDate": "2000-11-02",
       "summary": "Alphonso Boyle Davies (born November 2, 2000) is a professional soccer player who plays as a left-back, winger, or wing-back for Bundesliga club Bayern Munich and captains the Canada national team.",
-      "marketValueEurMillions": 50,
+      "marketValueEurMillions": 40,
       "position": "wing-back",
       "club": "Bayern Munich",
       "league": "Bundesliga",
       "uniformNumber": 19,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Alphonso%20Davies%20in%202022.jpg?width=160",
       "skills": [
-        "Wide threat"
+        "Acceleration",
+        "Ball carrying",
+        "Left-side overloads"
       ],
-      "note": "Canada's most explosive ball-carrier, able to flip the match with one run from wide areas.",
+      "note": "Alphonso Davies is Canada's left-side accelerator, turning recoveries into breaks and forcing opponents to defend deeper.",
+      "noteZh": "阿方索·戴维斯是加拿大左路的加速器，能把夺回球权转化为反击，并迫使对手防线后撤。",
       "sourceUrl": "https://en.wikipedia.org/wiki/Alphonso_Davies"
     },
     "Amad Diallo": {
@@ -582,7 +585,7 @@
       "teamId": "SUI",
       "birthDate": "1997-02-14",
       "summary": "Breel Donald Embolo (born 14 February 1997) is a professional footballer who plays as a forward for Ligue 1 club Rennes and the Switzerland national team.",
-      "marketValueEurMillions": 12,
+      "marketValueEurMillions": 15,
       "position": "Forward",
       "club": "Rennes",
       "league": "Ligue 1",
@@ -591,9 +594,11 @@
       "skills": [
         "Box presence",
         "Runs in behind",
+        "Pressing",
         "Target play"
       ],
-      "note": "A powerful runner who can turn Switzerland's possession into box entries.",
+      "note": "Breel Embolo gives Switzerland a powerful reference point up front, turning direct service into hold-up play and box pressure.",
+      "noteZh": "布雷尔·恩博洛为瑞士提供强力的锋线支点，把直接传球转化为背身拿球和禁区压力。",
       "sourceUrl": "https://en.wikipedia.org/wiki/Breel_Embolo"
     },
     "Brian Brobbey": {
@@ -841,10 +846,11 @@
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Cyle%20Larin%20(2021-22%20S%C3%BCper%20Lig)%20-%20Resim1%20(cropped).png?width=160",
       "skills": [
         "Box presence",
-        "Finishing",
-        "Runs in behind"
+        "Hold-up play",
+        "First-time finishing"
       ],
-      "note": "Canada's forward option, useful for box presence, depth, and a direct finishing threat.",
+      "note": "Cyle Larin gives Canada a seasoned penalty-area target, helping crosses, layoffs, and loose balls become real chances.",
+      "noteZh": "赛尔·拉林为加拿大提供经验丰富的禁区支点，帮助传中、做球和二点球转化为真正机会。",
       "sourceUrl": "https://en.wikipedia.org/wiki/Cyle_Larin"
     },
     "Daichi Kamada": {
@@ -1448,17 +1454,17 @@
       "teamId": "SUI",
       "birthDate": "1992-09-27",
       "summary": "Granit Xhaka (Albanian: [gɾanit d͡ʒaka], born 27 September 1992) is a Swiss professional footballer who plays as a defensive midfielder for and captains both Premier League club Sunderland and the Switzerland national team.",
-      "marketValueEurMillions": 10,
+      "marketValueEurMillions": 8,
       "position": "Defensive midfielder",
       "club": "Sunderland",
       "league": "Premier League",
       "uniformNumber": 10,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Granit%20Xhaka%20(cropped).jpg?width=160",
       "skills": [
-        "Midfield control",
-        "Pressing"
+        "Midfield control"
       ],
-      "note": "Switzerland's rhythm setter, controlling where the match is played and when pressure releases.",
+      "note": "Granit Xhaka is Switzerland's tempo setter, using his passing range to organize possession and tilt the game into better areas.",
+      "noteZh": "格拉尼特·扎卡是瑞士的节奏掌控者，依靠传球范围组织控球，并把比赛引向更有利的区域。",
       "sourceUrl": "https://en.wikipedia.org/wiki/Granit_Xhaka"
     },
     "Gustavo Gomez": {
@@ -1877,17 +1883,19 @@
       "teamId": "SUI",
       "birthDate": "2005-10-14",
       "summary": "Johan Manzambi (born 14 October 2005) is a Swiss professional footballer who plays as a midfielder for Bundesliga club SC Freiburg and the Switzerland national team.",
-      "marketValueEurMillions": 30,
+      "marketValueEurMillions": 50,
       "position": "Midfielder",
       "club": "SC Freiburg",
       "league": "Bundesliga",
       "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/927353-1753954939.jpg?lm=1",
       "skills": [
-        "Link-up play",
         "Midfield control",
-        "Pressing"
+        "Pressing",
+        "Ball carrying",
+        "Target play"
       ],
-      "note": "Switzerland's midfield option, useful for connecting phases and keeping the team moving through pressure.",
+      "note": "Johan Manzambi adds carrying power to Switzerland's midfield, helping break pressure and push the team into the final third.",
+      "noteZh": "约翰·曼赞比为瑞士中场增加带球推进能力，帮助球队摆脱压迫并进入进攻三区。",
       "sourceUrl": "https://en.wikipedia.org/wiki/Johan_Manzambi"
     },
     "John McGinn": {
@@ -1913,17 +1921,20 @@
       "displayName": "Jonathan David",
       "teamId": "CAN",
       "birthDate": "2000-01-14",
-      "summary": "Jonathan Christian David (born January 14, 2000) is a professional soccer player who plays as a forward for Serie A club Juventus. Born in the United States, he plays for the Canada national team.",
-      "marketValueEurMillions": 35,
+      "summary": "Jonathan Christian David (born January 14, 2000) is a professional soccer player who plays as a forward for Serie A club Juventus. Born in the United States, he represents the Canada national team.",
+      "marketValueEurMillions": 30,
       "position": "Forward",
       "club": "Juventus",
       "league": "Serie A",
       "uniformNumber": 10,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Jonathan%20David%20asse%20losc%202425%20(cropped).jpg?width=160",
       "skills": [
-        "Finishing"
+        "Finishing",
+        "Between-lines movement",
+        "Press triggers"
       ],
-      "note": "The central finisher, sharpest when Canada create fast cutbacks or transition chances.",
+      "note": "Jonathan David is Canada's sharpest central scorer, finding pockets early and finishing before the back line can reset.",
+      "noteZh": "乔纳森·戴维是加拿大最犀利的中路得分点，能提前找到空当，并在防线重组前完成终结。",
       "sourceUrl": "https://en.wikipedia.org/wiki/Jonathan_David"
     },
     "Jordan Ayew": {
@@ -2603,17 +2614,20 @@
       "teamId": "SUI",
       "birthDate": "1995-07-19",
       "summary": "Manuel Obafemi Akanji (Swiss Standard German pronunciation: [ˈmaː.nu.ɛl aˈkan.dʒi]; born 19 July 1995) is a Swiss professional footballer who plays as a defender for Serie A club Inter Milan, on loan from Premier League club Manchester City, and the...",
-      "marketValueEurMillions": 22,
+      "marketValueEurMillions": 17,
       "position": "Defender",
       "club": "Inter Milan (on loan from Manchester City)",
       "league": "Serie A",
       "uniformNumber": 5,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/2023-10-04%20Fu%C3%9Fball%2C%20M%C3%A4nner%2C%20UEFA%20Champions%20League%2C%20RB%20Leipzig%20-%20Manchester%20City%20FC%201DX%202792%20(Manuel%20Akanji).jpg?width=160",
       "skills": [
+        "Link-up play",
         "Runs in behind",
+        "Ball winning",
         "Defensive control"
       ],
-      "note": "The defensive organizer, especially important when Switzerland have to manage direct central attacks.",
+      "note": "Manuel Akanji anchors Switzerland's back line with recovery pace, duels, and the calm first pass that starts attacks.",
+      "noteZh": "曼努埃尔·阿坎吉用回追速度、对抗和冷静的第一脚传球支撑瑞士后防，并开启进攻。",
       "sourceUrl": "https://en.wikipedia.org/wiki/Manuel_Akanji"
     },
     "Marcel Sabitzer": {
@@ -2991,17 +3005,19 @@
       "teamId": "SUI",
       "birthDate": "1998-03-24",
       "summary": "Miro Max Maria Muheim (born 24 March 1998) is a Swiss professional footballer who plays as a midfielder for Bundesliga club Hamburger SV and the Switzerland national team.",
-      "estimatedMarketValueEurMillions": 11,
+      "marketValueEurMillions": 5,
       "position": "Midfielder",
       "club": "Hamburger SV",
       "league": "Bundesliga",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/2025-05-16%20Hamburger%20SV%20Miro%20Muheim%20(cropped).jpg?width=160",
       "skills": [
-        "Link-up play",
         "Midfield control",
-        "Pressing"
+        "Wide threat",
+        "Defensive control",
+        "Ball carrying"
       ],
-      "note": "Switzerland's midfield option, useful for connecting phases and keeping the team moving through pressure.",
+      "note": "Miro Muheim gives Switzerland a wide outlet, helping the team progress down the flank without losing defensive balance.",
+      "noteZh": "米罗·穆海姆为瑞士提供边路出球点，帮助球队沿边路推进，同时不失去防守平衡。",
       "sourceUrl": "https://en.wikipedia.org/wiki/Miro_Muheim"
     },
     "Mohamed Hany": {
@@ -3197,17 +3213,18 @@
       "teamId": "CAN",
       "birthDate": "2004-02-07",
       "summary": "Nathan-Dylan Saliba (born February 7, 2004) is a Canadian professional soccer player who plays for Belgian Pro League club Anderlecht and the Canada national team.",
-      "estimatedMarketValueEurMillions": 4,
+      "marketValueEurMillions": 7.5,
       "position": "Midfielder",
       "club": "Anderlecht",
       "league": "Belgian Pro League",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Nathan-Dylan_Saliba_RSC_Anderlecht_2025.jpg?width=160",
       "skills": [
-        "Link-up play",
-        "Midfield control",
-        "Pressing"
+        "Midfield ball-winning",
+        "Press support",
+        "Forward carries"
       ],
-      "note": "Canada's midfield option, useful for connecting phases and keeping the team moving through pressure.",
+      "note": "Nathan Saliba adds energy to Canada's midfield, contesting second balls and carrying play into better areas.",
+      "noteZh": "内森·萨利巴为加拿大中场增加活力，能争抢第二落点，并把比赛带到更有利区域。",
       "sourceUrl": "https://en.wikipedia.org/wiki/Nathan_Saliba"
     },
     "Nathaniel Brown": {
@@ -3768,17 +3785,17 @@
       "teamId": "SUI",
       "birthDate": "1998-08-05",
       "summary": "Rubén Estephan Vargas Martínez (born 5 August 1998) is a Swiss professional footballer who plays as a winger or attacking midfielder for Spanish La Liga club Sevilla and the Switzerland national team.",
-      "marketValueEurMillions": 9,
+      "marketValueEurMillions": 12,
       "position": "Winger, attacking midfielder",
       "club": "Sevilla",
       "league": "La Liga",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ruben%20Vargas%20SFV%202019.jpg?width=160",
       "skills": [
         "Box presence",
-        "Chance creation",
-        "Runs in behind"
+        "Wide threat"
       ],
-      "note": "Switzerland's between-lines option, useful for turning possession into final passes and late box runs.",
+      "note": "Ruben Vargas gives Switzerland one-v-one threat from wide areas, turning settled attacks into sudden box entries.",
+      "noteZh": "鲁本·巴尔加斯为瑞士在边路提供一对一威胁，把阵地进攻突然转化为禁区突破。",
       "sourceUrl": "https://en.wikipedia.org/wiki/Rub%C3%A9n_Vargas"
     },
     "Rustamjon Ashurmatov": {
@@ -4001,16 +4018,19 @@
       "teamId": "CAN",
       "birthDate": "1996-12-21",
       "summary": "Stephen Antunes Eustáquio ( STEF-ən; born 21 December 1996) is a Canadian professional soccer player who plays as a midfielder for Major League Soccer club Los Angeles FC, on loan from Primeira Liga club Porto, and vice-captains the Canada national team.",
-      "marketValueEurMillions": 11,
+      "marketValueEurMillions": 6,
       "position": "Midfielder",
-      "club": "Los Angeles (on loan from Porto)",
+      "club": "Los Angeles FC (on loan from Porto)",
       "league": "Major League Soccer",
       "uniformNumber": 7,
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/S%20Eustaqui%20Canada%20national%20football%20team%20WC2022%20(cropped).jpg?width=160",
       "skills": [
-        "Midfield control"
+        "Tempo control",
+        "Set pieces",
+        "Line-breaking passes"
       ],
-      "note": "A midfield stabilizer who helps Canada avoid turning the match into only end-to-end breaks.",
+      "note": "Stephen Eustáquio gives Canada midfield calm, setting the tempo and finding passes that move pressure into the final third.",
+      "noteZh": "斯蒂芬·欧斯塔基奥为加拿大中场带来冷静，能控制节奏，并找到把压力推进到进攻三区的传球。",
       "sourceUrl": "https://en.wikipedia.org/wiki/Stephen_Eust%C3%A1quio"
     },
     "Tahith Chong": {
@@ -4368,6 +4388,920 @@
       ],
       "note": "The midfield connector, valuable when Iraq need composure rather than only defensive running.",
       "sourceUrl": "https://en.wikipedia.org/wiki/Zidane_Iqbal"
+    },
+    "Ante Budimir": {
+      "name": "Ante Budimir",
+      "displayName": "Ante Budimir",
+      "teamId": "CRO",
+      "birthDate": "1991-07-22",
+      "summary": "Ante Budimir (Croatian pronunciation: [ǎːnte bûdimiːr]; born 22 July 1991) is a professional footballer who plays as a striker for La Liga club Osasuna. Born in Bosnia and Herzegovina, he plays for the Croatia national team.",
+      "marketValueEurMillions": 2.8,
+      "position": "Striker",
+      "club": "Osasuna",
+      "league": "La Liga",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Budimir%2C%20Ante%20FCSP%2015-16%20WP%20(cropped).jpg?width=160",
+      "skills": [
+        "Box presence",
+        "Finishing",
+        "Runs in behind"
+      ],
+      "note": "Croatia's forward option, useful for box presence, depth, and a direct finishing threat.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Ante_Budimir"
+    },
+    "Ardon Jashari": {
+      "name": "Ardon Jashari",
+      "displayName": "Ardon Jashari",
+      "teamId": "SUI",
+      "birthDate": "2002-07-30",
+      "summary": "Ardon Jashari (born 30 July 2002) is a Swiss professional footballer who plays as a central midfielder for Serie A club AC Milan and the Switzerland national team.",
+      "marketValueEurMillions": 25,
+      "position": "Central Midfielder",
+      "club": "AC Milan",
+      "league": "Serie A",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ali%20Maamar%20RSCA%202025.jpg?width=160",
+      "skills": [
+        "Midfield control",
+        "Pressing",
+        "Ball carrying"
+      ],
+      "note": "Ardon Jashari gives Switzerland a press-resistant midfield outlet, helping them keep the ball moving when opponents squeeze the center.",
+      "noteZh": "阿尔东·贾沙里为瑞士提供抗压的中场出球点，帮助球队在对手压缩中路时继续流畅推进。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Ardon_Jashari"
+    },
+    "Aurele Amenda": {
+      "name": "Aurele Amenda",
+      "displayName": "Aurèle Amenda",
+      "teamId": "SUI",
+      "birthDate": "2003-07-31",
+      "summary": "Aurèle Florian Amenda (born 31 July 2003) is a Swiss professional footballer who plays as a centre-back for Bundesliga club Eintracht Frankfurt and the Switzerland national team.",
+      "marketValueEurMillions": 10,
+      "position": "Centre-back",
+      "club": "Eintracht Frankfurt",
+      "league": "Bundesliga",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/635645-1724772426.jpg?lm=1",
+      "skills": [
+        "Defensive control",
+        "Leadership"
+      ],
+      "note": "Aurèle Amenda gives Switzerland another calm centre-back option, useful when they need fresh legs without losing build-up security.",
+      "noteZh": "奥雷勒·阿门达为瑞士增加一名冷静的中卫选择，在球队需要换上新鲜体能但仍保持后场组织安全时很有价值。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Aur%C3%A8le_Amenda"
+    },
+    "Cedric Itten": {
+      "name": "Cedric Itten",
+      "displayName": "Cedric Itten",
+      "teamId": "SUI",
+      "birthDate": "1996-12-27",
+      "summary": "Cedric Jan Itten (born 27 December 1996) is a Swiss professional footballer who plays as a centre forward for German 3. Liga club Fortuna Düsseldorf and the Switzerland national team. He will join Bundesliga club Werder Bremen on 1 July 2026.",
+      "marketValueEurMillions": 1.8,
+      "position": "Centre forward",
+      "club": "Fortuna Düsseldorf",
+      "league": "German 3. Liga",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/YB%20ist%20zum%2017.%20Mal%20in%20der%20Klubgeschichte%20Schweizer%20Meister!%20(Cedric%20Itten).jpg?width=160",
+      "skills": [
+        "Box presence",
+        "Finishing"
+      ],
+      "note": "Cedric Itten gives Switzerland a penalty-area striker who can attack crosses and keep centre-backs occupied late in games.",
+      "noteZh": "塞德里克·伊滕为瑞士提供禁区型前锋，能够冲击传中，并在比赛后段持续牵制中卫。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Cedric_Itten"
+    },
+    "Christian Fassnacht": {
+      "name": "Christian Fassnacht",
+      "displayName": "Christian Fassnacht",
+      "teamId": "SUI",
+      "birthDate": "1993-11-11",
+      "summary": "Christian Andreas Fassnacht (born 11 November 1993) is a Swiss professional footballer who plays as a right winger for Swiss Super League club Young Boys and the Switzerland national team.",
+      "marketValueEurMillions": 2,
+      "position": "Right winger",
+      "club": "Young Boys",
+      "league": "Swiss Super League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Christian%20Fassnacht%20(cropped).jpg?width=160",
+      "skills": [
+        "Box presence",
+        "Midfield control",
+        "Runs in behind"
+      ],
+      "note": "Christian Fassnacht gives Switzerland a disciplined attacking runner, arriving from midfield zones to add numbers around the box.",
+      "noteZh": "克里斯蒂安·法斯纳赫特为瑞士提供纪律性很强的进攻跑动，从中场区域前插，为禁区周围增加人数。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Christian_Fassnacht"
+    },
+    "Dan Ndoye": {
+      "name": "Dan Ndoye",
+      "displayName": "Dan Ndoye",
+      "teamId": "SUI",
+      "birthDate": "2000-10-25",
+      "summary": "Dan Assane Ndoye (born 25 October 2000) is a Swiss professional footballer who plays as winger for Premier League club Nottingham Forest and the Switzerland national team.",
+      "marketValueEurMillions": 32,
+      "position": "Winger",
+      "club": "Nottingham Forest",
+      "league": "Premier League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Lens%20-%20Nice%20(23-01-2021)%2052.jpg?width=160",
+      "skills": [
+        "Runs in behind",
+        "Wide threat",
+        "Defensive control"
+      ],
+      "note": "Dan Ndoye brings Switzerland vertical speed, stretching the back line and turning transitions into immediate danger.",
+      "noteZh": "丹·恩多耶为瑞士带来纵向速度，拉伸对方防线，并把转换进攻变成即时威胁。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Dan_Ndoye"
+    },
+    "Denis Zakaria": {
+      "name": "Denis Zakaria",
+      "displayName": "Denis Zakaria",
+      "teamId": "SUI",
+      "birthDate": "1996-11-20",
+      "summary": "Denis Lemi Zakaria Lako Lado (born 20 November 1996) is a Swiss professional footballer who plays as a defensive midfielder for Ligue 1 club Monaco, whom he captains, and the Switzerland national team.",
+      "marketValueEurMillions": 25,
+      "position": "Defensive midfielder",
+      "club": "Monaco",
+      "league": "Ligue 1",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Zakaria%20asse%20asm%202425%20(cropped).png?width=160",
+      "skills": [
+        "Midfield control",
+        "Runs in behind",
+        "Pressing",
+        "Ball carrying"
+      ],
+      "note": "Denis Zakaria gives Switzerland ball-winning range in midfield, closing space quickly and carrying play out of pressure.",
+      "noteZh": "丹尼斯·扎卡里亚为瑞士提供覆盖范围很大的中场抢断能力，能快速封锁空间并带球摆脱压力。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Denis_Zakaria"
+    },
+    "Djibril Sow": {
+      "name": "Djibril Sow",
+      "displayName": "Djibril Sow",
+      "teamId": "SUI",
+      "birthDate": "1997-02-06",
+      "summary": "Mohameth Djibril Ibrahima Sow (born 6 February 1997) is a Swiss professional footballer who plays as a defensive midfielder for La Liga club Sevilla and the Switzerland national team.",
+      "marketValueEurMillions": 7.5,
+      "position": "Defensive midfielder",
+      "club": "Sevilla",
+      "league": "La Liga",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/DjibrilSow%20(cropped).jpg?width=160",
+      "skills": [
+        "Link-up play",
+        "Defensive control"
+      ],
+      "note": "Djibril Sow helps Switzerland stabilize the middle, linking defensive recoveries to cleaner forward passes.",
+      "noteZh": "吉布里尔·索乌帮助瑞士稳住中场，把防守夺回球权衔接成更干净的向前传球。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Djibril_Sow"
+    },
+    "Eray Coemert": {
+      "name": "Eray Coemert",
+      "displayName": "Eray Cömert",
+      "teamId": "SUI",
+      "birthDate": "1998-02-04",
+      "summary": "Eray Ervin Cömert (born 4 February 1998) is a Swiss professional footballer who plays as a centre-back for Spanish club Valencia and the Switzerland national team.",
+      "marketValueEurMillions": 2.5,
+      "position": "Centre-back",
+      "club": "Valencia",
+      "league": "La Liga",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Eray%20C%C3%B6mert%202019%20(cropped).jpg?width=160",
+      "skills": [
+        "Set pieces",
+        "Box presence"
+      ],
+      "note": "Eray Cömert gives Switzerland a sturdy centre-back option, useful for protecting the box and restarting attacks with simple passes.",
+      "noteZh": "埃赖·居梅尔特为瑞士提供稳健的中卫选择，适合保护禁区，并用简洁传球重新发起进攻。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Eray_C%C3%B6mert"
+    },
+    "Fabian Rieder": {
+      "name": "Fabian Rieder",
+      "displayName": "Fabian Rieder",
+      "teamId": "SUI",
+      "birthDate": "2002-02-16",
+      "summary": "Fabian Rieder (born 16 February 2002) is a Swiss professional footballer who plays as an attacking midfielder for German Bundesliga club FC Augsburg and the Switzerland national team.",
+      "marketValueEurMillions": 12,
+      "position": "Attacking midfielder",
+      "club": "FC Augsburg",
+      "league": "Bundesliga",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/507341-1773671220.jpg?lm=1",
+      "skills": [
+        "Set pieces",
+        "Box presence",
+        "Chance creation"
+      ],
+      "note": "Fabian Rieder gives Switzerland a creative set-piece and final-pass option when they need one cleaner action near the box.",
+      "noteZh": "法比安·里德为瑞士提供定位球和最后一传的创造力，在球队需要禁区附近一次更干净处理时很关键。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Fabian_Rieder"
+    },
+    "Gregor Kobel": {
+      "name": "Gregor Kobel",
+      "displayName": "Gregor Kobel",
+      "teamId": "SUI",
+      "birthDate": "1997-12-06",
+      "summary": "Gregor Kobel (born 6 December 1997) is a Swiss professional footballer who plays as a goalkeeper for Bundesliga club Borussia Dortmund and the Switzerland national team.",
+      "marketValueEurMillions": 40,
+      "position": "Goalkeeper",
+      "club": "Borussia Dortmund",
+      "league": "Bundesliga",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/2023-08-12%20TSV%20Schott%20Mainz%20gegen%20Borussia%20Dortmund%20(DFB-Pokal%202023-24)%20by%20Sandro%20Halank%E2%80%93090.jpg?width=160",
+      "skills": [
+        "Box presence",
+        "Runs in behind",
+        "Pressing"
+      ],
+      "note": "Gregor Kobel gives Switzerland elite shot-stopping behind the block, keeping them alive when pressure reaches their box.",
+      "noteZh": "格雷戈尔·科贝尔为瑞士防线身后提供顶级扑救能力，在压力进入禁区时帮助球队保住比赛。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Gregor_Kobel"
+    },
+    "Hassan Alhaydos": {
+      "name": "Hassan Alhaydos",
+      "displayName": "Hassan Al-Haydos",
+      "teamId": "QAT",
+      "birthDate": "1990-12-11",
+      "summary": "Hassan Khalid Hassan Al-Haydos (Arabic: حَسَن خَالِد حَسَن الْهَيْدُوس; born 11 December 1990) is a Qatari professional footballer who plays as a forward for and captains Qatar Stars League club Al Sadd and the Qatar national team.",
+      "marketValueEurMillions": 0.3,
+      "position": "Forward",
+      "club": "Al Sadd",
+      "league": "Qatar Stars League",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/d/df/Qatar_-_Japan%2C_AFC_Asian_Cup_2019_58_-_Hassan_Al_Haydos.jpg",
+      "skills": [
+        "Set pieces",
+        "Chance creation",
+        "Runs in behind",
+        "Leadership"
+      ],
+      "note": "Qatar's veteran attacking leader, useful for calm final passes, set-piece delivery, and late runs into scoring spots.",
+      "noteZh": "卡塔尔经验丰富的进攻领袖，能提供冷静的最后一传、定位球输送，以及后插上进入得分位置的跑动。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Hassan_Al-Haydos"
+    },
+    "Kerim Alajbegovic": {
+      "name": "Kerim Alajbegovic",
+      "displayName": "Kerim Alajbegović",
+      "teamId": "BIH",
+      "birthDate": "2007-09-21",
+      "summary": "Kerim Alajbegović (pronounced [kěrim alajbêːgoʋitɕ]; born 21 September 2007) is a professional footballer who plays as a winger for Austrian Bundesliga club Red Bull Salzburg.",
+      "marketValueEurMillions": 22,
+      "position": "Winger",
+      "club": "Red Bull Salzburg",
+      "league": "Austrian Bundesliga",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Jahresbeginnfeier%20FC%20RB%20Salzburg%20(2026-01-25%20RB%20Arena)%2010.jpg?width=160",
+      "skills": [
+        "Runs in behind",
+        "Wide threat"
+      ],
+      "note": "Bosnia and Herzegovina's wide attacking option, useful for stretching the field, running behind, and adding final-third threat.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Kerim_Alajbegovi%C4%87"
+    },
+    "Lenny Joseph": {
+      "name": "Lenny Joseph",
+      "displayName": "Lenny Joseph",
+      "teamId": "HAI",
+      "birthDate": "2000-10-12",
+      "summary": "Lenny Joseph (born 12 October 2000) is a professional footballer who plays as a forward for Hungarian club Ferencváros. Born in France, he plays for the Haiti national team.",
+      "marketValueEurMillions": 0.5,
+      "position": "Forward",
+      "club": "Ferencváros",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/815359-1653404408.jpg?lm=1",
+      "skills": [
+        "Box presence",
+        "Finishing",
+        "Runs in behind"
+      ],
+      "note": "Haiti's forward option, useful for box presence, depth, and a direct finishing threat.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Lenny_Joseph"
+    },
+    "Luca Jaquez": {
+      "name": "Luca Jaquez",
+      "displayName": "Luca Jaquez",
+      "teamId": "SUI",
+      "birthDate": "2003-06-02",
+      "summary": "Luca Antony Jaquez (born 2 June 2003) is a Swiss professional footballer who plays as a centre-back for German Bundesliga club VfB Stuttgart and the Switzerland national team.",
+      "marketValueEurMillions": 10,
+      "position": "Centre-back",
+      "club": "VfB Stuttgart",
+      "league": "Bundesliga",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/539798-1753307950.jpg?lm=1",
+      "skills": [
+        "Pressing",
+        "Defensive control"
+      ],
+      "note": "Luca Jaquez gives Switzerland a young defensive option who can hold the line and keep possession simple under pressure.",
+      "noteZh": "卢卡·雅克斯为瑞士提供年轻的防守选择，能够稳住防线，并在压力下保持简单控球。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Luca_Jaquez"
+    },
+    "Mahmoud Abunada": {
+      "name": "Mahmoud Abunada",
+      "displayName": "Mahmoud Abunada",
+      "teamId": "QAT",
+      "birthDate": "2000-02-05",
+      "summary": "Mahmud Ibrahim Abunada (Arabic: محمود إبراهيم أبو ندى; born 5 February 2000) is a Qatari professional footballer who plays as a goalkeeper for Qatari Stars League club Al-Rayyan and the Qatar national team.",
+      "marketValueEurMillions": 0.4,
+      "position": "Goalkeeper",
+      "club": "Al-Rayyan",
+      "league": "Qatar Stars League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/669629-1725823800.png?lm=1",
+      "skills": [
+        "Shot-stopping",
+        "Box presence",
+        "Finishing",
+        "Midfield control"
+      ],
+      "note": "Qatar's shot-stopping goalkeeper, giving the team box control and a steadier platform when pressure reaches the area.",
+      "noteZh": "卡塔尔的扑救型门将，在压力进入禁区时帮助球队控制禁区，并提供更稳定的出球基础。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Mahmud_Abunada"
+    },
+    "Marvin Keller": {
+      "name": "Marvin Keller",
+      "displayName": "Marvin Keller",
+      "teamId": "SUI",
+      "birthDate": "2002-07-03",
+      "summary": "Marvin Keller (born 3 July 2002) is a Swiss professional footballer who plays as a goalkeeper for Swiss club Young Boys and the Switzerland national team.",
+      "marketValueEurMillions": 6,
+      "position": "Goalkeeper",
+      "club": "Young Boys",
+      "league": "Swiss Super League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/500763-1738674979.jpg?lm=1",
+      "skills": [
+        "Shot-stopping",
+        "Finishing",
+        "Runs in behind"
+      ],
+      "note": "Marvin Keller gives Switzerland a young goalkeeping option, ready to add shot-stopping depth behind the senior choices.",
+      "noteZh": "马尔文·凯勒为瑞士提供年轻门将选择，在主力门将之后增加扑救深度。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Marvin_Keller_(footballer)"
+    },
+    "Michel Aebischer": {
+      "name": "Michel Aebischer",
+      "displayName": "Michel Aebischer",
+      "teamId": "SUI",
+      "birthDate": "1997-01-06",
+      "summary": "Michel Aebischer (born 6 January 1997) is a Swiss professional footballer who plays as a defensive midfielder for Serie B club Pisa, on loan from Serie A club Bologna, and the Switzerland national team.",
+      "marketValueEurMillions": 4,
+      "position": "Defensive midfielder",
+      "club": "Pisa (on loan from Bologna)",
+      "league": "Serie B",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/237658-1669289063.jpg?lm=1",
+      "skills": [
+        "Box presence",
+        "Link-up play",
+        "Midfield control",
+        "Runs in behind"
+      ],
+      "note": "Michel Aebischer helps Switzerland connect midfield control to sharper final-third passes and late box runs.",
+      "noteZh": "米歇尔·埃比舍帮助瑞士把中场控制衔接成更锐利的进攻三区传球和后插上禁区跑动。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Michel_Aebischer"
+    },
+    "Nico Elvedi": {
+      "name": "Nico Elvedi",
+      "displayName": "Nico Elvedi",
+      "teamId": "SUI",
+      "birthDate": "1996-09-30",
+      "summary": "Nico Elvedi (born 30 September 1996) is a Swiss professional footballer who plays as a centre-back for Bundesliga club Borussia Mönchengladbach and the Switzerland national team.",
+      "marketValueEurMillions": 8,
+      "position": "Centre-back",
+      "club": "Borussia Mönchengladbach",
+      "league": "Bundesliga",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Wales-Switzerland%20match%20at%20Euro%202020%20in%20Baku%20(cropped).jpg?width=160",
+      "skills": [
+        "Defensive control",
+        "Leadership"
+      ],
+      "note": "Nico Elvedi gives Switzerland a reliable centre-back presence, strong in defensive positioning and calm circulation.",
+      "noteZh": "尼科·埃尔韦迪为瑞士提供可靠的中卫存在感，防守站位稳健，传导也冷静。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Nico_Elvedi"
+    },
+    "Noah Okafor": {
+      "name": "Noah Okafor",
+      "displayName": "Noah Okafor",
+      "teamId": "SUI",
+      "birthDate": "2000-05-24",
+      "summary": "Noah Arinzechukwu Okafor (born 24 May 2000) is a Swiss professional footballer who plays as a forward for Premier League club Leeds United and the Switzerland national team.",
+      "marketValueEurMillions": 25,
+      "position": "Forward",
+      "club": "Leeds United",
+      "league": "Premier League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/FC%20RB%20Salzburg%20gegen%20FK%20Austria%20Wien%20(2022-04-24)%2068.jpg?width=160",
+      "skills": [
+        "Midfield control",
+        "Runs in behind",
+        "Defensive control"
+      ],
+      "note": "Noah Okafor gives Switzerland acceleration in attack, threatening space behind defenders and changing the rhythm off the bench.",
+      "noteZh": "诺阿·奥卡福为瑞士进攻带来加速能力，威胁后卫身后空间，并能替补登场改变节奏。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Noah_Okafor"
+    },
+    "Promise David": {
+      "name": "Promise David",
+      "displayName": "Promise David",
+      "teamId": "CAN",
+      "birthDate": "2001-07-03",
+      "summary": "Promise Oluwatobi Emmanuel David Akinpelu (born July 3, 2001) is a Canadian professional soccer player who plays as a striker for Belgian Pro League club Union SG and the Canada national team.",
+      "marketValueEurMillions": 17,
+      "position": "Striker",
+      "club": "Union SG",
+      "league": "Belgian Pro League",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Promise%20David%20Union%20Saint-Gilloise%202025.jpg?width=160",
+      "skills": [
+        "Box movement",
+        "Hold-up play",
+        "Direct finishing"
+      ],
+      "note": "Promise David gives Canada a powerful forward alternative, pinning centre-backs and attacking loose balls in the area.",
+      "noteZh": "普罗米斯·戴维为加拿大提供强力的锋线选择，能牵制中卫，并冲击禁区里的二点机会。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Promise_David"
+    },
+    "Remo Freuler": {
+      "name": "Remo Freuler",
+      "displayName": "Remo Freuler",
+      "teamId": "SUI",
+      "birthDate": "1992-04-15",
+      "summary": "Remo Marco Freuler (Swiss Standard German pronunciation: [ˈreː.mo ˈfrɔɪ.lər]; born 15 April 1992) is a Swiss professional footballer who plays as a midfielder for Serie A club Bologna and the Switzerland national team.",
+      "marketValueEurMillions": 3,
+      "position": "Midfielder",
+      "club": "Bologna",
+      "league": "Serie A",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/RemoFreuler.jpg?width=160",
+      "skills": [
+        "Box presence",
+        "Link-up play",
+        "Midfield control",
+        "Defensive control"
+      ],
+      "note": "Remo Freuler gives Switzerland midfield order, reading second balls and keeping attacks connected after recoveries.",
+      "noteZh": "雷莫·弗罗伊勒为瑞士带来中场秩序，判断第二落点，并在夺回球权后保持进攻衔接。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Remo_Freuler"
+    },
+    "Ricardo Rodriguez": {
+      "name": "Ricardo Rodriguez",
+      "displayName": "Ricardo Rodríguez",
+      "teamId": "SUI",
+      "birthDate": "1992-08-25",
+      "summary": "Ricardo Iván Rodríguez Araya (born 25 August 1992) is a Swiss professional footballer who plays as a left-back for La Liga club Real Betis and the Switzerland national team.",
+      "marketValueEurMillions": 1.4,
+      "position": "Left-back",
+      "club": "Betis",
+      "league": "La Liga",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ricardo%20Rodr%C3%ADguez%202018.jpg?width=160",
+      "skills": [
+        "Box presence",
+        "Midfield control",
+        "Defensive control",
+        "Leadership"
+      ],
+      "note": "Ricardo Rodríguez gives Switzerland experienced defensive control, especially when they need composure around their own box.",
+      "noteZh": "里卡多·罗德里格斯为瑞士提供经验丰富的防守控制，尤其在本方禁区周围需要冷静处理时很重要。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Ricardo_Rodr%C3%ADguez_(footballer)"
+    },
+    "Silvan Widmer": {
+      "name": "Silvan Widmer",
+      "displayName": "Silvan Widmer",
+      "teamId": "SUI",
+      "birthDate": "1993-03-05",
+      "summary": "Silvan Dominic Widmer (born 5 March 1993) is a Swiss professional footballer who plays as a right-back for Bundesliga club Mainz 05, whom he captains, and the Switzerland national team.",
+      "marketValueEurMillions": 0.8,
+      "position": "Right-back",
+      "club": "Mainz 05",
+      "league": "Bundesliga",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/AUT%20vs.%20SUI%202015-11-17%20(173)%20Silvan%20Widmer.jpg?width=160",
+      "skills": [
+        "Runs in behind",
+        "Defensive control"
+      ],
+      "note": "Silvan Widmer gives Switzerland a seasoned right-sided defender, balancing overlap timing with recovery runs.",
+      "noteZh": "西尔万·维德默为瑞士提供经验丰富的右路防守者，能平衡套边时机和回追跑动。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Silvan_Widmer"
+    },
+    "Yvon Mvogo": {
+      "name": "Yvon Mvogo",
+      "displayName": "Yvon Mvogo",
+      "teamId": "SUI",
+      "birthDate": "1994-06-06",
+      "summary": "Yvon Landry Mvogo Nganoma (born 6 June 1994) is a Swiss professional footballer who plays as a goalkeeper for Ligue 1 club Lorient. Born in Cameroon, he plays for the Switzerland national team.",
+      "marketValueEurMillions": 2.5,
+      "position": "Goalkeeper",
+      "club": "Lorient",
+      "league": "Ligue 1",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Yvon%20Mvogo.jpg?width=160",
+      "skills": [
+        "Shot-stopping",
+        "Box presence",
+        "Finishing",
+        "Wide threat"
+      ],
+      "note": "Yvon Mvogo gives Switzerland experienced goalkeeping cover, steadying the box when the match becomes stretched.",
+      "noteZh": "伊冯·姆沃戈为瑞士提供经验丰富的门将保障，在比赛变得拉开时帮助禁区保持稳定。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Yvon_Mvogo"
+    },
+    "Zeki Amdouni": {
+      "name": "Zeki Amdouni",
+      "displayName": "Zeki Amdouni",
+      "teamId": "SUI",
+      "birthDate": "2000-12-04",
+      "summary": "Mohamed Zeki Amdouni (born 4 December 2000) is a Swiss professional footballer who plays as an attacking midfielder or forward for EFL Championship club Burnley and the Switzerland national team.",
+      "marketValueEurMillions": 7,
+      "position": "Attacking midfielder, forward",
+      "club": "Burnley",
+      "league": "EFL Championship",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/548729-1715938870.jpg?lm=1",
+      "skills": [
+        "Link-up play",
+        "Movement"
+      ],
+      "note": "Zeki Amdouni gives Switzerland a clever forward link, drifting between lines to combine and still threaten the finish.",
+      "noteZh": "泽基·阿姆杜尼为瑞士提供聪明的锋线衔接，在两线之间游走配合，同时保持终结威胁。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Zeki_Amdouni"
+    },
+    "Ali Ahmed": {
+      "name": "Ali Ahmed",
+      "displayName": "Ali Ahmed",
+      "teamId": "CAN",
+      "birthDate": "2000-10-10",
+      "summary": "Ali Ahmed (born October 10, 2000) is a Canadian professional soccer player who plays as a wide midfielder or winger for EFL Championship club Norwich City and the Canada national team.",
+      "estimatedMarketValueEurMillions": 4,
+      "position": "Wide midfielder, winger",
+      "club": "Norwich City",
+      "league": "EFL Championship",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/995642-1740765149.jpg?lm=1",
+      "skills": [
+        "Wide carrying",
+        "Pressing",
+        "Combination play"
+      ],
+      "note": "Ali Ahmed gives Canada a flexible wide midfielder, carrying through pressure and linking quick combinations on the flank.",
+      "noteZh": "阿里·艾哈迈德为加拿大提供灵活的边路中场，能在压力下带球推进，并在边路串联快速配合。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Ali_Ahmed_(soccer)"
+    },
+    "Alistair Johnston": {
+      "name": "Alistair Johnston",
+      "displayName": "Alistair Johnston",
+      "teamId": "CAN",
+      "birthDate": "1998-10-08",
+      "summary": "Alistair William Johnston (born October 8, 1998) is a Canadian professional football player who plays as a right-back for Scottish Premiership club Celtic and the Canada national team. Johnston began his senior career with Vaughan Azzurri.",
+      "marketValueEurMillions": 8,
+      "position": "Right-back",
+      "club": "Celtic",
+      "league": "Scottish Premiership",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/637446-1701212171.jpg?lm=1",
+      "skills": [
+        "Right-side defending",
+        "Overlap timing",
+        "Recovery runs"
+      ],
+      "note": "Alistair Johnston steadies Canada's right side, mixing tight defending with well-timed overlaps when the attack needs width.",
+      "noteZh": "阿利斯泰尔·约翰斯顿稳住加拿大右路，把紧凑防守和恰到好处的套边结合起来，在进攻需要宽度时很有用。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Alistair_Johnston"
+    },
+    "Derek Cornelius": {
+      "name": "Derek Cornelius",
+      "displayName": "Derek Cornelius",
+      "teamId": "CAN",
+      "birthDate": "1997-11-25",
+      "summary": "Derek Austin Cornelius (born 25 November 1997) is a Canadian professional soccer player who plays as a centre-back for Ligue 1 club Marseille and the Canada national team.",
+      "marketValueEurMillions": 2.5,
+      "position": "Centre-back",
+      "club": "Marseille",
+      "league": "Ligue 1",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Cornelius%20asse%20om%202425.png?width=160",
+      "skills": [
+        "Centre-back duels",
+        "Line control",
+        "Left-footed passing"
+      ],
+      "note": "Derek Cornelius gives Canada a left-sided centre-back presence, helping them defend the box and start attacks from deeper zones.",
+      "noteZh": "德里克·科尼利厄斯为加拿大提供左脚中卫存在感，帮助球队保护禁区，并从更靠后的区域发动进攻。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Derek_Cornelius"
+    },
+    "Ismael Kone": {
+      "name": "Ismael Kone",
+      "displayName": "Ismaël Koné",
+      "teamId": "CAN",
+      "birthDate": "2002-06-16",
+      "summary": "Ismaël Kenneth Jordan Koné (born June 16, 2002) is a professional soccer player who plays as a midfielder for Serie A club Sassuolo. Born in the Ivory Coast, he plays for the Canada national team.",
+      "marketValueEurMillions": 25,
+      "position": "Central midfielder",
+      "club": "Sassuolo",
+      "league": "Serie A",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/921655-1757604633.jpg?lm=1",
+      "skills": [
+        "Press resistance",
+        "Carrying power",
+        "Forward passing"
+      ],
+      "note": "Ismaël Koné gives Canada midfield surge, breaking pressure with carries and turning recoveries into forward passes.",
+      "noteZh": "伊斯梅尔·科内为加拿大带来中场冲击力，能用带球摆脱压力，并把夺回球权转化为向前传球。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Isma%C3%ABl_Kon%C3%A9"
+    },
+    "Jacob Shaffelburg": {
+      "name": "Jacob Shaffelburg",
+      "displayName": "Jacob Shaffelburg",
+      "teamId": "CAN",
+      "birthDate": "1999-11-26",
+      "summary": "Jacob Everett Shaffelburg (born November 26, 1999) is a Canadian professional soccer player who plays as a winger for Major League Soccer club Los Angeles FC and the Canada national team.",
+      "marketValueEurMillions": 2.5,
+      "position": "Winger",
+      "club": "Los Angeles FC",
+      "league": "Major League Soccer",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Jacob%20Shaffleburg%20cropped.png?width=160",
+      "skills": [
+        "Left-wing speed",
+        "Direct running",
+        "Early crosses"
+      ],
+      "note": "Jacob Shaffelburg changes Canada's tempo from the left, attacking space early and forcing defenders to turn toward goal.",
+      "noteZh": "雅各布·沙费尔伯格从左路改变加拿大节奏，提前冲击空间，并迫使防守球员转身面对本方球门。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Jacob_Shaffelburg"
+    },
+    "Joel Waterman": {
+      "name": "Joel Waterman",
+      "displayName": "Joel Waterman",
+      "teamId": "CAN",
+      "birthDate": "1996-01-24",
+      "summary": "Joel Robert Waterman (born January 24, 1996) is a Canadian soccer player who plays as a centre-back, right-back or defensive midfielder for Chicago Fire of Major League Soccer and the Canada national team.",
+      "marketValueEurMillions": 2,
+      "position": "Defender, defensive midfielder",
+      "club": "Chicago Fire",
+      "league": "Major League Soccer",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Joel%20Waterman%20Philadelphia%20Chicago%2010.26.25-025%20(cropped).jpg?width=160",
+      "skills": [
+        "Defensive positioning",
+        "Back-line cover",
+        "Simple circulation"
+      ],
+      "note": "Joel Waterman gives Canada a composed defensive option, useful for holding shape and keeping possession simple under pressure.",
+      "noteZh": "乔尔·沃特曼为加拿大提供冷静的防守选择，适合保持阵型，并在压力下用简洁传导稳住球权。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Joel_Waterman"
+    },
+    "Jonathan Osorio": {
+      "name": "Jonathan Osorio",
+      "displayName": "Jonathan Osorio",
+      "teamId": "CAN",
+      "birthDate": "1992-06-12",
+      "summary": "Jonathan Osorio (born June 12, 1992) is a Canadian professional soccer player who plays as a midfielder for Major League Soccer club Toronto FC, which he captains, and the Canada national team. Osorio holds the Toronto FC club record for most appearances.",
+      "marketValueEurMillions": 1,
+      "position": "Midfielder",
+      "club": "Toronto FC",
+      "league": "Major League Soccer",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Jonathan%20Osorio%202017.jpg?width=160",
+      "skills": [
+        "Midfield timing",
+        "Late runs",
+        "Combination play"
+      ],
+      "note": "Jonathan Osorio gives Canada experienced midfield timing, arriving late around the box and keeping attacks connected.",
+      "noteZh": "乔纳森·奥索里奥为加拿大提供经验丰富的中场时机感，能后插上到禁区周围，并保持进攻衔接。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Jonathan_Osorio"
+    },
+    "Liam Millar": {
+      "name": "Liam Millar",
+      "displayName": "Liam Millar",
+      "teamId": "CAN",
+      "birthDate": "1999-09-27",
+      "summary": "Liam Alan Millar (born September 27, 1999) is a Canadian professional soccer player who plays as an attacking midfielder or left winger for Premier League club Hull City and the Canada national team.",
+      "marketValueEurMillions": 1.7,
+      "position": "Attacking midfielder, left winger",
+      "club": "Hull City",
+      "league": "EFL Championship",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Liam%20Millar.jpeg?width=160",
+      "skills": [
+        "Left-wing threat",
+        "One-v-one attacks",
+        "Crossing"
+      ],
+      "note": "Liam Millar gives Canada a natural wide outlet, stretching the left side and creating service before defenses settle.",
+      "noteZh": "利亚姆·米勒为加拿大提供天然的边路出口，拉开左路宽度，并在防线站稳前创造传中服务。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Liam_Millar"
+    },
+    "Luc De Fougerolles": {
+      "name": "Luc De Fougerolles",
+      "displayName": "Luc de Fougerolles",
+      "teamId": "CAN",
+      "birthDate": "2005-10-12",
+      "summary": "Luc Rollet de Fougerolles (French pronunciation: [lyk d (ə) fuʒʁɔl]; born 12 October 2005) is a professional football player who plays as a defender for Belgian Pro League club Dender EH, on loan from Fulham.",
+      "marketValueEurMillions": 1,
+      "position": "Defender",
+      "club": "Dender EH (on loan from Fulham)",
+      "league": "Belgian Pro League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/921995-1760114291.jpg?lm=1",
+      "skills": [
+        "Centre-back depth",
+        "Recovery pace",
+        "Defensive cover"
+      ],
+      "note": "Luc de Fougerolles gives Canada young defensive depth, helping cover space when the back line has to defend bigger gaps.",
+      "noteZh": "吕克·德富热罗勒为加拿大提供年轻的防线深度，在后防需要覆盖更大空间时能帮助补位。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Luc_de_Fougerolles"
+    },
+    "Mathieu Choiniere": {
+      "name": "Mathieu Choiniere",
+      "displayName": "Mathieu Choinière",
+      "teamId": "CAN",
+      "birthDate": "1999-02-07",
+      "summary": "Mathieu Choinière (born February 7, 1999) is a Canadian professional soccer player who plays as a central midfielder, defensive midfielder or right winger for Major League Soccer club Los Angeles FC and the Canada national team.",
+      "marketValueEurMillions": 0.8,
+      "position": "Midfielder, right winger",
+      "club": "Los Angeles FC",
+      "league": "Major League Soccer",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/589006-1771689836.jpg?lm=1",
+      "skills": [
+        "Central coverage",
+        "Pressing",
+        "Short passing"
+      ],
+      "note": "Mathieu Choinière gives Canada a useful midfield utility piece, covering ground and keeping the next pass available.",
+      "noteZh": "马蒂厄·舒瓦尼埃为加拿大提供实用的中场多面手，能覆盖空间，并让下一脚传球始终有出口。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Mathieu_Choini%C3%A8re"
+    },
+    "Maxime Crepeau": {
+      "name": "Maxime Crepeau",
+      "displayName": "Maxime Crépeau",
+      "teamId": "CAN",
+      "birthDate": "1994-05-11",
+      "summary": "Maxime Crépeau (born May 11, 1994) is a Canadian professional soccer player who plays as a goalkeeper for Major League Soccer club Orlando City and the Canada national team.",
+      "marketValueEurMillions": 1.8,
+      "position": "Goalkeeper",
+      "club": "Orlando City",
+      "league": "Major League Soccer",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Maxime%20Cr%C3%A9peau%20and%20James%20Pantemis%20Portland%20Timbers%202024%20(cropped).jpg?width=160",
+      "skills": [
+        "Shot stopping",
+        "Box command",
+        "Leadership"
+      ],
+      "note": "Maxime Crépeau gives Canada an experienced voice in goal, organizing the box and handling pressure moments calmly.",
+      "noteZh": "马克西姆·克雷波为加拿大球门带来有经验的指挥声音，能组织禁区，并冷静处理高压时刻。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Maxime_Cr%C3%A9peau"
+    },
+    "Moise Bombito": {
+      "name": "Moise Bombito",
+      "displayName": "Moïse Bombito",
+      "teamId": "CAN",
+      "birthDate": "2000-03-30",
+      "summary": "Moïse Bombito Lumpungu (born March 30, 2000) is a Canadian professional soccer player who plays as a centre-back for Ligue 1 club Nice and the Canada national team.",
+      "marketValueEurMillions": 7,
+      "position": "Centre-back",
+      "club": "Nice",
+      "league": "Ligue 1",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Bombito%20asse%20ogcn%202425.png?width=160",
+      "skills": [
+        "Recovery speed",
+        "Centre-back duels",
+        "Open-field defending"
+      ],
+      "note": "Moïse Bombito gives Canada recovery speed at centre-back, important when their press leaves space behind the line.",
+      "noteZh": "莫伊兹·邦比托为加拿大中卫位置带来回追速度，在球队压迫后防线身后留下空间时很重要。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Mo%C3%AFse_Bombito"
+    },
+    "Niko Sigur": {
+      "name": "Niko Sigur",
+      "displayName": "Niko Sigur",
+      "teamId": "CAN",
+      "birthDate": "2003-09-09",
+      "summary": "Niko Kristian Sigur (born September 9, 2003) is a Canadian professional soccer player who plays as a defensive midfielder or right-back for HNL club Hajduk Split and the Canada national team.",
+      "marketValueEurMillions": 4,
+      "position": "Defensive midfielder, Right back",
+      "club": "Hajduk Split",
+      "league": "Croatian Football League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/1045375-1767281251.jpg?lm=1",
+      "skills": [
+        "Defensive midfield",
+        "Right-side cover",
+        "Tactical flexibility"
+      ],
+      "note": "Niko Sigur gives Canada flexible defensive cover, able to protect midfield lanes or slide across to the right side.",
+      "noteZh": "尼科·西古尔为加拿大提供灵活的防守保护，既能守住中场通道，也能横移到右路补位。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Niko_Sigur"
+    },
+    "Owen Goodman": {
+      "name": "Owen Goodman",
+      "displayName": "Owen Goodman",
+      "teamId": "CAN",
+      "birthDate": "2003-11-27",
+      "summary": "Owen Olamidayo Goodman (born 27 November 2003) is a British Canadian professional soccer player who plays as a goalkeeper for Premier League club Crystal Palace. Born in England, he represents the Canada national team.",
+      "marketValueEurMillions": 0.6,
+      "position": "Goalkeeper",
+      "club": "Barnsley (on loan from Crystal Palace)",
+      "league": "EFL League One",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Owen%20Goodman%2015022025%20(1)%20(cropped).jpg?width=160",
+      "skills": [
+        "Shot stopping",
+        "Penalty-area control",
+        "Long distribution"
+      ],
+      "note": "Owen Goodman gives Canada a young goalkeeping option, useful for reach, box control, and longer distribution.",
+      "noteZh": "欧文·古德曼为加拿大提供年轻门将选择，适合利用臂展、控制禁区，并完成较长距离出球。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Owen_Goodman"
+    },
+    "Richie Laryea": {
+      "name": "Richie Laryea",
+      "displayName": "Richie Laryea",
+      "teamId": "CAN",
+      "birthDate": "1995-01-07",
+      "summary": "Richmond Mamah Laryea ( La-RAY-a; Ga: LAH-yee; born January 7, 1995) is a Canadian professional soccer player who plays as a right-back or midfielder for Major League Soccer club Toronto and the Canada national team.",
+      "marketValueEurMillions": 1,
+      "position": "Right-back, midfielder",
+      "club": "Toronto FC",
+      "league": "Major League Soccer",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/CINvOCB%202017-05-13%20-%20Richie%20Laryea%20(34525525311)%20(cropped).jpg?width=160",
+      "skills": [
+        "Right-side carrying",
+        "Overlaps",
+        "Defensive recovery"
+      ],
+      "note": "Richie Laryea gives Canada a direct right-side runner, pushing the ball forward and recovering quickly when attacks break down.",
+      "noteZh": "里奇·拉耶阿为加拿大提供直接的右路推进者，能把球向前带，并在进攻中断后快速回追。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Richie_Laryea"
+    },
+    "Tajon Buchanan": {
+      "name": "Tajon Buchanan",
+      "displayName": "Tajon Buchanan",
+      "teamId": "CAN",
+      "birthDate": "1999-02-08",
+      "summary": "Tajon Trevor Buchanan (born February 8, 1999) is a Canadian professional soccer player who plays for La Liga club Villarreal and the Canada national team.",
+      "marketValueEurMillions": 12,
+      "position": "Full-back, winger",
+      "club": "Villarreal",
+      "league": "La Liga",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Tajon%20Buchanan%20WC2022.jpg?width=160",
+      "skills": [
+        "One-v-one attacks",
+        "Right-wing pace",
+        "Box entries"
+      ],
+      "note": "Tajon Buchanan gives Canada explosive one-v-one threat, driving into the box from wide positions before help arrives.",
+      "noteZh": "塔琼·布坎南为加拿大提供爆发力很强的一对一威胁，能在协防到位前从边路带球杀入禁区。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Tajon_Buchanan"
+    },
+    "Tani Oluwaseyi": {
+      "name": "Tani Oluwaseyi",
+      "displayName": "Tani Oluwaseyi",
+      "teamId": "CAN",
+      "birthDate": "2000-05-15",
+      "summary": "Tanitoluwa Oluwatimilehin Oluwaseyi (born May 15, 2000) is a professional soccer player who plays as a forward for La Liga club Villarreal. Born in Nigeria, he represents the Canada national team.",
+      "marketValueEurMillions": 7,
+      "position": "Forward",
+      "club": "Villarreal",
+      "league": "La Liga",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Tani%20O%20(cropped).jpg?width=160",
+      "skills": [
+        "Runs in behind",
+        "Pressing",
+        "Finishing"
+      ],
+      "note": "Tani Oluwaseyi gives Canada vertical forward running, stretching centre-backs and turning early passes into chances.",
+      "noteZh": "塔尼·奥卢瓦塞伊为加拿大提供纵向前锋跑动，拉伸中卫，并把早传球转化为机会。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Tani_Oluwaseyi"
+    },
+    "Alfie Jones": {
+      "name": "Alfie Jones",
+      "displayName": "Alfie Jones",
+      "teamId": "CAN",
+      "birthDate": "1997-10-07",
+      "summary": "Alfie Charles Jones (born 7 October 1997) is a professional footballer who plays as a defender or midfielder for EFL Championship club Middlesbrough. Born in England, he plays for the Canada national team.",
+      "marketValueEurMillions": 6,
+      "position": "Defender, midfielder",
+      "club": "Middlesbrough",
+      "league": "EFL Championship",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/e/ed/Alfie_Jones_16082025_%281%29.jpg",
+      "skills": [
+        "Defensive duels",
+        "Aerial cover",
+        "Ball progression"
+      ],
+      "note": "Alfie Jones gives Canada a strong defensive connector, useful for aerial duels, covering space, and moving play out cleanly.",
+      "noteZh": "阿尔菲·琼斯为加拿大提供强硬的防守衔接点，适合争顶、补位覆盖，并把球干净地带出后场。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Alfie_Jones"
+    },
+    "Dayne St. Clair": {
+      "name": "Dayne St. Clair",
+      "displayName": "Dayne St. Clair",
+      "teamId": "CAN",
+      "birthDate": "1997-05-09",
+      "summary": "Dayne Tristan St. Clair (born May 9, 1997) is a Canadian professional soccer player who currently plays as a goalkeeper for Major League Soccer club Inter Miami and the Canada national team.",
+      "marketValueEurMillions": 3.5,
+      "position": "Goalkeeper",
+      "club": "Inter Miami",
+      "league": "Major League Soccer",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Dayne_St._Clair_-_MNUFC_-_May_2025.jpg/640px-Dayne_St._Clair_-_MNUFC_-_May_2025.jpg",
+      "skills": [
+        "Shot stopping",
+        "Reflex saves",
+        "Distribution"
+      ],
+      "note": "Dayne St. Clair gives Canada another high-reflex goalkeeper, useful when the match turns into saves and fast restarts.",
+      "noteZh": "戴恩·圣克莱尔为加拿大提供另一名反应很快的门将，在比赛变成连续扑救和快速再发动时很有价值。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Dayne_St._Clair"
+    },
+    "Marcelo Flores": {
+      "name": "Marcelo Flores",
+      "displayName": "Marcelo Flores",
+      "teamId": "CAN",
+      "birthDate": "2003-10-01",
+      "summary": "Marcelo Flores Dorrell (born 1 October 2003) is a Canadian professional soccer player who plays as an attacking midfielder or winger for Liga MX club Tigres UANL and the Canada national team.",
+      "marketValueEurMillions": 4.5,
+      "position": "Attacking midfielder, winger",
+      "club": "Tigres UANL",
+      "league": "Liga MX",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/e/e2/Inter_Miami_CF_2-1_UANL_%2820_August_2025%29_26_%28cropped%29.jpg",
+      "skills": [
+        "Final-third creativity",
+        "Dribbling",
+        "Inside runs"
+      ],
+      "note": "Marcelo Flores gives Canada a crafty final-third option, drifting inside to combine, dribble, and slip passes into runners.",
+      "noteZh": "马塞洛·弗洛雷斯为加拿大提供灵巧的进攻三区选择，能内收配合、带球突破，并把传球送到前插队友脚下。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Marcelo_Flores"
     }
   }
 }

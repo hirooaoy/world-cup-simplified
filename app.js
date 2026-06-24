@@ -227,6 +227,8 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "Market consensus based on public odds. Not betting advice.":
       "基于公开赔率的市场共识；这不是投注建议。",
     "Match plan": "比赛计划",
+    "Goal scorer": "进球者",
+    "Own goal record": "乌龙球记录",
     "Archive standout": "存档代表",
     "Historical lens": "历史视角",
     "Impact sub": "替补冲击",
@@ -5054,6 +5056,22 @@ function normalizeTextKey(value) {
     .trim();
 }
 
+function buildPlayerProfileLookup(profiles = {}) {
+  const lookup = new Map();
+
+  for (const [name, profile] of Object.entries(profiles || {})) {
+    const entry = { name, ...profile };
+    for (const alias of [name, profile?.name, profile?.displayName]) {
+      const key = normalizeTextKey(alias);
+      if (key && !lookup.has(key)) {
+        lookup.set(key, entry);
+      }
+    }
+  }
+
+  return lookup;
+}
+
 function hasChineseCharacter(value) {
   return /[\u3400-\u9fff\uf900-\ufaff]/u.test(String(value || ""));
 }
@@ -5942,6 +5960,167 @@ function updateMeasuredLabelTooltips(root = document) {
         row.style.removeProperty("--name-tooltip-anchor");
       }
     });
+}
+
+const boundedTooltipSelector = [
+  ".live-pill[data-tooltip]",
+  ".team.has-team-tooltip[data-tooltip]",
+  ".past-team.has-team-tooltip[data-tooltip]",
+  ".summary-team.has-team-tooltip[data-tooltip]",
+  ".yesterday-team.has-team-tooltip[data-tooltip]",
+  ".info-tooltip-button[data-tooltip]",
+  ".standing-help[data-tooltip]",
+  ".standing-team.has-name-tooltip[data-tooltip]",
+  ".player-card-value-help[data-tooltip]",
+  ".prediction-row.has-label-tooltip[data-tooltip]",
+  ".past-record-row.has-label-tooltip[data-tooltip]",
+  ".knockout-team[data-tooltip]",
+  ".knockout-likelihood[data-tooltip]",
+  ".knockout-slot-odds[data-tooltip]"
+].join(",");
+const boundedElementTooltipSelector = ".source-tooltip, .release-tooltip";
+
+function getPixelValue(value) {
+  const number = Number.parseFloat(value);
+  return Number.isFinite(number) ? number : 0;
+}
+
+function getTransformTranslateX(value) {
+  if (!value || value === "none") {
+    return 0;
+  }
+
+  const matrix = value.match(/^matrix\((.+)\)$/);
+  if (!matrix) {
+    return 0;
+  }
+
+  const parts = matrix[1].split(",").map((part) => Number.parseFloat(part.trim()));
+  return Number.isFinite(parts[4]) ? parts[4] : 0;
+}
+
+function getTooltipClipRect(element) {
+  const viewportRight = document.documentElement.clientWidth || window.innerWidth;
+  let node = element.parentElement;
+
+  while (node && node !== document.documentElement) {
+    const style = getComputedStyle(node);
+    if (style.overflowX !== "visible") {
+      const rect = node.getBoundingClientRect();
+      if (rect.width > 0) {
+        return {
+          left: Math.max(0, rect.left),
+          right: Math.min(viewportRight, rect.right)
+        };
+      }
+    }
+    node = node.parentElement;
+  }
+
+  return { left: 0, right: viewportRight };
+}
+
+function getTooltipOuterWidth(style) {
+  const width = getPixelValue(style.width);
+  if (!width) {
+    return 0;
+  }
+
+  return (
+    width +
+    getPixelValue(style.paddingLeft) +
+    getPixelValue(style.paddingRight) +
+    getPixelValue(style.borderLeftWidth) +
+    getPixelValue(style.borderRightWidth)
+  );
+}
+
+function getBoundedTooltipElements(root = document) {
+  const elements = [];
+  if (root instanceof Element && root.matches(boundedTooltipSelector)) {
+    elements.push(root);
+  }
+  root.querySelectorAll?.(boundedTooltipSelector).forEach((element) => elements.push(element));
+  return elements;
+}
+
+function getBoundedElementTooltipElements(root = document) {
+  const elements = [];
+  if (root instanceof Element && root.matches(boundedElementTooltipSelector)) {
+    elements.push(root);
+  }
+  root
+    .querySelectorAll?.(boundedElementTooltipSelector)
+    .forEach((element) => elements.push(element));
+  return elements;
+}
+
+function updateTooltipBounds(root = document) {
+  getBoundedTooltipElements(root).forEach((element) => {
+    element.style.removeProperty("--tooltip-shift-x");
+
+    const rect = element.getBoundingClientRect();
+    if (!rect.width || !rect.height) {
+      return;
+    }
+
+    const style = getComputedStyle(element, "::after");
+    if (style.left === "auto") {
+      return;
+    }
+
+    const tooltipWidth = getTooltipOuterWidth(style);
+    if (!tooltipWidth) {
+      return;
+    }
+
+    const baseLeft = rect.left + getPixelValue(style.left) + getTransformTranslateX(style.transform);
+    const baseRight = baseLeft + tooltipWidth;
+    const clipRect = getTooltipClipRect(element);
+    const edgeGap = 6;
+    const minLeft = clipRect.left + edgeGap;
+    const maxRight = Math.max(minLeft, clipRect.right - edgeGap);
+    let shift = 0;
+
+    if (baseLeft < minLeft) {
+      shift = minLeft - baseLeft;
+    }
+
+    if (baseRight + shift > maxRight) {
+      shift -= baseRight + shift - maxRight;
+    }
+
+    if (Math.abs(shift) > 0.5) {
+      element.style.setProperty("--tooltip-shift-x", `${Math.round(shift)}px`);
+    }
+  });
+
+  getBoundedElementTooltipElements(root).forEach((element) => {
+    element.style.removeProperty("--tooltip-shift-x");
+
+    const rect = element.getBoundingClientRect();
+    if (!rect.width || !rect.height) {
+      return;
+    }
+
+    const viewportRight = document.documentElement.clientWidth || window.innerWidth;
+    const edgeGap = 6;
+    const minLeft = edgeGap;
+    const maxRight = Math.max(minLeft, viewportRight - edgeGap);
+    let shift = 0;
+
+    if (rect.left < minLeft) {
+      shift = minLeft - rect.left;
+    }
+
+    if (rect.right + shift > maxRight) {
+      shift -= rect.right + shift - maxRight;
+    }
+
+    if (Math.abs(shift) > 0.5) {
+      element.style.setProperty("--tooltip-shift-x", `${Math.round(shift)}px`);
+    }
+  });
 }
 
 function getVenueLabel(match) {
@@ -8517,6 +8696,7 @@ function renderStandingsView() {
       : renderCurrentStandingsCards()
     : renderHistoricalStandingsCards(selectedStandingsYear);
   updateStandingNameTooltips(standingsGrid);
+  updateTooltipBounds(standingsGrid);
   window.requestAnimationFrame(updateTournamentConnectors);
 }
 
@@ -8848,8 +9028,20 @@ function getGeneratedResultHighlights(match) {
 
 function getFixtureGoals(match) {
   return [
-    ...(match.goalsHome || []).map((goal) => ({ ...goal, side: "home", team: match.homeTeam })),
-    ...(match.goalsAway || []).map((goal) => ({ ...goal, side: "away", team: match.awayTeam }))
+    ...(match.goalsHome || []).map((goal) => ({
+      ...goal,
+      side: "home",
+      scoringTeam: match.homeTeam,
+      ownGoalTeam: match.awayTeam,
+      team: goal?.ownGoal ? match.awayTeam : match.homeTeam
+    })),
+    ...(match.goalsAway || []).map((goal) => ({
+      ...goal,
+      side: "away",
+      scoringTeam: match.awayTeam,
+      ownGoalTeam: match.homeTeam,
+      team: goal?.ownGoal ? match.homeTeam : match.awayTeam
+    }))
   ]
     .filter((goal) => typeof goal?.name === "string" && goal.name.trim())
     .sort((a, b) => {
@@ -8866,6 +9058,46 @@ function findMatchPlayerByName(match, name) {
   return getMatchKeyPlayers(match).find((player) => normalizeTextKey(getPlayerName(player)) === nameKey) || name;
 }
 
+function createGoalScorerCardPlayer(goal) {
+  const name = String(goal?.name || "").trim();
+  const team = goal?.team || null;
+
+  if (!name) {
+    return "";
+  }
+
+  return {
+    name,
+    team,
+    teamId: team?.id || "",
+    role: goal?.ownGoal ? "Own goal record" : "Goal scorer",
+    note: goal?.ownGoal
+      ? `${name} is listed in this match's own-goal record.`
+      : `${name} scored for ${team?.name || "their team"} in this match.`,
+    cardContext: "goal-scorer"
+  };
+}
+
+function hasGoalScorerProfileDetails(profile) {
+  return Boolean(
+    typeof profile?.position === "string" &&
+      profile.position.trim() &&
+      typeof profile?.club === "string" &&
+      profile.club.trim()
+  );
+}
+
+function getGoalScorerCardPlayer(match, goal) {
+  const matchedPlayer = findMatchPlayerByName(match, goal.name);
+  const matchedProfile = getPlayerProfile(matchedPlayer);
+
+  if (typeof matchedPlayer !== "string" || hasGoalScorerProfileDetails(matchedProfile)) {
+    return matchedPlayer;
+  }
+
+  return createGoalScorerCardPlayer(goal);
+}
+
 function getGoalScorerTeam(goal, player) {
   const profile = getPlayerProfile(player);
   return (profile?.teamId ? teamsById.get(profile.teamId) : null) || goal.team || null;
@@ -8880,7 +9112,7 @@ function renderGoalScorerFlag(goal, player) {
 function renderGoalScorerSegment(match, goal) {
   const minute = formatGoalMinute(goal);
   const note = formatGoalNote(goal);
-  const player = findMatchPlayerByName(match, goal.name);
+  const player = getGoalScorerCardPlayer(match, goal);
   const label = getPlayerDisplayName(player);
 
   return `
@@ -9194,8 +9426,29 @@ function getPlayerLeagueValue(player, profile = getPlayerProfile(player)) {
   return profile?.league || player?.league || "";
 }
 
+function isGoalScorerCardPlayer(player) {
+  return Boolean(player && typeof player === "object" && player.cardContext === "goal-scorer");
+}
+
+function getGoalScorerTeamLine(player, options = {}) {
+  const team = player?.teamId ? teamsById.get(player.teamId) : player?.team;
+  const teamName = team?.name || "";
+
+  if (options.localized && currentLanguage === "zh") {
+    return teamName ? `${getLocalizedTeamName(team)}比赛记录` : "比赛进球记录";
+  }
+
+  return teamName ? `${teamName} match card` : "Match goal record";
+}
+
 function getPlayerClubLine(player, profile = getPlayerProfile(player)) {
-  const club = getPlayerClubValue(player, profile) || (isHistoricalPlayerCard(player) ? "Historic World Cup record" : "Club to verify");
+  const club =
+    getPlayerClubValue(player, profile) ||
+    (isHistoricalPlayerCard(player)
+      ? "Historic World Cup record"
+      : isGoalScorerCardPlayer(player)
+        ? getGoalScorerTeamLine(player)
+        : "Club to verify");
   const league = getPlayerLeagueValue(player, profile);
   return league ? `${club} (${league})` : club;
 }
@@ -9232,7 +9485,9 @@ function getLocalizedPlayerClubLine(player, profile = getPlayerProfile(player)) 
     ? localizeText(getPlayerClubValue(player, profile))
     : isHistoricalPlayerCard(player)
       ? "历史世界杯记录"
-      : localizeText("Club to verify");
+      : isGoalScorerCardPlayer(player)
+        ? getGoalScorerTeamLine(player, { localized: true })
+        : localizeText("Club to verify");
   const league = getPlayerLeagueValue(player, profile) ? localizeText(getPlayerLeagueValue(player, profile)) : "";
   return league ? `${club}（${league}）` : club;
 }
@@ -9504,6 +9759,10 @@ function getLocalizedPlayerNote(player, profile = getPlayerProfile(player)) {
   const note = getPlayerCardNote(player, profile);
   if (!note) {
     return "";
+  }
+
+  if (currentLanguage === "zh" && profile?.noteZh) {
+    return localizeKnownPlayerNames(profile.noteZh);
   }
 
   const localizedNote = localizeText(note);
@@ -9808,10 +10067,12 @@ function showFloatingPlayerCard(playerHover, cardWidth) {
   floatingCard.setAttribute("aria-hidden", "false");
   positionFloatingPlayerCard(playerHover, cardWidth);
   floatingCard.classList.add("is-visible");
+  updateTooltipBounds(floatingCard);
   floatingCard.querySelectorAll("img").forEach((image) => {
     image.addEventListener("load", () => {
       if (floatingPlayerCardSource === playerHover) {
         positionFloatingPlayerCard(playerHover, cardWidth);
+        updateTooltipBounds(floatingCard);
       }
     }, { once: true });
   });
@@ -9854,12 +10115,14 @@ function positionPlayerCard(playerHover, options = {}) {
 
   card.style.setProperty("--player-card-width", `${cardWidth}px`);
   card.style.setProperty("--player-card-shift", `${Math.round(shift)}px`);
+  updateTooltipBounds(card);
 }
 
 function positionPlayerCards() {
   document
     .querySelectorAll(".player-hover")
     .forEach((playerHover) => positionPlayerCard(playerHover));
+  updateTooltipBounds();
 }
 
 let activePlayerHover = null;
@@ -9983,7 +10246,7 @@ function getProfileMentionPlayersFromText(text) {
     return [];
   }
 
-  return [...playerProfilesByName.values()]
+  return [...new Set(playerProfilesByName.values())]
     .filter((profile) =>
       [profile.name, profile.displayName]
         .filter(Boolean)
@@ -11471,6 +11734,7 @@ function renderMatchInfo(match, options = {}) {
     updateTruncatedTeamTooltips(matchInfo);
     updateStandingNameTooltips(matchInfo);
     updateMeasuredLabelTooltips(matchInfo);
+    updateTooltipBounds(matchInfo);
     setMatchInfoEntrance(shouldAnimateEntrance);
     if (options.reveal) {
       revealMatchInfoOnSmallScreens();
@@ -11515,6 +11779,7 @@ function renderMatchInfo(match, options = {}) {
   updateTruncatedTeamTooltips(matchInfo);
   updateStandingNameTooltips(matchInfo);
   updateMeasuredLabelTooltips(matchInfo);
+  updateTooltipBounds(matchInfo);
   setMatchInfoEntrance(shouldAnimateEntrance);
 
   if (options.reveal) {
@@ -11556,9 +11821,14 @@ function createEmptyStateElement() {
   return article;
 }
 
+function setLiveTodayMatchFocus(enabled) {
+  matchList.classList.toggle("has-live-today-match", Boolean(enabled));
+}
+
 function renderEmptyState() {
   activeMatchId = "";
   viewPanels.matches.classList.remove("has-match-info");
+  setLiveTodayMatchFocus(false);
   matchList.removeAttribute("aria-busy");
   matchList.replaceChildren(createEmptyStateElement());
   matchInfo.replaceChildren();
@@ -11568,6 +11838,7 @@ function renderEmptyState() {
 
 function renderMatchLoadingState() {
   viewPanels.matches.classList.remove("has-match-info");
+  setLiveTodayMatchFocus(false);
   matchList.setAttribute("aria-busy", "true");
   matchList.innerHTML = `
     <div class="match-loading" role="status">
@@ -12048,6 +12319,7 @@ function renderTeamSearchResults(options = {}) {
   const currentTime = Date.now();
   const searchMatches = getTeamSearchMatches(query);
 
+  setLiveTodayMatchFocus(false);
   updateDateControls();
   updateTeamSearchControls();
 
@@ -12099,6 +12371,7 @@ function renderTeamSearchResults(options = {}) {
   matchList.replaceChildren(...nodes);
   ensureMatchInfoPrompt();
   updateTruncatedTeamTooltips(matchList);
+  updateTooltipBounds(matchList);
   updateTeamSearchUrlState(options);
 }
 
@@ -12963,6 +13236,7 @@ function renderSchedule() {
 
   if (isInitialDataLoading || isInitialLiveDataLoading) {
     setYesterdayLayoutOffset(false);
+    setLiveTodayMatchFocus(false);
     updateDateControls();
     updateTeamSearchControls();
     renderMatchLoadingState();
@@ -12974,6 +13248,7 @@ function renderSchedule() {
 
   if (hasTeamSearchQuery()) {
     setYesterdayLayoutOffset(false);
+    setLiveTodayMatchFocus(false);
     renderTeamSearchResults();
     return;
   }
@@ -12995,11 +13270,13 @@ function renderSchedule() {
   if (todayMatches.length === 0) {
     if (!yesterdaySection) {
       setYesterdayLayoutOffset(false);
+      setLiveTodayMatchFocus(false);
       renderEmptyState();
       updateUrlState();
       return;
     }
 
+    setLiveTodayMatchFocus(false);
     matchList.replaceChildren(createEmptyStateElement(), yesterdaySection);
     const activeMatch = yesterdayMatches.find((match) => match.id === activeMatchId);
     if (activeMatch) {
@@ -13008,14 +13285,18 @@ function renderSchedule() {
       renderMatchInfoPrompt();
     }
     updateTruncatedTeamTooltips(matchList);
+    updateTooltipBounds(matchList);
     updateUrlState();
     return;
   }
 
+  const todayRows = todayMatches.map((match) => ({
+    match,
+    state: getMatchState(match, nextMatchIds, currentTime)
+  }));
+  setLiveTodayMatchFocus(selectedIsToday && todayRows.some(({ state }) => state === "live"));
   matchList.replaceChildren(
-    ...todayMatches.map((match) =>
-      renderMatchRow(match, getMatchState(match, nextMatchIds, currentTime), currentTime)
-    ),
+    ...todayRows.map(({ match, state }) => renderMatchRow(match, state, currentTime)),
     ...(yesterdaySection ? [yesterdaySection] : [])
   );
   const activeMatch = [...todayMatches, ...yesterdayMatches].find(
@@ -13029,6 +13310,7 @@ function renderSchedule() {
   }
 
   updateTruncatedTeamTooltips(matchList);
+  updateTooltipBounds(matchList);
   updateUrlState();
 }
 
@@ -13051,6 +13333,8 @@ function setActiveView(view) {
   updateActiveViewElements();
   updateTruncatedTeamTooltips(viewPanels.matches);
   updateStandingNameTooltips(standingsGrid);
+  updateTooltipBounds(viewPanels.matches);
+  updateTooltipBounds(standingsGrid);
   updateUrlState();
 }
 
@@ -13244,6 +13528,7 @@ function renderSourceNote() {
     </span>
   `.trim();
   sourceNote.innerHTML = `${sourceTooltip} ${predictionsText}${dataRefreshed ? ` ${dataRefreshed}` : ""} <a href="${reportUrl}">${escapeHtml(reportIssueText)}</a>${sentenceEnd} ${creatorText}${sentenceEnd} ${releaseTooltip}`;
+  updateTooltipBounds(sourceNote);
 }
 
 function renderLoadError(error) {
@@ -13311,18 +13596,8 @@ function applyDataSnapshot({
 }) {
   teamsById = new Map(teamsData.teams.map((team) => [team.id, team]));
   teamsByName = buildTeamNameLookup(teamsData.teams);
-  playerProfilesByName = new Map(
-    Object.entries(playerProfilesData.profiles || {}).map(([name, profile]) => [
-      normalizeTextKey(name),
-      profile
-    ])
-  );
-  historicalPlayerProfilesByName = new Map(
-    Object.entries(historicalPlayerProfilesData.profiles || {}).map(([name, profile]) => [
-      normalizeTextKey(name),
-      profile
-    ])
-  );
+  playerProfilesByName = buildPlayerProfileLookup(playerProfilesData.profiles);
+  historicalPlayerProfilesByName = buildPlayerProfileLookup(historicalPlayerProfilesData.profiles);
   shouldShowPlayerMarketValues = hasCompletePlayerMarketValues(playerProfilesData);
   fixtures = fixturesData.fixtures;
   history = historyData;
@@ -13861,10 +14136,12 @@ window.addEventListener("resize", () => {
   updateTruncatedTeamTooltips();
   updateStandingNameTooltips();
   updateMeasuredLabelTooltips();
+  updateTooltipBounds();
   window.requestAnimationFrame(() => {
     updateTruncatedTeamTooltips();
     updateStandingNameTooltips();
     updateMeasuredLabelTooltips();
+    updateTooltipBounds();
     updateTournamentConnectors();
     updateTabIndicators();
   });
@@ -13874,6 +14151,7 @@ window.addEventListener(
   () => {
     positionCatchUpPopover();
     positionPlayerCards();
+    updateTooltipBounds();
   },
   true
 );
@@ -13958,6 +14236,7 @@ const languageObserver = new MutationObserver(() => {
       isApplyingLanguage = true;
       try {
         localizeRenderedText(document.body);
+        updateTooltipBounds();
       } finally {
         isApplyingLanguage = false;
       }

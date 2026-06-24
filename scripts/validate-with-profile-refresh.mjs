@@ -5,9 +5,9 @@ import { fileURLToPath } from "node:url";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 
-function runNodeScript({ allowFailure = false, capture = false, label, script }) {
+function runNodeScript({ allowFailure = false, args = [], capture = false, label, script }) {
   return new Promise((resolve, reject) => {
-    const child = spawn(process.execPath, [script], {
+    const child = spawn(process.execPath, [script, ...args], {
       cwd: root,
       env: process.env,
       stdio: capture ? ["inherit", "pipe", "pipe"] : "inherit"
@@ -45,6 +45,21 @@ function validationNeedsCurrentProfiles(output) {
     .some((line) => /^-?\s*player-profiles\.json\b/.test(line));
 }
 
+function getProfileRefreshArgs(output) {
+  const names = [
+    ...new Set(
+      [...output.matchAll(/player-profiles\.json(?: is missing)?\s+"([^"]+)"/g)].map((match) => match[1])
+    )
+  ];
+
+  if (!names.length) {
+    return [];
+  }
+
+  console.log(`Profile refresh scope: ${names.join(", ")}`);
+  return [`--players=${names.join(",")}`];
+}
+
 async function main() {
   console.log("Profile-aware validation: validating data.");
   const validation = await runNodeScript({
@@ -64,6 +79,7 @@ async function main() {
 
   console.log("\nValidation found missing or stale current player profiles. Regenerating profile cards.");
   await runNodeScript({
+    args: getProfileRefreshArgs(validation.output),
     label: "Regenerate player profiles",
     script: "scripts/populate-player-profiles.mjs"
   });

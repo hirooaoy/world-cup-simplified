@@ -1,0 +1,116 @@
+{
+  "edition": "2026-world-cup",
+  "teamId": "SUI",
+  "teamName": "Switzerland",
+  "profiles": {
+    "Ardon Jashari": {
+      "note": "Ardon Jashari gives Switzerland a press-resistant midfield outlet, helping them keep the ball moving when opponents squeeze the center.",
+      "noteZh": "阿尔东·贾沙里为瑞士提供抗压的中场出球点，帮助球队在对手压缩中路时继续流畅推进。"
+    },
+    "Aurele Amenda": {
+      "note": "Aurèle Amenda gives Switzerland another calm centre-back option, useful when they need fresh legs without losing build-up security.",
+      "noteZh": "奥雷勒·阿门达为瑞士增加一名冷静的中卫选择，在球队需要换上新鲜体能但仍保持后场组织安全时很有价值。"
+    },
+    "Breel Embolo": {
+      "note": "Breel Embolo gives Switzerland a powerful reference point up front, turning direct service into hold-up play and box pressure.",
+      "noteZh": "布雷尔·恩博洛为瑞士提供强力的锋线支点，把直接传球转化为背身拿球和禁区压力。"
+    },
+    "Cedric Itten": {
+      "note": "Cedric Itten gives Switzerland a penalty-area striker who can attack crosses and keep centre-backs occupied late in games.",
+      "noteZh": "塞德里克·伊滕为瑞士提供禁区型前锋，能够冲击传中，并在比赛后段持续牵制中卫。"
+    },
+    "Christian Fassnacht": {
+      "note": "Christian Fassnacht gives Switzerland a disciplined attacking runner, arriving from midfield zones to add numbers around the box.",
+      "noteZh": "克里斯蒂安·法斯纳赫特为瑞士提供纪律性很强的进攻跑动，从中场区域前插，为禁区周围增加人数。"
+    },
+    "Dan Ndoye": {
+      "note": "Dan Ndoye brings Switzerland vertical speed, stretching the back line and turning transitions into immediate danger.",
+      "noteZh": "丹·恩多耶为瑞士带来纵向速度，拉伸对方防线，并把转换进攻变成即时威胁。"
+    },
+    "Denis Zakaria": {
+      "note": "Denis Zakaria gives Switzerland ball-winning range in midfield, closing space quickly and carrying play out of pressure.",
+      "noteZh": "丹尼斯·扎卡里亚为瑞士提供覆盖范围很大的中场抢断能力，能快速封锁空间并带球摆脱压力。"
+    },
+    "Djibril Sow": {
+      "note": "Djibril Sow helps Switzerland stabilize the middle, linking defensive recoveries to cleaner forward passes.",
+      "noteZh": "吉布里尔·索乌帮助瑞士稳住中场，把防守夺回球权衔接成更干净的向前传球。"
+    },
+    "Eray Coemert": {
+      "displayName": "Eray Cömert",
+      "sourceTitle": "Eray Cömert",
+      "note": "Eray Cömert gives Switzerland a sturdy centre-back option, useful for protecting the box and restarting attacks with simple passes.",
+      "noteZh": "埃赖·居梅尔特为瑞士提供稳健的中卫选择，适合保护禁区，并用简洁传球重新发起进攻。"
+    },
+    "Fabian Rieder": {
+      "note": "Fabian Rieder gives Switzerland a creative set-piece and final-pass option when they need one cleaner action near the box.",
+      "noteZh": "法比安·里德为瑞士提供定位球和最后一传的创造力，在球队需要禁区附近一次更干净处理时很关键。"
+    },
+    "Granit Xhaka": {
+      "note": "Granit Xhaka is Switzerland's tempo setter, using his passing range to organize possession and tilt the game into better areas.",
+      "noteZh": "格拉尼特·扎卡是瑞士的节奏掌控者，依靠传球范围组织控球，并把比赛引向更有利的区域。"
+    },
+    "Gregor Kobel": {
+      "note": "Gregor Kobel gives Switzerland elite shot-stopping behind the block, keeping them alive when pressure reaches their box.",
+      "noteZh": "格雷戈尔·科贝尔为瑞士防线身后提供顶级扑救能力，在压力进入禁区时帮助球队保住比赛。"
+    },
+    "Johan Manzambi": {
+      "note": "Johan Manzambi adds carrying power to Switzerland's midfield, helping break pressure and push the team into the final third.",
+      "noteZh": "约翰·曼赞比为瑞士中场增加带球推进能力，帮助球队摆脱压迫并进入进攻三区。"
+    },
+    "Luca Jaquez": {
+      "note": "Luca Jaquez gives Switzerland a young defensive option who can hold the line and keep possession simple under pressure.",
+      "noteZh": "卢卡·雅克斯为瑞士提供年轻的防守选择，能够稳住防线，并在压力下保持简单控球。"
+    },
+    "Manuel Akanji": {
+      "note": "Manuel Akanji anchors Switzerland's back line with recovery pace, duels, and the calm first pass that starts attacks.",
+      "noteZh": "曼努埃尔·阿坎吉用回追速度、对抗和冷静的第一脚传球支撑瑞士后防，并开启进攻。"
+    },
+    "Marvin Keller": {
+      "sourceTitle": "Marvin Keller (footballer)",
+      "note": "Marvin Keller gives Switzerland a young goalkeeping option, ready to add shot-stopping depth behind the senior choices.",
+      "noteZh": "马尔文·凯勒为瑞士提供年轻门将选择，在主力门将之后增加扑救深度。"
+    },
+    "Michel Aebischer": {
+      "note": "Michel Aebischer helps Switzerland connect midfield control to sharper final-third passes and late box runs.",
+      "noteZh": "米歇尔·埃比舍帮助瑞士把中场控制衔接成更锐利的进攻三区传球和后插上禁区跑动。"
+    },
+    "Miro Muheim": {
+      "note": "Miro Muheim gives Switzerland a wide outlet, helping the team progress down the flank without losing defensive balance.",
+      "noteZh": "米罗·穆海姆为瑞士提供边路出球点，帮助球队沿边路推进，同时不失去防守平衡。"
+    },
+    "Nico Elvedi": {
+      "note": "Nico Elvedi gives Switzerland a reliable centre-back presence, strong in defensive positioning and calm circulation.",
+      "noteZh": "尼科·埃尔韦迪为瑞士提供可靠的中卫存在感，防守站位稳健，传导也冷静。"
+    },
+    "Noah Okafor": {
+      "note": "Noah Okafor gives Switzerland acceleration in attack, threatening space behind defenders and changing the rhythm off the bench.",
+      "noteZh": "诺阿·奥卡福为瑞士进攻带来加速能力，威胁后卫身后空间，并能替补登场改变节奏。"
+    },
+    "Remo Freuler": {
+      "note": "Remo Freuler gives Switzerland midfield order, reading second balls and keeping attacks connected after recoveries.",
+      "noteZh": "雷莫·弗罗伊勒为瑞士带来中场秩序，判断第二落点，并在夺回球权后保持进攻衔接。"
+    },
+    "Ricardo Rodriguez": {
+      "displayName": "Ricardo Rodríguez",
+      "sourceTitle": "Ricardo Rodríguez (footballer)",
+      "note": "Ricardo Rodríguez gives Switzerland experienced defensive control, especially when they need composure around their own box.",
+      "noteZh": "里卡多·罗德里格斯为瑞士提供经验丰富的防守控制，尤其在本方禁区周围需要冷静处理时很重要。"
+    },
+    "Ruben Vargas": {
+      "note": "Ruben Vargas gives Switzerland one-v-one threat from wide areas, turning settled attacks into sudden box entries.",
+      "noteZh": "鲁本·巴尔加斯为瑞士在边路提供一对一威胁，把阵地进攻突然转化为禁区突破。"
+    },
+    "Silvan Widmer": {
+      "note": "Silvan Widmer gives Switzerland a seasoned right-sided defender, balancing overlap timing with recovery runs.",
+      "noteZh": "西尔万·维德默为瑞士提供经验丰富的右路防守者，能平衡套边时机和回追跑动。"
+    },
+    "Yvon Mvogo": {
+      "note": "Yvon Mvogo gives Switzerland experienced goalkeeping cover, steadying the box when the match becomes stretched.",
+      "noteZh": "伊冯·姆沃戈为瑞士提供经验丰富的门将保障，在比赛变得拉开时帮助禁区保持稳定。"
+    },
+    "Zeki Amdouni": {
+      "note": "Zeki Amdouni gives Switzerland a clever forward link, drifting between lines to combine and still threaten the finish.",
+      "noteZh": "泽基·阿姆杜尼为瑞士提供聪明的锋线衔接，在两线之间游走配合，同时保持终结威胁。"
+    }
+  }
+}

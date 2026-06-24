@@ -1,0 +1,405 @@
+{
+  "updatedAt": "2026-06-24T22:35:44.251Z",
+  "currentTournament": {
+    "edition": "2026-world-cup",
+    "scope": "Generate and audit every official squad player card country by country.",
+    "totalTeams": 48,
+    "statusLegend": {
+      "pending": "Not yet curated under the strict 2026 profile-card standard.",
+      "in_progress": "Country currently being curated.",
+      "ready": "All squad cards passed strict country audit.",
+      "blocked": "Needs manual source or editorial decision before it can pass."
+    },
+    "teams": [
+      {
+        "order": 1,
+        "teamId": "SUI",
+        "teamName": "Switzerland",
+        "status": "ready",
+        "profileCount": 26,
+        "lastAudit": "passed strict country workflow at 2026-06-24T22:14:19.848Z"
+      },
+      {
+        "order": 2,
+        "teamId": "CAN",
+        "teamName": "Canada",
+        "status": "ready",
+        "profileCount": 26,
+        "lastAudit": "passed strict country workflow at 2026-06-24T22:35:44.251Z"
+      },
+      {
+        "order": 3,
+        "teamId": "BIH",
+        "teamName": "Bosnia and Herzegovina",
+        "status": "pending",
+        "profileCount": 0,
+        "lastAudit": ""
+      },
+      {
+        "order": 4,
+        "teamId": "QAT",
+        "teamName": "Qatar",
+        "status": "pending",
+        "profileCount": 0,
+        "lastAudit": ""
+      },
+      {
+        "order": 5,
+        "teamId": "SCO",
+        "teamName": "Scotland",
+        "status": "pending",
+        "profileCount": 0,
+        "lastAudit": ""
+      },
+      {
+        "order": 6,
+        "teamId": "BRA",
+        "teamName": "Brazil",
+        "status": "pending",
+        "profileCount": 0,
+        "lastAudit": ""
+      },
+      {
+        "order": 7,
+        "teamId": "MAR",
+        "teamName": "Morocco",
+        "status": "pending",
+        "profileCount": 0,
+        "lastAudit": ""
+      },
+      {
+        "order": 8,
+        "teamId": "HAI",
+        "teamName": "Haiti",
+        "status": "pending",
+        "profileCount": 0,
+        "lastAudit": ""
+      },
+      {
+        "order": 9,
+        "teamId": "CZE",
+        "teamName": "Czechia",
+        "status": "pending",
+        "profileCount": 0,
+        "lastAudit": ""
+      },
+      {
+        "order": 10,
+        "teamId": "MEX",
+        "teamName": "Mexico",
+        "status": "pending",
+        "profileCount": 0,
+        "lastAudit": ""
+      },
+      {
+        "order": 11,
+        "teamId": "RSA",
+        "teamName": "South Africa",
+        "status": "pending",
+        "profileCount": 0,
+        "lastAudit": ""
+      },
+      {
+        "order": 12,
+        "teamId": "KOR",
+        "teamName": "South Korea",
+        "status": "pending",
+        "profileCount": 0,
+        "lastAudit": ""
+      },
+      {
+        "order": 13,
+        "teamId": "ECU",
+        "teamName": "Ecuador",
+        "status": "pending",
+        "profileCount": 0,
+        "lastAudit": ""
+      },
+      {
+        "order": 14,
+        "teamId": "GER",
+        "teamName": "Germany",
+        "status": "pending",
+        "profileCount": 0,
+        "lastAudit": ""
+      },
+      {
+        "order": 15,
+        "teamId": "CUW",
+        "teamName": "Curacao",
+        "status": "pending",
+        "profileCount": 0,
+        "lastAudit": ""
+      },
+      {
+        "order": 16,
+        "teamId": "CIV",
+        "teamName": "Cote d'Ivoire",
+        "status": "pending",
+        "profileCount": 0,
+        "lastAudit": ""
+      },
+      {
+        "order": 17,
+        "teamId": "JPN",
+        "teamName": "Japan",
+        "status": "pending",
+        "profileCount": 0,
+        "lastAudit": ""
+      },
+      {
+        "order": 18,
+        "teamId": "SWE",
+        "teamName": "Sweden",
+        "status": "pending",
+        "profileCount": 0,
+        "lastAudit": ""
+      },
+      {
+        "order": 19,
+        "teamId": "TUN",
+        "teamName": "Tunisia",
+        "status": "pending",
+        "profileCount": 0,
+        "lastAudit": ""
+      },
+      {
+        "order": 20,
+        "teamId": "NED",
+        "teamName": "Netherlands",
+        "status": "pending",
+        "profileCount": 0,
+        "lastAudit": ""
+      },
+      {
+        "order": 21,
+        "teamId": "TUR",
+        "teamName": "Turkiye",
+        "status": "pending",
+        "profileCount": 0,
+        "lastAudit": ""
+      },
+      {
+        "order": 22,
+        "teamId": "USA",
+        "teamName": "United States",
+        "status": "pending",
+        "profileCount": 0,
+        "lastAudit": ""
+      },
+      {
+        "order": 23,
+        "teamId": "PAR",
+        "teamName": "Paraguay",
+        "status": "pending",
+        "profileCount": 0,
+        "lastAudit": ""
+      },
+      {
+        "order": 24,
+        "teamId": "AUS",
+        "teamName": "Australia",
+        "status": "pending",
+        "profileCount": 0,
+        "lastAudit": ""
+      },
+      {
+        "order": 25,
+        "teamId": "NOR",
+        "teamName": "Norway",
+        "status": "pending",
+        "profileCount": 0,
+        "lastAudit": ""
+      },
+      {
+        "order": 26,
+        "teamId": "FRA",
+        "teamName": "France",
+        "status": "pending",
+        "profileCount": 0,
+        "lastAudit": ""
+      },
+      {
+        "order": 27,
+        "teamId": "SEN",
+        "teamName": "Senegal",
+        "status": "pending",
+        "profileCount": 0,
+        "lastAudit": ""
+      },
+      {
+        "order": 28,
+        "teamId": "IRQ",
+        "teamName": "Iraq",
+        "status": "pending",
+        "profileCount": 0,
+        "lastAudit": ""
+      },
+      {
+        "order": 29,
+        "teamId": "CPV",
+        "teamName": "Cabo Verde",
+        "status": "pending",
+        "profileCount": 0,
+        "lastAudit": ""
+      },
+      {
+        "order": 30,
+        "teamId": "KSA",
+        "teamName": "Saudi Arabia",
+        "status": "pending",
+        "profileCount": 0,
+        "lastAudit": ""
+      },
+      {
+        "order": 31,
+        "teamId": "URU",
+        "teamName": "Uruguay",
+        "status": "pending",
+        "profileCount": 0,
+        "lastAudit": ""
+      },
+      {
+        "order": 32,
+        "teamId": "ESP",
+        "teamName": "Spain",
+        "status": "pending",
+        "profileCount": 0,
+        "lastAudit": ""
+      },
+      {
+        "order": 33,
+        "teamId": "EGY",
+        "teamName": "Egypt",
+        "status": "pending",
+        "profileCount": 0,
+        "lastAudit": ""
+      },
+      {
+        "order": 34,
+        "teamId": "IRN",
+        "teamName": "IR Iran",
+        "status": "pending",
+        "profileCount": 0,
+        "lastAudit": ""
+      },
+      {
+        "order": 35,
+        "teamId": "NZL",
+        "teamName": "New Zealand",
+        "status": "pending",
+        "profileCount": 0,
+        "lastAudit": ""
+      },
+      {
+        "order": 36,
+        "teamId": "BEL",
+        "teamName": "Belgium",
+        "status": "pending",
+        "profileCount": 0,
+        "lastAudit": ""
+      },
+      {
+        "order": 37,
+        "teamId": "PAN",
+        "teamName": "Panama",
+        "status": "pending",
+        "profileCount": 0,
+        "lastAudit": ""
+      },
+      {
+        "order": 38,
+        "teamId": "ENG",
+        "teamName": "England",
+        "status": "pending",
+        "profileCount": 0,
+        "lastAudit": ""
+      },
+      {
+        "order": 39,
+        "teamId": "CRO",
+        "teamName": "Croatia",
+        "status": "pending",
+        "profileCount": 0,
+        "lastAudit": ""
+      },
+      {
+        "order": 40,
+        "teamId": "GHA",
+        "teamName": "Ghana",
+        "status": "pending",
+        "profileCount": 0,
+        "lastAudit": ""
+      },
+      {
+        "order": 41,
+        "teamId": "COL",
+        "teamName": "Colombia",
+        "status": "pending",
+        "profileCount": 0,
+        "lastAudit": ""
+      },
+      {
+        "order": 42,
+        "teamId": "POR",
+        "teamName": "Portugal",
+        "status": "pending",
+        "profileCount": 0,
+        "lastAudit": ""
+      },
+      {
+        "order": 43,
+        "teamId": "COD",
+        "teamName": "DR Congo",
+        "status": "pending",
+        "profileCount": 0,
+        "lastAudit": ""
+      },
+      {
+        "order": 44,
+        "teamId": "UZB",
+        "teamName": "Uzbekistan",
+        "status": "pending",
+        "profileCount": 0,
+        "lastAudit": ""
+      },
+      {
+        "order": 45,
+        "teamId": "ALG",
+        "teamName": "Algeria",
+        "status": "pending",
+        "profileCount": 0,
+        "lastAudit": ""
+      },
+      {
+        "order": 46,
+        "teamId": "AUT",
+        "teamName": "Austria",
+        "status": "pending",
+        "profileCount": 0,
+        "lastAudit": ""
+      },
+      {
+        "order": 47,
+        "teamId": "JOR",
+        "teamName": "Jordan",
+        "status": "pending",
+        "profileCount": 0,
+        "lastAudit": ""
+      },
+      {
+        "order": 48,
+        "teamId": "ARG",
+        "teamName": "Argentina",
+        "status": "pending",
+        "profileCount": 0,
+        "lastAudit": ""
+      }
+    ]
+  },
+  "historicalBackfill": {
+    "scope": "Only curate historical cards for players shown in archive UI: scorers and linked/key description players.",
+    "status": "pending",
+    "notes": []
+  }
+}

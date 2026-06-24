@@ -1,0 +1,43 @@
+{
+  "edition": "2026-world-cup",
+  "teamId": "QAT",
+  "teamName": "Qatar",
+  "profiles": {
+    "Hassan Alhaydos": {
+      "displayName": "Hassan Al-Haydos",
+      "sourceTitle": "Hassan Al-Haydos",
+      "transfermarktPlayerCode": "hasan-al-haydos",
+      "birthDate": "1990-12-11",
+      "position": "Forward",
+      "club": "Al Sadd",
+      "league": "Qatar Stars League",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/d/df/Qatar_-_Japan%2C_AFC_Asian_Cup_2019_58_-_Hassan_Al_Haydos.jpg",
+      "marketValueEurMillions": 0.3,
+      "skills": [
+        "Final pass",
+        "Set pieces",
+        "Late box runs"
+      ],
+      "note": "Qatar's veteran attacking leader, useful for calm final passes, set-piece delivery, and late runs into scoring spots.",
+      "noteZh": "卡塔尔经验丰富的进攻领袖，能提供冷静的最后一传、定位球输送，以及后插上进入得分位置的跑动。"
+    },
+    "Mahmoud Abunada": {
+      "displayName": "Mahmoud Abunada",
+      "sourceTitle": "Mahmud Abunada",
+      "transfermarktPlayerCode": "mahmoud-abunada",
+      "birthDate": "2000-02-05",
+      "position": "Goalkeeper",
+      "club": "Al-Rayyan",
+      "league": "Qatar Stars League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/669629-1725823800.png?lm=1",
+      "marketValueEurMillions": 0.4,
+      "skills": [
+        "Shot stopping",
+        "Box command",
+        "Distribution"
+      ],
+      "note": "Qatar's shot-stopping goalkeeper, giving the team box control and a steadier platform when pressure reaches the area.",
+      "noteZh": "卡塔尔的扑救型门将，在压力进入禁区时帮助球队控制禁区，并提供更稳定的出球基础。"
+    }
+  }
+}

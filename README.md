@@ -20,6 +20,14 @@ pnpm matchday:update
 
 `pnpm matchday:update` runs the score/status sync, goal-event sync, player-profile refresh when validation proves cards are stale, result-highlight refresh, and the same verification checks used by `pnpm test`. The individual scripts remain available for targeted maintenance.
 
+To prebuild cards before a match, run a targeted squad crawl instead of waiting for a scorer to appear:
+
+```sh
+pnpm profiles:country -- --teams=CRO
+```
+
+The country workflow preflights squad candidates, blocks unsafe aliases, loads country-specific copy from `data/player-profile-overrides/2026/`, generates only that country's squad cards, merges them into the existing profile file, audits the generated cards, then runs validation/card checks/UI smoke. Use `--skip-smoke` only for a quick local iteration. Matchday auto-repair is narrower: if validation finds broken scorer cards, it refreshes only the named failing profiles.
+
 The GitHub Data Quality workflow runs the same FIFA score, goal-event, and result-highlight refreshes before testing, so scheduled CI validates an official results snapshot instead of failing only because committed fallback JSON is a few matches behind.
 
 User-facing app/API/UI changes should update `data/release-notes.json` in the same change. CI runs `pnpm release-notes:check` to catch product changes that forgot release notes; pure fixture/source data refreshes remain covered by the separate data freshness timestamps.
@@ -30,7 +38,7 @@ The site is set up for Vercel. Static pages are served from the repo root and th
 
 ## Automatic Data Updates
 
-The production site tries `/api/live-data` before it falls back to the static JSON files. That API route runs server-side, fetches recent provider fixtures, merges live/final scores into the existing fixtures, enriches scored matches with official FIFA goal-event timelines when available, recomputes group standings, and returns a CDN-cached snapshot to the browser. Visitors still get the fast static app, but the data can update automatically without exposing the provider key.
+The production site tries `/api/live-data` before it falls back to the static JSON files. That API route runs server-side, fetches recent provider fixtures, merges live/final scores into the existing fixtures, applies FIFA official score/status corrections, enriches scored matches with official FIFA goal-event timelines when available, recomputes group standings, and returns a CDN-cached snapshot to the browser. Visitors still get the fast static app, but the data can update automatically without exposing the provider key.
 
 The free/default provider is football-data.org. The site defaults to competition `WC` and season `2026`, and uses the delayed-score free tier so the custom UI can update without exposing the provider key.
 
@@ -44,7 +52,7 @@ To enable the free football-data.org sync:
 4. Optionally copy `data/provider-map.example.json` to `data/provider-map.json` and fill in provider IDs if name matching is not enough.
 5. Deploy. The site will use live provider data automatically when `/api/live-data` succeeds, and static JSON when it does not.
 
-The live endpoint is cached for 5 minutes by default with football-data.org. You can override that with `LIVE_DATA_CACHE_SECONDS` and `LIVE_DATA_STALE_SECONDS`; use higher values if you want fewer provider calls. Goal-scorer enrichment uses FIFA's public match timeline only for scored live/final fixtures whose `goalsHome` / `goalsAway` arrays are missing or incomplete. Set `FIFA_GOAL_EVENTS_ENABLED=false` to disable it, or lower `FIFA_GOAL_EVENTS_MAX_FIXTURES` if the endpoint ever needs stricter request bounds.
+The live endpoint is cached for 5 minutes by default with football-data.org. You can override that with `LIVE_DATA_CACHE_SECONDS` and `LIVE_DATA_STALE_SECONDS`; use higher values if you want fewer provider calls. Even when football-data.org, API-Football, or Sportmonks is the configured provider, FIFA's public match calendar is applied afterward so official score reversals win before scorer enrichment runs. Goal-scorer enrichment uses FIFA's public match timeline only for scored live/final fixtures whose `goalsHome` / `goalsAway` arrays are missing or incomplete. Set `FIFA_GOAL_EVENTS_ENABLED=false` to disable it, or lower `FIFA_GOAL_EVENTS_MAX_FIXTURES` if the endpoint ever needs stricter request bounds.
 
 API-Football and Sportmonks remain supported as optional providers. Set `LIVE_DATA_PROVIDER=api-football` or `LIVE_DATA_PROVIDER=sportmonks` and add the matching token plus optional league/season IDs.
 

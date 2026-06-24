@@ -760,6 +760,37 @@ try {
   );
   await page.setViewportSize({ width: 1280, height: 720 });
 
+  const runtimeScorerCheck = await openPageAtTime(
+    "2026-06-21T20:30:00.000Z",
+    "/?view=matches&date=2026-06-21&tz=America%2FLos_Angeles",
+    {
+      fixtureTransform(data) {
+        const fixture = data.fixtures.find((item) => item.id === "new-zealand-egypt-2026-06-21");
+        fixture.status = "FT";
+        fixture.score = { home: 1, away: 0 };
+        fixture.goalsHome = [{ minute: 54, name: "Runtime Scorer" }];
+        fixture.goalsAway = [];
+      }
+    }
+  );
+  await runtimeScorerCheck.page.locator('[data-match-id="new-zealand-egypt-2026-06-21"]').click();
+  const runtimeScorerLink = runtimeScorerCheck.page
+    .locator("#match-info .scorer-highlight .player-link", { hasText: "Runtime Scorer" })
+    .first();
+  await runtimeScorerLink.hover();
+  const runtimeScorerCard = runtimeScorerCheck.page.locator(".player-card:visible").first();
+  await runtimeScorerCard.waitFor({ state: "visible" });
+  const runtimeScorerCardText = await runtimeScorerCard.innerText();
+  assert(
+    runtimeScorerCardText.includes("Runtime Scorer") &&
+      runtimeScorerCardText.includes("Goal scorer") &&
+      runtimeScorerCardText.includes("New Zealand match card") &&
+      runtimeScorerCardText.includes("Goal threat") &&
+      !/Position to verify|Club to verify|Match plan/.test(runtimeScorerCardText),
+    "Runtime-only scorers should get contextual goal cards instead of verification placeholders."
+  );
+  await runtimeScorerCheck.context.close();
+
   await page.goto(`${baseUrl}?view=matches&date=2026-06-21&tz=America%2FLos_Angeles`, {
     waitUntil: "load"
   });
@@ -1292,7 +1323,7 @@ try {
   await page.setViewportSize({ width: 640, height: 720 });
   await page.waitForTimeout(80);
   const switzerlandBosniaRow = page.locator('[data-match-id="switzerland-bosnia-2026-06-18"]');
-  const bosniaMatchTeam = switzerlandBosniaRow.locator(".team.has-team-tooltip", {
+  const bosniaMatchTeam = switzerlandBosniaRow.locator(".team", {
     hasText: "Bosnia and Herzegovina"
   });
   const qatarMatchTeam = page.locator('[data-match-id="canada-qatar-2026-06-18"] .team', {
@@ -1302,27 +1333,34 @@ try {
     !(await qatarMatchTeam.evaluate((team) => team.classList.contains("has-team-tooltip"))),
     "Short match row names should not show full-name tooltips when they are not truncated."
   );
-  await bosniaMatchTeam.hover();
-  await page.waitForTimeout(160);
-  const bosniaMatchTooltip = await bosniaMatchTeam.evaluate((team) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.waitForTimeout(80);
+  const bosniaMatchWrap = await bosniaMatchTeam.evaluate((team) => {
     const name = team.querySelector(".team-name");
-    const teamRect = team.getBoundingClientRect();
-    const nameRect = name.getBoundingClientRect();
-    const tooltipStyle = getComputedStyle(team, "::after");
+    const teams = team.closest(".match-teams");
+    const nameStyle = getComputedStyle(name);
+    const teamsStyle = getComputedStyle(teams);
     return {
-      anchor: Number(getComputedStyle(team).getPropertyValue("--name-tooltip-anchor").replace("px", "")),
-      content: tooltipStyle.content,
-      expectedAnchor: Math.round(nameRect.left - teamRect.left + nameRect.width / 2),
-      opacity: Number(tooltipStyle.opacity),
-      tooltip: team.getAttribute("data-tooltip")
+      hasTooltip: team.classList.contains("has-team-tooltip"),
+      lineHeight: Number.parseFloat(teamsStyle.lineHeight),
+      nameText: name.textContent.trim(),
+      overflow: nameStyle.overflow,
+      scrollWidth: name.scrollWidth,
+      textOverflow: nameStyle.textOverflow,
+      teamsHeight: teams.getBoundingClientRect().height,
+      visibleWidth: name.clientWidth,
+      whiteSpace: nameStyle.whiteSpace
     };
   });
   assert(
-    bosniaMatchTooltip.tooltip === "Bosnia and Herzegovina" &&
-      bosniaMatchTooltip.content.includes("Bosnia and Herzegovina") &&
-      Math.abs(bosniaMatchTooltip.anchor - bosniaMatchTooltip.expectedAnchor) <= 1 &&
-      bosniaMatchTooltip.opacity > 0.9,
-    "Bosnia and Herzegovina should reveal its full name when the shortened match row label is hovered."
+    bosniaMatchWrap.nameText === "Bosnia and Herzegovina" &&
+      bosniaMatchWrap.whiteSpace === "normal" &&
+      bosniaMatchWrap.overflow === "visible" &&
+      bosniaMatchWrap.textOverflow === "clip" &&
+      bosniaMatchWrap.scrollWidth <= bosniaMatchWrap.visibleWidth + 1 &&
+      bosniaMatchWrap.teamsHeight > bosniaMatchWrap.lineHeight * 1.4 &&
+      !bosniaMatchWrap.hasTooltip,
+    `Long match row names should wrap visibly instead of becoming tooltip-only truncation. Measured ${JSON.stringify(bosniaMatchWrap)}.`
   );
   await page.setViewportSize({ width: 1280, height: 720 });
   await switzerlandBosniaRow.click();
@@ -1534,10 +1572,44 @@ try {
     (await liveFallbackRow.innerText()).includes("Score pending"),
     "The visible live row text should include Score pending."
   );
-  const liveFallbackBox = await liveFallbackRow.boundingBox();
+  await liveFallbackScoreCheck.page.waitForTimeout(180);
+  const liveTodayFocusState = await liveFallbackScoreCheck.page.locator("#match-list").evaluate((list) => {
+    const liveRow = list.querySelector(":scope > .match-row.is-live");
+    const fadedRows = Array.from(list.querySelectorAll(":scope > .match-row:not(.is-live)"));
+    return {
+      hasLiveTodayMatch: list.classList.contains("has-live-today-match"),
+      liveOpacity: liveRow ? Number(getComputedStyle(liveRow).opacity) : 0,
+      fadedOpacities: fadedRows.map((row) => Number(getComputedStyle(row).opacity))
+    };
+  });
   assert(
-    liveFallbackBox && liveFallbackBox.height < 44,
-    "The live fallback row should remain a single line."
+    liveTodayFocusState.hasLiveTodayMatch &&
+      liveTodayFocusState.liveOpacity === 1 &&
+      liveTodayFocusState.fadedOpacities.length > 0 &&
+      liveTodayFocusState.fadedOpacities.every((opacity) => opacity < 0.6),
+    `When Today has a live match, non-live rows should fade while live rows stay full opacity. Measured ${JSON.stringify(liveTodayFocusState)}.`
+  );
+  await liveFallbackScoreCheck.page.setViewportSize({ width: 390, height: 844 });
+  await liveFallbackScoreCheck.page.waitForTimeout(80);
+  const liveFallbackLayout = await liveFallbackRow.evaluate((row) => {
+    const hiddenNames = Array.from(row.querySelectorAll(".match-teams .team-name")).filter(
+      (name) => name.scrollWidth > name.clientWidth + 1 && getComputedStyle(name).overflow !== "visible"
+    );
+    const rowRect = row.getBoundingClientRect();
+    const scoreStatusRect = row.querySelector(".score-status")?.getBoundingClientRect();
+    return {
+      hiddenNameCount: hiddenNames.length,
+      rowHeight: row.getBoundingClientRect().height,
+      scrollOverflow: row.scrollWidth - row.clientWidth,
+      statusRightGap: scoreStatusRect ? rowRect.right - scoreStatusRect.right : 0
+    };
+  });
+  assert(
+    liveFallbackLayout.hiddenNameCount === 0 &&
+      liveFallbackLayout.rowHeight < 72 &&
+      liveFallbackLayout.scrollOverflow <= 1 &&
+      liveFallbackLayout.statusRightGap >= 4,
+    `The live fallback row should wrap cleanly without hidden team names, horizontal overflow, or a clipped status pill. Measured ${JSON.stringify(liveFallbackLayout)}.`
   );
   await liveFallbackScoreCheck.context.close();
 
@@ -1887,10 +1959,14 @@ try {
   const reportIssueHref = await sourceNote.locator("a", { hasText: "Report issue" }).getAttribute("href");
   const creatorHref = await sourceNote.locator("a", { hasText: /^H$/ }).getAttribute("href");
   const expectedSourceUpdatedAt = formatExpectedSourceUpdatedAt(getLatestUpdatedAt(sourceNoteRefreshData));
-  const expectedSourceNoteText = `See sources. Predictions are unofficial. Data refreshed ${expectedSourceUpdatedAt}. Report issue. Made by H. See release notes.`;
+  const expectedSourceNotePattern = new RegExp(
+    `^See sources\\. Predictions are unofficial\\. Data refreshed ${expectedSourceUpdatedAt
+      .replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
+      .replace(/\\d{1,2}:\\d{2}/, "\\d{1,2}:\\d{2}")}\\. Report issue\\. Made by H\\. See release notes\\.$`
+  );
   assert(
-    normalizedSourceNoteText === expectedSourceNoteText,
-    `The source note should stay short and separate data freshness from release notes. Expected "${expectedSourceNoteText}", received "${normalizedSourceNoteText}".`
+    expectedSourceNotePattern.test(normalizedSourceNoteText),
+    `The source note should stay short and separate data freshness from release notes. Expected to match ${expectedSourceNotePattern}, received "${normalizedSourceNoteText}".`
   );
   assert(
     sourceLinkLabels === "FIFA schedule|debutants|ranking|standings|Report issue|H",
@@ -2072,6 +2148,24 @@ try {
           bosniaTooltip.opacity > 0.9)),
     "Bosnia and Herzegovina should use the available standings row width and only show a tooltip if it actually overflows."
   );
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.waitForTimeout(80);
+  const bosniaStandingFlagAlignment = await bosniaStandingTeam.evaluate((team) => {
+    const flag = team.querySelector(".flag");
+    const teamRect = team.getBoundingClientRect();
+    const flagRect = flag?.getBoundingClientRect();
+    return {
+      flagCenter: flagRect ? flagRect.top + flagRect.height / 2 : 0,
+      scrollOverflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
+      teamCenter: teamRect.top + teamRect.height / 2
+    };
+  });
+  assert(
+    Math.abs(bosniaStandingFlagAlignment.flagCenter - bosniaStandingFlagAlignment.teamCenter) <= 1 &&
+      bosniaStandingFlagAlignment.scrollOverflow <= 1,
+    `Wrapped standings rows should vertically center the flag against the full team block. Measured ${JSON.stringify(bosniaStandingFlagAlignment)}.`
+  );
+  await page.setViewportSize({ width: 1280, height: 720 });
   assert(
     groupOrderCheck.groupK?.join("|") === getExpectedStandingOrder("K"),
     "Group K should preserve the checked FIFA table order."
@@ -2654,25 +2748,167 @@ try {
     const metaBox = meta?.getBoundingClientRect();
 
     return {
-      metaTop: metaBox?.top || 0,
+      metaCenter: metaBox ? metaBox.top + metaBox.height / 2 : 0,
       rankCount: rankPills.length,
       rowHeight: row.getBoundingClientRect().height,
+      teamsCenter: teamsBox.top + teamsBox.height / 2,
       teamsFont: Number.parseFloat(teamsStyle.fontSize),
-      teamsTop: teamsBox.top,
+      teamsHeight: teamsBox.height,
+      timeCenter: timeBox.top + timeBox.height / 2,
       timeFont: Number.parseFloat(timeStyle.fontSize),
-      timeTop: timeBox.top
+      timeHeight: timeBox.height
     };
   });
   assert(
-    mobileRowMetrics.timeFont <= 14.5 &&
-      mobileRowMetrics.teamsFont <= 15.5 &&
+    mobileRowMetrics.timeFont <= 13.5 &&
+      mobileRowMetrics.teamsFont <= 14.5 &&
       mobileRowMetrics.rankCount >= 1,
     "Mobile match rows should keep compact time/team text with ranking pills visible."
   );
   assert(
-    Math.abs(mobileRowMetrics.timeTop - mobileRowMetrics.teamsTop) <= 4 &&
-      Math.abs(mobileRowMetrics.metaTop - mobileRowMetrics.teamsTop) <= 8,
-    "Mobile match rows should keep the teams and score on the same visual row."
+    Math.abs(mobileRowMetrics.timeCenter - mobileRowMetrics.teamsCenter) <= 3 &&
+      Math.abs(mobileRowMetrics.metaCenter - mobileRowMetrics.teamsCenter) <= 3,
+    "Mobile match rows should vertically center the time and score against wrapped team text."
+  );
+
+  await page.goto(`${baseUrl}?view=matches&date=2026-06-24&tz=America%2FLos_Angeles`, {
+    waitUntil: "load"
+  });
+  await page.waitForSelector('[data-match-id="bosnia-qatar-2026-06-24"]');
+  const currentDayWrappedRowMetrics = await page
+    .locator('[data-match-id="bosnia-qatar-2026-06-24"]')
+    .evaluate((row) => {
+      const time = row.querySelector(".match-time");
+      const teams = row.querySelector(".match-teams");
+      const meta = row.querySelector(".match-row-meta");
+      const timeBox = time.getBoundingClientRect();
+      const teamsBox = teams.getBoundingClientRect();
+      const metaBox = meta?.getBoundingClientRect();
+      const hiddenNames = Array.from(row.querySelectorAll(".match-teams .team-name")).filter(
+        (name) => name.scrollWidth > name.clientWidth + 1 && getComputedStyle(name).overflow !== "visible"
+      );
+
+      return {
+        hiddenNameCount: hiddenNames.length,
+        metaCenter: metaBox ? metaBox.top + metaBox.height / 2 : 0,
+        rowHeight: row.getBoundingClientRect().height,
+        scrollOverflow: row.scrollWidth - row.clientWidth,
+        teamsCenter: teamsBox.top + teamsBox.height / 2,
+        timeCenter: timeBox.top + timeBox.height / 2
+      };
+    });
+  assert(
+    currentDayWrappedRowMetrics.hiddenNameCount === 0 &&
+      currentDayWrappedRowMetrics.rowHeight <= 42 &&
+      currentDayWrappedRowMetrics.scrollOverflow <= 1 &&
+      Math.abs(currentDayWrappedRowMetrics.timeCenter - currentDayWrappedRowMetrics.teamsCenter) <= 3 &&
+      Math.abs(currentDayWrappedRowMetrics.metaCenter - currentDayWrappedRowMetrics.teamsCenter) <= 3,
+    `Wrapped current-day rows should center time and score pills without hiding team names. Measured ${JSON.stringify(currentDayWrappedRowMetrics)}.`
+  );
+  await page.locator('[data-match-id="bosnia-qatar-2026-06-24"]').click();
+  await page.waitForSelector("#match-info .info-tooltip-button");
+  const mobileTooltipBounds = await page.evaluate(() => {
+    const selectors = [
+      ".info-tooltip-button[data-tooltip]",
+      ".standing-help[data-tooltip]",
+      ".standing-team.has-name-tooltip[data-tooltip]",
+      ".prediction-row.has-label-tooltip[data-tooltip]",
+      ".past-record-row.has-label-tooltip[data-tooltip]",
+      ".team.has-team-tooltip[data-tooltip]",
+      ".summary-team.has-team-tooltip[data-tooltip]",
+      ".live-pill[data-tooltip]",
+      ".player-card-value-help[data-tooltip]"
+    ];
+    const parsePx = (value) => Number.parseFloat(value) || 0;
+    const transformX = (value) => {
+      if (!value || value === "none") {
+        return 0;
+      }
+      const match = value.match(/^matrix\((.+)\)$/);
+      if (!match) {
+        return 0;
+      }
+      const parts = match[1].split(",").map((part) => Number.parseFloat(part.trim()));
+      return Number.isFinite(parts[4]) ? parts[4] : 0;
+    };
+    const clipRectFor = (element) => {
+      const viewportRight = document.documentElement.clientWidth || window.innerWidth;
+      let node = element.parentElement;
+      while (node && node !== document.documentElement) {
+        const style = getComputedStyle(node);
+        if (style.overflowX !== "visible") {
+          const rect = node.getBoundingClientRect();
+          if (rect.width > 0) {
+            return {
+              left: Math.max(0, rect.left),
+              right: Math.min(viewportRight, rect.right)
+            };
+          }
+        }
+        node = node.parentElement;
+      }
+      return { left: 0, right: viewportRight };
+    };
+    const isVisible = (element) => {
+      const rect = element.getBoundingClientRect();
+      return (
+        rect.width > 0 &&
+        rect.height > 0 &&
+        getComputedStyle(element).visibility !== "hidden" &&
+        !element.closest("[hidden], .is-hidden")
+      );
+    };
+
+    return selectors
+      .flatMap((selector) =>
+        Array.from(document.querySelectorAll(selector))
+          .filter(isVisible)
+          .map((element) => {
+            const rect = element.getBoundingClientRect();
+            const style = getComputedStyle(element, "::after");
+            if (style.left === "auto") {
+              return null;
+            }
+
+            const width =
+              parsePx(style.width) +
+              parsePx(style.paddingLeft) +
+              parsePx(style.paddingRight) +
+              parsePx(style.borderLeftWidth) +
+              parsePx(style.borderRightWidth);
+            if (!width) {
+              return null;
+            }
+
+            const left = rect.left + parsePx(style.left) + transformX(style.transform);
+            const right = left + width;
+            const clip = clipRectFor(element);
+            const edgeGap = 5;
+            return {
+              selector,
+              tooltip: element.getAttribute("data-tooltip") || "",
+              shift: element.style.getPropertyValue("--tooltip-shift-x"),
+              overflowLeft: Math.max(0, clip.left + edgeGap - left),
+              overflowRight: Math.max(0, right - (clip.right - edgeGap))
+            };
+          })
+      )
+      .filter(Boolean);
+  });
+  assert(
+    mobileTooltipBounds.some(
+      (item) =>
+        item.selector === ".info-tooltip-button[data-tooltip]" &&
+        item.tooltip.includes("Market consensus") &&
+        item.shift
+    ),
+    "Mobile prediction source tooltip should be shifted inside the match card bounds."
+  );
+  assert(
+    mobileTooltipBounds.every(
+      (item) => item.overflowLeft <= 1 && item.overflowRight <= 1
+    ),
+    "Mobile centered tooltips should stay inside their clipping bounds."
   );
   await page.evaluate(() => window.scrollTo(0, 0));
   await page.locator(".match-row").first().click();

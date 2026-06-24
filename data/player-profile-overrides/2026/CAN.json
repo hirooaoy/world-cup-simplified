@@ -1,0 +1,305 @@
+{
+  "edition": "2026-world-cup",
+  "teamId": "CAN",
+  "teamName": "Canada",
+  "rosterNameOverrides": {
+    "JONES Ale": [
+      "Alfie Jones"
+    ],
+    "ROLLET DE FOUGEROLLES": [],
+    "ST. CLAIR": [],
+    "ST. CLAIR Dayne": [
+      "Dayne St. Clair"
+    ]
+  },
+  "profiles": {
+    "Alfie Jones": {
+      "sourceTitle": "Alfie Jones",
+      "transfermarktPlayerCode": "alfie-jones",
+      "birthDate": "1997-10-07",
+      "position": "Defender, midfielder",
+      "club": "Middlesbrough",
+      "league": "EFL Championship",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/e/ed/Alfie_Jones_16082025_%281%29.jpg",
+      "marketValueEurMillions": 6,
+      "skills": [
+        "Defensive duels",
+        "Aerial cover",
+        "Ball progression"
+      ],
+      "note": "Alfie Jones gives Canada a strong defensive connector, useful for aerial duels, covering space, and moving play out cleanly.",
+      "noteZh": "阿尔菲·琼斯为加拿大提供强硬的防守衔接点，适合争顶、补位覆盖，并把球干净地带出后场。"
+    },
+    "Ali Ahmed": {
+      "sourceTitle": "Ali Ahmed (soccer)",
+      "skills": [
+        "Wide carrying",
+        "Pressing",
+        "Combination play"
+      ],
+      "note": "Ali Ahmed gives Canada a flexible wide midfielder, carrying through pressure and linking quick combinations on the flank.",
+      "noteZh": "阿里·艾哈迈德为加拿大提供灵活的边路中场，能在压力下带球推进，并在边路串联快速配合。"
+    },
+    "Alistair Johnston": {
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/637446-1701212171.jpg?lm=1",
+      "skills": [
+        "Right-side defending",
+        "Overlap timing",
+        "Recovery runs"
+      ],
+      "note": "Alistair Johnston steadies Canada's right side, mixing tight defending with well-timed overlaps when the attack needs width.",
+      "noteZh": "阿利斯泰尔·约翰斯顿稳住加拿大右路，把紧凑防守和恰到好处的套边结合起来，在进攻需要宽度时很有用。"
+    },
+    "Alphonso Davies": {
+      "skills": [
+        "Acceleration",
+        "Ball carrying",
+        "Left-side overloads"
+      ],
+      "note": "Alphonso Davies is Canada's left-side accelerator, turning recoveries into breaks and forcing opponents to defend deeper.",
+      "noteZh": "阿方索·戴维斯是加拿大左路的加速器，能把夺回球权转化为反击，并迫使对手防线后撤。"
+    },
+    "Cyle Larin": {
+      "skills": [
+        "Box presence",
+        "Hold-up play",
+        "First-time finishing"
+      ],
+      "note": "Cyle Larin gives Canada a seasoned penalty-area target, helping crosses, layoffs, and loose balls become real chances.",
+      "noteZh": "赛尔·拉林为加拿大提供经验丰富的禁区支点，帮助传中、做球和二点球转化为真正机会。"
+    },
+    "Dayne St. Clair": {
+      "sourceTitle": "Dayne St. Clair",
+      "transfermarktPlayerCode": "dayne-st-clair",
+      "birthDate": "1997-05-09",
+      "position": "Goalkeeper",
+      "club": "Inter Miami",
+      "league": "Major League Soccer",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Dayne_St._Clair_-_MNUFC_-_May_2025.jpg/640px-Dayne_St._Clair_-_MNUFC_-_May_2025.jpg",
+      "marketValueEurMillions": 3.5,
+      "skills": [
+        "Shot stopping",
+        "Reflex saves",
+        "Distribution"
+      ],
+      "note": "Dayne St. Clair gives Canada another high-reflex goalkeeper, useful when the match turns into saves and fast restarts.",
+      "noteZh": "戴恩·圣克莱尔为加拿大提供另一名反应很快的门将，在比赛变成连续扑救和快速再发动时很有价值。"
+    },
+    "Derek Cornelius": {
+      "club": "Marseille",
+      "league": "Ligue 1",
+      "skills": [
+        "Centre-back duels",
+        "Line control",
+        "Left-footed passing"
+      ],
+      "note": "Derek Cornelius gives Canada a left-sided centre-back presence, helping them defend the box and start attacks from deeper zones.",
+      "noteZh": "德里克·科尼利厄斯为加拿大提供左脚中卫存在感，帮助球队保护禁区，并从更靠后的区域发动进攻。"
+    },
+    "Ismael Kone": {
+      "displayName": "Ismaël Koné",
+      "sourceTitle": "Ismaël Koné",
+      "transfermarktPlayerCode": "ismael-kone",
+      "birthDate": "2002-06-16",
+      "position": "Central midfielder",
+      "club": "Sassuolo",
+      "league": "Serie A",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/921655-1757604633.jpg?lm=1",
+      "marketValueEurMillions": 25,
+      "skills": [
+        "Press resistance",
+        "Carrying power",
+        "Forward passing"
+      ],
+      "note": "Ismaël Koné gives Canada midfield surge, breaking pressure with carries and turning recoveries into forward passes.",
+      "noteZh": "伊斯梅尔·科内为加拿大带来中场冲击力，能用带球摆脱压力，并把夺回球权转化为向前传球。"
+    },
+    "Jacob Shaffelburg": {
+      "skills": [
+        "Left-wing speed",
+        "Direct running",
+        "Early crosses"
+      ],
+      "note": "Jacob Shaffelburg changes Canada's tempo from the left, attacking space early and forcing defenders to turn toward goal.",
+      "noteZh": "雅各布·沙费尔伯格从左路改变加拿大节奏，提前冲击空间，并迫使防守球员转身面对本方球门。"
+    },
+    "Joel Waterman": {
+      "league": "Major League Soccer",
+      "skills": [
+        "Defensive positioning",
+        "Back-line cover",
+        "Simple circulation"
+      ],
+      "note": "Joel Waterman gives Canada a composed defensive option, useful for holding shape and keeping possession simple under pressure.",
+      "noteZh": "乔尔·沃特曼为加拿大提供冷静的防守选择，适合保持阵型，并在压力下用简洁传导稳住球权。"
+    },
+    "Jonathan David": {
+      "skills": [
+        "Finishing",
+        "Between-lines movement",
+        "Press triggers"
+      ],
+      "note": "Jonathan David is Canada's sharpest central scorer, finding pockets early and finishing before the back line can reset.",
+      "noteZh": "乔纳森·戴维是加拿大最犀利的中路得分点，能提前找到空当，并在防线重组前完成终结。"
+    },
+    "Jonathan Osorio": {
+      "skills": [
+        "Midfield timing",
+        "Late runs",
+        "Combination play"
+      ],
+      "note": "Jonathan Osorio gives Canada experienced midfield timing, arriving late around the box and keeping attacks connected.",
+      "noteZh": "乔纳森·奥索里奥为加拿大提供经验丰富的中场时机感，能后插上到禁区周围，并保持进攻衔接。"
+    },
+    "Liam Millar": {
+      "league": "EFL Championship",
+      "skills": [
+        "Left-wing threat",
+        "One-v-one attacks",
+        "Crossing"
+      ],
+      "note": "Liam Millar gives Canada a natural wide outlet, stretching the left side and creating service before defenses settle.",
+      "noteZh": "利亚姆·米勒为加拿大提供天然的边路出口，拉开左路宽度，并在防线站稳前创造传中服务。"
+    },
+    "Luc De Fougerolles": {
+      "displayName": "Luc de Fougerolles",
+      "sourceTitle": "Luc de Fougerolles",
+      "skills": [
+        "Centre-back depth",
+        "Recovery pace",
+        "Defensive cover"
+      ],
+      "note": "Luc de Fougerolles gives Canada young defensive depth, helping cover space when the back line has to defend bigger gaps.",
+      "noteZh": "吕克·德富热罗勒为加拿大提供年轻的防线深度，在后防需要覆盖更大空间时能帮助补位。"
+    },
+    "Marcelo Flores": {
+      "sourceTitle": "Marcelo Flores",
+      "transfermarktPlayerCode": "marcelo-flores",
+      "birthDate": "2003-10-01",
+      "position": "Attacking midfielder, winger",
+      "club": "Tigres UANL",
+      "league": "Liga MX",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/e/e2/Inter_Miami_CF_2-1_UANL_%2820_August_2025%29_26_%28cropped%29.jpg",
+      "marketValueEurMillions": 4.5,
+      "skills": [
+        "Final-third creativity",
+        "Dribbling",
+        "Inside runs"
+      ],
+      "note": "Marcelo Flores gives Canada a crafty final-third option, drifting inside to combine, dribble, and slip passes into runners.",
+      "noteZh": "马塞洛·弗洛雷斯为加拿大提供灵巧的进攻三区选择，能内收配合、带球突破，并把传球送到前插队友脚下。"
+    },
+    "Mathieu Choiniere": {
+      "displayName": "Mathieu Choinière",
+      "sourceTitle": "Mathieu Choinière",
+      "skills": [
+        "Central coverage",
+        "Pressing",
+        "Short passing"
+      ],
+      "note": "Mathieu Choinière gives Canada a useful midfield utility piece, covering ground and keeping the next pass available.",
+      "noteZh": "马蒂厄·舒瓦尼埃为加拿大提供实用的中场多面手，能覆盖空间，并让下一脚传球始终有出口。"
+    },
+    "Maxime Crepeau": {
+      "displayName": "Maxime Crépeau",
+      "sourceTitle": "Maxime Crépeau",
+      "skills": [
+        "Shot stopping",
+        "Box command",
+        "Leadership"
+      ],
+      "note": "Maxime Crépeau gives Canada an experienced voice in goal, organizing the box and handling pressure moments calmly.",
+      "noteZh": "马克西姆·克雷波为加拿大球门带来有经验的指挥声音，能组织禁区，并冷静处理高压时刻。"
+    },
+    "Moise Bombito": {
+      "displayName": "Moïse Bombito",
+      "sourceTitle": "Moïse Bombito",
+      "skills": [
+        "Recovery speed",
+        "Centre-back duels",
+        "Open-field defending"
+      ],
+      "note": "Moïse Bombito gives Canada recovery speed at centre-back, important when their press leaves space behind the line.",
+      "noteZh": "莫伊兹·邦比托为加拿大中卫位置带来回追速度，在球队压迫后防线身后留下空间时很重要。"
+    },
+    "Nathan Saliba": {
+      "skills": [
+        "Midfield ball-winning",
+        "Press support",
+        "Forward carries"
+      ],
+      "note": "Nathan Saliba adds energy to Canada's midfield, contesting second balls and carrying play into better areas.",
+      "noteZh": "内森·萨利巴为加拿大中场增加活力，能争抢第二落点，并把比赛带到更有利区域。"
+    },
+    "Niko Sigur": {
+      "league": "Croatian Football League",
+      "skills": [
+        "Defensive midfield",
+        "Right-side cover",
+        "Tactical flexibility"
+      ],
+      "note": "Niko Sigur gives Canada flexible defensive cover, able to protect midfield lanes or slide across to the right side.",
+      "noteZh": "尼科·西古尔为加拿大提供灵活的防守保护，既能守住中场通道，也能横移到右路补位。"
+    },
+    "Owen Goodman": {
+      "club": "Barnsley (on loan from Crystal Palace)",
+      "league": "EFL League One",
+      "skills": [
+        "Shot stopping",
+        "Penalty-area control",
+        "Long distribution"
+      ],
+      "note": "Owen Goodman gives Canada a young goalkeeping option, useful for reach, box control, and longer distribution.",
+      "noteZh": "欧文·古德曼为加拿大提供年轻门将选择，适合利用臂展、控制禁区，并完成较长距离出球。"
+    },
+    "Promise David": {
+      "skills": [
+        "Box movement",
+        "Hold-up play",
+        "Direct finishing"
+      ],
+      "note": "Promise David gives Canada a powerful forward alternative, pinning centre-backs and attacking loose balls in the area.",
+      "noteZh": "普罗米斯·戴维为加拿大提供强力的锋线选择，能牵制中卫，并冲击禁区里的二点机会。"
+    },
+    "Richie Laryea": {
+      "club": "Toronto FC",
+      "skills": [
+        "Right-side carrying",
+        "Overlaps",
+        "Defensive recovery"
+      ],
+      "note": "Richie Laryea gives Canada a direct right-side runner, pushing the ball forward and recovering quickly when attacks break down.",
+      "noteZh": "里奇·拉耶阿为加拿大提供直接的右路推进者，能把球向前带，并在进攻中断后快速回追。"
+    },
+    "Stephen Eustaquio": {
+      "displayName": "Stephen Eustáquio",
+      "sourceTitle": "Stephen Eustáquio",
+      "club": "Los Angeles FC (on loan from Porto)",
+      "skills": [
+        "Tempo control",
+        "Set pieces",
+        "Line-breaking passes"
+      ],
+      "note": "Stephen Eustáquio gives Canada midfield calm, setting the tempo and finding passes that move pressure into the final third.",
+      "noteZh": "斯蒂芬·欧斯塔基奥为加拿大中场带来冷静，能控制节奏，并找到把压力推进到进攻三区的传球。"
+    },
+    "Tajon Buchanan": {
+      "skills": [
+        "One-v-one attacks",
+        "Right-wing pace",
+        "Box entries"
+      ],
+      "note": "Tajon Buchanan gives Canada explosive one-v-one threat, driving into the box from wide positions before help arrives.",
+      "noteZh": "塔琼·布坎南为加拿大提供爆发力很强的一对一威胁，能在协防到位前从边路带球杀入禁区。"
+    },
+    "Tani Oluwaseyi": {
+      "skills": [
+        "Runs in behind",
+        "Pressing",
+        "Finishing"
+      ],
+      "note": "Tani Oluwaseyi gives Canada vertical forward running, stretching centre-backs and turning early passes into chances.",
+      "noteZh": "塔尼·奥卢瓦塞伊为加拿大提供纵向前锋跑动，拉伸中卫，并把早传球转化为机会。"
+    }
+  }
+}

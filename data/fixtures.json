@@ -95,7 +95,8 @@
     "analyst-jordan-algeria-preview-2026-06-22",
     "fifa-official-results-sync-2026-06-23",
     "fifa-goal-events-sync-2026-06-23",
-    "fifa-official-results-sync-2026-06-24"
+    "fifa-official-results-sync-2026-06-24",
+    "fifa-goal-events-sync-2026-06-24"
   ],
   "coverage": {
     "status": "complete-schedule",
@@ -5767,7 +5768,18 @@
       "score": {
         "home": 0,
         "away": 1
-      }
+      },
+      "goalsHome": [],
+      "goalsAway": [
+        {
+          "minute": 54,
+          "name": "Ante Budimir"
+        }
+      ],
+      "resultHighlights": [
+        "🌟 Ante Budimir's 54' winner settled it for Croatia.",
+        "📊 Croatia moved to 3 points in Group L and left Panama without a point."
+      ]
     },
     {
       "id": "colombia-dr-congo-2026-06-23",
@@ -5849,7 +5861,18 @@
       "score": {
         "home": 1,
         "away": 0
-      }
+      },
+      "goalsHome": [
+        {
+          "minute": 76,
+          "name": "Daniel Munoz"
+        }
+      ],
+      "goalsAway": [],
+      "resultHighlights": [
+        "🌟 Daniel Munoz's 76' winner settled it for Colombia.",
+        "📊 Colombia moved to 6 points in Group K while DR Congo stayed on 1 point."
+      ]
     },
     {
       "id": "switzerland-canada-2026-06-24",
@@ -5941,7 +5964,27 @@
       "score": {
         "home": 2,
         "away": 1
-      }
+      },
+      "goalsHome": [
+        {
+          "minute": 46,
+          "name": "Ruben Vargas"
+        },
+        {
+          "minute": 57,
+          "name": "Johan Manzambi"
+        }
+      ],
+      "goalsAway": [
+        {
+          "minute": 76,
+          "name": "Promise David"
+        }
+      ],
+      "resultHighlights": [
+        "🌟 Johan Manzambi's 57' winner settled it for Switzerland.",
+        "📊 Switzerland moved to 7 points in Group B while Canada stayed on 4 points."
+      ]
     },
     {
       "id": "bosnia-qatar-2026-06-24",
@@ -6043,7 +6086,32 @@
       "score": {
         "home": 3,
         "away": 1
-      }
+      },
+      "goalsHome": [
+        {
+          "minute": 29,
+          "name": "Kerim Alajbegovic"
+        },
+        {
+          "minute": 34,
+          "name": "Mahmoud Abunada",
+          "ownGoal": true
+        },
+        {
+          "minute": 80,
+          "name": "Ermin Mahmic"
+        }
+      ],
+      "goalsAway": [
+        {
+          "minute": 42,
+          "name": "Hassan Alhaydos"
+        }
+      ],
+      "resultHighlights": [
+        "🌟 Kerim Alajbegovic opened it before Ermin Mahmic finished the scoring.",
+        "📊 Bosnia and Herzegovina moved to 4 points in Group B while Qatar stayed on 1 point."
+      ]
     },
     {
       "id": "scotland-brazil-2026-06-24",
@@ -6185,7 +6253,14 @@
       "score": {
         "home": 0,
         "away": 1
-      }
+      },
+      "goalsHome": [],
+      "goalsAway": [
+        {
+          "minute": 7,
+          "name": "Vinicius Junior"
+        }
+      ]
     },
     {
       "id": "morocco-haiti-2026-06-24",
@@ -6266,7 +6341,14 @@
       "score": {
         "home": 0,
         "away": 1
-      }
+      },
+      "goalsHome": [],
+      "goalsAway": [
+        {
+          "minute": 10,
+          "name": "Lenny Joseph"
+        }
+      ]
     },
     {
       "id": "czechia-mexico-2026-06-24",

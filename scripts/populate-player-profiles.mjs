@@ -1,8 +1,9 @@
 #!/usr/bin/env node
-import { readFile, writeFile } from "node:fs/promises";
+import { readdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { gunzipSync } from "node:zlib";
+import { isPlayerNameMatch } from "./player-name-matching.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const dataDir = path.join(root, "data");
@@ -10,8 +11,31 @@ const fixturesPath = path.join(dataDir, "fixtures.json");
 const playerAvailabilityPath = path.join(dataDir, "player-availability.json");
 const teamsPath = path.join(dataDir, "teams.json");
 const outputPath = path.join(dataDir, "player-profiles.json");
+const playerProfileOverridesDir = path.join(dataDir, "player-profile-overrides", "2026");
 const userAgent = "WorldCupSimplified/0.1 (local profile enrichment)";
 const requestDelayMs = Number(process.env.WIKI_REQUEST_DELAY_MS || 1800);
+const scriptArgs = process.argv.slice(2);
+const includeSquadProfiles = hasArg("include-squad-profiles") || process.env.INCLUDE_SQUAD_PROFILES === "1";
+const squadOnlyProfiles = hasArg("squad-only") || process.env.SQUAD_ONLY_PROFILES === "1";
+const shouldListPlayersOnly = hasArg("list-players");
+const shouldAuditSquadCandidates = hasArg("audit-squad-candidates");
+const strictSquadAudit = hasArg("strict-squad-audit") || process.env.STRICT_SQUAD_AUDIT === "1";
+const replaceExistingProfiles =
+  hasArg("replace-existing-profiles") || process.env.REPLACE_EXISTING_PROFILES === "1";
+const preserveExistingProfiles = !replaceExistingProfiles;
+const squadProfileTeamFilter = new Set(
+  getArgValue("squad-teams")
+    .split(",")
+    .map((teamId) => teamId.trim().toUpperCase())
+    .filter(Boolean)
+);
+const targetedProfileNames = new Set(
+  getArgValue("players")
+    .split(",")
+    .map((name) => normalizeText(name))
+    .filter(Boolean)
+);
+const squadProfileLimit = positiveInteger(getArgValue("squad-profile-limit") || process.env.SQUAD_PROFILE_LIMIT, 0);
 const wikipediaSummarySourceId = "wikipedia-page-summaries";
 const transfermarktDatasetSourceId = "transfermarkt-market-values-2026-06-23";
 const editorialMarketEstimateSourceId = "editorial-player-market-estimates-2026-06-23";
@@ -19,15 +43,21 @@ const transfermarktPlayersCsvUrl =
   "https://pub-e682421888d945d684bcae8890b0ec20.r2.dev/data/players.csv.gz";
 const pageTitleOverrides = new Map([
   ["Ali Olwan", "Ali Olwan"],
+  ["Andres Andrade", "Andrés Andrade (footballer, born 1998)"],
   ["Ayoub El Kaabi", "Ayoub El Kaabi"],
   ["Brahim Diaz", "Brahim Díaz"],
   ["Chris Wood", "Chris Wood (footballer, born 1991)"],
+  ["Cristian Martinez", "Cristian Martínez (Panamanian footballer)"],
   ["Cristiano Ronaldo", "Cristiano Ronaldo"],
   ["Daichi Kamada", "Daichi Kamada"],
   ["Daniel Munoz", "Daniel Muñoz (footballer)"],
+  ["Eric Davis", "Eric Davis (Panamanian footballer)"],
   ["Evann Guessand", "Evann Guessand"],
   ["Hassan Altambakti", "Hassan Al-Tambakti"],
   ["Ismael Diaz", "Ismael Díaz (footballer, born 1997)"],
+  ["Jorge Gutierrez", "Jorge Gutiérrez (footballer)"],
+  ["Jose Fajardo", "José Fajardo (footballer)"],
+  ["Jose Luis Rodriguez", "José Luis Rodríguez (footballer, born 1998)"],
   ["Konrad Laimer", "Konrad Laimer"],
   ["Leandro Trossard", "Leandro Trossard"],
   ["Luis Chavez", "Luis Chávez (footballer)"],
@@ -45,10 +75,11 @@ const pageTitleOverrides = new Map([
   ["Roberto Lopes", "Roberto Lopes (footballer, born 1992)"],
   ["Tahith Chong", "Tahith Chong"],
   ["Teboho Mokoena", "Teboho Mokoena (soccer, born 1997)"],
+  ["Tomas Rodriguez", "Tomás Rodríguez (footballer)"],
   ["Trezeguet", "Trézéguet (Egyptian footballer)"],
   ["Yasin Ayari", "Yasin Ayari"]
 ]);
-const profileFieldOverrides = {
+let profileFieldOverrides = {
   "Adalberto Carrasquilla": {
     imageUrl: "https://assets.sorare.com/playerpicture/5c665510-6358-445f-8cee-f1580e299661/picture/avatar-0d77a3aa9a930def1134beb8eca6f2e0.png"
   },
@@ -59,6 +90,14 @@ const profileFieldOverrides = {
   "Amine Gouiri": {
     imageUrl: "https://assets.sorare.com/playerpicture/3f3077b9-e071-425a-bf5d-d6f4b5797192/picture/avatar-8e78185244d819fa519a4964d757da5d.png"
   },
+  "Andres Andrade": {
+    displayName: "Andrés Andrade",
+    position: "Centre-back",
+    club: "LASK",
+    league: "Austrian Bundesliga",
+    imageUrl: "https://img.a.transfermarkt.technology/portrait/header/403808-1754322165.png?lm=1",
+    marketValueEurMillions: 2
+  },
   "Ayoub El Kaabi": { club: "Olympiacos" },
   "Brahim Diaz": { club: "Real Madrid" },
   "Chris Wood": {
@@ -66,6 +105,25 @@ const profileFieldOverrides = {
   },
   "Christian Volpato": {
     imageUrl: "https://romapress.net/wp-content/uploads/2023/07/Volpato-Christian_sassuolo.jpg"
+  },
+  "Cesar Samudio": {
+    imageUrl: "https://media.rpctv.com/p/1850ff2b294f74404ff9d6016dd51c20/adjuntos/314/imagenes/018/404/0018404488/855x0/smart/cesar-samudiojpeg.jpeg"
+  },
+  "Cristian Martinez": {
+    displayName: "Cristian Martínez",
+    position: "Defensive midfielder",
+    club: "Ironi Kiryat Shmona",
+    league: "Israeli Premier League"
+  },
+  "Edgar Yoel Barcenas": {
+    displayName: "Yoel Bárcenas",
+    club: "Mazatlán",
+    league: "Liga MX"
+  },
+  "Eric Davis": {
+    position: "Left-back",
+    club: "Plaza Amador",
+    league: "Liga Panameña de Fútbol"
   },
   "Esmir Bajraktarevic": {
     imageUrl: "https://media.reprezentacija.ba/2025/01/esmir-bajraktarevic-psv-1200x800.jpg"
@@ -89,6 +147,26 @@ const profileFieldOverrides = {
   "James Rodriguez": { club: "Minnesota United" },
   "Jean-Ricner Bellegarde": {
     imageUrl: "https://assets.sorare.com/playerpicture/563dce7e-7150-4db5-acd0-166ab7f619ee/picture/avatar-dbb7b5dc63acbb97714f8946e94f05de.png"
+  },
+  "Jorge Gutierrez": {
+    displayName: "Jorge Gutiérrez",
+    position: "Left-back",
+    club: "Deportivo La Guaira",
+    league: "Venezuelan Primera División"
+  },
+  "Jose Fajardo": {
+    displayName: "José Fajardo",
+    position: "Centre-forward",
+    club: "Universidad Católica",
+    league: "Ecuadorian Serie A",
+    imageUrl: "https://media.rpctv.com/p/a2d83432e1a8a9dfe11633dea0bcf953/adjuntos/314/imagenes/018/082/0018082848/jose-fajardo.jpg",
+    marketValueEurMillions: 0.55
+  },
+  "Jose Luis Rodriguez": {
+    displayName: "José Luis Rodríguez",
+    position: "Left winger",
+    club: "Juárez",
+    league: "Liga MX"
   },
   "Daichi Kamada": { club: "Crystal Palace" },
   "Daniel Munoz": {
@@ -211,6 +289,12 @@ const profileFieldOverrides = {
     club: "Mamelodi Sundowns",
     imageUrl: "https://sundownsfc.co.za/wp-content/uploads/2025/09/Mokoena-1.jpg"
   },
+  "Tomas Rodriguez": {
+    displayName: "Tomás Rodríguez",
+    position: "Centre-forward",
+    club: "Deportivo Saprissa",
+    league: "Costa Rican Primera División"
+  },
   Trezeguet: {
     displayName: "Trézéguet",
     position: "Left winger",
@@ -228,6 +312,23 @@ const profileFieldOverrides = {
   },
   "Yasin Ayari": { club: "Brighton & Hove Albion" }
 };
+const rosterNameOverrides = new Map();
+
+function hasArg(name) {
+  const flag = `--${name}`;
+  return scriptArgs.includes(flag) || scriptArgs.some((arg) => arg.startsWith(`${flag}=`));
+}
+
+function getArgValue(name) {
+  const flag = `--${name}=`;
+  const arg = scriptArgs.find((item) => item.startsWith(flag));
+  return arg ? arg.slice(flag.length) : "";
+}
+
+function positiveInteger(value, fallback) {
+  const number = Number(value);
+  return Number.isInteger(number) && number > 0 ? number : fallback;
+}
 const clubLeagueOverrides = {
   "AC Milan": "Serie A",
   "Ajax Amateurs": "Vierde Divisie",
@@ -254,17 +355,24 @@ const clubLeagueOverrides = {
   Barcelona: "La Liga",
   "Bayer Leverkusen": "Bundesliga",
   "Bayern Munich": "Bundesliga",
+  Betis: "La Liga",
   Beşiktaş: "Süper Lig",
   "Borussia Dortmund": "Bundesliga",
   "Borussia Mönchengladbach": "Bundesliga",
+  Bologna: "Serie A",
+  "Bologna Football Club 1909": "Serie A",
   Bournemouth: "Premier League",
   "Brighton & Hove Albion": "Premier League",
   Burnley: "EFL Championship",
+  "Berner Sport Club Young Boys": "Swiss Super League",
   Chelsea: "Premier League",
   Como: "Serie A",
+  Cobresal: "Chilean Primera División",
   "Crystal Palace": "Premier League",
   "Cultural Leonesa": "Segunda División",
   "Dender EH": "Belgian Pro League",
+  "Deportivo La Guaira": "Venezuelan Primera División",
+  "Deportivo Saprissa": "Costa Rican Primera División",
   "Dinamo Zagreb": "Croatian Football League",
   "Dynamo Moscow": "Russian Premier League",
   "Eintracht Frankfurt": "Bundesliga",
@@ -275,18 +383,25 @@ const clubLeagueOverrides = {
   "FC St. Pauli": "Bundesliga",
   Fenerbahçe: "Süper Lig",
   Fluminense: "Campeonato Brasileiro Série A",
+  "Fortuna Düsseldorf": "German 3. Liga",
   Genk: "Belgian Pro League",
   "G.D. Chaves": "Liga Portugal 2",
   Guadalajara: "Liga MX",
   "Hamburger SV": "Bundesliga",
   "Hannover 96": "2. Bundesliga",
+  "Hamburger Sport Verein": "Bundesliga",
   "Inter Milan": "Serie A",
+  "Ironi Kiryat Shmona": "Israeli Premier League",
   Iğdır: "TFF First League",
   "Iğdır FK": "TFF First League",
   Juventus: "Serie A",
+  Juárez: "Liga MX",
+  "FC Juárez": "Liga MX",
   "Leicester City": "EFL Championship",
+  LASK: "Austrian Bundesliga",
   Levante: "La Liga",
   León: "Liga MX",
+  "Linzer Athletik-Sport-Klub": "Austrian Bundesliga",
   Liverpool: "Premier League",
   "Los Angeles": "Major League Soccer",
   "Los Angeles FC": "Major League Soccer",
@@ -294,26 +409,37 @@ const clubLeagueOverrides = {
   "Manchester City": "Premier League",
   "Manchester United": "Premier League",
   Maribor: "Slovenian PrvaLiga",
+  Marathón: "Liga Nacional de Honduras",
   Marseille: "Ligue 1",
   "Maccabi Tel Aviv": "Israeli Premier League",
   "Minnesota United": "Major League Soccer",
+  Midtjylland: "Danish Superliga",
   Monaco: "Ligue 1",
   Motherwell: "Scottish Premiership",
+  Mazatlán: "Liga MX",
+  "Mazatlán FC": "Liga MX",
   Nantes: "Ligue 1",
   Napoli: "Serie A",
   "Newcastle United": "Premier League",
   "Nottingham Forest": "Premier League",
   Olympiacos: "Super League Greece",
   "Nordsjælland": "Danish Superliga",
+  Pisa: "Serie B",
+  "Pisa Sporting Club": "Serie B",
   PSV: "Eredivisie",
   Pachuca: "Liga MX",
   Palmeiras: "Campeonato Brasileiro Série A",
+  "Puerto Cabello": "Venezuelan Primera División",
+  "Plaza Amador": "Liga Panameña de Fútbol",
+  "CD Plaza Amador": "Liga Panameña de Fútbol",
   "Portland Timbers": "Major League Soccer",
   "Paris Saint-Germain": "Ligue 1",
   Pyramids: "Egyptian Premier League",
   "Pumas UNAM": "Liga MX",
   "RB Leipzig": "Bundesliga",
   "Real Madrid": "La Liga",
+  "Real Betis": "La Liga",
+  "Real Betis Balompié S.A.D.": "La Liga",
   "Real Sociedad": "La Liga",
   Rennes: "Ligue 1",
   "Rosario Central": "Argentine Primera División",
@@ -333,15 +459,22 @@ const clubLeagueOverrides = {
   "TSG Hoffenheim": "Bundesliga",
   "Thep Xanh Nam Dinh FC": "V.League 1",
   "Tottenham Hotspur": "Premier League",
+  "Turan Tovuz": "Azerbaijan Premier League",
   Utrecht: "Eredivisie",
+  "Universidad Católica": "Ecuadorian Serie A",
+  "CD Universidad Católica": "Ecuadorian Serie A",
+  "Universidad de Concepción": "Primera B de Chile",
   "Universitatea Cluj": "Liga I",
   Villarreal: "La Liga",
+  Valencia: "La Liga",
+  "Valencia Club de Fútbol S. A. D.": "La Liga",
   Volendam: "Eredivisie",
   "Wellington Phoenix": "A-League Men",
   "West Ham United": "Premier League",
   "Wolverhampton Wanderers": "Premier League",
   Wrexham: "EFL Championship",
   "Wydad AC": "Botola Pro",
+  "Young Boys": "Swiss Super League",
   "Çaykur Rizespor": "Süper Lig",
   "İstanbul Başakşehir": "Süper Lig"
 };
@@ -350,7 +483,7 @@ const knownLeagueNames = [...new Set(Object.values(clubLeagueOverrides).filter(B
 );
 
 const skillRules = [
-  ["goalkeeper|shot-stopper|saves?|keeper", "Shot-stopping"],
+  ["goalkeeper|goalkeeping|shot-stopper|saves?|keeper", "Shot-stopping"],
   ["set-piece|set piece|dead-ball|dead ball|restart", "Set pieces"],
   ["aerial|crosses|crossing|second balls|box", "Box presence"],
   ["finisher|finishing|striker|scorer|scored|penalty-box|goal", "Finishing"],
@@ -362,7 +495,7 @@ const skillRules = [
   ["wide|width|winger|stretch", "Wide threat"],
   ["press|pressure|counter-press", "Pressing"],
   ["ball-winning|duels?", "Ball winning"],
-  ["defensive|defender|shield|anchor|organizer|back line|screen|compact|security|stopping counters|killing counters", "Defensive control"],
+  ["centre-back|center-back|defensive|defender|shield|anchor|organizer|back line|screen|compact|security|cover|stopping counters|killing counters", "Defensive control"],
   ["ball-carrier|carries|carry|dribble|surges|outlet|serve early", "Ball carrying"],
   ["long-range|long range|left-footed|left footed", "Long-range shooting"],
   ["target|reference|hold-up|power", "Target play"],
@@ -375,6 +508,55 @@ function sleep(ms) {
 
 async function readJson(filePath) {
   return JSON.parse(await readFile(filePath, "utf8"));
+}
+
+async function loadPlayerProfileOverrideFiles(teamFilter = new Set()) {
+  let fileNames = [];
+  try {
+    fileNames = await readdir(playerProfileOverridesDir);
+  } catch (error) {
+    if (error.code === "ENOENT") {
+      return;
+    }
+    throw error;
+  }
+
+  for (const fileName of fileNames.filter((name) => name.endsWith(".json")).sort()) {
+    const fileTeamId = path.basename(fileName, ".json").toUpperCase();
+    if (teamFilter.size && !teamFilter.has(fileTeamId)) {
+      continue;
+    }
+
+    const overrideFile = await readJson(path.join(playerProfileOverridesDir, fileName));
+    const declaredTeamId = String(overrideFile.teamId || fileTeamId).toUpperCase();
+    if (declaredTeamId !== fileTeamId) {
+      throw new Error(`${fileName}: teamId ${declaredTeamId} does not match file name ${fileTeamId}`);
+    }
+
+    for (const [playerName, override] of Object.entries(overrideFile.profiles || {})) {
+      if (!override || typeof override !== "object" || Array.isArray(override)) {
+        throw new Error(`${fileName}: profile override for ${playerName} must be an object`);
+      }
+
+      const { sourceTitle, ...profileOverride } = override;
+      profileFieldOverrides[playerName] = {
+        ...(profileFieldOverrides[playerName] || {}),
+        ...profileOverride
+      };
+
+      if (sourceTitle) {
+        pageTitleOverrides.set(playerName, sourceTitle);
+      }
+    }
+
+    for (const [rawName, candidates] of Object.entries(overrideFile.rosterNameOverrides || {})) {
+      const values = Array.isArray(candidates) ? candidates : [candidates];
+      rosterNameOverrides.set(
+        `${fileTeamId}:${rawName}`,
+        values.filter((candidate) => typeof candidate === "string" && candidate.trim())
+      );
+    }
+  }
 }
 
 function normalizeText(value) {
@@ -623,6 +805,14 @@ function getTransfermarktRecord(player, profileSeed, overrides = {}, index = {})
     })[0]?.record;
 }
 
+function getTransfermarktPosition(record) {
+  return record?.sub_position || record?.position || "";
+}
+
+function getTransfermarktClub(record) {
+  return record?.current_club_name || "";
+}
+
 function escapeRegExp(value) {
   return String(value).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
@@ -668,6 +858,171 @@ function getRosterNameCandidates(value) {
   });
 }
 
+function getRosterNameCandidatesForTeam(value, teamId) {
+  const overrideKey = `${teamId}:${value}`;
+  if (rosterNameOverrides.has(overrideKey)) {
+    return rosterNameOverrides.get(overrideKey);
+  }
+
+  return getRosterNameCandidates(value);
+}
+
+function isSaintAbbreviationToken(value) {
+  return /^st\.?$/i.test(String(value || ""));
+}
+
+function hasInitialRosterToken(value) {
+  return String(value || "")
+    .trim()
+    .split(/\s+/)
+    .some((token) => !isSaintAbbreviationToken(token) && (/^\p{Letter}\.?$/u.test(token) || /\.$/.test(token)));
+}
+
+function getRosterTokenSetKey(value) {
+  const tokens = getNormalizedNameTokens(value);
+  return [...tokens].sort().join(" ");
+}
+
+function getSquadCandidateScore(candidate, rawName, existingProfiles, teamId = "") {
+  const tokens = candidate.split(/\s+/).filter(Boolean);
+  const rawTokens = String(rawName || "").trim().split(/\s+/).filter(Boolean);
+  const rawMixedCaseStartIndex = rawTokens.findIndex((token) => !isUppercaseRosterToken(token));
+  let score = 0;
+
+  if (resolveExistingProfileName(candidate, existingProfiles, teamId)) {
+    score += 1000;
+  }
+  if (tokens.length === 2) {
+    score += 90;
+  } else if (tokens.length === 3) {
+    score += 55;
+  } else {
+    score -= tokens.length * 8;
+  }
+  if (rawTokens.length >= 2 && !isUppercaseRosterToken(rawTokens[0]) && isUppercaseRosterToken(rawTokens.at(-1))) {
+    score += 45;
+  }
+  if (rawMixedCaseStartIndex > 0) {
+    const likelyGivenName = normalizeText(rawTokens[rawMixedCaseStartIndex]);
+    if (likelyGivenName && normalizeText(tokens[0]) === likelyGivenName) {
+      score += 60;
+    }
+  }
+  if (rawTokens.length === 2 && isUppercaseRosterToken(rawTokens[0]) && !isUppercaseRosterToken(rawTokens[1])) {
+    score += 25;
+  }
+  if (/[^\u0000-\u007f]/.test(candidate)) {
+    score += 4;
+  }
+  if (hasInitialRosterToken(candidate)) {
+    score -= 120;
+  }
+
+  return score;
+}
+
+function isUsableSquadProfileCandidate(candidate) {
+  const tokens = candidate.split(/\s+/).filter(Boolean);
+  if (tokens.length < 2 || tokens.length > 4 || hasInitialRosterToken(candidate)) {
+    return false;
+  }
+
+  return tokens.every((token) => normalizeText(token).length >= 2);
+}
+
+function countNameTokens(value) {
+  return getNormalizedNameTokens(value).length;
+}
+
+function isLikelyLongFormName(shortName, longName) {
+  const shortTokenCount = countNameTokens(shortName);
+  const longTokenCount = countNameTokens(longName);
+
+  return shortTokenCount >= 2 && shortTokenCount < longTokenCount && isPlayerNameMatch(shortName, longName);
+}
+
+function getSelectedSquadProfileCandidates(availabilityByTeam, teamsById, existingProfiles) {
+  const selected = [];
+  for (const [teamId, includedNames] of availabilityByTeam) {
+    if (squadProfileTeamFilter.size && !squadProfileTeamFilter.has(teamId)) {
+      continue;
+    }
+
+    const team = teamsById.get(teamId);
+    if (!team) {
+      continue;
+    }
+
+    const candidatesByTokenSet = new Map();
+    for (const rawName of includedNames) {
+      for (const candidate of getRosterNameCandidatesForTeam(rawName, teamId)) {
+        if (!isUsableSquadProfileCandidate(candidate)) {
+          continue;
+        }
+
+        const existingProfileName = resolveExistingProfileName(candidate, existingProfiles, teamId);
+        const name = existingProfileName || candidate;
+        const tokenSetKey = getRosterTokenSetKey(name);
+        if (!tokenSetKey) {
+          continue;
+        }
+
+        const score = getSquadCandidateScore(candidate, rawName, existingProfiles, teamId);
+        const existing = candidatesByTokenSet.get(tokenSetKey);
+        if (!existing || score > existing.score || (score === existing.score && name.length < existing.name.length)) {
+          candidatesByTokenSet.set(tokenSetKey, {
+            name,
+            score,
+            team,
+            rawNames: new Set([rawName]),
+            candidateNames: new Set([candidate]),
+            existingProfileName,
+            existingProfileTeamId: existingProfiles[existingProfileName]?.teamId || ""
+          });
+        } else if (existing?.name === name) {
+          existing.rawNames.add(rawName);
+          existing.candidateNames.add(candidate);
+        }
+      }
+    }
+
+    const candidateValues = [...candidatesByTokenSet.values()]
+      .filter((candidate, index, list) => {
+        return !list.some((other, otherIndex) => {
+          return otherIndex !== index && isLikelyLongFormName(other.name, candidate.name);
+        });
+      })
+      .sort((a, b) => a.name.localeCompare(b.name));
+
+    selected.push(...candidateValues);
+  }
+
+  return selected;
+}
+
+function getSquadProfilePlayers(availabilityByTeam, teamsById, existingProfiles) {
+  const players = [];
+  let newProfileCount = 0;
+
+  for (const candidate of getSelectedSquadProfileCandidates(availabilityByTeam, teamsById, existingProfiles)) {
+    const alreadyProfiled = Boolean(existingProfiles[candidate.name]);
+    if (!alreadyProfiled) {
+      if (squadProfileLimit && newProfileCount >= squadProfileLimit) {
+        return players;
+      }
+      newProfileCount += 1;
+    }
+
+    players.push({
+      name: candidate.name,
+      note: `${candidate.name} is part of ${candidate.team.name}'s current World Cup squad pool.`,
+      team: candidate.team
+    });
+  }
+
+  return players;
+}
+
 function textMentionsFullPlayerName(text, name) {
   const parts = String(name || "").trim().split(/\s+/).filter(Boolean);
   if (parts.length < 2) {
@@ -686,12 +1041,16 @@ function getNormalizedNameTokens(value) {
   return normalized ? normalized.split(/\s+/).filter(Boolean) : [];
 }
 
-function resolveExistingProfileName(name, profiles = {}) {
+function resolveExistingProfileName(name, profiles = {}, teamId = "") {
   const normalizedName = normalizeText(name);
   const nameTokens = getNormalizedNameTokens(name);
   const reversedName = [...nameTokens].reverse().join(" ");
 
   for (const [profileName, profile] of Object.entries(profiles || {})) {
+    if (teamId && profile?.teamId && profile.teamId !== teamId) {
+      continue;
+    }
+
     const candidates = [profileName, profile?.displayName].filter(Boolean);
     for (const candidate of candidates) {
       const normalizedCandidate = normalizeText(candidate);
@@ -699,7 +1058,8 @@ function resolveExistingProfileName(name, profiles = {}) {
       if (
         normalizedCandidate === normalizedName ||
         normalizedCandidate === reversedName ||
-        candidateTokens.slice(-nameTokens.length).join(" ") === normalizedName
+        candidateTokens.slice(-nameTokens.length).join(" ") === normalizedName ||
+        isPlayerNameMatch(candidate, name)
       ) {
         return profileName;
       }
@@ -707,6 +1067,109 @@ function resolveExistingProfileName(name, profiles = {}) {
   }
 
   return "";
+}
+
+function getProfileAliases(profileName, profile = {}) {
+  return [profileName, profile?.name, profile?.displayName]
+    .filter((value) => typeof value === "string" && value.trim());
+}
+
+function getCrossTeamAliasOwners(name, profiles = {}, teamId = "") {
+  const normalizedName = normalizeText(name);
+  if (!normalizedName) {
+    return [];
+  }
+
+  const owners = [];
+  for (const [profileName, profile] of Object.entries(profiles || {})) {
+    if (!profile?.teamId || profile.teamId === teamId) {
+      continue;
+    }
+
+    if (getProfileAliases(profileName, profile).some((alias) => normalizeText(alias) === normalizedName)) {
+      owners.push(`${profile.teamId}:${profileName}`);
+    }
+  }
+
+  return owners;
+}
+
+function getSquadCandidateAuditRows(availabilityByTeam, teamsById, existingProfiles) {
+  return getSelectedSquadProfileCandidates(availabilityByTeam, teamsById, existingProfiles).map((candidate) => {
+    const existingProfile = existingProfiles[candidate.name] || null;
+    const issues = [];
+    const nameTokens = getNormalizedNameTokens(candidate.name);
+    const crossTeamAliasOwners = getCrossTeamAliasOwners(candidate.name, existingProfiles, candidate.team.id);
+
+    if (existingProfile?.teamId && existingProfile.teamId !== candidate.team.id) {
+      issues.push(`existing profile belongs to ${existingProfile.teamId}`);
+    }
+    if (crossTeamAliasOwners.length) {
+      issues.push(`cross-team alias collision with ${crossTeamAliasOwners.join(", ")}`);
+    }
+    if (!existingProfile && nameTokens.length < 2) {
+      issues.push("candidate is not a full name");
+    }
+    if (hasInitialRosterToken(candidate.name)) {
+      issues.push("candidate contains initials");
+    }
+
+    return {
+      teamId: candidate.team.id,
+      teamName: candidate.team.name,
+      name: candidate.name,
+      alreadyProfiled: Boolean(existingProfile),
+      rawNames: [...candidate.rawNames].sort(),
+      candidateNames: [...candidate.candidateNames].sort(),
+      issues
+    };
+  });
+}
+
+function printSquadCandidateAudit(rows, existingProfiles) {
+  const rowsByTeam = new Map();
+  for (const row of rows) {
+    const teamRows = rowsByTeam.get(row.teamId) || [];
+    teamRows.push(row);
+    rowsByTeam.set(row.teamId, teamRows);
+  }
+
+  console.log(
+    `Squad candidate audit: ${rows.length} candidates${squadProfileTeamFilter.size ? ` for ${[...squadProfileTeamFilter].join(", ")}` : ""}.`
+  );
+  console.log("");
+
+  for (const [teamId, teamRows] of [...rowsByTeam.entries()].sort((a, b) => a[0].localeCompare(b[0]))) {
+    const existingCount = teamRows.filter((row) => row.alreadyProfiled).length;
+    console.log(`${teamId}: ${teamRows.length} candidates (${existingCount} already profiled, ${teamRows.length - existingCount} new)`);
+    for (const row of teamRows) {
+      const status = row.issues.length ? "BLOCK" : row.alreadyProfiled ? "EXISTING" : "NEW";
+      const rawNames = row.rawNames.join(" | ");
+      const issueText = row.issues.length ? ` | ${row.issues.join("; ")}` : "";
+      console.log(`[${status}] ${row.teamId}: ${row.name} <- ${rawNames}${issueText}`);
+    }
+    console.log("");
+  }
+
+  const blockingRows = rows.filter((row) => row.issues.length);
+  console.log(`Blocking issues: ${blockingRows.length}`);
+  if (strictSquadAudit && !squadProfileTeamFilter.size) {
+    console.error("Strict squad audit requires --squad-teams=TEAM[,TEAM].");
+    process.exitCode = 1;
+  }
+  if (strictSquadAudit && blockingRows.length) {
+    console.error("Fix blocking squad candidates before generating profiles.");
+    process.exitCode = 1;
+  }
+
+  const existingTeamMismatches = rows.filter((row) => {
+    const existingProfile = existingProfiles[row.name];
+    return existingProfile?.teamId && existingProfile.teamId !== row.teamId;
+  });
+  if (existingTeamMismatches.length) {
+    console.error(`Existing team mismatches: ${existingTeamMismatches.length}`);
+    process.exitCode = 1;
+  }
 }
 
 function getParagraphMentionPlayers(text, team, availabilityByTeam, existingProfiles) {
@@ -720,7 +1183,7 @@ function getParagraphMentionPlayers(text, team, availabilityByTeam, existingProf
         continue;
       }
 
-      const name = resolveExistingProfileName(candidate, existingProfiles) || candidate;
+      const name = resolveExistingProfileName(candidate, existingProfiles, team?.id) || candidate;
       const key = normalizeText(name);
       if (!key || seen.has(key)) {
         continue;
@@ -1443,7 +1906,7 @@ async function fetchPageDataBatch(titles) {
   return pages;
 }
 
-function getUniquePlayers(fixturesData, teamsById, availabilityByTeam, existingProfiles) {
+function getUniquePlayers(fixturesData, teamsById, availabilityByTeam, existingProfiles, options = {}) {
   const players = new Map();
 
   function addPlayer(player, team, note = "") {
@@ -1462,6 +1925,16 @@ function getUniquePlayers(fixturesData, teamsById, availabilityByTeam, existingP
       existing.note = note;
     }
     players.set(player.name, existing);
+  }
+
+  if (options.includeSquadProfiles) {
+    for (const player of getSquadProfilePlayers(availabilityByTeam, teamsById, existingProfiles)) {
+      addPlayer(player, player.team, player.note || "");
+    }
+  }
+
+  if (options.squadOnlyProfiles) {
+    return [...players.values()].sort((a, b) => a.name.localeCompare(b.name));
   }
 
   for (const fixture of fixturesData.fixtures || []) {
@@ -1510,20 +1983,26 @@ async function buildProfile(player, transfermarktIndex = {}) {
   if (!title) {
     const overrides = profileFieldOverrides[player.name] || {};
     const existingProfile = existingProfilesData.profiles?.[player.name] || {};
-    const position = overrides.position || existingProfile.position || "";
-    const profileClub = overrides.club || existingProfile.club || "";
-    const profileLeague = overrides.league || existingProfile.league || getLeagueForClub(profileClub);
     const displayName = overrides.displayName || existingProfile.displayName || existingProfile.name || player.name;
     const birthDate = overrides.birthDate || existingProfile.birthDate;
-    const profileSeed = {
+    const initialProfileSeed = {
       displayName,
       birthDate,
+      position: overrides.position || existingProfile.position || "",
+      club: overrides.club || existingProfile.club || "",
+      league: overrides.league || existingProfile.league || ""
+    };
+    const transfermarktRecord = getTransfermarktRecord(player, initialProfileSeed, overrides, transfermarktIndex);
+    const position = initialProfileSeed.position || getTransfermarktPosition(transfermarktRecord);
+    const profileClub = initialProfileSeed.club || getTransfermarktClub(transfermarktRecord);
+    const profileLeague = initialProfileSeed.league || getLeagueForClub(profileClub);
+    const profileSeed = {
+      ...initialProfileSeed,
       position,
       club: profileClub,
       league: profileLeague
     };
-    const transfermarktRecord = getTransfermarktRecord(player, profileSeed, overrides, transfermarktIndex);
-    const note = getProfileNote(player, existingProfile, position);
+    const note = overrides.note || getProfileNote(player, existingProfile, position);
 
     return {
       name: player.name,
@@ -1540,9 +2019,10 @@ async function buildProfile(player, transfermarktIndex = {}) {
       league: profileLeague,
       uniformNumber: getUniformNumberOverride(player, overrides),
       imageUrl: overrides.imageUrl || transfermarktRecord?.image_url || existingProfile.imageUrl,
-      skills: inferSkills(note),
+      skills: overrides.skills || inferSkills(note),
       note,
-      sourceUrl: ""
+      noteZh: overrides.noteZh || existingProfile.noteZh,
+      sourceUrl: transfermarktRecord?.url || ""
     };
   }
 
@@ -1563,8 +2043,8 @@ async function buildProfile(player, transfermarktIndex = {}) {
   });
   const profileLeague =
     overrides.league || getLeagueFromSummary(summary, profileClub) || getLeagueForClub(profileClub);
-  const note = getProfileNote(player, existingProfile, overrides.position || position);
-  const displayName = cleanWikiText(fields.name || "") || title.replace(/_/g, " ");
+  const note = overrides.note || getProfileNote(player, existingProfile, overrides.position || position);
+  const displayName = overrides.displayName || cleanWikiText(fields.name || "") || title.replace(/_/g, " ");
   const profileSeed = {
     displayName,
     birthDate,
@@ -1586,8 +2066,9 @@ async function buildProfile(player, transfermarktIndex = {}) {
     league: profileLeague,
     uniformNumber: getUniformNumberOverride(player, overrides),
     imageUrl: overrides.imageUrl || imageUrl || transfermarktRecord?.image_url,
-    skills: inferSkills(note),
+    skills: overrides.skills || inferSkills(note),
     note,
+    noteZh: overrides.noteZh || existingProfile.noteZh,
     sourceUrl: `https://en.wikipedia.org/wiki/${encodeURIComponent(title.replace(/ /g, "_"))}`
   };
 }
@@ -1609,16 +2090,25 @@ function buildProfileFromPageData(player, title, pageData = {}, transfermarktInd
       getLeagueFromSummary(summary, profileClub) ||
       getLeagueForClub(profileClub) ||
       existingProfile.league;
-    const note = getProfileNote(player, existingProfile, overrides.position || existingProfile.position);
     const displayName = overrides.displayName || existingProfile.displayName || existingProfile.name || player.name;
-    const profileSeed = {
+    const initialProfileSeed = {
       displayName,
       birthDate: overrides.birthDate || existingProfile.birthDate,
       position: overrides.position || existingProfile.position,
       club: profileClub,
       league: profileLeague
     };
-    const transfermarktRecord = getTransfermarktRecord(player, profileSeed, overrides, transfermarktIndex);
+    const transfermarktRecord = getTransfermarktRecord(player, initialProfileSeed, overrides, transfermarktIndex);
+    const position = initialProfileSeed.position || getTransfermarktPosition(transfermarktRecord);
+    const finalClub = profileClub || getTransfermarktClub(transfermarktRecord);
+    const finalLeague = profileLeague || getLeagueForClub(finalClub);
+    const profileSeed = {
+      ...initialProfileSeed,
+      position,
+      club: finalClub,
+      league: finalLeague
+    };
+    const note = overrides.note || getProfileNote(player, existingProfile, position);
 
     return {
       ...existingProfile,
@@ -1628,16 +2118,17 @@ function buildProfileFromPageData(player, title, pageData = {}, transfermarktInd
       birthDate: profileSeed.birthDate,
       summary,
       ...getMarketValueFields(player, profileSeed, overrides, transfermarktRecord),
-      position: overrides.position || existingProfile.position,
-      club: profileClub,
-      league: profileLeague,
+      position,
+      club: finalClub,
+      league: finalLeague,
       uniformNumber: getUniformNumberOverride(player, overrides),
       imageUrl: overrides.imageUrl || existingProfile.imageUrl || transfermarktRecord?.image_url,
-      skills: inferSkills(note),
+      skills: overrides.skills || inferSkills(note),
       note,
+      noteZh: overrides.noteZh || existingProfile.noteZh,
       sourceUrl: title
         ? `https://en.wikipedia.org/wiki/${encodeURIComponent(title.replace(/ /g, "_"))}`
-        : existingProfile.sourceUrl || ""
+        : existingProfile.sourceUrl || transfermarktRecord?.url || ""
     };
   }
 
@@ -1657,7 +2148,7 @@ function buildProfileFromPageData(player, title, pageData = {}, transfermarktInd
     getLeagueFromSummary(summary, profileClub) ||
     getLeagueForClub(profileClub) ||
     existingProfile.league;
-  const note = getProfileNote(player, existingProfile, overrides.position || position || existingProfile.position);
+  const note = overrides.note || getProfileNote(player, existingProfile, overrides.position || position || existingProfile.position);
   const displayName =
     overrides.displayName ||
     cleanWikiText(fields.name || "") ||
@@ -1684,8 +2175,9 @@ function buildProfileFromPageData(player, title, pageData = {}, transfermarktInd
     league: profileLeague,
     uniformNumber: getUniformNumberOverride(player, overrides),
     imageUrl: overrides.imageUrl || imageUrl || existingProfile.imageUrl || transfermarktRecord?.image_url,
-    skills: inferSkills(note),
+    skills: overrides.skills || inferSkills(note),
     note,
+    noteZh: overrides.noteZh || existingProfile.noteZh,
     sourceUrl: `https://en.wikipedia.org/wiki/${encodeURIComponent(title.replace(/ /g, "_"))}`
   };
 }
@@ -1703,16 +2195,66 @@ const playerAvailabilityByTeam = new Map(
     (availability.included || []).filter((name) => typeof name === "string" && name.trim())
   ])
 );
-const players = getUniquePlayers(
+
+if (squadOnlyProfiles && (!includeSquadProfiles || !squadProfileTeamFilter.size)) {
+  console.error("--squad-only requires --include-squad-profiles and --squad-teams=TEAM[,TEAM].");
+  process.exit(1);
+}
+
+await loadPlayerProfileOverrideFiles(squadProfileTeamFilter);
+
+if (shouldAuditSquadCandidates) {
+  const rows = getSquadCandidateAuditRows(
+    playerAvailabilityByTeam,
+    teamsById,
+    existingProfilesData.profiles || {}
+  );
+  printSquadCandidateAudit(rows, existingProfilesData.profiles || {});
+  process.exit(process.exitCode || 0);
+}
+
+let players = getUniquePlayers(
   fixturesData,
   teamsById,
   playerAvailabilityByTeam,
-  existingProfilesData.profiles || {}
+  existingProfilesData.profiles || {},
+  { includeSquadProfiles, squadOnlyProfiles }
 );
+
+if (targetedProfileNames.size) {
+  players = players.filter((player) => targetedProfileNames.has(normalizeText(player.name)));
+}
+
+if (targetedProfileNames.size && !players.length) {
+  console.error(`No profile candidates matched --players=${getArgValue("players")}.`);
+  process.exit(1);
+}
 const profiles = {};
 const warnings = [];
 const titleByPlayerName = new Map();
 const pageDataByTitle = new Map();
+
+if (shouldListPlayersOnly) {
+  const existingCount = players.filter((player) => existingProfilesData.profiles?.[player.name]).length;
+  const newCount = players.length - existingCount;
+  console.log(
+    [
+      `Profile player list: ${players.length} players (${existingCount} already profiled, ${newCount} new).`,
+      includeSquadProfiles
+        ? `Squad profile mode: on${squadProfileTeamFilter.size ? ` for ${[...squadProfileTeamFilter].join(", ")}` : ""}.`
+        : "Squad profile mode: off.",
+      squadOnlyProfiles ? "Fixture/key-player profile mode: off." : "Fixture/key-player profile mode: on.",
+      preserveExistingProfiles ? "Preserve existing profiles: on." : "Preserve existing profiles: off.",
+      squadProfileLimit ? `New squad profile cap: ${squadProfileLimit}.` : "",
+      "",
+      ...players.map((player) => `${player.team.id}: ${player.name}`)
+    ]
+      .filter((line, index, list) => line || list[index + 1])
+      .join("\n")
+  );
+  process.exit(0);
+}
+
 const transfermarktRecords = await fetchTransfermarktPlayers();
 const transfermarktIndex = buildTransfermarktIndex(transfermarktRecords);
 
@@ -1791,7 +2333,12 @@ const output = {
       ...(existingProfilesData.sourceIds || [])
     ])
   ],
-  profiles
+  profiles: preserveExistingProfiles
+    ? {
+        ...(existingProfilesData.profiles || {}),
+        ...profiles
+      }
+    : profiles
 };
 
 await writeFile(outputPath, `${JSON.stringify(output, null, 2)}\n`);

@@ -1574,7 +1574,7 @@ h1 {
   content: attr(data-tooltip);
   position: absolute;
   bottom: calc(100% + 8px);
-  left: 50%;
+  left: calc(50% + var(--tooltip-shift-x, 0px));
   z-index: 20;
   padding: 6px 8px;
   border-radius: 6px;
@@ -1640,6 +1640,10 @@ h1 {
   opacity: 1;
 }
 
+.match-list.has-live-today-match > .match-row:not(.is-live) {
+  opacity: 0.42;
+}
+
 .match-row.is-live .match-time,
 .match-row.is-live .match-teams {
   font-weight: 600;
@@ -1651,8 +1655,8 @@ h1 {
 }
 
 .match-time {
-  min-width: 88px;
-  font-size: 22px;
+  min-width: 82px;
+  font-size: 20px;
   font-weight: 400;
   letter-spacing: -0.02em;
   line-height: 1.15;
@@ -1663,13 +1667,13 @@ h1 {
   display: inline-flex;
   align-items: flex-start;
   justify-content: flex-start;
-  min-width: 172px;
+  min-width: 160px;
   letter-spacing: 0;
 }
 
 .match-date {
   color: var(--text);
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 400;
   letter-spacing: 0;
   line-height: 1.15;
@@ -1684,13 +1688,15 @@ h1 {
   display: inline-flex;
   align-items: center;
   flex: 0 1 auto;
+  flex-wrap: wrap;
   gap: 0 7px;
   min-width: 0;
   max-width: 100%;
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 400;
   letter-spacing: -0.02em;
   line-height: 1.15;
+  row-gap: 4px;
 }
 
 .match-row-meta {
@@ -1712,6 +1718,7 @@ h1 {
   flex: 0 1 auto;
   gap: 6px;
   min-width: 0;
+  max-width: 100%;
   white-space: nowrap;
 }
 
@@ -1729,7 +1736,7 @@ h1 {
   content: attr(data-tooltip);
   position: absolute;
   bottom: calc(100% + 8px);
-  left: var(--name-tooltip-anchor, 50%);
+  left: calc(var(--name-tooltip-anchor, 50%) + var(--tooltip-shift-x, 0px));
   z-index: 40;
   width: max-content;
   max-width: min(260px, 76vw);
@@ -1763,6 +1770,17 @@ h1 {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.match-teams .team {
+  white-space: normal;
+}
+
+.match-teams .team-name {
+  overflow: visible;
+  overflow-wrap: break-word;
+  text-overflow: clip;
+  white-space: normal;
 }
 
 .team.is-winner .team-name,
@@ -2145,7 +2163,7 @@ h1 {
 .info-tooltip-button::after {
   content: attr(data-tooltip);
   position: absolute;
-  left: 50%;
+  left: calc(50% + var(--tooltip-shift-x, 0px));
   bottom: calc(100% + 9px);
   z-index: 20;
   width: 224px;
@@ -2390,7 +2408,7 @@ h1 {
   content: attr(data-tooltip);
   position: absolute;
   bottom: calc(100% + 9px);
-  left: 50%;
+  left: calc(50% + var(--tooltip-shift-x, 0px));
   z-index: 20;
   width: 210px;
   max-width: min(210px, 72vw);
@@ -2476,7 +2494,7 @@ h1 {
   content: attr(data-tooltip);
   position: absolute;
   bottom: calc(100% + 8px);
-  left: var(--name-tooltip-anchor, 50%);
+  left: calc(var(--name-tooltip-anchor, 50%) + var(--tooltip-shift-x, 0px));
   z-index: 30;
   width: max-content;
   max-width: min(230px, 72vw);
@@ -3502,7 +3520,7 @@ h1 {
   content: attr(data-tooltip);
   position: absolute;
   bottom: calc(100% + 8px);
-  left: 0;
+  left: var(--tooltip-shift-x, 0px);
   z-index: 30;
   width: max-content;
   max-width: min(220px, 70vw);
@@ -3712,7 +3730,7 @@ h1 {
   content: none;
   position: absolute;
   bottom: calc(100% + 8px);
-  left: 0;
+  left: var(--tooltip-shift-x, 0px);
   z-index: 30;
   width: max-content;
   max-width: min(260px, 76vw);
@@ -4198,7 +4216,7 @@ h1 {
 
 .player-card-value-help::after {
   position: absolute;
-  left: 50%;
+  left: calc(50% + var(--tooltip-shift-x, 0px));
   bottom: calc(100% + 7px);
   z-index: 2;
   width: 186px;
@@ -4406,7 +4424,7 @@ h1 {
   content: attr(data-tooltip);
   position: absolute;
   bottom: calc(100% + 8px);
-  left: var(--name-tooltip-anchor, 50%);
+  left: calc(var(--name-tooltip-anchor, 50%) + var(--tooltip-shift-x, 0px));
   z-index: 30;
   width: max-content;
   max-width: min(240px, 76vw);
@@ -4701,7 +4719,7 @@ h1 {
 
 .source-tooltip {
   position: absolute;
-  left: 50%;
+  left: calc(50% + var(--tooltip-shift-x, 0px));
   bottom: calc(100% + 9px);
   z-index: 20;
   display: grid;
@@ -4726,7 +4744,7 @@ h1 {
 
 .release-tooltip {
   position: absolute;
-  left: 50%;
+  left: calc(50% + var(--tooltip-shift-x, 0px));
   bottom: calc(100% + 10px);
   z-index: 20;
   display: grid;
@@ -4861,24 +4879,28 @@ h1 {
 
 @media (max-width: 860px) {
   .source-tooltip {
-    left: 0;
-    transform: translateY(4px);
+    transform: translate(-50%, 4px);
   }
 
   .source-tooltip-wrapper:hover .source-tooltip,
   .source-tooltip-wrapper:focus-within .source-tooltip {
-    transform: translateY(0);
+    transform: translate(-50%, 0);
   }
 
   .release-tooltip {
-    right: 0;
-    left: auto;
-    transform: translateY(5px);
+    transform: translate(-50%, 5px);
   }
 
   .release-tooltip-wrapper:hover .release-tooltip,
   .release-tooltip-wrapper:focus-within .release-tooltip {
-    transform: translateY(0);
+    transform: translate(-50%, 0);
+  }
+}
+
+@media (max-width: 360px) {
+  .release-tooltip {
+    width: min(310px, calc(100vw - 28px));
+    max-width: none;
   }
 }
 
@@ -5515,7 +5537,17 @@ h1 {
   .standing-team:has(.third-place-pill) {
     flex-wrap: wrap;
     align-items: flex-start;
+    position: relative;
     row-gap: 5px;
+    padding-left: 27px;
+  }
+
+  .standing-team:has(.third-place-pill) > .flag {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%) scale(0.86);
+    transform-origin: center;
   }
 
   .standing-team:has(.third-place-pill) .standing-name {
@@ -5526,11 +5558,11 @@ h1 {
   }
 
   .standing-team:has(.third-place-pill) .rank-pill {
-    margin-left: 27px;
+    margin-left: 0;
   }
 
   .standing-team:has(.third-place-pill) .third-place-pill {
-    max-width: calc(100% - 27px);
+    max-width: 100%;
   }
 
   .catch-up-popover {
@@ -5657,6 +5689,7 @@ h1 {
   }
 
   .match-row-trigger {
+    align-items: center;
     flex: 1 1 auto;
     width: auto;
     min-width: 0;
@@ -5664,32 +5697,37 @@ h1 {
   }
 
   .match-row-meta {
+    align-content: center;
     flex: 0 0 auto;
-    gap: 5px;
-    max-width: 42%;
+    gap: 4px 5px;
+    justify-content: flex-end;
+    max-width: calc(42% - 6px);
     margin-left: 0;
-    flex-wrap: nowrap;
+    margin-right: 6px;
+    flex-wrap: wrap;
     white-space: nowrap;
   }
 
   .match-time {
-    min-width: 54px;
-    font-size: 14px;
+    min-width: 52px;
+    font-size: 13px;
     letter-spacing: 0;
   }
 
   .match-row.is-country-search-row .match-time.has-date {
-    min-width: 116px;
+    min-width: 110px;
   }
 
   .match-row.is-country-search-row .match-date {
-    font-size: 13px;
+    font-size: 12px;
   }
 
   .match-teams {
     flex: 1 1 auto;
-    font-size: 15px;
+    font-size: 14px;
     letter-spacing: 0;
+    line-height: 1.16;
+    row-gap: 2px;
   }
 
   .match-teams {
@@ -5697,7 +5735,12 @@ h1 {
   }
 
   .match-teams .team {
+    align-items: center;
     gap: 4px;
+  }
+
+  .match-teams .team-name {
+    max-width: 100%;
   }
 
   .match-teams .flag {
@@ -5713,6 +5756,7 @@ h1 {
     height: 15px;
     padding: 0 4px;
     font-size: 9px;
+    margin-top: 1px;
     transform: none;
   }
 
@@ -5720,8 +5764,8 @@ h1 {
   .up-next-pill,
   .match-score,
   .score-status {
-    height: 24px;
-    padding: 0 8px;
+    height: 22px;
+    padding: 0 7px;
     font-size: 9px;
   }
 
@@ -5732,6 +5776,7 @@ h1 {
   .match-row.is-country-search-row .match-row-meta {
     max-width: 100%;
     margin-left: 0;
+    margin-right: 0;
   }
 
   .yesterday-match-grid {
@@ -5818,7 +5863,17 @@ h1 {
   .standing-team {
     flex-wrap: wrap;
     align-items: flex-start;
+    position: relative;
+    padding-left: 27px;
     row-gap: 5px;
+  }
+
+  .standings-table .standing-team > .flag {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%) scale(0.86);
+    transform-origin: center;
   }
 
   .standing-name {
@@ -5829,11 +5884,11 @@ h1 {
   }
 
   .standings-table .rank-pill {
-    margin-left: 27px;
+    margin-left: 0;
   }
 
   .standing-team .third-place-pill {
-    max-width: calc(100% - 27px);
+    max-width: 100%;
   }
 
   .standing-team .third-place-pill {
@@ -5881,8 +5936,9 @@ h1 {
   }
 
   .match-row-meta {
-    max-width: 40%;
+    max-width: calc(40% - 4px);
     margin-left: 0;
+    margin-right: 4px;
   }
 
   .match-teams .rank-pill {

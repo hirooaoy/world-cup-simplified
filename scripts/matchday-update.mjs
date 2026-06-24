@@ -79,6 +79,21 @@ function validationNeedsProfiles(output) {
   return /player-profiles\.json/.test(output);
 }
 
+function getProfileRefreshArgs(output) {
+  const names = [
+    ...new Set(
+      [...output.matchAll(/player-profiles\.json(?: is missing)?\s+"([^"]+)"/g)].map((match) => match[1])
+    )
+  ];
+
+  if (!names.length) {
+    return [];
+  }
+
+  console.log(`Profile refresh scope: ${names.join(", ")}`);
+  return [`--players=${names.join(",")}`];
+}
+
 async function runValidatedProfileRefresh(stepIndex) {
   console.log(formatStep(stepIndex, "Validate data"));
   const validation = await runNodeScript({
@@ -99,6 +114,7 @@ async function runValidatedProfileRefresh(stepIndex) {
   console.log("\nValidation found stale/missing player profiles. Regenerating profile cards.");
   console.log(formatStep(stepIndex + 1, "Regenerate player profiles"));
   await runNodeScript({
+    args: getProfileRefreshArgs(validation.output),
     label: "Regenerate player profiles",
     script: "scripts/populate-player-profiles.mjs"
   });
