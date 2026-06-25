@@ -147,6 +147,12 @@ async function getMobileMatchupGridMetrics(pageInstance, fixtureId) {
         : null;
     };
 
+    const meta = row.querySelector(".match-row-meta");
+    const matchupRights = Array.from(
+      row.querySelectorAll(".match-teams .flag, .match-teams .team-name, .match-teams .match-versus")
+    ).map((element) => element.getBoundingClientRect().right);
+    const matchupRight = Math.max(...matchupRights);
+
     return {
       away: rect(".match-team-away"),
       awayFlag: rect(".match-team-away .flag"),
@@ -156,6 +162,10 @@ async function getMobileMatchupGridMetrics(pageInstance, fixtureId) {
       home: rect(".match-team-home"),
       homeName: rect(".match-team-home .team-name"),
       meta: rect(".match-row-meta"),
+      metaGapFromMatchup:
+        meta && Number.isFinite(matchupRight)
+          ? Math.round(meta.getBoundingClientRect().left - matchupRight)
+          : null,
       rowScrollOverflow: row.scrollWidth - row.clientWidth,
       text: row.innerText.replace(/\s+/g, " ").trim(),
       versus: rect(".match-versus")
@@ -175,6 +185,37 @@ function assertCompactMobileMatchupGrid(metrics, message) {
       metrics.home.center < metrics.versus.center &&
       Math.abs(metrics.versus.center - metrics.awayFlag.center) <= 2 &&
       metrics.versus.right <= metrics.awayFlag.left + 1 &&
+      metrics.homeName.right <= metrics.home.right + 1 &&
+      metrics.awayName.right <= metrics.away.right + 1 &&
+      metrics.rowScrollOverflow <= 1,
+    `${message} Measured ${JSON.stringify(metrics)}.`
+  );
+}
+
+function assertCompactOrComfortableMobileMatchup(metrics, message) {
+  const hasCompactShape =
+    metrics.hasWrappedClass &&
+    metrics.home &&
+    metrics.awayFlag &&
+    metrics.versus &&
+    metrics.home.center < metrics.versus.center &&
+    Math.abs(metrics.versus.center - metrics.awayFlag.center) <= 2 &&
+    metrics.versus.right <= metrics.awayFlag.left + 1;
+
+  const hasComfortableInlineShape =
+    !metrics.hasWrappedClass &&
+    metrics.metaGapFromMatchup !== null &&
+    metrics.metaGapFromMatchup >= 12 &&
+    metrics.versus &&
+    metrics.home &&
+    metrics.away &&
+    Math.abs(metrics.home.center - metrics.versus.center) <= 2 &&
+    Math.abs(metrics.versus.center - metrics.away.center) <= 2;
+
+  assert(
+    (hasCompactShape || hasComfortableInlineShape) &&
+      metrics.homeName &&
+      metrics.awayName &&
       metrics.homeName.right <= metrics.home.right + 1 &&
       metrics.awayName.right <= metrics.away.right + 1 &&
       metrics.rowScrollOverflow <= 1,
@@ -3157,9 +3198,9 @@ try {
       gutterLiveMatchupMetrics.rankCount === 0,
     `Ecuador vs Germany compact live row should render the expected teams without rank pills. Measured ${JSON.stringify(gutterLiveMatchupMetrics)}.`
   );
-  assertCompactMobileMatchupGrid(
+  assertCompactOrComfortableMobileMatchup(
     gutterLiveMatchupMetrics,
-    "Ecuador vs Germany should use the compact mobile matchup grid when an inline live row would crowd the LIVE pill."
+    "Ecuador vs Germany should use the compact mobile matchup grid only when the inline live row would crowd the LIVE pill."
   );
   assertCleanMatchMetaLayout(
     await getMatchRowMetaCollisionMetrics(compactLiveMatchupCheck.page, ".match-row.is-live"),
