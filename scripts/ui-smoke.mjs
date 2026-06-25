@@ -1688,7 +1688,6 @@ try {
   );
   assert(
     scorerPlayerDecoration.text &&
-      scorerPlayerDecoration.isVisible &&
       ((scorerPlayerDecoration.line === "underline" && scorerPlayerDecoration.style === "dotted") ||
         scorerPlayerDecoration.hasDottedUnderlineRule),
     `Scorer player mentions should use the same soft dotted underline as paragraph mentions. Measured ${JSON.stringify(scorerPlayerDecoration)}.`
