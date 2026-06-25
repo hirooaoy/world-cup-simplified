@@ -605,7 +605,7 @@ fixturesData.sourceIds = [
 ];
 
 fixturesData.fixtures = fixturesData.fixtures.map((fixture) => {
-  if (fixture.stage !== "group" || !fixture.homeTeamId || !fixture.awayTeamId) {
+  if (!fixture.homeTeamId || !fixture.awayTeamId) {
     return fixture;
   }
 

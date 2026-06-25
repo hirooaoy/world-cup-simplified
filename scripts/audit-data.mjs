@@ -135,8 +135,9 @@ for (const fixture of fixtures) {
   const hoursSinceKickoff = hoursBetween(now, kickoff);
   const hoursUntilKickoff = hoursBetween(kickoff, now);
   const label = `${participantName(teamsById, fixture, "home")} vs ${participantName(teamsById, fixture, "away")} (${fixture.id})`;
+  const hasConfirmedTeams = Boolean(fixture.homeTeamId && fixture.awayTeamId);
   const shouldAuditEnrichment =
-    fixture.stage === "group" &&
+    hasConfirmedTeams &&
     hoursUntilKickoff <= enrichmentWindowHours &&
     hoursSinceKickoff <= 6;
 

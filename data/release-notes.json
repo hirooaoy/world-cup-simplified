@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-25T09:00:31-07:00",
+  "updatedAt": "2026-06-25T09:38:29-07:00",
   "releases": [
     {
       "date": "2026-06-25",
@@ -8,19 +8,31 @@
       "highlights": [
         "Mobile Tournament now opens as a compact swipeable bracket board with connector lines and round-to-round shifts instead of a one-column list.",
         "Knockout calendar slots now auto-fill countries once group or source-match results make the participant certain.",
+        "Locked Tournament bracket cards now keep confirmed countries in full color, remove duplicate round labels, and leave unresolved Round of 32 slots muted as projections.",
+        "Locked bracket cards now open the matching date, row, and info card, and knockout round labels in match details link back to the Tournament bracket.",
         "Knockout match details now replace the placeholder context with group-round form, prior-round source matches, and the next winner path.",
+        "Unconfirmed Round of 32 opponents now stay as slot labels in match-detail group summaries until their place is locked.",
+        "Unconfirmed matchup key-information cards now explain that the copy will be populated once the matchup is confirmed.",
+        "Knockout info cards now show country flags beside team names in group-form, source-match, and next-path summaries.",
+        "Confirmed knockout fixtures now automatically receive ranking projections, key-player watchlists, H2H research-pending states, and matchup-aware key information.",
         "Completed groups now reuse the archived green advancement row highlight for confirmed Round of 32 teams.",
         "Third-place race badges now say whether a path is still open, how many matches are left, and the best-case points ceiling.",
-        "Mobile match rows now keep vs and match details centered while long country names wrap cleanly inside the team line, and Past 24 hours cards reserve room for both countries.",
+        "Mobile match rows now keep flags, country names, ranking pills, vs, and match details centered while long country names wrap cleanly inside the team line.",
         "Player hover cards now show the player country's flag beside the name, while historical cards keep archive-note wording."
       ],
       "highlightsZh": [
         "移动端淘汰赛现在是紧凑的可滑动对阵板，保留连接线和轮次切换动效，不再显示为单列列表。",
         "当小组或上轮淘汰赛结果已经确定参赛队时，淘汰赛日历席位现在会自动填入国家队。",
+        "已锁定的淘汰赛对阵卡现在会让确认球队保持全彩显示，并移除重复轮次标签；尚未确定的32强席位仍以灰色预测样式呈现。",
+        "已锁定的对阵卡现在会打开对应日期、比赛行和信息卡，比赛详情里的淘汰赛轮次标签也可跳回淘汰赛对阵。",
         "淘汰赛比赛详情现在会用小组赛表现、上一轮来源比赛和下一轮胜者路径替代占位说明。",
+        "尚未确认的32强对手现在会在比赛详情的小组摘要中保留为席位名称，直到席位锁定后才显示国家队。",
+        "尚未确认对阵的关键信息卡现在会说明，对阵确认后再补充文案。",
+        "淘汰赛信息卡现在会在小组表现、来源比赛和下一轮路径摘要中的队名旁显示国旗。",
+        "确认球队的淘汰赛现在会自动补入排名预测、重点球员观察名单、交锋待研究状态和对阵关键信息。",
         "已完赛小组现在会沿用存档赛事的绿色晋级行高亮来标记确认进入32强的球队。",
         "最佳第三名竞争标签现在会说明是否仍有出线路径、还剩几场比赛，以及最好情况的积分上限。",
-        "移动端比赛行现在会让 vs 和比赛详情保持居中，同时让较长的国名在球队行内整齐换行，“过去 24 小时”卡片也会为两队都保留空间。",
+        "移动端比赛行现在会让旗帜、国家队名称、排名标签、vs 和比赛详情保持居中，同时让较长的国名在球队行内整齐换行。",
         "球员悬停卡现在会在姓名旁显示球员国家旗帜，历史球员卡也保留档案说明的表述。"
       ]
     },

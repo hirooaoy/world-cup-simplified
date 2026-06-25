@@ -8305,8 +8305,8 @@
       "venue": "Los Angeles Stadium",
       "status": "SCHEDULED",
       "h2h": {
-        "status": "not-loaded",
-        "summary": "Teams are not known yet. Past match research will load after the matchup is set.",
+        "status": "research-pending",
+        "summary": "H2H research is pending for this matchup. Add API-backed or manually verified senior results when available.",
         "results": null
       },
       "providerIds": {
@@ -8316,7 +8316,53 @@
         }
       },
       "homeTeamId": "RSA",
-      "awayTeamId": "CAN"
+      "awayTeamId": "CAN",
+      "keyPlayers": {
+        "sourceId": "key-player-baseline-2026-06-22",
+        "method": "team-watchlist-baseline",
+        "basis": "Team-level key-player watchlist; replace with API/squad-sourced fixture notes when available",
+        "home": [
+          {
+            "name": "Ronwen Williams",
+            "note": "South Africa's captain and shot-stopper, important when opponents turn territory into sustained pressure."
+          },
+          {
+            "name": "Teboho Mokoena",
+            "note": "The midfield competitor and restart threat who can turn a defensive spell into South Africa possession."
+          },
+          {
+            "name": "Lyle Foster",
+            "note": "A direct forward who gives South Africa a route behind the defensive line."
+          }
+        ],
+        "away": [
+          {
+            "name": "Alphonso Davies",
+            "note": "Canada's most explosive ball-carrier, able to flip the match with one run from wide areas."
+          },
+          {
+            "name": "Jonathan David",
+            "note": "The central finisher, sharpest when Canada create fast cutbacks or transition chances."
+          },
+          {
+            "name": "Stephen Eustaquio",
+            "note": "A midfield stabilizer who helps Canada avoid turning the match into only end-to-end breaks."
+          }
+        ]
+      },
+      "projection": {
+        "sourceId": "ranking-projection-2026-06-17",
+        "method": "fifa-ranking-baseline",
+        "basis": "FIFA ranking strength with host-country adjustment",
+        "home": 27,
+        "draw": 24,
+        "away": 49
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-22",
+        "home": "South Africa are counterattacking underdogs who can stay in games if their goalkeeper and forwards give them belief, led by Ronwen Williams, Teboho Mokoena, and Lyle Foster. Against Canada, their Williams-Mokoena-Foster save-to-counter chain has to beat Canada's Davies-David open-field speed. They want to absorb pressure, let Mokoena make the first forward pass, and release Foster before the defense recovers. The risk is Canada can run through Davies and David before defenders can recover.",
+        "away": "Canada are a fast, direct host-side threat with enough top-end speed to change games in a few seconds, led by Alphonso Davies, Jonathan David, and Stephen Eustaquio. Against South Africa, their Davies-David open-field speed has to beat South Africa's Williams-Mokoena-Foster save-to-counter chain. They want to release Davies into space and get David facing goal before the opponent's defense is set. The risk is South Africa can turn saves from Williams into Mokoena outlets and Foster counters."
+      }
     },
     {
       "id": "match-74-round-of-32-2026-06-29",

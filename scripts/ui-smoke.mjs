@@ -33,6 +33,19 @@ function assert(condition, message) {
   }
 }
 
+function stripFlagEmoji(text) {
+  return String(text || "").replace(/[\u{1F1E6}-\u{1F1FF}]{2}/gu, "");
+}
+
+function normalizeFlaggedText(text) {
+  return stripFlagEmoji(text).replace(/\s+/g, " ").trim();
+}
+
+function getCssColorAlpha(colorText) {
+  const match = /rgba?\(\s*\d+\s*,\s*\d+\s*,\s*\d+(?:\s*,\s*([\d.]+))?\s*\)/.exec(colorText || "");
+  return match ? Number(match[1] ?? 1) : 0;
+}
+
 async function getMatchRowMetaCollisionMetrics(pageInstance, rowSelector = ".match-row") {
   return pageInstance.locator(rowSelector).evaluateAll((rows) =>
     rows
@@ -46,7 +59,7 @@ async function getMatchRowMetaCollisionMetrics(pageInstance, rowSelector = ".mat
         }
 
         const textPieces = Array.from(
-          row.querySelectorAll(".match-teams .team-name-start-lock, .match-teams .team-name-rank-lock, .match-teams .versus")
+          row.querySelectorAll(".match-teams .flag, .match-teams .team-name, .match-teams .rank-pill, .match-teams .versus")
         );
         const toRect = (element) => {
           const rect = element.getBoundingClientRect();
@@ -1753,7 +1766,7 @@ try {
   });
   await page.waitForSelector(".match-row");
   await page.locator('[data-match-id="match-73-round-of-32-2026-06-28"]').click();
-  const roundOf32DetailText = await page.locator("#match-info").innerText();
+  const roundOf32DetailText = normalizeFlaggedText(await page.locator("#match-info").innerText());
   assert(
     roundOf32DetailText.includes("Group round") &&
       roundOf32DetailText.includes("South Africa won against South Korea (1-0), tied against Czechia (1-1), and lost to Mexico (0-2).") &&
@@ -1766,13 +1779,39 @@ try {
       !roundOf32DetailText.includes("bracket details are not loaded yet"),
     "Round of 32 match detail should summarize group-round form and the next winner path before normal prediction/context blocks."
   );
+  const roundOf32ContextFlagMetrics = await page.locator("#match-info").evaluate((info) => ({
+    groupRoundFlags: info.querySelectorAll(".knockout-context-list .knockout-context-team-flag .flag").length,
+    nextPathFlags: [...info.querySelectorAll(".knockout-next-line .knockout-context-team-flag .flag")].map(
+      (flag) => flag.getAttribute("aria-label") || ""
+    )
+  }));
+  assert(
+    roundOf32ContextFlagMetrics.groupRoundFlags >= 8 &&
+      roundOf32ContextFlagMetrics.nextPathFlags.includes("Netherlands flag") &&
+      roundOf32ContextFlagMetrics.nextPathFlags.includes("Morocco flag") &&
+      roundOf32ContextFlagMetrics.nextPathFlags.length >= 2,
+    `Round of 32 match detail should show flags for projected and confirmed next-path teams. Measured ${JSON.stringify(roundOf32ContextFlagMetrics)}.`
+  );
+
+  await page.goto(`${baseUrl}?view=matches&date=2026-06-29&tz=America%2FLos_Angeles`, {
+    waitUntil: "load"
+  });
+  await page.waitForSelector(".match-row");
+  await page.locator('[data-match-id="match-76-round-of-32-2026-06-29"]').click();
+  const unconfirmedRoundOf32DetailText = normalizeFlaggedText(await page.locator("#match-info").innerText());
+  assert(
+    unconfirmedRoundOf32DetailText.includes("Brazil won against Haiti (3-0) and Scotland (3-0) and tied against Morocco (1-1).") &&
+      unconfirmedRoundOf32DetailText.includes("Group F runner-up is not confirmed yet.") &&
+      !unconfirmedRoundOf32DetailText.includes("Japan won against"),
+    "Round of 32 match detail should not summarize a projected opponent before its slot is locked."
+  );
 
   await page.goto(`${baseUrl}?view=matches&date=2026-07-04&tz=America%2FLos_Angeles`, {
     waitUntil: "load"
   });
   await page.waitForSelector(".match-row");
   await page.locator('[data-match-id="match-89-round-of-16-2026-07-04"]').click();
-  const roundOf16DetailText = await page.locator("#match-info").innerText();
+  const roundOf16DetailText = normalizeFlaggedText(await page.locator("#match-info").innerText());
   assert(
     roundOf16DetailText.includes("Round of 32") &&
       roundOf16DetailText.includes("is scheduled.") &&
@@ -1782,6 +1821,15 @@ try {
       !roundOf16DetailText.includes("Group round") &&
       !roundOf16DetailText.includes("bracket details are not loaded yet"),
     "Round of 16 and later match detail should summarize the previous knockout round instead of group standings."
+  );
+  const roundOf16ContextFlagMetrics = await page.locator("#match-info").evaluate((info) => ({
+    previousRoundFlags: info.querySelectorAll(".knockout-context-list .knockout-context-team-flag .flag").length,
+    nextPathFlags: info.querySelectorAll(".knockout-next-line .knockout-context-team-flag .flag").length
+  }));
+  assert(
+    roundOf16ContextFlagMetrics.previousRoundFlags >= 4 &&
+      roundOf16ContextFlagMetrics.nextPathFlags >= 2,
+    `Round of 16 and later match detail should show projected and confirmed flags in source and next-path matchups. Measured ${JSON.stringify(roundOf16ContextFlagMetrics)}.`
   );
 
   await page.setViewportSize({ width: 540, height: 760 });
@@ -2825,9 +2873,7 @@ try {
           .evaluate((row) => {
             const versus = row.querySelector(".versus");
             const versusRect = versus?.getBoundingClientRect();
-            const sameLineTeamPieces = Array.from(
-              row.querySelectorAll(".match-teams .team-name-start-lock, .match-teams .team-name-rank-lock")
-            )
+            const sameLineTeamPieces = Array.from(row.querySelectorAll(".match-teams .team-name, .match-teams .rank-pill"))
               .filter((piece) => {
                 const rect = piece.getBoundingClientRect();
                 return versusRect && Math.abs(rect.top - versusRect.top) <= 1;
@@ -2857,43 +2903,76 @@ try {
               const element = row.querySelector(selector);
               const bounds = element?.getBoundingClientRect();
 
-              return bounds
-                ? {
-                    bottom: Math.round(bounds.bottom),
-                    center: Math.round(bounds.top + bounds.height / 2),
-                    height: Math.round(bounds.height),
-                    left: Math.round(bounds.left),
-                    text: element.textContent.replace(/\s+/g, " ").trim(),
-                    top: Math.round(bounds.top)
-                  }
-                : null;
+	              return bounds
+	                ? {
+	                    bottom: Math.round(bounds.bottom),
+	                    center: Math.round(bounds.top + bounds.height / 2),
+	                    height: Math.round(bounds.height),
+	                    left: Math.round(bounds.left),
+	                    right: Math.round(bounds.right),
+	                    text: element.textContent.replace(/\s+/g, " ").trim(),
+	                    top: Math.round(bounds.top),
+	                    width: Math.round(bounds.width)
+	                  }
+	                : null;
+	            };
+            const textLineRects = (selector) => {
+              const element = row.querySelector(selector);
+
+              if (!element) {
+                return [];
+              }
+
+              const range = document.createRange();
+              range.selectNodeContents(element);
+              const rects = Array.from(range.getClientRects()).map((bounds) => ({
+                bottom: Math.round(bounds.bottom),
+                center: Math.round(bounds.top + bounds.height / 2),
+                height: Math.round(bounds.height),
+                left: Math.round(bounds.left),
+                right: Math.round(bounds.right),
+                top: Math.round(bounds.top),
+                width: Math.round(bounds.width)
+              }));
+              range.detach();
+
+              return rects;
             };
 
-            return {
-              awayRank: rect(".match-team-away .team-name-rank-lock"),
-              awayStart: rect(".match-team-away .team-name-start-lock"),
-              hasWrappedClass: row.classList.contains("has-wrapped-matchup"),
-              homeRank: rect(".match-team-home .team-name-rank-lock"),
-              meta: rect(".match-row-meta"),
-              rowScrollOverflow: row.scrollWidth - row.clientWidth,
-              text: row.innerText.replace(/\s+/g, " ").trim(),
+	            return {
+	              away: rect(".match-team-away"),
+	              awayFlag: rect(".match-team-away .flag"),
+	              awayName: rect(".match-team-away .team-name"),
+	              awayNameLines: textLineRects(".match-team-away .team-name"),
+	              awayRank: rect(".match-team-away .rank-pill"),
+	              hasWrappedClass: row.classList.contains("has-wrapped-matchup"),
+	              home: rect(".match-team-home"),
+	              homeName: rect(".match-team-home .team-name"),
+	              homeRank: rect(".match-team-home .rank-pill"),
+	              meta: rect(".match-row-meta"),
+	              rowScrollOverflow: row.scrollWidth - row.clientWidth,
+	              text: row.innerText.replace(/\s+/g, " ").trim(),
               versus: rect(".match-versus")
             };
           });
-        assert(
-          curacaoCoteWrap.hasWrappedClass &&
-            curacaoCoteWrap.homeRank?.text === "Curaçao #82" &&
-            curacaoCoteWrap.awayStart?.text.replace(/\s+/g, "") === "🇨🇮Côte" &&
-            curacaoCoteWrap.awayRank?.text === "d'Ivoire #33" &&
-            Math.abs(curacaoCoteWrap.homeRank.center - curacaoCoteWrap.versus.center) <= 2 &&
-            Math.abs(curacaoCoteWrap.homeRank.center - curacaoCoteWrap.meta.center) <= 2 &&
-            Math.abs(curacaoCoteWrap.versus.center - curacaoCoteWrap.meta.center) <= 2 &&
-            curacaoCoteWrap.awayStart.top < curacaoCoteWrap.versus.top &&
-            curacaoCoteWrap.awayRank.top > curacaoCoteWrap.awayStart.top + 8 &&
-            Math.abs(curacaoCoteWrap.awayRank.left - curacaoCoteWrap.awayStart.left) <= 2 &&
-            curacaoCoteWrap.rowScrollOverflow <= 1,
-          `Curaçao vs Côte d'Ivoire should center the home side and vs while the away second line aligns under Côte. Measured ${JSON.stringify(curacaoCoteWrap)}.`
-        );
+	        assert(
+	          curacaoCoteWrap.hasWrappedClass &&
+	            curacaoCoteWrap.homeName?.text === "Curaçao" &&
+	            curacaoCoteWrap.homeRank?.text === "#82" &&
+	            curacaoCoteWrap.awayFlag?.text === "🇨🇮" &&
+	            curacaoCoteWrap.awayName?.text === "Côte d'Ivoire" &&
+	            curacaoCoteWrap.awayNameLines.length >= 2 &&
+	            curacaoCoteWrap.awayRank?.text === "#33" &&
+	            Math.abs(curacaoCoteWrap.homeRank.center - curacaoCoteWrap.versus.center) <= 2 &&
+	            Math.abs(curacaoCoteWrap.homeRank.center - curacaoCoteWrap.meta.center) <= 2 &&
+	            Math.abs(curacaoCoteWrap.versus.center - curacaoCoteWrap.meta.center) <= 2 &&
+	            curacaoCoteWrap.awayNameLines[0].top < curacaoCoteWrap.versus.top &&
+	            curacaoCoteWrap.awayNameLines.at(-1).top > curacaoCoteWrap.awayNameLines[0].top + 8 &&
+	            curacaoCoteWrap.awayRank.left > curacaoCoteWrap.awayName.left &&
+	            curacaoCoteWrap.awayRank.right <= curacaoCoteWrap.away.right + 1 &&
+	            curacaoCoteWrap.rowScrollOverflow <= 1,
+	          `Curaçao vs Côte d'Ivoire should center the home side and vs while the away name wraps cleanly beside its rank. Measured ${JSON.stringify(curacaoCoteWrap)}.`
+	        );
       }
     }
     await upNextCheck.context.close();
@@ -3728,6 +3807,26 @@ try {
       [...document.querySelectorAll(selector)]
         .map((element) => element.textContent.replace(/\s+/g, " ").trim())
         .join(" ");
+    const getMatchTeamVisuals = (matchNumber) =>
+      [...document.querySelectorAll(`.progress-match[data-match-number="${matchNumber}"] .knockout-team`)]
+        .map((team) => {
+          const flag = team.querySelector(".knockout-team-flag");
+          const strong = team.querySelector(".knockout-team-copy strong");
+          const rank = team.querySelector(".rank-pill");
+          const flagStyle = flag ? getComputedStyle(flag) : null;
+          const strongStyle = strong ? getComputedStyle(strong) : null;
+          const rankStyle = rank ? getComputedStyle(rank) : null;
+
+          return {
+            className: team.className,
+            flagFilter: flagStyle?.filter || "",
+            flagOpacity: flagStyle?.opacity || "",
+            rankOpacity: rankStyle?.opacity || "",
+            strongColor: strongStyle?.color || "",
+            teamId: team.dataset.teamId || "",
+            text: team.textContent.replace(/\s+/g, " ").trim()
+          };
+        });
 
     return {
       m73ProgressText: text('.progress-match[data-match-number="73"]'),
@@ -3751,6 +3850,9 @@ try {
       connectorPathCount: document.querySelectorAll(".progress-connectors path").length,
       progressText: allText(".progress-match"),
       projectedCount: document.querySelectorAll(".progress-match.is-projected").length,
+      roundOf32ProjectedCount: document.querySelectorAll(
+        ".progress-round.is-round-of-32 .progress-match.is-projected"
+      ).length,
       likelihoodCount: document.querySelectorAll(".knockout-likelihood").length,
       likelihoodListCount: document.querySelectorAll(".knockout-likelihood-list").length,
       likelihoodText: allText(".knockout-likelihood"),
@@ -3760,11 +3862,24 @@ try {
       likelihoodTooltipCount: [...document.querySelectorAll(".knockout-likelihood")]
         .filter((element) => /^Prediction based on /.test(element.getAttribute("data-tooltip") || ""))
         .length,
+      m73OpenMatchId: document.querySelector('.progress-match[data-match-number="73"]')?.dataset.openMatchId || "",
+      m74OpenMatchId: document.querySelector('.progress-match[data-match-number="74"]')?.dataset.openMatchId || "",
       m89PillCount: document.querySelectorAll('.progress-match[data-match-number="89"] .knockout-likelihood').length,
       m89SeedLabelCount: document.querySelectorAll('.progress-match[data-match-number="89"] .knockout-team-copy small').length,
       m97PillCount: document.querySelectorAll('.progress-match[data-match-number="97"] .knockout-likelihood').length,
       m97SeedLabelCount: document.querySelectorAll('.progress-match[data-match-number="97"] .knockout-team-copy small').length,
       m104PillCount: document.querySelectorAll('.progress-match[data-match-number="104"] .knockout-likelihood').length,
+      m73FooterCount: document.querySelectorAll('.progress-match[data-match-number="73"] .knockout-match-footer').length,
+      m73Projected: document.querySelector('.progress-match[data-match-number="73"]')?.classList.contains("is-projected"),
+      m74Projected: document.querySelector('.progress-match[data-match-number="74"]')?.classList.contains("is-projected"),
+      m79Projected: document.querySelector('.progress-match[data-match-number="79"]')?.classList.contains("is-projected"),
+      m79SlotPills: [...document.querySelectorAll('.progress-match[data-match-number="79"] .knockout-slot-odds')]
+        .map((element) => ({
+          slotLabel: element.dataset.slotLabel || "",
+          teamId: element.dataset.teamId || "",
+          text: element.textContent.replace(/\s+/g, " ").trim()
+        })),
+      m79TeamVisuals: getMatchTeamVisuals(79),
       m89Tooltips: [...document.querySelectorAll('.progress-match[data-match-number="89"] .knockout-likelihood')]
         .map((element) => element.getAttribute("data-tooltip") || "")
         .join(" "),
@@ -3814,6 +3929,23 @@ try {
       tournamentCheck.progressCount === 31,
     "The tournament section should show a progression-only bracket from the Round of 32 through the final."
   );
+  const m79MexicoVisual = tournamentCheck.m79TeamVisuals.find((team) => team.teamId === "MEX");
+  const m79UnresolvedVisual = tournamentCheck.m79TeamVisuals.find((team) => team.teamId !== "MEX");
+  assert(
+    tournamentCheck.m79Projected === true &&
+      m79MexicoVisual?.className.includes("is-locked") &&
+      !m79MexicoVisual.className.includes("is-likely") &&
+      m79MexicoVisual.flagFilter === "none" &&
+      m79MexicoVisual.flagOpacity === "1" &&
+      m79MexicoVisual.rankOpacity === "1" &&
+      getCssColorAlpha(m79MexicoVisual.strongColor) >= 0.8 &&
+      m79UnresolvedVisual &&
+      !m79UnresolvedVisual.className.includes("is-locked") &&
+      getCssColorAlpha(m79UnresolvedVisual.strongColor) < getCssColorAlpha(m79MexicoVisual.strongColor) &&
+      tournamentCheck.m79SlotPills.some((pill) => pill.teamId === "SCO" && pill.text.includes("20% here")) &&
+      tournamentCheck.m79SlotPills.every((pill) => pill.teamId !== "MEX"),
+    `Locked Round of 32 teams should stay visually confirmed inside projected cards while unresolved slot picks remain muted. Measured ${JSON.stringify({ m79MexicoVisual, m79UnresolvedVisual, m79SlotPills: tournamentCheck.m79SlotPills })}.`
+  );
   const groupETopTeam = getTeam(standingsData.groups?.E?.[0]?.teamId);
   const groupETopTeamName = groupETopTeam.standingName || groupETopTeam.name;
   assert(
@@ -3833,7 +3965,14 @@ try {
       tournamentCheck.slotOddsCount >= 16 &&
       tournamentCheck.slotOddsToneMismatches.length === 0 &&
       tournamentCheck.slotOddsText.includes("here") &&
-      tournamentCheck.projectedCount === 15 &&
+      tournamentCheck.projectedCount === 30 &&
+      tournamentCheck.roundOf32ProjectedCount === 15 &&
+      tournamentCheck.m73FooterCount === 0 &&
+      tournamentCheck.m73Projected === false &&
+      tournamentCheck.m74Projected === true &&
+      tournamentCheck.m73OpenMatchId === "match-73-round-of-32-2026-06-28" &&
+      tournamentCheck.m74OpenMatchId === "" &&
+      !tournamentCheck.m73ProgressText.includes("Round of 32") &&
       tournamentCheck.likelihoodCount === 30 &&
       tournamentCheck.likelihoodTooltipCount === tournamentCheck.likelihoodCount &&
       tournamentCheck.likelihoodListCount === 15 &&
@@ -3870,6 +4009,47 @@ try {
       tournamentCheck.roundHeadings.join("|") === "Round of 32|Round of 16|Quarter-finals|Semi-finals|Final",
     `The tournament section should show unique Round of 32 third-place slot picks and muted predictions for later rounds. Measured ${JSON.stringify(tournamentCheck)}.`
   );
+
+  await page.locator('.progress-match[data-match-number="73"]').click();
+  await page.waitForFunction(
+    () =>
+      document.querySelector("#matches-tab")?.getAttribute("aria-selected") === "true" &&
+      document.querySelector('.match-row[data-match-id="match-73-round-of-32-2026-06-28"]')?.classList.contains("is-selected") &&
+      document.querySelector("#match-info:not([hidden])")
+  );
+  const lockedBracketNavigation = await page.evaluate(() => {
+    const params = new URL(window.location.href).searchParams;
+    return {
+      date: params.get("date"),
+      match: params.get("match"),
+      selectedRowPressed: document
+        .querySelector('.match-row[data-match-id="match-73-round-of-32-2026-06-28"] .match-row-trigger')
+        ?.getAttribute("aria-pressed"),
+      stageLinkText: document.querySelector("#match-info [data-open-tournament-tab]")?.textContent.trim() || "",
+      view: params.get("view")
+    };
+  });
+  assert(
+    lockedBracketNavigation.date === "2026-06-28" &&
+      lockedBracketNavigation.match === "match-73-round-of-32-2026-06-28" &&
+      lockedBracketNavigation.selectedRowPressed === "true" &&
+      lockedBracketNavigation.stageLinkText === "Round of 32" &&
+      lockedBracketNavigation.view === null,
+    `Locked tournament cards should open the matching date, row, and info card. Measured ${JSON.stringify(lockedBracketNavigation)}.`
+  );
+
+  await page.locator("#match-info [data-open-tournament-tab]").click();
+  await page.waitForFunction(
+    () =>
+      document.querySelector("#standings-tab")?.getAttribute("aria-selected") === "true" &&
+      document.querySelector("#standings-tournament-tab")?.getAttribute("aria-pressed") === "true" &&
+      document.querySelector(".tournament-view")
+  );
+  assert(
+    new URL(page.url()).searchParams.get("standingsMode") === "tournament",
+    "Clicking the knockout round label in match info should jump back to the Tournament tab."
+  );
+
   const tournamentLayoutChecks = [];
   for (const viewport of [
     { height: 900, width: 1280 },
@@ -4430,10 +4610,10 @@ try {
         const rowRect = row.getBoundingClientRect();
         const chipRect = chip.getBoundingClientRect();
         const textPieces = Array.from(
-          row.querySelectorAll(".match-teams .team-name-start-lock, .match-teams .team-name-rank-lock, .match-teams .match-versus")
+          row.querySelectorAll(".match-teams .flag, .match-teams .team-name, .match-teams .rank-pill, .match-teams .match-versus")
         );
         const homePieces = Array.from(
-          row.querySelectorAll(".match-team-home .team-name-start-lock, .match-team-home .team-name-rank-lock")
+          row.querySelectorAll(".match-team-home .flag, .match-team-home .team-name, .match-team-home .rank-pill")
         );
         const versus = row.querySelector(".match-versus");
         const collisions = [];
@@ -4515,78 +4695,70 @@ try {
       mobileCompletedHoverMetrics.scoreRightOverflow <= 1,
     `Hovered mobile completed rows should not nudge score pills into the clipped edge. Measured ${JSON.stringify(mobileCompletedHoverMetrics)}.`
   );
-  const southAfricaSouthKoreaRowMetrics = await page
-    .locator('[data-match-id="south-africa-south-korea-2026-06-24"]')
-    .evaluate((row) => {
-      const rowRect = row.getBoundingClientRect();
-      const starts = Array.from(row.querySelectorAll(".team-name-start-lock")).map((lock) => {
-        const rect = lock.getBoundingClientRect();
+	  const southAfricaSouthKoreaRowMetrics = await page
+	    .locator('[data-match-id="south-africa-south-korea-2026-06-24"]')
+	    .evaluate((row) => {
+	      const rowRect = row.getBoundingClientRect();
+	      const awayTeam = row.querySelector(".match-team-away");
+	      const awayFlag = awayTeam?.querySelector(".flag");
+	      const awayName = awayTeam?.querySelector(".team-name");
+	      const awayRank = awayTeam?.querySelector(".rank-pill");
+	      const awayNameRect = awayName?.getBoundingClientRect();
+	      const awayRankRect = awayRank?.getBoundingClientRect();
+	      const pieces = Array.from(
+	        row.querySelectorAll(".match-teams .flag, .match-teams .team-name, .match-teams .rank-pill")
+	      );
+	      const pieceRightOverflow = pieces.map((piece) => piece.getBoundingClientRect().right - rowRect.right);
 
-        return {
-          text: lock.textContent.replace(/\s+/g, " ").trim(),
-          right: rect.right,
-          top: rect.top
-        };
-      });
-      const locks = Array.from(row.querySelectorAll(".team-name-rank-lock")).map((lock) => {
-        const rect = lock.getBoundingClientRect();
-
-        return {
-          text: lock.textContent.replace(/\s+/g, " ").trim(),
-          right: rect.right,
-          top: rect.top
-        };
-      });
-
-      return {
-        hasKoreaStartLock: starts.some((lock) => lock.text.replace(/\s+/g, "") === "🇰🇷South"),
-        hasKoreaRankLock: locks.some((lock) => lock.text === "Korea #25"),
-        lockRightOverflow: Math.max(
-          0,
-          ...starts.map((lock) => lock.right - rowRect.right),
-          ...locks.map((lock) => lock.right - rowRect.right)
-        ),
-        scrollOverflow: row.scrollWidth - row.clientWidth,
-        text: row.innerText.replace(/\s+/g, " ").trim()
-      };
+	      return {
+	        awayFlag: awayFlag?.textContent.replace(/\s+/g, " ").trim() || "",
+	        awayName: awayName?.textContent.replace(/\s+/g, " ").trim() || "",
+	        awayRank: awayRank?.textContent.replace(/\s+/g, " ").trim() || "",
+	        pieceRightOverflow: Math.max(0, ...pieceRightOverflow),
+	        rankNameCenterDelta:
+	          awayNameRect && awayRankRect
+	            ? Math.abs(
+	                awayRankRect.top + awayRankRect.height / 2 - (awayNameRect.top + awayNameRect.height / 2)
+	              )
+	            : Number.POSITIVE_INFINITY,
+	        scrollOverflow: row.scrollWidth - row.clientWidth,
+	        text: row.innerText.replace(/\s+/g, " ").trim()
+	      };
     });
-  assert(
-    southAfricaSouthKoreaRowMetrics.text.startsWith("6:00PM") &&
-      southAfricaSouthKoreaRowMetrics.hasKoreaStartLock &&
-      southAfricaSouthKoreaRowMetrics.hasKoreaRankLock &&
-      southAfricaSouthKoreaRowMetrics.lockRightOverflow <= 1 &&
-      southAfricaSouthKoreaRowMetrics.scrollOverflow <= 1,
-    `South Africa vs South Korea should keep the flag with South and Korea #25 together without clipping. Measured ${JSON.stringify(southAfricaSouthKoreaRowMetrics)}.`
-  );
-  const mobileRankAlignmentMetrics = await page
-    .locator('[data-match-id="switzerland-canada-2026-06-24"]')
-    .evaluate((row) =>
-      Array.from(row.querySelectorAll(".team-name-rank-lock")).map((lock) => {
-        const pill = lock.querySelector(".rank-pill");
-        const pillRect = pill?.getBoundingClientRect();
-        const textNode = Array.from(lock.childNodes).find(
-          (node) => node.nodeType === Node.TEXT_NODE && node.textContent.trim()
-        );
+	  assert(
+	    southAfricaSouthKoreaRowMetrics.text.startsWith("6:00PM") &&
+	      southAfricaSouthKoreaRowMetrics.awayFlag === "🇰🇷" &&
+	      southAfricaSouthKoreaRowMetrics.awayName === "South Korea" &&
+	      southAfricaSouthKoreaRowMetrics.awayRank === "#25" &&
+	      southAfricaSouthKoreaRowMetrics.rankNameCenterDelta <= 2 &&
+	      southAfricaSouthKoreaRowMetrics.pieceRightOverflow <= 1 &&
+	      southAfricaSouthKoreaRowMetrics.scrollOverflow <= 1,
+	    `South Africa vs South Korea should keep the flag, country name, and rank visible without clipping. Measured ${JSON.stringify(southAfricaSouthKoreaRowMetrics)}.`
+	  );
+	  const mobileRankAlignmentMetrics = await page
+	    .locator('[data-match-id="switzerland-canada-2026-06-24"]')
+	    .evaluate((row) =>
+	      Array.from(row.querySelectorAll(".match-teams .team")).map((team) => {
+	        const name = team.querySelector(".team-name");
+	        const pill = team.querySelector(".rank-pill");
+	        const nameRect = name?.getBoundingClientRect();
+	        const pillRect = pill?.getBoundingClientRect();
 
-        if (!pillRect || !textNode) {
-          return {
-            centerDelta: Number.POSITIVE_INFINITY,
-            text: lock.textContent.replace(/\s+/g, " ").trim()
-          };
-        }
+	        if (!nameRect || !pillRect) {
+	          return {
+	            centerDelta: Number.POSITIVE_INFINITY,
+	            text: team.textContent.replace(/\s+/g, " ").trim()
+	          };
+	        }
 
-        const range = document.createRange();
-        range.selectNodeContents(textNode);
-        const textRect = range.getBoundingClientRect();
-
-        return {
-          centerDelta: Math.abs(
-            pillRect.top + pillRect.height / 2 - (textRect.top + textRect.height / 2)
-          ),
-          text: lock.textContent.replace(/\s+/g, " ").trim()
-        };
-      })
-    );
+	        return {
+	          centerDelta: Math.abs(
+	            pillRect.top + pillRect.height / 2 - (nameRect.top + nameRect.height / 2)
+	          ),
+	          text: team.textContent.replace(/\s+/g, " ").trim()
+	        };
+	      })
+	    );
   assert(
     mobileRankAlignmentMetrics.length >= 2 &&
       mobileRankAlignmentMetrics.every((metric) => metric.centerDelta <= 1.25),

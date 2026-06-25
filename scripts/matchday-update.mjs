@@ -13,6 +13,18 @@ const steps = [
   {
     label: "Sync FIFA goal events",
     script: "scripts/sync-fifa-goal-events.mjs"
+  },
+  {
+    label: "Refresh confirmed-fixture key-player/H2H baselines",
+    script: "scripts/populate-enrichment-baselines.mjs"
+  },
+  {
+    label: "Refresh confirmed-fixture projections",
+    script: "scripts/populate-projections.mjs"
+  },
+  {
+    label: "Refresh confirmed-fixture matchup key information",
+    script: "scripts/populate-matchup-key-information.mjs"
   }
 ];
 const verificationSteps = [

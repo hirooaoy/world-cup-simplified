@@ -727,6 +727,7 @@ for (const fixture of fixturesData.fixtures || []) {
   assert(!Number.isNaN(new Date(fixture.kickoffUtc).getTime()), `Fixture "${fixture.id}" must have a valid kickoffUtc`);
   const hasHomeTeam = fixture.homeTeamId && teams.has(fixture.homeTeamId);
   const hasAwayTeam = fixture.awayTeamId && teams.has(fixture.awayTeamId);
+  const hasConfirmedTeams = Boolean(hasHomeTeam && hasAwayTeam);
   const hasHomeSlot = typeof fixture.homeSlot === "string" && fixture.homeSlot.length > 0;
   const hasAwaySlot = typeof fixture.awaySlot === "string" && fixture.awaySlot.length > 0;
 
@@ -827,7 +828,7 @@ for (const fixture of fixturesData.fixtures || []) {
     assert(Array.isArray(fixture.keyPlayers.home), `Fixture "${fixture.id}" keyPlayers.home must be an array`);
     assert(Array.isArray(fixture.keyPlayers.away), `Fixture "${fixture.id}" keyPlayers.away must be an array`);
 
-    if (fixture.stage === "group") {
+    if (hasConfirmedTeams) {
       for (const side of ["home", "away"]) {
         const teamId = side === "home" ? fixture.homeTeamId : fixture.awayTeamId;
         const availability = playerAvailabilityByTeam.get(teamId);
@@ -879,26 +880,26 @@ for (const fixture of fixturesData.fixtures || []) {
     }
   }
 
-  if (fixture.stage === "group") {
-    assert(fixture.keyInformation, `Group fixture "${fixture.id}" must include matchup-aware keyInformation`);
+  if (hasConfirmedTeams) {
+    assert(fixture.keyInformation, `Confirmed fixture "${fixture.id}" must include matchup-aware keyInformation`);
 
     for (const side of ["home", "away"]) {
       const copy = fixture.keyInformation?.[side];
       assert(
         typeof copy === "string" && copy.trim().length >= 180,
-        `Group fixture "${fixture.id}" keyInformation.${side} must include a detailed matchup note`
+        `Confirmed fixture "${fixture.id}" keyInformation.${side} must include a detailed matchup note`
       );
       assert(
         typeof copy === "string" && copy.trim().split(/\s+/).length <= 85,
-        `Group fixture "${fixture.id}" keyInformation.${side} should stay concise`
+        `Confirmed fixture "${fixture.id}" keyInformation.${side} should stay concise`
       );
       assert(
         !/main names to track|key information is not loaded/i.test(copy || ""),
-        `Group fixture "${fixture.id}" keyInformation.${side} uses generic placeholder wording`
+        `Confirmed fixture "${fixture.id}" keyInformation.${side} uses generic placeholder wording`
       );
       assert(
         /Against /.test(copy || ""),
-        `Group fixture "${fixture.id}" keyInformation.${side} must describe the opponent relationship`
+        `Confirmed fixture "${fixture.id}" keyInformation.${side} must describe the opponent relationship`
       );
     }
   }

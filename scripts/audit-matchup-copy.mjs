@@ -291,7 +291,7 @@ if (tournamentAuthoredChineseCopyFields.length) {
 }
 
 for (const fixture of fixturesData.fixtures || []) {
-  if (fixture.stage !== "group") {
+  if (!fixture.homeTeamId || !fixture.awayTeamId) {
     continue;
   }
 
@@ -501,7 +501,7 @@ console.log("Matchup copy audit");
 console.log(`Paragraphs checked: ${rows.length}`);
 console.log(`Historical paragraphs checked: ${historicalRows.length}`);
 console.log(`Team descriptors checked: ${(teamsData.teams || []).length}`);
-console.log(`Group fixture statuses checked: ${statusSummary || "none"}`);
+console.log(`Confirmed fixture statuses checked: ${statusSummary || "none"}`);
 console.log(
   `Finished result sections checked: ${resultRows.length} (${authoredResultCount} authored, ${generatedResultCount} generated from final score)`
 );
