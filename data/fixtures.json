@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-24T22:49:54.030Z",
+  "updatedAt": "2026-06-25T00:04:53.774Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -96,7 +96,8 @@
     "fifa-official-results-sync-2026-06-23",
     "fifa-goal-events-sync-2026-06-23",
     "fifa-official-results-sync-2026-06-24",
-    "fifa-goal-events-sync-2026-06-24"
+    "fifa-goal-events-sync-2026-06-24",
+    "fifa-official-results-sync-2026-06-25"
   ],
   "coverage": {
     "status": "complete-schedule",
@@ -6122,7 +6123,7 @@
       "homeTeamId": "SCO",
       "awayTeamId": "BRA",
       "venue": "Miami Stadium",
-      "status": "LIVE",
+      "status": "FT",
       "h2h": {
         "status": "loaded",
         "sourceId": "national-football-teams-h2h-2026-06-17",
@@ -6252,7 +6253,7 @@
       "matchNumber": 49,
       "score": {
         "home": 0,
-        "away": 2
+        "away": 3
       },
       "goalsHome": [],
       "goalsAway": [
@@ -6276,7 +6277,7 @@
       "homeTeamId": "MAR",
       "awayTeamId": "HAI",
       "venue": "Atlanta Stadium",
-      "status": "LIVE",
+      "status": "FT",
       "h2h": {
         "status": "verified-empty",
         "sourceId": "national-football-teams-h2h-2026-06-17",
@@ -6344,7 +6345,7 @@
       },
       "matchNumber": 50,
       "score": {
-        "home": 2,
+        "home": 4,
         "away": 2
       },
       "goalsHome": [
