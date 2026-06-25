@@ -20,6 +20,7 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  min-height: 100dvh;
   margin: 0;
   background: var(--background);
   color: var(--text);
@@ -1691,7 +1692,7 @@ h1 {
 
 .match-teams {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   flex: 1 1 auto;
   flex-wrap: nowrap;
   column-gap: 0;
@@ -1793,7 +1794,7 @@ h1 {
 
 .match-teams .team {
   display: inline-flex;
-  align-items: flex-start;
+  align-items: center;
   flex: 0 1 auto;
   min-width: 0;
   white-space: normal;
@@ -1811,6 +1812,7 @@ h1 {
 
 .match-teams .match-versus {
   flex: 0 0 auto;
+  margin-inline: 6px;
 }
 
 .match-teams .team-name {
@@ -5292,6 +5294,7 @@ h1 {
 
 .report-page {
   min-height: 100vh;
+  min-height: 100dvh;
 }
 
 .report-header {
@@ -6465,14 +6468,6 @@ h1 {
     gap: 0 8px;
   }
 
-  .match-teams {
-    flex-wrap: wrap;
-  }
-
-  .match-teams .match-team-away {
-    min-width: min-content;
-  }
-
   .match-time {
     min-width: 50px;
     font-size: 11px;
@@ -6489,6 +6484,16 @@ h1 {
     height: 20px;
     padding-inline: 6px;
     font-size: 8px;
+  }
+}
+
+@media (max-width: 320px) {
+  .match-teams {
+    flex-wrap: wrap;
+  }
+
+  .match-teams .match-team-away {
+    min-width: min-content;
   }
 }
 

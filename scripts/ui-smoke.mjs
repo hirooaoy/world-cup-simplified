@@ -2766,6 +2766,9 @@ try {
 
               return bounds
                 ? {
+                    bottom: Math.round(bounds.bottom),
+                    center: Math.round(bounds.top + bounds.height / 2),
+                    height: Math.round(bounds.height),
                     left: Math.round(bounds.left),
                     text: element.textContent.replace(/\s+/g, " ").trim(),
                     top: Math.round(bounds.top)
@@ -2778,6 +2781,7 @@ try {
               awayStart: rect(".match-team-away .team-name-start-lock"),
               hasWrappedClass: row.classList.contains("has-wrapped-matchup"),
               homeRank: rect(".match-team-home .team-name-rank-lock"),
+              meta: rect(".match-row-meta"),
               rowScrollOverflow: row.scrollWidth - row.clientWidth,
               text: row.innerText.replace(/\s+/g, " ").trim(),
               versus: rect(".match-versus")
@@ -2788,12 +2792,14 @@ try {
             curacaoCoteWrap.homeRank?.text === "Curaçao #82" &&
             curacaoCoteWrap.awayStart?.text.replace(/\s+/g, "") === "🇨🇮Côte" &&
             curacaoCoteWrap.awayRank?.text === "d'Ivoire #33" &&
-            Math.abs(curacaoCoteWrap.homeRank.top - curacaoCoteWrap.versus.top) <= 2 &&
-            Math.abs(curacaoCoteWrap.awayStart.top - curacaoCoteWrap.versus.top) <= 2 &&
+            Math.abs(curacaoCoteWrap.homeRank.center - curacaoCoteWrap.versus.center) <= 2 &&
+            Math.abs(curacaoCoteWrap.homeRank.center - curacaoCoteWrap.meta.center) <= 2 &&
+            Math.abs(curacaoCoteWrap.versus.center - curacaoCoteWrap.meta.center) <= 2 &&
+            curacaoCoteWrap.awayStart.top < curacaoCoteWrap.versus.top &&
             curacaoCoteWrap.awayRank.top > curacaoCoteWrap.awayStart.top + 8 &&
             Math.abs(curacaoCoteWrap.awayRank.left - curacaoCoteWrap.awayStart.left) <= 2 &&
             curacaoCoteWrap.rowScrollOverflow <= 1,
-          `Curaçao vs Côte d'Ivoire should wrap inside the away team with the second line aligned under Côte. Measured ${JSON.stringify(curacaoCoteWrap)}.`
+          `Curaçao vs Côte d'Ivoire should center the home side and vs while the away second line aligns under Côte. Measured ${JSON.stringify(curacaoCoteWrap)}.`
         );
       }
     }
