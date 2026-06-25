@@ -1737,6 +1737,47 @@ const ZH_PATTERN_TRANSLATIONS = [
     replace: (_, rank) => `第三名竞争 ${translateTextToZh(rank)}`
   },
   {
+    pattern: /^(.+)\/(\d+) third-place teams; top (\d+) qualify\.$/,
+    replace: (_, rank, total, advancers) =>
+      `第三名球队中排名${translateTextToZh(rank)}，共${total}队；前${advancers}名晋级。`
+  },
+  {
+    pattern: /^(\d+) group match(?:es)? left; points make it safer\.$/,
+    replace: (_, count) => `还剩${count}场小组赛；拿分会更稳。`
+  },
+  {
+    pattern: /^Finished its matches; now waiting on other groups\.$/,
+    replace: () => "本队比赛已踢完；现在要等待其他小组结果。"
+  },
+  {
+    pattern: /^Out if (\d+) teams? below pass(?:es)? it\.$/,
+    replace: (_, count) => `若身后${count}队反超，就会出局。`
+  },
+  {
+    pattern: /^Needs to pass (\d+) teams? to reach top (\d+)\.$/,
+    replace: (_, count, advancers) => `需要反超${count}队才能进入前${advancers}。`
+  },
+  {
+    pattern: /^Must take points; teams above must slip\.$/,
+    replace: () => "必须拿分；前面的球队也需要失误。"
+  },
+  {
+    pattern: /^No matches left; needs (\d+) teams? above to fall behind\.$/,
+    replace: (_, count) => `本队已无比赛；需要前面${count}队掉到身后。`
+  },
+  {
+    pattern: /^Also needs teams below not to pass\.$/,
+    replace: () => "还需要身后的球队不要反超。"
+  },
+  {
+    pattern: /^Final table: qualifies as a third-place team\.$/,
+    replace: () => "最终排名：以第三名球队身份晋级。"
+  },
+  {
+    pattern: /^Final table: outside the qualifying third-place spots\.$/,
+    replace: () => "最终排名：未进入可晋级的第三名席位。"
+  },
+  {
     pattern: /^Top (\d+) advance$/,
     replace: (_, count) => `前${count}名晋级`
   },
@@ -1759,6 +1800,10 @@ const ZH_PATTERN_TRANSLATIONS = [
   {
     pattern: /^(\d+) match(?:es)? scheduled$/,
     replace: (_, count) => `安排了${count}场比赛`
+  },
+  {
+    pattern: /^(\d+) group matches?$/,
+    replace: (_, count) => `${count}场小组赛`
   },
   {
     pattern: /^No matches were found for (.+)\.$/,
@@ -4521,6 +4566,13 @@ function localizeDisplayText(value) {
   return currentLanguage === "zh" ? localizeKnownDisplayEntities(localizeText(value)) : localizeText(value);
 }
 
+function localizeMultilineText(value) {
+  return String(value ?? "")
+    .split("\n")
+    .map((line) => localizeText(line))
+    .join("\n");
+}
+
 function getLocalizedTeamName(teamOrName) {
   const name = typeof teamOrName === "string" ? teamOrName : teamOrName?.name || "";
   return localizeText(name);
@@ -6122,6 +6174,20 @@ function setNameTooltipAnchor(container, name) {
   container.style.setProperty("--name-tooltip-anchor", `${Math.round(anchorX)}px`);
 }
 
+function isVisiblyWrappedName(name) {
+  const style = getComputedStyle(name);
+  const lineHeight = Number.parseFloat(style.lineHeight);
+  const height = name.getBoundingClientRect().height;
+
+  return (
+    style.whiteSpace === "normal" &&
+    style.overflow === "visible" &&
+    Number.isFinite(lineHeight) &&
+    lineHeight > 0 &&
+    height > lineHeight * 1.35
+  );
+}
+
 function updateTruncatedTeamTooltips(root = document) {
   root
     .querySelectorAll(
@@ -6135,7 +6201,7 @@ function updateTruncatedTeamTooltips(root = document) {
         return;
       }
 
-      const isTruncated = name.scrollWidth > name.clientWidth + 1;
+      const isTruncated = name.scrollWidth > name.clientWidth + 1 && !isVisiblyWrappedName(name);
       const hasEllipsisText = name.textContent.includes("...");
       const shouldShowTooltip = isTruncated || hasEllipsisText;
       team.classList.toggle("has-team-tooltip", shouldShowTooltip);
@@ -6146,21 +6212,6 @@ function updateTruncatedTeamTooltips(root = document) {
         team.style.removeProperty("--name-tooltip-anchor");
       }
     });
-}
-
-function getInlineContentRight(elements, fallbackLeft) {
-  return elements.reduce((right, element) => {
-    const range = document.createRange();
-    range.selectNodeContents(element);
-    const rects = Array.from(range.getClientRects());
-    range.detach();
-
-    if (!rects.length) {
-      return Math.max(right, element.getBoundingClientRect().right);
-    }
-
-    return Math.max(right, ...rects.map((rect) => rect.right));
-  }, fallbackLeft);
 }
 
 function updateWrappedMatchRows(root = document) {
@@ -6189,12 +6240,9 @@ function updateWrappedMatchRows(root = document) {
       const metaRect = meta.getBoundingClientRect();
       const rowStyle = getComputedStyle(row);
       const rowGap = Number.parseFloat(rowStyle.columnGap || rowStyle.gap) || 8;
-      const textPieces = Array.from(row.querySelectorAll(".match-teams .team-name, .match-teams .versus"));
-      const textRight = getInlineContentRight(textPieces, rowRect.left);
       const maxTriggerWidth = Math.max(0, rowRect.width - metaRect.width - rowGap);
-      const wrappedTriggerWidth = Math.min(Math.max(0, textRight - rowRect.left), maxTriggerWidth);
 
-      row.style.setProperty("--match-row-wrapped-trigger-width", `${Math.ceil(wrappedTriggerWidth)}px`);
+      row.style.setProperty("--match-row-wrapped-trigger-width", `${Math.ceil(maxTriggerWidth)}px`);
       row.style.setProperty("--match-row-wrapped-meta-gap", `${Math.round(rowGap)}px`);
       row.style.setProperty("--match-row-wrapped-meta-width", `${Math.ceil(metaRect.width)}px`);
     }
@@ -6873,9 +6921,9 @@ function renderMatchRow(match, state, currentTime = Date.now(), options = {}) {
         <span class="${dateLabel ? "match-date" : "match-clock"}">${escapeHtml(visibleTimeLabel)}</span>
       </time>
       <span class="match-teams">
-        ${renderTeamInline(match.homeTeam, getTeamClass("team", winnerSide, "home"), { keepRankWithName: true })}
-        <span class="versus">${escapeHtml(versusText)}</span>
-        ${renderTeamInline(match.awayTeam, getTeamClass("team", winnerSide, "away"), { keepRankWithName: true })}
+        ${renderTeamInline(match.homeTeam, getTeamClass("team match-team-home", winnerSide, "home"), { keepRankWithName: true })}
+        <span class="versus match-versus">${escapeHtml(versusText)}</span>
+        ${renderTeamInline(match.awayTeam, getTeamClass("team match-team-away", winnerSide, "away"), { keepRankWithName: true })}
       </span>
     </button>
     ${rowMeta ? `<span class="match-row-meta">${rowMeta}</span>` : ""}
@@ -7736,7 +7784,7 @@ function renderStandingTeam(team, options = {}) {
 function renderThirdPlaceStandingBadge(candidate) {
   const status = candidate.status || getThirdPlaceStatus(candidate, getThirdPlaceAdvancerCount());
   const rankLabel = formatOrdinal(candidate.position);
-  const reason = localizeText(getThirdPlaceReason(candidate));
+  const reason = localizeMultilineText(getThirdPlaceStandingBadgeReason(candidate));
   const label = `${getLocalizedTeamName(candidate.team)} ${localizeText("ranking")} ${localizeText(rankLabel)}：${localizeText(status.label)}. ${reason}`;
 
   return `
@@ -7954,6 +8002,74 @@ function formatThirdPlaceRaceIntro(candidate, raceRows) {
     ? `${formatOrdinal(candidate.position)} of ${raceTeamCount} third-place teams`
     : "in the third-place race";
   return `${teamName}: ${raceScope}.\nTop ${getThirdPlaceAdvancerCount()} advance.`;
+}
+
+function getRemainingTeamGroupFixtures(teamId, groupId) {
+  return getRemainingGroupQualificationFixtures(getGroupFixtures(groupId)).filter(
+    (fixture) => fixture.homeTeamId === teamId || fixture.awayTeamId === teamId
+  );
+}
+
+function formatThirdPlaceRemainingMatchCount(count) {
+  return `${count} group match${count === 1 ? "" : "es"} left`;
+}
+
+function formatThirdPlaceTeamCount(count) {
+  return `${count} team${count === 1 ? "" : "s"}`;
+}
+
+function formatThirdPlacePassVerb(count) {
+  return count === 1 ? "passes" : "pass";
+}
+
+function getThirdPlaceStandingBadgeReason(candidate, raceRows = getThirdPlaceRaceRows()) {
+  const advancerCount = getThirdPlaceAdvancerCount();
+  const raceTeamCount = raceRows.length || tournamentData.groups?.length || 0;
+  const lines = [
+    `${formatOrdinal(candidate.position)}/${raceTeamCount} third-place teams; top ${advancerCount} qualify.`
+  ];
+
+  if (candidate.status?.kind === "eliminated" || candidate.isEliminated) {
+    lines.push("No remaining group result combination can move this team into a Round of 32 place.");
+    return lines.join("\n");
+  }
+
+  if (isGroupStageFinished()) {
+    lines.push(
+      candidate.position <= advancerCount
+        ? "Final table: qualifies as a third-place team."
+        : "Final table: outside the qualifying third-place spots."
+    );
+    return lines.join("\n");
+  }
+
+  const remainingMatchCount = getRemainingTeamGroupFixtures(candidate.teamId, candidate.groupId).length;
+  const isInside = candidate.position <= advancerCount;
+
+  if (isInside) {
+    const teamsNeededToDropOut = Math.max(1, advancerCount - candidate.position + 1);
+    lines.push(
+      remainingMatchCount > 0
+        ? `${formatThirdPlaceRemainingMatchCount(remainingMatchCount)}; points make it safer.`
+        : "Finished its matches; now waiting on other groups."
+    );
+    lines.push(
+      `Out if ${formatThirdPlaceTeamCount(teamsNeededToDropOut)} below ${formatThirdPlacePassVerb(teamsNeededToDropOut)} it.`
+    );
+    return lines.join("\n");
+  }
+
+  const teamsNeededToPass = Math.max(1, candidate.position - advancerCount);
+  lines.push(`Needs to pass ${formatThirdPlaceTeamCount(teamsNeededToPass)} to reach top ${advancerCount}.`);
+
+  if (remainingMatchCount > 0) {
+    lines.push("Must take points; teams above must slip.");
+  } else {
+    lines.push(`No matches left; needs ${formatThirdPlaceTeamCount(teamsNeededToPass)} above to fall behind.`);
+    lines.push("Also needs teams below not to pass.");
+  }
+
+  return lines.join("\n");
 }
 
 function getThirdPlaceComparisonTarget(candidate, raceRows = getThirdPlaceRaceRows()) {
@@ -10989,6 +11105,42 @@ function replaceBrokenPlayerPhoto(image) {
   image.replaceWith(fallback);
 }
 
+function getPlayerCardTeam(player, profile) {
+  const teamId = String(profile?.teamId || getPlayerTeamId(player)).trim().toUpperCase();
+  if (teamId) {
+    const team = teamsById.get(teamId);
+    if (team) {
+      return team;
+    }
+  }
+
+  if (player?.team && (player.team.flag || player.team.flagClass)) {
+    return player.team;
+  }
+
+  const teamNames = [
+    profile?.teamName,
+    ...(Array.isArray(profile?.teams) ? profile.teams : []),
+    ...getHistoricalProfileTeamCandidates(player)
+  ];
+
+  for (const teamName of teamNames) {
+    const key = normalizeTextKey(teamName);
+    const team = teamsByName.get(key) || getHistoricalTeam(teamName);
+    if (team) {
+      return team;
+    }
+  }
+
+  return null;
+}
+
+function renderPlayerCardFlag(player, profile) {
+  const team = getPlayerCardTeam(player, profile);
+  const flag = team ? renderFlag(team) : "";
+  return flag ? `<span class="player-card-flag">${flag}</span>` : "";
+}
+
 function renderPlayerMention(label, player) {
   const profile = getPlayerProfile(player) || getHistoricalPlayerProfile(player);
   const displayName = getLocalizedPlayerDisplayName(player, profile);
@@ -11000,6 +11152,7 @@ function renderPlayerMention(label, player) {
   const ageLine = getLocalizedPlayerAgeLine(player, profile);
   const valueLine = renderPlayerValueLine(player, profile);
   const skills = getPlayerSkills(player, profile).map(localizeText);
+  const cardFlag = renderPlayerCardFlag(player, profile);
   const triggerLabel = `aria-label="${escapeHtml(`${displayName}: ${position}, ${club}`)}" aria-expanded="false"`;
   const visibleLabel = currentLanguage === "zh" ? displayName : label;
   const trigger = sourceUrl
@@ -11024,6 +11177,7 @@ function renderPlayerMention(label, player) {
     `<span class="player-photo">${renderPlayerPhoto(player, profile)}</span>`,
     `<span class="player-card-title">`,
     `<span class="player-card-name-line">`,
+    cardFlag,
     `<strong class="player-card-name">${escapeHtml(displayName)}</strong>`,
     numberBadge,
     `</span>`,

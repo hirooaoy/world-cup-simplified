@@ -1690,9 +1690,11 @@ h1 {
 }
 
 .match-teams {
-  display: block;
-  align-items: center;
+  display: flex;
+  align-items: flex-start;
   flex: 1 1 auto;
+  flex-wrap: nowrap;
+  column-gap: 0;
   min-width: 0;
   max-width: 100%;
   font-size: 20px;
@@ -1790,16 +1792,32 @@ h1 {
 }
 
 .match-teams .team {
-  display: inline;
+  display: inline-flex;
+  align-items: flex-start;
+  flex: 0 1 auto;
+  min-width: 0;
   white-space: normal;
 }
 
-.match-teams .team:last-child {
-  flex: initial;
+.match-teams .match-team-home {
+  flex: 0 1 auto;
+  min-width: min-content;
+}
+
+.match-teams .match-team-away {
+  flex: 1 1 min-content;
+  min-width: 0;
+}
+
+.match-teams .match-versus {
+  flex: 0 0 auto;
 }
 
 .match-teams .team-name {
-  display: inline;
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0 4px;
   max-width: 100%;
   overflow: visible;
   overflow-wrap: normal;
@@ -2131,7 +2149,7 @@ h1 {
   margin: 6px 0 10px;
   font-size: 25px;
   font-weight: 700;
-  letter-spacing: -0.04em;
+  letter-spacing: 0;
   line-height: 1.05;
 }
 
@@ -2139,7 +2157,11 @@ h1 {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 6px 10px;
+  gap: 6px;
+}
+
+.summary-title > .versus {
+  margin: 0;
 }
 
 .summary-team {
@@ -3253,6 +3275,10 @@ h1 {
 .third-place-pill[data-tooltip]::after {
   left: calc(50% + var(--tooltip-shift-x, 0px));
   transform: translate(-50%, 4px);
+}
+
+.third-place-pill[data-tooltip]::after {
+  max-width: min(340px, 82vw);
 }
 
 .third-place-status[data-tooltip]::after {
@@ -4477,9 +4503,23 @@ h1 {
 
 .player-card-name-line {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   gap: 6px;
   min-width: 0;
+}
+
+.player-card-flag {
+  display: inline-flex;
+  align-items: center;
+  flex: 0 0 auto;
+}
+
+.player-card-flag .flag {
+  width: 18px;
+  height: 14px;
+  flex-basis: 18px;
+  font-size: 15px;
+  color: #0a0a0a;
 }
 
 .player-card-name,
@@ -5947,7 +5987,7 @@ h1 {
   }
 
   .match-teams {
-    column-gap: 6px;
+    column-gap: 0;
   }
 
   .match-info {
@@ -6059,21 +6099,16 @@ h1 {
     font-size: 14px;
     letter-spacing: 0;
     line-height: 1.16;
-    row-gap: 2px;
   }
 
   .match-teams {
-    column-gap: 4px;
+    column-gap: 0;
   }
 
   .match-teams .team {
     align-items: center;
     flex: 0 1 auto;
     gap: 4px;
-  }
-
-  .match-teams .team:last-child {
-    flex: 0 1 auto;
   }
 
   .match-teams .team-name {
@@ -6328,7 +6363,7 @@ h1 {
 
   .match-teams {
     font-size: 14px;
-    column-gap: 4px;
+    column-gap: 0;
   }
 
   .match-teams .team {
@@ -6428,6 +6463,14 @@ h1 {
 
   .match-row-trigger {
     gap: 0 8px;
+  }
+
+  .match-teams {
+    flex-wrap: wrap;
+  }
+
+  .match-teams .match-team-away {
+    min-width: min-content;
   }
 
   .match-time {

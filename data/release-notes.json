@@ -1,19 +1,19 @@
 {
-  "updatedAt": "2026-06-25T00:18:37-07:00",
+  "updatedAt": "2026-06-25T00:53:24-07:00",
   "releases": [
     {
       "date": "2026-06-25",
-      "title": "Race and archive clarity",
-      "titleZh": "竞争与历史档案说明优化",
+      "title": "Race, cards, and mobile clarity",
+      "titleZh": "竞争、球员卡与移动端说明优化",
       "highlights": [
-        "Third-place race tooltips now explain rank, cutoff comparisons, and missing fair-play tie data in shorter lines.",
-        "Wrapped match rows now keep score and Up next pills aligned on narrow screens.",
-        "Historical player cards now describe archive match notes without overstating match-lens appearance counts."
+        "Third-place race badges now explain rank, top-eight qualification, and what still has to happen in shorter lines.",
+        "Mobile match rows now keep vs attached to a team line and align long wrapped country names more cleanly.",
+        "Player hover cards now show the player country's flag beside the name, while historical cards keep archive-note wording."
       ],
       "highlightsZh": [
-        "最佳第三名竞争提示现在用更短的行说明排名、晋级线比较，以及公平竞赛数据缺失的同分情况。",
-        "换行的比赛行现在会在窄屏上保持比分和“下一场”标签对齐。",
-        "历史球员卡现在会描述历史档案比赛说明，而不会夸大 match-lens 出场次数。"
+        "最佳第三名竞争标签现在用更短的行说明排名、前八晋级规则，以及后续还需要发生什么。",
+        "移动端比赛行现在会让 vs 留在球队所在行，并更整齐地对齐较长的换行国名。",
+        "球员悬停卡现在会在姓名旁显示球员国家旗帜，历史球员卡也保留档案说明的表述。"
       ]
     },
     {

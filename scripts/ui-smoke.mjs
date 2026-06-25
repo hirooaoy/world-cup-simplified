@@ -289,6 +289,56 @@ function formatExpectedThirdPlaceRaceIntro(candidate, rows) {
   return `${candidate.team.name}: ${raceScope}.\nTop ${getThirdPlaceAdvancerCount()} advance.`;
 }
 
+function getExpectedThirdPlaceStandingBadgeReason(candidate) {
+  const advancerCount = getThirdPlaceAdvancerCount();
+  const raceRows = getExpectedThirdPlaceRaceRows();
+  const raceTeamCount = raceRows.length || tournamentData.groups?.length || 0;
+  const lines = [
+    `${formatOrdinal(candidate.position)}/${raceTeamCount} third-place teams; top ${advancerCount} qualify.`
+  ];
+
+  if (candidate.status?.kind === "eliminated" || candidate.isEliminated) {
+    lines.push("No remaining group result combination can move this team into a Round of 32 place.");
+    return lines.join("\n");
+  }
+
+  if (isGroupStageFinished()) {
+    lines.push(
+      candidate.position <= advancerCount
+        ? "Final table: qualifies as a third-place team."
+        : "Final table: outside the qualifying third-place spots."
+    );
+    return lines.join("\n");
+  }
+
+  const remainingMatchCount = getExpectedRemainingTeamGroupFixtures(candidate.teamId, candidate.groupId).length;
+  const isInside = candidate.position <= advancerCount;
+
+  if (isInside) {
+    const teamsNeededToDropOut = Math.max(1, advancerCount - candidate.position + 1);
+    lines.push(
+      remainingMatchCount > 0
+        ? `${formatExpectedThirdPlaceRemainingMatchCount(remainingMatchCount)}; points make it safer.`
+        : "Finished its matches; now waiting on other groups."
+    );
+    lines.push(
+      `Out if ${formatExpectedThirdPlaceTeamCount(teamsNeededToDropOut)} below ${formatExpectedThirdPlacePassVerb(teamsNeededToDropOut)} it.`
+    );
+    return lines.join("\n");
+  }
+
+  const teamsNeededToPass = Math.max(1, candidate.position - advancerCount);
+  lines.push(`Needs to pass ${formatExpectedThirdPlaceTeamCount(teamsNeededToPass)} to reach top ${advancerCount}.`);
+  if (remainingMatchCount > 0) {
+    lines.push("Must take points; teams above must slip.");
+  } else {
+    lines.push(`No matches left; needs ${formatExpectedThirdPlaceTeamCount(teamsNeededToPass)} above to fall behind.`);
+    lines.push("Also needs teams below not to pass.");
+  }
+
+  return lines.join("\n");
+}
+
 function getThirdPlaceAdvancerCount() {
   const groupCount = tournamentData.groups?.length || 0;
   const configuredAdvancers = Number(tournamentData.format?.bestThirdPlaceAdvancers);
@@ -574,6 +624,28 @@ function hasUsableScore(fixture) {
 
 function getGroupFixtures(groupId) {
   return fixturesData.fixtures.filter((fixture) => fixture.stage === "group" && fixture.groupId === groupId);
+}
+
+function getExpectedRemainingTeamGroupFixtures(teamId, groupId) {
+  return getGroupFixtures(groupId).filter(
+    (fixture) =>
+      fixture.status !== "FT" &&
+      fixture.homeTeamId &&
+      fixture.awayTeamId &&
+      (fixture.homeTeamId === teamId || fixture.awayTeamId === teamId)
+  );
+}
+
+function formatExpectedThirdPlaceRemainingMatchCount(count) {
+  return `${count} group match${count === 1 ? "" : "es"} left`;
+}
+
+function formatExpectedThirdPlaceTeamCount(count) {
+  return `${count} team${count === 1 ? "" : "s"}`;
+}
+
+function formatExpectedThirdPlacePassVerb(count) {
+  return count === 1 ? "passes" : "pass";
 }
 
 function isGroupStageFinished() {
@@ -1497,6 +1569,11 @@ try {
       (await lukakuCard.locator(".player-card-number").innerText()).trim() === "#9",
     "Player hover card should show the country-team uniform number beside the name when available."
   );
+  assert(
+    (await lukakuCard.locator(".player-card-name-line .player-card-flag .flag").getAttribute("aria-label")) ===
+      "Belgium flag",
+    "Player hover card should show the player's country flag before the name."
+  );
 
   await page.goto(`${baseUrl}?view=matches&date=2026-06-20&lang=zh&tz=America%2FLos_Angeles`, {
     waitUntil: "load"
@@ -1714,10 +1791,33 @@ try {
       haitiMobileBadgeLayout.name.top < haitiMobileBadgeLayout.rank.top,
     `Short eliminated standings rows should wrap the rank and status together on narrow screens. Measured ${JSON.stringify(haitiMobileBadgeLayout)}.`
   );
+  await page.setViewportSize({ width: 1180, height: 760 });
   await page.goto(`${baseUrl}?view=matches&date=2026-06-25&tz=America%2FLos_Angeles`, {
     waitUntil: "load"
   });
   await page.waitForSelector(".match-row");
+  await openMatchDetailById("ecuador-germany-2026-06-25", "Germany");
+  const ecuadorGermanySummaryGap = await page.locator("#match-info .summary-title").evaluate((summary) => {
+    const homeTeam = summary.querySelector(".summary-team:first-of-type");
+    const versus = summary.querySelector(".versus");
+    const awayTeam = summary.querySelector(".summary-team:last-of-type");
+    const homeRect = homeTeam?.getBoundingClientRect();
+    const versusRect = versus?.getBoundingClientRect();
+    const awayRect = awayTeam?.getBoundingClientRect();
+
+    return {
+      homeToVs: homeRect && versusRect ? Math.round(versusRect.left - homeRect.right) : null,
+      vsToAway: versusRect && awayRect ? Math.round(awayRect.left - versusRect.right) : null,
+      text: summary.textContent.replace(/\s+/g, " ").trim()
+    };
+  });
+  assert(
+    ecuadorGermanySummaryGap.homeToVs >= 0 &&
+      ecuadorGermanySummaryGap.homeToVs <= 8 &&
+      ecuadorGermanySummaryGap.vsToAway >= 0 &&
+      ecuadorGermanySummaryGap.vsToAway <= 8,
+    `Ecuador vs Germany detail heading should keep compact spacing around vs. Measured ${JSON.stringify(ecuadorGermanySummaryGap)}.`
+  );
   await openMatchDetailById("turkiye-united-states-2026-06-25", "United States");
   assert(
     (await page.locator("#match-info .standing-team", { hasText: "Türkiye" }).locator(".standing-status-pill.is-eliminated").innerText()) === "Eliminated",
@@ -2625,6 +2725,77 @@ try {
           upNextRailMetrics.every((metric) => metric.rowScrollOverflow <= 1),
         `Mobile Up next pills should share the same right rail at ${width}px. Measured ${JSON.stringify(upNextRailMetrics)}.`
       );
+
+      if (width === 390 && nextScheduledFixtureIds.includes("ecuador-germany-2026-06-25")) {
+        const ecuadorGermanyVsPlacement = await upNextCheck.page
+          .locator('[data-match-id="ecuador-germany-2026-06-25"]')
+          .evaluate((row) => {
+            const versus = row.querySelector(".versus");
+            const versusRect = versus?.getBoundingClientRect();
+            const sameLineTeamPieces = Array.from(
+              row.querySelectorAll(".match-teams .team-name-start-lock, .match-teams .team-name-rank-lock")
+            )
+              .filter((piece) => {
+                const rect = piece.getBoundingClientRect();
+                return versusRect && Math.abs(rect.top - versusRect.top) <= 1;
+              })
+              .map((piece) => piece.textContent.replace(/\s+/g, " ").trim());
+
+            return {
+              hasWrappedClass: row.classList.contains("has-wrapped-matchup"),
+              rowScrollOverflow: row.scrollWidth - row.clientWidth,
+              sameLineTeamPieces,
+              text: row.innerText.replace(/\s+/g, " ").trim()
+            };
+          });
+        assert(
+          (!ecuadorGermanyVsPlacement.hasWrappedClass ||
+            ecuadorGermanyVsPlacement.sameLineTeamPieces.length > 0) &&
+            ecuadorGermanyVsPlacement.rowScrollOverflow <= 1,
+          `Ecuador vs Germany should not leave vs alone on its own mobile line. Measured ${JSON.stringify(ecuadorGermanyVsPlacement)}.`
+        );
+      }
+
+      if (width === 390 && nextScheduledFixtureIds.includes("curacao-cote-divoire-2026-06-25")) {
+        const curacaoCoteWrap = await upNextCheck.page
+          .locator('[data-match-id="curacao-cote-divoire-2026-06-25"]')
+          .evaluate((row) => {
+            const rect = (selector) => {
+              const element = row.querySelector(selector);
+              const bounds = element?.getBoundingClientRect();
+
+              return bounds
+                ? {
+                    left: Math.round(bounds.left),
+                    text: element.textContent.replace(/\s+/g, " ").trim(),
+                    top: Math.round(bounds.top)
+                  }
+                : null;
+            };
+
+            return {
+              awayRank: rect(".match-team-away .team-name-rank-lock"),
+              awayStart: rect(".match-team-away .team-name-start-lock"),
+              hasWrappedClass: row.classList.contains("has-wrapped-matchup"),
+              homeRank: rect(".match-team-home .team-name-rank-lock"),
+              rowScrollOverflow: row.scrollWidth - row.clientWidth,
+              text: row.innerText.replace(/\s+/g, " ").trim(),
+              versus: rect(".match-versus")
+            };
+          });
+        assert(
+          curacaoCoteWrap.hasWrappedClass &&
+            curacaoCoteWrap.homeRank?.text === "Curaçao #82" &&
+            curacaoCoteWrap.awayStart?.text.replace(/\s+/g, "") === "🇨🇮Côte" &&
+            curacaoCoteWrap.awayRank?.text === "d'Ivoire #33" &&
+            Math.abs(curacaoCoteWrap.homeRank.top - curacaoCoteWrap.versus.top) <= 2 &&
+            Math.abs(curacaoCoteWrap.awayStart.top - curacaoCoteWrap.versus.top) <= 2 &&
+            curacaoCoteWrap.awayRank.top > curacaoCoteWrap.awayStart.top + 8 &&
+            Math.abs(curacaoCoteWrap.awayRank.left - curacaoCoteWrap.awayStart.left) <= 2 &&
+            curacaoCoteWrap.rowScrollOverflow <= 1,
+          `Curaçao vs Côte d'Ivoire should wrap inside the away team with the second line aligned under Côte. Measured ${JSON.stringify(curacaoCoteWrap)}.`
+        );
+      }
     }
     await upNextCheck.context.close();
   }
@@ -3134,8 +3305,8 @@ try {
   const groupBThirdPlacePillTooltip = await groupBThirdPlacePill.getAttribute("data-tooltip");
   assert(
     groupBThirdPlacePillTooltip ===
-      getExpectedThirdPlaceReason(expectedGroupBThirdPlaceCandidate, getExpectedThirdPlaceRaceRows()),
-    "Group standings third-place race pills should explain the cross-group rank on hover."
+      getExpectedThirdPlaceStandingBadgeReason(expectedGroupBThirdPlaceCandidate),
+    "Group standings third-place race pills should explain the badge rank and qualification rule without team-specific comparison noise."
   );
   const expectedStandingsLiveThirdPlaceTeams = new Set(
     fixturesData.fixtures
