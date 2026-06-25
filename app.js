@@ -132,11 +132,11 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "Club to verify": "俱乐部待确认",
     "Current knockout path with likely winners filled for now. Finished results replace estimates.":
       "当前淘汰赛路径会先填入暂时更可能晋级的球队，完赛结果会替换估算。",
-    "Round of 32 slots use current standings and remaining projections. Later rounds show muted predictions until results confirm the path.":
-      "32强席位根据当前积分榜和剩余比赛预测生成；后续轮次会以弱化样式显示预测，直到赛果确认路径。",
+    "Round of 32 slots use current standings and remaining projections. Later rounds are predictions.":
+      "32强席位使用当前积分榜和剩余预测。后续轮次为预测。",
     "Current score": "当前比分",
-    "Third-place standings across all groups. The top eight advance; ties are flagged when fair-play data is unavailable.":
-      "所有小组第三名排名。前八名晋级；若公平竞赛数据不可用，平局会被标记。",
+    "Third-place standings across all groups. The top eight advance.":
+      "所有小组第三名排名。前八名晋级。",
     "Algeria": "阿尔及利亚",
     "Argentina": "阿根廷",
     "Australia": "澳大利亚",
@@ -1686,8 +1686,8 @@ Object.entries({
   "Transition craft": "转换技巧",
   "Transition pace": "转换速度",
   "Transition speed": "转换速度",
-  "Round of 32 slots use current standings and remaining projections. Later rounds show muted predictions until results confirm the path.":
-    "32强席位根据当前积分榜和剩余比赛预测生成；后续轮次会以弱化样式显示预测，直到赛果确认路径。",
+  "Round of 32 slots use current standings and remaining projections. Later rounds are predictions.":
+    "32强席位使用当前积分榜和剩余预测。后续轮次为预测。",
   TBD: "待定",
   Likely: "可能",
   "Unknown scorer": "进球者未知",
@@ -1806,6 +1806,59 @@ const ZH_PATTERN_TRANSLATIONS = [
       /^Currently (.+) in the third-place race: (\d+) points?, (.+) goal difference, (\d+) goals? scored\.$/,
     replace: (_, rank, points, gd, goals) =>
       `当前在第三名竞争中排名${translateTextToZh(rank)}：${points}分，净胜球${gd}，进${goals}球。`
+  },
+  {
+    pattern:
+      /^(.+): (.+) of (\d+) third-place teams\. Top (\d+) advance\.$/,
+    replace: (_, teamName, rank, totalTeams, advancers) =>
+      `${translateTextToZh(teamName)}：在${totalTeams}支第三名球队中排名${translateTextToZh(rank)}。前${advancers}名晋级。`
+  },
+  {
+    pattern:
+      /^(.+): (.+) of (\d+) third-place teams\. Top (\d+) advance\. Ahead of (.+): (.+)\.$/,
+    replace: (
+      _,
+      teamName,
+      rank,
+      totalTeams,
+      advancers,
+      target,
+      comparison
+    ) =>
+      `${translateTextToZh(teamName)}：在${totalTeams}支第三名球队中排名${translateTextToZh(rank)}。前${advancers}名晋级。领先${translateTextToZh(target)}：${translateTextToZh(comparison)}。`
+  },
+  {
+    pattern:
+      /^(.+): (.+) of (\d+) third-place teams\. Top (\d+) advance\. Needs to pass (.+)\. Current gap: (.+)\.$/,
+    replace: (
+      _,
+      teamName,
+      rank,
+      totalTeams,
+      advancers,
+      target,
+      comparison
+    ) =>
+      `${translateTextToZh(teamName)}：在${totalTeams}支第三名球队中排名${translateTextToZh(rank)}。前${advancers}名晋级。需要超过${translateTextToZh(target)}。当前差距：${translateTextToZh(comparison)}。`
+  },
+  {
+    pattern:
+      /^(.+): (.+) of (\d+) third-place teams\. Top (\d+) advance\. Teams from (.+) to (.+) are tied around the cutoff\. Fair-play data is missing\.$/,
+    replace: (_, teamName, rank, totalTeams, advancers, start, end) =>
+      `${translateTextToZh(teamName)}：在${totalTeams}支第三名球队中排名${translateTextToZh(rank)}。前${advancers}名晋级。第${translateTextToZh(start)}到${translateTextToZh(end)}名在晋级线附近打平。公平竞赛数据缺失。`
+  },
+  {
+    pattern:
+      /^(.+): (.+) of (\d+) third-place teams\. Top (\d+) advance\. Tied with (.+)\. Fair-play data is missing\.$/,
+    replace: (
+      _,
+      teamName,
+      rank,
+      totalTeams,
+      advancers,
+      target
+    ) =>
+      `${translateTextToZh(teamName)}：在${totalTeams}支第三名球队中排名${translateTextToZh(rank)}。前${advancers}名晋级。与${translateTextToZh(target)}打平。公平竞赛数据缺失。`
   },
   {
     pattern:
@@ -2448,9 +2501,9 @@ const THIRD_PLACE_STANDING_INDEX = 2;
 const CURRENT_STANDINGS_SUMMARY =
   "Top two in each group advance. The best eight third-place teams also reach the Round of 32.";
 const THIRD_PLACE_STANDINGS_SUMMARY =
-  "Third-place standings across all groups. The top eight advance; ties are flagged when fair-play data is unavailable.";
+  "Third-place standings across all groups. The top eight advance.";
 const TOURNAMENT_STANDINGS_SUMMARY =
-  "Round of 32 slots use current standings and remaining projections. Later rounds show muted predictions until results confirm the path.";
+  "Round of 32 slots use current standings and remaining projections. Later rounds are predictions.";
 const HISTORICAL_STANDINGS_SUMMARY =
   "Final group tables computed from archived match results.";
 const TOURNAMENT_PROGRESS_ROUNDS = [
@@ -2932,7 +2985,9 @@ function formatZhPointCount(value) {
 function formatThirdPlaceDeciderLabelZh(label) {
   const labelTranslations = {
     "FIFA ranking fallback": "FIFA排名备用规则",
+    "FIFA ranking": "FIFA排名",
     "deterministic loaded order": "已载入排序",
+    "fair-play score": "公平竞赛分",
     "goal difference": "净胜球",
     "goals scored": "进球数",
     "loaded fair-play conduct": "已载入公平竞赛分",
@@ -6705,7 +6760,7 @@ function getMatchTimeLabel(match) {
     return localizeText("Canceled");
   }
 
-  return match.status === "FT" ? localizeText("FT") : localizeText("Final");
+  return match.status === "FT" ? "" : localizeText("Final");
 }
 
 function getMatchDateLabel(match, options = {}) {
@@ -6729,7 +6784,7 @@ function getMatchDateLabel(match, options = {}) {
 
 function getMatchTimeAriaLabel(match) {
   if (match.status === "FT" && !match.kickoffUtc && !match.localTime) {
-    return localizeText("Full time");
+    return "";
   }
 
   return getMatchTimeLabel(match);
@@ -6737,28 +6792,30 @@ function getMatchTimeAriaLabel(match) {
 
 function getMatchDateTimeAriaLabel(match, options = {}) {
   const dateLabel = options.showDate ? getMatchDateLabel(match, options) : "";
+  const timeLabel = getMatchTimeAriaLabel(match);
   if (!dateLabel) {
-    return getMatchTimeAriaLabel(match);
+    return timeLabel;
   }
 
   if (match.isHistorical) {
     return dateLabel;
   }
 
-  return [dateLabel, getMatchTimeAriaLabel(match)].join(", ");
+  return [dateLabel, timeLabel].filter(Boolean).join(", ");
 }
 
 function getMatchVisibleTimeLabel(match, options = {}) {
   const dateLabel = options.showDate ? getMatchDateLabel(match, options) : "";
+  const timeLabel = getMatchTimeLabel(match);
   if (!dateLabel) {
-    return getMatchTimeLabel(match);
+    return timeLabel;
   }
 
   if (match.isHistorical) {
     return dateLabel;
   }
 
-  return [dateLabel, getMatchTimeLabel(match)].join(" ");
+  return [dateLabel, timeLabel].filter(Boolean).join(" ");
 }
 
 function shouldPreviewMatchInfoOnHover(event) {
@@ -7890,8 +7947,13 @@ function formatGoalsScored(goals) {
   return `${goals} ${goals === 1 ? "goal" : "goals"} scored`;
 }
 
-function formatThirdPlaceCandidateSummary(candidate) {
-  return `${formatStandingPoints(candidate.pts)}, ${formatGoalDifference(candidate.gd)} goal difference, ${formatGoalsScored(candidate.gf)}`;
+function formatThirdPlaceRaceIntro(candidate, raceRows) {
+  const teamName = getLocalizedTeamName(candidate.team);
+  const raceTeamCount = raceRows.length || tournamentData.groups?.length || 0;
+  const raceScope = raceTeamCount
+    ? `${formatOrdinal(candidate.position)} of ${raceTeamCount} third-place teams`
+    : "in the third-place race";
+  return `${teamName}: ${raceScope}.\nTop ${getThirdPlaceAdvancerCount()} advance.`;
 }
 
 function getThirdPlaceComparisonTarget(candidate, raceRows = getThirdPlaceRaceRows()) {
@@ -7956,32 +8018,60 @@ function getThirdPlaceComparisonDecider(candidate, target) {
   };
 }
 
-function getThirdPlaceReason(candidate) {
-  const summary = `Currently ${formatOrdinal(candidate.position)} in the third-place race: ${formatThirdPlaceCandidateSummary(candidate)}.`;
+function formatThirdPlaceDeciderLabel(label) {
+  const labels = {
+    "FIFA ranking fallback": "FIFA ranking",
+    "deterministic loaded order": "loaded order",
+    "loaded fair-play conduct": "fair-play score"
+  };
+  return labels[label] || label;
+}
+
+function formatThirdPlaceShortComparison(decider) {
+  const deciderLabel = formatThirdPlaceDeciderLabel(decider.label);
+  const stripPointLabel = (value) => String(value).replace(/ points?$/, "");
+  if (decider.label === "points") {
+    return `points ${stripPointLabel(decider.candidateValue)}-${stripPointLabel(decider.targetValue)}`;
+  }
+
+  if (decider.label === "goals scored") {
+    return `goals ${decider.candidateValue}-${decider.targetValue}`;
+  }
+
+  return `${deciderLabel} ${decider.candidateValue} vs ${decider.targetValue}`;
+}
+
+function getThirdPlaceReason(candidate, raceRows = getThirdPlaceRaceRows()) {
+  const summary = formatThirdPlaceRaceIntro(candidate, raceRows);
+  const teamName = getLocalizedTeamName(candidate.team);
 
   if (candidate.status?.kind === "eliminated" || candidate.isEliminated) {
     return "No remaining group result combination can move this team into a Round of 32 place.";
   }
 
   if (candidate.isCutLineTie) {
-    return `${summary} Top-8 place is tied from ${formatOrdinal(candidate.tieGroupStart)}-${formatOrdinal(candidate.tieGroupEnd)}; fair-play data is pending.`;
+    return `${summary}\nTeams from ${formatOrdinal(candidate.tieGroupStart)} to ${formatOrdinal(candidate.tieGroupEnd)} are tied around the cutoff.\nFair-play data is missing.`;
   }
 
-  const nearestCandidate = getThirdPlaceComparisonTarget(candidate);
+  const nearestCandidate = getThirdPlaceComparisonTarget(candidate, raceRows);
 
   if (!nearestCandidate) {
     return summary;
   }
 
   if (candidate.isUnresolvedTie && getThirdPlaceTieSignature(candidate) === getThirdPlaceTieSignature(nearestCandidate)) {
-    const action = candidate.position <= getThirdPlaceAdvancerCount() ? "stay top 8" : "make the top 8";
-    return `${summary} To ${action}, the tie with ${getLocalizedTeamName(nearestCandidate.team)} (${formatOrdinal(nearestCandidate.position)}) is still unresolved on loaded points, goal difference and goals scored; fair-play data is pending.`;
+    return `${summary}\nTied with ${getLocalizedTeamName(nearestCandidate.team)}.\nFair-play data is missing.`;
   }
 
   const isInside = candidate.position <= getThirdPlaceAdvancerCount();
-  const action = isInside ? "stay top 8, keep ahead of" : "make the top 8, move ahead of";
   const decider = getThirdPlaceComparisonDecider(candidate, nearestCandidate);
-  return `${summary} To ${action} ${getLocalizedTeamName(nearestCandidate.team)} (${formatOrdinal(nearestCandidate.position)}) on ${decider.label}: ${decider.candidateValue} vs ${decider.targetValue}.`;
+  const comparison = formatThirdPlaceShortComparison(decider);
+  const targetName = getLocalizedTeamName(nearestCandidate.team);
+  if (isInside) {
+    return `${summary}\nAhead of ${targetName}: ${comparison}.`;
+  }
+
+  return `${summary}\nNeeds to pass ${targetName}.\nCurrent gap: ${comparison}.`;
 }
 
 function renderThirdPlaceRaceRow(candidate, options = {}) {
@@ -12965,7 +13055,7 @@ function createYesterdayMatchCard(match, currentTime) {
   const scoreText = match.score
     ? `, ${localizeText("final score")} ${match.score.home}-${match.score.away}`
     : "";
-  const label = `${homeName} ${versusText} ${awayName}, ${timeLabel}${scoreText}`;
+  const label = `${homeName} ${versusText} ${awayName}${timeLabel ? `, ${timeLabel}` : ""}${scoreText}`;
   const winnerSide = getScoreWinnerSide(match.score?.home, match.score?.away);
 
   card.className = "yesterday-match-card";
@@ -12975,7 +13065,7 @@ function createYesterdayMatchCard(match, currentTime) {
   button.setAttribute("aria-label", label);
   button.setAttribute("aria-pressed", String(activeMatchId === match.id));
   button.innerHTML = `
-    <span class="yesterday-match-time">${escapeHtml(timeLabel)}</span>
+    ${timeLabel ? `<span class="yesterday-match-time">${escapeHtml(timeLabel)}</span>` : ""}
     <span class="yesterday-match-pair">
       ${renderTeamInline(match.homeTeam, getTeamClass("yesterday-team", winnerSide, "home", { markLoser: true }), { showRank: false })}
       <span class="versus">${escapeHtml(versusText)}</span>

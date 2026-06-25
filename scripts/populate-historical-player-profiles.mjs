@@ -323,7 +323,7 @@ function buildNote(record, primaryTeam, position) {
     impactParts.push(`credited with ${pluralize(record.goalCount, "World Cup goal")}`);
   }
   if (record.keyMatchIds.size > 0) {
-    impactParts.push(`featured in ${pluralize(record.keyMatchIds.size, "curated match-lens card")}`);
+    impactParts.push(`featured in ${pluralize(record.keyMatchIds.size, "archive match note")}`);
   }
   if (!impactParts.length && record.ownGoalCount > 0) {
     impactParts.push(`appears through ${pluralize(record.ownGoalCount, "own-goal record")}`);
@@ -376,9 +376,6 @@ function buildStyleNote(record, primaryTeam, position) {
   if (record.goalCount > 0) {
     impactParts.push(pluralize(record.goalCount, "World Cup goal"));
   }
-  if (record.keyMatchIds.size > 0) {
-    impactParts.push(pluralize(record.keyMatchIds.size, "match-lens appearance"));
-  }
   if (!impactParts.length && record.ownGoalCount > 0) {
     impactParts.push(pluralize(record.ownGoalCount, "own-goal record"));
   }
@@ -389,7 +386,7 @@ function buildStyleNote(record, primaryTeam, position) {
 
 function buildSummary(record, primaryTeam, teams, years) {
   const teamText = formatSeries(teams, 4) || primaryTeam;
-  return `Historical ${record.tournamentYear} World Cup card generated from scorer events, match appearances, tournament squads, and curated match-lens notes. Archive team: ${teamText}.`;
+  return `Historical ${record.tournamentYear} World Cup card generated from scorer events, match appearances, tournament squads, and archive match notes. Archive team: ${teamText}.`;
 }
 
 function buildProfile(record, imageFields = {}) {

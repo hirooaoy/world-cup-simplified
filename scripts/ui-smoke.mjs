@@ -281,8 +281,12 @@ function formatGoalsScored(goals) {
   return `${goals} ${goals === 1 ? "goal" : "goals"} scored`;
 }
 
-function formatExpectedThirdPlaceCandidateSummary(candidate) {
-  return `${formatStandingPoints(candidate.pts)}, ${formatGoalDifference(candidate.gd)} goal difference, ${formatGoalsScored(candidate.gf)}`;
+function formatExpectedThirdPlaceRaceIntro(candidate, rows) {
+  const raceTeamCount = rows.length || tournamentData.groups?.length || 0;
+  const raceScope = raceTeamCount
+    ? `${formatOrdinal(candidate.position)} of ${raceTeamCount} third-place teams`
+    : "in the third-place race";
+  return `${candidate.team.name}: ${raceScope}.\nTop ${getThirdPlaceAdvancerCount()} advance.`;
 }
 
 function getThirdPlaceAdvancerCount() {
@@ -500,15 +504,38 @@ function getExpectedThirdPlaceComparisonDecider(candidate, target) {
   };
 }
 
+function formatExpectedThirdPlaceDeciderLabel(label) {
+  const labels = {
+    "FIFA ranking fallback": "FIFA ranking",
+    "deterministic loaded order": "loaded order",
+    "loaded fair-play conduct": "fair-play score"
+  };
+  return labels[label] || label;
+}
+
+function formatExpectedThirdPlaceShortComparison(decider) {
+  const deciderLabel = formatExpectedThirdPlaceDeciderLabel(decider.label);
+  const stripPointLabel = (value) => String(value).replace(/ points?$/, "");
+  if (decider.label === "points") {
+    return `points ${stripPointLabel(decider.candidateValue)}-${stripPointLabel(decider.targetValue)}`;
+  }
+
+  if (decider.label === "goals scored") {
+    return `goals ${decider.candidateValue}-${decider.targetValue}`;
+  }
+
+  return `${deciderLabel} ${decider.candidateValue} vs ${decider.targetValue}`;
+}
+
 function getExpectedThirdPlaceReason(candidate, rows = getExpectedThirdPlaceRaceRows()) {
-  const summary = `Currently ${formatOrdinal(candidate.position)} in the third-place race: ${formatExpectedThirdPlaceCandidateSummary(candidate)}.`;
+  const summary = formatExpectedThirdPlaceRaceIntro(candidate, rows);
 
   if (candidate.status?.kind === "eliminated" || candidate.isEliminated) {
     return "No remaining group result combination can move this team into a Round of 32 place.";
   }
 
   if (candidate.isCutLineTie) {
-    return `${summary} Top-8 place is tied from ${formatOrdinal(candidate.tieGroupStart)}-${formatOrdinal(candidate.tieGroupEnd)}; fair-play data is pending.`;
+    return `${summary}\nTeams from ${formatOrdinal(candidate.tieGroupStart)} to ${formatOrdinal(candidate.tieGroupEnd)} are tied around the cutoff.\nFair-play data is missing.`;
   }
 
   const nearestCandidate = getExpectedThirdPlaceComparisonTarget(candidate, rows);
@@ -518,14 +545,17 @@ function getExpectedThirdPlaceReason(candidate, rows = getExpectedThirdPlaceRace
   }
 
   if (candidate.isUnresolvedTie && getThirdPlaceTieSignature(candidate) === getThirdPlaceTieSignature(nearestCandidate)) {
-    const action = candidate.position <= getThirdPlaceAdvancerCount() ? "stay top 8" : "make the top 8";
-    return `${summary} To ${action}, the tie with ${nearestCandidate.team.name} (${formatOrdinal(nearestCandidate.position)}) is still unresolved on loaded points, goal difference and goals scored; fair-play data is pending.`;
+    return `${summary}\nTied with ${nearestCandidate.team.name}.\nFair-play data is missing.`;
   }
 
   const isInside = candidate.position <= getThirdPlaceAdvancerCount();
-  const action = isInside ? "stay top 8, keep ahead of" : "make the top 8, move ahead of";
   const decider = getExpectedThirdPlaceComparisonDecider(candidate, nearestCandidate);
-  return `${summary} To ${action} ${nearestCandidate.team.name} (${formatOrdinal(nearestCandidate.position)}) on ${decider.label}: ${decider.candidateValue} vs ${decider.targetValue}.`;
+  const comparison = formatExpectedThirdPlaceShortComparison(decider);
+  if (isInside) {
+    return `${summary}\nAhead of ${nearestCandidate.team.name}: ${comparison}.`;
+  }
+
+  return `${summary}\nNeeds to pass ${nearestCandidate.team.name}.\nCurrent gap: ${comparison}.`;
 }
 
 function getAutomaticAdvancersPerGroup() {
@@ -1380,6 +1410,7 @@ try {
         return {
           label: flag?.getAttribute("aria-label") || "",
           hasFlag: Boolean(flag),
+          color: flag ? getComputedStyle(flag).color : "",
           flagBeforeMinute: Boolean(flagBox && minuteBox && flagBox.right <= minuteBox.left),
           verticalDelta:
             flagBox && minuteBox
@@ -1407,9 +1438,13 @@ try {
       scorerHighlightMetrics.segmentFlags[0]?.label === "New Zealand flag" &&
       scorerHighlightMetrics.segmentFlags.slice(1).every((flag) => flag.label === "Egypt flag") &&
       scorerHighlightMetrics.segmentFlags.every(
-        (flag) => flag.hasFlag && flag.flagBeforeMinute && flag.verticalDelta <= 4
+        (flag) =>
+          flag.hasFlag &&
+          flag.color === "rgb(10, 10, 10)" &&
+          flag.flagBeforeMinute &&
+          flag.verticalDelta <= 4
       ),
-    `Scorer highlights should replace the standalone soccer ball with country flags before each scorer minute. Measured ${JSON.stringify(scorerHighlightMetrics)}.`
+    `Scorer highlights should use full-strength country flags before each scorer minute. Measured ${JSON.stringify(scorerHighlightMetrics)}.`
   );
   assert(
     scorerPlayerDecoration === "underline" && scorerPlayerDecorationStyle === "dotted",
@@ -1909,16 +1944,24 @@ try {
     const segments = [...item.querySelectorAll(".goal-scorer-segment")];
     return {
       hasStandaloneSoccerIcon: [...item.children].some((child) => child.textContent.trim() === "⚽"),
-      segmentFlags: segments.map((segment) => segment.querySelector(".goal-scorer-flag .flag")?.getAttribute("aria-label") || ""),
+      segmentFlags: segments.map((segment) => {
+        const flag = segment.querySelector(".goal-scorer-flag .flag");
+        return {
+          label: flag?.getAttribute("aria-label") || "",
+          color: flag ? getComputedStyle(flag).color : ""
+        };
+      }),
       segmentTexts: segments.map((segment) => segment.textContent.replace(/\s+/g, " ").trim())
     };
   });
   assert(
     !historicalScorerHighlight.hasStandaloneSoccerIcon &&
-      historicalScorerHighlight.segmentFlags.every((label) => label === "Ecuador flag") &&
+      historicalScorerHighlight.segmentFlags.every(
+        (flag) => flag.label === "Ecuador flag" && flag.color === "rgb(10, 10, 10)"
+      ) &&
       historicalScorerHighlight.segmentTexts.some((text) => text.includes("16' Enner Valencia")) &&
       historicalScorerHighlight.segmentTexts.some((text) => text.includes("31' Enner Valencia")),
-    "Historical result details should show country flags before archived scorer names and minutes."
+    "Historical result details should show full-strength country flags before archived scorer names and minutes."
   );
   assert(
     (await page.locator("#match-info .scorer-highlight .player-link", { hasText: "Enner Valencia" }).count()) === 2,
@@ -2165,10 +2208,10 @@ try {
   assert(
     bosniaScoreAlignment.hasWrappedClass &&
       bosniaScoreAlignment.metaGapFromText >= 8 &&
-      bosniaScoreAlignment.metaGapFromText <= 28 &&
-      bosniaScoreAlignment.scoreRightGap >= 40 &&
+      bosniaScoreAlignment.scoreRightGap >= 0 &&
+      bosniaScoreAlignment.scoreRightGap <= 12 &&
       bosniaScoreAlignment.rowScrollOverflow <= 1,
-    `Wrapped tablet match rows should place score pills just after the wrapped matchup instead of at the far edge. Measured ${JSON.stringify(bosniaScoreAlignment)}.`
+    `Wrapped tablet match rows should keep score pills on the shared right edge. Measured ${JSON.stringify(bosniaScoreAlignment)}.`
   );
   await page.setViewportSize({ width: 390, height: 844 });
   await page.waitForTimeout(80);
@@ -2205,7 +2248,8 @@ try {
       bosniaMatchWrap.nameWidth > 0 &&
       bosniaMatchWrap.teamsHeight > bosniaMatchWrap.lineHeight * 1.4 &&
       bosniaMatchWrap.hasWrappedClass &&
-      bosniaMatchWrap.scoreRightGap >= 8 &&
+      bosniaMatchWrap.scoreRightGap >= 0 &&
+      bosniaMatchWrap.scoreRightGap <= 12 &&
       !bosniaMatchWrap.hasTooltip,
     `Long match row names should wrap visibly instead of becoming tooltip-only truncation. Measured ${JSON.stringify(bosniaMatchWrap)}.`
   );
@@ -2554,6 +2598,34 @@ try {
       upNextPillLabels.every((label) => label === "Up next"),
       "Every Up next pill should use the expected label."
     );
+    for (const width of [390, 430]) {
+      await upNextCheck.page.setViewportSize({ width, height: 844 });
+      await upNextCheck.page.waitForTimeout(80);
+      const upNextRailMetrics = await upNextCheck.page.evaluate((fixtureIds) => {
+        return fixtureIds.map((fixtureId) => {
+          const row = document.querySelector(`.match-row[data-match-id="${fixtureId}"]`);
+          const pill = row?.querySelector(".up-next-pill");
+          const rowRect = row?.getBoundingClientRect();
+          const pillRect = pill?.getBoundingClientRect();
+
+          return {
+            fixtureId,
+            rightGap: rowRect && pillRect ? Math.round(rowRect.right - pillRect.right) : null,
+            rowScrollOverflow: row ? row.scrollWidth - row.clientWidth : null
+          };
+        });
+      }, nextScheduledFixtureIds);
+      const rightGaps = upNextRailMetrics
+        .map((metric) => metric.rightGap)
+        .filter((gap) => Number.isFinite(gap));
+      assert(
+        rightGaps.length === nextScheduledFixtureIds.length &&
+          rightGaps.every((gap) => gap >= 0 && gap <= 8) &&
+          Math.max(...rightGaps) - Math.min(...rightGaps) <= 4 &&
+          upNextRailMetrics.every((metric) => metric.rowScrollOverflow <= 1),
+        `Mobile Up next pills should share the same right rail at ${width}px. Measured ${JSON.stringify(upNextRailMetrics)}.`
+      );
+    }
     await upNextCheck.context.close();
   }
 
@@ -3285,11 +3357,10 @@ try {
     thirdPlaceRaceCheck.visibleReasonCount === 0 &&
       thirdPlaceRaceCheck.rowSummaries.every((row) => row.tooltip && !row.tooltip.includes("GF")) &&
       thirdPlaceRaceCheck.rowSummaries.some((row) =>
-        /^To (stay top 8|make the top 8)/.test(
-          row.tooltip.replace(/^Currently \d+(?:st|nd|rd|th) in the third-place race: .*?\. /, "")
-        )
+        row.tooltip.includes("Top 8 advance.") &&
+          /Ahead of|Needs to pass/.test(row.tooltip)
       ),
-    "The third-place race should hide top-eight explanations behind status pill tooltips without GF jargon."
+    "The third-place race should hide concise beginner-friendly top-eight explanations behind status pill tooltips without GF jargon."
   );
   const expectedLiveThirdPlaceTeams = new Set(
     fixturesData.fixtures
@@ -3893,6 +3964,46 @@ try {
     tabletMatchHoverMetrics,
     "Tablet-width hovered match rows should keep score and pending chips inside the clipped match layout.",
     { expectNoTransform: true, minLayoutRightGap: 3 }
+  );
+
+  await page.setViewportSize({ width: 558, height: 768 });
+  await page.goto(`${baseUrl}?view=matches&date=2026-06-24&tz=America%2FLos_Angeles`, {
+    waitUntil: "load"
+  });
+  await page.waitForSelector('[data-match-id="bosnia-qatar-2026-06-24"]');
+  const completedScoreRailMetrics = await page.evaluate(() => {
+    const rows = Array.from(document.querySelectorAll("#match-list > .match-row"));
+    return rows
+      .map((row) => {
+        const score = row.querySelector(".match-score");
+        if (!score) {
+          return null;
+        }
+        const rowRect = row.getBoundingClientRect();
+        const scoreRect = score.getBoundingClientRect();
+
+        return {
+          hasWrappedClass: row.classList.contains("has-wrapped-matchup"),
+          id: row.getAttribute("data-match-id"),
+          rightGap: Math.round(rowRect.right - scoreRect.right),
+          scrollOverflow: row.scrollWidth - row.clientWidth
+        };
+      })
+      .filter(Boolean);
+  });
+  const completedScoreRailGaps = completedScoreRailMetrics.map((metric) => metric.rightGap);
+  assert(
+    completedScoreRailMetrics.length >= 6 &&
+      completedScoreRailMetrics.some(
+        (metric) =>
+          metric.id === "bosnia-qatar-2026-06-24" &&
+          metric.hasWrappedClass &&
+          metric.rightGap >= 0 &&
+          metric.rightGap <= 12
+      ) &&
+      Math.max(...completedScoreRailGaps) - Math.min(...completedScoreRailGaps) <= 6 &&
+      completedScoreRailMetrics.every((metric) => metric.scrollOverflow <= 1),
+    `Completed score pills should share the same right rail when a matchup wraps. Measured ${JSON.stringify(completedScoreRailMetrics)}.`
   );
 
   await page.setViewportSize({ width: 390, height: 844 });

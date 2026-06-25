@@ -1,6 +1,21 @@
 {
-  "updatedAt": "2026-06-24T23:54:13-07:00",
+  "updatedAt": "2026-06-25T00:18:37-07:00",
   "releases": [
+    {
+      "date": "2026-06-25",
+      "title": "Race and archive clarity",
+      "titleZh": "竞争与历史档案说明优化",
+      "highlights": [
+        "Third-place race tooltips now explain rank, cutoff comparisons, and missing fair-play tie data in shorter lines.",
+        "Wrapped match rows now keep score and Up next pills aligned on narrow screens.",
+        "Historical player cards now describe archive match notes without overstating match-lens appearance counts."
+      ],
+      "highlightsZh": [
+        "最佳第三名竞争提示现在用更短的行说明排名、晋级线比较，以及公平竞赛数据缺失的同分情况。",
+        "换行的比赛行现在会在窄屏上保持比分和“下一场”标签对齐。",
+        "历史球员卡现在会描述历史档案比赛说明，而不会夸大 match-lens 出场次数。"
+      ]
+    },
     {
       "date": "2026-06-24",
       "title": "Curated player-card rollout",

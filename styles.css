@@ -1710,7 +1710,6 @@ h1 {
 }
 
 .match-row.has-wrapped-matchup {
-  justify-content: flex-start;
   column-gap: var(--match-row-wrapped-meta-gap, 8px);
 }
 
@@ -1721,8 +1720,8 @@ h1 {
 }
 
 .match-row.has-wrapped-matchup .match-row-meta {
-  justify-content: flex-start;
-  margin-left: 0;
+  justify-content: flex-end;
+  margin-left: auto;
 }
 
 .match-score,
@@ -3247,7 +3246,7 @@ h1 {
   pointer-events: none;
   text-align: left;
   transition: opacity 140ms ease, transform 140ms ease;
-  white-space: normal;
+  white-space: pre-line;
 }
 
 .standing-status-pill[data-tooltip]::after,
@@ -4700,6 +4699,7 @@ h1 {
   height: 14px;
   flex-basis: 18px;
   font-size: 15px;
+  color: #0a0a0a;
 }
 
 .goal-scorer-name {
@@ -6034,6 +6034,8 @@ h1 {
   }
 
   .match-row.has-wrapped-matchup .match-row-meta {
+    justify-content: flex-end;
+    margin-left: auto;
     max-width: max-content;
     margin-right: 4px;
   }
@@ -6348,7 +6350,9 @@ h1 {
   }
 
   .match-row.has-wrapped-matchup .match-row-meta {
+    justify-content: flex-end;
     justify-self: auto;
+    margin-left: auto;
     max-width: max-content;
     margin-right: 4px;
   }
