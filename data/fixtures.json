@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-25T00:04:53.774Z",
+  "updatedAt": "2026-06-25T04:42:29.148Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -6380,7 +6380,7 @@
       "homeTeamId": "CZE",
       "awayTeamId": "MEX",
       "venue": "Mexico City Stadium",
-      "status": "SCHEDULED",
+      "status": "FT",
       "h2h": {
         "status": "loaded",
         "sourceId": "national-football-teams-h2h-2026-06-17",
@@ -6457,7 +6457,11 @@
           "matchNumber": 53
         }
       },
-      "matchNumber": 53
+      "matchNumber": 53,
+      "score": {
+        "home": 0,
+        "away": 3
+      }
     },
     {
       "id": "south-africa-south-korea-2026-06-24",
@@ -6468,7 +6472,7 @@
       "homeTeamId": "RSA",
       "awayTeamId": "KOR",
       "venue": "Estadio Monterrey",
-      "status": "SCHEDULED",
+      "status": "FT",
       "h2h": {
         "status": "verified-empty",
         "sourceId": "national-football-teams-h2h-2026-06-17",
@@ -6534,7 +6538,11 @@
           "matchNumber": 54
         }
       },
-      "matchNumber": 54
+      "matchNumber": 54,
+      "score": {
+        "home": 1,
+        "away": 0
+      }
     },
     {
       "id": "ecuador-germany-2026-06-25",
