@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-25T15:50:56.265Z",
+  "updatedAt": "2026-06-25T16:57:58.395Z",
   "coverageNote": "The current seed dataset covers the full official fixture skeleton from June 11 through July 19. Rich previews, scores, live status and knockout participants are updated progressively.",
   "catchUp": [
     {
@@ -610,6 +610,13 @@
       "checkedAt": "2026-06-22T10:17:00-07:00"
     },
     {
+      "id": "national-football-teams-can-rsa-h2h-2026-06-25",
+      "label": "National Football Teams Canada-South Africa H2H cross-check",
+      "url": "https://www.national-football-teams.com/encounter/teams/36/172/Canada_vs_South_Africa.html",
+      "type": "cross-check",
+      "checkedAt": "2026-06-25T09:51:53-07:00"
+    },
+    {
       "id": "national-football-teams-ned-jpn-h2h-2026-06-17",
       "label": "National Football Teams Netherlands-Japan H2H cross-check",
       "url": "https://www.national-football-teams.com/encounter/teams/129/94/Netherlands_vs_Japan.html",
@@ -841,8 +848,8 @@
       "label": "FIFA official results sync",
       "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/match-schedule-fixtures-results-teams-stadiums",
       "type": "official",
-      "checkedAt": "2026-06-25T15:50:56.265Z",
-      "note": "0 fixture updates merged from 104 matched FIFA fixtures. 6 knockout participant slots resolved from completed group/knockout results."
+      "checkedAt": "2026-06-25T16:57:58.395Z",
+      "note": "0 fixture updates merged from 104 matched FIFA fixtures."
     }
   ],
   "groups": [

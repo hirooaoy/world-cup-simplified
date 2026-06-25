@@ -1815,11 +1815,11 @@ h1 {
 
 .match-teams .match-team-home {
   flex: 0 1 auto;
-  min-width: min-content;
+  min-width: 0;
 }
 
 .match-teams .match-team-away {
-  flex: 1 1 min-content;
+  flex: 0 1 auto;
   min-width: 0;
 }
 
@@ -1836,6 +1836,7 @@ h1 {
   overflow: visible;
   overflow-wrap: normal;
   text-overflow: clip;
+  text-wrap: balance;
   white-space: normal;
 }
 
@@ -2149,24 +2150,20 @@ h1 {
 }
 
 .match-stage-link {
-  display: inline-flex;
+  display: block;
   width: fit-content;
   padding: 0;
   border: 0;
   border-radius: 4px;
   background: transparent;
   cursor: pointer;
-  font: inherit;
-  font-weight: 700;
-  text-decoration-line: underline;
-  text-decoration-style: dotted;
-  text-decoration-color: rgba(10, 10, 10, 0.28);
-  text-underline-offset: 0.22em;
+  font-family: inherit;
+  text-align: left;
+  text-decoration: none;
 }
 
 .match-stage-link:hover {
-  color: rgba(10, 10, 10, 0.76);
-  text-decoration-color: rgba(10, 10, 10, 0.46);
+  color: rgba(10, 10, 10, 0.56);
 }
 
 .match-stage-link:focus-visible {
@@ -3773,6 +3770,13 @@ h1 {
   color: rgba(10, 10, 10, 0.62);
 }
 
+.progress-match.is-projected .knockout-team:not(.is-locked) .rank-pill {
+  border-color: rgba(10, 10, 10, 0.11);
+  background: rgba(255, 255, 255, 0.74);
+  color: rgba(10, 10, 10, 0.46);
+  opacity: 0.78;
+}
+
 .progress-match.is-projected .knockout-team:not(.is-locked) .knockout-team-copy small {
   color: rgba(10, 10, 10, 0.45);
 }
@@ -4772,16 +4776,16 @@ h1 {
 }
 
 .knockout-context-team-start {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
+  display: inline;
   white-space: nowrap;
-  vertical-align: -0.14em;
+  vertical-align: baseline;
 }
 
 .knockout-context-team-flag {
   display: inline-flex;
   align-items: center;
+  margin-right: 5px;
+  vertical-align: -0.1em;
 }
 
 .knockout-context-team-flag .flag {
@@ -4855,6 +4859,19 @@ h1 {
 .result-highlights .player-link:hover,
 .result-highlights .player-hover:focus-within .player-link {
   color: rgba(10, 10, 10, 0.84);
+  text-decoration-color: rgba(10, 10, 10, 0.48);
+}
+
+.scorer-highlight .player-link {
+  text-decoration-line: underline;
+  text-decoration-style: dotted;
+  text-decoration-color: rgba(10, 10, 10, 0.32);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+}
+
+.scorer-highlight .player-link:hover,
+.scorer-highlight .player-hover:focus-within .player-link {
   text-decoration-color: rgba(10, 10, 10, 0.48);
 }
 
@@ -6370,11 +6387,12 @@ h1 {
   }
 
   .match-teams .match-team-home {
-    flex: 0 1 min-content;
+    flex: 0 1 auto;
+    min-width: 0;
   }
 
   .match-teams .match-team-away {
-    flex: 1 1 min-content;
+    flex: 0 1 auto;
     min-width: 0;
   }
 
@@ -6408,7 +6426,9 @@ h1 {
   }
 
   .match-score {
-    padding-inline: 4px;
+    justify-content: center;
+    min-width: 31px;
+    padding-inline: 7px;
   }
 
   .match-row.is-country-search-row .match-row-trigger {
@@ -6680,7 +6700,7 @@ h1 {
   }
 
   .match-score {
-    padding-inline: 5px;
+    padding-inline: 7px;
   }
 
   .score-status.is-pending {
@@ -6759,7 +6779,7 @@ h1 {
   }
 
   .match-score {
-    padding-inline: 5px;
+    padding-inline: 7px;
   }
 }
 

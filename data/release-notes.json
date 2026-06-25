@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-25T09:38:29-07:00",
+  "updatedAt": "2026-06-25T10:09:57-07:00",
   "releases": [
     {
       "date": "2026-06-25",
@@ -15,10 +15,13 @@
         "Unconfirmed matchup key-information cards now explain that the copy will be populated once the matchup is confirmed.",
         "Knockout info cards now show country flags beside team names in group-form, source-match, and next-path summaries.",
         "Confirmed knockout fixtures now automatically receive ranking projections, key-player watchlists, H2H research-pending states, and matchup-aware key information.",
+        "South Africa vs Canada match details now show the verified 2007 senior H2H result instead of the research-pending placeholder.",
+        "Projected Round of 16 and later countries now stay muted until their source match winner is confirmed.",
         "Completed groups now reuse the archived green advancement row highlight for confirmed Round of 32 teams.",
         "Third-place race badges now say whether a path is still open, how many matches are left, and the best-case points ceiling.",
-        "Mobile match rows now keep flags, country names, ranking pills, vs, and match details centered while long country names wrap cleanly inside the team line.",
-        "Player hover cards now show the player country's flag beside the name, while historical cards keep archive-note wording."
+        "Mobile match rows now keep flags, country names, ranking pills, vs, and match details centered while long English and Chinese country names wrap cleanly inside the team line.",
+        "Player hover cards now show the player country's flag beside the name, while historical cards keep archive-note wording.",
+        "Chinese player-card skill pills now translate generated role labels instead of showing raw English."
       ],
       "highlightsZh": [
         "移动端淘汰赛现在是紧凑的可滑动对阵板，保留连接线和轮次切换动效，不再显示为单列列表。",
@@ -30,10 +33,13 @@
         "尚未确认对阵的关键信息卡现在会说明，对阵确认后再补充文案。",
         "淘汰赛信息卡现在会在小组表现、来源比赛和下一轮路径摘要中的队名旁显示国旗。",
         "确认球队的淘汰赛现在会自动补入排名预测、重点球员观察名单、交锋待研究状态和对阵关键信息。",
+        "南非对加拿大的比赛详情现在显示已核验的 2007 年成年队交锋结果，不再显示待研究占位说明。",
+        "16强及后续轮次的预测球队现在会保持灰色显示，直到来源比赛胜者确认。",
         "已完赛小组现在会沿用存档赛事的绿色晋级行高亮来标记确认进入32强的球队。",
         "最佳第三名竞争标签现在会说明是否仍有出线路径、还剩几场比赛，以及最好情况的积分上限。",
-        "移动端比赛行现在会让旗帜、国家队名称、排名标签、vs 和比赛详情保持居中，同时让较长的国名在球队行内整齐换行。",
-        "球员悬停卡现在会在姓名旁显示球员国家旗帜，历史球员卡也保留档案说明的表述。"
+        "移动端比赛行现在会让旗帜、国家队名称、排名标签、vs 和比赛详情保持居中，同时让较长的英文和中文国名在球队行内整齐换行。",
+        "球员悬停卡现在会在姓名旁显示球员国家旗帜，历史球员卡也保留档案说明的表述。",
+        "中文球员卡的技能标签现在会翻译生成的角色文案，不再显示原始英文。"
       ]
     },
     {

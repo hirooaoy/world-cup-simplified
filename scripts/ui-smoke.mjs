@@ -1565,11 +1565,13 @@ try {
   const scorerPlayerDecoration = await page
     .locator("#match-info .scorer-highlight .player-link")
     .first()
-    .evaluate((link) => getComputedStyle(link).textDecorationLine);
-  const scorerPlayerDecorationStyle = await page
-    .locator("#match-info .scorer-highlight .player-link")
-    .first()
-    .evaluate((link) => getComputedStyle(link).textDecorationStyle);
+    .evaluate((link) => {
+      const style = getComputedStyle(link);
+      return {
+        line: style.textDecorationLine,
+        style: style.textDecorationStyle
+      };
+    });
   assert(
     !scorerHighlightMetrics.hasStandaloneSoccerIcon &&
       scorerHighlightMetrics.segmentCount === 4 &&
@@ -1588,8 +1590,8 @@ try {
     `Scorer highlights should use full-strength country flags before each scorer minute. Measured ${JSON.stringify(scorerHighlightMetrics)}.`
   );
   assert(
-    scorerPlayerDecoration === "underline" && scorerPlayerDecorationStyle === "dotted",
-    "Scorer player mentions should use the same soft dotted underline as paragraph mentions."
+    scorerPlayerDecoration.line === "underline" && scorerPlayerDecoration.style === "dotted",
+    `Scorer player mentions should use the same soft dotted underline as paragraph mentions. Measured ${JSON.stringify(scorerPlayerDecoration)}.`
   );
   await page.setViewportSize({ width: 1280, height: 720 });
 
@@ -1768,10 +1770,10 @@ try {
   await page.locator('[data-match-id="match-73-round-of-32-2026-06-28"]').click();
   const roundOf32DetailText = normalizeFlaggedText(await page.locator("#match-info").innerText());
   assert(
-    roundOf32DetailText.includes("Group round") &&
+    roundOf32DetailText.includes("Previous: Group round") &&
       roundOf32DetailText.includes("South Africa won against South Korea (1-0), tied against Czechia (1-1), and lost to Mexico (0-2).") &&
       roundOf32DetailText.includes("Canada won against Qatar (6-0), tied against Bosnia and Herzegovina (1-1), and lost to Switzerland (1-2).") &&
-      roundOf32DetailText.includes("Next is Round of 16") &&
+      roundOf32DetailText.includes("Next: Round of 16") &&
       roundOf32DetailText.includes("Winner will face winner of") &&
       roundOf32DetailText.includes("Prediction") &&
       roundOf32DetailText.includes("Key information") &&
@@ -1783,13 +1785,46 @@ try {
     groupRoundFlags: info.querySelectorAll(".knockout-context-list .knockout-context-team-flag .flag").length,
     nextPathFlags: [...info.querySelectorAll(".knockout-next-line .knockout-context-team-flag .flag")].map(
       (flag) => flag.getAttribute("aria-label") || ""
-    )
+    ),
+    southKoreaNameAlignment: (() => {
+      const target = [...info.querySelectorAll(".knockout-context-list .knockout-context-team")].find((team) =>
+        team.textContent.includes("South Korea")
+      );
+      const firstWord = target?.querySelector(".knockout-context-team-start > span:last-child");
+      const trailingText = [...(target?.childNodes || [])].find(
+        (node) => node.nodeType === Node.TEXT_NODE && node.textContent.includes("Korea")
+      );
+
+      if (!target || !firstWord || !trailingText) {
+        return { found: false };
+      }
+
+      const koreaStart = trailingText.textContent.indexOf("Korea");
+      const range = document.createRange();
+      range.setStart(trailingText, koreaStart);
+      range.setEnd(trailingText, koreaStart + "Korea".length);
+      const firstWordBox = firstWord.getBoundingClientRect();
+      const trailingTextBox = range.getBoundingClientRect();
+      const flagBox = target.querySelector(".knockout-context-team-flag .flag")?.getBoundingClientRect();
+      return {
+        found: true,
+        firstRestCenterDelta: Math.abs(
+          (firstWordBox.top + firstWordBox.bottom - trailingTextBox.top - trailingTextBox.bottom) / 2
+        ),
+        flagTextCenterDelta: flagBox
+          ? Math.abs((flagBox.top + flagBox.bottom - firstWordBox.top - firstWordBox.bottom) / 2)
+          : null
+      };
+    })()
   }));
   assert(
     roundOf32ContextFlagMetrics.groupRoundFlags >= 8 &&
       roundOf32ContextFlagMetrics.nextPathFlags.includes("Netherlands flag") &&
       roundOf32ContextFlagMetrics.nextPathFlags.includes("Morocco flag") &&
-      roundOf32ContextFlagMetrics.nextPathFlags.length >= 2,
+      roundOf32ContextFlagMetrics.nextPathFlags.length >= 2 &&
+      roundOf32ContextFlagMetrics.southKoreaNameAlignment.found &&
+      roundOf32ContextFlagMetrics.southKoreaNameAlignment.firstRestCenterDelta <= 0.5 &&
+      roundOf32ContextFlagMetrics.southKoreaNameAlignment.flagTextCenterDelta <= 2,
     `Round of 32 match detail should show flags for projected and confirmed next-path teams. Measured ${JSON.stringify(roundOf32ContextFlagMetrics)}.`
   );
 
@@ -1813,12 +1848,12 @@ try {
   await page.locator('[data-match-id="match-89-round-of-16-2026-07-04"]').click();
   const roundOf16DetailText = normalizeFlaggedText(await page.locator("#match-info").innerText());
   assert(
-    roundOf16DetailText.includes("Round of 32") &&
+    roundOf16DetailText.includes("Previous: Round of 32") &&
       roundOf16DetailText.includes("is scheduled.") &&
-      roundOf16DetailText.includes("Next is Quarter-finals") &&
+      roundOf16DetailText.includes("Next: Quarter-finals") &&
       roundOf16DetailText.includes("Winner will face winner of") &&
       roundOf16DetailText.includes("Prediction") &&
-      !roundOf16DetailText.includes("Group round") &&
+      !roundOf16DetailText.includes("Previous: Group round") &&
       !roundOf16DetailText.includes("bracket details are not loaded yet"),
     "Round of 16 and later match detail should summarize the previous knockout round instead of group standings."
   );
@@ -2494,6 +2529,65 @@ try {
       !bosniaMatchWrap.hasTooltip,
     `Long match row names should wrap visibly instead of becoming tooltip-only truncation. Measured ${JSON.stringify(bosniaMatchWrap)}.`
   );
+  await page.goto(`${baseUrl}?view=matches&date=2026-06-27&lang=zh&tz=America%2FLos_Angeles`, {
+    waitUntil: "load"
+  });
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.waitForSelector(".match-row");
+  await page.waitForTimeout(160);
+  const chineseMatchNameWrap = await page.locator("#match-list > .match-row").evaluateAll((rows) =>
+    rows.map((row) => {
+      const rowBox = row.getBoundingClientRect();
+      const nameMetrics = [...row.querySelectorAll(".match-teams .team-name")].map((name) => {
+        const textNode = [...name.childNodes].find((node) => node.nodeType === Node.TEXT_NODE);
+        const lineMap = new Map();
+
+        if (textNode) {
+          [...textNode.textContent].forEach((char, index) => {
+            const range = document.createRange();
+            range.setStart(textNode, index);
+            range.setEnd(textNode, index + char.length);
+            const rect = range.getBoundingClientRect();
+            range.detach();
+            const topKey = Math.round(rect.top);
+            lineMap.set(topKey, (lineMap.get(topKey) || 0) + 1);
+          });
+        }
+
+        return {
+          label: name.getAttribute("aria-label") || name.textContent.trim(),
+          lineCharCounts: [...lineMap.values()],
+          width: Math.round(name.getBoundingClientRect().width)
+        };
+      });
+
+      return {
+        id: row.dataset.matchId || "",
+        nameMetrics,
+        rowScrollOverflow: Math.round(row.scrollWidth - row.clientWidth),
+        rowWidth: Math.round(rowBox.width)
+      };
+    })
+  );
+  const chineseSingleColumnNames = chineseMatchNameWrap.flatMap((row) =>
+    row.nameMetrics
+      .filter(
+        (metric) =>
+          [...metric.label].length >= 3 &&
+          metric.lineCharCounts.length >= 3 &&
+          Math.max(...metric.lineCharCounts) <= 1
+      )
+      .map((metric) => ({ id: row.id, ...metric }))
+  );
+  assert(
+    chineseSingleColumnNames.length === 0 &&
+      chineseMatchNameWrap.every((row) => row.rowScrollOverflow <= 1),
+    `Chinese match row names should not collapse into one-character columns on mobile. Measured ${JSON.stringify(chineseMatchNameWrap)}.`
+  );
+  await page.goto(`${baseUrl}?view=matches&date=2026-06-18&lang=en&tz=America%2FLos_Angeles`, {
+    waitUntil: "load"
+  });
+  await page.waitForSelector('[data-match-id="switzerland-bosnia-2026-06-18"]');
   await page.setViewportSize({ width: 1280, height: 720 });
   await switzerlandBosniaRow.click();
   const finalMatchDetailText = await page.locator("#match-info").innerText();
@@ -3807,26 +3901,28 @@ try {
       [...document.querySelectorAll(selector)]
         .map((element) => element.textContent.replace(/\s+/g, " ").trim())
         .join(" ");
-    const getMatchTeamVisuals = (matchNumber) =>
-      [...document.querySelectorAll(`.progress-match[data-match-number="${matchNumber}"] .knockout-team`)]
-        .map((team) => {
-          const flag = team.querySelector(".knockout-team-flag");
-          const strong = team.querySelector(".knockout-team-copy strong");
-          const rank = team.querySelector(".rank-pill");
-          const flagStyle = flag ? getComputedStyle(flag) : null;
-          const strongStyle = strong ? getComputedStyle(strong) : null;
-          const rankStyle = rank ? getComputedStyle(rank) : null;
+    const getTeamVisual = (team) => {
+      const flag = team.querySelector(".knockout-team-flag");
+      const strong = team.querySelector(".knockout-team-copy strong");
+      const rank = team.querySelector(".rank-pill");
+      const flagStyle = flag ? getComputedStyle(flag) : null;
+      const strongStyle = strong ? getComputedStyle(strong) : null;
+      const rankStyle = rank ? getComputedStyle(rank) : null;
 
-          return {
-            className: team.className,
-            flagFilter: flagStyle?.filter || "",
-            flagOpacity: flagStyle?.opacity || "",
-            rankOpacity: rankStyle?.opacity || "",
-            strongColor: strongStyle?.color || "",
-            teamId: team.dataset.teamId || "",
-            text: team.textContent.replace(/\s+/g, " ").trim()
-          };
-        });
+      return {
+        className: team.className,
+        flagFilter: flagStyle?.filter || "",
+        flagOpacity: flagStyle?.opacity || "",
+        rankOpacity: rankStyle?.opacity || "",
+        strongColor: strongStyle?.color || "",
+        teamId: team.dataset.teamId || "",
+        text: team.textContent.replace(/\s+/g, " ").trim()
+      };
+    };
+    const getMatchTeamVisuals = (matchNumber) =>
+      [...document.querySelectorAll(`.progress-match[data-match-number="${matchNumber}"] .knockout-team`)].map(
+        getTeamVisual
+      );
 
     return {
       m73ProgressText: text('.progress-match[data-match-number="73"]'),
@@ -3873,6 +3969,7 @@ try {
       m73Projected: document.querySelector('.progress-match[data-match-number="73"]')?.classList.contains("is-projected"),
       m74Projected: document.querySelector('.progress-match[data-match-number="74"]')?.classList.contains("is-projected"),
       m79Projected: document.querySelector('.progress-match[data-match-number="79"]')?.classList.contains("is-projected"),
+      m89Projected: document.querySelector('.progress-match[data-match-number="89"]')?.classList.contains("is-projected"),
       m79SlotPills: [...document.querySelectorAll('.progress-match[data-match-number="79"] .knockout-slot-odds')]
         .map((element) => ({
           slotLabel: element.dataset.slotLabel || "",
@@ -3880,6 +3977,12 @@ try {
           text: element.textContent.replace(/\s+/g, " ").trim()
         })),
       m79TeamVisuals: getMatchTeamVisuals(79),
+      m89TeamVisuals: getMatchTeamVisuals(89),
+      laterRoundLikelyVisuals: [
+        ...document.querySelectorAll(
+          ".progress-round:not(.is-round-of-32) .progress-match.is-projected .knockout-team.is-likely"
+        )
+      ].map(getTeamVisual),
       m89Tooltips: [...document.querySelectorAll('.progress-match[data-match-number="89"] .knockout-likelihood')]
         .map((element) => element.getAttribute("data-tooltip") || "")
         .join(" "),
@@ -3931,6 +4034,15 @@ try {
   );
   const m79MexicoVisual = tournamentCheck.m79TeamVisuals.find((team) => team.teamId === "MEX");
   const m79UnresolvedVisual = tournamentCheck.m79TeamVisuals.find((team) => team.teamId !== "MEX");
+  const m89LikelyVisuals = tournamentCheck.m89TeamVisuals.filter((team) =>
+    team.className.includes("is-likely")
+  );
+  const isMutedProjectedCountry = (team) =>
+    !team.className.includes("is-locked") &&
+    team.flagFilter.includes("grayscale") &&
+    Number(team.flagOpacity) < 1 &&
+    Number(team.rankOpacity) < 1 &&
+    getCssColorAlpha(team.strongColor) < 0.7;
   assert(
     tournamentCheck.m79Projected === true &&
       m79MexicoVisual?.className.includes("is-locked") &&
@@ -3945,6 +4057,14 @@ try {
       tournamentCheck.m79SlotPills.some((pill) => pill.teamId === "SCO" && pill.text.includes("20% here")) &&
       tournamentCheck.m79SlotPills.every((pill) => pill.teamId !== "MEX"),
     `Locked Round of 32 teams should stay visually confirmed inside projected cards while unresolved slot picks remain muted. Measured ${JSON.stringify({ m79MexicoVisual, m79UnresolvedVisual, m79SlotPills: tournamentCheck.m79SlotPills })}.`
+  );
+  assert(
+    tournamentCheck.m89Projected === true &&
+      m89LikelyVisuals.length === 2 &&
+      m89LikelyVisuals.every(isMutedProjectedCountry) &&
+      tournamentCheck.laterRoundLikelyVisuals.length >= 2 &&
+      tournamentCheck.laterRoundLikelyVisuals.every(isMutedProjectedCountry),
+    `Projected Round of 16 and later country picks should stay muted until their source match winner is confirmed. Measured ${JSON.stringify({ m89LikelyVisuals, laterRoundLikelyVisuals: tournamentCheck.laterRoundLikelyVisuals })}.`
   );
   const groupETopTeam = getTeam(standingsData.groups?.E?.[0]?.teamId);
   const groupETopTeamName = groupETopTeam.standingName || groupETopTeam.name;

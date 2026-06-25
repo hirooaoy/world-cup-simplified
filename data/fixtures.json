@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-25T15:50:56.265Z",
+  "updatedAt": "2026-06-25T16:57:58.395Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -8305,9 +8305,22 @@
       "venue": "Los Angeles Stadium",
       "status": "SCHEDULED",
       "h2h": {
-        "status": "research-pending",
-        "summary": "H2H research is pending for this matchup. Add API-backed or manually verified senior results when available.",
-        "results": null
+        "status": "loaded",
+        "sourceId": "national-football-teams-can-rsa-h2h-2026-06-25",
+        "summary": "Before this fixture, South Africa had the edge in the verified senior series: 1 South Africa win, 0 draws, 0 Canada wins, 2 total goals.",
+        "results": [
+          {
+            "date": "2007-11-20",
+            "competition": "Friendly",
+            "homeTeamId": "RSA",
+            "awayTeamId": "CAN",
+            "homeScore": 2,
+            "awayScore": 0,
+            "venue": "Kings Park",
+            "sourceUrl": "https://canadasoccer.com/match/840/"
+          }
+        ],
+        "sourceUrl": "https://www.national-football-teams.com/encounter/teams/36/172/Canada_vs_South_Africa.html"
       },
       "providerIds": {
         "fifa": {

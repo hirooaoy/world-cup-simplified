@@ -277,6 +277,7 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "cancelled": "已取消",
     "current score": "当前比分",
     "final score": "最终比分",
+    "Next": "下一轮",
     "now": "刚刚",
     "Past match research is not loaded for this fixture yet.":
       "这场比赛的历史交锋研究尚未载入。",
@@ -878,11 +879,13 @@ const ZH_PLAYER_NAME_TRANSLATIONS = {
   "Adam Hložek": "亚当·赫洛热克",
   "Akram Afif": "阿克拉姆·阿菲夫",
   "Alexander Isak": "亚历山大·伊萨克",
+  "Alvaro Fidalgo": "阿尔瓦罗·菲达尔戈",
   "Ali Jasim": "阿里·贾西姆",
   "Ali Olwan": "阿里·奥尔万",
   "Alireza Jahanbakhsh": "阿里雷扎·贾汉巴赫什",
   "Almoez Ali": "阿尔莫埃兹·阿里",
   "Alphonso Davies": "阿方索·戴维斯",
+  "Álvaro Fidalgo": "阿尔瓦罗·菲达尔戈",
   "Amine Gouiri": "阿明·古伊里",
   "Andy Robertson": "安迪·罗伯逊",
   "Antoine Griezmann": "安托万·格列兹曼",
@@ -969,6 +972,8 @@ const ZH_PLAYER_NAME_TRANSLATIONS = {
   "Manuel Akanji": "曼努埃尔·阿坎吉",
   "Marcel Sabitzer": "马塞尔·萨比策",
   "Martin Ødegaard": "马丁·厄德高",
+  "Mateo Chavez": "马特奥·查韦斯",
+  "Mateo Chávez": "马特奥·查韦斯",
   "Mateo Kovačić": "马特奥·科瓦契奇",
   "Mathew Ryan": "马修·瑞安",
   "Mehdi Taremi": "迈赫迪·塔雷米",
@@ -3781,6 +3786,349 @@ const ZH_GENERATED_COPY_WORDS = {
   young: "年轻"
 };
 
+const ZH_PLAYER_SKILL_PHRASES = {
+  "aerial target play": "高空支点打法",
+  "attacking midfielder": "攻击型中场",
+  "attacking midfield": "攻击型中场",
+  "back line": "后防线",
+  "back post": "后点",
+  "ball carrying": "带球推进",
+  "ball playing": "出球型",
+  "ball winning": "抢回球权",
+  "behind the line": "身后",
+  "between lines": "线间",
+  "box edge": "禁区弧顶",
+  "box to box": "全能中场",
+  "build up": "组织推进",
+  "centre back": "中后卫",
+  "centre forward": "中锋",
+  "central midfielder": "中前卫",
+  "counter press": "反抢",
+  "cut inside": "内切",
+  "defensive midfielder": "防守型中场",
+  "drawn fouls": "造犯规",
+  "far side": "远端",
+  "final third": "前场",
+  "first time": "第一时间",
+  "full back": "边后卫",
+  "fullback": "边后卫",
+  "half space": "肋部",
+  "hold up": "支点做球",
+  "left back": "左后卫",
+  "left back development": "左后卫成长",
+  "left foot": "左脚",
+  "left footed": "左脚",
+  "left side": "左路",
+  "left sided": "左路",
+  "left wing": "左边路",
+  "left wing back": "左翼卫",
+  "left winger": "左边锋",
+  "long range": "远距离",
+  "near post": "前点",
+  "one on one": "一对一",
+  "one v one": "一对一",
+  "penalty area": "禁区",
+  "player development": "球员成长",
+  "press resistance": "抗压能力",
+  "recovery speed": "回追速度",
+  "right back": "右后卫",
+  "right foot": "右脚",
+  "right footed": "右脚",
+  "right side": "右路",
+  "right sided": "右路",
+  "right wing": "右边路",
+  "right wing back": "右翼卫",
+  "right winger": "右边锋",
+  "second ball": "二点球",
+  "set piece": "定位球",
+  "set pieces": "定位球",
+  "short passing": "短传",
+  "sweeper keeper": "清道夫门将",
+  "third man": "第三人",
+  "wide areas": "边路区域",
+  "wide defense": "边路防守",
+  "wide defending": "边路防守",
+  "wide play": "边路打法",
+  "wide pressure": "边路压迫",
+  "wing back": "翼卫"
+};
+
+const ZH_PLAYER_SKILL_WORDS = {
+  ...ZH_GENERATED_COPY_WORDS,
+  a: "",
+  acceleration: "加速",
+  aerial: "高空",
+  aggression: "强度",
+  aggressive: "强硬",
+  angles: "角度",
+  anticipation: "预判",
+  area: "区域",
+  arrivals: "插上",
+  arriving: "插上",
+  athletic: "运动能力",
+  athleticism: "运动能力",
+  back: "后防",
+  balance: "平衡",
+  ball: "球权",
+  balls: "球权",
+  bench: "替补",
+  big: "关键",
+  bite: "硬度",
+  block: "封堵",
+  blocking: "封堵",
+  bravery: "勇气",
+  brave: "勇气",
+  buildup: "组织推进",
+  burst: "爆发",
+  bursts: "爆发",
+  captain: "队长",
+  centre: "中路",
+  changes: "变奏",
+  choices: "选择",
+  circulation: "运转",
+  claiming: "摘球",
+  clearances: "解围",
+  close: "近距离",
+  combative: "对抗",
+  commanding: "指挥",
+  communication: "沟通",
+  composed: "镇定",
+  concentration: "专注",
+  confidence: "自信",
+  contact: "身体接触",
+  contests: "争抢",
+  counterattack: "反击",
+  crashing: "冲入",
+  creativity: "创造力",
+  cues: "提示",
+  cutback: "倒三角",
+  cutbacks: "倒三角",
+  cuts: "内切",
+  deep: "深位",
+  defense: "防守",
+  development: "成长",
+  diagonal: "斜传",
+  diagonals: "斜传",
+  discipline: "纪律性",
+  disciplined: "纪律性",
+  disguise: "隐蔽处理",
+  disguised: "隐蔽处理",
+  distribution: "分球",
+  domestic: "国内",
+  dominance: "优势",
+  drifting: "游动",
+  effort: "投入",
+  engine: "发动机",
+  entries: "进入禁区",
+  escape: "摆脱",
+  escapes: "摆脱",
+  european: "欧洲",
+  exits: "摆脱",
+  experience: "经验",
+  experienced: "经验",
+  explosive: "爆发力",
+  explosiveness: "爆发力",
+  far: "远端",
+  fast: "快速",
+  fearless: "无畏",
+  feet: "脚下",
+  field: "场地",
+  first: "第一",
+  flexible: "灵活",
+  flexibility: "灵活性",
+  focus: "专注",
+  foot: "脚",
+  footed: "脚",
+  forward: "锋线",
+  frame: "身材",
+  fresh: "新鲜体能",
+  front: "前场",
+  full: "边后卫",
+  gliding: "滑行推进",
+  goalkeeping: "门将",
+  growth: "成长",
+  handling: "处理",
+  height: "身高",
+  hybrid: "混合",
+  ins: "内切",
+  instinct: "嗅觉",
+  instincts: "嗅觉",
+  intelligence: "球商",
+  intensity: "强度",
+  interceptions: "拦截",
+  interior: "内线",
+  inverted: "内收",
+  isolation: "一对一",
+  keeper: "门将",
+  knockdowns: "摆渡",
+  lanes: "通道",
+  layoffs: "做球",
+  leadership: "领导力",
+  league: "联赛",
+  legs: "体能",
+  line: "防线",
+  lines: "线间",
+  long: "长传",
+  low: "低位",
+  management: "管理",
+  marking: "盯防",
+  minded: "意识",
+  mobility: "机动性",
+  modern: "现代",
+  near: "前点",
+  one: "一对一",
+  organisation: "组织",
+  organization: "组织",
+  outlet: "出球点",
+  outlets: "出球点",
+  overlap: "套上",
+  overlapping: "套上",
+  overloads: "人数优势",
+  phase: "阶段",
+  piece: "定位球",
+  pieces: "定位球",
+  playing: "出球",
+  playmaking: "组织",
+  pocket: "肋部",
+  position: "位置",
+  positional: "位置感",
+  positioning: "位置感",
+  post: "点位",
+  potential: "潜力",
+  powerful: "力量",
+  premier: "顶级",
+  prevention: "阻止",
+  progressive: "推进",
+  promise: "潜力",
+  protection: "保护",
+  protective: "保护",
+  quality: "质量",
+  range: "覆盖范围",
+  rate: "投入",
+  reach: "覆盖",
+  reaction: "反应",
+  reactions: "反应",
+  record: "记录",
+  reflex: "反应",
+  reflexes: "反应",
+  reliability: "可靠性",
+  resistant: "抗压",
+  restart: "重新发起",
+  restarts: "重新发起",
+  restraint: "克制",
+  retention: "控球",
+  ruthless: "冷酷",
+  safe: "安全",
+  safety: "安全",
+  saves: "扑救",
+  screening: "屏障",
+  setting: "设定",
+  shielding: "护球",
+  shifts: "横移",
+  short: "短传",
+  side: "一侧",
+  sided: "一侧",
+  simple: "简洁",
+  size: "身材",
+  soft: "柔和触球",
+  sprints: "冲刺",
+  starting: "首发",
+  steady: "稳定",
+  stepping: "上抢",
+  steps: "上抢",
+  street: "老练",
+  striker: "中锋",
+  sweeper: "清道夫",
+  switching: "转移",
+  tackle: "抢断",
+  tackles: "抢断",
+  tackling: "抢断",
+  tactical: "战术",
+  tall: "高大",
+  teenage: "年轻",
+  term: "长期",
+  terror: "威胁",
+  third: "第三",
+  thrust: "推进",
+  tight: "小空间",
+  touch: "触球",
+  touches: "触球",
+  touchline: "边线",
+  toughness: "强硬",
+  tracking: "回追",
+  triggers: "触发",
+  underlap: "内切支援",
+  upside: "潜力",
+  utility: "多面性",
+  v: "",
+  versatility: "多面性",
+  veteran: "老将",
+  vision: "视野",
+  voice: "指挥",
+  volume: "数量",
+  way: "路线",
+  channel: "肋部",
+  chaos: "混乱",
+  combination: "配合",
+  combinations: "配合",
+  command: "指挥",
+  composure: "镇定",
+  cover: "保护",
+  coverage: "保护",
+  craft: "技巧",
+  creation: "创造",
+  creative: "创造",
+  cross: "传中",
+  crossing: "传中",
+  cut: "内切",
+  defending: "防守",
+  delivery: "输送",
+  drawn: "制造",
+  dribbling: "盘带",
+  elite: "顶级",
+  emergency: "紧急",
+  energy: "活力",
+  haiti: "海地",
+  half: "肋部",
+  linking: "串联",
+  links: "串联",
+  man: "人",
+  midfield: "中场",
+  moment: "时刻",
+  moments: "时刻",
+  out: "摆脱",
+  passes: "传球",
+  penalty: "禁区",
+  power: "力量",
+  presence: "存在感",
+  press: "压迫",
+  pressing: "压迫",
+  progression: "推进",
+  punch: "冲击",
+  quick: "快速",
+  receiving: "接球",
+  recovery: "回追",
+  relentless: "不停跑动",
+  resistance: "抗压",
+  runs: "跑动",
+  security: "安全感",
+  serie: "意甲",
+  shoot: "射门",
+  strength: "力量",
+  target: "支点",
+  targets: "支点",
+  tournament: "大赛",
+  turns: "转身",
+  two: "双",
+  under: "受压",
+  up: "支点",
+  vertical: "纵向",
+  wide: "边路",
+  width: "宽度",
+  wing: "边路",
+  youthful: "年轻"
+};
+
 let zhNormalizedEntityTranslations = null;
 
 function getKnownGeneratedCopyTranslation(value) {
@@ -4001,6 +4349,89 @@ function translateGeneratedSoccerPhraseToZh(value) {
     .replace(/、+/g, "、")
     .replace(/，。/g, "。")
     .trim();
+}
+
+function normalizePlayerSkillKey(value) {
+  return String(value || "")
+    .trim()
+    .toLowerCase()
+    .replace(/&/g, " and ")
+    .replace(/[’']/g, "")
+    .replace(/\b1v1\b/g, "one v one")
+    .replace(/[^a-z0-9]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function translatePlayerSkillToZh(value) {
+  const text = String(value || "").trim().replace(/\s+/g, " ");
+  if (!text) {
+    return "";
+  }
+
+  const exact = ZH_EXACT_TRANSLATIONS.get(text) || ZH_GENERATED_COPY_TERMS[text];
+  if (exact) {
+    return exact;
+  }
+
+  const normalized = normalizePlayerSkillKey(text);
+  if (!normalized) {
+    return "";
+  }
+
+  const normalizedExact = ZH_PLAYER_SKILL_PHRASES[normalized] || ZH_GENERATED_COPY_TERMS[normalized];
+  if (normalizedExact) {
+    return normalizedExact;
+  }
+
+  const tokens = normalized.split(" ").filter(Boolean);
+  const pieces = [];
+  const unknown = [];
+  const maxPhraseLength = 4;
+
+  for (let index = 0; index < tokens.length;) {
+    let matched = "";
+    let matchedLength = 0;
+    const phraseLimit = Math.min(maxPhraseLength, tokens.length - index);
+    for (let length = phraseLimit; length > 0; length -= 1) {
+      const phrase = tokens.slice(index, index + length).join(" ");
+      const translatedPhrase = ZH_PLAYER_SKILL_PHRASES[phrase] || ZH_GENERATED_COPY_TERMS[phrase];
+      if (translatedPhrase !== undefined) {
+        matched = translatedPhrase;
+        matchedLength = length;
+        break;
+      }
+    }
+
+    if (matchedLength) {
+      if (matched) {
+        pieces.push(matched);
+      }
+      index += matchedLength;
+      continue;
+    }
+
+    const token = tokens[index];
+    const translatedToken = ZH_PLAYER_SKILL_WORDS[token];
+    if (translatedToken !== undefined) {
+      if (translatedToken) {
+        pieces.push(translatedToken);
+      }
+    } else {
+      unknown.push(token);
+    }
+    index += 1;
+  }
+
+  if (unknown.length) {
+    debugZhGeneratedCopy("untranslated player skill", { source: text, unknown });
+  }
+
+  return pieces.length && !unknown.length ? pieces.join("").replace(/和$/u, "").trim() : "球员看点";
+}
+
+function localizePlayerSkill(value) {
+  return currentLanguage === "zh" ? translatePlayerSkillToZh(value) : String(value ?? "");
 }
 
 function translateHistoricalBasisToZh(value) {
@@ -9149,6 +9580,7 @@ function getTournamentLikelyParticipant(prediction, sourceMatchNumber) {
 
   return {
     ...prediction.entry,
+    isLocked: false,
     label: getTournamentTeamDisplayName(prediction.entry.team),
     likelihoodPercent: prediction.percent,
     likelihoodReason: prediction.reason,
@@ -11486,7 +11918,7 @@ function getLocalizedPlayerNote(player, profile = getPlayerProfile(player)) {
   }
 
   const skills = getPlayerSkills(player, profile)
-    .map(localizeText)
+    .map(localizePlayerSkill)
     .filter(Boolean);
   return skills.length ? `球员看点：${skills.join("、")}。` : "";
 }
@@ -11663,7 +12095,7 @@ function renderPlayerMention(label, player) {
   const note = getLocalizedPlayerNote(player, profile);
   const ageLine = getLocalizedPlayerAgeLine(player, profile);
   const valueLine = renderPlayerValueLine(player, profile);
-  const skills = getPlayerSkills(player, profile).map(localizeText);
+  const skills = getPlayerSkills(player, profile).map(localizePlayerSkill);
   const cardFlag = renderPlayerCardFlag(player, profile);
   const triggerLabel = `aria-label="${escapeHtml(`${displayName}: ${position}, ${club}`)}" aria-expanded="false"`;
   const visibleLabel = currentLanguage === "zh" ? displayName : label;
@@ -12513,13 +12945,14 @@ function getGroupRoundSummaryForParticipant(entry) {
 
 function renderRoundOf32PathContext(match, context) {
   const participants = getTournamentMatchParticipants(match, context);
+  const heading = formatKnockoutContextHeading(localizeText("Previous"), localizeText("Group round"));
   const rows = [participants.home, participants.away]
     .map((entry) => `<li>${getGroupRoundSummaryForParticipant(entry)}</li>`)
     .join("");
 
   return `
     <section class="info-block">
-      <h3>${escapeHtml(localizeText("Group round"))}</h3>
+      <h3>${escapeHtml(heading)}</h3>
       <ul class="result-highlights knockout-context-list">
         ${rows}
       </ul>
@@ -12626,10 +13059,17 @@ function getPreviousKnockoutStageLabel(match, sourceMatches) {
   return previousRound ? getTournamentStageLabel(previousRound.id) : localizeText("Knockout context");
 }
 
+function formatKnockoutContextHeading(label, stageLabel) {
+  return currentLanguage === "zh" ? `${label}：${stageLabel}` : `${label}: ${stageLabel}`;
+}
+
 function renderLaterKnockoutPathContext(match, context) {
   const sourceMatchNumbers = getTournamentWinnerSourceMatchNumbers(match);
   const sourceMatches = sourceMatchNumbers.map(getTournamentFixtureByMatchNumber).filter(Boolean);
-  const heading = getPreviousKnockoutStageLabel(match, sourceMatches);
+  const heading = formatKnockoutContextHeading(
+    localizeText("Previous"),
+    getPreviousKnockoutStageLabel(match, sourceMatches)
+  );
   const rows = sourceMatches.length
     ? sourceMatches
         .map((sourceMatch) => `<li>${renderKnockoutSourceMatchSummary(sourceMatch, context)}</li>`)
@@ -12690,7 +13130,7 @@ function renderNextKnockoutContext(match, context) {
   }
 
   const nextStage = getTournamentStageLabel(nextMatch.stage);
-  const heading = currentLanguage === "zh" ? `下一轮：${nextStage}` : `Next is ${nextStage}`;
+  const heading = formatKnockoutContextHeading(localizeText("Next"), nextStage);
 
   return `
     <section class="info-block">
