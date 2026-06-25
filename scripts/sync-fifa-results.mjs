@@ -643,9 +643,306 @@ function recomputeStandings({ fixturesData, standingsData, teams = [], tournamen
   };
 }
 
-function addSyncSource(tournamentData, { matchedCount, updateCount }) {
+function parseKnockoutGroupPlaceSlot(slotText) {
+  const match = /^Group ([A-L]) (winner|runner-up)$/i.exec(slotText || "");
+
+  if (!match) {
+    return null;
+  }
+
+  return {
+    groupId: match[1].toUpperCase(),
+    kind: "group-place",
+    place: match[2].toLowerCase() === "winner" ? 1 : 2
+  };
+}
+
+function parseKnockoutThirdPlaceSlot(slotText) {
+  const match = /^Group ([A-L](?:\/[A-L])*) third place$/i.exec(slotText || "");
+
+  if (!match) {
+    return null;
+  }
+
+  return {
+    allowedGroupIds: match[1].split("/").map((groupId) => groupId.toUpperCase()),
+    kind: "third-place",
+    place: 3
+  };
+}
+
+function parseKnockoutWinnerSlot(slotText) {
+  const match = /^Winner match (\d+)$/i.exec(slotText || "");
+  return match ? Number(match[1]) : null;
+}
+
+function getGroupFixtureCount(tournamentData, groupId) {
+  const group = (tournamentData.groups || []).find((item) => item.id === groupId);
+  const teamCount = group?.teamIds?.length || 0;
+
+  return teamCount > 1 ? (teamCount * (teamCount - 1)) / 2 : 0;
+}
+
+function isGroupComplete(fixtures, tournamentData, groupId) {
+  const groupFixtures = fixtures.filter(
+    (fixture) => fixture.stage === "group" && fixture.groupId === groupId
+  );
+  const expectedCount = getGroupFixtureCount(tournamentData, groupId);
+
+  return (
+    groupFixtures.length >= expectedCount &&
+    groupFixtures.every((fixture) => fixture.status === "FT" && fixture.score)
+  );
+}
+
+function areAllGroupsComplete(fixtures, tournamentData) {
+  return (tournamentData.groups || []).every((group) => isGroupComplete(fixtures, tournamentData, group.id));
+}
+
+function getStandingRow(standingsData, groupId, place) {
+  return standingsData.groups?.[groupId]?.[place - 1] || null;
+}
+
+function getThirdPlaceAdvancerCount(tournamentData) {
+  const value = Number(tournamentData.format?.bestThirdPlaceAdvancers);
+  return Number.isInteger(value) && value > 0 ? value : 8;
+}
+
+function compareThirdPlaceCandidates(a, b, teamsById) {
+  const conductA = getTeamConductScore(a.row);
+  const conductB = getTeamConductScore(b.row);
+
+  return (
+    points(b.row) - points(a.row) ||
+    goalDifference(b.row) - goalDifference(a.row) ||
+    b.row.gf - a.row.gf ||
+    (conductA !== null && conductB !== null ? conductB - conductA : 0) ||
+    getFifaRankValue(a.row.teamId, teamsById) - getFifaRankValue(b.row.teamId, teamsById) ||
+    a.groupId.localeCompare(b.groupId)
+  );
+}
+
+function getThirdPlaceCandidates(standingsData, tournamentData, teamsById) {
+  return (tournamentData.groups || [])
+    .map((group) => ({
+      groupId: group.id,
+      row: getStandingRow(standingsData, group.id, 3)
+    }))
+    .filter((candidate) => candidate.row?.teamId)
+    .sort((a, b) => compareThirdPlaceCandidates(a, b, teamsById));
+}
+
+function getRoundOf32ThirdPlaceSlots(fixtures) {
+  return fixtures
+    .filter((fixture) => fixture.stage === "round-of-32")
+    .flatMap((fixture) =>
+      ["home", "away"]
+        .map((side) => ({
+          fixture,
+          side,
+          slot: parseKnockoutThirdPlaceSlot(fixture[`${side}Slot`])
+        }))
+        .filter((entry) => entry.slot)
+    );
+}
+
+function assignThirdPlaceGroups(fixtures, standingsData, tournamentData, teamsById) {
+  if (!areAllGroupsComplete(fixtures, tournamentData)) {
+    return {};
+  }
+
+  const candidates = getThirdPlaceCandidates(standingsData, tournamentData, teamsById).slice(
+    0,
+    getThirdPlaceAdvancerCount(tournamentData)
+  );
+  const slots = getRoundOf32ThirdPlaceSlots(fixtures);
+  const assignments = {};
+  const usedGroupIds = new Set();
+
+  function visit(slotIndex) {
+    if (slotIndex >= slots.length) {
+      return true;
+    }
+
+    const entry = slots[slotIndex];
+
+    for (const candidate of candidates) {
+      if (
+        usedGroupIds.has(candidate.groupId) ||
+        !entry.slot.allowedGroupIds.includes(candidate.groupId)
+      ) {
+        continue;
+      }
+
+      const key = `${entry.fixture.matchNumber}:${entry.side}`;
+      assignments[key] = candidate.groupId;
+      usedGroupIds.add(candidate.groupId);
+
+      if (visit(slotIndex + 1)) {
+        return true;
+      }
+
+      usedGroupIds.delete(candidate.groupId);
+      delete assignments[key];
+    }
+
+    return false;
+  }
+
+  if (visit(0)) {
+    return assignments;
+  }
+
+  for (const key of Object.keys(assignments)) {
+    delete assignments[key];
+  }
+  usedGroupIds.clear();
+
+  for (const entry of slots) {
+    const candidate = candidates.find(
+      (row) => entry.slot.allowedGroupIds.includes(row.groupId) && !usedGroupIds.has(row.groupId)
+    );
+
+    if (candidate) {
+      assignments[`${entry.fixture.matchNumber}:${entry.side}`] = candidate.groupId;
+      usedGroupIds.add(candidate.groupId);
+    }
+  }
+
+  return assignments;
+}
+
+function getScoreWinnerTeamId(fixture, score) {
+  if (!score) {
+    return "";
+  }
+
+  const home = Number(score.home);
+  const away = Number(score.away);
+
+  if (!Number.isFinite(home) || !Number.isFinite(away) || home === away) {
+    return "";
+  }
+
+  return home > away ? fixture.homeTeamId : fixture.awayTeamId;
+}
+
+function getKnockoutWinnerTeamId(fixture) {
+  if (!fixture || fixture.status !== "FT") {
+    return "";
+  }
+
+  const explicitWinner = String(fixture.winnerTeamId || fixture.winner || "").trim();
+  if (explicitWinner) {
+    return explicitWinner;
+  }
+
+  return (
+    getScoreWinnerTeamId(fixture, fixture.scoreDetails?.penalties) ||
+    getScoreWinnerTeamId(fixture, fixture.score)
+  );
+}
+
+function getFixtureByMatchNumber(fixtures) {
+  return new Map(
+    fixtures
+      .filter((fixture) => Number.isInteger(Number(fixture.matchNumber)))
+      .map((fixture) => [Number(fixture.matchNumber), fixture])
+  );
+}
+
+function resolveKnockoutSlotTeamId({
+  fixture,
+  fixtureByMatchNumber,
+  fixtures,
+  side,
+  standingsData,
+  teamsById,
+  thirdPlaceAssignments,
+  tournamentData
+}) {
+  const slotText = fixture[`${side}Slot`] || "";
+  const groupSlot = parseKnockoutGroupPlaceSlot(slotText);
+
+  if (groupSlot) {
+    if (!isGroupComplete(fixtures, tournamentData, groupSlot.groupId)) {
+      return "";
+    }
+
+    return getStandingRow(standingsData, groupSlot.groupId, groupSlot.place)?.teamId || "";
+  }
+
+  const thirdPlaceSlot = parseKnockoutThirdPlaceSlot(slotText);
+  if (thirdPlaceSlot) {
+    const groupId = thirdPlaceAssignments[`${fixture.matchNumber}:${side}`];
+    return groupId ? getStandingRow(standingsData, groupId, 3)?.teamId || "" : "";
+  }
+
+  const sourceMatchNumber = parseKnockoutWinnerSlot(slotText);
+  if (sourceMatchNumber) {
+    const sourceFixture = fixtureByMatchNumber.get(sourceMatchNumber);
+    const winnerTeamId = getKnockoutWinnerTeamId(sourceFixture);
+
+    return teamsById.has(winnerTeamId) ? winnerTeamId : "";
+  }
+
+  return "";
+}
+
+function populateResolvedKnockoutParticipants({ fixturesData, standingsData, teams = [], tournamentData }) {
+  const fixtures = (fixturesData.fixtures || []).map((fixture) => ({ ...fixture }));
+  const fixtureByMatchNumber = getFixtureByMatchNumber(fixtures);
+  const teamsById = buildTeamsById(teams);
+  const thirdPlaceAssignments = assignThirdPlaceGroups(
+    fixtures,
+    standingsData,
+    tournamentData,
+    teamsById
+  );
+  const orderedKnockoutFixtures = fixtures
+    .filter((fixture) => fixture.stage !== "group")
+    .sort((a, b) => Number(a.matchNumber || 0) - Number(b.matchNumber || 0));
+  let updateCount = 0;
+
+  for (const fixture of orderedKnockoutFixtures) {
+    for (const side of ["home", "away"]) {
+      const teamIdKey = `${side}TeamId`;
+      const resolvedTeamId = resolveKnockoutSlotTeamId({
+        fixture,
+        fixtureByMatchNumber,
+        fixtures,
+        side,
+        standingsData,
+        teamsById,
+        thirdPlaceAssignments,
+        tournamentData
+      });
+
+      if (!resolvedTeamId || fixture[teamIdKey] === resolvedTeamId) {
+        continue;
+      }
+
+      fixture[teamIdKey] = resolvedTeamId;
+      updateCount += 1;
+    }
+  }
+
+  return {
+    fixturesData: {
+      ...fixturesData,
+      fixtures,
+      sourceIds: [...new Set([...(fixturesData.sourceIds || []), sourceIdForDate(checkedAt)])],
+      updatedAt: checkedAt
+    },
+    updateCount
+  };
+}
+
+function addSyncSource(tournamentData, { matchedCount, participantUpdateCount = 0, updateCount }) {
   const sourceId = sourceIdForDate(checkedAt);
   const sources = (tournamentData.sources || []).filter((source) => source.id !== sourceId);
+  const resultNote = `${updateCount} fixture update${updateCount === 1 ? "" : "s"} merged from ${matchedCount} matched FIFA fixture${matchedCount === 1 ? "" : "s"}.`;
+  const participantNote = `${participantUpdateCount} knockout participant slot${participantUpdateCount === 1 ? "" : "s"} resolved from completed group/knockout results.`;
 
   sources.push({
     id: sourceId,
@@ -653,7 +950,7 @@ function addSyncSource(tournamentData, { matchedCount, updateCount }) {
     url: FIFA_SCHEDULE_URL,
     type: "official",
     checkedAt,
-    note: `${updateCount} fixture update${updateCount === 1 ? "" : "s"} merged from ${matchedCount} matched FIFA fixture${matchedCount === 1 ? "" : "s"}.`
+    note: participantUpdateCount ? `${resultNote} ${participantNote}` : resultNote
   });
 
   return {
@@ -672,20 +969,28 @@ const [fixturesData, standingsData, teamsData, tournamentData] = await Promise.a
 const officialData = await fetchOfficialSchedule(fixturesData);
 const officialMatches = officialData.Results || [];
 const merge = mergeOfficialMatches(fixturesData, officialMatches, teamsData.teams);
-const nextTournamentData = addSyncSource(tournamentData, {
-  matchedCount: merge.matchedCount,
-  updateCount: merge.updateCount
-});
 const nextStandingsData = recomputeStandings({
   fixturesData: merge.fixturesData,
   standingsData,
   teams: teamsData.teams,
-  tournamentData: nextTournamentData
+  tournamentData
+});
+const participantMerge = populateResolvedKnockoutParticipants({
+  fixturesData: merge.fixturesData,
+  standingsData: nextStandingsData,
+  teams: teamsData.teams,
+  tournamentData
+});
+const totalUpdateCount = merge.updateCount + participantMerge.updateCount;
+const nextTournamentData = addSyncSource(tournamentData, {
+  matchedCount: merge.matchedCount,
+  participantUpdateCount: participantMerge.updateCount,
+  updateCount: merge.updateCount
 });
 
-if (shouldWrite && (!skipUnchangedWrites || merge.updateCount > 0)) {
+if (shouldWrite && (!skipUnchangedWrites || totalUpdateCount > 0)) {
   await Promise.all([
-    writeJson("fixtures.json", merge.fixturesData),
+    writeJson("fixtures.json", participantMerge.fixturesData),
     writeJson("standings.json", nextStandingsData),
     writeJson("tournament.json", nextTournamentData)
   ]);
@@ -693,8 +998,13 @@ if (shouldWrite && (!skipUnchangedWrites || merge.updateCount > 0)) {
 
 console.log(`FIFA official sync source: ${FIFA_SCHEDULE_URL}`);
 console.log(`Matched ${merge.matchedCount} of ${(fixturesData.fixtures || []).length} local fixture(s).`);
-if (shouldWrite && skipUnchangedWrites && merge.updateCount === 0) {
+if (shouldWrite && skipUnchangedWrites && totalUpdateCount === 0) {
   console.log("0 fixture updates detected. Files left unchanged.");
 } else {
-  console.log(`${merge.updateCount} fixture update${merge.updateCount === 1 ? "" : "s"} ${shouldWrite ? "written" : "detected"}.`);
+  console.log(
+    `${merge.updateCount} score/status update${merge.updateCount === 1 ? "" : "s"} ${shouldWrite ? "written" : "detected"}.`
+  );
+  console.log(
+    `${participantMerge.updateCount} knockout participant update${participantMerge.updateCount === 1 ? "" : "s"} ${shouldWrite ? "written" : "detected"}.`
+  );
 }

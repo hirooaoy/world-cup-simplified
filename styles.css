@@ -1348,10 +1348,12 @@ h1 {
 }
 
 .yesterday-match-pair {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   gap: 5px;
+  width: 100%;
   min-width: 0;
+  max-width: 100%;
   color: rgba(10, 10, 10, 0.78);
   font-size: 13px;
   font-weight: 500;
@@ -1366,6 +1368,15 @@ h1 {
   gap: 4px;
   min-width: 0;
   white-space: nowrap;
+}
+
+.yesterday-match-pair .yesterday-team:first-child {
+  max-width: min(46%, 16ch);
+}
+
+.yesterday-match-pair .yesterday-team:last-child {
+  flex: 1 1 0;
+  max-width: 100%;
 }
 
 .yesterday-team .flag {
@@ -1383,6 +1394,7 @@ h1 {
 }
 
 .yesterday-match-pair .versus {
+  flex: 0 0 auto;
   color: rgba(10, 10, 10, 0.42);
   font-size: 11px;
   font-weight: 700;
@@ -2509,7 +2521,7 @@ h1 {
 }
 
 .standings-table th:last-child .standing-help::after {
-  right: 0;
+  right: calc(0px - var(--tooltip-shift-x, 0px));
   left: auto;
   transform: translateY(4px);
 }
@@ -2533,7 +2545,7 @@ h1 {
 }
 
 .third-place-table th:last-child .standing-help::after {
-  right: 0;
+  right: calc(0px - var(--tooltip-shift-x, 0px));
   left: auto;
   transform: translateY(-4px);
 }
@@ -3284,7 +3296,7 @@ h1 {
 }
 
 .third-place-status[data-tooltip]::after {
-  right: 0;
+  right: calc(0px - var(--tooltip-shift-x, 0px));
   transform: translateY(4px);
 }
 
@@ -4103,7 +4115,7 @@ h1 {
 
 .knockout-likelihood::after,
 .knockout-slot-odds::after {
-  content: none;
+  content: attr(data-tooltip);
   position: absolute;
   bottom: calc(100% + 8px);
   left: var(--tooltip-shift-x, 0px);
@@ -4130,7 +4142,6 @@ h1 {
 .knockout-likelihood:focus-visible::after,
 .knockout-slot-odds:hover::after,
 .knockout-slot-odds:focus-visible::after {
-  content: attr(data-tooltip);
   opacity: 1;
   transform: translateY(0);
 }
@@ -4706,6 +4717,10 @@ h1 {
   color: rgba(10, 10, 10, 0.72);
   font-size: 13px;
   line-height: 1.35;
+}
+
+.knockout-context-list {
+  margin-top: 0;
 }
 
 .scorer-highlight {
@@ -6028,6 +6043,156 @@ h1 {
   }
 }
 
+@media (max-width: 900px) {
+  .tournament-view {
+    --tournament-round-gap: clamp(18px, 5vw, 24px);
+    --tournament-round-width: clamp(210px, 67vw, 248px);
+  }
+
+  .tournament-progression {
+    max-height: min(72vh, 760px);
+    overflow-x: hidden;
+    overflow-y: auto;
+    cursor: grab;
+    outline: none;
+    overscroll-behavior: contain;
+    scroll-padding: 12px;
+    touch-action: pan-y;
+  }
+
+  .tournament-progression:focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 4px;
+  }
+
+  .tournament-progression.is-mobile-dragging {
+    cursor: grabbing;
+  }
+
+  .tournament-progression .progress-connectors {
+    display: block;
+    opacity: 1;
+    transition: opacity 160ms ease;
+  }
+
+  .tournament-progression.is-mobile-dragging .progress-connectors {
+    opacity: 0;
+  }
+
+  .tournament-progression .progress-rounds {
+    width: max-content;
+    min-width: 0;
+    grid-template-columns: repeat(5, var(--tournament-round-width));
+    justify-content: start;
+    column-gap: var(--tournament-round-gap);
+    row-gap: 0;
+    transform: translate3d(
+      calc(var(--tournament-mobile-window-x, 0px) + var(--tournament-mobile-drag-x, 0px)),
+      0,
+      0
+    );
+    transition: transform 280ms cubic-bezier(0.2, 0.72, 0.18, 1);
+    will-change: transform;
+  }
+
+  .tournament-progression.is-mobile-dragging .progress-rounds {
+    transition: none;
+  }
+
+  .tournament-progression .progress-round {
+    gap: 6px;
+    opacity: 1;
+    transition: opacity 180ms ease;
+  }
+
+  .tournament-progression .progress-round.is-before-mobile-window {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .tournament-progression .progress-round h3 {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    padding: 0 0 6px;
+    background: #ffffff;
+    font-size: 10px;
+  }
+
+  .tournament-progression .progress-match-list {
+    grid-template-rows: repeat(var(--tournament-mobile-row-count, 16), minmax(52px, auto));
+    gap: 6px;
+  }
+
+  .tournament-progression .progress-match {
+    grid-row: var(--mobile-path-row, var(--path-row, auto)) / span
+      var(--mobile-path-span, var(--path-span, 1));
+    align-self: center;
+    padding: 8px;
+    border-radius: 7px;
+    box-shadow: 0 6px 16px rgba(10, 10, 10, 0.035);
+  }
+
+  .tournament-progression .knockout-match-header {
+    margin-bottom: 6px;
+  }
+
+  .tournament-progression .knockout-match-header time,
+  .tournament-progression .knockout-match-venue,
+  .tournament-progression .knockout-match-footer {
+    font-size: 9px;
+  }
+
+  .tournament-progression .knockout-match-pair {
+    gap: 4px 5px;
+  }
+
+  .tournament-progression .knockout-team {
+    gap: 4px;
+  }
+
+  .tournament-progression .knockout-team-flag,
+  .tournament-progression .knockout-team-flag .flag {
+    width: 17px;
+    height: 13px;
+    flex-basis: 17px;
+  }
+
+  .tournament-progression .knockout-team-copy strong,
+  .tournament-progression .knockout-team.is-pending .knockout-team-copy strong,
+  .tournament-progression .knockout-versus {
+    font-size: 10px;
+  }
+
+  .tournament-progression .knockout-team-copy .rank-pill {
+    min-width: 17px;
+    height: 14px;
+    padding-inline: 3px;
+    font-size: 8px;
+  }
+
+  .tournament-progression .knockout-match-footer {
+    margin-top: 6px;
+    padding-top: 6px;
+  }
+
+  .tournament-progression .knockout-likelihood,
+  .tournament-progression .knockout-slot-odds {
+    min-height: 19px;
+    padding-inline: 6px;
+    font-size: 9px;
+  }
+
+  .tournament-progression .knockout-likelihood .flag,
+  .tournament-progression .knockout-slot-odds .flag {
+    width: 15px;
+    height: 12px;
+    flex-basis: 15px;
+  }
+}
+
 @media (max-width: 520px) {
   .match-loading-row {
     gap: 0 8px;
@@ -6050,26 +6215,43 @@ h1 {
   }
 
   .match-row {
-    display: flex;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) max-content;
     align-items: center;
+    column-gap: 8px;
     gap: 0 8px;
     flex-wrap: nowrap;
+  }
+
+  .match-row.has-wrapped-matchup {
+    display: grid;
   }
 
   .match-row-trigger {
     align-items: center;
     flex: 1 1 auto;
+    grid-column: 1;
+    grid-row: 1;
     width: auto;
     min-width: 0;
-    gap: 0 10px;
+    max-width: 100%;
+    gap: 0 8px;
+  }
+
+  .match-row.has-wrapped-matchup .match-row-trigger {
+    width: 100%;
+    max-width: 100%;
   }
 
   .match-row-meta {
     align-content: center;
     flex: 0 0 auto;
+    grid-column: 2;
+    grid-row: 1;
     gap: 4px 5px;
     justify-content: flex-end;
-    max-width: calc(42% - 6px);
+    justify-self: end;
+    max-width: max-content;
     margin-left: 0;
     margin-right: 6px;
     flex-wrap: wrap;
@@ -6077,10 +6259,13 @@ h1 {
   }
 
   .match-row.has-wrapped-matchup .match-row-meta {
+    grid-column: 2;
+    grid-row: 1;
     justify-content: flex-end;
-    margin-left: auto;
+    justify-self: end;
+    margin-left: 0;
     max-width: max-content;
-    margin-right: 4px;
+    margin-right: 6px;
   }
 
   .match-time {
@@ -6102,6 +6287,7 @@ h1 {
     font-size: 14px;
     letter-spacing: 0;
     line-height: 1.16;
+    min-width: 0;
   }
 
   .match-teams {
@@ -6112,6 +6298,15 @@ h1 {
     align-items: center;
     flex: 0 1 auto;
     gap: 4px;
+  }
+
+  .match-teams .match-team-home {
+    flex: 0 1 min-content;
+  }
+
+  .match-teams .match-team-away {
+    flex: 1 1 min-content;
+    min-width: 0;
   }
 
   .match-teams .team-name {
@@ -6141,6 +6336,10 @@ h1 {
     height: 22px;
     padding: 0 6px;
     font-size: 9px;
+  }
+
+  .match-score {
+    padding-inline: 4px;
   }
 
   .match-row.is-country-search-row .match-row-trigger {
@@ -6343,7 +6542,7 @@ h1 {
   }
 
   .match-row.has-wrapped-matchup {
-    display: flex;
+    display: grid;
   }
 
   .match-time {
@@ -6360,7 +6559,7 @@ h1 {
   }
 
   .match-row-trigger {
-    gap: 0 10px;
+    gap: 0 8px;
     width: 100%;
   }
 
@@ -6389,8 +6588,8 @@ h1 {
 
   .match-row.has-wrapped-matchup .match-row-meta {
     justify-content: flex-end;
-    justify-self: auto;
-    margin-left: auto;
+    justify-self: end;
+    margin-left: 0;
     max-width: max-content;
     margin-right: 4px;
   }
@@ -6409,6 +6608,10 @@ h1 {
     height: 22px;
     padding: 0 7px;
     font-size: 8px;
+  }
+
+  .match-score {
+    padding-inline: 5px;
   }
 
   .score-status.is-pending {
@@ -6465,7 +6668,7 @@ h1 {
   }
 
   .match-row-trigger {
-    gap: 0 8px;
+    gap: 0 6px;
   }
 
   .match-time {
@@ -6484,6 +6687,10 @@ h1 {
     height: 20px;
     padding-inline: 6px;
     font-size: 8px;
+  }
+
+  .match-score {
+    padding-inline: 5px;
   }
 }
 

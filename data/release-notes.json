@@ -1,18 +1,26 @@
 {
-  "updatedAt": "2026-06-25T01:03:57-07:00",
+  "updatedAt": "2026-06-25T09:00:31-07:00",
   "releases": [
     {
       "date": "2026-06-25",
-      "title": "Race, cards, and mobile clarity",
-      "titleZh": "竞争、球员卡与移动端说明优化",
+      "title": "Race, cards, and mobile brackets",
+      "titleZh": "竞争、球员卡与移动端对阵",
       "highlights": [
-        "Third-place race badges now explain rank, top-eight qualification, and what still has to happen in shorter lines.",
-        "Mobile match rows now keep vs and match details centered while long country names wrap cleanly inside the team line.",
+        "Mobile Tournament now opens as a compact swipeable bracket board with connector lines and round-to-round shifts instead of a one-column list.",
+        "Knockout calendar slots now auto-fill countries once group or source-match results make the participant certain.",
+        "Knockout match details now replace the placeholder context with group-round form, prior-round source matches, and the next winner path.",
+        "Completed groups now reuse the archived green advancement row highlight for confirmed Round of 32 teams.",
+        "Third-place race badges now say whether a path is still open, how many matches are left, and the best-case points ceiling.",
+        "Mobile match rows now keep vs and match details centered while long country names wrap cleanly inside the team line, and Past 24 hours cards reserve room for both countries.",
         "Player hover cards now show the player country's flag beside the name, while historical cards keep archive-note wording."
       ],
       "highlightsZh": [
-        "最佳第三名竞争标签现在用更短的行说明排名、前八晋级规则，以及后续还需要发生什么。",
-        "移动端比赛行现在会让 vs 和比赛详情保持居中，同时让较长的国名在球队行内整齐换行。",
+        "移动端淘汰赛现在是紧凑的可滑动对阵板，保留连接线和轮次切换动效，不再显示为单列列表。",
+        "当小组或上轮淘汰赛结果已经确定参赛队时，淘汰赛日历席位现在会自动填入国家队。",
+        "淘汰赛比赛详情现在会用小组赛表现、上一轮来源比赛和下一轮胜者路径替代占位说明。",
+        "已完赛小组现在会沿用存档赛事的绿色晋级行高亮来标记确认进入32强的球队。",
+        "最佳第三名竞争标签现在会说明是否仍有出线路径、还剩几场比赛，以及最好情况的积分上限。",
+        "移动端比赛行现在会让 vs 和比赛详情保持居中，同时让较长的国名在球队行内整齐换行，“过去 24 小时”卡片也会为两队都保留空间。",
         "球员悬停卡现在会在姓名旁显示球员国家旗帜，历史球员卡也保留档案说明的表述。"
       ]
     },

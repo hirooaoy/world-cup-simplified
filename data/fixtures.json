@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-25T08:07:26.146Z",
+  "updatedAt": "2026-06-25T15:50:56.265Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -8314,7 +8314,9 @@
           "matchId": "400021518",
           "matchNumber": 73
         }
-      }
+      },
+      "homeTeamId": "RSA",
+      "awayTeamId": "CAN"
     },
     {
       "id": "match-74-round-of-32-2026-06-29",
@@ -8358,7 +8360,8 @@
           "matchId": "400021522",
           "matchNumber": 75
         }
-      }
+      },
+      "awayTeamId": "MAR"
     },
     {
       "id": "match-76-round-of-32-2026-06-29",
@@ -8380,7 +8383,8 @@
           "matchId": "400021516",
           "matchNumber": 76
         }
-      }
+      },
+      "homeTeamId": "BRA"
     },
     {
       "id": "match-77-round-of-32-2026-06-30",
@@ -8446,7 +8450,8 @@
           "matchId": "400021520",
           "matchNumber": 79
         }
-      }
+      },
+      "homeTeamId": "MEX"
     },
     {
       "id": "match-80-round-of-32-2026-07-01",
@@ -8578,7 +8583,8 @@
           "matchId": "400021527",
           "matchNumber": 85
         }
-      }
+      },
+      "homeTeamId": "SUI"
     },
     {
       "id": "match-86-round-of-32-2026-07-03",

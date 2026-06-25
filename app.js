@@ -192,6 +192,7 @@ const ZH_EXACT_TRANSLATIONS = new Map(
       "进球数是球队总进球。在第三名竞争中，它可用于积分和净胜球之后的同分排序。",
     "Goal threat": "进球威胁",
     "Group": "小组",
+    "Group round": "小组赛",
     "Group standings": "小组积分榜",
     "Group standings are not available for this archived tournament.":
       "这届存档赛事没有可用的小组积分榜。",
@@ -250,7 +251,10 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "New Zealand": "新西兰",
     "No catch-up notes loaded yet": "尚未载入速览",
     "No goals because this match was cancelled.": "本场取消，因此没有进球。",
+    "No loaded group-round results yet.": "尚未载入小组赛结果。",
+    "No loaded source matches yet.": "尚未载入来源场次。",
     "No loaded World Cup matches found.": "未找到已载入的世界杯比赛。",
+    "No next knockout match is loaded yet.": "尚未载入下一场淘汰赛。",
     "Past 24 hours": "过去24小时",
     "Penalty pressure": "点球压力",
     "Player": "球员",
@@ -303,6 +307,7 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "Result": "赛果",
     "Round of 16": "16强赛",
     "Round of 32": "32强赛",
+    "Round path": "晋级路径",
     "Round of 32 as it stands": "当前32强形势",
     "Round of 32 bracket center": "32强对阵中心",
     "Score details are not loaded for this historical record.":
@@ -1750,6 +1755,28 @@ const ZH_PATTERN_TRANSLATIONS = [
     replace: () => "本队比赛已踢完；现在要等待其他小组结果。"
   },
   {
+    pattern: /^Still possible: with (\d+) group match(?:es)? left, best case is (\d+) points?\.$/,
+    replace: (_, count, points) =>
+      `仍有机会：还剩${count}场小组赛，最好情况可达到${points}分。`
+  },
+  {
+    pattern: /^Still possible: no matches left, so it needs help from other groups\.$/,
+    replace: () => "仍有机会：本队已无比赛，需要其他小组帮忙。"
+  },
+  {
+    pattern: /^In for now: with (\d+) group match(?:es)? left, best case is (\d+) points?\.$/,
+    replace: (_, count, points) =>
+      `目前在晋级区内：还剩${count}场小组赛，最好情况可达到${points}分。`
+  },
+  {
+    pattern: /^In for now: no matches left, so it is waiting on other groups\.$/,
+    replace: () => "目前在晋级区内：本队已无比赛，正在等待其他小组结果。"
+  },
+  {
+    pattern: /^Not possible: no remaining result combo reaches the Round of 32\.$/,
+    replace: () => "已无可能：剩余结果组合都无法进入32强。"
+  },
+  {
     pattern: /^Out if (\d+) teams? below pass(?:es)? it\.$/,
     replace: (_, count) => `若身后${count}队反超，就会出局。`
   },
@@ -1760,6 +1787,10 @@ const ZH_PATTERN_TRANSLATIONS = [
   {
     pattern: /^Must take points; teams above must slip\.$/,
     replace: () => "必须拿分；前面的球队也需要失误。"
+  },
+  {
+    pattern: /^Needs points; teams above must fall behind\.$/,
+    replace: () => "需要拿分；前面的球队也必须掉到身后。"
   },
   {
     pattern: /^No matches left; needs (\d+) teams? above to fall behind\.$/,
@@ -2551,6 +2582,8 @@ const TOURNAMENT_STANDINGS_SUMMARY =
   "Round of 32 slots use current standings and remaining projections. Later rounds are predictions.";
 const HISTORICAL_STANDINGS_SUMMARY =
   "Final group tables computed from archived match results.";
+const TOURNAMENT_MOBILE_BREAKPOINT_QUERY = "(max-width: 900px)";
+const TOURNAMENT_MOBILE_SWIPE_THRESHOLD = 42;
 const TOURNAMENT_PROGRESS_ROUNDS = [
   {
     id: "round-of-32",
@@ -2792,6 +2825,9 @@ let activeMatchId = "";
 let activeView = "matches";
 let selectedStandingsYear = CURRENT_STANDINGS_YEAR;
 let selectedStandingsMode = "groups";
+let tournamentMobileActiveRoundIndex = 0;
+let tournamentMobileGesture = null;
+let tournamentMobileLastWheelAt = 0;
 let teamSearchQuery = "";
 let calendarMonthKey = getMonthKeyFromDayKey(selectedDayKey);
 let isCalendarOpen = false;
@@ -6009,6 +6045,9 @@ function selectStandingsYear(year) {
 
 function selectStandingsMode(mode) {
   selectedStandingsMode = getValidStandingsMode(mode);
+  if (selectedStandingsMode === "tournament") {
+    tournamentMobileActiveRoundIndex = 0;
+  }
   renderStandingsView();
   updateUrlState();
 }
@@ -6325,6 +6364,7 @@ const boundedTooltipSelector = [
   ".standing-team.has-name-tooltip[data-tooltip]",
   ".standing-status-pill[data-tooltip]",
   ".third-place-pill[data-tooltip]",
+  ".third-place-status[data-tooltip]",
   ".player-card-value-help[data-tooltip]",
   ".prediction-row.has-label-tooltip[data-tooltip]",
   ".past-record-row.has-label-tooltip[data-tooltip]",
@@ -6390,6 +6430,29 @@ function getTooltipOuterWidth(style) {
   );
 }
 
+function getTooltipBaseBounds(element, style, tooltipWidth) {
+  const rect = element.getBoundingClientRect();
+  const translateX = getTransformTranslateX(style.transform);
+
+  if (style.left !== "auto") {
+    const baseLeft = rect.left + getPixelValue(style.left) + translateX;
+    return {
+      left: baseLeft,
+      right: baseLeft + tooltipWidth
+    };
+  }
+
+  if (style.right !== "auto") {
+    const baseRight = rect.right - getPixelValue(style.right) + translateX;
+    return {
+      left: baseRight - tooltipWidth,
+      right: baseRight
+    };
+  }
+
+  return null;
+}
+
 function getBoundedTooltipElements(root = document) {
   const elements = [];
   if (root instanceof Element && root.matches(boundedTooltipSelector)) {
@@ -6420,33 +6483,32 @@ function updateTooltipBounds(root = document) {
     }
 
     const style = getComputedStyle(element, "::after");
-    if (style.left === "auto") {
-      return;
-    }
-
     const tooltipWidth = getTooltipOuterWidth(style);
     if (!tooltipWidth) {
       return;
     }
 
-    const baseLeft = rect.left + getPixelValue(style.left) + getTransformTranslateX(style.transform);
-    const baseRight = baseLeft + tooltipWidth;
+    const baseBounds = getTooltipBaseBounds(element, style, tooltipWidth);
+    if (!baseBounds) {
+      return;
+    }
+
     const clipRect = getTooltipClipRect(element);
     const edgeGap = 6;
     const minLeft = clipRect.left + edgeGap;
     const maxRight = Math.max(minLeft, clipRect.right - edgeGap);
     let shift = 0;
 
-    if (baseLeft < minLeft) {
-      shift = minLeft - baseLeft;
+    if (baseBounds.left < minLeft) {
+      shift = minLeft - baseBounds.left;
     }
 
-    if (baseRight + shift > maxRight) {
-      shift -= baseRight + shift - maxRight;
+    if (baseBounds.right + shift > maxRight) {
+      shift -= baseBounds.right + shift - maxRight;
     }
 
     if (Math.abs(shift) > 0.5) {
-      element.style.setProperty("--tooltip-shift-x", `${Math.round(shift)}px`);
+      element.style.setProperty("--tooltip-shift-x", `${shift.toFixed(2)}px`);
     }
   });
 
@@ -6473,9 +6535,26 @@ function updateTooltipBounds(root = document) {
     }
 
     if (Math.abs(shift) > 0.5) {
-      element.style.setProperty("--tooltip-shift-x", `${Math.round(shift)}px`);
+      element.style.setProperty("--tooltip-shift-x", `${shift.toFixed(2)}px`);
     }
   });
+}
+
+function updateTooltipBoundsForTarget(target) {
+  if (!(target instanceof Element)) {
+    return;
+  }
+
+  const tooltipElement = target.closest(boundedTooltipSelector);
+  const tooltipWrapper = target.closest(".source-tooltip-wrapper, .release-tooltip-wrapper");
+  const root = tooltipElement || tooltipWrapper;
+
+  if (!root) {
+    return;
+  }
+
+  updateTooltipBounds(root);
+  window.requestAnimationFrame(() => updateTooltipBounds(root));
 }
 
 function getVenueLabel(match) {
@@ -7643,6 +7722,29 @@ function isStandingRowEliminated(rowIndex, rows, options = {}) {
   return isTeamEliminatedFromGroupStage(rows[rowIndex]?.teamId, groupId, rows.length);
 }
 
+function isConfirmedStandingAdvancer(row, rowIndex, options = {}) {
+  const { groupId = "", thirdPlaceCandidate = null } = options;
+  const automaticPlaces = Math.min(
+    rowIndex >= 0 ? getAutomaticAdvancersPerGroup() : 0,
+    getGroup(groupId)?.teamIds?.length || getAutomaticAdvancersPerGroup()
+  );
+
+  if (isGroupFinished(groupId) && rowIndex < automaticPlaces) {
+    return true;
+  }
+
+  if (
+    isGroupStageFinished() &&
+    thirdPlaceCandidate?.teamId === row?.teamId &&
+    thirdPlaceCandidate.position <= getThirdPlaceAdvancerCount() &&
+    !thirdPlaceCandidate.isCutLineTie
+  ) {
+    return true;
+  }
+
+  return false;
+}
+
 const STANDING_HEADERS = [
   { label: "Team" },
   {
@@ -7819,6 +7921,10 @@ function renderStandingRow(row, options = {}) {
     thirdPlaceRaceByTeamId = null
   } = options;
   const thirdPlaceCandidate = thirdPlaceRaceByTeamId?.get(row.teamId);
+  const isConfirmedAdvancer = isConfirmedStandingAdvancer(row, rowIndex, {
+    groupId,
+    thirdPlaceCandidate
+  });
   const isEliminated = isStandingRowEliminated(rowIndex, rows, {
     groupId,
     thirdPlaceCandidate
@@ -7830,9 +7936,10 @@ function renderStandingRow(row, options = {}) {
       : "",
     isEliminated ? renderEliminatedStandingBadge(team) : ""
   ].join("");
+  const rowClasses = [isConfirmedAdvancer ? "is-advancing" : ""].filter(Boolean).join(" ");
 
   return `
-    <tr>
+    <tr${rowClasses ? ` class="${escapeHtml(rowClasses)}"` : ""}>
       <td>
         ${renderStandingTeam(team, {
           showRank,
@@ -8022,6 +8129,26 @@ function formatThirdPlacePassVerb(count) {
   return count === 1 ? "passes" : "pass";
 }
 
+function getThirdPlaceMaximumPossiblePoints(candidate, remainingMatchCount) {
+  const maximumPoints = getTeamMaximumPossibleGroupPoints(candidate.teamId, candidate.groupId);
+
+  if (Number.isFinite(maximumPoints)) {
+    return maximumPoints;
+  }
+
+  return candidate.pts + remainingMatchCount * 3;
+}
+
+function formatThirdPlacePathSummary(prefix, remainingMatchCount, maximumPoints) {
+  if (remainingMatchCount > 0 && Number.isFinite(maximumPoints)) {
+    return `${prefix}: with ${formatThirdPlaceRemainingMatchCount(remainingMatchCount)}, best case is ${formatStandingPoints(maximumPoints)}.`;
+  }
+
+  return prefix === "In for now"
+    ? `${prefix}: no matches left, so it is waiting on other groups.`
+    : `${prefix}: no matches left, so it needs help from other groups.`;
+}
+
 function getThirdPlaceStandingBadgeReason(candidate, raceRows = getThirdPlaceRaceRows()) {
   const advancerCount = getThirdPlaceAdvancerCount();
   const raceTeamCount = raceRows.length || tournamentData.groups?.length || 0;
@@ -8030,7 +8157,7 @@ function getThirdPlaceStandingBadgeReason(candidate, raceRows = getThirdPlaceRac
   ];
 
   if (candidate.status?.kind === "eliminated" || candidate.isEliminated) {
-    lines.push("No remaining group result combination can move this team into a Round of 32 place.");
+    lines.push("Not possible: no remaining result combo reaches the Round of 32.");
     return lines.join("\n");
   }
 
@@ -8044,15 +8171,12 @@ function getThirdPlaceStandingBadgeReason(candidate, raceRows = getThirdPlaceRac
   }
 
   const remainingMatchCount = getRemainingTeamGroupFixtures(candidate.teamId, candidate.groupId).length;
+  const maximumPoints = getThirdPlaceMaximumPossiblePoints(candidate, remainingMatchCount);
   const isInside = candidate.position <= advancerCount;
 
   if (isInside) {
     const teamsNeededToDropOut = Math.max(1, advancerCount - candidate.position + 1);
-    lines.push(
-      remainingMatchCount > 0
-        ? `${formatThirdPlaceRemainingMatchCount(remainingMatchCount)}; points make it safer.`
-        : "Finished its matches; now waiting on other groups."
-    );
+    lines.push(formatThirdPlacePathSummary("In for now", remainingMatchCount, maximumPoints));
     lines.push(
       `Out if ${formatThirdPlaceTeamCount(teamsNeededToDropOut)} below ${formatThirdPlacePassVerb(teamsNeededToDropOut)} it.`
     );
@@ -8060,10 +8184,11 @@ function getThirdPlaceStandingBadgeReason(candidate, raceRows = getThirdPlaceRac
   }
 
   const teamsNeededToPass = Math.max(1, candidate.position - advancerCount);
+  lines.push(formatThirdPlacePathSummary("Still possible", remainingMatchCount, maximumPoints));
   lines.push(`Needs to pass ${formatThirdPlaceTeamCount(teamsNeededToPass)} to reach top ${advancerCount}.`);
 
   if (remainingMatchCount > 0) {
-    lines.push("Must take points; teams above must slip.");
+    lines.push("Needs points; teams above must fall behind.");
   } else {
     lines.push(`No matches left; needs ${formatThirdPlaceTeamCount(teamsNeededToPass)} above to fall behind.`);
     lines.push("Also needs teams below not to pass.");
@@ -8167,6 +8292,12 @@ function getThirdPlaceReason(candidate, raceRows = getThirdPlaceRaceRows()) {
 
   if (candidate.isCutLineTie) {
     return `${summary}\nTeams from ${formatOrdinal(candidate.tieGroupStart)} to ${formatOrdinal(candidate.tieGroupEnd)} are tied around the cutoff.\nFair-play data is missing.`;
+  }
+
+  if (isGroupStageFinished()) {
+    return candidate.position <= getThirdPlaceAdvancerCount()
+      ? `${summary}\nFinal table: qualifies as a third-place team.`
+      : `${summary}\nFinal table: outside the qualifying third-place spots.`;
   }
 
   const nearestCandidate = getThirdPlaceComparisonTarget(candidate, raceRows);
@@ -9351,9 +9482,16 @@ function renderTournamentMatchCard(match, context, options = {}) {
     Number.isFinite(options.pathRow) && Number.isFinite(options.pathSpan)
       ? ` style="--path-row: ${escapeHtml(options.pathRow)}; --path-span: ${escapeHtml(options.pathSpan)};"`
       : "";
+  const roundIdAttribute = options.roundId ? ` data-round-id="${escapeHtml(options.roundId)}"` : "";
+  const roundIndexAttribute = Number.isFinite(options.roundIndex)
+    ? ` data-round-index="${escapeHtml(options.roundIndex)}"`
+    : "";
+  const matchIndexAttribute = Number.isFinite(options.matchIndex)
+    ? ` data-match-index="${escapeHtml(options.matchIndex)}"`
+    : "";
 
   return `
-    <article class="${escapeHtml(cardClasses)}" data-match-number="${escapeHtml(match.matchNumber)}"${nextMatchNumber ? ` data-next-match="${escapeHtml(nextMatchNumber)}"` : ""}${winner ? ` data-winner-team-id="${escapeHtml(winner.id)}"` : ""}${styleText}>
+    <article class="${escapeHtml(cardClasses)}" data-match-number="${escapeHtml(match.matchNumber)}"${roundIdAttribute}${roundIndexAttribute}${matchIndexAttribute}${nextMatchNumber ? ` data-next-match="${escapeHtml(nextMatchNumber)}"` : ""}${winner ? ` data-winner-team-id="${escapeHtml(winner.id)}"` : ""}${styleText}>
       <header class="knockout-match-header">
         <time datetime="${escapeHtml(match.kickoffUtc || "")}">${escapeHtml(getTournamentMatchDateLabel(match))}</time>
         ${venueLabel ? `<span class="knockout-match-venue"${venueTooltip ? ` aria-label="${escapeHtml(venueTooltip)}" data-tooltip="${escapeHtml(venueTooltip)}" tabindex="0"` : ""}>${escapeHtml(venueLabel)}</span>` : ""}
@@ -9504,16 +9642,19 @@ function getTournamentProgressPlacement(round, index) {
   };
 }
 
-function renderTournamentProgressRound(round, context) {
+function renderTournamentProgressRound(round, context, roundIndex) {
   const roundLabel = localizeStageLabel(round.label);
   return `
-    <section class="progress-round is-${escapeHtml(round.id)}" aria-label="${escapeHtml(roundLabel)}">
+    <section class="progress-round is-${escapeHtml(round.id)}" data-round-id="${escapeHtml(round.id)}" data-round-index="${escapeHtml(roundIndex)}" aria-label="${escapeHtml(roundLabel)}">
       <h3>${escapeHtml(roundLabel)}</h3>
       <div class="progress-match-list">
         ${round.matchNumbers
           .map((matchNumber, index) =>
             renderTournamentMatchCard(getTournamentFixtureByMatchNumber(matchNumber), context, {
-              ...getTournamentProgressPlacement(round, index)
+              ...getTournamentProgressPlacement(round, index),
+              matchIndex: index,
+              roundId: round.id,
+              roundIndex
             })
           )
           .join("")}
@@ -9522,11 +9663,11 @@ function renderTournamentProgressRound(round, context) {
   `;
 }
 
-function renderTournamentLoadingMatch(round, index) {
+function renderTournamentLoadingMatch(round, index, roundIndex) {
   const { pathRow, pathSpan } = getTournamentProgressPlacement(round, index);
 
   return `
-    <article class="progress-match tournament-loading-match" style="--path-row: ${escapeHtml(pathRow)}; --path-span: ${escapeHtml(pathSpan)};" aria-hidden="true">
+    <article class="progress-match tournament-loading-match" data-round-id="${escapeHtml(round.id)}" data-round-index="${escapeHtml(roundIndex)}" data-match-index="${escapeHtml(index)}" style="--path-row: ${escapeHtml(pathRow)}; --path-span: ${escapeHtml(pathSpan)};" aria-hidden="true">
       <header class="knockout-match-header">
         <span class="match-loading-line tournament-loading-date"></span>
       </header>
@@ -9548,14 +9689,14 @@ function renderTournamentLoadingMatch(round, index) {
   `;
 }
 
-function renderTournamentLoadingRound(round) {
+function renderTournamentLoadingRound(round, roundIndex) {
   const roundLabel = localizeStageLabel(round.label);
 
   return `
-    <section class="progress-round is-${escapeHtml(round.id)}" aria-label="${escapeHtml(roundLabel)}">
+    <section class="progress-round is-${escapeHtml(round.id)}" data-round-id="${escapeHtml(round.id)}" data-round-index="${escapeHtml(roundIndex)}" aria-label="${escapeHtml(roundLabel)}">
       <h3>${escapeHtml(roundLabel)}</h3>
       <div class="progress-match-list">
-        ${round.matchNumbers.map((_, index) => renderTournamentLoadingMatch(round, index)).join("")}
+        ${round.matchNumbers.map((_, index) => renderTournamentLoadingMatch(round, index, roundIndex)).join("")}
       </div>
     </section>
   `;
@@ -9565,7 +9706,7 @@ function renderTournamentLoadingView() {
   return `
     <section class="tournament-view tournament-view-loading" aria-label="${escapeHtml(localizeText("Tournament bracket"))}" role="status" aria-busy="true">
       <span class="visually-hidden">${escapeHtml(localizeText("Loading standings"))}</span>
-      <section class="tournament-progression" aria-label="${escapeHtml(localizeText("Knockout winner progression"))}">
+      <section class="tournament-progression" aria-label="${escapeHtml(localizeText("Knockout winner progression"))}" tabindex="0">
         <svg class="progress-connectors" aria-hidden="true" focusable="false"></svg>
         <div class="progress-rounds">
           ${TOURNAMENT_PROGRESS_ROUNDS.map(renderTournamentLoadingRound).join("")}
@@ -9577,10 +9718,10 @@ function renderTournamentLoadingView() {
 
 function renderTournamentProgression(context) {
   return `
-    <section class="tournament-progression" aria-label="${escapeHtml(localizeText("Knockout winner progression"))}">
+    <section class="tournament-progression" aria-label="${escapeHtml(localizeText("Knockout winner progression"))}" tabindex="0">
       <svg class="progress-connectors" aria-hidden="true" focusable="false"></svg>
       <div class="progress-rounds">
-        ${TOURNAMENT_PROGRESS_ROUNDS.map((round) => renderTournamentProgressRound(round, context)).join("")}
+        ${TOURNAMENT_PROGRESS_ROUNDS.map((round, roundIndex) => renderTournamentProgressRound(round, context, roundIndex)).join("")}
       </div>
     </section>
   `;
@@ -9594,6 +9735,299 @@ function renderTournamentView() {
       ${renderTournamentProgression(context)}
     </section>
   `;
+}
+
+function isTournamentMobileLayout() {
+  if (typeof window.matchMedia === "function") {
+    return window.matchMedia(TOURNAMENT_MOBILE_BREAKPOINT_QUERY).matches;
+  }
+
+  return window.innerWidth <= 900;
+}
+
+function clampTournamentMobileRoundIndex(index) {
+  const value = Number(index);
+  const maxIndex = TOURNAMENT_PROGRESS_ROUNDS.length - 1;
+
+  if (!Number.isFinite(value)) {
+    return 0;
+  }
+
+  return Math.min(maxIndex, Math.max(0, Math.round(value)));
+}
+
+function getTournamentProgressionElements(root = standingsGrid) {
+  const progression = root?.querySelector(".tournament-progression");
+  const rounds = progression?.querySelector(".progress-rounds");
+
+  return { progression, rounds };
+}
+
+function clearTournamentMobileBoard(root = standingsGrid) {
+  const { progression, rounds } = getTournamentProgressionElements(root);
+
+  if (!progression || !rounds) {
+    return;
+  }
+
+  progression.classList.remove("is-mobile-board", "is-mobile-dragging");
+  progression.removeAttribute("data-mobile-active-round-index");
+  progression.removeAttribute("data-mobile-active-round-id");
+  rounds.style.removeProperty("--tournament-mobile-active-index");
+  rounds.style.removeProperty("--tournament-mobile-drag-x");
+  rounds.style.removeProperty("--tournament-mobile-window-x");
+  rounds.style.removeProperty("--tournament-mobile-row-count");
+  progression.querySelectorAll(".progress-round").forEach((round) => {
+    round.classList.remove(
+      "is-before-mobile-window",
+      "is-mobile-window-round",
+      "is-mobile-window-lead"
+    );
+    round.removeAttribute("aria-hidden");
+  });
+  progression.querySelectorAll(".progress-match").forEach((match) => {
+    match.style.removeProperty("--mobile-path-row");
+    match.style.removeProperty("--mobile-path-span");
+  });
+}
+
+function updateTournamentMobileTrackOffset(rounds, activeIndex) {
+  const style = getComputedStyle(rounds);
+  const firstRound = rounds.querySelector(".progress-round");
+  const firstColumnWidth =
+    getPixelValue(style.gridTemplateColumns.split(" ").filter(Boolean)[0]) ||
+    firstRound?.getBoundingClientRect().width ||
+    0;
+  const columnGap = getPixelValue(style.columnGap);
+  const offset = -activeIndex * (firstColumnWidth + columnGap);
+
+  rounds.style.setProperty("--tournament-mobile-window-x", `${offset.toFixed(2)}px`);
+}
+
+function updateTournamentMobileBoard(options = {}) {
+  const { progression, rounds } = getTournamentProgressionElements();
+
+  if (!progression || !rounds) {
+    return;
+  }
+
+  if (!isTournamentMobileLayout()) {
+    clearTournamentMobileBoard();
+    return;
+  }
+
+  const activeIndex = clampTournamentMobileRoundIndex(tournamentMobileActiveRoundIndex);
+  const activeRound = TOURNAMENT_PROGRESS_ROUNDS[activeIndex] || TOURNAMENT_PROGRESS_ROUNDS[0];
+  const activeRoundMatchCount = Math.max(1, activeRound.matchNumbers.length);
+  const activeLabel = localizeStageLabel(activeRound.label);
+
+  tournamentMobileActiveRoundIndex = activeIndex;
+  progression.classList.add("is-mobile-board");
+  progression.classList.toggle("is-mobile-dragging", Boolean(options.isDragging));
+  progression.dataset.mobileActiveRoundIndex = String(activeIndex);
+  progression.dataset.mobileActiveRoundId = activeRound.id;
+  progression.setAttribute(
+    "aria-label",
+    `${localizeText("Knockout winner progression")}: ${activeLabel}`
+  );
+  rounds.style.setProperty("--tournament-mobile-active-index", String(activeIndex));
+  rounds.style.setProperty("--tournament-mobile-row-count", String(activeRoundMatchCount));
+  updateTournamentMobileTrackOffset(rounds, activeIndex);
+
+  if (!options.isDragging) {
+    rounds.style.setProperty("--tournament-mobile-drag-x", "0px");
+  }
+
+  progression.querySelectorAll(".progress-round").forEach((round) => {
+    const roundIndex = Number(round.dataset.roundIndex);
+    const isBeforeWindow = Number.isFinite(roundIndex) && roundIndex < activeIndex;
+
+    round.classList.toggle("is-before-mobile-window", isBeforeWindow);
+    round.classList.toggle("is-mobile-window-round", !isBeforeWindow);
+    round.classList.toggle("is-mobile-window-lead", roundIndex === activeIndex);
+
+    if (isBeforeWindow) {
+      round.setAttribute("aria-hidden", "true");
+    } else {
+      round.removeAttribute("aria-hidden");
+    }
+  });
+
+  progression.querySelectorAll(".progress-match").forEach((match) => {
+    const roundIndex = Number(match.dataset.roundIndex);
+    const matchIndex = Number(match.dataset.matchIndex);
+    const round = TOURNAMENT_PROGRESS_ROUNDS[roundIndex];
+
+    if (!round || !Number.isFinite(matchIndex)) {
+      return;
+    }
+
+    const roundMatchCount = Math.max(1, round.matchNumbers.length);
+    const pathSpan = Math.max(1, Math.round(activeRoundMatchCount / roundMatchCount));
+    const pathRow = matchIndex * pathSpan + 1;
+
+    match.style.setProperty("--mobile-path-row", String(pathRow));
+    match.style.setProperty("--mobile-path-span", String(pathSpan));
+  });
+
+  window.requestAnimationFrame(updateTournamentConnectors);
+}
+
+function setTournamentMobileActiveRoundIndex(index, options = {}) {
+  const nextIndex = clampTournamentMobileRoundIndex(index);
+
+  if (nextIndex === tournamentMobileActiveRoundIndex && !options.force) {
+    updateTournamentMobileBoard(options);
+    return;
+  }
+
+  tournamentMobileActiveRoundIndex = nextIndex;
+  updateTournamentMobileBoard(options);
+  window.setTimeout(updateTournamentConnectors, 280);
+}
+
+function getTournamentProgressionFromEvent(event) {
+  if (!(event.target instanceof Element)) {
+    return null;
+  }
+
+  const progression = event.target.closest(".tournament-progression");
+
+  if (!progression || !standingsGrid.contains(progression) || !isTournamentMobileLayout()) {
+    return null;
+  }
+
+  return progression;
+}
+
+function getTournamentMobileDragOffset(deltaX) {
+  const maxIndex = TOURNAMENT_PROGRESS_ROUNDS.length - 1;
+  const isPullingPastStart = tournamentMobileActiveRoundIndex === 0 && deltaX > 0;
+  const isPullingPastEnd = tournamentMobileActiveRoundIndex === maxIndex && deltaX < 0;
+
+  return isPullingPastStart || isPullingPastEnd ? deltaX * 0.35 : deltaX;
+}
+
+function handleTournamentMobilePointerDown(event) {
+  const progression = getTournamentProgressionFromEvent(event);
+
+  if (!progression || event.button > 0) {
+    return;
+  }
+
+  const rounds = progression.querySelector(".progress-rounds");
+
+  if (!rounds) {
+    return;
+  }
+
+  tournamentMobileGesture = {
+    didDrag: false,
+    pointerId: event.pointerId,
+    progression,
+    rounds,
+    startX: event.clientX,
+    startY: event.clientY
+  };
+
+  progression.setPointerCapture?.(event.pointerId);
+}
+
+function handleTournamentMobilePointerMove(event) {
+  if (!tournamentMobileGesture || event.pointerId !== tournamentMobileGesture.pointerId) {
+    return;
+  }
+
+  const deltaX = event.clientX - tournamentMobileGesture.startX;
+  const deltaY = event.clientY - tournamentMobileGesture.startY;
+
+  if (!tournamentMobileGesture.didDrag) {
+    if (Math.abs(deltaX) < 10 || Math.abs(deltaX) <= Math.abs(deltaY)) {
+      return;
+    }
+
+    tournamentMobileGesture.didDrag = true;
+    tournamentMobileGesture.progression.classList.add("is-mobile-dragging");
+  }
+
+  event.preventDefault();
+  tournamentMobileGesture.rounds.style.setProperty(
+    "--tournament-mobile-drag-x",
+    `${getTournamentMobileDragOffset(deltaX).toFixed(1)}px`
+  );
+}
+
+function finishTournamentMobilePointerGesture(event) {
+  if (!tournamentMobileGesture || event.pointerId !== tournamentMobileGesture.pointerId) {
+    return;
+  }
+
+  const { didDrag, progression, rounds, startX } = tournamentMobileGesture;
+  const deltaX = event.clientX - startX;
+
+  progression.releasePointerCapture?.(event.pointerId);
+  progression.classList.remove("is-mobile-dragging");
+  rounds.style.setProperty("--tournament-mobile-drag-x", "0px");
+  tournamentMobileGesture = null;
+
+  if (!didDrag || Math.abs(deltaX) < TOURNAMENT_MOBILE_SWIPE_THRESHOLD) {
+    updateTournamentMobileBoard();
+    return;
+  }
+
+  setTournamentMobileActiveRoundIndex(
+    tournamentMobileActiveRoundIndex + (deltaX < 0 ? 1 : -1)
+  );
+}
+
+function cancelTournamentMobilePointerGesture(event) {
+  if (!tournamentMobileGesture || event.pointerId !== tournamentMobileGesture.pointerId) {
+    return;
+  }
+
+  tournamentMobileGesture.progression.releasePointerCapture?.(event.pointerId);
+  tournamentMobileGesture.progression.classList.remove("is-mobile-dragging");
+  tournamentMobileGesture.rounds.style.setProperty("--tournament-mobile-drag-x", "0px");
+  tournamentMobileGesture = null;
+  updateTournamentMobileBoard();
+}
+
+function handleTournamentMobileWheel(event) {
+  const progression = getTournamentProgressionFromEvent(event);
+  const isHorizontalWheel = Math.abs(event.deltaX) > Math.max(22, Math.abs(event.deltaY));
+
+  if (!progression || !isHorizontalWheel) {
+    return;
+  }
+
+  const now = Date.now();
+
+  event.preventDefault();
+
+  if (now - tournamentMobileLastWheelAt < 320) {
+    return;
+  }
+
+  tournamentMobileLastWheelAt = now;
+  setTournamentMobileActiveRoundIndex(
+    tournamentMobileActiveRoundIndex + (event.deltaX > 0 ? 1 : -1)
+  );
+}
+
+function handleTournamentMobileKeydown(event) {
+  const progression = getTournamentProgressionFromEvent(event);
+  const directionByKey = {
+    ArrowLeft: -1,
+    ArrowRight: 1
+  };
+  const direction = directionByKey[event.key];
+
+  if (!progression || !direction) {
+    return;
+  }
+
+  event.preventDefault();
+  setTournamentMobileActiveRoundIndex(tournamentMobileActiveRoundIndex + direction);
 }
 
 function updateTournamentConnectors() {
@@ -9641,6 +10075,18 @@ function updateTournamentConnectors() {
 
     if (!target) {
       return;
+    }
+
+    if (isTournamentMobileLayout()) {
+      const sourceRound = source.closest(".progress-round");
+      const targetRound = target.closest(".progress-round");
+
+      if (
+        sourceRound?.classList.contains("is-before-mobile-window") ||
+        targetRound?.classList.contains("is-before-mobile-window")
+      ) {
+        return;
+      }
     }
 
     const sourcePoint = getRelativePoint(source.getBoundingClientRect(), "right");
@@ -9821,6 +10267,7 @@ function renderStandingsLoadingState() {
   }
 
   standingsGrid.innerHTML = standingsLoadingMarkup;
+  updateTournamentMobileBoard({ force: true });
 }
 
 function renderStandingsView() {
@@ -9857,6 +10304,7 @@ function renderStandingsView() {
     : renderHistoricalStandingsCards(selectedStandingsYear);
   updateStandingNameTooltips(standingsGrid);
   updateTooltipBounds(standingsGrid);
+  updateTournamentMobileBoard({ force: true });
   window.requestAnimationFrame(updateTournamentConnectors);
 }
 
@@ -11815,6 +12263,346 @@ function renderPastResults(match) {
   `;
 }
 
+function getTeamGroupId(team) {
+  const teamId = team?.id || "";
+  return (
+    team?.groupId ||
+    tournament.groups.find((group) => (group.teamIds || []).includes(teamId))?.id ||
+    ""
+  );
+}
+
+function getKnockoutParticipantLabel(entry) {
+  if (entry?.team) {
+    return getTournamentTeamDisplayName(entry.team);
+  }
+
+  return localizeText(entry?.slotText || entry?.label || "TBD");
+}
+
+function getKnockoutMatchupLabel(match, context) {
+  if (!match) {
+    return localizeText("TBD");
+  }
+
+  const participants = getTournamentMatchParticipants(match, context);
+  return `${getKnockoutParticipantLabel(participants.home)} ${localizeText("vs")} ${getKnockoutParticipantLabel(participants.away)}`;
+}
+
+function getTeamResultScorePair(fixture, teamId) {
+  if (!fixture?.score) {
+    return "";
+  }
+
+  const isHome = fixture.homeTeamId === teamId;
+  const teamScore = isHome ? fixture.score.home : fixture.score.away;
+  const opponentScore = isHome ? fixture.score.away : fixture.score.home;
+  return formatScorePair({ home: teamScore, away: opponentScore });
+}
+
+function getTeamResultOutcome(fixture, teamId) {
+  const teamScore = Number(fixture?.homeTeamId === teamId ? fixture.score?.home : fixture.score?.away);
+  const opponentScore = Number(fixture?.homeTeamId === teamId ? fixture.score?.away : fixture.score?.home);
+
+  if (!Number.isFinite(teamScore) || !Number.isFinite(opponentScore)) {
+    return "";
+  }
+
+  if (teamScore > opponentScore) {
+    return "win";
+  }
+
+  if (teamScore < opponentScore) {
+    return "loss";
+  }
+
+  return "draw";
+}
+
+function getTeamResultOpponent(fixture, teamId) {
+  return getTeam(fixture.homeTeamId === teamId ? fixture.awayTeamId : fixture.homeTeamId);
+}
+
+function formatGroupRoundSummaryZh(team, resultItems, remainingCount) {
+  const teamName = getLocalizedTeamName(team);
+  const segments = resultItems.map((item) => {
+    const opponent = getLocalizedTeamName(item.opponent);
+    if (item.outcome === "win") {
+      return `以 ${item.scoreText} 击败 ${opponent}`;
+    }
+    if (item.outcome === "loss") {
+      return `以 ${item.scoreText} 不敌 ${opponent}`;
+    }
+    return `以 ${item.scoreText} 战平 ${opponent}`;
+  });
+  const remainingText = remainingCount > 0 ? `还有${remainingCount}场小组赛未完。` : "";
+  return `${teamName}小组赛：${segments.join("；")}。${remainingText}`;
+}
+
+function formatGroupRoundSummary(team, resultItems, remainingCount) {
+  if (!resultItems.length) {
+    return `${getLocalizedTeamName(team)}: ${localizeText("No loaded group-round results yet.")}`;
+  }
+
+  if (currentLanguage === "zh") {
+    return formatGroupRoundSummaryZh(team, resultItems, remainingCount);
+  }
+
+  const groups = {
+    win: [],
+    draw: [],
+    loss: []
+  };
+
+  resultItems.forEach((item) => {
+    groups[item.outcome].push(`${getLocalizedTeamName(item.opponent)} (${item.scoreText})`);
+  });
+
+  const phrases = [
+    groups.win.length ? `won against ${getNameSeries(groups.win)}` : "",
+    groups.draw.length ? `tied against ${getNameSeries(groups.draw)}` : "",
+    groups.loss.length ? `lost to ${getNameSeries(groups.loss)}` : ""
+  ].filter(Boolean);
+  const remainingText =
+    remainingCount > 0
+      ? ` ${remainingCount} group match${remainingCount === 1 ? "" : "es"} still to play.`
+      : "";
+
+  return `${getLocalizedTeamName(team)} ${getNameSeries(phrases)}.${remainingText}`;
+}
+
+function getGroupRoundSummaryForParticipant(entry) {
+  if (!entry?.team?.id || entry.team.isSlot) {
+    const label = getKnockoutParticipantLabel(entry);
+    return `${label}: ${localizeText("No loaded group-round results yet.")}`;
+  }
+
+  const team = entry.team;
+  const teamId = team.id;
+  const groupId = getTeamGroupId(team);
+  const groupFixtures = fixtures
+    .filter(
+      (fixture) =>
+        fixture.stage === "group" &&
+        fixture.groupId === groupId &&
+        (fixture.homeTeamId === teamId || fixture.awayTeamId === teamId)
+    )
+    .sort((a, b) => getFixtureSortValue(a).localeCompare(getFixtureSortValue(b)));
+  const resultItems = groupFixtures
+    .filter((fixture) => fixture.status === "FT" && fixture.score)
+    .map((fixture) => ({
+      opponent: getTeamResultOpponent(fixture, teamId),
+      outcome: getTeamResultOutcome(fixture, teamId),
+      scoreText: getTeamResultScorePair(fixture, teamId)
+    }))
+    .filter((item) => item.outcome && item.scoreText);
+  const remainingCount = groupFixtures.filter((fixture) => fixture.status !== "FT").length;
+
+  return formatGroupRoundSummary(team, resultItems, remainingCount);
+}
+
+function renderRoundOf32PathContext(match, context) {
+  const participants = getTournamentMatchParticipants(match, context);
+  const rows = [participants.home, participants.away]
+    .map((entry) => `<li>${escapeHtml(getGroupRoundSummaryForParticipant(entry))}</li>`)
+    .join("");
+
+  return `
+    <section class="info-block">
+      <h3>${escapeHtml(localizeText("Group round"))}</h3>
+      <ul class="result-highlights knockout-context-list">
+        ${rows}
+      </ul>
+    </section>
+  `;
+}
+
+function getKnockoutScorePairForSide(match, side) {
+  if (!match?.score) {
+    return "";
+  }
+
+  return side === "away"
+    ? formatScorePair({ home: match.score.away, away: match.score.home })
+    : formatScorePair(match.score);
+}
+
+function getKnockoutPenaltyPairForSide(match, side) {
+  const penalties = match?.scoreDetails?.penalties;
+
+  if (!penalties) {
+    return "";
+  }
+
+  return side === "away"
+    ? formatScorePair({ home: penalties.away, away: penalties.home })
+    : formatScorePair(penalties);
+}
+
+function formatKnockoutCompletedSummary(match, context) {
+  const participants = getTournamentMatchParticipants(match, context);
+  const scoreText = formatScorePair(match.score);
+  const winner = getTournamentMatchWinnerTeam(match, context);
+
+  if (!scoreText) {
+    return getKnockoutMatchupLabel(match, context);
+  }
+
+  if (!winner) {
+    if (currentLanguage === "zh") {
+      return `${getKnockoutParticipantLabel(participants.home)} 和 ${getKnockoutParticipantLabel(participants.away)} 以 ${scoreText} 战平。`;
+    }
+
+    return `${getKnockoutParticipantLabel(participants.home)} and ${getKnockoutParticipantLabel(participants.away)} drew ${scoreText}.`;
+  }
+
+  const winnerSide = participants.away.team?.id === winner.id ? "away" : "home";
+  const loserSide = winnerSide === "home" ? "away" : "home";
+  const winnerName = getKnockoutParticipantLabel(participants[winnerSide]);
+  const loserName = getKnockoutParticipantLabel(participants[loserSide]);
+  const winnerScoreText = getKnockoutScorePairForSide(match, winnerSide);
+  const penaltyText = getKnockoutPenaltyPairForSide(match, winnerSide);
+
+  if (penaltyText) {
+    if (currentLanguage === "zh") {
+      return `${winnerName}在 ${scoreText} 战平后通过点球 ${penaltyText} 击败 ${loserName}。`;
+    }
+
+    return `${winnerName} beat ${loserName} on penalties after a ${scoreText} draw (${penaltyText} pens).`;
+  }
+
+  if (currentLanguage === "zh") {
+    return `${winnerName}以 ${winnerScoreText} 击败 ${loserName}。`;
+  }
+
+  return `${winnerName} beat ${loserName} ${winnerScoreText}.`;
+}
+
+function formatKnockoutSourceMatchSummary(match, context) {
+  if (!match) {
+    return localizeText("No loaded source matches yet.");
+  }
+
+  if (match.status === "FT") {
+    return formatKnockoutCompletedSummary(match, context);
+  }
+
+  const matchup = getKnockoutMatchupLabel(match, context);
+  const scoreText = formatScorePair(match.score);
+
+  if (match.status === "LIVE" && scoreText) {
+    if (currentLanguage === "zh") {
+      return `${matchup} 正在进行，比分 ${scoreText}。`;
+    }
+
+    return `${matchup} is live at ${scoreText}.`;
+  }
+
+  if (currentLanguage === "zh") {
+    return `${matchup} 尚未开赛。`;
+  }
+
+  return `${matchup} is scheduled.`;
+}
+
+function getPreviousKnockoutStageLabel(match, sourceMatches) {
+  const sourceStage = sourceMatches.find((sourceMatch) => sourceMatch?.stage)?.stage;
+  if (sourceStage) {
+    return getTournamentStageLabel(sourceStage);
+  }
+
+  const currentIndex = TOURNAMENT_PROGRESS_ROUNDS.findIndex((round) => round.id === match.stage);
+  const previousRound = TOURNAMENT_PROGRESS_ROUNDS[currentIndex - 1];
+  return previousRound ? getTournamentStageLabel(previousRound.id) : localizeText("Knockout context");
+}
+
+function renderLaterKnockoutPathContext(match, context) {
+  const sourceMatchNumbers = getTournamentWinnerSourceMatchNumbers(match);
+  const sourceMatches = sourceMatchNumbers.map(getTournamentFixtureByMatchNumber).filter(Boolean);
+  const heading = getPreviousKnockoutStageLabel(match, sourceMatches);
+  const rows = sourceMatches.length
+    ? sourceMatches
+        .map((sourceMatch) => `<li>${escapeHtml(formatKnockoutSourceMatchSummary(sourceMatch, context))}</li>`)
+        .join("")
+    : `<li>${escapeHtml(localizeText("No loaded source matches yet."))}</li>`;
+
+  return `
+    <section class="info-block">
+      <h3>${escapeHtml(heading)}</h3>
+      <ul class="result-highlights knockout-context-list">
+        ${rows}
+      </ul>
+    </section>
+  `;
+}
+
+function getNextKnockoutOpponentLine(match, nextMatch, context) {
+  const currentWinnerSlot = `Winner match ${Number(match.matchNumber)}`;
+  const otherSlot =
+    nextMatch.homeSlot === currentWinnerSlot
+      ? nextMatch.awaySlot
+      : nextMatch.awaySlot === currentWinnerSlot
+        ? nextMatch.homeSlot
+        : "";
+  const otherSourceMatchNumber = parseTournamentWinnerSource(otherSlot);
+
+  if (otherSourceMatchNumber) {
+    const otherMatch = getTournamentFixtureByMatchNumber(otherSourceMatchNumber);
+    const matchup = getKnockoutMatchupLabel(otherMatch, context);
+    return currentLanguage === "zh"
+      ? `胜者将对阵 ${matchup} 的胜者。`
+      : `Winner will face winner of ${matchup}.`;
+  }
+
+  if (otherSlot) {
+    return currentLanguage === "zh"
+      ? `胜者将对阵 ${localizeText(otherSlot)}。`
+      : `Winner will face ${localizeText(otherSlot)}.`;
+  }
+
+  const nextStage = getTournamentStageLabel(nextMatch.stage);
+  return currentLanguage === "zh"
+    ? `胜者将进入${nextStage}。`
+    : `Winner moves into ${nextStage}.`;
+}
+
+function renderNextKnockoutContext(match, context) {
+  const nextMatchNumber = getTournamentNextMatchNumber(match.matchNumber);
+  const nextMatch = getTournamentFixtureByMatchNumber(nextMatchNumber);
+
+  if (!nextMatch) {
+    return `
+      <section class="info-block">
+        <h3>${escapeHtml(localizeText("Round path"))}</h3>
+        <p class="past-empty">${escapeHtml(localizeText("No next knockout match is loaded yet."))}</p>
+      </section>
+    `;
+  }
+
+  const nextStage = getTournamentStageLabel(nextMatch.stage);
+  const heading = currentLanguage === "zh" ? `下一轮：${nextStage}` : `Next is ${nextStage}`;
+
+  return `
+    <section class="info-block">
+      <h3>${escapeHtml(heading)}</h3>
+      <p class="past-empty knockout-next-line">${escapeHtml(getNextKnockoutOpponentLine(match, nextMatch, context))}</p>
+    </section>
+  `;
+}
+
+function renderKnockoutContext(match) {
+  const context = createTournamentProgressionContext();
+  const pathContext =
+    match.stage === "round-of-32"
+      ? renderRoundOf32PathContext(match, context)
+      : renderLaterKnockoutPathContext(match, context);
+
+  return `
+    ${pathContext}
+    ${renderNextKnockoutContext(match, context)}
+  `;
+}
+
 function renderMatchContext(match) {
   if (match.stage === "group") {
     const group = getGroup(match.groupId);
@@ -11829,13 +12617,7 @@ function renderMatchContext(match) {
     `;
   }
 
-  const stage = tournament.stages.find((item) => item.id === match.stage);
-  return `
-    <section class="info-block">
-      <h3>${escapeHtml(localizeText("Knockout context"))} <span class="section-note">${escapeHtml(localizeText("bracket-ready"))}</span></h3>
-      <p class="past-empty">${escapeHtml(localizeText(stage?.label || "Knockout match"))} ${escapeHtml(localizeText("bracket details are not loaded yet."))}</p>
-    </section>
-  `;
+  return renderKnockoutContext(match);
 }
 
 function revealMatchInfoOnSmallScreens() {
@@ -15108,6 +15890,12 @@ standingsGrid.addEventListener("click", (event) => {
 
   openStandingsGroup(groupButton.dataset.groupId);
 });
+standingsGrid.addEventListener("pointerdown", handleTournamentMobilePointerDown);
+standingsGrid.addEventListener("pointermove", handleTournamentMobilePointerMove);
+standingsGrid.addEventListener("pointerup", finishTournamentMobilePointerGesture);
+standingsGrid.addEventListener("pointercancel", cancelTournamentMobilePointerGesture);
+standingsGrid.addEventListener("keydown", handleTournamentMobileKeydown);
+standingsGrid.addEventListener("wheel", handleTournamentMobileWheel, { passive: false });
 
 dayLabel.addEventListener("click", () => {
   setCalendarOpen(!isCalendarOpen);
@@ -15318,6 +16106,22 @@ catchUpPopover.addEventListener("click", (event) => {
 attachPlayerCardPositioning(matchInfo);
 attachPlayerCardPositioning(catchUpPopover);
 
+document.addEventListener(
+  "pointerover",
+  (event) => updateTooltipBoundsForTarget(event.target),
+  true
+);
+document.addEventListener(
+  "pointerdown",
+  (event) => updateTooltipBoundsForTarget(event.target),
+  true
+);
+document.addEventListener(
+  "focusin",
+  (event) => updateTooltipBoundsForTarget(event.target),
+  true
+);
+
 document.addEventListener("pointerdown", (event) => {
   if (activePlayerHover && !getClosestPlayerHover(event.target)) {
     clearActivePlayerHover();
@@ -15427,6 +16231,7 @@ window.addEventListener("resize", () => {
     updateStandingNameTooltips();
     updateMeasuredLabelTooltips();
     updateTooltipBounds();
+    updateTournamentMobileBoard({ force: true });
     updateTournamentConnectors();
     updateTabIndicators();
   });

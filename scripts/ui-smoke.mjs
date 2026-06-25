@@ -298,7 +298,7 @@ function getExpectedThirdPlaceStandingBadgeReason(candidate) {
   ];
 
   if (candidate.status?.kind === "eliminated" || candidate.isEliminated) {
-    lines.push("No remaining group result combination can move this team into a Round of 32 place.");
+    lines.push("Not possible: no remaining result combo reaches the Round of 32.");
     return lines.join("\n");
   }
 
@@ -312,15 +312,12 @@ function getExpectedThirdPlaceStandingBadgeReason(candidate) {
   }
 
   const remainingMatchCount = getExpectedRemainingTeamGroupFixtures(candidate.teamId, candidate.groupId).length;
+  const maximumPoints = getExpectedThirdPlaceMaximumPossiblePoints(candidate, remainingMatchCount);
   const isInside = candidate.position <= advancerCount;
 
   if (isInside) {
     const teamsNeededToDropOut = Math.max(1, advancerCount - candidate.position + 1);
-    lines.push(
-      remainingMatchCount > 0
-        ? `${formatExpectedThirdPlaceRemainingMatchCount(remainingMatchCount)}; points make it safer.`
-        : "Finished its matches; now waiting on other groups."
-    );
+    lines.push(formatExpectedThirdPlacePathSummary("In for now", remainingMatchCount, maximumPoints));
     lines.push(
       `Out if ${formatExpectedThirdPlaceTeamCount(teamsNeededToDropOut)} below ${formatExpectedThirdPlacePassVerb(teamsNeededToDropOut)} it.`
     );
@@ -328,9 +325,10 @@ function getExpectedThirdPlaceStandingBadgeReason(candidate) {
   }
 
   const teamsNeededToPass = Math.max(1, candidate.position - advancerCount);
+  lines.push(formatExpectedThirdPlacePathSummary("Still possible", remainingMatchCount, maximumPoints));
   lines.push(`Needs to pass ${formatExpectedThirdPlaceTeamCount(teamsNeededToPass)} to reach top ${advancerCount}.`);
   if (remainingMatchCount > 0) {
-    lines.push("Must take points; teams above must slip.");
+    lines.push("Needs points; teams above must fall behind.");
   } else {
     lines.push(`No matches left; needs ${formatExpectedThirdPlaceTeamCount(teamsNeededToPass)} above to fall behind.`);
     lines.push("Also needs teams below not to pass.");
@@ -588,6 +586,12 @@ function getExpectedThirdPlaceReason(candidate, rows = getExpectedThirdPlaceRace
     return `${summary}\nTeams from ${formatOrdinal(candidate.tieGroupStart)} to ${formatOrdinal(candidate.tieGroupEnd)} are tied around the cutoff.\nFair-play data is missing.`;
   }
 
+  if (isGroupStageFinished()) {
+    return candidate.position <= getThirdPlaceAdvancerCount()
+      ? `${summary}\nFinal table: qualifies as a third-place team.`
+      : `${summary}\nFinal table: outside the qualifying third-place spots.`;
+  }
+
   const nearestCandidate = getExpectedThirdPlaceComparisonTarget(candidate, rows);
 
   if (!nearestCandidate) {
@@ -648,8 +652,34 @@ function formatExpectedThirdPlacePassVerb(count) {
   return count === 1 ? "passes" : "pass";
 }
 
+function getExpectedThirdPlaceMaximumPossiblePoints(candidate, remainingMatchCount) {
+  const group = (tournamentData.groups || []).find((groupItem) => groupItem.id === candidate.groupId);
+  const maximumPoints = getExpectedTeamMaximumPossibleGroupPoints(candidate.teamId, group);
+
+  if (Number.isFinite(maximumPoints)) {
+    return maximumPoints;
+  }
+
+  return candidate.pts + remainingMatchCount * 3;
+}
+
+function formatExpectedThirdPlacePathSummary(prefix, remainingMatchCount, maximumPoints) {
+  if (remainingMatchCount > 0 && Number.isFinite(maximumPoints)) {
+    return `${prefix}: with ${formatExpectedThirdPlaceRemainingMatchCount(remainingMatchCount)}, best case is ${formatStandingPoints(maximumPoints)}.`;
+  }
+
+  return prefix === "In for now"
+    ? `${prefix}: no matches left, so it is waiting on other groups.`
+    : `${prefix}: no matches left, so it needs help from other groups.`;
+}
+
 function isGroupStageFinished() {
   const groupFixtures = fixturesData.fixtures.filter((fixture) => fixture.stage === "group");
+  return groupFixtures.length > 0 && groupFixtures.every((fixture) => fixture.status === "FT");
+}
+
+function isExpectedGroupFinished(groupId) {
+  const groupFixtures = getGroupFixtures(groupId);
   return groupFixtures.length > 0 && groupFixtures.every((fixture) => fixture.status === "FT");
 }
 
@@ -1043,6 +1073,34 @@ function getExpectedEliminatedTeamNames() {
   }
 
   return eliminated.sort();
+}
+
+function getExpectedConfirmedAdvancingStandingTeamNames() {
+  const confirmed = [];
+  const thirdPlaceRaceByTeamId = new Map(getExpectedThirdPlaceRaceRows().map((candidate) => [candidate.teamId, candidate]));
+  const groupStageFinished = isGroupStageFinished();
+  const thirdPlaceAdvancerCount = getThirdPlaceAdvancerCount();
+
+  for (const group of tournamentData.groups || []) {
+    const rows = standingsData.groups?.[group.id] || [];
+    const automaticPlaces = Math.min(group.teamIds?.length || rows.length || getAutomaticAdvancersPerGroup(), getAutomaticAdvancersPerGroup());
+    const groupFinished = isExpectedGroupFinished(group.id);
+
+    rows.forEach((row, index) => {
+      const thirdPlaceCandidate = thirdPlaceRaceByTeamId.get(row.teamId);
+      const madeAutomatic = groupFinished && index < automaticPlaces;
+      const madeThirdPlace =
+        groupStageFinished &&
+        thirdPlaceCandidate?.position <= thirdPlaceAdvancerCount &&
+        !thirdPlaceCandidate.isCutLineTie;
+
+      if (madeAutomatic || madeThirdPlace) {
+        confirmed.push(getTeam(row.teamId).name);
+      }
+    });
+  }
+
+  return confirmed.sort();
 }
 
 function getExpectedStandingOrder(groupId) {
@@ -1687,6 +1745,43 @@ try {
   assert(
     (await vozinhaCard.locator(".player-photo img, .player-photo-fallback").count()) === 1,
     "Single-name player hover cards should include a face or initials fallback."
+  );
+
+  await page.setViewportSize({ width: 1280, height: 720 });
+  await page.goto(`${baseUrl}?view=matches&date=2026-06-28&tz=America%2FLos_Angeles`, {
+    waitUntil: "load"
+  });
+  await page.waitForSelector(".match-row");
+  await page.locator('[data-match-id="match-73-round-of-32-2026-06-28"]').click();
+  const roundOf32DetailText = await page.locator("#match-info").innerText();
+  assert(
+    roundOf32DetailText.includes("Group round") &&
+      roundOf32DetailText.includes("South Africa won against South Korea (1-0), tied against Czechia (1-1), and lost to Mexico (0-2).") &&
+      roundOf32DetailText.includes("Canada won against Qatar (6-0), tied against Bosnia and Herzegovina (1-1), and lost to Switzerland (1-2).") &&
+      roundOf32DetailText.includes("Next is Round of 16") &&
+      roundOf32DetailText.includes("Winner will face winner of") &&
+      roundOf32DetailText.includes("Prediction") &&
+      roundOf32DetailText.includes("Key information") &&
+      roundOf32DetailText.includes("Past matches") &&
+      !roundOf32DetailText.includes("bracket details are not loaded yet"),
+    "Round of 32 match detail should summarize group-round form and the next winner path before normal prediction/context blocks."
+  );
+
+  await page.goto(`${baseUrl}?view=matches&date=2026-07-04&tz=America%2FLos_Angeles`, {
+    waitUntil: "load"
+  });
+  await page.waitForSelector(".match-row");
+  await page.locator('[data-match-id="match-89-round-of-16-2026-07-04"]').click();
+  const roundOf16DetailText = await page.locator("#match-info").innerText();
+  assert(
+    roundOf16DetailText.includes("Round of 32") &&
+      roundOf16DetailText.includes("is scheduled.") &&
+      roundOf16DetailText.includes("Next is Quarter-finals") &&
+      roundOf16DetailText.includes("Winner will face winner of") &&
+      roundOf16DetailText.includes("Prediction") &&
+      !roundOf16DetailText.includes("Group round") &&
+      !roundOf16DetailText.includes("bracket details are not loaded yet"),
+    "Round of 16 and later match detail should summarize the previous knockout round instead of group standings."
   );
 
   await page.setViewportSize({ width: 540, height: 760 });
@@ -3283,18 +3378,26 @@ try {
   );
   await page.setViewportSize({ width: 1280, height: 720 });
   const currentStandingsMarkerCheck = await page.evaluate(() => {
+    const getRowTeamName = (row) => row.querySelector(".standing-name")?.textContent.trim() || "";
+
     return {
-      advancingCount: document.querySelectorAll(".standings-card tbody tr.is-advancing").length,
+      advancingNames: [...document.querySelectorAll(".standings-card tbody tr.is-advancing")]
+        .map(getRowTeamName)
+        .filter(Boolean)
+        .sort(),
+      madeItPillCount: document.querySelectorAll(".standing-status-pill.is-made-it, .third-place-status.is-made-it").length,
       advancementPillCount: document.querySelectorAll(".advancement-pill").length
     };
   });
+  const expectedConfirmedAdvancingStandingTeamNames = getExpectedConfirmedAdvancingStandingTeamNames();
   assert(
-    currentStandingsMarkerCheck.advancingCount === 0,
-    "The current 2026 standings should not mark provisional advancing teams."
+    currentStandingsMarkerCheck.advancingNames.join("|") === expectedConfirmedAdvancingStandingTeamNames.join("|"),
+    `The current 2026 standings should highlight only confirmed advancing teams with the archived row treatment. Expected ${expectedConfirmedAdvancingStandingTeamNames.join("|")}, received ${currentStandingsMarkerCheck.advancingNames.join("|")}.`
   );
   assert(
-    currentStandingsMarkerCheck.advancementPillCount === 0,
-    "The current 2026 standings should not show Round of 32 markers."
+    currentStandingsMarkerCheck.advancementPillCount === 0 &&
+      currentStandingsMarkerCheck.madeItPillCount === 0,
+    "The current 2026 standings should not add a text pill for confirmed advancement."
   );
   const expectedGroupBThirdPlaceCandidate = getExpectedThirdPlaceRaceRows().find(
     (candidate) => candidate.groupId === "B"
@@ -3529,11 +3632,11 @@ try {
     "The third-place race should use the short Goals label instead of GF jargon."
   );
   assert(
-    thirdPlaceRaceCheck.visibleReasonCount === 0 &&
+      thirdPlaceRaceCheck.visibleReasonCount === 0 &&
       thirdPlaceRaceCheck.rowSummaries.every((row) => row.tooltip && !row.tooltip.includes("GF")) &&
       thirdPlaceRaceCheck.rowSummaries.some((row) =>
         row.tooltip.includes("Top 8 advance.") &&
-          /Ahead of|Needs to pass/.test(row.tooltip)
+          /Ahead of|Needs to pass|Final table/.test(row.tooltip)
       ),
     "The third-place race should hide concise beginner-friendly top-eight explanations behind status pill tooltips without GF jargon."
   );
@@ -3551,9 +3654,13 @@ try {
     "The third-place race should show LIVE only for active matches involving current third-place candidates."
   );
   assert(
-    thirdPlaceRaceCheck.rowSummaries.some((row) => row.status === "Just inside") &&
+    (isGroupStageFinished() || thirdPlaceRaceCheck.rowSummaries.some((row) => row.status === "Just inside")) &&
       thirdPlaceRaceCheck.rowSummaries.every((row) => row.status !== "Bubble in"),
     "The third-place race should use plain edge-of-cut-line status copy."
+  );
+  assert(
+    thirdPlaceRaceCheck.rowSummaries.every((row) => row.status !== "Made it"),
+    "The third-place race should not add a Made it pill; final qualifiers use the archived row highlight in group standings."
   );
   assert(
     expectedCutLineInside &&
@@ -3862,14 +3969,107 @@ try {
         check.scrollOverflow <= 1 &&
         (check.viewportWidth > 900
           ? check.cardWidth >= 288 && check.cardWidth <= 300
-          : check.cardWidth >= check.progressionContentWidth - 4) &&
+          : check.cardWidth >= 208 &&
+            check.cardWidth <= 250 &&
+            check.cardWidth < check.progressionContentWidth) &&
         check.progressionPadding >= 10 &&
         check.cardPadding >= 8 &&
         check.cardWithinViewport &&
-        (check.viewportWidth > 1250 ||
-          (check.connectorDisplay === "none" && check.connectorPathCount === 0))
+        check.connectorDisplay === "block" &&
+        check.connectorPathCount >= 30
     ),
     `Tournament bracket seed context should live in odds pills, with correct padding and no horizontal overflow at phone and desktop sizes. Measured ${JSON.stringify(tournamentLayoutChecks)}.`
+  );
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto(`${baseUrl}?view=standings&standingsMode=tournament`, { waitUntil: "load" });
+  await page.waitForFunction(() => document.querySelectorAll(".progress-connectors path").length >= 30);
+  const mobileTournamentInitial = await page.evaluate(() => {
+    const progression = document.querySelector(".tournament-progression");
+    const progressionRect = progression.getBoundingClientRect();
+    const activeRound = document.querySelector(
+      `.progress-round[data-round-index="${progression.dataset.mobileActiveRoundIndex}"]`
+    );
+    const activeRoundRect = activeRound.getBoundingClientRect();
+    const nextRound = document.querySelector('.progress-round[data-round-index="1"]');
+    const nextRoundRect = nextRound.getBoundingClientRect();
+    const firstCard = activeRound.querySelector(".progress-match");
+    const firstCardRect = firstCard.getBoundingClientRect();
+
+    return {
+      activeIndex: Number(progression.dataset.mobileActiveRoundIndex),
+      activeLeft: Math.round(activeRoundRect.left - progressionRect.left),
+      cardWidth: Math.round(firstCardRect.width),
+      connectorDisplay: getComputedStyle(document.querySelector(".progress-connectors")).display,
+      nextRoundLeft: Math.round(nextRoundRect.left - progressionRect.left),
+      pathCount: document.querySelectorAll(".progress-connectors path").length,
+      r32Span: firstCard.style.getPropertyValue("--mobile-path-span").trim(),
+      scrollOverflow: document.documentElement.scrollWidth - document.documentElement.clientWidth
+    };
+  });
+  await page.mouse.move(330, 430);
+  await page.mouse.down();
+  await page.mouse.move(80, 430, { steps: 10 });
+  await page.mouse.up();
+  await page.waitForTimeout(480);
+  const mobileTournamentAfterSwipe = await page.evaluate(() => {
+    const progression = document.querySelector(".tournament-progression");
+    const progressionRect = progression.getBoundingClientRect();
+    const activeRound = document.querySelector(
+      `.progress-round[data-round-index="${progression.dataset.mobileActiveRoundIndex}"]`
+    );
+    const activeRoundRect = activeRound.getBoundingClientRect();
+    const activeCards = [...activeRound.querySelectorAll(".progress-match")].slice(0, 3);
+    const cardRects = activeCards.map((card) => {
+      const rect = card.getBoundingClientRect();
+
+      return {
+        bottom: Math.round(rect.bottom),
+        top: Math.round(rect.top)
+      };
+    });
+
+    return {
+      activeIndex: Number(progression.dataset.mobileActiveRoundIndex),
+      activeRoundId: progression.dataset.mobileActiveRoundId,
+      activeLeft: Math.round(activeRoundRect.left - progressionRect.left),
+      gaps: cardRects.slice(1).map((rect, index) => rect.top - cardRects[index].bottom),
+      hiddenRounds: [...document.querySelectorAll(".progress-round.is-before-mobile-window")].map(
+        (round) => round.dataset.roundId
+      ),
+      pathCount: document.querySelectorAll(".progress-connectors path").length,
+      qfSpan: document
+        .querySelector('.progress-match[data-match-number="97"]')
+        .style.getPropertyValue("--mobile-path-span")
+        .trim(),
+      r16Span: document
+        .querySelector('.progress-match[data-match-number="89"]')
+        .style.getPropertyValue("--mobile-path-span")
+        .trim(),
+      scrollOverflow: document.documentElement.scrollWidth - document.documentElement.clientWidth
+    };
+  });
+  assert(
+    mobileTournamentInitial.activeIndex === 0 &&
+      mobileTournamentInitial.activeLeft >= 10 &&
+      mobileTournamentInitial.activeLeft <= 18 &&
+      mobileTournamentInitial.cardWidth >= 208 &&
+      mobileTournamentInitial.cardWidth <= 250 &&
+      mobileTournamentInitial.nextRoundLeft > mobileTournamentInitial.cardWidth &&
+      mobileTournamentInitial.connectorDisplay === "block" &&
+      mobileTournamentInitial.pathCount >= 30 &&
+      mobileTournamentInitial.r32Span === "1" &&
+      mobileTournamentInitial.scrollOverflow <= 1 &&
+      mobileTournamentAfterSwipe.activeIndex === 1 &&
+      mobileTournamentAfterSwipe.activeRoundId === "round-of-16" &&
+      mobileTournamentAfterSwipe.activeLeft >= 10 &&
+      mobileTournamentAfterSwipe.activeLeft <= 18 &&
+      mobileTournamentAfterSwipe.hiddenRounds.join("|") === "round-of-32" &&
+      mobileTournamentAfterSwipe.pathCount >= 14 &&
+      mobileTournamentAfterSwipe.r16Span === "1" &&
+      mobileTournamentAfterSwipe.qfSpan === "2" &&
+      mobileTournamentAfterSwipe.gaps.every((gap) => gap >= 4 && gap <= 8) &&
+      mobileTournamentAfterSwipe.scrollOverflow <= 1,
+    `Mobile tournament should use a swipeable bracket board where later rounds become the compact left edge. Measured ${JSON.stringify({ mobileTournamentInitial, mobileTournamentAfterSwipe })}.`
   );
   await page.setViewportSize({ width: 1280, height: 720 });
   const knockoutProgressionCheck = await openPageAtTime(
@@ -4215,6 +4415,81 @@ try {
       Math.abs(currentDayWrappedRowMetrics.timeCenter - currentDayWrappedRowMetrics.teamsCenter) <= 3 &&
       Math.abs(currentDayWrappedRowMetrics.metaCenter - currentDayWrappedRowMetrics.teamsCenter) <= 3,
     `Wrapped current-day rows should center time and status pills against visible team text. Measured ${JSON.stringify(currentDayWrappedRowMetrics)}.`
+  );
+  const currentDayMobileRailMetrics = await page.locator(".match-row").evaluateAll((rows) =>
+    rows
+      .map((row) => {
+        const chip = row.querySelector(
+          ".match-row-meta .live-pill, .match-row-meta .up-next-pill, .match-row-meta .match-score, .match-row-meta .score-status"
+        );
+
+        if (!chip) {
+          return null;
+        }
+
+        const rowRect = row.getBoundingClientRect();
+        const chipRect = chip.getBoundingClientRect();
+        const textPieces = Array.from(
+          row.querySelectorAll(".match-teams .team-name-start-lock, .match-teams .team-name-rank-lock, .match-teams .match-versus")
+        );
+        const homePieces = Array.from(
+          row.querySelectorAll(".match-team-home .team-name-start-lock, .match-team-home .team-name-rank-lock")
+        );
+        const versus = row.querySelector(".match-versus");
+        const collisions = [];
+        let maxTextRight = Number.NEGATIVE_INFINITY;
+        let maxHomeTextRight = Number.NEGATIVE_INFINITY;
+
+        textPieces.forEach((piece) => {
+          const pieceRect = piece.getBoundingClientRect();
+          const verticalOverlap =
+            Math.min(chipRect.bottom, pieceRect.bottom) - Math.max(chipRect.top, pieceRect.top);
+          const horizontalOverlap =
+            Math.min(chipRect.right, pieceRect.right) - Math.max(chipRect.left, pieceRect.left);
+
+          maxTextRight = Math.max(maxTextRight, pieceRect.right);
+
+          if (verticalOverlap > 0.5 && horizontalOverlap > 0.5) {
+            collisions.push(piece.textContent.replace(/\s+/g, " ").trim());
+          }
+        });
+
+        homePieces.forEach((piece) => {
+          maxHomeTextRight = Math.max(maxHomeTextRight, piece.getBoundingClientRect().right);
+        });
+
+        return {
+          chipRight: chipRect.right,
+          collisions,
+          documentScrollOverflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
+          homeVisualGap:
+            versus && Number.isFinite(maxHomeTextRight)
+              ? versus.getBoundingClientRect().left - maxHomeTextRight
+              : null,
+          id: row.getAttribute("data-match-id"),
+          rowRightGap: rowRect.right - chipRect.right,
+          rowScrollOverflow: row.scrollWidth - row.clientWidth,
+          textScoreGap: Number.isFinite(maxTextRight) ? chipRect.left - maxTextRight : null,
+          text: row.innerText.replace(/\s+/g, " ").trim()
+        };
+      })
+      .filter(Boolean)
+  );
+  const currentDayMobileRailRights = currentDayMobileRailMetrics.map((metric) => metric.chipRight);
+  assert(
+    currentDayMobileRailMetrics.length >= 6 &&
+      Math.max(...currentDayMobileRailRights) - Math.min(...currentDayMobileRailRights) <= 1 &&
+      currentDayMobileRailMetrics.every(
+        (metric) =>
+          metric.collisions.length === 0 &&
+          metric.documentScrollOverflow <= 1 &&
+          metric.rowScrollOverflow <= 1 &&
+          metric.rowRightGap >= 4 &&
+          metric.rowRightGap <= 8 &&
+          (metric.textScoreGap === null || metric.textScoreGap >= 2) &&
+          (metric.homeVisualGap === null || (metric.homeVisualGap >= 0 && metric.homeVisualGap <= 12))
+      ),
+    `Mobile match rows should keep the vs label close to the left team and reserve a clean right rail for pills. Measured ${JSON.stringify(currentDayMobileRailMetrics)}.`
   );
   const mobileCompletedHoverRow = page.locator('[data-match-id="switzerland-canada-2026-06-24"]');
   await mobileCompletedHoverRow.hover();

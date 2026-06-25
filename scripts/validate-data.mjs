@@ -456,6 +456,110 @@ for (const team of teamsData.teams || []) {
   teams.set(team.id, team);
 }
 
+const fixturesByMatchNumber = new Map(
+  (fixturesData.fixtures || [])
+    .filter((fixture) => Number.isInteger(Number(fixture.matchNumber)))
+    .map((fixture) => [Number(fixture.matchNumber), fixture])
+);
+
+function parseKnockoutGroupPlaceSlot(slotText) {
+  const match = /^Group ([A-L]) (winner|runner-up)$/i.exec(slotText || "");
+
+  if (!match) {
+    return null;
+  }
+
+  return {
+    groupId: match[1].toUpperCase(),
+    place: match[2].toLowerCase() === "winner" ? 1 : 2
+  };
+}
+
+function parseKnockoutWinnerSlot(slotText) {
+  const match = /^Winner match (\d+)$/i.exec(slotText || "");
+  return match ? Number(match[1]) : null;
+}
+
+function getExpectedGroupFixtureCount(groupId) {
+  const teamCount = groups.get(groupId)?.teamIds?.length || 0;
+  return teamCount > 1 ? (teamCount * (teamCount - 1)) / 2 : 0;
+}
+
+function isGroupComplete(groupId) {
+  const groupFixtures = (fixturesData.fixtures || []).filter(
+    (fixture) => fixture.stage === "group" && fixture.groupId === groupId
+  );
+
+  return (
+    groupFixtures.length >= getExpectedGroupFixtureCount(groupId) &&
+    groupFixtures.every((fixture) => fixture.status === "FT" && fixture.score)
+  );
+}
+
+function getScoreWinnerTeamId(fixture, score) {
+  if (!score) {
+    return "";
+  }
+
+  const home = Number(score.home);
+  const away = Number(score.away);
+
+  if (!Number.isFinite(home) || !Number.isFinite(away) || home === away) {
+    return "";
+  }
+
+  return home > away ? fixture.homeTeamId : fixture.awayTeamId;
+}
+
+function getKnockoutWinnerTeamId(fixture) {
+  if (!fixture || fixture.status !== "FT") {
+    return "";
+  }
+
+  const explicitWinner = String(fixture.winnerTeamId || fixture.winner || "").trim();
+  if (explicitWinner) {
+    return explicitWinner;
+  }
+
+  return (
+    getScoreWinnerTeamId(fixture, fixture.scoreDetails?.penalties) ||
+    getScoreWinnerTeamId(fixture, fixture.score)
+  );
+}
+
+function validateResolvedKnockoutParticipant(fixture, side) {
+  if (fixture.stage === "group") {
+    return;
+  }
+
+  const slotText = fixture[`${side}Slot`] || "";
+  const teamId = fixture[`${side}TeamId`] || "";
+  const groupSlot = parseKnockoutGroupPlaceSlot(slotText);
+
+  if (groupSlot && isGroupComplete(groupSlot.groupId)) {
+    const expectedTeamId = standingsData.groups?.[groupSlot.groupId]?.[groupSlot.place - 1]?.teamId;
+
+    assert(
+      teamId === expectedTeamId,
+      `Fixture "${fixture.id}" ${side} slot "${slotText}" should resolve to "${expectedTeamId}"`
+    );
+    return;
+  }
+
+  const sourceMatchNumber = parseKnockoutWinnerSlot(slotText);
+  if (!sourceMatchNumber) {
+    return;
+  }
+
+  const expectedTeamId = getKnockoutWinnerTeamId(fixturesByMatchNumber.get(sourceMatchNumber));
+  if (expectedTeamId) {
+    assert(
+      teamId === expectedTeamId,
+      `Fixture "${fixture.id}" ${side} slot "${slotText}" should resolve to "${expectedTeamId}"`
+    );
+  }
+}
+
 if (playerProfilesData) {
   assert(
     typeof playerProfilesData.updatedAt === "string" &&
@@ -646,6 +750,9 @@ for (const fixture of fixturesData.fixtures || []) {
     assert(hasAwayTeam, `Group fixture "${fixture.id}" must include a known awayTeamId`);
     assert(teams.get(fixture.homeTeamId)?.groupId === fixture.groupId, `Fixture "${fixture.id}" home team is not in group "${fixture.groupId}"`);
     assert(teams.get(fixture.awayTeamId)?.groupId === fixture.groupId, `Fixture "${fixture.id}" away team is not in group "${fixture.groupId}"`);
+  } else {
+    validateResolvedKnockoutParticipant(fixture, "home");
+    validateResolvedKnockoutParticipant(fixture, "away");
   }
 
   for (const [side, teamId] of [
