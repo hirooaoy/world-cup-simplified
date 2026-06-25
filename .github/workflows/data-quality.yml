@@ -51,7 +51,11 @@ jobs:
         run: pnpm results
 
       - name: Install Chromium
-        run: pnpm exec playwright install --with-deps chromium
+        run: |
+          pnpm exec playwright install --with-deps chromium || {
+            echo "::warning title=Playwright dependency install failed::Falling back to browser-only Chromium install."
+            pnpm exec playwright install chromium
+          }
 
       - name: Run data and UI checks
         run: |
