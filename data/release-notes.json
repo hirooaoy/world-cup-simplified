@@ -1,11 +1,12 @@
 {
-  "updatedAt": "2026-06-25T10:09:57-07:00",
+  "updatedAt": "2026-06-25T10:53:20-07:00",
   "releases": [
     {
       "date": "2026-06-25",
       "title": "Race, cards, and mobile brackets",
       "titleZh": "竞争、球员卡与移动端对阵",
       "highlights": [
+        "Browser Back and Forward now move through app states like Standings, selected match cards, and country search instead of leaving the app.",
         "Mobile Tournament now opens as a compact swipeable bracket board with connector lines and round-to-round shifts instead of a one-column list.",
         "Knockout calendar slots now auto-fill countries once group or source-match results make the participant certain.",
         "Locked Tournament bracket cards now keep confirmed countries in full color, remove duplicate round labels, and leave unresolved Round of 32 slots muted as projections.",
@@ -19,11 +20,12 @@
         "Projected Round of 16 and later countries now stay muted until their source match winner is confirmed.",
         "Completed groups now reuse the archived green advancement row highlight for confirmed Round of 32 teams.",
         "Third-place race badges now say whether a path is still open, how many matches are left, and the best-case points ceiling.",
-        "Mobile match rows now keep flags, country names, ranking pills, vs, and match details centered while long English and Chinese country names wrap cleanly inside the team line.",
+        "Mobile match rows now keep ranking pills attached to the visible country-name line, so wrapped English and Chinese names no longer leave the pill floating in the middle of the row.",
         "Player hover cards now show the player country's flag beside the name, while historical cards keep archive-note wording.",
         "Chinese player-card skill pills now translate generated role labels instead of showing raw English."
       ],
       "highlightsZh": [
+        "浏览器后退和前进现在会在积分榜、已选比赛卡和国家队搜索等应用状态之间切换，不会直接离开应用。",
         "移动端淘汰赛现在是紧凑的可滑动对阵板，保留连接线和轮次切换动效，不再显示为单列列表。",
         "当小组或上轮淘汰赛结果已经确定参赛队时，淘汰赛日历席位现在会自动填入国家队。",
         "已锁定的淘汰赛对阵卡现在会让确认球队保持全彩显示，并移除重复轮次标签；尚未确定的32强席位仍以灰色预测样式呈现。",
@@ -37,7 +39,7 @@
         "16强及后续轮次的预测球队现在会保持灰色显示，直到来源比赛胜者确认。",
         "已完赛小组现在会沿用存档赛事的绿色晋级行高亮来标记确认进入32强的球队。",
         "最佳第三名竞争标签现在会说明是否仍有出线路径、还剩几场比赛，以及最好情况的积分上限。",
-        "移动端比赛行现在会让旗帜、国家队名称、排名标签、vs 和比赛详情保持居中，同时让较长的英文和中文国名在球队行内整齐换行。",
+        "移动端比赛行现在会让排名标签跟随可见的队名行；英文和中文长国名换行后，标签不会再悬在行中间。",
         "球员悬停卡现在会在姓名旁显示球员国家旗帜，历史球员卡也保留档案说明的表述。",
         "中文球员卡的技能标签现在会翻译生成的角色文案，不再显示原始英文。"
       ]

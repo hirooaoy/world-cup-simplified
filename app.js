@@ -2821,7 +2821,7 @@ function setShowYesterdayMatches(value, options = {}) {
     showYesterdayToggle.checked = shouldShowYesterdayMatches;
   }
   if (options.render !== false) {
-    renderSchedule();
+    renderSchedule(options);
   }
 }
 
@@ -2866,6 +2866,7 @@ let dataCoverage = { status: "partial" };
 let siteUpdatedAt = "";
 let liveDataCheckedAt = "";
 let syncUrl = true;
+let isRestoringHistoryState = false;
 let isInitialDataLoading = true;
 let isInitialLiveDataLoading = false;
 let teamSearchIndex = [];
@@ -6394,7 +6395,7 @@ function selectCalendarDay(dayKey) {
   calendarMonthKey = getMonthKeyFromDayKey(dayKey);
   clearTeamSearch({ render: false });
   setCalendarOpen(false);
-  renderSchedule();
+  renderSchedule({ historyMode: "push" });
 }
 
 function setStandingsYearOpen(isOpen) {
@@ -6472,33 +6473,33 @@ function queueTabIndicatorUpdate() {
   window.requestAnimationFrame(updateTabIndicators);
 }
 
-function selectStandingsYear(year) {
+function selectStandingsYear(year, options = {}) {
   selectedStandingsYear = getValidStandingsYear(year);
   if (selectedStandingsYear !== CURRENT_STANDINGS_YEAR) {
     selectedStandingsMode = "groups";
   }
   setStandingsYearOpen(false);
   renderStandingsView();
-  updateUrlState();
+  updateUrlState(options);
 }
 
-function selectStandingsMode(mode) {
+function selectStandingsMode(mode, options = {}) {
   selectedStandingsMode = getValidStandingsMode(mode);
   if (selectedStandingsMode === "tournament") {
     tournamentMobileActiveRoundIndex = 0;
   }
   renderStandingsView();
-  updateUrlState();
+  updateUrlState(options);
 }
 
-function openStandingsGroup(groupId) {
+function openStandingsGroup(groupId, options = {}) {
   if (!groupId) {
     return;
   }
 
   selectedStandingsMode = "groups";
   renderStandingsView();
-  updateUrlState();
+  updateUrlState(options);
 
   window.requestAnimationFrame(() => {
     const card = standingsGrid.querySelector(
@@ -6595,6 +6596,8 @@ function renderTeamInline(team, className = "team", options = {}) {
   const escapedTeamName = escapeHtml(teamName);
   const flagHtml = renderFlag(team);
   const rankHtml = showRank ? renderRank(team) : "";
+  const nameHtml = `<span class="team-name" aria-label="${escapedTeamName}">${escapedTeamName}</span>`;
+  const copyHtml = rankHtml ? `<span class="team-copy">${nameHtml}${rankHtml}</span>` : nameHtml;
   const tooltipAttributes = teamName
     ? ` aria-label="${escapedTeamName}" data-tooltip="${escapedTeamName}"`
     : "";
@@ -6602,7 +6605,7 @@ function renderTeamInline(team, className = "team", options = {}) {
   return `
     <span class="${escapeHtml(className)}"${tooltipAttributes}>
       ${flagHtml}
-      <span class="team-name" aria-label="${escapedTeamName}">${escapedTeamName}</span>${rankHtml}
+      ${copyHtml}
     </span>
   `;
 }
@@ -7423,18 +7426,22 @@ function renderMatchRow(match, state, currentTime = Date.now(), options = {}) {
   `;
 
   row.addEventListener("pointerenter", (event) => {
-    if (shouldPreviewMatchInfoOnHover(event)) {
+    if (!isRestoringHistoryState && shouldPreviewMatchInfoOnHover(event)) {
       renderMatchInfo(match);
     }
   });
-  row.addEventListener("focusin", () => renderMatchInfo(match));
+  row.addEventListener("focusin", () => {
+    if (syncUrl && !isRestoringHistoryState) {
+      renderMatchInfo(match);
+    }
+  });
   row.addEventListener("click", (event) => {
     if (event.target instanceof Element && event.target.closest("a")) {
       return;
     }
 
     renderMatchInfo(match, { reveal: true });
-    updateUrlState();
+    updateUrlState({ historyMode: "push" });
   });
 
   return row;
@@ -10214,7 +10221,7 @@ function openMatchFromTournament(matchId) {
   setCatchUpOpen(false);
   setSettingsOpen(false);
   setStandingsYearOpen(false);
-  setActiveView("matches");
+  setActiveView("matches", { historyMode: "push" });
   renderSchedule();
   renderMatchInfo(match, { reveal: true });
   updateUrlState();
@@ -14332,7 +14339,7 @@ function openTournamentTabFromMatchInfo() {
   selectedStandingsYear = CURRENT_STANDINGS_YEAR;
   selectedStandingsMode = "tournament";
   tournamentMobileActiveRoundIndex = 0;
-  setActiveView("standings");
+  setActiveView("standings", { historyMode: "push" });
   renderStandingsView();
   updateUrlState();
 
@@ -14588,14 +14595,18 @@ function createYesterdayMatchCard(match, currentTime) {
 
   card.append(button);
   card.addEventListener("pointerenter", (event) => {
-    if (shouldPreviewMatchInfoOnHover(event)) {
+    if (!isRestoringHistoryState && shouldPreviewMatchInfoOnHover(event)) {
       renderMatchInfo(match);
     }
   });
-  card.addEventListener("focusin", () => renderMatchInfo(match));
+  card.addEventListener("focusin", () => {
+    if (syncUrl && !isRestoringHistoryState) {
+      renderMatchInfo(match);
+    }
+  });
   card.addEventListener("click", () => {
     renderMatchInfo(match, { reveal: true });
-    updateUrlState();
+    updateUrlState({ historyMode: "push" });
   });
   return card;
 }
@@ -14928,11 +14939,11 @@ function createOlderWorldCupsToggle(hiddenCount) {
 
 function updateTeamSearchUrlState(options = {}) {
   if (options.debounceUrl) {
-    scheduleUrlStateUpdate();
+    scheduleUrlStateUpdate(options);
     return;
   }
 
-  updateUrlState();
+  updateUrlState(options);
 }
 
 function ensureMatchInfoPrompt() {
@@ -15741,7 +15752,7 @@ function cancelPendingTeamSearchRender() {
   pendingTeamSearchRenderFrame = 0;
 }
 
-function scheduleTeamSearchRender() {
+function scheduleTeamSearchRender(options = {}) {
   if (pendingTeamSearchRenderFrame) {
     return;
   }
@@ -15750,12 +15761,12 @@ function scheduleTeamSearchRender() {
     pendingTeamSearchRenderFrame = 0;
 
     if (isInitialDataLoading || isInitialLiveDataLoading || !hasTeamSearchQuery()) {
-      renderSchedule();
+      renderSchedule(options);
       return;
     }
 
     setYesterdayLayoutOffset(false);
-    renderTeamSearchResults({ debounceUrl: true });
+    renderTeamSearchResults({ ...options, debounceUrl: true });
   });
 }
 
@@ -15781,7 +15792,7 @@ function clearTeamSearch(options = {}) {
   }
 
   if (options.render !== false) {
-    renderSchedule();
+    renderSchedule(options);
   }
 }
 
@@ -15794,7 +15805,11 @@ function clearPendingUrlStateUpdate() {
   pendingUrlStateUpdateId = 0;
 }
 
-function applyUrlState() {
+function getUrlHistoryMode(options = {}) {
+  return options.historyMode === "push" ? "push" : "replace";
+}
+
+function applyUrlState(options = {}) {
   if (!syncUrl) {
     return;
   }
@@ -15841,16 +15856,20 @@ function applyUrlState() {
   const currentUrl = `${window.location.pathname}${window.location.search}${window.location.hash}`;
 
   if (nextUrl !== currentUrl) {
-    window.history.replaceState(null, "", nextUrl);
+    if (getUrlHistoryMode(options) === "push") {
+      window.history.pushState(null, "", nextUrl);
+    } else {
+      window.history.replaceState(null, "", nextUrl);
+    }
   }
 }
 
-function updateUrlState() {
+function updateUrlState(options = {}) {
   clearPendingUrlStateUpdate();
-  applyUrlState();
+  applyUrlState(options);
 }
 
-function scheduleUrlStateUpdate() {
+function scheduleUrlStateUpdate(options = {}) {
   if (!syncUrl) {
     return;
   }
@@ -15858,7 +15877,7 @@ function scheduleUrlStateUpdate() {
   clearPendingUrlStateUpdate();
   pendingUrlStateUpdateId = window.setTimeout(() => {
     pendingUrlStateUpdateId = 0;
-    applyUrlState();
+    applyUrlState(options);
   }, TEAM_SEARCH_URL_UPDATE_DELAY_MS);
 }
 
@@ -15869,7 +15888,7 @@ function renderInitialLoadingState() {
   renderReleaseTooltipLoadingState();
 }
 
-function renderSchedule() {
+function renderSchedule(options = {}) {
   cancelPendingTeamSearchRender();
 
   if (isInitialDataLoading || isInitialLiveDataLoading) {
@@ -15878,7 +15897,7 @@ function renderSchedule() {
     updateDateControls();
     updateTeamSearchControls();
     renderMatchLoadingState();
-    updateUrlState();
+    updateUrlState(options);
     return;
   }
 
@@ -15887,7 +15906,7 @@ function renderSchedule() {
   if (hasTeamSearchQuery()) {
     setYesterdayLayoutOffset(false);
     setLiveTodayMatchFocus(false);
-    renderTeamSearchResults();
+    renderTeamSearchResults(options);
     return;
   }
 
@@ -15910,7 +15929,7 @@ function renderSchedule() {
       setYesterdayLayoutOffset(false);
       setLiveTodayMatchFocus(false);
       renderEmptyState();
-      updateUrlState();
+      updateUrlState(options);
       return;
     }
 
@@ -15925,7 +15944,7 @@ function renderSchedule() {
     updateWrappedMatchRows(matchList);
     updateTruncatedTeamTooltips(matchList);
     updateTooltipBounds(matchList);
-    updateUrlState();
+    updateUrlState(options);
     return;
   }
 
@@ -15951,7 +15970,7 @@ function renderSchedule() {
   updateWrappedMatchRows(matchList);
   updateTruncatedTeamTooltips(matchList);
   updateTooltipBounds(matchList);
-  updateUrlState();
+  updateUrlState(options);
 }
 
 function updateActiveViewElements() {
@@ -15968,7 +15987,7 @@ function updateActiveViewElements() {
   updateTabIndicators();
 }
 
-function setActiveView(view) {
+function setActiveView(view, options = {}) {
   activeView = view === "standings" ? "standings" : "matches";
   updateActiveViewElements();
   updateWrappedMatchRows(viewPanels.matches);
@@ -15976,7 +15995,7 @@ function setActiveView(view) {
   updateStandingNameTooltips(standingsGrid);
   updateTooltipBounds(viewPanels.matches);
   updateTooltipBounds(standingsGrid);
-  updateUrlState();
+  updateUrlState(options);
 }
 
 function readInitialChromeState() {
@@ -16015,14 +16034,21 @@ function readUrlState(options = {}) {
   const requestedMatch =
     nextActiveView === "matches" && !requestedTeam ? getFixtureById(requestedMatchId) : null;
   const shouldUseRequestedDate = !options.forceToday && isDayKey(requestedDate);
+  const shouldUseUrlDefaults = options.useUrlDefaults === true;
 
   if (requestedTimeZone && timeZones.includes(requestedTimeZone)) {
     selectedTimeZone = requestedTimeZone;
+    storeTimeZone(selectedTimeZone);
+  } else if (shouldUseUrlDefaults) {
+    selectedTimeZone = defaultTimeZone;
     storeTimeZone(selectedTimeZone);
   }
 
   if (requestedLanguage) {
     currentLanguage = requestedLanguage;
+    localStorage.setItem(LANGUAGE_STORAGE_KEY, currentLanguage);
+  } else if (shouldUseUrlDefaults) {
+    currentLanguage = DEFAULT_LANGUAGE;
     localStorage.setItem(LANGUAGE_STORAGE_KEY, currentLanguage);
   }
 
@@ -16373,6 +16399,7 @@ function setLanguage(language) {
 
   currentLanguage = nextLanguage;
   localStorage.setItem(LANGUAGE_STORAGE_KEY, currentLanguage);
+  updateUrlState({ historyMode: "push" });
 
   const hasLoadedData = fixtures.length || historicalFixtures.length || tournament.groups.length;
   if (hasLoadedData) {
@@ -16385,8 +16412,6 @@ function setLanguage(language) {
     renderCatchUp();
     positionCatchUpPopover();
   }
-
-  updateUrlState();
 }
 
 async function refreshData() {
@@ -16451,7 +16476,7 @@ async function boot() {
 
 viewTabs.forEach((tab) => {
   tab.addEventListener("click", () => {
-    setActiveView(tab.dataset.view);
+    setActiveView(tab.dataset.view, { historyMode: "push" });
   });
 });
 
@@ -16467,7 +16492,7 @@ showYesterdayToggle?.addEventListener("change", () => {
 
 standingsModeTabs.forEach((tab) => {
   tab.addEventListener("click", () => {
-    selectStandingsMode(tab.dataset.standingsMode);
+    selectStandingsMode(tab.dataset.standingsMode, { historyMode: "push" });
   });
 });
 
@@ -16475,7 +16500,7 @@ standingsGrid.addEventListener("click", (event) => {
   const groupButton = event.target.closest(".third-place-group-button");
 
   if (groupButton) {
-    openStandingsGroup(groupButton.dataset.groupId);
+    openStandingsGroup(groupButton.dataset.groupId, { historyMode: "push" });
     return;
   }
 
@@ -16531,11 +16556,16 @@ teamSearchInput?.addEventListener("focus", () => {
 });
 
 teamSearchInput?.addEventListener("input", () => {
+  const hadTeamSearchQuery = hasTeamSearchQuery();
   teamSearchQuery = teamSearchInput.value;
+  const shouldPushSearchState = hadTeamSearchQuery !== hasTeamSearchQuery();
   isShowingOlderTeamMatches = false;
   isTeamSearchOpen = true;
   updateTeamSearchControls();
   setYesterdayLayoutOffset(false);
+  if (shouldPushSearchState) {
+    updateUrlState({ historyMode: "push" });
+  }
   scheduleTeamSearchRender();
 });
 
@@ -16546,7 +16576,7 @@ teamSearchInput?.addEventListener("keydown", (event) => {
 
   event.stopPropagation();
   if (hasTeamSearchQuery()) {
-    clearTeamSearch({ focus: true });
+    clearTeamSearch({ focus: true, historyMode: "push" });
   } else {
     setTeamSearchOpen(false, { focus: false });
     teamSearchToggle?.focus();
@@ -16554,7 +16584,7 @@ teamSearchInput?.addEventListener("keydown", (event) => {
 });
 
 teamSearchClear?.addEventListener("click", () => {
-  clearTeamSearch({ focus: true });
+  clearTeamSearch({ focus: true, historyMode: "push" });
 });
 
 standingsYearButton.addEventListener("click", () => {
@@ -16609,7 +16639,7 @@ standingsYearGrid.addEventListener("click", (event) => {
   if (!yearButton) {
     return;
   }
-  selectStandingsYear(yearButton.dataset.standingsYear);
+  selectStandingsYear(yearButton.dataset.standingsYear, { historyMode: "push" });
 });
 
 function handlePlayerLinkClick(event) {
@@ -16871,6 +16901,7 @@ timezoneSelect.addEventListener("change", () => {
   }
   ensureSelectableSelectedDay();
   renderTimeZoneOptions();
+  updateUrlState({ historyMode: "push" });
   renderSchedule();
   renderSourceNote();
 });
@@ -16892,7 +16923,7 @@ viewTabs.forEach((tab, index) => {
     event.preventDefault();
     const nextTab = viewTabs[getNextIndex()];
     nextTab.focus();
-    setActiveView(nextTab.dataset.view);
+    setActiveView(nextTab.dataset.view, { historyMode: "push" });
   });
 });
 
@@ -16913,20 +16944,31 @@ standingsModeTabs.forEach((tab, index) => {
     event.preventDefault();
     const nextTab = standingsModeTabs[getNextIndex()];
     nextTab.focus();
-    selectStandingsMode(nextTab.dataset.standingsMode);
+    selectStandingsMode(nextTab.dataset.standingsMode, { historyMode: "push" });
   });
 });
 
 window.addEventListener("popstate", () => {
+  clearPendingUrlStateUpdate();
   syncUrl = false;
-  readUrlState();
-  ensureSelectableSelectedDay();
-  renderTimeZoneOptions();
-  renderStandingsView();
-  setActiveView(activeView);
-  renderSchedule();
-  renderSourceNote();
-  syncUrl = true;
+  isRestoringHistoryState = true;
+  if (document.activeElement instanceof HTMLElement) {
+    document.activeElement.blur();
+  }
+  try {
+    readUrlState({ useUrlDefaults: true });
+    ensureSelectableSelectedDay();
+    renderTimeZoneOptions();
+    renderStandingsView();
+    setActiveView(activeView);
+    renderSchedule();
+    renderSourceNote();
+  } finally {
+    syncUrl = true;
+    window.setTimeout(() => {
+      isRestoringHistoryState = false;
+    }, 300);
+  }
 });
 
 const languageObserver = new MutationObserver(() => {
