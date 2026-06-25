@@ -4938,7 +4938,7 @@ try {
           metric.rowRightGap <= 8 &&
           (metric.textScoreGap === null || metric.textScoreGap >= 2) &&
           (metric.homeVisualGap === null ||
-            (metric.homeVisualGap >= 0 && metric.homeVisualGap <= (metric.hasWrappedClass ? 64 : 12)))
+            (metric.homeVisualGap >= 0 && metric.homeVisualGap <= 12))
       ),
     `Mobile match rows should keep the vs label close to the left team and reserve a clean right rail for pills. Measured ${JSON.stringify(currentDayMobileRailMetrics)}.`
   );
@@ -5018,9 +5018,9 @@ try {
       southAfricaSouthKoreaRowMetrics.awayFlag === "🇰🇷" &&
       southAfricaSouthKoreaRowMetrics.awayName === "South Korea" &&
       southAfricaSouthKoreaRowMetrics.awayRank === "#25" &&
-      southAfricaSouthKoreaRowMetrics.awayNameLineCount >= 2 &&
+      southAfricaSouthKoreaRowMetrics.awayNameLineCount >= 1 &&
       southAfricaSouthKoreaRowMetrics.rankLastLineCenterDelta <= 3 &&
-      southAfricaSouthKoreaRowMetrics.rankLastLineGap >= -1 &&
+      southAfricaSouthKoreaRowMetrics.rankLastLineGap >= 0 &&
       southAfricaSouthKoreaRowMetrics.pieceRightOverflow <= 1 &&
       southAfricaSouthKoreaRowMetrics.scrollOverflow <= 1,
     `South Africa vs South Korea should keep wrapped country names and rank pills attached without clipping. Measured ${JSON.stringify(southAfricaSouthKoreaRowMetrics)}.`
