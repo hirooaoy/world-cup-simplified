@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-25T18:07:00.198Z",
+  "updatedAt": "2026-06-25T20:52:45.371Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -6605,7 +6605,7 @@
       "homeTeamId": "ECU",
       "awayTeamId": "GER",
       "venue": "New York New Jersey Stadium",
-      "status": "SCHEDULED",
+      "status": "LIVE",
       "h2h": {
         "status": "loaded",
         "sourceId": "national-football-teams-h2h-2026-06-17",
@@ -6686,7 +6686,11 @@
           "matchNumber": 56
         }
       },
-      "matchNumber": 56
+      "matchNumber": 56,
+      "score": {
+        "home": 1,
+        "away": 1
+      }
     },
     {
       "id": "curacao-cote-divoire-2026-06-25",
@@ -6697,7 +6701,7 @@
       "homeTeamId": "CUW",
       "awayTeamId": "CIV",
       "venue": "Philadelphia Stadium",
-      "status": "SCHEDULED",
+      "status": "LIVE",
       "h2h": {
         "status": "verified-empty",
         "sourceId": "national-football-teams-h2h-2026-06-17",
@@ -6757,7 +6761,11 @@
           "matchNumber": 55
         }
       },
-      "matchNumber": 55
+      "matchNumber": 55,
+      "score": {
+        "home": 0,
+        "away": 1
+      }
     },
     {
       "id": "japan-sweden-2026-06-25",
