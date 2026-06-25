@@ -1,0 +1,199 @@
+{
+  "edition": "2026-world-cup",
+  "teamId": "CPV",
+  "teamName": "Cabo Verde",
+  "rosterNameOverrides": {
+    "Carlos Joaquim ANTUNES DOS SANTOS": "CJ dos Santos",
+    "CJ DOS SANTOS": "CJ dos Santos",
+    "DA COSTA": "Nuno da Costa",
+    "DOS SANTOS": "Stopira",
+    "Ianique DOS SANTOS TAVARES": "Stopira",
+    "Jair SEMEDO MONTEIRO": "Yannick Semedo",
+    "Josimar José ÉVORA DIAS": "Vozinha",
+    "LOPES CABRAL": "Sidny Lopes Cabral",
+    "STOPIRA": "Stopira"
+  },
+  "removeProfiles": [
+    "Cj Dos Santos",
+    "Da Costa",
+    "Dos Santos",
+    "Jair Semedo Monteiro",
+    "Josimar José Évora Dias",
+    "Lopes Cabral"
+  ],
+  "profiles": {
+    "CJ dos Santos": {
+      "aliases": ["Carlos Joaquim Antunes dos Santos", "Carlos Joaquim ANTUNES DOS SANTOS", "CJ DOS SANTOS"],
+      "skills": ["Goalkeeper reactions", "Short distribution", "Penalty-area command"],
+      "note": "Cabo Verde's modern goalkeeper option, useful for short build-up and reaction saves.",
+      "noteZh": "CJ·多斯桑托斯是佛得角现代型门将选择，适合短传组织和反应扑救。"
+    },
+    "Dailon Livramento": {
+      "skills": ["Striker movement", "Box finishing", "Channel runs"],
+      "note": "Cabo Verde's mobile striker, dangerous when he bends runs behind and attacks loose balls.",
+      "noteZh": "戴隆·利夫拉门托是佛得角机动中锋，弯线冲到身后并攻击松散球时很危险。"
+    },
+    "Deroy Duarte": {
+      "league": "Bulgarian First League",
+      "skills": ["Midfield carrying", "Press resistance", "Central progression"],
+      "note": "Cabo Verde's central ball carrier, able to move possession through pressure and connect attacks.",
+      "noteZh": "德罗伊·杜阿尔特是佛得角中路带球推进者，能在压力下推进控球并连接进攻。"
+    },
+    "Diney Borges": {
+      "league": "UAE Pro League",
+      "skills": ["Centre-back duels", "Aerial defending", "Defensive midfield cover"],
+      "note": "Cabo Verde's sturdy defensive piece, useful for aerial duels and covering central spaces.",
+      "noteZh": "迪内·博尔热斯是佛得角稳固的防守棋子，适合空中对抗并覆盖中路空间。"
+    },
+    "Garry Rodrigues": {
+      "league": "Cypriot First Division",
+      "skills": ["Wing speed", "Direct dribbling", "Transition threat"],
+      "note": "Cabo Verde's experienced wide runner, still useful for direct carries into transition space.",
+      "noteZh": "加里·罗德里格斯是佛得角经验型边路跑动点，依然适合直接带球冲击转换空间。"
+    },
+    "Gilson Benchimol": {
+      "league": "Russian Premier League",
+      "skills": ["Target-forward play", "Box presence", "Aerial finishing"],
+      "note": "Cabo Verde's bigger forward option, useful for holding service and attacking crosses.",
+      "noteZh": "吉尔森·本希莫尔是佛得角更高大的前锋选择，适合支住传球并冲击传中。"
+    },
+    "Helio Varela": {
+      "displayName": "Hélio Varela",
+      "skills": ["Left-wing acceleration", "One-on-one dribbling", "Cutback creation"],
+      "note": "Cabo Verde's explosive left-side threat, dangerous when he attacks a full-back and cuts service back.",
+      "noteZh": "埃利奥·瓦雷拉是佛得角爆发型左路威胁，冲击边后卫并倒三角传球时很危险。"
+    },
+    "Jamiro Monteiro": {
+      "skills": ["Midfield rhythm", "Chance creation", "Press resistance"],
+      "note": "Cabo Verde's midfield rhythm player, useful for calming possession and finding the first forward angle.",
+      "noteZh": "贾米罗·蒙泰罗是佛得角中场节奏点，适合让控球冷静下来并找到第一条向前线路。"
+    },
+    "João Paulo": {
+      "skills": ["Defensive midfield cover", "Left-footed balance", "Set-piece support"],
+      "note": "Cabo Verde's flexible midfield shield, able to cover defensive zones and support restarts.",
+      "noteZh": "若昂·保罗是佛得角灵活的中场屏障，能覆盖防守区域并支援定位球。"
+    },
+    "Jovane Cabral": {
+      "league": "Liga Portugal",
+      "skills": ["Wing flair", "Inside shooting", "One-on-one creation"],
+      "note": "Cabo Verde's flair winger, dangerous when he cuts inside and shoots before the block settles.",
+      "noteZh": "若瓦内·卡布拉尔是佛得角灵感型边锋，内切并在防线站稳前射门时很危险。"
+    },
+    "Kelvin Pires": {
+      "league": "Veikkausliiga",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/662119-1615925306.png?lm=1",
+      "skills": ["Centre-back size", "Aerial defending", "Defensive midfield cover"],
+      "note": "Cabo Verde's tall defensive cover, useful for aerial duels and protecting the middle.",
+      "noteZh": "凯尔文·皮雷斯是佛得角高大防守保障，适合空中对抗并保护中路。"
+    },
+    "Kevin Pina": {
+      "league": "Russian Premier League",
+      "skills": ["Midfield screening", "Ball winning", "Simple progression"],
+      "note": "Cabo Verde's midfield anchor, useful for winning second balls and moving the next pass safely.",
+      "noteZh": "凯文·皮纳是佛得角中场锚点，适合赢下第二落点并安全送出下一脚传球。"
+    },
+    "Laros Duarte": {
+      "league": "Nemzeti Bajnoksag I",
+      "skills": ["Defensive midfield bite", "Duel timing", "Short circulation"],
+      "note": "Cabo Verde's combative midfield option, useful for duels and short, practical passing.",
+      "noteZh": "拉罗斯·杜阿尔特是佛得角对抗型中场选择，适合对抗和简洁实用的短传。"
+    },
+    "Logan Costa": {
+      "skills": ["Centre-back recovery", "Aerial power", "Forward passing"],
+      "note": "Cabo Verde's athletic centre-back, important for defending space and starting attacks cleanly.",
+      "noteZh": "洛根·科斯塔是佛得角运动能力强的中卫，对防守空间和干净发起进攻很重要。"
+    },
+    "Marcio Rosa": {
+      "displayName": "Márcio Rosa",
+      "league": "Bulgarian First League",
+      "skills": ["Goalkeeper depth", "Reaction saves", "Box command"],
+      "note": "Cabo Verde's goalkeeper depth, bringing reflexes and calm cover behind Vozinha.",
+      "noteZh": "马尔西奥·罗萨是佛得角门将深度，在沃齐尼亚身后提供反应和冷静保障。"
+    },
+    "Nuno da Costa": {
+      "displayName": "Nuno da Costa",
+      "aliases": ["Da Costa", "DA COSTA"],
+      "skills": ["Forward link play", "Channel runs", "Penalty-box movement"],
+      "note": "Cabo Verde's experienced forward connector, useful for linking play and attacking the channels.",
+      "noteZh": "努诺·达科斯塔是佛得角经验型前场连接点，适合串联进攻并冲击通道。"
+    },
+    "Roberto Lopes": {
+      "skills": ["Centre-back leadership", "Aerial duels", "Box clearances"],
+      "note": "Cabo Verde's veteran centre-back, trusted for aerial duels and organizing deep defensive spells.",
+      "noteZh": "罗伯托·洛佩斯是佛得角老将中卫，空中对抗和组织深位防守阶段都值得信任。"
+    },
+    "Ryan Mendes": {
+      "skills": ["Forward experience", "Inside movement", "Penalty-box timing"],
+      "note": "Cabo Verde's veteran attacker, useful for timing runs and finding pockets near goal.",
+      "noteZh": "瑞安·门德斯是佛得角老将攻击手，适合掌握跑动时机并在门前附近找到空间。"
+    },
+    "Sidny Lopes Cabral": {
+      "aliases": ["Lopes Cabral", "LOPES CABRAL"],
+      "skills": ["Left-back power", "Aerial defending", "Wide recovery"],
+      "note": "Cabo Verde's left-sided defensive runner, useful for covering space and adding power at full-back.",
+      "noteZh": "西德尼·洛佩斯·卡布拉尔是佛得角左侧防守跑动点，适合覆盖空间并给边后卫位置增加力量。"
+    },
+    "Steven Moreira": {
+      "skills": ["Right-back experience", "Wide defending", "Overlap support"],
+      "note": "Cabo Verde's experienced right-back, steady in wide duels and useful supporting the attack.",
+      "noteZh": "史蒂文·莫雷拉是佛得角经验型右后卫，边路对抗稳健，也能支援进攻。"
+    },
+    "Stopira": {
+      "aliases": ["Dos Santos", "DOS SANTOS", "Ianique dos Santos Tavares", "Ianique DOS SANTOS TAVARES", "STOPIRA"],
+      "sourceTitle": "Stopira",
+      "transfermarktPlayerCode": "stopira",
+      "birthDate": "1988-05-20",
+      "summary": "Stopira is a Cabo Verde centre-back from SC União Torreense who gives the national team veteran defending, left-footed balance, and set-piece toughness.",
+      "position": "Centre-back",
+      "club": "SC União Torreense",
+      "league": "Liga Portugal 2",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/80486-1759250431.jpg?lm=1",
+      "marketValueEurMillions": 0.05,
+      "skills": ["Veteran defending", "Left-footed balance", "Set-piece toughness"],
+      "note": "Cabo Verde's veteran defensive organizer, useful for left-footed balance and set-piece battles.",
+      "noteZh": "斯托皮拉是佛得角老将防守组织者，对左脚平衡和定位球对抗很有用。",
+      "sourceUrl": "https://www.transfermarkt.com/stopira/profil/spieler/80486"
+    },
+    "Telmo Arcanjo": {
+      "league": "Liga Portugal",
+      "skills": ["Attacking midfield touch", "Final pass", "Set-piece quality"],
+      "note": "Cabo Verde's attacking connector, useful for final passes and set-piece service.",
+      "noteZh": "特尔莫·阿尔坎若是佛得角进攻连接点，适合最后一传和定位球传递。"
+    },
+    "Vozinha": {
+      "aliases": ["Josimar José Évora Dias", "Josimar Jose Evora Dias"],
+      "sourceTitle": "Vozinha",
+      "transfermarktPlayerCode": "vozinha",
+      "summary": "Vozinha is a Cabo Verde goalkeeper from Chaves who gives the national team veteran command, shot stopping, and tournament experience.",
+      "position": "Goalkeeper",
+      "club": "Chaves",
+      "league": "Liga Portugal 2",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/242277-1781537413.jpg?lm=1",
+      "marketValueEurMillions": 0.1,
+      "skills": ["Veteran command", "Shot stopping", "Tournament experience"],
+      "note": "Cabo Verde's veteran goalkeeper, trusted for leadership and saves in crowded penalty areas.",
+      "noteZh": "沃齐尼亚是佛得角老将门将，领导力和拥挤禁区中的扑救都值得信任。",
+      "sourceUrl": "https://www.transfermarkt.com/vozinha/profil/spieler/242277"
+    },
+    "Wagner Pina": {
+      "skills": ["Right-back energy", "Overlap timing", "Recovery defending"],
+      "note": "Cabo Verde's energetic right-back, useful for overlaps and quick recovery runs.",
+      "noteZh": "瓦格纳·皮纳是佛得角活力右后卫，适合套边和快速回追跑动。"
+    },
+    "Willy Semedo": {
+      "club": "Omonia Nicosia",
+      "league": "Cypriot First Division",
+      "skills": ["Left-wing scoring", "Inside runs", "Transition pace"],
+      "note": "Cabo Verde's left-wing scorer, dangerous when he attacks inside and arrives near the far post.",
+      "noteZh": "威利·塞梅多是佛得角左路得分手，内切冲击并来到后点附近时很危险。"
+    },
+    "Yannick Semedo": {
+      "aliases": ["Jair Semedo Monteiro", "Jair SEMEDO MONTEIRO"],
+      "league": "Liga Portugal 2",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/620307-1733951322.png?lm=1",
+      "skills": ["Central midfield work", "Pressing range", "Short passing"],
+      "note": "Cabo Verde's central midfield worker, useful for pressing range and keeping possession tidy.",
+      "noteZh": "扬尼克·塞梅多是佛得角中场工兵，适合覆盖压迫范围并让控球保持整洁。"
+    }
+  }
+}

@@ -320,7 +320,12 @@ function getProfileNameLookup(profilesData) {
   const names = new Map();
 
   for (const profile of Object.values(profilesData.profiles || {})) {
-    for (const value of [profile.name, profile.displayName]) {
+    const aliases = [
+      profile.name,
+      profile.displayName,
+      ...(Array.isArray(profile.aliases) ? profile.aliases : [])
+    ];
+    for (const value of aliases) {
       const key = normalizeText(value);
       if (key && !names.has(key)) {
         names.set(key, profile.name || profile.displayName);

@@ -2,16 +2,473 @@
   "edition": "2026-world-cup",
   "teamId": "HAI",
   "teamName": "Haiti",
+  "rosterNameOverrides": {
+    "Alexandre Jr PIERRE": "Alexandre Pierre",
+    "Carl Fred SAINTE": "Carl Sainte",
+    "Carlens Jean Fedlaire Ruby ARCUS": "Carlens Arcus",
+    "Derrick Burckley ETIENNE JR": "Derrick Etienne",
+    "Dominique Celidor SIMON": "Dominique Simon",
+    "Don Deedson LOUICIUS": "Louicius Deedson",
+    "Garven-Michee METUSALA": "Garven Metusala",
+    "Hannes Piterson D DELCROIX": "Hannes Delcroix",
+    "Jean Ricner BELLEGARDE": "Jean-Ricner Bellegarde",
+    "Jean-Kévin DUVERNE": "Jean-Kevin Duverne",
+    "Josue Jeremie CASIMIR": "Josue Casimir",
+    "Lenny Alvin Pico JOSEPH": "Lenny Joseph",
+    "Martin Yves Roberns Didier EXPERIENCE": "Martin Experience",
+    "Olivier Woodensky PIERRE": "Woodensky Pierre",
+    "Ruben Fritzner PROVIDENCE": "Ruben Providence",
+    "Wilguens Raphael Polynice PAUGAIN": "Wilguens Paugain",
+    "Yassin Enzo FORTUNE": "Yassin Fortune"
+  },
   "profiles": {
+    "Alexandre Pierre": {
+      "displayName": "Alexandre Pierre",
+      "sourceTitle": "Alexandre Pierre",
+      "transfermarktPlayerCode": "alexandre-pierre",
+      "birthDate": "2001-02-25",
+      "position": "Goalkeeper",
+      "club": "Sochaux",
+      "league": "Championnat National",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/big/838947-1776791525.jpg?lm=1",
+      "marketValueEurMillions": 0.7,
+      "skills": [
+        "Shot stopping",
+        "Tall box presence",
+        "Goalkeeper depth"
+      ],
+      "note": "Haiti's tall goalkeeper option, giving them shot-stopping depth, box presence, and a calm reset when pressure builds.",
+      "noteZh": "亚历山大·皮埃尔是海地高大门将选择，能提供扑救深度、禁区存在感，并在压力增加时冷静重新组织。",
+      "sourceUrl": "https://www.transfermarkt.com/alexandre-pierre/profil/spieler/838947"
+    },
+    "Carl Sainte": {
+      "displayName": "Carl Sainté",
+      "sourceTitle": "Carl Sainté",
+      "transfermarktPlayerCode": "carl-sainte",
+      "birthDate": "2002-08-09",
+      "position": "Defensive midfielder",
+      "club": "El Paso Locomotive FC",
+      "league": "USL Championship",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/big/718244-1648859666.JPG?lm=1",
+      "marketValueEurMillions": 0.125,
+      "skills": [
+        "Midfield screening",
+        "Ball winning",
+        "Simple circulation"
+      ],
+      "note": "Haiti's midfield screen, useful for breaking up second balls, protecting the centre-backs, and keeping the next pass simple.",
+      "noteZh": "卡尔·圣特是海地的中场屏障，能破坏第二落点、保护中卫，并把下一脚传球处理得简单。",
+      "sourceUrl": "https://www.transfermarkt.com/carl-sainte/profil/spieler/718244"
+    },
+    "Carlens Arcus": {
+      "displayName": "Carlens Arcus",
+      "sourceTitle": "Carlens Arcus",
+      "transfermarktPlayerCode": "carlens-arcus",
+      "birthDate": "1996-06-28",
+      "position": "Right-back",
+      "club": "Angers",
+      "league": "Ligue 1",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/371686-1750955924.png?lm=1",
+      "marketValueEurMillions": 1.8,
+      "skills": [
+        "Right-back defending",
+        "Overlap timing",
+        "Recovery runs"
+      ],
+      "note": "Haiti's senior right-back, giving them recovery runs, overlap timing, and reliable defending against stronger wide players.",
+      "noteZh": "卡伦斯·阿尔屈斯是海地经验丰富的右后卫，能回追、把握套边时机，并可靠地防守强势边路球员。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/carlens-arcus/profil/spieler/371686"
+    },
+    "Danley Jean Jacques": {
+      "displayName": "Danley Jean Jacques",
+      "sourceTitle": "Danley Jean Jacques",
+      "transfermarktPlayerCode": "danley-jean-jacques",
+      "birthDate": "2000-05-20",
+      "position": "Defensive midfielder",
+      "club": "Philadelphia Union",
+      "league": "Major League Soccer",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/628834-1771713850.jpg?lm=1",
+      "marketValueEurMillions": 3,
+      "skills": [
+        "Ball winning",
+        "Central coverage",
+        "Forward passing"
+      ],
+      "note": "Haiti's central ball-winner, covering space in front of the defense and turning regain moments into forward passes.",
+      "noteZh": "丹利·让-雅克是海地中路抢球手，能覆盖防线身前空间，并把夺回球权的瞬间转化为向前传球。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/danley-jean-jacques/profil/spieler/628834"
+    },
+    "Derrick Etienne": {
+      "displayName": "Derrick Etienne Jr.",
+      "sourceTitle": "Derrick Etienne Jr.",
+      "transfermarktPlayerCode": "derrick-etienne-jr-",
+      "birthDate": "1996-11-25",
+      "summary": "Derrick Etienne Jr. is a Haiti winger who plays for Toronto FC and gives the national team direct carrying, left-side width, and transition speed.",
+      "position": "Left winger",
+      "club": "Toronto FC",
+      "league": "Major League Soccer",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/354763-1771789507.jpg?lm=1",
+      "marketValueEurMillions": 0.8,
+      "skills": [
+        "Left-wing carries",
+        "Transition speed",
+        "Direct service"
+      ],
+      "note": "Haiti's direct wide runner, able to carry out of pressure, attack space early, and serve strikers before the block resets.",
+      "noteZh": "德里克·艾蒂安二世是海地直接型边路跑动点，能带球摆脱压力、提前攻击空间，并在防线重组前给前锋送球。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/derrick-etienne-jr-/profil/spieler/354763"
+    },
+    "Dominique Simon": {
+      "displayName": "Dominique Simon",
+      "sourceTitle": "Dominique Simon",
+      "transfermarktPlayerCode": "dominique-simon",
+      "birthDate": "2000-07-29",
+      "position": "Defensive midfielder",
+      "club": "Tatran Prešov",
+      "league": "Slovak First Football League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/988188-1713341554.png?lm=1",
+      "estimatedMarketValueEurMillions": 0.2,
+      "skills": [
+        "Defensive midfield cover",
+        "Second-ball pressure",
+        "Short passing"
+      ],
+      "note": "Haiti's defensive midfield cover, helping them chase second balls, close central gaps, and keep short passes moving.",
+      "noteZh": "多米尼克·西蒙是海地防守型中场轮换，能追抢第二落点、封住中路空当，并保持短传运转。",
+      "sourceUrl": "https://www.transfermarkt.us/dominique-simon/profil/spieler/988188"
+    },
+    "Duckens Nazon": {
+      "displayName": "Duckens Nazon",
+      "sourceTitle": "Duckens Nazon",
+      "transfermarktPlayerCode": "duckens-nazon",
+      "birthDate": "1994-04-07",
+      "position": "Centre-forward",
+      "club": "Esteghlal",
+      "league": "Persian Gulf Pro League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/big/345763-1712923993.png?lm=1",
+      "marketValueEurMillions": 0.8,
+      "skills": [
+        "Haiti scoring record",
+        "Penalty-box power",
+        "Direct shooting"
+      ],
+      "note": "Haiti's all-time scoring reference, giving them penalty-box power, direct shooting, and belief from very little service.",
+      "noteZh": "杜肯斯·纳松是海地历史得分支点，能在禁区内提供力量、直接射门，并从很少的传球中制造信心。",
+      "sourceUrl": "https://www.transfermarkt.com/duckens-nazon/profil/spieler/345763"
+    },
+    "Frantzdy Pierrot": {
+      "displayName": "Frantzdy Pierrot",
+      "sourceTitle": "Frantzdy Pierrot",
+      "transfermarktPlayerCode": "frantzdy-pierrot",
+      "birthDate": "1995-03-29",
+      "position": "Centre-forward",
+      "club": "Çaykur Rizespor (on loan from AEK Athens)",
+      "league": "Süper Lig",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/492955-1754429681.png?lm=1",
+      "marketValueEurMillions": 1.5,
+      "skills": [
+        "Aerial target",
+        "Hold-up play",
+        "Box finishing"
+      ],
+      "note": "Haiti's powerful target forward, built for aerial service, hold-up touches, and occupying centre-backs near goal.",
+      "noteZh": "弗朗茨迪·皮埃罗是海地强力支点前锋，适合接应高空球、背身做球，并在门前牵制中卫。",
+      "sourceUrl": "https://www.transfermarkt.us/frantzdy-pierrot/profil/spieler/492955"
+    },
+    "Garven Metusala": {
+      "displayName": "Garven Metusala",
+      "sourceTitle": "Garven Metusala",
+      "transfermarktPlayerCode": "garven-metusala",
+      "birthDate": "1999-12-31",
+      "position": "Centre-back",
+      "club": "Colorado Springs Switchbacks",
+      "league": "USL Championship",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/big/859175-1714919101.jpg?lm=1",
+      "marketValueEurMillions": 0.2,
+      "skills": [
+        "Centre-back duels",
+        "Aerial defending",
+        "Set-piece marking"
+      ],
+      "note": "Haiti's centre-back depth, useful for aerial duels, set-piece marking, and staying compact when defending long spells.",
+      "noteZh": "加文·梅图萨拉是海地中卫深度，能争顶、防守定位球，并在长时间防守时保持阵型紧凑。",
+      "sourceUrl": "https://www.transfermarkt.us/garven-metusala/profil/spieler/859175"
+    },
+    "Hannes Delcroix": {
+      "displayName": "Hannes Delcroix",
+      "sourceTitle": "Hannes Delcroix",
+      "transfermarktPlayerCode": "hannes-delcroix",
+      "birthDate": "1999-02-28",
+      "position": "Centre-back, left-back",
+      "club": "Lugano",
+      "league": "Swiss Super League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/338635-1660674722.jpg?lm=1",
+      "marketValueEurMillions": 2,
+      "skills": [
+        "Left-footed defending",
+        "Back-line recovery",
+        "Wide cover"
+      ],
+      "note": "Haiti's left-footed defender, giving them wide cover, back-line recovery, and cleaner exits under pressure.",
+      "noteZh": "汉内斯·德尔克鲁瓦是海地左脚后卫，能提供边路覆盖、防线回追，并在压力下更干净地出球。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/hannes-delcroix/profil/spieler/338635"
+    },
+    "Jean-Kevin Duverne": {
+      "displayName": "Jean-Kévin Duverne",
+      "sourceTitle": "Jean-Kévin Duverne",
+      "transfermarktPlayerCode": "jean-kevin-duverne",
+      "birthDate": "1997-07-12",
+      "position": "Centre-back, right-back",
+      "club": "Gent (on loan from Nantes)",
+      "league": "Belgian Pro League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/344864-1704213124.jpg?lm=1",
+      "marketValueEurMillions": 2,
+      "skills": [
+        "Back-line versatility",
+        "Recovery defending",
+        "Right-side cover"
+      ],
+      "note": "Haiti's versatile defender, able to cover centre-back or right-back while giving the back line recovery speed.",
+      "noteZh": "让-凯文·杜韦纳是海地多面后卫，能覆盖中卫或右后卫位置，并为防线提供回追速度。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/jean-kevin-duverne/profil/spieler/344864"
+    },
+    "Jean-Ricner Bellegarde": {
+      "displayName": "Jean-Ricner Bellegarde",
+      "sourceTitle": "Jean-Ricner Bellegarde",
+      "transfermarktPlayerCode": "jean-ricner-bellegarde",
+      "birthDate": "1998-06-27",
+      "position": "Central midfielder",
+      "club": "Wolverhampton Wanderers",
+      "league": "Premier League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/450050-1769112628.jpg?lm=1",
+      "marketValueEurMillions": 16,
+      "skills": [
+        "Midfield carrying",
+        "Pressure escapes",
+        "Forward combinations"
+      ],
+      "note": "Haiti's highest-level midfield connector, carrying out of pressure and linking counters before opponents can crowd him.",
+      "noteZh": "让-里克内尔·贝勒加德是海地最高级别的中场连接点，能带球摆脱压力，并在对手合围前串联反击。",
+      "sourceUrl": "https://www.transfermarkt.us/jean-ricner-bellegarde/profil/spieler/450050"
+    },
+    "Johny Placide": {
+      "displayName": "Johny Placide",
+      "sourceTitle": "Johny Placide",
+      "transfermarktPlayerCode": "johny-placide",
+      "birthDate": "1988-01-29",
+      "position": "Goalkeeper",
+      "club": "Guingamp",
+      "league": "Ligue 2",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/51035-1613711724.png?lm=1",
+      "marketValueEurMillions": 0.25,
+      "skills": [
+        "Veteran shot stopping",
+        "Penalty saves",
+        "Defensive command"
+      ],
+      "note": "Haiti's veteran goalkeeper, bringing shot-stopping, penalty experience, and a loud organizing voice behind the defense.",
+      "noteZh": "约翰尼·普拉西德是海地老将门将，能提供扑救、点球经验，以及防线身后清晰的指挥声音。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/johny-placide/profil/spieler/51035"
+    },
+    "Josue Casimir": {
+      "displayName": "Josué Casimir",
+      "sourceTitle": "Josué Casimir",
+      "transfermarktPlayerCode": "josue-casimir",
+      "birthDate": "2001-09-24",
+      "position": "Right winger, right wing-back",
+      "club": "Auxerre",
+      "league": "Ligue 1",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/763182-1661006947.jpg?lm=1",
+      "marketValueEurMillions": 3,
+      "skills": [
+        "Right-side running",
+        "Wing-back energy",
+        "Early crossing"
+      ],
+      "note": "Haiti's right-side runner, useful as a winger or wing-back for early crosses and repeated recovery sprints.",
+      "noteZh": "若苏埃·卡西米尔是海地右路跑动点，能踢边锋或翼卫，送出早传中并反复回追冲刺。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/josue-casimir/profil/spieler/763182"
+    },
+    "Josue Duverger": {
+      "displayName": "Josué Duverger",
+      "sourceTitle": "Josué Duverger",
+      "transfermarktPlayerCode": "josue-duverger",
+      "birthDate": "2000-04-27",
+      "position": "Goalkeeper",
+      "club": "FC Cosmos Koblenz",
+      "league": "Oberliga Rheinland-Pfalz/Saar",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/big/490369-1764442622.jpg?lm=1",
+      "marketValueEurMillions": 0.05,
+      "skills": [
+        "Goalkeeper depth",
+        "Penalty reactions",
+        "Low-block patience"
+      ],
+      "note": "Haiti's third goalkeeper option, giving the squad penalty reactions, patience in low blocks, and emergency depth.",
+      "noteZh": "若苏埃·杜韦尔热是海地第三门将选择，能提供点球反应、低位防守中的耐心，以及应急深度。",
+      "sourceUrl": "https://www.transfermarkt.com/josue-duverger/profil/spieler/490369"
+    },
+    "Keeto Thermoncy": {
+      "displayName": "Keeto Thermoncy",
+      "sourceTitle": "Keeto Thermoncy",
+      "transfermarktPlayerCode": "keeto-thermoncy",
+      "birthDate": "2006-03-29",
+      "position": "Centre-back",
+      "club": "BSC Young Boys U21",
+      "league": "Swiss Promotion League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/big/1061046-1780383752.jpg?lm=1",
+      "marketValueEurMillions": 0.1,
+      "skills": [
+        "Young centre-back cover",
+        "Aerial reach",
+        "Development upside"
+      ],
+      "note": "Haiti's young centre-back, giving them aerial reach, defensive depth, and a long-term profile in a demanding tournament.",
+      "noteZh": "基托·特蒙西是海地年轻中卫，能提供空中覆盖、防守深度，以及大赛中的长期培养价值。",
+      "sourceUrl": "https://www.transfermarkt.us/keeto-thermoncy/profil/spieler/1061046"
+    },
+    "Lenny Joseph": {
+      "displayName": "Lenny Joseph",
+      "sourceTitle": "Lenny Joseph",
+      "transfermarktPlayerCode": "lenny-joseph",
+      "birthDate": "2000-10-12",
+      "position": "Centre-forward",
+      "club": "Ferencváros",
+      "league": "Nemzeti Bajnokság I",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/big/815359-1653404408.jpg?lm=1",
+      "marketValueEurMillions": 2,
+      "skills": [
+        "Centre-forward movement",
+        "Channel runs",
+        "Quick finishing"
+      ],
+      "note": "Haiti's mobile centre-forward, attacking channels, pressing loose touches, and finishing quickly when space appears.",
+      "noteZh": "莱尼·约瑟夫是海地机动中锋，能冲击通道、压迫松散触球，并在空间出现时快速终结。",
+      "sourceUrl": "https://www.transfermarkt.com/lenny-joseph/profil/spieler/815359"
+    },
+    "Louicius Deedson": {
+      "displayName": "Louicius Deedson",
+      "sourceTitle": "Louicius Deedson",
+      "transfermarktPlayerCode": "louicius-deedson",
+      "birthDate": "2001-02-11",
+      "position": "Right winger",
+      "club": "FC Dallas",
+      "league": "Major League Soccer",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/646108-1771674994.jpg?lm=1",
+      "marketValueEurMillions": 1.2,
+      "skills": [
+        "Right-wing dribbling",
+        "Transition outlet",
+        "Cutback service"
+      ],
+      "note": "Haiti's right-wing outlet, stretching transition attacks and looking for cutbacks when defenders overcommit.",
+      "noteZh": "路易修斯·迪德森是海地右路出口，能拉开转换进攻，并在防守人扑过头时寻找倒三角传球。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/louicius-deedson/profil/spieler/646108"
+    },
+    "Markhus Lacroix": {
+      "displayName": "Duke Lacroix",
+      "sourceTitle": "Duke Lacroix",
+      "transfermarktPlayerCode": "duke-lacroix",
+      "birthDate": "1993-10-14",
+      "position": "Left-back, winger",
+      "club": "Colorado Springs Switchbacks",
+      "league": "USL Championship",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/big/375472-1713029055.jpg?lm=1",
+      "marketValueEurMillions": 0.125,
+      "skills": [
+        "Left-side defending",
+        "Wide experience",
+        "Set-piece delivery"
+      ],
+      "note": "Haiti's experienced left-sided option, known as Duke, giving them wide defending, set-piece delivery, and tournament calm.",
+      "noteZh": "马库斯·“杜克”·拉克鲁瓦是海地经验丰富的左路选择，能提供边路防守、定位球传球和大赛冷静。",
+      "sourceUrl": "https://www.transfermarkt.com/duke-lacroix/profil/spieler/375472"
+    },
+    "Martin Experience": {
+      "displayName": "Martin Expérience",
+      "sourceTitle": "Martin Expérience",
+      "transfermarktPlayerCode": "martin-experience",
+      "birthDate": "1999-03-09",
+      "position": "Left-back",
+      "club": "Nancy",
+      "league": "Ligue 2",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/big/804885-1692806194.png?lm=1",
+      "marketValueEurMillions": 0.35,
+      "skills": [
+        "Left-back recovery",
+        "Overlap support",
+        "Wide duels"
+      ],
+      "note": "Haiti's left-back runner, useful for recovery sprints, overlap support, and surviving repeated wide duels.",
+      "noteZh": "马丁·埃克斯佩里昂斯是海地左后卫跑动点，能回追冲刺、支援套边，并应对反复的边路对抗。",
+      "sourceUrl": "https://www.transfermarkt.us/martin-experience/profil/spieler/804885"
+    },
+    "Ricardo Ade": {
+      "displayName": "Ricardo Adé",
+      "sourceTitle": "Ricardo Adé",
+      "transfermarktPlayerCode": "ricardo-ade",
+      "birthDate": "1990-05-21",
+      "position": "Centre-back",
+      "club": "L.D.U. Quito",
+      "league": "Ecuadorian Serie A",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/big/278145-1755014221.png?lm=1",
+      "marketValueEurMillions": 0.3,
+      "skills": [
+        "Defensive leadership",
+        "Aerial power",
+        "Box protection"
+      ],
+      "note": "Haiti's veteran centre-back, bringing aerial power, defensive leadership, and a rugged presence inside the box.",
+      "noteZh": "里卡多·阿德是海地老将中卫，能带来空中力量、防守领导力，以及禁区内的强硬存在感。",
+      "sourceUrl": "https://www.transfermarkt.com/ricardo-ade/profil/spieler/278145"
+    },
+    "Ruben Providence": {
+      "displayName": "Ruben Providence",
+      "sourceTitle": "Ruben Providence",
+      "transfermarktPlayerCode": "ruben-providence",
+      "birthDate": "2001-07-07",
+      "position": "Left winger",
+      "club": "Almere City",
+      "league": "Keuken Kampioen Divisie",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/big/536520-1755787815.jpg?lm=1",
+      "marketValueEurMillions": 0.3,
+      "skills": [
+        "Left-wing pace",
+        "Direct carries",
+        "Counter outlet"
+      ],
+      "note": "Haiti's left-wing counter outlet, stretching space with pace and carrying forward before the opponent can recover shape.",
+      "noteZh": "鲁本·普罗维登斯是海地左路反击出口，能用速度拉开空间，并在对手恢复阵型前向前推进。",
+      "sourceUrl": "https://www.transfermarkt.com/ruben-providence/profil/spieler/536520"
+    },
+    "Wilguens Paugain": {
+      "displayName": "Wilguens Paugain",
+      "sourceTitle": "Wilguens Paugain",
+      "transfermarktPlayerCode": "wilguens-paugain",
+      "birthDate": "2001-08-24",
+      "position": "Right-back",
+      "club": "Zulte Waregem",
+      "league": "Belgian Pro League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/609691-1726495140.png?lm=1",
+      "marketValueEurMillions": 0.8,
+      "skills": [
+        "Right-back energy",
+        "Wide tackling",
+        "Support runs"
+      ],
+      "note": "Haiti's right-back energy option, giving them wide tackling, support runs, and fresh legs against late pressure.",
+      "noteZh": "威尔根斯·波甘是海地活力型右后卫选择，能完成边路抢断、支援跑动，并在后段压力下提供新鲜体能。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/wilguens-paugain/profil/spieler/609691"
+    },
     "Wilson Isidor": {
       "displayName": "Wilson Isidor",
       "sourceTitle": "Wilson Isidor",
       "transfermarktPlayerCode": "wilson-isidor",
       "birthDate": "2000-08-27",
-      "position": "Striker",
+      "position": "Centre-forward",
       "club": "Sunderland",
       "league": "Premier League",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Wilson%20Isidor%202022.jpg?width=160",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/494237-1739871086.jpg?lm=1",
       "marketValueEurMillions": 18,
       "skills": [
         "Runs in behind",
@@ -19,7 +476,46 @@
         "Quick finishing"
       ],
       "note": "Haiti's direct striker, giving them sharp runs behind the back line, penalty-area movement, and first-time finishing when chances arrive.",
-      "noteZh": "威尔逊·伊西多是海地的直接型前锋，能冲击防线身后，在禁区内找到接应位置，并在机会出现时完成第一时间终结。"
+      "noteZh": "威尔逊·伊西多是海地直接型前锋，能冲击防线身后，在禁区内找到接应位置，并在机会出现时完成第一时间终结。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/wilson-isidor/profil/spieler/494237"
+    },
+    "Woodensky Pierre": {
+      "displayName": "Woodensky Pierre",
+      "sourceTitle": "Woodensky Pierre",
+      "transfermarktPlayerCode": "woodensky-pierre",
+      "birthDate": "2004-12-30",
+      "position": "Defensive midfielder",
+      "club": "Violette AC",
+      "league": "Ligue Haïtienne",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/big/1017735-1778680965.jpeg?lm=1",
+      "marketValueEurMillions": 0.1,
+      "skills": [
+        "Domestic midfield bite",
+        "Ball winning",
+        "Protective positioning"
+      ],
+      "note": "Haiti's domestic midfield stopper, useful for ball-winning, protective positioning, and giving the squad a home-league edge.",
+      "noteZh": "伍登斯基·皮埃尔是海地本土联赛的中场拦截者，能抢球、站位保护，并给阵容带来本土联赛特质。",
+      "sourceUrl": "https://www.transfermarkt.com/woodensky-pierre/profil/spieler/1017735"
+    },
+    "Yassin Fortune": {
+      "displayName": "Yassin Fortuné",
+      "sourceTitle": "Yassin Fortuné",
+      "transfermarktPlayerCode": "yassin-fortune",
+      "birthDate": "1999-01-30",
+      "position": "Centre-forward, attacking midfielder",
+      "club": "Vizela",
+      "league": "Liga Portugal 2",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/big/342878-1706355852.png?lm=1",
+      "marketValueEurMillions": 0.3,
+      "skills": [
+        "Forward versatility",
+        "Direct running",
+        "Late attacking runs"
+      ],
+      "note": "Haiti's flexible forward option, able to run beyond, drop between lines, and add late attacking movement.",
+      "noteZh": "亚辛·福尔蒂内是海地灵活的前场选择，能前插身后、回撤到线间，并增加后段进攻跑动。",
+      "sourceUrl": "https://www.transfermarkt.com/yassin-fortune/profil/spieler/342878"
     }
   }
 }

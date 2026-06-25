@@ -152,6 +152,79 @@ function getRosterNameCandidates(value) {
   });
 }
 
+function getProfileAliases(profileName, profile = {}) {
+  return [
+    profileName,
+    profile?.name,
+    profile?.displayName,
+    ...(Array.isArray(profile?.aliases) ? profile.aliases : [])
+  ].filter((value) => typeof value === "string" && value.trim());
+}
+
+function normalizeHistoricalTeamName(value) {
+  return normalizePlayerName(value);
+}
+
+function getHistoricalProfileVersionKey(name, teamName, tournamentYear) {
+  const nameKey = normalizePlayerName(name);
+  const teamKey = normalizeHistoricalTeamName(teamName);
+  const year = Number(tournamentYear);
+
+  return nameKey && teamKey && Number.isInteger(year) && year > 0 ? `${year}:${teamKey}:${nameKey}` : "";
+}
+
+function getHistoricalProfileTeamCandidates(profile = {}) {
+  return [
+    profile?.teamName,
+    ...(Array.isArray(profile?.teams) ? profile.teams : [])
+  ].filter((teamName) => typeof teamName === "string" && teamName.trim());
+}
+
+function getHistoricalProfileYearCandidates(profile = {}) {
+  return [
+    profile?.tournamentYear,
+    ...(Array.isArray(profile?.tournamentYears) ? profile.tournamentYears : [])
+  ]
+    .map(Number)
+    .filter((year) => Number.isInteger(year) && year > 0);
+}
+
+function buildHistoricalProfileVersionSet(profiles = new Map()) {
+  const versionKeys = new Set();
+
+  for (const [profileName, profile] of profiles) {
+    const aliases = getProfileAliases(profile?.name || profileName, profile);
+    for (const alias of aliases) {
+      for (const teamName of getHistoricalProfileTeamCandidates(profile)) {
+        for (const year of getHistoricalProfileYearCandidates(profile)) {
+          const key = getHistoricalProfileVersionKey(alias, teamName, year);
+          if (key) {
+            versionKeys.add(key);
+          }
+        }
+      }
+    }
+  }
+
+  return versionKeys;
+}
+
+function addRequiredHistoricalProfile(refs, name, teamName, tournamentYear) {
+  const key = getHistoricalProfileVersionKey(name, teamName, tournamentYear);
+  if (key) {
+    refs.set(key, { name, teamName, tournamentYear: Number(tournamentYear) });
+  }
+}
+
+function historicalTeamNameForSide(fixture, side) {
+  return side === "home" ? fixture.homeSlot : fixture.awaySlot;
+}
+
+function historicalGoalPlayerTeamName(fixture, scoringSide, goal) {
+  const playerSide = goal?.ownGoal ? (scoringSide === "home" ? "away" : "home") : scoringSide;
+  return historicalTeamNameForSide(fixture, playerSide);
+}
+
 function textMentionsFullPlayerName(text, name) {
   const parts = String(name || "").trim().split(/\s+/).filter(Boolean);
   if (parts.length < 2) {
@@ -171,7 +244,7 @@ function resolveExistingProfileName(name, profiles = new Map()) {
   const reversedName = [...nameTokens].reverse().join(" ");
 
   for (const [profileName, profile] of profiles) {
-    const candidates = [profileName, profile?.displayName].filter(Boolean);
+    const candidates = getProfileAliases(profileName, profile);
     for (const candidate of candidates) {
       const normalizedCandidate = normalizePlayerName(candidate);
       const candidateTokens = normalizedCandidate ? normalizedCandidate.split(/\s+/).filter(Boolean) : [];
@@ -406,10 +479,19 @@ assert(
 
 const playerProfiles = new Map(Object.entries(playerProfilesData?.profiles || {}));
 const historicalPlayerProfiles = new Map(Object.entries(historicalPlayerProfilesData?.profiles || {}));
+const playerProfilesByAlias = new Map();
+for (const [profileName, profile] of playerProfiles) {
+  for (const alias of getProfileAliases(profileName, profile)) {
+    const key = normalizePlayerName(alias);
+    if (key && !playerProfilesByAlias.has(key)) {
+      playerProfilesByAlias.set(key, profile);
+    }
+  }
+}
 const playerAvailabilityByTeam = new Map();
 const fixtureUnavailableRefs = [];
 const requiredProfileNames = new Set();
-const requiredHistoricalProfileNames = new Set();
+const requiredHistoricalProfileRefs = new Map();
 
 for (const group of groups.values()) {
   for (const teamId of group.teamIds) {
@@ -841,7 +923,7 @@ for (const playerName of requiredProfileNames) {
     continue;
   }
 
-  const profile = playerProfiles.get(playerName);
+  const profile = playerProfilesByAlias.get(normalizePlayerName(playerName));
   assert(profile, `player-profiles.json is missing "${playerName}"`);
   if (!profile) {
     continue;
@@ -976,13 +1058,19 @@ for (const fixture of historyData.fixtures || []) {
     ["goalsHome", fixture.goalsHome || []],
     ["goalsAway", fixture.goalsAway || []]
   ]) {
+    const scoringSide = field === "goalsAway" ? "away" : "home";
     for (const [index, goal] of goals.entries()) {
       assert(
         typeof goal?.name === "string" && goal.name.trim(),
         `Historical fixture "${fixture.id}" ${field}[${index}] must include a scorer name`
       );
       if (typeof goal?.name === "string" && goal.name.trim()) {
-        requiredHistoricalProfileNames.add(goal.name);
+        addRequiredHistoricalProfile(
+          requiredHistoricalProfileRefs,
+          goal.name,
+          historicalGoalPlayerTeamName(fixture, scoringSide, goal),
+          fixture.tournamentYear
+        );
       }
     }
   }
@@ -1033,7 +1121,12 @@ for (const fixture of historyData.fixtures || []) {
         `Historical fixture "${fixture.id}" keyPlayers.${side}[${index}] must include a player name`
       );
       if (typeof player?.name === "string" && player.name.trim()) {
-        requiredHistoricalProfileNames.add(player.name);
+        addRequiredHistoricalProfile(
+          requiredHistoricalProfileRefs,
+          player.name,
+          historicalTeamNameForSide(fixture, side),
+          fixture.tournamentYear
+        );
       }
       assert(
         typeof player?.note === "string" && player.note.trim(),
@@ -1051,16 +1144,28 @@ for (const [profileName, profile] of historicalPlayerProfiles) {
   }
 
   assert(typeof profile.name === "string" && profile.name.trim(), `${owner} must include name`);
-  assert(profile.name === profileName, `${owner} name must match its profile key`);
+  if (profile.profileKey !== undefined) {
+    assert(profile.profileKey === profileName, `${owner} profileKey must match its profile key`);
+  } else {
+    assert(profile.name === profileName, `${owner} name must match its profile key`);
+  }
   assert(profile.historical === true, `${owner} must be marked historical`);
   assert(typeof profile.sourceId === "string" && sourceIds.has(profile.sourceId), `${owner} references unknown source`);
   assert(Array.isArray(profile.teams) && profile.teams.length > 0, `${owner} must include teams`);
+  if (profile.teamName !== undefined) {
+    assert(typeof profile.teamName === "string" && profile.teamName.trim(), `${owner} teamName must be a non-empty string`);
+    assert(profile.teams.includes(profile.teamName), `${owner} teamName must be included in teams`);
+  }
   assert(
     Array.isArray(profile.tournamentYears) &&
       profile.tournamentYears.length > 0 &&
       profile.tournamentYears.every((year) => isNumber(year)),
     `${owner} must include numeric tournamentYears`
   );
+  if (profile.tournamentYear !== undefined) {
+    assert(isNumber(profile.tournamentYear), `${owner} tournamentYear must be numeric when present`);
+    assert(profile.tournamentYears.includes(profile.tournamentYear), `${owner} tournamentYear must be included in tournamentYears`);
+  }
   assert(typeof profile.position === "string" && profile.position.trim(), `${owner} must include position`);
   assert(typeof profile.club === "string" && profile.club.trim(), `${owner} must include archive club line`);
   assert(Array.isArray(profile.skills) && profile.skills.length > 0, `${owner} must include skills`);
@@ -1106,10 +1211,12 @@ for (const [profileName, profile] of historicalPlayerProfiles) {
   }
 }
 
-for (const playerName of requiredHistoricalProfileNames) {
+const historicalProfileVersionKeys = buildHistoricalProfileVersionSet(historicalPlayerProfiles);
+for (const ref of requiredHistoricalProfileRefs.values()) {
+  const refKey = getHistoricalProfileVersionKey(ref.name, ref.teamName, ref.tournamentYear);
   assert(
-    historicalPlayerProfiles.has(playerName),
-    `historical-player-profiles.json is missing "${playerName}"`
+    historicalProfileVersionKeys.has(refKey),
+    `historical-player-profiles.json is missing "${ref.name} / ${ref.teamName} / ${ref.tournamentYear}"`
   );
 }
 

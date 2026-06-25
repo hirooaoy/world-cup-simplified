@@ -33,6 +33,154 @@ function assert(condition, message) {
   }
 }
 
+async function getMatchRowMetaCollisionMetrics(pageInstance, rowSelector = ".match-row") {
+  return pageInstance.locator(rowSelector).evaluateAll((rows) =>
+    rows
+      .map((row) => {
+        const chips = Array.from(
+          row.querySelectorAll(".match-row-meta .live-pill, .match-row-meta .up-next-pill, .match-row-meta .match-score, .match-row-meta .score-status")
+        );
+
+        if (!chips.length) {
+          return null;
+        }
+
+        const textPieces = Array.from(
+          row.querySelectorAll(".match-teams .team-name-start-lock, .match-teams .team-name-rank-lock, .match-teams .versus")
+        );
+        const toRect = (element) => {
+          const rect = element.getBoundingClientRect();
+
+          return {
+            bottom: rect.bottom,
+            left: rect.left,
+            right: rect.right,
+            text: element.textContent.replace(/\s+/g, " ").trim(),
+            top: rect.top
+          };
+        };
+        const chipRects = chips.map(toRect);
+        const textRects = textPieces.map(toRect);
+        const collisions = [];
+        let minHorizontalGap = Number.POSITIVE_INFINITY;
+
+        chipRects.forEach((chipRect) => {
+          textRects.forEach((textRect) => {
+            const verticalOverlap =
+              Math.min(chipRect.bottom, textRect.bottom) - Math.max(chipRect.top, textRect.top);
+
+            if (verticalOverlap <= 0.5) {
+              return;
+            }
+
+            const horizontalGap =
+              textRect.right <= chipRect.left
+                ? chipRect.left - textRect.right
+                : chipRect.right <= textRect.left
+                  ? textRect.left - chipRect.right
+                  : -Math.min(textRect.right, chipRect.right) + Math.max(textRect.left, chipRect.left);
+
+            minHorizontalGap = Math.min(minHorizontalGap, horizontalGap);
+
+            if (horizontalGap < -0.5) {
+              collisions.push(`${textRect.text} / ${chipRect.text}`);
+            }
+          });
+        });
+
+        return {
+          chipTexts: chipRects.map((rect) => rect.text),
+          collisions,
+          documentScrollOverflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
+          minHorizontalGap: Number.isFinite(minHorizontalGap) ? minHorizontalGap : null,
+          rowScrollOverflow: row.scrollWidth - row.clientWidth,
+          text: row.innerText.replace(/\s+/g, " ").trim()
+        };
+      })
+      .filter(Boolean)
+  );
+}
+
+function assertCleanMatchMetaLayout(metrics, message) {
+  assert(
+    metrics.length > 0 &&
+      metrics.every(
+        (metric) =>
+          metric.collisions.length === 0 &&
+          metric.rowScrollOverflow <= 1 &&
+          (metric.minHorizontalGap === null || metric.minHorizontalGap >= 2)
+      ),
+    `${message} Measured ${JSON.stringify(metrics)}.`
+  );
+}
+
+async function getHoveredMatchRowEdgeMetrics(pageInstance, rowSelector = ".match-row") {
+  const rows = pageInstance.locator(rowSelector);
+  const rowCount = await rows.count();
+  const metrics = [];
+
+  for (let index = 0; index < rowCount; index += 1) {
+    const row = rows.nth(index);
+    await row.hover();
+    metrics.push(
+      await row.evaluate((rowElement) => {
+        const chips = Array.from(
+          rowElement.querySelectorAll(
+            ".match-row-meta .live-pill, .match-row-meta .up-next-pill, .match-row-meta .match-score, .match-row-meta .score-status"
+          )
+        );
+
+        if (!chips.length) {
+          return null;
+        }
+
+        const rowRect = rowElement.getBoundingClientRect();
+        const layoutRect = rowElement.closest(".match-layout")?.getBoundingClientRect();
+        const chipRects = chips.map((chip) => {
+          const rect = chip.getBoundingClientRect();
+
+          return {
+            right: rect.right,
+            text: chip.textContent.replace(/\s+/g, " ").trim()
+          };
+        });
+        const rightmostChip = chipRects.reduce((rightmost, chip) =>
+          !rightmost || chip.right > rightmost.right ? chip : rightmost
+        );
+
+        return {
+          chipTexts: chipRects.map((chip) => chip.text),
+          layoutRightGap: layoutRect ? layoutRect.right - rightmostChip.right : 0,
+          rightmostChipText: rightmostChip.text,
+          rowRightGap: rowRect.right - rightmostChip.right,
+          rowScrollOverflow: rowElement.scrollWidth - rowElement.clientWidth,
+          scoreRightOverflow: layoutRect ? Math.max(0, rightmostChip.right - layoutRect.right) : 0,
+          text: rowElement.innerText.replace(/\s+/g, " ").trim(),
+          transform: getComputedStyle(rowElement).transform
+        };
+      })
+    );
+  }
+
+  return metrics.filter(Boolean);
+}
+
+function assertCleanHoveredMatchRowEdges(metrics, message, options = {}) {
+  const { expectNoTransform = false, minLayoutRightGap = -1 } = options;
+
+  assert(
+    metrics.length > 0 &&
+      metrics.every(
+        (metric) =>
+          (!expectNoTransform || metric.transform === "none") &&
+          metric.rowScrollOverflow <= 1 &&
+          metric.scoreRightOverflow <= 1 &&
+          metric.layoutRightGap >= minLayoutRightGap
+      ),
+    `${message} Measured ${JSON.stringify(metrics)}.`
+  );
+}
+
 function safePath(urlPath) {
   const decoded = decodeURIComponent(urlPath.split("?")[0]);
   const resolved = path.resolve(root, decoded === "/" ? "index.html" : `.${decoded}`);
@@ -97,6 +245,10 @@ const matchLiveWindowMs = 2.25 * 60 * 60 * 1000;
 const browser = await chromium.launch();
 const page = await browser.newPage();
 const teamsById = new Map((teamsData.teams || []).map((team) => [team.id, team]));
+const thirdPlaceStandingIndex = 2;
+const expectedGroupThirdPlacePointFloorCache = new Map();
+const expectedTeamGroupStageEliminationCache = new Map();
+const expectedTeamMaximumGroupPointsCache = new Map();
 
 function getTeam(teamId) {
   return teamsById.get(teamId) || {
@@ -190,6 +342,10 @@ function getThirdPlaceTieSignature(row) {
 function getExpectedThirdPlaceStatus(candidate, advancerCount) {
   const isInside = candidate.position <= advancerCount;
 
+  if (candidate.isEliminated) {
+    return { kind: "eliminated", label: "Eliminated" };
+  }
+
   if (candidate.isCutLineTie) {
     return { kind: "pending", label: "Tiebreak pending" };
   }
@@ -246,16 +402,21 @@ function annotateExpectedThirdPlaceRaceRows(rows, advancerCount) {
     index = endIndex;
   }
 
-  return annotatedRows.map((row) => ({
-    ...row,
-    status: getExpectedThirdPlaceStatus(row, advancerCount)
-  }));
+  return annotatedRows.map((row) => {
+    const isEliminated = isExpectedTeamEliminatedFromGroupStage(row.teamId, row.groupId);
+    const candidate = { ...row, isEliminated };
+
+    return {
+      ...candidate,
+      status: getExpectedThirdPlaceStatus(candidate, advancerCount)
+    };
+  });
 }
 
 function getExpectedThirdPlaceRaceRows() {
   const rows = (tournamentData.groups || [])
     .map((group, groupIndex) => {
-      const row = standingsData.groups?.[group.id]?.[2];
+      const row = standingsData.groups?.[group.id]?.[thirdPlaceStandingIndex];
 
       if (!row) {
         return null;
@@ -282,7 +443,8 @@ function getExpectedThirdPlaceComparisonTarget(candidate, rows = getExpectedThir
     return null;
   }
 
-  const targetIndex = candidate.position > 1 ? candidate.position - 2 : 1;
+  const advancerCount = getThirdPlaceAdvancerCount();
+  const targetIndex = candidate.position <= advancerCount ? advancerCount : advancerCount - 1;
   return rows[targetIndex] || null;
 }
 
@@ -339,10 +501,14 @@ function getExpectedThirdPlaceComparisonDecider(candidate, target) {
 }
 
 function getExpectedThirdPlaceReason(candidate, rows = getExpectedThirdPlaceRaceRows()) {
-  const summary = `${formatOrdinal(candidate.position)}: ${formatExpectedThirdPlaceCandidateSummary(candidate)}.`;
+  const summary = `Currently ${formatOrdinal(candidate.position)} in the third-place race: ${formatExpectedThirdPlaceCandidateSummary(candidate)}.`;
+
+  if (candidate.status?.kind === "eliminated" || candidate.isEliminated) {
+    return "No remaining group result combination can move this team into a Round of 32 place.";
+  }
 
   if (candidate.isCutLineTie) {
-    return `${summary} Tied on loaded points, goal difference and goals scored for ${formatOrdinal(candidate.tieGroupStart)}-${formatOrdinal(candidate.tieGroupEnd)}; fair-play data is pending.`;
+    return `${summary} Top-8 place is tied from ${formatOrdinal(candidate.tieGroupStart)}-${formatOrdinal(candidate.tieGroupEnd)}; fair-play data is pending.`;
   }
 
   const nearestCandidate = getExpectedThirdPlaceComparisonTarget(candidate, rows);
@@ -352,12 +518,14 @@ function getExpectedThirdPlaceReason(candidate, rows = getExpectedThirdPlaceRace
   }
 
   if (candidate.isUnresolvedTie && getThirdPlaceTieSignature(candidate) === getThirdPlaceTieSignature(nearestCandidate)) {
-    return `${summary} Level with ${nearestCandidate.team.name} (${formatOrdinal(nearestCandidate.position)}) on loaded points, goal difference and goals scored; fair-play data is pending.`;
+    const action = candidate.position <= getThirdPlaceAdvancerCount() ? "stay top 8" : "make the top 8";
+    return `${summary} To ${action}, the tie with ${nearestCandidate.team.name} (${formatOrdinal(nearestCandidate.position)}) is still unresolved on loaded points, goal difference and goals scored; fair-play data is pending.`;
   }
 
-  const relation = candidate.position < nearestCandidate.position ? "Ahead of" : "Behind";
+  const isInside = candidate.position <= getThirdPlaceAdvancerCount();
+  const action = isInside ? "stay top 8, keep ahead of" : "make the top 8, move ahead of";
   const decider = getExpectedThirdPlaceComparisonDecider(candidate, nearestCandidate);
-  return `${summary} ${relation} ${nearestCandidate.team.name} (${formatOrdinal(nearestCandidate.position)}) on ${decider.label}: ${decider.candidateValue} vs ${decider.targetValue}.`;
+  return `${summary} To ${action} ${nearestCandidate.team.name} (${formatOrdinal(nearestCandidate.position)}) on ${decider.label}: ${decider.candidateValue} vs ${decider.targetValue}.`;
 }
 
 function getAutomaticAdvancersPerGroup() {
@@ -445,6 +613,117 @@ function getExpectedCompletedGroupQualificationResults(groupFixtures) {
       homeGoals: Number(fixture.score.home),
       homeTeamId: fixture.homeTeamId
     }));
+}
+
+function getExpectedProjectedGroupQualificationResults(fixture) {
+  return [
+    {
+      awayGoals: 0,
+      awayTeamId: fixture.awayTeamId,
+      fixed: false,
+      homeGoals: 1,
+      homeTeamId: fixture.homeTeamId
+    },
+    {
+      awayGoals: 0,
+      awayTeamId: fixture.awayTeamId,
+      fixed: false,
+      homeGoals: 0,
+      homeTeamId: fixture.homeTeamId
+    },
+    {
+      awayGoals: 1,
+      awayTeamId: fixture.awayTeamId,
+      fixed: false,
+      homeGoals: 0,
+      homeTeamId: fixture.homeTeamId
+    }
+  ];
+}
+
+function createExpectedGroupQualificationProjection(group) {
+  const groupFixtures = getGroupFixtures(group?.id);
+  const completedGroupFixtures = groupFixtures.filter((fixture) => fixture.status === "FT");
+
+  if (completedGroupFixtures.some((fixture) => !hasUsableScore(fixture))) {
+    return null;
+  }
+
+  const baseStates = createExpectedGroupQualificationStates(group);
+  const completedResults = getExpectedCompletedGroupQualificationResults(groupFixtures);
+  completedResults.forEach((result) => applyExpectedGroupQualificationResult(baseStates, result));
+
+  return {
+    baseStates,
+    completedResults,
+    remainingFixtures: groupFixtures.filter(
+      (fixture) => fixture.status !== "FT" && fixture.homeTeamId && fixture.awayTeamId
+    )
+  };
+}
+
+function getExpectedGroupThirdPlacePointFloor(group) {
+  const cacheKey = String(group?.id || "");
+  if (expectedGroupThirdPlacePointFloorCache.has(cacheKey)) {
+    return expectedGroupThirdPlacePointFloorCache.get(cacheKey);
+  }
+
+  const projection = createExpectedGroupQualificationProjection(group);
+  if (!projection) {
+    expectedGroupThirdPlacePointFloorCache.set(cacheKey, null);
+    return null;
+  }
+
+  let floor = Number.POSITIVE_INFINITY;
+
+  function visit(fixtureIndex, states) {
+    if (fixtureIndex >= projection.remainingFixtures.length) {
+      const points = [...states.values()].map((state) => state.pts).sort((a, b) => b - a);
+      const thirdPlacePoints = points[thirdPlaceStandingIndex];
+
+      if (Number.isFinite(thirdPlacePoints)) {
+        floor = Math.min(floor, thirdPlacePoints);
+      }
+      return;
+    }
+
+    const fixture = projection.remainingFixtures[fixtureIndex];
+    getExpectedProjectedGroupQualificationResults(fixture).forEach((result) => {
+      const nextStates = cloneExpectedGroupQualificationStates(states);
+      applyExpectedGroupQualificationResult(nextStates, result);
+      visit(fixtureIndex + 1, nextStates);
+    });
+  }
+
+  visit(0, projection.baseStates);
+
+  const pointFloor = Number.isFinite(floor) ? floor : null;
+  expectedGroupThirdPlacePointFloorCache.set(cacheKey, pointFloor);
+  return pointFloor;
+}
+
+function getExpectedTeamMaximumPossibleGroupPoints(teamId, group) {
+  const cacheKey = `${group?.id || ""}:${teamId || ""}`;
+  if (expectedTeamMaximumGroupPointsCache.has(cacheKey)) {
+    return expectedTeamMaximumGroupPointsCache.get(cacheKey);
+  }
+
+  const projection = createExpectedGroupQualificationProjection(group);
+  const state = projection?.baseStates.get(teamId);
+  if (!state) {
+    expectedTeamMaximumGroupPointsCache.set(cacheKey, null);
+    return null;
+  }
+
+  const maximumPoints =
+    state.pts +
+    projection.remainingFixtures.filter(
+      (fixture) => fixture.homeTeamId === teamId || fixture.awayTeamId === teamId
+    ).length *
+      3;
+
+  expectedTeamMaximumGroupPointsCache.set(cacheKey, maximumPoints);
+  return maximumPoints;
 }
 
 function getExpectedHeadToHeadStats(tiedTeamIds, results) {
@@ -580,67 +859,82 @@ function canExpectedTeamReachGroupStagePathInScenario(teamId, states, results, p
 }
 
 function canExpectedTeamStillReachGroupStagePath(teamId, group, pathPlaceCount) {
-  const groupFixtures = getGroupFixtures(group.id);
-  const completedGroupFixtures = groupFixtures.filter((fixture) => fixture.status === "FT");
-
-  if (completedGroupFixtures.some((fixture) => !hasUsableScore(fixture))) {
+  const projection = createExpectedGroupQualificationProjection(group);
+  if (!projection) {
     return true;
   }
 
-  const baseStates = createExpectedGroupQualificationStates(group);
-  const completedResults = getExpectedCompletedGroupQualificationResults(groupFixtures);
-  completedResults.forEach((result) => applyExpectedGroupQualificationResult(baseStates, result));
-  const remainingFixtures = groupFixtures.filter(
-    (fixture) => fixture.status !== "FT" && fixture.homeTeamId && fixture.awayTeamId
-  );
-  const outcomes = [
-    { homeGoals: 1, awayGoals: 0 },
-    { homeGoals: 0, awayGoals: 0 },
-    { homeGoals: 0, awayGoals: 1 }
-  ];
-
   function visit(fixtureIndex, states, results) {
-    if (fixtureIndex >= remainingFixtures.length) {
+    if (fixtureIndex >= projection.remainingFixtures.length) {
       return canExpectedTeamReachGroupStagePathInScenario(teamId, states, results, pathPlaceCount);
     }
 
-    const fixture = remainingFixtures[fixtureIndex];
-    return outcomes.some((outcome) => {
+    const fixture = projection.remainingFixtures[fixtureIndex];
+    return getExpectedProjectedGroupQualificationResults(fixture).some((result) => {
       const nextStates = cloneExpectedGroupQualificationStates(states);
-      const result = {
-        awayGoals: outcome.awayGoals,
-        awayTeamId: fixture.awayTeamId,
-        fixed: false,
-        homeGoals: outcome.homeGoals,
-        homeTeamId: fixture.homeTeamId
-      };
       applyExpectedGroupQualificationResult(nextStates, result);
       return visit(fixtureIndex + 1, nextStates, [...results, result]);
     });
   }
 
-  return visit(0, baseStates, completedResults);
+  return visit(0, projection.baseStates, projection.completedResults);
+}
+
+function canExpectedTeamStillAdvanceAsThirdPlace(teamId, group) {
+  const thirdPlaceAdvancerCount = getThirdPlaceAdvancerCount();
+  if (thirdPlaceAdvancerCount <= 0) {
+    return false;
+  }
+
+  const pathPlaceCount = getGroupStagePathPlaceCount(group?.teamIds?.length || 0);
+  if (!canExpectedTeamStillReachGroupStagePath(teamId, group, pathPlaceCount)) {
+    return false;
+  }
+
+  const maximumPoints = getExpectedTeamMaximumPossibleGroupPoints(teamId, group);
+  if (!Number.isFinite(maximumPoints)) {
+    return true;
+  }
+
+  const guaranteedAboveCount = (tournamentData.groups || []).filter((groupItem) => {
+    if (groupItem.id === group?.id) {
+      return false;
+    }
+
+    const pointFloor = getExpectedGroupThirdPlacePointFloor(groupItem);
+    return Number.isFinite(pointFloor) && pointFloor > maximumPoints;
+  }).length;
+
+  return guaranteedAboveCount < thirdPlaceAdvancerCount;
+}
+
+function isExpectedTeamEliminatedFromGroupStage(teamId, group) {
+  if (!teamId || !group?.id) {
+    return false;
+  }
+
+  const cacheKey = `${group.id}:${teamId}`;
+  if (expectedTeamGroupStageEliminationCache.has(cacheKey)) {
+    return expectedTeamGroupStageEliminationCache.get(cacheKey);
+  }
+
+  const automaticPlaces = Math.min(group.teamIds?.length || getAutomaticAdvancersPerGroup(), getAutomaticAdvancersPerGroup());
+  const canReachAutomaticPlace = canExpectedTeamStillReachGroupStagePath(teamId, group, automaticPlaces);
+  const isEliminated =
+    !canReachAutomaticPlace && !canExpectedTeamStillAdvanceAsThirdPlace(teamId, group);
+
+  expectedTeamGroupStageEliminationCache.set(cacheKey, isEliminated);
+  return isEliminated;
 }
 
 function getExpectedEliminatedTeamNames() {
-  const raceRowsByTeamId = new Map(getExpectedThirdPlaceRaceRows().map((candidate) => [candidate.teamId, candidate]));
-  const groupStageFinished = isGroupStageFinished();
   const eliminated = [];
 
   for (const group of tournamentData.groups || []) {
     const rows = standingsData.groups?.[group.id] || [];
-    const pathPlaceCount = getGroupStagePathPlaceCount(rows.length);
 
     for (const row of rows) {
-      const thirdPlaceCandidate = raceRowsByTeamId.get(row.teamId);
-      const eliminatedByGroupPath = !canExpectedTeamStillReachGroupStagePath(row.teamId, group, pathPlaceCount);
-      const eliminatedByThirdPlaceCut =
-        thirdPlaceCandidate &&
-        groupStageFinished &&
-        !thirdPlaceCandidate.isCutLineTie &&
-        thirdPlaceCandidate.position > getThirdPlaceAdvancerCount();
-
-      if (eliminatedByGroupPath || eliminatedByThirdPlaceCut) {
+      if (isExpectedTeamEliminatedFromGroupStage(row.teamId, group)) {
         eliminated.push(getTeam(row.teamId).name);
       }
     }
@@ -1285,6 +1579,38 @@ try {
     "Single-name player hover cards should include a face or initials fallback."
   );
 
+  await page.setViewportSize({ width: 540, height: 760 });
+  await page.goto(`${baseUrl}?view=matches&date=2026-06-24&tz=America%2FLos_Angeles`, {
+    waitUntil: "load"
+  });
+  await page.waitForSelector('[data-match-id="scotland-brazil-2026-06-24"]');
+  const midWidthCompletedRowMetrics = await page
+    .locator('[data-match-id="scotland-brazil-2026-06-24"]')
+    .evaluate((row) => {
+      const teams = row.querySelector(".match-teams");
+      const score = row.querySelector(".match-score");
+      const teamsBox = teams.getBoundingClientRect();
+      const scoreBox = score?.getBoundingClientRect();
+
+      return {
+        gapToScore: scoreBox ? scoreBox.left - teamsBox.right : null,
+        lineHeight: Number.parseFloat(getComputedStyle(teams).lineHeight),
+        rowHeight: row.getBoundingClientRect().height,
+        scrollOverflow: row.scrollWidth - row.clientWidth,
+        teamsHeight: teamsBox.height,
+        text: row.innerText.replace(/\s+/g, " ").trim()
+      };
+    });
+  assert(
+    midWidthCompletedRowMetrics.text.startsWith("3:00PM Scotland #42 vs") &&
+      midWidthCompletedRowMetrics.teamsHeight <= midWidthCompletedRowMetrics.lineHeight * 1.25 &&
+      midWidthCompletedRowMetrics.gapToScore >= 16 &&
+      midWidthCompletedRowMetrics.rowHeight <= 32 &&
+      midWidthCompletedRowMetrics.scrollOverflow <= 1,
+    `Completed mid-width rows should use available space instead of wrapping before the away team. Measured ${JSON.stringify(midWidthCompletedRowMetrics)}.`
+  );
+
+  await page.setViewportSize({ width: 390, height: 844 });
   await page.goto(`${baseUrl}?view=matches&date=2026-06-24&tz=America%2FLos_Angeles`, {
     waitUntil: "load"
   });
@@ -1407,26 +1733,34 @@ try {
     "Badge-bearing standings rows should keep the team name visible instead of collapsing into a tooltip-only row."
   );
 
-  const southKoreaStandingTeam = page
-    .locator('.standings-card[data-group-id="A"] .standing-team', { hasText: "South Korea" })
+  const truncatedStandingTeam = page
+    .locator(".standings-card[data-group-id] .standing-team.has-name-tooltip:not(.has-standing-badges)")
     .first();
-  const southKoreaTooltipState = await southKoreaStandingTeam.evaluate((team) => ({
+  assert(
+    (await truncatedStandingTeam.count()) > 0,
+    "Current standings should include at least one non-badge row that needs a full-name tooltip."
+  );
+  const truncatedStandingTooltipState = await truncatedStandingTeam.evaluate((team) => ({
     anchor: team.style.getPropertyValue("--name-tooltip-anchor"),
+    hasBadgeClass: team.classList.contains("has-standing-badges"),
     hasTooltipClass: team.classList.contains("has-name-tooltip"),
+    nameText: team.querySelector(".standing-name")?.textContent.trim() || "",
     title: team.getAttribute("title"),
     tooltip: team.getAttribute("data-tooltip")
   }));
   assert(
-    southKoreaTooltipState.hasTooltipClass &&
-      southKoreaTooltipState.title === "South Korea" &&
-      southKoreaTooltipState.tooltip === "South Korea" &&
-      southKoreaTooltipState.anchor.length > 0,
+    truncatedStandingTooltipState.hasTooltipClass &&
+      !truncatedStandingTooltipState.hasBadgeClass &&
+      truncatedStandingTooltipState.nameText.length > 0 &&
+      truncatedStandingTooltipState.title === truncatedStandingTooltipState.tooltip &&
+      truncatedStandingTooltipState.tooltip.length > 0 &&
+      truncatedStandingTooltipState.anchor.length > 0,
     "Truncated non-badge standings rows should expose a full-name tooltip with a usable anchor."
   );
-  await southKoreaStandingTeam.hover();
+  await truncatedStandingTeam.hover();
   await page.waitForTimeout(160);
   assert(
-    (await southKoreaStandingTeam.evaluate((team) => getComputedStyle(team, "::after").opacity)) === "1",
+    (await truncatedStandingTeam.evaluate((team) => getComputedStyle(team, "::after").opacity)) === "1",
     "Hovering a truncated non-badge standings row should reveal the full-name tooltip."
   );
   await page.setViewportSize({ width: 1280, height: 720 });
@@ -1602,8 +1936,8 @@ try {
   assert(
       historicalScorerCardText.includes("Enner Valencia") &&
       historicalScorerCardText.includes("Forward") &&
-      historicalScorerCardText.includes("Ecuador World Cup archive") &&
-      historicalScorerCardText.includes("Ecuador 2014-2022 archive: front-line scoring threat") &&
+      historicalScorerCardText.includes("Ecuador 2022 World Cup archive") &&
+      historicalScorerCardText.includes("Ecuador 2022 archive: front-line scoring threat") &&
       historicalScorerCardText.includes("2022 age 33") &&
       historicalScorerCardText.includes("Peak value €11m") &&
       !historicalScorerCardText.includes("scored 2 goals in this match"),
@@ -1645,7 +1979,7 @@ try {
   const scorerOnlyHistoricalCardText = await scorerOnlyHistoricalCard.innerText();
   assert(
     scorerOnlyHistoricalCardText.includes("Carlos Alberto") &&
-      scorerOnlyHistoricalCardText.includes("Brazil World Cup archive") &&
+      scorerOnlyHistoricalCardText.includes("Brazil 1970 World Cup archive") &&
       scorerOnlyHistoricalCardText.includes("Brazil 1970 archive: player reference, with 1 World Cup goal.") &&
       !scorerOnlyHistoricalCardText.includes("credited with 1 World Cup goal"),
     "Historical scorer-only names should use the generated archive card profile."
@@ -1801,19 +2135,62 @@ try {
     !(await qatarMatchTeam.evaluate((team) => team.classList.contains("has-team-tooltip"))),
     "Short match row names should not show full-name tooltips when they are not truncated."
   );
+  const bosniaScoreAlignment = await switzerlandBosniaRow.evaluate((row) => {
+    const meta = row.querySelector(".match-row-meta");
+    const score = row.querySelector(".match-score");
+    const rowRect = row.getBoundingClientRect();
+    const metaRect = meta?.getBoundingClientRect();
+    const scoreRect = score?.getBoundingClientRect();
+    const textPieces = Array.from(row.querySelectorAll(".match-teams .team-name, .match-teams .versus"));
+    const rightmostTextRight = textPieces.reduce((right, piece) => {
+      const range = document.createRange();
+      range.selectNodeContents(piece);
+      const rects = Array.from(range.getClientRects());
+      range.detach();
+
+      if (!rects.length) {
+        return Math.max(right, piece.getBoundingClientRect().right);
+      }
+
+      return Math.max(right, ...rects.map((rect) => rect.right));
+    }, rowRect.left);
+
+    return {
+      hasWrappedClass: row.classList.contains("has-wrapped-matchup"),
+      metaGapFromText: metaRect ? Math.round(metaRect.left - rightmostTextRight) : null,
+      rowScrollOverflow: row.scrollWidth - row.clientWidth,
+      scoreRightGap: scoreRect ? Math.round(rowRect.right - scoreRect.right) : null
+    };
+  });
+  assert(
+    bosniaScoreAlignment.hasWrappedClass &&
+      bosniaScoreAlignment.metaGapFromText >= 8 &&
+      bosniaScoreAlignment.metaGapFromText <= 28 &&
+      bosniaScoreAlignment.scoreRightGap >= 40 &&
+      bosniaScoreAlignment.rowScrollOverflow <= 1,
+    `Wrapped tablet match rows should place score pills just after the wrapped matchup instead of at the far edge. Measured ${JSON.stringify(bosniaScoreAlignment)}.`
+  );
   await page.setViewportSize({ width: 390, height: 844 });
   await page.waitForTimeout(80);
   const bosniaMatchWrap = await bosniaMatchTeam.evaluate((team) => {
+    const row = team.closest(".match-row");
     const name = team.querySelector(".team-name");
     const teams = team.closest(".match-teams");
+    const score = row?.querySelector(".match-score");
+    const rowBox = row?.getBoundingClientRect();
+    const scoreBox = score?.getBoundingClientRect();
     const nameStyle = getComputedStyle(name);
     const teamsStyle = getComputedStyle(teams);
+    const nameBox = name.getBoundingClientRect();
     return {
       hasTooltip: team.classList.contains("has-team-tooltip"),
+      hasWrappedClass: row?.classList.contains("has-wrapped-matchup") || false,
       lineHeight: Number.parseFloat(teamsStyle.lineHeight),
-      nameText: name.textContent.trim(),
+      nameLabel: name.getAttribute("aria-label"),
+      nameWidth: nameBox.width,
       overflow: nameStyle.overflow,
       scrollWidth: name.scrollWidth,
+      scoreRightGap: rowBox && scoreBox ? Math.round(rowBox.right - scoreBox.right) : null,
       textOverflow: nameStyle.textOverflow,
       teamsHeight: teams.getBoundingClientRect().height,
       visibleWidth: name.clientWidth,
@@ -1821,12 +2198,14 @@ try {
     };
   });
   assert(
-    bosniaMatchWrap.nameText === "Bosnia and Herzegovina" &&
+    bosniaMatchWrap.nameLabel === "Bosnia and Herzegovina" &&
       bosniaMatchWrap.whiteSpace === "normal" &&
       bosniaMatchWrap.overflow === "visible" &&
       bosniaMatchWrap.textOverflow === "clip" &&
-      bosniaMatchWrap.scrollWidth <= bosniaMatchWrap.visibleWidth + 1 &&
+      bosniaMatchWrap.nameWidth > 0 &&
       bosniaMatchWrap.teamsHeight > bosniaMatchWrap.lineHeight * 1.4 &&
+      bosniaMatchWrap.hasWrappedClass &&
+      bosniaMatchWrap.scoreRightGap >= 8 &&
       !bosniaMatchWrap.hasTooltip,
     `Long match row names should wrap visibly instead of becoming tooltip-only truncation. Measured ${JSON.stringify(bosniaMatchWrap)}.`
   );
@@ -2083,6 +2462,13 @@ try {
       liveFallbackLayout.statusRightGap >= 4,
     `The live fallback row should wrap cleanly without hidden team names, horizontal overflow, or a clipped status pill. Measured ${JSON.stringify(liveFallbackLayout)}.`
   );
+  await liveFallbackScoreCheck.page.setViewportSize({ width: 280, height: 760 });
+  await liveFallbackScoreCheck.page.waitForTimeout(80);
+  const liveTinyChipLayout = await getMatchRowMetaCollisionMetrics(liveFallbackScoreCheck.page);
+  assertCleanMatchMetaLayout(
+    liveTinyChipLayout,
+    "Tiny live/current-score rows should keep live, score, and pending chips out of the matchup text."
+  );
   await liveFallbackScoreCheck.context.close();
 
   const pendingScoreCheck = await openPageAtTime(
@@ -2098,12 +2484,19 @@ try {
   );
   const pendingScoreRow = pendingScoreCheck.page.locator('[data-match-id="ghana-panama-2026-06-17"]');
   assert(
-    (await pendingScoreRow.locator(".score-status").innerText()).trim() === "Final pending",
+    (await pendingScoreRow.locator(".score-status").innerText()).trim() === "Pending",
     "A post-match fixture with no loaded score should show a visible pending status."
   );
   assert(
-    (await pendingScoreRow.getAttribute("aria-label")).includes("final pending"),
+    (await pendingScoreRow.getAttribute("aria-label")).includes("pending"),
     "A post-match fixture with no loaded score should expose the pending status to assistive tech."
+  );
+  await pendingScoreCheck.page.setViewportSize({ width: 280, height: 760 });
+  await pendingScoreCheck.page.waitForTimeout(80);
+  const pendingTinyChipLayout = await getMatchRowMetaCollisionMetrics(pendingScoreCheck.page);
+  assertCleanMatchMetaLayout(
+    pendingTinyChipLayout,
+    "Tiny completed/pending rows should keep score and pending chips out of the matchup text."
   );
   await pendingScoreCheck.context.close();
 
@@ -2181,8 +2574,8 @@ try {
         await pendingScoreCheck.page
           .locator(`.match-row[data-match-id="${pendingScoreFixture.id}"] .score-status.is-pending`)
           .innerText()
-      ).trim() === "Final pending",
-      "A kicked-off scheduled match without a verified score should show Final pending."
+      ).trim() === "Pending",
+      "A kicked-off scheduled match without a verified score should show Pending."
     );
     await pendingScoreCheck.context.close();
   }
@@ -2892,11 +3285,11 @@ try {
     thirdPlaceRaceCheck.visibleReasonCount === 0 &&
       thirdPlaceRaceCheck.rowSummaries.every((row) => row.tooltip && !row.tooltip.includes("GF")) &&
       thirdPlaceRaceCheck.rowSummaries.some((row) =>
-        /^(Ahead of|Behind|Level with)/.test(
-          row.tooltip.replace(/^\d+(?:st|nd|rd|th): .*?\. /, "")
+        /^To (stay top 8|make the top 8)/.test(
+          row.tooltip.replace(/^Currently \d+(?:st|nd|rd|th) in the third-place race: .*?\. /, "")
         )
       ),
-    "The third-place race should hide row explanations behind status pill tooltips without GF jargon."
+    "The third-place race should hide top-eight explanations behind status pill tooltips without GF jargon."
   );
   const expectedLiveThirdPlaceTeams = new Set(
     fixturesData.fixtures
@@ -2989,8 +3382,14 @@ try {
       m81TeamIds: [...document.querySelectorAll('.progress-match[data-match-number="81"] .knockout-team[data-team-id]')]
         .map((element) => element.dataset.teamId),
       m81Text: text('.progress-match[data-match-number="81"]'),
+      m89TeamIds: [...document.querySelectorAll('.progress-match[data-match-number="89"] .knockout-team[data-team-id]')]
+        .map((element) => element.dataset.teamId),
       m89Text: text('.progress-match[data-match-number="89"]'),
+      m97TeamIds: [...document.querySelectorAll('.progress-match[data-match-number="97"] .knockout-team[data-team-id]')]
+        .map((element) => element.dataset.teamId),
       m97Text: text('.progress-match[data-match-number="97"]'),
+      m104TeamIds: [...document.querySelectorAll('.progress-match[data-match-number="104"] .knockout-team[data-team-id]')]
+        .map((element) => element.dataset.teamId),
       oldWinnerCopy: allText(".tournament-view").includes(["Winner", "advances"].join(" ")),
       posterMetaCount: document.querySelectorAll(".poster-match-meta").length,
       posterSeedCount: document.querySelectorAll(".poster-team-seed").length,
@@ -2998,13 +3397,37 @@ try {
       progressCount: document.querySelectorAll(".progress-match").length,
       connectorPathCount: document.querySelectorAll(".progress-connectors path").length,
       progressText: allText(".progress-match"),
+      projectedCount: document.querySelectorAll(".progress-match.is-projected").length,
+      likelihoodCount: document.querySelectorAll(".knockout-likelihood").length,
+      likelihoodListCount: document.querySelectorAll(".knockout-likelihood-list").length,
+      likelihoodText: allText(".knockout-likelihood"),
+      likelihoodTooltips: [...document.querySelectorAll(".knockout-likelihood")]
+        .map((element) => element.getAttribute("data-tooltip") || "")
+        .join(" "),
+      likelihoodTooltipCount: [...document.querySelectorAll(".knockout-likelihood")]
+        .filter((element) => /^Prediction based on /.test(element.getAttribute("data-tooltip") || ""))
+        .length,
+      m89PillCount: document.querySelectorAll('.progress-match[data-match-number="89"] .knockout-likelihood').length,
+      m89SeedLabelCount: document.querySelectorAll('.progress-match[data-match-number="89"] .knockout-team-copy small').length,
+      m97PillCount: document.querySelectorAll('.progress-match[data-match-number="97"] .knockout-likelihood').length,
+      m97SeedLabelCount: document.querySelectorAll('.progress-match[data-match-number="97"] .knockout-team-copy small').length,
+      m104PillCount: document.querySelectorAll('.progress-match[data-match-number="104"] .knockout-likelihood').length,
+      m89Tooltips: [...document.querySelectorAll('.progress-match[data-match-number="89"] .knockout-likelihood')]
+        .map((element) => element.getAttribute("data-tooltip") || "")
+        .join(" "),
+      m97Tooltips: [...document.querySelectorAll('.progress-match[data-match-number="97"] .knockout-likelihood')]
+        .map((element) => element.getAttribute("data-tooltip") || "")
+        .join(" "),
       r32Count: document.querySelectorAll(".r32-match").length,
       r32Text: allText(".r32-match"),
       sectionHeadingVisible: Boolean(document.querySelector(".tournament-section-heading")),
       sideCount: document.querySelectorAll(".poster-side").length,
-      norwayTooltip: document.querySelector('.knockout-team[data-team-id="NOR"]')?.getAttribute("data-tooltip") || "",
-      thirdPlaceSeedTeamIds: [...document.querySelectorAll(".progress-match .knockout-team[data-team-id]")]
-        .filter((element) => element.querySelector("small")?.textContent.includes("Top 3"))
+      countryTooltipCount: document.querySelectorAll(".progress-match .knockout-team[data-tooltip]").length,
+      m74VenueText: document.querySelector('.progress-match[data-match-number="74"] .knockout-match-venue')?.textContent.trim() || "",
+      m74VenueTooltip: document.querySelector('.progress-match[data-match-number="74"] .knockout-match-venue')?.getAttribute("data-tooltip") || "",
+      rankCount: document.querySelectorAll(".progress-match .knockout-team-copy .rank-pill").length,
+      thirdPlaceSeedTeamIds: [...document.querySelectorAll(".progress-round.is-round-of-32 .progress-match .knockout-slot-odds[data-team-id]")]
+        .filter((element) => /^Group [A-L]3$/.test(element.dataset.slotLabel || ""))
         .map((element) => element.dataset.teamId),
       slotOddsCount: document.querySelectorAll(".knockout-slot-odds").length,
       slotOddsToneMismatches: [...document.querySelectorAll(".knockout-slot-odds")]
@@ -3038,21 +3461,49 @@ try {
       tournamentCheck.progressCount === 31,
     "The tournament section should show a progression-only bracket from the Round of 32 through the final."
   );
+  const groupETopTeam = getTeam(standingsData.groups?.E?.[0]?.teamId);
+  const groupETopTeamName = groupETopTeam.standingName || groupETopTeam.name;
   assert(
     tournamentCheck.summary.includes("Round of 32 slots") &&
       tournamentCheck.m73ProgressText.includes("Jun 28 12:00PM") &&
       !tournamentCheck.m73ProgressText.includes("Jun 28 / 12:00PM") &&
-      tournamentCheck.m74ProgressText.includes(getTeam(standingsData.groups?.E?.[0]?.teamId).id) &&
-      tournamentCheck.m74ProgressText.includes("Group E Top 1") &&
-      !tournamentCheck.m74ProgressText.includes("Group E Top 1 /") &&
+      tournamentCheck.m74ProgressText.includes(groupETopTeamName) &&
+      tournamentCheck.m74VenueText === "Massachusetts, USA" &&
+      !tournamentCheck.m74ProgressText.includes("Boston Stadium") &&
+      !tournamentCheck.m74ProgressText.includes("Foxborough") &&
+      tournamentCheck.m74VenueTooltip === "Boston Stadium \u2022 Foxborough, Massachusetts, USA" &&
+      !tournamentCheck.m74ProgressText.includes("Group E1") &&
+      !tournamentCheck.m74ProgressText.includes("Group E Top 1") &&
       tournamentCheck.m81TeamIds.length === 2 &&
       !tournamentCheck.m81Text.includes("Group B/E/F/I/J third place") &&
-      tournamentCheck.norwayTooltip === "Norway" &&
+      tournamentCheck.countryTooltipCount === 0 &&
       tournamentCheck.slotOddsCount >= 16 &&
       tournamentCheck.slotOddsToneMismatches.length === 0 &&
       tournamentCheck.slotOddsText.includes("here") &&
-      tournamentCheck.m89Text.includes("TBD") &&
-      tournamentCheck.m97Text.includes("TBD") &&
+      tournamentCheck.projectedCount === 15 &&
+      tournamentCheck.likelihoodCount === 30 &&
+      tournamentCheck.likelihoodTooltipCount === tournamentCheck.likelihoodCount &&
+      tournamentCheck.likelihoodListCount === 15 &&
+      tournamentCheck.m89PillCount === 2 &&
+      tournamentCheck.m89SeedLabelCount === 0 &&
+      tournamentCheck.m97PillCount === 2 &&
+      tournamentCheck.m97SeedLabelCount === 0 &&
+      tournamentCheck.m104PillCount === 2 &&
+      tournamentCheck.m89TeamIds.length === 2 &&
+      tournamentCheck.m97TeamIds.length === 2 &&
+      tournamentCheck.m104TeamIds.length === 2 &&
+      tournamentCheck.likelihoodText.includes("here") &&
+      !tournamentCheck.likelihoodText.includes("Germany ") &&
+      !tournamentCheck.slotOddsText.includes("Germany ") &&
+      !tournamentCheck.slotOddsText.includes("Bosnia and Herzegovina ") &&
+      tournamentCheck.rankCount >= 32 &&
+      !/\bGroup [A-L]\d\b/.test(tournamentCheck.m89Text) &&
+      !/\bGroup [A-L]\d\b/.test(tournamentCheck.m97Text) &&
+      tournamentCheck.m89Tooltips.includes("Prediction based on") &&
+      tournamentCheck.m97Tooltips.includes("Prediction based on") &&
+      tournamentCheck.likelihoodTooltips.includes("Prediction based on") &&
+      !tournamentCheck.m89Text.includes("TBD") &&
+      !tournamentCheck.m97Text.includes("TBD") &&
       !tournamentCheck.m89Text.includes("Likely for now") &&
       !tournamentCheck.m97Text.includes("Likely for now") &&
       !tournamentCheck.sectionHeadingVisible &&
@@ -3064,7 +3515,7 @@ try {
       !/\bWinner match \d+\b/.test(tournamentCheck.progressText) &&
       !/\b(?:M\d+|To M\d+|Winner M\d+|W M\d+)\b/.test(`${tournamentCheck.r32Text} ${tournamentCheck.progressText}`) &&
       tournamentCheck.roundHeadings.join("|") === "Round of 32|Round of 16|Quarter-finals|Semi-finals|Final",
-    "The tournament section should show unique Round of 32 third-place slot picks and odds while leaving later rounds unfilled."
+    `The tournament section should show unique Round of 32 third-place slot picks and muted predictions for later rounds. Measured ${JSON.stringify(tournamentCheck)}.`
   );
   const tournamentLayoutChecks = [];
   for (const viewport of [
@@ -3080,11 +3531,28 @@ try {
         const documentElement = document.documentElement;
         const progression = document.querySelector(".tournament-progression");
         const match74 = document.querySelector('.progress-match[data-match-number="74"]');
-        const seedLabels = [...document.querySelectorAll('.progress-match[data-match-number="74"] .knockout-seed-label')]
-          .map((label) => [...label.children].map((line) => line.textContent.trim()).join("|"));
+        const match74Pair = match74?.querySelector(".knockout-match-pair");
+        const match74PairStyle = match74Pair ? getComputedStyle(match74Pair) : null;
+        const match74Teams = [...(match74?.querySelectorAll(".knockout-team") || [])];
+        const match74TeamTops = match74Teams.map((team) => Math.round(team.getBoundingClientRect().top));
+        const match74VsTop = Math.round(match74?.querySelector(".knockout-versus")?.getBoundingClientRect().top || 0);
+        const match74Venue = match74?.querySelector(".knockout-match-venue");
+        const match74VenueStyle = match74Venue ? getComputedStyle(match74Venue) : null;
+        const match74SlotList = match74?.querySelector(".knockout-slot-odds-list");
+        const match74SlotListStyle = match74SlotList ? getComputedStyle(match74SlotList) : null;
+        const match74SlotPills = [...(match74?.querySelectorAll(".knockout-slot-odds") || [])];
+        const firstSlotPillRect = match74SlotPills[0]?.getBoundingClientRect();
+        const secondSlotPillRect = match74SlotPills[1]?.getBoundingClientRect();
+        const seedLabels = [...document.querySelectorAll('.progress-match .knockout-team-copy small')]
+          .map((label) => label.textContent.trim());
+        const match74SlotTooltips = [...document.querySelectorAll('.progress-match[data-match-number="74"] .knockout-slot-odds')]
+          .map((pill) => pill.getAttribute("data-tooltip") || "");
+        const match74SlotLabels = [...document.querySelectorAll('.progress-match[data-match-number="74"] .knockout-slot-odds')]
+          .map((pill) => pill.dataset.slotLabel || "");
         const connector = document.querySelector(".progress-connectors");
         const connectorDisplay = connector ? getComputedStyle(connector).display : "";
         const progressionStyle = progression ? getComputedStyle(progression) : null;
+        const progressionRect = progression?.getBoundingClientRect();
         const matchStyle = match74 ? getComputedStyle(match74) : null;
         const matchRect = match74?.getBoundingClientRect();
         const overflowingParticipantLabels = [...document.querySelectorAll(".progress-match .knockout-team-copy")]
@@ -3103,9 +3571,23 @@ try {
         return {
           cardPadding: matchStyle ? Math.round(parseFloat(matchStyle.paddingLeft)) : 0,
           cardWithinViewport: Boolean(matchRect && matchRect.left >= 0 && matchRect.right <= viewportWidth),
+          cardWidth: matchRect ? Math.round(matchRect.width) : 0,
           connectorDisplay,
           connectorPathCount: document.querySelectorAll(".progress-connectors path").length,
+          match74PairJustifyContent: match74PairStyle?.justifyContent || "",
+          match74SlotGap: firstSlotPillRect && secondSlotPillRect ? Math.round(secondSlotPillRect.left - firstSlotPillRect.right) : null,
+          match74SlotListJustifyContent: match74SlotListStyle?.justifyContent || "",
+          match74SlotLabels,
+          match74SlotTooltips,
+          match74SingleLine: match74TeamTops.length === 2 && match74TeamTops.every((top) => Math.abs(top - match74VsTop) <= 2),
+          match74VenueCursor: match74VenueStyle?.cursor || "",
+          match74VenueText: match74Venue?.textContent.trim() || "",
+          match74VenueTooltip: match74Venue?.getAttribute("data-tooltip") || "",
+          match74VenueFontWeight: match74VenueStyle ? Number.parseFloat(match74VenueStyle.fontWeight) : 0,
           overflowingParticipantLabels,
+          progressionContentWidth: progressionRect && progressionStyle
+            ? Math.round(progressionRect.width - 2 * parseFloat(progressionStyle.paddingLeft))
+            : 0,
           progressionPadding: progressionStyle ? Math.round(parseFloat(progressionStyle.paddingLeft)) : 0,
           seedLines: seedLabels,
           scrollOverflow: Math.ceil(documentElement.scrollWidth - documentElement.clientWidth),
@@ -3117,16 +3599,31 @@ try {
   assert(
     tournamentLayoutChecks.every(
       (check) =>
-        check.seedLines.includes("Group E|Top 1") &&
+        check.seedLines.length === 0 &&
+        check.match74SlotLabels.includes("Group E1") &&
+        check.match74SlotTooltips.some((tooltip) => tooltip.includes("Group E1")) &&
+        check.match74SlotListJustifyContent === "flex-start" &&
+        check.match74SlotGap !== null &&
+        check.match74SlotGap >= 0 &&
+        check.match74SlotGap <= 16 &&
+        check.match74PairJustifyContent === "flex-start" &&
+        check.match74VenueCursor === "help" &&
+        check.match74VenueText === "Massachusetts, USA" &&
+        check.match74VenueTooltip === "Boston Stadium \u2022 Foxborough, Massachusetts, USA" &&
+        check.match74VenueFontWeight > 0 &&
+        check.match74VenueFontWeight < 600 &&
         check.overflowingParticipantLabels === 0 &&
         check.scrollOverflow <= 1 &&
+        (check.viewportWidth > 900
+          ? check.cardWidth >= 288 && check.cardWidth <= 300
+          : check.cardWidth >= check.progressionContentWidth - 4) &&
         check.progressionPadding >= 10 &&
         check.cardPadding >= 8 &&
         check.cardWithinViewport &&
         (check.viewportWidth > 1250 ||
           (check.connectorDisplay === "none" && check.connectorPathCount === 0))
     ),
-    "Tournament bracket seed labels should wrap cleanly with correct padding and no horizontal overflow at phone and desktop sizes."
+    `Tournament bracket seed context should live in odds pills, with correct padding and no horizontal overflow at phone and desktop sizes. Measured ${JSON.stringify(tournamentLayoutChecks)}.`
   );
   await page.setViewportSize({ width: 1280, height: 720 });
   const knockoutProgressionCheck = await openPageAtTime(
@@ -3175,15 +3672,17 @@ try {
         .trim()
     };
   });
+  const progressionWinnerTeam = getTeam(progressionResolved.m74Winner);
+  const progressionWinnerName = progressionWinnerTeam.standingName || progressionWinnerTeam.name;
   assert(
     progressionResolved.m89TeamIds.join("|") ===
       [progressionResolved.m74Winner, progressionResolved.m77Winner].join("|") &&
       progressionResolved.m89Winner === progressionResolved.m74Winner &&
       progressionResolved.m97SourceTeamId === progressionResolved.m74Winner &&
-      progressionResolved.m89Text.includes(`${progressionResolved.m74Winner} won`) &&
+      progressionResolved.m89Text.includes(`${progressionWinnerName} won`) &&
       !progressionResolved.m97Text.includes("Winner match") &&
       !progressionResolved.m89Text.includes("M97") &&
-      progressionResolved.m97Text.includes(progressionResolved.m74Winner),
+      progressionResolved.m97Text.includes(progressionWinnerName),
     "Finished knockout source matches should automatically place their winners into later fixture slots."
   );
   await knockoutProgressionCheck.context.close();
@@ -3361,7 +3860,7 @@ try {
     const metaBox = meta?.getBoundingClientRect();
 
     return {
-      metaCenter: metaBox ? metaBox.top + metaBox.height / 2 : 0,
+      metaCenter: metaBox ? metaBox.top + metaBox.height / 2 : null,
       rankCount: rankPills.length,
       rowHeight: row.getBoundingClientRect().height,
       teamsCenter: teamsBox.top + teamsBox.height / 2,
@@ -3373,7 +3872,7 @@ try {
     };
   });
   assert(
-    mobileRowMetrics.timeFont <= 13.5 &&
+    mobileRowMetrics.timeFont <= 12.5 &&
       mobileRowMetrics.teamsFont <= 14.5 &&
       mobileRowMetrics.rankCount >= 1,
     "Mobile match rows should keep compact time/team text with ranking pills visible."
@@ -3381,9 +3880,22 @@ try {
   assert(
     Math.abs(mobileRowMetrics.timeCenter - mobileRowMetrics.teamsCenter) <= 3 &&
       Math.abs(mobileRowMetrics.metaCenter - mobileRowMetrics.teamsCenter) <= 3,
-    "Mobile match rows should vertically center the time and score against wrapped team text."
+    "Mobile match rows should vertically center time and status chips against wrapped matchup text."
   );
 
+  await page.setViewportSize({ width: 640, height: 844 });
+  await page.goto(`${baseUrl}?view=matches&date=2026-06-24&tz=America%2FLos_Angeles`, {
+    waitUntil: "load"
+  });
+  await page.waitForSelector('[data-match-id="switzerland-canada-2026-06-24"]');
+  const tabletMatchHoverMetrics = await getHoveredMatchRowEdgeMetrics(page, "#match-list > .match-row");
+  assertCleanHoveredMatchRowEdges(
+    tabletMatchHoverMetrics,
+    "Tablet-width hovered match rows should keep score and pending chips inside the clipped match layout.",
+    { expectNoTransform: true, minLayoutRightGap: 3 }
+  );
+
+  await page.setViewportSize({ width: 390, height: 844 });
   await page.goto(`${baseUrl}?view=matches&date=2026-06-24&tz=America%2FLos_Angeles`, {
     waitUntil: "load"
   });
@@ -3403,7 +3915,7 @@ try {
 
       return {
         hiddenNameCount: hiddenNames.length,
-        metaCenter: metaBox ? metaBox.top + metaBox.height / 2 : 0,
+        metaCenter: metaBox ? metaBox.top + metaBox.height / 2 : null,
         rowHeight: row.getBoundingClientRect().height,
         scrollOverflow: row.scrollWidth - row.clientWidth,
         teamsCenter: teamsBox.top + teamsBox.height / 2,
@@ -3412,11 +3924,112 @@ try {
     });
   assert(
     currentDayWrappedRowMetrics.hiddenNameCount === 0 &&
-      currentDayWrappedRowMetrics.rowHeight <= 42 &&
+      currentDayWrappedRowMetrics.rowHeight <= 58 &&
       currentDayWrappedRowMetrics.scrollOverflow <= 1 &&
       Math.abs(currentDayWrappedRowMetrics.timeCenter - currentDayWrappedRowMetrics.teamsCenter) <= 3 &&
       Math.abs(currentDayWrappedRowMetrics.metaCenter - currentDayWrappedRowMetrics.teamsCenter) <= 3,
-    `Wrapped current-day rows should center time and score pills without hiding team names. Measured ${JSON.stringify(currentDayWrappedRowMetrics)}.`
+    `Wrapped current-day rows should center time and status pills against visible team text. Measured ${JSON.stringify(currentDayWrappedRowMetrics)}.`
+  );
+  const mobileCompletedHoverRow = page.locator('[data-match-id="switzerland-canada-2026-06-24"]');
+  await mobileCompletedHoverRow.hover();
+  const mobileCompletedHoverMetrics = await mobileCompletedHoverRow.evaluate((row) => {
+    const rowRect = row.getBoundingClientRect();
+    const layoutRect = row.closest(".match-layout")?.getBoundingClientRect();
+    const scoreRect = row.querySelector(".match-score")?.getBoundingClientRect();
+
+    return {
+      layoutRightGap: layoutRect && scoreRect ? layoutRect.right - scoreRect.right : 0,
+      rowRightGap: scoreRect ? rowRect.right - scoreRect.right : 0,
+      rowScrollOverflow: row.scrollWidth - row.clientWidth,
+      scoreRightOverflow:
+        layoutRect && scoreRect ? Math.max(0, scoreRect.right - layoutRect.right) : Number.POSITIVE_INFINITY,
+      transform: getComputedStyle(row).transform
+    };
+  });
+  assert(
+    mobileCompletedHoverMetrics.transform === "none" &&
+      mobileCompletedHoverMetrics.rowRightGap >= 4 &&
+      mobileCompletedHoverMetrics.layoutRightGap >= 4 &&
+      mobileCompletedHoverMetrics.rowScrollOverflow <= 1 &&
+      mobileCompletedHoverMetrics.scoreRightOverflow <= 1,
+    `Hovered mobile completed rows should not nudge score pills into the clipped edge. Measured ${JSON.stringify(mobileCompletedHoverMetrics)}.`
+  );
+  const southAfricaSouthKoreaRowMetrics = await page
+    .locator('[data-match-id="south-africa-south-korea-2026-06-24"]')
+    .evaluate((row) => {
+      const rowRect = row.getBoundingClientRect();
+      const starts = Array.from(row.querySelectorAll(".team-name-start-lock")).map((lock) => {
+        const rect = lock.getBoundingClientRect();
+
+        return {
+          text: lock.textContent.replace(/\s+/g, " ").trim(),
+          right: rect.right,
+          top: rect.top
+        };
+      });
+      const locks = Array.from(row.querySelectorAll(".team-name-rank-lock")).map((lock) => {
+        const rect = lock.getBoundingClientRect();
+
+        return {
+          text: lock.textContent.replace(/\s+/g, " ").trim(),
+          right: rect.right,
+          top: rect.top
+        };
+      });
+
+      return {
+        hasKoreaStartLock: starts.some((lock) => lock.text.replace(/\s+/g, "") === "🇰🇷South"),
+        hasKoreaRankLock: locks.some((lock) => lock.text === "Korea #25"),
+        lockRightOverflow: Math.max(
+          0,
+          ...starts.map((lock) => lock.right - rowRect.right),
+          ...locks.map((lock) => lock.right - rowRect.right)
+        ),
+        scrollOverflow: row.scrollWidth - row.clientWidth,
+        text: row.innerText.replace(/\s+/g, " ").trim()
+      };
+    });
+  assert(
+    southAfricaSouthKoreaRowMetrics.text.startsWith("6:00PM") &&
+      southAfricaSouthKoreaRowMetrics.hasKoreaStartLock &&
+      southAfricaSouthKoreaRowMetrics.hasKoreaRankLock &&
+      southAfricaSouthKoreaRowMetrics.lockRightOverflow <= 1 &&
+      southAfricaSouthKoreaRowMetrics.scrollOverflow <= 1,
+    `South Africa vs South Korea should keep the flag with South and Korea #25 together without clipping. Measured ${JSON.stringify(southAfricaSouthKoreaRowMetrics)}.`
+  );
+  const mobileRankAlignmentMetrics = await page
+    .locator('[data-match-id="switzerland-canada-2026-06-24"]')
+    .evaluate((row) =>
+      Array.from(row.querySelectorAll(".team-name-rank-lock")).map((lock) => {
+        const pill = lock.querySelector(".rank-pill");
+        const pillRect = pill?.getBoundingClientRect();
+        const textNode = Array.from(lock.childNodes).find(
+          (node) => node.nodeType === Node.TEXT_NODE && node.textContent.trim()
+        );
+
+        if (!pillRect || !textNode) {
+          return {
+            centerDelta: Number.POSITIVE_INFINITY,
+            text: lock.textContent.replace(/\s+/g, " ").trim()
+          };
+        }
+
+        const range = document.createRange();
+        range.selectNodeContents(textNode);
+        const textRect = range.getBoundingClientRect();
+
+        return {
+          centerDelta: Math.abs(
+            pillRect.top + pillRect.height / 2 - (textRect.top + textRect.height / 2)
+          ),
+          text: lock.textContent.replace(/\s+/g, " ").trim()
+        };
+      })
+    );
+  assert(
+    mobileRankAlignmentMetrics.length >= 2 &&
+      mobileRankAlignmentMetrics.every((metric) => metric.centerDelta <= 1.25),
+    `Match row rank pills should be vertically centered with country text. Measured ${JSON.stringify(mobileRankAlignmentMetrics)}.`
   );
   await page.locator('[data-match-id="bosnia-qatar-2026-06-24"]').click();
   await page.waitForSelector("#match-info .info-tooltip-button");

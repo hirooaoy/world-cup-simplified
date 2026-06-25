@@ -1,0 +1,183 @@
+{
+  "edition": "2026-world-cup",
+  "teamId": "ENG",
+  "teamName": "England",
+  "rosterNameOverrides": {
+    "GORDON Anthony": "Anthony Gordon",
+    "SAKA Bukayo": "Bukayo Saka",
+    "Chukwunonso Azuka Tristan MADUEKE": "Noni Madueke",
+    "MADUEKE Noni": "Noni Madueke",
+    "BURN Dan": "Dan Burn",
+    "Daniel Johnson BURN": "Dan Burn",
+    "HENDERSON Dean": "Dean Henderson",
+    "RICE Declan": "Declan Rice",
+    "SPENCE Djed": "Djed Spence",
+    "EZE Eberechi": "Eberechi Eze",
+    "ANDERSON Elliot": "Elliot Anderson",
+    "KONSA Ezri": "Ezri Konsa",
+    "KANE Harry": "Harry Kane",
+    "TONEY Ivan": "Ivan Toney",
+    "TRAFFORD James": "James Trafford",
+    "QUANSAH Jarell": "Jarell Quansah",
+    "STONES John": "John Stones",
+    "HENDERSON Jordan": "Jordan Henderson",
+    "PICKFORD Jordan": "Jordan Pickford",
+    "BELLINGHAM Jude": "Jude Bellingham",
+    "Jude Victor William BELLINGHAM": "Jude Bellingham",
+    "MAINOO Kobbie": "Kobbie Mainoo",
+    "GUEHI Marc": "Marc Guehi",
+    "RASHFORD Marcus": "Marcus Rashford",
+    "ROGERS Morgan": "Morgan Rogers",
+    "OREILLY Nico": "Nico Oreilly",
+    "Oliver George Arthur WATKINS": "Ollie Watkins",
+    "WATKINS Ollie": "Ollie Watkins",
+    "JAMES Reece": "Reece James",
+    "CHALOBAH Trevoh": "Trevoh Chalobah"
+  },
+  "removeProfiles": [
+    "Chukwunonso Azuka Tristan Madueke",
+    "Daniel Johnson Burn",
+    "Oliver George Arthur Watkins"
+  ],
+  "profiles": {
+    "Anthony Gordon": {
+      "skills": ["Left-wing pressing", "Direct carries", "Runs in behind"],
+      "note": "Gordon gives England left-side speed and pressure, ideal when the match needs vertical running.",
+      "noteZh": "戈登给英格兰左路速度和压迫，当比赛需要纵向跑动时很理想。"
+    },
+    "Bukayo Saka": {
+      "skills": ["Right-wing creation", "One-on-one control", "Left-footed final ball"],
+      "note": "Saka is England's right-side control point, able to turn isolated touches into clean chances.",
+      "noteZh": "萨卡是英格兰右路控制点，能把孤立触球转成清晰机会。"
+    },
+    "Dan Burn": {
+      "skills": ["Aerial defending", "Left-side cover", "Set-piece threat"],
+      "note": "Burn gives England height on the left, useful for defending crosses and attacking restarts.",
+      "noteZh": "伯恩给英格兰左侧带来高度，适合防守传中和进攻定位球。"
+    },
+    "Dean Henderson": {
+      "skills": ["Goalkeeper reactions", "Cross command", "Quick restarts"],
+      "note": "Henderson offers England a sharp goalkeeper option with command on crosses and fast restarts.",
+      "noteZh": "亨德森给英格兰提供敏捷门将选择，能指挥传中并快速重启。"
+    },
+    "Declan Rice": {
+      "skills": ["Midfield protection", "Ball carrying", "Duel control"],
+      "note": "Rice is England's midfield insurance, protecting transitions and carrying the ball out of pressure.",
+      "noteZh": "赖斯是英格兰中场保险，能保护转换并带球摆脱压力。"
+    },
+    "Djed Spence": {
+      "skills": ["Right-back speed", "Overlap runs", "Recovery defending"],
+      "note": "Spence gives England right-side speed, useful when the flank needs fresh running and recovery.",
+      "noteZh": "斯彭斯给英格兰右侧带来速度，当边路需要新鲜跑动和回追时很有用。"
+    },
+    "Eberechi Eze": {
+      "skills": ["Between-lines dribbling", "Creative carrying", "Box-edge shooting"],
+      "note": "Eze gives England invention between the lines, especially when a dribble has to bend the block.",
+      "noteZh": "埃泽给英格兰两线之间的创造力，尤其当盘带需要扭动防线时。"
+    },
+    "Elliot Anderson": {
+      "skills": ["Midfield carrying", "Pressing range", "Short combinations"],
+      "note": "Anderson adds midfield legs and tidy combinations, useful for keeping pressure alive.",
+      "noteZh": "安德森增加中场跑动和整洁配合，适合让压力持续存在。"
+    },
+    "Ezri Konsa": {
+      "skills": ["Centre-back recovery", "Right-side cover", "Calm defending"],
+      "note": "Konsa gives England calm defensive coverage, especially when the back line has to defend space.",
+      "noteZh": "孔萨给英格兰冷静防守覆盖，尤其当防线需要防守空间时。"
+    },
+    "Harry Kane": {
+      "skills": ["Link play", "Penalty-box finishing", "Creative passing"],
+      "note": "Kane is England's forward hub, dropping in to create before arriving to finish.",
+      "noteZh": "凯恩是英格兰前场枢纽，能回撤创造，再到位终结。"
+    },
+    "Ivan Toney": {
+      "skills": ["Target play", "Penalty-box strength", "Set-piece finishing"],
+      "note": "Toney gives England a more physical striker route when the game asks for contact and crosses.",
+      "noteZh": "托尼给英格兰更身体化的中锋路线，当比赛需要接触和传中时很有用。"
+    },
+    "James Trafford": {
+      "skills": ["Goalkeeper potential", "Shot stopping", "Distribution"],
+      "note": "Trafford adds young goalkeeper depth, useful for distribution and reaction saves.",
+      "noteZh": "特拉福德增加年轻门将深度，适合出球和反应扑救。"
+    },
+    "Jarell Quansah": {
+      "skills": ["Centre-back passing", "Aerial defending", "Recovery pace"],
+      "note": "Quansah gives England a composed young centre-back who can pass forward and defend space.",
+      "noteZh": "宽萨给英格兰冷静的年轻中卫，能向前传球，也能防守空间。"
+    },
+    "John Stones": {
+      "skills": ["Build-up defending", "Midfield stepping", "Composure"],
+      "note": "Stones lets England blur defence and midfield, stepping in to create a cleaner extra pass.",
+      "noteZh": "斯通斯让英格兰模糊防线和中场，能前提制造更干净的额外传球。"
+    },
+    "Jordan Henderson": {
+      "skills": ["Leadership", "Midfield organization", "Pressing cues"],
+      "note": "Henderson gives England veteran organization, useful for managing pressure and game state.",
+      "noteZh": "亨德森给英格兰老将组织力，适合管理压力和比赛状态。"
+    },
+    "Jordan Pickford": {
+      "skills": ["Goalkeeper distribution", "Shot stopping", "Tournament command"],
+      "note": "Pickford is England's tournament goalkeeper, trusted for big saves and direct distribution.",
+      "noteZh": "皮克福德是英格兰大赛门将，关键扑救和直接出球都值得信任。"
+    },
+    "Jude Bellingham": {
+      "skills": ["Box arrivals", "Ball carrying", "Midfield power"],
+      "note": "Bellingham gives England force between midfield and attack, arriving as both creator and scorer.",
+      "noteZh": "贝林厄姆给英格兰中前场之间带来力量，既能创造，也能作为得分点到位。"
+    },
+    "Kobbie Mainoo": {
+      "skills": ["Press resistance", "Central carrying", "Short progression"],
+      "note": "Mainoo gives England calm in traffic, carrying through midfield without forcing the pass.",
+      "noteZh": "梅努给英格兰拥挤区域的冷静，能带球穿过中场而不勉强传球。"
+    },
+    "Marc Guehi": {
+      "displayName": "Marc Guéhi",
+      "skills": ["Centre-back timing", "Recovery defending", "Aerial duels"],
+      "note": "Guéhi gives England clean defensive timing, especially when attacks test the channel.",
+      "noteZh": "格伊给英格兰干净的防守时机，尤其当进攻冲击通道时。"
+    },
+    "Marcus Rashford": {
+      "skills": ["Left-wing speed", "Runs in behind", "Direct finishing"],
+      "note": "Rashford gives England vertical threat, stretching the back line before the pass is played.",
+      "noteZh": "拉什福德给英格兰纵向威胁，在传球送出前就能拉扯防线。"
+    },
+    "Morgan Rogers": {
+      "skills": ["Power carrying", "Inside runs", "Final-third combinations"],
+      "note": "Rogers adds power between the lines, useful when England need a runner through contact.",
+      "noteZh": "罗杰斯增加两线之间的力量，当英格兰需要能顶着接触推进的跑动点时很有用。"
+    },
+    "Nico Oreilly": {
+      "displayName": "Nico O'Reilly",
+      "sourceTitle": "Nico O'Reilly",
+      "transfermarktPlayerCode": "nico-o-reilly",
+      "summary": "Nico O'Reilly is an England midfielder from Manchester City who gives the national team midfield height, late box arrivals, and left-footed progression.",
+      "position": "Midfielder",
+      "club": "Manchester City",
+      "league": "Premier League",
+      "skills": ["Midfield height", "Box arrivals", "Left-footed passing"],
+      "note": "O'Reilly gives England a tall midfield option, useful for late runs and left-footed progression.",
+      "noteZh": "奥赖利给英格兰高大中场选择，适合后插上和左脚推进。",
+      "sourceUrl": "https://www.transfermarkt.com/nico-o-reilly/profil/spieler/970364"
+    },
+    "Noni Madueke": {
+      "skills": ["Right-wing dribbling", "Inside shooting", "One-on-one creation"],
+      "note": "Madueke gives England another one-on-one winger, dangerous when he can isolate a full-back.",
+      "noteZh": "马杜埃凯给英格兰又一名一对一边锋，当他能单挑边后卫时很危险。"
+    },
+    "Ollie Watkins": {
+      "skills": ["Channel running", "Pressing", "Penalty-box finishing"],
+      "note": "Watkins gives England constant running beyond the line and a direct finishing threat.",
+      "noteZh": "沃特金斯给英格兰持续冲击防线身后的跑动和直接终结威胁。"
+    },
+    "Reece James": {
+      "skills": ["Right-back delivery", "Physical defending", "Set-piece power"],
+      "note": "James gives England elite right-back delivery and the strength to defend the same flank.",
+      "noteZh": "里斯·詹姆斯给英格兰顶级右后卫传球，也有力量守住同一侧边路。"
+    },
+    "Trevoh Chalobah": {
+      "skills": ["Defensive versatility", "Aerial defending", "Right-side cover"],
+      "note": "Chalobah gives England defensive flexibility, able to cover centre-back or the right channel.",
+      "noteZh": "查洛巴给英格兰防守灵活性，能覆盖中卫或右侧通道。"
+    }
+  }
+}

@@ -1,0 +1,235 @@
+{
+  "edition": "2026-world-cup",
+  "teamId": "IRQ",
+  "teamName": "Iraq",
+  "rosterNameOverrides": {
+    "Ahmed Ihab Ahmed AHMED": "Ahmed Qasem",
+    "AHMED MAKNAZI": "Ahmed Maknzi",
+    "ALI ALHAMADI": "Ali Al-Hamadi",
+    "Ali Ibrahim Karim ALZUBAIDI": "Ali Al-Hamadi",
+    "AMIR ALAMMARI": "Amir Al-Ammari",
+    "Frans Dhia Jirjis HADDAD": "Frans Putros",
+    "Marko Jabbar Hussein HUSSEIN": "Marko Farji",
+    "Merchas Ghazi Salih SALIH": "Merchas Doski",
+    "ZAID ISMAEL": "Zaid Ismail",
+    "Zaid Ismael Khaleel AL-DULAIMI": "Zaid Ismail"
+  },
+  "removeProfiles": [
+    "Ahmed Ihab Ahmed Ahmed",
+    "Ahmed Maknazi",
+    "Ali Alhamadi",
+    "Ali Ibrahim Karim Alzubaidi",
+    "Amir Alammari",
+    "Frans Dhia Jirjis Haddad",
+    "Marko Jabbar Hussein Hussein",
+    "Merchas Ghazi Salih Salih",
+    "Zaid Ismael"
+  ],
+  "profiles": {
+    "Ahmed Basil": {
+      "displayName": "Ahmed Basil Fadhil",
+      "skills": ["Goalkeeper reactions", "Box command", "Long distribution"],
+      "note": "Iraq's goalkeeper option, useful for quick reactions and organizing a deep defensive block.",
+      "noteZh": "艾哈迈德·巴西勒·法迪勒是伊拉克门将选择，适合快速反应并组织深位防守。"
+    },
+    "Ahmed Maknzi": {
+      "displayName": "Ahmed Maknzi",
+      "aliases": ["Ahmed Maknazi", "AHMED MAKNAZI"],
+      "sourceTitle": "Ahmed Maknzi",
+      "transfermarktPlayerCode": "ahmed-maknzi",
+      "birthDate": "2001-09-24",
+      "summary": "Ahmed Maknzi is an Iraq left-back from Al-Karma who gives the national team wide defending, recovery runs, and defensive flexibility.",
+      "position": "Left-back",
+      "club": "Al-Karma",
+      "league": "Iraq Stars League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/881506-1737896866.jpeg?lm=1",
+      "marketValueEurMillions": 0.5,
+      "skills": ["Wide defending", "Recovery runs", "Defensive flexibility"],
+      "note": "Iraq's left-back cover, useful for recovery runs and keeping the far side protected.",
+      "noteZh": "艾哈迈德·马克恩齐是伊拉克左后卫保障，适合回追跑动并保护远侧。",
+      "sourceUrl": "https://www.transfermarkt.com/ahmed-maknzi/profil/spieler/881506"
+    },
+    "Ahmed Qasem": {
+      "aliases": ["Ahmed Ihab Ahmed Ahmed", "Ahmed Ihab Ahmed AHMED"],
+      "skills": ["Attacking midfield runs", "Final-third movement", "Quick shooting"],
+      "note": "Iraq's attacking midfield runner, useful for arriving between lines and shooting before pressure arrives.",
+      "noteZh": "艾哈迈德·卡西姆是伊拉克攻击型中场跑动点，适合在线间前插并在压力到来前射门。"
+    },
+    "Aimar Sher": {
+      "league": "Eliteserien",
+      "skills": ["Midfield mobility", "Ball carrying", "Pressing energy"],
+      "note": "Iraq's mobile midfield carrier, able to move possession through contact and press again after loss.",
+      "noteZh": "艾马尔·谢尔是伊拉克机动中场推进者，能在对抗中推进控球，并在丢球后再次压迫。"
+    },
+    "Akam Hashim": {
+      "displayName": "Akam Hashem",
+      "league": "Iraq Stars League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/933541-1780494863.jpg?lm=1",
+      "skills": ["Centre-back duels", "Left-footed defending", "Aerial strength"],
+      "note": "Iraq's left-footed centre-back option, useful for direct duels and defending crosses.",
+      "noteZh": "阿卡姆·哈希姆是伊拉克左脚中卫选择，适合直接对抗和防守传中。"
+    },
+    "Ali Al-Hamadi": {
+      "aliases": ["Ali Alhamadi", "ALI ALHAMADI", "Ali Ibrahim Karim Alzubaidi", "Ali Ibrahim Karim ALZUBAIDI"],
+      "sourceTitle": "Ali Al-Hamadi",
+      "transfermarktPlayerCode": "ali-al-hamadi",
+      "birthDate": "2002-03-01",
+      "summary": "Ali Al-Hamadi is an Iraq centre-forward from Luton Town who gives the national team hold-up play, runs in behind, and penalty-box finishing.",
+      "position": "Centre-forward",
+      "club": "Luton Town",
+      "league": "EFL League One",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/610581-1705017216.png?lm=1",
+      "marketValueEurMillions": 3,
+      "skills": ["Hold-up play", "Runs in behind", "Penalty-box finishing"],
+      "note": "Iraq's main mobile striker, useful for stretching centre-backs and turning direct passes into shots.",
+      "noteZh": "阿里·阿尔-哈马迪是伊拉克主要机动中锋，适合拉扯中卫并把直接传球变成射门。",
+      "sourceUrl": "https://www.transfermarkt.com/ali-al-hamadi/profil/spieler/610581"
+    },
+    "Ali Jasim": {
+      "skills": ["Wide creativity", "Left-footed dribbling", "Transition threat"],
+      "note": "Iraq's sharp wide creator, dangerous when he drives inside and attacks unsettled defenders.",
+      "noteZh": "阿里·贾西姆是伊拉克锐利的边路创造者，内切推进并冲击未站稳防守者时很危险。"
+    },
+    "Ali Yousif": {
+      "league": "Iraq Stars League",
+      "skills": ["Centre-forward size", "Aerial target play", "Box finishing"],
+      "note": "Iraq's tall centre-forward option, useful for direct service and penalty-box contact.",
+      "noteZh": "阿里·优素福是伊拉克高大中锋选择，适合直接传球和禁区对抗。"
+    },
+    "Amir Al-Ammari": {
+      "displayName": "Amir Al-Ammari",
+      "aliases": ["Amir Alammari", "AMIR ALAMMARI"],
+      "sourceTitle": "Amir Al-Ammari",
+      "transfermarktPlayerCode": "amir-al-ammari",
+      "birthDate": "1997-07-27",
+      "summary": "Amir Al-Ammari is an Iraq defensive midfielder from Cracovia who gives the national team screening, left-footed passing, and set-piece support.",
+      "position": "Defensive midfielder",
+      "club": "Cracovia",
+      "league": "Ekstraklasa",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/303766-1740127197.png?lm=1",
+      "marketValueEurMillions": 1,
+      "skills": ["Midfield screening", "Left-footed passing", "Set-piece support"],
+      "note": "Iraq's left-footed midfield screen, useful for protecting transitions and moving the ball out cleanly.",
+      "noteZh": "阿米尔·阿尔-阿马里是伊拉克左脚中场屏障，适合保护转换并干净出球。",
+      "sourceUrl": "https://www.transfermarkt.com/amir-al-ammari/profil/spieler/303766"
+    },
+    "Aymen Hussein": {
+      "skills": ["Target-forward power", "Aerial finishing", "Penalty-box presence"],
+      "note": "Iraq's reference striker, built for crosses, contact, and decisive penalty-box moments.",
+      "noteZh": "艾曼·侯赛因是伊拉克参照型中锋，适合传中、身体接触和关键禁区时刻。"
+    },
+    "Fahad Talib": {
+      "league": "Iraq Stars League",
+      "skills": ["Goalkeeper reach", "Shot stopping", "Penalty-area command"],
+      "note": "Iraq's experienced goalkeeper depth, bringing reach and calm in crowded areas.",
+      "noteZh": "法哈德·塔利布是伊拉克经验型门将深度，能在拥挤区域带来覆盖范围和冷静。"
+    },
+    "Frans Putros": {
+      "aliases": ["Frans Dhia Jirjis Haddad", "Frans Dhia Jirjis HADDAD"],
+      "league": "Indonesian Super League",
+      "skills": ["Defensive versatility", "Centre-back cover", "Full-back duels"],
+      "note": "Iraq's defensive utility piece, able to cover centre-back, full-back, or holding zones.",
+      "noteZh": "弗兰斯·普特罗斯是伊拉克防守多面手，能覆盖中卫、边后卫或后腰区域。"
+    },
+    "Hussein Ali": {
+      "skills": ["Wide midfield work", "Right-side support", "Pressing runs"],
+      "note": "Iraq's right-side worker, useful for connecting midfield to attack and pressing wide outlets.",
+      "noteZh": "侯赛因·阿里是伊拉克右路工兵，适合连接中场和进攻，并压迫边路出球点。"
+    },
+    "Ibrahim Bayesh": {
+      "skills": ["Direct wing carries", "Long shooting", "Transition running"],
+      "note": "Iraq's direct attacking runner, dangerous when he carries into space and shoots early.",
+      "noteZh": "易卜拉欣·巴耶什是伊拉克直接型进攻跑动点，带球进入空间并提前射门时很危险。"
+    },
+    "Jalal Hassan": {
+      "league": "Iraq Stars League",
+      "skills": ["Goalkeeper leadership", "Shot stopping", "Defensive organization"],
+      "note": "Iraq's veteran captain in goal, trusted for communication and high-pressure saves.",
+      "noteZh": "贾拉勒·哈桑是伊拉克门线上的老将队长，沟通和高压扑救都值得信任。"
+    },
+    "Kevin Yakob": {
+      "skills": ["Midfield control", "Press resistance", "Short combinations"],
+      "note": "Iraq's composed midfield passer, useful for keeping the ball through pressure.",
+      "noteZh": "凯文·雅各布是伊拉克沉稳的中场传球手，适合在压力下保持球权。"
+    },
+    "Marko Farji": {
+      "aliases": ["Marko Jabbar Hussein Hussein", "Marko Jabbar Hussein HUSSEIN"],
+      "skills": ["Left-wing pace", "Forward carries", "Box attacks"],
+      "note": "Iraq's young wide runner, useful for carrying into the box and attacking stretched defenders.",
+      "noteZh": "马尔科·法尔吉是伊拉克年轻边路跑动点，适合带球进入禁区并冲击被拉开的防守者。"
+    },
+    "Merchas Doski": {
+      "aliases": ["Merchas Ghazi Salih Salih", "Merchas Ghazi Salih SALIH"],
+      "league": "Czech First League",
+      "skills": ["Left-back defending", "Wide crossing", "Recovery speed"],
+      "note": "Iraq's left-back outlet, useful for defending wide and serving early balls up the line.",
+      "noteZh": "梅尔哈斯·多斯基是伊拉克左后卫出口，适合防守边路并沿边路提前送球。"
+    },
+    "Mohanad Ali": {
+      "league": "UAE Pro League",
+      "skills": ["Striker movement", "Box finishing", "Pressing from the front"],
+      "note": "Iraq's penalty-box striker, useful for sharp movement and finishing loose chances.",
+      "noteZh": "穆哈纳德·阿里是伊拉克禁区中锋，适合敏锐跑动并终结松散机会。"
+    },
+    "Munaf Younus": {
+      "displayName": "Manaf Younis",
+      "skills": ["Centre-back strength", "Aerial defending", "Penalty-area clearances"],
+      "note": "Iraq's physical centre-back, useful for direct defending and clearing crowded boxes.",
+      "noteZh": "马纳夫·尤尼斯是伊拉克身体型中卫，适合直接防守和解围拥挤禁区。"
+    },
+    "Mustafa Saadoon": {
+      "sourceTitle": "Mustafa Saadoon",
+      "transfermarktPlayerCode": "mustafa-saadoon",
+      "birthDate": "2001-05-25",
+      "summary": "Mustafa Saadoon is an Iraq right-back from Al-Shorta who gives the national team wide defending, recovery speed, and overlap support.",
+      "position": "Right-back",
+      "club": "Al-Shorta",
+      "league": "Iraq Stars League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/952341-1780495242.jpg?lm=1",
+      "marketValueEurMillions": 0.4,
+      "skills": ["Wide defending", "Recovery speed", "Overlap support"],
+      "note": "Iraq's right-back option, useful for recovery defending and careful support runs.",
+      "noteZh": "穆斯塔法·萨阿敦是伊拉克右后卫选择，适合回追防守和谨慎支援跑动。",
+      "sourceUrl": "https://www.transfermarkt.com/mustafa-saadoon/profil/spieler/952341"
+    },
+    "Rebin Sulaka": {
+      "league": "Thai League 1",
+      "skills": ["Centre-back experience", "Aerial duels", "Back-line organization"],
+      "note": "Iraq's experienced centre-back, useful for organizing the line and winning aerial contact.",
+      "noteZh": "雷宾·苏拉卡是伊拉克经验型中卫，适合组织防线并赢下空中对抗。"
+    },
+    "Youssef Amyn": {
+      "league": "Cypriot First Division",
+      "skills": ["Wing acceleration", "Inside dribbling", "Transition threat"],
+      "note": "Iraq's quick winger, dangerous when he drives inside from wide areas in transition.",
+      "noteZh": "优素福·阿明是伊拉克速度型边锋，在转换中从边路内切推进时很危险。"
+    },
+    "Zaid Ismail": {
+      "aliases": ["Zaid Ismael", "ZAID ISMAEL", "Zaid Ismael Khaleel Al-Dulaimi"],
+      "sourceTitle": "Zaid Ismail",
+      "transfermarktPlayerCode": "zaid-ismail",
+      "birthDate": "2002-01-03",
+      "summary": "Zaid Ismail is an Iraq defensive midfielder from Al-Talaba who gives the national team screening, duel work, and simple central passing.",
+      "position": "Defensive midfielder",
+      "club": "Al-Talaba",
+      "league": "Iraq Stars League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/1132850-1769951640.jpg?lm=1",
+      "marketValueEurMillions": 0.5,
+      "skills": ["Midfield screening", "Duel work", "Simple passing"],
+      "note": "Iraq's midfield shield, useful for protecting the centre and keeping the next pass simple.",
+      "noteZh": "扎伊德·伊斯梅尔是伊拉克中场屏障，适合保护中路并保持下一脚传球简单。",
+      "sourceUrl": "https://www.transfermarkt.com/zaid-ismail/profil/spieler/1132850"
+    },
+    "Zaid Tahseen": {
+      "league": "Uzbekistan Super League",
+      "skills": ["Centre-back defending", "Aerial presence", "Back-line depth"],
+      "note": "Iraq's centre-back depth, useful for aerial defending and late-game protection.",
+      "noteZh": "扎伊德·塔赫辛是伊拉克中卫深度，适合空中防守和比赛后段保护。"
+    },
+    "Zidane Iqbal": {
+      "skills": ["Central ball carrying", "Press resistance", "Forward passing"],
+      "note": "Iraq's technical midfield carrier, able to receive under pressure and move play forward.",
+      "noteZh": "齐达内·伊克巴尔是伊拉克技术型中场推进者，能在压力下接球并把比赛向前推进。"
+    }
+  }
+}

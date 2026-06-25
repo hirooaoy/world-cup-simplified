@@ -1,0 +1,149 @@
+{
+  "edition": "2026-world-cup",
+  "teamId": "FRA",
+  "teamName": "France",
+  "profiles": {
+    "Adrien Rabiot": {
+      "skills": ["Left-sided midfield balance", "Late box runs", "Aerial duels"],
+      "note": "France's left-sided midfield stabilizer, useful for adding height, balance, and late runs around the box.",
+      "noteZh": "阿德里安·拉比奥是法国左侧中场稳定器，能在禁区周围增加身高、平衡和后插上跑动。"
+    },
+    "Aurelien Tchouameni": {
+      "displayName": "Aurélien Tchouaméni",
+      "skills": ["Midfield screening", "Long passing", "Defensive duels"],
+      "note": "France's deep midfield shield, able to protect the centre and launch attacks with longer passes.",
+      "noteZh": "奥雷利安·楚阿梅尼是法国后腰屏障，能保护中路并用长传发动进攻。"
+    },
+    "Bradley Barcola": {
+      "skills": ["Left-wing acceleration", "One-on-one dribbling", "Cutback creation"],
+      "note": "France's left-wing accelerator, dangerous when he isolates a full-back and turns the byline into cutbacks.",
+      "noteZh": "布拉德利·巴尔科拉是法国左路加速点，一对一面对边后卫并把底线位置变成倒三角时很危险。"
+    },
+    "Brice Samba": {
+      "skills": ["Goalkeeper command", "Reaction saves", "Box bravery"],
+      "note": "France's assertive goalkeeper option, bringing voice, reach, and confidence in crowded areas.",
+      "noteZh": "布里斯·桑巴是法国强势门将选择，能在拥挤区域带来指挥、覆盖范围和信心。"
+    },
+    "Dayot Upamecano": {
+      "skills": ["Recovery defending", "Centre-back carrying", "Front-foot duels"],
+      "note": "France's athletic centre-back, useful for defending big spaces and stepping forward with the ball.",
+      "noteZh": "达约·于帕梅卡诺是法国运动能力强的中卫，适合防守大片空间并带球前顶。"
+    },
+    "Desire Doue": {
+      "displayName": "Désiré Doué",
+      "skills": ["Creative dribbling", "Two-footed invention", "Between-lines receiving"],
+      "note": "France's young creative wildcard, able to receive between lines and make a defender miss.",
+      "noteZh": "德西雷·杜埃是法国年轻创造型变招，能在线间接球并摆脱一名防守者。"
+    },
+    "Ibrahima Konate": {
+      "displayName": "Ibrahima Konaté",
+      "skills": ["Physical centre-back defending", "Aerial power", "Recovery speed"],
+      "note": "France's power centre-back, built for aerial contact and sprinting back into open space.",
+      "noteZh": "易卜拉希马·科纳特是法国力量型中卫，适合空中对抗并冲刺回追开阔空间。"
+    },
+    "Jean-Philippe Mateta": {
+      "skills": ["Target-forward play", "Penalty-box finishing", "Hold-up strength"],
+      "note": "France's direct centre-forward option, useful when they need a bigger body to finish or pin defenders.",
+      "noteZh": "让-菲利普·马特塔是法国直接型中锋选择，球队需要更强壮身体来终结或压住防守者时很有用。"
+    },
+    "Jules Kounde": {
+      "displayName": "Jules Koundé",
+      "skills": ["Right-back control", "Centre-back instincts", "One-on-one defending"],
+      "note": "France's right-side defensive controller, calm enough to defend wide or tuck inside.",
+      "noteZh": "朱尔·孔德是法国右侧防守控制者，既能冷静守边路，也能内收到中路。"
+    },
+    "Kylian Mbappe": {
+      "displayName": "Kylian Mbappé",
+      "skills": ["Elite pace", "Left-channel finishing", "Transition terror"],
+      "note": "France's game-breaking forward, most frightening when he attacks the left channel before the block is set.",
+      "noteZh": "基利安·姆巴佩是法国打破比赛的前锋，在防线站稳前冲击左侧通道时最可怕。"
+    },
+    "Lucas Digne": {
+      "skills": ["Left-back crossing", "Set-piece delivery", "Defensive experience"],
+      "note": "France's experienced left-back option, useful for early crosses and reliable set-piece service.",
+      "noteZh": "卢卡斯·迪涅是法国经验型左后卫选择，适合早传和可靠的定位球传递。"
+    },
+    "Lucas Hernandez": {
+      "displayName": "Lucas Hernández",
+      "skills": ["Left-sided defending", "Centre-back cover", "Aggressive duels"],
+      "note": "France's left-sided defensive enforcer, able to cover centre-back or full-back zones with bite.",
+      "noteZh": "卢卡斯·埃尔南德斯是法国左侧防守强硬点，能强硬覆盖中卫或边后卫区域。"
+    },
+    "Maghnes Akliouche": {
+      "displayName": "Maghnes Akliouche",
+      "skills": ["Right-side invention", "Close control", "Final-third passing"],
+      "note": "France's subtle attacking connector, useful for tight touches and disguised passes near the box.",
+      "noteZh": "马格内斯·阿克利乌什是法国细腻的进攻连接点，适合在禁区附近用小范围触球和隐蔽传球制造机会。"
+    },
+    "Malo Gusto": {
+      "skills": ["Right-back speed", "Overlap timing", "Recovery defending"],
+      "note": "France's right-back runner, valuable for pushing high and still recovering into wide duels.",
+      "noteZh": "马洛·古斯托是法国右后卫跑动点，对高位前插并回到边路对抗很有价值。"
+    },
+    "Manu Kone": {
+      "displayName": "Manu Koné",
+      "skills": ["Ball-carrying power", "Midfield duels", "Press escape"],
+      "note": "France's physical midfield carrier, able to drive through contact and break pressure.",
+      "noteZh": "马努·科内是法国身体型中场推进者，能带球穿过对抗并破解压力。"
+    },
+    "Marcus Thuram": {
+      "skills": ["Forward channel runs", "Hold-up play", "Wide-to-central movement"],
+      "note": "France's flexible forward runner, useful for drifting wide before attacking central space.",
+      "noteZh": "马库斯·图拉姆是法国灵活的前锋跑动点，适合先拉到边路再冲击中路空间。"
+    },
+    "Maxence Lacroix": {
+      "skills": ["Recovery speed", "Centre-back range", "Aerial defending"],
+      "note": "France's quick centre-back depth, useful when the defensive line has to live high.",
+      "noteZh": "马克桑斯·拉克鲁瓦是法国速度型中卫深度，防线必须高位运转时很有用。"
+    },
+    "Michael Olise": {
+      "skills": ["Left-footed creation", "Right-wing drifting", "Set-piece quality"],
+      "note": "France's left-footed right-side creator, dangerous when he pauses, cuts inside, and picks the final ball.",
+      "noteZh": "迈克尔·奥利塞是法国左脚右路创造者，停顿、内切并选择最后一传时很危险。"
+    },
+    "Mike Maignan": {
+      "skills": ["Elite goalkeeping", "Sweeper command", "Long distribution"],
+      "note": "France's first-choice goalkeeper, giving them range, authority, and clean distribution.",
+      "noteZh": "迈克·迈尼昂是法国一号门将，能提供覆盖范围、权威感和干净出球。"
+    },
+    "Ngolo Kante": {
+      "displayName": "N'Golo Kanté",
+      "skills": ["Ball-winning range", "Transition defense", "Midfield anticipation"],
+      "note": "France's evergreen ball-winner, still able to sense danger early and erase counters.",
+      "noteZh": "恩戈洛·坎特是法国常青抢球手，依然能提前感知危险并抹掉反击。"
+    },
+    "Ousmane Dembele": {
+      "displayName": "Ousmane Dembélé",
+      "skills": ["Two-footed dribbling", "Wing chaos", "Shot creation"],
+      "note": "France's two-footed chaos maker, able to unbalance a settled defense from either side.",
+      "noteZh": "奥斯曼·登贝莱是法国双脚混乱制造者，能从任一侧打乱已经站稳的防线。"
+    },
+    "Rayan Cherki": {
+      "skills": ["Street-ball invention", "Final pass", "Tight-space dribbling"],
+      "note": "France's improvising creator, dangerous when structure breaks and the match becomes a puzzle.",
+      "noteZh": "拉扬·谢尔基是法国即兴创造者，当结构被打破、比赛变成解题时很危险。"
+    },
+    "Robin Risser": {
+      "skills": ["Goalkeeper upside", "Shot stopping", "Penalty-area confidence"],
+      "note": "France's young goalkeeper depth, bringing shot-stopping upside behind the senior options.",
+      "noteZh": "罗宾·里塞尔是法国年轻门将深度，在资深选择身后提供扑救上限。"
+    },
+    "Theo Hernandez": {
+      "displayName": "Théo Hernandez",
+      "skills": ["Left-back surges", "Power carries", "Back-post attacks"],
+      "note": "France's explosive left-back runner, able to turn a defensive regain into a direct attack.",
+      "noteZh": "特奥·埃尔南德斯是法国爆发型左后卫跑动点，能把一次防守夺回变成直接进攻。"
+    },
+    "Warren Zaire-Emery": {
+      "displayName": "Warren Zaïre-Emery",
+      "skills": ["Teenage composure", "Central progression", "Counter-pressing"],
+      "note": "France's young midfield connector, calm enough to progress play and press again after loss.",
+      "noteZh": "沃伦·扎伊尔-埃梅里是法国年轻中场连接点，能冷静推进，也能在丢球后再次压迫。"
+    },
+    "William Saliba": {
+      "skills": ["Elite centre-back calm", "Recovery defending", "Duel control"],
+      "note": "France's calm defensive cornerstone, trusted to win duels without making the game look frantic.",
+      "noteZh": "威廉·萨利巴是法国冷静的防守基石，能赢下对抗而不让比赛显得慌乱。"
+    }
+  }
+}

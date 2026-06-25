@@ -132,6 +132,8 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "Club to verify": "俱乐部待确认",
     "Current knockout path with likely winners filled for now. Finished results replace estimates.":
       "当前淘汰赛路径会先填入暂时更可能晋级的球队，完赛结果会替换估算。",
+    "Round of 32 slots use current standings and remaining projections. Later rounds show muted predictions until results confirm the path.":
+      "32强席位根据当前积分榜和剩余比赛预测生成；后续轮次会以弱化样式显示预测，直到赛果确认路径。",
     "Current score": "当前比分",
     "Third-place standings across all groups. The top eight advance; ties are flagged when fair-play data is unavailable.":
       "所有小组第三名排名。前八名晋级；若公平竞赛数据不可用，平局会被标记。",
@@ -172,6 +174,7 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "Final score reflected in the current standings after source checks.":
       "来源核对后，最终比分已反映在当前积分榜中。",
     "Final pending": "最终比分待确认",
+    "Pending": "待确认",
     "Final score": "最终比分",
     "Friendly": "友谊赛",
     "France": "法国",
@@ -182,7 +185,11 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "Ghana": "加纳",
     "Goal difference is goals scored minus goals allowed. If teams are tied on points, a better goal difference can help decide who advances.":
       "净胜球为进球数减失球数。若积分相同，净胜球更好可能决定晋级。",
+    "Goal difference is goals scored minus goals allowed. In the third-place race, it helps break ties after points.":
+      "净胜球为进球数减失球数。在第三名竞争中，它用于积分相同后的排序。",
     "Goals": "进球",
+    "Goals scored is the total goals for. It can break ties after points and goal difference in the third-place race.":
+      "进球数是球队总进球。在第三名竞争中，它可用于积分和净胜球之后的同分排序。",
     "Goal threat": "进球威胁",
     "Group": "小组",
     "Group standings": "小组积分榜",
@@ -286,6 +293,8 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "Quarter-finals": "四分之一决赛",
     "Points rank teams in the group: 3 for a win, 1 for a draw, 0 for a loss. More points usually means a better chance to advance.":
       "积分决定小组排名：胜3分，平1分，负0分。积分越多通常越有机会晋级。",
+    "Points compare third-place teams: 3 for a win, 1 for a draw, 0 for a loss. More points puts a team closer to the top eight.":
+      "积分用于比较各组第三名球队：胜3分，平1分，负0分。积分越多越接近前八。",
     "Rank": "排名",
     "Read source": "阅读来源",
     "release notes": "发布说明",
@@ -349,6 +358,8 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "Standings": "积分榜",
     "Standings sections": "积分榜分区",
     "Status": "状态",
+    "Status shows whether a team is currently inside the top eight third-place places, near the cut line, or outside.":
+      "状态显示球队目前是在第三名球队前八内、接近晋级线，还是位于前八之外。",
     "selected": "已选择",
     "South Africa": "南非",
     "South Korea": "韩国",
@@ -928,6 +939,7 @@ const ZH_PLAYER_NAME_TRANSLATIONS = {
   "Jude Bellingham": "裘德·贝林厄姆",
   "Julio César Enciso": "胡利奥·塞萨尔·恩西索",
   "Julián Alvarez": "胡利安·阿尔瓦雷斯",
+  "Julián Álvarez": "胡利安·阿尔瓦雷斯",
   "Juninho Bacuna": "儒尼尼奥·巴库纳",
   "Jérémy Doku": "杰里米·多库",
   "Kalidou Koulibaly": "卡利杜·库利巴利",
@@ -1007,6 +1019,7 @@ const ZH_PLAYER_NAME_TRANSLATIONS = {
   "Yasin Ayari": "亚辛·阿亚里",
   "Yoane Wissa": "约安·维萨",
   "Zidane Iqbal": "齐达内·伊克巴尔",
+  Zizo: "齐佐",
   "Adam Hlozek": "亚当·赫洛热克",
   "Arda Guler": "阿尔达·居莱尔",
   "Brahim Diaz": "布拉欣·迪亚斯",
@@ -1673,8 +1686,8 @@ Object.entries({
   "Transition craft": "转换技巧",
   "Transition pace": "转换速度",
   "Transition speed": "转换速度",
-  "Round of 32 slots use current standings and remaining projections. Later rounds fill in after results.":
-    "32强席位根据当前积分榜和剩余比赛预测生成；后续轮次会在赛果产生后填入。",
+  "Round of 32 slots use current standings and remaining projections. Later rounds show muted predictions until results confirm the path.":
+    "32强席位根据当前积分榜和剩余比赛预测生成；后续轮次会以弱化样式显示预测，直到赛果确认路径。",
   TBD: "待定",
   Likely: "可能",
   "Unknown scorer": "进球者未知",
@@ -1705,6 +1718,10 @@ const ZH_PATTERN_TRANSLATIONS = [
   },
   {
     pattern: /^Group ([A-L]) Top (\d+)$/,
+    replace: (_, groupId, place) => `${groupId}组第${place}名`
+  },
+  {
+    pattern: /^Group ([A-L](?:\/[A-L])*)(\d+)$/,
     replace: (_, groupId, place) => `${groupId}组第${place}名`
   },
   {
@@ -1783,6 +1800,36 @@ const ZH_PATTERN_TRANSLATIONS = [
     pattern: /^(.+) is (.+) in the best third-place race: (.+)$/,
     replace: (_, teamName, rank, status) =>
       `${translateTextToZh(teamName)}在最佳第三名竞争中排名${translateTextToZh(rank)}：${translateTextToZh(status)}`
+  },
+  {
+    pattern:
+      /^Currently (.+) in the third-place race: (\d+) points?, (.+) goal difference, (\d+) goals? scored\.$/,
+    replace: (_, rank, points, gd, goals) =>
+      `当前在第三名竞争中排名${translateTextToZh(rank)}：${points}分，净胜球${gd}，进${goals}球。`
+  },
+  {
+    pattern:
+      /^Currently (.+) in the third-place race: (\d+) points?, (.+) goal difference, (\d+) goals? scored\. To stay top 8, keep ahead of (.+) \((.+)\) on (.+): (.+) vs (.+)\.$/,
+    replace: (_, rank, points, gd, goals, target, targetRank, label, candidateValue, targetValue) =>
+      `当前在第三名竞争中排名${translateTextToZh(rank)}：${points}分，净胜球${gd}，进${goals}球。要留在前8，需要在${formatThirdPlaceDeciderLabelZh(label)}上继续领先${translateTextToZh(target)}（${translateTextToZh(targetRank)}）：${translateTextToZh(candidateValue)} 对 ${translateTextToZh(targetValue)}。`
+  },
+  {
+    pattern:
+      /^Currently (.+) in the third-place race: (\d+) points?, (.+) goal difference, (\d+) goals? scored\. To make the top 8, move ahead of (.+) \((.+)\) on (.+): (.+) vs (.+)\.$/,
+    replace: (_, rank, points, gd, goals, target, targetRank, label, candidateValue, targetValue) =>
+      `当前在第三名竞争中排名${translateTextToZh(rank)}：${points}分，净胜球${gd}，进${goals}球。要进入前8，需要在${formatThirdPlaceDeciderLabelZh(label)}上超过${translateTextToZh(target)}（${translateTextToZh(targetRank)}）：${translateTextToZh(candidateValue)} 对 ${translateTextToZh(targetValue)}。`
+  },
+  {
+    pattern:
+      /^Currently (.+) in the third-place race: (\d+) points?, (.+) goal difference, (\d+) goals? scored\. Top-8 place is tied from (.+)-(.+); fair-play data is pending\.$/,
+    replace: (_, rank, points, gd, goals, start, end) =>
+      `当前在第三名竞争中排名${translateTextToZh(rank)}：${points}分，净胜球${gd}，进${goals}球。前8席位在${translateTextToZh(start)}至${translateTextToZh(end)}名之间打平；公平竞赛数据待确认。`
+  },
+  {
+    pattern:
+      /^Currently (.+) in the third-place race: (\d+) points?, (.+) goal difference, (\d+) goals? scored\. To (stay top 8|make the top 8), the tie with (.+) \((.+)\) is still unresolved on loaded points, goal difference and goals scored; fair-play data is pending\.$/,
+    replace: (_, rank, points, gd, goals, action, target, targetRank) =>
+      `当前在第三名竞争中排名${translateTextToZh(rank)}：${points}分，净胜球${gd}，进${goals}球。要${action === "stay top 8" ? "留在前8" : "进入前8"}，与${translateTextToZh(target)}（${translateTextToZh(targetRank)}）的同分排序仍未在已载入的积分、净胜球和进球数中分出；公平竞赛数据待确认。`
   },
   {
     pattern: /^Tied on loaded stats for (.+)-(.+)\.$/,
@@ -1872,6 +1919,16 @@ const ZH_PATTERN_TRANSLATIONS = [
   {
     pattern: /^Likely for now: (.+) (\d+)%$/,
     replace: (_, team, percent) => `当前可能：${team} ${percent}%`
+  },
+  {
+    pattern: /^Prediction based on (.+) vs (.+)\. (.+)$/,
+    replace: (_, home, away, detail) =>
+      `基于${translateTextToZh(home)}对${translateTextToZh(away)}的预测。${translateTextToZh(detail)}`
+  },
+  {
+    pattern: /^Prediction based on (.+)'s current path\. (.+)$/,
+    replace: (_, team, detail) =>
+      `基于${translateTextToZh(team)}当前路径的预测。${translateTextToZh(detail)}`
   },
   {
     pattern: /^(.+) have the stronger FIFA rank \(#(\d+) vs #(\d+)\)\. Rough (\d+)%\.$/,
@@ -2393,7 +2450,7 @@ const CURRENT_STANDINGS_SUMMARY =
 const THIRD_PLACE_STANDINGS_SUMMARY =
   "Third-place standings across all groups. The top eight advance; ties are flagged when fair-play data is unavailable.";
 const TOURNAMENT_STANDINGS_SUMMARY =
-  "Round of 32 slots use current standings and remaining projections. Later rounds fill in after results.";
+  "Round of 32 slots use current standings and remaining projections. Later rounds show muted predictions until results confirm the path.";
 const HISTORICAL_STANDINGS_SUMMARY =
   "Final group tables computed from archived match results.";
 const TOURNAMENT_PROGRESS_ROUNDS = [
@@ -2649,8 +2706,13 @@ let fixtures = [];
 let historicalFixtures = [];
 let history = { coverage: {}, fixtures: [], source: null, tournaments: [] };
 const historicalProjectionCache = new Map();
+const groupThirdPlacePointFloorCache = new Map();
+const teamGroupStageEliminationCache = new Map();
+const teamMaximumGroupPointsCache = new Map();
 let historicalPlayerProfilesByName = new Map();
+let historicalPlayerProfilesByVersion = new Map();
 let playerProfilesByName = new Map();
+let playerProfilesByTeamAndName = new Map();
 let shouldShowPlayerMarketValues = false;
 let teamsById = new Map();
 let teamsByName = new Map();
@@ -2865,6 +2927,19 @@ function formatZhPointCount(value) {
   const count = wordCounts[normalized] || normalized;
 
   return `${count}分`;
+}
+
+function formatThirdPlaceDeciderLabelZh(label) {
+  const labelTranslations = {
+    "FIFA ranking fallback": "FIFA排名备用规则",
+    "deterministic loaded order": "已载入排序",
+    "goal difference": "净胜球",
+    "goals scored": "进球数",
+    "loaded fair-play conduct": "已载入公平竞赛分",
+    points: "积分"
+  };
+
+  return labelTranslations[label] || translateTextToZh(label);
 }
 
 function localizeText(value) {
@@ -5064,7 +5139,7 @@ function buildPlayerProfileLookup(profiles = {}) {
 
   for (const [name, profile] of Object.entries(profiles || {})) {
     const entry = { name, ...profile };
-    for (const alias of [name, profile?.name, profile?.displayName]) {
+    for (const alias of getPlayerProfileAliases(name, profile)) {
       const key = normalizeTextKey(alias);
       if (key && !lookup.has(key)) {
         lookup.set(key, entry);
@@ -5073,6 +5148,96 @@ function buildPlayerProfileLookup(profiles = {}) {
   }
 
   return lookup;
+}
+
+function getPlayerProfileAliases(name, profile = {}) {
+  return [
+    name,
+    profile?.name,
+    profile?.displayName,
+    ...(Array.isArray(profile?.aliases) ? profile.aliases : [])
+  ];
+}
+
+function buildTeamPlayerProfileLookup(profiles = {}) {
+  const lookup = new Map();
+
+  for (const [name, profile] of Object.entries(profiles || {})) {
+    const teamId = String(profile?.teamId || "").trim().toUpperCase();
+    if (!teamId) {
+      continue;
+    }
+
+    const entry = { name, ...profile };
+    for (const alias of getPlayerProfileAliases(name, profile)) {
+      const key = normalizeTextKey(alias);
+      if (key) {
+        lookup.set(`${teamId}:${key}`, entry);
+      }
+    }
+  }
+
+  return lookup;
+}
+
+function normalizeHistoricalTeamKey(value) {
+  return normalizeTextKey(value);
+}
+
+function getHistoricalProfileVersionKey(name, teamName, tournamentYear) {
+  const nameKey = normalizeTextKey(name);
+  const teamKey = normalizeHistoricalTeamKey(teamName);
+  const year = Number(tournamentYear);
+
+  return nameKey && teamKey && Number.isInteger(year) && year > 0 ? `${year}:${teamKey}:${nameKey}` : "";
+}
+
+function getHistoricalProfileTeamCandidates(player) {
+  return [
+    player?.historicalTeamName,
+    player?.teamName,
+    player?.team?.name,
+    player?.team?.officialName,
+    ...(Array.isArray(player?.teams) ? player.teams : [])
+  ].filter((teamName) => typeof teamName === "string" && teamName.trim());
+}
+
+function buildHistoricalPlayerProfileLookups(profiles = {}) {
+  const byName = new Map();
+  const byVersion = new Map();
+
+  for (const [profileKey, profile] of Object.entries(profiles || {})) {
+    const entry = { profileKey, ...profile };
+    const aliases = getPlayerProfileAliases(profile?.name || profileKey, profile);
+    const teamCandidates = [
+      profile?.teamName,
+      ...(Array.isArray(profile?.teams) ? profile.teams : [])
+    ].filter((teamName) => typeof teamName === "string" && teamName.trim());
+    const yearCandidates = [
+      profile?.tournamentYear,
+      ...(Array.isArray(profile?.tournamentYears) ? profile.tournamentYears : [])
+    ]
+      .map(Number)
+      .filter((year) => Number.isInteger(year) && year > 0);
+
+    for (const alias of aliases) {
+      const nameKey = normalizeTextKey(alias);
+      if (nameKey && !byName.has(nameKey)) {
+        byName.set(nameKey, entry);
+      }
+
+      for (const teamName of teamCandidates) {
+        for (const year of yearCandidates) {
+          const versionKey = getHistoricalProfileVersionKey(alias, teamName, year);
+          if (versionKey && !byVersion.has(versionKey)) {
+            byVersion.set(versionKey, entry);
+          }
+        }
+      }
+    }
+  }
+
+  return { byName, byVersion };
 }
 
 function hasChineseCharacter(value) {
@@ -5828,6 +5993,26 @@ function renderRank(team) {
   return `<span class="rank-pill" aria-label="${escapeHtml(label)}">#${escapeHtml(team.fifaRank)}</span>`;
 }
 
+function renderTeamNameWithFlagAndRank(teamName, flagHtml, rankHtml) {
+  const words = String(teamName || "").trim().split(/\s+/u).filter(Boolean);
+
+  if (!words.length) {
+    return flagHtml;
+  }
+
+  if (words.length === 1) {
+    return `<span class="team-name-start-lock">${flagHtml}<span class="team-name-rank-lock">${escapeHtml(words[0])}${rankHtml ? `&nbsp;${rankHtml}` : ""}</span></span>`;
+  }
+
+  const [firstWord, ...remainingWords] = words;
+  const lastWord = remainingWords.pop();
+  const middleWords = remainingWords.map(escapeHtml).join(" ");
+  const middleHtml = middleWords ? ` ${middleWords}` : "";
+  const rankLockHtml = `<span class="team-name-rank-lock">${escapeHtml(lastWord)}${rankHtml ? `&nbsp;${rankHtml}` : ""}</span>`;
+
+  return `<span class="team-name-start-lock">${flagHtml}${escapeHtml(firstWord)}</span>${middleHtml} ${rankLockHtml}`;
+}
+
 function getStandingName(team) {
   return team.standingName || team.name;
 }
@@ -5840,18 +6025,24 @@ function renderMeasuredLabel(label, className) {
 }
 
 function renderTeamInline(team, className = "team", options = {}) {
-  const { showRank = true } = options;
+  const { keepRankWithName = false, showRank = true } = options;
   const teamName = getLocalizedTeamName(team);
   const escapedTeamName = escapeHtml(teamName);
+  const flagHtml = renderFlag(team);
+  const rankHtml = showRank ? renderRank(team) : "";
   const tooltipAttributes = teamName
     ? ` aria-label="${escapedTeamName}" data-tooltip="${escapedTeamName}"`
     : "";
+  const nameHtml = keepRankWithName
+    ? renderTeamNameWithFlagAndRank(teamName, flagHtml, rankHtml)
+    : escapedTeamName;
+  const leadingFlagHtml = keepRankWithName ? "" : flagHtml;
+  const trailingRankHtml = keepRankWithName ? "" : rankHtml;
 
   return `
     <span class="${escapeHtml(className)}"${tooltipAttributes}>
-      ${renderFlag(team)}
-      <span class="team-name" aria-label="${escapedTeamName}">${escapedTeamName}</span>
-      ${showRank ? renderRank(team) : ""}
+      ${leadingFlagHtml}
+      <span class="team-name" aria-label="${escapedTeamName}">${nameHtml}</span>${trailingRankHtml}
     </span>
   `;
 }
@@ -5900,6 +6091,61 @@ function updateTruncatedTeamTooltips(root = document) {
         team.style.removeProperty("--name-tooltip-anchor");
       }
     });
+}
+
+function getInlineContentRight(elements, fallbackLeft) {
+  return elements.reduce((right, element) => {
+    const range = document.createRange();
+    range.selectNodeContents(element);
+    const rects = Array.from(range.getClientRects());
+    range.detach();
+
+    if (!rects.length) {
+      return Math.max(right, element.getBoundingClientRect().right);
+    }
+
+    return Math.max(right, ...rects.map((rect) => rect.right));
+  }, fallbackLeft);
+}
+
+function updateWrappedMatchRows(root = document) {
+  root.querySelectorAll(".match-row").forEach((row) => {
+    const teams = row.querySelector(".match-teams");
+    if (!teams) {
+      row.classList.remove("has-wrapped-matchup");
+      row.style.removeProperty("--match-row-wrapped-trigger-width");
+      row.style.removeProperty("--match-row-wrapped-meta-gap");
+      row.style.removeProperty("--match-row-wrapped-meta-width");
+      return;
+    }
+
+    row.classList.remove("has-wrapped-matchup");
+    row.style.removeProperty("--match-row-wrapped-trigger-width");
+    row.style.removeProperty("--match-row-wrapped-meta-gap");
+    row.style.removeProperty("--match-row-wrapped-meta-width");
+    const teamsStyle = getComputedStyle(teams);
+    const lineHeight = Number.parseFloat(teamsStyle.lineHeight);
+    const teamsHeight = teams.getBoundingClientRect().height;
+    const isWrapped = Number.isFinite(lineHeight) && lineHeight > 0 && teamsHeight > lineHeight * 1.35;
+    const meta = row.querySelector(".match-row-meta");
+
+    if (isWrapped && meta) {
+      const rowRect = row.getBoundingClientRect();
+      const metaRect = meta.getBoundingClientRect();
+      const rowStyle = getComputedStyle(row);
+      const rowGap = Number.parseFloat(rowStyle.columnGap || rowStyle.gap) || 8;
+      const textPieces = Array.from(row.querySelectorAll(".match-teams .team-name, .match-teams .versus"));
+      const textRight = getInlineContentRight(textPieces, rowRect.left);
+      const maxTriggerWidth = Math.max(0, rowRect.width - metaRect.width - rowGap);
+      const wrappedTriggerWidth = Math.min(Math.max(0, textRight - rowRect.left), maxTriggerWidth);
+
+      row.style.setProperty("--match-row-wrapped-trigger-width", `${Math.ceil(wrappedTriggerWidth)}px`);
+      row.style.setProperty("--match-row-wrapped-meta-gap", `${Math.round(rowGap)}px`);
+      row.style.setProperty("--match-row-wrapped-meta-width", `${Math.ceil(metaRect.width)}px`);
+    }
+
+    row.classList.toggle("has-wrapped-matchup", isWrapped);
+  });
 }
 
 function updateStandingNameTooltips(root = document) {
@@ -5980,6 +6226,7 @@ const boundedTooltipSelector = [
   ".prediction-row.has-label-tooltip[data-tooltip]",
   ".past-record-row.has-label-tooltip[data-tooltip]",
   ".knockout-team[data-tooltip]",
+  ".knockout-match-venue[data-tooltip]",
   ".knockout-likelihood[data-tooltip]",
   ".knockout-slot-odds[data-tooltip]"
 ].join(",");
@@ -6137,6 +6384,24 @@ function getVenueLabel(match) {
 
   const location = venueLocations[match.venue];
   return location ? `${match.venue} \u2022 ${location}` : match.venue;
+}
+
+function getTournamentVenueLabel(match) {
+  if (!match?.venue) {
+    return "";
+  }
+
+  if (currentLanguage === "zh") {
+    return zhVenueLocations[match.venue] || localizeHistoricalVenueText(venueLocations[match.venue] || match.venue);
+  }
+
+  const location = venueLocations[match.venue];
+  if (!location) {
+    return match.venue;
+  }
+
+  const locationParts = location.split(",").map((part) => part.trim()).filter(Boolean);
+  return locationParts.length >= 3 ? locationParts.slice(1).join(", ") : location;
 }
 
 function getScoreWinnerSide(homeScore, awayScore) {
@@ -6307,7 +6572,7 @@ function getScorePendingText(match, state, currentTime) {
     return "";
   }
 
-  return localizeText("Final pending");
+  return localizeText("Pending");
 }
 
 function getDisplayScore(match, state) {
@@ -6551,9 +6816,9 @@ function renderMatchRow(match, state, currentTime = Date.now(), options = {}) {
         <span class="${dateLabel ? "match-date" : "match-clock"}">${escapeHtml(visibleTimeLabel)}</span>
       </time>
       <span class="match-teams">
-        ${renderTeamInline(match.homeTeam, getTeamClass("team", winnerSide, "home"))}
+        ${renderTeamInline(match.homeTeam, getTeamClass("team", winnerSide, "home"), { keepRankWithName: true })}
         <span class="versus">${escapeHtml(versusText)}</span>
-        ${renderTeamInline(match.awayTeam, getTeamClass("team", winnerSide, "away"))}
+        ${renderTeamInline(match.awayTeam, getTeamClass("team", winnerSide, "away"), { keepRankWithName: true })}
       </span>
     </button>
     ${rowMeta ? `<span class="match-row-meta">${rowMeta}</span>` : ""}
@@ -6689,6 +6954,14 @@ function getThirdPlaceTieSignature(row) {
 function getThirdPlaceStatus(candidate, advancerCount) {
   const isInside = candidate.position <= advancerCount;
 
+  if (candidate.isEliminated) {
+    return {
+      kind: "eliminated",
+      label: "Eliminated",
+      detail: "No remaining group result combination can move this team into a Round of 32 place."
+    };
+  }
+
   if (candidate.isCutLineTie) {
     return {
       kind: "pending",
@@ -6765,10 +7038,15 @@ function annotateThirdPlaceRaceRows(rows, advancerCount) {
     index = endIndex;
   }
 
-  return annotatedRows.map((row) => ({
-    ...row,
-    status: getThirdPlaceStatus(row, advancerCount)
-  }));
+  return annotatedRows.map((row) => {
+    const isEliminated = isTeamEliminatedFromGroupStage(row.teamId, row.groupId);
+    const candidate = { ...row, isEliminated };
+
+    return {
+      ...candidate,
+      status: getThirdPlaceStatus(candidate, advancerCount)
+    };
+  });
 }
 
 function getThirdPlaceRaceRows() {
@@ -6951,6 +7229,95 @@ function getProjectedGroupQualificationResults(fixture) {
   ];
 }
 
+function createGroupQualificationProjection(groupId) {
+  const groupFixtures = getGroupFixtures(groupId);
+  const completedGroupFixtures = groupFixtures.filter((fixture) => fixture.status === "FT");
+
+  if (completedGroupFixtures.some((fixture) => !hasUsableScore(fixture))) {
+    return null;
+  }
+
+  const baseStates = createGroupQualificationStates(groupId);
+  const completedResults = getCompletedGroupQualificationResults(groupFixtures);
+  completedResults.forEach((result) => applyGroupQualificationResult(baseStates, result));
+
+  return {
+    baseStates,
+    completedResults,
+    remainingFixtures: getRemainingGroupQualificationFixtures(groupFixtures)
+  };
+}
+
+function getGroupThirdPlacePointFloor(groupId) {
+  const cacheKey = String(groupId || "");
+  if (groupThirdPlacePointFloorCache.has(cacheKey)) {
+    return groupThirdPlacePointFloorCache.get(cacheKey);
+  }
+
+  const projection = createGroupQualificationProjection(groupId);
+  if (!projection) {
+    groupThirdPlacePointFloorCache.set(cacheKey, null);
+    return null;
+  }
+
+  let floor = Number.POSITIVE_INFINITY;
+
+  function visit(fixtureIndex, states) {
+    if (fixtureIndex >= projection.remainingFixtures.length) {
+      const points = [...states.values()].map((state) => state.pts).sort((a, b) => b - a);
+      const thirdPlacePoints = points[THIRD_PLACE_STANDING_INDEX];
+
+      if (Number.isFinite(thirdPlacePoints)) {
+        floor = Math.min(floor, thirdPlacePoints);
+      }
+      return;
+    }
+
+    const fixture = projection.remainingFixtures[fixtureIndex];
+    getProjectedGroupQualificationResults(fixture).forEach((result) => {
+      const nextStates = cloneGroupQualificationStates(states);
+      applyGroupQualificationResult(nextStates, result);
+      visit(fixtureIndex + 1, nextStates);
+    });
+  }
+
+  visit(0, projection.baseStates);
+
+  const pointFloor = Number.isFinite(floor) ? floor : null;
+  groupThirdPlacePointFloorCache.set(cacheKey, pointFloor);
+  return pointFloor;
+}
+
+function getTeamMaximumPossibleGroupPoints(teamId, groupId) {
+  const cacheKey = `${groupId || ""}:${teamId || ""}`;
+  if (teamMaximumGroupPointsCache.has(cacheKey)) {
+    return teamMaximumGroupPointsCache.get(cacheKey);
+  }
+
+  const projection = createGroupQualificationProjection(groupId);
+  const state = projection?.baseStates.get(teamId);
+  if (!state) {
+    teamMaximumGroupPointsCache.set(cacheKey, null);
+    return null;
+  }
+
+  const maximumPoints =
+    state.pts +
+    projection.remainingFixtures.filter(
+      (fixture) => fixture.homeTeamId === teamId || fixture.awayTeamId === teamId
+    ).length *
+      3;
+
+  teamMaximumGroupPointsCache.set(cacheKey, maximumPoints);
+  return maximumPoints;
+}
+
+function clearGroupQualificationCaches() {
+  groupThirdPlacePointFloorCache.clear();
+  teamGroupStageEliminationCache.clear();
+  teamMaximumGroupPointsCache.clear();
+}
+
 function getHeadToHeadStats(tiedTeamIds, results) {
   const tiedTeamSet = new Set(tiedTeamIds);
   const stats = new Map(
@@ -7093,24 +7460,17 @@ function canTeamStillReachGroupStagePath(teamId, groupId, pathPlaceCount) {
     return true;
   }
 
-  const groupFixtures = getGroupFixtures(groupId);
-  const completedGroupFixtures = groupFixtures.filter((fixture) => fixture.status === "FT");
-
-  if (completedGroupFixtures.some((fixture) => !hasUsableScore(fixture))) {
+  const projection = createGroupQualificationProjection(groupId);
+  if (!projection) {
     return true;
   }
 
-  const baseStates = createGroupQualificationStates(groupId);
-  const completedResults = getCompletedGroupQualificationResults(groupFixtures);
-  completedResults.forEach((result) => applyGroupQualificationResult(baseStates, result));
-  const remainingFixtures = getRemainingGroupQualificationFixtures(groupFixtures);
-
   function visit(fixtureIndex, states, results) {
-    if (fixtureIndex >= remainingFixtures.length) {
+    if (fixtureIndex >= projection.remainingFixtures.length) {
       return canTeamReachGroupStagePathInScenario(teamId, states, results, pathPlaceCount);
     }
 
-    const fixture = remainingFixtures[fixtureIndex];
+    const fixture = projection.remainingFixtures[fixtureIndex];
     return getProjectedGroupQualificationResults(fixture).some((result) => {
       const nextStates = cloneGroupQualificationStates(states);
       applyGroupQualificationResult(nextStates, result);
@@ -7118,23 +7478,64 @@ function canTeamStillReachGroupStagePath(teamId, groupId, pathPlaceCount) {
     });
   }
 
-  return visit(0, baseStates, completedResults);
+  return visit(0, projection.baseStates, projection.completedResults);
 }
 
-function isStandingRowEliminated(rowIndex, rows, options = {}) {
-  const { groupId = "", thirdPlaceCandidate = null } = options;
-  const pathPlaceCount = getGroupStagePathPlaceCount(rows.length);
+function canTeamStillAdvanceAsThirdPlace(teamId, groupId) {
+  const thirdPlaceAdvancerCount = getThirdPlaceAdvancerCount();
+  if (thirdPlaceAdvancerCount <= 0) {
+    return false;
+  }
 
-  if (!canTeamStillReachGroupStagePath(rows[rowIndex]?.teamId, groupId, pathPlaceCount)) {
+  const group = getGroup(groupId);
+  const pathPlaceCount = getGroupStagePathPlaceCount(group?.teamIds?.length || 0);
+  if (!canTeamStillReachGroupStagePath(teamId, groupId, pathPlaceCount)) {
+    return false;
+  }
+
+  const maximumPoints = getTeamMaximumPossibleGroupPoints(teamId, groupId);
+  if (!Number.isFinite(maximumPoints)) {
     return true;
   }
 
-  return Boolean(
-    thirdPlaceCandidate &&
-      isGroupStageFinished() &&
-      !thirdPlaceCandidate.isCutLineTie &&
-      thirdPlaceCandidate.position > getThirdPlaceAdvancerCount()
-  );
+  const guaranteedAboveCount = (tournament.groups || []).filter((groupItem) => {
+    if (groupItem.id === groupId) {
+      return false;
+    }
+
+    const pointFloor = getGroupThirdPlacePointFloor(groupItem.id);
+    return Number.isFinite(pointFloor) && pointFloor > maximumPoints;
+  }).length;
+
+  return guaranteedAboveCount < thirdPlaceAdvancerCount;
+}
+
+function isTeamEliminatedFromGroupStage(teamId, groupId, rowCount = 0) {
+  if (!teamId || !groupId) {
+    return false;
+  }
+
+  const cacheKey = `${groupId}:${teamId}:${rowCount || ""}`;
+  if (teamGroupStageEliminationCache.has(cacheKey)) {
+    return teamGroupStageEliminationCache.get(cacheKey);
+  }
+
+  const group = getGroup(groupId);
+  const groupRowCount = rowCount || group?.teamIds?.length || 0;
+  const automaticPlaces = groupRowCount
+    ? Math.min(groupRowCount, getAutomaticAdvancersPerGroup())
+    : getAutomaticAdvancersPerGroup();
+  const canReachAutomaticPlace = canTeamStillReachGroupStagePath(teamId, groupId, automaticPlaces);
+  const isEliminated =
+    !canReachAutomaticPlace && !canTeamStillAdvanceAsThirdPlace(teamId, groupId);
+
+  teamGroupStageEliminationCache.set(cacheKey, isEliminated);
+  return isEliminated;
+}
+
+function isStandingRowEliminated(rowIndex, rows, options = {}) {
+  const { groupId = "" } = options;
+  return isTeamEliminatedFromGroupStage(rows[rowIndex]?.teamId, groupId, rows.length);
 }
 
 const STANDING_HEADERS = [
@@ -7153,6 +7554,32 @@ const STANDING_HEADERS = [
     label: "GD",
     help:
       "Goal difference is goals scored minus goals allowed. If teams are tied on points, a better goal difference can help decide who advances."
+  }
+];
+
+const THIRD_PLACE_HEADERS = [
+  { label: "Rank" },
+  { label: "Team" },
+  { label: "Group" },
+  {
+    label: "Pts",
+    help:
+      "Points compare third-place teams: 3 for a win, 1 for a draw, 0 for a loss. More points puts a team closer to the top eight."
+  },
+  {
+    label: "GD",
+    help:
+      "Goal difference is goals scored minus goals allowed. In the third-place race, it helps break ties after points."
+  },
+  {
+    label: "Goals",
+    help:
+      "Goals scored is the total goals for. It can break ties after points and goal difference in the third-place race."
+  },
+  {
+    label: "Status",
+    help:
+      "Status shows whether a team is currently inside the top eight third-place places, near the cut line, or outside."
   }
 ];
 
@@ -7230,15 +7657,21 @@ function renderStandingTeam(team, options = {}) {
   const hasStandingBadges = Boolean(trailingHtml.trim());
   const teamClasses = `standing-team${hasStandingBadges ? " has-standing-badges" : ""}`;
   const tooltipAttributes = fullName ? ` data-tooltip="${escapeHtml(fullName)}"` : "";
-  const badgeHtml = [showRank ? renderRank(team) : "", trailingHtml]
-    .filter((html) => html.trim())
-    .join("");
+  const rankHtml = showRank ? renderRank(team) : "";
+  const statusBadgeHtml = trailingHtml.trim();
+  const nameLineRankHtml = hasStandingBadges ? "" : rankHtml;
+  const badgeRowHtml = hasStandingBadges ? `${rankHtml}${statusBadgeHtml}` : statusBadgeHtml;
 
   return `
     <span class="${teamClasses}" aria-label="${escapeHtml(fullName)}"${tooltipAttributes}>
       ${renderFlag(team)}
-      <span class="standing-name" aria-label="${escapeHtml(fullName)}" title="${escapeHtml(fullName)}">${escapeHtml(standingName)}</span>
-      ${badgeHtml ? `<span class="standing-badge-row">${badgeHtml}</span>` : ""}
+      <span class="standing-team-copy">
+        <span class="standing-name-line">
+          <span class="standing-name" aria-label="${escapeHtml(fullName)}" title="${escapeHtml(fullName)}">${escapeHtml(standingName)}</span>
+          ${nameLineRankHtml}
+        </span>
+        ${badgeRowHtml ? `<span class="standing-badge-row">${badgeRowHtml}</span>` : ""}
+      </span>
     </span>
   `;
 }
@@ -7466,7 +7899,8 @@ function getThirdPlaceComparisonTarget(candidate, raceRows = getThirdPlaceRaceRo
     return null;
   }
 
-  const targetIndex = candidate.position > 1 ? candidate.position - 2 : 1;
+  const advancerCount = getThirdPlaceAdvancerCount();
+  const targetIndex = candidate.position <= advancerCount ? advancerCount : advancerCount - 1;
   return raceRows[targetIndex] || null;
 }
 
@@ -7523,10 +7957,14 @@ function getThirdPlaceComparisonDecider(candidate, target) {
 }
 
 function getThirdPlaceReason(candidate) {
-  const summary = `${formatOrdinal(candidate.position)}: ${formatThirdPlaceCandidateSummary(candidate)}.`;
+  const summary = `Currently ${formatOrdinal(candidate.position)} in the third-place race: ${formatThirdPlaceCandidateSummary(candidate)}.`;
+
+  if (candidate.status?.kind === "eliminated" || candidate.isEliminated) {
+    return "No remaining group result combination can move this team into a Round of 32 place.";
+  }
 
   if (candidate.isCutLineTie) {
-    return `${summary} Tied on loaded points, goal difference and goals scored for ${formatOrdinal(candidate.tieGroupStart)}-${formatOrdinal(candidate.tieGroupEnd)}; fair-play data is pending.`;
+    return `${summary} Top-8 place is tied from ${formatOrdinal(candidate.tieGroupStart)}-${formatOrdinal(candidate.tieGroupEnd)}; fair-play data is pending.`;
   }
 
   const nearestCandidate = getThirdPlaceComparisonTarget(candidate);
@@ -7536,12 +7974,14 @@ function getThirdPlaceReason(candidate) {
   }
 
   if (candidate.isUnresolvedTie && getThirdPlaceTieSignature(candidate) === getThirdPlaceTieSignature(nearestCandidate)) {
-    return `${summary} Level with ${getLocalizedTeamName(nearestCandidate.team)} (${formatOrdinal(nearestCandidate.position)}) on loaded points, goal difference and goals scored; fair-play data is pending.`;
+    const action = candidate.position <= getThirdPlaceAdvancerCount() ? "stay top 8" : "make the top 8";
+    return `${summary} To ${action}, the tie with ${getLocalizedTeamName(nearestCandidate.team)} (${formatOrdinal(nearestCandidate.position)}) is still unresolved on loaded points, goal difference and goals scored; fair-play data is pending.`;
   }
 
-  const relation = candidate.position < nearestCandidate.position ? "Ahead of" : "Behind";
+  const isInside = candidate.position <= getThirdPlaceAdvancerCount();
+  const action = isInside ? "stay top 8, keep ahead of" : "make the top 8, move ahead of";
   const decider = getThirdPlaceComparisonDecider(candidate, nearestCandidate);
-  return `${summary} ${relation} ${getLocalizedTeamName(nearestCandidate.team)} (${formatOrdinal(nearestCandidate.position)}) on ${decider.label}: ${decider.candidateValue} vs ${decider.targetValue}.`;
+  return `${summary} To ${action} ${getLocalizedTeamName(nearestCandidate.team)} (${formatOrdinal(nearestCandidate.position)}) on ${decider.label}: ${decider.candidateValue} vs ${decider.targetValue}.`;
 }
 
 function renderThirdPlaceRaceRow(candidate, options = {}) {
@@ -7552,6 +7992,7 @@ function renderThirdPlaceRaceRow(candidate, options = {}) {
   const rowClasses = [
     candidate.position <= getThirdPlaceAdvancerCount() ? "is-inside" : "is-outside",
     candidate.isCutLineTie ? "is-cut-line-tie" : "",
+    candidate.isEliminated ? "is-eliminated" : "",
     candidate.position === getThirdPlaceAdvancerCount() ? "is-cut-line" : ""
   ]
     .filter(Boolean)
@@ -7588,13 +8029,7 @@ function renderThirdPlaceRaceTableHead() {
   return `
     <thead>
       <tr>
-        <th>${escapeHtml(localizeText("Rank"))}</th>
-        <th>${escapeHtml(localizeText("Team"))}</th>
-        <th>${escapeHtml(localizeText("Group"))}</th>
-        <th>${escapeHtml(localizeText("Pts"))}</th>
-        <th>${escapeHtml(localizeText("GD"))}</th>
-        <th>${escapeHtml(localizeText("Goals"))}</th>
-        <th>${escapeHtml(localizeText("Status"))}</th>
+        ${THIRD_PLACE_HEADERS.map(renderStandingHeaderCell).join("")}
       </tr>
     </thead>
   `;
@@ -7710,16 +8145,20 @@ function getTournamentTeamCode(team) {
   return value.slice(0, 3) || "TBD";
 }
 
+function getTournamentTeamDisplayName(team) {
+  return getLocalizedStandingName(team) || getTournamentTeamCode(team);
+}
+
 function getTournamentSlotKey(match, side) {
   return `${Number(match?.matchNumber)}:${side}`;
 }
 
 function formatTournamentTopSlotLabel(groupId, place) {
-  return `Group ${groupId} Top ${place}`;
+  return `Group ${groupId}${place}`;
 }
 
 function formatTournamentThirdPlaceSlotLabel(groupIds = []) {
-  return `Group ${groupIds.join("/") || "?"} Top 3`;
+  return `Group ${groupIds.join("/") || "?"}3`;
 }
 
 function parseTournamentGroupPlaceSlot(slotText) {
@@ -8126,6 +8565,11 @@ function formatTournamentSlotPercent(probability) {
   return `${formatTournamentSlotPercentValue(probability)}%`;
 }
 
+function renderTournamentProbabilityLabel(team, probabilityText, suffixText = "here") {
+  const localizedSuffix = currentLanguage === "zh" && suffixText === "here" ? "这里" : localizeText(suffixText);
+  return `${renderFlag(team)}<span>${escapeHtml(`${probabilityText} ${localizedSuffix}`)}</span>`;
+}
+
 function getTournamentSlotOddsTone(probability) {
   const percent = Number(probability) * 100;
 
@@ -8203,7 +8647,7 @@ function getTournamentSlotCurrentStandingLine(team, place) {
     return "";
   }
 
-  return `${getTournamentTeamCode(team)} is current ${formatTournamentTopSlotLabel(
+  return `${getTournamentTeamDisplayName(team)} is current ${formatTournamentTopSlotLabel(
     team.groupId,
     place
   )} on ${row.pts} pts, ${formatGoalDifference(row.gd)} GD.`;
@@ -8240,7 +8684,7 @@ function getTournamentSlotOdds(slot, context) {
     ? ` Others: ${alternatives
         .map(
           (candidate) =>
-            `${getTournamentTeamCode(candidate.team)} ${formatTournamentSlotPercent(
+            `${getTournamentTeamDisplayName(candidate.team)} ${formatTournamentSlotPercent(
               candidate.probability
             )}`
         )
@@ -8252,7 +8696,7 @@ function getTournamentSlotOdds(slot, context) {
       : " Based on table + remaining projections.";
   const standingText =
     getTournamentSlotCurrentStandingLine(primary.team, slot.kind === "third-place" ? 3 : slot.place) ||
-    `${getTournamentTeamCode(primary.team)} is current ${slotLabel}.`;
+    `${getTournamentTeamDisplayName(primary.team)} is current ${slotLabel}.`;
   const hasRemainingFixtures =
     slot.kind === "third-place"
       ? slot.allowedGroupIds.some(hasTournamentRemainingGroupFixtures)
@@ -8262,10 +8706,11 @@ function getTournamentSlotOdds(slot, context) {
   const odds = {
     alternatives,
     groupId: primary.groupId,
-    label: `${getTournamentTeamCode(primary.team)} ${formatTournamentSlotPercent(
+    label: `${getTournamentTeamDisplayName(primary.team)} ${formatTournamentSlotPercent(
       displayProbability
     )} here`,
     place: primary.place,
+    displayProbability,
     probability: primary.probability,
     reason: `${standingText}${scopeText}${alternativeText}`,
     slotLabel,
@@ -8293,6 +8738,23 @@ function getTournamentLikelihoodReason(favorite, other, percent) {
   return `${favoriteName} are the current slot pick. Rough ${percent}%.`;
 }
 
+function getTournamentPredictionLead(participants) {
+  const homeName = participants?.home?.team ? getStandingName(participants.home.team) : "";
+  const awayName = participants?.away?.team ? getStandingName(participants.away.team) : "";
+
+  if (homeName && awayName) {
+    return `Prediction based on ${homeName} vs ${awayName}.`;
+  }
+
+  const loneName = homeName || awayName;
+  return loneName ? `Prediction based on ${loneName}'s current path.` : "";
+}
+
+function getTournamentPredictionReason(participants, detail) {
+  const lead = getTournamentPredictionLead(participants);
+  return lead ? `${lead} ${detail}` : detail;
+}
+
 function getTournamentLikelyWinnerPrediction(match, context) {
   const cacheKey = Number(match?.matchNumber);
 
@@ -8314,10 +8776,11 @@ function getTournamentLikelyWinnerPrediction(match, context) {
   }
 
   if (homeTeam && !awayTeam) {
+    const detail = `${getStandingName(homeTeam)} are the only current team in this slot. Rough 55%.`;
     const prediction = {
       entry: participants.home,
       percent: 55,
-      reason: `${getStandingName(homeTeam)} are the only current team in this slot. Rough 55%.`,
+      reason: getTournamentPredictionReason(participants, detail),
       side: "home",
       team: homeTeam
     };
@@ -8326,10 +8789,11 @@ function getTournamentLikelyWinnerPrediction(match, context) {
   }
 
   if (!homeTeam && awayTeam) {
+    const detail = `${getStandingName(awayTeam)} are the only current team in this slot. Rough 55%.`;
     const prediction = {
       entry: participants.away,
       percent: 55,
-      reason: `${getStandingName(awayTeam)} are the only current team in this slot. Rough 55%.`,
+      reason: getTournamentPredictionReason(participants, detail),
       side: "away",
       team: awayTeam
     };
@@ -8342,10 +8806,11 @@ function getTournamentLikelyWinnerPrediction(match, context) {
   const percent = side === "home" ? estimate.homePercent : estimate.awayPercent;
   const team = side === "home" ? homeTeam : awayTeam;
   const otherTeam = side === "home" ? awayTeam : homeTeam;
+  const detail = getTournamentLikelihoodReason(team, otherTeam, percent);
   const prediction = {
     entry: participants[side],
     percent,
-    reason: getTournamentLikelihoodReason(team, otherTeam, percent),
+    reason: getTournamentPredictionReason(participants, detail),
     side,
     team
   };
@@ -8361,7 +8826,7 @@ function getTournamentLikelyParticipant(prediction, sourceMatchNumber) {
 
   return {
     ...prediction.entry,
-    label: getTournamentTeamCode(prediction.entry.team),
+    label: getTournamentTeamDisplayName(prediction.entry.team),
     likelihoodPercent: prediction.percent,
     likelihoodReason: prediction.reason,
     sourceMatchNumber,
@@ -8375,7 +8840,7 @@ function getTournamentMatchParticipant(match, side, context) {
   if (teamId) {
     const team = getTeam(teamId);
     return {
-      label: getTournamentTeamCode(team),
+      label: getTournamentTeamDisplayName(team),
       likelihoodPercent: null,
       likelihoodReason: "",
       seedLabel: "",
@@ -8400,7 +8865,7 @@ function getTournamentMatchParticipant(match, side, context) {
 
       return {
         ...(sourceWinnerEntry || {}),
-        label: getTournamentTeamCode(winner),
+        label: getTournamentTeamDisplayName(winner),
         likelihoodPercent: null,
         likelihoodReason: "",
         seedLabel: sourceWinnerEntry?.seedLabel || "",
@@ -8409,6 +8874,15 @@ function getTournamentMatchParticipant(match, side, context) {
         state: "resolved",
         team: winner
       };
+    }
+
+    const likelyParticipant = getTournamentLikelyParticipant(
+      getTournamentLikelyWinnerPrediction(sourceMatch, context),
+      sourceMatchNumber
+    );
+
+    if (likelyParticipant) {
+      return likelyParticipant;
     }
 
     return getTournamentPendingParticipant("TBD", slotText, sourceMatchNumber);
@@ -8427,7 +8901,7 @@ function getTournamentMatchParticipant(match, side, context) {
           ? seedLabel
           : formatTournamentTopSlotLabel(slotOdds.groupId, slotOdds.place || 3);
       return {
-        label: getTournamentTeamCode(displayTeam),
+        label: getTournamentTeamDisplayName(displayTeam),
         likelihoodPercent: null,
         likelihoodReason: "",
         seedLabel: displaySeedLabel,
@@ -8532,9 +9006,10 @@ function getTournamentMatchWinnerTeam(match, context) {
 function renderTournamentParticipant(entry, options = {}) {
   const { isWinner = false } = options;
   const teamName = entry.team ? getLocalizedStandingName(entry.team) : localizeText(entry.slotText || entry.label);
-  const label = entry.team ? getTournamentTeamCode(entry.team) : localizeText(entry.label);
+  const label = entry.team ? getTournamentTeamDisplayName(entry.team) : localizeText(entry.label);
+  const rankHtml = entry.team ? renderRank(entry.team) : "";
   const detailText = entry.team
-    ? localizeText(entry.seedLabel) || teamName
+    ? ""
     : entry.sourceMatchNumber
       ? ""
       : teamName;
@@ -8549,43 +9024,45 @@ function renderTournamentParticipant(entry, options = {}) {
     .join(" ");
   const ariaLabel = [
     ariaName,
-    entry.state === "likely" ? localizeText("likely for now") : "",
-    localizeText(entry.seedLabel)
+    entry.state === "likely" ? localizeText("likely for now") : ""
   ]
     .filter(Boolean)
     .join(", ");
 
   return `
-    <span class="${classes}"${entry.team ? ` data-team-id="${escapeHtml(entry.team.id)}" data-tooltip="${escapeHtml(teamName)}" tabindex="0"` : ""}${entry.sourceMatchNumber ? ` data-source-match="${escapeHtml(entry.sourceMatchNumber)}"` : ""} aria-label="${escapeHtml(ariaLabel)}">
+    <span class="${classes}"${entry.team ? ` data-team-id="${escapeHtml(entry.team.id)}"` : ""}${entry.sourceMatchNumber ? ` data-source-match="${escapeHtml(entry.sourceMatchNumber)}"` : ""} aria-label="${escapeHtml(ariaLabel)}">
       <span class="knockout-team-flag" aria-hidden="true">${entry.team ? renderFlag(entry.team) : ""}</span>
       <span class="knockout-team-copy">
-        <strong>${renderTournamentParticipantLabel(label)}</strong>
+        <strong>
+          <span class="knockout-team-name">${renderTournamentParticipantLabel(label)}</span>
+          ${rankHtml}
+        </strong>
         ${detailHtml}
       </span>
     </span>
   `;
 }
 
-function renderTournamentLikelihoodPill(prediction) {
-  if (!prediction?.team) {
+function renderTournamentLikelihoodPill(entry) {
+  const percent = Number(entry?.percent ?? entry?.likelihoodPercent);
+
+  if (!entry?.team || !Number.isFinite(percent)) {
     return "";
   }
 
-  const label =
-    currentLanguage === "zh"
-      ? `${localizeText("Likely for now")}：${getLocalizedStandingName(prediction.team)} ${prediction.percent}%`
-      : `${localizeText("Likely for now")}: ${getTournamentTeamCode(prediction.team)} ${prediction.percent}%`;
-  const reason = localizeText(prediction.reason);
+  const reason = localizeText(entry.reason ?? entry.likelihoodReason);
+  const tone = getTournamentSlotOddsTone(percent / 100);
 
-  return `<span class="knockout-likelihood" tabindex="0" aria-label="${escapeHtml(reason)}" data-tooltip="${escapeHtml(reason)}">${escapeHtml(label)}</span>`;
+  return `<span class="knockout-likelihood is-${escapeHtml(tone)}" tabindex="0" aria-label="${escapeHtml(reason)}" data-tooltip="${escapeHtml(reason)}">${renderTournamentProbabilityLabel(entry.team, `${percent}%`)}</span>`;
 }
 
-function getLocalizedTournamentSlotOddsLabel(slotOdds) {
-  if (currentLanguage !== "zh") {
-    return slotOdds.label;
-  }
+function renderTournamentParticipantLikelihoodFooter(participants) {
+  const pills = [participants.home, participants.away]
+    .filter((entry) => entry?.team && Number.isFinite(Number(entry.likelihoodPercent)))
+    .map(renderTournamentLikelihoodPill)
+    .join("");
 
-  return `${getLocalizedStandingName(slotOdds.team)} ${formatTournamentSlotPercent(slotOdds.probability)} 当前占位`;
+  return pills ? `<span class="knockout-likelihood-list">${pills}</span>` : "";
 }
 
 function getLocalizedTournamentSlotOddsReason(slotOdds) {
@@ -8609,11 +9086,11 @@ function renderTournamentSlotOddsPill(slotOdds) {
     return "";
   }
 
-  const label = getLocalizedTournamentSlotOddsLabel(slotOdds);
   const reason = getLocalizedTournamentSlotOddsReason(slotOdds);
   const tone = getTournamentSlotOddsTone(slotOdds.probability);
+  const slotLabel = slotOdds.slotLabel || "";
 
-  return `<span class="knockout-slot-odds is-${escapeHtml(tone)}" tabindex="0" aria-label="${escapeHtml(reason)}" data-tooltip="${escapeHtml(reason)}">${escapeHtml(label)}</span>`;
+  return `<span class="knockout-slot-odds is-${escapeHtml(tone)}" tabindex="0" aria-label="${escapeHtml(reason)}" data-tooltip="${escapeHtml(reason)}" data-team-id="${escapeHtml(slotOdds.team.id)}"${slotLabel ? ` data-slot-label="${escapeHtml(slotLabel)}"` : ""}>${renderTournamentProbabilityLabel(slotOdds.team, formatTournamentSlotPercent(slotOdds.displayProbability ?? slotOdds.probability))}</span>`;
 }
 
 function renderTournamentSlotOddsFooter(participants) {
@@ -8626,18 +9103,7 @@ function renderTournamentSlotOddsFooter(participants) {
 }
 
 function renderTournamentParticipantLabel(label) {
-  const match = /^(Group [A-L](?:\/[A-L])*) (Top \d+)$/i.exec(label || "");
-
-  if (!match) {
-    return escapeHtml(label);
-  }
-
-  return `
-    <span class="knockout-seed-label">
-      <span>${escapeHtml(match[1])}</span>
-      <span>${escapeHtml(match[2])}</span>
-    </span>
-  `;
+  return escapeHtml(label);
 }
 
 function renderTournamentMatchCard(match, context, options = {}) {
@@ -8651,22 +9117,40 @@ function renderTournamentMatchCard(match, context, options = {}) {
   const scoreText = formatScorePair(match.score);
   const penaltyText = formatScorePair(match.scoreDetails?.penalties);
   const resultText = scoreText ? `${scoreText}${penaltyText ? ` (${penaltyText} pens)` : ""}` : "";
+  const venueLabel = match.venue ? getTournamentVenueLabel(match) : "";
+  const venueTooltip = match.venue ? getVenueLabel(match) : "";
+  const participantLikelihoodFooterHtml =
+    !winner && match.stage !== "round-of-32" ? renderTournamentParticipantLikelihoodFooter(participants) : "";
   const slotOddsFooterHtml =
     !winner && match.stage === "round-of-32" ? renderTournamentSlotOddsFooter(participants) : "";
   const footerHtml = winner
-    ? `<span>${escapeHtml(localizeText(`${getTournamentTeamCode(winner)} won`))}</span>`
-    : slotOddsFooterHtml
+    ? `<span>${escapeHtml(localizeText(`${getTournamentTeamDisplayName(winner)} won`))}</span>`
+    : participantLikelihoodFooterHtml
+      ? participantLikelihoodFooterHtml
+      : slotOddsFooterHtml
       ? slotOddsFooterHtml
       : `<span>${escapeHtml(getTournamentStageLabel(match.stage))}</span>`;
+  const isProjected =
+    !winner &&
+    match.stage !== "round-of-32" &&
+    (participants.home.state === "likely" || participants.away.state === "likely");
+  const cardClasses = [
+    options.className || "progress-match",
+    winner ? "is-complete" : "",
+    isProjected ? "is-projected" : ""
+  ]
+    .filter(Boolean)
+    .join(" ");
   const styleText =
     Number.isFinite(options.pathRow) && Number.isFinite(options.pathSpan)
       ? ` style="--path-row: ${escapeHtml(options.pathRow)}; --path-span: ${escapeHtml(options.pathSpan)};"`
       : "";
 
   return `
-    <article class="${escapeHtml(options.className || "progress-match")}${winner ? " is-complete" : ""}" data-match-number="${escapeHtml(match.matchNumber)}"${nextMatchNumber ? ` data-next-match="${escapeHtml(nextMatchNumber)}"` : ""}${winner ? ` data-winner-team-id="${escapeHtml(winner.id)}"` : ""}${styleText}>
+    <article class="${escapeHtml(cardClasses)}" data-match-number="${escapeHtml(match.matchNumber)}"${nextMatchNumber ? ` data-next-match="${escapeHtml(nextMatchNumber)}"` : ""}${winner ? ` data-winner-team-id="${escapeHtml(winner.id)}"` : ""}${styleText}>
       <header class="knockout-match-header">
         <time datetime="${escapeHtml(match.kickoffUtc || "")}">${escapeHtml(getTournamentMatchDateLabel(match))}</time>
+        ${venueLabel ? `<span class="knockout-match-venue"${venueTooltip ? ` aria-label="${escapeHtml(venueTooltip)}" data-tooltip="${escapeHtml(venueTooltip)}" tabindex="0"` : ""}>${escapeHtml(venueLabel)}</span>` : ""}
       </header>
       <div class="knockout-match-pair">
         ${renderTournamentParticipant(participants.home, {
@@ -8688,7 +9172,7 @@ function renderTournamentMatchCard(match, context, options = {}) {
 function renderTournamentPosterParticipant(entry, options = {}) {
   const { isWinner = false } = options;
   const teamName = entry.team ? getLocalizedStandingName(entry.team) : localizeText(entry.slotText || entry.label);
-  const label = entry.team ? getTournamentTeamCode(entry.team) : localizeText(entry.label);
+  const label = entry.team ? getTournamentTeamDisplayName(entry.team) : localizeText(entry.label);
   const classes = [
     "poster-team",
     entry.team ? "is-resolved" : "is-pending",
@@ -8917,21 +9401,29 @@ function updateTournamentConnectors() {
 
   const columnCount = getComputedStyle(rounds).gridTemplateColumns.split(" ").filter(Boolean).length;
   svg.replaceChildren();
+  svg.removeAttribute("width");
+  svg.removeAttribute("height");
+  svg.style.width = "";
+  svg.style.height = "";
 
   if (columnCount <= 1) {
     return;
   }
 
   const progressionRect = progression.getBoundingClientRect();
-  const width = Math.ceil(progressionRect.width);
-  const height = Math.ceil(progressionRect.height);
+  const width = Math.ceil(Math.max(progression.scrollWidth, progressionRect.width));
+  const height = Math.ceil(Math.max(progression.scrollHeight, progressionRect.height));
   svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
   svg.setAttribute("width", String(width));
   svg.setAttribute("height", String(height));
+  svg.style.width = `${width}px`;
+  svg.style.height = `${height}px`;
 
   const getRelativePoint = (rect, side) => ({
-    x: side === "left" ? rect.left - progressionRect.left : rect.right - progressionRect.left,
-    y: rect.top + rect.height / 2 - progressionRect.top
+    x:
+      (side === "left" ? rect.left - progressionRect.left : rect.right - progressionRect.left) +
+      progression.scrollLeft,
+    y: rect.top + rect.height / 2 - progressionRect.top + progression.scrollTop
   });
   const roundPoint = (value) => Math.round(value * 2) / 2;
 
@@ -9807,7 +10299,20 @@ function getPlayerProfile(player) {
     return null;
   }
 
-  return playerProfilesByName.get(normalizeTextKey(name)) || null;
+  const nameKey = normalizeTextKey(name);
+  const teamId = getPlayerTeamId(player);
+  if (teamId) {
+    const teamProfile = playerProfilesByTeamAndName.get(`${teamId}:${nameKey}`);
+    if (teamProfile) {
+      return teamProfile;
+    }
+  }
+
+  return playerProfilesByName.get(nameKey) || null;
+}
+
+function getPlayerTeamId(player) {
+  return String(player?.teamId || player?.team?.id || "").trim().toUpperCase();
 }
 
 function getHistoricalPlayerProfile(player) {
@@ -9818,6 +10323,15 @@ function getHistoricalPlayerProfile(player) {
   const name = getPlayerName(player);
   if (!name) {
     return null;
+  }
+
+  const tournamentYear = Number(player?.tournamentYear || player?.year);
+  for (const teamName of getHistoricalProfileTeamCandidates(player)) {
+    const versionKey = getHistoricalProfileVersionKey(name, teamName, tournamentYear);
+    const profile = versionKey ? historicalPlayerProfilesByVersion.get(versionKey) : null;
+    if (profile) {
+      return profile;
+    }
   }
 
   return historicalPlayerProfilesByName.get(normalizeTextKey(name)) || null;
@@ -10104,9 +10618,26 @@ function renderHistoricalPeakValueLine(profile) {
   return `<span class="player-card-value-help" tabindex="0" aria-label="${escapeHtml(tooltip)}" data-tooltip="${escapeHtml(tooltip)}">${escapeHtml(label)}</span> ${escapeHtml(value)}`;
 }
 
+function renderHistoricalTournamentValueLine(profile) {
+  const value = formatMarketValueEur(profile?.marketValueAtTournamentEurMillions);
+  if (!value) {
+    return "";
+  }
+
+  const tournamentYear = Number(profile?.tournamentYear || profile?.year);
+  const yearText = Number.isInteger(tournamentYear) && tournamentYear > 0 ? `${tournamentYear} ` : "";
+  const label = currentLanguage === "zh" ? `${yearText}身价`.trim() : `${yearText}value`.trim();
+  const tooltip =
+    currentLanguage === "zh"
+      ? "该届世界杯时期的市场价值；仅在有版本化来源时显示。"
+      : "Tournament-year market value; shown only when a versioned source is available.";
+
+  return `<span class="player-card-value-help" tabindex="0" aria-label="${escapeHtml(tooltip)}" data-tooltip="${escapeHtml(tooltip)}">${escapeHtml(label)}</span> ${escapeHtml(value)}`;
+}
+
 function renderPlayerValueLine(player, profile) {
   if (isHistoricalPlayerCard(player)) {
-    return renderHistoricalPeakValueLine(profile);
+    return renderHistoricalTournamentValueLine(profile) || renderHistoricalPeakValueLine(profile);
   }
 
   return renderPlayerMarketValueLine(profile);
@@ -10687,10 +11218,26 @@ function renderPlayerLinkedText(text, players = []) {
   return html;
 }
 
+function withPlayerTeamContext(player, team) {
+  if (!team) {
+    return player;
+  }
+
+  if (typeof player === "string") {
+    return { name: player, team, teamId: team.id || "" };
+  }
+
+  return {
+    ...player,
+    team: player?.team || team,
+    teamId: player?.teamId || team.id || ""
+  };
+}
+
 function getMatchKeyPlayers(match) {
   return [
-    ...(match.keyPlayers?.home || []),
-    ...(match.keyPlayers?.away || [])
+    ...(match.keyPlayers?.home || []).map((player) => withPlayerTeamContext(player, match.homeTeam)),
+    ...(match.keyPlayers?.away || []).map((player) => withPlayerTeamContext(player, match.awayTeam))
   ].filter((player) => getPlayerName(player));
 }
 
@@ -10750,6 +11297,14 @@ function getUniqueMentionPlayers(players) {
   return uniquePlayers;
 }
 
+function getHistoricalMatchTeamName(match, side) {
+  if (side === "home") {
+    return match?.homeTeam?.name || match?.homeSlot || "";
+  }
+
+  return match?.awayTeam?.name || match?.awaySlot || "";
+}
+
 function getMatchMentionPlayers(match, keyInformation = {}) {
   return getUniqueMentionPlayers([
     ...getMatchKeyPlayers(match),
@@ -10769,10 +11324,12 @@ function createHistoricalPlayerCard(player, extra = {}) {
 }
 
 function getHistoricalSideKeyPlayers(match, side) {
+  const historicalTeamName = getHistoricalMatchTeamName(match, side);
   return (match.keyPlayers?.[side] || [])
     .filter((player) => getPlayerName(player))
     .map((player) =>
       createHistoricalPlayerCard(player, {
+        historicalTeamName,
         matchDate: match.date,
         tournamentYear: Number(match.tournamentYear)
       })
@@ -10797,7 +11354,10 @@ function getHistoricalGoalPlayer(match, goal) {
     return matchedPlayer;
   }
 
+  const scoringSide = goal?.side === "away" ? "away" : "home";
+  const playerSide = goal?.ownGoal ? (scoringSide === "home" ? "away" : "home") : scoringSide;
   return createHistoricalPlayerCard(goal.name || "Unknown scorer", {
+    historicalTeamName: getHistoricalMatchTeamName(match, playerSide),
     matchDate: match.date,
     role: goal.ownGoal ? "Own goal" : "Goal scorer",
     tournamentYear: Number(match.tournamentYear)
@@ -12838,6 +13398,7 @@ function renderTeamSearchResults(options = {}) {
 
   matchList.replaceChildren(...nodes);
   ensureMatchInfoPrompt();
+  updateWrappedMatchRows(matchList);
   updateTruncatedTeamTooltips(matchList);
   updateTooltipBounds(matchList);
   updateTeamSearchUrlState(options);
@@ -13752,6 +14313,7 @@ function renderSchedule() {
     } else {
       renderMatchInfoPrompt();
     }
+    updateWrappedMatchRows(matchList);
     updateTruncatedTeamTooltips(matchList);
     updateTooltipBounds(matchList);
     updateUrlState();
@@ -13777,6 +14339,7 @@ function renderSchedule() {
     renderMatchInfoPrompt();
   }
 
+  updateWrappedMatchRows(matchList);
   updateTruncatedTeamTooltips(matchList);
   updateTooltipBounds(matchList);
   updateUrlState();
@@ -13799,6 +14362,7 @@ function updateActiveViewElements() {
 function setActiveView(view) {
   activeView = view === "standings" ? "standings" : "matches";
   updateActiveViewElements();
+  updateWrappedMatchRows(viewPanels.matches);
   updateTruncatedTeamTooltips(viewPanels.matches);
   updateStandingNameTooltips(standingsGrid);
   updateTooltipBounds(viewPanels.matches);
@@ -14065,7 +14629,12 @@ function applyDataSnapshot({
   teamsById = new Map(teamsData.teams.map((team) => [team.id, team]));
   teamsByName = buildTeamNameLookup(teamsData.teams);
   playerProfilesByName = buildPlayerProfileLookup(playerProfilesData.profiles);
-  historicalPlayerProfilesByName = buildPlayerProfileLookup(historicalPlayerProfilesData.profiles);
+  playerProfilesByTeamAndName = buildTeamPlayerProfileLookup(playerProfilesData.profiles);
+  {
+    const historicalProfileLookups = buildHistoricalPlayerProfileLookups(historicalPlayerProfilesData.profiles);
+    historicalPlayerProfilesByName = historicalProfileLookups.byName;
+    historicalPlayerProfilesByVersion = historicalProfileLookups.byVersion;
+  }
   shouldShowPlayerMarketValues = hasCompletePlayerMarketValues(playerProfilesData);
   fixtures = fixturesData.fixtures;
   history = historyData;
@@ -14073,6 +14642,7 @@ function applyDataSnapshot({
   historicalProjectionCache.clear();
   standingsByGroup = standingsData.groups;
   tournament = tournamentData;
+  clearGroupQualificationCaches();
   dataCoverage = fixturesData.coverage || { status: "partial" };
   liveDataCheckedAt = "";
   siteUpdatedAt = getLatestUpdatedAt([
@@ -14091,6 +14661,7 @@ function applyLiveDataSnapshot(liveData) {
   fixtures = liveData.fixturesData.fixtures;
   standingsByGroup = liveData.standingsData.groups;
   tournament = liveData.tournamentData;
+  clearGroupQualificationCaches();
   dataCoverage = liveData.fixturesData.coverage || { status: "partial" };
   liveDataCheckedAt = liveData.syncStatus?.checkedAt || liveData.fixturesData.updatedAt || "";
   siteUpdatedAt = getLatestUpdatedAt([
@@ -14601,11 +15172,13 @@ window.addEventListener("resize", () => {
   updateTimeZoneLabelForViewport();
   positionCatchUpPopover();
   positionPlayerCards();
+  updateWrappedMatchRows();
   updateTruncatedTeamTooltips();
   updateStandingNameTooltips();
   updateMeasuredLabelTooltips();
   updateTooltipBounds();
   window.requestAnimationFrame(() => {
+    updateWrappedMatchRows();
     updateTruncatedTeamTooltips();
     updateStandingNameTooltips();
     updateMeasuredLabelTooltips();
@@ -14704,6 +15277,7 @@ const languageObserver = new MutationObserver(() => {
       isApplyingLanguage = true;
       try {
         localizeRenderedText(document.body);
+        updateWrappedMatchRows();
         updateTooltipBounds();
       } finally {
         isApplyingLanguage = false;

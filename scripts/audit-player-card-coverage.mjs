@@ -52,12 +52,100 @@ function collectHistoricalNames(historyData) {
   return names;
 }
 
+function profileAliases(profileName, profile = {}) {
+  return [
+    profileName,
+    profile?.name,
+    profile?.displayName,
+    ...(Array.isArray(profile?.aliases) ? profile.aliases : [])
+  ].filter((value) => typeof value === "string" && value.trim());
+}
+
+function profilePersonAliases(profileName, profile = {}) {
+  return [
+    profile?.name || profileName,
+    profile?.displayName,
+    ...(Array.isArray(profile?.aliases) ? profile.aliases : [])
+  ].filter((value) => typeof value === "string" && value.trim());
+}
+
+function normalizeHistoricalTeamName(value) {
+  return normalizePlayerName(value);
+}
+
+function historicalProfileVersionKey(name, teamName, tournamentYear) {
+  const nameKey = normalizePlayerName(name);
+  const teamKey = normalizeHistoricalTeamName(teamName);
+  const year = Number(tournamentYear);
+
+  return nameKey && teamKey && Number.isInteger(year) && year > 0 ? `${year}:${teamKey}:${nameKey}` : "";
+}
+
+function historicalTeamNameForSide(fixture, side) {
+  return side === "home" ? fixture.homeSlot : fixture.awaySlot;
+}
+
+function historicalGoalPlayerTeamName(fixture, scoringSide, goal) {
+  const playerSide = goal?.ownGoal ? (scoringSide === "home" ? "away" : "home") : scoringSide;
+  return historicalTeamNameForSide(fixture, playerSide);
+}
+
+function addHistoricalRef(refs, name, teamName, tournamentYear) {
+  const key = historicalProfileVersionKey(name, teamName, tournamentYear);
+  if (key) {
+    refs.set(key, { name, teamName, tournamentYear: Number(tournamentYear) });
+  }
+}
+
 function profileNameSet(profilesData) {
-  return new Set(Object.keys(profilesData.profiles || {}).map(normalizePlayerName));
+  return new Set(
+    Object.entries(profilesData.profiles || {}).flatMap(([name, profile]) =>
+      profileAliases(name, profile).map(normalizePlayerName)
+    )
+  );
 }
 
 function profileMapByNormalizedName(profilesData) {
-  return new Map(Object.entries(profilesData.profiles || {}).map(([name, profile]) => [normalizePlayerName(name), profile]));
+  const profilesByName = new Map();
+  for (const [name, profile] of Object.entries(profilesData.profiles || {})) {
+    for (const alias of profileAliases(name, profile)) {
+      const key = normalizePlayerName(alias);
+      if (key && !profilesByName.has(key)) {
+        profilesByName.set(key, profile);
+      }
+    }
+  }
+
+  return profilesByName;
+}
+
+function profileVersionMap(profilesData) {
+  const profilesByVersion = new Map();
+  for (const [profileName, profile] of Object.entries(profilesData.profiles || {})) {
+    const teamNames = [
+      profile?.teamName,
+      ...(Array.isArray(profile?.teams) ? profile.teams : [])
+    ].filter((teamName) => typeof teamName === "string" && teamName.trim());
+    const years = [
+      profile?.tournamentYear,
+      ...(Array.isArray(profile?.tournamentYears) ? profile.tournamentYears : [])
+    ]
+      .map(Number)
+      .filter((year) => Number.isInteger(year) && year > 0);
+
+    for (const alias of profilePersonAliases(profileName, profile)) {
+      for (const teamName of teamNames) {
+        for (const year of years) {
+          const key = historicalProfileVersionKey(alias, teamName, year);
+          if (key && !profilesByVersion.has(key)) {
+            profilesByVersion.set(key, profile);
+          }
+        }
+      }
+    }
+  }
+
+  return profilesByVersion;
 }
 
 function getMissingNames(requiredNames, profilesData) {
@@ -76,6 +164,44 @@ function countRequiredProfileImages(requiredNames, profilesData) {
   }).length;
 }
 
+function collectHistoricalRefs(historyData) {
+  const refs = new Map();
+
+  for (const fixture of historyData.fixtures || []) {
+    for (const side of ["home", "away"]) {
+      for (const player of fixture.keyPlayers?.[side] || []) {
+        addHistoricalRef(refs, player?.name, historicalTeamNameForSide(fixture, side), fixture.tournamentYear);
+      }
+    }
+    for (const [side, goals] of [
+      ["home", fixture.goalsHome || []],
+      ["away", fixture.goalsAway || []]
+    ]) {
+      for (const goal of goals) {
+        addHistoricalRef(refs, goal?.name, historicalGoalPlayerTeamName(fixture, side, goal), fixture.tournamentYear);
+      }
+    }
+  }
+
+  return refs;
+}
+
+function getMissingHistoricalRefs(requiredRefs, profilesData) {
+  const profilesByVersion = profileVersionMap(profilesData);
+  return [...requiredRefs.entries()]
+    .filter(([key]) => !profilesByVersion.has(key))
+    .map(([, ref]) => `${ref.name} / ${ref.teamName} / ${ref.tournamentYear}`)
+    .sort((a, b) => a.localeCompare(b));
+}
+
+function countRequiredHistoricalProfileImages(requiredRefs, profilesData) {
+  const profilesByVersion = profileVersionMap(profilesData);
+  return [...requiredRefs.keys()].filter((refKey) => {
+    const profile = profilesByVersion.get(refKey);
+    return typeof profile?.imageUrl === "string" && profile.imageUrl.trim();
+  }).length;
+}
+
 const [
   fixturesData,
   historyData,
@@ -89,11 +215,11 @@ const [
 ]);
 
 const currentNames = collectCurrentNames(fixturesData);
-const historicalNames = collectHistoricalNames(historyData);
+const historicalRefs = collectHistoricalRefs(historyData);
 const missingCurrent = getMissingNames(currentNames, playerProfilesData);
-const missingHistorical = getMissingNames(historicalNames, historicalPlayerProfilesData);
+const missingHistorical = getMissingHistoricalRefs(historicalRefs, historicalPlayerProfilesData);
 const currentImageCount = countRequiredProfileImages(currentNames, playerProfilesData);
-const historicalImageCount = countRequiredProfileImages(historicalNames, historicalPlayerProfilesData);
+const historicalImageCount = countRequiredHistoricalProfileImages(historicalRefs, historicalPlayerProfilesData);
 
 if (missingCurrent.length || missingHistorical.length) {
   console.error("Player card coverage audit failed.");
@@ -120,8 +246,8 @@ if (missingCurrent.length || missingHistorical.length) {
 
 console.log(
   [
-    `Player card coverage passed: ${currentNames.size} current profiles and ${historicalNames.size} historical profiles.`,
+    `Player card coverage passed: ${currentNames.size} current profiles and ${historicalRefs.size} historical profile versions.`,
     `Current profile photos: ${currentImageCount}/${currentNames.size}.`,
-    `Historical profile photos: ${historicalImageCount}/${historicalNames.size}.`
+    `Historical profile photos: ${historicalImageCount}/${historicalRefs.size}.`
   ].join("\n")
 );

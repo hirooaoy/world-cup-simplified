@@ -1,0 +1,199 @@
+{
+  "edition": "2026-world-cup",
+  "teamId": "AUT",
+  "teamName": "Austria",
+  "rosterNameOverrides": {
+    "AFFENGRUBER David": "David Affengruber",
+    "David Leopold AFFENGRUBER": "David Affengruber",
+    "ALABA David": "David Alaba",
+    "David ALABA": "David Alaba",
+    "Alessandro Andre SCHÖPF": "Alessandro Schopf",
+    "SCHOEPF Alessandro": "Alessandro Schopf",
+    "SCHÖPF": "Alessandro Schopf",
+    "Alexander PRASS": "Alexander Prass",
+    "PRASS Alexander": "Alexander Prass",
+    "Alexander SCHLAGER": "Alexander Schlager",
+    "SCHLAGER Alexander": "Alexander Schlager",
+    "ARNAUTOVIC Marko": "Marko Arnautovic",
+    "Marko ARNAUTOVIC": "Marko Arnautovic",
+    "Carney Chibueze CHUKWUEMEKA": "Carney Chukwuemeka",
+    "CHUKWUEMEKA Carney": "Carney Chukwuemeka",
+    "Dejan LJUBIČIĆ": "Dejan Ljubicic",
+    "LJUBICIC Dejan": "Dejan Ljubicic",
+    "Florian GRILLITSCH": "Florian Grillitsch",
+    "GRILLITSCH Florian": "Florian Grillitsch",
+    "Florian WIEGELE": "Florian Wiegele",
+    "WIEGELE Florian": "Florian Wiegele",
+    "FRIEDL Marco": "Marco Friedl",
+    "Marco FRIEDL": "Marco Friedl",
+    "GREGORITSCH Michael": "Michael Gregoritsch",
+    "Michael GREGORITSCH": "Michael Gregoritsch",
+    "DANSO Kevin": "Kevin Danso",
+    "Kevin DANSO": "Kevin Danso",
+    "Konrad LAIMER": "Konrad Laimer",
+    "LAIMER Konrad": "Konrad Laimer",
+    "LIENHART Philipp": "Philipp Lienhart",
+    "Philipp LIENHART": "Philipp Lienhart",
+    "Marcel SABITZER": "Marcel Sabitzer",
+    "SABITZER Marcel": "Marcel Sabitzer",
+    "Michael SVOBODA": "Michael Svoboda",
+    "SVOBODA Michael": "Michael Svoboda",
+    "MWENE Phillip": "Phillip Mwene",
+    "Phillip MWENE": "Phillip Mwene",
+    "Nicolas SEIWALD": "Nicolas Seiwald",
+    "SEIWALD Nicolas": "Nicolas Seiwald",
+    "Patrick PENTZ": "Patrick Pentz",
+    "PENTZ Patrick": "Patrick Pentz",
+    "Patrick WIMMER": "Patrick Wimmer",
+    "WIMMER Patrick": "Patrick Wimmer",
+    "Paul WANNER": "Paul Wanner",
+    "WANNER Paul": "Paul Wanner",
+    "Romano SCHMID": "Romano Schmid",
+    "SCHMID Romano": "Romano Schmid",
+    "Saša KALAJDŽIĆ": "Sasa Kalajdzic",
+    "KALAJDZIC Sasa": "Sasa Kalajdzic",
+    "POSCH Stefan": "Stefan Posch",
+    "Stefan POSCH": "Stefan Posch",
+    "XAVER": "Xaver Schlager",
+    "Xaver SCHLAGER": "Xaver Schlager",
+    "SCHLAGER Xaver": "Xaver Schlager"
+  },
+  "removeProfiles": ["Alessandro Schoepf", "Sasa Kalajdzic"],
+  "profiles": {
+    "Alessandro Schopf": {
+      "displayName": "Alessandro Schöpf",
+      "skills": ["Midfield work rate", "Wide cover", "Late runs"],
+      "note": "Schöpf gives Austria experienced running power, helping the midfield cover wide spaces and arrive late.",
+      "noteZh": "舍普夫给奥地利有经验的跑动能力，帮助中场覆盖边路空间并后插上。"
+    },
+    "Alexander Prass": {
+      "skills": ["Left-side energy", "Progressive carries", "Crossing"],
+      "note": "Prass gives Austria left-sided thrust, carrying forward and supplying early service from wide areas.",
+      "noteZh": "普拉斯给奥地利左侧推进力，能向前带球并从边路早早送出传中。"
+    },
+    "Alexander Schlager": {
+      "skills": ["Goalkeeper reflexes", "Box control", "Distribution"],
+      "note": "Schlager gives Austria an experienced goalkeeper option, steady when pressure arrives through crosses.",
+      "noteZh": "施拉格给奥地利有经验的门将选择，当压力来自传中时很稳定。"
+    },
+    "Carney Chukwuemeka": {
+      "skills": ["Ball carrying", "Midfield power", "Box entries"],
+      "note": "Chukwuemeka adds carrying power through midfield, useful when Austria need to break pressure by dribbling.",
+      "noteZh": "丘库埃梅卡增加中场带球力量，当奥地利需要用盘带破压时很有用。"
+    },
+    "David Affengruber": {
+      "skills": ["Centre-back defending", "Aerial duels", "Box clearances"],
+      "note": "Affengruber gives Austria centre-back depth, especially useful for aerial spells and low-box defending.",
+      "noteZh": "阿芬格鲁伯给奥地利中卫深度，尤其适合空中球阶段和低位禁区防守。"
+    },
+    "David Alaba": {
+      "skills": ["Defensive leadership", "Left-footed passing", "Set pieces"],
+      "note": "Alaba remains Austria's organiser, bringing left-footed passing and calm leadership across the back line.",
+      "noteZh": "阿拉巴仍是奥地利组织者，给后防带来左脚传球和冷静领导力。"
+    },
+    "Dejan Ljubicic": {
+      "displayName": "Dejan Ljubičić",
+      "skills": ["Midfield pressing", "Right-side cover", "Short passing"],
+      "note": "Ljubičić gives Austria flexible midfield legs, useful for pressing and covering the right channel.",
+      "noteZh": "柳比契奇给奥地利灵活的中场跑动，适合压迫并覆盖右侧通道。"
+    },
+    "Florian Grillitsch": {
+      "skills": ["Deep passing", "Midfield screening", "Tempo control"],
+      "note": "Grillitsch gives Austria a deeper passing base, slowing the game down and protecting the center.",
+      "noteZh": "格里利奇给奥地利更靠后的传球基础，能放慢比赛并保护中路。"
+    },
+    "Florian Wiegele": {
+      "skills": ["Goalkeeper depth", "Reaction saves", "Penalty-area reach"],
+      "note": "Wiegele gives Austria extra goalkeeper depth, useful insurance behind the senior options.",
+      "noteZh": "维格勒给奥地利额外门将深度，是主力门将身后的有用保障。"
+    },
+    "Kevin Danso": {
+      "skills": ["Centre-back strength", "Recovery defending", "Aerial power"],
+      "note": "Danso gives Austria pace and strength at centre-back, important when the line has to defend space.",
+      "noteZh": "丹索给奥地利中卫位置的速度和力量，当防线需要防守空间时很重要。"
+    },
+    "Konrad Laimer": {
+      "skills": ["Pressing engine", "Ball winning", "Right-side runs"],
+      "note": "Laimer is Austria's pressing engine, turning loose touches into forward momentum.",
+      "noteZh": "莱默是奥地利压迫发动机，能把对手松散触球变成向前势头。"
+    },
+    "Marcel Sabitzer": {
+      "skills": ["Long shooting", "Set pieces", "Midfield leadership"],
+      "note": "Sabitzer gives Austria midfield punch, especially through set pieces, late runs, and shots from range.",
+      "noteZh": "萨比策给奥地利中场冲击，尤其体现在定位球、后插上和远射。"
+    },
+    "Marco Friedl": {
+      "skills": ["Left-sided defending", "Aerial cover", "Back-line passing"],
+      "note": "Friedl gives Austria left-sided defensive cover, helping the back line stay balanced in buildup.",
+      "noteZh": "弗里德尔给奥地利左侧防守保护，帮助后防在组织时保持平衡。"
+    },
+    "Marko Arnautovic": {
+      "displayName": "Marko Arnautović",
+      "league": "Serbian SuperLiga",
+      "skills": ["Hold-up play", "Box finishing", "Veteran edge"],
+      "note": "Arnautović gives Austria a veteran focal point, able to pin defenders and finish direct service.",
+      "noteZh": "阿瑙托维奇给奥地利老练支点，能牵制后卫并终结直接输送。"
+    },
+    "Michael Gregoritsch": {
+      "skills": ["Aerial target", "Left-footed finishing", "Box movement"],
+      "note": "Gregoritsch gives Austria a taller forward route, dangerous when crosses and second balls matter.",
+      "noteZh": "格雷戈里奇给奥地利更高的锋线路线，当传中和第二落点重要时很危险。"
+    },
+    "Michael Svoboda": {
+      "skills": ["Centre-back depth", "Aerial defending", "Simple passing"],
+      "note": "Svoboda gives Austria a straightforward defensive option, useful for protecting leads and clearing pressure.",
+      "noteZh": "斯沃博达给奥地利直接的防守选择，适合保护领先并化解压力。"
+    },
+    "Nicolas Seiwald": {
+      "skills": ["Midfield screening", "Press resistance", "Ball circulation"],
+      "note": "Seiwald gives Austria midfield structure, keeping the press connected and the ball moving.",
+      "noteZh": "塞瓦尔德给奥地利中场结构，能保持压迫衔接并让球运转。"
+    },
+    "Patrick Pentz": {
+      "skills": ["Shot stopping", "Goalkeeper command", "Quick restarts"],
+      "note": "Pentz gives Austria sharp shot-stopping and quick restarts when the team wants to spring forward.",
+      "noteZh": "彭茨给奥地利敏捷扑救和快速开球，当球队想迅速向前时很有用。"
+    },
+    "Patrick Wimmer": {
+      "skills": ["Wide dribbling", "Pressing energy", "Cutbacks"],
+      "note": "Wimmer gives Austria a direct wide runner, useful for pressing full-backs and driving to the byline.",
+      "noteZh": "维默给奥地利直接边路跑动，适合压迫边后卫并冲到底线。"
+    },
+    "Paul Wanner": {
+      "skills": ["Creative receiving", "Left-footed passing", "Between-lines play"],
+      "note": "Wanner adds young creativity between the lines, giving Austria a softer touch against compact blocks.",
+      "noteZh": "万纳增加两线之间的年轻创造力，让奥地利面对密集防守时多一份细腻触球。"
+    },
+    "Philipp Lienhart": {
+      "skills": ["Centre-back timing", "Aerial defending", "Calm passing"],
+      "note": "Lienhart gives Austria reliable centre-back timing, steady in aerial duels and first passes.",
+      "noteZh": "林哈特给奥地利可靠的中卫时机，空中对抗和第一脚传球都很稳定。"
+    },
+    "Phillip Mwene": {
+      "skills": ["Full-back versatility", "Wide recovery", "Overlap support"],
+      "note": "Mwene gives Austria full-back flexibility, switching sides and keeping the outside lanes secure.",
+      "noteZh": "姆韦内给奥地利边后卫灵活性，能换边并保证外侧通道安全。"
+    },
+    "Romano Schmid": {
+      "skills": ["Quick combinations", "Pressing support", "Final pass"],
+      "note": "Schmid gives Austria short-touch creativity, useful when combinations have to open a narrow block.",
+      "noteZh": "施密德给奥地利短传创造力，当配合需要打开狭窄防线时很有用。"
+    },
+    "Sasa Kalajdzic": {
+      "displayName": "Saša Kalajdžić",
+      "skills": ["Aerial target", "Hold-up play", "Box finishing"],
+      "note": "Kalajdžić gives Austria a true aerial target, changing the attack when direct balls become necessary.",
+      "noteZh": "卡拉季奇给奥地利真正的空中支点，当必须打直接球时能改变进攻形态。"
+    },
+    "Stefan Posch": {
+      "skills": ["Right-back defending", "Centre-back cover", "Aerial duels"],
+      "note": "Posch gives Austria defensive versatility on the right, able to tuck inside and protect the box.",
+      "noteZh": "波施给奥地利右侧防守多面性，能内收并保护禁区。"
+    },
+    "Xaver Schlager": {
+      "skills": ["Ball winning", "Pressing range", "Midfield bite"],
+      "note": "Schlager gives Austria midfield bite, hunting second balls and keeping pressure on the opponent's first pass.",
+      "noteZh": "施拉格给奥地利中场硬度，争抢第二落点并持续压迫对手第一脚传球。"
+    }
+  }
+}

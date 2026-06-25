@@ -1,0 +1,156 @@
+{
+  "edition": "2026-world-cup",
+  "teamId": "NED",
+  "teamName": "Netherlands",
+  "rosterNameOverrides": {
+    "DE ROON": "Marten de Roon",
+    "DE ROON Marten": "Marten de Roon",
+    "Marten Elco DE ROON": "Marten de Roon",
+    "VAN DE VEN": "Micky van de Ven",
+    "VAN DE VEN Micky": "Micky van de Ven",
+    "Micky VAN DE VEN": "Micky van de Ven",
+    "VAN HECKE": "Jan Paul van Hecke",
+    "VAN HECKE Jan Paul": "Jan Paul van Hecke",
+    "Jan-Paul VAN HECKE": "Jan Paul van Hecke"
+  },
+  "removeProfiles": [
+    "De Roon",
+    "Van De Ven",
+    "Van Hecke"
+  ],
+  "profiles": {
+    "Bart Verbruggen": {
+      "skills": ["Modern goalkeeping", "Build-up passing", "Reaction saves"],
+      "note": "Netherlands' modern goalkeeper, comfortable starting attacks and reacting quickly when the line is high.",
+      "noteZh": "巴尔特·费布吕亨是荷兰现代型门将，能舒服地发起进攻，也能在防线前压时快速反应。"
+    },
+    "Brian Brobbey": {
+      "skills": ["Hold-up strength", "Box finishing", "Centre-forward pressing"],
+      "note": "Netherlands' power striker option, useful for pinning centre-backs and turning scrappy service into shots.",
+      "noteZh": "布赖恩·布罗贝是荷兰力量型中锋选择，能压住中卫并把零散传球转化为射门。"
+    },
+    "Cody Gakpo": {
+      "skills": ["Left-wing scoring", "Inside carries", "Far-post movement"],
+      "note": "Netherlands' left-side scoring threat, dangerous when he drives inside or appears late at the far post.",
+      "noteZh": "科迪·加克波是荷兰左路进球威胁，内切推进或后点后插上时很危险。"
+    },
+    "Crysencio Summerville": {
+      "skills": ["One-on-one dribbling", "Wing acceleration", "Cutback creation"],
+      "note": "Netherlands' isolation winger, able to beat a full-back and turn the byline into cutbacks.",
+      "noteZh": "克里森西奥·萨默维尔是荷兰一对一边锋，能突破边后卫并把底线位置变成倒三角传球。"
+    },
+    "Denzel Dumfries": {
+      "skills": ["Wing-back power", "Back-post runs", "Aerial threat"],
+      "note": "Netherlands' right-side power runner, famous for arriving at the back post like an extra forward.",
+      "noteZh": "丹泽尔·邓弗里斯是荷兰右路力量型跑动点，以像额外前锋一样冲到后点著称。"
+    },
+    "Donyell Malen": {
+      "skills": ["Direct running", "Right-side finishing", "Counter threat"],
+      "note": "Netherlands' direct forward runner, useful for attacking space and finishing before defenders reset.",
+      "noteZh": "多尼尔·马伦是荷兰直接型前场跑动点，适合冲击空间并在防守重整前完成终结。"
+    },
+    "Frenkie de Jong": {
+      "skills": ["Press resistance", "Deep progression", "Tempo control"],
+      "note": "Netherlands' tempo setter, able to carry through pressure and make possession feel calmer.",
+      "noteZh": "弗朗基·德容是荷兰节奏设定者，能带球穿过压力并让控球变得更冷静。"
+    },
+    "Guus Til": {
+      "skills": ["Late box runs", "Attacking midfield pressing", "One-touch finishing"],
+      "note": "Netherlands' box-arriving midfielder, valuable when they need a runner beyond the striker.",
+      "noteZh": "古斯·蒂尔是荷兰后插上进入禁区的中场，球队需要有人越过中锋冲击时很有价值。"
+    },
+    "Jan Paul van Hecke": {
+      "aliases": ["Jan-Paul van Hecke", "VAN HECKE Jan Paul"],
+      "skills": ["Front-foot defending", "Centre-back passing", "Aerial duels"],
+      "note": "Netherlands' front-foot centre-back, comfortable stepping out to win duels and pass forward.",
+      "noteZh": "扬·保罗·范赫克是荷兰主动型中卫，能前顶赢下对抗并向前传球。"
+    },
+    "Jorrel Hato": {
+      "skills": ["Left-sided defending", "Teenage composure", "Flexible build-up"],
+      "note": "Netherlands' young left-sided defender, giving them calm build-up from centre-back or full-back zones.",
+      "noteZh": "约雷尔·哈托是荷兰年轻的左侧防守者，能从中卫或边后卫区域冷静出球。"
+    },
+    "Justin Kluivert": {
+      "skills": ["Attacking midfield bursts", "Inside dribbling", "Penalty-box support"],
+      "note": "Netherlands' sharp attacking connector, useful for driving inside and supporting the striker near goal.",
+      "noteZh": "贾斯廷·克鲁伊维特是荷兰锐利的进攻连接点，适合内切推进并在门前支援中锋。"
+    },
+    "Lutsharel Geertruida": {
+      "skills": ["Defensive versatility", "Right-back balance", "Centre-back cover"],
+      "note": "Netherlands' defensive hybrid, able to cover right-back, centre-back, or midfield protection.",
+      "noteZh": "卢特沙雷尔·海特勒伊达是荷兰防守混合型球员，能覆盖右后卫、中卫或中场保护。"
+    },
+    "Mark Flekken": {
+      "skills": ["Goalkeeper distribution", "Shot stopping", "Box command"],
+      "note": "Netherlands' experienced goalkeeper option, bringing distribution range and calm penalty-area command.",
+      "noteZh": "马克·弗莱肯是荷兰经验型门将选择，带来传球范围和冷静的禁区指挥。"
+    },
+    "Marten de Roon": {
+      "skills": ["Midfield screening", "Tactical fouls", "Duel discipline"],
+      "note": "Netherlands' pragmatic midfield screen, useful for closing counters and protecting attacking full-backs.",
+      "noteZh": "马滕·德容是荷兰务实的中场屏障，适合封住反击并保护前插的边后卫。"
+    },
+    "Mats Wieffer": {
+      "skills": ["Defensive midfield cover", "Simple progression", "Second-ball work"],
+      "note": "Netherlands' midfield balance option, helping clean up second balls and keep possession moving.",
+      "noteZh": "马茨·维弗是荷兰中场平衡选择，能清理第二落点并让控球继续流动。"
+    },
+    "Memphis Depay": {
+      "league": "Campeonato Brasileiro Série A",
+      "skills": ["Creative forward play", "Set-piece threat", "Penalty-box invention"],
+      "note": "Netherlands' creative forward, still dangerous when he drops off, combines, or shapes a restart.",
+      "noteZh": "孟菲斯·德佩是荷兰创造型前锋，回撤配合或处理定位球时依然很危险。"
+    },
+    "Micky van de Ven": {
+      "skills": ["Recovery speed", "Left-sided defending", "Space coverage"],
+      "note": "Netherlands' recovery-speed defender, built to erase space behind a high line.",
+      "noteZh": "米基·范德文是荷兰回追速度型后卫，适合抹掉高位防线身后的空间。"
+    },
+    "Nathan Ake": {
+      "displayName": "Nathan Aké",
+      "skills": ["Left-footed defending", "Full-back cover", "Aerial timing"],
+      "note": "Netherlands' left-footed defensive stabilizer, comfortable covering centre-back or left-back roles.",
+      "noteZh": "内森·阿克是荷兰左脚防守稳定点，能舒服地覆盖中卫或左后卫职责。"
+    },
+    "Noa Lang": {
+      "skills": ["Left-wing flair", "Inside creation", "Tempo changes"],
+      "note": "Netherlands' rhythm-changing winger, capable of adding flair and hesitation moves from the left.",
+      "noteZh": "诺阿·朗是荷兰改变节奏的边锋，能从左路带来灵感和节奏停顿动作。"
+    },
+    "Quinten Timber": {
+      "skills": ["Midfield ball carrying", "Duel energy", "Forward support"],
+      "note": "Netherlands' energetic midfield carrier, useful for driving through contact and joining attacks.",
+      "noteZh": "昆滕·廷伯是荷兰充满能量的中场推进者，适合带球穿过对抗并参与进攻。"
+    },
+    "Robin Roefs": {
+      "skills": ["Goalkeeper upside", "Reaction saves", "Penalty-area bravery"],
+      "note": "Netherlands' high-upside goalkeeper depth, bringing reflexes and bravery in crowded areas.",
+      "noteZh": "罗宾·鲁夫斯是荷兰上限很高的门将深度，能在拥挤区域带来反应和勇气。"
+    },
+    "Ryan Gravenberch": {
+      "skills": ["Midfield carrying", "Duel power", "Press escape"],
+      "note": "Netherlands' powerful midfield carrier, able to stride out of pressure and tilt the field forward.",
+      "noteZh": "赖恩·赫拉芬贝赫是荷兰力量型中场推进者，能大步摆脱压力并把场面推向前方。"
+    },
+    "Teun Koopmeiners": {
+      "skills": ["Left-footed passing", "Set-piece delivery", "Midfield shooting"],
+      "note": "Netherlands' left-footed midfield passer, useful for switches, restarts, and shooting from the edge.",
+      "noteZh": "特恩·库普梅纳斯是荷兰左脚中场传球手，适合转移球、定位球和禁区弧顶射门。"
+    },
+    "Tijjani Reijnders": {
+      "skills": ["Box-to-box carries", "Late shooting", "Tempo acceleration"],
+      "note": "Netherlands' gliding box-to-box midfielder, able to accelerate possession and arrive for shots.",
+      "noteZh": "蒂贾尼·赖因德斯是荷兰流畅的双向中场，能加速控球并后插上射门。"
+    },
+    "Virgil van Dijk": {
+      "skills": ["Defensive leadership", "Aerial command", "Long passing"],
+      "note": "Netherlands' defensive captain, still the voice and aerial anchor of the back line.",
+      "noteZh": "维吉尔·范戴克是荷兰防守队长，仍然是防线声音和空中支柱。"
+    },
+    "Wout Weghorst": {
+      "skills": ["Target-man chaos", "Aerial finishing", "Late-game pressing"],
+      "note": "Netherlands' late-game target, useful for direct balls, aerial pressure, and turning matches messy.",
+      "noteZh": "沃特·韦霍斯特是荷兰比赛后段的支点，适合直接球、空中压力和把比赛搅乱。"
+    }
+  }
+}

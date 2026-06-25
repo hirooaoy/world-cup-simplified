@@ -1,0 +1,171 @@
+{
+  "edition": "2026-world-cup",
+  "teamId": "JPN",
+  "teamName": "Japan",
+  "profiles": {
+    "Ao Tanaka": {
+      "skills": ["Central progression", "Tempo control", "Late support runs"],
+      "note": "Japan's midfield connector, useful for moving possession through pressure and arriving as a late option.",
+      "noteZh": "田中碧是日本的中场连接者，能在压力下推进控球，并作为后插上的接应点出现。"
+    },
+    "Ayase Ueda": {
+      "skills": ["Penalty-box movement", "Aerial finishing", "Centre-forward pressing"],
+      "note": "Japan's penalty-box striker, sharp at finding separation and turning crosses into clean chances.",
+      "noteZh": "上田绮世是日本的禁区中锋，擅长摆脱防守并把传中转化为清晰机会。"
+    },
+    "Ayumu Seko": {
+      "skills": ["Centre-back composure", "Line control", "Forward passing"],
+      "note": "Japan's composed centre-back option, giving the back line calm passing and cleaner spacing under pressure.",
+      "noteZh": "濑古步梦是日本沉稳的中卫选择，能在压力下提供冷静传球和更清晰的防线间距。"
+    },
+    "Daichi Kamada": {
+      "skills": ["Between-lines receiving", "Third-man runs", "Final-third passing"],
+      "note": "Japan's between-lines organizer, able to receive on the half-turn and connect midfield to the front line.",
+      "noteZh": "镰田大地是日本的线间组织者，能半转身接球并把中场和锋线连接起来。"
+    },
+    "Daizen Maeda": {
+      "league": "Scottish Premiership",
+      "skills": ["Relentless pressing", "Left-side sprints", "Back-post runs"],
+      "note": "Japan's pressing spark, built to chase defenders, stretch the left side, and crash the back post.",
+      "noteZh": "前田大然是日本的压迫火花，适合追逼后卫、拉开左路，并冲击后点。"
+    },
+    "Hiroki Ito": {
+      "summary": "Hiroki Ito is a Japan left-footed centre-back at Bayern Munich who gives the national team passing balance, recovery cover, and aerial defending.",
+      "transfermarktPlayerCode": "hiroki-ito",
+      "birthDate": "1999-05-12",
+      "position": "Centre-back",
+      "club": "Bayern Munich",
+      "league": "Bundesliga",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/353892-1778846469.jpg?lm=1",
+      "marketValueEurMillions": 18,
+      "skills": ["Left-footed build-up", "Recovery cover", "Aerial defending"],
+      "note": "Japan's left-footed centre-back, important for balanced build-up and covering space behind the line.",
+      "noteZh": "伊藤洋辉是日本左脚中卫，对平衡出球和保护防线身后空间很重要。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/hiroki-ito/profil/spieler/353892"
+    },
+    "Junnosuke Suzuki": {
+      "league": "Danish Superliga",
+      "skills": ["Centre-back cover", "Defensive midfield steps", "Short build-up passing"],
+      "note": "Japan's young defensive hybrid, able to hold the line or step into midfield when the shape opens.",
+      "noteZh": "铃木淳之介是日本年轻的防守混合型球员，阵型打开时能守住防线，也能前顶到中场。"
+    },
+    "Junya Ito": {
+      "displayName": "Junya Itō",
+      "skills": ["Right-wing speed", "Early crossing", "Veteran width"],
+      "note": "Japan's veteran wide runner, still valuable for direct speed and early service from the right.",
+      "noteZh": "伊东纯也是日本老练的边路冲刺点，仍能用直接速度和右路早传提供价值。"
+    },
+    "Kaishu Sano": {
+      "displayName": "Kaishū Sano",
+      "skills": ["Midfield ball winning", "Counter protection", "Simple circulation"],
+      "note": "Japan's midfield shield, useful for stopping counters early and keeping the next pass clean.",
+      "noteZh": "佐野海舟是日本的中场屏障，适合及早阻断反击并保持下一脚传球干净。"
+    },
+    "Keisuke Goto": {
+      "displayName": "Keisuke Gotō",
+      "skills": ["Young striker movement", "Channel runs", "Penalty-box timing"],
+      "note": "Japan's young forward option, giving them channel running and a fresh penalty-box threat off the bench.",
+      "noteZh": "后藤启介是日本年轻前锋选择，能提供肋部冲刺和替补登场后的禁区威胁。"
+    },
+    "Keisuke Osako": {
+      "displayName": "Keisuke Ōsako",
+      "league": "J1 League",
+      "skills": ["Goalkeeper depth", "Shot stopping", "Domestic rhythm"],
+      "note": "Japan's reliable goalkeeper cover, bringing J1 rhythm, reaction saves, and calm penalty-area habits.",
+      "noteZh": "大迫敬介是日本可靠的门将保障，带来J1比赛节奏、反应扑救和冷静的禁区习惯。"
+    },
+    "Keito Nakamura": {
+      "league": "Ligue 1",
+      "skills": ["Left-wing scoring", "Inside carries", "Far-post movement"],
+      "note": "Japan's left-side goal threat, dangerous when he drives inside or ghosts toward the far post.",
+      "noteZh": "中村敬斗是日本左路进球威胁，内切推进或悄悄移动到远门柱时很危险。"
+    },
+    "Kento Shiogai": {
+      "league": "Bundesliga",
+      "skills": ["Centre-forward runs", "Pressing energy", "Direct finishing"],
+      "note": "Japan's young direct striker, useful for stretching tired centre-backs and pressing with fresh legs.",
+      "noteZh": "盐贝健人是日本年轻的直接型前锋，适合拉扯疲惫中卫并用体能进行压迫。"
+    },
+    "Koki Ogawa": {
+      "summary": "Koki Ogawa is a Japan centre-forward at NEC Nijmegen who gives the national team penalty-box finishing, aerial presence, and striker depth.",
+      "transfermarktPlayerCode": "koki-ogawa",
+      "birthDate": "1997-08-08",
+      "position": "Centre-forward",
+      "club": "NEC Nijmegen",
+      "league": "Eredivisie",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/351567-1764256684.png?lm=1",
+      "marketValueEurMillions": 2,
+      "skills": ["Box finishing", "Aerial presence", "Striker depth"],
+      "note": "Japan's classic striker depth, valuable when they need a clearer target and more penalty-box gravity.",
+      "noteZh": "小川航基是日本传统中锋深度选择，球队需要明确支点和更强禁区牵制时很有价值。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/koki-ogawa/profil/spieler/351567"
+    },
+    "Kou Itakura": {
+      "displayName": "Ko Itakura",
+      "skills": ["Back-line organization", "Defensive midfield cover", "Aerial duels"],
+      "note": "Japan's defensive organizer, comfortable directing the line or stepping up to protect midfield space.",
+      "noteZh": "板仓滉是日本防守组织者，能指挥防线，也能前顶保护中场空间。"
+    },
+    "Ritsu Doan": {
+      "displayName": "Ritsu Dōan",
+      "skills": ["Left-footed shooting", "Right-side creation", "Set-piece quality"],
+      "note": "Japan's left-footed right-side weapon, dangerous when he cuts inside or shapes a restart.",
+      "noteZh": "堂安律是日本右路左脚武器，内切或处理定位球时都很危险。"
+    },
+    "Shogo Taniguchi": {
+      "displayName": "Shōgo Taniguchi",
+      "skills": ["Veteran centre-back play", "Box defending", "Calm clearances"],
+      "note": "Japan's veteran defensive stabilizer, useful for late-game box defending and low-risk clearances.",
+      "noteZh": "谷口彰悟是日本资深防守稳定器，适合比赛后段的禁区防守和低风险解围。"
+    },
+    "Shuto Machino": {
+      "displayName": "Shūto Machino",
+      "skills": ["Target play", "Box arrivals", "First-time finishing"],
+      "note": "Japan's strong striker option, giving them a target for direct service and quick finishes near goal.",
+      "noteZh": "町野修斗是日本强壮的中锋选择，能接应直接传球并在门前快速终结。"
+    },
+    "Takefusa Kubo": {
+      "skills": ["Half-space creation", "One-on-one dribbling", "Final pass timing"],
+      "note": "Japan's highest-upside creator, able to unbalance a block with one dribble or a disguised final pass.",
+      "noteZh": "久保建英是日本上限最高的创造者，能用一次盘带或隐蔽的最后一传打乱防线。"
+    },
+    "Takehiro Tomiyasu": {
+      "skills": ["Defensive versatility", "Recovery defending", "Aerial strength"],
+      "note": "Japan's elite defensive multi-tool, able to cover across the back line and erase dangerous space.",
+      "noteZh": "富安健洋是日本顶级防守多面手，能覆盖整条后防线并抹掉危险空间。"
+    },
+    "Tomoki Hayakawa": {
+      "league": "J1 League",
+      "skills": ["Goalkeeper depth", "Reaction saves", "Box command"],
+      "note": "Japan's domestic goalkeeper option, offering sharp reactions and command built from regular J1 minutes.",
+      "noteZh": "早川友基是日本本土门将选择，依靠稳定J1出场带来敏捷反应和禁区指挥。"
+    },
+    "Tsuyoshi Watanabe": {
+      "skills": ["Centre-back duels", "Aerial defending", "Physical clearances"],
+      "note": "Japan's duel-first centre-back, valuable when opponents go direct and the match becomes more physical.",
+      "noteZh": "渡边刚是日本以对抗为先的中卫，对手直接冲击、比赛身体对抗增加时很有价值。"
+    },
+    "Yuito Suzuki": {
+      "skills": ["Attacking midfield links", "Late box runs", "Two-footed combinations"],
+      "note": "Japan's flexible attacking midfielder, useful for linking moves and arriving late around the penalty spot.",
+      "noteZh": "铃木唯人是日本灵活的攻击型中场，能连接进攻并后插上到点球点附近。"
+    },
+    "Yukinari Sugawara": {
+      "skills": ["Right-back crossing", "Overlap timing", "Set-piece delivery"],
+      "note": "Japan's right-back supplier, giving the flank early crossing and reliable restart delivery.",
+      "noteZh": "菅原由势是日本右后卫传球供应点，能提供边路早传和稳定的定位球传送。"
+    },
+    "Yuto Nagatomo": {
+      "displayName": "Yūto Nagatomo",
+      "league": "J1 League",
+      "skills": ["Veteran full-back cover", "Tournament leadership", "Wide defending"],
+      "note": "Japan's veteran full-back voice, valuable for leadership, late defensive cover, and tournament calm.",
+      "noteZh": "长友佑都是日本资深边后卫声音，能带来领导力、比赛后段防守保障和大赛冷静。"
+    },
+    "Zion Suzuki": {
+      "skills": ["Modern goalkeeping", "Reflex saves", "Brave distribution"],
+      "note": "Japan's modern goalkeeper, capable of brave passing choices and reflex saves when pressure spikes.",
+      "noteZh": "铃木彩艳是日本现代型门将，能在压力升高时做出大胆传球选择和反应扑救。"
+    }
+  }
+}

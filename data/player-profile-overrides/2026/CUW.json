@@ -1,0 +1,195 @@
+{
+  "edition": "2026-world-cup",
+  "teamId": "CUW",
+  "teamName": "Curaçao",
+  "rosterNameOverrides": {
+    "Misjonne Juniffer Naigelino HANSEN": "Sontje Hansen",
+    "VAN EIJMA": "Roshon van Eijma",
+    "VAN EIJMA Roshon": "Roshon van Eijma"
+  },
+  "removeProfiles": [
+    "Misjonne Juniffer Naigelino Hansen",
+    "Van Eijma",
+    "Roshon Van Eijma"
+  ],
+  "profiles": {
+    "Arjany Martha": {
+      "displayName": "Ar'jany Martha",
+      "transfermarktPlayerCode": "arjany-martha",
+      "birthDate": "2003-09-04",
+      "position": "Right winger",
+      "club": "Beerschot VA",
+      "league": "Belgian Pro League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/572519-1701361604.jpg?lm=1",
+      "marketValueEurMillions": 1.2,
+      "skills": ["Right-wing dribbling", "Direct carries", "Bench speed"],
+      "note": "Curaçao's quick right-side outlet, useful for fresh carries and stretching defenders after turnovers.",
+      "noteZh": "阿尔贾尼·马尔塔是库拉索快速的右路出口，适合在转换后带球推进并拉扯防守人。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/arjany-martha/profil/spieler/572519"
+    },
+    "Armando Obispo": {
+      "skills": ["Centre-back composure", "Left-footed passing", "Aerial defending"],
+      "note": "Curaçao's composed centre-back, giving them left-footed exits, aerial cover, and a higher defensive ceiling.",
+      "noteZh": "阿曼多·奥比斯波是库拉索沉稳中卫，能提供左脚出球、空中覆盖和更高的防守上限。"
+    },
+    "Brandley Kuwas": {
+      "skills": ["Right-wing delivery", "Set pieces", "Veteran creativity"],
+      "note": "Curaçao's veteran wide creator, dangerous when he can cross early or shape set pieces from the right.",
+      "noteZh": "布兰德利·库瓦斯是库拉索老练的边路创造者，能早早传中，也能从右路处理定位球。"
+    },
+    "Deveron Fonville": {
+      "skills": ["Centre-back depth", "Recovery defending", "Young composure"],
+      "note": "Curaçao's young defensive option, bringing recovery legs and calm cover behind the senior centre-backs.",
+      "noteZh": "德韦龙·丰维尔是库拉索年轻防守选择，能在资深中卫身后提供回追能力和冷静保护。"
+    },
+    "Eloy Room": {
+      "league": "Belgian Pro League",
+      "skills": ["Veteran goalkeeping", "Shot stopping", "Box command"],
+      "note": "Curaçao's experienced goalkeeper, trusted for reaction saves and command when the box gets crowded.",
+      "noteZh": "埃洛伊·鲁姆是库拉索经验丰富的门将，在禁区拥挤时能提供反应扑救和指挥。"
+    },
+    "Gervane Kastaneer": {
+      "skills": ["Left-wing power", "Direct running", "Crossing threat"],
+      "note": "Curaçao's powerful wide runner, useful for direct carries and forcing defenders to turn toward their own goal.",
+      "noteZh": "热尔瓦内·卡斯塔内尔是库拉索力量型边路跑动点，能直接带球并迫使后卫转身回追。"
+    },
+    "Godfried Roemeratoe": {
+      "league": "Eredivisie",
+      "skills": ["Midfield screening", "Ball winning", "Simple passing"],
+      "note": "Curaçao's defensive midfield screen, helping protect the back line and keep possession moving cleanly.",
+      "noteZh": "戈德弗里德·鲁梅拉托是库拉索防守型中场屏障，能保护防线并让控球顺畅流动。"
+    },
+    "Jearl Margaritha": {
+      "sourceTitle": "Jearl Margaritha",
+      "transfermarktPlayerCode": "jearl-margaritha",
+      "birthDate": "2000-04-10",
+      "position": "Left winger",
+      "club": "Beveren",
+      "league": "Belgian Challenger Pro League",
+      "imageUrl": "https://www.skbeveren.be/wp-content/uploads/2025/08/SKB_WELCOME_JEARL-MARGARITHA_16x9.jpg",
+      "marketValueEurMillions": 1,
+      "skills": ["Left-wing speed", "Goal-minded carries", "Runs in behind"],
+      "note": "Curaçao's goal-minded left winger, able to attack space, drive inside, and give the front line more speed.",
+      "noteZh": "杰尔·马尔加里塔是库拉索有进球意识的左边锋，能冲击空间、内切推进，并给锋线增加速度。",
+      "sourceUrl": "https://www.transfermarkt.us/jearl-margaritha/profil/spieler/538958"
+    },
+    "Jeremy Antonisse": {
+      "league": "Super League Greece",
+      "skills": ["Left-wing acceleration", "Inside cuts", "Counter runs"],
+      "note": "Curaçao's left-side accelerator, useful for counters, inside cuts, and changing the tempo wide.",
+      "noteZh": "杰里米·安东尼斯是库拉索左路加速点，适合反击、内切和在边路改变节奏。"
+    },
+    "Joshua Brenet": {
+      "league": "Süper Lig",
+      "skills": ["Right-back experience", "Overlap timing", "Wide recovery"],
+      "note": "Curaçao's experienced right-back, giving them overlaps, recovery speed, and steadier wide defending.",
+      "noteZh": "约书亚·布雷内特是库拉索经验型右后卫，能提供套边、回追速度和更稳定的边路防守。"
+    },
+    "Juergen Locadia": {
+      "displayName": "Jürgen Locadia",
+      "sourceTitle": "Jürgen Locadia",
+      "transfermarktPlayerCode": "jurgen-locadia",
+      "birthDate": "1993-11-07",
+      "position": "Centre-forward",
+      "club": "Brighton & Hove Albion",
+      "league": "Premier League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/166240-1618656133.jpg?lm=1",
+      "marketValueEurMillions": 1.8,
+      "skills": ["Striker power", "Hold-up touches", "Box finishing"],
+      "note": "Curaçao's physical striker option, giving them hold-up touches and a direct target when pressure builds.",
+      "noteZh": "于尔根·洛卡迪亚是库拉索身体型中锋选择，在压力上升时能提供背身做球和直接支点。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/jurgen-locadia/profil/spieler/166240"
+    },
+    "Juninho Bacuna": {
+      "skills": ["Midfield drive", "Long-range shooting", "Set-piece quality"],
+      "note": "Curaçao's midfield driver, able to carry through contact and threaten from distance or restarts.",
+      "noteZh": "朱尼尼奥·巴库纳是库拉索中场推进器，能带球穿过对抗，并用远射或定位球制造威胁。"
+    },
+    "Jurien Gaari": {
+      "displayName": "Juriën Gaari",
+      "league": "Saudi First Division League",
+      "skills": ["Centre-back cover", "Aerial duels", "Defensive toughness"],
+      "note": "Curaçao's rugged centre-back cover, useful for aerial duels and late defensive protection.",
+      "noteZh": "尤里恩·加里是库拉索强硬的中卫保障，适合空中对抗和后段防守保护。"
+    },
+    "Kenji Gorre": {
+      "displayName": "Kenji Gorré",
+      "league": "Israeli Premier League",
+      "skills": ["Wide dribbling", "Left-side creativity", "Quick combinations"],
+      "note": "Curaçao's wide dribbler, bringing quick feet, left-side creativity, and combination play near the box.",
+      "noteZh": "肯吉·戈雷是库拉索边路盘带手，能在禁区附近带来快脚、左路创造和配合。"
+    },
+    "Kevin Felida": {
+      "league": "Eerste Divisie",
+      "skills": ["Defensive midfield cover", "Second-ball work", "Short passing"],
+      "note": "Curaçao's midfield cover option, useful for second balls, short passes, and protecting central space.",
+      "noteZh": "凯文·费利达是库拉索中场保护选择，能争第二落点、短传，并守住中路空间。"
+    },
+    "Leandro Bacuna": {
+      "skills": ["Veteran versatility", "Set-piece delivery", "Midfield leadership"],
+      "note": "Curaçao's senior leader, able to cover multiple roles and shape games with set pieces and experience.",
+      "noteZh": "莱安德罗·巴库纳是库拉索资深领袖，能覆盖多个位置，并用定位球和经验影响比赛。"
+    },
+    "Livano Comenencia": {
+      "skills": ["Right-back energy", "Forward support", "Recovery pace"],
+      "note": "Curaçao's young right-back engine, giving them forward support and enough recovery speed behind it.",
+      "noteZh": "利瓦诺·科梅嫩西亚是库拉索年轻右后卫发动机，能提供前插支援，并有足够回追速度补身后。"
+    },
+    "Riechedly Bazoer": {
+      "league": "Süper Lig",
+      "skills": ["Ball-playing defending", "Midfield cover", "Progressive passing"],
+      "note": "Curaçao's ball-playing defensive piece, comfortable stepping into midfield and passing through pressure.",
+      "noteZh": "里谢德利·巴佐尔是库拉索会出球的防守棋子，能前顶到中场并穿过压力传球。"
+    },
+    "Roshon van Eijma": {
+      "sourceTitle": "Roshon van Eijma",
+      "transfermarktPlayerCode": "roshon-van-eijma",
+      "birthDate": "1998-06-09",
+      "position": "Centre-back",
+      "club": "RKC Waalwijk",
+      "league": "Eredivisie",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/401029-1764155225.jpg?lm=1",
+      "marketValueEurMillions": 0.375,
+      "skills": ["Centre-back marking", "Aerial cover", "Defensive organization"],
+      "note": "Curaçao's centre-back organizer, useful for marking, aerial cover, and keeping the line connected.",
+      "noteZh": "罗申·范艾马是库拉索中卫组织者，能盯人、空中覆盖，并保持防线连接。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/roshon-van-eijma/profil/spieler/401029"
+    },
+    "Sherel Floranus": {
+      "skills": ["Left-back defending", "Wide balance", "Recovery tackles"],
+      "note": "Curaçao's left-back stabilizer, helping balance the flank and recover when attacks break down.",
+      "noteZh": "谢雷尔·弗洛拉努斯是库拉索左后卫稳定点，能平衡边路，并在进攻中断后回追补防。"
+    },
+    "Shurandy Sambo": {
+      "skills": ["Right-back acceleration", "Overlap power", "One-on-one defending"],
+      "note": "Curaçao's explosive right-back, able to overlap with power and still fight through one-on-one defending.",
+      "noteZh": "舒兰迪·桑博是库拉索爆发型右后卫，能强力套边，也能完成一对一防守。"
+    },
+    "Sontje Hansen": {
+      "skills": ["Right-wing craft", "Quick feet", "Final-third spark"],
+      "note": "Curaçao's sharp right winger, useful for quick feet, final-third spark, and slipping away from tight markers.",
+      "noteZh": "松杰·汉森是库拉索敏捷的右边锋，能用快脚、前场火花和摆脱紧盯防守来制造威胁。"
+    },
+    "Tahith Chong": {
+      "skills": ["Wing versatility", "Left-footed carries", "Premier League experience"],
+      "note": "Curaçao's high-profile winger, bringing left-footed carries, positional flexibility, and top-league experience.",
+      "noteZh": "塔希特·钟是库拉索最受关注的边锋，能带来左脚推进、位置灵活性和顶级联赛经验。"
+    },
+    "Trevor Doornbusch": {
+      "league": "Eerste Divisie",
+      "skills": ["Goalkeeper depth", "Shot stopping", "Box presence"],
+      "note": "Curaçao's goalkeeper depth, giving them a tall shot-stopper and cover behind Room.",
+      "noteZh": "特雷弗·多恩布施是库拉索门将深度，在鲁姆身后提供高大扑救选择和保障。"
+    },
+    "Tyrese Noslin": {
+      "skills": ["Right-side running", "Midfield support", "Direct carries"],
+      "note": "Curaçao's right-side runner, useful for carrying forward and supporting midfield pressure on the flank.",
+      "noteZh": "泰里斯·诺斯林是库拉索右路跑动点，能向前带球，并在边路支援中场压迫。"
+    },
+    "Tyrick Bodak": {
+      "skills": ["Goalkeeper cover", "Reaction saves", "Young upside"],
+      "note": "Curaçao's young goalkeeper cover, adding reaction saves and long-term depth to the squad.",
+      "noteZh": "泰里克·博达克是库拉索年轻门将保障，能提供反应扑救和长期深度。"
+    }
+  }
+}

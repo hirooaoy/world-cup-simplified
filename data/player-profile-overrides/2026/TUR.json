@@ -1,0 +1,248 @@
+{
+  "edition": "2026-world-cup",
+  "teamId": "TUR",
+  "teamName": "Türkiye",
+  "rosterNameOverrides": {
+    "KAHVECI Irfan Can": "Irfan Can Kahveci",
+    "İrfan KAHVECİ": "Irfan Can Kahveci"
+  },
+  "removeProfiles": [
+    "İrfan Kahveci̇"
+  ],
+  "profiles": {
+    "Abdulkerim Bardakci": {
+      "displayName": "Abdülkerim Bardakcı",
+      "skills": ["Left-footed defending", "Aerial clearances", "Calm build-up"],
+      "note": "Türkiye's left-sided centre-back anchor, useful for defending crosses and starting attacks without panic.",
+      "noteZh": "阿卜杜勒凯里姆·巴尔达克哲是土耳其左侧中卫支柱，适合防守传中并冷静发起进攻。"
+    },
+    "Altay Bayindir": {
+      "displayName": "Altay Bayındır",
+      "skills": ["Goalkeeper reach", "Penalty-area reactions", "Long distribution"],
+      "note": "Türkiye's tall goalkeeper option, bringing reach, quick reactions, and direct releases when games open up.",
+      "noteZh": "阿尔泰·巴因德尔是土耳其高大门将选择，能在比赛拉开时提供覆盖范围、快速反应和直接出球。"
+    },
+    "Arda Guler": {
+      "displayName": "Arda Güler",
+      "position": "Attacking midfielder",
+      "skills": ["Left-footed invention", "Final pass", "Long-range shooting"],
+      "note": "Türkiye's main creative spark, dangerous when he drifts inside and turns one touch into a final pass or shot.",
+      "noteZh": "阿尔达·居莱尔是土耳其主要创造火花，内收到中路并用一脚触球变成最后一传或射门时很危险。"
+    },
+    "Baris Alper Yilmaz": {
+      "displayName": "Barış Alper Yılmaz",
+      "skills": ["Power running", "Wing pressing", "Channel attacks"],
+      "note": "Türkiye's high-energy wide runner, able to stretch defenders, press hard, and carry the ball through contact.",
+      "noteZh": "巴里什·阿尔佩尔·伊尔马兹是土耳其高能边路跑动点，能拉扯防守、强力压迫并带球穿过对抗。"
+    },
+    "Caglar Soyuncu": {
+      "displayName": "Çağlar Söyüncü",
+      "skills": ["Aggressive centre-back defending", "Recovery tackles", "Aerial duels"],
+      "note": "Türkiye's front-foot defender, trusted to step into duels and add bite when the back line is under pressure.",
+      "noteZh": "恰拉尔·瑟云聚是土耳其主动型后卫，防线承压时能前顶对抗并增加强硬度。"
+    },
+    "Can Uzun": {
+      "displayName": "Can Uzun",
+      "sourceTitle": "Can Uzun",
+      "transfermarktPlayerCode": "can-uzun",
+      "birthDate": "2005-11-11",
+      "summary": "Can Uzun is a Türkiye attacking midfielder from Eintracht Frankfurt who gives the national team between-lines receiving, sharp shooting, and young creative upside.",
+      "position": "Attacking midfielder",
+      "club": "Eintracht Frankfurt",
+      "league": "Bundesliga",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/816585-1781174167.jpg?lm=1",
+      "marketValueEurMillions": 45,
+      "skills": ["Between-lines receiving", "Sharp shooting", "Creative upside"],
+      "note": "Türkiye's young between-lines option, dangerous when he receives on the turn and shoots before pressure arrives.",
+      "noteZh": "詹·乌尊是土耳其年轻的线间选择，转身接球并在压力到来前射门时很危险。",
+      "sourceUrl": "https://www.transfermarkt.com/can-uzun/profil/spieler/816585"
+    },
+    "Deniz Gul": {
+      "displayName": "Deniz Gül",
+      "skills": ["Penalty-box movement", "Forward pressing", "Quick finishing"],
+      "note": "Türkiye's young striker depth, useful for fresh pressing and quick box movements late in matches.",
+      "noteZh": "德尼兹·居尔是土耳其年轻中锋深度，适合在比赛后段带来新鲜压迫和快速禁区跑动。"
+    },
+    "Eren Elmali": {
+      "displayName": "Eren Elmalı",
+      "skills": ["Left-back width", "Overlap timing", "Recovery defending"],
+      "note": "Türkiye's left-back width provider, giving the attack overlaps while still recovering into defensive shape.",
+      "noteZh": "埃伦·埃尔马勒是土耳其左后卫宽度来源，能为进攻提供套边，同时回收到防守阵型。"
+    },
+    "Ferdi Kadioglu": {
+      "displayName": "Ferdi Kadıoğlu",
+      "skills": ["Full-back carrying", "Two-way flexibility", "Press escape"],
+      "note": "Türkiye's two-way full-back weapon, able to carry out of pressure and appear in several build-up lanes.",
+      "noteZh": "费尔迪·卡迪奥卢是土耳其双向边后卫武器，能带球摆脱压力并出现在多条组织线路上。"
+    },
+    "Hakan Calhanoglu": {
+      "displayName": "Hakan Çalhanoğlu",
+      "position": "Defensive midfielder",
+      "skills": ["Deep playmaking", "Set-piece delivery", "Tempo control"],
+      "note": "Türkiye's captain and tempo setter, shaping attacks from deep and making every restart feel dangerous.",
+      "noteZh": "哈坎·恰尔汗奥卢是土耳其队长和节奏设定者，能从后场塑造进攻，并让每次定位球都显得危险。"
+    },
+    "Irfan Can Kahveci": {
+      "displayName": "İrfan Can Kahveci",
+      "aliases": ["Irfan Kahveci", "İrfan Kahveci", "KAHVECI Irfan Can", "İrfan KAHVECİ", "İrfan Kahveci̇"],
+      "sourceTitle": "İrfan Can Kahveci",
+      "transfermarktPlayerCode": "irfan-can-kahveci",
+      "birthDate": "1995-07-15",
+      "summary": "İrfan Can Kahveci is a Türkiye right winger from Kasımpaşa who gives the national team left-footed crossing, combination play, and set-piece quality.",
+      "position": "Right winger",
+      "club": "Kasımpaşa",
+      "league": "Süper Lig",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/216603-1765459199.png?lm=1",
+      "marketValueEurMillions": 3,
+      "skills": ["Left-footed crossing", "Combination play", "Set-piece quality"],
+      "note": "Türkiye's left-footed right-wing passer, valuable for clipped final balls, quick combinations, and restarts.",
+      "noteZh": "伊尔凡·詹·卡赫韦奇是土耳其左脚右路传球手，对挑传最后一传、快速配合和定位球很有价值。",
+      "sourceUrl": "https://www.transfermarkt.com/irfan-can-kahveci/profil/spieler/216603"
+    },
+    "Ismail Yuksek": {
+      "displayName": "İsmail Yüksek",
+      "position": "Defensive midfielder",
+      "skills": ["Midfield ball winning", "Counter-pressing", "Simple progression"],
+      "note": "Türkiye's midfield ball-winner, important for killing counters and moving the next pass quickly.",
+      "noteZh": "伊斯梅尔·于克塞克是土耳其中场抢球手，对破坏反击并快速送出下一脚传球很重要。"
+    },
+    "Kaan Ayhan": {
+      "skills": ["Defensive versatility", "Back-line cover", "Set-piece presence"],
+      "note": "Türkiye's flexible defensive piece, able to cover centre-back, full-back, or midfield protection when needed.",
+      "noteZh": "卡安·艾汗是土耳其灵活的防守棋子，需要时能覆盖中卫、边后卫或中场保护。"
+    },
+    "Kenan Yildiz": {
+      "displayName": "Kenan Yıldız",
+      "skills": ["Inside-left creation", "Close control", "Shot creation"],
+      "note": "Türkiye's elegant inside-left creator, able to glide past pressure and turn tight touches into shots.",
+      "noteZh": "凯南·伊尔迪兹是土耳其优雅的左肋创造者，能滑过压力并把狭小空间触球变成射门。"
+    },
+    "Kerem Akturkoglu": {
+      "displayName": "Kerem Aktürkoğlu",
+      "skills": ["Wide acceleration", "Inside finishing", "Transition runs"],
+      "note": "Türkiye's direct wide scorer, most useful when he can sprint into space and attack the far side of the box.",
+      "noteZh": "凯雷姆·阿克蒂尔科奥卢是土耳其直接型边路得分手，冲入空间并攻击禁区远侧时最有用。"
+    },
+    "Merih Demiral": {
+      "skills": ["Aerial command", "Physical defending", "Set-piece threat"],
+      "note": "Türkiye's physical centre-back leader, giving them aerial force in both penalty areas.",
+      "noteZh": "梅里赫·德米拉尔是土耳其身体型中卫领袖，能在两个禁区都提供空中力量。"
+    },
+    "Mert Gunok": {
+      "displayName": "Mert Günok",
+      "skills": ["Veteran goalkeeping", "Reflex saves", "Penalty-area command"],
+      "note": "Türkiye's veteran goalkeeper, trusted for reflex saves and calm organization in tense tournament spells.",
+      "noteZh": "梅尔特·居诺克是土耳其老将门将，在紧张的杯赛阶段，反应扑救和冷静组织都值得信任。"
+    },
+    "Mert Muldur": {
+      "displayName": "Mert Müldür",
+      "sourceTitle": "Mert Müldür",
+      "transfermarktPlayerCode": "mert-muldur",
+      "birthDate": "1999-04-03",
+      "summary": "Mert Müldür is a Türkiye right-back from Fenerbahçe who gives the national team full-back defending, recovery speed, and back-post coverage.",
+      "position": "Right-back",
+      "club": "Fenerbahçe",
+      "league": "Süper Lig",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/353922-1765459365.jpg?lm=1",
+      "marketValueEurMillions": 7,
+      "skills": ["Full-back defending", "Recovery speed", "Back-post coverage"],
+      "note": "Türkiye's right-back cover runner, useful for recovering wide space and protecting the far post.",
+      "noteZh": "梅尔特·米尔迪尔是土耳其右后卫补位跑动点，适合回追边路空间并保护后点。",
+      "sourceUrl": "https://www.transfermarkt.com/mert-muldur/profil/spieler/353922"
+    },
+    "Oguz Aydin": {
+      "displayName": "Oğuz Aydın",
+      "sourceTitle": "Oğuz Aydın",
+      "transfermarktPlayerCode": "oguz-aydin",
+      "birthDate": "2000-10-27",
+      "summary": "Oğuz Aydın is a Türkiye right winger from Fenerbahçe who gives the national team one-on-one dribbling, acceleration, and direct crossing.",
+      "position": "Right winger",
+      "club": "Fenerbahçe",
+      "league": "Süper Lig",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/563749-1765461184.png?lm=1",
+      "marketValueEurMillions": 7,
+      "skills": ["One-on-one dribbling", "Acceleration", "Direct crossing"],
+      "note": "Türkiye's right-wing accelerator, able to attack a full-back early and turn the byline into service.",
+      "noteZh": "奥乌兹·艾登是土耳其右路加速点，能早早冲击边后卫并把底线位置变成传中。",
+      "sourceUrl": "https://www.transfermarkt.com/oguz-aydin/profil/spieler/563749"
+    },
+    "Orkun Kokcu": {
+      "displayName": "Orkun Kökçü",
+      "sourceTitle": "Orkun Kökçü",
+      "transfermarktPlayerCode": "orkun-kokcu",
+      "birthDate": "2000-12-29",
+      "summary": "Orkun Kökçü is a Türkiye central midfielder from Beşiktaş who gives the national team progressive passing, midfield shooting, and press-resistant control.",
+      "position": "Central midfielder",
+      "club": "Beşiktaş",
+      "league": "Süper Lig",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/454567-1770375601.png?lm=1",
+      "marketValueEurMillions": 25,
+      "skills": ["Progressive passing", "Midfield shooting", "Press-resistant control"],
+      "note": "Türkiye's progressive midfield passer, useful for breaking pressure and striking from the edge when space opens.",
+      "noteZh": "奥尔昆·柯克曲是土耳其推进型中场传球手，适合破解压力，并在空间打开时从禁区边缘射门。",
+      "sourceUrl": "https://www.transfermarkt.com/orkun-kokcu/profil/spieler/454567"
+    },
+    "Ozan Kabak": {
+      "sourceTitle": "Ozan Kabak",
+      "transfermarktPlayerCode": "ozan-kabak",
+      "birthDate": "2000-03-25",
+      "summary": "Ozan Kabak is a Türkiye centre-back from TSG Hoffenheim who gives the national team aggressive duels, aerial defending, and recovery cover.",
+      "position": "Centre-back",
+      "club": "TSG Hoffenheim",
+      "league": "Bundesliga",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/361260-1691269223.jpg?lm=1",
+      "marketValueEurMillions": 15,
+      "skills": ["Aggressive duels", "Aerial defending", "Recovery cover"],
+      "note": "Türkiye's athletic centre-back option, built for contact, aerial work, and recovery defending behind pressure.",
+      "noteZh": "奥赞·卡巴克是土耳其运动能力强的中卫选择，适合对抗、空中防守和压迫身后的回追。",
+      "sourceUrl": "https://www.transfermarkt.com/ozan-kabak/profil/spieler/361260"
+    },
+    "Salih Ozcan": {
+      "displayName": "Salih Özcan",
+      "sourceTitle": "Salih Özcan",
+      "transfermarktPlayerCode": "salih-ozcan",
+      "summary": "Salih Özcan is a Türkiye defensive midfielder from Borussia Dortmund who gives the national team screening, duels, and disciplined possession support.",
+      "club": "Borussia Dortmund",
+      "league": "Bundesliga",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/244940-1709561120.jpg?lm=1",
+      "marketValueEurMillions": 3.5,
+      "skills": ["Midfield screening", "Defensive duels", "Disciplined support"],
+      "note": "Türkiye's disciplined midfield screen, useful for protecting creative players and cleaning up loose second balls.",
+      "noteZh": "萨利赫·厄兹詹是土耳其纪律性中场屏障，适合保护创造型球员并清理松散的第二落点。",
+      "sourceUrl": "https://www.transfermarkt.com/salih-ozcan/profil/spieler/244940"
+    },
+    "Samet Akaydin": {
+      "skills": ["Centre-back depth", "Aerial defending", "Box clearances"],
+      "note": "Türkiye's rugged centre-back depth, useful when the match asks for clearances and direct penalty-area defending.",
+      "noteZh": "萨梅特·阿卡伊丁是土耳其强硬的中卫深度，比赛需要解围和直接禁区防守时很有用。"
+    },
+    "Ugurcan Cakir": {
+      "displayName": "Uğurcan Çakır",
+      "sourceTitle": "Uğurcan Çakır",
+      "transfermarktPlayerCode": "ugurcan-cakir",
+      "birthDate": "1996-04-05",
+      "summary": "Uğurcan Çakır is a Türkiye goalkeeper from Galatasaray who gives the national team shot stopping, penalty-area command, and long distribution.",
+      "position": "Goalkeeper",
+      "club": "Galatasaray",
+      "league": "Süper Lig",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/292199-1756290095.png?lm=1",
+      "marketValueEurMillions": 15,
+      "skills": ["Shot stopping", "Penalty-area command", "Long distribution"],
+      "note": "Türkiye's commanding goalkeeper option, strong on reaction saves and brave when claiming crowded crosses.",
+      "noteZh": "乌乌尔詹·恰克尔是土耳其指挥型门将选择，反应扑救出色，也敢于摘下拥挤区域的传中。",
+      "sourceUrl": "https://www.transfermarkt.com/ugurcan-cakir/profil/spieler/292199"
+    },
+    "Yunus Akgun": {
+      "displayName": "Yunus Akgün",
+      "skills": ["Right-wing creation", "Inside passing", "Quick shooting"],
+      "note": "Türkiye's right-side creator, capable of slipping inside and turning short passing moves into shots.",
+      "noteZh": "尤努斯·阿克京是土耳其右路创造者，能内收到中路并把短传配合变成射门。"
+    },
+    "Zeki Celik": {
+      "displayName": "Zeki Çelik",
+      "skills": ["Right-back defending", "Back-three cover", "Wide discipline"],
+      "note": "Türkiye's experienced right-side defender, steady as a full-back and useful tucking into a back three.",
+      "noteZh": "泽基·切利克是土耳其经验丰富的右侧防守者，踢边后卫稳健，也能内收进入三中卫。"
+    }
+  }
+}

@@ -158,8 +158,8 @@ const profiles = {
   },
   EGY: {
     summary: "are a direct team built around Salah's runs that can look quiet until one attack opens the match",
-    leaderRole: "giving them elite speed, secondary scoring, and central hold-up play",
-    plan: "They want Mohamed Salah running into space, Omar Marmoush adding a second lane, and Mostafa Mohamed holding the central defenders.",
+    leaderRole: "giving them elite speed, secondary scoring, and right-side delivery",
+    plan: "They want Mohamed Salah running into space, Omar Marmoush adding a second lane, and Zizo supplying the next pass or shot.",
     attackPlan: "release Salah early and let Marmoush arrive as the second wave",
     matchupWin: "make every turnover feel dangerous",
     defensiveTask: "staying compact enough that Salah is not stranded too far from goal",

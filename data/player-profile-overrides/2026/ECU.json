@@ -1,0 +1,142 @@
+{
+  "edition": "2026-world-cup",
+  "teamId": "ECU",
+  "teamName": "Ecuador",
+  "profiles": {
+    "Alan Franco": {
+      "skills": ["Ball-winning balance", "Simple circulation", "Midfield coverage"],
+      "note": "Ecuador's steady midfield balancer, useful for closing central gaps and keeping the next pass simple.",
+      "noteZh": "阿兰·弗朗科是厄瓜多尔稳定的中场平衡点，能封住中路空当，并把下一脚传球处理得简洁。"
+    },
+    "Alan Minda": {
+      "skills": ["Direct dribbling", "Wing speed", "Inside runs"],
+      "note": "Ecuador's quick wide runner, able to attack tired full-backs and turn loose transitions into carries.",
+      "noteZh": "阿兰·明达是厄瓜多尔速度型边路跑动点，能冲击疲劳的边后卫，并把松散转换变成带球推进。"
+    },
+    "Angelo Preciado": {
+      "skills": ["Right-back thrust", "Overlap timing", "Wide recovery"],
+      "note": "Ecuador's attacking right-back, giving them overlaps, recovery pace, and a real crossing lane from deep.",
+      "noteZh": "安赫洛·普雷西亚多是厄瓜多尔进攻型右后卫，能提供套边、回追速度和来自深处的真实传中通道。"
+    },
+    "Anthony Valencia": {
+      "league": "Belgian Pro League",
+      "skills": ["Midfield mobility", "Press support", "Forward carries"],
+      "note": "Ecuador's mobile midfield option, useful for pressing support and carrying the ball through the first line.",
+      "noteZh": "安东尼·瓦伦西亚是厄瓜多尔机动型中场选择，能支援压迫，并带球穿过第一道防线。"
+    },
+    "Denil Castillo": {
+      "skills": ["Defensive screening", "Long passing", "Central duels"],
+      "note": "Ecuador's young holding midfielder, adding size, long passing, and protection in front of the centre-backs.",
+      "noteZh": "德尼尔·卡斯蒂略是厄瓜多尔年轻后腰，能增加身材、长传和中卫身前的保护。"
+    },
+    "Enner Valencia": {
+      "skills": ["Captain finishing", "Penalty-box movement", "Aerial timing"],
+      "note": "Ecuador's captain and historic scorer, still the player they trust most to turn one clear chance into a goal.",
+      "noteZh": "恩纳·瓦伦西亚是厄瓜多尔队长和历史射手，依然是球队最信任、能把一次清晰机会转成进球的人。"
+    },
+    "Felix Torres": {
+      "skills": ["Centre-back marking", "Aerial defending", "Set-piece threat"],
+      "note": "Ecuador's physical centre-back, important for aerial clearances, tight marking, and attacking set pieces.",
+      "noteZh": "费利克斯·托雷斯是厄瓜多尔身体型中卫，对空中解围、紧密盯人和进攻定位球都很重要。"
+    },
+    "Gonzalo Plata": {
+      "skills": ["One-on-one dribbling", "Right-wing creation", "Cut-inside shots"],
+      "note": "Ecuador's right-side creator, dangerous when he isolates a defender and cuts inside onto his stronger actions.",
+      "noteZh": "贡萨洛·普拉塔是厄瓜多尔右路创造者，在单挑防守人并内切做出强势动作时最有威胁。"
+    },
+    "Gonzalo Valle": {
+      "league": "Ecuadorian Serie A",
+      "skills": ["Goalkeeper depth", "Reaction saves", "Domestic rhythm"],
+      "note": "Ecuador's goalkeeper cover, bringing domestic rhythm and a reliable shot-stopping option behind the starters.",
+      "noteZh": "贡萨洛·巴列是厄瓜多尔门将保障，带来本土比赛节奏，并在主力身后提供可靠扑救选择。"
+    },
+    "Hernan Galindez": {
+      "skills": ["Veteran goalkeeping", "Box command", "Penalty saves"],
+      "note": "Ecuador's veteran keeper, trusted for command, tournament calm, and saves when the back line bends.",
+      "noteZh": "埃尔南·加林德斯是厄瓜多尔老练门将，在指挥、大赛冷静和防线承压时的扑救上值得信任。"
+    },
+    "Jackson Porozo": {
+      "skills": ["Centre-back depth", "Aerial size", "Recovery defending"],
+      "note": "Ecuador's athletic centre-back depth, useful when they need size and recovery speed against direct forwards.",
+      "noteZh": "杰克逊·波罗索是厄瓜多尔运动能力强的中卫深度，在面对直接型前锋时能提供身材和回追速度。"
+    },
+    "Jeremy Arevalo": {
+      "skills": ["Forward movement", "Pressing runs", "Box instincts"],
+      "note": "Ecuador's young striker option, bringing pressing runs, penalty-box movement, and fresh energy off the bench.",
+      "noteZh": "杰里米·阿雷瓦洛是厄瓜多尔年轻前锋选择，能带来压迫跑动、禁区走位和替补席上的新鲜活力。"
+    },
+    "Joel Ordonez": {
+      "skills": ["Aerial dominance", "Composed defending", "Line-breaking passing"],
+      "note": "Ecuador's high-upside centre-back, giving them aerial power, calm defending, and passes that beat pressure.",
+      "noteZh": "乔尔·奥多涅斯是厄瓜多尔高潜力中卫，能提供空中力量、冷静防守和穿透压力的传球。"
+    },
+    "John Yeboah": {
+      "skills": ["Left-footed dribbling", "Wide creativity", "Transition bursts"],
+      "note": "Ecuador's left-footed wide threat, useful for fast breaks, sharp changes of direction, and final-third invention.",
+      "noteZh": "约翰·耶博阿是厄瓜多尔左脚边路威胁，适合快攻、突然变向和前场创造。"
+    },
+    "Jordy Alcivar": {
+      "league": "Ecuadorian Serie A",
+      "skills": ["Midfield tackling", "Set-piece delivery", "Tempo control"],
+      "note": "Ecuador's domestic midfield controller, helping with tackles, restarts, and a calmer rhythm when games get frantic.",
+      "noteZh": "约尔迪·阿尔西瓦尔是厄瓜多尔本土中场控制者，能在比赛变乱时提供抢断、定位球和更冷静的节奏。"
+    },
+    "Jordy Caicedo": {
+      "league": "Argentine Primera División",
+      "skills": ["Power forward play", "Aerial duels", "Late box runs"],
+      "note": "Ecuador's physical striker alternative, useful for direct service, aerial duels, and late runs across defenders.",
+      "noteZh": "约尔迪·凯塞多是厄瓜多尔身体型中锋替代方案，适合直接传球、空中对抗和后段横向冲击后卫。"
+    },
+    "Kendry Paez": {
+      "skills": ["Teenage creativity", "Between-lines touch", "Final pass"],
+      "note": "Ecuador's teenage creative wildcard, able to receive between lines and find a final pass before pressure arrives.",
+      "noteZh": "肯德里·派斯是厄瓜多尔年轻创造变数，能在线间接球，并在压力到来前找到最后一传。"
+    },
+    "Kevin Rodriguez": {
+      "league": "Belgian Pro League",
+      "skills": ["Forward pressing", "Channel running", "Direct finishing"],
+      "note": "Ecuador's energetic forward runner, giving them pressing, channel attacks, and a direct route behind defenders.",
+      "noteZh": "凯文·罗德里格斯是厄瓜多尔活力型前锋跑动点，能提供压迫、通道冲击和打到后卫身后的直接路线。"
+    },
+    "Moises Caicedo": {
+      "skills": ["Elite ball winning", "Press resistance", "Transition control"],
+      "note": "Ecuador's midfield engine, built to win duels, escape pressure, and stop counters before they become dangerous.",
+      "noteZh": "莫伊塞斯·凯塞多是厄瓜多尔中场发动机，擅长赢下对抗、摆脱压力，并在反击变危险前将其截停。"
+    },
+    "Moises Ramirez": {
+      "skills": ["Goalkeeper reactions", "Sweeper cover", "Distribution choices"],
+      "note": "Ecuador's younger goalkeeper option, useful for reaction saves, sweeper cover, and cleaner restart decisions.",
+      "noteZh": "莫伊塞斯·拉米雷斯是厄瓜多尔较年轻的门将选择，能完成反应扑救、清道夫式覆盖和更干净的出球决策。"
+    },
+    "Nilson Angulo": {
+      "skills": ["Wing acceleration", "One-on-one pressure", "Direct carries"],
+      "note": "Ecuador's acceleration winger, able to stress full-backs with direct carries and repeated one-on-ones.",
+      "noteZh": "尼尔松·安古洛是厄瓜多尔加速型边锋，能用直接带球和反复一对一给边后卫施压。"
+    },
+    "Pedro Vite": {
+      "skills": ["Attacking midfield craft", "Quick combinations", "Late runs"],
+      "note": "Ecuador's clever attacking midfielder, linking short combinations and arriving late around the box.",
+      "noteZh": "佩德罗·维特是厄瓜多尔聪明的前腰，能串联短传配合，并后插上到禁区周围。"
+    },
+    "Pervis Estupinan": {
+      "skills": ["Left-back width", "Overlap power", "Crossing volume"],
+      "note": "Ecuador's left-side outlet, stretching the flank with power runs and serving early balls into the area.",
+      "noteZh": "佩尔维斯·埃斯图皮尼安是厄瓜多尔左路出口，能用强力跑动拉开边路，并早早把球送入禁区。"
+    },
+    "Piero Hincapie": {
+      "skills": ["Left-footed defending", "Back-line versatility", "Progressive passing"],
+      "note": "Ecuador's left-footed defensive leader, comfortable at centre-back or left-back and calm passing out.",
+      "noteZh": "皮耶罗·因卡皮耶是厄瓜多尔左脚防线领袖，能踢中卫或左后卫，并冷静完成后场出球。"
+    },
+    "Willian Pacho": {
+      "skills": ["Elite centre-back defending", "Recovery pace", "Aerial control"],
+      "note": "Ecuador's top-level centre-back, giving them recovery pace, aerial control, and confidence against elite forwards.",
+      "noteZh": "威廉·帕乔是厄瓜多尔顶级中卫，能提供回追速度、空中控制和面对精英前锋时的信心。"
+    },
+    "Yaimar Medina": {
+      "skills": ["Midfield spark", "Forward carries", "Quick passing"],
+      "note": "Ecuador's young midfield spark, useful for carrying through space and speeding up attacks with quick passes.",
+      "noteZh": "亚伊马尔·梅迪纳是厄瓜多尔年轻中场火花，能带球穿过空间，并用快速传球加快进攻。"
+    }
+  }
+}

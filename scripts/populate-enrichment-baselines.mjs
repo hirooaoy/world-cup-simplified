@@ -20,7 +20,7 @@ const teamKeyPlayers = {
   CPV: ["Ryan Mendes", "Roberto Lopes", "Vozinha"],
   CUW: ["Juninho Bacuna", "Leandro Bacuna", "Tahith Chong"],
   ECU: ["Moises Caicedo", "Piero Hincapie", "Enner Valencia"],
-  EGY: ["Mohamed Salah", "Omar Marmoush", "Mostafa Mohamed"],
+  EGY: ["Mohamed Salah", "Omar Marmoush", "Zizo"],
   ESP: ["Lamine Yamal", "Pedri", "Nico Williams"],
   GER: ["Joshua Kimmich", "Jamal Musiala", "Florian Wirtz"],
   HAI: ["Duckens Nazon", "Frantzdy Pierrot", "Jean-Ricner Bellegarde"],
@@ -53,6 +53,20 @@ const teamKeyPlayerOverrides = {
     {
       name: "Amine Gouiri",
       note: "A clever forward who can drift, combine, and give Algeria scoring threat away from the obvious lanes."
+    }
+  ],
+  EGY: [
+    {
+      name: "Mohamed Salah",
+      note: "Egypt's decisive outlet, a transition runner and finisher every opponent has to bend their shape around."
+    },
+    {
+      name: "Omar Marmoush",
+      note: "A mobile second scoring threat who can attack channels and keep Egypt from becoming one-dimensional."
+    },
+    {
+      name: "Zizo",
+      note: "The right-side delivery and shooting option who can punish teams when Salah is tightly tracked."
     }
   ],
   FRA: [

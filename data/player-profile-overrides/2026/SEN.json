@@ -1,0 +1,202 @@
+{
+  "edition": "2026-world-cup",
+  "teamId": "SEN",
+  "teamName": "Senegal",
+  "rosterNameOverrides": {
+    "Antoine Alpha": "Antoine Mendy",
+    "Bara Sapoko": "Bara Sapoko Ndiaye",
+    "Cheikh Ahmadou Bamba Mbacke": "Bamba Dieng",
+    "Edouard Osoque": "Edouard Mendy",
+    "El Hadji Malick": "El Hadji Malick Diouf",
+    "Idrissa Gana": "Idrissa Gueye",
+    "Iliman Cheikh Baroy": "Iliman Ndiaye",
+    "Ismail Joshua": "Ismail Jakobs",
+    "Ismaila Pathe": "Pathe Ciss",
+    "Mouhamadou Habib Mbacke": "Habib Diarra",
+    "Pape Alassane": "Pape Gueye",
+    "Pape Cherif": "Cherif Ndiaye",
+    "Pape Matar": "Pape Matar Sarr",
+    "Yehvann Djibril Victor": "Yehvann Diouf"
+  },
+  "removeProfiles": [
+    "Antoine Alpha",
+    "Bara Sapoko",
+    "Cheikh Ahmadou Bamba Mbacke",
+    "Edouard Osoque",
+    "El Hadji Malick",
+    "Idrissa Gana",
+    "Iliman Cheikh Baroy",
+    "Ismail Joshua",
+    "Ismaila Pathe",
+    "Mouhamadou Habib Mbacke",
+    "Pape Alassane",
+    "Pape Cherif",
+    "Pape Matar",
+    "Yehvann Djibril Victor"
+  ],
+  "profiles": {
+    "Abdoulaye Seck": {
+      "skills": ["Aerial defending", "Centre-back strength", "Set-piece presence"],
+      "note": "Senegal's physical centre-back option, useful for clearing crosses and attacking dead balls.",
+      "noteZh": "阿卜杜拉耶·塞克是塞内加尔身体型中卫选择，适合解围传中并冲击定位球。"
+    },
+    "Antoine Mendy": {
+      "aliases": ["Antoine Alpha", "Antoine Alpha Mendy"],
+      "skills": ["Right-back defending", "Centre-back cover", "Recovery speed"],
+      "note": "Senegal's right-side defensive cover, able to defend wide or tuck inside when the shape changes.",
+      "noteZh": "安托万·门迪是塞内加尔右侧防守保障，阵型变化时能守边路，也能内收到中路。"
+    },
+    "Assane Diao": {
+      "skills": ["Wing acceleration", "Direct dribbling", "Transition runs"],
+      "note": "Senegal's direct wide runner, dangerous when space opens and he can attack at speed.",
+      "noteZh": "阿萨内·迪奥是塞内加尔直接型边路跑动点，空间打开并能提速冲击时很危险。"
+    },
+    "Bamba Dieng": {
+      "aliases": ["Cheikh Ahmadou Bamba Mbacke", "Cheikh Ahmadou Bamba Mbacke Dieng"],
+      "skills": ["Forward bursts", "Penalty-box finishing", "Pressing speed"],
+      "note": "Senegal's lively forward option, useful for chasing centre-backs and snapping at loose chances.",
+      "noteZh": "班巴·迪昂是塞内加尔活跃的前锋选择，适合追压中卫并抓住松散机会。"
+    },
+    "Bara Sapoko Ndiaye": {
+      "aliases": ["Bara Sapoko", "Bara Joseph Sapoko Ndiaye"],
+      "sourceTitle": "Bara Sapoko Ndiaye",
+      "transfermarktPlayerCode": "bara-sapoko-ndiaye",
+      "birthDate": "2007-12-31",
+      "summary": "Bara Sapoko Ndiaye is a Senegal central midfielder from Bayern Munich who gives the national team youthful ball carrying, midfield mobility, and long-term upside.",
+      "position": "Central midfielder",
+      "club": "Bayern Munich",
+      "league": "Bundesliga",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Bara%20Ndiaye%20France%20v%20Senegal%2016%20June%202026-229%20(cropped).jpg?width=160",
+      "marketValueEurMillions": 4,
+      "skills": ["Youthful ball carrying", "Midfield mobility", "Long-term upside"],
+      "note": "Senegal's teenage midfield wildcard, useful for fresh legs and brave carries through pressure.",
+      "noteZh": "巴拉·萨波科·恩迪亚耶是塞内加尔青少年中场变招，适合带来新鲜腿脚并勇敢带球穿过压力。",
+      "sourceUrl": "https://www.transfermarkt.com/bara-sapoko-ndiaye/profil/spieler/1497653"
+    },
+    "Cherif Ndiaye": {
+      "displayName": "Chérif Ndiaye",
+      "aliases": ["Pape Cherif", "Pape Chérif Ndiaye"],
+      "skills": ["Centre-forward hold-up", "Box finishing", "Aerial pressure"],
+      "note": "Senegal's penalty-box forward, useful for holding off defenders and finishing service from wide areas.",
+      "noteZh": "谢里夫·恩迪亚耶是塞内加尔禁区前锋，适合抗住防守者并终结来自边路的传球。"
+    },
+    "Edouard Mendy": {
+      "displayName": "Édouard Mendy",
+      "aliases": ["Edouard Osoque", "Édouard Osoque Mendy"],
+      "skills": ["Goalkeeper command", "Cross claiming", "Tournament experience"],
+      "note": "Senegal's experienced goalkeeper, trusted for box command and calming long defensive stretches.",
+      "noteZh": "爱德华·门迪是塞内加尔经验丰富的门将，禁区指挥和稳定漫长防守阶段都值得信任。"
+    },
+    "El Hadji Malick Diouf": {
+      "aliases": ["El Hadji Malick"],
+      "skills": ["Left-back surges", "Wing-back width", "Recovery speed"],
+      "note": "Senegal's explosive left-sided runner, able to turn a recovery into a quick attack down the flank.",
+      "noteZh": "埃尔·哈吉·马利克·迪乌夫是塞内加尔爆发型左路跑动点，能把一次回追变成边路快速进攻。"
+    },
+    "Habib Diarra": {
+      "aliases": ["Mouhamadou Habib Diarra", "Mouhamadou Habib Mbacke"],
+      "skills": ["Midfield carrying", "Box-to-box range", "Pressing energy"],
+      "note": "Senegal's powerful midfield carrier, useful for driving through contact and joining the attack late.",
+      "noteZh": "哈比卜·迪亚拉是塞内加尔力量型中场推进者，适合带球穿过对抗并后插上参与进攻。"
+    },
+    "Ibrahim Mbaye": {
+      "skills": ["Wing explosiveness", "Teenage creativity", "One-on-one threat"],
+      "note": "Senegal's teenage wide spark, dangerous when he can isolate a defender and run directly at goal.",
+      "noteZh": "易卜拉欣·姆巴耶是塞内加尔青少年边路火花，能一对一面对防守者并直接冲向球门时很危险。"
+    },
+    "Idrissa Gueye": {
+      "displayName": "Idrissa Gueye",
+      "aliases": ["Idrissa Gana", "Idrissa Gana Gueye"],
+      "skills": ["Ball-winning range", "Midfield anticipation", "Counter defense"],
+      "note": "Senegal's veteran midfield reader, still valuable for sensing danger and stopping counters early.",
+      "noteZh": "伊德里萨·盖耶是塞内加尔老将中场阅读者，依然能提前感知危险并尽早阻断反击。"
+    },
+    "Iliman Ndiaye": {
+      "aliases": ["Iliman Cheikh Baroy", "Iliman Cheikh Baroy Ndiaye"],
+      "skills": ["Between-lines dribbling", "Final-third invention", "Quick combinations"],
+      "note": "Senegal's clever attacking connector, able to receive in traffic and slip into the box with short touches.",
+      "noteZh": "伊利曼·恩迪亚耶是塞内加尔聪明的进攻连接点，能在人群中接球并用小范围触球钻入禁区。"
+    },
+    "Ismail Jakobs": {
+      "displayName": "Ismaïl Jakobs",
+      "aliases": ["Ismail Joshua", "Ismail Joshua Jakobs"],
+      "skills": ["Left-back pace", "Overlap timing", "Wide recovery"],
+      "note": "Senegal's left-back runner, useful for overlaps and fast recovery against switches.",
+      "noteZh": "伊斯梅尔·雅各布斯是塞内加尔左后卫跑动点，适合套边并快速回追应对转移球。"
+    },
+    "Ismaila Sarr": {
+      "displayName": "Ismaïla Sarr",
+      "skills": ["Right-wing speed", "Vertical carries", "Transition finishing"],
+      "note": "Senegal's vertical winger, dangerous when he can run beyond the full-back before the defense resets.",
+      "noteZh": "伊斯梅拉·萨尔是塞内加尔纵向边锋，能在防线重整前冲到边后卫身后时很危险。"
+    },
+    "Kalidou Koulibaly": {
+      "skills": ["Defensive leadership", "Aerial command", "Physical duels"],
+      "note": "Senegal's defensive leader, still the voice and physical anchor of the back line.",
+      "noteZh": "卡利杜·库利巴利是塞内加尔防守领袖，仍然是后防线的声音和身体支柱。"
+    },
+    "Krepin Diatta": {
+      "displayName": "Krépin Diatta",
+      "skills": ["Right-side work rate", "Wing-back cover", "Direct carries"],
+      "note": "Senegal's tireless right-side runner, useful for shuttling between defense and attack.",
+      "noteZh": "克雷潘·迪亚塔是塞内加尔不知疲倦的右路跑动点，适合在防守和进攻之间来回穿梭。"
+    },
+    "Lamine Camara": {
+      "skills": ["Midfield progression", "Set-piece delivery", "Long shooting"],
+      "note": "Senegal's young midfield passer, able to progress play and threaten from restarts or distance.",
+      "noteZh": "拉明·卡马拉是塞内加尔年轻中场传球手，能推进进攻，并在定位球或远射中制造威胁。"
+    },
+    "Mamadou Sarr": {
+      "skills": ["Centre-back upside", "Recovery defending", "Aerial duels"],
+      "note": "Senegal's young centre-back option, useful for recovery defending and growing into physical duels.",
+      "noteZh": "马马杜·萨尔是塞内加尔年轻中卫选择，适合回追防守，并逐渐适应身体对抗。"
+    },
+    "Mory Diaw": {
+      "skills": ["Goalkeeper depth", "Shot stopping", "Penalty-area reach"],
+      "note": "Senegal's goalkeeper depth, bringing reach and shot-stopping cover behind the senior options.",
+      "noteZh": "莫里·迪奥是塞内加尔门将深度，在资深选择身后提供覆盖范围和扑救保障。"
+    },
+    "Moussa Niakhate": {
+      "displayName": "Moussa Niakhaté",
+      "skills": ["Left-footed centre-back play", "Recovery cover", "Aerial defending"],
+      "note": "Senegal's left-footed defensive balance, useful for covering channels and passing out cleanly.",
+      "noteZh": "穆萨·尼亚哈特是塞内加尔左脚防守平衡点，适合覆盖通道并干净出球。"
+    },
+    "Nicolas Jackson": {
+      "skills": ["Channel running", "Striker pressing", "Penalty-box movement"],
+      "note": "Senegal's restless striker, dangerous when he stretches centre-backs and attacks loose balls.",
+      "noteZh": "尼古拉斯·杰克逊是塞内加尔活跃中锋，拉扯中卫并冲击松散球时很危险。"
+    },
+    "Pape Gueye": {
+      "aliases": ["Pape Alassane", "Pape Alassane Gueye"],
+      "skills": ["Defensive midfield size", "Left-footed passing", "Duel strength"],
+      "note": "Senegal's big midfield screen, useful for winning contact and feeding the next pass forward.",
+      "noteZh": "帕普·盖耶是塞内加尔高大中场屏障，适合赢下对抗并向前送出下一脚传球。"
+    },
+    "Pape Matar Sarr": {
+      "aliases": ["Pape Matar"],
+      "skills": ["Box-to-box running", "Press resistance", "Late box arrivals"],
+      "note": "Senegal's box-to-box engine, able to carry through pressure and arrive beyond the first wave.",
+      "noteZh": "帕普·马塔尔·萨尔是塞内加尔双向发动机，能带球穿过压力并在第一波进攻后继续前插。"
+    },
+    "Pathe Ciss": {
+      "displayName": "Pathé Ciss",
+      "aliases": ["Ismaila Pathe", "Pathé Ismaël Ciss"],
+      "skills": ["Midfield duels", "Second-ball work", "Simple progression"],
+      "note": "Senegal's midfield battler, useful for second balls and keeping possession moving after contact.",
+      "noteZh": "帕特·西斯是塞内加尔中场斗士，适合争抢第二落点并在对抗后让控球继续流动。"
+    },
+    "Sadio Mane": {
+      "displayName": "Sadio Mané",
+      "skills": ["Forward movement", "Penalty-box instinct", "Big-game experience"],
+      "note": "Senegal's attacking reference point, still valuable for movement, timing, and decisive box touches.",
+      "noteZh": "萨迪奥·马内是塞内加尔进攻参照点，在跑动、时机和禁区关键触球上依然很有价值。"
+    },
+    "Yehvann Diouf": {
+      "aliases": ["Yehvann Djibril Victor", "Yehvann Djibril Victor Diouf"],
+      "skills": ["Goalkeeper reactions", "Box confidence", "Shot stopping"],
+      "note": "Senegal's athletic goalkeeper option, useful for reaction saves and confident penalty-area work.",
+      "noteZh": "耶万·迪乌夫是塞内加尔运动能力强的门将选择，适合反应扑救和自信处理禁区事务。"
+    }
+  }
+}

@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-24T23:31:43.077Z",
+  "updatedAt": "2026-06-25T06:17:40.928Z",
   "currentTournament": {
     "edition": "2026-world-cup",
     "scope": "Generate and audit every official squad player card country by country.",
@@ -71,335 +71,337 @@
         "order": 8,
         "teamId": "HAI",
         "teamName": "Haiti",
-        "status": "pending",
-        "profileCount": 0,
-        "lastAudit": ""
+        "status": "ready",
+        "profileCount": 26,
+        "lastAudit": "passed strict country workflow at 2026-06-24T23:37:40.902Z"
       },
       {
         "order": 9,
         "teamId": "CZE",
         "teamName": "Czechia",
-        "status": "pending",
-        "profileCount": 0,
-        "lastAudit": ""
+        "status": "ready",
+        "profileCount": 26,
+        "lastAudit": "passed strict country workflow at 2026-06-24T23:41:58.968Z"
       },
       {
         "order": 10,
         "teamId": "MEX",
         "teamName": "Mexico",
-        "status": "pending",
-        "profileCount": 0,
-        "lastAudit": ""
+        "status": "ready",
+        "profileCount": 26,
+        "lastAudit": "passed strict country workflow at 2026-06-25T06:17:40.928Z"
       },
       {
         "order": 11,
         "teamId": "RSA",
         "teamName": "South Africa",
-        "status": "pending",
-        "profileCount": 0,
-        "lastAudit": ""
+        "status": "ready",
+        "profileCount": 26,
+        "lastAudit": "passed strict country workflow at 2026-06-24T23:50:44.998Z"
       },
       {
         "order": 12,
         "teamId": "KOR",
         "teamName": "South Korea",
-        "status": "pending",
-        "profileCount": 0,
-        "lastAudit": ""
+        "status": "ready",
+        "profileCount": 26,
+        "lastAudit": "passed strict country workflow at 2026-06-25T00:11:07.847Z"
       },
       {
         "order": 13,
         "teamId": "ECU",
         "teamName": "Ecuador",
-        "status": "pending",
-        "profileCount": 0,
-        "lastAudit": ""
+        "status": "ready",
+        "profileCount": 26,
+        "lastAudit": "passed strict country workflow at 2026-06-25T00:17:23.554Z"
       },
       {
         "order": 14,
         "teamId": "GER",
         "teamName": "Germany",
-        "status": "pending",
-        "profileCount": 0,
-        "lastAudit": ""
+        "status": "ready",
+        "profileCount": 26,
+        "lastAudit": "passed strict country workflow at 2026-06-25T00:20:59.329Z"
       },
       {
         "order": 15,
         "teamId": "CUW",
         "teamName": "Curacao",
-        "status": "pending",
-        "profileCount": 0,
-        "lastAudit": ""
+        "status": "ready",
+        "profileCount": 26,
+        "lastAudit": "passed strict country workflow at 2026-06-25T00:27:30.239Z"
       },
       {
         "order": 16,
         "teamId": "CIV",
         "teamName": "Cote d'Ivoire",
-        "status": "pending",
-        "profileCount": 0,
-        "lastAudit": ""
+        "status": "ready",
+        "profileCount": 26,
+        "lastAudit": "passed strict country workflow at 2026-06-25T00:32:19.963Z"
       },
       {
         "order": 17,
         "teamId": "JPN",
         "teamName": "Japan",
-        "status": "pending",
-        "profileCount": 0,
-        "lastAudit": ""
+        "status": "ready",
+        "profileCount": 26,
+        "lastAudit": "passed strict country workflow at 2026-06-25T00:35:47.591Z"
       },
       {
         "order": 18,
         "teamId": "SWE",
         "teamName": "Sweden",
-        "status": "pending",
-        "profileCount": 0,
-        "lastAudit": ""
+        "status": "ready",
+        "profileCount": 26,
+        "lastAudit": "passed strict country workflow at 2026-06-25T00:38:48.371Z"
       },
       {
         "order": 19,
         "teamId": "TUN",
         "teamName": "Tunisia",
-        "status": "pending",
-        "profileCount": 0,
-        "lastAudit": ""
+        "status": "ready",
+        "profileCount": 26,
+        "lastAudit": "passed strict country workflow at 2026-06-25T00:49:48.704Z"
       },
       {
         "order": 20,
         "teamId": "NED",
         "teamName": "Netherlands",
-        "status": "pending",
-        "profileCount": 0,
-        "lastAudit": ""
+        "status": "ready",
+        "profileCount": 26,
+        "lastAudit": "passed strict country workflow at 2026-06-25T00:54:22.646Z"
       },
       {
         "order": 21,
         "teamId": "TUR",
         "teamName": "Turkiye",
-        "status": "pending",
-        "profileCount": 0,
-        "lastAudit": ""
+        "status": "ready",
+        "profileCount": 26,
+        "lastAudit": "passed strict country workflow at 2026-06-25T01:04:07.215Z"
       },
       {
         "order": 22,
         "teamId": "USA",
         "teamName": "United States",
-        "status": "pending",
-        "profileCount": 0,
-        "lastAudit": ""
+        "status": "ready",
+        "profileCount": 26,
+        "lastAudit": "passed strict country workflow at 2026-06-25T01:08:25.007Z"
       },
       {
         "order": 23,
         "teamId": "PAR",
         "teamName": "Paraguay",
-        "status": "pending",
-        "profileCount": 0,
-        "lastAudit": ""
+        "status": "ready",
+        "profileCount": 26,
+        "lastAudit": "passed strict country workflow at 2026-06-25T01:12:47.742Z"
       },
       {
         "order": 24,
         "teamId": "AUS",
         "teamName": "Australia",
-        "status": "pending",
-        "profileCount": 0,
-        "lastAudit": ""
+        "status": "ready",
+        "profileCount": 26,
+        "lastAudit": "passed strict country workflow at 2026-06-25T01:15:52.589Z"
       },
       {
         "order": 25,
         "teamId": "NOR",
         "teamName": "Norway",
-        "status": "pending",
-        "profileCount": 0,
-        "lastAudit": ""
+        "status": "ready",
+        "profileCount": 26,
+        "lastAudit": "passed strict country workflow at 2026-06-25T01:19:55.715Z"
       },
       {
         "order": 26,
         "teamId": "FRA",
         "teamName": "France",
-        "status": "pending",
-        "profileCount": 0,
-        "lastAudit": ""
+        "status": "ready",
+        "profileCount": 26,
+        "lastAudit": "passed strict country workflow at 2026-06-25T01:23:02.752Z"
       },
       {
         "order": 27,
         "teamId": "SEN",
         "teamName": "Senegal",
-        "status": "pending",
-        "profileCount": 0,
-        "lastAudit": ""
+        "status": "ready",
+        "profileCount": 26,
+        "lastAudit": "passed strict country workflow at 2026-06-25T01:28:54.563Z"
       },
       {
         "order": 28,
         "teamId": "IRQ",
         "teamName": "Iraq",
-        "status": "pending",
-        "profileCount": 0,
-        "lastAudit": ""
+        "status": "ready",
+        "profileCount": 26,
+        "lastAudit": "passed strict country workflow at 2026-06-25T01:34:37.769Z"
       },
       {
         "order": 29,
         "teamId": "CPV",
         "teamName": "Cabo Verde",
-        "status": "pending",
-        "profileCount": 0,
-        "lastAudit": ""
+        "status": "ready",
+        "profileCount": 26,
+        "lastAudit": "passed strict country workflow at 2026-06-25T01:40:10.904Z"
       },
       {
         "order": 30,
         "teamId": "KSA",
         "teamName": "Saudi Arabia",
-        "status": "pending",
-        "profileCount": 0,
-        "lastAudit": ""
+        "status": "ready",
+        "profileCount": 26,
+        "lastAudit": "passed strict country workflow at 2026-06-25T01:49:06.568Z"
       },
       {
         "order": 31,
         "teamId": "URU",
         "teamName": "Uruguay",
-        "status": "pending",
-        "profileCount": 0,
-        "lastAudit": ""
+        "status": "ready",
+        "profileCount": 26,
+        "lastAudit": "passed strict country workflow at 2026-06-25T02:57:17.782Z"
       },
       {
         "order": 32,
         "teamId": "ESP",
         "teamName": "Spain",
-        "status": "pending",
-        "profileCount": 0,
-        "lastAudit": ""
+        "status": "ready",
+        "profileCount": 26,
+        "lastAudit": "passed strict country workflow at 2026-06-25T03:03:03.854Z"
       },
       {
         "order": 33,
         "teamId": "EGY",
         "teamName": "Egypt",
-        "status": "pending",
-        "profileCount": 0,
-        "lastAudit": ""
+        "status": "ready",
+        "profileCount": 26,
+        "lastAudit": "passed strict country workflow at 2026-06-25T06:17:40.928Z"
       },
       {
         "order": 34,
         "teamId": "IRN",
         "teamName": "IR Iran",
-        "status": "pending",
-        "profileCount": 0,
-        "lastAudit": ""
+        "status": "ready",
+        "profileCount": 26,
+        "lastAudit": "passed strict country workflow at 2026-06-25T03:18:02.037Z"
       },
       {
         "order": 35,
         "teamId": "NZL",
         "teamName": "New Zealand",
-        "status": "pending",
-        "profileCount": 0,
-        "lastAudit": ""
+        "status": "ready",
+        "profileCount": 26,
+        "lastAudit": "passed strict country workflow at 2026-06-25T03:22:49.261Z"
       },
       {
         "order": 36,
         "teamId": "BEL",
         "teamName": "Belgium",
-        "status": "pending",
-        "profileCount": 0,
-        "lastAudit": ""
+        "status": "ready",
+        "profileCount": 26,
+        "lastAudit": "passed strict country workflow at 2026-06-25T03:42:47.994Z"
       },
       {
         "order": 37,
         "teamId": "PAN",
         "teamName": "Panama",
-        "status": "pending",
-        "profileCount": 0,
-        "lastAudit": ""
+        "status": "ready",
+        "profileCount": 26,
+        "lastAudit": "passed strict country workflow at 2026-06-25T03:29:50.558Z"
       },
       {
         "order": 38,
         "teamId": "ENG",
         "teamName": "England",
-        "status": "pending",
-        "profileCount": 0,
-        "lastAudit": ""
+        "status": "ready",
+        "profileCount": 26,
+        "lastAudit": "passed strict country workflow at 2026-06-25T03:34:22.148Z"
       },
       {
         "order": 39,
         "teamId": "CRO",
         "teamName": "Croatia",
-        "status": "pending",
-        "profileCount": 0,
-        "lastAudit": ""
+        "status": "ready",
+        "profileCount": 26,
+        "lastAudit": "passed strict country workflow at 2026-06-25T03:37:23.689Z"
       },
       {
         "order": 40,
         "teamId": "GHA",
         "teamName": "Ghana",
-        "status": "pending",
-        "profileCount": 0,
-        "lastAudit": ""
+        "status": "ready",
+        "profileCount": 26,
+        "lastAudit": "passed strict country workflow at 2026-06-25T06:06:58.622Z"
       },
       {
         "order": 41,
         "teamId": "COL",
         "teamName": "Colombia",
-        "status": "pending",
-        "profileCount": 0,
-        "lastAudit": ""
+        "status": "ready",
+        "profileCount": 26,
+        "lastAudit": "passed strict country workflow at 2026-06-25T05:51:28.616Z"
       },
       {
         "order": 42,
         "teamId": "POR",
         "teamName": "Portugal",
-        "status": "pending",
-        "profileCount": 0,
-        "lastAudit": ""
+        "status": "ready",
+        "profileCount": 26,
+        "lastAudit": "passed strict country workflow at 2026-06-25T05:51:28.616Z"
       },
       {
         "order": 43,
         "teamId": "COD",
         "teamName": "DR Congo",
-        "status": "pending",
-        "profileCount": 0,
-        "lastAudit": ""
+        "status": "ready",
+        "profileCount": 26,
+        "lastAudit": "passed strict country workflow at 2026-06-25T05:31:16.905Z"
       },
       {
         "order": 44,
         "teamId": "UZB",
         "teamName": "Uzbekistan",
-        "status": "pending",
-        "profileCount": 0,
-        "lastAudit": ""
+        "status": "ready",
+        "profileCount": 26,
+        "lastAudit": "passed strict country workflow at 2026-06-25T05:51:28.616Z"
       },
       {
         "order": 45,
         "teamId": "ALG",
         "teamName": "Algeria",
-        "status": "pending",
-        "profileCount": 0,
-        "lastAudit": ""
+        "status": "ready",
+        "profileCount": 26,
+        "lastAudit": "passed strict country workflow at 2026-06-25T05:51:28.616Z"
       },
       {
         "order": 46,
         "teamId": "AUT",
         "teamName": "Austria",
-        "status": "pending",
-        "profileCount": 0,
-        "lastAudit": ""
+        "status": "ready",
+        "profileCount": 26,
+        "lastAudit": "passed strict country workflow at 2026-06-25T05:31:16.905Z"
       },
       {
         "order": 47,
         "teamId": "JOR",
         "teamName": "Jordan",
-        "status": "pending",
-        "profileCount": 0,
-        "lastAudit": ""
+        "status": "ready",
+        "profileCount": 26,
+        "lastAudit": "passed strict country workflow at 2026-06-25T06:06:58.622Z"
       },
       {
         "order": 48,
         "teamId": "ARG",
         "teamName": "Argentina",
-        "status": "pending",
-        "profileCount": 0,
-        "lastAudit": ""
+        "status": "ready",
+        "profileCount": 26,
+        "lastAudit": "passed strict country workflow at 2026-06-25T05:31:16.905Z"
       }
     ]
   },
   "historicalBackfill": {
     "scope": "Only curate historical cards for players shown in archive UI: scorers and linked/key description players.",
-    "status": "pending",
-    "notes": []
+    "status": "versioned-foundation",
+    "notes": [
+      "Historical cards are keyed by player, national team and tournament year. Exact club-at-tournament and tournament-year market value still require a source before those fields should replace archive labels."
+    ]
   }
 }

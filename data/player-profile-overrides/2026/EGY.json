@@ -1,0 +1,293 @@
+{
+  "edition": "2026-world-cup",
+  "teamId": "EGY",
+  "teamName": "Egypt",
+  "rosterNameOverrides": {
+    "A. FATOUH": "Ahmed Fatouh",
+    "ABDELKARIM": "Hamza Abdelkarim",
+    "AHMED FATOUH": "Ahmed Fatouh",
+    "Ahmed Mohamed Aboelfetouh": "Ahmed Fatouh",
+    "Ahmed Mostafa Mohamed": "Zizo",
+    "DONGA": "Nabil Donga",
+    "E. ASHOUR": "Emam Ashour",
+    "EMAM ASHOUR": "Emam Ashour",
+    "Emam Ashour Metwaly": "Emam Ashour",
+    "H. FATHY": "Hamdy Fathy",
+    "H. HASSAN": "Haissem Hassan",
+    "HAISSEM HASSAN": "Haissem Hassan",
+    "Haissem Yousry Fouad A": "Haissem Hassan",
+    "HAMDY FATHY": "Hamdy Fathy",
+    "Hamdy Fathy Abdelhalim": "Hamdy Fathy",
+    "HAMZA ABDELKARIM": "Hamza Abdelkarim",
+    "Hamza Mohamed Abdelkarim E": "Hamza Abdelkarim",
+    "HOSSAM": "Hossam Abdelmaguid",
+    "HOSSAM ABDELMAGUID": "Hossam Abdelmaguid",
+    "Hossam Abdelmegeed Abdelsalam": "Hossam Abdelmaguid",
+    "I. ADEL": "Ibrahim Adel",
+    "IBRAHIM ADEL": "Ibrahim Adel",
+    "Ibrahim Adel Aly Mohamed": "Ibrahim Adel",
+    "K. HAFEZ": "Karim Hafez",
+    "KARIM HAFEZ": "Karim Hafez",
+    "Karim Hafez Ramadan": "Karim Hafez",
+    "M. ABDELMONIEM": "Mohamed Abdelmoneim",
+    "M. ALAA": "Mohamed Alaa",
+    "M. ATTIA": "Marawan Attia",
+    "M. ELSHENAWY": "Mohamed El Shenawy",
+    "M. HANY": "Mohamed Hany",
+    "M. LASHIN": "Mohanad Lashin",
+    "M. SABER": "Mahmoud Saber",
+    "M. SALAH": "Mohamed Salah",
+    "M. SOLIMAN": "Mahdy Soliman",
+    "M. TREZEGUET": "Trezeguet",
+    "Mahdy Mohamed Soliman": "Mahdy Soliman",
+    "MAHDY SOLIMAN": "Mahdy Soliman",
+    "Mahmoud Ahmed Ibrahim": "Trezeguet",
+    "MAHMOUD SABER": "Mahmoud Saber",
+    "Mahmoud Saber Abdelmohsen H": "Mahmoud Saber",
+    "MARAWAN ATTIA": "Marawan Attia",
+    "Marawan Attia Fahim": "Marawan Attia",
+    "MARMOUSH": "Omar Marmoush",
+    "MOHAMED ABDELMONEIM": "Mohamed Abdelmoneim",
+    "Mohamed Abdelmoneim Elsayed M": "Mohamed Abdelmoneim",
+    "MOHAMED ALAA": "Mohamed Alaa",
+    "Mohamed Alaaeldin Soliman M": "Mohamed Alaa",
+    "Mohamed Elsayed Mohamed": "Mohamed El Shenawy",
+    "MOHAMED ELSHENAWY": "Mohamed El Shenawy",
+    "MOHAMED HANY": "Mohamed Hany",
+    "Mohamed Hany Gamal": "Mohamed Hany",
+    "MOHAMED SALAH": "Mohamed Salah",
+    "Mohamed Salah Hamed Mahrous": "Mohamed Salah",
+    "MOHANAD LASHIN": "Mohanad Lashin",
+    "Mohanad Mostafa Ahmed A": "Mohanad Lashin",
+    "Mostafa Ahmed Abdelaziz Mohame": "Mostafa Shoubir",
+    "Mostafa Mohamed Zaky": "Mostafa Zico",
+    "MOSTAFA SHOUBIR": "Mostafa Shoubir",
+    "MOSTAFA ZICO": "Mostafa Zico",
+    "NABIL DONGA": "Nabil Donga",
+    "Nabil Emad Aly Elmahdy": "Nabil Donga",
+    "Omar Khaled Mohamed Abdelsalam": "Omar Marmoush",
+    "OMAR MARMOUSH": "Omar Marmoush",
+    "R. RABIAA": "Ramy Rabia",
+    "Ramy Hisham Abdelaziz Moustafa": "Ramy Rabia",
+    "RAMY RABIA": "Ramy Rabia",
+    "SHOUBIR": "Mostafa Shoubir",
+    "T. ALAA": "Tarek Alaa",
+    "TAREK ALAA": "Tarek Alaa",
+    "Tarek Alaa Abdelghaffar Abdel": "Tarek Alaa",
+    "TREZEGUET": "Trezeguet",
+    "YASSER": "Yasser Ibrahim",
+    "Yasser Ahmed Ibrahim": "Yasser Ibrahim",
+    "YASSER IBRAHIM": "Yasser Ibrahim",
+    "ZICO": "Mostafa Zico",
+    "ZIZO": "Zizo"
+  },
+  "removeProfiles": [
+    "Ahmed Mohamed Aboelfetouh",
+    "Mahmoud Ahmed Ibrahim",
+    "Mohamed Elsayed Mohamed",
+    "Mostafa Mohamed",
+    "Nabil Emad Aly Elmahdy",
+    "Ramy Hisham Abdelaziz Moustafa"
+  ],
+  "profiles": {
+    "Ahmed Fatouh": {
+      "transfermarktPlayerCode": "ahmed-fatouh",
+      "position": "Left-back",
+      "club": "Zamalek SC",
+      "league": "Egyptian Premier League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/465966-1770917331.png?lm=1",
+      "marketValueEurMillions": 1,
+      "skills": ["Left-back overlaps", "Recovery defending", "Low crosses"],
+      "note": "Fatouh gives Egypt width from left-back, useful when Salah pulls defenders narrow and the flank opens.",
+      "noteZh": "法图赫给埃及左后卫位置提供宽度，当萨拉赫把防守带向中路、边路打开时很有用。",
+      "sourceUrl": "https://www.transfermarkt.com/ahmed-fatouh/profil/spieler/465966"
+    },
+    "Emam Ashour": {
+      "skills": ["Midfield running", "Box arrivals", "Counter-pressure"],
+      "note": "Emam is Egypt's forward-running midfielder, arriving late while still helping the press bite.",
+      "noteZh": "埃马姆是埃及向前跑动的中场，能后插上到位，同时帮助压迫更有力度。"
+    },
+    "Haissem Hassan": {
+      "transfermarktPlayerCode": "haissem-hassan",
+      "position": "Right winger",
+      "club": "Real Oviedo",
+      "league": "La Liga",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/620164-1765280596.jpg?lm=1",
+      "marketValueEurMillions": 3.5,
+      "skills": ["Wing dribbling", "Inside carrying", "One-on-one creation"],
+      "note": "Haissem gives Egypt another dribbler, dangerous when he can receive facing the full-back.",
+      "noteZh": "海瑟姆给埃及增加又一名盘带手，能正面接球面对边后卫时很危险。",
+      "sourceUrl": "https://www.transfermarkt.com/haissem-hassan/profil/spieler/620164"
+    },
+    "Hamdy Fathy": {
+      "skills": ["Defensive midfield cover", "Aerial duels", "Simple passing"],
+      "note": "Hamdy is a stabilizing midfield shield, built for second balls and practical passes after regains.",
+      "noteZh": "哈姆迪是稳定型中场屏障，适合第二落点以及抢回球后的实用传球。"
+    },
+    "Hamza Abdelkarim": {
+      "transfermarktPlayerCode": "hamza-abdelkarim",
+      "position": "Centre-forward",
+      "club": "Barcelona B",
+      "league": "Primera Federación",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/1259085-1780899447.jpg?lm=1",
+      "skills": ["Forward movement", "Pressing effort", "Penalty-box instincts"],
+      "note": "Abdelkarim is a youthful forward option for Egypt, useful when the front line needs fresh pressure.",
+      "noteZh": "哈姆扎·阿卜杜勒卡里姆是埃及年轻前锋选择，当锋线需要新鲜压迫时很有用。",
+      "sourceUrl": "https://www.transfermarkt.com/hamza-abdelkarim/profil/spieler/1259085"
+    },
+    "Hossam Abdelmaguid": {
+      "skills": ["Centre-back size", "Aerial defending", "Box clearances"],
+      "note": "Hossam gives Egypt a bigger centre-back presence for defending crosses and late pressure.",
+      "noteZh": "霍萨姆给埃及带来更高大的中卫存在感，适合防守传中和比赛末段压力。"
+    },
+    "Ibrahim Adel": {
+      "skills": ["Left-wing acceleration", "Direct shooting", "Transition runs"],
+      "note": "Ibrahim Adel is one of Egypt's direct runners, able to turn a loose ball into a fast attack.",
+      "noteZh": "易卜拉欣·阿德尔是埃及直接冲击点之一，能把松散球转成快速进攻。"
+    },
+    "Karim Hafez": {
+      "skills": ["Left-side depth", "Crossing angles", "Defensive recovery"],
+      "note": "Hafez gives Egypt left-side depth, with enough delivery to support attacks from deeper zones.",
+      "noteZh": "哈费兹给埃及左侧增加深度，也有足够传中能力从更深区域支援进攻。"
+    },
+    "Mahdy Soliman": {
+      "aliases": ["El Mahdi Soliman"],
+      "transfermarktPlayerCode": "el-mahdi-soliman",
+      "position": "Goalkeeper",
+      "club": "Zamalek SC",
+      "league": "Egyptian Premier League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/104951-1770919640.png?lm=1",
+      "sourceUrl": "https://www.transfermarkt.com/el-mahdi-soliman/profil/spieler/104951",
+      "skills": ["Goalkeeper depth", "Shot stopping", "Penalty-area command"],
+      "note": "Soliman is experienced goalkeeper cover, useful if Egypt need a steady voice behind the line.",
+      "noteZh": "马赫迪·苏莱曼是经验型门将后备，当埃及需要防线身后的稳定声音时很有用。"
+    },
+    "Mahmoud Saber": {
+      "skills": ["Midfield energy", "Forward passing", "Late pressing"],
+      "note": "Saber brings midfield legs, useful when Egypt want to keep pressure alive after the first break.",
+      "noteZh": "萨贝尔带来中场跑动，当埃及想在第一波突破后继续保持压力时很有用。"
+    },
+    "Marawan Attia": {
+      "skills": ["Midfield screening", "Ball winning", "Short circulation"],
+      "note": "Attia is a compact midfield worker, protecting central lanes and moving the ball without fuss.",
+      "noteZh": "阿提亚是紧凑型中场工兵，能保护中路线路，并简洁地转移球权。"
+    },
+    "Mohamed Abdelmoneim": {
+      "aliases": ["Mohamed Abdelmonem"],
+      "sourceTitle": "Mohamed Abdelmonem",
+      "transfermarktPlayerCode": "mohamed-abdelmonem",
+      "summary": "Mohamed Abdelmoneim is an Egypt centre-back from OGC Nice who gives the national team front-foot defending, aerial power, and aggressive stepping.",
+      "position": "Centre-back",
+      "club": "OGC Nice",
+      "league": "Ligue 1",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/566025-1739971401.jpg?lm=1",
+      "marketValueEurMillions": 2.5,
+      "skills": ["Centre-back duels", "Aerial defending", "Aggressive stepping"],
+      "note": "Abdelmoneim is Egypt's aggressive centre-back, strong when he can step out and win the first duel.",
+      "noteZh": "阿卜杜勒莫奈姆是埃及侵略性中卫，能上前赢下第一下对抗时很强。",
+      "sourceUrl": "https://www.transfermarkt.com/mohamed-abdelmonem/profil/spieler/566025"
+    },
+    "Mohamed Alaa": {
+      "skills": ["Centre-back depth", "Box defending", "Aerial cover"],
+      "note": "Alaa gives Egypt defensive depth, useful for protecting the box when the game becomes direct.",
+      "noteZh": "阿拉给埃及增加防守深度，当比赛变得直接时适合保护禁区。"
+    },
+    "Mohamed El Shenawy": {
+      "aliases": ["Mohamed Elshenawy"],
+      "sourceTitle": "Mohamed El Shenawy",
+      "skills": ["Goalkeeper command", "Shot stopping", "Big-game calm"],
+      "note": "El Shenawy is Egypt's commanding goalkeeper, trusted for sharp saves and organizing traffic in the box.",
+      "noteZh": "埃尔谢纳维是埃及指挥型门将，敏捷扑救和组织禁区人流都值得信任。"
+    },
+    "Mohamed Hany": {
+      "skills": ["Right-back defending", "Overlap support", "Back-post cover"],
+      "note": "Hany is Egypt's steady right-back, balancing Salah-side support with the recovery run behind him.",
+      "noteZh": "哈尼是埃及稳定右后卫，能平衡萨拉赫一侧的支援和身后的回追。"
+    },
+    "Mohamed Salah": {
+      "skills": ["Right-wing scoring", "Diagonal runs", "Final-third gravity"],
+      "note": "Salah is Egypt's gravity source, bending the whole defense before he even receives the ball.",
+      "noteZh": "萨拉赫是埃及的牵制核心，甚至在接球前就能让整条防线倾斜。"
+    },
+    "Mohanad Lashin": {
+      "aliases": ["Mohanad Lasheen"],
+      "sourceTitle": "Mohanad Lasheen",
+      "transfermarktPlayerCode": "mohanad-lasheen",
+      "summary": "Mohanad Lashin is an Egypt defensive midfielder from Pyramids FC who gives the national team central coverage, ball winning, and simple progression.",
+      "position": "Defensive midfield",
+      "club": "Pyramids FC",
+      "league": "Egyptian Premier League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/479682-1761428389.jpg?lm=1",
+      "marketValueEurMillions": 3,
+      "skills": ["Central coverage", "Ball winning", "Simple progression"],
+      "note": "Lashin gives Egypt central coverage, useful when the midfield needs to absorb pressure first.",
+      "noteZh": "拉辛给埃及提供中路覆盖，当中场需要先吸收压力时很有用。",
+      "sourceUrl": "https://www.transfermarkt.com/mohanad-lasheen/profil/spieler/479682"
+    },
+    "Mostafa Shoubir": {
+      "aliases": ["Mostafa Shobeir", "Oufa Shobeir"],
+      "sourceTitle": "Mostafa Shobeir",
+      "transfermarktPlayerCode": "oufa-shobeir",
+      "summary": "Mostafa Shoubir is an Egypt goalkeeper from Al Ahly who gives the national team reaction saves, line command, and close-range stops.",
+      "position": "Goalkeeper",
+      "club": "Al Ahly SC",
+      "league": "Egyptian Premier League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/661455-1780929517.jpg?lm=1",
+      "marketValueEurMillions": 1.2,
+      "skills": ["Goalkeeper reactions", "Line command", "Close-range saves"],
+      "note": "Shoubir is a younger goalkeeper option, useful for reaction saves and domestic familiarity with the back line.",
+      "noteZh": "舒贝尔是更年轻的门将选择，适合反应扑救，也熟悉本土防线。",
+      "sourceUrl": "https://www.transfermarkt.com/oufa-shobeir/profil/spieler/661455"
+    },
+    "Mostafa Zico": {
+      "skills": ["Wide scoring", "Direct carries", "Far-post timing"],
+      "note": "Zico gives Egypt a direct wide scorer, dangerous when he attacks the far post instead of staying outside.",
+      "noteZh": "齐科给埃及带来直接的边路得分点，冲击后点而不是留在外线时很危险。"
+    },
+    "Nabil Donga": {
+      "skills": ["Defensive midfield bite", "Second balls", "Short passing"],
+      "note": "Donga adds midfield bite, winning loose balls and keeping Egypt connected after contact.",
+      "noteZh": "东加增加埃及中场硬度，能赢下松散球，并在身体对抗后保持连接。"
+    },
+    "Omar Marmoush": {
+      "skills": ["Second-striker runs", "Transition speed", "Long-range shooting"],
+      "note": "Marmoush is Egypt's second-wave threat, flying off Salah's gravity and attacking unsettled defenders.",
+      "noteZh": "马尔穆什是埃及第二波威胁，借萨拉赫的牵制启动并冲击未站稳的防守。"
+    },
+    "Ramy Rabia": {
+      "skills": ["Centre-back experience", "Aerial duels", "Set-piece defense"],
+      "note": "Rabia gives Egypt veteran centre-back depth, especially useful when set pieces decide territory.",
+      "noteZh": "拉比亚给埃及带来老将中卫深度，尤其当定位球决定场面位置时很有用。"
+    },
+    "Tarek Alaa": {
+      "sourceTitle": "Tarek Alaa (footballer, born 2002)",
+      "transfermarktPlayerCode": "tarek-alaa",
+      "summary": "Tarek Alaa is an Egypt right-back from ZED FC who gives the national team right-side defending, overlap energy, and recovery runs.",
+      "position": "Right-back",
+      "club": "ZED FC",
+      "league": "Egyptian Premier League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/1087789-1777873139.JPG?lm=1",
+      "marketValueEurMillions": 0.25,
+      "skills": ["Right-side defending", "Overlap energy", "Recovery runs"],
+      "note": "Tarek Alaa offers right-side legs, useful when Egypt need a fresher defensive runner.",
+      "noteZh": "塔里克·阿拉提供右侧跑动能力，当埃及需要更有活力的防守跑动点时很有用。",
+      "sourceUrl": "https://www.transfermarkt.com/tarek-alaa/profil/spieler/1087789"
+    },
+    "Trezeguet": {
+      "sourceTitle": "Trézéguet (Egyptian footballer)",
+      "skills": ["Left-wing scoring", "Late box runs", "Direct finishing"],
+      "note": "Trezeguet is Egypt's experienced left-side scorer, always looking to arrive when Salah draws attention.",
+      "noteZh": "特雷泽盖是埃及经验型左侧得分手，总会在萨拉赫吸引注意时寻找到位机会。"
+    },
+    "Yasser Ibrahim": {
+      "skills": ["Centre-back cover", "Aerial defending", "Low-block clearances"],
+      "note": "Yasser gives Egypt another physical centre-back, useful for deep defending and clearing repeat crosses.",
+      "noteZh": "亚西尔给埃及增加又一名身体型中卫，适合深位防守和反复解围传中。"
+    },
+    "Zizo": {
+      "skills": ["Right-side delivery", "Set-piece quality", "Inside shooting"],
+      "note": "Zizo gives Egypt a delivery-and-shot option from the right, valuable when Salah is tightly tracked.",
+      "noteZh": "齐佐给埃及右路提供传球和射门选择，当萨拉赫被严密盯防时很有价值。"
+    }
+  }
+}

@@ -1,0 +1,220 @@
+{
+  "edition": "2026-world-cup",
+  "teamId": "NZL",
+  "teamName": "New Zealand",
+  "rosterNameOverrides": {
+    "PAULSEN Alex": "Alex Paulsen",
+    "RUFER Alex": "Alex Rufer",
+    "OLD Ben": "Ben Old",
+    "Benjamin Craig OLD": "Ben Old",
+    "WAINE Ben": "Ben Waine",
+    "Benjamin Peter WAINE": "Ben Waine",
+    "ELLIOT Callan": "Callan Elliot",
+    "WOOD Chris": "Chris Wood",
+    "DE VRIES": "Francis de Vries",
+    "DE VRIES Francis": "Francis de Vries",
+    "Francis DE VRIES": "Francis de Vries",
+    "JUST Elijah": "Elijah Just",
+    "SURMAN Finn": "Finn Surman",
+    "RANDALL Jesse": "Jesse Randall",
+    "BELL Joe": "Joe Bell",
+    "BARBAROUSES Kosta": "Kosta Barbarouses",
+    "Kosta BARBAROUSES": "Kosta Barbarouses",
+    "BAYLISS Lachlan": "Lachlan Bayliss",
+    "CACACE Liberato": "Liberato Cacace",
+    "Liberato Gianpaolo CACACE": "Liberato Cacace",
+    "ROGERSON Logan": "Logan Rogerson",
+    "STAMENIC Marko": "Marko Stamenic",
+    "CROCOMBE Max": "Max Crocombe",
+    "Maxime Teremoana CROCOMBE": "Max Crocombe",
+    "McCOWATT Callum": "Callum McCowatt",
+    "BOXALL Michael": "Michael Boxall",
+    "WOUD Michael": "Michael Woud",
+    "PIJNAKER Nando": "Nando Pijnaker",
+    "THOMAS Ryan": "Ryan Thomas",
+    "SINGH Sarpreet": "Sarpreet Singh",
+    "Thomas Jefferson SMITH": "Tommy Smith",
+    "PAYNE Tim": "Tim Payne",
+    "Timothy John PAYNE": "Tim Payne",
+    "SMITH Tommy": "Tommy Smith",
+    "BINDON Tyler": "Tyler Bindon"
+  },
+  "removeProfiles": [
+    "Benjamin Craig Old",
+    "Benjamin Peter Waine",
+    "De Vries",
+    "Maxime Teremoana Crocombe",
+    "Mccowatt Callum",
+    "Thomas Jefferson Smith",
+    "Timothy John Payne"
+  ],
+  "profiles": {
+    "Alex Paulsen": {
+      "league": "Ekstraklasa",
+      "skills": ["Goalkeeper reflexes", "Sweeper range", "Distribution"],
+      "note": "Paulsen gives New Zealand a modern goalkeeper option, comfortable reacting quickly and playing short.",
+      "noteZh": "保尔森给新西兰带来现代门将选择，反应快，也能舒服地短传出球。"
+    },
+    "Alex Rufer": {
+      "skills": ["Midfield screening", "Leadership", "Second balls"],
+      "note": "Rufer is a midfield organizer, useful when New Zealand need structure around second balls.",
+      "noteZh": "鲁弗是中场组织者，当新西兰需要围绕第二落点保持结构时很有用。"
+    },
+    "Ben Old": {
+      "league": "Ligue 2",
+      "skills": ["Wide acceleration", "Direct carries", "Pressing energy"],
+      "note": "Old gives New Zealand a direct wide runner, especially useful for quick counters from deep.",
+      "noteZh": "本·奥尔德给新西兰带来直接边路跑动，尤其适合从深位发动快速反击。"
+    },
+    "Ben Waine": {
+      "league": "EFL League One",
+      "skills": ["Forward pressing", "Box movement", "Channel runs"],
+      "note": "Waine works across the front line, pressing centre-backs and arriving for loose balls.",
+      "noteZh": "韦恩能横向覆盖锋线，压迫中卫并冲抢松散球。"
+    },
+    "Callan Elliot": {
+      "league": "A-League Men",
+      "skills": ["Right-back energy", "Overlap timing", "Recovery defending"],
+      "note": "Elliot adds right-side running, helpful when New Zealand need width and recovery speed together.",
+      "noteZh": "埃利奥特增加右侧跑动，当新西兰同时需要宽度和回追速度时很有帮助。"
+    },
+    "Chris Wood": {
+      "skills": ["Aerial finishing", "Target play", "Penalty-box timing"],
+      "note": "Wood is New Zealand's reference point, turning crosses and set pieces into real scoring pressure.",
+      "noteZh": "克里斯·伍德是新西兰支点，能把传中和定位球转成真正的得分压力。"
+    },
+    "Elijah Just": {
+      "skills": ["Wide pressing", "Inside runs", "Combination play"],
+      "note": "Just gives New Zealand tidy wide work, pressing hard and slipping inside for quick combinations.",
+      "noteZh": "贾斯特给新西兰带来整洁的边路工作，能强力压迫并内收快速配合。"
+    },
+    "Finn Surman": {
+      "skills": ["Centre-back composure", "Aerial defending", "Forward passing"],
+      "note": "Surman gives New Zealand a composed young centre-back who can defend the box and pass forward.",
+      "noteZh": "瑟曼给新西兰带来冷静的年轻中卫，能防守禁区，也能向前传球。"
+    },
+    "Francis de Vries": {
+      "aliases": ["De Vries", "Francis De Vries"],
+      "sourceTitle": "Francis de Vries",
+      "league": "A-League Men",
+      "skills": ["Left-back service", "Defensive width", "Crossing angles"],
+      "note": "De Vries offers left-side balance, useful for early service and steady defensive width.",
+      "noteZh": "德弗里斯提供左侧平衡，适合早传和稳定的防守宽度。"
+    },
+    "Francis De Vries": {
+      "displayName": "Francis de Vries",
+      "aliases": ["De Vries", "Francis de Vries"],
+      "sourceTitle": "Francis de Vries",
+      "league": "A-League Men",
+      "skills": ["Left-back service", "Defensive width", "Crossing angles"],
+      "note": "De Vries offers left-side balance, useful for early service and steady defensive width.",
+      "noteZh": "德弗里斯提供左侧平衡，适合早传和稳定的防守宽度。"
+    },
+    "Jesse Randall": {
+      "league": "A-League Men",
+      "skills": ["Wing speed", "One-on-one attacks", "Counter runs"],
+      "note": "Randall is a speed option from wide areas, best when New Zealand can release him into space.",
+      "noteZh": "兰德尔是边路速度选择，当新西兰能把他送入空间时最有效。"
+    },
+    "Joe Bell": {
+      "league": "Eliteserien",
+      "skills": ["Midfield passing", "Set-piece service", "Tempo control"],
+      "note": "Bell is New Zealand's passing rhythm player, useful for set pieces and calmer possession spells.",
+      "noteZh": "乔·贝尔是新西兰传球节奏点，适合定位球和更冷静的控球阶段。"
+    },
+    "Kosta Barbarouses": {
+      "position": "Forward",
+      "club": "Wellington Phoenix",
+      "league": "A-League Men",
+      "skills": ["Veteran movement", "Transition runs", "Penalty-box timing"],
+      "note": "Barbarouses brings veteran timing, still useful when counters need a runner beyond Wood.",
+      "noteZh": "巴巴鲁塞斯带来老将时机，当反击需要伍德之外的前插点时仍然有用。"
+    },
+    "Lachlan Bayliss": {
+      "league": "A-League Men",
+      "skills": ["Midfield work rate", "Pressing range", "Short passing"],
+      "note": "Bayliss adds midfield work rate, helping New Zealand stay compact after turnovers.",
+      "noteZh": "贝利斯增加中场跑动，帮助新西兰在丢球后保持紧凑。"
+    },
+    "Liberato Cacace": {
+      "skills": ["Left-back engine", "Crossing", "Recovery defending"],
+      "note": "Cacace is New Zealand's left-side engine, driving forward while still covering the recovery lane.",
+      "noteZh": "卡卡切是新西兰左路发动机，能向前推进，也能覆盖回追线路。"
+    },
+    "Logan Rogerson": {
+      "club": "Auckland FC",
+      "league": "A-League Men",
+      "skills": ["Direct wing runs", "Pressing effort", "Transition shots"],
+      "note": "Rogerson is a direct wide runner, useful when New Zealand want the next pass to attack space.",
+      "noteZh": "罗杰森是直接边路跑动点，当新西兰想让下一脚传球冲击空间时很有用。"
+    },
+    "Marko Stamenic": {
+      "displayName": "Marko Stamenic",
+      "skills": ["Midfield carrying", "Duel strength", "Forward surges"],
+      "note": "Stamenic gives New Zealand a ball-carrying midfielder who can turn pressure into territory.",
+      "noteZh": "斯塔梅尼奇给新西兰带来能带球的中场，能把压力转成推进空间。"
+    },
+    "Max Crocombe": {
+      "skills": ["Goalkeeper command", "Shot stopping", "Cross handling"],
+      "note": "Crocombe gives New Zealand experienced goalkeeper cover and a steady command of crosses.",
+      "noteZh": "克罗科姆给新西兰提供经验型门将后备，并能稳定处理传中。"
+    },
+    "Callum McCowatt": {
+      "aliases": ["Mccowatt Callum"],
+      "skills": ["Attacking midfield link", "Pressing", "Late runs"],
+      "note": "McCowatt links midfield to attack, useful for pressing and arriving as the extra runner.",
+      "noteZh": "麦考瓦特连接中场和进攻，适合压迫并作为额外跑动点插上。"
+    },
+    "Michael Boxall": {
+      "skills": ["Centre-back leadership", "Aerial defending", "Set-piece strength"],
+      "note": "Boxall is a veteran defensive organizer, important when New Zealand defend repeat crosses.",
+      "noteZh": "博克索尔是老将防守组织者，当新西兰防守连续传中时很重要。"
+    },
+    "Michael Woud": {
+      "league": "A-League Men",
+      "skills": ["Goalkeeper depth", "Reaction saves", "Distribution"],
+      "note": "Woud adds another goalkeeper option, useful for depth and clean restarts from the back.",
+      "noteZh": "伍德增加又一名门将选择，适合门将深度和后场干净重启。"
+    },
+    "Nando Pijnaker": {
+      "skills": ["Centre-back cover", "Left-footed passing", "Aerial defending"],
+      "note": "Pijnaker gives New Zealand left-footed centre-back balance and simple forward passing.",
+      "noteZh": "皮纳克给新西兰带来左脚中卫平衡和简洁向前传球。"
+    },
+    "Ryan Thomas": {
+      "skills": ["Midfield experience", "Press resistance", "Forward passing"],
+      "note": "Thomas gives New Zealand midfield experience, helping them keep the ball after the first escape.",
+      "noteZh": "托马斯给新西兰带来中场经验，帮助球队在第一次摆脱后继续控球。"
+    },
+    "Sarpreet Singh": {
+      "skills": ["Creative passing", "Set-piece delivery", "Between-lines touch"],
+      "note": "Singh is New Zealand's creative connector, useful when possession needs a sharper final pass.",
+      "noteZh": "辛格是新西兰创造型连接点，当控球需要更犀利的最后一传时很有用。"
+    },
+    "Tim Payne": {
+      "sourceTitle": "Tim Payne (footballer)",
+      "summary": "Tim Payne is a New Zealand right-back from Wellington Phoenix who gives the national team right-back reliability, wide defending, and overlap support.",
+      "position": "Right-back",
+      "club": "Wellington Phoenix",
+      "league": "A-League Men",
+      "skills": ["Right-back reliability", "Wide defending", "Overlap support"],
+      "note": "Payne is a reliable right-back, balancing defensive work with controlled support outside.",
+      "noteZh": "佩恩是可靠右后卫，能平衡防守工作和外侧可控支援。"
+    },
+    "Tommy Smith": {
+      "sourceTitle": "Tommy Smith (footballer, born 1990)",
+      "summary": "Tommy Smith is a New Zealand centre-back from Auckland FC who gives the national team experience, aerial duels, and back-line organization.",
+      "position": "Centre-back",
+      "club": "Auckland FC",
+      "league": "A-League Men",
+      "skills": ["Centre-back experience", "Aerial duels", "Back-line organization"],
+      "note": "Smith gives New Zealand experienced defensive organization, especially useful in low-block stretches.",
+      "noteZh": "汤米·史密斯给新西兰带来经验型防守组织，尤其适合低位防守阶段。"
+    },
+    "Tyler Bindon": {
+      "skills": ["Centre-back mobility", "Recovery defending", "Forward passing"],
+      "note": "Bindon gives New Zealand a mobile centre-back who can defend space and pass out cleanly.",
+      "noteZh": "宾登给新西兰带来机动中卫，能防守空间并干净出球。"
+    }
+  }
+}

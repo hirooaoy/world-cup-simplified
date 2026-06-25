@@ -24,6 +24,24 @@ function positiveInteger(value, fallback) {
   return Number.isInteger(number) && number > 0 ? number : fallback;
 }
 
+function normalizeProfileEdition(value) {
+  const raw = String(value || "").trim();
+  const year = raw.match(/\b(?:19|20)\d{2}\b/)?.[0];
+  return year || raw || "2026";
+}
+
+function getTrackerProfileEdition() {
+  if (!existsSync(trackerPath)) {
+    return "";
+  }
+
+  try {
+    return JSON.parse(readFileSync(trackerPath, "utf8"))?.currentTournament?.edition || "";
+  } catch {
+    return "";
+  }
+}
+
 function runStep(label, commandArgs) {
   console.log("");
   console.log(`== ${label} ==`);
@@ -71,7 +89,14 @@ const teams = (getArgValue("teams") || getArgValue("squad-teams"))
   .filter(Boolean)
   .join(",");
 const teamIds = teams.split(",").filter(Boolean);
-const minProfiles = positiveInteger(getArgValue("min-profiles"), 20);
+const minProfiles = positiveInteger(getArgValue("min-profiles"), 26);
+const profileEdition = normalizeProfileEdition(
+  getArgValue("profile-edition") ||
+    getArgValue("edition") ||
+    process.env.PROFILE_EDITION ||
+    getTrackerProfileEdition() ||
+    "2026"
+);
 const skipSmoke = hasArg("skip-smoke");
 const skipChecks = hasArg("skip-checks");
 
@@ -84,21 +109,25 @@ runStep("Preflight squad candidates", [
   "scripts/populate-player-profiles.mjs",
   "--include-squad-profiles",
   `--squad-teams=${teams}`,
+  `--profile-edition=${profileEdition}`,
   "--audit-squad-candidates",
-  "--strict-squad-audit"
+  "--strict-squad-audit",
+  `--expected-squad-candidates=${minProfiles}`
 ]);
 
 runStep("Generate country profiles", [
   "scripts/populate-player-profiles.mjs",
   "--include-squad-profiles",
   `--squad-teams=${teams}`,
+  `--profile-edition=${profileEdition}`,
   "--squad-only"
 ]);
 
 runStep("Audit generated country profiles", [
   "scripts/audit-country-player-profiles.mjs",
   `--teams=${teams}`,
-  `--min-profiles=${minProfiles}`
+  `--min-profiles=${minProfiles}`,
+  `--max-profiles=${minProfiles}`
 ]);
 
 if (!skipChecks) {

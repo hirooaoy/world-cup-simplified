@@ -1,0 +1,184 @@
+{
+  "edition": "2026-world-cup",
+  "teamId": "GER",
+  "teamName": "Germany",
+  "rosterNameOverrides": {
+    "NUEBEL Alexander": "Alexander Nübel",
+    "Alexander NÜBEL": "Alexander Nübel",
+    "RUEDIGER Antonio": "Antonio Rüdiger",
+    "Antonio RÜDIGER": "Antonio Rüdiger",
+    "GROSS Pascal": "Pascal Groß",
+    "Pascal Alexander GROß": "Pascal Groß"
+  },
+  "removeProfiles": [
+    "Alexander Nuebel",
+    "Antonio Ruediger",
+    "Pascal Alexander Groß",
+    "Pascal Gross"
+  ],
+  "profiles": {
+    "Aleksandar Pavlovic": {
+      "displayName": "Aleksandar Pavlović",
+      "sourceTitle": "Aleksandar Pavlović",
+      "transfermarktPlayerCode": "aleksandar-pavlovic",
+      "birthDate": "2004-05-03",
+      "summary": "Aleksandar Pavlović is a Germany defensive midfielder from Bayern Munich who gives the national team press resistance, calm distribution, and midfield screening.",
+      "position": "Defensive midfielder",
+      "club": "Bayern Munich",
+      "league": "Bundesliga",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/792380-1727098078.jpg?lm=1",
+      "marketValueEurMillions": 90,
+      "skills": ["Press resistance", "Calm distribution", "Midfield screening"],
+      "note": "Germany's young midfield stabilizer, useful for receiving under pressure and keeping the build-up calm.",
+      "noteZh": "亚历山大·帕夫洛维奇是德国年轻的中场稳定器，能在压力下接球，并让组织推进保持冷静。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/aleksandar-pavlovic/profil/spieler/792380"
+    },
+    "Alexander Nübel": {
+      "transfermarktPlayerCode": "alexander-nubel",
+      "skills": ["Goalkeeper depth", "Sweeper cover", "Shot stopping"],
+      "note": "Germany's goalkeeper depth, giving them a modern sweeper option and reliable shot-stopping behind the starters.",
+      "noteZh": "亚历山大·努贝尔是德国门将深度，能在主力身后提供现代清道夫门将选择和可靠扑救。"
+    },
+    "Angelo Stiller": {
+      "skills": ["Deep playmaking", "Left-footed balance", "Tempo control"],
+      "note": "Germany's left-footed rhythm player, able to slow the game down and pick cleaner passes from deep.",
+      "noteZh": "安杰洛·施蒂勒是德国左脚节奏点，能放慢比赛，并从较深位置选择更干净的传球。"
+    },
+    "Antonio Rüdiger": {
+      "transfermarktPlayerCode": "antonio-rudiger",
+      "skills": ["Elite centre-back defending", "Recovery speed", "Aggressive duels"],
+      "note": "Germany's defensive enforcer, trusted to defend big spaces, attack duels, and bring edge to the back line.",
+      "noteZh": "安东尼奥·吕迪格是德国防线强硬点，能防守大片空间、主动进入对抗，并给后防增加锋芒。"
+    },
+    "Assan Ouedraogo": {
+      "skills": ["Box-to-box carrying", "Youthful power", "Late surges"],
+      "note": "Germany's young midfield power runner, useful when they need carries, late surges, and fresh legs through the middle.",
+      "noteZh": "阿桑·韦德拉奥戈是德国年轻的中场力量跑动点，在球队需要带球、后插上和中路新鲜腿脚时很有用。"
+    },
+    "David Raum": {
+      "skills": ["Left-back width", "Crossing volume", "Recovery runs"],
+      "note": "Germany's left-side width provider, stretching the flank with overlaps and serving repeated crosses into the area.",
+      "noteZh": "大卫·劳姆是德国左路宽度来源，能用套边拉开边路，并持续把传中送入禁区。"
+    },
+    "Deniz Undav": {
+      "skills": ["Penalty-box finishing", "Combination play", "Pressing work"],
+      "note": "Germany's compact forward finisher, sharp around loose balls and clever enough to combine near the box.",
+      "noteZh": "德尼兹·翁达夫是德国紧凑型终结前锋，善于抓住松散球权，也能在禁区附近聪明配合。"
+    },
+    "Felix Nmecha": {
+      "skills": ["Central ball carrying", "Physical duels", "Late midfield runs"],
+      "note": "Germany's rangy midfield runner, adding carries, physical duels, and arrivals beyond the first wave.",
+      "noteZh": "费利克斯·恩梅查是德国覆盖范围大的中场跑动点，能带球、对抗，并在第一波进攻后继续前插。"
+    },
+    "Florian Wirtz": {
+      "skills": ["Elite chance creation", "Between-lines receiving", "Final pass"],
+      "note": "Germany's main creative lock-picker, dangerous when he receives between lines and releases runners early.",
+      "noteZh": "弗洛里安·维尔茨是德国主要的破密集创造者，在线间接球并提前释放跑动队友时最危险。"
+    },
+    "Jamal Musiala": {
+      "skills": ["Tight-space dribbling", "Central creation", "Shot creation"],
+      "note": "Germany's slalom dribbler, able to slip through crowded midfield zones and turn half-openings into shots.",
+      "noteZh": "贾马尔·穆西亚拉是德国的蛇形盘带手，能穿过拥挤中场区域，并把半机会变成射门。"
+    },
+    "Jamie Leweling": {
+      "skills": ["Right-wing speed", "Direct carries", "Counter runs"],
+      "note": "Germany's direct wide runner, useful for stretching tired full-backs and giving transitions more speed.",
+      "noteZh": "杰米·勒韦林是德国直接型边路跑动点，能拉扯疲劳的边后卫，并让转换进攻更有速度。"
+    },
+    "Jonathan Tah": {
+      "skills": ["Centre-back control", "Aerial strength", "Back-line leadership"],
+      "note": "Germany's commanding centre-back, giving them size, calm clearances, and organization when pressure builds.",
+      "noteZh": "约纳坦·塔是德国指挥型中卫，能在压力上升时提供身材、冷静解围和防线组织。"
+    },
+    "Joshua Kimmich": {
+      "skills": ["Midfield leadership", "Set-piece delivery", "Press control"],
+      "note": "Germany's tactical reference point, important for tempo, set pieces, and deciding when the team presses.",
+      "noteZh": "约书亚·基米希是德国战术参照点，对节奏、定位球和球队何时压迫的判断都很重要。"
+    },
+    "Kai Havertz": {
+      "skills": ["Hybrid forward play", "Aerial timing", "Late box movement"],
+      "note": "Germany's hybrid forward, linking play as a false nine and arriving late to attack crosses or cutbacks.",
+      "noteZh": "凯·哈弗茨是德国混合型前锋，能像伪九号一样串联，并后插上攻击传中或倒三角。"
+    },
+    "Leon Goretzka": {
+      "transfermarktPlayerCode": "leon-goretzka",
+      "birthDate": "1995-02-06",
+      "position": "Central midfielder",
+      "club": "Bayern Munich",
+      "league": "Bundesliga",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/153084-1700040179.jpg?lm=1",
+      "marketValueEurMillions": 12,
+      "skills": ["Box-to-box power", "Late arrivals", "Defensive duels"],
+      "note": "Germany's power midfielder, bringing late box arrivals, defensive duels, and extra force in transition.",
+      "noteZh": "莱昂·格雷茨卡是德国力量型中场，能带来后插上、防守对抗和转换中的额外冲击。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/leon-goretzka/profil/spieler/153084"
+    },
+    "Leroy Sane": {
+      "displayName": "Leroy Sané",
+      "skills": ["Explosive wing pace", "Left-footed shooting", "Transition threat"],
+      "note": "Germany's explosive winger, most dangerous when he can run at space and cut inside onto his left foot.",
+      "noteZh": "勒罗伊·萨内是德国爆发型边锋，在能冲向空间并内切到左脚时最有威胁。"
+    },
+    "Malick Thiaw": {
+      "skills": ["Aerial defending", "Recovery speed", "Centre-back depth"],
+      "note": "Germany's athletic centre-back option, useful for aerial defending and recovering when the line plays high.",
+      "noteZh": "马利克·佳夫是德国运动能力强的中卫选择，适合空中防守和高位防线后的回追。"
+    },
+    "Manuel Neuer": {
+      "skills": ["Sweeper-keeper command", "Tournament experience", "Short distribution"],
+      "note": "Germany's legendary goalkeeper, still valuable for sweeping high, organizing calmly, and starting attacks quickly.",
+      "noteZh": "曼努埃尔·诺伊尔是德国传奇门将，依然能高位清扫、冷静组织，并快速发起进攻。"
+    },
+    "Maximilian Beier": {
+      "skills": ["Forward speed", "Channel runs", "Quick finishing"],
+      "note": "Germany's fast striker option, giving them channel runs and a different finishing rhythm behind Havertz.",
+      "noteZh": "马克西米利安·拜尔是德国速度型前锋选择，能提供通道跑动，并在哈弗茨身后带来不同终结节奏。"
+    },
+    "Nadiem Amiri": {
+      "skills": ["Central creativity", "Set-piece touch", "Pressing energy"],
+      "note": "Germany's creative midfield connector, useful for restarts, short combinations, and energetic counter-pressure.",
+      "noteZh": "纳迪姆·阿米里是德国创造型中场连接点，能处理定位球、短传配合，并积极反抢。"
+    },
+    "Nathaniel Brown": {
+      "skills": ["Left-back acceleration", "Forward support", "Recovery speed"],
+      "note": "Germany's young left-back spark, offering forward support, quick recovery, and a fresher flank profile.",
+      "noteZh": "纳撒尼尔·布朗是德国年轻左后卫火花，能提供前插支援、快速回追和更有活力的边路选择。"
+    },
+    "Nick Woltemade": {
+      "skills": ["Tall forward link play", "Soft first touch", "Box finishing"],
+      "note": "Germany's tall forward connector, unusual because he can cushion passes, combine, and still finish in the box.",
+      "noteZh": "尼克·沃尔特马德是德国高大型前场连接点，特别之处在于能柔和停球、参与配合，同时在禁区终结。"
+    },
+    "Nico Schlotterbeck": {
+      "skills": ["Left-footed defending", "Progressive passing", "Aggressive stepping"],
+      "note": "Germany's left-footed centre-back, valuable for stepping forward and passing through the first press.",
+      "noteZh": "尼科·施洛特贝克是德国左脚中卫，对前顶防守和穿过第一道压迫的传球很有价值。"
+    },
+    "Oliver Baumann": {
+      "skills": ["Shot-stopping reliability", "Keeper communication", "Penalty-box command"],
+      "note": "Germany's steady goalkeeper option, trusted for reliable saves and clear communication with the back line.",
+      "noteZh": "奥利弗·鲍曼是德国稳健门将选择，可靠扑救和与防线清晰沟通都值得信任。"
+    },
+    "Pascal Groß": {
+      "displayName": "Pascal Groß",
+      "sourceTitle": "Pascal Groß",
+      "transfermarktPlayerCode": "pascal-gross",
+      "birthDate": "1991-06-15",
+      "summary": "Pascal Groß is a Germany central midfielder from Brighton & Hove Albion who adds passing range, set-piece quality, and veteran control.",
+      "position": "Central midfielder",
+      "club": "Brighton & Hove Albion",
+      "league": "Premier League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/82873-1746195832.jpg?lm=1",
+      "marketValueEurMillions": 2.5,
+      "skills": ["Passing range", "Set-piece quality", "Veteran control"],
+      "note": "Germany's veteran passer, useful for set pieces, switches of play, and calming possession late.",
+      "noteZh": "帕斯卡尔·格罗斯是德国老练传球手，能处理定位球、转移球，并在后段让控球冷静下来。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/pascal-gross/profil/spieler/82873"
+    },
+    "Waldemar Anton": {
+      "skills": ["Defensive versatility", "Centre-back cover", "Right-side duels"],
+      "note": "Germany's versatile defender, able to cover centre-back or right-back and keep duels competitive.",
+      "noteZh": "瓦尔德马尔·安东是德国多面防守者，能覆盖中卫或右后卫，并保持对抗强度。"
+    }
+  }
+}

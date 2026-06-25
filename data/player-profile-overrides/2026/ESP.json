@@ -1,0 +1,273 @@
+{
+  "edition": "2026-world-cup",
+  "teamId": "ESP",
+  "teamName": "Spain",
+  "rosterNameOverrides": {
+    "Alejandro BAENA RODRÍGUEZ": "Alex Baena",
+    "Alejandro GRIMALDO GARCÍA": "Alex Grimaldo",
+    "ALEX B.": "Alex Baena",
+    "Aymeric LAPORTE FEVRE": "Aymeric Laporte",
+    "B. IGLESIAS": "Borja Iglesias",
+    "BAENA Alex": "Alex Baena",
+    "Borja IGLESIAS QUINTÁS": "Borja Iglesias",
+    "CUBARSÍ": "Pau Cubarsi",
+    "CUBARSI Pau": "Pau Cubarsi",
+    "CUCURELLA": "Marc Cucurella",
+    "CUCURELLA Marc": "Marc Cucurella",
+    "Daniel OLMO CARVAJAL": "Dani Olmo",
+    "David RAYA MARTÍN": "David Raya",
+    "ERIC": "Eric Garcia",
+    "Eric GARCÍA MARTRET": "Eric Garcia",
+    "FABIÁN": "Fabian Ruiz",
+    "Fabian RUIZ PEÑA": "Fabian Ruiz",
+    "FERRAN": "Ferran Torres",
+    "Ferran TORRES GARCÍA": "Ferran Torres",
+    "GARCIA Eric": "Eric Garcia",
+    "GARCIA Joan": "Joan Garcia",
+    "GAVI": "Gavi",
+    "GRIMALDO": "Alex Grimaldo",
+    "GRIMALDO Alex": "Alex Grimaldo",
+    "IGLESIAS Borja": "Borja Iglesias",
+    "JOAN GARCIA": "Joan Garcia",
+    "Joan GARCIA PONS": "Joan Garcia",
+    "LAMINE YAMAL": "Lamine Yamal",
+    "Lamine Yamal NASRAOUI EBANA": "Lamine Yamal",
+    "LAPORTE": "Aymeric Laporte",
+    "LAPORTE Aymeric": "Aymeric Laporte",
+    "LLORENTE Marcos": "Marcos Llorente",
+    "M. LLORENTE": "Marcos Llorente",
+    "Marc CUCURELLA SASETA": "Marc Cucurella",
+    "MARC PUBILL": "Marc Pubill",
+    "Marc PUBILL PAGES": "Marc Pubill",
+    "Marcos LLORENTE MORENO": "Marcos Llorente",
+    "Martin ZUBIMENDI IBAÑEZ": "Martin Zubimendi",
+    "MERINO": "Mikel Merino",
+    "MERINO Mikel": "Mikel Merino",
+    "Mikel MERINO ZAZÓN": "Mikel Merino",
+    "Mikel OYARZABAL UGARTE": "Mikel Oyarzabal",
+    "MUNOZ Victor": "Victor Munoz",
+    "Nicholas WILLIAMS ARTHUER": "Nico Williams",
+    "OLMO": "Dani Olmo",
+    "OLMO Dani": "Dani Olmo",
+    "OYARZABAL": "Mikel Oyarzabal",
+    "OYARZABAL Mikel": "Mikel Oyarzabal",
+    "Pablo PAEZ GAVIRA": "Gavi",
+    "Pau CUBARSI I PAREDES": "Pau Cubarsi",
+    "PEDRI": "Pedri",
+    "Pedro Antonio PORRO SAUCEDA": "Pedro Porro",
+    "Pedro GONZÁLEZ LÓPEZ": "Pedri",
+    "PEDRO PORRO": "Pedro Porro",
+    "PINO Yeremy": "Yeremy Pino",
+    "PORRO Pedro": "Pedro Porro",
+    "PUBILL Marc": "Marc Pubill",
+    "RAYA": "David Raya",
+    "RAYA David": "David Raya",
+    "RODRI": "Rodri",
+    "RODRIGO": "Rodri",
+    "Rodrigo HERNÁNDEZ CASCANTE": "Rodri",
+    "RUIZ Fabian": "Fabian Ruiz",
+    "SIMON Unai": "Unai Simon",
+    "TORRES Ferran": "Ferran Torres",
+    "UNAI SIMÓN": "Unai Simon",
+    "Unai SIMÓN MENDIBIL": "Unai Simon",
+    "VICTOR M.V.": "Victor Munoz",
+    "Victor MUÑOZ VILLANUEVA": "Victor Munoz",
+    "WILLIAMS JR.": "Nico Williams",
+    "WILLIAMS Nico": "Nico Williams",
+    "YAMAL Lamine": "Lamine Yamal",
+    "YEREMY": "Yeremy Pino"
+  },
+  "removeProfiles": [
+    "Alejandro Baena Rodríguez",
+    "Alejandro Grimaldo García",
+    "Nicholas Williams Arthuer",
+    "Pablo Paez Gavira",
+    "Pedro González López",
+    "Rodrigo Hernández Cascante"
+  ],
+  "profiles": {
+    "Alex Baena": {
+      "displayName": "Álex Baena",
+      "sourceTitle": "Álex Baena",
+      "transfermarktPlayerCode": "alex-baena",
+      "skills": ["Final pass", "Set-piece delivery", "Half-space timing"],
+      "note": "Baena gives Spain another final-pass specialist, sharp when possession reaches the left half-space.",
+      "noteZh": "巴埃纳给西班牙增加又一名最后一传专家，当控球来到左半空间时很敏锐。"
+    },
+    "Alex Grimaldo": {
+      "displayName": "Álex Grimaldo",
+      "sourceTitle": "Álex Grimaldo",
+      "transfermarktPlayerCode": "alex-grimaldo",
+      "skills": ["Left-footed service", "Wing-back timing", "Set-piece quality"],
+      "note": "Grimaldo changes Spain's left side with elite delivery and the timing to arrive high without rushing.",
+      "noteZh": "格里马尔多用顶级传中改变西班牙左路，也能把握前插时机而不显仓促。"
+    },
+    "Aymeric Laporte": {
+      "transfermarktPlayerCode": "aymeric-laporte",
+      "skills": ["Left-footed build-up", "Centre-back composure", "Aerial defending"],
+      "note": "Laporte is Spain's calm left-footed centre-back, important for building under pressure and defending crosses.",
+      "noteZh": "拉波尔特是西班牙冷静的左脚中卫，对压力下出球和防守传中都很重要。"
+    },
+    "Borja Iglesias": {
+      "transfermarktPlayerCode": "borja-iglesias",
+      "skills": ["Penalty-box presence", "Hold-up play", "First-time finishing"],
+      "note": "Borja offers Spain a more traditional box reference when the match asks for contact and early service.",
+      "noteZh": "博尔哈给西班牙提供更传统的禁区支点，当比赛需要身体接触和早传时很有用。"
+    },
+    "Dani Olmo": {
+      "transfermarktPlayerCode": "dani-olmo",
+      "skills": ["Between-lines receiving", "Final-third combinations", "Arriving runs"],
+      "note": "Olmo is Spain's between-lines accelerant, turning neat possession into sudden penalty-area action.",
+      "noteZh": "奥尔莫是西班牙两线之间的加速器，能把精细控球突然转成禁区行动。"
+    },
+    "David Raya": {
+      "transfermarktPlayerCode": "david-raya",
+      "skills": ["Goalkeeper distribution", "Cross claiming", "High starting position"],
+      "note": "Raya lets Spain defend higher and restart cleaner, especially when opponents try to trap the first pass.",
+      "noteZh": "拉亚让西班牙能站得更高、防线重启更干净，尤其在对手试图围堵第一脚传球时。"
+    },
+    "Eric Garcia": {
+      "displayName": "Eric García",
+      "sourceTitle": "Eric García (footballer)",
+      "transfermarktPlayerCode": "eric-garcia",
+      "summary": "Eric García is a Spain centre-back from Barcelona who gives the national team build-up passing, tactical coverage, and calm defending.",
+      "position": "Centre-back",
+      "club": "Barcelona",
+      "league": "La Liga",
+      "skills": ["Build-up defending", "Back-line passing", "Tactical coverage"],
+      "note": "Eric gives Spain a cerebral defensive option, useful when the back line needs passing angles as much as duels.",
+      "noteZh": "埃里克给西班牙带来思路型防守选择，当防线既需要传球角度也需要对抗时很有用。",
+      "sourceUrl": "https://www.transfermarkt.com/eric-garcia/profil/spieler/466794"
+    },
+    "Fabian Ruiz": {
+      "displayName": "Fabián Ruiz",
+      "sourceTitle": "Fabián Ruiz",
+      "transfermarktPlayerCode": "fabian-ruiz",
+      "skills": ["Left-footed control", "Tempo shifts", "Box-edge shooting"],
+      "note": "Fabián gives Spain rhythm with a left foot that can slow the game down or punch through midfield.",
+      "noteZh": "法比安用左脚给西班牙带来节奏，既能放慢比赛，也能穿透中场。"
+    },
+    "Ferran Torres": {
+      "transfermarktPlayerCode": "ferran-torres",
+      "skills": ["Penalty-box timing", "Wide-to-inside runs", "Quick finishing"],
+      "note": "Ferran is a scorer from the wing, at his best when he starts wide and finishes like a striker.",
+      "noteZh": "费兰是从边路出发的得分手，拉在外线起步、像前锋一样终结时最有效。"
+    },
+    "Gavi": {
+      "sourceTitle": "Gavi (footballer)",
+      "transfermarktPlayerCode": "gavi",
+      "skills": ["Counter-pressing", "Interior intensity", "Quick combinations"],
+      "note": "Gavi brings Spain's emotional voltage, squeezing loose touches and making short combinations feel urgent.",
+      "noteZh": "加维带来西班牙的情绪电压，能压缩松散触球，并让短传配合更有急迫感。"
+    },
+    "Joan Garcia": {
+      "displayName": "Joan García",
+      "sourceTitle": "Joan García",
+      "transfermarktPlayerCode": "joan-garcia",
+      "skills": ["Shot stopping", "Penalty-area reach", "Composed distribution"],
+      "note": "Joan García is the high-upside goalkeeper option, strong on reaction saves and calm enough to play short.",
+      "noteZh": "霍安·加西亚是上限很高的门将选择，反应扑救出色，也足够冷静地短传出球。"
+    },
+    "Lamine Yamal": {
+      "transfermarktPlayerCode": "lamine-yamal",
+      "skills": ["Right-wing creation", "One-on-one dribbling", "Left-footed final ball"],
+      "note": "Yamal is Spain's matchup breaker, able to freeze a full-back and turn one touch into a chance.",
+      "noteZh": "亚马尔是西班牙打破对位的人，能定住边后卫，并把一次触球变成机会。"
+    },
+    "Marc Cucurella": {
+      "transfermarktPlayerCode": "marc-cucurella",
+      "skills": ["Left-back aggression", "Recovery defending", "Underlap support"],
+      "note": "Cucurella gives Spain bite on the left, pressing hard while still covering the awkward recovery run.",
+      "noteZh": "库库雷利亚给西班牙左路带来硬度，能强力压迫，也能覆盖棘手的回追跑动。"
+    },
+    "Marc Pubill": {
+      "transfermarktPlayerCode": "marc-pubill",
+      "skills": ["Right-back height", "Overlap support", "Back-post defending"],
+      "note": "Pubill adds a taller right-back profile, useful when Spain want width without losing back-post size.",
+      "noteZh": "普比尔增加更高大的右后卫类型，当西班牙想要宽度又不失后点高度时很有用。"
+    },
+    "Marcos Llorente": {
+      "transfermarktPlayerCode": "marcos-llorente",
+      "skills": ["Vertical running", "Right-side versatility", "Late box arrivals"],
+      "note": "Llorente is Spain's vertical utility piece, valuable when a game needs running power more than extra passing.",
+      "noteZh": "略伦特是西班牙纵向多面手，当比赛需要跑动爆发而不是更多传球时很有价值。"
+    },
+    "Martin Zubimendi": {
+      "displayName": "Martín Zubimendi",
+      "sourceTitle": "Martín Zubimendi",
+      "transfermarktPlayerCode": "martin-zubimendi",
+      "skills": ["Midfield screening", "First-pass security", "Positional calm"],
+      "note": "Zubimendi is Spain's calm central hinge, making the first pass after pressure look simple.",
+      "noteZh": "苏比门迪是西班牙冷静的中路铰链，让压力后的第一脚传球看起来简单。"
+    },
+    "Mikel Merino": {
+      "transfermarktPlayerCode": "mikel-merino",
+      "skills": ["Aerial midfield", "Late runs", "Second-ball control"],
+      "note": "Merino gives Spain height and timing from midfield, especially around second balls and back-post moments.",
+      "noteZh": "梅里诺给西班牙中场带来高度和时机，尤其在第二落点和后点场景中。"
+    },
+    "Mikel Oyarzabal": {
+      "transfermarktPlayerCode": "mikel-oyarzabal",
+      "skills": ["Forward intelligence", "Penalty-box timing", "Left-footed finishing"],
+      "note": "Oyarzabal is Spain's clever front-line fixer, finding small spaces and finishing with little fuss.",
+      "noteZh": "奥亚萨瓦尔是西班牙聪明的前场修补者，能找到小空间并利落完成终结。"
+    },
+    "Nico Williams": {
+      "sourceTitle": "Nico Williams",
+      "transfermarktPlayerCode": "nico-williams",
+      "skills": ["Left-wing acceleration", "One-on-one creation", "Cutback threat"],
+      "note": "Nico stretches Spain's left side with raw speed, forcing help and opening cutback lanes.",
+      "noteZh": "尼科用纯速度拉开西班牙左路，迫使对手协防并打开倒三角线路。"
+    },
+    "Pau Cubarsi": {
+      "displayName": "Pau Cubarsí",
+      "sourceTitle": "Pau Cubarsí",
+      "transfermarktPlayerCode": "pau-cubarsi",
+      "skills": ["Centre-back passing", "Early interceptions", "Composed defending"],
+      "note": "Cubarsí gives Spain a young passer at centre-back, brave enough to break lines before pressure settles.",
+      "noteZh": "库巴西给西班牙中卫位置带来年轻传球手，敢在压力站稳前打穿线路。"
+    },
+    "Pedri": {
+      "sourceTitle": "Pedri",
+      "transfermarktPlayerCode": "pedri",
+      "skills": ["Interior control", "Press resistance", "Final-third rhythm"],
+      "note": "Pedri is Spain's soft-touch controller, turning tight midfield spaces into cleaner attacking rhythm.",
+      "noteZh": "佩德里是西班牙细腻的控场者，能把狭小中场空间转成更干净的进攻节奏。"
+    },
+    "Pedro Porro": {
+      "transfermarktPlayerCode": "pedro-porro",
+      "skills": ["Right-back delivery", "Long-range crossing", "Aggressive pressing"],
+      "note": "Porro gives Spain a sharper right-footed service option, especially from early crossing zones.",
+      "noteZh": "波罗给西班牙带来更犀利的右脚传中选择，尤其来自提前传中的区域。"
+    },
+    "Rodri": {
+      "sourceTitle": "Rodri (footballer, born 1996)",
+      "transfermarktPlayerCode": "rodri",
+      "skills": ["Midfield control", "Counter protection", "Line-breaking passing"],
+      "note": "Rodri is Spain's control tower, protecting transitions while deciding when possession should speed up.",
+      "noteZh": "罗德里是西班牙的控制塔，既保护转换，也决定控球何时该提速。"
+    },
+    "Unai Simon": {
+      "displayName": "Unai Simón",
+      "sourceTitle": "Unai Simón",
+      "transfermarktPlayerCode": "unai-simon",
+      "skills": ["Sweeper-keeper timing", "Shot stopping", "Short build-up"],
+      "note": "Unai Simón is Spain's established goalkeeper, comfortable defending space and joining the first pass.",
+      "noteZh": "乌奈·西蒙是西班牙稳定门将，既能防守身后空间，也能参与第一脚出球。"
+    },
+    "Victor Munoz": {
+      "displayName": "Víctor Muñoz",
+      "sourceTitle": "Víctor Muñoz (footballer, born 2003)",
+      "transfermarktPlayerCode": "victor-munoz",
+      "skills": ["Wide acceleration", "Direct dribbling", "Pressing energy"],
+      "note": "Muñoz is a fresh wide runner, useful when Spain need pace and pressure from the bench.",
+      "noteZh": "穆尼奥斯是新鲜的边路跑动点，当西班牙需要替补席上的速度和压迫时很有用。"
+    },
+    "Yeremy Pino": {
+      "transfermarktPlayerCode": "yeremy-pino",
+      "skills": ["Right-wing pressing", "Inside runs", "Quick combinations"],
+      "note": "Yeremy gives Spain a hard-working winger who can press first and still slip inside for combinations.",
+      "noteZh": "耶雷米给西班牙带来勤奋边锋，能先压迫，也能内收参与配合。"
+    }
+  }
+}

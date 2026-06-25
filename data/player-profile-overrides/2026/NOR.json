@@ -1,0 +1,174 @@
+{
+  "edition": "2026-world-cup",
+  "teamId": "NOR",
+  "teamName": "Norway",
+  "rosterNameOverrides": {
+    "BRAUT HAALAND": "Erling Haaland",
+    "MØLLER WOLFE": "David Moller Wolfe",
+    "STRAND LARSEN": "Jorgen Strand Larsen",
+    "VASSBAKK AJER": "Kristoffer Ajer"
+  },
+  "removeProfiles": [
+    "Braut Haaland",
+    "Møller Wolfe",
+    "Strand Larsen",
+    "Vassbakk Ajer"
+  ],
+  "profiles": {
+    "Alexander Sorloth": {
+      "displayName": "Alexander Sørloth",
+      "skills": ["Target-striker power", "Left-footed finishing", "Aerial pressure"],
+      "note": "Norway's power striker beside Haaland, useful for occupying centre-backs and finishing direct service.",
+      "noteZh": "亚历山大·索尔洛特是挪威在哈兰德身旁的力量型中锋，适合牵制中卫并终结直接传球。"
+    },
+    "Andreas Schjelderup": {
+      "skills": ["Left-wing invention", "Inside dribbling", "Final-third combinations"],
+      "note": "Norway's young left-side creator, dangerous when he slides inside and combines around the box.",
+      "noteZh": "安德烈亚斯·舍尔德鲁普是挪威年轻左路创造者，内收到中路并在禁区周围配合时很危险。"
+    },
+    "Antonio Nusa": {
+      "skills": ["Explosive dribbling", "Wing isolation", "Transition speed"],
+      "note": "Norway's isolation winger, able to turn one loose touch into a sprint at the back line.",
+      "noteZh": "安东尼奥·努萨是挪威一对一边锋，能把一次松散触球变成冲向防线的冲刺。"
+    },
+    "David Moller Wolfe": {
+      "displayName": "David Møller Wolfe",
+      "aliases": ["Møller Wolfe", "MØLLER WOLFE"],
+      "skills": ["Left-back carrying", "Wing-back width", "Recovery runs"],
+      "note": "Norway's left-sided outlet, useful for carrying out of pressure and giving the attack natural width.",
+      "noteZh": "大卫·默勒·沃尔夫是挪威左路出口，适合带球摆脱压力并给进攻提供自然宽度。"
+    },
+    "Egil Selvik": {
+      "skills": ["Goalkeeper reactions", "Box command", "Long distribution"],
+      "note": "Norway's goalkeeper depth, bringing quick reactions and direct distribution behind Nyland.",
+      "noteZh": "埃吉尔·塞尔维克是挪威门将深度，在尼兰身后提供快速反应和直接出球。"
+    },
+    "Erling Haaland": {
+      "aliases": ["Braut Haaland", "BRAUT HAALAND", "Erling Braut Haaland"],
+      "skills": ["Elite penalty-box finishing", "Power runs", "Aerial finishing"],
+      "note": "Norway's match-warping striker, built to turn one clean service lane into a goal before defenders settle.",
+      "noteZh": "埃尔林·哈兰德是挪威能改变比赛结构的中锋，能在防守者站稳前把一条干净传球线路变成进球。"
+    },
+    "Fredrik Andre Bjorkan": {
+      "displayName": "Fredrik André Bjørkan",
+      "league": "Eliteserien",
+      "skills": ["Left-back overlaps", "Wide recovery", "Early crossing"],
+      "note": "Norway's left-back runner, useful for repeated overlaps and fast recovery when possession turns.",
+      "noteZh": "弗雷德里克·安德烈·比约尔坎是挪威左后卫跑动点，适合反复套边并在球权转换时快速回追。"
+    },
+    "Fredrik Aursnes": {
+      "skills": ["Tactical versatility", "Midfield balance", "Wide coverage"],
+      "note": "Norway's tactical problem-solver, able to balance midfield, full-back, or wide roles without fuss.",
+      "noteZh": "弗雷德里克·奥尔斯内斯是挪威战术解题者，能自然平衡中场、边后卫或边路职责。"
+    },
+    "Henrik Falchener": {
+      "league": "Eliteserien",
+      "skills": ["Tall centre-back defending", "Aerial duels", "Penalty-area clearances"],
+      "note": "Norway's tall young centre-back, useful for defending crosses and adding size to the back line.",
+      "noteZh": "亨里克·法尔切内尔是挪威高大年轻中卫，适合防守传中并给后防增加身高。"
+    },
+    "Jens Petter Hauge": {
+      "league": "Eliteserien",
+      "skills": ["Left-wing carrying", "Inside finishing", "Combination play"],
+      "note": "Norway's returning wide creator, useful when they need a left-sided dribble into shooting positions.",
+      "noteZh": "延斯·佩特尔·豪格是挪威回归型边路创造者，球队需要左路盘带进入射门位置时很有用。"
+    },
+    "Jorgen Strand Larsen": {
+      "displayName": "Jørgen Strand Larsen",
+      "aliases": ["Strand Larsen", "STRAND LARSEN"],
+      "skills": ["Centre-forward link play", "Box movement", "Aerial target play"],
+      "note": "Norway's second striker reference point, useful for linking play and keeping centre-backs occupied.",
+      "noteZh": "约尔根·斯特兰德·拉森是挪威第二中锋参照点，适合串联进攻并持续牵制中卫。"
+    },
+    "Julian Ryerson": {
+      "skills": ["Full-back intensity", "One-on-one defending", "Overlap timing"],
+      "note": "Norway's high-intensity full-back, trusted for duels and relentless wide running.",
+      "noteZh": "尤利安·吕尔松是挪威高强度边后卫，边路对抗和持续跑动都值得信任。"
+    },
+    "Kristian Thorstvedt": {
+      "skills": ["Late midfield runs", "Aerial box presence", "Left-footed shooting"],
+      "note": "Norway's box-arriving midfielder, useful when attacks need a taller runner beyond the front line.",
+      "noteZh": "克里斯蒂安·托斯特维特是挪威后插上中场，进攻需要一个越过锋线的高大跑动点时很有用。"
+    },
+    "Kristoffer Ajer": {
+      "aliases": ["Vassbakk Ajer", "VASSBAKK AJER", "Kristoffer Vassbakk Ajer"],
+      "skills": ["Defensive versatility", "Ball-carrying centre-back", "Right-back cover"],
+      "note": "Norway's defensive hybrid, able to carry out from centre-back or cover the right side.",
+      "noteZh": "克里斯托弗·阿耶尔是挪威防守混合型球员，能从中卫位置带球推进，也能覆盖右路。"
+    },
+    "Leo Ostigard": {
+      "displayName": "Leo Østigård",
+      "skills": ["Aggressive defending", "Aerial contact", "Set-piece attacks"],
+      "note": "Norway's aggressive centre-back, bringing edge, aerial contact, and set-piece threat.",
+      "noteZh": "莱奥·厄斯蒂高是挪威积极型中卫，能带来强硬度、空中对抗和定位球威胁。"
+    },
+    "Marcus Holmgren Pedersen": {
+      "skills": ["Right-back speed", "Overlap bursts", "Recovery defending"],
+      "note": "Norway's right-back speed outlet, useful for overlap bursts and chasing transitions.",
+      "noteZh": "马库斯·霍姆格伦·佩德森是挪威右后卫速度出口，适合突然套边和追赶转换。"
+    },
+    "Martin Odegaard": {
+      "displayName": "Martin Ødegaard",
+      "skills": ["Elite chance creation", "Left-footed tempo", "Final pass"],
+      "note": "Norway's captain and creative brain, shaping the timing of attacks before the killer pass.",
+      "noteZh": "马丁·厄德高是挪威队长和创造大脑，在致命传球前塑造进攻时机。"
+    },
+    "Morten Thorsby": {
+      "skills": ["Midfield duels", "Second-ball work", "Defensive running"],
+      "note": "Norway's rugged midfield worker, useful for second balls and slowing opponents through contact.",
+      "noteZh": "莫滕·托斯比是挪威强硬中场工兵，适合争抢第二落点并通过对抗拖慢对手。"
+    },
+    "Orjan Nyland": {
+      "displayName": "Ørjan Nyland",
+      "sourceTitle": "Ørjan Nyland",
+      "transfermarktPlayerCode": "orjan-nyland",
+      "summary": "Ørjan Nyland is a Norway goalkeeper from Sevilla FC who gives the national team veteran shot stopping, box command, and tournament experience.",
+      "club": "Sevilla FC",
+      "league": "La Liga",
+      "marketValueEurMillions": 0.8,
+      "skills": ["Veteran shot stopping", "Box command", "Tournament experience"],
+      "note": "Norway's veteran goalkeeper, trusted for calm organization and saves through traffic.",
+      "noteZh": "厄尔扬·尼兰是挪威老将门将，冷静组织和在人群中扑救都值得信任。",
+      "sourceUrl": "https://www.transfermarkt.com/orjan-nyland/profil/spieler/73517"
+    },
+    "Oscar Bobb": {
+      "skills": ["Close control", "Right-side creation", "Between-lines dribbling"],
+      "note": "Norway's silky right-side creator, dangerous when he receives between lines and slips past pressure.",
+      "noteZh": "奥斯卡·鲍勃是挪威细腻的右路创造者，在线间接球并摆脱压力时很危险。"
+    },
+    "Patrick Berg": {
+      "league": "Eliteserien",
+      "skills": ["Defensive midfield control", "Switching play", "Press resistance"],
+      "note": "Norway's deep midfield controller, useful for screening counters and switching play early.",
+      "noteZh": "帕特里克·贝格是挪威后腰控制者，适合屏蔽反击并提前转移进攻方向。"
+    },
+    "Sander Berge": {
+      "skills": ["Midfield carrying", "Duel size", "Press escape"],
+      "note": "Norway's tall midfield carrier, able to stride through pressure and tilt possession forward.",
+      "noteZh": "桑德尔·贝格是挪威高大型中场推进者，能大步穿过压力并把控球推向前场。"
+    },
+    "Sander Tangvik": {
+      "skills": ["Goalkeeper upside", "Shot stopping", "Distribution growth"],
+      "note": "Norway's younger goalkeeper option, bringing long-term upside and sharp reflexes.",
+      "noteZh": "桑德尔·唐维克是挪威较年轻的门将选择，带来长期上限和敏锐反应。"
+    },
+    "Sondre Langas": {
+      "displayName": "Sondre Langås",
+      "position": "Centre-back",
+      "skills": ["Centre-back cover", "Aerial defending", "Back-line depth"],
+      "note": "Norway's centre-back depth, useful for aerial defending and keeping the back line fresh.",
+      "noteZh": "松德雷·朗戈斯是挪威中卫深度，适合空中防守并保持防线体能。"
+    },
+    "Thelo Aasgaard": {
+      "skills": ["Midfield shooting", "Late runs", "Left-footed support"],
+      "note": "Norway's midfield wild card, useful for late runs and shots when the first wave stalls.",
+      "noteZh": "泰洛·奥斯加德是挪威中场变招，第一波进攻停滞时适合后插上和射门。"
+    },
+    "Torbjorn Heggem": {
+      "displayName": "Torbjørn Heggem",
+      "skills": ["Left-sided defending", "Centre-back calm", "Full-back cover"],
+      "note": "Norway's left-sided defensive cover, steady at centre-back and useful sliding toward full-back zones.",
+      "noteZh": "托尔比约恩·赫格姆是挪威左侧防守保障，踢中卫稳健，也能移动到边后卫区域。"
+    }
+  }
+}

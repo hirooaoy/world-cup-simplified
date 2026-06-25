@@ -11,15 +11,22 @@ const fixturesPath = path.join(dataDir, "fixtures.json");
 const playerAvailabilityPath = path.join(dataDir, "player-availability.json");
 const teamsPath = path.join(dataDir, "teams.json");
 const outputPath = path.join(dataDir, "player-profiles.json");
-const playerProfileOverridesDir = path.join(dataDir, "player-profile-overrides", "2026");
 const userAgent = "WorldCupSimplified/0.1 (local profile enrichment)";
 const requestDelayMs = Number(process.env.WIKI_REQUEST_DELAY_MS || 1800);
 const scriptArgs = process.argv.slice(2);
+const profileEdition = normalizeProfileEdition(
+  getArgValue("profile-edition") || getArgValue("edition") || process.env.PROFILE_EDITION || "2026"
+);
+const playerProfileOverridesDir = path.join(dataDir, "player-profile-overrides", profileEdition);
 const includeSquadProfiles = hasArg("include-squad-profiles") || process.env.INCLUDE_SQUAD_PROFILES === "1";
 const squadOnlyProfiles = hasArg("squad-only") || process.env.SQUAD_ONLY_PROFILES === "1";
 const shouldListPlayersOnly = hasArg("list-players");
 const shouldAuditSquadCandidates = hasArg("audit-squad-candidates");
 const strictSquadAudit = hasArg("strict-squad-audit") || process.env.STRICT_SQUAD_AUDIT === "1";
+const expectedSquadCandidateCount = positiveInteger(
+  getArgValue("expected-squad-candidates") || process.env.EXPECTED_SQUAD_CANDIDATES,
+  0
+);
 const replaceExistingProfiles =
   hasArg("replace-existing-profiles") || process.env.REPLACE_EXISTING_PROFILES === "1";
 const preserveExistingProfiles = !replaceExistingProfiles;
@@ -312,6 +319,8 @@ let profileFieldOverrides = {
   },
   "Yasin Ayari": { club: "Brighton & Hove Albion" }
 };
+const teamProfileFieldOverrides = new Map();
+const teamPageTitleOverrides = new Map();
 const profileRemovalNames = new Set();
 const rosterNameOverrides = new Map();
 
@@ -329,6 +338,12 @@ function getArgValue(name) {
 function positiveInteger(value, fallback) {
   const number = Number(value);
   return Number.isInteger(number) && number > 0 ? number : fallback;
+}
+
+function normalizeProfileEdition(value) {
+  const raw = String(value || "").trim();
+  const year = raw.match(/\b(?:19|20)\d{2}\b/)?.[0];
+  return year || raw || "2026";
 }
 const clubLeagueOverrides = {
   "AC Milan": "Serie A",
@@ -509,8 +524,34 @@ function sleep(ms) {
 
 function getRetainedExistingProfiles(profiles = {}) {
   return Object.fromEntries(
-    Object.entries(profiles || {}).filter(([profileName]) => !profileRemovalNames.has(profileName))
+    Object.entries(profiles || {})
+      .filter(([profileName]) => !profileRemovalNames.has(profileName))
+      .map(([profileName, profile]) => [
+        profileName,
+        {
+          ...profile,
+          ...(profileFieldOverrides[profileName] || {})
+        }
+      ])
   );
+}
+
+function getTeamProfileKey(playerOrTeamId, playerName) {
+  const teamId =
+    typeof playerOrTeamId === "string" ? playerOrTeamId : playerOrTeamId?.team?.id || playerOrTeamId?.teamId || "";
+  const name = playerName || playerOrTeamId?.name || "";
+  return `${String(teamId).toUpperCase()}:${name}`;
+}
+
+function getProfileFieldOverrides(player) {
+  return {
+    ...(profileFieldOverrides[player.name] || {}),
+    ...(teamProfileFieldOverrides.get(getTeamProfileKey(player)) || {})
+  };
+}
+
+function getPageTitleOverride(player) {
+  return teamPageTitleOverrides.get(getTeamProfileKey(player)) || pageTitleOverrides.get(player.name);
 }
 
 async function readJson(filePath) {
@@ -546,13 +587,14 @@ async function loadPlayerProfileOverrideFiles(teamFilter = new Set()) {
       }
 
       const { sourceTitle, ...profileOverride } = override;
-      profileFieldOverrides[playerName] = {
-        ...(profileFieldOverrides[playerName] || {}),
+      const teamProfileKey = getTeamProfileKey(fileTeamId, playerName);
+      teamProfileFieldOverrides.set(teamProfileKey, {
+        ...(teamProfileFieldOverrides.get(teamProfileKey) || {}),
         ...profileOverride
-      };
+      });
 
       if (sourceTitle) {
-        pageTitleOverrides.set(playerName, sourceTitle);
+        teamPageTitleOverrides.set(teamProfileKey, sourceTitle);
       }
     }
 
@@ -1067,7 +1109,7 @@ function resolveExistingProfileName(name, profiles = {}, teamId = "") {
       continue;
     }
 
-    const candidates = [profileName, profile?.displayName].filter(Boolean);
+    const candidates = getProfileAliases(profileName, profile);
     for (const candidate of candidates) {
       const normalizedCandidate = normalizeText(candidate);
       const candidateTokens = getNormalizedNameTokens(candidate);
@@ -1075,7 +1117,7 @@ function resolveExistingProfileName(name, profiles = {}, teamId = "") {
         normalizedCandidate === normalizedName ||
         normalizedCandidate === reversedName ||
         candidateTokens.slice(-nameTokens.length).join(" ") === normalizedName ||
-        isPlayerNameMatch(candidate, name)
+        (isPlayerNameMatch(candidate, name) && hasStrongNameOverlap(candidate, name))
       ) {
         return profileName;
       }
@@ -1086,8 +1128,29 @@ function resolveExistingProfileName(name, profiles = {}, teamId = "") {
 }
 
 function getProfileAliases(profileName, profile = {}) {
-  return [profileName, profile?.name, profile?.displayName]
+  return [
+    profileName,
+    profile?.name,
+    profile?.displayName,
+    ...(Array.isArray(profile?.aliases) ? profile.aliases : [])
+  ]
     .filter((value) => typeof value === "string" && value.trim());
+}
+
+function getCompactNameKey(value) {
+  return getNormalizedNameTokens(value).filter((token) => token.length > 1).join("");
+}
+
+function hasStrongNameOverlap(first, second) {
+  const firstCompact = getCompactNameKey(first);
+  const secondCompact = getCompactNameKey(second);
+  if (firstCompact.length >= 6 && firstCompact === secondCompact) {
+    return true;
+  }
+
+  const firstTokens = getNormalizedNameTokens(first).filter((token) => token.length >= 4);
+  const secondTokens = new Set(getNormalizedNameTokens(second).filter((token) => token.length >= 4));
+  return firstTokens.filter((token) => secondTokens.has(token)).length >= 2;
 }
 
 function getCrossTeamAliasOwners(name, profiles = {}, teamId = "") {
@@ -1176,6 +1239,19 @@ function printSquadCandidateAudit(rows, existingProfiles) {
   if (strictSquadAudit && blockingRows.length) {
     console.error("Fix blocking squad candidates before generating profiles.");
     process.exitCode = 1;
+  }
+  if (strictSquadAudit && expectedSquadCandidateCount) {
+    const countMismatches = [...rowsByTeam.entries()].filter(
+      ([, teamRows]) => teamRows.length !== expectedSquadCandidateCount
+    );
+    if (countMismatches.length) {
+      for (const [teamId, teamRows] of countMismatches) {
+        console.error(
+          `${teamId}: strict squad audit expected ${expectedSquadCandidateCount} candidates, found ${teamRows.length}.`
+        );
+      }
+      process.exitCode = 1;
+    }
   }
 
   const existingTeamMismatches = rows.filter((row) => {
@@ -1461,6 +1537,19 @@ function getLeagueFromSummary(summary, club) {
 function getUniformNumberOverride(player, overrides = {}) {
   const value = overrides.uniformNumber ?? existingProfilesData.profiles?.[player.name]?.uniformNumber;
   return Number.isInteger(value) && value > 0 ? value : undefined;
+}
+
+function getProfileAliasField(overrides = {}, existingProfile = {}) {
+  const aliases = [
+    ...(Array.isArray(existingProfile.aliases) ? existingProfile.aliases : []),
+    ...(Array.isArray(overrides.aliases) ? overrides.aliases : [])
+  ]
+    .filter((alias) => typeof alias === "string")
+    .map((alias) => alias.trim())
+    .filter(Boolean);
+  const uniqueAliases = [...new Set(aliases)];
+
+  return uniqueAliases.length ? { aliases: uniqueAliases } : {};
 }
 
 function getSourcedMarketValueEurMillions(player, overrides = {}, transfermarktRecord = null) {
@@ -1859,8 +1948,9 @@ function scoreSearchResult(result, player, team) {
 }
 
 async function searchPlayerPage(player, team) {
-  if (pageTitleOverrides.has(player.name)) {
-    return pageTitleOverrides.get(player.name);
+  const titleOverride = getPageTitleOverride(player);
+  if (titleOverride) {
+    return titleOverride;
   }
 
   const query = `${player.name} ${team.officialName || team.name} footballer`;
@@ -1997,7 +2087,7 @@ function getUniquePlayers(fixturesData, teamsById, availabilityByTeam, existingP
 async function buildProfile(player, transfermarktIndex = {}) {
   const title = await searchPlayerPage(player, player.team);
   if (!title) {
-    const overrides = profileFieldOverrides[player.name] || {};
+    const overrides = getProfileFieldOverrides(player);
     const existingProfile = existingProfilesData.profiles?.[player.name] || {};
     const displayName = overrides.displayName || existingProfile.displayName || existingProfile.name || player.name;
     const birthDate = overrides.birthDate || existingProfile.birthDate;
@@ -2029,6 +2119,7 @@ async function buildProfile(player, transfermarktIndex = {}) {
       teamId: player.team.id,
       displayName,
       birthDate,
+      ...getProfileAliasField(overrides, existingProfile),
       summary,
       ...getMarketValueFields(player, profileSeed, overrides, transfermarktRecord),
       position,
@@ -2046,7 +2137,7 @@ async function buildProfile(player, transfermarktIndex = {}) {
   await sleep(requestDelayMs);
   const wikitext = await fetchPageWikitext(title);
   const fields = getInfoboxFields(wikitext);
-  const overrides = profileFieldOverrides[player.name] || {};
+  const overrides = getProfileFieldOverrides(player);
   const position = cleanWikiText(fields.position || "");
   const club = cleanWikiText(fields.currentclub || "") || getOpenEndedClub(fields);
   const imageUrl = getCommonsImageUrl(fields.image || "");
@@ -2076,6 +2167,7 @@ async function buildProfile(player, transfermarktIndex = {}) {
     displayName,
     teamId: player.team.id,
     birthDate,
+    ...getProfileAliasField(overrides, existingProfile),
     summary,
     ...getMarketValueFields(player, profileSeed, overrides, transfermarktRecord),
     position: overrides.position || position,
@@ -2091,7 +2183,7 @@ async function buildProfile(player, transfermarktIndex = {}) {
 }
 
 function buildProfileFromPageData(player, title, pageData = {}, transfermarktIndex = {}) {
-  const overrides = profileFieldOverrides[player.name] || {};
+  const overrides = getProfileFieldOverrides(player);
   const existingProfile = existingProfilesData.profiles?.[player.name] || {};
   const wikitext = pageData.wikitext || "";
 
@@ -2133,6 +2225,7 @@ function buildProfileFromPageData(player, title, pageData = {}, transfermarktInd
       teamId: player.team.id,
       displayName,
       birthDate: profileSeed.birthDate,
+      ...getProfileAliasField(overrides, existingProfile),
       summary,
       ...getMarketValueFields(player, profileSeed, overrides, transfermarktRecord),
       position,
@@ -2185,6 +2278,7 @@ function buildProfileFromPageData(player, title, pageData = {}, transfermarktInd
     displayName,
     teamId: player.team.id,
     birthDate,
+    ...getProfileAliasField(overrides, existingProfile),
     summary,
     ...getMarketValueFields(player, profileSeed, overrides, transfermarktRecord),
     position: overrides.position || position || existingProfile.position,
@@ -2284,12 +2378,12 @@ console.log(`Finding Wikipedia pages for ${players.length} players...`);
 for (const [index, player] of players.entries()) {
   try {
     const title =
-      pageTitleOverrides.get(player.name) ||
+      getPageTitleOverride(player) ||
       getTitleFromSourceUrl(existingProfilesData.profiles?.[player.name]?.sourceUrl) ||
       (await searchPlayerPage(player, player.team));
     titleByPlayerName.set(player.name, title);
     console.log(`${index + 1}/${players.length} ${player.name} -> ${title || "page missing"}`);
-    if (title === pageTitleOverrides.get(player.name) || existingProfilesData.profiles?.[player.name]?.sourceUrl) {
+    if (title === getPageTitleOverride(player) || existingProfilesData.profiles?.[player.name]?.sourceUrl) {
       continue;
     }
   } catch (error) {

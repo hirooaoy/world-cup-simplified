@@ -1,0 +1,156 @@
+{
+  "edition": "2026-world-cup",
+  "teamId": "CRO",
+  "teamName": "Croatia",
+  "profiles": {
+    "Andrej Kramaric": {
+      "displayName": "Andrej Kramarić",
+      "skills": ["Second-striker movement", "Link play", "Penalty-box timing"],
+      "note": "Kramarić gives Croatia a clever forward connector, drifting into pockets before arriving to finish.",
+      "noteZh": "克拉马里奇给克罗地亚带来聪明的前场连接点，先游到空当，再到位终结。"
+    },
+    "Ante Budimir": {
+      "skills": ["Aerial finishing", "Target play", "Box movement"],
+      "note": "Budimir is Croatia's penalty-box reference, strongest when service arrives early and high.",
+      "noteZh": "布迪米尔是克罗地亚禁区支点，早传和高球送到时最强。"
+    },
+    "Dominik Kotarski": {
+      "skills": ["Goalkeeper reflexes", "Distribution", "Cross command"],
+      "note": "Kotarski gives Croatia a modern goalkeeper option, useful for quick saves and tidy restarts.",
+      "noteZh": "科塔尔斯基给克罗地亚现代门将选择，适合快速扑救和整洁重启。"
+    },
+    "Dominik Livakovic": {
+      "displayName": "Dominik Livaković",
+      "skills": ["Penalty saves", "Shot stopping", "Tournament calm"],
+      "note": "Livaković brings Croatia tournament calm, especially when knockout-style pressure piles up.",
+      "noteZh": "利瓦科维奇给克罗地亚带来大赛冷静，尤其当淘汰赛式压力堆积时。"
+    },
+    "Duje Caleta-Car": {
+      "displayName": "Duje Ćaleta-Car",
+      "skills": ["Aerial defending", "Centre-back passing", "Box clearances"],
+      "note": "Ćaleta-Car gives Croatia size at centre-back, useful for defending crosses and direct spells.",
+      "noteZh": "查莱塔-察尔给克罗地亚中卫位置带来高度，适合防守传中和直接进攻阶段。"
+    },
+    "Igor Matanovic": {
+      "displayName": "Igor Matanović",
+      "skills": ["Target-forward play", "Channel runs", "First-time finishing"],
+      "note": "Matanović gives Croatia a younger power forward who can hold contact and attack the next ball.",
+      "noteZh": "马塔诺维奇给克罗地亚年轻力量型前锋，能扛住接触并冲击下一点。"
+    },
+    "Ivan Perisic": {
+      "displayName": "Ivan Perišić",
+      "skills": ["Wing experience", "Two-footed service", "Far-post timing"],
+      "note": "Perišić remains Croatia's veteran wide weapon, still dangerous with either-foot service and far-post runs.",
+      "noteZh": "佩里希奇仍是克罗地亚老将边路武器，双脚传球和后点跑动依然危险。"
+    },
+    "Ivor Pandur": {
+      "skills": ["Goalkeeper depth", "Shot stopping", "Penalty-area command"],
+      "note": "Pandur adds goalkeeper depth, useful when Croatia need a steady presence behind the line.",
+      "noteZh": "潘杜尔增加克罗地亚门将深度，当防线身后需要稳定存在感时很有用。"
+    },
+    "Josip Stanisic": {
+      "displayName": "Josip Stanišić",
+      "skills": ["Full-back versatility", "Wide defending", "Back-line passing"],
+      "note": "Stanišić gives Croatia flexible defensive balance, switching roles without disturbing the structure.",
+      "noteZh": "斯塔尼希奇给克罗地亚灵活防守平衡，能切换角色而不打乱结构。"
+    },
+    "Josip Sutalo": {
+      "displayName": "Josip Šutalo",
+      "skills": ["Centre-back recovery", "Aerial defending", "Forward passing"],
+      "note": "Šutalo gives Croatia recovery pace at centre-back and the confidence to pass through pressure.",
+      "noteZh": "舒塔洛给克罗地亚中卫回追速度，也有信心在压力中向前传球。"
+    },
+    "Josko Gvardiol": {
+      "displayName": "Joško Gvardiol",
+      "skills": ["Left-sided defending", "Ball carrying", "Recovery pace"],
+      "note": "Gvardiol is Croatia's left-side force, able to defend huge spaces and carry into midfield.",
+      "noteZh": "格瓦迪奥尔是克罗地亚左侧力量，能防守大片空间并带球进入中场。"
+    },
+    "Kristijan Jakic": {
+      "displayName": "Kristijan Jakić",
+      "skills": ["Defensive midfield bite", "Duel pressure", "Utility cover"],
+      "note": "Jakić gives Croatia a combative utility piece, useful when midfield needs more bite.",
+      "noteZh": "亚基奇给克罗地亚对抗型多面手，当中场需要更多硬度时很有用。"
+    },
+    "Luka Modric": {
+      "displayName": "Luka Modrić",
+      "skills": ["Tempo control", "Press resistance", "Final pass"],
+      "note": "Modrić is still Croatia's rhythm keeper, turning pressure into calm and then into the next angle.",
+      "noteZh": "莫德里奇仍是克罗地亚节奏守护者，能把压力转成冷静，再转成下一条线路。"
+    },
+    "Luka Sucic": {
+      "displayName": "Luka Sučić",
+      "skills": ["Left-footed passing", "Box-edge shooting", "Midfield progression"],
+      "note": "Sučić gives Croatia a left-footed midfield punch, useful for passes and shots from the edge.",
+      "noteZh": "苏契奇给克罗地亚中场左脚冲击，适合禁区弧附近的传球和射门。"
+    },
+    "Luka Vuskovic": {
+      "displayName": "Luka Vušković",
+      "skills": ["Centre-back height", "Aerial dominance", "Long passing"],
+      "note": "Vušković gives Croatia elite height at centre-back and another route over pressure.",
+      "noteZh": "武什科维奇给克罗地亚中卫位置顶级高度，也提供越过压力的另一条路线。"
+    },
+    "Marco Pasalic": {
+      "displayName": "Marco Pašalić",
+      "skills": ["Right-wing shooting", "Direct carries", "Inside movement"],
+      "note": "Marco Pašalić adds a direct right-wing shot threat when Croatia need faster end product.",
+      "noteZh": "马尔科·帕沙利奇增加右路直接射门威胁，当克罗地亚需要更快终结时很有用。"
+    },
+    "Marin Pongracic": {
+      "displayName": "Marin Pongračić",
+      "skills": ["Centre-back aggression", "Aerial duels", "Back-line cover"],
+      "note": "Pongračić gives Croatia another aggressive centre-back for physical and aerial matchups.",
+      "noteZh": "庞格拉契奇给克罗地亚又一名侵略性中卫，适合身体和空中对抗。"
+    },
+    "Mario Pasalic": {
+      "displayName": "Mario Pašalić",
+      "skills": ["Late box runs", "Aerial midfield", "Goal timing"],
+      "note": "Mario Pašalić is Croatia's late-arriving midfielder, dangerous when crosses reach the second wave.",
+      "noteZh": "马里奥·帕沙利奇是克罗地亚后插上中场，当传中来到第二波时很危险。"
+    },
+    "Martin Baturina": {
+      "skills": ["Creative midfield", "Between-lines touch", "Final pass"],
+      "note": "Baturina gives Croatia a young creator who can receive between lines and quicken the attack.",
+      "noteZh": "巴图里纳给克罗地亚年轻创造者，能在两线之间接球并加快进攻。"
+    },
+    "Martin Erlic": {
+      "displayName": "Martin Erlić",
+      "skills": ["Centre-back depth", "Aerial defending", "Set-piece marking"],
+      "note": "Erlić gives Croatia reliable centre-back depth for aerial spells and set-piece marking.",
+      "noteZh": "埃尔利奇给克罗地亚可靠中卫深度，适合空中球阶段和定位球盯防。"
+    },
+    "Mateo Kovacic": {
+      "displayName": "Mateo Kovačić",
+      "skills": ["Ball carrying", "Press resistance", "Midfield control"],
+      "note": "Kovačić lets Croatia escape pressure by carrying through the first challenge.",
+      "noteZh": "科瓦契奇让克罗地亚能通过带球穿过第一下对抗来摆脱压力。"
+    },
+    "Nikola Moro": {
+      "skills": ["Midfield screening", "Short circulation", "Duel timing"],
+      "note": "Moro adds a tidy midfield shield, useful when Croatia need safer circulation.",
+      "noteZh": "莫罗增加整洁的中场屏障，当克罗地亚需要更安全传导时很有用。"
+    },
+    "Nikola Vlasic": {
+      "displayName": "Nikola Vlašić",
+      "skills": ["Attacking midfield strength", "Box-edge shots", "Inside runs"],
+      "note": "Vlašić gives Croatia power between the lines and a shot threat from crowded zones.",
+      "noteZh": "弗拉希奇给克罗地亚两线之间的力量，也能在人群中形成射门威胁。"
+    },
+    "Petar Musa": {
+      "skills": ["Striker depth", "Box movement", "Aerial finishing"],
+      "note": "Musa gives Croatia another penalty-box forward, useful when the match turns toward crosses.",
+      "noteZh": "穆萨给克罗地亚又一名禁区前锋，当比赛转向传中时很有用。"
+    },
+    "Petar Sucic": {
+      "displayName": "Petar Sučić",
+      "skills": ["Midfield running", "Ball winning", "Simple progression"],
+      "note": "Petar Sučić gives Croatia energy in midfield, winning contact and moving the next pass.",
+      "noteZh": "佩塔尔·苏契奇给克罗地亚中场活力，能赢下对抗并送出下一脚传球。"
+    },
+    "Toni Fruk": {
+      "skills": ["Attacking midfield spark", "Set-piece service", "Final pass"],
+      "note": "Fruk adds attacking midfield spark, especially useful on restarts and quick final passes.",
+      "noteZh": "弗鲁克增加进攻中场火花，尤其适合定位球和快速最后一传。"
+    }
+  }
+}

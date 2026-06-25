@@ -1,0 +1,266 @@
+{
+  "edition": "2026-world-cup",
+  "teamId": "IRN",
+  "teamName": "IR Iran",
+  "rosterNameOverrides": {
+    "ALIPOUR Ali": "Ali Alipour",
+    "Ali ALIPOURGHARA": "Ali Alipour",
+    "NEMATI Ali": "Ali Nemati",
+    "BEIRANVAND Alireza": "Alireza Beiranvand",
+    "JAHANBAKHSH Alireza": "Alireza Jahanbakhsh",
+    "HOSSEINZADEH Amirhossein": "Amirhossein Hosseinzadeh",
+    "Amirhossein HOSSEINZADEHTAZEHGHESHLAGH": "Amirhossein Hosseinzadeh",
+    "RAZAGHINIA Amirmohammad": "Amirmohammad Razaghinia",
+    "YOUSEFI Arya": "Arya Yousefi",
+    "IRI Danial": "Danial Iri",
+    "DARGAHI Dennis": "Dennis Dargahi",
+    "Dennis DARGAHI": "Dennis Dargahi",
+    "HAJISAFI Ehsan": "Ehsan Hajisafi",
+    "HOSSEINI Hossein": "Hossein Hosseini",
+    "Seyedhossein HOSSEINI": "Hossein Hosseini",
+    "KANANI Hossein": "Hossein Kanani",
+    "GHAYEDI Mehdi": "Mehdi Ghayedi",
+    "MEHDI GHAYEDI": "Mehdi Ghayedi",
+    "Mehdi GHAYEDI": "Mehdi Ghayedi",
+    "TAREMI Mehdi": "Mehdi Taremi",
+    "Mahdi TORABI": "Mehdi Torabi",
+    "TORABI Mehdi": "Mehdi Torabi",
+    "MOHAMMADI Milad": "Milad Mohammadi",
+    "Milad MOHAMMADIKESHMARZI": "Milad Mohammadi",
+    "GHORBANI Mohammad": "Mohammad Ghorbani",
+    "Mohammad GHORBANI": "Mohammad Ghorbani",
+    "MOHEBBI Mohammad": "Mohammad Mohebbi",
+    "NIAZMAND Payam": "Payam Niazmand",
+    "Seyedpayam NIAZMAND": "Payam Niazmand",
+    "REZAEIAN Ramin": "Ramin Rezaeian",
+    "Ramin REZAEIANSEMESKANDI": "Ramin Rezaeian",
+    "CHESHMI Roozbeh": "Roozbeh Cheshmi",
+    "Roozbeh CHESHMI": "Roozbeh Cheshmi",
+    "EZATOLAHI Saeid": "Saeid Ezatolahi",
+    "HARDANI Saleh": "Saleh Hardani",
+    "GHODDOS Saman": "Saman Ghoddos",
+    "MOGHANLOO Shahriyar": "Shahriyar Moghanloo",
+    "Shahriyar MOGHANLOO": "Shahriyar Moghanloo",
+    "KHALILZADEH Shoja": "Shoja Khalilzadeh",
+    "Shojae KHALILZADEH": "Shoja Khalilzadeh"
+  },
+  "removeProfiles": [
+    "Ali Alipourghara",
+    "Amirhossein Hosseinzadehtazehgheshlagh",
+    "Mahdi Torabi",
+    "Milad Mohammadikeshmarzi",
+    "Ramin Rezaeiansemeskandi",
+    "Seyedhossein Hosseini",
+    "Seyedpayam Niazmand",
+    "Shojae Khalilzadeh"
+  ],
+  "profiles": {
+    "Ali Alipour": {
+      "skills": ["Penalty-box movement", "Pressing effort", "First-time finishing"],
+      "note": "Alipour gives Iran a penalty-box forward who can press first and still attack early service.",
+      "noteZh": "阿里普尔给伊朗带来禁区型前锋，能先压迫，也能冲击早传。"
+    },
+    "Ali Nemati": {
+      "transfermarktPlayerCode": "ali-nemati",
+      "summary": "Ali Nemati is an IR Iran centre-back from Foolad FC who gives the national team left-footed defending, aerial cover, and back-line depth.",
+      "position": "Centre-back",
+      "club": "Foolad FC",
+      "league": "Persian Gulf Pro League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/527092-1760614145.jpg?lm=1",
+      "skills": ["Left-back cover", "Aerial defending", "Wide recovery"],
+      "note": "Nemati adds defensive cover on the left, useful when Iran need a safer flank profile.",
+      "noteZh": "内马蒂增加伊朗左侧防守保障，当球队需要更稳的边路配置时很有用。",
+      "sourceUrl": "https://www.transfermarkt.com/ali-nemati/profil/spieler/527092"
+    },
+    "Alireza Beiranvand": {
+      "skills": ["Goalkeeper command", "Long distribution", "Shot stopping"],
+      "note": "Beiranvand is Iran's commanding goalkeeper, able to turn saves into immediate long outlets.",
+      "noteZh": "贝兰万德是伊朗指挥型门将，能把扑救立即转成远距离出球。"
+    },
+    "Alireza Jahanbakhsh": {
+      "skills": ["Wing experience", "Set-piece delivery", "Inside shooting"],
+      "note": "Jahanbakhsh gives Iran experience from wide areas and a right foot that can punish loose clearances.",
+      "noteZh": "贾汉巴赫什给伊朗边路带来经验，他的右脚能惩罚松散解围。"
+    },
+    "Amirhossein Hosseinzadeh": {
+      "transfermarktPlayerCode": "amirhossein-hosseinzadeh",
+      "summary": "Amirhossein Hosseinzadeh is an IR Iran forward from Tractor FC who gives the national team quick turns, final-third carrying, and attacking spark.",
+      "position": "Centre-forward",
+      "club": "Tractor FC",
+      "league": "Persian Gulf Pro League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/542380-1779989578.jpg?lm=1",
+      "marketValueEurMillions": 2.2,
+      "skills": ["Attacking midfield spark", "Quick turns", "Final-third carrying"],
+      "note": "Hosseinzadeh is a small-space attacker, useful when Iran need a dribble to break a flat block.",
+      "noteZh": "侯赛因扎德是小空间攻击手，当伊朗需要盘带打破平直防线时很有用。",
+      "sourceUrl": "https://www.transfermarkt.com/amirhossein-hosseinzadeh/profil/spieler/542380"
+    },
+    "Amirmohammad Razaghinia": {
+      "displayName": "Amirmohammad Razzaghinia",
+      "aliases": ["Amirmohammad Razaghinia"],
+      "sourceTitle": "Amirmohammad Razzaghinia",
+      "transfermarktPlayerCode": "amirmohammad-razzaghinia",
+      "summary": "Amirmohammad Razzaghinia is an IR Iran central midfielder from Esteghlal FC who gives the national team midfield legs, duel pressure, and simple progression.",
+      "position": "Central midfield",
+      "club": "Esteghlal FC",
+      "league": "Persian Gulf Pro League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/1051591-1736157350.jpg?lm=1",
+      "marketValueEurMillions": 1.2,
+      "skills": ["Midfield legs", "Duel pressure", "Simple progression"],
+      "note": "Razaghinia gives Iran fresh midfield legs, especially for pressure and safe forward passes.",
+      "noteZh": "拉扎吉尼亚给伊朗中场带来新鲜跑动，尤其适合施压和安全向前传球。",
+      "sourceUrl": "https://www.transfermarkt.com/amirmohammad-razzaghinia/profil/spieler/1051591"
+    },
+    "Arya Yousefi": {
+      "transfermarktPlayerCode": "arya-yousefi",
+      "summary": "Arya Yousefi is an IR Iran right-back from Sepahan FC who gives the national team overlap timing, recovery defending, and right-side energy.",
+      "position": "Right-back",
+      "club": "Sepahan FC",
+      "league": "Persian Gulf Pro League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/932724-1663310525.png?lm=1",
+      "skills": ["Right-side energy", "Overlap timing", "Recovery defending"],
+      "note": "Yousefi is a high-energy right-side option, useful when Iran want width without losing recovery speed.",
+      "noteZh": "优素菲是高能量右侧选择，当伊朗想要宽度又不失回追速度时很有用。",
+      "sourceUrl": "https://www.transfermarkt.com/arya-yousefi/profil/spieler/932724"
+    },
+    "Danial Iri": {
+      "displayName": "Danial Eiri",
+      "aliases": ["Danial Iri"],
+      "transfermarktPlayerCode": "danial-eiri",
+      "summary": "Danial Eiri is an IR Iran centre-back from Malavan Bandar Anzali who gives the national team centre-back depth, aerial defending, and box protection.",
+      "position": "Centre-back",
+      "club": "Malavan Bandar Anzali",
+      "league": "Persian Gulf Pro League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/1080301-1780714376.jpg?lm=1",
+      "skills": ["Centre-back depth", "Aerial defending", "Box protection"],
+      "note": "Iri gives Iran centre-back depth for matches that turn into aerial and set-piece contests.",
+      "noteZh": "伊里给伊朗增加中卫深度，适合比赛变成空中球和定位球对抗时。",
+      "sourceUrl": "https://www.transfermarkt.com/danial-eiri/profil/spieler/1080301"
+    },
+    "Dennis Dargahi": {
+      "displayName": "Dennis Eckert Ayensa",
+      "aliases": ["Dennis Dargahi"],
+      "sourceTitle": "Dennis Eckert Ayensa",
+      "transfermarktPlayerCode": "dennis-eckert-ayensa",
+      "position": "Centre-forward",
+      "club": "Standard Liège",
+      "league": "Belgian Pro League",
+      "skills": ["Forward pressing", "Channel runs", "Bench energy"],
+      "note": "Dargahi offers Iran a younger forward runner, useful when the front line needs fresh chasing.",
+      "noteZh": "达尔加希给伊朗提供年轻前场跑动点，当锋线需要新鲜追压时很有用。"
+    },
+    "Ehsan Hajisafi": {
+      "displayName": "Ehsan Hajsafi",
+      "aliases": ["Ehsan Hajisafi"],
+      "transfermarktPlayerCode": "ehsan-hajsafi",
+      "club": "Sepahan",
+      "league": "Persian Gulf Pro League",
+      "skills": ["Veteran leadership", "Left-footed service", "Midfield cover"],
+      "note": "Hajisafi is Iran's veteran balancer, able to help at left-back or midfield depending on the game.",
+      "noteZh": "哈吉萨菲是伊朗老将平衡器，能根据比赛需要支援左后卫或中场。"
+    },
+    "Hossein Hosseini": {
+      "skills": ["Goalkeeper depth", "Reaction saves", "Box command"],
+      "note": "Hosseini gives Iran experienced goalkeeper cover with calm reactions in crowded areas.",
+      "noteZh": "侯赛尼给伊朗提供经验型门将后备，在拥挤区域反应冷静。"
+    },
+    "Hossein Kanani": {
+      "skills": ["Centre-back duels", "Aerial power", "Defensive leadership"],
+      "note": "Kanani is a physical defensive anchor for Iran, important when the box needs clearing.",
+      "noteZh": "卡纳尼是伊朗身体型防守支柱，当禁区需要清理时很重要。"
+    },
+    "Mehdi Ghayedi": {
+      "transfermarktPlayerCode": "mehdi-ghayedi",
+      "summary": "Mehdi Ghayedi is an IR Iran winger from Al-Nasr SC who gives the national team low-centre turns, inside shots, and left-wing dribbling.",
+      "position": "Left winger",
+      "club": "Al-Nasr SC",
+      "league": "UAE Pro League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/478192-1707245004.jpg?lm=1",
+      "marketValueEurMillions": 4.5,
+      "skills": ["Left-wing dribbling", "Inside shots", "Low-centre turns"],
+      "note": "Ghayedi gives Iran a slippery wide attacker who can turn inside before the block resets.",
+      "noteZh": "盖耶迪给伊朗带来灵活边路攻击手，能在防线重组前内切转身。",
+      "sourceUrl": "https://www.transfermarkt.com/mehdi-ghayedi/profil/spieler/478192"
+    },
+    "Mehdi Taremi": {
+      "skills": ["Striker craft", "Penalty-box timing", "Link play"],
+      "note": "Taremi is Iran's craftiest scorer, mixing clever layoffs with ruthless penalty-area timing.",
+      "noteZh": "塔雷米是伊朗最有技巧的得分手，既能巧妙做球，也有冷酷的禁区时机。"
+    },
+    "Mehdi Torabi": {
+      "skills": ["Wide service", "Set-piece threat", "Two-footed crossing"],
+      "note": "Torabi adds wide delivery and restart quality, useful when Iran need service into a packed box.",
+      "noteZh": "托拉比增加边路传递和定位球质量，当伊朗需要向拥挤禁区送球时很有用。"
+    },
+    "Milad Mohammadi": {
+      "skills": ["Left-back pace", "Recovery runs", "Overlap width"],
+      "note": "Mohammadi gives Iran speed at left-back, stretching attacks and recovering quickly behind them.",
+      "noteZh": "穆罕默迪给伊朗左后卫位置带来速度，既能拉开进攻，也能快速回追。"
+    },
+    "Mohammad Ghorbani": {
+      "transfermarktPlayerCode": "mohammad-ghorbani",
+      "summary": "Mohammad Ghorbani is an IR Iran defensive midfielder from Al-Wahda FC who gives the national team central coverage, ball winning, and midfield size.",
+      "position": "Defensive midfield",
+      "club": "Al-Wahda FC",
+      "league": "UAE Pro League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/856087-1755380279.jpg?lm=1",
+      "marketValueEurMillions": 0.8,
+      "skills": ["Defensive midfield size", "Ball winning", "Central coverage"],
+      "note": "Ghorbani gives Iran a taller midfield shield, useful for second balls and central protection.",
+      "noteZh": "戈尔巴尼给伊朗带来更高大的中场屏障，适合第二落点和中路保护。",
+      "sourceUrl": "https://www.transfermarkt.com/mohammad-ghorbani/profil/spieler/856087"
+    },
+    "Mohammad Mohebbi": {
+      "league": "Persian Gulf Pro League",
+      "skills": ["Direct wing runs", "Transition finishing", "Far-post attacks"],
+      "note": "Mohebbi is a direct runner for Iran, dangerous when counters open the far-post lane.",
+      "noteZh": "莫赫比是伊朗直接跑动点，反击打开后点线路时很危险。"
+    },
+    "Payam Niazmand": {
+      "transfermarktPlayerCode": "payam-niazmand",
+      "club": "Persepolis",
+      "league": "Persian Gulf Pro League",
+      "skills": ["Goalkeeper reach", "Cross handling", "Shot stopping"],
+      "note": "Niazmand gives Iran a tall goalkeeper option, useful when crosses and set pieces pile up.",
+      "noteZh": "尼亚兹曼德给伊朗提供高大门将选择，当传中和定位球不断出现时很有用。"
+    },
+    "Ramin Rezaeian": {
+      "skills": ["Right-back delivery", "Set-piece quality", "Veteran timing"],
+      "note": "Rezaeian gives Iran veteran right-side service, especially from early crosses and restarts.",
+      "noteZh": "雷扎扬给伊朗右路带来老练传递，尤其来自早传和定位球。"
+    },
+    "Roozbeh Cheshmi": {
+      "skills": ["Defensive utility", "Aerial strength", "Midfield screening"],
+      "note": "Cheshmi is Iran's defensive utility piece, able to add height in midfield or the back line.",
+      "noteZh": "切什米是伊朗防守多面手，能在中场或防线增加高度。"
+    },
+    "Saeid Ezatolahi": {
+      "skills": ["Midfield control", "Aerial duels", "Long passing"],
+      "note": "Ezatolahi gives Iran midfield size and passing range, useful for slowing the game down.",
+      "noteZh": "埃扎托拉希给伊朗中场带来身材和传球范围，适合让比赛慢下来。"
+    },
+    "Saleh Hardani": {
+      "skills": ["Right-back defending", "Overlap support", "Wide pressure"],
+      "note": "Hardani adds right-back energy, useful when Iran need to defend and press the same lane.",
+      "noteZh": "哈达尼增加右后卫活力，当伊朗需要在同一路线防守并压迫时很有用。"
+    },
+    "Saman Ghoddos": {
+      "transfermarktPlayerCode": "saman-ghoddos",
+      "club": "Kalba",
+      "league": "UAE Pro League",
+      "skills": ["Final pass", "Set-piece service", "Between-lines craft"],
+      "note": "Ghoddos is Iran's connective creator, finding final passes without needing much space.",
+      "noteZh": "古多斯是伊朗连接型创造者，不需要太多空间就能找到最后一传。"
+    },
+    "Shahriyar Moghanloo": {
+      "skills": ["Target-forward play", "Aerial finishing", "Box presence"],
+      "note": "Moghanloo gives Iran a big target, useful when the route forward becomes crosses and knockdowns.",
+      "noteZh": "莫甘卢给伊朗带来高大支点，当进攻路线变成传中和摆渡时很有用。"
+    },
+    "Shoja Khalilzadeh": {
+      "skills": ["Veteran defending", "Aerial duels", "Back-line organization"],
+      "note": "Shoja gives Iran veteran centre-back organization, especially in long defensive spells.",
+      "noteZh": "舒贾给伊朗带来老将中卫组织，尤其适合长时间防守阶段。"
+    }
+  }
+}

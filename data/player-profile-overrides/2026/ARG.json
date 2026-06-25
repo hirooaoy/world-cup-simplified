@@ -1,0 +1,226 @@
+{
+  "edition": "2026-world-cup",
+  "teamId": "ARG",
+  "teamName": "Argentina",
+  "rosterNameOverrides": {
+    "Alexis MAC ALLISTER": "Alexis Mac Allister",
+    "MAC ALLISTER": "Alexis Mac Allister",
+    "MAC ALLISTER Alexis": "Alexis Mac Allister",
+    "ALMADA Thiago": "Thiago Almada",
+    "Thiago Ezequiel ALMADA": "Thiago Almada",
+    "ALVAREZ Julian": "Julian Alvarez",
+    "J. ALVAREZ": "Julian Alvarez",
+    "Julián ÁLVAREZ": "Julian Alvarez",
+    "BARCO Valentin": "Valentin Barco",
+    "Valentin BARCO": "Valentin Barco",
+    "Cristian Gabriel ROMERO": "Cristian Romero",
+    "ROMERO Cristian": "Cristian Romero",
+    "Damián Emiliano MARTÍNEZ": "Damian Emiliano Martinez",
+    "E. MARTINEZ": "Damian Emiliano Martinez",
+    "MARTINEZ Emiliano": "Damian Emiliano Martinez",
+    "DE PAUL": "Rodrigo De Paul",
+    "DE PAUL Rodrigo": "Rodrigo De Paul",
+    "Rodrigo Javier DE PAUL": "Rodrigo De Paul",
+    "E. FERNANDEZ": "Enzo Fernandez",
+    "Enzo Jeremías FERNÁNDEZ": "Enzo Fernandez",
+    "FERNANDEZ Enzo": "Enzo Fernandez",
+    "Exequiel Alejandro PALACIOS": "Exequiel Palacios",
+    "PALACIOS Exequiel": "Exequiel Palacios",
+    "Facundo Axel MEDINA": "Facundo Medina",
+    "MEDINA Facundo": "Facundo Medina",
+    "Geronimo RULLI": "Geronimo Rulli",
+    "RULLI Geronimo": "Geronimo Rulli",
+    "Giovani LO CELSO": "Giovani Lo Celso",
+    "LO CELSO": "Giovani Lo Celso",
+    "LO CELSO Giovani": "Giovani Lo Celso",
+    "Giuliano SIMEONE": "Giuliano Simeone",
+    "SIMEONE Giuliano": "Giuliano Simeone",
+    "Gonzalo Ariel MONTIEL": "Gonzalo Montiel",
+    "MONTIEL Gonzalo": "Gonzalo Montiel",
+    "Jose Manuel Alberto LOPEZ": "Jose Manuel Lopez",
+    "LOPEZ Jose Manuel": "Jose Manuel Lopez",
+    "Juan Agustín MUSSO": "Juan Musso",
+    "MUSSO Juan": "Juan Musso",
+    "L. MARTINEZ": "Lautaro Martinez",
+    "Lautaro Javier MARTÍNEZ": "Lautaro Martinez",
+    "MARTINEZ Lautaro": "Lautaro Martinez",
+    "Leandro Daniel PAREDES": "Leandro Paredes",
+    "PAREDES Leandro": "Leandro Paredes",
+    "Lionel Andrés MESSI": "Lionel Messi",
+    "MESSI Lionel": "Lionel Messi",
+    "Lisandro MARTÍNEZ": "Lisandro Martinez",
+    "MARTINEZ Lisandro": "Lisandro Martinez",
+    "Marcos Nicolás SENESI BARON": "Marcos Senesi",
+    "SENESI Marcos": "Marcos Senesi",
+    "Nahuel MOLINA LUCERO": "Nahuel Molina",
+    "MOLINA Nahuel": "Nahuel Molina",
+    "N. GONZALEZ": "Nico Gonzalez",
+    "Nicolas Ivan GONZALEZ": "Nico Gonzalez",
+    "GONZALEZ Nico": "Nico Gonzalez",
+    "NICO PAZ": "Nico Paz",
+    "Nicolas PAZ MARTÍNEZ": "Nico Paz",
+    "PAZ Nico": "Nico Paz",
+    "Nicolas Hernan Gonzalo OTAMENDI": "Nicolas Otamendi",
+    "OTAMENDI Nicolas": "Nicolas Otamendi",
+    "Nicolás Alejandro TAGLIAFICO": "Nicolas Tagliafico",
+    "TAGLIAFICO Nicolas": "Nicolas Tagliafico"
+  },
+  "profiles": {
+    "Alexis Mac Allister": {
+      "skills": ["Press-resistant passing", "Midfield timing", "Set-piece delivery"],
+      "note": "Mac Allister gives Argentina calm progression, receiving under pressure and turning midfield control into cleaner final-third entries.",
+      "noteZh": "麦卡利斯特给阿根廷冷静推进，能在压力下接球，并把中场控制转成更清晰的前场进入。"
+    },
+    "Cristian Romero": {
+      "skills": ["Aggressive defending", "Aerial duels", "Back-line leadership"],
+      "note": "Romero is Argentina's front-foot centre-back, stepping into duels early and setting the defensive tone.",
+      "noteZh": "罗梅罗是阿根廷主动上抢型中卫，会提前进入对抗，并定下防线强度。"
+    },
+    "Damian Emiliano Martinez": {
+      "sourceTitle": "Emiliano Martínez",
+      "aliases": ["Emiliano Martinez", "Damián Emiliano Martínez"],
+      "displayName": "Emiliano Martínez",
+      "skills": ["Penalty presence", "Shot stopping", "Box command"],
+      "note": "Martínez gives Argentina elite tournament goalkeeping, especially when one save or penalty read can swing the tie.",
+      "noteZh": "马丁内斯给阿根廷顶级杯赛门将能力，尤其当一次扑救或点球判断能改变比赛时。"
+    },
+    "Enzo Fernandez": {
+      "displayName": "Enzo Fernández",
+      "skills": ["Line-breaking passing", "Midfield range", "Second balls"],
+      "note": "Fernández gives Argentina vertical passing from midfield, helping attacks move forward before defenses reset.",
+      "noteZh": "恩佐·费尔南德斯给阿根廷中场纵向传球，帮助进攻在防线重组前向前推进。"
+    },
+    "Exequiel Palacios": {
+      "skills": ["Tempo control", "Press resistance", "Midfield coverage"],
+      "note": "Palacios gives Argentina a tidy midfield connector, valuable when possession needs patience and protection.",
+      "noteZh": "帕拉西奥斯给阿根廷细腻的中场连接，当控球需要耐心和保护时很有价值。"
+    },
+    "Facundo Medina": {
+      "skills": ["Left-sided defending", "Recovery speed", "Progressive passing"],
+      "note": "Medina offers left-footed defensive cover, useful when Argentina need both back-line aggression and clean exits.",
+      "noteZh": "梅迪纳提供左脚防守保护，当阿根廷需要防线侵略性和干净出球时很有用。"
+    },
+    "Geronimo Rulli": {
+      "displayName": "Gerónimo Rulli",
+      "skills": ["Goalkeeper depth", "Reaction saves", "Distribution"],
+      "note": "Rulli gives Argentina experienced goalkeeper depth, comfortable managing spells when the back line has the ball.",
+      "noteZh": "鲁利给阿根廷有经验的门将深度，能在后场控球阶段稳住节奏。"
+    },
+    "Giovani Lo Celso": {
+      "skills": ["Left-footed craft", "Final pass", "Between-lines receiving"],
+      "note": "Lo Celso adds left-footed invention, finding pockets where Argentina can turn possession into a chance.",
+      "noteZh": "洛塞尔索增加左脚创造力，能找到阿根廷把控球转成机会的空当。"
+    },
+    "Giuliano Simeone": {
+      "skills": ["Forward pressing", "Channel running", "Direct energy"],
+      "note": "Simeone brings front-line intensity, attacking channels and keeping defenders hurried without the ball.",
+      "noteZh": "小西蒙尼带来锋线强度，冲击通道，并在无球时持续逼迫防守者。"
+    },
+    "Gonzalo Montiel": {
+      "skills": ["Right-back defending", "Penalty composure", "Back-post cover"],
+      "note": "Montiel gives Argentina a battle-tested right-back who can defend the far post and handle late pressure.",
+      "noteZh": "蒙铁尔给阿根廷经过考验的右后卫，能保护后点，也能处理末段压力。"
+    },
+    "Jose Manuel Lopez": {
+      "sourceTitle": "José Manuel López (footballer)",
+      "displayName": "José Manuel López",
+      "aliases": ["Flaco López", "Jose Manuel Alberto Lopez"],
+      "position": "Centre-forward",
+      "club": "Palmeiras",
+      "league": "Campeonato Brasileiro Série A",
+      "transfermarktPlayerCode": "flaco-lopez",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/844797-1739618753.jpg?lm=1",
+      "marketValueEurMillions": 25,
+      "skills": ["Box presence", "Aerial target", "Hold-up play"],
+      "note": "López gives Argentina a taller penalty-area option when crosses and direct service become the route.",
+      "noteZh": "洛佩斯给阿根廷更高的禁区选择，当传中和直接输送成为路线时很有用。"
+    },
+    "Juan Musso": {
+      "skills": ["Goalkeeper depth", "Cross handling", "Shot stopping"],
+      "note": "Musso adds experienced goalkeeper cover, steady for games that ask for crosses and set-piece command.",
+      "noteZh": "穆索增加有经验的门将保障，适合需要处理传中和定位球指挥的比赛。"
+    },
+    "Julian Alvarez": {
+      "displayName": "Julián Álvarez",
+      "skills": ["Forward pressing", "Box finishing", "Link runs"],
+      "note": "Álvarez gives Argentina relentless forward work, pressing from the front and still arriving to finish.",
+      "noteZh": "阿尔瓦雷斯给阿根廷不间断的锋线工作量，能从前场压迫，也能及时到位终结。"
+    },
+    "Lautaro Martinez": {
+      "displayName": "Lautaro Martínez",
+      "skills": ["Box finishing", "Near-post movement", "Forward duels"],
+      "note": "Lautaro is Argentina's penalty-box striker, sharp at attacking the first gap before defenders settle.",
+      "noteZh": "劳塔罗是阿根廷禁区前锋，擅长在防守者站稳前攻击第一道空隙。"
+    },
+    "Leandro Paredes": {
+      "skills": ["Deep passing", "Midfield control", "Set-piece range"],
+      "note": "Paredes gives Argentina a deep passing hub, useful for slowing chaos and changing the point of attack.",
+      "noteZh": "帕雷德斯给阿根廷后腰传球枢纽，适合放慢混乱节奏并转移进攻方向。"
+    },
+    "Lionel Messi": {
+      "skills": ["Final pass", "Set pieces", "Central creation"],
+      "note": "Messi remains Argentina's central problem-solver, turning small pockets into the pass or shot others cannot see.",
+      "noteZh": "梅西仍是阿根廷中路解题者，能把狭小空间变成别人看不到的传球或射门。"
+    },
+    "Lisandro Martinez": {
+      "displayName": "Lisandro Martínez",
+      "skills": ["Left-sided defending", "Build-up passing", "Aggressive duels"],
+      "note": "Lisandro gives Argentina bite and passing from the left side of defense, helping the back line play forward.",
+      "noteZh": "利桑德罗给阿根廷左侧防线带来硬度和传球，帮助后场向前组织。"
+    },
+    "Marcos Senesi": {
+      "skills": ["Centre-back passing", "Aerial defending", "Left-side cover"],
+      "note": "Senesi gives Argentina another left-sided centre-back option, steady when the game asks for controlled buildup.",
+      "noteZh": "塞内西给阿根廷另一个左侧中卫选择，当比赛需要有控制的组织时很稳定。"
+    },
+    "Nahuel Molina": {
+      "skills": ["Right-side runs", "Recovery defending", "Overlap timing"],
+      "note": "Molina stretches Argentina's right side, timing overlaps while still recovering into the defensive line.",
+      "noteZh": "莫利纳拉开阿根廷右路，能掌握套上时机，也能回到防线位置。"
+    },
+    "Nico Gonzalez": {
+      "sourceTitle": "Nicolás González (footballer, born 1998)",
+      "displayName": "Nico González",
+      "position": "Left winger",
+      "club": "Atlético Madrid (on loan from Juventus)",
+      "league": "La Liga",
+      "transfermarktPlayerCode": "nico-gonzalez",
+      "skills": ["Wide running", "Aerial arrivals", "Pressing work"],
+      "note": "González gives Argentina vertical wing energy, attacking the back post and working hard without the ball.",
+      "noteZh": "尼科·冈萨雷斯给阿根廷纵向边路活力，能攻击后点，也能无球勤奋压迫。"
+    },
+    "Nico Paz": {
+      "skills": ["Creative receiving", "Left-footed passing", "Late box runs"],
+      "note": "Paz gives Argentina a younger creative option, comfortable receiving between lines and playing forward quickly.",
+      "noteZh": "尼科·帕斯给阿根廷年轻创造力，能在两线之间接球并快速向前处理。"
+    },
+    "Nicolas Otamendi": {
+      "displayName": "Nicolás Otamendi",
+      "skills": ["Aerial defending", "Veteran control", "Set-piece threat"],
+      "note": "Otamendi gives Argentina veteran defensive authority, especially in aerial spells and tense late phases.",
+      "noteZh": "奥塔门迪给阿根廷老将防守权威，尤其在空中球阶段和紧张末段很重要。"
+    },
+    "Nicolas Tagliafico": {
+      "displayName": "Nicolás Tagliafico",
+      "skills": ["Left-back defending", "Back-post timing", "Compact passing"],
+      "note": "Tagliafico gives Argentina a reliable left-back base, defending narrow and arriving when the far side opens.",
+      "noteZh": "塔利亚菲科给阿根廷可靠的左后卫基础，能内收防守，也能在远侧打开时前插。"
+    },
+    "Rodrigo De Paul": {
+      "skills": ["Midfield legs", "Pressing support", "Forward passing"],
+      "note": "De Paul gives Argentina the running power around Messi, covering ground and keeping attacks connected.",
+      "noteZh": "德保罗给阿根廷围绕梅西的奔跑能力，覆盖空间并保持进攻衔接。"
+    },
+    "Thiago Almada": {
+      "skills": ["Set-piece delivery", "Creative dribbling", "Final pass"],
+      "note": "Almada adds another creative spark, dangerous when Argentina need a sharper pass or set-piece delivery.",
+      "noteZh": "阿尔马达增加另一处创造火花，当阿根廷需要更锋利的传球或定位球输送时很危险。"
+    },
+    "Valentin Barco": {
+      "displayName": "Valentín Barco",
+      "skills": ["Left-footed delivery", "Ball carrying", "Wide invention"],
+      "note": "Barco gives Argentina left-sided invention, carrying from deep and changing the angle of attacks.",
+      "noteZh": "巴尔科给阿根廷左侧创造力，能从后场带球，并改变进攻角度。"
+    }
+  }
+}

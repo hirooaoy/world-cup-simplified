@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-25T04:42:29.148Z",
+  "updatedAt": "2026-06-25T06:22:18.757Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -97,6 +97,7 @@
     "fifa-goal-events-sync-2026-06-23",
     "fifa-official-results-sync-2026-06-24",
     "fifa-goal-events-sync-2026-06-24",
+    "fifa-goal-events-sync-2026-06-25",
     "fifa-official-results-sync-2026-06-25"
   ],
   "coverage": {
@@ -344,11 +345,11 @@
       "goalsHome": [
         {
           "minute": 67,
-          "name": "Hwang Inbeom"
+          "name": "Hwang In-beom"
         },
         {
           "minute": 80,
-          "name": "Oh Hyeongyu"
+          "name": "Oh Hyeon-gyu"
         }
       ],
       "goalsAway": [
@@ -1696,7 +1697,7 @@
         "away": 26
       },
       "keyPlayers": {
-        "sourceId": "key-player-baseline-2026-06-17",
+        "sourceId": "key-player-baseline-2026-06-22",
         "method": "team-watchlist-baseline",
         "basis": "Team-level key-player watchlist; replace with API/squad-sourced fixture notes when available",
         "home": [
@@ -1723,15 +1724,15 @@
             "note": "A mobile second scoring threat who can attack channels and keep Egypt from becoming one-dimensional."
           },
           {
-            "name": "Mostafa Mohamed",
-            "note": "The central target, important when Egypt need hold-up play and a box endpoint."
+            "name": "Zizo",
+            "note": "The right-side delivery and shooting option who can punish teams when Salah is tightly tracked."
           }
         ]
       },
       "keyInformation": {
         "sourceId": "editorial-preview-2026-06-22",
         "home": "Belgium are an elite chance-creation team when their creators get space to face forward, led by Kevin De Bruyne, Romelu Lukaku, and Jeremy Doku. Against Egypt, their De Bruyne-to-Lukaku chance creation has to beat Egypt's Salah-Marmoush breakaway threat. They want to feed De Bruyne early and create the separation Lukaku needs in the box. The risk is Egypt can turn one loose pass into a Salah-led break.",
-        "away": "Egypt are a direct team built around Salah's runs that can look quiet until one attack opens the match, led by Mohamed Salah, Omar Marmoush, and Mostafa Mohamed. Against Belgium, their Salah-Marmoush breakaway threat has to beat Belgium's De Bruyne-to-Lukaku chance creation. They want to release Salah early and let Marmoush arrive as the second wave. The risk is Belgium can turn De Bruyne service into Lukaku chances."
+        "away": "Egypt are a direct team built around Salah's runs that can look quiet until one attack opens the match, led by Mohamed Salah, Omar Marmoush, and Zizo. Against Belgium, their Salah-Marmoush breakaway threat has to beat Belgium's De Bruyne-to-Lukaku chance creation. They want to release Salah early and let Marmoush arrive as the second wave. The risk is Belgium can turn De Bruyne service into Lukaku chances."
       },
       "resultHighlights": [
         "🌟 A 66' own goal earned Belgium a point.",
@@ -1863,7 +1864,7 @@
       "goalsHome": [
         {
           "minute": 41,
-          "name": "Abdulelah Alamri"
+          "name": "Abdulelah Al-Amri"
         }
       ],
       "goalsAway": [
@@ -2398,7 +2399,7 @@
         },
         {
           "minute": 76,
-          "name": "Yazan Alarab",
+          "name": "Yazan Al-Arab",
           "ownGoal": true
         },
         {
@@ -4695,7 +4696,7 @@
         },
         {
           "minute": 49,
-          "name": "Hassan Altambakti",
+          "name": "Hassan Al-Tambakti",
           "ownGoal": true
         }
       ],
@@ -4945,7 +4946,7 @@
         "away": 60
       },
       "keyPlayers": {
-        "sourceId": "key-player-baseline-2026-06-17",
+        "sourceId": "key-player-baseline-2026-06-22",
         "method": "team-watchlist-baseline",
         "basis": "Team-level key-player watchlist; replace with API/squad-sourced fixture notes when available",
         "home": [
@@ -4972,15 +4973,15 @@
             "note": "A mobile second scoring threat who can attack channels and keep Egypt from becoming one-dimensional."
           },
           {
-            "name": "Mostafa Mohamed",
-            "note": "The central target, important when Egypt need hold-up play and a box endpoint."
+            "name": "Zizo",
+            "note": "The right-side delivery and shooting option who can punish teams when Salah is tightly tracked."
           }
         ]
       },
       "keyInformation": {
         "sourceId": "editorial-preview-2026-06-22",
         "home": "New Zealand are an aerial, organized side that need territory and service to keep stronger opponents honest, led by Chris Wood, Liberato Cacace, and Sarpreet Singh. Against Egypt, their Cacace-to-Wood aerial service has to beat Egypt's Salah-Marmoush breakaway threat. They want to move play wide through Cacace and serve Wood before the box gets crowded. The risk is Egypt can turn one loose pass into a Salah-led break.",
-        "away": "Egypt are a direct team built around Salah's runs that can look quiet until one attack opens the match, led by Mohamed Salah, Omar Marmoush, and Mostafa Mohamed. Against New Zealand, their Salah-Marmoush breakaway threat has to beat New Zealand's Cacace-to-Wood aerial service. They want to release Salah early and let Marmoush arrive as the second wave. The risk is New Zealand can turn left-side service and Wood's aerial presence into chances."
+        "away": "Egypt are a direct team built around Salah's runs that can look quiet until one attack opens the match, led by Mohamed Salah, Omar Marmoush, and Zizo. Against New Zealand, their Salah-Marmoush breakaway threat has to beat New Zealand's Cacace-to-Wood aerial service. They want to release Salah early and let Marmoush arrive as the second wave. The risk is New Zealand can turn left-side service and Wood's aerial presence into chances."
       },
       "score": {
         "home": 1,
@@ -5457,7 +5458,7 @@
       "goalsHome": [
         {
           "minute": 36,
-          "name": "Nizar Alrashdan"
+          "name": "Nizar Al-Rashdan"
         }
       ],
       "goalsAway": [
@@ -6265,7 +6266,15 @@
           "minute": 45,
           "offset": 3,
           "name": "Vinicius Junior"
+        },
+        {
+          "minute": 60,
+          "name": "Matheus Cunha"
         }
+      ],
+      "resultHighlights": [
+        "🌟 Vinicius Junior scored twice as Brazil pulled clear.",
+        "📊 Brazil moved to 7 points in Group C while Scotland stayed on 3 points."
       ]
     },
     {
@@ -6357,6 +6366,14 @@
           "minute": 45,
           "offset": 1,
           "name": "Ismael Saibari"
+        },
+        {
+          "minute": 78,
+          "name": "Soufiane Rahimi"
+        },
+        {
+          "minute": 89,
+          "name": "Gessime Yassine"
         }
       ],
       "goalsAway": [
@@ -6369,6 +6386,10 @@
           "minute": 43,
           "name": "Wilson Isidor"
         }
+      ],
+      "resultHighlights": [
+        "🌟 Yassine Bounou opened it before Gessime Yassine finished the scoring.",
+        "📊 Morocco moved to 7 points in Group C and left Haiti without a point."
       ]
     },
     {
@@ -6461,7 +6482,27 @@
       "score": {
         "home": 0,
         "away": 3
-      }
+      },
+      "goalsHome": [],
+      "goalsAway": [
+        {
+          "minute": 55,
+          "name": "Mateo Chavez"
+        },
+        {
+          "minute": 61,
+          "name": "Julian Quinones"
+        },
+        {
+          "minute": 90,
+          "offset": 4,
+          "name": "Alvaro Fidalgo"
+        }
+      ],
+      "resultHighlights": [
+        "🌟 Mateo Chavez opened it before Alvaro Fidalgo finished the scoring.",
+        "📊 Mexico moved to 9 points in Group A while Czechia stayed on 1 point."
+      ]
     },
     {
       "id": "south-africa-south-korea-2026-06-24",
@@ -6542,7 +6583,18 @@
       "score": {
         "home": 1,
         "away": 0
-      }
+      },
+      "goalsHome": [
+        {
+          "minute": 63,
+          "name": "Thapelo Maseko"
+        }
+      ],
+      "goalsAway": [],
+      "resultHighlights": [
+        "🌟 Thapelo Maseko's 63' winner settled it for South Africa.",
+        "📊 South Africa moved to 4 points in Group A while South Korea stayed on 3 points."
+      ]
     },
     {
       "id": "ecuador-germany-2026-06-25",
@@ -7691,8 +7743,8 @@
             "note": "A mobile second scoring threat who can attack channels and keep Egypt from becoming one-dimensional."
           },
           {
-            "name": "Mostafa Mohamed",
-            "note": "The central target, important when Egypt need hold-up play and a box endpoint."
+            "name": "Zizo",
+            "note": "The right-side delivery and shooting option who can punish teams when Salah is tightly tracked."
           }
         ],
         "away": [
@@ -7712,7 +7764,7 @@
       },
       "keyInformation": {
         "sourceId": "editorial-preview-2026-06-22",
-        "home": "Egypt are a direct team built around Salah's runs that can look quiet until one attack opens the match, led by Mohamed Salah, Omar Marmoush, and Mostafa Mohamed. Against IR Iran, their Salah-Marmoush breakaway threat has to beat IR Iran's Taremi-Ghoddos counter craft. They want to release Salah early and let Marmoush arrive as the second wave. The risk is IR Iran can turn fouls, counters, Taremi's craft, and Ghoddos' final pass into chances.",
+        "home": "Egypt are a direct team built around Salah's runs that can look quiet until one attack opens the match, led by Mohamed Salah, Omar Marmoush, and Zizo. Against IR Iran, their Salah-Marmoush breakaway threat has to beat IR Iran's Taremi-Ghoddos counter craft. They want to release Salah early and let Marmoush arrive as the second wave. The risk is IR Iran can turn fouls, counters, Taremi's craft, and Ghoddos' final pass into chances.",
         "away": "IR Iran are a streetwise counterattacking side with experienced attackers who understand tournament margins, led by Mehdi Taremi, Saman Ghoddos, and Alireza Jahanbakhsh. Against Egypt, their Taremi-Ghoddos counter craft has to beat Egypt's Salah-Marmoush breakaway threat. They want to draw contact, slow the rhythm, and then find Taremi or Jahanbakhsh around the box. The risk is Egypt can turn one loose pass into a Salah-led break."
       },
       "providerIds": {

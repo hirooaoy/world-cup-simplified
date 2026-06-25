@@ -1,0 +1,264 @@
+{
+  "edition": "2026-world-cup",
+  "teamId": "RSA",
+  "teamName": "South Africa",
+  "profiles": {
+    "Aubrey Modiba": {
+      "skills": [
+        "Left-back width",
+        "Set-piece service",
+        "Recovery defending"
+      ],
+      "note": "South Africa's left-side outlet, useful for width, set-piece service, and recovery defending when the flank opens.",
+      "noteZh": "奥布里·莫迪巴是南非左路出口，能提供宽度、定位球传球，并在边路打开时回追防守。"
+    },
+    "Bradley Cross": {
+      "sourceTitle": "Bradley Cross (soccer)",
+      "transfermarktPlayerCode": "bradley-cross",
+      "birthDate": "2001-01-30",
+      "summary": "Bradley Cross is a South Africa left-back from Kaizer Chiefs who adds wide defending, left-footed balance, and recovery speed to the national team.",
+      "position": "Left-back",
+      "club": "Kaizer Chiefs",
+      "league": "South African Premiership",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/555209-1727333418.jpg?lm=1",
+      "marketValueEurMillions": 1,
+      "skills": [
+        "Left-back defending",
+        "Left-footed balance",
+        "Recovery speed"
+      ],
+      "note": "South Africa's left-back cover, giving them a natural left foot, recovery speed, and steadier wide defending.",
+      "noteZh": "布拉德利·克罗斯是南非左后卫保障，能提供天然左脚、回追速度和更稳定的边路防守。",
+      "sourceUrl": "https://www.transfermarkt.com/bradley-cross/profil/spieler/555209"
+    },
+    "Evidence Makgopa": {
+      "league": "South African Premiership",
+      "skills": [
+        "Target-forward play",
+        "Aerial pressure",
+        "Box finishing"
+      ],
+      "note": "South Africa's target-forward option, useful for aerial pressure, hold-up touches, and finishing from direct service.",
+      "noteZh": "埃维登斯·马克戈帕是南非支点前锋选择，能施加空中压力、背身做球，并接应直接传球终结。"
+    },
+    "Ime Okon": {
+      "skills": [
+        "Centre-back composure",
+        "Aerial defending",
+        "Young defensive upside"
+      ],
+      "note": "South Africa's young centre-back, bringing composure, aerial defending, and long-term upside against stronger attacks.",
+      "noteZh": "伊梅·奥孔是南非年轻中卫，面对强队时能带来沉稳、空中防守和长期潜力。"
+    },
+    "Iqraam Rayners": {
+      "skills": [
+        "Penalty-box movement",
+        "Quick finishing",
+        "Pressing runs"
+      ],
+      "note": "South Africa's sharp penalty-box runner, built for quick finishes, pressing runs, and small openings around goal.",
+      "noteZh": "伊克拉姆·雷纳斯是南非敏锐的禁区跑动点，擅长快速终结、压迫跑动和抓住门前小空当。"
+    },
+    "Jayden Adams": {
+      "skills": [
+        "Central mobility",
+        "Ball carrying",
+        "Press support"
+      ],
+      "note": "South Africa's mobile midfielder, helping them carry through pressure and support the press after turnovers.",
+      "noteZh": "杰登·亚当斯是南非机动型中场，能带球穿过压力，并在丢球后支援压迫。"
+    },
+    "Kamogelo Sebelebele": {
+      "league": "South African Premiership",
+      "skills": [
+        "Midfield energy",
+        "Wide support",
+        "Second-ball pressure"
+      ],
+      "note": "South Africa's energetic midfield option, giving them wide support, second-ball pressure, and fresh running.",
+      "noteZh": "卡莫盖洛·塞贝莱贝莱是南非活力型中场选择，能提供边路支援、第二落点压迫和新鲜跑动。"
+    },
+    "Khuliso Mudau": {
+      "skills": [
+        "Right-back duels",
+        "Overlap timing",
+        "Defensive recovery"
+      ],
+      "note": "South Africa's right-back engine, strong in duels, overlaps, and recovery runs against quick wide players.",
+      "noteZh": "库利索·穆道是南非右后卫发动机，对抗、套边和回追速度型边路球员都很重要。"
+    },
+    "Khulumani Ndamane": {
+      "skills": [
+        "Centre-back depth",
+        "Aerial cover",
+        "Simple exits"
+      ],
+      "note": "South Africa's centre-back depth, useful for aerial cover, compact defending, and simple passes out.",
+      "noteZh": "库卢马尼·恩达马内是南非中卫深度，能提供空中覆盖、紧凑防守和简洁出球。"
+    },
+    "Lyle Foster": {
+      "skills": [
+        "Premier League forward play",
+        "Channel runs",
+        "Hold-up touches"
+      ],
+      "note": "South Africa's highest-profile forward, running channels, holding up direct balls, and carrying the main scoring burden.",
+      "noteZh": "莱尔·福斯特是南非最受关注的前锋，能冲击通道、背身拿住直传，并承担主要进球责任。"
+    },
+    "Mbekezeli Mbokazi": {
+      "league": "Major League Soccer",
+      "skills": [
+        "Left-footed centre-back play",
+        "Line-breaking passing",
+        "Young leadership"
+      ],
+      "note": "South Africa's standout young centre-back, giving them left-footed passing, calm defending, and unusual leadership for his age.",
+      "noteZh": "姆贝克泽利·姆博卡齐是南非突出的年轻中卫，能提供左脚出球、冷静防守和超出年龄的领导力。"
+    },
+    "Nkosinathi Sibisi": {
+      "league": "South African Premiership",
+      "skills": [
+        "Centre-back defending",
+        "Aerial duels",
+        "Box protection"
+      ],
+      "note": "South Africa's experienced centre-back, useful for aerial duels, box protection, and late defensive organization.",
+      "noteZh": "恩科西纳蒂·西比西是南非经验型中卫，能争顶、保护禁区，并在后段组织防守。"
+    },
+    "Olwethu Makhanya": {
+      "league": "Major League Soccer",
+      "skills": [
+        "Athletic defending",
+        "Recovery speed",
+        "Centre-back upside"
+      ],
+      "note": "South Africa's athletic defensive option, giving them recovery speed, centre-back depth, and a higher ceiling.",
+      "noteZh": "奥尔韦图·马坎亚是南非运动能力强的防守选择，能提供回追速度、中卫深度和更高潜力。"
+    },
+    "Oswin Appollis": {
+      "skills": [
+        "Attacking midfield spark",
+        "One-on-one dribbling",
+        "Final pass"
+      ],
+      "note": "South Africa's attacking spark, able to beat the first defender and slip the final pass when space opens.",
+      "noteZh": "奥斯温·阿波利斯是南非进攻火花，能过掉第一名防守人，并在空间出现时送出最后一传。"
+    },
+    "Relebohile Mofokeng": {
+      "league": "South African Premiership",
+      "skills": [
+        "Left-wing creativity",
+        "Quick feet",
+        "Fearless carries"
+      ],
+      "note": "South Africa's fearless young creator, bringing quick feet, left-side carries, and invention against deep blocks.",
+      "noteZh": "雷莱博希莱·莫福肯是南非无畏的年轻创造者，能用快脚、左路带球和灵感冲击低位防守。"
+    },
+    "Ricardo Goss": {
+      "league": "South African Premiership",
+      "skills": [
+        "Goalkeeper depth",
+        "Shot stopping",
+        "Box communication"
+      ],
+      "note": "South Africa's goalkeeper cover, giving them shot-stopping depth and a vocal option behind Williams.",
+      "noteZh": "里卡多·戈斯是南非门将保障，能在威廉姆斯身后提供扑救深度和清晰指挥。"
+    },
+    "Ronwen Williams": {
+      "skills": [
+        "Captain goalkeeping",
+        "Penalty saves",
+        "Distribution calm"
+      ],
+      "note": "South Africa's captain and goalkeeper anchor, trusted for penalty saves, distribution calm, and defensive command.",
+      "noteZh": "龙文·威廉姆斯是南非队长和门将核心，点球扑救、冷静出球和防线指挥都值得信任。"
+    },
+    "Samukele Kabini": {
+      "league": "Eliteserien",
+      "skills": [
+        "Left-back recovery",
+        "European experience",
+        "Wide defending"
+      ],
+      "note": "South Africa's European-based left-back, giving them recovery speed, wide defending, and a fresher outlet.",
+      "noteZh": "萨穆凯莱·卡比尼是南非效力欧洲的左后卫，能提供回追速度、边路防守和更有活力的出口。"
+    },
+    "Sipho Chaine": {
+      "league": "South African Premiership",
+      "skills": [
+        "Goalkeeper reactions",
+        "Domestic experience",
+        "Back-line voice"
+      ],
+      "note": "South Africa's domestic goalkeeper option, useful for reaction saves and keeping the back line organized.",
+      "noteZh": "西福·查伊内是南非本土门将选择，能完成反应扑救，并保持后防线组织。"
+    },
+    "Sphephelo Sithole": {
+      "league": "Liga Portugal 2",
+      "skills": [
+        "Central midfield size",
+        "Ball winning",
+        "Tempo control"
+      ],
+      "note": "South Africa's rangy midfielder, using size, ball-winning, and simple tempo control to steady the middle.",
+      "noteZh": "斯菲费洛·西托莱是南非覆盖范围大的中场，能用身材、抢球和简洁节奏控制稳住中路。"
+    },
+    "Teboho Mokoena": {
+      "skills": [
+        "Long-range shooting",
+        "Midfield control",
+        "Set pieces"
+      ],
+      "note": "South Africa's midfield reference point, dangerous from range and important for set pieces and tempo.",
+      "noteZh": "特博霍·莫科纳是南非中场参照点，远射有威胁，也对定位球和节奏很重要。"
+    },
+    "Thabang Matuludi": {
+      "league": "South African Premiership",
+      "skills": [
+        "Right-back cover",
+        "Wide tackling",
+        "Support runs"
+      ],
+      "note": "South Africa's right-back cover, useful for wide tackling, support runs, and late-game defensive energy.",
+      "noteZh": "塔邦·马图卢迪是南非右后卫保障，能边路抢断、支援跑动，并在比赛后段提供防守体能。"
+    },
+    "Thalente Mbatha": {
+      "league": "South African Premiership",
+      "skills": [
+        "Defensive midfield bite",
+        "Short passing",
+        "Counter pressure"
+      ],
+      "note": "South Africa's defensive midfield bite, helping them press counters early and recycle possession quickly.",
+      "noteZh": "塔伦特·姆巴塔是南非防守型中场硬度来源，能提前压制反击并快速回收球权。"
+    },
+    "Thapelo Maseko": {
+      "skills": [
+        "Wide speed",
+        "Direct dribbling",
+        "Transition runs"
+      ],
+      "note": "South Africa's wide-speed threat, useful for direct dribbling, transition runs, and stretching tired full-backs.",
+      "noteZh": "塔佩洛·马塞科是南非边路速度威胁，能直接盘带、转换冲刺，并拉扯疲劳边后卫。"
+    },
+    "Themba Zwane": {
+      "skills": [
+        "Veteran creativity",
+        "Between-lines passing",
+        "Final-third calm"
+      ],
+      "note": "South Africa's veteran creator, bringing calm touches between lines and better decisions near the box.",
+      "noteZh": "滕巴·兹瓦内是南非老将创造者，能在线间冷静触球，并在禁区附近做出更好选择。"
+    },
+    "Tshepang Moremi": {
+      "league": "South African Premiership",
+      "skills": [
+        "Wing play",
+        "Direct carries",
+        "Bench pace"
+      ],
+      "note": "South Africa's bench-speed winger, able to carry directly and test defenders once the match opens up.",
+      "noteZh": "采潘·莫雷米是南非替补速度型边锋，能直接带球，并在比赛打开后考验防守人。"
+    }
+  }
+}

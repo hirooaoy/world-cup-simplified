@@ -1,0 +1,324 @@
+{
+  "edition": "2026-world-cup",
+  "teamId": "MEX",
+  "teamName": "Mexico",
+  "profiles": {
+    "Alexis Vega": {
+      "sourceTitle": "Alexis Vega",
+      "transfermarktPlayerCode": "alexis-vega",
+      "birthDate": "1997-11-25",
+      "summary": "Alexis Vega is a Mexico left winger from Toluca who gives the national team direct dribbling, set-piece quality, and final-third invention.",
+      "position": "Left winger",
+      "club": "Toluca",
+      "league": "Liga MX",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/424689-1666538728.jpg?lm=1",
+      "marketValueEurMillions": 8,
+      "skills": [
+        "Left-wing dribbling",
+        "Set-piece delivery",
+        "Final-third invention"
+      ],
+      "note": "Mexico's left-side creator, dangerous when he can isolate, whip restarts, or turn a loose touch into a shot.",
+      "noteZh": "亚历克西斯·维加是墨西哥左路创造者，在获得单挑、主罚定位球或把松散触球转成射门时很有威胁。",
+      "sourceUrl": "https://www.transfermarkt.us/alexis-vega/profil/spieler/424689"
+    },
+    "Alvaro Fidalgo": {
+      "skills": [
+        "Central rhythm",
+        "Press resistance",
+        "Short combinations"
+      ],
+      "note": "Mexico's Spanish-born midfield metronome, helping them pass through pressure and keep attacks connected.",
+      "noteZh": "阿尔瓦罗·菲达尔戈是墨西哥西班牙出生的中场节拍器，能帮助球队穿过压力并保持进攻连接。"
+    },
+    "Armando Gonzalez": {
+      "displayName": "Armando González",
+      "sourceTitle": "Armando González",
+      "transfermarktPlayerCode": "armando-gonzalez",
+      "birthDate": "2003-04-20",
+      "position": "Centre-forward",
+      "club": "Guadalajara",
+      "league": "Liga MX",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/837619-1727117232.jpg?lm=1",
+      "marketValueEurMillions": 15,
+      "skills": [
+        "Box finishing",
+        "Young striker movement",
+        "Near-post runs"
+      ],
+      "note": "Mexico's emerging No. 9, giving them box movement, near-post runs, and a younger finishing profile behind the veterans.",
+      "noteZh": "阿曼多·冈萨雷斯是墨西哥新兴九号位，能提供禁区跑动、前点冲刺，以及老将身后的年轻终结选择。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/armando-gonzalez/profil/spieler/837619"
+    },
+    "Brian Gutierrez": {
+      "displayName": "Brian Gutiérrez",
+      "sourceTitle": "Brian Gutiérrez",
+      "transfermarktPlayerCode": "brian-gutierrez",
+      "birthDate": "2003-06-17",
+      "position": "Attacking midfielder",
+      "club": "Guadalajara",
+      "league": "Liga MX",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/724443-1740682013.jpg?lm=1",
+      "marketValueEurMillions": 8,
+      "skills": [
+        "Between-lines receiving",
+        "Chance creation",
+        "Quick turns"
+      ],
+      "note": "Mexico's between-lines option, useful for quick turns, small-space passing, and finding runners before blocks settle.",
+      "noteZh": "布赖恩·古铁雷斯是墨西哥线间选择，能快速转身、小范围传球，并在防线站稳前找到跑动队友。"
+    },
+    "Carlos Acevedo": {
+      "skills": [
+        "Shot stopping",
+        "Keeper depth",
+        "Long distribution"
+      ],
+      "note": "Mexico's goalkeeper depth, giving them shot-stopping cover and longer distribution if they need to play over pressure.",
+      "noteZh": "卡洛斯·阿塞韦多是墨西哥门将深度，能提供扑救保障，并在需要越过压力时送出长传。"
+    },
+    "Cesar Huerta": {
+      "skills": [
+        "Left-wing carries",
+        "Direct running",
+        "Cut-inside shots"
+      ],
+      "note": "Mexico's direct left winger, stretching defensive lines with carries, cut-inside shots, and fearless one-on-ones.",
+      "noteZh": "塞萨尔·韦尔塔是墨西哥直接型左边锋，能用带球、内切射门和无畏单挑拉扯防线。"
+    },
+    "Cesar Montes": {
+      "skills": [
+        "Aerial defending",
+        "Centre-back leadership",
+        "Set-piece threat"
+      ],
+      "note": "Mexico's defensive tower, important for aerial clearances, set-piece threat, and organizing the centre-backs.",
+      "noteZh": "塞萨尔·蒙特斯是墨西哥防线高塔，对空中解围、定位球威胁和中卫组织都很重要。"
+    },
+    "Edson Alvarez": {
+      "skills": [
+        "Midfield screening",
+        "Counter stopping",
+        "Defensive versatility"
+      ],
+      "note": "Mexico's midfield anchor, slowing counters, protecting the back line, and dropping into defense when needed.",
+      "noteZh": "埃德松·阿尔瓦雷斯是墨西哥中场锚点，能拖慢反击、保护防线，并在需要时回撤到后防。"
+    },
+    "Erik Lira": {
+      "skills": [
+        "Ball winning",
+        "Defensive midfield cover",
+        "Simple passing"
+      ],
+      "note": "Mexico's ball-winning midfielder, useful for closing central gaps and moving possession on without overcomplicating it.",
+      "noteZh": "埃里克·利拉是墨西哥抢球型中场，能封住中路空当，并用简洁方式转移球权。"
+    },
+    "Gilberto Mora": {
+      "sourceTitle": "Gilberto Mora",
+      "transfermarktPlayerCode": "gilberto-mora",
+      "birthDate": "2008-10-14",
+      "summary": "Gilberto Mora is a Mexico attacking midfielder from Club Tijuana who adds teenage creativity, quick feet, and central chance creation.",
+      "position": "Attacking midfielder",
+      "club": "Club Tijuana",
+      "league": "Liga MX",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/1155723-1751873501.jpg?lm=1",
+      "marketValueEurMillions": 10,
+      "skills": [
+        "Teenage creativity",
+        "Quick feet",
+        "Central chance creation"
+      ],
+      "note": "Mexico's teenage creative wildcard, able to receive in tight spaces and slip a final pass before defenders react.",
+      "noteZh": "希尔贝托·莫拉是墨西哥年轻创造变数，能在狭小空间接球，并在后卫反应前送出最后一传。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/gilberto-mora/profil/spieler/1155723"
+    },
+    "Guillermo Martinez": {
+      "displayName": "Guillermo Martínez",
+      "sourceTitle": "Guillermo Martínez (footballer)",
+      "transfermarktPlayerCode": "guillermo-martinez",
+      "birthDate": "1995-03-15",
+      "position": "Centre-forward",
+      "club": "Pumas UNAM",
+      "league": "Liga MX",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/347932-1780520014.jpg?lm=1",
+      "marketValueEurMillions": 1.5,
+      "skills": [
+        "Target play",
+        "Aerial duels",
+        "Box finishing"
+      ],
+      "note": "Mexico's physical striker option, useful for aerial duels, holding up direct balls, and attacking crosses late.",
+      "noteZh": "吉列尔莫·马丁内斯是墨西哥身体型中锋选择，能争顶、背身拿住直传，并在后段冲击传中。"
+    },
+    "Guillermo Ochoa": {
+      "league": "Cyprus League",
+      "skills": [
+        "Veteran goalkeeping",
+        "Reflex saves",
+        "Tournament calm"
+      ],
+      "note": "Mexico's veteran goalkeeper icon, bringing reflex saves, tournament calm, and authority in high-pressure moments.",
+      "noteZh": "吉列尔莫·奥乔亚是墨西哥标志性老将门将，能带来反应扑救、大赛冷静和高压时刻的权威感。"
+    },
+    "Israel Reyes": {
+      "skills": [
+        "Defensive versatility",
+        "Right-side cover",
+        "Aerial marking"
+      ],
+      "note": "Mexico's versatile defender, able to cover centre-back, right-back, or midfield while keeping duels competitive.",
+      "noteZh": "以色列·雷耶斯是墨西哥多面防守者，能覆盖中卫、右后卫或中场，并保持对抗强度。"
+    },
+    "Jesus Gallardo": {
+      "skills": [
+        "Left-back width",
+        "Recovery runs",
+        "Veteran service"
+      ],
+      "note": "Mexico's veteran left-side outlet, giving them width, recovery runs, and steady service from deeper zones.",
+      "noteZh": "赫苏斯·加利亚多是墨西哥老练的左路出口，能提供宽度、回追跑动和来自深处的稳定传球。"
+    },
+    "Johan Vasquez": {
+      "sourceTitle": "Johan Vásquez",
+      "transfermarktPlayerCode": "johan-vasquez",
+      "birthDate": "1998-10-22",
+      "summary": "Johan Vásquez is a Mexico centre-back from Genoa who gives the national team left-footed defending, aerial power, and Serie A-tested duels.",
+      "position": "Centre-back",
+      "club": "Genoa",
+      "league": "Serie A",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/532937-1742929864.jpg?lm=1",
+      "marketValueEurMillions": 12,
+      "skills": [
+        "Left-footed defending",
+        "Aerial power",
+        "Serie A duels"
+      ],
+      "note": "Mexico's left-footed centre-back, giving them aerial power, recovery defending, and confidence in physical duels.",
+      "noteZh": "约翰·巴斯克斯是墨西哥左脚中卫，能提供空中力量、回追防守和身体对抗中的信心。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/johan-vasquez/profil/spieler/532937"
+    },
+    "Jorge Sanchez": {
+      "displayName": "Jorge Sánchez",
+      "sourceTitle": "Jorge Sánchez",
+      "transfermarktPlayerCode": "jorge-sanchez",
+      "birthDate": "1997-12-10",
+      "summary": "Jorge Sánchez is a Mexico right-back from PAOK who adds wide defending, overlap timing, and national-team experience.",
+      "position": "Right-back",
+      "club": "PAOK",
+      "league": "Super League Greece",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/356044-1777755351.png?lm=1",
+      "marketValueEurMillions": 2,
+      "skills": [
+        "Right-back defending",
+        "Overlap timing",
+        "Wide recovery"
+      ],
+      "note": "Mexico's experienced right-back, useful for wide recovery, overlaps, and surviving one-on-one defensive spells.",
+      "noteZh": "豪尔赫·桑切斯是墨西哥经验型右后卫，能完成边路回追、套边，并撑过一对一防守阶段。",
+      "sourceUrl": "https://www.transfermarkt.com/jorge-sanchez/profil/spieler/356044"
+    },
+    "Julian Quinones": {
+      "skills": [
+        "Forward power",
+        "Runs in behind",
+        "Box finishing"
+      ],
+      "note": "Mexico's powerful forward runner, attacking channels, finishing through contact, and giving the front line vertical force.",
+      "noteZh": "胡利安·基尼奥内斯是墨西哥强力前场跑动点，能冲击通道、对抗中终结，并给锋线带来纵向力量。"
+    },
+    "Luis Chavez": {
+      "skills": [
+        "Left-footed passing",
+        "Long-range shooting",
+        "Set pieces"
+      ],
+      "note": "Mexico's left-footed launcher, valuable for diagonal passing, long-range shots, and dead-ball delivery.",
+      "noteZh": "路易斯·查韦斯是墨西哥左脚发射器，斜传、远射和定位球传球都很有价值。"
+    },
+    "Luis Romo": {
+      "skills": [
+        "Midfield coverage",
+        "Defensive versatility",
+        "Late runs"
+      ],
+      "note": "Mexico's hybrid midfielder, able to cover defensive gaps, step into duels, and arrive late around the box.",
+      "noteZh": "路易斯·罗莫是墨西哥混合型中场，能补防空当、进入对抗，并后插上到禁区周围。"
+    },
+    "Mateo Chavez": {
+      "skills": [
+        "Left-back development",
+        "Forward support",
+        "Recovery speed"
+      ],
+      "note": "Mexico's young left-back, giving them recovery speed, forward support, and a fresher flank profile.",
+      "noteZh": "马特奥·查韦斯是墨西哥年轻左后卫，能提供回追速度、前插支援和更有活力的边路选择。"
+    },
+    "Obed Vargas": {
+      "skills": [
+        "Central mobility",
+        "Pressure escapes",
+        "Two-way running"
+      ],
+      "note": "Mexico's mobile young midfielder, helping them escape pressure and cover ground on both sides of the ball.",
+      "noteZh": "奥贝德·巴尔加斯是墨西哥机动型年轻中场，能帮助球队摆脱压力，并在攻守两端覆盖空间。"
+    },
+    "Orbelin Pineda": {
+      "skills": [
+        "Creative midfield",
+        "Quick combinations",
+        "Late box movement"
+      ],
+      "note": "Mexico's creative connector, combining quickly between lines and arriving late when the box opens.",
+      "noteZh": "奥尔贝林·皮内达是墨西哥创造型连接点，能在线间快速配合，并在禁区打开时后插上。"
+    },
+    "Raul Jimenez": {
+      "club": "Wolverhampton Wanderers",
+      "league": "EFL Championship",
+      "skills": [
+        "Veteran striker craft",
+        "Hold-up play",
+        "Penalty-box finishing"
+      ],
+      "note": "Mexico's veteran striker reference, using hold-up craft, penalty-box timing, and experience to steady the front line.",
+      "noteZh": "劳尔·希门尼斯是墨西哥老将锋线支点，能用背身技术、禁区时机和经验稳住前场。"
+    },
+    "Raul Rangel": {
+      "displayName": "Raúl Rangel",
+      "sourceTitle": "Raúl Rangel",
+      "transfermarktPlayerCode": "raul-rangel",
+      "birthDate": "2000-02-25",
+      "summary": "Raúl Rangel is a Mexico goalkeeper from Guadalajara who gives the national team shot-stopping depth, reflex saves, and modern distribution.",
+      "position": "Goalkeeper",
+      "club": "Guadalajara",
+      "league": "Liga MX",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/802855-1751874010.jpg?lm=1",
+      "marketValueEurMillions": 6.5,
+      "skills": [
+        "Reflex saves",
+        "Keeper distribution",
+        "Goalkeeper depth"
+      ],
+      "note": "Mexico's rising goalkeeper option, giving them reflex saves, cleaner distribution, and pressure on the veteran hierarchy.",
+      "noteZh": "劳尔·兰赫尔是墨西哥上升中的门将选择，能提供反应扑救、更干净的出球，并给老将层级带来竞争。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/raul-rangel/profil/spieler/802855"
+    },
+    "Roberto Alvarado": {
+      "skills": [
+        "Right-wing creativity",
+        "Left-footed cut-ins",
+        "Pressing work"
+      ],
+      "note": "Mexico's crafty wide creator, cutting inside onto his left foot while still doing the defensive pressing work.",
+      "noteZh": "罗伯托·阿尔瓦拉多是墨西哥灵巧边路创造者，能内切到左脚处理，同时完成防守压迫工作。"
+    },
+    "Santiago Gimenez": {
+      "skills": [
+        "Centre-forward finishing",
+        "Penalty-box movement",
+        "First-time shots"
+      ],
+      "note": "Mexico's prime-age No. 9, built for penalty-box movement, first-time finishes, and carrying the main scoring burden.",
+      "noteZh": "圣地亚哥·希门尼斯是墨西哥黄金年龄九号位，擅长禁区跑动、第一时间射门，并承担主要进球责任。"
+    }
+  }
+}

@@ -1,0 +1,220 @@
+{
+  "edition": "2026-world-cup",
+  "teamId": "COD",
+  "teamName": "DR Congo",
+  "rosterNameOverrides": {
+    "Tshibola AARON": "Aaron Tshibola",
+    "TSHIBOLA Aaron": "Aaron Tshibola",
+    "WAN BISSAKA": "Aaron Wan-Bissaka",
+    "Wan BISSAKA": "Aaron Wan-Bissaka",
+    "WAN-BISSAKA Aaron": "Aaron Wan-Bissaka",
+    "Arthur Fuka MASUAKU KAWELA": "Arthur Masuaku",
+    "MASUAKU Arthur": "Arthur Masuaku",
+    "Axel TUANZEBE": "Axel Tuanzebe",
+    "TUANZEBE Axel": "Axel Tuanzebe",
+    "Kibambe Brian CIPENGA": "Brian Cipenga",
+    "CIPENGA Brian": "Brian Cipenga",
+    "BAKAMBU Cedric": "Cedric Bakambu",
+    "Cedric BAKAMBU": "Cedric Bakambu",
+    "Mangulu Chancel MBEMBA": "Chancel Mbemba",
+    "MBEMBA Chancel": "Chancel Mbemba",
+    "Charles Monginda PICKEL": "Charles Pickel",
+    "PICKEL Charles": "Charles Pickel",
+    "Dylan Buduka BATUBINSIKA": "Dylan Batubinsika",
+    "BATUBINSIKA Dylan": "Dylan Batubinsika",
+    "E. KAYEMBE": "Edo Kayembe",
+    "Edo Kayembe KAYEMBE": "Edo Kayembe",
+    "KAYEMBE Edo": "Edo Kayembe",
+    "Mayele Fiston KALALA": "Fiston Mayele",
+    "MAYELE Fiston": "Fiston Mayele",
+    "Mambenga Gaël Roméo KAKUTA": "Gael Kakuta",
+    "KAKUTA Gael": "Gael Kakuta",
+    "Gédéon Tchingoma Kyatengwa KALULU": "Gedeon Kalulu",
+    "KALULU Gedeon": "Gedeon Kalulu",
+    "J. KAYEMBE": "Joris Kayembe",
+    "Joris KAYEMBE-DITU": "Joris Kayembe",
+    "KAYEMBE Joris": "Joris Kayembe",
+    "Lionel Nzau MPASI": "Lionel Mpasi",
+    "MPASI Lionel": "Lionel Mpasi",
+    "Matthieu Luka EPOLO": "Matthieu Epolo",
+    "EPOLO Matthieu": "Matthieu Epolo",
+    "Meschack Lina ELIA": "Meschack Elia",
+    "ELIA Meschack": "Meschack Elia",
+    "Nathanaël MBUKU": "Nathanael Mbuku",
+    "MBUKU Nathanael": "Nathanael Mbuku",
+    "Ngal’ayel MUKAU": "Ngalayel Mukau",
+    "MUKAU Ngalayel": "Ngalayel Mukau",
+    "Noah Junior SADIKI": "Noah Sadiki",
+    "SADIKI Noah": "Noah Sadiki",
+    "Samuel Alain MOUTOUSSAMY": "Samuel Moutoussamy",
+    "MOUTOUSSAMY Samuel": "Samuel Moutoussamy",
+    "Simon Bokote BANZA": "Simon Banza",
+    "BANZA Simon": "Simon Banza",
+    "Steve Nkanu KAPUADI": "Steve Kapuadi",
+    "KAPUADI Steve": "Steve Kapuadi",
+    "Theo Mbulofeko Batombo BONGONDA": "Theo Bongonda",
+    "BONGONDA Theo": "Theo Bongonda",
+    "Timothy Bruce Munzoko FAYULU": "Timothy Fayulu",
+    "FAYULU Timothy": "Timothy Fayulu",
+    "Yoane WISSA": "Yoane Wissa",
+    "WISSA Yoane": "Yoane Wissa"
+  },
+  "profiles": {
+    "Aaron Tshibola": {
+      "skills": ["Midfield strength", "Second balls", "Box-to-box runs"],
+      "note": "Tshibola gives DR Congo midfield size, helping them compete for second balls and drive through contact.",
+      "noteZh": "奇博拉给刚果民主共和国中场体格，帮助球队争抢第二落点并带球穿过对抗。"
+    },
+    "Aaron Wan-Bissaka": {
+      "skills": ["One-on-one defending", "Recovery tackles", "Right-back cover"],
+      "note": "Wan-Bissaka gives DR Congo elite one-on-one defending, especially when quick wingers attack the outside lane.",
+      "noteZh": "万-比萨卡给刚果民主共和国顶级一对一防守，尤其适合应对快速边锋冲击外线。"
+    },
+    "Arthur Masuaku": {
+      "skills": ["Left-footed delivery", "Wing-back carrying", "Set pieces"],
+      "note": "Masuaku gives DR Congo left-side delivery and carrying, a route to move attacks up the flank.",
+      "noteZh": "马苏亚库给刚果民主共和国左路传递和带球，是沿边路推进进攻的一条路线。"
+    },
+    "Axel Tuanzebe": {
+      "skills": ["Defensive recovery", "Centre-back cover", "Right-side defending"],
+      "note": "Tuanzebe adds defensive recovery speed, useful when DR Congo's back line has to defend transition space.",
+      "noteZh": "图安泽贝增加防守回追速度，当刚果民主共和国防线需要防守转换空间时很有用。"
+    },
+    "Brian Cipenga": {
+      "position": "Left winger",
+      "club": "Castellón",
+      "league": "LaLiga2",
+      "transfermarktPlayerCode": "brian-cipenga",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/700565-1726738089.jpg?lm=1",
+      "marketValueEurMillions": 2,
+      "skills": ["Wide running", "Direct dribbling", "Transition speed"],
+      "note": "Cipenga gives DR Congo another wide runner, useful for quick breaks before the opponent's block settles.",
+      "noteZh": "奇彭加给刚果民主共和国另一名边路跑手，适合在对手阵型站稳前快速反击。"
+    },
+    "Cedric Bakambu": {
+      "displayName": "Cédric Bakambu",
+      "skills": ["Channel runs", "Box finishing", "Counter threat"],
+      "note": "Bakambu remains DR Congo's direct scoring threat, attacking space behind and finishing early chances.",
+      "noteZh": "巴坎布仍是刚果民主共和国直接得分威胁，能攻击身后空间并终结早期机会。"
+    },
+    "Chancel Mbemba": {
+      "skills": ["Defensive leadership", "Aerial duels", "Set-piece threat"],
+      "note": "Mbemba gives DR Congo defensive authority, winning aerial duels and organising tense phases.",
+      "noteZh": "姆本巴给刚果民主共和国防守权威，能赢下空中对抗并组织紧张阶段。"
+    },
+    "Charles Pickel": {
+      "skills": ["Midfield screening", "Ball winning", "Simple progression"],
+      "note": "Pickel gives DR Congo a midfield shield, breaking attacks and moving the first pass forward.",
+      "noteZh": "皮克尔给刚果民主共和国中场屏障，能破坏进攻并把第一脚传球向前送。"
+    },
+    "Dylan Batubinsika": {
+      "skills": ["Centre-back strength", "Aerial defending", "Box protection"],
+      "note": "Batubinsika adds centre-back strength, useful when DR Congo need to absorb crosses and clear the box.",
+      "noteZh": "巴图宾西卡增加中卫强度，当刚果民主共和国需要承受传中并清理禁区时很有用。"
+    },
+    "Edo Kayembe": {
+      "skills": ["Midfield running", "Pressing cover", "Left-footed passing"],
+      "note": "Kayembe gives DR Congo midfield running, covering pressure and helping the ball escape left.",
+      "noteZh": "卡延贝给刚果民主共和国中场跑动，能覆盖压力并帮助皮球从左侧脱身。"
+    },
+    "Fiston Mayele": {
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/727157-1761427125.jpg?lm=1",
+      "skills": ["Penalty-box movement", "Finishing instinct", "Pressing effort"],
+      "note": "Mayele gives DR Congo a penalty-box poacher, alive to loose balls and quick service.",
+      "noteZh": "马耶莱给刚果民主共和国禁区抢点能力，对松散球和快速传球很敏锐。"
+    },
+    "Gael Kakuta": {
+      "displayName": "Gaël Kakuta",
+      "league": "Cypriot First Division",
+      "skills": ["Left-footed craft", "Final pass", "Set pieces"],
+      "note": "Kakuta gives DR Congo left-footed imagination, especially when a final pass has to break a compact block.",
+      "noteZh": "卡库塔给刚果民主共和国左脚想象力，尤其当最后一传需要打破密集防线时。"
+    },
+    "Gedeon Kalulu": {
+      "displayName": "Gédéon Kalulu",
+      "league": "Cypriot First Division",
+      "skills": ["Right-back speed", "Overlap timing", "Recovery defending"],
+      "note": "Kalulu gives DR Congo right-side speed, overlapping when space opens and recovering quickly.",
+      "noteZh": "卡卢卢给刚果民主共和国右路速度，能在空间打开时套上，也能快速回追。"
+    },
+    "Joris Kayembe": {
+      "skills": ["Left-back width", "Crossing", "Wide recovery"],
+      "note": "Kayembe gives DR Congo width from full-back, pushing attacks up the left without losing recovery speed.",
+      "noteZh": "约里斯·卡延贝给刚果民主共和国边后卫宽度，能从左路推进进攻且不丢回追速度。"
+    },
+    "Lionel Mpasi": {
+      "skills": ["Goalkeeper command", "Shot stopping", "Penalty-area reach"],
+      "note": "Mpasi gives DR Congo a commanding goalkeeper presence, important when games become set-piece heavy.",
+      "noteZh": "姆帕西给刚果民主共和国有指挥力的门将存在感，当比赛充满定位球时很重要。"
+    },
+    "Matthieu Epolo": {
+      "skills": ["Goalkeeper reactions", "Line saves", "Distribution"],
+      "note": "Epolo gives DR Congo young goalkeeper depth, useful insurance for reactive saves and distribution.",
+      "noteZh": "埃波洛给刚果民主共和国年轻门将深度，是反应扑救和出球方面的有用保障。"
+    },
+    "Meschack Elia": {
+      "skills": ["Explosive pace", "Channel running", "Counter attacks"],
+      "note": "Elia gives DR Congo burst speed, stretching defenders and making counters feel immediate.",
+      "noteZh": "埃利亚给刚果民主共和国爆发速度，能拉开防守者并让反击马上形成威胁。"
+    },
+    "Nathanael Mbuku": {
+      "displayName": "Nathanaël Mbuku",
+      "league": "Ligue 2",
+      "skills": ["Wide dribbling", "Inside shooting", "Pressing energy"],
+      "note": "Mbuku adds wide invention, able to cut inside and turn a quiet possession into a shot.",
+      "noteZh": "姆布库增加边路创造，能内切并把平静控球转成射门。"
+    },
+    "Ngalayel Mukau": {
+      "displayName": "Ngal'ayel Mukau",
+      "skills": ["Midfield bite", "Ball winning", "Short progression"],
+      "note": "Mukau gives DR Congo midfield bite, useful for winning duels and keeping the next pass simple.",
+      "noteZh": "穆考给刚果民主共和国中场硬度，适合赢下对抗并把下一脚处理简单化。"
+    },
+    "Noah Sadiki": {
+      "skills": ["Press resistance", "Midfield versatility", "Ball carrying"],
+      "note": "Sadiki gives DR Congo flexible midfield control, able to receive pressure and carry into space.",
+      "noteZh": "萨迪基给刚果民主共和国灵活中场控制，能在压力下接球并带入空间。"
+    },
+    "Samuel Moutoussamy": {
+      "league": "Greek Super League",
+      "skills": ["Midfield coverage", "Pressing range", "Link passing"],
+      "note": "Moutoussamy gives DR Congo midfield coverage, helping connect defensive work to the first forward pass.",
+      "noteZh": "穆图萨米给刚果民主共和国中场覆盖，帮助把防守工作衔接到第一脚向前传球。"
+    },
+    "Simon Banza": {
+      "league": "UAE Pro League",
+      "skills": ["Box finishing", "Aerial target", "Hold-up play"],
+      "note": "Banza gives DR Congo a strong box target, useful when crosses and early service become the plan.",
+      "noteZh": "班扎给刚果民主共和国强力禁区目标，当传中和早传成为计划时很有用。"
+    },
+    "Steve Kapuadi": {
+      "league": "Ekstraklasa",
+      "skills": ["Centre-back reach", "Aerial duels", "Left-side cover"],
+      "note": "Kapuadi gives DR Congo extra reach in defense, valuable against crosses and direct balls.",
+      "noteZh": "卡普阿迪给刚果民主共和国防线额外覆盖范围，面对传中和直接球很有价值。"
+    },
+    "Theo Bongonda": {
+      "displayName": "Théo Bongonda",
+      "position": "Right winger",
+      "club": "Spartak Moscow",
+      "league": "Russian Premier League",
+      "transfermarktPlayerCode": "theo-bongonda",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/280701-1689146026.png?lm=1",
+      "marketValueEurMillions": 3,
+      "skills": ["Wing acceleration", "One-on-one dribbling", "Cutbacks"],
+      "note": "Bongonda gives DR Congo a true winger's threat, beating defenders wide and looking for cutbacks.",
+      "noteZh": "邦贡达给刚果民主共和国真正的边锋威胁，能从外线过人并寻找倒三角。"
+    },
+    "Timothy Fayulu": {
+      "league": "Armenian Premier League",
+      "skills": ["Goalkeeper depth", "Shot stopping", "Cross handling"],
+      "note": "Fayulu gives DR Congo another goalkeeper option, useful for depth and training-ground competition.",
+      "noteZh": "法尤卢给刚果民主共和国另一个门将选择，适合阵容深度和队内竞争。"
+    },
+    "Yoane Wissa": {
+      "skills": ["Forward pressing", "Box finishing", "Left-side runs"],
+      "note": "Wissa gives DR Congo Premier League sharpness, pressing hard and attacking the box from the left.",
+      "noteZh": "维萨给刚果民主共和国英超级别的锐度，能强力压迫并从左侧攻击禁区。"
+    }
+  }
+}

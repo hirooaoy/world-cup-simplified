@@ -1,0 +1,174 @@
+{
+  "edition": "2026-world-cup",
+  "teamId": "SWE",
+  "teamName": "Sweden",
+  "profiles": {
+    "Alexander Bernhardsson": {
+      "skills": ["Direct wing running", "Counter sprints", "Final-third pressing"],
+      "note": "Sweden's direct runner, useful for stretching the right side and turning loose transitions into pressure.",
+      "noteZh": "亚历山大·伯恩哈德松是瑞典的直接冲刺点，能拉开右路并把转换中的散落机会变成压力。"
+    },
+    "Alexander Isak": {
+      "skills": ["Elite striker movement", "Composed finishing", "Link play"],
+      "note": "Sweden's reference striker, able to glide away from markers and turn half-chances into calm finishes.",
+      "noteZh": "亚历山大·伊萨克是瑞典的核心中锋，能优雅摆脱盯防并把半机会冷静转化为进球。"
+    },
+    "Anthony Elanga": {
+      "skills": ["Transition speed", "Left-side carries", "Behind-the-line runs"],
+      "note": "Sweden's transition accelerator, dangerous when he can attack space before the back line is set.",
+      "noteZh": "安东尼·埃兰加是瑞典的转换加速器，在防线站稳前冲击空间时很危险。"
+    },
+    "Benjamin Nygren": {
+      "skills": ["Attacking midfield craft", "Right-wing delivery", "Late box runs"],
+      "note": "Sweden's flexible attacking connector, able to drift wide, combine inside, and arrive late near goal.",
+      "noteZh": "本杰明·尼格伦是瑞典灵活的进攻连接者，能拉到边路、内收配合，并后插上到门前。"
+    },
+    "Besfort Zeneli": {
+      "skills": ["Midfield carrying", "Press resistance", "Short combinations"],
+      "note": "Sweden's young midfield carrier, useful for escaping pressure and keeping quick moves alive.",
+      "noteZh": "贝斯福特·泽内利是瑞典年轻的中场推进者，适合摆脱压力并延续快速进攻。"
+    },
+    "Carl Starfelt": {
+      "skills": ["Centre-back duels", "Aerial defending", "Back-line experience"],
+      "note": "Sweden's experienced centre-back, valuable for aerial control and steady defending when games get direct.",
+      "noteZh": "卡尔·斯塔费尔特是瑞典经验型中卫，在比赛变得直接时能提供空中控制和稳定防守。"
+    },
+    "Daniel Svensson": {
+      "skills": ["Left-side versatility", "Progressive carries", "Midfield support"],
+      "note": "Sweden's left-side hybrid, able to support midfield possession or push forward from full-back zones.",
+      "noteZh": "丹尼尔·斯文松是瑞典左路混合型球员，能支援中场控球，也能从边后卫区域前插。"
+    },
+    "Elliot Stroud": {
+      "league": "Allsvenskan",
+      "skills": ["Left-sided width", "Wing-back energy", "Crossing angles"],
+      "note": "Sweden's left-side width option, giving the team running power and sharper crossing angles from deep.",
+      "noteZh": "埃利奥特·斯特劳德是瑞典左路宽度选择，能从较深位置带来跑动力和更好的传中角度。"
+    },
+    "Eric Smith": {
+      "summary": "Eric Smith is a Sweden centre-back at St. Pauli who gives the national team defensive midfield cover, back-line calm, and long passing.",
+      "transfermarktPlayerCode": "eric-smith",
+      "birthDate": "1997-01-08",
+      "position": "Centre-back",
+      "club": "St. Pauli",
+      "league": "Bundesliga",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/292534-1755032356.jpg?lm=1",
+      "marketValueEurMillions": 5,
+      "skills": ["Centre-back passing", "Midfield cover", "Set-piece service"],
+      "note": "Sweden's calm defensive passer, useful when they need a centre-back who can also protect midfield space.",
+      "noteZh": "埃里克·史密斯是瑞典冷静的防守传球手，球队需要能兼顾中卫和中场保护的人时很有用。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/eric-smith/profil/spieler/292534"
+    },
+    "Gabriel Gudmundsson": {
+      "skills": ["Left-back recovery", "Overlap timing", "Cross prevention"],
+      "note": "Sweden's left-back stabilizer, bringing recovery speed and enough forward support to balance the flank.",
+      "noteZh": "加布里埃尔·古德蒙松是瑞典左后卫稳定点，能带来回追速度和足够的前插支援来平衡边路。"
+    },
+    "Gustaf Lagerbielke": {
+      "summary": "Gustaf Lagerbielke is a Sweden centre-back at Braga who gives the national team aerial defending, duel strength, and back-line depth.",
+      "transfermarktPlayerCode": "gustaf-lagerbielke",
+      "birthDate": "2000-04-10",
+      "position": "Centre-back",
+      "club": "Braga",
+      "league": "Primeira Liga",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/485395-1781507635.jpg?lm=1",
+      "marketValueEurMillions": 10,
+      "skills": ["Aerial defending", "Centre-back depth", "Set-piece threat"],
+      "note": "Sweden's aerial centre-back option, useful for defending crosses and attacking restarts at the other end.",
+      "noteZh": "古斯塔夫·拉格比尔克是瑞典空中型中卫选择，适合防守传中并在另一端冲击定位球。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/gustaf-lagerbielke/profil/spieler/485395"
+    },
+    "Gustaf Nilsson": {
+      "summary": "Gustaf Nilsson is a Sweden centre-forward at Club Brugge who gives the national team hold-up play, aerial presence, and penalty-box depth.",
+      "transfermarktPlayerCode": "gustaf-nilsson",
+      "birthDate": "1997-05-23",
+      "position": "Centre-forward",
+      "club": "Club Brugge",
+      "league": "Belgian Pro League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/320440-1754511265.jpg?lm=1",
+      "marketValueEurMillions": 1.8,
+      "skills": ["Hold-up play", "Aerial target", "Box finishing"],
+      "note": "Sweden's physical striker depth, valuable when they want a target for crosses and second balls.",
+      "noteZh": "古斯塔夫·尼尔松是瑞典身体型中锋深度，球队需要传中目标和第二落点时很有价值。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/gustaf-nilsson/profil/spieler/320440"
+    },
+    "Herman Johansson": {
+      "skills": ["Right-back energy", "Wide defending", "Overlap support"],
+      "note": "Sweden's energetic right-back option, giving the flank recovery work and steady overlap support.",
+      "noteZh": "赫尔曼·约翰松是瑞典充满活力的右后卫选择，能给边路带来回追和稳定套边支援。"
+    },
+    "Hjalmar Ekdal": {
+      "skills": ["Centre-back cover", "Aerial duels", "Defensive concentration"],
+      "note": "Sweden's reliable centre-back cover, suited to compact defending and long spells without the ball.",
+      "noteZh": "亚尔马尔·埃克达尔是瑞典可靠的中卫保障，适合紧凑防守和长时间无球阶段。"
+    },
+    "Isak Hien": {
+      "skills": ["Front-foot defending", "Recovery pace", "Physical duels"],
+      "note": "Sweden's aggressive centre-back, strong stepping into duels and quick enough to clean up behind him.",
+      "noteZh": "伊萨克·希恩是瑞典主动型中卫，擅长前顶对抗，也有速度清理身后空间。"
+    },
+    "Jacob Widell Zetterstrom": {
+      "displayName": "Jacob Widell Zetterström",
+      "skills": ["Goalkeeper depth", "Shot stopping", "Commanding frame"],
+      "note": "Sweden's goalkeeper depth, giving them size, reflexes, and a confident penalty-area presence.",
+      "noteZh": "雅各布·维德尔·泽特斯特伦是瑞典门将深度选择，带来身材、反应和自信的禁区存在感。"
+    },
+    "Jesper Karlstrom": {
+      "displayName": "Jesper Karlström",
+      "skills": ["Midfield screening", "Second-ball work", "Simple passing"],
+      "note": "Sweden's midfield worker, useful for collecting second balls and keeping possession from getting loose.",
+      "noteZh": "耶斯佩尔·卡尔斯特伦是瑞典中场工兵，适合争第二落点并避免控球变得松散。"
+    },
+    "Ken Sema": {
+      "club": "Pafos",
+      "league": "Cypriot First Division",
+      "skills": ["Left-sided experience", "Wing-back defending", "Crossing service"],
+      "note": "Sweden's experienced left-side option, able to defend as a wing-back and still deliver from wide areas.",
+      "noteZh": "肯·塞马是瑞典经验丰富的左路选择，能像翼卫一样防守，也能从边路送出传中。"
+    },
+    "Kristoffer Nordfeldt": {
+      "league": "Allsvenskan",
+      "skills": ["Veteran goalkeeping", "Shot stopping", "Tournament calm"],
+      "note": "Sweden's veteran goalkeeper cover, trusted for calm decisions and steady shot-stopping depth.",
+      "noteZh": "克里斯托弗·诺德费尔特是瑞典资深门将保障，能带来冷静决策和稳定扑救深度。"
+    },
+    "Lucas Bergvall": {
+      "skills": ["Teenage midfield control", "Forward carries", "Final-third timing"],
+      "note": "Sweden's high-ceiling midfield talent, able to carry forward and add imagination between the lines.",
+      "noteZh": "卢卡斯·贝里瓦尔是瑞典上限很高的中场天才，能向前带球并在线间增加想象力。"
+    },
+    "Mattias Svanberg": {
+      "league": "Bundesliga",
+      "skills": ["Box-to-box running", "Long shooting", "Midfield balance"],
+      "note": "Sweden's two-way midfielder, useful for balancing possession with late runs and shooting threat.",
+      "noteZh": "马蒂亚斯·斯万贝里是瑞典双向中场，能用后插上和射门威胁平衡控球。"
+    },
+    "Taha Ali": {
+      "league": "Allsvenskan",
+      "skills": ["One-on-one dribbling", "Left-wing acceleration", "Bench spark"],
+      "note": "Sweden's dribbling spark, capable of changing the tempo with a direct carry from the left.",
+      "noteZh": "塔哈·阿里是瑞典的盘带火花，能从左路直接带球改变比赛节奏。"
+    },
+    "Victor Lindelof": {
+      "displayName": "Victor Lindelöf",
+      "skills": ["Defensive leadership", "Centre-back passing", "Back-line organization"],
+      "note": "Sweden's defensive leader, still central to organizing the line and passing out calmly.",
+      "noteZh": "维克托·林德洛夫是瑞典防守领袖，仍然是组织防线和冷静出球的核心。"
+    },
+    "Viktor Gyokeres": {
+      "displayName": "Viktor Gyökeres",
+      "skills": ["Power running", "Ruthless finishing", "Hold-up strength"],
+      "note": "Sweden's power striker, able to carry through contact and finish chances before defenders settle.",
+      "noteZh": "维克托·哲凯赖什是瑞典力量型中锋，能带球穿过对抗并在后卫站稳前完成终结。"
+    },
+    "Viktor Johansson": {
+      "skills": ["Shot stopping", "Goalkeeper distribution", "Penalty-area command"],
+      "note": "Sweden's in-form goalkeeper option, bringing reflex saves and clear command when the box gets crowded.",
+      "noteZh": "维克托·约翰松是瑞典状态出色的门将选择，禁区拥挤时能带来反应扑救和清晰指挥。"
+    },
+    "Yasin Ayari": {
+      "skills": ["Midfield progression", "Press resistance", "Final-third support"],
+      "note": "Sweden's progressive midfield carrier, useful for escaping pressure and supporting attacks around the box.",
+      "noteZh": "亚辛·阿亚里是瑞典推进型中场，适合摆脱压力并在禁区周围支援进攻。"
+    }
+  }
+}

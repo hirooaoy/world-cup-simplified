@@ -1,0 +1,285 @@
+{
+  "edition": "2026-world-cup",
+  "teamId": "CZE",
+  "teamName": "Czechia",
+  "profiles": {
+    "Adam Hlozek": {
+      "skills": [
+        "Second-striker movement",
+        "Between-lines touch",
+        "Shot creation"
+      ],
+      "note": "Czechia's roaming forward, useful for dropping between lines, combining near Schick, and turning loose balls into shots.",
+      "noteZh": "亚当·赫洛热克是捷克游动型前锋，能回撤到线间、在希克身边配合，并把松散球权转化为射门。"
+    },
+    "Alexandr Sojka": {
+      "league": "Czech First League",
+      "skills": [
+        "Central passing",
+        "Press resistance",
+        "Youthful tempo"
+      ],
+      "note": "Czechia's young midfield passer, helping them keep possession connected and escape pressure through short combinations.",
+      "noteZh": "亚历山大·索伊卡是捷克年轻中场传球手，能帮助球队保持控球连接，并通过短传配合摆脱压力。"
+    },
+    "David Doudera": {
+      "league": "Czech First League",
+      "skills": [
+        "Right-side running",
+        "Early crossing",
+        "Wing-back energy"
+      ],
+      "note": "Czechia's right-side runner, giving them repeated overlaps, early delivery, and enough stamina to recover after attacks.",
+      "noteZh": "大卫·杜德拉是捷克右路跑动点，能反复套边、早早传中，并有体能在进攻后回追。"
+    },
+    "David Jurasek": {
+      "skills": [
+        "Left-back width",
+        "Crossing range",
+        "Recovery pace"
+      ],
+      "note": "Czechia's left-back outlet, stretching the flank with width, crossing from deeper zones, and recovering into the back line.",
+      "noteZh": "大卫·尤拉塞克是捷克左后卫出口，能用宽度拉开边路、从更深位置传中，并回收到防线。"
+    },
+    "David Zima": {
+      "league": "Czech First League",
+      "skills": [
+        "Centre-back defending",
+        "Aerial clearances",
+        "Back-line passing"
+      ],
+      "note": "Czechia's composed centre-back, useful for aerial clearances, simple first passes, and keeping the defensive line organized.",
+      "noteZh": "大卫·齐马是捷克沉稳中卫，能完成空中解围、送出简洁第一传，并保持防线组织。"
+    },
+    "Denis Visinsky": {
+      "league": "Czech First League",
+      "skills": [
+        "Attacking midfield runs",
+        "Quick combinations",
+        "Bench creativity"
+      ],
+      "note": "Czechia's creative midfield spark, bringing quick combinations, late runs, and fresh ideas when a match tightens.",
+      "noteZh": "丹尼斯·维辛斯基是捷克中场创造火花，能带来快速配合、后插上跑动，并在比赛变紧时提供新想法。"
+    },
+    "Hugo Sochurek": {
+      "displayName": "Hugo Sochůrek",
+      "sourceTitle": "Hugo Sochůrek",
+      "transfermarktPlayerCode": "hugo-sochurek",
+      "birthDate": "2008-06-07",
+      "summary": "Hugo Sochůrek is a Czechia central midfielder from Sparta Prague who adds youthful passing range, pressure resistance, and long-term upside to the squad.",
+      "position": "Central midfielder",
+      "club": "Sparta Prague",
+      "league": "Czech First League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/1206877-1761246727.jpg?lm=1",
+      "marketValueEurMillions": 3.5,
+      "skills": [
+        "Teenage composure",
+        "Central passing",
+        "Pressure escapes"
+      ],
+      "note": "Czechia's teenage midfield wildcard, able to receive under pressure, pass forward early, and change the team's rhythm.",
+      "noteZh": "雨果·索胡雷克是捷克年轻中场变数，能在压力下接球、提前向前传，并改变球队节奏。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/hugo-sochurek/profil/spieler/1206877"
+    },
+    "Jan Kuchta": {
+      "league": "Czech First League",
+      "skills": [
+        "Forward pressing",
+        "Channel runs",
+        "Penalty-box work"
+      ],
+      "note": "Czechia's hard-running forward, useful for pressing centre-backs, attacking channels, and keeping defenders busy near Schick.",
+      "noteZh": "扬·库赫塔是捷克勤跑型前锋，能压迫中卫、冲击通道，并在希克身边牵制后卫。"
+    },
+    "Jaroslav Zeleny": {
+      "displayName": "Jaroslav Zelený",
+      "sourceTitle": "Jaroslav Zelený",
+      "transfermarktPlayerCode": "jaroslav-zeleny",
+      "birthDate": "1992-08-20",
+      "summary": "Jaroslav Zelený is a Czechia defender from Sparta Prague who can cover centre-back or left-back and gives the squad experienced defensive balance.",
+      "position": "Centre-back, left-back",
+      "club": "Sparta Prague",
+      "league": "Czech First League",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/142219-1781248144.jpg?lm=1",
+      "marketValueEurMillions": 0.6,
+      "skills": [
+        "Left-side cover",
+        "Defensive balance",
+        "Aerial duels"
+      ],
+      "note": "Czechia's experienced left-side defender, useful for back-three balance, aerial duels, and closing games with structure.",
+      "noteZh": "雅罗斯拉夫·泽莱尼是捷克经验丰富的左侧防守者，能平衡三中卫体系、争顶，并用结构收住比赛。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/jaroslav-zeleny/profil/spieler/142219"
+    },
+    "Jindrich Stanek": {
+      "league": "Czech First League",
+      "skills": [
+        "Shot stopping",
+        "Box command",
+        "Keeper communication"
+      ],
+      "note": "Czechia's commanding goalkeeper, giving them reflex saves, box control, and clear defensive communication.",
+      "noteZh": "因德日赫·斯塔涅克是捷克指挥型门将，能提供反应扑救、禁区控制和清晰防线沟通。"
+    },
+    "Ladislav Krejci": {
+      "skills": [
+        "Left-footed defending",
+        "Set-piece threat",
+        "Back-line leadership"
+      ],
+      "note": "Czechia's left-footed defensive leader, combining centre-back security with set-piece danger and midfield edge.",
+      "noteZh": "拉迪斯拉夫·克雷伊奇是捷克左脚防线领袖，能兼具中卫安全感、定位球威胁和中场硬度。"
+    },
+    "Lukas Cerv": {
+      "league": "Czech First League",
+      "skills": [
+        "Central ball winning",
+        "Forward passing",
+        "Counter pressure"
+      ],
+      "note": "Czechia's central disruptor, winning loose balls, pressing counters early, and moving the first pass forward.",
+      "noteZh": "卢卡什·切尔夫是捷克中路破坏者，能抢下松散球权、提前压制反击，并把第一脚传球向前送。"
+    },
+    "Lukas Hornicek": {
+      "displayName": "Lukáš Horníček",
+      "sourceTitle": "Lukáš Horníček",
+      "transfermarktPlayerCode": "lukas-hornicek",
+      "birthDate": "2002-07-13",
+      "summary": "Lukáš Horníček is a Czechia goalkeeper from Braga who adds a young, high-upside shot-stopping option to the squad.",
+      "position": "Goalkeeper",
+      "club": "Braga",
+      "league": "Primeira Liga",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/629773-1732826321.jpg?lm=1",
+      "marketValueEurMillions": 18,
+      "skills": [
+        "Shot stopping",
+        "Young goalkeeper upside",
+        "Quick reactions"
+      ],
+      "note": "Czechia's young goalkeeper option, bringing quick reactions, modern footwork, and long-term upside behind the senior keepers.",
+      "noteZh": "卢卡什·霍尔尼切克是捷克年轻门将选择，能在主力门将身后提供快速反应、现代脚下技术和长期潜力。",
+      "sourceUrl": "https://www.transfermarkt.co.uk/lukas-hornicek/profil/spieler/629773"
+    },
+    "Lukas Provod": {
+      "skills": [
+        "Left-footed delivery",
+        "Midfield width",
+        "Late box runs"
+      ],
+      "note": "Czechia's left-footed connector, giving them wide delivery, midfield balance, and late runs into shooting zones.",
+      "noteZh": "卢卡什·普罗沃德是捷克左脚连接点，能提供边路传球、中场平衡，并后插上进入射门区域。"
+    },
+    "Matej Kovar": {
+      "skills": [
+        "Sweeper-keeper play",
+        "Short distribution",
+        "Shot stopping"
+      ],
+      "note": "Czechia's modern goalkeeper, comfortable stepping high, passing short under pressure, and making reaction saves.",
+      "noteZh": "马捷伊·科瓦日是捷克现代型门将，能高位出击、在压力下短传，并完成反应扑救。"
+    },
+    "Michal Sadilek": {
+      "skills": [
+        "Midfield balance",
+        "Left-footed circulation",
+        "Pressing work"
+      ],
+      "note": "Czechia's balance midfielder, helping circulation with his left foot and adding pressing work around second balls.",
+      "noteZh": "米哈尔·萨迪莱克是捷克平衡型中场，能用左脚帮助传导，并围绕第二落点增加压迫。"
+    },
+    "Mojmir Chytil": {
+      "league": "Czech First League",
+      "skills": [
+        "Target play",
+        "Aerial pressure",
+        "Box finishing"
+      ],
+      "note": "Czechia's target-forward option, useful for aerial pressure, holding up direct balls, and finishing from crowded areas.",
+      "noteZh": "莫伊米尔·希蒂尔是捷克支点前锋选择，能施加空中压力、背身拿住直传，并在拥挤区域终结。"
+    },
+    "Patrik Schick": {
+      "skills": [
+        "Elite finishing",
+        "Left-footed shots",
+        "Penalty-box timing"
+      ],
+      "note": "Czechia's headline finisher, dangerous with left-footed shots, clever box timing, and chances that barely look open.",
+      "noteZh": "帕特里克·希克是捷克头号终结者，左脚射门、禁区时机和半机会把握都很有威胁。"
+    },
+    "Pavel Sulc": {
+      "skills": [
+        "Attacking midfield runs",
+        "Goal threat",
+        "Combination play"
+      ],
+      "note": "Czechia's attacking midfield runner, arriving beyond the striker, combining quickly, and adding real goal threat from deep.",
+      "noteZh": "帕维尔·舒尔茨是捷克前腰跑动点，能越过前锋接应、快速配合，并从较深位置增加得分威胁。"
+    },
+    "Robin Hranac": {
+      "skills": [
+        "Centre-back recovery",
+        "Aerial duels",
+        "Back-line passing"
+      ],
+      "note": "Czechia's mobile centre-back, helping them recover behind the line, win aerial duels, and pass cleanly into midfield.",
+      "noteZh": "罗宾·赫拉纳奇是捷克机动中卫，能在防线身后回追、赢下空中对抗，并干净传入中场。"
+    },
+    "Stepan Chaloupek": {
+      "league": "Czech First League",
+      "skills": [
+        "Centre-back depth",
+        "Aerial clearances",
+        "Defensive midfield cover"
+      ],
+      "note": "Czechia's defensive depth piece, able to cover centre-back or midfield while adding aerial clearances.",
+      "noteZh": "什捷潘·哈卢佩克是捷克防守深度选择，能覆盖中卫或中场位置，并增加空中解围。"
+    },
+    "Tomas Chory": {
+      "league": "Czech First League",
+      "skills": [
+        "Target-forward power",
+        "Aerial knockdowns",
+        "Box presence"
+      ],
+      "note": "Czechia's physical striker option, changing the game with aerial knockdowns, box presence, and direct service.",
+      "noteZh": "托马什·霍里是捷克身体型中锋选择，能通过头球摆渡、禁区存在感和直接传球改变比赛。"
+    },
+    "Tomas Holes": {
+      "league": "Czech First League",
+      "skills": [
+        "Defensive versatility",
+        "Set-piece marking",
+        "Game management"
+      ],
+      "note": "Czechia's experienced utility defender, useful at centre-back, right-back, or midfield when the game needs control.",
+      "noteZh": "托马什·霍莱什是捷克经验丰富的多面防守者，比赛需要控制时可踢中卫、右后卫或中场。"
+    },
+    "Tomas Soucek": {
+      "skills": [
+        "Aerial midfield power",
+        "Late box runs",
+        "Set-piece threat"
+      ],
+      "note": "Czechia's aerial midfield force, built for late box runs, set-piece pressure, and turning direct play into chances.",
+      "noteZh": "托马什·绍切克是捷克空中型中场力量，擅长后插上进禁区、定位球压迫，并把直接打法转化为机会。"
+    },
+    "Vladimir Coufal": {
+      "skills": [
+        "Right-back defending",
+        "Early crosses",
+        "Veteran edge"
+      ],
+      "note": "Czechia's veteran right-back, giving them tough wide defending, early crosses, and edge in physical matchups.",
+      "noteZh": "弗拉迪米尔·曹法尔是捷克老将右后卫，能提供强硬边路防守、早传中和身体对抗中的硬度。"
+    },
+    "Vladimir Darida": {
+      "skills": [
+        "Veteran midfield control",
+        "Short passing",
+        "Tempo management"
+      ],
+      "note": "Czechia's veteran tempo manager, useful for short passing, calming frantic spells, and guiding younger midfielders.",
+      "noteZh": "弗拉迪米尔·达里达是捷克老将节奏管理者，能短传控节奏、平息混乱阶段，并带动年轻中场。"
+    }
+  }
+}

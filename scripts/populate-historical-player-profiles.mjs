@@ -23,6 +23,10 @@ const imageFieldNames = [
 const preservedEnrichmentFieldNames = [
   ...imageFieldNames,
   "birthDate",
+  "clubAtTournament",
+  "marketValueAtTournamentEurMillions",
+  "marketValueAtTournamentSource",
+  "marketValueAtTournamentSourceUrl",
   "peakMarketValueEurMillions",
   "peakMarketValueSource",
   "peakMarketValueSourceUrl"
@@ -107,6 +111,23 @@ function lowerFirst(value) {
   return text ? `${text[0].toLocaleLowerCase("en-US")}${text.slice(1)}` : "";
 }
 
+function normalizeTeamName(value) {
+  return String(value || "")
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim();
+}
+
+function historicalProfileKey(name, teamName, tournamentYear) {
+  return `${name} / ${teamName} / ${tournamentYear}`;
+}
+
+function historicalRecordKey(name, teamName, tournamentYear) {
+  return [normalizePlayerName(name), normalizeTeamName(teamName), tournamentYear].join("|");
+}
+
 function addProfileAliases(map, profile) {
   if (!profile || typeof profile !== "object") {
     return;
@@ -182,8 +203,10 @@ function getEnrichmentFieldsForName(name, historicalEnrichmentLookup, currentIma
   return pickPreservedEnrichmentFields(currentImageLookup.get(key));
 }
 
-function getRecord(records, name) {
-  const existing = records.get(name);
+function getRecord(records, name, fixture, teamName) {
+  const tournamentYear = Number(fixture?.tournamentYear);
+  const key = historicalRecordKey(name, teamName, tournamentYear);
+  const existing = records.get(key);
   if (existing) {
     return existing;
   }
@@ -198,11 +221,13 @@ function getRecord(records, name) {
     positions: new Map(),
     scorerMatchIds: new Set(),
     shirtNumbers: new Map(),
+    teamName,
     teams: new Map(),
+    tournamentYear,
     years: new Set(),
     notes: []
   };
-  records.set(name, record);
+  records.set(key, record);
   return record;
 }
 
@@ -225,8 +250,8 @@ function addKeyPlayer(records, fixture, side, player) {
     return;
   }
 
-  const record = getRecord(records, player.name);
   const teamName = teamNameForSide(fixture, side);
+  const record = getRecord(records, player.name, fixture, teamName);
   addContext(record, fixture, teamName);
   record.keyMatchIds.add(fixture.id);
 
@@ -242,8 +267,8 @@ function addGoal(records, fixture, side, goal) {
     return;
   }
 
-  const record = getRecord(records, goal.name);
   const teamName = teamNameForSide(fixture, goal.ownGoal ? oppositeSide(side) : side);
+  const record = getRecord(records, goal.name, fixture, teamName);
   addContext(record, fixture, teamName);
   record.scorerMatchIds.add(fixture.id);
 
@@ -292,7 +317,6 @@ function inferSkills(record, position) {
 
 function buildNote(record, primaryTeam, position) {
   const positionText = lowerFirst(position) || "player";
-  const yearText = formatYearSeries(record.years);
   const impactParts = [];
 
   if (record.goalCount > 0) {
@@ -305,7 +329,7 @@ function buildNote(record, primaryTeam, position) {
     impactParts.push(`appears through ${pluralize(record.ownGoalCount, "own-goal record")}`);
   }
 
-  return `${primaryTeam}'s World Cup archive ${positionText}; ${impactParts.join(" and ")} across ${yearText}.`;
+  return `${primaryTeam}'s ${record.tournamentYear} World Cup ${positionText}; ${impactParts.join(" and ")}.`;
 }
 
 function formatArchiveYearLabel(years) {
@@ -344,8 +368,8 @@ function getRoleDescriptor(record, position) {
   return `${positionText} reference`;
 }
 
-function buildStyleNote(record, primaryTeam, position, years) {
-  const archiveLabel = `${primaryTeam} ${formatArchiveYearLabel(years)} archive`;
+function buildStyleNote(record, primaryTeam, position) {
+  const archiveLabel = `${primaryTeam} ${record.tournamentYear} archive`;
   const role = getRoleDescriptor(record, position);
   const impactParts = [];
 
@@ -365,7 +389,7 @@ function buildStyleNote(record, primaryTeam, position, years) {
 
 function buildSummary(record, primaryTeam, teams, years) {
   const teamText = formatSeries(teams, 4) || primaryTeam;
-  return `Historical card generated from World Cup scorer events, match appearances, tournament squads, and curated match-lens notes. Archive teams: ${teamText}. Archive tournaments: ${formatYearSeries(years)}.`;
+  return `Historical ${record.tournamentYear} World Cup card generated from scorer events, match appearances, tournament squads, and curated match-lens notes. Archive team: ${teamText}.`;
 }
 
 function buildProfile(record, imageFields = {}) {
@@ -377,21 +401,24 @@ function buildProfile(record, imageFields = {}) {
   const skills = inferSkills(record, position);
 
   return {
+    profileKey: historicalProfileKey(record.name, primaryTeam, record.tournamentYear),
     name: record.name,
     displayName: record.name,
     historical: true,
     sourceId,
+    teamName: primaryTeam,
     teams,
+    tournamentYear: record.tournamentYear,
     tournamentYears: years,
     position,
-    club: `${primaryTeam} World Cup archive`,
+    club: imageFields.clubAtTournament || `${primaryTeam} ${record.tournamentYear} World Cup archive`,
     uniformNumber: Number.isInteger(shirtNumber) && shirtNumber > 0 ? shirtNumber : undefined,
     goals: record.goalCount,
     ownGoals: record.ownGoalCount,
     keyMatchCount: record.keyMatchIds.size,
     scorerMatchCount: record.scorerMatchIds.size,
     skills,
-    styleNote: buildStyleNote(record, primaryTeam, position, years),
+    styleNote: buildStyleNote(record, primaryTeam, position),
     note: buildNote(record, primaryTeam, position),
     summary: buildSummary(record, primaryTeam, teams, record.years),
     ...imageFields,
@@ -423,11 +450,11 @@ for (const fixture of historyData.fixtures || []) {
 
 const profiles = Object.fromEntries(
   [...records.values()]
-    .sort((a, b) => a.name.localeCompare(b.name))
-    .map((record) => [
-      record.name,
-      buildProfile(record, getEnrichmentFieldsForName(record.name, historicalEnrichmentLookup, currentImageLookup))
-    ])
+    .sort((a, b) => a.tournamentYear - b.tournamentYear || a.teamName.localeCompare(b.teamName) || a.name.localeCompare(b.name))
+    .map((record) => {
+      const profile = buildProfile(record, getEnrichmentFieldsForName(record.name, historicalEnrichmentLookup, currentImageLookup));
+      return [profile.profileKey, profile];
+    })
 );
 
 const hasImages = Object.values(profiles).some((profile) => profile.imageUrl);
@@ -443,8 +470,8 @@ const output = {
   updatedAt: new Date().toISOString(),
   sourceIds: [...sourceIds],
   coverage: {
-    status: "complete-men-1930-2022-key-players-and-scorers",
-    note: "One historical card profile for every player mentioned by archived key-player paragraphs or historical goal records."
+    status: "complete-men-1930-2022-key-players-and-scorers-by-team-year",
+    note: "One historical card profile for every player, team and tournament year shown by archived key-player paragraphs or historical goal records."
   },
   profiles
 };

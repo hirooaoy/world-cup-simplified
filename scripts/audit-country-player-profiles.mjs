@@ -35,9 +35,10 @@ const requireImage = !hasArg("allow-missing-image");
 const requireSourceUrl = !hasArg("allow-missing-source-url");
 const requireNoteZh = !hasArg("allow-missing-note-zh");
 const minProfiles = positiveInteger(getArgValue("min-profiles"), 1);
+const maxProfiles = positiveInteger(getArgValue("max-profiles") || getArgValue("exact-profiles"), 0);
 
 if (!teamIds.length) {
-  console.error("Usage: node scripts/audit-country-player-profiles.mjs --teams=CRO,PAN");
+  console.error("Usage: node scripts/audit-country-player-profiles.mjs --teams=CRO,PAN --min-profiles=26 --max-profiles=26");
   process.exit(1);
 }
 
@@ -63,6 +64,9 @@ for (const teamId of teamIds) {
 
   if (teamProfiles.length < minProfiles) {
     failures.push(`${teamId}: expected at least ${minProfiles} profiles, found ${teamProfiles.length}`);
+  }
+  if (maxProfiles && teamProfiles.length > maxProfiles) {
+    failures.push(`${teamId}: expected at most ${maxProfiles} profiles, found ${teamProfiles.length}`);
   }
 
   const missingCore = [];
@@ -116,6 +120,9 @@ for (const teamId of teamIds) {
     }
     if (
       /\bmay refer to\b/i.test(profile.summary || "") ||
+      /\bis the name of\b/i.test(profile.summary || "") ||
+      /\blist of football games\b/i.test(profile.summary || "") ||
+      /\bnational .* team results\b/i.test(profile.summary || "") ||
       /\bdisambiguation\b/i.test(profile.sourceUrl || "")
     ) {
       disambiguationLike.push(profileName);

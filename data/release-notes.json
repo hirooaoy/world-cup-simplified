@@ -1,6 +1,21 @@
 {
-  "updatedAt": "2026-06-24T16:23:00-07:00",
+  "updatedAt": "2026-06-24T23:54:13-07:00",
   "releases": [
+    {
+      "date": "2026-06-24",
+      "title": "Curated player-card rollout",
+      "titleZh": "精选球员卡上线",
+      "highlights": [
+        "All 48 current tournament teams now have 26 audited profile overrides each before curated cards appear in the app.",
+        "Player-card matching now respects aliases, team-specific names, and historical tournament/team versions to avoid showing the wrong profile.",
+        "Projected later-round bracket paths and the third-place race now explain provisional status, top-eight cutoffs, and tiebreakers in English and Chinese."
+      ],
+      "highlightsZh": [
+        "当前赛事的 48 支球队现在各有 26 张通过审核的资料覆盖，只有通过国家工作流后才会在应用中显示精选球员卡。",
+        "球员卡匹配现在会识别别名、球队限定姓名，以及历史赛事/球队版本，避免显示错误资料。",
+        "后续轮次预测路径和最佳第三名竞争现在会用中英文说明临时状态、前八晋级线和同分规则。"
+      ]
+    },
     {
       "date": "2026-06-24",
       "title": "Official live-score corrections",

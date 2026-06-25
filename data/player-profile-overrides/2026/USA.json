@@ -1,0 +1,183 @@
+{
+  "edition": "2026-world-cup",
+  "teamId": "USA",
+  "teamName": "United States",
+  "rosterNameOverrides": {
+    "Alejandro ZENDEJAS SAAVEDRA": "Alex Zendejas",
+    "ZENDEJAS Alex": "Alex Zendejas",
+    "Joseph Michael SCALLY": "Joe Scally",
+    "Maximilian Michael ARFSTEN": "Max Arfsten",
+    "McKENZIE Mark": "Mark McKenzie",
+    "MCKENZIE Mark": "Mark McKenzie",
+    "Timothy Michael REAM": "Tim Ream"
+  },
+  "removeProfiles": [
+    "Alejandro Zendejas Saavedra",
+    "Joseph Michael Scally",
+    "Maximilian Michael Arfsten",
+    "Mckenzie Mark",
+    "Timothy Michael Ream"
+  ],
+  "profiles": {
+    "Alex Freeman": {
+      "position": "Right-back",
+      "skills": ["Right-back acceleration", "Overlapping runs", "Recovery defending"],
+      "note": "United States' young right-side runner, useful for pushing the line higher and recovering wide space.",
+      "noteZh": "亚历克斯·弗里曼是美国年轻的右路跑动点，适合把边路位置推高并回追边路空间。"
+    },
+    "Alex Zendejas": {
+      "displayName": "Álex Zendejas",
+      "aliases": ["Alejandro Zendejas", "Alejandro Zendejas Saavedra", "ZENDEJAS Alex", "Alejandro ZENDEJAS SAAVEDRA"],
+      "sourceTitle": "Álex Zendejas",
+      "transfermarktPlayerCode": "alex-zendejas",
+      "birthDate": "1998-02-07",
+      "summary": "Álex Zendejas is a United States right winger from América who gives the national team left-footed service, box arrivals, and Liga MX sharpness.",
+      "position": "Right winger",
+      "club": "América",
+      "league": "Liga MX",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/351505-1735980931.jpg?lm=1",
+      "marketValueEurMillions": 10,
+      "skills": ["Left-footed service", "Box arrivals", "Wide combinations"],
+      "note": "United States' left-footed right winger, dangerous when he slips inside and serves early balls into the box.",
+      "noteZh": "阿莱克斯·森德哈斯是美国左脚右边锋，内收到中路并提前把球送入禁区时很危险。",
+      "sourceUrl": "https://www.transfermarkt.com/alex-zendejas/profil/spieler/351505"
+    },
+    "Antonee Robinson": {
+      "skills": ["Left-back speed", "Overlap volume", "Recovery defending"],
+      "note": "United States' left-flank engine, able to create width repeatedly and still recover behind the ball.",
+      "noteZh": "安东尼·罗宾逊是美国左路发动机，能反复制造宽度，并仍然回收到球后防守。"
+    },
+    "Auston Trusty": {
+      "position": "Centre-back",
+      "skills": ["Left-sided defending", "Aerial duels", "Recovery cover"],
+      "note": "United States' left-sided centre-back option, useful for aerial defending and covering space beside Robinson.",
+      "noteZh": "奥斯顿·特拉斯蒂是美国左侧中卫选择，适合空中防守并覆盖罗宾逊身旁的空间。"
+    },
+    "Brenden Aaronson": {
+      "skills": ["Pressing energy", "Between-lines movement", "Quick combinations"],
+      "note": "United States' pressing connector, valuable for turning loose touches into attacks before defenses reset.",
+      "noteZh": "布伦登·阿伦森是美国压迫连接点，能在防守重整前把松散触球变成进攻。"
+    },
+    "Chris Brady": {
+      "skills": ["Goalkeeper reflexes", "Young shot stopping", "Box command"],
+      "note": "United States' young goalkeeper depth, bringing reflexes and upside if the match gets stretched.",
+      "noteZh": "克里斯·布雷迪是美国年轻门将深度，比赛被拉开时能带来反应和上升空间。"
+    },
+    "Chris Richards": {
+      "skills": ["Centre-back range", "Front-foot defending", "Set-piece threat"],
+      "note": "United States' athletic defensive anchor, trusted to defend space and attack first contacts on set pieces.",
+      "noteZh": "克里斯·理查兹是美国运动能力强的防守支柱，能防守空间并在定位球中争抢第一点。"
+    },
+    "Christian Pulisic": {
+      "position": "Winger",
+      "skills": ["Wing isolation", "Inside finishing", "Penalty-box creation"],
+      "note": "United States' headline attacker, most dangerous when he isolates a defender and drives into shooting zones.",
+      "noteZh": "克里斯蒂安·普利西奇是美国头号攻击手，一对一面对防守者并推进到射门区域时最危险。"
+    },
+    "Cristian Roldan": {
+      "skills": ["Midfield reliability", "Counter-pressing", "Short combinations"],
+      "note": "United States' steady midfield glue, useful for keeping attacks connected and closing transition leaks.",
+      "noteZh": "克里斯蒂安·罗尔丹是美国稳健的中场粘合剂，适合保持进攻连接并堵住转换漏洞。"
+    },
+    "Folarin Balogun": {
+      "skills": ["Runs in behind", "Striker finishing", "Channel movement"],
+      "note": "United States' line-stretching striker, dangerous when he bends runs behind and finishes early.",
+      "noteZh": "福拉林·巴洛贡是美国拉扯防线的中锋，弯线冲到身后并提前终结时很危险。"
+    },
+    "Giovanni Reyna": {
+      "skills": ["Central creativity", "Final pass", "Tempo changes"],
+      "note": "United States' central creator, able to slow the game down, pick the final pass, and change rhythm.",
+      "noteZh": "乔瓦尼·雷纳是美国中路创造者，能放慢比赛、选择最后一传并改变节奏。"
+    },
+    "Haji Wright": {
+      "skills": ["Forward power", "Left-side runs", "Penalty-box finishing"],
+      "note": "United States' power forward option, useful for channel runs and direct finishes when games open up.",
+      "noteZh": "哈吉·赖特是美国力量型前锋选择，比赛拉开时适合通道跑动和直接终结。"
+    },
+    "Joe Scally": {
+      "aliases": ["Joseph Michael Scally", "Joseph Michael SCALLY"],
+      "skills": ["Full-back defending", "One-on-one duels", "Back-post discipline"],
+      "note": "United States' duel-focused full-back, valuable for staying attached to wingers and protecting the back post.",
+      "noteZh": "乔·斯卡利是美国注重对抗的边后卫，对贴住边锋并保护后点很有价值。"
+    },
+    "Malik Tillman": {
+      "skills": ["Attacking midfield timing", "Box arrivals", "Close control"],
+      "note": "United States' smooth attacking midfielder, useful for late box runs and composed touches around pressure.",
+      "noteZh": "马利克·蒂尔曼是美国流畅的攻击型中场，适合后插上进入禁区并在压力周围冷静触球。"
+    },
+    "Mark McKenzie": {
+      "aliases": ["McKENZIE Mark", "MCKENZIE Mark", "Mckenzie Mark", "Mark Alexander McKenzie"],
+      "sourceTitle": "Mark McKenzie",
+      "transfermarktPlayerCode": "mark-mckenzie",
+      "birthDate": "1999-02-25",
+      "summary": "Mark McKenzie is a United States centre-back from Toulouse who gives the national team recovery defending, clean passing, and aerial control.",
+      "position": "Centre-back",
+      "club": "Toulouse",
+      "league": "Ligue 1",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Mark%20McKenzie%20USMNT%20v%20Belgium%20Mar%2028%202026-53%20%28cropped%29.jpg?width=160",
+      "marketValueEurMillions": 7,
+      "skills": ["Recovery defending", "Clean passing", "Aerial control"],
+      "note": "United States' composed centre-back option, useful for covering space and playing the first pass through pressure.",
+      "noteZh": "马克·麦肯齐是美国沉稳的中卫选择，适合覆盖空间并在压力下送出第一脚传球。",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Mark_McKenzie_(soccer,_born_1999)"
+    },
+    "Matt Freese": {
+      "skills": ["Goalkeeper reactions", "Penalty-area bravery", "Short distribution"],
+      "note": "United States' in-form goalkeeper option, bringing sharp reactions and bravery in crowded areas.",
+      "noteZh": "马特·弗里斯是美国状态正佳的门将选择，能在拥挤区域带来敏锐反应和勇气。"
+    },
+    "Matt Turner": {
+      "skills": ["Shot stopping", "Tournament experience", "Penalty presence"],
+      "note": "United States' experienced shot stopper, trusted for reflex saves and high-pressure goalkeeper moments.",
+      "noteZh": "马特·特纳是美国经验丰富的扑救型门将，反应扑救和高压门将场景都值得信任。"
+    },
+    "Max Arfsten": {
+      "aliases": ["Maximilian Michael Arfsten", "Maximilian Michael ARFSTEN"],
+      "skills": ["Left-sided wing play", "Direct crossing", "Late box support"],
+      "note": "United States' left-sided width option, useful for early service and arriving beyond the first attack.",
+      "noteZh": "马克斯·阿夫斯滕是美国左路宽度选择，适合提前传中并在第一波进攻后继续前插。"
+    },
+    "Miles Robinson": {
+      "skills": ["Recovery speed", "Centre-back duels", "Set-piece defending"],
+      "note": "United States' recovery-speed centre-back, built to erase space when the defensive line gets stretched.",
+      "noteZh": "迈尔斯·罗宾逊是美国回追速度型中卫，防线被拉开时能抹掉身后的空间。"
+    },
+    "Ricardo Pepi": {
+      "skills": ["Box finishing", "Near-post movement", "Striker pressing"],
+      "note": "United States' penalty-box finisher, sharp around near-post runs and loose balls inside the area.",
+      "noteZh": "里卡多·佩皮是美国禁区终结者，近门柱跑动和禁区内松散球处理都很敏锐。"
+    },
+    "Sebastian Berhalter": {
+      "skills": ["Set-piece delivery", "Midfield passing", "Counter-pressing"],
+      "note": "United States' set-piece and midfield passing option, useful when they need cleaner restarts and pressure after loss.",
+      "noteZh": "塞巴斯蒂安·贝尔哈特是美国定位球和中场传球选择，球队需要更干净的定位球和丢球后压迫时很有用。"
+    },
+    "Sergino Dest": {
+      "displayName": "Sergiño Dest",
+      "skills": ["Full-back dribbling", "Inside carries", "Right-side creation"],
+      "note": "United States' dribbling full-back, able to turn right-side possession into central creation.",
+      "noteZh": "塞尔吉尼奥·德斯特是美国盘带型边后卫，能把右路控球变成中路创造。"
+    },
+    "Tim Ream": {
+      "aliases": ["Timothy Michael Ream", "Timothy Michael REAM"],
+      "skills": ["Veteran defending", "Left-footed passing", "Back-line leadership"],
+      "note": "United States' veteran back-line organizer, valuable for left-footed passing and calm defensive decisions.",
+      "noteZh": "蒂姆·里姆是美国老将防线组织者，对左脚传球和冷静防守决策很有价值。"
+    },
+    "Timothy Weah": {
+      "skills": ["Right-side speed", "Vertical runs", "Wing-back cover"],
+      "note": "United States' vertical right-side runner, useful for stretching the field and covering multiple flank roles.",
+      "noteZh": "蒂莫西·维阿是美国纵向右路跑动点，适合拉长球场并覆盖多个边路职责。"
+    },
+    "Tyler Adams": {
+      "skills": ["Midfield screening", "Counter control", "Press leadership"],
+      "note": "United States' midfield alarm bell, built to stop counters early and organize the press around him.",
+      "noteZh": "泰勒·亚当斯是美国中场警报器，负责提前阻断反击并组织身边的压迫。"
+    },
+    "Weston McKennie": {
+      "skills": ["Box-to-box power", "Aerial arrivals", "Set-piece chaos"],
+      "note": "United States' box-to-box force, dangerous when he arrives late or turns set pieces into messy chances.",
+      "noteZh": "韦斯顿·麦肯尼是美国双向中场力量点，后插上或把定位球变成混乱机会时很危险。"
+    }
+  }
+}
