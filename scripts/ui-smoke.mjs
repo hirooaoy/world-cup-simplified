@@ -59,7 +59,7 @@ async function getMatchRowMetaCollisionMetrics(pageInstance, rowSelector = ".mat
         }
 
         const textPieces = Array.from(
-          row.querySelectorAll(".match-teams .flag, .match-teams .team-name, .match-teams .rank-pill, .match-teams .versus")
+          row.querySelectorAll(".match-teams .flag, .match-teams .team-name, .match-teams .versus")
         );
         const toRect = (element) => {
           const rect = element.getBoundingClientRect();
@@ -1982,6 +1982,7 @@ try {
       return {
         gapToScore: scoreBox ? scoreBox.left - teamsBox.right : null,
         lineHeight: Number.parseFloat(getComputedStyle(teams).lineHeight),
+        rankCount: row.querySelectorAll(".match-teams .rank-pill").length,
         rowHeight: row.getBoundingClientRect().height,
         scrollOverflow: row.scrollWidth - row.clientWidth,
         teamsHeight: teamsBox.height,
@@ -1989,12 +1990,13 @@ try {
       };
   });
   assert(
-    /^3:00PM Scotland\s*#42 vs/.test(midWidthCompletedRowMetrics.text) &&
+    /^3:00PM Scotland\s*vs/.test(midWidthCompletedRowMetrics.text) &&
+      midWidthCompletedRowMetrics.rankCount === 0 &&
       midWidthCompletedRowMetrics.teamsHeight <= midWidthCompletedRowMetrics.lineHeight * 1.25 &&
       midWidthCompletedRowMetrics.gapToScore >= 16 &&
       midWidthCompletedRowMetrics.rowHeight <= 32 &&
       midWidthCompletedRowMetrics.scrollOverflow <= 1,
-    `Completed mid-width rows should use available space instead of wrapping before the away team. Measured ${JSON.stringify(midWidthCompletedRowMetrics)}.`
+    `Completed mid-width rows should hide rank pills and use available space instead of wrapping before the away team. Measured ${JSON.stringify(midWidthCompletedRowMetrics)}.`
   );
 
   await page.setViewportSize({ width: 390, height: 844 });
@@ -2122,12 +2124,18 @@ try {
     const homeTeam = summary.querySelector(".summary-team:first-of-type");
     const versus = summary.querySelector(".versus");
     const awayTeam = summary.querySelector(".summary-team:last-of-type");
+    const ranks = Array.from(summary.querySelectorAll(".rank-pill"));
     const homeRect = homeTeam?.getBoundingClientRect();
     const versusRect = versus?.getBoundingClientRect();
     const awayRect = awayTeam?.getBoundingClientRect();
+    const rankRects = ranks.map((rank) => rank.getBoundingClientRect());
+    const rankFontSizes = ranks.map((rank) => Number.parseFloat(getComputedStyle(rank).fontSize));
 
     return {
       homeToVs: homeRect && versusRect ? Math.round(versusRect.left - homeRect.right) : null,
+      maxRankFontSize: Math.max(0, ...rankFontSizes),
+      maxRankHeight: Math.max(0, ...rankRects.map((rect) => rect.height)),
+      rankCount: ranks.length,
       vsToAway: versusRect && awayRect ? Math.round(awayRect.left - versusRect.right) : null,
       text: summary.textContent.replace(/\s+/g, " ").trim()
     };
@@ -2135,9 +2143,12 @@ try {
   assert(
     ecuadorGermanySummaryGap.homeToVs >= 0 &&
       ecuadorGermanySummaryGap.homeToVs <= 8 &&
+      ecuadorGermanySummaryGap.rankCount === 2 &&
+      ecuadorGermanySummaryGap.maxRankHeight <= 18 &&
+      ecuadorGermanySummaryGap.maxRankFontSize <= 11 &&
       ecuadorGermanySummaryGap.vsToAway >= 0 &&
       ecuadorGermanySummaryGap.vsToAway <= 8,
-    `Ecuador vs Germany detail heading should keep compact spacing around vs. Measured ${JSON.stringify(ecuadorGermanySummaryGap)}.`
+    `Ecuador vs Germany detail heading should keep compact spacing around vs with small world-rank pills in the title. Measured ${JSON.stringify(ecuadorGermanySummaryGap)}.`
   );
   await openMatchDetailById("turkiye-united-states-2026-06-25", "United States");
   assert(
@@ -2627,12 +2638,11 @@ try {
     };
   });
   assert(
-    bosniaScoreAlignment.hasWrappedClass &&
-      bosniaScoreAlignment.metaGapFromText >= 8 &&
+    bosniaScoreAlignment.metaGapFromText >= 8 &&
       bosniaScoreAlignment.scoreRightGap >= 0 &&
       bosniaScoreAlignment.scoreRightGap <= 12 &&
       bosniaScoreAlignment.rowScrollOverflow <= 1,
-    `Wrapped tablet match rows should keep score pills on the shared right edge. Measured ${JSON.stringify(bosniaScoreAlignment)}.`
+    `Tablet match rows should keep score pills on the shared right edge without rank-pill overflow. Measured ${JSON.stringify(bosniaScoreAlignment)}.`
   );
   await page.setViewportSize({ width: 390, height: 844 });
   await page.waitForTimeout(80);
@@ -3112,7 +3122,7 @@ try {
           .evaluate((row) => {
             const versus = row.querySelector(".versus");
             const versusRect = versus?.getBoundingClientRect();
-            const sameLineTeamPieces = Array.from(row.querySelectorAll(".match-teams .team-name, .match-teams .rank-pill"))
+            const sameLineTeamPieces = Array.from(row.querySelectorAll(".match-teams .team-name"))
               .filter((piece) => {
                 const rect = piece.getBoundingClientRect();
                 return versusRect && Math.abs(rect.top - versusRect.top) <= 1;
@@ -3142,79 +3152,44 @@ try {
               const element = row.querySelector(selector);
               const bounds = element?.getBoundingClientRect();
 
-	              return bounds
-	                ? {
-	                    bottom: Math.round(bounds.bottom),
-	                    center: Math.round(bounds.top + bounds.height / 2),
-	                    height: Math.round(bounds.height),
-	                    left: Math.round(bounds.left),
-	                    right: Math.round(bounds.right),
-	                    text: element.textContent.replace(/\s+/g, " ").trim(),
-	                    top: Math.round(bounds.top),
-	                    width: Math.round(bounds.width)
-	                  }
-	                : null;
-	            };
-            const textLineRects = (selector) => {
-              const element = row.querySelector(selector);
-
-              if (!element) {
-                return [];
-              }
-
-              const range = document.createRange();
-              range.selectNodeContents(element);
-              const rects = Array.from(range.getClientRects()).map((bounds) => ({
-                bottom: Math.round(bounds.bottom),
-                center: Math.round(bounds.top + bounds.height / 2),
-                height: Math.round(bounds.height),
-                left: Math.round(bounds.left),
-                right: Math.round(bounds.right),
-                top: Math.round(bounds.top),
-                width: Math.round(bounds.width)
-              }));
-              range.detach();
-
-              return rects;
+              return bounds
+                ? {
+                    bottom: Math.round(bounds.bottom),
+                    center: Math.round(bounds.top + bounds.height / 2),
+                    height: Math.round(bounds.height),
+                    left: Math.round(bounds.left),
+                    right: Math.round(bounds.right),
+                    text: element.textContent.replace(/\s+/g, " ").trim(),
+                    top: Math.round(bounds.top),
+                    width: Math.round(bounds.width)
+                  }
+                : null;
             };
 
             return {
               away: rect(".match-team-away"),
               awayFlag: rect(".match-team-away .flag"),
               awayName: rect(".match-team-away .team-name"),
-              awayNameLines: textLineRects(".match-team-away .team-name"),
-              awayRank: rect(".match-team-away .rank-pill"),
+              rankCount: row.querySelectorAll(".match-teams .rank-pill").length,
               hasWrappedClass: row.classList.contains("has-wrapped-matchup"),
               home: rect(".match-team-home"),
               homeName: rect(".match-team-home .team-name"),
-              homeNameLines: textLineRects(".match-team-home .team-name"),
-              homeRank: rect(".match-team-home .rank-pill"),
               meta: rect(".match-row-meta"),
               rowScrollOverflow: row.scrollWidth - row.clientWidth,
               text: row.innerText.replace(/\s+/g, " ").trim(),
               versus: rect(".match-versus")
             };
           });
-        const homeLastLine = curacaoCoteWrap.homeNameLines.at(-1);
-        const awayLastLine = curacaoCoteWrap.awayNameLines.at(-1);
-        const rankFollowsLine = (rank, line) =>
-          rank &&
-          line &&
-          Math.abs(rank.center - line.center) <= 3 &&
-          rank.left >= line.right - 1;
         assert(
           curacaoCoteWrap.homeName?.text === "Curaçao" &&
-            curacaoCoteWrap.homeRank?.text === "#82" &&
             curacaoCoteWrap.awayFlag?.text === "🇨🇮" &&
             curacaoCoteWrap.awayName?.text === "Côte d'Ivoire" &&
-            curacaoCoteWrap.awayRank?.text === "#33" &&
-            rankFollowsLine(curacaoCoteWrap.homeRank, homeLastLine) &&
-            rankFollowsLine(curacaoCoteWrap.awayRank, awayLastLine) &&
-            curacaoCoteWrap.homeRank.right <= curacaoCoteWrap.home.right + 1 &&
-            curacaoCoteWrap.awayRank.right <= curacaoCoteWrap.away.right + 1 &&
+            curacaoCoteWrap.rankCount === 0 &&
+            curacaoCoteWrap.homeName.right <= curacaoCoteWrap.home.right + 1 &&
+            curacaoCoteWrap.awayName.right <= curacaoCoteWrap.away.right + 1 &&
             Math.abs(curacaoCoteWrap.versus.center - curacaoCoteWrap.meta.center) <= 3 &&
             curacaoCoteWrap.rowScrollOverflow <= 1,
-          `Curaçao vs Côte d'Ivoire should keep each rank pill attached to the visible country-name line. Measured ${JSON.stringify(curacaoCoteWrap)}.`
+          `Curaçao vs Côte d'Ivoire should keep country names readable with no home-row rank pills. Measured ${JSON.stringify(curacaoCoteWrap)}.`
         );
       }
     }
@@ -4769,8 +4744,8 @@ try {
   assert(
     mobileRowMetrics.timeFont <= 12.5 &&
       mobileRowMetrics.teamsFont <= 14.5 &&
-      mobileRowMetrics.rankCount >= 1,
-    "Mobile match rows should keep compact time/team text with ranking pills visible."
+      mobileRowMetrics.rankCount === 0,
+    "Mobile match rows should keep compact time/team text with ranking pills hidden."
   );
   assert(
     Math.abs(mobileRowMetrics.timeCenter - mobileRowMetrics.teamsCenter) <= 3 &&
@@ -4818,16 +4793,12 @@ try {
   const completedScoreRailGaps = completedScoreRailMetrics.map((metric) => metric.rightGap);
   assert(
     completedScoreRailMetrics.length >= 6 &&
-      completedScoreRailMetrics.some(
-        (metric) =>
-          metric.id === "bosnia-qatar-2026-06-24" &&
-          metric.hasWrappedClass &&
-          metric.rightGap >= 0 &&
-          metric.rightGap <= 12
-      ) &&
+      completedScoreRailMetrics.some((metric) => metric.id === "bosnia-qatar-2026-06-24") &&
       Math.max(...completedScoreRailGaps) - Math.min(...completedScoreRailGaps) <= 6 &&
-      completedScoreRailMetrics.every((metric) => metric.scrollOverflow <= 1),
-    `Completed score pills should share the same right rail when a matchup wraps. Measured ${JSON.stringify(completedScoreRailMetrics)}.`
+      completedScoreRailMetrics.every(
+        (metric) => metric.rightGap >= 0 && metric.rightGap <= 12 && metric.scrollOverflow <= 1
+      ),
+    `Completed score pills should share the same right rail with ranking hidden from rows. Measured ${JSON.stringify(completedScoreRailMetrics)}.`
   );
 
   await page.setViewportSize({ width: 390, height: 844 });
@@ -4879,32 +4850,46 @@ try {
         const rowRect = row.getBoundingClientRect();
         const chipRect = chip.getBoundingClientRect();
         const textPieces = Array.from(
-          row.querySelectorAll(".match-teams .flag, .match-teams .team-name, .match-teams .rank-pill, .match-teams .match-versus")
+          row.querySelectorAll(".match-teams .flag, .match-teams .team-name, .match-teams .match-versus")
         );
         const homePieces = Array.from(
-          row.querySelectorAll(".match-team-home .flag, .match-team-home .team-name, .match-team-home .rank-pill")
+          row.querySelectorAll(".match-team-home .flag, .match-team-home .team-name")
         );
         const versus = row.querySelector(".match-versus");
         const collisions = [];
         let maxTextRight = Number.NEGATIVE_INFINITY;
         let maxHomeTextRight = Number.NEGATIVE_INFINITY;
+        const getVisualRects = (piece) => {
+          if (!piece.classList.contains("team-name")) {
+            return [piece.getBoundingClientRect()];
+          }
+
+          const range = document.createRange();
+          range.selectNodeContents(piece);
+          const rects = Array.from(range.getClientRects()).filter((rect) => rect.width > 0 && rect.height > 0);
+          range.detach();
+          return rects.length ? rects : [piece.getBoundingClientRect()];
+        };
 
         textPieces.forEach((piece) => {
-          const pieceRect = piece.getBoundingClientRect();
-          const verticalOverlap =
-            Math.min(chipRect.bottom, pieceRect.bottom) - Math.max(chipRect.top, pieceRect.top);
-          const horizontalOverlap =
-            Math.min(chipRect.right, pieceRect.right) - Math.max(chipRect.left, pieceRect.left);
+          getVisualRects(piece).forEach((pieceRect) => {
+            const verticalOverlap =
+              Math.min(chipRect.bottom, pieceRect.bottom) - Math.max(chipRect.top, pieceRect.top);
+            const horizontalOverlap =
+              Math.min(chipRect.right, pieceRect.right) - Math.max(chipRect.left, pieceRect.left);
 
-          maxTextRight = Math.max(maxTextRight, pieceRect.right);
+            maxTextRight = Math.max(maxTextRight, pieceRect.right);
 
-          if (verticalOverlap > 0.5 && horizontalOverlap > 0.5) {
-            collisions.push(piece.textContent.replace(/\s+/g, " ").trim());
-          }
+            if (verticalOverlap > 0.5 && horizontalOverlap > 0.5) {
+              collisions.push(piece.textContent.replace(/\s+/g, " ").trim());
+            }
+          });
         });
 
         homePieces.forEach((piece) => {
-          maxHomeTextRight = Math.max(maxHomeTextRight, piece.getBoundingClientRect().right);
+          getVisualRects(piece).forEach((pieceRect) => {
+            maxHomeTextRight = Math.max(maxHomeTextRight, pieceRect.right);
+          });
         });
 
         return {
@@ -4973,8 +4958,6 @@ try {
       const awayTeam = row.querySelector(".match-team-away");
       const awayFlag = awayTeam?.querySelector(".flag");
       const awayName = awayTeam?.querySelector(".team-name");
-      const awayRank = awayTeam?.querySelector(".rank-pill");
-      const awayRankRect = awayRank?.getBoundingClientRect();
       const getLineRects = (element) => {
         if (!element) {
           return [];
@@ -4991,24 +4974,15 @@ try {
         return rects;
       };
       const awayNameLines = getLineRects(awayName);
-      const awayLastLine = awayNameLines.at(-1);
-      const pieces = Array.from(
-        row.querySelectorAll(".match-teams .flag, .match-teams .team-name, .match-teams .rank-pill")
-      );
+      const pieces = Array.from(row.querySelectorAll(".match-teams .flag, .match-teams .team-name"));
       const pieceRightOverflow = pieces.map((piece) => piece.getBoundingClientRect().right - rowRect.right);
 
       return {
         awayFlag: awayFlag?.textContent.replace(/\s+/g, " ").trim() || "",
         awayName: awayName?.textContent.replace(/\s+/g, " ").trim() || "",
         awayNameLineCount: awayNameLines.length,
-        awayRank: awayRank?.textContent.replace(/\s+/g, " ").trim() || "",
         pieceRightOverflow: Math.max(0, ...pieceRightOverflow),
-        rankLastLineCenterDelta:
-          awayLastLine && awayRankRect
-            ? Math.abs(awayRankRect.top + awayRankRect.height / 2 - awayLastLine.center)
-            : Number.POSITIVE_INFINITY,
-        rankLastLineGap:
-          awayLastLine && awayRankRect ? awayRankRect.left - awayLastLine.right : Number.NEGATIVE_INFINITY,
+        rankCount: row.querySelectorAll(".match-teams .rank-pill").length,
         scrollOverflow: row.scrollWidth - row.clientWidth,
         text: row.innerText.replace(/\s+/g, " ").trim()
       };
@@ -5017,42 +4991,11 @@ try {
     southAfricaSouthKoreaRowMetrics.text.startsWith("6:00PM") &&
       southAfricaSouthKoreaRowMetrics.awayFlag === "🇰🇷" &&
       southAfricaSouthKoreaRowMetrics.awayName === "South Korea" &&
-      southAfricaSouthKoreaRowMetrics.awayRank === "#25" &&
       southAfricaSouthKoreaRowMetrics.awayNameLineCount >= 1 &&
-      southAfricaSouthKoreaRowMetrics.rankLastLineCenterDelta <= 3 &&
-      southAfricaSouthKoreaRowMetrics.rankLastLineGap >= 0 &&
+      southAfricaSouthKoreaRowMetrics.rankCount === 0 &&
       southAfricaSouthKoreaRowMetrics.pieceRightOverflow <= 1 &&
       southAfricaSouthKoreaRowMetrics.scrollOverflow <= 1,
-    `South Africa vs South Korea should keep wrapped country names and rank pills attached without clipping. Measured ${JSON.stringify(southAfricaSouthKoreaRowMetrics)}.`
-  );
-  const mobileRankAlignmentMetrics = await page
-    .locator('[data-match-id="switzerland-canada-2026-06-24"]')
-    .evaluate((row) =>
-      Array.from(row.querySelectorAll(".match-teams .team")).map((team) => {
-        const name = team.querySelector(".team-name");
-        const pill = team.querySelector(".rank-pill");
-        const nameRect = name?.getBoundingClientRect();
-        const pillRect = pill?.getBoundingClientRect();
-
-        if (!nameRect || !pillRect) {
-          return {
-            centerDelta: Number.POSITIVE_INFINITY,
-            text: team.textContent.replace(/\s+/g, " ").trim()
-          };
-        }
-
-        return {
-          centerDelta: Math.abs(
-            pillRect.top + pillRect.height / 2 - (nameRect.top + nameRect.height / 2)
-          ),
-          text: team.textContent.replace(/\s+/g, " ").trim()
-        };
-      })
-    );
-  assert(
-    mobileRankAlignmentMetrics.length >= 2 &&
-      mobileRankAlignmentMetrics.every((metric) => metric.centerDelta <= 3),
-    `Single-line match row rank pills should stay on the same text line. Measured ${JSON.stringify(mobileRankAlignmentMetrics)}.`
+    `South Africa vs South Korea should keep wrapped country names visible with no home-row rank pills. Measured ${JSON.stringify(southAfricaSouthKoreaRowMetrics)}.`
   );
   await page.locator('[data-match-id="bosnia-qatar-2026-06-24"]').click();
   await page.waitForSelector("#match-info .info-tooltip-button");

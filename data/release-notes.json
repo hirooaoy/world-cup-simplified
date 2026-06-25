@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-25T11:07:19-07:00",
+  "updatedAt": "2026-06-25T13:58:11-07:00",
   "releases": [
     {
       "date": "2026-06-25",
@@ -20,7 +20,7 @@
         "Projected Round of 16 and later countries now stay muted until their source match winner is confirmed.",
         "Completed groups now reuse the archived green advancement row highlight for confirmed Round of 32 teams.",
         "Third-place race badges now say whether a path is still open, how many matches are left, and the best-case points ceiling.",
-        "Mobile match rows now keep ranking pills attached to the visible country-name line and pull the vs label back toward wrapped English and Chinese names.",
+        "Home match rows now hide ranking pills, add a little more mobile spacing around flags and vs, and move compact world-ranking pills into the selected match card title.",
         "Player hover cards now show the player country's flag beside the name, while historical cards keep archive-note wording.",
         "Chinese player-card skill pills now translate generated role labels instead of showing raw English."
       ],
@@ -39,7 +39,7 @@
         "16强及后续轮次的预测球队现在会保持灰色显示，直到来源比赛胜者确认。",
         "已完赛小组现在会沿用存档赛事的绿色晋级行高亮来标记确认进入32强的球队。",
         "最佳第三名竞争标签现在会说明是否仍有出线路径、还剩几场比赛，以及最好情况的积分上限。",
-        "移动端比赛行现在会让排名标签跟随可见的队名行，并让“对”标签贴近换行后的英文和中文队名。",
+        "首页比赛行现在隐藏排名标签，在移动端为国旗和“vs/对”留出一点呼吸空间；选中的比赛卡标题会显示更紧凑的世界排名标签。",
         "球员悬停卡现在会在姓名旁显示球员国家旗帜，历史球员卡也保留档案说明的表述。",
         "中文球员卡的技能标签现在会翻译生成的角色文案，不再显示原始英文。"
       ]

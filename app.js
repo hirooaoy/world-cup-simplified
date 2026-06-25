@@ -6670,96 +6670,10 @@ function updateTruncatedTeamTooltips(root = document) {
     });
 }
 
-function resetWrappedTeamVisualWidths(row) {
-  row.querySelectorAll(".match-teams .team").forEach((team) => {
-    team.classList.remove("has-inline-rank-min-width");
-    team.classList.remove("has-wrapped-team-visual-width");
-    team.style.removeProperty("--match-team-inline-rank-width");
-    team.style.removeProperty("--match-team-visual-width");
-  });
-}
-
-function getElementRightEdge(element) {
-  return element ? element.getBoundingClientRect().right : Number.NEGATIVE_INFINITY;
-}
-
-function getTextLineRects(element) {
-  if (!element) {
-    return [];
-  }
-
-  const range = document.createRange();
-  range.selectNodeContents(element);
-  const rects = Array.from(range.getClientRects()).filter((rect) => rect.width > 0 && rect.height > 0);
-  range.detach();
-
-  return rects;
-}
-
-function rankFollowsTextLine(rankRect, lineRect) {
-  if (!rankRect || !lineRect) {
-    return false;
-  }
-
-  const rankCenter = rankRect.top + rankRect.height / 2;
-  const lineCenter = lineRect.top + lineRect.height / 2;
-
-  return Math.abs(rankCenter - lineCenter) <= 3 && rankRect.left >= lineRect.right - 1;
-}
-
-function updateWrappedTeamVisualWidths(row) {
-  const homeTeam = row.querySelector(".match-team-home");
-  if (!homeTeam) {
-    return;
-  }
-
-  const name = homeTeam.querySelector(".team-name");
-  const rank = homeTeam.querySelector(".rank-pill");
-  const nameLines = getTextLineRects(name);
-  const lastNameLine = nameLines.at(-1);
-  const rankRect = rank?.getBoundingClientRect();
-  if (!lastNameLine || !rankRect) {
-    return;
-  }
-
-  const teamRect = homeTeam.getBoundingClientRect();
-  const followsLastLine = rankFollowsTextLine(rankRect, lastNameLine);
-
-  if (nameLines.length <= 1 && !followsLastLine) {
-    const inlineWidth = Math.ceil(lastNameLine.right - teamRect.left + rankRect.width + 4);
-
-    if (Number.isFinite(inlineWidth) && inlineWidth > teamRect.width && inlineWidth - teamRect.width <= 8) {
-      homeTeam.style.setProperty("--match-team-inline-rank-width", `${inlineWidth}px`);
-      homeTeam.classList.add("has-inline-rank-min-width");
-    }
-    return;
-  }
-
-  if (nameLines.length <= 1 || !followsLastLine) {
-    return;
-  }
-
-  const pieces = homeTeam.querySelectorAll(".flag, .team-name, .rank-pill");
-  if (!pieces.length) {
-    return;
-  }
-
-  const visualRight = Math.max(...Array.from(pieces, getElementRightEdge));
-  const visualWidth = Math.ceil(visualRight - teamRect.left + 4);
-
-  if (!Number.isFinite(visualWidth) || visualWidth <= 0 || teamRect.width - visualWidth <= 6) {
-    return;
-  }
-
-  homeTeam.style.setProperty("--match-team-visual-width", `${visualWidth}px`);
-  homeTeam.classList.add("has-wrapped-team-visual-width");
-}
-
 function updateWrappedMatchRows(root = document) {
   root.querySelectorAll(".match-row").forEach((row) => {
     const teams = row.querySelector(".match-teams");
     if (!teams) {
-      resetWrappedTeamVisualWidths(row);
       row.classList.remove("has-wrapped-matchup");
       row.style.removeProperty("--match-row-wrapped-trigger-width");
       row.style.removeProperty("--match-row-wrapped-meta-gap");
@@ -6767,7 +6681,6 @@ function updateWrappedMatchRows(root = document) {
       return;
     }
 
-    resetWrappedTeamVisualWidths(row);
     row.classList.remove("has-wrapped-matchup");
     row.style.removeProperty("--match-row-wrapped-trigger-width");
     row.style.removeProperty("--match-row-wrapped-meta-gap");
@@ -6791,10 +6704,6 @@ function updateWrappedMatchRows(root = document) {
     }
 
     row.classList.toggle("has-wrapped-matchup", isWrapped);
-
-    if (isWrapped) {
-      updateWrappedTeamVisualWidths(row);
-    }
   });
 }
 
@@ -7508,9 +7417,9 @@ function renderMatchRow(match, state, currentTime = Date.now(), options = {}) {
         <span class="${dateLabel ? "match-date" : "match-clock"}">${escapeHtml(visibleTimeLabel)}</span>
       </time>
       <span class="match-teams">
-        ${renderTeamInline(match.homeTeam, getTeamClass("team match-team-home", winnerSide, "home"))}
+        ${renderTeamInline(match.homeTeam, getTeamClass("team match-team-home", winnerSide, "home"), { showRank: false })}
         <span class="versus match-versus">${escapeHtml(versusText)}</span>
-        ${renderTeamInline(match.awayTeam, getTeamClass("team match-team-away", winnerSide, "away"))}
+        ${renderTeamInline(match.awayTeam, getTeamClass("team match-team-away", winnerSide, "away"), { showRank: false })}
       </span>
     </button>
     ${rowMeta ? `<span class="match-row-meta">${rowMeta}</span>` : ""}
@@ -14482,9 +14391,9 @@ function renderMatchInfo(match, options = {}) {
     <section class="info-block match-summary">
       ${renderCurrentMatchContextKicker(match, localizedContextLabel)}
       <h2 class="summary-title">
-        ${renderTeamInline(match.homeTeam, "summary-team", { showRank: false })}
+        ${renderTeamInline(match.homeTeam, "summary-team")}
         <span class="versus">${escapeHtml(localizeText("vs"))}</span>
-        ${renderTeamInline(match.awayTeam, "summary-team", { showRank: false })}
+        ${renderTeamInline(match.awayTeam, "summary-team")}
       </h2>
       <p>${escapeHtml(getVenueLabel(match))}</p>
     </section>

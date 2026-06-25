@@ -1371,11 +1371,11 @@ h1 {
 }
 
 .yesterday-match-pair .yesterday-team:first-child {
-  max-width: min(46%, 16ch);
+  max-width: 100%;
 }
 
 .yesterday-match-pair .yesterday-team:last-child {
-  flex: 1 1 0;
+  flex: 0 1 auto;
   max-width: 100%;
 }
 
@@ -1405,6 +1405,7 @@ h1 {
   align-items: center;
   justify-content: flex-end;
   min-width: 0;
+  padding-left: 4px;
 }
 
 .yesterday-match-meta .live-pill,
@@ -1703,6 +1704,8 @@ h1 {
 }
 
 .match-teams {
+  --match-flag-name-gap: 4px;
+  --match-versus-gap: 6px;
   display: flex;
   align-items: center;
   flex: 1 1 auto;
@@ -1721,6 +1724,7 @@ h1 {
   align-items: center;
   flex: 0 0 auto;
   gap: 10px;
+  padding-left: 4px;
   white-space: nowrap;
 }
 
@@ -1808,7 +1812,7 @@ h1 {
   display: inline-flex;
   align-items: center;
   flex: 0 1 auto;
-  gap: 4px;
+  gap: var(--match-flag-name-gap);
   min-width: 0;
   white-space: normal;
 }
@@ -1823,17 +1827,9 @@ h1 {
   min-width: 0;
 }
 
-.match-teams .team.has-wrapped-team-visual-width {
-  max-width: var(--match-team-visual-width, 100%);
-}
-
-.match-teams .team.has-inline-rank-min-width {
-  min-width: min(var(--match-team-inline-rank-width, 0px), 100%);
-}
-
 .match-teams .match-versus {
   flex: 0 0 auto;
-  margin-inline: 6px;
+  margin-inline: var(--match-versus-gap);
 }
 
 .match-teams .team-name {
@@ -1846,29 +1842,6 @@ h1 {
   text-overflow: clip;
   text-wrap: balance;
   white-space: normal;
-}
-
-.match-teams .team-copy {
-  display: block;
-  min-width: 0;
-  max-width: 100%;
-  overflow: visible;
-  overflow-wrap: normal;
-  text-wrap: balance;
-  white-space: normal;
-}
-
-.match-teams .team-copy .team-name {
-  display: inline;
-  max-width: none;
-  text-wrap: inherit;
-}
-
-.match-teams .rank-pill {
-  margin-left: 4px;
-  margin-top: 0;
-  transform: none;
-  vertical-align: 0.12em;
 }
 
 .team.is-winner .team-name,
@@ -2221,6 +2194,19 @@ h1 {
   align-items: center;
   gap: 7px;
   min-width: 0;
+  max-width: 100%;
+}
+
+.summary-team .team-copy {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.summary-team .team-name {
+  min-width: 0;
 }
 
 .summary-title .flag {
@@ -2232,11 +2218,13 @@ h1 {
 }
 
 .summary-title .rank-pill {
-  height: 19px;
-  min-width: 24px;
-  font-size: 12px;
+  height: 16px;
+  min-width: 20px;
+  padding: 0 4px;
+  font-size: 10px;
   letter-spacing: 0;
-  transform: translateY(1px);
+  opacity: 0.7;
+  transform: none;
 }
 
 .info-block h3 {
@@ -6330,8 +6318,8 @@ h1 {
     display: grid;
     grid-template-columns: minmax(0, 1fr) max-content;
     align-items: center;
-    column-gap: 4px;
-    gap: 0 4px;
+    column-gap: 8px;
+    gap: 0 8px;
     flex-wrap: nowrap;
   }
 
@@ -6395,6 +6383,8 @@ h1 {
   }
 
   .match-teams {
+    --match-flag-name-gap: 4px;
+    --match-versus-gap: 5px;
     flex: 1 1 auto;
     font-size: 14px;
     letter-spacing: 0;
@@ -6409,16 +6399,20 @@ h1 {
   .match-teams .team {
     align-items: center;
     flex: 0 1 auto;
-    gap: 2px;
+    gap: var(--match-flag-name-gap);
   }
 
   .match-teams .match-versus {
-    margin-inline: 2px;
+    margin-inline: var(--match-versus-gap);
   }
 
   .match-teams .match-team-home {
     flex: 0 1 auto;
     min-width: 0;
+  }
+
+  .match-row.has-wrapped-matchup .match-team-home {
+    flex-basis: min-content;
   }
 
   .match-teams .match-team-away {
@@ -6435,16 +6429,6 @@ h1 {
     height: 13px;
     flex-basis: 16px;
     font-size: 13px;
-  }
-
-  .match-teams .rank-pill {
-    display: inline-flex;
-    min-width: 16px;
-    height: 14px;
-    padding: 0 3px;
-    font-size: 8px;
-    margin-left: 2px;
-    margin-top: 1px;
   }
 
   .live-pill,
@@ -6478,8 +6462,9 @@ h1 {
 
   .yesterday-match-button {
     grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: 4px;
     min-height: 38px;
-    padding: 8px;
+    padding: 8px 5px;
   }
 
   .yesterday-match-time {
@@ -6487,7 +6472,19 @@ h1 {
   }
 
   .yesterday-match-pair {
+    gap: 2px;
     font-size: 12px;
+  }
+
+  .yesterday-team {
+    gap: 2px;
+  }
+
+  .yesterday-match-meta .live-pill,
+  .yesterday-match-meta .match-score,
+  .yesterday-match-meta .score-status {
+    min-width: 29px;
+    padding-inline: 6px;
   }
 }
 
@@ -6657,7 +6654,7 @@ h1 {
   .match-row {
     display: grid;
     grid-template-columns: minmax(0, 1fr) max-content;
-    column-gap: 4px;
+    column-gap: 8px;
     align-items: center;
   }
 
@@ -6689,7 +6686,7 @@ h1 {
   }
 
   .match-teams .team {
-    gap: 2px;
+    gap: var(--match-flag-name-gap);
   }
 
   .match-teams .flag {
@@ -6712,13 +6709,6 @@ h1 {
     margin-left: 0;
     max-width: max-content;
     margin-right: 0;
-  }
-
-  .match-teams .rank-pill {
-    min-width: 16px;
-    height: 14px;
-    padding: 0 3px;
-    font-size: 8px;
   }
 
   .live-pill,
@@ -6784,7 +6774,7 @@ h1 {
   }
 
   .match-row {
-    column-gap: 6px;
+    column-gap: 8px;
   }
 
   .match-row-trigger {
