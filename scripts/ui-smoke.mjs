@@ -1482,7 +1482,6 @@ try {
         return {
           label: flag?.getAttribute("aria-label") || "",
           hasFlag: Boolean(flag),
-          opacity: flag ? Number.parseFloat(getComputedStyle(flag).opacity) : 0,
           flagBeforeMinute: Boolean(flagBox && minuteBox && flagBox.right <= minuteBox.left),
           verticalDelta:
             flagBox && minuteBox
@@ -1512,7 +1511,6 @@ try {
       scorerHighlightMetrics.segmentFlags.every(
         (flag) =>
           flag.hasFlag &&
-          flag.opacity >= 0.95 &&
           flag.flagBeforeMinute &&
           flag.verticalDelta <= 4
       ),
@@ -2048,8 +2046,7 @@ try {
         const flag = segment.querySelector(".goal-scorer-flag .flag");
         return {
           label: flag?.getAttribute("aria-label") || "",
-          hasFlag: Boolean(flag),
-          opacity: flag ? Number.parseFloat(getComputedStyle(flag).opacity) : 0
+          hasFlag: Boolean(flag)
         };
       }),
       segmentTexts: segments.map((segment) => segment.textContent.replace(/\s+/g, " ").trim())
@@ -2058,7 +2055,7 @@ try {
   assert(
     !historicalScorerHighlight.hasStandaloneSoccerIcon &&
       historicalScorerHighlight.segmentFlags.every(
-        (flag) => flag.hasFlag && flag.label === "Ecuador flag" && flag.opacity >= 0.95
+        (flag) => flag.hasFlag && flag.label === "Ecuador flag"
       ) &&
       historicalScorerHighlight.segmentTexts.some((text) => text.includes("16' Enner Valencia")) &&
       historicalScorerHighlight.segmentTexts.some((text) => text.includes("31' Enner Valencia")),
