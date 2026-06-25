@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-25T20:52:45.371Z",
+  "updatedAt": "2026-06-25T23:51:06.047Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -6605,7 +6605,7 @@
       "homeTeamId": "ECU",
       "awayTeamId": "GER",
       "venue": "New York New Jersey Stadium",
-      "status": "LIVE",
+      "status": "FT",
       "h2h": {
         "status": "loaded",
         "sourceId": "national-football-teams-h2h-2026-06-17",
@@ -6688,7 +6688,7 @@
       },
       "matchNumber": 56,
       "score": {
-        "home": 1,
+        "home": 2,
         "away": 1
       }
     },
@@ -6701,7 +6701,7 @@
       "homeTeamId": "CUW",
       "awayTeamId": "CIV",
       "venue": "Philadelphia Stadium",
-      "status": "LIVE",
+      "status": "FT",
       "h2h": {
         "status": "verified-empty",
         "sourceId": "national-football-teams-h2h-2026-06-17",
@@ -6764,7 +6764,7 @@
       "matchNumber": 55,
       "score": {
         "home": 0,
-        "away": 1
+        "away": 2
       }
     },
     {
@@ -6776,7 +6776,7 @@
       "homeTeamId": "JPN",
       "awayTeamId": "SWE",
       "venue": "Dallas Stadium",
-      "status": "SCHEDULED",
+      "status": "LIVE",
       "h2h": {
         "status": "loaded",
         "sourceId": "national-football-teams-h2h-2026-06-17",
@@ -6877,7 +6877,11 @@
           "matchNumber": 57
         }
       },
-      "matchNumber": 57
+      "matchNumber": 57,
+      "score": {
+        "home": 0,
+        "away": 0
+      }
     },
     {
       "id": "tunisia-netherlands-2026-06-25",
@@ -6888,7 +6892,7 @@
       "homeTeamId": "TUN",
       "awayTeamId": "NED",
       "venue": "Kansas City Stadium",
-      "status": "SCHEDULED",
+      "status": "LIVE",
       "h2h": {
         "status": "loaded",
         "sourceId": "national-football-teams-h2h-2026-06-17",
@@ -6969,7 +6973,11 @@
           "matchNumber": 58
         }
       },
-      "matchNumber": 58
+      "matchNumber": 58,
+      "score": {
+        "home": 0,
+        "away": 2
+      }
     },
     {
       "id": "turkiye-united-states-2026-06-25",
@@ -8405,7 +8413,8 @@
           "matchId": "400021513",
           "matchNumber": 74
         }
-      }
+      },
+      "homeTeamId": "GER"
     },
     {
       "id": "match-75-round-of-32-2026-06-29",
@@ -8495,7 +8504,8 @@
           "matchId": "400021514",
           "matchNumber": 78
         }
-      }
+      },
+      "homeTeamId": "CIV"
     },
     {
       "id": "match-79-round-of-32-2026-06-30",

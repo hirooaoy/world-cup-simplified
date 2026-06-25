@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-25T20:52:45.371Z",
+  "updatedAt": "2026-06-25T23:51:06.047Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fifa-standings-2026-06-17",
@@ -183,39 +183,39 @@
     "E": [
       {
         "teamId": "GER",
-        "played": 2,
+        "played": 3,
         "wins": 2,
         "draws": 0,
-        "losses": 0,
-        "gf": 9,
-        "ga": 2
+        "losses": 1,
+        "gf": 10,
+        "ga": 4
       },
       {
         "teamId": "CIV",
-        "played": 2,
-        "wins": 1,
+        "played": 3,
+        "wins": 2,
         "draws": 0,
+        "losses": 1,
+        "gf": 4,
+        "ga": 2
+      },
+      {
+        "teamId": "ECU",
+        "played": 3,
+        "wins": 1,
+        "draws": 1,
         "losses": 1,
         "gf": 2,
         "ga": 2
       },
       {
-        "teamId": "ECU",
-        "played": 2,
-        "wins": 0,
-        "draws": 1,
-        "losses": 1,
-        "gf": 0,
-        "ga": 1
-      },
-      {
         "teamId": "CUW",
-        "played": 2,
+        "played": 3,
         "wins": 0,
         "draws": 1,
-        "losses": 1,
+        "losses": 2,
         "gf": 1,
-        "ga": 7
+        "ga": 9
       }
     ],
     "F": [
