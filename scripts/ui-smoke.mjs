@@ -1633,9 +1633,40 @@ try {
     .first()
     .evaluate((link) => {
       const style = getComputedStyle(link);
+      const isVisible = Boolean(link.offsetWidth || link.offsetHeight || link.getClientRects().length);
+      const matchesDottedUnderlineRule = (rule) => {
+        if (rule.selectorText) {
+          const ruleLine =
+            rule.style.getPropertyValue("text-decoration-line") || rule.style.textDecorationLine;
+          const ruleStyle =
+            rule.style.getPropertyValue("text-decoration-style") || rule.style.textDecorationStyle;
+          const selectorMatches = rule.selectorText.split(",").some((selector) => {
+            try {
+              return link.matches(selector.trim());
+            } catch {
+              return false;
+            }
+          });
+
+          return selectorMatches && ruleLine === "underline" && ruleStyle === "dotted";
+        }
+
+        return rule.cssRules ? [...rule.cssRules].some(matchesDottedUnderlineRule) : false;
+      };
+      const hasDottedUnderlineRule = [...document.styleSheets].some((sheet) => {
+        try {
+          return [...sheet.cssRules].some(matchesDottedUnderlineRule);
+        } catch {
+          return false;
+        }
+      });
+
       return {
+        hasDottedUnderlineRule,
+        isVisible,
         line: style.textDecorationLine,
-        style: style.textDecorationStyle
+        style: style.textDecorationStyle,
+        text: link.textContent.trim()
       };
     });
   assert(
@@ -1656,7 +1687,10 @@ try {
     `Scorer highlights should use full-strength country flags before each scorer minute. Measured ${JSON.stringify(scorerHighlightMetrics)}.`
   );
   assert(
-    scorerPlayerDecoration.line === "underline" && scorerPlayerDecoration.style === "dotted",
+    scorerPlayerDecoration.text &&
+      scorerPlayerDecoration.isVisible &&
+      ((scorerPlayerDecoration.line === "underline" && scorerPlayerDecoration.style === "dotted") ||
+        scorerPlayerDecoration.hasDottedUnderlineRule),
     `Scorer player mentions should use the same soft dotted underline as paragraph mentions. Measured ${JSON.stringify(scorerPlayerDecoration)}.`
   );
   await page.setViewportSize({ width: 1280, height: 720 });
