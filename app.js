@@ -302,6 +302,8 @@ const ZH_EXACT_TRANSLATIONS = new Map(
       "积分决定小组排名：胜3分，平1分，负0分。积分越多通常越有机会晋级。",
     "Points compare third-place teams: 3 for a win, 1 for a draw, 0 for a loss. More points puts a team closer to the top eight.":
       "积分用于比较各组第三名球队：胜3分，平1分，负0分。积分越多越接近前八。",
+    "FIFA world ranking used for this 2026 tournament view.":
+      "此处为本2026赛事视图使用的FIFA世界排名。",
     "Rank": "排名",
     "Read source": "阅读来源",
     "release notes": "发布说明",
@@ -6576,7 +6578,9 @@ function renderRank(team) {
     currentLanguage === "zh"
       ? `${teamName} FIFA世界排名 ${team.fifaRank}`
       : `${teamName} FIFA world ranking ${team.fifaRank}`;
-  return `<span class="rank-pill" aria-label="${escapeHtml(label)}">#${escapeHtml(team.fifaRank)}</span>`;
+  const tooltip = localizeText("FIFA world ranking used for this 2026 tournament view.");
+  const ariaLabel = currentLanguage === "zh" ? `${label}。${tooltip}` : `${label}. ${tooltip}`;
+  return `<span class="rank-pill" tabindex="0" aria-label="${escapeHtml(ariaLabel)}" data-tooltip="${escapeHtml(tooltip)}">#${escapeHtml(team.fifaRank)}</span>`;
 }
 
 function getStandingName(team) {
@@ -6644,6 +6648,8 @@ function isVisiblyWrappedName(name) {
   );
 }
 
+const MOBILE_MATCH_ROW_META_MIN_GAP = 12;
+
 function updateTruncatedTeamTooltips(root = document) {
   root
     .querySelectorAll(
@@ -6671,6 +6677,8 @@ function updateTruncatedTeamTooltips(root = document) {
 }
 
 function updateWrappedMatchRows(root = document) {
+  const shouldEnforceMobileMetaGap = window.matchMedia("(max-width: 520px)").matches;
+
   root.querySelectorAll(".match-row").forEach((row) => {
     const teams = row.querySelector(".match-teams");
     if (!teams) {
@@ -6688,8 +6696,24 @@ function updateWrappedMatchRows(root = document) {
     const teamsStyle = getComputedStyle(teams);
     const lineHeight = Number.parseFloat(teamsStyle.lineHeight);
     const teamsHeight = teams.getBoundingClientRect().height;
-    const isWrapped = Number.isFinite(lineHeight) && lineHeight > 0 && teamsHeight > lineHeight * 1.35;
     const meta = row.querySelector(".match-row-meta");
+    const isVisuallyWrapped =
+      Number.isFinite(lineHeight) && lineHeight > 0 && teamsHeight > lineHeight * 1.35;
+    let isTooCloseToMeta = false;
+
+    if (shouldEnforceMobileMetaGap && meta) {
+      const metaRect = meta.getBoundingClientRect();
+      const matchupPieceRights = Array.from(
+        teams.querySelectorAll(".flag, .team-name, .match-versus")
+      ).map((element) => element.getBoundingClientRect().right);
+      const matchupRight = Math.max(...matchupPieceRights);
+
+      isTooCloseToMeta =
+        Number.isFinite(matchupRight) &&
+        metaRect.left - matchupRight < MOBILE_MATCH_ROW_META_MIN_GAP;
+    }
+
+    const isWrapped = isVisuallyWrapped || isTooCloseToMeta;
 
     if (isWrapped && meta) {
       const rowRect = row.getBoundingClientRect();
@@ -6772,6 +6796,7 @@ function updateMeasuredLabelTooltips(root = document) {
 
 const boundedTooltipSelector = [
   ".live-pill[data-tooltip]",
+  ".rank-pill[data-tooltip]",
   ".team.has-team-tooltip[data-tooltip]",
   ".past-team.has-team-tooltip[data-tooltip]",
   ".summary-team.has-team-tooltip[data-tooltip]",

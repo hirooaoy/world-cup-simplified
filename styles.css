@@ -1996,6 +1996,56 @@ h1 {
   transform: translateY(1px);
 }
 
+.rank-pill[data-tooltip] {
+  position: relative;
+  cursor: help;
+  outline: none;
+}
+
+.rank-pill[data-tooltip]::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: calc(50% + var(--tooltip-shift-x, 0px));
+  z-index: 30;
+  width: max-content;
+  max-width: min(230px, 72vw);
+  padding: 8px 10px;
+  border: 1px solid rgba(10, 10, 10, 0.12);
+  border-radius: 8px;
+  background: rgba(10, 10, 10, 0.92);
+  box-shadow: 0 12px 28px rgba(10, 10, 10, 0.16);
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 1.3;
+  opacity: 0;
+  pointer-events: none;
+  text-align: left;
+  transform: translate(-50%, 4px);
+  transition: opacity 140ms ease, transform 140ms ease;
+  white-space: normal;
+}
+
+.rank-pill[data-tooltip]:hover,
+.rank-pill[data-tooltip]:focus-visible {
+  border-color: rgba(10, 10, 10, 0.24);
+  color: rgba(10, 10, 10, 0.86);
+  opacity: 0.9;
+}
+
+.rank-pill[data-tooltip]:hover::after,
+.rank-pill[data-tooltip]:focus-visible::after {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+.rank-pill[data-tooltip]:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+}
+
 .empty-state {
   max-width: 520px;
 }
@@ -6412,7 +6462,7 @@ h1 {
   }
 
   .match-row.has-wrapped-matchup .match-team-home {
-    flex-basis: min-content;
+    flex-basis: auto;
   }
 
   .match-teams .match-team-away {
@@ -6429,6 +6479,36 @@ h1 {
     height: 13px;
     flex-basis: 16px;
     font-size: 13px;
+  }
+
+  .match-row.has-wrapped-matchup .match-teams {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-areas:
+      "home home"
+      "versus away";
+    align-items: center;
+    column-gap: var(--match-versus-gap);
+    row-gap: 1px;
+  }
+
+  .match-row.has-wrapped-matchup .match-team-home {
+    grid-area: home;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .match-row.has-wrapped-matchup .match-versus {
+    grid-area: versus;
+    align-self: center;
+    justify-self: start;
+    margin-inline: 0;
+  }
+
+  .match-row.has-wrapped-matchup .match-team-away {
+    grid-area: away;
+    max-width: 100%;
+    min-width: 0;
   }
 
   .live-pill,

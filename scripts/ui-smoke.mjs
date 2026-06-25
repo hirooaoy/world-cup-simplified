@@ -127,6 +127,61 @@ function assertCleanMatchMetaLayout(metrics, message) {
   );
 }
 
+async function getMobileMatchupGridMetrics(pageInstance, fixtureId) {
+  return pageInstance.locator(`[data-match-id="${fixtureId}"]`).evaluate((row) => {
+    const rect = (selector) => {
+      const element = row.querySelector(selector);
+      const bounds = element?.getBoundingClientRect();
+
+      return bounds
+        ? {
+            bottom: Math.round(bounds.bottom),
+            center: Math.round(bounds.top + bounds.height / 2),
+            height: Math.round(bounds.height),
+            left: Math.round(bounds.left),
+            right: Math.round(bounds.right),
+            text: element.textContent.replace(/\s+/g, " ").trim(),
+            top: Math.round(bounds.top),
+            width: Math.round(bounds.width)
+          }
+        : null;
+    };
+
+    return {
+      away: rect(".match-team-away"),
+      awayFlag: rect(".match-team-away .flag"),
+      awayName: rect(".match-team-away .team-name"),
+      rankCount: row.querySelectorAll(".match-teams .rank-pill").length,
+      hasWrappedClass: row.classList.contains("has-wrapped-matchup"),
+      home: rect(".match-team-home"),
+      homeName: rect(".match-team-home .team-name"),
+      meta: rect(".match-row-meta"),
+      rowScrollOverflow: row.scrollWidth - row.clientWidth,
+      text: row.innerText.replace(/\s+/g, " ").trim(),
+      versus: rect(".match-versus")
+    };
+  });
+}
+
+function assertCompactMobileMatchupGrid(metrics, message) {
+  assert(
+    metrics.hasWrappedClass &&
+      metrics.home &&
+      metrics.homeName &&
+      metrics.away &&
+      metrics.awayFlag &&
+      metrics.awayName &&
+      metrics.versus &&
+      metrics.home.center < metrics.versus.center &&
+      Math.abs(metrics.versus.center - metrics.awayFlag.center) <= 2 &&
+      metrics.versus.right <= metrics.awayFlag.left + 1 &&
+      metrics.homeName.right <= metrics.home.right + 1 &&
+      metrics.awayName.right <= metrics.away.right + 1 &&
+      metrics.rowScrollOverflow <= 1,
+    `${message} Measured ${JSON.stringify(metrics)}.`
+  );
+}
+
 async function getHoveredMatchRowEdgeMetrics(pageInstance, rowSelector = ".match-row") {
   const rows = pageInstance.locator(rowSelector);
   const rowCount = await rows.count();
@@ -1848,6 +1903,28 @@ try {
     (await page.locator("#match-info .standings-table .rank-pill").count()) >= 4,
     "Current match detail group standings should show FIFA ranking pills."
   );
+  const matchInfoRankPill = page.locator("#match-info .standings-table .rank-pill").first();
+  assert(
+    (await matchInfoRankPill.getAttribute("data-tooltip")) ===
+      "FIFA world ranking used for this 2026 tournament view." &&
+      (await matchInfoRankPill.getAttribute("aria-label"))?.includes(
+        "FIFA world ranking used for this 2026 tournament view."
+      ),
+    "FIFA ranking pills should explain the ranking source on hover and focus."
+  );
+  await matchInfoRankPill.hover();
+  await page.waitForFunction(
+    () => {
+      const pill = document.querySelector("#match-info .standings-table .rank-pill");
+      const tooltipStyle = pill ? getComputedStyle(pill, "::after") : null;
+      return (
+        tooltipStyle?.content.includes("FIFA world ranking used for this 2026 tournament view.") &&
+        Number(tooltipStyle.opacity) > 0.9
+      );
+    },
+    null,
+    { timeout: 1000 }
+  );
   const vozinhaLink = page.locator(".key-info-team .player-link", { hasText: "Vozinha" }).first();
   assert(
     (await vozinhaLink.count()) === 1,
@@ -3034,6 +3111,62 @@ try {
   );
   await pendingScoreCheck.context.close();
 
+  const compactLiveMatchupCheck = await openPageAtTime(
+    "2026-06-25T21:08:00.000Z",
+    "/?view=matches&date=2026-06-25&tz=America%2FLos_Angeles",
+    {
+      fixtureTransform(data) {
+        const compactFixture = data.fixtures.find(
+          (fixture) => fixture.id === "curacao-cote-divoire-2026-06-25"
+        );
+        const gutterFixture = data.fixtures.find(
+          (fixture) => fixture.id === "ecuador-germany-2026-06-25"
+        );
+        compactFixture.status = "LIVE";
+        compactFixture.score = { home: 0, away: 1 };
+        gutterFixture.status = "LIVE";
+        gutterFixture.score = { home: 1, away: 1 };
+      }
+    }
+  );
+  await compactLiveMatchupCheck.page.setViewportSize({ width: 390, height: 844 });
+  await compactLiveMatchupCheck.page.waitForTimeout(80);
+  const compactLiveMatchupMetrics = await getMobileMatchupGridMetrics(
+    compactLiveMatchupCheck.page,
+    "curacao-cote-divoire-2026-06-25"
+  );
+  assert(
+    compactLiveMatchupMetrics.homeName?.text === "Curaçao" &&
+      compactLiveMatchupMetrics.awayFlag?.text === "🇨🇮" &&
+      compactLiveMatchupMetrics.awayName?.text === "Côte d'Ivoire" &&
+      compactLiveMatchupMetrics.rankCount === 0,
+    `Curaçao vs Côte d'Ivoire compact live row should render the expected teams without rank pills. Measured ${JSON.stringify(compactLiveMatchupMetrics)}.`
+  );
+  assertCompactMobileMatchupGrid(
+    compactLiveMatchupMetrics,
+    "Curaçao vs Côte d'Ivoire should use the compact mobile matchup grid when a live row does not fit."
+  );
+  const gutterLiveMatchupMetrics = await getMobileMatchupGridMetrics(
+    compactLiveMatchupCheck.page,
+    "ecuador-germany-2026-06-25"
+  );
+  assert(
+    gutterLiveMatchupMetrics.homeName?.text === "Ecuador" &&
+      gutterLiveMatchupMetrics.awayFlag?.text === "🇩🇪" &&
+      gutterLiveMatchupMetrics.awayName?.text === "Germany" &&
+      gutterLiveMatchupMetrics.rankCount === 0,
+    `Ecuador vs Germany compact live row should render the expected teams without rank pills. Measured ${JSON.stringify(gutterLiveMatchupMetrics)}.`
+  );
+  assertCompactMobileMatchupGrid(
+    gutterLiveMatchupMetrics,
+    "Ecuador vs Germany should use the compact mobile matchup grid when an inline live row would crowd the LIVE pill."
+  );
+  assertCleanMatchMetaLayout(
+    await getMatchRowMetaCollisionMetrics(compactLiveMatchupCheck.page, ".match-row.is-live"),
+    "Compact live matchup rows should keep live and score chips out of the matchup text."
+  );
+  await compactLiveMatchupCheck.context.close();
+
   const nextScheduledFixture = fixturesData.fixtures
     .filter((fixture) => fixture.status === "SCHEDULED" && fixture.kickoffUtc)
     .sort((a, b) => new Date(a.kickoffUtc) - new Date(b.kickoffUtc))[0];
@@ -3187,9 +3320,12 @@ try {
             curacaoCoteWrap.rankCount === 0 &&
             curacaoCoteWrap.homeName.right <= curacaoCoteWrap.home.right + 1 &&
             curacaoCoteWrap.awayName.right <= curacaoCoteWrap.away.right + 1 &&
-            Math.abs(curacaoCoteWrap.versus.center - curacaoCoteWrap.meta.center) <= 3 &&
+            (!curacaoCoteWrap.hasWrappedClass ||
+              (curacaoCoteWrap.home.center < curacaoCoteWrap.versus.center &&
+                Math.abs(curacaoCoteWrap.versus.center - curacaoCoteWrap.awayFlag.center) <= 2 &&
+                curacaoCoteWrap.versus.right <= curacaoCoteWrap.awayFlag.left + 1)) &&
             curacaoCoteWrap.rowScrollOverflow <= 1,
-          `Curaçao vs Côte d'Ivoire should keep country names readable with no home-row rank pills. Measured ${JSON.stringify(curacaoCoteWrap)}.`
+          `Curaçao vs Côte d'Ivoire should stay readable inline when it fits, or use the compact mobile matchup grid after wrapping is detected. Measured ${JSON.stringify(curacaoCoteWrap)}.`
         );
       }
     }
@@ -4856,6 +4992,7 @@ try {
           row.querySelectorAll(".match-team-home .flag, .match-team-home .team-name")
         );
         const versus = row.querySelector(".match-versus");
+        const awayFlag = row.querySelector(".match-team-away .flag");
         const collisions = [];
         let maxTextRight = Number.NEGATIVE_INFINITY;
         let maxHomeTextRight = Number.NEGATIVE_INFINITY;
@@ -4892,11 +5029,25 @@ try {
           });
         });
 
+        const hasWrappedClass = row.classList.contains("has-wrapped-matchup");
+        const homeRect = row.querySelector(".match-team-home")?.getBoundingClientRect();
+        const versusRect = versus?.getBoundingClientRect();
+        const awayFlagRect = awayFlag?.getBoundingClientRect();
+        const compactShapeOk =
+          !hasWrappedClass ||
+          (homeRect &&
+            versusRect &&
+            awayFlagRect &&
+            homeRect.top < versusRect.top &&
+            Math.abs(versusRect.top + versusRect.height / 2 - (awayFlagRect.top + awayFlagRect.height / 2)) <= 2 &&
+            versusRect.right <= awayFlagRect.left + 1);
+
         return {
           chipRight: chipRect.right,
+          compactShapeOk,
           collisions,
           documentScrollOverflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
-          hasWrappedClass: row.classList.contains("has-wrapped-matchup"),
+          hasWrappedClass,
           homeVisualGap:
             versus && Number.isFinite(maxHomeTextRight)
               ? versus.getBoundingClientRect().left - maxHomeTextRight
@@ -4921,8 +5072,10 @@ try {
           metric.rowScrollOverflow <= 1 &&
           metric.rowRightGap >= 2 &&
           metric.rowRightGap <= 8 &&
+          metric.compactShapeOk &&
           (metric.textScoreGap === null || metric.textScoreGap >= 2) &&
           (metric.homeVisualGap === null ||
+            metric.hasWrappedClass ||
             (metric.homeVisualGap >= 0 && metric.homeVisualGap <= 12))
       ),
     `Mobile match rows should keep the vs label close to the left team and reserve a clean right rail for pills. Measured ${JSON.stringify(currentDayMobileRailMetrics)}.`
@@ -5002,6 +5155,7 @@ try {
   const mobileTooltipBounds = await page.evaluate(() => {
     const selectors = [
       ".info-tooltip-button[data-tooltip]",
+      ".rank-pill[data-tooltip]",
       ".standing-help[data-tooltip]",
       ".standing-team.has-name-tooltip[data-tooltip]",
       ".prediction-row.has-label-tooltip[data-tooltip]",
