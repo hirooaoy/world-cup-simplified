@@ -46,6 +46,9 @@ jobs:
           set -o pipefail
           pnpm sync:fifa:pr | tee fifa-results-sync.log
 
+      - name: Refresh matchup key information
+        run: pnpm matchups
+
       - name: Run matchday readiness
         env:
           MATCHDAY_EDITORIAL_WARN_ONLY: "1"

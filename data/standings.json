@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-26T21:04:32.066Z",
+  "updatedAt": "2026-06-26T23:11:43.067Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fifa-standings-2026-06-17",
@@ -354,21 +354,21 @@
       },
       {
         "teamId": "SEN",
-        "played": 2,
-        "wins": 0,
+        "played": 3,
+        "wins": 1,
         "draws": 0,
         "losses": 2,
-        "gf": 3,
+        "gf": 8,
         "ga": 6
       },
       {
         "teamId": "IRQ",
-        "played": 2,
+        "played": 3,
         "wins": 0,
         "draws": 0,
-        "losses": 2,
+        "losses": 3,
         "gf": 1,
-        "ga": 7
+        "ga": 12
       }
     ],
     "J": [

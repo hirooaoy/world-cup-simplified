@@ -554,9 +554,39 @@ function getSideResearch(fixtureResearch, side) {
     : null;
 }
 
-function getSidePlayers(fixtureResearch, side, fallbackPlayers) {
+let baselineKeyPlayersByTeamId = new Map();
+
+function buildBaselineKeyPlayersByTeamId(fixtures = []) {
+  const byTeamId = new Map();
+
+  for (const fixture of fixtures) {
+    for (const side of ["home", "away"]) {
+      const teamId = fixture[`${side}TeamId`];
+      const players = fixture.keyPlayers?.[side];
+
+      if (!teamId || byTeamId.has(teamId) || !Array.isArray(players) || getPlayerNames(players).length < 3) {
+        continue;
+      }
+
+      byTeamId.set(teamId, clone(players));
+    }
+  }
+
+  return byTeamId;
+}
+
+function getSidePlayers(fixtureResearch, side, fallbackPlayers, teamId) {
   const researchedPlayers = getSideResearch(fixtureResearch, side)?.keyPlayers;
-  return Array.isArray(researchedPlayers) && researchedPlayers.length ? researchedPlayers : fallbackPlayers;
+
+  if (Array.isArray(researchedPlayers) && researchedPlayers.length) {
+    return researchedPlayers;
+  }
+
+  if (Array.isArray(fallbackPlayers) && fallbackPlayers.length) {
+    return fallbackPlayers;
+  }
+
+  return baselineKeyPlayersByTeamId.get(teamId);
 }
 
 function buildSideCopy(team, opponent, players, opponentPlayers, fixtureResearch, side) {
@@ -598,6 +628,7 @@ const [fixturesData, teamsData, matchupResearchData] = await Promise.all([
 ]);
 const teamsById = new Map(teamsData.teams.map((team) => [team.id, team]));
 const matchupResearchByFixture = matchupResearchData?.fixtures || {};
+baselineKeyPlayersByTeamId = buildBaselineKeyPlayersByTeamId(fixturesData.fixtures);
 let populated = 0;
 
 fixturesData.sourceIds = [
@@ -618,8 +649,8 @@ fixturesData.fixtures = fixturesData.fixtures.map((fixture) => {
 
   const fixtureResearch = matchupResearchByFixture[fixture.id] || null;
   const keyInformationSourceId = getResearchSourceId(fixtureResearch);
-  const homePlayers = getSidePlayers(fixtureResearch, "home", fixture.keyPlayers?.home);
-  const awayPlayers = getSidePlayers(fixtureResearch, "away", fixture.keyPlayers?.away);
+  const homePlayers = getSidePlayers(fixtureResearch, "home", fixture.keyPlayers?.home, fixture.homeTeamId);
+  const awayPlayers = getSidePlayers(fixtureResearch, "away", fixture.keyPlayers?.away, fixture.awayTeamId);
 
   if (fixtureResearch) {
     fixture.keyPlayers = {

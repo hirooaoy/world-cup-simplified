@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-26T21:04:32.066Z",
+  "updatedAt": "2026-06-26T23:14:33.594Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -7547,7 +7547,36 @@
       "score": {
         "home": 1,
         "away": 4
-      }
+      },
+      "goalsHome": [
+        {
+          "minute": 21,
+          "name": "Thelo Aasgaard"
+        }
+      ],
+      "goalsAway": [
+        {
+          "minute": 7,
+          "name": "Ousmane Dembele"
+        },
+        {
+          "minute": 20,
+          "name": "Ousmane Dembele"
+        },
+        {
+          "minute": 32,
+          "name": "Ousmane Dembele"
+        },
+        {
+          "minute": 90,
+          "offset": 4,
+          "name": "Desire Doue"
+        }
+      ],
+      "resultHighlights": [
+        "🌟 Ousmane Dembele completed a hat trick as France ran away with it.",
+        "📊 France moved to 9 points in Group I while Norway stayed on 6 points."
+      ]
     },
     {
       "id": "senegal-iraq-2026-06-26",
@@ -7558,7 +7587,7 @@
       "homeTeamId": "SEN",
       "awayTeamId": "IRQ",
       "venue": "Toronto Stadium",
-      "status": "LIVE",
+      "status": "FT",
       "h2h": {
         "status": "verified-empty",
         "sourceId": "national-football-teams-h2h-2026-06-17",
@@ -7622,7 +7651,34 @@
       "score": {
         "home": 5,
         "away": 0
-      }
+      },
+      "goalsHome": [
+        {
+          "minute": 4,
+          "name": "Habib Diarra"
+        },
+        {
+          "minute": 56,
+          "name": "Ismaila Sarr"
+        },
+        {
+          "minute": 59,
+          "name": "Pape Gueye"
+        },
+        {
+          "minute": 71,
+          "name": "Pape Gueye"
+        },
+        {
+          "minute": 82,
+          "name": "Iliman Ndiaye"
+        }
+      ],
+      "goalsAway": [],
+      "resultHighlights": [
+        "🌟 Pape Gueye scored twice as Senegal pulled clear.",
+        "📊 Senegal moved to 3 points in Group I and left Iraq without a point."
+      ]
     },
     {
       "id": "cabo-verde-saudi-arabia-2026-06-26",
@@ -8704,7 +8760,8 @@
           "matchId": "400021523",
           "matchNumber": 77
         }
-      }
+      },
+      "homeTeamId": "FRA"
     },
     {
       "id": "match-78-round-of-32-2026-06-30",
@@ -8727,7 +8784,13 @@
           "matchNumber": 78
         }
       },
-      "homeTeamId": "CIV"
+      "homeTeamId": "CIV",
+      "awayTeamId": "NOR",
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-22",
+        "home": "Côte d'Ivoire are a powerful quick-break team with enough midfield force to turn loose games in their favor, led by Franck Kessie, Simon Adingra, and Evann Guessand. Against Norway, their Kessie-Adingra power breaks has to beat Norway's Odegaard-to-Haaland supply. They want to win the midfield collision and send Adingra into space before Guessand attacks the box. The risk is Norway can feed Haaland through Odegaard's service and Nusa's change of speed.",
+        "away": "Norway are a direct star-powered side whose attacking question is how quickly they can serve the finisher, led by Erling Haaland, Martin Odegaard, and Antonio Nusa. Against Côte d'Ivoire, their Odegaard-to-Haaland supply has to beat Côte d'Ivoire's Kessie-Adingra power breaks. They want to get Odegaard facing forward and deliver early enough for Haaland to attack the box. The risk is Côte d'Ivoire can turn Kessie's carries and Adingra's pace into Guessand chances."
+      }
     },
     {
       "id": "match-79-round-of-32-2026-06-30",

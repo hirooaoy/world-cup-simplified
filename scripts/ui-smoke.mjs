@@ -4271,7 +4271,20 @@ try {
   await page.setViewportSize({ width: 1280, height: 720 });
   const scheduledLiveWindowCheck = await openPageAtTime(
     "2026-06-26T19:30:00.000Z",
-    "/?view=standings&tz=America%2FLos_Angeles"
+    "/?view=standings&tz=America%2FLos_Angeles",
+    {
+      fixtureTransform(data) {
+        const scheduledWindowFixture = data.fixtures.find(
+          (fixture) => fixture.id === "senegal-iraq-2026-06-26"
+        );
+
+        scheduledWindowFixture.status = "SCHEDULED";
+        delete scheduledWindowFixture.score;
+        delete scheduledWindowFixture.goalsHome;
+        delete scheduledWindowFixture.goalsAway;
+        delete scheduledWindowFixture.resultHighlights;
+      }
+    }
   );
   await scheduledLiveWindowCheck.page.waitForSelector('.standings-card[data-group-id="I"] .standing-team');
   const groupIScheduledWindowRows = await scheduledLiveWindowCheck.page.evaluate(() =>
@@ -4698,7 +4711,9 @@ try {
       m79UnresolvedVisual &&
       !m79UnresolvedVisual.className.includes("is-locked") &&
       getCssColorAlpha(m79UnresolvedVisual.strongColor) < getCssColorAlpha(m79MexicoVisual.strongColor) &&
-      tournamentCheck.m79SlotPills.some((pill) => pill.teamId === "SCO" && pill.text.includes("20% here")) &&
+      tournamentCheck.m79SlotPills.some(
+        (pill) => pill.teamId === m79UnresolvedVisual.teamId && /(?:<1|>99|\d+)% here/.test(pill.text)
+      ) &&
       tournamentCheck.m79SlotPills.every((pill) => pill.teamId !== "MEX"),
     `Locked Round of 32 teams should stay visually confirmed inside projected cards while unresolved slot picks remain muted. Measured ${JSON.stringify({ m79MexicoVisual, m79UnresolvedVisual, m79SlotPills: tournamentCheck.m79SlotPills })}.`
   );

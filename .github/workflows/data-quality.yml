@@ -44,6 +44,9 @@ jobs:
       - name: Sync FIFA results snapshot
         run: pnpm sync:fifa
 
+      - name: Refresh matchup key information
+        run: pnpm matchups
+
       - name: Sync FIFA goal events
         run: pnpm sync:fifa:goals
 
