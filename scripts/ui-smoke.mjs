@@ -2480,8 +2480,24 @@ try {
   });
   await page.waitForSelector(".match-row");
   await openMatchDetailById("morocco-haiti-2026-06-24", "Haiti");
-  const readHaitiStandingBadgeLayout = () =>
-    page.locator("#match-info .standing-team", { hasText: "Haiti" }).evaluateAll((teams) => {
+  const haitiStandingTeamSelector = "#match-info .standings-table tbody .standing-team";
+  const readHaitiStandingBadgeLayout = async () => {
+    await page.waitForFunction((selector) => {
+      return [...document.querySelectorAll(selector)].some((team) => {
+        const bounds = team.getBoundingClientRect();
+        const style = getComputedStyle(team);
+
+        return (
+          team.textContent.includes("Haiti") &&
+          bounds.width > 0 &&
+          bounds.height > 0 &&
+          style.display !== "none" &&
+          style.visibility !== "hidden"
+        );
+      });
+    }, haitiStandingTeamSelector);
+
+    return page.locator(haitiStandingTeamSelector, { hasText: "Haiti" }).evaluateAll((teams) => {
       const candidates = teams.map((team) => {
         const bounds = team.getBoundingClientRect();
         const style = getComputedStyle(team);
@@ -2520,6 +2536,7 @@ try {
         eliminated: rect(team.querySelector(".standing-status-pill.is-eliminated"))
       };
     });
+  };
   const haitiWideBadgeLayout = await readHaitiStandingBadgeLayout();
   assert(
     haitiWideBadgeLayout.name &&

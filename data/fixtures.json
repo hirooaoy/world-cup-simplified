@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-26T06:51:07.909Z",
+  "updatedAt": "2026-06-26T18:30:03.106Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -7189,7 +7189,12 @@
         },
         {
           "minute": 31,
-          "name": "Orkun Kokcu"
+          "name": "Baris Alper Yilmaz"
+        },
+        {
+          "minute": 90,
+          "offset": 8,
+          "name": "Kaan Ayhan"
         }
       ],
       "goalsAway": [
@@ -7201,6 +7206,10 @@
           "minute": 49,
           "name": "Sebastian Berhalter"
         }
+      ],
+      "resultHighlights": [
+        "🌟 Kaan Ayhan's 90+8' winner settled it for Türkiye.",
+        "📊 Türkiye moved to 3 points in Group D while United States stayed on 6 points."
       ]
     },
     {
@@ -7327,7 +7336,12 @@
       "score": {
         "home": 0,
         "away": 0
-      }
+      },
+      "resultHighlights": [
+        "⚽ Paraguay and Australia shared a 0-0 draw.",
+        "🌟 Miguel Almiron and Mathew Ryan carried the duel without a breakthrough.",
+        "📊 Both teams moved to 4 points in Group D."
+      ]
     },
     {
       "id": "norway-france-2026-06-26",
