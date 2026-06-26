@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-26T18:30:03.106Z",
+  "updatedAt": "2026-06-26T19:16:40.144Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -7352,7 +7352,7 @@
       "homeTeamId": "NOR",
       "awayTeamId": "FRA",
       "venue": "Boston Stadium",
-      "status": "SCHEDULED",
+      "status": "LIVE",
       "h2h": {
         "status": "loaded",
         "sourceId": "national-football-teams-h2h-2026-06-17",
@@ -7543,7 +7543,11 @@
           "matchNumber": 61
         }
       },
-      "matchNumber": 61
+      "matchNumber": 61,
+      "score": {
+        "home": 0,
+        "away": 1
+      }
     },
     {
       "id": "senegal-iraq-2026-06-26",
@@ -7554,7 +7558,7 @@
       "homeTeamId": "SEN",
       "awayTeamId": "IRQ",
       "venue": "Toronto Stadium",
-      "status": "SCHEDULED",
+      "status": "LIVE",
       "h2h": {
         "status": "verified-empty",
         "sourceId": "national-football-teams-h2h-2026-06-17",
@@ -7614,7 +7618,11 @@
           "matchNumber": 62
         }
       },
-      "matchNumber": 62
+      "matchNumber": 62,
+      "score": {
+        "home": 1,
+        "away": 0
+      }
     },
     {
       "id": "cabo-verde-saudi-arabia-2026-06-26",
