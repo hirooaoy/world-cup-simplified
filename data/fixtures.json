@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-25T23:51:06.047Z",
+  "updatedAt": "2026-06-26T03:24:22.247Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -98,7 +98,9 @@
     "fifa-official-results-sync-2026-06-24",
     "fifa-goal-events-sync-2026-06-24",
     "fifa-goal-events-sync-2026-06-25",
-    "fifa-official-results-sync-2026-06-25"
+    "fifa-official-results-sync-2026-06-25",
+    "fifa-official-results-sync-2026-06-26",
+    "fifa-goal-events-sync-2026-06-26"
   ],
   "coverage": {
     "status": "complete-schedule",
@@ -6690,7 +6692,27 @@
       "score": {
         "home": 2,
         "away": 1
-      }
+      },
+      "goalsHome": [
+        {
+          "minute": 9,
+          "name": "Nilson Angulo"
+        },
+        {
+          "minute": 77,
+          "name": "Gonzalo Plata"
+        }
+      ],
+      "goalsAway": [
+        {
+          "minute": 2,
+          "name": "Leroy Sane"
+        }
+      ],
+      "resultHighlights": [
+        "🌟 Gonzalo Plata's 77' winner settled it for Ecuador.",
+        "📊 Ecuador moved to 4 points in Group E while Germany stayed on 6 points."
+      ]
     },
     {
       "id": "curacao-cote-divoire-2026-06-25",
@@ -6765,7 +6787,22 @@
       "score": {
         "home": 0,
         "away": 2
-      }
+      },
+      "goalsHome": [],
+      "goalsAway": [
+        {
+          "minute": 7,
+          "name": "Nicolas Pepe"
+        },
+        {
+          "minute": 64,
+          "name": "Nicolas Pepe"
+        }
+      ],
+      "resultHighlights": [
+        "🌟 Nicolas Pepe scored twice as Côte d'Ivoire pulled clear.",
+        "📊 Côte d'Ivoire moved to 6 points in Group E while Curaçao stayed on 1 point."
+      ]
     },
     {
       "id": "japan-sweden-2026-06-25",
@@ -6776,7 +6813,7 @@
       "homeTeamId": "JPN",
       "awayTeamId": "SWE",
       "venue": "Dallas Stadium",
-      "status": "LIVE",
+      "status": "FT",
       "h2h": {
         "status": "loaded",
         "sourceId": "national-football-teams-h2h-2026-06-17",
@@ -6879,9 +6916,25 @@
       },
       "matchNumber": 57,
       "score": {
-        "home": 0,
-        "away": 0
-      }
+        "home": 1,
+        "away": 1
+      },
+      "goalsHome": [
+        {
+          "minute": 56,
+          "name": "Daizen Maeda"
+        }
+      ],
+      "goalsAway": [
+        {
+          "minute": 62,
+          "name": "Anthony Elanga"
+        }
+      ],
+      "resultHighlights": [
+        "🌟 Anthony Elanga's 62' equalizer earned Sweden a point.",
+        "📊 Japan moved to 5 points and Sweden to 4 points in Group F."
+      ]
     },
     {
       "id": "tunisia-netherlands-2026-06-25",
@@ -6892,7 +6945,7 @@
       "homeTeamId": "TUN",
       "awayTeamId": "NED",
       "venue": "Kansas City Stadium",
-      "status": "LIVE",
+      "status": "FT",
       "h2h": {
         "status": "loaded",
         "sourceId": "national-football-teams-h2h-2026-06-17",
@@ -6975,9 +7028,34 @@
       },
       "matchNumber": 58,
       "score": {
-        "home": 0,
-        "away": 2
-      }
+        "home": 1,
+        "away": 3
+      },
+      "goalsHome": [
+        {
+          "minute": 54,
+          "name": "Hazem Mastouri"
+        }
+      ],
+      "goalsAway": [
+        {
+          "minute": 3,
+          "name": "Ellyes Skhiri",
+          "ownGoal": true
+        },
+        {
+          "minute": 7,
+          "name": "Brian Brobbey"
+        },
+        {
+          "minute": 62,
+          "name": "Jan Paul van Hecke"
+        }
+      ],
+      "resultHighlights": [
+        "🌟 Ellyes Skhiri opened it before Jan Paul van Hecke finished the scoring.",
+        "📊 Netherlands moved to 7 points in Group F and left Tunisia without a point."
+      ]
     },
     {
       "id": "turkiye-united-states-2026-06-25",
@@ -6988,7 +7066,7 @@
       "homeTeamId": "TUR",
       "awayTeamId": "USA",
       "venue": "Los Angeles Stadium",
-      "status": "SCHEDULED",
+      "status": "LIVE",
       "h2h": {
         "status": "loaded",
         "sourceId": "national-football-teams-h2h-2026-06-17",
@@ -7099,7 +7177,31 @@
           "matchNumber": 59
         }
       },
-      "matchNumber": 59
+      "matchNumber": 59,
+      "score": {
+        "home": 2,
+        "away": 2
+      },
+      "goalsHome": [
+        {
+          "minute": 10,
+          "name": "Arda Guler"
+        },
+        {
+          "minute": 31,
+          "name": "Orkun Kokcu"
+        }
+      ],
+      "goalsAway": [
+        {
+          "minute": 3,
+          "name": "Auston Trusty"
+        },
+        {
+          "minute": 49,
+          "name": "Sebastian Berhalter"
+        }
+      ]
     },
     {
       "id": "paraguay-australia-2026-06-25",
@@ -7110,7 +7212,7 @@
       "homeTeamId": "PAR",
       "awayTeamId": "AUS",
       "venue": "San Francisco Bay Area Stadium",
-      "status": "SCHEDULED",
+      "status": "LIVE",
       "h2h": {
         "status": "loaded",
         "sourceId": "national-football-teams-h2h-2026-06-17",
@@ -7221,7 +7323,11 @@
           "matchNumber": 60
         }
       },
-      "matchNumber": 60
+      "matchNumber": 60,
+      "score": {
+        "home": 0,
+        "away": 0
+      }
     },
     {
       "id": "norway-france-2026-06-26",
@@ -8427,8 +8533,8 @@
       "venue": "Estadio Monterrey",
       "status": "SCHEDULED",
       "h2h": {
-        "status": "not-loaded",
-        "summary": "Teams are not known yet. Past match research will load after the matchup is set.",
+        "status": "research-pending",
+        "summary": "H2H research is pending for this matchup. Add API-backed or manually verified senior results when available.",
         "results": null
       },
       "providerIds": {
@@ -8437,7 +8543,54 @@
           "matchNumber": 75
         }
       },
-      "awayTeamId": "MAR"
+      "awayTeamId": "MAR",
+      "homeTeamId": "NED",
+      "keyPlayers": {
+        "sourceId": "key-player-baseline-2026-06-22",
+        "method": "team-watchlist-baseline",
+        "basis": "Team-level key-player watchlist; replace with API/squad-sourced fixture notes when available",
+        "home": [
+          {
+            "name": "Virgil van Dijk",
+            "note": "The defensive reference point, controlling aerial duels and giving the Netherlands confidence to hold a higher line."
+          },
+          {
+            "name": "Frenkie de Jong",
+            "note": "The press-resistant midfielder who turns build-up pressure into controlled entries through midfield."
+          },
+          {
+            "name": "Cody Gakpo",
+            "note": "A flexible forward who can drift inside, combine, and finish when the Dutch attack finds rhythm."
+          }
+        ],
+        "away": [
+          {
+            "name": "Achraf Hakimi",
+            "note": "A two-way right-side force whose overlaps, recovery speed, and set pieces shape Morocco's best stretches."
+          },
+          {
+            "name": "Brahim Diaz",
+            "note": "The between-lines creator who can receive under pressure and turn Hakimi support into final-third chances."
+          },
+          {
+            "name": "Ayoub El Kaabi",
+            "note": "The box finisher who gives Morocco a direct endpoint when wide pressure turns into service."
+          }
+        ]
+      },
+      "projection": {
+        "sourceId": "ranking-projection-2026-06-17",
+        "method": "fifa-ranking-baseline",
+        "basis": "FIFA ranking strength with host-country adjustment",
+        "home": 34,
+        "draw": 29,
+        "away": 37
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-22",
+        "home": "Netherlands are a control team with a strong defensive base and enough technical quality to play through pressure, led by Virgil van Dijk, Frenkie de Jong, and Cody Gakpo. Against Morocco, their De Jong-Gakpo controlled buildup has to beat Morocco's Hakimi-Brahim right-side surges. They want to build calmly through De Jong and let Gakpo receive between wide and central defenders. The risk is Morocco can combine Hakimi surges, Brahim's invention, and El Kaabi's box movement.",
+        "away": "Morocco are a disciplined, dangerous side whose structure lets their flair players attack with freedom, led by Achraf Hakimi, Brahim Diaz, and Ayoub El Kaabi. Against Netherlands, their Hakimi-Brahim right-side surges has to beat Netherlands' De Jong-Gakpo controlled buildup. They want to use Hakimi's overlaps to tilt the field before Brahim or El Kaabi attacks the final pass or shot. The risk is Netherlands can control possession through De Jong and protect it with Van Dijk's authority."
+      }
     },
     {
       "id": "match-76-round-of-32-2026-06-29",
@@ -8450,8 +8603,8 @@
       "venue": "Houston Stadium",
       "status": "SCHEDULED",
       "h2h": {
-        "status": "not-loaded",
-        "summary": "Teams are not known yet. Past match research will load after the matchup is set.",
+        "status": "research-pending",
+        "summary": "H2H research is pending for this matchup. Add API-backed or manually verified senior results when available.",
         "results": null
       },
       "providerIds": {
@@ -8460,7 +8613,54 @@
           "matchNumber": 76
         }
       },
-      "homeTeamId": "BRA"
+      "homeTeamId": "BRA",
+      "awayTeamId": "JPN",
+      "keyPlayers": {
+        "sourceId": "key-player-baseline-2026-06-22",
+        "method": "team-watchlist-baseline",
+        "basis": "Team-level key-player watchlist; replace with API/squad-sourced fixture notes when available",
+        "home": [
+          {
+            "name": "Vinicius Junior",
+            "note": "Brazil's main starting runner if Neymar is managed from the bench, built to punish any open channel."
+          },
+          {
+            "name": "Casemiro",
+            "note": "The midfield stabilizer who lets Brazil attack while still protecting the counter."
+          },
+          {
+            "name": "Neymar",
+            "note": "Available again after injury, but current reports expect him to be managed rather than starting."
+          }
+        ],
+        "away": [
+          {
+            "name": "Ayase Ueda",
+            "note": "Japan's penalty-area finisher, fresh off a two-goal performance against Tunisia."
+          },
+          {
+            "name": "Ritsu Doan",
+            "note": "A left-footed attacker who can arrive inside from the right and give Japan punch when combinations reach the final third."
+          },
+          {
+            "name": "Daichi Kamada",
+            "note": "The between-lines connector, important for turning Japan's fast passing into the final pass or late box run."
+          }
+        ]
+      },
+      "projection": {
+        "sourceId": "ranking-projection-2026-06-17",
+        "method": "fifa-ranking-baseline",
+        "basis": "FIFA ranking strength with host-country adjustment",
+        "home": 46,
+        "draw": 27,
+        "away": 27
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-22",
+        "home": "Brazil are a top-tier attacking side whose best moments mix individual invention with sudden acceleration, led by Vinicius Junior, Casemiro, and Neymar. Against Japan, their Neymar-Vinicius isolation speed has to beat Japan's Doan-Kamada combination speed. They want to isolate Vinicius Junior quickly and let Neymar combine around the fouls and gaps that creates. The risk is Japan can turn quick combinations into chances around the box.",
+        "away": "Japan are a precise, fast-passing side that can make possession feel sudden and sharp, led by Ayase Ueda, Ritsu Doan, and Daichi Kamada. Against Brazil, their Doan-Kamada combination speed has to beat Brazil's Neymar-Vinicius isolation speed. They want to move the ball quickly enough for their attackers to receive between defenders. The risk is Brazil can break a shape through Neymar combinations and Vinicius Junior's speed."
+      }
     },
     {
       "id": "match-77-round-of-32-2026-06-30",

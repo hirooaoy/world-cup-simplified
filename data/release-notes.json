@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-25T14:22:43-07:00",
+  "updatedAt": "2026-06-25T20:17:26-07:00",
   "releases": [
     {
       "date": "2026-06-25",
@@ -20,6 +20,7 @@
         "Projected Round of 16 and later countries now stay muted until their source match winner is confirmed.",
         "Completed groups now reuse the archived green advancement row highlight for confirmed Round of 32 teams.",
         "Third-place race badges now say whether a path is still open, how many matches are left, and the best-case points ceiling.",
+        "Third-place race now shows each team's games left beside the estimated Round of 32 advancing percentage and explains the simple remaining-match scenario model on hover.",
         "Home match rows now hide ranking pills, keep cramped mobile live rows readable with a compact two-line matchup layout, and move compact world-ranking pills into the selected match card title.",
         "World-ranking pills now explain on hover that they are FIFA rankings used for the 2026 tournament view.",
         "Player hover cards now show the player country's flag beside the name, while historical cards keep archive-note wording.",
@@ -40,6 +41,7 @@
         "16强及后续轮次的预测球队现在会保持灰色显示，直到来源比赛胜者确认。",
         "已完赛小组现在会沿用存档赛事的绿色晋级行高亮来标记确认进入32强的球队。",
         "最佳第三名竞争标签现在会说明是否仍有出线路径、还剩几场比赛，以及最好情况的积分上限。",
+        "最佳第三名竞争现在会在预计进入32强百分比旁显示每队剩余场次，并在提示中解释简单的剩余比赛场景模型。",
         "首页比赛行现在隐藏排名标签；移动端实时比赛在队名与状态标签过挤时会切换为紧凑的两行对阵布局，选中的比赛卡标题会显示更紧凑的世界排名标签。",
         "世界排名标签现在可悬停说明：这是本2026赛事视图使用的FIFA排名。",
         "球员悬停卡现在会在姓名旁显示球员国家旗帜，历史球员卡也保留档案说明的表述。",

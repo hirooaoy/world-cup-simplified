@@ -355,6 +355,8 @@ const browser = await chromium.launch();
 const page = await browser.newPage();
 const teamsById = new Map((teamsData.teams || []).map((team) => [team.id, team]));
 const thirdPlaceStandingIndex = 2;
+const expectedThirdPlaceAdvancementEstimateCache = new Map();
+const expectedThirdPlaceGroupScenarioCache = new Map();
 const expectedGroupThirdPlacePointFloorCache = new Map();
 const expectedTeamGroupStageEliminationCache = new Map();
 const expectedTeamMaximumGroupPointsCache = new Map();
@@ -403,7 +405,8 @@ function getExpectedThirdPlaceStandingBadgeReason(candidate) {
   const raceRows = getExpectedThirdPlaceRaceRows();
   const raceTeamCount = raceRows.length || tournamentData.groups?.length || 0;
   const lines = [
-    `${formatOrdinal(candidate.position)}/${raceTeamCount} third-place teams; top ${advancerCount} qualify.`
+    `${formatOrdinal(candidate.position)}/${raceTeamCount} third-place teams; top ${advancerCount} qualify.`,
+    ...getExpectedThirdPlaceAdvancementEstimateLines(candidate)
   ];
 
   if (candidate.status?.kind === "eliminated" || candidate.isEliminated) {
@@ -502,6 +505,30 @@ function getThirdPlaceTieSignature(row) {
 
 function getExpectedThirdPlaceStatus(candidate, advancerCount) {
   const isInside = candidate.position <= advancerCount;
+  const estimate = candidate.advancementEstimate;
+
+  if (estimate && Number.isFinite(estimate.probability)) {
+    const probability = estimate.probability;
+    const label = `${estimate.displayPercent} advancing`;
+
+    if (candidate.isEliminated || probability <= 0) {
+      return { kind: candidate.isEliminated ? "eliminated" : "out", label };
+    }
+
+    if (candidate.isCutLineTie) {
+      return { kind: "pending", label };
+    }
+
+    if (probability >= 0.75) {
+      return { kind: "in", label };
+    }
+
+    if (probability >= 0.45) {
+      return { kind: "bubble-in", label };
+    }
+
+    return { kind: "first-out", label };
+  }
 
   if (candidate.isEliminated) {
     return { kind: "eliminated", label: "Eliminated" };
@@ -566,10 +593,12 @@ function annotateExpectedThirdPlaceRaceRows(rows, advancerCount) {
   return annotatedRows.map((row) => {
     const isEliminated = isExpectedTeamEliminatedFromGroupStage(row.teamId, row.groupId);
     const candidate = { ...row, isEliminated };
+    const advancementEstimate = getExpectedThirdPlaceAdvancementEstimate(candidate);
+    const candidateWithEstimate = { ...candidate, advancementEstimate };
 
     return {
-      ...candidate,
-      status: getExpectedThirdPlaceStatus(candidate, advancerCount)
+      ...candidateWithEstimate,
+      status: getExpectedThirdPlaceStatus(candidateWithEstimate, advancerCount)
     };
   });
 }
@@ -586,6 +615,7 @@ function getExpectedThirdPlaceRaceRows() {
       return {
         ...row,
         gd: row.gf - row.ga,
+        gamesLeft: getExpectedRemainingTeamGroupFixtures(row.teamId, group.id).length,
         groupId: group.id,
         groupIndex,
         groupLabel: group.label || `Group ${group.id}`,
@@ -688,37 +718,57 @@ function getExpectedThirdPlaceReason(candidate, rows = getExpectedThirdPlaceRace
   const summary = formatExpectedThirdPlaceRaceIntro(candidate, rows);
 
   if (candidate.status?.kind === "eliminated" || candidate.isEliminated) {
-    return "No remaining group result combination can move this team into a Round of 32 place.";
+    return formatExpectedThirdPlaceReasonWithEstimate(candidate, [
+      "No remaining group result combination can move this team into a Round of 32 place."
+    ]);
   }
 
   if (candidate.isCutLineTie) {
-    return `${summary}\nTeams from ${formatOrdinal(candidate.tieGroupStart)} to ${formatOrdinal(candidate.tieGroupEnd)} are tied around the cutoff.\nFair-play data is missing.`;
+    return formatExpectedThirdPlaceReasonWithEstimate(candidate, [
+      summary,
+      `Teams from ${formatOrdinal(candidate.tieGroupStart)} to ${formatOrdinal(candidate.tieGroupEnd)} are tied around the cutoff.`,
+      "Fair-play data is missing."
+    ]);
   }
 
   if (isGroupStageFinished()) {
-    return candidate.position <= getThirdPlaceAdvancerCount()
-      ? `${summary}\nFinal table: qualifies as a third-place team.`
-      : `${summary}\nFinal table: outside the qualifying third-place spots.`;
+    return formatExpectedThirdPlaceReasonWithEstimate(candidate, [
+      summary,
+      candidate.position <= getThirdPlaceAdvancerCount()
+        ? "Final table: qualifies as a third-place team."
+        : "Final table: outside the qualifying third-place spots."
+    ]);
   }
 
   const nearestCandidate = getExpectedThirdPlaceComparisonTarget(candidate, rows);
 
   if (!nearestCandidate) {
-    return summary;
+    return formatExpectedThirdPlaceReasonWithEstimate(candidate, [summary]);
   }
 
   if (candidate.isUnresolvedTie && getThirdPlaceTieSignature(candidate) === getThirdPlaceTieSignature(nearestCandidate)) {
-    return `${summary}\nTied with ${nearestCandidate.team.name}.\nFair-play data is missing.`;
+    return formatExpectedThirdPlaceReasonWithEstimate(candidate, [
+      summary,
+      `Tied with ${nearestCandidate.team.name}.`,
+      "Fair-play data is missing."
+    ]);
   }
 
   const isInside = candidate.position <= getThirdPlaceAdvancerCount();
   const decider = getExpectedThirdPlaceComparisonDecider(candidate, nearestCandidate);
   const comparison = formatExpectedThirdPlaceShortComparison(decider);
   if (isInside) {
-    return `${summary}\nAhead of ${nearestCandidate.team.name}: ${comparison}.`;
+    return formatExpectedThirdPlaceReasonWithEstimate(candidate, [
+      summary,
+      `Ahead of ${nearestCandidate.team.name}: ${comparison}.`
+    ]);
   }
 
-  return `${summary}\nNeeds to pass ${nearestCandidate.team.name}.\nCurrent gap: ${comparison}.`;
+  return formatExpectedThirdPlaceReasonWithEstimate(candidate, [
+    summary,
+    `Needs to pass ${nearestCandidate.team.name}.`,
+    `Current gap: ${comparison}.`
+  ]);
 }
 
 function getAutomaticAdvancersPerGroup() {
@@ -780,6 +830,48 @@ function formatExpectedThirdPlacePathSummary(prefix, remainingMatchCount, maximu
   return prefix === "In for now"
     ? `${prefix}: no matches left, so it is waiting on other groups.`
     : `${prefix}: no matches left, so it needs help from other groups.`;
+}
+
+function getExpectedThirdPlaceAdvancementRouteLine(candidate) {
+  const estimate = candidate.advancementEstimate;
+
+  if (!estimate || !Number.isFinite(estimate.probability)) {
+    return "";
+  }
+
+  if (estimate.probability <= 0) {
+    return "No modeled route reaches the Round of 32 from here.";
+  }
+
+  if (estimate.automaticScenarioCount > 0 && estimate.thirdPlaceScenarioCount > 0) {
+    return "Can advance either by moving top two or by staying high enough among third-place teams.";
+  }
+
+  if (estimate.automaticScenarioCount > 0) {
+    return "Best path is to move into the group top two.";
+  }
+
+  return "Route is mainly the best-third table unless it climbs into the top two.";
+}
+
+function getExpectedThirdPlaceAdvancementEstimateLines(candidate) {
+  const estimate = candidate.advancementEstimate;
+
+  if (!estimate || !Number.isFinite(estimate.probability)) {
+    return [];
+  }
+
+  return [
+    `Estimated Round of 32 chance: ${estimate.displayPercent}.`,
+    "Simple model: every unplayed group match is a win, draw, or loss.",
+    "Counts top-two group finishes plus best-third finishes; not official odds.",
+    "The estimate recalculates from the loaded group-stage results.",
+    getExpectedThirdPlaceAdvancementRouteLine(candidate)
+  ].filter(Boolean);
+}
+
+function formatExpectedThirdPlaceReasonWithEstimate(candidate, lines) {
+  return [...getExpectedThirdPlaceAdvancementEstimateLines(candidate), ...lines].filter(Boolean).join("\n");
 }
 
 function isGroupStageFinished() {
@@ -901,6 +993,228 @@ function createExpectedGroupQualificationProjection(group) {
       (fixture) => fixture.status !== "FT" && fixture.homeTeamId && fixture.awayTeamId
     )
   };
+}
+
+function compareExpectedGroupQualificationScenarioRows(a, b, scenarioRows, states, results) {
+  if (a.pts !== b.pts) {
+    return b.pts - a.pts;
+  }
+
+  const tiedTeamIds = scenarioRows
+    .filter((row) => row.pts === a.pts)
+    .map((row) => row.teamId);
+
+  if (isExpectedTeamDefinitelyAboveInTie(a.teamId, b.teamId, tiedTeamIds, states, results)) {
+    return -1;
+  }
+
+  if (isExpectedTeamDefinitelyAboveInTie(b.teamId, a.teamId, tiedTeamIds, states, results)) {
+    return 1;
+  }
+
+  const conductA = getTeamConductScore(a);
+  const conductB = getTeamConductScore(b);
+
+  return (
+    b.gd - a.gd ||
+    b.gf - a.gf ||
+    (conductA !== null && conductB !== null ? conductB - conductA : 0) ||
+    getFifaRankValue(getTeam(a.teamId)) - getFifaRankValue(getTeam(b.teamId)) ||
+    a.seededOrder - b.seededOrder ||
+    getTeam(a.teamId).name.localeCompare(getTeam(b.teamId).name)
+  );
+}
+
+function getExpectedGroupQualificationScenarioRows(group, states, results) {
+  const groupIndex = (tournamentData.groups || []).findIndex((groupItem) => groupItem.id === group?.id);
+  const scenarioRows = [...states.values()];
+
+  return [...scenarioRows]
+    .sort((a, b) => compareExpectedGroupQualificationScenarioRows(a, b, scenarioRows, states, results))
+    .map((row, index) => ({
+      ...row,
+      conductScore: getTeamConductScore(row),
+      groupId: group.id,
+      groupIndex,
+      groupLabel: group.label || `Group ${group.id}`,
+      position: index + 1,
+      team: getTeam(row.teamId)
+    }));
+}
+
+function getExpectedFallbackGroupQualificationScenarios(group) {
+  const groupIndex = (tournamentData.groups || []).findIndex((groupItem) => groupItem.id === group?.id);
+  const rows = (standingsData.groups?.[group.id] || []).map((row, index) => ({
+    ...row,
+    conductScore: getTeamConductScore(row),
+    gd: row.gf - row.ga,
+    groupId: group.id,
+    groupIndex,
+    groupLabel: group.label || `Group ${group.id}`,
+    position: index + 1,
+    pts: row.wins * 3 + row.draws,
+    team: getTeam(row.teamId)
+  }));
+
+  return [
+    {
+      isFallback: true,
+      results: [],
+      rows
+    }
+  ];
+}
+
+function getExpectedGroupQualificationScenarios(group) {
+  const cacheKey = String(group?.id || "");
+  if (expectedThirdPlaceGroupScenarioCache.has(cacheKey)) {
+    return expectedThirdPlaceGroupScenarioCache.get(cacheKey);
+  }
+
+  const projection = createExpectedGroupQualificationProjection(group);
+  if (!projection) {
+    const fallbackScenarios = getExpectedFallbackGroupQualificationScenarios(group);
+    expectedThirdPlaceGroupScenarioCache.set(cacheKey, fallbackScenarios);
+    return fallbackScenarios;
+  }
+
+  const scenarios = [];
+
+  function visit(fixtureIndex, states, results) {
+    if (fixtureIndex >= projection.remainingFixtures.length) {
+      scenarios.push({
+        isFallback: false,
+        results,
+        rows: getExpectedGroupQualificationScenarioRows(group, states, results)
+      });
+      return;
+    }
+
+    const fixture = projection.remainingFixtures[fixtureIndex];
+    getExpectedProjectedGroupQualificationResults(fixture).forEach((result) => {
+      const nextStates = cloneExpectedGroupQualificationStates(states);
+      applyExpectedGroupQualificationResult(nextStates, result);
+      visit(fixtureIndex + 1, nextStates, [...results, result]);
+    });
+  }
+
+  visit(0, projection.baseStates, projection.completedResults);
+
+  const scenarioRows = scenarios.length ? scenarios : getExpectedFallbackGroupQualificationScenarios(group);
+  expectedThirdPlaceGroupScenarioCache.set(cacheKey, scenarioRows);
+  return scenarioRows;
+}
+
+function formatExpectedThirdPlaceAdvancementPercent(probability) {
+  if (!Number.isFinite(probability)) {
+    return "";
+  }
+
+  const percent = probability * 100;
+  if (probability > 0 && percent < 1) {
+    return "<1%";
+  }
+
+  if (probability < 1 && percent > 99) {
+    return "99%";
+  }
+
+  return `${Math.round(percent)}%`;
+}
+
+function getExpectedThirdPlaceScenarioAdvancementProbability(targetThirdPlaceRow, targetGroupId) {
+  const advancerCount = getThirdPlaceAdvancerCount();
+  let distribution = [1];
+  let totalCombinations = 1;
+
+  for (const group of tournamentData.groups || []) {
+    if (group.id === targetGroupId) {
+      continue;
+    }
+
+    const scenarios = getExpectedGroupQualificationScenarios(group);
+    const scenarioCount = scenarios.length || 1;
+    const aboveCount = scenarios.filter((scenario) => {
+      const thirdPlaceRow = scenario.rows[thirdPlaceStandingIndex];
+      return thirdPlaceRow && compareThirdPlaceCandidates(thirdPlaceRow, targetThirdPlaceRow) < 0;
+    }).length;
+    const notAboveCount = scenarioCount - aboveCount;
+    const nextDistribution = Array.from({ length: distribution.length + 1 }, () => 0);
+
+    distribution.forEach((count, index) => {
+      nextDistribution[index] += count * notAboveCount;
+      nextDistribution[index + 1] += count * aboveCount;
+    });
+
+    distribution = nextDistribution;
+    totalCombinations *= scenarioCount;
+  }
+
+  if (!totalCombinations) {
+    return 0;
+  }
+
+  const advancingCombinations = distribution.reduce(
+    (total, count, aboveCount) => (aboveCount < advancerCount ? total + count : total),
+    0
+  );
+
+  return advancingCombinations / totalCombinations;
+}
+
+function getExpectedThirdPlaceAdvancementEstimate(candidate) {
+  const cacheKey = `${candidate.groupId || ""}:${candidate.teamId || ""}:${candidate.pts}:${candidate.gd}:${candidate.gf}:${candidate.isEliminated ? "out" : "live"}`;
+  if (expectedThirdPlaceAdvancementEstimateCache.has(cacheKey)) {
+    return expectedThirdPlaceAdvancementEstimateCache.get(cacheKey);
+  }
+
+  const group = (tournamentData.groups || []).find((groupItem) => groupItem.id === candidate.groupId);
+  const targetScenarios = getExpectedGroupQualificationScenarios(group);
+  let automaticScenarioCount = 0;
+  let thirdPlaceScenarioCount = 0;
+  let outScenarioCount = 0;
+  let chanceTotal = 0;
+
+  targetScenarios.forEach((scenario) => {
+    const targetRow = scenario.rows.find((row) => row.teamId === candidate.teamId);
+    const automaticPlaces = Math.min(scenario.rows.length, getAutomaticAdvancersPerGroup());
+
+    if (!targetRow) {
+      outScenarioCount += 1;
+      return;
+    }
+
+    if (targetRow.position <= automaticPlaces) {
+      automaticScenarioCount += 1;
+      chanceTotal += 1;
+      return;
+    }
+
+    if (targetRow.position === thirdPlaceStandingIndex + 1) {
+      thirdPlaceScenarioCount += 1;
+      chanceTotal += getExpectedThirdPlaceScenarioAdvancementProbability(targetRow, candidate.groupId);
+      return;
+    }
+
+    outScenarioCount += 1;
+  });
+
+  const modeledScenarioCount = targetScenarios.length;
+  const rawProbability = modeledScenarioCount > 0 ? chanceTotal / modeledScenarioCount : null;
+  const probability = candidate.isEliminated ? 0 : rawProbability;
+  const estimate = {
+    automaticScenarioCount,
+    displayPercent: formatExpectedThirdPlaceAdvancementPercent(probability),
+    groupScenarioCount: modeledScenarioCount,
+    outScenarioCount,
+    probability,
+    remainingGroupMatchCount: fixturesData.fixtures.filter((fixture) => fixture.stage === "group" && fixture.status !== "FT").length,
+    thirdPlaceScenarioCount,
+    usesFallback: targetScenarios.some((scenario) => scenario.isFallback)
+  };
+
+  expectedThirdPlaceAdvancementEstimateCache.set(cacheKey, estimate);
+  return estimate;
 }
 
 function getExpectedGroupThirdPlacePointFloor(group) {
@@ -1381,7 +1695,7 @@ try {
     thirdPlaceLoadingState.ariaBusy === "true" &&
       thirdPlaceLoadingState.tabPressed === "true" &&
       thirdPlaceLoadingState.summary.includes("Third-place standings across all groups") &&
-      thirdPlaceLoadingState.headers.join("|") === "Rank|Team|Group|Pts|GD|Goals|Status" &&
+      thirdPlaceLoadingState.headers.join("|") === "Rank|Team|Group|Pts|GD|Goals|Games Left|Chance" &&
       thirdPlaceLoadingState.rowCount === 8 &&
       thirdPlaceLoadingState.realRowCount === 0,
     "Direct third-place standings loads should show a table-shaped skeleton while standings data is loading."
@@ -2053,9 +2367,9 @@ try {
   const unconfirmedRoundOf32DetailText = normalizeFlaggedText(await page.locator("#match-info").innerText());
   assert(
     unconfirmedRoundOf32DetailText.includes("Brazil won against Haiti (3-0) and Scotland (3-0) and tied against Morocco (1-1).") &&
-      unconfirmedRoundOf32DetailText.includes("Group F runner-up is not confirmed yet.") &&
-      !unconfirmedRoundOf32DetailText.includes("Japan won against"),
-    "Round of 32 match detail should not summarize a projected opponent before its slot is locked."
+      unconfirmedRoundOf32DetailText.includes("Japan won against Tunisia (4-0) and tied against Netherlands (2-2) and Sweden (1-1).") &&
+      !unconfirmedRoundOf32DetailText.includes("Group F runner-up is not confirmed yet."),
+    "Round of 32 match detail should summarize both teams once the opponent slot is locked."
   );
 
   await page.goto(`${baseUrl}?view=matches&date=2026-07-04&tz=America%2FLos_Angeles`, {
@@ -3939,23 +4253,23 @@ try {
   );
   await page.setViewportSize({ width: 1280, height: 720 });
   const scheduledLiveWindowCheck = await openPageAtTime(
-    "2026-06-25T23:30:00.000Z",
+    "2026-06-26T19:30:00.000Z",
     "/?view=standings&tz=America%2FLos_Angeles"
   );
-  await scheduledLiveWindowCheck.page.waitForSelector('.standings-card[data-group-id="F"] .standing-team');
-  const groupFScheduledWindowRows = await scheduledLiveWindowCheck.page.evaluate(() =>
-    [...document.querySelectorAll('.standings-card[data-group-id="F"] tbody tr')].map((row) => ({
+  await scheduledLiveWindowCheck.page.waitForSelector('.standings-card[data-group-id="I"] .standing-team');
+  const groupIScheduledWindowRows = await scheduledLiveWindowCheck.page.evaluate(() =>
+    [...document.querySelectorAll('.standings-card[data-group-id="I"] tbody tr')].map((row) => ({
       live: row.querySelector(".standing-live-pill")?.textContent.trim() || "",
       race: row.querySelector(".third-place-pill")?.textContent.trim() || "",
       team: row.querySelector(".standing-name")?.textContent.trim() || ""
     }))
   );
   assert(
-    groupFScheduledWindowRows.some(
-      (row) => row.team === "Sweden" && row.race.startsWith("3rd race") && row.live === "Live"
+    groupIScheduledWindowRows.some(
+      (row) => row.team === "Senegal" && row.race.startsWith("3rd race") && row.live === "Live"
     ) &&
-      groupFScheduledWindowRows
-        .filter((row) => row.team !== "Sweden")
+      groupIScheduledWindowRows
+        .filter((row) => row.team !== "Senegal")
         .every((row) => row.live === ""),
     "Third-place standings live pills should follow the live-window rule when source status is still scheduled."
   );
@@ -3970,7 +4284,7 @@ try {
     }))
   );
   assert(
-    thirdPlaceScheduledWindowRows.some((row) => row.team === "Sweden" && row.live === "Live"),
+    thirdPlaceScheduledWindowRows.some((row) => row.team === "Senegal" && row.live === "Live"),
     "The third-place race table should mark a current third-place candidate as live during its scheduled live window."
   );
   await scheduledLiveWindowCheck.context.close();
@@ -4062,6 +4376,7 @@ try {
         rank: row.children[0]?.textContent.trim(),
         team: row.querySelector(".standing-name")?.textContent.trim(),
         group: row.children[2]?.textContent.trim(),
+        gamesLeft: row.children[6]?.textContent.trim(),
         live: row.querySelector(".standing-live-pill")?.textContent.trim() || "",
         status: statusPill?.textContent.trim(),
         statusLabel: statusPill?.getAttribute("aria-label"),
@@ -4102,17 +4417,29 @@ try {
     "The third-place race should draw one clear top-eight advancement line."
   );
   assert(
-    thirdPlaceRaceCheck.headers.includes("Goals") && !thirdPlaceRaceCheck.headers.includes("GF"),
-    "The third-place race should use the short Goals label instead of GF jargon."
+    thirdPlaceRaceCheck.headers.join("|") === "Rank|Team|Group|Pts|GD|Goals|Games Left|Chance" &&
+      !thirdPlaceRaceCheck.headers.includes("GF"),
+    "The third-place race should show Goals, Games Left, and Chance without GF jargon."
+  );
+  assert(
+    thirdPlaceRaceCheck.rowSummaries.every((row) => {
+      const expected = expectedThirdPlaceRaceRows.find((candidate) => candidate.team.name === row.team);
+      return expected && row.gamesLeft === String(expected.gamesLeft);
+    }),
+    "The third-place race should show each current third-place team's remaining group games."
   );
   assert(
       thirdPlaceRaceCheck.visibleReasonCount === 0 &&
       thirdPlaceRaceCheck.rowSummaries.every((row) => row.tooltip && !row.tooltip.includes("GF")) &&
+      thirdPlaceRaceCheck.rowSummaries.every((row) => /^(?:<1%|\d+%) advancing$/.test(row.status || "")) &&
       thirdPlaceRaceCheck.rowSummaries.some((row) =>
-        row.tooltip.includes("Top 8 advance.") &&
+          row.tooltip.includes("Estimated Round of 32 chance:") &&
+          row.tooltip.includes("Simple model: every unplayed group match is a win, draw, or loss.") &&
+          row.tooltip.includes("The estimate recalculates from the loaded group-stage results.") &&
+          row.tooltip.includes("Top 8 advance.") &&
           /Ahead of|Needs to pass|Final table/.test(row.tooltip)
       ),
-    "The third-place race should hide concise beginner-friendly top-eight explanations behind status pill tooltips without GF jargon."
+    "The third-place race should show percentage advancing estimates and hide concise beginner-friendly top-eight explanations behind status pill tooltips without GF jargon."
   );
   const expectedLiveThirdPlaceTeams = new Set(
     fixturesData.fixtures
@@ -4128,9 +4455,8 @@ try {
     "The third-place race should show LIVE only for active matches involving current third-place candidates."
   );
   assert(
-    (isGroupStageFinished() || thirdPlaceRaceCheck.rowSummaries.some((row) => row.status === "Just inside")) &&
-      thirdPlaceRaceCheck.rowSummaries.every((row) => row.status !== "Bubble in"),
-    "The third-place race should use plain edge-of-cut-line status copy."
+    thirdPlaceRaceCheck.rowSummaries.every((row) => row.status !== "Advancing now" && row.status !== "Just inside" && row.status !== "Bubble in"),
+    "The third-place race should use percentage advancing labels instead of binary advancement copy."
   );
   assert(
     thirdPlaceRaceCheck.rowSummaries.every((row) => row.status !== "Made it"),
@@ -4369,6 +4695,12 @@ try {
   );
   const groupETopTeam = getTeam(standingsData.groups?.E?.[0]?.teamId);
   const groupETopTeamName = groupETopTeam.standingName || groupETopTeam.name;
+  const expectedProjectedRoundOf32Count = fixturesData.fixtures.filter(
+    (fixture) => fixture.stage === "round-of-32" && (!fixture.homeTeamId || !fixture.awayTeamId)
+  ).length;
+  const expectedProjectedLaterRoundCount = fixturesData.fixtures.filter((fixture) =>
+    ["round-of-16", "quarter-finals", "semi-finals", "final"].includes(fixture.stage)
+  ).length;
   assert(
     tournamentCheck.summary.includes("Round of 32 slots") &&
       tournamentCheck.m73ProgressText.includes("Jun 28 12:00PM") &&
@@ -4386,8 +4718,8 @@ try {
       tournamentCheck.slotOddsCount >= 16 &&
       tournamentCheck.slotOddsToneMismatches.length === 0 &&
       tournamentCheck.slotOddsText.includes("here") &&
-      tournamentCheck.projectedCount === 30 &&
-      tournamentCheck.roundOf32ProjectedCount === 15 &&
+      tournamentCheck.projectedCount === expectedProjectedRoundOf32Count + expectedProjectedLaterRoundCount &&
+      tournamentCheck.roundOf32ProjectedCount === expectedProjectedRoundOf32Count &&
       tournamentCheck.m73FooterCount === 0 &&
       tournamentCheck.m73Projected === false &&
       tournamentCheck.m74Projected === true &&
@@ -4554,12 +4886,10 @@ try {
     tournamentLayoutChecks.every(
       (check) =>
         check.seedLines.length === 0 &&
-        check.match74SlotLabels.includes("Group E1") &&
-        check.match74SlotTooltips.some((tooltip) => tooltip.includes("Group E1")) &&
+        check.match74SlotLabels.includes("Group F3") &&
+        check.match74SlotTooltips.some((tooltip) => tooltip.includes("Group F3") && tooltip.includes("Slot accepts")) &&
         check.match74SlotListJustifyContent === "flex-start" &&
-        check.match74SlotGap !== null &&
-        check.match74SlotGap >= 0 &&
-        check.match74SlotGap <= 16 &&
+        (check.match74SlotGap === null || (check.match74SlotGap >= 0 && check.match74SlotGap <= 16)) &&
         check.match74PairJustifyContent === "flex-start" &&
         check.match74VenueCursor === "help" &&
         check.match74VenueText === "Massachusetts, USA" &&

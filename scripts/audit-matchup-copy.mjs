@@ -79,6 +79,7 @@ const authoredChineseCopyPatterns = [
   /^📊 Both teams moved to (.+) point(?:s)? in Group ([A-L])\.$/,
   /^📊 (.+) moved to (.+) point(?:s)? in Group ([A-L]) and left (.+) without a point\.$/,
   /^📊 (.+) moved to (.+) point(?:s)? in Group ([A-L]) while (.+) stayed on (.+) point(?:s)?\.$/,
+  /^📊 (.+) moved to (.+) point(?:s)? and (.+) to (.+) point(?:s)? in Group ([A-L])\.$/,
   /^📊 (.+) reached (.+) point(?:s)? in Group ([A-L]) and booked a Round of 32 place\.$/,
   /^(.+) (\d+-\d+) (.+)$/,
   /^(.+) vs (.+)$/

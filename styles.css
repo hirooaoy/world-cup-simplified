@@ -3167,16 +3167,21 @@ h1 {
 
 .third-place-table th:nth-child(5),
 .third-place-table td:nth-child(5) {
-  width: 86px;
+  width: 68px;
 }
 
 .third-place-table th:nth-child(6),
 .third-place-table td:nth-child(6) {
-  width: 112px;
+  width: 70px;
 }
 
 .third-place-table th:nth-child(7),
 .third-place-table td:nth-child(7) {
+  width: 92px;
+}
+
+.third-place-table th:nth-child(8),
+.third-place-table td:nth-child(8) {
   width: 138px;
 }
 
@@ -3218,6 +3223,10 @@ h1 {
 
 .third-place-loading-goals {
   width: 44px;
+}
+
+.third-place-loading-games {
+  width: 54px;
 }
 
 .third-place-loading-status {
@@ -3325,6 +3334,7 @@ h1 {
 
 .third-place-status {
   min-height: 24px;
+  min-width: 92px;
   padding: 0 9px;
 }
 
@@ -6662,6 +6672,11 @@ h1 {
 
   .third-place-table th:nth-child(7),
   .third-place-table td:nth-child(7) {
+    width: 94px;
+  }
+
+  .third-place-table th:nth-child(8),
+  .third-place-table td:nth-child(8) {
     width: 236px;
   }
 
@@ -6915,7 +6930,7 @@ h1 {
 
 @media (max-width: 900px) {
   .third-place-table {
-    min-width: 820px;
+    min-width: 900px;
   }
 
   .third-place-table th:nth-child(1),
@@ -6946,6 +6961,11 @@ h1 {
 
   .third-place-table th:nth-child(7),
   .third-place-table td:nth-child(7) {
+    width: 90px;
+  }
+
+  .third-place-table th:nth-child(8),
+  .third-place-table td:nth-child(8) {
     width: 130px;
   }
 
@@ -6977,7 +6997,7 @@ h1 {
   }
 
   .third-place-table {
-    min-width: 680px;
+    min-width: 760px;
   }
 
   .third-place-table th,
@@ -7019,6 +7039,11 @@ h1 {
 
   .third-place-table th:nth-child(7),
   .third-place-table td:nth-child(7) {
+    width: 78px;
+  }
+
+  .third-place-table th:nth-child(8),
+  .third-place-table td:nth-child(8) {
     width: 120px;
   }
 
