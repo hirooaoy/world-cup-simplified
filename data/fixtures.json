@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-26T19:16:40.144Z",
+  "updatedAt": "2026-06-26T21:04:32.066Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -7352,7 +7352,7 @@
       "homeTeamId": "NOR",
       "awayTeamId": "FRA",
       "venue": "Boston Stadium",
-      "status": "LIVE",
+      "status": "FT",
       "h2h": {
         "status": "loaded",
         "sourceId": "national-football-teams-h2h-2026-06-17",
@@ -7545,8 +7545,8 @@
       },
       "matchNumber": 61,
       "score": {
-        "home": 0,
-        "away": 1
+        "home": 1,
+        "away": 4
       }
     },
     {
@@ -7620,7 +7620,7 @@
       },
       "matchNumber": 62,
       "score": {
-        "home": 1,
+        "home": 5,
         "away": 0
       }
     },
