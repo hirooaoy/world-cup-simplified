@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-26T03:24:22.247Z",
+  "updatedAt": "2026-06-26T06:51:07.909Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -7066,7 +7066,7 @@
       "homeTeamId": "TUR",
       "awayTeamId": "USA",
       "venue": "Los Angeles Stadium",
-      "status": "LIVE",
+      "status": "FT",
       "h2h": {
         "status": "loaded",
         "sourceId": "national-football-teams-h2h-2026-06-17",
@@ -7179,7 +7179,7 @@
       },
       "matchNumber": 59,
       "score": {
-        "home": 2,
+        "home": 3,
         "away": 2
       },
       "goalsHome": [
@@ -7212,7 +7212,7 @@
       "homeTeamId": "PAR",
       "awayTeamId": "AUS",
       "venue": "San Francisco Bay Area Stadium",
-      "status": "LIVE",
+      "status": "FT",
       "h2h": {
         "status": "loaded",
         "sourceId": "national-football-teams-h2h-2026-06-17",
@@ -8772,7 +8772,8 @@
           "matchId": "400021524",
           "matchNumber": 81
         }
-      }
+      },
+      "homeTeamId": "USA"
     },
     {
       "id": "match-82-round-of-32-2026-07-01",
@@ -8927,7 +8928,8 @@
           "matchId": "400021515",
           "matchNumber": 88
         }
-      }
+      },
+      "homeTeamId": "AUS"
     },
     {
       "id": "match-89-round-of-16-2026-07-04",

@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-26T03:22:37.601Z",
+  "updatedAt": "2026-06-26T06:51:07.909Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fifa-standings-2026-06-17",
@@ -146,39 +146,39 @@
     "D": [
       {
         "teamId": "USA",
-        "played": 2,
+        "played": 3,
         "wins": 2,
         "draws": 0,
-        "losses": 0,
-        "gf": 6,
-        "ga": 1
+        "losses": 1,
+        "gf": 8,
+        "ga": 4
       },
       {
         "teamId": "AUS",
-        "played": 2,
+        "played": 3,
         "wins": 1,
-        "draws": 0,
+        "draws": 1,
         "losses": 1,
         "gf": 2,
         "ga": 2
       },
       {
         "teamId": "PAR",
-        "played": 2,
+        "played": 3,
         "wins": 1,
-        "draws": 0,
+        "draws": 1,
         "losses": 1,
         "gf": 2,
         "ga": 4
       },
       {
         "teamId": "TUR",
-        "played": 2,
-        "wins": 0,
+        "played": 3,
+        "wins": 1,
         "draws": 0,
         "losses": 2,
-        "gf": 0,
-        "ga": 3
+        "gf": 3,
+        "ga": 5
       }
     ],
     "E": [
