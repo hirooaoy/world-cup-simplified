@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-27T06:37:58.288Z",
+  "updatedAt": "2026-06-27T21:59:02.305Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -8138,7 +8138,7 @@
       "homeTeamId": "PAN",
       "awayTeamId": "ENG",
       "venue": "New York New Jersey Stadium",
-      "status": "SCHEDULED",
+      "status": "LIVE",
       "h2h": {
         "status": "loaded",
         "sourceId": "national-football-teams-h2h-2026-06-17",
@@ -8209,7 +8209,11 @@
           "matchNumber": 67
         }
       },
-      "matchNumber": 67
+      "matchNumber": 67,
+      "score": {
+        "home": 0,
+        "away": 0
+      }
     },
     {
       "id": "croatia-ghana-2026-06-27",
@@ -8220,7 +8224,7 @@
       "homeTeamId": "CRO",
       "awayTeamId": "GHA",
       "venue": "Philadelphia Stadium",
-      "status": "SCHEDULED",
+      "status": "LIVE",
       "h2h": {
         "status": "verified-empty",
         "sourceId": "national-football-teams-h2h-2026-06-17",
@@ -8280,7 +8284,11 @@
           "matchNumber": 68
         }
       },
-      "matchNumber": 68
+      "matchNumber": 68,
+      "score": {
+        "home": 1,
+        "away": 0
+      }
     },
     {
       "id": "colombia-portugal-2026-06-27",
