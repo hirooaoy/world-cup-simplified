@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-26T23:14:33.594Z",
+  "updatedAt": "2026-06-27T04:32:15.997Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -100,7 +100,8 @@
     "fifa-goal-events-sync-2026-06-25",
     "fifa-official-results-sync-2026-06-25",
     "fifa-official-results-sync-2026-06-26",
-    "fifa-goal-events-sync-2026-06-26"
+    "fifa-goal-events-sync-2026-06-26",
+    "fifa-official-results-sync-2026-06-27"
   ],
   "coverage": {
     "status": "complete-schedule",
@@ -7689,7 +7690,7 @@
       "homeTeamId": "CPV",
       "awayTeamId": "KSA",
       "venue": "Houston Stadium",
-      "status": "SCHEDULED",
+      "status": "FT",
       "h2h": {
         "status": "verified-empty",
         "sourceId": "national-football-teams-h2h-2026-06-17",
@@ -7749,7 +7750,11 @@
           "matchNumber": 65
         }
       },
-      "matchNumber": 65
+      "matchNumber": 65,
+      "score": {
+        "home": 0,
+        "away": 0
+      }
     },
     {
       "id": "uruguay-spain-2026-06-26",
@@ -7760,7 +7765,7 @@
       "homeTeamId": "URU",
       "awayTeamId": "ESP",
       "venue": "Estadio Guadalajara",
-      "status": "SCHEDULED",
+      "status": "FT",
       "h2h": {
         "status": "loaded",
         "sourceId": "national-football-teams-h2h-2026-06-17",
@@ -7891,7 +7896,11 @@
           "matchNumber": 66
         }
       },
-      "matchNumber": 66
+      "matchNumber": 66,
+      "score": {
+        "home": 0,
+        "away": 1
+      }
     },
     {
       "id": "egypt-ir-iran-2026-06-26",
@@ -7902,7 +7911,7 @@
       "homeTeamId": "EGY",
       "awayTeamId": "IRN",
       "venue": "Seattle Stadium",
-      "status": "SCHEDULED",
+      "status": "LIVE",
       "h2h": {
         "status": "loaded",
         "sourceId": "national-football-teams-h2h-2026-06-17",
@@ -7973,7 +7982,11 @@
           "matchNumber": 63
         }
       },
-      "matchNumber": 63
+      "matchNumber": 63,
+      "score": {
+        "home": 1,
+        "away": 1
+      }
     },
     {
       "id": "new-zealand-belgium-2026-06-26",
@@ -7984,7 +7997,7 @@
       "homeTeamId": "NZL",
       "awayTeamId": "BEL",
       "venue": "BC Place Vancouver",
-      "status": "SCHEDULED",
+      "status": "LIVE",
       "h2h": {
         "status": "verified-empty",
         "sourceId": "national-football-teams-h2h-2026-06-17",
@@ -8044,7 +8057,11 @@
           "matchNumber": 64
         }
       },
-      "matchNumber": 64
+      "matchNumber": 64,
+      "score": {
+        "home": 0,
+        "away": 3
+      }
     },
     {
       "id": "panama-england-2026-06-27",
@@ -8924,7 +8941,8 @@
           "matchId": "400021519",
           "matchNumber": 84
         }
-      }
+      },
+      "homeTeamId": "ESP"
     },
     {
       "id": "match-85-round-of-32-2026-07-02",
@@ -8969,7 +8987,8 @@
           "matchId": "400021521",
           "matchNumber": 86
         }
-      }
+      },
+      "awayTeamId": "CPV"
     },
     {
       "id": "match-87-round-of-32-2026-07-03",

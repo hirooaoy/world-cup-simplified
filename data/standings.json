@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-26T23:11:43.067Z",
+  "updatedAt": "2026-06-27T04:32:15.997Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fifa-standings-2026-06-17",
@@ -25,7 +25,8 @@
     "fifa-official-results-sync-2026-06-23",
     "fifa-official-results-sync-2026-06-24",
     "fifa-official-results-sync-2026-06-25",
-    "fifa-official-results-sync-2026-06-26"
+    "fifa-official-results-sync-2026-06-26",
+    "fifa-official-results-sync-2026-06-27"
   ],
   "tiebreakerNote": "Rows use the current table order. Group ties use FIFA head-to-head before overall goal difference.",
   "groups": {
@@ -298,36 +299,36 @@
     "H": [
       {
         "teamId": "ESP",
-        "played": 2,
-        "wins": 1,
+        "played": 3,
+        "wins": 2,
         "draws": 1,
         "losses": 0,
-        "gf": 4,
+        "gf": 5,
         "ga": 0
       },
       {
-        "teamId": "URU",
-        "played": 2,
-        "wins": 0,
-        "draws": 2,
-        "losses": 0,
-        "gf": 3,
-        "ga": 3
-      },
-      {
         "teamId": "CPV",
-        "played": 2,
+        "played": 3,
         "wins": 0,
-        "draws": 2,
+        "draws": 3,
         "losses": 0,
         "gf": 2,
         "ga": 2
       },
       {
-        "teamId": "KSA",
-        "played": 2,
+        "teamId": "URU",
+        "played": 3,
         "wins": 0,
-        "draws": 1,
+        "draws": 2,
+        "losses": 1,
+        "gf": 3,
+        "ga": 4
+      },
+      {
+        "teamId": "KSA",
+        "played": 3,
+        "wins": 0,
+        "draws": 2,
         "losses": 1,
         "gf": 1,
         "ga": 5
