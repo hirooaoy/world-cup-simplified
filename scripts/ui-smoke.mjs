@@ -392,63 +392,6 @@ function formatGoalsScored(goals) {
   return `${goals} ${goals === 1 ? "goal" : "goals"} scored`;
 }
 
-function formatExpectedThirdPlaceRaceIntro(candidate, rows) {
-  const raceTeamCount = rows.length || tournamentData.groups?.length || 0;
-  const raceScope = raceTeamCount
-    ? `${formatOrdinal(candidate.position)} of ${raceTeamCount} third-place teams`
-    : "in the third-place race";
-  return `${candidate.team.name}: ${raceScope}.\nTop ${getThirdPlaceAdvancerCount()} advance.`;
-}
-
-function getExpectedThirdPlaceStandingBadgeReason(candidate) {
-  const advancerCount = getThirdPlaceAdvancerCount();
-  const raceRows = getExpectedThirdPlaceRaceRows();
-  const raceTeamCount = raceRows.length || tournamentData.groups?.length || 0;
-  const lines = [
-    `${formatOrdinal(candidate.position)}/${raceTeamCount} third-place teams; top ${advancerCount} qualify.`,
-    ...getExpectedThirdPlaceAdvancementEstimateLines(candidate)
-  ];
-
-  if (candidate.status?.kind === "eliminated" || candidate.isEliminated) {
-    lines.push("Not possible: no remaining result combo reaches the Round of 32.");
-    return lines.join("\n");
-  }
-
-  if (isGroupStageFinished()) {
-    lines.push(
-      candidate.position <= advancerCount
-        ? "Final table: qualifies as a third-place team."
-        : "Final table: outside the qualifying third-place spots."
-    );
-    return lines.join("\n");
-  }
-
-  const remainingMatchCount = getExpectedRemainingTeamGroupFixtures(candidate.teamId, candidate.groupId).length;
-  const maximumPoints = getExpectedThirdPlaceMaximumPossiblePoints(candidate, remainingMatchCount);
-  const isInside = candidate.position <= advancerCount;
-
-  if (isInside) {
-    const teamsNeededToDropOut = Math.max(1, advancerCount - candidate.position + 1);
-    lines.push(formatExpectedThirdPlacePathSummary("In for now", remainingMatchCount, maximumPoints));
-    lines.push(
-      `Out if ${formatExpectedThirdPlaceTeamCount(teamsNeededToDropOut)} below ${formatExpectedThirdPlacePassVerb(teamsNeededToDropOut)} it.`
-    );
-    return lines.join("\n");
-  }
-
-  const teamsNeededToPass = Math.max(1, candidate.position - advancerCount);
-  lines.push(formatExpectedThirdPlacePathSummary("Still possible", remainingMatchCount, maximumPoints));
-  lines.push(`Needs to pass ${formatExpectedThirdPlaceTeamCount(teamsNeededToPass)} to reach top ${advancerCount}.`);
-  if (remainingMatchCount > 0) {
-    lines.push("Needs points; teams above must fall behind.");
-  } else {
-    lines.push(`No matches left; needs ${formatExpectedThirdPlaceTeamCount(teamsNeededToPass)} above to fall behind.`);
-    lines.push("Also needs teams below not to pass.");
-  }
-
-  return lines.join("\n");
-}
-
 function getThirdPlaceAdvancerCount() {
   const groupCount = tournamentData.groups?.length || 0;
   const configuredAdvancers = Number(tournamentData.format?.bestThirdPlaceAdvancers);
@@ -933,81 +876,6 @@ function getExpectedRemainingTeamGroupFixtures(teamId, groupId) {
       fixture.awayTeamId &&
       (fixture.homeTeamId === teamId || fixture.awayTeamId === teamId)
   );
-}
-
-function formatExpectedThirdPlaceRemainingMatchCount(count) {
-  return `${count} group match${count === 1 ? "" : "es"} left`;
-}
-
-function formatExpectedThirdPlaceTeamCount(count) {
-  return `${count} team${count === 1 ? "" : "s"}`;
-}
-
-function formatExpectedThirdPlacePassVerb(count) {
-  return count === 1 ? "passes" : "pass";
-}
-
-function getExpectedThirdPlaceMaximumPossiblePoints(candidate, remainingMatchCount) {
-  const group = (tournamentData.groups || []).find((groupItem) => groupItem.id === candidate.groupId);
-  const maximumPoints = getExpectedTeamMaximumPossibleGroupPoints(candidate.teamId, group);
-
-  if (Number.isFinite(maximumPoints)) {
-    return maximumPoints;
-  }
-
-  return candidate.pts + remainingMatchCount * 3;
-}
-
-function formatExpectedThirdPlacePathSummary(prefix, remainingMatchCount, maximumPoints) {
-  if (remainingMatchCount > 0 && Number.isFinite(maximumPoints)) {
-    return `${prefix}: with ${formatExpectedThirdPlaceRemainingMatchCount(remainingMatchCount)}, best case is ${formatStandingPoints(maximumPoints)}.`;
-  }
-
-  return prefix === "In for now"
-    ? `${prefix}: no matches left, so it is waiting on other groups.`
-    : `${prefix}: no matches left, so it needs help from other groups.`;
-}
-
-function getExpectedThirdPlaceAdvancementRouteLine(candidate) {
-  const estimate = candidate.advancementEstimate;
-
-  if (!estimate || !Number.isFinite(estimate.probability)) {
-    return "";
-  }
-
-  if (estimate.probability <= 0) {
-    return "No modeled route reaches the Round of 32 from here.";
-  }
-
-  if (estimate.automaticScenarioCount > 0 && estimate.thirdPlaceScenarioCount > 0) {
-    return "Can advance either by moving top two or by staying high enough among third-place teams.";
-  }
-
-  if (estimate.automaticScenarioCount > 0) {
-    return "Best path is to move into the group top two.";
-  }
-
-  return "Route is mainly the best-third table unless it climbs into the top two.";
-}
-
-function getExpectedThirdPlaceAdvancementEstimateLines(candidate) {
-  const estimate = candidate.advancementEstimate;
-
-  if (!estimate || !Number.isFinite(estimate.probability)) {
-    return [];
-  }
-
-  return [
-    `Estimated Round of 32 chance: ${estimate.displayPercent}.`,
-    "Simple model: every unplayed group match is a win, draw, or loss.",
-    "Counts top-two group finishes plus best-third finishes; not official odds.",
-    "The estimate recalculates from the loaded group-stage results.",
-    getExpectedThirdPlaceAdvancementRouteLine(candidate)
-  ].filter(Boolean);
-}
-
-function formatExpectedThirdPlaceReasonWithEstimate(candidate, lines) {
-  return [...getExpectedThirdPlaceAdvancementEstimateLines(candidate), ...lines].filter(Boolean).join("\n");
 }
 
 function isGroupStageFinished() {
@@ -2450,6 +2318,16 @@ try {
     (await page.locator("#match-info .standings-table .rank-pill").count()) >= 4,
     "Current match detail group standings should show FIFA ranking pills."
   );
+  const expectedGroupHThirdPlaceCandidate = getExpectedThirdPlaceRaceRows().find(
+    (candidate) => candidate.groupId === "H"
+  );
+  const matchInfoThirdPlacePill = page.locator("#match-info .third-place-pill").first();
+  assert(
+    expectedGroupHThirdPlaceCandidate &&
+      (await matchInfoThirdPlacePill.getAttribute("data-tooltip")) ===
+        getExpectedThirdPlaceReason(expectedGroupHThirdPlaceCandidate),
+    "Home match detail third-place race pills should use the same analyst-style advancement tooltip."
+  );
   const matchInfoRankPill = page.locator("#match-info .standings-table .rank-pill").first();
   assert(
     (await matchInfoRankPill.getAttribute("data-tooltip")) ===
@@ -2674,22 +2552,8 @@ try {
   await openMatchDetailById("bosnia-qatar-2026-06-24", "Qatar");
   const qatarStandingTeamSelector = "#match-info .standings-table tbody .standing-team";
   const readQatarStandingBadgeLayout = async () => {
-    await page.waitForFunction((selector) => {
-      return [...document.querySelectorAll(selector)].some((team) => {
-        const bounds = team.getBoundingClientRect();
-        const style = getComputedStyle(team);
-
-        return (
-          team.textContent.includes("Qatar") &&
-          bounds.width > 0 &&
-          bounds.height > 0 &&
-          style.display !== "none" &&
-          style.visibility !== "hidden"
-        );
-      });
-    }, qatarStandingTeamSelector);
-
-    return page.locator(qatarStandingTeamSelector).evaluateAll((teams) => {
+    const layoutHandle = await page.waitForFunction((selector) => {
+      const teams = [...document.querySelectorAll(selector)];
       const isVisibleQatarTeam = (team) => {
         const bounds = team.getBoundingClientRect();
         const style = getComputedStyle(team);
@@ -2718,7 +2582,7 @@ try {
       const team = teams.find(isVisibleQatarTeam);
 
       if (!team) {
-        return { candidates, name: null, badgeRow: null, rank: null, eliminated: null };
+        return false;
       }
 
       const rect = (node) => {
@@ -2741,7 +2605,9 @@ try {
         rank: rect(team.querySelector(".rank-pill")),
         eliminated: rect(team.querySelector(".standing-status-pill.is-eliminated"))
       };
-    });
+    }, qatarStandingTeamSelector);
+
+    return layoutHandle.jsonValue();
   };
   const qatarWideBadgeLayout = await readQatarStandingBadgeLayout();
   assert(
@@ -4423,8 +4289,8 @@ try {
   const groupBThirdPlacePillTooltip = await groupBThirdPlacePill.getAttribute("data-tooltip");
   assert(
     groupBThirdPlacePillTooltip ===
-      getExpectedThirdPlaceStandingBadgeReason(expectedGroupBThirdPlaceCandidate),
-    "Group standings third-place race pills should explain the badge rank and qualification rule without team-specific comparison noise."
+      getExpectedThirdPlaceReason(expectedGroupBThirdPlaceCandidate),
+    "Group standings third-place race pills should use the same analyst-style advancement tooltip as the third-place race table."
   );
   const expectedStandingsLiveThirdPlaceTeams = new Set(
     fixturesData.fixtures

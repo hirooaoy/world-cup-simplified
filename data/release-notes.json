@@ -1,6 +1,17 @@
 {
-  "updatedAt": "2026-06-26T23:25:01-07:00",
+  "updatedAt": "2026-06-27T00:31:08-07:00",
   "releases": [
+    {
+      "date": "2026-06-27",
+      "title": "Third-place tooltip consistency",
+      "titleZh": "第三名提示一致性",
+      "highlights": [
+        "Third-place standings pills now use the same analyst-style advancement tooltip as the race table, so match details, standings, and the race explain the same path."
+      ],
+      "highlightsZh": [
+        "第三名积分榜标签现在与竞争表使用同一套分析式晋级提示，让比赛详情、积分榜和竞争表说明同一条路径。"
+      ]
+    },
     {
       "date": "2026-06-26",
       "title": "Chinese card localization",

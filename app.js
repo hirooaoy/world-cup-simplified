@@ -8826,7 +8826,7 @@ function renderStandingTeam(team, options = {}) {
 function renderThirdPlaceStandingBadge(candidate) {
   const status = candidate.status || getThirdPlaceStatus(candidate, getThirdPlaceAdvancerCount());
   const rankLabel = formatOrdinal(candidate.position);
-  const reason = localizeMultilineText(getThirdPlaceStandingBadgeReason(candidate));
+  const reason = localizeMultilineText(getThirdPlaceReason(candidate));
   const label = `${getLocalizedTeamName(candidate.team)} ${localizeText("ranking")} ${localizeText(rankLabel)}：${localizeText(status.label)}. ${reason}`;
 
   return `
@@ -9055,129 +9055,6 @@ function getRemainingTeamGroupFixtures(teamId, groupId) {
   return getRemainingGroupQualificationFixtures(getGroupFixtures(groupId)).filter(
     (fixture) => fixture.homeTeamId === teamId || fixture.awayTeamId === teamId
   );
-}
-
-function formatThirdPlaceRemainingMatchCount(count) {
-  return `${count} group match${count === 1 ? "" : "es"} left`;
-}
-
-function formatThirdPlaceTeamCount(count) {
-  return `${count} team${count === 1 ? "" : "s"}`;
-}
-
-function formatThirdPlacePassVerb(count) {
-  return count === 1 ? "passes" : "pass";
-}
-
-function getThirdPlaceMaximumPossiblePoints(candidate, remainingMatchCount) {
-  const maximumPoints = getTeamMaximumPossibleGroupPoints(candidate.teamId, candidate.groupId);
-
-  if (Number.isFinite(maximumPoints)) {
-    return maximumPoints;
-  }
-
-  return candidate.pts + remainingMatchCount * 3;
-}
-
-function getThirdPlaceAdvancementRouteLine(candidate) {
-  const estimate = candidate.advancementEstimate;
-
-  if (!estimate || !Number.isFinite(estimate.probability)) {
-    return "";
-  }
-
-  if (estimate.probability <= 0) {
-    return "No modeled route reaches the Round of 32 from here.";
-  }
-
-  if (estimate.automaticScenarioCount > 0 && estimate.thirdPlaceScenarioCount > 0) {
-    return "Can advance either by moving top two or by staying high enough among third-place teams.";
-  }
-
-  if (estimate.automaticScenarioCount > 0) {
-    return "Best path is to move into the group top two.";
-  }
-
-  return "Route is mainly the best-third table unless it climbs into the top two.";
-}
-
-function getThirdPlaceAdvancementEstimateLines(candidate) {
-  const estimate = candidate.advancementEstimate;
-
-  if (!estimate || !Number.isFinite(estimate.probability)) {
-    return [];
-  }
-
-  return [
-    `Estimated Round of 32 chance: ${estimate.displayPercent}.`,
-    "Simple model: every unplayed group match is a win, draw, or loss.",
-    "Counts top-two group finishes plus best-third finishes; not official odds.",
-    "The estimate recalculates from the loaded group-stage results.",
-    getThirdPlaceAdvancementRouteLine(candidate)
-  ].filter(Boolean);
-}
-
-function formatThirdPlaceReasonWithEstimate(candidate, lines) {
-  return [...getThirdPlaceAdvancementEstimateLines(candidate), ...lines].filter(Boolean).join("\n");
-}
-
-function formatThirdPlacePathSummary(prefix, remainingMatchCount, maximumPoints) {
-  if (remainingMatchCount > 0 && Number.isFinite(maximumPoints)) {
-    return `${prefix}: with ${formatThirdPlaceRemainingMatchCount(remainingMatchCount)}, best case is ${formatStandingPoints(maximumPoints)}.`;
-  }
-
-  return prefix === "In for now"
-    ? `${prefix}: no matches left, so it is waiting on other groups.`
-    : `${prefix}: no matches left, so it needs help from other groups.`;
-}
-
-function getThirdPlaceStandingBadgeReason(candidate, raceRows = getThirdPlaceRaceRows()) {
-  const advancerCount = getThirdPlaceAdvancerCount();
-  const raceTeamCount = raceRows.length || tournament.groups?.length || 0;
-  const lines = [
-    `${formatOrdinal(candidate.position)}/${raceTeamCount} third-place teams; top ${advancerCount} qualify.`,
-    ...getThirdPlaceAdvancementEstimateLines(candidate)
-  ];
-
-  if (candidate.status?.kind === "eliminated" || candidate.isEliminated) {
-    lines.push("Not possible: no remaining result combo reaches the Round of 32.");
-    return lines.join("\n");
-  }
-
-  if (isGroupStageFinished()) {
-    lines.push(
-      candidate.position <= advancerCount
-        ? "Final table: qualifies as a third-place team."
-        : "Final table: outside the qualifying third-place spots."
-    );
-    return lines.join("\n");
-  }
-
-  const remainingMatchCount = getRemainingTeamGroupFixtures(candidate.teamId, candidate.groupId).length;
-  const maximumPoints = getThirdPlaceMaximumPossiblePoints(candidate, remainingMatchCount);
-  const isInside = candidate.position <= advancerCount;
-
-  if (isInside) {
-    const teamsNeededToDropOut = Math.max(1, advancerCount - candidate.position + 1);
-    lines.push(formatThirdPlacePathSummary("In for now", remainingMatchCount, maximumPoints));
-    lines.push(
-      `Out if ${formatThirdPlaceTeamCount(teamsNeededToDropOut)} below ${formatThirdPlacePassVerb(teamsNeededToDropOut)} it.`
-    );
-    return lines.join("\n");
-  }
-
-  const teamsNeededToPass = Math.max(1, candidate.position - advancerCount);
-  lines.push(formatThirdPlacePathSummary("Still possible", remainingMatchCount, maximumPoints));
-  lines.push(`Needs to pass ${formatThirdPlaceTeamCount(teamsNeededToPass)} to reach top ${advancerCount}.`);
-
-  if (remainingMatchCount > 0) {
-    lines.push("Needs points; teams above must fall behind.");
-  } else {
-    lines.push(`No matches left; needs ${formatThirdPlaceTeamCount(teamsNeededToPass)} above to fall behind.`);
-    lines.push("Also needs teams below not to pass.");
-  }
-
-  return lines.join("\n");
 }
 
 function getThirdPlaceComparisonTarget(candidate, raceRows = getThirdPlaceRaceRows()) {
