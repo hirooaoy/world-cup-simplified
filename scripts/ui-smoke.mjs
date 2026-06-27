@@ -714,61 +714,197 @@ function formatExpectedThirdPlaceShortComparison(decider) {
   return `${deciderLabel} ${decider.candidateValue} vs ${decider.targetValue}`;
 }
 
-function getExpectedThirdPlaceReason(candidate, rows = getExpectedThirdPlaceRaceRows()) {
-  const summary = formatExpectedThirdPlaceRaceIntro(candidate, rows);
+function formatExpectedThirdPlaceTooltipChanceLine(candidate) {
+  const estimate = candidate.advancementEstimate;
 
-  if (candidate.status?.kind === "eliminated" || candidate.isEliminated) {
-    return formatExpectedThirdPlaceReasonWithEstimate(candidate, [
-      "No remaining group result combination can move this team into a Round of 32 place."
-    ]);
+  if (estimate?.displayPercent) {
+    return `${estimate.displayPercent} to advance`;
+  }
+
+  return candidate.status?.label || "";
+}
+
+function getExpectedThirdPlaceTooltipSituationLine(candidate) {
+  const estimate = candidate.advancementEstimate;
+  const advancerCount = getThirdPlaceAdvancerCount();
+  const probability = estimate?.probability;
+
+  if (candidate.status?.kind === "eliminated" || candidate.isEliminated || probability <= 0) {
+    return "No modeled route reaches the Round of 32 from here.";
+  }
+
+  if (Number.isFinite(probability) && probability >= 1) {
+    return `Remaining matches can change ${candidate.team.name}'s Round of 32 opponent, but not whether they qualify.`;
   }
 
   if (candidate.isCutLineTie) {
-    return formatExpectedThirdPlaceReasonWithEstimate(candidate, [
-      summary,
-      `Teams from ${formatOrdinal(candidate.tieGroupStart)} to ${formatOrdinal(candidate.tieGroupEnd)} are tied around the cutoff.`,
-      "Fair-play data is missing."
-    ]);
+    return `Top-8 place is tied from ${formatOrdinal(candidate.tieGroupStart)}-${formatOrdinal(candidate.tieGroupEnd)}; fair-play data is pending.`;
   }
 
-  if (isGroupStageFinished()) {
-    return formatExpectedThirdPlaceReasonWithEstimate(candidate, [
-      summary,
-      candidate.position <= getThirdPlaceAdvancerCount()
-        ? "Final table: qualifies as a third-place team."
-        : "Final table: outside the qualifying third-place spots."
-    ]);
+  if (candidate.position <= advancerCount) {
+    return Number.isFinite(probability) && probability >= 0.66
+      ? "Most paths keep them inside the top 8."
+      : "They are inside the top 8, but more groups can still catch them.";
   }
 
-  const nearestCandidate = getExpectedThirdPlaceComparisonTarget(candidate, rows);
+  return Number.isFinite(probability) && probability >= 0.45
+    ? "They are just outside the top 8, but one swing can pull them in."
+    : "They need help to climb into the top 8.";
+}
 
-  if (!nearestCandidate) {
-    return formatExpectedThirdPlaceReasonWithEstimate(candidate, [summary]);
+function formatExpectedThirdPlaceShortPoints(points) {
+  return `${points} pt${points === 1 ? "" : "s"}`;
+}
+
+function getExpectedFixtureSortValue(fixture) {
+  if (fixture.sortKey) {
+    return fixture.sortKey;
   }
 
-  if (candidate.isUnresolvedTie && getThirdPlaceTieSignature(candidate) === getThirdPlaceTieSignature(nearestCandidate)) {
-    return formatExpectedThirdPlaceReasonWithEstimate(candidate, [
-      summary,
-      `Tied with ${nearestCandidate.team.name}.`,
-      "Fair-play data is missing."
-    ]);
+  return fixture.kickoffUtc || `${fixture.date || ""}T12:00:00Z`;
+}
+
+function getExpectedThirdPlaceWatchOutcomeLabel(fixture, result) {
+  if (Number(result.homeGoals) === Number(result.awayGoals)) {
+    return "A draw";
   }
 
-  const isInside = candidate.position <= getThirdPlaceAdvancerCount();
-  const decider = getExpectedThirdPlaceComparisonDecider(candidate, nearestCandidate);
-  const comparison = formatExpectedThirdPlaceShortComparison(decider);
-  if (isInside) {
-    return formatExpectedThirdPlaceReasonWithEstimate(candidate, [
-      summary,
-      `Ahead of ${nearestCandidate.team.name}: ${comparison}.`
-    ]);
+  const winner = Number(result.homeGoals) > Number(result.awayGoals)
+    ? getTeam(fixture.homeTeamId)
+    : getTeam(fixture.awayTeamId);
+  const article = /^[AEIO]/i.test(winner.name.trim()) ? "An" : "A";
+
+  return `${article} ${winner.name} win`;
+}
+
+function getExpectedThirdPlaceSingleResultRow(fixture, result) {
+  const group = (tournamentData.groups || []).find((groupItem) => groupItem.id === fixture?.groupId);
+  if (!group) {
+    return null;
   }
 
-  return formatExpectedThirdPlaceReasonWithEstimate(candidate, [
-    summary,
-    `Needs to pass ${nearestCandidate.team.name}.`,
-    `Current gap: ${comparison}.`
-  ]);
+  const projection = createExpectedGroupQualificationProjection(group);
+  if (!projection) {
+    return null;
+  }
+
+  const states = cloneExpectedGroupQualificationStates(projection.baseStates);
+  applyExpectedGroupQualificationResult(states, result);
+
+  return getExpectedGroupQualificationScenarioRows(group, states, [
+    ...projection.completedResults,
+    result
+  ])[thirdPlaceStandingIndex] || null;
+}
+
+function getExpectedThirdPlaceWatchGroupOrder(candidate, rows) {
+  const groupIds = [];
+  const addGroupId = (groupId) => {
+    if (groupId && !groupIds.includes(groupId)) {
+      groupIds.push(groupId);
+    }
+  };
+  const comparisonTarget = getExpectedThirdPlaceComparisonTarget(candidate, rows);
+
+  addGroupId(comparisonTarget?.groupId);
+  addGroupId(candidate.groupId);
+  fixturesData.fixtures
+    .filter((fixture) => fixture.stage === "group" && fixture.status !== "FT")
+    .sort((a, b) => getExpectedFixtureSortValue(a).localeCompare(getExpectedFixtureSortValue(b)))
+    .forEach((fixture) => addGroupId(fixture.groupId));
+
+  return groupIds;
+}
+
+function getExpectedThirdPlaceWatchEffect(candidate, rows = getExpectedThirdPlaceRaceRows()) {
+  const estimate = candidate.advancementEstimate;
+
+  if (
+    !estimate ||
+    !Number.isFinite(estimate.probability) ||
+    estimate.probability <= 0 ||
+    estimate.probability >= 1 ||
+    candidate.isEliminated ||
+    candidate.isCutLineTie
+  ) {
+    return null;
+  }
+
+  const advancerCount = getThirdPlaceAdvancerCount();
+  const isInside = candidate.position <= advancerCount;
+
+  for (const groupId of getExpectedThirdPlaceWatchGroupOrder(candidate, rows)) {
+    const currentThirdPlaceRow = rows.find((row) => row.groupId === groupId);
+    const currentGroupIsAbove = currentThirdPlaceRow
+      ? compareThirdPlaceCandidates(currentThirdPlaceRow, candidate) < 0
+      : false;
+    const groupFixtures = getGroupFixtures(groupId)
+      .filter((fixture) => fixture.status !== "FT" && fixture.homeTeamId && fixture.awayTeamId)
+      .sort((a, b) => getExpectedFixtureSortValue(a).localeCompare(getExpectedFixtureSortValue(b)));
+    const effects = [];
+
+    for (const fixture of groupFixtures) {
+      getExpectedProjectedGroupQualificationResults(fixture).forEach((result, resultIndex) => {
+        const thirdPlaceRow = getExpectedThirdPlaceSingleResultRow(fixture, result);
+        if (!thirdPlaceRow) {
+          return;
+        }
+
+        const resultMovesGroupAbove = compareThirdPlaceCandidates(thirdPlaceRow, candidate) < 0;
+        if (!isInside || currentGroupIsAbove || !resultMovesGroupAbove) {
+          return;
+        }
+
+        const group = (tournamentData.groups || []).find((groupItem) => groupItem.id === groupId);
+        const groupLabel = group?.label || `Group ${groupId}`;
+        const line =
+          candidate.position === advancerCount
+            ? `${getExpectedThirdPlaceWatchOutcomeLabel(fixture, result)} would move ${groupLabel}'s third-place team to ${formatExpectedThirdPlaceShortPoints(thirdPlaceRow.pts)}, pushing ${candidate.team.name} out of the current top 8 unless another group falls back.`
+            : `${getExpectedThirdPlaceWatchOutcomeLabel(fixture, result)} would move ${groupLabel}'s third-place team to ${formatExpectedThirdPlaceShortPoints(thirdPlaceRow.pts)}, shrinking ${candidate.team.name}'s cushion above the cut line.`;
+
+        effects.push({
+          fixture,
+          line,
+          pointSwing: thirdPlaceRow.pts - candidate.pts,
+          resultIndex
+        });
+      });
+    }
+
+    if (effects.length) {
+      return effects.sort(
+        (a, b) =>
+          b.pointSwing - a.pointSwing ||
+          getExpectedFixtureSortValue(a.fixture).localeCompare(getExpectedFixtureSortValue(b.fixture)) ||
+          a.resultIndex - b.resultIndex
+      )[0];
+    }
+  }
+
+  return null;
+}
+
+function getExpectedThirdPlaceWatchLines(candidate, rows = getExpectedThirdPlaceRaceRows()) {
+  const effect = getExpectedThirdPlaceWatchEffect(candidate, rows);
+  if (!effect) {
+    return [];
+  }
+
+  return [
+    `Watch: ${getTeam(effect.fixture.homeTeamId).name} vs ${getTeam(effect.fixture.awayTeamId).name}`,
+    effect.line
+  ];
+}
+
+function getExpectedThirdPlaceReason(candidate, rows = getExpectedThirdPlaceRaceRows()) {
+  const topLines = [
+    formatExpectedThirdPlaceTooltipChanceLine(candidate),
+    "",
+    getExpectedThirdPlaceTooltipSituationLine(candidate)
+  ].filter((line, index) => index === 1 || Boolean(line));
+  const watchLines = getExpectedThirdPlaceWatchLines(candidate, rows);
+
+  return [...topLines, ...(watchLines.length ? ["", ...watchLines] : [])].join("\n");
 }
 
 function getAutomaticAdvancersPerGroup() {
@@ -2185,6 +2321,33 @@ try {
       (await uedaChineseCard.locator(".player-card-club").innerText()).includes("费耶诺德"),
     "Chinese Ayase Ueda hover card should localize the display name and club."
   );
+  const chinesePlayerCardLocalizationLeaks = await page.evaluate(async () => {
+    const hasLowercaseLatinWord = (value) => /[A-Za-zÀ-ÖØ-öø-ÿ][a-zà-öø-ÿ]{2,}/.test(String(value || ""));
+    const hooks = window.__worldCupTestHooks?.playerCards;
+    if (
+      typeof hooks?.getLocalizedPlayerPosition !== "function" ||
+      typeof hooks?.getLocalizedPlayerClubLine !== "function"
+    ) {
+      return [{ player: "runtime", field: "helpers", value: "Player card localization helpers unavailable" }];
+    }
+
+    const profilesData = await fetch("data/player-profiles.json").then((response) => response.json());
+    return Object.entries(profilesData.profiles || [])
+      .flatMap(([profileName, profile]) => {
+        const player = { name: profile.name || profileName, teamId: profile.teamId };
+        return [
+          { field: "position", value: hooks.getLocalizedPlayerPosition(player, profile) },
+          { field: "club", value: hooks.getLocalizedPlayerClubLine(player, profile) }
+        ]
+          .filter((entry) => hasLowercaseLatinWord(entry.value))
+          .map((entry) => ({ player: profileName, ...entry }));
+      })
+      .slice(0, 20);
+  });
+  assert(
+    chinesePlayerCardLocalizationLeaks.length === 0,
+    `Chinese current player-card position and club lines should not leak English words. Leaks: ${JSON.stringify(chinesePlayerCardLocalizationLeaks)}.`
+  );
 
   await page.goto(`${baseUrl}?view=matches&date=2026-06-23&lang=zh&tz=America%2FLos_Angeles`, {
     waitUntil: "load"
@@ -2198,6 +2361,35 @@ try {
       portugalChineseScorerText.includes("拉斐尔·莱奥") &&
       !/Nuno Mendes|Abduvohid Nematov|Rafael Le(?:ao|ão)/.test(portugalChineseScorerText),
     "Chinese Portugal scorer highlights should localize newly loaded scorer and own-goal names."
+  );
+
+  await page.goto(`${baseUrl}?view=matches&date=2026-06-26&lang=zh&tz=America%2FLos_Angeles`, {
+    waitUntil: "load"
+  });
+  await page.waitForSelector(".match-row");
+  await page.locator('[data-match-id="norway-france-2026-06-26"]').click();
+  const dembeleChineseLink = page
+    .locator("#match-info .scorer-highlight .player-link", { hasText: "奥斯曼·登贝莱" })
+    .first();
+  await dembeleChineseLink.hover();
+  const dembeleChineseCard = page.locator(".player-card:visible").first();
+  await dembeleChineseCard.waitFor({ state: "visible" });
+  assert(
+    (await dembeleChineseCard.locator(".player-card-position").innerText()).trim() === "前锋、右边锋" &&
+      (await dembeleChineseCard.locator(".player-card-club").innerText()).trim() === "巴黎圣日耳曼（法甲）",
+    "Chinese Ousmane Dembele scorer card should localize the compound position and club league."
+  );
+  const aasgaardChineseLink = page
+    .locator("#match-info .scorer-highlight .player-link", { hasText: "泰洛·奥斯加德" })
+    .first();
+  await aasgaardChineseLink.hover();
+  const aasgaardChineseCard = page.locator(".player-card:visible").first();
+  await aasgaardChineseCard.waitFor({ state: "visible" });
+  assert(
+    (await aasgaardChineseCard.locator(".player-card-position").innerText()).trim() === "中场" &&
+      (await aasgaardChineseCard.locator(".player-card-club").innerText()).trim() ===
+        "格拉斯哥流浪者（苏格兰超级联赛）",
+    "Chinese Thelo Aasgaard scorer card should localize Rangers and Scottish Premiership."
   );
 
   await page.goto(`${baseUrl}?view=matches&date=2026-06-25&lang=zh&tz=America%2FLos_Angeles`, {
@@ -2479,37 +2671,51 @@ try {
     waitUntil: "load"
   });
   await page.waitForSelector(".match-row");
-  await openMatchDetailById("morocco-haiti-2026-06-24", "Haiti");
-  const haitiStandingTeamSelector = "#match-info .standings-table tbody .standing-team";
-  const readHaitiStandingBadgeLayout = async () => {
+  await openMatchDetailById("bosnia-qatar-2026-06-24", "Qatar");
+  const qatarStandingTeamSelector = "#match-info .standings-table tbody .standing-team";
+  const readQatarStandingBadgeLayout = async () => {
     await page.waitForFunction((selector) => {
       return [...document.querySelectorAll(selector)].some((team) => {
         const bounds = team.getBoundingClientRect();
         const style = getComputedStyle(team);
 
         return (
-          team.textContent.includes("Haiti") &&
+          team.textContent.includes("Qatar") &&
           bounds.width > 0 &&
           bounds.height > 0 &&
           style.display !== "none" &&
           style.visibility !== "hidden"
         );
       });
-    }, haitiStandingTeamSelector);
+    }, qatarStandingTeamSelector);
 
-    return page.locator(haitiStandingTeamSelector, { hasText: "Haiti" }).evaluateAll((teams) => {
-      const candidates = teams.map((team) => {
+    return page.locator(qatarStandingTeamSelector).evaluateAll((teams) => {
+      const isVisibleQatarTeam = (team) => {
         const bounds = team.getBoundingClientRect();
         const style = getComputedStyle(team);
 
-        return {
-          height: Math.round(bounds.height),
-          text: team.textContent.replace(/\s+/g, " ").trim(),
-          visible: bounds.width > 0 && bounds.height > 0 && style.display !== "none" && style.visibility !== "hidden",
-          width: Math.round(bounds.width)
-        };
-      });
-      const team = teams.find((candidate, index) => candidates[index].visible);
+        return (
+          team.textContent.includes("Qatar") &&
+          bounds.width > 0 &&
+          bounds.height > 0 &&
+          style.display !== "none" &&
+          style.visibility !== "hidden"
+        );
+      };
+      const candidates = teams
+        .filter((team) => team.textContent.includes("Qatar"))
+        .map((team) => {
+          const bounds = team.getBoundingClientRect();
+          const style = getComputedStyle(team);
+
+          return {
+            height: Math.round(bounds.height),
+            text: team.textContent.replace(/\s+/g, " ").trim(),
+            visible: bounds.width > 0 && bounds.height > 0 && style.display !== "none" && style.visibility !== "hidden",
+            width: Math.round(bounds.width)
+          };
+        });
+      const team = teams.find(isVisibleQatarTeam);
 
       if (!team) {
         return { candidates, name: null, badgeRow: null, rank: null, eliminated: null };
@@ -2537,31 +2743,31 @@ try {
       };
     });
   };
-  const haitiWideBadgeLayout = await readHaitiStandingBadgeLayout();
+  const qatarWideBadgeLayout = await readQatarStandingBadgeLayout();
   assert(
-    haitiWideBadgeLayout.name &&
-      haitiWideBadgeLayout.rank &&
-      haitiWideBadgeLayout.eliminated &&
-      Math.abs(haitiWideBadgeLayout.name.top - haitiWideBadgeLayout.rank.top) <= 3 &&
-      Math.abs(haitiWideBadgeLayout.name.top - haitiWideBadgeLayout.eliminated.top) <= 3,
-    `Short eliminated standings rows should keep the name, ranking, and status on one line when space allows. Measured ${JSON.stringify(haitiWideBadgeLayout)}.`
+    qatarWideBadgeLayout.name &&
+      qatarWideBadgeLayout.rank &&
+      qatarWideBadgeLayout.eliminated &&
+      Math.abs(qatarWideBadgeLayout.name.top - qatarWideBadgeLayout.rank.top) <= 3 &&
+      Math.abs(qatarWideBadgeLayout.name.top - qatarWideBadgeLayout.eliminated.top) <= 3,
+    `Short eliminated standings rows should keep the name, ranking, and status on one line when space allows. Measured ${JSON.stringify(qatarWideBadgeLayout)}.`
   );
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto(`${baseUrl}?view=matches&date=2026-06-24&tz=America%2FLos_Angeles`, {
     waitUntil: "load"
   });
   await page.waitForSelector(".match-row");
-  await openMatchDetailById("morocco-haiti-2026-06-24", "Haiti");
-  const haitiMobileBadgeLayout = await readHaitiStandingBadgeLayout();
+  await openMatchDetailById("bosnia-qatar-2026-06-24", "Qatar");
+  const qatarMobileBadgeLayout = await readQatarStandingBadgeLayout();
   assert(
-    haitiMobileBadgeLayout.name &&
-      haitiMobileBadgeLayout.rank &&
-      haitiMobileBadgeLayout.eliminated &&
-      haitiMobileBadgeLayout.badgeRow &&
-      haitiMobileBadgeLayout.rank.left >= haitiMobileBadgeLayout.badgeRow.left &&
-      Math.abs(haitiMobileBadgeLayout.rank.top - haitiMobileBadgeLayout.eliminated.top) <= 3 &&
-      haitiMobileBadgeLayout.name.top < haitiMobileBadgeLayout.rank.top,
-    `Short eliminated standings rows should wrap the rank and status together on narrow screens. Measured ${JSON.stringify(haitiMobileBadgeLayout)}.`
+    qatarMobileBadgeLayout.name &&
+      qatarMobileBadgeLayout.rank &&
+      qatarMobileBadgeLayout.eliminated &&
+      qatarMobileBadgeLayout.badgeRow &&
+      qatarMobileBadgeLayout.rank.left >= qatarMobileBadgeLayout.badgeRow.left &&
+      Math.abs(qatarMobileBadgeLayout.rank.top - qatarMobileBadgeLayout.eliminated.top) <= 3 &&
+      qatarMobileBadgeLayout.name.top < qatarMobileBadgeLayout.rank.top,
+    `Short eliminated standings rows should wrap the rank and status together on narrow screens. Measured ${JSON.stringify(qatarMobileBadgeLayout)}.`
   );
   await page.setViewportSize({ width: 1180, height: 760 });
   await page.goto(`${baseUrl}?view=matches&date=2026-06-25&tz=America%2FLos_Angeles`, {
@@ -4461,15 +4667,17 @@ try {
   assert(
       thirdPlaceRaceCheck.visibleReasonCount === 0 &&
       thirdPlaceRaceCheck.rowSummaries.every((row) => row.tooltip && !row.tooltip.includes("GF")) &&
+      thirdPlaceRaceCheck.rowSummaries.every((row) => !row.tooltip.includes("Estimated Round of 32 chance:")) &&
+      thirdPlaceRaceCheck.rowSummaries.every((row) => !row.tooltip.includes("Simple model:")) &&
       thirdPlaceRaceCheck.rowSummaries.every((row) => /^(?:<1%|\d+%) advancing$/.test(row.status || "")) &&
       thirdPlaceRaceCheck.rowSummaries.some((row) =>
-          row.tooltip.includes("Estimated Round of 32 chance:") &&
-          row.tooltip.includes("Simple model: every unplayed group match is a win, draw, or loss.") &&
-          row.tooltip.includes("The estimate recalculates from the loaded group-stage results.") &&
-          row.tooltip.includes("Top 8 advance.") &&
-          /Ahead of|Needs to pass|Final table/.test(row.tooltip)
+          /^(?:<1%|\d+%) to advance\n\n/.test(row.tooltip) &&
+          /Most paths keep them inside the top 8\.|They are inside the top 8, but more groups can still catch them\.|They are just outside the top 8, but one swing can pull them in\.|They need help to climb into the top 8\.|Remaining matches can change .+'s Round of 32 opponent, but not whether they qualify\.|No modeled route reaches the Round of 32 from here\./.test(row.tooltip)
+      ) &&
+      thirdPlaceRaceCheck.rowSummaries.some((row) =>
+        row.tooltip.includes("\n\nWatch: ") && /\n(?:A|An) .+ would move Group [A-L]'s third-place team to \d+ pts?,/.test(row.tooltip)
       ),
-    "The third-place race should show percentage advancing estimates and hide concise beginner-friendly top-eight explanations behind status pill tooltips without GF jargon."
+    "The third-place race should show percentage advancing estimates and hide concise analyst-style top-eight explanations behind status pill tooltips without GF jargon."
   );
   const expectedLiveThirdPlaceTeams = new Set(
     fixturesData.fixtures
@@ -4733,6 +4941,34 @@ try {
   const expectedProjectedLaterRoundCount = fixturesData.fixtures.filter((fixture) =>
     ["round-of-16", "quarter-finals", "semi-finals", "final"].includes(fixture.stage)
   ).length;
+  const remainingGroupIds = new Set(
+    fixturesData.fixtures
+      .filter((fixture) => fixture.stage === "group" && fixture.status !== "FT" && fixture.groupId)
+      .map((fixture) => fixture.groupId)
+  );
+  const shouldRenderRoundOf32SlotOdds = (fixture, side) => {
+    if (fixture?.[`${side}TeamId`]) {
+      return false;
+    }
+
+    const slotText = fixture?.[`${side}Slot`] || "";
+    const groupPlaceMatch = /^Group ([A-L]) (?:winner|runner-up)$/i.exec(slotText);
+
+    if (groupPlaceMatch) {
+      return remainingGroupIds.has(groupPlaceMatch[1].toUpperCase());
+    }
+
+    return /^Group [A-L](?:\/[A-L])* third place$/i.test(slotText);
+  };
+  const expectedRoundOf32SlotOddsCount = fixturesData.fixtures
+    .filter((fixture) => fixture.stage === "round-of-32")
+    .reduce(
+      (count, fixture) =>
+        count +
+        (shouldRenderRoundOf32SlotOdds(fixture, "home") ? 1 : 0) +
+        (shouldRenderRoundOf32SlotOdds(fixture, "away") ? 1 : 0),
+      0
+    );
   assert(
     tournamentCheck.summary.includes("Round of 32 slots") &&
       tournamentCheck.m73ProgressText.includes("Jun 28 12:00PM") &&
@@ -4747,7 +4983,7 @@ try {
       tournamentCheck.m81TeamIds.length === 2 &&
       !tournamentCheck.m81Text.includes("Group B/E/F/I/J third place") &&
       tournamentCheck.countryTooltipCount === 0 &&
-      tournamentCheck.slotOddsCount >= 16 &&
+      tournamentCheck.slotOddsCount === expectedRoundOf32SlotOddsCount &&
       tournamentCheck.slotOddsToneMismatches.length === 0 &&
       tournamentCheck.slotOddsText.includes("here") &&
       tournamentCheck.projectedCount === expectedProjectedRoundOf32Count + expectedProjectedLaterRoundCount &&
@@ -4792,7 +5028,7 @@ try {
       !/\bWinner match \d+\b/.test(tournamentCheck.progressText) &&
       !/\b(?:M\d+|To M\d+|Winner M\d+|W M\d+)\b/.test(`${tournamentCheck.r32Text} ${tournamentCheck.progressText}`) &&
       tournamentCheck.roundHeadings.join("|") === "Round of 32|Round of 16|Quarter-finals|Semi-finals|Final",
-    `The tournament section should show unique Round of 32 third-place slot picks and muted predictions for later rounds. Measured ${JSON.stringify(tournamentCheck)}.`
+    `The tournament section should show unique Round of 32 third-place slot picks and muted predictions for later rounds. Measured ${JSON.stringify({ ...tournamentCheck, expectedRoundOf32SlotOddsCount })}.`
   );
 
   await page.locator('.progress-match[data-match-number="73"]').click();

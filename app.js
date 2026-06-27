@@ -1,4 +1,4 @@
-const DATA_VERSION = "2026-06-23-curated-profile-notes";
+const DATA_VERSION = "2026-06-26-zh-card-localization";
 const DATA_URLS = {
   fixtures: `data/fixtures.json?v=${DATA_VERSION}`,
   history: `data/history.json?v=${DATA_VERSION}`,
@@ -1017,6 +1017,8 @@ const ZH_PLAYER_NAME_TRANSLATIONS = {
   "Noor Al-Rawabdeh": "努尔·拉瓦布德",
   "Nuno Mendes": "努诺·门德斯",
   "Omar Marmoush": "奥马尔·马尔穆什",
+  "Ousmane Dembele": "奥斯曼·登贝莱",
+  "Ousmane Dembélé": "奥斯曼·登贝莱",
   "Patrik Schick": "帕特里克·希克",
   Pedri: "佩德里",
   "Pico Lopes": "皮科·洛佩斯",
@@ -1041,6 +1043,7 @@ const ZH_PLAYER_NAME_TRANSLATIONS = {
   "Tahith Chong": "塔希斯·钟",
   "Takefusa Kubo": "久保建英",
   "Teboho Mokoena": "特博霍·莫科纳",
+  "Thelo Aasgaard": "泰洛·奥斯加德",
   "Tomáš Souček": "托马什·绍切克",
   Trézéguet: "特雷泽盖",
   "Tyler Adams": "泰勒·亚当斯",
@@ -1141,11 +1144,13 @@ const ZH_CLUB_NAME_TRANSLATIONS = {
   Barcelona: "巴塞罗那",
   "Bayer Leverkusen": "勒沃库森",
   "Bayern Munich": "拜仁慕尼黑",
+  Benfica: "本菲卡",
   Beşiktaş: "贝西克塔斯",
   "Borussia Dortmund": "多特蒙德",
   Bournemouth: "伯恩茅斯",
   "Brighton & Hove Albion": "布莱顿",
   Burnley: "伯恩利",
+  Celtic: "凯尔特人",
   Chelsea: "切尔西",
   "Crystal Palace": "水晶宫",
   "Cultural Leonesa (on loan from Al-Duhail)": "莱昂内萨文化（从杜海勒租借）",
@@ -1157,14 +1162,19 @@ const ZH_CLUB_NAME_TRANSLATIONS = {
   "FC St. Pauli": "圣保利",
   "Fenerbahçe (on loan from West Ham United)": "费内巴切（从西汉姆联租借）",
   Feyenoord: "费耶诺德",
+  "Free agent": "自由球员",
   "G.D. Chaves": "查韦斯",
   "Hannover 96 (on loan from FC Augsburg)": "汉诺威96（从奥格斯堡租借）",
+  "Heart of Midlothian": "哈茨",
+  Hibernian: "希伯尼安",
   "Inter Milan": "国际米兰",
   "Inter Milan (on loan from Manchester City)": "国际米兰（从曼城租借）",
   Iğdır: "厄德尔",
   "Iğdır FK": "厄德尔FK",
   Juventus: "尤文图斯",
   Kalba: "卡尔巴",
+  Kilmarnock: "基尔马诺克",
+  "Kilmarnock (on loan from Rangers)": "基尔马诺克（从格拉斯哥流浪者租借）",
   "Leicester City": "莱斯特城",
   Levante: "莱万特",
   León: "莱昂",
@@ -1177,6 +1187,7 @@ const ZH_CLUB_NAME_TRANSLATIONS = {
   Marseille: "马赛",
   "Minnesota United": "明尼苏达联",
   "Monaco (on loan from Sunderland)": "摩纳哥（从桑德兰租借）",
+  Motherwell: "马瑟韦尔",
   Nantes: "南特",
   Napoli: "那不勒斯",
   "Newcastle United": "纽卡斯尔联",
@@ -1188,6 +1199,7 @@ const ZH_CLUB_NAME_TRANSLATIONS = {
   "Paris Saint-Germain": "巴黎圣日耳曼",
   "Pumas UNAM": "美洲狮UNAM",
   "RB Leipzig": "RB莱比锡",
+  Rangers: "格拉斯哥流浪者",
   "Real Madrid": "皇家马德里",
   "Real Sociedad": "皇家社会",
   Rennes: "雷恩",
@@ -1210,6 +1222,106 @@ const ZH_CLUB_NAME_TRANSLATIONS = {
   Wrexham: "雷克瑟姆",
   "Çaykur Rizespor (on loan from AEK Athens)": "里泽体育（从雅典AEK租借）",
   "İstanbul Başakşehir": "伊斯坦布尔巴沙克谢希尔"
+};
+
+const ZH_LEAGUE_NAME_TRANSLATIONS = {
+  "2. Bundesliga": "德乙",
+  "A-League Men": "澳大利亚A联赛",
+  "Algerian Ligue Professionnelle 1": "阿尔及利亚甲级联赛",
+  Allsvenskan: "瑞典超级联赛",
+  "Argentine Primera División": "阿根廷甲级联赛",
+  "Armenian Premier League": "亚美尼亚超级联赛",
+  "Austrian Bundesliga": "奥地利甲级联赛",
+  "Azerbaijan Premier League": "阿塞拜疆超级联赛",
+  "Belgian Challenger Pro League": "比利时挑战者职业联赛",
+  "Belgian Pro League": "比利时职业联赛",
+  "Bosnian Premier League": "波黑超级联赛",
+  "Botola Pro": "摩洛哥职业联赛",
+  "Bulgarian First League": "保加利亚甲级联赛",
+  Bundesliga: "德甲",
+  "Campeonato Brasileiro Série A": "巴西甲级联赛",
+  "Categoría Primera A": "哥伦比亚甲级联赛",
+  "Championnat National": "法国全国联赛",
+  "Chilean Primera División": "智利甲级联赛",
+  "Chinese Super League": "中超",
+  "Costa Rican Primera División": "哥斯达黎加甲级联赛",
+  "Croatian Football League": "克罗地亚甲级联赛",
+  "Cypriot First Division": "塞浦路斯甲级联赛",
+  "Cyprus First Division": "塞浦路斯甲级联赛",
+  "Cyprus League": "塞浦路斯联赛",
+  "Czech First League": "捷克甲级联赛",
+  "Danish Superliga": "丹麦超级联赛",
+  "EFL Championship": "英冠",
+  "EFL League One": "英甲",
+  "Ecuadorian Serie A": "厄瓜多尔甲级联赛",
+  "Eerste Divisie": "荷乙",
+  "Egyptian Premier League": "埃及超级联赛",
+  Ekstraklasa: "波兰甲级联赛",
+  Eliteserien: "挪威超级联赛",
+  Eredivisie: "荷甲",
+  "German 3. Liga": "德丙",
+  "Ghana Premier League": "加纳超级联赛",
+  "Greek Super League": "希腊超级联赛",
+  "Indonesian Super League": "印尼超级联赛",
+  "Iraq Stars League": "伊拉克星级联赛",
+  "Israeli Premier League": "以色列超级联赛",
+  "J1 League": "J1联赛",
+  "J2 League": "J2联赛",
+  "Jordanian Pro League": "约旦职业联赛",
+  "K League 1": "K联赛1",
+  "Kazakhstan Premier League": "哈萨克斯坦超级联赛",
+  "Keuken Kampioen Divisie": "荷乙",
+  "La Liga": "西甲",
+  LaLiga2: "西乙",
+  "League of Ireland Premier Division": "爱尔兰超级联赛",
+  "Liga I": "罗马尼亚甲级联赛",
+  "Liga MX": "墨西哥超级联赛",
+  "Liga Nacional de Honduras": "洪都拉斯国家联赛",
+  "Liga Panameña de Fútbol": "巴拿马足球联赛",
+  "Liga Portugal": "葡超",
+  "Liga Portugal 2": "葡甲二级联赛",
+  "Ligue 1": "法甲",
+  "Ligue 2": "法乙",
+  "Ligue Haïtienne": "海地联赛",
+  "Major League Soccer": "美国职业足球大联盟",
+  "Malaysia Super League": "马来西亚超级联赛",
+  "Nemzeti Bajnoksag I": "匈牙利甲级联赛",
+  "Nemzeti Bajnokság I": "匈牙利甲级联赛",
+  "Oberliga Rheinland-Pfalz/Saar": "德国莱茵兰-普法尔茨/萨尔高级联赛",
+  "Paraguayan Primera División": "巴拉圭甲级联赛",
+  "Persian Gulf Pro League": "波斯湾职业联赛",
+  "Premier League": "英超",
+  "Primeira Liga": "葡超",
+  "Primera B de Chile": "智利乙级联赛",
+  "Primera Federación": "西班牙第三级联赛",
+  "Qatar Stars League": "卡塔尔星级联赛",
+  "Qatari Second Division": "卡塔尔乙级联赛",
+  "Russian Premier League": "俄超",
+  "Saudi First Division League": "沙特甲级联赛",
+  "Saudi Pro League": "沙特职业联赛",
+  "Scottish Premiership": "苏格兰超级联赛",
+  "Segunda División": "西乙",
+  "Serbian SuperLiga": "塞尔维亚超级联赛",
+  "Serie A": "意甲",
+  "Serie B": "意乙",
+  "Slovak First Football League": "斯洛伐克甲级联赛",
+  "Slovenian PrvaLiga": "斯洛文尼亚甲级联赛",
+  "South African Premiership": "南非超级联赛",
+  "Super League Greece": "希腊超级联赛",
+  "Swiss Challenge League": "瑞士挑战联赛",
+  "Swiss Promotion League": "瑞士晋级联赛",
+  "Swiss Super League": "瑞士超级联赛",
+  "Süper Lig": "土超",
+  "TFF First League": "土耳其甲级联赛",
+  "Thai League 1": "泰国甲级联赛",
+  "Tunisian Ligue Professionnelle 1": "突尼斯职业甲级联赛",
+  "Turkish Super Lig": "土耳其超级联赛",
+  "UAE Pro League": "阿联酋职业联赛",
+  "USL Championship": "USL冠军联赛",
+  "Uruguayan Primera División": "乌拉圭甲级联赛",
+  "Uzbekistan Super League": "乌兹别克斯坦超级联赛",
+  Veikkausliiga: "芬兰超级联赛",
+  "Venezuelan Primera División": "委内瑞拉甲级联赛"
 };
 
 const ZH_SOURCE_LABEL_TRANSLATIONS = {
@@ -1703,6 +1815,7 @@ Object.entries(ZH_ADDITIONAL_EXACT_TRANSLATIONS).forEach(([text, translation]) =
 [
   ZH_PLAYER_NAME_TRANSLATIONS,
   ZH_CLUB_NAME_TRANSLATIONS,
+  ZH_LEAGUE_NAME_TRANSLATIONS,
   ZH_SOURCE_LABEL_TRANSLATIONS,
   ZH_HISTORICAL_SCORER_TRANSLATIONS,
   ZH_HISTORICAL_VENUE_TRANSLATIONS
@@ -1770,6 +1883,71 @@ const ZH_PATTERN_TRANSLATIONS = [
   {
     pattern: /^(.+%) advancing$/,
     replace: (_, percent) => `${percent} 晋级`
+  },
+  {
+    pattern: /^(.+%) to advance$/,
+    replace: (_, percent) => `${percent} 晋级概率`
+  },
+  {
+    pattern: /^Most paths keep them inside the top 8\.$/,
+    replace: () => "大多数路径会让他们留在前8。"
+  },
+  {
+    pattern: /^They are inside the top 8, but more groups can still catch them\.$/,
+    replace: () => "他们目前在前8内，但其他小组仍可能追上。"
+  },
+  {
+    pattern: /^They are just outside the top 8, but one swing can pull them in\.$/,
+    replace: () => "他们刚好在前8之外，但一个结果变化就可能把他们拉回晋级区。"
+  },
+  {
+    pattern: /^They need help to climb into the top 8\.$/,
+    replace: () => "他们需要其他结果帮忙才能进入前8。"
+  },
+  {
+    pattern: /^Remaining matches can change (.+)'s Round of 32 opponent, but not whether they qualify\.$/,
+    replace: (_, teamName) =>
+      `剩余比赛可能改变${translateTextToZh(teamName)}的32强对手，但不会改变他们能否晋级。`
+  },
+  {
+    pattern: /^Watch: (.+) vs (.+)$/,
+    replace: (_, home, away) => `关注：${translateTextToZh(home)} vs ${translateTextToZh(away)}`
+  },
+  {
+    pattern:
+      /^A draw would move Group ([A-L])'s third-place team to (\d+) pts?, pushing (.+) out of the current top 8 unless another group falls back\.$/,
+    replace: (_, groupId, points, teamName) =>
+      `一场平局会让${groupId}组第三名升到${points}分，把${translateTextToZh(teamName)}挤出当前前8，除非另一个小组掉下来。`
+  },
+  {
+    pattern:
+      /^A (.+) win would move Group ([A-L])'s third-place team to (\d+) pts?, pushing (.+) out of the current top 8 unless another group falls back\.$/,
+    replace: (_, winner, groupId, points, teamName) =>
+      `${translateTextToZh(winner)}取胜会让${groupId}组第三名升到${points}分，把${translateTextToZh(teamName)}挤出当前前8，除非另一个小组掉下来。`
+  },
+  {
+    pattern:
+      /^An (.+) win would move Group ([A-L])'s third-place team to (\d+) pts?, pushing (.+) out of the current top 8 unless another group falls back\.$/,
+    replace: (_, winner, groupId, points, teamName) =>
+      `${translateTextToZh(winner)}取胜会让${groupId}组第三名升到${points}分，把${translateTextToZh(teamName)}挤出当前前8，除非另一个小组掉下来。`
+  },
+  {
+    pattern:
+      /^A draw would move Group ([A-L])'s third-place team to (\d+) pts?, shrinking (.+)'s cushion above the cut line\.$/,
+    replace: (_, groupId, points, teamName) =>
+      `一场平局会让${groupId}组第三名升到${points}分，缩小${translateTextToZh(teamName)}在晋级线上的缓冲。`
+  },
+  {
+    pattern:
+      /^A (.+) win would move Group ([A-L])'s third-place team to (\d+) pts?, shrinking (.+)'s cushion above the cut line\.$/,
+    replace: (_, winner, groupId, points, teamName) =>
+      `${translateTextToZh(winner)}取胜会让${groupId}组第三名升到${points}分，缩小${translateTextToZh(teamName)}在晋级线上的缓冲。`
+  },
+  {
+    pattern:
+      /^An (.+) win would move Group ([A-L])'s third-place team to (\d+) pts?, shrinking (.+)'s cushion above the cut line\.$/,
+    replace: (_, winner, groupId, points, teamName) =>
+      `${translateTextToZh(winner)}取胜会让${groupId}组第三名升到${points}分，缩小${translateTextToZh(teamName)}在晋级线上的缓冲。`
   },
   {
     pattern: /^Estimated Round of 32 chance: (.+)\.$/,
@@ -4199,6 +4377,7 @@ function getZhNormalizedEntityTranslations() {
     [ZH_PLAYER_NAME_TRANSLATIONS, true],
     [ZH_HISTORICAL_SCORER_TRANSLATIONS, true],
     [ZH_CLUB_NAME_TRANSLATIONS, false],
+    [ZH_LEAGUE_NAME_TRANSLATIONS, false],
     [ZH_SOURCE_LABEL_TRANSLATIONS, false],
     [ZH_ADDITIONAL_EXACT_TRANSLATIONS, false],
     [Object.fromEntries(ZH_EXACT_TRANSLATIONS), false]
@@ -5063,6 +5242,7 @@ function localizeKnownDisplayEntities(value) {
   return [
     ZH_PLAYER_NAME_TRANSLATIONS,
     ZH_CLUB_NAME_TRANSLATIONS,
+    ZH_LEAGUE_NAME_TRANSLATIONS,
     ZH_SOURCE_LABEL_TRANSLATIONS,
     ZH_HISTORICAL_SCORER_TRANSLATIONS
   ].reduce(
@@ -8841,7 +9021,7 @@ function renderHistoricalStandingsTable(year, groupName) {
 }
 
 function renderThirdPlaceStatus(candidate) {
-  const reason = localizeText(getThirdPlaceReason(candidate));
+  const reason = localizeMultilineText(getThirdPlaceReason(candidate));
   const statusLabel = localizeText(candidate.status.label);
   const tooltipLabel = `${statusLabel}：${reason}`;
 
@@ -9085,62 +9265,192 @@ function formatThirdPlaceShortComparison(decider) {
   return `${deciderLabel} ${decider.candidateValue} vs ${decider.targetValue}`;
 }
 
-function getThirdPlaceReason(candidate, raceRows = getThirdPlaceRaceRows()) {
-  const summary = formatThirdPlaceRaceIntro(candidate, raceRows);
+function formatThirdPlaceTooltipChanceLine(candidate) {
+  const estimate = candidate.advancementEstimate;
 
-  if (candidate.status?.kind === "eliminated" || candidate.isEliminated) {
-    return formatThirdPlaceReasonWithEstimate(candidate, [
-      "No remaining group result combination can move this team into a Round of 32 place."
-    ]);
+  if (estimate?.displayPercent) {
+    return `${estimate.displayPercent} to advance`;
+  }
+
+  return candidate.status?.label || "";
+}
+
+function getThirdPlaceTooltipSituationLine(candidate) {
+  const estimate = candidate.advancementEstimate;
+  const advancerCount = getThirdPlaceAdvancerCount();
+  const probability = estimate?.probability;
+
+  if (candidate.status?.kind === "eliminated" || candidate.isEliminated || probability <= 0) {
+    return "No modeled route reaches the Round of 32 from here.";
+  }
+
+  if (Number.isFinite(probability) && probability >= 1) {
+    return `Remaining matches can change ${getLocalizedTeamName(candidate.team)}'s Round of 32 opponent, but not whether they qualify.`;
   }
 
   if (candidate.isCutLineTie) {
-    return formatThirdPlaceReasonWithEstimate(candidate, [
-      summary,
-      `Teams from ${formatOrdinal(candidate.tieGroupStart)} to ${formatOrdinal(candidate.tieGroupEnd)} are tied around the cutoff.`,
-      "Fair-play data is missing."
-    ]);
+    return `Top-8 place is tied from ${formatOrdinal(candidate.tieGroupStart)}-${formatOrdinal(candidate.tieGroupEnd)}; fair-play data is pending.`;
   }
 
-  if (isGroupStageFinished()) {
-    return formatThirdPlaceReasonWithEstimate(candidate, [
-      summary,
-      candidate.position <= getThirdPlaceAdvancerCount()
-        ? "Final table: qualifies as a third-place team."
-        : "Final table: outside the qualifying third-place spots."
-    ]);
+  if (candidate.position <= advancerCount) {
+    return Number.isFinite(probability) && probability >= 0.66
+      ? "Most paths keep them inside the top 8."
+      : "They are inside the top 8, but more groups can still catch them.";
   }
 
-  const nearestCandidate = getThirdPlaceComparisonTarget(candidate, raceRows);
+  return Number.isFinite(probability) && probability >= 0.45
+    ? "They are just outside the top 8, but one swing can pull them in."
+    : "They need help to climb into the top 8.";
+}
 
-  if (!nearestCandidate) {
-    return formatThirdPlaceReasonWithEstimate(candidate, [summary]);
+function formatThirdPlaceShortPoints(points) {
+  return `${points} pt${points === 1 ? "" : "s"}`;
+}
+
+function getThirdPlaceWatchOutcomeLabel(fixture, result) {
+  if (Number(result.homeGoals) === Number(result.awayGoals)) {
+    return "A draw";
   }
 
-  if (candidate.isUnresolvedTie && getThirdPlaceTieSignature(candidate) === getThirdPlaceTieSignature(nearestCandidate)) {
-    return formatThirdPlaceReasonWithEstimate(candidate, [
-      summary,
-      `Tied with ${getLocalizedTeamName(nearestCandidate.team)}.`,
-      "Fair-play data is missing."
-    ]);
+  const winner = Number(result.homeGoals) > Number(result.awayGoals)
+    ? getTeam(fixture.homeTeamId)
+    : getTeam(fixture.awayTeamId);
+  const winnerName = getLocalizedTeamName(winner);
+  const article = /^[AEIO]/i.test(winnerName.trim()) ? "An" : "A";
+
+  return `${article} ${winnerName} win`;
+}
+
+function getThirdPlaceSingleResultRow(fixture, result) {
+  const groupId = fixture?.groupId;
+  if (!groupId) {
+    return null;
   }
 
-  const isInside = candidate.position <= getThirdPlaceAdvancerCount();
-  const decider = getThirdPlaceComparisonDecider(candidate, nearestCandidate);
-  const comparison = formatThirdPlaceShortComparison(decider);
-  const targetName = getLocalizedTeamName(nearestCandidate.team);
-  if (isInside) {
-    return formatThirdPlaceReasonWithEstimate(candidate, [
-      summary,
-      `Ahead of ${targetName}: ${comparison}.`
-    ]);
+  const projection = createGroupQualificationProjection(groupId);
+  if (!projection) {
+    return null;
   }
 
-  return formatThirdPlaceReasonWithEstimate(candidate, [
-    summary,
-    `Needs to pass ${targetName}.`,
-    `Current gap: ${comparison}.`
-  ]);
+  const states = cloneGroupQualificationStates(projection.baseStates);
+  applyGroupQualificationResult(states, result);
+
+  return getGroupQualificationScenarioRows(groupId, states, [
+    ...projection.completedResults,
+    result
+  ])[THIRD_PLACE_STANDING_INDEX] || null;
+}
+
+function getThirdPlaceWatchGroupOrder(candidate, raceRows) {
+  const groupIds = [];
+  const addGroupId = (groupId) => {
+    if (groupId && !groupIds.includes(groupId)) {
+      groupIds.push(groupId);
+    }
+  };
+  const comparisonTarget = getThirdPlaceComparisonTarget(candidate, raceRows);
+
+  addGroupId(comparisonTarget?.groupId);
+  addGroupId(candidate.groupId);
+  fixtures
+    .filter((fixture) => fixture.stage === "group" && fixture.status !== "FT")
+    .sort((a, b) => getFixtureSortValue(a).localeCompare(getFixtureSortValue(b)))
+    .forEach((fixture) => addGroupId(fixture.groupId));
+
+  return groupIds;
+}
+
+function getThirdPlaceWatchEffect(candidate, raceRows = getThirdPlaceRaceRows()) {
+  const estimate = candidate.advancementEstimate;
+
+  if (
+    !estimate ||
+    !Number.isFinite(estimate.probability) ||
+    estimate.probability <= 0 ||
+    estimate.probability >= 1 ||
+    candidate.isEliminated ||
+    candidate.isCutLineTie
+  ) {
+    return null;
+  }
+
+  const advancerCount = getThirdPlaceAdvancerCount();
+  const isInside = candidate.position <= advancerCount;
+  const candidateName = getLocalizedTeamName(candidate.team);
+
+  for (const groupId of getThirdPlaceWatchGroupOrder(candidate, raceRows)) {
+    const currentThirdPlaceRow = raceRows.find((row) => row.groupId === groupId);
+    const currentGroupIsAbove = currentThirdPlaceRow
+      ? compareThirdPlaceCandidates(currentThirdPlaceRow, candidate) < 0
+      : false;
+    const groupFixtures = getRemainingGroupQualificationFixtures(getGroupFixtures(groupId))
+      .sort((a, b) => getFixtureSortValue(a).localeCompare(getFixtureSortValue(b)));
+    const effects = [];
+
+    for (const fixture of groupFixtures) {
+      getProjectedGroupQualificationResults(fixture).forEach((result, resultIndex) => {
+        const thirdPlaceRow = getThirdPlaceSingleResultRow(fixture, result);
+        if (!thirdPlaceRow) {
+          return;
+        }
+
+        const resultMovesGroupAbove = compareThirdPlaceCandidates(thirdPlaceRow, candidate) < 0;
+        if (!isInside || currentGroupIsAbove || !resultMovesGroupAbove) {
+          return;
+        }
+
+        const groupLabel = getGroup(groupId)?.label || `Group ${groupId}`;
+        const line =
+          candidate.position === advancerCount
+            ? `${getThirdPlaceWatchOutcomeLabel(fixture, result)} would move ${groupLabel}'s third-place team to ${formatThirdPlaceShortPoints(thirdPlaceRow.pts)}, pushing ${candidateName} out of the current top 8 unless another group falls back.`
+            : `${getThirdPlaceWatchOutcomeLabel(fixture, result)} would move ${groupLabel}'s third-place team to ${formatThirdPlaceShortPoints(thirdPlaceRow.pts)}, shrinking ${candidateName}'s cushion above the cut line.`;
+
+        effects.push({
+          fixture,
+          line,
+          pointSwing: thirdPlaceRow.pts - candidate.pts,
+          resultIndex
+        });
+      });
+    }
+
+    if (effects.length) {
+      return effects.sort(
+        (a, b) =>
+          b.pointSwing - a.pointSwing ||
+          getFixtureSortValue(a.fixture).localeCompare(getFixtureSortValue(b.fixture)) ||
+          a.resultIndex - b.resultIndex
+      )[0];
+    }
+  }
+
+  return null;
+}
+
+function getThirdPlaceWatchLines(candidate, raceRows = getThirdPlaceRaceRows()) {
+  const effect = getThirdPlaceWatchEffect(candidate, raceRows);
+  if (!effect) {
+    return [];
+  }
+
+  const homeTeamName = getLocalizedTeamName(getTeam(effect.fixture.homeTeamId));
+  const awayTeamName = getLocalizedTeamName(getTeam(effect.fixture.awayTeamId));
+
+  return [
+    `Watch: ${homeTeamName} vs ${awayTeamName}`,
+    effect.line
+  ];
+}
+
+function getThirdPlaceReason(candidate, raceRows = getThirdPlaceRaceRows()) {
+  const topLines = [
+    formatThirdPlaceTooltipChanceLine(candidate),
+    "",
+    getThirdPlaceTooltipSituationLine(candidate)
+  ].filter((line, index) => index === 1 || Boolean(line));
+  const watchLines = getThirdPlaceWatchLines(candidate, raceRows);
+
+  return [...topLines, ...(watchLines.length ? ["", ...watchLines] : [])].join("\n");
 }
 
 function renderThirdPlaceRaceRow(candidate, options = {}) {
@@ -11992,6 +12302,44 @@ function getPlayerClubLine(player, profile = getPlayerProfile(player)) {
   return league ? `${club} (${league})` : club;
 }
 
+const ZH_PLAYER_POSITION_PART_TRANSLATIONS = {
+  "attacking midfielder": "攻击型中场",
+  "center back": "中后卫",
+  "central defender": "中后卫",
+  "central midfield": "中场",
+  "central midfielder": "中前卫",
+  "centre back": "中后卫",
+  "centre forward": "中锋",
+  defender: "后卫",
+  "defensive midfield": "防守型中场",
+  "defensive midfielder": "防守型中场",
+  forward: "前锋",
+  "full back": "边后卫",
+  goalkeeper: "门将",
+  "left back": "左后卫",
+  "left midfielder": "左中场",
+  "left wing": "左边锋",
+  "left wing back": "左翼卫",
+  "left winger": "左边锋",
+  midfielder: "中场",
+  "right back": "右后卫",
+  "right midfielder": "右中场",
+  "right wing": "右边锋",
+  "right wing back": "右翼卫",
+  "right winger": "右边锋",
+  "second striker": "影锋",
+  striker: "中锋",
+  sweeper: "清道夫",
+  "wide midfielder": "边中场",
+  "wing back": "翼卫",
+  winger: "边锋"
+};
+
+const ZH_PLAYER_POSITION_EXACT_TRANSLATIONS = {
+  "centre back right back defensive midfielder": "中后卫、右后卫、防守型中场",
+  "centre back sweeper": "中后卫、清道夫"
+};
+
 function formatPlayerPosition(position) {
   const text = String(position || "").trim().replace(/\s+/g, " ");
   if (!text) {
@@ -12003,8 +12351,85 @@ function formatPlayerPosition(position) {
   });
 }
 
+function normalizePlayerPositionTranslationKey(value) {
+  return String(value || "")
+    .trim()
+    .toLocaleLowerCase("en-US")
+    .replace(/[‐‑‒–—-]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function getKnownZhPlayerPositionTranslation(value) {
+  const text = String(value || "").trim().replace(/\s+/g, " ");
+  if (!text) {
+    return "";
+  }
+
+  const exact =
+    ZH_EXACT_TRANSLATIONS.get(text) ||
+    ZH_EXACT_TRANSLATIONS.get(formatPlayerPosition(text)) ||
+    ZH_PLAYER_POSITION_EXACT_TRANSLATIONS[normalizePlayerPositionTranslationKey(text)] ||
+    ZH_PLAYER_POSITION_PART_TRANSLATIONS[normalizePlayerPositionTranslationKey(text)];
+  return exact || "";
+}
+
+function translatePlayerPositionSegmentToZh(segment) {
+  const text = String(segment || "").trim();
+  if (!text) {
+    return "";
+  }
+
+  const exact = getKnownZhPlayerPositionTranslation(text);
+  if (exact) {
+    return exact;
+  }
+
+  const generated = translateGeneratedSoccerPhraseToZh(text);
+  return generated && !/[A-Za-z]/.test(generated) ? generated : "";
+}
+
+function translatePlayerPositionToZh(position) {
+  const text = String(position || "").trim().replace(/\s+/g, " ");
+  if (!text) {
+    return "";
+  }
+
+  const exact = getKnownZhPlayerPositionTranslation(text);
+  if (exact) {
+    return exact;
+  }
+
+  const tokens = text.split(/(\s*[,;/]\s*)/).filter((token) => token.length);
+  const translated = tokens
+    .map((token) => {
+      if (/[,;]/.test(token)) {
+        return "、";
+      }
+      if (/\//.test(token)) {
+        return "/";
+      }
+      return translatePlayerPositionSegmentToZh(token);
+    })
+    .join("")
+    .replace(/、+/g, "、")
+    .replace(/^、|、$/g, "");
+
+  if (translated && !/[A-Za-z]/.test(translated)) {
+    return translated;
+  }
+
+  const generated = translateGeneratedSoccerPhraseToZh(text);
+  return generated && !/[A-Za-z]/.test(generated) ? generated : "";
+}
+
 function getLocalizedPlayerPosition(player, profile = getPlayerProfile(player)) {
-  return localizeText(formatPlayerPosition(getPlayerPositionValue(player, profile)) || "Position to verify");
+  const position = getPlayerPositionValue(player, profile);
+  if (currentLanguage === "zh") {
+    return translatePlayerPositionToZh(position) || localizeText("Position to verify");
+  }
+
+  return formatPlayerPosition(position) || "Position to verify";
 }
 
 function getHistoricalArchiveClubLineZh(player, profile) {
@@ -12015,21 +12440,105 @@ function getHistoricalArchiveClubLineZh(player, profile) {
   return teamName ? `${translateEntityNameToZh(teamName)}世界杯存档` : "历史世界杯存档";
 }
 
+function hasLowercaseLatinWord(value) {
+  return /[A-Za-zÀ-ÖØ-öø-ÿ][a-zà-öø-ÿ]{2,}/.test(String(value || ""));
+}
+
+function getDirectZhDisplayTranslation(value, translationMaps = []) {
+  const text = String(value || "").trim().replace(/\s+/g, " ");
+  if (!text) {
+    return "";
+  }
+
+  for (const translationMap of translationMaps) {
+    const translation = translationMap[text];
+    if (translation) {
+      return translation;
+    }
+  }
+
+  return ZH_EXACT_TRANSLATIONS.get(text) || getZhNormalizedEntityTranslations().get(normalizeTextKey(text)) || "";
+}
+
+function localizePlayerClubName(value) {
+  const text = String(value || "").trim().replace(/\s+/g, " ");
+  if (!text) {
+    return "";
+  }
+
+  const direct = getDirectZhDisplayTranslation(text, [ZH_CLUB_NAME_TRANSLATIONS]);
+  if (direct) {
+    return direct;
+  }
+
+  const loanMatch = text.match(/^(.+?)\s+\(on loan from (.+)\)$/i);
+  if (loanMatch) {
+    return `${localizePlayerClubName(loanMatch[1])}（从${localizePlayerClubName(loanMatch[2])}租借）`;
+  }
+
+  const replaced = localizeKnownDisplayEntities(text);
+  if (replaced !== text && !hasLowercaseLatinWord(replaced)) {
+    return replaced;
+  }
+
+  return translateEntityNameToZh(text);
+}
+
+function localizePlayerLeagueName(value) {
+  const text = String(value || "").trim().replace(/\s+/g, " ");
+  if (!text) {
+    return "";
+  }
+
+  const direct = getDirectZhDisplayTranslation(text, [ZH_LEAGUE_NAME_TRANSLATIONS]);
+  if (direct) {
+    return direct;
+  }
+
+  const lastClubMatch = text.match(/^Last club:\s*(.+)$/i);
+  if (lastClubMatch) {
+    return `最后效力：${localizePlayerClubName(lastClubMatch[1])}`;
+  }
+
+  const replaced = localizeKnownDisplayEntities(text);
+  if (replaced !== text && !hasLowercaseLatinWord(replaced)) {
+    return replaced;
+  }
+
+  return translateEntityNameToZh(text);
+}
+
 function getLocalizedPlayerClubLine(player, profile = getPlayerProfile(player)) {
   if (currentLanguage === "zh" && isHistoricalPlayerCard(player)) {
     return getHistoricalArchiveClubLineZh(player, profile);
   }
 
   const club = getPlayerClubValue(player, profile)
-    ? localizeText(getPlayerClubValue(player, profile))
+    ? localizePlayerClubName(getPlayerClubValue(player, profile))
     : isHistoricalPlayerCard(player)
       ? "历史世界杯记录"
       : isGoalScorerCardPlayer(player)
         ? getGoalScorerTeamLine(player, { localized: true })
         : localizeText("Club to verify");
-  const league = getPlayerLeagueValue(player, profile) ? localizeText(getPlayerLeagueValue(player, profile)) : "";
+  const league = getPlayerLeagueValue(player, profile) ? localizePlayerLeagueName(getPlayerLeagueValue(player, profile)) : "";
   return league ? `${club}（${league}）` : club;
 }
+
+function exposeLocalPlayerCardLocalizationTestHooks() {
+  if (typeof window === "undefined" || !["127.0.0.1", "localhost"].includes(window.location.hostname)) {
+    return;
+  }
+
+  window.__worldCupTestHooks = {
+    ...(window.__worldCupTestHooks || {}),
+    playerCards: {
+      getLocalizedPlayerClubLine,
+      getLocalizedPlayerPosition
+    }
+  };
+}
+
+exposeLocalPlayerCardLocalizationTestHooks();
 
 function getPlayerReferenceDate(player) {
   const matchDate = String(player?.matchDate || player?.date || "").trim();

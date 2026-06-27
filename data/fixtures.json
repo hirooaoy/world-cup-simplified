@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-27T04:32:15.997Z",
+  "updatedAt": "2026-06-27T06:37:58.288Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -101,7 +101,8 @@
     "fifa-official-results-sync-2026-06-25",
     "fifa-official-results-sync-2026-06-26",
     "fifa-goal-events-sync-2026-06-26",
-    "fifa-official-results-sync-2026-06-27"
+    "fifa-official-results-sync-2026-06-27",
+    "fifa-goal-events-sync-2026-06-27"
   ],
   "coverage": {
     "status": "complete-schedule",
@@ -7754,7 +7755,12 @@
       "score": {
         "home": 0,
         "away": 0
-      }
+      },
+      "resultHighlights": [
+        "⚽ Cabo Verde and Saudi Arabia shared a 0-0 draw.",
+        "🌟 Ryan Mendes and Salem Al-Dawsari carried the duel without a breakthrough.",
+        "📊 Cabo Verde moved to 3 points and Saudi Arabia to 2 points in Group H."
+      ]
     },
     {
       "id": "uruguay-spain-2026-06-26",
@@ -7900,7 +7906,18 @@
       "score": {
         "home": 0,
         "away": 1
-      }
+      },
+      "goalsHome": [],
+      "goalsAway": [
+        {
+          "minute": 42,
+          "name": "Alex Baena"
+        }
+      ],
+      "resultHighlights": [
+        "🌟 Alex Baena's 42' winner settled it for Spain.",
+        "📊 Spain moved to 7 points in Group H while Uruguay stayed on 2 points."
+      ]
     },
     {
       "id": "egypt-ir-iran-2026-06-26",
@@ -7911,7 +7928,7 @@
       "homeTeamId": "EGY",
       "awayTeamId": "IRN",
       "venue": "Seattle Stadium",
-      "status": "LIVE",
+      "status": "FT",
       "h2h": {
         "status": "loaded",
         "sourceId": "national-football-teams-h2h-2026-06-17",
@@ -7986,7 +8003,23 @@
       "score": {
         "home": 1,
         "away": 1
-      }
+      },
+      "goalsHome": [
+        {
+          "minute": 5,
+          "name": "Mahmoud Saber"
+        }
+      ],
+      "goalsAway": [
+        {
+          "minute": 14,
+          "name": "Ramin Rezaeian"
+        }
+      ],
+      "resultHighlights": [
+        "🌟 Ramin Rezaeian's 14' equalizer earned IR Iran a point.",
+        "📊 Egypt moved to 5 points and IR Iran to 3 points in Group G."
+      ]
     },
     {
       "id": "new-zealand-belgium-2026-06-26",
@@ -7997,7 +8030,7 @@
       "homeTeamId": "NZL",
       "awayTeamId": "BEL",
       "venue": "BC Place Vancouver",
-      "status": "LIVE",
+      "status": "FT",
       "h2h": {
         "status": "verified-empty",
         "sourceId": "national-football-teams-h2h-2026-06-17",
@@ -8059,9 +8092,42 @@
       },
       "matchNumber": 64,
       "score": {
-        "home": 0,
-        "away": 3
-      }
+        "home": 1,
+        "away": 5
+      },
+      "goalsHome": [
+        {
+          "minute": 84,
+          "name": "Elijah Just"
+        }
+      ],
+      "goalsAway": [
+        {
+          "minute": 28,
+          "name": "Leandro Trossard"
+        },
+        {
+          "minute": 50,
+          "name": "Leandro Trossard"
+        },
+        {
+          "minute": 66,
+          "name": "Kevin De Bruyne"
+        },
+        {
+          "minute": 86,
+          "name": "Romelu Lukaku"
+        },
+        {
+          "minute": 90,
+          "offset": 4,
+          "name": "Alexis Saelemaekers"
+        }
+      ],
+      "resultHighlights": [
+        "🌟 Leandro Trossard scored twice as Belgium pulled clear.",
+        "📊 Belgium moved to 5 points in Group G while New Zealand stayed on 1 point."
+      ]
     },
     {
       "id": "panama-england-2026-06-27",
@@ -8897,7 +8963,8 @@
           "matchId": "400021525",
           "matchNumber": 82
         }
-      }
+      },
+      "homeTeamId": "BEL"
     },
     {
       "id": "match-83-round-of-32-2026-07-02",
@@ -9033,7 +9100,13 @@
           "matchNumber": 88
         }
       },
-      "homeTeamId": "AUS"
+      "homeTeamId": "AUS",
+      "awayTeamId": "EGY",
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-22",
+        "home": "Australia are a durable, physical side built around organization, pressure, and free-kick and corner toughness, led by Mathew Ryan, Jackson Irvine, and Christian Volpato. Against Egypt, their Irvine-Volpato duel-and-service rhythm has to beat Egypt's Salah-Marmoush breakaway threat. They want to make the match direct enough for Irvine's running and Volpato's left foot to matter. The risk is Egypt can turn one loose pass into a Salah-led break.",
+        "away": "Egypt are a direct team built around Salah's runs that can look quiet until one attack opens the match, led by Mohamed Salah, Omar Marmoush, and Zizo. Against Australia, their Salah-Marmoush breakaway threat has to beat Australia's Irvine-Volpato duel-and-service rhythm. They want to release Salah early and let Marmoush arrive as the second wave. The risk is Australia can drag opponents into duels, free kicks, corners, and late midfield runs."
+      }
     },
     {
       "id": "match-89-round-of-16-2026-07-04",

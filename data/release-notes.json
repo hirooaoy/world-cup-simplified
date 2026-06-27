@@ -1,6 +1,17 @@
 {
-  "updatedAt": "2026-06-25T20:17:26-07:00",
+  "updatedAt": "2026-06-26T23:25:01-07:00",
   "releases": [
+    {
+      "date": "2026-06-26",
+      "title": "Chinese card localization",
+      "titleZh": "中文球员卡本地化",
+      "highlights": [
+        "Chinese player hover cards now localize compound position, club, and league lines instead of leaving English role or Scottish club text."
+      ],
+      "highlightsZh": [
+        "中文球员悬停卡现在会本地化复合位置、俱乐部和联赛行，不再残留英文角色或苏格兰俱乐部文字。"
+      ]
+    },
     {
       "date": "2026-06-25",
       "title": "Race, cards, and mobile brackets",
