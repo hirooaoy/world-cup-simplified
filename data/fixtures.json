@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-27T21:59:02.305Z",
+  "updatedAt": "2026-06-27T23:08:31.399Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -8138,7 +8138,7 @@
       "homeTeamId": "PAN",
       "awayTeamId": "ENG",
       "venue": "New York New Jersey Stadium",
-      "status": "LIVE",
+      "status": "FT",
       "h2h": {
         "status": "loaded",
         "sourceId": "national-football-teams-h2h-2026-06-17",
@@ -8212,7 +8212,7 @@
       "matchNumber": 67,
       "score": {
         "home": 0,
-        "away": 0
+        "away": 2
       }
     },
     {
@@ -8224,7 +8224,7 @@
       "homeTeamId": "CRO",
       "awayTeamId": "GHA",
       "venue": "Philadelphia Stadium",
-      "status": "LIVE",
+      "status": "FT",
       "h2h": {
         "status": "verified-empty",
         "sourceId": "national-football-teams-h2h-2026-06-17",
@@ -8286,8 +8286,8 @@
       },
       "matchNumber": 68,
       "score": {
-        "home": 1,
-        "away": 0
+        "home": 2,
+        "away": 1
       }
     },
     {
@@ -8926,7 +8926,8 @@
           "matchId": "400021512",
           "matchNumber": 80
         }
-      }
+      },
+      "homeTeamId": "ENG"
     },
     {
       "id": "match-81-round-of-32-2026-07-01",
@@ -8994,7 +8995,8 @@
           "matchId": "400021526",
           "matchNumber": 83
         }
-      }
+      },
+      "awayTeamId": "CRO"
     },
     {
       "id": "match-84-round-of-32-2026-07-02",
