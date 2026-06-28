@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-28T00:47:05.425Z",
+  "updatedAt": "2026-06-28T01:32:34.532Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -103,7 +103,8 @@
     "fifa-goal-events-sync-2026-06-26",
     "fifa-official-results-sync-2026-06-27",
     "fifa-goal-events-sync-2026-06-27",
-    "fifa-goal-events-sync-2026-06-28"
+    "fifa-goal-events-sync-2026-06-28",
+    "fifa-official-results-sync-2026-06-28"
   ],
   "coverage": {
     "status": "complete-schedule",
@@ -8335,7 +8336,7 @@
       "homeTeamId": "COL",
       "awayTeamId": "POR",
       "venue": "Miami Stadium",
-      "status": "SCHEDULED",
+      "status": "FT",
       "h2h": {
         "status": "verified-empty",
         "sourceId": "national-football-teams-h2h-2026-06-17",
@@ -8395,7 +8396,11 @@
           "matchNumber": 71
         }
       },
-      "matchNumber": 71
+      "matchNumber": 71,
+      "score": {
+        "home": 0,
+        "away": 0
+      }
     },
     {
       "id": "dr-congo-uzbekistan-2026-06-27",
@@ -8406,7 +8411,7 @@
       "homeTeamId": "COD",
       "awayTeamId": "UZB",
       "venue": "Atlanta Stadium",
-      "status": "SCHEDULED",
+      "status": "FT",
       "h2h": {
         "status": "verified-empty",
         "sourceId": "national-football-teams-h2h-2026-06-17",
@@ -8466,7 +8471,11 @@
           "matchNumber": 72
         }
       },
-      "matchNumber": 72
+      "matchNumber": 72,
+      "score": {
+        "home": 3,
+        "away": 1
+      }
     },
     {
       "id": "algeria-austria-2026-06-27",
@@ -9032,7 +9041,13 @@
           "matchNumber": 83
         }
       },
-      "awayTeamId": "CRO"
+      "awayTeamId": "CRO",
+      "homeTeamId": "POR",
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-22",
+        "home": "Portugal are a star-heavy attacking side with enough creators to feed several different scoring routes, led by Cristiano Ronaldo, Bruno Fernandes, and Vitinha. Against Croatia, their Vitinha-Bruno-Ronaldo supply has to beat Croatia's Modric-Kovacic midfield control. They want to let Vitinha control the first pass, then use Bruno Fernandes to find Ronaldo or the far-side runner. The risk is Croatia can slow the match through Modric and Kovacic's passing rhythm.",
+        "away": "Croatia are a control team whose tournament identity still runs through midfield calm, led by Luka Modric, Josko Gvardiol, and Mateo Kovacic. Against Portugal, their Modric-Kovacic midfield control has to beat Portugal's Vitinha-Bruno-Ronaldo supply. They want to use Modric and Kovacic to turn pressure into possession and move the opponent side to side. The risk is Portugal can feed Ronaldo through Bruno Fernandes and Vitinha's supply."
+      }
     },
     {
       "id": "match-84-round-of-32-2026-07-02",
@@ -9123,7 +9138,8 @@
           "matchId": "400021517",
           "matchNumber": 87
         }
-      }
+      },
+      "homeTeamId": "COL"
     },
     {
       "id": "match-88-round-of-32-2026-07-03",

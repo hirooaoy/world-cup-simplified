@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-27T23:08:31.399Z",
+  "updatedAt": "2026-06-28T01:32:34.532Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fifa-standings-2026-06-17",
@@ -26,7 +26,8 @@
     "fifa-official-results-sync-2026-06-24",
     "fifa-official-results-sync-2026-06-25",
     "fifa-official-results-sync-2026-06-26",
-    "fifa-official-results-sync-2026-06-27"
+    "fifa-official-results-sync-2026-06-27",
+    "fifa-official-results-sync-2026-06-28"
   ],
   "tiebreakerNote": "Rows use the current table order. Group ties use FIFA head-to-head before overall goal difference.",
   "groups": {
@@ -413,39 +414,39 @@
     "K": [
       {
         "teamId": "COL",
-        "played": 2,
+        "played": 3,
         "wins": 2,
-        "draws": 0,
+        "draws": 1,
         "losses": 0,
         "gf": 4,
         "ga": 1
       },
       {
         "teamId": "POR",
-        "played": 2,
+        "played": 3,
         "wins": 1,
-        "draws": 1,
+        "draws": 2,
         "losses": 0,
         "gf": 6,
         "ga": 1
       },
       {
         "teamId": "COD",
-        "played": 2,
-        "wins": 0,
+        "played": 3,
+        "wins": 1,
         "draws": 1,
         "losses": 1,
-        "gf": 1,
-        "ga": 2
+        "gf": 4,
+        "ga": 3
       },
       {
         "teamId": "UZB",
-        "played": 2,
+        "played": 3,
         "wins": 0,
         "draws": 0,
-        "losses": 2,
-        "gf": 1,
-        "ga": 8
+        "losses": 3,
+        "gf": 2,
+        "ga": 11
       }
     ],
     "L": [

@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-28T00:46:57.649Z",
+  "updatedAt": "2026-06-28T01:32:34.532Z",
   "coverageNote": "The current seed dataset covers the full official fixture skeleton from June 11 through July 19. Rich previews, scores, live status and knockout participants are updated progressively.",
   "catchUp": [
     {
@@ -890,6 +890,14 @@
       "type": "official",
       "checkedAt": "2026-06-28T00:46:57.649Z",
       "note": "2 fixture goal-event updates merged from 62 matched FIFA timelines."
+    },
+    {
+      "id": "fifa-official-results-sync-2026-06-28",
+      "label": "FIFA official results sync",
+      "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/match-schedule-fixtures-results-teams-stadiums",
+      "type": "official",
+      "checkedAt": "2026-06-28T01:32:34.532Z",
+      "note": "2 fixture updates merged from 104 matched FIFA fixtures. 2 knockout participant slots resolved from completed group/knockout results."
     }
   ],
   "groups": [
