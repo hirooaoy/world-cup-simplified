@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-28T05:57:52.711Z",
+  "updatedAt": "2026-06-28T19:52:34.502Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -8760,7 +8760,7 @@
       "homeSlot": "Group A runner-up",
       "awaySlot": "Group B runner-up",
       "venue": "Los Angeles Stadium",
-      "status": "SCHEDULED",
+      "status": "LIVE",
       "h2h": {
         "status": "loaded",
         "sourceId": "national-football-teams-can-rsa-h2h-2026-06-25",
@@ -8832,6 +8832,10 @@
         "sourceId": "editorial-preview-2026-06-22",
         "home": "South Africa are counterattacking underdogs who can stay in games if their goalkeeper and forwards give them belief, led by Ronwen Williams, Teboho Mokoena, and Lyle Foster. Against Canada, their Williams-Mokoena-Foster save-to-counter chain has to beat Canada's Davies-David open-field speed. They want to absorb pressure, let Mokoena make the first forward pass, and release Foster before the defense recovers. The risk is Canada can run through Davies and David before defenders can recover.",
         "away": "Canada are a fast, direct host-side threat with enough top-end speed to change games in a few seconds, led by Alphonso Davies, Jonathan David, and Stephen Eustaquio. Against South Africa, their Davies-David open-field speed has to beat South Africa's Williams-Mokoena-Foster save-to-counter chain. They want to release Davies into space and get David facing goal before the opponent's defense is set. The risk is South Africa can turn saves from Williams into Mokoena outlets and Foster counters."
+      },
+      "score": {
+        "home": 0,
+        "away": 0
       }
     },
     {
