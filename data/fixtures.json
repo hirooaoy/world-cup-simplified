@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-28T20:56:10.292Z",
+  "updatedAt": "2026-06-28T22:00:29.275Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -8760,7 +8760,7 @@
       "homeSlot": "Group A runner-up",
       "awaySlot": "Group B runner-up",
       "venue": "Los Angeles Stadium",
-      "status": "LIVE",
+      "status": "FT",
       "h2h": {
         "status": "loaded",
         "sourceId": "national-football-teams-can-rsa-h2h-2026-06-25",
@@ -9937,7 +9937,8 @@
           "matchId": "400021530",
           "matchNumber": 90
         }
-      }
+      },
+      "homeTeamId": "CAN"
     },
     {
       "id": "match-91-round-of-16-2026-07-05",
