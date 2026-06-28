@@ -276,6 +276,9 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "Past 24 hours": "过去24小时",
     "Penalty pressure": "点球压力",
     "Player": "球员",
+    "Predicted": "预测",
+    "Predicted matchup; participants come from current knockout-path estimates.":
+      "预测对阵；参赛队来自当前淘汰赛路径估算。",
     "No matches": "没有比赛",
     "No next World Cup month": "没有下一个世界杯月份",
     "No previous men's World Cup meetings are loaded before this match.":
@@ -7638,6 +7641,18 @@ function renderScoreStatus(match, state, currentTime) {
     : "";
 }
 
+function renderProjectedMatchStatus(match, context) {
+  if (!isTournamentProjectedMatch(match, context)) {
+    return "";
+  }
+
+  const label = localizeText("Predicted");
+  const ariaLabel = localizeText(
+    "Predicted matchup; participants come from current knockout-path estimates."
+  );
+  return `<span class="score-status is-predicted" aria-label="${escapeHtml(ariaLabel)}">${escapeHtml(label)}</span>`;
+}
+
 function renderLivePill(options = {}) {
   const className = ["live-pill", options.className || ""].filter(Boolean).join(" ");
   const tooltip = localizeText(FIFA_LIVE_TOOLTIP);
@@ -7731,8 +7746,9 @@ function shouldPreviewMatchInfoOnHover(event) {
 
 function renderMatchRow(match, state, currentTime = Date.now(), options = {}) {
   const row = document.createElement("div");
-  const homeName = getLocalizedTeamName(match.homeTeam);
-  const awayName = getLocalizedTeamName(match.awayTeam);
+  const displayTeams = getDisplayMatchTeams(match, options.tournamentContext);
+  const homeName = getLocalizedTeamName(displayTeams.home);
+  const awayName = getLocalizedTeamName(displayTeams.away);
   const versusText = localizeText("vs");
   const dateLabel = options.showDate ? getMatchDateLabel(match, options) : "";
   const dateTimeAriaLabel = getMatchDateTimeAriaLabel(match, options);
@@ -7747,6 +7763,7 @@ function renderMatchRow(match, state, currentTime = Date.now(), options = {}) {
     state === "live" ? `${localizeText("Live")}, ` : state === "next" ? `${localizeText("Up next")}, ` : "";
   const statusLabel = match.status === "CANCELLED" ? `, ${localizeText("cancelled")}` : "";
   const scoreStatus = renderScoreStatus(match, state, currentTime);
+  const projectedStatus = renderProjectedMatchStatus(match, options.tournamentContext);
   const stateBadge =
     state === "live"
       ? renderLivePill()
@@ -7754,7 +7771,7 @@ function renderMatchRow(match, state, currentTime = Date.now(), options = {}) {
         ? `<span class="up-next-pill">${escapeHtml(localizeText("Up next"))}</span>`
         : "";
   const score = renderScore(match, state, options);
-  const rowMeta = `${stateBadge}${scoreStatus}${score}`;
+  const rowMeta = `${stateBadge}${projectedStatus}${scoreStatus}${score}`;
   const rowLabel = `${stateLabel}${homeName} ${versusText} ${awayName}${rowDateTimeLabel}${statusLabel}${
     match.score
       ? `, ${scoreLabel} ${match.score.home}-${match.score.away}`
@@ -7762,7 +7779,9 @@ function renderMatchRow(match, state, currentTime = Date.now(), options = {}) {
         ? `, ${localizeText("current score")} ${displayScore.home}-${displayScore.away}`
         : pendingScoreText
           ? `, ${pendingScoreText.toLowerCase()}`
-          : ""
+          : projectedStatus
+            ? `, ${localizeText("Predicted").toLowerCase()}`
+            : ""
   }`;
 
   row.className = `match-row is-${state}`;
@@ -7776,9 +7795,9 @@ function renderMatchRow(match, state, currentTime = Date.now(), options = {}) {
         <span class="${dateLabel ? "match-date" : "match-clock"}">${escapeHtml(visibleTimeLabel)}</span>
       </time>
       <span class="match-teams">
-        ${renderTeamInline(match.homeTeam, getTeamClass("team match-team-home", winnerSide, "home"), { showRank: false })}
+        ${renderTeamInline(displayTeams.home, getTeamClass("team match-team-home", winnerSide, "home"), { showRank: false })}
         <span class="versus match-versus">${escapeHtml(versusText)}</span>
-        ${renderTeamInline(match.awayTeam, getTeamClass("team match-team-away", winnerSide, "away"), { showRank: false })}
+        ${renderTeamInline(displayTeams.away, getTeamClass("team match-team-away", winnerSide, "away"), { showRank: false })}
       </span>
     </button>
     ${rowMeta ? `<span class="match-row-meta">${rowMeta}</span>` : ""}
@@ -10563,6 +10582,7 @@ function getTournamentMatchParticipant(match, side, context) {
 
       return {
         ...(sourceWinnerEntry || {}),
+        isLocked: true,
         label: getTournamentTeamDisplayName(winner),
         likelihoodPercent: null,
         likelihoodReason: "",
@@ -10600,6 +10620,7 @@ function getTournamentMatchParticipant(match, side, context) {
 
       return {
         ...(sourceLoserEntry || {}),
+        isLocked: true,
         label: getTournamentTeamDisplayName(loser),
         likelihoodPercent: null,
         likelihoodReason: "",
@@ -10950,6 +10971,21 @@ function isTournamentProjectedParticipant(entry) {
   return Boolean(entry && !entry.isLocked && (entry.state === "likely" || entry.slotOdds));
 }
 
+function isTournamentProjectedMatch(match, context) {
+  if (!match?.stage || match.stage === "group" || match.status === "FT") {
+    return false;
+  }
+
+  const progressionContext = context || createTournamentProgressionContext();
+  const participants = getTournamentMatchParticipants(match, progressionContext);
+  const winner = getTournamentMatchWinnerTeam(match, progressionContext);
+  return Boolean(
+    !winner &&
+      (isTournamentProjectedParticipant(participants.home) ||
+        isTournamentProjectedParticipant(participants.away))
+  );
+}
+
 function isTournamentMatchLocked(match, participants) {
   return Boolean(
     match?.id &&
@@ -11002,10 +11038,7 @@ function renderTournamentMatchCard(match, context, options = {}) {
       </footer>`
       : "";
   const isProjected =
-    !winner &&
-    (match.stage === "round-of-32"
-      ? isTournamentProjectedParticipant(participants.home) || isTournamentProjectedParticipant(participants.away)
-      : participants.home.state === "likely" || participants.away.state === "likely");
+    isTournamentProjectedMatch(match, context);
   const isLocked = isTournamentMatchLocked(match, participants);
   const cardClasses = [
     options.className || "progress-match",
@@ -14008,8 +14041,11 @@ function renderPastResultList(results, leadingTeamId = "", options = {}) {
 
 function renderPastResults(match) {
   const h2h = match.h2h || {};
-  const summary = h2h.summary
-    ? `<p class="h2h-summary">${escapeHtml(localizeText(h2h.summary))}</p>`
+  const hasResolvedTeams = Boolean(match.homeTeam && match.awayTeam && !match.homeTeam.isSlot && !match.awayTeam.isSlot);
+  const summaryText =
+    hasResolvedTeams && /^Teams are not known yet\./.test(h2h.summary || "") ? "" : h2h.summary;
+  const summary = summaryText
+    ? `<p class="h2h-summary">${escapeHtml(localizeText(summaryText))}</p>`
     : "";
 
   if (!Array.isArray(h2h.results)) {
@@ -14108,6 +14144,10 @@ function renderKnockoutMatchupLabel(match, context) {
   return `${renderKnockoutParticipantLabel(participants.home, { showRank: true })} ${escapeHtml(
     localizeText("vs")
   )} ${renderKnockoutParticipantLabel(participants.away, { showRank: true })}`;
+}
+
+function isKnockoutMatchupPredicted(match, context) {
+  return isTournamentProjectedMatch(match, context);
 }
 
 function getKnockoutMatchupLabel(match, context) {
@@ -14359,11 +14399,23 @@ function renderKnockoutSourceMatchSummary(match, context) {
     return `${matchup} is live at ${scoreText}.`;
   }
 
+  if (isKnockoutMatchupPredicted(match, context)) {
+    if (currentLanguage === "zh") {
+      return `${matchup} 是当前预测。`;
+    }
+
+    return `${matchup} is predicted.`;
+  }
+
   if (currentLanguage === "zh") {
     return `${matchup} 尚未开赛。`;
   }
 
   return `${matchup} is scheduled.`;
+}
+
+function isTerminalKnockoutMatch(match) {
+  return match?.stage === "final" || match?.stage === "bronze-final";
 }
 
 function getPreviousKnockoutStageLabel(match, sourceMatches) {
@@ -14417,6 +14469,12 @@ function renderNextKnockoutOpponentLine(match, nextMatch, context) {
   if (otherSourceMatchNumber) {
     const otherMatch = getTournamentFixtureByMatchNumber(otherSourceMatchNumber);
     const matchup = renderKnockoutMatchupLabel(otherMatch, context);
+    if (isTournamentProjectedMatch(otherMatch, context)) {
+      return currentLanguage === "zh"
+        ? `胜者将对阵 ${matchup} 的预测胜者。`
+        : `Winner will face predicted winner of ${matchup}.`;
+    }
+
     return currentLanguage === "zh"
       ? `胜者将对阵 ${matchup} 的胜者。`
       : `Winner will face winner of ${matchup}.`;
@@ -14435,6 +14493,10 @@ function renderNextKnockoutOpponentLine(match, nextMatch, context) {
 }
 
 function renderNextKnockoutContext(match, context) {
+  if (isTerminalKnockoutMatch(match)) {
+    return "";
+  }
+
   const nextMatchNumber = getTournamentNextMatchNumber(match.matchNumber);
   const nextMatch = getTournamentFixtureByMatchNumber(nextMatchNumber);
 
@@ -14458,8 +14520,7 @@ function renderNextKnockoutContext(match, context) {
   `;
 }
 
-function renderKnockoutContext(match) {
-  const context = createTournamentProgressionContext();
+function renderKnockoutContext(match, context = createTournamentProgressionContext()) {
   const pathContext =
     match.stage === "round-of-32"
       ? renderRoundOf32PathContext(match, context)
@@ -14471,7 +14532,7 @@ function renderKnockoutContext(match) {
   `;
 }
 
-function renderMatchContext(match) {
+function renderMatchContext(match, context = null) {
   if (match.stage === "group") {
     const group = getGroup(match.groupId);
     const thirdPlaceRaceByTeamId = getThirdPlaceRaceByTeamId();
@@ -14485,7 +14546,7 @@ function renderMatchContext(match) {
     `;
   }
 
-  return renderKnockoutContext(match);
+  return renderKnockoutContext(match, context || createTournamentProgressionContext());
 }
 
 function revealMatchInfoOnSmallScreens() {
@@ -15650,6 +15711,46 @@ function renderCurrentMatchContextKicker(match, label) {
   return `<p class="info-kicker">${labelHtml}</p>`;
 }
 
+function getDisplayMatchTeam(match, side, context = null) {
+  const fallbackTeam = match?.[`${side}Team`];
+
+  if (!match?.stage || match.stage === "group") {
+    return fallbackTeam;
+  }
+
+  const progressionContext = context || createTournamentProgressionContext();
+  const entry = getTournamentMatchParticipants(match, progressionContext)?.[side];
+  return entry?.state === "resolved" && entry.team ? entry.team : fallbackTeam;
+}
+
+function getDisplayMatchTeams(match, context = null) {
+  return {
+    away: getDisplayMatchTeam(match, "away", context),
+    home: getDisplayMatchTeam(match, "home", context)
+  };
+}
+
+function getDisplayMatch(match, displayTeams) {
+  const homeTeam = displayTeams?.home || match.homeTeam;
+  const awayTeam = displayTeams?.away || match.awayTeam;
+
+  return {
+    ...match,
+    awayTeam,
+    awayTeamId: awayTeam?.isSlot ? match.awayTeamId : awayTeam?.id || match.awayTeamId,
+    homeTeam,
+    homeTeamId: homeTeam?.isSlot ? match.homeTeamId : homeTeam?.id || match.homeTeamId
+  };
+}
+
+function renderProjectedMatchNote(match, context) {
+  if (!isTournamentProjectedMatch(match, context)) {
+    return "";
+  }
+
+  return `<p class="data-note knockout-projection-note">${escapeHtml(localizeText("Predicted matchup; participants come from current knockout-path estimates."))}</p>`;
+}
+
 function openTournamentTabFromMatchInfo(targetMatchNumber = "") {
   selectedStandingsYear = CURRENT_STANDINGS_YEAR;
   selectedStandingsMode = "tournament";
@@ -15711,30 +15812,34 @@ function renderMatchInfo(match, options = {}) {
       ? group?.label || `Group ${match.groupId}`
       : stage?.label || match.stage;
   const localizedContextLabel = localizeText(contextLabel);
+  const tournamentContext = match.stage && match.stage !== "group" ? createTournamentProgressionContext() : null;
+  const displayTeams = getDisplayMatchTeams(match, tournamentContext);
+  const displayMatch = getDisplayMatch(match, displayTeams);
 
   matchInfo.innerHTML = `
     <section class="info-block match-summary">
       ${renderCurrentMatchContextKicker(match, localizedContextLabel)}
       <h2 class="summary-title">
-        ${renderTeamInline(match.homeTeam, "summary-team")}
+        ${renderTeamInline(displayTeams.home, "summary-team")}
         <span class="versus">${escapeHtml(localizeText("vs"))}</span>
-        ${renderTeamInline(match.awayTeam, "summary-team")}
+        ${renderTeamInline(displayTeams.away, "summary-team")}
       </h2>
       <p>${escapeHtml(getVenueLabel(match))}</p>
+      ${renderProjectedMatchNote(match, tournamentContext)}
     </section>
 
-    ${renderMatchContext(match)}
+    ${renderMatchContext(match, tournamentContext)}
 
-    ${renderMatchStatusBlock(match)}
+    ${renderMatchStatusBlock(displayMatch)}
 
     <section class="info-block">
       <h3>${escapeHtml(localizeText("Key information"))}</h3>
-      ${renderKeyInformation(match)}
+      ${renderKeyInformation(displayMatch)}
     </section>
 
     <section class="info-block">
       <h3>${escapeHtml(localizeText("Past matches"))}</h3>
-      ${renderPastResults(match)}
+      ${renderPastResults(displayMatch)}
     </section>
   `;
   positionPlayerCards();
@@ -15887,12 +15992,13 @@ function getCompactMatchMeta(match, state, currentTime) {
   );
 }
 
-function createYesterdayMatchCard(match, currentTime) {
+function createYesterdayMatchCard(match, currentTime, tournamentContext = null) {
   const state = getMatchState(match, new Set(), currentTime);
   const card = document.createElement("article");
   const button = document.createElement("button");
-  const homeName = getLocalizedTeamName(match.homeTeam);
-  const awayName = getLocalizedTeamName(match.awayTeam);
+  const displayTeams = getDisplayMatchTeams(match, tournamentContext);
+  const homeName = getLocalizedTeamName(displayTeams.home);
+  const awayName = getLocalizedTeamName(displayTeams.away);
   const versusText = localizeText("vs");
   const timeLabel = getMatchTimeLabel(match);
   const score = getCompactMatchMeta(match, state, currentTime);
@@ -15911,9 +16017,9 @@ function createYesterdayMatchCard(match, currentTime) {
   button.innerHTML = `
     ${timeLabel ? `<span class="yesterday-match-time">${escapeHtml(timeLabel)}</span>` : ""}
     <span class="yesterday-match-pair">
-      ${renderTeamInline(match.homeTeam, getTeamClass("yesterday-team", winnerSide, "home", { markLoser: true }), { showRank: false })}
+      ${renderTeamInline(displayTeams.home, getTeamClass("yesterday-team", winnerSide, "home", { markLoser: true }), { showRank: false })}
       <span class="versus">${escapeHtml(versusText)}</span>
-      ${renderTeamInline(match.awayTeam, getTeamClass("yesterday-team", winnerSide, "away", { markLoser: true }), { showRank: false })}
+      ${renderTeamInline(displayTeams.away, getTeamClass("yesterday-team", winnerSide, "away", { markLoser: true }), { showRank: false })}
     </span>
     ${score ? `<span class="yesterday-match-meta">${score}</span>` : ""}
   `;
@@ -15946,6 +16052,7 @@ function createYesterdayMatchesSection(matches, currentTime) {
   const section = document.createElement("section");
   const list = document.createElement("div");
   const title = localizeText("Past 24 hours");
+  const tournamentContext = createTournamentProgressionContext();
   section.className = "yesterday-section";
   section.setAttribute(
     "aria-label",
@@ -15965,7 +16072,7 @@ function createYesterdayMatchesSection(matches, currentTime) {
   });
   list.className = "yesterday-match-grid";
   matches.forEach((match) => {
-    list.append(createYesterdayMatchCard(match, currentTime));
+    list.append(createYesterdayMatchCard(match, currentTime, tournamentContext));
   });
   section.append(list);
   return section;
@@ -16228,11 +16335,13 @@ function createTeamSearchSection(title, items, stateForMatch, options = {}) {
 
   const list = document.createElement("div");
   const currentTime = options.currentTime || Date.now();
+  const tournamentContext = createTournamentProgressionContext();
   list.className = "team-search-match-list";
   for (const { match, team, searchedSide } of items) {
     const row = renderMatchRow(match, stateForMatch(match), currentTime, {
       searchedSide: searchedSide || getTeamSearchMatchedSide(match, team),
-      showDate: true
+      showDate: true,
+      tournamentContext
     });
     row.classList.add("is-country-search-row");
     list.append(row);
@@ -17277,9 +17386,10 @@ function renderSchedule(options = {}) {
     match,
     state: getMatchState(match, nextMatchIds, currentTime)
   }));
+  const tournamentContext = createTournamentProgressionContext();
   setLiveTodayMatchFocus(selectedIsToday && todayRows.some(({ state }) => state === "live"));
   matchList.replaceChildren(
-    ...todayRows.map(({ match, state }) => renderMatchRow(match, state, currentTime)),
+    ...todayRows.map(({ match, state }) => renderMatchRow(match, state, currentTime, { tournamentContext })),
     ...(yesterdaySection ? [yesterdaySection] : [])
   );
   const activeMatch = [...todayMatches, ...yesterdayMatches].find(

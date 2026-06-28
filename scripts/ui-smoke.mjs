@@ -2544,17 +2544,22 @@ try {
     waitUntil: "load"
   });
   await page.waitForSelector(".match-row");
+  const roundOf16ProjectedRowText = normalizeFlaggedText(
+    await page.locator('[data-match-id="match-89-round-of-16-2026-07-04"]').innerText()
+  );
   await page.locator('[data-match-id="match-89-round-of-16-2026-07-04"]').click();
   const roundOf16DetailText = normalizeFlaggedText(await page.locator("#match-info").innerText());
   assert(
-    roundOf16DetailText.includes("Previous: Round of 32") &&
+    roundOf16ProjectedRowText.includes("Predicted") &&
+      roundOf16DetailText.includes("Predicted matchup; participants come from current knockout-path estimates.") &&
+      roundOf16DetailText.includes("Previous: Round of 32") &&
       roundOf16DetailText.includes("is scheduled.") &&
       roundOf16DetailText.includes("Next: Quarter-finals") &&
-      roundOf16DetailText.includes("Winner will face winner of") &&
+      roundOf16DetailText.includes("Winner will face predicted winner of") &&
       roundOf16DetailText.includes("Prediction") &&
       !roundOf16DetailText.includes("Previous: Group round") &&
       !roundOf16DetailText.includes("bracket details are not loaded yet"),
-    "Round of 16 and later match detail should summarize the previous knockout round instead of group standings."
+    "Round of 16 and later match detail should mark projected selected matchups while keeping confirmed source matches scheduled."
   );
   const roundOf16ContextMetrics = await page.locator("#match-info").evaluate((info) => ({
     contextFlags: info.querySelectorAll(".knockout-context-team-flag .flag").length,
@@ -2567,6 +2572,134 @@ try {
       roundOf16ContextMetrics.nextPathRanks >= 2,
     `Round of 16 and later match detail should show compact ranking pills without context flags in source and next-path matchups. Measured ${JSON.stringify(roundOf16ContextMetrics)}.`
   );
+
+  await page.goto(`${baseUrl}?view=matches&date=2026-07-19&tz=America%2FLos_Angeles`, {
+    waitUntil: "load"
+  });
+  await page.waitForSelector('[data-match-id="match-104-final-2026-07-19"]');
+  const unresolvedFinalRowText = normalizeFlaggedText(
+    await page.locator('[data-match-id="match-104-final-2026-07-19"]').innerText()
+  );
+  await page.locator('[data-match-id="match-104-final-2026-07-19"]').click();
+  const unresolvedFinalDetailText = normalizeFlaggedText(await page.locator("#match-info").innerText());
+  assert(
+    unresolvedFinalRowText.includes("Predicted") &&
+      unresolvedFinalDetailText.includes("Winner match 101 vs Winner match 102") &&
+      unresolvedFinalDetailText.includes("Predicted matchup; participants come from current knockout-path estimates.") &&
+      unresolvedFinalDetailText.includes("Previous: Semi-finals") &&
+      unresolvedFinalDetailText.includes("is predicted.") &&
+      !unresolvedFinalDetailText.includes("Round path") &&
+      !unresolvedFinalDetailText.includes("No next knockout match is loaded yet."),
+    "The Final detail should keep unresolved winner slots in the title, label semi-final sources as predicted, and omit a dead-end next-path block."
+  );
+
+  await page.goto(`${baseUrl}?view=matches&date=2026-07-18&tz=America%2FLos_Angeles`, {
+    waitUntil: "load"
+  });
+  await page.waitForSelector('[data-match-id="match-103-bronze-final-2026-07-18"]');
+  const unresolvedBronzeRowText = normalizeFlaggedText(
+    await page.locator('[data-match-id="match-103-bronze-final-2026-07-18"]').innerText()
+  );
+  await page.locator('[data-match-id="match-103-bronze-final-2026-07-18"]').click();
+  const unresolvedBronzeDetailText = normalizeFlaggedText(await page.locator("#match-info").innerText());
+  assert(
+    unresolvedBronzeRowText.includes("Predicted") &&
+      unresolvedBronzeDetailText.includes("Runner-up match 101 vs Runner-up match 102") &&
+      unresolvedBronzeDetailText.includes("Predicted matchup; participants come from current knockout-path estimates.") &&
+      unresolvedBronzeDetailText.includes("Previous: Semi-finals") &&
+      unresolvedBronzeDetailText.includes("is predicted.") &&
+      !unresolvedBronzeDetailText.includes("Round path") &&
+      !unresolvedBronzeDetailText.includes("No next knockout match is loaded yet."),
+    "The third-place detail should keep unresolved runner-up slots, label semi-final sources as predicted, and omit a dead-end next-path block."
+  );
+
+  const resolvedFinalCheck = await openPageAtTime(
+    "2026-07-19T18:00:00.000Z",
+    "/?view=matches&date=2026-07-19&tz=America%2FLos_Angeles",
+    {
+      fixtureTransform(data) {
+        const finishSemiFinal = (matchNumber, homeTeamId, awayTeamId, homeScore, awayScore) => {
+          const fixture = data.fixtures.find((item) => item.matchNumber === matchNumber);
+
+          fixture.homeTeamId = homeTeamId;
+          fixture.awayTeamId = awayTeamId;
+          fixture.homeSlot = null;
+          fixture.awaySlot = null;
+          fixture.status = "FT";
+          fixture.score = { home: homeScore, away: awayScore };
+        };
+
+        finishSemiFinal(101, "FRA", "ESP", 2, 0);
+        finishSemiFinal(102, "ENG", "ARG", 0, 1);
+      }
+    }
+  );
+  await resolvedFinalCheck.page.waitForSelector('[data-match-id="match-104-final-2026-07-19"]');
+  const resolvedFinalRowText = normalizeFlaggedText(
+    await resolvedFinalCheck.page.locator('[data-match-id="match-104-final-2026-07-19"]').innerText()
+  );
+  await resolvedFinalCheck.page.locator('[data-match-id="match-104-final-2026-07-19"]').click();
+  const resolvedFinalSummaryText = normalizeFlaggedText(
+    await resolvedFinalCheck.page.locator("#match-info .match-summary").innerText()
+  );
+  const resolvedFinalDetailText = normalizeFlaggedText(await resolvedFinalCheck.page.locator("#match-info").innerText());
+  assert(
+    resolvedFinalRowText.includes("France") &&
+      resolvedFinalRowText.includes("Argentina") &&
+      !resolvedFinalRowText.includes("Winner match") &&
+      resolvedFinalSummaryText.includes("France #3 vs Argentina #1") &&
+      resolvedFinalDetailText.includes("France #3 beat Spain #2 2-0.") &&
+      resolvedFinalDetailText.includes("Argentina #1 beat England #4 1-0.") &&
+      !resolvedFinalDetailText.includes("Winner match") &&
+      !resolvedFinalDetailText.includes("Predicted matchup") &&
+      !resolvedFinalRowText.includes("Predicted") &&
+      !resolvedFinalDetailText.includes("Round path"),
+    `The Final row and detail should resolve to semi-final winners once those source matches are final. Measured ${JSON.stringify({ resolvedFinalRowText, resolvedFinalSummaryText, resolvedFinalDetailText })}.`
+  );
+  await resolvedFinalCheck.context.close();
+
+  const resolvedBronzeCheck = await openPageAtTime(
+    "2026-07-18T22:00:00.000Z",
+    "/?view=matches&date=2026-07-18&tz=America%2FLos_Angeles",
+    {
+      fixtureTransform(data) {
+        const finishSemiFinal = (matchNumber, homeTeamId, awayTeamId, homeScore, awayScore) => {
+          const fixture = data.fixtures.find((item) => item.matchNumber === matchNumber);
+
+          fixture.homeTeamId = homeTeamId;
+          fixture.awayTeamId = awayTeamId;
+          fixture.homeSlot = null;
+          fixture.awaySlot = null;
+          fixture.status = "FT";
+          fixture.score = { home: homeScore, away: awayScore };
+        };
+
+        finishSemiFinal(101, "FRA", "ESP", 2, 0);
+        finishSemiFinal(102, "ENG", "ARG", 0, 1);
+      }
+    }
+  );
+  await resolvedBronzeCheck.page.waitForSelector('[data-match-id="match-103-bronze-final-2026-07-18"]');
+  const resolvedBronzeRowText = normalizeFlaggedText(
+    await resolvedBronzeCheck.page.locator('[data-match-id="match-103-bronze-final-2026-07-18"]').innerText()
+  );
+  await resolvedBronzeCheck.page.locator('[data-match-id="match-103-bronze-final-2026-07-18"]').click();
+  const resolvedBronzeSummaryText = normalizeFlaggedText(
+    await resolvedBronzeCheck.page.locator("#match-info .match-summary").innerText()
+  );
+  const resolvedBronzeDetailText = normalizeFlaggedText(await resolvedBronzeCheck.page.locator("#match-info").innerText());
+  assert(
+    resolvedBronzeRowText.includes("Spain") &&
+      resolvedBronzeRowText.includes("England") &&
+      !resolvedBronzeRowText.includes("Runner-up match") &&
+      resolvedBronzeSummaryText.includes("Spain #2 vs England #4") &&
+      !resolvedBronzeDetailText.includes("Runner-up match") &&
+      !resolvedBronzeDetailText.includes("Predicted matchup") &&
+      !resolvedBronzeRowText.includes("Predicted") &&
+      !resolvedBronzeDetailText.includes("Round path"),
+    `The third-place row and detail should resolve to semi-final runners-up once those source matches are final. Measured ${JSON.stringify({ resolvedBronzeRowText, resolvedBronzeSummaryText, resolvedBronzeDetailText })}.`
+  );
+  await resolvedBronzeCheck.context.close();
 
   await page.setViewportSize({ width: 540, height: 760 });
   await page.goto(`${baseUrl}?view=matches&date=2026-06-24&tz=America%2FLos_Angeles`, {
