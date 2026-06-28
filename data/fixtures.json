@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-28T01:32:34.532Z",
+  "updatedAt": "2026-06-28T06:13:04.225Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -8486,7 +8486,7 @@
       "homeTeamId": "ALG",
       "awayTeamId": "AUT",
       "venue": "Kansas City Stadium",
-      "status": "SCHEDULED",
+      "status": "FT",
       "h2h": {
         "status": "loaded",
         "sourceId": "national-football-teams-h2h-2026-06-17",
@@ -8557,7 +8557,11 @@
           "matchNumber": 69
         }
       },
-      "matchNumber": 69
+      "matchNumber": 69,
+      "score": {
+        "home": 3,
+        "away": 3
+      }
     },
     {
       "id": "jordan-argentina-2026-06-27",
@@ -8568,7 +8572,7 @@
       "homeTeamId": "JOR",
       "awayTeamId": "ARG",
       "venue": "Dallas Stadium",
-      "status": "SCHEDULED",
+      "status": "FT",
       "h2h": {
         "status": "verified-empty",
         "sourceId": "national-football-teams-h2h-2026-06-17",
@@ -8628,7 +8632,11 @@
           "matchNumber": 70
         }
       },
-      "matchNumber": 70
+      "matchNumber": 70,
+      "score": {
+        "home": 1,
+        "away": 3
+      }
     },
     {
       "id": "match-73-round-of-32-2026-06-28",
@@ -8734,7 +8742,13 @@
           "matchNumber": 74
         }
       },
-      "homeTeamId": "GER"
+      "homeTeamId": "GER",
+      "awayTeamId": "SWE",
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-22",
+        "home": "Germany are a technical control side with enough young creativity to open compact defenses, led by Joshua Kimmich, Jamal Musiala, and Florian Wirtz. Against Sweden, their Kimmich-Musiala-Wirtz central rotations has to beat Sweden's Isak-Gyokeres two-striker pressure. They want to pull midfielders out with Kimmich's passing before Musiala and Wirtz attack the gaps near the box. The risk is Sweden can alternate between Isak's finesse and Gyokeres' force.",
+        "away": "Sweden are a tall, technical attacking side with two forwards who can change the shape of a match, led by Alexander Isak, Viktor Gyokeres, and Yasin Ayari. Against Germany, their Isak-Gyokeres two-striker pressure has to beat Germany's Kimmich-Musiala-Wirtz central rotations. They want to connect through Ayari and then choose between Isak's polish or Gyokeres' power. The risk is Germany can combine through Kimmich, Musiala, and Wirtz until the defense loses its shape."
+      }
     },
     {
       "id": "match-75-round-of-32-2026-06-29",
@@ -8897,7 +8911,13 @@
           "matchNumber": 77
         }
       },
-      "homeTeamId": "FRA"
+      "homeTeamId": "FRA",
+      "awayTeamId": "PAR",
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-22",
+        "home": "France are an elite attacking side with Mbappe's speed now fed by Olise's left-footed creation, led by Kylian Mbappe, Michael Olise, and William Saliba. Against Paraguay, their Olise-to-Mbappe chance creation has to beat Paraguay's Almiron-Enciso counters. They want to let Olise receive inside, draw pressure, and release Mbappe before the defense can reset. The risk is Paraguay can turn one Almiron break or Enciso shot into a tight-game swing.",
+        "away": "Paraguay are rugged counterpunchers who are comfortable turning matches into physical, tight contests, led by Miguel Almiron, Julio Enciso, and Gustavo Gomez. Against France, their Almiron-Enciso counters has to beat France's Olise-to-Mbappe chance creation. They want to release Almiron into space and let Enciso attack the pocket before defenders settle. The risk is France can combine Olise's final ball with Mbappe's acceleration before Saliba controls the counter."
+      }
     },
     {
       "id": "match-78-round-of-32-2026-06-30",
@@ -8949,7 +8969,13 @@
           "matchNumber": 79
         }
       },
-      "homeTeamId": "MEX"
+      "homeTeamId": "MEX",
+      "awayTeamId": "ECU",
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-22",
+        "home": "Mexico are a home-side pressure team that want territory, crowd energy, and repeated penalty-area touches, led by Santiago Gimenez, Edson Alvarez, and Luis Chavez. Against Ecuador, their Gimenez-Chavez home pressure has to beat Ecuador's Caicedo-Hincapie midfield squeeze. They want to keep the ball in the opponent's half and feed Gimenez before Chavez attacks free kicks, corners, or rebounds. The risk is Ecuador can turn Caicedo ball wins and Valencia movement into fast attacks.",
+        "away": "Ecuador are an intense, athletic side that can disrupt stronger opponents through midfield pressure, led by Moises Caicedo, Piero Hincapie, and Enner Valencia. Against Mexico, their Caicedo-Hincapie midfield squeeze has to beat Mexico's Gimenez-Chavez home pressure. They want to win the midfield duel through Caicedo and release Valencia before the defense is set. The risk is Mexico can turn home pressure into Gimenez touches and Chavez free-kick or corner chances."
+      }
     },
     {
       "id": "match-80-round-of-32-2026-07-01",
@@ -8972,7 +8998,13 @@
           "matchNumber": 80
         }
       },
-      "homeTeamId": "ENG"
+      "homeTeamId": "ENG",
+      "awayTeamId": "COD",
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-22",
+        "home": "England are one of the strongest teams in the tournament, built around power, speed, and danger near goal, led by Jude Bellingham, Harry Kane, and Declan Rice. Against DR Congo, their Kane-Bellingham box entries has to beat DR Congo's Wissa-Sadiki counters. They want to turn Kane's dropping movements into Bellingham runs and fast cutbacks from wide areas. The risk is DR Congo can break quickly through Wissa and Sadiki when opponents overcommit.",
+        "away": "DR Congo are an explosive quick-break side that can make favorites uncomfortable if the match opens up, led by Yoane Wissa, Aaron Wan-Bissaka, and Noah Sadiki. Against England, their Wissa-Sadiki counters has to beat England's Kane-Bellingham box entries. They want to spring Wissa early and let Sadiki carry the first clean pass out of pressure. The risk is England can attack quickly through Kane and Bellingham while Rice controls the counter."
+      }
     },
     {
       "id": "match-81-round-of-32-2026-07-01",
@@ -8995,7 +9027,13 @@
           "matchNumber": 81
         }
       },
-      "homeTeamId": "USA"
+      "homeTeamId": "USA",
+      "awayTeamId": "BIH",
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-22",
+        "home": "United States are an athletic pressing team with enough direct attacking talent to make games feel stretched, led by Christian Pulisic, Weston McKennie, and Tyler Adams. Against Bosnia and Herzegovina, their Pulisic-McKennie pressure breaks has to beat Bosnia and Herzegovina's Dzeko target play. They want to press into turnovers and let Pulisic or McKennie attack before the defense resets. The risk is Bosnia and Herzegovina can turn direct service into Dzeko touches and scrappy box pressure.",
+        "away": "Bosnia and Herzegovina are a veteran-leaning side that still carry real danger when the match becomes physical and direct, led by Edin Dzeko, Sead Kolasinac, and Esmir Bajraktarevic. Against United States, their Dzeko target play has to beat United States' Pulisic-McKennie pressure breaks. They want to play into Dzeko early and build around the loose balls that follow. The risk is United States can turn pressure into Pulisic carries and McKennie second-ball runs."
+      }
     },
     {
       "id": "match-82-round-of-32-2026-07-01",
@@ -9018,7 +9056,13 @@
           "matchNumber": 82
         }
       },
-      "homeTeamId": "BEL"
+      "homeTeamId": "BEL",
+      "awayTeamId": "ALG",
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-22",
+        "home": "Belgium are an elite chance-creation team when their creators get space to face forward, led by Kevin De Bruyne, Romelu Lukaku, and Jeremy Doku. Against Algeria, their De Bruyne-to-Lukaku chance creation has to beat Algeria's Mahrez-Aouar control. They want to feed De Bruyne early and create the separation Lukaku needs in the box. The risk is Algeria can slow the match through Mahrez and Aouar before finding Gouiri in open space.",
+        "away": "Algeria are a technical North African side that want the game to run through the left foot and calm of midfield, led by Riyad Mahrez, Houssem Aouar, and Amine Gouiri. Against Belgium, their Mahrez-Aouar control has to beat Belgium's De Bruyne-to-Lukaku chance creation. They want to give Mahrez time on the ball while Aouar connects the next pass toward Gouiri. The risk is Belgium can turn De Bruyne service into Lukaku chances."
+      }
     },
     {
       "id": "match-83-round-of-32-2026-07-02",
@@ -9070,7 +9114,13 @@
           "matchNumber": 84
         }
       },
-      "homeTeamId": "ESP"
+      "homeTeamId": "ESP",
+      "awayTeamId": "AUT",
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-22",
+        "home": "Spain are one of the tournament's most polished possession teams, led by Lamine Yamal, Pedri, and Nico Williams. Against Austria, their Yamal-Williams wide stretch has to beat Austria's Sabitzer-Laimer pressure waves. They want to pin the wide defenders with Yamal and Williams before Pedri plays through the gaps. The risk is Austria can press the first pass, win territory, and attack before defenses reset.",
+        "away": "Austria are a high-pressure European side with enough experience to make the press feel organized rather than wild, led by David Alaba, Marcel Sabitzer, and Konrad Laimer. Against Spain, their Sabitzer-Laimer pressure waves has to beat Spain's Yamal-Williams wide stretch. They want to force rushed passes and let Sabitzer and Laimer attack the next ball before defenses reset. The risk is Spain can stretch the pitch through Yamal and Williams before Pedri breaks the line."
+      }
     },
     {
       "id": "match-85-round-of-32-2026-07-02",
@@ -9093,7 +9143,13 @@
           "matchNumber": 85
         }
       },
-      "homeTeamId": "SUI"
+      "homeTeamId": "SUI",
+      "awayTeamId": "SEN",
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-22",
+        "home": "Switzerland are a tournament-tested structure team who rarely look rushed when the match gets tense, led by Granit Xhaka, Manuel Akanji, and Breel Embolo. Against Senegal, their Xhaka-Embolo control-and-release has to beat Senegal's Mane-Jackson direct running. They want to let Xhaka dictate the first pass and find Embolo before the opponent can squeeze midfield. The risk is Senegal can turn Mane's experience and Jackson's running into direct chances.",
+        "away": "Senegal are an athletic, experienced side with enough defensive presence to survive pressure and enough speed to punish it, led by Sadio Mane, Nicolas Jackson, and Kalidou Koulibaly. Against Switzerland, their Mane-Jackson direct running has to beat Switzerland's Xhaka-Embolo control-and-release. They want to use Mane's timing and Jackson's depth to attack before the opponent's defense is set. The risk is Switzerland can slow the game through Xhaka and use Embolo as the release valve."
+      }
     },
     {
       "id": "match-86-round-of-32-2026-07-03",
@@ -9116,7 +9172,13 @@
           "matchNumber": 86
         }
       },
-      "awayTeamId": "CPV"
+      "awayTeamId": "CPV",
+      "homeTeamId": "ARG",
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-22",
+        "home": "Argentina are the defending champions and still one of the most complete tournament teams, led by Lionel Messi, Julian Alvarez, and Enzo Fernandez. Against Cabo Verde, their Messi-Alvarez midfield breaks has to beat Cabo Verde's Mendes-led compact counterpunch. They want to press high through Alvarez, find Messi in space behind midfield, and let Enzo Fernandez change the angle of the attack. The risk is Cabo Verde can turn a slow match into one decisive Mendes action.",
+        "away": "Cabo Verde are compact tournament disruptors who need experience and goalkeeping to keep matches close, led by Ryan Mendes, Roberto Lopes, and Vozinha. Against Argentina, their Mendes-led compact counterpunch has to beat Argentina's Messi-Alvarez midfield breaks. They want to stay compact long enough for Mendes to find a composed final pass or shot. The risk is Argentina can turn one midfield win into Messi touches, Alvarez movement, and Enzo service."
+      }
     },
     {
       "id": "match-87-round-of-32-2026-07-03",
@@ -9139,7 +9201,13 @@
           "matchNumber": 87
         }
       },
-      "homeTeamId": "COL"
+      "homeTeamId": "COL",
+      "awayTeamId": "GHA",
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-22",
+        "home": "Colombia are a rhythm-and-width team with enough individual quality to punish any loose defensive spacing, led by Luis Diaz, James Rodriguez, and Luis Suarez. Against Ghana, their Diaz-James width-and-service has to beat Ghana's Semenyo-Williams forward running. They want to let Diaz run behind defenders while James looks for the pass that changes the speed of the move. The risk is Ghana can attack space early through Semenyo and Williams.",
+        "away": "Ghana are a fast front-line team that need their direct runners to turn defensive work into threat, led by Antoine Semenyo, Inaki Williams, and Jordan Ayew. Against Colombia, their Semenyo-Williams forward running has to beat Colombia's Diaz-James width-and-service. They want to send Semenyo and Williams into space before the opponent can compress the field. The risk is Colombia can use Diaz's width and James' invention to create a clear chance in the box."
+      }
     },
     {
       "id": "match-88-round-of-32-2026-07-03",
