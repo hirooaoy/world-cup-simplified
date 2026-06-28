@@ -10752,7 +10752,7 @@ function getTournamentMatchLoserTeam(match, context) {
 }
 
 function renderTournamentParticipant(entry, options = {}) {
-  const { isWinner = false } = options;
+  const { isLoser = false, isWinner = false } = options;
   const teamName = entry.team ? getLocalizedStandingName(entry.team) : localizeText(entry.slotText || entry.label);
   const label = entry.team ? getTournamentTeamDisplayName(entry.team) : localizeText(entry.label);
   const rankHtml = entry.team ? renderRank(entry.team) : "";
@@ -10767,7 +10767,8 @@ function renderTournamentParticipant(entry, options = {}) {
     "knockout-team",
     entry.isLocked ? "is-locked" : "",
     entry.state === "likely" ? "is-likely" : entry.team ? "is-resolved" : "is-pending",
-    isWinner ? "is-winner" : ""
+    isWinner ? "is-winner" : "",
+    isLoser ? "is-loser" : ""
   ]
     .filter(Boolean)
     .join(" ");
@@ -10790,6 +10791,46 @@ function renderTournamentParticipant(entry, options = {}) {
       </span>
     </span>
   `;
+}
+
+function getTournamentParticipantSide(participants, team) {
+  if (!team?.id) {
+    return "";
+  }
+
+  if (participants?.home?.team?.id === team.id) {
+    return "home";
+  }
+
+  if (participants?.away?.team?.id === team.id) {
+    return "away";
+  }
+
+  return "";
+}
+
+function getTournamentResultScorePairForSide(match, side, key = "score") {
+  const pair = key === "penalties" ? match?.scoreDetails?.penalties : match?.score;
+
+  if (!pair) {
+    return "";
+  }
+
+  return side === "away"
+    ? formatScorePair({ home: pair.away, away: pair.home })
+    : formatScorePair(pair);
+}
+
+function formatTournamentResultPillText(match, participants, winner) {
+  const winnerSide = getTournamentParticipantSide(participants, winner) || getTournamentScoreWinnerSide(match);
+  const scoreText = getTournamentResultScorePairForSide(match, winnerSide || "home");
+  const penaltyText = getTournamentResultScorePairForSide(match, winnerSide || "home", "penalties");
+
+  if (scoreText && penaltyText) {
+    return `${scoreText} • ${localizeText("Penalties")} ${penaltyText}`;
+  }
+
+  return scoreText || "";
 }
 
 function renderTournamentLikelihoodPill(entry) {
@@ -10941,24 +10982,23 @@ function renderTournamentMatchCard(match, context, options = {}) {
 
   const participants = getTournamentMatchParticipants(match, context);
   const winner = getTournamentMatchWinnerTeam(match, context);
+  const isComplete = match.status === "FT" || Boolean(winner);
   const nextMatchNumber = getTournamentNextMatchNumber(match.matchNumber);
   const runnerUpNextMatchNumber = getTournamentRunnerUpNextMatchNumber(match.matchNumber);
-  const scoreText = formatScorePair(match.score);
-  const penaltyText = formatScorePair(match.scoreDetails?.penalties);
-  const resultText = scoreText ? `${scoreText}${penaltyText ? ` (${penaltyText} pens)` : ""}` : "";
+  const resultText =
+    formatTournamentResultPillText(match, participants, winner) ||
+    (winner ? localizeText(`${getTournamentTeamDisplayName(winner)} won`) : "");
   const venueLabel = match.venue ? getTournamentVenueLabel(match) : "";
   const venueTooltip = match.venue ? getVenueLabel(match) : "";
-  const outcomeFooterHtml = !winner ? renderTournamentOutcomeFooter(match, participants) : "";
-  const footerContentHtml = winner
-    ? `<span>${escapeHtml(localizeText(`${getTournamentTeamDisplayName(winner)} won`))}</span>`
-    : outcomeFooterHtml
-      ? outcomeFooterHtml
-      : "";
+  const outcomeFooterHtml = !isComplete ? renderTournamentOutcomeFooter(match, participants) : "";
+  const resultFooterHtml = isComplete && resultText
+    ? `<span class="knockout-result-pill" aria-label="${escapeHtml(resultText)}">${escapeHtml(resultText)}</span>`
+    : "";
+  const footerContentHtml = resultFooterHtml || outcomeFooterHtml;
   const footerHtml =
-    footerContentHtml || resultText
+    footerContentHtml
       ? `<footer class="knockout-match-footer">
         ${footerContentHtml}
-        ${resultText ? `<em>${escapeHtml(resultText)}</em>` : ""}
       </footer>`
       : "";
   const isProjected =
@@ -10969,7 +11009,7 @@ function renderTournamentMatchCard(match, context, options = {}) {
   const isLocked = isTournamentMatchLocked(match, participants);
   const cardClasses = [
     options.className || "progress-match",
-    winner ? "is-complete" : "",
+    isComplete ? "is-complete" : "",
     isProjected ? "is-projected" : "",
     isLocked ? "is-openable" : ""
   ]
@@ -10998,11 +11038,13 @@ function renderTournamentMatchCard(match, context, options = {}) {
       </header>
       <div class="knockout-match-pair">
         ${renderTournamentParticipant(participants.home, {
-          isWinner: Boolean(winner && participants.home.team && winner.id === participants.home.team.id)
+          isWinner: Boolean(winner && participants.home.team && winner.id === participants.home.team.id),
+          isLoser: Boolean(winner && participants.home.team && winner.id !== participants.home.team.id)
         })}
         <span class="knockout-versus" aria-label="${escapeHtml(localizeText("vs"))}">${escapeHtml(localizeText("vs"))}</span>
         ${renderTournamentParticipant(participants.away, {
-          isWinner: Boolean(winner && participants.away.team && winner.id === participants.away.team.id)
+          isWinner: Boolean(winner && participants.away.team && winner.id === participants.away.team.id),
+          isLoser: Boolean(winner && participants.away.team && winner.id !== participants.away.team.id)
         })}
       </div>
       ${footerHtml}
@@ -11332,6 +11374,19 @@ function getTournamentProgressionFromEvent(event) {
   return progression;
 }
 
+function getWindowMaxScrollY() {
+  const documentElement = document.documentElement;
+  const body = document.body;
+  const scrollHeight = Math.max(
+    documentElement?.scrollHeight || 0,
+    body?.scrollHeight || 0,
+    documentElement?.offsetHeight || 0,
+    body?.offsetHeight || 0
+  );
+
+  return Math.max(0, scrollHeight - window.innerHeight);
+}
+
 function handleTournamentBoardPointerDown(event) {
   const progression = getTournamentProgressionFromEvent(event);
 
@@ -11387,9 +11442,14 @@ function handleTournamentBoardPointerMove(event) {
 
   if (verticalOverflow !== 0 || tournamentBoardDragGesture.didWindowScrollHandoff) {
     tournamentBoardDragGesture.didWindowScrollHandoff = true;
+    const nextWindowScrollY = clampNumber(
+      tournamentBoardDragGesture.startWindowScrollY + verticalOverflow,
+      0,
+      getWindowMaxScrollY()
+    );
     window.scrollTo({
       left: window.scrollX,
-      top: tournamentBoardDragGesture.startWindowScrollY + verticalOverflow
+      top: nextWindowScrollY
     });
   }
 }
@@ -14019,24 +14079,21 @@ function renderKnockoutContextTeamName(team, label = getLocalizedTeamName(team),
     return "";
   }
 
-  const flagHtml = team ? renderFlag(team) : "";
-
-  if (!flagHtml) {
-    return escapeHtml(labelText);
-  }
-
-  const [firstWord = labelText, ...remainingWords] = labelText.split(/\s+/u).filter(Boolean);
-  const remainingText = remainingWords.join(" ");
-  const className = ["knockout-context-team", options.isSubject ? "is-subject" : ""]
+  const rankHtml = team && options.showRank ? renderRank(team) : "";
+  const className = [
+    "knockout-context-team",
+    options.isSubject ? "is-subject" : "",
+    rankHtml ? "has-rank" : ""
+  ]
     .filter(Boolean)
     .join(" ");
 
-  return `<span class="${escapeHtml(className)}"><span class="knockout-context-team-start"><span class="knockout-context-team-flag" aria-hidden="true">${flagHtml}</span><span>${escapeHtml(firstWord)}</span></span>${remainingText ? ` ${escapeHtml(remainingText)}` : ""}</span>`;
+  return `<span class="${escapeHtml(className)}"><span class="knockout-context-team-name">${escapeHtml(labelText)}</span>${rankHtml ? ` ${rankHtml}` : ""}</span>`;
 }
 
-function renderKnockoutParticipantLabel(entry) {
+function renderKnockoutParticipantLabel(entry, options = {}) {
   if (entry?.team) {
-    return renderKnockoutContextTeamName(entry.team, getTournamentTeamDisplayName(entry.team));
+    return renderKnockoutContextTeamName(entry.team, getTournamentTeamDisplayName(entry.team), options);
   }
 
   return escapeHtml(localizeText(entry?.slotText || entry?.label || "TBD"));
@@ -14048,7 +14105,9 @@ function renderKnockoutMatchupLabel(match, context) {
   }
 
   const participants = getTournamentMatchParticipants(match, context);
-  return `${renderKnockoutParticipantLabel(participants.home)} ${escapeHtml(localizeText("vs"))} ${renderKnockoutParticipantLabel(participants.away)}`;
+  return `${renderKnockoutParticipantLabel(participants.home, { showRank: true })} ${escapeHtml(
+    localizeText("vs")
+  )} ${renderKnockoutParticipantLabel(participants.away, { showRank: true })}`;
 }
 
 function getKnockoutMatchupLabel(match, context) {
@@ -14097,7 +14156,9 @@ function getTeamResultOpponent(fixture, teamId) {
 function formatGroupRoundSummaryZh(team, resultItems, remainingCount) {
   const teamName = renderKnockoutContextTeamName(team, getLocalizedTeamName(team), { isSubject: true });
   const segments = resultItems.map((item) => {
-    const opponent = renderKnockoutContextTeamName(item.opponent);
+    const opponent = renderKnockoutContextTeamName(item.opponent, getLocalizedTeamName(item.opponent), {
+      showRank: true
+    });
     const scoreText = escapeHtml(item.scoreText);
     if (item.outcome === "win") {
       return `以 ${scoreText} 击败 ${opponent}`;
@@ -14127,13 +14188,28 @@ function formatGroupRoundSummary(team, resultItems, remainingCount) {
   };
 
   resultItems.forEach((item) => {
-    groups[item.outcome].push(`${renderKnockoutContextTeamName(item.opponent)} (${escapeHtml(item.scoreText)})`);
+    const opponent = renderKnockoutContextTeamName(item.opponent, getLocalizedTeamName(item.opponent), {
+      showRank: true
+    });
+    const scoreText = escapeHtml(item.scoreText);
+
+    if (item.outcome === "win") {
+      groups.win.push(`${scoreText} against ${opponent}`);
+      return;
+    }
+
+    if (item.outcome === "draw") {
+      groups.draw.push(`${scoreText} against ${opponent}`);
+      return;
+    }
+
+    groups.loss.push(`${scoreText} to ${opponent}`);
   });
 
   const phrases = [
-    groups.win.length ? `won against ${getNameSeries(groups.win)}` : "",
-    groups.draw.length ? `tied against ${getNameSeries(groups.draw)}` : "",
-    groups.loss.length ? `lost to ${getNameSeries(groups.loss)}` : ""
+    groups.win.length ? `won ${getNameSeries(groups.win)}` : "",
+    groups.draw.length ? `tied ${getNameSeries(groups.draw)}` : "",
+    groups.loss.length ? `lost ${getNameSeries(groups.loss)}` : ""
   ].filter(Boolean);
   const remainingText =
     remainingCount > 0
@@ -14231,17 +14307,20 @@ function renderKnockoutCompletedSummary(match, context) {
   }
 
   if (!winner) {
+    const homeName = renderKnockoutParticipantLabel(participants.home, { showRank: true });
+    const awayName = renderKnockoutParticipantLabel(participants.away, { showRank: true });
+
     if (currentLanguage === "zh") {
-      return `${renderKnockoutParticipantLabel(participants.home)} 和 ${renderKnockoutParticipantLabel(participants.away)} 以 ${scoreText} 战平。`;
+      return `${homeName} 和 ${awayName} 以 ${scoreText} 战平。`;
     }
 
-    return `${renderKnockoutParticipantLabel(participants.home)} and ${renderKnockoutParticipantLabel(participants.away)} drew ${scoreText}.`;
+    return `${homeName} and ${awayName} drew ${scoreText}.`;
   }
 
   const winnerSide = participants.away.team?.id === winner.id ? "away" : "home";
   const loserSide = winnerSide === "home" ? "away" : "home";
-  const winnerName = renderKnockoutParticipantLabel(participants[winnerSide]);
-  const loserName = renderKnockoutParticipantLabel(participants[loserSide]);
+  const winnerName = renderKnockoutParticipantLabel(participants[winnerSide], { showRank: true });
+  const loserName = renderKnockoutParticipantLabel(participants[loserSide], { showRank: true });
   const winnerScoreText = escapeHtml(getKnockoutScorePairForSide(match, winnerSide));
   const penaltyText = escapeHtml(getKnockoutPenaltyPairForSide(match, winnerSide));
 

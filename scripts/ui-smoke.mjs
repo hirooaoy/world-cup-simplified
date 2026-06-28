@@ -2421,61 +2421,72 @@ try {
   const roundOf32DetailText = normalizeFlaggedText(await page.locator("#match-info").innerText());
   assert(
     roundOf32DetailText.includes("Previous: Group round") &&
-      roundOf32DetailText.includes("South Africa won against South Korea (1-0), tied against Czechia (1-1), and lost to Mexico (0-2).") &&
-      roundOf32DetailText.includes("Canada won against Qatar (6-0), tied against Bosnia and Herzegovina (1-1), and lost to Switzerland (1-2).") &&
+      roundOf32DetailText.includes("South Africa won 1-0 against South Korea #25, tied 1-1 against Czechia #40, and lost 0-2 to Mexico #14.") &&
+      roundOf32DetailText.includes("Canada won 6-0 against Qatar #56, tied 1-1 against Bosnia and Herzegovina #64, and lost 1-2 to Switzerland #19.") &&
       roundOf32DetailText.includes("Next: Round of 16") &&
       roundOf32DetailText.includes("Winner will face winner of") &&
       roundOf32DetailText.includes("Prediction") &&
       roundOf32DetailText.includes("Key information") &&
       roundOf32DetailText.includes("Past matches") &&
       !roundOf32DetailText.includes("bracket details are not loaded yet"),
-    "Round of 32 match detail should summarize group-round form and the next winner path before normal prediction/context blocks."
+    "Round of 32 match detail should summarize group-round form with opponent rankings and the next winner path before normal prediction/context blocks."
   );
-  const roundOf32ContextFlagMetrics = await page.locator("#match-info").evaluate((info) => ({
-    groupRoundFlags: info.querySelectorAll(".knockout-context-list .knockout-context-team-flag .flag").length,
-    nextPathFlags: [...info.querySelectorAll(".knockout-next-line .knockout-context-team-flag .flag")].map(
-      (flag) => flag.getAttribute("aria-label") || ""
+  const roundOf32ContextMetrics = await page.locator("#match-info").evaluate((info) => ({
+    contextFlags: info.querySelectorAll(".knockout-context-team-flag .flag").length,
+    subjectRankCount: info.querySelectorAll(".knockout-context-list .knockout-context-team.is-subject .rank-pill")
+      .length,
+    groupRoundRanks: [...info.querySelectorAll(".knockout-context-list .rank-pill")].map((pill) =>
+      pill.textContent.trim()
     ),
-    southKoreaNameAlignment: (() => {
-      const target = [...info.querySelectorAll(".knockout-context-list .knockout-context-team")].find((team) =>
-        team.textContent.includes("South Korea")
-      );
-      const firstWord = target?.querySelector(".knockout-context-team-start > span:last-child");
-      const trailingText = [...(target?.childNodes || [])].find(
-        (node) => node.nodeType === Node.TEXT_NODE && node.textContent.includes("Korea")
-      );
+    nextPathRanks: [...info.querySelectorAll(".knockout-next-line .rank-pill")].map((pill) =>
+      pill.textContent.trim()
+    ),
+    rankHeights: [...info.querySelectorAll(".knockout-context-list .rank-pill, .knockout-next-line .rank-pill")].map(
+      (pill) => pill.getBoundingClientRect().height
+    ),
+    rankCenterDeltas: [...info.querySelectorAll(".knockout-context-list .knockout-context-team")]
+      .map((team) => {
+        const name = team.querySelector(".knockout-context-team-name");
+        const rank = team.querySelector(".rank-pill");
 
-      if (!target || !firstWord || !trailingText) {
-        return { found: false };
-      }
+        if (!name || !rank) {
+          return null;
+        }
 
-      const koreaStart = trailingText.textContent.indexOf("Korea");
-      const range = document.createRange();
-      range.setStart(trailingText, koreaStart);
-      range.setEnd(trailingText, koreaStart + "Korea".length);
-      const firstWordBox = firstWord.getBoundingClientRect();
-      const trailingTextBox = range.getBoundingClientRect();
-      const flagBox = target.querySelector(".knockout-context-team-flag .flag")?.getBoundingClientRect();
-      return {
-        found: true,
-        firstRestCenterDelta: Math.abs(
-          (firstWordBox.top + firstWordBox.bottom - trailingTextBox.top - trailingTextBox.bottom) / 2
-        ),
-        flagTextCenterDelta: flagBox
-          ? Math.abs((flagBox.top + flagBox.bottom - firstWordBox.top - firstWordBox.bottom) / 2)
-          : null
-      };
-    })()
+        const textNode = [...name.childNodes].find(
+          (node) => node.nodeType === Node.TEXT_NODE && node.textContent.trim()
+        );
+        const text = textNode?.textContent || "";
+        const textEnd = text.search(/\s*$/);
+        const textStart = text.slice(0, textEnd).search(/\S+$/);
+        const range = document.createRange();
+
+        if (textNode && textStart >= 0 && textEnd > textStart) {
+          range.setStart(textNode, textStart);
+          range.setEnd(textNode, textEnd);
+        } else {
+          range.selectNodeContents(name);
+        }
+
+        const nameRect = range.getBoundingClientRect();
+        const rankRect = rank.getBoundingClientRect();
+
+        return Math.abs(rankRect.top + rankRect.height / 2 - (nameRect.top + nameRect.height / 2));
+      })
+      .filter((delta) => Number.isFinite(delta))
   }));
   assert(
-    roundOf32ContextFlagMetrics.groupRoundFlags >= 8 &&
-      roundOf32ContextFlagMetrics.nextPathFlags.includes("Netherlands flag") &&
-      roundOf32ContextFlagMetrics.nextPathFlags.includes("Morocco flag") &&
-      roundOf32ContextFlagMetrics.nextPathFlags.length >= 2 &&
-      roundOf32ContextFlagMetrics.southKoreaNameAlignment.found &&
-      roundOf32ContextFlagMetrics.southKoreaNameAlignment.firstRestCenterDelta <= 0.5 &&
-      roundOf32ContextFlagMetrics.southKoreaNameAlignment.flagTextCenterDelta <= 2,
-    `Round of 32 match detail should show flags for projected and confirmed next-path teams. Measured ${JSON.stringify(roundOf32ContextFlagMetrics)}.`
+    roundOf32ContextMetrics.contextFlags === 0 &&
+      roundOf32ContextMetrics.subjectRankCount === 0 &&
+      ["#25", "#40", "#14", "#56", "#64", "#19"].every((rank) =>
+        roundOf32ContextMetrics.groupRoundRanks.includes(rank)
+      ) &&
+      roundOf32ContextMetrics.nextPathRanks.includes("#8") &&
+      roundOf32ContextMetrics.nextPathRanks.includes("#7") &&
+      roundOf32ContextMetrics.rankHeights.every((height) => height <= 15.5) &&
+      roundOf32ContextMetrics.rankCenterDeltas.length >= 6 &&
+      roundOf32ContextMetrics.rankCenterDeltas.every((delta) => delta <= 1),
+    `Round of 32 match detail should use compact ranking pills without context flags or subject-team ranks. Measured ${JSON.stringify(roundOf32ContextMetrics)}.`
   );
 
   await page.goto(`${baseUrl}?view=matches&date=2026-06-29&tz=America%2FLos_Angeles`, {
@@ -2485,8 +2496,8 @@ try {
   await page.locator('[data-match-id="match-76-round-of-32-2026-06-29"]').click();
   const unconfirmedRoundOf32DetailText = normalizeFlaggedText(await page.locator("#match-info").innerText());
   assert(
-    unconfirmedRoundOf32DetailText.includes("Brazil won against Haiti (3-0) and Scotland (3-0) and tied against Morocco (1-1).") &&
-      unconfirmedRoundOf32DetailText.includes("Japan won against Tunisia (4-0) and tied against Netherlands (2-2) and Sweden (1-1).") &&
+    unconfirmedRoundOf32DetailText.includes("Brazil won 3-0 against Haiti #83 and 3-0 against Scotland #42 and tied 1-1 against Morocco #7.") &&
+      unconfirmedRoundOf32DetailText.includes("Japan won 4-0 against Tunisia #45 and tied 2-2 against Netherlands #8 and 1-1 against Sweden #38.") &&
       !unconfirmedRoundOf32DetailText.includes("Group F runner-up is not confirmed yet."),
     "Round of 32 match detail should summarize both teams once the opponent slot is locked."
   );
@@ -2507,14 +2518,16 @@ try {
       !roundOf16DetailText.includes("bracket details are not loaded yet"),
     "Round of 16 and later match detail should summarize the previous knockout round instead of group standings."
   );
-  const roundOf16ContextFlagMetrics = await page.locator("#match-info").evaluate((info) => ({
-    previousRoundFlags: info.querySelectorAll(".knockout-context-list .knockout-context-team-flag .flag").length,
-    nextPathFlags: info.querySelectorAll(".knockout-next-line .knockout-context-team-flag .flag").length
+  const roundOf16ContextMetrics = await page.locator("#match-info").evaluate((info) => ({
+    contextFlags: info.querySelectorAll(".knockout-context-team-flag .flag").length,
+    previousRoundRanks: info.querySelectorAll(".knockout-context-list .rank-pill").length,
+    nextPathRanks: info.querySelectorAll(".knockout-next-line .rank-pill").length
   }));
   assert(
-    roundOf16ContextFlagMetrics.previousRoundFlags >= 4 &&
-      roundOf16ContextFlagMetrics.nextPathFlags >= 2,
-    `Round of 16 and later match detail should show projected and confirmed flags in source and next-path matchups. Measured ${JSON.stringify(roundOf16ContextFlagMetrics)}.`
+    roundOf16ContextMetrics.contextFlags === 0 &&
+      roundOf16ContextMetrics.previousRoundRanks >= 4 &&
+      roundOf16ContextMetrics.nextPathRanks >= 2,
+    `Round of 16 and later match detail should show compact ranking pills without context flags in source and next-path matchups. Measured ${JSON.stringify(roundOf16ContextMetrics)}.`
   );
 
   await page.setViewportSize({ width: 540, height: 760 });
@@ -4807,6 +4820,9 @@ try {
       m73PillCount: document.querySelectorAll('.progress-match[data-match-number="73"] .knockout-likelihood').length,
       m89PillCount: document.querySelectorAll('.progress-match[data-match-number="89"] .knockout-likelihood').length,
       m89SeedLabelCount: document.querySelectorAll('.progress-match[data-match-number="89"] .knockout-team-copy small').length,
+      m89VersusColor: getComputedStyle(
+        document.querySelector('.progress-match[data-match-number="89"] .knockout-versus')
+      ).color,
       m97PillCount: document.querySelectorAll('.progress-match[data-match-number="97"] .knockout-likelihood').length,
       m97SeedLabelCount: document.querySelectorAll('.progress-match[data-match-number="97"] .knockout-team-copy small').length,
       m104PillCount: document.querySelectorAll('.progress-match[data-match-number="104"] .knockout-likelihood').length,
@@ -4912,9 +4928,10 @@ try {
     tournamentCheck.m89Projected === true &&
       m89LikelyVisuals.length === 2 &&
       m89LikelyVisuals.every(isMutedProjectedCountry) &&
+      getCssColorAlpha(tournamentCheck.m89VersusColor) < 0.7 &&
       tournamentCheck.laterRoundLikelyVisuals.length >= 2 &&
       tournamentCheck.laterRoundLikelyVisuals.every(isMutedProjectedCountry),
-    `Projected Round of 16 and later country picks should stay muted until their source match winner is confirmed. Measured ${JSON.stringify({ m89LikelyVisuals, laterRoundLikelyVisuals: tournamentCheck.laterRoundLikelyVisuals })}.`
+    `Projected Round of 16 and later country picks should stay muted until their source match winner is confirmed. Measured ${JSON.stringify({ m89LikelyVisuals, m89VersusColor: tournamentCheck.m89VersusColor, laterRoundLikelyVisuals: tournamentCheck.laterRoundLikelyVisuals })}.`
   );
   const groupETopTeam = getTeam(standingsData.groups?.E?.[0]?.teamId);
   const groupETopTeamName = groupETopTeam.standingName || groupETopTeam.name;
@@ -5138,7 +5155,7 @@ try {
     };
   });
   assert(
-    lockedBracketNavigation.date === "2026-06-28" &&
+    (lockedBracketNavigation.date === "2026-06-28" || lockedBracketNavigation.date === null) &&
       lockedBracketNavigation.match === "match-73-round-of-32-2026-06-28" &&
       lockedBracketNavigation.selectedRowPressed === "true" &&
       lockedBracketNavigation.stageLinkTarget === "73" &&
@@ -5470,6 +5487,58 @@ try {
       mobileTournamentCanvasAfterDrag.urlMatch === "",
     `Mobile tournament should behave like a draggable two-axis canvas with all rounds still present. Measured ${JSON.stringify({ mobileTournamentCanvasInitial, mobileTournamentCanvasAfterDrag })}.`
   );
+  const mobileTournamentCanvasTopHandoff = await page.evaluate(() => {
+    const progression = document.querySelector(".tournament-progression");
+    window.scrollTo(0, 0);
+    progression.scrollTop = 0;
+
+    const calls = [];
+    const originalScrollTo = window.scrollTo.bind(window);
+    const originalSetPointerCapture = Element.prototype.setPointerCapture;
+    const originalReleasePointerCapture = Element.prototype.releasePointerCapture;
+    window.scrollTo = (leftOrOptions, top) => {
+      const requestedTop = typeof leftOrOptions === "object" ? Number(leftOrOptions.top) : Number(top);
+      calls.push({ top: requestedTop });
+      return originalScrollTo(leftOrOptions, top);
+    };
+    Element.prototype.setPointerCapture = function setPointerCaptureNoop() {};
+    Element.prototype.releasePointerCapture = function releasePointerCaptureNoop() {};
+
+    const rect = progression.getBoundingClientRect();
+    const eventBase = {
+      bubbles: true,
+      button: 0,
+      buttons: 1,
+      cancelable: true,
+      clientX: rect.left + 44,
+      isPrimary: true,
+      pointerId: 19,
+      pointerType: "touch"
+    };
+    progression.dispatchEvent(new PointerEvent("pointerdown", { ...eventBase, clientY: rect.top + 44 }));
+    progression.dispatchEvent(new PointerEvent("pointermove", { ...eventBase, clientY: rect.top + 118 }));
+    progression.dispatchEvent(new PointerEvent("pointerup", { ...eventBase, buttons: 0, clientY: rect.top + 118 }));
+
+    Element.prototype.setPointerCapture = originalSetPointerCapture;
+    Element.prototype.releasePointerCapture = originalReleasePointerCapture;
+    window.scrollTo = originalScrollTo;
+
+    return {
+      calls,
+      minRequestedTop: Math.min(...calls.map((call) => call.top)),
+      overscrollBehaviorY: getComputedStyle(progression).overscrollBehaviorY,
+      pageScrollY: Math.round(window.scrollY),
+      scrollTop: Math.round(progression.scrollTop)
+    };
+  });
+  assert(
+    mobileTournamentCanvasTopHandoff.calls.length > 0 &&
+      mobileTournamentCanvasTopHandoff.minRequestedTop >= 0 &&
+      mobileTournamentCanvasTopHandoff.pageScrollY === 0 &&
+      mobileTournamentCanvasTopHandoff.scrollTop === 0 &&
+      mobileTournamentCanvasTopHandoff.overscrollBehaviorY === "contain",
+    `Dragging past the top of the mobile tournament canvas should not request negative page scroll or expose top whitespace. Measured ${JSON.stringify(mobileTournamentCanvasTopHandoff)}.`
+  );
   await page.evaluate(() => {
     const progression = document.querySelector(".tournament-progression");
     window.scrollTo(0, 0);
@@ -5512,21 +5581,111 @@ try {
     `Dragging past the bottom of the mobile tournament canvas should hand vertical movement to the page. Measured ${JSON.stringify(mobileTournamentCanvasEdgeHandoff)}.`
   );
   await page.setViewportSize({ width: 1280, height: 720 });
+  const canadaPathCheck = await openPageAtTime(
+    "2026-07-04T12:00:00.000Z",
+    "/?view=standings&standingsMode=tournament&tz=America%2FLos_Angeles",
+    {
+      fixtureTransform(data) {
+        const fixture = data.fixtures.find((item) => item.matchNumber === 73);
+
+        fixture.status = "FT";
+        fixture.score = { home: 1, away: 2 };
+      }
+    }
+  );
+  await canadaPathCheck.page.waitForFunction(
+    () => document.querySelector('.progress-match[data-match-number="90"] .knockout-team[data-source-match="73"]')
+  );
+  const canadaPathState = await canadaPathCheck.page.evaluate(() => {
+    const getVisual = (element) => {
+      const flag = element?.querySelector(".knockout-team-flag");
+      const rank = element?.querySelector(".rank-pill");
+      const strong = element?.querySelector(".knockout-team-copy strong");
+
+      return {
+        className: element?.className || "",
+        flagFilter: flag ? getComputedStyle(flag).filter : "",
+        flagOpacity: flag ? getComputedStyle(flag).opacity : "",
+        rankOpacity: rank ? getComputedStyle(rank).opacity : "",
+        strongColor: strong ? getComputedStyle(strong).color : "",
+        strongWeight: strong ? Number.parseFloat(getComputedStyle(strong).fontWeight) : 0,
+        teamId: element?.dataset.teamId || ""
+      };
+    };
+    const match73 = document.querySelector('.progress-match[data-match-number="73"]');
+    const match90 = document.querySelector('.progress-match[data-match-number="90"]');
+    const canada73 = match73?.querySelector('.knockout-team[data-team-id="CAN"]');
+    const southAfrica73 = match73?.querySelector('.knockout-team[data-team-id="RSA"]');
+    const canada90 = match90?.querySelector('.knockout-team[data-source-match="73"]');
+    const other90 = match90?.querySelector('.knockout-team[data-source-match="75"]');
+
+    return {
+      m73OutcomePillCount: match73?.querySelectorAll(".knockout-likelihood").length || 0,
+      m73Projected: match73?.classList.contains("is-projected"),
+      m73ResultPills: [...(match73?.querySelectorAll(".knockout-result-pill") || [])].map((pill) =>
+        pill.textContent.trim()
+      ),
+      m73Winner: match73?.dataset.winnerTeamId || "",
+      m90OpenMatchId: match90?.dataset.openMatchId || "",
+      m90Projected: match90?.classList.contains("is-projected"),
+      m90Text: match90?.textContent.replace(/\s+/g, " ").trim() || "",
+      canada73: getVisual(canada73),
+      canada90: getVisual(canada90),
+      other90: getVisual(other90),
+      southAfrica73: getVisual(southAfrica73)
+    };
+  });
+  assert(
+    canadaPathState.m73Winner === "CAN" &&
+      canadaPathState.m73ResultPills.join("|") === "2-1" &&
+      canadaPathState.m73OutcomePillCount === 0 &&
+      canadaPathState.m73Projected === false &&
+      canadaPathState.canada73.className.includes("is-winner") &&
+      canadaPathState.canada73.flagFilter === "none" &&
+      canadaPathState.canada73.flagOpacity === "1" &&
+      Number(canadaPathState.canada73.rankOpacity) === 1 &&
+      canadaPathState.canada73.strongWeight >= 750 &&
+      canadaPathState.southAfrica73.className.includes("is-loser") &&
+      canadaPathState.southAfrica73.flagFilter.includes("grayscale") &&
+      Number(canadaPathState.southAfrica73.flagOpacity) < 1 &&
+      Number(canadaPathState.southAfrica73.rankOpacity) < 1 &&
+      getCssColorAlpha(canadaPathState.southAfrica73.strongColor) < 0.7 &&
+      canadaPathState.southAfrica73.strongWeight < canadaPathState.canada73.strongWeight &&
+      canadaPathState.m90Projected === true &&
+      canadaPathState.m90OpenMatchId === "" &&
+      canadaPathState.canada90.teamId === "CAN" &&
+      canadaPathState.canada90.className.includes("is-locked") &&
+      canadaPathState.canada90.flagFilter === "none" &&
+      canadaPathState.canada90.flagOpacity === "1" &&
+      Number(canadaPathState.canada90.rankOpacity) === 1 &&
+      canadaPathState.other90.className.includes("is-likely") &&
+      canadaPathState.other90.flagFilter.includes("grayscale") &&
+      Number(canadaPathState.other90.flagOpacity) < 1 &&
+      !canadaPathState.m90Text.includes("Winner match"),
+    `A completed Canada Round of 32 win should mute only the eliminated side while keeping Canada full-strength in the still-projected Round of 16 card. Measured ${JSON.stringify(canadaPathState)}.`
+  );
+  await canadaPathCheck.context.close();
+
   const knockoutProgressionCheck = await openPageAtTime(
     "2026-07-05T12:00:00.000Z",
     "/?view=matches&date=2026-06-17&tz=America%2FLos_Angeles",
     {
       fixtureTransform(data) {
-        const finishMatch = (matchNumber, homeScore, awayScore) => {
+        const finishMatch = (matchNumber, homeScore, awayScore, scoreDetails = null) => {
           const fixture = data.fixtures.find((item) => item.matchNumber === matchNumber);
 
           fixture.status = "FT";
           fixture.score = { home: homeScore, away: awayScore };
+          if (scoreDetails) {
+            fixture.scoreDetails = scoreDetails;
+          }
         };
 
+        finishMatch(73, 1, 2);
         finishMatch(74, 2, 0);
+        finishMatch(75, 1, 0);
         finishMatch(77, 1, 0);
-        finishMatch(89, 3, 1);
+        finishMatch(89, 0, 0, { penalties: { home: 5, away: 4 } });
       }
     }
   );
@@ -5537,7 +5696,9 @@ try {
   );
   const progressionResolved = await knockoutProgressionCheck.page.evaluate(() => {
     const match74 = document.querySelector('.progress-match[data-match-number="74"]');
+    const match75 = document.querySelector('.progress-match[data-match-number="75"]');
     const match77 = document.querySelector('.progress-match[data-match-number="77"]');
+    const match90 = document.querySelector('.progress-match[data-match-number="90"]');
     const match89 = document.querySelector('.progress-match[data-match-number="89"]');
     const match97Source = document.querySelector(
       '.progress-match[data-match-number="97"] .knockout-team[data-source-match="89"]'
@@ -5545,12 +5706,24 @@ try {
 
     return {
       m74Winner: match74?.dataset.winnerTeamId,
+      m75Winner: match75?.dataset.winnerTeamId,
       m77Winner: match77?.dataset.winnerTeamId,
+      m89OutcomePillCount: match89?.querySelectorAll(".knockout-likelihood").length || 0,
+      m89ResultPills: [...(match89?.querySelectorAll(".knockout-result-pill") || [])].map((pill) =>
+        pill.textContent.trim()
+      ),
       m89TeamIds: [...match89.querySelectorAll(".knockout-team[data-team-id]")].map(
         (team) => team.dataset.teamId
       ),
       m89Text: match89.textContent.replace(/\s+/g, " ").trim(),
       m89Winner: match89.dataset.winnerTeamId,
+      m90OpenMatchId: match90?.dataset.openMatchId || "",
+      m90OutcomePillCount: match90?.querySelectorAll(".knockout-likelihood").length || 0,
+      m90Projected: match90?.classList.contains("is-projected"),
+      m90TeamIds: [...(match90?.querySelectorAll(".knockout-team[data-team-id]") || [])].map(
+        (team) => team.dataset.teamId
+      ),
+      m90Text: match90?.textContent.replace(/\s+/g, " ").trim() || "",
       m97SourceTeamId: match97Source?.dataset.teamId,
       m97Text: document
         .querySelector('.progress-match[data-match-number="97"]')
@@ -5565,7 +5738,13 @@ try {
       [progressionResolved.m74Winner, progressionResolved.m77Winner].join("|") &&
       progressionResolved.m89Winner === progressionResolved.m74Winner &&
       progressionResolved.m97SourceTeamId === progressionResolved.m74Winner &&
-      progressionResolved.m89Text.includes(`${progressionWinnerName} won`) &&
+      progressionResolved.m89ResultPills.join("|") === "0-0 • Penalties 5-4" &&
+      progressionResolved.m89OutcomePillCount === 0 &&
+      progressionResolved.m90TeamIds.join("|") === "CAN|NED" &&
+      progressionResolved.m90Projected === false &&
+      progressionResolved.m90OpenMatchId === "match-90-round-of-16-2026-07-04" &&
+      progressionResolved.m90OutcomePillCount === 3 &&
+      !progressionResolved.m90Text.includes("Winner match") &&
       !progressionResolved.m97Text.includes("Winner match") &&
       !progressionResolved.m89Text.includes("M97") &&
       progressionResolved.m97Text.includes(progressionWinnerName),

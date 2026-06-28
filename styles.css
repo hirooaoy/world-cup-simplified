@@ -3544,8 +3544,7 @@ h1 {
   left: -18px;
 }
 
-.poster-match.is-complete,
-.progress-match.is-complete {
+.poster-match.is-complete {
   border-color: rgba(18, 122, 72, 0.28);
   background: rgba(18, 122, 72, 0.035);
 }
@@ -3852,7 +3851,8 @@ h1 {
   opacity: 0.72;
 }
 
-.progress-match.is-projected .knockout-team:not(.is-locked) .knockout-team-copy strong {
+.progress-match.is-projected .knockout-team:not(.is-locked) .knockout-team-copy strong,
+.progress-match.is-projected .knockout-versus {
   color: rgba(10, 10, 10, 0.62);
 }
 
@@ -3869,6 +3869,48 @@ h1 {
 
 .progress-match.is-projected .knockout-team.is-locked .rank-pill {
   opacity: 1;
+}
+
+.progress-match.is-complete {
+  border-color: rgba(10, 10, 10, 0.11);
+  background: rgba(246, 246, 246, 0.82);
+  box-shadow: none;
+}
+
+.progress-match.is-complete .knockout-match-header time,
+.progress-match.is-complete .knockout-match-venue {
+  color: rgba(10, 10, 10, 0.46);
+}
+
+.progress-match.is-complete .knockout-versus {
+  color: rgba(10, 10, 10, 0.42);
+}
+
+.progress-match.is-complete .knockout-team.is-loser .knockout-team-flag {
+  filter: grayscale(1);
+  opacity: 0.5;
+}
+
+.progress-match.is-complete .knockout-team.is-loser .knockout-team-copy strong {
+  color: rgba(10, 10, 10, 0.46);
+  font-weight: 650;
+}
+
+.progress-match.is-complete .knockout-team.is-loser .rank-pill {
+  border-color: rgba(10, 10, 10, 0.11);
+  background: rgba(255, 255, 255, 0.72);
+  color: rgba(10, 10, 10, 0.42);
+  opacity: 0.72;
+}
+
+.progress-match.is-complete .knockout-team.is-winner .knockout-team-flag,
+.progress-match.is-complete .knockout-team.is-winner .rank-pill {
+  filter: none;
+  opacity: 1;
+}
+
+.progress-match.is-complete .knockout-team.is-winner .knockout-team-copy strong {
+  font-weight: 800;
 }
 
 .tournament-loading-match {
@@ -4167,7 +4209,8 @@ h1 {
 }
 
 .knockout-likelihood,
-.knockout-slot-odds {
+.knockout-slot-odds,
+.knockout-result-pill {
   position: relative;
   display: inline-flex;
   align-items: center;
@@ -4184,6 +4227,13 @@ h1 {
   line-height: 1;
   outline: none;
   white-space: nowrap;
+}
+
+.knockout-result-pill {
+  border-color: rgba(10, 10, 10, 0.9);
+  background: #0a0a0a;
+  color: #ffffff;
+  cursor: default;
 }
 
 .knockout-likelihood .flag,
@@ -4236,7 +4286,8 @@ h1 {
 .knockout-match-footer .knockout-likelihood,
 .knockout-match-footer .knockout-likelihood-list,
 .knockout-match-footer .knockout-slot-odds-list,
-.knockout-match-footer .knockout-slot-odds {
+.knockout-match-footer .knockout-slot-odds,
+.knockout-match-footer .knockout-result-pill {
   overflow: visible;
   text-overflow: clip;
 }
@@ -4859,31 +4910,21 @@ h1 {
 
 .knockout-context-team {
   display: inline;
+  white-space: nowrap;
 }
 
 .knockout-context-team.is-subject {
-  font-weight: 600;
+  font-weight: 650;
 }
 
-.knockout-context-team-start {
-  display: inline;
-  white-space: nowrap;
-  vertical-align: baseline;
-}
-
-.knockout-context-team-flag {
-  display: inline-flex;
-  align-items: center;
-  margin-right: 5px;
-  vertical-align: -0.1em;
-}
-
-.knockout-context-team-flag .flag {
-  width: 18px;
-  height: 14px;
-  flex-basis: 18px;
-  font-size: 15px;
-  color: #0a0a0a;
+.knockout-context-team .rank-pill {
+  min-width: 19px;
+  height: 15px;
+  margin-left: 3px;
+  padding: 0 4px;
+  font-size: 9px;
+  vertical-align: 0.16em;
+  transform: none;
 }
 
 .scorer-highlight {
@@ -6231,7 +6272,7 @@ h1 {
     cursor: grab;
     outline: none;
     overscroll-behavior-x: contain;
-    overscroll-behavior-y: auto;
+    overscroll-behavior-y: contain;
     scroll-padding: 14px;
     touch-action: none;
   }
