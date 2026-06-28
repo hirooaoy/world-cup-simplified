@@ -2804,8 +2804,6 @@ const TOURNAMENT_STANDINGS_SUMMARY =
 const HISTORICAL_STANDINGS_SUMMARY =
   "Final group tables computed from archived match results.";
 const TOURNAMENT_MOBILE_BREAKPOINT_QUERY = "(max-width: 900px)";
-const TOURNAMENT_MOBILE_SWIPE_THRESHOLD = 42;
-const TOURNAMENT_MOBILE_SNAP_DURATION_MS = 360;
 const TOURNAMENT_PROGRESS_ROUNDS = [
   {
     id: "round-of-32",
@@ -3047,9 +3045,8 @@ let activeMatchId = "";
 let activeView = "matches";
 let selectedStandingsYear = CURRENT_STANDINGS_YEAR;
 let selectedStandingsMode = "groups";
-let tournamentMobileActiveRoundIndex = 0;
-let tournamentMobileGesture = null;
-let tournamentMobileLastWheelAt = 0;
+let tournamentBoardDragGesture = null;
+let tournamentBoardSuppressClickUntil = 0;
 let teamSearchQuery = "";
 let calendarMonthKey = getMonthKeyFromDayKey(selectedDayKey);
 let isCalendarOpen = false;
@@ -6703,9 +6700,6 @@ function selectStandingsYear(year, options = {}) {
 
 function selectStandingsMode(mode, options = {}) {
   selectedStandingsMode = getValidStandingsMode(mode);
-  if (selectedStandingsMode === "tournament") {
-    tournamentMobileActiveRoundIndex = 0;
-  }
   renderStandingsView();
   updateUrlState(options);
 }
@@ -10830,17 +10824,6 @@ function isTournamentMobileLayout() {
   return window.innerWidth <= 900;
 }
 
-function clampTournamentMobileRoundIndex(index) {
-  const value = Number(index);
-  const maxIndex = TOURNAMENT_PROGRESS_ROUNDS.length - 1;
-
-  if (!Number.isFinite(value)) {
-    return 0;
-  }
-
-  return Math.min(maxIndex, Math.max(0, Math.round(value)));
-}
-
 function getTournamentProgressionElements(root = standingsGrid) {
   const progression = root?.querySelector(".tournament-progression");
   const rounds = progression?.querySelector(".progress-rounds");
@@ -10848,14 +10831,16 @@ function getTournamentProgressionElements(root = standingsGrid) {
   return { progression, rounds };
 }
 
-function clearTournamentMobileBoard(root = standingsGrid) {
+function updateTournamentBoardLayout(root = standingsGrid) {
   const { progression, rounds } = getTournamentProgressionElements(root);
 
   if (!progression || !rounds) {
     return;
   }
 
-  progression.classList.remove("is-mobile-board", "is-mobile-dragging");
+  progression.classList.toggle("is-mobile-board", isTournamentMobileLayout());
+  progression.classList.remove("is-mobile-dragging");
+  progression.setAttribute("aria-label", localizeText("Knockout winner progression"));
   progression.removeAttribute("data-mobile-active-round-index");
   progression.removeAttribute("data-mobile-active-round-id");
   rounds.style.removeProperty("--tournament-mobile-active-index");
@@ -10874,101 +10859,8 @@ function clearTournamentMobileBoard(root = standingsGrid) {
     match.style.removeProperty("--mobile-path-row");
     match.style.removeProperty("--mobile-path-span");
   });
-}
-
-function updateTournamentMobileTrackOffset(rounds, activeIndex) {
-  const style = getComputedStyle(rounds);
-  const firstRound = rounds.querySelector(".progress-round");
-  const firstColumnWidth =
-    getPixelValue(style.gridTemplateColumns.split(" ").filter(Boolean)[0]) ||
-    firstRound?.getBoundingClientRect().width ||
-    0;
-  const columnGap = getPixelValue(style.columnGap);
-  const offset = -activeIndex * (firstColumnWidth + columnGap);
-
-  rounds.style.setProperty("--tournament-mobile-window-x", `${offset.toFixed(2)}px`);
-}
-
-function updateTournamentMobileBoard(options = {}) {
-  const { progression, rounds } = getTournamentProgressionElements();
-
-  if (!progression || !rounds) {
-    return;
-  }
-
-  if (!isTournamentMobileLayout()) {
-    clearTournamentMobileBoard();
-    return;
-  }
-
-  const activeIndex = clampTournamentMobileRoundIndex(tournamentMobileActiveRoundIndex);
-  const activeRound = TOURNAMENT_PROGRESS_ROUNDS[activeIndex] || TOURNAMENT_PROGRESS_ROUNDS[0];
-  const activeRoundMatchCount = Math.max(1, activeRound.matchNumbers.length);
-  const activeLabel = localizeStageLabel(activeRound.label);
-
-  tournamentMobileActiveRoundIndex = activeIndex;
-  progression.classList.add("is-mobile-board");
-  progression.classList.toggle("is-mobile-dragging", Boolean(options.isDragging));
-  progression.dataset.mobileActiveRoundIndex = String(activeIndex);
-  progression.dataset.mobileActiveRoundId = activeRound.id;
-  progression.setAttribute(
-    "aria-label",
-    `${localizeText("Knockout winner progression")}: ${activeLabel}`
-  );
-  rounds.style.setProperty("--tournament-mobile-active-index", String(activeIndex));
-  rounds.style.setProperty("--tournament-mobile-row-count", String(activeRoundMatchCount));
-  updateTournamentMobileTrackOffset(rounds, activeIndex);
-
-  if (!options.isDragging) {
-    rounds.style.setProperty("--tournament-mobile-drag-x", "0px");
-  }
-
-  progression.querySelectorAll(".progress-round").forEach((round) => {
-    const roundIndex = Number(round.dataset.roundIndex);
-    const isBeforeWindow = Number.isFinite(roundIndex) && roundIndex < activeIndex;
-
-    round.classList.toggle("is-before-mobile-window", isBeforeWindow);
-    round.classList.toggle("is-mobile-window-round", !isBeforeWindow);
-    round.classList.toggle("is-mobile-window-lead", roundIndex === activeIndex);
-
-    if (isBeforeWindow) {
-      round.setAttribute("aria-hidden", "true");
-    } else {
-      round.removeAttribute("aria-hidden");
-    }
-  });
-
-  progression.querySelectorAll(".progress-match").forEach((match) => {
-    const roundIndex = Number(match.dataset.roundIndex);
-    const matchIndex = Number(match.dataset.matchIndex);
-    const round = TOURNAMENT_PROGRESS_ROUNDS[roundIndex];
-
-    if (!round || !Number.isFinite(matchIndex)) {
-      return;
-    }
-
-    const roundMatchCount = Math.max(1, round.matchNumbers.length);
-    const pathSpan = Math.max(1, Math.round(activeRoundMatchCount / roundMatchCount));
-    const pathRow = matchIndex * pathSpan + 1;
-
-    match.style.setProperty("--mobile-path-row", String(pathRow));
-    match.style.setProperty("--mobile-path-span", String(pathSpan));
-  });
 
   window.requestAnimationFrame(updateTournamentConnectors);
-}
-
-function setTournamentMobileActiveRoundIndex(index, options = {}) {
-  const nextIndex = clampTournamentMobileRoundIndex(index);
-
-  if (nextIndex === tournamentMobileActiveRoundIndex && !options.force) {
-    updateTournamentMobileBoard(options);
-    return;
-  }
-
-  tournamentMobileActiveRoundIndex = nextIndex;
-  updateTournamentMobileBoard(options);
-  window.setTimeout(updateTournamentConnectors, TOURNAMENT_MOBILE_SNAP_DURATION_MS);
 }
 
 function getTournamentProgressionFromEvent(event) {
@@ -10985,32 +10877,21 @@ function getTournamentProgressionFromEvent(event) {
   return progression;
 }
 
-function getTournamentMobileDragOffset(deltaX) {
-  const maxIndex = TOURNAMENT_PROGRESS_ROUNDS.length - 1;
-  const isPullingPastStart = tournamentMobileActiveRoundIndex === 0 && deltaX > 0;
-  const isPullingPastEnd = tournamentMobileActiveRoundIndex === maxIndex && deltaX < 0;
-
-  return isPullingPastStart || isPullingPastEnd ? deltaX * 0.35 : deltaX;
-}
-
-function handleTournamentMobilePointerDown(event) {
+function handleTournamentBoardPointerDown(event) {
   const progression = getTournamentProgressionFromEvent(event);
 
   if (!progression || event.button > 0) {
     return;
   }
 
-  const rounds = progression.querySelector(".progress-rounds");
-
-  if (!rounds) {
-    return;
-  }
-
-  tournamentMobileGesture = {
+  tournamentBoardDragGesture = {
     didDrag: false,
+    didWindowScrollHandoff: false,
     pointerId: event.pointerId,
     progression,
-    rounds,
+    startScrollLeft: progression.scrollLeft,
+    startScrollTop: progression.scrollTop,
+    startWindowScrollY: window.scrollY,
     startX: event.clientX,
     startY: event.clientY
   };
@@ -11018,104 +10899,91 @@ function handleTournamentMobilePointerDown(event) {
   progression.setPointerCapture?.(event.pointerId);
 }
 
-function handleTournamentMobilePointerMove(event) {
-  if (!tournamentMobileGesture || event.pointerId !== tournamentMobileGesture.pointerId) {
+function handleTournamentBoardPointerMove(event) {
+  if (!tournamentBoardDragGesture || event.pointerId !== tournamentBoardDragGesture.pointerId) {
     return;
   }
 
-  const deltaX = event.clientX - tournamentMobileGesture.startX;
-  const deltaY = event.clientY - tournamentMobileGesture.startY;
+  const deltaX = event.clientX - tournamentBoardDragGesture.startX;
+  const deltaY = event.clientY - tournamentBoardDragGesture.startY;
 
-  if (!tournamentMobileGesture.didDrag) {
-    if (Math.abs(deltaX) < 10 || Math.abs(deltaX) <= Math.abs(deltaY)) {
+  if (!tournamentBoardDragGesture.didDrag) {
+    if (Math.hypot(deltaX, deltaY) < 8) {
       return;
     }
 
-    tournamentMobileGesture.didDrag = true;
-    tournamentMobileGesture.progression.classList.add("is-mobile-dragging");
+    tournamentBoardDragGesture.didDrag = true;
+    tournamentBoardDragGesture.progression.classList.add("is-mobile-dragging");
   }
 
   event.preventDefault();
-  tournamentMobileGesture.rounds.style.setProperty(
-    "--tournament-mobile-drag-x",
-    `${getTournamentMobileDragOffset(deltaX).toFixed(1)}px`
+  const desiredScrollLeft = tournamentBoardDragGesture.startScrollLeft - deltaX;
+  const desiredScrollTop = tournamentBoardDragGesture.startScrollTop - deltaY;
+  const maxScrollTop = Math.max(
+    0,
+    tournamentBoardDragGesture.progression.scrollHeight -
+      tournamentBoardDragGesture.progression.clientHeight
   );
+  const nextScrollTop = clampNumber(desiredScrollTop, 0, maxScrollTop);
+  const verticalOverflow = desiredScrollTop - nextScrollTop;
+
+  tournamentBoardDragGesture.progression.scrollLeft = desiredScrollLeft;
+  tournamentBoardDragGesture.progression.scrollTop = nextScrollTop;
+
+  if (verticalOverflow !== 0 || tournamentBoardDragGesture.didWindowScrollHandoff) {
+    tournamentBoardDragGesture.didWindowScrollHandoff = true;
+    window.scrollTo({
+      left: window.scrollX,
+      top: tournamentBoardDragGesture.startWindowScrollY + verticalOverflow
+    });
+  }
 }
 
-function finishTournamentMobilePointerGesture(event) {
-  if (!tournamentMobileGesture || event.pointerId !== tournamentMobileGesture.pointerId) {
+function finishTournamentBoardPointerGesture(event) {
+  if (!tournamentBoardDragGesture || event.pointerId !== tournamentBoardDragGesture.pointerId) {
     return;
   }
 
-  const { didDrag, progression, rounds, startX } = tournamentMobileGesture;
-  const deltaX = event.clientX - startX;
-  const shouldChangeRound = didDrag && Math.abs(deltaX) >= TOURNAMENT_MOBILE_SWIPE_THRESHOLD;
-  const nextIndex = shouldChangeRound
-    ? tournamentMobileActiveRoundIndex + (deltaX < 0 ? 1 : -1)
-    : tournamentMobileActiveRoundIndex;
+  const { didDrag, progression } = tournamentBoardDragGesture;
 
   progression.releasePointerCapture?.(event.pointerId);
   progression.classList.remove("is-mobile-dragging");
-  tournamentMobileGesture = null;
+  tournamentBoardDragGesture = null;
 
-  if (!shouldChangeRound) {
-    rounds.style.setProperty("--tournament-mobile-drag-x", "0px");
-    updateTournamentMobileBoard();
+  if (didDrag) {
+    tournamentBoardSuppressClickUntil = Date.now() + 250;
+  }
+}
+
+function cancelTournamentBoardPointerGesture(event) {
+  if (!tournamentBoardDragGesture || event.pointerId !== tournamentBoardDragGesture.pointerId) {
     return;
   }
 
-  rounds.getBoundingClientRect();
-  setTournamentMobileActiveRoundIndex(nextIndex);
+  tournamentBoardDragGesture.progression.releasePointerCapture?.(event.pointerId);
+  tournamentBoardDragGesture.progression.classList.remove("is-mobile-dragging");
+  tournamentBoardDragGesture = null;
 }
 
-function cancelTournamentMobilePointerGesture(event) {
-  if (!tournamentMobileGesture || event.pointerId !== tournamentMobileGesture.pointerId) {
-    return;
-  }
-
-  tournamentMobileGesture.progression.releasePointerCapture?.(event.pointerId);
-  tournamentMobileGesture.progression.classList.remove("is-mobile-dragging");
-  tournamentMobileGesture.rounds.style.setProperty("--tournament-mobile-drag-x", "0px");
-  tournamentMobileGesture = null;
-  updateTournamentMobileBoard();
-}
-
-function handleTournamentMobileWheel(event) {
+function handleTournamentBoardKeydown(event) {
   const progression = getTournamentProgressionFromEvent(event);
-  const isHorizontalWheel = Math.abs(event.deltaX) > Math.max(22, Math.abs(event.deltaY));
-
-  if (!progression || !isHorizontalWheel) {
-    return;
-  }
-
-  const now = Date.now();
-
-  event.preventDefault();
-
-  if (now - tournamentMobileLastWheelAt < 320) {
-    return;
-  }
-
-  tournamentMobileLastWheelAt = now;
-  setTournamentMobileActiveRoundIndex(
-    tournamentMobileActiveRoundIndex + (event.deltaX > 0 ? 1 : -1)
-  );
-}
-
-function handleTournamentMobileKeydown(event) {
-  const progression = getTournamentProgressionFromEvent(event);
-  const directionByKey = {
-    ArrowLeft: -1,
-    ArrowRight: 1
+  const scrollByKey = {
+    ArrowDown: { left: 0, top: 180 },
+    ArrowLeft: { left: -180, top: 0 },
+    ArrowRight: { left: 180, top: 0 },
+    ArrowUp: { left: 0, top: -180 }
   };
-  const direction = directionByKey[event.key];
+  const scrollDelta = scrollByKey[event.key];
 
-  if (!progression || !direction) {
+  if (!progression || !scrollDelta) {
     return;
   }
 
   event.preventDefault();
-  setTournamentMobileActiveRoundIndex(tournamentMobileActiveRoundIndex + direction);
+  progression.scrollBy({
+    ...scrollDelta,
+    behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"
+  });
 }
 
 function updateTournamentConnectors() {
@@ -11355,7 +11223,7 @@ function renderStandingsLoadingState() {
   }
 
   standingsGrid.innerHTML = standingsLoadingMarkup;
-  updateTournamentMobileBoard({ force: true });
+  updateTournamentBoardLayout();
 }
 
 function renderStandingsView() {
@@ -11392,7 +11260,7 @@ function renderStandingsView() {
     : renderHistoricalStandingsCards(selectedStandingsYear);
   updateStandingNameTooltips(standingsGrid);
   updateTooltipBounds(standingsGrid);
-  updateTournamentMobileBoard({ force: true });
+  updateTournamentBoardLayout();
   window.requestAnimationFrame(updateTournamentConnectors);
 }
 
@@ -15126,7 +14994,6 @@ function renderCurrentMatchContextKicker(match, label) {
 function openTournamentTabFromMatchInfo() {
   selectedStandingsYear = CURRENT_STANDINGS_YEAR;
   selectedStandingsMode = "tournament";
-  tournamentMobileActiveRoundIndex = 0;
   setActiveView("standings", { historyMode: "push" });
   renderStandingsView();
   updateUrlState();
@@ -17285,6 +17152,16 @@ standingsModeTabs.forEach((tab) => {
 });
 
 standingsGrid.addEventListener("click", (event) => {
+  if (
+    Date.now() < tournamentBoardSuppressClickUntil &&
+    event.target instanceof Element &&
+    event.target.closest(".tournament-progression")
+  ) {
+    event.preventDefault();
+    tournamentBoardSuppressClickUntil = 0;
+    return;
+  }
+
   const groupButton = event.target.closest(".third-place-group-button");
 
   if (groupButton) {
@@ -17298,10 +17175,10 @@ standingsGrid.addEventListener("click", (event) => {
     openMatchFromTournament(matchCard.dataset.openMatchId);
   }
 });
-standingsGrid.addEventListener("pointerdown", handleTournamentMobilePointerDown);
-standingsGrid.addEventListener("pointermove", handleTournamentMobilePointerMove);
-standingsGrid.addEventListener("pointerup", finishTournamentMobilePointerGesture);
-standingsGrid.addEventListener("pointercancel", cancelTournamentMobilePointerGesture);
+standingsGrid.addEventListener("pointerdown", handleTournamentBoardPointerDown);
+standingsGrid.addEventListener("pointermove", handleTournamentBoardPointerMove);
+standingsGrid.addEventListener("pointerup", finishTournamentBoardPointerGesture);
+standingsGrid.addEventListener("pointercancel", cancelTournamentBoardPointerGesture);
 standingsGrid.addEventListener("keydown", (event) => {
   const matchCard = event.target.closest(".progress-match[data-open-match-id]");
 
@@ -17311,9 +17188,8 @@ standingsGrid.addEventListener("keydown", (event) => {
     return;
   }
 
-  handleTournamentMobileKeydown(event);
+  handleTournamentBoardKeydown(event);
 });
-standingsGrid.addEventListener("wheel", handleTournamentMobileWheel, { passive: false });
 
 matchInfo.addEventListener("click", (event) => {
   const target = event.target instanceof Element ? event.target.closest("[data-open-tournament-tab]") : null;
@@ -17662,7 +17538,7 @@ window.addEventListener("resize", () => {
     updateStandingNameTooltips();
     updateMeasuredLabelTooltips();
     updateTooltipBounds();
-    updateTournamentMobileBoard({ force: true });
+    updateTournamentBoardLayout();
     updateTournamentConnectors();
     updateTabIndicators();
   });

@@ -5048,93 +5048,138 @@ try {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto(`${baseUrl}?view=standings&standingsMode=tournament`, { waitUntil: "load" });
   await page.waitForFunction(() => document.querySelectorAll(".progress-connectors path").length >= 30);
-  const mobileTournamentInitial = await page.evaluate(() => {
+  const mobileTournamentCanvasInitial = await page.evaluate(() => {
     const progression = document.querySelector(".tournament-progression");
-    const progressionRect = progression.getBoundingClientRect();
-    const activeRound = document.querySelector(
-      `.progress-round[data-round-index="${progression.dataset.mobileActiveRoundIndex}"]`
-    );
-    const activeRoundRect = activeRound.getBoundingClientRect();
-    const nextRound = document.querySelector('.progress-round[data-round-index="1"]');
-    const nextRoundRect = nextRound.getBoundingClientRect();
-    const firstCard = activeRound.querySelector(".progress-match");
+    const rounds = progression?.querySelector(".progress-rounds");
+    const firstRound = document.querySelector('.progress-round[data-round-index="0"]');
+    const finalRound = document.querySelector('.progress-round[data-round-index="4"]');
+    const progressionRect = progression?.getBoundingClientRect();
+    const firstRoundRect = firstRound?.getBoundingClientRect();
+    const finalRoundRect = finalRound?.getBoundingClientRect();
+    const firstCard = firstRound?.querySelector(".progress-match");
     const firstCardRect = firstCard.getBoundingClientRect();
 
     return {
-      activeIndex: Number(progression.dataset.mobileActiveRoundIndex),
-      activeLeft: Math.round(activeRoundRect.left - progressionRect.left),
+      activeRoundId: progression.dataset.mobileActiveRoundId || "",
+      activeRoundIndex: progression.dataset.mobileActiveRoundIndex || "",
+      ariaLabel: progression.getAttribute("aria-label") || "",
+      boardClass: progression.classList.contains("is-mobile-board"),
       cardWidth: Math.round(firstCardRect.width),
       connectorDisplay: getComputedStyle(document.querySelector(".progress-connectors")).display,
-      nextRoundLeft: Math.round(nextRoundRect.left - progressionRect.left),
+      finalRoundRight: Math.round(finalRoundRect.right - progressionRect.left),
+      firstRoundLeft: Math.round(firstRoundRect.left - progressionRect.left),
+      hiddenRounds: [...document.querySelectorAll(".progress-round.is-before-mobile-window")].length,
+      mobilePathSpan: firstCard.style.getPropertyValue("--mobile-path-span").trim(),
       pathCount: document.querySelectorAll(".progress-connectors path").length,
-      r32Span: firstCard.style.getPropertyValue("--mobile-path-span").trim(),
+      roundsWidth: rounds ? Math.round(rounds.getBoundingClientRect().width) : 0,
+      scrollHeightOverflow: progression.scrollHeight - progression.clientHeight,
+      scrollLeft: progression.scrollLeft,
       scrollOverflow: document.documentElement.scrollWidth - document.documentElement.clientWidth
     };
   });
-  await page.mouse.move(330, 430);
+  const tournamentBoardBox = await page.locator(".tournament-progression").boundingBox();
+  assert(tournamentBoardBox, "Mobile tournament board should have a measurable canvas.");
+  await page.mouse.move(
+    tournamentBoardBox.x + tournamentBoardBox.width - 34,
+    tournamentBoardBox.y + Math.min(tournamentBoardBox.height - 34, 460)
+  );
   await page.mouse.down();
-  await page.mouse.move(80, 430, { steps: 10 });
+  await page.mouse.move(
+    tournamentBoardBox.x + 46,
+    tournamentBoardBox.y + Math.max(40, Math.min(tournamentBoardBox.height - 170, 300)),
+    { steps: 10 }
+  );
   await page.mouse.up();
-  await page.waitForTimeout(480);
-  const mobileTournamentAfterSwipe = await page.evaluate(() => {
+  await page.waitForTimeout(80);
+  const mobileTournamentCanvasAfterDrag = await page.evaluate(() => {
     const progression = document.querySelector(".tournament-progression");
+    const firstRound = document.querySelector('.progress-round[data-round-index="0"]');
+    const secondRound = document.querySelector('.progress-round[data-round-index="1"]');
     const progressionRect = progression.getBoundingClientRect();
-    const activeRound = document.querySelector(
-      `.progress-round[data-round-index="${progression.dataset.mobileActiveRoundIndex}"]`
-    );
-    const activeRoundRect = activeRound.getBoundingClientRect();
-    const activeCards = [...activeRound.querySelectorAll(".progress-match")].slice(0, 3);
-    const cardRects = activeCards.map((card) => {
-      const rect = card.getBoundingClientRect();
-
-      return {
-        bottom: Math.round(rect.bottom),
-        top: Math.round(rect.top)
-      };
-    });
+    const firstRoundRect = firstRound.getBoundingClientRect();
+    const secondRoundRect = secondRound.getBoundingClientRect();
 
     return {
-      activeIndex: Number(progression.dataset.mobileActiveRoundIndex),
-      activeRoundId: progression.dataset.mobileActiveRoundId,
-      activeLeft: Math.round(activeRoundRect.left - progressionRect.left),
-      gaps: cardRects.slice(1).map((rect, index) => rect.top - cardRects[index].bottom),
-      hiddenRounds: [...document.querySelectorAll(".progress-round.is-before-mobile-window")].map(
-        (round) => round.dataset.roundId
-      ),
+      activeRoundId: progression.dataset.mobileActiveRoundId || "",
+      activeRoundIndex: progression.dataset.mobileActiveRoundIndex || "",
+      firstRoundLeft: Math.round(firstRoundRect.left - progressionRect.left),
+      hiddenRounds: [...document.querySelectorAll(".progress-round.is-before-mobile-window")].length,
       pathCount: document.querySelectorAll(".progress-connectors path").length,
-      qfSpan: document
-        .querySelector('.progress-match[data-match-number="97"]')
-        .style.getPropertyValue("--mobile-path-span")
-        .trim(),
-      r16Span: document
-        .querySelector('.progress-match[data-match-number="89"]')
-        .style.getPropertyValue("--mobile-path-span")
-        .trim(),
-      scrollOverflow: document.documentElement.scrollWidth - document.documentElement.clientWidth
+      scrollLeft: Math.round(progression.scrollLeft),
+      scrollTop: Math.round(progression.scrollTop),
+      secondRoundLeft: Math.round(secondRoundRect.left - progressionRect.left),
+      urlView: new URL(window.location.href).searchParams.get("view") || "",
+      urlMatch: new URL(window.location.href).searchParams.get("match") || ""
     };
   });
   assert(
-    mobileTournamentInitial.activeIndex === 0 &&
-      mobileTournamentInitial.activeLeft >= 10 &&
-      mobileTournamentInitial.activeLeft <= 18 &&
-      mobileTournamentInitial.cardWidth >= 208 &&
-      mobileTournamentInitial.cardWidth <= 250 &&
-      mobileTournamentInitial.nextRoundLeft > mobileTournamentInitial.cardWidth &&
-      mobileTournamentInitial.connectorDisplay === "block" &&
-      mobileTournamentInitial.pathCount >= 30 &&
-      mobileTournamentInitial.r32Span === "1" &&
-      mobileTournamentInitial.scrollOverflow <= 1 &&
-      mobileTournamentAfterSwipe.activeIndex === 1 &&
-      mobileTournamentAfterSwipe.activeRoundId === "round-of-16" &&
-      mobileTournamentAfterSwipe.activeLeft >= 10 &&
-      mobileTournamentAfterSwipe.activeLeft <= 18 &&
-      mobileTournamentAfterSwipe.hiddenRounds.join("|") === "round-of-32" &&
-      mobileTournamentAfterSwipe.pathCount >= 14 &&
-      mobileTournamentAfterSwipe.r16Span === "1" &&
-      mobileTournamentAfterSwipe.qfSpan === "2" &&
-      mobileTournamentAfterSwipe.gaps.every((gap) => gap >= 4 && gap <= 8) &&
-      mobileTournamentAfterSwipe.scrollOverflow <= 1,
-    `Mobile tournament should use a swipeable bracket board where later rounds become the compact left edge. Measured ${JSON.stringify({ mobileTournamentInitial, mobileTournamentAfterSwipe })}.`
+    mobileTournamentCanvasInitial.boardClass &&
+      mobileTournamentCanvasInitial.ariaLabel === "Knockout winner progression" &&
+      mobileTournamentCanvasInitial.activeRoundIndex === "" &&
+      mobileTournamentCanvasInitial.activeRoundId === "" &&
+      mobileTournamentCanvasInitial.firstRoundLeft >= 10 &&
+      mobileTournamentCanvasInitial.firstRoundLeft <= 18 &&
+      mobileTournamentCanvasInitial.finalRoundRight > mobileTournamentCanvasInitial.roundsWidth - 8 &&
+      mobileTournamentCanvasInitial.cardWidth >= 208 &&
+      mobileTournamentCanvasInitial.cardWidth <= 250 &&
+      mobileTournamentCanvasInitial.connectorDisplay === "block" &&
+      mobileTournamentCanvasInitial.pathCount >= 30 &&
+      mobileTournamentCanvasInitial.mobilePathSpan === "" &&
+      mobileTournamentCanvasInitial.hiddenRounds === 0 &&
+      mobileTournamentCanvasInitial.scrollHeightOverflow > 120 &&
+      mobileTournamentCanvasInitial.scrollOverflow <= 1 &&
+      mobileTournamentCanvasAfterDrag.activeRoundIndex === "" &&
+      mobileTournamentCanvasAfterDrag.activeRoundId === "" &&
+      mobileTournamentCanvasAfterDrag.hiddenRounds === 0 &&
+      mobileTournamentCanvasAfterDrag.pathCount >= 30 &&
+      mobileTournamentCanvasAfterDrag.scrollLeft >= 120 &&
+      mobileTournamentCanvasAfterDrag.scrollTop >= 80 &&
+      mobileTournamentCanvasAfterDrag.firstRoundLeft < mobileTournamentCanvasInitial.firstRoundLeft - 100 &&
+      mobileTournamentCanvasAfterDrag.secondRoundLeft < mobileTournamentCanvasInitial.cardWidth &&
+      mobileTournamentCanvasAfterDrag.urlView === "standings" &&
+      mobileTournamentCanvasAfterDrag.urlMatch === "",
+    `Mobile tournament should behave like a draggable two-axis canvas with all rounds still present. Measured ${JSON.stringify({ mobileTournamentCanvasInitial, mobileTournamentCanvasAfterDrag })}.`
+  );
+  await page.evaluate(() => {
+    const progression = document.querySelector(".tournament-progression");
+    window.scrollTo(0, 0);
+    progression.scrollTop = progression.scrollHeight - progression.clientHeight;
+  });
+  await page.waitForTimeout(60);
+  const tournamentBoardEdgeBox = await page.locator(".tournament-progression").boundingBox();
+  assert(tournamentBoardEdgeBox, "Mobile tournament board edge handoff should have a measurable canvas.");
+  await page.mouse.move(
+    tournamentBoardEdgeBox.x + tournamentBoardEdgeBox.width / 2,
+    tournamentBoardEdgeBox.y + Math.min(tournamentBoardEdgeBox.height - 34, 500)
+  );
+  await page.mouse.down();
+  await page.mouse.move(
+    tournamentBoardEdgeBox.x + tournamentBoardEdgeBox.width / 2,
+    tournamentBoardEdgeBox.y + Math.max(34, tournamentBoardEdgeBox.height - 240),
+    { steps: 8 }
+  );
+  await page.mouse.up();
+  await page.waitForTimeout(80);
+  const mobileTournamentCanvasEdgeHandoff = await page.evaluate(() => {
+    const progression = document.querySelector(".tournament-progression");
+    const maxScrollTop = progression.scrollHeight - progression.clientHeight;
+
+    return {
+      activeRoundId: progression.dataset.mobileActiveRoundId || "",
+      canvasRemainingBottom: Math.round(maxScrollTop - progression.scrollTop),
+      hiddenRounds: [...document.querySelectorAll(".progress-round.is-before-mobile-window")].length,
+      pageScrollY: Math.round(window.scrollY),
+      scrollTop: Math.round(progression.scrollTop),
+      urlMatch: new URL(window.location.href).searchParams.get("match") || ""
+    };
+  });
+  assert(
+    mobileTournamentCanvasEdgeHandoff.activeRoundId === "" &&
+      mobileTournamentCanvasEdgeHandoff.hiddenRounds === 0 &&
+      mobileTournamentCanvasEdgeHandoff.canvasRemainingBottom <= 2 &&
+      mobileTournamentCanvasEdgeHandoff.pageScrollY >= 80 &&
+      mobileTournamentCanvasEdgeHandoff.urlMatch === "",
+    `Dragging past the bottom of the mobile tournament canvas should hand vertical movement to the page. Measured ${JSON.stringify(mobileTournamentCanvasEdgeHandoff)}.`
   );
   await page.setViewportSize({ width: 1280, height: 720 });
   const knockoutProgressionCheck = await openPageAtTime(

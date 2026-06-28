@@ -1,6 +1,17 @@
 {
-  "updatedAt": "2026-06-27T00:31:08-07:00",
+  "updatedAt": "2026-06-27T17:33:43-07:00",
   "releases": [
+    {
+      "date": "2026-06-27",
+      "title": "Mobile tournament canvas",
+      "titleZh": "移动端淘汰赛画布",
+      "highlights": [
+        "Small-screen Tournament now behaves like a draggable canvas, and dragging past the bottom hands scrolling back to the page instead of trapping you inside the bracket."
+      ],
+      "highlightsZh": [
+        "小屏幕淘汰赛现在像可拖动画布一样操作，拖到画布底部后会继续滚动页面，不会被困在对阵区域内。"
+      ]
+    },
     {
       "date": "2026-06-27",
       "title": "Third-place tooltip consistency",

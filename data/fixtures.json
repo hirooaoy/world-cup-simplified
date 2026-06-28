@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-27T23:08:31.399Z",
+  "updatedAt": "2026-06-28T00:47:05.425Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -102,7 +102,8 @@
     "fifa-official-results-sync-2026-06-26",
     "fifa-goal-events-sync-2026-06-26",
     "fifa-official-results-sync-2026-06-27",
-    "fifa-goal-events-sync-2026-06-27"
+    "fifa-goal-events-sync-2026-06-27",
+    "fifa-goal-events-sync-2026-06-28"
   ],
   "coverage": {
     "status": "complete-schedule",
@@ -8213,7 +8214,22 @@
       "score": {
         "home": 0,
         "away": 2
-      }
+      },
+      "resultHighlights": [
+        "🌟 Jude Bellingham opened it before Harry Kane finished the scoring.",
+        "📊 England moved to 7 points in Group L and left Panama without a point."
+      ],
+      "goalsHome": [],
+      "goalsAway": [
+        {
+          "minute": 62,
+          "name": "Jude Bellingham"
+        },
+        {
+          "minute": 67,
+          "name": "Harry Kane"
+        }
+      ]
     },
     {
       "id": "croatia-ghana-2026-06-27",
@@ -8288,7 +8304,27 @@
       "score": {
         "home": 2,
         "away": 1
-      }
+      },
+      "resultHighlights": [
+        "🌟 Nikola Vlasic's 83' winner settled it for Croatia.",
+        "📊 Croatia moved to 6 points in Group L while Ghana stayed on 4 points."
+      ],
+      "goalsHome": [
+        {
+          "minute": 31,
+          "name": "Petar Sucic"
+        },
+        {
+          "minute": 83,
+          "name": "Nikola Vlasic"
+        }
+      ],
+      "goalsAway": [
+        {
+          "minute": 73,
+          "name": "Derrick Luckassen"
+        }
+      ]
     },
     {
       "id": "colombia-portugal-2026-06-27",
