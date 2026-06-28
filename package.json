@@ -27,7 +27,7 @@
     "smoke": "node scripts/ui-smoke.mjs",
     "sync:fifa": "node scripts/sync-fifa-results.mjs",
     "sync:fifa:pr": "node scripts/sync-fifa-results.mjs --skip-unchanged",
-    "test": "node scripts/validate-data.mjs && node scripts/audit-data.mjs && node scripts/audit-result-enrichment.mjs && node scripts/audit-player-card-coverage.mjs && node scripts/ui-smoke.mjs",
+    "test": "node scripts/validate-data.mjs && node scripts/audit-matchup-copy.mjs && node scripts/audit-data.mjs && node scripts/audit-result-enrichment.mjs && node scripts/audit-player-card-coverage.mjs && node scripts/ui-smoke.mjs",
     "validate": "node scripts/validate-data.mjs",
     "release-notes:check": "node scripts/validate-release-notes.mjs",
     "validate:profiles": "node scripts/validate-with-profile-refresh.mjs"

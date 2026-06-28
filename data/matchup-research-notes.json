@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-23T01:00:00Z",
+  "updatedAt": "2026-06-28T05:57:52.711Z",
   "sourceIds": [
     "matchup-research-2026-06-23",
     "fifa-squad-list-2026-06-21",
@@ -19,7 +19,9 @@
     "sportsmole-scotland-brazil-preview-2026-06-23",
     "shekicks-morocco-haiti-preview-2026-06-23",
     "juvefc-czechia-mexico-preview-2026-06-23",
-    "juvefc-south-africa-south-korea-preview-2026-06-23"
+    "juvefc-south-africa-south-korea-preview-2026-06-23",
+    "japantimes-brazil-japan-kubo-2026-06-28",
+    "espn-neymar-return-2026-06-25"
   ],
   "fixtures": {
     "norway-senegal-2026-06-22": {
@@ -315,6 +317,30 @@
         "attackPlan": "protect the draw position, then release Son from Lee Kang-in's first forward pass",
         "threat": "turn running power and Son's finishing into sudden chances",
         "contextSentence": "South Korea are largely fit."
+      }
+    },
+    "match-76-round-of-32-2026-06-29": {
+      "checkedAt": "2026-06-27T21:40:00-07:00",
+      "status": "researched",
+      "sourceIds": [
+        "matchup-research-2026-06-23",
+        "fifa-squad-list-2026-06-21",
+        "japantimes-brazil-japan-kubo-2026-06-28",
+        "espn-neymar-return-2026-06-25"
+      ],
+      "home": {
+        "summary": "are a top-tier attacking side whose best moments mix individual invention with sudden acceleration",
+        "matchupProblem": "Neymar-Vinicius isolation speed",
+        "attackPlan": "isolate Vinicius Junior quickly and let Neymar combine around the fouls and gaps that creates",
+        "threat": "break a shape through Neymar combinations and Vinicius Junior's speed",
+        "contextSentence": "Neymar has returned from the bench after his calf issue, so Brazil can manage his minutes."
+      },
+      "away": {
+        "summary": "are a precise, fast-passing side that can make possession feel sudden and sharp",
+        "matchupProblem": "Doan-Kamada combination speed",
+        "attackPlan": "move the ball quickly enough for their attackers to receive between defenders",
+        "threat": "turn quick combinations into chances around the box",
+        "contextSentence": "Kubo could play a part after the knee issue, so Ueda and Doan may carry the early threat."
       }
     }
   }

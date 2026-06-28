@@ -130,6 +130,10 @@ function officialPairKey(match, teamLookup) {
   return home && away ? `${home}:${away}` : "";
 }
 
+function shouldMergeOfficialParticipants(fixture, nextStatus) {
+  return fixture?.stage !== "group" && fixture?.status !== "FT" && nextStatus !== "FT";
+}
+
 function getFixtureFifaMatchId(fixture) {
   return (
     fixture.providerIds?.[FIFA_PROVIDER_KEY]?.matchId ||
@@ -343,6 +347,8 @@ function mergeOfficialMatches(fixturesData, officialMatches, teams) {
   const officialIndex = indexOfficialMatches(officialMatches, teamLookup);
   const fixtures = fixturesData.fixtures.map((fixture) => ({ ...fixture }));
   let matchedCount = 0;
+  let officialParticipantUpdateCount = 0;
+  let statusUpdateCount = 0;
   let updateCount = 0;
 
   for (const fixture of fixtures) {
@@ -353,6 +359,15 @@ function mergeOfficialMatches(fixturesData, officialMatches, teams) {
 
     matchedCount += 1;
     const before = JSON.stringify({
+      awayTeamId: fixture.awayTeamId,
+      homeTeamId: fixture.homeTeamId,
+      kickoffUtc: fixture.kickoffUtc,
+      matchNumber: fixture.matchNumber,
+      providerIds: fixture.providerIds,
+      score: fixture.score,
+      status: fixture.status
+    });
+    const beforeStatus = JSON.stringify({
       kickoffUtc: fixture.kickoffUtc,
       matchNumber: fixture.matchNumber,
       providerIds: fixture.providerIds,
@@ -361,9 +376,22 @@ function mergeOfficialMatches(fixturesData, officialMatches, teams) {
     });
     const nextStatus = officialStatus(match);
     const nextScore = numericScore(match);
+    const officialHomeTeamId = findOfficialParticipantTeamId(match, "Home", teamLookup);
+    const officialAwayTeamId = findOfficialParticipantTeamId(match, "Away", teamLookup);
 
     mergeFifaMetadata(fixture, match);
     fixture.kickoffUtc = match.Date || fixture.kickoffUtc;
+
+    if (shouldMergeOfficialParticipants(fixture, nextStatus)) {
+      if (officialHomeTeamId && fixture.homeTeamId !== officialHomeTeamId) {
+        fixture.homeTeamId = officialHomeTeamId;
+        officialParticipantUpdateCount += 1;
+      }
+      if (officialAwayTeamId && fixture.awayTeamId !== officialAwayTeamId) {
+        fixture.awayTeamId = officialAwayTeamId;
+        officialParticipantUpdateCount += 1;
+      }
+    }
 
     if (statusRank(nextStatus) >= statusRank(fixture.status)) {
       fixture.status = nextStatus;
@@ -376,6 +404,15 @@ function mergeOfficialMatches(fixturesData, officialMatches, teams) {
     }
 
     const after = JSON.stringify({
+      awayTeamId: fixture.awayTeamId,
+      homeTeamId: fixture.homeTeamId,
+      kickoffUtc: fixture.kickoffUtc,
+      matchNumber: fixture.matchNumber,
+      providerIds: fixture.providerIds,
+      score: fixture.score,
+      status: fixture.status
+    });
+    const afterStatus = JSON.stringify({
       kickoffUtc: fixture.kickoffUtc,
       matchNumber: fixture.matchNumber,
       providerIds: fixture.providerIds,
@@ -385,6 +422,10 @@ function mergeOfficialMatches(fixturesData, officialMatches, teams) {
 
     if (before !== after) {
       updateCount += 1;
+    }
+
+    if (beforeStatus !== afterStatus) {
+      statusUpdateCount += 1;
     }
   }
 
@@ -396,6 +437,8 @@ function mergeOfficialMatches(fixturesData, officialMatches, teams) {
       updatedAt: checkedAt
     },
     matchedCount,
+    officialParticipantUpdateCount,
+    statusUpdateCount,
     updateCount
   };
 }
@@ -907,6 +950,10 @@ function populateResolvedKnockoutParticipants({ fixturesData, standingsData, tea
   for (const fixture of orderedKnockoutFixtures) {
     for (const side of ["home", "away"]) {
       const teamIdKey = `${side}TeamId`;
+      if (fixture.stage === "round-of-32" && fixture.status !== "FT" && fixture[teamIdKey]) {
+        continue;
+      }
+
       const resolvedTeamId = resolveKnockoutSlotTeamId({
         fixture,
         fixtureByMatchNumber,
@@ -942,7 +989,7 @@ function addSyncSource(tournamentData, { matchedCount, participantUpdateCount = 
   const sourceId = sourceIdForDate(checkedAt);
   const sources = (tournamentData.sources || []).filter((source) => source.id !== sourceId);
   const resultNote = `${updateCount} fixture update${updateCount === 1 ? "" : "s"} merged from ${matchedCount} matched FIFA fixture${matchedCount === 1 ? "" : "s"}.`;
-  const participantNote = `${participantUpdateCount} knockout participant slot${participantUpdateCount === 1 ? "" : "s"} resolved from completed group/knockout results.`;
+  const participantNote = `${participantUpdateCount} knockout participant slot${participantUpdateCount === 1 ? "" : "s"} resolved from official participants or completed results.`;
 
   sources.push({
     id: sourceId,
@@ -982,9 +1029,10 @@ const participantMerge = populateResolvedKnockoutParticipants({
   tournamentData
 });
 const totalUpdateCount = merge.updateCount + participantMerge.updateCount;
+const totalParticipantUpdateCount = merge.officialParticipantUpdateCount + participantMerge.updateCount;
 const nextTournamentData = addSyncSource(tournamentData, {
   matchedCount: merge.matchedCount,
-  participantUpdateCount: participantMerge.updateCount,
+  participantUpdateCount: totalParticipantUpdateCount,
   updateCount: merge.updateCount
 });
 
@@ -1002,9 +1050,9 @@ if (shouldWrite && skipUnchangedWrites && totalUpdateCount === 0) {
   console.log("0 fixture updates detected. Files left unchanged.");
 } else {
   console.log(
-    `${merge.updateCount} score/status update${merge.updateCount === 1 ? "" : "s"} ${shouldWrite ? "written" : "detected"}.`
+    `${merge.statusUpdateCount} score/status update${merge.statusUpdateCount === 1 ? "" : "s"} ${shouldWrite ? "written" : "detected"}.`
   );
   console.log(
-    `${participantMerge.updateCount} knockout participant update${participantMerge.updateCount === 1 ? "" : "s"} ${shouldWrite ? "written" : "detected"}.`
+    `${totalParticipantUpdateCount} knockout participant update${totalParticipantUpdateCount === 1 ? "" : "s"} ${shouldWrite ? "written" : "detected"}.`
   );
 }

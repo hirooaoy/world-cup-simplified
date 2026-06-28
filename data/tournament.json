@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-28T06:13:04.225Z",
+  "updatedAt": "2026-06-28T05:57:52.711Z",
   "coverageNote": "The current seed dataset covers the full official fixture skeleton from June 11 through July 19. Rich previews, scores, live status and knockout participants are updated progressively.",
   "catchUp": [
     {
@@ -610,6 +610,27 @@
       "checkedAt": "2026-06-22T10:17:00-07:00"
     },
     {
+      "id": "guardian-canada-south-africa-davies-2026-06-28",
+      "label": "Guardian Canada vs South Africa Alphonso Davies return update",
+      "url": "https://www.theguardian.com/football/2026/jun/28/alphonso-davies-returns-canada-world-cup-moment-of-destiny",
+      "type": "cross-check",
+      "checkedAt": "2026-06-27T21:40:00-07:00"
+    },
+    {
+      "id": "japantimes-brazil-japan-kubo-2026-06-28",
+      "label": "Japan Times Brazil vs Japan Takefusa Kubo fitness update",
+      "url": "https://www.japantimes.co.jp/sports/2026/06/28/soccer/japan-underdog-mentality-brazil/",
+      "type": "cross-check",
+      "checkedAt": "2026-06-27T21:40:00-07:00"
+    },
+    {
+      "id": "espn-neymar-return-2026-06-25",
+      "label": "ESPN Brazil Neymar return minutes update",
+      "url": "https://tv5.espn.com/football/story/_/id/49168785/neymar-comes-brazil-bench-first-26-world-cup-minutes",
+      "type": "cross-check",
+      "checkedAt": "2026-06-27T21:40:00-07:00"
+    },
+    {
       "id": "national-football-teams-can-rsa-h2h-2026-06-25",
       "label": "National Football Teams Canada-South Africa H2H cross-check",
       "url": "https://www.national-football-teams.com/encounter/teams/36/172/Canada_vs_South_Africa.html",
@@ -888,16 +909,16 @@
       "label": "FIFA official goal event timeline sync",
       "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/match-schedule-fixtures-results-teams-stadiums",
       "type": "official",
-      "checkedAt": "2026-06-28T00:46:57.649Z",
-      "note": "2 fixture goal-event updates merged from 62 matched FIFA timelines."
+      "checkedAt": "2026-06-28T04:19:53.869Z",
+      "note": "3 fixture goal-event updates merged from 65 matched FIFA timelines."
     },
     {
       "id": "fifa-official-results-sync-2026-06-28",
       "label": "FIFA official results sync",
       "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/match-schedule-fixtures-results-teams-stadiums",
       "type": "official",
-      "checkedAt": "2026-06-28T06:13:04.225Z",
-      "note": "2 fixture updates merged from 104 matched FIFA fixtures. 10 knockout participant slots resolved from completed group/knockout results."
+      "checkedAt": "2026-06-28T05:57:52.711Z",
+      "note": "4 fixture updates merged from 104 matched FIFA fixtures. 4 knockout participant slots resolved from official participants."
     }
   ],
   "groups": [

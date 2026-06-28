@@ -31,7 +31,7 @@
     <meta name="theme-color" content="#ffffff" />
     <link rel="icon" type="image/svg+xml" href="assets/favicon.svg?v=2026-06-17-1209" />
     <link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=2026-06-17-1213" />
-    <link rel="stylesheet" href="styles.css?v=2026-06-25-third-place-games-left" />
+    <link rel="stylesheet" href="styles.css?v=2026-06-27-compact-outcome-pills" />
   </head>
   <body>
     <header class="site-header">
@@ -194,16 +194,16 @@
           <div class="standings-year-popover is-hidden" id="standings-year-popover" role="dialog" aria-label="Choose standings year">
             <div class="standings-year-grid" id="standings-year-grid"></div>
           </div>
-          <p id="standings-summary">Top two in each group advance. The best eight third-place teams also reach the Round of 32.</p>
+          <p id="standings-summary">Round of 32 slots use current standings and remaining projections. Later rounds are predictions.</p>
           <nav class="standings-mode-tabs" id="standings-mode-tabs" aria-label="Standings sections">
-            <button class="standings-mode-tab is-active" id="standings-groups-tab" type="button" data-standings-mode="groups" aria-pressed="true">
+            <button class="standings-mode-tab is-active" id="standings-tournament-tab" type="button" data-standings-mode="tournament" aria-pressed="true">
+              Tournament
+            </button>
+            <button class="standings-mode-tab" id="standings-groups-tab" type="button" data-standings-mode="groups" aria-pressed="false">
               Groups
             </button>
             <button class="standings-mode-tab" id="standings-third-place-tab" type="button" data-standings-mode="third-place" aria-pressed="false">
               Third-Place Race
-            </button>
-            <button class="standings-mode-tab" id="standings-tournament-tab" type="button" data-standings-mode="tournament" aria-pressed="false">
-              Tournament
             </button>
           </nav>
         </section>
@@ -304,6 +304,6 @@
       </div>
     </footer>
 
-    <script type="module" src="app.js?v=2026-06-26-zh-card-localization"></script>
+    <script type="module" src="app.js?v=2026-06-27-compact-outcome-pills"></script>
   </body>
 </html>

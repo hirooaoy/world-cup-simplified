@@ -2,11 +2,13 @@
 import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { isPlayerNameMatch, normalizePlayerName } from "./player-name-matching.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const dataDir = path.join(root, "data");
 const fixturesPath = path.join(dataDir, "fixtures.json");
 const matchupResearchPath = path.join(dataDir, "matchup-research-notes.json");
+const playerAvailabilityPath = path.join(dataDir, "player-availability.json");
 const teamsPath = path.join(dataDir, "teams.json");
 
 const sourceId = "editorial-preview-2026-06-22";
@@ -555,6 +557,69 @@ function getSideResearch(fixtureResearch, side) {
 }
 
 let baselineKeyPlayersByTeamId = new Map();
+let playerAvailabilityByTeamId = new Map();
+
+function buildPlayerAvailabilityByTeamId(playerAvailabilityData = {}) {
+  return new Map(
+    Object.entries(playerAvailabilityData.teams || {}).map(([teamId, availability]) => {
+      const fixtureUnavailableByFixture = new Map();
+      for (const player of availability.fixtureUnavailable || []) {
+        if (!fixtureUnavailableByFixture.has(player.fixtureId)) {
+          fixtureUnavailableByFixture.set(player.fixtureId, []);
+        }
+        fixtureUnavailableByFixture.get(player.fixtureId).push(player);
+      }
+
+      return [
+        teamId,
+        {
+          includedNames: (availability.included || []).filter((name) => typeof name === "string" && name.trim()),
+          fixtureUnavailableByFixture,
+          unavailable: availability.unavailable || []
+        }
+      ];
+    })
+  );
+}
+
+function findUnavailablePlayer(records, playerName) {
+  if (!records?.length || !playerName) {
+    return null;
+  }
+
+  const playerNameKey = normalizePlayerName(playerName);
+  return (
+    records.find((record) => normalizePlayerName(record.name) === playerNameKey) ||
+    records.find((record) => isPlayerNameMatch(playerName, record.name) || isPlayerNameMatch(record.name, playerName)) ||
+    null
+  );
+}
+
+function isPlayerInCurrentSquad(playerName, includedNames) {
+  return !includedNames?.length || includedNames.some((rosterName) => isPlayerNameMatch(playerName, rosterName));
+}
+
+function arePlayersUsableForFixture(players, teamId, fixtureId) {
+  if (!Array.isArray(players) || getPlayerNames(players).length < 3) {
+    return false;
+  }
+
+  const availability = playerAvailabilityByTeamId.get(teamId);
+  if (!availability) {
+    return true;
+  }
+
+  const fixtureUnavailable = availability.fixtureUnavailableByFixture.get(fixtureId) || [];
+  return players.every((player) => {
+    const name = typeof player === "string" ? player : player?.name;
+    return (
+      name &&
+      isPlayerInCurrentSquad(name, availability.includedNames) &&
+      !findUnavailablePlayer(availability.unavailable, name) &&
+      !findUnavailablePlayer(fixtureUnavailable, name)
+    );
+  });
+}
 
 function buildBaselineKeyPlayersByTeamId(fixtures = []) {
   const byTeamId = new Map();
@@ -575,18 +640,27 @@ function buildBaselineKeyPlayersByTeamId(fixtures = []) {
   return byTeamId;
 }
 
-function getSidePlayers(fixtureResearch, side, fallbackPlayers, teamId) {
+function getSidePlayers(fixtureResearch, side, fallbackPlayers, teamId, fixtureId) {
   const researchedPlayers = getSideResearch(fixtureResearch, side)?.keyPlayers;
 
   if (Array.isArray(researchedPlayers) && researchedPlayers.length) {
     return researchedPlayers;
   }
 
+  if (arePlayersUsableForFixture(fallbackPlayers, teamId, fixtureId)) {
+    return fallbackPlayers;
+  }
+
+  const baselinePlayers = baselineKeyPlayersByTeamId.get(teamId);
+  if (arePlayersUsableForFixture(baselinePlayers, teamId, fixtureId)) {
+    return baselinePlayers;
+  }
+
   if (Array.isArray(fallbackPlayers) && fallbackPlayers.length) {
     return fallbackPlayers;
   }
 
-  return baselineKeyPlayersByTeamId.get(teamId);
+  return undefined;
 }
 
 function buildSideCopy(team, opponent, players, opponentPlayers, fixtureResearch, side) {
@@ -621,13 +695,15 @@ function buildSideCopy(team, opponent, players, opponentPlayers, fixtureResearch
   return `${team.name} ${summary}, led by ${formatList(names)}. Against ${opponent.name}, their ${teamMatchupProblem} has to beat ${formatPossessiveName(opponent.name)} ${opponentMatchupProblem}. ${contextSentence}They want to ${attackPlan}. The risk is ${opponent.name} can ${opponentThreat}.`;
 }
 
-const [fixturesData, teamsData, matchupResearchData] = await Promise.all([
+const [fixturesData, teamsData, matchupResearchData, playerAvailabilityData] = await Promise.all([
   readJson(fixturesPath),
   readJson(teamsPath),
-  readOptionalJson(matchupResearchPath)
+  readOptionalJson(matchupResearchPath),
+  readOptionalJson(playerAvailabilityPath)
 ]);
 const teamsById = new Map(teamsData.teams.map((team) => [team.id, team]));
 const matchupResearchByFixture = matchupResearchData?.fixtures || {};
+playerAvailabilityByTeamId = buildPlayerAvailabilityByTeamId(playerAvailabilityData);
 baselineKeyPlayersByTeamId = buildBaselineKeyPlayersByTeamId(fixturesData.fixtures);
 let populated = 0;
 
@@ -649,20 +725,20 @@ fixturesData.fixtures = fixturesData.fixtures.map((fixture) => {
 
   const fixtureResearch = matchupResearchByFixture[fixture.id] || null;
   const keyInformationSourceId = getResearchSourceId(fixtureResearch);
-  const homePlayers = getSidePlayers(fixtureResearch, "home", fixture.keyPlayers?.home, fixture.homeTeamId);
-  const awayPlayers = getSidePlayers(fixtureResearch, "away", fixture.keyPlayers?.away, fixture.awayTeamId);
+  const homePlayers = getSidePlayers(fixtureResearch, "home", fixture.keyPlayers?.home, fixture.homeTeamId, fixture.id);
+  const awayPlayers = getSidePlayers(fixtureResearch, "away", fixture.keyPlayers?.away, fixture.awayTeamId, fixture.id);
 
-  if (fixtureResearch) {
-    fixture.keyPlayers = {
-      ...(fixture.keyPlayers || {}),
-      sourceId: keyInformationSourceId,
-      method: "fixture-research-notes",
-      basis:
-        "Fixture-specific source-backed watchlist; uses matchup research notes when current team news changes the emphasis",
-      home: clone(homePlayers),
-      away: clone(awayPlayers)
-    };
-  }
+  fixture.keyPlayers = {
+    ...(fixture.keyPlayers || {}),
+    sourceId: fixtureResearch ? keyInformationSourceId : fixture.keyPlayers?.sourceId || "key-player-baseline-2026-06-22",
+    method: fixtureResearch ? "fixture-research-notes" : fixture.keyPlayers?.method || "team-watchlist-baseline",
+    basis: fixtureResearch
+      ? "Fixture-specific source-backed watchlist; uses matchup research notes when current team news changes the emphasis"
+      : fixture.keyPlayers?.basis ||
+        "Team-level key-player watchlist; replace with API/squad-sourced fixture notes when available",
+    home: clone(homePlayers),
+    away: clone(awayPlayers)
+  };
 
   fixture.keyInformation = {
     sourceId: keyInformationSourceId,

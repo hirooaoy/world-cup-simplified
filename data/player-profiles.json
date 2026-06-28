@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-25T06:17:39.023Z",
+  "updatedAt": "2026-06-28T04:20:02.738Z",
   "sourceIds": [
     "wikipedia-football-infobox",
     "wikipedia-page-summaries",
@@ -3201,7 +3201,8 @@
       ],
       "note": "Hany is Egypt's steady right-back, balancing Salah-side support with the recovery run behind him.",
       "noteZh": "哈尼是埃及稳定右后卫，能平衡萨拉赫一侧的支援和身后的回追。",
-      "sourceUrl": "https://en.wikipedia.org/wiki/Mohamed_Hany"
+      "sourceUrl": "https://en.wikipedia.org/wiki/Mohamed_Hany",
+      "transfermarktPlayerCode": "mohamed-hany"
     },
     "Mohamed Manai": {
       "name": "Mohamed Manai",
@@ -6932,26 +6933,6 @@
       "noteZh": "达尼洛·桑托斯是巴西阵中较年轻的达尼洛，能提供中场抢断、纵向推进，以及需要活力时的第二落点压迫。",
       "sourceUrl": "https://www.transfermarkt.co.uk/danilo/profil/spieler/808509"
     },
-    "Douglas Santos": {
-      "name": "Douglas Santos",
-      "displayName": "Douglas Santos",
-      "teamId": "BRA",
-      "birthDate": "1994-03-22",
-      "summary": "Douglas dos Santos Justino de Melo (Russian: Дуглас До Сантос Жустино Де Мело; born 22 March 1994), known as Douglas Santos or simply Douglas (Brazilian Portuguese: [ˈdowglɐs ˈsɐ̃tʊs]), is a Brazilian professional footballer who plays as a left-back for...",
-      "marketValueEurMillions": 7.5,
-      "position": "Left-back",
-      "club": "Zenit Saint Petersburg",
-      "league": "Russian Premier League",
-      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/220793-1756746479.png?lm=1",
-      "skills": [
-        "Left-back circulation",
-        "Overlap timing",
-        "Defensive recovery"
-      ],
-      "note": "Brazil's left-back rotation piece, useful for clean circulation, measured overlaps, and recovery runs if the flank opens.",
-      "noteZh": "道格拉斯·桑托斯是巴西左后卫轮换选择，能完成干净传导、把握套边时机，并在边路被打开时回追补位。",
-      "sourceUrl": "https://www.transfermarkt.co.uk/douglas-santos/profil/spieler/220793"
-    },
     "Ederson": {
       "name": "Ederson",
       "displayName": "Ederson",
@@ -6971,26 +6952,6 @@
       "note": "Brazil's aggressive goalkeeper option, capable of sweeping behind the line and turning catches into long, fast distribution.",
       "noteZh": "埃德森是巴西更主动的门将选择，能在防线身后清扫，并把接球快速转化成长距离出球。",
       "sourceUrl": "https://www.transfermarkt.co.uk/ederson/profil/spieler/238223"
-    },
-    "Ederson Silva": {
-      "name": "Ederson Silva",
-      "displayName": "Ederson Silva",
-      "teamId": "BRA",
-      "birthDate": "1999-07-07",
-      "summary": "Éderson José dos Santos Lourenço da Silva (born 7 July 1999), simply known as Éderson (Brazilian Portuguese: [ˈɛ.deʁ.sõ(w̃)]), is a Brazilian professional footballer who plays as a midfielder for Serie A club Atalanta and the Brazil national team.",
-      "marketValueEurMillions": 45,
-      "position": "Central midfielder",
-      "club": "Atalanta",
-      "league": "Serie A",
-      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/607854-1646648856.jpg?lm=1",
-      "skills": [
-        "Box-to-box running",
-        "Counter-pressing",
-        "Midfield arrivals"
-      ],
-      "note": "Brazil's high-energy midfielder, giving them counter-pressing, box-to-box coverage, and late arrivals around the edge of the area.",
-      "noteZh": "埃德森·席尔瓦是巴西高能量中场，能提供反抢、覆盖两个禁区，并后插上到禁区前沿。",
-      "sourceUrl": "https://www.transfermarkt.co.uk/ederson/profil/spieler/607854"
     },
     "Endrick": {
       "name": "Endrick",

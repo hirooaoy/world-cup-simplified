@@ -448,52 +448,10 @@ function getThirdPlaceTieSignature(row) {
 
 function getExpectedThirdPlaceStatus(candidate, advancerCount) {
   const isInside = candidate.position <= advancerCount;
-  const estimate = candidate.advancementEstimate;
 
-  if (estimate && Number.isFinite(estimate.probability)) {
-    const probability = estimate.probability;
-    const label = `${estimate.displayPercent} advancing`;
-
-    if (candidate.isEliminated || probability <= 0) {
-      return { kind: candidate.isEliminated ? "eliminated" : "out", label };
-    }
-
-    if (candidate.isCutLineTie) {
-      return { kind: "pending", label };
-    }
-
-    if (probability >= 0.75) {
-      return { kind: "in", label };
-    }
-
-    if (probability >= 0.45) {
-      return { kind: "bubble-in", label };
-    }
-
-    return { kind: "first-out", label };
-  }
-
-  if (candidate.isEliminated) {
-    return { kind: "eliminated", label: "Eliminated" };
-  }
-
-  if (candidate.isCutLineTie) {
-    return { kind: "pending", label: "Tiebreak pending" };
-  }
-
-  if (isInside && candidate.position >= advancerCount - 1) {
-    return { kind: "bubble-in", label: "Just inside" };
-  }
-
-  if (isInside) {
-    return { kind: "in", label: "Advancing now" };
-  }
-
-  if (candidate.position === advancerCount + 1) {
-    return { kind: "first-out", label: "Just outside" };
-  }
-
-  return { kind: "out", label: "Outside now" };
+  return isInside
+    ? { kind: "in", label: "Advancing", detail: "Advancing to Round of 32." }
+    : { kind: "eliminated", label: "Eliminated", detail: "Eliminated at group stage." };
 }
 
 function annotateExpectedThirdPlaceRaceRows(rows, advancerCount) {
@@ -848,6 +806,16 @@ function getExpectedThirdPlaceReason(candidate, rows = getExpectedThirdPlaceRace
   const watchLines = getExpectedThirdPlaceWatchLines(candidate, rows);
 
   return [...topLines, ...(watchLines.length ? ["", ...watchLines] : [])].join("\n");
+}
+
+function getExpectedThirdPlaceRaceStatusReason(candidate) {
+  return candidate.status?.detail || "Eliminated at group stage.";
+}
+
+function getExpectedThirdPlaceStandingBadgeReason(candidate) {
+  return candidate.status?.label === "Advancing"
+    ? "Advancing to Round of 32 as a top-eight third-place team."
+    : "Not advancing. Eliminated at group stage.";
 }
 
 function getAutomaticAdvancersPerGroup() {
@@ -1488,12 +1456,13 @@ function isExpectedTeamEliminatedFromGroupStage(teamId, group) {
 
 function getExpectedEliminatedTeamNames() {
   const eliminated = [];
+  const thirdPlaceRaceByTeamId = new Set(getExpectedThirdPlaceRaceRows().map((candidate) => candidate.teamId));
 
   for (const group of tournamentData.groups || []) {
     const rows = standingsData.groups?.[group.id] || [];
 
     for (const row of rows) {
-      if (isExpectedTeamEliminatedFromGroupStage(row.teamId, group)) {
+      if (!thirdPlaceRaceByTeamId.has(row.teamId) && isExpectedTeamEliminatedFromGroupStage(row.teamId, group)) {
         eliminated.push(getTeam(row.teamId).name);
       }
     }
@@ -1616,9 +1585,10 @@ async function openPageAtTime(
 
   const mockedPage = await context.newPage();
   await mockedPage.goto(`${baseUrl}${path}`, { waitUntil: "load" });
-  await mockedPage.waitForSelector(path.includes("view=standings") ? ".standings-card" : ".match-row", {
-    state: "attached"
-  });
+  await mockedPage.waitForSelector(
+    path.includes("view=standings") ? ".standings-card, .third-place-table, .tournament-view" : ".match-row",
+    { state: "attached" }
+  );
 
   return { context, page: mockedPage };
 }
@@ -1699,7 +1669,7 @@ try {
     thirdPlaceLoadingState.ariaBusy === "true" &&
       thirdPlaceLoadingState.tabPressed === "true" &&
       thirdPlaceLoadingState.summary.includes("Third-place standings across all groups") &&
-      thirdPlaceLoadingState.headers.join("|") === "Rank|Team|Group|Pts|GD|Goals|Games Left|Chance" &&
+      thirdPlaceLoadingState.headers.join("|") === "Rank|Team|Group|Pts|GD|Goals|Status" &&
       thirdPlaceLoadingState.rowCount === 8 &&
       thirdPlaceLoadingState.realRowCount === 0,
     "Direct third-place standings loads should show a table-shaped skeleton while standings data is loading."
@@ -1743,14 +1713,14 @@ try {
       tournamentLoadingState.tabPressed === "true" &&
       tournamentLoadingState.summary.includes("Round of 32 slots") &&
       tournamentLoadingState.roundHeadings.join("|") === "Round of 32|Round of 16|Quarter-finals|Semi-finals|Final" &&
-      tournamentLoadingState.loadingCards === 31 &&
+      tournamentLoadingState.loadingCards === 32 &&
       tournamentLoadingState.realCards === 0,
     "Direct tournament standings loads should show a bracket-shaped skeleton while standings data is loading."
   );
   releaseTournamentStandings();
   await tournamentLoadingPage.waitForFunction(
     () =>
-      document.querySelectorAll(".progress-match:not(.tournament-loading-match)").length === 31 &&
+      document.querySelectorAll(".progress-match:not(.tournament-loading-match)").length === 32 &&
       document.querySelectorAll(".tournament-loading-match").length === 0
   );
   await tournamentLoadingContext.close();
@@ -2267,10 +2237,89 @@ try {
   await page.locator('[data-match-id="japan-sweden-2026-06-25"]').click();
   const japanSwedenChineseInfo = await page.locator(".key-info-team").first().locator("p").innerText();
   assert(
-    japanSwedenChineseInfo.includes("上田绮世") &&
+    japanSwedenChineseInfo.includes("久保建英") &&
+      japanSwedenChineseInfo.includes("堂安律") &&
+      japanSwedenChineseInfo.includes("镰田大地") &&
       japanSwedenChineseInfo.includes("对阵瑞典") &&
-      !/Takefusa Kubo|久保建英|Ayase Ueda/.test(japanSwedenChineseInfo),
-    "Chinese Japan key information should carry the non-Kubo Japan trio forward against Sweden."
+      !/Takefusa Kubo|Ritsu Doan|Daichi Kamada|Ayase Ueda/.test(japanSwedenChineseInfo),
+    "Chinese Japan key information should localize the Kubo-led Japan trio against Sweden."
+  );
+
+  await page.goto(`${baseUrl}?view=matches&date=2026-06-29&lang=zh&tz=America%2FLos_Angeles`, {
+    waitUntil: "load"
+  });
+  await page.waitForSelector(".match-row");
+  await page.locator('[data-match-id="match-76-round-of-32-2026-06-29"]').click();
+  const brazilJapanChineseInfo = await page.locator(".key-info-team p").evaluateAll((nodes) =>
+    nodes.map((node) => node.innerText)
+  );
+  const brazilChineseInfo = brazilJapanChineseInfo[0] || "";
+  const japanBrazilChineseInfo = brazilJapanChineseInfo[1] || "";
+  assert(
+    brazilChineseInfo.includes("内马尔-维尼修斯单挑加速") &&
+      brazilChineseInfo.includes("堂安律-镰田大地配合速度") &&
+      brazilChineseInfo.includes("内马尔已在小腿伤势后替补复出") &&
+      brazilChineseInfo.includes("尽快让维尼修斯获得单挑空间") &&
+      brazilChineseInfo.includes("日本可能把快速配合转化为禁区机会") &&
+      !/巴西看点|球队特点|风格关键词|They want|the risk is|Neymar has returned|Vinicius isolated/.test(brazilChineseInfo),
+    "Chinese Brazil key information should translate the latest compact Round of 32 note instead of falling back to generic team tags."
+  );
+  assert(
+    japanBrazilChineseInfo.includes("堂安律-镰田大地配合速度") &&
+      japanBrazilChineseInfo.includes("内马尔-维尼修斯单挑加速") &&
+      japanBrazilChineseInfo.includes("久保建英膝伤后仍可能参与比赛") &&
+      japanBrazilChineseInfo.includes("上田绮世和堂安律") &&
+      japanBrazilChineseInfo.includes("巴西可能通过内马尔和维尼修斯撕开阵型") &&
+      !/日本看点|球队特点|风格关键词|They want|the risk is|Kubo could play|Brazil breaking/.test(japanBrazilChineseInfo),
+    "Chinese Japan key information should translate the latest Kubo Round of 32 note instead of falling back to generic team tags."
+  );
+  const chineseKeyInformationCoverageIssues = await page.evaluate(async () => {
+    const translateTextToZh = window.__worldCupTestHooks?.localization?.translateTextToZh;
+    if (typeof translateTextToZh !== "function") {
+      return [{ fixtureId: "test-hooks", side: "all", issue: "missing localization test hook" }];
+    }
+
+    const fixturesResponse = await fetch(`data/fixtures.json?coverage=${Date.now()}`);
+    const fixturesData = await fixturesResponse.json();
+    const hasLatinLeak = (value) =>
+      /[A-Za-zÀ-ÖØ-öø-ÿ][a-zà-öø-ÿ]{2,}/.test(
+        String(value || "").replace(/\bFIFA\b/g, "")
+      );
+    const issues = [];
+
+    for (const fixture of fixturesData.fixtures || []) {
+      if (!fixture.homeTeamId || !fixture.awayTeamId || !fixture.keyInformation) {
+        continue;
+      }
+
+      for (const side of ["home", "away"]) {
+        const source = fixture.keyInformation?.[side];
+        if (!source) {
+          continue;
+        }
+
+        const translated = translateTextToZh(source);
+        const stale =
+          translated === source ||
+          /Against |They want|The risk is|has to beat|led by|main names to track|key information/i.test(translated) ||
+          /看点。.*球队特点：.*风格关键词：/.test(translated);
+
+        if (stale || hasLatinLeak(translated)) {
+          issues.push({
+            fixtureId: fixture.id,
+            side,
+            issue: stale ? "stale-or-fallback" : "latin-leak",
+            translated
+          });
+        }
+      }
+    }
+
+    return issues.slice(0, 8);
+  });
+  assert(
+    chineseKeyInformationCoverageIssues.length === 0,
+    `Chinese key-information translator should cover every current confirmed fixture without stale English or generic fallback copy. Issues: ${JSON.stringify(chineseKeyInformationCoverageIssues)}.`
   );
 
   await page.goto(`${baseUrl}?view=matches&date=2026-06-11&lang=en&tz=America%2FLos_Angeles`, {
@@ -2325,8 +2374,8 @@ try {
   assert(
     expectedGroupHThirdPlaceCandidate &&
       (await matchInfoThirdPlacePill.getAttribute("data-tooltip")) ===
-        getExpectedThirdPlaceReason(expectedGroupHThirdPlaceCandidate),
-    "Home match detail third-place race pills should use the same analyst-style advancement tooltip."
+        getExpectedThirdPlaceStandingBadgeReason(expectedGroupHThirdPlaceCandidate),
+    "Home match detail third-place race pills should explain whether the team is advancing or not advancing."
   );
   const matchInfoRankPill = page.locator("#match-info .standings-table .rank-pill").first();
   assert(
@@ -2692,7 +2741,7 @@ try {
   assert(visibility.standingsDisplay !== "none", "Standings panel should be visible.");
 
   await page.setViewportSize({ width: 1100, height: 760 });
-  await page.goto(`${baseUrl}?view=standings`, { waitUntil: "load" });
+  await page.goto(`${baseUrl}?view=standings&standingsMode=groups`, { waitUntil: "load" });
   await page.waitForSelector('.standings-card[data-group-id="C"] .standing-team');
   const scotlandStandingTeam = page
     .locator('.standings-card[data-group-id="C"] .standing-team', { hasText: "Scotland" })
@@ -4190,6 +4239,12 @@ try {
       "2026 Standings",
     "The current standings heading should specify 2026."
   );
+  await page.locator("#standings-groups-tab").click();
+  await page.waitForFunction(
+    () =>
+      document.querySelector("#standings-groups-tab")?.getAttribute("aria-pressed") === "true" &&
+      document.querySelectorAll(".standings-card[data-group-id]").length === 12
+  );
   const groupOrderCheck = await page.evaluate(() =>
     Object.fromEntries(
       [...document.querySelectorAll(".standings-card[data-group-id]")].map((card) => [
@@ -4289,8 +4344,8 @@ try {
   const groupBThirdPlacePillTooltip = await groupBThirdPlacePill.getAttribute("data-tooltip");
   assert(
     groupBThirdPlacePillTooltip ===
-      getExpectedThirdPlaceReason(expectedGroupBThirdPlaceCandidate),
-    "Group standings third-place race pills should use the same analyst-style advancement tooltip as the third-place race table."
+      getExpectedThirdPlaceStandingBadgeReason(expectedGroupBThirdPlaceCandidate),
+    "Group standings third-place race pills should explain whether the team is advancing or not advancing."
   );
   const expectedStandingsLiveThirdPlaceTeams = new Set(
     fixturesData.fixtures
@@ -4301,6 +4356,7 @@ try {
   );
   const groupStandingsLiveRows = await page.evaluate(() =>
     [...document.querySelectorAll(".standings-card tbody tr")].map((row) => ({
+      eliminated: row.querySelector(".standing-status-pill.is-eliminated")?.textContent.trim() || "",
       live: row.querySelector(".standing-live-pill")?.textContent.trim() || "",
       race: row.querySelector(".third-place-pill")?.textContent.trim() || "",
       team: row.querySelector(".standing-name")?.textContent.trim() || ""
@@ -4314,6 +4370,10 @@ try {
         .filter((row) => expectedStandingsLiveThirdPlaceTeams.has(row.team))
         .every((row) => row.race.startsWith("3rd race")),
     "Group standings should show LIVE only beside current third-place candidates playing live."
+  );
+  assert(
+    groupStandingsLiveRows.every((row) => !row.race || !row.eliminated),
+    "Group standings should not stack an Eliminated pill beside a third-place race pill."
   );
   await page.setViewportSize({ width: 390, height: 844 });
   await page.waitForTimeout(80);
@@ -4343,7 +4403,7 @@ try {
   await page.setViewportSize({ width: 1280, height: 720 });
   const scheduledLiveWindowCheck = await openPageAtTime(
     "2026-06-26T19:30:00.000Z",
-    "/?view=standings&tz=America%2FLos_Angeles",
+    "/?view=standings&standingsMode=groups&tz=America%2FLos_Angeles",
     {
       fixtureTransform(data) {
         const scheduledWindowFixture = data.fixtures.find(
@@ -4478,7 +4538,6 @@ try {
         rank: row.children[0]?.textContent.trim(),
         team: row.querySelector(".standing-name")?.textContent.trim(),
         group: row.children[2]?.textContent.trim(),
-        gamesLeft: row.children[6]?.textContent.trim(),
         live: row.querySelector(".standing-live-pill")?.textContent.trim() || "",
         status: statusPill?.textContent.trim(),
         statusLabel: statusPill?.getAttribute("aria-label"),
@@ -4519,34 +4578,19 @@ try {
     "The third-place race should draw one clear top-eight advancement line."
   );
   assert(
-    thirdPlaceRaceCheck.headers.join("|") === "Rank|Team|Group|Pts|GD|Goals|Games Left|Chance" &&
+    thirdPlaceRaceCheck.headers.join("|") === "Rank|Team|Group|Pts|GD|Goals|Status" &&
       !thirdPlaceRaceCheck.headers.includes("GF"),
-    "The third-place race should show Goals, Games Left, and Chance without GF jargon."
-  );
-  assert(
-    thirdPlaceRaceCheck.rowSummaries.every((row) => {
-      const expected = expectedThirdPlaceRaceRows.find((candidate) => candidate.team.name === row.team);
-      return expected && row.gamesLeft === String(expected.gamesLeft);
-    }),
-    "The third-place race should show each current third-place team's remaining group games."
+    "The third-place race should show Goals and Status without GF jargon."
   );
   assert(
       thirdPlaceRaceCheck.visibleReasonCount === 0 &&
       thirdPlaceRaceCheck.rowSummaries.every((row) => row.tooltip && !row.tooltip.includes("GF")) &&
       thirdPlaceRaceCheck.rowSummaries.every((row) => !row.tooltip.includes("Estimated Round of 32 chance:")) &&
       thirdPlaceRaceCheck.rowSummaries.every((row) => !row.tooltip.includes("Simple model:")) &&
-      thirdPlaceRaceCheck.rowSummaries.every((row) => /^(?:<1%|\d+%) advancing$/.test(row.status || "")) &&
-      thirdPlaceRaceCheck.rowSummaries.some((row) =>
-          /^(?:<1%|\d+%) to advance\n\n/.test(row.tooltip) &&
-          /Most paths keep them inside the top 8\.|They are inside the top 8, but more groups can still catch them\.|They are just outside the top 8, but one swing can pull them in\.|They need help to climb into the top 8\.|Remaining matches can change .+'s Round of 32 opponent, but not whether they qualify\.|No modeled route reaches the Round of 32 from here\./.test(row.tooltip)
-      ) &&
-      (
-        expectedThirdPlaceRaceRows.every((row) => !getExpectedThirdPlaceWatchLines(row, expectedThirdPlaceRaceRows).length) ||
-        thirdPlaceRaceCheck.rowSummaries.some((row) =>
-          row.tooltip.includes("\n\nWatch: ") && /\n(?:A|An) .+ would move Group [A-L]'s third-place team to \d+ pts?,/.test(row.tooltip)
-        )
-      ),
-    "The third-place race should show percentage advancing estimates and hide concise analyst-style top-eight explanations behind status pill tooltips without GF jargon."
+      thirdPlaceRaceCheck.rowSummaries.every((row) => row.status === "Advancing" || row.status === "Eliminated") &&
+      thirdPlaceRaceCheck.rowSummaries.some((row) => row.status === "Advancing" && row.tooltip === "Advancing to Round of 32.") &&
+      thirdPlaceRaceCheck.rowSummaries.some((row) => row.status === "Eliminated" && row.tooltip === "Eliminated at group stage."),
+    "The third-place race should show binary status pill tooltips without probability or GF jargon."
   );
   const expectedLiveThirdPlaceTeams = new Set(
     fixturesData.fixtures
@@ -4562,8 +4606,8 @@ try {
     "The third-place race should show LIVE only for active matches involving current third-place candidates."
   );
   assert(
-    thirdPlaceRaceCheck.rowSummaries.every((row) => row.status !== "Advancing now" && row.status !== "Just inside" && row.status !== "Bubble in"),
-    "The third-place race should use percentage advancing labels instead of binary advancement copy."
+    thirdPlaceRaceCheck.rowSummaries.every((row) => !/^(?:<1%|\d+%) advancing$/.test(row.status || "")),
+    "The third-place race should use binary status labels instead of percentage advancing copy."
   );
   assert(
     thirdPlaceRaceCheck.rowSummaries.every((row) => row.status !== "Made it"),
@@ -4575,12 +4619,12 @@ try {
       thirdPlaceRaceCheck.rowSummaries[getThirdPlaceAdvancerCount() - 1]?.team === expectedCutLineInside.team.name &&
       thirdPlaceRaceCheck.rowSummaries[getThirdPlaceAdvancerCount() - 1]?.status === expectedCutLineInside.status.label &&
       thirdPlaceRaceCheck.rowSummaries[getThirdPlaceAdvancerCount() - 1]?.tooltip ===
-        getExpectedThirdPlaceReason(expectedCutLineInside, expectedThirdPlaceRaceRows) &&
+        getExpectedThirdPlaceRaceStatusReason(expectedCutLineInside) &&
       thirdPlaceRaceCheck.rowSummaries[getThirdPlaceAdvancerCount()]?.team === expectedFirstOut.team.name &&
       thirdPlaceRaceCheck.rowSummaries[getThirdPlaceAdvancerCount()]?.status === expectedFirstOut.status.label &&
       thirdPlaceRaceCheck.rowSummaries[getThirdPlaceAdvancerCount()]?.tooltip ===
-        getExpectedThirdPlaceReason(expectedFirstOut, expectedThirdPlaceRaceRows),
-    "A cut-line tie without loaded fair-play data should be marked pending on both sides of the line."
+        getExpectedThirdPlaceRaceStatusReason(expectedFirstOut),
+    "The cut-line rows should show final advancing and eliminated status."
   );
   assert(
     thirdPlaceRaceCheck.note.includes("fair-play conduct"),
@@ -4593,7 +4637,7 @@ try {
       document.querySelectorAll(".standings-card").length === 12
   );
   assert(
-    !new URL(page.url()).searchParams.has("standingsMode") &&
+    new URL(page.url()).searchParams.get("standingsMode") === "groups" &&
       (await page.locator(".third-place-table").count()) === 0,
     "The visible section tabs should let users leave the third-place race."
   );
@@ -4610,8 +4654,8 @@ try {
     "Clicking a race table group should switch back to the Groups section."
   );
   assert(
-    !new URL(page.url()).searchParams.has("standingsMode"),
-    "Clicking a race table group should leave the URL on the default Groups section."
+    new URL(page.url()).searchParams.get("standingsMode") === "groups",
+    "Clicking a race table group should leave the URL on the Groups section."
   );
   assert(
     (await page.locator('.standings-card[data-group-id="F"] h2').innerText()).trim() === "Group F",
@@ -4624,9 +4668,9 @@ try {
       document.querySelectorAll('.progress-match[data-match-number="74"]').length === 1 &&
       document.querySelector('.progress-match[data-match-number="89"]')
   );
-  await page.waitForFunction(() => document.querySelectorAll(".progress-connectors path").length >= 30);
+  await page.waitForFunction(() => document.querySelectorAll(".progress-connectors path").length >= 29);
   assert(
-    new URL(page.url()).searchParams.get("standingsMode") === "tournament",
+    !new URL(page.url()).searchParams.has("standingsMode"),
     "The tournament section should be linkable from the URL."
   );
   const tournamentCheck = await page.evaluate(() => {
@@ -4657,6 +4701,23 @@ try {
       [...document.querySelectorAll(`.progress-match[data-match-number="${matchNumber}"] .knockout-team`)].map(
         getTeamVisual
       );
+    const getOutcomeTooltip = (matchNumber, outcome) =>
+      document
+        .querySelector(`.progress-match[data-match-number="${matchNumber}"] .knockout-likelihood[data-outcome="${outcome}"]`)
+        ?.getAttribute("data-tooltip") || "";
+    const getRectSummary = (selector) => {
+      const element = document.querySelector(selector);
+      const rect = element?.getBoundingClientRect();
+
+      return rect
+        ? {
+            bottom: Math.round(rect.bottom),
+            center: Math.round(rect.top + rect.height / 2),
+            left: Math.round(rect.left),
+            top: Math.round(rect.top)
+          }
+        : null;
+    };
 
     return {
       m73ProgressText: text('.progress-match[data-match-number="73"]'),
@@ -4670,8 +4731,16 @@ try {
       m97TeamIds: [...document.querySelectorAll('.progress-match[data-match-number="97"] .knockout-team[data-team-id]')]
         .map((element) => element.dataset.teamId),
       m97Text: text('.progress-match[data-match-number="97"]'),
+      m103PillCount: document.querySelectorAll('.progress-match[data-match-number="103"] .knockout-likelihood').length,
+      m103Projected: document.querySelector('.progress-match[data-match-number="103"]')?.classList.contains("is-projected"),
+      m103Rect: getRectSummary('.progress-match[data-match-number="103"]'),
+      m103TeamIds: [...document.querySelectorAll('.progress-match[data-match-number="103"] .knockout-team[data-team-id]')]
+        .map((element) => element.dataset.teamId),
+      m103Text: text('.progress-match[data-match-number="103"]'),
+      m103TimeText: document.querySelector('.progress-match[data-match-number="103"] time')?.textContent.trim() || "",
       m104TeamIds: [...document.querySelectorAll('.progress-match[data-match-number="104"] .knockout-team[data-team-id]')]
         .map((element) => element.dataset.teamId),
+      m104Rect: getRectSummary('.progress-match[data-match-number="104"]'),
       oldWinnerCopy: allText(".tournament-view").includes(["Winner", "advances"].join(" ")),
       posterMetaCount: document.querySelectorAll(".poster-match-meta").length,
       posterSeedCount: document.querySelectorAll(".poster-team-seed").length,
@@ -4680,20 +4749,62 @@ try {
       connectorPathCount: document.querySelectorAll(".progress-connectors path").length,
       progressText: allText(".progress-match"),
       projectedCount: document.querySelectorAll(".progress-match.is-projected").length,
+      roundOf32OpenMatchIds: [
+        ...document.querySelectorAll(".progress-round.is-round-of-32 .progress-match[data-open-match-id]")
+      ].map((element) => element.dataset.openMatchId || ""),
       roundOf32ProjectedCount: document.querySelectorAll(
         ".progress-round.is-round-of-32 .progress-match.is-projected"
       ).length,
+      roundOf32ProjectedMatchNumbers: [
+        ...document.querySelectorAll(".progress-round.is-round-of-32 .progress-match.is-projected")
+      ].map((element) => element.dataset.matchNumber || ""),
+      roundOf32TeamVisuals: [
+        ...document.querySelectorAll(".progress-round.is-round-of-32 .progress-match .knockout-team")
+      ].map(getTeamVisual),
       likelihoodCount: document.querySelectorAll(".knockout-likelihood").length,
       likelihoodListCount: document.querySelectorAll(".knockout-likelihood-list").length,
       likelihoodText: allText(".knockout-likelihood"),
+      likelihoodNonNeutralCount: [...document.querySelectorAll(".knockout-likelihood")]
+        .filter((element) => !element.classList.contains("is-neutral"))
+        .length,
       likelihoodTooltips: [...document.querySelectorAll(".knockout-likelihood")]
         .map((element) => element.getAttribute("data-tooltip") || "")
         .join(" "),
+      likelihoodTooltipMaxLength: Math.max(
+        0,
+        ...[...document.querySelectorAll(".knockout-likelihood")]
+          .map((element) => (element.getAttribute("data-tooltip") || "").length)
+      ),
       likelihoodTooltipCount: [...document.querySelectorAll(".knockout-likelihood")]
-        .filter((element) => /^Prediction based on /.test(element.getAttribute("data-tooltip") || ""))
+        .filter((element) => Boolean(element.getAttribute("data-tooltip") || ""))
         .length,
+      tiePillCount: document.querySelectorAll('.knockout-likelihood[data-outcome="tie"]').length,
+      tiePillFlagCount: document.querySelectorAll('.knockout-likelihood[data-outcome="tie"] .flag').length,
+      finalRailConnectorPathCount: document.querySelectorAll(".progress-connectors path.is-final-rail").length,
+      finalRailMoveCount:
+        (document.querySelector(".progress-connectors path.is-final-rail")?.getAttribute("d") || "").match(/\bM\b/g)
+          ?.length || 0,
+      connectorStrokeValues: [...new Set([...document.querySelectorAll(".progress-connectors path")]
+        .map((path) => getComputedStyle(path).stroke))],
+      connectorStrokeWidths: [...new Set([...document.querySelectorAll(".progress-connectors path")]
+        .map((path) => Number.parseFloat(getComputedStyle(path).strokeWidth)))],
+      semi101Rect: getRectSummary('.progress-match[data-match-number="101"]'),
+      semi102Rect: getRectSummary('.progress-match[data-match-number="102"]'),
+      semi101RunnerUpNextMatch: document.querySelector('.progress-match[data-match-number="101"]')?.dataset.runnerUpNextMatch || "",
+      semi102RunnerUpNextMatch: document.querySelector('.progress-match[data-match-number="102"]')?.dataset.runnerUpNextMatch || "",
       m73OpenMatchId: document.querySelector('.progress-match[data-match-number="73"]')?.dataset.openMatchId || "",
       m74OpenMatchId: document.querySelector('.progress-match[data-match-number="74"]')?.dataset.openMatchId || "",
+      m73OutcomeKeys: [...document.querySelectorAll('.progress-match[data-match-number="73"] .knockout-likelihood')]
+        .map((element) => element.dataset.outcome || ""),
+      m73OutcomeTexts: [...document.querySelectorAll('.progress-match[data-match-number="73"] .knockout-likelihood')]
+        .map((element) => element.textContent.replace(/\s+/g, " ").trim()),
+      m74TieTooltip: getOutcomeTooltip(74, "tie"),
+      m77TieTooltip: getOutcomeTooltip(77, "tie"),
+      m80TieTooltip: getOutcomeTooltip(80, "tie"),
+      m83TieTooltip: getOutcomeTooltip(83, "tie"),
+      m86TieTooltip: getOutcomeTooltip(86, "tie"),
+      m88AwayTooltip: getOutcomeTooltip(88, "away"),
+      m73PillCount: document.querySelectorAll('.progress-match[data-match-number="73"] .knockout-likelihood').length,
       m89PillCount: document.querySelectorAll('.progress-match[data-match-number="89"] .knockout-likelihood').length,
       m89SeedLabelCount: document.querySelectorAll('.progress-match[data-match-number="89"] .knockout-team-copy small').length,
       m97PillCount: document.querySelectorAll('.progress-match[data-match-number="97"] .knockout-likelihood').length,
@@ -4762,25 +4873,22 @@ try {
       !tournamentCheck.posterVisible &&
       tournamentCheck.sideCount === 0 &&
       tournamentCheck.r32Count === 0 &&
-      tournamentCheck.connectorPathCount >= 30 &&
-      tournamentCheck.progressCount === 31,
-    "The tournament section should show a progression-only bracket from the Round of 32 through the final."
+      tournamentCheck.connectorPathCount >= 29 &&
+      tournamentCheck.progressCount === 32,
+    "The tournament section should show a progression-only bracket from the Round of 32 through the final and third-place play-off."
   );
   const m79MexicoVisual = tournamentCheck.m79TeamVisuals.find((team) => team.teamId === "MEX");
-  const m79LockedVisuals = tournamentCheck.m79TeamVisuals.filter((team) =>
-    team.className.includes("is-locked")
-  );
-  const m79LikelyVisuals = tournamentCheck.m79TeamVisuals.filter((team) =>
-    team.className.includes("is-likely")
-  );
+  const m79UnresolvedVisual = tournamentCheck.m79TeamVisuals.find((team) => team.teamId !== "MEX");
   const m89LikelyVisuals = tournamentCheck.m89TeamVisuals.filter((team) =>
     team.className.includes("is-likely")
   );
-  const isConfirmedLockedCountry = (team) =>
-    team?.className.includes("is-locked") &&
+  const isLockedResolvedCountry = (team) =>
+    team.className.includes("is-locked") &&
+    team.className.includes("is-resolved") &&
     !team.className.includes("is-likely") &&
     team.flagFilter === "none" &&
     team.flagOpacity === "1" &&
+    Number(team.rankOpacity) >= 0.7 &&
     getCssColorAlpha(team.strongColor) >= 0.8;
   const isMutedProjectedCountry = (team) =>
     !team.className.includes("is-locked") &&
@@ -4789,20 +4897,16 @@ try {
     Number(team.rankOpacity) < 1 &&
     getCssColorAlpha(team.strongColor) < 0.7;
   assert(
-    (m79LikelyVisuals.length === 0 || tournamentCheck.m79Projected === true) &&
-      isConfirmedLockedCountry(m79MexicoVisual) &&
-      m79LockedVisuals.length >= 1 &&
-      m79LockedVisuals.every(isConfirmedLockedCountry) &&
-      m79LikelyVisuals.every(isMutedProjectedCountry) &&
-      m79LikelyVisuals.every((team) =>
-        tournamentCheck.m79SlotPills.some(
-          (pill) => pill.teamId === team.teamId && /(?:<1|>99|\d+)% here/.test(pill.text)
-        )
-      ) &&
-      tournamentCheck.m79SlotPills.every((pill) =>
-        m79LikelyVisuals.some((team) => team.teamId === pill.teamId)
-      ),
-    `Locked Round of 32 teams should stay visually confirmed inside projected cards while unresolved slot picks remain muted. Measured ${JSON.stringify({ m79MexicoVisual, m79LockedVisuals, m79LikelyVisuals, m79SlotPills: tournamentCheck.m79SlotPills })}.`
+    tournamentCheck.m79Projected === false &&
+      tournamentCheck.m79TeamVisuals.length === 2 &&
+      tournamentCheck.m79TeamVisuals.every(isLockedResolvedCountry) &&
+      tournamentCheck.roundOf32TeamVisuals.length === 32 &&
+      tournamentCheck.roundOf32TeamVisuals.every(isLockedResolvedCountry) &&
+      tournamentCheck.m79SlotPills.length === 0 &&
+      m79MexicoVisual?.className.includes("is-locked") &&
+      m79UnresolvedVisual &&
+      m79UnresolvedVisual.className.includes("is-locked"),
+    `Locked Round of 32 teams should render as visually confirmed resolved cards with no slot odds. Measured ${JSON.stringify({ m79MexicoVisual, m79UnresolvedVisual, m79SlotPills: tournamentCheck.m79SlotPills, roundOf32ProjectedMatchNumbers: tournamentCheck.roundOf32ProjectedMatchNumbers })}.`
   );
   assert(
     tournamentCheck.m89Projected === true &&
@@ -4818,7 +4922,7 @@ try {
     (fixture) => fixture.stage === "round-of-32" && (!fixture.homeTeamId || !fixture.awayTeamId)
   ).length;
   const expectedProjectedLaterRoundCount = fixturesData.fixtures.filter((fixture) =>
-    ["round-of-16", "quarter-finals", "semi-finals", "final"].includes(fixture.stage)
+    ["round-of-16", "quarter-finals", "semi-finals", "bronze-final", "final"].includes(fixture.stage)
   ).length;
   const remainingGroupIds = new Set(
     fixturesData.fixtures
@@ -4848,23 +4952,30 @@ try {
         (shouldRenderRoundOf32SlotOdds(fixture, "away") ? 1 : 0),
       0
     );
-  const expectedRoundOf32ThirdPlaceSlotOddsCount = fixturesData.fixtures
-    .filter((fixture) => fixture.stage === "round-of-32")
-    .reduce((count, fixture) => {
-      const sideCount = ["home", "away"].filter((side) => {
-        const slotText = fixture?.[`${side}Slot`] || "";
-        return shouldRenderRoundOf32SlotOdds(fixture, side) && /^Group [A-L](?:\/[A-L])* third place$/i.test(slotText);
-      }).length;
-      return count + sideCount;
-    }, 0);
-  const match74Fixture = fixturesData.fixtures.find((fixture) => Number(fixture.matchNumber) === 74);
-  const expectedMatch74Projected = Boolean(match74Fixture && (!match74Fixture.homeTeamId || !match74Fixture.awayTeamId));
-  const expectedMatch74OpenMatchId = expectedMatch74Projected ? "" : match74Fixture?.id || "";
-  const expectedMatch74SlotOddsCount = ["home", "away"].filter((side) =>
-    shouldRenderRoundOf32SlotOdds(match74Fixture, side)
+  const expectedRoundOf32OpenMatchIds = fixturesData.fixtures
+    .filter((fixture) => fixture.stage === "round-of-32" && fixture.homeTeamId && fixture.awayTeamId)
+    .map((fixture) => fixture.id)
+    .sort();
+  const knockoutStagesWithOutcomePills = new Set([
+    "round-of-32",
+    "round-of-16",
+    "quarter-finals",
+    "semi-finals",
+    "bronze-final",
+    "final"
+  ]);
+  const expectedOutcomeListCount = fixturesData.fixtures.filter(
+    (fixture) =>
+      knockoutStagesWithOutcomePills.has(fixture.stage) &&
+      fixture.status !== "FT" &&
+      !fixture.winnerTeamId &&
+      !fixture.winner
   ).length;
-  assert(
-    tournamentCheck.summary.includes("Round of 32 slots") &&
+  const expectedOutcomePillCount = expectedOutcomeListCount * 3;
+  const expectedMatch74OpenMatchId =
+    fixturesData.fixtures.find((fixture) => fixture.matchNumber === 74)?.id || "";
+	  assert(
+	    tournamentCheck.summary.includes("Round of 32 slots") &&
       tournamentCheck.m73ProgressText.includes("Jun 28 12:00PM") &&
       !tournamentCheck.m73ProgressText.includes("Jun 28 / 12:00PM") &&
       tournamentCheck.m74ProgressText.includes(groupETopTeamName) &&
@@ -4877,53 +4988,134 @@ try {
       tournamentCheck.m81TeamIds.length === 2 &&
       !tournamentCheck.m81Text.includes("Group B/E/F/I/J third place") &&
       tournamentCheck.countryTooltipCount === 0 &&
-      tournamentCheck.slotOddsCount === expectedRoundOf32SlotOddsCount &&
+      tournamentCheck.slotOddsCount === 0 &&
       tournamentCheck.slotOddsToneMismatches.length === 0 &&
-      (expectedRoundOf32SlotOddsCount === 0 || tournamentCheck.slotOddsText.includes("here")) &&
       tournamentCheck.projectedCount === expectedProjectedRoundOf32Count + expectedProjectedLaterRoundCount &&
       tournamentCheck.roundOf32ProjectedCount === expectedProjectedRoundOf32Count &&
-      tournamentCheck.m73FooterCount === 0 &&
+      tournamentCheck.roundOf32ProjectedMatchNumbers.length === expectedProjectedRoundOf32Count &&
+      tournamentCheck.roundOf32OpenMatchIds.slice().sort().join("|") === expectedRoundOf32OpenMatchIds.join("|") &&
+      tournamentCheck.m73FooterCount === 1 &&
       tournamentCheck.m73Projected === false &&
-      tournamentCheck.m74Projected === expectedMatch74Projected &&
+      tournamentCheck.m74Projected === false &&
       tournamentCheck.m73OpenMatchId === "match-73-round-of-32-2026-06-28" &&
       tournamentCheck.m74OpenMatchId === expectedMatch74OpenMatchId &&
       !tournamentCheck.m73ProgressText.includes("Round of 32") &&
-      tournamentCheck.likelihoodCount === 30 &&
+      tournamentCheck.likelihoodCount === expectedOutcomePillCount &&
+      tournamentCheck.likelihoodNonNeutralCount === 0 &&
       tournamentCheck.likelihoodTooltipCount === tournamentCheck.likelihoodCount &&
-      tournamentCheck.likelihoodListCount === 15 &&
-      tournamentCheck.m89PillCount === 2 &&
+      tournamentCheck.likelihoodTooltipMaxLength <= 170 &&
+      tournamentCheck.likelihoodListCount === expectedOutcomeListCount &&
+      tournamentCheck.tiePillCount === expectedOutcomeListCount &&
+      tournamentCheck.tiePillFlagCount === 0 &&
+      tournamentCheck.m73PillCount === 3 &&
+      tournamentCheck.m73OutcomeKeys.join("|") === "home|tie|away" &&
+      tournamentCheck.m73OutcomeTexts.every((text) => !/\d+%\s+[A-Z][a-z]/.test(text)) &&
+      tournamentCheck.m73OutcomeTexts.some((text) => /^Tie\s+\d+%$/.test(text)) &&
+      tournamentCheck.m89PillCount === 3 &&
       tournamentCheck.m89SeedLabelCount === 0 &&
-      tournamentCheck.m97PillCount === 2 &&
+      tournamentCheck.m97PillCount === 3 &&
       tournamentCheck.m97SeedLabelCount === 0 &&
-      tournamentCheck.m104PillCount === 2 &&
+      tournamentCheck.m103PillCount === 3 &&
+      tournamentCheck.m103Projected === true &&
+      tournamentCheck.m104PillCount === 3 &&
+      tournamentCheck.connectorStrokeValues.length === 1 &&
+      tournamentCheck.connectorStrokeValues[0] === "rgb(217, 217, 217)" &&
+      tournamentCheck.connectorStrokeWidths.length === 1 &&
+      tournamentCheck.connectorStrokeWidths[0] >= 2.5 &&
       tournamentCheck.m89TeamIds.length === 2 &&
       tournamentCheck.m97TeamIds.length === 2 &&
+      tournamentCheck.m103TeamIds.length === 2 &&
       tournamentCheck.m104TeamIds.length === 2 &&
-      tournamentCheck.likelihoodText.includes("here") &&
-      !tournamentCheck.likelihoodText.includes("Germany ") &&
+      tournamentCheck.finalRailConnectorPathCount === 1 &&
+      tournamentCheck.finalRailMoveCount >= 5 &&
+      tournamentCheck.semi101RunnerUpNextMatch === "103" &&
+      tournamentCheck.semi102RunnerUpNextMatch === "103" &&
+      tournamentCheck.m104Rect &&
+      tournamentCheck.m103Rect &&
+      tournamentCheck.semi101Rect &&
+      tournamentCheck.semi102Rect &&
+      Math.abs(tournamentCheck.m104Rect.left - tournamentCheck.m103Rect.left) <= 1 &&
+      tournamentCheck.m104Rect.center > tournamentCheck.semi101Rect.center + 24 &&
+      tournamentCheck.m103Rect.center < tournamentCheck.semi102Rect.center - 24 &&
+      tournamentCheck.m103Rect.top > tournamentCheck.m104Rect.bottom &&
+      tournamentCheck.m103Rect.top - tournamentCheck.m104Rect.bottom <= 180 &&
+      tournamentCheck.likelihoodText.includes("Tie") &&
+      !tournamentCheck.likelihoodText.includes("here") &&
+      !/\d+%\s+(?:Germany|Sweden|France|Canada|Argentina|Spain|Morocco|Japan)\b/.test(tournamentCheck.likelihoodText) &&
       !tournamentCheck.slotOddsText.includes("Germany ") &&
       !tournamentCheck.slotOddsText.includes("Bosnia and Herzegovina ") &&
       tournamentCheck.rankCount >= 32 &&
       !/\bGroup [A-L]\d\b/.test(tournamentCheck.m89Text) &&
       !/\bGroup [A-L]\d\b/.test(tournamentCheck.m97Text) &&
-      tournamentCheck.m89Tooltips.includes("Prediction based on") &&
-      tournamentCheck.m97Tooltips.includes("Prediction based on") &&
-      tournamentCheck.likelihoodTooltips.includes("Prediction based on") &&
+      tournamentCheck.m89Tooltips.includes("projects to win") &&
+      tournamentCheck.m97Tooltips.includes("chance to win before penalties") &&
+      tournamentCheck.likelihoodTooltips.includes("chance of penalties") &&
+      !tournamentCheck.likelihoodTooltips.includes("Tie means level after normal/extra time") &&
+      !tournamentCheck.likelihoodTooltips.includes("pull off the upset") &&
+      tournamentCheck.m88AwayTooltip.includes("Egypt have a 35% chance to win before penalties. This is close, but Australia have the slight edge.") &&
+      !tournamentCheck.m88AwayTooltip.includes("upset") &&
+      !/(Michael Olise|Robin Risser|Oliver Baumann|Alexander Nübel|Alexander Nubel)/.test(
+        tournamentCheck.likelihoodTooltips
+      ) &&
+      tournamentCheck.m77TieTooltip.includes("France have the shootout edge through Kylian Mbappé") &&
+      !/goalkeeper|Olise|Risser/.test(tournamentCheck.m77TieTooltip) &&
+      tournamentCheck.m74TieTooltip.includes("Germany have the shootout edge through Kai Havertz and Joshua Kimmich") &&
+      !/goalkeeper|Baumann|Nübel|Nubel/.test(tournamentCheck.m74TieTooltip) &&
+      tournamentCheck.m80TieTooltip.includes("Everton goalkeeper Jordan Pickford") &&
+      tournamentCheck.m83TieTooltip.includes("Porto goalkeeper Diogo Costa") &&
+      tournamentCheck.m86TieTooltip.includes("Aston Villa goalkeeper Emiliano Martínez") &&
+      [tournamentCheck.m80TieTooltip, tournamentCheck.m83TieTooltip, tournamentCheck.m86TieTooltip].every(
+        (tooltip) => (tooltip.match(/\bgoalkeeper\b/g) || []).length === 1
+      ) &&
       !tournamentCheck.m89Text.includes("TBD") &&
       !tournamentCheck.m97Text.includes("TBD") &&
+      !tournamentCheck.m103Text.includes("TBD") &&
+      tournamentCheck.m103TimeText === "Jul 18 2:00PM (3rd place match)" &&
+      !tournamentCheck.m103Text.includes("Third-place play-off") &&
+      !tournamentCheck.m103Text.includes("Runner-up match") &&
       !tournamentCheck.m89Text.includes("Likely for now") &&
       !tournamentCheck.m97Text.includes("Likely for now") &&
       !tournamentCheck.sectionHeadingVisible &&
       !tournamentCheck.oldWinnerCopy &&
       tournamentCheck.posterMetaCount === 0 &&
       tournamentCheck.posterSeedCount === 0 &&
-      tournamentCheck.thirdPlaceSeedTeamIds.length === expectedRoundOf32ThirdPlaceSlotOddsCount &&
-      new Set(tournamentCheck.thirdPlaceSeedTeamIds).size === tournamentCheck.thirdPlaceSeedTeamIds.length &&
+      tournamentCheck.thirdPlaceSeedTeamIds.length === 0 &&
       !/\bWinner match \d+\b/.test(tournamentCheck.progressText) &&
       !/\b(?:M\d+|To M\d+|Winner M\d+|W M\d+)\b/.test(`${tournamentCheck.r32Text} ${tournamentCheck.progressText}`) &&
       tournamentCheck.roundHeadings.join("|") === "Round of 32|Round of 16|Quarter-finals|Semi-finals|Final",
-    `The tournament section should show unique Round of 32 third-place slot picks and muted predictions for later rounds. Measured ${JSON.stringify({ ...tournamentCheck, expectedRoundOf32SlotOddsCount })}.`
+    `The tournament section should show locked Round of 32 matches and three outcome pills for every future knockout match. Measured ${JSON.stringify({ ...tournamentCheck, expectedRoundOf32OpenMatchIds, expectedRoundOf32SlotOddsCount, expectedOutcomePillCount, expectedOutcomeListCount })}.`
   );
+
+  const zhTournamentTooltipCheck = await openPageAtTime(
+    "2026-06-27T23:30:00.000Z",
+    "/?view=standings&standingsMode=tournament&lang=zh&tz=America%2FLos_Angeles"
+  );
+  await zhTournamentTooltipCheck.page.waitForFunction(
+    () => document.querySelectorAll('.progress-match[data-match-number="88"] .knockout-likelihood').length === 3
+  );
+  const zhTournamentTooltips = await zhTournamentTooltipCheck.page.evaluate(() => {
+    const getOutcomeTooltip = (matchNumber, outcome) =>
+      document
+        .querySelector(`.progress-match[data-match-number="${matchNumber}"] .knockout-likelihood[data-outcome="${outcome}"]`)
+        ?.getAttribute("data-tooltip") || "";
+    const all = [...document.querySelectorAll(".knockout-likelihood")]
+      .map((element) => element.getAttribute("data-tooltip") || "")
+      .join(" ");
+
+    return {
+      all,
+      m88Away: getOutcomeTooltip(88, "away")
+    };
+  });
+  assert(
+    zhTournamentTooltips.m88Away.includes("埃及点球前取胜概率约35%。这场很接近，但澳大利亚略占优势。") &&
+      !zhTournamentTooltips.m88Away.includes("爆冷") &&
+      !/chance|penalties|shootout|goalkeeper|favored|upset|projects|before penalties/i.test(
+        zhTournamentTooltips.all
+      ),
+    `Chinese tournament outcome tooltips should use localized close-match wording and avoid stale English/upset templates. Measured ${JSON.stringify(zhTournamentTooltips)}.`
+  );
+  await zhTournamentTooltipCheck.context.close();
 
   await page.locator('.progress-match[data-match-number="73"]').click();
   await page.waitForFunction(
@@ -4940,6 +5132,7 @@ try {
       selectedRowPressed: document
         .querySelector('.match-row[data-match-id="match-73-round-of-32-2026-06-28"] .match-row-trigger')
         ?.getAttribute("aria-pressed"),
+      stageLinkTarget: document.querySelector("#match-info [data-open-tournament-tab]")?.dataset.tournamentMatchNumber || "",
       stageLinkText: document.querySelector("#match-info [data-open-tournament-tab]")?.textContent.trim() || "",
       view: params.get("view")
     };
@@ -4948,6 +5141,7 @@ try {
     lockedBracketNavigation.date === "2026-06-28" &&
       lockedBracketNavigation.match === "match-73-round-of-32-2026-06-28" &&
       lockedBracketNavigation.selectedRowPressed === "true" &&
+      lockedBracketNavigation.stageLinkTarget === "73" &&
       lockedBracketNavigation.stageLinkText === "Round of 32" &&
       lockedBracketNavigation.view === null,
     `Locked tournament cards should open the matching date, row, and info card. Measured ${JSON.stringify(lockedBracketNavigation)}.`
@@ -4958,14 +5152,96 @@ try {
     () =>
       document.querySelector("#standings-tab")?.getAttribute("aria-selected") === "true" &&
       document.querySelector("#standings-tournament-tab")?.getAttribute("aria-pressed") === "true" &&
-      document.querySelector(".tournament-view")
+      document.querySelector(".tournament-view") &&
+      document.querySelector('.progress-match[data-match-number="73"]')?.classList.contains("is-drill-target") &&
+      document.activeElement === document.querySelector('.progress-match[data-match-number="73"]')
   );
   assert(
-    new URL(page.url()).searchParams.get("standingsMode") === "tournament",
+    !new URL(page.url()).searchParams.has("standingsMode"),
     "Clicking the knockout round label in match info should jump back to the Tournament tab."
   );
+  const roundOf32StageLinkTarget = await page.evaluate(() => ({
+    activeMatchNumber: document.activeElement?.dataset?.matchNumber || "",
+    highlighted: document
+      .querySelector('.progress-match[data-match-number="73"]')
+      ?.classList.contains("is-drill-target"),
+    view: new URL(window.location.href).searchParams.get("view")
+  }));
+  assert(
+    roundOf32StageLinkTarget.activeMatchNumber === "73" &&
+      roundOf32StageLinkTarget.highlighted === true &&
+      roundOf32StageLinkTarget.view === "standings",
+    `Clicking a knockout round label should focus and highlight the exact bracket card. Measured ${JSON.stringify(roundOf32StageLinkTarget)}.`
+  );
 
-  const tournamentLayoutChecks = [];
+  await page.goto(`${baseUrl}?view=matches&date=2026-07-15&tz=America%2FLos_Angeles`, {
+    waitUntil: "load"
+  });
+  await page.waitForSelector('.match-row[data-match-id="match-102-semi-final-2026-07-15"]');
+  await page.locator('[data-match-id="match-102-semi-final-2026-07-15"]').click();
+  await page.waitForFunction(
+    () =>
+      document.querySelector("#match-info:not([hidden])") &&
+      document.querySelector("#match-info [data-open-tournament-tab]")?.dataset.tournamentMatchNumber === "102"
+  );
+  await page.locator("#match-info [data-open-tournament-tab]").click();
+  await page.waitForFunction(
+    () =>
+      document.querySelector("#standings-tournament-tab")?.getAttribute("aria-pressed") === "true" &&
+      document.querySelector('.progress-match[data-match-number="102"]')?.classList.contains("is-drill-target") &&
+      document.activeElement === document.querySelector('.progress-match[data-match-number="102"]')
+  );
+  const semiFinalStageLinkTarget = await page.evaluate(() => ({
+    activeMatchNumber: document.activeElement?.dataset?.matchNumber || "",
+    highlighted: document
+      .querySelector('.progress-match[data-match-number="102"]')
+      ?.classList.contains("is-drill-target"),
+    tabIndex: document.querySelector('.progress-match[data-match-number="102"]')?.getAttribute("tabindex") || ""
+  }));
+  assert(
+    semiFinalStageLinkTarget.activeMatchNumber === "102" &&
+      semiFinalStageLinkTarget.highlighted === true &&
+      semiFinalStageLinkTarget.tabIndex === "-1",
+    `Clicking a projected semi-final round label should focus and highlight its projected bracket card. Measured ${JSON.stringify(semiFinalStageLinkTarget)}.`
+  );
+	  await page.goto(`${baseUrl}?view=standings&tz=America%2FLos_Angeles`, {
+	    waitUntil: "load"
+	  });
+	  await page.waitForFunction(
+	    () =>
+	      document.querySelector("#standings-tournament-tab")?.getAttribute("aria-pressed") === "true" &&
+	      document.querySelector('.progress-match[data-match-number="74"]')
+	  );
+	  let directTournamentConnectorsReady = true;
+	  try {
+	    await page.waitForFunction(
+	      () => document.querySelectorAll(".progress-connectors path").length >= 29,
+	      null,
+	      { timeout: 1500 }
+	    );
+	  } catch {
+	    directTournamentConnectorsReady = false;
+	  }
+	  const directTournamentConnectorState = await page.evaluate(() => {
+	    const svgRect = document.querySelector(".progress-connectors")?.getBoundingClientRect();
+
+	    return {
+	      pathCount: document.querySelectorAll(".progress-connectors path").length,
+	      svgBox: svgRect
+	        ? {
+	            height: Math.round(svgRect.height),
+	            width: Math.round(svgRect.width)
+	          }
+	        : null,
+	      tournamentVisible: !document.querySelector("#standings-panel")?.hidden
+	    };
+	  });
+	  assert(
+	    directTournamentConnectorsReady && directTournamentConnectorState.pathCount >= 29,
+	    `Direct Tournament loads should draw connector rails without needing a tab switch. Measured ${JSON.stringify(directTournamentConnectorState)}.`
+	  );
+
+	  const tournamentLayoutChecks = [];
   for (const viewport of [
     { height: 900, width: 1280 },
     { height: 900, width: 700 },
@@ -4986,19 +5262,29 @@ try {
         const match74VsTop = Math.round(match74?.querySelector(".knockout-versus")?.getBoundingClientRect().top || 0);
         const match74Venue = match74?.querySelector(".knockout-match-venue");
         const match74VenueStyle = match74Venue ? getComputedStyle(match74Venue) : null;
-        const match74SlotList = match74?.querySelector(".knockout-slot-odds-list");
-        const match74SlotListStyle = match74SlotList ? getComputedStyle(match74SlotList) : null;
-        const match74SlotPills = [...(match74?.querySelectorAll(".knockout-slot-odds") || [])];
-        const firstSlotPillRect = match74SlotPills[0]?.getBoundingClientRect();
-        const secondSlotPillRect = match74SlotPills[1]?.getBoundingClientRect();
+        const match74OutcomeList = match74?.querySelector(".knockout-likelihood-list");
+        const match74OutcomeListStyle = match74OutcomeList ? getComputedStyle(match74OutcomeList) : null;
+        const match74OutcomePills = [...(match74?.querySelectorAll(".knockout-likelihood") || [])];
+        const firstOutcomePillRect = match74OutcomePills[0]?.getBoundingClientRect();
+        const secondOutcomePillRect = match74OutcomePills[1]?.getBoundingClientRect();
         const seedLabels = [...document.querySelectorAll('.progress-match .knockout-team-copy small')]
           .map((label) => label.textContent.trim());
-        const match74SlotTooltips = [...document.querySelectorAll('.progress-match[data-match-number="74"] .knockout-slot-odds')]
+        const match74OutcomeTooltips = [...document.querySelectorAll('.progress-match[data-match-number="74"] .knockout-likelihood')]
           .map((pill) => pill.getAttribute("data-tooltip") || "");
-        const match74SlotLabels = [...document.querySelectorAll('.progress-match[data-match-number="74"] .knockout-slot-odds')]
-          .map((pill) => pill.dataset.slotLabel || "");
+        const match74OutcomeKeys = [...document.querySelectorAll('.progress-match[data-match-number="74"] .knockout-likelihood')]
+          .map((pill) => pill.dataset.outcome || "");
+        const match74OutcomeStyles = match74OutcomePills.map((pill) => {
+          const pillStyle = getComputedStyle(pill);
+          return {
+            background: pillStyle.backgroundColor,
+            borderColor: pillStyle.borderColor,
+            color: pillStyle.color
+          };
+        });
         const connector = document.querySelector(".progress-connectors");
         const connectorDisplay = connector ? getComputedStyle(connector).display : "";
+        const connectorPath = connector?.querySelector("path");
+        const connectorPathStyle = connectorPath ? getComputedStyle(connectorPath) : null;
         const progressionStyle = progression ? getComputedStyle(progression) : null;
         const progressionRect = progression?.getBoundingClientRect();
         const matchStyle = match74 ? getComputedStyle(match74) : null;
@@ -5021,12 +5307,17 @@ try {
           cardWithinViewport: Boolean(matchRect && matchRect.left >= 0 && matchRect.right <= viewportWidth),
           cardWidth: matchRect ? Math.round(matchRect.width) : 0,
           connectorDisplay,
+          connectorLineCap: connectorPathStyle?.strokeLinecap || "",
+          connectorStroke: connectorPathStyle?.stroke || "",
           connectorPathCount: document.querySelectorAll(".progress-connectors path").length,
+          connectorStrokeWidth: connectorPathStyle ? Number.parseFloat(connectorPathStyle.strokeWidth) : 0,
           match74PairJustifyContent: match74PairStyle?.justifyContent || "",
-          match74SlotGap: firstSlotPillRect && secondSlotPillRect ? Math.round(secondSlotPillRect.left - firstSlotPillRect.right) : null,
-          match74SlotListJustifyContent: match74SlotListStyle?.justifyContent || "",
-          match74SlotLabels,
-          match74SlotTooltips,
+          match74OutcomeGap: firstOutcomePillRect && secondOutcomePillRect ? Math.round(secondOutcomePillRect.left - firstOutcomePillRect.right) : null,
+          match74OutcomeKeys,
+          match74OutcomeListJustifyContent: match74OutcomeListStyle?.justifyContent || "",
+          match74OutcomeStyles,
+          match74OutcomeTooltips,
+          match74TieFlagCount: match74?.querySelectorAll('.knockout-likelihood[data-outcome="tie"] .flag').length || 0,
           match74SingleLine: match74TeamTops.length === 2 && match74TeamTops.every((top) => Math.abs(top - match74VsTop) <= 2),
           match74VenueCursor: match74VenueStyle?.cursor || "",
           match74VenueText: match74Venue?.textContent.trim() || "",
@@ -5046,43 +5337,47 @@ try {
   }
   assert(
     tournamentLayoutChecks.every(
-      (check) => {
-        const match74SlotOddsLayoutIsValid = expectedMatch74SlotOddsCount === 0
-          ? check.match74SlotLabels.length === 0 && check.match74SlotTooltips.length === 0
-          : check.match74SlotLabels.includes("Group F3") &&
-            check.match74SlotTooltips.some((tooltip) => tooltip.includes("Group F3") && tooltip.includes("Slot accepts")) &&
-            check.match74SlotListJustifyContent === "flex-start" &&
-            (check.match74SlotGap === null || (check.match74SlotGap >= 0 && check.match74SlotGap <= 16));
-
-        return (
-          check.seedLines.length === 0 &&
-          match74SlotOddsLayoutIsValid &&
-          check.match74PairJustifyContent === "flex-start" &&
-          check.match74VenueCursor === "help" &&
-          check.match74VenueText === "Massachusetts, USA" &&
-          check.match74VenueTooltip === "Boston Stadium \u2022 Foxborough, Massachusetts, USA" &&
-          check.match74VenueFontWeight > 0 &&
-          check.match74VenueFontWeight < 600 &&
-          check.overflowingParticipantLabels === 0 &&
-          check.scrollOverflow <= 1 &&
-          (check.viewportWidth > 900
-            ? check.cardWidth >= 288 && check.cardWidth <= 300
-            : check.cardWidth >= 208 &&
-              check.cardWidth <= 250 &&
-              check.cardWidth < check.progressionContentWidth) &&
-          check.progressionPadding >= 10 &&
-          check.cardPadding >= 8 &&
-          check.cardWithinViewport &&
-          check.connectorDisplay === "block" &&
-          check.connectorPathCount >= 30
-        );
-      }
+      (check) =>
+        check.seedLines.length === 0 &&
+        check.match74OutcomeKeys.join("|") === "home|tie|away" &&
+        check.match74TieFlagCount === 0 &&
+        check.match74OutcomeTooltips.some((tooltip) => tooltip.includes("chance of penalties")) &&
+        check.match74OutcomeStyles.length === 3 &&
+        check.match74OutcomeStyles.every(
+          (style) =>
+            style.background.startsWith("rgba(10, 10, 10") &&
+            style.borderColor.startsWith("rgba(10, 10, 10") &&
+            style.color.startsWith("rgba(10, 10, 10")
+        ) &&
+        check.match74OutcomeListJustifyContent === "flex-start" &&
+        (check.match74OutcomeGap === null || (check.match74OutcomeGap >= 0 && check.match74OutcomeGap <= 16)) &&
+        check.match74PairJustifyContent === "flex-start" &&
+        check.match74VenueCursor === "help" &&
+        check.match74VenueText === "Massachusetts, USA" &&
+        check.match74VenueTooltip === "Boston Stadium \u2022 Foxborough, Massachusetts, USA" &&
+        check.match74VenueFontWeight > 0 &&
+        check.match74VenueFontWeight < 600 &&
+        check.overflowingParticipantLabels === 0 &&
+        check.scrollOverflow <= 1 &&
+        (check.viewportWidth > 900
+          ? check.cardWidth >= 288 && check.cardWidth <= 300
+          : check.cardWidth >= 208 &&
+            check.cardWidth <= 250 &&
+            check.cardWidth < check.progressionContentWidth) &&
+        check.progressionPadding >= 10 &&
+        check.cardPadding >= 8 &&
+        check.cardWithinViewport &&
+        check.connectorDisplay === "block" &&
+        check.connectorPathCount >= 29 &&
+        check.connectorLineCap === "round" &&
+        check.connectorStroke === "rgb(217, 217, 217)" &&
+        check.connectorStrokeWidth >= 2.5
     ),
-    `Tournament bracket seed context should live in odds pills, with correct padding and no horizontal overflow at phone and desktop sizes. Measured ${JSON.stringify(tournamentLayoutChecks)}.`
+    `Tournament bracket outcome pills should stay readable with connector rails and no horizontal overflow at phone and desktop sizes. Measured ${JSON.stringify(tournamentLayoutChecks)}.`
   );
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto(`${baseUrl}?view=standings&standingsMode=tournament`, { waitUntil: "load" });
-  await page.waitForFunction(() => document.querySelectorAll(".progress-connectors path").length >= 30);
+  await page.waitForFunction(() => document.querySelectorAll(".progress-connectors path").length >= 29);
   const mobileTournamentCanvasInitial = await page.evaluate(() => {
     const progression = document.querySelector(".tournament-progression");
     const rounds = progression?.querySelector(".progress-rounds");
@@ -5158,7 +5453,7 @@ try {
       mobileTournamentCanvasInitial.cardWidth >= 208 &&
       mobileTournamentCanvasInitial.cardWidth <= 250 &&
       mobileTournamentCanvasInitial.connectorDisplay === "block" &&
-      mobileTournamentCanvasInitial.pathCount >= 30 &&
+      mobileTournamentCanvasInitial.pathCount >= 29 &&
       mobileTournamentCanvasInitial.mobilePathSpan === "" &&
       mobileTournamentCanvasInitial.hiddenRounds === 0 &&
       mobileTournamentCanvasInitial.scrollHeightOverflow > 120 &&
@@ -5166,7 +5461,7 @@ try {
       mobileTournamentCanvasAfterDrag.activeRoundIndex === "" &&
       mobileTournamentCanvasAfterDrag.activeRoundId === "" &&
       mobileTournamentCanvasAfterDrag.hiddenRounds === 0 &&
-      mobileTournamentCanvasAfterDrag.pathCount >= 30 &&
+      mobileTournamentCanvasAfterDrag.pathCount >= 29 &&
       mobileTournamentCanvasAfterDrag.scrollLeft >= 120 &&
       mobileTournamentCanvasAfterDrag.scrollTop >= 80 &&
       mobileTournamentCanvasAfterDrag.firstRoundLeft < mobileTournamentCanvasInitial.firstRoundLeft - 100 &&
@@ -5748,6 +6043,7 @@ try {
       ".team.has-team-tooltip[data-tooltip]",
       ".summary-team.has-team-tooltip[data-tooltip]",
       ".live-pill[data-tooltip]",
+      ".knockout-likelihood[data-tooltip]",
       ".player-card-value-help[data-tooltip]"
     ];
     const parsePx = (value) => Number.parseFloat(value) || 0;
@@ -5764,6 +6060,18 @@ try {
     };
     const clipRectFor = (element) => {
       const viewportRight = document.documentElement.clientWidth || window.innerWidth;
+      const knockoutCard = element.matches(".knockout-likelihood[data-tooltip]")
+        ? element.closest(".progress-match")
+        : null;
+      if (knockoutCard) {
+        const rect = knockoutCard.getBoundingClientRect();
+        if (rect.width > 0) {
+          return {
+            left: Math.max(0, rect.left),
+            right: Math.min(viewportRight, rect.right)
+          };
+        }
+      }
       let node = element.parentElement;
       while (node && node !== document.documentElement) {
         const style = getComputedStyle(node);

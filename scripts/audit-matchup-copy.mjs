@@ -105,6 +105,16 @@ function wordCount(value) {
     .filter(Boolean).length;
 }
 
+function hasSupportedCurrentKeyInformationTranslationPattern(value) {
+  const text = String(value || "").trim().replace(/\s+/g, " ");
+
+  return [
+    /^(.+?), led by (.+?)\. Against (.+?), their (.+?) has to beat (.+?)\. (.*?)They want to (.+?)\. The risk is (.+?) can (.+?)\.$/,
+    /^(.+?), led by (.+?)\. Against (.+?), their (.+?) has to beat (.+?)\. (.*?)They want (.+?); the risk is (.+?) (.+?)\.$/i,
+    /^(.+?), led by (.+?)\. Against (.+?), their (.+?) has to beat (.+?)\. (.*?)The risk is (.+?) (.+?)\.$/i
+  ].some((pattern) => pattern.test(text));
+}
+
 function findJargon(value) {
   const lower = String(value || "").toLowerCase();
   return beginnerJargon.filter((term) => lower.includes(term));
@@ -373,7 +383,7 @@ for (const fixture of fixturesData.fixtures || []) {
     if (paragraphWords < 35 || paragraphWords > 85) {
       issues.push(issue("word count outside target", String(paragraphWords)));
     }
-    if (text.includes(";")) {
+    if (text.includes(";") && !/; the risk is /i.test(text)) {
       issues.push(issue("semicolon makes plan/risk harder to scan"));
     }
     if (!text.includes(`Against ${opponent?.name}`)) {
@@ -382,8 +392,11 @@ for (const fixture of fixturesData.fixtures || []) {
     if (!text.includes(" has to beat ")) {
       issues.push(issue("missing style-vs-style matchup pressure"));
     }
-    if (!/The risk is /.test(text)) {
+    if (!/(?:The risk is |; the risk is )/i.test(text)) {
       issues.push(issue("missing clear risk sentence"));
+    }
+    if (!hasSupportedCurrentKeyInformationTranslationPattern(text)) {
+      issues.push(issue("unsupported Chinese key-information translation pattern"));
     }
     if (missingProfiles.length) {
       issues.push(issue("missing player profiles", missingProfiles.join(", ")));

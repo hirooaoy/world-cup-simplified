@@ -1,6 +1,49 @@
 {
-  "updatedAt": "2026-06-27T17:33:43-07:00",
+  "updatedAt": "2026-06-27T23:45:00-07:00",
   "releases": [
+    {
+      "date": "2026-06-27",
+      "title": "Final group-stage bracket",
+      "titleZh": "小组赛完结后的对阵更新",
+      "highlights": [
+        "Standings now opens with Tournament first, followed by Groups and Third-Place Race, after the final group-stage results locked every Round of 32 matchup.",
+        "Third-Place Race now replaces Games Left and Chance with a simple Status column showing Advancing or Eliminated, with shorter final-state tooltips.",
+        "Group standings keep each third-place race rank pill, but the pill now explains Advancing or Not advancing without stacking a separate Eliminated pill on the same row.",
+        "Round of 32 match info now keeps the clickable round label as a simple underline and semibolds each team's name at the start of its group-round summary.",
+        "Chinese key-information cards now translate the latest compact Round of 32 matchup notes, including Neymar, Kubo, and Davies availability context.",
+        "Clicking a knockout round label in match details now opens the Tournament tab and briefly highlights the matching bracket card.",
+        "Tournament bracket connector lines are restored with clearer, rounded rails between rounds.",
+        "The third-place match now appears below the Final in the tournament column, with runner-up paths from both semi-finals.",
+        "Future knockout cards now show three outcome pills from Round of 32 through the Final: home win, Tie, and away win, with penalty-shootout context on the Tie pill.",
+        "The Final and third-place cards now sit in the middle lane of the final column instead of lining up directly beside the two semi-finals.",
+        "The Final and third-place cards now sit closer together in the final column, and the third-place card labels the kickoff as 3rd place match.",
+        "Tournament connector rails now use one consistent opaque gray stroke so joins stay aligned without darker overlap marks.",
+        "Tournament outcome pills now stay neutral gray, use compact flag-plus-percent labels, and show shorter card-bounded tooltips.",
+        "Tie-pill shootout tooltips now use researched penalty takers and only mention a goalkeeper when that keeper has a true shootout profile.",
+        "Close knockout projections now describe slight edges instead of calling near-even teams upset picks.",
+        "Tournament connector rails now retry after first-load layout settles, so direct Tournament links draw the bracket lines immediately.",
+        "Official FIFA participants now keep the Round of 32 pairings current, including Germany-Paraguay, France-Sweden, Belgium-Senegal, and Switzerland-Algeria."
+      ],
+      "highlightsZh": [
+        "小组赛最终结果锁定全部32强对阵后，积分榜现在先显示淘汰赛，再显示小组和第三名竞争。",
+        "第三名竞争现在用简单的“状态”列替代“剩余场次”和“晋级机会”，只显示晋级或小组赛出局，并使用更短的最终状态提示。",
+        "小组积分榜保留每支第三名球队的竞争排名标签，但标签现在说明晋级或未晋级，不再在同一行叠加单独的出局标签。",
+        "32强比赛信息里的轮次标签现在保持简单下划线，且每队小组赛总结开头的队名改为半粗体。",
+        "中文关键信息卡现在会翻译最新的32强紧凑对阵文案，包括内马尔、久保建英和戴维斯的出场情况。",
+        "点击比赛详情里的淘汰赛轮次标签时，现在会打开淘汰赛页签，并短暂高亮对应的对阵卡。",
+        "淘汰赛对阵之间的连接线已恢复为更清晰的圆角线。",
+        "第三名比赛现在显示在决赛下方，并从两场半决赛连出落败方路径。",
+        "未来淘汰赛卡片现在从32强到决赛都显示主队取胜、平局、客队取胜三个结果标签，平局标签会说明点球路径。",
+        "决赛和第三名比赛卡片现在位于最后一列的中间通道，不再直接与两场半决赛横向对齐。",
+        "决赛和第三名比赛卡片现在在最后一列中更靠近彼此，第三名比赛会在开球时间旁标注季军赛。",
+        "淘汰赛连接线现在使用统一的不透明浅灰色，让交汇处保持对齐且不会出现更深的重叠痕迹。",
+        "淘汰赛结果标签现在统一为灰色，使用更紧凑的旗帜加百分比文案，并显示更短且限制在卡片内的提示。",
+        "平局标签的点球提示现在使用查证过的点球手，只有门将确实具备点球大战履历时才会提到门将。",
+        "接近五五开的淘汰赛预测现在会说明“略占优势”，不再把接近的球队说成爆冷。",
+        "淘汰赛连接线现在会在首次载入布局稳定后自动重试绘制，直接打开淘汰赛页也会立即显示对阵线。",
+        "官方FIFA参赛队信息现在会保持32强对阵最新，包括德国-巴拉圭、法国-瑞典、比利时-塞内加尔和瑞士-阿尔及利亚。"
+      ]
+    },
     {
       "date": "2026-06-27",
       "title": "Mobile tournament canvas",

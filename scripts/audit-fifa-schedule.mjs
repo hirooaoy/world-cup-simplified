@@ -30,8 +30,68 @@ function description(values) {
   return values?.find((value) => value.Locale === "en-GB")?.Description || values?.[0]?.Description || "";
 }
 
+function descriptions(values) {
+  return Array.isArray(values)
+    ? values.map((value) => value?.Description).filter(Boolean)
+    : [];
+}
+
+function normalizeKey(value) {
+  return String(value || "")
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/&/g, "and")
+    .replace(/[^a-z0-9]+/gi, " ")
+    .trim()
+    .toLowerCase();
+}
+
+function buildTeamLookup(teams) {
+  const byName = new Map();
+
+  for (const team of teams || []) {
+    for (const value of [team.id, team.name, team.officialName, team.standingName, ...(team.aliases || [])]) {
+      const key = normalizeKey(value);
+      if (key && !byName.has(key)) {
+        byName.set(key, team.id);
+      }
+    }
+  }
+
+  return byName;
+}
+
 function participantAbbreviation(match, side) {
   return match?.[side]?.Abbreviation || "";
+}
+
+function getOfficialParticipantNames(participant) {
+  if (!participant) {
+    return [];
+  }
+
+  return [
+    participant.Abbreviation,
+    participant.IdCountry,
+    participant.IdAssociation,
+    participant.Name,
+    participant.ShortName,
+    participant.DisplayName,
+    ...descriptions(participant.TeamName),
+    ...descriptions(participant.NameLocalized),
+    ...descriptions(participant.ShortClubName)
+  ].filter(Boolean);
+}
+
+function findOfficialParticipantTeamId(match, side, teamLookup) {
+  for (const name of getOfficialParticipantNames(match?.[side])) {
+    const teamId = teamLookup.get(normalizeKey(name));
+    if (teamId) {
+      return teamId;
+    }
+  }
+
+  return "";
 }
 
 function participantName(match, side) {
@@ -71,6 +131,7 @@ const [fixturesData, teamsData] = await Promise.all([readJson("fixtures.json"), 
 const officialData = await fetchOfficialSchedule(fixturesData);
 const officialMatches = officialData.Results || [];
 const teamsById = new Map((teamsData.teams || []).map((team) => [team.id, team]));
+const teamLookup = buildTeamLookup(teamsData.teams);
 const officialByMatchNumber = new Map();
 const officialByParticipants = new Map();
 const failures = [];
@@ -108,6 +169,21 @@ for (const fixture of fixturesData.fixtures || []) {
       ].join("\n")
     );
   }
+
+  for (const side of ["Home", "Away"]) {
+    const officialTeamId = findOfficialParticipantTeamId(officialMatch, side, teamLookup);
+    const localTeamId = side === "Home" ? fixture.homeTeamId : fixture.awayTeamId;
+    if (officialTeamId && localTeamId !== officialTeamId) {
+      failures.push(
+        [
+          `${fixtureLabel(teamsById, fixture)} ${side.toLowerCase()} participant mismatch.`,
+          `  Local data: ${localTeamId || "TBD"}`,
+          `  FIFA feed:  ${officialTeamId}`,
+          `  FIFA row:   ${participantName(officialMatch, "Home")} vs ${participantName(officialMatch, "Away")}`
+        ].join("\n")
+      );
+    }
+  }
 }
 
 if (officialMatches.length !== (fixturesData.fixtures || []).length) {
@@ -128,4 +204,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("All local kickoff times match FIFA's schedule feed.");
+console.log("All local kickoff times and official participants match FIFA's schedule feed.");
