@@ -58,7 +58,7 @@
     "Xaver SCHLAGER": "Xaver Schlager",
     "SCHLAGER Xaver": "Xaver Schlager"
   },
-  "removeProfiles": ["Alessandro Schoepf", "Sasa Kalajdzic"],
+  "removeProfiles": ["Alessandro Schoepf"],
   "profiles": {
     "Alessandro Schopf": {
       "displayName": "Alessandro Schöpf",

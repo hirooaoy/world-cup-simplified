@@ -4,6 +4,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+const maxProfileRefreshAttempts = 3;
 
 function runNodeScript({ allowFailure = false, args = [], capture = false, label, script }) {
   return new Promise((resolve, reject) => {
@@ -61,34 +62,42 @@ function getProfileRefreshArgs(output) {
 }
 
 async function main() {
-  console.log("Profile-aware validation: validating data.");
-  const validation = await runNodeScript({
-    allowFailure: true,
-    capture: true,
-    label: "Validate data",
-    script: "scripts/validate-data.mjs"
-  });
+  for (let attempt = 0; attempt <= maxProfileRefreshAttempts; attempt += 1) {
+    console.log(
+      attempt
+        ? "\nProfile-aware validation: validating data after profile refresh."
+        : "Profile-aware validation: validating data."
+    );
+    const validation = await runNodeScript({
+      allowFailure: true,
+      capture: true,
+      label: attempt ? "Validate data after profile refresh" : "Validate data",
+      script: "scripts/validate-data.mjs"
+    });
 
-  if (validation.code === 0) {
-    return;
+    if (validation.code === 0) {
+      return;
+    }
+
+    if (!validationNeedsCurrentProfiles(validation.output)) {
+      throw new Error("Validation failed for a non-profile reason. Fix the reported data issue before continuing.");
+    }
+
+    if (attempt === maxProfileRefreshAttempts) {
+      throw new Error(
+        `Validation still needs current player profiles after ${maxProfileRefreshAttempts} profile refresh attempts.`
+      );
+    }
+
+    console.log(
+      `\nValidation found missing or stale current player profiles. Regenerating profile cards (${attempt + 1}/${maxProfileRefreshAttempts}).`
+    );
+    await runNodeScript({
+      args: getProfileRefreshArgs(validation.output),
+      label: "Regenerate player profiles",
+      script: "scripts/populate-player-profiles.mjs"
+    });
   }
-
-  if (!validationNeedsCurrentProfiles(validation.output)) {
-    throw new Error("Validation failed for a non-profile reason. Fix the reported data issue before continuing.");
-  }
-
-  console.log("\nValidation found missing or stale current player profiles. Regenerating profile cards.");
-  await runNodeScript({
-    args: getProfileRefreshArgs(validation.output),
-    label: "Regenerate player profiles",
-    script: "scripts/populate-player-profiles.mjs"
-  });
-
-  console.log("\nProfile-aware validation: validating data after profile refresh.");
-  await runNodeScript({
-    label: "Validate data after profile refresh",
-    script: "scripts/validate-data.mjs"
-  });
 }
 
 main().catch((error) => {

@@ -2020,8 +2020,9 @@ function getUniquePlayers(fixturesData, teamsById, availabilityByTeam, existingP
       return;
     }
 
-    const existing = players.get(player.name) || {
-      name: player.name,
+    const profileName = resolveExistingProfileName(player.name, existingProfiles, team.id) || player.name;
+    const existing = players.get(profileName) || {
+      name: profileName,
       note: "",
       team
     };
@@ -2333,8 +2334,17 @@ let players = getUniquePlayers(
   { includeSquadProfiles, squadOnlyProfiles }
 );
 
+function playerMatchesTargetedProfileName(player) {
+  if (targetedProfileNames.has(normalizeText(player.name))) {
+    return true;
+  }
+
+  const aliases = getProfileAliases(player.name, existingProfilesForSelection[player.name] || {});
+  return aliases.some((alias) => targetedProfileNames.has(normalizeText(alias)));
+}
+
 if (targetedProfileNames.size) {
-  players = players.filter((player) => targetedProfileNames.has(normalizeText(player.name)));
+  players = players.filter(playerMatchesTargetedProfileName);
 }
 
 if (targetedProfileNames.size && !players.length) {
