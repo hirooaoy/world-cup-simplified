@@ -2473,7 +2473,41 @@ try {
 
         return Math.abs(rankRect.top + rankRect.height / 2 - (nameRect.top + nameRect.height / 2));
       })
-      .filter((delta) => Number.isFinite(delta))
+      .filter((delta) => Number.isFinite(delta)),
+    rankHorizontalGaps: [...info.querySelectorAll(".knockout-context-list .knockout-context-team")]
+      .map((team) => {
+        const name = team.querySelector(".knockout-context-team-name");
+        const rank = team.querySelector(".rank-pill");
+        const nextTextNode =
+          team.nextSibling?.nodeType === Node.TEXT_NODE && team.nextSibling.textContent.trim()
+            ? team.nextSibling
+            : null;
+
+        if (!name || !rank || !nextTextNode) {
+          return null;
+        }
+
+        const nextCharIndex = nextTextNode.textContent.search(/\S/);
+
+        if (nextCharIndex < 0) {
+          return null;
+        }
+
+        const nextTextRange = document.createRange();
+        nextTextRange.setStart(nextTextNode, nextCharIndex);
+        nextTextRange.setEnd(nextTextNode, nextCharIndex + 1);
+
+        const nameRect = name.getBoundingClientRect();
+        const rankRect = rank.getBoundingClientRect();
+        const nextTextRect = nextTextRange.getBoundingClientRect();
+
+        return {
+          nameToRank: rankRect.left - nameRect.right,
+          rankToNextText: nextTextRect.left - rankRect.right,
+          nextText: nextTextNode.textContent.trim().slice(0, 1)
+        };
+      })
+      .filter(Boolean)
   }));
   assert(
     roundOf32ContextMetrics.contextFlags === 0 &&
@@ -2485,7 +2519,11 @@ try {
       roundOf32ContextMetrics.nextPathRanks.includes("#7") &&
       roundOf32ContextMetrics.rankHeights.every((height) => height <= 15.5) &&
       roundOf32ContextMetrics.rankCenterDeltas.length >= 6 &&
-      roundOf32ContextMetrics.rankCenterDeltas.every((delta) => delta <= 1),
+      roundOf32ContextMetrics.rankCenterDeltas.every((delta) => delta <= 1) &&
+      roundOf32ContextMetrics.rankHorizontalGaps.length >= 6 &&
+      roundOf32ContextMetrics.rankHorizontalGaps.every(
+        (gap) => gap.nameToRank >= 2.5 && gap.nameToRank <= 4.5 && gap.rankToNextText >= 3
+      ),
     `Round of 32 match detail should use compact ranking pills without context flags or subject-team ranks. Measured ${JSON.stringify(roundOf32ContextMetrics)}.`
   );
 

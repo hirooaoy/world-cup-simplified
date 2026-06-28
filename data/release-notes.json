@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-28T00:28:26-07:00",
+  "updatedAt": "2026-06-28T00:41:40-07:00",
   "releases": [
     {
       "date": "2026-06-28",
@@ -8,14 +8,14 @@
       "highlights": [
         "Knockout match info now removes inline flags from Previous and Next path copy, then adds compact FIFA ranking pills beside the referenced opponent countries.",
         "Round of 32 group-round summaries now read with scores in the sentence, such as South Africa won 1-0 against South Korea, while the selected matchup teams avoid duplicate ranking pills.",
-        "Previous and Next path ranking pills now sit vertically centered with the surrounding sentence text.",
+        "Previous and Next path ranking pills now sit vertically centered, closer to the team name, and spaced away from following punctuation.",
         "Completed knockout tiles now mute the finished card and losing team, keep the advancing team in color, and replace prediction pills with a compact final-score pill.",
         "Mobile tournament bracket scrolling now stays pinned at the page top instead of exposing extra white space above the navigation."
       ],
       "highlightsZh": [
         "淘汰赛比赛信息现在移除“上一轮”和“下一轮”路径文案里的行内旗帜，并在被提到的对手国家旁加入紧凑的FIFA排名标签。",
         "32强的小组赛总结现在把比分直接写进句子，例如南非1-0击败韩国，同时当前对阵双方不会重复显示排名标签。",
-        "“上一轮”和“下一轮”路径里的排名标签现在会与周围句子文字垂直居中对齐。",
+        "“上一轮”和“下一轮”路径里的排名标签现在会与周围句子文字垂直居中，对球队名更贴近，并与后面的标点留出间距。",
         "已完赛的淘汰赛卡片现在会弱化整张卡和出局球队，保留晋级球队的彩色显示，并用紧凑的最终比分标签替代预测标签。",
         "移动端淘汰赛对阵图滚动现在会稳稳停在页面顶部，不再在导航上方露出额外空白。"
       ]
