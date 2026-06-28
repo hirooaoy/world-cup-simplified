@@ -4540,8 +4540,11 @@ try {
           /^(?:<1%|\d+%) to advance\n\n/.test(row.tooltip) &&
           /Most paths keep them inside the top 8\.|They are inside the top 8, but more groups can still catch them\.|They are just outside the top 8, but one swing can pull them in\.|They need help to climb into the top 8\.|Remaining matches can change .+'s Round of 32 opponent, but not whether they qualify\.|No modeled route reaches the Round of 32 from here\./.test(row.tooltip)
       ) &&
-      thirdPlaceRaceCheck.rowSummaries.some((row) =>
-        row.tooltip.includes("\n\nWatch: ") && /\n(?:A|An) .+ would move Group [A-L]'s third-place team to \d+ pts?,/.test(row.tooltip)
+      (
+        expectedThirdPlaceRaceRows.every((row) => !getExpectedThirdPlaceWatchLines(row, expectedThirdPlaceRaceRows).length) ||
+        thirdPlaceRaceCheck.rowSummaries.some((row) =>
+          row.tooltip.includes("\n\nWatch: ") && /\n(?:A|An) .+ would move Group [A-L]'s third-place team to \d+ pts?,/.test(row.tooltip)
+        )
       ),
     "The third-place race should show percentage advancing estimates and hide concise analyst-style top-eight explanations behind status pill tooltips without GF jargon."
   );
@@ -4764,10 +4767,21 @@ try {
     "The tournament section should show a progression-only bracket from the Round of 32 through the final."
   );
   const m79MexicoVisual = tournamentCheck.m79TeamVisuals.find((team) => team.teamId === "MEX");
-  const m79UnresolvedVisual = tournamentCheck.m79TeamVisuals.find((team) => team.teamId !== "MEX");
+  const m79LockedVisuals = tournamentCheck.m79TeamVisuals.filter((team) =>
+    team.className.includes("is-locked")
+  );
+  const m79LikelyVisuals = tournamentCheck.m79TeamVisuals.filter((team) =>
+    team.className.includes("is-likely")
+  );
   const m89LikelyVisuals = tournamentCheck.m89TeamVisuals.filter((team) =>
     team.className.includes("is-likely")
   );
+  const isConfirmedLockedCountry = (team) =>
+    team?.className.includes("is-locked") &&
+    !team.className.includes("is-likely") &&
+    team.flagFilter === "none" &&
+    team.flagOpacity === "1" &&
+    getCssColorAlpha(team.strongColor) >= 0.8;
   const isMutedProjectedCountry = (team) =>
     !team.className.includes("is-locked") &&
     team.flagFilter.includes("grayscale") &&
@@ -4775,21 +4789,20 @@ try {
     Number(team.rankOpacity) < 1 &&
     getCssColorAlpha(team.strongColor) < 0.7;
   assert(
-    tournamentCheck.m79Projected === true &&
-      m79MexicoVisual?.className.includes("is-locked") &&
-      !m79MexicoVisual.className.includes("is-likely") &&
-      m79MexicoVisual.flagFilter === "none" &&
-      m79MexicoVisual.flagOpacity === "1" &&
-      m79MexicoVisual.rankOpacity === "1" &&
-      getCssColorAlpha(m79MexicoVisual.strongColor) >= 0.8 &&
-      m79UnresolvedVisual &&
-      !m79UnresolvedVisual.className.includes("is-locked") &&
-      getCssColorAlpha(m79UnresolvedVisual.strongColor) < getCssColorAlpha(m79MexicoVisual.strongColor) &&
-      tournamentCheck.m79SlotPills.some(
-        (pill) => pill.teamId === m79UnresolvedVisual.teamId && /(?:<1|>99|\d+)% here/.test(pill.text)
+    (m79LikelyVisuals.length === 0 || tournamentCheck.m79Projected === true) &&
+      isConfirmedLockedCountry(m79MexicoVisual) &&
+      m79LockedVisuals.length >= 1 &&
+      m79LockedVisuals.every(isConfirmedLockedCountry) &&
+      m79LikelyVisuals.every(isMutedProjectedCountry) &&
+      m79LikelyVisuals.every((team) =>
+        tournamentCheck.m79SlotPills.some(
+          (pill) => pill.teamId === team.teamId && /(?:<1|>99|\d+)% here/.test(pill.text)
+        )
       ) &&
-      tournamentCheck.m79SlotPills.every((pill) => pill.teamId !== "MEX"),
-    `Locked Round of 32 teams should stay visually confirmed inside projected cards while unresolved slot picks remain muted. Measured ${JSON.stringify({ m79MexicoVisual, m79UnresolvedVisual, m79SlotPills: tournamentCheck.m79SlotPills })}.`
+      tournamentCheck.m79SlotPills.every((pill) =>
+        m79LikelyVisuals.some((team) => team.teamId === pill.teamId)
+      ),
+    `Locked Round of 32 teams should stay visually confirmed inside projected cards while unresolved slot picks remain muted. Measured ${JSON.stringify({ m79MexicoVisual, m79LockedVisuals, m79LikelyVisuals, m79SlotPills: tournamentCheck.m79SlotPills })}.`
   );
   assert(
     tournamentCheck.m89Projected === true &&
@@ -4835,6 +4848,21 @@ try {
         (shouldRenderRoundOf32SlotOdds(fixture, "away") ? 1 : 0),
       0
     );
+  const expectedRoundOf32ThirdPlaceSlotOddsCount = fixturesData.fixtures
+    .filter((fixture) => fixture.stage === "round-of-32")
+    .reduce((count, fixture) => {
+      const sideCount = ["home", "away"].filter((side) => {
+        const slotText = fixture?.[`${side}Slot`] || "";
+        return shouldRenderRoundOf32SlotOdds(fixture, side) && /^Group [A-L](?:\/[A-L])* third place$/i.test(slotText);
+      }).length;
+      return count + sideCount;
+    }, 0);
+  const match74Fixture = fixturesData.fixtures.find((fixture) => Number(fixture.matchNumber) === 74);
+  const expectedMatch74Projected = Boolean(match74Fixture && (!match74Fixture.homeTeamId || !match74Fixture.awayTeamId));
+  const expectedMatch74OpenMatchId = expectedMatch74Projected ? "" : match74Fixture?.id || "";
+  const expectedMatch74SlotOddsCount = ["home", "away"].filter((side) =>
+    shouldRenderRoundOf32SlotOdds(match74Fixture, side)
+  ).length;
   assert(
     tournamentCheck.summary.includes("Round of 32 slots") &&
       tournamentCheck.m73ProgressText.includes("Jun 28 12:00PM") &&
@@ -4851,14 +4879,14 @@ try {
       tournamentCheck.countryTooltipCount === 0 &&
       tournamentCheck.slotOddsCount === expectedRoundOf32SlotOddsCount &&
       tournamentCheck.slotOddsToneMismatches.length === 0 &&
-      tournamentCheck.slotOddsText.includes("here") &&
+      (expectedRoundOf32SlotOddsCount === 0 || tournamentCheck.slotOddsText.includes("here")) &&
       tournamentCheck.projectedCount === expectedProjectedRoundOf32Count + expectedProjectedLaterRoundCount &&
       tournamentCheck.roundOf32ProjectedCount === expectedProjectedRoundOf32Count &&
       tournamentCheck.m73FooterCount === 0 &&
       tournamentCheck.m73Projected === false &&
-      tournamentCheck.m74Projected === true &&
+      tournamentCheck.m74Projected === expectedMatch74Projected &&
       tournamentCheck.m73OpenMatchId === "match-73-round-of-32-2026-06-28" &&
-      tournamentCheck.m74OpenMatchId === "" &&
+      tournamentCheck.m74OpenMatchId === expectedMatch74OpenMatchId &&
       !tournamentCheck.m73ProgressText.includes("Round of 32") &&
       tournamentCheck.likelihoodCount === 30 &&
       tournamentCheck.likelihoodTooltipCount === tournamentCheck.likelihoodCount &&
@@ -4889,7 +4917,7 @@ try {
       !tournamentCheck.oldWinnerCopy &&
       tournamentCheck.posterMetaCount === 0 &&
       tournamentCheck.posterSeedCount === 0 &&
-      tournamentCheck.thirdPlaceSeedTeamIds.length === getThirdPlaceAdvancerCount() &&
+      tournamentCheck.thirdPlaceSeedTeamIds.length === expectedRoundOf32ThirdPlaceSlotOddsCount &&
       new Set(tournamentCheck.thirdPlaceSeedTeamIds).size === tournamentCheck.thirdPlaceSeedTeamIds.length &&
       !/\bWinner match \d+\b/.test(tournamentCheck.progressText) &&
       !/\b(?:M\d+|To M\d+|Winner M\d+|W M\d+)\b/.test(`${tournamentCheck.r32Text} ${tournamentCheck.progressText}`) &&
@@ -5018,30 +5046,37 @@ try {
   }
   assert(
     tournamentLayoutChecks.every(
-      (check) =>
-        check.seedLines.length === 0 &&
-        check.match74SlotLabels.includes("Group F3") &&
-        check.match74SlotTooltips.some((tooltip) => tooltip.includes("Group F3") && tooltip.includes("Slot accepts")) &&
-        check.match74SlotListJustifyContent === "flex-start" &&
-        (check.match74SlotGap === null || (check.match74SlotGap >= 0 && check.match74SlotGap <= 16)) &&
-        check.match74PairJustifyContent === "flex-start" &&
-        check.match74VenueCursor === "help" &&
-        check.match74VenueText === "Massachusetts, USA" &&
-        check.match74VenueTooltip === "Boston Stadium \u2022 Foxborough, Massachusetts, USA" &&
-        check.match74VenueFontWeight > 0 &&
-        check.match74VenueFontWeight < 600 &&
-        check.overflowingParticipantLabels === 0 &&
-        check.scrollOverflow <= 1 &&
-        (check.viewportWidth > 900
-          ? check.cardWidth >= 288 && check.cardWidth <= 300
-          : check.cardWidth >= 208 &&
-            check.cardWidth <= 250 &&
-            check.cardWidth < check.progressionContentWidth) &&
-        check.progressionPadding >= 10 &&
-        check.cardPadding >= 8 &&
-        check.cardWithinViewport &&
-        check.connectorDisplay === "block" &&
-        check.connectorPathCount >= 30
+      (check) => {
+        const match74SlotOddsLayoutIsValid = expectedMatch74SlotOddsCount === 0
+          ? check.match74SlotLabels.length === 0 && check.match74SlotTooltips.length === 0
+          : check.match74SlotLabels.includes("Group F3") &&
+            check.match74SlotTooltips.some((tooltip) => tooltip.includes("Group F3") && tooltip.includes("Slot accepts")) &&
+            check.match74SlotListJustifyContent === "flex-start" &&
+            (check.match74SlotGap === null || (check.match74SlotGap >= 0 && check.match74SlotGap <= 16));
+
+        return (
+          check.seedLines.length === 0 &&
+          match74SlotOddsLayoutIsValid &&
+          check.match74PairJustifyContent === "flex-start" &&
+          check.match74VenueCursor === "help" &&
+          check.match74VenueText === "Massachusetts, USA" &&
+          check.match74VenueTooltip === "Boston Stadium \u2022 Foxborough, Massachusetts, USA" &&
+          check.match74VenueFontWeight > 0 &&
+          check.match74VenueFontWeight < 600 &&
+          check.overflowingParticipantLabels === 0 &&
+          check.scrollOverflow <= 1 &&
+          (check.viewportWidth > 900
+            ? check.cardWidth >= 288 && check.cardWidth <= 300
+            : check.cardWidth >= 208 &&
+              check.cardWidth <= 250 &&
+              check.cardWidth < check.progressionContentWidth) &&
+          check.progressionPadding >= 10 &&
+          check.cardPadding >= 8 &&
+          check.cardWithinViewport &&
+          check.connectorDisplay === "block" &&
+          check.connectorPathCount >= 30
+        );
+      }
     ),
     `Tournament bracket seed context should live in odds pills, with correct padding and no horizontal overflow at phone and desktop sizes. Measured ${JSON.stringify(tournamentLayoutChecks)}.`
   );
