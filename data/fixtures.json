@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-28T22:00:29.275Z",
+  "updatedAt": "2026-06-29T18:28:21.579Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -107,7 +107,8 @@
     "fifa-official-results-sync-2026-06-27",
     "fifa-goal-events-sync-2026-06-27",
     "fifa-goal-events-sync-2026-06-28",
-    "fifa-official-results-sync-2026-06-28"
+    "fifa-official-results-sync-2026-06-28",
+    "fifa-official-results-sync-2026-06-29"
   ],
   "coverage": {
     "status": "complete-schedule",
@@ -8987,7 +8988,7 @@
       "homeSlot": "Group C winner",
       "awaySlot": "Group F runner-up",
       "venue": "Houston Stadium",
-      "status": "SCHEDULED",
+      "status": "LIVE",
       "h2h": {
         "status": "research-pending",
         "summary": "H2H research is pending for this matchup. Add API-backed or manually verified senior results when available.",
@@ -9053,6 +9054,10 @@
         ],
         "home": "Brazil are a top-tier attacking side whose best moments mix individual invention with sudden acceleration, led by Neymar, Vinicius Junior, and Casemiro. Against Japan, their Neymar-Vinicius isolation speed has to beat Japan's Doan-Kamada combination speed. Neymar has returned from the bench after his calf issue, so Brazil can manage his minutes. They want to isolate Vinicius Junior quickly and let Neymar combine around the fouls and gaps that creates. The risk is Japan can turn quick combinations into chances around the box.",
         "away": "Japan are a precise, fast-passing side that can make possession feel sudden and sharp, led by Takefusa Kubo, Ritsu Doan, and Daichi Kamada. Against Brazil, their Doan-Kamada combination speed has to beat Brazil's Neymar-Vinicius isolation speed. Kubo could play a part after the knee issue, so Ueda and Doan may carry the early threat. They want to move the ball quickly enough for their attackers to receive between defenders. The risk is Brazil can break a shape through Neymar combinations and Vinicius Junior's speed."
+      },
+      "score": {
+        "home": 1,
+        "away": 1
       }
     },
     {
