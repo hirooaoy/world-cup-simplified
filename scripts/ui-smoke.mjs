@@ -4908,6 +4908,11 @@ try {
       m74ProgressText: text('.progress-match[data-match-number="74"]'),
       m81TeamIds: [...document.querySelectorAll('.progress-match[data-match-number="81"] .knockout-team[data-team-id]')]
         .map((element) => element.dataset.teamId),
+      m81OutcomeKeys: [...document.querySelectorAll('.progress-match[data-match-number="81"] .knockout-likelihood')]
+        .map((element) => element.dataset.outcome || ""),
+      m81OutcomeTexts: [...document.querySelectorAll('.progress-match[data-match-number="81"] .knockout-likelihood')]
+        .map((element) => element.textContent.replace(/\s+/g, " ").trim()),
+      m81PillCount: document.querySelectorAll('.progress-match[data-match-number="81"] .knockout-likelihood').length,
       m81Text: text('.progress-match[data-match-number="81"]'),
       m89TeamIds: [...document.querySelectorAll('.progress-match[data-match-number="89"] .knockout-team[data-team-id]')]
         .map((element) => element.dataset.teamId),
@@ -4962,6 +4967,7 @@ try {
       likelihoodTooltipCount: [...document.querySelectorAll(".knockout-likelihood")]
         .filter((element) => Boolean(element.getAttribute("data-tooltip") || ""))
         .length,
+      outcomePillFlagCount: document.querySelectorAll(".knockout-likelihood .flag").length,
       tiePillCount: document.querySelectorAll('.knockout-likelihood[data-outcome="tie"]').length,
       tiePillFlagCount: document.querySelectorAll('.knockout-likelihood[data-outcome="tie"] .flag').length,
       finalRailConnectorPathCount: document.querySelectorAll(".progress-connectors path.is-final-rail").length,
@@ -5033,6 +5039,7 @@ try {
         .filter((element) => /^Group [A-L]3$/.test(element.dataset.slotLabel || ""))
         .map((element) => element.dataset.teamId),
       slotOddsCount: document.querySelectorAll(".knockout-slot-odds").length,
+      slotOddsFlagCount: document.querySelectorAll(".knockout-slot-odds .flag").length,
       slotOddsToneMismatches: [...document.querySelectorAll(".knockout-slot-odds")]
         .filter((element) => {
           const percentText = element.textContent.match(/(?:<1|>99|\d+)%/)?.[0]?.replace("%", "");
@@ -5077,6 +5084,15 @@ try {
     team.flagOpacity === "1" &&
     Number(team.rankOpacity) >= 0.7 &&
     getCssColorAlpha(team.strongColor) >= 0.8;
+  const isCompletedLoserCountry = (team) =>
+    team.className.includes("is-locked") &&
+    team.className.includes("is-resolved") &&
+    team.className.includes("is-loser") &&
+    team.flagFilter.includes("grayscale") &&
+    Number(team.flagOpacity) < 1 &&
+    Number(team.rankOpacity) < 1 &&
+    getCssColorAlpha(team.strongColor) < 0.7;
+  const isResolvedRoundOf32Country = (team) => isLockedResolvedCountry(team) || isCompletedLoserCountry(team);
   const isMutedProjectedCountry = (team) =>
     !team.className.includes("is-locked") &&
     team.flagFilter.includes("grayscale") &&
@@ -5088,12 +5104,12 @@ try {
       tournamentCheck.m79TeamVisuals.length === 2 &&
       tournamentCheck.m79TeamVisuals.every(isLockedResolvedCountry) &&
       tournamentCheck.roundOf32TeamVisuals.length === 32 &&
-      tournamentCheck.roundOf32TeamVisuals.every(isLockedResolvedCountry) &&
+      tournamentCheck.roundOf32TeamVisuals.every(isResolvedRoundOf32Country) &&
       tournamentCheck.m79SlotPills.length === 0 &&
       m79MexicoVisual?.className.includes("is-locked") &&
       m79UnresolvedVisual &&
       m79UnresolvedVisual.className.includes("is-locked"),
-    `Locked Round of 32 teams should render as visually confirmed resolved cards with no slot odds. Measured ${JSON.stringify({ m79MexicoVisual, m79UnresolvedVisual, m79SlotPills: tournamentCheck.m79SlotPills, roundOf32ProjectedMatchNumbers: tournamentCheck.roundOf32ProjectedMatchNumbers })}.`
+    `Locked Round of 32 teams should render as visually confirmed resolved cards with completed losers muted and no slot odds. Measured ${JSON.stringify({ m79MexicoVisual, m79UnresolvedVisual, m79SlotPills: tournamentCheck.m79SlotPills, roundOf32ProjectedMatchNumbers: tournamentCheck.roundOf32ProjectedMatchNumbers })}.`
   );
   assert(
     tournamentCheck.m89Projected === true &&
@@ -5162,8 +5178,16 @@ try {
   const expectedOutcomePillCount = expectedOutcomeListCount * 3;
   const expectedMatch74OpenMatchId =
     fixturesData.fixtures.find((fixture) => fixture.matchNumber === 74)?.id || "";
-	  assert(
-	    tournamentCheck.summary.includes("Round of 32 slots") &&
+  const expectedMatch81Fixture = fixturesData.fixtures.find((fixture) => fixture.matchNumber === 81);
+  const expectedM81OutcomeTexts = expectedMatch81Fixture
+    ? [
+        `${expectedMatch81Fixture.homeTeamId} ${expectedMatch81Fixture.projection.home}%`,
+        `TIE ${expectedMatch81Fixture.projection.draw}%`,
+        `${expectedMatch81Fixture.awayTeamId} ${expectedMatch81Fixture.projection.away}%`
+      ]
+    : [];
+  assert(
+    tournamentCheck.summary.includes("Round of 32 slots") &&
       tournamentCheck.m73ProgressText.includes("Jun 28 12:00PM") &&
       !tournamentCheck.m73ProgressText.includes("Jun 28 / 12:00PM") &&
       tournamentCheck.m74ProgressText.includes(groupETopTeamName) &&
@@ -5193,12 +5217,13 @@ try {
       tournamentCheck.likelihoodTooltipCount === tournamentCheck.likelihoodCount &&
       tournamentCheck.likelihoodTooltipMaxLength <= 170 &&
       tournamentCheck.likelihoodListCount === expectedOutcomeListCount &&
+      tournamentCheck.outcomePillFlagCount === 0 &&
       tournamentCheck.tiePillCount === expectedOutcomeListCount &&
       tournamentCheck.tiePillFlagCount === 0 &&
-      tournamentCheck.m73PillCount === 3 &&
-      tournamentCheck.m73OutcomeKeys.join("|") === "home|tie|away" &&
-      tournamentCheck.m73OutcomeTexts.every((text) => !/\d+%\s+[A-Z][a-z]/.test(text)) &&
-      tournamentCheck.m73OutcomeTexts.some((text) => /^Tie\s+\d+%$/.test(text)) &&
+      tournamentCheck.m81PillCount === 3 &&
+      tournamentCheck.m81OutcomeKeys.join("|") === "home|tie|away" &&
+      tournamentCheck.m81OutcomeTexts.join("|") === expectedM81OutcomeTexts.join("|") &&
+      tournamentCheck.m81OutcomeTexts.every((text) => /^(?:[A-Z]{3}|TIE)\s+\d+%$/.test(text)) &&
       tournamentCheck.m89PillCount === 3 &&
       tournamentCheck.m89SeedLabelCount === 0 &&
       tournamentCheck.m97PillCount === 3 &&
@@ -5227,11 +5252,12 @@ try {
       tournamentCheck.m103Rect.center < tournamentCheck.semi102Rect.center - 24 &&
       tournamentCheck.m103Rect.top > tournamentCheck.m104Rect.bottom &&
       tournamentCheck.m103Rect.top - tournamentCheck.m104Rect.bottom <= 180 &&
-      tournamentCheck.likelihoodText.includes("Tie") &&
+      tournamentCheck.likelihoodText.includes("TIE") &&
       !tournamentCheck.likelihoodText.includes("here") &&
       !/\d+%\s+(?:Germany|Sweden|France|Canada|Argentina|Spain|Morocco|Japan)\b/.test(tournamentCheck.likelihoodText) &&
       !tournamentCheck.slotOddsText.includes("Germany ") &&
       !tournamentCheck.slotOddsText.includes("Bosnia and Herzegovina ") &&
+      tournamentCheck.slotOddsFlagCount === 0 &&
       tournamentCheck.rankCount >= 32 &&
       !/\bGroup [A-L]\d\b/.test(tournamentCheck.m89Text) &&
       !/\bGroup [A-L]\d\b/.test(tournamentCheck.m97Text) &&
@@ -5765,7 +5791,7 @@ try {
     }
   );
   await canadaPathCheck.page.waitForFunction(
-    () => document.querySelector('.progress-match[data-match-number="90"] .knockout-team[data-source-match="73"]')
+    () => document.querySelector('.progress-match[data-match-number="90"] .knockout-team[data-team-id="CAN"]')
   );
   const canadaPathState = await canadaPathCheck.page.evaluate(() => {
     const getVisual = (element) => {
@@ -5787,7 +5813,7 @@ try {
     const match90 = document.querySelector('.progress-match[data-match-number="90"]');
     const canada73 = match73?.querySelector('.knockout-team[data-team-id="CAN"]');
     const southAfrica73 = match73?.querySelector('.knockout-team[data-team-id="RSA"]');
-    const canada90 = match90?.querySelector('.knockout-team[data-source-match="73"]');
+    const canada90 = match90?.querySelector('.knockout-team[data-team-id="CAN"]');
     const other90 = match90?.querySelector('.knockout-team[data-source-match="75"]');
 
     return {

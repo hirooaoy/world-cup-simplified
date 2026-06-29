@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-28T10:20:00-07:00",
+  "updatedAt": "2026-06-28T22:26:40-07:00",
   "releases": [
     {
       "date": "2026-06-28",
@@ -11,7 +11,8 @@
         "Previous and Next path ranking pills now sit vertically centered, closer to the team name, and spaced away from following punctuation.",
         "Projected knockout matchups now show a Predicted status in match rows and details, keep confirmed source matches scheduled, and switch Final or third-place teams to real winners or runners-up once those results are in.",
         "Completed knockout tiles now mute the finished card and losing team, keep the advancing team in color, and replace prediction pills with a compact final-score pill.",
-        "Mobile tournament bracket scrolling now stays pinned at the page top instead of exposing extra white space above the navigation."
+        "Mobile tournament bracket scrolling now stays pinned at the page top instead of exposing extra white space above the navigation.",
+        "Tournament outcome percentage pills now use three-letter codes like USA, TIE, and BIH instead of flag emoji labels."
       ],
       "highlightsZh": [
         "淘汰赛比赛信息现在移除“上一轮”和“下一轮”路径文案里的行内旗帜，并在被提到的对手国家旁加入紧凑的FIFA排名标签。",
@@ -19,7 +20,8 @@
         "“上一轮”和“下一轮”路径里的排名标签现在会与周围句子文字垂直居中，对球队名更贴近，并与后面的标点留出间距。",
         "预测中的淘汰赛对阵现在会在比赛行和详情中显示“预测”状态，已确认的来源比赛仍标为赛程，并在决赛或季军赛来源结果产生后自动切换为真实胜者或负者。",
         "已完赛的淘汰赛卡片现在会弱化整张卡和出局球队，保留晋级球队的彩色显示，并用紧凑的最终比分标签替代预测标签。",
-        "移动端淘汰赛对阵图滚动现在会稳稳停在页面顶部，不再在导航上方露出额外空白。"
+        "移动端淘汰赛对阵图滚动现在会稳稳停在页面顶部，不再在导航上方露出额外空白。",
+        "淘汰赛结果百分比标签现在使用 USA、TIE、BIH 这样的三字母代码，不再使用旗帜表情。"
       ]
     },
     {

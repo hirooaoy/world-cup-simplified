@@ -10245,9 +10245,15 @@ function formatTournamentSlotPercent(probability) {
   return `${formatTournamentSlotPercentValue(probability)}%`;
 }
 
+function getTournamentProbabilityCode(team) {
+  const code = String(team?.id || "").trim().toUpperCase();
+  return code || String(team?.name || "").trim().slice(0, 3).toUpperCase();
+}
+
 function renderTournamentProbabilityLabel(team, probabilityText, labelText = "") {
-  const visibleText = labelText ? `${labelText} ${probabilityText}` : probabilityText;
-  return `${renderFlag(team)}<span>${escapeHtml(visibleText)}</span>`;
+  const code = labelText || getTournamentProbabilityCode(team);
+  const visibleText = [code, probabilityText].filter(Boolean).join(" ");
+  return `<span>${escapeHtml(visibleText)}</span>`;
 }
 
 function getTournamentSlotOddsTone(probability) {
@@ -10888,7 +10894,7 @@ function renderTournamentOutcomePill(outcome) {
   const teamAttributes = outcome.team ? ` data-team-id="${escapeHtml(outcome.team.id)}"` : "";
   const labelHtml = outcome.team
     ? renderTournamentProbabilityLabel(outcome.team, `${percent}%`)
-    : `<span>${escapeHtml(`${localizeText("Tie")} ${percent}%`)}</span>`;
+    : `<span>${escapeHtml(`TIE ${percent}%`)}</span>`;
 
   return `<span class="knockout-likelihood is-${escapeHtml(tone)}" tabindex="0" aria-label="${escapeHtml(reason)}" data-tooltip="${escapeHtml(reason)}" data-outcome="${escapeHtml(outcome.key)}"${teamAttributes}>${labelHtml}</span>`;
 }
