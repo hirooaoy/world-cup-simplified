@@ -5,10 +5,11 @@ import { fileURLToPath } from "node:url";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const dataDir = path.join(root, "data");
-const now = new Date();
+const now = process.env.AUDIT_NOW ? new Date(process.env.AUDIT_NOW) : new Date();
 const timeZone = process.env.WORLD_CUP_TZ || "America/Los_Angeles";
 const staleSourceHours = Number(process.env.STALE_SOURCE_HOURS || 12);
 const staleLiveHours = Number(process.env.STALE_LIVE_HOURS || 2.5);
+const knockoutStaleLiveHours = Number(process.env.KNOCKOUT_STALE_LIVE_HOURS || 3.5);
 const scheduledLiveWindowHours = Number(process.env.SCHEDULED_LIVE_WINDOW_HOURS || 2.25);
 const enrichmentWindowHours = Number(process.env.ENRICHMENT_WINDOW_HOURS || 48);
 const warnings = [];
@@ -56,6 +57,16 @@ function participantName(teamsById, fixture, side) {
   const teamId = side === "home" ? fixture.homeTeamId : fixture.awayTeamId;
   const slot = side === "home" ? fixture.homeSlot : fixture.awaySlot;
   return teamId ? teamName(teamsById, teamId) : slot || "TBD";
+}
+
+function isKnockoutFixture(fixture) {
+  return fixture.stage && fixture.stage !== "group";
+}
+
+function liveStaleHours(fixture) {
+  return isKnockoutFixture(fixture)
+    ? Math.max(staleLiveHours, knockoutStaleLiveHours)
+    : staleLiveHours;
 }
 
 function emptyStanding(teamId) {
@@ -149,10 +160,14 @@ for (const fixture of fixtures) {
     );
   }
 
-  if (fixture.status === "LIVE" && hoursSinceKickoff > staleLiveHours) {
+  const liveHoursLimit = liveStaleHours(fixture);
+  if (fixture.status === "LIVE" && hoursSinceKickoff > liveHoursLimit) {
     failures.push(`${label} has been LIVE for ${hoursSinceKickoff.toFixed(1)}h. Confirm status or final score.`);
   } else if (fixture.status === "LIVE" && hoursSinceKickoff > scheduledLiveWindowHours) {
-    warnings.push(`${label} has been LIVE for ${hoursSinceKickoff.toFixed(1)}h. Confirm status soon.`);
+    const knockoutNote = isKnockoutFixture(fixture) && hoursSinceKickoff > staleLiveHours
+      ? " Knockout matches can run through extra time or penalties."
+      : "";
+    warnings.push(`${label} has been LIVE for ${hoursSinceKickoff.toFixed(1)}h.${knockoutNote} Confirm status soon.`);
   }
 
   if (fixture.status === "LIVE" && hoursSinceKickoff < -0.05) {

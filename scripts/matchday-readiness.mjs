@@ -8,6 +8,7 @@ const dataDir = path.join(root, "data");
 const timeZone = process.env.WORLD_CUP_TZ || "America/Los_Angeles";
 const now = process.env.MATCHDAY_NOW ? new Date(process.env.MATCHDAY_NOW) : new Date();
 const statusStaleHours = Number(process.env.MATCHDAY_STATUS_STALE_HOURS || 2.25);
+const knockoutLiveStatusStaleHours = Number(process.env.MATCHDAY_KNOCKOUT_LIVE_STATUS_STALE_HOURS || 3.5);
 const marketFreshHours = Number(process.env.MATCHDAY_MARKET_FRESH_HOURS || 24);
 const contextFreshHours = Number(process.env.MATCHDAY_CONTEXT_FRESH_HOURS || 72);
 const squadFreshHours = Number(process.env.MATCHDAY_SQUAD_FRESH_HOURS || 24);
@@ -75,6 +76,16 @@ function fixtureSourceIds(fixture) {
     ...(fixture.keyInformation?.researchSourceIds || []),
     fixture.h2h?.sourceId
   ].filter(Boolean);
+}
+
+function isKnockoutFixture(fixture) {
+  return fixture.stage && fixture.stage !== "group";
+}
+
+function liveStatusStaleHours(fixture) {
+  return isKnockoutFixture(fixture)
+    ? Math.max(statusStaleHours, knockoutLiveStatusStaleHours)
+    : statusStaleHours;
 }
 
 function sourceThresholdHours(source) {
@@ -177,10 +188,14 @@ for (const fixture of focusFixtures) {
     }
   }
 
-  if (fixture.status === "LIVE" && hoursSinceKickoff > statusStaleHours) {
+  const liveStaleHours = liveStatusStaleHours(fixture);
+  if (fixture.status === "LIVE" && hoursSinceKickoff > liveStaleHours) {
     blockers.push(`${label} has been LIVE for ${hoursSinceKickoff.toFixed(1)}h. Run pnpm sync:fifa and confirm FT score/status.`);
   } else if (fixture.status === "LIVE") {
-    actions.push(`${label} is LIVE. Re-run pnpm sync:fifa after full time.`);
+    const knockoutNote = isKnockoutFixture(fixture) && hoursSinceKickoff > statusStaleHours
+      ? " Knockout matches can run through extra time or penalties."
+      : "";
+    actions.push(`${label} is LIVE.${knockoutNote} Re-run pnpm sync:fifa after full time.`);
   }
 
   if (fixture.status === "FT" && !fixture.score) {
