@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-29T20:25:41.455Z",
+  "updatedAt": "2026-06-29T21:50:58.989Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -8848,7 +8848,7 @@
       "homeSlot": "Group E winner",
       "awaySlot": "Group A/B/C/D/F third place",
       "venue": "Boston Stadium",
-      "status": "SCHEDULED",
+      "status": "LIVE",
       "h2h": {
         "status": "research-pending",
         "summary": "H2H research is pending for this matchup. Add API-backed or manually verified senior results when available.",
@@ -8907,6 +8907,10 @@
         "sourceId": "editorial-preview-2026-06-22",
         "home": "Germany are a technical control side with enough young creativity to open compact defenses, led by Joshua Kimmich, Jamal Musiala, and Florian Wirtz. Against Paraguay, their Kimmich-Musiala-Wirtz central rotations has to beat Paraguay's Almiron-Enciso counters. They want to pull midfielders out with Kimmich's passing before Musiala and Wirtz attack the gaps near the box. The risk is Paraguay can turn one Almiron break or Enciso shot into a tight-game swing.",
         "away": "Paraguay are rugged counterpunchers who are comfortable turning matches into physical, tight contests, led by Miguel Almiron, Julio Enciso, and Gustavo Gomez. Against Germany, their Almiron-Enciso counters has to beat Germany's Kimmich-Musiala-Wirtz central rotations. They want to release Almiron into space and let Enciso attack the pocket before defenders settle. The risk is Germany can combine through Kimmich, Musiala, and Wirtz until the defense loses its shape."
+      },
+      "score": {
+        "home": 1,
+        "away": 1
       }
     },
     {
