@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-29T18:28:21.579Z",
+  "updatedAt": "2026-06-29T20:25:41.455Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -8988,7 +8988,7 @@
       "homeSlot": "Group C winner",
       "awaySlot": "Group F runner-up",
       "venue": "Houston Stadium",
-      "status": "LIVE",
+      "status": "FT",
       "h2h": {
         "status": "research-pending",
         "summary": "H2H research is pending for this matchup. Add API-backed or manually verified senior results when available.",
@@ -9056,7 +9056,7 @@
         "away": "Japan are a precise, fast-passing side that can make possession feel sudden and sharp, led by Takefusa Kubo, Ritsu Doan, and Daichi Kamada. Against Brazil, their Doan-Kamada combination speed has to beat Brazil's Neymar-Vinicius isolation speed. Kubo could play a part after the knee issue, so Ueda and Doan may carry the early threat. They want to move the ball quickly enough for their attackers to receive between defenders. The risk is Brazil can break a shape through Neymar combinations and Vinicius Junior's speed."
       },
       "score": {
-        "home": 1,
+        "home": 2,
         "away": 1
       }
     },
@@ -9965,7 +9965,8 @@
           "matchId": "400021532",
           "matchNumber": 91
         }
-      }
+      },
+      "homeTeamId": "BRA"
     },
     {
       "id": "match-92-round-of-16-2026-07-05",
