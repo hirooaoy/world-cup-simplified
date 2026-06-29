@@ -5088,6 +5088,67 @@ h1 {
   outline-offset: 3px;
 }
 
+@media (hover: none), (pointer: coarse) {
+  .live-pill[data-tooltip]:hover::after,
+  .rank-pill[data-tooltip]:hover::after,
+  .team.has-team-tooltip:hover::after,
+  .past-team.has-team-tooltip:hover::after,
+  .summary-team.has-team-tooltip:hover::after,
+  .yesterday-team.has-team-tooltip:hover::after,
+  .info-tooltip-button:hover::after,
+  .standing-help:hover::after,
+  .standing-team.has-name-tooltip:hover::after,
+  .standing-status-pill[data-tooltip]:hover::after,
+  .third-place-pill[data-tooltip]:hover::after,
+  .third-place-status[data-tooltip]:hover::after,
+  .knockout-match-venue[data-tooltip]:hover::after,
+  .knockout-team[data-tooltip]:hover::after,
+  .knockout-likelihood:hover::after,
+  .knockout-slot-odds:hover::after,
+  .prediction-row.has-label-tooltip:hover::after,
+  .past-record-row.has-label-tooltip:hover::after {
+    opacity: 0;
+  }
+
+  .player-card-value-help:hover::after {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+.live-pill[data-tooltip].is-touch-tooltip-open::after,
+.rank-pill[data-tooltip].is-touch-tooltip-open::after,
+.team.has-team-tooltip.is-touch-tooltip-open::after,
+.past-team.has-team-tooltip.is-touch-tooltip-open::after,
+.summary-team.has-team-tooltip.is-touch-tooltip-open::after,
+.yesterday-team.has-team-tooltip.is-touch-tooltip-open::after,
+.info-tooltip-button.is-touch-tooltip-open::after,
+.standing-help.is-touch-tooltip-open::after,
+.standing-team.has-name-tooltip.is-touch-tooltip-open::after,
+.standing-status-pill[data-tooltip].is-touch-tooltip-open::after,
+.third-place-pill[data-tooltip].is-touch-tooltip-open::after,
+.player-card-value-help.is-touch-tooltip-open::after,
+.prediction-row.has-label-tooltip.is-touch-tooltip-open::after,
+.past-record-row.has-label-tooltip.is-touch-tooltip-open::after {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+.player-card-value-help.is-touch-tooltip-open::after {
+  visibility: visible;
+}
+
+.standings-table th:last-child .standing-help.is-touch-tooltip-open::after,
+.third-place-table th:last-child .standing-help.is-touch-tooltip-open::after,
+.third-place-status[data-tooltip].is-touch-tooltip-open::after,
+.knockout-match-venue[data-tooltip].is-touch-tooltip-open::after,
+.knockout-team[data-tooltip].is-touch-tooltip-open::after,
+.knockout-likelihood.is-touch-tooltip-open::after,
+.knockout-slot-odds.is-touch-tooltip-open::after {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 .past-record-label,
 .past-record-count {
   font-size: 13px;

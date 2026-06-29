@@ -2345,6 +2345,16 @@ const ZH_PATTERN_TRANSLATIONS = [
     replace: (_, leader, score, chaser) => `${translateTextToZh(leader)} 以 ${score} 领先，但 ${translateTextToZh(chaser)} 仍有时间追回比赛。`
   },
   {
+    pattern: /^(.+) and (.+) await the knockout winner$/,
+    replace: (_, home, away) =>
+      `${translateTextToZh(home)} 和 ${translateTextToZh(away)} 等待淘汰赛胜者确认`
+  },
+  {
+    pattern: /^(.+) is loaded for (.+), but the knockout winner is not loaded yet\.$/,
+    replace: (_, score, context) =>
+      `${translateTextToZh(context)}已载入 ${score}，但淘汰赛胜者尚未载入。`
+  },
+  {
     pattern: /^(.+) and (.+) split the points$/,
     replace: (_, home, away) => `${translateTextToZh(home)} 和 ${translateTextToZh(away)} 各取一分`
   },
@@ -2365,8 +2375,66 @@ const ZH_PATTERN_TRANSLATIONS = [
     replace: (_, winner, loser) => `${translateTextToZh(winner)} 在胶着比赛中险胜 ${translateTextToZh(loser)}`
   },
   {
+    pattern: /^(.+) edge (.+) to reach the (.+)$/,
+    replace: (_, winner, loser, target) =>
+      `${translateTextToZh(winner)} 险胜 ${translateTextToZh(loser)}，晋级${translateTextToZh(target)}`
+  },
+  {
+    pattern: /^(.+) beat (.+) to reach the (.+)$/,
+    replace: (_, winner, loser, target) =>
+      `${translateTextToZh(winner)} 击败 ${translateTextToZh(loser)}，晋级${translateTextToZh(target)}`
+  },
+  {
+    pattern: /^(.+) advance past (.+)$/,
+    replace: (_, winner, loser) =>
+      `${translateTextToZh(winner)} 淘汰 ${translateTextToZh(loser)} 晋级`
+  },
+  {
+    pattern: /^(.+) survive (.+) on penalties$/,
+    replace: (_, winner, loser) =>
+      `${translateTextToZh(winner)} 点球淘汰 ${translateTextToZh(loser)}`
+  },
+  {
+    pattern: /^(.+) win the World Cup$/,
+    replace: (_, winner) => `${translateTextToZh(winner)} 赢得世界杯`
+  },
+  {
+    pattern: /^(.+) secure third place$/,
+    replace: (_, winner) => `${translateTextToZh(winner)} 获得第三名`
+  },
+  {
     pattern: /^(.+)'s (.+) win gives them an early foothold in (.+)\.$/,
     replace: (_, winner, score, context) => `${translateTextToZh(winner)} 的 ${score} 胜利让他们在 ${translateTextToZh(context)} 中先占位置。`
+  },
+  {
+    pattern: /^(.+)'s (.+) win moved them into the (.+) and ended (.+)'s run\.$/,
+    replace: (_, winner, score, target, loser) =>
+      `${translateTextToZh(winner)} 的 ${score} 胜利让他们进入${translateTextToZh(target)}，也结束了 ${translateTextToZh(loser)} 的征程。`
+  },
+  {
+    pattern: /^(.+)'s (.+) win moved them into the (.+)\.$/,
+    replace: (_, winner, score, target) =>
+      `${translateTextToZh(winner)} 的 ${score} 胜利让他们进入${translateTextToZh(target)}。`
+  },
+  {
+    pattern: /^(.+)'s (.+) win moved them through from the (.+) and ended (.+)'s run\.$/,
+    replace: (_, winner, score, context, loser) =>
+      `${translateTextToZh(winner)} 的 ${score} 胜利让他们从${translateTextToZh(context)}晋级，也结束了 ${translateTextToZh(loser)} 的征程。`
+  },
+  {
+    pattern: /^(.+) advanced to the (.+) on penalties after a (.+) draw, ending (.+)'s run\.$/,
+    replace: (_, winner, target, score, loser) =>
+      `${translateTextToZh(winner)} 在 ${score} 战平后通过点球进入${translateTextToZh(target)}，也结束了 ${translateTextToZh(loser)} 的征程。`
+  },
+  {
+    pattern: /^(.+)'s (.+) win settled the Final against (.+)\.$/,
+    replace: (_, winner, score, loser) =>
+      `${translateTextToZh(winner)} 的 ${score} 胜利在决赛中击败 ${translateTextToZh(loser)}。`
+  },
+  {
+    pattern: /^(.+)'s (.+) win secured third place against (.+)\.$/,
+    replace: (_, winner, score, loser) =>
+      `${translateTextToZh(winner)} 的 ${score} 胜利让他们击败 ${translateTextToZh(loser)} 获得第三名。`
   },
   {
     pattern: /^(.+) and (.+) have no shared script$/,
@@ -2405,6 +2473,11 @@ const ZH_PATTERN_TRANSLATIONS = [
     replace: (_, winner, loser, score) => `⚽ ${translateTextToZh(winner)} 以 ${score} 险胜 ${translateTextToZh(loser)}。`
   },
   {
+    pattern: /^⚽ (.+) beat (.+) on penalties after a (.+) draw\.$/,
+    replace: (_, winner, loser, score) =>
+      `⚽ ${translateTextToZh(winner)} 在 ${score} 战平后通过点球击败 ${translateTextToZh(loser)}。`
+  },
+  {
     pattern: /^⚽ (.+) found the decisive goal in a (.+) win\.$/,
     replace: (_, winner, score) => `⚽ ${translateTextToZh(winner)} 在 ${score} 的胜利中打入制胜球。`
   },
@@ -2419,6 +2492,15 @@ const ZH_PATTERN_TRANSLATIONS = [
   {
     pattern: /^🌟 The clean sheet gave (.+) no way back\.$/,
     replace: (_, team) => `🌟 零封让${translateTextToZh(team)}无力追回。`
+  },
+  {
+    pattern: /^🌟 (.+)'s clean sheet ended (.+)'s run\.$/,
+    replace: (_, winner, loser) =>
+      `🌟 ${translateTextToZh(winner)}的零封结束了${translateTextToZh(loser)}的征程。`
+  },
+  {
+    pattern: /^🌟 The shootout decided (.+)\.$/,
+    replace: (_, context) => `🌟 点球大战决定了${translateTextToZh(context)}。`
   },
   {
     pattern: /^🌟 (.+)'s attack broke the match open\.$/,
@@ -2560,6 +2642,33 @@ const ZH_PATTERN_TRANSLATIONS = [
   {
     pattern: /^📊 (.+) took three points and (.+) GD in (.+)\.$/,
     replace: (_, winner, gd, context) => `📊 ${translateTextToZh(winner)} 在 ${translateTextToZh(context)} 中拿到3分，并获得 ${gd} 净胜球。`
+  },
+  {
+    pattern: /^📊 (.+) still needs a knockout winner loaded\.$/,
+    replace: (_, context) => `📊 ${translateTextToZh(context)}仍需载入淘汰赛胜者。`
+  },
+  {
+    pattern: /^📊 (.+) reached the (.+) and (.+) exited\.$/,
+    replace: (_, winner, target, loser) =>
+      `📊 ${translateTextToZh(winner)}晋级${translateTextToZh(target)}，${translateTextToZh(loser)}出局。`
+  },
+  {
+    pattern: /^📊 (.+) advanced from the (.+)\.$/,
+    replace: (_, winner, context) =>
+      `📊 ${translateTextToZh(winner)}从${translateTextToZh(context)}晋级。`
+  },
+  {
+    pattern: /^📊 (.+) advanced from (.+)\.$/,
+    replace: (_, winner, context) =>
+      `📊 ${translateTextToZh(winner)}从${translateTextToZh(context)}晋级。`
+  },
+  {
+    pattern: /^📊 (.+) won the World Cup\.$/,
+    replace: (_, winner) => `📊 ${translateTextToZh(winner)}赢得世界杯。`
+  },
+  {
+    pattern: /^📊 (.+) secured third place\.$/,
+    replace: (_, winner) => `📊 ${translateTextToZh(winner)}获得第三名。`
   },
   {
     pattern: /^📊 Both teams moved to (.+) point(?:s)? in Group ([A-L])\.$/,
@@ -3081,6 +3190,9 @@ let teamSearchQuery = "";
 let calendarMonthKey = getMonthKeyFromDayKey(selectedDayKey);
 let isCalendarOpen = false;
 let isCatchUpOpen = false;
+let catchUpRenderFrameId = 0;
+let catchUpRenderTimeoutId = 0;
+let catchUpRenderToken = 0;
 let isSettingsOpen = false;
 let isStandingsYearOpen = false;
 let isTeamSearchOpen = false;
@@ -7139,6 +7251,7 @@ const boundedTooltipSelector = [
   ".knockout-slot-odds[data-tooltip]"
 ].join(",");
 const boundedElementTooltipSelector = ".source-tooltip, .release-tooltip";
+let activeTouchTooltipElement = null;
 
 function getPixelValue(value) {
   const number = Number.parseFloat(value);
@@ -7334,6 +7447,72 @@ function updateTooltipBoundsForTarget(target) {
 
   updateTooltipBounds(root);
   window.requestAnimationFrame(() => updateTooltipBounds(root));
+}
+
+function isTouchTooltipPointerEvent(event) {
+  const pointerType = String(event.pointerType || "").toLowerCase();
+  return (
+    pointerType === "touch" ||
+    pointerType === "pen" ||
+    (!pointerType && window.matchMedia?.("(hover: none), (pointer: coarse)").matches)
+  );
+}
+
+function getNonLinkTooltipElement(target) {
+  if (!(target instanceof Element)) {
+    return null;
+  }
+
+  const tooltipElement = target.closest(boundedTooltipSelector);
+  if (!tooltipElement || tooltipElement.closest("a[href]")) {
+    return null;
+  }
+
+  return tooltipElement;
+}
+
+function clearActiveTouchTooltip() {
+  if (!activeTouchTooltipElement) {
+    return;
+  }
+
+  if (document.activeElement === activeTouchTooltipElement) {
+    activeTouchTooltipElement.blur();
+  }
+
+  activeTouchTooltipElement.classList.remove("is-touch-tooltip-open");
+  activeTouchTooltipElement = null;
+}
+
+function setActiveTouchTooltip(tooltipElement) {
+  if (activeTouchTooltipElement && activeTouchTooltipElement !== tooltipElement) {
+    clearActiveTouchTooltip();
+  }
+
+  activeTouchTooltipElement = tooltipElement;
+  activeTouchTooltipElement.classList.add("is-touch-tooltip-open");
+  activeTouchTooltipElement.focus?.({ preventScroll: true });
+  updateTooltipBounds(activeTouchTooltipElement);
+  window.requestAnimationFrame(() => updateTooltipBounds(activeTouchTooltipElement));
+}
+
+function handleTouchTooltipPointerDown(event) {
+  if (!isTouchTooltipPointerEvent(event)) {
+    return;
+  }
+
+  const tooltipElement = getNonLinkTooltipElement(event.target);
+  if (!tooltipElement) {
+    clearActiveTouchTooltip();
+    return;
+  }
+
+  event.stopPropagation();
+  setActiveTouchTooltip(tooltipElement);
+}
+
+function shouldIgnoreContainerClickForTooltip(target) {
+  return Boolean(getNonLinkTooltipElement(target));
 }
 
 function getVenueLabel(match) {
@@ -7815,6 +7994,11 @@ function renderMatchRow(match, state, currentTime = Date.now(), options = {}) {
   });
   row.addEventListener("click", (event) => {
     if (event.target instanceof Element && event.target.closest("a")) {
+      return;
+    }
+
+    if (shouldIgnoreContainerClickForTooltip(event.target)) {
+      event.preventDefault();
       return;
     }
 
@@ -12121,7 +12305,7 @@ function renderScoreSummary(match, options = {}) {
     return `<p class="past-empty">${escapeHtml(localizeText(text))}</p>`;
   }
 
-  const winnerSide = getScoreWinnerSide(score.home, score.away);
+  const winnerSide = getResultWinnerSide(match, score);
   const scoreText = `${score.home}-${score.away}`;
 
   if (!winnerSide) {
@@ -12131,8 +12315,11 @@ function renderScoreSummary(match, options = {}) {
 
   const winner = winnerSide === "home" ? match.homeTeam : match.awayTeam;
   const loser = winnerSide === "home" ? match.awayTeam : match.homeTeam;
+  const penaltyText = getResultScorePairForSide(match.scoreDetails?.penalties, winnerSide);
 
-  const text = `${winner.name} ${options.live ? "lead" : "beat"} ${loser.name} ${scoreText}.`;
+  const text = penaltyText && !options.live
+    ? `${winner.name} beat ${loser.name} on penalties after a ${scoreText} draw.`
+    : `${winner.name} ${options.live ? "lead" : "beat"} ${loser.name} ${scoreText}.`;
   return `<p class="past-empty">${escapeHtml(localizeText(text))}</p>`;
 }
 
@@ -12196,46 +12383,122 @@ function getGeneratedDrawMoment(match, score) {
 
 function getGeneratedDrawHighlights(match, score, context, standout) {
   const scoreText = `${score.home}-${score.away}`;
+  const impactNote = isKnockoutResultMatch(match)
+    ? `📊 ${context} still needs a knockout winner loaded.`
+    : score.home === 0 && score.away === 0
+      ? `📊 Both sides took one point from ${context}.`
+      : `📊 Both teams took one point from ${context}.`;
 
   if (score.home === 0 && score.away === 0) {
     return [
       `⚽ ${match.homeTeam.name} and ${match.awayTeam.name} shared a 0-0 draw.`,
       formatStandoutHighlight(standout) || getGeneratedDrawMoment(match, score),
-      `📊 Both sides took one point from ${context}.`
+      impactNote
     ];
   }
 
   return [
     `⚽ ${match.homeTeam.name} and ${match.awayTeam.name} finished level at ${scoreText}.`,
     formatStandoutHighlight(standout) || getGeneratedDrawMoment(match, score),
-    `📊 Both teams took one point from ${context}.`
+    impactNote
   ];
 }
 
+function getKnockoutResultImpactHighlight(match, winner, loser, context, nextStage) {
+  if (match?.stage === "final") {
+    return `📊 ${winner.name} won the World Cup.`;
+  }
+
+  if (match?.stage === "bronze-final") {
+    return `📊 ${winner.name} secured third place.`;
+  }
+
+  if (!nextStage) {
+    return `📊 ${winner.name} advanced from the ${context}.`;
+  }
+
+  const detailed = `📊 ${winner.name} reached the ${nextStage} and ${loser.name} exited.`;
+  return detailed.length <= 95 ? detailed : `📊 ${winner.name} advanced from the ${context}.`;
+}
+
+function getKnockoutResultCatchUpHeadline(match, winner, loser, margin, penaltyText, nextStage) {
+  if (match?.stage === "final") {
+    return `${winner.name} win the World Cup`;
+  }
+
+  if (match?.stage === "bronze-final") {
+    return `${winner.name} secure third place`;
+  }
+
+  if (penaltyText) {
+    return `${winner.name} survive ${loser.name} on penalties`;
+  }
+
+  if (nextStage) {
+    return margin === 1
+      ? `${winner.name} edge ${loser.name} to reach the ${nextStage}`
+      : `${winner.name} beat ${loser.name} to reach the ${nextStage}`;
+  }
+
+  return "";
+}
+
+function getKnockoutResultCatchUpBody(match, winner, loser, score, scoreText, penaltyText, nextStage, context) {
+  if (match?.stage === "final") {
+    return `${winner.name}'s ${scoreText} win settled the Final against ${loser.name}.`;
+  }
+
+  if (match?.stage === "bronze-final") {
+    return `${winner.name}'s ${scoreText} win secured third place against ${loser.name}.`;
+  }
+
+  if (penaltyText && nextStage) {
+    return `${winner.name} advanced to the ${nextStage} on penalties after a ${score.home}-${score.away} draw, ending ${loser.name}'s run.`;
+  }
+
+  if (nextStage) {
+    return `${winner.name}'s ${scoreText} win moved them into the ${nextStage}.`;
+  }
+
+  return `${winner.name}'s ${scoreText} win moved them through from the ${context} and ended ${loser.name}'s run.`;
+}
+
 function getGeneratedWinHighlights(match, score, context, standout) {
-  const winnerSide = getScoreWinnerSide(score.home, score.away);
+  const winnerSide = getResultWinnerSide(match, score);
   const winner = winnerSide === "home" ? match.homeTeam : match.awayTeam;
   const loser = winnerSide === "home" ? match.awayTeam : match.homeTeam;
   const winnerScore = winnerSide === "home" ? score.home : score.away;
   const loserScore = winnerSide === "home" ? score.away : score.home;
   const margin = winnerScore - loserScore;
   const scoreText = `${winnerScore}-${loserScore}`;
+  const penaltyText = getResultScorePairForSide(match.scoreDetails?.penalties, winnerSide);
+  const isKnockout = isKnockoutResultMatch(match);
+  const nextStage = getResultNextKnockoutStageLabel(match);
   const scoringNote = margin >= 3
     ? `⚽ ${winner.name} made a statement with a ${scoreText} win.`
-    : winnerScore === 1
-      ? `⚽ ${winner.name} found the decisive goal in a ${scoreText} win.`
-      : `⚽ ${winner.name} beat ${loser.name} ${scoreText}.`;
+    : penaltyText
+      ? `⚽ ${winner.name} beat ${loser.name} on penalties after a ${score.home}-${score.away} draw.`
+      : isKnockout && margin === 1
+        ? `⚽ ${winner.name} edged ${loser.name} ${scoreText}.`
+        : winnerScore === 1
+          ? `⚽ ${winner.name} found the decisive goal in a ${scoreText} win.`
+          : `⚽ ${winner.name} beat ${loser.name} ${scoreText}.`;
   const controlNote =
     formatStandoutHighlight(standout) ||
-    (loserScore === 0
-      ? `🌟 The clean sheet gave ${loser.name} no way back.`
-      : margin >= 3
-        ? `🌟 ${winner.name}'s attack broke the match open.`
-        : margin === 1
-          ? `🌟 ${winner.name} protected a one-goal edge.`
-          : `🌟 ${winner.name} created enough separation to control the finish.`);
-  const groupImpact =
-    match.groupId && margin > 0
+    (penaltyText
+      ? `🌟 The shootout decided ${context}.`
+      : isKnockout && loserScore === 0
+        ? `🌟 ${winner.name}'s clean sheet ended ${loser.name}'s run.`
+        : loserScore === 0
+          ? `🌟 The clean sheet gave ${loser.name} no way back.`
+          : margin >= 3
+            ? `🌟 ${winner.name}'s attack broke the match open.`
+            : margin === 1
+              ? `🌟 ${winner.name} protected a one-goal edge.`
+              : `🌟 ${winner.name} created enough separation to control the finish.`);
+  const groupImpact = isKnockout
+    ? getKnockoutResultImpactHighlight(match, winner, loser, context, nextStage)
+    : match.groupId && margin > 0
       ? `📊 ${winner.name} took three points and ${formatGoalDifference(margin)} GD in ${context}.`
       : `📊 ${winner.name} took three points from ${context}.`;
 
@@ -12256,7 +12519,7 @@ function getGeneratedResultHighlights(match) {
   const context = getCatchUpContext(match);
   const standout = getCatchUpStandout(match);
 
-  if (!getScoreWinnerSide(score.home, score.away)) {
+  if (!getResultWinnerSide(match, score)) {
     return getGeneratedDrawHighlights(match, score, context, standout);
   }
 
@@ -16667,6 +16930,65 @@ function getCatchUpContext(match) {
   return tournament.stages.find((stage) => stage.id === match.stage)?.label || match.stage;
 }
 
+function isKnockoutResultMatch(match) {
+  if (!match || match.stage === "group") {
+    return false;
+  }
+
+  const stage = tournament.stages.find((stageItem) => stageItem.id === match.stage);
+  return stage?.type === "knockout" || /(?:round-of|quarter|semi|final|bronze)/i.test(match.stage || "");
+}
+
+function getResultExplicitWinnerSide(match) {
+  const winnerValue = String(match?.winnerTeamId || match?.winner || "").trim();
+
+  if (!winnerValue) {
+    return "";
+  }
+
+  const winnerKey = normalizeTextKey(winnerValue);
+  const sides = ["home", "away"];
+  return sides.find((side) => {
+    const team = match?.[`${side}Team`];
+    return [team?.id, team?.name, team?.officialName, team?.standingName].some(
+      (value) => normalizeTextKey(value) === winnerKey
+    );
+  }) || "";
+}
+
+function getResultWinnerSide(match, score) {
+  return (
+    getScoreWinnerSide(match?.scoreDetails?.penalties?.home, match?.scoreDetails?.penalties?.away) ||
+    getResultExplicitWinnerSide(match) ||
+    getScoreWinnerSide(score?.home, score?.away)
+  );
+}
+
+function getResultScorePairForSide(pair, side) {
+  if (!pair) {
+    return "";
+  }
+
+  const home = Number(pair.home);
+  const away = Number(pair.away);
+  if (!Number.isFinite(home) || !Number.isFinite(away)) {
+    return "";
+  }
+
+  return side === "away" ? `${away}-${home}` : `${home}-${away}`;
+}
+
+function getResultNextKnockoutStageLabel(match) {
+  const targets = {
+    "round-of-32": "Round of 16",
+    "round-of-16": "Quarter-finals",
+    "quarter-finals": "Semi-finals",
+    "semi-finals": "Final"
+  };
+
+  return targets[match?.stage] || "";
+}
+
 function getResultSourceForMatch(match) {
   const sourceMatchText = `${match.homeTeam.name} vs ${match.awayTeam.name}`;
   const sourceMatchKey = normalizeTextKey(sourceMatchText);
@@ -16756,13 +17078,21 @@ function getResultCatchUpItem(match) {
     return null;
   }
 
-  const winnerSide = getScoreWinnerSide(score.home, score.away);
+  const isKnockout = isKnockoutResultMatch(match);
+  const winnerSide = getResultWinnerSide(match, score);
 
   if (!winnerSide) {
+    const headline = isKnockout
+      ? `${match.homeTeam.name} and ${match.awayTeam.name} await the knockout winner`
+      : `${match.homeTeam.name} and ${match.awayTeam.name} split the points`;
+    const body = isKnockout
+      ? `${score.home}-${score.away} is loaded for ${context}, but the knockout winner is not loaded yet.`
+      : `${score.home}-${score.away} keeps ${context} open and gives both teams something to carry into the next match.`;
+
     return {
       dateKey,
-      headline: `${match.homeTeam.name} and ${match.awayTeam.name} split the points`,
-      body: `${score.home}-${score.away} keeps ${context} open and gives both teams something to carry into the next match.`,
+      headline,
+      body,
       standouts: getResultCatchUpStandouts(match),
       mentionPlayers,
       meta,
@@ -16777,17 +17107,27 @@ function getResultCatchUpItem(match) {
   const winnerScore = winnerSide === "home" ? score.home : score.away;
   const loserScore = winnerSide === "home" ? score.away : score.home;
   const margin = winnerScore - loserScore;
+  const nextStage = getResultNextKnockoutStageLabel(match);
+  const penaltyText = getResultScorePairForSide(match.scoreDetails?.penalties, winnerSide);
+  const scoreText = `${winnerScore}-${loserScore}`;
+  const knockoutHeadline = getKnockoutResultCatchUpHeadline(match, winner, loser, margin, penaltyText, nextStage);
   const headline =
-    margin >= 3
+    isKnockout && knockoutHeadline
+      ? knockoutHeadline
+      : margin >= 3
       ? `${winner.name} make a statement against ${loser.name}`
       : margin === 2
         ? `${winner.name} look sharp against ${loser.name}`
         : `${winner.name} narrowly beat ${loser.name}`;
+  const body =
+    isKnockout
+      ? getKnockoutResultCatchUpBody(match, winner, loser, score, scoreText, penaltyText, nextStage, context)
+      : `${winner.name}'s ${scoreText} win gives them an early foothold in ${context}.`;
 
   return {
     dateKey,
     headline,
-    body: `${winner.name}'s ${winnerScore}-${loserScore} win gives them an early foothold in ${context}.`,
+    body,
     standouts: getResultCatchUpStandouts(match),
     mentionPlayers,
     meta,
@@ -17115,6 +17455,39 @@ function renderCatchUp() {
     `;
 }
 
+function cancelScheduledCatchUpRender() {
+  catchUpRenderToken += 1;
+
+  if (catchUpRenderFrameId) {
+    window.cancelAnimationFrame(catchUpRenderFrameId);
+    catchUpRenderFrameId = 0;
+  }
+
+  if (catchUpRenderTimeoutId) {
+    window.clearTimeout(catchUpRenderTimeoutId);
+    catchUpRenderTimeoutId = 0;
+  }
+}
+
+function scheduleCatchUpRender() {
+  cancelScheduledCatchUpRender();
+  const renderToken = catchUpRenderToken;
+
+  catchUpRenderFrameId = window.requestAnimationFrame(() => {
+    catchUpRenderFrameId = 0;
+    catchUpRenderTimeoutId = window.setTimeout(() => {
+      catchUpRenderTimeoutId = 0;
+
+      if (!isCatchUpOpen || renderToken !== catchUpRenderToken) {
+        return;
+      }
+
+      renderCatchUp();
+      positionCatchUpPopover();
+    }, 0);
+  });
+}
+
 function positionCatchUpPopover() {
   if (!catchUpButton || !catchUpPopover || !isCatchUpOpen) {
     return;
@@ -17144,9 +17517,11 @@ function setCatchUpOpen(isOpen) {
     setCalendarOpen(false);
     setSettingsOpen(false);
     setStandingsYearOpen(false);
-    renderCatchUp();
+    renderCatchUpLoadingState();
     positionCatchUpPopover();
+    scheduleCatchUpRender();
   } else {
+    cancelScheduledCatchUpRender();
     hideFloatingPlayerCard();
   }
 }
@@ -17941,6 +18316,12 @@ standingsModeTabs.forEach((tab) => {
 });
 
 standingsGrid.addEventListener("click", (event) => {
+  if (shouldIgnoreContainerClickForTooltip(event.target)) {
+    event.preventDefault();
+    event.stopPropagation();
+    return;
+  }
+
   if (
     Date.now() < tournamentBoardSuppressClickUntil &&
     event.target instanceof Element &&
@@ -18212,6 +18593,7 @@ document.addEventListener(
   (event) => updateTooltipBoundsForTarget(event.target),
   true
 );
+document.addEventListener("pointerdown", handleTouchTooltipPointerDown, true);
 document.addEventListener(
   "focusin",
   (event) => updateTooltipBoundsForTarget(event.target),
@@ -18272,6 +18654,7 @@ document.addEventListener("keydown", (event) => {
     return;
   }
 
+  clearActiveTouchTooltip();
   clearActivePlayerHover();
 
   if (isCalendarOpen) {

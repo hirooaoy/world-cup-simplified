@@ -1593,6 +1593,18 @@ async function openPageAtTime(
   return { context, page: mockedPage };
 }
 
+async function waitForCatchUpItems(pageInstance) {
+  await pageInstance.locator("#catch-up-popover").waitFor({ state: "visible" });
+  await pageInstance.waitForSelector(".catch-up-item:not(.catch-up-loading-item)", {
+    state: "attached"
+  });
+}
+
+async function openCatchUp(pageInstance) {
+  await pageInstance.locator("#catch-up-button").click();
+  await waitForCatchUpItems(pageInstance);
+}
+
 function hideFutureStartedFixtures(data, nowIso) {
   const now = new Date(nowIso).getTime();
 
@@ -4033,7 +4045,28 @@ try {
   }
 
   const catchUpCheck = await openPageAtTime("2026-06-18T05:30:00.000Z");
-  await catchUpCheck.page.locator("#catch-up-button").click();
+  const immediateCatchUpOpenState = await catchUpCheck.page.locator("#catch-up-button").evaluate((button) => {
+    button.click();
+    const popover = document.querySelector("#catch-up-popover");
+    const list = document.querySelector("#catch-up-list");
+
+    return {
+      expanded: button.getAttribute("aria-expanded"),
+      hidden: popover?.classList.contains("is-hidden"),
+      loadingItems: list?.querySelectorAll(".catch-up-loading-item").length || 0,
+      busy: list?.getAttribute("aria-busy"),
+      realItems: list?.querySelectorAll(".catch-up-item:not(.catch-up-loading-item)").length || 0
+    };
+  });
+  assert(
+    immediateCatchUpOpenState.expanded === "true" &&
+      immediateCatchUpOpenState.hidden === false &&
+      immediateCatchUpOpenState.loadingItems === 3 &&
+      immediateCatchUpOpenState.busy === "true" &&
+      immediateCatchUpOpenState.realItems === 0,
+    `Opening catch-up should show the skeleton immediately before rendering news. Measured ${JSON.stringify(immediateCatchUpOpenState)}.`
+  );
+  await waitForCatchUpItems(catchUpCheck.page);
   const catchUpText = await catchUpCheck.page.locator("#catch-up-popover").innerText();
   assert(
     (await catchUpCheck.page.locator(".catch-up-header").count()) === 0 &&
@@ -4124,8 +4157,7 @@ try {
   );
   await catchUpCheck.page.locator("#settings-button").click();
   await catchUpCheck.page.locator('[data-language="zh"]').click();
-  await catchUpCheck.page.locator("#catch-up-button").click();
-  await catchUpCheck.page.locator("#catch-up-popover").waitFor({ state: "visible" });
+  await openCatchUp(catchUpCheck.page);
   const catchUpChineseLinks = await catchUpCheck.page
     .locator(".catch-up-subtitle .player-link")
     .evaluateAll((links) => links.map((link) => link.textContent.trim()));
@@ -4153,7 +4185,7 @@ try {
       }
     }
   );
-  await latestCatchUpCheck.page.locator("#catch-up-button").click();
+  await openCatchUp(latestCatchUpCheck.page);
   const latestCatchUpItems = await latestCatchUpCheck.page.locator(".catch-up-item").evaluateAll((items) =>
     items.map((item) => ({
       headline: item.querySelector(".catch-up-title-row h3 > span")?.textContent.trim(),
@@ -4180,7 +4212,7 @@ try {
     "2026-06-23T02:08:00.000Z",
     "/?view=matches&date=2026-06-22&tz=America%2FLos_Angeles"
   );
-  await tournamentCatchUpCheck.page.locator("#catch-up-button").click();
+  await openCatchUp(tournamentCatchUpCheck.page);
   const tournamentCatchUpItems = await tournamentCatchUpCheck.page
     .locator(".catch-up-item")
     .evaluateAll((items) =>
@@ -4209,8 +4241,7 @@ try {
   );
   await tournamentCatchUpCheck.page.locator("#settings-button").click();
   await tournamentCatchUpCheck.page.locator('[data-language="zh"]').click();
-  await tournamentCatchUpCheck.page.locator("#catch-up-button").click();
-  await tournamentCatchUpCheck.page.locator("#catch-up-popover").waitFor({ state: "visible" });
+  await openCatchUp(tournamentCatchUpCheck.page);
   const tournamentCatchUpChineseText = await tournamentCatchUpCheck.page.locator("#catch-up-popover").innerText();
   assert(
     tournamentCatchUpChineseText.includes("梅西以5球领跑世界杯射手榜"),
@@ -4222,6 +4253,42 @@ try {
     "Tournament-level localized catch-up objects should render Chinese subtitles from data."
   );
   await tournamentCatchUpCheck.context.close();
+
+  const knockoutCatchUpCheck = await openPageAtTime(
+    "2026-06-28T23:30:00.000Z",
+    "/?view=matches&date=2026-06-28&tz=America%2FLos_Angeles"
+  );
+  await openCatchUp(knockoutCatchUpCheck.page);
+  const knockoutCatchUpItems = await knockoutCatchUpCheck.page
+    .locator(".catch-up-item")
+    .evaluateAll((items) =>
+      items.map((item) => ({
+        headline: item.querySelector(".catch-up-title-row h3 > span")?.textContent.trim(),
+        subtitle: item.querySelector(".catch-up-subtitle")?.textContent.trim() || ""
+      }))
+    );
+  const canadaKnockoutItem = knockoutCatchUpItems.find((item) =>
+    item.headline?.includes("Canada edge South Africa to reach the Round of 16")
+  );
+  assert(
+    canadaKnockoutItem?.subtitle.includes("Canada's 1-0 win moved them into the Round of 16") &&
+      canadaKnockoutItem?.subtitle.includes("Canada's clean sheet ended South Africa's run") &&
+      canadaKnockoutItem?.subtitle.includes("Canada reached the Round of 16 and South Africa exited"),
+    "Completed knockout catch-up should describe progression and elimination instead of group points."
+  );
+  assert(
+    !/\b(?:points|foothold)\b/i.test(`${canadaKnockoutItem?.headline || ""} ${canadaKnockoutItem?.subtitle || ""}`),
+    "Completed knockout catch-up should not use group-stage points or foothold language."
+  );
+  await knockoutCatchUpCheck.page.locator('[data-match-id="match-73-round-of-32-2026-06-28"]').click();
+  const canadaKnockoutDetailText = await knockoutCatchUpCheck.page.locator("#match-info").innerText();
+  assert(
+    canadaKnockoutDetailText.includes("Canada's clean sheet ended South Africa's run.") &&
+      canadaKnockoutDetailText.includes("Canada reached the Round of 16 and South Africa exited.") &&
+      !/took three points from Round of 32|foothold in Round of 32/i.test(canadaKnockoutDetailText),
+    "Completed knockout match detail should use progression result highlights, not group-table impact copy."
+  );
+  await knockoutCatchUpCheck.context.close();
 
   const sourceFreshnessCheck = await openPageAtTime("2026-06-18T15:57:00.000Z");
   const sourceNote = sourceFreshnessCheck.page.locator("#source-note");
@@ -6539,6 +6606,27 @@ try {
     waitUntil: "load"
   });
   await touchPage.waitForSelector(".match-row");
+  const touchCatchUpOpenState = await touchPage.locator("#catch-up-button").evaluate((button) => {
+    button.click();
+    const popover = document.querySelector("#catch-up-popover");
+    const list = document.querySelector("#catch-up-list");
+
+    return {
+      expanded: button.getAttribute("aria-expanded"),
+      hidden: popover?.classList.contains("is-hidden"),
+      loadingItems: list?.querySelectorAll(".catch-up-loading-item").length || 0,
+      realItems: list?.querySelectorAll(".catch-up-item:not(.catch-up-loading-item)").length || 0
+    };
+  });
+  assert(
+    touchCatchUpOpenState.expanded === "true" &&
+      touchCatchUpOpenState.hidden === false &&
+      touchCatchUpOpenState.loadingItems === 3 &&
+      touchCatchUpOpenState.realItems === 0,
+    `On touch devices, opening catch-up should show the skeleton immediately. Measured ${JSON.stringify(touchCatchUpOpenState)}.`
+  );
+  await waitForCatchUpItems(touchPage);
+  await touchPage.locator("#catch-up-button").click();
   const touchTodayRow = touchPage.locator('[data-match-id="switzerland-bosnia-2026-06-18"]');
   const touchYesterdayCard = touchPage.locator(
     '.yesterday-match-card[data-match-id="england-croatia-2026-06-17"]'
@@ -6570,6 +6658,64 @@ try {
       touchYesterdayDetailText.includes("Croatia") &&
       (await touchYesterdayCard.locator(".yesterday-match-button").getAttribute("aria-pressed")) === "true",
     "On touch devices, tapping a Past 24 hours card should open its match detail card."
+  );
+
+  await touchPage.goto(`${baseUrl}?view=standings&standingsMode=tournament&tz=America%2FLos_Angeles`, {
+    waitUntil: "load"
+  });
+  await touchPage.waitForFunction(
+    () =>
+      document.querySelectorAll(".progress-connectors path").length >= 29 &&
+      document.querySelector(".progress-match[data-open-match-id] .knockout-likelihood[data-tooltip]")
+  );
+  const touchTournamentOddsPill = touchPage
+    .locator(".progress-match[data-open-match-id] .knockout-likelihood[data-tooltip]")
+    .first();
+  await touchTournamentOddsPill.tap();
+  await touchPage.waitForFunction(() => {
+    const pill = document.querySelector(".knockout-likelihood.is-touch-tooltip-open");
+    return pill && Number(getComputedStyle(pill, "::after").opacity) > 0.8;
+  });
+  const touchTournamentTooltipOpen = await touchPage.evaluate(() => {
+    const params = new URL(window.location.href).searchParams;
+    const pill = document.querySelector(".knockout-likelihood.is-touch-tooltip-open");
+
+    return {
+      activeText: pill?.textContent.replace(/\s+/g, " ").trim() || "",
+      activeTooltip: pill?.getAttribute("data-tooltip") || "",
+      match: params.get("match") || "",
+      selectedMatches: document.querySelector("#matches-tab")?.getAttribute("aria-selected") || "",
+      selectedStandings: document.querySelector("#standings-tab")?.getAttribute("aria-selected") || "",
+      view: params.get("view") || ""
+    };
+  });
+  assert(
+    touchTournamentTooltipOpen.activeText &&
+      touchTournamentTooltipOpen.activeTooltip &&
+      touchTournamentTooltipOpen.view === "standings" &&
+      touchTournamentTooltipOpen.match === "" &&
+      touchTournamentTooltipOpen.selectedStandings === "true" &&
+      touchTournamentTooltipOpen.selectedMatches === "false",
+    `On touch devices, tapping a tournament odds tooltip should not open the parent match card. Measured ${JSON.stringify(touchTournamentTooltipOpen)}.`
+  );
+  await touchPage.locator("#standings-heading").tap();
+  await touchPage.waitForFunction(() => !document.querySelector(".is-touch-tooltip-open"));
+  const touchTournamentTooltipClosed = await touchPage.evaluate(() => {
+    const params = new URL(window.location.href).searchParams;
+
+    return {
+      activeTooltipCount: document.querySelectorAll(".is-touch-tooltip-open").length,
+      focusedTooltip: Boolean(document.activeElement?.matches?.(".knockout-likelihood[data-tooltip]")),
+      match: params.get("match") || "",
+      view: params.get("view") || ""
+    };
+  });
+  assert(
+    touchTournamentTooltipClosed.activeTooltipCount === 0 &&
+      !touchTournamentTooltipClosed.focusedTooltip &&
+      touchTournamentTooltipClosed.view === "standings" &&
+      touchTournamentTooltipClosed.match === "",
+    `On touch devices, tapping outside an open tournament odds tooltip should close it without navigating. Measured ${JSON.stringify(touchTournamentTooltipClosed)}.`
   );
 
   await touchPage.goto(`${baseUrl}?view=matches&date=2026-06-21&tz=America%2FLos_Angeles`, {
