@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-30T04:02:36.319Z",
+  "updatedAt": "2026-06-30T04:26:04.000Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -9895,7 +9895,15 @@
         "Julio Enciso put Paraguay in front before Kai Havertz answered for Germany.",
         "Paraguay won the shootout 4-3 after a 1-1 draw.",
         "Germany exited after penalties kept Paraguay alive."
-      ]
+      ],
+      "highlightVideoReview": {
+        "status": "not-found",
+        "platform": "youtube",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "checkedAt": "2026-06-29T21:25:07-07:00",
+        "note": "No official FOX Sports YouTube highlights video found during post-match check."
+      }
     },
     {
       "id": "match-75-round-of-32-2026-06-29",
@@ -9970,6 +9978,13 @@
         "home": 1,
         "away": 1
       },
+      "scoreDetails": {
+        "penalties": {
+          "home": 2,
+          "away": 3
+        }
+      },
+      "winnerTeamId": "MAR",
       "goalsHome": [
         {
           "minute": 72,
@@ -9982,7 +9997,20 @@
           "offset": 1,
           "name": "Issa Diop"
         }
-      ]
+      ],
+      "resultStoryBullets": [
+        "Cody Gakpo put Netherlands in front before Issa Diop answered for Morocco.",
+        "Morocco won the shootout 3-2 after a 1-1 draw.",
+        "Netherlands exited after penalties kept Morocco alive."
+      ],
+      "highlightVideoReview": {
+        "status": "not-found",
+        "platform": "youtube",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "checkedAt": "2026-06-29T21:25:07-07:00",
+        "note": "No official FOX Sports YouTube highlights video found during post-match check."
+      }
     },
     {
       "id": "match-76-round-of-32-2026-06-29",
@@ -10946,8 +10974,8 @@
       "venue": "Philadelphia Stadium",
       "status": "SCHEDULED",
       "h2h": {
-        "status": "not-loaded",
-        "summary": "Teams are not known yet. Past match research will load after the matchup is set.",
+        "status": "research-pending",
+        "summary": "H2H research is pending for this matchup. Add API-backed or manually verified senior results when available.",
         "results": null
       },
       "providerIds": {
@@ -10969,8 +10997,8 @@
       "venue": "Houston Stadium",
       "status": "SCHEDULED",
       "h2h": {
-        "status": "not-loaded",
-        "summary": "Teams are not known yet. Past match research will load after the matchup is set.",
+        "status": "research-pending",
+        "summary": "H2H research is pending for this matchup. Add API-backed or manually verified senior results when available.",
         "results": null
       },
       "providerIds": {
@@ -10979,7 +11007,54 @@
           "matchNumber": 90
         }
       },
-      "homeTeamId": "CAN"
+      "homeTeamId": "CAN",
+      "awayTeamId": "MAR",
+      "keyPlayers": {
+        "sourceId": "key-player-baseline-2026-06-22",
+        "method": "team-watchlist-baseline",
+        "basis": "Team-level key-player watchlist; replace with API/squad-sourced fixture notes when available",
+        "home": [
+          {
+            "name": "Alphonso Davies",
+            "note": "Canada's most explosive ball-carrier; available again after missing the group stage, though his role may still be managed."
+          },
+          {
+            "name": "Jonathan David",
+            "note": "The central finisher, sharpest when Canada create fast cutbacks or transition chances."
+          },
+          {
+            "name": "Stephen Eustaquio",
+            "note": "A midfield stabilizer who helps Canada avoid turning the match into only end-to-end breaks."
+          }
+        ],
+        "away": [
+          {
+            "name": "Achraf Hakimi",
+            "note": "A two-way right-side force whose overlaps, recovery speed, and set pieces shape Morocco's best stretches."
+          },
+          {
+            "name": "Brahim Diaz",
+            "note": "The between-lines creator who can receive under pressure and turn Hakimi support into final-third chances."
+          },
+          {
+            "name": "Ayoub El Kaabi",
+            "note": "The box finisher who gives Morocco a direct endpoint when wide pressure turns into service."
+          }
+        ]
+      },
+      "projection": {
+        "sourceId": "ranking-projection-2026-06-17",
+        "method": "fifa-ranking-baseline",
+        "basis": "FIFA ranking strength with host-country adjustment",
+        "home": 35,
+        "draw": 28,
+        "away": 37
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-22",
+        "home": "Canada are a fast, direct host-side threat with enough top-end speed to change games in a few seconds, led by Alphonso Davies, Jonathan David, and Stephen Eustaquio. Against Morocco, their Davies-David open-field speed has to beat Morocco's Hakimi-Brahim right-side surges. They want to use Eustaquio to release Davies early and let David attack gaps before Morocco settle. The risk is Morocco can tilt the field through Hakimi, Brahim, and El Kaabi.",
+        "away": "Morocco are a disciplined, dangerous side whose structure lets their flair players attack with freedom, led by Achraf Hakimi, Brahim Diaz, and Ayoub El Kaabi. Against Canada, their Hakimi-Brahim right-side surges has to beat Canada's Davies-David open-field speed. They want to use Hakimi to pin Canada back before Brahim or El Kaabi attacks the final ball. The risk is Canada can turn one Davies carry or David run into a breakaway chance."
+      }
     },
     {
       "id": "match-91-round-of-16-2026-07-05",

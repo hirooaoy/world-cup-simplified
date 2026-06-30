@@ -18,7 +18,10 @@ const SHOW_YESTERDAY_STORAGE_KEY = "world-cup-simplified-show-yesterday";
 const JUGGLE_RECORD_STORAGE_KEY = "world-cup-simplified-juggle-record";
 const ADMIN_MESSAGE_DISMISS_STORAGE_PREFIX = "world-cup-simplified-admin-message-dismissed:";
 const ADMIN_MESSAGE_COLLAPSE_DURATION_MS = 280;
-const OFFICIAL_HIGHLIGHT_VIDEO_CHANNELS = new Map([["UCwNqHDsnBCKT-olwJwIFyfg", "FOX Sports"]]);
+const OFFICIAL_HIGHLIGHT_VIDEO_CHANNELS = new Map([
+  ["UCwNqHDsnBCKT-olwJwIFyfg", "FOX Sports"],
+  ["UCpcTrCXblq78GZrTUTLWeBw", "FIFA"]
+]);
 const TEAM_SEARCH_URL_UPDATE_DELAY_MS = 180;
 const JUGGLE_BALL_EMOJI = "⚽";
 const JUGGLE_FALL_SPEED = 345;
@@ -2502,6 +2505,11 @@ const ZH_PATTERN_TRANSLATIONS = [
     pattern: /^⚽ (.+) beat (.+) on penalties after a (.+) draw\.$/,
     replace: (_, winner, loser, score) =>
       `⚽ ${translateTextToZh(winner)} 在 ${score} 战平后通过点球击败 ${translateTextToZh(loser)}。`
+  },
+  {
+    pattern: /^(.+) advanced after a (.+) draw against (.+)\.$/,
+    replace: (_, winner, score, loser) =>
+      `${translateTextToZh(winner)}在与${translateTextToZh(loser)}${score}战平后晋级。`
   },
   {
     pattern: /^⚽ (.+) found the decisive goal in a (.+) win\.$/,
@@ -12757,10 +12765,18 @@ function renderScoreSummary(match, options = {}) {
   const loser = winnerSide === "home" ? match.awayTeam : match.homeTeam;
   const scoreText = getResultScorePairForSide(score, winnerSide);
   const penaltyText = getResultScorePairForSide(match.scoreDetails?.penalties, winnerSide);
+  const isTiedKnockoutWinner =
+    !options.live &&
+    !penaltyText &&
+    isKnockoutResultMatch(match) &&
+    Number(score.home) === Number(score.away);
 
-  const text = penaltyText && !options.live
-    ? `${winner.name} beat ${loser.name} on penalties after a ${score.home}-${score.away} draw.`
-    : `${winner.name} ${options.live ? "lead" : "beat"} ${loser.name} ${scoreText}.`;
+  const text =
+    penaltyText && !options.live
+      ? `${winner.name} beat ${loser.name} on penalties after a ${score.home}-${score.away} draw.`
+      : isTiedKnockoutWinner
+        ? `${winner.name} advanced after a ${score.home}-${score.away} draw against ${loser.name}.`
+        : `${winner.name} ${options.live ? "lead" : "beat"} ${loser.name} ${scoreText}.`;
   return `<p class="past-empty result-score-summary">${escapeHtml(localizeText(text))}</p>`;
 }
 
@@ -16260,7 +16276,7 @@ function renderHistoricalResultBlock(match) {
 
   return `
     <section class="info-block">
-      <h3>${escapeHtml(localizeText("Result"))}</h3>
+      ${renderResultHeading(match)}
       <p class="past-empty">${renderPlayerLinkedText(localizeText(getHistoricalResultOutcomeHighlight(match)), mentionPlayers)}</p>
       <ul class="result-highlights">
         ${scoringHighlight}

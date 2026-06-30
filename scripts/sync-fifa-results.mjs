@@ -289,6 +289,23 @@ function numericScore(match) {
   return Number.isFinite(home) && Number.isFinite(away) ? { home, away } : null;
 }
 
+function numericPenaltyScore(match) {
+  const home = scoreValue(match.HomeTeamPenaltyScore);
+  const away = scoreValue(match.AwayTeamPenaltyScore);
+  return Number.isFinite(home) && Number.isFinite(away) ? { home, away } : null;
+}
+
+function mergePenaltyScore(fixture, penalties) {
+  if (!penalties) {
+    return;
+  }
+
+  fixture.scoreDetails = {
+    ...(fixture.scoreDetails || {}),
+    penalties
+  };
+}
+
 function textStatus(match) {
   return String(
     [
@@ -365,6 +382,7 @@ function mergeOfficialMatches(fixturesData, officialMatches, teams) {
       matchNumber: fixture.matchNumber,
       providerIds: fixture.providerIds,
       score: fixture.score,
+      scoreDetails: fixture.scoreDetails,
       status: fixture.status
     });
     const beforeStatus = JSON.stringify({
@@ -372,10 +390,12 @@ function mergeOfficialMatches(fixturesData, officialMatches, teams) {
       matchNumber: fixture.matchNumber,
       providerIds: fixture.providerIds,
       score: fixture.score,
+      scoreDetails: fixture.scoreDetails,
       status: fixture.status
     });
     const nextStatus = officialStatus(match);
     const nextScore = numericScore(match);
+    const nextPenaltyScore = numericPenaltyScore(match);
     const officialHomeTeamId = findOfficialParticipantTeamId(match, "Home", teamLookup);
     const officialAwayTeamId = findOfficialParticipantTeamId(match, "Away", teamLookup);
 
@@ -399,8 +419,10 @@ function mergeOfficialMatches(fixturesData, officialMatches, teams) {
 
     if ((fixture.status === "LIVE" || fixture.status === "FT") && nextScore) {
       fixture.score = nextScore;
+      mergePenaltyScore(fixture, nextPenaltyScore);
     } else if (fixture.status === "SCHEDULED") {
       delete fixture.score;
+      delete fixture.scoreDetails;
     }
 
     const after = JSON.stringify({
@@ -410,6 +432,7 @@ function mergeOfficialMatches(fixturesData, officialMatches, teams) {
       matchNumber: fixture.matchNumber,
       providerIds: fixture.providerIds,
       score: fixture.score,
+      scoreDetails: fixture.scoreDetails,
       status: fixture.status
     });
     const afterStatus = JSON.stringify({
@@ -417,6 +440,7 @@ function mergeOfficialMatches(fixturesData, officialMatches, teams) {
       matchNumber: fixture.matchNumber,
       providerIds: fixture.providerIds,
       score: fixture.score,
+      scoreDetails: fixture.scoreDetails,
       status: fixture.status
     });
 

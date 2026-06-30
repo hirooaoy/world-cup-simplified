@@ -26,6 +26,21 @@ function resultStoryBullets(fixture) {
     : [];
 }
 
+function hasOfficialHighlightVideoDisposition(fixture) {
+  if (fixture.highlightVideo && typeof fixture.highlightVideo === "object" && !Array.isArray(fixture.highlightVideo)) {
+    return true;
+  }
+
+  const review = fixture.highlightVideoReview;
+  return Boolean(
+    review &&
+      typeof review === "object" &&
+      !Array.isArray(review) &&
+      review.status === "not-found" &&
+      review.checkedAt
+  );
+}
+
 function historicalGoalStoryTokens(fixture) {
   return [...(fixture.goalsHome || []), ...(fixture.goalsAway || [])]
     .map((goal) => (goal.ownGoal ? "own goal" : goal.name))
@@ -92,6 +107,12 @@ for (const fixture of fixturesData.fixtures || []) {
     issues.push(`${fixture.id} (${matchLabel}) has no non-score result moment.`);
   } else if (momentHighlights.some(isGenericMoment)) {
     issues.push(`${fixture.id} (${matchLabel}) still has generic result moment copy.`);
+  }
+
+  if (!hasOfficialHighlightVideoDisposition(fixture)) {
+    issues.push(
+      `${fixture.id} (${matchLabel}) has no official highlightVideo and no highlightVideoReview not-found check.`
+    );
   }
 }
 

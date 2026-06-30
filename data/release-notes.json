@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-29T15:58:29-07:00",
+  "updatedAt": "2026-06-29T21:26:04-07:00",
   "releases": [
     {
       "date": "2026-06-29",
@@ -8,12 +8,18 @@
       "highlights": [
         "Finished match Result blocks now show a semibold score line, scorer timeline, and three plain-text recap bullets without emoji markers.",
         "Completed current matches now include a Result play button when FOX Sports has an official YouTube highlights video.",
+        "Completed matches without an official YouTube upload now carry an explicit checked status so missing play buttons are deliberate, not silent data gaps.",
+        "Historical Finals and Semi-finals now show the same Result play button when FIFA has an official YouTube highlight-style video.",
+        "Tied knockout results now say when a team advanced after a draw if the official feed has not exposed a shootout total yet.",
         "Brazil vs Japan now has richer story bullets for Japan's defensive pressure, the early Sano opener, and Brazil's late Martinelli winner.",
         "Historical World Cup result pages now use generated story bullets too, so archive matches such as Russia vs Egypt 2018 mention the own goal, Dzyuba finish, and Salah penalty instead of generic points lines."
       ],
       "highlightsZh": [
         "完赛比赛的“赛果”区现在显示半粗比分句、进球时间线，以及三条不带表情符号的文字速览。",
         "当前赛事已完赛比赛在 FOX Sports 有官方 YouTube 集锦时，现在会在“赛果”旁显示播放按钮。",
+        "已完赛但暂无官方 YouTube 集锦的比赛现在会记录明确的检查状态，因此没有播放按钮是有意状态，而不是静默数据缺口。",
+        "历届世界杯的决赛和半决赛在 FIFA 有官方 YouTube 集锦类视频时，现在也会显示同样的“赛果”播放按钮。",
+        "淘汰赛打平但官方数据尚未给出点球总比分时，现在会说明哪支球队在平局后晋级。",
         "巴西对日本现在加入更具体的比赛故事，包括日本的防守压力、佐野海舟先开纪录，以及马丁内利最后阶段制胜。",
         "历届世界杯赛果页现在也使用生成的故事速览，因此俄罗斯对埃及这样的2018存档比赛会提到乌龙球、久巴进球和萨拉赫点球，而不是泛泛的积分文案。"
       ]

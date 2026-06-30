@@ -125,7 +125,9 @@ For completed fixture detail pages, add optional `resultHighlights` when the sco
 
 For richer post-match recaps, add optional `resultStoryBullets` with up to three compact, emoji-free match-story bullets. This field may be prepared before the static fixture has been synced to `FT`; the UI only displays it inside the full-time Result block. `pnpm results` also backfills this field for finished historical archive matches.
 
-For official post-match video, add optional `highlightVideo` only after a fixture is `FT`. Use a YouTube URL from an allowed official highlights channel, currently FOX Sports (`channelId: "UCwNqHDsnBCKT-olwJwIFyfg"`), and include `sourceName`, `publishedAt`, and `checkedAt`. The UI hides the play button unless the fixture is final and the channel is allowlisted.
+For official post-match video, add optional `highlightVideo` only after a fixture is `FT`. Use a YouTube URL from an allowed official highlights channel, currently FOX Sports for 2026 matches (`channelId: "UCwNqHDsnBCKT-olwJwIFyfg"`), and include `sourceName`, `publishedAt`, and `checkedAt`. The UI hides the play button unless the fixture is final and the channel is allowlisted. If no official YouTube upload is available after checking the allowlisted channel, add `highlightVideoReview` with `status: "not-found"`, the same `sourceName` / `channelId`, `platform: "youtube"`, `checkedAt`, and a short `note`; replace that review with `highlightVideo` once a valid official URL exists.
+
+For historical archive matches, keep `highlightVideo` YouTube-only and use official FIFA uploads (`channelId: "UCpcTrCXblq78GZrTUTLWeBw"`). Run `pnpm history:youtube` to check the whole archive; it links only clean official FIFA highlight-style videos and records `highlightVideoReview` when no match-specific YouTube highlight is found, so the button stays absent deliberately.
 
 ## Matchday Card/Result Workflow
 

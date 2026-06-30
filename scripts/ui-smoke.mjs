@@ -2189,6 +2189,43 @@ try {
     brazilJapanVideoTooltipOpacity > 0.8,
     `Hovering the Brazil-Japan highlight button should show the YouTube tooltip. Measured opacity ${brazilJapanVideoTooltipOpacity}.`
   );
+  await brazilJapanRecapCheck.page.locator('[data-match-id="match-75-round-of-32-2026-06-29"]').click();
+  const netherlandsMoroccoShootoutBlock = await brazilJapanRecapCheck.page
+    .locator("#match-info")
+    .evaluate((root) => {
+      const visibleText = (node) => {
+        if (!node) {
+          return "";
+        }
+
+        const clone = node.cloneNode(true);
+        clone.querySelectorAll(".player-card").forEach((card) => card.remove());
+        return clone.textContent.replace(/\s+/g, " ").trim();
+      };
+      const scoreSummary = root.querySelector(".result-score-summary");
+      const rowScore = document
+        .querySelector('[data-match-id="match-75-round-of-32-2026-06-29"] .match-score')
+        ?.textContent.replace(/\s+/g, " ")
+        .trim() || "";
+      const storyItems = [...root.querySelectorAll(".result-story-highlights li")].map(visibleText);
+
+      return {
+        rowScore,
+        scoreText: visibleText(scoreSummary),
+        storyItems
+      };
+    });
+  assert(
+    netherlandsMoroccoShootoutBlock.rowScore === "1-1 · 2-3 pens" &&
+      netherlandsMoroccoShootoutBlock.scoreText === "Morocco beat Netherlands on penalties after a 1-1 draw." &&
+      netherlandsMoroccoShootoutBlock.storyItems.some((item) =>
+        item.includes("Morocco won the shootout 3-2 after a 1-1 draw")
+      ) &&
+      netherlandsMoroccoShootoutBlock.storyItems.some((item) =>
+        item.includes("Netherlands exited after penalties kept Morocco alive")
+      ),
+    `Netherlands-Morocco should render the official shootout in the row and Result block. Measured ${JSON.stringify(netherlandsMoroccoShootoutBlock)}.`
+  );
   await brazilJapanRecapCheck.context.close();
 
   const scheduledHighlightGuardCheck = await openPageAtTime(
@@ -2695,7 +2732,7 @@ try {
       roundOf16DetailText.includes("Previous: Round of 32") &&
       roundOf16DetailText.includes("is scheduled.") &&
       roundOf16DetailText.includes("Next: Quarter-finals") &&
-      roundOf16DetailText.includes("Winner will face predicted winner of") &&
+      /Winner will face (?:predicted )?winner of/.test(roundOf16DetailText) &&
       roundOf16DetailText.includes("Prediction") &&
       !roundOf16DetailText.includes("Previous: Group round") &&
       !roundOf16DetailText.includes("bracket details are not loaded yet"),
@@ -5268,6 +5305,9 @@ try {
       m74ResultPills: [...document.querySelectorAll('.progress-match[data-match-number="74"] .knockout-result-pill')]
         .map((element) => element.textContent.replace(/\s+/g, " ").trim()),
       m74Winner: document.querySelector('.progress-match[data-match-number="74"]')?.dataset.winnerTeamId || "",
+      m75ResultPills: [...document.querySelectorAll('.progress-match[data-match-number="75"] .knockout-result-pill')]
+        .map((element) => element.textContent.replace(/\s+/g, " ").trim()),
+      m75Winner: document.querySelector('.progress-match[data-match-number="75"]')?.dataset.winnerTeamId || "",
       m77TieTooltip: getOutcomeTooltip(77, "tie"),
       m80TieTooltip: getOutcomeTooltip(80, "tie"),
       m83TieTooltip: getOutcomeTooltip(83, "tie"),
@@ -5408,8 +5448,48 @@ try {
   const expectedProjectedRoundOf32Count = fixturesData.fixtures.filter(
     (fixture) => fixture.stage === "round-of-32" && (!fixture.homeTeamId || !fixture.awayTeamId)
   ).length;
+  const fixturesByMatchNumber = new Map(
+    fixturesData.fixtures
+      .filter((fixture) => Number.isInteger(Number(fixture.matchNumber)))
+      .map((fixture) => [Number(fixture.matchNumber), fixture])
+  );
+  const getFixtureWinnerTeamId = (fixture) => {
+    if (!fixture || fixture.status !== "FT") {
+      return "";
+    }
+
+    const explicitWinner = String(fixture.winnerTeamId || fixture.winner || "").trim();
+    if (explicitWinner) {
+      return explicitWinner;
+    }
+
+    const scoreWinner = (score) => {
+      const home = Number(score?.home);
+      const away = Number(score?.away);
+      if (!Number.isFinite(home) || !Number.isFinite(away) || home === away) {
+        return "";
+      }
+
+      return home > away ? fixture.homeTeamId : fixture.awayTeamId;
+    };
+
+    return scoreWinner(fixture.scoreDetails?.penalties) || scoreWinner(fixture.score);
+  };
+  const isKnockoutSideConfirmed = (fixture, side) => {
+    if (!fixture?.[`${side}TeamId`]) {
+      return false;
+    }
+
+    const sourceMatch = /^(?:Winner|Loser) match (\d+)$/i.exec(fixture[`${side}Slot`] || "");
+    if (!sourceMatch) {
+      return true;
+    }
+
+    return Boolean(getFixtureWinnerTeamId(fixturesByMatchNumber.get(Number(sourceMatch[1]))));
+  };
   const expectedProjectedLaterRoundCount = fixturesData.fixtures.filter((fixture) =>
-    ["round-of-16", "quarter-finals", "semi-finals", "bronze-final", "final"].includes(fixture.stage)
+    ["round-of-16", "quarter-finals", "semi-finals", "bronze-final", "final"].includes(fixture.stage) &&
+    !(isKnockoutSideConfirmed(fixture, "home") && isKnockoutSideConfirmed(fixture, "away"))
   ).length;
   const remainingGroupIds = new Set(
     fixturesData.fixtures
@@ -5497,6 +5577,8 @@ try {
       tournamentCheck.m74OpenMatchId === expectedMatch74OpenMatchId &&
       tournamentCheck.m74Winner === "PAR" &&
       tournamentCheck.m74ResultPills.join("|") === "1-1 • Penalties 4-3" &&
+      tournamentCheck.m75Winner === "MAR" &&
+      tournamentCheck.m75ResultPills.join("|") === "1-1 • Penalties 3-2" &&
       !tournamentCheck.m73ProgressText.includes("Round of 32") &&
       tournamentCheck.likelihoodCount === expectedOutcomePillCount &&
       tournamentCheck.likelihoodNonNeutralCount === 0 &&
@@ -6096,7 +6178,7 @@ try {
     const canada73 = match73?.querySelector('.knockout-team[data-team-id="CAN"]');
     const southAfrica73 = match73?.querySelector('.knockout-team[data-team-id="RSA"]');
     const canada90 = match90?.querySelector('.knockout-team[data-team-id="CAN"]');
-    const other90 = match90?.querySelector('.knockout-team[data-source-match="75"]');
+    const morocco90 = match90?.querySelector('.knockout-team[data-team-id="MAR"]');
 
     return {
       m73OutcomePillCount: match73?.querySelectorAll(".knockout-likelihood").length || 0,
@@ -6110,7 +6192,7 @@ try {
       m90Text: match90?.textContent.replace(/\s+/g, " ").trim() || "",
       canada73: getVisual(canada73),
       canada90: getVisual(canada90),
-      other90: getVisual(other90),
+      morocco90: getVisual(morocco90),
       southAfrica73: getVisual(southAfrica73)
     };
   });
@@ -6130,18 +6212,20 @@ try {
       Number(canadaPathState.southAfrica73.rankOpacity) < 1 &&
       getCssColorAlpha(canadaPathState.southAfrica73.strongColor) < 0.7 &&
       canadaPathState.southAfrica73.strongWeight < canadaPathState.canada73.strongWeight &&
-      canadaPathState.m90Projected === true &&
-      canadaPathState.m90OpenMatchId === "" &&
+      canadaPathState.m90Projected === false &&
+      canadaPathState.m90OpenMatchId === "match-90-round-of-16-2026-07-04" &&
       canadaPathState.canada90.teamId === "CAN" &&
       canadaPathState.canada90.className.includes("is-locked") &&
       canadaPathState.canada90.flagFilter === "none" &&
       canadaPathState.canada90.flagOpacity === "1" &&
-      Number(canadaPathState.canada90.rankOpacity) === 1 &&
-      canadaPathState.other90.className.includes("is-likely") &&
-      canadaPathState.other90.flagFilter.includes("grayscale") &&
-      Number(canadaPathState.other90.flagOpacity) < 1 &&
+      Number(canadaPathState.canada90.rankOpacity) >= 0.7 &&
+      canadaPathState.morocco90.teamId === "MAR" &&
+      canadaPathState.morocco90.className.includes("is-locked") &&
+      canadaPathState.morocco90.flagFilter === "none" &&
+      canadaPathState.morocco90.flagOpacity === "1" &&
+      Number(canadaPathState.morocco90.rankOpacity) >= 0.7 &&
       !canadaPathState.m90Text.includes("Winner match"),
-    `A completed Canada Round of 32 win should mute only the eliminated side while keeping Canada full-strength in the still-projected Round of 16 card. Measured ${JSON.stringify(canadaPathState)}.`
+    `Completed source matches should mute eliminated Round of 32 sides and lock the confirmed Canada-Morocco Round of 16 card. Measured ${JSON.stringify(canadaPathState)}.`
   );
   await canadaPathCheck.context.close();
 
@@ -6165,6 +6249,9 @@ try {
 
           fixture.status = "FT";
           fixture.score = { home: homeScore, away: awayScore };
+          delete fixture.scoreDetails;
+          delete fixture.winnerTeamId;
+          delete fixture.winner;
           if (scoreDetails) {
             fixture.scoreDetails = scoreDetails;
           }
@@ -6240,7 +6327,7 @@ try {
       !progressionResolved.m97Text.includes("Winner match") &&
       !progressionResolved.m89Text.includes("M97") &&
       progressionResolved.m97Text.includes(progressionWinnerName),
-    "Finished knockout source matches should automatically place their winners into later fixture slots."
+    `Finished knockout source matches should automatically place their winners into later fixture slots. Measured ${JSON.stringify(progressionResolved)}.`
   );
   await knockoutProgressionCheck.context.close();
   await page.locator("#standings-year-button").click();

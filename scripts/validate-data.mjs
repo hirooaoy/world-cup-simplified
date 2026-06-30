@@ -7,7 +7,10 @@ import { isPlayerNameMatch, normalizePlayerName } from "./player-name-matching.m
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const dataDir = path.join(root, "data");
 const errors = [];
-const OFFICIAL_HIGHLIGHT_VIDEO_CHANNELS = new Map([["UCwNqHDsnBCKT-olwJwIFyfg", "FOX Sports"]]);
+const OFFICIAL_HIGHLIGHT_VIDEO_CHANNELS = new Map([
+  ["UCwNqHDsnBCKT-olwJwIFyfg", "FOX Sports"],
+  ["UCpcTrCXblq78GZrTUTLWeBw", "FIFA"]
+]);
 
 async function readJson(fileName) {
   const filePath = path.join(dataDir, fileName);
@@ -102,8 +105,7 @@ function validateLocalizedCopy(value, owner) {
   }
 }
 
-function validateHighlightVideo(fixture) {
-  const owner = `Fixture "${fixture.id}" highlightVideo`;
+function validateHighlightVideo(fixture, owner = `Fixture "${fixture.id}" highlightVideo`) {
   const video = fixture.highlightVideo;
 
   if (video === undefined) {
@@ -134,6 +136,38 @@ function validateHighlightVideo(fixture) {
       `${owner}.publishedAt must not be after checkedAt`
     );
   }
+}
+
+function validateHighlightVideoReview(fixture, owner = `Fixture "${fixture.id}" highlightVideoReview`) {
+  const review = fixture.highlightVideoReview;
+
+  if (review === undefined) {
+    return;
+  }
+
+  assert(fixture.status === "FT", `${owner} should only be used after full time`);
+  assert(fixture.highlightVideo === undefined, `${owner} should be removed once highlightVideo is linked`);
+  assert(review && typeof review === "object" && !Array.isArray(review), `${owner} must be an object`);
+
+  if (!review || typeof review !== "object" || Array.isArray(review)) {
+    return;
+  }
+
+  const expectedSourceName = OFFICIAL_HIGHLIGHT_VIDEO_CHANNELS.get(review.channelId);
+  assert(review.status === "not-found", `${owner}.status must be "not-found"`);
+  assert(review.platform === "youtube", `${owner}.platform must be "youtube"`);
+  assert(Boolean(expectedSourceName), `${owner}.channelId must be an allowed official highlights channel`);
+  assert(
+    expectedSourceName
+      ? review.sourceName === expectedSourceName
+      : typeof review.sourceName === "string" && review.sourceName.trim(),
+    `${owner}.sourceName must match the allowed channel name`
+  );
+  assert(isValidDateTime(review.checkedAt), `${owner}.checkedAt must be a valid timestamp`);
+  assert(
+    typeof review.note === "string" && review.note.trim(),
+    `${owner}.note must explain why no official highlight video is linked`
+  );
 }
 
 function wordCount(value) {
@@ -538,10 +572,14 @@ for (const group of tournamentData.groups || []) {
 }
 
 const stages = new Set();
+const knockoutStages = new Set();
 for (const stage of tournamentData.stages || []) {
   assert(stage.id, "Each stage must have an id");
   assert(stage.type === "group" || stage.type === "knockout", `Stage "${stage.id}" has invalid type`);
   stages.add(stage.id);
+  if (stage.type === "knockout") {
+    knockoutStages.add(stage.id);
+  }
 }
 
 const teams = new Map();
@@ -634,6 +672,31 @@ function getScoreWinnerTeamId(fixture, score) {
   }
 
   return home > away ? fixture.homeTeamId : fixture.awayTeamId;
+}
+
+function validateScorePair(pair, owner) {
+  assert(pair && typeof pair === "object" && !Array.isArray(pair), `${owner} must be an object`);
+  assert(isNumber(pair?.home), `${owner}.home must be numeric`);
+  assert(isNumber(pair?.away), `${owner}.away must be numeric`);
+}
+
+function validateScoreDetails(fixture) {
+  if (!fixture.scoreDetails) {
+    return;
+  }
+
+  assert(
+    typeof fixture.scoreDetails === "object" && !Array.isArray(fixture.scoreDetails),
+    `Fixture "${fixture.id}" scoreDetails must be an object`
+  );
+
+  if (fixture.scoreDetails.extraTime !== undefined) {
+    validateScorePair(fixture.scoreDetails.extraTime, `Fixture "${fixture.id}" scoreDetails.extraTime`);
+  }
+
+  if (fixture.scoreDetails.penalties !== undefined) {
+    validateScorePair(fixture.scoreDetails.penalties, `Fixture "${fixture.id}" scoreDetails.penalties`);
+  }
 }
 
 function getKnockoutWinnerTeamId(fixture) {
@@ -896,6 +959,29 @@ for (const fixture of fixturesData.fixtures || []) {
     assert(fixture.score, `Final fixture "${fixture.id}" must include score`);
     assert(isNumber(fixture.score?.home), `Final fixture "${fixture.id}" must include numeric home score`);
     assert(isNumber(fixture.score?.away), `Final fixture "${fixture.id}" must include numeric away score`);
+    validateScoreDetails(fixture);
+
+    if (
+      knockoutStages.has(fixture.stage) &&
+      hasConfirmedTeams &&
+      isNumber(fixture.score?.home) &&
+      isNumber(fixture.score?.away) &&
+      fixture.score.home === fixture.score.away
+    ) {
+      const penaltyWinnerTeamId = getScoreWinnerTeamId(fixture, fixture.scoreDetails?.penalties);
+
+      assert(
+        penaltyWinnerTeamId,
+        `Final knockout fixture "${fixture.id}" ended level and must include non-tied scoreDetails.penalties`
+      );
+      if (fixture.winnerTeamId !== undefined) {
+        assert(teams.has(fixture.winnerTeamId), `Fixture "${fixture.id}" winnerTeamId references unknown team "${fixture.winnerTeamId}"`);
+        assert(
+          fixture.winnerTeamId === penaltyWinnerTeamId,
+          `Fixture "${fixture.id}" winnerTeamId must match scoreDetails.penalties winner`
+        );
+      }
+    }
 
     if (
       fixture.stage === "group" &&
@@ -949,6 +1035,7 @@ for (const fixture of fixturesData.fixtures || []) {
   }
 
   validateHighlightVideo(fixture);
+  validateHighlightVideoReview(fixture);
 
   if (fixture.projection) {
     const total = fixture.projection.home + fixture.projection.draw + fixture.projection.away;
@@ -1332,6 +1419,8 @@ for (const fixture of historyData.fixtures || []) {
       );
     }
   }
+  validateHighlightVideo(fixture, `Historical fixture "${fixture.id}" highlightVideo`);
+  validateHighlightVideoReview(fixture, `Historical fixture "${fixture.id}" highlightVideoReview`);
   assert(Array.isArray(fixture.goalsHome), `Historical fixture "${fixture.id}" goalsHome must be an array`);
   assert(Array.isArray(fixture.goalsAway), `Historical fixture "${fixture.id}" goalsAway must be an array`);
   for (const [field, goals] of [
