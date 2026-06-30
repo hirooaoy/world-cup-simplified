@@ -9,9 +9,9 @@ const defaultReportDir = path.join("/tmp", "worldcup-historical-youtube");
 const FIFA_CHANNEL_ID = "UCpcTrCXblq78GZrTUTLWeBw";
 const FIFA_SOURCE_NAME = "FIFA";
 const TIME_ZONE = "America/Los_Angeles";
-const SEARCH_DELAY_MS = 150;
-const WATCH_DELAY_MS = 100;
-const FETCH_RETRY_COUNT = 3;
+const SEARCH_DELAY_MS = 250;
+const WATCH_DELAY_MS = 150;
+const FETCH_RETRY_COUNT = 5;
 const MAX_RESULTS_PER_SEARCH = 12;
 const MAX_VIDEO_SECONDS = 25 * 60;
 const MIN_VIDEO_SECONDS = 45;
@@ -84,6 +84,7 @@ function parseArgs(rawArgs) {
     includeReviewed: false,
     refreshExisting: false,
     verifyExisting: false,
+    generalFallback: false,
     verbose: false,
     concurrency: 1,
     limit: null,
@@ -101,6 +102,7 @@ function parseArgs(rawArgs) {
     else if (arg === "--include-reviewed") parsed.includeReviewed = true;
     else if (arg === "--refresh-existing") parsed.refreshExisting = true;
     else if (arg === "--verify-existing") parsed.verifyExisting = true;
+    else if (arg === "--general-fallback") parsed.generalFallback = true;
     else if (arg === "--verbose") parsed.verbose = true;
     else if (arg === "--concurrency") parsed.concurrency = Number(next());
     else if (arg.startsWith("--concurrency=")) parsed.concurrency = Number(arg.slice("--concurrency=".length));
@@ -468,7 +470,7 @@ async function fetchText(url) {
     } catch (error) {
       lastError = error;
       if (attempt < FETCH_RETRY_COUNT) {
-        await sleep(500 * attempt);
+        await sleep(1000 * attempt);
       }
     }
   }
@@ -587,7 +589,7 @@ function selectedAccepted(evaluated) {
 
 async function findHighlightVideo(fixture) {
   const queries = buildQueries(fixture);
-  const sources = ["channel", "youtube"];
+  const sources = args.generalFallback ? ["channel", "youtube"] : ["channel"];
   const seenVideoIds = new Set();
   const evaluated = [];
 
@@ -683,7 +685,10 @@ function summarizeEntry(entry) {
 async function writeReport(report, checkedAt) {
   const reportPath =
     args.reportPath ||
-    path.join(defaultReportDir, `historical-youtube-${checkedAt.replace(/[:]/g, "-")}${args.dryRun ? "-dry-run" : ""}.json`);
+    path.join(
+      defaultReportDir,
+      `historical-youtube-${checkedAt.replace(/[:]/g, "-")}-${process.pid}${args.dryRun ? "-dry-run" : ""}.json`
+    );
   await mkdir(path.dirname(reportPath), { recursive: true });
   await writeFile(reportPath, `${JSON.stringify(report, null, 2)}\n`);
   return reportPath;
@@ -718,6 +723,7 @@ const report = {
     includeReviewed: args.includeReviewed,
     refreshExisting: args.refreshExisting,
     verifyExisting: args.verifyExisting,
+    generalFallback: args.generalFallback,
     concurrency: args.concurrency,
     limit: args.limit,
     fromYear: args.fromYear,
