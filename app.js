@@ -1,4 +1,4 @@
-const DATA_VERSION = "2026-06-29-archive-match-consistency";
+const DATA_VERSION = "2026-06-30-historical-tournament-standings";
 const DATA_URLS = {
   adminMessage: `data/admin-message.json?v=${DATA_VERSION}`,
   fixtures: `data/fixtures.json?v=${DATA_VERSION}`,
@@ -144,6 +144,8 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "Club to verify": "俱乐部待确认",
     "Current knockout path with likely winners filled for now. Finished results replace estimates.":
       "当前淘汰赛路径会先填入暂时更可能晋级的球队，完赛结果会替换估算。",
+    "Archived knockout bracket and final results from loaded historical matches.":
+      "淘汰赛对阵和最终结果来自已载入的历届比赛存档。",
     "Round of 32 slots use current standings and remaining projections. Later rounds are predictions.":
       "32强席位使用当前积分榜和剩余预测。后续轮次为预测。",
     "Current score": "当前比分",
@@ -225,6 +227,8 @@ const ZH_EXACT_TRANSLATIONS = new Map(
       "这届存档赛事没有可用的小组积分榜。",
     "Group table data is not available for this archived match.":
       "这场存档比赛没有可用的小组表数据。",
+    "Knockout bracket is not available for this archived tournament.":
+      "这届存档赛事没有可用的淘汰赛对阵。",
     "Group standings should show each current third-place team's cross-group race position.":
       "小组积分榜应显示每支当前第三名球队的跨组排名。",
     "Groups": "小组",
@@ -2790,6 +2794,16 @@ const ZH_PATTERN_TRANSLATIONS = [
       `${translateTextToZh(winner)}打入全场唯一进球，让${translateTextToZh(loser)}整场追赶这场1-0。`
   },
   {
+    pattern: /^(.+) made the (.+) scoreline stand in a tight match\.$/,
+    replace: (_, winner, score) =>
+      `${translateTextToZh(winner)}在胶着比赛中守住了${score}的比分。`
+  },
+  {
+    pattern: /^(.+) scored but never found the goal that would reopen the finish\.$/,
+    replace: (_, loser) =>
+      `${translateTextToZh(loser)}取得进球，但没能再找到重新打开收官阶段的进球。`
+  },
+  {
     pattern: /^(.+) got the decisive details right in a match that stayed tight\.$/,
     replace: (_, team) => `${translateTextToZh(team)}在胶着比赛里把关键细节做对。`
   },
@@ -2833,6 +2847,15 @@ const ZH_PATTERN_TRANSLATIONS = [
       `${translateTextToZh(home)}和${translateTextToZh(away)}一直到点球大战前都没有进球。`
   },
   {
+    pattern: /^The (.+) grind kept (.+)'s (.+) relevant all the way to penalties\.$/,
+    replace: (_, score, team, route) =>
+      `${score}的胶着让${translateTextToZh(team)}的${translateTextToZh(route)}一直到点球大战都保持影响。`
+  },
+  {
+    pattern: /^The (.+) grind stayed tense enough to leave the knockout tie to penalties\.$/,
+    replace: (_, score) => `${score}的胶着让这场淘汰赛对决一直悬到点球大战。`
+  },
+  {
     pattern: /^(.+) won the shootout (.+) after a (.+) draw\.$/,
     replace: (_, winner, shootoutScore, score) =>
       `${translateTextToZh(winner)}在${score}战平后通过点球大战${shootoutScore}胜出。`
@@ -2841,6 +2864,21 @@ const ZH_PATTERN_TRANSLATIONS = [
     pattern: /^(.+) survived the shootout after a (.+) draw\.$/,
     replace: (_, winner, score) =>
       `${translateTextToZh(winner)}在${score}战平后通过点球大战晋级。`
+  },
+  {
+    pattern: /^(.+) were cleaner from the spot, winning the shootout (.+) after the (.+) draw\.$/,
+    replace: (_, winner, shootoutScore, score) =>
+      `${translateTextToZh(winner)}点球处理更稳，在${score}战平后通过点球大战${shootoutScore}胜出。`
+  },
+  {
+    pattern: /^(.+) survived from the spot after the (.+) draw\.$/,
+    replace: (_, winner, score) =>
+      `${translateTextToZh(winner)}在${score}战平后通过点球大战晋级。`
+  },
+  {
+    pattern: /^(.+) were cleaner from the spot, winning the (.+) through the shootout (.+) after the (.+) draw\.$/,
+    replace: (_, winner, title, shootoutScore, score) =>
+      `${translateTextToZh(winner)}点球处理更稳，在${score}战平后通过点球大战${shootoutScore}赢得${translateTextToZh(title)}。`
   },
   {
     pattern: /^(.+) lifted the (.+) title through the shootout\.$/,
@@ -3200,6 +3238,8 @@ const TOURNAMENT_STANDINGS_SUMMARY =
   "Round of 32 slots use current standings and remaining projections. Later rounds are predictions.";
 const HISTORICAL_STANDINGS_SUMMARY =
   "Final group tables computed from archived match results.";
+const HISTORICAL_TOURNAMENT_STANDINGS_SUMMARY =
+  "Archived knockout bracket and final results from loaded historical matches.";
 const TOURNAMENT_MOBILE_BREAKPOINT_QUERY = "(max-width: 900px)";
 const TOURNAMENT_PROGRESS_ROUNDS = [
   {
@@ -3225,13 +3265,54 @@ const TOURNAMENT_POSTER_HALVES = [
   }
 ];
 const TEAM_SEARCH_ALIASES_BY_TEAM_ID = {
-  CIV: ["ivory coast", "cote divoire", "cote d ivoire", "cote"],
-  COD: ["congo", "congo dr", "dr congo"],
-  CZE: ["czech republic", "czechia"],
-  IRN: ["iran", "ir iran"],
-  KOR: ["korea", "korea republic", "south korea"],
-  TUR: ["turkey", "turkiye", "türkiye"],
-  USA: ["usa", "us", "united states", "america"]
+  ALG: ["a er ji li ya", "aerjiliya", "阿爾及利亞"],
+  ARG: ["a gen ting", "agenting"],
+  AUS: ["ao da li ya", "aodaliya", "澳大利亞"],
+  AUT: ["ao di li", "aodili", "奧地利"],
+  BEL: ["bi li shi", "bilishi", "比利時"],
+  BIH: ["bo hei", "bohei", "bo si ni ya", "bosiniya", "波黑", "波斯尼亞和黑塞哥維那"],
+  BRA: ["ba xi", "baxi"],
+  CAN: ["jia na da", "jianada"],
+  CIV: ["ivory coast", "cote divoire", "cote d ivoire", "cote", "ke te di wa", "ketediwa", "象牙海岸"],
+  COD: ["congo", "congo dr", "dr congo", "gang guo", "gangguo", "刚果", "剛果", "剛果民主共和國"],
+  COL: ["ge lun bi ya", "gelunbiya", "哥倫比亞"],
+  CPV: ["cape verde", "fo de jiao", "fodejiao", "维德角", "維德角"],
+  CRO: ["ke luo di ya", "keluodiya", "克羅地亞"],
+  CUW: ["ku la suo", "kulasuo", "庫拉索"],
+  CZE: ["czech republic", "czechia", "jie ke", "jieke", "捷克共和国", "捷克共和國"],
+  ECU: ["e gua duo er", "eguaduoer", "厄瓜多爾"],
+  EGY: ["ai ji", "aiji"],
+  ENG: ["ying ge lan", "yinggelan", "英格蘭"],
+  ESP: ["xi ban ya", "xibanya"],
+  FRA: ["fa guo", "faguo", "法國"],
+  GER: ["de guo", "deguo", "德国", "德國"],
+  GHA: ["jia na", "jiana", "加納"],
+  HAI: ["hai di", "haidi"],
+  IRN: ["iran", "ir iran", "yi lang", "yilang"],
+  IRQ: ["yi la ke", "yilake"],
+  JOR: ["yue dan", "yuedan", "約旦"],
+  JPN: ["ri ben", "riben"],
+  KOR: ["korea", "korea republic", "south korea", "han guo", "hanguo", "韓國"],
+  KSA: ["saudi", "sha te", "shate", "sha te a la bo", "shatealabo", "沙特", "沙烏地", "沙烏地阿拉伯"],
+  MAR: ["mo luo ge", "moluoge"],
+  MEX: ["mo xi ge", "moxige"],
+  NED: ["holland", "he lan", "helan", "荷蘭"],
+  NOR: ["nuo wei", "nuowei"],
+  NZL: ["xin xi lan", "xinxilan", "新西蘭"],
+  PAN: ["ba na ma", "banama", "巴拿馬"],
+  PAR: ["ba la gui", "balagui"],
+  POR: ["pu tao ya", "putaoya"],
+  QAT: ["ka ta er", "kataer", "卡塔爾"],
+  RSA: ["nan fei", "nanfei"],
+  SCO: ["su ge lan", "sugelan", "蘇格蘭"],
+  SEN: ["sai nei jia er", "saineijiaer", "塞內加爾"],
+  SUI: ["rui shi", "ruishi"],
+  SWE: ["rui dian", "ruidian"],
+  TUN: ["tu ni si", "tunisi"],
+  TUR: ["turkey", "turkiye", "türkiye", "tu er qi", "tuerqi"],
+  URU: ["wu la gui", "wulagui", "烏拉圭"],
+  USA: ["usa", "us", "united states", "america", "mei guo", "meiguo", "美國"],
+  UZB: ["wu zi bie ke si tan", "wuzibiekesitan", "烏茲別克斯坦"]
 };
 const WALES_FLAG = "\u{1F3F4}\u{E0067}\u{E0062}\u{E0077}\u{E006C}\u{E0073}\u{E007F}";
 const HISTORICAL_TEAM_COUNTRY_CODES = {
@@ -3677,7 +3758,7 @@ let isRestoringHistoryState = false;
 let isInitialDataLoading = true;
 let isInitialLiveDataLoading = false;
 let teamSearchIndex = [];
-let teamSearchIdKeySetsByQueryKey = new Map();
+let teamSearchExactKeySetsByQueryKey = new Map();
 let pendingTeamSearchRenderFrame = 0;
 let pendingUrlStateUpdateId = 0;
 
@@ -6970,6 +7051,32 @@ function getValidStandingsYear(value) {
   return CURRENT_STANDINGS_YEAR;
 }
 
+function getHistoricalTournamentFixturesForYear(year) {
+  return historicalFixtures
+    .filter((fixture) => fixture.tournamentYear === year && !fixture.group)
+    .sort((a, b) => getFixtureSortValue(a).localeCompare(getFixtureSortValue(b)));
+}
+
+function hasHistoricalTournamentFixtures(year) {
+  return getHistoricalTournamentFixturesForYear(year).length > 0;
+}
+
+function getAvailableStandingsModes(year = selectedStandingsYear) {
+  if (year === CURRENT_STANDINGS_YEAR) {
+    return ["tournament", "groups", "third-place"];
+  }
+
+  return hasHistoricalTournamentFixtures(year) ? ["tournament", "groups"] : ["groups"];
+}
+
+function getDefaultStandingsModeForYear(year = selectedStandingsYear) {
+  if (year === CURRENT_STANDINGS_YEAR) {
+    return DEFAULT_CURRENT_STANDINGS_MODE;
+  }
+
+  return hasHistoricalTournamentFixtures(year) ? "tournament" : "groups";
+}
+
 function getTeam(teamId) {
   return teamsById.get(teamId) || {
     id: teamId,
@@ -7354,16 +7461,18 @@ function queueTabIndicatorUpdate() {
 
 function selectStandingsYear(year, options = {}) {
   selectedStandingsYear = getValidStandingsYear(year);
-  if (selectedStandingsYear !== CURRENT_STANDINGS_YEAR) {
-    selectedStandingsMode = "groups";
-  }
+  selectedStandingsMode = getValidStandingsMode(
+    selectedStandingsMode,
+    getDefaultStandingsModeForYear(selectedStandingsYear),
+    selectedStandingsYear
+  );
   setStandingsYearOpen(false);
   renderStandingsView();
   updateUrlState(options);
 }
 
 function selectStandingsMode(mode, options = {}) {
-  selectedStandingsMode = getValidStandingsMode(mode);
+  selectedStandingsMode = getValidStandingsMode(mode, null, selectedStandingsYear);
   renderStandingsView();
   updateUrlState(options);
 }
@@ -12014,6 +12123,261 @@ function renderTournamentView() {
   `;
 }
 
+function isHistoricalFinalRoundLabel(label) {
+  return /^final$/i.test(String(label || "").trim());
+}
+
+function isHistoricalThirdPlaceRoundLabel(label) {
+  const text = String(label || "").toLowerCase();
+  return /third|3rd/.test(text) && /place|play-?off|match/.test(text);
+}
+
+function normalizeHistoricalTournamentRoundLabel(label) {
+  const text = String(label || "").trim();
+
+  if (/^quarterfinals$/i.test(text)) {
+    return "Quarter-finals";
+  }
+
+  if (/^semifinals$/i.test(text)) {
+    return "Semi-finals";
+  }
+
+  if (isHistoricalThirdPlaceRoundLabel(text)) {
+    return "Third-place play-off";
+  }
+
+  return text || "Knockout round";
+}
+
+function getHistoricalTournamentRoundKey(label) {
+  const normalizedLabel = normalizeHistoricalTournamentRoundLabel(label);
+
+  if (isHistoricalFinalRoundLabel(normalizedLabel) || isHistoricalThirdPlaceRoundLabel(normalizedLabel)) {
+    return "final";
+  }
+
+  return normalizeTextKey(normalizedLabel).replace(/\s+/g, "-") || "round";
+}
+
+function getHistoricalTournamentRoundClassName(round) {
+  if (round.key === "final") {
+    return "final";
+  }
+
+  return round.key;
+}
+
+function getHistoricalTournamentRoundSortValue(fixture) {
+  if (isHistoricalFinalRoundLabel(fixture.round)) {
+    return `0:${getFixtureSortValue(fixture)}`;
+  }
+
+  if (isHistoricalThirdPlaceRoundLabel(fixture.round)) {
+    return `1:${getFixtureSortValue(fixture)}`;
+  }
+
+  return `2:${getFixtureSortValue(fixture)}`;
+}
+
+function getHistoricalTournamentRounds(year) {
+  const rounds = [];
+  const roundsByKey = new Map();
+
+  for (const fixture of getHistoricalTournamentFixturesForYear(year)) {
+    const key = getHistoricalTournamentRoundKey(fixture.round);
+    if (!roundsByKey.has(key)) {
+      const round = {
+        fixtures: [],
+        key,
+        label: key === "final" ? "Final" : normalizeHistoricalTournamentRoundLabel(fixture.round)
+      };
+      roundsByKey.set(key, round);
+      rounds.push(round);
+    }
+
+    roundsByKey.get(key).fixtures.push(hydrateFixture(fixture));
+  }
+
+  rounds.forEach((round) => {
+    round.fixtures.sort((a, b) =>
+      getHistoricalTournamentRoundSortValue(a).localeCompare(getHistoricalTournamentRoundSortValue(b))
+    );
+  });
+
+  return rounds;
+}
+
+function getHistoricalTournamentPathRowCount(rounds) {
+  return Math.max(1, ...rounds.map((round) => round.fixtures.length));
+}
+
+function getHistoricalTournamentProgressPlacement(round, index, rowCount) {
+  const matchCount = Math.max(1, round.fixtures.length);
+  const pathSpan = Math.max(1, Math.floor(rowCount / matchCount));
+  const pathRow = Math.floor((index * rowCount) / matchCount) + 1;
+
+  return { pathRow, pathSpan };
+}
+
+function getHistoricalNextTournamentMatchNumber(fixtures, match, teamName) {
+  if (!teamName) {
+    return "";
+  }
+
+  const currentSortValue = getFixtureSortValue(match);
+  const nextMatch = fixtures.find(
+    (fixture) =>
+      getFixtureSortValue(fixture) > currentSortValue &&
+      (fixture.homeSlot === teamName || fixture.awaySlot === teamName)
+  );
+
+  return nextMatch?.matchNumber || "";
+}
+
+function getHistoricalTournamentParticipant(match, side) {
+  const team = side === "away" ? match.awayTeam : match.homeTeam;
+  const slotText = side === "away" ? match.awaySlot : match.homeSlot;
+
+  return {
+    isLocked: true,
+    label: getTournamentTeamDisplayName(team),
+    likelihoodPercent: null,
+    likelihoodReason: "",
+    seedLabel: "",
+    slotText,
+    state: "resolved",
+    team
+  };
+}
+
+function getHistoricalTournamentWinnerSide(match) {
+  const winner = getHistoricalWinner(match);
+
+  if (!winner) {
+    return "";
+  }
+
+  if (winner === match.homeSlot) {
+    return "home";
+  }
+
+  if (winner === match.awaySlot) {
+    return "away";
+  }
+
+  return "";
+}
+
+function renderHistoricalTournamentMatchCard(match, context, options = {}) {
+  const participants = {
+    away: getHistoricalTournamentParticipant(match, "away"),
+    home: getHistoricalTournamentParticipant(match, "home")
+  };
+  const winnerSide = getHistoricalTournamentWinnerSide(match);
+  const winner = winnerSide ? participants[winnerSide].team : null;
+  const isComplete = match.status === "FT" || Boolean(winner);
+  const resultText = getHistoricalScoreText(match);
+  const venueLabel = match.venue ? getTournamentVenueLabel(match) : "";
+  const venueTooltip = match.venue ? getVenueLabel(match) : "";
+  const nextMatchNumber = winnerSide
+    ? getHistoricalNextTournamentMatchNumber(context.fixtures, match, match[`${winnerSide}Slot`])
+    : "";
+  const loserSide = winnerSide === "home" ? "away" : winnerSide === "away" ? "home" : "";
+  const runnerUpNextMatchNumber = loserSide
+    ? getHistoricalNextTournamentMatchNumber(context.fixtures, match, match[`${loserSide}Slot`])
+    : "";
+  const cardClasses = [
+    "progress-match",
+    "historical-progress-match",
+    isComplete ? "is-complete" : "",
+    "is-openable"
+  ]
+    .filter(Boolean)
+    .join(" ");
+
+  return `
+    <article class="${escapeHtml(cardClasses)}" data-match-number="${escapeHtml(match.matchNumber)}" data-round-id="${escapeHtml(options.roundId || "")}" data-round-index="${escapeHtml(options.roundIndex)}" data-match-index="${escapeHtml(options.matchIndex)}"${nextMatchNumber ? ` data-next-match="${escapeHtml(nextMatchNumber)}"` : ""}${runnerUpNextMatchNumber ? ` data-runner-up-next-match="${escapeHtml(runnerUpNextMatchNumber)}"` : ""}${winner ? ` data-winner-team-id="${escapeHtml(winner.id)}"` : ""} data-open-match-id="${escapeHtml(match.id)}" role="button" tabindex="0" aria-label="${escapeHtml(getTournamentOpenMatchLabel(participants))}" style="--path-row: ${escapeHtml(options.pathRow)}; --path-span: ${escapeHtml(options.pathSpan)};">
+      <header class="knockout-match-header">
+        <span class="knockout-match-meta">
+          <time datetime="${escapeHtml(match.date || "")}">${escapeHtml(getHistoricalDateText(match))}</time>
+          ${venueLabel ? `<span class="knockout-match-venue"${venueTooltip ? ` aria-label="${escapeHtml(venueTooltip)}" data-tooltip="${escapeHtml(venueTooltip)}" tabindex="0"` : ""}>${escapeHtml(venueLabel)}</span>` : ""}
+        </span>
+      </header>
+      <div class="knockout-match-pair">
+        ${renderTournamentParticipant(participants.home, {
+          isWinner: winnerSide === "home",
+          isLoser: Boolean(winnerSide && winnerSide !== "home")
+        })}
+        <span class="knockout-versus" aria-label="${escapeHtml(localizeText("vs"))}">${escapeHtml(localizeText("vs"))}</span>
+        ${renderTournamentParticipant(participants.away, {
+          isWinner: winnerSide === "away",
+          isLoser: Boolean(winnerSide && winnerSide !== "away")
+        })}
+      </div>
+      <footer class="knockout-match-footer">
+        <span class="knockout-result-pill" aria-label="${escapeHtml(resultText)}">${escapeHtml(resultText)}</span>
+      </footer>
+    </article>
+  `;
+}
+
+function renderHistoricalTournamentRound(round, context, roundIndex, rowCount) {
+  const roundLabel = localizeStageLabel(round.label);
+  const roundClassName = getHistoricalTournamentRoundClassName(round);
+
+  return `
+    <section class="progress-round is-${escapeHtml(roundClassName)}" data-round-id="${escapeHtml(round.key)}" data-round-index="${escapeHtml(roundIndex)}" aria-label="${escapeHtml(roundLabel)}">
+      <h3>${escapeHtml(roundLabel)}</h3>
+      <div class="progress-match-list">
+        ${round.fixtures
+          .map((match, matchIndex) =>
+            renderHistoricalTournamentMatchCard(match, context, {
+              ...getHistoricalTournamentProgressPlacement(round, matchIndex, rowCount),
+              matchIndex,
+              roundId: round.key,
+              roundIndex
+            })
+          )
+          .join("")}
+      </div>
+    </section>
+  `;
+}
+
+function renderHistoricalTournamentView(year) {
+  const rounds = getHistoricalTournamentRounds(year);
+
+  if (!rounds.length) {
+    return `
+      <article class="standings-card standings-empty-card">
+        <h2>${escapeHtml(localizeText(`${year} archive`))}</h2>
+        <p class="past-empty">${escapeHtml(localizeText("Knockout bracket is not available for this archived tournament."))}</p>
+      </article>
+    `;
+  }
+
+  const context = {
+    fixtures: getHistoricalTournamentFixturesForYear(year).map(hydrateFixture)
+  };
+  const pathRows = getHistoricalTournamentPathRowCount(rounds);
+
+  return `
+    <section class="tournament-view historical-tournament-view" aria-label="${escapeHtml(localizeText("Tournament bracket"))}" style="--tournament-round-count: ${escapeHtml(rounds.length)}; --tournament-path-rows: ${escapeHtml(pathRows)};">
+      <section class="tournament-progression" aria-label="${escapeHtml(localizeText("Knockout winner progression"))}" tabindex="0">
+        <svg class="progress-connectors" aria-hidden="true" focusable="false"></svg>
+        <div class="progress-rounds">
+          ${rounds
+            .map((round, roundIndex) =>
+              renderHistoricalTournamentRound(round, context, roundIndex, pathRows)
+            )
+            .join("")}
+        </div>
+      </section>
+    </section>
+  `;
+}
+
 function openMatchFromTournament(matchId) {
   const fixture = getFixtureById(matchId);
 
@@ -12465,8 +12829,12 @@ function renderHistoricalStandingsCards(year) {
     .join("");
 }
 
-function getValidStandingsMode(value, fallback = DEFAULT_CURRENT_STANDINGS_MODE) {
-  return value === "groups" || value === "third-place" || value === "tournament" ? value : fallback;
+function getValidStandingsMode(value, fallback = null, year = selectedStandingsYear) {
+  const availableModes = getAvailableStandingsModes(year);
+  const resolvedFallback =
+    fallback && availableModes.includes(fallback) ? fallback : getDefaultStandingsModeForYear(year);
+
+  return availableModes.includes(value) ? value : resolvedFallback;
 }
 
 function renderStandingsYearPicker() {
@@ -12492,18 +12860,21 @@ function renderStandingsYearPicker() {
 }
 
 function updateStandingsModeControls() {
-  const shouldShowModeTabs = selectedStandingsYear === CURRENT_STANDINGS_YEAR;
+  const availableModes = getAvailableStandingsModes(selectedStandingsYear);
+  const shouldShowModeTabs = availableModes.length > 1;
 
   if (standingsModeTabsShell) {
     standingsModeTabsShell.hidden = !shouldShowModeTabs;
   }
 
   standingsModeTabs.forEach((tab) => {
-    const isSelected = shouldShowModeTabs && tab.dataset.standingsMode === selectedStandingsMode;
+    const isAvailable = availableModes.includes(tab.dataset.standingsMode);
+    const isSelected =
+      shouldShowModeTabs && isAvailable && tab.dataset.standingsMode === selectedStandingsMode;
 
     tab.classList.toggle("is-active", isSelected);
-    tab.disabled = !shouldShowModeTabs;
-    tab.hidden = !shouldShowModeTabs;
+    tab.disabled = !shouldShowModeTabs || !isAvailable;
+    tab.hidden = !shouldShowModeTabs || !isAvailable;
     tab.setAttribute("aria-pressed", String(isSelected));
   });
   updateStandingsModeTabIndicator();
@@ -12527,7 +12898,9 @@ function updateStandingsControls() {
           : selectedStandingsMode === "tournament"
             ? TOURNAMENT_STANDINGS_SUMMARY
           : CURRENT_STANDINGS_SUMMARY
-        : HISTORICAL_STANDINGS_SUMMARY;
+        : selectedStandingsMode === "tournament"
+          ? HISTORICAL_TOURNAMENT_STANDINGS_SUMMARY
+          : HISTORICAL_STANDINGS_SUMMARY;
     standingsSummary.textContent = localizeText(summaryText);
   }
 
@@ -12538,7 +12911,7 @@ function updateStandingsControls() {
 function renderStandingsLoadingState() {
   const isCurrentYear = selectedStandingsYear === CURRENT_STANDINGS_YEAR;
   const isThirdPlaceMode = isCurrentYear && selectedStandingsMode === "third-place";
-  const isTournamentMode = isCurrentYear && selectedStandingsMode === "tournament";
+  const isTournamentMode = selectedStandingsMode === "tournament";
 
   updateStandingsControls();
   standingsGrid.classList.add("is-loading");
@@ -12592,7 +12965,7 @@ function renderStandingsView() {
 
   const isCurrentYear = selectedStandingsYear === CURRENT_STANDINGS_YEAR;
   const isThirdPlaceMode = isCurrentYear && selectedStandingsMode === "third-place";
-  const isTournamentMode = isCurrentYear && selectedStandingsMode === "tournament";
+  const isTournamentMode = selectedStandingsMode === "tournament";
 
   updateStandingsControls();
   standingsGrid.classList.remove("is-loading");
@@ -12615,7 +12988,9 @@ function renderStandingsView() {
       : isThirdPlaceMode
       ? renderThirdPlaceRaceView()
       : renderCurrentStandingsCards()
-    : renderHistoricalStandingsCards(selectedStandingsYear);
+    : isTournamentMode
+      ? renderHistoricalTournamentView(selectedStandingsYear)
+      : renderHistoricalStandingsCards(selectedStandingsYear);
   updateStandingNameTooltips(standingsGrid);
   updateTooltipBounds(standingsGrid);
   updateTournamentBoardLayout();
@@ -15891,73 +16266,281 @@ function renderHistoricalGroupStandings(match) {
   `;
 }
 
-function getHistoricalRoundContext(match) {
-  const knockoutFixtures = getHistoricalTournamentFixtures(match).filter(
-    (fixture) => !fixture.group
+function getHistoricalDisplayTeam(teamName) {
+  const name = String(teamName || "").trim();
+  return (
+    getHistoricalTeam(name) || {
+      id: `history-${normalizeTextKey(name).replace(/\s+/g, "-") || "team"}`,
+      name,
+      officialName: name,
+      standingName: name,
+      fifaRank: null
+    }
   );
-  const roundOrder = [
-    ...new Map(knockoutFixtures.map((fixture) => [fixture.round, fixture.round])).keys()
-  ];
-  const roundIndex = roundOrder.indexOf(match.round);
-  const currentRound = knockoutFixtures.filter((fixture) => fixture.round === match.round);
-  const nextRound = /semi/i.test(match.round || "")
-    ? knockoutFixtures.filter((fixture) => roundOrder.indexOf(fixture.round) > roundIndex)
-    : knockoutFixtures.filter((fixture) => fixture.round === roundOrder[roundIndex + 1]);
-  const previousRound = knockoutFixtures.filter(
-    (fixture) => fixture.round === roundOrder[roundIndex - 1]
-  );
-  const involvedTeams = new Set([match.homeTeam.name, match.awayTeam.name]);
-  const secondaryRound = (nextRound.length ? nextRound : previousRound).filter(
-    (fixture) => involvedTeams.has(fixture.homeSlot) || involvedTeams.has(fixture.awaySlot)
-  );
-
-  return {
-    currentRound,
-    secondaryLabel: nextRound.length ? "Next" : "Previous",
-    secondaryRound
-  };
 }
 
-function renderHistoricalBracketMatch(fixture, selectedId) {
-  const winner = getHistoricalWinner(fixture);
-  const isSelected = fixture.id === selectedId;
-  const outcomeVerb = /final|third|place/i.test(fixture.round || "") ? "won" : "advanced";
-
-  return `
-    <li class="${isSelected ? "is-selected" : ""}">
-      <span>${escapeHtml(localizeText(fixture.homeSlot))} ${escapeHtml(localizeText("vs"))} ${escapeHtml(localizeText(fixture.awaySlot))}</span>
-      <strong>${escapeHtml(getHistoricalScoreText(fixture))}</strong>
-      ${winner ? `<em>${escapeHtml(localizeText(`${winner} ${outcomeVerb}`))}</em>` : ""}
-    </li>
-  `;
+function renderHistoricalKnockoutTeamName(teamName, options = {}) {
+  const team = getHistoricalDisplayTeam(teamName);
+  return renderKnockoutContextTeamName(team, getTournamentTeamDisplayName(team), options);
 }
 
-function renderHistoricalBracketList(label, fixtures, selectedId, options = {}) {
-  if (!fixtures.length) {
+function getHistoricalTeamResultOutcome(fixture, teamName) {
+  const pair = getHistoricalScorePairForTeam(fixture, teamName);
+  const teamScore = Number(pair?.home);
+  const opponentScore = Number(pair?.away);
+
+  if (!Number.isFinite(teamScore) || !Number.isFinite(opponentScore)) {
     return "";
   }
 
-  return `
-    <article>
-      ${options.hideHeading ? "" : `<h4>${escapeHtml(localizeText(label))}</h4>`}
-      <ul>
-        ${fixtures.map((fixture) => renderHistoricalBracketMatch(fixture, selectedId)).join("")}
-      </ul>
-    </article>
-  `;
+  if (teamScore > opponentScore) {
+    return "win";
+  }
+
+  if (teamScore < opponentScore) {
+    return "loss";
+  }
+
+  return "draw";
 }
 
-function renderHistoricalBracketContext(match) {
-  const { currentRound, secondaryLabel, secondaryRound } = getHistoricalRoundContext(match);
+function getHistoricalGroupRoundSummaryForTeam(match, teamName) {
+  const team = getHistoricalDisplayTeam(teamName);
+  const groupFixtures = getHistoricalTournamentFixtures(match)
+    .filter(
+      (fixture) =>
+        fixture.group &&
+        getFixtureSortValue(fixture) < getFixtureSortValue(match) &&
+        (fixture.homeSlot === teamName || fixture.awaySlot === teamName)
+    )
+    .sort((a, b) => getFixtureSortValue(a).localeCompare(getFixtureSortValue(b)));
+  const resultItems = groupFixtures
+    .filter((fixture) => fixture.status === "FT" && fixture.score)
+    .map((fixture) => {
+      const opponentName = getHistoricalOpponent(fixture, teamName);
+      return {
+        opponent: getHistoricalDisplayTeam(opponentName),
+        outcome: getHistoricalTeamResultOutcome(fixture, teamName),
+        scoreText: formatScorePair(getHistoricalScorePairForTeam(fixture, teamName))
+      };
+    })
+    .filter((item) => item.outcome && item.scoreText);
+  const remainingCount = groupFixtures.filter((fixture) => fixture.status !== "FT").length;
+
+  return formatGroupRoundSummary(team, resultItems, remainingCount);
+}
+
+function getHistoricalPreviousKnockoutMatchForTeam(match, teamName) {
+  const currentSortValue = getFixtureSortValue(match);
+  return getHistoricalTournamentFixtures(match)
+    .filter(
+      (fixture) =>
+        !fixture.group &&
+        getFixtureSortValue(fixture) < currentSortValue &&
+        (fixture.homeSlot === teamName || fixture.awaySlot === teamName)
+    )
+    .sort((a, b) => getFixtureSortValue(b).localeCompare(getFixtureSortValue(a)))[0];
+}
+
+function getHistoricalPreviousKnockoutMatches(match) {
+  const fixturesById = new Map();
+  [match.homeSlot, match.awaySlot].forEach((teamName) => {
+    const fixture = getHistoricalPreviousKnockoutMatchForTeam(match, teamName);
+    if (fixture) {
+      fixturesById.set(fixture.id, fixture);
+    }
+  });
+  return [...fixturesById.values()];
+}
+
+function getHistoricalRoundLabelSeries(fixtures, fallback = "Round path") {
+  const labels = [
+    ...new Map(
+      fixtures
+        .map((fixture) => normalizeHistoricalTournamentRoundLabel(fixture.round))
+        .filter(Boolean)
+        .map((label) => [label, localizeText(label)])
+    ).values()
+  ];
+
+  if (!labels.length) {
+    return localizeText(fallback);
+  }
+
+  return currentLanguage === "zh" ? labels.join(" / ") : labels.join(" / ");
+}
+
+function renderHistoricalKnockoutCompletedSummary(match) {
+  const scoreText = escapeHtml(formatScorePair(match.score));
+  const winner = getHistoricalWinner(match);
+
+  if (!scoreText) {
+    return `${renderHistoricalKnockoutTeamName(match.homeSlot, { showRank: true })} ${escapeHtml(
+      localizeText("vs")
+    )} ${renderHistoricalKnockoutTeamName(match.awaySlot, { showRank: true })}`;
+  }
+
+  if (!winner) {
+    const homeName = renderHistoricalKnockoutTeamName(match.homeSlot, { showRank: true });
+    const awayName = renderHistoricalKnockoutTeamName(match.awaySlot, { showRank: true });
+    return currentLanguage === "zh"
+      ? `${homeName} 和 ${awayName} 以 ${scoreText} 战平。`
+      : `${homeName} and ${awayName} drew ${scoreText}.`;
+  }
+
+  const loser = getHistoricalOpponent(match, winner);
+  const winnerName = renderHistoricalKnockoutTeamName(winner, { showRank: true });
+  const loserName = renderHistoricalKnockoutTeamName(loser);
+  const winnerScoreText = escapeHtml(formatScorePair(getHistoricalScorePairForTeam(match, winner)));
+  const penaltyText = escapeHtml(formatScorePair(getHistoricalPenaltyPairForTeam(match, winner)));
+
+  if (penaltyText) {
+    return currentLanguage === "zh"
+      ? `${winnerName}在 ${scoreText} 战平后通过点球 ${penaltyText} 击败 ${loserName}。`
+      : `${winnerName} beat ${loserName} on penalties after a ${scoreText} draw (${penaltyText} pens).`;
+  }
+
+  return currentLanguage === "zh"
+    ? `${winnerName}以 ${winnerScoreText} 击败 ${loserName}。`
+    : `${winnerName} beat ${loserName} ${winnerScoreText}.`;
+}
+
+function renderHistoricalPreviousKnockoutContext(match) {
+  const previousMatches = getHistoricalPreviousKnockoutMatches(match);
+  const heading = formatKnockoutContextHeading(
+    localizeText("Previous"),
+    previousMatches.length ? getHistoricalRoundLabelSeries(previousMatches) : localizeText("Group round")
+  );
+  const rows = previousMatches.length
+    ? previousMatches.map((fixture) => `<li>${renderHistoricalKnockoutCompletedSummary(fixture)}</li>`)
+    : [match.homeSlot, match.awaySlot]
+        .map((teamName) => `<li>${getHistoricalGroupRoundSummaryForTeam(match, teamName)}</li>`)
+        .join("");
 
   return `
     <section class="info-block">
-      <h3>${escapeHtml(localizeText(match.round || "Round path"))}</h3>
-      <div class="historical-bracket">
-        ${renderHistoricalBracketList(match.round || "This round", currentRound, match.id, { hideHeading: true })}
-        ${renderHistoricalBracketList(secondaryLabel, secondaryRound, match.id)}
-      </div>
+      <h3>${escapeHtml(heading)}</h3>
+      <ul class="result-highlights knockout-context-list">
+        ${Array.isArray(rows) ? rows.join("") : rows}
+      </ul>
     </section>
+  `;
+}
+
+function getHistoricalNextMatchForTeam(match, teamName) {
+  const currentSortValue = getFixtureSortValue(match);
+  return getHistoricalTournamentFixtures(match).find(
+    (fixture) =>
+      !fixture.group &&
+      getFixtureSortValue(fixture) > currentSortValue &&
+      (fixture.homeSlot === teamName || fixture.awaySlot === teamName)
+  );
+}
+
+function getHistoricalNextPathEntries(match) {
+  const winner = getHistoricalWinner(match);
+
+  if (!winner) {
+    return [];
+  }
+
+  const loser = getHistoricalOpponent(match, winner);
+  return [
+    { fixture: getHistoricalNextMatchForTeam(match, winner), kind: "winner", teamName: winner },
+    { fixture: getHistoricalNextMatchForTeam(match, loser), kind: "loser", teamName: loser }
+  ].filter((entry, index, entries) => {
+    if (!entry.fixture) {
+      return false;
+    }
+    return entries.findIndex((candidate) => candidate.kind === entry.kind && candidate.fixture?.id === entry.fixture.id) === index;
+  });
+}
+
+function getHistoricalOpponentQualificationClause(nextMatch, opponentName) {
+  const sourceMatch = getHistoricalPreviousKnockoutMatchForTeam(nextMatch, opponentName);
+  const opponent = renderHistoricalKnockoutTeamName(opponentName, { showRank: true });
+  if (!sourceMatch) {
+    return currentLanguage === "zh" ? opponent : ` ${opponent}`;
+  }
+
+  const otherName = renderHistoricalKnockoutTeamName(getHistoricalOpponent(sourceMatch, opponentName));
+  const scoreText = escapeHtml(formatScorePair(sourceMatch.score));
+  const teamScoreText = escapeHtml(formatScorePair(getHistoricalScorePairForTeam(sourceMatch, opponentName)));
+  const penaltyText = escapeHtml(formatScorePair(getHistoricalPenaltyPairForTeam(sourceMatch, opponentName)));
+  const sourceWinner = getHistoricalWinner(sourceMatch);
+
+  if (!scoreText) {
+    return currentLanguage === "zh" ? opponent : ` ${opponent}`;
+  }
+
+  if (penaltyText) {
+    if (sourceWinner === opponentName) {
+      return currentLanguage === "zh"
+        ? `${opponent}，后者在 ${scoreText} 战平后通过点球 ${penaltyText} 击败 ${otherName}`
+        : ` ${opponent} who won ${penaltyText} on penalties after a ${scoreText} draw against ${otherName}`;
+    }
+
+    return currentLanguage === "zh"
+      ? `${opponent}，后者在 ${scoreText} 战平后通过点球 ${penaltyText} 不敌 ${otherName}`
+      : ` ${opponent} who lost ${penaltyText} on penalties after a ${scoreText} draw to ${otherName}`;
+  }
+
+  if (sourceWinner === opponentName) {
+    return currentLanguage === "zh"
+      ? `${opponent}，后者以 ${teamScoreText} 击败 ${otherName}`
+      : ` ${opponent} who won ${teamScoreText} against ${otherName}`;
+  }
+
+  return currentLanguage === "zh"
+    ? `${opponent}，后者以 ${teamScoreText} 不敌 ${otherName}`
+    : ` ${opponent} who lost ${teamScoreText} to ${otherName}`;
+}
+
+function renderHistoricalNextPathLine(entry) {
+  const opponentName = getHistoricalOpponent(entry.fixture, entry.teamName);
+  const clause = getHistoricalOpponentQualificationClause(entry.fixture, opponentName);
+
+  if (currentLanguage === "zh") {
+    return `${entry.kind === "winner" ? "胜者" : "败者"}随后对阵${clause}。`;
+  }
+
+  return `${entry.kind === "winner" ? "Winner" : "Loser"} faced${clause}.`;
+}
+
+function renderHistoricalNextKnockoutContext(match) {
+  if (isHistoricalFinalRoundLabel(match.round) || isHistoricalThirdPlaceRoundLabel(match.round)) {
+    return "";
+  }
+
+  const entries = getHistoricalNextPathEntries(match);
+  if (!entries.length) {
+    return "";
+  }
+
+  const heading = formatKnockoutContextHeading(
+    localizeText("Next"),
+    getHistoricalRoundLabelSeries(entries.map((entry) => entry.fixture))
+  );
+  const lines = entries.map(renderHistoricalNextPathLine);
+
+  return `
+    <section class="info-block">
+      <h3>${escapeHtml(heading)}</h3>
+      ${
+        lines.length === 1
+          ? `<p class="past-empty knockout-next-line">${lines[0]}</p>`
+          : `<ul class="result-highlights knockout-context-list">${lines
+              .map((line) => `<li>${line}</li>`)
+              .join("")}</ul>`
+      }
+    </section>
+  `;
+}
+
+function renderHistoricalKnockoutContext(match) {
+  return `
+    ${renderHistoricalPreviousKnockoutContext(match)}
+    ${renderHistoricalNextKnockoutContext(match)}
   `;
 }
 
@@ -15966,7 +16549,7 @@ function renderHistoricalContext(match) {
     return renderHistoricalGroupStandings(match);
   }
 
-  return renderHistoricalBracketContext(match);
+  return renderHistoricalKnockoutContext(match);
 }
 
 function getNextHistoricalMatchForTeam(match, teamName) {
@@ -16703,9 +17286,9 @@ function renderHistoricalMatchInfo(match) {
       <p>${escapeHtml(getVenueLabel(match))}</p>
     </section>
 
-    ${renderHistoricalResultBlock(match)}
-
     ${renderHistoricalContext(match)}
+
+    ${renderHistoricalResultBlock(match)}
 
     <section class="info-block">
       ${renderPredictionHeading(getHistoricalProjection(match))}
@@ -17169,9 +17752,9 @@ function getTeamSearchKeys(team) {
     .filter(Boolean);
 }
 
-function getTeamSearchTeamForIdQuery(queryKey) {
+function getTeamSearchTeamForExactQuery(queryKey) {
   for (const team of teamsById.values()) {
-    if (normalizeTextKey(team.id) === queryKey) {
+    if (getTeamSearchKeys(team).includes(queryKey)) {
       return team;
     }
   }
@@ -17205,32 +17788,35 @@ function isTeamSearchMatch(team, queryKey) {
     return false;
   }
 
-  const idQueryTeam = getTeamSearchTeamForIdQuery(queryKey);
+  const exactQueryTeam = getTeamSearchTeamForExactQuery(queryKey);
   const teamKeys = getTeamSearchKeys(team);
 
-  if (idQueryTeam) {
-    const idQueryTeamKeys = new Set(getTeamSearchKeys(idQueryTeam));
-    return teamKeys.some((key) => idQueryTeamKeys.has(key));
+  if (exactQueryTeam) {
+    const exactQueryTeamKeys = new Set(getTeamSearchKeys(exactQueryTeam));
+    return teamKeys.some((key) => exactQueryTeamKeys.has(key));
   }
 
   return teamKeys.some((key) => isTeamSearchKeyMatch(key, queryKey));
 }
 
-function buildTeamSearchIdKeySets() {
-  const idKeySets = new Map();
+function buildTeamSearchExactKeySets() {
+  const exactKeySets = new Map();
 
   for (const team of teamsById.values()) {
-    const idKey = normalizeTextKey(team.id);
-    if (idKey) {
-      idKeySets.set(idKey, new Set(getTeamSearchKeys(team)));
+    const teamKeys = new Set(getTeamSearchKeys(team));
+
+    for (const key of teamKeys) {
+      if (key && !exactKeySets.has(key)) {
+        exactKeySets.set(key, teamKeys);
+      }
     }
   }
 
-  return idKeySets;
+  return exactKeySets;
 }
 
 function buildTeamSearchIndex() {
-  teamSearchIdKeySetsByQueryKey = buildTeamSearchIdKeySets();
+  teamSearchExactKeySetsByQueryKey = buildTeamSearchExactKeySets();
   teamSearchIndex = getCalendarFixtures()
     .map(hydrateFixture)
     .map((match) => ({
@@ -17244,33 +17830,33 @@ function buildTeamSearchIndex() {
     .sort((a, b) => a.sortValue.localeCompare(b.sortValue));
 }
 
-function getTeamSearchIdKeySet(queryKey) {
-  const indexedKeySet = teamSearchIdKeySetsByQueryKey.get(queryKey);
+function getTeamSearchExactKeySet(queryKey) {
+  const indexedKeySet = teamSearchExactKeySetsByQueryKey.get(queryKey);
   if (indexedKeySet) {
     return indexedKeySet;
   }
 
-  const idQueryTeam = getTeamSearchTeamForIdQuery(queryKey);
-  return idQueryTeam ? new Set(getTeamSearchKeys(idQueryTeam)) : null;
+  const exactQueryTeam = getTeamSearchTeamForExactQuery(queryKey);
+  return exactQueryTeam ? new Set(getTeamSearchKeys(exactQueryTeam)) : null;
 }
 
-function isTeamSearchIndexedKeyMatch(keys, queryKey, idKeySet = getTeamSearchIdKeySet(queryKey)) {
-  if (idKeySet) {
-    return keys.some((key) => idKeySet.has(key));
+function isTeamSearchIndexedKeyMatch(keys, queryKey, exactKeySet = getTeamSearchExactKeySet(queryKey)) {
+  if (exactKeySet) {
+    return keys.some((key) => exactKeySet.has(key));
   }
 
   return keys.some((key) => isTeamSearchKeyMatch(key, queryKey));
 }
 
-function getTeamSearchIndexedParticipant(entry, queryKey, idKeySet = getTeamSearchIdKeySet(queryKey)) {
-  if (isTeamSearchIndexedKeyMatch(entry.homeKeys, queryKey, idKeySet)) {
+function getTeamSearchIndexedParticipant(entry, queryKey, exactKeySet = getTeamSearchExactKeySet(queryKey)) {
+  if (isTeamSearchIndexedKeyMatch(entry.homeKeys, queryKey, exactKeySet)) {
     return {
       team: entry.homeTeam,
       searchedSide: "home"
     };
   }
 
-  if (isTeamSearchIndexedKeyMatch(entry.awayKeys, queryKey, idKeySet)) {
+  if (isTeamSearchIndexedKeyMatch(entry.awayKeys, queryKey, exactKeySet)) {
     return {
       team: entry.awayTeam,
       searchedSide: "away"
@@ -17312,10 +17898,10 @@ function getTeamSearchMatches(query = getTeamSearchQuery()) {
   }
 
   const matches = [];
-  const idKeySet = getTeamSearchIdKeySet(queryKey);
+  const exactKeySet = getTeamSearchExactKeySet(queryKey);
 
   for (const entry of teamSearchIndex) {
-    const participant = getTeamSearchIndexedParticipant(entry, queryKey, idKeySet);
+    const participant = getTeamSearchIndexedParticipant(entry, queryKey, exactKeySet);
     if (participant) {
       matches.push({
         match: entry.match,
@@ -18452,12 +19038,12 @@ function applyUrlState(options = {}) {
     params.set("standingsYear", String(selectedStandingsYear));
   }
 
-  if (
-    activeView === "standings" &&
-    selectedStandingsYear === CURRENT_STANDINGS_YEAR &&
-    selectedStandingsMode !== DEFAULT_CURRENT_STANDINGS_MODE
-  ) {
-    params.set("standingsMode", selectedStandingsMode);
+  if (activeView === "standings") {
+    const defaultStandingsMode = getDefaultStandingsModeForYear(selectedStandingsYear);
+
+    if (selectedStandingsMode !== defaultStandingsMode) {
+      params.set("standingsMode", selectedStandingsMode);
+    }
   }
 
   const queryString = params.toString();
@@ -18627,10 +19213,11 @@ function readInitialChromeState() {
 
   activeView = requestedView === "standings" ? "standings" : "matches";
   selectedStandingsYear = getValidStandingsYear(requestedStandingsYear);
-  selectedStandingsMode =
-    selectedStandingsYear === CURRENT_STANDINGS_YEAR
-      ? getValidStandingsMode(requestedStandingsMode)
-      : "groups";
+  selectedStandingsMode = getValidStandingsMode(
+    requestedStandingsMode,
+    null,
+    selectedStandingsYear
+  );
 }
 
 function readUrlState(options = {}) {
@@ -18679,10 +19266,11 @@ function readUrlState(options = {}) {
   isShowingOlderTeamMatches = false;
   activeMatchId = activeView === "matches" && !isTeamSearchOpen ? requestedMatch?.id || "" : "";
   selectedStandingsYear = getValidStandingsYear(requestedStandingsYear);
-  selectedStandingsMode =
-    selectedStandingsYear === CURRENT_STANDINGS_YEAR
-      ? getValidStandingsMode(requestedStandingsMode)
-      : "groups";
+  selectedStandingsMode = getValidStandingsMode(
+    requestedStandingsMode,
+    null,
+    selectedStandingsYear
+  );
 }
 
 function getLatestReleaseNote() {
@@ -18990,6 +19578,11 @@ async function loadLiveData() {
 function renderLoadedApp(options = {}) {
   ensureSelectableSelectedDay();
   selectedStandingsYear = getValidStandingsYear(selectedStandingsYear);
+  selectedStandingsMode = getValidStandingsMode(
+    selectedStandingsMode,
+    getDefaultStandingsModeForYear(selectedStandingsYear),
+    selectedStandingsYear
+  );
   renderTimeZoneOptions();
   setHeaderControlsLoading(false);
   updateTeamSearchControls();
@@ -19572,11 +20165,18 @@ viewTabs.forEach((tab, index) => {
 
 standingsModeTabs.forEach((tab, index) => {
   tab.addEventListener("keydown", (event) => {
+    const visibleTabs = Array.from(standingsModeTabs).filter((item) => !item.hidden && !item.disabled);
+    const visibleIndex = visibleTabs.indexOf(tab);
+
+    if (visibleIndex === -1) {
+      return;
+    }
+
     const keyActions = {
-      ArrowLeft: () => (index + standingsModeTabs.length - 1) % standingsModeTabs.length,
-      ArrowRight: () => (index + 1) % standingsModeTabs.length,
+      ArrowLeft: () => (visibleIndex + visibleTabs.length - 1) % visibleTabs.length,
+      ArrowRight: () => (visibleIndex + 1) % visibleTabs.length,
       Home: () => 0,
-      End: () => standingsModeTabs.length - 1
+      End: () => visibleTabs.length - 1
     };
     const getNextIndex = keyActions[event.key];
 
@@ -19585,7 +20185,7 @@ standingsModeTabs.forEach((tab, index) => {
     }
 
     event.preventDefault();
-    const nextTab = standingsModeTabs[getNextIndex()];
+    const nextTab = visibleTabs[getNextIndex()];
     nextTab.focus();
     selectStandingsMode(nextTab.dataset.standingsMode, { historyMode: "push" });
   });

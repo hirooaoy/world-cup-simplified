@@ -6,6 +6,8 @@ import { fileURLToPath } from "node:url";
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const dataDir = path.join(root, "data");
 const HIGHLIGHT_VIDEO_REVIEW_STATUSES = new Set(["not-found", "needs-review"]);
+const weakCurrentStoryPattern =
+  /\b(?:won the shootout \d+-\d+ after a \d+-\d+ draw|survived the shootout after a \d+-\d+ draw|exited after penalties kept|stayed close enough to keep the final minutes tense|stayed locked together until the final whistle|got the decisive details right in a match that stayed tight|closed the result without needing another late twist)\b/i;
 
 async function readJson(fileName) {
   return JSON.parse(await readFile(path.join(dataDir, fileName), "utf8"));
@@ -25,6 +27,14 @@ function resultStoryBullets(fixture) {
   return Array.isArray(fixture.resultStoryBullets)
     ? fixture.resultStoryBullets.filter((highlight) => typeof highlight === "string" && highlight.trim())
     : [];
+}
+
+function weakCurrentStoryBullets(fixture) {
+  return resultStoryBullets(fixture).filter((highlight) => weakCurrentStoryPattern.test(highlight));
+}
+
+function hasShootoutTextureStory(fixture) {
+  return resultStoryBullets(fixture).some((highlight) => /^The \d+-\d+ grind .+ penalties\.$/.test(highlight));
 }
 
 function hasOfficialHighlightVideoDisposition(fixture) {
@@ -110,6 +120,17 @@ for (const fixture of fixturesData.fixtures || []) {
     issues.push(`${fixture.id} (${matchLabel}) still has generic result moment copy.`);
   }
 
+  const weakStories = weakCurrentStoryBullets(fixture);
+  if (weakStories.length) {
+    issues.push(
+      `${fixture.id} (${matchLabel}) has weak current result story copy: ${weakStories.join(" | ")}`
+    );
+  }
+
+  if (fixture.scoreDetails?.penalties && !hasShootoutTextureStory(fixture)) {
+    issues.push(`${fixture.id} (${matchLabel}) has a shootout recap without a match-texture story.`);
+  }
+
   if (!hasOfficialHighlightVideoDisposition(fixture)) {
     issues.push(
       `${fixture.id} (${matchLabel}) has no official highlightVideo and no highlightVideoReview check.`
@@ -120,17 +141,40 @@ for (const fixture of fixturesData.fixtures || []) {
 console.log(`Result enrichment audit checked ${checked} completed current fixture${checked === 1 ? "" : "s"}.`);
 
 let historicalChecked = 0;
+let historicalScoringChecked = 0;
 for (const fixture of historyData.fixtures || []) {
   if (fixture.status !== "FT") {
     continue;
   }
 
   const total = scoreTotal(fixture);
-  if (!total) {
+  if (total === null) {
     continue;
   }
 
   historicalChecked += 1;
+
+  const storyBullets = resultStoryBullets(fixture);
+  if (!storyBullets.length) {
+    issues.push(`${fixture.id} (${fixture.homeSlot} vs ${fixture.awaySlot}) has no historical result story bullets.`);
+  }
+
+  const weakStories = weakCurrentStoryBullets(fixture);
+  if (weakStories.length) {
+    issues.push(
+      `${fixture.id} (${fixture.homeSlot} vs ${fixture.awaySlot}) has weak historical result story copy: ${weakStories.join(" | ")}`
+    );
+  }
+
+  if (fixture.scoreDetails?.penalties && !hasShootoutTextureStory(fixture)) {
+    issues.push(`${fixture.id} (${fixture.homeSlot} vs ${fixture.awaySlot}) has a historical shootout recap without a match-texture story.`);
+  }
+
+  if (total === 0) {
+    continue;
+  }
+
+  historicalScoringChecked += 1;
 
   if (goalCount(fixture) !== total) {
     issues.push(
@@ -138,10 +182,7 @@ for (const fixture of historyData.fixtures || []) {
     );
   }
 
-  const storyBullets = resultStoryBullets(fixture);
-  if (!storyBullets.length) {
-    issues.push(`${fixture.id} (${fixture.homeSlot} vs ${fixture.awaySlot}) has no historical result story bullets.`);
-  } else if (!hasHistoricalGoalSpecificStory(fixture)) {
+  if (!hasHistoricalGoalSpecificStory(fixture)) {
     issues.push(
       `${fixture.id} (${fixture.homeSlot} vs ${fixture.awaySlot}) historical result story bullets do not mention a scorer or own goal.`
     );
@@ -149,7 +190,7 @@ for (const fixture of historyData.fixtures || []) {
 }
 
 console.log(
-  `Result enrichment audit checked ${historicalChecked} historical scoring fixture${historicalChecked === 1 ? "" : "s"}.`
+  `Result enrichment audit checked ${historicalChecked} completed historical fixture${historicalChecked === 1 ? "" : "s"} (${historicalScoringChecked} with goals).`
 );
 
 if (issues.length) {

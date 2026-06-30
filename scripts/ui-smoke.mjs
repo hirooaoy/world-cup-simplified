@@ -2216,15 +2216,15 @@ try {
       };
     });
   assert(
-    netherlandsMoroccoShootoutBlock.rowScore === "1-1 (2-3 pens)" &&
+      netherlandsMoroccoShootoutBlock.rowScore === "1-1 (2-3 pens)" &&
       netherlandsMoroccoShootoutBlock.scoreText === "Morocco beat Netherlands on penalties after a 1-1 draw." &&
       netherlandsMoroccoShootoutBlock.storyItems.some((item) =>
-        item.includes("Morocco won the shootout 3-2 after a 1-1 draw")
+        item.includes("Morocco's Hakimi-Brahim right-side surges relevant all the way to penalties")
       ) &&
       netherlandsMoroccoShootoutBlock.storyItems.some((item) =>
-        item.includes("Netherlands exited after penalties kept Morocco alive")
+        item.includes("Morocco were cleaner from the spot, winning the shootout 3-2 after the 1-1 draw")
       ),
-    `Netherlands-Morocco should render the official shootout in the row and Result block. Measured ${JSON.stringify(netherlandsMoroccoShootoutBlock)}.`
+    `Netherlands-Morocco should render the official shootout row and textured Result bullets. Measured ${JSON.stringify(netherlandsMoroccoShootoutBlock)}.`
   );
   await brazilJapanRecapCheck.context.close();
 
@@ -3517,17 +3517,41 @@ try {
   });
   await page.waitForSelector(".match-row");
   await page.locator(".match-row").first().click();
-  const historicalKnockoutDetailText = await page.locator("#match-info").innerText();
+  const historicalKnockoutDetail = await page.locator("#match-info").evaluate((root) => {
+    const text = root.innerText;
+    const sectionHeadings = [...root.querySelectorAll(":scope > .info-block")]
+      .map((section) => section.querySelector("h3")?.textContent.replace(/\s+/g, " ").trim() || "")
+      .filter(Boolean);
+
+    return {
+      hasHistoricalBracket: Boolean(root.querySelector(".historical-bracket")),
+      resultIndex: sectionHeadings.findIndex((heading) => heading.startsWith("Result")),
+      previousIndex: sectionHeadings.findIndex((heading) => heading === "Previous: Quarter-finals"),
+      nextIndex: sectionHeadings.findIndex((heading) => heading === "Next: Final / Third-place play-off"),
+      sectionHeadings,
+      text
+    };
+  });
   assert(
-    !historicalKnockoutDetailText.includes("Knockout context") &&
-      !historicalKnockoutDetailText.includes("archive") &&
-      historicalKnockoutDetailText.includes("Semi-finals") &&
-      historicalKnockoutDetailText.includes("France vs Morocco") &&
-      historicalKnockoutDetailText.includes("Argentina vs France"),
-    "Historical knockout matches should show bracket context without the archive-only Knockout context heading."
+    !historicalKnockoutDetail.text.includes("Knockout context") &&
+      !historicalKnockoutDetail.text.includes("archive") &&
+      !historicalKnockoutDetail.hasHistoricalBracket &&
+      historicalKnockoutDetail.text.includes("Semi-finals") &&
+      historicalKnockoutDetail.text.includes("France") &&
+      historicalKnockoutDetail.text.includes("Morocco") &&
+      historicalKnockoutDetail.text.includes("Previous: Quarter-finals") &&
+      historicalKnockoutDetail.text.includes("France beat England 2-1.") &&
+      historicalKnockoutDetail.text.includes("Morocco beat Portugal 1-0.") &&
+      historicalKnockoutDetail.text.includes("Next: Final / Third-place play-off") &&
+      historicalKnockoutDetail.text.includes("Winner faced Argentina who won 3-0 against Croatia.") &&
+      historicalKnockoutDetail.text.includes("Loser faced Croatia who lost 0-3 to Argentina.") &&
+      historicalKnockoutDetail.previousIndex >= 0 &&
+      historicalKnockoutDetail.nextIndex > historicalKnockoutDetail.previousIndex &&
+      historicalKnockoutDetail.resultIndex > historicalKnockoutDetail.nextIndex,
+    `Historical knockout matches should use current-style Previous/Next context before Result. Measured ${JSON.stringify(historicalKnockoutDetail)}.`
   );
   assert(
-    !historicalKnockoutDetailText.includes("Half-time") &&
+    !historicalKnockoutDetail.text.includes("Half-time") &&
       (await page.locator(".historical-goals").count()) === 0,
     "Historical knockout detail should avoid the old facts/goals record layout."
   );
@@ -3962,6 +3986,76 @@ try {
   );
   await japanChineseSearchCheck.context.close();
 
+  const japanPinyinSearchCheck = await openPageAtTime(
+    "2026-06-21T21:00:00.000Z",
+    "/?view=matches&team=riben&tz=America%2FLos_Angeles"
+  );
+  const japanPinyinSearchRows = await japanPinyinSearchCheck.page.locator(".match-row").evaluateAll((rows) =>
+    rows.map((row) => ({
+      id: row.dataset.matchId,
+      label: row.getAttribute("aria-label") || ""
+    }))
+  );
+  assert(
+    japanPinyinSearchRows.some((row) => row.id === "japan-sweden-2026-06-25"),
+    "Pinyin Japan country search should include Japan vs Sweden."
+  );
+  assert(
+    japanPinyinSearchRows.every((row) => row.label.includes("Japan")) &&
+      !japanPinyinSearchRows.some((row) => row.id === "panama-croatia-2026-06-23"),
+    "Pinyin Japan country search should not include Panama fixtures through the PAN team id."
+  );
+  assert(
+    (await japanPinyinSearchCheck.page.locator(".team-search-summary h2").innerText()).trim() === "Japan",
+    "Pinyin Japan country search should show the canonical team name in the heading."
+  );
+  await japanPinyinSearchCheck.context.close();
+
+  const usaTraditionalSearchCheck = await openPageAtTime(
+    "2026-06-21T21:00:00.000Z",
+    "/?view=matches&team=%E7%BE%8E%E5%9C%8B&lang=zh&tz=America%2FLos_Angeles"
+  );
+  const usaTraditionalSearchRows = await usaTraditionalSearchCheck.page.locator(".match-row").evaluateAll((rows) =>
+    rows.map((row) => ({
+      id: row.dataset.matchId,
+      label: row.getAttribute("aria-label") || ""
+    }))
+  );
+  assert(
+    usaTraditionalSearchRows.some((row) => row.id === "turkiye-united-states-2026-06-25"),
+    "Traditional Chinese USA country search should include Türkiye vs United States."
+  );
+  assert(
+    usaTraditionalSearchRows.every((row) => row.label.includes("美国")),
+    "Traditional Chinese USA country search should show localized United States rows."
+  );
+  assert(
+    (await usaTraditionalSearchCheck.page.locator(".team-search-summary h2").innerText()).trim() === "美国",
+    "Traditional Chinese USA country search should show the localized team name in the heading."
+  );
+  await usaTraditionalSearchCheck.context.close();
+
+  const ghanaPinyinSearchCheck = await openPageAtTime(
+    "2026-06-21T21:00:00.000Z",
+    "/?view=matches&team=jiana&tz=America%2FLos_Angeles"
+  );
+  const ghanaPinyinSearchRows = await ghanaPinyinSearchCheck.page.locator(".match-row").evaluateAll((rows) =>
+    rows.map((row) => ({
+      id: row.dataset.matchId,
+      label: row.getAttribute("aria-label") || ""
+    }))
+  );
+  assert(
+    ghanaPinyinSearchRows.some((row) => row.id === "ghana-panama-2026-06-17"),
+    "Exact pinyin Ghana country search should include Ghana vs Panama."
+  );
+  assert(
+    ghanaPinyinSearchRows.every((row) => row.label.includes("Ghana")) &&
+      !ghanaPinyinSearchRows.some((row) => row.id === "canada-qatar-2026-06-18"),
+    "Exact pinyin Ghana country search should not pull in Canada through the longer jianada alias."
+  );
+  await ghanaPinyinSearchCheck.context.close();
+
   const panSearchCheck = await openPageAtTime(
     "2026-06-21T21:00:00.000Z",
     "/?view=matches&team=PAN&tz=America%2FLos_Angeles"
@@ -4378,6 +4472,12 @@ try {
       }
     );
     await tournamentUpNextCheck.page.waitForSelector(".progress-match");
+    await tournamentUpNextCheck.page.waitForFunction(
+      (expectedBadgeCount) =>
+        document.querySelectorAll(".progress-match").length >= 32 &&
+        document.querySelectorAll(".tournament-view .tournament-up-next-pill").length === expectedBadgeCount,
+      nextScheduledKnockoutMatchNumbers.length
+    );
     const tournamentUpNextState = await tournamentUpNextCheck.page.evaluate((matchNumbers) => {
       const expected = new Set(matchNumbers);
       const cardsWithBadges = [...document.querySelectorAll(".progress-match .tournament-up-next-pill")]
@@ -4707,7 +4807,7 @@ try {
       canadaKnockoutDetailText.includes("Stephen Eustaquio") &&
       canadaKnockoutDetailText.includes("Stephen Eustaquio broke through in stoppage time, leaving South Africa chasing a 1-0 match.") &&
       canadaKnockoutDetailText.includes("Canada kept South Africa out at the other end and turned the late goal into a knockout win.") &&
-      canadaKnockoutDetailText.includes("South Africa stayed close enough to keep the final minutes tense.") &&
+      !canadaKnockoutDetailText.includes("South Africa stayed close enough to keep the final minutes tense.") &&
       !/Canada reached the Round of 16 and South Africa exited|took three points from Round of 32|foothold in Round of 32/i.test(canadaKnockoutDetailText),
     "Completed knockout match detail should show winner-oriented score, scorer timeline, and match-specific bullets without bracket-impact or group-table copy."
   );
@@ -4794,7 +4894,7 @@ try {
   );
   assert(
     releaseTooltipText === getExpectedReleaseTooltipText(releaseNotesData),
-    "The release notes tooltip should show a compact change summary."
+    `The release notes tooltip should show a compact change summary. Expected "${getExpectedReleaseTooltipText(releaseNotesData)}", received "${releaseTooltipText}".`
   );
   assert(
     sourceTooltipStateBeforeHover.opacity === "0" &&
@@ -6490,6 +6590,53 @@ try {
     new URL(page.url()).searchParams.get("standingsYear") === "2022",
     "The selected standings year should be reflected in the URL."
   );
+  assert(
+    !new URL(page.url()).searchParams.has("standingsMode"),
+    "Archived standings should default to the Tournament tab."
+  );
+  await page.waitForFunction(
+    () =>
+      document.querySelector("#standings-tournament-tab")?.getAttribute("aria-pressed") === "true" &&
+      document.querySelectorAll(".historical-tournament-view .progress-match").length >= 16
+  );
+  const historicalTournamentCheck = await page.evaluate(() => {
+    const finalCard = document.querySelector('.historical-tournament-view .progress-match[data-match-number="64"]');
+
+    return {
+      finalText: finalCard?.textContent.replace(/\s+/g, " ").trim() || "",
+      hiddenThirdPlaceTab: document.querySelector("#standings-third-place-tab")?.hidden === true,
+      resultPills: [...document.querySelectorAll(".historical-tournament-view .knockout-result-pill")].map((pill) =>
+        pill.textContent.trim()
+      ),
+      roundHeadings: [...document.querySelectorAll(".historical-tournament-view .progress-round h3")].map((heading) =>
+        heading.textContent.trim()
+      ),
+      summary: document.querySelector("#standings-summary")?.textContent.trim(),
+      tabLabels: [...document.querySelectorAll(".standings-mode-tab:not([hidden])")].map((tab) =>
+        tab.textContent.trim()
+      ),
+      tournamentPressed: document.querySelector("#standings-tournament-tab")?.getAttribute("aria-pressed")
+    };
+  });
+  assert(
+    historicalTournamentCheck.tournamentPressed === "true" &&
+      historicalTournamentCheck.tabLabels.join("|") === "Tournament|Groups" &&
+      historicalTournamentCheck.hiddenThirdPlaceTab &&
+      historicalTournamentCheck.summary ===
+        "Archived knockout bracket and final results from loaded historical matches." &&
+      historicalTournamentCheck.roundHeadings.join("|") ===
+        "Round of 16|Quarter-finals|Semi-finals|Final" &&
+      historicalTournamentCheck.finalText.includes("Argentina") &&
+      historicalTournamentCheck.finalText.includes("France") &&
+      historicalTournamentCheck.resultPills.includes("3-3 (4-2 pens)"),
+    `The 2022 archived standings should open on a completed Tournament bracket with Groups still available. Measured ${JSON.stringify(historicalTournamentCheck)}.`
+  );
+  await page.locator("#standings-groups-tab").click();
+  await page.waitForFunction(() => document.querySelectorAll(".standings-card").length >= 8);
+  assert(
+    new URL(page.url()).searchParams.get("standingsMode") === "groups",
+    "Archived Groups should be linkable from the URL when it is not the default mode."
+  );
   const historicalStandingsCheck = await page.evaluate(() => {
     const cards = [...document.querySelectorAll(".standings-card")];
     const groups = new Map(
@@ -6517,6 +6664,34 @@ try {
   assert(
     historicalStandingsCheck.summary === "Final group tables computed from archived match results.",
     "Historical standings should explain their archived data source."
+  );
+  await page.goto(`${baseUrl}?view=standings&standingsYear=2010`, { waitUntil: "load" });
+  await page.waitForSelector('.historical-tournament-view .progress-match[data-match-number="49"]');
+  const historical2010TournamentCheck = await page.evaluate(() => {
+    const opener = document.querySelector('.historical-tournament-view .progress-match[data-match-number="49"]');
+    const finalCard = document.querySelector('.historical-tournament-view .progress-match[data-match-number="64"]');
+
+    return {
+      finalText: finalCard?.textContent.replace(/\s+/g, " ").trim() || "",
+      openerText: opener?.textContent.replace(/\s+/g, " ").trim() || "",
+      roundHeadings: [...document.querySelectorAll(".historical-tournament-view .progress-round h3")].map((heading) =>
+        heading.textContent.trim()
+      ),
+      tournamentPressed: document.querySelector("#standings-tournament-tab")?.getAttribute("aria-pressed"),
+      urlMode: new URL(window.location.href).searchParams.get("standingsMode") || ""
+    };
+  });
+  assert(
+    historical2010TournamentCheck.tournamentPressed === "true" &&
+      historical2010TournamentCheck.urlMode === "" &&
+      historical2010TournamentCheck.roundHeadings.join("|") ===
+        "Round of 16|Quarter-finals|Semi-finals|Final" &&
+      historical2010TournamentCheck.openerText.includes("Uruguay") &&
+      historical2010TournamentCheck.openerText.includes("South Korea") &&
+      historical2010TournamentCheck.finalText.includes("Netherlands") &&
+      historical2010TournamentCheck.finalText.includes("Spain") &&
+      historical2010TournamentCheck.finalText.includes("0-1"),
+    `The 2010 archived standings direct link should open on its Tournament bracket. Measured ${JSON.stringify(historical2010TournamentCheck)}.`
   );
 
   await page.setViewportSize({ width: 800, height: 900 });

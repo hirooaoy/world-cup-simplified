@@ -11,6 +11,7 @@ const teamsPath = path.join(dataDir, "teams.json");
 const tournamentPath = path.join(dataDir, "tournament.json");
 const overwrite = process.argv.includes("--overwrite");
 const refreshGeneric = process.argv.includes("--refresh-generic");
+const refreshWeakStories = process.argv.includes("--refresh-weak-stories");
 const currentOnly = process.argv.includes("--current-only");
 const historyOnly = process.argv.includes("--history-only");
 
@@ -26,6 +27,8 @@ const zeroZeroMoments = new Map([
 
 const genericMomentPattern =
   /Both clean sheets kept|Neither side pulled clear|The clean sheet gave|attack broke the match open|protected a one-goal edge|came through a tight one-goal match|created enough separation|made a statement with|found the decisive goal/i;
+const weakStoryPattern =
+  /\b(?:won the shootout \d+-\d+ after a \d+-\d+ draw|survived the shootout after a \d+-\d+ draw|exited after penalties kept|stayed close enough to keep the final minutes tense|stayed locked together until the final whistle|got the decisive details right in a match that stayed tight|closed the result without needing another late twist)\b/i;
 
 async function readJson(filePath) {
   return JSON.parse(await readFile(filePath, "utf8"));
@@ -117,6 +120,23 @@ function goalCount(fixture) {
 
 function hasGenericHighlights(fixture) {
   return (fixture.resultHighlights || []).some((highlight) => genericMomentPattern.test(highlight));
+}
+
+function isWeakStoryBullet(highlight) {
+  return weakStoryPattern.test(String(highlight || ""));
+}
+
+function hasWeakStoryBullets(fixture) {
+  return (fixture.resultStoryBullets || []).some(isWeakStoryBullet);
+}
+
+function needsShootoutTextureRefresh(fixture) {
+  if (!fixture.scoreDetails?.penalties) {
+    return false;
+  }
+
+  const bullets = fixture.resultStoryBullets || [];
+  return !bullets.some((highlight) => /^The \d+-\d+ grind .+ penalties\.$/.test(String(highlight || "")));
 }
 
 function createStanding(teamId) {
@@ -347,6 +367,32 @@ function firstEqualizerForSide(goals, side) {
   return null;
 }
 
+function matchupRouteForSide(fixture, side) {
+  const text = fixture.keyInformation?.[side];
+  if (typeof text !== "string") {
+    return "";
+  }
+
+  const route = text.match(/\. Against [^.]+?, their (.+?) ha(?:s|ve) to beat\b/i)?.[1];
+  return route ? route.replace(/\s+/g, " ").trim() : "";
+}
+
+function buildShootoutTextureStory(fixture, teamsById, score, side) {
+  const winner = teamForSide(teamsById, fixture, side);
+  if (!winner?.name) {
+    return "";
+  }
+
+  const route = matchupRouteForSide(fixture, side);
+  const scoreText = `${score.home}-${score.away}`;
+
+  if (route) {
+    return `The ${scoreText} grind kept ${winner.name}'s ${route} relevant all the way to penalties`;
+  }
+
+  return `The ${scoreText} grind stayed tense enough to leave the knockout tie to penalties`;
+}
+
 function buildScoreOnlyStoryBullets(fixture, teamsById, score, side) {
   const home = getFixtureTeam(fixture, teamsById, "home");
   const away = getFixtureTeam(fixture, teamsById, "away");
@@ -355,7 +401,6 @@ function buildScoreOnlyStoryBullets(fixture, teamsById, score, side) {
   if (!side) {
     addStoryBullet(bullets, `${home.name} and ${away.name} traded pressure without finding a goal`);
     addStoryBullet(bullets, "Both defenses kept the scoring lanes closed through full time");
-    addStoryBullet(bullets, `${home.name} and ${away.name} stayed locked together until the final whistle`);
     return bullets;
   }
 
@@ -370,17 +415,16 @@ function buildScoreOnlyStoryBullets(fixture, teamsById, score, side) {
   } else if (margin >= 3) {
     addStoryBullet(bullets, `${winner.name}'s attack kept finding space and turned the finish into a rout`);
   } else {
-    addStoryBullet(bullets, `${winner.name} got the decisive details right in a match that stayed tight`);
+    addStoryBullet(bullets, `${winner.name} made the ${winnerScore}-${loserScore} scoreline stand in a tight match`);
   }
 
   if (loserScore === 0) {
     addStoryBullet(bullets, `${winner.name} kept ${loser.name} out and closed the match with a clean sheet`);
   } else {
-    addStoryBullet(bullets, `${winner.name} closed the result without needing another late twist`);
+    addStoryBullet(bullets, `${loser.name} scored but never found the goal that would reopen the finish`);
   }
 
-  addStoryBullet(bullets, `${loser.name} stayed close enough to keep the final minutes tense`);
-  return bullets;
+  return bullets.slice(0, 2);
 }
 
 function buildDrawStoryBullets(fixture, teamsById, goals, score) {
@@ -429,7 +473,6 @@ function buildDrawStoryBullets(fixture, teamsById, goals, score) {
     const tieLabel = fixture.round ? `the ${fixture.round} tie` : "the tie";
     addStoryBullet(bullets, `The draw left ${tieLabel} unresolved ${ending}`);
   }
-  addStoryBullet(bullets, `${home.name} and ${away.name} stayed locked together until the final whistle`);
 
   return bullets.slice(0, 3);
 }
@@ -451,24 +494,29 @@ function buildShootoutStoryBullets(fixture, teamsById, goals, score, side) {
       bullets,
       `${goalScorerLabel(firstGoal)} put ${firstTeam} in front before ${goalScorerLabel(lastGoal, { sentenceStart: false })} answered for ${lastTeam}`
     );
-    addShootoutEqualizerStory(bullets, lastGoal);
   } else if (lastGoal) {
     addShootoutEqualizerStory(bullets, lastGoal);
   } else if (!goals.length) {
     addStoryBullet(bullets, `${home.name} and ${away.name} stayed scoreless until penalties`);
   }
 
-  addStoryBullet(
-    bullets,
-    penaltyScore
-      ? `${winner.name} won the shootout ${penaltyScore} after a ${score.home}-${score.away} draw`
-      : `${winner.name} survived the shootout after a ${score.home}-${score.away} draw`
-  );
+  addStoryBullet(bullets, buildShootoutTextureStory(fixture, teamsById, score, side));
 
   if (isFinalRound(fixture)) {
-    addStoryBullet(bullets, `${winner.name} lifted the ${fixture.tournamentName || "World Cup"} title through the shootout`);
+    const title = fixture.tournamentName || "World Cup";
+    addStoryBullet(
+      bullets,
+      penaltyScore
+        ? `${winner.name} were cleaner from the spot, winning the ${title} through the shootout ${penaltyScore} after the ${score.home}-${score.away} draw`
+        : `${winner.name} lifted the ${title} title through the shootout`
+    );
   } else {
-    addStoryBullet(bullets, `${loser.name} exited after penalties kept ${winner.name} alive`);
+    addStoryBullet(
+      bullets,
+      penaltyScore
+        ? `${winner.name} were cleaner from the spot, winning the shootout ${penaltyScore} after the ${score.home}-${score.away} draw`
+        : `${winner.name} survived from the spot after the ${score.home}-${score.away} draw`
+    );
   }
 
   return bullets.slice(0, 3);
@@ -527,11 +575,12 @@ function buildWinStoryBullets(fixture, teamsById, goals, score, side) {
   } else if (lastLoserGoal) {
     addReplyStory(bullets, lastLoserGoal, loser.name);
   } else {
-    addStoryBullet(bullets, `${loser.name} stayed close enough to keep the final minutes tense`);
+    addStoryBullet(bullets, `${loser.name} scored but never found the goal that would reopen the finish`);
   }
 
-  addStoryBullet(bullets, `${winner.name} got the decisive details right in a match that stayed tight`);
-  addStoryBullet(bullets, `${winner.name} closed the result without needing another late twist`);
+  if (bullets.length < 2) {
+    addStoryBullet(bullets, `${winner.name} made the ${winnerScore}-${loserScore} scoreline stand in a tight match`);
+  }
 
   return bullets.slice(0, 3);
 }
@@ -878,6 +927,17 @@ for (const fixture of finishedFixtures) {
     : false;
 
   if (hasStoryBullets && !overwrite) {
+    if (refreshWeakStories && (hasWeakStoryBullets(fixture) || needsShootoutTextureRefresh(fixture))) {
+      const existingBullets = fixture.resultStoryBullets.filter((highlight) => typeof highlight === "string" && highlight.trim());
+      const strongExistingBullets = existingBullets.filter((highlight) => !isWeakStoryBullet(highlight));
+      fixture.resultStoryBullets =
+        fixture.scoreDetails?.penalties || strongExistingBullets.length < 2
+          ? buildStoryBullets(fixture, teamsById)
+          : strongExistingBullets.slice(0, 3);
+      storyPopulated += 1;
+      continue;
+    }
+
     storySkipped += 1;
     continue;
   }
@@ -892,6 +952,17 @@ for (const fixture of finishedHistoricalFixtures) {
     : false;
 
   if (hasStoryBullets && !overwrite) {
+    if (refreshWeakStories && (hasWeakStoryBullets(fixture) || needsShootoutTextureRefresh(fixture))) {
+      const existingBullets = fixture.resultStoryBullets.filter((highlight) => typeof highlight === "string" && highlight.trim());
+      const strongExistingBullets = existingBullets.filter((highlight) => !isWeakStoryBullet(highlight));
+      fixture.resultStoryBullets =
+        fixture.scoreDetails?.penalties || strongExistingBullets.length < 2
+          ? buildStoryBullets(fixture, teamsById)
+          : strongExistingBullets.slice(0, 3);
+      historicalStoryPopulated += 1;
+      continue;
+    }
+
     historicalStorySkipped += 1;
     continue;
   }

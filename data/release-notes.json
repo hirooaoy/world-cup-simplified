@@ -1,6 +1,76 @@
 {
-  "updatedAt": "2026-06-29T23:30:03-07:00",
+  "updatedAt": "2026-06-30T09:00:21-07:00",
   "releases": [
+    {
+      "date": "2026-06-30",
+      "title": "Smarter country search",
+      "titleZh": "更聪明的国家队搜索",
+      "highlights": [
+        "Country search now recognizes lightweight pinyin, traditional Chinese, and common alternate names while keeping exact aliases such as PAN and Ghana precise."
+      ],
+      "highlightsZh": [
+        "国家队搜索现在支持轻量拼音、繁体中文和常见别名，同时让 PAN、加纳等精确别名保持准确。"
+      ]
+    },
+    {
+      "date": "2026-06-30",
+      "title": "Archive card context",
+      "titleZh": "存档比赛背景",
+      "highlights": [
+        "Archived knockout match details now use the same Previous and Next context style as current World Cup cards, with Result shown below that path context."
+      ],
+      "highlightsZh": [
+        "历届淘汰赛比赛详情现在使用与当前世界杯卡片一致的“上一轮”和“下一轮”背景样式，并将“赛果”显示在路径背景下方。"
+      ]
+    },
+    {
+      "date": "2026-06-30",
+      "title": "Mobile heading spacing",
+      "titleZh": "移动端标题间距",
+      "highlights": [
+        "On mobile, the Today heading now uses the same top-navigation spacing as the 2026 Standings heading while desktop spacing stays unchanged."
+      ],
+      "highlightsZh": [
+        "移动端的“今天”标题现在与“2026 积分榜”使用一致的顶部导航间距，同时桌面端间距保持不变。"
+      ]
+    },
+    {
+      "date": "2026-06-30",
+      "title": "Archived tournament tabs",
+      "titleZh": "历届淘汰赛页签",
+      "highlights": [
+        "Archived standings years now include a Tournament tab, so years like 2010 and 2022 open on their completed knockout bracket while Groups remains available."
+      ],
+      "highlightsZh": [
+        "历届年份的积分榜现在也包含“淘汰赛”页签，因此2010、2022等年份会先打开已完赛淘汰赛对阵，同时仍可切回小组积分榜。"
+      ]
+    },
+    {
+      "date": "2026-06-30",
+      "title": "Cleaner shootout recaps",
+      "titleZh": "更自然的点球大战速览",
+      "highlights": [
+        "Current and historical penalty-shootout Result bullets now keep the scorer timeline, add matchup-specific texture when available, and avoid generic eliminated-after-penalties filler.",
+        "Past World Cup archive recaps were refreshed so scoreless draws and shootouts no longer pad Result blocks with repeated locked-together or plain shootout-outcome lines.",
+        "Finished-match recap audits now catch weak story filler in both the 2026 tournament and historical archive."
+      ],
+      "highlightsZh": [
+        "当前赛事和历届存档的点球大战“赛果”速览现在会保留进球时间线，在可用时加入对阵特点，并避免泛泛的点球出局填充句。",
+        "历届世界杯存档速览已刷新，因此0-0平局和点球大战不再用重复的胶着到终场或普通点球结果句填充“赛果”区。",
+        "完赛比赛速览审计现在会同时检查2026赛事和历届存档中的弱故事句。"
+      ]
+    },
+    {
+      "date": "2026-06-30",
+      "title": "Mobile tournament polish",
+      "titleZh": "移动端淘汰赛打磨",
+      "highlights": [
+        "On mobile tournament cards, the Up next badge now uses smaller text so it stays compact without changing the approved desktop card styling."
+      ],
+      "highlightsZh": [
+        "移动端淘汰赛卡片的“即将开始”标签现在使用更小文字，让标签更紧凑，同时保留桌面端已确认的卡片样式。"
+      ]
+    },
     {
       "date": "2026-06-29",
       "title": "Smarter result recaps",
