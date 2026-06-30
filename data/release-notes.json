@@ -1,6 +1,28 @@
 {
-  "updatedAt": "2026-06-30T13:00:41-07:00",
+  "updatedAt": "2026-06-30T14:06:05-07:00",
   "releases": [
+    {
+      "date": "2026-06-30",
+      "title": "Brazil-Norway projection repair",
+      "titleZh": "巴西对挪威预测修复",
+      "highlights": [
+        "Brazil vs Norway now has its ranking-based prediction loaded, and the data pipeline now refreshes projections whenever confirmed fixtures update."
+      ],
+      "highlightsZh": [
+        "巴西对挪威现在已加载基于排名的预测；数据流水线也会在已确认赛程更新时刷新预测。"
+      ]
+    },
+    {
+      "date": "2026-06-30",
+      "title": "Knockout path ranking pills",
+      "titleZh": "淘汰赛路径排名标签",
+      "highlights": [
+        "Next-round path copy now shows FIFA ranking pills for both the winning opponent and the defeated team named in that result."
+      ],
+      "highlightsZh": [
+        "下一轮路径文案现在会为已晋级对手和该赛果中被击败的球队都显示 FIFA 排名标签。"
+      ]
+    },
     {
       "date": "2026-06-30",
       "title": "Norway advance update",

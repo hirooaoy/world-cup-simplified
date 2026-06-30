@@ -16606,7 +16606,7 @@ function renderResolvedNextKnockoutOpponentLine(match, context) {
     showRank: true,
     isSubject: true
   });
-  const loserName = renderKnockoutParticipantLabel(participants[loserSide]);
+  const loserName = renderKnockoutParticipantLabel(participants[loserSide], { showRank: true });
   const scoreText = escapeHtml(formatScorePair(match.score));
   const winnerScoreText = escapeHtml(getKnockoutScorePairForSide(match, winnerSide));
   const penaltyText = escapeHtml(getKnockoutPenaltyPairForSide(match, winnerSide));

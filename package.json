@@ -17,6 +17,7 @@
     "matchups": "node scripts/populate-matchup-key-information.mjs",
     "matchday:update": "node scripts/matchday-update.mjs",
     "matchday:readiness": "node scripts/matchday-readiness.mjs",
+    "projections": "node scripts/populate-projections.mjs",
     "profiles": "node scripts/populate-player-profiles.mjs",
     "profiles:country": "node scripts/profile-country-workflow.mjs",
     "profiles:country:audit": "node scripts/audit-country-player-profiles.mjs",

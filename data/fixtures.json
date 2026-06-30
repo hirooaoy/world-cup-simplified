@@ -12155,6 +12155,14 @@
         "sourceId": "editorial-preview-2026-06-22",
         "home": "Brazil are a top-tier attacking side whose best moments mix individual invention with sudden acceleration, led by Neymar, Vinicius Junior, and Casemiro. Against Norway, their Neymar-Vinicius isolation speed has to beat Norway's Odegaard-to-Haaland supply. They want to isolate Vinicius Junior quickly and let Neymar combine around the fouls and gaps that creates. The risk is Norway can feed Haaland through Odegaard's service and Nusa's change of speed.",
         "away": "Norway are a direct star-powered side whose attacking question is how quickly they can serve the finisher, led by Erling Haaland, Martin Odegaard, and Antonio Nusa. Against Brazil, their Odegaard-to-Haaland supply has to beat Brazil's Neymar-Vinicius isolation speed. They want to get Odegaard facing forward and deliver early enough for Haaland to attack the box. The risk is Brazil can break a shape through Neymar combinations and Vinicius Junior's speed."
+      },
+      "projection": {
+        "sourceId": "ranking-projection-2026-06-17",
+        "method": "fifa-ranking-baseline",
+        "basis": "FIFA ranking strength with host-country adjustment",
+        "home": 52,
+        "draw": 25,
+        "away": 23
       }
     },
     {

@@ -46,6 +46,9 @@ jobs:
           set -o pipefail
           pnpm sync:fifa:pr | tee fifa-results-sync.log
 
+      - name: Refresh confirmed-fixture projections
+        run: pnpm projections
+
       - name: Refresh matchup key information
         run: pnpm matchups
 

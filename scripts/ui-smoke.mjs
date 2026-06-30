@@ -2625,7 +2625,7 @@ try {
       roundOf32DetailText.includes("South Africa won 1-0 against South Korea #25, tied 1-1 against Czechia #40, and lost 0-2 to Mexico #14.") &&
       roundOf32DetailText.includes("Canada won 6-0 against Qatar #56, tied 1-1 against Bosnia and Herzegovina #64, and lost 1-2 to Switzerland #19.") &&
       roundOf32DetailText.includes("Next: Round of 16") &&
-      /Winner will face Morocco #\d+ who won 3-2 on penalties after a 1-1 draw against Netherlands\./.test(
+      /Winner will face Morocco #\d+ who won 3-2 on penalties after a 1-1 draw against Netherlands #\d+\./.test(
         roundOf32DetailText
       ) &&
       !roundOf32DetailText.includes("Winner will face winner of Netherlands") &&
@@ -2723,7 +2723,7 @@ try {
         roundOf32ContextMetrics.groupRoundRanks.includes(rank)
       ) &&
       roundOf32ContextMetrics.nextPathRanks.includes("#7") &&
-      !roundOf32ContextMetrics.nextPathRanks.includes("#8") &&
+      roundOf32ContextMetrics.nextPathRanks.includes("#8") &&
       roundOf32ContextMetrics.nextPathSubjectNames.length === 1 &&
       roundOf32ContextMetrics.nextPathSubjectNames.includes("Morocco") &&
       roundOf32ContextMetrics.rankHeights.every((height) => height <= 15.5) &&
@@ -2825,6 +2825,18 @@ try {
     `Multiple Past 24 hours cards should stay stacked in one full-width column. Measured ${JSON.stringify(stackedPast24Layout)}.`
   );
   await stackedPast24Check.context.close();
+
+  await page.goto(`${baseUrl}?view=matches&date=2026-06-30&tz=America%2FLos_Angeles`, {
+    waitUntil: "load"
+  });
+  await page.waitForSelector('[data-match-id="match-78-round-of-32-2026-06-30"]');
+  await page.locator('[data-match-id="match-78-round-of-32-2026-06-30"]').click();
+  const norwayRoundOf32DetailText = normalizeFlaggedText(await page.locator("#match-info").innerText());
+  assert(
+    norwayRoundOf32DetailText.includes("Next: Round of 16") &&
+      norwayRoundOf32DetailText.includes("Winner will face Brazil #6 who won 2-1 against Japan #18."),
+    "Round of 32 normal-score next path should show ranking pills for both the winning opponent and defeated team."
+  );
 
   await page.goto(`${baseUrl}?view=matches&date=2026-07-04&tz=America%2FLos_Angeles`, {
     waitUntil: "load"

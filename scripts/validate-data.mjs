@@ -1359,6 +1359,10 @@ for (const fixture of fixturesData.fixtures || []) {
   }
 
   if (hasConfirmedTeams) {
+    assert(
+      fixture.projection,
+      `Confirmed fixture "${fixture.id}" must include projection; run pnpm projections`
+    );
     assert(fixture.keyInformation, `Confirmed fixture "${fixture.id}" must include matchup-aware keyInformation`);
 
     for (const side of ["home", "away"]) {
