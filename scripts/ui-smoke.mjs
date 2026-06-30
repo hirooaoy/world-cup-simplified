@@ -2839,13 +2839,13 @@ try {
     !roundOf16ProjectedRowText.includes("Predicted") &&
       roundOf16DetailText.includes("Predicted matchup; participants come from current knockout-path estimates.") &&
       roundOf16DetailText.includes("Previous: Round of 32") &&
-      roundOf16DetailText.includes("is scheduled.") &&
+      /\bis (?:scheduled|live at \d+-\d+)\./.test(roundOf16DetailText) &&
       roundOf16DetailText.includes("Next: Quarter-finals") &&
       /Winner will face winner of Canada #\d+ vs Morocco #\d+\./.test(roundOf16DetailText) &&
       roundOf16DetailText.includes("Prediction") &&
       !roundOf16DetailText.includes("Previous: Group round") &&
       !roundOf16DetailText.includes("bracket details are not loaded yet"),
-    "Round of 16 and later match rows should skip redundant predicted chips while projected details keep the explanatory note and confirmed source matches scheduled."
+    "Round of 16 and later match rows should skip redundant predicted chips while projected details keep the explanatory note and confirmed source matches scheduled or live."
   );
   const roundOf16ContextMetrics = await page.locator("#match-info").evaluate((info) => ({
     contextFlags: info.querySelectorAll(".knockout-context-team-flag .flag").length,
