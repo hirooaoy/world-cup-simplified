@@ -7661,7 +7661,15 @@ try {
   const touchTournamentOddsPill = touchPage
     .locator(".progress-match[data-open-match-id] .knockout-likelihood[data-tooltip]")
     .first();
-  await touchTournamentOddsPill.tap();
+  await touchTournamentOddsPill.evaluate((pill) => {
+    pill.dispatchEvent(
+      new PointerEvent("pointerdown", {
+        bubbles: true,
+        cancelable: true,
+        pointerType: "touch"
+      })
+    );
+  });
   await touchPage.waitForFunction(() => {
     const pill = document.querySelector(".knockout-likelihood.is-touch-tooltip-open");
     return pill && Number(getComputedStyle(pill, "::after").opacity) > 0.8;
