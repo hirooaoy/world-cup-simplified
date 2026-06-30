@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-30T10:42:00-07:00",
+  "updatedAt": "2026-06-30T18:17:56.725Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -10548,7 +10548,7 @@
       "homeSlot": "Group E runner-up",
       "awaySlot": "Group I runner-up",
       "venue": "Dallas Stadium",
-      "status": "SCHEDULED",
+      "status": "LIVE",
       "h2h": {
         "status": "verified-empty",
         "sourceId": "national-football-teams-h2h-sync-2026-06-30",
@@ -10609,6 +10609,10 @@
         "home": 35,
         "draw": 29,
         "away": 36
+      },
+      "score": {
+        "home": 0,
+        "away": 1
       }
     },
     {
