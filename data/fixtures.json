@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-29T21:50:58.989Z",
+  "updatedAt": "2026-06-30T03:01:31.601Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -108,7 +108,8 @@
     "fifa-goal-events-sync-2026-06-27",
     "fifa-goal-events-sync-2026-06-28",
     "fifa-official-results-sync-2026-06-28",
-    "fifa-official-results-sync-2026-06-29"
+    "fifa-official-results-sync-2026-06-29",
+    "fifa-official-results-sync-2026-06-30"
   ],
   "coverage": {
     "status": "complete-schedule",
@@ -8848,7 +8849,7 @@
       "homeSlot": "Group E winner",
       "awaySlot": "Group A/B/C/D/F third place",
       "venue": "Boston Stadium",
-      "status": "LIVE",
+      "status": "FT",
       "h2h": {
         "status": "research-pending",
         "summary": "H2H research is pending for this matchup. Add API-backed or manually verified senior results when available.",
@@ -8922,7 +8923,7 @@
       "homeSlot": "Group F winner",
       "awaySlot": "Group C runner-up",
       "venue": "Estadio Monterrey",
-      "status": "SCHEDULED",
+      "status": "LIVE",
       "h2h": {
         "status": "research-pending",
         "summary": "H2H research is pending for this matchup. Add API-backed or manually verified senior results when available.",
@@ -8981,6 +8982,10 @@
         "sourceId": "editorial-preview-2026-06-22",
         "home": "Netherlands are a control team with a strong defensive base and enough technical quality to play through pressure, led by Virgil van Dijk, Frenkie de Jong, and Cody Gakpo. Against Morocco, their De Jong-Gakpo controlled buildup has to beat Morocco's Hakimi-Brahim right-side surges. They want to build calmly through De Jong and let Gakpo receive between wide and central defenders. The risk is Morocco can combine Hakimi surges, Brahim's invention, and El Kaabi's box movement.",
         "away": "Morocco are a disciplined, dangerous side whose structure lets their flair players attack with freedom, led by Achraf Hakimi, Brahim Diaz, and Ayoub El Kaabi. Against Netherlands, their Hakimi-Brahim right-side surges has to beat Netherlands' De Jong-Gakpo controlled buildup. They want to use Hakimi's overlaps to tilt the field before Brahim or El Kaabi attacks the final pass or shot. The risk is Netherlands can control possession through De Jong and protect it with Van Dijk's authority."
+      },
+      "score": {
+        "home": 1,
+        "away": 1
       }
     },
     {
@@ -9924,7 +9929,8 @@
           "matchId": "400021533",
           "matchNumber": 89
         }
-      }
+      },
+      "homeTeamId": "PAR"
     },
     {
       "id": "match-90-round-of-16-2026-07-04",
