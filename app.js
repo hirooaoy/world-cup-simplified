@@ -2771,6 +2771,15 @@ const ZH_PATTERN_TRANSLATIONS = [
       `${translateTextToZh(scorer)}在${minute}扳平，帮助${translateTextToZh(team)}抢下1分。`
   },
   {
+    pattern: /^A (\d+(?:\+\d+)?') own goal brought (.+) level\.$/,
+    replace: (_, minute, team) => `${minute}的乌龙球让${translateTextToZh(team)}扳平。`
+  },
+  {
+    pattern: /^(.+)'s (\d+(?:\+\d+)?') equalizer brought (.+) level\.$/,
+    replace: (_, scorer, minute, team) =>
+      `${translateTextToZh(scorer)}在${minute}扳平，帮助${translateTextToZh(team)}追平比分。`
+  },
+  {
     pattern: /^A (\d+(?:\+\d+)?') own goal settled a tight match for (.+)\.$/,
     replace: (_, minute, team) => `${minute}的乌龙球帮助${translateTextToZh(team)}赢下胶着比赛。`
   },
@@ -13735,6 +13744,258 @@ function getGoalWord(count) {
   return count === 1 ? "goal" : "goals";
 }
 
+function normalizeGeneratedResultSentence(value) {
+  const text = String(value || "").replace(/\s+/g, " ").trim();
+  if (!text) {
+    return "";
+  }
+
+  return /[.!?]$/.test(text) ? text : `${text}.`;
+}
+
+function addGeneratedResultStoryBullet(bullets, text) {
+  const sentence = normalizeGeneratedResultSentence(text);
+  if (!sentence || sentence.length > 160) {
+    return;
+  }
+
+  const key = normalizeTextKey(sentence);
+  if (!key || bullets.some((bullet) => normalizeTextKey(bullet) === key)) {
+    return;
+  }
+
+  bullets.push(sentence);
+}
+
+function getGeneratedResultOtherSide(side) {
+  return side === "home" ? "away" : "home";
+}
+
+function generatedResultGoalScorerLabel(goal, { sentenceStart = true } = {}) {
+  if (goal.ownGoal) {
+    return `${sentenceStart ? "A" : "a"} ${formatGoalMinute(goal)} own goal`;
+  }
+
+  return goal.name;
+}
+
+function generatedResultGoalPossessiveLabel(goal) {
+  if (goal.ownGoal) {
+    return `A ${formatGoalMinute(goal)} own goal`;
+  }
+
+  const minute = formatGoalMinute(goal);
+  return minute ? `${goal.name}'s ${minute}` : `${goal.name}'s`;
+}
+
+function addGeneratedResultLevelerStory(bullets, goal, teamName) {
+  if (goal.ownGoal) {
+    addGeneratedResultStoryBullet(bullets, `${generatedResultGoalPossessiveLabel(goal)} brought ${teamName} level`);
+    return;
+  }
+
+  addGeneratedResultStoryBullet(
+    bullets,
+    `${generatedResultGoalPossessiveLabel(goal)} equalizer brought ${teamName} level`
+  );
+}
+
+function addGeneratedResultWinnerStory(bullets, goal, teamName) {
+  if (goal.ownGoal) {
+    addGeneratedResultStoryBullet(bullets, `${generatedResultGoalPossessiveLabel(goal)} settled a tight match for ${teamName}`);
+    return;
+  }
+
+  addGeneratedResultStoryBullet(
+    bullets,
+    `${generatedResultGoalPossessiveLabel(goal)} winner settled a tight match for ${teamName}`
+  );
+}
+
+function addGeneratedResultReplyStory(bullets, goal, teamName) {
+  if (!goal) {
+    return;
+  }
+
+  if (goal.ownGoal) {
+    addGeneratedResultStoryBullet(bullets, `${generatedResultGoalPossessiveLabel(goal)} gave ${teamName} a reply`);
+    return;
+  }
+
+  const finishType = goal.penalty ? "penalty" : "goal";
+  addGeneratedResultStoryBullet(
+    bullets,
+    `${generatedResultGoalPossessiveLabel(goal)} ${finishType} gave ${teamName} a reply`
+  );
+}
+
+function getGeneratedResultLastGoalForSide(goals, side) {
+  return goals.filter((goal) => goal.side === side).at(-1) || null;
+}
+
+function getGeneratedResultFirstEqualizerForSide(goals, side) {
+  const score = { home: 0, away: 0 };
+
+  for (const goal of goals) {
+    score[goal.side] += 1;
+    if (goal.side === side && score.home === score.away) {
+      return goal;
+    }
+  }
+
+  return null;
+}
+
+function generatedResultGoalHappensBefore(goals, firstGoal, secondGoal) {
+  const firstIndex = goals.indexOf(firstGoal);
+  const secondIndex = goals.indexOf(secondGoal);
+  return firstIndex >= 0 && secondIndex >= 0 && firstIndex < secondIndex;
+}
+
+function generatedResultScoreWord(count) {
+  if (count === 2) {
+    return "twice";
+  }
+  if (count === 3) {
+    return "three times";
+  }
+  return `${count} times`;
+}
+
+function getGeneratedResultScorerCounts(goals) {
+  return [...goals.reduce((counts, goal) => {
+    if (!goal.ownGoal && goal.name) {
+      counts.set(goal.name, (counts.get(goal.name) || 0) + 1);
+    }
+    return counts;
+  }, new Map()).entries()].sort((a, b) => b[1] - a[1])[0] || null;
+}
+
+function getGeneratedScoreOnlyWinStoryBullets(match, score, winnerSide) {
+  const bullets = [];
+  const winner = winnerSide === "home" ? match.homeTeam : match.awayTeam;
+  const loser = winnerSide === "home" ? match.awayTeam : match.homeTeam;
+  const winnerScore = winnerSide === "home" ? score.home : score.away;
+  const loserScore = winnerSide === "home" ? score.away : score.home;
+  const margin = winnerScore - loserScore;
+
+  if (winnerScore === 1 && loserScore === 0) {
+    addGeneratedResultStoryBullet(bullets, `${winner.name} found the only goal, leaving ${loser.name} chasing a 1-0 match`);
+  } else if (margin >= 3) {
+    addGeneratedResultStoryBullet(bullets, `${winner.name}'s attack kept finding space and turned the finish into a rout`);
+  } else {
+    addGeneratedResultStoryBullet(bullets, `${winner.name} made the ${winnerScore}-${loserScore} scoreline stand in a tight match`);
+  }
+
+  if (loserScore === 0) {
+    addGeneratedResultStoryBullet(bullets, `${winner.name} kept ${loser.name} out and closed the match with a clean sheet`);
+  } else {
+    addGeneratedResultStoryBullet(bullets, `${loser.name} scored but never found the goal that would reopen the finish`);
+  }
+
+  return bullets;
+}
+
+function getGeneratedWinStoryBullets(match, score, winnerSide) {
+  const goals = getFixtureGoals(match);
+  if (!goals.length) {
+    return getGeneratedScoreOnlyWinStoryBullets(match, score, winnerSide);
+  }
+
+  const bullets = [];
+  const loserSide = getGeneratedResultOtherSide(winnerSide);
+  const winner = winnerSide === "home" ? match.homeTeam : match.awayTeam;
+  const loser = winnerSide === "home" ? match.awayTeam : match.homeTeam;
+  const winnerScore = winnerSide === "home" ? score.home : score.away;
+  const loserScore = winnerSide === "home" ? score.away : score.home;
+  const margin = winnerScore - loserScore;
+  const firstGoal = goals[0];
+  const lastWinnerGoal = getGeneratedResultLastGoalForSide(goals, winnerSide);
+  const lastLoserGoal = getGeneratedResultLastGoalForSide(goals, loserSide);
+  const winnerEqualizer = firstGoal?.side === loserSide ? getGeneratedResultFirstEqualizerForSide(goals, winnerSide) : null;
+  const loserEqualizer = firstGoal?.side === winnerSide ? getGeneratedResultFirstEqualizerForSide(goals, loserSide) : null;
+  const topScorer = getGeneratedResultScorerCounts(goals);
+
+  if (firstGoal?.side === loserSide) {
+    addGeneratedResultStoryBullet(
+      bullets,
+      `${generatedResultGoalScorerLabel(firstGoal)} struck first for ${loser.name}, forcing ${winner.name} to chase the match`
+    );
+  } else if (firstGoal) {
+    const firstMinute = Number(firstGoal.minute);
+    if (Number.isFinite(firstMinute) && firstMinute <= 20) {
+      addGeneratedResultStoryBullet(
+        bullets,
+        `${generatedResultGoalScorerLabel(firstGoal)} put ${winner.name} ahead early, making ${loser.name} chase the match`
+      );
+    } else {
+      addGeneratedResultStoryBullet(
+        bullets,
+        `${generatedResultGoalScorerLabel(firstGoal)} broke through for ${winner.name}, shifting the match toward ${winner.name}`
+      );
+    }
+  }
+
+  if (winnerEqualizer && lastWinnerGoal && winnerEqualizer !== lastWinnerGoal) {
+    addGeneratedResultStoryBullet(
+      bullets,
+      `${generatedResultGoalScorerLabel(winnerEqualizer)} brought ${winner.name} level before ${generatedResultGoalScorerLabel(lastWinnerGoal, { sentenceStart: false })} completed the turnaround`
+    );
+  } else if (
+    loserEqualizer &&
+    lastWinnerGoal &&
+    generatedResultGoalHappensBefore(goals, loserEqualizer, lastWinnerGoal)
+  ) {
+    addGeneratedResultLevelerStory(bullets, loserEqualizer, loser.name);
+    if (margin === 1) {
+      addGeneratedResultWinnerStory(bullets, lastWinnerGoal, winner.name);
+    } else {
+      addGeneratedResultStoryBullet(
+        bullets,
+        `${generatedResultGoalScorerLabel(lastWinnerGoal)} added the final word as ${winner.name} pulled away`
+      );
+    }
+  } else if (lastWinnerGoal && margin === 1) {
+    addGeneratedResultWinnerStory(bullets, lastWinnerGoal, winner.name);
+  } else if (lastWinnerGoal && firstGoal && lastWinnerGoal !== firstGoal) {
+    addGeneratedResultStoryBullet(
+      bullets,
+      `${generatedResultGoalScorerLabel(lastWinnerGoal)} added the final word as ${winner.name} pulled away`
+    );
+  }
+
+  if (topScorer?.[1] >= 2) {
+    addGeneratedResultStoryBullet(
+      bullets,
+      `${topScorer[0]} scored ${generatedResultScoreWord(topScorer[1])} as ${winner.name} kept widening the gap`
+    );
+  }
+
+  if (loserScore === 0) {
+    addGeneratedResultStoryBullet(bullets, `${winner.name} kept ${loser.name} out and closed the match with a clean sheet`);
+  } else if (margin >= 3) {
+    addGeneratedResultStoryBullet(bullets, `${winner.name}'s attack kept finding space and turned the finish into a rout`);
+  } else if (firstGoal?.side === loserSide) {
+    addGeneratedResultStoryBullet(
+      bullets,
+      `${loser.name}'s opener made ${winner.name} sweat, but the later chances finally turned`
+    );
+  } else if (lastLoserGoal && lastLoserGoal !== loserEqualizer) {
+    addGeneratedResultReplyStory(bullets, lastLoserGoal, loser.name);
+  } else {
+    addGeneratedResultStoryBullet(bullets, `${loser.name} scored but never found the goal that would reopen the finish`);
+  }
+
+  if (bullets.length < 2) {
+    addGeneratedResultStoryBullet(
+      bullets,
+      `${winner.name} made the ${winnerScore}-${loserScore} scoreline stand in a tight match`
+    );
+  }
+
+  return bullets.slice(0, 3);
+}
+
 function formatStandoutHighlight(standout) {
   if (!standout) {
     return "";
@@ -13940,10 +14201,18 @@ function getGeneratedWinHighlights(match, score, context, standout) {
     : match.groupId && margin > 0
       ? `📊 ${winner.name} took three points and ${formatGoalDifference(margin)} GD in ${context}.`
       : `📊 ${winner.name} took three points from ${context}.`;
+  const storyHighlights = getGeneratedWinStoryBullets(match, score, winnerSide);
+  const controlHighlights = storyHighlights.length
+    ? storyHighlights
+    : [
+        formatStandoutHighlight(standout) ||
+          getGeneratedGoalMoment(match, score, winnerSide) ||
+          controlNote
+      ].filter(Boolean);
 
   return [
     scoringNote,
-    controlNote,
+    ...controlHighlights,
     groupImpact
   ];
 }
@@ -13963,6 +14232,70 @@ function getGeneratedResultHighlights(match) {
   }
 
   return getGeneratedWinHighlights(match, score, context, standout);
+}
+
+function getGeneratedCatchUpWinHighlights(match, score, context, standout) {
+  const winnerSide = getResultWinnerSide(match, score);
+  const winner = winnerSide === "home" ? match.homeTeam : match.awayTeam;
+  const loser = winnerSide === "home" ? match.awayTeam : match.homeTeam;
+  const winnerScore = winnerSide === "home" ? score.home : score.away;
+  const loserScore = winnerSide === "home" ? score.away : score.home;
+  const margin = winnerScore - loserScore;
+  const scoreText = `${winnerScore}-${loserScore}`;
+  const penaltyText = getResultScorePairForSide(match.scoreDetails?.penalties, winnerSide);
+  const isKnockout = isKnockoutResultMatch(match);
+  const nextStage = getResultNextKnockoutStageLabel(match);
+  const scoringNote = margin >= 3
+    ? `⚽ ${winner.name} made a statement with a ${scoreText} win.`
+    : penaltyText
+      ? `⚽ ${winner.name} beat ${loser.name} on penalties after a ${score.home}-${score.away} draw.`
+      : isKnockout && margin === 1
+        ? `⚽ ${winner.name} edged ${loser.name} ${scoreText}.`
+        : winnerScore === 1
+          ? `⚽ ${winner.name} found the decisive goal in a ${scoreText} win.`
+          : `⚽ ${winner.name} beat ${loser.name} ${scoreText}.`;
+  const controlNote =
+    formatStandoutHighlight(standout) ||
+    getGeneratedGoalMoment(match, score, winnerSide) ||
+    (penaltyText
+      ? `🌟 The shootout decided ${context}.`
+      : isKnockout && loserScore === 0
+        ? `🌟 ${winner.name}'s clean sheet ended ${loser.name}'s run.`
+        : loserScore === 0
+          ? `🌟 The clean sheet gave ${loser.name} no way back.`
+          : margin >= 3
+            ? `🌟 ${winner.name}'s attack broke the match open.`
+            : margin === 1
+              ? `🌟 ${winner.name} came through a tight one-goal match.`
+              : `🌟 ${winner.name} created enough separation to control the finish.`);
+  const groupImpact = isKnockout
+    ? getKnockoutResultImpactHighlight(match, winner, loser, context, nextStage)
+    : match.groupId && margin > 0
+      ? `📊 ${winner.name} took three points and ${formatGoalDifference(margin)} GD in ${context}.`
+      : `📊 ${winner.name} took three points from ${context}.`;
+
+  return [
+    scoringNote,
+    controlNote,
+    groupImpact
+  ];
+}
+
+function getGeneratedCatchUpResultHighlights(match) {
+  const score = getCatchUpScore(match);
+
+  if (!score) {
+    return [];
+  }
+
+  const context = getCatchUpContext(match);
+  const standout = getCatchUpStandout(match);
+
+  if (!getResultWinnerSide(match, score)) {
+    return getGeneratedDrawHighlights(match, score, context, standout);
+  }
+
+  return getGeneratedCatchUpWinHighlights(match, score, context, standout);
 }
 
 function getFixtureGoals(match) {
@@ -19060,7 +19393,7 @@ function getResultCatchUpHighlights(match) {
     ? match.resultHighlights.filter((highlight) => typeof highlight === "string" && highlight.trim())
     : [];
 
-  return authoredHighlights.length ? authoredHighlights : getGeneratedResultHighlights(match);
+  return authoredHighlights.length ? authoredHighlights : getGeneratedCatchUpResultHighlights(match);
 }
 
 function getResultCatchUpStandouts(match) {

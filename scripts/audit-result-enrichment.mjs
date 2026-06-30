@@ -52,6 +52,31 @@ function hasOfficialHighlightVideoDisposition(fixture) {
   );
 }
 
+function storyMinuteValue(highlight) {
+  const match = String(highlight || "").match(/\b(\d{1,3})(?:\+(\d{1,2}))?'/);
+  if (!match) {
+    return null;
+  }
+
+  const minute = Number(match[1]);
+  const offset = Number(match[2] || 0);
+  return Number.isFinite(minute) && Number.isFinite(offset) ? minute * 100 + offset : null;
+}
+
+function storyMinuteOrderIssue(fixture) {
+  const minuteRows = resultStoryBullets(fixture)
+    .map((highlight, index) => ({ highlight, index, minuteValue: storyMinuteValue(highlight) }))
+    .filter((row) => row.minuteValue !== null);
+
+  for (let index = 1; index < minuteRows.length; index += 1) {
+    if (minuteRows[index].minuteValue < minuteRows[index - 1].minuteValue) {
+      return `bullet ${minuteRows[index - 1].index + 1} (${minuteRows[index - 1].highlight}) appears before earlier bullet ${minuteRows[index].index + 1} (${minuteRows[index].highlight})`;
+    }
+  }
+
+  return "";
+}
+
 function historicalGoalStoryTokens(fixture) {
   return [...(fixture.goalsHome || []), ...(fixture.goalsAway || [])]
     .map((goal) => (goal.ownGoal ? "own goal" : goal.name))
@@ -112,6 +137,16 @@ for (const fixture of fixturesData.fixtures || []) {
     issues.push(
       `${fixture.id} (${matchLabel}) has ${goalCount(fixture)} goal event${goalCount(fixture) === 1 ? "" : "s"} for a ${fixture.score.home}-${fixture.score.away} score.`
     );
+  }
+
+  const storyBullets = resultStoryBullets(fixture);
+  if (total > 0 && storyBullets.length < 2) {
+    issues.push(`${fixture.id} (${matchLabel}) has fewer than two result story bullets for a scoring match.`);
+  }
+
+  const minuteOrderIssue = storyMinuteOrderIssue(fixture);
+  if (minuteOrderIssue) {
+    issues.push(`${fixture.id} (${matchLabel}) has result story bullets out of chronological order: ${minuteOrderIssue}`);
   }
 
   if (!momentHighlights.length) {

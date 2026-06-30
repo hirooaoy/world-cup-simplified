@@ -130,6 +130,25 @@ function hasWeakStoryBullets(fixture) {
   return (fixture.resultStoryBullets || []).some(isWeakStoryBullet);
 }
 
+function storyMinuteValue(highlight) {
+  const match = String(highlight || "").match(/\b(\d{1,3})(?:\+(\d{1,2}))?'/);
+  if (!match) {
+    return null;
+  }
+
+  const minute = Number(match[1]);
+  const offset = Number(match[2] || 0);
+  return Number.isFinite(minute) && Number.isFinite(offset) ? minute * 100 + offset : null;
+}
+
+function hasOutOfOrderStoryMinutes(fixture) {
+  const minuteRows = (fixture.resultStoryBullets || [])
+    .map(storyMinuteValue)
+    .filter((minuteValue) => minuteValue !== null);
+
+  return minuteRows.some((minuteValue, index) => index > 0 && minuteValue < minuteRows[index - 1]);
+}
+
 function needsShootoutTextureRefresh(fixture) {
   if (!fixture.scoreDetails?.penalties) {
     return false;
@@ -291,6 +310,15 @@ function addEqualizerStory(bullets, goal, teamName) {
   addStoryBullet(bullets, `${goalPossessiveLabel(goal)} equalizer rescued a point for ${teamName}`);
 }
 
+function addLevelerStory(bullets, goal, teamName) {
+  if (goal.ownGoal) {
+    addStoryBullet(bullets, `${goalPossessiveLabel(goal)} brought ${teamName} level`);
+    return;
+  }
+
+  addStoryBullet(bullets, `${goalPossessiveLabel(goal)} equalizer brought ${teamName} level`);
+}
+
 function addWinnerStory(bullets, goal, teamName) {
   if (goal.ownGoal) {
     addStoryBullet(bullets, `${goalPossessiveLabel(goal)} settled a tight match for ${teamName}`);
@@ -365,6 +393,12 @@ function firstEqualizerForSide(goals, side) {
   }
 
   return null;
+}
+
+function goalHappensBefore(goals, firstGoal, secondGoal) {
+  const firstIndex = goals.indexOf(firstGoal);
+  const secondIndex = goals.indexOf(secondGoal);
+  return firstIndex >= 0 && secondIndex >= 0 && firstIndex < secondIndex;
 }
 
 function matchupRouteForSide(fixture, side) {
@@ -534,7 +568,8 @@ function buildWinStoryBullets(fixture, teamsById, goals, score, side) {
   const firstGoal = goals[0];
   const lastWinnerGoal = lastGoalForSide(goals, side);
   const lastLoserGoal = lastGoalForSide(goals, otherSide(side));
-  const equalizer = firstGoal?.side === otherSide(side) ? firstEqualizerForSide(goals, side) : null;
+  const winnerEqualizer = firstGoal?.side === otherSide(side) ? firstEqualizerForSide(goals, side) : null;
+  const loserEqualizer = firstGoal?.side === side ? firstEqualizerForSide(goals, otherSide(side)) : null;
   const topScorer = scorerCounts(goals);
 
   if (firstGoal?.side === otherSide(side)) {
@@ -551,11 +586,18 @@ function buildWinStoryBullets(fixture, teamsById, goals, score, side) {
     }
   }
 
-  if (equalizer && lastWinnerGoal && equalizer !== lastWinnerGoal) {
+  if (winnerEqualizer && lastWinnerGoal && winnerEqualizer !== lastWinnerGoal) {
     addStoryBullet(
       bullets,
-      `${goalScorerLabel(equalizer)} brought ${winner.name} level before ${goalScorerLabel(lastWinnerGoal, { sentenceStart: false })} completed the turnaround`
+      `${goalScorerLabel(winnerEqualizer)} brought ${winner.name} level before ${goalScorerLabel(lastWinnerGoal, { sentenceStart: false })} completed the turnaround`
     );
+  } else if (loserEqualizer && lastWinnerGoal && goalHappensBefore(goals, loserEqualizer, lastWinnerGoal)) {
+    addLevelerStory(bullets, loserEqualizer, loser.name);
+    if (margin === 1) {
+      addWinnerStory(bullets, lastWinnerGoal, winner.name);
+    } else {
+      addStoryBullet(bullets, `${goalScorerLabel(lastWinnerGoal)} added the final word as ${winner.name} pulled away`);
+    }
   } else if (lastWinnerGoal && margin === 1) {
     addWinnerStory(bullets, lastWinnerGoal, winner.name);
   } else if (lastWinnerGoal && firstGoal && lastWinnerGoal !== firstGoal) {
@@ -572,7 +614,7 @@ function buildWinStoryBullets(fixture, teamsById, goals, score, side) {
     addStoryBullet(bullets, `${winner.name}'s attack kept finding space and turned the finish into a rout`);
   } else if (firstGoal?.side === otherSide(side)) {
     addStoryBullet(bullets, `${loser.name}'s opener made ${winner.name} sweat, but the later chances finally turned`);
-  } else if (lastLoserGoal) {
+  } else if (lastLoserGoal && lastLoserGoal !== loserEqualizer) {
     addReplyStory(bullets, lastLoserGoal, loser.name);
   } else {
     addStoryBullet(bullets, `${loser.name} scored but never found the goal that would reopen the finish`);
@@ -927,11 +969,14 @@ for (const fixture of finishedFixtures) {
     : false;
 
   if (hasStoryBullets && !overwrite) {
-    if (refreshWeakStories && (hasWeakStoryBullets(fixture) || needsShootoutTextureRefresh(fixture))) {
+    if (
+      hasOutOfOrderStoryMinutes(fixture) ||
+      (refreshWeakStories && (hasWeakStoryBullets(fixture) || needsShootoutTextureRefresh(fixture)))
+    ) {
       const existingBullets = fixture.resultStoryBullets.filter((highlight) => typeof highlight === "string" && highlight.trim());
       const strongExistingBullets = existingBullets.filter((highlight) => !isWeakStoryBullet(highlight));
       fixture.resultStoryBullets =
-        fixture.scoreDetails?.penalties || strongExistingBullets.length < 2
+        hasOutOfOrderStoryMinutes(fixture) || fixture.scoreDetails?.penalties || strongExistingBullets.length < 2
           ? buildStoryBullets(fixture, teamsById)
           : strongExistingBullets.slice(0, 3);
       storyPopulated += 1;
@@ -952,11 +997,14 @@ for (const fixture of finishedHistoricalFixtures) {
     : false;
 
   if (hasStoryBullets && !overwrite) {
-    if (refreshWeakStories && (hasWeakStoryBullets(fixture) || needsShootoutTextureRefresh(fixture))) {
+    if (
+      hasOutOfOrderStoryMinutes(fixture) ||
+      (refreshWeakStories && (hasWeakStoryBullets(fixture) || needsShootoutTextureRefresh(fixture)))
+    ) {
       const existingBullets = fixture.resultStoryBullets.filter((highlight) => typeof highlight === "string" && highlight.trim());
       const strongExistingBullets = existingBullets.filter((highlight) => !isWeakStoryBullet(highlight));
       fixture.resultStoryBullets =
-        fixture.scoreDetails?.penalties || strongExistingBullets.length < 2
+        hasOutOfOrderStoryMinutes(fixture) || fixture.scoreDetails?.penalties || strongExistingBullets.length < 2
           ? buildStoryBullets(fixture, teamsById)
           : strongExistingBullets.slice(0, 3);
       historicalStoryPopulated += 1;

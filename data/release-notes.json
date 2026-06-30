@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-30T12:59:31-07:00",
+  "updatedAt": "2026-06-30T13:00:41-07:00",
   "releases": [
     {
       "date": "2026-06-30",
@@ -10,6 +10,19 @@
       ],
       "highlightsZh": [
         "挪威 2-1 战胜科特迪瓦后，现在已更新比分、进球时间线、官方集锦链接和巴西对挪威的交锋背景。"
+      ]
+    },
+    {
+      "date": "2026-06-30",
+      "title": "Result recap reliability",
+      "titleZh": "赛果复盘可靠性",
+      "highlights": [
+        "Fresh full-time recaps now keep opener, equalizer, and late-winner bullets in match order before the enriched JSON lands.",
+        "Result enrichment checks now fail scoring-match recaps with too few story bullets or out-of-order goal-minute bullets."
+      ],
+      "highlightsZh": [
+        "刚结束比赛的复盘现在会在富化 JSON 到达前，也按开场进球、扳平、绝杀的顺序展示要点。",
+        "赛果富化检查现在会拦截要点过少或进球分钟顺序错乱的有进球复盘。"
       ]
     },
     {
