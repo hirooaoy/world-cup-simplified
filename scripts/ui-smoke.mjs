@@ -3640,8 +3640,14 @@ try {
     `Historical semi-final Previous context should semibold the prior-round winners. Measured ${JSON.stringify(historicalSemiPreviousWinners)}.`
   );
 
-  await page.goto(baseUrl, { waitUntil: "load" });
+  await page.goto(`${baseUrl}?lang=en&tz=America%2FLos_Angeles`, { waitUntil: "load" });
   await page.waitForSelector(".match-row");
+  await page.waitForFunction(
+    () =>
+      document.documentElement.lang === "en" &&
+      document.querySelector(".language-option.is-active")?.dataset.language === "en" &&
+      localStorage.getItem("world-cup-simplified-language") === "en"
+  );
   const beforeTimeZoneText = await page.locator("#day-label").innerText();
   assert(beforeTimeZoneText.trim() === "Today", "Initial default date should be Today.");
   await page.locator("#settings-button").click();
