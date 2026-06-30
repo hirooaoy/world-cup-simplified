@@ -3667,11 +3667,12 @@ try {
   const languageSwitchWidthBefore = await page
     .locator("#language-switch")
     .evaluate((element) => Math.round(element.getBoundingClientRect().width));
-  await page.locator('[data-language="zh"]').click();
+  await page.locator('[data-language="zh"]').click({ trial: true });
   const pendingLanguageCheck = await page.evaluate(() => {
     const switchShell = document.querySelector("#language-switch");
     const englishButton = document.querySelector('[data-language="en"]');
     const chineseButton = document.querySelector('[data-language="zh"]');
+    chineseButton?.click();
     const spinnerStyle = chineseButton ? window.getComputedStyle(chineseButton, "::after") : null;
 
     return {
