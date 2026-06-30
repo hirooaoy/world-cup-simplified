@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-30T03:01:31.601Z",
+  "updatedAt": "2026-06-30T04:02:36.319Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -9906,7 +9906,7 @@
       "homeSlot": "Group F winner",
       "awaySlot": "Group C runner-up",
       "venue": "Estadio Monterrey",
-      "status": "LIVE",
+      "status": "FT",
       "h2h": {
         "status": "research-pending",
         "summary": "H2H research is pending for this matchup. Add API-backed or manually verified senior results when available.",
