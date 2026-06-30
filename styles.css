@@ -1779,11 +1779,13 @@ h1 {
   text-transform: uppercase;
 }
 
-.live-pill[data-tooltip] {
+.live-pill[data-tooltip],
+.tournament-live-pill[data-tooltip] {
   position: relative;
 }
 
-.live-pill[data-tooltip]::after {
+.live-pill[data-tooltip]::after,
+.tournament-live-pill[data-tooltip]::after {
   content: attr(data-tooltip);
   position: absolute;
   bottom: calc(100% + 8px);
@@ -1806,7 +1808,9 @@ h1 {
 }
 
 .live-pill[data-tooltip]:hover::after,
-.live-pill[data-tooltip]:focus-visible::after {
+.live-pill[data-tooltip]:focus-visible::after,
+.tournament-live-pill[data-tooltip]:hover::after,
+.tournament-live-pill[data-tooltip]:focus-visible::after {
   opacity: 1;
   transform: translate(var(--tooltip-transform-x, -50%), 0);
 }
@@ -5373,6 +5377,7 @@ h1 {
 }
 
 .live-pill[data-tooltip]::after,
+.tournament-live-pill[data-tooltip]::after,
 .rank-pill[data-tooltip]::after,
 .team.has-team-tooltip::after,
 .past-team.has-team-tooltip::after,
@@ -5395,6 +5400,8 @@ h1 {
 
 .live-pill[data-tooltip]:hover::after,
 .live-pill[data-tooltip]:focus-visible::after,
+.tournament-live-pill[data-tooltip]:hover::after,
+.tournament-live-pill[data-tooltip]:focus-visible::after,
 .rank-pill[data-tooltip]:hover::after,
 .rank-pill[data-tooltip]:focus-visible::after,
 .team.has-team-tooltip:hover::after,
@@ -5435,6 +5442,7 @@ h1 {
 
 @media (hover: none), (pointer: coarse) {
   .live-pill[data-tooltip]:hover::after,
+  .tournament-live-pill[data-tooltip]:hover::after,
   .rank-pill[data-tooltip]:hover::after,
   .team.has-team-tooltip:hover::after,
   .past-team.has-team-tooltip:hover::after,
@@ -5463,6 +5471,7 @@ h1 {
 }
 
 .live-pill[data-tooltip].is-touch-tooltip-open::after,
+.tournament-live-pill[data-tooltip].is-touch-tooltip-open::after,
 .rank-pill[data-tooltip].is-touch-tooltip-open::after,
 .team.has-team-tooltip.is-touch-tooltip-open::after,
 .past-team.has-team-tooltip.is-touch-tooltip-open::after,

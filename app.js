@@ -3230,7 +3230,7 @@ const settingsLanguageLabel = document.querySelector("#settings-language-label")
 const timezoneLabel = document.querySelector(".timezone-label");
 const settingsYesterdayLabel = document.querySelector("#settings-yesterday-label");
 const showYesterdayToggle = document.querySelector("#show-yesterday-toggle");
-const standingsHeadingText = document.querySelector("#standings-heading span");
+const standingsHeading = document.querySelector("#standings-heading");
 const calendarWeekdayLabels = document.querySelectorAll(".calendar-weekdays span");
 const viewTabsShell = document.querySelector(".view-tabs");
 const viewTabs = document.querySelectorAll(".view-tab");
@@ -6317,7 +6317,7 @@ function renderStaticText() {
   });
   viewPanels.matches?.querySelector(".match-layout")?.setAttribute("aria-label", t("matchesHeading"));
   matchList?.setAttribute("aria-label", t("matchesList"));
-  standingsHeadingText.textContent = t("standings");
+  standingsHeading?.setAttribute("aria-label", `${selectedStandingsYear} ${t("standings")}`);
   standingsYearPopover?.setAttribute("aria-label", t("chooseStandingsYear"));
   standingsModeTabsShell?.setAttribute("aria-label", t("standingsSections"));
   document.querySelector("#standings-groups-tab").textContent = t("groups");
@@ -8045,6 +8045,7 @@ function updateMeasuredLabelTooltips(root = document) {
 
 const boundedTooltipSelector = [
   ".live-pill[data-tooltip]",
+  ".tournament-live-pill[data-tooltip]",
   ".rank-pill[data-tooltip]",
   ".team.has-team-tooltip[data-tooltip]",
   ".past-team.has-team-tooltip[data-tooltip]",
@@ -8323,7 +8324,7 @@ function getTouchTooltipLinkElement(target) {
     return null;
   }
 
-  return target.closest(".live-pill[data-tooltip][href]");
+  return target.closest(".live-pill[data-tooltip][href], .tournament-live-pill[data-tooltip][href]");
 }
 
 function clearActiveTouchTooltip() {
@@ -8761,9 +8762,8 @@ function renderScoreStatus(match, state, currentTime) {
     : "";
 }
 
-function renderLivePill(options = {}) {
-  const className = ["live-pill", options.className || ""].filter(Boolean).join(" ");
-  const tooltip = getOfficialMatchTimeSnapshotTooltip(options.match);
+function getLivePillAttributes(match) {
+  const tooltip = getOfficialMatchTimeSnapshotTooltip(match);
   const ariaLabel = tooltip
     ? currentLanguage === "zh"
       ? `直播：${tooltip}`
@@ -8772,11 +8772,16 @@ function renderLivePill(options = {}) {
   const tooltipAttributes = tooltip
     ? ` title="${escapeHtml(tooltip)}" data-tooltip="${escapeHtml(tooltip)}"`
     : "";
-  return `<a class="${escapeHtml(className)}" href="${escapeHtml(FIFA_WORLD_CUP_SCORES_URL)}" target="_blank" rel="noreferrer" aria-label="${escapeHtml(ariaLabel)}"${tooltipAttributes}>${escapeHtml(localizeText("Live"))}</a>`;
+  return `aria-label="${escapeHtml(ariaLabel)}"${tooltipAttributes}`;
 }
 
-function renderTournamentLivePill() {
-  return `<a class="tournament-live-pill" href="${escapeHtml(FIFA_WORLD_CUP_SCORES_URL)}" target="_blank" rel="noreferrer" aria-label="${escapeHtml(localizeText(FIFA_LIVE_ARIA_LABEL))}">${escapeHtml(localizeText("Live"))}</a>`;
+function renderLivePill(options = {}) {
+  const className = ["live-pill", options.className || ""].filter(Boolean).join(" ");
+  return `<a class="${escapeHtml(className)}" href="${escapeHtml(FIFA_WORLD_CUP_SCORES_URL)}" target="_blank" rel="noreferrer" ${getLivePillAttributes(options.match)}>${escapeHtml(localizeText("Live"))}</a>`;
+}
+
+function renderTournamentLivePill(match) {
+  return `<a class="tournament-live-pill" href="${escapeHtml(FIFA_WORLD_CUP_SCORES_URL)}" target="_blank" rel="noreferrer" ${getLivePillAttributes(match)}>${escapeHtml(localizeText("Live"))}</a>`;
 }
 
 function getMatchDateTimeValue(match) {
@@ -12204,7 +12209,7 @@ function renderTournamentMatchCard(match, context, options = {}) {
     ? ` data-open-match-id="${escapeHtml(match.id)}" role="button" tabindex="0" aria-label="${escapeHtml(getTournamentOpenMatchLabel(participants))}"`
     : "";
   const statusBadgeHtml = isLive
-    ? renderTournamentLivePill()
+    ? renderTournamentLivePill(match)
     : isNext
       ? `<span class="tournament-up-next-pill" aria-label="${escapeHtml(localizeText("Up next"))}">${escapeHtml(localizeText("Up next"))}</span>`
       : "";
@@ -13339,6 +13344,7 @@ function updateStandingsModeControls() {
 function updateStandingsControls() {
   if (standingsYearButton) {
     standingsYearButton.textContent = String(selectedStandingsYear);
+    standingsHeading?.setAttribute("aria-label", `${selectedStandingsYear} ${t("standings")}`);
     standingsYearButton.setAttribute(
       "aria-label",
       localizeText(`Choose standings year, ${selectedStandingsYear} selected`)

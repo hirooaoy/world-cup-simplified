@@ -4771,6 +4771,74 @@ try {
       `Tournament cards should mark only the next scheduled knockout match with a top-right Up next pill aligned to the date and venue. Measured ${JSON.stringify(tournamentUpNextState)}.`
     );
     await tournamentUpNextCheck.context.close();
+
+    const tournamentLiveCheckTime = new Date(
+      new Date(nextKnockoutKickoffUtc).getTime() + 5 * 60 * 1000
+    );
+    const tournamentLiveTooltipCheckedAt = new Date(
+      new Date(nextKnockoutKickoffUtc).getTime() + 2 * 60 * 1000
+    );
+    const tournamentLiveMatchNumber = String(nextScheduledKnockoutFixture.matchNumber);
+    const tournamentLiveTooltipCheck = await openPageAtTime(
+      tournamentLiveCheckTime.toISOString(),
+      "/?view=standings&standingsMode=tournament&tz=America%2FLos_Angeles",
+      {
+        fixtureTransform(data) {
+          for (const fixture of data.fixtures || []) {
+            if (fixture.status === "LIVE") {
+              fixture.status = "FT";
+              fixture.score ||= { home: 0, away: 0 };
+            }
+
+            if (fixture.id === nextScheduledKnockoutFixture.id) {
+              fixture.officialMatchTime = "5'";
+              fixture.officialMatchTimeUpdatedAt = tournamentLiveTooltipCheckedAt.toISOString();
+            }
+          }
+        }
+      }
+    );
+    const tournamentLivePillSelector = `.progress-match[data-match-number="${tournamentLiveMatchNumber}"] .tournament-live-pill`;
+    const tournamentLivePill = tournamentLiveTooltipCheck.page.locator(tournamentLivePillSelector);
+    await tournamentLivePill.waitFor({ state: "attached" });
+    await tournamentLivePill.hover();
+    await tournamentLiveTooltipCheck.page.waitForFunction((selector) => {
+      const pill = document.querySelector(selector);
+      if (!pill) {
+        return false;
+      }
+
+      const styles = getComputedStyle(pill, "::after");
+      return styles.content.includes("FIFA snapshot") && Number(styles.opacity) > 0.8;
+    }, tournamentLivePillSelector);
+    const tournamentLiveTooltipState = await tournamentLiveTooltipCheck.page.evaluate((selector) => {
+      const pill = document.querySelector(selector);
+      const header = pill?.closest(".knockout-match-header");
+      const styles = pill ? getComputedStyle(pill, "::after") : null;
+
+      return {
+        ariaLabel: pill?.getAttribute("aria-label") || "",
+        headerHasLive: header?.classList.contains("has-live") || false,
+        href: pill?.getAttribute("href") || "",
+        label: pill?.textContent.replace(/\s+/g, " ").trim() || "",
+        title: pill?.getAttribute("title") || "",
+        tooltip: pill?.getAttribute("data-tooltip") || "",
+        tooltipContent: styles?.content || "",
+        tooltipOpacity: styles ? Number(styles.opacity) : 0
+      };
+    }, tournamentLivePillSelector);
+    assert(
+      tournamentLiveTooltipState.headerHasLive &&
+        tournamentLiveTooltipState.href === fifaWorldCupScoresUrl &&
+        tournamentLiveTooltipState.label === "Live" &&
+        tournamentLiveTooltipState.title === "FIFA snapshot: 5' · checked 3 min ago" &&
+        tournamentLiveTooltipState.tooltip === "FIFA snapshot: 5' · checked 3 min ago" &&
+        tournamentLiveTooltipState.ariaLabel === "Live: FIFA snapshot: 5' · checked 3 min ago" &&
+        tournamentLiveTooltipState.tooltipContent.includes("FIFA snapshot: 5") &&
+        tournamentLiveTooltipState.tooltipOpacity > 0.8,
+      `Tournament-card Live pills should expose the same official match-time tooltip on desktop hover. Measured ${JSON.stringify(tournamentLiveTooltipState)}.`
+    );
+    await tournamentLiveTooltipCheck.context.close();
   }
 
   const pendingScoreFixture = fixturesData.fixtures
@@ -5355,8 +5423,8 @@ try {
   await page.locator("#standings-tab").click();
   assert(
     (await page.locator("#standings-heading").innerText()).replace(/\s+/g, " ").trim() ===
-      "2026 Standings",
-    "The current standings heading should specify 2026."
+      "2026",
+    "The current standings heading should show just the selected year."
   );
   await page.locator("#standings-groups-tab").click();
   await page.waitForFunction(
@@ -6909,8 +6977,8 @@ try {
   await page.locator('.standings-year-option[data-standings-year="2022"]').click();
   assert(
     (await page.locator("#standings-heading").innerText()).replace(/\s+/g, " ").trim() ===
-      "2022 Standings",
-    "Choosing a past year should update the standings heading."
+      "2022",
+    "Choosing a past year should update the standings heading to just that year."
   );
   assert(
     new URL(page.url()).searchParams.get("standingsYear") === "2022",

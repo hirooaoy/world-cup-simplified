@@ -1,6 +1,28 @@
 {
-  "updatedAt": "2026-06-30T14:06:05-07:00",
+  "updatedAt": "2026-06-30T15:11:38-07:00",
   "releases": [
+    {
+      "date": "2026-06-30",
+      "title": "Standings year heading",
+      "titleZh": "积分榜年份标题",
+      "highlights": [
+        "The Standings page heading now shows only the selected year, matching the compact Today and date dropdown style on Matches."
+      ],
+      "highlightsZh": [
+        "积分榜页面标题现在只显示所选年份，与 Matches 中紧凑的“今天”和日期下拉样式保持一致。"
+      ]
+    },
+    {
+      "date": "2026-06-30",
+      "title": "Tournament Live time tooltip",
+      "titleZh": "淘汰赛直播时间提示",
+      "highlights": [
+        "Desktop hover on the tournament-card Live badge now shows the same official FIFA snapshot minute when MatchTime is available."
+      ],
+      "highlightsZh": [
+        "桌面端悬停淘汰赛卡片上的 Live 标记时，现在会在 FIFA MatchTime 可用时显示同样的官方快照分钟。"
+      ]
+    },
     {
       "date": "2026-06-30",
       "title": "Brazil-Norway projection repair",
@@ -216,10 +238,10 @@
       "title": "Mobile heading spacing",
       "titleZh": "移动端标题间距",
       "highlights": [
-        "On mobile, the Today heading now uses the same top-navigation spacing as the 2026 Standings heading while desktop spacing stays unchanged."
+        "On mobile, the Today heading now uses the same top-navigation spacing as the standings year heading while desktop spacing stays unchanged."
       ],
       "highlightsZh": [
-        "移动端的“今天”标题现在与“2026 积分榜”使用一致的顶部导航间距，同时桌面端间距保持不变。"
+        "移动端的“今天”标题现在与积分榜年份标题使用一致的顶部导航间距，同时桌面端间距保持不变。"
       ]
     },
     {
