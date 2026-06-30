@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-29T23:07:06-07:00",
+  "updatedAt": "2026-06-29T23:23:22-07:00",
   "releases": [
     {
       "date": "2026-06-29",
@@ -12,6 +12,7 @@
         "Official FOX Sports highlight lookup now runs in the matchday and scheduled sync paths, so newly finished matches keep checking for a safe YouTube link automatically.",
         "Completed matches without an official YouTube upload now carry an explicit checked status so missing play buttons are deliberate, not silent data gaps.",
         "Historical archive matches now show the same Result play button after an all-match official FIFA YouTube sweep, with unchecked or non-highlight videos kept out of the UI.",
+        "App asset cache keys now point at the official highlight sync build so refreshed highlight-video data reaches the browser immediately.",
         "Chinese result bullets now translate penalty-shootout and archive recap sentence shapes through shared rules, with copy audits covering both current and historical tournaments.",
         "Tied knockout results now say when a team advanced after a draw if the official feed has not exposed a shootout total yet.",
         "Next-round knockout cards now name an already-known future opponent with the result they advanced by, while unresolved paths still say winner of the pending matchup.",
@@ -26,6 +27,7 @@
         "FOX Sports 官方集锦查询现在已接入比赛日和定时同步流程，新完赛比赛会自动持续查找安全的 YouTube 链接。",
         "已完赛但暂无官方 YouTube 集锦的比赛现在会记录明确的检查状态，因此没有播放按钮是有意状态，而不是静默数据缺口。",
         "历届世界杯存档比赛现在经过全量官方 FIFA YouTube 检查；只有匹配到官方集锦类视频时才会在“赛果”旁显示同样的播放按钮。",
+        "应用资源缓存键现在指向官方集锦同步版本，让刷新后的集锦视频数据能立即进入浏览器。",
         "中文赛果速览现在会通过共享规则翻译点球大战和存档赛事句式，文案审计也会同时覆盖当前赛事与历届世界杯。",
         "淘汰赛打平但官方数据尚未给出点球总比分时，现在会说明哪支球队在平局后晋级。",
         "淘汰赛下一轮卡片现在会在未来对手已确定时写出该队和晋级比分，路径未决时仍保留“对阵某场胜者”的说法。",
