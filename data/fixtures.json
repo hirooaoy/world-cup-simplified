@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-30T19:59:19.023Z",
+  "updatedAt": "2026-06-30T21:55:56.872Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -10315,7 +10315,7 @@
       "homeSlot": "Group I winner",
       "awaySlot": "Group C/D/F/G/H third place",
       "venue": "New York New Jersey Stadium",
-      "status": "SCHEDULED",
+      "status": "LIVE",
       "h2h": {
         "status": "loaded",
         "sourceId": "national-football-teams-h2h-sync-2026-06-30",
@@ -10537,6 +10537,10 @@
         "sourceId": "editorial-preview-2026-06-22",
         "home": "France are an elite attacking side with Mbappe's speed now fed by Olise's left-footed creation, led by Kylian Mbappe, Michael Olise, and William Saliba. Against Sweden, their Olise-to-Mbappe chance creation has to beat Sweden's Isak-Gyokeres two-striker pressure. They want to let Olise receive inside, draw pressure, and release Mbappe before the defense can reset. The risk is Sweden can alternate between Isak's finesse and Gyokeres' force.",
         "away": "Sweden are a tall, technical attacking side with two forwards who can change the shape of a match, led by Alexander Isak, Viktor Gyokeres, and Yasin Ayari. Against France, their Isak-Gyokeres two-striker pressure has to beat France's Olise-to-Mbappe chance creation. They want to connect through Ayari and then choose between Isak's polish or Gyokeres' power. The risk is France can combine Olise's final ball with Mbappe's acceleration before Saliba controls the counter."
+      },
+      "score": {
+        "home": 1,
+        "away": 0
       }
     },
     {
