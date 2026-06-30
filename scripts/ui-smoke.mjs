@@ -5176,12 +5176,16 @@ try {
   );
   assert(
     tournamentCheck.m89Projected === true &&
-      m89LikelyVisuals.length === 2 &&
+      tournamentCheck.m89TeamVisuals.length === 2 &&
+      m89LikelyVisuals.length >= 1 &&
+      tournamentCheck.m89TeamVisuals.every(
+        (team) => isLockedResolvedCountry(team) || isMutedProjectedCountry(team)
+      ) &&
       m89LikelyVisuals.every(isMutedProjectedCountry) &&
       getCssColorAlpha(tournamentCheck.m89VersusColor) < 0.7 &&
       tournamentCheck.laterRoundLikelyVisuals.length >= 2 &&
       tournamentCheck.laterRoundLikelyVisuals.every(isMutedProjectedCountry),
-    `Projected Round of 16 and later country picks should stay muted until their source match winner is confirmed. Measured ${JSON.stringify({ m89LikelyVisuals, m89VersusColor: tournamentCheck.m89VersusColor, laterRoundLikelyVisuals: tournamentCheck.laterRoundLikelyVisuals })}.`
+    `Projected Round of 16 and later country picks should keep unresolved teams muted while allowing confirmed source teams to stay full-strength. Measured ${JSON.stringify({ m89TeamVisuals: tournamentCheck.m89TeamVisuals, m89LikelyVisuals, m89VersusColor: tournamentCheck.m89VersusColor, laterRoundLikelyVisuals: tournamentCheck.laterRoundLikelyVisuals })}.`
   );
   const groupETopTeam = getTeam(standingsData.groups?.E?.[0]?.teamId);
   const groupETopTeamName = groupETopTeam.standingName || groupETopTeam.name;
@@ -5241,6 +5245,13 @@ try {
   const expectedOutcomePillCount = expectedOutcomeListCount * 3;
   const expectedMatch74OpenMatchId =
     fixturesData.fixtures.find((fixture) => fixture.matchNumber === 74)?.id || "";
+  const expectedMatch74Fixture = fixturesData.fixtures.find((fixture) => fixture.matchNumber === 74);
+  const expectedMatch74OutcomePills = Boolean(
+    expectedMatch74Fixture &&
+      expectedMatch74Fixture.status !== "FT" &&
+      !expectedMatch74Fixture.winnerTeamId &&
+      !expectedMatch74Fixture.winner
+  );
   const expectedMatch81Fixture = fixturesData.fixtures.find((fixture) => fixture.matchNumber === 81);
   const expectedM81OutcomeTexts = expectedMatch81Fixture
     ? [
@@ -5336,8 +5347,11 @@ try {
       ) &&
       tournamentCheck.m77TieTooltip.includes("France have the shootout edge through Kylian Mbappé") &&
       !/goalkeeper|Olise|Risser/.test(tournamentCheck.m77TieTooltip) &&
-      tournamentCheck.m74TieTooltip.includes("Germany have the shootout edge through Kai Havertz and Joshua Kimmich") &&
-      !/goalkeeper|Baumann|Nübel|Nubel/.test(tournamentCheck.m74TieTooltip) &&
+      (!expectedMatch74OutcomePills ||
+        (tournamentCheck.m74TieTooltip.includes(
+          "Germany have the shootout edge through Kai Havertz and Joshua Kimmich"
+        ) &&
+          !/goalkeeper|Baumann|Nübel|Nubel/.test(tournamentCheck.m74TieTooltip))) &&
       tournamentCheck.m80TieTooltip.includes("Everton goalkeeper Jordan Pickford") &&
       tournamentCheck.m83TieTooltip.includes("Porto goalkeeper Diogo Costa") &&
       tournamentCheck.m86TieTooltip.includes("Aston Villa goalkeeper Emiliano Martínez") &&
@@ -5616,17 +5630,21 @@ try {
     tournamentLayoutChecks.every(
       (check) =>
         check.seedLines.length === 0 &&
-        check.match74OutcomeKeys.join("|") === "home|tie|away" &&
-        check.match74TieFlagCount === 0 &&
-        check.match74OutcomeTooltips.some((tooltip) => tooltip.includes("chance of penalties")) &&
-        check.match74OutcomeStyles.length === 3 &&
-        check.match74OutcomeStyles.every(
-          (style) =>
-            style.background.startsWith("rgba(10, 10, 10") &&
-            style.borderColor.startsWith("rgba(10, 10, 10") &&
-            style.color.startsWith("rgba(10, 10, 10")
-        ) &&
-        check.match74OutcomeListJustifyContent === "flex-start" &&
+        (expectedMatch74OutcomePills
+          ? check.match74OutcomeKeys.join("|") === "home|tie|away" &&
+            check.match74TieFlagCount === 0 &&
+            check.match74OutcomeTooltips.some((tooltip) => tooltip.includes("chance of penalties")) &&
+            check.match74OutcomeStyles.length === 3 &&
+            check.match74OutcomeStyles.every(
+              (style) =>
+                style.background.startsWith("rgba(10, 10, 10") &&
+                style.borderColor.startsWith("rgba(10, 10, 10") &&
+                style.color.startsWith("rgba(10, 10, 10")
+            ) &&
+            check.match74OutcomeListJustifyContent === "flex-start"
+          : check.match74OutcomeKeys.length === 0 &&
+            check.match74OutcomeStyles.length === 0 &&
+            check.match74OutcomeTooltips.length === 0) &&
         (check.match74OutcomeGap === null || (check.match74OutcomeGap >= 0 && check.match74OutcomeGap <= 16)) &&
         check.match74PairJustifyContent === "flex-start" &&
         check.match74VenueCursor === "help" &&
@@ -5931,6 +5949,16 @@ try {
     "/?view=matches&date=2026-06-17&tz=America%2FLos_Angeles",
     {
       fixtureTransform(data) {
+        const clearParticipants = (matchNumber) => {
+          const fixture = data.fixtures.find((item) => item.matchNumber === matchNumber);
+
+          if (!fixture) {
+            return;
+          }
+
+          delete fixture.homeTeamId;
+          delete fixture.awayTeamId;
+        };
         const finishMatch = (matchNumber, homeScore, awayScore, scoreDetails = null) => {
           const fixture = data.fixtures.find((item) => item.matchNumber === matchNumber);
 
@@ -5941,6 +5969,9 @@ try {
           }
         };
 
+        clearParticipants(89);
+        clearParticipants(90);
+        clearParticipants(97);
         finishMatch(73, 1, 2);
         finishMatch(74, 2, 0);
         finishMatch(75, 1, 0);
