@@ -1,6 +1,50 @@
 {
-  "updatedAt": "2026-06-30T10:34:20-07:00",
+  "updatedAt": "2026-06-30T11:04:26-07:00",
   "releases": [
+    {
+      "date": "2026-06-30",
+      "title": "Language switch feedback",
+      "titleZh": "语言切换反馈",
+      "highlights": [
+        "English/Chinese switching now shows a subtle spinner on the selected language tab while the page rerenders."
+      ],
+      "highlightsZh": [
+        "英文/中文切换现在会在所选语言标签上显示轻量加载提示，直到页面完成重绘。"
+      ]
+    },
+    {
+      "date": "2026-06-30",
+      "title": "Chinese route player links",
+      "titleZh": "中文路线球员链接",
+      "highlights": [
+        "Chinese result bullets now keep short route labels like Hakimi-Brahim while linking each player to the hover card."
+      ],
+      "highlightsZh": [
+        "中文赛果要点现在会保留哈基米-布拉欣这类短路线名称，同时把每名球员链接到悬浮卡。"
+      ]
+    },
+    {
+      "date": "2026-06-30",
+      "title": "Archived bracket alignment",
+      "titleZh": "历届淘汰赛对阵对齐",
+      "highlights": [
+        "Past tournament brackets now place the Final and 3rd place match on the same centered end path as the 2026 tournament view."
+      ],
+      "highlightsZh": [
+        "历届赛事淘汰赛现在会像 2026 赛事视图一样，将决赛和季军赛放在居中的同一条终点路径上。"
+      ]
+    },
+    {
+      "date": "2026-06-30",
+      "title": "Mobile top spacing alignment",
+      "titleZh": "移动端顶部间距对齐",
+      "highlights": [
+        "Matches and Standings now start from the same mobile content offset below the top navigation."
+      ],
+      "highlightsZh": [
+        "移动端 Matches 和 Standings 现在会在顶部导航下方使用一致的内容起始间距。"
+      ]
+    },
     {
       "date": "2026-06-30",
       "title": "Mobile Live time tooltip",

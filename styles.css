@@ -294,9 +294,47 @@ body.is-juggle-active {
 .language-option {
   position: relative;
   z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   min-width: 42px;
   border: 0;
   background: transparent;
+}
+
+.language-option::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 7px;
+  width: 10px;
+  height: 10px;
+  border: 1.5px solid rgba(10, 10, 10, 0.16);
+  border-top-color: currentColor;
+  border-radius: 999px;
+  opacity: 0;
+  pointer-events: none;
+  translate: 0 -50%;
+}
+
+.language-option.is-pending {
+  color: var(--text);
+  cursor: progress;
+}
+
+.language-option.is-pending::after {
+  opacity: 0.72;
+  animation: language-option-spinner 760ms linear infinite;
+}
+
+.language-option:disabled {
+  opacity: 1;
+}
+
+@keyframes language-option-spinner {
+  to {
+    rotate: 360deg;
+  }
 }
 
 .catch-up-button {
@@ -933,9 +971,11 @@ body.is-juggle-active {
   transform: rotate(-45deg);
 }
 
-#matches-view.is-yesterday-suppressed .page-title,
-#matches-view.is-yesterday-suppressed .match-list {
-  transform: translateY(var(--yesterday-suppressed-offset));
+@media (min-width: 1161px) {
+  #matches-view.is-yesterday-suppressed .page-title,
+  #matches-view.is-yesterday-suppressed .match-list {
+    transform: translateY(var(--yesterday-suppressed-offset));
+  }
 }
 
 h1 {
@@ -1607,8 +1647,10 @@ h1 {
   .admin-message-banner,
   .view-tabs::before,
   .language-switch::before,
+  .language-option.is-pending::after,
   .standings-mode-tabs::before {
     transition: none;
+    animation: none;
   }
 }
 
@@ -6124,20 +6166,15 @@ h1 {
 
 @media (max-width: 1160px) {
   #matches-view {
-    --yesterday-suppressed-offset: clamp(26px, 4.2vh, 46px);
+    --matches-toolbar-optical-offset: -6px;
     display: block;
     width: 100%;
-    margin: 0;
+    margin: var(--matches-toolbar-optical-offset) 0 0;
   }
 
   #matches-view .page-title {
     width: min(100%, 1260px);
     margin: 0 auto 22px;
-  }
-
-  #matches-view.is-yesterday-suppressed .page-title,
-  #matches-view.is-yesterday-suppressed .match-list {
-    transform: translateY(var(--yesterday-suppressed-offset));
   }
 
   .match-layout {
@@ -6176,7 +6213,7 @@ h1 {
   }
 
   #matches-view.is-yesterday-suppressed.has-match-info .match-info {
-    margin-top: var(--yesterday-suppressed-offset);
+    margin-top: 0;
   }
 }
 
@@ -6262,11 +6299,6 @@ h1 {
 }
 
 @media (max-width: 700px) {
-  #matches-view {
-    --yesterday-suppressed-offset: clamp(18px, 3.4vh, 30px);
-    margin-top: -6px;
-  }
-
   .site-header {
     grid-template-columns: minmax(52px, 1fr) auto minmax(74px, 1fr);
     gap: 8px;

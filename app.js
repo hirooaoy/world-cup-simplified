@@ -1,4 +1,4 @@
-const DATA_VERSION = "2026-06-30-h2h-mobile-search";
+const DATA_VERSION = "2026-06-30-archive-bracket-language-spinner";
 const DATA_URLS = {
   adminMessage: `data/admin-message.json?v=${DATA_VERSION}`,
   fixtures: `data/fixtures.json?v=${DATA_VERSION}`,
@@ -43,6 +43,7 @@ const LANGUAGE_LOCALES = {
   zh: "zh-CN"
 };
 const SUPPORTED_LANGUAGES = new Set(Object.keys(LANGUAGE_LOCALES));
+const LANGUAGE_SWITCH_PENDING_MIN_MS = 260;
 const UI_TEXT = {
   en: {
     adminMessage: "Admin message",
@@ -65,6 +66,7 @@ const UI_TEXT = {
     language: "Language",
     languageEnglish: "English",
     languageChinese: "Chinese",
+    languageSwitching: "Switching language",
     juggleBall: "Soccer ball",
     juggleCurrent: "Current juggling streak",
     juggleRecord: "Best juggling streak",
@@ -107,6 +109,7 @@ const UI_TEXT = {
     language: "语言",
     languageEnglish: "英文",
     languageChinese: "中文",
+    languageSwitching: "正在切换语言",
     juggleBall: "足球",
     juggleCurrent: "当前颠球次数",
     juggleRecord: "最佳颠球纪录",
@@ -144,8 +147,8 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "Club to verify": "俱乐部待确认",
     "Current knockout path with likely winners filled for now. Finished results replace estimates.":
       "当前淘汰赛路径会先填入暂时更可能晋级的球队，完赛结果会替换估算。",
-    "Archived knockout bracket and final results from loaded historical matches.":
-      "淘汰赛对阵和最终结果来自已载入的历届比赛存档。",
+    "Knockout bracket uses archived match results.":
+      "淘汰赛对阵使用存档比赛结果。",
     "Round of 32 slots use current standings and remaining projections. Later rounds are predictions.":
       "32强席位使用当前积分榜和剩余预测。后续轮次为预测。",
     "Current score": "当前比分",
@@ -3298,7 +3301,7 @@ const TOURNAMENT_STANDINGS_SUMMARY =
 const HISTORICAL_STANDINGS_SUMMARY =
   "Final group tables computed from archived match results.";
 const HISTORICAL_TOURNAMENT_STANDINGS_SUMMARY =
-  "Archived knockout bracket and final results from loaded historical matches.";
+  "Knockout bracket uses archived match results.";
 const TOURNAMENT_MOBILE_BREAKPOINT_QUERY = "(max-width: 900px)";
 const TOURNAMENT_PROGRESS_ROUNDS = [
   {
@@ -3311,6 +3314,7 @@ const TOURNAMENT_PROGRESS_ROUNDS = [
   { id: "semi-finals", label: "Semi-finals", matchNumbers: [101, 102] },
   { id: "final", label: "Final", matchNumbers: [104, 103] }
 ];
+const TOURNAMENT_PROGRESS_PATH_ROWS = 16;
 const TOURNAMENT_POSTER_HALVES = [
   {
     side: "left",
@@ -6206,6 +6210,46 @@ function getLocalizedStandingName(team) {
   return localizeText(team ? getStandingName(team) : "");
 }
 
+let pendingLanguage = "";
+let languageSwitchRequestId = 0;
+
+function renderLanguageControls() {
+  languageSwitch?.setAttribute("aria-label", t("language"));
+  languageSwitch?.classList.toggle("is-pending", Boolean(pendingLanguage));
+  languageSwitch?.setAttribute("aria-busy", String(Boolean(pendingLanguage)));
+  languageButtons.forEach((button) => {
+    const language = normalizeLanguage(button.dataset.language);
+    const isSelected = language === currentLanguage;
+    const isPending = language === pendingLanguage;
+    const isSwitching = Boolean(pendingLanguage);
+    const label = language === "zh" ? t("languageChinese") : t("languageEnglish");
+    button.classList.toggle("is-active", isSelected);
+    button.classList.toggle("is-pending", isPending);
+    button.disabled = isSwitching;
+    button.setAttribute("aria-pressed", String(isSelected));
+    button.setAttribute("aria-busy", String(isPending));
+    button.textContent = language === "zh" ? "中文" : "English";
+    button.setAttribute("aria-label", isPending ? `${label}: ${t("languageSwitching")}` : label);
+  });
+}
+
+function setPendingLanguage(language) {
+  pendingLanguage = normalizeLanguage(language) || "";
+  renderLanguageControls();
+}
+
+function waitForLanguageSpinnerPaint() {
+  return new Promise((resolve) => {
+    window.requestAnimationFrame(() => window.setTimeout(resolve, 0));
+  });
+}
+
+function waitForLanguagePendingMinimum(startedAt) {
+  const elapsed = performance.now() - startedAt;
+  const remaining = Math.max(0, LANGUAGE_SWITCH_PENDING_MIN_MS - elapsed);
+  return new Promise((resolve) => window.setTimeout(resolve, remaining));
+}
+
 function renderStaticText() {
   document.documentElement.lang = currentLanguage === "zh" ? "zh-Hans" : "en";
   document.title = t("appName");
@@ -6225,18 +6269,7 @@ function renderStaticText() {
   if (settingsLanguageLabel) {
     settingsLanguageLabel.textContent = t("language");
   }
-  languageSwitch?.setAttribute("aria-label", t("language"));
-  languageButtons.forEach((button) => {
-    const language = normalizeLanguage(button.dataset.language);
-    const isSelected = language === currentLanguage;
-    button.classList.toggle("is-active", isSelected);
-    button.setAttribute("aria-pressed", String(isSelected));
-    button.textContent = language === "zh" ? "中文" : "English";
-    button.setAttribute(
-      "aria-label",
-      language === "zh" ? t("languageChinese") : t("languageEnglish")
-    );
-  });
+  renderLanguageControls();
 
   const matchesTab = document.querySelector("#matches-tab");
   const standingsTab = document.querySelector("#standings-tab");
@@ -12518,15 +12551,71 @@ function getHistoricalTournamentRounds(year) {
 }
 
 function getHistoricalTournamentPathRowCount(rounds) {
-  return Math.max(1, ...rounds.map((round) => round.fixtures.length));
+  return Math.max(TOURNAMENT_PROGRESS_PATH_ROWS, ...rounds.map((round) => round.fixtures.length));
 }
 
 function getHistoricalTournamentProgressPlacement(round, index, rowCount) {
+  if (round.key === "final" && round.fixtures.length > 1) {
+    const pathSpan = Math.max(1, Math.floor(rowCount / 8));
+    const topPathRow = Math.max(1, Math.floor(rowCount / 2) - pathSpan + 1);
+    const finalPlacements = [
+      { pathRow: topPathRow, pathSpan },
+      { pathRow: topPathRow + pathSpan, pathSpan }
+    ];
+
+    return finalPlacements[index] || finalPlacements.at(-1);
+  }
+
   const matchCount = Math.max(1, round.fixtures.length);
   const pathSpan = Math.max(1, Math.floor(rowCount / matchCount));
   const pathRow = Math.floor((index * rowCount) / matchCount) + 1;
 
   return { pathRow, pathSpan };
+}
+
+function getHistoricalTournamentTimeLabel(match) {
+  const timeMatch = /^(\d{1,2}):(\d{2})$/.exec(String(match?.localTime || "").trim());
+
+  if (!timeMatch) {
+    return match?.localTime || "";
+  }
+
+  const hours = Number(timeMatch[1]);
+  const minutes = Number(timeMatch[2]);
+
+  if (!Number.isInteger(hours) || !Number.isInteger(minutes) || hours > 23 || minutes > 59) {
+    return match.localTime;
+  }
+
+  return new Intl.DateTimeFormat(getAppLocale(), {
+    hour: "numeric",
+    hour12: true,
+    minute: "2-digit",
+    timeZone: "UTC"
+  })
+    .format(new Date(Date.UTC(2000, 0, 1, hours, minutes)))
+    .replace(" ", "");
+}
+
+function getHistoricalTournamentMatchDateLabel(match) {
+  if (!match?.date) {
+    return "";
+  }
+
+  const dateText = navDateFormatter.format(getDateFromKey(match.date));
+  const timeText = getHistoricalTournamentTimeLabel(match);
+  const localTimeText = timeText
+    ? currentLanguage === "zh"
+      ? `当地${timeText}`
+      : `${timeText} local`
+    : "";
+  const baseLabel = [dateText, localTimeText].filter(Boolean).join(" ");
+
+  if (isHistoricalThirdPlaceRoundLabel(match.round)) {
+    return `${baseLabel} (${localizeText("3rd place match")})`;
+  }
+
+  return baseLabel;
 }
 
 function getHistoricalNextTournamentMatchNumber(fixtures, match, teamName) {
@@ -12609,7 +12698,7 @@ function renderHistoricalTournamentMatchCard(match, context, options = {}) {
     <article class="${escapeHtml(cardClasses)}" data-match-number="${escapeHtml(match.matchNumber)}" data-round-id="${escapeHtml(options.roundId || "")}" data-round-index="${escapeHtml(options.roundIndex)}" data-match-index="${escapeHtml(options.matchIndex)}"${nextMatchNumber ? ` data-next-match="${escapeHtml(nextMatchNumber)}"` : ""}${runnerUpNextMatchNumber ? ` data-runner-up-next-match="${escapeHtml(runnerUpNextMatchNumber)}"` : ""}${winner ? ` data-winner-team-id="${escapeHtml(winner.id)}"` : ""} data-open-match-id="${escapeHtml(match.id)}" role="button" tabindex="0" aria-label="${escapeHtml(getTournamentOpenMatchLabel(participants))}" style="--path-row: ${escapeHtml(options.pathRow)}; --path-span: ${escapeHtml(options.pathSpan)};">
       <header class="knockout-match-header">
         <span class="knockout-match-meta">
-          <time datetime="${escapeHtml(match.date || "")}">${escapeHtml(getHistoricalDateText(match))}</time>
+          <time datetime="${escapeHtml(match.date || "")}">${escapeHtml(getHistoricalTournamentMatchDateLabel(match))}</time>
           ${venueLabel ? `<span class="knockout-match-venue"${venueTooltip ? ` aria-label="${escapeHtml(venueTooltip)}" data-tooltip="${escapeHtml(venueTooltip)}" tabindex="0"` : ""}>${escapeHtml(venueLabel)}</span>` : ""}
         </span>
       </header>
@@ -13029,15 +13118,57 @@ function updateTournamentConnectors() {
     return true;
   }
 
-  function appendFinalColumnRail() {
-    const topSource = progression.querySelector('.progress-match[data-match-number="101"]');
-    const bottomSource = progression.querySelector('.progress-match[data-match-number="102"]');
-    const finalTarget = progression.querySelector('.progress-match[data-match-number="104"]');
-    const bronzeTarget = progression.querySelector('.progress-match[data-match-number="103"]');
+  function getFinalColumnRailElements() {
+    const finalRound = progression.querySelector(".progress-round.is-final");
+    const finalTargets = finalRound
+      ? [...finalRound.querySelectorAll(".progress-match")].sort(
+          (a, b) => Number(a.dataset.matchIndex || 0) - Number(b.dataset.matchIndex || 0)
+        )
+      : [];
 
-    if (!topSource || !bottomSource || !finalTarget || !bronzeTarget) {
+    if (finalTargets.length < 2) {
+      return null;
+    }
+
+    const [finalTarget, bronzeTarget] = finalTargets;
+    const finalMatchNumber = finalTarget.dataset.matchNumber || "";
+    const bronzeMatchNumber = bronzeTarget.dataset.matchNumber || "";
+
+    if (!finalMatchNumber || !bronzeMatchNumber) {
+      return null;
+    }
+
+    const sources = [...progression.querySelectorAll(".progress-match[data-next-match][data-runner-up-next-match]")]
+      .filter(
+        (source) =>
+          !finalRound.contains(source) &&
+          source.dataset.nextMatch === finalMatchNumber &&
+          source.dataset.runnerUpNextMatch === bronzeMatchNumber
+      )
+      .sort(
+        (a, b) => Number(a.dataset.matchIndex || 0) - Number(b.dataset.matchIndex || 0)
+      );
+
+    if (sources.length < 2) {
+      return null;
+    }
+
+    return {
+      bottomSource: sources[1],
+      bronzeMatchNumber,
+      bronzeTarget,
+      finalMatchNumber,
+      finalTarget,
+      topSource: sources[0]
+    };
+  }
+
+  function appendFinalColumnRail(railElements) {
+    if (!railElements) {
       return false;
     }
+
+    const { topSource, bottomSource, finalTarget, bronzeTarget } = railElements;
 
     if (
       shouldSkipMobileConnector(topSource, finalTarget) ||
@@ -13077,13 +13208,19 @@ function updateTournamentConnectors() {
     return true;
   }
 
+  const finalRailElements = getFinalColumnRailElements();
   let renderedConnectorCount = 0;
-  if (appendFinalColumnRail()) {
+  if (appendFinalColumnRail(finalRailElements)) {
     renderedConnectorCount += 1;
   }
 
   progression.querySelectorAll(".progress-match[data-next-match], .progress-match[data-runner-up-next-match]").forEach((source) => {
-    if (source.dataset.nextMatch === "104" && source.dataset.runnerUpNextMatch === "103") {
+    if (
+      finalRailElements &&
+      (source === finalRailElements.topSource || source === finalRailElements.bottomSource) &&
+      source.dataset.nextMatch === finalRailElements.finalMatchNumber &&
+      source.dataset.runnerUpNextMatch === finalRailElements.bronzeMatchNumber
+    ) {
       return;
     }
 
@@ -14287,6 +14424,11 @@ function getLocalizedPlayerDisplayName(player, profile = getPlayerProfile(player
   return translateEntityNameToZh(displayName) || displayName;
 }
 
+function shouldPreserveLocalizedMentionLabel(label) {
+  const text = String(label || "").trim();
+  return currentLanguage === "zh" && text && !/[A-Za-z]/.test(text) && CJK_CHARACTER_PATTERN.test(text);
+}
+
 function getPlayerUniformNumber(player, profile = getPlayerProfile(player)) {
   const value =
     profile?.uniformNumber ??
@@ -14973,6 +15115,31 @@ function getPlayerMentionEntriesForText(players) {
   const entries = getPlayerMentionEntries(players);
 
   if (currentLanguage === "zh") {
+    const zhAliasBuckets = new Map();
+    const addZhAliasCandidate = (alias, player) => {
+      const text = String(alias || "").trim();
+      const playerKey = normalizeTextKey(getPlayerName(player));
+      const aliasKey = normalizeTextKey(text);
+
+      if (!text || !playerKey || !aliasKey || /[A-Za-z]/.test(text)) {
+        return;
+      }
+
+      const bucket = zhAliasBuckets.get(aliasKey) || { aliases: [], players: new Map() };
+      if (!bucket.aliases.includes(text)) {
+        bucket.aliases.push(text);
+      }
+      bucket.players.set(playerKey, player);
+      zhAliasBuckets.set(aliasKey, bucket);
+    };
+
+    for (const entry of entries) {
+      const alias = translateRouteEntityPartToZh(entry.alias);
+      if (alias && alias !== entry.alias) {
+        addZhAliasCandidate(alias, entry.player);
+      }
+    }
+
     for (const player of players) {
       const profile = getPlayerProfile(player) || getHistoricalPlayerProfile(player);
       const aliases = [
@@ -14982,7 +15149,19 @@ function getPlayerMentionEntriesForText(players) {
       ];
 
       for (const alias of aliases) {
-        if (alias && !entries.some((entry) => entry.alias === alias)) {
+        addZhAliasCandidate(alias, player);
+      }
+    }
+
+    for (const bucket of zhAliasBuckets.values()) {
+      if (bucket.players.size !== 1) {
+        continue;
+      }
+
+      const player = [...bucket.players.values()][0];
+      for (const alias of bucket.aliases) {
+        const aliasKey = normalizeTextKey(alias);
+        if (aliasKey && !entries.some((entry) => normalizeTextKey(entry.alias) === aliasKey)) {
           entries.push({ alias, player });
         }
       }
@@ -15068,7 +15247,11 @@ function renderPlayerMention(label, player) {
   const skills = getPlayerSkills(player, profile).map(localizePlayerSkill);
   const cardFlag = renderPlayerCardFlag(player, profile);
   const triggerLabel = `aria-label="${escapeHtml(`${displayName}: ${position}, ${club}`)}" aria-expanded="false"`;
-  const visibleLabel = currentLanguage === "zh" ? displayName : label;
+  const visibleLabel = shouldPreserveLocalizedMentionLabel(label)
+    ? label
+    : currentLanguage === "zh"
+      ? displayName
+      : label;
   const trigger = sourceUrl
     ? `<a class="player-link" href="${escapeHtml(sourceUrl)}" target="_blank" rel="noopener" ${triggerLabel}>${escapeHtml(visibleLabel)}</a>`
     : `<span class="player-link" role="button" tabindex="0" ${triggerLabel}>${escapeHtml(visibleLabel)}</span>`;
@@ -20081,8 +20264,12 @@ function renderLoadedApp(options = {}) {
   applyLanguageToPage();
 }
 
-function setLanguage(language) {
+async function setLanguage(language) {
   const nextLanguage = normalizeLanguage(language) || DEFAULT_LANGUAGE;
+
+  if (pendingLanguage) {
+    return;
+  }
 
   if (nextLanguage === currentLanguage) {
     applyLanguageToPage();
@@ -20093,20 +20280,38 @@ function setLanguage(language) {
     return;
   }
 
-  currentLanguage = nextLanguage;
-  localStorage.setItem(LANGUAGE_STORAGE_KEY, currentLanguage);
-  updateUrlState({ historyMode: "push" });
+  const requestId = languageSwitchRequestId + 1;
+  languageSwitchRequestId = requestId;
+  const pendingStartedAt = performance.now();
+  setPendingLanguage(nextLanguage);
 
-  const hasLoadedData = fixtures.length || historicalFixtures.length || tournament.groups.length;
-  if (hasLoadedData) {
-    renderLoadedApp({ syncActiveView: true });
-  } else {
-    applyLanguageToPage();
-  }
+  try {
+    await waitForLanguageSpinnerPaint();
 
-  if (isCatchUpOpen) {
-    renderCatchUp();
-    positionCatchUpPopover();
+    if (requestId !== languageSwitchRequestId) {
+      return;
+    }
+
+    currentLanguage = nextLanguage;
+    localStorage.setItem(LANGUAGE_STORAGE_KEY, currentLanguage);
+    updateUrlState({ historyMode: "push" });
+
+    const hasLoadedData = fixtures.length || historicalFixtures.length || tournament.groups.length;
+    if (hasLoadedData) {
+      renderLoadedApp({ syncActiveView: true });
+    } else {
+      applyLanguageToPage();
+    }
+
+    if (isCatchUpOpen) {
+      renderCatchUp();
+      positionCatchUpPopover();
+    }
+  } finally {
+    await waitForLanguagePendingMinimum(pendingStartedAt);
+    if (requestId === languageSwitchRequestId) {
+      setPendingLanguage("");
+    }
   }
 }
 
@@ -20179,7 +20384,10 @@ viewTabs.forEach((tab) => {
 
 languageButtons.forEach((button) => {
   button.addEventListener("click", () => {
-    setLanguage(button.dataset.language);
+    setLanguage(button.dataset.language).catch((error) => {
+      console.error("Unable to switch language", error);
+      setPendingLanguage("");
+    });
   });
 });
 

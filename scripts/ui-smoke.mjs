@@ -3659,6 +3659,63 @@ try {
     (await page.evaluate(() => localStorage.getItem("world-cup-simplified-timezone"))) === "Asia/Tokyo",
     "Changing timezone should persist the selection for account-free reloads."
   );
+  const languageSwitchWidthBefore = await page
+    .locator("#language-switch")
+    .evaluate((element) => Math.round(element.getBoundingClientRect().width));
+  await page.locator('[data-language="zh"]').click();
+  const pendingLanguageCheck = await page.evaluate(() => {
+    const switchShell = document.querySelector("#language-switch");
+    const englishButton = document.querySelector('[data-language="en"]');
+    const chineseButton = document.querySelector('[data-language="zh"]');
+    const spinnerStyle = chineseButton ? window.getComputedStyle(chineseButton, "::after") : null;
+
+    return {
+      chineseBusy: chineseButton?.getAttribute("aria-busy") || "",
+      chineseDisabled: Boolean(chineseButton?.disabled),
+      englishDisabled: Boolean(englishButton?.disabled),
+      pending: Boolean(chineseButton?.classList.contains("is-pending")),
+      spinnerOpacity: Number(spinnerStyle?.opacity || 0),
+      switchBusy: switchShell?.getAttribute("aria-busy") || "",
+      width: switchShell ? Math.round(switchShell.getBoundingClientRect().width) : 0
+    };
+  });
+  assert(
+    pendingLanguageCheck.pending &&
+      pendingLanguageCheck.switchBusy === "true" &&
+      pendingLanguageCheck.chineseBusy === "true" &&
+      pendingLanguageCheck.chineseDisabled &&
+      pendingLanguageCheck.englishDisabled &&
+      pendingLanguageCheck.spinnerOpacity > 0.5 &&
+      Math.abs(pendingLanguageCheck.width - languageSwitchWidthBefore) <= 1,
+    `Switching language should show an in-tab pending spinner without resizing the control. Measured ${JSON.stringify(pendingLanguageCheck)} with starting width ${languageSwitchWidthBefore}.`
+  );
+  await page.waitForFunction(() => !document.querySelector(".language-option.is-pending"));
+  const chineseAppliedCheck = await page.evaluate(() => ({
+    activeLanguage: document.querySelector(".language-option.is-active")?.dataset.language || "",
+    documentLanguage: document.documentElement.lang,
+    savedLanguage: localStorage.getItem("world-cup-simplified-language") || "",
+    switchBusy: document.querySelector("#language-switch")?.getAttribute("aria-busy") || "",
+    width: Math.round(document.querySelector("#language-switch")?.getBoundingClientRect().width || 0)
+  }));
+  assert(
+    chineseAppliedCheck.activeLanguage === "zh" &&
+      chineseAppliedCheck.documentLanguage === "zh-Hans" &&
+      chineseAppliedCheck.savedLanguage === "zh" &&
+      chineseAppliedCheck.switchBusy === "false" &&
+      Math.abs(chineseAppliedCheck.width - languageSwitchWidthBefore) <= 1,
+    `Chinese should apply after the pending language spinner clears without resizing the control. Measured ${JSON.stringify(chineseAppliedCheck)} with starting width ${languageSwitchWidthBefore}.`
+  );
+  await page.locator('[data-language="en"]').click();
+  await page.waitForFunction(() => !document.querySelector(".language-option.is-pending"));
+  assert(
+    (await page.evaluate(
+      () =>
+        document.documentElement.lang === "en" &&
+        document.querySelector(".language-option.is-active")?.dataset.language === "en" &&
+        localStorage.getItem("world-cup-simplified-language") === "en"
+    )) === true,
+    "Switching back to English should clear the pending spinner and restore English before later smoke checks."
+  );
   await page.goto(baseUrl, { waitUntil: "load" });
   await page.waitForSelector(".match-row");
   assert(
@@ -5039,6 +5096,9 @@ try {
   const paraguayGermanyChineseDetail = await latestKnockoutChineseCheck.page.locator("#match-info").innerText();
   await latestKnockoutChineseCheck.page.locator('[data-match-id="match-75-round-of-32-2026-06-29"]').click();
   const moroccoNetherlandsChineseDetail = await latestKnockoutChineseCheck.page.locator("#match-info").innerText();
+  const moroccoNetherlandsChineseResultLinkTexts = await latestKnockoutChineseCheck.page
+    .locator("#match-info .result-story-highlights .player-link")
+    .evaluateAll((links) => links.map((link) => link.textContent.trim()));
   const knockoutChineseDetailText = `${paraguayGermanyChineseDetail} ${moroccoNetherlandsChineseDetail}`.replace(/\s+/g, " ");
   assert(
     /巴拉圭\s*在\s*1-1\s*战平后通过点球击败\s*德国。/.test(paraguayGermanyChineseDetail) &&
@@ -5048,6 +5108,8 @@ try {
       !paraguayGermanyChineseDetail.includes("（巴拉圭点球大战4-3胜出）") &&
       /摩洛哥\s*在\s*1-1\s*战平后通过点球击败\s*荷兰。/.test(moroccoNetherlandsChineseDetail) &&
       moroccoNetherlandsChineseDetail.includes("哈基米-布拉欣右路冲击") &&
+      moroccoNetherlandsChineseResultLinkTexts.includes("哈基米") &&
+      moroccoNetherlandsChineseResultLinkTexts.includes("布拉欣") &&
       moroccoNetherlandsChineseDetail.includes("荷兰的德容-加克波受控组织推进") &&
       moroccoNetherlandsChineseDetail.includes("摩洛哥点球处理更稳，在1-1战平后通过点球大战3-2胜出。") &&
       !moroccoNetherlandsChineseDetail.includes("2026年世界杯 - 32强赛") &&
@@ -6845,11 +6907,38 @@ try {
       document.querySelector("#standings-tournament-tab")?.getAttribute("aria-pressed") === "true" &&
       document.querySelectorAll(".historical-tournament-view .progress-match").length >= 16
   );
+  await page.waitForFunction(
+    () =>
+      document.querySelectorAll(".historical-tournament-view .progress-connectors path.is-final-rail")
+        .length === 1
+  );
   const historicalTournamentCheck = await page.evaluate(() => {
     const finalCard = document.querySelector('.historical-tournament-view .progress-match[data-match-number="64"]');
+    const bronzeCard = document.querySelector('.historical-tournament-view .progress-match[data-match-number="63"]');
+    const getRectSummary = (selector) => {
+      const element = document.querySelector(selector);
+
+      if (!element) {
+        return null;
+      }
+
+      const rect = element.getBoundingClientRect();
+      return {
+        bottom: Math.round(rect.bottom),
+        center: Math.round(rect.top + rect.height / 2),
+        left: Math.round(rect.left),
+        top: Math.round(rect.top)
+      };
+    };
 
     return {
+      bronzeRect: getRectSummary('.historical-tournament-view .progress-match[data-match-number="63"]'),
+      bronzeText: bronzeCard?.textContent.replace(/\s+/g, " ").trim() || "",
+      bronzeTimeText: bronzeCard?.querySelector("time")?.textContent.trim() || "",
+      finalRailConnectorPathCount: document.querySelectorAll(".historical-tournament-view .progress-connectors path.is-final-rail").length,
+      finalRect: getRectSummary('.historical-tournament-view .progress-match[data-match-number="64"]'),
       finalText: finalCard?.textContent.replace(/\s+/g, " ").trim() || "",
+      finalTimeText: finalCard?.querySelector("time")?.textContent.trim() || "",
       hiddenThirdPlaceTab: document.querySelector("#standings-third-place-tab")?.hidden === true,
       resultPills: [...document.querySelectorAll(".historical-tournament-view .knockout-result-pill")].map((pill) =>
         pill.textContent.trim()
@@ -6857,6 +6946,8 @@ try {
       roundHeadings: [...document.querySelectorAll(".historical-tournament-view .progress-round h3")].map((heading) =>
         heading.textContent.trim()
       ),
+      semi61Rect: getRectSummary('.historical-tournament-view .progress-match[data-match-number="61"]'),
+      semi62Rect: getRectSummary('.historical-tournament-view .progress-match[data-match-number="62"]'),
       summary: document.querySelector("#standings-summary")?.textContent.trim(),
       tabLabels: [...document.querySelectorAll(".standings-mode-tab:not([hidden])")].map((tab) =>
         tab.textContent.trim()
@@ -6868,13 +6959,25 @@ try {
     historicalTournamentCheck.tournamentPressed === "true" &&
       historicalTournamentCheck.tabLabels.join("|") === "Tournament|Groups" &&
       historicalTournamentCheck.hiddenThirdPlaceTab &&
-      historicalTournamentCheck.summary ===
-        "Archived knockout bracket and final results from loaded historical matches." &&
+      historicalTournamentCheck.summary === "Knockout bracket uses archived match results." &&
       historicalTournamentCheck.roundHeadings.join("|") ===
         "Round of 16|Quarter-finals|Semi-finals|Final" &&
       historicalTournamentCheck.finalText.includes("Argentina") &&
       historicalTournamentCheck.finalText.includes("France") &&
-      historicalTournamentCheck.resultPills.includes("3-3 (4-2 pens)"),
+      historicalTournamentCheck.finalTimeText === "Dec 18 6:00PM local" &&
+      historicalTournamentCheck.bronzeTimeText === "Dec 17 6:00PM local (3rd place match)" &&
+      !historicalTournamentCheck.bronzeText.includes("Third-place play-off") &&
+      historicalTournamentCheck.resultPills.includes("3-3 (4-2 pens)") &&
+      historicalTournamentCheck.finalRailConnectorPathCount === 1 &&
+      historicalTournamentCheck.finalRect &&
+      historicalTournamentCheck.bronzeRect &&
+      historicalTournamentCheck.semi61Rect &&
+      historicalTournamentCheck.semi62Rect &&
+      Math.abs(historicalTournamentCheck.finalRect.left - historicalTournamentCheck.bronzeRect.left) <= 1 &&
+      historicalTournamentCheck.finalRect.center > historicalTournamentCheck.semi61Rect.center + 24 &&
+      historicalTournamentCheck.bronzeRect.center < historicalTournamentCheck.semi62Rect.center - 24 &&
+      historicalTournamentCheck.bronzeRect.top > historicalTournamentCheck.finalRect.bottom &&
+      historicalTournamentCheck.bronzeRect.top - historicalTournamentCheck.finalRect.bottom <= 180,
     `The 2022 archived standings should open on a completed Tournament bracket with Groups still available. Measured ${JSON.stringify(historicalTournamentCheck)}.`
   );
   await page.locator("#standings-groups-tab").click();
