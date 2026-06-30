@@ -3387,6 +3387,15 @@ try {
     "Historical key information should link era-specific key-player names."
   );
   const historicalScorerLink = page.locator("#match-info .scorer-highlight .player-link", { hasText: "Enner Valencia" }).first();
+  const historicalScorerTriggerMeta = await historicalScorerLink.evaluate((trigger) => ({
+    href: trigger.getAttribute("href") || "",
+    tagName: trigger.tagName
+  }));
+  assert(
+    historicalScorerTriggerMeta.tagName === "SPAN" &&
+      historicalScorerTriggerMeta.href === "",
+    `Historical archive player-card triggers should not navigate to the raw dataset. Measured ${JSON.stringify(historicalScorerTriggerMeta)}.`
+  );
   await historicalScorerLink.hover();
   const historicalScorerCard = page.locator(".player-card:visible").first();
   await historicalScorerCard.waitFor({ state: "visible" });
@@ -3428,6 +3437,45 @@ try {
   assert(
     !historicalGroupDetailText.includes("Source") && !historicalGroupDetailText.includes("Goals"),
     "Historical match details should not show source or goals sections."
+  );
+
+  await page.goto(`${baseUrl}?view=matches&date=2014-07-08&tz=America%2FLos_Angeles`, {
+    waitUntil: "load"
+  });
+  await page.waitForSelector(".match-row");
+  await page.locator('[data-match-id="wc-2014-2014-07-08-semi-finals-brazil-germany"]').click();
+  const historicalBrazilGermanyResult = await page.locator("#match-info").evaluate((root) => {
+    const visibleText = (node) => {
+      if (!node) {
+        return "";
+      }
+
+      const clone = node.cloneNode(true);
+      clone.querySelectorAll(".player-card").forEach((card) => card.remove());
+      return clone.textContent.replace(/\s+/g, " ").trim();
+    };
+    const storyList = root.querySelector(".result-story-highlights");
+    return {
+      scoreText: visibleText(root.querySelector(".result-score-summary")),
+      scorerText: visibleText(root.querySelector(".result-scorer-highlights")),
+      storyHrefs: [...root.querySelectorAll(".result-story-highlights .player-link")].map((trigger) =>
+        trigger.getAttribute("href") || ""
+      ),
+      storyItems: [...root.querySelectorAll(".result-story-highlights li")].map(visibleText),
+      storyListStyle: storyList ? getComputedStyle(storyList).listStyleType : ""
+    };
+  });
+  assert(
+    historicalBrazilGermanyResult.scoreText === "Germany beat Brazil 7-1." &&
+      historicalBrazilGermanyResult.scorerText.includes("11' Thomas Müller") &&
+      historicalBrazilGermanyResult.scorerText.includes("79' André Schürrle") &&
+      historicalBrazilGermanyResult.storyItems.length === 3 &&
+      historicalBrazilGermanyResult.storyListStyle === "disc" &&
+      historicalBrazilGermanyResult.storyItems[0].includes("Thomas Müller put Germany ahead early") &&
+      historicalBrazilGermanyResult.storyItems[1].includes("André Schürrle added the final word") &&
+      historicalBrazilGermanyResult.storyItems[2].includes("Toni Kroos scored twice") &&
+      historicalBrazilGermanyResult.storyHrefs.every((href) => href === ""),
+    `Brazil-Germany archive Result block should match current recap structure without raw source links. Measured ${JSON.stringify(historicalBrazilGermanyResult)}.`
   );
 
   await page.goto(`${baseUrl}?view=matches&date=1970-06-21&tz=America%2FLos_Angeles`, {

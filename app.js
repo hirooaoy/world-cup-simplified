@@ -1,4 +1,4 @@
-const DATA_VERSION = "2026-06-29-live-data-timeout";
+const DATA_VERSION = "2026-06-29-archive-result-consistency";
 const DATA_URLS = {
   adminMessage: `data/admin-message.json?v=${DATA_VERSION}`,
   fixtures: `data/fixtures.json?v=${DATA_VERSION}`,
@@ -12857,7 +12857,7 @@ function getResultHighlights(match) {
 }
 
 function stripResultHighlightMarker(text) {
-  return String(text || "").trim().replace(/^(?:⚽|🔥|🛡️|🧤|🌟|📊)\s*/u, "");
+  return String(text || "").trim().replace(/^(?:⚽|🔥|🛡️|🧤|🌟|📊|🚫|🤝|🎯|🏁|🏆|🥉)\s*/u, "");
 }
 
 function isResultScorelineHighlight(highlight) {
@@ -14377,7 +14377,7 @@ function renderPlayerMention(label, player) {
   const uniformNumber = getPlayerUniformNumber(player, profile);
   const position = getLocalizedPlayerPosition(player, profile);
   const club = currentLanguage === "zh" ? getLocalizedPlayerClubLine(player, profile) : getPlayerClubLine(player, profile);
-  const sourceUrl = profile?.sourceUrl || "";
+  const sourceUrl = isHistoricalPlayerCard(player) ? "" : profile?.sourceUrl || "";
   const note = getLocalizedPlayerNote(player, profile);
   const ageLine = getLocalizedPlayerAgeLine(player, profile);
   const valueLine = renderPlayerValueLine(player, profile);
@@ -16376,17 +16376,30 @@ function renderHistoricalResultBlock(match) {
   const highlights = getHistoricalResultHighlights(match).filter(
     (highlight) => !scoringHighlight || !String(highlight).trim().startsWith("⚽")
   );
+  const outcomeSummary = stripResultHighlightMarker(localizeText(getHistoricalResultOutcomeHighlight(match)));
+  const scoringMarkup = scoringHighlight
+    ? `<ul class="result-highlights result-scorer-highlights">${scoringHighlight}</ul>`
+    : "";
+  const storyMarkup = highlights.length
+    ? `
+      <ul class="result-highlights result-story-highlights">
+        ${highlights
+          .map((highlight) => stripResultHighlightMarker(localizeText(highlight)))
+          .filter(Boolean)
+          .map((highlight) => `<li>${renderPlayerLinkedText(highlight, mentionPlayers)}</li>`)
+          .join("")}
+      </ul>
+    `
+    : "";
 
   return `
     <section class="info-block">
       ${renderResultHeading(match)}
-      <p class="past-empty">${renderPlayerLinkedText(localizeText(getHistoricalResultOutcomeHighlight(match)), mentionPlayers)}</p>
-      <ul class="result-highlights">
-        ${scoringHighlight}
-        ${highlights
-          .map((highlight) => `<li>${renderPlayerLinkedText(localizeText(highlight), mentionPlayers)}</li>`)
-          .join("")}
-      </ul>
+      <p class="past-empty result-score-summary">${renderPlayerLinkedText(outcomeSummary, mentionPlayers)}</p>
+      <div class="result-notes">
+        ${scoringMarkup}
+        ${storyMarkup}
+      </div>
     </section>
   `;
 }

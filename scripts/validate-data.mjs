@@ -11,6 +11,10 @@ const OFFICIAL_HIGHLIGHT_VIDEO_CHANNELS = new Map([
   ["UCwNqHDsnBCKT-olwJwIFyfg", "FOX Sports"],
   ["UCpcTrCXblq78GZrTUTLWeBw", "FIFA"]
 ]);
+const HISTORICAL_YOUTUBE_CACHE_SCHEMA_VERSION = 1;
+const HISTORICAL_YOUTUBE_MATCHER_VERSION = "2026-06-29-official-fifa-highlights-v5";
+const HISTORICAL_YOUTUBE_CHANNEL_ID = "UCpcTrCXblq78GZrTUTLWeBw";
+const HISTORICAL_YOUTUBE_SOURCE_NAME = "FIFA";
 const HIGHLIGHT_VIDEO_REVIEW_STATUSES = new Set(["not-found", "needs-review"]);
 
 async function readJson(fileName) {
@@ -44,6 +48,10 @@ function isNumber(value) {
   return typeof value === "number" && Number.isFinite(value);
 }
 
+function isPlainObject(value) {
+  return Boolean(value && typeof value === "object" && !Array.isArray(value));
+}
+
 function isDayKey(value) {
   return /^\d{4}-\d{2}-\d{2}$/.test(value || "") && !Number.isNaN(new Date(`${value}T12:00:00Z`).getTime());
 }
@@ -75,6 +83,28 @@ function getYouTubeVideoId(url) {
   }
 
   return "";
+}
+
+function normalizeCacheValue(value) {
+  return String(value || "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/&/g, " and ")
+    .replace(/[^a-z0-9]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function historicalYouTubeFingerprint(fixture) {
+  return [
+    fixture.tournamentYear,
+    normalizeCacheValue(fixture.round),
+    normalizeCacheValue(fixture.homeSlot),
+    normalizeCacheValue(fixture.awaySlot),
+    Number.isFinite(fixture.score?.home) ? fixture.score.home : "",
+    Number.isFinite(fixture.score?.away) ? fixture.score.away : ""
+  ].join("|");
 }
 
 function isLocalizedCopy(value) {
@@ -172,6 +202,171 @@ function validateHighlightVideoReview(fixture, owner = `Fixture "${fixture.id}" 
     typeof review.note === "string" && review.note.trim(),
     `${owner}.note must explain why no official highlight video is linked`
   );
+}
+
+function validateHistoricalYouTubeCacheSummary(summary, owner, { accepted = false } = {}) {
+  assert(isPlainObject(summary), `${owner} must be an object`);
+
+  if (!isPlainObject(summary)) {
+    return;
+  }
+
+  const summaryVideoId = summary.videoId || getYouTubeVideoId(summary.url);
+  if (summary.videoId) {
+    assert(/^[A-Za-z0-9_-]{11}$/.test(summary.videoId), `${owner}.videoId must be a valid YouTube video id`);
+  }
+  if (summary.url) {
+    assert(Boolean(getYouTubeVideoId(summary.url)), `${owner}.url must be a YouTube URL with a video id`);
+  }
+  if (summary.durationSeconds !== null && summary.durationSeconds !== undefined) {
+    assert(isNumber(summary.durationSeconds), `${owner}.durationSeconds must be numeric or null`);
+  }
+  if (summary.score !== undefined) {
+    assert(isNumber(summary.score), `${owner}.score must be numeric`);
+  }
+  assert(typeof summary.title === "string", `${owner}.title must be a string`);
+  assert(typeof summary.source === "string" && summary.source.trim(), `${owner}.source must be a non-empty string`);
+  assert(typeof summary.query === "string" && summary.query.trim(), `${owner}.query must be a non-empty string`);
+  assert(Array.isArray(summary.reasons), `${owner}.reasons must be an array`);
+  for (const [reasonIndex, reason] of (summary.reasons || []).entries()) {
+    assert(typeof reason === "string" && reason.trim(), `${owner}.reasons[${reasonIndex}] must be a non-empty string`);
+  }
+
+  if (summary.metadata !== undefined) {
+    assert(isPlainObject(summary.metadata), `${owner}.metadata must be an object`);
+  }
+
+  const metadata = isPlainObject(summary.metadata) ? summary.metadata : {};
+  const metadataVideoId = metadata.videoId || getYouTubeVideoId(metadata.url);
+  if (metadata.videoId) {
+    assert(/^[A-Za-z0-9_-]{11}$/.test(metadata.videoId), `${owner}.metadata.videoId must be a valid YouTube video id`);
+  }
+  if (metadata.url) {
+    assert(Boolean(getYouTubeVideoId(metadata.url)), `${owner}.metadata.url must be a YouTube URL with a video id`);
+  }
+  if (summaryVideoId && metadataVideoId) {
+    assert(summaryVideoId === metadataVideoId, `${owner} video id must match metadata.videoId`);
+  }
+  if (metadata.lengthSeconds !== null && metadata.lengthSeconds !== undefined) {
+    assert(isNumber(metadata.lengthSeconds), `${owner}.metadata.lengthSeconds must be numeric or null`);
+  }
+  if (metadata.publishedAt) {
+    assert(isValidDateTime(metadata.publishedAt), `${owner}.metadata.publishedAt must be a valid timestamp`);
+  }
+
+  if (accepted) {
+    assert(Boolean(summaryVideoId || metadataVideoId), `${owner} must include a selected YouTube video id`);
+    assert(metadata.channelId === HISTORICAL_YOUTUBE_CHANNEL_ID, `${owner}.metadata.channelId must be official FIFA`);
+    assert(metadata.sourceName === HISTORICAL_YOUTUBE_SOURCE_NAME, `${owner}.metadata.sourceName must be FIFA`);
+    assert(isValidDateTime(metadata.publishedAt), `${owner}.metadata.publishedAt must be a valid timestamp`);
+  }
+}
+
+function validateHistoricalYouTubeCache(cache, fixturesById, dispositionFixtureIds) {
+  const owner = "cache/youtube-history.json";
+  assert(isPlainObject(cache), `${owner} must be an object`);
+
+  if (!isPlainObject(cache)) {
+    return;
+  }
+
+  assert(cache.schemaVersion === HISTORICAL_YOUTUBE_CACHE_SCHEMA_VERSION, `${owner}.schemaVersion is unsupported`);
+  assert(cache.matcherVersion === HISTORICAL_YOUTUBE_MATCHER_VERSION, `${owner}.matcherVersion is unsupported`);
+  assert(isValidDateTime(cache.updatedAt), `${owner}.updatedAt must be a valid timestamp`);
+  assert(isPlainObject(cache.searches), `${owner}.searches must be an object`);
+  assert(isPlainObject(cache.videos), `${owner}.videos must be an object`);
+  assert(isPlainObject(cache.fixtures), `${owner}.fixtures must be an object`);
+
+  const searches = isPlainObject(cache.searches) ? cache.searches : {};
+  for (const [key, entry] of Object.entries(searches)) {
+    const entryOwner = `${owner}.searches["${key}"]`;
+    assert(isPlainObject(entry), `${entryOwner} must be an object`);
+    if (!isPlainObject(entry)) continue;
+    assert(typeof entry.source === "string" && entry.source.trim(), `${entryOwner}.source must be a non-empty string`);
+    assert(typeof entry.query === "string" && entry.query.trim(), `${entryOwner}.query must be a non-empty string`);
+    assert(isValidDateTime(entry.checkedAt), `${entryOwner}.checkedAt must be a valid timestamp`);
+    assert(isNumber(entry.candidateCount), `${entryOwner}.candidateCount must be numeric`);
+    assert(Array.isArray(entry.candidates), `${entryOwner}.candidates must be an array`);
+    assert(
+      !Array.isArray(entry.candidates) || entry.candidateCount === entry.candidates.length,
+      `${entryOwner}.candidateCount must match candidates.length`
+    );
+    for (const [candidateIndex, candidate] of (entry.candidates || []).entries()) {
+      const candidateOwner = `${entryOwner}.candidates[${candidateIndex}]`;
+      assert(isPlainObject(candidate), `${candidateOwner} must be an object`);
+      if (!isPlainObject(candidate)) continue;
+      assert(/^[A-Za-z0-9_-]{11}$/.test(candidate.videoId || ""), `${candidateOwner}.videoId must be a valid YouTube video id`);
+      assert(Boolean(getYouTubeVideoId(candidate.url)), `${candidateOwner}.url must be a YouTube URL with a video id`);
+      assert(typeof candidate.title === "string", `${candidateOwner}.title must be a string`);
+      assert(typeof candidate.source === "string" && candidate.source.trim(), `${candidateOwner}.source must be a non-empty string`);
+      assert(typeof candidate.query === "string" && candidate.query.trim(), `${candidateOwner}.query must be a non-empty string`);
+    }
+  }
+
+  const videos = isPlainObject(cache.videos) ? cache.videos : {};
+  for (const [videoId, entry] of Object.entries(videos)) {
+    const entryOwner = `${owner}.videos["${videoId}"]`;
+    assert(/^[A-Za-z0-9_-]{11}$/.test(videoId), `${entryOwner} key must be a valid YouTube video id`);
+    assert(isPlainObject(entry), `${entryOwner} must be an object`);
+    if (!isPlainObject(entry)) continue;
+    assert(isValidDateTime(entry.checkedAt), `${entryOwner}.checkedAt must be a valid timestamp`);
+    assert(isPlainObject(entry.metadata), `${entryOwner}.metadata must be an object`);
+    if (!isPlainObject(entry.metadata)) continue;
+    assert(entry.metadata.videoId === videoId, `${entryOwner}.metadata.videoId must match the cache key`);
+    assert(Boolean(getYouTubeVideoId(entry.metadata.url)), `${entryOwner}.metadata.url must be a YouTube URL with a video id`);
+    assert(typeof entry.metadata.title === "string", `${entryOwner}.metadata.title must be a string`);
+    if (entry.metadata.channelId) {
+      assert(typeof entry.metadata.channelId === "string", `${entryOwner}.metadata.channelId must be a string`);
+    }
+    if (entry.metadata.sourceName) {
+      assert(typeof entry.metadata.sourceName === "string", `${entryOwner}.metadata.sourceName must be a string`);
+    }
+    if (entry.metadata.lengthSeconds !== null && entry.metadata.lengthSeconds !== undefined) {
+      assert(isNumber(entry.metadata.lengthSeconds), `${entryOwner}.metadata.lengthSeconds must be numeric or null`);
+    }
+    if (entry.metadata.publishedAt) {
+      assert(isValidDateTime(entry.metadata.publishedAt), `${entryOwner}.metadata.publishedAt must be a valid timestamp`);
+    }
+  }
+
+  const fixtureCache = isPlainObject(cache.fixtures) ? cache.fixtures : {};
+  for (const fixtureId of dispositionFixtureIds) {
+    assert(fixtureCache[fixtureId], `${owner}.fixtures must include cached disposition for "${fixtureId}"`);
+  }
+
+  for (const [fixtureId, entry] of Object.entries(fixtureCache)) {
+    const entryOwner = `${owner}.fixtures["${fixtureId}"]`;
+    const fixture = fixturesById.get(fixtureId);
+    assert(fixture, `${entryOwner} references an unknown historical fixture`);
+    assert(isPlainObject(entry), `${entryOwner} must be an object`);
+    if (!isPlainObject(entry)) continue;
+    assert(entry.matcherVersion === HISTORICAL_YOUTUBE_MATCHER_VERSION, `${entryOwner}.matcherVersion is unsupported`);
+    assert(
+      !fixture || entry.fingerprint === historicalYouTubeFingerprint(fixture),
+      `${entryOwner}.fingerprint is stale for the historical fixture`
+    );
+    assert(entry.platform === "youtube", `${entryOwner}.platform must be "youtube"`);
+    assert(entry.sourceName === HISTORICAL_YOUTUBE_SOURCE_NAME, `${entryOwner}.sourceName must be FIFA`);
+    assert(entry.channelId === HISTORICAL_YOUTUBE_CHANNEL_ID, `${entryOwner}.channelId must be official FIFA`);
+    assert(isValidDateTime(entry.checkedAt), `${entryOwner}.checkedAt must be a valid timestamp`);
+    assert(["linked", "not-found"].includes(entry.status), `${entryOwner}.status must be linked or not-found`);
+    if (fixture) {
+      assert(entry.tournamentYear === fixture.tournamentYear, `${entryOwner}.tournamentYear must match the fixture`);
+      assert(entry.homeSlot === fixture.homeSlot, `${entryOwner}.homeSlot must match the fixture`);
+      assert(entry.awaySlot === fixture.awaySlot, `${entryOwner}.awaySlot must match the fixture`);
+    }
+
+    if (entry.status === "linked") {
+      validateHistoricalYouTubeCacheSummary(entry.selected, `${entryOwner}.selected`, { accepted: true });
+    } else {
+      assert(entry.selected === null || entry.selected === undefined, `${entryOwner}.selected must be empty for not-found`);
+    }
+
+    assert(Array.isArray(entry.rejected), `${entryOwner}.rejected must be an array`);
+    for (const [rejectedIndex, rejected] of (entry.rejected || []).entries()) {
+      validateHistoricalYouTubeCacheSummary(rejected, `${entryOwner}.rejected[${rejectedIndex}]`);
+    }
+  }
 }
 
 function wordCount(value) {
@@ -432,6 +627,7 @@ const [
   matchupResearchData,
   playerAvailabilityData,
   playerProfilesData,
+  youtubeHistoryCacheData,
   standingsData,
   teamsData,
   tournamentData
@@ -443,6 +639,7 @@ const [
   readOptionalJson("matchup-research-notes.json"),
   readOptionalJson("player-availability.json"),
   readOptionalJson("player-profiles.json"),
+  readOptionalJson("cache/youtube-history.json"),
   readJson("standings.json"),
   readJson("teams.json"),
   readJson("tournament.json")
@@ -1367,10 +1564,15 @@ for (const tournament of historyData.tournaments || []) {
 }
 
 const historicalFixtureIds = new Set();
+const historicalFixturesById = new Map();
+const historicalYouTubeDispositionFixtureIds = new Set();
 for (const fixture of historyData.fixtures || []) {
   assert(fixture.id, "Each historical fixture must have an id");
   assert(!historicalFixtureIds.has(fixture.id), `Duplicate historical fixture id "${fixture.id}"`);
   historicalFixtureIds.add(fixture.id);
+  if (fixture.id) {
+    historicalFixturesById.set(fixture.id, fixture);
+  }
   assert(fixture.isHistorical === true, `Historical fixture "${fixture.id}" must be marked isHistorical`);
   assert(sourceIds.has(fixture.sourceId), `Historical fixture "${fixture.id}" references unknown source`);
   assert(fixture.sourcePath, `Historical fixture "${fixture.id}" must include sourcePath`);
@@ -1425,6 +1627,9 @@ for (const fixture of historyData.fixtures || []) {
   }
   validateHighlightVideo(fixture, `Historical fixture "${fixture.id}" highlightVideo`);
   validateHighlightVideoReview(fixture, `Historical fixture "${fixture.id}" highlightVideoReview`);
+  if (fixture.highlightVideo || fixture.highlightVideoReview) {
+    historicalYouTubeDispositionFixtureIds.add(fixture.id);
+  }
   assert(Array.isArray(fixture.goalsHome), `Historical fixture "${fixture.id}" goalsHome must be an array`);
   assert(Array.isArray(fixture.goalsAway), `Historical fixture "${fixture.id}" goalsAway must be an array`);
   for (const [field, goals] of [
@@ -1507,6 +1712,10 @@ for (const fixture of historyData.fixtures || []) {
       );
     }
   }
+}
+
+if (youtubeHistoryCacheData) {
+  validateHistoricalYouTubeCache(youtubeHistoryCacheData, historicalFixturesById, historicalYouTubeDispositionFixtureIds);
 }
 
 for (const [profileName, profile] of historicalPlayerProfiles) {

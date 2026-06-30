@@ -5,7 +5,10 @@ import { fileURLToPath } from "node:url";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const historyPath = path.join(root, "data", "history.json");
+const youtubeCachePath = path.join(root, "data", "cache", "youtube-history.json");
 const defaultReportDir = path.join("/tmp", "worldcup-historical-youtube");
+const CACHE_SCHEMA_VERSION = 1;
+const MATCHER_VERSION = "2026-06-29-official-fifa-highlights-v5";
 const FIFA_CHANNEL_ID = "UCpcTrCXblq78GZrTUTLWeBw";
 const FIFA_SOURCE_NAME = "FIFA";
 const TIME_ZONE = "America/Los_Angeles";
@@ -81,6 +84,8 @@ const REJECT_TITLE_PATTERNS = [
 const args = parseArgs(process.argv.slice(2));
 const searchCache = new Map();
 const watchCache = new Map();
+let persistentCache = createEmptyPersistentCache();
+let persistentCacheDirty = false;
 let duplicateFixturePairKeys = new Set();
 
 function parseArgs(rawArgs) {
@@ -90,6 +95,8 @@ function parseArgs(rawArgs) {
     refreshExisting: false,
     verifyExisting: false,
     generalFallback: false,
+    refreshCache: false,
+    noCacheWrite: false,
     verbose: false,
     concurrency: 1,
     limit: null,
@@ -103,11 +110,14 @@ function parseArgs(rawArgs) {
     const arg = rawArgs[index];
     const next = () => rawArgs[++index];
 
-    if (arg === "--dry-run") parsed.dryRun = true;
+    if (arg === "--") continue;
+    else if (arg === "--dry-run") parsed.dryRun = true;
     else if (arg === "--include-reviewed") parsed.includeReviewed = true;
     else if (arg === "--refresh-existing") parsed.refreshExisting = true;
     else if (arg === "--verify-existing") parsed.verifyExisting = true;
     else if (arg === "--general-fallback") parsed.generalFallback = true;
+    else if (arg === "--refresh-cache") parsed.refreshCache = true;
+    else if (arg === "--no-cache-write") parsed.noCacheWrite = true;
     else if (arg === "--verbose") parsed.verbose = true;
     else if (arg === "--concurrency") parsed.concurrency = Number(next());
     else if (arg.startsWith("--concurrency=")) parsed.concurrency = Number(arg.slice("--concurrency=".length));
@@ -146,6 +156,66 @@ function parseArgs(rawArgs) {
   return parsed;
 }
 
+function createEmptyPersistentCache() {
+  return {
+    schemaVersion: CACHE_SCHEMA_VERSION,
+    matcherVersion: MATCHER_VERSION,
+    updatedAt: "",
+    searches: {},
+    videos: {},
+    fixtures: {}
+  };
+}
+
+function normalizePersistentCache(cache) {
+  const normalizedCache = createEmptyPersistentCache();
+
+  if (!cache || typeof cache !== "object" || Array.isArray(cache)) {
+    return normalizedCache;
+  }
+
+  normalizedCache.schemaVersion = cache.schemaVersion || CACHE_SCHEMA_VERSION;
+  normalizedCache.matcherVersion = cache.matcherVersion || MATCHER_VERSION;
+  normalizedCache.updatedAt = typeof cache.updatedAt === "string" ? cache.updatedAt : "";
+  normalizedCache.searches = cache.searches && typeof cache.searches === "object" && !Array.isArray(cache.searches) ? cache.searches : {};
+  normalizedCache.videos = cache.videos && typeof cache.videos === "object" && !Array.isArray(cache.videos) ? cache.videos : {};
+  normalizedCache.fixtures =
+    cache.fixtures && typeof cache.fixtures === "object" && !Array.isArray(cache.fixtures) ? cache.fixtures : {};
+
+  return normalizedCache;
+}
+
+async function readPersistentCache() {
+  try {
+    const cache = normalizePersistentCache(JSON.parse(await readFile(youtubeCachePath, "utf8")));
+    if (cache.schemaVersion !== CACHE_SCHEMA_VERSION || cache.matcherVersion !== MATCHER_VERSION) {
+      return createEmptyPersistentCache();
+    }
+
+    return cache;
+  } catch (error) {
+    if (error?.code === "ENOENT") {
+      return createEmptyPersistentCache();
+    }
+
+    throw error;
+  }
+}
+
+async function writePersistentCache() {
+  if (!persistentCacheDirty || args.noCacheWrite) {
+    return false;
+  }
+
+  persistentCache.schemaVersion = CACHE_SCHEMA_VERSION;
+  persistentCache.matcherVersion = MATCHER_VERSION;
+  persistentCache.updatedAt = new Date().toISOString();
+  await mkdir(path.dirname(youtubeCachePath), { recursive: true });
+  await writeFile(youtubeCachePath, `${JSON.stringify(persistentCache, null, 2)}\n`);
+  persistentCacheDirty = false;
+  return true;
+}
+
 function sleep(ms) {
   return new Promise((resolve) => {
     setTimeout(resolve, ms);
@@ -161,6 +231,31 @@ function normalize(value) {
     .replace(/[^a-z0-9]+/g, " ")
     .replace(/\s+/g, " ")
     .trim();
+}
+
+function getYouTubeVideoId(url) {
+  if (typeof url !== "string" || !url.trim()) {
+    return "";
+  }
+
+  try {
+    const parsedUrl = new URL(url);
+    const host = parsedUrl.hostname.toLowerCase().replace(/^www\./, "");
+
+    if (host === "youtube.com" || host === "m.youtube.com") {
+      const videoId = parsedUrl.searchParams.get("v") || "";
+      return /^[A-Za-z0-9_-]{11}$/.test(videoId) ? videoId : "";
+    }
+
+    if (host === "youtu.be") {
+      const videoId = parsedUrl.pathname.split("/").filter(Boolean)[0] || "";
+      return /^[A-Za-z0-9_-]{11}$/.test(videoId) ? videoId : "";
+    }
+  } catch {
+    return "";
+  }
+
+  return "";
 }
 
 function unique(values) {
@@ -394,6 +489,17 @@ function pairKey(fixture) {
   return [normalize(fixture.homeSlot), normalize(fixture.awaySlot)].sort().join("|");
 }
 
+function fixtureFingerprint(fixture) {
+  return [
+    fixture.tournamentYear,
+    normalize(fixture.round),
+    normalize(fixture.homeSlot),
+    normalize(fixture.awaySlot),
+    Number.isFinite(fixture.score?.home) ? fixture.score.home : "",
+    Number.isFinite(fixture.score?.away) ? fixture.score.away : ""
+  ].join("|");
+}
+
 function scorelinesInTitle(title) {
   return [...String(title || "").matchAll(/(?:^|[^\d])(\d{1,2})\s*[-:]\s*(\d{1,2})(?!\d)/g)].map((match) => [
     Number(match[1]),
@@ -543,6 +649,12 @@ async function searchYouTube(query, source) {
     return searchCache.get(cacheKey);
   }
 
+  const persistedSearch = persistentCache.searches[cacheKey];
+  if (!args.refreshCache && persistedSearch?.candidates && Array.isArray(persistedSearch.candidates)) {
+    searchCache.set(cacheKey, persistedSearch.candidates);
+    return persistedSearch.candidates;
+  }
+
   const url =
     source === "channel"
       ? `https://www.youtube.com/@fifa/search?query=${encodeURIComponent(query)}`
@@ -556,6 +668,14 @@ async function searchYouTube(query, source) {
     .map((renderer) => rendererToCandidate(renderer, source, query))
     .filter(Boolean);
   searchCache.set(cacheKey, candidates);
+  persistentCache.searches[cacheKey] = {
+    source,
+    query,
+    checkedAt,
+    candidateCount: candidates.length,
+    candidates
+  };
+  persistentCacheDirty = true;
   return candidates;
 }
 
@@ -575,6 +695,12 @@ function looksPossibleFromSearch(fixture, candidate) {
 async function getWatchMetadata(videoId) {
   if (watchCache.has(videoId)) {
     return watchCache.get(videoId);
+  }
+
+  const persistedVideo = persistentCache.videos[videoId];
+  if (!args.refreshCache && persistedVideo?.metadata && typeof persistedVideo.metadata === "object") {
+    watchCache.set(videoId, persistedVideo.metadata);
+    return persistedVideo.metadata;
   }
 
   await sleep(WATCH_DELAY_MS);
@@ -609,6 +735,11 @@ async function getWatchMetadata(videoId) {
     url: `https://www.youtube.com/watch?v=${videoId}`
   };
   watchCache.set(videoId, metadata);
+  persistentCache.videos[videoId] = {
+    checkedAt,
+    metadata
+  };
+  persistentCacheDirty = true;
   return metadata;
 }
 
@@ -646,7 +777,125 @@ function selectedAccepted(evaluated) {
   );
 }
 
+function entryFromCachedSummary(summary, accepted = false) {
+  const videoId = summary?.videoId || getYouTubeVideoId(summary?.url);
+  const metadata = {
+    ...(summary?.metadata || {}),
+    videoId,
+    title: summary?.metadata?.title || summary?.title || "",
+    url: summary?.metadata?.url || summary?.url || (videoId ? `https://www.youtube.com/watch?v=${videoId}` : "")
+  };
+
+  return {
+    candidate: {
+      videoId,
+      source: summary?.source || "cache",
+      query: summary?.query || "cache",
+      title: summary?.title || metadata.title || "",
+      description: "",
+      durationText: "",
+      publishedText: "",
+      url: metadata.url
+    },
+    metadata,
+    evaluation: {
+      accepted,
+      score: Number(summary?.score) || 0,
+      reasons: Array.isArray(summary?.reasons) ? summary.reasons : [],
+      title: summary?.title || metadata.title || "",
+      homeMatch: summary?.homeMatch || "",
+      awayMatch: summary?.awayMatch || "",
+      durationSeconds: Number.isFinite(summary?.durationSeconds)
+        ? summary.durationSeconds
+        : Number.isFinite(metadata.lengthSeconds)
+          ? metadata.lengthSeconds
+          : null
+    }
+  };
+}
+
+function getCachedFixtureResult(fixture) {
+  if (args.refreshCache || args.refreshExisting) {
+    return null;
+  }
+
+  const cached = persistentCache.fixtures[fixture.id];
+  if (
+    !cached ||
+    cached.matcherVersion !== MATCHER_VERSION ||
+    cached.fingerprint !== fixtureFingerprint(fixture) ||
+    cached.platform !== "youtube" ||
+    cached.sourceName !== FIFA_SOURCE_NAME ||
+    cached.channelId !== FIFA_CHANNEL_ID
+  ) {
+    return null;
+  }
+
+  const rejected = Array.isArray(cached.rejected) ? cached.rejected.map((entry) => entryFromCachedSummary(entry, false)) : [];
+
+  if (cached.status === "linked" && cached.selected) {
+    const selected = entryFromCachedSummary(cached.selected, true);
+    return {
+      selected,
+      evaluated: [selected, ...rejected],
+      fromCache: true
+    };
+  }
+
+  if (cached.status === "not-found") {
+    return {
+      selected: null,
+      evaluated: rejected,
+      fromCache: true
+    };
+  }
+
+  return null;
+}
+
+function summarizeCacheEntry(entry) {
+  const summary = summarizeEntry(entry);
+  return {
+    ...summary,
+    homeMatch: entry.evaluation.homeMatch || "",
+    awayMatch: entry.evaluation.awayMatch || "",
+    metadata: {
+      videoId: entry.metadata.videoId || entry.candidate.videoId,
+      title: entry.metadata.title || entry.evaluation.title || entry.candidate.title || "",
+      url: entry.metadata.url || entry.candidate.url || "",
+      channelId: entry.metadata.channelId || "",
+      sourceName: entry.metadata.sourceName || "",
+      lengthSeconds: Number.isFinite(entry.metadata.lengthSeconds) ? entry.metadata.lengthSeconds : null,
+      publishedAt: entry.metadata.publishedAt || ""
+    }
+  };
+}
+
+function cacheFixtureDisposition(fixture, status, selected, evaluated) {
+  persistentCache.fixtures[fixture.id] = {
+    matcherVersion: MATCHER_VERSION,
+    fingerprint: fixtureFingerprint(fixture),
+    platform: "youtube",
+    sourceName: FIFA_SOURCE_NAME,
+    channelId: FIFA_CHANNEL_ID,
+    checkedAt,
+    status,
+    tournamentYear: fixture.tournamentYear,
+    round: fixture.round || "",
+    homeSlot: fixture.homeSlot || "",
+    awaySlot: fixture.awaySlot || "",
+    selected: selected ? summarizeCacheEntry(selected) : null,
+    rejected: evaluated.filter((entry) => !entry.evaluation.accepted).map(summarizeCacheEntry)
+  };
+  persistentCacheDirty = true;
+}
+
 async function findHighlightVideo(fixture) {
+  const cachedResult = getCachedFixtureResult(fixture);
+  if (cachedResult) {
+    return cachedResult;
+  }
+
   const queries = buildQueries(fixture);
   const sources = args.generalFallback ? ["channel", "youtube"] : ["channel"];
   const seenVideoIds = new Set();
@@ -771,6 +1020,7 @@ function dataSummary(history) {
   return summary;
 }
 
+persistentCache = await readPersistentCache();
 const history = JSON.parse(await readFile(historyPath, "utf8"));
 const pairCounts = new Map();
 for (const fixture of history.fixtures || []) {
@@ -789,6 +1039,8 @@ const report = {
     refreshExisting: args.refreshExisting,
     verifyExisting: args.verifyExisting,
     generalFallback: args.generalFallback,
+    refreshCache: args.refreshCache,
+    noCacheWrite: args.noCacheWrite,
     concurrency: args.concurrency,
     limit: args.limit,
     fromYear: args.fromYear,
@@ -825,13 +1077,17 @@ async function processFixture(fixture, index) {
         fixture.highlightVideo = makeHighlightVideo(accepted.metadata, checkedAt);
         delete fixture.highlightVideoReview;
       }
+      cacheFixtureDisposition(fixture, "linked", accepted, result.evaluated);
       added += 1;
-      console.log(`  [${index + 1}/${fixtures.length}] linked ${accepted.metadata.url} (${accepted.evaluation.title})`);
+      console.log(
+        `  [${index + 1}/${fixtures.length}] linked${result.fromCache ? " from cache" : ""} ${accepted.metadata.url} (${accepted.evaluation.title})`
+      );
       report.processed.push({
         order: index,
         id: fixture.id,
         label,
         status: "linked",
+        fromCache: Boolean(result.fromCache),
         selected: summarizeEntry(accepted),
         rejected: bestRejected
       });
@@ -840,13 +1096,17 @@ async function processFixture(fixture, index) {
         delete fixture.highlightVideo;
         fixture.highlightVideoReview = makeReview(checkedAt);
       }
+      cacheFixtureDisposition(fixture, "not-found", null, result.evaluated);
       reviewed += 1;
-      console.log(`  [${index + 1}/${fixtures.length}] no official FIFA highlight-style YouTube video found`);
+      console.log(
+        `  [${index + 1}/${fixtures.length}] no official FIFA highlight-style YouTube video found${result.fromCache ? " (cached)" : ""}`
+      );
       report.processed.push({
         order: index,
         id: fixture.id,
         label,
         status: "not-found",
+        fromCache: Boolean(result.fromCache),
         rejected: bestRejected
       });
     }
@@ -893,12 +1153,26 @@ report.added = added;
 report.reviewed = reviewed;
 report.searches = searchCache.size;
 report.watchPages = watchCache.size;
+report.cache = {
+  path: path.relative(root, youtubeCachePath),
+  searchEntries: Object.keys(persistentCache.searches).length,
+  videoEntries: Object.keys(persistentCache.videos).length,
+  fixtureEntries: Object.keys(persistentCache.fixtures).length,
+  dirty: persistentCacheDirty,
+  writeSkipped: args.noCacheWrite
+};
 if (fatalError) {
   report.fatalError = {
     message: fatalError.message,
     status: fatalError.status || null
   };
 }
+const cacheWritten = await writePersistentCache();
+report.cache.written = cacheWritten;
+report.cache.searchEntries = Object.keys(persistentCache.searches).length;
+report.cache.videoEntries = Object.keys(persistentCache.videos).length;
+report.cache.fixtureEntries = Object.keys(persistentCache.fixtures).length;
+report.cache.dirty = persistentCacheDirty;
 const reportPath = await writeReport(report, checkedAt);
 
 if (fatalError) {
