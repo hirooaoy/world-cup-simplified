@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-30T18:17:56.725Z",
+  "updatedAt": "2026-06-30T19:59:19.023Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -10548,7 +10548,7 @@
       "homeSlot": "Group E runner-up",
       "awaySlot": "Group I runner-up",
       "venue": "Dallas Stadium",
-      "status": "LIVE",
+      "status": "FT",
       "h2h": {
         "status": "verified-empty",
         "sourceId": "national-football-teams-h2h-sync-2026-06-30",
@@ -10611,8 +10611,37 @@
         "away": 36
       },
       "score": {
-        "home": 0,
-        "away": 1
+        "home": 1,
+        "away": 2
+      },
+      "goalsHome": [
+        {
+          "minute": 74,
+          "name": "Amad Diallo"
+        }
+      ],
+      "goalsAway": [
+        {
+          "minute": 39,
+          "name": "Antonio Nusa"
+        },
+        {
+          "minute": 86,
+          "name": "Erling Haaland"
+        }
+      ],
+      "resultStoryBullets": [
+        "Antonio Nusa broke through for Norway, shifting the match toward Norway.",
+        "Amad Diallo's 74' equalizer brought Côte d'Ivoire level.",
+        "Erling Haaland's 86' winner settled a tight match for Norway."
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=rPebJKCPjK0",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-06-30T12:59:16-07:00",
+        "checkedAt": "2026-06-30T12:59:16-07:00"
       }
     },
     {
@@ -12030,9 +12059,52 @@
       "venue": "New York New Jersey Stadium",
       "status": "SCHEDULED",
       "h2h": {
-        "status": "not-loaded",
-        "summary": "Teams are not known yet. Past match research will load after the matchup is set.",
-        "results": null
+        "status": "loaded",
+        "sourceId": "national-football-teams-h2h-sync-2026-06-30",
+        "summary": "Before this fixture, Norway had the edge in the verified senior series: 0 Brazil wins, 2 draws, 2 Norway wins, 13 total goals.",
+        "results": [
+          {
+            "date": "2006-08-16",
+            "competition": "Friendly",
+            "homeTeamId": "NOR",
+            "awayTeamId": "BRA",
+            "homeScore": 1,
+            "awayScore": 1,
+            "venue": "Ullevaal Stadion",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/13892/Norway_Brazil.html"
+          },
+          {
+            "date": "1998-06-23",
+            "competition": "World Cup 1998 - Group A",
+            "homeTeamId": "BRA",
+            "awayTeamId": "NOR",
+            "homeScore": 1,
+            "awayScore": 2,
+            "venue": "Stade Vélodrome",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/11584/Brazil_Norway.html"
+          },
+          {
+            "date": "1997-05-30",
+            "competition": "Friendly",
+            "homeTeamId": "NOR",
+            "awayTeamId": "BRA",
+            "homeScore": 4,
+            "awayScore": 2,
+            "venue": "Ullevaal Stadion",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/25617/Norway_Brazil.html"
+          },
+          {
+            "date": "1988-07-28",
+            "competition": "Friendly",
+            "homeTeamId": "NOR",
+            "awayTeamId": "BRA",
+            "homeScore": 1,
+            "awayScore": 1,
+            "venue": "Ullevaal Stadion",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/33092/Norway_Brazil.html"
+          }
+        ],
+        "sourceUrl": "https://www.national-football-teams.com/encounter/teams/28/138/Brazil_vs_Norway.html"
       },
       "providerIds": {
         "fifa": {
@@ -12040,7 +12112,46 @@
           "matchNumber": 91
         }
       },
-      "homeTeamId": "BRA"
+      "homeTeamId": "BRA",
+      "awayTeamId": "NOR",
+      "keyPlayers": {
+        "sourceId": "key-player-baseline-2026-06-22",
+        "method": "team-watchlist-baseline",
+        "basis": "Team-level key-player watchlist; replace with API/squad-sourced fixture notes when available",
+        "home": [
+          {
+            "name": "Neymar",
+            "note": "Brazil's imagination hub when they need disguise, combination play, and fouls drawn around the box."
+          },
+          {
+            "name": "Vinicius Junior",
+            "note": "The devastating left-sided runner, capable of breaking a match with one isolation or carry in behind."
+          },
+          {
+            "name": "Casemiro",
+            "note": "The midfield security blanket, important for stopping counters before Brazil's fullbacks are exposed."
+          }
+        ],
+        "away": [
+          {
+            "name": "Erling Haaland",
+            "note": "Norway's headline finisher, a box force who changes how every opponent defends crosses and depth."
+          },
+          {
+            "name": "Martin Odegaard",
+            "note": "The left-footed creator and rhythm setter, responsible for turning Norway's possession into service for Haaland."
+          },
+          {
+            "name": "Antonio Nusa",
+            "note": "The young wide spark, able to beat defenders and give Norway a different speed outside the main stars."
+          }
+        ]
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-22",
+        "home": "Brazil are a top-tier attacking side whose best moments mix individual invention with sudden acceleration, led by Neymar, Vinicius Junior, and Casemiro. Against Norway, their Neymar-Vinicius isolation speed has to beat Norway's Odegaard-to-Haaland supply. They want to isolate Vinicius Junior quickly and let Neymar combine around the fouls and gaps that creates. The risk is Norway can feed Haaland through Odegaard's service and Nusa's change of speed.",
+        "away": "Norway are a direct star-powered side whose attacking question is how quickly they can serve the finisher, led by Erling Haaland, Martin Odegaard, and Antonio Nusa. Against Brazil, their Odegaard-to-Haaland supply has to beat Brazil's Neymar-Vinicius isolation speed. They want to get Odegaard facing forward and deliver early enough for Haaland to attack the box. The risk is Brazil can break a shape through Neymar combinations and Vinicius Junior's speed."
+      }
     },
     {
       "id": "match-92-round-of-16-2026-07-05",

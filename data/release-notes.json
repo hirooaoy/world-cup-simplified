@@ -1,6 +1,17 @@
 {
-  "updatedAt": "2026-06-30T11:56:50-07:00",
+  "updatedAt": "2026-06-30T12:59:31-07:00",
   "releases": [
+    {
+      "date": "2026-06-30",
+      "title": "Norway advance update",
+      "titleZh": "挪威晋级更新",
+      "highlights": [
+        "Norway's 2-1 win over Côte d'Ivoire now updates the score, goal timeline, official highlight link, and Brazil-Norway H2H context."
+      ],
+      "highlightsZh": [
+        "挪威 2-1 战胜科特迪瓦后，现在已更新比分、进球时间线、官方集锦链接和巴西对挪威的交锋背景。"
+      ]
+    },
     {
       "date": "2026-06-30",
       "title": "Standings reliability",

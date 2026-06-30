@@ -47,6 +47,9 @@ jobs:
       - name: Refresh matchup key information
         run: pnpm matchups
 
+      - name: Sync H2H results
+        run: pnpm sync:h2h
+
       - name: Sync FIFA goal events
         run: pnpm sync:fifa:goals
 
