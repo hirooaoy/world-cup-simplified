@@ -1,6 +1,17 @@
 {
-  "updatedAt": "2026-06-30T11:04:26-07:00",
+  "updatedAt": "2026-06-30T11:56:50-07:00",
   "releases": [
+    {
+      "date": "2026-06-30",
+      "title": "Standings reliability",
+      "titleZh": "积分榜可靠性",
+      "highlights": [
+        "Standings badge checks now use stable team identity behind the scenes, keeping the release pipeline reliable across language changes."
+      ],
+      "highlightsZh": [
+        "积分榜标记检查现在会在后台使用稳定的球队身份，让发布流水线在语言切换后也保持可靠。"
+      ]
+    },
     {
       "date": "2026-06-30",
       "title": "Language switch feedback",
