@@ -109,6 +109,8 @@
     "fifa-goal-events-sync-2026-06-28",
     "fifa-official-results-sync-2026-06-28",
     "fifa-official-results-sync-2026-06-29",
+    "fifa-goal-events-sync-2026-06-29",
+    "fifa-goal-events-sync-2026-06-30",
     "fifa-official-results-sync-2026-06-30"
   ],
   "coverage": {
@@ -249,7 +251,20 @@
           "matchNumber": 1
         }
       },
-      "matchNumber": 1
+      "matchNumber": 1,
+      "resultStoryBullets": [
+        "Julian Quinones put Mexico ahead early, making South Africa chase the match.",
+        "Raul Jimenez added the final word as Mexico pulled away.",
+        "Mexico kept South Africa out and closed the match with a clean sheet."
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=r1Afsds3ZD0",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-06-11T14:28:16-07:00",
+        "checkedAt": "2026-06-29T15:58:29-07:00"
+      }
     },
     {
       "id": "south-korea-czechia-2026-06-11",
@@ -375,7 +390,20 @@
           "matchNumber": 2
         }
       },
-      "matchNumber": 2
+      "matchNumber": 2,
+      "resultStoryBullets": [
+        "Ladislav Krejci struck first for Czechia, forcing South Korea to chase the match.",
+        "Hwang In-beom brought South Korea level before Oh Hyeon-gyu completed the turnaround.",
+        "Czechia's opener made South Korea sweat, but the later chances finally turned."
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=QWoDfCkh7f8",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-06-11T21:28:00-07:00",
+        "checkedAt": "2026-06-29T15:58:29-07:00"
+      }
     },
     {
       "id": "canada-bosnia-2026-06-12",
@@ -466,7 +494,20 @@
           "matchNumber": 3
         }
       },
-      "matchNumber": 3
+      "matchNumber": 3,
+      "resultStoryBullets": [
+        "Jovo Lukic put Bosnia and Herzegovina in front before Cyle Larin answered for Canada.",
+        "Cyle Larin's 78' equalizer rescued a point for Canada.",
+        "Canada and Bosnia and Herzegovina kept trading momentum instead of pulling clear."
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=n5qkHOWhFAc",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-06-12T14:10:18-07:00",
+        "checkedAt": "2026-06-29T15:58:29-07:00"
+      }
     },
     {
       "id": "united-states-paraguay-2026-06-12",
@@ -663,7 +704,20 @@
           "matchNumber": 4
         }
       },
-      "matchNumber": 4
+      "matchNumber": 4,
+      "resultStoryBullets": [
+        "A 7' own goal put United States ahead early, making Paraguay chase the match.",
+        "Giovanni Reyna added the final word as United States pulled away.",
+        "Folarin Balogun scored twice as United States kept widening the gap."
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=BXD1_mhODBU",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-06-12T20:21:44-07:00",
+        "checkedAt": "2026-06-29T15:58:29-07:00"
+      }
     },
     {
       "id": "qatar-switzerland-2026-06-13",
@@ -768,7 +822,20 @@
           "matchNumber": 8
         }
       },
-      "matchNumber": 8
+      "matchNumber": 8,
+      "resultStoryBullets": [
+        "Breel Embolo put Switzerland in front before a 90+4' own goal answered for Qatar.",
+        "A 90+4' own goal rescued a point for Qatar.",
+        "Qatar and Switzerland kept trading momentum instead of pulling clear."
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=CUo5J7CUnCo",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-06-13T14:21:46-07:00",
+        "checkedAt": "2026-06-29T15:58:29-07:00"
+      }
     },
     {
       "id": "brazil-morocco-2026-06-13",
@@ -890,7 +957,20 @@
           "matchNumber": 7
         }
       },
-      "matchNumber": 7
+      "matchNumber": 7,
+      "resultStoryBullets": [
+        "Ismael Saibari put Morocco in front before Vinicius Junior answered for Brazil.",
+        "Vinicius Junior's 32' equalizer rescued a point for Brazil.",
+        "Brazil and Morocco kept trading momentum instead of pulling clear."
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=DX5wBEslnQI",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-06-13T17:19:40-07:00",
+        "checkedAt": "2026-06-29T15:58:29-07:00"
+      }
     },
     {
       "id": "haiti-scotland-2026-06-13",
@@ -976,7 +1056,20 @@
           "matchNumber": 5
         }
       },
-      "matchNumber": 5
+      "matchNumber": 5,
+      "resultStoryBullets": [
+        "John McGinn broke through for Scotland, shifting the match toward Scotland.",
+        "John McGinn's 28' winner settled a tight match for Scotland.",
+        "Scotland kept Haiti out and closed the match with a clean sheet."
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=IW2BuhWuTqs",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-06-13T20:16:34-07:00",
+        "checkedAt": "2026-06-29T15:58:29-07:00"
+      }
     },
     {
       "id": "australia-turkiye-2026-06-13",
@@ -1087,7 +1180,20 @@
           "matchNumber": 6
         }
       },
-      "matchNumber": 6
+      "matchNumber": 6,
+      "resultStoryBullets": [
+        "Nestory Irankunda broke through for Australia, shifting the match toward Australia.",
+        "Connor Metcalfe added the final word as Australia pulled away.",
+        "Australia kept Türkiye out and closed the match with a clean sheet."
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=xyKJHekC7io",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-06-13T23:17:21-07:00",
+        "checkedAt": "2026-06-29T15:58:29-07:00"
+      }
     },
     {
       "id": "germany-curacao-2026-06-14",
@@ -1204,7 +1310,20 @@
           "matchNumber": 10
         }
       },
-      "matchNumber": 10
+      "matchNumber": 10,
+      "resultStoryBullets": [
+        "Felix Nmecha put Germany ahead early, making Curaçao chase the match.",
+        "Kai Havertz added the final word as Germany pulled away.",
+        "Kai Havertz scored twice as Germany kept widening the gap."
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=cGKWqfsRDgo",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-06-14T12:14:16-07:00",
+        "checkedAt": "2026-06-29T15:58:29-07:00"
+      }
     },
     {
       "id": "netherlands-japan-2026-06-14",
@@ -1330,7 +1449,20 @@
           "matchNumber": 11
         }
       },
-      "matchNumber": 11
+      "matchNumber": 11,
+      "resultStoryBullets": [
+        "Virgil van Dijk put Netherlands in front before Daichi Kamada answered for Japan.",
+        "Daichi Kamada's 88' equalizer rescued a point for Japan.",
+        "Netherlands and Japan kept trading momentum instead of pulling clear."
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=m7sQP_AZ5vM",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-06-14T15:06:38-07:00",
+        "checkedAt": "2026-06-29T15:58:29-07:00"
+      }
     },
     {
       "id": "cote-divoire-ecuador-2026-06-14",
@@ -1416,7 +1548,20 @@
           "matchNumber": 9
         }
       },
-      "matchNumber": 9
+      "matchNumber": 9,
+      "resultStoryBullets": [
+        "Amad Diallo broke through for Côte d'Ivoire, shifting the match toward Côte d'Ivoire.",
+        "Amad Diallo's 90' winner settled a tight match for Côte d'Ivoire.",
+        "Côte d'Ivoire kept Ecuador out and closed the match with a clean sheet."
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=pBk8BjA-X4Y",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-06-14T18:24:06-07:00",
+        "checkedAt": "2026-06-29T15:58:29-07:00"
+      }
     },
     {
       "id": "sweden-tunisia-2026-06-14",
@@ -1555,7 +1700,20 @@
           "matchNumber": 12
         }
       },
-      "matchNumber": 12
+      "matchNumber": 12,
+      "resultStoryBullets": [
+        "Yasin Ayari put Sweden ahead early, making Tunisia chase the match.",
+        "Yasin Ayari added the final word as Sweden pulled away.",
+        "Yasin Ayari scored twice as Sweden kept widening the gap."
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=MWsgrEPIni4",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-06-14T21:16:26-07:00",
+        "checkedAt": "2026-06-29T15:58:29-07:00"
+      }
     },
     {
       "id": "spain-cabo-verde-2026-06-15",
@@ -1635,7 +1793,20 @@
           "matchNumber": 14
         }
       },
-      "matchNumber": 14
+      "matchNumber": 14,
+      "resultStoryBullets": [
+        "Spain and Cabo Verde traded pressure without finding a goal.",
+        "Both defenses kept the scoring lanes closed through full time.",
+        "Spain and Cabo Verde stayed locked together until the final whistle."
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=YnWF8IMcqgg",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-06-15T11:07:36-07:00",
+        "checkedAt": "2026-06-29T15:58:29-07:00"
+      }
     },
     {
       "id": "belgium-egypt-2026-06-15",
@@ -1768,7 +1939,20 @@
           "matchNumber": 16
         }
       },
-      "matchNumber": 16
+      "matchNumber": 16,
+      "resultStoryBullets": [
+        "Emam Ashour put Egypt in front before a 66' own goal answered for Belgium.",
+        "A 66' own goal rescued a point for Belgium.",
+        "Belgium and Egypt kept trading momentum instead of pulling clear."
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=o_3t0d8x9JY",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-06-15T14:08:11-07:00",
+        "checkedAt": "2026-06-29T15:58:29-07:00"
+      }
     },
     {
       "id": "saudi-arabia-uruguay-2026-06-15",
@@ -1890,7 +2074,20 @@
           "matchNumber": 13
         }
       },
-      "matchNumber": 13
+      "matchNumber": 13,
+      "resultStoryBullets": [
+        "Abdulelah Al-Amri put Saudi Arabia in front before Maxi Araujo answered for Uruguay.",
+        "Maxi Araujo's 80' equalizer rescued a point for Uruguay.",
+        "Saudi Arabia and Uruguay kept trading momentum instead of pulling clear."
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=Tz9R1OYdTSs",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-06-15T17:31:59-07:00",
+        "checkedAt": "2026-06-29T15:58:29-07:00"
+      }
     },
     {
       "id": "ir-iran-new-zealand-2026-06-15",
@@ -2000,7 +2197,20 @@
           "matchNumber": 15
         }
       },
-      "matchNumber": 15
+      "matchNumber": 15,
+      "resultStoryBullets": [
+        "Elijah Just put New Zealand in front before Mohammad Mohebbi answered for IR Iran.",
+        "Mohammad Mohebbi's 64' equalizer rescued a point for IR Iran.",
+        "IR Iran and New Zealand kept trading momentum instead of pulling clear."
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=UZ_7qFbFYRY",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-06-15T20:39:12-07:00",
+        "checkedAt": "2026-06-29T15:58:29-07:00"
+      }
     },
     {
       "id": "france-senegal-2026-06-16",
@@ -2120,7 +2330,20 @@
           "matchNumber": 17
         }
       },
-      "matchNumber": 17
+      "matchNumber": 17,
+      "resultStoryBullets": [
+        "Kylian Mbappe broke through for France, shifting the match toward France.",
+        "Kylian Mbappe added the final word as France pulled away.",
+        "Kylian Mbappe scored twice as France kept widening the gap."
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=SlmYDbzHqjg",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-06-16T14:39:16-07:00",
+        "checkedAt": "2026-06-29T15:58:29-07:00"
+      }
     },
     {
       "id": "iraq-norway-2026-06-16",
@@ -2223,7 +2446,20 @@
           "matchNumber": 18
         }
       },
-      "matchNumber": 18
+      "matchNumber": 18,
+      "resultStoryBullets": [
+        "Erling Haaland broke through for Norway, shifting the match toward Norway.",
+        "A 90+6' own goal added the final word as Norway pulled away.",
+        "Erling Haaland scored twice as Norway kept widening the gap."
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=ku1hsMdKDXQ",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-06-16T17:30:23-07:00",
+        "checkedAt": "2026-06-29T15:58:29-07:00"
+      }
     },
     {
       "id": "argentina-algeria-2026-06-16",
@@ -2336,7 +2572,20 @@
           "matchNumber": 19
         }
       },
-      "matchNumber": 19
+      "matchNumber": 19,
+      "resultStoryBullets": [
+        "Lionel Messi put Argentina ahead early, making Algeria chase the match.",
+        "Lionel Messi added the final word as Argentina pulled away.",
+        "Lionel Messi scored three times as Argentina kept widening the gap."
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=GtyuIf7zykA",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-06-16T20:28:38-07:00",
+        "checkedAt": "2026-06-29T15:58:29-07:00"
+      }
     },
     {
       "id": "austria-jordan-2026-06-16",
@@ -2436,7 +2685,20 @@
           "matchNumber": 20
         }
       },
-      "matchNumber": 20
+      "matchNumber": 20,
+      "resultStoryBullets": [
+        "Romano Schmid put Austria ahead early, making Jordan chase the match.",
+        "Marko Arnautovic added the final word as Austria pulled away.",
+        "Jordan stayed close enough to keep the final minutes tense."
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=yOPRItttrPU",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-06-16T23:40:37-07:00",
+        "checkedAt": "2026-06-29T15:58:29-07:00"
+      }
     },
     {
       "id": "portugal-dr-congo-2026-06-17",
@@ -2538,7 +2800,20 @@
           "matchNumber": 23
         }
       },
-      "matchNumber": 23
+      "matchNumber": 23,
+      "resultStoryBullets": [
+        "Joao Neves put Portugal in front before Yoane Wissa answered for DR Congo.",
+        "Yoane Wissa's 45+5' equalizer rescued a point for DR Congo.",
+        "Portugal and DR Congo kept trading momentum instead of pulling clear."
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=SjumRdNESKg",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-06-17T12:24:45-07:00",
+        "checkedAt": "2026-06-29T15:58:29-07:00"
+      }
     },
     {
       "id": "england-croatia-2026-06-17",
@@ -2756,7 +3031,20 @@
           "matchNumber": 22
         }
       },
-      "matchNumber": 22
+      "matchNumber": 22,
+      "resultStoryBullets": [
+        "Harry Kane put England ahead early, making Croatia chase the match.",
+        "Marcus Rashford added the final word as England pulled away.",
+        "Harry Kane scored twice as England kept widening the gap."
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=lGoe9nxRfyU",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-06-17T15:33:47-07:00",
+        "checkedAt": "2026-06-29T15:58:29-07:00"
+      }
     },
     {
       "id": "ghana-panama-2026-06-17",
@@ -2852,7 +3140,20 @@
           "matchNumber": 21
         }
       },
-      "matchNumber": 21
+      "matchNumber": 21,
+      "resultStoryBullets": [
+        "Caleb Yirenkyi broke through for Ghana, shifting the match toward Ghana.",
+        "Caleb Yirenkyi's 90+5' winner settled a tight match for Ghana.",
+        "Ghana kept Panama out and closed the match with a clean sheet."
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=hFO9DhasJ2A",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-06-17T18:29:07-07:00",
+        "checkedAt": "2026-06-29T15:58:29-07:00"
+      }
     },
     {
       "id": "uzbekistan-colombia-2026-06-17",
@@ -2962,7 +3263,20 @@
           "matchNumber": 24
         }
       },
-      "matchNumber": 24
+      "matchNumber": 24,
+      "resultStoryBullets": [
+        "Daniel Munoz broke through for Colombia, shifting the match toward Colombia.",
+        "Jaminton Campaz added the final word as Colombia pulled away.",
+        "Uzbekistan stayed close enough to keep the final minutes tense."
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=Qb3ipZFspnc",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-06-17T21:33:54-07:00",
+        "checkedAt": "2026-06-29T15:58:29-07:00"
+      }
     },
     {
       "id": "czechia-south-africa-2026-06-18",
@@ -3073,7 +3387,20 @@
           "matchNumber": 25
         }
       },
-      "matchNumber": 25
+      "matchNumber": 25,
+      "resultStoryBullets": [
+        "Michal Sadilek put Czechia in front before Teboho Mokoena answered for South Africa.",
+        "Teboho Mokoena's 83' equalizer rescued a point for South Africa.",
+        "Czechia and South Africa kept trading momentum instead of pulling clear."
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=jijCaWH_IxM",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-06-18T11:29:03-07:00",
+        "checkedAt": "2026-06-29T15:58:29-07:00"
+      }
     },
     {
       "id": "switzerland-bosnia-2026-06-18",
@@ -3198,7 +3525,20 @@
           "matchNumber": 26
         }
       },
-      "matchNumber": 26
+      "matchNumber": 26,
+      "resultStoryBullets": [
+        "Johan Manzambi broke through for Switzerland, shifting the match toward Switzerland.",
+        "Granit Xhaka added the final word as Switzerland pulled away.",
+        "Johan Manzambi scored twice as Switzerland kept widening the gap."
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=v08lQx6pThk",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-06-18T14:27:26-07:00",
+        "checkedAt": "2026-06-29T15:58:29-07:00"
+      }
     },
     {
       "id": "canada-qatar-2026-06-18",
@@ -3316,7 +3656,20 @@
           "matchNumber": 27
         }
       },
-      "matchNumber": 27
+      "matchNumber": 27,
+      "resultStoryBullets": [
+        "Cyle Larin put Canada ahead early, making Qatar chase the match.",
+        "Jonathan David added the final word as Canada pulled away.",
+        "Jonathan David scored three times as Canada kept widening the gap."
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=vz9OTeU6gTM",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-06-18T17:28:19-07:00",
+        "checkedAt": "2026-06-29T15:58:29-07:00"
+      }
     },
     {
       "id": "mexico-south-korea-2026-06-18",
@@ -3542,7 +3895,20 @@
           "matchNumber": 28
         }
       },
-      "matchNumber": 28
+      "matchNumber": 28,
+      "resultStoryBullets": [
+        "Luis Romo broke through for Mexico, shifting the match toward Mexico.",
+        "Luis Romo's 50' winner settled a tight match for Mexico.",
+        "Mexico kept South Korea out and closed the match with a clean sheet."
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=F1sMvm6D-0Y",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-06-18T20:29:56-07:00",
+        "checkedAt": "2026-06-29T15:58:29-07:00"
+      }
     },
     {
       "id": "united-states-australia-2026-06-19",
@@ -3674,7 +4040,20 @@
           "matchNumber": 32
         }
       },
-      "matchNumber": 32
+      "matchNumber": 32,
+      "resultStoryBullets": [
+        "A 11' own goal put United States ahead early, making Australia chase the match.",
+        "Alex Freeman added the final word as United States pulled away.",
+        "United States kept Australia out and closed the match with a clean sheet."
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=1gMiT5r-K7Q",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-06-19T14:35:45-07:00",
+        "checkedAt": "2026-06-29T15:58:29-07:00"
+      }
     },
     {
       "id": "scotland-morocco-2026-06-19",
@@ -3771,7 +4150,20 @@
           "matchNumber": 30
         }
       },
-      "matchNumber": 30
+      "matchNumber": 30,
+      "resultStoryBullets": [
+        "Ismael Saibari put Morocco ahead early, making Scotland chase the match.",
+        "Ismael Saibari's 2' winner settled a tight match for Morocco.",
+        "Morocco kept Scotland out and closed the match with a clean sheet."
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=wff2tvitS-s",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-06-19T17:25:59-07:00",
+        "checkedAt": "2026-06-29T15:58:29-07:00"
+      }
     },
     {
       "id": "brazil-haiti-2026-06-19",
@@ -3887,7 +4279,20 @@
           "matchNumber": 29
         }
       },
-      "matchNumber": 29
+      "matchNumber": 29,
+      "resultStoryBullets": [
+        "Matheus Cunha broke through for Brazil, shifting the match toward Brazil.",
+        "Vinicius Junior added the final word as Brazil pulled away.",
+        "Matheus Cunha scored twice as Brazil kept widening the gap."
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=BphiVajPsFc",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-06-19T19:57:25-07:00",
+        "checkedAt": "2026-06-29T15:58:29-07:00"
+      }
     },
     {
       "id": "turkiye-paraguay-2026-06-19",
@@ -3984,7 +4389,20 @@
           "matchNumber": 31
         }
       },
-      "matchNumber": 31
+      "matchNumber": 31,
+      "resultStoryBullets": [
+        "Matias Galarza put Paraguay ahead early, making Türkiye chase the match.",
+        "Matias Galarza's 2' winner settled a tight match for Paraguay.",
+        "Paraguay kept Türkiye out and closed the match with a clean sheet."
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=HrbIda-C9SE",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-06-19T22:39:47-07:00",
+        "checkedAt": "2026-06-29T15:58:29-07:00"
+      }
     },
     {
       "id": "netherlands-sweden-2026-06-20",
@@ -4262,7 +4680,20 @@
           "matchNumber": 35
         }
       },
-      "matchNumber": 35
+      "matchNumber": 35,
+      "resultStoryBullets": [
+        "Brian Brobbey put Netherlands ahead early, making Sweden chase the match.",
+        "Crysencio Summerville added the final word as Netherlands pulled away.",
+        "Brian Brobbey scored twice as Netherlands kept widening the gap."
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=IRllRLrG7Sg",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-06-20T12:27:26-07:00",
+        "checkedAt": "2026-06-29T15:58:29-07:00"
+      }
     },
     {
       "id": "germany-cote-divoire-2026-06-20",
@@ -4369,7 +4800,20 @@
           "matchNumber": 33
         }
       },
-      "matchNumber": 33
+      "matchNumber": 33,
+      "resultStoryBullets": [
+        "Franck Kessie struck first for Côte d'Ivoire, forcing Germany to chase the match.",
+        "Deniz Undav brought Germany level before Deniz Undav completed the turnaround.",
+        "Deniz Undav scored twice as Germany kept widening the gap."
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=EL9nHScp4bk",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-06-20T15:26:16-07:00",
+        "checkedAt": "2026-06-29T15:58:29-07:00"
+      }
     },
     {
       "id": "ecuador-curacao-2026-06-20",
@@ -4449,7 +4893,20 @@
           "matchNumber": 34
         }
       },
-      "matchNumber": 34
+      "matchNumber": 34,
+      "resultStoryBullets": [
+        "Ecuador and Curaçao traded pressure without finding a goal.",
+        "Both defenses kept the scoring lanes closed through full time.",
+        "Ecuador and Curaçao stayed locked together until the final whistle."
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=_JQLeADlzXM",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-06-20T19:32:43-07:00",
+        "checkedAt": "2026-06-29T15:58:29-07:00"
+      }
     },
     {
       "id": "tunisia-japan-2026-06-20",
@@ -4608,7 +5065,20 @@
           "matchNumber": 36
         }
       },
-      "matchNumber": 36
+      "matchNumber": 36,
+      "resultStoryBullets": [
+        "Daichi Kamada put Japan ahead early, making Tunisia chase the match.",
+        "Ayase Ueda added the final word as Japan pulled away.",
+        "Ayase Ueda scored twice as Japan kept widening the gap."
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=ATmlGGfCyBA",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-06-20T23:19:27-07:00",
+        "checkedAt": "2026-06-29T15:58:29-07:00"
+      }
     },
     {
       "id": "spain-saudi-arabia-2026-06-21",
@@ -4738,7 +5208,20 @@
           "matchNumber": 38
         }
       },
-      "matchNumber": 38
+      "matchNumber": 38,
+      "resultStoryBullets": [
+        "Lamine Yamal put Spain ahead early, making Saudi Arabia chase the match.",
+        "A 49' own goal added the final word as Spain pulled away.",
+        "Mikel Oyarzabal scored twice as Spain kept widening the gap."
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=w453UjgtQw4",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-06-21T11:31:12-07:00",
+        "checkedAt": "2026-06-29T15:58:29-07:00"
+      }
     },
     {
       "id": "belgium-ir-iran-2026-06-21",
@@ -4818,7 +5301,20 @@
           "matchNumber": 39
         }
       },
-      "matchNumber": 39
+      "matchNumber": 39,
+      "resultStoryBullets": [
+        "Belgium and IR Iran traded pressure without finding a goal.",
+        "Both defenses kept the scoring lanes closed through full time.",
+        "Belgium and IR Iran stayed locked together until the final whistle."
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=YbiEe9pOV-s",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-06-21T14:28:59-07:00",
+        "checkedAt": "2026-06-29T15:58:29-07:00"
+      }
     },
     {
       "id": "uruguay-cabo-verde-2026-06-21",
@@ -4918,7 +5414,20 @@
           "matchNumber": 37
         }
       },
-      "matchNumber": 37
+      "matchNumber": 37,
+      "resultStoryBullets": [
+        "Uruguay and Cabo Verde kept trading momentum instead of pulling clear.",
+        "The late pressure never produced a winner after the match came back level.",
+        "Uruguay and Cabo Verde stayed locked together until the final whistle."
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=ZXvFKZM1nL4",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-06-21T17:36:23-07:00",
+        "checkedAt": "2026-06-29T15:58:29-07:00"
+      }
     },
     {
       "id": "new-zealand-egypt-2026-06-21",
@@ -5048,7 +5557,20 @@
           "matchNumber": 40
         }
       },
-      "matchNumber": 40
+      "matchNumber": 40,
+      "resultStoryBullets": [
+        "Finn Surman struck first for New Zealand, forcing Egypt to chase the match.",
+        "Mostafa Zico brought Egypt level before Trezeguet completed the turnaround.",
+        "New Zealand's opener made Egypt sweat, but the later chances finally turned."
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=Ihp4QH9YkBc",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-06-21T20:32:06-07:00",
+        "checkedAt": "2026-06-29T15:58:29-07:00"
+      }
     },
     {
       "id": "argentina-austria-2026-06-22",
@@ -5171,7 +5693,20 @@
           "matchNumber": 43
         }
       },
-      "matchNumber": 43
+      "matchNumber": 43,
+      "resultStoryBullets": [
+        "Lionel Messi broke through for Argentina, shifting the match toward Argentina.",
+        "Lionel Messi added the final word as Argentina pulled away.",
+        "Lionel Messi scored twice as Argentina kept widening the gap."
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=JakdhltyECE",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-06-22T12:33:08-07:00",
+        "checkedAt": "2026-06-29T15:58:29-07:00"
+      }
     },
     {
       "id": "france-iraq-2026-06-22",
@@ -5276,7 +5811,20 @@
           "matchNumber": 42
         }
       },
-      "matchNumber": 42
+      "matchNumber": 42,
+      "resultStoryBullets": [
+        "Kylian Mbappe put France ahead early, making Iraq chase the match.",
+        "Ousmane Dembele added the final word as France pulled away.",
+        "Kylian Mbappe scored twice as France kept widening the gap."
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=Mo7aY61WF9I",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-06-22T18:21:37-07:00",
+        "checkedAt": "2026-06-29T15:58:29-07:00"
+      }
     },
     {
       "id": "norway-senegal-2026-06-22",
@@ -5399,7 +5947,20 @@
           "matchNumber": 41
         }
       },
-      "matchNumber": 41
+      "matchNumber": 41,
+      "resultStoryBullets": [
+        "Marcus Holmgren Pedersen broke through for Norway, shifting the match toward Norway.",
+        "Erling Haaland's 58' winner settled a tight match for Norway.",
+        "Erling Haaland scored twice as Norway kept widening the gap."
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=vcgzGgM4uJg",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-06-22T19:32:37-07:00",
+        "checkedAt": "2026-06-29T15:58:29-07:00"
+      }
     },
     {
       "id": "jordan-algeria-2026-06-22",
@@ -5512,7 +6073,20 @@
           "matchNumber": 44
         }
       },
-      "matchNumber": 44
+      "matchNumber": 44,
+      "resultStoryBullets": [
+        "Nizar Al-Rashdan struck first for Jordan, forcing Algeria to chase the match.",
+        "Nadhir Benbouali brought Algeria level before Amine Gouiri completed the turnaround.",
+        "Jordan's opener made Algeria sweat, but the later chances finally turned."
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=qq3eMBEUbzY",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-06-22T22:29:52-07:00",
+        "checkedAt": "2026-06-29T15:58:29-07:00"
+      }
     },
     {
       "id": "portugal-uzbekistan-2026-06-23",
@@ -5622,7 +6196,20 @@
           "matchNumber": 47
         }
       },
-      "matchNumber": 47
+      "matchNumber": 47,
+      "resultStoryBullets": [
+        "Cristiano Ronaldo put Portugal ahead early, making Uzbekistan chase the match.",
+        "Rafael Leao added the final word as Portugal pulled away.",
+        "Cristiano Ronaldo scored twice as Portugal kept widening the gap."
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=jqgn-kY0rFA",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-06-23T12:26:47-07:00",
+        "checkedAt": "2026-06-29T15:58:29-07:00"
+      }
     },
     {
       "id": "england-ghana-2026-06-23",
@@ -5720,7 +6307,20 @@
           "matchNumber": 45
         }
       },
-      "matchNumber": 45
+      "matchNumber": 45,
+      "resultStoryBullets": [
+        "England and Ghana traded pressure without finding a goal.",
+        "Both defenses kept the scoring lanes closed through full time.",
+        "England and Ghana stayed locked together until the final whistle."
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=ebuYwC7lwCk",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-06-23T15:30:30-07:00",
+        "checkedAt": "2026-06-29T15:58:29-07:00"
+      }
     },
     {
       "id": "panama-croatia-2026-06-23",
@@ -5812,7 +6412,20 @@
       "resultHighlights": [
         "🌟 Ante Budimir's 54' winner settled it for Croatia.",
         "📊 Croatia moved to 3 points in Group L and left Panama without a point."
-      ]
+      ],
+      "resultStoryBullets": [
+        "Ante Budimir broke through for Croatia, shifting the match toward Croatia.",
+        "Ante Budimir's 54' winner settled a tight match for Croatia.",
+        "Croatia kept Panama out and closed the match with a clean sheet."
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=EBWpoly7qiE",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-06-23T18:27:18-07:00",
+        "checkedAt": "2026-06-29T15:58:29-07:00"
+      }
     },
     {
       "id": "colombia-dr-congo-2026-06-23",
@@ -5905,7 +6518,20 @@
       "resultHighlights": [
         "🌟 Daniel Munoz's 76' winner settled it for Colombia.",
         "📊 Colombia moved to 6 points in Group K while DR Congo stayed on 1 point."
-      ]
+      ],
+      "resultStoryBullets": [
+        "Daniel Munoz broke through for Colombia, shifting the match toward Colombia.",
+        "Daniel Munoz's 76' winner settled a tight match for Colombia.",
+        "Colombia kept DR Congo out and closed the match with a clean sheet."
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=C-bTb3K_suE",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-06-23T21:22:29-07:00",
+        "checkedAt": "2026-06-29T15:58:29-07:00"
+      }
     },
     {
       "id": "switzerland-canada-2026-06-24",
@@ -6017,7 +6643,20 @@
       "resultHighlights": [
         "🌟 Johan Manzambi's 57' winner settled it for Switzerland.",
         "📊 Switzerland moved to 7 points in Group B while Canada stayed on 4 points."
-      ]
+      ],
+      "resultStoryBullets": [
+        "Ruben Vargas broke through for Switzerland, shifting the match toward Switzerland.",
+        "Johan Manzambi's 57' winner settled a tight match for Switzerland.",
+        "Canada stayed close enough to keep the final minutes tense."
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=pObYkmGnk24",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-06-24T14:22:39-07:00",
+        "checkedAt": "2026-06-29T15:58:29-07:00"
+      }
     },
     {
       "id": "bosnia-qatar-2026-06-24",
@@ -6144,7 +6783,20 @@
       "resultHighlights": [
         "🌟 Kerim Alajbegovic opened it before Ermin Mahmic finished the scoring.",
         "📊 Bosnia and Herzegovina moved to 4 points in Group B while Qatar stayed on 1 point."
-      ]
+      ],
+      "resultStoryBullets": [
+        "Kerim Alajbegovic broke through for Bosnia and Herzegovina, shifting the match toward Bosnia and Herzegovina.",
+        "Ermin Mahmic added the final word as Bosnia and Herzegovina pulled away.",
+        "Qatar stayed close enough to keep the final minutes tense."
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=mk6m1LJdkrI",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-06-24T14:26:24-07:00",
+        "checkedAt": "2026-06-29T15:58:29-07:00"
+      }
     },
     {
       "id": "scotland-brazil-2026-06-24",
@@ -6306,7 +6958,20 @@
       "resultHighlights": [
         "🌟 Vinicius Junior scored twice as Brazil pulled clear.",
         "📊 Brazil moved to 7 points in Group C while Scotland stayed on 3 points."
-      ]
+      ],
+      "resultStoryBullets": [
+        "Vinicius Junior put Brazil ahead early, making Scotland chase the match.",
+        "Matheus Cunha added the final word as Brazil pulled away.",
+        "Vinicius Junior scored twice as Brazil kept widening the gap."
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=fWN13Oe4kA0",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-06-24T17:33:50-07:00",
+        "checkedAt": "2026-06-29T15:58:29-07:00"
+      }
     },
     {
       "id": "morocco-haiti-2026-06-24",
@@ -6421,7 +7086,20 @@
       "resultHighlights": [
         "🌟 Yassine Bounou opened it before Gessime Yassine finished the scoring.",
         "📊 Morocco moved to 7 points in Group C and left Haiti without a point."
-      ]
+      ],
+      "resultStoryBullets": [
+        "A 10' own goal struck first for Haiti, forcing Morocco to chase the match.",
+        "Achraf Hakimi brought Morocco level before Gessime Yassine completed the turnaround.",
+        "Haiti's opener made Morocco sweat, but the later chances finally turned."
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=37c0v5fkCLI",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-06-24T17:28:46-07:00",
+        "checkedAt": "2026-06-29T15:58:29-07:00"
+      }
     },
     {
       "id": "czechia-mexico-2026-06-24",
@@ -6533,7 +7211,20 @@
       "resultHighlights": [
         "🌟 Mateo Chavez opened it before Alvaro Fidalgo finished the scoring.",
         "📊 Mexico moved to 9 points in Group A while Czechia stayed on 1 point."
-      ]
+      ],
+      "resultStoryBullets": [
+        "Mateo Chavez broke through for Mexico, shifting the match toward Mexico.",
+        "Alvaro Fidalgo added the final word as Mexico pulled away.",
+        "Mexico kept Czechia out and closed the match with a clean sheet."
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=IR891e2-JBc",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-06-24T20:33:48-07:00",
+        "checkedAt": "2026-06-29T15:58:29-07:00"
+      }
     },
     {
       "id": "south-africa-south-korea-2026-06-24",
@@ -6625,7 +7316,20 @@
       "resultHighlights": [
         "🌟 Thapelo Maseko's 63' winner settled it for South Africa.",
         "📊 South Africa moved to 4 points in Group A while South Korea stayed on 3 points."
-      ]
+      ],
+      "resultStoryBullets": [
+        "Thapelo Maseko broke through for South Africa, shifting the match toward South Africa.",
+        "Thapelo Maseko's 63' winner settled a tight match for South Africa.",
+        "South Africa kept South Korea out and closed the match with a clean sheet."
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=A7PTebEdius",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-06-24T20:26:26-07:00",
+        "checkedAt": "2026-06-29T15:58:29-07:00"
+      }
     },
     {
       "id": "ecuador-germany-2026-06-25",
@@ -6741,7 +7445,20 @@
       "resultHighlights": [
         "🌟 Gonzalo Plata's 77' winner settled it for Ecuador.",
         "📊 Ecuador moved to 4 points in Group E while Germany stayed on 6 points."
-      ]
+      ],
+      "resultStoryBullets": [
+        "Leroy Sane struck first for Germany, forcing Ecuador to chase the match.",
+        "Nilson Angulo brought Ecuador level before Gonzalo Plata completed the turnaround.",
+        "Germany's opener made Ecuador sweat, but the later chances finally turned."
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=L4AmC_L4Cdw",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-06-25T15:42:57-07:00",
+        "checkedAt": "2026-06-29T15:58:29-07:00"
+      }
     },
     {
       "id": "curacao-cote-divoire-2026-06-25",
@@ -6831,7 +7548,20 @@
       "resultHighlights": [
         "🌟 Nicolas Pepe scored twice as Côte d'Ivoire pulled clear.",
         "📊 Côte d'Ivoire moved to 6 points in Group E while Curaçao stayed on 1 point."
-      ]
+      ],
+      "resultStoryBullets": [
+        "Nicolas Pepe put Côte d'Ivoire ahead early, making Curaçao chase the match.",
+        "Nicolas Pepe added the final word as Côte d'Ivoire pulled away.",
+        "Nicolas Pepe scored twice as Côte d'Ivoire kept widening the gap."
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=Vl8LESKw8_Y",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-06-25T15:43:57-07:00",
+        "checkedAt": "2026-06-29T15:58:29-07:00"
+      }
     },
     {
       "id": "japan-sweden-2026-06-25",
@@ -6963,7 +7693,20 @@
       "resultHighlights": [
         "🌟 Anthony Elanga's 62' equalizer earned Sweden a point.",
         "📊 Japan moved to 5 points and Sweden to 4 points in Group F."
-      ]
+      ],
+      "resultStoryBullets": [
+        "Daizen Maeda put Japan in front before Anthony Elanga answered for Sweden.",
+        "Anthony Elanga's 62' equalizer rescued a point for Sweden.",
+        "Japan and Sweden kept trading momentum instead of pulling clear."
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=CerrE-MoofY",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-06-25T18:26:39-07:00",
+        "checkedAt": "2026-06-29T15:58:29-07:00"
+      }
     },
     {
       "id": "tunisia-netherlands-2026-06-25",
@@ -7084,7 +7827,20 @@
       "resultHighlights": [
         "🌟 Ellyes Skhiri opened it before Jan Paul van Hecke finished the scoring.",
         "📊 Netherlands moved to 7 points in Group F and left Tunisia without a point."
-      ]
+      ],
+      "resultStoryBullets": [
+        "A 3' own goal put Netherlands ahead early, making Tunisia chase the match.",
+        "Jan Paul van Hecke added the final word as Netherlands pulled away.",
+        "Tunisia stayed close enough to keep the final minutes tense."
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=o0AmHN-XnOs",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-06-25T18:24:21-07:00",
+        "checkedAt": "2026-06-29T15:58:29-07:00"
+      }
     },
     {
       "id": "turkiye-united-states-2026-06-25",
@@ -7239,7 +7995,20 @@
       "resultHighlights": [
         "🌟 Kaan Ayhan's 90+8' winner settled it for Türkiye.",
         "📊 Türkiye moved to 3 points in Group D while United States stayed on 6 points."
-      ]
+      ],
+      "resultStoryBullets": [
+        "Auston Trusty struck first for United States, forcing Türkiye to chase the match.",
+        "Arda Guler brought Türkiye level before Kaan Ayhan completed the turnaround.",
+        "United States's opener made Türkiye sweat, but the later chances finally turned."
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=7JJLMyKBG90",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-06-25T21:28:39-07:00",
+        "checkedAt": "2026-06-29T15:58:29-07:00"
+      }
     },
     {
       "id": "paraguay-australia-2026-06-25",
@@ -7370,7 +8139,20 @@
         "⚽ Paraguay and Australia shared a 0-0 draw.",
         "🌟 Miguel Almiron and Mathew Ryan carried the duel without a breakthrough.",
         "📊 Both teams moved to 4 points in Group D."
-      ]
+      ],
+      "resultStoryBullets": [
+        "Paraguay and Australia traded pressure without finding a goal.",
+        "Both defenses kept the scoring lanes closed through full time.",
+        "Paraguay and Australia stayed locked together until the final whistle."
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=NdgZtyReLbY",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-06-25T21:24:00-07:00",
+        "checkedAt": "2026-06-29T15:58:29-07:00"
+      }
     },
     {
       "id": "norway-france-2026-06-26",
@@ -7605,7 +8387,20 @@
       "resultHighlights": [
         "🌟 Ousmane Dembele completed a hat trick as France ran away with it.",
         "📊 France moved to 9 points in Group I while Norway stayed on 6 points."
-      ]
+      ],
+      "resultStoryBullets": [
+        "Ousmane Dembele put France ahead early, making Norway chase the match.",
+        "Desire Doue added the final word as France pulled away.",
+        "Ousmane Dembele scored three times as France kept widening the gap."
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=VB1B9bkj2xc",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-06-26T14:28:37-07:00",
+        "checkedAt": "2026-06-29T15:58:29-07:00"
+      }
     },
     {
       "id": "senegal-iraq-2026-06-26",
@@ -7707,7 +8502,20 @@
       "resultHighlights": [
         "🌟 Pape Gueye scored twice as Senegal pulled clear.",
         "📊 Senegal moved to 3 points in Group I and left Iraq without a point."
-      ]
+      ],
+      "resultStoryBullets": [
+        "Habib Diarra put Senegal ahead early, making Iraq chase the match.",
+        "Iliman Ndiaye added the final word as Senegal pulled away.",
+        "Pape Gueye scored twice as Senegal kept widening the gap."
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=oR3o61OvWLI",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-06-26T14:37:56-07:00",
+        "checkedAt": "2026-06-29T15:58:29-07:00"
+      }
     },
     {
       "id": "cabo-verde-saudi-arabia-2026-06-26",
@@ -7787,7 +8595,20 @@
         "⚽ Cabo Verde and Saudi Arabia shared a 0-0 draw.",
         "🌟 Ryan Mendes and Salem Al-Dawsari carried the duel without a breakthrough.",
         "📊 Cabo Verde moved to 3 points and Saudi Arabia to 2 points in Group H."
-      ]
+      ],
+      "resultStoryBullets": [
+        "Cabo Verde and Saudi Arabia traded pressure without finding a goal.",
+        "Both defenses kept the scoring lanes closed through full time.",
+        "Cabo Verde and Saudi Arabia stayed locked together until the final whistle."
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=grj3Ijq7cjQ",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-06-26T19:23:53-07:00",
+        "checkedAt": "2026-06-29T15:58:29-07:00"
+      }
     },
     {
       "id": "uruguay-spain-2026-06-26",
@@ -7944,7 +8765,20 @@
       "resultHighlights": [
         "🌟 Alex Baena's 42' winner settled it for Spain.",
         "📊 Spain moved to 7 points in Group H while Uruguay stayed on 2 points."
-      ]
+      ],
+      "resultStoryBullets": [
+        "Alex Baena broke through for Spain, shifting the match toward Spain.",
+        "Alex Baena's 42' winner settled a tight match for Spain.",
+        "Spain kept Uruguay out and closed the match with a clean sheet."
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=3OVZj9WqyDc",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-06-26T19:36:32-07:00",
+        "checkedAt": "2026-06-29T15:58:29-07:00"
+      }
     },
     {
       "id": "egypt-ir-iran-2026-06-26",
@@ -8046,7 +8880,20 @@
       "resultHighlights": [
         "🌟 Ramin Rezaeian's 14' equalizer earned IR Iran a point.",
         "📊 Egypt moved to 5 points and IR Iran to 3 points in Group G."
-      ]
+      ],
+      "resultStoryBullets": [
+        "Mahmoud Saber put Egypt in front before Ramin Rezaeian answered for IR Iran.",
+        "Ramin Rezaeian's 14' equalizer rescued a point for IR Iran.",
+        "Egypt and IR Iran kept trading momentum instead of pulling clear."
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=vzUdJ51WH48",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-06-26T22:33:02-07:00",
+        "checkedAt": "2026-06-29T15:58:29-07:00"
+      }
     },
     {
       "id": "new-zealand-belgium-2026-06-26",
@@ -8154,7 +9001,20 @@
       "resultHighlights": [
         "🌟 Leandro Trossard scored twice as Belgium pulled clear.",
         "📊 Belgium moved to 5 points in Group G while New Zealand stayed on 1 point."
-      ]
+      ],
+      "resultStoryBullets": [
+        "Leandro Trossard broke through for Belgium, shifting the match toward Belgium.",
+        "Alexis Saelemaekers added the final word as Belgium pulled away.",
+        "Leandro Trossard scored twice as Belgium kept widening the gap."
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=Rouzq1yDV-Q",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-06-26T22:33:24-07:00",
+        "checkedAt": "2026-06-29T15:58:29-07:00"
+      }
     },
     {
       "id": "panama-england-2026-06-27",
@@ -8255,7 +9115,20 @@
           "minute": 67,
           "name": "Harry Kane"
         }
-      ]
+      ],
+      "resultStoryBullets": [
+        "Jude Bellingham broke through for England, shifting the match toward England.",
+        "Harry Kane added the final word as England pulled away.",
+        "England kept Panama out and closed the match with a clean sheet."
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=JOPTAAFb3_s",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-06-27T16:23:16-07:00",
+        "checkedAt": "2026-06-29T15:58:29-07:00"
+      }
     },
     {
       "id": "croatia-ghana-2026-06-27",
@@ -8350,7 +9223,20 @@
           "minute": 73,
           "name": "Derrick Luckassen"
         }
-      ]
+      ],
+      "resultStoryBullets": [
+        "Petar Sucic broke through for Croatia, shifting the match toward Croatia.",
+        "Nikola Vlasic's 83' winner settled a tight match for Croatia.",
+        "Ghana stayed close enough to keep the final minutes tense."
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=j4wJ3nGXuas",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-06-27T16:23:00-07:00",
+        "checkedAt": "2026-06-29T15:58:29-07:00"
+      }
     },
     {
       "id": "colombia-portugal-2026-06-27",
@@ -8430,7 +9316,20 @@
         "⚽ Colombia and Portugal shared a 0-0 draw.",
         "🌟 Luis Diaz and Cristiano Ronaldo carried the duel without a breakthrough.",
         "📊 Colombia moved to 7 points and Portugal to 5 points in Group K."
-      ]
+      ],
+      "resultStoryBullets": [
+        "Colombia and Portugal traded pressure without finding a goal.",
+        "Both defenses kept the scoring lanes closed through full time.",
+        "Colombia and Portugal stayed locked together until the final whistle."
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=cRb6GQEAsU8",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-06-27T18:57:56-07:00",
+        "checkedAt": "2026-06-29T15:58:29-07:00"
+      }
     },
     {
       "id": "dr-congo-uzbekistan-2026-06-27",
@@ -8531,7 +9430,20 @@
       "resultHighlights": [
         "🌟 Yoane Wissa scored twice as DR Congo pulled clear.",
         "📊 DR Congo moved to 4 points in Group K and left Uzbekistan without a point."
-      ]
+      ],
+      "resultStoryBullets": [
+        "Eldor Shomurodov struck first for Uzbekistan, forcing DR Congo to chase the match.",
+        "Yoane Wissa brought DR Congo level before Yoane Wissa completed the turnaround.",
+        "Yoane Wissa scored twice as DR Congo kept widening the gap."
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=iCaUl2GQ3sQ",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-06-27T18:57:23-07:00",
+        "checkedAt": "2026-06-29T15:58:29-07:00"
+      }
     },
     {
       "id": "algeria-austria-2026-06-27",
@@ -8651,7 +9563,20 @@
       "resultHighlights": [
         "🌟 Sasa Kalajdzic's 90+6' equalizer earned Austria a point.",
         "📊 Both teams moved to 4 points in Group J."
-      ]
+      ],
+      "resultStoryBullets": [
+        "Algeria and Austria kept trading momentum instead of pulling clear.",
+        "The late pressure never produced a winner after the match came back level.",
+        "Algeria and Austria stayed locked together until the final whistle."
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=fjPH_DXx12M",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-06-27T21:23:42-07:00",
+        "checkedAt": "2026-06-29T15:58:29-07:00"
+      }
     },
     {
       "id": "jordan-argentina-2026-06-27",
@@ -8751,7 +9676,20 @@
       "resultHighlights": [
         "🌟 Giovani Lo Celso opened it before Lionel Messi finished the scoring.",
         "📊 Argentina moved to 9 points in Group J and left Jordan without a point."
-      ]
+      ],
+      "resultStoryBullets": [
+        "Giovani Lo Celso put Argentina ahead early, making Jordan chase the match.",
+        "Lionel Messi added the final word as Argentina pulled away.",
+        "Jordan stayed close enough to keep the final minutes tense."
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=sPJIf3GfNo0",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-06-27T21:21:16-07:00",
+        "checkedAt": "2026-06-29T15:58:29-07:00"
+      }
     },
     {
       "id": "match-73-round-of-32-2026-06-28",
@@ -8838,6 +9776,27 @@
       "score": {
         "home": 0,
         "away": 1
+      },
+      "goalsHome": [],
+      "goalsAway": [
+        {
+          "minute": 90,
+          "offset": 2,
+          "name": "Stephen Eustaquio"
+        }
+      ],
+      "resultStoryBullets": [
+        "Stephen Eustaquio broke through in stoppage time, leaving South Africa chasing a 1-0 match.",
+        "Canada kept South Africa out at the other end and turned the late goal into a knockout win.",
+        "South Africa stayed close enough to keep the final minutes tense."
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=VoCkhiVWDdY",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-06-28T14:23:00-07:00",
+        "checkedAt": "2026-06-29T15:58:29-07:00"
       }
     },
     {
@@ -8912,7 +9871,31 @@
       "score": {
         "home": 1,
         "away": 1
-      }
+      },
+      "scoreDetails": {
+        "penalties": {
+          "home": 3,
+          "away": 4
+        }
+      },
+      "winnerTeamId": "PAR",
+      "goalsHome": [
+        {
+          "minute": 54,
+          "name": "Kai Havertz"
+        }
+      ],
+      "goalsAway": [
+        {
+          "minute": 42,
+          "name": "Julio Enciso"
+        }
+      ],
+      "resultStoryBullets": [
+        "Julio Enciso put Paraguay in front before Kai Havertz answered for Germany.",
+        "Paraguay won the shootout 4-3 after a 1-1 draw.",
+        "Germany exited after penalties kept Paraguay alive."
+      ]
     },
     {
       "id": "match-75-round-of-32-2026-06-29",
@@ -8986,7 +9969,20 @@
       "score": {
         "home": 1,
         "away": 1
-      }
+      },
+      "goalsHome": [
+        {
+          "minute": 72,
+          "name": "Cody Gakpo"
+        }
+      ],
+      "goalsAway": [
+        {
+          "minute": 90,
+          "offset": 1,
+          "name": "Issa Diop"
+        }
+      ]
     },
     {
       "id": "match-76-round-of-32-2026-06-29",
@@ -9064,10 +10060,40 @@
         "home": "Brazil are a top-tier attacking side whose best moments mix individual invention with sudden acceleration, led by Neymar, Vinicius Junior, and Casemiro. Against Japan, their Neymar-Vinicius isolation speed has to beat Japan's Doan-Kamada combination speed. Neymar has returned from the bench after his calf issue, so Brazil can manage his minutes. They want to isolate Vinicius Junior quickly and let Neymar combine around the fouls and gaps that creates. The risk is Japan can turn quick combinations into chances around the box.",
         "away": "Japan are a precise, fast-passing side that can make possession feel sudden and sharp, led by Takefusa Kubo, Ritsu Doan, and Daichi Kamada. Against Brazil, their Doan-Kamada combination speed has to beat Brazil's Neymar-Vinicius isolation speed. Kubo could play a part after the knee issue, so Ueda and Doan may carry the early threat. They want to move the ball quickly enough for their attackers to receive between defenders. The risk is Brazil can break a shape through Neymar combinations and Vinicius Junior's speed."
       },
+      "resultStoryBullets": [
+        "Japan frustrated Brazil for long spells, with Takehiro Tomiyasu keeping Vinicius Junior quiet and Zion Suzuki answering pressure.",
+        "Kaishu Sano rattled Brazil first, forcing the favorite to chase the match after the 29th-minute opener.",
+        "Casemiro pulled Brazil level after halftime before Gabriel Martinelli won it deep into stoppage time."
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=QgUSOlN0Tt0",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-06-29T12:39:02-07:00",
+        "checkedAt": "2026-06-29T15:41:38-07:00"
+      },
       "score": {
         "home": 2,
         "away": 1
-      }
+      },
+      "goalsHome": [
+        {
+          "minute": 56,
+          "name": "Casemiro"
+        },
+        {
+          "minute": 90,
+          "offset": 5,
+          "name": "Gabriel Martinelli"
+        }
+      ],
+      "goalsAway": [
+        {
+          "minute": 29,
+          "name": "Kaishu Sano"
+        }
+      ]
     },
     {
       "id": "match-77-round-of-32-2026-06-30",

@@ -2117,6 +2117,100 @@ try {
   );
   await runtimeScorerCheck.context.close();
 
+  const brazilJapanRecapCheck = await openPageAtTime(
+    "2026-06-29T20:00:00.000Z",
+    "/?view=matches&date=2026-06-29&tz=America%2FLos_Angeles",
+    {
+      fixtureTransform(data) {
+        const fixture = data.fixtures.find((item) => item.id === "match-76-round-of-32-2026-06-29");
+        fixture.status = "FT";
+        fixture.score = { home: 2, away: 1 };
+        fixture.goalsHome = [
+          { minute: 56, name: "Casemiro" },
+          { minute: 90, offset: 5, name: "Gabriel Martinelli" }
+        ];
+        fixture.goalsAway = [{ minute: 29, name: "Kaishu Sano" }];
+      }
+    }
+  );
+  await brazilJapanRecapCheck.page.locator('[data-match-id="match-76-round-of-32-2026-06-29"]').click();
+  const brazilJapanResultBlock = await brazilJapanRecapCheck.page.locator("#match-info").evaluate((root) => {
+    const visibleText = (node) => {
+      if (!node) {
+        return "";
+      }
+
+      const clone = node.cloneNode(true);
+      clone.querySelectorAll(".player-card").forEach((card) => card.remove());
+      return clone.textContent.replace(/\s+/g, " ").trim();
+    };
+    const scoreSummary = root.querySelector(".result-score-summary");
+    const highlightLink = root.querySelector(".result-video-link");
+    const storyItems = [...root.querySelectorAll(".result-story-highlights li")].map(visibleText);
+    return {
+      scoreText: visibleText(scoreSummary),
+      scoreWeight: Number(scoreSummary ? getComputedStyle(scoreSummary).fontWeight : 0),
+      scorerText: visibleText(root.querySelector(".result-scorer-highlights")),
+      highlightHref: highlightLink?.getAttribute("href") || "",
+      highlightRel: highlightLink?.getAttribute("rel") || "",
+      highlightTarget: highlightLink?.getAttribute("target") || "",
+      highlightTooltip: highlightLink?.getAttribute("data-tooltip") || "",
+      storyItems,
+      storyLinkTexts: [...root.querySelectorAll(".result-story-highlights .player-link")].map((link) =>
+        link.textContent.trim()
+      )
+    };
+  });
+  assert(
+    brazilJapanResultBlock.scoreText === "Brazil beat Japan 2-1." &&
+      brazilJapanResultBlock.scoreWeight >= 600 &&
+      brazilJapanResultBlock.scorerText.includes("29' Kaishū Sano") &&
+      brazilJapanResultBlock.scorerText.includes("56' Casemiro") &&
+      brazilJapanResultBlock.scorerText.includes("90+5' Gabriel Martinelli") &&
+      brazilJapanResultBlock.highlightHref === "https://www.youtube.com/watch?v=QgUSOlN0Tt0" &&
+      brazilJapanResultBlock.highlightTarget === "_blank" &&
+      brazilJapanResultBlock.highlightRel.includes("noopener") &&
+      brazilJapanResultBlock.highlightTooltip === "Play highlights on YouTube" &&
+      brazilJapanResultBlock.storyItems.length === 3 &&
+      brazilJapanResultBlock.storyItems.every((item) => !/[⚽🌟📊]/u.test(item)) &&
+      brazilJapanResultBlock.storyItems[0].includes("Japan frustrated Brazil") &&
+      brazilJapanResultBlock.storyItems[1].includes("Kaishu Sano rattled Brazil first") &&
+      brazilJapanResultBlock.storyItems[2].includes("Gabriel Martinelli won it deep into stoppage time") &&
+      brazilJapanResultBlock.storyLinkTexts.includes("Takehiro Tomiyasu") &&
+      brazilJapanResultBlock.storyLinkTexts.includes("Zion Suzuki"),
+    `Brazil-Japan result recap should render score, scorer timeline, official video, and plain story bullets. Measured ${JSON.stringify(brazilJapanResultBlock)}.`
+  );
+  await brazilJapanRecapCheck.page.locator("#match-info .result-video-link").hover();
+  await brazilJapanRecapCheck.page.waitForTimeout(180);
+  const brazilJapanVideoTooltipOpacity = await brazilJapanRecapCheck.page
+    .locator("#match-info .result-video-link")
+    .evaluate((link) => Number(getComputedStyle(link, "::after").opacity));
+  assert(
+    brazilJapanVideoTooltipOpacity > 0.8,
+    `Hovering the Brazil-Japan highlight button should show the YouTube tooltip. Measured opacity ${brazilJapanVideoTooltipOpacity}.`
+  );
+  await brazilJapanRecapCheck.context.close();
+
+  const scheduledHighlightGuardCheck = await openPageAtTime(
+    "2026-06-29T16:30:00.000Z",
+    "/?view=matches&date=2026-06-29&tz=America%2FLos_Angeles",
+    {
+      fixtureTransform(data) {
+        const fixture = data.fixtures.find((item) => item.id === "match-76-round-of-32-2026-06-29");
+        fixture.status = "SCHEDULED";
+        delete fixture.score;
+        delete fixture.goalsHome;
+        delete fixture.goalsAway;
+      }
+    }
+  );
+  await scheduledHighlightGuardCheck.page.locator('[data-match-id="match-76-round-of-32-2026-06-29"]').click();
+  assert(
+    (await scheduledHighlightGuardCheck.page.locator("#match-info .result-video-link").count()) === 0,
+    "Scheduled fixtures should not render a highlight video button even when stale highlightVideo data is present."
+  );
+  await scheduledHighlightGuardCheck.context.close();
+
   await page.goto(`${baseUrl}?view=matches&date=2026-06-21&tz=America%2FLos_Angeles`, {
     waitUntil: "load"
   });
@@ -2539,6 +2633,44 @@ try {
     waitUntil: "load"
   });
   await page.waitForSelector(".match-row");
+  await page.waitForSelector(".yesterday-section");
+  for (const viewport of [
+    { width: 1280, height: 720 },
+    { width: 700, height: 720 },
+    { width: 390, height: 844 },
+    { width: 280, height: 760 }
+  ]) {
+    await page.setViewportSize(viewport);
+    await page.waitForTimeout(80);
+    const singlePast24Layout = await page.locator(".yesterday-section").evaluate((section) => {
+      const grid = section.querySelector(".yesterday-match-grid");
+      const card = grid?.querySelector(".yesterday-match-card");
+      const gridRect = grid?.getBoundingClientRect();
+      const cardRect = card?.getBoundingClientRect();
+
+      return {
+        cardCount: grid?.querySelectorAll(".yesterday-match-card").length || 0,
+        cardLeftGap: gridRect && cardRect ? Math.round(cardRect.left - gridRect.left) : null,
+        cardRightGap: gridRect && cardRect ? Math.round(gridRect.right - cardRect.right) : null,
+        cardWidth: cardRect ? Math.round(cardRect.width) : null,
+        gridColumns: grid ? getComputedStyle(grid).gridTemplateColumns : "",
+        gridScrollOverflow: grid ? grid.scrollWidth - grid.clientWidth : 0,
+        gridWidth: gridRect ? Math.round(gridRect.width) : null,
+        hasSingleMatchClass: grid?.classList.contains("has-single-match") || false,
+        sectionScrollOverflow: section.scrollWidth - section.clientWidth
+      };
+    });
+    assert(
+      singlePast24Layout.cardCount === 1 &&
+        singlePast24Layout.hasSingleMatchClass &&
+        singlePast24Layout.cardLeftGap === 0 &&
+        Math.abs(singlePast24Layout.cardRightGap) <= 1 &&
+        singlePast24Layout.gridScrollOverflow <= 1 &&
+        singlePast24Layout.sectionScrollOverflow <= 1,
+      `A single Past 24 hours match should span the full available row at ${viewport.width}px. Measured ${JSON.stringify(singlePast24Layout)}.`
+    );
+  }
+  await page.setViewportSize({ width: 1280, height: 720 });
   await page.locator('[data-match-id="match-76-round-of-32-2026-06-29"]').click();
   const unconfirmedRoundOf32DetailText = normalizeFlaggedText(await page.locator("#match-info").innerText());
   assert(
@@ -3128,12 +3260,18 @@ try {
   );
   assert(
     historicalGroupDetailText.includes("Ecuador beat Qatar 2-0") &&
-      historicalGroupDetailText.includes("Ecuador took three points from World Cup 2022 / Group A"),
-    "Historical result details should summarize the archived final score."
+      historicalGroupDetailText.includes("Enner Valencia put Ecuador ahead early") &&
+      historicalGroupDetailText.includes("Enner Valencia scored twice as Ecuador kept widening the gap") &&
+      !historicalGroupDetailText.includes("Ecuador took three points from World Cup 2022 / Group A"),
+    "Historical result details should summarize the archived final score with authored story bullets instead of points fallback."
   );
   const historicalResultHighlights = await page
     .locator("#match-info .result-highlights li")
-    .evaluateAll((items) => items.map((item) => item.textContent.replace(/\s+/g, " ").trim()));
+    .evaluateAll((items) => items.map((item) => {
+      const clone = item.cloneNode(true);
+      clone.querySelectorAll(".player-card").forEach((card) => card.remove());
+      return clone.textContent.replace(/\s+/g, " ").trim();
+    }));
   const historicalScorerHighlight = await page.locator("#match-info .scorer-highlight").evaluate((item) => {
     const segments = [...item.querySelectorAll(".goal-scorer-segment")];
     return {
@@ -3174,7 +3312,11 @@ try {
       historicalScorerCardText.includes("Enner Valencia") &&
       historicalScorerCardText.includes("Forward") &&
       historicalScorerCardText.includes("Ecuador 2022 World Cup archive") &&
-      historicalScorerCardText.includes("Ecuador 2022 archive: front-line scoring threat") &&
+      historicalScorerCardText.includes(
+        "Ecuador 2022 archive: A starting forward whose repeat finishing tilted Ecuador's match against Qatar."
+      ) &&
+      historicalScorerCardText.includes("Scored twice against Qatar (2-0 win)") &&
+      historicalScorerCardText.includes("One goal came from the spot.") &&
       historicalScorerCardText.includes("2022 age 33") &&
       historicalScorerCardText.includes("Peak value €11m") &&
       !historicalScorerCardText.includes("scored 2 goals in this match"),
@@ -3184,10 +3326,11 @@ try {
     (text) => !text.includes("16' Enner Valencia") && !text.includes("31' Enner Valencia")
   );
   assert(
-    historicalNarrativeHighlights.length >= 2 &&
-      historicalNarrativeHighlights.every((text) => text.length <= 95) &&
-      historicalNarrativeHighlights.some((text) => text.startsWith("🌟")),
-    "Historical result bullets should stay compact and use the rewritten outcome/moment/impact style."
+    historicalNarrativeHighlights.length >= 3 &&
+      historicalNarrativeHighlights.every((text) => text.length <= 160) &&
+      historicalNarrativeHighlights.every((text) => !/^(?:⚽|🔥|🛡️|🧤|🌟|📊)/u.test(text)) &&
+      historicalNarrativeHighlights.some((text) => text.includes("Enner Valencia scored twice")),
+    "Historical result bullets should stay compact and use plain authored story copy."
   );
   assert(
     !historicalGroupDetailText.includes("Archived result shown instead of a pre-match probability"),
@@ -3217,7 +3360,8 @@ try {
   assert(
     scorerOnlyHistoricalCardText.includes("Carlos Alberto") &&
       scorerOnlyHistoricalCardText.includes("Brazil 1970 World Cup archive") &&
-      scorerOnlyHistoricalCardText.includes("Brazil 1970 archive: player reference, with 1 World Cup goal.") &&
+      scorerOnlyHistoricalCardText.includes("Brazil 1970 archive: A final scorer in Brazil's archive route alongside Gérson and Jairzinho.") &&
+      scorerOnlyHistoricalCardText.includes("Scored against Italy in the Final (4-1 win).") &&
       !scorerOnlyHistoricalCardText.includes("credited with 1 World Cup goal"),
     "Historical scorer-only names should use the generated archive card profile."
   );
@@ -3231,8 +3375,10 @@ try {
   assert(
     firstHistoricalDetailText.includes("World Cup 1930") &&
       firstHistoricalDetailText.includes("France beat Mexico 4-1") &&
-      firstHistoricalDetailText.includes("France took three points from World Cup 1930 / Group 1"),
-    "Historical result details should reach back to the first loaded World Cup match."
+      firstHistoricalDetailText.includes("Lucien Laurent put France ahead early") &&
+      firstHistoricalDetailText.includes("André Maschinot scored twice as France kept widening the gap") &&
+      !firstHistoricalDetailText.includes("France took three points from World Cup 1930 / Group 1"),
+    "Historical result details should reach back to the first loaded World Cup match with authored result copy."
   );
 
   await page.goto(`${baseUrl}?view=matches&date=2022-12-14&tz=America%2FLos_Angeles`, {
@@ -3664,6 +3810,8 @@ try {
           (fixture) => fixture.id === "czechia-south-africa-2026-06-18"
         );
         liveFixture.status = "SCHEDULED";
+        liveFixture.officialMatchTime = "5'";
+        liveFixture.officialMatchTimeUpdatedAt = "2026-06-18T16:02:00.000Z";
         delete liveFixture.score;
       }
     }
@@ -3682,9 +3830,10 @@ try {
   );
   assert(
     (await liveScoreLink.getAttribute("href")) === fifaWorldCupScoresUrl &&
-      (await liveScoreLink.getAttribute("title")) === "Check latest score at FIFA" &&
-      (await liveScoreLink.getAttribute("data-tooltip")) === "Check latest score at FIFA",
-    "The live pill should link to FIFA scores and expose the hover tooltip copy."
+      (await liveScoreLink.getAttribute("title")) === "FIFA snapshot: 5' · checked 3 min ago" &&
+      (await liveScoreLink.getAttribute("data-tooltip")) === "FIFA snapshot: 5' · checked 3 min ago" &&
+      !((await liveScoreLink.getAttribute("title")) || "").includes("Check latest score at FIFA"),
+    "The live pill should link to FIFA scores and expose official snapshot freshness."
   );
   const liveFallbackText = (await liveFallbackRow.innerText()).replace(/\s+/g, " ").trim();
   const liveFallbackUpperText = liveFallbackText.toUpperCase();
@@ -3704,16 +3853,16 @@ try {
     .locator(".match-row-meta > *")
     .evaluateAll((items) => items.map((item) => item.innerText.trim().toUpperCase()).join("|"));
   assert(
-    liveFallbackMetaText === "LIVE|SCORE PENDING",
+    liveFallbackMetaText === "LIVE|PENDING",
     "The live row should label score-pending state when no verified score is loaded."
   );
   assert(
     (await liveFallbackRow.locator(".score-status.is-pending").count()) === 1,
-    "A live fixture without a loaded score should show Score pending."
+    "A live fixture without a loaded score should show Pending."
   );
   assert(
-    (await liveFallbackRow.innerText()).includes("Score pending"),
-    "The visible live row text should include Score pending."
+    (await liveFallbackRow.innerText()).includes("Pending"),
+    "The visible live row text should include Pending."
   );
   await liveFallbackScoreCheck.page.waitForTimeout(180);
   const liveTodayFocusState = await liveFallbackScoreCheck.page.locator("#match-list").evaluate((list) => {
@@ -4017,6 +4166,85 @@ try {
     await upNextCheck.context.close();
   }
 
+  const nextScheduledKnockoutFixture = fixturesData.fixtures
+    .filter((fixture) => fixture.stage && fixture.stage !== "group" && fixture.status === "SCHEDULED" && fixture.kickoffUtc)
+    .sort((a, b) => new Date(a.kickoffUtc) - new Date(b.kickoffUtc))[0];
+  if (nextScheduledKnockoutFixture) {
+    const nextKnockoutKickoffUtc = nextScheduledKnockoutFixture.kickoffUtc;
+    const nextScheduledKnockoutMatchNumbers = fixturesData.fixtures
+      .filter(
+        (fixture) =>
+          fixture.stage &&
+          fixture.stage !== "group" &&
+          fixture.status === "SCHEDULED" &&
+          fixture.kickoffUtc === nextKnockoutKickoffUtc
+      )
+      .map((fixture) => String(fixture.matchNumber));
+    const beforeKnockoutKickoff = new Date(new Date(nextKnockoutKickoffUtc).getTime() - 5 * 60 * 1000);
+    const tournamentUpNextCheck = await openPageAtTime(
+      beforeKnockoutKickoff.toISOString(),
+      "/?view=standings&standingsMode=tournament&tz=America%2FLos_Angeles",
+      {
+        fixtureTransform(data) {
+          for (const fixture of data.fixtures || []) {
+            if (fixture.status === "LIVE") {
+              fixture.status = "FT";
+              fixture.score ||= { home: 0, away: 0 };
+            }
+          }
+        }
+      }
+    );
+    await tournamentUpNextCheck.page.waitForSelector(".progress-match");
+    const tournamentUpNextState = await tournamentUpNextCheck.page.evaluate((matchNumbers) => {
+      const expected = new Set(matchNumbers);
+      const cardsWithBadges = [...document.querySelectorAll(".progress-match .tournament-up-next-pill")]
+        .map((pill) => {
+          const card = pill.closest(".progress-match");
+          const header = pill.closest(".knockout-match-header");
+          const meta = header?.querySelector(".knockout-match-meta");
+          const cardRect = card?.getBoundingClientRect();
+          const metaRect = meta?.getBoundingClientRect();
+          const pillRect = pill.getBoundingClientRect();
+
+          return {
+            cardIsNext: card?.classList.contains("is-next") || false,
+            headerHasUpNext: header?.classList.contains("has-up-next") || false,
+            headerOverflow: header ? header.scrollWidth - header.clientWidth : null,
+            isExpected: expected.has(card?.dataset.matchNumber || ""),
+            label: pill.textContent.replace(/\s+/g, " ").trim(),
+            matchNumber: card?.dataset.matchNumber || "",
+            rightGap: cardRect ? Math.round(cardRect.right - pillRect.right) : null,
+            verticalCenterGap: metaRect
+              ? Math.abs((metaRect.top + metaRect.height / 2) - (pillRect.top + pillRect.height / 2))
+              : null
+          };
+        });
+
+      return {
+        cardsWithBadges,
+        tournamentBadgeCount: document.querySelectorAll(".tournament-view .tournament-up-next-pill").length
+      };
+    }, nextScheduledKnockoutMatchNumbers);
+    assert(
+      tournamentUpNextState.tournamentBadgeCount === nextScheduledKnockoutMatchNumbers.length &&
+        tournamentUpNextState.cardsWithBadges.every(
+          (badge) =>
+            badge.isExpected &&
+            badge.cardIsNext &&
+            badge.headerHasUpNext &&
+            badge.headerOverflow <= 1 &&
+            badge.label === "Up next" &&
+            badge.rightGap >= 6 &&
+            badge.rightGap <= 12 &&
+            badge.verticalCenterGap !== null &&
+            badge.verticalCenterGap <= 2
+        ),
+      `Tournament cards should mark only the next scheduled knockout match with a top-right Up next pill aligned to the date and venue. Measured ${JSON.stringify(tournamentUpNextState)}.`
+    );
+    await tournamentUpNextCheck.context.close();
+  }
+
   const pendingScoreFixture = fixturesData.fixtures
     .filter((fixture) => fixture.status === "SCHEDULED" && fixture.kickoffUtc && !fixture.score)
     .sort((a, b) => new Date(a.kickoffUtc) - new Date(b.kickoffUtc))[0];
@@ -4258,19 +4486,31 @@ try {
   const knockoutCatchUpItems = await knockoutCatchUpCheck.page
     .locator(".catch-up-item")
     .evaluateAll((items) =>
-      items.map((item) => ({
-        headline: item.querySelector(".catch-up-title-row h3 > span")?.textContent.trim(),
-        subtitle: item.querySelector(".catch-up-subtitle")?.textContent.trim() || ""
-      }))
+      items.map((item) => {
+        const visibleText = (node) => {
+          if (!node) {
+            return "";
+          }
+
+          const clone = node.cloneNode(true);
+          clone.querySelectorAll(".player-card").forEach((card) => card.remove());
+          return clone.textContent.replace(/\s+/g, " ").trim();
+        };
+
+        return {
+          headline: visibleText(item.querySelector(".catch-up-title-row h3 > span")),
+          subtitle: visibleText(item.querySelector(".catch-up-subtitle"))
+        };
+      })
     );
   const canadaKnockoutItem = knockoutCatchUpItems.find((item) =>
     item.headline?.includes("Canada edge South Africa to reach the Round of 16")
   );
   assert(
     canadaKnockoutItem?.subtitle.includes("Canada's 1-0 win moved them into the Round of 16") &&
-      canadaKnockoutItem?.subtitle.includes("Canada's clean sheet ended South Africa's run") &&
+      canadaKnockoutItem?.subtitle.includes("Stephen Eustaquio's 90+2' winner settled it for Canada") &&
       canadaKnockoutItem?.subtitle.includes("Canada reached the Round of 16 and South Africa exited"),
-    "Completed knockout catch-up should describe progression and elimination instead of group points."
+    "Completed knockout catch-up should describe the scorer, progression, and elimination instead of group points."
   );
   assert(
     !/\b(?:points|foothold)\b/i.test(`${canadaKnockoutItem?.headline || ""} ${canadaKnockoutItem?.subtitle || ""}`),
@@ -4279,10 +4519,15 @@ try {
   await knockoutCatchUpCheck.page.locator('[data-match-id="match-73-round-of-32-2026-06-28"]').click();
   const canadaKnockoutDetailText = await knockoutCatchUpCheck.page.locator("#match-info").innerText();
   assert(
-    canadaKnockoutDetailText.includes("Canada's clean sheet ended South Africa's run.") &&
-      canadaKnockoutDetailText.includes("Canada reached the Round of 16 and South Africa exited.") &&
-      !/took three points from Round of 32|foothold in Round of 32/i.test(canadaKnockoutDetailText),
-    "Completed knockout match detail should use progression result highlights, not group-table impact copy."
+    canadaKnockoutDetailText.includes("Canada beat South Africa 1-0.") &&
+      !canadaKnockoutDetailText.includes("Canada beat South Africa 0-1.") &&
+      canadaKnockoutDetailText.includes("90+2'") &&
+      canadaKnockoutDetailText.includes("Stephen Eustaquio") &&
+      canadaKnockoutDetailText.includes("Stephen Eustaquio broke through in stoppage time, leaving South Africa chasing a 1-0 match.") &&
+      canadaKnockoutDetailText.includes("Canada kept South Africa out at the other end and turned the late goal into a knockout win.") &&
+      canadaKnockoutDetailText.includes("South Africa stayed close enough to keep the final minutes tense.") &&
+      !/Canada reached the Round of 16 and South Africa exited|took three points from Round of 32|foothold in Round of 32/i.test(canadaKnockoutDetailText),
+    "Completed knockout match detail should show winner-oriented score, scorer timeline, and match-specific bullets without bracket-impact or group-table copy."
   );
   await knockoutCatchUpCheck.context.close();
 
@@ -4461,6 +4706,25 @@ try {
   );
   await tomorrowDuringKickoff.context.close();
 
+  const tomorrowPast24DuringLive = await openPageAtTime(
+    "2026-06-29T21:34:00.000Z",
+    "/?view=matches&date=2026-06-30&tz=America%2FLos_Angeles",
+    {
+      fixtureTransform(data) {
+        const liveFixture = data.fixtures.find(
+          (fixture) => fixture.id === "match-74-round-of-32-2026-06-29"
+        );
+        liveFixture.status = "LIVE";
+        liveFixture.score = { home: 0, away: 1 };
+      }
+    }
+  );
+  assert(
+    (await tomorrowPast24DuringLive.page.locator(".yesterday-section").count()) === 0,
+    "A future date should not show a Past 24 hours banner while previous-day matches are still live."
+  );
+  await tomorrowPast24DuringLive.context.close();
+
   const todayUrlDate = getDayKeyForTimeZone(new Date().toISOString());
   await page.goto(`${baseUrl}?view=matches&date=${todayUrlDate}&tz=America%2FLos_Angeles`, {
     waitUntil: "load"
@@ -4594,13 +4858,6 @@ try {
       getExpectedThirdPlaceStandingBadgeReason(expectedGroupBThirdPlaceCandidate),
     "Group standings third-place race pills should explain whether the team is advancing or not advancing."
   );
-  const expectedStandingsLiveThirdPlaceTeams = new Set(
-    fixturesData.fixtures
-      .filter((fixture) => isFixtureLive(fixture))
-      .flatMap((fixture) => [fixture.homeTeamId, fixture.awayTeamId])
-      .filter((teamId) => getExpectedThirdPlaceRaceRows().some((candidate) => candidate.teamId === teamId))
-      .map((teamId) => getTeam(teamId).name)
-  );
   const groupStandingsLiveRows = await page.evaluate(() =>
     [...document.querySelectorAll(".standings-card tbody tr")].map((row) => ({
       eliminated: row.querySelector(".standing-status-pill.is-eliminated")?.textContent.trim() || "",
@@ -4610,42 +4867,12 @@ try {
     }))
   );
   assert(
-    groupStandingsLiveRows.every((row) =>
-      expectedStandingsLiveThirdPlaceTeams.has(row.team) ? row.live === "Live" : row.live === ""
-    ) &&
-      groupStandingsLiveRows
-        .filter((row) => expectedStandingsLiveThirdPlaceTeams.has(row.team))
-        .every((row) => row.race.startsWith("3rd race")),
-    "Group standings should show LIVE only beside current third-place candidates playing live."
+    groupStandingsLiveRows.every((row) => row.live === ""),
+    "Group standings should not show LIVE pills now that the group stage live-tracking surface is retired."
   );
   assert(
     groupStandingsLiveRows.every((row) => !row.race || !row.eliminated),
     "Group standings should not stack an Eliminated pill beside a third-place race pill."
-  );
-  await page.setViewportSize({ width: 390, height: 844 });
-  await page.waitForTimeout(80);
-  const groupStandingsLiveBadgeMetrics = await page.evaluate(() =>
-    [...document.querySelectorAll(".standings-card tbody tr")]
-      .map((row) => {
-        const livePill = row.querySelector(".standing-live-pill");
-        const racePill = row.querySelector(".third-place-pill");
-        return livePill
-          ? {
-              liveHeight: Math.round(livePill.getBoundingClientRect().height),
-              raceHeight: racePill ? Math.round(racePill.getBoundingClientRect().height) : null,
-              team: row.querySelector(".standing-name")?.textContent.trim() || ""
-            }
-          : null;
-      })
-      .filter(Boolean)
-  );
-  assert(
-    expectedStandingsLiveThirdPlaceTeams.size === 0 ||
-      (groupStandingsLiveBadgeMetrics.length === expectedStandingsLiveThirdPlaceTeams.size &&
-        groupStandingsLiveBadgeMetrics.every(
-          (row) => row.raceHeight !== null && Math.abs(row.liveHeight - row.raceHeight) <= 1
-        )),
-    `Standing LIVE pills should match third-place race pill height. Measured ${JSON.stringify(groupStandingsLiveBadgeMetrics)}.`
   );
   await page.setViewportSize({ width: 1280, height: 720 });
   const scheduledLiveWindowCheck = await openPageAtTime(
@@ -4674,13 +4901,9 @@ try {
     }))
   );
   assert(
-    groupIScheduledWindowRows.some(
-      (row) => row.team === "Senegal" && row.race.startsWith("3rd race") && row.live === "Live"
-    ) &&
-      groupIScheduledWindowRows
-        .filter((row) => row.team !== "Senegal")
-        .every((row) => row.live === ""),
-    "Third-place standings live pills should follow the live-window rule when source status is still scheduled."
+    groupIScheduledWindowRows.every((row) => row.live === "") &&
+      groupIScheduledWindowRows.some((row) => row.team === "Senegal" && row.race.startsWith("3rd race")),
+    "Group standings should keep third-place race pills but suppress LIVE pills during the scheduled live window."
   );
   await scheduledLiveWindowCheck.page.locator("#standings-third-place-tab").click();
   await scheduledLiveWindowCheck.page.waitForFunction(
@@ -4693,8 +4916,8 @@ try {
     }))
   );
   assert(
-    thirdPlaceScheduledWindowRows.some((row) => row.team === "Senegal" && row.live === "Live"),
-    "The third-place race table should mark a current third-place candidate as live during its scheduled live window."
+    thirdPlaceScheduledWindowRows.every((row) => row.live === ""),
+    "The third-place race table should not show LIVE pills during the scheduled live window."
   );
   await scheduledLiveWindowCheck.context.close();
   assert(
@@ -4785,7 +5008,6 @@ try {
         rank: row.children[0]?.textContent.trim(),
         team: row.querySelector(".standing-name")?.textContent.trim(),
         group: row.children[2]?.textContent.trim(),
-        live: row.querySelector(".standing-live-pill")?.textContent.trim() || "",
         status: statusPill?.textContent.trim(),
         statusLabel: statusPill?.getAttribute("aria-label"),
         tooltip: statusPill?.getAttribute("data-tooltip")
@@ -4798,6 +5020,7 @@ try {
       headers: [...document.querySelectorAll(".third-place-table thead th")].map((header) =>
         header.textContent.trim()
       ),
+      livePillCount: document.querySelectorAll(".third-place-table .standing-live-pill").length,
       note: document.querySelector(".third-place-note")?.textContent.trim(),
       rowCount: rows.length,
       rowSummaries,
@@ -4839,18 +5062,9 @@ try {
       thirdPlaceRaceCheck.rowSummaries.some((row) => row.status === "Eliminated" && row.tooltip === "Eliminated at group stage."),
     "The third-place race should show binary status pill tooltips without probability or GF jargon."
   );
-  const expectedLiveThirdPlaceTeams = new Set(
-    fixturesData.fixtures
-      .filter((fixture) => isFixtureLive(fixture))
-      .flatMap((fixture) => [fixture.homeTeamId, fixture.awayTeamId])
-      .filter((teamId) => expectedThirdPlaceRaceRows.some((candidate) => candidate.teamId === teamId))
-      .map((teamId) => getTeam(teamId).name)
-  );
   assert(
-    thirdPlaceRaceCheck.rowSummaries.every((row) =>
-      expectedLiveThirdPlaceTeams.has(row.team) ? row.live === "Live" : row.live === ""
-    ),
-    "The third-place race should show LIVE only for active matches involving current third-place candidates."
+    thirdPlaceRaceCheck.livePillCount === 0,
+    "The third-place race should not carry standings LIVE pill state."
   );
   assert(
     thirdPlaceRaceCheck.rowSummaries.every((row) => !/^(?:<1%|\d+%) advancing$/.test(row.status || "")),
@@ -5051,7 +5265,9 @@ try {
         .map((element) => element.dataset.outcome || ""),
       m73OutcomeTexts: [...document.querySelectorAll('.progress-match[data-match-number="73"] .knockout-likelihood')]
         .map((element) => element.textContent.replace(/\s+/g, " ").trim()),
-      m74TieTooltip: getOutcomeTooltip(74, "tie"),
+      m74ResultPills: [...document.querySelectorAll('.progress-match[data-match-number="74"] .knockout-result-pill')]
+        .map((element) => element.textContent.replace(/\s+/g, " ").trim()),
+      m74Winner: document.querySelector('.progress-match[data-match-number="74"]')?.dataset.winnerTeamId || "",
       m77TieTooltip: getOutcomeTooltip(77, "tie"),
       m80TieTooltip: getOutcomeTooltip(80, "tie"),
       m83TieTooltip: getOutcomeTooltip(83, "tie"),
@@ -5139,6 +5355,7 @@ try {
   const m89LikelyVisuals = tournamentCheck.m89TeamVisuals.filter((team) =>
     team.className.includes("is-likely")
   );
+  const m89LockedParaguayVisual = tournamentCheck.m89TeamVisuals.find((team) => team.teamId === "PAR");
   const isLockedResolvedCountry = (team) =>
     team.className.includes("is-locked") &&
     team.className.includes("is-resolved") &&
@@ -5177,15 +5394,14 @@ try {
   assert(
     tournamentCheck.m89Projected === true &&
       tournamentCheck.m89TeamVisuals.length === 2 &&
-      m89LikelyVisuals.length >= 1 &&
-      tournamentCheck.m89TeamVisuals.every(
-        (team) => isLockedResolvedCountry(team) || isMutedProjectedCountry(team)
-      ) &&
+      m89LockedParaguayVisual &&
+      isLockedResolvedCountry(m89LockedParaguayVisual) &&
+      m89LikelyVisuals.length === 1 &&
       m89LikelyVisuals.every(isMutedProjectedCountry) &&
       getCssColorAlpha(tournamentCheck.m89VersusColor) < 0.7 &&
       tournamentCheck.laterRoundLikelyVisuals.length >= 2 &&
       tournamentCheck.laterRoundLikelyVisuals.every(isMutedProjectedCountry),
-    `Projected Round of 16 and later country picks should keep unresolved teams muted while allowing confirmed source teams to stay full-strength. Measured ${JSON.stringify({ m89TeamVisuals: tournamentCheck.m89TeamVisuals, m89LikelyVisuals, m89VersusColor: tournamentCheck.m89VersusColor, laterRoundLikelyVisuals: tournamentCheck.laterRoundLikelyVisuals })}.`
+    `Projected Round of 16 and later country picks should keep confirmed source teams full-strength and unresolved teams muted. Measured ${JSON.stringify({ m89LockedParaguayVisual, m89LikelyVisuals, m89VersusColor: tournamentCheck.m89VersusColor, laterRoundLikelyVisuals: tournamentCheck.laterRoundLikelyVisuals })}.`
   );
   const groupETopTeam = getTeam(standingsData.groups?.E?.[0]?.teamId);
   const groupETopTeamName = groupETopTeam.standingName || groupETopTeam.name;
@@ -5245,13 +5461,6 @@ try {
   const expectedOutcomePillCount = expectedOutcomeListCount * 3;
   const expectedMatch74OpenMatchId =
     fixturesData.fixtures.find((fixture) => fixture.matchNumber === 74)?.id || "";
-  const expectedMatch74Fixture = fixturesData.fixtures.find((fixture) => fixture.matchNumber === 74);
-  const expectedMatch74OutcomePills = Boolean(
-    expectedMatch74Fixture &&
-      expectedMatch74Fixture.status !== "FT" &&
-      !expectedMatch74Fixture.winnerTeamId &&
-      !expectedMatch74Fixture.winner
-  );
   const expectedMatch81Fixture = fixturesData.fixtures.find((fixture) => fixture.matchNumber === 81);
   const expectedM81OutcomeTexts = expectedMatch81Fixture
     ? [
@@ -5265,6 +5474,7 @@ try {
       tournamentCheck.m73ProgressText.includes("Jun 28 12:00PM") &&
       !tournamentCheck.m73ProgressText.includes("Jun 28 / 12:00PM") &&
       tournamentCheck.m74ProgressText.includes(groupETopTeamName) &&
+      tournamentCheck.m74ProgressText.includes("Paraguay") &&
       tournamentCheck.m74VenueText === "Massachusetts, USA" &&
       !tournamentCheck.m74ProgressText.includes("Boston Stadium") &&
       !tournamentCheck.m74ProgressText.includes("Foxborough") &&
@@ -5285,6 +5495,8 @@ try {
       tournamentCheck.m74Projected === false &&
       tournamentCheck.m73OpenMatchId === "match-73-round-of-32-2026-06-28" &&
       tournamentCheck.m74OpenMatchId === expectedMatch74OpenMatchId &&
+      tournamentCheck.m74Winner === "PAR" &&
+      tournamentCheck.m74ResultPills.join("|") === "1-1 • Penalties 4-3" &&
       !tournamentCheck.m73ProgressText.includes("Round of 32") &&
       tournamentCheck.likelihoodCount === expectedOutcomePillCount &&
       tournamentCheck.likelihoodNonNeutralCount === 0 &&
@@ -5347,11 +5559,6 @@ try {
       ) &&
       tournamentCheck.m77TieTooltip.includes("France have the shootout edge through Kylian Mbappé") &&
       !/goalkeeper|Olise|Risser/.test(tournamentCheck.m77TieTooltip) &&
-      (!expectedMatch74OutcomePills ||
-        (tournamentCheck.m74TieTooltip.includes(
-          "Germany have the shootout edge through Kai Havertz and Joshua Kimmich"
-        ) &&
-          !/goalkeeper|Baumann|Nübel|Nubel/.test(tournamentCheck.m74TieTooltip))) &&
       tournamentCheck.m80TieTooltip.includes("Everton goalkeeper Jordan Pickford") &&
       tournamentCheck.m83TieTooltip.includes("Porto goalkeeper Diogo Costa") &&
       tournamentCheck.m86TieTooltip.includes("Aston Villa goalkeeper Emiliano Martínez") &&
@@ -5553,25 +5760,13 @@ try {
         const match74VsTop = Math.round(match74?.querySelector(".knockout-versus")?.getBoundingClientRect().top || 0);
         const match74Venue = match74?.querySelector(".knockout-match-venue");
         const match74VenueStyle = match74Venue ? getComputedStyle(match74Venue) : null;
-        const match74OutcomeList = match74?.querySelector(".knockout-likelihood-list");
-        const match74OutcomeListStyle = match74OutcomeList ? getComputedStyle(match74OutcomeList) : null;
         const match74OutcomePills = [...(match74?.querySelectorAll(".knockout-likelihood") || [])];
-        const firstOutcomePillRect = match74OutcomePills[0]?.getBoundingClientRect();
-        const secondOutcomePillRect = match74OutcomePills[1]?.getBoundingClientRect();
+        const match74ResultPills = [...(match74?.querySelectorAll(".knockout-result-pill") || [])]
+          .map((pill) => pill.textContent.replace(/\s+/g, " ").trim());
         const seedLabels = [...document.querySelectorAll('.progress-match .knockout-team-copy small')]
           .map((label) => label.textContent.trim());
-        const match74OutcomeTooltips = [...document.querySelectorAll('.progress-match[data-match-number="74"] .knockout-likelihood')]
-          .map((pill) => pill.getAttribute("data-tooltip") || "");
         const match74OutcomeKeys = [...document.querySelectorAll('.progress-match[data-match-number="74"] .knockout-likelihood')]
           .map((pill) => pill.dataset.outcome || "");
-        const match74OutcomeStyles = match74OutcomePills.map((pill) => {
-          const pillStyle = getComputedStyle(pill);
-          return {
-            background: pillStyle.backgroundColor,
-            borderColor: pillStyle.borderColor,
-            color: pillStyle.color
-          };
-        });
         const connector = document.querySelector(".progress-connectors");
         const connectorDisplay = connector ? getComputedStyle(connector).display : "";
         const connectorPath = connector?.querySelector("path");
@@ -5603,11 +5798,8 @@ try {
           connectorPathCount: document.querySelectorAll(".progress-connectors path").length,
           connectorStrokeWidth: connectorPathStyle ? Number.parseFloat(connectorPathStyle.strokeWidth) : 0,
           match74PairJustifyContent: match74PairStyle?.justifyContent || "",
-          match74OutcomeGap: firstOutcomePillRect && secondOutcomePillRect ? Math.round(secondOutcomePillRect.left - firstOutcomePillRect.right) : null,
           match74OutcomeKeys,
-          match74OutcomeListJustifyContent: match74OutcomeListStyle?.justifyContent || "",
-          match74OutcomeStyles,
-          match74OutcomeTooltips,
+          match74ResultPills,
           match74TieFlagCount: match74?.querySelectorAll('.knockout-likelihood[data-outcome="tie"] .flag').length || 0,
           match74SingleLine: match74TeamTops.length === 2 && match74TeamTops.every((top) => Math.abs(top - match74VsTop) <= 2),
           match74VenueCursor: match74VenueStyle?.cursor || "",
@@ -5630,22 +5822,9 @@ try {
     tournamentLayoutChecks.every(
       (check) =>
         check.seedLines.length === 0 &&
-        (expectedMatch74OutcomePills
-          ? check.match74OutcomeKeys.join("|") === "home|tie|away" &&
-            check.match74TieFlagCount === 0 &&
-            check.match74OutcomeTooltips.some((tooltip) => tooltip.includes("chance of penalties")) &&
-            check.match74OutcomeStyles.length === 3 &&
-            check.match74OutcomeStyles.every(
-              (style) =>
-                style.background.startsWith("rgba(10, 10, 10") &&
-                style.borderColor.startsWith("rgba(10, 10, 10") &&
-                style.color.startsWith("rgba(10, 10, 10")
-            ) &&
-            check.match74OutcomeListJustifyContent === "flex-start"
-          : check.match74OutcomeKeys.length === 0 &&
-            check.match74OutcomeStyles.length === 0 &&
-            check.match74OutcomeTooltips.length === 0) &&
-        (check.match74OutcomeGap === null || (check.match74OutcomeGap >= 0 && check.match74OutcomeGap <= 16)) &&
+        check.match74OutcomeKeys.length === 0 &&
+        check.match74ResultPills.join("|") === "1-1 • Penalties 4-3" &&
+        check.match74TieFlagCount === 0 &&
         check.match74PairJustifyContent === "flex-start" &&
         check.match74VenueCursor === "help" &&
         check.match74VenueText === "Massachusetts, USA" &&
@@ -5823,28 +6002,49 @@ try {
     progression.scrollTop = progression.scrollHeight - progression.clientHeight;
   });
   await page.waitForTimeout(60);
-  const tournamentBoardEdgeBox = await page.locator(".tournament-progression").boundingBox();
-  assert(tournamentBoardEdgeBox, "Mobile tournament board edge handoff should have a measurable canvas.");
-  await page.mouse.move(
-    tournamentBoardEdgeBox.x + tournamentBoardEdgeBox.width / 2,
-    tournamentBoardEdgeBox.y + Math.min(tournamentBoardEdgeBox.height - 34, 500)
-  );
-  await page.mouse.down();
-  await page.mouse.move(
-    tournamentBoardEdgeBox.x + tournamentBoardEdgeBox.width / 2,
-    tournamentBoardEdgeBox.y + Math.max(34, tournamentBoardEdgeBox.height - 240),
-    { steps: 8 }
-  );
-  await page.mouse.up();
-  await page.waitForTimeout(80);
   const mobileTournamentCanvasEdgeHandoff = await page.evaluate(() => {
     const progression = document.querySelector(".tournament-progression");
     const maxScrollTop = progression.scrollHeight - progression.clientHeight;
+    const calls = [];
+    const originalScrollTo = window.scrollTo.bind(window);
+    const originalSetPointerCapture = Element.prototype.setPointerCapture;
+    const originalReleasePointerCapture = Element.prototype.releasePointerCapture;
+
+    window.scrollTo(0, 0);
+    progression.scrollTop = maxScrollTop;
+    window.scrollTo = (leftOrOptions, top) => {
+      const requestedTop = typeof leftOrOptions === "object" ? Number(leftOrOptions.top) : Number(top);
+      calls.push({ top: requestedTop });
+      return originalScrollTo(leftOrOptions, top);
+    };
+    Element.prototype.setPointerCapture = function setPointerCaptureNoop() {};
+    Element.prototype.releasePointerCapture = function releasePointerCaptureNoop() {};
+
+    const rect = progression.getBoundingClientRect();
+    const eventBase = {
+      bubbles: true,
+      button: 0,
+      buttons: 1,
+      cancelable: true,
+      clientX: rect.left + rect.width / 2,
+      isPrimary: true,
+      pointerId: 23,
+      pointerType: "touch"
+    };
+    progression.dispatchEvent(new PointerEvent("pointerdown", { ...eventBase, clientY: rect.top + 500 }));
+    progression.dispatchEvent(new PointerEvent("pointermove", { ...eventBase, clientY: rect.top + 180 }));
+    progression.dispatchEvent(new PointerEvent("pointerup", { ...eventBase, buttons: 0, clientY: rect.top + 180 }));
+
+    Element.prototype.setPointerCapture = originalSetPointerCapture;
+    Element.prototype.releasePointerCapture = originalReleasePointerCapture;
+    window.scrollTo = originalScrollTo;
 
     return {
       activeRoundId: progression.dataset.mobileActiveRoundId || "",
       canvasRemainingBottom: Math.round(maxScrollTop - progression.scrollTop),
+      calls,
       hiddenRounds: [...document.querySelectorAll(".progress-round.is-before-mobile-window")].length,
+      maxRequestedTop: Math.max(...calls.map((call) => call.top)),
       pageScrollY: Math.round(window.scrollY),
       scrollTop: Math.round(progression.scrollTop),
       urlMatch: new URL(window.location.href).searchParams.get("match") || ""
@@ -5852,11 +6052,12 @@ try {
   });
   assert(
     mobileTournamentCanvasEdgeHandoff.activeRoundId === "" &&
+      mobileTournamentCanvasEdgeHandoff.calls.length > 0 &&
       mobileTournamentCanvasEdgeHandoff.hiddenRounds === 0 &&
       mobileTournamentCanvasEdgeHandoff.canvasRemainingBottom <= 2 &&
-      mobileTournamentCanvasEdgeHandoff.pageScrollY >= 80 &&
+      mobileTournamentCanvasEdgeHandoff.maxRequestedTop >= 80 &&
       mobileTournamentCanvasEdgeHandoff.urlMatch === "",
-    `Dragging past the bottom of the mobile tournament canvas should hand vertical movement to the page. Measured ${JSON.stringify(mobileTournamentCanvasEdgeHandoff)}.`
+    `Dragging past the bottom of the mobile tournament canvas should request vertical page movement. Measured ${JSON.stringify(mobileTournamentCanvasEdgeHandoff)}.`
   );
   await page.setViewportSize({ width: 1280, height: 720 });
   const canadaPathCheck = await openPageAtTime(

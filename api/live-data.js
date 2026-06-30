@@ -1101,6 +1101,24 @@ function getFifaScore(match) {
   return home === null || away === null ? null : { away, home };
 }
 
+function getFifaMatchTime(match) {
+  const value = String(match?.MatchTime || "").trim();
+  if (!value) {
+    return "";
+  }
+
+  const stoppageMatch = /^(\d{1,3})'\+(\d{1,2})'$/.exec(value);
+  if (stoppageMatch) {
+    return `${stoppageMatch[1]}+${stoppageMatch[2]}'`;
+  }
+
+  if (/^\d{1,3}(?:\+\d{1,2})?'$/.test(value)) {
+    return value;
+  }
+
+  return "";
+}
+
 function statusRank(status) {
   return {
     SCHEDULED: 0,
@@ -1142,12 +1160,16 @@ function mergeProviderFixtures({
     const participants = getProviderParticipants(providerFixture, provider.key);
     const providerStatus = getProviderStatus(providerFixture, provider.key);
     const providerScore = getProviderScore(providerFixture, participants, provider.key);
+    const officialMatchTime =
+      provider.key === FIFA_PROVIDER_KEY ? getFifaMatchTime(providerFixture) : "";
     const nextStatus =
       forceStatus || statusRank(providerStatus) >= statusRank(fixture.status)
         ? providerStatus
         : fixture.status;
     const before = JSON.stringify({
       providerIds: fixture.providerIds,
+      officialMatchTime: fixture.officialMatchTime,
+      officialMatchTimeUpdatedAt: fixture.officialMatchTimeUpdatedAt,
       score: fixture.score,
       scoreUpdatedAt: fixture.scoreUpdatedAt,
       status: fixture.status
@@ -1171,8 +1193,20 @@ function mergeProviderFixtures({
       }
     }
 
+    if (provider.key === FIFA_PROVIDER_KEY) {
+      if (providerStatus === "LIVE" && officialMatchTime) {
+        fixture.officialMatchTime = officialMatchTime;
+        fixture.officialMatchTimeUpdatedAt = checkedAt;
+      } else {
+        delete fixture.officialMatchTime;
+        delete fixture.officialMatchTimeUpdatedAt;
+      }
+    }
+
     const after = JSON.stringify({
       providerIds: fixture.providerIds,
+      officialMatchTime: fixture.officialMatchTime,
+      officialMatchTimeUpdatedAt: fixture.officialMatchTimeUpdatedAt,
       score: fixture.score,
       scoreUpdatedAt: fixture.scoreUpdatedAt,
       status: fixture.status

@@ -778,6 +778,159 @@ body.is-juggle-active {
   will-change: transform;
 }
 
+.admin-message-banner {
+  position: relative;
+  z-index: 50;
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr) 30px;
+  align-items: center;
+  gap: 11px;
+  width: auto;
+  min-height: 54px;
+  max-height: 116px;
+  margin: 15px clamp(20px, 3.5vw, 52px) 0;
+  overflow: hidden;
+  padding: 9px 10px 9px 13px;
+  border: 0;
+  border-radius: 8px;
+  background:
+    linear-gradient(180deg, rgba(242, 243, 246, 0.98) 0%, rgba(229, 231, 236, 0.98) 100%);
+  color: var(--text);
+  box-shadow:
+    0 1px 2px rgba(10, 10, 10, 0.04),
+    0 18px 42px rgba(10, 10, 10, 0.105);
+  backdrop-filter: blur(18px) saturate(1.18);
+  -webkit-backdrop-filter: blur(18px) saturate(1.18);
+  opacity: 1;
+  transform: translateY(0);
+  transition: max-height 280ms cubic-bezier(0.2, 0.72, 0.18, 1),
+    min-height 280ms cubic-bezier(0.2, 0.72, 0.18, 1),
+    margin-top 280ms cubic-bezier(0.2, 0.72, 0.18, 1),
+    padding-top 280ms cubic-bezier(0.2, 0.72, 0.18, 1),
+    padding-bottom 280ms cubic-bezier(0.2, 0.72, 0.18, 1),
+    opacity 180ms ease,
+    transform 280ms cubic-bezier(0.2, 0.72, 0.18, 1),
+    box-shadow 220ms ease;
+  will-change: max-height, margin-top, padding, opacity, transform;
+}
+
+.admin-message-banner.is-collapsing {
+  min-height: 0;
+  max-height: 0;
+  margin-top: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  box-shadow: none;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-8px);
+}
+
+.admin-message-banner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.6), transparent 58%);
+  pointer-events: none;
+}
+
+.admin-message-icon,
+.admin-message-copy,
+.admin-message-dismiss {
+  position: relative;
+  z-index: 1;
+}
+
+.admin-message-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  font-size: 18px;
+  line-height: 1;
+  filter: none;
+}
+
+.admin-message-copy {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+
+.admin-message-label {
+  color: rgba(10, 10, 10, 0.48);
+  font-size: 10px;
+  font-weight: 760;
+  letter-spacing: 0;
+  line-height: 1;
+}
+
+.admin-message-text {
+  min-width: 0;
+  margin: 0;
+  font-size: 13px;
+  font-weight: 690;
+  letter-spacing: 0;
+  line-height: 1.35;
+  text-align: left;
+  overflow-wrap: anywhere;
+}
+
+.admin-message-dismiss {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border: 0;
+  border-radius: 999px;
+  padding: 0;
+  background: transparent;
+  color: rgba(10, 10, 10, 0.42);
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.admin-message-dismiss:hover {
+  background: rgba(10, 10, 10, 0.055);
+  color: rgba(10, 10, 10, 0.72);
+}
+
+.admin-message-dismiss:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.admin-message-dismiss-icon {
+  position: relative;
+  display: block;
+  width: 10px;
+  height: 10px;
+}
+
+.admin-message-dismiss-icon::before,
+.admin-message-dismiss-icon::after {
+  content: "";
+  position: absolute;
+  top: 4px;
+  left: 0;
+  width: 10px;
+  height: 1.5px;
+  border-radius: 999px;
+  background: currentColor;
+}
+
+.admin-message-dismiss-icon::before {
+  transform: rotate(45deg);
+}
+
+.admin-message-dismiss-icon::after {
+  transform: rotate(-45deg);
+}
+
 #matches-view.is-yesterday-suppressed .page-title,
 #matches-view.is-yesterday-suppressed .match-list {
   transform: translateY(var(--yesterday-suppressed-offset));
@@ -1302,6 +1455,10 @@ h1 {
   min-width: 0;
 }
 
+.yesterday-match-grid.has-single-match {
+  grid-template-columns: minmax(0, 1fr);
+}
+
 .yesterday-match-card {
   min-width: 0;
 }
@@ -1449,6 +1606,7 @@ h1 {
   .team-search-input,
   .settings-toggle-track,
   .settings-toggle-track::after,
+  .admin-message-banner,
   .view-tabs::before,
   .language-switch::before,
   .standings-mode-tabs::before {
@@ -2215,6 +2373,7 @@ h1 {
   font-family: inherit;
   text-align: left;
   text-decoration-line: underline;
+  text-decoration-style: dotted;
   text-decoration-color: rgba(10, 10, 10, 0.28);
   text-decoration-thickness: 1px;
   text-underline-offset: 0.18em;
@@ -2364,6 +2523,27 @@ h1 {
 .info-tooltip-button:focus-visible {
   outline: 2px solid var(--focus);
   outline-offset: 3px;
+}
+
+.result-video-link {
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.result-video-link::after {
+  width: auto;
+  min-width: 158px;
+  text-align: center;
+}
+
+.result-video-play-icon {
+  display: block;
+  width: 0;
+  height: 0;
+  margin-left: 2px;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 7px solid currentColor;
 }
 
 .section-note {
@@ -2796,8 +2976,7 @@ h1 {
 }
 
 .standing-team.has-standing-badges .standing-status-pill,
-.standing-team.has-standing-badges .third-place-pill,
-.standing-team.has-standing-badges .standing-live-pill {
+.standing-team.has-standing-badges .third-place-pill {
   max-width: 100%;
 }
 
@@ -3324,13 +3503,6 @@ h1 {
 .third-place-pill {
   min-height: 18px;
   padding: 0 7px;
-}
-
-.standing-team .standing-live-pill {
-  min-height: 18px;
-  height: 18px;
-  padding: 0 7px;
-  font-size: 11px;
 }
 
 .third-place-status {
@@ -3967,9 +4139,22 @@ h1 {
 
 .knockout-match-header {
   display: grid;
-  gap: 3px;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 3px 8px;
+  align-items: center;
   min-width: 0;
   margin-bottom: 8px;
+}
+
+.knockout-match-header.has-status-badge,
+.knockout-match-header.has-up-next {
+  grid-template-columns: minmax(0, 1fr) auto;
+}
+
+.knockout-match-meta {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
 }
 
 .knockout-match-header time,
@@ -4236,10 +4421,35 @@ h1 {
 }
 
 .knockout-result-pill {
-  border-color: rgba(10, 10, 10, 0.9);
+  border-color: rgba(10, 10, 10, 0.13);
+  background: rgba(10, 10, 10, 0.045);
+  color: rgba(10, 10, 10, 0.6);
+  cursor: default;
+}
+
+.tournament-up-next-pill,
+.tournament-live-pill {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  flex: 0 0 auto;
+  align-self: center;
+  height: 22px;
+  padding-inline: 8px;
+  border-radius: 999px;
   background: #0a0a0a;
   color: #ffffff;
-  cursor: default;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.tournament-live-pill {
+  background: #ff3b30;
+  text-decoration: none;
+  text-transform: uppercase;
 }
 
 .knockout-likelihood .flag,
@@ -4896,6 +5106,15 @@ h1 {
   margin: 0;
 }
 
+.result-score-summary {
+  color: rgba(10, 10, 10, 0.82);
+  font-weight: 650;
+}
+
+.result-notes {
+  margin: 12px 0 0;
+}
+
 .result-highlights {
   display: grid;
   gap: 7px;
@@ -4904,10 +5123,31 @@ h1 {
   list-style: none;
 }
 
+.result-notes .result-highlights {
+  margin: 0;
+}
+
+.result-highlights + .result-highlights {
+  margin-top: 10px;
+}
+
+.result-story-highlights {
+  padding-left: 18px;
+  list-style: disc;
+}
+
 .result-highlights li {
   color: rgba(10, 10, 10, 0.72);
   font-size: 13px;
   line-height: 1.35;
+}
+
+.result-story-highlights li {
+  padding-left: 2px;
+}
+
+.result-story-highlights li::marker {
+  color: rgba(10, 10, 10, 0.36);
 }
 
 .knockout-context-list {
@@ -5968,6 +6208,24 @@ h1 {
     padding: 18px 18px 0;
   }
 
+  .admin-message-banner {
+    grid-template-columns: 28px minmax(0, 1fr) 28px;
+    width: auto;
+    min-height: 54px;
+    margin: 12px 18px 0;
+    padding: 9px 10px 9px 13px;
+  }
+
+  .admin-message-icon {
+    width: 24px;
+    height: 24px;
+    font-size: 17px;
+  }
+
+  .admin-message-text {
+    font-size: 12px;
+  }
+
   .site-brand-lockup {
     justify-self: start;
     max-width: 100%;
@@ -6440,7 +6698,8 @@ h1 {
   }
 
   .tournament-progression .knockout-likelihood,
-  .tournament-progression .knockout-slot-odds {
+  .tournament-progression .knockout-slot-odds,
+  .tournament-progression .knockout-result-pill {
     min-height: 19px;
     padding-inline: 6px;
     font-size: 9px;
@@ -6685,6 +6944,10 @@ h1 {
     padding: 18px 14px 0;
   }
 
+  .admin-message-banner {
+    margin-inline: 14px;
+  }
+
   .site-brand {
     gap: 6px;
     font-size: 12px;
@@ -6823,14 +7086,12 @@ h1 {
   }
 
   .standing-team .standing-status-pill,
-  .standing-team .third-place-pill,
-  .standing-team .standing-live-pill {
+  .standing-team .third-place-pill {
     max-width: 100%;
   }
 
   .standing-team .standing-status-pill,
-  .standing-team .third-place-pill,
-  .standing-team .standing-live-pill {
+  .standing-team .third-place-pill {
     min-height: 17px;
     height: 17px;
     padding: 0 6px;

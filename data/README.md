@@ -123,6 +123,10 @@ For authored `catchUp` entries, keep the headline and body score-focused. Add op
 
 For completed fixture detail pages, add optional `resultHighlights` when the scoreline needs more context than the default source-check note. Keep each highlight to one compact sentence.
 
+For richer post-match recaps, add optional `resultStoryBullets` with up to three compact, emoji-free match-story bullets. This field may be prepared before the static fixture has been synced to `FT`; the UI only displays it inside the full-time Result block. `pnpm results` also backfills this field for finished historical archive matches.
+
+For official post-match video, add optional `highlightVideo` only after a fixture is `FT`. Use a YouTube URL from an allowed official highlights channel, currently FOX Sports (`channelId: "UCwNqHDsnBCKT-olwJwIFyfg"`), and include `sourceName`, `publishedAt`, and `checkedAt`. The UI hides the play button unless the fixture is final and the channel is allowlisted.
+
 ## Matchday Card/Result Workflow
 
 Use one command for matchday data publishing:

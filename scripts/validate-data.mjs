@@ -7,6 +7,7 @@ import { isPlayerNameMatch, normalizePlayerName } from "./player-name-matching.m
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const dataDir = path.join(root, "data");
 const errors = [];
+const OFFICIAL_HIGHLIGHT_VIDEO_CHANNELS = new Map([["UCwNqHDsnBCKT-olwJwIFyfg", "FOX Sports"]]);
 
 async function readJson(fileName) {
   const filePath = path.join(dataDir, fileName);
@@ -43,6 +44,35 @@ function isDayKey(value) {
   return /^\d{4}-\d{2}-\d{2}$/.test(value || "") && !Number.isNaN(new Date(`${value}T12:00:00Z`).getTime());
 }
 
+function isValidDateTime(value) {
+  return typeof value === "string" && value.trim() && !Number.isNaN(new Date(value).getTime());
+}
+
+function getYouTubeVideoId(url) {
+  if (typeof url !== "string" || !url.trim()) {
+    return "";
+  }
+
+  try {
+    const parsedUrl = new URL(url);
+    const host = parsedUrl.hostname.toLowerCase().replace(/^www\./, "");
+
+    if (host === "youtube.com" || host === "m.youtube.com") {
+      const videoId = parsedUrl.searchParams.get("v") || "";
+      return /^[A-Za-z0-9_-]{11}$/.test(videoId) ? videoId : "";
+    }
+
+    if (host === "youtu.be") {
+      const videoId = parsedUrl.pathname.split("/").filter(Boolean)[0] || "";
+      return /^[A-Za-z0-9_-]{11}$/.test(videoId) ? videoId : "";
+    }
+  } catch {
+    return "";
+  }
+
+  return "";
+}
+
 function isLocalizedCopy(value) {
   return Boolean(value && typeof value === "object" && !Array.isArray(value));
 }
@@ -69,6 +99,40 @@ function validateLocalizedCopy(value, owner) {
 
   for (const [language, text] of Object.entries(value)) {
     assert(typeof text === "string" && text.trim(), `${owner}.${language} must be a non-empty string`);
+  }
+}
+
+function validateHighlightVideo(fixture) {
+  const owner = `Fixture "${fixture.id}" highlightVideo`;
+  const video = fixture.highlightVideo;
+
+  if (video === undefined) {
+    return;
+  }
+
+  assert(fixture.status === "FT", `${owner} should only be used after full time`);
+  assert(video && typeof video === "object" && !Array.isArray(video), `${owner} must be an object`);
+
+  if (!video || typeof video !== "object" || Array.isArray(video)) {
+    return;
+  }
+
+  const expectedSourceName = OFFICIAL_HIGHLIGHT_VIDEO_CHANNELS.get(video.channelId);
+  assert(video.platform === "youtube", `${owner}.platform must be "youtube"`);
+  assert(Boolean(getYouTubeVideoId(video.url)), `${owner}.url must be a YouTube URL with a video id`);
+  assert(Boolean(expectedSourceName), `${owner}.channelId must be an allowed official highlights channel`);
+  assert(
+    expectedSourceName ? video.sourceName === expectedSourceName : typeof video.sourceName === "string" && video.sourceName.trim(),
+    `${owner}.sourceName must match the allowed channel name`
+  );
+  assert(isValidDateTime(video.publishedAt), `${owner}.publishedAt must be a valid timestamp`);
+  assert(isValidDateTime(video.checkedAt), `${owner}.checkedAt must be a valid timestamp`);
+
+  if (isValidDateTime(video.publishedAt) && isValidDateTime(video.checkedAt)) {
+    assert(
+      new Date(video.publishedAt).getTime() <= new Date(video.checkedAt).getTime(),
+      `${owner}.publishedAt must not be after checkedAt`
+    );
   }
 }
 
@@ -326,6 +390,7 @@ const [
   fixturesData,
   historyData,
   historicalPlayerProfilesData,
+  adminMessageData,
   matchupResearchData,
   playerAvailabilityData,
   playerProfilesData,
@@ -336,6 +401,7 @@ const [
   readJson("fixtures.json"),
   readJson("history.json"),
   readJson("historical-player-profiles.json"),
+  readOptionalJson("admin-message.json"),
   readOptionalJson("matchup-research-notes.json"),
   readOptionalJson("player-availability.json"),
   readOptionalJson("player-profiles.json"),
@@ -401,6 +467,65 @@ if (matchupResearchData) {
 }
 requireSourceIds(standingsData.sourceIds, sourceIds, "standings.json");
 requireSourceIds(teamsData.sourceIds, sourceIds, "teams.json");
+
+if (adminMessageData) {
+  assert(
+    typeof adminMessageData.updatedAt === "string" &&
+      !Number.isNaN(new Date(adminMessageData.updatedAt).getTime()),
+    "admin-message.json must include a valid updatedAt"
+  );
+  assert(Array.isArray(adminMessageData.messages), "admin-message.json must include messages");
+
+  const adminMessageIds = new Set();
+  for (const [index, message] of (adminMessageData.messages || []).entries()) {
+    const owner = `admin-message.json message ${index + 1}`;
+    assert(message && typeof message === "object" && !Array.isArray(message), `${owner} must be an object`);
+    if (!message || typeof message !== "object" || Array.isArray(message)) {
+      continue;
+    }
+
+    assert(typeof message.id === "string" && message.id.trim(), `${owner} must include id`);
+    assert(!adminMessageIds.has(message.id), `${owner} has duplicate id "${message.id}"`);
+    adminMessageIds.add(message.id);
+
+    if (message.active !== undefined) {
+      assert(typeof message.active === "boolean", `${owner} active must be a boolean`);
+    }
+
+    if (message.copy !== undefined) {
+      validateLocalizedCopy(message.copy, `${owner}.copy`);
+    }
+
+    for (const key of ["message", "messageEn", "messageZh"]) {
+      if (message[key] !== undefined) {
+        assert(typeof message[key] === "string" && message[key].trim(), `${owner}.${key} must be a non-empty string`);
+      }
+    }
+
+    assert(
+      getDefaultCopyText(message.copy) || String(message.message || message.messageEn || "").trim(),
+      `${owner} must include message, messageEn, or copy.en`
+    );
+
+    const startsAt = message.startsAt || message.startAt;
+    const endsAt = message.endsAt || message.endAt;
+    const startsAtTime = startsAt ? new Date(startsAt).getTime() : null;
+    const endsAtTime = endsAt ? new Date(endsAt).getTime() : null;
+    if (startsAt) {
+      assert(!Number.isNaN(startsAtTime), `${owner} startsAt must be a valid timestamp`);
+    }
+    if (endsAt) {
+      assert(!Number.isNaN(endsAtTime), `${owner} endsAt must be a valid timestamp`);
+    }
+    if (startsAt && endsAt && !Number.isNaN(startsAtTime) && !Number.isNaN(endsAtTime)) {
+      assert(startsAtTime < endsAtTime, `${owner} startsAt must be before endsAt`);
+    }
+
+    if (message.priority !== undefined) {
+      assert(Number.isFinite(Number(message.priority)), `${owner} priority must be numeric`);
+    }
+  }
+}
 
 const groups = new Map();
 for (const group of tournamentData.groups || []) {
@@ -800,6 +925,31 @@ for (const fixture of fixturesData.fixtures || []) {
     }
   }
 
+  if (fixture.resultStoryBullets !== undefined) {
+    assert(Array.isArray(fixture.resultStoryBullets), `Fixture "${fixture.id}" resultStoryBullets must be an array`);
+    assert(
+      fixture.resultStoryBullets.length <= 3,
+      `Fixture "${fixture.id}" resultStoryBullets should include no more than three bullets`
+    );
+
+    for (const [index, highlight] of (fixture.resultStoryBullets || []).entries()) {
+      assert(
+        typeof highlight === "string" && highlight.trim(),
+        `Fixture "${fixture.id}" resultStoryBullets[${index}] must be a non-empty string`
+      );
+      assert(
+        !/^(?:⚽|🔥|🛡️|🧤|🌟|📊)\s*/u.test(highlight.trim()),
+        `Fixture "${fixture.id}" resultStoryBullets[${index}] should not start with an emoji marker`
+      );
+      assert(
+        typeof highlight === "string" && highlight.trim().length <= 160,
+        `Fixture "${fixture.id}" resultStoryBullets[${index}] should stay compact`
+      );
+    }
+  }
+
+  validateHighlightVideo(fixture);
+
   if (fixture.projection) {
     const total = fixture.projection.home + fixture.projection.draw + fixture.projection.away;
     assert(sourceIds.has(fixture.projection.sourceId), `Fixture "${fixture.id}" projection references unknown source`);
@@ -1159,6 +1309,28 @@ for (const fixture of historyData.fixtures || []) {
     assert(fixture.score, `Historical final fixture "${fixture.id}" must include score`);
     assert(isNumber(fixture.score?.home), `Historical final fixture "${fixture.id}" must include numeric home score`);
     assert(isNumber(fixture.score?.away), `Historical final fixture "${fixture.id}" must include numeric away score`);
+  }
+  if (fixture.resultStoryBullets !== undefined) {
+    assert(Array.isArray(fixture.resultStoryBullets), `Historical fixture "${fixture.id}" resultStoryBullets must be an array`);
+    assert(
+      fixture.resultStoryBullets.length <= 3,
+      `Historical fixture "${fixture.id}" resultStoryBullets should include no more than three bullets`
+    );
+
+    for (const [index, highlight] of (fixture.resultStoryBullets || []).entries()) {
+      assert(
+        typeof highlight === "string" && highlight.trim(),
+        `Historical fixture "${fixture.id}" resultStoryBullets[${index}] must be a non-empty string`
+      );
+      assert(
+        !/^(?:⚽|🔥|🛡️|🧤|🌟|📊)\s*/u.test(highlight.trim()),
+        `Historical fixture "${fixture.id}" resultStoryBullets[${index}] should not start with an emoji marker`
+      );
+      assert(
+        typeof highlight === "string" && highlight.trim().length <= 160,
+        `Historical fixture "${fixture.id}" resultStoryBullets[${index}] should stay compact`
+      );
+    }
   }
   assert(Array.isArray(fixture.goalsHome), `Historical fixture "${fixture.id}" goalsHome must be an array`);
   assert(Array.isArray(fixture.goalsAway), `Historical fixture "${fixture.id}" goalsAway must be an array`);

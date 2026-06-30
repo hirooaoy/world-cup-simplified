@@ -48,6 +48,7 @@ const authoredChineseCopyPatterns = [
   /^🌟 The clean sheet gave (.+) no way back\.$/,
   /^🌟 (.+)'s clean sheet ended (.+)'s run\.$/,
   /^🌟 The shootout decided (.+)\.$/,
+  /^(.+) exited after penalties kept (.+) alive\.$/,
   /^🌟 (.+)'s attack broke the match open\.$/,
   /^🌟 (.+) protected a one-goal edge\.$/,
   /^🌟 (.+) created enough separation to control the finish\.$/,
@@ -74,6 +75,38 @@ const authoredChineseCopyPatterns = [
   /^🌟 (.+) scored and helped (.+) answer (.+)'s first World Cup goal\.$/,
   /^🌟 (.+)'s press made it scrappy, but (.+) sealed (.+)'s control late\.$/,
   /^🌟 (.+) started bravely, then the wet restart exposed their build-out mistakes\.$/,
+  /^🌟 (.+) came through a tight one-goal match\.$/,
+  /^A (\d+(?:\+\d+)?') own goal put (.+) in front before (.+) answered for (.+)\.$/,
+  /^(.+) put (.+) in front before a (\d+(?:\+\d+)?') own goal answered for (.+)\.$/,
+  /^(.+) put (.+) in front before (.+) answered for (.+)\.$/,
+  /^A (\d+(?:\+\d+)?') own goal struck first for (.+), forcing (.+) to chase the match\.$/,
+  /^(.+) struck first for (.+), forcing (.+) to chase the match\.$/,
+  /^A (\d+(?:\+\d+)?') own goal put (.+) ahead early, making (.+) chase the match\.$/,
+  /^(.+) put (.+) ahead early, making (.+) chase the match\.$/,
+  /^A (\d+(?:\+\d+)?') own goal broke through for (.+), shifting the match toward (.+)\.$/,
+  /^(.+) broke through for (.+), shifting the match toward (.+)\.$/,
+  /^A (\d+(?:\+\d+)?') own goal brought (.+) level before (.+) completed the turnaround\.$/,
+  /^(.+) brought (.+) level before a (\d+(?:\+\d+)?') own goal completed the turnaround\.$/,
+  /^(.+) brought (.+) level before (.+) completed the turnaround\.$/,
+  /^A (\d+(?:\+\d+)?') own goal rescued a point for (.+)\.$/,
+  /^(.+)'s (\d+(?:\+\d+)?') equalizer rescued a point for (.+)\.$/,
+  /^A (\d+(?:\+\d+)?') own goal settled a tight match for (.+)\.$/,
+  /^(.+)'s (\d+(?:\+\d+)?') winner settled a tight match for (.+)\.$/,
+  /^A (\d+(?:\+\d+)?') own goal added the final word as (.+) pulled away\.$/,
+  /^(.+) added the final word as (.+) pulled away\.$/,
+  /^(.+) scored (twice|three times|\d+ times) as (.+) kept widening the gap\.$/,
+  /^(.+) kept (.+) out and closed the match with a clean sheet\.$/,
+  /^(.+)'s attack kept finding space and turned the finish into a rout\.$/,
+  /^(.+)'s opener made (.+) sweat, but the later chances finally turned\.$/,
+  /^(.+) stayed close enough to keep the final minutes tense\.$/,
+  /^(.+) found the only goal, leaving (.+) chasing a 1-0 match\.$/,
+  /^(.+) got the decisive details right in a match that stayed tight\.$/,
+  /^(.+) closed the result without needing another late twist\.$/,
+  /^(.+) and (.+) traded pressure without finding a goal\.$/,
+  /^Both defenses kept the scoring lanes closed through full time\.$/,
+  /^(.+) and (.+) stayed locked together until the final whistle\.$/,
+  /^(.+) and (.+) kept trading momentum instead of pulling clear\.$/,
+  /^The late pressure never produced a winner after the match came back level\.$/,
   /^📊 Both sides took one point from (.+)\.$/,
   /^📊 Both teams took one point from (.+)\.$/,
   /^📊 (.+) took three points from (.+)\.$/,
@@ -225,6 +258,15 @@ function getAuthoredChineseCopyFields(fixture) {
     }
   }
 
+  for (const [index, highlight] of (fixture.resultStoryBullets || []).entries()) {
+    if (typeof highlight === "string" && highlight.trim()) {
+      fields.push({
+        field: `resultStoryBullets[${index}]`,
+        text: highlight.trim()
+      });
+    }
+  }
+
   fields.push(...getAuthoredCatchUpChineseCopyFields(fixture.catchUp, "catchUp"));
 
   return fields;
@@ -337,6 +379,9 @@ for (const fixture of fixturesData.fixtures || []) {
     const authoredHighlights = Array.isArray(fixture.resultHighlights)
       ? fixture.resultHighlights.filter((highlight) => typeof highlight === "string" && highlight.trim())
       : [];
+    const authoredStoryBullets = Array.isArray(fixture.resultStoryBullets)
+      ? fixture.resultStoryBullets.filter((highlight) => typeof highlight === "string" && highlight.trim())
+      : [];
     const issues = [];
 
     if (!hasFinalScore(fixture)) {
@@ -346,8 +391,8 @@ for (const fixture of fixturesData.fixtures || []) {
     resultRows.push({
       fixtureId: fixture.id,
       fixture: `${home?.name || fixture.homeTeamId} vs ${away?.name || fixture.awayTeamId}`,
-      authored: authoredHighlights.length,
-      generatedFromScore: !authoredHighlights.length && hasFinalScore(fixture),
+      authored: authoredHighlights.length + authoredStoryBullets.length,
+      generatedFromScore: !authoredHighlights.length && !authoredStoryBullets.length && hasFinalScore(fixture),
       issues
     });
   }

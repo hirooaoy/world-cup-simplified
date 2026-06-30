@@ -446,8 +446,9 @@ async function processFixture(fixture) {
 
 const targetFixtures = (fixturesData.fixtures || []).filter(
   (fixture) =>
-    fixture.stage === "group" &&
     ["LIVE", "FT"].includes(fixture.status) &&
+    fixture.homeTeamId &&
+    fixture.awayTeamId &&
     scoreTotal(fixture.score) > 0
 );
 const skippedCount = (fixturesData.fixtures || []).length - targetFixtures.length;

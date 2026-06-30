@@ -31,7 +31,7 @@
     <meta name="theme-color" content="#ffffff" />
     <link rel="icon" type="image/svg+xml" href="assets/favicon.svg?v=2026-06-17-1209" />
     <link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=2026-06-17-1213" />
-    <link rel="stylesheet" href="styles.css?v=2026-06-27-compact-outcome-pills" />
+    <link rel="stylesheet" href="styles.css?v=2026-06-29-result-recaps" />
   </head>
   <body>
     <header class="site-header">
@@ -110,6 +110,17 @@
         </div>
       </div>
     </header>
+
+    <section class="admin-message-banner is-hidden" id="admin-message-banner" aria-label="Admin message" hidden>
+      <span class="admin-message-icon" aria-hidden="true">📣</span>
+      <div class="admin-message-copy">
+        <span class="admin-message-label" id="admin-message-label">Admin note</span>
+        <p class="admin-message-text" id="admin-message-text"></p>
+      </div>
+      <button class="admin-message-dismiss" id="admin-message-dismiss" type="button" aria-label="Dismiss message">
+        <span class="admin-message-dismiss-icon" aria-hidden="true"></span>
+      </button>
+    </section>
 
     <main class="page-shell">
       <section class="view-panel" id="matches-view" role="tabpanel" aria-labelledby="matches-tab">
@@ -304,6 +315,6 @@
       </div>
     </footer>
 
-    <script type="module" src="app.js?v=2026-06-27-compact-outcome-pills"></script>
+    <script type="module" src="app.js?v=2026-06-29-result-recaps"></script>
   </body>
 </html>

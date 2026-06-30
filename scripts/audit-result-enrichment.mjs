@@ -20,8 +20,30 @@ function goalCount(fixture) {
   return (fixture.goalsHome?.length || 0) + (fixture.goalsAway?.length || 0);
 }
 
+function resultStoryBullets(fixture) {
+  return Array.isArray(fixture.resultStoryBullets)
+    ? fixture.resultStoryBullets.filter((highlight) => typeof highlight === "string" && highlight.trim())
+    : [];
+}
+
+function historicalGoalStoryTokens(fixture) {
+  return [...(fixture.goalsHome || []), ...(fixture.goalsAway || [])]
+    .map((goal) => (goal.ownGoal ? "own goal" : goal.name))
+    .filter((name) => typeof name === "string" && name.trim());
+}
+
+function hasHistoricalGoalSpecificStory(fixture) {
+  const tokens = historicalGoalStoryTokens(fixture);
+  if (!tokens.length) {
+    return true;
+  }
+
+  const story = resultStoryBullets(fixture).join(" ");
+  return tokens.some((token) => story.includes(token));
+}
+
 function isGenericMoment(highlight) {
-  return /Both clean sheets kept|Neither side pulled clear|The clean sheet gave|attack broke the match open|protected a one-goal edge|created enough separation|made a statement with|found the decisive goal/i.test(
+  return /Both clean sheets kept|Neither side pulled clear|The clean sheet gave|attack broke the match open|protected a one-goal edge|came through a tight one-goal match|created enough separation|made a statement with|found the decisive goal/i.test(
     highlight
   );
 }
@@ -36,14 +58,23 @@ const issues = [];
 let checked = 0;
 
 for (const fixture of fixturesData.fixtures || []) {
-  if (fixture.stage !== "group" || fixture.status !== "FT") {
+  if (
+    fixture.status !== "FT" ||
+    !fixture.homeTeamId ||
+    !fixture.awayTeamId ||
+    !teamsById.has(fixture.homeTeamId) ||
+    !teamsById.has(fixture.awayTeamId)
+  ) {
     continue;
   }
 
   checked += 1;
   const matchLabel = `${teamsById.get(fixture.homeTeamId)?.name || fixture.homeTeamId} vs ${teamsById.get(fixture.awayTeamId)?.name || fixture.awayTeamId}`;
   const total = scoreTotal(fixture);
-  const highlights = Array.isArray(fixture.resultHighlights) ? fixture.resultHighlights : [];
+  const highlights = [
+    ...(Array.isArray(fixture.resultStoryBullets) ? fixture.resultStoryBullets : []),
+    ...(Array.isArray(fixture.resultHighlights) ? fixture.resultHighlights : [])
+  ];
   const momentHighlights = highlights.filter((highlight) => !String(highlight).trim().startsWith("⚽"));
 
   if (total === null) {
@@ -64,7 +95,7 @@ for (const fixture of fixturesData.fixtures || []) {
   }
 }
 
-console.log(`Result enrichment audit checked ${checked} completed group fixture${checked === 1 ? "" : "s"}.`);
+console.log(`Result enrichment audit checked ${checked} completed current fixture${checked === 1 ? "" : "s"}.`);
 
 let historicalChecked = 0;
 for (const fixture of historyData.fixtures || []) {
@@ -82,6 +113,15 @@ for (const fixture of historyData.fixtures || []) {
   if (goalCount(fixture) !== total) {
     issues.push(
       `${fixture.id} (${fixture.homeSlot} vs ${fixture.awaySlot}) has ${goalCount(fixture)} historical goal event${goalCount(fixture) === 1 ? "" : "s"} for a ${fixture.score.home}-${fixture.score.away} score.`
+    );
+  }
+
+  const storyBullets = resultStoryBullets(fixture);
+  if (!storyBullets.length) {
+    issues.push(`${fixture.id} (${fixture.homeSlot} vs ${fixture.awaySlot}) has no historical result story bullets.`);
+  } else if (!hasHistoricalGoalSpecificStory(fixture)) {
+    issues.push(
+      `${fixture.id} (${fixture.homeSlot} vs ${fixture.awaySlot}) historical result story bullets do not mention a scorer or own goal.`
     );
   }
 }
