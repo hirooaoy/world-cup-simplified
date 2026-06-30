@@ -9,8 +9,8 @@ const defaultReportDir = path.join("/tmp", "worldcup-historical-youtube");
 const FIFA_CHANNEL_ID = "UCpcTrCXblq78GZrTUTLWeBw";
 const FIFA_SOURCE_NAME = "FIFA";
 const TIME_ZONE = "America/Los_Angeles";
-const SEARCH_DELAY_MS = 250;
-const WATCH_DELAY_MS = 150;
+const SEARCH_DELAY_MS = 700;
+const WATCH_DELAY_MS = 500;
 const FETCH_RETRY_COUNT = 5;
 const MAX_RESULTS_PER_SEARCH = 12;
 const MAX_VIDEO_SECONDS = 25 * 60;
@@ -70,6 +70,9 @@ const REJECT_TITLE_PATTERNS = [
   /\btrailer\b/i,
   /\broad to\b/i,
   /\bclassic match\b/i,
+  /\binterview\b/i,
+  /\b(?:remembers|recalls|reflects|looks back|talks about|discusses)\b/i,
+  /\bon\s+[^|]*\d{1,2}\s*[-:]\s*\d{1,2}/i,
   /\b(?:1|10|15)[- ]minute\b/i,
   /\bshorts?\b/i
 ];
@@ -77,6 +80,7 @@ const REJECT_TITLE_PATTERNS = [
 const args = parseArgs(process.argv.slice(2));
 const searchCache = new Map();
 const watchCache = new Map();
+let duplicateFixturePairKeys = new Set();
 
 function parseArgs(rawArgs) {
   const parsed = {
@@ -370,12 +374,47 @@ function titleRejectReason(title) {
 }
 
 function matchTeamInText(text, teamName) {
+  const searchableText =
+    teamName === "Qatar"
+      ? text
+          .replace(/\bfifa world cup qatar 2022\b/g, "fifa world cup 2022")
+          .replace(/\bworld cup qatar 2022\b/g, "world cup 2022")
+          .replace(/\bqatar 2022\b/g, "2022")
+      : text;
   const aliases = aliasesFor(teamName);
-  return aliases.find((alias) => containsNormalizedPhrase(text, alias)) || "";
+  return aliases.find((alias) => containsNormalizedPhrase(searchableText, alias)) || "";
 }
 
 function titleHasWorldCupContext(titleText, allText) {
   return /\bworld cup\b/.test(titleText) || /\bfifa\b/.test(titleText) || /\bworld cup\b/.test(allText);
+}
+
+function pairKey(fixture) {
+  return [normalize(fixture.homeSlot), normalize(fixture.awaySlot)].sort().join("|");
+}
+
+function scorelinesInTitle(title) {
+  return [...String(title || "").matchAll(/(?:^|[^\d])(\d{1,2})\s*[-:]\s*(\d{1,2})(?!\d)/g)].map((match) => [
+    Number(match[1]),
+    Number(match[2])
+  ]);
+}
+
+function scorelineMatchesFixture(fixture, title) {
+  const homeScore = Number(fixture.score?.home);
+  const awayScore = Number(fixture.score?.away);
+  if (!Number.isFinite(homeScore) || !Number.isFinite(awayScore)) {
+    return false;
+  }
+
+  return scorelinesInTitle(title).some(
+    ([first, second]) =>
+      (first === homeScore && second === awayScore) || (first === awayScore && second === homeScore)
+  );
+}
+
+function fixtureNeedsScoreDisambiguation(fixture) {
+  return duplicateFixturePairKeys.has(`${fixture.tournamentYear}:${pairKey(fixture)}`);
 }
 
 function evaluateCandidate(fixture, candidate, metadata) {
@@ -388,6 +427,9 @@ function evaluateCandidate(fixture, candidate, metadata) {
   const awayMatch = matchTeamInText(titleText, fixture.awaySlot);
   const rejectReason = titleRejectReason(title);
   const durationSeconds = Number(metadata.lengthSeconds);
+  const hasMatchingScoreline = scorelineMatchesFixture(fixture, title);
+  const hasHighlightCue = /\bhighlights?\b/i.test(title);
+  const hasArchiveFinalCue = /\b(?:world cup final|final match)\b/i.test(title);
   const reasons = [];
 
   if (metadata.channelId !== FIFA_CHANNEL_ID) {
@@ -398,8 +440,8 @@ function evaluateCandidate(fixture, candidate, metadata) {
     reasons.push("missing valid publish date");
   }
 
-  if (!titleText.includes(year) && !allText.includes(year)) {
-    reasons.push(`missing tournament year ${year}`);
+  if (!titleText.includes(year)) {
+    reasons.push(`title missing tournament year ${year}`);
   }
 
   if (!titleHasWorldCupContext(titleText, allText)) {
@@ -416,6 +458,18 @@ function evaluateCandidate(fixture, candidate, metadata) {
 
   if (rejectReason) {
     reasons.push(rejectReason);
+  }
+
+  if (scorelinesInTitle(title).length && !hasMatchingScoreline) {
+    reasons.push("title scoreline does not match fixture");
+  }
+
+  if (fixtureNeedsScoreDisambiguation(fixture) && !hasMatchingScoreline) {
+    reasons.push("repeat team pairing in tournament requires matching title scoreline");
+  }
+
+  if (!hasHighlightCue && !(hasMatchingScoreline && hasArchiveFinalCue)) {
+    reasons.push("title is not a highlights video or archive final scoreline video");
   }
 
   if (Number.isFinite(durationSeconds) && durationSeconds > MAX_VIDEO_SECONDS) {
@@ -463,14 +517,16 @@ async function fetchText(url) {
       });
 
       if (!response.ok) {
-        throw new Error(`${response.status} ${response.statusText}`);
+        const error = new Error(`${response.status} ${response.statusText}`);
+        error.status = response.status;
+        throw error;
       }
 
       return response.text();
     } catch (error) {
       lastError = error;
       if (attempt < FETCH_RETRY_COUNT) {
-        await sleep(1000 * attempt);
+        await sleep(error?.status === 429 ? 15000 * attempt : 1000 * attempt);
       }
     }
   }
@@ -505,7 +561,7 @@ function looksPossibleFromSearch(fixture, candidate) {
   const allText = normalize(`${candidate.title} ${candidate.description}`);
 
   return (
-    allText.includes(String(fixture.tournamentYear)) &&
+    titleText.includes(String(fixture.tournamentYear)) &&
     titleHasWorldCupContext(titleText, allText) &&
     Boolean(matchTeamInText(titleText, fixture.homeSlot)) &&
     Boolean(matchTeamInText(titleText, fixture.awaySlot)) &&
@@ -713,6 +769,12 @@ function dataSummary(history) {
 }
 
 const history = JSON.parse(await readFile(historyPath, "utf8"));
+const pairCounts = new Map();
+for (const fixture of history.fixtures || []) {
+  const key = `${fixture.tournamentYear}:${pairKey(fixture)}`;
+  pairCounts.set(key, (pairCounts.get(key) || 0) + 1);
+}
+duplicateFixturePairKeys = new Set([...pairCounts].filter(([, count]) => count > 1).map(([key]) => key));
 const checkedAt = localIso();
 const fixtures = (history.fixtures || []).filter(fixtureShouldBeProcessed).slice(0, args.limit || undefined);
 const report = {
@@ -761,7 +823,7 @@ async function processFixture(fixture, index) {
         delete fixture.highlightVideoReview;
       }
       added += 1;
-      console.log(`  linked ${accepted.metadata.url} (${accepted.evaluation.title})`);
+      console.log(`  [${index + 1}/${fixtures.length}] linked ${accepted.metadata.url} (${accepted.evaluation.title})`);
       report.processed.push({
         order: index,
         id: fixture.id,
@@ -776,7 +838,7 @@ async function processFixture(fixture, index) {
         fixture.highlightVideoReview = makeReview(checkedAt);
       }
       reviewed += 1;
-      console.log("  no official FIFA highlight-style YouTube video found");
+      console.log(`  [${index + 1}/${fixtures.length}] no official FIFA highlight-style YouTube video found`);
       report.processed.push({
         order: index,
         id: fixture.id,
@@ -786,7 +848,7 @@ async function processFixture(fixture, index) {
       });
     }
   } catch (error) {
-    console.log(`  error: ${error.message}`);
+    console.log(`  [${index + 1}/${fixtures.length}] error: ${error.message}`);
     report.errors.push({
       order: index,
       id: fixture.id,
@@ -794,6 +856,9 @@ async function processFixture(fixture, index) {
       message: error.message,
       stack: args.verbose ? error.stack : undefined
     });
+    if (error?.status === 429) {
+      throw error;
+    }
   }
 }
 
@@ -806,9 +871,14 @@ async function worker() {
   }
 }
 
-await Promise.all(Array.from({ length: Math.min(args.concurrency, fixtures.length) }, () => worker()));
+let fatalError = null;
+try {
+  await Promise.all(Array.from({ length: Math.min(args.concurrency, fixtures.length) }, () => worker()));
+} catch (error) {
+  fatalError = error;
+}
 
-if (!args.dryRun && (added || reviewed)) {
+if (!fatalError && !args.dryRun && (added || reviewed)) {
   history.updatedAt = new Date().toISOString();
   await writeFile(historyPath, `${JSON.stringify(history, null, 2)}\n`);
 }
@@ -820,13 +890,23 @@ report.added = added;
 report.reviewed = reviewed;
 report.searches = searchCache.size;
 report.watchPages = watchCache.size;
+if (fatalError) {
+  report.fatalError = {
+    message: fatalError.message,
+    status: fatalError.status || null
+  };
+}
 const reportPath = await writeReport(report, checkedAt);
 
-console.log(
-  `Historical YouTube sweep complete: ${added} linked, ${reviewed} reviewed not-found, ${report.errors.length} error${report.errors.length === 1 ? "" : "s"}.`
-);
+if (fatalError) {
+  console.log(`Historical YouTube sweep aborted: ${fatalError.message}. No data file was written.`);
+} else {
+  console.log(
+    `Historical YouTube sweep complete: ${added} linked, ${reviewed} reviewed not-found, ${report.errors.length} error${report.errors.length === 1 ? "" : "s"}.`
+  );
+}
 console.log(`Report: ${reportPath}`);
 
-if (report.errors.length) {
+if (fatalError || report.errors.length) {
   process.exitCode = 1;
 }

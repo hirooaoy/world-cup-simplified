@@ -194,6 +194,8 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "France": "法国",
     "FT": "全场",
     "Full time": "全场结束",
+    "extra time": "加时赛",
+    "the final whistle": "终场哨响",
     "GD": "净胜球",
     "Germany": "德国",
     "Ghana": "加纳",
@@ -2816,6 +2818,67 @@ const ZH_PATTERN_TRANSLATIONS = [
   {
     pattern: /^The late pressure never produced a winner after the match came back level\.$/,
     replace: () => "比赛被扳平后，最后阶段的压力没有再产生制胜球。"
+  },
+  {
+    pattern: /^(.+)'s (\d+(?:\+\d+)?') equalizer eventually forced the shootout\.$/,
+    replace: (_, player, minute) =>
+      `${translateTextToZh(player)}在${minute}扳平，最终把比赛拖入点球大战。`
+  },
+  {
+    pattern: /^A (\d+(?:\+\d+)?') own goal eventually forced the shootout\.$/,
+    replace: (_, minute) => `${minute}的乌龙球最终把比赛拖入点球大战。`
+  },
+  {
+    pattern: /^(.+) and (.+) stayed scoreless until penalties\.$/,
+    replace: (_, home, away) =>
+      `${translateTextToZh(home)}和${translateTextToZh(away)}一直到点球大战前都没有进球。`
+  },
+  {
+    pattern: /^(.+) won the shootout (.+) after a (.+) draw\.$/,
+    replace: (_, winner, shootoutScore, score) =>
+      `${translateTextToZh(winner)}在${score}战平后通过点球大战${shootoutScore}胜出。`
+  },
+  {
+    pattern: /^(.+) survived the shootout after a (.+) draw\.$/,
+    replace: (_, winner, score) =>
+      `${translateTextToZh(winner)}在${score}战平后通过点球大战晋级。`
+  },
+  {
+    pattern: /^(.+) lifted the (.+) title through the shootout\.$/,
+    replace: (_, winner, title) =>
+      `${translateTextToZh(winner)}通过点球大战捧起${translateTextToZh(title)}冠军。`
+  },
+  {
+    pattern: /^(.+)'s (\d+(?:\+\d+)?') (goal|penalty) gave (.+) a reply\.$/,
+    replace: (_, player, minute, finishType, team) =>
+      `${translateTextToZh(player)}在${minute}${finishType === "penalty" ? "罚入点球" : "进球"}，帮助${translateTextToZh(team)}作出回应。`
+  },
+  {
+    pattern: /^A (\d+(?:\+\d+)?') own goal gave (.+) a reply\.$/,
+    replace: (_, minute, team) =>
+      `${minute}的乌龙球让${translateTextToZh(team)}作出回应。`
+  },
+  {
+    pattern: /^(.+)'s (\d+(?:\+\d+)?') equalizer left the tie level\.$/,
+    replace: (_, player, minute) =>
+      `${translateTextToZh(player)}在${minute}扳平，让这组对决仍然持平。`
+  },
+  {
+    pattern: /^A (\d+(?:\+\d+)?') own goal left the tie level\.$/,
+    replace: (_, minute) => `${minute}的乌龙球让这组对决仍然持平。`
+  },
+  {
+    pattern: /^(.+) scored (twice|three times|\d+ times) as the draw kept swinging\.$/,
+    replace: (_, scorer, countText) => {
+      const scoringText =
+        countText === "twice" ? "梅开二度" : countText === "three times" ? "上演帽子戏法" : `打进${countText.replace(" times", "")}球`;
+      return `${translateTextToZh(scorer)}${scoringText}，让这场平局持续摇摆。`;
+    }
+  },
+  {
+    pattern: /^The draw left the (.+) tie unresolved after (.+)\.$/,
+    replace: (_, round, ending) =>
+      `平局让${translateTextToZh(round)}对决在${translateTextToZh(ending)}后仍未决出胜负。`
   },
   {
     pattern: /^📊 Both sides took one point from (.+)\.$/,
@@ -7532,6 +7595,10 @@ function updateWrappedMatchRows(root = document) {
 
     if (shouldEnforceMobileMetaGap && meta) {
       const metaRect = meta.getBoundingClientRect();
+      const metaItemRects = Array.from(meta.querySelectorAll(":scope > *")).map((element) =>
+        element.getBoundingClientRect()
+      );
+      const metaContentLeft = Math.min(metaRect.left, ...metaItemRects.map((rect) => rect.left));
       const matchupPieceRights = Array.from(
         teams.querySelectorAll(".flag, .team-name, .match-versus")
       ).map((element) => element.getBoundingClientRect().right);
@@ -7539,7 +7606,7 @@ function updateWrappedMatchRows(root = document) {
 
       isTooCloseToMeta =
         Number.isFinite(matchupRight) &&
-        metaRect.left - matchupRight < MOBILE_MATCH_ROW_META_MIN_GAP;
+        metaContentLeft - matchupRight < MOBILE_MATCH_ROW_META_MIN_GAP;
     }
 
     const isWrapped = isVisuallyWrapped || isTooCloseToMeta;
@@ -7547,13 +7614,19 @@ function updateWrappedMatchRows(root = document) {
     if (isWrapped && meta) {
       const rowRect = row.getBoundingClientRect();
       const metaRect = meta.getBoundingClientRect();
+      const metaItemRects = Array.from(meta.querySelectorAll(":scope > *")).map((element) =>
+        element.getBoundingClientRect()
+      );
+      const metaContentLeft = Math.min(metaRect.left, ...metaItemRects.map((rect) => rect.left));
+      const metaContentRight = Math.max(metaRect.right, ...metaItemRects.map((rect) => rect.right));
+      const metaWidth = Math.max(metaRect.width, metaContentRight - metaContentLeft);
       const rowStyle = getComputedStyle(row);
       const rowGap = Number.parseFloat(rowStyle.columnGap || rowStyle.gap) || 8;
-      const maxTriggerWidth = Math.max(0, rowRect.width - metaRect.width - rowGap);
+      const maxTriggerWidth = Math.max(0, rowRect.width - metaWidth - rowGap);
 
       row.style.setProperty("--match-row-wrapped-trigger-width", `${Math.ceil(maxTriggerWidth)}px`);
       row.style.setProperty("--match-row-wrapped-meta-gap", `${Math.round(rowGap)}px`);
-      row.style.setProperty("--match-row-wrapped-meta-width", `${Math.ceil(metaRect.width)}px`);
+      row.style.setProperty("--match-row-wrapped-meta-width", `${Math.ceil(metaWidth)}px`);
     }
 
     row.classList.toggle("has-wrapped-matchup", isWrapped);
@@ -8191,7 +8264,7 @@ function getMatchVisibleScoreText(match, score) {
   const scoreText = `${score.home}-${score.away}`;
   const penaltyText = getMatchPenaltyScoreText(match);
 
-  return penaltyText ? `${scoreText} · ${penaltyText} ${localizeText("pens")}` : scoreText;
+  return penaltyText ? `${scoreText} (${penaltyText} ${localizeText("pens")})` : scoreText;
 }
 
 function getMatchScoreAriaLabel(match, label, home, away, score, freshness = "") {
@@ -15314,6 +15387,47 @@ function renderKnockoutSourceMatchSummary(match, context) {
   return `${matchup} is scheduled.`;
 }
 
+function renderResolvedNextKnockoutOpponentLine(match, context) {
+  if (!match || match.status !== "FT") {
+    return "";
+  }
+
+  const participants = getTournamentMatchParticipants(match, context);
+  const winner = getTournamentMatchWinnerTeam(match, context);
+
+  if (!winner) {
+    return "";
+  }
+
+  const winnerSide = getTournamentParticipantSide(participants, winner) || getTournamentScoreWinnerSide(match);
+  const fallbackWinnerName = renderKnockoutContextTeamName(winner, getTournamentTeamDisplayName(winner), { showRank: true });
+
+  if (!winnerSide || !participants[winnerSide]) {
+    return currentLanguage === "zh" ? `胜者将对阵 ${fallbackWinnerName}。` : `Winner will face ${fallbackWinnerName}.`;
+  }
+
+  const loserSide = winnerSide === "away" ? "home" : "away";
+  const winnerName = renderKnockoutParticipantLabel(participants[winnerSide], { showRank: true });
+  const loserName = renderKnockoutParticipantLabel(participants[loserSide]);
+  const scoreText = escapeHtml(formatScorePair(match.score));
+  const winnerScoreText = escapeHtml(getKnockoutScorePairForSide(match, winnerSide));
+  const penaltyText = escapeHtml(getKnockoutPenaltyPairForSide(match, winnerSide));
+
+  if (penaltyText && scoreText) {
+    return currentLanguage === "zh"
+      ? `胜者将对阵 ${winnerName}，后者在 ${scoreText} 战平后通过点球 ${penaltyText} 击败 ${loserName}。`
+      : `Winner will face ${winnerName} who won ${penaltyText} on penalties after a ${scoreText} draw against ${loserName}.`;
+  }
+
+  if (winnerScoreText) {
+    return currentLanguage === "zh"
+      ? `胜者将对阵 ${winnerName}，后者以 ${winnerScoreText} 击败 ${loserName}。`
+      : `Winner will face ${winnerName} who won ${winnerScoreText} against ${loserName}.`;
+  }
+
+  return currentLanguage === "zh" ? `胜者将对阵 ${winnerName}。` : `Winner will face ${winnerName}.`;
+}
+
 function isTerminalKnockoutMatch(match) {
   return match?.stage === "final" || match?.stage === "bronze-final";
 }
@@ -15368,6 +15482,11 @@ function renderNextKnockoutOpponentLine(match, nextMatch, context) {
 
   if (otherSourceMatchNumber) {
     const otherMatch = getTournamentFixtureByMatchNumber(otherSourceMatchNumber);
+    const resolvedLine = renderResolvedNextKnockoutOpponentLine(otherMatch, context);
+    if (resolvedLine) {
+      return resolvedLine;
+    }
+
     const matchup = renderKnockoutMatchupLabel(otherMatch, context);
     if (isTournamentProjectedMatch(otherMatch, context)) {
       return currentLanguage === "zh"

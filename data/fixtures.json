@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-30T04:26:04.000Z",
+  "updatedAt": "2026-06-30T05:54:27.000Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -9896,13 +9896,13 @@
         "Paraguay won the shootout 4-3 after a 1-1 draw.",
         "Germany exited after penalties kept Paraguay alive."
       ],
-      "highlightVideoReview": {
-        "status": "not-found",
+      "highlightVideo": {
         "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=-gtI96YhJek",
         "sourceName": "FOX Sports",
         "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
-        "checkedAt": "2026-06-29T21:25:07-07:00",
-        "note": "No official FOX Sports YouTube highlights video found during post-match check."
+        "publishedAt": "2026-06-29T22:54:27-07:00",
+        "checkedAt": "2026-06-29T22:54:27-07:00"
       }
     },
     {
@@ -10003,13 +10003,13 @@
         "Morocco won the shootout 3-2 after a 1-1 draw.",
         "Netherlands exited after penalties kept Morocco alive."
       ],
-      "highlightVideoReview": {
-        "status": "not-found",
+      "highlightVideo": {
         "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=DkZtwwbN1YI",
         "sourceName": "FOX Sports",
         "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
-        "checkedAt": "2026-06-29T21:25:07-07:00",
-        "note": "No official FOX Sports YouTube highlights video found during post-match check."
+        "publishedAt": "2026-06-29T22:54:27-07:00",
+        "checkedAt": "2026-06-29T22:54:27-07:00"
       }
     },
     {

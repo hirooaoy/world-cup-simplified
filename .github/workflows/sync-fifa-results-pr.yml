@@ -94,6 +94,11 @@ jobs:
           set -o pipefail
           pnpm results | tee result-highlights.log
 
+      - name: Sync official highlight videos
+        run: |
+          set -o pipefail
+          pnpm sync:youtube | tee youtube-highlights.log
+
       - name: Validate generated review data and refresh profile cards
         run: |
           set -o pipefail
@@ -147,6 +152,14 @@ jobs:
           cat >> fifa-sync-pr.md <<'EOF'
           ```
 
+          ## Official Highlight Videos
+
+          ```text
+          EOF
+          cat youtube-highlights.log >> fifa-sync-pr.md
+          cat >> fifa-sync-pr.md <<'EOF'
+          ```
+
           ## Matchday Readiness
 
           ```text
@@ -168,6 +181,7 @@ jobs:
           - `pnpm validate:profiles`
           - `pnpm run audit`
           - `pnpm results:check`
+          - `pnpm sync:youtube`
           - `pnpm cards:check`
           EOF
 

@@ -11,6 +11,7 @@ const OFFICIAL_HIGHLIGHT_VIDEO_CHANNELS = new Map([
   ["UCwNqHDsnBCKT-olwJwIFyfg", "FOX Sports"],
   ["UCpcTrCXblq78GZrTUTLWeBw", "FIFA"]
 ]);
+const HIGHLIGHT_VIDEO_REVIEW_STATUSES = new Set(["not-found", "needs-review"]);
 
 async function readJson(fileName) {
   const filePath = path.join(dataDir, fileName);
@@ -154,7 +155,10 @@ function validateHighlightVideoReview(fixture, owner = `Fixture "${fixture.id}" 
   }
 
   const expectedSourceName = OFFICIAL_HIGHLIGHT_VIDEO_CHANNELS.get(review.channelId);
-  assert(review.status === "not-found", `${owner}.status must be "not-found"`);
+  assert(
+    HIGHLIGHT_VIDEO_REVIEW_STATUSES.has(review.status),
+    `${owner}.status must be one of ${[...HIGHLIGHT_VIDEO_REVIEW_STATUSES].join(", ")}`
+  );
   assert(review.platform === "youtube", `${owner}.platform must be "youtube"`);
   assert(Boolean(expectedSourceName), `${owner}.channelId must be an allowed official highlights channel`);
   assert(

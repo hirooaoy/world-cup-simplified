@@ -1101,6 +1101,31 @@ function getFifaScore(match) {
   return home === null || away === null ? null : { away, home };
 }
 
+function getProviderPenaltyScore(providerFixture, providerKey) {
+  if (providerKey !== FIFA_PROVIDER_KEY) {
+    return null;
+  }
+
+  return getFifaPenaltyScore(providerFixture);
+}
+
+function getFifaPenaltyScore(match) {
+  const home = scoreValue(match?.HomeTeamPenaltyScore);
+  const away = scoreValue(match?.AwayTeamPenaltyScore);
+  return home === null || away === null ? null : { away, home };
+}
+
+function mergeProviderPenaltyScore(fixture, penalties) {
+  if (!penalties) {
+    return;
+  }
+
+  fixture.scoreDetails = {
+    ...(fixture.scoreDetails || {}),
+    penalties
+  };
+}
+
 function getFifaMatchTime(match) {
   const value = String(match?.MatchTime || "").trim();
   if (!value) {
@@ -1160,6 +1185,7 @@ function mergeProviderFixtures({
     const participants = getProviderParticipants(providerFixture, provider.key);
     const providerStatus = getProviderStatus(providerFixture, provider.key);
     const providerScore = getProviderScore(providerFixture, participants, provider.key);
+    const providerPenaltyScore = getProviderPenaltyScore(providerFixture, provider.key);
     const officialMatchTime =
       provider.key === FIFA_PROVIDER_KEY ? getFifaMatchTime(providerFixture) : "";
     const nextStatus =
@@ -1171,6 +1197,7 @@ function mergeProviderFixtures({
       officialMatchTime: fixture.officialMatchTime,
       officialMatchTimeUpdatedAt: fixture.officialMatchTimeUpdatedAt,
       score: fixture.score,
+      scoreDetails: fixture.scoreDetails,
       scoreUpdatedAt: fixture.scoreUpdatedAt,
       status: fixture.status
     });
@@ -1188,6 +1215,7 @@ function mergeProviderFixtures({
 
     if ((nextStatus === "LIVE" || nextStatus === "FT") && providerScore) {
       fixture.score = providerScore;
+      mergeProviderPenaltyScore(fixture, providerPenaltyScore);
       if (nextStatus === "LIVE") {
         fixture.scoreUpdatedAt = checkedAt;
       }
@@ -1208,6 +1236,7 @@ function mergeProviderFixtures({
       officialMatchTime: fixture.officialMatchTime,
       officialMatchTimeUpdatedAt: fixture.officialMatchTimeUpdatedAt,
       score: fixture.score,
+      scoreDetails: fixture.scoreDetails,
       scoreUpdatedAt: fixture.scoreUpdatedAt,
       status: fixture.status
     });

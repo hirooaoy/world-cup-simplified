@@ -5,6 +5,7 @@ import { fileURLToPath } from "node:url";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const dataDir = path.join(root, "data");
+const HIGHLIGHT_VIDEO_REVIEW_STATUSES = new Set(["not-found", "needs-review"]);
 
 async function readJson(fileName) {
   return JSON.parse(await readFile(path.join(dataDir, fileName), "utf8"));
@@ -36,7 +37,7 @@ function hasOfficialHighlightVideoDisposition(fixture) {
     review &&
       typeof review === "object" &&
       !Array.isArray(review) &&
-      review.status === "not-found" &&
+      HIGHLIGHT_VIDEO_REVIEW_STATUSES.has(review.status) &&
       review.checkedAt
   );
 }
@@ -111,7 +112,7 @@ for (const fixture of fixturesData.fixtures || []) {
 
   if (!hasOfficialHighlightVideoDisposition(fixture)) {
     issues.push(
-      `${fixture.id} (${matchLabel}) has no official highlightVideo and no highlightVideoReview not-found check.`
+      `${fixture.id} (${matchLabel}) has no official highlightVideo and no highlightVideoReview check.`
     );
   }
 }

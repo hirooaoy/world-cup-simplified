@@ -125,7 +125,7 @@ For completed fixture detail pages, add optional `resultHighlights` when the sco
 
 For richer post-match recaps, add optional `resultStoryBullets` with up to three compact, emoji-free match-story bullets. This field may be prepared before the static fixture has been synced to `FT`; the UI only displays it inside the full-time Result block. `pnpm results` also backfills this field for finished historical archive matches.
 
-For official post-match video, add optional `highlightVideo` only after a fixture is `FT`. Use a YouTube URL from an allowed official highlights channel, currently FOX Sports for 2026 matches (`channelId: "UCwNqHDsnBCKT-olwJwIFyfg"`), and include `sourceName`, `publishedAt`, and `checkedAt`. The UI hides the play button unless the fixture is final and the channel is allowlisted. If no official YouTube upload is available after checking the allowlisted channel, add `highlightVideoReview` with `status: "not-found"`, the same `sourceName` / `channelId`, `platform: "youtube"`, `checkedAt`, and a short `note`; replace that review with `highlightVideo` once a valid official URL exists.
+For official post-match video, add optional `highlightVideo` only after a fixture is `FT`. Use a YouTube URL from an allowed official highlights channel, currently FOX Sports for 2026 matches (`channelId: "UCwNqHDsnBCKT-olwJwIFyfg"`), and include `sourceName`, `publishedAt`, and `checkedAt`. The UI hides the play button unless the fixture is final and the channel is allowlisted. Run `pnpm sync:youtube` for current 2026 matches; it checks only the official FOX Sports channel, requires both team names plus 2026 FIFA World Cup highlights context in the title, and rechecks reviewed fixtures without rewriting timestamps unless a link or review state changes. If no official YouTube upload is available after checking the allowlisted channel, add `highlightVideoReview` with `status: "not-found"` or `status: "needs-review"`, the same `sourceName` / `channelId`, `platform: "youtube"`, `checkedAt`, and a short `note`; replace that review with `highlightVideo` once a valid official URL exists.
 
 For historical archive matches, keep `highlightVideo` YouTube-only and use official FIFA uploads (`channelId: "UCpcTrCXblq78GZrTUTLWeBw"`). Run `pnpm history:youtube` to check the whole archive; it links only clean official FIFA highlight-style videos and records `highlightVideoReview` when no match-specific YouTube highlight is found, so the button stays absent deliberately.
 
@@ -151,10 +151,11 @@ pnpm profiles:country -- --teams=CRO,PAN
 pnpm cards:check
 pnpm results
 pnpm results:check
+pnpm sync:youtube
 ```
 
 The script preserves hand-authored `resultHighlights` by default. It generates the `⚽` scoreline only when scorer-minute data is not loaded; when `goalsHome`/`goalsAway` exists, the UI renders the linked scorer list instead.
-The scheduled `Sync FIFA Results PR` workflow runs `pnpm sync:fifa:goals`, `pnpm results`, and `pnpm validate:profiles` after the score/status sync, so newly finished matches can open a fallback-data PR as soon as FIFA timeline scorer events, result highlights, and any newly required player cards are available.
+The scheduled `Sync FIFA Results PR` workflow runs `pnpm sync:fifa:goals`, `pnpm results`, `pnpm sync:youtube`, and `pnpm validate:profiles` after the score/status sync, so newly finished matches can open a fallback-data PR as soon as FIFA timeline scorer events, result highlights, official highlight-video dispositions, and any newly required player cards are available.
 `pnpm results:check` fails when a full-time group match is still missing official goal events or has generic result-moment copy.
 
 ## Required Update Steps

@@ -201,6 +201,38 @@ function hasChineseTranslationEntry(source, value) {
   return source.includes(`${JSON.stringify(text)}:`) || source.includes(`${text}:`);
 }
 
+function getAppChineseTranslationPatternBlock(source) {
+  const match = source.match(/const ZH_PATTERN_TRANSLATIONS = \[([\s\S]+?)\];\n\nconst matchList/);
+  return match?.[1] || "";
+}
+
+function getAppChineseTranslationPatterns(source) {
+  const block = getAppChineseTranslationPatternBlock(source);
+  const patterns = [];
+
+  for (const match of block.matchAll(/pattern:\s*\/((?:\\.|[^/])*)\/([dgimsuvy]*)/g)) {
+    try {
+      const flags = match[2].replace(/[gy]/g, "");
+      patterns.push(new RegExp(match[1], flags));
+    } catch (error) {
+      throw new Error(`Unable to parse Chinese translation pattern /${match[1]}/${match[2]}: ${error.message}`);
+    }
+  }
+
+  return patterns;
+}
+
+let appChineseTranslationPatterns = [];
+
+function hasChineseTranslationPattern(value) {
+  const text = String(value || "").trim().replace(/\s+/g, " ");
+  if (!text) {
+    return true;
+  }
+
+  return appChineseTranslationPatterns.some((pattern) => pattern.test(text));
+}
+
 function isChineseAuthoredCopyCovered(source, value) {
   const text = String(value || "").trim().replace(/\s+/g, " ");
 
@@ -208,10 +240,7 @@ function isChineseAuthoredCopyCovered(source, value) {
     return true;
   }
 
-  return (
-    hasChineseTranslationEntry(source, text) ||
-    authoredChineseCopyPatterns.some((pattern) => pattern.test(text))
-  );
+  return hasChineseTranslationEntry(source, text) || hasChineseTranslationPattern(text);
 }
 
 function isLocalizedCopy(value) {
@@ -301,6 +330,7 @@ const sourceIds = new Set((tournamentData.sources || []).map((source) => source.
 const teamsById = new Map((teamsData.teams || []).map((team) => [team.id, team]));
 const profiles = playerProfilesData.profiles || {};
 const appSource = await readFile(path.join(root, "app.js"), "utf8");
+appChineseTranslationPatterns = getAppChineseTranslationPatterns(appSource);
 const rows = [];
 const historicalRows = [];
 const resultRows = [];
@@ -489,6 +519,21 @@ for (const fixture of fixturesData.fixtures || []) {
 }
 
 for (const fixture of historyData.fixtures || []) {
+  const authoredChineseCopyFields = getAuthoredChineseCopyFields(fixture);
+
+  if (authoredChineseCopyFields.length) {
+    const issues = authoredChineseCopyFields
+      .filter(({ text }) => !isChineseAuthoredCopyCovered(appSource, text))
+      .map(({ field, text }) => issue(`${field} missing Chinese coverage`, text));
+
+    authoredChineseCopyRows.push({
+      fixtureId: fixture.id,
+      fixture: `${fixture.homeSlot || fixture.homeTeam?.name || "home"} vs ${fixture.awaySlot || fixture.awayTeam?.name || "away"}`,
+      checked: authoredChineseCopyFields.length,
+      issues
+    });
+  }
+
   for (const side of ["home", "away"]) {
     const team = side === "home" ? fixture.homeSlot : fixture.awaySlot;
     const opponent = side === "home" ? fixture.awaySlot : fixture.homeSlot;

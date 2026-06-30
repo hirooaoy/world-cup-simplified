@@ -160,6 +160,13 @@ async function main() {
   });
   stepIndex += 1;
 
+  console.log(formatStep(stepIndex, "Sync official highlight videos"));
+  await runNodeScript({
+    label: "Sync official highlight videos",
+    script: "scripts/sync-youtube-highlights.mjs"
+  });
+  stepIndex += 1;
+
   for (const step of verificationSteps) {
     console.log(formatStep(stepIndex, step.label));
     await runNodeScript(step);

@@ -2216,7 +2216,7 @@ try {
       };
     });
   assert(
-    netherlandsMoroccoShootoutBlock.rowScore === "1-1 · 2-3 pens" &&
+    netherlandsMoroccoShootoutBlock.rowScore === "1-1 (2-3 pens)" &&
       netherlandsMoroccoShootoutBlock.scoreText === "Morocco beat Netherlands on penalties after a 1-1 draw." &&
       netherlandsMoroccoShootoutBlock.storyItems.some((item) =>
         item.includes("Morocco won the shootout 3-2 after a 1-1 draw")
@@ -2460,6 +2460,49 @@ try {
     chineseKeyInformationCoverageIssues.length === 0,
     `Chinese key-information translator should cover every current confirmed fixture without stale English or generic fallback copy. Issues: ${JSON.stringify(chineseKeyInformationCoverageIssues)}.`
   );
+  const chineseResultBulletCoverageIssues = await page.evaluate(async () => {
+    const translateTextToZh = window.__worldCupTestHooks?.localization?.translateTextToZh;
+    if (typeof translateTextToZh !== "function") {
+      return [{ file: "test-hooks", fixtureId: "all", field: "all", issue: "missing localization test hook" }];
+    }
+
+    const staleEnglishGrammarPattern =
+      /\b(?:won\s+(?:the|on|after)|survived|shootout|after|draw|stayed|scoreless|penalties|eventually|forced|gave|reply|winner|settled|kept|pulled|chase|match|through|goal|point|teams?|Group|Round|lifted|title|level|unresolved)\b/i;
+    const issues = [];
+
+    for (const file of ["data/fixtures.json", "data/history.json"]) {
+      const response = await fetch(`${file}?resultZhCoverage=${Date.now()}`);
+      const data = await response.json();
+
+      for (const fixture of data.fixtures || []) {
+        for (const field of ["resultStoryBullets", "resultHighlights"]) {
+          for (const [index, source] of (fixture[field] || []).entries()) {
+            if (typeof source !== "string" || !/[A-Za-z]/.test(source)) {
+              continue;
+            }
+
+            const translated = translateTextToZh(source).trim();
+            if (translated === source || staleEnglishGrammarPattern.test(translated)) {
+              issues.push({
+                file,
+                fixtureId: fixture.id,
+                field,
+                index,
+                source,
+                translated
+              });
+            }
+          }
+        }
+      }
+    }
+
+    return issues.slice(0, 12);
+  });
+  assert(
+    chineseResultBulletCoverageIssues.length === 0,
+    `Chinese result bullet translation should cover current and historical story bullets without stale English grammar. Issues: ${JSON.stringify(chineseResultBulletCoverageIssues)}.`
+  );
 
   await page.goto(`${baseUrl}?view=matches&date=2026-06-11&lang=en&tz=America%2FLos_Angeles`, {
     waitUntil: "load"
@@ -2563,7 +2606,10 @@ try {
       roundOf32DetailText.includes("South Africa won 1-0 against South Korea #25, tied 1-1 against Czechia #40, and lost 0-2 to Mexico #14.") &&
       roundOf32DetailText.includes("Canada won 6-0 against Qatar #56, tied 1-1 against Bosnia and Herzegovina #64, and lost 1-2 to Switzerland #19.") &&
       roundOf32DetailText.includes("Next: Round of 16") &&
-      roundOf32DetailText.includes("Winner will face winner of") &&
+      /Winner will face Morocco #\d+ who won 3-2 on penalties after a 1-1 draw against Netherlands\./.test(
+        roundOf32DetailText
+      ) &&
+      !roundOf32DetailText.includes("Winner will face winner of Netherlands") &&
       roundOf32DetailText.includes("Prediction") &&
       roundOf32DetailText.includes("Key information") &&
       roundOf32DetailText.includes("Past matches") &&
@@ -2654,8 +2700,8 @@ try {
       ["#25", "#40", "#14", "#56", "#64", "#19"].every((rank) =>
         roundOf32ContextMetrics.groupRoundRanks.includes(rank)
       ) &&
-      roundOf32ContextMetrics.nextPathRanks.includes("#8") &&
       roundOf32ContextMetrics.nextPathRanks.includes("#7") &&
+      !roundOf32ContextMetrics.nextPathRanks.includes("#8") &&
       roundOf32ContextMetrics.rankHeights.every((height) => height <= 15.5) &&
       roundOf32ContextMetrics.rankCenterDeltas.length >= 6 &&
       roundOf32ContextMetrics.rankCenterDeltas.every((delta) => delta <= 1) &&
@@ -2732,7 +2778,7 @@ try {
       roundOf16DetailText.includes("Previous: Round of 32") &&
       roundOf16DetailText.includes("is scheduled.") &&
       roundOf16DetailText.includes("Next: Quarter-finals") &&
-      /Winner will face (?:predicted )?winner of/.test(roundOf16DetailText) &&
+      /Winner will face winner of Canada #\d+ vs Morocco #\d+\./.test(roundOf16DetailText) &&
       roundOf16DetailText.includes("Prediction") &&
       !roundOf16DetailText.includes("Previous: Group round") &&
       !roundOf16DetailText.includes("bracket details are not loaded yet"),
@@ -3739,8 +3785,57 @@ try {
         "If no Up next pill is shown in the mocked state, every listed match should be final."
       );
     }
-  }
-  await matchStateCheck.context.close();
+	  }
+	  await matchStateCheck.context.close();
+
+  const liveShootoutLayoutCheck = await openPageAtTime(
+    "2026-06-30T21:01:00.000Z",
+    "/?view=matches&date=2026-06-30&tz=America%2FLos_Angeles",
+    {
+      fixtureTransform(data) {
+        const shootoutFixture = data.fixtures.find(
+          (fixture) => fixture.id === "match-77-round-of-32-2026-06-30"
+        );
+        shootoutFixture.status = "LIVE";
+        shootoutFixture.score = { home: 1, away: 1 };
+        shootoutFixture.scoreDetails = { penalties: { home: 3, away: 4 } };
+        shootoutFixture.scoreUpdatedAt = "2026-06-30T21:00:00.000Z";
+      }
+    }
+  );
+  await liveShootoutLayoutCheck.page.setViewportSize({ width: 340, height: 780 });
+  await liveShootoutLayoutCheck.page.waitForTimeout(250);
+  const liveShootoutRowMetrics = await liveShootoutLayoutCheck.page
+    .locator('[data-match-id="match-77-round-of-32-2026-06-30"]')
+    .evaluate((row) => {
+      const score = row.querySelector(".match-score");
+      const scoreRect = score?.getBoundingClientRect();
+      const rowRect = row.getBoundingClientRect();
+      const matchupRight = Math.max(
+        ...Array.from(
+          row.querySelectorAll(".match-teams .flag, .match-teams .team-name, .match-teams .match-versus")
+        ).map((element) => element.getBoundingClientRect().right)
+      );
+
+      return {
+        documentScrollOverflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
+        hasWrappedClass: row.classList.contains("has-wrapped-matchup"),
+        metaGapFromTeams: scoreRect ? Math.round(scoreRect.left - matchupRight) : null,
+        rowScrollOverflow: row.scrollWidth - row.clientWidth,
+        scoreRightGap: scoreRect ? Math.round(rowRect.right - scoreRect.right) : null,
+        scoreText: score?.textContent.replace(/\s+/g, " ").trim() || ""
+      };
+    });
+  assert(
+    liveShootoutRowMetrics.scoreText === "1-1 (3-4 pens) · 1 min ago" &&
+      liveShootoutRowMetrics.hasWrappedClass &&
+      liveShootoutRowMetrics.metaGapFromTeams >= 12 &&
+      liveShootoutRowMetrics.scoreRightGap >= 0 &&
+      liveShootoutRowMetrics.rowScrollOverflow <= 1 &&
+      liveShootoutRowMetrics.documentScrollOverflow <= 1,
+    `Live shootout score text should stay readable without overlapping the tiny-mobile match row. Measured ${JSON.stringify(liveShootoutRowMetrics)}.`
+  );
+  await liveShootoutLayoutCheck.context.close();
 
   const japanSearchCheck = await openPageAtTime(
     "2026-06-21T21:00:00.000Z",

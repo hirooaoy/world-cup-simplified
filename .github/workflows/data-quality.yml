@@ -53,6 +53,9 @@ jobs:
       - name: Refresh result highlights
         run: pnpm results
 
+      - name: Sync official highlight videos
+        run: pnpm sync:youtube
+
       - name: Install Chromium
         run: |
           pnpm exec playwright install --with-deps chromium || {
