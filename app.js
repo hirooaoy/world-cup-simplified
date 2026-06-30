@@ -1,4 +1,4 @@
-const DATA_VERSION = "2026-06-30-h2h-archive-localization";
+const DATA_VERSION = "2026-06-30-h2h-mobile-search";
 const DATA_URLS = {
   adminMessage: `data/admin-message.json?v=${DATA_VERSION}`,
   fixtures: `data/fixtures.json?v=${DATA_VERSION}`,
@@ -332,9 +332,7 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "final score": "最终比分",
     "Next": "下一轮",
     "now": "刚刚",
-    "Past match research is not loaded for this fixture yet.":
-      "这场比赛的历史交锋研究尚未载入。",
-    "Past meetings unavailable.": "历史交锋暂不可用。",
+    "Past meetings not loaded yet.": "历史交锋尚未载入。",
     "Past matches": "历史交锋",
     "Path below": "路径见下方",
     "Penalties": "点球",
@@ -3375,6 +3373,39 @@ const TEAM_SEARCH_ALIASES_BY_TEAM_ID = {
   USA: ["usa", "us", "united states", "america", "mei guo", "meiguo", "美國"],
   UZB: ["wu zi bie ke si tan", "wuzibiekesitan", "烏茲別克斯坦"]
 };
+const TEAM_SEARCH_PREFIX_ALIAS_TEXTS = [
+  "america",
+  "cape verde",
+  "congo",
+  "congo dr",
+  "cote",
+  "cote d ivoire",
+  "cote divoire",
+  "czech republic",
+  "czechia",
+  "dr congo",
+  "holland",
+  "iran",
+  "ir iran",
+  "ivory coast",
+  "korea",
+  "korea republic",
+  "saudi",
+  "south korea",
+  "turkey",
+  "turkiye",
+  "türkiye",
+  "united states",
+  "us",
+  "usa"
+];
+const TEAM_SEARCH_PREFIX_ALIAS_KEYS = new Set(TEAM_SEARCH_PREFIX_ALIAS_TEXTS.map(normalizeTextKey));
+const TEAM_SEARCH_EXACT_ONLY_ALIAS_KEYS = new Set(
+  Object.values(TEAM_SEARCH_ALIASES_BY_TEAM_ID)
+    .flat()
+    .map(normalizeTextKey)
+    .filter((key) => /[a-z]/.test(key) && !TEAM_SEARCH_PREFIX_ALIAS_KEYS.has(key))
+);
 const WALES_FLAG = "\u{1F3F4}\u{E0067}\u{E0062}\u{E0077}\u{E006C}\u{E0073}\u{E007F}";
 const HISTORICAL_TEAM_COUNTRY_CODES = {
   Algeria: "DZ",
@@ -7993,6 +8024,7 @@ const boundedTooltipSelector = [
 ].join(",");
 const boundedElementTooltipSelector = ".source-tooltip, .release-tooltip";
 let activeTouchTooltipElement = null;
+let pendingTouchTooltipLinkClick = null;
 
 function getPixelValue(value) {
   const number = Number.parseFloat(value);
@@ -8244,6 +8276,14 @@ function getNonLinkTooltipElement(target) {
   return tooltipElement;
 }
 
+function getTouchTooltipLinkElement(target) {
+  if (!(target instanceof Element)) {
+    return null;
+  }
+
+  return target.closest(".live-pill[data-tooltip][href]");
+}
+
 function clearActiveTouchTooltip() {
   if (!activeTouchTooltipElement) {
     return;
@@ -8274,6 +8314,21 @@ function handleTouchTooltipPointerDown(event) {
     return;
   }
 
+  const linkTooltipElement = getTouchTooltipLinkElement(event.target);
+  if (linkTooltipElement) {
+    pendingTouchTooltipLinkClick = {
+      element: linkTooltipElement,
+      wasOpen: activeTouchTooltipElement === linkTooltipElement
+    };
+
+    if (!pendingTouchTooltipLinkClick.wasOpen) {
+      setActiveTouchTooltip(linkTooltipElement);
+    }
+
+    return;
+  }
+
+  pendingTouchTooltipLinkClick = null;
   const tooltipElement = getNonLinkTooltipElement(event.target);
   if (!tooltipElement) {
     clearActiveTouchTooltip();
@@ -8282,6 +8337,25 @@ function handleTouchTooltipPointerDown(event) {
 
   event.stopPropagation();
   setActiveTouchTooltip(tooltipElement);
+}
+
+function handleTouchTooltipLinkClick(event) {
+  const linkTooltipElement = getTouchTooltipLinkElement(event.target);
+  if (!linkTooltipElement || pendingTouchTooltipLinkClick?.element !== linkTooltipElement) {
+    pendingTouchTooltipLinkClick = null;
+    return;
+  }
+
+  const shouldNavigate = pendingTouchTooltipLinkClick.wasOpen;
+  pendingTouchTooltipLinkClick = null;
+
+  if (shouldNavigate) {
+    return;
+  }
+
+  event.preventDefault();
+  event.stopPropagation();
+  setActiveTouchTooltip(linkTooltipElement);
 }
 
 function shouldIgnoreContainerClickForTooltip(target) {
@@ -15611,7 +15685,7 @@ function renderPastResults(match) {
   const hasResolvedTeams = Boolean(match.homeTeam && match.awayTeam && !match.homeTeam.isSlot && !match.awayTeam.isSlot);
   const summaryText =
     h2h.status === "research-pending"
-      ? "Past meetings unavailable."
+      ? "Past meetings not loaded yet."
       : hasResolvedTeams && /^Teams are not known yet\./.test(h2h.summary || "")
         ? ""
         : h2h.summary;
@@ -15626,7 +15700,7 @@ function renderPastResults(match) {
 
     return `
       ${summary}
-      <p class="past-empty">${escapeHtml(localizeText("Past match research is not loaded for this fixture yet."))}</p>
+      <p class="past-empty">${escapeHtml(localizeText("Past meetings not loaded yet."))}</p>
     `;
   }
 
@@ -18145,6 +18219,10 @@ function getTeamSearchKeys(team) {
     .filter(Boolean);
 }
 
+function getTeamSearchPrefixKeys(team) {
+  return getTeamSearchKeys(team).filter((key) => !TEAM_SEARCH_EXACT_ONLY_ALIAS_KEYS.has(key));
+}
+
 function getTeamSearchTeamForExactQuery(queryKey) {
   for (const team of teamsById.values()) {
     if (getTeamSearchKeys(team).includes(queryKey)) {
@@ -18189,7 +18267,7 @@ function isTeamSearchMatch(team, queryKey) {
     return teamKeys.some((key) => exactQueryTeamKeys.has(key));
   }
 
-  return teamKeys.some((key) => isTeamSearchKeyMatch(key, queryKey));
+  return getTeamSearchPrefixKeys(team).some((key) => isTeamSearchKeyMatch(key, queryKey));
 }
 
 function buildTeamSearchExactKeySets() {
@@ -18218,7 +18296,9 @@ function buildTeamSearchIndex() {
       homeTeam: match.homeTeam,
       awayTeam: match.awayTeam,
       homeKeys: getTeamSearchKeys(match.homeTeam),
-      awayKeys: getTeamSearchKeys(match.awayTeam)
+      awayKeys: getTeamSearchKeys(match.awayTeam),
+      homePrefixKeys: getTeamSearchPrefixKeys(match.homeTeam),
+      awayPrefixKeys: getTeamSearchPrefixKeys(match.awayTeam)
     }))
     .sort((a, b) => a.sortValue.localeCompare(b.sortValue));
 }
@@ -18233,23 +18313,28 @@ function getTeamSearchExactKeySet(queryKey) {
   return exactQueryTeam ? new Set(getTeamSearchKeys(exactQueryTeam)) : null;
 }
 
-function isTeamSearchIndexedKeyMatch(keys, queryKey, exactKeySet = getTeamSearchExactKeySet(queryKey)) {
+function isTeamSearchIndexedKeyMatch(
+  keys,
+  queryKey,
+  exactKeySet = getTeamSearchExactKeySet(queryKey),
+  prefixKeys = keys
+) {
   if (exactKeySet) {
     return keys.some((key) => exactKeySet.has(key));
   }
 
-  return keys.some((key) => isTeamSearchKeyMatch(key, queryKey));
+  return prefixKeys.some((key) => isTeamSearchKeyMatch(key, queryKey));
 }
 
 function getTeamSearchIndexedParticipant(entry, queryKey, exactKeySet = getTeamSearchExactKeySet(queryKey)) {
-  if (isTeamSearchIndexedKeyMatch(entry.homeKeys, queryKey, exactKeySet)) {
+  if (isTeamSearchIndexedKeyMatch(entry.homeKeys, queryKey, exactKeySet, entry.homePrefixKeys)) {
     return {
       team: entry.homeTeam,
       searchedSide: "home"
     };
   }
 
-  if (isTeamSearchIndexedKeyMatch(entry.awayKeys, queryKey, exactKeySet)) {
+  if (isTeamSearchIndexedKeyMatch(entry.awayKeys, queryKey, exactKeySet, entry.awayPrefixKeys)) {
     return {
       team: entry.awayTeam,
       searchedSide: "away"
@@ -20394,6 +20479,7 @@ document.addEventListener(
   true
 );
 document.addEventListener("pointerdown", handleTouchTooltipPointerDown, true);
+document.addEventListener("click", handleTouchTooltipLinkClick, true);
 document.addEventListener(
   "focusin",
   (event) => updateTooltipBoundsForTarget(event.target),

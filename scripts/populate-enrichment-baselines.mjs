@@ -191,7 +191,7 @@ function shouldPopulateH2h(fixture) {
 function buildPendingH2h() {
   return {
     status: "research-pending",
-    summary: "Past meetings unavailable.",
+    summary: "Past meetings not loaded yet.",
     results: null
   };
 }

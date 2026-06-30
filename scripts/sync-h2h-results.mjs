@@ -26,6 +26,7 @@ const sourceAliasesByTeamId = {
 };
 const checkedAt = process.env.H2H_CHECKED_AT || new Date().toISOString();
 const sourceId = `national-football-teams-h2h-sync-${checkedAt.slice(0, 10)}`;
+const fixtureTimeZone = "America/Los_Angeles";
 const shouldWrite = !process.argv.includes("--check");
 const overwrite = process.argv.includes("--overwrite");
 const fixtureFilter = new Set(
@@ -63,6 +64,26 @@ function textContent(value) {
     .replace(/<[^>]*>/g, " ")
     .replace(/\s+/g, " ")
     .trim();
+}
+
+function getFixtureDayKey(fixture) {
+  if (fixture?.date) {
+    return fixture.date;
+  }
+
+  if (!fixture?.kickoffUtc) {
+    return "";
+  }
+
+  const parts = new Intl.DateTimeFormat("en-US", {
+    day: "2-digit",
+    month: "2-digit",
+    timeZone: fixtureTimeZone,
+    year: "numeric"
+  }).formatToParts(new Date(fixture.kickoffUtc));
+  const values = Object.fromEntries(parts.map((part) => [part.type, part.value]));
+
+  return `${values.year}-${values.month}-${values.day}`;
 }
 
 function normalizeName(value) {
@@ -211,7 +232,7 @@ function penaltyScoreNote(score, rowHomeTeamId, rowAwayTeamId, teamsById) {
   return `(${teamName(winnerTeamId, teamsById)} won ${winnerScore}-${loserScore} on penalties)`;
 }
 
-function parseEncounterResults({ awayCountry, awayTeam, homeCountry, homeTeam, html, teamsById, url }) {
+function parseEncounterResults({ awayCountry, awayTeam, fixtureDayKey, homeCountry, homeTeam, html, teamsById, url }) {
   const providerIdToTeamId = sourceTeamMap(homeTeam, awayTeam, homeCountry, awayCountry);
 
   return parseMatchRows(html)
@@ -228,8 +249,13 @@ function parseEncounterResults({ awayCountry, awayTeam, homeCountry, homeTeam, h
         return null;
       }
 
+      const resultDate = dateLink[2];
+      if (fixtureDayKey && resultDate >= fixtureDayKey) {
+        return null;
+      }
+
       const result = {
-        date: dateLink[2],
+        date: resultDate,
         competition: textContent(competition),
         homeTeamId: rowHomeTeamId,
         awayTeamId: rowAwayTeamId,
@@ -357,6 +383,7 @@ async function main() {
     const results = parseEncounterResults({
       awayCountry,
       awayTeam,
+      fixtureDayKey: getFixtureDayKey(fixture),
       homeCountry,
       homeTeam,
       html,

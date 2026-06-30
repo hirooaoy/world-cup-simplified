@@ -7003,7 +7003,8 @@ h1 {
     padding-inline: 6px;
   }
 
-  .tournament-up-next-pill {
+  .tournament-up-next-pill,
+  .tournament-live-pill {
     height: 20px;
     padding-inline: 7px;
     font-size: 9px;
@@ -7327,7 +7328,8 @@ h1 {
     padding-inline: 7px;
   }
 
-  .tournament-up-next-pill {
+  .tournament-up-next-pill,
+  .tournament-live-pill {
     height: 19px;
     padding-inline: 6px;
     font-size: 8px;

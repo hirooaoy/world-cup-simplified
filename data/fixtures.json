@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-30T09:42:00-07:00",
+  "updatedAt": "2026-06-30T10:42:00-07:00",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -9796,19 +9796,8 @@
       "h2h": {
         "status": "loaded",
         "sourceId": "national-football-teams-h2h-sync-2026-06-30",
-        "summary": "Before this fixture, Germany had the edge in the verified senior series: 1 Germany win, 2 draws, 0 Paraguay wins, 9 total goals.",
+        "summary": "Before this fixture, Germany had the edge in the verified senior series: 1 Germany win, 1 draw, 0 Paraguay wins, 7 total goals.",
         "results": [
-          {
-            "date": "2026-06-29",
-            "competition": "World Cup 2026 - Round of 32",
-            "homeTeamId": "GER",
-            "awayTeamId": "PAR",
-            "homeScore": 1,
-            "awayScore": 1,
-            "venue": "Gillette Stadium",
-            "sourceUrl": "https://www.national-football-teams.com/matches/report/44956/Germany_Paraguay.html",
-            "scoreNote": "(Paraguay won 4-3 on penalties)"
-          },
           {
             "date": "2013-08-14",
             "competition": "Friendly",
@@ -9936,19 +9925,8 @@
       "h2h": {
         "status": "loaded",
         "sourceId": "national-football-teams-h2h-sync-2026-06-30",
-        "summary": "Before this fixture, Netherlands had the edge in the verified senior series: 2 Netherlands wins, 1 draw, 1 Morocco win, 11 total goals.",
+        "summary": "Before this fixture, Netherlands had the edge in the verified senior series: 2 Netherlands wins, 0 draws, 1 Morocco win, 9 total goals.",
         "results": [
-          {
-            "date": "2026-06-29",
-            "competition": "World Cup 2026 - Round of 32",
-            "homeTeamId": "NED",
-            "awayTeamId": "MAR",
-            "homeScore": 1,
-            "awayScore": 1,
-            "venue": "Estadio BBVA",
-            "sourceUrl": "https://www.national-football-teams.com/matches/report/44957/Netherlands_Morocco.html",
-            "scoreNote": "(Morocco won 3-2 on penalties)"
-          },
           {
             "date": "2017-05-31",
             "competition": "Friendly",
@@ -10087,18 +10065,8 @@
       "h2h": {
         "status": "loaded",
         "sourceId": "national-football-teams-h2h-sync-2026-06-30",
-        "summary": "Before this fixture, Brazil had the edge in the verified senior series: 12 Brazil wins, 2 draws, 1 Japan win, 48 total goals.",
+        "summary": "Before this fixture, Brazil had the edge in the verified senior series: 11 Brazil wins, 2 draws, 1 Japan win, 45 total goals.",
         "results": [
-          {
-            "date": "2026-06-29",
-            "competition": "World Cup 2026 - Round of 32",
-            "homeTeamId": "BRA",
-            "awayTeamId": "JPN",
-            "homeScore": 2,
-            "awayScore": 1,
-            "venue": "NRG Stadium",
-            "sourceUrl": "https://www.national-football-teams.com/matches/report/44955/Brazil_Japan.html"
-          },
           {
             "date": "2025-10-14",
             "competition": "Friendly",
@@ -11923,7 +11891,7 @@
       "status": "SCHEDULED",
       "h2h": {
         "status": "research-pending",
-        "summary": "Past meetings unavailable.",
+        "summary": "Past meetings not loaded yet.",
         "results": null
       },
       "providerIds": {

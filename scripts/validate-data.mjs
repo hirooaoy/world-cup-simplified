@@ -56,6 +56,46 @@ function isDayKey(value) {
   return /^\d{4}-\d{2}-\d{2}$/.test(value || "") && !Number.isNaN(new Date(`${value}T12:00:00Z`).getTime());
 }
 
+function isH2hResultDate(value) {
+  return isDayKey(value) || /^\d{4}$/.test(value || "");
+}
+
+function getFixtureDayKey(fixture, timeZone = "America/Los_Angeles") {
+  if (fixture?.date) {
+    return fixture.date;
+  }
+
+  if (!fixture?.kickoffUtc) {
+    return "";
+  }
+
+  const parts = new Intl.DateTimeFormat("en-US", {
+    day: "2-digit",
+    month: "2-digit",
+    timeZone,
+    year: "numeric"
+  }).formatToParts(new Date(fixture.kickoffUtc));
+  const values = Object.fromEntries(parts.map((part) => [part.type, part.value]));
+
+  return `${values.year}-${values.month}-${values.day}`;
+}
+
+function isH2hResultBeforeFixture(resultDate, fixtureDayKey) {
+  if (!resultDate || !fixtureDayKey) {
+    return true;
+  }
+
+  if (isDayKey(resultDate)) {
+    return resultDate < fixtureDayKey;
+  }
+
+  if (/^\d{4}$/.test(resultDate)) {
+    return resultDate < fixtureDayKey.slice(0, 4);
+  }
+
+  return false;
+}
+
 function isValidDateTime(value) {
   return typeof value === "string" && value.trim() && !Number.isNaN(new Date(value).getTime());
 }
@@ -1362,8 +1402,17 @@ for (const fixture of fixturesData.fixtures || []) {
   );
 
   if (Array.isArray(fixture.h2h.results)) {
+    const fixtureDayKey = getFixtureDayKey(fixture);
+
     for (const [index, result] of fixture.h2h.results.entries()) {
       assert(result.date, `Fixture "${fixture.id}" h2h result ${index + 1} must include date`);
+      assert(isH2hResultDate(result.date), `Fixture "${fixture.id}" h2h result ${index + 1} must include a valid date`);
+      if (fixtureDayKey) {
+        assert(
+          isH2hResultBeforeFixture(result.date, fixtureDayKey),
+          `Fixture "${fixture.id}" h2h result ${index + 1} must be before fixture date ${fixtureDayKey}`
+        );
+      }
       assert(result.competition, `Fixture "${fixture.id}" h2h result ${index + 1} must include competition`);
       assert(result.venue, `Fixture "${fixture.id}" h2h result ${index + 1} must include venue`);
 

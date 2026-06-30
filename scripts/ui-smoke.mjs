@@ -1553,7 +1553,7 @@ async function openPageAtTime(
   path = "/?view=matches&date=2026-06-17&tz=America%2FLos_Angeles",
   options = {}
 ) {
-  const context = await browser.newContext();
+  const context = await browser.newContext(options.contextOptions || {});
   await context.addInitScript((mockNowIso) => {
     const RealDate = Date;
     const mockNow = new RealDate(mockNowIso);
@@ -2385,7 +2385,7 @@ try {
   );
 
   const pendingH2hFixture = fixturesData.fixtures.find(
-    (fixture) => fixture.h2h?.status === "research-pending" && fixture.h2h?.summary === "Past meetings unavailable."
+    (fixture) => fixture.h2h?.status === "research-pending" && fixture.h2h?.summary === "Past meetings not loaded yet."
   );
   if (pendingH2hFixture) {
     const pendingH2hDate = getDayKeyForTimeZone(pendingH2hFixture.kickoffUtc || pendingH2hFixture.date);
@@ -2398,9 +2398,9 @@ try {
     const pendingH2hChineseSummary = (await page.locator("#match-info .h2h-summary").first().innerText()).trim();
     const pendingH2hChineseDetails = await page.locator("#match-info").innerText();
     assert(
-      pendingH2hChineseSummary === "历史交锋暂不可用。" &&
-        !/H2H research|Add API-backed|Past meetings unavailable/.test(pendingH2hChineseDetails),
-      "Chinese pending H2H empty state should show concise localized unavailable copy without internal research text."
+      pendingH2hChineseSummary === "历史交锋尚未载入。" &&
+        !/H2H research|Add API-backed|Past meetings unavailable|Past meetings not loaded yet/.test(pendingH2hChineseDetails),
+      "Chinese pending H2H empty state should show concise localized not-loaded copy without internal research text."
     );
   }
   await page.goto(`${baseUrl}?view=matches&date=2026-06-29&lang=zh&tz=America%2FLos_Angeles`, {
@@ -4162,19 +4162,62 @@ try {
   );
   await panSearchCheck.context.close();
 
+  const belgiumPrefixSearchCheck = await openPageAtTime(
+    "2026-06-21T21:00:00.000Z",
+    "/?view=matches&team=be&tz=America%2FLos_Angeles"
+  );
+  const belgiumPrefixSearchRows = await belgiumPrefixSearchCheck.page.locator(".match-row").evaluateAll((rows) =>
+    rows.map((row) => ({
+      id: row.dataset.matchId,
+      label: row.getAttribute("aria-label") || ""
+    }))
+  );
+  assert(
+    belgiumPrefixSearchRows.some((row) => row.id === "belgium-egypt-2026-06-15"),
+    "English Belgium prefix search should include Belgium vs Egypt."
+  );
+  assert(
+    belgiumPrefixSearchRows.every((row) => row.label.includes("Belgium")) &&
+      !belgiumPrefixSearchRows.some((row) => row.id === "japan-sweden-2026-06-25"),
+    "English Belgium prefix search should not match Japan through the pinyin ri ben alias."
+  );
+  await belgiumPrefixSearchCheck.context.close();
+
+  const mexicoPrefixSearchCheck = await openPageAtTime(
+    "2026-06-21T21:00:00.000Z",
+    "/?view=matches&team=me&tz=America%2FLos_Angeles"
+  );
+  const mexicoPrefixSearchRows = await mexicoPrefixSearchCheck.page.locator(".match-row").evaluateAll((rows) =>
+    rows.map((row) => ({
+      id: row.dataset.matchId,
+      label: row.getAttribute("aria-label") || ""
+    }))
+  );
+  assert(
+    mexicoPrefixSearchRows.some((row) => row.id === "mexico-south-africa-2026-06-11"),
+    "English Mexico prefix search should include Mexico vs South Africa."
+  );
+  assert(
+    mexicoPrefixSearchRows.every((row) => row.label.includes("Mexico")) &&
+      !mexicoPrefixSearchRows.some((row) => row.id === "turkiye-united-states-2026-06-25"),
+    "English Mexico prefix search should not match United States through the pinyin mei guo alias."
+  );
+  await mexicoPrefixSearchCheck.context.close();
+
+  const applyLiveFallbackFixture = (data) => {
+    const liveFixture = data.fixtures.find(
+      (fixture) => fixture.id === "czechia-south-africa-2026-06-18"
+    );
+    liveFixture.status = "SCHEDULED";
+    liveFixture.officialMatchTime = "5'";
+    liveFixture.officialMatchTimeUpdatedAt = "2026-06-18T16:02:00.000Z";
+    delete liveFixture.score;
+  };
   const liveFallbackScoreCheck = await openPageAtTime(
     "2026-06-18T16:05:00.000Z",
     "/?view=matches&date=2026-06-18&tz=America%2FLos_Angeles",
     {
-      fixtureTransform(data) {
-        const liveFixture = data.fixtures.find(
-          (fixture) => fixture.id === "czechia-south-africa-2026-06-18"
-        );
-        liveFixture.status = "SCHEDULED";
-        liveFixture.officialMatchTime = "5'";
-        liveFixture.officialMatchTimeUpdatedAt = "2026-06-18T16:02:00.000Z";
-        delete liveFixture.score;
-      }
+      fixtureTransform: applyLiveFallbackFixture
     }
   );
   const liveFallbackRow = liveFallbackScoreCheck.page.locator(
@@ -4196,6 +4239,49 @@ try {
       !((await liveScoreLink.getAttribute("title")) || "").includes("Check latest score at FIFA"),
     "The live pill should link to FIFA scores and expose official snapshot freshness."
   );
+  const liveFallbackTouchCheck = await openPageAtTime(
+    "2026-06-18T16:05:00.000Z",
+    "/?view=matches&date=2026-06-18&tz=America%2FLos_Angeles",
+    {
+      contextOptions: {
+        hasTouch: true,
+        isMobile: true,
+        viewport: { width: 390, height: 844 }
+      },
+      fixtureTransform: applyLiveFallbackFixture
+    }
+  );
+  const liveFallbackTouchRow = liveFallbackTouchCheck.page.locator(
+    '[data-match-id="czechia-south-africa-2026-06-18"]'
+  );
+  const touchPageCountBeforeLiveTap = liveFallbackTouchCheck.context.pages().length;
+  const touchUrlBeforeLiveTap = liveFallbackTouchCheck.page.url();
+  await liveFallbackTouchRow.locator(".live-pill").tap();
+  await liveFallbackTouchCheck.page.waitForFunction(() => {
+    const pill = document.querySelector(
+      '[data-match-id="czechia-south-africa-2026-06-18"] .live-pill.is-touch-tooltip-open'
+    );
+    return pill && Number(getComputedStyle(pill, "::after").opacity) > 0.8;
+  });
+  const touchLiveTooltipState = await liveFallbackTouchCheck.page.evaluate(() => {
+    const pill = document.querySelector(
+      '[data-match-id="czechia-south-africa-2026-06-18"] .live-pill.is-touch-tooltip-open'
+    );
+
+    return {
+      pageUrl: window.location.href,
+      tooltip: pill?.getAttribute("data-tooltip") || "",
+      visibleText: pill?.textContent.replace(/\s+/g, " ").trim() || ""
+    };
+  });
+  assert(
+    liveFallbackTouchCheck.context.pages().length === touchPageCountBeforeLiveTap &&
+      touchLiveTooltipState.visibleText === "Live" &&
+      touchLiveTooltipState.tooltip === "FIFA snapshot: 5' · checked 3 min ago" &&
+      touchLiveTooltipState.pageUrl === touchUrlBeforeLiveTap,
+    `On touch devices, tapping the Live pill should open the time tooltip before following FIFA. Measured ${JSON.stringify(touchLiveTooltipState)}.`
+  );
+  await liveFallbackTouchCheck.context.close();
   const liveFallbackText = (await liveFallbackRow.innerText()).replace(/\s+/g, " ").trim();
   const liveFallbackUpperText = liveFallbackText.toUpperCase();
   const liveFallbackOrder = ["CZECHIA", "VS", "SOUTH AFRICA", "LIVE"].map((text) =>
@@ -4957,16 +5043,19 @@ try {
   assert(
     /巴拉圭\s*在\s*1-1\s*战平后通过点球击败\s*德国。/.test(paraguayGermanyChineseDetail) &&
       paraguayGermanyChineseDetail.includes("阿尔米隆-恩西索反击") &&
-      paraguayGermanyChineseDetail.includes("2026年世界杯 - 32强赛") &&
-      paraguayGermanyChineseDetail.includes("（巴拉圭点球大战4-3胜出）") &&
+      paraguayGermanyChineseDetail.includes("巴拉圭点球处理更稳，在1-1战平后通过点球大战4-3胜出。") &&
+      !paraguayGermanyChineseDetail.includes("2026年世界杯 - 32强赛") &&
+      !paraguayGermanyChineseDetail.includes("（巴拉圭点球大战4-3胜出）") &&
       /摩洛哥\s*在\s*1-1\s*战平后通过点球击败\s*荷兰。/.test(moroccoNetherlandsChineseDetail) &&
       moroccoNetherlandsChineseDetail.includes("哈基米-布拉欣右路冲击") &&
       moroccoNetherlandsChineseDetail.includes("荷兰的德容-加克波受控组织推进") &&
-      moroccoNetherlandsChineseDetail.includes("（摩洛哥点球大战3-2胜出）") &&
+      moroccoNetherlandsChineseDetail.includes("摩洛哥点球处理更稳，在1-1战平后通过点球大战3-2胜出。") &&
+      !moroccoNetherlandsChineseDetail.includes("2026年世界杯 - 32强赛") &&
+      !moroccoNetherlandsChineseDetail.includes("（摩洛哥点球大战3-2胜出）") &&
       !/\b(?:beat|penalties|draw|counters|right-side|surges|relevant|shootout|World Cup|Round of|controlled buildup|ON PENALTIES)\b/i.test(knockoutChineseDetailText) &&
       !knockoutChineseDetailText.includes("德德容") &&
       !knockoutChineseDetailText.includes("Netherlands'"),
-    "Chinese knockout Result details should localize shootout score summaries and tactical route labels."
+    "Chinese knockout Result details should localize shootout summaries and keep current fixtures out of H2H past matches."
   );
   await latestKnockoutChineseCheck.context.close();
 

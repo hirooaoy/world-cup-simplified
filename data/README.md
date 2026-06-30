@@ -231,7 +231,7 @@ Use these H2H statuses:
 
 - `loaded`: verified past senior meetings are attached.
 - `verified-empty`: research found no prior senior meetings.
-- `research-pending`: verified historical records are not attached yet; the UI should show a concise unavailable message.
+- `research-pending`: verified historical records are not attached yet; the UI should show a concise not-loaded message.
 - `not-loaded`: no H2H state has been loaded; this should not remain on known-team group fixtures before sharing.
 
 ## Known Current Limitation

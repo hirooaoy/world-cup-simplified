@@ -1,15 +1,39 @@
 {
-  "updatedAt": "2026-06-30T10:05:45-07:00",
+  "updatedAt": "2026-06-30T10:34:20-07:00",
   "releases": [
+    {
+      "date": "2026-06-30",
+      "title": "Mobile Live time tooltip",
+      "titleZh": "移动端直播时间提示",
+      "highlights": [
+        "Tapping a Live pill on mobile now opens the FIFA snapshot time tooltip first instead of immediately leaving the app."
+      ],
+      "highlightsZh": [
+        "移动端点击 Live 标记现在会先打开 FIFA 快照时间提示，不会立即离开应用。"
+      ]
+    },
+    {
+      "date": "2026-06-30",
+      "title": "Mobile tournament status badges",
+      "titleZh": "移动端淘汰赛状态标记",
+      "highlights": [
+        "Tournament Live and Up next badges now use the same compact sizing on small mobile screens."
+      ],
+      "highlightsZh": [
+        "淘汰赛 Live 和 Up next 标记现在会在小屏移动端使用一致的紧凑尺寸。"
+      ]
+    },
     {
       "date": "2026-06-30",
       "title": "Automatic H2H sync",
       "titleZh": "自动交锋同步",
       "highlights": [
-        "Resolved knockout matchups now sync verified senior head-to-head records from National Football Teams, clearing the Mexico-Ecuador pending card and the current resolved H2H backlog."
+        "Resolved knockout matchups now sync verified senior head-to-head records from National Football Teams, clearing the Mexico-Ecuador pending card and the current resolved H2H backlog.",
+        "Synced H2H records now exclude the fixture itself, keeping past-meeting summaries strictly before the selected match."
       ],
       "highlightsZh": [
-        "已确定的淘汰赛对阵现在会从 National Football Teams 同步已核实的成年队交锋记录，清除了墨西哥对厄瓜多尔的待补充卡片以及当前已确定对阵的交锋积压。"
+        "已确定的淘汰赛对阵现在会从 National Football Teams 同步已核实的成年队交锋记录，清除了墨西哥对厄瓜多尔的待补充卡片以及当前已确定对阵的交锋积压。",
+        "同步的交锋记录现在会排除比赛本身，确保历史交锋摘要只统计所选比赛之前的交手。"
       ]
     },
     {
@@ -39,10 +63,10 @@
       "title": "H2H empty-state copy",
       "titleZh": "交锋空状态文案",
       "highlights": [
-        "Pending H2H cards now show a concise unavailable message instead of internal research instructions, with Chinese fallback coverage for empty states."
+        "Pending H2H cards now show a concise not-loaded message instead of internal research instructions, with Chinese fallback coverage for empty states."
       ],
       "highlightsZh": [
-        "待补充的交锋卡片现在显示简洁的不可用提示，不再展示内部研究说明，并补齐空状态的中文兜底。"
+        "待补充的交锋卡片现在显示简洁的尚未载入提示，不再展示内部研究说明，并补齐空状态的中文兜底。"
       ]
     },
     {
@@ -61,10 +85,10 @@
       "title": "Smarter country search",
       "titleZh": "更聪明的国家队搜索",
       "highlights": [
-        "Country search now recognizes lightweight pinyin, traditional Chinese, and common alternate names while keeping exact aliases such as PAN and Ghana precise."
+        "Country search now recognizes lightweight pinyin, traditional Chinese, and common alternate names while keeping exact aliases and short English prefixes precise."
       ],
       "highlightsZh": [
-        "国家队搜索现在支持轻量拼音、繁体中文和常见别名，同时让 PAN、加纳等精确别名保持准确。"
+        "国家队搜索现在支持轻量拼音、繁体中文和常见别名，同时让精确别名和短英文前缀保持准确。"
       ]
     },
     {
