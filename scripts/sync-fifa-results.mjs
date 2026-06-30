@@ -130,8 +130,8 @@ function officialPairKey(match, teamLookup) {
   return home && away ? `${home}:${away}` : "";
 }
 
-function shouldMergeOfficialParticipants(fixture, nextStatus) {
-  return fixture?.stage !== "group" && fixture?.status !== "FT" && nextStatus !== "FT";
+function shouldMergeOfficialParticipants(fixture) {
+  return fixture?.stage !== "group" && fixture?.status !== "FT";
 }
 
 function getFixtureFifaMatchId(fixture) {
@@ -382,7 +382,7 @@ function mergeOfficialMatches(fixturesData, officialMatches, teams) {
     mergeFifaMetadata(fixture, match);
     fixture.kickoffUtc = match.Date || fixture.kickoffUtc;
 
-    if (shouldMergeOfficialParticipants(fixture, nextStatus)) {
+    if (shouldMergeOfficialParticipants(fixture)) {
       if (officialHomeTeamId && fixture.homeTeamId !== officialHomeTeamId) {
         fixture.homeTeamId = officialHomeTeamId;
         officialParticipantUpdateCount += 1;
@@ -950,7 +950,7 @@ function populateResolvedKnockoutParticipants({ fixturesData, standingsData, tea
   for (const fixture of orderedKnockoutFixtures) {
     for (const side of ["home", "away"]) {
       const teamIdKey = `${side}TeamId`;
-      if (fixture.stage === "round-of-32" && fixture.status !== "FT" && fixture[teamIdKey]) {
+      if (fixture.stage === "round-of-32" && fixture[teamIdKey]) {
         continue;
       }
 
