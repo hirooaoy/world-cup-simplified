@@ -1,6 +1,61 @@
 {
-  "updatedAt": "2026-06-30T09:00:21-07:00",
+  "updatedAt": "2026-06-30T10:05:45-07:00",
   "releases": [
+    {
+      "date": "2026-06-30",
+      "title": "Automatic H2H sync",
+      "titleZh": "自动交锋同步",
+      "highlights": [
+        "Resolved knockout matchups now sync verified senior head-to-head records from National Football Teams, clearing the Mexico-Ecuador pending card and the current resolved H2H backlog."
+      ],
+      "highlightsZh": [
+        "已确定的淘汰赛对阵现在会从 National Football Teams 同步已核实的成年队交锋记录，清除了墨西哥对厄瓜多尔的待补充卡片以及当前已确定对阵的交锋积压。"
+      ]
+    },
+    {
+      "date": "2026-06-30",
+      "title": "Next path winner emphasis",
+      "titleZh": "下一轮路径胜者强调",
+      "highlights": [
+        "Resolved Next path lines now semibold the known opponent winner, so entries like Paraguay advancing on penalties match the Previous context emphasis."
+      ],
+      "highlightsZh": [
+        "已确定的“下一轮”路径现在会半粗显示对手胜者，让点球晋级的巴拉圭等文案与“上一轮”背景强调保持一致。"
+      ]
+    },
+    {
+      "date": "2026-06-30",
+      "title": "Chinese detail localization",
+      "titleZh": "中文详情本地化",
+      "highlights": [
+        "Chinese Catch Up, Result details, H2H competition labels, shootout score notes, and tactical-route lines now localize before display, while mobile standings help tooltips stay inside the match card."
+      ],
+      "highlightsZh": [
+        "中文“速览”、“赛果”详情、交锋赛事标签、点球比分注记和战术路径句现在会先本地化再展示，同时移动端积分榜帮助提示会保持在比赛卡片内。"
+      ]
+    },
+    {
+      "date": "2026-06-30",
+      "title": "H2H empty-state copy",
+      "titleZh": "交锋空状态文案",
+      "highlights": [
+        "Pending H2H cards now show a concise unavailable message instead of internal research instructions, with Chinese fallback coverage for empty states."
+      ],
+      "highlightsZh": [
+        "待补充的交锋卡片现在显示简洁的不可用提示，不再展示内部研究说明，并补齐空状态的中文兜底。"
+      ]
+    },
+    {
+      "date": "2026-06-30",
+      "title": "Past 24 hours layout",
+      "titleZh": "过去24小时布局",
+      "highlights": [
+        "Past 24 hours match cards now stay in one full-width column on desktop and mobile."
+      ],
+      "highlightsZh": [
+        "“过去24小时”的比赛卡片现在在桌面端和移动端都保持单列全宽显示。"
+      ]
+    },
     {
       "date": "2026-06-30",
       "title": "Smarter country search",
@@ -17,10 +72,18 @@
       "title": "Archive card context",
       "titleZh": "存档比赛背景",
       "highlights": [
-        "Archived knockout match details now use the same Previous and Next context style as current World Cup cards, with Result shown below that path context."
+        "Archived knockout match details now use the same Previous and Next context style as current World Cup cards, with Result shown below that path context.",
+        "Archived Previous knockout context now semibolds the teams that advanced, matching current World Cup path summaries.",
+        "Replay-era and 1950 final-round archive cards now show replay or standings context instead of forcing a modern bracket path.",
+        "Historical archive tables now use era-appropriate win points.",
+        "Hidden player-card tooltips no longer widen archived match details before a player name is hovered."
       ],
       "highlightsZh": [
-        "历届淘汰赛比赛详情现在使用与当前世界杯卡片一致的“上一轮”和“下一轮”背景样式，并将“赛果”显示在路径背景下方。"
+        "历届淘汰赛比赛详情现在使用与当前世界杯卡片一致的“上一轮”和“下一轮”背景样式，并将“赛果”显示在路径背景下方。",
+        "历届“上一轮”淘汰赛背景现在会半粗显示晋级球队，与当前世界杯路径摘要保持一致。",
+        "重赛年代和1950年决赛轮的存档卡片现在显示重赛或积分榜背景，而不是强行套用现代淘汰赛路径。",
+        "历届存档积分榜现在使用对应年代的胜场积分规则。",
+        "隐藏的球员卡片提示现在不会在悬停前撑宽历届比赛详情。"
       ]
     },
     {

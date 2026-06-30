@@ -24,6 +24,7 @@
     "cards:check": "node scripts/audit-player-card-coverage.mjs",
     "results": "node scripts/populate-result-highlights.mjs",
     "results:check": "node scripts/audit-result-enrichment.mjs",
+    "sync:h2h": "node scripts/sync-h2h-results.mjs",
     "sync:fifa:goals": "node scripts/sync-fifa-goal-events.mjs",
     "sync:youtube": "node scripts/sync-youtube-highlights.mjs",
     "smoke": "node scripts/ui-smoke.mjs",

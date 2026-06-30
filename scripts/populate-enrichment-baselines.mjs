@@ -191,8 +191,7 @@ function shouldPopulateH2h(fixture) {
 function buildPendingH2h() {
   return {
     status: "research-pending",
-    summary:
-      "H2H research is pending for this matchup. Add API-backed or manually verified senior results when available.",
+    summary: "Past meetings unavailable.",
     results: null
   };
 }

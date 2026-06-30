@@ -2384,6 +2384,25 @@ try {
     "Chinese Japan key information should localize the Kubo-led Japan trio against Sweden."
   );
 
+  const pendingH2hFixture = fixturesData.fixtures.find(
+    (fixture) => fixture.h2h?.status === "research-pending" && fixture.h2h?.summary === "Past meetings unavailable."
+  );
+  if (pendingH2hFixture) {
+    const pendingH2hDate = getDayKeyForTimeZone(pendingH2hFixture.kickoffUtc || pendingH2hFixture.date);
+    await page.goto(`${baseUrl}?view=matches&date=${pendingH2hDate}&lang=zh&tz=America%2FLos_Angeles`, {
+      waitUntil: "load"
+    });
+    await page.waitForSelector(`[data-match-id="${pendingH2hFixture.id}"]`);
+    await page.locator(`[data-match-id="${pendingH2hFixture.id}"]`).click();
+    await page.waitForSelector("#match-info .h2h-summary");
+    const pendingH2hChineseSummary = (await page.locator("#match-info .h2h-summary").first().innerText()).trim();
+    const pendingH2hChineseDetails = await page.locator("#match-info").innerText();
+    assert(
+      pendingH2hChineseSummary === "历史交锋暂不可用。" &&
+        !/H2H research|Add API-backed|Past meetings unavailable/.test(pendingH2hChineseDetails),
+      "Chinese pending H2H empty state should show concise localized unavailable copy without internal research text."
+    );
+  }
   await page.goto(`${baseUrl}?view=matches&date=2026-06-29&lang=zh&tz=America%2FLos_Angeles`, {
     waitUntil: "load"
   });
@@ -2626,6 +2645,9 @@ try {
     nextPathRanks: [...info.querySelectorAll(".knockout-next-line .rank-pill")].map((pill) =>
       pill.textContent.trim()
     ),
+    nextPathSubjectNames: [
+      ...info.querySelectorAll(".knockout-next-line .knockout-context-team.is-subject .knockout-context-team-name")
+    ].map((name) => name.textContent.trim()),
     rankHeights: [...info.querySelectorAll(".knockout-context-list .rank-pill, .knockout-next-line .rank-pill")].map(
       (pill) => pill.getBoundingClientRect().height
     ),
@@ -2702,6 +2724,8 @@ try {
       ) &&
       roundOf32ContextMetrics.nextPathRanks.includes("#7") &&
       !roundOf32ContextMetrics.nextPathRanks.includes("#8") &&
+      roundOf32ContextMetrics.nextPathSubjectNames.length === 1 &&
+      roundOf32ContextMetrics.nextPathSubjectNames.includes("Morocco") &&
       roundOf32ContextMetrics.rankHeights.every((height) => height <= 15.5) &&
       roundOf32ContextMetrics.rankCenterDeltas.length >= 6 &&
       roundOf32ContextMetrics.rankCenterDeltas.every((delta) => delta <= 1) &&
@@ -2762,6 +2786,45 @@ try {
       !unconfirmedRoundOf32DetailText.includes("Group F runner-up is not confirmed yet."),
     "Round of 32 match detail should summarize both teams once the opponent slot is locked."
   );
+
+  const stackedPast24Check = await openPageAtTime(
+    "2026-06-30T16:31:00.000Z",
+    "/?view=matches&date=2026-06-30&tz=America%2FLos_Angeles"
+  );
+  await stackedPast24Check.page.setViewportSize({ width: 1280, height: 720 });
+  await stackedPast24Check.page.waitForSelector(".yesterday-section .yesterday-match-card");
+  const stackedPast24Layout = await stackedPast24Check.page.locator(".yesterday-section").evaluate((section) => {
+    const grid = section.querySelector(".yesterday-match-grid");
+    const gridRect = grid?.getBoundingClientRect();
+    const cardRects = Array.from(grid?.querySelectorAll(".yesterday-match-card") || []).map((card) => {
+      const rect = card.getBoundingClientRect();
+      return {
+        leftGap: gridRect ? Math.round(rect.left - gridRect.left) : null,
+        rightGap: gridRect ? Math.round(gridRect.right - rect.right) : null,
+        top: Math.round(rect.top),
+        width: Math.round(rect.width)
+      };
+    });
+
+    return {
+      cardCount: cardRects.length,
+      cardRects,
+      gridScrollOverflow: grid ? grid.scrollWidth - grid.clientWidth : 0,
+      gridWidth: gridRect ? Math.round(gridRect.width) : null,
+      sectionScrollOverflow: section.scrollWidth - section.clientWidth
+    };
+  });
+  assert(
+    stackedPast24Layout.cardCount >= 3 &&
+      stackedPast24Layout.cardRects.every(
+        (rect) => Math.abs(rect.leftGap) <= 1 && Math.abs(rect.rightGap) <= 1 && rect.width === stackedPast24Layout.gridWidth
+      ) &&
+      new Set(stackedPast24Layout.cardRects.map((rect) => rect.top)).size === stackedPast24Layout.cardCount &&
+      stackedPast24Layout.gridScrollOverflow <= 1 &&
+      stackedPast24Layout.sectionScrollOverflow <= 1,
+    `Multiple Past 24 hours cards should stay stacked in one full-width column. Measured ${JSON.stringify(stackedPast24Layout)}.`
+  );
+  await stackedPast24Check.context.close();
 
   await page.goto(`${baseUrl}?view=matches&date=2026-07-04&tz=America%2FLos_Angeles`, {
     waitUntil: "load"
@@ -3554,6 +3617,28 @@ try {
     !historicalKnockoutDetail.text.includes("Half-time") &&
       (await page.locator(".historical-goals").count()) === 0,
     "Historical knockout detail should avoid the old facts/goals record layout."
+  );
+
+  await page.goto(`${baseUrl}?view=matches&date=2022-12-13&tz=America%2FLos_Angeles`, {
+    waitUntil: "load"
+  });
+  await page.waitForSelector('[data-match-id="wc-2022-2022-12-13-semi-finals-argentina-croatia"]');
+  await page.locator('[data-match-id="wc-2022-2022-12-13-semi-finals-argentina-croatia"]').click();
+  const historicalSemiPreviousWinners = await page.locator("#match-info").evaluate((root) => {
+    const previousSection = [...root.querySelectorAll(":scope > .info-block")].find(
+      (section) => section.querySelector("h3")?.textContent.replace(/\s+/g, " ").trim() === "Previous: Quarter-finals"
+    );
+    const winnerNodes = [...(previousSection?.querySelectorAll(".knockout-context-team.is-subject") || [])];
+
+    return {
+      names: winnerNodes.map((node) => node.querySelector(".knockout-context-team-name")?.textContent.trim() || ""),
+      weights: winnerNodes.map((node) => Number.parseFloat(window.getComputedStyle(node).fontWeight))
+    };
+  });
+  assert(
+    historicalSemiPreviousWinners.names.join("|") === "Argentina|Croatia" &&
+      historicalSemiPreviousWinners.weights.every((weight) => weight >= 600),
+    `Historical semi-final Previous context should semibold the prior-round winners. Measured ${JSON.stringify(historicalSemiPreviousWinners)}.`
   );
 
   await page.goto(baseUrl, { waitUntil: "load" });
@@ -4812,6 +4897,78 @@ try {
     "Completed knockout match detail should show winner-oriented score, scorer timeline, and match-specific bullets without bracket-impact or group-table copy."
   );
   await knockoutCatchUpCheck.context.close();
+
+  const latestKnockoutChineseCheck = await openPageAtTime(
+    "2026-06-30T16:31:00.000Z",
+    "/?view=matches&date=2026-06-29&tz=America%2FLos_Angeles"
+  );
+  await latestKnockoutChineseCheck.page.locator("#settings-button").click();
+  await latestKnockoutChineseCheck.page.locator('[data-language="zh"]').click();
+  await openCatchUp(latestKnockoutChineseCheck.page);
+  const latestKnockoutChineseItems = await latestKnockoutChineseCheck.page
+    .locator(".catch-up-item")
+    .evaluateAll((items) =>
+      items.map((item) => {
+        const visibleText = (node) => {
+          if (!node) {
+            return "";
+          }
+
+          const clone = node.cloneNode(true);
+          clone.querySelectorAll(".player-card").forEach((card) => card.remove());
+          return clone.textContent.replace(/\s+/g, " ").trim();
+        };
+
+        return {
+          headline: visibleText(item.querySelector(".catch-up-title-row h3 > span")),
+          subtitle: visibleText(item.querySelector(".catch-up-subtitle"))
+        };
+      })
+    );
+  const moroccoChineseCatchUpItem = latestKnockoutChineseItems.find((item) =>
+    item.headline?.includes("摩洛哥 点球淘汰 荷兰")
+  );
+  const paraguayChineseCatchUpItem = latestKnockoutChineseItems.find((item) =>
+    item.headline?.includes("巴拉圭 点球淘汰 德国")
+  );
+  const brazilChineseCatchUpItem = latestKnockoutChineseItems.find((item) =>
+    item.headline?.includes("巴西 险胜 日本，晋级16强赛")
+  );
+  const knockoutChineseSubtitleText = [
+    moroccoChineseCatchUpItem?.subtitle || "",
+    paraguayChineseCatchUpItem?.subtitle || "",
+    brazilChineseCatchUpItem?.subtitle || ""
+  ].join(" ");
+  assert(
+    moroccoChineseCatchUpItem?.subtitle.includes("科迪·加克波帮助荷兰领先") &&
+      moroccoChineseCatchUpItem?.subtitle.includes("摩洛哥晋级16强赛，荷兰出局") &&
+      paraguayChineseCatchUpItem?.subtitle.includes("胡利奥·塞萨尔·恩西索首开纪录，凯·哈弗茨完成最后一击") &&
+      paraguayChineseCatchUpItem?.subtitle.includes("巴拉圭晋级16强赛，德国出局") &&
+      brazilChineseCatchUpItem?.subtitle.includes("加布里埃尔·马丁内利在90+5'打入制胜球") &&
+      brazilChineseCatchUpItem?.subtitle.includes("巴西晋级16强赛，日本出局") &&
+      !/\b(?:put|before|opened|finished|winner|settled|reached|Round of 16|exited|chased|scoring)\b/i.test(knockoutChineseSubtitleText),
+    "Chinese knockout catch-up should localize generated story and advancement standouts without leftover English result grammar."
+  );
+  await latestKnockoutChineseCheck.page.locator('[data-match-id="match-74-round-of-32-2026-06-29"]').click();
+  const paraguayGermanyChineseDetail = await latestKnockoutChineseCheck.page.locator("#match-info").innerText();
+  await latestKnockoutChineseCheck.page.locator('[data-match-id="match-75-round-of-32-2026-06-29"]').click();
+  const moroccoNetherlandsChineseDetail = await latestKnockoutChineseCheck.page.locator("#match-info").innerText();
+  const knockoutChineseDetailText = `${paraguayGermanyChineseDetail} ${moroccoNetherlandsChineseDetail}`.replace(/\s+/g, " ");
+  assert(
+    /巴拉圭\s*在\s*1-1\s*战平后通过点球击败\s*德国。/.test(paraguayGermanyChineseDetail) &&
+      paraguayGermanyChineseDetail.includes("阿尔米隆-恩西索反击") &&
+      paraguayGermanyChineseDetail.includes("2026年世界杯 - 32强赛") &&
+      paraguayGermanyChineseDetail.includes("（巴拉圭点球大战4-3胜出）") &&
+      /摩洛哥\s*在\s*1-1\s*战平后通过点球击败\s*荷兰。/.test(moroccoNetherlandsChineseDetail) &&
+      moroccoNetherlandsChineseDetail.includes("哈基米-布拉欣右路冲击") &&
+      moroccoNetherlandsChineseDetail.includes("荷兰的德容-加克波受控组织推进") &&
+      moroccoNetherlandsChineseDetail.includes("（摩洛哥点球大战3-2胜出）") &&
+      !/\b(?:beat|penalties|draw|counters|right-side|surges|relevant|shootout|World Cup|Round of|controlled buildup|ON PENALTIES)\b/i.test(knockoutChineseDetailText) &&
+      !knockoutChineseDetailText.includes("德德容") &&
+      !knockoutChineseDetailText.includes("Netherlands'"),
+    "Chinese knockout Result details should localize shootout score summaries and tactical route labels."
+  );
+  await latestKnockoutChineseCheck.context.close();
 
   const sourceFreshnessCheck = await openPageAtTime("2026-06-18T15:57:00.000Z");
   const sourceNote = sourceFreshnessCheck.page.locator("#source-note");

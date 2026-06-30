@@ -1347,6 +1347,12 @@ for (const fixture of fixturesData.fixtures || []) {
     ["loaded", "verified-empty", "not-loaded", "research-pending"].includes(fixture.h2h.status),
     `Fixture "${fixture.id}" has invalid h2h status`
   );
+  if (hasConfirmedTeams) {
+    assert(
+      !["not-loaded", "research-pending"].includes(fixture.h2h.status),
+      `Confirmed fixture "${fixture.id}" must include loaded or verified-empty H2H; run pnpm sync:h2h or add verified senior results`
+    );
+  }
   if (fixture.h2h.sourceId) {
     assert(sourceIds.has(fixture.h2h.sourceId), `Fixture "${fixture.id}" h2h references unknown source`);
   }

@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-30T15:45:34.312Z",
+  "updatedAt": "2026-06-30T09:42:00-07:00",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -111,7 +111,8 @@
     "fifa-official-results-sync-2026-06-29",
     "fifa-goal-events-sync-2026-06-29",
     "fifa-goal-events-sync-2026-06-30",
-    "fifa-official-results-sync-2026-06-30"
+    "fifa-official-results-sync-2026-06-30",
+    "national-football-teams-h2h-sync-2026-06-30"
   ],
   "coverage": {
     "status": "complete-schedule",
@@ -9793,9 +9794,43 @@
       "venue": "Boston Stadium",
       "status": "FT",
       "h2h": {
-        "status": "research-pending",
-        "summary": "H2H research is pending for this matchup. Add API-backed or manually verified senior results when available.",
-        "results": null
+        "status": "loaded",
+        "sourceId": "national-football-teams-h2h-sync-2026-06-30",
+        "summary": "Before this fixture, Germany had the edge in the verified senior series: 1 Germany win, 2 draws, 0 Paraguay wins, 9 total goals.",
+        "results": [
+          {
+            "date": "2026-06-29",
+            "competition": "World Cup 2026 - Round of 32",
+            "homeTeamId": "GER",
+            "awayTeamId": "PAR",
+            "homeScore": 1,
+            "awayScore": 1,
+            "venue": "Gillette Stadium",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/44956/Germany_Paraguay.html",
+            "scoreNote": "(Paraguay won 4-3 on penalties)"
+          },
+          {
+            "date": "2013-08-14",
+            "competition": "Friendly",
+            "homeTeamId": "GER",
+            "awayTeamId": "PAR",
+            "homeScore": 3,
+            "awayScore": 3,
+            "venue": "Fritz-Walter-Stadion",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/8561/Germany_Paraguay.html"
+          },
+          {
+            "date": "2002-06-15",
+            "competition": "World Cup 2002 - Round of 16",
+            "homeTeamId": "GER",
+            "awayTeamId": "PAR",
+            "homeScore": 1,
+            "awayScore": 0,
+            "venue": "Jeju World Cup Stadium",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/12566/Germany_Paraguay.html"
+          }
+        ],
+        "sourceUrl": "https://www.national-football-teams.com/encounter/teams/71/144/Germany_vs_Paraguay.html"
       },
       "providerIds": {
         "fifa": {
@@ -9899,9 +9934,53 @@
       "venue": "Estadio Monterrey",
       "status": "FT",
       "h2h": {
-        "status": "research-pending",
-        "summary": "H2H research is pending for this matchup. Add API-backed or manually verified senior results when available.",
-        "results": null
+        "status": "loaded",
+        "sourceId": "national-football-teams-h2h-sync-2026-06-30",
+        "summary": "Before this fixture, Netherlands had the edge in the verified senior series: 2 Netherlands wins, 1 draw, 1 Morocco win, 11 total goals.",
+        "results": [
+          {
+            "date": "2026-06-29",
+            "competition": "World Cup 2026 - Round of 32",
+            "homeTeamId": "NED",
+            "awayTeamId": "MAR",
+            "homeScore": 1,
+            "awayScore": 1,
+            "venue": "Estadio BBVA",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/44957/Netherlands_Morocco.html",
+            "scoreNote": "(Morocco won 3-2 on penalties)"
+          },
+          {
+            "date": "2017-05-31",
+            "competition": "Friendly",
+            "homeTeamId": "MAR",
+            "awayTeamId": "NED",
+            "homeScore": 1,
+            "awayScore": 2,
+            "venue": "Stade Adrar",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/17590/Morocco_Netherlands.html"
+          },
+          {
+            "date": "1999-04-28",
+            "competition": "Friendly",
+            "homeTeamId": "NED",
+            "awayTeamId": "MAR",
+            "homeScore": 1,
+            "awayScore": 2,
+            "venue": "GelreDome",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/23463/Netherlands_Morocco.html"
+          },
+          {
+            "date": "1994-06-29",
+            "competition": "World Cup 1994 - Group F",
+            "homeTeamId": "MAR",
+            "awayTeamId": "NED",
+            "homeScore": 1,
+            "awayScore": 2,
+            "venue": "Camping World Stadium",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/20693/Morocco_Netherlands.html"
+          }
+        ],
+        "sourceUrl": "https://www.national-football-teams.com/encounter/teams/129/125/Netherlands_vs_Morocco.html"
       },
       "providerIds": {
         "fifa": {
@@ -10006,9 +10085,162 @@
       "venue": "Houston Stadium",
       "status": "FT",
       "h2h": {
-        "status": "research-pending",
-        "summary": "H2H research is pending for this matchup. Add API-backed or manually verified senior results when available.",
-        "results": null
+        "status": "loaded",
+        "sourceId": "national-football-teams-h2h-sync-2026-06-30",
+        "summary": "Before this fixture, Brazil had the edge in the verified senior series: 12 Brazil wins, 2 draws, 1 Japan win, 48 total goals.",
+        "results": [
+          {
+            "date": "2026-06-29",
+            "competition": "World Cup 2026 - Round of 32",
+            "homeTeamId": "BRA",
+            "awayTeamId": "JPN",
+            "homeScore": 2,
+            "awayScore": 1,
+            "venue": "NRG Stadium",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/44955/Brazil_Japan.html"
+          },
+          {
+            "date": "2025-10-14",
+            "competition": "Friendly",
+            "homeTeamId": "JPN",
+            "awayTeamId": "BRA",
+            "homeScore": 3,
+            "awayScore": 2,
+            "venue": "Ajinomoto Stadium",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/42475/Japan_Brazil.html"
+          },
+          {
+            "date": "2022-06-06",
+            "competition": "Friendly",
+            "homeTeamId": "JPN",
+            "awayTeamId": "BRA",
+            "homeScore": 0,
+            "awayScore": 1,
+            "venue": "Japan National Stadium",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/34755/Japan_Brazil.html"
+          },
+          {
+            "date": "2017-11-10",
+            "competition": "Friendly",
+            "homeTeamId": "JPN",
+            "awayTeamId": "BRA",
+            "homeScore": 1,
+            "awayScore": 3,
+            "venue": "Stade Pierre Mauroy",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/18470/Japan_Brazil.html"
+          },
+          {
+            "date": "2014-10-14",
+            "competition": "Friendly",
+            "homeTeamId": "BRA",
+            "awayTeamId": "JPN",
+            "homeScore": 4,
+            "awayScore": 0,
+            "venue": "National Stadium of Singapore",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/11443/Brazil_Japan.html"
+          },
+          {
+            "date": "2013-06-15",
+            "competition": "ConfedCup 2013 - Group A",
+            "homeTeamId": "BRA",
+            "awayTeamId": "JPN",
+            "homeScore": 3,
+            "awayScore": 0,
+            "venue": "Estádio Nacional Mané Garrincha",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/8152/Brazil_Japan.html"
+          },
+          {
+            "date": "2012-10-16",
+            "competition": "Friendly",
+            "homeTeamId": "JPN",
+            "awayTeamId": "BRA",
+            "homeScore": 0,
+            "awayScore": 4,
+            "venue": "Tarczyński Arena",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/8312/Japan_Brazil.html"
+          },
+          {
+            "date": "2006-06-22",
+            "competition": "World Cup 2006 - Group F",
+            "homeTeamId": "JPN",
+            "awayTeamId": "BRA",
+            "homeScore": 1,
+            "awayScore": 4,
+            "venue": "Signal Iduna Park",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/35/Japan_Brazil.html"
+          },
+          {
+            "date": "2005-06-22",
+            "competition": "ConfedCup 2005 - Group B",
+            "homeTeamId": "JPN",
+            "awayTeamId": "BRA",
+            "homeScore": 2,
+            "awayScore": 2,
+            "venue": "Rheinenergiestadion",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/17242/Japan_Brazil.html"
+          },
+          {
+            "date": "2001-06-04",
+            "competition": "ConfedCup 2001 - Group B",
+            "homeTeamId": "JPN",
+            "awayTeamId": "BRA",
+            "homeScore": 0,
+            "awayScore": 0,
+            "venue": "Kashima Soccer Stadium",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/20954/Japan_Brazil.html"
+          },
+          {
+            "date": "1999-03-31",
+            "competition": "Friendly",
+            "homeTeamId": "JPN",
+            "awayTeamId": "BRA",
+            "homeScore": 0,
+            "awayScore": 2,
+            "venue": "Japan National Stadium",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/23434/Japan_Brazil.html"
+          },
+          {
+            "date": "1997-08-13",
+            "competition": "Friendly",
+            "homeTeamId": "JPN",
+            "awayTeamId": "BRA",
+            "homeScore": 0,
+            "awayScore": 3,
+            "venue": "Yanmar Stadium Nagai",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/25624/Japan_Brazil.html"
+          },
+          {
+            "date": "1995-08-09",
+            "competition": "Friendly",
+            "homeTeamId": "JPN",
+            "awayTeamId": "BRA",
+            "homeScore": 1,
+            "awayScore": 5,
+            "venue": "Japan National Stadium",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/27259/Japan_Brazil.html"
+          },
+          {
+            "date": "1995-06-06",
+            "competition": "Friendly",
+            "homeTeamId": "BRA",
+            "awayTeamId": "JPN",
+            "homeScore": 3,
+            "awayScore": 0,
+            "venue": "Goodison Park",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/27254/Brazil_Japan.html"
+          },
+          {
+            "date": "1989-07-23",
+            "competition": "Friendly",
+            "homeTeamId": "BRA",
+            "awayTeamId": "JPN",
+            "homeScore": 1,
+            "awayScore": 0,
+            "venue": "Estádio São Januário",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/32043/Brazil_Japan.html"
+          }
+        ],
+        "sourceUrl": "https://www.national-football-teams.com/encounter/teams/28/94/Brazil_vs_Japan.html"
       },
       "providerIds": {
         "fifa": {
@@ -10117,9 +10349,172 @@
       "venue": "New York New Jersey Stadium",
       "status": "SCHEDULED",
       "h2h": {
-        "status": "research-pending",
-        "summary": "H2H research is pending for this matchup. Add API-backed or manually verified senior results when available.",
-        "results": null
+        "status": "loaded",
+        "sourceId": "national-football-teams-h2h-sync-2026-06-30",
+        "summary": "Before this fixture, France had the edge in the verified senior series: 9 France wins, 4 draws, 3 Sweden wins, 42 total goals.",
+        "results": [
+          {
+            "date": "2020-11-17",
+            "competition": "UEFA Nations League 2021 - Group 3",
+            "homeTeamId": "FRA",
+            "awayTeamId": "SWE",
+            "homeScore": 4,
+            "awayScore": 2,
+            "venue": "Stade de France",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/29015/France_Sweden.html"
+          },
+          {
+            "date": "2020-09-05",
+            "competition": "UEFA Nations League 2021 - Group 3",
+            "homeTeamId": "SWE",
+            "awayTeamId": "FRA",
+            "homeScore": 0,
+            "awayScore": 1,
+            "venue": "Strawberry Arena",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/27803/Sweden_France.html"
+          },
+          {
+            "date": "2017-06-09",
+            "competition": "World Cup 2018 - Group A",
+            "homeTeamId": "SWE",
+            "awayTeamId": "FRA",
+            "homeScore": 2,
+            "awayScore": 1,
+            "venue": "Strawberry Arena",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/17646/Sweden_France.html"
+          },
+          {
+            "date": "2016-11-11",
+            "competition": "World Cup 2018 - Group A",
+            "homeTeamId": "FRA",
+            "awayTeamId": "SWE",
+            "homeScore": 2,
+            "awayScore": 1,
+            "venue": "Stade de France",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/15995/France_Sweden.html"
+          },
+          {
+            "date": "2014-11-18",
+            "competition": "Friendly",
+            "homeTeamId": "FRA",
+            "awayTeamId": "SWE",
+            "homeScore": 1,
+            "awayScore": 0,
+            "venue": "Stade Vélodrome",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/11734/France_Sweden.html"
+          },
+          {
+            "date": "2012-06-19",
+            "competition": "Euro 2012 - Group D",
+            "homeTeamId": "SWE",
+            "awayTeamId": "FRA",
+            "homeScore": 2,
+            "awayScore": 0,
+            "venue": "NSC Olimpiyskiy",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/8392/Sweden_France.html"
+          },
+          {
+            "date": "2008-08-20",
+            "competition": "Friendly",
+            "homeTeamId": "SWE",
+            "awayTeamId": "FRA",
+            "homeScore": 2,
+            "awayScore": 3,
+            "venue": "Ullevi",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/12289/Sweden_France.html"
+          },
+          {
+            "date": "2005-02-09",
+            "competition": "Friendly",
+            "homeTeamId": "FRA",
+            "awayTeamId": "SWE",
+            "homeScore": 1,
+            "awayScore": 1,
+            "venue": "Stade de France",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/17256/France_Sweden.html"
+          },
+          {
+            "date": "1998-04-22",
+            "competition": "Friendly",
+            "homeTeamId": "SWE",
+            "awayTeamId": "FRA",
+            "homeScore": 0,
+            "awayScore": 0,
+            "venue": "Råsunda Stadium",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/24965/Sweden_France.html"
+          },
+          {
+            "date": "1997-04-02",
+            "competition": "Friendly",
+            "homeTeamId": "FRA",
+            "awayTeamId": "SWE",
+            "homeScore": 1,
+            "awayScore": 0,
+            "venue": "Parc des Princes",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/25746/France_Sweden.html"
+          },
+          {
+            "date": "1993-08-22",
+            "competition": "World Cup 1994 - Group 6",
+            "homeTeamId": "SWE",
+            "awayTeamId": "FRA",
+            "homeScore": 1,
+            "awayScore": 1,
+            "venue": "Råsunda Stadium",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/29152/Sweden_France.html"
+          },
+          {
+            "date": "1993-04-28",
+            "competition": "World Cup 1994 - Group 6",
+            "homeTeamId": "FRA",
+            "awayTeamId": "SWE",
+            "homeScore": 2,
+            "awayScore": 1,
+            "venue": "Parc des Princes",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/29151/France_Sweden.html"
+          },
+          {
+            "date": "1992-06-10",
+            "competition": "Euro 1992 - Group 1",
+            "homeTeamId": "SWE",
+            "awayTeamId": "FRA",
+            "homeScore": 1,
+            "awayScore": 1,
+            "venue": "Råsunda Stadium",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/16177/Sweden_France.html"
+          },
+          {
+            "date": "1989-08-16",
+            "competition": "Friendly",
+            "homeTeamId": "SWE",
+            "awayTeamId": "FRA",
+            "homeScore": 2,
+            "awayScore": 4,
+            "venue": "Malmö Stadion",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/32319/Sweden_France.html"
+          },
+          {
+            "date": "1969-11-01",
+            "competition": "World Cup 1970 - Group 5",
+            "homeTeamId": "FRA",
+            "awayTeamId": "SWE",
+            "homeScore": 3,
+            "awayScore": 0,
+            "venue": "Parc des Princes",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/42586/France_Sweden.html"
+          },
+          {
+            "date": "1969-10-15",
+            "competition": "World Cup 1970 - Group 5",
+            "homeTeamId": "SWE",
+            "awayTeamId": "FRA",
+            "homeScore": 2,
+            "awayScore": 0,
+            "venue": "Råsunda Stadium",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/42585/Sweden_France.html"
+          }
+        ],
+        "sourceUrl": "https://www.national-football-teams.com/encounter/teams/67/179/France_vs_Sweden.html"
       },
       "providerIds": {
         "fifa": {
@@ -10187,9 +10582,11 @@
       "venue": "Dallas Stadium",
       "status": "SCHEDULED",
       "h2h": {
-        "status": "research-pending",
-        "summary": "H2H research is pending for this matchup. Add API-backed or manually verified senior results when available.",
-        "results": null
+        "status": "verified-empty",
+        "sourceId": "national-football-teams-h2h-sync-2026-06-30",
+        "summary": "Côte d'Ivoire and Norway have never met in a verified senior men's international. This is their first head-to-head meeting.",
+        "results": [],
+        "sourceUrl": "https://www.national-football-teams.com/encounter/teams/209/138/Ivory_Coast_vs_Norway.html"
       },
       "providerIds": {
         "fifa": {
@@ -10257,9 +10654,273 @@
       "venue": "Mexico City Stadium",
       "status": "SCHEDULED",
       "h2h": {
-        "status": "research-pending",
-        "summary": "H2H research is pending for this matchup. Add API-backed or manually verified senior results when available.",
-        "results": null
+        "status": "loaded",
+        "sourceId": "national-football-teams-h2h-sync-2026-06-30",
+        "summary": "Before this fixture, Mexico had the edge in the verified senior series: 14 Mexico wins, 8 draws, 4 Ecuador wins, 65 total goals.",
+        "results": [
+          {
+            "date": "2025-10-14",
+            "competition": "Friendly",
+            "homeTeamId": "MEX",
+            "awayTeamId": "ECU",
+            "homeScore": 1,
+            "awayScore": 1,
+            "venue": "Estadio Akron",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/42474/Mexico_Ecuador.html"
+          },
+          {
+            "date": "2024-06-30",
+            "competition": "Copa 2024 - Group B",
+            "homeTeamId": "MEX",
+            "awayTeamId": "ECU",
+            "homeScore": 0,
+            "awayScore": 0,
+            "venue": "State Farm Stadium",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/39261/Mexico_Ecuador.html"
+          },
+          {
+            "date": "2022-06-05",
+            "competition": "Friendly",
+            "homeTeamId": "MEX",
+            "awayTeamId": "ECU",
+            "homeScore": 0,
+            "awayScore": 0,
+            "venue": "Soldier Field",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/34738/Mexico_Ecuador.html"
+          },
+          {
+            "date": "2021-10-27",
+            "competition": "Friendly",
+            "homeTeamId": "MEX",
+            "awayTeamId": "ECU",
+            "homeScore": 2,
+            "awayScore": 3,
+            "venue": "Bank of America Stadium",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/32378/Mexico_Ecuador.html"
+          },
+          {
+            "date": "2019-06-09",
+            "competition": "Friendly",
+            "homeTeamId": "MEX",
+            "awayTeamId": "ECU",
+            "homeScore": 3,
+            "awayScore": 2,
+            "venue": "AT&T Stadium",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/23241/Mexico_Ecuador.html"
+          },
+          {
+            "date": "2015-06-19",
+            "competition": "Copa 2015 - Group A",
+            "homeTeamId": "MEX",
+            "awayTeamId": "ECU",
+            "homeScore": 1,
+            "awayScore": 2,
+            "venue": "Estadio El Teniente",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/13217/Mexico_Ecuador.html"
+          },
+          {
+            "date": "2015-03-28",
+            "competition": "Friendly",
+            "homeTeamId": "MEX",
+            "awayTeamId": "ECU",
+            "homeScore": 1,
+            "awayScore": 0,
+            "venue": "Los Angeles Memorial Coliseum",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/12814/Mexico_Ecuador.html"
+          },
+          {
+            "date": "2014-05-31",
+            "competition": "Friendly",
+            "homeTeamId": "MEX",
+            "awayTeamId": "ECU",
+            "homeScore": 3,
+            "awayScore": 1,
+            "venue": "AT&T Stadium",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/10632/Mexico_Ecuador.html"
+          },
+          {
+            "date": "2011-05-28",
+            "competition": "Friendly",
+            "homeTeamId": "MEX",
+            "awayTeamId": "ECU",
+            "homeScore": 1,
+            "awayScore": 1,
+            "venue": "Lumen Field",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/9881/Mexico_Ecuador.html"
+          },
+          {
+            "date": "2010-09-04",
+            "competition": "Friendly",
+            "homeTeamId": "MEX",
+            "awayTeamId": "ECU",
+            "homeScore": 1,
+            "awayScore": 2,
+            "venue": "Estadio Akron",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/10726/Mexico_Ecuador.html"
+          },
+          {
+            "date": "2010-05-07",
+            "competition": "Friendly",
+            "homeTeamId": "MEX",
+            "awayTeamId": "ECU",
+            "homeScore": 0,
+            "awayScore": 0,
+            "venue": "MetLife Stadium",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/10733/Mexico_Ecuador.html"
+          },
+          {
+            "date": "2008-11-12",
+            "competition": "Friendly",
+            "homeTeamId": "ECU",
+            "awayTeamId": "MEX",
+            "homeScore": 1,
+            "awayScore": 2,
+            "venue": "Chase Field",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/12349/Ecuador_Mexico.html"
+          },
+          {
+            "date": "2007-07-01",
+            "competition": "Copa 2007 - Group B",
+            "homeTeamId": "MEX",
+            "awayTeamId": "ECU",
+            "homeScore": 2,
+            "awayScore": 1,
+            "venue": "Estadio Monumental de Maturín",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/2172/Mexico_Ecuador.html"
+          },
+          {
+            "date": "2007-03-28",
+            "competition": "Friendly",
+            "homeTeamId": "MEX",
+            "awayTeamId": "ECU",
+            "homeScore": 4,
+            "awayScore": 2,
+            "venue": "Oakland–Alameda County Coliseum",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/12975/Mexico_Ecuador.html"
+          },
+          {
+            "date": "2004-10-27",
+            "competition": "Friendly",
+            "homeTeamId": "MEX",
+            "awayTeamId": "ECU",
+            "homeScore": 2,
+            "awayScore": 1,
+            "venue": "Giants Stadium",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/17779/Mexico_Ecuador.html"
+          },
+          {
+            "date": "2004-07-13",
+            "competition": "Copa 2004 - Group 2",
+            "homeTeamId": "MEX",
+            "awayTeamId": "ECU",
+            "homeScore": 2,
+            "awayScore": 1,
+            "venue": "Estadio Miguel Grau",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/1161/Mexico_Ecuador.html"
+          },
+          {
+            "date": "2004-03-10",
+            "competition": "Friendly",
+            "homeTeamId": "MEX",
+            "awayTeamId": "ECU",
+            "homeScore": 2,
+            "awayScore": 1,
+            "venue": "Estadio Zoque VMR",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/17776/Mexico_Ecuador.html"
+          },
+          {
+            "date": "2002-06-09",
+            "competition": "World Cup 2002 - Group G",
+            "homeTeamId": "MEX",
+            "awayTeamId": "ECU",
+            "homeScore": 2,
+            "awayScore": 1,
+            "venue": "Hitomebore Stadium Miyagi",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/12557/Mexico_Ecuador.html"
+          },
+          {
+            "date": "2000-09-20",
+            "competition": "Friendly",
+            "homeTeamId": "MEX",
+            "awayTeamId": "ECU",
+            "homeScore": 2,
+            "awayScore": 0,
+            "venue": "SDCCU Stadium",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/22329/Mexico_Ecuador.html"
+          },
+          {
+            "date": "1999-10-27",
+            "competition": "Friendly",
+            "homeTeamId": "MEX",
+            "awayTeamId": "ECU",
+            "homeScore": 0,
+            "awayScore": 0,
+            "venue": "John O'Quinn Field at Corbin J. Robertson Stadium",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/23534/Mexico_Ecuador.html"
+          },
+          {
+            "date": "1999-04-14",
+            "competition": "Friendly",
+            "homeTeamId": "MEX",
+            "awayTeamId": "ECU",
+            "homeScore": 0,
+            "awayScore": 0,
+            "venue": "Estadio Universitario de Nuevo León",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/23524/Mexico_Ecuador.html"
+          },
+          {
+            "date": "1997-06-22",
+            "competition": "Copa 1997 - Quarter Finals",
+            "homeTeamId": "MEX",
+            "awayTeamId": "ECU",
+            "homeScore": 1,
+            "awayScore": 1,
+            "venue": "Estadio Félix Capriles",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/25725/Mexico_Ecuador.html",
+            "scoreNote": "(Mexico won 4-3 on penalties)"
+          },
+          {
+            "date": "1997-02-05",
+            "competition": "Friendly",
+            "homeTeamId": "MEX",
+            "awayTeamId": "ECU",
+            "homeScore": 3,
+            "awayScore": 1,
+            "venue": "Estadio Azteca",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/25722/Mexico_Ecuador.html"
+          },
+          {
+            "date": "1996-10-23",
+            "competition": "Friendly",
+            "homeTeamId": "MEX",
+            "awayTeamId": "ECU",
+            "homeScore": 0,
+            "awayScore": 1,
+            "venue": "Oakland–Alameda County Coliseum",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/26658/Mexico_Ecuador.html"
+          },
+          {
+            "date": "1993-06-30",
+            "competition": "Copa 1993 - Semi Finals",
+            "homeTeamId": "ECU",
+            "awayTeamId": "MEX",
+            "homeScore": 0,
+            "awayScore": 2,
+            "venue": "Estadio Olímpico Atahualpa",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/28882/Ecuador_Mexico.html"
+          },
+          {
+            "date": "1984-12-04",
+            "competition": "Friendly",
+            "homeTeamId": "MEX",
+            "awayTeamId": "ECU",
+            "homeScore": 3,
+            "awayScore": 2,
+            "venue": "Los Angeles Memorial Coliseum",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/38046/Mexico_Ecuador.html"
+          }
+        ],
+        "sourceUrl": "https://www.national-football-teams.com/encounter/teams/121/56/Mexico_vs_Ecuador.html"
       },
       "providerIds": {
         "fifa": {
@@ -10327,9 +10988,11 @@
       "venue": "Atlanta Stadium",
       "status": "SCHEDULED",
       "h2h": {
-        "status": "research-pending",
-        "summary": "H2H research is pending for this matchup. Add API-backed or manually verified senior results when available.",
-        "results": null
+        "status": "verified-empty",
+        "sourceId": "national-football-teams-h2h-sync-2026-06-30",
+        "summary": "England and DR Congo have never met in a verified senior men's international. This is their first head-to-head meeting.",
+        "results": [],
+        "sourceUrl": "https://www.national-football-teams.com/encounter/teams/59/55/England_vs_Dr_Congo.html"
       },
       "providerIds": {
         "fifa": {
@@ -10397,9 +11060,42 @@
       "venue": "San Francisco Bay Area Stadium",
       "status": "SCHEDULED",
       "h2h": {
-        "status": "research-pending",
-        "summary": "H2H research is pending for this matchup. Add API-backed or manually verified senior results when available.",
-        "results": null
+        "status": "loaded",
+        "sourceId": "national-football-teams-h2h-sync-2026-06-30",
+        "summary": "Before this fixture, United States had the edge in the verified senior series: 2 United States wins, 1 draw, 0 Bosnia and Herzegovina wins, 8 total goals.",
+        "results": [
+          {
+            "date": "2021-12-18",
+            "competition": "Friendly",
+            "homeTeamId": "USA",
+            "awayTeamId": "BIH",
+            "homeScore": 1,
+            "awayScore": 0,
+            "venue": "Dignity Health Sports Park",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/32813/Usa_Bosnia_Herzegovina.html"
+          },
+          {
+            "date": "2018-01-28",
+            "competition": "Friendly",
+            "homeTeamId": "USA",
+            "awayTeamId": "BIH",
+            "homeScore": 0,
+            "awayScore": 0,
+            "venue": "Dignity Health Sports Park",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/19083/Usa_Bosnia_Herzegovina.html"
+          },
+          {
+            "date": "2013-08-14",
+            "competition": "Friendly",
+            "homeTeamId": "BIH",
+            "awayTeamId": "USA",
+            "homeScore": 3,
+            "awayScore": 4,
+            "venue": "Asim Ferhatović Hase Stadium",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/8644/Bosnia_Herzegovina_Usa.html"
+          }
+        ],
+        "sourceUrl": "https://www.national-football-teams.com/encounter/teams/200/26/Usa_vs_Bosnia_Herzegovina.html"
       },
       "providerIds": {
         "fifa": {
@@ -10467,9 +11163,11 @@
       "venue": "Seattle Stadium",
       "status": "SCHEDULED",
       "h2h": {
-        "status": "research-pending",
-        "summary": "H2H research is pending for this matchup. Add API-backed or manually verified senior results when available.",
-        "results": null
+        "status": "verified-empty",
+        "sourceId": "national-football-teams-h2h-sync-2026-06-30",
+        "summary": "Belgium and Senegal have never met in a verified senior men's international. This is their first head-to-head meeting.",
+        "results": [],
+        "sourceUrl": "https://www.national-football-teams.com/encounter/teams/20/163/Belgium_vs_Senegal.html"
       },
       "providerIds": {
         "fifa": {
@@ -10537,9 +11235,112 @@
       "venue": "Toronto Stadium",
       "status": "SCHEDULED",
       "h2h": {
-        "status": "research-pending",
-        "summary": "H2H research is pending for this matchup. Add API-backed or manually verified senior results when available.",
-        "results": null
+        "status": "loaded",
+        "sourceId": "national-football-teams-h2h-sync-2026-06-30",
+        "summary": "Before this fixture, Portugal had the edge in the verified senior series: 7 Portugal wins, 2 draws, 1 Croatia win, 27 total goals.",
+        "results": [
+          {
+            "date": "2024-11-18",
+            "competition": "UEFA Nations League 2025 - Group 1",
+            "homeTeamId": "CRO",
+            "awayTeamId": "POR",
+            "homeScore": 1,
+            "awayScore": 1,
+            "venue": "Stadion Poljud",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/40152/Croatia_Portugal.html"
+          },
+          {
+            "date": "2024-09-05",
+            "competition": "UEFA Nations League 2025 - Group 1",
+            "homeTeamId": "POR",
+            "awayTeamId": "CRO",
+            "homeScore": 2,
+            "awayScore": 1,
+            "venue": "Estádio da Luz",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/39373/Portugal_Croatia.html"
+          },
+          {
+            "date": "2024-06-08",
+            "competition": "Friendly",
+            "homeTeamId": "POR",
+            "awayTeamId": "CRO",
+            "homeScore": 1,
+            "awayScore": 2,
+            "venue": "Estádio Nacional do Jamor",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/39080/Portugal_Croatia.html"
+          },
+          {
+            "date": "2020-11-17",
+            "competition": "UEFA Nations League 2021 - Group 3",
+            "homeTeamId": "CRO",
+            "awayTeamId": "POR",
+            "homeScore": 2,
+            "awayScore": 3,
+            "venue": "Stadion Poljud",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/29016/Croatia_Portugal.html"
+          },
+          {
+            "date": "2020-09-05",
+            "competition": "UEFA Nations League 2021 - Group 3",
+            "homeTeamId": "POR",
+            "awayTeamId": "CRO",
+            "homeScore": 4,
+            "awayScore": 1,
+            "venue": "Estádio do Dragão",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/27804/Portugal_Croatia.html"
+          },
+          {
+            "date": "2018-09-06",
+            "competition": "Friendly",
+            "homeTeamId": "POR",
+            "awayTeamId": "CRO",
+            "homeScore": 1,
+            "awayScore": 1,
+            "venue": "Estádio Algarve",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/20542/Portugal_Croatia.html"
+          },
+          {
+            "date": "2016-06-25",
+            "competition": "Euro 2016 - Round of 16",
+            "homeTeamId": "CRO",
+            "awayTeamId": "POR",
+            "homeScore": 0,
+            "awayScore": 1,
+            "venue": "Stade Bollaert-Delelis",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/15548/Croatia_Portugal.html"
+          },
+          {
+            "date": "2013-06-10",
+            "competition": "Friendly",
+            "homeTeamId": "CRO",
+            "awayTeamId": "POR",
+            "homeScore": 0,
+            "awayScore": 1,
+            "venue": "Stade de Genève",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/8109/Croatia_Portugal.html"
+          },
+          {
+            "date": "2005-11-12",
+            "competition": "Friendly",
+            "homeTeamId": "POR",
+            "awayTeamId": "CRO",
+            "homeScore": 2,
+            "awayScore": 0,
+            "venue": "Estádio Cidade de Coimbra",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/17337/Portugal_Croatia.html"
+          },
+          {
+            "date": "1996-06-19",
+            "competition": "Euro 1996 - Group D",
+            "homeTeamId": "CRO",
+            "awayTeamId": "POR",
+            "homeScore": 0,
+            "awayScore": 3,
+            "venue": "City Ground",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/16169/Croatia_Portugal.html"
+          }
+        ],
+        "sourceUrl": "https://www.national-football-teams.com/encounter/teams/148/47/Portugal_vs_Croatia.html"
       },
       "providerIds": {
         "fifa": {
@@ -10607,9 +11408,122 @@
       "venue": "Los Angeles Stadium",
       "status": "SCHEDULED",
       "h2h": {
-        "status": "research-pending",
-        "summary": "H2H research is pending for this matchup. Add API-backed or manually verified senior results when available.",
-        "results": null
+        "status": "loaded",
+        "sourceId": "national-football-teams-h2h-sync-2026-06-30",
+        "summary": "Before this fixture, Spain had the edge in the verified senior series: 6 Spain wins, 3 draws, 2 Austria wins, 40 total goals.",
+        "results": [
+          {
+            "date": "2009-11-18",
+            "competition": "Friendly",
+            "homeTeamId": "AUT",
+            "awayTeamId": "ESP",
+            "homeScore": 1,
+            "awayScore": 5,
+            "venue": "Ernst-Happel-Stadion",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/11843/Austria_Spain.html"
+          },
+          {
+            "date": "2001-09-01",
+            "competition": "World Cup 2002 - Group 7",
+            "homeTeamId": "ESP",
+            "awayTeamId": "AUT",
+            "homeScore": 4,
+            "awayScore": 0,
+            "venue": "Estadio de Mestalla",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/21141/Spain_Austria.html"
+          },
+          {
+            "date": "2000-10-11",
+            "competition": "World Cup 2002 - Group 7",
+            "homeTeamId": "AUT",
+            "awayTeamId": "ESP",
+            "homeScore": 1,
+            "awayScore": 1,
+            "venue": "Ernst-Happel-Stadion",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/22370/Austria_Spain.html"
+          },
+          {
+            "date": "1999-09-04",
+            "competition": "Euro 2000 - Group 6",
+            "homeTeamId": "AUT",
+            "awayTeamId": "ESP",
+            "homeScore": 1,
+            "awayScore": 3,
+            "venue": "Ernst-Happel-Stadion",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/23493/Austria_Spain.html"
+          },
+          {
+            "date": "1999-03-27",
+            "competition": "Euro 2000 - Group 6",
+            "homeTeamId": "ESP",
+            "awayTeamId": "AUT",
+            "homeScore": 9,
+            "awayScore": 0,
+            "venue": "Estadio de Mestalla",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/23490/Spain_Austria.html"
+          },
+          {
+            "date": "1990-03-28",
+            "competition": "Friendly",
+            "homeTeamId": "ESP",
+            "awayTeamId": "AUT",
+            "homeScore": 2,
+            "awayScore": 3,
+            "venue": "Estadio La Rosaleda",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/31422/Spain_Austria.html"
+          },
+          {
+            "date": "1987-10-14",
+            "competition": "Euro 1988 - Group 1",
+            "homeTeamId": "ESP",
+            "awayTeamId": "AUT",
+            "homeScore": 2,
+            "awayScore": 0,
+            "venue": "Estadio Ramón Sánchez-Pizjuán",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/34293/Spain_Austria.html"
+          },
+          {
+            "date": "1987-04-01",
+            "competition": "Euro 1988 - Group 1",
+            "homeTeamId": "AUT",
+            "awayTeamId": "ESP",
+            "homeScore": 2,
+            "awayScore": 3,
+            "venue": "Ernst-Happel-Stadion",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/34291/Austria_Spain.html"
+          },
+          {
+            "date": "1985-11-20",
+            "competition": "Friendly",
+            "homeTeamId": "ESP",
+            "awayTeamId": "AUT",
+            "homeScore": 0,
+            "awayScore": 0,
+            "venue": "Estadio de La Romareda",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/36676/Spain_Austria.html"
+          },
+          {
+            "date": "1981-09-23",
+            "competition": "Friendly",
+            "homeTeamId": "AUT",
+            "awayTeamId": "ESP",
+            "homeScore": 0,
+            "awayScore": 0,
+            "venue": "Ernst-Happel-Stadion",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/43212/Austria_Spain.html"
+          },
+          {
+            "date": "1978-06-03",
+            "competition": "World Cup 1978 - Group 3",
+            "homeTeamId": "AUT",
+            "awayTeamId": "ESP",
+            "homeScore": 2,
+            "awayScore": 1,
+            "venue": "Estadio José Amalfitani",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/15282/Austria_Spain.html"
+          }
+        ],
+        "sourceUrl": "https://www.national-football-teams.com/encounter/teams/174/13/Spain_vs_Austria.html"
       },
       "providerIds": {
         "fifa": {
@@ -10677,9 +11591,32 @@
       "venue": "BC Place Vancouver",
       "status": "SCHEDULED",
       "h2h": {
-        "status": "research-pending",
-        "summary": "H2H research is pending for this matchup. Add API-backed or manually verified senior results when available.",
-        "results": null
+        "status": "loaded",
+        "sourceId": "national-football-teams-h2h-sync-2026-06-30",
+        "summary": "Before this fixture, Switzerland had the edge in the verified senior series: 2 Switzerland wins, 0 draws, 0 Algeria wins, 5 total goals.",
+        "results": [
+          {
+            "date": "1986-05-06",
+            "competition": "Friendly",
+            "homeTeamId": "SUI",
+            "awayTeamId": "ALG",
+            "homeScore": 2,
+            "awayScore": 0,
+            "venue": "Parc des Sports des Charmilles",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/35696/Switzerland_Algeria.html"
+          },
+          {
+            "date": "1983-11-30",
+            "competition": "Friendly",
+            "homeTeamId": "ALG",
+            "awayTeamId": "SUI",
+            "homeScore": 1,
+            "awayScore": 2,
+            "venue": "Stade du 5 Juillet 1962",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/38938/Algeria_Switzerland.html"
+          }
+        ],
+        "sourceUrl": "https://www.national-football-teams.com/encounter/teams/180/3/Switzerland_vs_Algeria.html"
       },
       "providerIds": {
         "fifa": {
@@ -10747,9 +11684,11 @@
       "venue": "Miami Stadium",
       "status": "SCHEDULED",
       "h2h": {
-        "status": "research-pending",
-        "summary": "H2H research is pending for this matchup. Add API-backed or manually verified senior results when available.",
-        "results": null
+        "status": "verified-empty",
+        "sourceId": "national-football-teams-h2h-sync-2026-06-30",
+        "summary": "Argentina and Cabo Verde have never met in a verified senior men's international. This is their first head-to-head meeting.",
+        "results": [],
+        "sourceUrl": "https://www.national-football-teams.com/encounter/teams/9/37/Argentina_vs_Cape_Verde.html"
       },
       "providerIds": {
         "fifa": {
@@ -10817,9 +11756,11 @@
       "venue": "Kansas City Stadium",
       "status": "SCHEDULED",
       "h2h": {
-        "status": "research-pending",
-        "summary": "H2H research is pending for this matchup. Add API-backed or manually verified senior results when available.",
-        "results": null
+        "status": "verified-empty",
+        "sourceId": "national-football-teams-h2h-sync-2026-06-30",
+        "summary": "Colombia and Ghana have never met in a verified senior men's international. This is their first head-to-head meeting.",
+        "results": [],
+        "sourceUrl": "https://www.national-football-teams.com/encounter/teams/43/72/Colombia_vs_Ghana.html"
       },
       "providerIds": {
         "fifa": {
@@ -10887,9 +11828,33 @@
       "venue": "Dallas Stadium",
       "status": "SCHEDULED",
       "h2h": {
-        "status": "research-pending",
-        "summary": "H2H research is pending for this matchup. Add API-backed or manually verified senior results when available.",
-        "results": null
+        "status": "loaded",
+        "sourceId": "national-football-teams-h2h-sync-2026-06-30",
+        "summary": "Before this fixture, Egypt had the edge in the verified senior series: 0 Australia wins, 1 draw, 1 Egypt win, 3 total goals.",
+        "results": [
+          {
+            "date": "2010-11-17",
+            "competition": "Friendly",
+            "homeTeamId": "EGY",
+            "awayTeamId": "AUS",
+            "homeScore": 3,
+            "awayScore": 0,
+            "venue": "Cairo International Stadium",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/10479/Egypt_Australia.html"
+          },
+          {
+            "date": "1987-06-19",
+            "competition": "Friendly",
+            "homeTeamId": "AUS",
+            "awayTeamId": "EGY",
+            "homeScore": 0,
+            "awayScore": 0,
+            "venue": "Seoul Olympic Stadium",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/34001/Australia_Egypt.html",
+            "scoreNote": "(Australia won 4-3 on penalties)"
+          }
+        ],
+        "sourceUrl": "https://www.national-football-teams.com/encounter/teams/12/57/Australia_vs_Egypt.html"
       },
       "providerIds": {
         "fifa": {
@@ -10958,7 +11923,7 @@
       "status": "SCHEDULED",
       "h2h": {
         "status": "research-pending",
-        "summary": "H2H research is pending for this matchup. Add API-backed or manually verified senior results when available.",
+        "summary": "Past meetings unavailable.",
         "results": null
       },
       "providerIds": {
@@ -10980,9 +11945,52 @@
       "venue": "Houston Stadium",
       "status": "SCHEDULED",
       "h2h": {
-        "status": "research-pending",
-        "summary": "H2H research is pending for this matchup. Add API-backed or manually verified senior results when available.",
-        "results": null
+        "status": "loaded",
+        "sourceId": "national-football-teams-h2h-sync-2026-06-30",
+        "summary": "Before this fixture, Morocco had the edge in the verified senior series: 0 Canada wins, 1 draw, 3 Morocco wins, 14 total goals.",
+        "results": [
+          {
+            "date": "2022-12-01",
+            "competition": "World Cup 2022 - Group F",
+            "homeTeamId": "CAN",
+            "awayTeamId": "MAR",
+            "homeScore": 1,
+            "awayScore": 2,
+            "venue": "Al-Thumama Stadium",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/35660/Canada_Morocco.html"
+          },
+          {
+            "date": "2016-10-11",
+            "competition": "Friendly",
+            "homeTeamId": "MAR",
+            "awayTeamId": "CAN",
+            "homeScore": 4,
+            "awayScore": 0,
+            "venue": "Stade de Marrakech",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/15937/Morocco_Canada.html"
+          },
+          {
+            "date": "1994-06-01",
+            "competition": "Friendly",
+            "homeTeamId": "CAN",
+            "awayTeamId": "MAR",
+            "homeScore": 1,
+            "awayScore": 1,
+            "venue": "Venue not listed",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/28147/Canada_Morocco.html"
+          },
+          {
+            "date": "1984-10-24",
+            "competition": "Friendly",
+            "homeTeamId": "MAR",
+            "awayTeamId": "CAN",
+            "homeScore": 3,
+            "awayScore": 2,
+            "venue": "Stade Prince Moulay Abdellah",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/36389/Morocco_Canada.html"
+          }
+        ],
+        "sourceUrl": "https://www.national-football-teams.com/encounter/teams/36/125/Canada_vs_Morocco.html"
       },
       "providerIds": {
         "fifa": {

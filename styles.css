@@ -736,6 +736,8 @@ body.is-juggle-active {
   margin: -1px;
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  contain: strict;
   white-space: nowrap;
   border: 0;
 }
@@ -1450,13 +1452,9 @@ h1 {
 
 .yesterday-match-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 1fr);
   gap: 8px;
   min-width: 0;
-}
-
-.yesterday-match-grid.has-single-match {
-  grid-template-columns: minmax(0, 1fr);
 }
 
 .yesterday-match-card {
@@ -1747,7 +1745,7 @@ h1 {
   content: attr(data-tooltip);
   position: absolute;
   bottom: calc(100% + 8px);
-  left: calc(50% + var(--tooltip-shift-x, 0px));
+  left: var(--tooltip-left-x, calc(50% + var(--tooltip-shift-x, 0px)));
   z-index: 20;
   padding: 6px 8px;
   border-radius: 6px;
@@ -1760,7 +1758,7 @@ h1 {
   opacity: 0;
   pointer-events: none;
   text-transform: none;
-  transform: translate(-50%, 4px);
+  transform: translate(var(--tooltip-transform-x, -50%), 4px);
   transition: opacity 140ms ease, transform 140ms ease;
   white-space: nowrap;
 }
@@ -1768,7 +1766,7 @@ h1 {
 .live-pill[data-tooltip]:hover::after,
 .live-pill[data-tooltip]:focus-visible::after {
   opacity: 1;
-  transform: translate(-50%, 0);
+  transform: translate(var(--tooltip-transform-x, -50%), 0);
 }
 
 .up-next-pill {
@@ -2412,6 +2410,7 @@ h1 {
 
 .summary-team .team-copy {
   display: inline-flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 5px;
   min-width: 0;
@@ -2420,6 +2419,8 @@ h1 {
 
 .summary-team .team-name {
   min-width: 0;
+  overflow-wrap: anywhere;
+  white-space: normal;
 }
 
 .summary-title .flag {
@@ -2479,6 +2480,7 @@ h1 {
 .info-tooltip-button::after {
   content: attr(data-tooltip);
   position: absolute;
+  display: none;
   left: calc(50% + var(--tooltip-shift-x, 0px));
   bottom: calc(100% + 9px);
   z-index: 20;
@@ -2510,6 +2512,7 @@ h1 {
 .info-tooltip-button:hover::after,
 .info-tooltip-button:focus::after,
 .info-tooltip-button:focus-visible::after {
+  display: block;
   opacity: 1;
   transform: translate(-50%, 0);
 }
@@ -2744,8 +2747,9 @@ h1 {
 .standing-help::after {
   content: attr(data-tooltip);
   position: absolute;
+  display: none;
   bottom: calc(100% + 9px);
-  left: calc(50% + var(--tooltip-shift-x, 0px));
+  left: var(--tooltip-left-x, calc(50% + var(--tooltip-shift-x, 0px)));
   z-index: 20;
   width: 210px;
   max-width: min(210px, 72vw);
@@ -2761,7 +2765,7 @@ h1 {
   opacity: 0;
   pointer-events: none;
   text-align: left;
-  transform: translate(-50%, 4px);
+  transform: translate(var(--tooltip-transform-x, -50%), 4px);
   transition: opacity 140ms ease, transform 140ms ease;
   white-space: normal;
 }
@@ -2769,8 +2773,9 @@ h1 {
 .standing-help:hover::after,
 .standing-help:focus::after,
 .standing-help:focus-visible::after {
+  display: block;
   opacity: 1;
-  transform: translate(-50%, 0);
+  transform: translate(var(--tooltip-transform-x, -50%), 0);
 }
 
 .standing-help:focus-visible {
@@ -4763,7 +4768,7 @@ h1 {
   left: 0;
   bottom: calc(100% + 10px);
   z-index: 40;
-  display: grid;
+  display: none;
   width: var(--player-card-width, min(292px, calc(100vw - 44px)));
   gap: 11px;
   padding: 12px;
@@ -4787,6 +4792,7 @@ h1 {
 
 .player-card-floating {
   position: fixed;
+  display: grid;
   top: var(--player-card-floating-top, 18px);
   left: var(--player-card-floating-left, 18px);
   bottom: auto;
@@ -4801,6 +4807,7 @@ h1 {
 .player-hover:hover .player-card,
 .player-hover:focus-within .player-card,
 .player-hover.is-card-open .player-card {
+  display: grid;
   opacity: 1;
   pointer-events: auto;
   transform: translate(var(--player-card-shift, 0px), 0) scale(1);
@@ -4841,6 +4848,7 @@ h1 {
 .player-hover.is-card-portaled:hover > .player-card,
 .player-hover.is-card-portaled:focus-within > .player-card,
 .player-hover.is-card-portaled.is-card-open > .player-card {
+  display: none;
   opacity: 0;
   pointer-events: none;
   visibility: hidden;
@@ -5322,6 +5330,67 @@ h1 {
   outline-offset: 3px;
 }
 
+.live-pill[data-tooltip]::after,
+.rank-pill[data-tooltip]::after,
+.team.has-team-tooltip::after,
+.past-team.has-team-tooltip::after,
+.summary-team.has-team-tooltip::after,
+.yesterday-team.has-team-tooltip::after,
+.info-tooltip-button::after,
+.standing-help::after,
+.standing-team.has-name-tooltip::after,
+.standing-status-pill[data-tooltip]::after,
+.third-place-pill[data-tooltip]::after,
+.third-place-status[data-tooltip]::after,
+.knockout-match-venue[data-tooltip]::after,
+.knockout-team[data-tooltip]::after,
+.knockout-likelihood::after,
+.knockout-slot-odds::after,
+.prediction-row.has-label-tooltip::after,
+.past-record-row.has-label-tooltip::after {
+  display: none;
+}
+
+.live-pill[data-tooltip]:hover::after,
+.live-pill[data-tooltip]:focus-visible::after,
+.rank-pill[data-tooltip]:hover::after,
+.rank-pill[data-tooltip]:focus-visible::after,
+.team.has-team-tooltip:hover::after,
+.past-team.has-team-tooltip:hover::after,
+.summary-team.has-team-tooltip:hover::after,
+.yesterday-team.has-team-tooltip:hover::after,
+.info-tooltip-button:hover::after,
+.info-tooltip-button:focus::after,
+.info-tooltip-button:focus-visible::after,
+.standing-help:hover::after,
+.standing-help:focus::after,
+.standing-help:focus-visible::after,
+.standing-team.has-name-tooltip:hover::after,
+.standing-team.has-name-tooltip:focus::after,
+.standing-team.has-name-tooltip:focus-visible::after,
+.standing-status-pill[data-tooltip]:hover::after,
+.standing-status-pill[data-tooltip]:focus-visible::after,
+.third-place-pill[data-tooltip]:hover::after,
+.third-place-pill[data-tooltip]:focus-visible::after,
+.third-place-status[data-tooltip]:hover::after,
+.third-place-status[data-tooltip]:focus-visible::after,
+.knockout-match-venue[data-tooltip]:hover::after,
+.knockout-match-venue[data-tooltip]:focus-visible::after,
+.knockout-team[data-tooltip]:hover::after,
+.knockout-team[data-tooltip]:focus-visible::after,
+.knockout-likelihood:hover::after,
+.knockout-likelihood:focus-visible::after,
+.knockout-slot-odds:hover::after,
+.knockout-slot-odds:focus-visible::after,
+.prediction-row.has-label-tooltip:hover::after,
+.prediction-row.has-label-tooltip:focus::after,
+.prediction-row.has-label-tooltip:focus-visible::after,
+.past-record-row.has-label-tooltip:hover::after,
+.past-record-row.has-label-tooltip:focus::after,
+.past-record-row.has-label-tooltip:focus-visible::after {
+  display: block;
+}
+
 @media (hover: none), (pointer: coarse) {
   .live-pill[data-tooltip]:hover::after,
   .rank-pill[data-tooltip]:hover::after,
@@ -5341,6 +5410,7 @@ h1 {
   .knockout-slot-odds:hover::after,
   .prediction-row.has-label-tooltip:hover::after,
   .past-record-row.has-label-tooltip:hover::after {
+    display: none;
     opacity: 0;
   }
 
@@ -5364,6 +5434,7 @@ h1 {
 .player-card-value-help.is-touch-tooltip-open::after,
 .prediction-row.has-label-tooltip.is-touch-tooltip-open::after,
 .past-record-row.has-label-tooltip.is-touch-tooltip-open::after {
+  display: block;
   opacity: 1;
   transform: translate(-50%, 0);
 }

@@ -19,6 +19,10 @@ const steps = [
     script: "scripts/populate-enrichment-baselines.mjs"
   },
   {
+    label: "Sync verified H2H results",
+    script: "scripts/sync-h2h-results.mjs"
+  },
+  {
     label: "Refresh confirmed-fixture projections",
     script: "scripts/populate-projections.mjs"
   },

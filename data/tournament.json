@@ -951,6 +951,14 @@
       "type": "official",
       "checkedAt": "2026-06-30T04:21:40.401Z",
       "note": "1 fixture update merged from 104 matched FIFA fixtures. 1 knockout participant slot resolved from official participants or completed results."
+    },
+    {
+      "id": "national-football-teams-h2h-sync-2026-06-30",
+      "label": "National Football Teams H2H sync",
+      "url": "https://www.national-football-teams.com",
+      "type": "cross-check",
+      "checkedAt": "2026-06-30T09:42:00-07:00",
+      "note": "16 fixture H2H updates merged from National Football Teams encounter pages."
     }
   ],
   "groups": [
