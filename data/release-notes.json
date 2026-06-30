@@ -1,15 +1,15 @@
 {
-  "updatedAt": "2026-06-30T15:11:38-07:00",
+  "updatedAt": "2026-06-30T15:40:43-07:00",
   "releases": [
     {
       "date": "2026-06-30",
       "title": "Standings year heading",
       "titleZh": "积分榜年份标题",
       "highlights": [
-        "The Standings page heading now shows only the selected year, matching the compact Today and date dropdown style on Matches."
+        "The Standings page heading now shows only the selected year with a dropdown chevron, matching the compact Today date picker style on Matches."
       ],
       "highlightsZh": [
-        "积分榜页面标题现在只显示所选年份，与 Matches 中紧凑的“今天”和日期下拉样式保持一致。"
+        "积分榜页面标题现在只显示所选年份并带下拉箭头，与 Matches 中紧凑的“今天”日期选择样式保持一致。"
       ]
     },
     {

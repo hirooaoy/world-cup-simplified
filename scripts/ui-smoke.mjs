@@ -5426,6 +5426,24 @@ try {
       "2026",
     "The current standings heading should show just the selected year."
   );
+  const standingsYearChevron = await page.locator("#standings-year-button").evaluate((button) => {
+    const style = getComputedStyle(button, "::after");
+    return {
+      borderBottomWidth: Number.parseFloat(style.borderBottomWidth),
+      borderRightWidth: Number.parseFloat(style.borderRightWidth),
+      height: Number.parseFloat(style.height),
+      marginLeft: Number.parseFloat(style.marginLeft),
+      width: Number.parseFloat(style.width)
+    };
+  });
+  assert(
+    standingsYearChevron.width >= 5 &&
+      standingsYearChevron.height >= 5 &&
+      standingsYearChevron.marginLeft >= 8 &&
+      standingsYearChevron.borderBottomWidth > 0 &&
+      standingsYearChevron.borderRightWidth > 0,
+    `The standings year heading should show a dropdown chevron like Today. Measured ${JSON.stringify(standingsYearChevron)}.`
+  );
   await page.locator("#standings-groups-tab").click();
   await page.waitForFunction(
     () =>

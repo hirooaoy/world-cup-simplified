@@ -3056,6 +3056,7 @@ h1 {
 .standings-year-button {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   margin: 0;
   padding: 0;
   border: 0;
@@ -3068,8 +3069,26 @@ h1 {
   transition: opacity 160ms ease;
 }
 
+.standings-year-button::after {
+  content: "";
+  width: 6px;
+  height: 6px;
+  margin-left: 10px;
+  border-color: currentColor;
+  border-style: solid;
+  border-width: 0 1.5px 1.5px 0;
+  opacity: 0.48;
+  transform: translateY(-2px) rotate(45deg);
+  transition: transform 160ms ease, opacity 160ms ease;
+}
+
 .standings-year-button:hover {
   opacity: 0.62;
+}
+
+.standings-year-button[aria-expanded="true"]::after {
+  opacity: 0.72;
+  transform: translateY(2px) rotate(225deg);
 }
 
 .standings-year-button:focus-visible {
