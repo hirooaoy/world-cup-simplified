@@ -1,4 +1,4 @@
-const DATA_VERSION = "2026-06-29-official-highlight-sync";
+const DATA_VERSION = "2026-06-29-live-data-timeout";
 const DATA_URLS = {
   adminMessage: `data/admin-message.json?v=${DATA_VERSION}`,
   fixtures: `data/fixtures.json?v=${DATA_VERSION}`,
@@ -291,7 +291,6 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "Past 24 hours": "过去24小时",
     "Penalty pressure": "点球压力",
     "Player": "球员",
-    "Predicted": "预测",
     "Predicted matchup; participants come from current knockout-path estimates.":
       "预测对阵；参赛队来自当前淘汰赛路径估算。",
     "No matches": "没有比赛",
@@ -8339,18 +8338,6 @@ function renderScoreStatus(match, state, currentTime) {
     : "";
 }
 
-function renderProjectedMatchStatus(match, context) {
-  if (!isTournamentProjectedMatch(match, context)) {
-    return "";
-  }
-
-  const label = localizeText("Predicted");
-  const ariaLabel = localizeText(
-    "Predicted matchup; participants come from current knockout-path estimates."
-  );
-  return `<span class="score-status is-predicted" aria-label="${escapeHtml(ariaLabel)}">${escapeHtml(label)}</span>`;
-}
-
 function renderLivePill(options = {}) {
   const className = ["live-pill", options.className || ""].filter(Boolean).join(" ");
   const tooltip = getOfficialMatchTimeSnapshotTooltip(options.match);
@@ -8471,7 +8458,6 @@ function renderMatchRow(match, state, currentTime = Date.now(), options = {}) {
     state === "live" ? `${localizeText("Live")}, ` : state === "next" ? `${localizeText("Up next")}, ` : "";
   const statusLabel = match.status === "CANCELLED" ? `, ${localizeText("cancelled")}` : "";
   const scoreStatus = renderScoreStatus(match, state, currentTime);
-  const projectedStatus = renderProjectedMatchStatus(match, options.tournamentContext);
   const stateBadge =
     state === "live"
       ? renderLivePill({ match })
@@ -8479,7 +8465,7 @@ function renderMatchRow(match, state, currentTime = Date.now(), options = {}) {
         ? `<span class="up-next-pill">${escapeHtml(localizeText("Up next"))}</span>`
         : "";
   const score = renderScore(match, state, options);
-  const rowMeta = `${stateBadge}${projectedStatus}${scoreStatus}${score}`;
+  const rowMeta = `${stateBadge}${scoreStatus}${score}`;
   const rowLabel = `${stateLabel}${homeName} ${versusText} ${awayName}${rowDateTimeLabel}${statusLabel}${
     match.score
       ? `, ${scoreLabel} ${getMatchVisibleScoreText(match, match.score)}`
@@ -8487,9 +8473,7 @@ function renderMatchRow(match, state, currentTime = Date.now(), options = {}) {
         ? `, ${localizeText("current score")} ${displayScore.home}-${displayScore.away}`
         : pendingScoreText
           ? `, ${pendingScoreText.toLowerCase()}`
-          : projectedStatus
-            ? `, ${localizeText("Predicted").toLowerCase()}`
-            : ""
+          : ""
   }`;
 
   row.className = `match-row is-${state}`;
@@ -11545,7 +11529,7 @@ function formatTournamentResultPillText(match, participants, winner) {
   const penaltyText = getTournamentResultScorePairForSide(match, winnerSide || "home", "penalties");
 
   if (scoreText && penaltyText) {
-    return `${scoreText} • ${localizeText("Penalties")} ${penaltyText}`;
+    return `${scoreText} (${penaltyText} ${localizeText("pens")})`;
   }
 
   return scoreText || "";

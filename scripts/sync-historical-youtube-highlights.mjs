@@ -70,6 +70,7 @@ const REJECT_TITLE_PATTERNS = [
   /\btrailer\b/i,
   /\broad to\b/i,
   /\bclassic match\b/i,
+  /\b(?:final|last)\s+\d+\s+minutes?\b/i,
   /\binterview\b/i,
   /\b(?:remembers|recalls|reflects|looks back|talks about|discusses)\b/i,
   /\bon\s+[^|]*\d{1,2}\s*[-:]\s*\d{1,2}/i,
@@ -430,6 +431,8 @@ function evaluateCandidate(fixture, candidate, metadata) {
   const hasMatchingScoreline = scorelineMatchesFixture(fixture, title);
   const hasHighlightCue = /\bhighlights?\b/i.test(title);
   const hasArchiveFinalCue = /\b(?:world cup final|final match)\b/i.test(title);
+  const hasModernShortOfficialCue =
+    fixture.tournamentYear >= 2022 && Number.isFinite(durationSeconds) && durationSeconds >= 60 && durationSeconds <= 240;
   const reasons = [];
 
   if (metadata.channelId !== FIFA_CHANNEL_ID) {
@@ -468,7 +471,7 @@ function evaluateCandidate(fixture, candidate, metadata) {
     reasons.push("repeat team pairing in tournament requires matching title scoreline");
   }
 
-  if (!hasHighlightCue && !(hasMatchingScoreline && hasArchiveFinalCue)) {
+  if (!hasHighlightCue && !(hasMatchingScoreline && hasArchiveFinalCue) && !hasModernShortOfficialCue) {
     reasons.push("title is not a highlights video or archive final scoreline video");
   }
 

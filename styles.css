@@ -1806,12 +1806,6 @@ h1 {
   font-weight: 700;
 }
 
-.score-status.is-predicted {
-  border-color: rgba(10, 10, 10, 0.14);
-  background: #efefef;
-  color: rgba(10, 10, 10, 0.64);
-}
-
 .match-row.is-idle,
 .match-row.is-next,
 .match-row.is-live,

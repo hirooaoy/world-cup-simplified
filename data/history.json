@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-30T06:12:19.545Z",
+  "updatedAt": "2026-06-30T06:26:41.303Z",
   "sourceIds": [
     "openfootball-worldcup-json-2026-06-17",
     "fjelstul-worldcup-json-2026-06-23"
@@ -99618,7 +99618,15 @@
         "Enner Valencia put Ecuador ahead early, making Qatar chase the match.",
         "Enner Valencia added the final word as Ecuador pulled away.",
         "Enner Valencia scored twice as Ecuador kept widening the gap."
-      ]
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=b7X1YkrkUHA",
+        "sourceName": "FIFA",
+        "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
+        "publishedAt": "2022-11-22T10:00:15-08:00",
+        "checkedAt": "2026-06-29T23:15:07-07:00"
+      }
     },
     {
       "id": "wc-2022-2022-11-21-matchday-2-england-iran",
@@ -99748,7 +99756,15 @@
         "Jude Bellingham broke through for England, shifting the match toward England.",
         "Jack Grealish added the final word as England pulled away.",
         "Bukayo Saka scored twice as England kept widening the gap."
-      ]
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=atn7ttoJgqg",
+        "sourceName": "FIFA",
+        "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
+        "publishedAt": "2022-11-23T07:00:04-08:00",
+        "checkedAt": "2026-06-29T23:15:07-07:00"
+      }
     },
     {
       "id": "wc-2022-2022-11-21-matchday-2-senegal-netherlands",
@@ -99851,7 +99867,15 @@
         "Cody Gakpo broke through for Netherlands, shifting the match toward Netherlands.",
         "Davy Klaassen added the final word as Netherlands pulled away.",
         "Netherlands kept Senegal out and closed the match with a clean sheet."
-      ]
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=3Toik58vJp4",
+        "sourceName": "FIFA",
+        "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
+        "publishedAt": "2022-11-23T10:00:02-08:00",
+        "checkedAt": "2026-06-29T23:15:07-07:00"
+      }
     },
     {
       "id": "wc-2022-2022-11-21-matchday-2-usa-wales",
@@ -99954,7 +99978,15 @@
         "Timothy Weah put USA in front before Gareth Bale answered for Wales.",
         "Gareth Bale's 82' equalizer rescued a point for Wales.",
         "USA and Wales kept trading momentum instead of pulling clear."
-      ]
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=5PTZIJ6h9sc",
+        "sourceName": "FIFA",
+        "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
+        "publishedAt": "2022-11-23T13:00:02-08:00",
+        "checkedAt": "2026-06-29T23:15:07-07:00"
+      }
     },
     {
       "id": "wc-2022-2022-11-22-matchday-3-argentina-saudi-arabia",
@@ -100062,7 +100094,15 @@
         "Lionel Messi struck first for Argentina, forcing Saudi Arabia to chase the match.",
         "Saleh Al-Shehri brought Saudi Arabia level before Salem Al-Dawsari completed the turnaround.",
         "Argentina's opener made Saudi Arabia sweat, but the later chances finally turned."
-      ]
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=spLV1gF0fkI",
+        "sourceName": "FIFA",
+        "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
+        "publishedAt": "2022-11-23T16:00:22-08:00",
+        "checkedAt": "2026-06-29T23:15:07-07:00"
+      }
     },
     {
       "id": "wc-2022-2022-11-22-matchday-3-denmark-tunisia",
@@ -100150,7 +100190,15 @@
         "Denmark and Tunisia traded pressure without finding a goal.",
         "Both defenses kept the scoring lanes closed through full time.",
         "Denmark and Tunisia stayed locked together until the final whistle."
-      ]
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=FK32jC72vd0",
+        "sourceName": "FIFA",
+        "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
+        "publishedAt": "2022-11-23T19:00:10-08:00",
+        "checkedAt": "2026-06-29T23:15:07-07:00"
+      }
     },
     {
       "id": "wc-2022-2022-11-22-matchday-3-mexico-poland",
@@ -100238,7 +100286,15 @@
         "Mexico and Poland traded pressure without finding a goal.",
         "Both defenses kept the scoring lanes closed through full time.",
         "Mexico and Poland stayed locked together until the final whistle."
-      ]
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=v9PJGQ9Hc-4",
+        "sourceName": "FIFA",
+        "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
+        "publishedAt": "2022-11-23T22:00:19-08:00",
+        "checkedAt": "2026-06-29T23:15:07-07:00"
+      }
     },
     {
       "id": "wc-2022-2022-11-22-matchday-3-france-australia",
@@ -100353,7 +100409,15 @@
         "Craig Goodwin struck first for Australia, forcing France to chase the match.",
         "Adrien Rabiot brought France level before Olivier Giroud completed the turnaround.",
         "Olivier Giroud scored twice as France kept widening the gap."
-      ]
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=K7_nzkiDcYk",
+        "sourceName": "FIFA",
+        "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
+        "publishedAt": "2022-11-24T01:00:08-08:00",
+        "checkedAt": "2026-06-29T23:15:07-07:00"
+      }
     },
     {
       "id": "wc-2022-2022-11-23-matchday-4-morocco-croatia",
@@ -100441,7 +100505,15 @@
         "Morocco and Croatia traded pressure without finding a goal.",
         "Both defenses kept the scoring lanes closed through full time.",
         "Morocco and Croatia stayed locked together until the final whistle."
-      ]
+      ],
+      "highlightVideoReview": {
+        "status": "not-found",
+        "platform": "youtube",
+        "sourceName": "FIFA",
+        "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
+        "checkedAt": "2026-06-29T23:24:22-07:00",
+        "note": "No clean official FIFA YouTube highlight-style video matched this fixture."
+      }
     },
     {
       "id": "wc-2022-2022-11-23-matchday-4-germany-japan",
@@ -100549,7 +100621,15 @@
         "İlkay Gündoğan struck first for Germany, forcing Japan to chase the match.",
         "Ritsu Dōan brought Japan level before Takuma Asano completed the turnaround.",
         "Germany's opener made Japan sweat, but the later chances finally turned."
-      ]
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=fXVWZS76QyE",
+        "sourceName": "FIFA",
+        "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
+        "publishedAt": "2022-11-24T05:30:16-08:00",
+        "checkedAt": "2026-06-29T23:15:07-07:00"
+      }
     },
     {
       "id": "wc-2022-2022-11-23-matchday-4-spain-costa-rica",
@@ -100673,7 +100753,15 @@
         "Dani Olmo put Spain ahead early, making Costa Rica chase the match.",
         "Álvaro Morata added the final word as Spain pulled away.",
         "Ferran Torres scored twice as Spain kept widening the gap."
-      ]
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=f5Iph5tGRz0",
+        "sourceName": "FIFA",
+        "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
+        "publishedAt": "2022-11-24T10:00:16-08:00",
+        "checkedAt": "2026-06-29T23:15:07-07:00"
+      }
     },
     {
       "id": "wc-2022-2022-11-23-matchday-4-belgium-canada",
@@ -100771,7 +100859,15 @@
         "Michy Batshuayi broke through for Belgium, shifting the match toward Belgium.",
         "Michy Batshuayi's 44' winner settled a tight match for Belgium.",
         "Belgium kept Canada out and closed the match with a clean sheet."
-      ]
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=-6fQh_KzD70",
+        "sourceName": "FIFA",
+        "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
+        "publishedAt": "2022-11-24T12:45:00-08:00",
+        "checkedAt": "2026-06-29T23:15:07-07:00"
+      }
     },
     {
       "id": "wc-2022-2022-11-24-matchday-5-switzerland-cameroon",
@@ -100869,7 +100965,15 @@
         "Breel Embolo broke through for Switzerland, shifting the match toward Switzerland.",
         "Breel Embolo's 48' winner settled a tight match for Switzerland.",
         "Switzerland kept Cameroon out and closed the match with a clean sheet."
-      ]
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=MvGk6fg8sXA",
+        "sourceName": "FIFA",
+        "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
+        "publishedAt": "2022-11-25T04:00:28-08:00",
+        "checkedAt": "2026-06-29T23:15:07-07:00"
+      }
     },
     {
       "id": "wc-2022-2022-11-24-matchday-5-uruguay-south-korea",
@@ -100957,7 +101061,15 @@
         "Uruguay and South Korea traded pressure without finding a goal.",
         "Both defenses kept the scoring lanes closed through full time.",
         "Uruguay and South Korea stayed locked together until the final whistle."
-      ]
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=TCNVlLl6M9E",
+        "sourceName": "FIFA",
+        "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
+        "publishedAt": "2022-11-25T08:00:14-08:00",
+        "checkedAt": "2026-06-29T23:15:07-07:00"
+      }
     },
     {
       "id": "wc-2022-2022-11-24-matchday-5-portugal-ghana",
@@ -101073,7 +101185,15 @@
         "Cristiano Ronaldo broke through for Portugal, shifting the match toward Portugal.",
         "Rafael Leão's 80' winner settled a tight match for Portugal.",
         "Osman Bukari's 89' goal gave Ghana a reply."
-      ]
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=RJ4jlutcSbY",
+        "sourceName": "FIFA",
+        "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
+        "publishedAt": "2022-11-25T11:00:18-08:00",
+        "checkedAt": "2026-06-29T23:15:07-07:00"
+      }
     },
     {
       "id": "wc-2022-2022-11-24-matchday-5-brazil-serbia",
@@ -101175,7 +101295,15 @@
         "Richarlison broke through for Brazil, shifting the match toward Brazil.",
         "Richarlison added the final word as Brazil pulled away.",
         "Richarlison scored twice as Brazil kept widening the gap."
-      ]
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=kL0IkvLrQLM",
+        "sourceName": "FIFA",
+        "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
+        "publishedAt": "2022-11-25T12:45:02-08:00",
+        "checkedAt": "2026-06-29T23:15:07-07:00"
+      }
     },
     {
       "id": "wc-2022-2022-11-25-matchday-6-wales-iran",
@@ -101279,7 +101407,15 @@
         "Rouzbeh Cheshmi broke through for Iran, shifting the match toward Iran.",
         "Ramin Rezaeian added the final word as Iran pulled away.",
         "Iran kept Wales out and closed the match with a clean sheet."
-      ]
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=9N5u8eReRTc",
+        "sourceName": "FIFA",
+        "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
+        "publishedAt": "2022-11-26T05:00:06-08:00",
+        "checkedAt": "2026-06-29T23:24:22-07:00"
+      }
     },
     {
       "id": "wc-2022-2022-11-25-matchday-6-qatar-senegal",
@@ -101390,7 +101526,15 @@
         "Boulaye Dia broke through for Senegal, shifting the match toward Senegal.",
         "Bamba Dieng added the final word as Senegal pulled away.",
         "Mohammed Muntari's 78' goal gave Qatar a reply."
-      ]
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=iO2BlDk3c1Q",
+        "sourceName": "FIFA",
+        "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
+        "publishedAt": "2022-11-26T07:00:35-08:00",
+        "checkedAt": "2026-06-29T23:24:22-07:00"
+      }
     },
     {
       "id": "wc-2022-2022-11-25-matchday-6-netherlands-ecuador",
@@ -101492,7 +101636,15 @@
         "Cody Gakpo put Netherlands in front before Enner Valencia answered for Ecuador.",
         "Enner Valencia's 49' equalizer rescued a point for Ecuador.",
         "Netherlands and Ecuador kept trading momentum instead of pulling clear."
-      ]
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=mN8PnkR-5d4",
+        "sourceName": "FIFA",
+        "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
+        "publishedAt": "2022-11-26T10:00:31-08:00",
+        "checkedAt": "2026-06-29T23:24:22-07:00"
+      }
     },
     {
       "id": "wc-2022-2022-11-25-matchday-6-england-usa",
@@ -101580,7 +101732,15 @@
         "England and USA traded pressure without finding a goal.",
         "Both defenses kept the scoring lanes closed through full time.",
         "England and USA stayed locked together until the final whistle."
-      ]
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=vvZK64fbQt8",
+        "sourceName": "FIFA",
+        "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
+        "publishedAt": "2022-11-26T12:59:00-08:00",
+        "checkedAt": "2026-06-29T23:24:22-07:00"
+      }
     },
     {
       "id": "wc-2022-2022-11-26-matchday-7-tunisia-australia",
@@ -101678,7 +101838,15 @@
         "Mitchell Duke broke through for Australia, shifting the match toward Australia.",
         "Mitchell Duke's 23' winner settled a tight match for Australia.",
         "Australia kept Tunisia out and closed the match with a clean sheet."
-      ]
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=J8lF9XAlW4U",
+        "sourceName": "FIFA",
+        "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
+        "publishedAt": "2022-11-27T05:00:13-08:00",
+        "checkedAt": "2026-06-29T23:24:22-07:00"
+      }
     },
     {
       "id": "wc-2022-2022-11-26-matchday-7-poland-saudi-arabia",
@@ -101780,7 +101948,15 @@
         "Piotr Zieliński broke through for Poland, shifting the match toward Poland.",
         "Robert Lewandowski added the final word as Poland pulled away.",
         "Poland kept Saudi Arabia out and closed the match with a clean sheet."
-      ]
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=WsJBO9mG7Vw",
+        "sourceName": "FIFA",
+        "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
+        "publishedAt": "2022-11-27T08:00:14-08:00",
+        "checkedAt": "2026-06-29T23:24:22-07:00"
+      }
     },
     {
       "id": "wc-2022-2022-11-26-matchday-7-france-denmark",
@@ -101887,7 +102063,15 @@
         "Kylian Mbappé broke through for France, shifting the match toward France.",
         "Kylian Mbappé's 86' winner settled a tight match for France.",
         "Kylian Mbappé scored twice as France kept widening the gap."
-      ]
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=kcwhComNmuI",
+        "sourceName": "FIFA",
+        "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
+        "publishedAt": "2022-11-27T10:00:27-08:00",
+        "checkedAt": "2026-06-29T23:24:22-07:00"
+      }
     },
     {
       "id": "wc-2022-2022-11-26-matchday-7-argentina-mexico",
@@ -101989,7 +102173,15 @@
         "Lionel Messi broke through for Argentina, shifting the match toward Argentina.",
         "Enzo Fernández added the final word as Argentina pulled away.",
         "Argentina kept Mexico out and closed the match with a clean sheet."
-      ]
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=Rb6P2sdlJTE",
+        "sourceName": "FIFA",
+        "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
+        "publishedAt": "2022-11-27T12:59:00-08:00",
+        "checkedAt": "2026-06-29T23:24:22-07:00"
+      }
     },
     {
       "id": "wc-2022-2022-11-27-matchday-8-japan-costa-rica",
@@ -102087,7 +102279,15 @@
         "Keysher Fuller broke through for Costa Rica, shifting the match toward Costa Rica.",
         "Keysher Fuller's 81' winner settled a tight match for Costa Rica.",
         "Costa Rica kept Japan out and closed the match with a clean sheet."
-      ]
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=Tz1TSbzi5No",
+        "sourceName": "FIFA",
+        "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
+        "publishedAt": "2022-11-28T04:00:15-08:00",
+        "checkedAt": "2026-06-29T23:24:22-07:00"
+      }
     },
     {
       "id": "wc-2022-2022-11-27-matchday-8-belgium-morocco",
@@ -102190,7 +102390,15 @@
         "Romain Saïss broke through for Morocco, shifting the match toward Morocco.",
         "Zakaria Aboukhlal added the final word as Morocco pulled away.",
         "Morocco kept Belgium out and closed the match with a clean sheet."
-      ]
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=dPvYed64oPw",
+        "sourceName": "FIFA",
+        "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
+        "publishedAt": "2022-11-28T07:15:01-08:00",
+        "checkedAt": "2026-06-29T23:24:22-07:00"
+      }
     },
     {
       "id": "wc-2022-2022-11-27-matchday-8-croatia-canada",
@@ -102306,7 +102514,15 @@
         "Alphonso Davies struck first for Canada, forcing Croatia to chase the match.",
         "Andrej Kramarić brought Croatia level before Lovro Majer completed the turnaround.",
         "Andrej Kramarić scored twice as Croatia kept widening the gap."
-      ]
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=GWrOR1FxBhs",
+        "sourceName": "FIFA",
+        "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
+        "publishedAt": "2022-11-28T11:00:08-08:00",
+        "checkedAt": "2026-06-29T23:24:22-07:00"
+      }
     },
     {
       "id": "wc-2022-2022-11-27-matchday-8-spain-germany",
@@ -102408,7 +102624,15 @@
         "Álvaro Morata put Spain in front before Niclas Füllkrug answered for Germany.",
         "Niclas Füllkrug's 83' equalizer rescued a point for Germany.",
         "Spain and Germany kept trading momentum instead of pulling clear."
-      ]
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=DCYNq2dyVj0",
+        "sourceName": "FIFA",
+        "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
+        "publishedAt": "2022-11-28T12:45:00-08:00",
+        "checkedAt": "2026-06-29T23:24:22-07:00"
+      }
     },
     {
       "id": "wc-2022-2022-11-28-matchday-9-cameroon-serbia",
@@ -102528,7 +102752,15 @@
         "Eric Maxim Choupo-Moting's 66' equalizer rescued a point for Cameroon.",
         "Cameroon and Serbia kept trading momentum instead of pulling clear.",
         "The late pressure never produced a winner after the match came back level."
-      ]
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=6eNsjaHBAgg",
+        "sourceName": "FIFA",
+        "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
+        "publishedAt": "2022-11-29T05:00:06-08:00",
+        "checkedAt": "2026-06-29T23:24:22-07:00"
+      }
     },
     {
       "id": "wc-2022-2022-11-28-matchday-9-south-korea-ghana",
@@ -102643,7 +102875,15 @@
         "Mohammed Salisu broke through for Ghana, shifting the match toward Ghana.",
         "Mohammed Kudus's 68' winner settled a tight match for Ghana.",
         "Mohammed Kudus scored twice as Ghana kept widening the gap."
-      ]
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=pb4nQnRaQx8",
+        "sourceName": "FIFA",
+        "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
+        "publishedAt": "2022-11-29T08:00:29-08:00",
+        "checkedAt": "2026-06-29T23:24:22-07:00"
+      }
     },
     {
       "id": "wc-2022-2022-11-28-matchday-9-brazil-switzerland",
@@ -102741,7 +102981,15 @@
         "Casemiro broke through for Brazil, shifting the match toward Brazil.",
         "Casemiro's 83' winner settled a tight match for Brazil.",
         "Brazil kept Switzerland out and closed the match with a clean sheet."
-      ]
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=nexIg1Xygg8",
+        "sourceName": "FIFA",
+        "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
+        "publishedAt": "2022-11-29T10:00:12-08:00",
+        "checkedAt": "2026-06-29T23:24:22-07:00"
+      }
     },
     {
       "id": "wc-2022-2022-11-28-matchday-9-portugal-uruguay",
@@ -102845,7 +103093,15 @@
         "Bruno Fernandes broke through for Portugal, shifting the match toward Portugal.",
         "Bruno Fernandes added the final word as Portugal pulled away.",
         "Bruno Fernandes scored twice as Portugal kept widening the gap."
-      ]
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=1ykn3lx-I0w",
+        "sourceName": "FIFA",
+        "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
+        "publishedAt": "2022-11-29T12:59:00-08:00",
+        "checkedAt": "2026-06-29T23:24:22-07:00"
+      }
     },
     {
       "id": "wc-2022-2022-11-29-matchday-10-ecuador-senegal",
@@ -102953,7 +103209,15 @@
         "Ismaïla Sarr broke through for Senegal, shifting the match toward Senegal.",
         "Kalidou Koulibaly's 70' winner settled a tight match for Senegal.",
         "Moisés Caicedo's 67' goal gave Ecuador a reply."
-      ]
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=Wj3NBjXB3AE",
+        "sourceName": "FIFA",
+        "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
+        "publishedAt": "2022-11-30T09:00:15-08:00",
+        "checkedAt": "2026-06-29T23:24:22-07:00"
+      }
     },
     {
       "id": "wc-2022-2022-11-29-matchday-10-netherlands-qatar",
@@ -103055,7 +103319,15 @@
         "Cody Gakpo broke through for Netherlands, shifting the match toward Netherlands.",
         "Frenkie de Jong added the final word as Netherlands pulled away.",
         "Netherlands kept Qatar out and closed the match with a clean sheet."
-      ]
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=TQfx6A-_BvA",
+        "sourceName": "FIFA",
+        "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
+        "publishedAt": "2022-11-30T09:00:17-08:00",
+        "checkedAt": "2026-06-29T23:24:22-07:00"
+      }
     },
     {
       "id": "wc-2022-2022-11-29-matchday-10-wales-england",
@@ -103161,7 +103433,15 @@
         "Marcus Rashford broke through for England, shifting the match toward England.",
         "Marcus Rashford added the final word as England pulled away.",
         "Marcus Rashford scored twice as England kept widening the gap."
-      ]
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=EDUwOfAni38",
+        "sourceName": "FIFA",
+        "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
+        "publishedAt": "2022-11-30T12:59:00-08:00",
+        "checkedAt": "2026-06-29T23:24:22-07:00"
+      }
     },
     {
       "id": "wc-2022-2022-11-29-matchday-10-iran-usa",
@@ -103259,7 +103539,15 @@
         "Christian Pulisic broke through for USA, shifting the match toward USA.",
         "Christian Pulisic's 38' winner settled a tight match for USA.",
         "USA kept Iran out and closed the match with a clean sheet."
-      ]
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=TH-FYkaMDNs",
+        "sourceName": "FIFA",
+        "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
+        "publishedAt": "2022-11-30T12:59:00-08:00",
+        "checkedAt": "2026-06-29T23:24:22-07:00"
+      }
     },
     {
       "id": "wc-2022-2022-11-30-matchday-11-australia-denmark",
@@ -103357,7 +103645,15 @@
         "Mathew Leckie broke through for Australia, shifting the match toward Australia.",
         "Mathew Leckie's 60' winner settled a tight match for Australia.",
         "Australia kept Denmark out and closed the match with a clean sheet."
-      ]
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=PYD42JzyuzI",
+        "sourceName": "FIFA",
+        "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
+        "publishedAt": "2022-12-01T09:00:22-08:00",
+        "checkedAt": "2026-06-29T23:24:22-07:00"
+      }
     },
     {
       "id": "wc-2022-2022-11-30-matchday-11-tunisia-france",
@@ -103455,7 +103751,15 @@
         "Wahbi Khazri broke through for Tunisia, shifting the match toward Tunisia.",
         "Wahbi Khazri's 58' winner settled a tight match for Tunisia.",
         "Tunisia kept France out and closed the match with a clean sheet."
-      ]
+      ],
+      "highlightVideoReview": {
+        "status": "not-found",
+        "platform": "youtube",
+        "sourceName": "FIFA",
+        "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
+        "checkedAt": "2026-06-29T23:24:22-07:00",
+        "note": "No clean official FIFA YouTube highlight-style video matched this fixture."
+      }
     },
     {
       "id": "wc-2022-2022-11-30-matchday-11-poland-argentina",
@@ -103557,7 +103861,15 @@
         "Alexis Mac Allister broke through for Argentina, shifting the match toward Argentina.",
         "Julián Álvarez added the final word as Argentina pulled away.",
         "Argentina kept Poland out and closed the match with a clean sheet."
-      ]
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=NpXbckymq5E",
+        "sourceName": "FIFA",
+        "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
+        "publishedAt": "2022-12-01T12:59:00-08:00",
+        "checkedAt": "2026-06-29T23:24:22-07:00"
+      }
     },
     {
       "id": "wc-2022-2022-11-30-matchday-11-saudi-arabia-mexico",
@@ -103665,7 +103977,15 @@
         "Henry Martín broke through for Mexico, shifting the match toward Mexico.",
         "Luis Chávez's 52' winner settled a tight match for Mexico.",
         "Salem Al-Dawsari's 90+5' goal gave Saudi Arabia a reply."
-      ]
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=n55qabXypdQ",
+        "sourceName": "FIFA",
+        "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
+        "publishedAt": "2022-12-01T12:59:00-08:00",
+        "checkedAt": "2026-06-29T23:24:22-07:00"
+      }
     },
     {
       "id": "wc-2022-2022-12-01-matchday-12-croatia-belgium",
@@ -103753,7 +104073,15 @@
         "Croatia and Belgium traded pressure without finding a goal.",
         "Both defenses kept the scoring lanes closed through full time.",
         "Croatia and Belgium stayed locked together until the final whistle."
-      ]
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=fsYrUKIJPy4",
+        "sourceName": "FIFA",
+        "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
+        "publishedAt": "2022-12-02T09:00:08-08:00",
+        "checkedAt": "2026-06-29T23:24:22-07:00"
+      }
     },
     {
       "id": "wc-2022-2022-12-01-matchday-12-canada-morocco",
@@ -103861,7 +104189,15 @@
         "Hakim Ziyech put Morocco ahead early, making Canada chase the match.",
         "Youssef En-Nesyri's 23' winner settled a tight match for Morocco.",
         "A 40' own goal gave Canada a reply."
-      ]
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=CDNBNFn7lm8",
+        "sourceName": "FIFA",
+        "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
+        "publishedAt": "2022-12-02T09:00:07-08:00",
+        "checkedAt": "2026-06-29T23:24:22-07:00"
+      }
     },
     {
       "id": "wc-2022-2022-12-01-matchday-12-japan-spain",
@@ -103968,7 +104304,15 @@
         "Álvaro Morata struck first for Spain, forcing Japan to chase the match.",
         "Ritsu Dōan brought Japan level before Ao Tanaka completed the turnaround.",
         "Spain's opener made Japan sweat, but the later chances finally turned."
-      ]
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=91eoGiLSCgY",
+        "sourceName": "FIFA",
+        "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
+        "publishedAt": "2022-12-02T12:59:09-08:00",
+        "checkedAt": "2026-06-29T23:24:22-07:00"
+      }
     },
     {
       "id": "wc-2022-2022-12-01-matchday-12-costa-rica-germany",
@@ -104087,7 +104431,15 @@
         "Serge Gnabry put Germany ahead early, making Costa Rica chase the match.",
         "Niclas Füllkrug added the final word as Germany pulled away.",
         "Kai Havertz scored twice as Germany kept widening the gap."
-      ]
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=wWQ260sYzlo",
+        "sourceName": "FIFA",
+        "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
+        "publishedAt": "2022-12-02T12:59:08-08:00",
+        "checkedAt": "2026-06-29T23:24:22-07:00"
+      }
     },
     {
       "id": "wc-2022-2022-12-02-matchday-13-ghana-uruguay",
@@ -104185,7 +104537,15 @@
         "Giorgian De Arrascaeta broke through for Uruguay, shifting the match toward Uruguay.",
         "Giorgian De Arrascaeta added the final word as Uruguay pulled away.",
         "Giorgian De Arrascaeta scored twice as Uruguay kept widening the gap."
-      ]
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=_WJV99FHSVI",
+        "sourceName": "FIFA",
+        "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
+        "publishedAt": "2022-12-03T09:15:07-08:00",
+        "checkedAt": "2026-06-29T23:24:22-07:00"
+      }
     },
     {
       "id": "wc-2022-2022-12-02-matchday-13-south-korea-portugal",
@@ -104293,7 +104653,15 @@
         "Ricardo Horta struck first for Portugal, forcing South Korea to chase the match.",
         "Young-gwon Kim brought South Korea level before Hee-chan Hwang completed the turnaround.",
         "Portugal's opener made South Korea sweat, but the later chances finally turned."
-      ]
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=DVNwiAPuPTY",
+        "sourceName": "FIFA",
+        "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
+        "publishedAt": "2022-12-03T09:15:08-08:00",
+        "checkedAt": "2026-06-29T23:24:22-07:00"
+      }
     },
     {
       "id": "wc-2022-2022-12-02-matchday-13-serbia-switzerland",
@@ -104408,7 +104776,15 @@
         "Xherdan Shaqiri put Switzerland ahead early, making Serbia chase the match.",
         "Remo Freuler's 48' winner settled a tight match for Switzerland.",
         "Dušan Vlahović's 35' goal gave Serbia a reply."
-      ]
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=PHegMuOT_t8",
+        "sourceName": "FIFA",
+        "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
+        "publishedAt": "2022-12-03T12:45:10-08:00",
+        "checkedAt": "2026-06-29T23:24:22-07:00"
+      }
     },
     {
       "id": "wc-2022-2022-12-02-matchday-13-cameroon-brazil",
@@ -104507,7 +104883,15 @@
         "Vincent Aboubakar broke through for Cameroon, shifting the match toward Cameroon.",
         "Vincent Aboubakar's 90+2' winner settled a tight match for Cameroon.",
         "Cameroon kept Brazil out and closed the match with a clean sheet."
-      ]
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=rFgLU123HTE",
+        "sourceName": "FIFA",
+        "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
+        "publishedAt": "2022-12-03T12:45:07-08:00",
+        "checkedAt": "2026-06-29T23:24:22-07:00"
+      }
     },
     {
       "id": "wc-2022-2022-12-03-round-of-16-netherlands-usa",
@@ -104618,7 +105002,15 @@
         "Memphis Depay put Netherlands ahead early, making USA chase the match.",
         "Denzel Dumfries added the final word as Netherlands pulled away.",
         "Haji Wright's 76' goal gave USA a reply."
-      ]
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=4WGpIOwkLA4",
+        "sourceName": "FIFA",
+        "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
+        "publishedAt": "2022-12-04T09:00:07-08:00",
+        "checkedAt": "2026-06-29T23:24:22-07:00"
+      }
     },
     {
       "id": "wc-2022-2022-12-03-round-of-16-argentina-australia",
@@ -104725,7 +105117,15 @@
         "Lionel Messi broke through for Argentina, shifting the match toward Argentina.",
         "Julián Álvarez's 57' winner settled a tight match for Argentina.",
         "A 77' own goal gave Australia a reply."
-      ]
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=KvSiRNO1BTY",
+        "sourceName": "FIFA",
+        "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
+        "publishedAt": "2022-12-04T12:45:08-08:00",
+        "checkedAt": "2026-06-29T23:24:22-07:00"
+      }
     },
     {
       "id": "wc-2022-2022-12-04-round-of-16-france-poland",
@@ -104838,7 +105238,15 @@
         "Olivier Giroud broke through for France, shifting the match toward France.",
         "Kylian Mbappé added the final word as France pulled away.",
         "Kylian Mbappé scored twice as France kept widening the gap."
-      ]
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=xnBr_gSPz8U",
+        "sourceName": "FIFA",
+        "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
+        "publishedAt": "2022-12-05T09:00:10-08:00",
+        "checkedAt": "2026-06-29T23:24:22-07:00"
+      }
     },
     {
       "id": "wc-2022-2022-12-04-round-of-16-england-senegal",
@@ -104944,7 +105352,15 @@
         "Jordan Henderson broke through for England, shifting the match toward England.",
         "Bukayo Saka added the final word as England pulled away.",
         "England kept Senegal out and closed the match with a clean sheet."
-      ]
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=lICZ6mQv4BM",
+        "sourceName": "FIFA",
+        "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
+        "publishedAt": "2022-12-05T12:59:06-08:00",
+        "checkedAt": "2026-06-29T23:24:22-07:00"
+      }
     },
     {
       "id": "wc-2022-2022-12-05-round-of-16-japan-croatia",
@@ -105054,7 +105470,15 @@
         "Daizen Maeda put Japan in front before Ivan Perišić answered for Croatia.",
         "Ivan Perišić's 55' equalizer eventually forced the shootout.",
         "Croatia won the shootout 3-1 after a 1-1 draw."
-      ]
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=R9Cyde5w0BE",
+        "sourceName": "FIFA",
+        "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
+        "publishedAt": "2022-12-06T09:30:04-08:00",
+        "checkedAt": "2026-06-29T23:24:22-07:00"
+      }
     },
     {
       "id": "wc-2022-2022-12-05-round-of-16-brazil-south-korea",
@@ -105169,7 +105593,15 @@
         "Vinícius Júnior put Brazil ahead early, making South Korea chase the match.",
         "Lucas Paquetá added the final word as Brazil pulled away.",
         "Brazil's attack kept finding space and turned the finish into a rout."
-      ]
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=c0-ZhEkEFtA",
+        "sourceName": "FIFA",
+        "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
+        "publishedAt": "2022-12-06T12:59:00-08:00",
+        "checkedAt": "2026-06-29T23:24:22-07:00"
+      }
     },
     {
       "id": "wc-2022-2022-12-06-round-of-16-morocco-spain",
@@ -105269,7 +105701,15 @@
         "Morocco and Spain stayed scoreless until penalties.",
         "Morocco won the shootout 3-0 after a 0-0 draw.",
         "Spain exited after penalties kept Morocco alive."
-      ]
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=NBDAna_qxY8",
+        "sourceName": "FIFA",
+        "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
+        "publishedAt": "2022-12-07T10:00:07-08:00",
+        "checkedAt": "2026-06-29T23:24:22-07:00"
+      }
     },
     {
       "id": "wc-2022-2022-12-06-round-of-16-portugal-switzerland",
@@ -105392,7 +105832,15 @@
         "Gonçalo Ramos put Portugal ahead early, making Switzerland chase the match.",
         "Rafael Leão added the final word as Portugal pulled away.",
         "Gonçalo Ramos scored three times as Portugal kept widening the gap."
-      ]
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=HbE96IMB9Vw",
+        "sourceName": "FIFA",
+        "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
+        "publishedAt": "2022-12-07T12:59:00-08:00",
+        "checkedAt": "2026-06-29T23:24:22-07:00"
+      }
     },
     {
       "id": "wc-2022-2022-12-09-quarter-finals-croatia-brazil",
@@ -105503,7 +105951,15 @@
         "Neymar put Brazil in front before Bruno Petković answered for Croatia.",
         "Bruno Petković's 117' equalizer eventually forced the shootout.",
         "Croatia won the shootout 4-2 after a 1-1 draw."
-      ]
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=-ncm0w6OO0w",
+        "sourceName": "FIFA",
+        "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
+        "publishedAt": "2026-06-08T06:30:00-07:00",
+        "checkedAt": "2026-06-29T23:15:07-07:00"
+      }
     },
     {
       "id": "wc-2022-2022-12-09-quarter-finals-netherlands-argentina",
@@ -105623,7 +106079,15 @@
         "Nahuel Molina put Argentina in front before Wout Weghorst answered for Netherlands.",
         "Wout Weghorst's 90+11' equalizer eventually forced the shootout.",
         "Argentina won the shootout 4-3 after a 2-2 draw."
-      ]
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=0i-gsQJg7jc",
+        "sourceName": "FIFA",
+        "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
+        "publishedAt": "2022-12-10T12:45:00-08:00",
+        "checkedAt": "2026-06-29T23:24:22-07:00"
+      }
     },
     {
       "id": "wc-2022-2022-12-10-quarter-finals-morocco-portugal",
@@ -105720,7 +106184,15 @@
         "Youssef En-Nesyri broke through for Morocco, shifting the match toward Morocco.",
         "Youssef En-Nesyri's 42' winner settled a tight match for Morocco.",
         "Morocco kept Portugal out and closed the match with a clean sheet."
-      ]
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=M766FGsv5do",
+        "sourceName": "FIFA",
+        "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
+        "publishedAt": "2022-12-11T09:00:10-08:00",
+        "checkedAt": "2026-06-29T23:24:22-07:00"
+      }
     },
     {
       "id": "wc-2022-2022-12-10-quarter-finals-england-france",
@@ -105827,7 +106299,15 @@
         "Aurélien Tchouaméni put France ahead early, making England chase the match.",
         "Olivier Giroud's 78' winner settled a tight match for France.",
         "Harry Kane's 54' penalty gave England a reply."
-      ]
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=Q-zmXSb0WKU",
+        "sourceName": "FIFA",
+        "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
+        "publishedAt": "2022-12-11T12:59:01-08:00",
+        "checkedAt": "2026-06-29T23:24:22-07:00"
+      }
     },
     {
       "id": "wc-2022-2022-12-13-semi-finals-argentina-croatia",
@@ -106156,7 +106636,15 @@
         "Joško Gvardiol put Croatia ahead early, making Morocco chase the match.",
         "Mislav Oršić's 42' winner settled a tight match for Croatia.",
         "Achraf Dari's 9' goal gave Morocco a reply."
-      ]
+      ],
+      "highlightVideoReview": {
+        "status": "not-found",
+        "platform": "youtube",
+        "sourceName": "FIFA",
+        "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
+        "checkedAt": "2026-06-29T23:24:22-07:00",
+        "note": "No clean official FIFA YouTube highlight-style video matched this fixture."
+      }
     },
     {
       "id": "wc-2022-2022-12-18-final-argentina-france",

@@ -2773,7 +2773,7 @@ try {
   await page.locator('[data-match-id="match-89-round-of-16-2026-07-04"]').click();
   const roundOf16DetailText = normalizeFlaggedText(await page.locator("#match-info").innerText());
   assert(
-    roundOf16ProjectedRowText.includes("Predicted") &&
+    !roundOf16ProjectedRowText.includes("Predicted") &&
       roundOf16DetailText.includes("Predicted matchup; participants come from current knockout-path estimates.") &&
       roundOf16DetailText.includes("Previous: Round of 32") &&
       roundOf16DetailText.includes("is scheduled.") &&
@@ -2782,7 +2782,7 @@ try {
       roundOf16DetailText.includes("Prediction") &&
       !roundOf16DetailText.includes("Previous: Group round") &&
       !roundOf16DetailText.includes("bracket details are not loaded yet"),
-    "Round of 16 and later match detail should mark projected selected matchups while keeping confirmed source matches scheduled."
+    "Round of 16 and later match rows should skip redundant predicted chips while projected details keep the explanatory note and confirmed source matches scheduled."
   );
   const roundOf16ContextMetrics = await page.locator("#match-info").evaluate((info) => ({
     contextFlags: info.querySelectorAll(".knockout-context-team-flag .flag").length,
@@ -2806,7 +2806,7 @@ try {
   await page.locator('[data-match-id="match-104-final-2026-07-19"]').click();
   const unresolvedFinalDetailText = normalizeFlaggedText(await page.locator("#match-info").innerText());
   assert(
-    unresolvedFinalRowText.includes("Predicted") &&
+    !unresolvedFinalRowText.includes("Predicted") &&
       unresolvedFinalDetailText.includes("Winner match 101 vs Winner match 102") &&
       unresolvedFinalDetailText.includes("Predicted matchup; participants come from current knockout-path estimates.") &&
       unresolvedFinalDetailText.includes("Previous: Semi-finals") &&
@@ -2826,7 +2826,7 @@ try {
   await page.locator('[data-match-id="match-103-bronze-final-2026-07-18"]').click();
   const unresolvedBronzeDetailText = normalizeFlaggedText(await page.locator("#match-info").innerText());
   assert(
-    unresolvedBronzeRowText.includes("Predicted") &&
+    !unresolvedBronzeRowText.includes("Predicted") &&
       unresolvedBronzeDetailText.includes("Runner-up match 101 vs Runner-up match 102") &&
       unresolvedBronzeDetailText.includes("Predicted matchup; participants come from current knockout-path estimates.") &&
       unresolvedBronzeDetailText.includes("Previous: Semi-finals") &&
@@ -5671,9 +5671,9 @@ try {
       tournamentCheck.m73OpenMatchId === "match-73-round-of-32-2026-06-28" &&
       tournamentCheck.m74OpenMatchId === expectedMatch74OpenMatchId &&
       tournamentCheck.m74Winner === "PAR" &&
-      tournamentCheck.m74ResultPills.join("|") === "1-1 • Penalties 4-3" &&
+      tournamentCheck.m74ResultPills.join("|") === "1-1 (4-3 pens)" &&
       tournamentCheck.m75Winner === "MAR" &&
-      tournamentCheck.m75ResultPills.join("|") === "1-1 • Penalties 3-2" &&
+      tournamentCheck.m75ResultPills.join("|") === "1-1 (3-2 pens)" &&
       !tournamentCheck.m73ProgressText.includes("Round of 32") &&
       tournamentCheck.likelihoodCount === expectedOutcomePillCount &&
       tournamentCheck.likelihoodNonNeutralCount === 0 &&
@@ -6000,7 +6000,7 @@ try {
       (check) =>
         check.seedLines.length === 0 &&
         check.match74OutcomeKeys.length === 0 &&
-        check.match74ResultPills.join("|") === "1-1 • Penalties 4-3" &&
+        check.match74ResultPills.join("|") === "1-1 (4-3 pens)" &&
         check.match74TieFlagCount === 0 &&
         check.match74PairJustifyContent === "flex-start" &&
         check.match74VenueCursor === "help" &&
@@ -6412,7 +6412,7 @@ try {
       [progressionResolved.m74Winner, progressionResolved.m77Winner].join("|") &&
       progressionResolved.m89Winner === progressionResolved.m74Winner &&
       progressionResolved.m97SourceTeamId === progressionResolved.m74Winner &&
-      progressionResolved.m89ResultPills.join("|") === "0-0 • Penalties 5-4" &&
+      progressionResolved.m89ResultPills.join("|") === "0-0 (5-4 pens)" &&
       progressionResolved.m89OutcomePillCount === 0 &&
       progressionResolved.m90TeamIds.join("|") === "CAN|NED" &&
       progressionResolved.m90Projected === false &&

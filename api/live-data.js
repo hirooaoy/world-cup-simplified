@@ -11,6 +11,7 @@ const DEFAULT_PROVIDER_TIMEOUT_MS = 8000;
 const DEFAULT_PROVIDER_MAX_PAGES = 5;
 const DEFAULT_LIVE_DATA_CACHE_SECONDS = 30 * 60;
 const DEFAULT_LIVE_DATA_STALE_SECONDS = 30 * 60;
+const DEFAULT_LIVE_DATA_SYNC_DEADLINE_MS = 7500;
 const FOOTBALL_DATA_PROVIDER_KEY = "footballData";
 const API_FOOTBALL_PROVIDER_KEY = "apiFootball";
 const SPORTMONKS_PROVIDER_KEY = "sportmonks";
@@ -32,6 +33,7 @@ const FIFA_DEFAULT_COMPETITION_ID = "17";
 const FIFA_DEFAULT_SEASON_ID = "285023";
 const FIFA_PROVIDER_KEY = "fifa";
 const FIFA_GOAL_EVENTS_SOURCE_PREFIX = "fifa-official-goal-events-auto";
+const DEFAULT_FIFA_LIVE_SCORE_TIMEOUT_MS = 3000;
 const DEFAULT_FIFA_GOAL_EVENTS_TIMEOUT_MS = 5000;
 const DEFAULT_FIFA_GOAL_EVENTS_MAX_FIXTURES = 8;
 const PROVIDER_ALIASES = {
@@ -100,81 +102,84 @@ export default async function handler(request, response) {
   }
 
   try {
-    const timeZone = process.env.SYNC_TIMEZONE || DEFAULT_TIME_ZONE;
-    const providerFixtures = await provider.fetchFixtures({
-      providerMap,
-      timeZone
-    });
-    const merge = mergeProviderFixtures({
-      checkedAt,
-      fixturesData,
-      provider,
-      providerFixtures,
-      providerMap,
-      teams: teamsData.teams
-    });
-    const officialScoreMerge = await mergeOfficialScoreCorrections({
-      checkedAt,
-      fixturesData: merge.fixturesData,
-      provider,
-      providerMap,
-      teams: teamsData.teams,
-      timeZone
-    });
-    const goalEventMerge = await mergeOfficialGoalEvents({
-      checkedAt,
-      fixturesData: officialScoreMerge.fixturesData,
-      teams: teamsData.teams,
-      timeZone
-    });
-    const mergedStandingsData = recomputeStandings({
-      checkedAt,
-      fixturesData: goalEventMerge.fixturesData,
-      provider,
-      standingsData,
-      teams: teamsData.teams,
-      tournamentData
-    });
-    const providerTournamentData = addProviderSource({
-      checkedAt,
-      provider,
-      tournamentData,
-      updateCount: merge.updateCount
-    });
-    const officialScoreTournamentData = addOfficialScoreSource({
-      checkedAt,
-      scoreMerge: officialScoreMerge,
-      tournamentData: providerTournamentData
-    });
-    const mergedTournamentData = addOfficialGoalEventsSource({
-      checkedAt,
-      goalEventMerge,
-      tournamentData: officialScoreTournamentData
-    });
-
-    sendJson(
-      response,
-      200,
-      {
-        fixturesData: goalEventMerge.fixturesData,
-        standingsData: mergedStandingsData,
-        tournamentData: mergedTournamentData,
-        syncStatus: {
+    const payload = await withTimeout(
+      (async () => {
+        const timeZone = process.env.SYNC_TIMEZONE || DEFAULT_TIME_ZONE;
+        const providerFixtures = await provider.fetchFixtures({
+          providerMap,
+          timeZone
+        });
+        const merge = mergeProviderFixtures({
           checkedAt,
-          goalEventFixtures: goalEventMerge.matchedCount,
-          goalEventReason: goalEventMerge.reason || undefined,
-          goalEventUpdates: goalEventMerge.updateCount,
-          matchedFixtures: merge.matchedCount,
-          ok: true,
-          officialScoreFixtures: officialScoreMerge.matchedCount,
-          officialScoreReason: officialScoreMerge.reason || undefined,
-          officialScoreUpdates: officialScoreMerge.updateCount,
-          provider: provider.name,
-          updatedFixtures: merge.updateCount
-        }
-      },
-      cacheControl
+          fixturesData,
+          provider,
+          providerFixtures,
+          providerMap,
+          teams: teamsData.teams
+        });
+        const officialScoreMerge = await mergeOfficialScoreCorrections({
+          checkedAt,
+          fixturesData: merge.fixturesData,
+          provider,
+          providerMap,
+          teams: teamsData.teams,
+          timeZone
+        });
+        const goalEventMerge = await mergeOfficialGoalEvents({
+          checkedAt,
+          fixturesData: officialScoreMerge.fixturesData,
+          teams: teamsData.teams,
+          timeZone
+        });
+        const mergedStandingsData = recomputeStandings({
+          checkedAt,
+          fixturesData: goalEventMerge.fixturesData,
+          provider,
+          standingsData,
+          teams: teamsData.teams,
+          tournamentData
+        });
+        const providerTournamentData = addProviderSource({
+          checkedAt,
+          provider,
+          tournamentData,
+          updateCount: merge.updateCount
+        });
+        const officialScoreTournamentData = addOfficialScoreSource({
+          checkedAt,
+          scoreMerge: officialScoreMerge,
+          tournamentData: providerTournamentData
+        });
+        const mergedTournamentData = addOfficialGoalEventsSource({
+          checkedAt,
+          goalEventMerge,
+          tournamentData: officialScoreTournamentData
+        });
+
+        return {
+          fixturesData: goalEventMerge.fixturesData,
+          standingsData: mergedStandingsData,
+          tournamentData: mergedTournamentData,
+          syncStatus: {
+            checkedAt,
+            goalEventFixtures: goalEventMerge.matchedCount,
+            goalEventReason: goalEventMerge.reason || undefined,
+            goalEventUpdates: goalEventMerge.updateCount,
+            matchedFixtures: merge.matchedCount,
+            ok: true,
+            officialScoreFixtures: officialScoreMerge.matchedCount,
+            officialScoreReason: officialScoreMerge.reason || undefined,
+            officialScoreUpdates: officialScoreMerge.updateCount,
+            provider: provider.name,
+            updatedFixtures: merge.updateCount
+          }
+        };
+      })(),
+      getLiveDataSyncDeadlineMs(),
+      "Live data sync timed out before the serverless deadline"
     );
+
+    sendJson(response, 200, payload, cacheControl);
   } catch (error) {
     sendJson(
       response,
@@ -225,6 +230,23 @@ function getLiveDataCacheControl(provider = {}) {
     provider.defaultStaleSeconds || DEFAULT_LIVE_DATA_STALE_SECONDS
   );
   return `public, s-maxage=${freshSeconds}, stale-while-revalidate=${staleSeconds}`;
+}
+
+function getLiveDataSyncDeadlineMs() {
+  return positiveInteger(process.env.LIVE_DATA_SYNC_DEADLINE_MS, DEFAULT_LIVE_DATA_SYNC_DEADLINE_MS);
+}
+
+function withTimeout(promise, timeoutMs, message) {
+  let timeoutId;
+  const timeout = new Promise((_, reject) => {
+    timeoutId = setTimeout(() => {
+      reject(new Error(message));
+    }, timeoutMs);
+  });
+
+  return Promise.race([promise, timeout]).finally(() => {
+    clearTimeout(timeoutId);
+  });
 }
 
 async function readJson(fileName) {
@@ -737,7 +759,11 @@ async function fetchFifaOfficialFixtures({ timeZone }) {
   url.searchParams.set("from", startKey);
   url.searchParams.set("to", shiftDayKey(endKey, 1));
 
-  const payload = await fetchJsonWithTimeout(url, "FIFA official live score");
+  const payload = await fetchJsonWithTimeout(
+    url,
+    "FIFA official live score",
+    positiveInteger(process.env.FIFA_LIVE_SCORE_TIMEOUT_MS, DEFAULT_FIFA_LIVE_SCORE_TIMEOUT_MS)
+  );
   return asArray(payload.Results || payload.results || payload);
 }
 
@@ -1501,11 +1527,10 @@ async function fetchOfficialGoalTimeline(idMatch) {
   return fetchJsonWithTimeout(url, `FIFA timeline ${idMatch}`);
 }
 
-async function fetchJsonWithTimeout(url, label) {
-  const timeoutMs = positiveInteger(
-    process.env.FIFA_GOAL_EVENTS_TIMEOUT_MS,
-    DEFAULT_FIFA_GOAL_EVENTS_TIMEOUT_MS
-  );
+async function fetchJsonWithTimeout(url, label, timeoutMs = positiveInteger(
+  process.env.FIFA_GOAL_EVENTS_TIMEOUT_MS,
+  DEFAULT_FIFA_GOAL_EVENTS_TIMEOUT_MS
+)) {
   const apiResponse = await fetchWithTimeout(url, timeoutMs, label);
   const payload = await apiResponse.json().catch(() => ({}));
 

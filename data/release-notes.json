@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-29T23:23:22-07:00",
+  "updatedAt": "2026-06-29T23:23:38-07:00",
   "releases": [
     {
       "date": "2026-06-29",
@@ -16,7 +16,9 @@
         "Chinese result bullets now translate penalty-shootout and archive recap sentence shapes through shared rules, with copy audits covering both current and historical tournaments.",
         "Tied knockout results now say when a team advanced after a draw if the official feed has not exposed a shootout total yet.",
         "Next-round knockout cards now name an already-known future opponent with the result they advanced by, while unresolved paths still say winner of the pending matchup.",
-        "Live FIFA score updates now carry penalty-shootout totals too, and knockout rows show them in the compact 1-1 (3-4 pens) style with the same freshness label as the match score.",
+        "Live FIFA score updates now carry penalty-shootout totals too, knockout rows show the compact 1-1 (3-4 pens) style with freshness, and bracket result pills now match that scoreline style.",
+        "The live-data endpoint now fails safely to the committed fallback snapshot instead of serving a Vercel timeout page when FIFA's official API is slow.",
+        "Knockout match rows no longer show the redundant Predicted chip when unresolved Winner match paths already make the projection clear.",
         "Brazil vs Japan now has richer story bullets for Japan's defensive pressure, the early Sano opener, and Brazil's late Martinelli winner.",
         "Historical World Cup result pages now use generated story bullets too, so archive matches such as Russia vs Egypt 2018 mention the own goal, Dzyuba finish, and Salah penalty instead of generic points lines."
       ],
@@ -31,7 +33,9 @@
         "中文赛果速览现在会通过共享规则翻译点球大战和存档赛事句式，文案审计也会同时覆盖当前赛事与历届世界杯。",
         "淘汰赛打平但官方数据尚未给出点球总比分时，现在会说明哪支球队在平局后晋级。",
         "淘汰赛下一轮卡片现在会在未来对手已确定时写出该队和晋级比分，路径未决时仍保留“对阵某场胜者”的说法。",
-        "FIFA 实时比分更新现在也会带上点球大战总比分，淘汰赛行会用紧凑的 1-1（点球3-4）样式展示，并和常规比分使用同一个新鲜度提示刷新。",
+        "FIFA 实时比分更新现在也会带上点球大战总比分，淘汰赛行会用带新鲜度提示的 1-1（3-4 点球）样式展示，对阵图赛果标签也会匹配这种比分样式。",
+        "当 FIFA 官方 API 响应较慢时，实时数据接口现在会安全回退到已提交的备用数据，而不是显示 Vercel 超时页面。",
+        "淘汰赛比赛行在“某场胜者”等路径已经说明未决时，不再额外显示冗余的“预测”标签。",
         "巴西对日本现在加入更具体的比赛故事，包括日本的防守压力、佐野海舟先开纪录，以及马丁内利最后阶段制胜。",
         "历届世界杯赛果页现在也使用生成的故事速览，因此俄罗斯对埃及这样的2018存档比赛会提到乌龙球、久巴进球和萨拉赫点球，而不是泛泛的积分文案。"
       ]
@@ -55,7 +59,7 @@
         "Knockout match info now removes inline flags from Previous and Next path copy, then adds compact FIFA ranking pills beside the referenced opponent countries.",
         "Round of 32 group-round summaries now read with scores in the sentence, such as South Africa won 1-0 against South Korea, while the selected matchup teams avoid duplicate ranking pills.",
         "Previous and Next path ranking pills now sit vertically centered, closer to the team name, and spaced away from following punctuation.",
-        "Projected knockout matchups now show a Predicted status in match rows and details, keep confirmed source matches scheduled, and switch Final or third-place teams to real winners or runners-up once those results are in.",
+        "Projected knockout matchups now explain their predicted status in match details, keep confirmed source matches scheduled, and switch Final or third-place teams to real winners or runners-up once those results are in.",
         "Completed knockout tiles now mute the finished card and losing team, keep the advancing team in color, and replace prediction pills with a compact final-score pill.",
         "Completed knockout result notes now describe advancement and elimination, so Round of 32 and later matches no longer use group-stage points language.",
         "Catch Up now opens immediately with skeleton rows, then fills in the news feed after the items finish rendering.",
@@ -67,7 +71,7 @@
         "淘汰赛比赛信息现在移除“上一轮”和“下一轮”路径文案里的行内旗帜，并在被提到的对手国家旁加入紧凑的FIFA排名标签。",
         "32强的小组赛总结现在把比分直接写进句子，例如南非1-0击败韩国，同时当前对阵双方不会重复显示排名标签。",
         "“上一轮”和“下一轮”路径里的排名标签现在会与周围句子文字垂直居中，对球队名更贴近，并与后面的标点留出间距。",
-        "预测中的淘汰赛对阵现在会在比赛行和详情中显示“预测”状态，已确认的来源比赛仍标为赛程，并在决赛或季军赛来源结果产生后自动切换为真实胜者或负者。",
+        "预测中的淘汰赛对阵现在会在比赛详情中说明“预测”状态，已确认的来源比赛仍标为赛程，并在决赛或季军赛来源结果产生后自动切换为真实胜者或负者。",
         "已完赛的淘汰赛卡片现在会弱化整张卡和出局球队，保留晋级球队的彩色显示，并用紧凑的最终比分标签替代预测标签。",
         "已完赛的淘汰赛结果说明现在改为描述晋级和出局，因此32强及后续比赛不再使用小组赛积分文案。",
         "“速览”现在会立即打开并显示骨架行，然后在新闻列表渲染完成后填入内容。",
