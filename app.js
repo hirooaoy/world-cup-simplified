@@ -9970,13 +9970,14 @@ function renderStandingTeam(team, options = {}) {
   const hasStandingBadges = Boolean(trailingHtml.trim());
   const teamClasses = `standing-team${hasStandingBadges ? " has-standing-badges" : ""}`;
   const tooltipAttributes = fullName ? ` data-tooltip="${escapeHtml(fullName)}"` : "";
+  const teamIdAttribute = team?.id ? ` data-team-id="${escapeHtml(team.id)}"` : "";
   const rankHtml = showRank ? renderRank(team) : "";
   const statusBadgeHtml = trailingHtml.trim();
   const nameLineRankHtml = hasStandingBadges ? "" : rankHtml;
   const badgeRowHtml = hasStandingBadges ? `${rankHtml}${statusBadgeHtml}` : statusBadgeHtml;
 
   return `
-    <span class="${teamClasses}" aria-label="${escapeHtml(fullName)}"${tooltipAttributes}>
+    <span class="${teamClasses}"${teamIdAttribute} aria-label="${escapeHtml(fullName)}"${tooltipAttributes}>
       ${renderFlag(team)}
       <span class="standing-team-copy">
         <span class="standing-name-line">

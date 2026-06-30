@@ -3069,16 +3069,15 @@ try {
   });
   await page.waitForSelector(".match-row");
   await openMatchDetailById("bosnia-qatar-2026-06-24", "Qatar");
-  const qatarStandingTeamSelector = "#match-info .standings-table tbody .standing-team";
+  const qatarStandingTeamSelector = '#match-info .standings-table tbody .standing-team[data-team-id="QAT"]';
   const readQatarStandingBadgeLayout = async () => {
     const layoutHandle = await page.waitForFunction((selector) => {
       const teams = [...document.querySelectorAll(selector)];
-      const isVisibleQatarTeam = (team) => {
+      const isVisibleTeam = (team) => {
         const bounds = team.getBoundingClientRect();
         const style = getComputedStyle(team);
 
         return (
-          team.textContent.includes("Qatar") &&
           bounds.width > 0 &&
           bounds.height > 0 &&
           style.display !== "none" &&
@@ -3086,19 +3085,19 @@ try {
         );
       };
       const candidates = teams
-        .filter((team) => team.textContent.includes("Qatar"))
         .map((team) => {
           const bounds = team.getBoundingClientRect();
           const style = getComputedStyle(team);
 
           return {
+            teamId: team.getAttribute("data-team-id") || "",
             height: Math.round(bounds.height),
             text: team.textContent.replace(/\s+/g, " ").trim(),
             visible: bounds.width > 0 && bounds.height > 0 && style.display !== "none" && style.visibility !== "hidden",
             width: Math.round(bounds.width)
           };
         });
-      const team = teams.find(isVisibleQatarTeam);
+      const team = teams.find(isVisibleTeam);
 
       if (!team) {
         return false;
