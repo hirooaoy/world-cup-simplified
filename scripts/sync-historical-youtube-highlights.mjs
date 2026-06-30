@@ -11,6 +11,7 @@ const FIFA_SOURCE_NAME = "FIFA";
 const TIME_ZONE = "America/Los_Angeles";
 const SEARCH_DELAY_MS = 150;
 const WATCH_DELAY_MS = 100;
+const FETCH_RETRY_COUNT = 3;
 const MAX_RESULTS_PER_SEARCH = 12;
 const MAX_VIDEO_SECONDS = 25 * 60;
 const MIN_VIDEO_SECONDS = 45;
@@ -447,19 +448,32 @@ function evaluateCandidate(fixture, candidate, metadata) {
 }
 
 async function fetchText(url) {
-  const response = await fetch(url, {
-    headers: {
-      "Accept-Language": "en-US,en;q=0.9",
-      "User-Agent":
-        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36"
-    }
-  });
+  let lastError = null;
 
-  if (!response.ok) {
-    throw new Error(`${response.status} ${response.statusText}`);
+  for (let attempt = 1; attempt <= FETCH_RETRY_COUNT; attempt += 1) {
+    try {
+      const response = await fetch(url, {
+        headers: {
+          "Accept-Language": "en-US,en;q=0.9",
+          "User-Agent":
+            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36"
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error(`${response.status} ${response.statusText}`);
+      }
+
+      return response.text();
+    } catch (error) {
+      lastError = error;
+      if (attempt < FETCH_RETRY_COUNT) {
+        await sleep(500 * attempt);
+      }
+    }
   }
 
-  return response.text();
+  throw lastError || new Error("fetch failed");
 }
 
 async function searchYouTube(query, source) {

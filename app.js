@@ -1,4 +1,4 @@
-const DATA_VERSION = "2026-06-29-result-recaps";
+const DATA_VERSION = "2026-06-29-historical-highlights";
 const DATA_URLS = {
   adminMessage: `data/admin-message.json?v=${DATA_VERSION}`,
   fixtures: `data/fixtures.json?v=${DATA_VERSION}`,
