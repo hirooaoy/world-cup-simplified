@@ -21,7 +21,8 @@
         "Knockout match rows no longer show the redundant Predicted chip when unresolved Winner match paths already make the projection clear.",
         "Brazil vs Japan now has richer story bullets for Japan's defensive pressure, the early Sano opener, and Brazil's late Martinelli winner.",
         "Historical World Cup result pages now use generated story bullets too, so archive matches such as Russia vs Egypt 2018 mention the own goal, Dzyuba finish, and Salah penalty instead of generic points lines.",
-        "Archived World Cup Result blocks now match current-match recap structure with a semibold score line, scorer row, bullet story facts, and player-card mentions that do not jump to the raw GitHub dataset."
+        "Archived World Cup Result blocks now match current-match recap structure with a semibold score line, scorer row, bullet story facts, and player-card mentions that do not jump to the raw GitHub dataset.",
+        "Archived knockout match context now uses the round name directly instead of the extra Knockout context archive heading."
       ],
       "highlightsZh": [
         "完赛比赛的“赛果”区现在显示半粗比分句、进球时间线，以及三条不带表情符号的文字速览。",
@@ -39,7 +40,8 @@
         "淘汰赛比赛行在“某场胜者”等路径已经说明未决时，不再额外显示冗余的“预测”标签。",
         "巴西对日本现在加入更具体的比赛故事，包括日本的防守压力、佐野海舟先开纪录，以及马丁内利最后阶段制胜。",
         "历届世界杯赛果页现在也使用生成的故事速览，因此俄罗斯对埃及这样的2018存档比赛会提到乌龙球、久巴进球和萨拉赫点球，而不是泛泛的积分文案。",
-        "历届世界杯存档的“赛果”区现在与当前比赛保持一致：半粗比分句、进球时间线、项目符号故事事实，以及不会跳转到原始 GitHub 数据集的球员卡片提及。"
+        "历届世界杯存档的“赛果”区现在与当前比赛保持一致：半粗比分句、进球时间线、项目符号故事事实，以及不会跳转到原始 GitHub 数据集的球员卡片提及。",
+        "历届世界杯存档的淘汰赛背景现在直接使用轮次名称，不再显示额外的“淘汰赛背景 / 存档”标题。"
       ]
     },
     {

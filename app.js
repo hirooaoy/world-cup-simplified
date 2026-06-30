@@ -1,4 +1,4 @@
-const DATA_VERSION = "2026-06-29-archive-result-consistency";
+const DATA_VERSION = "2026-06-29-archive-match-consistency";
 const DATA_URLS = {
   adminMessage: `data/admin-message.json?v=${DATA_VERSION}`,
   fixtures: `data/fixtures.json?v=${DATA_VERSION}`,
@@ -15932,14 +15932,14 @@ function renderHistoricalBracketMatch(fixture, selectedId) {
   `;
 }
 
-function renderHistoricalBracketList(label, fixtures, selectedId) {
+function renderHistoricalBracketList(label, fixtures, selectedId, options = {}) {
   if (!fixtures.length) {
     return "";
   }
 
   return `
     <article>
-      <h4>${escapeHtml(localizeText(label))}</h4>
+      ${options.hideHeading ? "" : `<h4>${escapeHtml(localizeText(label))}</h4>`}
       <ul>
         ${fixtures.map((fixture) => renderHistoricalBracketMatch(fixture, selectedId)).join("")}
       </ul>
@@ -15952,9 +15952,9 @@ function renderHistoricalBracketContext(match) {
 
   return `
     <section class="info-block">
-      <h3>${escapeHtml(localizeText("Knockout context"))} <span class="section-note">${escapeHtml(localizeText("archive"))}</span></h3>
+      <h3>${escapeHtml(localizeText(match.round || "Round path"))}</h3>
       <div class="historical-bracket">
-        ${renderHistoricalBracketList(match.round || "This round", currentRound, match.id)}
+        ${renderHistoricalBracketList(match.round || "This round", currentRound, match.id, { hideHeading: true })}
         ${renderHistoricalBracketList(secondaryLabel, secondaryRound, match.id)}
       </div>
     </section>

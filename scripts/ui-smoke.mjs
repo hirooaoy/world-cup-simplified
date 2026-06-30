@@ -3519,10 +3519,12 @@ try {
   await page.locator(".match-row").first().click();
   const historicalKnockoutDetailText = await page.locator("#match-info").innerText();
   assert(
-    historicalKnockoutDetailText.includes("Knockout context") &&
+    !historicalKnockoutDetailText.includes("Knockout context") &&
+      !historicalKnockoutDetailText.includes("archive") &&
+      historicalKnockoutDetailText.includes("Semi-finals") &&
       historicalKnockoutDetailText.includes("France vs Morocco") &&
       historicalKnockoutDetailText.includes("Argentina vs France"),
-    "Historical knockout matches should show bracket context."
+    "Historical knockout matches should show bracket context without the archive-only Knockout context heading."
   );
   assert(
     !historicalKnockoutDetailText.includes("Half-time") &&
