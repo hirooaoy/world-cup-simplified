@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-01T02:50:34.104Z",
+  "updatedAt": "2026-07-01T07:06:48.509Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -10830,7 +10830,7 @@
       "homeSlot": "Group A winner",
       "awaySlot": "Group C/E/F/H/I third place",
       "venue": "Mexico City Stadium",
-      "status": "LIVE",
+      "status": "FT",
       "h2h": {
         "status": "loaded",
         "sourceId": "national-football-teams-h2h-sync-2026-06-30",
@@ -12462,7 +12462,8 @@
           "matchId": "400021531",
           "matchNumber": 92
         }
-      }
+      },
+      "homeTeamId": "MEX"
     },
     {
       "id": "match-93-round-of-16-2026-07-06",
