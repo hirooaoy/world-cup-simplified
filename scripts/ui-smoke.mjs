@@ -5335,34 +5335,96 @@ try {
     catchUpKaneDecoration === "underline" && catchUpKaneDecorationStyle === "dotted",
     "Catch-up player mentions should use the same soft dotted underline as paragraph mentions."
   );
-  await catchUpKaneLink.evaluate((link) => {
+  const catchUpKaneCardState = await catchUpKaneLink.evaluate((link) => {
     const playerHover = link.closest(".player-hover");
-    const enterEvent = typeof PointerEvent === "function"
-      ? new PointerEvent("pointerenter", {
-          bubbles: true,
-          cancelable: true,
-          composed: true,
-          pointerType: "mouse"
-        })
-      : new MouseEvent("pointerenter", {
-          bubbles: true,
-          cancelable: true,
-          composed: true
-        });
-    playerHover?.dispatchEvent(enterEvent);
+    const originalMatchMedia = window.matchMedia?.bind(window);
+    const restoredMatchMedia = window.matchMedia;
+
+    if (originalMatchMedia) {
+      window.matchMedia = (query) => {
+        const result = originalMatchMedia(query);
+        if (!/(hover:\s*none|pointer:\s*coarse)/.test(String(query))) {
+          return result;
+        }
+
+        return {
+          media: result.media || String(query),
+          matches: false,
+          onchange: null,
+          addListener: result.addListener?.bind(result) || (() => {}),
+          removeListener: result.removeListener?.bind(result) || (() => {}),
+          addEventListener: result.addEventListener?.bind(result) || (() => {}),
+          removeEventListener: result.removeEventListener?.bind(result) || (() => {}),
+          dispatchEvent: result.dispatchEvent?.bind(result) || (() => false)
+        };
+      };
+    }
+
+    try {
+      const enterEvent = typeof PointerEvent === "function"
+        ? new PointerEvent("pointerenter", {
+            bubbles: true,
+            cancelable: true,
+            composed: true,
+            pointerType: "mouse"
+          })
+        : new MouseEvent("pointerenter", {
+            bubbles: true,
+            cancelable: true,
+            composed: true
+          });
+      playerHover?.dispatchEvent(enterEvent);
+    } finally {
+      if (originalMatchMedia) {
+        window.matchMedia = restoredMatchMedia;
+      }
+    }
+
+    const card = document.querySelector(".player-card-floating");
+    const styles = card ? getComputedStyle(card) : null;
+    const box = card?.getBoundingClientRect();
+
+    return {
+      ariaHidden: card?.getAttribute("aria-hidden") || "",
+      box: box
+        ? {
+            height: box.height,
+            width: box.width,
+            x: box.x,
+            y: box.y
+          }
+        : null,
+      className: card?.className || "",
+      hasPlayerHover: Boolean(playerHover),
+      originalTouchMode: originalMatchMedia?.("(hover: none), (pointer: coarse)").matches ?? null,
+      text: card?.textContent?.replace(/\s+/g, " ").trim().slice(0, 160) || "",
+      visible: Boolean(
+        card &&
+          card.classList.contains("is-visible") &&
+          styles &&
+          styles.display !== "none" &&
+          styles.visibility !== "hidden" &&
+          box &&
+          box.width > 0 &&
+          box.height > 0
+      ),
+      viewport: {
+        height: window.innerHeight,
+        width: window.innerWidth
+      }
+    };
   });
-  const catchUpKaneCard = catchUpCheck.page.locator(".player-card-floating:visible");
-  await catchUpKaneCard.waitFor({ state: "visible" });
-  const catchUpKaneCardBox = await catchUpKaneCard.boundingBox();
-  const catchUpViewport = catchUpCheck.page.viewportSize();
+  const catchUpKaneCardBox = catchUpKaneCardState.box;
+  const catchUpViewport = catchUpKaneCardState.viewport;
   assert(
+    catchUpKaneCardState.visible &&
     catchUpKaneCardBox &&
       catchUpViewport &&
       catchUpKaneCardBox.x >= 0 &&
       catchUpKaneCardBox.y >= 0 &&
       catchUpKaneCardBox.x + catchUpKaneCardBox.width <= catchUpViewport.width &&
       catchUpKaneCardBox.y + catchUpKaneCardBox.height <= catchUpViewport.height,
-    `Catch-up player cards should be placed within the viewport. Measured ${JSON.stringify({ box: catchUpKaneCardBox, viewport: catchUpViewport })}.`
+    `Catch-up player cards should be placed within the viewport. Measured ${JSON.stringify(catchUpKaneCardState)}.`
   );
   await catchUpCheck.page.locator("#settings-button").click();
   await catchUpCheck.page.locator('[data-language="zh"]').click();
