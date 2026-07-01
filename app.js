@@ -18081,7 +18081,7 @@ function renderRoundOf32PathContext(match, context) {
     .join("");
 
   return `
-    <section class="info-block">
+    <section class="info-block match-previous-block has-section-divider">
       <h3>${escapeHtml(heading)}</h3>
       <ul class="result-highlights knockout-context-list">
         ${rows}
@@ -18272,7 +18272,7 @@ function renderLaterKnockoutPathContext(match, context) {
     : `<li>${escapeHtml(localizeText("No loaded source matches yet."))}</li>`;
 
   return `
-    <section class="info-block">
+    <section class="info-block match-previous-block has-section-divider">
       <h3>${escapeHtml(heading)}</h3>
       <ul class="result-highlights knockout-context-list">
         ${rows}
@@ -18924,7 +18924,7 @@ function renderHistoricalPreviousKnockoutContext(match) {
     : groupRows;
 
   return `
-    <section class="info-block">
+    <section class="info-block match-previous-block has-section-divider">
       <h3>${escapeHtml(heading)}</h3>
       <ul class="result-highlights knockout-context-list">
         ${rows.join("")}
