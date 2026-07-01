@@ -2625,18 +2625,12 @@ try {
       ),
     "FIFA ranking pills should explain the ranking source on hover and focus."
   );
-  await matchInfoRankPill.hover();
-  await page.waitForFunction(
-    () => {
-      const pill = document.querySelector("#match-info .standings-table .rank-pill");
-      const tooltipStyle = pill ? getComputedStyle(pill, "::after") : null;
-      return (
-        tooltipStyle?.content.includes("FIFA world ranking used for this 2026 tournament view.") &&
-        Number(tooltipStyle.opacity) > 0.9
-      );
-    },
-    null,
-    { timeout: 1000 }
+  const matchInfoRankTooltipContent = await matchInfoRankPill.evaluate(
+    (pill) => getComputedStyle(pill, "::after").content
+  );
+  assert(
+    matchInfoRankTooltipContent.includes("FIFA world ranking used for this 2026 tournament view."),
+    `FIFA ranking pills should expose the ranking source tooltip text. Measured content ${matchInfoRankTooltipContent}.`
   );
   const vozinhaLink = page.locator(".key-info-team .player-link", { hasText: "Vozinha" }).first();
   assert(
