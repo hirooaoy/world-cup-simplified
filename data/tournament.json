@@ -832,6 +832,20 @@
       "checkedAt": "2026-06-30T16:41:40-07:00"
     },
     {
+      "id": "ap-norway-cote-divoire-result-2026-06-30",
+      "label": "AP Norway vs Côte d'Ivoire match report",
+      "url": "https://apnews.com/article/world-cup-norway-ivory-coast-score-ea4cf42d9dcdd4c1e485d0263da438dd",
+      "type": "cross-check",
+      "checkedAt": "2026-06-30T18:32:13-07:00"
+    },
+    {
+      "id": "guardian-cote-divoire-norway-result-2026-06-30",
+      "label": "Guardian Côte d'Ivoire vs Norway match report",
+      "url": "https://www.theguardian.com/football/2026/jun/30/cote-d-ivoire-norway-world-cup-2026-last-32-match-report",
+      "type": "cross-check",
+      "checkedAt": "2026-06-30T18:32:13-07:00"
+    },
+    {
       "id": "fifa-goal-events-sync-2026-06-23",
       "label": "FIFA official goal event timeline sync",
       "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/match-schedule-fixtures-results-teams-stadiums",

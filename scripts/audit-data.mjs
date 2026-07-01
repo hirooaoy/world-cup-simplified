@@ -178,6 +178,10 @@ for (const fixture of fixtures) {
     failures.push(`${label} is FT but has no score.`);
   }
 
+  if (!["LIVE", "FT"].includes(fixture.status) && (fixture.score || fixture.scoreDetails || fixture.scoreUpdatedAt)) {
+    failures.push(`${label} is ${fixture.status} but carries score data. Remove the score fields until live or final status is verified.`);
+  }
+
   if (shouldAuditEnrichment && !fixture.projection) {
     warnings.push(`${label} has no projection data.`);
   }

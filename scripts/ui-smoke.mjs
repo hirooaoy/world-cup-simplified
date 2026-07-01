@@ -4645,6 +4645,12 @@ try {
               fixture.status = "FT";
               fixture.score ||= { home: 0, away: 0 };
             }
+
+            if (fixture.id === nextScheduledFixture.id) {
+              fixture.status = "SCHEDULED";
+              fixture.score = { home: 0, away: 0 };
+              fixture.scoreUpdatedAt = beforeKickoff.toISOString();
+            }
           }
         }
       }
@@ -4672,6 +4678,30 @@ try {
     assert(
       upNextPillLabels.every((label) => label === "Up next"),
       "Every Up next pill should use the expected label."
+    );
+    const upNextScoreLeakCheck = await upNextCheck.page.locator(".match-row.is-next").evaluateAll((rows) =>
+      rows.map((row) => ({
+        ariaLabel: row.getAttribute("aria-label") || "",
+        fixtureId: row.dataset.matchId || "",
+        liveCount: row.querySelectorAll(".live-pill").length,
+        pendingCount: row.querySelectorAll(".score-status").length,
+        scoreCount: row.querySelectorAll(".match-score").length,
+        text: row.textContent.replace(/\s+/g, " ").trim(),
+        upNextCount: row.querySelectorAll(".up-next-pill").length
+      }))
+    );
+    assert(
+      upNextScoreLeakCheck.length === nextScheduledFixtureIds.length &&
+        upNextScoreLeakCheck.every(
+          (row) =>
+            row.upNextCount === 1 &&
+            row.scoreCount === 0 &&
+            row.liveCount === 0 &&
+            row.pendingCount === 0 &&
+            !/\b\d+\s*-\s*\d+\b/.test(row.text) &&
+            !/\b\d+\s*-\s*\d+\b|current score|final score/i.test(row.ariaLabel)
+        ),
+      `Up next rows should not render or announce score, live, or pending pills, even when a provider sends a 0-0 shell. Measured ${JSON.stringify(upNextScoreLeakCheck)}.`
     );
     for (const width of [390, 430]) {
       await upNextCheck.page.setViewportSize({ width, height: 844 });
@@ -5616,6 +5646,10 @@ try {
     (await page.locator("#standings-heading").innerText()).replace(/\s+/g, " ").trim() ===
       "2026",
     "The current standings heading should show just the selected year."
+  );
+  assert(
+    (await page.locator("#standings-heading").getAttribute("aria-label")) === "2026",
+    "The current standings heading label should not add a redundant Standings suffix."
   );
   const standingsYearChevron = await page.locator("#standings-year-button").evaluate((button) => {
     const style = getComputedStyle(button, "::after");
@@ -7196,6 +7230,10 @@ try {
     "Choosing a past year should update the standings heading to just that year."
   );
   assert(
+    (await page.locator("#standings-heading").getAttribute("aria-label")) === "2022",
+    "Choosing a past year should keep the standings heading label to just that year."
+  );
+  assert(
     new URL(page.url()).searchParams.get("standingsYear") === "2022",
     "The selected standings year should be reflected in the URL."
   );
@@ -7295,9 +7333,19 @@ try {
         [...card.querySelectorAll(".standing-name")].map((team) => team.textContent.trim())
       ])
     );
+    const advancingGroups = new Map(
+      cards.map((card) => [
+        card.querySelector("h2")?.textContent.trim(),
+        [...card.querySelectorAll("tbody tr.is-advancing .standing-name")]
+          .map((team) => team.textContent.trim())
+          .sort()
+      ])
+    );
     const groupACard = cards.find((card) => card.querySelector("h2")?.textContent.trim() === "Group A");
 
     return {
+      advancingGroupA: advancingGroups.get("Group A"),
+      advancingTotal: [...document.querySelectorAll(".standings-card tbody tr.is-advancing")].length,
       groupA: groups.get("Group A"),
       groupAFlagCount: groupACard?.querySelectorAll(".standing-team .flag").length || 0,
       summary: document.querySelector("#standings-summary")?.textContent.trim()
@@ -7310,6 +7358,11 @@ try {
   assert(
     historicalStandingsCheck.groupAFlagCount === 4,
     "The 2022 standings view should render a flag for each archived group team."
+  );
+  assert(
+    historicalStandingsCheck.advancingGroupA?.join("|") === "Netherlands|Senegal" &&
+      historicalStandingsCheck.advancingTotal === 16,
+    `The 2022 archived Groups tab should highlight the teams that reached the Tournament stage. Measured ${JSON.stringify(historicalStandingsCheck)}.`
   );
   assert(
     historicalStandingsCheck.summary === "Final group tables computed from archived match results.",
@@ -7342,6 +7395,178 @@ try {
       historical2010TournamentCheck.finalText.includes("Spain") &&
       historical2010TournamentCheck.finalText.includes("0-1"),
     `The 2010 archived standings direct link should open on its Tournament bracket. Measured ${JSON.stringify(historical2010TournamentCheck)}.`
+  );
+  await page.goto(`${baseUrl}?view=standings&standingsYear=1958`, { waitUntil: "load" });
+  await page.waitForSelector('.historical-tournament-view .progress-match[data-match-number="28"]');
+  const historical1958TournamentCheck = await page.evaluate(() => {
+    const progress = document.querySelector(".historical-tournament-view");
+    const matchNumbers = [...document.querySelectorAll(".historical-tournament-view .progress-match")].map((match) =>
+      match.getAttribute("data-match-number")
+    );
+    const matchText = (matchNumber) =>
+      document
+        .querySelector(`.historical-tournament-view .progress-match[data-match-number="${matchNumber}"]`)
+        ?.textContent.replace(/\s+/g, " ")
+        .trim() || "";
+
+    return {
+      finalText: matchText(35),
+      matchCount: matchNumbers.length,
+      matchNumbers,
+      progressText: progress?.textContent.replace(/\s+/g, " ").trim() || "",
+      quarterFinalText: matchText(28),
+      roundHeadings: [...document.querySelectorAll(".historical-tournament-view .progress-round h3")].map((heading) =>
+        heading.textContent.trim()
+      ),
+      summary: document.querySelector("#standings-summary")?.textContent.trim(),
+      tournamentPressed: document.querySelector("#standings-tournament-tab")?.getAttribute("aria-pressed"),
+      urlMode: new URL(window.location.href).searchParams.get("standingsMode") || ""
+    };
+  });
+  assert(
+    historical1958TournamentCheck.tournamentPressed === "true" &&
+      historical1958TournamentCheck.urlMode === "" &&
+      historical1958TournamentCheck.summary === "Knockout bracket uses archived match results." &&
+      historical1958TournamentCheck.roundHeadings.join("|") === "Quarter-finals|Semi-finals|Final" &&
+      historical1958TournamentCheck.matchCount === 8 &&
+      !historical1958TournamentCheck.matchNumbers.includes("7") &&
+      !historical1958TournamentCheck.matchNumbers.includes("20") &&
+      !historical1958TournamentCheck.matchNumbers.includes("27") &&
+      !historical1958TournamentCheck.progressText.includes("Group 1 Play-off") &&
+      !historical1958TournamentCheck.progressText.includes("Group 3 Play-off") &&
+      !historical1958TournamentCheck.progressText.includes("Group 4 Play-off") &&
+      historical1958TournamentCheck.quarterFinalText.includes("France") &&
+      historical1958TournamentCheck.quarterFinalText.includes("Northern Ireland") &&
+      historical1958TournamentCheck.finalText.includes("Sweden") &&
+      historical1958TournamentCheck.finalText.includes("Brazil"),
+    `The 1958 archived Tournament tab should start at the quarter-finals and exclude group tie-breaker play-offs. Measured ${JSON.stringify(historical1958TournamentCheck)}.`
+  );
+  await page.goto(`${baseUrl}?view=matches&date=1958-06-19&tz=America%2FLos_Angeles`, {
+    waitUntil: "load"
+  });
+  await page.waitForSelector('[data-match-id="wc-1958-1958-06-19-quarter-finals-france-northern-ireland"]');
+  await page.locator('[data-match-id="wc-1958-1958-06-19-quarter-finals-france-northern-ireland"]').click();
+  const historical1958QuarterFinalDetail = await page.locator("#match-info").evaluate((root) => {
+    const sectionHeadings = [...root.querySelectorAll(":scope > .info-block")]
+      .map((section) => section.querySelector("h3")?.textContent.replace(/\s+/g, " ").trim() || "")
+      .filter(Boolean);
+
+    return {
+      previousHeading: sectionHeadings.find((heading) => heading.startsWith("Previous:")) || "",
+      sectionHeadings,
+      text: root.innerText
+    };
+  });
+  assert(
+    historical1958QuarterFinalDetail.previousHeading === "Previous: Group round" &&
+      !historical1958QuarterFinalDetail.text.includes("Previous: Group 1 Play-off"),
+    `The 1958 quarter-final detail should treat the group play-off as a group tie-breaker, not prior knockout context. Measured ${JSON.stringify(historical1958QuarterFinalDetail)}.`
+  );
+  await page.goto(`${baseUrl}?view=standings&standingsYear=1958&standingsMode=groups`, { waitUntil: "load" });
+  await page.waitForSelector(".standings-card");
+  const historical1958GroupAdvancementCheck = await page.evaluate(() => {
+    const getAdvancing = (groupName) => {
+      const card = [...document.querySelectorAll(".standings-card")].find(
+        (item) => item.querySelector("h2")?.textContent.trim() === groupName
+      );
+      return [...(card?.querySelectorAll("tbody tr.is-advancing .standing-name") || [])]
+        .map((team) => team.textContent.trim())
+        .sort();
+    };
+
+    return {
+      group1: getAdvancing("Group 1"),
+      group2: getAdvancing("Group 2"),
+      group3: getAdvancing("Group 3"),
+      group4: getAdvancing("Group 4"),
+      highlightedCount: document.querySelectorAll(".standings-card tbody tr.is-advancing").length
+    };
+  });
+  assert(
+    historical1958GroupAdvancementCheck.group1.join("|") === "Northern Ireland|West Germany" &&
+      historical1958GroupAdvancementCheck.group2.join("|") === "France|Yugoslavia" &&
+      historical1958GroupAdvancementCheck.group3.join("|") === "Sweden|Wales" &&
+      historical1958GroupAdvancementCheck.group4.join("|") === "Brazil|Soviet Union" &&
+      historical1958GroupAdvancementCheck.highlightedCount === 8,
+    `The 1958 archived Groups tab should highlight the teams that actually reached the knockout bracket, including group-playoff winners only. Measured ${JSON.stringify(historical1958GroupAdvancementCheck)}.`
+  );
+  await page.goto(`${baseUrl}?view=standings&standingsYear=1954`, { waitUntil: "load" });
+  await page.waitForSelector('.historical-tournament-view .progress-match[data-match-number="19"]');
+  const historical1954TournamentCheck = await page.evaluate(() => {
+    const progress = document.querySelector(".historical-tournament-view");
+    const matchNumbers = [...document.querySelectorAll(".historical-tournament-view .progress-match")].map((match) =>
+      match.getAttribute("data-match-number")
+    );
+
+    return {
+      matchCount: matchNumbers.length,
+      matchNumbers,
+      progressText: progress?.textContent.replace(/\s+/g, " ").trim() || "",
+      roundHeadings: [...document.querySelectorAll(".historical-tournament-view .progress-round h3")].map((heading) =>
+        heading.textContent.trim()
+      )
+    };
+  });
+  assert(
+    historical1954TournamentCheck.roundHeadings.join("|") === "Quarter-finals|Semi-finals|Final" &&
+      historical1954TournamentCheck.matchCount === 8 &&
+      !historical1954TournamentCheck.matchNumbers.includes("9") &&
+      !historical1954TournamentCheck.matchNumbers.includes("18") &&
+      !historical1954TournamentCheck.progressText.includes("Group 2 Play-off") &&
+      !historical1954TournamentCheck.progressText.includes("Group 4 Play-off"),
+    `The 1954 archived Tournament tab should also exclude group tie-breaker play-offs. Measured ${JSON.stringify(historical1954TournamentCheck)}.`
+  );
+  await page.goto(`${baseUrl}?view=standings&standingsYear=1954&standingsMode=groups`, { waitUntil: "load" });
+  await page.waitForSelector(".standings-card");
+  const historical1954GroupAdvancementCheck = await page.evaluate(() => {
+    const getAdvancing = (groupName) => {
+      const card = [...document.querySelectorAll(".standings-card")].find(
+        (item) => item.querySelector("h2")?.textContent.trim() === groupName
+      );
+      return [...(card?.querySelectorAll("tbody tr.is-advancing .standing-name") || [])]
+        .map((team) => team.textContent.trim())
+        .sort();
+    };
+
+    return {
+      group2: getAdvancing("Group 2"),
+      group4: getAdvancing("Group 4"),
+      highlightedCount: document.querySelectorAll(".standings-card tbody tr.is-advancing").length
+    };
+  });
+  assert(
+    historical1954GroupAdvancementCheck.group2.join("|") === "Hungary|West Germany" &&
+      historical1954GroupAdvancementCheck.group4.join("|") === "England|Switzerland" &&
+      historical1954GroupAdvancementCheck.highlightedCount === 8,
+    `The 1954 archived Groups tab should highlight group-playoff winners without highlighting eliminated playoff losers. Measured ${JSON.stringify(historical1954GroupAdvancementCheck)}.`
+  );
+  await page.goto(`${baseUrl}?view=standings&standingsYear=1930&standingsMode=groups`, { waitUntil: "load" });
+  await page.waitForSelector(".standings-card");
+  const historical1930GroupAdvancementCheck = await page.evaluate(() => {
+    const getAdvancing = (groupName) => {
+      const card = [...document.querySelectorAll(".standings-card")].find(
+        (item) => item.querySelector("h2")?.textContent.trim() === groupName
+      );
+      return [...(card?.querySelectorAll("tbody tr.is-advancing .standing-name") || [])]
+        .map((team) => team.textContent.trim())
+        .sort();
+    };
+
+    return {
+      group1: getAdvancing("Group 1"),
+      group2: getAdvancing("Group 2"),
+      group3: getAdvancing("Group 3"),
+      group4: getAdvancing("Group 4"),
+      highlightedCount: document.querySelectorAll(".standings-card tbody tr.is-advancing").length
+    };
+  });
+  assert(
+    historical1930GroupAdvancementCheck.group1.join("|") === "Argentina" &&
+      historical1930GroupAdvancementCheck.group2.join("|") === "Yugoslavia" &&
+      historical1930GroupAdvancementCheck.group3.join("|") === "Uruguay" &&
+      historical1930GroupAdvancementCheck.group4.join("|") === "United States" &&
+      historical1930GroupAdvancementCheck.highlightedCount === 4,
+    `The 1930 archived Groups tab should highlight only the single group winner that reached the semi-finals. Measured ${JSON.stringify(historical1930GroupAdvancementCheck)}.`
   );
   await page.goto(`${baseUrl}?view=standings&standingsYear=1978`, { waitUntil: "load" });
   await page.waitForSelector('.historical-tournament-view .progress-match[data-match-number="25"]');
@@ -7392,6 +7617,32 @@ try {
       historical1978TournamentCheck.resultPills.includes("2-1") &&
       historical1978TournamentCheck.finalGroupCardsWithPathData === 0,
     `The 1978 archived Tournament tab should include the final-round groups plus placement matches, not only the two placement games. Measured ${JSON.stringify(historical1978TournamentCheck)}.`
+  );
+  await page.goto(`${baseUrl}?view=standings&standingsYear=1978&standingsMode=groups`, { waitUntil: "load" });
+  await page.waitForSelector(".standings-card");
+  const historical1978GroupAdvancementCheck = await page.evaluate(() => {
+    const getAdvancing = (groupName) => {
+      const card = [...document.querySelectorAll(".standings-card")].find(
+        (item) => item.querySelector("h2")?.textContent.trim() === groupName
+      );
+      return [...(card?.querySelectorAll("tbody tr.is-advancing .standing-name") || [])]
+        .map((team) => team.textContent.trim())
+        .sort();
+    };
+
+    return {
+      finalGroupA: getAdvancing("Group A"),
+      finalGroupB: getAdvancing("Group B"),
+      group1: getAdvancing("Group 1"),
+      highlightedCount: document.querySelectorAll(".standings-card tbody tr.is-advancing").length
+    };
+  });
+  assert(
+    historical1978GroupAdvancementCheck.group1.join("|") === "Argentina|Italy" &&
+      historical1978GroupAdvancementCheck.finalGroupA.join("|") === "Italy|Netherlands" &&
+      historical1978GroupAdvancementCheck.finalGroupB.join("|") === "Argentina|Brazil" &&
+      historical1978GroupAdvancementCheck.highlightedCount === 12,
+    `The 1978 archived Groups tab should highlight first-stage advancers and final-round teams that reached placement matches. Measured ${JSON.stringify(historical1978GroupAdvancementCheck)}.`
   );
 
   await page.setViewportSize({ width: 800, height: 900 });
@@ -7824,6 +8075,35 @@ try {
   assert(
     matchInfoStandingHeaders.includes("W-T-L") && !matchInfoStandingHeaders.includes("W-D-L"),
     `Standing headers should use W-T-L instead of W-D-L in English. Measured ${JSON.stringify(matchInfoStandingHeaders)}.`
+  );
+  const mobileInfoHeadingAlignment = await page.locator("#match-info .info-heading").evaluateAll((headings) => {
+    const center = (rect) => (rect.top + rect.bottom) / 2;
+
+    return headings
+      .map((heading) => {
+        const label = heading.querySelector("span:not(.visually-hidden)");
+        const control = heading.querySelector(".info-tooltip-button");
+
+        if (!label || !control) {
+          return null;
+        }
+
+        const labelRect = label.getBoundingClientRect();
+        const controlRect = control.getBoundingClientRect();
+
+        return {
+          delta: center(controlRect) - center(labelRect),
+          text: label.textContent.replace(/\s+/g, " ").trim()
+        };
+      })
+      .filter(Boolean);
+  });
+  assert(
+    mobileInfoHeadingAlignment.some((item) => item.text === "Prediction" && Math.abs(item.delta) <= 0.75) &&
+      mobileInfoHeadingAlignment
+        .filter((item) => item.text === "Result" || item.text === "Prediction")
+        .every((item) => Math.abs(item.delta) <= 0.75),
+    `Mobile info-card heading controls should be vertically centered with their labels. Measured ${JSON.stringify(mobileInfoHeadingAlignment)}.`
   );
   const mobileTooltipBounds = await page.evaluate(() => {
     const selectors = [

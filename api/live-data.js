@@ -1183,6 +1183,10 @@ function statusRank(status) {
   }[status] ?? 0;
 }
 
+function hasScoreBearingStatus(status) {
+  return status === "LIVE" || status === "FT";
+}
+
 function mergeProviderFixtures({
   checkedAt,
   fixturesData,
@@ -1217,10 +1221,15 @@ function mergeProviderFixtures({
     const providerPenaltyScore = getProviderPenaltyScore(providerFixture, provider.key);
     const officialMatchTime =
       provider.key === FIFA_PROVIDER_KEY ? getFifaMatchTime(providerFixture) : "";
+    const previousStatus = fixture.status;
     const nextStatus =
       forceStatus || statusRank(providerStatus) >= statusRank(fixture.status)
         ? providerStatus
         : fixture.status;
+    const shouldApplyProviderScore =
+      hasScoreBearingStatus(providerStatus) &&
+      hasScoreBearingStatus(nextStatus) &&
+      (forceStatus || statusRank(providerStatus) >= statusRank(previousStatus));
     const before = JSON.stringify({
       providerIds: fixture.providerIds,
       officialMatchTime: fixture.officialMatchTime,
@@ -1242,12 +1251,16 @@ function mergeProviderFixtures({
       })
     };
 
-    if ((nextStatus === "LIVE" || nextStatus === "FT") && providerScore) {
+    if (shouldApplyProviderScore && providerScore) {
       fixture.score = providerScore;
       mergeProviderPenaltyScore(fixture, providerPenaltyScore);
       if (nextStatus === "LIVE") {
         fixture.scoreUpdatedAt = checkedAt;
       }
+    } else if (!hasScoreBearingStatus(nextStatus)) {
+      delete fixture.score;
+      delete fixture.scoreDetails;
+      delete fixture.scoreUpdatedAt;
     }
 
     if (provider.key === FIFA_PROVIDER_KEY) {

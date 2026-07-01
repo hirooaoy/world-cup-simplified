@@ -946,10 +946,14 @@ const ZH_ADDITIONAL_EXACT_TRANSLATIONS = {
     "基利安·姆巴佩在第14和第54分钟破门，奥斯曼·登贝莱随后打入第三球，法国在一场因暴风雨延迟的比赛中3-0取胜。",
   "Iraq played out bravely early, but two build-out mistakes after the long weather delay let France kill the match.":
     "伊拉克开局勇敢地从后场组织，但漫长天气延迟后的两次后场出球失误让法国杀死比赛。",
-  "Kylian Mbappe's opener was the super-goal moment: a short-corner move, a crossover step past Viktor Gyokeres, and a finish across goal.":
-    "基利安·姆巴佩的首球就是本场神仙球时刻：短角球配合、连续踩单车晃过维克托·约克雷斯，再横射破门。",
-  "Michael Olise supplied the creator thread, assisting Barcola's second and sliding Mbappe through for France's third.":
-    "迈克尔·奥利塞串起了创造线索：助攻巴尔科拉打入第二球，又直塞姆巴佩完成法国第三球。",
+  "Mbappe made France's opener a super goal, crossing over past Viktor Gyokeres and finishing across goal.":
+    "姆巴佩把法国首球踢成神仙球，连续踩单车晃过维克托·约克雷斯后横射破门。",
+  "Olise shaped France's attack with two assists, teeing up Barcola before sliding Mbappe through for the third.":
+    "奥利塞用两次助攻塑造法国进攻，先助攻巴尔科拉破门，又直塞姆巴佩打入第三球。",
+  "Nusa curled Norway in front before Amad Diallo came off the bench to clear one off the line and equalize.":
+    "努萨弧线球帮助挪威领先，随后阿马德·迪亚洛替补登场，先门线解围再扳平比分。",
+  "Berg's late run set up Haaland's winner, and Nyland's stoppage time save protected Norway's first knockout win.":
+    "贝格最后阶段前插助攻哈兰德制胜，尼兰补时扑救守住挪威队史首场世界杯淘汰赛胜利。",
   "Japan frustrated Brazil for long spells, with Takehiro Tomiyasu keeping Vinicius Junior quiet and Zion Suzuki answering pressure.":
     "日本长时间让巴西踢得不舒服，富安健洋限制住维尼修斯·儒尼奥尔，铃木彩艳也不断化解压力。",
   "Kaishu Sano rattled Brazil first, forcing the favorite to chase the match after the 29th-minute opener.":
@@ -990,6 +994,7 @@ const ZH_PLAYER_NAME_TRANSLATIONS = {
   "Almoez Ali": "阿尔莫埃兹·阿里",
   "Alphonso Davies": "阿方索·戴维斯",
   "Álvaro Fidalgo": "阿尔瓦罗·菲达尔戈",
+  "Amad Diallo": "阿马德·迪亚洛",
   "Amine Gouiri": "阿明·古伊里",
   "Andy Robertson": "安迪·罗伯逊",
   "Antoine Griezmann": "安托万·格列兹曼",
@@ -1097,12 +1102,15 @@ const ZH_PLAYER_NAME_TRANSLATIONS = {
   Neymar: "内马尔",
   "Nico Williams": "尼科·威廉姆斯",
   "Nicolas Jackson": "尼古拉斯·杰克逊",
+  "Nicolas Pepe": "尼古拉斯·佩佩",
   "Noah Sadiki": "诺亚·萨迪基",
   "Noor Al-Rawabdeh": "努尔·拉瓦布德",
   "Nuno Mendes": "努诺·门德斯",
   "Omar Marmoush": "奥马尔·马尔穆什",
   "Ousmane Dembele": "奥斯曼·登贝莱",
   "Ousmane Dembélé": "奥斯曼·登贝莱",
+  "Orjan Nyland": "厄扬·尼兰",
+  "Patrick Berg": "帕特里克·贝格",
   "Patrik Schick": "帕特里克·希克",
   Pedri: "佩德里",
   "Pico Lopes": "皮科·洛佩斯",
@@ -6433,7 +6441,7 @@ function renderStaticText() {
   });
   viewPanels.matches?.querySelector(".match-layout")?.setAttribute("aria-label", t("matchesHeading"));
   matchList?.setAttribute("aria-label", t("matchesList"));
-  standingsHeading?.setAttribute("aria-label", `${selectedStandingsYear} ${t("standings")}`);
+  standingsHeading?.setAttribute("aria-label", String(selectedStandingsYear));
   standingsYearPopover?.setAttribute("aria-label", t("chooseStandingsYear"));
   standingsModeTabsShell?.setAttribute("aria-label", t("standingsSections"));
   document.querySelector("#standings-groups-tab").textContent = t("groups");
@@ -7458,6 +7466,22 @@ function isHistoricalFinalGroupStageFixture(fixture) {
   );
 }
 
+function isHistoricalGroupPlayoffRoundLabel(label) {
+  return /^Group\s+.+\s+Play-?off$/i.test(String(label || "").trim());
+}
+
+function isHistoricalGroupPlayoffFixture(fixture) {
+  return isHistoricalGroupPlayoffRoundLabel(fixture?.round);
+}
+
+function isHistoricalKnockoutBracketFixture(fixture) {
+  return Boolean(fixture && !fixture.group && !isHistoricalGroupPlayoffFixture(fixture));
+}
+
+function isHistoricalTournamentViewFixture(fixture) {
+  return isHistoricalFinalGroupStageFixture(fixture) || isHistoricalKnockoutBracketFixture(fixture);
+}
+
 function hasHistoricalFinalGroupStage(year) {
   return historicalFixtures.some(
     (fixture) => fixture.tournamentYear === year && isHistoricalFinalGroupStageFixture(fixture)
@@ -7472,10 +7496,7 @@ function getHistoricalTournamentStandingsSummary(year) {
 
 function getHistoricalTournamentFixturesForYear(year) {
   return historicalFixtures
-    .filter(
-      (fixture) =>
-        fixture.tournamentYear === year && (!fixture.group || isHistoricalFinalGroupStageFixture(fixture))
-    )
+    .filter((fixture) => fixture.tournamentYear === year && isHistoricalTournamentViewFixture(fixture))
     .sort((a, b) => getFixtureSortValue(a).localeCompare(getFixtureSortValue(b)));
 }
 
@@ -8778,16 +8799,20 @@ function getScorePendingText(match, state, currentTime) {
   return localizeText("Pending");
 }
 
+function canDisplayMatchScore(match, state) {
+  return match?.status === "FT" || match?.status === "LIVE" || state === "complete";
+}
+
 function getDisplayScore(match, state) {
-  if (match.score) {
-    return {
-      home: match.score.home,
-      away: match.score.away,
-      isFallback: false
-    };
+  if (!match?.score || !canDisplayMatchScore(match, state)) {
+    return null;
   }
 
-  return null;
+  return {
+    home: match.score.home,
+    away: match.score.away,
+    isFallback: false
+  };
 }
 
 function getScoreFreshnessTimestamp(match) {
@@ -9064,11 +9089,11 @@ function renderMatchRow(match, state, currentTime = Date.now(), options = {}) {
   const dateTimeAriaLabel = getMatchDateTimeAriaLabel(match, options);
   const visibleTimeLabel = getMatchVisibleTimeLabel(match, options);
   const rowDateTimeLabel = dateTimeAriaLabel ? `, ${dateTimeAriaLabel}` : "";
-  const winnerSide = getMatchScoreOutcomeSide(match, match.score);
   const isLiveState = match.status === "LIVE" || state === "live";
   const scoreLabel = isLiveState ? localizeText("current score") : localizeText("final score");
   const pendingScoreText = getScorePendingText(match, state, currentTime);
   const displayScore = getDisplayScore(match, state);
+  const winnerSide = getMatchScoreOutcomeSide(match, displayScore);
   const stateLabel =
     state === "live" ? `${localizeText("Live")}, ` : state === "next" ? `${localizeText("Up next")}, ` : "";
   const statusLabel = match.status === "CANCELLED" ? `, ${localizeText("cancelled")}` : "";
@@ -9082,13 +9107,11 @@ function renderMatchRow(match, state, currentTime = Date.now(), options = {}) {
   const score = renderScore(match, state, options);
   const rowMeta = `${stateBadge}${scoreStatus}${score}`;
   const rowLabel = `${stateLabel}${homeName} ${versusText} ${awayName}${rowDateTimeLabel}${statusLabel}${
-    match.score
-      ? `, ${scoreLabel} ${getMatchVisibleScoreText(match, match.score)}`
-      : displayScore
-        ? `, ${localizeText("current score")} ${displayScore.home}-${displayScore.away}`
-        : pendingScoreText
-          ? `, ${pendingScoreText.toLowerCase()}`
-          : ""
+    displayScore
+      ? `, ${scoreLabel} ${getMatchVisibleScoreText(match, displayScore)}`
+      : pendingScoreText
+        ? `, ${pendingScoreText.toLowerCase()}`
+        : ""
   }`;
 
   row.className = `match-row is-${state}`;
@@ -10369,6 +10392,37 @@ function getHistoricalGroupStandingsForYear(year, groupName) {
   return getHistoricalStandingsRowsFromFixtures(groupFixtures, year);
 }
 
+function getHistoricalGroupAdvancingTeamNames(year, groupName) {
+  const groupFixtures = historicalFixtures.filter(
+    (fixture) => fixture.tournamentYear === year && fixture.group === groupName
+  );
+
+  if (!groupFixtures.length) {
+    return new Set();
+  }
+
+  const groupEndSortValue = groupFixtures
+    .map(getFixtureSortValue)
+    .sort((a, b) => b.localeCompare(a))[0];
+  const advancingTeamNames = new Set();
+
+  getHistoricalTournamentFixturesForYear(year).forEach((fixture) => {
+    if (getFixtureSortValue(fixture) <= groupEndSortValue) {
+      return;
+    }
+
+    [fixture.homeSlot, fixture.awaySlot].filter(Boolean).forEach((teamName) => {
+      advancingTeamNames.add(teamName);
+    });
+  });
+
+  return advancingTeamNames;
+}
+
+function shouldHighlightHistoricalStanding(row, year, groupName) {
+  return getHistoricalGroupAdvancingTeamNames(year, groupName).has(row.teamName);
+}
+
 function getHistoricalRoundStandingsForYear(year, roundName) {
   const normalizedRoundName = normalizeTextKey(roundName);
   const roundFixtures = historicalFixtures
@@ -10395,11 +10449,8 @@ function renderHistoricalStandingTeam(teamName) {
   `;
 }
 
-function renderHistoricalStandingRow(row, index, year, groupName) {
-  const isAdvancing = shouldHighlightHistoricalStanding(
-    { tournamentYear: year, group: groupName },
-    index
-  );
+function renderHistoricalStandingRow(row, year, groupName) {
+  const isAdvancing = shouldHighlightHistoricalStanding(row, year, groupName);
 
   return `
     <tr class="${isAdvancing ? "is-advancing" : ""}">
@@ -10420,7 +10471,7 @@ function renderHistoricalStandingsTable(year, groupName) {
     <table class="standings-table">
       ${renderStandingsTableHead()}
       <tbody>${rows
-        .map((row, index) => renderHistoricalStandingRow(row, index, year, groupName))
+        .map((row) => renderHistoricalStandingRow(row, year, groupName))
         .join("")}</tbody>
     </table>
   `;
@@ -13584,7 +13635,7 @@ function updateStandingsModeControls() {
 function updateStandingsControls() {
   if (standingsYearButton) {
     standingsYearButton.textContent = String(selectedStandingsYear);
-    standingsHeading?.setAttribute("aria-label", `${selectedStandingsYear} ${t("standings")}`);
+    standingsHeading?.setAttribute("aria-label", String(selectedStandingsYear));
     standingsYearButton.setAttribute(
       "aria-label",
       localizeText(`Choose standings year, ${selectedStandingsYear} selected`)
@@ -17352,10 +17403,6 @@ function getHistoricalGroupStandings(match) {
   return getHistoricalGroupStandingsForYear(match.tournamentYear, match.group);
 }
 
-function shouldHighlightHistoricalStanding(match, index) {
-  return match.tournamentYear >= 1986 && /^Group [A-H]$/.test(match.group || "") && index < 2;
-}
-
 function renderHistoricalGroupStandings(match) {
   const rows = getHistoricalGroupStandings(match);
 
@@ -17376,8 +17423,8 @@ function renderHistoricalGroupStandings(match) {
         <tbody>
           ${rows
             .map(
-              (row, index) => `
-                <tr class="${shouldHighlightHistoricalStanding(match, index) ? "is-advancing" : ""}">
+              (row) => `
+                <tr class="${shouldHighlightHistoricalStanding(row, match.tournamentYear, match.group) ? "is-advancing" : ""}">
                   <td>
                     ${renderHistoricalStandingTeam(row.teamName)}
                   </td>
@@ -17507,7 +17554,7 @@ function getHistoricalPreviousKnockoutMatchForTeam(match, teamName) {
   return getHistoricalTournamentFixtures(match)
     .filter(
       (fixture) =>
-        !fixture.group &&
+        isHistoricalKnockoutBracketFixture(fixture) &&
         getFixtureSortValue(fixture) < currentSortValue &&
         (fixture.homeSlot === teamName || fixture.awaySlot === teamName)
     )
@@ -17603,7 +17650,7 @@ function getHistoricalNextMatchForTeam(match, teamName) {
   const currentSortValue = getFixtureSortValue(match);
   return getHistoricalTournamentFixtures(match).find(
     (fixture) =>
-      !fixture.group &&
+      isHistoricalKnockoutBracketFixture(fixture) &&
       getFixtureSortValue(fixture) > currentSortValue &&
       (fixture.homeSlot === teamName || fixture.awaySlot === teamName)
   );
@@ -17624,7 +17671,7 @@ function getHistoricalReplayMatch(match) {
   return (
     getHistoricalTournamentFixtures(match).find(
       (fixture) =>
-        !fixture.group &&
+        isHistoricalKnockoutBracketFixture(fixture) &&
         getFixtureSortValue(fixture) > currentSortValue &&
         hasSameHistoricalFixtureTeams(fixture, match.homeSlot, match.awaySlot)
     ) || null
@@ -18851,7 +18898,7 @@ function isPastMatchPreviewReady(match, currentTime) {
     return false;
   }
 
-  if (match.status === "FT" || match.score) {
+  if (match.status === "FT") {
     return true;
   }
 
@@ -18914,11 +18961,12 @@ function createYesterdayMatchCard(match, currentTime, tournamentContext = null) 
   const versusText = localizeText("vs");
   const timeLabel = getMatchTimeLabel(match);
   const score = getCompactMatchMeta(match, state, currentTime);
-  const scoreText = match.score
-    ? `, ${localizeText("final score")} ${getMatchVisibleScoreText(match, match.score)}`
+  const displayScore = getDisplayScore(match, state);
+  const scoreText = displayScore
+    ? `, ${localizeText("final score")} ${getMatchVisibleScoreText(match, displayScore)}`
     : "";
   const label = `${homeName} ${versusText} ${awayName}${timeLabel ? `, ${timeLabel}` : ""}${scoreText}`;
-  const winnerSide = getMatchScoreOutcomeSide(match, match.score);
+  const winnerSide = getMatchScoreOutcomeSide(match, displayScore);
 
   card.className = "yesterday-match-card";
   card.dataset.matchId = match.id;
@@ -19250,7 +19298,7 @@ function getTeamSearchMatchedSide(match, team) {
 }
 
 function isCurrentTournamentPastSearchMatch(match, currentTime) {
-  if (match.status === "FT" || match.score) {
+  if (match.status === "FT") {
     return true;
   }
 

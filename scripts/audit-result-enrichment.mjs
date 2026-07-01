@@ -7,9 +7,10 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const dataDir = path.join(root, "data");
 const HIGHLIGHT_VIDEO_REVIEW_STATUSES = new Set(["not-found", "needs-review"]);
 const weakCurrentStoryPattern =
-  /\b(?:won the shootout \d+-\d+ after a \d+-\d+ draw|survived the shootout after a \d+-\d+ draw|exited after penalties kept|stayed close enough to keep the final minutes tense|stayed locked together until the final whistle|got the decisive details right in a match that stayed tight|closed the result without needing another late twist|broke through for .+?, shifting the match toward|added the final word as .+? pulled away|scored (?:twice|three times|\d+ times) as .+? kept widening the gap)\b/i;
+  /\b(?:won the shootout \d+-\d+ after a \d+-\d+ draw|survived the shootout after a \d+-\d+ draw|exited after penalties kept|stayed close enough to keep the final minutes tense|stayed locked together until the final whistle|got the decisive details right in a match that stayed tight|closed the result without needing another late twist|broke through for .+?, shifting the match toward|added the final word as .+? pulled away|scored (?:twice|three times|\d+ times) as .+? kept widening the gap|creator thread|super-goal moment)\b/i;
 const weakHistoricalStoryPattern =
   /\b(?:won the shootout \d+-\d+ after a \d+-\d+ draw|survived the shootout after a \d+-\d+ draw|exited after penalties kept|stayed close enough to keep the final minutes tense|stayed locked together until the final whistle|got the decisive details right in a match that stayed tight|closed the result without needing another late twist)\b/i;
+const storyScaffoldPunctuationPattern = /[:\u2013\u2014]|\s-\s/;
 
 async function readJson(fileName) {
   return JSON.parse(await readFile(path.join(dataDir, fileName), "utf8"));
@@ -33,6 +34,10 @@ function resultStoryBullets(fixture) {
 
 function weakCurrentStoryBullets(fixture) {
   return resultStoryBullets(fixture).filter((highlight) => weakCurrentStoryPattern.test(highlight));
+}
+
+function scaffoldedCurrentStoryBullets(fixture) {
+  return resultStoryBullets(fixture).filter((highlight) => storyScaffoldPunctuationPattern.test(highlight));
 }
 
 function weakHistoricalStoryBullets(fixture) {
@@ -166,6 +171,13 @@ for (const fixture of fixturesData.fixtures || []) {
   if (weakStories.length) {
     issues.push(
       `${fixture.id} (${matchLabel}) has weak current result story copy: ${weakStories.join(" | ")}`
+    );
+  }
+
+  const scaffoldedStories = scaffoldedCurrentStoryBullets(fixture);
+  if (scaffoldedStories.length) {
+    issues.push(
+      `${fixture.id} (${matchLabel}) has current result story copy with colon/dash scaffolding: ${scaffoldedStories.join(" | ")}`
     );
   }
 

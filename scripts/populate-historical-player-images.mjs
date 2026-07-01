@@ -294,9 +294,12 @@ const curatedTitleOverrides = new Map(
     ["Pablo Dorado", "Pablo Dorado"],
     ["Peregrino Anselmo", "Peregrino Anselmo"],
     ["Anton Schall", "Anton Schall"],
+    ["Gianpiero Combi", "Gianpiero Combi"],
+    ["Giuseppe Cavanna", "Giuseppe Cavanna"],
     ["Raimundo Orsi", "Raimundo Orsi"],
     ["Rudolf Noack", "Rudolf Noack"],
     ["Arne Nyberg", "Arne Nyberg"],
+    ["Ferenc Sas", "Ferenc Sas"],
     ["Sven Jacobsson", "Sven Jacobsson"],
     ["Ferenc Machos", "Ferenc Machos"],
     ["Javier Ambrois", "Javier Ambrois"],
@@ -311,8 +314,10 @@ const curatedTitleOverrides = new Map(
     ["Jorge Toro", "Jorge Toro"],
     ["Josef Kadraba", "Josef Kadraba"],
     ["Josef Masopust", "Josef Masopust"],
+    ["Andrija Anković", "Andrija Anković"],
+    ["Dražan Jerković", "Dražan Jerković"],
     ["Josip Skoblar", "Josip Skoblar"],
-    ["Zito", "Zito (footballer)"],
+    ["Zito", "Zito (footballer, born 1932)"],
     ["Martin Peters", "Martin Peters"],
     ["Wolfgang Weber", "Wolfgang Weber"],
     ["Hércules", "Hércules de Miranda"],
@@ -321,13 +326,20 @@ const curatedTitleOverrides = new Map(
     ["Gerson", "Gérson"],
     ["Karl-Heinz Schnellinger", "Karl-Heinz Schnellinger"],
     ["Tarcisio Burgnich", "Tarcisio Burgnich"],
+    ["Hannes Löhr", "Hannes Löhr"],
+    ["Luis Cubilla", "Luis Cubilla"],
     ["Marco Tardelli", "Marco Tardelli"],
     ["Marius Trésor", "Marius Trésor"],
     ["Marius Tresor", "Marius Trésor"],
     ["Bruno Bellone", "Bruno Bellone"],
     ["Harald Schumacher", "Harald Schumacher"],
     ["Nery Pumpido", "Nery Pumpido"],
+    ["Guido Buchwald", "Guido Buchwald"],
+    ["Olaf Thon", "Olaf Thon"],
     ["Franco Baresi", "Franco Baresi"],
+    ["Alberigo Evani", "Alberico Evani"],
+    ["Krasimir Balakov", "Krasimir Balakov"],
+    ["Pierluigi Casiraghi", "Pierluigi Casiraghi"],
     ["Peter Beardsley", "Peter Beardsley"],
     ["Fabien Barthez", "Fabien Barthez"],
     ["Frank de Boer", "Frank de Boer"],
@@ -379,6 +391,24 @@ const curatedTitleOverrides = new Map(
     ["Mesut Özil", "Mesut Özil"]
   ].map(([name, title]) => [normalizePlayerName(name), title])
 );
+
+const curatedCommonsFileOverrides = new Map(
+  [
+    ["Dražan Jerković", "Drazan Jerkovic.JPG"],
+    ["Nico Claesen", "Belgium vs ussr 1986 (cropped).jpg"],
+    ["Stéphane Guivarc'h", "S. Guivarc'h EAG.jpg"]
+  ].map(([name, fileName]) => [normalizePlayerName(name), fileName])
+);
+
+const rejectedCommonsImageFileKeys = [
+  "Belgium vs ussr 1986.jpg",
+  "Maradona vs belgium world cup 1986.jpg",
+  "Rudolf Noack.jpg",
+  "Slavia Prague 1930. Champions of the football league.jpg",
+  "USA team line up 13 July.jpg",
+  "Velez equipo 1995apertura.jpg"
+].map((fileName) => normalizePlayerName(fileName));
+
 const curatedPriorityByName = new Map([...curatedTitleOverrides.keys()].map((nameKey, index) => [nameKey, index]));
 const curatedImageLookupCache = new Map();
 
@@ -736,7 +766,7 @@ function hasJuniorMismatch(profileName, title) {
 }
 
 function isFootballerExtract(extract) {
-  return /\b(footballer|football player|football forward|football striker|football winger|football midfielder|football defender|football goalkeeper|association football|soccer player|soccer coach|professional soccer|football manager|football coach|football pundit|football administrator|professional football|fifa world cup|played as a)\b/i.test(
+  return /\b(footballer|football player|football forward|football striker|football winger|football midfielder|football defender|football central defender|football goalkeeper|association football|soccer player|soccer coach|professional soccer|football manager|football coach|football pundit|football administrator|professional football|fifa world cup|played as a)\b/i.test(
     extract || ""
   );
 }
@@ -786,6 +816,20 @@ function isLikelyPlayerPage(profile, page, overrideTitle = "") {
   }
 
   return exactishTitle && (hasTeamClue(profile, page.extract) || page.extract.length >= 120);
+}
+
+function decodeImageReference(value) {
+  const reference = String(value || "").replace(/_/g, " ");
+  try {
+    return decodeURIComponent(reference);
+  } catch {
+    return reference;
+  }
+}
+
+function isRejectedCommonsImageReference(value) {
+  const referenceKey = normalizePlayerName(decodeImageReference(value));
+  return rejectedCommonsImageFileKeys.some((fileKey) => referenceKey.includes(fileKey));
 }
 
 async function fetchWikipedia(params, attempt = 0) {
@@ -973,10 +1017,47 @@ function clearInvalidTransfermarktFields(profile) {
   return true;
 }
 
+function clearRejectedWikimediaImageFields(profile) {
+  if (
+    !profile.imageUrl ||
+    (profile.imageSource !== commonsSourceId && profile.imageSource !== wikipediaSummarySourceId)
+  ) {
+    return false;
+  }
+
+  const imageReferences = [
+    profile.imageUrl,
+    profile.imageSourceUrl,
+    profile.imagePageTitle,
+    profile.imagePageUrl
+  ];
+  if (!imageReferences.some(isRejectedCommonsImageReference)) {
+    return false;
+  }
+
+  for (const fieldName of [
+    "imageUrl",
+    "imageSource",
+    "imageSourceUrl",
+    "imageCredit",
+    "imageLicense",
+    "imagePageTitle",
+    "imagePageUrl"
+  ]) {
+    delete profile[fieldName];
+  }
+  return true;
+}
+
 async function lookupCommonsImage(profile) {
   const overrideTitle = curatedTitleOverrides.get(normalizePlayerName(profile.name)) || "";
+  const overrideFileName = curatedCommonsFileOverrides.get(normalizePlayerName(profile.name)) || "";
+  const overrideFileCacheKey = overrideFileName ? `commons-file:${overrideFileName}` : "";
   if (overrideTitle && curatedImageLookupCache.has(overrideTitle)) {
     return curatedImageLookupCache.get(overrideTitle);
+  }
+  if (overrideFileCacheKey && curatedImageLookupCache.has(overrideFileCacheKey)) {
+    return curatedImageLookupCache.get(overrideFileCacheKey);
   }
 
   let pages = [];
@@ -1018,6 +1099,9 @@ async function lookupCommonsImage(profile) {
     if (!isLikelyPlayerPage(profile, page, overrideTitle)) {
       continue;
     }
+    if (isRejectedCommonsImageReference(page.pageimage) || isRejectedCommonsImageReference(page.thumbnail?.source)) {
+      continue;
+    }
 
     const imageInfo = await fetchImageInfo(page.pageimage);
     const descriptionUrl = imageInfo?.descriptionurl || "";
@@ -1056,6 +1140,31 @@ async function lookupCommonsImage(profile) {
     }
   }
 
+  if (overrideFileName) {
+    const imageInfo = await fetchImageInfo(overrideFileName);
+    const descriptionUrl = imageInfo?.descriptionurl || "";
+    if (descriptionUrl.includes("commons.wikimedia.org/wiki/File:")) {
+      const imageFields = {
+        imageUrl: getCommonsImageUrl(overrideFileName),
+        imageSource: commonsSourceId,
+        imageSourceUrl: descriptionUrl,
+        imageCredit: stripHtml(imageInfo?.extmetadata?.Artist?.value),
+        imageLicense: stripHtml(
+          imageInfo?.extmetadata?.LicenseShortName?.value ||
+            imageInfo?.extmetadata?.UsageTerms?.value ||
+            imageInfo?.extmetadata?.License?.value
+        ),
+        imagePageTitle: overrideTitle || profile.name,
+        imagePageUrl: overrideTitle
+          ? `https://en.wikipedia.org/wiki/${encodeURIComponent(overrideTitle.replace(/ /g, "_"))}`
+          : ""
+      };
+      curatedImageLookupCache.set(overrideFileCacheKey, imageFields);
+      return imageFields;
+    }
+    curatedImageLookupCache.set(overrideFileCacheKey, null);
+  }
+
   if (overrideTitle) {
     curatedImageLookupCache.set(overrideTitle, null);
   }
@@ -1078,6 +1187,8 @@ let transfermarktImageCount = 0;
 let transfermarktBirthDateCount = 0;
 let transfermarktPeakValueCount = 0;
 let invalidTransfermarktCount = 0;
+let rejectedWikimediaImageCount = 0;
+let rejectedFinalSemiImageCount = 0;
 let wikimediaCount = 0;
 let skippedExistingCount = 0;
 let lookedUpCount = 0;
@@ -1089,6 +1200,12 @@ const finalSemiTargetProfileKeys = finalSemiTargetsOnly
 for (const profile of Object.values(profiles)) {
   if (clearInvalidTransfermarktFields(profile)) {
     invalidTransfermarktCount += 1;
+  }
+  if (clearRejectedWikimediaImageFields(profile)) {
+    rejectedWikimediaImageCount += 1;
+    if (finalSemiTargetProfileKeys.has(profile.profileKey)) {
+      rejectedFinalSemiImageCount += 1;
+    }
   }
 
   if (profile.imageUrl) {
@@ -1173,6 +1290,14 @@ if (Object.values(profiles).some((profile) => profile.imageSource === wikipediaS
   sourceIds.add(wikipediaSummarySourceId);
 }
 
+const previousMinimumImageCount = Number(historicalProfilesData.coverage?.minimumImageCount || 0);
+const adjustedMinimumImageCount = Math.max(0, previousMinimumImageCount - rejectedWikimediaImageCount);
+const previousMinimumFinalSemiImageCount = Number(historicalProfilesData.coverage?.minimumFinalSemiImageCount || 0);
+const adjustedMinimumFinalSemiImageCount = Math.max(
+  0,
+  previousMinimumFinalSemiImageCount - rejectedFinalSemiImageCount
+);
+
 const output = {
   ...historicalProfilesData,
   updatedAt: new Date().toISOString(),
@@ -1182,16 +1307,13 @@ const output = {
     imageStatus: "current-card-reuse-plus-transfermarkt-plus-curated-wikipedia-wikimedia",
     imageNote:
       "Historical cards reuse current profile photos for matching active players, add conservative Transfermarkt dataset photos/birth dates/peak values when name and country match, and add Wikipedia/Wikimedia photos when the page match passes footballer checks or a curated title override.",
-    minimumImageCount: Math.max(Number(historicalProfilesData.coverage?.minimumImageCount || 0), imageCount),
+    minimumImageCount: Math.max(adjustedMinimumImageCount, imageCount),
     ...(finalSemiTargetProfileKeys.size
       ? {
           finalSemiImageStatus: "targeted-final-and-semi-final-scorers-key-players-and-team-description-mentions",
           finalSemiImageTargetCount: finalSemiTargetProfileKeys.size,
           finalSemiImageCount,
-          minimumFinalSemiImageCount: Math.max(
-            Number(historicalProfilesData.coverage?.minimumFinalSemiImageCount || 0),
-            finalSemiImageCount
-          )
+          minimumFinalSemiImageCount: Math.max(adjustedMinimumFinalSemiImageCount, finalSemiImageCount)
         }
       : {})
   },
@@ -1208,6 +1330,7 @@ console.log(
     `Inherited from current profiles: ${inheritedCount}.`,
     `Enriched from Transfermarkt dataset: ${transfermarktCount} profiles (${transfermarktImageCount} photos, ${transfermarktBirthDateCount} birth dates, ${transfermarktPeakValueCount} peak values).`,
     invalidTransfermarktCount ? `Removed implausible Transfermarkt matches: ${invalidTransfermarktCount}.` : "",
+    rejectedWikimediaImageCount ? `Removed unsuitable Wikimedia matches: ${rejectedWikimediaImageCount}.` : "",
     `Added from Wikipedia/Wikimedia: ${wikimediaCount}.`,
     `Already had photos: ${skippedExistingCount}.`,
     finalSemiTargetProfileKeys.size

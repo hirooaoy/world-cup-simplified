@@ -113,7 +113,9 @@
     "fifa-goal-events-sync-2026-06-30",
     "fifa-official-results-sync-2026-06-30",
     "national-football-teams-h2h-sync-2026-06-30",
-    "fifa-official-results-sync-2026-07-01"
+    "fifa-official-results-sync-2026-07-01",
+    "ap-norway-cote-divoire-result-2026-06-30",
+    "guardian-cote-divoire-norway-result-2026-06-30"
   ],
   "coverage": {
     "status": "complete-schedule",
@@ -10683,8 +10685,8 @@
       ],
       "goalsAway": [],
       "resultStoryBullets": [
-        "Kylian Mbappe's opener was the super-goal moment: a short-corner move, a crossover step past Viktor Gyokeres, and a finish across goal.",
-        "Michael Olise supplied the creator thread, assisting Barcola's second and sliding Mbappe through for France's third."
+        "Mbappe made France's opener a super goal, crossing over past Viktor Gyokeres and finishing across goal.",
+        "Olise shaped France's attack with two assists, teeing up Barcola before sliding Mbappe through for the third."
       ],
       "resultStoryResearch": {
         "status": "researched",
@@ -10798,9 +10800,18 @@
         }
       ],
       "resultStoryBullets": [
-        "Amad Diallo's 74' equalizer brought Côte d'Ivoire level.",
-        "Erling Haaland's 86' winner settled a tight match for Norway."
+        "Nusa curled Norway in front before Amad Diallo came off the bench to clear one off the line and equalize.",
+        "Berg's late run set up Haaland's winner, and Nyland's stoppage time save protected Norway's first knockout win."
       ],
+      "resultStoryResearch": {
+        "status": "researched",
+        "sourceIds": [
+          "ap-norway-cote-divoire-result-2026-06-30",
+          "guardian-cote-divoire-norway-result-2026-06-30"
+        ],
+        "checkedAt": "2026-06-30T18:32:13-07:00",
+        "note": "AP and Guardian reports reviewed for Nusa opener, Diallo cameo, Berg-to-Haaland winner, and Nyland save."
+      },
       "highlightVideo": {
         "platform": "youtube",
         "url": "https://www.youtube.com/watch?v=rPebJKCPjK0",

@@ -1199,6 +1199,12 @@ for (const fixture of fixturesData.fixtures || []) {
   assert(fixture.venue, `Fixture "${fixture.id}" must have a venue`);
   assert(["SCHEDULED", "LIVE", "FT", "POSTPONED", "CANCELLED"].includes(fixture.status), `Fixture "${fixture.id}" has invalid status`);
 
+  if (!["LIVE", "FT"].includes(fixture.status)) {
+    assert(fixture.score === undefined, `Non-live fixture "${fixture.id}" must not include a score`);
+    assert(fixture.scoreDetails === undefined, `Non-live fixture "${fixture.id}" must not include scoreDetails`);
+    assert(fixture.scoreUpdatedAt === undefined, `Non-live fixture "${fixture.id}" must not include scoreUpdatedAt`);
+  }
+
   if (fixture.stage === "group") {
     assert(groups.has(fixture.groupId), `Fixture "${fixture.id}" references unknown group "${fixture.groupId}"`);
     assert(hasHomeTeam, `Group fixture "${fixture.id}" must include a known homeTeamId`);

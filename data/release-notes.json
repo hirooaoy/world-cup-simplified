@@ -1,6 +1,63 @@
 {
-  "updatedAt": "2026-06-30T17:58:52-07:00",
+  "updatedAt": "2026-06-30T18:46:27-07:00",
   "releases": [
+    {
+      "date": "2026-06-30",
+      "title": "Up-next score cleanup",
+      "titleZh": "即将开始比分清理",
+      "highlights": [
+        "Upcoming match rows now ignore provider pre-match 0-0 score shells, so an Up next fixture stays unscored until a live or final status is verified.",
+        "Validation, audit, and smoke checks now fail if scheduled/upcoming fixtures carry score artifacts or render conflicting score/status pills."
+      ],
+      "highlightsZh": [
+        "即将开始的比赛行现在会忽略数据源赛前返回的 0-0 占位比分，只有在核验为直播或完赛状态后才显示比分。",
+        "校验、审计和冒烟测试现在会拦截带有比分字段或渲染出冲突比分/状态标签的待赛比赛。"
+      ]
+    },
+    {
+      "date": "2026-06-30",
+      "title": "Archive group advancement",
+      "titleZh": "历届小组晋级标记",
+      "highlights": [
+        "Archived Groups tables now use the same green row treatment as 2026 for teams that actually reached the Tournament stage, including older one-winner groups, group-playoff winners, and final-round group qualifiers."
+      ],
+      "highlightsZh": [
+        "历届 Groups 表现在会像 2026 年一样，用绿色行标出真正进入 Tournament 阶段的球队，包括早期单一小组头名、小组附加赛胜者和决赛轮小组晋级球队。"
+      ]
+    },
+    {
+      "date": "2026-06-30",
+      "title": "Prediction heading alignment",
+      "titleZh": "预测标题对齐",
+      "highlights": [
+        "Mobile info cards now keep the Prediction source info button vertically centered with the heading while preserving the Result play button alignment."
+      ],
+      "highlightsZh": [
+        "移动端信息卡现在会让 Prediction 来源信息按钮与标题垂直居中，同时保留 Result 播放按钮的对齐效果。"
+      ]
+    },
+    {
+      "date": "2026-06-30",
+      "title": "Archive tournament brackets",
+      "titleZh": "历届淘汰赛对阵",
+      "highlights": [
+        "The 1954 and 1958 archived Tournament tabs now start at the real knockout bracket, keeping group tie-breaker play-offs out of the bracket columns and quarter-final Previous context."
+      ],
+      "highlightsZh": [
+        "1954 和 1958 年的历届 Tournament 视图现在从真正的淘汰赛阶段开始，不再把小组附加赛放进对阵列或四分之一决赛的 Previous 语境。"
+      ]
+    },
+    {
+      "date": "2026-06-30",
+      "title": "Live pill hover",
+      "titleZh": "直播标签悬停",
+      "highlights": [
+        "Live match rows and tournament cards no longer shift while the Live pill time tooltip is targeted on desktop."
+      ],
+      "highlightsZh": [
+        "桌面端指向 Live 标签的比赛时间提示时，直播比赛行和 Tournament 卡片不再位移。"
+      ]
+    },
     {
       "date": "2026-06-30",
       "title": "Archive kickoff times",
@@ -20,11 +77,13 @@
       "titleZh": "赛果故事研究队列",
       "highlights": [
         "The FIFA sync workflow now reports finished matches that still need source-backed Result story research after scorer and official-video sync.",
-        "The Result card keeps the verified score, scorer timeline, and official video without publishing generic story filler while researched bullets are pending."
+        "The Result card keeps the verified score, scorer timeline, and official video without publishing generic story filler while researched bullets are pending.",
+        "Researched current-match recaps now favor short, natural sentences and reject colon/dash-shaped summary prose."
       ],
       "highlightsZh": [
         "FIFA 同步流程现在会在射手和官方视频同步后，报告仍需要来源支撑的 Result 故事研究的完赛比赛。",
-        "研究型故事待补充时，Result 卡片会保留已核验比分、进球时间线和官方视频，但不会发布泛泛的故事填充文案。"
+        "研究型故事待补充时，Result 卡片会保留已核验比分、进球时间线和官方视频，但不会发布泛泛的故事填充文案。",
+        "经过研究的当前比赛复盘现在会采用更短、更自然的句子，并拒绝冒号或破折号式的摘要腔。"
       ]
     },
     {
@@ -91,10 +150,12 @@
       "title": "Historical player photos",
       "titleZh": "历届球员照片",
       "highlights": [
-        "More past World Cup player cards now use verified Wikipedia/Wikimedia photos, and placeholder Transfermarkt portraits are no longer treated as real headshots."
+        "More past World Cup player cards now use verified Wikipedia/Wikimedia photos, including targeted Final and Semi-finals scorer, key-player, and team-description mentions while ambiguous image matches stay as initials.",
+        "Historical photo coverage metadata now records the Finals/Semi-finals target set separately from the all-profile photo count."
       ],
       "highlightsZh": [
-        "更多历届世界杯球员卡片现在会使用已核验的 Wikipedia/Wikimedia 照片；Transfermarkt 占位头像也不会再被当作真实头像。"
+        "更多历届世界杯球员卡片现在会使用已核验的 Wikipedia/Wikimedia 照片，包括针对决赛和半决赛射手、关键球员以及球队描述提及球员的补图；有歧义的图片匹配会继续保留首字母头像。",
+        "历届照片覆盖率元数据现在会把决赛/半决赛目标名单与全部球员卡照片总数分开记录。"
       ]
     },
     {
@@ -179,10 +240,10 @@
       "title": "Norway advance update",
       "titleZh": "挪威晋级更新",
       "highlights": [
-        "Norway's 2-1 win over Côte d'Ivoire now updates the score, goal timeline, official highlight link, and Brazil-Norway H2H context."
+        "Norway's 2-1 win over Côte d'Ivoire now updates the score, goal timeline, official highlight link, Brazil-Norway H2H context, and a sourced Result recap around Nusa, Diallo, Haaland, and Nyland."
       ],
       "highlightsZh": [
-        "挪威 2-1 战胜科特迪瓦后，现在已更新比分、进球时间线、官方集锦链接和巴西对挪威的交锋背景。"
+        "挪威 2-1 战胜科特迪瓦后，现在已更新比分、进球时间线、官方集锦链接、巴西对挪威的交锋背景，并补充围绕努萨、迪亚洛、哈兰德和尼兰的来源支撑赛果复盘。"
       ]
     },
     {
