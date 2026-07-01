@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-01T07:06:48.509Z",
+  "updatedAt": "2026-07-01T16:21:32.390Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -11222,7 +11222,7 @@
       "homeSlot": "Group L winner",
       "awaySlot": "Group E/H/I/J/K third place",
       "venue": "Atlanta Stadium",
-      "status": "SCHEDULED",
+      "status": "LIVE",
       "h2h": {
         "status": "verified-empty",
         "sourceId": "national-football-teams-h2h-sync-2026-06-30",
@@ -11283,6 +11283,10 @@
         "sourceId": "editorial-preview-2026-06-22",
         "home": "England are one of the strongest teams in the tournament, built around power, speed, and danger near goal, led by Jude Bellingham, Harry Kane, and Declan Rice. Against DR Congo, their Kane-Bellingham box entries has to beat DR Congo's Wissa-Sadiki counters. They want to turn Kane's dropping movements into Bellingham runs and fast cutbacks from wide areas. The risk is DR Congo can break quickly through Wissa and Sadiki when opponents overcommit.",
         "away": "DR Congo are an explosive quick-break side that can make favorites uncomfortable if the match opens up, led by Yoane Wissa, Aaron Wan-Bissaka, and Noah Sadiki. Against England, their Wissa-Sadiki counters has to beat England's Kane-Bellingham box entries. They want to spring Wissa early and let Sadiki carry the first clean pass out of pressure. The risk is England can attack quickly through Kane and Bellingham while Rice controls the counter."
+      },
+      "score": {
+        "home": 0,
+        "away": 1
       }
     },
     {
