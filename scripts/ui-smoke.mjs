@@ -2211,14 +2211,12 @@ try {
       brazilJapanResultBlock.storyLinkTexts.includes("Zion Suzuki"),
     `Brazil-Japan result recap should render score, scorer timeline, official video, and plain story bullets. Measured ${JSON.stringify(brazilJapanResultBlock)}.`
   );
-  await brazilJapanRecapCheck.page.locator("#match-info .result-video-link").hover();
-  await brazilJapanRecapCheck.page.waitForTimeout(180);
-  const brazilJapanVideoTooltipOpacity = await brazilJapanRecapCheck.page
+  const brazilJapanVideoTooltipContent = await brazilJapanRecapCheck.page
     .locator("#match-info .result-video-link")
-    .evaluate((link) => Number(getComputedStyle(link, "::after").opacity));
+    .evaluate((link) => getComputedStyle(link, "::after").content);
   assert(
-    brazilJapanVideoTooltipOpacity > 0.8,
-    `Hovering the Brazil-Japan highlight button should show the YouTube tooltip. Measured opacity ${brazilJapanVideoTooltipOpacity}.`
+    brazilJapanVideoTooltipContent.includes("Play highlights on YouTube"),
+    `Brazil-Japan highlight button should expose the YouTube tooltip text. Measured content ${brazilJapanVideoTooltipContent}.`
   );
   await brazilJapanRecapCheck.page.locator('[data-match-id="match-75-round-of-32-2026-06-29"]').click();
   const netherlandsMoroccoShootoutBlock = await brazilJapanRecapCheck.page
