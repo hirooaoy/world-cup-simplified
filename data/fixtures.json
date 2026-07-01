@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-01T16:21:32.390Z",
+  "updatedAt": "2026-07-01T18:07:48.186Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -119,7 +119,8 @@
     "fifa-goal-events-sync-2026-07-01",
     "guardian-germany-paraguay-result-2026-06-30",
     "guardian-netherlands-morocco-result-2026-06-30",
-    "guardian-mexico-ecuador-result-2026-07-01"
+    "guardian-mexico-ecuador-result-2026-07-01",
+    "national-football-teams-h2h-sync-2026-07-01"
   ],
   "coverage": {
     "status": "complete-schedule",
@@ -11222,7 +11223,7 @@
       "homeSlot": "Group L winner",
       "awaySlot": "Group E/H/I/J/K third place",
       "venue": "Atlanta Stadium",
-      "status": "LIVE",
+      "status": "FT",
       "h2h": {
         "status": "verified-empty",
         "sourceId": "national-football-teams-h2h-sync-2026-06-30",
@@ -11285,8 +11286,35 @@
         "away": "DR Congo are an explosive quick-break side that can make favorites uncomfortable if the match opens up, led by Yoane Wissa, Aaron Wan-Bissaka, and Noah Sadiki. Against England, their Wissa-Sadiki counters has to beat England's Kane-Bellingham box entries. They want to spring Wissa early and let Sadiki carry the first clean pass out of pressure. The risk is England can attack quickly through Kane and Bellingham while Rice controls the counter."
       },
       "score": {
-        "home": 0,
+        "home": 2,
         "away": 1
+      },
+      "goalsHome": [
+        {
+          "minute": 75,
+          "name": "Harry Kane",
+          "assistName": "Anthony Gordon"
+        },
+        {
+          "minute": 86,
+          "name": "Harry Kane",
+          "assistName": "Anthony Gordon"
+        }
+      ],
+      "goalsAway": [
+        {
+          "minute": 7,
+          "name": "Brian Cipenga",
+          "assistName": "Chancel Mbemba"
+        }
+      ],
+      "highlightVideoReview": {
+        "status": "not-found",
+        "platform": "youtube",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "checkedAt": "2026-07-01T11:07:41-07:00",
+        "note": "No official FOX Sports YouTube highlights video matched this fixture during the automated channel check."
       }
     },
     {
@@ -12511,9 +12539,72 @@
       "venue": "Mexico City Stadium",
       "status": "SCHEDULED",
       "h2h": {
-        "status": "not-loaded",
-        "summary": "Teams are not known yet. Past match research will load after the matchup is set.",
-        "results": null
+        "status": "loaded",
+        "sourceId": "national-football-teams-h2h-sync-2026-07-01",
+        "summary": "Before this fixture, England had the edge in the verified senior series: 1 Mexico win, 0 draws, 5 England wins, 16 total goals.",
+        "results": [
+          {
+            "date": "2010-05-24",
+            "competition": "Friendly",
+            "homeTeamId": "ENG",
+            "awayTeamId": "MEX",
+            "homeScore": 3,
+            "awayScore": 1,
+            "venue": "Wembley Stadium",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/10386/England_Mexico.html"
+          },
+          {
+            "date": "2001-05-25",
+            "competition": "Friendly",
+            "homeTeamId": "ENG",
+            "awayTeamId": "MEX",
+            "homeScore": 4,
+            "awayScore": 0,
+            "venue": "Pride Park Stadium",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/21084/England_Mexico.html"
+          },
+          {
+            "date": "1997-03-29",
+            "competition": "Friendly",
+            "homeTeamId": "ENG",
+            "awayTeamId": "MEX",
+            "homeScore": 2,
+            "awayScore": 0,
+            "venue": "Wembley Stadium",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/25723/England_Mexico.html"
+          },
+          {
+            "date": "1986-05-17",
+            "competition": "Friendly",
+            "homeTeamId": "MEX",
+            "awayTeamId": "ENG",
+            "homeScore": 0,
+            "awayScore": 3,
+            "venue": "Los Angeles Memorial Coliseum",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/35219/Mexico_England.html"
+          },
+          {
+            "date": "1985-06-09",
+            "competition": "Friendly",
+            "homeTeamId": "MEX",
+            "awayTeamId": "ENG",
+            "homeScore": 1,
+            "awayScore": 0,
+            "venue": "Estadio Azteca",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/36061/Mexico_England.html"
+          },
+          {
+            "date": "1966-07-16",
+            "competition": "World Cup 1966 - Group 1",
+            "homeTeamId": "ENG",
+            "awayTeamId": "MEX",
+            "homeScore": 2,
+            "awayScore": 0,
+            "venue": "Wembley Stadium",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/15069/England_Mexico.html"
+          }
+        ],
+        "sourceUrl": "https://www.national-football-teams.com/encounter/teams/121/59/Mexico_vs_England.html"
       },
       "providerIds": {
         "fifa": {
@@ -12521,7 +12612,54 @@
           "matchNumber": 92
         }
       },
-      "homeTeamId": "MEX"
+      "homeTeamId": "MEX",
+      "awayTeamId": "ENG",
+      "projection": {
+        "sourceId": "ranking-projection-2026-06-17",
+        "method": "fifa-ranking-baseline",
+        "basis": "FIFA ranking strength with host-country adjustment",
+        "home": 30,
+        "draw": 27,
+        "away": 43
+      },
+      "keyPlayers": {
+        "sourceId": "key-player-baseline-2026-06-22",
+        "method": "team-watchlist-baseline",
+        "basis": "Team-level key-player watchlist; replace with API/squad-sourced fixture notes when available",
+        "home": [
+          {
+            "name": "Santiago Gimenez",
+            "note": "Mexico's focal striker, valuable when home pressure turns into repeated box touches."
+          },
+          {
+            "name": "Edson Alvarez",
+            "note": "The midfield shield and organizer, central to slowing transition attacks and protecting the back line."
+          },
+          {
+            "name": "Luis Chavez",
+            "note": "A left-footed set-piece and long-range threat who can punish loose clearances."
+          }
+        ],
+        "away": [
+          {
+            "name": "Jude Bellingham",
+            "note": "The connector between midfield and attack, dangerous because he arrives late rather than standing still as a No. 10."
+          },
+          {
+            "name": "Harry Kane",
+            "note": "England's captain and central finisher. His dropping movements can pull center-backs out of shape."
+          },
+          {
+            "name": "Declan Rice",
+            "note": "The balance piece in midfield, responsible for stopping counters before opponents can slow the game down."
+          }
+        ]
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-22",
+        "home": "Mexico are a home-side pressure team that want territory, crowd energy, and repeated penalty-area touches, led by Santiago Gimenez, Edson Alvarez, and Luis Chavez. Against England, their Gimenez-Chavez home pressure has to beat England's Kane-Bellingham box entries. They want to keep the ball in the opponent's half and feed Gimenez before Chavez attacks free kicks, corners, or rebounds. The risk is England can attack quickly through Kane and Bellingham while Rice controls the counter.",
+        "away": "England are one of the strongest teams in the tournament, built around power, speed, and danger near goal, led by Jude Bellingham, Harry Kane, and Declan Rice. Against Mexico, their Kane-Bellingham box entries has to beat Mexico's Gimenez-Chavez home pressure. They want to turn Kane's dropping movements into Bellingham runs and fast cutbacks from wide areas. The risk is Mexico can turn home pressure into Gimenez touches and Chavez free-kick or corner chances."
+      }
     },
     {
       "id": "match-93-round-of-16-2026-07-06",

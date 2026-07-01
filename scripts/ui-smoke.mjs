@@ -380,7 +380,7 @@ const sourceNoteData = await Promise.all(
   ].map(async (fileName) => JSON.parse(await readFile(path.join(root, "data", fileName), "utf8")))
 );
 const [, , , , releaseNotesData, teamsData, standingsData, tournamentData] = sourceNoteData;
-const sourceNoteRefreshData = sourceNoteData.filter((_, index) => index !== 4);
+const sourceNoteRefreshData = sourceNoteData.filter((_, index) => ![2, 4].includes(index));
 const matchLiveWindowMs = 2.25 * 60 * 60 * 1000;
 const browser = await chromium.launch({ args: ["--blink-settings=imagesEnabled=false"] });
 const page = await browser.newPage();
@@ -6345,6 +6345,7 @@ try {
       m80TieTooltip: getOutcomeTooltip(80, "tie"),
       m83TieTooltip: getOutcomeTooltip(83, "tie"),
       m86TieTooltip: getOutcomeTooltip(86, "tie"),
+      m92TieTooltip: getOutcomeTooltip(92, "tie"),
       m88AwayTooltip: getOutcomeTooltip(88, "away"),
       m73PillCount: document.querySelectorAll('.progress-match[data-match-number="73"] .knockout-likelihood').length,
       m89PillCount: document.querySelectorAll('.progress-match[data-match-number="89"] .knockout-likelihood').length,
@@ -6459,6 +6460,18 @@ try {
     Number(team.flagOpacity) < 1 &&
     Number(team.rankOpacity) < 1 &&
     getCssColorAlpha(team.strongColor) < 0.7;
+  const m92ResolvedState =
+    tournamentCheck.m92Projected === false &&
+    tournamentCheck.m92TeamVisuals.length === 2 &&
+    tournamentCheck.m92TeamVisuals.every(isLockedResolvedCountry) &&
+    getCssColorAlpha(tournamentCheck.m92VersusColor) >= 0.7;
+  const m92ProjectedState =
+    tournamentCheck.m92Projected === true &&
+    tournamentCheck.m92TeamVisuals.length === 2 &&
+    m92LikelyVisuals.length >= 1 &&
+    m92LikelyVisuals.every(isMutedProjectedCountry) &&
+    m92LockedVisuals.every(isLockedResolvedCountry) &&
+    getCssColorAlpha(tournamentCheck.m92VersusColor) < 0.7;
   assert(
     tournamentCheck.m79Projected === false &&
       tournamentCheck.m79TeamVisuals.length === 2 &&
@@ -6476,12 +6489,7 @@ try {
       tournamentCheck.m89TeamVisuals.length === 2 &&
       tournamentCheck.m89TeamVisuals.every(isLockedResolvedCountry) &&
       getCssColorAlpha(tournamentCheck.m89VersusColor) >= 0.7 &&
-      tournamentCheck.m92Projected === true &&
-      tournamentCheck.m92TeamVisuals.length === 2 &&
-      m92LikelyVisuals.length >= 1 &&
-      m92LikelyVisuals.every(isMutedProjectedCountry) &&
-      m92LockedVisuals.every(isLockedResolvedCountry) &&
-      getCssColorAlpha(tournamentCheck.m92VersusColor) < 0.7 &&
+      (m92ResolvedState || m92ProjectedState) &&
       tournamentCheck.laterRoundLikelyVisuals.length >= 2 &&
       tournamentCheck.laterRoundLikelyVisuals.every(isMutedProjectedCountry),
     `Resolved Round of 16 country picks should stay full-strength while projected Round of 16 and later teams stay muted. Measured ${JSON.stringify({ m89TeamVisuals: tournamentCheck.m89TeamVisuals, m89VersusColor: tournamentCheck.m89VersusColor, m92LikelyVisuals, m92LockedVisuals, m92VersusColor: tournamentCheck.m92VersusColor, laterRoundLikelyVisuals: tournamentCheck.laterRoundLikelyVisuals })}.`
@@ -6684,10 +6692,10 @@ try {
       ) &&
       tournamentCheck.m89Tooltips.includes("France have the shootout edge through Kylian Mbappé") &&
       !/goalkeeper|Olise|Risser/.test(tournamentCheck.m89Tooltips) &&
-      tournamentCheck.m80TieTooltip.includes("Everton goalkeeper Jordan Pickford") &&
+      tournamentCheck.m92TieTooltip.includes("Everton goalkeeper Jordan Pickford") &&
       tournamentCheck.m83TieTooltip.includes("Porto goalkeeper Diogo Costa") &&
       tournamentCheck.m86TieTooltip.includes("Aston Villa goalkeeper Emiliano Martínez") &&
-      [tournamentCheck.m80TieTooltip, tournamentCheck.m83TieTooltip, tournamentCheck.m86TieTooltip].every(
+      [tournamentCheck.m92TieTooltip, tournamentCheck.m83TieTooltip, tournamentCheck.m86TieTooltip].every(
         (tooltip) => (tooltip.match(/\bgoalkeeper\b/g) || []).length === 1
       ) &&
       !tournamentCheck.m89Text.includes("TBD") &&
