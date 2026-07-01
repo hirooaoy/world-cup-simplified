@@ -8417,6 +8417,27 @@ try {
       ".player-card-value-help[data-tooltip]"
     ];
     const parsePx = (value) => Number.parseFloat(value) || 0;
+    const positionOffset = (value, anchorSize) => {
+      const text = String(value || "").trim();
+      if (!text || text === "auto") {
+        return 0;
+      }
+
+      const percentOffsets = [...text.matchAll(/(-?\d+(?:\.\d+)?)%/g)].reduce(
+        (total, match) => total + (Number(match[1]) / 100) * anchorSize,
+        0
+      );
+      const pixelOffsets = [...text.matchAll(/(-?\d+(?:\.\d+)?)px/g)].reduce(
+        (total, match) => total + Number(match[1]),
+        0
+      );
+
+      if (percentOffsets || pixelOffsets || /%|px/.test(text)) {
+        return percentOffsets + pixelOffsets;
+      }
+
+      return parsePx(text);
+    };
     const transformX = (value) => {
       if (!value || value === "none") {
         return 0;
@@ -8427,6 +8448,32 @@ try {
       }
       const parts = match[1].split(",").map((part) => Number.parseFloat(part.trim()));
       return Number.isFinite(parts[4]) ? parts[4] : 0;
+    };
+    const tooltipBoundsFor = (element, style, width) => {
+      const rect = element.getBoundingClientRect();
+      let translateX = transformX(style.transform);
+
+      if (style.left !== "auto") {
+        if (!translateX && String(style.left).includes("%")) {
+          translateX = -width / 2;
+        }
+
+        const left = rect.left + positionOffset(style.left, rect.width) + translateX;
+        return {
+          left,
+          right: left + width
+        };
+      }
+
+      if (style.right !== "auto") {
+        const right = rect.right - positionOffset(style.right, rect.width) + translateX;
+        return {
+          left: right - width,
+          right
+        };
+      }
+
+      return null;
     };
     const clipRectFor = (element) => {
       const viewportRight = document.documentElement.clientWidth || window.innerWidth;
@@ -8473,7 +8520,6 @@ try {
         Array.from(document.querySelectorAll(selector))
           .filter(isVisible)
           .map((element) => {
-            const rect = element.getBoundingClientRect();
             const style = getComputedStyle(element, "::after");
             if (style.left === "auto") {
               return null;
@@ -8489,16 +8535,19 @@ try {
               return null;
             }
 
-            const left = rect.left + parsePx(style.left) + transformX(style.transform);
-            const right = left + width;
+            const tooltipBounds = tooltipBoundsFor(element, style, width);
+            if (!tooltipBounds) {
+              return null;
+            }
+
             const clip = clipRectFor(element);
-            const edgeGap = 5;
+            const edgeGap = 6;
             return {
               selector,
               tooltip: element.getAttribute("data-tooltip") || "",
               shift: element.style.getPropertyValue("--tooltip-shift-x"),
-              overflowLeft: Math.max(0, clip.left + edgeGap - left),
-              overflowRight: Math.max(0, right - (clip.right - edgeGap))
+              overflowLeft: Math.max(0, clip.left + edgeGap - tooltipBounds.left),
+              overflowRight: Math.max(0, tooltipBounds.right - (clip.right - edgeGap))
             };
           })
       )
