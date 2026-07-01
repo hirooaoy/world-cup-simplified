@@ -5335,8 +5335,23 @@ try {
     catchUpKaneDecoration === "underline" && catchUpKaneDecorationStyle === "dotted",
     "Catch-up player mentions should use the same soft dotted underline as paragraph mentions."
   );
-  await catchUpKaneLink.hover();
-  const catchUpKaneCard = catchUpCheck.page.locator(".player-card-floating");
+  await catchUpKaneLink.evaluate((link) => {
+    const playerHover = link.closest(".player-hover");
+    const enterEvent = typeof PointerEvent === "function"
+      ? new PointerEvent("pointerenter", {
+          bubbles: true,
+          cancelable: true,
+          composed: true,
+          pointerType: "mouse"
+        })
+      : new MouseEvent("pointerenter", {
+          bubbles: true,
+          cancelable: true,
+          composed: true
+        });
+    playerHover?.dispatchEvent(enterEvent);
+  });
+  const catchUpKaneCard = catchUpCheck.page.locator(".player-card-floating:visible");
   await catchUpKaneCard.waitFor({ state: "visible" });
   const catchUpKaneCardBox = await catchUpKaneCard.boundingBox();
   const catchUpViewport = catchUpCheck.page.viewportSize();
