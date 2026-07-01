@@ -962,6 +962,24 @@ const ZH_ADDITIONAL_EXACT_TRANSLATIONS = {
     "斯蒂芬·欧斯塔基奥在补时阶段打破僵局，让南非追赶这场1-0。",
   "Canada kept South Africa out at the other end and turned the late goal into a knockout win.":
     "加拿大在另一端守住南非，并把这个最后阶段的进球变成淘汰赛胜利。",
+  "Enciso headed Paraguay in front from Galarza's cross before Havertz redirected Wirtz's delivery for Germany's 54th-minute equalizer.":
+    "恩西索接加拉尔萨传中头球破门让巴拉圭领先，随后哈弗茨把维尔茨的传中改写为德国第54分钟扳平球。",
+  "Paraguay spent long stretches in a compact 4-5-1, making Germany's possession feel blunt until extra time and a disallowed Tah header.":
+    "巴拉圭大部分时间保持紧凑的4-5-1，让德国的控球显得迟钝，直到加时赛塔赫的头球被判无效。",
+  "Gill saved from Havertz and Woltemade before Jose Canale sealed Paraguay's 4-3 shootout win.":
+    "吉尔先后扑出哈弗茨和沃尔特马德的点球，随后何塞·卡纳莱锁定巴拉圭4-3的点球胜利。",
+  "Cody Gakpo broke through in the 72nd minute, but Issa Diop answered in stoppage time to force extra time.":
+    "加克波第72分钟打破僵局，但迪奥普补时扳平，把比赛拖入加时。",
+  "Morocco changed the match with young substitutes and kept creating through Saibari during a wild, physical finish.":
+    "摩洛哥的年轻替补改变比赛，并在疯狂又身体对抗激烈的收官阶段继续通过萨伊巴里制造机会。",
+  "Saibari converted the deciding penalty after five misses in the shootout, sending Morocco to Canada in the last 16.":
+    "五次罚失后的点球大战里，萨伊巴里罚入决定性点球，送摩洛哥进入对加拿大的16强赛。",
+  "Julian Quinones turned in Alvarado's 22nd-minute delivery, then Raul Jimenez finished Quinones's pass nine minutes later.":
+    "基尼奥内斯第22分钟接阿尔瓦拉多传球破门，随后9分钟后又助攻劳尔·希门尼斯扩大比分。",
+  "Mexico's first-half pressure made the Azteca roar, and their defense protected a fourth straight World Cup clean sheet.":
+    "墨西哥的上半场压迫点燃阿兹特克球场，防线则守住本届世界杯连续第四场零封。",
+  "Hincapie's stoppage-time red card closed Ecuador's night, while Mexico moved on to face England or DR Congo.":
+    "因卡皮耶补时染红为厄瓜多尔之夜画上句号，墨西哥则晋级面对英格兰或刚果民主共和国。",
   "Portugal and DR Congo split the points": "葡萄牙与刚果民主共和国各取一分",
   "Raúl Rangel made a huge late double save.": "Raúl Rangel最后阶段完成关键连续两连扑。",
   "Switzerland 4-1 Bosnia and Herzegovina": "瑞士4-1波黑",

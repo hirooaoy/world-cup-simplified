@@ -115,7 +115,11 @@
     "national-football-teams-h2h-sync-2026-06-30",
     "fifa-official-results-sync-2026-07-01",
     "ap-norway-cote-divoire-result-2026-06-30",
-    "guardian-cote-divoire-norway-result-2026-06-30"
+    "guardian-cote-divoire-norway-result-2026-06-30",
+    "fifa-goal-events-sync-2026-07-01",
+    "guardian-germany-paraguay-result-2026-06-30",
+    "guardian-netherlands-morocco-result-2026-06-30",
+    "guardian-mexico-ecuador-result-2026-07-01"
   ],
   "coverage": {
     "status": "complete-schedule",
@@ -10018,10 +10022,18 @@
         }
       ],
       "resultStoryBullets": [
-        "Julio Enciso put Paraguay in front before Kai Havertz answered for Germany.",
-        "The 1-1 grind kept Paraguay's Almiron-Enciso counters relevant all the way to penalties.",
-        "Paraguay were cleaner from the spot, winning the shootout 4-3 after the 1-1 draw."
+        "Enciso headed Paraguay in front from Galarza's cross before Havertz redirected Wirtz's delivery for Germany's 54th-minute equalizer.",
+        "Paraguay spent long stretches in a compact 4-5-1, making Germany's possession feel blunt until extra time and a disallowed Tah header.",
+        "Gill saved from Havertz and Woltemade before Jose Canale sealed Paraguay's 4-3 shootout win."
       ],
+      "resultStoryResearch": {
+        "status": "researched",
+        "sourceIds": [
+          "guardian-germany-paraguay-result-2026-06-30"
+        ],
+        "checkedAt": "2026-06-30T23:10:40-07:00",
+        "note": "Guardian match report and official FOX Sports highlights reviewed for Enciso opener, Havertz equalizer, Paraguay block, disallowed Tah header, and shootout details."
+      },
       "highlightVideo": {
         "platform": "youtube",
         "url": "https://www.youtube.com/watch?v=-gtI96YhJek",
@@ -10160,10 +10172,18 @@
         }
       ],
       "resultStoryBullets": [
-        "Cody Gakpo put Netherlands in front before Issa Diop answered for Morocco.",
-        "The 1-1 grind kept Morocco's Hakimi-Brahim right-side surges relevant all the way to penalties.",
-        "Morocco were cleaner from the spot, winning the shootout 3-2 after the 1-1 draw."
+        "Cody Gakpo broke through in the 72nd minute, but Issa Diop answered in stoppage time to force extra time.",
+        "Morocco changed the match with young substitutes and kept creating through Saibari during a wild, physical finish.",
+        "Saibari converted the deciding penalty after five misses in the shootout, sending Morocco to Canada in the last 16."
       ],
+      "resultStoryResearch": {
+        "status": "researched",
+        "sourceIds": [
+          "guardian-netherlands-morocco-result-2026-06-30"
+        ],
+        "checkedAt": "2026-06-30T23:10:40-07:00",
+        "note": "Guardian live report and official FOX Sports highlights reviewed for Gakpo opener, Diop equalizer, Morocco substitutions, Saibari chances, and shootout finish."
+      },
       "highlightVideo": {
         "platform": "youtube",
         "url": "https://www.youtube.com/watch?v=DkZtwwbN1YI",
@@ -11157,6 +11177,40 @@
       "score": {
         "home": 2,
         "away": 0
+      },
+      "goalsHome": [
+        {
+          "minute": 22,
+          "name": "Julian Quinones",
+          "assistName": "Roberto Alvarado"
+        },
+        {
+          "minute": 31,
+          "name": "Raul Jimenez",
+          "assistName": "Julian Quinones"
+        }
+      ],
+      "goalsAway": [],
+      "resultStoryBullets": [
+        "Julian Quinones turned in Alvarado's 22nd-minute delivery, then Raul Jimenez finished Quinones's pass nine minutes later.",
+        "Mexico's first-half pressure made the Azteca roar, and their defense protected a fourth straight World Cup clean sheet.",
+        "Hincapie's stoppage-time red card closed Ecuador's night, while Mexico moved on to face England or DR Congo."
+      ],
+      "resultStoryResearch": {
+        "status": "researched",
+        "sourceIds": [
+          "guardian-mexico-ecuador-result-2026-07-01"
+        ],
+        "checkedAt": "2026-06-30T23:10:40-07:00",
+        "note": "Guardian live report and official FOX Sports highlights reviewed for both first-half goals, Mexico's pressure, fourth straight clean sheet, Hincapie red card, and next-round path."
+      },
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=UDH9nQPl67k",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-06-30T23:08:18-07:00",
+        "checkedAt": "2026-06-30T23:08:18-07:00"
       }
     },
     {

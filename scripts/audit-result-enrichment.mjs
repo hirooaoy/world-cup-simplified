@@ -45,7 +45,19 @@ function weakHistoricalStoryBullets(fixture) {
 }
 
 function hasShootoutTextureStory(fixture) {
-  return resultStoryBullets(fixture).some((highlight) => /^The \d+-\d+ grind .+ penalties\.$/.test(highlight));
+  return resultStoryBullets(fixture).some((highlight) => {
+    if (/^The \d+-\d+ grind .+ penalties\.$/.test(highlight)) {
+      return true;
+    }
+
+    if (/\b(?:penalt|shootout|spot)\b/i.test(highlight)) {
+      return false;
+    }
+
+    return /\b(?:compact|possession|pressure|substitutes?|physical|extra time|disallowed|block|defensive|created|creating|chances?)\b/i.test(
+      highlight
+    );
+  });
 }
 
 function hasOfficialHighlightVideoDisposition(fixture) {

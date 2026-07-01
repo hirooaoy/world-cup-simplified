@@ -846,6 +846,27 @@
       "checkedAt": "2026-06-30T18:32:13-07:00"
     },
     {
+      "id": "guardian-germany-paraguay-result-2026-06-30",
+      "label": "Guardian Germany vs Paraguay match report",
+      "url": "https://www.theguardian.com/football/2026/jun/30/germany-paraguay-world-cup-2026-last-32-match-report",
+      "type": "cross-check",
+      "checkedAt": "2026-06-30T23:10:40-07:00"
+    },
+    {
+      "id": "guardian-netherlands-morocco-result-2026-06-30",
+      "label": "Guardian Netherlands vs Morocco live report",
+      "url": "https://www.theguardian.com/football/live/2026/jun/29/netherlands-v-morocco-world-cup-2026-live",
+      "type": "cross-check",
+      "checkedAt": "2026-06-30T23:10:40-07:00"
+    },
+    {
+      "id": "guardian-mexico-ecuador-result-2026-07-01",
+      "label": "Guardian Mexico vs Ecuador live report",
+      "url": "https://www.theguardian.com/football/live/2026/jul/01/fifa-world-cup-2026-live-mexico-v-ecuador-updates-mex-vs-ecu-last-round-32-match-score-latest",
+      "type": "cross-check",
+      "checkedAt": "2026-06-30T23:10:40-07:00"
+    },
+    {
       "id": "fifa-goal-events-sync-2026-06-23",
       "label": "FIFA official goal event timeline sync",
       "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/match-schedule-fixtures-results-teams-stadiums",
@@ -997,6 +1018,14 @@
       "type": "official",
       "checkedAt": "2026-07-01T07:06:48.509Z",
       "note": "2 fixture updates merged from 104 matched FIFA fixtures. 1 knockout participant slot resolved from official participants or completed results."
+    },
+    {
+      "id": "fifa-goal-events-sync-2026-07-01",
+      "label": "FIFA official goal event timeline sync",
+      "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/match-schedule-fixtures-results-teams-stadiums",
+      "type": "official",
+      "checkedAt": "2026-07-01T06:07:40.346Z",
+      "note": "1 fixture goal-event update merged from 72 matched FIFA timelines."
     }
   ],
   "groups": [

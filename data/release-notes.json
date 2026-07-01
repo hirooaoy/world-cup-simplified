@@ -1,6 +1,19 @@
 {
-  "updatedAt": "2026-06-30T18:46:27-07:00",
+  "updatedAt": "2026-06-30T23:10:40-07:00",
   "releases": [
+    {
+      "date": "2026-06-30",
+      "title": "Mexico-Ecuador Result update",
+      "titleZh": "墨西哥对厄瓜多尔赛果更新",
+      "highlights": [
+        "Mexico-Ecuador now shows the verified final score, FIFA goal timeline, official FOX Sports highlights button, and source-backed Result story bullets.",
+        "Germany-Paraguay and Netherlands-Morocco Result stories now include source research records for their knockout shootout recaps."
+      ],
+      "highlightsZh": [
+        "墨西哥对厄瓜多尔现在显示已核验终场比分、FIFA 进球时间线、FOX Sports 官方集锦按钮和有来源支撑的赛果故事。",
+        "德国对巴拉圭、荷兰对摩洛哥的赛果故事现在也为淘汰赛点球复盘补上来源研究记录。"
+      ]
+    },
     {
       "date": "2026-06-30",
       "title": "Up-next score cleanup",

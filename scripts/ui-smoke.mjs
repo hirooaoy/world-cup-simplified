@@ -2219,10 +2219,10 @@ try {
       netherlandsMoroccoShootoutBlock.rowScore === "1-1 (2-3 pens)" &&
       netherlandsMoroccoShootoutBlock.scoreText === "Morocco beat Netherlands on penalties after a 1-1 tie." &&
       netherlandsMoroccoShootoutBlock.storyItems.some((item) =>
-        item.includes("Morocco's Hakimi-Brahim right-side surges relevant all the way to penalties")
+        item.includes("Issa Diop answered in stoppage time to force extra time")
       ) &&
       netherlandsMoroccoShootoutBlock.storyItems.some((item) =>
-        item.includes("Morocco were cleaner from the spot, winning the shootout 3-2 after the 1-1 tie")
+        item.includes("Saibari converted the deciding penalty after five misses in the shootout")
       ),
     `Netherlands-Morocco should render the official shootout row and textured Result bullets. Measured ${JSON.stringify(netherlandsMoroccoShootoutBlock)}.`
   );
@@ -5410,25 +5410,21 @@ try {
   const paraguayGermanyChineseDetail = await latestKnockoutChineseCheck.page.locator("#match-info").innerText();
   await latestKnockoutChineseCheck.page.locator('[data-match-id="match-75-round-of-32-2026-06-29"]').click();
   const moroccoNetherlandsChineseDetail = await latestKnockoutChineseCheck.page.locator("#match-info").innerText();
-  const moroccoNetherlandsChineseResultLinkTexts = await latestKnockoutChineseCheck.page
-    .locator("#match-info .result-story-highlights .player-link")
-    .evaluateAll((links) => links.map((link) => link.textContent.trim()));
   const knockoutChineseDetailText = `${paraguayGermanyChineseDetail} ${moroccoNetherlandsChineseDetail}`.replace(/\s+/g, " ");
   assert(
     /巴拉圭\s*在\s*1-1\s*战平后通过点球击败\s*德国。/.test(paraguayGermanyChineseDetail) &&
-      paraguayGermanyChineseDetail.includes("阿尔米隆-恩西索反击") &&
-      paraguayGermanyChineseDetail.includes("巴拉圭点球处理更稳，在1-1战平后通过点球大战4-3胜出。") &&
+      paraguayGermanyChineseDetail.includes("恩西索接加拉尔萨传中头球破门让巴拉圭领先") &&
+      paraguayGermanyChineseDetail.includes("巴拉圭大部分时间保持紧凑的4-5-1") &&
+      paraguayGermanyChineseDetail.includes("吉尔先后扑出哈弗茨和沃尔特马德的点球") &&
       !paraguayGermanyChineseDetail.includes("2026年世界杯 - 32强赛") &&
       !paraguayGermanyChineseDetail.includes("（巴拉圭点球大战4-3胜出）") &&
       /摩洛哥\s*在\s*1-1\s*战平后通过点球击败\s*荷兰。/.test(moroccoNetherlandsChineseDetail) &&
-      moroccoNetherlandsChineseDetail.includes("哈基米-布拉欣右路冲击") &&
-      moroccoNetherlandsChineseResultLinkTexts.includes("哈基米") &&
-      moroccoNetherlandsChineseResultLinkTexts.includes("布拉欣") &&
-      moroccoNetherlandsChineseDetail.includes("荷兰的德容-加克波受控组织推进") &&
-      moroccoNetherlandsChineseDetail.includes("摩洛哥点球处理更稳，在1-1战平后通过点球大战3-2胜出。") &&
+      moroccoNetherlandsChineseDetail.includes("加克波第72分钟打破僵局") &&
+      moroccoNetherlandsChineseDetail.includes("摩洛哥的年轻替补改变比赛") &&
+      moroccoNetherlandsChineseDetail.includes("萨伊巴里罚入决定性点球") &&
       !moroccoNetherlandsChineseDetail.includes("2026年世界杯 - 32强赛") &&
       !moroccoNetherlandsChineseDetail.includes("（摩洛哥点球大战3-2胜出）") &&
-      !/\b(?:beat|penalties|draw|counters|right-side|surges|relevant|shootout|World Cup|Round of|controlled buildup|ON PENALTIES)\b/i.test(knockoutChineseDetailText) &&
+      !/\b(?:beat|penalties|draw|counters|right-side|surges|relevant|shootout|World Cup|Round of|controlled buildup|ON PENALTIES|stoppage|substitutes|physical|finish)\b/i.test(knockoutChineseDetailText) &&
       !knockoutChineseDetailText.includes("德德容") &&
       !knockoutChineseDetailText.includes("Netherlands'"),
     "Chinese knockout Result details should localize shootout summaries and keep current fixtures out of H2H past matches."
