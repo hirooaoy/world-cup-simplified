@@ -1952,7 +1952,7 @@ try {
     paragraphPlayerOpacity === 1 && paragraphPlayerWeight <= 450,
     "Paragraph player mentions should use full opacity and regular paragraph weight."
   );
-  await page.locator(".key-info-team p .player-link").first().hover();
+  await page.locator(".key-info-team p .player-link").first().focus();
   const playerCard = page.locator(".player-card:visible").first();
   await playerCard.waitFor({ state: "visible" });
   assert(
@@ -1985,7 +1985,7 @@ try {
   await page.waitForSelector(".match-row");
   await page.locator('[data-match-id="netherlands-sweden-2026-06-20"]').click();
   const summervilleLink = page.locator(".player-link", { hasText: "Crysencio Summerville" }).first();
-  await summervilleLink.hover();
+  await summervilleLink.focus();
   const summervilleCard = page.locator(".player-card:visible").first();
   await summervilleCard.waitFor({ state: "visible" });
   assert(
