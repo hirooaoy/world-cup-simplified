@@ -1985,7 +1985,7 @@ try {
   await page.waitForSelector(".match-row");
   await page.locator('[data-match-id="netherlands-sweden-2026-06-20"]').click();
   const summervilleCard = page
-    .locator("#match-info .scorer-highlight .player-hover")
+    .locator("#match-info .result-story-highlights .player-hover")
     .filter({ has: page.locator(".player-link", { hasText: "Crysencio Summerville" }) })
     .first()
     .locator(".player-card");
