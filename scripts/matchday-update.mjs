@@ -147,7 +147,7 @@ async function runValidatedProfileRefresh(stepIndex) {
 async function main() {
   let stepIndex = 1;
 
-  console.log("Matchday update: syncing scores, scorers, result copy, and verification checks.");
+  console.log("Matchday update: syncing scores, scorers, factual result context, videos, and verification checks.");
 
   for (const step of steps) {
     console.log(formatStep(stepIndex, step.label));
@@ -157,9 +157,9 @@ async function main() {
 
   stepIndex = await runValidatedProfileRefresh(stepIndex);
 
-  console.log(formatStep(stepIndex, "Refresh result highlights"));
+  console.log(formatStep(stepIndex, "Refresh factual result highlights"));
   await runNodeScript({
-    label: "Refresh result highlights",
+    label: "Refresh factual result highlights",
     script: "scripts/populate-result-highlights.mjs"
   });
   stepIndex += 1;
@@ -168,6 +168,13 @@ async function main() {
   await runNodeScript({
     label: "Sync official highlight videos",
     script: "scripts/sync-youtube-highlights.mjs"
+  });
+  stepIndex += 1;
+
+  console.log(formatStep(stepIndex, "Report result-story research queue"));
+  await runNodeScript({
+    label: "Report result-story research queue",
+    script: "scripts/sync-result-story-research.mjs"
   });
   stepIndex += 1;
 

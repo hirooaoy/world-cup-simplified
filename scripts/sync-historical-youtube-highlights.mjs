@@ -18,6 +18,7 @@ const FETCH_RETRY_COUNT = 5;
 const MAX_RESULTS_PER_SEARCH = 12;
 const MAX_VIDEO_SECONDS = 25 * 60;
 const MIN_VIDEO_SECONDS = 45;
+const DAY_MS = 24 * 60 * 60 * 1000;
 
 const TEAM_ALIASES = new Map(
   Object.entries({
@@ -413,6 +414,189 @@ function rendererToCandidate(renderer, source, query) {
   };
 }
 
+function descriptionLead(description) {
+  return String(description || "")
+    .split(/\n+/)
+    .map((line) => line.trim())
+    .filter(Boolean)
+    .slice(0, 2)
+    .join(" ");
+}
+
+function candidateFixtureText(title, description) {
+  return `${title || ""} ${descriptionLead(description)}`.trim();
+}
+
+function stageKeyForFixture(fixture) {
+  const round = normalize(fixture.round || "");
+
+  if (/\bthird\b/.test(round) || /\bbronze\b/.test(round)) return "thirdPlace";
+  if (/\bround of 16\b/.test(round) || /\blast 16\b/.test(round)) return "roundOf16";
+  if (/\bquarter\b/.test(round)) return "quarterFinal";
+  if (/\bsemi\b/.test(round)) return "semiFinal";
+  if (/\bfinal round\b/.test(round)) return "finalRound";
+  if (/\bfinal\b/.test(round)) return "final";
+  if (fixture.group || /\bmatchday\b/.test(round) || /\bgroup\b/.test(round)) return "group";
+
+  return "";
+}
+
+function hasAnyNormalizedPhrase(text, phrases) {
+  return phrases.some((phrase) => containsNormalizedPhrase(text, phrase));
+}
+
+function stageKeysInText(text) {
+  const keys = new Set();
+
+  if (hasAnyNormalizedPhrase(text, ["third place", "third placed", "play off for third place", "playoff for third place", "match for third place", "bronze"])) {
+    keys.add("thirdPlace");
+  }
+
+  if (hasAnyNormalizedPhrase(text, ["round of 16", "last 16"])) {
+    keys.add("roundOf16");
+  }
+
+  if (hasAnyNormalizedPhrase(text, ["quarter final", "quarter finals"])) {
+    keys.add("quarterFinal");
+  }
+
+  if (hasAnyNormalizedPhrase(text, ["semi final", "semi finals", "semifinal", "semifinals"])) {
+    keys.add("semiFinal");
+  }
+
+  if (hasAnyNormalizedPhrase(text, ["final round"])) {
+    keys.add("finalRound");
+  }
+
+  const hasNonFinalStage =
+    keys.has("thirdPlace") || keys.has("roundOf16") || keys.has("quarterFinal") || keys.has("semiFinal") || keys.has("finalRound");
+  if (
+    !hasNonFinalStage &&
+    hasAnyNormalizedPhrase(text, ["world cup final", "final match", "the final", "final highlights"])
+  ) {
+    keys.add("final");
+  }
+
+  if (/(?:^| )group [a-h](?: |$)/.test(text) || hasAnyNormalizedPhrase(text, ["group stage"])) {
+    keys.add("group");
+  }
+
+  return keys;
+}
+
+function groupLettersInText(text) {
+  return [...String(text || "").matchAll(/(?:^| )group ([a-h])(?: |$)/g)].map((match) => match[1]);
+}
+
+function fixtureGroupLetter(fixture) {
+  const match = normalize(fixture.group || "").match(/^group ([a-h])$/);
+  return match?.[1] || "";
+}
+
+function hasFixtureStageCue(fixture, text) {
+  const fixtureStage = stageKeyForFixture(fixture);
+  if (!fixtureStage) {
+    return false;
+  }
+
+  const keys = stageKeysInText(text);
+  if (!keys.has(fixtureStage)) {
+    return false;
+  }
+
+  if (fixtureStage === "group") {
+    const fixtureGroup = fixtureGroupLetter(fixture);
+    const textGroups = groupLettersInText(text);
+    return !fixtureGroup || !textGroups.length || textGroups.includes(fixtureGroup);
+  }
+
+  return true;
+}
+
+function stageCueConflictReason(fixture, text) {
+  const fixtureStage = stageKeyForFixture(fixture);
+  const keys = stageKeysInText(text);
+  const meaningfulKeys = [...keys].filter((key) => key !== "group" || fixtureStage !== "group");
+
+  if (fixtureStage === "group") {
+    const fixtureGroup = fixtureGroupLetter(fixture);
+    const textGroups = groupLettersInText(text);
+    if (fixtureGroup && textGroups.length && !textGroups.includes(fixtureGroup)) {
+      return `title/description points to Group ${textGroups[0].toUpperCase()}, not ${fixture.group}`;
+    }
+  }
+
+  const conflictingKey = meaningfulKeys.find((key) => key !== fixtureStage);
+  if (conflictingKey) {
+    return `title/description points to ${conflictingKey}, not ${fixture.round || "fixture round"}`;
+  }
+
+  return "";
+}
+
+function matchNumberInText(text) {
+  return [...String(text || "").matchAll(/(?:^| )match(?: number| no)? (\d{1,3})(?: |$)/g)].map((match) => Number(match[1]));
+}
+
+function matchNumberMatchesFixture(fixture, text) {
+  const matchNumber = Number(fixture.matchNumber);
+  if (!Number.isFinite(matchNumber)) {
+    return false;
+  }
+
+  return matchNumberInText(text).includes(matchNumber);
+}
+
+function matchNumberConflictReason(fixture, text) {
+  const matchNumber = Number(fixture.matchNumber);
+  const textMatchNumbers = matchNumberInText(text);
+  if (!Number.isFinite(matchNumber) || !textMatchNumbers.length || textMatchNumbers.includes(matchNumber)) {
+    return "";
+  }
+
+  return `title/description points to match ${textMatchNumbers[0]}, not match ${matchNumber}`;
+}
+
+function publishedDayOffsetFromFixture(fixture, metadata) {
+  const fixtureDate = String(fixture.date || "").slice(0, 10);
+  const fixtureTime = Date.parse(`${fixtureDate}T00:00:00Z`);
+  const publishedTime = Date.parse(metadata?.publishedAt || "");
+  if (!fixtureDate || Number.isNaN(fixtureTime) || Number.isNaN(publishedTime)) {
+    return null;
+  }
+
+  const published = new Date(publishedTime);
+  const publishedDay = Date.UTC(published.getUTCFullYear(), published.getUTCMonth(), published.getUTCDate());
+  return Math.round((publishedDay - fixtureTime) / DAY_MS);
+}
+
+function publishedNearFixtureDate(fixture, metadata) {
+  const offset = publishedDayOffsetFromFixture(fixture, metadata);
+  return offset !== null && offset >= -1 && offset <= 2;
+}
+
+function roundSearchTerms(fixture) {
+  const stage = stageKeyForFixture(fixture);
+  const terms = [];
+
+  if (fixture.group) {
+    terms.push(fixture.group);
+  }
+
+  if (Number.isFinite(Number(fixture.matchNumber))) {
+    terms.push(`Match ${fixture.matchNumber}`);
+  }
+
+  if (stage === "roundOf16") terms.push("Round of 16", "Last 16");
+  else if (stage === "quarterFinal") terms.push("Quarter Final", "Quarter-Final");
+  else if (stage === "semiFinal") terms.push("Semi Final", "Semi-Final");
+  else if (stage === "thirdPlace") terms.push("Third Place", "Play-off for Third Place", "Bronze");
+  else if (stage === "final") terms.push("Final");
+  else if (stage === "finalRound") terms.push("Final Round");
+
+  return unique(terms);
+}
+
 function buildQueries(fixture) {
   const home = searchName(fixture.homeSlot);
   const away = searchName(fixture.awaySlot);
@@ -426,6 +610,11 @@ function buildQueries(fixture) {
   if (Number.isFinite(fixture.score?.home) && Number.isFinite(fixture.score?.away)) {
     queries.push(`${home} ${fixture.score.home}-${fixture.score.away} ${away} ${year} FIFA World Cup`);
     queries.push(`${away} ${fixture.score.away}-${fixture.score.home} ${home} ${year} FIFA World Cup`);
+  }
+
+  for (const term of roundSearchTerms(fixture)) {
+    queries.push(`${home} ${away} ${year} FIFA World Cup ${term} highlights`);
+    queries.push(`${home} v ${away} ${year} FIFA World Cup ${term}`);
   }
 
   return unique(queries);
@@ -527,18 +716,23 @@ function fixtureNeedsScoreDisambiguation(fixture) {
 function evaluateCandidate(fixture, candidate, metadata) {
   const title = metadata.title || candidate.title || "";
   const description = metadata.description || candidate.description || "";
+  const fixtureText = candidateFixtureText(title, description);
   const titleText = normalize(title);
-  const allText = normalize(`${title} ${description}`);
+  const searchableText = normalize(fixtureText);
   const year = String(fixture.tournamentYear);
-  const homeMatch = matchTeamInText(titleText, fixture.homeSlot);
-  const awayMatch = matchTeamInText(titleText, fixture.awaySlot);
+  const homeMatch = matchTeamInText(searchableText, fixture.homeSlot);
+  const awayMatch = matchTeamInText(searchableText, fixture.awaySlot);
   const rejectReason = titleRejectReason(title);
   const durationSeconds = Number(metadata.lengthSeconds);
-  const hasMatchingScoreline = scorelineMatchesFixture(fixture, title);
-  const hasHighlightCue = /\bhighlights?\b/i.test(title);
-  const hasArchiveFinalCue = /\b(?:world cup final|final match)\b/i.test(title);
+  const hasMatchingScoreline = scorelineMatchesFixture(fixture, fixtureText);
+  const hasHighlightCue = /\bhighlights?\b/i.test(fixtureText);
+  const hasArchiveFinalCue = /\b(?:world cup final|final match)\b/i.test(fixtureText);
   const hasModernShortOfficialCue =
     fixture.tournamentYear >= 2022 && Number.isFinite(durationSeconds) && durationSeconds >= 60 && durationSeconds <= 240;
+  const hasStageCue = hasFixtureStageCue(fixture, searchableText);
+  const hasMatchNumberCue = matchNumberMatchesFixture(fixture, searchableText);
+  const hasPublishDateCue = publishedNearFixtureDate(fixture, metadata);
+  const hasStrongFixtureDisambiguation = hasMatchingScoreline || hasStageCue || hasMatchNumberCue || hasPublishDateCue;
   const reasons = [];
 
   if (metadata.channelId !== FIFA_CHANNEL_ID) {
@@ -549,32 +743,42 @@ function evaluateCandidate(fixture, candidate, metadata) {
     reasons.push("missing valid publish date");
   }
 
-  if (!titleText.includes(year)) {
-    reasons.push(`title missing tournament year ${year}`);
+  if (!searchableText.includes(year)) {
+    reasons.push(`title/description missing tournament year ${year}`);
   }
 
-  if (!titleHasWorldCupContext(titleText, allText)) {
+  if (!titleHasWorldCupContext(titleText, searchableText)) {
     reasons.push("missing World Cup context");
   }
 
   if (!homeMatch) {
-    reasons.push(`title does not match ${fixture.homeSlot}`);
+    reasons.push(`title/description does not match ${fixture.homeSlot}`);
   }
 
   if (!awayMatch) {
-    reasons.push(`title does not match ${fixture.awaySlot}`);
+    reasons.push(`title/description does not match ${fixture.awaySlot}`);
   }
 
   if (rejectReason) {
     reasons.push(rejectReason);
   }
 
-  if (scorelinesInTitle(title).length && !hasMatchingScoreline) {
-    reasons.push("title scoreline does not match fixture");
+  const stageConflict = stageCueConflictReason(fixture, searchableText);
+  if (stageConflict) {
+    reasons.push(stageConflict);
   }
 
-  if (fixtureNeedsScoreDisambiguation(fixture) && !hasMatchingScoreline) {
-    reasons.push("repeat team pairing in tournament requires matching title scoreline");
+  const matchNumberConflict = matchNumberConflictReason(fixture, searchableText);
+  if (matchNumberConflict) {
+    reasons.push(matchNumberConflict);
+  }
+
+  if (scorelinesInTitle(fixtureText).length && !hasMatchingScoreline) {
+    reasons.push("title/description scoreline does not match fixture");
+  }
+
+  if (fixtureNeedsScoreDisambiguation(fixture) && !hasStrongFixtureDisambiguation) {
+    reasons.push("repeat team pairing in tournament requires matching scoreline, stage, match number, or publish date");
   }
 
   if (!hasHighlightCue && !(hasMatchingScoreline && hasArchiveFinalCue) && !hasModernShortOfficialCue) {
@@ -597,6 +801,10 @@ function evaluateCandidate(fixture, candidate, metadata) {
     else if (/\bhighlights?\b/i.test(title)) score += 12;
     if (/\bfinal\b/i.test(title) && /\bfinal\b/i.test(fixture.round || "")) score += 4;
     if (/\bsemi[- ]?finals?\b/i.test(title) && /\bsemi/i.test(fixture.round || "")) score += 3;
+    if (hasMatchingScoreline) score += 10;
+    if (hasStageCue) score += 8;
+    if (hasMatchNumberCue) score += 6;
+    if (hasPublishDateCue) score += 6;
     if (Number.isFinite(durationSeconds) && durationSeconds >= 90 && durationSeconds <= 900) score += 4;
     if (candidate.source === "channel") score += 2;
   }
@@ -608,7 +816,10 @@ function evaluateCandidate(fixture, candidate, metadata) {
     title,
     homeMatch,
     awayMatch,
-    durationSeconds: Number.isFinite(durationSeconds) ? durationSeconds : null
+    durationSeconds: Number.isFinite(durationSeconds) ? durationSeconds : null,
+    stageCue: hasStageCue,
+    matchNumberCue: hasMatchNumberCue,
+    publishedDayOffset: publishedDayOffsetFromFixture(fixture, metadata)
   };
 }
 
@@ -681,13 +892,13 @@ async function searchYouTube(query, source) {
 
 function looksPossibleFromSearch(fixture, candidate) {
   const titleText = normalize(candidate.title);
-  const allText = normalize(`${candidate.title} ${candidate.description}`);
+  const searchableText = normalize(candidateFixtureText(candidate.title, candidate.description));
 
   return (
-    titleText.includes(String(fixture.tournamentYear)) &&
-    titleHasWorldCupContext(titleText, allText) &&
-    Boolean(matchTeamInText(titleText, fixture.homeSlot)) &&
-    Boolean(matchTeamInText(titleText, fixture.awaySlot)) &&
+    searchableText.includes(String(fixture.tournamentYear)) &&
+    titleHasWorldCupContext(titleText, searchableText) &&
+    Boolean(matchTeamInText(searchableText, fixture.homeSlot)) &&
+    Boolean(matchTeamInText(searchableText, fixture.awaySlot)) &&
     !titleRejectReason(candidate.title)
   );
 }

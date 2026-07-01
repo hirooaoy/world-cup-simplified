@@ -244,6 +244,31 @@ function validateHighlightVideoReview(fixture, owner = `Fixture "${fixture.id}" 
   );
 }
 
+function validateResultStoryResearch(fixture, sourceIdSet, owner = `Fixture "${fixture.id}" resultStoryResearch`) {
+  const research = fixture.resultStoryResearch;
+
+  if (research === undefined) {
+    return;
+  }
+
+  assert(fixture.status === "FT", `${owner} should only be used after full time`);
+  assert(research && typeof research === "object" && !Array.isArray(research), `${owner} must be an object`);
+
+  if (!research || typeof research !== "object" || Array.isArray(research)) {
+    return;
+  }
+
+  assert(research.status === "researched", `${owner}.status must be "researched"`);
+  assert(isValidDateTime(research.checkedAt), `${owner}.checkedAt must be a valid timestamp`);
+  requireSourceIds(research.sourceIds, sourceIdSet, owner);
+  assert(research.sourceIds.length > 0, `${owner}.sourceIds must include at least one source`);
+
+  if (research.note !== undefined) {
+    assert(typeof research.note === "string" && research.note.trim(), `${owner}.note must be a non-empty string`);
+    assert(research.note.trim().length <= 180, `${owner}.note should stay compact`);
+  }
+}
+
 function validateHistoricalYouTubeCacheSummary(summary, owner, { accepted = false } = {}) {
   assert(isPlainObject(summary), `${owner} must be an object`);
 
@@ -1277,6 +1302,7 @@ for (const fixture of fixturesData.fixtures || []) {
 
   validateHighlightVideo(fixture);
   validateHighlightVideoReview(fixture);
+  validateResultStoryResearch(fixture, sourceIds);
 
   if (fixture.projection) {
     const total = fixture.projection.home + fixture.projection.draw + fixture.projection.away;
@@ -1297,6 +1323,13 @@ for (const fixture of fixturesData.fixtures || []) {
       );
       if (typeof goal?.name === "string" && goal.name.trim()) {
         requiredProfileNames.add(goal.name);
+      }
+      if (goal?.assistName !== undefined) {
+        assert(
+          typeof goal.assistName === "string" && goal.assistName.trim(),
+          `Fixture "${fixture.id}" ${field}[${index}].assistName must be a non-empty string when provided`
+        );
+        requiredProfileNames.add(goal.assistName);
       }
     }
   }

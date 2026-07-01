@@ -12,6 +12,7 @@ const tournamentPath = path.join(dataDir, "tournament.json");
 const overwrite = process.argv.includes("--overwrite");
 const refreshGeneric = process.argv.includes("--refresh-generic");
 const refreshWeakStories = process.argv.includes("--refresh-weak-stories");
+const generateCurrentStories = process.argv.includes("--generate-current-stories");
 const currentOnly = process.argv.includes("--current-only");
 const historyOnly = process.argv.includes("--history-only");
 
@@ -29,6 +30,8 @@ const genericMomentPattern =
   /Both clean sheets kept|Neither side pulled clear|The clean sheet gave|attack broke the match open|protected a one-goal edge|came through a tight one-goal match|created enough separation|made a statement with|found the decisive goal/i;
 const weakStoryPattern =
   /\b(?:won the shootout \d+-\d+ after a \d+-\d+ draw|survived the shootout after a \d+-\d+ draw|exited after penalties kept|stayed close enough to keep the final minutes tense|stayed locked together until the final whistle|got the decisive details right in a match that stayed tight|closed the result without needing another late twist)\b/i;
+const weakCurrentStoryPattern =
+  /\b(?:broke through for .+?, shifting the match toward|added the final word as .+? pulled away|scored (?:twice|three times|\d+ times) as .+? kept widening the gap)\b/i;
 
 async function readJson(filePath) {
   return JSON.parse(await readFile(filePath, "utf8"));
@@ -128,6 +131,10 @@ function isWeakStoryBullet(highlight) {
 
 function hasWeakStoryBullets(fixture) {
   return (fixture.resultStoryBullets || []).some(isWeakStoryBullet);
+}
+
+function hasWeakCurrentStoryBullets(fixture) {
+  return (fixture.resultStoryBullets || []).some((highlight) => weakStoryPattern.test(String(highlight || "")) || weakCurrentStoryPattern.test(String(highlight || "")));
 }
 
 function storyMinuteValue(highlight) {
@@ -274,6 +281,49 @@ function scorerCounts(goals) {
   }
 
   return [...counts.entries()].sort((a, b) => b[1] - a[1])[0] || null;
+}
+
+function assistCounts(goals, side) {
+  const counts = new Map();
+
+  for (const goal of goals) {
+    if (goal.side !== side || goal.ownGoal || !goal.assistName || goal.assistName === goal.name) {
+      continue;
+    }
+
+    const row = counts.get(goal.assistName) || [];
+    row.push(goal);
+    counts.set(goal.assistName, row);
+  }
+
+  return [...counts.entries()].sort((a, b) => b[1].length - a[1].length)[0] || null;
+}
+
+function formatNameList(names) {
+  const values = [...new Set(names.filter(Boolean))];
+  if (values.length <= 1) {
+    return values[0] || "";
+  }
+  if (values.length === 2) {
+    return `${values[0]} and ${values[1]}`;
+  }
+
+  return `${values.slice(0, -1).join(", ")}, and ${values.at(-1)}`;
+}
+
+function buildAssistStory(goals, side, teamName) {
+  const topAssist = assistCounts(goals, side);
+  if (!topAssist || topAssist[1].length < 2) {
+    return "";
+  }
+
+  const [assistName, assistedGoals] = topAssist;
+  const scorerNames = [...new Set(assistedGoals.map((goal) => goal.name).filter(Boolean))];
+  const scorerText = scorerNames.length === 1 && assistedGoals.length > 1
+    ? `${scorerNames[0]} twice`
+    : formatNameList(scorerNames);
+
+  return `${assistName} assisted ${scorerText} as ${teamName} pulled away`;
 }
 
 function otherSide(side) {
@@ -582,9 +632,11 @@ function buildWinStoryBullets(fixture, teamsById, goals, score, side) {
     if (Number.isFinite(firstMinute) && firstMinute <= 20) {
       addStoryBullet(bullets, `${goalScorerLabel(firstGoal)} put ${winner.name} ahead early, making ${loser.name} chase the match`);
     } else {
-      addStoryBullet(bullets, `${goalScorerLabel(firstGoal)} broke through for ${winner.name}, shifting the match toward ${winner.name}`);
+      addStoryBullet(bullets, `${goalScorerLabel(firstGoal)} opened the scoring for ${winner.name}`);
     }
   }
+
+  const assistStory = buildAssistStory(goals, side, winner.name);
 
   if (winnerEqualizer && lastWinnerGoal && winnerEqualizer !== lastWinnerGoal) {
     addStoryBullet(
@@ -595,17 +647,19 @@ function buildWinStoryBullets(fixture, teamsById, goals, score, side) {
     addLevelerStory(bullets, loserEqualizer, loser.name);
     if (margin === 1) {
       addWinnerStory(bullets, lastWinnerGoal, winner.name);
+    } else if (assistStory) {
+      addStoryBullet(bullets, assistStory);
     } else {
-      addStoryBullet(bullets, `${goalScorerLabel(lastWinnerGoal)} added the final word as ${winner.name} pulled away`);
+      addStoryBullet(bullets, `${goalScorerLabel(lastWinnerGoal)} finished the scoring as ${winner.name} pulled away`);
     }
   } else if (lastWinnerGoal && margin === 1) {
     addWinnerStory(bullets, lastWinnerGoal, winner.name);
+  } else if (assistStory) {
+    addStoryBullet(bullets, assistStory);
   } else if (lastWinnerGoal && firstGoal && lastWinnerGoal !== firstGoal) {
-    addStoryBullet(bullets, `${goalScorerLabel(lastWinnerGoal)} added the final word as ${winner.name} pulled away`);
-  }
-
-  if (topScorer?.[1] >= 2) {
-    addStoryBullet(bullets, `${topScorer[0]} scored ${scoreWord(topScorer[1])} as ${winner.name} kept widening the gap`);
+    addStoryBullet(bullets, `${goalScorerLabel(lastWinnerGoal)} finished the scoring as ${winner.name} pulled away`);
+  } else if (topScorer?.[1] >= 2) {
+    addStoryBullet(bullets, `${topScorer[0]}'s ${scoreWord(topScorer[1])} gave ${winner.name} the scoring separation`);
   }
 
   if (loserScore === 0) {
@@ -624,7 +678,7 @@ function buildWinStoryBullets(fixture, teamsById, goals, score, side) {
     addStoryBullet(bullets, `${winner.name} made the ${winnerScore}-${loserScore} scoreline stand in a tight match`);
   }
 
-  return bullets.slice(0, 3);
+  return bullets.slice(0, 2);
 }
 
 function buildStoryBullets(fixture, teamsById) {
@@ -878,7 +932,6 @@ function impactHighlight(fixture, teamsById, table) {
 function buildHighlights(fixture, teamsById, table) {
   const highlights = [
     ...(goalCount(fixture) ? [] : [scorelineHighlight(fixture, teamsById)]),
-    momentHighlight(fixture, teamsById),
     impactHighlight(fixture, teamsById, table)
   ];
 
@@ -937,6 +990,7 @@ let highlightPopulated = 0;
 let highlightSkipped = 0;
 let storyPopulated = 0;
 let storySkipped = 0;
+let currentStoryResearchHeld = 0;
 let historicalStoryPopulated = 0;
 let historicalStorySkipped = 0;
 
@@ -968,13 +1022,21 @@ for (const fixture of finishedFixtures) {
     ? fixture.resultStoryBullets.some((highlight) => typeof highlight === "string" && highlight.trim())
     : false;
 
+  if (!generateCurrentStories) {
+    if (!hasStoryBullets) {
+      currentStoryResearchHeld += 1;
+    }
+    storySkipped += 1;
+    continue;
+  }
+
   if (hasStoryBullets && !overwrite) {
     if (
       hasOutOfOrderStoryMinutes(fixture) ||
-      (refreshWeakStories && (hasWeakStoryBullets(fixture) || needsShootoutTextureRefresh(fixture)))
+      (refreshWeakStories && (hasWeakCurrentStoryBullets(fixture) || needsShootoutTextureRefresh(fixture)))
     ) {
       const existingBullets = fixture.resultStoryBullets.filter((highlight) => typeof highlight === "string" && highlight.trim());
-      const strongExistingBullets = existingBullets.filter((highlight) => !isWeakStoryBullet(highlight));
+      const strongExistingBullets = existingBullets.filter((highlight) => !isWeakStoryBullet(highlight) && !weakCurrentStoryPattern.test(String(highlight || "")));
       fixture.resultStoryBullets =
         hasOutOfOrderStoryMinutes(fixture) || fixture.scoreDetails?.penalties || strongExistingBullets.length < 2
           ? buildStoryBullets(fixture, teamsById)
@@ -1032,6 +1094,11 @@ if (historicalStoryPopulated) {
 console.log(
   `${overwrite ? "Wrote" : refreshGeneric ? "Refreshed" : "Populated"} ${highlightPopulated} result highlight set${highlightPopulated === 1 ? "" : "s"} and ${storyPopulated} current story bullet set${storyPopulated === 1 ? "" : "s"}; skipped ${highlightSkipped} highlight set${highlightSkipped === 1 ? "" : "s"} and ${storySkipped} current story bullet set${storySkipped === 1 ? "" : "s"}.`
 );
+if (currentStoryResearchHeld) {
+  console.log(
+    `Held ${currentStoryResearchHeld} current story bullet set${currentStoryResearchHeld === 1 ? "" : "s"} for source-backed post-match research. Use --generate-current-stories only for a deliberate local backfill.`
+  );
+}
 console.log(
   `${overwrite ? "Wrote" : "Populated"} ${historicalStoryPopulated} historical story bullet set${historicalStoryPopulated === 1 ? "" : "s"}; skipped ${historicalStorySkipped} historical story bullet set${historicalStorySkipped === 1 ? "" : "s"}.`
 );

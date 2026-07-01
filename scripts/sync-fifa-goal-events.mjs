@@ -18,6 +18,7 @@ const shouldWrite = !process.argv.includes("--check");
 const requestTimeoutMs = Number(process.env.FIFA_GOAL_EVENTS_TIMEOUT_MS || 10000);
 const requestRetries = Number(process.env.FIFA_GOAL_EVENTS_RETRIES || 1);
 const requestConcurrency = Number(process.env.FIFA_GOAL_EVENTS_CONCURRENCY || 8);
+const playerNameCache = new Map();
 
 async function readJson(fileName) {
   return JSON.parse(await readFile(path.join(dataDir, fileName), "utf8"));
@@ -340,11 +341,27 @@ function normalizeGoalName(name, profileNames) {
   return profileNames.get(normalizeText(name)) || name;
 }
 
+async function playerNameFromId(idPlayer, profileNames) {
+  const id = String(idPlayer || "").trim();
+  if (!id) {
+    return "";
+  }
+
+  if (playerNameCache.has(id)) {
+    return playerNameCache.get(id);
+  }
+
+  const player = await fetchJson(`https://api.fifa.com/api/v3/players/${id}?language=en`, `FIFA player request for ${id}`);
+  const name = normalizeGoalName(titleCaseName(description(player?.Name)), profileNames);
+  playerNameCache.set(id, name);
+  return name;
+}
+
 function isScoringEvent(event) {
   return event.Type === 0 || event.Type === 34 || event.Type === 41;
 }
 
-function goalsFromTimeline(timeline, profileNames) {
+async function goalsFromTimeline(timeline, profileNames) {
   const goals = { home: [], away: [] };
   let previousHome = 0;
   let previousAway = 0;
@@ -369,9 +386,14 @@ function goalsFromTimeline(timeline, profileNames) {
     const name = normalizeGoalName(playerNameFromEvent(event), profileNames);
 
     if (side && name) {
+      const assistName =
+        event.Type === 0 && event.IdSubPlayer && String(event.IdSubPlayer) !== String(event.IdPlayer)
+          ? await playerNameFromId(event.IdSubPlayer, profileNames).catch(() => "")
+          : "";
       goals[side].push({
         ...parseMinute(event.MatchMinute),
         name,
+        ...(assistName ? { assistName } : {}),
         ...(event.Type === 34 ? { ownGoal: true } : {}),
         ...(event.Type === 41 ? { penalty: true } : {})
       });
@@ -423,7 +445,7 @@ async function processFixture(fixture) {
     };
   }
 
-  const goals = goalsFromTimeline(timeline, profileNames);
+  const goals = await goalsFromTimeline(timeline, profileNames);
   const total = goals.home.length + goals.away.length;
   const expectedTotal = scoreTotal(fixture.score);
 

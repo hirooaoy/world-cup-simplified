@@ -220,8 +220,10 @@ const missingCurrent = getMissingNames(currentNames, playerProfilesData);
 const missingHistorical = getMissingHistoricalRefs(historicalRefs, historicalPlayerProfilesData);
 const currentImageCount = countRequiredProfileImages(currentNames, playerProfilesData);
 const historicalImageCount = countRequiredHistoricalProfileImages(historicalRefs, historicalPlayerProfilesData);
+const minimumHistoricalImageCount = Number(historicalPlayerProfilesData.coverage?.minimumImageCount || 0);
+const historicalImageShortfall = Math.max(0, minimumHistoricalImageCount - historicalImageCount);
 
-if (missingCurrent.length || missingHistorical.length) {
+if (missingCurrent.length || missingHistorical.length || historicalImageShortfall) {
   console.error("Player card coverage audit failed.");
   if (missingCurrent.length) {
     console.error("");
@@ -240,6 +242,14 @@ if (missingCurrent.length || missingHistorical.length) {
       console.error(`- ...and ${missingHistorical.length - 40} more`);
     }
     console.error("Run `pnpm history:profiles`, then review archive card copy before publishing.");
+  }
+  if (historicalImageShortfall) {
+    console.error("");
+    console.error(
+      `Historical profile photos below baseline: ${historicalImageCount}/${minimumHistoricalImageCount} ` +
+        `(${historicalImageShortfall} missing from the current baseline).`
+    );
+    console.error("Run `pnpm history:images`, then review generated historical photos before publishing.");
   }
   process.exit(1);
 }

@@ -35,6 +35,7 @@ const FIFA_PROVIDER_KEY = "fifa";
 const FIFA_GOAL_EVENTS_SOURCE_PREFIX = "fifa-official-goal-events-auto";
 const DEFAULT_FIFA_LIVE_SCORE_TIMEOUT_MS = 3000;
 const DEFAULT_FIFA_GOAL_EVENTS_TIMEOUT_MS = 5000;
+const DEFAULT_FIFA_GOAL_EVENTS_PLAYER_TIMEOUT_MS = 2000;
 const DEFAULT_FIFA_GOAL_EVENTS_MAX_FIXTURES = 8;
 const PROVIDER_ALIASES = {
   footballdata: FOOTBALL_DATA_PROVIDER_KEY,
@@ -70,11 +71,12 @@ export default async function handler(request, response) {
     return;
   }
 
-  const [fixturesData, standingsData, teamsData, tournamentData] = await Promise.all([
+  const [fixturesData, standingsData, teamsData, tournamentData, playerProfilesData] = await Promise.all([
     readJson("fixtures.json"),
     readJson("standings.json"),
     readJson("teams.json"),
-    readJson("tournament.json")
+    readJson("tournament.json"),
+    readOptionalJson("player-profiles.json")
   ]);
   const providerMap = (await readOptionalJson("provider-map.json")) || {};
   const provider = getLiveDataProvider();
@@ -128,6 +130,7 @@ export default async function handler(request, response) {
         const goalEventMerge = await mergeOfficialGoalEvents({
           checkedAt,
           fixturesData: officialScoreMerge.fixturesData,
+          playerProfilesData,
           teams: teamsData.teams,
           timeZone
         });
@@ -1353,7 +1356,7 @@ function getMergedProviderIds({ participants, providerFixture, providerKey, stor
   return nextProviderIds;
 }
 
-async function mergeOfficialGoalEvents({ checkedAt, fixturesData, teams, timeZone }) {
+async function mergeOfficialGoalEvents({ checkedAt, fixturesData, playerProfilesData, teams, timeZone }) {
   if (!isOfficialGoalEventsEnabled()) {
     return {
       fixturesData,
@@ -1380,6 +1383,7 @@ async function mergeOfficialGoalEvents({ checkedAt, fixturesData, teams, timeZon
       officialMatches,
       buildTeamLookup(teams || [], {}, FIFA_PROVIDER_KEY)
     );
+    const profileNames = getProfileNameLookup(playerProfilesData);
     const warnings = [];
     let matchedCount = 0;
     let updateCount = 0;
@@ -1398,7 +1402,7 @@ async function mergeOfficialGoalEvents({ checkedAt, fixturesData, teams, timeZon
 
         try {
           const timeline = await fetchOfficialGoalTimeline(officialMatch.IdMatch);
-          const goals = goalsFromOfficialTimeline(timeline);
+          const goals = await goalsFromOfficialTimeline(timeline, profileNames);
           const expectedTotal = scoreTotal(fixture.score);
           const actualTotal = goals.home.length + goals.away.length;
 
@@ -1749,11 +1753,63 @@ function playerNameFromOfficialEvent(event) {
   return titleCaseName(match?.[1] || "");
 }
 
+function getProfileNameLookup(profilesData) {
+  const names = new Map();
+
+  for (const profile of Object.values(profilesData?.profiles || {})) {
+    const aliases = [
+      profile.name,
+      profile.displayName,
+      ...(Array.isArray(profile.aliases) ? profile.aliases : [])
+    ];
+
+    for (const value of aliases) {
+      const key = normalizeKey(value);
+      if (key && !names.has(key)) {
+        names.set(key, profile.name || profile.displayName);
+      }
+    }
+  }
+
+  return names;
+}
+
+function normalizeGoalName(name, profileNames) {
+  return profileNames.get(normalizeKey(name)) || name;
+}
+
+const officialPlayerNameCache = new Map();
+
+async function getOfficialPlayerName(idPlayer, profileNames) {
+  const id = String(idPlayer || "").trim();
+  if (!id) {
+    return "";
+  }
+
+  if (officialPlayerNameCache.has(id)) {
+    return officialPlayerNameCache.get(id);
+  }
+
+  const url = new URL(`https://api.fifa.com/api/v3/players/${id}`);
+  url.searchParams.set("language", "en");
+  const player = await fetchJsonWithTimeout(
+    url,
+    `FIFA player ${id}`,
+    positiveInteger(
+      process.env.FIFA_GOAL_EVENTS_PLAYER_TIMEOUT_MS,
+      DEFAULT_FIFA_GOAL_EVENTS_PLAYER_TIMEOUT_MS
+    )
+  );
+  const name = normalizeGoalName(titleCaseName(description(player?.Name)), profileNames);
+  officialPlayerNameCache.set(id, name);
+  return name;
+}
+
 function isOfficialScoringEvent(event) {
   return event.Type === 0 || event.Type === 34 || event.Type === 41;
 }
 
-function goalsFromOfficialTimeline(timeline) {
+async function goalsFromOfficialTimeline(timeline, profileNames = new Map()) {
   const goals = { home: [], away: [] };
   let previousHome = 0;
   let previousAway = 0;
@@ -1775,12 +1831,17 @@ function goalsFromOfficialTimeline(timeline) {
     const homeDelta = Number.isFinite(homeGoals) ? homeGoals - previousHome : 0;
     const awayDelta = Number.isFinite(awayGoals) ? awayGoals - previousAway : 0;
     const side = homeDelta > 0 ? "home" : awayDelta > 0 ? "away" : "";
-    const name = playerNameFromOfficialEvent(event);
+    const name = normalizeGoalName(playerNameFromOfficialEvent(event), profileNames);
 
     if (side && name) {
+      const assistName =
+        event.Type === 0 && event.IdSubPlayer && String(event.IdSubPlayer) !== String(event.IdPlayer)
+          ? await getOfficialPlayerName(event.IdSubPlayer, profileNames).catch(() => "")
+          : "";
       goals[side].push({
         ...parseGoalMinute(event.MatchMinute),
         name,
+        ...(assistName ? { assistName } : {}),
         ...(event.Type === 34 ? { ownGoal: true } : {}),
         ...(event.Type === 41 ? { penalty: true } : {})
       });

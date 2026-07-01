@@ -8,6 +8,7 @@
   --surface: #ffffff;
   --surface-soft: #f5f5f7;
   --focus: #0071e3;
+  --tooltip-host-z-index: 12;
   font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue",
     Arial, sans-serif;
 }
@@ -1498,6 +1499,7 @@ h1 {
 }
 
 .yesterday-match-card {
+  position: relative;
   min-width: 0;
 }
 
@@ -1706,6 +1708,7 @@ h1 {
 }
 
 .match-row {
+  position: relative;
   display: flex;
   align-items: center;
   flex-wrap: nowrap;
@@ -2346,6 +2349,7 @@ h1 {
 }
 
 .match-info {
+  position: relative;
   grid-column: 2;
   grid-row: 1 / span 2;
   width: 100%;
@@ -3221,6 +3225,7 @@ h1 {
 }
 
 .standings-card {
+  position: relative;
   min-width: 0;
   padding: 20px 20px 12px;
   border: 1px solid var(--hairline);
@@ -4063,13 +4068,6 @@ h1 {
   border-color: rgba(10, 10, 10, 0.075);
   background: rgba(246, 246, 246, 0.78);
   box-shadow: none;
-}
-
-.progress-match:has(.knockout-likelihood:hover),
-.progress-match:has(.knockout-likelihood:focus-visible),
-.progress-match:has(.knockout-slot-odds:hover),
-.progress-match:has(.knockout-slot-odds:focus-visible) {
-  z-index: 4;
 }
 
 .progress-match.is-drill-target,
@@ -5393,6 +5391,25 @@ h1 {
   border-radius: 4px;
   outline: 2px solid var(--focus);
   outline-offset: 3px;
+}
+
+/* Tooltip pseudo-elements cannot escape a lower sibling stack, so lift the host card/row too. */
+.match-row:has([data-tooltip]:hover),
+.match-row:has([data-tooltip]:focus),
+.match-row:has(.is-touch-tooltip-open),
+.yesterday-match-card:has([data-tooltip]:hover),
+.yesterday-match-card:has([data-tooltip]:focus),
+.yesterday-match-card:has(.is-touch-tooltip-open),
+.match-info:has([data-tooltip]:hover),
+.match-info:has([data-tooltip]:focus),
+.match-info:has(.is-touch-tooltip-open),
+.standings-card:has([data-tooltip]:hover),
+.standings-card:has([data-tooltip]:focus),
+.standings-card:has(.is-touch-tooltip-open),
+.progress-match:has([data-tooltip]:hover),
+.progress-match:has([data-tooltip]:focus),
+.progress-match:has(.is-touch-tooltip-open) {
+  z-index: var(--tooltip-host-z-index);
 }
 
 .live-pill[data-tooltip]::after,

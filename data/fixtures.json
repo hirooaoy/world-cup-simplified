@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-30T21:55:56.872Z",
+  "updatedAt": "2026-06-30T16:41:40-07:00",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -242,7 +242,8 @@
         },
         {
           "minute": 67,
-          "name": "Raul Jimenez"
+          "name": "Raul Jimenez",
+          "assistName": "Roberto Alvarado"
         }
       ],
       "goalsAway": [],
@@ -255,7 +256,6 @@
       "matchNumber": 1,
       "resultStoryBullets": [
         "Julian Quinones put Mexico ahead early, making South Africa chase the match.",
-        "Raul Jimenez added the final word as Mexico pulled away.",
         "Mexico kept South Africa out and closed the match with a clean sheet."
       ],
       "highlightVideo": {
@@ -372,17 +372,20 @@
       "goalsHome": [
         {
           "minute": 67,
-          "name": "Hwang In-beom"
+          "name": "Hwang In-beom",
+          "assistName": "Lee Kang-in"
         },
         {
           "minute": 80,
-          "name": "Oh Hyeon-gyu"
+          "name": "Oh Hyeon-gyu",
+          "assistName": "Hwang In-beom"
         }
       ],
       "goalsAway": [
         {
           "minute": 59,
-          "name": "Ladislav Krejci"
+          "name": "Ladislav Krejci",
+          "assistName": "Vladimir Coufal"
         }
       ],
       "providerIds": {
@@ -480,13 +483,15 @@
       "goalsHome": [
         {
           "minute": 78,
-          "name": "Cyle Larin"
+          "name": "Cyle Larin",
+          "assistName": "Promise David"
         }
       ],
       "goalsAway": [
         {
           "minute": 21,
-          "name": "Jovo Lukic"
+          "name": "Jovo Lukic",
+          "assistName": "Sead Kolasinac"
         }
       ],
       "providerIds": {
@@ -680,23 +685,27 @@
         },
         {
           "minute": 31,
-          "name": "Folarin Balogun"
+          "name": "Folarin Balogun",
+          "assistName": "Christian Pulisic"
         },
         {
           "minute": 45,
           "offset": 5,
-          "name": "Folarin Balogun"
+          "name": "Folarin Balogun",
+          "assistName": "Malik Tillman"
         },
         {
           "minute": 90,
           "offset": 8,
-          "name": "Giovanni Reyna"
+          "name": "Giovanni Reyna",
+          "assistName": "Alex Freeman"
         }
       ],
       "goalsAway": [
         {
           "minute": 73,
-          "name": "Mauricio"
+          "name": "Mauricio",
+          "assistName": "Julio Enciso"
         }
       ],
       "providerIds": {
@@ -708,8 +717,7 @@
       "matchNumber": 4,
       "resultStoryBullets": [
         "A 7' own goal put United States ahead early, making Paraguay chase the match.",
-        "Giovanni Reyna added the final word as United States pulled away.",
-        "Folarin Balogun scored twice as United States kept widening the gap."
+        "Giovanni Reyna finished the scoring as United States pulled away."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -943,13 +951,15 @@
       "goalsHome": [
         {
           "minute": 32,
-          "name": "Vinicius Junior"
+          "name": "Vinicius Junior",
+          "assistName": "Bruno Guimaraes"
         }
       ],
       "goalsAway": [
         {
           "minute": 21,
-          "name": "Ismael Saibari"
+          "name": "Ismael Saibari",
+          "assistName": "Brahim Diaz"
         }
       ],
       "providerIds": {
@@ -1059,7 +1069,6 @@
       },
       "matchNumber": 5,
       "resultStoryBullets": [
-        "John McGinn broke through for Scotland, shifting the match toward Scotland.",
         "John McGinn's 28' winner settled a tight match for Scotland.",
         "Scotland kept Haiti out and closed the match with a clean sheet."
       ],
@@ -1167,7 +1176,8 @@
       "goalsHome": [
         {
           "minute": 27,
-          "name": "Nestory Irankunda"
+          "name": "Nestory Irankunda",
+          "assistName": "Paul Okon-Engstler"
         },
         {
           "minute": 75,
@@ -1183,9 +1193,8 @@
       },
       "matchNumber": 6,
       "resultStoryBullets": [
-        "Nestory Irankunda broke through for Australia, shifting the match toward Australia.",
-        "Connor Metcalfe added the final word as Australia pulled away.",
-        "Australia kept Türkiye out and closed the match with a clean sheet."
+        "Nestory Irankunda opened the scoring for Australia.",
+        "Connor Metcalfe finished the scoring as Australia pulled away."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -1270,11 +1279,13 @@
       "goalsHome": [
         {
           "minute": 6,
-          "name": "Felix Nmecha"
+          "name": "Felix Nmecha",
+          "assistName": "Florian Wirtz"
         },
         {
           "minute": 38,
-          "name": "Nico Schlotterbeck"
+          "name": "Nico Schlotterbeck",
+          "assistName": "Nathaniel Brown"
         },
         {
           "minute": 45,
@@ -1284,19 +1295,23 @@
         },
         {
           "minute": 47,
-          "name": "Jamal Musiala"
+          "name": "Jamal Musiala",
+          "assistName": "Joshua Kimmich"
         },
         {
           "minute": 68,
-          "name": "Nathaniel Brown"
+          "name": "Nathaniel Brown",
+          "assistName": "Deniz Undav"
         },
         {
           "minute": 78,
-          "name": "Deniz Undav"
+          "name": "Deniz Undav",
+          "assistName": "Joshua Kimmich"
         },
         {
           "minute": 88,
-          "name": "Kai Havertz"
+          "name": "Kai Havertz",
+          "assistName": "Deniz Undav"
         }
       ],
       "goalsAway": [
@@ -1314,8 +1329,7 @@
       "matchNumber": 10,
       "resultStoryBullets": [
         "Felix Nmecha put Germany ahead early, making Curaçao chase the match.",
-        "Kai Havertz added the final word as Germany pulled away.",
-        "Kai Havertz scored twice as Germany kept widening the gap."
+        "Livano Comenencia's 21' equalizer brought Curaçao level."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -1427,21 +1441,25 @@
       "goalsHome": [
         {
           "minute": 50,
-          "name": "Virgil van Dijk"
+          "name": "Virgil van Dijk",
+          "assistName": "Ryan Gravenberch"
         },
         {
           "minute": 64,
-          "name": "Crysencio Summerville"
+          "name": "Crysencio Summerville",
+          "assistName": "Ryan Gravenberch"
         }
       ],
       "goalsAway": [
         {
           "minute": 57,
-          "name": "Keito Nakamura"
+          "name": "Keito Nakamura",
+          "assistName": "Takefusa Kubo"
         },
         {
           "minute": 88,
-          "name": "Daichi Kamada"
+          "name": "Daichi Kamada",
+          "assistName": "Koki Ogawa"
         }
       ],
       "providerIds": {
@@ -1539,7 +1557,8 @@
       "goalsHome": [
         {
           "minute": 90,
-          "name": "Amad Diallo"
+          "name": "Amad Diallo",
+          "assistName": "Wilfried Singo"
         }
       ],
       "goalsAway": [],
@@ -1551,7 +1570,6 @@
       },
       "matchNumber": 9,
       "resultStoryBullets": [
-        "Amad Diallo broke through for Côte d'Ivoire, shifting the match toward Côte d'Ivoire.",
         "Amad Diallo's 90' winner settled a tight match for Côte d'Ivoire.",
         "Côte d'Ivoire kept Ecuador out and closed the match with a clean sheet."
       ],
@@ -1673,26 +1691,31 @@
         },
         {
           "minute": 30,
-          "name": "Alexander Isak"
+          "name": "Alexander Isak",
+          "assistName": "Viktor Gyokeres"
         },
         {
           "minute": 59,
-          "name": "Viktor Gyokeres"
+          "name": "Viktor Gyokeres",
+          "assistName": "Alexander Isak"
         },
         {
           "minute": 84,
-          "name": "Mattias Svanberg"
+          "name": "Mattias Svanberg",
+          "assistName": "Alexander Isak"
         },
         {
           "minute": 90,
           "offset": 6,
-          "name": "Yasin Ayari"
+          "name": "Yasin Ayari",
+          "assistName": "Lucas Bergvall"
         }
       ],
       "goalsAway": [
         {
           "minute": 43,
-          "name": "Omar Rekik"
+          "name": "Omar Rekik",
+          "assistName": "Hannibal Mejbri"
         }
       ],
       "providerIds": {
@@ -1704,8 +1727,7 @@
       "matchNumber": 12,
       "resultStoryBullets": [
         "Yasin Ayari put Sweden ahead early, making Tunisia chase the match.",
-        "Yasin Ayari added the final word as Sweden pulled away.",
-        "Yasin Ayari scored twice as Sweden kept widening the gap."
+        "Yasin Ayari finished the scoring as Sweden pulled away."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -1930,7 +1952,8 @@
       "goalsAway": [
         {
           "minute": 19,
-          "name": "Emam Ashour"
+          "name": "Emam Ashour",
+          "assistName": "Mohamed Salah"
         }
       ],
       "providerIds": {
@@ -2178,17 +2201,20 @@
         },
         {
           "minute": 64,
-          "name": "Mohammad Mohebbi"
+          "name": "Mohammad Mohebbi",
+          "assistName": "Ramin Rezaeian"
         }
       ],
       "goalsAway": [
         {
           "minute": 7,
-          "name": "Elijah Just"
+          "name": "Elijah Just",
+          "assistName": "Chris Wood"
         },
         {
           "minute": 54,
-          "name": "Elijah Just"
+          "name": "Elijah Just",
+          "assistName": "Chris Wood"
         }
       ],
       "providerIds": {
@@ -2305,11 +2331,13 @@
       "goalsHome": [
         {
           "minute": 66,
-          "name": "Kylian Mbappe"
+          "name": "Kylian Mbappe",
+          "assistName": "Michael Olise"
         },
         {
           "minute": 82,
-          "name": "Bradley Barcola"
+          "name": "Bradley Barcola",
+          "assistName": "Adrien Rabiot"
         },
         {
           "minute": 90,
@@ -2321,7 +2349,8 @@
         {
           "minute": 90,
           "offset": 5,
-          "name": "Ibrahim Mbaye"
+          "name": "Ibrahim Mbaye",
+          "assistName": "Iliman Ndiaye"
         }
       ],
       "providerIds": {
@@ -2332,9 +2361,8 @@
       },
       "matchNumber": 17,
       "resultStoryBullets": [
-        "Kylian Mbappe broke through for France, shifting the match toward France.",
-        "Kylian Mbappe added the final word as France pulled away.",
-        "Kylian Mbappe scored twice as France kept widening the gap."
+        "Kylian Mbappe opened the scoring for France.",
+        "Kylian Mbappe finished the scoring as France pulled away."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -2417,13 +2445,15 @@
       "goalsHome": [
         {
           "minute": 39,
-          "name": "Aymen Hussein"
+          "name": "Aymen Hussein",
+          "assistName": "Amir Al-Ammari"
         }
       ],
       "goalsAway": [
         {
           "minute": 29,
-          "name": "Erling Haaland"
+          "name": "Erling Haaland",
+          "assistName": "David Moller Wolfe"
         },
         {
           "minute": 43,
@@ -2431,7 +2461,8 @@
         },
         {
           "minute": 76,
-          "name": "Leo Ostigard"
+          "name": "Leo Ostigard",
+          "assistName": "Martin Odegaard"
         },
         {
           "minute": 90,
@@ -2448,9 +2479,8 @@
       },
       "matchNumber": 18,
       "resultStoryBullets": [
-        "Erling Haaland broke through for Norway, shifting the match toward Norway.",
-        "A 90+6' own goal added the final word as Norway pulled away.",
-        "Erling Haaland scored twice as Norway kept widening the gap."
+        "Erling Haaland opened the scoring for Norway.",
+        "Aymen Hussein's 39' equalizer brought Iraq level."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -2554,7 +2584,8 @@
       "goalsHome": [
         {
           "minute": 17,
-          "name": "Lionel Messi"
+          "name": "Lionel Messi",
+          "assistName": "Rodrigo De Paul"
         },
         {
           "minute": 60,
@@ -2562,7 +2593,8 @@
         },
         {
           "minute": 76,
-          "name": "Lionel Messi"
+          "name": "Lionel Messi",
+          "assistName": "Nico Gonzalez"
         }
       ],
       "goalsAway": [],
@@ -2575,8 +2607,7 @@
       "matchNumber": 19,
       "resultStoryBullets": [
         "Lionel Messi put Argentina ahead early, making Algeria chase the match.",
-        "Lionel Messi added the final word as Argentina pulled away.",
-        "Lionel Messi scored three times as Argentina kept widening the gap."
+        "Lionel Messi finished the scoring as Argentina pulled away."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -2659,7 +2690,8 @@
       "goalsHome": [
         {
           "minute": 20,
-          "name": "Romano Schmid"
+          "name": "Romano Schmid",
+          "assistName": "Xaver Schlager"
         },
         {
           "minute": 76,
@@ -2688,7 +2720,7 @@
       "matchNumber": 20,
       "resultStoryBullets": [
         "Romano Schmid put Austria ahead early, making Jordan chase the match.",
-        "Marko Arnautovic added the final word as Austria pulled away."
+        "Ali Olwan's 50' equalizer brought Jordan level."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -2783,14 +2815,16 @@
       "goalsHome": [
         {
           "minute": 6,
-          "name": "Joao Neves"
+          "name": "Joao Neves",
+          "assistName": "Pedro Neto"
         }
       ],
       "goalsAway": [
         {
           "minute": 45,
           "offset": 5,
-          "name": "Yoane Wissa"
+          "name": "Yoane Wissa",
+          "assistName": "Arthur Masuaku"
         }
       ],
       "providerIds": {
@@ -3002,26 +3036,31 @@
         },
         {
           "minute": 42,
-          "name": "Harry Kane"
+          "name": "Harry Kane",
+          "assistName": "Declan Rice"
         },
         {
           "minute": 47,
-          "name": "Jude Bellingham"
+          "name": "Jude Bellingham",
+          "assistName": "Elliot Anderson"
         },
         {
           "minute": 85,
-          "name": "Marcus Rashford"
+          "name": "Marcus Rashford",
+          "assistName": "Bukayo Saka"
         }
       ],
       "goalsAway": [
         {
           "minute": 36,
-          "name": "Martin Baturina"
+          "name": "Martin Baturina",
+          "assistName": "Petar Sucic"
         },
         {
           "minute": 45,
           "offset": 5,
-          "name": "Petar Musa"
+          "name": "Petar Musa",
+          "assistName": "Ivan Perisic"
         }
       ],
       "providerIds": {
@@ -3033,8 +3072,7 @@
       "matchNumber": 22,
       "resultStoryBullets": [
         "Harry Kane put England ahead early, making Croatia chase the match.",
-        "Marcus Rashford added the final word as England pulled away.",
-        "Harry Kane scored twice as England kept widening the gap."
+        "Martin Baturina's 36' equalizer brought Croatia level."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -3141,7 +3179,6 @@
       },
       "matchNumber": 21,
       "resultStoryBullets": [
-        "Caleb Yirenkyi broke through for Ghana, shifting the match toward Ghana.",
         "Caleb Yirenkyi's 90+5' winner settled a tight match for Ghana.",
         "Ghana kept Panama out and closed the match with a clean sheet."
       ],
@@ -3244,16 +3281,19 @@
       "goalsAway": [
         {
           "minute": 40,
-          "name": "Daniel Munoz"
+          "name": "Daniel Munoz",
+          "assistName": "Luis Diaz"
         },
         {
           "minute": 65,
-          "name": "Luis Diaz"
+          "name": "Luis Diaz",
+          "assistName": "Gustavo Puerta"
         },
         {
           "minute": 90,
           "offset": 9,
-          "name": "Jaminton Campaz"
+          "name": "Jaminton Campaz",
+          "assistName": "Cucho Hernandez"
         }
       ],
       "providerIds": {
@@ -3264,8 +3304,8 @@
       },
       "matchNumber": 24,
       "resultStoryBullets": [
-        "Daniel Munoz broke through for Colombia, shifting the match toward Colombia.",
-        "Jaminton Campaz added the final word as Colombia pulled away."
+        "Daniel Munoz opened the scoring for Colombia.",
+        "Abbosbek Fayzullaev's 60' equalizer brought Uzbekistan level."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -3369,7 +3409,8 @@
       "goalsHome": [
         {
           "minute": 6,
-          "name": "Michal Sadilek"
+          "name": "Michal Sadilek",
+          "assistName": "Alexandr Sojka"
         }
       ],
       "goalsAway": [
@@ -3497,11 +3538,13 @@
         },
         {
           "minute": 84,
-          "name": "Ruben Vargas"
+          "name": "Ruben Vargas",
+          "assistName": "Breel Embolo"
         },
         {
           "minute": 90,
-          "name": "Johan Manzambi"
+          "name": "Johan Manzambi",
+          "assistName": "Ruben Vargas"
         },
         {
           "minute": 90,
@@ -3525,9 +3568,8 @@
       },
       "matchNumber": 26,
       "resultStoryBullets": [
-        "Johan Manzambi broke through for Switzerland, shifting the match toward Switzerland.",
-        "Granit Xhaka added the final word as Switzerland pulled away.",
-        "Johan Manzambi scored twice as Switzerland kept widening the gap."
+        "Johan Manzambi opened the scoring for Switzerland.",
+        "Granit Xhaka finished the scoring as Switzerland pulled away."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -3644,7 +3686,8 @@
         {
           "minute": 90,
           "offset": 2,
-          "name": "Jonathan David"
+          "name": "Jonathan David",
+          "assistName": "Nathan Saliba"
         }
       ],
       "goalsAway": [],
@@ -3657,8 +3700,7 @@
       "matchNumber": 27,
       "resultStoryBullets": [
         "Cyle Larin put Canada ahead early, making Qatar chase the match.",
-        "Jonathan David added the final word as Canada pulled away.",
-        "Jonathan David scored three times as Canada kept widening the gap."
+        "Jonathan David finished the scoring as Canada pulled away."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -3895,7 +3937,6 @@
       },
       "matchNumber": 28,
       "resultStoryBullets": [
-        "Luis Romo broke through for Mexico, shifting the match toward Mexico.",
         "Luis Romo's 50' winner settled a tight match for Mexico.",
         "Mexico kept South Korea out and closed the match with a clean sheet."
       ],
@@ -4041,7 +4082,6 @@
       "matchNumber": 32,
       "resultStoryBullets": [
         "A 11' own goal put United States ahead early, making Australia chase the match.",
-        "Alex Freeman added the final word as United States pulled away.",
         "United States kept Australia out and closed the match with a clean sheet."
       ],
       "highlightVideo": {
@@ -4139,7 +4179,8 @@
       "goalsAway": [
         {
           "minute": 2,
-          "name": "Ismael Saibari"
+          "name": "Ismael Saibari",
+          "assistName": "Brahim Diaz"
         }
       ],
       "providerIds": {
@@ -4262,12 +4303,14 @@
         },
         {
           "minute": 36,
-          "name": "Matheus Cunha"
+          "name": "Matheus Cunha",
+          "assistName": "Vinicius Junior"
         },
         {
           "minute": 45,
           "offset": 3,
-          "name": "Vinicius Junior"
+          "name": "Vinicius Junior",
+          "assistName": "Lucas Paqueta"
         }
       ],
       "goalsAway": [],
@@ -4279,9 +4322,8 @@
       },
       "matchNumber": 29,
       "resultStoryBullets": [
-        "Matheus Cunha broke through for Brazil, shifting the match toward Brazil.",
-        "Vinicius Junior added the final word as Brazil pulled away.",
-        "Matheus Cunha scored twice as Brazil kept widening the gap."
+        "Matheus Cunha opened the scoring for Brazil.",
+        "Vinicius Junior finished the scoring as Brazil pulled away."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -4378,7 +4420,8 @@
       "goalsAway": [
         {
           "minute": 2,
-          "name": "Matias Galarza"
+          "name": "Matias Galarza",
+          "assistName": "Julio Enciso"
         }
       ],
       "providerIds": {
@@ -4647,7 +4690,8 @@
       "goalsHome": [
         {
           "minute": 5,
-          "name": "Brian Brobbey"
+          "name": "Brian Brobbey",
+          "assistName": "Cody Gakpo"
         },
         {
           "minute": 17,
@@ -4655,21 +4699,25 @@
         },
         {
           "minute": 47,
-          "name": "Cody Gakpo"
+          "name": "Cody Gakpo",
+          "assistName": "Denzel Dumfries"
         },
         {
           "minute": 54,
-          "name": "Cody Gakpo"
+          "name": "Cody Gakpo",
+          "assistName": "Crysencio Summerville"
         },
         {
           "minute": 89,
-          "name": "Crysencio Summerville"
+          "name": "Crysencio Summerville",
+          "assistName": "Memphis Depay"
         }
       ],
       "goalsAway": [
         {
           "minute": 59,
-          "name": "Anthony Elanga"
+          "name": "Anthony Elanga",
+          "assistName": "Alexander Isak"
         }
       ],
       "providerIds": {
@@ -4681,8 +4729,7 @@
       "matchNumber": 35,
       "resultStoryBullets": [
         "Brian Brobbey put Netherlands ahead early, making Sweden chase the match.",
-        "Crysencio Summerville added the final word as Netherlands pulled away.",
-        "Brian Brobbey scored twice as Netherlands kept widening the gap."
+        "Crysencio Summerville finished the scoring as Netherlands pulled away."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -4778,12 +4825,14 @@
       "goalsHome": [
         {
           "minute": 68,
-          "name": "Deniz Undav"
+          "name": "Deniz Undav",
+          "assistName": "Nadiem Amiri"
         },
         {
           "minute": 90,
           "offset": 4,
-          "name": "Deniz Undav"
+          "name": "Deniz Undav",
+          "assistName": "Felix Nmecha"
         }
       ],
       "goalsAway": [
@@ -4801,8 +4850,7 @@
       "matchNumber": 33,
       "resultStoryBullets": [
         "Franck Kessie struck first for Côte d'Ivoire, forcing Germany to chase the match.",
-        "Deniz Undav brought Germany level before Deniz Undav completed the turnaround.",
-        "Deniz Undav scored twice as Germany kept widening the gap."
+        "Deniz Undav brought Germany level before Deniz Undav completed the turnaround."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -5041,19 +5089,23 @@
       "goalsAway": [
         {
           "minute": 4,
-          "name": "Daichi Kamada"
+          "name": "Daichi Kamada",
+          "assistName": "Keito Nakamura"
         },
         {
           "minute": 31,
-          "name": "Ayase Ueda"
+          "name": "Ayase Ueda",
+          "assistName": "Kou Itakura"
         },
         {
           "minute": 69,
-          "name": "Junya Ito"
+          "name": "Junya Ito",
+          "assistName": "Ayase Ueda"
         },
         {
           "minute": 83,
-          "name": "Ayase Ueda"
+          "name": "Ayase Ueda",
+          "assistName": "Kaishu Sano"
         }
       ],
       "providerIds": {
@@ -5065,8 +5117,7 @@
       "matchNumber": 36,
       "resultStoryBullets": [
         "Daichi Kamada put Japan ahead early, making Tunisia chase the match.",
-        "Ayase Ueda added the final word as Japan pulled away.",
-        "Ayase Ueda scored twice as Japan kept widening the gap."
+        "Ayase Ueda finished the scoring as Japan pulled away."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -5182,15 +5233,18 @@
       "goalsHome": [
         {
           "minute": 10,
-          "name": "Lamine Yamal"
+          "name": "Lamine Yamal",
+          "assistName": "Mikel Oyarzabal"
         },
         {
           "minute": 21,
-          "name": "Mikel Oyarzabal"
+          "name": "Mikel Oyarzabal",
+          "assistName": "Aymeric Laporte"
         },
         {
           "minute": 24,
-          "name": "Mikel Oyarzabal"
+          "name": "Mikel Oyarzabal",
+          "assistName": "Dani Olmo"
         },
         {
           "minute": 49,
@@ -5208,8 +5262,7 @@
       "matchNumber": 38,
       "resultStoryBullets": [
         "Lamine Yamal put Spain ahead early, making Saudi Arabia chase the match.",
-        "A 49' own goal added the final word as Spain pulled away.",
-        "Mikel Oyarzabal scored twice as Spain kept widening the gap."
+        "A 49' own goal finished the scoring as Spain pulled away."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -5391,7 +5444,8 @@
         {
           "minute": 45,
           "offset": 6,
-          "name": "Agustin Canobbio"
+          "name": "Agustin Canobbio",
+          "assistName": "Maxi Araujo"
         }
       ],
       "goalsAway": [
@@ -5529,21 +5583,25 @@
       "goalsHome": [
         {
           "minute": 15,
-          "name": "Finn Surman"
+          "name": "Finn Surman",
+          "assistName": "Tim Payne"
         }
       ],
       "goalsAway": [
         {
           "minute": 58,
-          "name": "Mostafa Zico"
+          "name": "Mostafa Zico",
+          "assistName": "Mohamed Hany"
         },
         {
           "minute": 67,
-          "name": "Mohamed Salah"
+          "name": "Mohamed Salah",
+          "assistName": "Mostafa Zico"
         },
         {
           "minute": 82,
-          "name": "Trezeguet"
+          "name": "Trezeguet",
+          "assistName": "Mohamed Salah"
         }
       ],
       "providerIds": {
@@ -5584,7 +5642,8 @@
       "goalsHome": [
         {
           "minute": 38,
-          "name": "Lionel Messi"
+          "name": "Lionel Messi",
+          "assistName": "Facundo Medina"
         },
         {
           "minute": 90,
@@ -5690,9 +5749,8 @@
       },
       "matchNumber": 43,
       "resultStoryBullets": [
-        "Lionel Messi broke through for Argentina, shifting the match toward Argentina.",
-        "Lionel Messi added the final word as Argentina pulled away.",
-        "Lionel Messi scored twice as Argentina kept widening the gap."
+        "Lionel Messi opened the scoring for Argentina.",
+        "Lionel Messi finished the scoring as Argentina pulled away."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -5720,15 +5778,18 @@
       "goalsHome": [
         {
           "minute": 14,
-          "name": "Kylian Mbappe"
+          "name": "Kylian Mbappe",
+          "assistName": "Michael Olise"
         },
         {
           "minute": 54,
-          "name": "Kylian Mbappe"
+          "name": "Kylian Mbappe",
+          "assistName": "Ousmane Dembele"
         },
         {
           "minute": 66,
-          "name": "Ousmane Dembele"
+          "name": "Ousmane Dembele",
+          "assistName": "Michael Olise"
         }
       ],
       "goalsAway": [],
@@ -5809,8 +5870,7 @@
       "matchNumber": 42,
       "resultStoryBullets": [
         "Kylian Mbappe put France ahead early, making Iraq chase the match.",
-        "Ousmane Dembele added the final word as France pulled away.",
-        "Kylian Mbappe scored twice as France kept widening the gap."
+        "Ousmane Dembele finished the scoring as France pulled away."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -5918,22 +5978,26 @@
         },
         {
           "minute": 48,
-          "name": "Erling Haaland"
+          "name": "Erling Haaland",
+          "assistName": "Martin Odegaard"
         },
         {
           "minute": 58,
-          "name": "Erling Haaland"
+          "name": "Erling Haaland",
+          "assistName": "Patrick Berg"
         }
       ],
       "goalsAway": [
         {
           "minute": 53,
-          "name": "Ismaila Sarr"
+          "name": "Ismaila Sarr",
+          "assistName": "Sadio Mane"
         },
         {
           "minute": 90,
           "offset": 3,
-          "name": "Ismaila Sarr"
+          "name": "Ismaila Sarr",
+          "assistName": "Nicolas Jackson"
         }
       ],
       "providerIds": {
@@ -5944,9 +6008,8 @@
       },
       "matchNumber": 41,
       "resultStoryBullets": [
-        "Marcus Holmgren Pedersen broke through for Norway, shifting the match toward Norway.",
-        "Erling Haaland's 58' winner settled a tight match for Norway.",
-        "Erling Haaland scored twice as Norway kept widening the gap."
+        "Marcus Holmgren Pedersen opened the scoring for Norway.",
+        "Erling Haaland's 58' winner settled a tight match for Norway."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -6045,13 +6108,15 @@
       "goalsHome": [
         {
           "minute": 36,
-          "name": "Nizar Al-Rashdan"
+          "name": "Nizar Al-Rashdan",
+          "assistName": "Mousa Al-Taamari"
         }
       ],
       "goalsAway": [
         {
           "minute": 69,
-          "name": "Nadhir Benbouali"
+          "name": "Nadhir Benbouali",
+          "assistName": "Riyad Mahrez"
         },
         {
           "minute": 82,
@@ -6160,7 +6225,8 @@
       "goalsHome": [
         {
           "minute": 6,
-          "name": "Cristiano Ronaldo"
+          "name": "Cristiano Ronaldo",
+          "assistName": "Joao Cancelo"
         },
         {
           "minute": 17,
@@ -6168,7 +6234,8 @@
         },
         {
           "minute": 39,
-          "name": "Cristiano Ronaldo"
+          "name": "Cristiano Ronaldo",
+          "assistName": "Bruno Fernandes"
         },
         {
           "minute": 60,
@@ -6194,8 +6261,7 @@
       "matchNumber": 47,
       "resultStoryBullets": [
         "Cristiano Ronaldo put Portugal ahead early, making Uzbekistan chase the match.",
-        "Rafael Leao added the final word as Portugal pulled away.",
-        "Cristiano Ronaldo scored twice as Portugal kept widening the gap."
+        "Rafael Leao finished the scoring as Portugal pulled away."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -6400,7 +6466,8 @@
       "goalsAway": [
         {
           "minute": 54,
-          "name": "Ante Budimir"
+          "name": "Ante Budimir",
+          "assistName": "Josip Stanisic"
         }
       ],
       "resultHighlights": [
@@ -6408,7 +6475,6 @@
         "📊 Croatia moved to 3 points in Group L and left Panama without a point."
       ],
       "resultStoryBullets": [
-        "Ante Budimir broke through for Croatia, shifting the match toward Croatia.",
         "Ante Budimir's 54' winner settled a tight match for Croatia.",
         "Croatia kept Panama out and closed the match with a clean sheet."
       ],
@@ -6505,7 +6571,8 @@
       "goalsHome": [
         {
           "minute": 76,
-          "name": "Daniel Munoz"
+          "name": "Daniel Munoz",
+          "assistName": "Juan Quintero"
         }
       ],
       "goalsAway": [],
@@ -6514,7 +6581,6 @@
         "📊 Colombia moved to 6 points in Group K while DR Congo stayed on 1 point."
       ],
       "resultStoryBullets": [
-        "Daniel Munoz broke through for Colombia, shifting the match toward Colombia.",
         "Daniel Munoz's 76' winner settled a tight match for Colombia.",
         "Colombia kept DR Congo out and closed the match with a clean sheet."
       ],
@@ -6621,17 +6687,20 @@
       "goalsHome": [
         {
           "minute": 46,
-          "name": "Ruben Vargas"
+          "name": "Ruben Vargas",
+          "assistName": "Johan Manzambi"
         },
         {
           "minute": 57,
-          "name": "Johan Manzambi"
+          "name": "Johan Manzambi",
+          "assistName": "Breel Embolo"
         }
       ],
       "goalsAway": [
         {
           "minute": 76,
-          "name": "Promise David"
+          "name": "Promise David",
+          "assistName": "Nathan Saliba"
         }
       ],
       "resultHighlights": [
@@ -6639,7 +6708,7 @@
         "📊 Switzerland moved to 7 points in Group B while Canada stayed on 4 points."
       ],
       "resultStoryBullets": [
-        "Ruben Vargas broke through for Switzerland, shifting the match toward Switzerland.",
+        "Ruben Vargas opened the scoring for Switzerland.",
         "Johan Manzambi's 57' winner settled a tight match for Switzerland."
       ],
       "highlightVideo": {
@@ -6755,7 +6824,8 @@
       "goalsHome": [
         {
           "minute": 29,
-          "name": "Kerim Alajbegovic"
+          "name": "Kerim Alajbegovic",
+          "assistName": "Ivan Basic"
         },
         {
           "minute": 34,
@@ -6764,13 +6834,15 @@
         },
         {
           "minute": 80,
-          "name": "Ermin Mahmic"
+          "name": "Ermin Mahmic",
+          "assistName": "Dennis Hadzikadunic"
         }
       ],
       "goalsAway": [
         {
           "minute": 42,
-          "name": "Hassan Alhaydos"
+          "name": "Hassan Alhaydos",
+          "assistName": "Edmilson Junior"
         }
       ],
       "resultHighlights": [
@@ -6778,8 +6850,8 @@
         "📊 Bosnia and Herzegovina moved to 4 points in Group B while Qatar stayed on 1 point."
       ],
       "resultStoryBullets": [
-        "Kerim Alajbegovic broke through for Bosnia and Herzegovina, shifting the match toward Bosnia and Herzegovina.",
-        "Ermin Mahmic added the final word as Bosnia and Herzegovina pulled away."
+        "Kerim Alajbegovic opened the scoring for Bosnia and Herzegovina.",
+        "Ermin Mahmic finished the scoring as Bosnia and Herzegovina pulled away."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -6935,16 +7007,19 @@
       "goalsAway": [
         {
           "minute": 7,
-          "name": "Vinicius Junior"
+          "name": "Vinicius Junior",
+          "assistName": "Rayan"
         },
         {
           "minute": 45,
           "offset": 3,
-          "name": "Vinicius Junior"
+          "name": "Vinicius Junior",
+          "assistName": "Bruno Guimaraes"
         },
         {
           "minute": 60,
-          "name": "Matheus Cunha"
+          "name": "Matheus Cunha",
+          "assistName": "Bruno Guimaraes"
         }
       ],
       "resultHighlights": [
@@ -6953,8 +7028,7 @@
       ],
       "resultStoryBullets": [
         "Vinicius Junior put Brazil ahead early, making Scotland chase the match.",
-        "Matheus Cunha added the final word as Brazil pulled away.",
-        "Vinicius Junior scored twice as Brazil kept widening the gap."
+        "Matheus Cunha finished the scoring as Brazil pulled away."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -7053,15 +7127,18 @@
         {
           "minute": 45,
           "offset": 1,
-          "name": "Ismael Saibari"
+          "name": "Ismael Saibari",
+          "assistName": "Achraf Hakimi"
         },
         {
           "minute": 78,
-          "name": "Soufiane Rahimi"
+          "name": "Soufiane Rahimi",
+          "assistName": "Chadi Riad"
         },
         {
           "minute": 89,
-          "name": "Gessime Yassine"
+          "name": "Gessime Yassine",
+          "assistName": "Soufiane Rahimi"
         }
       ],
       "goalsAway": [
@@ -7072,7 +7149,8 @@
         },
         {
           "minute": 43,
-          "name": "Wilson Isidor"
+          "name": "Wilson Isidor",
+          "assistName": "Jean-Kevin Duverne"
         }
       ],
       "resultHighlights": [
@@ -7188,16 +7266,19 @@
       "goalsAway": [
         {
           "minute": 55,
-          "name": "Mateo Chavez"
+          "name": "Mateo Chavez",
+          "assistName": "Luis Romo"
         },
         {
           "minute": 61,
-          "name": "Julian Quinones"
+          "name": "Julian Quinones",
+          "assistName": "Jorge Sanchez"
         },
         {
           "minute": 90,
           "offset": 4,
-          "name": "Alvaro Fidalgo"
+          "name": "Alvaro Fidalgo",
+          "assistName": "Roberto Alvarado"
         }
       ],
       "resultHighlights": [
@@ -7205,9 +7286,8 @@
         "📊 Mexico moved to 9 points in Group A while Czechia stayed on 1 point."
       ],
       "resultStoryBullets": [
-        "Mateo Chavez broke through for Mexico, shifting the match toward Mexico.",
-        "Alvaro Fidalgo added the final word as Mexico pulled away.",
-        "Mexico kept Czechia out and closed the match with a clean sheet."
+        "Mateo Chavez opened the scoring for Mexico.",
+        "Alvaro Fidalgo finished the scoring as Mexico pulled away."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -7301,7 +7381,8 @@
       "goalsHome": [
         {
           "minute": 63,
-          "name": "Thapelo Maseko"
+          "name": "Thapelo Maseko",
+          "assistName": "Tshepang Moremi"
         }
       ],
       "goalsAway": [],
@@ -7310,7 +7391,6 @@
         "📊 South Africa moved to 4 points in Group A while South Korea stayed on 3 points."
       ],
       "resultStoryBullets": [
-        "Thapelo Maseko broke through for South Africa, shifting the match toward South Africa.",
         "Thapelo Maseko's 63' winner settled a tight match for South Africa.",
         "South Africa kept South Korea out and closed the match with a clean sheet."
       ],
@@ -7421,17 +7501,20 @@
       "goalsHome": [
         {
           "minute": 9,
-          "name": "Nilson Angulo"
+          "name": "Nilson Angulo",
+          "assistName": "Pedro Vite"
         },
         {
           "minute": 77,
-          "name": "Gonzalo Plata"
+          "name": "Gonzalo Plata",
+          "assistName": "Kevin Rodriguez"
         }
       ],
       "goalsAway": [
         {
           "minute": 2,
-          "name": "Leroy Sane"
+          "name": "Leroy Sane",
+          "assistName": "Florian Wirtz"
         }
       ],
       "resultHighlights": [
@@ -7530,11 +7613,13 @@
       "goalsAway": [
         {
           "minute": 7,
-          "name": "Nicolas Pepe"
+          "name": "Nicolas Pepe",
+          "assistName": "Yan Diomande"
         },
         {
           "minute": 64,
-          "name": "Nicolas Pepe"
+          "name": "Nicolas Pepe",
+          "assistName": "Ibrahim Sangare"
         }
       ],
       "resultHighlights": [
@@ -7543,8 +7628,7 @@
       ],
       "resultStoryBullets": [
         "Nicolas Pepe put Côte d'Ivoire ahead early, making Curaçao chase the match.",
-        "Nicolas Pepe added the final word as Côte d'Ivoire pulled away.",
-        "Nicolas Pepe scored twice as Côte d'Ivoire kept widening the gap."
+        "Nicolas Pepe finished the scoring as Côte d'Ivoire pulled away."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -7673,13 +7757,15 @@
       "goalsHome": [
         {
           "minute": 56,
-          "name": "Daizen Maeda"
+          "name": "Daizen Maeda",
+          "assistName": "Ritsu Doan"
         }
       ],
       "goalsAway": [
         {
           "minute": 62,
-          "name": "Anthony Elanga"
+          "name": "Anthony Elanga",
+          "assistName": "Viktor Gyokeres"
         }
       ],
       "resultHighlights": [
@@ -7798,7 +7884,8 @@
       "goalsHome": [
         {
           "minute": 54,
-          "name": "Hazem Mastouri"
+          "name": "Hazem Mastouri",
+          "assistName": "Hannibal Mejbri"
         }
       ],
       "goalsAway": [
@@ -7809,11 +7896,13 @@
         },
         {
           "minute": 7,
-          "name": "Brian Brobbey"
+          "name": "Brian Brobbey",
+          "assistName": "Virgil van Dijk"
         },
         {
           "minute": 62,
-          "name": "Jan Paul van Hecke"
+          "name": "Jan Paul van Hecke",
+          "assistName": "Tijjani Reijnders"
         }
       ],
       "resultHighlights": [
@@ -7822,7 +7911,7 @@
       ],
       "resultStoryBullets": [
         "A 3' own goal put Netherlands ahead early, making Tunisia chase the match.",
-        "Jan Paul van Hecke added the final word as Netherlands pulled away."
+        "Jan Paul van Hecke finished the scoring as Netherlands pulled away."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -7961,11 +8050,13 @@
       "goalsHome": [
         {
           "minute": 10,
-          "name": "Arda Guler"
+          "name": "Arda Guler",
+          "assistName": "Baris Alper Yilmaz"
         },
         {
           "minute": 31,
-          "name": "Baris Alper Yilmaz"
+          "name": "Baris Alper Yilmaz",
+          "assistName": "Orkun Kokcu"
         },
         {
           "minute": 90,
@@ -7976,7 +8067,8 @@
       "goalsAway": [
         {
           "minute": 3,
-          "name": "Auston Trusty"
+          "name": "Auston Trusty",
+          "assistName": "Sebastian Berhalter"
         },
         {
           "minute": 49,
@@ -8352,26 +8444,31 @@
       "goalsHome": [
         {
           "minute": 21,
-          "name": "Thelo Aasgaard"
+          "name": "Thelo Aasgaard",
+          "assistName": "Andreas Schjelderup"
         }
       ],
       "goalsAway": [
         {
           "minute": 7,
-          "name": "Ousmane Dembele"
+          "name": "Ousmane Dembele",
+          "assistName": "Kylian Mbappe"
         },
         {
           "minute": 20,
-          "name": "Ousmane Dembele"
+          "name": "Ousmane Dembele",
+          "assistName": "Kylian Mbappe"
         },
         {
           "minute": 32,
-          "name": "Ousmane Dembele"
+          "name": "Ousmane Dembele",
+          "assistName": "Aurelien Tchouameni"
         },
         {
           "minute": 90,
           "offset": 4,
-          "name": "Desire Doue"
+          "name": "Desire Doue",
+          "assistName": "Bradley Barcola"
         }
       ],
       "resultHighlights": [
@@ -8380,8 +8477,7 @@
       ],
       "resultStoryBullets": [
         "Ousmane Dembele put France ahead early, making Norway chase the match.",
-        "Desire Doue added the final word as France pulled away.",
-        "Ousmane Dembele scored three times as France kept widening the gap."
+        "Desire Doue finished the scoring as France pulled away."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -8469,23 +8565,28 @@
       "goalsHome": [
         {
           "minute": 4,
-          "name": "Habib Diarra"
+          "name": "Habib Diarra",
+          "assistName": "Abdoulaye Seck"
         },
         {
           "minute": 56,
-          "name": "Ismaila Sarr"
+          "name": "Ismaila Sarr",
+          "assistName": "Lamine Camara"
         },
         {
           "minute": 59,
-          "name": "Pape Gueye"
+          "name": "Pape Gueye",
+          "assistName": "Ismaila Sarr"
         },
         {
           "minute": 71,
-          "name": "Pape Gueye"
+          "name": "Pape Gueye",
+          "assistName": "Iliman Ndiaye"
         },
         {
           "minute": 82,
-          "name": "Iliman Ndiaye"
+          "name": "Iliman Ndiaye",
+          "assistName": "Pape Gueye"
         }
       ],
       "goalsAway": [],
@@ -8495,8 +8596,7 @@
       ],
       "resultStoryBullets": [
         "Habib Diarra put Senegal ahead early, making Iraq chase the match.",
-        "Iliman Ndiaye added the final word as Senegal pulled away.",
-        "Pape Gueye scored twice as Senegal kept widening the gap."
+        "Iliman Ndiaye finished the scoring as Senegal pulled away."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -8748,7 +8848,8 @@
       "goalsAway": [
         {
           "minute": 42,
-          "name": "Alex Baena"
+          "name": "Alex Baena",
+          "assistName": "Marcos Llorente"
         }
       ],
       "resultHighlights": [
@@ -8756,7 +8857,6 @@
         "📊 Spain moved to 7 points in Group H while Uruguay stayed on 2 points."
       ],
       "resultStoryBullets": [
-        "Alex Baena broke through for Spain, shifting the match toward Spain.",
         "Alex Baena's 42' winner settled a tight match for Spain.",
         "Spain kept Uruguay out and closed the match with a clean sheet."
       ],
@@ -8857,7 +8957,8 @@
       "goalsHome": [
         {
           "minute": 5,
-          "name": "Mahmoud Saber"
+          "name": "Mahmoud Saber",
+          "assistName": "Trezeguet"
         }
       ],
       "goalsAway": [
@@ -8971,7 +9072,8 @@
         },
         {
           "minute": 50,
-          "name": "Leandro Trossard"
+          "name": "Leandro Trossard",
+          "assistName": "Hans Vanaken"
         },
         {
           "minute": 66,
@@ -8979,12 +9081,14 @@
         },
         {
           "minute": 86,
-          "name": "Romelu Lukaku"
+          "name": "Romelu Lukaku",
+          "assistName": "Nicolas Raskin"
         },
         {
           "minute": 90,
           "offset": 4,
-          "name": "Alexis Saelemaekers"
+          "name": "Alexis Saelemaekers",
+          "assistName": "Romelu Lukaku"
         }
       ],
       "resultHighlights": [
@@ -8992,9 +9096,8 @@
         "📊 Belgium moved to 5 points in Group G while New Zealand stayed on 1 point."
       ],
       "resultStoryBullets": [
-        "Leandro Trossard broke through for Belgium, shifting the match toward Belgium.",
-        "Alexis Saelemaekers added the final word as Belgium pulled away.",
-        "Leandro Trossard scored twice as Belgium kept widening the gap."
+        "Leandro Trossard opened the scoring for Belgium.",
+        "Alexis Saelemaekers finished the scoring as Belgium pulled away."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -9098,17 +9201,18 @@
       "goalsAway": [
         {
           "minute": 62,
-          "name": "Jude Bellingham"
+          "name": "Jude Bellingham",
+          "assistName": "Bukayo Saka"
         },
         {
           "minute": 67,
-          "name": "Harry Kane"
+          "name": "Harry Kane",
+          "assistName": "Jude Bellingham"
         }
       ],
       "resultStoryBullets": [
-        "Jude Bellingham broke through for England, shifting the match toward England.",
-        "Harry Kane added the final word as England pulled away.",
-        "England kept Panama out and closed the match with a clean sheet."
+        "Jude Bellingham opened the scoring for England.",
+        "Harry Kane finished the scoring as England pulled away."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -9200,22 +9304,25 @@
       "goalsHome": [
         {
           "minute": 31,
-          "name": "Petar Sucic"
+          "name": "Petar Sucic",
+          "assistName": "Mateo Kovacic"
         },
         {
           "minute": 83,
-          "name": "Nikola Vlasic"
+          "name": "Nikola Vlasic",
+          "assistName": "Luka Modric"
         }
       ],
       "goalsAway": [
         {
           "minute": 73,
-          "name": "Derrick Luckassen"
+          "name": "Derrick Luckassen",
+          "assistName": "Ernest Nuamah"
         }
       ],
       "resultStoryBullets": [
-        "Petar Sucic broke through for Croatia, shifting the match toward Croatia.",
-        "Nikola Vlasic's 83' winner settled a tight match for Croatia."
+        "Petar Sucic opened the scoring for Croatia.",
+        "Derrick Luckassen's 73' equalizer brought Ghana level."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -9405,13 +9512,15 @@
         {
           "minute": 90,
           "offset": 1,
-          "name": "Yoane Wissa"
+          "name": "Yoane Wissa",
+          "assistName": "Meschack Elia"
         }
       ],
       "goalsAway": [
         {
           "minute": 10,
-          "name": "Eldor Shomurodov"
+          "name": "Eldor Shomurodov",
+          "assistName": "Akmal Mozgovoy"
         }
       ],
       "resultHighlights": [
@@ -9420,8 +9529,7 @@
       ],
       "resultStoryBullets": [
         "Eldor Shomurodov struck first for Uzbekistan, forcing DR Congo to chase the match.",
-        "Yoane Wissa brought DR Congo level before Yoane Wissa completed the turnaround.",
-        "Yoane Wissa scored twice as DR Congo kept widening the gap."
+        "Yoane Wissa brought DR Congo level before Yoane Wissa completed the turnaround."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -9524,27 +9632,32 @@
         },
         {
           "minute": 60,
-          "name": "Riyad Mahrez"
+          "name": "Riyad Mahrez",
+          "assistName": "Houssem Aouar"
         },
         {
           "minute": 90,
           "offset": 3,
-          "name": "Riyad Mahrez"
+          "name": "Riyad Mahrez",
+          "assistName": "Houssem Aouar"
         }
       ],
       "goalsAway": [
         {
           "minute": 28,
-          "name": "Marko Arnautovic"
+          "name": "Marko Arnautovic",
+          "assistName": "David Alaba"
         },
         {
           "minute": 55,
-          "name": "Marcel Sabitzer"
+          "name": "Marcel Sabitzer",
+          "assistName": "Konrad Laimer"
         },
         {
           "minute": 90,
           "offset": 6,
-          "name": "Sasa Kalajdzic"
+          "name": "Sasa Kalajdzic",
+          "assistName": "Michael Gregoritsch"
         }
       ],
       "resultHighlights": [
@@ -9641,7 +9754,8 @@
       "goalsHome": [
         {
           "minute": 55,
-          "name": "Mousa Al-Taamari"
+          "name": "Mousa Al-Taamari",
+          "assistName": "Ehsan Haddad"
         }
       ],
       "goalsAway": [
@@ -9665,7 +9779,7 @@
       ],
       "resultStoryBullets": [
         "Giovani Lo Celso put Argentina ahead early, making Jordan chase the match.",
-        "Lionel Messi added the final word as Argentina pulled away."
+        "Lionel Messi finished the scoring as Argentina pulled away."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -9889,13 +10003,15 @@
       "goalsHome": [
         {
           "minute": 54,
-          "name": "Kai Havertz"
+          "name": "Kai Havertz",
+          "assistName": "Florian Wirtz"
         }
       ],
       "goalsAway": [
         {
           "minute": 42,
-          "name": "Julio Enciso"
+          "name": "Julio Enciso",
+          "assistName": "Matias Galarza"
         }
       ],
       "resultStoryBullets": [
@@ -10028,14 +10144,16 @@
       "goalsHome": [
         {
           "minute": 72,
-          "name": "Cody Gakpo"
+          "name": "Cody Gakpo",
+          "assistName": "Crysencio Summerville"
         }
       ],
       "goalsAway": [
         {
           "minute": 90,
           "offset": 1,
-          "name": "Issa Diop"
+          "name": "Issa Diop",
+          "assistName": "Chemsdine Talbi"
         }
       ],
       "resultStoryBullets": [
@@ -10291,12 +10409,14 @@
       "goalsHome": [
         {
           "minute": 56,
-          "name": "Casemiro"
+          "name": "Casemiro",
+          "assistName": "Gabriel Magalhaes"
         },
         {
           "minute": 90,
           "offset": 5,
-          "name": "Gabriel Martinelli"
+          "name": "Gabriel Martinelli",
+          "assistName": "Bruno Guimaraes"
         }
       ],
       "goalsAway": [
@@ -10315,7 +10435,7 @@
       "homeSlot": "Group I winner",
       "awaySlot": "Group C/D/F/G/H third place",
       "venue": "New York New Jersey Stadium",
-      "status": "LIVE",
+      "status": "FT",
       "h2h": {
         "status": "loaded",
         "sourceId": "national-football-teams-h2h-sync-2026-06-30",
@@ -10539,8 +10659,47 @@
         "away": "Sweden are a tall, technical attacking side with two forwards who can change the shape of a match, led by Alexander Isak, Viktor Gyokeres, and Yasin Ayari. Against France, their Isak-Gyokeres two-striker pressure has to beat France's Olise-to-Mbappe chance creation. They want to connect through Ayari and then choose between Isak's polish or Gyokeres' power. The risk is France can combine Olise's final ball with Mbappe's acceleration before Saliba controls the counter."
       },
       "score": {
-        "home": 1,
+        "home": 3,
         "away": 0
+      },
+      "winnerTeamId": "FRA",
+      "goalsHome": [
+        {
+          "minute": 45,
+          "name": "Kylian Mbappe",
+          "assistName": "Ousmane Dembele"
+        },
+        {
+          "minute": 53,
+          "name": "Bradley Barcola",
+          "assistName": "Michael Olise"
+        },
+        {
+          "minute": 74,
+          "name": "Kylian Mbappe",
+          "assistName": "Michael Olise"
+        }
+      ],
+      "goalsAway": [],
+      "resultStoryBullets": [
+        "Kylian Mbappe's opener was the super-goal moment: a short-corner move, a crossover step past Viktor Gyokeres, and a finish across goal.",
+        "Michael Olise supplied the creator thread, assisting Barcola's second and sliding Mbappe through for France's third."
+      ],
+      "resultStoryResearch": {
+        "status": "researched",
+        "sourceIds": [
+          "ap-france-sweden-result-2026-06-30"
+        ],
+        "checkedAt": "2026-06-30T17:34:45-07:00",
+        "note": "AP report and official FOX Sports highlights reviewed for the post-match story emphasis."
+      },
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=II84TKpzJY4",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-06-30T16:22:21-07:00",
+        "checkedAt": "2026-06-30T17:34:45-07:00"
       }
     },
     {
@@ -10621,21 +10780,23 @@
       "goalsHome": [
         {
           "minute": 74,
-          "name": "Amad Diallo"
+          "name": "Amad Diallo",
+          "assistName": "Nicolas Pepe"
         }
       ],
       "goalsAway": [
         {
           "minute": 39,
-          "name": "Antonio Nusa"
+          "name": "Antonio Nusa",
+          "assistName": "Martin Odegaard"
         },
         {
           "minute": 86,
-          "name": "Erling Haaland"
+          "name": "Erling Haaland",
+          "assistName": "Patrick Berg"
         }
       ],
       "resultStoryBullets": [
-        "Antonio Nusa broke through for Norway, shifting the match toward Norway.",
         "Amad Diallo's 74' equalizer brought Côte d'Ivoire level.",
         "Erling Haaland's 86' winner settled a tight match for Norway."
       ],
@@ -11927,9 +12088,62 @@
       "venue": "Philadelphia Stadium",
       "status": "SCHEDULED",
       "h2h": {
-        "status": "research-pending",
-        "summary": "Past meetings not loaded yet.",
-        "results": null
+        "status": "loaded",
+        "sourceId": "national-football-teams-h2h-sync-2026-06-30",
+        "summary": "Before this fixture, France had the edge in the verified senior series: 0 Paraguay wins, 2 draws, 3 France wins, 18 total goals.",
+        "results": [
+          {
+            "date": "2017-06-02",
+            "competition": "Friendly",
+            "homeTeamId": "FRA",
+            "awayTeamId": "PAR",
+            "homeScore": 5,
+            "awayScore": 0,
+            "venue": "Roazhon Park",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/17600/France_Paraguay.html"
+          },
+          {
+            "date": "2014-06-01",
+            "competition": "Friendly",
+            "homeTeamId": "FRA",
+            "awayTeamId": "PAR",
+            "homeScore": 1,
+            "awayScore": 1,
+            "venue": "Allianz Riviéra",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/10595/France_Paraguay.html"
+          },
+          {
+            "date": "2008-05-31",
+            "competition": "Friendly",
+            "homeTeamId": "FRA",
+            "awayTeamId": "PAR",
+            "homeScore": 0,
+            "awayScore": 0,
+            "venue": "Stade Municipal de Toulouse",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/12291/France_Paraguay.html"
+          },
+          {
+            "date": "1998-06-28",
+            "competition": "World Cup 1998 - Round of 16",
+            "homeTeamId": "FRA",
+            "awayTeamId": "PAR",
+            "homeScore": 1,
+            "awayScore": 0,
+            "venue": "Stade Bollaert-Delelis",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/12596/France_Paraguay.html"
+          },
+          {
+            "date": "1958-06-08",
+            "competition": "World Cup 1958 - Group 2",
+            "homeTeamId": "FRA",
+            "awayTeamId": "PAR",
+            "homeScore": 7,
+            "awayScore": 3,
+            "venue": "Norrköpings Idrottsparken",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/14815/France_Paraguay.html"
+          }
+        ],
+        "sourceUrl": "https://www.national-football-teams.com/encounter/teams/144/67/Paraguay_vs_France.html"
       },
       "providerIds": {
         "fifa": {
@@ -11937,7 +12151,54 @@
           "matchNumber": 89
         }
       },
-      "homeTeamId": "PAR"
+      "homeTeamId": "PAR",
+      "awayTeamId": "FRA",
+      "keyPlayers": {
+        "sourceId": "key-player-baseline-2026-06-22",
+        "method": "team-watchlist-baseline",
+        "basis": "Team-level key-player watchlist; replace with API/squad-sourced fixture notes when available",
+        "home": [
+          {
+            "name": "Miguel Almiron",
+            "note": "Paraguay's direct carrier, dangerous when counters open and he can turn running power into territory."
+          },
+          {
+            "name": "Julio Enciso",
+            "note": "A brave shooter and chance creator who can give Paraguay a punch even when possession is limited."
+          },
+          {
+            "name": "Gustavo Gomez",
+            "note": "The defensive organizer and set-piece presence, central to making tight knockout margins hold."
+          }
+        ],
+        "away": [
+          {
+            "name": "Kylian Mbappe",
+            "note": "France's game-breaking runner and finisher, the player who turns one channel ball into panic."
+          },
+          {
+            "name": "Michael Olise",
+            "note": "The current creative hinge, dangerous as a passer, dribbler, or left-footed shooter between defenders."
+          },
+          {
+            "name": "William Saliba",
+            "note": "The defensive stabilizer, calm enough to defend space while France's athletes surge forward."
+          }
+        ]
+      },
+      "projection": {
+        "sourceId": "ranking-projection-2026-06-17",
+        "method": "fifa-ranking-baseline",
+        "basis": "FIFA ranking strength with host-country adjustment",
+        "home": 16,
+        "draw": 23,
+        "away": 61
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-22",
+        "home": "Paraguay are rugged counterpunchers who are comfortable turning matches into physical, tight contests, led by Miguel Almiron, Julio Enciso, and Gustavo Gomez. Against France, their Almiron-Enciso counters has to beat France's Olise-to-Mbappe chance creation. They want to release Almiron into space and let Enciso attack the pocket before defenders settle. The risk is France can combine Olise's final ball with Mbappe's acceleration before Saliba controls the counter.",
+        "away": "France are an elite attacking side with Mbappe's speed now fed by Olise's left-footed creation, led by Kylian Mbappe, Michael Olise, and William Saliba. Against Paraguay, their Olise-to-Mbappe chance creation has to beat Paraguay's Almiron-Enciso counters. They want to let Olise receive inside, draw pressure, and release Mbappe before the defense can reset. The risk is Paraguay can turn one Almiron break or Enciso shot into a tight-game swing."
+      }
     },
     {
       "id": "match-90-round-of-16-2026-07-04",

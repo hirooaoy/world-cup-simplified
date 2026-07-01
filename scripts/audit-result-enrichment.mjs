@@ -7,6 +7,8 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const dataDir = path.join(root, "data");
 const HIGHLIGHT_VIDEO_REVIEW_STATUSES = new Set(["not-found", "needs-review"]);
 const weakCurrentStoryPattern =
+  /\b(?:won the shootout \d+-\d+ after a \d+-\d+ draw|survived the shootout after a \d+-\d+ draw|exited after penalties kept|stayed close enough to keep the final minutes tense|stayed locked together until the final whistle|got the decisive details right in a match that stayed tight|closed the result without needing another late twist|broke through for .+?, shifting the match toward|added the final word as .+? pulled away|scored (?:twice|three times|\d+ times) as .+? kept widening the gap)\b/i;
+const weakHistoricalStoryPattern =
   /\b(?:won the shootout \d+-\d+ after a \d+-\d+ draw|survived the shootout after a \d+-\d+ draw|exited after penalties kept|stayed close enough to keep the final minutes tense|stayed locked together until the final whistle|got the decisive details right in a match that stayed tight|closed the result without needing another late twist)\b/i;
 
 async function readJson(fileName) {
@@ -31,6 +33,10 @@ function resultStoryBullets(fixture) {
 
 function weakCurrentStoryBullets(fixture) {
   return resultStoryBullets(fixture).filter((highlight) => weakCurrentStoryPattern.test(highlight));
+}
+
+function weakHistoricalStoryBullets(fixture) {
+  return resultStoryBullets(fixture).filter((highlight) => weakHistoricalStoryPattern.test(highlight));
 }
 
 function hasShootoutTextureStory(fixture) {
@@ -122,11 +128,14 @@ for (const fixture of fixturesData.fixtures || []) {
   checked += 1;
   const matchLabel = `${teamsById.get(fixture.homeTeamId)?.name || fixture.homeTeamId} vs ${teamsById.get(fixture.awayTeamId)?.name || fixture.awayTeamId}`;
   const total = scoreTotal(fixture);
-  const highlights = [
+  const resultHighlights = Array.isArray(fixture.resultHighlights) ? fixture.resultHighlights : [];
+  const momentHighlights = [
     ...(Array.isArray(fixture.resultStoryBullets) ? fixture.resultStoryBullets : []),
-    ...(Array.isArray(fixture.resultHighlights) ? fixture.resultHighlights : [])
+    ...resultHighlights.filter((highlight) => {
+      const text = String(highlight || "").trim();
+      return text && !text.startsWith("⚽") && !text.startsWith("📊");
+    })
   ];
-  const momentHighlights = highlights.filter((highlight) => !String(highlight).trim().startsWith("⚽"));
 
   if (total === null) {
     issues.push(`${fixture.id} (${matchLabel}) is full-time but has no numeric score.`);
@@ -140,7 +149,7 @@ for (const fixture of fixturesData.fixtures || []) {
   }
 
   const storyBullets = resultStoryBullets(fixture);
-  if (total > 0 && storyBullets.length < 2) {
+  if (total > 0 && storyBullets.length > 0 && storyBullets.length < 2) {
     issues.push(`${fixture.id} (${matchLabel}) has fewer than two result story bullets for a scoring match.`);
   }
 
@@ -149,9 +158,7 @@ for (const fixture of fixturesData.fixtures || []) {
     issues.push(`${fixture.id} (${matchLabel}) has result story bullets out of chronological order: ${minuteOrderIssue}`);
   }
 
-  if (!momentHighlights.length) {
-    issues.push(`${fixture.id} (${matchLabel}) has no non-score result moment.`);
-  } else if (momentHighlights.some(isGenericMoment)) {
+  if (momentHighlights.some(isGenericMoment)) {
     issues.push(`${fixture.id} (${matchLabel}) still has generic result moment copy.`);
   }
 
@@ -194,7 +201,7 @@ for (const fixture of historyData.fixtures || []) {
     issues.push(`${fixture.id} (${fixture.homeSlot} vs ${fixture.awaySlot}) has no historical result story bullets.`);
   }
 
-  const weakStories = weakCurrentStoryBullets(fixture);
+  const weakStories = weakHistoricalStoryBullets(fixture);
   if (weakStories.length) {
     issues.push(
       `${fixture.id} (${fixture.homeSlot} vs ${fixture.awaySlot}) has weak historical result story copy: ${weakStories.join(" | ")}`

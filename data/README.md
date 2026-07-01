@@ -123,7 +123,9 @@ For authored `catchUp` entries, keep the headline and body score-focused. Add op
 
 For completed fixture detail pages, add optional `resultHighlights` when the scoreline needs more context than the default source-check note. Keep each highlight to one compact sentence.
 
-For richer post-match recaps, add optional `resultStoryBullets` with up to three compact, emoji-free match-story bullets. This field may be prepared before the static fixture has been synced to `FT`; the UI only displays it inside the full-time Result block. `pnpm results` also backfills this field for finished historical archive matches.
+For richer post-match recaps, add optional `resultStoryBullets` with up to three compact, emoji-free match-story bullets. Current 2026 fixture bullets should be written only after post-match research, and the fixture can include `resultStoryResearch` with `status: "researched"`, `sourceIds`, `checkedAt`, and an optional compact note. The UI only displays story bullets inside the full-time Result block. `pnpm results` no longer auto-generates current fixture story bullets by default; it still backfills this field for finished historical archive matches. `pnpm results:research` is a free queue/report: it lists finished matches that need source-backed research, but it does not call paid APIs or publish narrative bullets.
+
+Goal rows may include optional `assistName` when the official FIFA timeline exposes an assistant player id. Result recap generation prefers repeated-assist texture over generic scorer-repeat filler when that data is available.
 
 For official post-match video, add optional `highlightVideo` only after a fixture is `FT`. Use a YouTube URL from an allowed official highlights channel, currently FOX Sports for 2026 matches (`channelId: "UCwNqHDsnBCKT-olwJwIFyfg"`), and include `sourceName`, `publishedAt`, and `checkedAt`. The UI hides the play button unless the fixture is final and the channel is allowlisted. Run `pnpm sync:youtube` for current 2026 matches; it checks only the official FOX Sports channel, requires both team names plus 2026 FIFA World Cup highlights context in the title, and rechecks reviewed fixtures without rewriting timestamps unless a link or review state changes. If no official YouTube upload is available after checking the allowlisted channel, add `highlightVideoReview` with `status: "not-found"` or `status: "needs-review"`, the same `sourceName` / `channelId`, `platform: "youtube"`, `checkedAt`, and a short `note`; replace that review with `highlightVideo` once a valid official URL exists.
 
@@ -137,7 +139,7 @@ Use one command for matchday data publishing:
 pnpm matchday:update
 ```
 
-That is the auto-curated path for committed data. It runs the official score/status sync, FIFA goal-event sync, player-profile generation when newly synced scorers or player mentions need cards, result-highlight generation, and the full data/UI verification chain. When validation identifies broken cards, the profile repair step refreshes only those named players instead of rewriting every current profile. Review the data diff after it finishes, then publish.
+That is the auto-curated path for committed data. It runs the official score/status sync, FIFA goal-event sync, player-profile generation when newly synced scorers or player mentions need cards, factual result-highlight generation, official highlight-video sync, a result-story research queue report, and the full data/UI verification chain. When validation identifies broken cards, the profile repair step refreshes only those named players instead of rewriting every current profile. Review the data diff after it finishes, then publish.
 
 The live `/api/live-data` response can temporarily show a scorer before that scorer exists in `data/player-profiles.json`. The UI renders a contextual goal card for that runtime-only scorer; `pnpm matchday:update` is still the step that turns the scorer into a fully curated profile with position, club, photo, value, and reviewed note.
 
@@ -152,11 +154,12 @@ pnpm cards:check
 pnpm results
 pnpm results:check
 pnpm sync:youtube
+pnpm results:research
 ```
 
-The script preserves hand-authored `resultHighlights` by default. It generates the `⚽` scoreline only when scorer-minute data is not loaded; when `goalsHome`/`goalsAway` exists, the UI renders the linked scorer list instead.
-The scheduled `Sync FIFA Results PR` workflow runs `pnpm sync:fifa:goals`, `pnpm results`, `pnpm sync:youtube`, and `pnpm validate:profiles` after the score/status sync, so newly finished matches can open a fallback-data PR as soon as FIFA timeline scorer events, result highlights, official highlight-video dispositions, and any newly required player cards are available.
-`pnpm results:check` fails when a full-time group match is still missing official goal events or has generic result-moment copy.
+The script preserves hand-authored `resultHighlights` by default. It generates the `⚽` scoreline only when scorer-minute data is not loaded; when `goalsHome`/`goalsAway` exists, the UI renders the linked scorer list instead. Generated current `resultHighlights` stay factual: scoreline when needed plus group impact, without an automatic match-story moment.
+The scheduled `Sync FIFA Results PR` workflow runs `pnpm sync:fifa:goals`, `pnpm results`, `pnpm sync:youtube`, `pnpm results:research`, and `pnpm validate:profiles` after the score/status sync, so newly finished matches can open a fallback-data PR as soon as FIFA timeline scorer events, factual result highlights, official highlight-video dispositions, research-queue output, and any newly required player cards are available. It should not publish current-match `resultStoryBullets` unless a source-backed research pass writes them.
+`pnpm results:check` fails when a full-time group match is still missing official goal events or has weak/generic authored result-story copy. Missing current story bullets are allowed while research is pending.
 
 ## Required Update Steps
 
@@ -200,14 +203,17 @@ If reliable conduct data is available, add it to standings rows as `teamConductS
 node scripts/import-world-cup-history.mjs
 ```
 
-After importing the match skeleton, sync historical scorer minutes and then run the historical matchup generator:
+After importing the match skeleton, sync historical kickoff times, scorer minutes, and then run the historical matchup generator:
 
 ```bash
+pnpm history:times
 pnpm history:goals
 pnpm history:matchups
 pnpm history:profiles
 pnpm history:images
 ```
+
+Historical kickoff wall-clock times come from Wikidata match-item time-of-day qualifiers when available. Keep cancelled date-only fixtures blank rather than inventing a kickoff time from the archive sort fallback.
 
 `pnpm history:goals` syncs exact scorer-minute arrays from the Fjelstul World Cup Database. `pnpm history:matchups` enriches every archived fixture with era-specific player/style copy. It cross-checks against the same source for historical squads, goals, penalties, bookings, player appearances where available, and tournament squads. Match-level player appearances are available from 1970 onward in that source; older tournaments use scorer and squad context instead, and canceled fixtures are labeled as squad context rather than confirmed match usage. The Fjelstul data is CC-BY-SA 4.0, so keep the source entry and attribution/license trail in `data/tournament.json`.
 

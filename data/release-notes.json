@@ -1,6 +1,135 @@
 {
-  "updatedAt": "2026-06-30T15:40:43-07:00",
+  "updatedAt": "2026-06-30T17:58:52-07:00",
   "releases": [
+    {
+      "date": "2026-06-30",
+      "title": "Archive kickoff times",
+      "titleZh": "历届比赛开球时间",
+      "highlights": [
+        "Past World Cup match rows now show researched local kickoff times when Wikidata match-item time-of-day data is available, including the 1930 Uruguay-Yugoslavia semi-final.",
+        "Cancelled date-only archive fixtures stay blank instead of showing an invented fallback time."
+      ],
+      "highlightsZh": [
+        "历届世界杯比赛行现在会在 Wikidata 比赛条目提供开球时间时显示已研究核验的当地开球时间，包括 1930 年乌拉圭对南斯拉夫的半决赛。",
+        "已取消且只有日期的存档赛程会保持空白，不显示推算出来的占位时间。"
+      ]
+    },
+    {
+      "date": "2026-06-30",
+      "title": "Result-story research queue",
+      "titleZh": "赛果故事研究队列",
+      "highlights": [
+        "The FIFA sync workflow now reports finished matches that still need source-backed Result story research after scorer and official-video sync.",
+        "The Result card keeps the verified score, scorer timeline, and official video without publishing generic story filler while researched bullets are pending."
+      ],
+      "highlightsZh": [
+        "FIFA 同步流程现在会在射手和官方视频同步后，报告仍需要来源支撑的 Result 故事研究的完赛比赛。",
+        "研究型故事待补充时，Result 卡片会保留已核验比分、进球时间线和官方视频，但不会发布泛泛的故事填充文案。"
+      ]
+    },
+    {
+      "date": "2026-06-30",
+      "title": "Archive final-round groups",
+      "titleZh": "历届决赛轮小组",
+      "highlights": [
+        "The 1974, 1978, and 1982 archived Tournament views now include their decisive second-stage group matches before the final and third-place cards."
+      ],
+      "highlightsZh": [
+        "1974、1978 和 1982 年的历届 Tournament 视图现在会在决赛和季军赛卡片前显示决定名次的第二阶段小组赛。"
+      ]
+    },
+    {
+      "date": "2026-06-30",
+      "title": "Juggle game difficulty",
+      "titleZh": "颠球小游戏难度",
+      "highlights": [
+        "The hidden soccer-ball juggle now keeps ramping after longer streaks, with subtly stronger kicks, quicker drops, and messier side-wall bounce recovery."
+      ],
+      "highlightsZh": [
+        "隐藏的足球颠球小游戏现在会在更长连击后继续轻微提高难度，踢球更有力、下落更快，撞到侧边后的恢复也更乱。"
+      ]
+    },
+    {
+      "date": "2026-06-30",
+      "title": "France result recap",
+      "titleZh": "法国赛果复盘",
+      "highlights": [
+        "France-Sweden now shows the 3-0 full-time score, the scorer timeline, and a tighter Result recap centered on Mbappe's super-goal opener and Olise's two assists.",
+        "The Result card now links the official FOX Sports YouTube highlights once the verified upload is available.",
+        "Current-match story bullets now stay out of the automatic post-FT path until source-backed research writes them; scorer and assist facts can still update from the official FIFA timeline."
+      ],
+      "highlightsZh": [
+        "法国对瑞典现在显示 3-0 全场比分、进球时间线，并用更紧凑的赛果复盘突出姆巴佩的神仙首球和奥利塞的两次助攻。",
+        "经过核验的 FOX Sports 官方 YouTube 集锦上线后，赛果卡片现在会显示播放按钮。",
+        "当前比赛的赛果故事要等有来源支撑的赛后研究写入后才会发布；射手和助攻事实仍可从 FIFA 官方时间线自动更新。"
+      ]
+    },
+    {
+      "date": "2026-06-30",
+      "title": "Official archive videos",
+      "titleZh": "官方历届比赛视频",
+      "highlights": [
+        "More 2018 and 2022 archive matches now show official FIFA YouTube highlights, while non-FIFA uploads remain hidden."
+      ],
+      "highlightsZh": [
+        "更多 2018 和 2022 年历届比赛现在会显示 FIFA 官方 YouTube 集锦；非 FIFA 上传的视频仍会隐藏。"
+      ]
+    },
+    {
+      "date": "2026-06-30",
+      "title": "Tie wording consistency",
+      "titleZh": "平局文案统一",
+      "highlights": [
+        "Prediction bars, head-to-head records, standings help, and knockout result summaries now use Tie instead of Draw across English views."
+      ],
+      "highlightsZh": [
+        "英文界面的预测条、交锋记录、积分榜说明和淘汰赛赛果摘要现在统一使用 Tie，不再使用 Draw。"
+      ]
+    },
+    {
+      "date": "2026-06-30",
+      "title": "Historical player photos",
+      "titleZh": "历届球员照片",
+      "highlights": [
+        "More past World Cup player cards now use verified Wikipedia/Wikimedia photos, and placeholder Transfermarkt portraits are no longer treated as real headshots."
+      ],
+      "highlightsZh": [
+        "更多历届世界杯球员卡片现在会使用已核验的 Wikipedia/Wikimedia 照片；Transfermarkt 占位头像也不会再被当作真实头像。"
+      ]
+    },
+    {
+      "date": "2026-06-30",
+      "title": "Archive first-meeting copy",
+      "titleZh": "历届首次交锋文案",
+      "highlights": [
+        "Past World Cup archive sections now label their scope and first meetings say the teams had not met in a men's World Cup before that match, while current fixtures keep verified senior-international H2H wording."
+      ],
+      "highlightsZh": [
+        "历届世界杯交锋区块现在会标明范围，首次交锋也会说明双方此前没有男足世界杯交锋；当前赛程仍保留已核验成年队交锋文案。"
+      ]
+    },
+    {
+      "date": "2026-06-30",
+      "title": "Archive knockout path emphasis",
+      "titleZh": "历届淘汰赛路径加粗",
+      "highlights": [
+        "Past World Cup Next-path lines now semibold the resolved opponent winner, matching the current tournament treatment."
+      ],
+      "highlightsZh": [
+        "历届世界杯的下一轮路径文案现在会加粗已确认晋级的对手，和当前赛事保持一致。"
+      ]
+    },
+    {
+      "date": "2026-06-30",
+      "title": "Tooltip card layering",
+      "titleZh": "提示框层级修复",
+      "highlights": [
+        "Tournament, standings, match-detail, and match-list tooltips now lift their host card or row above neighboring cards while visible."
+      ],
+      "highlightsZh": [
+        "淘汰赛、积分榜、比赛详情和比赛列表中的提示框现在显示时会把所属卡片或行提升到相邻卡片之上。"
+      ]
+    },
     {
       "date": "2026-06-30",
       "title": "Standings year heading",
@@ -261,7 +390,7 @@
       "titleZh": "更自然的点球大战速览",
       "highlights": [
         "Current and historical penalty-shootout Result bullets now keep the scorer timeline, add matchup-specific texture when available, and avoid generic eliminated-after-penalties filler.",
-        "Past World Cup archive recaps were refreshed so scoreless draws and shootouts no longer pad Result blocks with repeated locked-together or plain shootout-outcome lines.",
+        "Past World Cup archive recaps were refreshed so scoreless ties and shootouts no longer pad Result blocks with repeated locked-together or plain shootout-outcome lines.",
         "Finished-match recap audits now catch weak story filler in both the 2026 tournament and historical archive."
       ],
       "highlightsZh": [
@@ -294,7 +423,7 @@
         "Historical archive matches now show the same Result play button after an all-match official FIFA YouTube sweep, with unchecked or non-highlight videos kept out of the UI.",
         "App asset cache keys now point at the official highlight sync build so refreshed highlight-video data reaches the browser immediately.",
         "Chinese result bullets now translate penalty-shootout and archive recap sentence shapes through shared rules, with copy audits covering both current and historical tournaments.",
-        "Tied knockout results now say when a team advanced after a draw if the official feed has not exposed a shootout total yet.",
+        "Tied knockout results now say when a team advanced after a tie if the official feed has not exposed a shootout total yet.",
         "Next-round knockout cards now name an already-known future opponent with the result they advanced by, while unresolved paths still say winner of the pending matchup.",
         "Live FIFA score updates now carry penalty-shootout totals too, knockout rows show the compact 1-1 (3-4 pens) style with freshness, and bracket result pills now match that scoreline style.",
         "The live-data endpoint now fails safely to the committed fallback snapshot instead of serving a Vercel timeout page when FIFA's official API is slow.",

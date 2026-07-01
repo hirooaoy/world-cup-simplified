@@ -52,6 +52,9 @@ jobs:
       - name: Refresh matchup key information
         run: pnpm matchups
 
+      - name: Sync H2H results
+        run: pnpm sync:h2h
+
       - name: Run matchday readiness
         env:
           MATCHDAY_EDITORIAL_WARN_ONLY: "1"
@@ -102,6 +105,11 @@ jobs:
           set -o pipefail
           pnpm sync:youtube | tee youtube-highlights.log
 
+      - name: Report result-story research queue
+        run: |
+          set -o pipefail
+          pnpm results:research | tee result-story-research.log
+
       - name: Validate generated review data and refresh profile cards
         run: |
           set -o pipefail
@@ -116,7 +124,7 @@ jobs:
       - name: Detect generated review changes
         id: review_changes
         run: |
-          if [ -n "$(git status --porcelain -- data/fixtures.json data/player-profiles.json)" ]; then
+          if [ -n "$(git status --porcelain -- data/fixtures.json data/player-profiles.json data/tournament.json)" ]; then
             echo "changed=true" >> "$GITHUB_OUTPUT"
           else
             echo "changed=false" >> "$GITHUB_OUTPUT"
@@ -129,7 +137,7 @@ jobs:
           Automated generated-data follow-up from FIFA's official match feed.
 
           Official score/status/standings fallback JSON is committed directly to `main` after validation.
-          This PR keeps generated scorer events, result highlights, and player-card/profile curation reviewable.
+          This PR keeps generated scorer events, factual result highlights, result-story research needs, and player-card/profile curation reviewable.
 
           ## FIFA Results Sync
 
@@ -163,6 +171,14 @@ jobs:
           cat >> fifa-sync-pr.md <<'EOF'
           ```
 
+          ## Result Story Research
+
+          ```text
+          EOF
+          cat result-story-research.log >> fifa-sync-pr.md
+          cat >> fifa-sync-pr.md <<'EOF'
+          ```
+
           ## Matchday Readiness
 
           ```text
@@ -185,6 +201,7 @@ jobs:
           - `pnpm run audit`
           - `pnpm results:check`
           - `pnpm sync:youtube`
+          - `pnpm results:research`
           - `pnpm cards:check`
           EOF
 
@@ -195,15 +212,15 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git switch -C "$branch"
-          git add data/fixtures.json data/player-profiles.json
-          git commit -m "Update FIFA goal events, profiles, and result highlights"
+          git add data/fixtures.json data/player-profiles.json data/tournament.json
+          git commit -m "Update FIFA goal events, profiles, and result stories"
           git push --force-with-lease origin "$branch"
 
       - name: Open or update pull request
         if: steps.review_changes.outputs.changed == 'true'
         run: |
           branch="codex/fifa-results-sync"
-          title="Update FIFA goal events, profiles, and result highlights"
+          title="Update FIFA goal events, profiles, and result stories"
           pr_number="$(gh pr list --base main --head "$branch" --state open --json number --jq '.[0].number // ""')"
           if [ -n "$pr_number" ]; then
             gh pr edit "$pr_number" --base main --title "$title" --body-file fifa-sync-pr.md
