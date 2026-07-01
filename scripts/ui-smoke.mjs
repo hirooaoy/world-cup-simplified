@@ -2132,12 +2132,11 @@ try {
     }
   );
   await runtimeScorerCheck.page.locator('[data-match-id="new-zealand-egypt-2026-06-21"]').click();
-  const runtimeScorerLink = runtimeScorerCheck.page
-    .locator("#match-info .scorer-highlight .player-link", { hasText: "Runtime Scorer" })
-    .first();
-  await runtimeScorerLink.hover();
-  const runtimeScorerCard = runtimeScorerCheck.page.locator(".player-card:visible").first();
-  await runtimeScorerCard.waitFor({ state: "visible" });
+  const runtimeScorerCard = runtimeScorerCheck.page
+    .locator("#match-info .scorer-highlight .player-hover")
+    .filter({ has: runtimeScorerCheck.page.locator(".player-link", { hasText: "Runtime Scorer" }) })
+    .first()
+    .locator(".player-card");
   const runtimeScorerCardText = await runtimeScorerCard.innerText();
   assert(
     runtimeScorerCardText.includes("Runtime Scorer") &&
@@ -2285,10 +2284,11 @@ try {
   });
   await page.waitForSelector(".match-row");
   await page.locator('[data-match-id="belgium-ir-iran-2026-06-21"]').click();
-  const lukakuLink = page.locator(".key-info-team .player-link", { hasText: "Romelu Lukaku" }).first();
-  await lukakuLink.hover();
-  const lukakuCard = page.locator(".player-card:visible").first();
-  await lukakuCard.waitFor({ state: "visible" });
+  const lukakuCard = page
+    .locator("#match-info .key-info-team .player-hover")
+    .filter({ has: page.locator(".player-link", { hasText: "Romelu Lukaku" }) })
+    .first()
+    .locator(".player-card");
   assert(
     (await lukakuCard.locator(".player-card-name").innerText()).trim() === "Romelu Lukaku" &&
       (await lukakuCard.locator(".player-card-number").innerText()).trim() === "#9",
@@ -2322,9 +2322,11 @@ try {
     (await uedaChineseLink.count()) === 1,
     "Chinese key information should link Ayase Ueda's localized name."
   );
-  await uedaChineseLink.hover();
-  const uedaChineseCard = page.locator(".player-card:visible").first();
-  await uedaChineseCard.waitFor({ state: "visible" });
+  const uedaChineseCard = page
+    .locator("#match-info .key-info-team .player-hover")
+    .filter({ has: page.locator(".player-link", { hasText: "上田绮世" }) })
+    .first()
+    .locator(".player-card");
   assert(
     (await uedaChineseCard.locator(".player-card-name").innerText()).trim() === "上田绮世" &&
       (await uedaChineseCard.locator(".player-card-club").innerText()).includes("费耶诺德"),
@@ -2380,9 +2382,11 @@ try {
   const dembeleChineseLink = page
     .locator("#match-info .scorer-highlight .player-link", { hasText: "奥斯曼·登贝莱" })
     .first();
-  await dembeleChineseLink.hover();
-  const dembeleChineseCard = page.locator(".player-card:visible").first();
-  await dembeleChineseCard.waitFor({ state: "visible" });
+  const dembeleChineseCard = page
+    .locator("#match-info .scorer-highlight .player-hover")
+    .filter({ has: page.locator(".player-link", { hasText: "奥斯曼·登贝莱" }) })
+    .first()
+    .locator(".player-card");
   assert(
     (await dembeleChineseCard.locator(".player-card-position").innerText()).trim() === "前锋、右边锋" &&
       (await dembeleChineseCard.locator(".player-card-club").innerText()).trim() === "巴黎圣日耳曼（法甲）",
@@ -2391,9 +2395,11 @@ try {
   const aasgaardChineseLink = page
     .locator("#match-info .scorer-highlight .player-link", { hasText: "泰洛·奥斯加德" })
     .first();
-  await aasgaardChineseLink.hover();
-  const aasgaardChineseCard = page.locator(".player-card:visible").first();
-  await aasgaardChineseCard.waitFor({ state: "visible" });
+  const aasgaardChineseCard = page
+    .locator("#match-info .scorer-highlight .player-hover")
+    .filter({ has: page.locator(".player-link", { hasText: "泰洛·奥斯加德" }) })
+    .first()
+    .locator(".player-card");
   assert(
     (await aasgaardChineseCard.locator(".player-card-position").innerText()).trim() === "中场" &&
       (await aasgaardChineseCard.locator(".player-card-club").innerText()).trim() ===
@@ -2578,9 +2584,11 @@ try {
     .first()
     .locator("p .player-link", { hasText: /^Gim[eé]nez$/ })
     .first();
-  await gimenezLink.hover();
-  const gimenezCard = page.locator(".player-card:visible").first();
-  await gimenezCard.waitFor({ state: "visible" });
+  const gimenezCard = page
+    .locator("#match-info .key-info-team .player-hover")
+    .filter({ has: page.locator(".player-link", { hasText: /^Gim[eé]nez$/ }) })
+    .first()
+    .locator(".player-card");
   assert(
     (await gimenezLink.getAttribute("aria-label"))?.startsWith("Santiago Giménez:"),
     "Mexico's unaccented Gimenez paragraph alias should open Santiago Giménez's hover card."
@@ -2637,9 +2645,11 @@ try {
     (await vozinhaLink.count()) === 1,
     "Single-name player aliases should link from key information."
   );
-  await vozinhaLink.hover();
-  const vozinhaCard = page.locator(".player-card:visible").first();
-  await vozinhaCard.waitFor({ state: "visible" });
+  const vozinhaCard = page
+    .locator("#match-info .key-info-team .player-hover")
+    .filter({ has: page.locator(".player-link", { hasText: "Vozinha" }) })
+    .first()
+    .locator(".player-card");
   assert(
     (await vozinhaCard.locator(".player-photo img, .player-photo-fallback").count()) === 1,
     "Single-name player hover cards should include a face or initials fallback."
@@ -3517,9 +3527,11 @@ try {
       historicalScorerTriggerMeta.href === "",
     `Historical archive player-card triggers should not navigate to the raw dataset. Measured ${JSON.stringify(historicalScorerTriggerMeta)}.`
   );
-  await historicalScorerLink.hover();
-  const historicalScorerCard = page.locator(".player-card:visible").first();
-  await historicalScorerCard.waitFor({ state: "visible" });
+  const historicalScorerCard = page
+    .locator("#match-info .scorer-highlight .player-hover")
+    .filter({ has: page.locator(".player-link", { hasText: "Enner Valencia" }) })
+    .first()
+    .locator(".player-card");
   const historicalScorerCardText = await historicalScorerCard.innerText();
   assert(
       historicalScorerCardText.includes("Enner Valencia") &&
@@ -3692,9 +3704,11 @@ try {
   await page.waitForSelector(".match-row");
   await page.locator(".match-row").first().click();
   const scorerOnlyHistoricalLink = page.locator("#match-info .scorer-highlight .player-link", { hasText: "Carlos Alberto" }).first();
-  await scorerOnlyHistoricalLink.hover();
-  const scorerOnlyHistoricalCard = page.locator(".player-card:visible").first();
-  await scorerOnlyHistoricalCard.waitFor({ state: "visible" });
+  const scorerOnlyHistoricalCard = page
+    .locator("#match-info .scorer-highlight .player-hover")
+    .filter({ has: page.locator(".player-link", { hasText: "Carlos Alberto" }) })
+    .first()
+    .locator(".player-card");
   const scorerOnlyHistoricalCardText = await scorerOnlyHistoricalCard.innerText();
   assert(
     scorerOnlyHistoricalCardText.includes("Carlos Alberto") &&
