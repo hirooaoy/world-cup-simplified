@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-01T18:07:48.186Z",
+  "updatedAt": "2026-07-01T20:21:46.134Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -11429,7 +11429,7 @@
       "homeSlot": "Group G winner",
       "awaySlot": "Group A/E/H/I/J third place",
       "venue": "Seattle Stadium",
-      "status": "SCHEDULED",
+      "status": "LIVE",
       "h2h": {
         "status": "verified-empty",
         "sourceId": "national-football-teams-h2h-sync-2026-06-30",
@@ -11490,6 +11490,10 @@
         "sourceId": "editorial-preview-2026-06-22",
         "home": "Belgium are an elite chance-creation team when their creators get space to face forward, led by Kevin De Bruyne, Romelu Lukaku, and Jeremy Doku. Against Senegal, their De Bruyne-to-Lukaku chance creation has to beat Senegal's Mane-Jackson direct running. They want to feed De Bruyne early and create the separation Lukaku needs in the box. The risk is Senegal can turn Mane's experience and Jackson's running into direct chances.",
         "away": "Senegal are an athletic, experienced side with enough defensive presence to survive pressure and enough speed to punish it, led by Sadio Mane, Nicolas Jackson, and Kalidou Koulibaly. Against Belgium, their Mane-Jackson direct running has to beat Belgium's De Bruyne-to-Lukaku chance creation. They want to use Mane's timing and Jackson's depth to attack before the opponent's defense is set. The risk is Belgium can turn De Bruyne service into Lukaku chances."
+      },
+      "score": {
+        "home": 0,
+        "away": 0
       }
     },
     {
