@@ -1952,7 +1952,7 @@ try {
     paragraphPlayerOpacity === 1 && paragraphPlayerWeight <= 450,
     "Paragraph player mentions should use full opacity and regular paragraph weight."
   );
-  await page.locator(".player-link").first().hover();
+  await page.locator(".key-info-team p .player-link").first().hover();
   const playerCard = page.locator(".player-card:visible").first();
   await playerCard.waitFor({ state: "visible" });
   assert(
