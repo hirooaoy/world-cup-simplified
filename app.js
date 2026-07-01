@@ -348,6 +348,21 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "Past World Cup meetings": "过往世界杯交锋",
     "Path below": "路径见下方",
     "Penalties": "点球",
+    "Bench": "替补席",
+    "Coach": "主教练",
+    "Can struggle with": "可能吃亏",
+    "Formation": "阵型",
+    "Good at": "擅长",
+    "Head Coach": "主教练",
+    "Line ups": "阵容",
+    "Line-ups": "阵容",
+    "Line-ups (prediction)": "预测阵容",
+    "Lineups": "阵容",
+    "Lineups checked": "阵容核验",
+    "Red card": "红牌",
+    "Substituted off": "被换下",
+    "Substituted on": "替补登场",
+    "Yellow card": "黄牌",
     "Position to verify": "位置待确认",
     "Prediction": "预测",
     "Predictions are unofficial.": "预测为非官方内容。",
@@ -999,6 +1014,49 @@ const ZH_ADDITIONAL_EXACT_TRANSLATIONS = {
 };
 
 const ZH_PLAYER_NAME_TRANSLATIONS = {
+  "Anthony Gordon": "安东尼·戈登",
+  "Aaron Tshibola": "阿龙·奇博拉",
+  "Arthur Masuaku": "阿图尔·马苏亚库",
+  "Axel Tuanzebe": "阿克塞尔·图安泽贝",
+  "Brian Cipenga": "布赖恩·奇彭加",
+  "Cedric Bakambu": "塞德里克·巴坎布",
+  "Chancel Mbemba": "尚塞尔·姆本巴",
+  "Charles Pickel": "查尔斯·皮克尔",
+  "Dan Burn": "丹·伯恩",
+  "Dean Henderson": "迪恩·亨德森",
+  "Djed Spence": "杰德·斯彭斯",
+  "Dylan Batubinsika": "迪伦·巴图宾西卡",
+  "Eberechi Eze": "埃贝雷奇·埃泽",
+  "Edo Kayembe": "埃多·卡延贝",
+  "Elliot Anderson": "埃利奥特·安德森",
+  "Ezri Konsa": "埃兹里·孔萨",
+  "Fiston Mayele": "菲斯顿·马耶莱",
+  "Gael Kakuta": "盖尔·卡库塔",
+  "Gedeon Kalulu": "热代翁·卡卢卢",
+  "Ivan Toney": "伊万·托尼",
+  "James Trafford": "詹姆斯·特拉福德",
+  "Jarell Quansah": "贾雷尔·宽萨",
+  "John Stones": "约翰·斯通斯",
+  "Joris Kayembe": "约里斯·卡延贝",
+  "Jordan Henderson": "乔丹·亨德森",
+  "Kobbie Mainoo": "科比·梅努",
+  "Lionel Mpasi": "利昂内尔·姆帕西",
+  "Marc Guehi": "马克·格伊",
+  "Matthieu Epolo": "马蒂厄·埃波洛",
+  "Meschack Elia": "梅沙克·埃利亚",
+  "Morgan Rogers": "摩根·罗杰斯",
+  "Nathanael Mbuku": "纳塔纳埃尔·姆布库",
+  "Ngalayel Mukau": "恩加拉耶尔·穆考",
+  "Nico O'Reilly": "尼科·奥赖利",
+  "Noni Madueke": "诺尼·马杜埃凯",
+  "Ollie Watkins": "奥利·沃特金斯",
+  "Reece James": "里斯·詹姆斯",
+  "Samuel Moutoussamy": "萨穆埃尔·穆图萨米",
+  "Simon Banza": "西蒙·班扎",
+  "Steve Kapuadi": "史蒂夫·卡普阿迪",
+  "Theo Bongonda": "泰奥·邦贡达",
+  "Timothy Fayulu": "蒂莫西·法尤卢",
+  "Trevoh Chalobah": "特雷沃·查洛巴",
   "Aaron Wan-Bissaka": "阿龙·万-比萨卡",
   "Abbosbek Fayzullaev": "阿博斯别克·法伊祖拉耶夫",
   "Abdukodir Khusanov": "阿卜杜科迪尔·胡萨诺夫",
@@ -3951,6 +4009,7 @@ let historicalPlayerProfilesByName = new Map();
 let historicalPlayerProfilesByVersion = new Map();
 let playerProfilesByName = new Map();
 let playerProfilesByTeamAndName = new Map();
+const lineupSubstitutionPreviewState = new Set();
 let shouldShowPlayerMarketValues = false;
 let adminMessages = { messages: [] };
 let renderedAdminMessageId = "";
@@ -7910,10 +7969,24 @@ function updateLanguageTabIndicator() {
   );
 }
 
+function updateLineupTabIndicators(root = document) {
+  const blocks = root?.matches?.(".lineup-preview-block")
+    ? [root]
+    : Array.from(root?.querySelectorAll?.(".lineup-preview-block") || []);
+
+  blocks.forEach((block) => {
+    block.querySelectorAll(".lineup-tabs").forEach((tabs) => {
+      updateTabIndicator(tabs, tabs.querySelector(".lineup-tab.is-active"));
+    });
+  });
+}
+
+
 function updateTabIndicators() {
   updateViewTabIndicator();
   updateStandingsModeTabIndicator();
   updateLanguageTabIndicator();
+  updateLineupTabIndicators();
 }
 
 function queueTabIndicatorUpdate() {
@@ -8366,19 +8439,57 @@ function getTooltipClipRect(element) {
   return { left: 0, right: viewportRight };
 }
 
-function getTooltipOuterWidth(style) {
-  const width = getPixelValue(style.width);
-  if (!width) {
+function measureTooltipOuterWidth(element, style) {
+  const tooltipText = element?.getAttribute("data-tooltip") || "";
+  if (!tooltipText || !document.body) {
     return 0;
   }
 
-  return (
-    width +
-    getPixelValue(style.paddingLeft) +
-    getPixelValue(style.paddingRight) +
-    getPixelValue(style.borderLeftWidth) +
-    getPixelValue(style.borderRightWidth)
-  );
+  const probe = document.createElement("span");
+  probe.textContent = tooltipText;
+  Object.assign(probe.style, {
+    position: "fixed",
+    display: "block",
+    visibility: "hidden",
+    pointerEvents: "none",
+    left: "0",
+    top: "0",
+    width: style.width,
+    maxWidth: style.maxWidth,
+    boxSizing: style.boxSizing,
+    padding: `${style.paddingTop} ${style.paddingRight} ${style.paddingBottom} ${style.paddingLeft}`,
+    borderStyle: style.borderStyle,
+    borderWidth: `${style.borderTopWidth} ${style.borderRightWidth} ${style.borderBottomWidth} ${style.borderLeftWidth}`,
+    fontFamily: style.fontFamily,
+    fontSize: style.fontSize,
+    fontStyle: style.fontStyle,
+    fontWeight: style.fontWeight,
+    letterSpacing: style.letterSpacing,
+    lineHeight: style.lineHeight,
+    textTransform: style.textTransform,
+    whiteSpace: style.whiteSpace
+  });
+
+  document.body.append(probe);
+  const width = probe.getBoundingClientRect().width;
+  probe.remove();
+
+  return Number.isFinite(width) ? width : 0;
+}
+
+function getTooltipOuterWidth(style, element = null) {
+  const width = getPixelValue(style.width);
+  if (width) {
+    return (
+      width +
+      getPixelValue(style.paddingLeft) +
+      getPixelValue(style.paddingRight) +
+      getPixelValue(style.borderLeftWidth) +
+      getPixelValue(style.borderRightWidth)
+    );
+  }
+
+  return element ? measureTooltipOuterWidth(element, style) : 0;
 }
 
 function getTooltipBaseBounds(element, style, tooltipWidth) {
@@ -8440,7 +8551,7 @@ function updateTooltipBounds(root = document) {
     }
 
     const style = getComputedStyle(element, "::after");
-    const tooltipWidth = getTooltipOuterWidth(style);
+    const tooltipWidth = getTooltipOuterWidth(style, element);
     if (!tooltipWidth) {
       return;
     }
@@ -8464,7 +8575,10 @@ function updateTooltipBounds(root = document) {
       shift -= baseBounds.right + shift - maxRight;
     }
 
-    if (element.matches(".standing-help[data-tooltip]") && style.left !== "auto") {
+    if (
+      element.matches(".standing-help[data-tooltip], .rank-pill[data-tooltip]") &&
+      style.left !== "auto"
+    ) {
       const resolvedLeft = baseBounds.left + shift - rect.left;
       element.style.setProperty("--tooltip-left-x", `${resolvedLeft.toFixed(2)}px`);
       element.style.setProperty("--tooltip-transform-x", "0px");
@@ -13829,7 +13943,7 @@ function renderProjection(match) {
 
 function renderPredictionBlock(match) {
   return `
-    <section class="info-block">
+    <section class="info-block match-prediction-block has-section-divider">
       ${renderPredictionHeading(match.projection)}
       ${renderProjection(match)}
     </section>
@@ -14875,21 +14989,985 @@ function renderResultNotes(match) {
   `;
 }
 
+function isLineupVisualPrototypeEnabled() {
+  return ["localhost", "127.0.0.1", ""].includes(window.location.hostname);
+}
+
+function getMockLineupPreview(match) {
+  if (
+    !isLineupVisualPrototypeEnabled() ||
+    match?.id !== "match-80-round-of-32-2026-07-01" ||
+    match?.homeTeamId !== "ENG" ||
+    match?.awayTeamId !== "COD"
+  ) {
+    return null;
+  }
+
+  return {
+    home: {
+      formation: "4-2-3-1",
+      formationNotes: {
+        good: {
+          en: "Keeps two midfielders behind the ball while four attackers fill the spaces around Kane, so England can create without feeling wide open.",
+          zh: "两名中场留在球后保护，四名攻击手围绕凯恩占住空当，英格兰能创造机会，同时不至于门户大开。"
+        },
+        bad: {
+          en: "If the wide players stay high, the full-backs can be exposed and Kane can feel alone up front.",
+          zh: "如果边路球员一直压得很高，边后卫身后会容易被打，凯恩也可能在前场显得孤立。"
+        }
+      },
+      coach: {
+        name: "Thomas Tuchel",
+        nameZh: "托马斯·图赫尔",
+        teamName: "England",
+        sinceYear: "2025",
+        imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Thomas%20Tuchel%20Chelsea.jpg?width=160",
+        sourceUrl: "https://www.englandfootball.com/articles/2026/Jun/26/thomas-tuchel-pre-panama-match-press-conference-quotes-20262606",
+        skills: [
+          { en: "Cup-game control", zh: "杯赛控制" },
+          { en: "Flexible pressing", zh: "灵活逼抢" },
+          { en: "Set-piece detail", zh: "定位球细节" }
+        ],
+        note: {
+          en: "Tuchel is a detail-heavy coach: he likes control, clear roles, and patient problem-solving against packed defenses.",
+          zh: "图赫尔很重视细节：他喜欢掌控比赛、明确分工，并耐心破解密集防守。"
+        },
+        history: {
+          en: "He previously won the UEFA Champions League with Chelsea and league titles in France and Germany.",
+          zh: "他此前曾带领切尔西赢得欧冠，也在法国和德国拿过联赛冠军。"
+        }
+      },
+      players: [
+        ["1", "J. Pickford", "Jordan Pickford", "GK", "JP", 50, 91, "#7d8ea2"],
+        ["25", "D. Spence", "Djed Spence", "RB", "DS", 15, 75, "#60758b"],
+        ["2", "E. Konsa", "Ezri Konsa", "CB", "EK", 38, 75, "#6b7b94"],
+        ["6", "M. Guehi", "Marc Guehi", "CB", "MG", 62, 75, "#697b88"],
+        ["3", "N. O'Reilly", "Nico O'Reilly", "LB", "NO", 85, 75, "#303540"],
+        ["8", "E. Anderson", "Elliot Anderson", "CM", "EA", 34, 59, "#8792a0"],
+        ["4", "D. Rice", "Declan Rice", "CM", "DR", 66, 59, "#8a929a"],
+        ["20", "N. Madueke", "Noni Madueke", "RW", "NM", 18, 40, "#718192"],
+        ["10", "J. Bellingham", "Jude Bellingham", "AM", "JB", 50, 40, "#6c7684"],
+        ["11", "M. Rashford", "Marcus Rashford", "LW", "MR", 82, 40, "#596a7f"],
+        ["9", "H. Kane", "Harry Kane", "ST", "HK", 50, 20, "#8b9297"]
+      ],
+      bench: [
+        ["5", "J. Stones", "John Stones", "CB"],
+        ["7", "B. Saka", "Bukayo Saka", "RW"],
+        ["12", "R. James", "Reece James", "RB"],
+        ["13", "D. Henderson", "Dean Henderson", "GK"],
+        ["14", "D. Burn", "Dan Burn", "LB"],
+        ["15", "J. Quansah", "Jarell Quansah", "CB"],
+        ["16", "T. Chalobah", "Trevoh Chalobah", "CB"],
+        ["17", "J. Henderson", "Jordan Henderson", "CM"],
+        ["18", "A. Gordon", "Anthony Gordon", "LW"],
+        ["19", "I. Toney", "Ivan Toney", "ST"],
+        ["21", "E. Eze", "Eberechi Eze", "AM"],
+        ["22", "K. Mainoo", "Kobbie Mainoo", "CM"],
+        ["23", "J. Trafford", "James Trafford", "GK"],
+        ["24", "M. Rogers", "Morgan Rogers", "AM"],
+        ["26", "O. Watkins", "Ollie Watkins", "ST"]
+      ],
+      events: {
+        cards: [
+          { playerName: "Jude Bellingham", type: "yellow", minute: 55 },
+          { playerName: "Djed Spence", type: "red", minute: 89 }
+        ],
+        substitutions: [
+          { offName: "Noni Madueke", onName: "Bukayo Saka", minute: 64 },
+          { offName: "Jude Bellingham", onName: "Eberechi Eze", minute: 78 },
+          { offName: "Harry Kane", onName: "Ollie Watkins", minute: "90+1" }
+        ]
+      }
+    },
+    away: {
+      formation: "4-3-3",
+      formationNotes: {
+        good: {
+          en: "A simple counterattacking shape: three midfielders protect the middle, and three forwards can sprint into space quickly.",
+          zh: "这是很直接的反击阵型：三名中场保护中路，三名前锋能很快冲向空当。"
+        },
+        bad: {
+          en: "If the wingers do not help back, the full-backs can get doubled up and the midfield can be pulled wide.",
+          zh: "如果边锋不回防，边后卫会被对手夹击，中场也容易被拉到边路。"
+        }
+      },
+      coach: {
+        name: "Sébastien Desabre",
+        nameZh: "塞巴斯蒂安·德萨布尔",
+        teamName: "DR Congo",
+        imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/S%C3%A9bastien%20Desabre.JPG?width=160",
+        sourceUrl: "https://www.espn.com/soccer/story/_/id/49101212/congo-dr-coach-urges-team-stay-humble-historic-draw-portugal",
+        skills: [
+          { en: "Compact defending", zh: "紧凑防守" },
+          { en: "Counter attacks", zh: "快速反击" },
+          { en: "Set pieces", zh: "定位球" }
+        ],
+        note: {
+          en: "Desabre gives DR Congo structure first, then looks for speed, strength, and set pieces to turn defense into chances.",
+          zh: "德萨布尔先让刚果民主共和国站稳阵型，再用速度、身体和定位球把防守转成机会。"
+        }
+      },
+      players: [
+        ["1", "L. Mpasi", "Lionel Mpasi", "GK", "LM", 50, 91, "#788394"],
+        ["26", "A. Masuaku", "Arthur Masuaku", "LB", "AM", 15, 75, "#586371"],
+        ["22", "C. Mbemba", "Chancel Mbemba", "CB", "CM", 38, 75, "#56616e"],
+        ["4", "A. Tuanzebe", "Axel Tuanzebe", "CB", "AT", 62, 75, "#687480"],
+        ["2", "A. Wan-Bissaka", "Aaron Wan-Bissaka", "RB", "AW", 85, 75, "#5c6878"],
+        ["14", "N. Sadiki", "Noah Sadiki", "CM", "NS", 22, 53, "#697487"],
+        ["6", "N. Mukau", "Ngalayel Mukau", "CM", "NM", 50, 53, "#758092"],
+        ["8", "S. Moutoussamy", "Samuel Moutoussamy", "CM", "SM", 78, 53, "#6d7480"],
+        ["9", "B. Cipenga", "Brian Cipenga", "LW", "BC", 18, 28, "#6d7888"],
+        ["20", "Y. Wissa", "Yoane Wissa", "ST", "YW", 50, 28, "#5d6777"],
+        ["7", "N. Mbuku", "Nathanael Mbuku", "RW", "NM", 82, 28, "#6f7f8e"]
+      ],
+      bench: [
+        ["3", "S. Kapuadi", "Steve Kapuadi", "CB"],
+        ["5", "D. Batubinsika", "Dylan Batubinsika", "CB"],
+        ["10", "T. Bongonda", "Theo Bongonda", "LW"],
+        ["11", "G. Kalulu", "Gedeon Kalulu", "RB"],
+        ["12", "J. Kayembe", "Joris Kayembe", "LB"],
+        ["13", "M. Elia", "Meschack Elia", "RW"],
+        ["15", "A. Tshibola", "Aaron Tshibola", "DM"],
+        ["16", "M. Epolo", "Matthieu Epolo", "GK"],
+        ["17", "C. Pickel", "Charles Pickel", "DM"],
+        ["18", "G. Kakuta", "Gael Kakuta", "AM"],
+        ["19", "F. Mayele", "Fiston Mayele", "ST"],
+        ["21", "C. Bakambu", "Cedric Bakambu", "ST"],
+        ["23", "T. Fayulu", "Timothy Fayulu", "GK"],
+        ["24", "S. Banza", "Simon Banza", "ST"],
+        ["25", "E. Kayembe", "Edo Kayembe", "CM"]
+      ],
+      events: {
+        cards: [
+          { playerName: "Noah Sadiki", type: "yellow", minute: 38 },
+          { playerName: "Chancel Mbemba", type: "red", minute: 82 }
+        ],
+        substitutions: [
+          { offName: "Brian Cipenga", onName: "Theo Bongonda", minute: 61 },
+          { offName: "Yoane Wissa", onName: "Cedric Bakambu", minute: 72 },
+          { offName: "Nathanael Mbuku", onName: "Meschack Elia", minute: 72 }
+        ]
+      }
+    }
+  };
+}
+
+function getLineupUpdatedText(match) {
+  const timestamp =
+    match?.lineupUpdatedAt ||
+    match?.lineupCheckedAt ||
+    match?.scoreUpdatedAt ||
+    match?.liveUpdatedAt ||
+    match?.updatedAt ||
+    liveDataCheckedAt ||
+    siteUpdatedAt;
+  const freshness = formatRelativeScoreFreshness(timestamp);
+
+  if (!freshness) {
+    return "";
+  }
+
+  return currentLanguage === "zh"
+    ? `阵容：${freshness}核验`
+    : `${localizeText("Lineups checked")} ${freshness}`;
+}
+
+function renderLineupUpdatedCopy(match) {
+  const text = getLineupUpdatedText(match);
+  return text ? `<p class="data-note lineup-updated-copy">${escapeHtml(text)}</p>` : "";
+}
+
+function localizeLineupCopy(value) {
+  if (value && typeof value === "object") {
+    const localizedValue = currentLanguage === "zh" ? value.zh || value.en : value.en || value.zh;
+    return localizeText(localizedValue || "");
+  }
+
+  return localizeText(value || "");
+}
+
+function getLocalizedLineupCoachName(coach) {
+  if (!coach?.name) {
+    return "";
+  }
+
+  return currentLanguage === "zh"
+    ? coach.nameZh || translateEntityNameToZh(coach.name) || coach.name
+    : coach.name;
+}
+
+const LINEUP_POSITION_ZH = {
+  AM: "前腰",
+  CB: "中卫",
+  CM: "中场",
+  DM: "后腰",
+  GK: "门将",
+  LB: "左后卫",
+  LW: "左边锋",
+  RB: "右后卫",
+  RW: "右边锋",
+  ST: "前锋"
+};
+
+function getLocalizedLineupPosition(position) {
+  const value = String(position || "").trim();
+  if (!value) {
+    return "";
+  }
+
+  return currentLanguage === "zh" ? LINEUP_POSITION_ZH[value] || localizeText(value) : value;
+}
+
+function getLineupHeadingLabel(lineup) {
+  return lineup?.mode === "prediction" ? "Line-ups (prediction)" : "Line-ups";
+}
+
+function renderLineupHeading(match, lineup) {
+  const label = getLineupHeadingLabel(lineup);
+  const updatedText = getLineupUpdatedText(match);
+  const helpButton = updatedText
+    ? `<button class="info-tooltip-button" type="button" aria-label="${escapeHtml(updatedText)}" data-tooltip="${escapeHtml(updatedText)}">i</button>`
+    : "";
+
+  return `
+    <h3 class="info-heading lineup-heading">
+      <span>${escapeHtml(localizeText(label))}</span>
+      ${helpButton}
+    </h3>
+  `;
+}
+
+function getLineupPlayerData(player, team) {
+  const [number, label, name, position, initials, x, y, avatarColor] = player;
+  const fullName = name || label;
+  const cardPlayer = {
+    name: fullName,
+    team,
+    teamId: team?.id,
+    uniformNumber: number,
+    position,
+    role: position
+  };
+
+  return {
+    number,
+    label,
+    name: fullName,
+    position,
+    initials: initials || getPlayerInitials(fullName),
+    x,
+    y,
+    avatarColor,
+    cardPlayer
+  };
+}
+
+function normalizeLineupEventName(name) {
+  return String(name || "").trim().toLowerCase();
+}
+
+function getLineupEventNameMatch(playerName) {
+  const normalizedName = normalizeLineupEventName(playerName);
+  return (candidateName) => normalizeLineupEventName(candidateName) === normalizedName;
+}
+
+function getLineupSubstitutionPreviewKey(matchId, side, substitution) {
+  return [
+    matchId,
+    side,
+    String(substitution?.minute || ""),
+    normalizeLineupEventName(substitution?.offName),
+    normalizeLineupEventName(substitution?.onName)
+  ].join("|");
+}
+
+function getLineupPlayerFullName(player) {
+  return player?.[2] || player?.[1] || "";
+}
+
+function getLineupSubstitutionForStarter(teamLineup, playerName) {
+  const isMatch = getLineupEventNameMatch(playerName);
+  return (teamLineup?.events?.substitutions || []).find((event) => isMatch(event.offName));
+}
+
+function getLineupBenchPlayerByName(teamLineup, playerName) {
+  const isMatch = getLineupEventNameMatch(playerName);
+  return (teamLineup?.bench || []).find((player) => isMatch(getLineupPlayerFullName(player)));
+}
+
+function getLineupPreviewPlayerForSubstitution(starterPlayer, benchPlayer) {
+  if (!benchPlayer) {
+    return starterPlayer;
+  }
+
+  const [, , , , , x, y, avatarColor] = starterPlayer;
+  const [number, label, name, position, initials] = benchPlayer;
+  const fullName = name || label;
+  return [
+    number,
+    label,
+    fullName,
+    position,
+    initials || getPlayerInitials(fullName),
+    x,
+    y,
+    avatarColor
+  ];
+}
+
+function getLineupCardEvents(teamLineup, playerName) {
+  const isMatch = getLineupEventNameMatch(playerName);
+  return (teamLineup?.events?.cards || []).filter((event) => isMatch(event.playerName || event.name));
+}
+
+function getLineupSubstitutionEvents(teamLineup, playerName) {
+  const isMatch = getLineupEventNameMatch(playerName);
+  return (teamLineup?.events?.substitutions || [])
+    .flatMap((event) => [
+      isMatch(event.onName) ? { ...event, direction: "on" } : null,
+      isMatch(event.offName) ? { ...event, direction: "off" } : null
+    ])
+    .filter(Boolean);
+}
+
+function formatLineupEventMinute(minute) {
+  const value = String(minute || "").trim();
+  if (!value) {
+    return "";
+  }
+
+  return value.endsWith("'") ? value : `${value}'`;
+}
+
+function getLineupCardLabel(card) {
+  return localizeText(card?.type === "red" ? "Red card" : "Yellow card");
+}
+
+function getLineupSubstitutionLabel(substitution) {
+  return localizeText(substitution?.direction === "on" ? "Substituted on" : "Substituted off");
+}
+
+function getLineupEventBadgeLabel(event, playerName) {
+  const minute = formatLineupEventMinute(event.minute);
+  const eventLabel = event.kind === "substitution"
+    ? getLineupSubstitutionLabel(event)
+    : getLineupCardLabel(event);
+  const localizedName = currentLanguage === "zh" ? translateEntityNameToZh(playerName) || playerName : playerName;
+  return [minute, localizedName, eventLabel].filter(Boolean).join(" ");
+}
+
+function renderLineupCardBadge(card, playerName) {
+  const type = card?.type === "red" ? "red" : "yellow";
+  const label = getLineupEventBadgeLabel({ ...card, kind: "card" }, playerName);
+  return `
+    <span
+      class="lineup-event-badge lineup-event-card is-${escapeHtml(type)}"
+      aria-label="${escapeHtml(label)}"
+      title="${escapeHtml(label)}"
+    ></span>
+  `;
+}
+
+function renderLineupSubstitutionBadge(substitution, playerName) {
+  const direction = substitution?.direction === "on" ? "on" : "off";
+  const arrow = direction === "on" ? "↑" : "↓";
+  const minute = formatLineupEventMinute(substitution.minute);
+  const label = getLineupEventBadgeLabel({ ...substitution, kind: "substitution" }, playerName);
+  return `
+    <span
+      class="lineup-event-badge lineup-event-sub is-${escapeHtml(direction)}"
+      aria-label="${escapeHtml(label)}"
+      title="${escapeHtml(label)}"
+    >${escapeHtml(`${arrow}${minute}`)}</span>
+  `;
+}
+
+function renderLineupSubstitutionToggle(substitution, playerName, match, side, isPreviewActive) {
+  const direction = isPreviewActive ? "on" : "off";
+  const arrow = direction === "on" ? "↑" : "↓";
+  const minute = formatLineupEventMinute(substitution.minute);
+  const label = getLineupEventBadgeLabel({ ...substitution, direction, kind: "substitution" }, playerName);
+  const targetName = isPreviewActive ? substitution.offName : substitution.onName;
+  const localizedTargetName = currentLanguage === "zh"
+    ? translateEntityNameToZh(targetName) || targetName
+    : targetName;
+  const actionLabel = currentLanguage === "zh"
+    ? `${label}。切换显示${localizedTargetName}`
+    : `${label}. Show ${localizedTargetName}.`;
+
+  return `
+    <button
+      class="lineup-event-badge lineup-event-sub lineup-substitution-toggle is-${escapeHtml(direction)}"
+      type="button"
+      data-lineup-substitution-toggle="true"
+      data-lineup-side="${escapeHtml(side)}"
+      data-lineup-match-id="${escapeHtml(match.id)}"
+      data-lineup-minute="${escapeHtml(String(substitution.minute || ""))}"
+      data-lineup-off-name="${escapeHtml(substitution.offName || "")}"
+      data-lineup-on-name="${escapeHtml(substitution.onName || "")}"
+      aria-label="${escapeHtml(actionLabel)}"
+      aria-pressed="${isPreviewActive ? "true" : "false"}"
+      title="${escapeHtml(actionLabel)}"
+    >${escapeHtml(`${arrow}${minute}`)}</button>
+  `;
+}
+
+function getLineupPlayerEvents(teamLineup, playerName) {
+  return [
+    ...getLineupCardEvents(teamLineup, playerName).map((event) => ({ ...event, kind: "card" })),
+    ...getLineupSubstitutionEvents(teamLineup, playerName).map((event) => ({ ...event, kind: "substitution" }))
+  ];
+}
+
+function renderLineupEventBadges(playerName, teamLineup, className = "") {
+  return renderLineupEventBadgeList(getLineupPlayerEvents(teamLineup, playerName), playerName, className);
+}
+
+function renderLineupEventBadgeList(events, playerName, className = "") {
+  const badges = events.map((event) =>
+    event.kind === "substitution"
+      ? renderLineupSubstitutionBadge(event, playerName)
+      : renderLineupCardBadge(event, playerName)
+  );
+
+  if (!badges.length) {
+    return "";
+  }
+
+  return `<span class="${escapeHtml(["lineup-event-list", className].filter(Boolean).join(" "))}">${badges.join("")}</span>`;
+}
+
+function renderLineupCardBadges(playerName, teamLineup, className = "") {
+  return renderLineupEventBadgeList(
+    getLineupCardEvents(teamLineup, playerName).map((event) => ({ ...event, kind: "card" })),
+    playerName,
+    className
+  );
+}
+
+function renderLineupSubstitutionBadges(playerName, teamLineup, className = "", direction = "") {
+  const directionKey = String(direction || "").trim();
+  const events = getLineupSubstitutionEvents(teamLineup, playerName)
+    .filter((event) => !directionKey || event.direction === directionKey)
+    .map((event) => ({ ...event, kind: "substitution" }));
+
+  return renderLineupEventBadgeList(events, playerName, className);
+}
+
+function getLineupPlayerEventSummary(playerName, teamLineup) {
+  return getLineupPlayerEvents(teamLineup, playerName)
+    .map((event) => getLineupEventBadgeLabel(event, playerName))
+    .filter(Boolean)
+    .join(", ");
+}
+
+function renderLineupTeamBand(match, lineup, teamLineup, side) {
+  const benchId = `lineup-bench-${match.id}-${side}`;
+  const benchCount = Array.isArray(teamLineup.bench) ? teamLineup.bench.length : 0;
+  const benchLabel = localizeText("Bench");
+  const benchAriaLabel = benchCount ? `${benchLabel}: ${benchCount}` : benchLabel;
+  return `
+    <div class="lineup-team-band">
+      <div class="lineup-tabs lineup-card-tabs" role="tablist" aria-label="${escapeHtml(localizeText(getLineupHeadingLabel(lineup)))}">
+        ${renderLineupTabButton(match, "home", side === "home", side)}
+        ${renderLineupTabButton(match, "away", side === "away", side)}
+      </div>
+      <div class="lineup-team-actions">
+        ${renderLineupCoachIconMention(teamLineup.coach)}
+        ${renderLineupFormationMention(teamLineup)}
+        <button
+          class="lineup-bench-button"
+          type="button"
+          data-lineup-bench-toggle="${escapeHtml(side)}"
+          aria-expanded="false"
+          aria-controls="${escapeHtml(benchId)}"
+          aria-label="${escapeHtml(benchAriaLabel)}"
+        >
+          <span>${escapeHtml(benchLabel)}</span>
+          ${benchCount ? `<span class="lineup-bench-count">${escapeHtml(benchCount)}</span>` : ""}
+        </button>
+      </div>
+    </div>
+  `;
+}
+
+function renderLineupTabButton(match, side, isSelected, tabContext = "main") {
+  const team = side === "home" ? match.homeTeam : match.awayTeam;
+  const tabId = `lineup-tab-${match.id}-${tabContext}-${side}`;
+  const panelId = `lineup-panel-${match.id}-${side}`;
+  return `
+    <button
+      class="lineup-tab${isSelected ? " is-active" : ""}"
+      id="${escapeHtml(tabId)}"
+      type="button"
+      role="tab"
+      data-lineup-tab="${escapeHtml(side)}"
+      aria-selected="${isSelected ? "true" : "false"}"
+      aria-controls="${escapeHtml(panelId)}"
+      ${isSelected ? "" : `tabindex="-1"`}
+    >
+      ${renderFlag(team)}
+      <span>${escapeHtml(getLocalizedTeamName(team))}</span>
+    </button>
+  `;
+}
+
+function renderLineupAvatar(player, profile) {
+  const initials = getPlayerInitials(getPlayerDisplayName(player.cardPlayer, profile) || player.initials);
+
+  if (profile?.imageUrl) {
+    return `
+      <img
+        class="lineup-avatar-image"
+        src="${escapeHtml(profile.imageUrl)}"
+        alt=""
+        data-player-initials="${escapeHtml(initials)}"
+        loading="lazy"
+        referrerpolicy="no-referrer"
+      />
+    `;
+  }
+
+  return `<span class="lineup-avatar">${escapeHtml(player.initials)}</span>`;
+}
+
+function getLineupCoachInitials(coach) {
+  return getPlayerInitials(coach?.name || "");
+}
+
+function renderLineupCoachThumbnail(coach, className = "lineup-coach-avatar") {
+  const initials = getLineupCoachInitials(coach);
+
+  if (coach?.imageUrl) {
+    return `
+      <span class="${escapeHtml(className)}" aria-hidden="true">
+        <img
+          src="${escapeHtml(coach.imageUrl)}"
+          alt=""
+          data-player-initials="${escapeHtml(initials)}"
+          loading="lazy"
+          referrerpolicy="no-referrer"
+        />
+      </span>
+    `;
+  }
+
+  return `<span class="${escapeHtml(className)}" aria-hidden="true">${escapeHtml(initials)}</span>`;
+}
+
+function renderLineupCoachCard(coach) {
+  const coachName = getLocalizedLineupCoachName(coach);
+  const teamText = localizeText(coach?.teamName || "");
+  const roleText = currentLanguage === "zh"
+    ? `${teamText}${localizeText("Head Coach")}`
+    : `${teamText} ${localizeText("Head Coach")}`;
+  const sinceText = coach?.sinceYear
+    ? currentLanguage === "zh"
+      ? `${escapeHtml(coach.sinceYear)} 年起`
+      : `${localizeText("Since")} ${escapeHtml(coach.sinceYear)}`
+    : "";
+  const note = localizeLineupCopy(coach?.note);
+  const history = localizeLineupCopy(coach?.history);
+  const copyItems = [note, history]
+    .filter(Boolean)
+    .map((item) => `<span class="player-card-note">${escapeHtml(item)}</span>`)
+    .join("\n");
+
+  return `
+    <span class="player-card lineup-coach-card" role="tooltip">
+      <span class="player-card-header">
+        <span class="player-photo">${renderLineupCoachThumbnail(coach, "lineup-coach-card-photo")}</span>
+        <span class="player-card-title">
+          <span class="player-card-name-line">
+            <strong class="player-card-name">${escapeHtml(coachName)}</strong>
+          </span>
+          <span class="player-card-position">${escapeHtml(roleText)}</span>
+          ${sinceText ? `<span class="player-card-club">${sinceText}</span>` : ""}
+        </span>
+      </span>
+      ${copyItems ? `<span class="player-card-copy lineup-coach-copy">${copyItems}</span>` : ""}
+    </span>
+  `;
+}
+
+function renderLineupCoachMention(coach) {
+  const coachName = getLocalizedLineupCoachName(coach);
+  const teamName = localizeText(coach.teamName);
+  const ariaLabel = `${coachName}: ${localizeText("Coach")}, ${teamName}`;
+  const triggerLabel = `aria-label="${escapeHtml(ariaLabel)}" aria-expanded="false"`;
+  const triggerContent = `
+    ${renderLineupCoachThumbnail(coach)}
+    <span class="lineup-coach-text">
+      <span class="lineup-coach-label">${escapeHtml(coachName)}</span>
+      <span class="lineup-coach-name-text">${escapeHtml(localizeText("Coach"))}</span>
+    </span>
+  `;
+  const trigger = coach.sourceUrl
+    ? `<a class="player-link lineup-coach-trigger" href="${escapeHtml(coach.sourceUrl)}" target="_blank" rel="noopener" ${triggerLabel}>${triggerContent}</a>`
+    : `<span class="player-link lineup-coach-trigger" role="button" tabindex="0" ${triggerLabel}>${triggerContent}</span>`;
+
+  return `
+    <span class="player-hover lineup-coach-hover">
+      ${trigger}
+      ${renderLineupCoachCard(coach)}
+    </span>
+  `;
+}
+
+function renderLineupCoachIconMention(coach) {
+  const coachName = getLocalizedLineupCoachName(coach);
+  const teamName = localizeText(coach.teamName);
+  const ariaLabel = `${coachName}: ${localizeText("Coach")}, ${teamName}`;
+  const triggerLabel = `aria-label="${escapeHtml(ariaLabel)}" aria-expanded="false"`;
+  const triggerContent = renderLineupCoachThumbnail(coach);
+  const trigger = coach.sourceUrl
+    ? `<a class="player-link lineup-coach-icon-trigger" href="${escapeHtml(coach.sourceUrl)}" target="_blank" rel="noopener" ${triggerLabel}>${triggerContent}</a>`
+    : `<span class="player-link lineup-coach-icon-trigger" role="button" tabindex="0" ${triggerLabel}>${triggerContent}</span>`;
+
+  return `
+    <span class="player-hover lineup-coach-hover lineup-coach-icon-hover">
+      ${trigger}
+      ${renderLineupCoachCard(coach)}
+    </span>
+  `;
+}
+
+function renderLineupFormationCard(teamLineup) {
+  const goodNote = localizeLineupCopy(teamLineup.formationNotes?.good);
+  const badNote = localizeLineupCopy(teamLineup.formationNotes?.bad);
+
+  return `
+    <span class="player-card lineup-formation-card" role="tooltip">
+      <span class="player-card-title">
+        <span class="player-card-name-line">
+          <strong class="player-card-name">${escapeHtml(teamLineup.formation)}</strong>
+        </span>
+        <span class="player-card-position">${escapeHtml(localizeText("Formation"))}</span>
+      </span>
+      <span class="player-card-copy lineup-formation-copy">
+        <span class="lineup-formation-note">
+          <strong>${escapeHtml(localizeText("Good at"))}</strong>
+          ${escapeHtml(goodNote)}
+        </span>
+        <span class="lineup-formation-note">
+          <strong>${escapeHtml(localizeText("Can struggle with"))}</strong>
+          ${escapeHtml(badNote)}
+        </span>
+      </span>
+    </span>
+  `;
+}
+
+function renderLineupFormationMention(teamLineup) {
+  const ariaLabel = `${teamLineup.formation}: ${localizeText("Formation")}`;
+  return `
+    <span class="player-hover lineup-formation-hover">
+      <span
+        class="player-link lineup-formation-pill"
+        role="button"
+        tabindex="0"
+        aria-label="${escapeHtml(ariaLabel)}"
+        aria-expanded="false"
+      >
+        ${escapeHtml(teamLineup.formation)}
+      </span>
+      ${renderLineupFormationCard(teamLineup)}
+    </span>
+  `;
+}
+
+function renderLineupPlayerMarker(player, team, teamLineup, match = null, side = "") {
+  const starterName = getLineupPlayerFullName(player);
+  const substitution = match && side ? getLineupSubstitutionForStarter(teamLineup, starterName) : null;
+  const substitutionKey = substitution ? getLineupSubstitutionPreviewKey(match.id, side, substitution) : "";
+  const isPreviewActive = substitutionKey ? lineupSubstitutionPreviewState.has(substitutionKey) : false;
+  const displayPlayer = isPreviewActive
+    ? getLineupPreviewPlayerForSubstitution(player, getLineupBenchPlayerByName(teamLineup, substitution.onName))
+    : player;
+  const lineupPlayer = getLineupPlayerData(displayPlayer, team);
+  const profile = getPlayerProfile(lineupPlayer.cardPlayer);
+  const playerName = getLocalizedPlayerDisplayName(lineupPlayer.cardPlayer, profile);
+  const eventSummary = getLineupPlayerEventSummary(lineupPlayer.name, teamLineup);
+  const cardBadges = renderLineupCardBadges(lineupPlayer.name, teamLineup, "lineup-avatar-card-events");
+  const subOffBadges = substitution
+    ? renderLineupSubstitutionToggle(substitution, lineupPlayer.name, match, side, isPreviewActive)
+    : "";
+  const ariaLabel = [
+    `${lineupPlayer.number} ${playerName}`,
+    getLocalizedLineupPosition(lineupPlayer.position),
+    eventSummary
+  ].filter(Boolean).join(", ");
+  const avatarMarkup = `
+    <span class="lineup-avatar-wrap" aria-hidden="true">
+      ${renderLineupAvatar(lineupPlayer, profile)}
+      <span class="lineup-player-number">${escapeHtml(lineupPlayer.number)}</span>
+      ${cardBadges}
+    </span>
+  `;
+  const subOffMarkup = subOffBadges ? `<span class="lineup-player-sub-row lineup-name-sub-events">${subOffBadges}</span>` : "";
+
+  return `
+    <span
+      class="lineup-player-marker${isPreviewActive ? " is-substitution-preview" : ""}"
+      style="--x: ${escapeHtml(lineupPlayer.x)}%; --y: ${escapeHtml(lineupPlayer.y)}%; --avatar-bg: ${escapeHtml(lineupPlayer.avatarColor)};"
+      aria-label="${escapeHtml(ariaLabel)}"
+      data-lineup-marker-key="${escapeHtml(substitutionKey || normalizeLineupEventName(starterName))}"
+      data-lineup-starter-name="${escapeHtml(starterName)}"
+    >
+      ${renderPlayerMention(lineupPlayer.label, lineupPlayer.cardPlayer, {
+        beforeTriggerMarkup: avatarMarkup,
+        triggerClass: "lineup-player-name",
+        wrapperClass: "lineup-player-hover"
+      })}
+      ${subOffMarkup}
+    </span>
+  `;
+}
+
+function renderLineupBenchPlayer(player, team, teamLineup) {
+  const lineupPlayer = getLineupPlayerData(player, team);
+
+  return `
+    <li class="lineup-bench-player">
+      <span class="lineup-bench-number">${escapeHtml(lineupPlayer.number)}</span>
+      <span class="lineup-bench-name">${renderPlayerMention(lineupPlayer.label, lineupPlayer.cardPlayer)}</span>
+      ${renderLineupEventBadges(lineupPlayer.name, teamLineup, "lineup-bench-events")}
+      <span class="lineup-bench-position">${escapeHtml(getLocalizedLineupPosition(lineupPlayer.position))}</span>
+    </li>
+  `;
+}
+
+function renderLineupBenchPanel(match, team, teamLineup, side) {
+  const bench = Array.isArray(teamLineup.bench) ? teamLineup.bench : [];
+  const benchId = `lineup-bench-${match.id}-${side}`;
+
+  return `
+    <div
+      class="lineup-bench-panel"
+      id="${escapeHtml(benchId)}"
+      data-lineup-bench-panel="${escapeHtml(side)}"
+      aria-hidden="true"
+    >
+      <div class="lineup-bench-panel-inner">
+        <ul class="lineup-bench-list">
+          ${bench.map((player) => renderLineupBenchPlayer(player, team, teamLineup)).join("")}
+        </ul>
+      </div>
+    </div>
+  `;
+}
+
+function renderLineupPitchPanel(match, lineup, side, isSelected) {
+  const team = side === "home" ? match.homeTeam : match.awayTeam;
+  const panelId = `lineup-panel-${match.id}-${side}`;
+  const tabId = `lineup-tab-${match.id}-${side}-${side}`;
+  const teamLineup = lineup[side];
+
+  return `
+    <div
+      class="lineup-tab-panel${isSelected ? " is-active" : ""}"
+      id="${escapeHtml(panelId)}"
+      role="tabpanel"
+      data-lineup-panel="${escapeHtml(side)}"
+      aria-labelledby="${escapeHtml(tabId)}"
+      ${isSelected ? "" : "hidden"}
+    >
+      <div class="lineup-pitch-card">
+        ${renderLineupTeamBand(match, lineup, teamLineup, side)}
+        ${renderLineupBenchPanel(match, team, teamLineup, side)}
+        <div class="lineup-pitch" role="img" aria-label="${escapeHtml(`${getLocalizedTeamName(team)} ${teamLineup.formation}`)}">
+          <span class="lineup-pitch-line is-mid"></span>
+          <span class="lineup-pitch-line is-circle"></span>
+          <span class="lineup-pitch-line is-spot"></span>
+          <span class="lineup-pitch-line is-box is-top"></span>
+          <span class="lineup-pitch-line is-six is-top"></span>
+          <span class="lineup-pitch-line is-box is-bottom"></span>
+          <span class="lineup-pitch-line is-six is-bottom"></span>
+          ${teamLineup.players.map((player) => renderLineupPlayerMarker(player, team, teamLineup, match, side)).join("")}
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function renderLineupVisualPrototype(match) {
+  const lineup = getMockLineupPreview(match);
+
+  if (!lineup) {
+    return "";
+  }
+
+  return `
+    <section class="info-block lineup-preview-block has-section-divider" aria-label="${escapeHtml(localizeText(getLineupHeadingLabel(lineup)))}">
+      <div class="lineup-header">
+        ${renderLineupHeading(match, lineup)}
+      </div>
+      ${renderLineupPitchPanel(match, lineup, "home", true)}
+      ${renderLineupPitchPanel(match, lineup, "away", false)}
+    </section>
+  `;
+}
+
+function handleLineupTabClick(event) {
+  const tab = event.target instanceof Element ? event.target.closest("[data-lineup-tab]") : null;
+  if (!tab) {
+    return false;
+  }
+
+  const block = tab.closest(".lineup-preview-block");
+  const side = tab.dataset.lineupTab;
+  if (!block || !side) {
+    return false;
+  }
+
+  block.querySelectorAll("[data-lineup-tab]").forEach((button) => {
+    const isActive = button.dataset.lineupTab === side;
+    button.classList.toggle("is-active", isActive);
+    button.setAttribute("aria-selected", String(isActive));
+    button.tabIndex = isActive ? 0 : -1;
+  });
+  block.querySelectorAll("[data-lineup-panel]").forEach((panel) => {
+    const isActive = panel.dataset.lineupPanel === side;
+    panel.classList.toggle("is-active", isActive);
+    panel.hidden = !isActive;
+  });
+
+  window.requestAnimationFrame(() => {
+    updateLineupTabIndicators(block);
+    positionPlayerCards();
+  });
+  return true;
+}
+
+function handleLineupBenchClick(event) {
+  const button = event.target instanceof Element ? event.target.closest("[data-lineup-bench-toggle]") : null;
+  if (!button) {
+    return false;
+  }
+
+  const panelId = button.getAttribute("aria-controls");
+  const panel = panelId ? document.getElementById(panelId) : null;
+  if (!panel) {
+    return false;
+  }
+
+  const isOpen = button.getAttribute("aria-expanded") === "true";
+  button.setAttribute("aria-expanded", String(!isOpen));
+  button.classList.toggle("is-open", !isOpen);
+  panel.classList.toggle("is-open", !isOpen);
+  panel.setAttribute("aria-hidden", String(isOpen));
+  window.requestAnimationFrame(positionPlayerCards);
+  window.setTimeout(positionPlayerCards, 260);
+  return true;
+}
+
+function findLineupSubstitutionFromToggle(teamLineup, button) {
+  const minute = String(button.dataset.lineupMinute || "");
+  const offName = normalizeLineupEventName(button.dataset.lineupOffName);
+  const onName = normalizeLineupEventName(button.dataset.lineupOnName);
+  return (teamLineup?.events?.substitutions || []).find((event) =>
+    String(event.minute || "") === minute &&
+    normalizeLineupEventName(event.offName) === offName &&
+    normalizeLineupEventName(event.onName) === onName
+  );
+}
+
+function animateLineupMarkerSwap(marker, nextMarkup) {
+  if (!marker) {
+    return;
+  }
+
+  const shouldReduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
+  if (shouldReduceMotion) {
+    marker.outerHTML = nextMarkup;
+    window.requestAnimationFrame(positionPlayerCards);
+    return;
+  }
+
+  marker.classList.add("is-substitution-exiting");
+  window.setTimeout(() => {
+    marker.insertAdjacentHTML("afterend", nextMarkup);
+    const nextMarker = marker.nextElementSibling;
+    marker.remove();
+
+    if (!(nextMarker instanceof HTMLElement)) {
+      positionPlayerCards();
+      return;
+    }
+
+    nextMarker.classList.add("is-substitution-entering");
+    window.requestAnimationFrame(() => {
+      nextMarker.classList.remove("is-substitution-entering");
+      nextMarker.classList.add("is-substitution-settled");
+      window.setTimeout(() => {
+        nextMarker.classList.remove("is-substitution-settled");
+      }, 240);
+      positionPlayerCards();
+    });
+  }, 140);
+}
+
+function handleLineupSubstitutionToggleClick(event) {
+  const button = event.target instanceof Element
+    ? event.target.closest("[data-lineup-substitution-toggle]")
+    : null;
+  if (!(button instanceof HTMLElement)) {
+    return false;
+  }
+
+  event.preventDefault();
+  event.stopPropagation();
+
+  const side = button.dataset.lineupSide || "";
+  const match = getFixtureById(button.dataset.lineupMatchId || "");
+  const lineup = getMockLineupPreview(match);
+  const teamLineup = lineup?.[side];
+  const substitution = findLineupSubstitutionFromToggle(teamLineup, button);
+  if (!match || !teamLineup || !substitution) {
+    return true;
+  }
+
+  const starterPlayer = teamLineup.players.find((player) =>
+    normalizeLineupEventName(getLineupPlayerFullName(player)) === normalizeLineupEventName(substitution.offName)
+  );
+  const marker = button.closest(".lineup-player-marker");
+  if (!starterPlayer || !(marker instanceof HTMLElement)) {
+    return true;
+  }
+  if (marker.classList.contains("is-substitution-exiting") || marker.classList.contains("is-substitution-entering")) {
+    return true;
+  }
+
+  clearActivePlayerHover();
+  const substitutionKey = getLineupSubstitutionPreviewKey(match.id, side, substitution);
+  if (lineupSubstitutionPreviewState.has(substitutionKey)) {
+    lineupSubstitutionPreviewState.delete(substitutionKey);
+  } else {
+    lineupSubstitutionPreviewState.add(substitutionKey);
+  }
+
+  const team = side === "home" ? match.homeTeam : match.awayTeam;
+  const nextMarkup = renderLineupPlayerMarker(starterPlayer, team, teamLineup, match, side);
+  animateLineupMarkerSwap(marker, nextMarkup);
+  return true;
+}
+
 function renderMatchStatusBlock(match) {
   if (match.status === "FT") {
     return `
-      <section class="info-block">
+      <section class="info-block match-result-block has-section-divider">
         ${renderResultHeading(match)}
         ${renderScoreSummary(match)}
         ${renderResultNotes(match)}
       </section>
       ${renderPredictionBlock(match)}
+      ${renderLineupVisualPrototype(match)}
     `;
   }
 
   if (match.status === "LIVE") {
     return `
-      <section class="info-block">
+      <section class="info-block match-live-block has-section-divider">
         <h3>${escapeHtml(localizeText("Live score"))}</h3>
         ${renderLiveScoreSummary(match)}
         ${renderScoringDetailsList(match, { showMissingWhenGoalsScored: true })}
@@ -16038,6 +17116,23 @@ function replaceBrokenPlayerPhoto(image) {
   image.replaceWith(fallback);
 }
 
+function replaceBrokenLineupAvatar(image) {
+  const fallback = document.createElement("span");
+  fallback.className = "lineup-avatar";
+  fallback.textContent = image.dataset.playerInitials || "";
+  image.replaceWith(fallback);
+}
+
+function replaceBrokenLineupCoachPhoto(image) {
+  const parentClassName = image.closest(".lineup-coach-card-photo")
+    ? "lineup-coach-card-photo"
+    : "lineup-coach-avatar";
+  const fallback = document.createElement("span");
+  fallback.className = parentClassName;
+  fallback.textContent = image.dataset.playerInitials || "";
+  image.replaceWith(fallback);
+}
+
 function getPlayerCardTeam(player, profile) {
   const teamId = String(profile?.teamId || getPlayerTeamId(player)).trim().toUpperCase();
   if (teamId) {
@@ -16074,7 +17169,7 @@ function renderPlayerCardFlag(player, profile) {
   return flag ? `<span class="player-card-flag">${flag}</span>` : "";
 }
 
-function renderPlayerMention(label, player) {
+function renderPlayerMention(label, player, options = {}) {
   const profile = getPlayerProfile(player) || getHistoricalPlayerProfile(player);
   const displayName = getLocalizedPlayerDisplayName(player, profile);
   const uniformNumber = getPlayerUniformNumber(player, profile);
@@ -16092,9 +17187,13 @@ function renderPlayerMention(label, player) {
     : currentLanguage === "zh"
       ? displayName
       : label;
+  const wrapperClass = ["player-hover", options.wrapperClass].filter(Boolean).join(" ");
+  const triggerClass = ["player-link", options.triggerClass].filter(Boolean).join(" ");
+  const beforeTriggerMarkup = options.beforeTriggerMarkup || "";
+  const afterTriggerMarkup = options.afterTriggerMarkup || "";
   const trigger = sourceUrl
-    ? `<a class="player-link" href="${escapeHtml(sourceUrl)}" target="_blank" rel="noopener" ${triggerLabel}>${escapeHtml(visibleLabel)}</a>`
-    : `<span class="player-link" role="button" tabindex="0" ${triggerLabel}>${escapeHtml(visibleLabel)}</span>`;
+    ? `<a class="${escapeHtml(triggerClass)}" href="${escapeHtml(sourceUrl)}" target="_blank" rel="noopener" ${triggerLabel}>${escapeHtml(visibleLabel)}</a>`
+    : `<span class="${escapeHtml(triggerClass)}" role="button" tabindex="0" ${triggerLabel}>${escapeHtml(visibleLabel)}</span>`;
   const numberBadge = uniformNumber
     ? `<span class="player-card-number">#${escapeHtml(uniformNumber)}</span>`
     : "";
@@ -16107,8 +17206,10 @@ function renderPlayerMention(label, player) {
     : "";
 
   return [
-    `<span class="player-hover">`,
+    `<span class="${escapeHtml(wrapperClass)}">`,
+    beforeTriggerMarkup,
     trigger,
+    afterTriggerMarkup,
     `<span class="player-card" role="tooltip">`,
     `<span class="player-card-header">`,
     `<span class="player-photo">${renderPlayerPhoto(player, profile)}</span>`,
@@ -18814,17 +19915,17 @@ function renderHistoricalMatchInfo(match) {
 
     ${renderHistoricalResultBlock(match)}
 
-    <section class="info-block">
+    <section class="info-block match-prediction-block has-section-divider">
       ${renderPredictionHeading(getHistoricalProjection(match))}
       ${renderHistoricalProjection(match)}
     </section>
 
-    <section class="info-block">
+    <section class="info-block match-key-info-block has-section-divider">
       <h3>${escapeHtml(localizeText("Key information"))}</h3>
       ${renderHistoricalKeyInformation(match)}
     </section>
 
-    <section class="info-block">
+    <section class="info-block match-past-block has-section-divider">
       <h3>${escapeHtml(localizeText("Past World Cup meetings"))}</h3>
       ${renderHistoricalPastMatches(match)}
     </section>
@@ -18979,16 +20080,17 @@ function renderMatchInfo(match, options = {}) {
 
     ${renderMatchStatusBlock(displayMatch)}
 
-    <section class="info-block">
+    <section class="info-block match-key-info-block has-section-divider">
       <h3>${escapeHtml(localizeText("Key information"))}</h3>
       ${renderKeyInformation(displayMatch)}
     </section>
 
-    <section class="info-block">
+    <section class="info-block match-past-block has-section-divider">
       <h3>${escapeHtml(localizeText("Past matches"))}</h3>
       ${renderPastResults(displayMatch)}
     </section>
   `;
+  updateLineupTabIndicators(matchInfo);
   positionPlayerCards();
   updateTruncatedTeamTooltips(matchInfo);
   updateStandingNameTooltips(matchInfo);
@@ -21528,6 +22630,18 @@ matchInfo.addEventListener("click", (event) => {
     return;
   }
 
+  if (handleLineupTabClick(event)) {
+    return;
+  }
+
+  if (handleLineupBenchClick(event)) {
+    return;
+  }
+
+  if (handleLineupSubstitutionToggleClick(event)) {
+    return;
+  }
+
   if (handlePlayerLinkClick(event)) {
     return;
   }
@@ -21663,6 +22777,10 @@ document.addEventListener(
     const image = event.target;
     if (image instanceof HTMLImageElement && image.matches(".player-photo img")) {
       replaceBrokenPlayerPhoto(image);
+    } else if (image instanceof HTMLImageElement && image.matches(".lineup-avatar-image")) {
+      replaceBrokenLineupAvatar(image);
+    } else if (image instanceof HTMLImageElement && image.matches(".lineup-coach-avatar img, .lineup-coach-card-photo img")) {
+      replaceBrokenLineupCoachPhoto(image);
     }
   },
   true

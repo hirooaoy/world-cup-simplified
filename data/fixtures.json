@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-01T23:16:57.902Z",
+  "updatedAt": "2026-07-01T23:35:10.634Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -11509,13 +11509,43 @@
         "home": 3,
         "away": 2
       },
-      "goalsHome": [],
+      "goalsHome": [
+        {
+          "minute": 86,
+          "name": "Romelu Lukaku",
+          "assistName": "Thomas Meunier"
+        },
+        {
+          "minute": 89,
+          "name": "Youri Tielemans",
+          "assistName": "Leandro Trossard"
+        },
+        {
+          "minute": 120,
+          "offset": 5,
+          "name": "Youri Tielemans",
+          "penalty": true
+        }
+      ],
       "goalsAway": [
         {
           "minute": 24,
           "name": "Habib Diarra"
+        },
+        {
+          "minute": 51,
+          "name": "Ismaila Sarr",
+          "assistName": "Moussa Niakhate"
         }
-      ]
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=OJ84ZgReAsE",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-07-01T16:35:08-07:00",
+        "checkedAt": "2026-07-01T16:35:08-07:00"
+      }
     },
     {
       "id": "match-83-round-of-32-2026-07-02",

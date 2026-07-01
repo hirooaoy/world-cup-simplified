@@ -1,6 +1,21 @@
 {
-  "updatedAt": "2026-07-01T11:12:49-07:00",
+  "updatedAt": "2026-07-01T16:40:21-07:00",
   "releases": [
+    {
+      "date": "2026-07-01",
+      "title": "Line-ups visual prototype and official result sync",
+      "titleZh": "阵容可视化原型与官方赛果同步",
+      "highlights": [
+        "Added a guarded England-DR Congo line-ups visual prototype below Prediction, with team tabs, bench lists, coach and formation cards, player photos, card markers, and substitution previews.",
+        "Match detail sections now use subtle dividers and roomier Key information spacing so the new visual fits the existing page rhythm.",
+        "Synced Belgium-Senegal to the official 3-2 final, linked the official FOX highlight, and resolved Belgium's next knockout slot."
+      ],
+      "highlightsZh": [
+        "在 Prediction 下方新增受保护的英格兰对刚果民主共和国阵容可视化原型，包含球队切换、替补名单、教练与阵型卡、球员照片、红黄牌标记和换人预览。",
+        "比赛详情区块现在使用更克制的分隔线，并增加 Key information 的呼吸感，让新视觉更贴合现有页面节奏。",
+        "已同步比利时对塞内加尔的官方 3-2 完赛比分，补上 FOX 官方集锦，并确认比利时的下一轮淘汰赛席位。"
+      ]
+    },
     {
       "date": "2026-07-01",
       "title": "England-DR Congo Result story and official highlight",
