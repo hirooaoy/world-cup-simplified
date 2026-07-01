@@ -977,6 +977,12 @@ const ZH_ADDITIONAL_EXACT_TRANSLATIONS = {
     "墨西哥的上半场压迫带动了墨西哥城主场球迷，防线则守住本届世界杯连续第四场零封。",
   "Hincapie's stoppage-time red card closed Ecuador's night, while Mexico moved on to face England or DR Congo.":
     "因卡皮耶补时染红为厄瓜多尔之夜画上句号，墨西哥则晋级面对英格兰或刚果民主共和国。",
+  "Brian Cipenga stunned England in the 7th minute from Chancel Mbemba's assist, but Harry Kane answered twice late from Anthony Gordon service.":
+    "布莱恩·奇彭加第7分钟接尚塞尔·姆本巴助攻让英格兰震惊，但哈里·凯恩最后阶段两次接安东尼·戈登的传球回应。",
+  "England spent most of the match frustrated by DR Congo's block and Lionel Mpasi's saves before Gordon, Saka, and Eze shifted the pressure after the hour.":
+    "英格兰大部分时间被刚果民主共和国的防守阵型和利昂内尔·姆帕西的扑救压住，直到戈登、萨卡和埃泽在一小时后改变压力。",
+  "Kane headed in the 75th-minute equalizer, then cut across the edge of the box and drove the 86th-minute winner into the top corner.":
+    "凯恩第75分钟头球扳平，随后在禁区弧附近横向调整，并在第86分钟把制胜球轰入上角。",
   "Portugal and DR Congo split the points": "葡萄牙与刚果民主共和国各取一分",
   "Raúl Rangel made a huge late double save.": "Raúl Rangel最后阶段完成关键连续两连扑。",
   "Switzerland 4-1 Bosnia and Herzegovina": "瑞士4-1波黑",

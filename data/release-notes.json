@@ -1,6 +1,19 @@
 {
-  "updatedAt": "2026-07-01T10:06:47-07:00",
+  "updatedAt": "2026-07-01T11:12:49-07:00",
   "releases": [
+    {
+      "date": "2026-07-01",
+      "title": "England-DR Congo Result story and official highlight",
+      "titleZh": "英格兰对刚果民主共和国赛果故事与官方集锦",
+      "highlights": [
+        "England-DR Congo now has source-backed Result story bullets for Cipenga's early opener, England's pressure shift, and Kane's late comeback goals.",
+        "The Result card now links the verified official FOX Sports highlight upload."
+      ],
+      "highlightsZh": [
+        "英格兰对刚果民主共和国现在补上有来源支撑的赛果故事，涵盖奇彭加早早破门、英格兰压力转换和凯恩最后阶段逆转进球。",
+        "赛果卡片现在链接已核验的 FOX Sports 官方集锦上传。"
+      ]
+    },
     {
       "date": "2026-07-01",
       "title": "Live pill click tooltips",

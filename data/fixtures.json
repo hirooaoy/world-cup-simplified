@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-01T20:21:46.134Z",
+  "updatedAt": "2026-07-01T21:10:51.189Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -120,6 +120,7 @@
     "guardian-germany-paraguay-result-2026-06-30",
     "guardian-netherlands-morocco-result-2026-06-30",
     "guardian-mexico-ecuador-result-2026-07-01",
+    "guardian-england-dr-congo-result-2026-07-01",
     "national-football-teams-h2h-sync-2026-07-01"
   ],
   "coverage": {
@@ -11308,13 +11309,26 @@
           "assistName": "Chancel Mbemba"
         }
       ],
-      "highlightVideoReview": {
-        "status": "not-found",
+      "resultStoryBullets": [
+        "Brian Cipenga stunned England in the 7th minute from Chancel Mbemba's assist, but Harry Kane answered twice late from Anthony Gordon service.",
+        "England spent most of the match frustrated by DR Congo's block and Lionel Mpasi's saves before Gordon, Saka, and Eze shifted the pressure after the hour.",
+        "Kane headed in the 75th-minute equalizer, then cut across the edge of the box and drove the 86th-minute winner into the top corner."
+      ],
+      "resultStoryResearch": {
+        "status": "researched",
+        "sourceIds": [
+          "guardian-england-dr-congo-result-2026-07-01"
+        ],
+        "checkedAt": "2026-07-01T11:12:49-07:00",
+        "note": "Guardian live report and FIFA goals reviewed for Cipenga's opener, Mpasi saves, England's changes, Gordon assists, and Kane's late double."
+      },
+      "highlightVideo": {
         "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=x24Ir5Ua4RQ",
         "sourceName": "FOX Sports",
         "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
-        "checkedAt": "2026-07-01T11:07:41-07:00",
-        "note": "No official FOX Sports YouTube highlights video matched this fixture during the automated channel check."
+        "publishedAt": "2026-07-01T14:10:46-07:00",
+        "checkedAt": "2026-07-01T14:10:46-07:00"
       }
     },
     {
@@ -11493,8 +11507,15 @@
       },
       "score": {
         "home": 0,
-        "away": 0
-      }
+        "away": 1
+      },
+      "goalsHome": [],
+      "goalsAway": [
+        {
+          "minute": 24,
+          "name": "Habib Diarra"
+        }
+      ]
     },
     {
       "id": "match-83-round-of-32-2026-07-02",
