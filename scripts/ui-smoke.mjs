@@ -1984,12 +1984,11 @@ try {
   });
   await page.waitForSelector(".match-row");
   await page.locator('[data-match-id="netherlands-sweden-2026-06-20"]').click();
-  const summervilleLink = page
-    .locator("#match-info .scorer-highlight .player-link", { hasText: "Crysencio Summerville" })
-    .first();
-  await summervilleLink.focus();
-  const summervilleCard = page.locator(".player-card:visible").first();
-  await summervilleCard.waitFor({ state: "visible" });
+  const summervilleCard = page
+    .locator("#match-info .scorer-highlight .player-hover")
+    .filter({ has: page.locator(".player-link", { hasText: "Crysencio Summerville" }) })
+    .first()
+    .locator(".player-card");
   assert(
     (await summervilleCard.locator(".player-card-position").innerText()).trim() === "Winger",
     "Player hover card should normalize lowercase source positions for display."
