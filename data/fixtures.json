@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-01T21:57:55.256Z",
+  "updatedAt": "2026-07-01T23:16:57.902Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -11443,7 +11443,7 @@
       "homeSlot": "Group G winner",
       "awaySlot": "Group A/E/H/I/J third place",
       "venue": "Seattle Stadium",
-      "status": "LIVE",
+      "status": "FT",
       "h2h": {
         "status": "verified-empty",
         "sourceId": "national-football-teams-h2h-sync-2026-06-30",
@@ -11506,7 +11506,7 @@
         "away": "Senegal are an athletic, experienced side with enough defensive presence to survive pressure and enough speed to punish it, led by Sadio Mane, Nicolas Jackson, and Kalidou Koulibaly. Against Belgium, their Mane-Jackson direct running has to beat Belgium's De Bruyne-to-Lukaku chance creation. They want to use Mane's timing and Jackson's depth to attack before the opponent's defense is set. The risk is Belgium can turn De Bruyne service into Lukaku chances."
       },
       "score": {
-        "home": 2,
+        "home": 3,
         "away": 2
       },
       "goalsHome": [],
@@ -12728,7 +12728,8 @@
           "matchId": "400021534",
           "matchNumber": 94
         }
-      }
+      },
+      "awayTeamId": "BEL"
     },
     {
       "id": "match-95-round-of-16-2026-07-07",
