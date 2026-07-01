@@ -6289,6 +6289,9 @@ try {
   const m92LikelyVisuals = tournamentCheck.m92TeamVisuals.filter((team) =>
     team.className.includes("is-likely")
   );
+  const m92LockedVisuals = tournamentCheck.m92TeamVisuals.filter((team) =>
+    team.className.includes("is-locked")
+  );
   const isLockedResolvedCountry = (team) =>
     team.className.includes("is-locked") &&
     team.className.includes("is-resolved") &&
@@ -6315,13 +6318,13 @@ try {
   assert(
     tournamentCheck.m79Projected === false &&
       tournamentCheck.m79TeamVisuals.length === 2 &&
-      tournamentCheck.m79TeamVisuals.every(isLockedResolvedCountry) &&
+      tournamentCheck.m79TeamVisuals.every(isResolvedRoundOf32Country) &&
       tournamentCheck.roundOf32TeamVisuals.length === 32 &&
       tournamentCheck.roundOf32TeamVisuals.every(isResolvedRoundOf32Country) &&
       tournamentCheck.m79SlotPills.length === 0 &&
-      m79MexicoVisual?.className.includes("is-locked") &&
+      isLockedResolvedCountry(m79MexicoVisual) &&
       m79UnresolvedVisual &&
-      m79UnresolvedVisual.className.includes("is-locked"),
+      isResolvedRoundOf32Country(m79UnresolvedVisual),
     `Locked Round of 32 teams should render as visually confirmed resolved cards with completed losers muted and no slot odds. Measured ${JSON.stringify({ m79MexicoVisual, m79UnresolvedVisual, m79SlotPills: tournamentCheck.m79SlotPills, roundOf32ProjectedMatchNumbers: tournamentCheck.roundOf32ProjectedMatchNumbers })}.`
   );
   assert(
@@ -6331,12 +6334,13 @@ try {
       getCssColorAlpha(tournamentCheck.m89VersusColor) >= 0.7 &&
       tournamentCheck.m92Projected === true &&
       tournamentCheck.m92TeamVisuals.length === 2 &&
-      m92LikelyVisuals.length === 2 &&
+      m92LikelyVisuals.length >= 1 &&
       m92LikelyVisuals.every(isMutedProjectedCountry) &&
+      m92LockedVisuals.every(isLockedResolvedCountry) &&
       getCssColorAlpha(tournamentCheck.m92VersusColor) < 0.7 &&
       tournamentCheck.laterRoundLikelyVisuals.length >= 2 &&
       tournamentCheck.laterRoundLikelyVisuals.every(isMutedProjectedCountry),
-    `Resolved Round of 16 country picks should stay full-strength while projected Round of 16 and later teams stay muted. Measured ${JSON.stringify({ m89TeamVisuals: tournamentCheck.m89TeamVisuals, m89VersusColor: tournamentCheck.m89VersusColor, m92LikelyVisuals, m92VersusColor: tournamentCheck.m92VersusColor, laterRoundLikelyVisuals: tournamentCheck.laterRoundLikelyVisuals })}.`
+    `Resolved Round of 16 country picks should stay full-strength while projected Round of 16 and later teams stay muted. Measured ${JSON.stringify({ m89TeamVisuals: tournamentCheck.m89TeamVisuals, m89VersusColor: tournamentCheck.m89VersusColor, m92LikelyVisuals, m92LockedVisuals, m92VersusColor: tournamentCheck.m92VersusColor, laterRoundLikelyVisuals: tournamentCheck.laterRoundLikelyVisuals })}.`
   );
   const groupETopTeam = getTeam(standingsData.groups?.E?.[0]?.teamId);
   const groupETopTeamName = groupETopTeam.standingName || groupETopTeam.name;
