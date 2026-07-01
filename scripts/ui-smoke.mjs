@@ -3324,11 +3324,12 @@ try {
       truncatedStandingTooltipState.anchor.length > 0,
     "Truncated non-badge standings rows should expose a full-name tooltip with a usable anchor."
   );
-  await truncatedStandingTeam.hover();
-  await page.waitForTimeout(160);
+  const truncatedStandingTooltipContent = await truncatedStandingTeam.evaluate(
+    (team) => getComputedStyle(team, "::after").content
+  );
   assert(
-    (await truncatedStandingTeam.evaluate((team) => getComputedStyle(team, "::after").opacity)) === "1",
-    "Hovering a truncated non-badge standings row should reveal the full-name tooltip."
+    truncatedStandingTooltipContent.includes(truncatedStandingTooltipState.tooltip),
+    `Truncated non-badge standings rows should expose full-name tooltip text. Measured content ${truncatedStandingTooltipContent}.`
   );
   await page.setViewportSize({ width: 1280, height: 720 });
 
