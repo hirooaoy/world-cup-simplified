@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-01T01:38:22.530Z",
+  "updatedAt": "2026-07-01T02:50:34.104Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -10830,7 +10830,7 @@
       "homeSlot": "Group A winner",
       "awaySlot": "Group C/E/F/H/I third place",
       "venue": "Mexico City Stadium",
-      "status": "SCHEDULED",
+      "status": "LIVE",
       "h2h": {
         "status": "loaded",
         "sourceId": "national-football-teams-h2h-sync-2026-06-30",
@@ -11153,6 +11153,10 @@
         "sourceId": "editorial-preview-2026-06-22",
         "home": "Mexico are a home-side pressure team that want territory, crowd energy, and repeated penalty-area touches, led by Santiago Gimenez, Edson Alvarez, and Luis Chavez. Against Ecuador, their Gimenez-Chavez home pressure has to beat Ecuador's Caicedo-Hincapie midfield squeeze. They want to keep the ball in the opponent's half and feed Gimenez before Chavez attacks free kicks, corners, or rebounds. The risk is Ecuador can turn Caicedo ball wins and Valencia movement into fast attacks.",
         "away": "Ecuador are an intense, athletic side that can disrupt stronger opponents through midfield pressure, led by Moises Caicedo, Piero Hincapie, and Enner Valencia. Against Mexico, their Caicedo-Hincapie midfield squeeze has to beat Mexico's Gimenez-Chavez home pressure. They want to win the midfield duel through Caicedo and release Valencia before the defense is set. The risk is Mexico can turn home pressure into Gimenez touches and Chavez free-kick or corner chances."
+      },
+      "score": {
+        "home": 2,
+        "away": 0
       }
     },
     {
