@@ -5384,18 +5384,25 @@ try {
   const brazilChineseCatchUpItem = latestKnockoutChineseItems.find((item) =>
     item.headline?.includes("巴西 险胜 日本，晋级16强赛")
   );
+  const norwayChineseCatchUpItem = latestKnockoutChineseItems.find((item) =>
+    item.headline?.includes("挪威 险胜 科特迪瓦，晋级16强赛")
+  );
   const knockoutChineseSubtitleText = [
     moroccoChineseCatchUpItem?.subtitle || "",
     paraguayChineseCatchUpItem?.subtitle || "",
-    brazilChineseCatchUpItem?.subtitle || ""
+    brazilChineseCatchUpItem?.subtitle || "",
+    norwayChineseCatchUpItem?.subtitle || ""
   ].join(" ");
   assert(
     moroccoChineseCatchUpItem?.subtitle.includes("科迪·加克波帮助荷兰领先") &&
       moroccoChineseCatchUpItem?.subtitle.includes("摩洛哥晋级16强赛，荷兰出局") &&
       paraguayChineseCatchUpItem?.subtitle.includes("胡利奥·塞萨尔·恩西索首开纪录，凯·哈弗茨完成最后一击") &&
       paraguayChineseCatchUpItem?.subtitle.includes("巴拉圭晋级16强赛，德国出局") &&
-      brazilChineseCatchUpItem?.subtitle.includes("加布里埃尔·马丁内利在90+5'打入制胜球") &&
-      brazilChineseCatchUpItem?.subtitle.includes("巴西晋级16强赛，日本出局") &&
+      (brazilChineseCatchUpItem
+        ? brazilChineseCatchUpItem.subtitle.includes("加布里埃尔·马丁内利在90+5'打入制胜球") &&
+          brazilChineseCatchUpItem.subtitle.includes("巴西晋级16强赛，日本出局")
+        : norwayChineseCatchUpItem?.subtitle.includes("埃尔林·哈兰德在86'打入制胜球") &&
+          norwayChineseCatchUpItem?.subtitle.includes("挪威晋级16强赛，科特迪瓦出局")) &&
       !/\b(?:put|before|opened|finished|winner|settled|reached|Round of 16|exited|chased|scoring)\b/i.test(knockoutChineseSubtitleText),
     "Chinese knockout catch-up should localize generated story and advancement standouts without leftover English result grammar."
   );
