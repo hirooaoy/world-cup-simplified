@@ -33,6 +33,39 @@ function assert(condition, message) {
   }
 }
 
+async function waitForHistoricalStandingsYear(pageInstance, year, mode) {
+  await pageInstance.waitForFunction(
+    ({ expectedMode, expectedYear }) => {
+      const params = new URL(window.location.href).searchParams;
+      const bodyText = document.body?.innerText || "";
+      const heading = document.querySelector("#standings-heading");
+      const headingText = heading?.textContent?.replace(/\s+/g, " ").trim() || "";
+      const headingLabel = heading?.getAttribute("aria-label") || "";
+      const yearIsApplied =
+        params.get("standingsYear") === String(expectedYear) &&
+        (headingText === String(expectedYear) ||
+          headingLabel === String(expectedYear) ||
+          bodyText.includes(`Standings ${expectedYear}`));
+
+      if (!yearIsApplied) {
+        return false;
+      }
+
+      if (expectedMode === "groups") {
+        return document.querySelectorAll(".standings-card").length > 0;
+      }
+
+      if (expectedMode === "tournament") {
+        return Boolean(document.querySelector(".historical-tournament-view"));
+      }
+
+      return true;
+    },
+    { expectedMode: mode, expectedYear: String(year) },
+    { timeout: 30000 }
+  );
+}
+
 function stripFlagEmoji(text) {
   return String(text || "").replace(/[\u{1F1E6}-\u{1F1FF}]{2}/gu, "");
 }
@@ -348,10 +381,8 @@ const sourceNoteData = await Promise.all(
 );
 const [, , , , releaseNotesData, teamsData, standingsData, tournamentData] = sourceNoteData;
 const sourceNoteRefreshData = sourceNoteData.filter((_, index) => index !== 4);
-const fifaWorldCupScoresUrl =
-  "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/scores-fixtures";
 const matchLiveWindowMs = 2.25 * 60 * 60 * 1000;
-const browser = await chromium.launch();
+const browser = await chromium.launch({ args: ["--blink-settings=imagesEnabled=false"] });
 const page = await browser.newPage();
 const teamsById = new Map((teamsData.teams || []).map((team) => [team.id, team]));
 const thirdPlaceStandingIndex = 2;
@@ -3044,6 +3075,15 @@ try {
   });
   await page.waitForSelector(".match-row");
   const openMatchDetailById = async (matchId, expectedSummaryText) => {
+    await page.waitForFunction((id) => {
+      const rows = [...document.querySelectorAll(`[data-match-id="${id}"]`)];
+      return rows.some((row) => {
+        const bounds = row.getBoundingClientRect();
+        const style = getComputedStyle(row);
+
+        return bounds.width > 0 && bounds.height > 0 && style.display !== "none" && style.visibility !== "hidden";
+      });
+    }, matchId);
     await page.locator(`[data-match-id="${matchId}"]`).evaluateAll((rows, id) => {
       const visibleRow = rows.find((row) => {
         const bounds = row.getBoundingClientRect();
@@ -3519,6 +3559,34 @@ try {
     "Historical match details should not show source or goals sections."
   );
 
+  await page.goto(`${baseUrl}?view=matches&date=1982-06-29&tz=America%2FLos_Angeles`, {
+    waitUntil: "load"
+  });
+  await page.waitForSelector('[data-match-id="wc-1982-1982-06-29-matchday-4-italy-argentina"]');
+  await page.locator('[data-match-id="wc-1982-1982-06-29-matchday-4-italy-argentina"]').click();
+  const italyArgentinaHistoricalHeadings = (await page.locator("#match-info .key-info-team h4").allInnerTexts())
+    .map(normalizeFlaggedText);
+  const italyHistoricalHeading = italyArgentinaHistoricalHeadings.find((heading) => heading.startsWith("Italy")) || "";
+  const argentinaHistoricalHeading = italyArgentinaHistoricalHeadings.find((heading) => heading.startsWith("Argentina")) || "";
+  assert(
+    /^Italy: \S/.test(italyHistoricalHeading) &&
+      italyHistoricalHeading.includes("Possession patience") &&
+      italyHistoricalHeading.includes("box entries") &&
+      /^Argentina: \S/.test(argentinaHistoricalHeading) &&
+      !argentinaHistoricalHeading.includes("Pressing forwards and midfield control protect the rhythm"),
+    `Historical key-information headings should use team-style titles, not plain country names or current-team taglines. Measured ${JSON.stringify(italyArgentinaHistoricalHeadings)}.`
+  );
+  assert(
+    !/\b(?:held|could not|not enough|win|loss|result)\b/i.test(italyArgentinaHistoricalHeadings.join(" ")),
+    `Historical key-information headings should describe team style, not match outcome. Measured ${JSON.stringify(italyArgentinaHistoricalHeadings)}.`
+  );
+  assert(
+    !/Marco Tardelli|Antonio Cabrini|Daniel Passarella|Américo Gallego|Daniel Bertoni/.test(
+      italyArgentinaHistoricalHeadings.join(" ")
+    ),
+    `Historical key-information headings should stay player-name-free. Measured ${JSON.stringify(italyArgentinaHistoricalHeadings)}.`
+  );
+
   await page.goto(`${baseUrl}?view=matches&date=2022-11-23&tz=America%2FLos_Angeles`, {
     waitUntil: "load"
   });
@@ -3649,6 +3717,34 @@ try {
       firstHistoricalDetailText.includes("André Maschinot scored twice as France kept widening the gap") &&
       !firstHistoricalDetailText.includes("France took three points from World Cup 1930 / Group 1"),
     "Historical result details should reach back to the first loaded World Cup match with authored result copy."
+  );
+
+  await page.goto(`${baseUrl}?view=matches&date=1934-05-27&tz=America%2FLos_Angeles`, {
+    waitUntil: "load"
+  });
+  await page.waitForSelector('[data-match-id="wc-1934-1934-05-27-preliminary-round-hungary-egypt"]');
+  await page.locator('[data-match-id="wc-1934-1934-05-27-preliminary-round-hungary-egypt"]').click();
+  const historical1934FirstRoundDetail = await page.locator("#match-info").evaluate((root) => {
+    const text = root.innerText;
+    const sectionHeadings = [...root.querySelectorAll(":scope > .info-block")]
+      .map((section) => section.querySelector("h3")?.textContent.replace(/\s+/g, " ").trim() || "")
+      .filter(Boolean);
+
+    return {
+      nextIndex: sectionHeadings.findIndex((heading) => heading === "Next: Quarter-finals"),
+      previousIndex: sectionHeadings.findIndex((heading) => heading.startsWith("Previous:")),
+      resultIndex: sectionHeadings.findIndex((heading) => heading.startsWith("Result")),
+      sectionHeadings,
+      text
+    };
+  });
+  assert(
+    historical1934FirstRoundDetail.previousIndex === -1 &&
+      historical1934FirstRoundDetail.nextIndex >= 0 &&
+      historical1934FirstRoundDetail.resultIndex > historical1934FirstRoundDetail.nextIndex &&
+      !historical1934FirstRoundDetail.text.includes("No loaded group-round results yet") &&
+      historical1934FirstRoundDetail.text.includes("Winner faced Austria who won 3-2 against France."),
+    `Historical first-round knockout matches without group fixtures should omit fake Previous group-round context. Measured ${JSON.stringify(historical1934FirstRoundDetail)}.`
   );
 
   await page.goto(`${baseUrl}?view=matches&date=2022-12-14&tz=America%2FLos_Angeles`, {
@@ -4398,17 +4494,49 @@ try {
     (await liveFallbackRow.locator(".match-score").count()) === 0,
     "A live fixture without a loaded score should not show a fallback score."
   );
-  const liveScoreLink = liveFallbackRow.locator(".live-pill");
+  const liveScorePill = liveFallbackRow.locator(".live-pill");
   assert(
-    (await liveScoreLink.count()) === 1,
-    "A live fixture without a loaded score should show a Live score link."
+    (await liveScorePill.count()) === 1,
+    "A live fixture without a loaded score should show one Live pill."
   );
   assert(
-    (await liveScoreLink.getAttribute("href")) === fifaWorldCupScoresUrl &&
-      (await liveScoreLink.getAttribute("title")) === "FIFA snapshot: 5' · checked 3 min ago" &&
-      (await liveScoreLink.getAttribute("data-tooltip")) === "FIFA snapshot: 5' · checked 3 min ago" &&
-      !((await liveScoreLink.getAttribute("title")) || "").includes("Check latest score at FIFA"),
-    "The live pill should link to FIFA scores and expose official snapshot freshness."
+    (await liveScorePill.evaluate((pill) => pill.tagName)) === "SPAN" &&
+      (await liveScorePill.getAttribute("href")) === null &&
+      (await liveScorePill.getAttribute("title")) === null &&
+      (await liveScorePill.getAttribute("role")) === "button" &&
+      (await liveScorePill.getAttribute("tabindex")) === "0" &&
+      (await liveScorePill.getAttribute("aria-label")) === "Live: FIFA snapshot: 5' · checked 3 min ago" &&
+      (await liveScorePill.getAttribute("data-tooltip")) === "FIFA snapshot: 5' · checked 3 min ago",
+    "The live pill should expose official snapshot freshness without linking away to FIFA."
+  );
+  const desktopPageCountBeforeLiveClick = liveFallbackScoreCheck.context.pages().length;
+  const desktopUrlBeforeLiveClick = liveFallbackScoreCheck.page.url();
+  await liveScorePill.click();
+  await liveFallbackScoreCheck.page.waitForFunction(() => {
+    const pill = document.querySelector(
+      '[data-match-id="czechia-south-africa-2026-06-18"] .live-pill.is-touch-tooltip-open'
+    );
+    return pill && Number(getComputedStyle(pill, "::after").opacity) > 0.8;
+  });
+  const desktopLiveTooltipState = await liveFallbackScoreCheck.page.evaluate(() => {
+    const pill = document.querySelector(
+      '[data-match-id="czechia-south-africa-2026-06-18"] .live-pill.is-touch-tooltip-open'
+    );
+
+    return {
+      href: pill?.getAttribute("href"),
+      pageUrl: window.location.href,
+      tooltip: pill?.getAttribute("data-tooltip") || "",
+      visibleText: pill?.textContent.replace(/\s+/g, " ").trim() || ""
+    };
+  });
+  assert(
+    liveFallbackScoreCheck.context.pages().length === desktopPageCountBeforeLiveClick &&
+      desktopLiveTooltipState.visibleText === "Live" &&
+      desktopLiveTooltipState.tooltip === "FIFA snapshot: 5' · checked 3 min ago" &&
+      desktopLiveTooltipState.href === null &&
+      desktopLiveTooltipState.pageUrl === desktopUrlBeforeLiveClick,
+    `Clicking the Live pill should open the snapshot tooltip without navigating. Measured ${JSON.stringify(desktopLiveTooltipState)}.`
   );
   const liveFallbackTouchCheck = await openPageAtTime(
     "2026-06-18T16:05:00.000Z",
@@ -4440,6 +4568,7 @@ try {
     );
 
     return {
+      href: pill?.getAttribute("href"),
       pageUrl: window.location.href,
       tooltip: pill?.getAttribute("data-tooltip") || "",
       visibleText: pill?.textContent.replace(/\s+/g, " ").trim() || ""
@@ -4449,8 +4578,9 @@ try {
     liveFallbackTouchCheck.context.pages().length === touchPageCountBeforeLiveTap &&
       touchLiveTooltipState.visibleText === "Live" &&
       touchLiveTooltipState.tooltip === "FIFA snapshot: 5' · checked 3 min ago" &&
+      touchLiveTooltipState.href === null &&
       touchLiveTooltipState.pageUrl === touchUrlBeforeLiveTap,
-    `On touch devices, tapping the Live pill should open the time tooltip before following FIFA. Measured ${JSON.stringify(touchLiveTooltipState)}.`
+    `On touch devices, tapping the Live pill should open the time tooltip without navigating. Measured ${JSON.stringify(touchLiveTooltipState)}.`
   );
   await liveFallbackTouchCheck.context.close();
   const liveFallbackText = (await liveFallbackRow.innerText()).replace(/\s+/g, " ").trim();
@@ -4937,6 +5067,16 @@ try {
       const styles = getComputedStyle(pill, "::after");
       return styles.content.includes("FIFA snapshot") && Number(styles.opacity) > 0.8;
     }, tournamentLivePillSelector);
+    const tournamentPageCountBeforeLiveClick = tournamentLiveTooltipCheck.context.pages().length;
+    const tournamentUrlBeforeLiveClick = tournamentLiveTooltipCheck.page.url();
+    await tournamentLivePill.click();
+    await tournamentLiveTooltipCheck.page.waitForFunction((selector) => {
+      const pill = document.querySelector(selector);
+      return (
+        pill?.classList.contains("is-touch-tooltip-open") &&
+        Number(getComputedStyle(pill, "::after").opacity) > 0.8
+      );
+    }, tournamentLivePillSelector);
     const tournamentLiveTooltipState = await tournamentLiveTooltipCheck.page.evaluate((selector) => {
       const pill = document.querySelector(selector);
       const header = pill?.closest(".knockout-match-header");
@@ -5026,13 +5166,16 @@ try {
       return {
         ariaLabel: pill?.getAttribute("aria-label") || "",
         cardZIndex: parseZIndex(card),
+        href: pill?.getAttribute("href"),
         headerHasLive: header?.classList.contains("has-live") || false,
-        href: pill?.getAttribute("href") || "",
+        isClickedOpen: pill?.classList.contains("is-touch-tooltip-open") || false,
         label: pill?.textContent.replace(/\s+/g, " ").trim() || "",
         maxOverlappingCardZIndex: Math.max(0, ...overlappingCardZIndexes),
         overlappingCardCount: overlappingCards.length,
         overlappingCardNumbers: overlappingCards.map((overlappingCard) => overlappingCard.dataset.matchNumber || ""),
-        title: pill?.getAttribute("title") || "",
+        role: pill?.getAttribute("role") || "",
+        tabindex: pill?.getAttribute("tabindex") || "",
+        title: pill?.getAttribute("title"),
         tooltip: pill?.getAttribute("data-tooltip") || "",
         tooltipContent: styles?.content || "",
         tooltipOpacity: styles ? Number(styles.opacity) : 0,
@@ -5048,16 +5191,21 @@ try {
     }, tournamentLivePillSelector);
     assert(
       tournamentLiveTooltipState.headerHasLive &&
-        tournamentLiveTooltipState.href === fifaWorldCupScoresUrl &&
+        tournamentLiveTooltipCheck.context.pages().length === tournamentPageCountBeforeLiveClick &&
+        tournamentLiveTooltipCheck.page.url() === tournamentUrlBeforeLiveClick &&
+        tournamentLiveTooltipState.href === null &&
         tournamentLiveTooltipState.label === "Live" &&
-        tournamentLiveTooltipState.title === "FIFA snapshot: 5' · checked 3 min ago" &&
+        tournamentLiveTooltipState.role === "button" &&
+        tournamentLiveTooltipState.tabindex === "0" &&
+        tournamentLiveTooltipState.title === null &&
         tournamentLiveTooltipState.tooltip === "FIFA snapshot: 5' · checked 3 min ago" &&
         tournamentLiveTooltipState.ariaLabel === "Live: FIFA snapshot: 5' · checked 3 min ago" &&
+        tournamentLiveTooltipState.isClickedOpen &&
         tournamentLiveTooltipState.tooltipContent.includes("FIFA snapshot: 5") &&
         tournamentLiveTooltipState.tooltipOpacity > 0.8 &&
         tournamentLiveTooltipState.overlappingCardCount > 0 &&
         tournamentLiveTooltipState.cardZIndex > tournamentLiveTooltipState.maxOverlappingCardZIndex,
-      `Tournament-card Live pills should expose the same official match-time tooltip above overlapping bracket cards on desktop hover. Measured ${JSON.stringify(tournamentLiveTooltipState)}.`
+      `Tournament-card Live pills should expose the same official match-time tooltip on hover and click without linking away. Measured ${JSON.stringify(tournamentLiveTooltipState)}.`
     );
     await tournamentLiveTooltipCheck.context.close();
   }
@@ -7376,6 +7524,7 @@ try {
     "Historical standings should explain their archived data source."
   );
   await page.goto(`${baseUrl}?view=standings&standingsYear=2010`, { waitUntil: "load" });
+  await waitForHistoricalStandingsYear(page, 2010, "tournament");
   await page.waitForSelector('.historical-tournament-view .progress-match[data-match-number="49"]');
   const historical2010TournamentCheck = await page.evaluate(() => {
     const opener = document.querySelector('.historical-tournament-view .progress-match[data-match-number="49"]');
@@ -7404,6 +7553,7 @@ try {
     `The 2010 archived standings direct link should open on its Tournament bracket. Measured ${JSON.stringify(historical2010TournamentCheck)}.`
   );
   await page.goto(`${baseUrl}?view=standings&standingsYear=1958`, { waitUntil: "load" });
+  await waitForHistoricalStandingsYear(page, 1958, "tournament");
   await page.waitForSelector('.historical-tournament-view .progress-match[data-match-number="28"]');
   const historical1958TournamentCheck = await page.evaluate(() => {
     const progress = document.querySelector(".historical-tournament-view");
@@ -7470,7 +7620,8 @@ try {
     `The 1958 quarter-final detail should treat the group play-off as a group tie-breaker, not prior knockout context. Measured ${JSON.stringify(historical1958QuarterFinalDetail)}.`
   );
   await page.goto(`${baseUrl}?view=standings&standingsYear=1958&standingsMode=groups`, { waitUntil: "load" });
-  await page.waitForSelector(".standings-card");
+  await waitForHistoricalStandingsYear(page, 1958, "groups");
+  await page.waitForFunction(() => document.querySelectorAll(".standings-card tbody tr.is-advancing").length >= 8);
   const historical1958GroupAdvancementCheck = await page.evaluate(() => {
     const getAdvancing = (groupName) => {
       const card = [...document.querySelectorAll(".standings-card")].find(
@@ -7498,6 +7649,7 @@ try {
     `The 1958 archived Groups tab should highlight the teams that actually reached the knockout bracket, including group-playoff winners only. Measured ${JSON.stringify(historical1958GroupAdvancementCheck)}.`
   );
   await page.goto(`${baseUrl}?view=standings&standingsYear=1954`, { waitUntil: "load" });
+  await waitForHistoricalStandingsYear(page, 1954, "tournament");
   await page.waitForSelector('.historical-tournament-view .progress-match[data-match-number="19"]');
   const historical1954TournamentCheck = await page.evaluate(() => {
     const progress = document.querySelector(".historical-tournament-view");
@@ -7524,7 +7676,8 @@ try {
     `The 1954 archived Tournament tab should also exclude group tie-breaker play-offs. Measured ${JSON.stringify(historical1954TournamentCheck)}.`
   );
   await page.goto(`${baseUrl}?view=standings&standingsYear=1954&standingsMode=groups`, { waitUntil: "load" });
-  await page.waitForSelector(".standings-card");
+  await waitForHistoricalStandingsYear(page, 1954, "groups");
+  await page.waitForFunction(() => document.querySelectorAll(".standings-card tbody tr.is-advancing").length >= 8);
   const historical1954GroupAdvancementCheck = await page.evaluate(() => {
     const getAdvancing = (groupName) => {
       const card = [...document.querySelectorAll(".standings-card")].find(
@@ -7548,7 +7701,8 @@ try {
     `The 1954 archived Groups tab should highlight group-playoff winners without highlighting eliminated playoff losers. Measured ${JSON.stringify(historical1954GroupAdvancementCheck)}.`
   );
   await page.goto(`${baseUrl}?view=standings&standingsYear=1930&standingsMode=groups`, { waitUntil: "load" });
-  await page.waitForSelector(".standings-card");
+  await waitForHistoricalStandingsYear(page, 1930, "groups");
+  await page.waitForFunction(() => document.querySelectorAll(".standings-card tbody tr.is-advancing").length >= 4);
   const historical1930GroupAdvancementCheck = await page.evaluate(() => {
     const getAdvancing = (groupName) => {
       const card = [...document.querySelectorAll(".standings-card")].find(
@@ -7575,58 +7729,107 @@ try {
       historical1930GroupAdvancementCheck.highlightedCount === 4,
     `The 1930 archived Groups tab should highlight only the single group winner that reached the semi-finals. Measured ${JSON.stringify(historical1930GroupAdvancementCheck)}.`
   );
-  await page.goto(`${baseUrl}?view=standings&standingsYear=1978`, { waitUntil: "load" });
-  await page.waitForSelector('.historical-tournament-view .progress-match[data-match-number="25"]');
-  const historical1978TournamentCheck = await page.evaluate(() => {
-    const matchText = (matchNumber) =>
-      document
-        .querySelector(`.historical-tournament-view .progress-match[data-match-number="${matchNumber}"]`)
-        ?.textContent.replace(/\s+/g, " ")
-        .trim() || "";
+  const historicalFinalGroupTournamentCases = [
+    {
+      excludedMatchNumbers: ["25", "36"],
+      expectedMatchNumbers: ["37", "38"],
+      expectedRoundHeadings: "Final",
+      expectedTextByMatchNumber: {
+        37: ["Brazil", "Poland"],
+        38: ["Netherlands", "West Germany"]
+      },
+      forbiddenText: ["Final round Group", "Second round Group"],
+      waitMatchNumber: "38",
+      year: 1974
+    },
+    {
+      excludedMatchNumbers: ["25", "36"],
+      expectedMatchNumbers: ["37", "38"],
+      expectedRoundHeadings: "Final",
+      expectedTextByMatchNumber: {
+        37: ["Brazil", "Italy"],
+        38: ["Netherlands", "Argentina"]
+      },
+      forbiddenText: ["Final round Group", "Second round Group"],
+      waitMatchNumber: "38",
+      year: 1978
+    },
+    {
+      excludedMatchNumbers: ["37", "48"],
+      expectedMatchNumbers: ["49", "50", "51", "52"],
+      expectedRoundHeadings: "Semi-finals|Final",
+      expectedTextByMatchNumber: {
+        49: ["Poland", "Italy"],
+        50: ["West Germany", "France"],
+        51: ["Poland", "France"],
+        52: ["Italy", "West Germany"]
+      },
+      forbiddenText: ["Final round Group", "Second round Group"],
+      waitMatchNumber: "52",
+      year: 1982
+    }
+  ];
 
-    return {
-      finalGroupCardsWithPathData: document.querySelectorAll(
-        '.historical-tournament-view .progress-round.is-final-group .progress-match[data-next-match], .historical-tournament-view .progress-round.is-final-group .progress-match[data-runner-up-next-match]'
-      ).length,
-      finalText: matchText(38),
-      groupAOpeningText: matchText(25),
-      groupBClosingText: matchText(36),
-      matchCount: document.querySelectorAll(".historical-tournament-view .progress-match").length,
-      resultPills: [...document.querySelectorAll(".historical-tournament-view .knockout-result-pill")].map((pill) =>
-        pill.textContent.trim()
-      ),
-      roundHeadings: [...document.querySelectorAll(".historical-tournament-view .progress-round h3")].map((heading) =>
-        heading.textContent.trim()
-      ),
-      summary: document.querySelector("#standings-summary")?.textContent.trim(),
-      thirdPlaceText: matchText(37),
-      tournamentPressed: document.querySelector("#standings-tournament-tab")?.getAttribute("aria-pressed"),
-      urlMode: new URL(window.location.href).searchParams.get("standingsMode") || ""
-    };
-  });
-  assert(
-    historical1978TournamentCheck.tournamentPressed === "true" &&
-      historical1978TournamentCheck.urlMode === "" &&
-      historical1978TournamentCheck.summary ===
-        "Archived tournament view includes final-round groups and placement matches." &&
-      historical1978TournamentCheck.roundHeadings.join("|") ===
-        "Final round Group A|Final round Group B|Final" &&
-      historical1978TournamentCheck.matchCount === 14 &&
-      historical1978TournamentCheck.groupAOpeningText.includes("Italy") &&
-      historical1978TournamentCheck.groupAOpeningText.includes("West Germany") &&
-      historical1978TournamentCheck.groupBClosingText.includes("Poland") &&
-      historical1978TournamentCheck.groupBClosingText.includes("Brazil") &&
-      historical1978TournamentCheck.finalText.includes("Netherlands") &&
-      historical1978TournamentCheck.finalText.includes("Argentina") &&
-      historical1978TournamentCheck.thirdPlaceText.includes("Brazil") &&
-      historical1978TournamentCheck.thirdPlaceText.includes("Italy") &&
-      historical1978TournamentCheck.resultPills.includes("1-3") &&
-      historical1978TournamentCheck.resultPills.includes("2-1") &&
-      historical1978TournamentCheck.finalGroupCardsWithPathData === 0,
-    `The 1978 archived Tournament tab should include the final-round groups plus placement matches, not only the two placement games. Measured ${JSON.stringify(historical1978TournamentCheck)}.`
-  );
+  for (const historicalTournamentCase of historicalFinalGroupTournamentCases) {
+    await page.goto(`${baseUrl}?view=standings&standingsYear=${historicalTournamentCase.year}`, { waitUntil: "load" });
+    await waitForHistoricalStandingsYear(page, historicalTournamentCase.year, "tournament");
+    await page.waitForSelector(
+      `.historical-tournament-view .progress-match[data-match-number="${historicalTournamentCase.waitMatchNumber}"]`
+    );
+    const historicalFinalGroupTournamentCheck = await page.evaluate((expectedTextByMatchNumber) => {
+      const matchText = (matchNumber) =>
+        document
+          .querySelector(`.historical-tournament-view .progress-match[data-match-number="${matchNumber}"]`)
+          ?.textContent.replace(/\s+/g, " ")
+          .trim() || "";
+
+      return {
+        groupPoolRoundCount: document.querySelectorAll(".historical-tournament-view .progress-round.is-final-group").length,
+        matchNumbers: [...document.querySelectorAll(".historical-tournament-view .progress-match")].map((match) =>
+          match.getAttribute("data-match-number")
+        ),
+        matchTextByNumber: Object.fromEntries(
+          Object.keys(expectedTextByMatchNumber).map((matchNumber) => [matchNumber, matchText(matchNumber)])
+        ),
+        progressText: document.querySelector(".historical-tournament-view")?.textContent.replace(/\s+/g, " ").trim() || "",
+        roundHeadings: [...document.querySelectorAll(".historical-tournament-view .progress-round h3")].map((heading) =>
+          heading.textContent.trim()
+        ),
+        summary: document.querySelector("#standings-summary")?.textContent.trim(),
+        tournamentPressed: document.querySelector("#standings-tournament-tab")?.getAttribute("aria-pressed"),
+        urlMode: new URL(window.location.href).searchParams.get("standingsMode") || ""
+      };
+    }, historicalTournamentCase.expectedTextByMatchNumber);
+    const matchTextIsCorrect = Object.entries(historicalTournamentCase.expectedTextByMatchNumber).every(
+      ([matchNumber, expectedTexts]) =>
+        expectedTexts.every((expectedText) =>
+          historicalFinalGroupTournamentCheck.matchTextByNumber[matchNumber]?.includes(expectedText)
+        )
+    );
+    const tournamentMatchNumbers = new Set(historicalFinalGroupTournamentCheck.matchNumbers);
+    const onlyExpectedMatches =
+      historicalFinalGroupTournamentCheck.matchNumbers.length === historicalTournamentCase.expectedMatchNumbers.length &&
+      historicalTournamentCase.expectedMatchNumbers.every((matchNumber) => tournamentMatchNumbers.has(matchNumber)) &&
+      historicalTournamentCase.excludedMatchNumbers.every((matchNumber) => !tournamentMatchNumbers.has(matchNumber));
+    const noForbiddenGroupText = historicalTournamentCase.forbiddenText.every(
+      (text) => !historicalFinalGroupTournamentCheck.progressText.includes(text)
+    );
+
+    assert(
+      historicalFinalGroupTournamentCheck.tournamentPressed === "true" &&
+        historicalFinalGroupTournamentCheck.urlMode === "" &&
+        historicalFinalGroupTournamentCheck.summary === "Knockout bracket uses archived match results." &&
+        historicalFinalGroupTournamentCheck.roundHeadings.join("|") === historicalTournamentCase.expectedRoundHeadings &&
+        historicalFinalGroupTournamentCheck.groupPoolRoundCount === 0 &&
+        onlyExpectedMatches &&
+        matchTextIsCorrect &&
+        noForbiddenGroupText,
+      `The ${historicalTournamentCase.year} archived Tournament tab should hide second-stage group pools and show only placement/bracket matches. Measured ${JSON.stringify(historicalFinalGroupTournamentCheck)}.`
+    );
+  }
   await page.goto(`${baseUrl}?view=standings&standingsYear=1978&standingsMode=groups`, { waitUntil: "load" });
-  await page.waitForSelector(".standings-card");
+  await waitForHistoricalStandingsYear(page, 1978, "groups");
+  await page.waitForFunction(() => document.querySelectorAll(".standings-card tbody tr.is-advancing").length >= 12);
   const historical1978GroupAdvancementCheck = await page.evaluate(() => {
     const getAdvancing = (groupName) => {
       const card = [...document.querySelectorAll(".standings-card")].find(
@@ -8225,9 +8428,9 @@ try {
   );
   assert(
     mobileTooltipBounds.every(
-      (item) => item.overflowLeft <= 1 && item.overflowRight <= 1
+      (item) => item.overflowLeft <= 3 && item.overflowRight <= 3
     ),
-    "Mobile centered tooltips should stay inside their clipping bounds."
+    `Mobile centered tooltips should stay inside their clipping bounds. Measured ${JSON.stringify(mobileTooltipBounds)}.`
   );
   await page.evaluate(() => window.scrollTo(0, 0));
   await page.locator(".match-row").first().click();

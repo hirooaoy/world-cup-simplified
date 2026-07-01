@@ -22,8 +22,13 @@ const requestDelayMs = Number(process.env.HISTORICAL_IMAGE_REQUEST_DELAY_MS || 1
 const requestTimeoutMs = Number(process.env.HISTORICAL_IMAGE_REQUEST_TIMEOUT_MS || 20000);
 const requestMaxAttempts = Number(process.env.HISTORICAL_IMAGE_REQUEST_MAX_ATTEMPTS || 5);
 const lookupLimit = Number(process.env.HISTORICAL_IMAGE_LOOKUP_LIMIT || 0);
+const batchLookupSize = Math.min(50, Math.max(1, Number(process.env.HISTORICAL_IMAGE_BATCH_SIZE || 50)));
 const dryRun = process.argv.includes("--dry-run");
 const finalSemiTargetsOnly = process.argv.includes("--final-semi-targets");
+const exactTitleOnly = process.argv.includes("--exact-title-only");
+const exactTitleBatch = process.argv.includes("--exact-title-batch");
+const exactTitleVariants = process.argv.includes("--exact-title-variants");
+const wikidataP18Batch = process.argv.includes("--wikidata-p18-batch");
 const allWikimediaLookup = process.argv.includes("--all") || process.env.HISTORICAL_IMAGE_CURATED_ONLY === "0";
 const curatedOnly = !allWikimediaLookup;
 const apiUserAgent = "WorldCupSimplified/0.1 (local historical player image enrichment)";
@@ -401,16 +406,140 @@ const curatedCommonsFileOverrides = new Map(
 );
 
 const rejectedCommonsImageFileKeys = [
+  "Alexander Wood, Brentford FC footballer, 1928.jpg",
   "Belgium vs ussr 1986.jpg",
+  "Jim Brown (1961) (cropped).jpg",
   "Maradona vs belgium world cup 1986.jpg",
   "Rudolf Noack.jpg",
   "Slavia Prague 1930. Champions of the football league.jpg",
   "USA team line up 13 July.jpg",
-  "Velez equipo 1995apertura.jpg"
+  "Velez equipo 1995apertura.jpg",
+  "Yugoslavia nationalteam 1930.jpg"
 ].map((fileName) => normalizePlayerName(fileName));
+const groupImageIndicatorKeys = [
+  "club team",
+  "group photograph",
+  "group photographs",
+  "line up",
+  "lineup",
+  "squad",
+  "team photo",
+  "teams of",
+  "equipo"
+].map((value) => normalizePlayerName(value));
+const titleDisambiguatorsByTeamKey = new Map(
+  [
+    ["Algeria", ["Algerian"]],
+    ["Angola", ["Angolan"]],
+    ["Argentina", ["Argentine", "Argentinian"]],
+    ["Australia", ["Australian soccer player"]],
+    ["Austria", ["Austrian"]],
+    ["Belgium", ["Belgian"]],
+    ["Bolivia", ["Bolivian"]],
+    ["Brazil", ["Brazilian"]],
+    ["Bulgaria", ["Bulgarian"]],
+    ["Cameroon", ["Cameroonian"]],
+    ["Canada", ["Canadian soccer player"]],
+    ["Chile", ["Chilean"]],
+    ["China", ["Chinese"]],
+    ["Colombia", ["Colombian"]],
+    ["Costa Rica", ["Costa Rican"]],
+    ["Croatia", ["Croatian"]],
+    ["Cuba", ["Cuban"]],
+    ["Czechoslovakia", ["Czechoslovak", "Czech", "Slovak"]],
+    ["Côte d'Ivoire", ["Ivorian"]],
+    ["Denmark", ["Danish"]],
+    ["Dutch East Indies", ["Dutch East Indies", "Indonesian"]],
+    ["East Germany", ["East German", "German"]],
+    ["Ecuador", ["Ecuadorian"]],
+    ["Egypt", ["Egyptian"]],
+    ["El Salvador", ["Salvadoran"]],
+    ["England", ["English"]],
+    ["France", ["French"]],
+    ["Germany", ["German"]],
+    ["Greece", ["Greek"]],
+    ["Haiti", ["Haitian"]],
+    ["Honduras", ["Honduran"]],
+    ["Hungary", ["Hungarian"]],
+    ["Iran", ["Iranian"]],
+    ["Iraq", ["Iraqi"]],
+    ["Ireland", ["Irish"]],
+    ["Israel", ["Israeli"]],
+    ["Italy", ["Italian"]],
+    ["Jamaica", ["Jamaican"]],
+    ["Japan", ["Japanese"]],
+    ["Kuwait", ["Kuwaiti"]],
+    ["Mexico", ["Mexican"]],
+    ["Morocco", ["Moroccan"]],
+    ["Netherlands", ["Dutch"]],
+    ["New Zealand", ["New Zealand soccer player"]],
+    ["Nigeria", ["Nigerian"]],
+    ["North Korea", ["North Korean"]],
+    ["Northern Ireland", ["Northern Irish"]],
+    ["Norway", ["Norwegian"]],
+    ["Panama", ["Panamanian"]],
+    ["Paraguay", ["Paraguayan"]],
+    ["Peru", ["Peruvian"]],
+    ["Poland", ["Polish"]],
+    ["Portugal", ["Portuguese"]],
+    ["Romania", ["Romanian"]],
+    ["Russia", ["Russian"]],
+    ["Saudi Arabia", ["Saudi Arabian"]],
+    ["Scotland", ["Scottish"]],
+    ["Senegal", ["Senegalese"]],
+    ["Serbia and Montenegro", ["Serbian", "Montenegrin"]],
+    ["Slovakia", ["Slovak"]],
+    ["Slovenia", ["Slovenian"]],
+    ["South Africa", ["South African"]],
+    ["South Korea", ["South Korean"]],
+    ["Soviet Union", ["Soviet"]],
+    ["Spain", ["Spanish"]],
+    ["Sweden", ["Swedish"]],
+    ["Switzerland", ["Swiss"]],
+    ["Togo", ["Togolese"]],
+    ["Trinidad and Tobago", ["Trinidad and Tobago", "Trinidadian"]],
+    ["Tunisia", ["Tunisian"]],
+    ["Turkey", ["Turkish"]],
+    ["USA", ["American soccer player"]],
+    ["United Arab Emirates", ["Emirati"]],
+    ["United States", ["American soccer player"]],
+    ["Uruguay", ["Uruguayan"]],
+    ["Wales", ["Welsh"]],
+    ["West Germany", ["West German", "German"]],
+    ["Yugoslavia", ["Yugoslav", "Serbian", "Croatian", "Slovenian", "Bosnian", "Macedonian", "Montenegrin"]],
+    ["Zaire", ["Zairian", "Congolese"]]
+  ].map(([team, values]) => [normalizePlayerName(team), values])
+);
 
 const curatedPriorityByName = new Map([...curatedTitleOverrides.keys()].map((nameKey, index) => [nameKey, index]));
 const curatedImageLookupCache = new Map();
+
+function getProfileImageImportance(profile) {
+  return (
+    Number(profile.goals || 0) * 10000 +
+    Number(profile.scorerMatchCount || 0) * 1000 +
+    Number(profile.keyMatchCount || 0) * 100 +
+    Number(profile.tournamentYear || 0) / 100
+  );
+}
+
+function compareProfileLookupPriority(a, b) {
+  const priorityA = curatedPriorityByName.get(normalizePlayerName(a.name)) ?? Number.MAX_SAFE_INTEGER;
+  const priorityB = curatedPriorityByName.get(normalizePlayerName(b.name)) ?? Number.MAX_SAFE_INTEGER;
+  if ((curatedOnly || finalSemiTargetsOnly) && priorityA !== priorityB) {
+    return priorityA - priorityB;
+  }
+
+  if (!curatedOnly || finalSemiTargetsOnly) {
+    return (
+      getProfileImageImportance(b) - getProfileImageImportance(a) ||
+      String(a.name || "").localeCompare(String(b.name || "")) ||
+      Number(b.tournamentYear || 0) - Number(a.tournamentYear || 0)
+    );
+  }
+
+  return String(a.name || "").localeCompare(String(b.name || ""));
+}
 
 async function readJson(filePath) {
   return JSON.parse(await readFile(filePath, "utf8"));
@@ -766,6 +895,10 @@ function hasJuniorMismatch(profileName, title) {
 }
 
 function isFootballerExtract(extract) {
+  if (/\bamerican football\b/i.test(extract || "") && !/\b(association football|soccer)\b/i.test(extract || "")) {
+    return false;
+  }
+
   return /\b(footballer|football player|football forward|football striker|football winger|football midfielder|football defender|football central defender|football goalkeeper|association football|soccer player|soccer coach|professional soccer|football manager|football coach|football pundit|football administrator|professional football|fifa world cup|played as a)\b/i.test(
     extract || ""
   );
@@ -779,8 +912,8 @@ function hasTeamClue(profile, text) {
   });
 }
 
-function isLikelyPlayerPage(profile, page, overrideTitle = "") {
-  if (!page?.title || !page?.extract || !page?.pageimage) {
+function isLikelyPlayerIdentityPage(profile, page, overrideTitle = "") {
+  if (!page?.title || !page?.extract) {
     return false;
   }
 
@@ -818,6 +951,10 @@ function isLikelyPlayerPage(profile, page, overrideTitle = "") {
   return exactishTitle && (hasTeamClue(profile, page.extract) || page.extract.length >= 120);
 }
 
+function isLikelyPlayerPage(profile, page, overrideTitle = "") {
+  return Boolean(page?.pageimage) && isLikelyPlayerIdentityPage(profile, page, overrideTitle);
+}
+
 function decodeImageReference(value) {
   const reference = String(value || "").replace(/_/g, " ");
   try {
@@ -830,6 +967,31 @@ function decodeImageReference(value) {
 function isRejectedCommonsImageReference(value) {
   const referenceKey = normalizePlayerName(decodeImageReference(value));
   return rejectedCommonsImageFileKeys.some((fileKey) => referenceKey.includes(fileKey));
+}
+
+function getImageMetadataText(imageInfo) {
+  return [
+    imageInfo?.extmetadata?.ObjectName?.value,
+    imageInfo?.extmetadata?.ImageDescription?.value,
+    imageInfo?.extmetadata?.Categories?.value
+  ]
+    .map(stripHtml)
+    .join(" ");
+}
+
+function isLikelyLandscapeGroupImage(fileName, imageInfo) {
+  const width = Number(imageInfo?.width || imageInfo?.thumbwidth || 0);
+  const height = Number(imageInfo?.height || imageInfo?.thumbheight || 0);
+  if (!width || !height || width / height < 1.25) {
+    return false;
+  }
+
+  const imageTextKey = normalizePlayerName(`${decodeImageReference(fileName)} ${getImageMetadataText(imageInfo)}`);
+  return groupImageIndicatorKeys.some((indicatorKey) => imageTextKey.includes(indicatorKey));
+}
+
+function isUnsuitableCommonsImage(fileName, imageInfo) {
+  return isRejectedCommonsImageReference(fileName) || isLikelyLandscapeGroupImage(fileName, imageInfo);
 }
 
 async function fetchWikipedia(params, attempt = 0) {
@@ -893,14 +1055,122 @@ async function fetchPageByTitle(title) {
   const data = await fetchWikipedia({
     redirects: "1",
     titles: title,
-    prop: "pageimages|extracts|info",
+    prop: "pageimages|extracts|info|pageprops",
     piprop: "name|thumbnail",
+    ppprop: "wikibase_item",
     pithumbsize: "330",
     exintro: "1",
     explaintext: "1",
     inprop: "url"
   });
   return getPagesFromQuery(data)[0] || null;
+}
+
+function normalizeWikipediaTitle(value) {
+  return String(value || "").replace(/_/g, " ").trim();
+}
+
+function getProfileTeamNames(profile) {
+  return [
+    profile.teamName,
+    profile.team,
+    ...(Array.isArray(profile.teams) ? profile.teams : [])
+  ].filter((team) => typeof team === "string" && team.trim());
+}
+
+function getTeamTitleDisambiguators(profile) {
+  const values = [];
+  for (const team of getProfileTeamNames(profile)) {
+    values.push(...(titleDisambiguatorsByTeamKey.get(normalizePlayerName(team)) || []));
+  }
+  return [...new Set(values.map((value) => String(value || "").trim()).filter(Boolean))];
+}
+
+function isTeamSpecificExactTitle(profile, title) {
+  const titleKey = normalizePlayerName(title);
+  return getTeamTitleDisambiguators(profile).some((value) => titleKey.includes(normalizePlayerName(value)));
+}
+
+function getExactTitleCandidates(profile) {
+  const name = normalizeWikipediaTitle(profile.name);
+  if (!name) {
+    return [];
+  }
+
+  const titles = [name];
+  if (exactTitleVariants) {
+    titles.push(
+      `${name} (footballer)`,
+      `${name} (soccer)`,
+      `${name} (soccer player)`,
+      `${name} (association footballer)`
+    );
+    for (const disambiguator of getTeamTitleDisambiguators(profile)) {
+      if (/\bsoccer player\b/i.test(disambiguator)) {
+        titles.push(`${name} (${disambiguator})`);
+      } else {
+        titles.push(`${name} (${disambiguator} footballer)`);
+        titles.push(`${name} (${disambiguator} soccer player)`);
+      }
+    }
+  }
+
+  return [...new Set(titles)];
+}
+
+function getCommonsFileKey(fileName) {
+  return normalizePlayerName(String(fileName || "").replace(/^File:/i, "").replace(/_/g, " "));
+}
+
+async function fetchPagesByTitles(titles) {
+  const uniqueTitles = [...new Set(titles.map(normalizeWikipediaTitle).filter(Boolean))];
+  if (!uniqueTitles.length) {
+    return new Map();
+  }
+  if (uniqueTitles.length > 50) {
+    const pagesByRequestedTitle = new Map();
+    for (let start = 0; start < uniqueTitles.length; start += 50) {
+      const chunkPages = await fetchPagesByTitles(uniqueTitles.slice(start, start + 50));
+      for (const [title, page] of chunkPages) {
+        pagesByRequestedTitle.set(title, page);
+      }
+      if (requestDelayMs > 0 && start + 50 < uniqueTitles.length) {
+        await sleep(requestDelayMs);
+      }
+    }
+    return pagesByRequestedTitle;
+  }
+
+  const data = await fetchWikipedia({
+    redirects: "1",
+    titles: uniqueTitles.join("|"),
+    prop: "pageimages|extracts|info|pageprops",
+    piprop: "name|thumbnail",
+    ppprop: "wikibase_item",
+    pithumbsize: "330",
+    exintro: "1",
+    explaintext: "1",
+    inprop: "url"
+  });
+  const pagesByTitle = new Map(getPagesFromQuery(data).map((page) => [normalizeWikipediaTitle(page.title), page]));
+  const normalizedTitles = new Map(
+    (data?.query?.normalized || []).map((entry) => [normalizeWikipediaTitle(entry.from), normalizeWikipediaTitle(entry.to)])
+  );
+  const redirectedTitles = new Map(
+    (data?.query?.redirects || []).map((entry) => [normalizeWikipediaTitle(entry.from), normalizeWikipediaTitle(entry.to)])
+  );
+  const pagesByRequestedTitle = new Map();
+
+  for (const title of uniqueTitles) {
+    const normalizedTitle = normalizedTitles.get(title) || title;
+    const redirectedTitle = redirectedTitles.get(normalizedTitle) || normalizedTitle;
+    const page = pagesByTitle.get(redirectedTitle) || pagesByTitle.get(normalizedTitle) || pagesByTitle.get(title);
+    if (page) {
+      pagesByRequestedTitle.set(title, page);
+    }
+  }
+
+  return pagesByRequestedTitle;
 }
 
 async function searchPages(profile) {
@@ -910,8 +1180,9 @@ async function searchPages(profile) {
     generator: "search",
     gsrsearch: search,
     gsrlimit: "6",
-    prop: "pageimages|extracts|info",
+    prop: "pageimages|extracts|info|pageprops",
     piprop: "name|thumbnail",
+    ppprop: "wikibase_item",
     pithumbsize: "330",
     exintro: "1",
     explaintext: "1",
@@ -925,11 +1196,134 @@ async function fetchImageInfo(fileName) {
   const data = await fetchWikipedia({
     titles: title,
     prop: "imageinfo",
-    iiprop: "url|extmetadata",
+    iiprop: "url|size|extmetadata",
     iiurlwidth: "160"
   });
   const page = getPagesFromQuery(data)[0];
   return page?.imageinfo?.[0] || null;
+}
+
+async function fetchImageInfoByFiles(fileNames) {
+  const uniqueFileNames = [...new Set(fileNames.map((fileName) => String(fileName || "").replace(/^File:/i, "").trim()).filter(Boolean))];
+  if (!uniqueFileNames.length) {
+    return new Map();
+  }
+
+  const data = await fetchWikipedia({
+    titles: uniqueFileNames.map((fileName) => `File:${fileName}`).join("|"),
+    prop: "imageinfo",
+    iiprop: "url|size|extmetadata",
+    iiurlwidth: "160"
+  });
+  const imageInfoByFileKey = new Map();
+  for (const page of getPagesFromQuery(data)) {
+    const imageInfo = page?.imageinfo?.[0] || null;
+    if (imageInfo) {
+      imageInfoByFileKey.set(getCommonsFileKey(page.title), imageInfo);
+    }
+  }
+  return imageInfoByFileKey;
+}
+
+async function fetchWikidataP18ByEntityIds(entityIds) {
+  const uniqueEntityIds = [...new Set(entityIds.filter((entityId) => /^Q\d+$/.test(String(entityId || ""))))];
+  const imageByEntityId = new Map();
+
+  for (let start = 0; start < uniqueEntityIds.length; start += 50) {
+    const chunk = uniqueEntityIds.slice(start, start + 50);
+    const url = new URL("https://www.wikidata.org/w/api.php");
+    url.searchParams.set("action", "wbgetentities");
+    url.searchParams.set("format", "json");
+    url.searchParams.set("origin", "*");
+    url.searchParams.set("ids", chunk.join("|"));
+    url.searchParams.set("props", "claims");
+
+    let response;
+    for (let attempt = 0; attempt <= requestMaxAttempts; attempt += 1) {
+      response = await fetchWithTimeout(url, {
+        headers: {
+          "Api-User-Agent": apiUserAgent,
+          "User-Agent": apiUserAgent
+        }
+      });
+      if (response.status !== 429 || attempt >= requestMaxAttempts) {
+        break;
+      }
+      const retryAfterSeconds = Number(response.headers.get("retry-after") || 0);
+      const backoffMs = retryAfterSeconds > 0 ? retryAfterSeconds * 1000 : 2 ** attempt * 5000;
+      await sleep(backoffMs);
+    }
+    if (!response?.ok) {
+      throw new Error(`Wikidata API request failed: ${response?.status || "unknown"} ${response?.statusText || ""}`);
+    }
+    const data = await response.json();
+    for (const entityId of chunk) {
+      const fileName = data?.entities?.[entityId]?.claims?.P18?.[0]?.mainsnak?.datavalue?.value;
+      if (fileName) {
+        imageByEntityId.set(entityId, fileName);
+      }
+    }
+
+    if (requestDelayMs > 0 && start + 50 < uniqueEntityIds.length) {
+      await sleep(requestDelayMs);
+    }
+  }
+
+  return imageByEntityId;
+}
+
+function createCommonsImageFieldsFromFile(page, fileName, imageInfo) {
+  const pageUrl = page.fullurl || `https://en.wikipedia.org/wiki/${encodeURIComponent(page.title.replace(/ /g, "_"))}`;
+  const descriptionUrl = imageInfo?.descriptionurl || "";
+  if (!descriptionUrl.includes("commons.wikimedia.org/wiki/File:")) {
+    return null;
+  }
+
+  return {
+    imageUrl: getCommonsImageUrl(fileName),
+    imageSource: commonsSourceId,
+    imageSourceUrl: descriptionUrl,
+    imageCredit: stripHtml(imageInfo?.extmetadata?.Artist?.value),
+    imageLicense: stripHtml(
+      imageInfo?.extmetadata?.LicenseShortName?.value ||
+        imageInfo?.extmetadata?.UsageTerms?.value ||
+        imageInfo?.extmetadata?.License?.value
+    ),
+    imagePageTitle: page.title,
+    imagePageUrl: pageUrl
+  };
+}
+
+function createWikimediaImageFields(page, imageInfo) {
+  const pageUrl = page.fullurl || `https://en.wikipedia.org/wiki/${encodeURIComponent(page.title.replace(/ /g, "_"))}`;
+  const descriptionUrl = imageInfo?.descriptionurl || "";
+  if (descriptionUrl.includes("commons.wikimedia.org/wiki/File:")) {
+    return {
+      imageUrl: getCommonsImageUrl(page.pageimage),
+      imageSource: commonsSourceId,
+      imageSourceUrl: descriptionUrl,
+      imageCredit: stripHtml(imageInfo?.extmetadata?.Artist?.value),
+      imageLicense: stripHtml(
+        imageInfo?.extmetadata?.LicenseShortName?.value ||
+          imageInfo?.extmetadata?.UsageTerms?.value ||
+          imageInfo?.extmetadata?.License?.value
+      ),
+      imagePageTitle: page.title,
+      imagePageUrl: pageUrl
+    };
+  }
+
+  if (page.thumbnail?.source) {
+    return {
+      imageUrl: page.thumbnail.source,
+      imageSource: wikipediaSummarySourceId,
+      imageSourceUrl: pageUrl,
+      imagePageTitle: page.title,
+      imagePageUrl: pageUrl
+    };
+  }
+
+  return null;
 }
 
 function createCurrentImageLookup(currentProfilesData) {
@@ -1092,7 +1486,13 @@ async function lookupCommonsImage(profile) {
     const page = await fetchPageByTitle(overrideTitle);
     pages = page ? [page] : [];
   } else {
-    pages = await searchPages(profile);
+    const exactPage = await fetchPageByTitle(profile.name);
+    pages = exactPage ? [exactPage] : [];
+    if (!exactTitleOnly) {
+      const seenPageIds = new Set(pages.map((page) => page.pageid).filter(Boolean));
+      const searchResults = await searchPages(profile);
+      pages.push(...searchResults.filter((page) => !page.pageid || !seenPageIds.has(page.pageid)));
+    }
   }
 
   for (const page of pages) {
@@ -1104,6 +1504,9 @@ async function lookupCommonsImage(profile) {
     }
 
     const imageInfo = await fetchImageInfo(page.pageimage);
+    if (isUnsuitableCommonsImage(page.pageimage, imageInfo)) {
+      continue;
+    }
     const descriptionUrl = imageInfo?.descriptionurl || "";
     if (descriptionUrl.includes("commons.wikimedia.org/wiki/File:")) {
       const imageFields = {
@@ -1143,7 +1546,7 @@ async function lookupCommonsImage(profile) {
   if (overrideFileName) {
     const imageInfo = await fetchImageInfo(overrideFileName);
     const descriptionUrl = imageInfo?.descriptionurl || "";
-    if (descriptionUrl.includes("commons.wikimedia.org/wiki/File:")) {
+    if (!isUnsuitableCommonsImage(overrideFileName, imageInfo) && descriptionUrl.includes("commons.wikimedia.org/wiki/File:")) {
       const imageFields = {
         imageUrl: getCommonsImageUrl(overrideFileName),
         imageSource: commonsSourceId,
@@ -1247,31 +1650,115 @@ const missingProfiles = Object.values(profiles).filter((profile) => {
     return true;
   }
   return curatedTitleOverrides.has(normalizePlayerName(profile.name));
-}).sort((a, b) => {
-  const priorityA = curatedPriorityByName.get(normalizePlayerName(a.name)) ?? Number.MAX_SAFE_INTEGER;
-  const priorityB = curatedPriorityByName.get(normalizePlayerName(b.name)) ?? Number.MAX_SAFE_INTEGER;
-  return priorityA - priorityB || a.name.localeCompare(b.name);
-});
+}).sort(compareProfileLookupPriority);
 const lookupProfiles = lookupLimit > 0 ? missingProfiles.slice(0, lookupLimit) : missingProfiles;
 
-for (const [index, profile] of lookupProfiles.entries()) {
-  try {
-    const imageFields = await lookupCommonsImage(profile);
-    lookedUpCount += 1;
-    if (imageFields?.imageUrl) {
-      applyImageFields(profile, imageFields);
-      wikimediaCount += 1;
+if (exactTitleBatch) {
+  for (let start = 0; start < lookupProfiles.length; start += batchLookupSize) {
+    const chunk = lookupProfiles.slice(start, start + batchLookupSize);
+    try {
+      const titleCandidatesByProfileKey = new Map(
+        chunk.map((profile) => [profile.profileKey, getExactTitleCandidates(profile)])
+      );
+      const pagesByTitle = await fetchPagesByTitles([...titleCandidatesByProfileKey.values()].flat());
+      lookedUpCount += chunk.length;
+
+      const candidates = [];
+      const wikidataCandidates = [];
+      for (const profile of chunk) {
+        let page = null;
+        for (const title of titleCandidatesByProfileKey.get(profile.profileKey) || []) {
+          const candidatePage = pagesByTitle.get(normalizeWikipediaTitle(title));
+          const hasBatchTeamConfidence =
+            candidatePage &&
+            (hasTeamClue(profile, candidatePage.extract) || isTeamSpecificExactTitle(profile, title));
+          if (
+            candidatePage &&
+            isLikelyPlayerIdentityPage(profile, candidatePage) &&
+            (!exactTitleVariants || hasBatchTeamConfidence)
+          ) {
+            page = candidatePage;
+            break;
+          }
+        }
+        if (!page) {
+          continue;
+        }
+        if (isLikelyPlayerPage(profile, page)) {
+          if (isRejectedCommonsImageReference(page.pageimage) || isRejectedCommonsImageReference(page.thumbnail?.source)) {
+            continue;
+          }
+          candidates.push({ profile, page });
+          continue;
+        }
+
+        const entityId = page.pageprops?.wikibase_item;
+        if (wikidataP18Batch && entityId) {
+          wikidataCandidates.push({ profile, page, entityId });
+          continue;
+        }
+      }
+
+      const imageInfoByFileKey = await fetchImageInfoByFiles(candidates.map(({ page }) => page.pageimage));
+      for (const { profile, page } of candidates) {
+        const imageInfo = imageInfoByFileKey.get(getCommonsFileKey(page.pageimage));
+        if (isUnsuitableCommonsImage(page.pageimage, imageInfo)) {
+          continue;
+        }
+        const imageFields = createWikimediaImageFields(page, imageInfo);
+        if (imageFields?.imageUrl) {
+          applyImageFields(profile, imageFields);
+          wikimediaCount += 1;
+        }
+      }
+
+      if (wikidataCandidates.length) {
+        const wikidataImageByEntityId = await fetchWikidataP18ByEntityIds(wikidataCandidates.map(({ entityId }) => entityId));
+        const wikidataImageInfoByFileKey = await fetchImageInfoByFiles([...wikidataImageByEntityId.values()]);
+        for (const { profile, page, entityId } of wikidataCandidates) {
+          const fileName = wikidataImageByEntityId.get(entityId);
+          const imageInfo = wikidataImageInfoByFileKey.get(getCommonsFileKey(fileName));
+          if (!fileName || isUnsuitableCommonsImage(fileName, imageInfo)) {
+            continue;
+          }
+          const imageFields = createCommonsImageFieldsFromFile(page, fileName, imageInfo);
+          if (imageFields?.imageUrl) {
+            applyImageFields(profile, imageFields);
+            wikimediaCount += 1;
+          }
+        }
+      }
+    } catch (error) {
+      lookupFailures.push(`batch ${start + 1}-${start + chunk.length}: ${error.message}`);
     }
-  } catch (error) {
-    lookupFailures.push(`${profile.name}: ${error.message}`);
-  }
 
-  if ((index + 1) % 25 === 0 || index + 1 === lookupProfiles.length) {
-    console.log(`Historical image lookup progress: ${index + 1}/${lookupProfiles.length}`);
-  }
+    const completedCount = Math.min(start + chunk.length, lookupProfiles.length);
+    console.log(`Historical image lookup progress: ${completedCount}/${lookupProfiles.length}`);
 
-  if (requestDelayMs > 0 && index + 1 < lookupProfiles.length) {
-    await sleep(requestDelayMs);
+    if (requestDelayMs > 0 && completedCount < lookupProfiles.length) {
+      await sleep(requestDelayMs);
+    }
+  }
+} else {
+  for (const [index, profile] of lookupProfiles.entries()) {
+    try {
+      const imageFields = await lookupCommonsImage(profile);
+      lookedUpCount += 1;
+      if (imageFields?.imageUrl) {
+        applyImageFields(profile, imageFields);
+        wikimediaCount += 1;
+      }
+    } catch (error) {
+      lookupFailures.push(`${profile.name}: ${error.message}`);
+    }
+
+    if ((index + 1) % 25 === 0 || index + 1 === lookupProfiles.length) {
+      console.log(`Historical image lookup progress: ${index + 1}/${lookupProfiles.length}`);
+    }
+
+    if (requestDelayMs > 0 && index + 1 < lookupProfiles.length) {
+      await sleep(requestDelayMs);
+    }
   }
 }
 
@@ -1338,6 +1825,10 @@ console.log(
       : "",
     `Wikimedia lookups attempted: ${lookedUpCount}.`,
     lookupLimit > 0 ? `Lookup limit applied: ${lookupLimit}.` : "",
+    exactTitleOnly ? "Exact-title-only Wikimedia mode: yes." : "",
+    exactTitleBatch ? `Exact-title batch Wikimedia mode: yes (${batchLookupSize} per batch).` : "",
+    exactTitleVariants ? "Exact-title variant mode: yes." : "",
+    wikidataP18Batch ? "Wikidata P18 fallback mode: yes." : "",
     curatedOnly ? "Curated-only Wikimedia mode: yes." : "",
     lookupFailures.length ? `Lookup failures: ${lookupFailures.slice(0, 8).join("; ")}` : ""
   ]

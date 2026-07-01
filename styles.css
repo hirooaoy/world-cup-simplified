@@ -1788,6 +1788,7 @@ h1 {
 
 .live-pill[data-tooltip],
 .tournament-live-pill[data-tooltip] {
+  cursor: pointer;
   position: relative;
 }
 
@@ -1820,6 +1821,12 @@ h1 {
 .tournament-live-pill[data-tooltip]:focus-visible::after {
   opacity: 1;
   transform: translate(var(--tooltip-transform-x, -50%), 0);
+}
+
+.live-pill[data-tooltip]:focus-visible,
+.tournament-live-pill[data-tooltip]:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
 }
 
 .up-next-pill {
@@ -2473,7 +2480,10 @@ h1 {
 
 .summary-team .team-name {
   min-width: 0;
+  overflow: visible;
   overflow-wrap: anywhere;
+  text-overflow: clip;
+  line-height: 1.12;
   white-space: normal;
 }
 
@@ -4069,7 +4079,8 @@ h1 {
 }
 
 .progress-match.is-openable:has(.tournament-live-pill:hover),
-.progress-match.is-openable:has(.tournament-live-pill:focus-visible) {
+.progress-match.is-openable:has(.tournament-live-pill:focus-visible),
+.progress-match.is-openable:has(.tournament-live-pill.is-touch-tooltip-open) {
   transform: none;
 }
 
@@ -5537,7 +5548,7 @@ h1 {
 .past-record-row.has-label-tooltip.is-touch-tooltip-open::after {
   display: block;
   opacity: 1;
-  transform: translate(-50%, 0);
+  transform: translate(var(--tooltip-transform-x, -50%), 0);
 }
 
 .player-card-value-help.is-touch-tooltip-open::after {
@@ -6871,6 +6882,11 @@ h1 {
 }
 
 @media (max-width: 520px) {
+  .match-summary h2 {
+    font-size: 20px;
+    line-height: 1.08;
+  }
+
   .match-loading-row {
     gap: 0 8px;
   }

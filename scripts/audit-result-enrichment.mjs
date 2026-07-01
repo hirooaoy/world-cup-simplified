@@ -11,6 +11,7 @@ const weakCurrentStoryPattern =
 const weakHistoricalStoryPattern =
   /\b(?:won the shootout \d+-\d+ after a \d+-\d+ draw|survived the shootout after a \d+-\d+ draw|exited after penalties kept|stayed close enough to keep the final minutes tense|stayed locked together until the final whistle|got the decisive details right in a match that stayed tight|closed the result without needing another late twist)\b/i;
 const storyScaffoldPunctuationPattern = /[:\u2013\u2014]|\s-\s/;
+const ambiguousVenueShorthandPattern = /\bthe (?:Azteca|Maracan(?:a|\u00e3)|Bernab(?:e|\u00e9)u|San Siro)\b/i;
 
 async function readJson(fileName) {
   return JSON.parse(await readFile(path.join(dataDir, fileName), "utf8"));
@@ -38,6 +39,10 @@ function weakCurrentStoryBullets(fixture) {
 
 function scaffoldedCurrentStoryBullets(fixture) {
   return resultStoryBullets(fixture).filter((highlight) => storyScaffoldPunctuationPattern.test(highlight));
+}
+
+function ambiguousVenueShorthandCopy(items) {
+  return items.filter((highlight) => ambiguousVenueShorthandPattern.test(highlight));
 }
 
 function weakHistoricalStoryBullets(fixture) {
@@ -193,6 +198,13 @@ for (const fixture of fixturesData.fixtures || []) {
     );
   }
 
+  const ambiguousVenueStories = ambiguousVenueShorthandCopy(momentHighlights);
+  if (ambiguousVenueStories.length) {
+    issues.push(
+      `${fixture.id} (${matchLabel}) has result copy with unclear venue shorthand: ${ambiguousVenueStories.join(" | ")}`
+    );
+  }
+
   if (fixture.scoreDetails?.penalties && !hasShootoutTextureStory(fixture)) {
     issues.push(`${fixture.id} (${matchLabel}) has a shootout recap without a match-texture story.`);
   }
@@ -229,6 +241,13 @@ for (const fixture of historyData.fixtures || []) {
   if (weakStories.length) {
     issues.push(
       `${fixture.id} (${fixture.homeSlot} vs ${fixture.awaySlot}) has weak historical result story copy: ${weakStories.join(" | ")}`
+    );
+  }
+
+  const ambiguousVenueStories = ambiguousVenueShorthandCopy(storyBullets);
+  if (ambiguousVenueStories.length) {
+    issues.push(
+      `${fixture.id} (${fixture.homeSlot} vs ${fixture.awaySlot}) has historical result copy with unclear venue shorthand: ${ambiguousVenueStories.join(" | ")}`
     );
   }
 

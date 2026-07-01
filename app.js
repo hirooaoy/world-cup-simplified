@@ -24,7 +24,7 @@ const OFFICIAL_HIGHLIGHT_VIDEO_CHANNELS = new Map([
 ]);
 const TEAM_SEARCH_URL_UPDATE_DELAY_MS = 180;
 const JUGGLE_BALL_EMOJI = "⚽";
-const JUGGLE_FALL_SPEED = 345;
+const JUGGLE_FALL_SPEED = 420;
 const JUGGLE_GRAVITY = 1060;
 const JUGGLE_POINTER_HIT_RADIUS_MULTIPLIER = 1.55;
 const JUGGLE_TOUCH_HIT_RADIUS_MULTIPLIER = 1.72;
@@ -157,8 +157,6 @@ const ZH_EXACT_TRANSLATIONS = new Map(
       "当前淘汰赛路径会先填入暂时更可能晋级的球队，完赛结果会替换估算。",
     "Knockout bracket uses archived match results.":
       "淘汰赛对阵使用存档比赛结果。",
-    "Archived tournament view includes final-round groups and placement matches.":
-      "存档赛事视图包含决赛轮小组和名次赛。",
     "Round of 32 slots use current standings and remaining projections. Later rounds are predictions.":
       "32强席位使用当前积分榜和剩余预测。后续轮次为预测。",
     "Current score": "当前比分",
@@ -291,7 +289,6 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "Later matches": "后续比赛",
     "Latest changes": "最新更新",
     "Live": "直播",
-    "Live FIFA scores": "FIFA实时比分",
     "Live score": "实时比分",
     "Live status is manually verified and should be refreshed after full time.":
       "实时状态为人工核验，完场后应刷新确认。",
@@ -976,8 +973,8 @@ const ZH_ADDITIONAL_EXACT_TRANSLATIONS = {
     "五次罚失后的点球大战里，萨伊巴里罚入决定性点球，送摩洛哥进入对加拿大的16强赛。",
   "Julian Quinones turned in Alvarado's 22nd-minute delivery, then Raul Jimenez finished Quinones's pass nine minutes later.":
     "基尼奥内斯第22分钟接阿尔瓦拉多传球破门，随后9分钟后又助攻劳尔·希门尼斯扩大比分。",
-  "Mexico's first-half pressure made the Azteca roar, and their defense protected a fourth straight World Cup clean sheet.":
-    "墨西哥的上半场压迫点燃阿兹特克球场，防线则守住本届世界杯连续第四场零封。",
+  "Mexico's first-half pressure lifted the home crowd in Mexico City, and their defense protected a fourth straight World Cup clean sheet.":
+    "墨西哥的上半场压迫带动了墨西哥城主场球迷，防线则守住本届世界杯连续第四场零封。",
   "Hincapie's stoppage-time red card closed Ecuador's night, while Mexico moved on to face England or DR Congo.":
     "因卡皮耶补时染红为厄瓜多尔之夜画上句号，墨西哥则晋级面对英格兰或刚果民主共和国。",
   "Portugal and DR Congo split the points": "葡萄牙与刚果民主共和国各取一分",
@@ -3381,9 +3378,6 @@ const CJK_CHARACTER_PATTERN =
 const MATCH_LIVE_WINDOW_MS = 2.25 * 60 * 60 * 1000;
 const DATA_REFRESH_INTERVAL_MS = 5 * 60 * 1000;
 const LIVE_DATA_TIMEOUT_MS = 4000;
-const FIFA_WORLD_CUP_SCORES_URL =
-  "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/scores-fixtures";
-const FIFA_LIVE_ARIA_LABEL = "Live FIFA scores";
 const CURRENT_STANDINGS_YEAR = 2026;
 const DEFAULT_KNOCKOUT_FIELD_SIZE = 32;
 const DEFAULT_AUTOMATIC_ADVANCERS_PER_GROUP = 2;
@@ -3400,8 +3394,6 @@ const HISTORICAL_STANDINGS_SUMMARY =
   "Final group tables computed from archived match results.";
 const HISTORICAL_TOURNAMENT_STANDINGS_SUMMARY =
   "Knockout bracket uses archived match results.";
-const HISTORICAL_FINAL_GROUP_TOURNAMENT_STANDINGS_SUMMARY =
-  "Archived tournament view includes final-round groups and placement matches.";
 const HISTORICAL_FINAL_GROUP_STAGE_CONFIGS = {
   1974: {
     label: "Final round",
@@ -7497,24 +7489,26 @@ function isHistoricalKnockoutBracketFixture(fixture) {
 }
 
 function isHistoricalTournamentViewFixture(fixture) {
-  return isHistoricalFinalGroupStageFixture(fixture) || isHistoricalKnockoutBracketFixture(fixture);
+  return isHistoricalKnockoutBracketFixture(fixture);
 }
 
-function hasHistoricalFinalGroupStage(year) {
-  return historicalFixtures.some(
-    (fixture) => fixture.tournamentYear === year && isHistoricalFinalGroupStageFixture(fixture)
-  );
+function isHistoricalAdvancementFixture(fixture) {
+  return isHistoricalFinalGroupStageFixture(fixture) || isHistoricalTournamentViewFixture(fixture);
 }
 
-function getHistoricalTournamentStandingsSummary(year) {
-  return hasHistoricalFinalGroupStage(year)
-    ? HISTORICAL_FINAL_GROUP_TOURNAMENT_STANDINGS_SUMMARY
-    : HISTORICAL_TOURNAMENT_STANDINGS_SUMMARY;
+function getHistoricalTournamentStandingsSummary() {
+  return HISTORICAL_TOURNAMENT_STANDINGS_SUMMARY;
 }
 
 function getHistoricalTournamentFixturesForYear(year) {
   return historicalFixtures
     .filter((fixture) => fixture.tournamentYear === year && isHistoricalTournamentViewFixture(fixture))
+    .sort((a, b) => getFixtureSortValue(a).localeCompare(getFixtureSortValue(b)));
+}
+
+function getHistoricalAdvancementFixturesForYear(year) {
+  return historicalFixtures
+    .filter((fixture) => fixture.tournamentYear === year && isHistoricalAdvancementFixture(fixture))
     .sort((a, b) => getFixtureSortValue(a).localeCompare(getFixtureSortValue(b)));
 }
 
@@ -8289,7 +8283,6 @@ const boundedTooltipSelector = [
 ].join(",");
 const boundedElementTooltipSelector = ".source-tooltip, .release-tooltip";
 let activeTouchTooltipElement = null;
-let pendingTouchTooltipLinkClick = null;
 
 function getPixelValue(value) {
   const number = Number.parseFloat(value);
@@ -8541,12 +8534,12 @@ function getNonLinkTooltipElement(target) {
   return tooltipElement;
 }
 
-function getTouchTooltipLinkElement(target) {
+function getLivePillTooltipElement(target) {
   if (!(target instanceof Element)) {
     return null;
   }
 
-  return target.closest(".live-pill[data-tooltip][href], .tournament-live-pill[data-tooltip][href]");
+  return target.closest(".live-pill[data-tooltip], .tournament-live-pill[data-tooltip]");
 }
 
 function clearActiveTouchTooltip() {
@@ -8575,26 +8568,15 @@ function setActiveTouchTooltip(tooltipElement) {
 }
 
 function handleTouchTooltipPointerDown(event) {
-  if (!isTouchTooltipPointerEvent(event)) {
-    return;
-  }
-
-  const linkTooltipElement = getTouchTooltipLinkElement(event.target);
-  if (linkTooltipElement) {
-    pendingTouchTooltipLinkClick = {
-      element: linkTooltipElement,
-      wasOpen: activeTouchTooltipElement === linkTooltipElement
-    };
-
-    if (!pendingTouchTooltipLinkClick.wasOpen) {
-      setActiveTouchTooltip(linkTooltipElement);
-    }
-
-    return;
-  }
-
-  pendingTouchTooltipLinkClick = null;
   const tooltipElement = getNonLinkTooltipElement(event.target);
+
+  if (!isTouchTooltipPointerEvent(event)) {
+    if (!tooltipElement) {
+      clearActiveTouchTooltip();
+    }
+    return;
+  }
+
   if (!tooltipElement) {
     clearActiveTouchTooltip();
     return;
@@ -8604,23 +8586,30 @@ function handleTouchTooltipPointerDown(event) {
   setActiveTouchTooltip(tooltipElement);
 }
 
-function handleTouchTooltipLinkClick(event) {
-  const linkTooltipElement = getTouchTooltipLinkElement(event.target);
-  if (!linkTooltipElement || pendingTouchTooltipLinkClick?.element !== linkTooltipElement) {
-    pendingTouchTooltipLinkClick = null;
-    return;
-  }
-
-  const shouldNavigate = pendingTouchTooltipLinkClick.wasOpen;
-  pendingTouchTooltipLinkClick = null;
-
-  if (shouldNavigate) {
+function handleLivePillTooltipClick(event) {
+  const tooltipElement = getLivePillTooltipElement(event.target);
+  if (!tooltipElement) {
     return;
   }
 
   event.preventDefault();
   event.stopPropagation();
-  setActiveTouchTooltip(linkTooltipElement);
+  setActiveTouchTooltip(tooltipElement);
+}
+
+function handleLivePillTooltipKeydown(event) {
+  if (event.key !== "Enter" && event.key !== " ") {
+    return;
+  }
+
+  const tooltipElement = getLivePillTooltipElement(event.target);
+  if (!tooltipElement) {
+    return;
+  }
+
+  event.preventDefault();
+  event.stopPropagation();
+  setActiveTouchTooltip(tooltipElement);
 }
 
 function shouldIgnoreContainerClickForTooltip(target) {
@@ -8988,26 +8977,27 @@ function renderScoreStatus(match, state, currentTime) {
     : "";
 }
 
-function getLivePillAttributes(match) {
+function getLivePillAttributes(match, options = {}) {
   const tooltip = getOfficialMatchTimeSnapshotTooltip(match);
   const ariaLabel = tooltip
     ? currentLanguage === "zh"
       ? `直播：${tooltip}`
       : `Live: ${tooltip}`
-    : localizeText(FIFA_LIVE_ARIA_LABEL);
+    : localizeText("Live");
+  const interactionAttributes = tooltip && options.focusable !== false ? ` role="button" tabindex="0"` : "";
   const tooltipAttributes = tooltip
-    ? ` title="${escapeHtml(tooltip)}" data-tooltip="${escapeHtml(tooltip)}"`
+    ? `${interactionAttributes} data-tooltip="${escapeHtml(tooltip)}"`
     : "";
   return `aria-label="${escapeHtml(ariaLabel)}"${tooltipAttributes}`;
 }
 
 function renderLivePill(options = {}) {
   const className = ["live-pill", options.className || ""].filter(Boolean).join(" ");
-  return `<a class="${escapeHtml(className)}" href="${escapeHtml(FIFA_WORLD_CUP_SCORES_URL)}" target="_blank" rel="noreferrer" ${getLivePillAttributes(options.match)}>${escapeHtml(localizeText("Live"))}</a>`;
+  return `<span class="${escapeHtml(className)}" ${getLivePillAttributes(options.match, { focusable: options.focusable })}>${escapeHtml(localizeText("Live"))}</span>`;
 }
 
 function renderTournamentLivePill(match) {
-  return `<a class="tournament-live-pill" href="${escapeHtml(FIFA_WORLD_CUP_SCORES_URL)}" target="_blank" rel="noreferrer" ${getLivePillAttributes(match)}>${escapeHtml(localizeText("Live"))}</a>`;
+  return `<span class="tournament-live-pill" ${getLivePillAttributes(match)}>${escapeHtml(localizeText("Live"))}</span>`;
 }
 
 function getMatchDateTimeValue(match) {
@@ -10424,7 +10414,7 @@ function getHistoricalGroupAdvancingTeamNames(year, groupName) {
     .sort((a, b) => b.localeCompare(a))[0];
   const advancingTeamNames = new Set();
 
-  getHistoricalTournamentFixturesForYear(year).forEach((fixture) => {
+  getHistoricalAdvancementFixturesForYear(year).forEach((fixture) => {
     if (getFixtureSortValue(fixture) <= groupEndSortValue) {
       return;
     }
@@ -15008,6 +14998,158 @@ function getKeyInformationLabel(team) {
   return team?.tagline ? `${localizedLabel}: ${localizeText(team.tagline)}` : localizedLabel;
 }
 
+function parseHistoricalKeyInformationCopy(info) {
+  const text = getKeyInformationCopy(info).replace(/\s+/g, " ").trim();
+  if (!text) {
+    return null;
+  }
+
+  const canceledMatch = text.match(
+    /^(.+)'s (\d{4}) fixture with (.+) was canceled, so there is no match roster to analyze\./
+  );
+  if (canceledMatch) {
+    return {
+      teamName: canceledMatch[1],
+      year: canceledMatch[2],
+      opponentName: canceledMatch[3],
+      isCanceled: true
+    };
+  }
+
+  const playerMatch = text.match(
+    /^(.+)'s (\d{4}) match lens runs through (.+), based on the (.+)\. Against (.+), (.+) had to beat (.+)\. Their own route was (.+), and (.+)\. The risk was that (.+)$/
+  );
+  if (playerMatch) {
+    const [, teamName, year, players, basis, opponentName, subjectName, problem, plan, result, risk] = playerMatch;
+    return { teamName, year, players, basis, opponentName, subjectName, problem, plan, result, risk, isCanceled: false };
+  }
+
+  const basisOnlyMatch = text.match(
+    /^(.+)'s (\d{4}) match lens comes from the (.+)\. Against (.+), (.+) had to beat (.+)\. Their own route was (.+), and (.+)\. The risk was that (.+)$/
+  );
+  if (basisOnlyMatch) {
+    const [, teamName, year, basis, opponentName, subjectName, problem, plan, result, risk] = basisOnlyMatch;
+    return { teamName, year, basis, opponentName, subjectName, problem, plan, result, risk, isCanceled: false };
+  }
+
+  return null;
+}
+
+function getHistoricalPlanHeadlineKey(plan) {
+  const text = String(plan || "").trim();
+  if (/^turning .+ into the scoring route$/.test(text)) {
+    return "scoring";
+  }
+  if (/^reaching the shootout and trusting .+$/.test(text)) {
+    return "shootout";
+  }
+  if (/^keeping the box protected around .+$/.test(text)) {
+    return "box";
+  }
+  if (/^using a forward-heavy shape around .+$/.test(text)) {
+    return "forward";
+  }
+  if (/^using midfield numbers around .+ to control the game$/.test(text)) {
+    return "midfield";
+  }
+  if (/^keeping a defensive base around .+$/.test(text)) {
+    return "defensive";
+  }
+  if (/^making .+ the spine of the match plan$/.test(text)) {
+    return "spine";
+  }
+
+  return "shape";
+}
+
+function lowerInitialPhrase(value) {
+  return String(value || "").replace(/^([A-Z])/, (match) => match.toLowerCase());
+}
+
+function formatHistoricalStyleHeadline(tags) {
+  const localizedTags = tags.map(localizeText).filter(Boolean);
+  if (!localizedTags.length) {
+    return "";
+  }
+
+  if (currentLanguage === "zh") {
+    return localizedTags.join("、");
+  }
+
+  if (localizedTags.length === 1) {
+    return localizedTags[0];
+  }
+
+  if (localizedTags.length === 2) {
+    return `${localizedTags[0]} with ${lowerInitialPhrase(localizedTags[1])}`;
+  }
+
+  return `${localizedTags[0]} with ${lowerInitialPhrase(localizedTags[1])} and ${lowerInitialPhrase(localizedTags[2])}`;
+}
+
+function getHistoricalStyleHeadlineTags(team) {
+  const historicalTags = getHistoricalStyleTags(team?.name || "");
+  return Array.isArray(historicalTags) && historicalTags.length
+    ? historicalTags.slice(0, 3)
+    : getTeamStyleTags(team);
+}
+
+function getHistoricalPlanStyleHeadline(planKey) {
+  const english = {
+    scoring: "Box entries from multiple lines",
+    shootout: "Low-margin patience and shootout nerve",
+    box: "Box protection and patient spacing",
+    forward: "Forward-heavy pressure",
+    midfield: "Midfield numbers and tempo control",
+    defensive: "Defensive base with direct exits",
+    spine: "Central spine and matchup control",
+    shape: "Compact squad shape"
+  };
+  const zh = {
+    scoring: "多线进入禁区",
+    shootout: "低容错耐心与点球冷静",
+    box: "禁区保护与耐心站位",
+    forward: "锋线人数压迫",
+    midfield: "中场人数与节奏控制",
+    defensive: "防守基础与直接出球",
+    spine: "中轴控制对位",
+    shape: "紧凑阵容结构"
+  };
+  const headlines = currentLanguage === "zh" ? zh : english;
+
+  return headlines[planKey] || headlines.shape;
+}
+
+function getHistoricalKeyInformationHeadline(team, info) {
+  const styleHeadline = formatHistoricalStyleHeadline(getHistoricalStyleHeadlineTags(team));
+  if (styleHeadline) {
+    return styleHeadline;
+  }
+
+  const parsed = parseHistoricalKeyInformationCopy(info);
+  if (!parsed) {
+    return "";
+  }
+
+  if (parsed.isCanceled) {
+    return currentLanguage === "zh"
+      ? "取消赛程保留阵容背景"
+      : "Canceled fixture kept as squad context";
+  }
+
+  return getHistoricalPlanStyleHeadline(getHistoricalPlanHeadlineKey(parsed.plan));
+}
+
+function getHistoricalKeyInformationLabel(team, info) {
+  const teamName = getLocalizedTeamName(team) || localizeText(team?.name || "TBD");
+  const headline = getHistoricalKeyInformationHeadline(team, info);
+  if (!headline) {
+    return teamName;
+  }
+
+  return currentLanguage === "zh" ? `${teamName}：${headline}` : `${teamName}: ${headline}`;
+}
+
 function getTeamStyleTags(team) {
   return Array.isArray(team?.styleTags)
     ? team.styleTags.filter((tag) => typeof tag === "string" && tag.trim()).slice(0, 3)
@@ -16408,9 +16550,15 @@ function getHistoricalMentionPlayers(match) {
   ]);
 }
 
-function renderKeyInformationTeam(team, info, players = [], mentionPlayers = players, opponent = null) {
+function renderKeyInformationTeam(
+  team,
+  info,
+  players = [],
+  mentionPlayers = players,
+  opponent = null,
+  label = getKeyInformationLabel(team)
+) {
   const text = getKeyInformationText(team, info, players, opponent);
-  const label = getKeyInformationLabel(team);
   return `
     <article class="key-info-team">
       <h4>${renderKeyInformationHeading(team, label)}</h4>
@@ -17541,9 +17689,8 @@ function getHistoricalTeamResultOutcome(fixture, teamName) {
   return "draw";
 }
 
-function getHistoricalGroupRoundSummaryForTeam(match, teamName) {
-  const team = getHistoricalDisplayTeam(teamName);
-  const groupFixtures = getHistoricalTournamentFixtures(match)
+function getHistoricalPriorGroupFixturesForTeam(match, teamName) {
+  return getHistoricalTournamentFixtures(match)
     .filter(
       (fixture) =>
         fixture.group &&
@@ -17551,6 +17698,11 @@ function getHistoricalGroupRoundSummaryForTeam(match, teamName) {
         (fixture.homeSlot === teamName || fixture.awaySlot === teamName)
     )
     .sort((a, b) => getFixtureSortValue(a).localeCompare(getFixtureSortValue(b)));
+}
+
+function getHistoricalGroupRoundSummaryForTeam(match, teamName) {
+  const team = getHistoricalDisplayTeam(teamName);
+  const groupFixtures = getHistoricalPriorGroupFixturesForTeam(match, teamName);
   const resultItems = groupFixtures
     .filter((fixture) => fixture.status === "FT" && fixture.score)
     .map((fixture) => {
@@ -17565,6 +17717,12 @@ function getHistoricalGroupRoundSummaryForTeam(match, teamName) {
   const remainingCount = groupFixtures.filter((fixture) => fixture.status !== "FT").length;
 
   return formatGroupRoundSummary(team, resultItems, remainingCount);
+}
+
+function getHistoricalGroupRoundContextRows(match) {
+  return [match.homeSlot, match.awaySlot]
+    .filter((teamName) => getHistoricalPriorGroupFixturesForTeam(match, teamName).length > 0)
+    .map((teamName) => `<li>${getHistoricalGroupRoundSummaryForTeam(match, teamName)}</li>`);
 }
 
 function getHistoricalPreviousKnockoutMatchForTeam(match, teamName) {
@@ -17644,21 +17802,25 @@ function renderHistoricalKnockoutCompletedSummary(match) {
 
 function renderHistoricalPreviousKnockoutContext(match) {
   const previousMatches = getHistoricalPreviousKnockoutMatches(match);
+  const groupRows = previousMatches.length ? [] : getHistoricalGroupRoundContextRows(match);
+
+  if (!previousMatches.length && !groupRows.length) {
+    return "";
+  }
+
   const heading = formatKnockoutContextHeading(
     localizeText("Previous"),
     previousMatches.length ? getHistoricalRoundLabelSeries(previousMatches) : localizeText("Group round")
   );
   const rows = previousMatches.length
     ? previousMatches.map((fixture) => `<li>${renderHistoricalKnockoutCompletedSummary(fixture)}</li>`)
-    : [match.homeSlot, match.awaySlot]
-        .map((teamName) => `<li>${getHistoricalGroupRoundSummaryForTeam(match, teamName)}</li>`)
-        .join("");
+    : groupRows;
 
   return `
     <section class="info-block">
       <h3>${escapeHtml(heading)}</h3>
       <ul class="result-highlights knockout-context-list">
-        ${Array.isArray(rows) ? rows.join("") : rows}
+        ${rows.join("")}
       </ul>
     </section>
   `;
@@ -18439,8 +18601,22 @@ function renderHistoricalKeyInformation(match) {
   if (keyInformation.home && keyInformation.away) {
     return `
       <div class="key-info-grid">
-        ${renderKeyInformationTeam(match.homeTeam, keyInformation.home, keyPlayers.home, mentionPlayers, match.awayTeam)}
-        ${renderKeyInformationTeam(match.awayTeam, keyInformation.away, keyPlayers.away, mentionPlayers, match.homeTeam)}
+        ${renderKeyInformationTeam(
+          match.homeTeam,
+          keyInformation.home,
+          keyPlayers.home,
+          mentionPlayers,
+          match.awayTeam,
+          getHistoricalKeyInformationLabel(match.homeTeam, keyInformation.home)
+        )}
+        ${renderKeyInformationTeam(
+          match.awayTeam,
+          keyInformation.away,
+          keyPlayers.away,
+          mentionPlayers,
+          match.homeTeam,
+          getHistoricalKeyInformationLabel(match.awayTeam, keyInformation.away)
+        )}
       </div>
     `;
   }
@@ -18964,7 +19140,7 @@ function getCompactMatchMeta(match, state, currentTime) {
     renderCompactMatchScore(match, state) ||
     renderScoreStatus(match, state, currentTime) ||
     (state === "live"
-      ? `<span class="live-pill">${escapeHtml(localizeText("Live"))}</span>`
+      ? renderLivePill({ match, focusable: false })
       : "")
   );
 }
@@ -21384,7 +21560,8 @@ document.addEventListener(
   true
 );
 document.addEventListener("pointerdown", handleTouchTooltipPointerDown, true);
-document.addEventListener("click", handleTouchTooltipLinkClick, true);
+document.addEventListener("click", handleLivePillTooltipClick, true);
+document.addEventListener("keydown", handleLivePillTooltipKeydown, true);
 document.addEventListener(
   "focusin",
   (event) => updateTooltipBoundsForTarget(event.target),

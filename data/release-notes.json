@@ -1,6 +1,63 @@
 {
-  "updatedAt": "2026-06-30T23:10:40-07:00",
+  "updatedAt": "2026-07-01T10:06:47-07:00",
   "releases": [
+    {
+      "date": "2026-07-01",
+      "title": "Live pill click tooltips",
+      "titleZh": "直播标签点击提示",
+      "highlights": [
+        "Live pills now open the official FIFA snapshot tooltip on click or tap across match rows and tournament cards, without sending people to the FIFA scores page."
+      ],
+      "highlightsZh": [
+        "直播标签现在会在比赛列表和 Tournament 卡片中通过点击或轻点打开官方 FIFA 快照提示，不再跳转到 FIFA 比分页。"
+      ]
+    },
+    {
+      "date": "2026-07-01",
+      "title": "Mexico recap clarity",
+      "titleZh": "墨西哥复盘更清晰",
+      "highlights": [
+        "Mexico-Ecuador's Result recap now says the home crowd was lifted in Mexico City instead of relying on Azteca shorthand."
+      ],
+      "highlightsZh": [
+        "墨西哥对厄瓜多尔的赛果复盘现在直接写明墨西哥城主场球迷被带动，不再依赖 Azteca 这个简称。"
+      ]
+    },
+    {
+      "date": "2026-07-01",
+      "title": "Archive Tournament cleanup",
+      "titleZh": "历届 Tournament 清理",
+      "highlights": [
+        "The 1974, 1978, and 1982 archived Tournament tabs now show only bracket and placement matches, keeping second-stage group pools out of the swipeable Tournament canvas.",
+        "Archived Groups still use those second-stage results to highlight who advanced through the older formats."
+      ],
+      "highlightsZh": [
+        "1974、1978 和 1982 年的历届 Tournament 视图现在只显示淘汰赛和名次赛，不再把第二阶段小组赛放进可滑动 Tournament 画布。",
+        "历届 Groups 仍会使用这些第二阶段赛果来标出旧赛制中真正晋级的球队。"
+      ]
+    },
+    {
+      "date": "2026-07-01",
+      "title": "Archive first-round context",
+      "titleZh": "历届首轮语境",
+      "highlights": [
+        "Historical first-round knockout matches from no-group World Cups, such as 1934 Preliminary round games, now omit the empty Previous group-round block while keeping the next-round path."
+      ],
+      "highlightsZh": [
+        "没有小组赛的历届世界杯首轮淘汰赛（如 1934 年预赛轮）现在不再显示空的 Previous 小组赛区块，同时保留下一轮路径。"
+      ]
+    },
+    {
+      "date": "2026-07-01",
+      "title": "Historical key info headings",
+      "titleZh": "历届关键信息标题",
+      "highlights": [
+        "Past World Cup match details now give each country's Key information title a historical team-style description, so teams such as 1982 Italy no longer fall back to only the country name."
+      ],
+      "highlightsZh": [
+        "历届世界杯比赛详情现在会为每个国家的关键信息标题显示历史球队风格描述，像 1982 年意大利不会再只显示国家名。"
+      ]
+    },
     {
       "date": "2026-06-30",
       "title": "Mexico-Ecuador Result update",
@@ -12,6 +69,28 @@
       "highlightsZh": [
         "墨西哥对厄瓜多尔现在显示已核验终场比分、FIFA 进球时间线、FOX Sports 官方集锦按钮和有来源支撑的赛果故事。",
         "德国对巴拉圭、荷兰对摩洛哥的赛果故事现在也为淘汰赛点球复盘补上来源研究记录。"
+      ]
+    },
+    {
+      "date": "2026-06-30",
+      "title": "Match title descender fix",
+      "titleZh": "比赛标题字母下缘修正",
+      "highlights": [
+        "Large matchup titles now give team-name descenders more room, so letters like the g in Senegal are not clipped."
+      ],
+      "highlightsZh": [
+        "大型对阵标题现在给球队名称中字母下缘留出更多空间，像 Senegal 里的 g 不会再被裁切。"
+      ]
+    },
+    {
+      "date": "2026-06-30",
+      "title": "Faster juggle opening drop",
+      "titleZh": "颠球开局下落加快",
+      "highlights": [
+        "The hidden soccer-ball juggle now starts with a quicker opening drop, closer to the pace of the ball after the first tap."
+      ],
+      "highlightsZh": [
+        "隐藏的足球颠球小游戏现在开局下落更快，更接近第一次点击后足球的节奏。"
       ]
     },
     {
@@ -101,17 +180,6 @@
     },
     {
       "date": "2026-06-30",
-      "title": "Archive final-round groups",
-      "titleZh": "历届决赛轮小组",
-      "highlights": [
-        "The 1974, 1978, and 1982 archived Tournament views now include their decisive second-stage group matches before the final and third-place cards."
-      ],
-      "highlightsZh": [
-        "1974、1978 和 1982 年的历届 Tournament 视图现在会在决赛和季军赛卡片前显示决定名次的第二阶段小组赛。"
-      ]
-    },
-    {
-      "date": "2026-06-30",
       "title": "Juggle game difficulty",
       "titleZh": "颠球小游戏难度",
       "highlights": [
@@ -164,10 +232,12 @@
       "titleZh": "历届球员照片",
       "highlights": [
         "More past World Cup player cards now use verified Wikipedia/Wikimedia photos, including targeted Final and Semi-finals scorer, key-player, and team-description mentions while ambiguous image matches stay as initials.",
+        "A new exact-title batch lookup plus a Wikidata P18 Commons fallback expands historical player photo coverage past 2,500 cards while rejecting known team-lineup, same-name, and non-profile image matches.",
         "Historical photo coverage metadata now records the Finals/Semi-finals target set separately from the all-profile photo count."
       ],
       "highlightsZh": [
         "更多历届世界杯球员卡片现在会使用已核验的 Wikipedia/Wikimedia 照片，包括针对决赛和半决赛射手、关键球员以及球队描述提及球员的补图；有歧义的图片匹配会继续保留首字母头像。",
+        "新的精确标题批量查找加上 Wikidata P18 Commons 兜底，把历届球员照片覆盖率提升到 2,500 张以上，同时会拒绝已知的全队合影、同名误配和非个人头像匹配。",
         "历届照片覆盖率元数据现在会把决赛/半决赛目标名单与全部球员卡照片总数分开记录。"
       ]
     },
