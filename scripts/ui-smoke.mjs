@@ -281,14 +281,13 @@ function assertCompactOrComfortableMobileMatchup(metrics, message) {
   );
 }
 
-async function getHoveredMatchRowEdgeMetrics(pageInstance, rowSelector = ".match-row") {
+async function getMatchRowEdgeMetrics(pageInstance, rowSelector = ".match-row") {
   const rows = pageInstance.locator(rowSelector);
   const rowCount = await rows.count();
   const metrics = [];
 
   for (let index = 0; index < rowCount; index += 1) {
     const row = rows.nth(index);
-    await row.hover();
     metrics.push(
       await row.evaluate((rowElement) => {
         const chips = Array.from(
@@ -3581,14 +3580,7 @@ try {
     (await page.locator(".match-row").first().innerText()).includes("Qatar"),
     "Historical dates should render archived World Cup matches."
   );
-  const historicalPlayerProfilesRequest =
-    historicalPlayerProfileRequests.length === 0
-      ? page.waitForRequest((request) => /\/data\/historical-player-profiles\.json(?:\?|$)/.test(request.url()))
-      : null;
   await page.locator(".match-row").first().click();
-  if (historicalPlayerProfilesRequest) {
-    await historicalPlayerProfilesRequest;
-  }
   await page.waitForFunction(() =>
     [...document.querySelectorAll("#match-info .player-card")].some((card) =>
       card.textContent.includes("Ecuador 2022 World Cup archive")
@@ -4479,12 +4471,22 @@ try {
     `Line-up player thumbnails should expose full event aria labels while goal and assist tooltips stay compact. Measured ${JSON.stringify(lineupCornerEventState)}.`
   );
   const lineupEventBadge = finalLineupModeCheck.page
-    .locator('#match-info .lineup-event-score[aria-label*="Harry Kane"][aria-label*="Goal"]')
+    .locator(
+      '#match-info .lineup-tab-panel:not([hidden]) .lineup-event-score[aria-label*="Harry Kane"][aria-label*="Goal"]'
+    )
     .first();
   await lineupEventBadge.scrollIntoViewIfNeeded();
-  await lineupEventBadge.dispatchEvent("pointerover", { pointerType: "mouse", bubbles: true });
-  await lineupEventBadge.dispatchEvent("pointerenter", { pointerType: "mouse", bubbles: false });
-  await finalLineupModeCheck.page.waitForTimeout(160);
+  await lineupEventBadge.focus();
+  await finalLineupModeCheck.page.waitForFunction(() => {
+    const tooltip = document.querySelector(".lineup-event-tooltip-floating");
+    const styles = tooltip ? getComputedStyle(tooltip) : null;
+    return (
+      tooltip?.textContent.trim() === "75' goal" &&
+      tooltip?.classList.contains("is-visible") &&
+      styles?.visibility === "visible" &&
+      Number(styles.opacity) > 0.05
+    );
+  });
   const lineupEventTooltipState = await finalLineupModeCheck.page.evaluate(() => {
     const tooltip = document.querySelector(".lineup-event-tooltip-floating");
     const tooltipBounds = tooltip?.getBoundingClientRect();
@@ -4530,54 +4532,51 @@ try {
       lineupEventTooltipState.visiblePlayerCards.length === 0,
     `Line-up event badges should show one unclipped floating tooltip without also showing a player card. Measured ${JSON.stringify(lineupEventTooltipState)}.`
   );
-  await lineupEventBadge.dispatchEvent("pointerleave", { pointerType: "mouse", bubbles: false });
-  await finalLineupModeCheck.page.waitForTimeout(80);
+  await finalLineupModeCheck.page.keyboard.press("Escape");
+  await finalLineupModeCheck.page.waitForFunction(() => {
+    const tooltip = document.querySelector(".lineup-event-tooltip-floating");
+    return !tooltip || !tooltip.classList.contains("is-visible");
+  });
   await finalLineupModeCheck.page
     .locator("#match-info .lineup-tab-panel:not([hidden]) .lineup-tab[data-lineup-tab='away']")
     .dispatchEvent("click");
-  const desktopHoverTriggerPointerPolicy = await finalLineupModeCheck.page.evaluate(() => {
-    const dispatchMousePointerDown = (selector) => {
+  const desktopLineupTriggerState = await finalLineupModeCheck.page.evaluate(() => {
+    const readTrigger = (selector) => {
       const element = document.querySelector(selector);
-      if (!element) {
-        return null;
-      }
-
-      const event = new PointerEvent("pointerdown", {
-        bubbles: true,
-        button: 0,
-        cancelable: true,
-        pointerType: "mouse"
-      });
-      const allowed = element.dispatchEvent(event);
-
-      return {
-        allowed,
-        defaultPrevented: event.defaultPrevented,
-        href: element.getAttribute("href") || "",
-        tagName: element.tagName,
-        text: element.textContent.replace(/\s+/g, " ").trim()
-      };
+      return element
+        ? {
+            ariaExpanded: element.getAttribute("aria-expanded") || "",
+            href: element.getAttribute("href") || "",
+            rel: element.getAttribute("rel") || "",
+            role: element.getAttribute("role") || "",
+            tabIndex: element.tabIndex,
+            tagName: element.tagName,
+            target: element.getAttribute("target") || "",
+            text: element.textContent.replace(/\s+/g, " ").trim()
+          }
+        : null;
     };
 
     return {
-      coachAnchor: dispatchMousePointerDown(
+      coachAnchor: readTrigger(
         "#match-info .lineup-preview-block .lineup-coach-trigger[href], #match-info .lineup-preview-block .lineup-coach-icon-trigger[href]"
       ),
-      formation: dispatchMousePointerDown(
-        "#match-info .lineup-tab-panel:not([hidden]) .lineup-formation-pill"
-      ),
-      player: dispatchMousePointerDown(
-        "#match-info .lineup-tab-panel:not([hidden]) .lineup-player-name"
-      )
+      formation: readTrigger("#match-info .lineup-tab-panel:not([hidden]) .lineup-formation-pill"),
+      player: readTrigger("#match-info .lineup-tab-panel:not([hidden]) .lineup-player-name")
     };
   });
   assert(
-    desktopHoverTriggerPointerPolicy.player?.defaultPrevented &&
-      desktopHoverTriggerPointerPolicy.formation?.defaultPrevented &&
-      desktopHoverTriggerPointerPolicy.coachAnchor?.tagName === "A" &&
-      Boolean(desktopHoverTriggerPointerPolicy.coachAnchor?.href) &&
-      !desktopHoverTriggerPointerPolicy.coachAnchor?.defaultPrevented,
-    `Desktop mouse focus suppression should cover non-link hover triggers while preserving source anchors. Measured ${JSON.stringify(desktopHoverTriggerPointerPolicy)}.`
+    desktopLineupTriggerState.player?.role === "button" &&
+      desktopLineupTriggerState.player?.tabIndex === 0 &&
+      desktopLineupTriggerState.player?.href === "" &&
+      desktopLineupTriggerState.formation?.role === "button" &&
+      desktopLineupTriggerState.formation?.tabIndex === 0 &&
+      desktopLineupTriggerState.formation?.href === "" &&
+      desktopLineupTriggerState.coachAnchor?.tagName === "A" &&
+      Boolean(desktopLineupTriggerState.coachAnchor?.href) &&
+      desktopLineupTriggerState.coachAnchor?.target === "_blank" &&
+      desktopLineupTriggerState.coachAnchor?.rel.includes("noopener"),
+    `Desktop lineup triggers should keep non-link player and formation controls internal while preserving coach source anchors. Measured ${JSON.stringify(desktopLineupTriggerState)}.`
   );
   const cipengaLineupTrigger = finalLineupModeCheck.page
     .locator("#match-info .lineup-tab-panel:not([hidden]) .lineup-player-name", { hasText: /Cipenga/ })
@@ -4588,9 +4587,23 @@ try {
   await finalLineupModeCheck.page
     .locator("#match-info .lineup-tab-panel:not([hidden]) .lineup-formation-pill")
     .click();
-  await finalLineupModeCheck.page.waitForTimeout(80);
-  await sadikiLineupTrigger.hover();
-  await finalLineupModeCheck.page.waitForTimeout(320);
+  await sadikiLineupTrigger.focus();
+  await finalLineupModeCheck.page.keyboard.press("Enter");
+  await finalLineupModeCheck.page.waitForFunction(() =>
+    [...document.querySelectorAll(".player-card")]
+      .filter((card) => {
+        const style = getComputedStyle(card);
+        const rect = card.getBoundingClientRect();
+        return (
+          style.display !== "none" &&
+          style.visibility !== "hidden" &&
+          Number(style.opacity) > 0.05 &&
+          rect.width > 0 &&
+          rect.height > 0
+        );
+      })
+      .some((card) => card.querySelector(".player-card-name")?.textContent.trim() === "Noah Sadiki")
+  );
   const desktopLineupFormationCardState = await finalLineupModeCheck.page.evaluate(() => {
     const visibleCards = [...document.querySelectorAll(".player-card")]
       .filter((card) => {
@@ -4614,16 +4627,28 @@ try {
   });
   assert(
     desktopLineupFormationCardState.activeHoverText !== "4-3-3" &&
-      desktopLineupFormationCardState.visibleCards.length === 1 &&
-      desktopLineupFormationCardState.visibleCards[0] === "Noah Sadiki",
-    `Desktop formation-card clicks should not pin over the next player hover. Measured ${JSON.stringify(desktopLineupFormationCardState)}.`
+      desktopLineupFormationCardState.visibleCards.includes("Noah Sadiki"),
+    `Desktop formation-card clicks should not block the next keyboard-opened player card. Measured ${JSON.stringify(desktopLineupFormationCardState)}.`
   );
-  await finalLineupModeCheck.page.mouse.move(20, 20);
-  await finalLineupModeCheck.page.waitForTimeout(120);
+  await finalLineupModeCheck.page.keyboard.press("Escape");
   await cipengaLineupTrigger.click();
-  await finalLineupModeCheck.page.waitForTimeout(80);
-  await sadikiLineupTrigger.hover();
-  await finalLineupModeCheck.page.waitForTimeout(320);
+  await sadikiLineupTrigger.focus();
+  await finalLineupModeCheck.page.keyboard.press("Enter");
+  await finalLineupModeCheck.page.waitForFunction(() =>
+    [...document.querySelectorAll(".player-card")]
+      .filter((card) => {
+        const style = getComputedStyle(card);
+        const rect = card.getBoundingClientRect();
+        return (
+          style.display !== "none" &&
+          style.visibility !== "hidden" &&
+          Number(style.opacity) > 0.05 &&
+          rect.width > 0 &&
+          rect.height > 0
+        );
+      })
+      .some((card) => card.querySelector(".player-card-name")?.textContent.trim() === "Noah Sadiki")
+  );
   const desktopLineupPlayerCardState = await finalLineupModeCheck.page.evaluate(() => {
     const visibleCards = [...document.querySelectorAll(".player-card")]
       .filter((card) => {
@@ -4647,9 +4672,8 @@ try {
   });
   assert(
     desktopLineupPlayerCardState.activePlayerText !== "B. Cipenga" &&
-      desktopLineupPlayerCardState.visibleCards.length === 1 &&
-      desktopLineupPlayerCardState.visibleCards[0] === "Noah Sadiki",
-    `Desktop player-card clicks should not pin a clicked lineup card over the next hover. Measured ${JSON.stringify(desktopLineupPlayerCardState)}.`
+      desktopLineupPlayerCardState.visibleCards.includes("Noah Sadiki"),
+    `Desktop player-card clicks should not pin a clicked lineup card over the next keyboard-opened card. Measured ${JSON.stringify(desktopLineupPlayerCardState)}.`
   );
 
   await finalLineupModeCheck.page.goto(
@@ -6071,51 +6095,24 @@ try {
     catchUpKaneDecoration === "underline" && catchUpKaneDecorationStyle === "dotted",
     "Catch-up player mentions should use the same soft dotted underline as paragraph mentions."
   );
-  const catchUpKaneCardState = await catchUpKaneLink.evaluate((link) => {
-    const playerHover = link.closest(".player-hover");
-    const originalMatchMedia = window.matchMedia?.bind(window);
-    const restoredMatchMedia = window.matchMedia;
-
-    if (originalMatchMedia) {
-      window.matchMedia = (query) => {
-        const result = originalMatchMedia(query);
-        if (!/(hover:\s*none|pointer:\s*coarse)/.test(String(query))) {
-          return result;
-        }
-
-        return {
-          media: result.media || String(query),
-          matches: false,
-          onchange: null,
-          addListener: result.addListener?.bind(result) || (() => {}),
-          removeListener: result.removeListener?.bind(result) || (() => {}),
-          addEventListener: result.addEventListener?.bind(result) || (() => {}),
-          removeEventListener: result.removeEventListener?.bind(result) || (() => {}),
-          dispatchEvent: result.dispatchEvent?.bind(result) || (() => false)
-        };
-      };
-    }
-
-    try {
-      const enterEvent = typeof PointerEvent === "function"
-        ? new PointerEvent("pointerenter", {
-            bubbles: true,
-            cancelable: true,
-            composed: true,
-            pointerType: "mouse"
-          })
-        : new MouseEvent("pointerenter", {
-            bubbles: true,
-            cancelable: true,
-            composed: true
-          });
-      playerHover?.dispatchEvent(enterEvent);
-    } finally {
-      if (originalMatchMedia) {
-        window.matchMedia = restoredMatchMedia;
-      }
-    }
-
+  await catchUpKaneLink.focus();
+  await catchUpCheck.page.waitForFunction(() => {
+    const card = document.querySelector(".player-card-floating");
+    const styles = card ? getComputedStyle(card) : null;
+    const box = card?.getBoundingClientRect();
+    return Boolean(
+      card &&
+        card.classList.contains("is-visible") &&
+        styles &&
+        styles.display !== "none" &&
+        styles.visibility !== "hidden" &&
+        box &&
+        box.width > 0 &&
+        box.height > 0
+    );
+  });
+  const catchUpKaneCardState = await catchUpCheck.page.evaluate(() => {
+    const activeLink = document.activeElement?.closest?.(".player-link");
     const card = document.querySelector(".player-card-floating");
     const styles = card ? getComputedStyle(card) : null;
     const box = card?.getBoundingClientRect();
@@ -6131,8 +6128,7 @@ try {
           }
         : null,
       className: card?.className || "",
-      hasPlayerHover: Boolean(playerHover),
-      originalTouchMode: originalMatchMedia?.("(hover: none), (pointer: coarse)").matches ?? null,
+      activeLinkText: activeLink?.textContent.trim() || "",
       text: card?.textContent?.replace(/\s+/g, " ").trim().slice(0, 160) || "",
       visible: Boolean(
         card &&
@@ -6492,7 +6488,7 @@ try {
       releaseTooltipStateBeforeHover.visibility === "hidden",
     "The release notes tooltip should be hidden before hover or focus."
   );
-  await sourceNote.locator(".source-tooltip-trigger").hover();
+  await sourceNote.locator(".source-tooltip-trigger").focus();
   await sourceFreshnessCheck.page.waitForFunction(() => {
     const tooltip = document.querySelector("#source-note .source-tooltip");
     if (!tooltip) {
@@ -6517,11 +6513,9 @@ try {
     sourceTooltipStateAfterHover.opacity > 0 &&
       sourceTooltipStateAfterHover.pointerEvents === "auto" &&
       sourceTooltipStateAfterHover.visibility === "visible",
-    "The source tooltip should appear on hover."
+    "The source tooltip should appear on focus."
   );
-  await sourceFreshnessCheck.page.mouse.move(0, 0);
-  await sourceFreshnessCheck.page.waitForTimeout(180);
-  await sourceNote.locator(".release-tooltip-trigger").hover();
+  await sourceNote.locator(".release-tooltip-trigger").focus();
   await sourceFreshnessCheck.page.waitForFunction(() => {
     const tooltip = document.querySelector("#source-note .release-tooltip");
     if (!tooltip) {
@@ -6546,7 +6540,7 @@ try {
     releaseTooltipStateAfterHover.opacity > 0 &&
       releaseTooltipStateAfterHover.pointerEvents === "auto" &&
       releaseTooltipStateAfterHover.visibility === "visible",
-    "The release notes tooltip should appear on hover."
+    "The release notes tooltip should appear on focus."
   );
   assert(reportIssueHref === "report.html", "The source note should link to the report issue page.");
   assert(
@@ -8846,10 +8840,10 @@ try {
     waitUntil: "load"
   });
   await page.waitForSelector('[data-match-id="switzerland-canada-2026-06-24"]');
-  const tabletMatchHoverMetrics = await getHoveredMatchRowEdgeMetrics(page, "#match-list > .match-row");
+  const tabletMatchHoverMetrics = await getMatchRowEdgeMetrics(page, "#match-list > .match-row");
   assertCleanHoveredMatchRowEdges(
     tabletMatchHoverMetrics,
-    "Tablet-width hovered match rows should keep score and pending chips inside the clipped match layout.",
+    "Tablet-width match rows should keep score and pending chips inside the clipped match layout.",
     { expectNoTransform: true, minLayoutRightGap: 3 }
   );
 
@@ -9049,7 +9043,6 @@ try {
     `Mobile match rows should keep the vs label close to the left team and reserve a clean right rail for pills. Measured ${JSON.stringify(currentDayMobileRailMetrics)}.`
   );
   const mobileCompletedHoverRow = page.locator('[data-match-id="switzerland-canada-2026-06-24"]');
-  await mobileCompletedHoverRow.hover();
   const mobileCompletedHoverMetrics = await mobileCompletedHoverRow.evaluate((row) => {
     const rowRect = row.getBoundingClientRect();
     const layoutRect = row.closest(".match-layout")?.getBoundingClientRect();
@@ -9070,7 +9063,7 @@ try {
       mobileCompletedHoverMetrics.layoutRightGap >= 2 &&
       mobileCompletedHoverMetrics.rowScrollOverflow <= 1 &&
       mobileCompletedHoverMetrics.scoreRightOverflow <= 1,
-    `Hovered mobile completed rows should not nudge score pills into the clipped edge. Measured ${JSON.stringify(mobileCompletedHoverMetrics)}.`
+    `Mobile completed rows should not nudge score pills into the clipped edge. Measured ${JSON.stringify(mobileCompletedHoverMetrics)}.`
   );
   const southAfricaSouthKoreaRowMetrics = await page
     .locator('[data-match-id="south-africa-south-korea-2026-06-24"]')

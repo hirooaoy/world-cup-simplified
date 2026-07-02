@@ -17152,7 +17152,7 @@ function getLineupEventBadgeLabel(event, playerName) {
 }
 
 function renderLineupBadgeTooltipAttributes(label, tooltipLabel = label) {
-  return `aria-label="${escapeHtml(label)}" data-tooltip="${escapeHtml(tooltipLabel)}"`;
+  return `aria-label="${escapeHtml(label)}" data-tooltip="${escapeHtml(tooltipLabel)}" tabindex="0"`;
 }
 
 function renderLineupCardBadge(card, playerName) {
