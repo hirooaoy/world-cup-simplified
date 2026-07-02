@@ -16466,14 +16466,23 @@ function handleLineupSubstitutionToggleClick(event) {
   return true;
 }
 
+function renderFinishedMatchResultBlock(match) {
+  if (match.status !== "FT") {
+    return "";
+  }
+
+  return `
+    <section class="info-block match-result-block has-section-divider">
+      ${renderResultHeading(match)}
+      ${renderScoreSummary(match)}
+      ${renderResultNotes(match)}
+    </section>
+  `;
+}
+
 function renderMatchStatusBlock(match) {
   if (match.status === "FT") {
     return `
-      <section class="info-block match-result-block has-section-divider">
-        ${renderResultHeading(match)}
-        ${renderScoreSummary(match)}
-        ${renderResultNotes(match)}
-      </section>
       ${renderPredictionBlock(match)}
       ${renderLineupVisualPrototype(match)}
     `;
@@ -20592,6 +20601,8 @@ function renderMatchInfo(match, options = {}) {
       <p>${escapeHtml(getVenueLabel(match))}</p>
       ${renderProjectedMatchNote(match, tournamentContext)}
     </section>
+
+    ${renderFinishedMatchResultBlock(displayMatch)}
 
     ${renderMatchContext(match, tournamentContext)}
 
