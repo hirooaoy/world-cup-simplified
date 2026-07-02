@@ -1,6 +1,17 @@
 {
-  "updatedAt": "2026-07-01T16:40:21-07:00",
+  "updatedAt": "2026-07-01T17:08:28-07:00",
   "releases": [
+    {
+      "date": "2026-07-01",
+      "title": "Previous context divider refresh",
+      "titleZh": "Previous 语境分隔线刷新",
+      "highlights": [
+        "Knockout Previous sections now load the refreshed divider styling through the latest app cache version."
+      ],
+      "highlightsZh": [
+        "淘汰赛 Previous 区块现在会通过最新应用缓存版本加载更新后的分隔线样式。"
+      ]
+    },
     {
       "date": "2026-07-01",
       "title": "Line-ups visual prototype and official result sync",
