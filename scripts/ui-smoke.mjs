@@ -2702,10 +2702,12 @@ try {
   const roundOf32DetailText = normalizeFlaggedText(await page.locator("#match-info").innerText());
   assert(
     roundOf32DetailText.includes("Previous: Group round") &&
-      roundOf32DetailText.includes("South Africa won 1-0 against South Korea #25, tied 1-1 against Czechia #40, and lost 0-2 to Mexico #14.") &&
-      roundOf32DetailText.includes("Canada won 6-0 against Qatar #56, tied 1-1 against Bosnia and Herzegovina #64, and lost 1-2 to Switzerland #19.") &&
+      roundOf32DetailText.includes("South Africa won 1-0 against South Korea #25, tied 1-1 against Czechia #40, and lost 0-2 to Mexico #14") &&
+      roundOf32DetailText.includes("Canada won 6-0 against Qatar #56, tied 1-1 against Bosnia and Herzegovina #64, and lost 1-2 to Switzerland #19") &&
+      !roundOf32DetailText.includes("Mexico #14.") &&
+      !roundOf32DetailText.includes("Switzerland #19.") &&
       roundOf32DetailText.includes("Next: Round of 16") &&
-      /Winner will face Morocco #\d+ who won 3-2 on penalties after a 1-1 tie against Netherlands #\d+\./.test(
+      /Winner will face Morocco #\d+ who won 3-2 on penalties after a 1-1 tie against Netherlands #\d+(?!\.)/.test(
         roundOf32DetailText
       ) &&
       !roundOf32DetailText.includes("Winner will face winner of Netherlands") &&
@@ -2809,11 +2811,44 @@ try {
       roundOf32ContextMetrics.rankHeights.every((height) => height <= 15.5) &&
       roundOf32ContextMetrics.rankCenterDeltas.length >= 6 &&
       roundOf32ContextMetrics.rankCenterDeltas.every((delta) => delta <= 1) &&
-      roundOf32ContextMetrics.rankHorizontalGaps.length >= 6 &&
+      roundOf32ContextMetrics.rankHorizontalGaps.length >= 4 &&
       roundOf32ContextMetrics.rankHorizontalGaps.every(
-        (gap) => gap.nameToRank >= 2.5 && gap.nameToRank <= 4.5 && gap.rankToNextText >= 3
+        (gap) =>
+          gap.nameToRank >= 2.5 &&
+          gap.nameToRank <= 4.5 &&
+          gap.rankToNextText >= 2.75 &&
+          gap.rankToNextText <= 3.75 &&
+          Math.abs(gap.nameToRank - gap.rankToNextText) <= 0.75
       ),
     `Round of 32 match detail should use compact ranking pills without context flags or subject-team ranks. Measured ${JSON.stringify(roundOf32ContextMetrics)}.`
+  );
+
+  await page.goto(`${baseUrl}?view=matches&date=2026-07-02&tz=America%2FLos_Angeles`, {
+    waitUntil: "load"
+  });
+  await page.waitForSelector('[data-match-id="match-85-round-of-32-2026-07-02"]');
+  await page.locator('[data-match-id="match-85-round-of-32-2026-07-02"]').click();
+  const switzerlandAlgeriaDetailText = normalizeFlaggedText(await page.locator("#match-info").innerText());
+  const switzerlandAlgeriaContextLines = await page
+    .locator("#match-info .knockout-context-list li")
+    .evaluateAll((items) => items.map((item) => item.textContent.replace(/\s+/g, " ").trim()));
+  const switzerlandAlgeriaNextText = await page
+    .locator("#match-info .knockout-next-line")
+    .evaluate((line) => line.textContent.replace(/\s+/g, " ").trim());
+  assert(
+    switzerlandAlgeriaDetailText.includes("Previous: Group round") &&
+      switzerlandAlgeriaContextLines.includes(
+        "Switzerland won 4-1 against Bosnia and Herzegovina #64 and 2-1 against Canada #30 and tied 1-1 against Qatar #56"
+      ) &&
+      switzerlandAlgeriaContextLines.includes(
+        "Algeria won 2-1 against Jordan #63, tied 3-3 against Austria #24, and lost 0-3 to Argentina #1"
+      ) &&
+      switzerlandAlgeriaDetailText.includes("Next: Round of 16") &&
+      switzerlandAlgeriaNextText === "Winner will face winner of Colombia #13 vs Ghana #73",
+    `Switzerland-Algeria context should omit trailing periods while preserving ranked opponent copy. Measured ${JSON.stringify({
+      switzerlandAlgeriaContextLines,
+      switzerlandAlgeriaNextText
+    })}.`
   );
 
   await page.goto(`${baseUrl}?view=matches&date=2026-06-29&tz=America%2FLos_Angeles`, {
@@ -2861,8 +2896,10 @@ try {
   await page.locator('[data-match-id="match-76-round-of-32-2026-06-29"]').click();
   const unconfirmedRoundOf32DetailText = normalizeFlaggedText(await page.locator("#match-info").innerText());
   assert(
-    unconfirmedRoundOf32DetailText.includes("Brazil won 3-0 against Haiti #83 and 3-0 against Scotland #42 and tied 1-1 against Morocco #7.") &&
-      unconfirmedRoundOf32DetailText.includes("Japan won 4-0 against Tunisia #45 and tied 2-2 against Netherlands #8 and 1-1 against Sweden #38.") &&
+    unconfirmedRoundOf32DetailText.includes("Brazil won 3-0 against Haiti #83 and 3-0 against Scotland #42 and tied 1-1 against Morocco #7") &&
+      unconfirmedRoundOf32DetailText.includes("Japan won 4-0 against Tunisia #45 and tied 2-2 against Netherlands #8 and 1-1 against Sweden #38") &&
+      !unconfirmedRoundOf32DetailText.includes("Morocco #7.") &&
+      !unconfirmedRoundOf32DetailText.includes("Sweden #38.") &&
       !unconfirmedRoundOf32DetailText.includes("Group F runner-up is not confirmed yet."),
     "Round of 32 match detail should summarize both teams once the opponent slot is locked."
   );
@@ -2914,7 +2951,8 @@ try {
   const norwayRoundOf32DetailText = normalizeFlaggedText(await page.locator("#match-info").innerText());
   assert(
     norwayRoundOf32DetailText.includes("Next: Round of 16") &&
-      norwayRoundOf32DetailText.includes("Winner will face Brazil #6 who won 2-1 against Japan #18."),
+      norwayRoundOf32DetailText.includes("Winner will face Brazil #6 who won 2-1 against Japan #18") &&
+      !norwayRoundOf32DetailText.includes("Japan #18."),
     "Round of 32 normal-score next path should show ranking pills for both the winning opponent and defeated team."
   );
 
@@ -2939,7 +2977,7 @@ try {
       roundOf16DetailText.includes("Previous: Round of 32") &&
       roundOf16SourceStatusReady &&
       roundOf16DetailText.includes("Next: Quarter-finals") &&
-      /Winner will face winner of Brazil #\d+ vs Norway #\d+\./.test(roundOf16DetailText) &&
+      /Winner will face winner of Brazil #\d+ vs Norway #\d+(?!\.)/.test(roundOf16DetailText) &&
       roundOf16DetailText.includes("Prediction") &&
       !roundOf16DetailText.includes("Previous: Group round") &&
       !roundOf16DetailText.includes("bracket details are not loaded yet"),
@@ -4295,9 +4333,34 @@ try {
     "Final match details should keep the prediction card below the result."
   );
 
-  const finalLineupModeCheck = await openPageAtTime(
+  const lineupProductionTrustCheck = await openPageAtTime(
     "2026-07-02T02:45:00.000Z",
     "/?view=matches&date=2026-07-01&tz=America%2FLos_Angeles"
+  );
+  const trustedLineupFixtureIds = [
+    "match-80-round-of-32-2026-07-01",
+    "match-81-round-of-32-2026-07-01",
+    "match-82-round-of-32-2026-07-01"
+  ];
+  const lineupProductionStates = [];
+  for (const fixtureId of trustedLineupFixtureIds) {
+    await lineupProductionTrustCheck.page.locator(`[data-match-id="${fixtureId}"]`).click();
+    await lineupProductionTrustCheck.page.waitForSelector("#match-info .match-result-block", { state: "attached" });
+    lineupProductionStates.push({
+      fixtureId,
+      lineupBlocks: await lineupProductionTrustCheck.page.locator("#match-info .lineup-preview-block").count(),
+      detailText: await lineupProductionTrustCheck.page.locator("#match-info").innerText()
+    });
+  }
+  assert(
+    lineupProductionStates.every((state) => state.lineupBlocks === 0 && !/Final lineup record|Confirmed lineups|Predicted lineups/.test(state.detailText)),
+    `Production match details should not render line-up boards or status copy without trusted fixture.lineups data. Measured ${JSON.stringify(lineupProductionStates)}.`
+  );
+  await lineupProductionTrustCheck.context.close();
+
+  const finalLineupModeCheck = await openPageAtTime(
+    "2026-07-02T02:45:00.000Z",
+    "/?view=matches&date=2026-07-01&tz=America%2FLos_Angeles&lineupPrototype=1"
   );
   await finalLineupModeCheck.page.locator('[data-match-id="match-81-round-of-32-2026-07-01"]').click();
   const finalLineupState = await finalLineupModeCheck.page.locator("#match-info .lineup-preview-block").evaluate((block) => ({
@@ -4313,6 +4376,11 @@ try {
       });
       const visibleTabs = [...(visibleTablist?.querySelectorAll(".lineup-tab") || [])];
       const tabWidths = visibleTabs.map((tab) => Math.round(tab.getBoundingClientRect().width));
+      const tablistBounds = visibleTablist?.getBoundingClientRect();
+      const formationPillBounds = visibleTablist
+        ?.closest(".lineup-team-band")
+        ?.querySelector(".lineup-formation-pill")
+        ?.getBoundingClientRect();
       return {
         tabAriaLabels: visibleTabs.map((tab) => tab.getAttribute("aria-label") || ""),
         tabCompactLabels: visibleTabs.map(
@@ -4322,6 +4390,10 @@ try {
           (tab) => getComputedStyle(tab.querySelector(".lineup-tab-label-full")).display === "none"
         ),
         tablistOverflow: visibleTablist ? visibleTablist.scrollWidth - visibleTablist.clientWidth : null,
+        tablistWidth: tablistBounds ? Math.round(tablistBounds.width) : null,
+        tablistHeight: tablistBounds ? Math.round(tablistBounds.height) : null,
+        tabMaxWidth: tabWidths.length ? Math.max(...tabWidths) : null,
+        formationPillHeight: formationPillBounds ? Math.round(formationPillBounds.height) : null,
         tabWidthDelta: tabWidths.length ? Math.max(...tabWidths) - Math.min(...tabWidths) : null
       };
     })()
@@ -4335,7 +4407,9 @@ try {
       finalLineupState.tabAriaLabels.every((label, index) => label && label !== finalLineupState.tabCompactLabels[index]) &&
       finalLineupState.tabFullLabelsHidden &&
       finalLineupState.tablistOverflow <= 1 &&
-      finalLineupState.tabWidthDelta <= 1 &&
+      finalLineupState.tablistWidth <= 170 &&
+      finalLineupState.tabMaxWidth <= 80 &&
+      Math.abs(finalLineupState.tablistHeight - finalLineupState.formationPillHeight) <= 1 &&
       finalLineupState.helpLabel === "Final lineup record" &&
       !finalLineupState.hasPredictionHeadingCopy &&
       !finalLineupState.hasPredictedLineupsCopy,
@@ -4343,13 +4417,94 @@ try {
   );
 
   await finalLineupModeCheck.page.locator('[data-match-id="match-80-round-of-32-2026-07-01"]').click();
-  await finalLineupModeCheck.page.locator("#match-info .lineup-tab[data-lineup-tab='away']").first().click();
+  await finalLineupModeCheck.page
+    .locator("#match-info .lineup-tab-panel:not([hidden]) .lineup-tab[data-lineup-tab='away']")
+    .dispatchEvent("click");
+  const desktopHoverTriggerPointerPolicy = await finalLineupModeCheck.page.evaluate(() => {
+    const dispatchMousePointerDown = (selector) => {
+      const element = document.querySelector(selector);
+      if (!element) {
+        return null;
+      }
+
+      const event = new PointerEvent("pointerdown", {
+        bubbles: true,
+        button: 0,
+        cancelable: true,
+        pointerType: "mouse"
+      });
+      const allowed = element.dispatchEvent(event);
+
+      return {
+        allowed,
+        defaultPrevented: event.defaultPrevented,
+        href: element.getAttribute("href") || "",
+        tagName: element.tagName,
+        text: element.textContent.replace(/\s+/g, " ").trim()
+      };
+    };
+
+    return {
+      coachAnchor: dispatchMousePointerDown(
+        "#match-info .lineup-preview-block .lineup-coach-trigger[href], #match-info .lineup-preview-block .lineup-coach-icon-trigger[href]"
+      ),
+      formation: dispatchMousePointerDown(
+        "#match-info .lineup-tab-panel:not([hidden]) .lineup-formation-pill"
+      ),
+      player: dispatchMousePointerDown(
+        "#match-info .lineup-tab-panel:not([hidden]) .lineup-player-name"
+      )
+    };
+  });
+  assert(
+    desktopHoverTriggerPointerPolicy.player?.defaultPrevented &&
+      desktopHoverTriggerPointerPolicy.formation?.defaultPrevented &&
+      desktopHoverTriggerPointerPolicy.coachAnchor?.tagName === "A" &&
+      Boolean(desktopHoverTriggerPointerPolicy.coachAnchor?.href) &&
+      !desktopHoverTriggerPointerPolicy.coachAnchor?.defaultPrevented,
+    `Desktop mouse focus suppression should cover non-link hover triggers while preserving source anchors. Measured ${JSON.stringify(desktopHoverTriggerPointerPolicy)}.`
+  );
   const cipengaLineupTrigger = finalLineupModeCheck.page
     .locator("#match-info .lineup-tab-panel:not([hidden]) .lineup-player-name", { hasText: /Cipenga/ })
     .first();
   const sadikiLineupTrigger = finalLineupModeCheck.page
     .locator("#match-info .lineup-tab-panel:not([hidden]) .lineup-player-name", { hasText: /Sadiki/ })
     .first();
+  await finalLineupModeCheck.page
+    .locator("#match-info .lineup-tab-panel:not([hidden]) .lineup-formation-pill")
+    .click();
+  await finalLineupModeCheck.page.waitForTimeout(80);
+  await sadikiLineupTrigger.hover();
+  await finalLineupModeCheck.page.waitForTimeout(320);
+  const desktopLineupFormationCardState = await finalLineupModeCheck.page.evaluate(() => {
+    const visibleCards = [...document.querySelectorAll(".player-card")]
+      .filter((card) => {
+        const style = getComputedStyle(card);
+        const rect = card.getBoundingClientRect();
+        return (
+          style.display !== "none" &&
+          style.visibility !== "hidden" &&
+          Number(style.opacity) > 0.05 &&
+          rect.width > 0 &&
+          rect.height > 0
+        );
+      })
+      .map((card) => card.querySelector(".player-card-name")?.textContent.trim() || "");
+
+    return {
+      activeHoverText:
+        document.activeElement?.closest?.(".player-hover")?.querySelector(".player-link")?.textContent.trim() || "",
+      visibleCards
+    };
+  });
+  assert(
+    desktopLineupFormationCardState.activeHoverText !== "4-3-3" &&
+      desktopLineupFormationCardState.visibleCards.length === 1 &&
+      desktopLineupFormationCardState.visibleCards[0] === "Noah Sadiki",
+    `Desktop formation-card clicks should not pin over the next player hover. Measured ${JSON.stringify(desktopLineupFormationCardState)}.`
+  );
+  await finalLineupModeCheck.page.mouse.move(20, 20);
+  await finalLineupModeCheck.page.waitForTimeout(120);
   await cipengaLineupTrigger.click();
   await finalLineupModeCheck.page.waitForTimeout(80);
   await sadikiLineupTrigger.hover();
@@ -4432,13 +4587,13 @@ try {
   ];
   const lineupCoachCoverageCheck = await openPageAtTime(
     "2026-07-01T22:00:00.000Z",
-    "/?view=matches&date=2026-06-30&tz=America%2FLos_Angeles"
+    "/?view=matches&date=2026-06-30&tz=America%2FLos_Angeles&lineupPrototype=1"
   );
   let activeLineupCoachDate = "2026-06-30";
   for (const coachCase of coveredLineupCoachCases) {
     if (coachCase.date !== activeLineupCoachDate) {
       await lineupCoachCoverageCheck.page.goto(
-        `${baseUrl}?view=matches&date=${coachCase.date}&tz=America%2FLos_Angeles`,
+        `${baseUrl}?view=matches&date=${coachCase.date}&tz=America%2FLos_Angeles&lineupPrototype=1`,
         { waitUntil: "load" }
       );
       await lineupCoachCoverageCheck.page.waitForSelector(".match-row", { state: "attached" });
@@ -4454,16 +4609,76 @@ try {
       .evaluate((block) => {
         const triggers = [...block.querySelectorAll(".lineup-coach-icon-trigger")];
         return {
+          cardPhotoRadii: [...block.querySelectorAll(".lineup-coach-card-photo")].map(
+            (photo) => getComputedStyle(photo).borderTopLeftRadius
+          ),
+          copyNoteCounts: [...block.querySelectorAll(".lineup-coach-card")].map(
+            (card) => card.querySelectorAll(".lineup-coach-copy .player-card-note").length
+          ),
           hrefs: triggers.map((trigger) => trigger.getAttribute("href") || ""),
+          imageUrls: triggers.map((trigger) => trigger.querySelector("img")?.getAttribute("src") || ""),
           names: triggers.map((trigger) => (trigger.getAttribute("aria-label") || "").split(":")[0].trim())
         };
       });
     assert(
       coachState.names.join("|") === coachCase.coaches.join("|") &&
         coachState.hrefs.length === 2 &&
-        coachState.hrefs.every((href) => href.startsWith("https://")),
-      `Covered line-up match ${coachCase.matchId} should render both coach source icons. Measured ${JSON.stringify(coachState)}.`
+        coachState.hrefs.every((href) => href.startsWith("https://")) &&
+        coachState.imageUrls.length === 2 &&
+        coachState.imageUrls.every((url) => url.startsWith("https://commons.wikimedia.org/wiki/Special:FilePath/")) &&
+        coachState.cardPhotoRadii.length === 2 &&
+        coachState.cardPhotoRadii.every((radius) => radius === "13px") &&
+        coachState.copyNoteCounts.length === 2 &&
+        coachState.copyNoteCounts.every((count) => count === 2),
+      `Covered line-up match ${coachCase.matchId} should render both coach source icons with rounded-square portrait images and two coach-card copy lines. Measured ${JSON.stringify(coachState)}.`
     );
+
+    const lineupSideState = await lineupCoachCoverageCheck.page
+      .locator("#match-info .lineup-preview-block")
+      .evaluate((block) => {
+        const rightSidePositions = new Set(["RB", "RWB", "RM", "RW"]);
+        const leftSidePositions = new Set(["LB", "LWB", "LM", "LW"]);
+        const markers = [...block.querySelectorAll(".lineup-player-marker")].map((marker) => {
+          const position = marker.dataset.lineupPosition || "";
+          const x = Number.parseFloat(marker.style.getPropertyValue("--x"));
+          const name = marker.dataset.lineupPlayerName || marker.dataset.lineupStarterName || "";
+          return { name, position, x };
+        });
+        const sideIssues = markers.filter(({ position, x }) => {
+          if (!Number.isFinite(x)) return true;
+          if (rightSidePositions.has(position)) return x <= 50;
+          if (leftSidePositions.has(position)) return x >= 50;
+          return false;
+        });
+        const byName = Object.fromEntries(markers.map((marker) => [marker.name, marker]));
+
+        return { byName, markers, sideIssues };
+      });
+    assert(
+      lineupSideState.sideIssues.length === 0,
+      `Covered line-up match ${coachCase.matchId} should keep side-specific roles on the correct visual side. Measured ${JSON.stringify(lineupSideState.sideIssues)}.`
+    );
+
+    if (coachCase.matchId === "match-84-round-of-32-2026-07-02") {
+      const spainWideState = [
+        lineupSideState.byName["Lamine Yamal"],
+        lineupSideState.byName["Nico Williams"],
+        lineupSideState.byName["Pedro Porro"],
+        lineupSideState.byName["Marc Cucurella"]
+      ];
+      assert(
+        spainWideState.every(Boolean) &&
+          lineupSideState.byName["Lamine Yamal"].position === "RW" &&
+          lineupSideState.byName["Lamine Yamal"].x > 50 &&
+          lineupSideState.byName["Nico Williams"].position === "LW" &&
+          lineupSideState.byName["Nico Williams"].x < 50 &&
+          lineupSideState.byName["Pedro Porro"].position === "RB" &&
+          lineupSideState.byName["Pedro Porro"].x > 50 &&
+          lineupSideState.byName["Marc Cucurella"].position === "LB" &&
+          lineupSideState.byName["Marc Cucurella"].x < 50,
+        `Spain predicted line-up should draw Yamal/Porro on the right and Williams/Cucurella on the left. Measured ${JSON.stringify(spainWideState)}.`
+      );
+    }
   }
   await lineupCoachCoverageCheck.context.close();
 

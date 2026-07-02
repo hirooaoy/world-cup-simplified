@@ -15,6 +15,10 @@ const steps = [
     script: "scripts/sync-fifa-goal-events.mjs"
   },
   {
+    label: "Sync FIFA cards and substitutions",
+    script: "scripts/sync-fifa-match-events.mjs"
+  },
+  {
     label: "Refresh confirmed-fixture key-player/H2H baselines",
     script: "scripts/populate-enrichment-baselines.mjs"
   },

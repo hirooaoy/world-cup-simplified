@@ -1,4 +1,4 @@
-const DATA_VERSION = "2026-07-01-lineup-coaches";
+const DATA_VERSION = "2026-07-02-official-match-events";
 const DATA_URLS = {
   adminMessage: `data/admin-message.json?v=${DATA_VERSION}`,
   fixtures: `data/fixtures.json?v=${DATA_VERSION}`,
@@ -191,6 +191,7 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "Data refreshed": "数据刷新于",
     "Data refreshed stays separate from app release notes.": "数据刷新时间与应用发布说明分开显示。",
     "Eliminated": "已淘汰",
+    "ET": "加时前",
     "No remaining group result combination can move this team into a Round of 32 place.":
       "剩余小组赛结果已无法让这支球队进入32强席位。",
     "FIFA schedule": "FIFA赛程",
@@ -352,8 +353,11 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "Coach": "主教练",
     "Can struggle with": "可能吃亏",
     "Formation": "阵型",
+    "Formation & events": "阵型与事件",
+    "Formations": "阵型",
     "Good at": "擅长",
     "Head Coach": "主教练",
+    "HT": "中场",
     "Line ups": "阵容",
     "Line-ups": "阵容",
     "Line-ups (expected)": "预计阵容",
@@ -367,9 +371,11 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "Predicted lineups": "预测阵容",
     "Predicted lineups checked": "预测阵容核验",
     "Red card": "红牌",
+    "Substitution": "换人",
     "Substituted off": "被换下",
     "Substituted on": "替补登场",
     "Yellow card": "黄牌",
+    "for": "换下",
     "Position to verify": "位置待确认",
     "Prediction": "预测",
     "Predictions are unofficial.": "预测为非官方内容。",
@@ -15215,6 +15221,242 @@ function renderScoringDetailsList(match, options = {}) {
     : "";
 }
 
+function hasTrustedMatchEvents(match) {
+  const events = match?.matchEvents;
+  const checkedAt = events?.checkedAt || events?.updatedAt;
+  return (
+    events &&
+    typeof events === "object" &&
+    !Array.isArray(events) &&
+    Array.isArray(events.sourceIds) &&
+    events.sourceIds.length > 0 &&
+    checkedAt &&
+    !Number.isNaN(new Date(checkedAt).getTime())
+  );
+}
+
+function getTrustedMatchEvents(match) {
+  return hasTrustedMatchEvents(match) ? match.matchEvents : null;
+}
+
+function getMatchEventSideData(match, side) {
+  const events = getTrustedMatchEvents(match);
+  const sideEvents = events?.[side];
+  return sideEvents && typeof sideEvents === "object" && !Array.isArray(sideEvents) ? sideEvents : null;
+}
+
+function getMatchEventTeam(match, side) {
+  return side === "home" ? match.homeTeam : match.awayTeam;
+}
+
+function getMatchEventMinuteSortValue(minute) {
+  const value = String(minute || "").trim();
+  if (!value) {
+    return 0;
+  }
+  if (value.toUpperCase() === "HT") {
+    return 4599;
+  }
+  if (value.toUpperCase() === "ET") {
+    return 9099;
+  }
+
+  const match = /^(\d+)(?:\+(\d+))?$/.exec(value);
+  if (!match) {
+    return Number.isFinite(Number(value)) ? Number(value) * 100 : 0;
+  }
+
+  return Number(match[1]) * 100 + (Number(match[2]) || 0);
+}
+
+function formatMatchEventMinute(minute) {
+  const value = String(minute || "").trim();
+  if (!value) {
+    return "";
+  }
+
+  if (["HT", "ET"].includes(value.toUpperCase())) {
+    return localizeText(value.toUpperCase());
+  }
+
+  return value.endsWith("'") ? value : `${value}'`;
+}
+
+function createMatchEventPlayer(match, side, name, role) {
+  const playerName = String(name || "").trim();
+  if (!playerName) {
+    return null;
+  }
+
+  const team = getMatchEventTeam(match, side);
+  return {
+    name: playerName,
+    team,
+    teamId: team?.id || "",
+    role,
+    cardContext: "match-event"
+  };
+}
+
+function renderMatchEventPerson(match, side, name, role) {
+  const player = createMatchEventPlayer(match, side, name, role);
+  if (!player) {
+    return "";
+  }
+
+  return renderPlayerMention(getPlayerDisplayName(player), player);
+}
+
+function getMatchFormationItems(match) {
+  return ["home", "away"]
+    .map((side) => {
+      const team = getMatchEventTeam(match, side);
+      const formation = String(getMatchEventSideData(match, side)?.formation || "").trim();
+      return team && formation ? { side, team, formation } : null;
+    })
+    .filter(Boolean);
+}
+
+function renderMatchFormationSummary(match) {
+  const items = getMatchFormationItems(match);
+  if (!items.length) {
+    return "";
+  }
+
+  return `
+    <div class="match-event-formations" aria-label="${escapeHtml(localizeText("Formations"))}">
+      ${items
+        .map((item) => `
+          <span class="match-event-formation-pill">
+            ${renderFlag(item.team)}
+            <span>${escapeHtml(getTournamentTeamCode(item.team))}</span>
+            <strong>${escapeHtml(item.formation)}</strong>
+          </span>
+        `)
+        .join("")}
+    </div>
+  `;
+}
+
+function getMatchEventRows(match) {
+  const rows = [];
+
+  for (const side of ["home", "away"]) {
+    const sideEvents = getMatchEventSideData(match, side);
+    if (!sideEvents) {
+      continue;
+    }
+
+    for (const card of sideEvents.cards || []) {
+      rows.push({
+        ...card,
+        kind: "card",
+        side,
+        sortValue: getMatchEventMinuteSortValue(card.minute)
+      });
+    }
+
+    for (const substitution of sideEvents.substitutions || []) {
+      rows.push({
+        ...substitution,
+        kind: "substitution",
+        side,
+        sortValue: getMatchEventMinuteSortValue(substitution.minute)
+      });
+    }
+  }
+
+  return rows.sort((a, b) => a.sortValue - b.sortValue);
+}
+
+function renderMatchEventTeamFlag(match, side) {
+  const team = getMatchEventTeam(match, side);
+  return team ? `<span class="match-event-team-flag">${renderFlag(team)}</span>` : "";
+}
+
+function renderMatchCardEvent(match, event) {
+  const type = event.type === "red" ? "red" : "yellow";
+  const label = type === "red" ? "Red card" : "Yellow card";
+  const minute = formatMatchEventMinute(event.minute);
+  const person = renderMatchEventPerson(match, event.side, event.playerName || event.name, label);
+
+  return `
+    <li class="match-event-row is-card is-${escapeHtml(type)}">
+      ${minute ? `<span class="match-event-minute">${escapeHtml(minute)}</span>` : ""}
+      ${renderMatchEventTeamFlag(match, event.side)}
+      <span class="match-event-card-icon is-${escapeHtml(type)}" aria-hidden="true"></span>
+      <span class="match-event-copy">
+        <strong>${escapeHtml(localizeText(label))}</strong>
+        ${person}
+      </span>
+    </li>
+  `;
+}
+
+function renderMatchSubstitutionCopy(match, event) {
+  const onPlayer = renderMatchEventPerson(match, event.side, event.onName, "Impact sub");
+  const offPlayer = renderMatchEventPerson(match, event.side, event.offName, "Player");
+  if (currentLanguage === "zh") {
+    return `${onPlayer}<span class="match-event-sub-link">${escapeHtml(localizeText("for"))}</span>${offPlayer}`;
+  }
+
+  return `${onPlayer}<span class="match-event-sub-link">${escapeHtml(localizeText("for"))}</span>${offPlayer}`;
+}
+
+function renderMatchSubstitutionEvent(match, event) {
+  const minute = formatMatchEventMinute(event.minute);
+
+  return `
+    <li class="match-event-row is-substitution">
+      ${minute ? `<span class="match-event-minute">${escapeHtml(minute)}</span>` : ""}
+      ${renderMatchEventTeamFlag(match, event.side)}
+      <span class="match-event-sub-icon" aria-hidden="true"></span>
+      <span class="match-event-copy">
+        <strong>${escapeHtml(localizeText("Substitution"))}</strong>
+        ${renderMatchSubstitutionCopy(match, event)}
+      </span>
+    </li>
+  `;
+}
+
+function renderMatchEventRows(match) {
+  const rows = getMatchEventRows(match);
+  if (!rows.length) {
+    return "";
+  }
+
+  return `
+    <ul class="match-event-list">
+      ${rows
+        .map((event) =>
+          event.kind === "substitution"
+            ? renderMatchSubstitutionEvent(match, event)
+            : renderMatchCardEvent(match, event)
+        )
+        .join("")}
+    </ul>
+  `;
+}
+
+function renderMatchEventsSummary(match) {
+  if (!getTrustedMatchEvents(match)) {
+    return "";
+  }
+
+  const formationMarkup = renderMatchFormationSummary(match);
+  const eventMarkup = renderMatchEventRows(match);
+  if (!formationMarkup && !eventMarkup) {
+    return "";
+  }
+
+  return `
+    <div class="match-event-summary" aria-label="${escapeHtml(localizeText("Formation & events"))}">
+      ${formationMarkup}
+      ${eventMarkup}
+    </div>
+  `;
+}
+
 function getFifaScheduleResultsUrl() {
   const source = (tournament.sources || []).find(
     (item) => item.label === "FIFA World Cup 2026 schedule and results"
@@ -15320,8 +15562,9 @@ function renderResultNotes(match) {
   const scoringHighlight = renderScoringDetailsHighlight(match);
   const canonicalHighlights = getResultStoryHighlights(match);
   const highlights = getResultDisplayHighlights(match);
+  const matchEvents = renderMatchEventsSummary(match);
 
-  if (!scoringHighlight && !highlights.length) {
+  if (!scoringHighlight && !highlights.length && !matchEvents) {
     return `<p class="data-note">${escapeHtml(localizeText("Final score reflected in the current standings after source checks."))}</p>`;
   }
 
@@ -15346,51 +15589,60 @@ function renderResultNotes(match) {
     <div class="result-notes">
       ${scoringMarkup}
       ${storyMarkup}
+      ${matchEvents}
     </div>
   `;
 }
 
+const lineupVisualPrototypeEnabled = (() => {
+  try {
+    return new URLSearchParams(window.location.search).get("lineupPrototype") === "1";
+  } catch {
+    return false;
+  }
+})();
+
 function isLineupVisualPrototypeEnabled() {
-  return true;
+  return lineupVisualPrototypeEnabled;
 }
 
 const MOCK_LINEUP_LAYOUTS = {
   "4-2-3-1": [
     ["GK", 50, 91],
-    ["RB", 15, 75],
-    ["CB", 38, 75],
+    ["RB", 85, 75],
     ["CB", 62, 75],
-    ["LB", 85, 75],
+    ["CB", 38, 75],
+    ["LB", 15, 75],
     ["CM", 34, 59],
     ["CM", 66, 59],
-    ["RW", 18, 40],
+    ["RW", 82, 40],
     ["AM", 50, 40],
-    ["LW", 82, 40],
+    ["LW", 18, 40],
     ["ST", 50, 20]
   ],
   "4-3-3": [
     ["GK", 50, 91],
-    ["RB", 15, 75],
-    ["CB", 38, 75],
+    ["RB", 85, 75],
     ["CB", 62, 75],
-    ["LB", 85, 75],
+    ["CB", 38, 75],
+    ["LB", 15, 75],
     ["CM", 25, 53],
     ["CM", 50, 53],
     ["CM", 75, 53],
-    ["RW", 18, 31],
+    ["RW", 82, 31],
     ["ST", 50, 21],
-    ["LW", 82, 31]
+    ["LW", 18, 31]
   ],
   "4-4-2": [
     ["GK", 50, 91],
-    ["RB", 15, 75],
-    ["CB", 38, 75],
+    ["RB", 85, 75],
     ["CB", 62, 75],
-    ["LB", 85, 75],
-    ["RM", 18, 52],
+    ["CB", 38, 75],
+    ["LB", 15, 75],
+    ["RM", 82, 52],
     ["CM", 38, 55],
     ["CM", 62, 55],
-    ["LM", 82, 52],
+    ["LM", 18, 52],
     ["ST", 41, 24],
     ["ST", 59, 24]
   ]
@@ -15693,30 +15945,48 @@ const MOCK_LINEUP_COACHES = {
     name: "Rudi Garcia",
     nameZh: "鲁迪·加西亚",
     sinceYear: "2025",
+    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Rudi_Garcia_(Flickr%2C_2011).jpg?width=160",
+    imageSourceUrl: "https://commons.wikimedia.org/wiki/File:Rudi_Garcia_(Flickr,_2011).jpg",
     sourceUrl: "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/rudi-garcia-belgium-interview",
     note: {
       en: "Garcia gives Belgium a compact base while leaving De Bruyne and the wide runners room to choose the attacking moment.",
       zh: "加西亚给比利时保留紧凑基础，同时让德布劳内和边路冲刺球员有空间选择进攻时机。"
+    },
+    history: {
+      en: "He previously won Ligue 1 and the Coupe de France with Lille and managed Roma, Marseille, Lyon, Al Nassr, and Napoli.",
+      zh: "他此前曾带领里尔赢得法甲和法国杯，也执教过罗马、马赛、里昂、利雅得胜利和那不勒斯。"
     }
   },
   BIH: {
     name: "Sergej Barbarez",
     nameZh: "塞尔盖·巴巴雷兹",
     sinceYear: "2024",
+    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Sergej_Barbarez_04_(cropped).jpg?width=160",
+    imageSourceUrl: "https://commons.wikimedia.org/wiki/File:Sergej_Barbarez_04_(cropped).jpg",
     sourceUrl: "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/ermedin-demirovic-sergej-barbarez-bosnia-and-herzegovina-interview",
     note: {
       en: "Barbarez leans on Bosnia and Herzegovina's emotional edge, direct play, and box targets to keep games alive.",
       zh: "巴巴雷兹依靠波黑的情绪能量、直接打法和禁区支点，让比赛始终保留机会。"
+    },
+    history: {
+      en: "He captained Bosnia and Herzegovina and shared the Bundesliga top-scorer award before taking the national-team job in 2024.",
+      zh: "他曾担任波黑队长，并并列获得过德甲最佳射手；2024 年接手国家队。"
     }
   },
   CIV: {
     name: "Emerse Faé",
     nameZh: "埃梅尔斯·法埃",
     sinceYear: "2024",
+    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Emerse_Fa%C3%A9.jpg?width=160",
+    imageSourceUrl: "https://commons.wikimedia.org/wiki/File:Emerse_Fa%C3%A9.jpg",
     sourceUrl: "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/emerse-fae-cote-divoire",
     note: {
       en: "Faé gives Côte d'Ivoire a balanced, player-friendly structure: midfield power first, then fast wide attacks.",
       zh: "法埃给科特迪瓦搭出平衡且适合球员发挥的结构：先用中场力量站稳，再从边路提速。"
+    },
+    history: {
+      en: "He previously led Côte d'Ivoire to the 2023 Africa Cup of Nations title after taking charge during the tournament.",
+      zh: "他此前在赛事中途接手科特迪瓦，并带队赢得 2023 年非洲杯冠军。"
     }
   },
   COD: {
@@ -15724,30 +15994,47 @@ const MOCK_LINEUP_COACHES = {
     nameZh: "塞巴斯蒂安·德萨布尔",
     sinceYear: "2022",
     imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/S%C3%A9bastien%20Desabre.JPG?width=160",
+    imageSourceUrl: "https://commons.wikimedia.org/wiki/File:S%C3%A9bastien_Desabre.JPG",
     sourceUrl: "https://www.espn.com/soccer/story/_/id/49101212/congo-dr-coach-urges-team-stay-humble-historic-draw-portugal",
     note: {
       en: "Desabre gives DR Congo structure first, then looks for speed, strength, and set pieces to turn defense into chances.",
       zh: "德萨布尔先让刚果民主共和国站稳阵型，再用速度、身体和定位球把防守转成机会。"
+    },
+    history: {
+      en: "He previously led Uganda at the 2019 Africa Cup of Nations and guided DR Congo to the 2023 AFCON semi-finals.",
+      zh: "他此前曾带乌干达出战 2019 年非洲杯，并带领刚果民主共和国闯入 2023 年非洲杯半决赛。"
     }
   },
   CRO: {
     name: "Zlatko Dalić",
     nameZh: "兹拉特科·达利奇",
     sinceYear: "2017",
+    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Zlatko_Dali%C4%87_Croatia.jpg?width=160",
+    imageSourceUrl: "https://commons.wikimedia.org/wiki/File:Zlatko_Dali%C4%87_Croatia.jpg",
     sourceUrl: "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/croatia-squad-named",
     note: {
       en: "Dalić trusts Croatia's experienced midfield to slow matches down, then asks runners to attack spaces that open late.",
       zh: "达利奇相信克罗地亚经验丰富的中场能放慢比赛，再让后插上球员冲击后段出现的空间。"
+    },
+    history: {
+      en: "He led Croatia to the 2018 World Cup final and third place at the 2022 World Cup.",
+      zh: "他曾带领克罗地亚闯入 2018 年世界杯决赛，并在 2022 年世界杯获得季军。"
     }
   },
   ECU: {
     name: "Sebastián Beccacece",
     nameZh: "塞巴斯蒂安·贝卡塞塞",
     sinceYear: "2024",
+    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Sebasti%C3%A1n_Beccacece_Cote_D%27Ivoire_v_Ecuador_14_June_2026-69_(cropped).jpg?width=160",
+    imageSourceUrl: "https://commons.wikimedia.org/wiki/File:Sebasti%C3%A1n_Beccacece_Cote_D%27Ivoire_v_Ecuador_14_June_2026-69_(cropped).jpg",
     sourceUrl: "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/beccacece-i-want-us-to-stand-up-and-be-counted",
     note: {
       en: "Beccacece's Ecuador are built around energy, pressure, and brave midfield carries, with risk when the team has to chase.",
       zh: "贝卡塞塞的厄瓜多尔建立在活力、压迫和中场大胆推进上；被迫追分时也会露出空间。"
+    },
+    history: {
+      en: "He was on Chile's 2015 Copa América-winning staff and later managed Defensa y Justicia, Racing, Elche, and Argentina U20.",
+      zh: "他曾是智利 2015 年美洲杯冠军教练组成员，之后执教过国防与司法、竞技、埃尔切和阿根廷 U20。"
     }
   },
   ENG: {
@@ -15755,6 +16042,7 @@ const MOCK_LINEUP_COACHES = {
     nameZh: "托马斯·图赫尔",
     sinceYear: "2025",
     imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Thomas%20Tuchel%20Chelsea.jpg?width=160",
+    imageSourceUrl: "https://commons.wikimedia.org/wiki/File:Thomas_Tuchel_Chelsea.jpg",
     sourceUrl: "https://www.englandfootball.com/articles/2026/Jun/26/thomas-tuchel-pre-panama-match-press-conference-quotes-20262606",
     note: {
       en: "Tuchel is a detail-heavy coach: he likes control, clear roles, and patient problem-solving against packed defenses.",
@@ -15769,110 +16057,176 @@ const MOCK_LINEUP_COACHES = {
     name: "Luis de la Fuente",
     nameZh: "路易斯·德拉富恩特",
     sinceYear: "2022",
+    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Luis%20de%20la%20Fuente%20Castillo%20-%202023%2005%2006%20Final%20de%20la%20Copa%20del%20Rey%200001%20(cropped).jpg?width=160",
+    imageSourceUrl: "https://commons.wikimedia.org/wiki/File:Luis_de_la_Fuente_Castillo_-_2023_05_06_Final_de_la_Copa_del_Rey_0001_(cropped).jpg",
     sourceUrl: "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/luis-de-la-fuente-spain-feature",
     note: {
       en: "De la Fuente keeps Spain connected and aggressive, using wide threat to stretch the pitch before midfielders play through.",
       zh: "德拉富恩特让西班牙保持整体和进取性，先用边路威胁拉开球场，再让中场向前穿透。"
+    },
+    history: {
+      en: "He previously won the 2023 UEFA Nations League and Euro 2024 with Spain after youth titles with Spain U19 and U21.",
+      zh: "他此前在西班牙 U19 和 U21 拿到青年队冠军后，又带西班牙赢得 2023 年欧国联和 2024 年欧洲杯。"
     }
   },
   FRA: {
     name: "Didier Deschamps",
     nameZh: "迪迪埃·德尚",
     sinceYear: "2012",
+    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Didier_Deschamps_France_v_Senegal_16_June_2026-519_(cropped).jpg?width=160",
+    imageSourceUrl: "https://commons.wikimedia.org/wiki/File:Didier_Deschamps_France_v_Senegal_16_June_2026-519_(cropped).jpg",
     sourceUrl: "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/didier-deschamps-france-world-cup-interview",
     note: {
       en: "Deschamps keeps France pragmatic: protect the base, manage tournament moments, and release elite forwards into space.",
       zh: "德尚让法国保持务实：保护基本盘、管理杯赛节点，再把顶级前锋释放到空间里。"
+    },
+    history: {
+      en: "He won the 2018 World Cup and 2021 Nations League with France after captaining them to the 1998 World Cup as a player.",
+      zh: "他球员时代作为队长带法国赢得 1998 年世界杯，执教后又拿到 2018 年世界杯和 2021 年欧国联。"
     }
   },
   MEX: {
     name: "Javier Aguirre",
     nameZh: "哈维尔·阿吉雷",
     sinceYear: "2024",
+    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Javier_Aguirre.png?width=160",
+    imageSourceUrl: "https://commons.wikimedia.org/wiki/File:Javier_Aguirre.png",
     sourceUrl: "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/javier-aguirre-mexico-prematch-feature",
     note: {
       en: "Aguirre gives Mexico an assertive tournament edge, pressing high when the crowd lifts them and keeping the back line disciplined.",
       zh: "阿吉雷给墨西哥注入强硬的杯赛气质，借主场声浪高位压迫，同时保持后防纪律。"
+    },
+    history: {
+      en: "He previously took Mexico to the 2002 and 2010 World Cups and won the 2009 CONCACAF Gold Cup.",
+      zh: "他此前曾带墨西哥参加 2002 年和 2010 年世界杯，并赢得 2009 年中北美及加勒比金杯赛。"
     }
   },
   NOR: {
     name: "Ståle Solbakken",
     nameZh: "斯托勒·索尔巴肯",
     sinceYear: "2020",
+    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Norway%20Italy%20-%20June%202025%20E%2008.jpg?width=160",
+    imageSourceUrl: "https://commons.wikimedia.org/wiki/File:Norway_Italy_-_June_2025_E_08.jpg",
     sourceUrl: "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/norway-reaction-erling-haaland-patrick-berg-stale-solbakken",
     note: {
       en: "Solbakken makes Norway direct and practical, building service patterns around Haaland while Ødegaard supplies the next pass.",
       zh: "索尔巴肯让挪威直接而务实，围绕哈兰德设计输送线路，再由厄德高送出下一脚。"
+    },
+    history: {
+      en: "He previously won eight Danish league titles with Copenhagen before taking the Norway job in 2020.",
+      zh: "他此前曾带领哥本哈根赢得八个丹麦联赛冠军，并在 2020 年接手挪威。"
     }
   },
   POR: {
     name: "Roberto Martínez",
     nameZh: "罗伯托·马丁内斯",
     sinceYear: "2023",
+    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Roberto_Mart%C3%ADnez_USMNT_v_Portugal_Mar_31_2026-35.jpg?width=160",
+    imageSourceUrl: "https://commons.wikimedia.org/wiki/File:Roberto_Mart%C3%ADnez_USMNT_v_Portugal_Mar_31_2026-35.jpg",
     sourceUrl: "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/roberto-martinez-portugal-interview",
     note: {
       en: "Martínez gives Portugal a possession base while leaving room for Ronaldo and the wide attackers to decide games.",
       zh: "马丁内斯给葡萄牙建立控球基础，同时给C罗和边路攻击手留下决定比赛的空间。"
+    },
+    history: {
+      en: "He won the FA Cup with Wigan, guided Belgium to third at the 2018 World Cup, and won the 2025 Nations League with Portugal.",
+      zh: "他曾带维冈赢得足总杯，带比利时获得 2018 年世界杯季军，并带葡萄牙赢得 2025 年欧国联。"
     }
   },
   SEN: {
     name: "Pape Thiaw",
     nameZh: "帕普·蒂亚乌",
     sinceYear: "2024",
+    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Pape_Thiaw.png?width=160",
+    imageSourceUrl: "https://commons.wikimedia.org/wiki/File:Pape_Thiaw.png",
     sourceUrl: "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/senegal-world-cup-squad-announcement-pape-thiaw",
     note: {
       en: "Thiaw keeps Senegal physical and resilient, with direct runners and midfield duels setting the tone.",
       zh: "蒂亚乌让塞内加尔保持身体对抗和韧性，用直接冲刺和中场缠斗定下比赛基调。"
+    },
+    history: {
+      en: "He won CHAN 2022 with Senegal A' and AFCON 2025 with the senior side after representing Senegal at the 2002 World Cup.",
+      zh: "他球员时代曾代表塞内加尔参加 2002 年世界杯，执教后带塞内加尔本土队赢得 2022 年非洲国家锦标赛，并带成年队赢得 2025 年非洲杯。"
     }
   },
   SUI: {
     name: "Murat Yakin",
     nameZh: "穆拉特·雅金",
     sinceYear: "2021",
+    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Murat%20Yakin.JPG?width=160",
+    imageSourceUrl: "https://commons.wikimedia.org/wiki/File:Murat_Yakin.JPG",
     sourceUrl: "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/murat-yakin-interview-switzerland",
     note: {
       en: "Yakin keeps Switzerland compact and adaptable, leaning on midfield control and a back line comfortable with pressure.",
       zh: "雅金让瑞士保持紧凑和可调整，依靠中场控制以及能承受压力的后防线。"
+    },
+    history: {
+      en: "He previously won Swiss league titles with Basel and led Switzerland at the 2022 World Cup and Euro 2024.",
+      zh: "他此前曾带巴塞尔赢得瑞士联赛冠军，也带瑞士参加 2022 年世界杯和 2024 年欧洲杯。"
     }
   },
   SWE: {
     name: "Graham Potter",
     nameZh: "格雷厄姆·波特",
     sinceYear: "2025",
+    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Graham_Potter%2C_Brighton_%26_Hove_Albion_vs_RCD_Espanyol%2C_30_July_2022_(1)_(cropped).jpg?width=160",
+    imageSourceUrl: "https://commons.wikimedia.org/wiki/File:Graham_Potter,_Brighton_%26_Hove_Albion_vs_RCD_Espanyol,_30_July_2022_(1)_(cropped).jpg",
     sourceUrl: "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/graham-potter-sweden-world-cup-interview",
     note: {
       en: "Potter brought Sweden back toward structure and belief, using two-forward threat without letting the midfield disconnect.",
       zh: "波特把瑞典重新带回结构和信心，用双前锋威胁进攻，同时避免中场脱节。"
+    },
+    history: {
+      en: "He built Östersund from Sweden's lower tiers into Europe before Premier League jobs with Brighton, Chelsea, and West Ham.",
+      zh: "他曾把厄斯特松德从瑞典低级别联赛带到欧战，之后执教布莱顿、切尔西和西汉姆联。"
     }
   },
   USA: {
     name: "Mauricio Pochettino",
     nameZh: "毛里西奥·波切蒂诺",
     sinceYear: "2024",
+    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Mauricio_Pochettino_USMNT_v_Belgium_Mar_28_2026-2.jpg?width=160",
+    imageSourceUrl: "https://commons.wikimedia.org/wiki/File:Mauricio_Pochettino_USMNT_v_Belgium_Mar_28_2026-2.jpg",
     sourceUrl: "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/mauricio-pochettino-usa-interview",
     note: {
       en: "Pochettino asks the USA to press and run vertically, using athletic midfield legs to make games uncomfortable.",
       zh: "波切蒂诺要求美国队压迫并纵向冲刺，用中场的运动能力让比赛变得难受。"
+    },
+    history: {
+      en: "He previously took Tottenham to the 2019 Champions League final and won Ligue 1 and the Coupe de France with Paris Saint-Germain.",
+      zh: "他此前曾带热刺闯入 2019 年欧冠决赛，并带巴黎圣日耳曼赢得法甲和法国杯。"
     }
   },
   AUT: {
     name: "Ralf Rangnick",
     nameZh: "拉尔夫·朗尼克",
     sinceYear: "2022",
+    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Ralf%20Rangnick%202011%201.jpg?width=160",
+    imageSourceUrl: "https://commons.wikimedia.org/wiki/File:Ralf_Rangnick_2011_1.jpg",
     sourceUrl: "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/austria-ralf-rangnick-lost-time",
     note: {
       en: "Rangnick's Austria press in waves, trying to turn recoveries into immediate shots before opponents settle.",
       zh: "朗尼克的奥地利一波波压迫，试图在对手站稳前把抢回球转成射门。"
+    },
+    history: {
+      en: "He previously won the DFB-Pokal with Schalke and helped shape high-pressing programs at Hoffenheim and RB Leipzig.",
+      zh: "他此前曾带沙尔克赢得德国杯，也参与塑造霍芬海姆和 RB 莱比锡的高压体系。"
     }
   },
   ALG: {
     name: "Vladimir Petković",
     nameZh: "弗拉基米尔·佩特科维奇",
     sinceYear: "2024",
+    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Vladimir%20Petkovi%C4%87%2C%20APS%20-%2020240304%20(cropped).png?width=160",
+    imageSourceUrl: "https://commons.wikimedia.org/wiki/File:Vladimir_Petkovi%C4%87,_APS_-_20240304_(cropped).png",
     sourceUrl: "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/vladimir-petkovic-switzerland-algeria",
     note: {
       en: "Petković gives Algeria a calmer structure around Mahrez and the left side, with enough balance to survive transitions.",
       zh: "佩特科维奇围绕马赫雷斯和左路给阿尔及利亚更稳的结构，并保留转换防守的平衡。"
+    },
+    history: {
+      en: "He previously won the Coppa Italia with Lazio and led Switzerland to the Euro 2020 quarter-finals.",
+      zh: "他此前曾带拉齐奥赢得意大利杯，并带瑞士闯入 2020 年欧洲杯八强。"
     }
   }
 };
@@ -16041,6 +16395,121 @@ function isCompleteMockLineupTeam(teamLineup) {
   return Boolean(teamLineup?.formation && teamLineup?.coach?.name && teamLineup?.players?.length);
 }
 
+function normalizeLineupPlayerEntry(player, teamId, index = 0, layoutEntry = null) {
+  if (Array.isArray(player)) {
+    return player;
+  }
+
+  if (!player || typeof player !== "object") {
+    return null;
+  }
+
+  const fullName = player.name || player.fullName || player.displayName || player.label || "";
+  if (!fullName) {
+    return null;
+  }
+
+  const profile = getLineupProfileByName(teamId, fullName);
+  const displayName = player.displayName || profile?.displayName || fullName;
+  const number = String(player.number || player.uniformNumber || profile?.uniformNumber || "").trim();
+  const position = String(player.position || player.role || layoutEntry?.[0] || getLineupProfilePositionCode(profile?.position)).trim();
+  const x = Number.isFinite(Number(player.x)) ? Number(player.x) : layoutEntry?.[1];
+  const y = Number.isFinite(Number(player.y)) ? Number(player.y) : layoutEntry?.[2];
+  const avatarColor = player.avatarColor || getMockAvatarColor(teamId, index);
+
+  return [
+    number,
+    player.label || formatLineupShortName(displayName),
+    fullName,
+    position,
+    player.initials || getPlayerInitials(displayName),
+    x,
+    y,
+    avatarColor
+  ];
+}
+
+function normalizeLineupBenchEntry(player, teamId, index = 0) {
+  const normalizedPlayer = normalizeLineupPlayerEntry(player, teamId, index);
+  return normalizedPlayer ? normalizedPlayer.slice(0, 4) : null;
+}
+
+function normalizeLineupTeamEvents(events = {}) {
+  const eventData = events && typeof events === "object" && !Array.isArray(events) ? events : {};
+  return {
+    cards: Array.isArray(eventData.cards) ? eventData.cards : [],
+    substitutions: Array.isArray(eventData.substitutions) ? eventData.substitutions : []
+  };
+}
+
+function normalizeLineupTeamData(teamLineup, teamId) {
+  if (!teamLineup || typeof teamLineup !== "object") {
+    return null;
+  }
+
+  const formation = String(teamLineup.formation || "").trim();
+  const sourcePlayers = Array.isArray(teamLineup.players)
+    ? teamLineup.players
+    : Array.isArray(teamLineup.starters)
+      ? teamLineup.starters
+      : [];
+  const layout = MOCK_LINEUP_LAYOUTS[formation] || MOCK_LINEUP_LAYOUTS["4-3-3"];
+  const players = sourcePlayers
+    .map((player, index) => normalizeLineupPlayerEntry(player, teamId, index, layout[index] || layout.at(-1)))
+    .filter(Boolean);
+  const bench = (Array.isArray(teamLineup.bench) ? teamLineup.bench : [])
+    .map((player, index) => normalizeLineupBenchEntry(player, teamId, index))
+    .filter(Boolean);
+
+  if (!formation || players.length !== 11) {
+    return null;
+  }
+
+  return {
+    formation,
+    formationNotes: teamLineup.formationNotes || getMockFormationNotes(formation),
+    coach: teamLineup.coach || null,
+    players,
+    bench,
+    events: normalizeLineupTeamEvents(teamLineup.events)
+  };
+}
+
+function hasTrustedLineupSource(lineup) {
+  const checkedAt = lineup?.checkedAt || lineup?.updatedAt;
+  return (
+    lineup &&
+    typeof lineup === "object" &&
+    !Array.isArray(lineup) &&
+    Array.isArray(lineup.sourceIds) &&
+    lineup.sourceIds.length > 0 &&
+    checkedAt &&
+    !Number.isNaN(new Date(checkedAt).getTime())
+  );
+}
+
+function getFixtureLineupPreview(match) {
+  const lineup = match?.lineups;
+  if (!hasTrustedLineupSource(lineup)) {
+    return null;
+  }
+
+  const home = normalizeLineupTeamData(lineup.home, match.homeTeamId);
+  const away = normalizeLineupTeamData(lineup.away, match.awayTeamId);
+  if (!home || !away) {
+    return null;
+  }
+
+  return {
+    mode: getLineupModeForMatch(match, lineup.mode || lineup.status),
+    checkedAt: lineup.checkedAt,
+    updatedAt: lineup.updatedAt,
+    sourceIds: lineup.sourceIds,
+    home,
+    away
+  };
+}
+
 function getGeneratedMockLineupPreview(match) {
   const coverage = MOCK_LINEUP_MATCH_COVERAGE[match?.id];
   if (!coverage || coverage.home !== match?.homeTeamId || coverage.away !== match?.awayTeamId) {
@@ -16061,11 +16530,21 @@ function getGeneratedMockLineupPreview(match) {
 }
 
 function getLineupModeForMatch(match, mode) {
+  const normalizedMode = String(mode || "").trim().toLowerCase();
+  if (["prediction", "confirmed", "final"].includes(normalizedMode)) {
+    return normalizedMode;
+  }
+  if (normalizedMode === "past") {
+    return "final";
+  }
   if (match?.status === "SCHEDULED") {
-    return mode || "prediction";
+    return "prediction";
+  }
+  if (match?.status === "FT") {
+    return "final";
   }
 
-  return "past";
+  return "confirmed";
 }
 
 function getMockLineupPreview(match) {
@@ -16101,15 +16580,15 @@ function getMockLineupPreview(match) {
       coach: getMockLineupCoach("ENG"),
       players: [
         ["1", "J. Pickford", "Jordan Pickford", "GK", "JP", 50, 91, "#7d8ea2"],
-        ["25", "D. Spence", "Djed Spence", "RB", "DS", 15, 75, "#60758b"],
-        ["2", "E. Konsa", "Ezri Konsa", "CB", "EK", 38, 75, "#6b7b94"],
-        ["6", "M. Guehi", "Marc Guehi", "CB", "MG", 62, 75, "#697b88"],
-        ["3", "N. O'Reilly", "Nico O'Reilly", "LB", "NO", 85, 75, "#303540"],
+        ["25", "D. Spence", "Djed Spence", "RB", "DS", 85, 75, "#60758b"],
+        ["2", "E. Konsa", "Ezri Konsa", "CB", "EK", 62, 75, "#6b7b94"],
+        ["6", "M. Guehi", "Marc Guehi", "CB", "MG", 38, 75, "#697b88"],
+        ["3", "N. O'Reilly", "Nico O'Reilly", "LB", "NO", 15, 75, "#303540"],
         ["8", "E. Anderson", "Elliot Anderson", "CM", "EA", 34, 59, "#8792a0"],
         ["4", "D. Rice", "Declan Rice", "CM", "DR", 66, 59, "#8a929a"],
-        ["20", "N. Madueke", "Noni Madueke", "RW", "NM", 18, 40, "#718192"],
+        ["20", "N. Madueke", "Noni Madueke", "RW", "NM", 82, 40, "#718192"],
         ["10", "J. Bellingham", "Jude Bellingham", "AM", "JB", 50, 40, "#6c7684"],
-        ["11", "M. Rashford", "Marcus Rashford", "LW", "MR", 82, 40, "#596a7f"],
+        ["11", "M. Rashford", "Marcus Rashford", "LW", "MR", 18, 40, "#596a7f"],
         ["9", "H. Kane", "Harry Kane", "ST", "HK", 50, 20, "#8b9297"]
       ],
       bench: [
@@ -16199,8 +16678,14 @@ function getMockLineupPreview(match) {
   };
 }
 
-function getLineupFreshness(match) {
+function getLineupPreview(match) {
+  return getFixtureLineupPreview(match) || (isLineupVisualPrototypeEnabled() ? getMockLineupPreview(match) : null);
+}
+
+function getLineupFreshness(match, lineup = null) {
   const timestamp =
+    lineup?.updatedAt ||
+    lineup?.checkedAt ||
     match?.lineupUpdatedAt ||
     match?.lineupCheckedAt ||
     match?.scoreUpdatedAt ||
@@ -16226,17 +16711,18 @@ function getLineupCheckedText(label, freshness) {
 }
 
 function getLineupUpdatedText(match, lineup = null) {
-  if (match?.status === "FT") {
+  const mode = getLineupModeForMatch(match, lineup?.mode);
+  if (mode === "final") {
     return localizeText("Final lineup record");
   }
 
-  const freshness = getLineupFreshness(match);
+  const freshness = getLineupFreshness(match, lineup);
 
-  if (match?.status === "LIVE") {
+  if (mode === "confirmed" && match?.status === "LIVE") {
     return getLineupCheckedText("Lineup record checked", freshness);
   }
 
-  if (getLineupModeForMatch(match, lineup?.mode) === "prediction") {
+  if (mode === "prediction") {
     return getLineupCheckedText("Predicted lineups checked", freshness) || localizeText("Predicted lineups");
   }
 
@@ -16789,6 +17275,8 @@ function renderLineupPlayerMarker(player, team, teamLineup, match = null, side =
       style="--x: ${escapeHtml(lineupPlayer.x)}%; --y: ${escapeHtml(lineupPlayer.y)}%; --avatar-bg: ${escapeHtml(lineupPlayer.avatarColor)};"
       aria-label="${escapeHtml(ariaLabel)}"
       data-lineup-marker-key="${escapeHtml(substitutionKey || normalizeLineupEventName(starterName))}"
+      data-lineup-player-name="${escapeHtml(lineupPlayer.name)}"
+      data-lineup-position="${escapeHtml(lineupPlayer.position)}"
       data-lineup-starter-name="${escapeHtml(starterName)}"
     >
       ${renderPlayerMention(lineupPlayer.label, lineupPlayer.cardPlayer, {
@@ -16870,7 +17358,7 @@ function renderLineupPitchPanel(match, lineup, side, isSelected) {
 }
 
 function renderLineupVisualPrototype(match) {
-  const lineup = getMockLineupPreview(match);
+  const lineup = getLineupPreview(match);
 
   if (!lineup) {
     return "";
@@ -16898,6 +17386,9 @@ function handleLineupTabClick(event) {
   if (!block || !side) {
     return false;
   }
+
+  event.preventDefault();
+  event.stopPropagation();
 
   block.querySelectorAll("[data-lineup-tab]").forEach((button) => {
     const isActive = button.dataset.lineupTab === side;
@@ -16999,7 +17490,7 @@ function handleLineupSubstitutionToggleClick(event) {
 
   const side = button.dataset.lineupSide || "";
   const match = getFixtureById(button.dataset.lineupMatchId || "");
-  const lineup = getMockLineupPreview(match);
+  const lineup = getLineupPreview(match);
   const teamLineup = lineup?.[side];
   const substitution = findLineupSubstitutionFromToggle(teamLineup, button);
   if (!match || !teamLineup || !substitution) {
@@ -19172,7 +19663,8 @@ function formatGroupRoundSummary(team, resultItems, remainingCount) {
       ? ` ${remainingCount} group match${remainingCount === 1 ? "" : "es"} still to play.`
       : "";
 
-  return `${renderKnockoutContextTeamName(team, getLocalizedTeamName(team), { isSubject: true })} ${getNameSeries(phrases)}.${escapeHtml(remainingText)}`;
+  const summaryText = `${renderKnockoutContextTeamName(team, getLocalizedTeamName(team), { isSubject: true })} ${getNameSeries(phrases)}`;
+  return remainingText ? `${summaryText}.${escapeHtml(remainingText)}` : summaryText;
 }
 
 function getGroupRoundSummaryForParticipant(entry) {
@@ -19352,7 +19844,7 @@ function renderResolvedNextKnockoutOpponentLine(match, context) {
   });
 
   if (!winnerSide || !participants[winnerSide]) {
-    return currentLanguage === "zh" ? `胜者将对阵 ${fallbackWinnerName}。` : `Winner will face ${fallbackWinnerName}.`;
+    return currentLanguage === "zh" ? `胜者将对阵 ${fallbackWinnerName}。` : `Winner will face ${fallbackWinnerName}`;
   }
 
   const loserSide = winnerSide === "away" ? "home" : "away";
@@ -19368,16 +19860,16 @@ function renderResolvedNextKnockoutOpponentLine(match, context) {
   if (penaltyText && scoreText) {
     return currentLanguage === "zh"
       ? `胜者将对阵 ${winnerName}，后者在 ${scoreText} 战平后通过点球 ${penaltyText} 击败 ${loserName}。`
-      : `Winner will face ${winnerName} who won ${penaltyText} on penalties after a ${scoreText} tie against ${loserName}.`;
+      : `Winner will face ${winnerName} who won ${penaltyText} on penalties after a ${scoreText} tie against ${loserName}`;
   }
 
   if (winnerScoreText) {
     return currentLanguage === "zh"
       ? `胜者将对阵 ${winnerName}，后者以 ${winnerScoreText} 击败 ${loserName}。`
-      : `Winner will face ${winnerName} who won ${winnerScoreText} against ${loserName}.`;
+      : `Winner will face ${winnerName} who won ${winnerScoreText} against ${loserName}`;
   }
 
-  return currentLanguage === "zh" ? `胜者将对阵 ${winnerName}。` : `Winner will face ${winnerName}.`;
+  return currentLanguage === "zh" ? `胜者将对阵 ${winnerName}。` : `Winner will face ${winnerName}`;
 }
 
 function isTerminalKnockoutMatch(match) {
@@ -19443,24 +19935,24 @@ function renderNextKnockoutOpponentLine(match, nextMatch, context) {
     if (isTournamentProjectedMatch(otherMatch, context)) {
       return currentLanguage === "zh"
         ? `胜者将对阵 ${matchup} 的预测胜者。`
-        : `Winner will face predicted winner of ${matchup}.`;
+        : `Winner will face predicted winner of ${matchup}`;
     }
 
     return currentLanguage === "zh"
       ? `胜者将对阵 ${matchup} 的胜者。`
-      : `Winner will face winner of ${matchup}.`;
+      : `Winner will face winner of ${matchup}`;
   }
 
   if (otherSlot) {
     return currentLanguage === "zh"
       ? `胜者将对阵 ${escapeHtml(localizeText(otherSlot))}。`
-      : `Winner will face ${escapeHtml(localizeText(otherSlot))}.`;
+      : `Winner will face ${escapeHtml(localizeText(otherSlot))}`;
   }
 
   const nextStage = escapeHtml(getTournamentStageLabel(nextMatch.stage));
   return currentLanguage === "zh"
     ? `胜者将进入${nextStage}。`
-    : `Winner moves into ${nextStage}.`;
+    : `Winner moves into ${nextStage}`;
 }
 
 function renderNextKnockoutContext(match, context) {
@@ -23715,14 +24207,14 @@ function handlePlayerLinkClick(event) {
   return false;
 }
 
-function handlePlayerLinkPointerDown(event) {
+function handlePlayerHoverPointerDown(event) {
   if (!(event.target instanceof Element)) {
     return false;
   }
 
-  const playerTrigger = event.target.closest(".player-link[data-player-card-trigger]");
+  const playerTrigger = event.target.closest(".player-hover .player-link");
   const playerHover = playerTrigger?.closest(".player-hover");
-  if (!playerTrigger || !playerHover || isTouchPlayerCardMode()) {
+  if (!playerTrigger || !playerHover || playerTrigger.closest("a[href]") || isTouchPlayerCardMode()) {
     return false;
   }
 
@@ -23781,7 +24273,7 @@ function handlePlayerLinkKeydown(event) {
 }
 
 function attachPlayerCardPositioning(root) {
-  root?.addEventListener("pointerdown", handlePlayerLinkPointerDown, true);
+  root?.addEventListener("pointerdown", handlePlayerHoverPointerDown, true);
 
   root?.addEventListener(
     "pointerenter",

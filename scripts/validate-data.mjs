@@ -965,6 +965,393 @@ function validateScoreDetails(fixture) {
   }
 }
 
+function validateLineupTimestamp(value, owner) {
+  assert(isValidDateTime(value), `${owner} must be a valid timestamp`);
+}
+
+const LINEUP_LEFT_SIDE_POSITIONS = new Set(["LB", "LWB", "LM", "LW"]);
+const LINEUP_RIGHT_SIDE_POSITIONS = new Set(["RB", "RWB", "RM", "RW"]);
+const LINEUP_RECOGNIZED_POSITIONS = new Set([
+  "AM",
+  "CB",
+  "CM",
+  "DM",
+  "GK",
+  "LB",
+  "LM",
+  "LW",
+  "LWB",
+  "RB",
+  "RM",
+  "RW",
+  "RWB",
+  "ST"
+]);
+
+function normalizeLineupPositionCode(position) {
+  const rawValue = String(position || "").trim();
+  const compactValue = rawValue.toUpperCase().replace(/[^A-Z0-9]/g, "");
+  if (LINEUP_RECOGNIZED_POSITIONS.has(compactValue)) {
+    return compactValue;
+  }
+
+  const value = rawValue.toLowerCase();
+  if (value.includes("goalkeeper")) return "GK";
+  if (value.includes("right wing-back") || value.includes("right wing back")) return "RWB";
+  if (value.includes("left wing-back") || value.includes("left wing back")) return "LWB";
+  if (value.includes("right-back") || value.includes("right back")) return "RB";
+  if (value.includes("left-back") || value.includes("left back")) return "LB";
+  if (value.includes("right winger") || value.includes("right midfielder")) return "RW";
+  if (value.includes("left winger") || value.includes("left midfielder")) return "LW";
+  if (value.includes("defensive midfielder")) return "DM";
+  if (value.includes("attacking midfielder")) return "AM";
+  if (value.includes("centre-back") || value.includes("center-back") || value.includes("central defender")) return "CB";
+  if (value.includes("striker") || value.includes("centre-forward") || value.includes("center-forward")) return "ST";
+  if (value.includes("midfielder")) return "CM";
+  if (value.includes("forward")) return "ST";
+  return "";
+}
+
+function getLineupPositionSide(positionCode) {
+  if (LINEUP_RIGHT_SIDE_POSITIONS.has(positionCode)) return "right";
+  if (LINEUP_LEFT_SIDE_POSITIONS.has(positionCode)) return "left";
+  return "";
+}
+
+function getLineupProfileExpectedSide(profile = {}) {
+  const value = String(profile.position || "").toLowerCase();
+  const rightSide = /\bright(?:-| )(?:back|wing-back|wing back|winger|midfielder)\b/.test(value);
+  const leftSide = /\bleft(?:-| )(?:back|wing-back|wing back|winger|midfielder)\b/.test(value);
+
+  if (rightSide === leftSide) {
+    return "";
+  }
+
+  return rightSide ? "right" : "left";
+}
+
+function getLineupCoordinateSide(player) {
+  if (!isNumber(player?.x) || player.x === 50) {
+    return "";
+  }
+
+  return player.x > 50 ? "right" : "left";
+}
+
+function getLineupPlayerName(player) {
+  return String(player?.name || player?.fullName || player?.displayName || "").trim();
+}
+
+function getLineupPlayerKey(playerName) {
+  return normalizePlayerName(playerName);
+}
+
+function hasLineupPlayerName(playerNames, playerName) {
+  const key = getLineupPlayerKey(playerName);
+  if (!key) {
+    return false;
+  }
+
+  return playerNames.some((name) => {
+    const candidateKey = getLineupPlayerKey(name);
+    return candidateKey === key || isPlayerNameMatch(playerName, name) || isPlayerNameMatch(name, playerName);
+  });
+}
+
+function getLineupPlayerProfile(player, teamId) {
+  const playerName = getLineupPlayerName(player);
+  const profile = playerProfilesByAlias.get(normalizePlayerName(playerName));
+  if (!profile) {
+    return null;
+  }
+
+  if (teamId && profile.teamId && profile.teamId !== teamId) {
+    return null;
+  }
+
+  return profile;
+}
+
+function validateLineupPlayerPosition(player, owner, teamId, { requireCoordinates = false } = {}) {
+  if (!requireCoordinates && player.x === undefined && player.y === undefined) {
+    return;
+  }
+
+  const positionCode = normalizeLineupPositionCode(player.position);
+  assert(positionCode, `${owner}.position must be a recognized lineup position`);
+  if (!positionCode) {
+    return;
+  }
+
+  const positionSide = getLineupPositionSide(positionCode);
+  const coordinateSide = getLineupCoordinateSide(player);
+  if (positionSide && coordinateSide) {
+    assert(
+      positionSide === coordinateSide,
+      `${owner} places ${positionCode} on the visual ${coordinateSide} side`
+    );
+  }
+
+  const profileSide = getLineupProfileExpectedSide(getLineupPlayerProfile(player, teamId));
+  if (profileSide) {
+    assert(
+      !positionSide || positionSide === profileSide,
+      `${owner}.position conflicts with the player's profile side (${profileSide})`
+    );
+    assert(
+      !coordinateSide || coordinateSide === profileSide,
+      `${owner} coordinates conflict with the player's profile side (${profileSide})`
+    );
+  }
+}
+
+function validateLineupPlayer(player, owner, { teamId = "", requirePosition = true, requireCoordinates = false } = {}) {
+  assert(isPlainObject(player), `${owner} must be an object`);
+  if (!isPlainObject(player)) {
+    return "";
+  }
+
+  const name = getLineupPlayerName(player);
+  assert(name, `${owner}.name must be a non-empty string`);
+  assert(
+    typeof player.number === "string" || typeof player.number === "number",
+    `${owner}.number must be a string or number`
+  );
+  if (requirePosition) {
+    assert(typeof player.position === "string" && player.position.trim(), `${owner}.position must be a non-empty string`);
+  }
+
+  for (const coordinate of ["x", "y"]) {
+    if (player[coordinate] === undefined) {
+      assert(!requireCoordinates, `${owner}.${coordinate} must be provided for a starter`);
+      continue;
+    }
+
+    assert(
+      isNumber(player[coordinate]) && player[coordinate] >= 0 && player[coordinate] <= 100,
+      `${owner}.${coordinate} must be a number from 0 to 100`
+    );
+  }
+
+  if (requirePosition) {
+    validateLineupPlayerPosition(player, owner, teamId, { requireCoordinates });
+  }
+
+  return name;
+}
+
+function validateLineupSide(teamLineup, fixture, side) {
+  const owner = `Fixture "${fixture.id}" lineups.${side}`;
+  assert(isPlainObject(teamLineup), `${owner} must be an object`);
+  if (!isPlainObject(teamLineup)) {
+    return { starters: [], bench: [] };
+  }
+
+  assert(typeof teamLineup.formation === "string" && teamLineup.formation.trim(), `${owner}.formation must be a non-empty string`);
+  if (teamLineup.coach !== undefined) {
+    assert(isPlainObject(teamLineup.coach), `${owner}.coach must be an object`);
+    if (isPlainObject(teamLineup.coach)) {
+      assert(typeof teamLineup.coach.name === "string" && teamLineup.coach.name.trim(), `${owner}.coach.name must be a non-empty string`);
+      if (teamLineup.coach.sourceUrl !== undefined) {
+        assert(/^https?:\/\//.test(teamLineup.coach.sourceUrl), `${owner}.coach.sourceUrl must be an http(s) URL`);
+      }
+    }
+  }
+
+  const starters = Array.isArray(teamLineup.players)
+    ? teamLineup.players
+    : Array.isArray(teamLineup.starters)
+      ? teamLineup.starters
+      : null;
+  assert(Array.isArray(starters), `${owner}.players must be an array`);
+  assert(!Array.isArray(starters) || starters.length === 11, `${owner}.players must include exactly 11 starters`);
+
+  const starterNames = [];
+  for (const [index, player] of (starters || []).entries()) {
+    const name = validateLineupPlayer(player, `${owner}.players[${index}]`, {
+      requireCoordinates: true,
+      teamId: fixture[`${side}TeamId`]
+    });
+    if (name) {
+      assert(!hasLineupPlayerName(starterNames, name), `${owner}.players[${index}] duplicates starter "${name}"`);
+      starterNames.push(name);
+    }
+  }
+
+  const bench = teamLineup.bench === undefined ? [] : teamLineup.bench;
+  assert(Array.isArray(bench), `${owner}.bench must be an array when provided`);
+  const benchNames = [];
+  for (const [index, player] of (Array.isArray(bench) ? bench : []).entries()) {
+    const name = validateLineupPlayer(player, `${owner}.bench[${index}]`, {
+      teamId: fixture[`${side}TeamId`]
+    });
+    if (name) {
+      assert(!hasLineupPlayerName([...starterNames, ...benchNames], name), `${owner}.bench[${index}] duplicates lineup player "${name}"`);
+      benchNames.push(name);
+    }
+  }
+
+  return { starters: starterNames, bench: benchNames };
+}
+
+function validateLineupMinute(value, owner) {
+  assert(
+    typeof value === "number" || (typeof value === "string" && value.trim()),
+    `${owner}.minute must be a number or non-empty string`
+  );
+}
+
+function validateLineupEvents(events, playerNames, owner) {
+  if (events === undefined) {
+    return;
+  }
+
+  assert(isPlainObject(events), `${owner}.events must be an object`);
+  if (!isPlainObject(events)) {
+    return;
+  }
+
+  const allPlayers = [...playerNames.starters, ...playerNames.bench];
+  if (events.cards !== undefined) {
+    assert(Array.isArray(events.cards), `${owner}.events.cards must be an array`);
+    for (const [index, card] of (Array.isArray(events.cards) ? events.cards : []).entries()) {
+      const cardOwner = `${owner}.events.cards[${index}]`;
+      assert(isPlainObject(card), `${cardOwner} must be an object`);
+      if (!isPlainObject(card)) continue;
+      assert(typeof card.playerName === "string" && card.playerName.trim(), `${cardOwner}.playerName must be a non-empty string`);
+      assert(["yellow", "red"].includes(card.type), `${cardOwner}.type must be yellow or red`);
+      validateLineupMinute(card.minute, cardOwner);
+      assert(
+        hasLineupPlayerName(allPlayers, card.playerName),
+        `${cardOwner}.playerName must match a starter or bench player`
+      );
+    }
+  }
+
+  if (events.substitutions !== undefined) {
+    assert(Array.isArray(events.substitutions), `${owner}.events.substitutions must be an array`);
+    for (const [index, substitution] of (Array.isArray(events.substitutions) ? events.substitutions : []).entries()) {
+      const substitutionOwner = `${owner}.events.substitutions[${index}]`;
+      assert(isPlainObject(substitution), `${substitutionOwner} must be an object`);
+      if (!isPlainObject(substitution)) continue;
+      assert(typeof substitution.offName === "string" && substitution.offName.trim(), `${substitutionOwner}.offName must be a non-empty string`);
+      assert(typeof substitution.onName === "string" && substitution.onName.trim(), `${substitutionOwner}.onName must be a non-empty string`);
+      validateLineupMinute(substitution.minute, substitutionOwner);
+      assert(
+        hasLineupPlayerName(playerNames.starters, substitution.offName),
+        `${substitutionOwner}.offName must match a starter`
+      );
+      assert(
+        hasLineupPlayerName(playerNames.bench, substitution.onName),
+        `${substitutionOwner}.onName must match a bench player`
+      );
+    }
+  }
+}
+
+function validateFixtureLineups(fixture, sourceIdSet) {
+  if (fixture.lineups === undefined) {
+    return;
+  }
+
+  const owner = `Fixture "${fixture.id}" lineups`;
+  assert(isPlainObject(fixture.lineups), `${owner} must be an object`);
+  if (!isPlainObject(fixture.lineups)) {
+    return;
+  }
+
+  requireSourceIds(fixture.lineups.sourceIds, sourceIdSet, owner);
+  assert(
+    Array.isArray(fixture.lineups.sourceIds) && fixture.lineups.sourceIds.length > 0,
+    `${owner}.sourceIds must include at least one source`
+  );
+  validateLineupTimestamp(fixture.lineups.checkedAt || fixture.lineups.updatedAt, `${owner}.checkedAt`);
+
+  const mode = String(fixture.lineups.mode || fixture.lineups.status || "").trim();
+  assert(["prediction", "confirmed", "final"].includes(mode), `${owner}.mode must be prediction, confirmed, or final`);
+  if (mode === "prediction") {
+    assert(fixture.status === "SCHEDULED", `${owner}.mode prediction should only be used before kickoff`);
+  }
+  if (mode === "final") {
+    assert(fixture.status === "FT", `${owner}.mode final should only be used after full time`);
+  }
+
+  assert(teams.has(fixture.homeTeamId) && teams.has(fixture.awayTeamId), `${owner} requires confirmed home and away teams`);
+  const homePlayers = validateLineupSide(fixture.lineups.home, fixture, "home");
+  const awayPlayers = validateLineupSide(fixture.lineups.away, fixture, "away");
+  validateLineupEvents(fixture.lineups.home?.events, homePlayers, `${owner}.home`);
+  validateLineupEvents(fixture.lineups.away?.events, awayPlayers, `${owner}.away`);
+}
+
+function validateMatchEventsSide(sideEvents, fixture, side) {
+  const owner = `Fixture "${fixture.id}" matchEvents.${side}`;
+  assert(isPlainObject(sideEvents), `${owner} must be an object`);
+  if (!isPlainObject(sideEvents)) {
+    return;
+  }
+
+  if (sideEvents.formation !== undefined) {
+    assert(
+      typeof sideEvents.formation === "string" && sideEvents.formation.trim(),
+      `${owner}.formation must be a non-empty string when provided`
+    );
+  }
+
+  const cards = sideEvents.cards === undefined ? [] : sideEvents.cards;
+  assert(Array.isArray(cards), `${owner}.cards must be an array when provided`);
+  for (const [index, card] of (Array.isArray(cards) ? cards : []).entries()) {
+    const cardOwner = `${owner}.cards[${index}]`;
+    assert(isPlainObject(card), `${cardOwner} must be an object`);
+    if (!isPlainObject(card)) continue;
+    assert(typeof card.playerName === "string" && card.playerName.trim(), `${cardOwner}.playerName must be a non-empty string`);
+    assert(["yellow", "red"].includes(card.type), `${cardOwner}.type must be yellow or red`);
+    validateLineupMinute(card.minute, cardOwner);
+    if (card.staff !== undefined) {
+      assert(typeof card.staff === "boolean", `${cardOwner}.staff must be a boolean when provided`);
+    }
+    if (card.side !== undefined) {
+      assert(card.side === side, `${cardOwner}.side must match its parent side`);
+    }
+  }
+
+  const substitutions = sideEvents.substitutions === undefined ? [] : sideEvents.substitutions;
+  assert(Array.isArray(substitutions), `${owner}.substitutions must be an array when provided`);
+  for (const [index, substitution] of (Array.isArray(substitutions) ? substitutions : []).entries()) {
+    const substitutionOwner = `${owner}.substitutions[${index}]`;
+    assert(isPlainObject(substitution), `${substitutionOwner} must be an object`);
+    if (!isPlainObject(substitution)) continue;
+    assert(typeof substitution.offName === "string" && substitution.offName.trim(), `${substitutionOwner}.offName must be a non-empty string`);
+    assert(typeof substitution.onName === "string" && substitution.onName.trim(), `${substitutionOwner}.onName must be a non-empty string`);
+    validateLineupMinute(substitution.minute, substitutionOwner);
+    if (substitution.side !== undefined) {
+      assert(substitution.side === side, `${substitutionOwner}.side must match its parent side`);
+    }
+  }
+}
+
+function validateFixtureMatchEvents(fixture, sourceIdSet) {
+  if (fixture.matchEvents === undefined) {
+    return;
+  }
+
+  const owner = `Fixture "${fixture.id}" matchEvents`;
+  assert(isPlainObject(fixture.matchEvents), `${owner} must be an object`);
+  if (!isPlainObject(fixture.matchEvents)) {
+    return;
+  }
+
+  assert(["LIVE", "FT"].includes(fixture.status), `${owner} should only be used after kickoff`);
+  requireSourceIds(fixture.matchEvents.sourceIds, sourceIdSet, owner);
+  assert(
+    Array.isArray(fixture.matchEvents.sourceIds) && fixture.matchEvents.sourceIds.length > 0,
+    `${owner}.sourceIds must include at least one source`
+  );
+  validateLineupTimestamp(fixture.matchEvents.checkedAt || fixture.matchEvents.updatedAt, `${owner}.checkedAt`);
+  assert(teams.has(fixture.homeTeamId) && teams.has(fixture.awayTeamId), `${owner} requires confirmed home and away teams`);
+  validateMatchEventsSide(fixture.matchEvents.home, fixture, "home");
+  validateMatchEventsSide(fixture.matchEvents.away, fixture, "away");
+}
+
 function getKnockoutWinnerTeamId(fixture) {
   if (!fixture || fixture.status !== "FT") {
     return "";
@@ -1309,6 +1696,8 @@ for (const fixture of fixturesData.fixtures || []) {
   validateHighlightVideo(fixture);
   validateHighlightVideoReview(fixture);
   validateResultStoryResearch(fixture, sourceIds);
+  validateFixtureLineups(fixture, sourceIds);
+  validateFixtureMatchEvents(fixture, sourceIds);
 
   if (fixture.projection) {
     const total = fixture.projection.home + fixture.projection.draw + fixture.projection.away;

@@ -28,6 +28,7 @@
     "results:check": "node scripts/audit-result-enrichment.mjs",
     "results:research": "node scripts/sync-result-story-research.mjs",
     "sync:h2h": "node scripts/sync-h2h-results.mjs",
+    "sync:fifa:events": "node scripts/sync-fifa-match-events.mjs",
     "sync:fifa:goals": "node scripts/sync-fifa-goal-events.mjs",
     "sync:youtube": "node scripts/sync-youtube-highlights.mjs",
     "smoke": "node scripts/ui-smoke.mjs",

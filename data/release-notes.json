@@ -1,6 +1,66 @@
 {
-  "updatedAt": "2026-07-01T19:57:05-07:00",
+  "updatedAt": "2026-07-01T22:45:00-07:00",
   "releases": [
+    {
+      "date": "2026-07-01",
+      "title": "Official formation and event logs",
+      "titleZh": "官方阵型与事件记录",
+      "highlights": [
+        "All 82 completed matches now carry FIFA official formation, card, and substitution records in match details.",
+        "A new FIFA timeline sync imports cards and substitutions automatically after score/scorer updates, with validation rejecting unsourced or malformed event records.",
+        "Full lineup boards still stay hidden unless a fixture has complete source-backed starters and bench, so event data cannot be mistaken for an unsourced XI."
+      ],
+      "highlightsZh": [
+        "全部82场已完赛比赛现在会在比赛详情中显示来自FIFA官方的阵型、红黄牌和换人记录。",
+        "新的FIFA时间线同步会在比分和进球者更新后自动导入红黄牌与换人，并由校验拒绝无来源或格式错误的事件记录。",
+        "完整阵容板仍然只有在赛程拥有带来源的首发与替补名单时才显示，避免事件数据被误认为无来源的首发阵容。"
+      ]
+    },
+    {
+      "date": "2026-07-01",
+      "title": "Knockout context polish",
+      "titleZh": "淘汰赛语境文案打磨",
+      "highlights": [
+        "English Previous and Next knockout context lines now omit trailing periods when they read as compact match-detail snippets.",
+        "Ranking pills in those context sentences now use tighter, matching visual spacing before and after the pill."
+      ],
+      "highlightsZh": [
+        "英文 Previous 和 Next 淘汰赛语境行现在作为紧凑比赛详情提示显示时不再保留句末句点。",
+        "这些语境句里的排名胶囊现在在前后两侧使用更紧凑且一致的视觉间距。"
+      ]
+    },
+    {
+      "date": "2026-07-01",
+      "title": "Lineup accuracy guard",
+      "titleZh": "阵容准确性保护",
+      "highlights": [
+        "Lineup pitch coordinates now keep right-sided roles such as RW/RB on the visual right and left-sided roles such as LW/LB on the visual left, with a Spain regression check covering Yamal, Nico Williams, Porro, and Cucurella.",
+        "Production match details now hide lineup boards unless a fixture has source-backed lineup data, preventing prototype red-card or substitution badges from looking official.",
+        "Data validation now requires future lineup records to include source IDs, checked timestamps, 11 starters per side, and internally consistent cards and substitutions."
+      ],
+      "highlightsZh": [
+        "阵容球场坐标现在会把 RW/RB 等右路角色放在视觉右侧，把 LW/LB 等左路角色放在视觉左侧，并加入覆盖亚马尔、尼科·威廉姆斯、波罗和库库雷利亚的西班牙回归检查。",
+        "正式比赛详情现在只有在赛程拥有带来源的阵容数据时才显示阵容板，避免原型红牌或换人标记看起来像官方信息。",
+        "数据校验现在要求未来阵容记录包含来源 ID、核验时间、双方各 11 名首发，以及前后一致的红黄牌和换人信息。"
+      ]
+    },
+    {
+      "date": "2026-07-01",
+      "title": "Coach portraits in lineups",
+      "titleZh": "阵容教练头像",
+      "highlights": [
+        "Covered lineup cards now show Wikimedia-sourced coach portraits for all visible coach source icons, with the smoke test checking for real image URLs.",
+        "Coach photos now use the same rounded-square shape as player-card photos instead of circular crops.",
+        "Coach cards now follow a consistent description-then-history rhythm, so every covered coach has a tactical note plus a short career line.",
+        "Coach history lines were rechecked and tightened for clearer, more current achievements."
+      ],
+      "highlightsZh": [
+        "已覆盖的阵容卡片现在会为所有可见教练来源图标显示来自维基共享资源的教练头像，并由冒烟测试检查真实图片链接。",
+        "教练照片现在使用与球员卡照片一致的圆角方形，不再裁成圆形。",
+        "教练卡片现在统一为“战术描述 + 履历补充”的节奏；每位已覆盖教练都有一条战术说明和一条简短履历。",
+        "教练履历行已经重新核对并打磨，改为更清楚、更新的代表成就。"
+      ]
+    },
     {
       "date": "2026-07-01",
       "title": "Lineup coach coverage",
@@ -51,13 +111,13 @@
     },
     {
       "date": "2026-07-01",
-      "title": "Player cards stay in app",
-      "titleZh": "球员卡片留在站内",
+      "title": "Hover cards stay unpinned",
+      "titleZh": "悬停卡片不再被固定",
       "highlights": [
-        "Desktop player-name clicks no longer pin a card; hover and keyboard still show in-app cards, while touch taps open one card without navigating away."
+        "Desktop clicks on non-link hover-card triggers no longer pin a card; real source links still work, keyboard access stays intact, and touch taps still open one card at a time."
       ],
       "highlightsZh": [
-        "桌面端点击球员姓名不再固定卡片；悬停和键盘仍会显示站内卡片，触屏轻点则只打开一张卡片且不会跳转离站。"
+        "桌面端点击非链接类悬停卡片触发器不再固定卡片；真实来源链接仍可打开，键盘访问保持不变，触屏轻点仍一次只打开一张卡片。"
       ]
     },
     {
@@ -65,10 +125,10 @@
       "title": "Lineup tab fit",
       "titleZh": "阵容标签适配",
       "highlights": [
-        "Lineup cards now use compact team-code tabs such as USA and BIH, leaving more room for formation and bench controls without losing full accessible country names."
+        "Lineup cards now keep compact team-code tabs such as USA and BIH content-sized and height-matched with the formation chip, without losing full accessible country names."
       ],
       "highlightsZh": [
-        "阵容卡片现在使用 USA、BIH 这类紧凑球队代码标签，为阵型和替补控制留出更多空间，同时保留完整的无障碍国家名称。"
+        "阵容卡片现在会让 USA、BIH 这类紧凑球队代码标签按内容收紧，并与阵型标签保持同高，同时保留完整的无障碍国家名称。"
       ]
     },
     {
