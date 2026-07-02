@@ -52,11 +52,6 @@ const LANGUAGE_LOCALES = {
 };
 const SUPPORTED_LANGUAGES = new Set(Object.keys(LANGUAGE_LOCALES));
 const LANGUAGE_SWITCH_PENDING_MIN_MS = 260;
-const INITIAL_URL_SEARCH_PARAMS = new URLSearchParams(window.location.search);
-const LINEUP_VISUAL_PROTOTYPE_PREVIEW_VALUES = new Set(["1", "preview", "true"]);
-const isLineupVisualPrototypePreviewRequested = LINEUP_VISUAL_PROTOTYPE_PREVIEW_VALUES.has(
-  String(INITIAL_URL_SEARCH_PARAMS.get("lineups") || "").toLowerCase()
-);
 const UI_TEXT = {
   en: {
     adminMessage: "Admin message",
@@ -361,7 +356,7 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "Head Coach": "主教练",
     "Line ups": "阵容",
     "Line-ups": "阵容",
-    "Line-ups (prediction)": "预测阵容",
+    "Line-ups (expected)": "预计阵容",
     "Lineups": "阵容",
     "Lineups checked": "阵容核验",
     "Red card": "红牌",
@@ -15164,11 +15159,7 @@ function renderResultNotes(match) {
 }
 
 function isLineupVisualPrototypeEnabled() {
-  if (["localhost", "127.0.0.1", ""].includes(window.location.hostname)) {
-    return true;
-  }
-
-  return isLineupVisualPrototypePreviewRequested;
+  return true;
 }
 
 const MOCK_LINEUP_LAYOUTS = {
@@ -15905,7 +15896,7 @@ function getLocalizedLineupPosition(position) {
 }
 
 function getLineupHeadingLabel(lineup) {
-  return lineup?.mode === "prediction" ? "Line-ups (prediction)" : "Line-ups";
+  return lineup?.mode === "prediction" ? "Line-ups (expected)" : "Line-ups";
 }
 
 function renderLineupHeading(match, lineup) {
@@ -22381,10 +22372,6 @@ function applyUrlState(options = {}) {
 
   if (currentLanguage !== DEFAULT_LANGUAGE) {
     params.set("lang", currentLanguage);
-  }
-
-  if (isLineupVisualPrototypePreviewRequested) {
-    params.set("lineups", "preview");
   }
 
   if (activeView === "standings" && selectedStandingsYear !== CURRENT_STANDINGS_YEAR) {
