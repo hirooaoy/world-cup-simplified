@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-01T23:35:10.634Z",
+  "updatedAt": "2026-07-02T01:30:21.314Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -121,7 +121,8 @@
     "guardian-netherlands-morocco-result-2026-06-30",
     "guardian-mexico-ecuador-result-2026-07-01",
     "guardian-england-dr-congo-result-2026-07-01",
-    "national-football-teams-h2h-sync-2026-07-01"
+    "national-football-teams-h2h-sync-2026-07-01",
+    "fifa-official-results-sync-2026-07-02"
   ],
   "coverage": {
     "status": "complete-schedule",
@@ -11340,7 +11341,7 @@
       "homeSlot": "Group D winner",
       "awaySlot": "Group B/E/F/I/J third place",
       "venue": "San Francisco Bay Area Stadium",
-      "status": "SCHEDULED",
+      "status": "LIVE",
       "h2h": {
         "status": "loaded",
         "sourceId": "national-football-teams-h2h-sync-2026-06-30",
@@ -11432,6 +11433,10 @@
         "sourceId": "editorial-preview-2026-06-22",
         "home": "United States are an athletic pressing team with enough direct attacking talent to make games feel stretched, led by Christian Pulisic, Weston McKennie, and Tyler Adams. Against Bosnia and Herzegovina, their Pulisic-McKennie pressure breaks has to beat Bosnia and Herzegovina's Dzeko target play. They want to press into turnovers and let Pulisic or McKennie attack before the defense resets. The risk is Bosnia and Herzegovina can turn direct service into Dzeko touches and scrappy box pressure.",
         "away": "Bosnia and Herzegovina are a veteran-leaning side that still carry real danger when the match becomes physical and direct, led by Edin Dzeko, Sead Kolasinac, and Esmir Bajraktarevic. Against United States, their Dzeko target play has to beat United States' Pulisic-McKennie pressure breaks. They want to play into Dzeko early and build around the loose balls that follow. The risk is United States can turn pressure into Pulisic carries and McKennie second-ball runs."
+      },
+      "score": {
+        "home": 1,
+        "away": 0
       }
     },
     {

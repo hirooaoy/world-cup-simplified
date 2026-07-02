@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-01T23:32:38.570Z",
+  "updatedAt": "2026-07-02T01:30:21.314Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fifa-standings-2026-06-17",
@@ -30,7 +30,8 @@
     "fifa-official-results-sync-2026-06-28",
     "fifa-official-results-sync-2026-06-29",
     "fifa-official-results-sync-2026-06-30",
-    "fifa-official-results-sync-2026-07-01"
+    "fifa-official-results-sync-2026-07-01",
+    "fifa-official-results-sync-2026-07-02"
   ],
   "tiebreakerNote": "Rows use the current table order. Group ties use FIFA head-to-head before overall goal difference.",
   "groups": {
