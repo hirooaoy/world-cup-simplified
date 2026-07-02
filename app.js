@@ -17119,6 +17119,11 @@ function getLineupCardLabel(card) {
   return localizeText(card?.type === "red" ? "Red card" : "Yellow card");
 }
 
+function getLineupCardTooltipLabel(card) {
+  const minute = formatLineupEventMinute(card.minute);
+  return [minute, getLineupCardLabel(card)].filter(Boolean).join(" ");
+}
+
 function getLineupSubstitutionLabel(substitution) {
   return localizeText(substitution?.direction === "on" ? "Substituted on" : "Substituted off");
 }
@@ -17159,10 +17164,11 @@ function renderLineupCardBadge(card, playerName) {
   const type = card?.type === "red" ? "red" : "yellow";
   const minute = formatLineupEventMinute(card.minute);
   const label = getLineupEventBadgeLabel({ ...card, kind: "card" }, playerName);
+  const tooltipLabel = getLineupCardTooltipLabel(card);
   return `
     <span
       class="lineup-event-badge lineup-event-card is-${escapeHtml(type)}"
-      ${renderLineupBadgeTooltipAttributes(label)}
+      ${renderLineupBadgeTooltipAttributes(label, tooltipLabel)}
     ><span aria-hidden="true"></span>${escapeHtml(minute)}</span>
   `;
 }
@@ -19011,12 +19017,15 @@ function replaceBrokenLineupAvatar(image) {
 }
 
 function replaceBrokenLineupCoachPhoto(image) {
-  const parentClassName = image.closest(".lineup-coach-card-photo")
-    ? "lineup-coach-card-photo"
-    : "lineup-coach-avatar";
+  const parent = image.closest(".lineup-coach-avatar, .lineup-coach-card-photo");
   const fallback = document.createElement("span");
-  fallback.className = parentClassName;
+  fallback.className = "lineup-coach-initials";
   fallback.textContent = image.dataset.playerInitials || "";
+  if (parent) {
+    parent.replaceChildren(fallback);
+    return;
+  }
+  fallback.className = "lineup-coach-avatar";
   image.replaceWith(fallback);
 }
 

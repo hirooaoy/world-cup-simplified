@@ -19,19 +19,19 @@
       "highlights": [
         "Completed matches now render FIFA official final team sheets on the pitch board, including starters, bench, card-time pills, substitutions, goals, and assists.",
         "Formation hover cards now include contextual good/risk notes for every official shape currently in the final lineup backfill, including 4-1-2-3 and back-five setups.",
-        "Goal and assist badge tooltips now stay compact with just the minute and event type, while full player details remain available to assistive labels.",
+        "Goal, assist, yellow-card, and red-card badge tooltips now stay compact with just the minute and event type, while full player details remain available to assistive labels.",
         "Lineup event badge hovers now keep the compact event tooltip above the player card, so goal and assist pills stay readable on desktop.",
         "Lineup event badges can now receive keyboard focus, making the compact event tooltip available without relying on mouse hover timing.",
-        "Coach icons stay circular in the formation row while the hover card keeps the richer rounded-square portrait, role, tenure, and coach notes where curated metadata exists.",
+        "Coach icons stay circular in the formation row without double fallback rings, while the hover card keeps the richer rounded-square portrait, role, tenure, and coach notes where curated metadata exists.",
         "Final lineup backfill now lives in data/lineups.json instead of bloating fixtures.json, with the pitch arrangement still labeled as formation/team-sheet-order derived."
       ],
       "highlightsZh": [
         "已完赛比赛现在会在球场阵容板中显示 FIFA 官方最终队名单，包括首发、替补、带时间的红黄牌胶囊、换人、进球和助攻。",
         "阵型悬停卡现在会为当前最终阵容回填中的每一种官方阵型显示“擅长/可能吃亏”的语境说明，包括 4-1-2-3 和五后卫阵型。",
-        "进球和助攻徽标的悬停提示现在只保留分钟和事件类型，完整球员信息仍保留在无障碍标签中。",
+        "进球、助攻、黄牌和红牌徽标的悬停提示现在只保留分钟和事件类型，完整球员信息仍保留在无障碍标签中。",
         "阵容事件徽标悬停时现在会优先显示紧凑事件提示，不会被球员卡盖住，桌面端的进球和助攻胶囊更清楚。",
         "阵容事件徽标现在可以通过键盘聚焦显示紧凑事件提示，不必依赖鼠标悬停时序。",
-        "教练图标在阵型栏保持圆形，悬停卡片继续使用更丰富的圆角方形头像、身份、执教年份和已策划的教练说明。",
+        "教练图标在阵型栏保持圆形，且头像回退时不再出现双层圆环；悬停卡片继续使用更丰富的圆角方形头像、身份、执教年份和已策划的教练说明。",
         "最终阵容回填现在存放在 data/lineups.json，不再撑大 fixtures.json；球场排布仍明确标记为按阵型/队名单顺序推导。"
       ]
     },

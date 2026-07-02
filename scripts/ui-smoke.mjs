@@ -4482,7 +4482,7 @@ try {
           label.ariaLabel.includes("Jude Bellingham") &&
           label.ariaLabel.includes("Yellow card") &&
           label.text.includes("19'") &&
-          label.tooltip === label.ariaLabel &&
+          label.tooltip === "19' Yellow card" &&
           label.title === ""
     ) &&
       lineupCornerEventState.scoreLabels.some(
@@ -4754,9 +4754,9 @@ try {
           card.text.includes("90+2'") &&
           card.height >= 14 &&
           card.radius !== "2px" &&
-          card.tooltip === card.ariaLabel
+          card.tooltip === "90+2' Red card"
       ),
-    `4-1-2-3 should render populated formation-card notes, and red cards should render as card-time pills near substitution events. Measured ${JSON.stringify(redCardPillState)}.`
+    `4-1-2-3 should render populated formation-card notes, and red cards should render as compact-tooltip card-time pills near substitution events. Measured ${JSON.stringify(redCardPillState)}.`
   );
   await finalLineupModeCheck.context.close();
 
@@ -4873,6 +4873,33 @@ try {
         coachState.copyNoteCounts.length === 2 &&
         coachState.copyNoteCounts.every((count) => count === 2),
       `Covered line-up match ${coachCase.matchId} should render both coach source icons with the expected portrait source and card copy shape. Measured ${JSON.stringify(coachState)}.`
+    );
+
+    const brokenCoachFallbackState = await lineupCoachCoverageCheck.page
+      .locator("#match-info .lineup-preview-block")
+      .evaluate((block) => {
+        const images = [...block.querySelectorAll(".lineup-coach-avatar img, .lineup-coach-card-photo img")];
+        images.forEach((image) => image.dispatchEvent(new Event("error")));
+
+        return {
+          avatarTexts: [...block.querySelectorAll(".lineup-coach-avatar")].map((avatar) =>
+            avatar.textContent.replace(/\s+/g, " ").trim()
+          ),
+          cardPhotoTexts: [...block.querySelectorAll(".lineup-coach-card-photo")].map((photo) =>
+            photo.textContent.replace(/\s+/g, " ").trim()
+          ),
+          nestedAvatarCount: block.querySelectorAll(".lineup-coach-avatar .lineup-coach-avatar").length,
+          nestedCardPhotoCount: block.querySelectorAll(".lineup-coach-card-photo .lineup-coach-card-photo").length
+        };
+      });
+    assert(
+      brokenCoachFallbackState.nestedAvatarCount === 0 &&
+        brokenCoachFallbackState.nestedCardPhotoCount === 0 &&
+        brokenCoachFallbackState.avatarTexts.length === 2 &&
+        brokenCoachFallbackState.avatarTexts.every(Boolean) &&
+        brokenCoachFallbackState.cardPhotoTexts.length === 2 &&
+        brokenCoachFallbackState.cardPhotoTexts.every(Boolean),
+      `Broken coach-image fallbacks should keep one visual shell instead of nesting a second circle or card photo. Measured ${JSON.stringify(brokenCoachFallbackState)}.`
     );
 
     const lineupSideState = await lineupCoachCoverageCheck.page
