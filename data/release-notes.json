@@ -1,6 +1,109 @@
 {
-  "updatedAt": "2026-07-01T18:57:54-07:00",
+  "updatedAt": "2026-07-01T19:23:24-07:00",
   "releases": [
+    {
+      "date": "2026-07-01",
+      "title": "Live fallback safety",
+      "titleZh": "直播备用数据安全处理",
+      "highlights": [
+        "If live-data sync times out, the API now avoids CDN-caching the failed fallback, tries a fast FIFA official score rescue, and strips stale live scores from raw static fallback data."
+      ],
+      "highlightsZh": [
+        "如果实时数据同步超时，API 现在不会把失败的备用响应缓存到 CDN，会先尝试快速使用 FIFA 官方比分兜底，并从原始静态备用数据中移除过期的直播比分。"
+      ]
+    },
+    {
+      "date": "2026-07-01",
+      "title": "Round-of-32 result recaps",
+      "titleZh": "32强赛果复盘",
+      "highlights": [
+        "USA-Bosnia and Belgium-Senegal now show official final scores, scorer timelines, source-backed three-bullet Result recaps, and the USA-Belgium last-16 matchup.",
+        "Belgium-Senegal includes the verified FOX Sports YouTube highlights link; USA-Bosnia records an official FOX Sports check while the full highlights upload is still unavailable."
+      ],
+      "highlightsZh": [
+        "美国对波黑、比利时对塞内加尔现在显示官方最终比分、进球时间线、基于来源的三条赛果复盘，以及美国对比利时的16强对阵。",
+        "比利时对塞内加尔已加入已核验的 FOX Sports YouTube 集锦链接；美国对波黑则记录了官方 FOX Sports 检查，完整集锦尚未可用。"
+      ]
+    },
+    {
+      "date": "2026-07-01",
+      "title": "Lineup status wording",
+      "titleZh": "阵容状态文案",
+      "highlights": [
+        "Lineup cards now describe their state more naturally: predicted lineups stay freshness-based, live matches show a lineup record check, and finished matches settle into Final lineup record."
+      ],
+      "highlightsZh": [
+        "阵容卡片现在会按状态显示更自然的文案：预测阵容保留新鲜度提示，直播比赛显示阵容记录核验，完场后固定为“最终阵容记录”。"
+      ]
+    },
+    {
+      "date": "2026-07-01",
+      "title": "Player cards stay in app",
+      "titleZh": "球员卡片留在站内",
+      "highlights": [
+        "Player names now open only the in-app player card and no longer navigate to Wikipedia or other source pages when clicked or tapped."
+      ],
+      "highlightsZh": [
+        "点击或轻点球员姓名现在只会打开站内球员卡片，不再跳转到维基百科或其他来源页面。"
+      ]
+    },
+    {
+      "date": "2026-07-01",
+      "title": "Mobile lineup tab fit",
+      "titleZh": "移动端阵容标签适配",
+      "highlights": [
+        "Mobile lineup cards now keep the team tabs, formation, and bench controls on one row, switching crowded country names to compact three-letter codes such as USA."
+      ],
+      "highlightsZh": [
+        "移动端阵容卡片现在会把球队标签、阵型和替补控制保持在同一行；国家名放不下时会切换成 USA 这类三字母代码。"
+      ]
+    },
+    {
+      "date": "2026-07-01",
+      "title": "Live row spacing polish",
+      "titleZh": "直播行间距微调",
+      "highlights": [
+        "Wrapped live match rows now keep the vs label tight to the first country and pull the Live/score pills next to the matchup instead of leaving a wide desktop gap."
+      ],
+      "highlightsZh": [
+        "换行的直播比赛行现在会让 vs 更贴近第一支球队，并把 Live/比分标签拉回对阵信息旁边，不再在桌面端留下过宽空白。"
+      ]
+    },
+    {
+      "date": "2026-07-01",
+      "title": "Live score source line",
+      "titleZh": "实时比分来源提示",
+      "highlights": [
+        "Live match details now replace the manual full-time reminder with the checked FIFA snapshot minute, freshness, and a dotted Check FIFA source link.",
+        "In-play match details now place the Live score section above the Previous/Next knockout context, matching the finished Result layout."
+      ],
+      "highlightsZh": [
+        "直播比赛详情现在用已核验的 FIFA 快照分钟、新鲜度和带点状下划线的“查看 FIFA”来源链接，替代原来的完场刷新提醒。",
+        "进行中的比赛详情现在会把实时比分区块放在 Previous/Next 淘汰赛背景上方，和完场 Result 布局保持一致。"
+      ]
+    },
+    {
+      "date": "2026-07-01",
+      "title": "Live match predictions",
+      "titleZh": "直播比赛预测",
+      "highlights": [
+        "Live match details now keep the Prediction card below the live score, so Belgium-Senegal and other in-play fixtures do not lose their pre-match odds context."
+      ],
+      "highlightsZh": [
+        "直播比赛详情现在会把 Prediction 卡片保留在实时比分下方，像比利时对塞内加尔这样的进行中比赛不会丢失赛前预测背景。"
+      ]
+    },
+    {
+      "date": "2026-07-01",
+      "title": "Lazy archive player cards",
+      "titleZh": "历届球员卡片延迟加载",
+      "highlights": [
+        "Historical player-card data now loads only when archive match details need it, with a small card-level loading state keeping current 2026 match browsing lighter while preserving rich past-player cards."
+      ],
+      "highlightsZh": [
+        "历届球员卡片数据现在只会在历届比赛详情需要时加载，并用小型卡片级加载状态过渡，让 2026 当前比赛浏览更轻，同时保留丰富的历史球员卡片。"
+      ]
+    },
     {
       "date": "2026-07-01",
       "title": "Line-ups on match cards",
@@ -42,13 +145,13 @@
       "titleZh": "阵容可视化原型与官方赛果同步",
       "highlights": [
         "Added a guarded England-DR Congo line-ups visual prototype below Prediction, with team tabs, bench lists, coach and formation cards, player photos, card markers, and substitution previews.",
-        "Expanded the guarded line-ups visual prototype across yesterday and today, including a clear Line-ups (expected) label for scheduled matches and past-match line-ups for finished knockouts.",
+        "Expanded the guarded line-ups visual prototype across yesterday and today, including a clear Line-ups (prediction) label for scheduled matches and past-match line-ups for finished knockouts.",
         "Match detail sections now use subtle dividers and roomier Key information spacing so the new visual fits the existing page rhythm.",
         "Synced Belgium-Senegal to the official 3-2 final, linked the official FOX highlight, and resolved Belgium's next knockout slot."
       ],
       "highlightsZh": [
         "在 Prediction 下方新增受保护的英格兰对刚果民主共和国阵容可视化原型，包含球队切换、替补名单、教练与阵型卡、球员照片、红黄牌标记和换人预览。",
-        "受保护的阵容可视化原型已扩展到昨天和今天的比赛，未开赛比赛会明确显示“预计阵容”，已完赛淘汰赛则显示赛后阵容。",
+        "受保护的阵容可视化原型已扩展到昨天和今天的比赛，未开赛比赛会明确显示“预测阵容”，已完赛淘汰赛则显示赛后阵容。",
         "比赛详情区块现在使用更克制的分隔线，并增加 Key information 的呼吸感，让新视觉更贴合现有页面节奏。",
         "已同步比利时对塞内加尔的官方 3-2 完赛比分，补上 FOX 官方集锦，并确认比利时的下一轮淘汰赛席位。"
       ]

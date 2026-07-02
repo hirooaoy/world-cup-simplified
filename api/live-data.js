@@ -12,6 +12,7 @@ const DEFAULT_PROVIDER_MAX_PAGES = 5;
 const DEFAULT_LIVE_DATA_CACHE_SECONDS = 30 * 60;
 const DEFAULT_LIVE_DATA_STALE_SECONDS = 30 * 60;
 const DEFAULT_LIVE_DATA_SYNC_DEADLINE_MS = 7500;
+const DEFAULT_FIFA_FALLBACK_TIMEOUT_MS = 2000;
 const FOOTBALL_DATA_PROVIDER_KEY = "footballData";
 const API_FOOTBALL_PROVIDER_KEY = "apiFootball";
 const SPORTMONKS_PROVIDER_KEY = "sportmonks";
@@ -82,23 +83,22 @@ export default async function handler(request, response) {
   const provider = getLiveDataProvider();
   const checkedAt = new Date().toISOString();
   const cacheControl = getLiveDataCacheControl(provider);
+  const timeZone = process.env.SYNC_TIMEZONE || DEFAULT_TIME_ZONE;
 
   if (!provider.ok) {
+    const fallbackPayload = buildStaticFallbackPayload({
+      checkedAt,
+      fixturesData,
+      provider,
+      reason: provider.reason,
+      standingsData,
+      tournamentData
+    });
     sendJson(
       response,
       200,
-      {
-        fixturesData,
-        standingsData,
-        tournamentData,
-        syncStatus: {
-          checkedAt,
-          ok: false,
-          provider: provider.name,
-          reason: provider.reason
-        }
-      },
-      cacheControl
+      fallbackPayload,
+      "no-store"
     );
     return;
   }
@@ -106,7 +106,6 @@ export default async function handler(request, response) {
   try {
     const payload = await withTimeout(
       (async () => {
-        const timeZone = process.env.SYNC_TIMEZONE || DEFAULT_TIME_ZONE;
         const providerFixtures = await provider.fetchFixtures({
           providerMap,
           timeZone
@@ -184,21 +183,34 @@ export default async function handler(request, response) {
 
     sendJson(response, 200, payload, cacheControl);
   } catch (error) {
+    const reason = error.message || "Unable to sync provider data";
+    const fallbackPayload = await buildOfficialFallbackPayload({
+      checkedAt,
+      fixturesData,
+      provider,
+      providerMap,
+      reason,
+      standingsData,
+      teamsData,
+      timeZone,
+      tournamentData
+    }).catch((fallbackError) =>
+      buildStaticFallbackPayload({
+        checkedAt,
+        fallbackReason: fallbackError?.message || "Unable to sync FIFA official fallback",
+        fixturesData,
+        provider,
+        reason,
+        standingsData,
+        tournamentData
+      })
+    );
+
     sendJson(
       response,
       200,
-      {
-        fixturesData,
-        standingsData,
-        tournamentData,
-        syncStatus: {
-          checkedAt,
-          ok: false,
-          provider: provider.name,
-          reason: error.message || "Unable to sync provider data"
-        }
-      },
-      cacheControl
+      fallbackPayload,
+      "no-store"
     );
   }
 }
@@ -239,6 +251,10 @@ function getLiveDataSyncDeadlineMs() {
   return positiveInteger(process.env.LIVE_DATA_SYNC_DEADLINE_MS, DEFAULT_LIVE_DATA_SYNC_DEADLINE_MS);
 }
 
+function getFifaFallbackTimeoutMs() {
+  return positiveInteger(process.env.FIFA_FALLBACK_TIMEOUT_MS, DEFAULT_FIFA_FALLBACK_TIMEOUT_MS);
+}
+
 function withTimeout(promise, timeoutMs, message) {
   let timeoutId;
   const timeout = new Promise((_, reject) => {
@@ -266,6 +282,126 @@ async function readOptionalJson(fileName) {
 
     throw error;
   }
+}
+
+function sanitizeStaticFallbackFixturesData(fixturesData) {
+  let sanitizedCount = 0;
+  const fixtures = (fixturesData.fixtures || []).map((fixture) => {
+    if (fixture.status !== "LIVE") {
+      return fixture;
+    }
+
+    sanitizedCount += 1;
+    const nextFixture = {
+      ...fixture,
+      status: "SCHEDULED"
+    };
+
+    delete nextFixture.goalsAway;
+    delete nextFixture.goalsHome;
+    delete nextFixture.officialMatchPhase;
+    delete nextFixture.officialMatchTime;
+    delete nextFixture.officialMatchTimeUpdatedAt;
+    delete nextFixture.score;
+    delete nextFixture.scoreDetails;
+    delete nextFixture.scoreUpdatedAt;
+
+    return nextFixture;
+  });
+
+  return {
+    fixturesData: {
+      ...fixturesData,
+      fixtures
+    },
+    sanitizedCount
+  };
+}
+
+function buildStaticFallbackPayload({
+  checkedAt,
+  fallbackReason = "",
+  fixturesData,
+  provider,
+  reason,
+  standingsData,
+  tournamentData
+}) {
+  const sanitized = sanitizeStaticFallbackFixturesData(fixturesData);
+
+  return {
+    fixturesData: sanitized.fixturesData,
+    standingsData,
+    tournamentData,
+    syncStatus: {
+      checkedAt,
+      ok: false,
+      provider: provider.name,
+      reason,
+      fallbackReason: fallbackReason || undefined,
+      sanitizedLiveFixtures: sanitized.sanitizedCount || undefined
+    }
+  };
+}
+
+async function buildOfficialFallbackPayload({
+  checkedAt,
+  fixturesData,
+  provider,
+  providerMap,
+  reason,
+  standingsData,
+  teamsData,
+  timeZone,
+  tournamentData
+}) {
+  const officialProvider = createFifaOfficialProvider({
+    timeoutMs: getFifaFallbackTimeoutMs()
+  });
+  const sanitized = sanitizeStaticFallbackFixturesData(fixturesData);
+  const officialFixtures = await officialProvider.fetchFixtures({
+    providerMap,
+    timeZone
+  });
+  const officialMerge = mergeProviderFixtures({
+    checkedAt,
+    fixturesData: sanitized.fixturesData,
+    forceStatus: true,
+    provider: officialProvider,
+    providerFixtures: officialFixtures,
+    providerMap,
+    teams: teamsData.teams
+  });
+  const mergedStandingsData = recomputeStandings({
+    checkedAt,
+    fixturesData: officialMerge.fixturesData,
+    provider: officialProvider,
+    standingsData,
+    teams: teamsData.teams,
+    tournamentData
+  });
+  const mergedTournamentData = addOfficialScoreSource({
+    checkedAt,
+    scoreMerge: officialMerge,
+    tournamentData
+  });
+
+  return {
+    fixturesData: officialMerge.fixturesData,
+    standingsData: mergedStandingsData,
+    tournamentData: mergedTournamentData,
+    syncStatus: {
+      checkedAt,
+      fallback: true,
+      fallbackReason: reason,
+      officialScoreFixtures: officialMerge.matchedCount,
+      officialScoreUpdates: officialMerge.updateCount,
+      ok: true,
+      primaryProvider: provider.name,
+      provider: officialProvider.name,
+      sanitizedLiveFixtures: sanitized.sanitizedCount || undefined
+    }
+  };
 }
 
 function getLiveDataProvider() {
@@ -413,12 +549,16 @@ function createSportmonksProvider(token) {
   };
 }
 
-function createFifaOfficialProvider() {
+function createFifaOfficialProvider(options = {}) {
   return {
     defaultCacheSeconds: 60,
     defaultStaleSeconds: 60,
     docsUrl: FIFA_SCHEDULE_URL,
-    fetchFixtures: ({ timeZone }) => fetchFifaOfficialFixtures({ timeZone }),
+    fetchFixtures: ({ timeZone }) =>
+      fetchFifaOfficialFixtures({
+        timeZone,
+        timeoutMs: options.timeoutMs
+      }),
     key: FIFA_PROVIDER_KEY,
     label: "FIFA official live score sync",
     name: "FIFA official",
@@ -748,7 +888,7 @@ async function fetchSportmonksFixtures({ providerMap, sportmonks, timeZone }) {
   });
 }
 
-async function fetchFifaOfficialFixtures({ timeZone }) {
+async function fetchFifaOfficialFixtures({ timeZone, timeoutMs }) {
   const { endKey, startKey } = getSyncWindow({
     afterDays: process.env.FIFA_WINDOW_AFTER_DAYS,
     beforeDays: process.env.FIFA_WINDOW_BEFORE_DAYS,
@@ -765,7 +905,10 @@ async function fetchFifaOfficialFixtures({ timeZone }) {
   const payload = await fetchJsonWithTimeout(
     url,
     "FIFA official live score",
-    positiveInteger(process.env.FIFA_LIVE_SCORE_TIMEOUT_MS, DEFAULT_FIFA_LIVE_SCORE_TIMEOUT_MS)
+    positiveInteger(
+      timeoutMs ?? process.env.FIFA_LIVE_SCORE_TIMEOUT_MS,
+      DEFAULT_FIFA_LIVE_SCORE_TIMEOUT_MS
+    )
   );
   return asArray(payload.Results || payload.results || payload);
 }
@@ -1173,6 +1316,21 @@ function getFifaMatchTime(match) {
   return "";
 }
 
+function getFifaMatchPhase(match) {
+  const statusText = normalizeKey(
+    [
+      description(match?.MatchStatusName),
+      match?.Status,
+      match?.MatchStatusDescription,
+      match?.ResultType
+    ]
+      .filter(Boolean)
+      .join(" ")
+  );
+
+  return /\b(?:ht|half time|halftime|interval)\b/.test(statusText) ? "Half-time" : "";
+}
+
 function statusRank(status) {
   return {
     SCHEDULED: 0,
@@ -1221,6 +1379,8 @@ function mergeProviderFixtures({
     const providerPenaltyScore = getProviderPenaltyScore(providerFixture, provider.key);
     const officialMatchTime =
       provider.key === FIFA_PROVIDER_KEY ? getFifaMatchTime(providerFixture) : "";
+    const officialMatchPhase =
+      provider.key === FIFA_PROVIDER_KEY ? getFifaMatchPhase(providerFixture) : "";
     const previousStatus = fixture.status;
     const nextStatus =
       forceStatus || statusRank(providerStatus) >= statusRank(fixture.status)
@@ -1232,6 +1392,7 @@ function mergeProviderFixtures({
       (forceStatus || statusRank(providerStatus) >= statusRank(previousStatus));
     const before = JSON.stringify({
       providerIds: fixture.providerIds,
+      officialMatchPhase: fixture.officialMatchPhase,
       officialMatchTime: fixture.officialMatchTime,
       officialMatchTimeUpdatedAt: fixture.officialMatchTimeUpdatedAt,
       score: fixture.score,
@@ -1264,10 +1425,20 @@ function mergeProviderFixtures({
     }
 
     if (provider.key === FIFA_PROVIDER_KEY) {
-      if (providerStatus === "LIVE" && officialMatchTime) {
-        fixture.officialMatchTime = officialMatchTime;
+      if (providerStatus === "LIVE" && (officialMatchTime || officialMatchPhase)) {
+        if (officialMatchTime) {
+          fixture.officialMatchTime = officialMatchTime;
+        } else {
+          delete fixture.officialMatchTime;
+        }
+        if (officialMatchPhase) {
+          fixture.officialMatchPhase = officialMatchPhase;
+        } else {
+          delete fixture.officialMatchPhase;
+        }
         fixture.officialMatchTimeUpdatedAt = checkedAt;
       } else {
+        delete fixture.officialMatchPhase;
         delete fixture.officialMatchTime;
         delete fixture.officialMatchTimeUpdatedAt;
       }
@@ -1275,6 +1446,7 @@ function mergeProviderFixtures({
 
     const after = JSON.stringify({
       providerIds: fixture.providerIds,
+      officialMatchPhase: fixture.officialMatchPhase,
       officialMatchTime: fixture.officialMatchTime,
       officialMatchTimeUpdatedAt: fixture.officialMatchTimeUpdatedAt,
       score: fixture.score,

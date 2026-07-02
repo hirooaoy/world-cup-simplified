@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-02T01:30:21.314Z",
+  "updatedAt": "2026-07-02T02:21:44.406Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -121,8 +121,13 @@
     "guardian-netherlands-morocco-result-2026-06-30",
     "guardian-mexico-ecuador-result-2026-07-01",
     "guardian-england-dr-congo-result-2026-07-01",
+    "guardian-usa-bosnia-result-2026-07-01",
+    "fox-usa-bosnia-boxscore-2026-07-01",
+    "guardian-belgium-senegal-result-2026-07-01",
     "national-football-teams-h2h-sync-2026-07-01",
-    "fifa-official-results-sync-2026-07-02"
+    "fifa-official-results-sync-2026-07-02",
+    "fifa-goal-events-sync-2026-07-02",
+    "national-football-teams-h2h-sync-2026-07-02"
   ],
   "coverage": {
     "status": "complete-schedule",
@@ -11341,7 +11346,7 @@
       "homeSlot": "Group D winner",
       "awaySlot": "Group B/E/F/I/J third place",
       "venue": "San Francisco Bay Area Stadium",
-      "status": "LIVE",
+      "status": "FT",
       "h2h": {
         "status": "loaded",
         "sourceId": "national-football-teams-h2h-sync-2026-06-30",
@@ -11435,8 +11440,41 @@
         "away": "Bosnia and Herzegovina are a veteran-leaning side that still carry real danger when the match becomes physical and direct, led by Edin Dzeko, Sead Kolasinac, and Esmir Bajraktarevic. Against United States, their Dzeko target play has to beat United States' Pulisic-McKennie pressure breaks. They want to play into Dzeko early and build around the loose balls that follow. The risk is United States can turn pressure into Pulisic carries and McKennie second-ball runs."
       },
       "score": {
-        "home": 1,
+        "home": 2,
         "away": 0
+      },
+      "goalsHome": [
+        {
+          "minute": 45,
+          "name": "Folarin Balogun"
+        },
+        {
+          "minute": 82,
+          "name": "Malik Tillman"
+        }
+      ],
+      "goalsAway": [],
+      "resultStoryBullets": [
+        "Balogun scrambled in the 45th-minute opener after a tense first half, then hit the bar before the break.",
+        "The USA played the last half-hour with ten men after Balogun's VAR red card, with Freese and Richards protecting the box.",
+        "Tillman curled in an 82nd-minute free kick to seal a 2-0 win and send the hosts into a last-16 meeting with Belgium."
+      ],
+      "resultStoryResearch": {
+        "status": "researched",
+        "sourceIds": [
+          "guardian-usa-bosnia-result-2026-07-01",
+          "fox-usa-bosnia-boxscore-2026-07-01"
+        ],
+        "checkedAt": "2026-07-01T19:30:00-07:00",
+        "note": "Guardian live report and FOX Sports box score reviewed for Balogun opener, Balogun red card, late Bosnia pressure, Tillman free kick, and next-round path."
+      },
+      "highlightVideoReview": {
+        "status": "not-found",
+        "platform": "youtube",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "checkedAt": "2026-07-01T19:20:06-07:00",
+        "note": "No official FOX Sports YouTube highlights video matched this fixture during the automated channel check."
       }
     },
     {
@@ -11543,13 +11581,26 @@
           "assistName": "Moussa Niakhate"
         }
       ],
+      "resultStoryBullets": [
+        "Diarra and Sarr gave Senegal a 2-0 lead before Lukaku turned in Meunier's 86th-minute cross to reopen the match.",
+        "Tielemans met Trossard's delivery three minutes later, forcing extra time after Senegal had controlled the first 85 minutes.",
+        "Tielemans converted a VAR penalty at 120+5 after Lukebakio hit the bar, completing Belgium's last-gasp comeback."
+      ],
+      "resultStoryResearch": {
+        "status": "researched",
+        "sourceIds": [
+          "guardian-belgium-senegal-result-2026-07-01"
+        ],
+        "checkedAt": "2026-07-01T19:30:00-07:00",
+        "note": "Guardian live report and official FOX Sports highlights reviewed for Senegal's 2-0 lead, Belgium's late equalizer, Lukebakio extra-time chance, VAR penalty, and next-round path."
+      },
       "highlightVideo": {
         "platform": "youtube",
         "url": "https://www.youtube.com/watch?v=OJ84ZgReAsE",
         "sourceName": "FOX Sports",
         "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
-        "publishedAt": "2026-07-01T16:35:08-07:00",
-        "checkedAt": "2026-07-01T16:35:08-07:00"
+        "publishedAt": "2026-07-01T19:19:57-07:00",
+        "checkedAt": "2026-07-01T19:19:57-07:00"
       }
     },
     {
@@ -12754,9 +12805,82 @@
       "venue": "Seattle Stadium",
       "status": "SCHEDULED",
       "h2h": {
-        "status": "not-loaded",
-        "summary": "Teams are not known yet. Past match research will load after the matchup is set.",
-        "results": null
+        "status": "loaded",
+        "sourceId": "national-football-teams-h2h-sync-2026-07-02",
+        "summary": "Before this fixture, Belgium had the edge in the verified senior series: 1 United States win, 0 draws, 6 Belgium wins, 23 total goals.",
+        "results": [
+          {
+            "date": "2026-03-28",
+            "competition": "Friendly",
+            "homeTeamId": "USA",
+            "awayTeamId": "BEL",
+            "homeScore": 2,
+            "awayScore": 5,
+            "venue": "Mercedes-Benz Stadium",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/44252/Usa_Belgium.html"
+          },
+          {
+            "date": "2014-07-01",
+            "competition": "World Cup 2014 - Round of 16",
+            "homeTeamId": "BEL",
+            "awayTeamId": "USA",
+            "homeScore": 2,
+            "awayScore": 1,
+            "venue": "Itaipava Arena Fonte Nova",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/9727/Belgium_Usa.html"
+          },
+          {
+            "date": "2013-05-29",
+            "competition": "Friendly",
+            "homeTeamId": "USA",
+            "awayTeamId": "BEL",
+            "homeScore": 2,
+            "awayScore": 4,
+            "venue": "Huntington Bank Field",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/7995/Usa_Belgium.html"
+          },
+          {
+            "date": "2011-09-06",
+            "competition": "Friendly",
+            "homeTeamId": "BEL",
+            "awayTeamId": "USA",
+            "homeScore": 1,
+            "awayScore": 0,
+            "venue": "Stade Roi Baudouin",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/9757/Belgium_Usa.html"
+          },
+          {
+            "date": "1998-02-25",
+            "competition": "Friendly",
+            "homeTeamId": "BEL",
+            "awayTeamId": "USA",
+            "homeScore": 2,
+            "awayScore": 0,
+            "venue": "Stade Roi Baudouin",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/25220/Belgium_Usa.html"
+          },
+          {
+            "date": "1995-04-22",
+            "competition": "Friendly",
+            "homeTeamId": "BEL",
+            "awayTeamId": "USA",
+            "homeScore": 1,
+            "awayScore": 0,
+            "venue": "Edmond Machtensstadion",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/27496/Belgium_Usa.html"
+          },
+          {
+            "date": "1930-07-13",
+            "competition": "World Cup 1930 - Group 4",
+            "homeTeamId": "USA",
+            "awayTeamId": "BEL",
+            "homeScore": 3,
+            "awayScore": 0,
+            "venue": "Parque Central",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/14725/Usa_Belgium.html"
+          }
+        ],
+        "sourceUrl": "https://www.national-football-teams.com/encounter/teams/200/20/Usa_vs_Belgium.html"
       },
       "providerIds": {
         "fifa": {
@@ -12764,7 +12888,54 @@
           "matchNumber": 94
         }
       },
-      "awayTeamId": "BEL"
+      "homeTeamId": "USA",
+      "awayTeamId": "BEL",
+      "projection": {
+        "sourceId": "ranking-projection-2026-06-17",
+        "method": "fifa-ranking-baseline",
+        "basis": "FIFA ranking strength with host-country adjustment",
+        "home": 35,
+        "draw": 28,
+        "away": 37
+      },
+      "keyPlayers": {
+        "sourceId": "key-player-baseline-2026-06-22",
+        "method": "team-watchlist-baseline",
+        "basis": "Team-level key-player watchlist; replace with API/squad-sourced fixture notes when available",
+        "home": [
+          {
+            "name": "Christian Pulisic",
+            "note": "The primary one-v-one attacker and late-box runner, the player most likely to turn pressure into a clean shot."
+          },
+          {
+            "name": "Weston McKennie",
+            "note": "A box-to-box connector whose second-ball work and set-piece timing give the U.S. midfield bite."
+          },
+          {
+            "name": "Tyler Adams",
+            "note": "The ball-winning organizer at the base of midfield, crucial when the match opens into transition."
+          }
+        ],
+        "away": [
+          {
+            "name": "Kevin De Bruyne",
+            "note": "Belgium's elite chance architect, able to find early crosses, through balls, and shots before defenses settle."
+          },
+          {
+            "name": "Romelu Lukaku",
+            "note": "The reference point in the box and power finisher, built to punish any service into his stride or feet."
+          },
+          {
+            "name": "Jeremy Doku",
+            "note": "The one-v-one destabilizer, stretching games wide open with direct carries from the flank."
+          }
+        ]
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-22",
+        "home": "United States are an athletic pressing team with enough direct attacking talent to make games feel stretched, led by Christian Pulisic, Weston McKennie, and Tyler Adams. Against Belgium, their Pulisic-McKennie pressure breaks has to beat Belgium's De Bruyne-to-Lukaku chance creation. They want to press into turnovers and let Pulisic or McKennie attack before the defense resets. The risk is Belgium can turn De Bruyne service into Lukaku chances.",
+        "away": "Belgium are an elite chance-creation team when their creators get space to face forward, led by Kevin De Bruyne, Romelu Lukaku, and Jeremy Doku. Against United States, their De Bruyne-to-Lukaku chance creation has to beat United States' Pulisic-McKennie pressure breaks. They want to feed De Bruyne early and create the separation Lukaku needs in the box. The risk is United States can turn pressure into Pulisic carries and McKennie second-ball runs."
+      }
     },
     {
       "id": "match-95-round-of-16-2026-07-07",

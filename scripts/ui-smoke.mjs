@@ -33,6 +33,31 @@ function assert(condition, message) {
   }
 }
 
+async function assertPlayerCardTriggersStayInternal(rootLocator, message) {
+  const triggers = await rootLocator.locator(".player-link[data-player-card-trigger]").evaluateAll((items) =>
+    items.map((trigger) => ({
+      href: trigger.getAttribute("href") || "",
+      role: trigger.getAttribute("role") || "",
+      tabIndex: trigger.getAttribute("tabindex") || "",
+      tagName: trigger.tagName,
+      target: trigger.getAttribute("target") || "",
+      text: trigger.textContent.replace(/\s+/g, " ").trim()
+    }))
+  );
+  const navigationLeaks = triggers.filter((trigger) =>
+    trigger.tagName !== "SPAN" ||
+      trigger.href ||
+      trigger.target ||
+      trigger.role !== "button" ||
+      trigger.tabIndex !== "0"
+  );
+
+  assert(
+    triggers.length > 0 && navigationLeaks.length === 0,
+    `${message} Measured ${JSON.stringify({ count: triggers.length, navigationLeaks })}.`
+  );
+}
+
 async function waitForHistoricalStandingsYear(pageInstance, year, mode) {
   await pageInstance.waitForFunction(
     ({ expectedMode, expectedYear }) => {
@@ -384,6 +409,12 @@ const sourceNoteRefreshData = sourceNoteData.filter((_, index) => ![2, 4].includ
 const matchLiveWindowMs = 2.25 * 60 * 60 * 1000;
 const browser = await chromium.launch({ args: ["--blink-settings=imagesEnabled=false"] });
 const page = await browser.newPage();
+const historicalPlayerProfileRequests = [];
+page.on("request", (request) => {
+  if (/\/data\/historical-player-profiles\.json(?:\?|$)/.test(request.url())) {
+    historicalPlayerProfileRequests.push(request.url());
+  }
+});
 const teamsById = new Map((teamsData.teams || []).map((team) => [team.id, team]));
 const thirdPlaceStandingIndex = 2;
 const expectedThirdPlaceAdvancementEstimateCache = new Map();
@@ -1914,8 +1945,23 @@ try {
   );
   assert(
     (await page.locator(".player-link").count()) > 0,
-    "Key information should link highlighted player names."
+    "Key information should expose highlighted player names as player-card triggers."
   );
+  await assertPlayerCardTriggersStayInternal(
+    page.locator("#match-info"),
+    "Current match player-card triggers should not navigate to Wikipedia or other source pages."
+  );
+  const keyboardPlayerTrigger = page.locator("#match-info .key-info-team p .player-link[data-player-card-trigger]").first();
+  await keyboardPlayerTrigger.focus();
+  await page.keyboard.press("Enter");
+  await page.locator(".player-card:visible").first().waitFor({ state: "visible" });
+  assert(
+    (await keyboardPlayerTrigger.getAttribute("aria-expanded")) === "true",
+    "Keyboard activation should open the in-app player card without relying on a source link."
+  );
+  await page.keyboard.press("Escape");
+  await page.locator("#day-label").focus();
+  await page.locator(".player-card:visible").first().waitFor({ state: "hidden" });
   assert(
     (await page.locator(".key-info-team h4 .key-info-heading .flag").count()) > 0,
     "Key information headings should show the country flag before the label."
@@ -2022,7 +2068,7 @@ try {
     });
   assert(
     franceMentionCommaGap >= 0 && franceMentionCommaGap < 1,
-    "Linked player mentions should not insert spaces before comma punctuation."
+    "Player-card mentions should not insert spaces before comma punctuation."
   );
 
   await page.setViewportSize({ width: 360, height: 760 });
@@ -3432,9 +3478,65 @@ try {
   );
   await calendarShortcutCheck.context.close();
 
+  const historicalProfileLoadingContext = await browser.newContext();
+  let releaseHistoricalProfiles;
+  const historicalProfilesDelay = new Promise((resolve) => {
+    releaseHistoricalProfiles = resolve;
+  });
+  await historicalProfileLoadingContext.route("**/data/historical-player-profiles.json*", async (route) => {
+    await historicalProfilesDelay;
+    await route.continue();
+  });
+  const historicalProfileLoadingPage = await historicalProfileLoadingContext.newPage();
+  await historicalProfileLoadingPage.goto(`${baseUrl}?view=matches&date=2022-11-20&tz=America%2FLos_Angeles`, {
+    waitUntil: "load"
+  });
+  await historicalProfileLoadingPage.waitForSelector(".match-row");
+  await historicalProfileLoadingPage.locator(".match-row").first().click();
+  const pendingHistoricalCard = historicalProfileLoadingPage
+    .locator("#match-info .player-card.is-profile-loading[aria-busy='true']")
+    .first();
+  await pendingHistoricalCard.waitFor({ state: "attached" });
+  const pendingHistoricalCardState = await pendingHistoricalCard.evaluate((card) => ({
+    busy: card.getAttribute("aria-busy"),
+    hasPhotoSkeleton: Boolean(card.querySelector(".player-photo-loading")),
+    hasPositionSkeleton: Boolean(card.querySelector(".player-card-loading-position")),
+    hasClubSkeleton: Boolean(card.querySelector(".player-card-loading-club")),
+    loadingPills: card.querySelectorAll(".player-card-loading-pill").length,
+    text: card.textContent.replace(/\s+/g, " ").trim()
+  }));
+  assert(
+    pendingHistoricalCardState.busy === "true" &&
+      pendingHistoricalCardState.hasPhotoSkeleton &&
+      pendingHistoricalCardState.hasPositionSkeleton &&
+      pendingHistoricalCardState.hasClubSkeleton &&
+      pendingHistoricalCardState.loadingPills === 2 &&
+      pendingHistoricalCardState.text.includes("Enner Valencia") &&
+      !pendingHistoricalCardState.text.includes("Position to verify") &&
+      !pendingHistoricalCardState.text.includes("World Cup archive"),
+    `Historical cards should show a tiny skeleton state while archive profiles lazy-load. Measured ${JSON.stringify(pendingHistoricalCardState)}.`
+  );
+  releaseHistoricalProfiles();
+  await historicalProfileLoadingPage.waitForFunction(() =>
+    [...document.querySelectorAll("#match-info .player-card")].some((card) =>
+      !card.classList.contains("is-profile-loading") &&
+        card.getAttribute("aria-busy") !== "true" &&
+        card.textContent.includes("Ecuador 2022 World Cup archive")
+    )
+  );
+  await historicalProfileLoadingContext.close();
+
+  assert(
+    historicalPlayerProfileRequests.length === 0,
+    "Current match browsing should not preload the historical player profile dataset."
+  );
+  const historicalPlayerProfilesResponse = page.waitForResponse(
+    (response) => /\/data\/historical-player-profiles\.json(?:\?|$)/.test(response.url()) && response.ok()
+  );
   await page.goto(`${baseUrl}?view=matches&date=2022-11-20&tz=America%2FLos_Angeles`, {
     waitUntil: "load"
   });
+  await historicalPlayerProfilesResponse;
   await page.waitForSelector(".match-row");
   assert(
     (await page.locator("#day-label").innerText()).trim() === "Nov 20, 2022",
@@ -3444,7 +3546,16 @@ try {
     (await page.locator(".match-row").first().innerText()).includes("Qatar"),
     "Historical dates should render archived World Cup matches."
   );
+  assert(
+    historicalPlayerProfileRequests.length === 1,
+    "Archive match views should lazy-load the historical player profile dataset only after current browsing reaches archive content."
+  );
   await page.locator(".match-row").first().click();
+  await page.waitForFunction(() =>
+    [...document.querySelectorAll("#match-info .player-card")].some((card) =>
+      card.textContent.includes("Ecuador 2022 World Cup archive")
+    )
+  );
   const historicalGroupDetailText = await page.locator("#match-info").innerText();
   assert(
     historicalGroupDetailText.includes("World Cup 2022"),
@@ -3504,27 +3615,31 @@ try {
   );
   assert(
     (await page.locator("#match-info .scorer-highlight .player-link", { hasText: "Enner Valencia" }).count()) === 2,
-    "Historical scorer names should open player cards."
+    "Historical scorer names should expose player-card triggers."
   );
   assert(
     (await page.locator("#match-info .key-info-team .player-link").count()) >= 6,
-    "Historical key information should link era-specific key-player names."
+    "Historical key information should expose era-specific key-player card triggers."
+  );
+  await assertPlayerCardTriggersStayInternal(
+    page.locator("#match-info"),
+    "Historical archive player-card triggers should not navigate to source pages."
   );
   const historicalScorerLink = page.locator("#match-info .scorer-highlight .player-link", { hasText: "Enner Valencia" }).first();
   const historicalScorerTriggerMeta = await historicalScorerLink.evaluate((trigger) => ({
+    cardTrigger: trigger.getAttribute("data-player-card-trigger") || "",
     href: trigger.getAttribute("href") || "",
     tagName: trigger.tagName
   }));
   assert(
     historicalScorerTriggerMeta.tagName === "SPAN" &&
+      historicalScorerTriggerMeta.cardTrigger === "true" &&
       historicalScorerTriggerMeta.href === "",
     `Historical archive player-card triggers should not navigate to the raw dataset. Measured ${JSON.stringify(historicalScorerTriggerMeta)}.`
   );
-  const historicalScorerCard = page
-    .locator("#match-info .scorer-highlight .player-hover")
-    .filter({ has: page.locator(".player-link", { hasText: "Enner Valencia" }) })
-    .first()
-    .locator(".player-card");
+  await historicalScorerLink.hover();
+  const historicalScorerCard = page.locator(".player-card:visible").first();
+  await historicalScorerCard.waitFor({ state: "visible" });
   const historicalScorerCardText = await historicalScorerCard.innerText();
   assert(
       historicalScorerCardText.includes("Enner Valencia") &&
@@ -3696,6 +3811,11 @@ try {
   });
   await page.waitForSelector(".match-row");
   await page.locator(".match-row").first().click();
+  await page.waitForFunction(() =>
+    [...document.querySelectorAll("#match-info .scorer-highlight .player-card")].some((card) =>
+      card.textContent.includes("Brazil 1970 archive")
+    )
+  );
   const scorerOnlyHistoricalLink = page.locator("#match-info .scorer-highlight .player-link", { hasText: "Carlos Alberto" }).first();
   const scorerOnlyHistoricalCard = page
     .locator("#match-info .scorer-highlight .player-hover")
@@ -4056,11 +4176,15 @@ try {
     };
   });
   assert(
-    bosniaScoreAlignment.metaGapFromText >= 8 &&
-      bosniaScoreAlignment.scoreRightGap >= 0 &&
-      bosniaScoreAlignment.scoreRightGap <= 12 &&
-      bosniaScoreAlignment.rowScrollOverflow <= 1,
-    `Tablet match rows should keep score pills on the shared right edge without rank-pill overflow. Measured ${JSON.stringify(bosniaScoreAlignment)}.`
+    bosniaScoreAlignment.rowScrollOverflow <= 1 &&
+      (bosniaScoreAlignment.hasWrappedClass
+        ? bosniaScoreAlignment.metaGapFromText >= 6 &&
+          bosniaScoreAlignment.metaGapFromText <= 28 &&
+          bosniaScoreAlignment.scoreRightGap >= 24
+        : bosniaScoreAlignment.metaGapFromText >= 8 &&
+          bosniaScoreAlignment.scoreRightGap >= 0 &&
+          bosniaScoreAlignment.scoreRightGap <= 12),
+    `Tablet match rows should keep the right rail when they fit, or place score pills just after wrapped matchup text. Measured ${JSON.stringify(bosniaScoreAlignment)}.`
   );
   await page.setViewportSize({ width: 390, height: 844 });
   await page.waitForTimeout(80);
@@ -4641,6 +4765,42 @@ try {
       liveTodayFocusState.yesterdaySectionOpacity < 0.6,
     `When Today has a live match, non-live rows and the Past 24 hours section should fade while live rows stay full opacity. Measured ${JSON.stringify(liveTodayFocusState)}.`
   );
+  const liveDetailPredictionCheck = await openPageAtTime(
+    "2026-07-01T20:05:00.000Z",
+    "/?view=matches&date=2026-07-01&tz=America%2FLos_Angeles",
+    {
+      fixtureTransform(data) {
+        const fixture = data.fixtures.find((item) => item.id === "match-82-round-of-32-2026-07-01");
+        fixture.status = "LIVE";
+        fixture.score = { home: 0, away: 0 };
+        fixture.officialMatchTime = "5'";
+        fixture.officialMatchTimeUpdatedAt = "2026-07-01T20:04:00.000Z";
+      }
+    }
+  );
+  await liveDetailPredictionCheck.page.locator('[data-match-id="match-82-round-of-32-2026-07-01"]').click();
+  const liveDetailBlockOrder = await liveDetailPredictionCheck.page
+    .locator("#match-info .info-block")
+    .evaluateAll((blocks) =>
+      blocks.map((block) => ({
+        hasLive: block.classList.contains("match-live-block"),
+        hasPrediction: block.classList.contains("match-prediction-block"),
+        text: block.textContent.replace(/\s+/g, " ").trim()
+      }))
+    );
+  const liveDetailPredictionRows = await liveDetailPredictionCheck.page
+    .locator("#match-info .match-prediction-block .prediction-row")
+    .evaluateAll((rows) => rows.map((row) => row.textContent.replace(/\s+/g, " ").trim()));
+  const liveDetailLiveIndex = liveDetailBlockOrder.findIndex((block) => block.hasLive);
+  const liveDetailPredictionIndex = liveDetailBlockOrder.findIndex((block) => block.hasPrediction);
+  assert(
+    liveDetailLiveIndex >= 0 &&
+      liveDetailPredictionIndex > liveDetailLiveIndex &&
+      liveDetailBlockOrder[liveDetailLiveIndex].text.includes("Live score") &&
+      liveDetailPredictionRows.join("|") === "Belgium 47%|Tie 26%|Senegal 27%",
+    `Live match detail should keep the prediction card below the live score. Measured ${JSON.stringify({ liveDetailBlockOrder, liveDetailPredictionRows })}.`
+  );
+  await liveDetailPredictionCheck.context.close();
   await liveFallbackScoreCheck.page.setViewportSize({ width: 390, height: 844 });
   await liveFallbackScoreCheck.page.waitForTimeout(80);
   const liveFallbackLayout = await liveFallbackRow.evaluate((row) => {
@@ -5324,7 +5484,11 @@ try {
   const catchUpKaneLink = catchUpCheck.page
     .locator(".catch-up-subtitle .player-link", { hasText: "Harry Kane" })
     .first();
-  assert((await catchUpKaneLink.count()) === 1, "Catch-up player mentions should become player links.");
+  assert((await catchUpKaneLink.count()) === 1, "Catch-up player mentions should become player-card triggers.");
+  await assertPlayerCardTriggersStayInternal(
+    catchUpCheck.page.locator("#catch-up-popover"),
+    "Catch-up player-card triggers should not navigate to Wikipedia or other source pages."
+  );
   const catchUpKaneDecoration = await catchUpKaneLink.evaluate(
     (link) => getComputedStyle(link).textDecorationLine
   );
@@ -5434,7 +5598,7 @@ try {
     .evaluateAll((links) => links.map((link) => link.textContent.trim()));
   assert(
     catchUpChineseLinks.includes("哈里·凯恩") && catchUpChineseLinks.includes("若昂·内维斯"),
-    "Chinese catch-up player mentions should use localized player links."
+    "Chinese catch-up player mentions should use localized player-card triggers."
   );
   assert(
     catchUpItems.every((item) => item.subtitle && !item.standouts && item.standoutBullets.length === 0),
@@ -6672,13 +6836,22 @@ try {
   const expectedMatch74OpenMatchId =
     fixturesData.fixtures.find((fixture) => fixture.matchNumber === 74)?.id || "";
   const expectedMatch81Fixture = fixturesData.fixtures.find((fixture) => fixture.matchNumber === 81);
-  const expectedM81OutcomeTexts = expectedMatch81Fixture
+  const expectedM81HasOutcomePills = Boolean(
+    expectedMatch81Fixture &&
+      expectedMatch81Fixture.status !== "FT" &&
+      !expectedMatch81Fixture.winnerTeamId &&
+      !expectedMatch81Fixture.winner
+  );
+  const expectedM81OutcomeTexts = expectedM81HasOutcomePills
     ? [
         `${expectedMatch81Fixture.homeTeamId} ${expectedMatch81Fixture.projection.home}%`,
         `TIE ${expectedMatch81Fixture.projection.draw}%`,
         `${expectedMatch81Fixture.awayTeamId} ${expectedMatch81Fixture.projection.away}%`
       ]
     : [];
+  const expectedM81ResultText = expectedMatch81Fixture?.score
+    ? `${expectedMatch81Fixture.score.home}-${expectedMatch81Fixture.score.away}`
+    : "";
   assert(
     tournamentCheck.summary.includes("Round of 32 slots") &&
       tournamentCheck.m73ProgressText.includes("Jun 28 12:00PM") &&
@@ -6718,10 +6891,11 @@ try {
       tournamentCheck.outcomePillFlagCount === 0 &&
       tournamentCheck.tiePillCount === expectedOutcomeListCount &&
       tournamentCheck.tiePillFlagCount === 0 &&
-      tournamentCheck.m81PillCount === 3 &&
-      tournamentCheck.m81OutcomeKeys.join("|") === "home|tie|away" &&
-      tournamentCheck.m81OutcomeTexts.join("|") === expectedM81OutcomeTexts.join("|") &&
-      tournamentCheck.m81OutcomeTexts.every((text) => /^(?:[A-Z]{3}|TIE)\s+\d+%$/.test(text)) &&
+      tournamentCheck.m81PillCount === (expectedM81HasOutcomePills ? 3 : 0) &&
+      (!expectedM81HasOutcomePills || tournamentCheck.m81OutcomeKeys.join("|") === "home|tie|away") &&
+      (!expectedM81HasOutcomePills || tournamentCheck.m81OutcomeTexts.join("|") === expectedM81OutcomeTexts.join("|")) &&
+      (!expectedM81HasOutcomePills || tournamentCheck.m81OutcomeTexts.every((text) => /^(?:[A-Z]{3}|TIE)\s+\d+%$/.test(text))) &&
+      (expectedM81HasOutcomePills || (expectedM81ResultText && tournamentCheck.m81Text.includes(expectedM81ResultText))) &&
       tournamentCheck.m89PillCount === 3 &&
       tournamentCheck.m89SeedLabelCount === 0 &&
       tournamentCheck.m97PillCount === 3 &&
@@ -8122,25 +8296,41 @@ try {
         }
         const rowRect = row.getBoundingClientRect();
         const scoreRect = score.getBoundingClientRect();
+        const textPieces = Array.from(row.querySelectorAll(".match-teams .flag, .match-teams .team-name, .match-teams .match-versus"));
+        const rightmostTextRight = textPieces.reduce((right, piece) => {
+          const range = document.createRange();
+          range.selectNodeContents(piece);
+          const rects = Array.from(range.getClientRects()).filter((rect) => rect.width > 0 && rect.height > 0);
+          range.detach();
+
+          if (!rects.length) {
+            return Math.max(right, piece.getBoundingClientRect().right);
+          }
+
+          return Math.max(right, ...rects.map((rect) => rect.right));
+        }, rowRect.left);
 
         return {
           hasWrappedClass: row.classList.contains("has-wrapped-matchup"),
           id: row.getAttribute("data-match-id"),
           rightGap: Math.round(rowRect.right - scoreRect.right),
-          scrollOverflow: row.scrollWidth - row.clientWidth
+          scrollOverflow: row.scrollWidth - row.clientWidth,
+          textScoreGap: Math.round(scoreRect.left - rightmostTextRight)
         };
       })
       .filter(Boolean);
   });
-  const completedScoreRailGaps = completedScoreRailMetrics.map((metric) => metric.rightGap);
   assert(
     completedScoreRailMetrics.length >= 6 &&
       completedScoreRailMetrics.some((metric) => metric.id === "bosnia-qatar-2026-06-24") &&
-      Math.max(...completedScoreRailGaps) - Math.min(...completedScoreRailGaps) <= 6 &&
       completedScoreRailMetrics.every(
-        (metric) => metric.rightGap >= 0 && metric.rightGap <= 12 && metric.scrollOverflow <= 1
+        (metric) =>
+          metric.scrollOverflow <= 1 &&
+          (metric.hasWrappedClass
+            ? metric.textScoreGap >= 6 && metric.textScoreGap <= 28 && metric.rightGap >= 12
+            : metric.rightGap >= 0 && metric.rightGap <= 12)
       ),
-    `Completed score pills should share the same right rail with ranking hidden from rows. Measured ${JSON.stringify(completedScoreRailMetrics)}.`
+    `Completed score pills should follow wrapped matchup text, while unwrapped rows keep the right rail. Measured ${JSON.stringify(completedScoreRailMetrics)}.`
   );
 
   await page.setViewportSize({ width: 390, height: 844 });
@@ -8449,6 +8639,53 @@ try {
       const parts = match[1].split(",").map((part) => Number.parseFloat(part.trim()));
       return Number.isFinite(parts[4]) ? parts[4] : 0;
     };
+    const measureTooltipWidth = (element, style) => {
+      const numericWidth =
+        parsePx(style.width) +
+        parsePx(style.paddingLeft) +
+        parsePx(style.paddingRight) +
+        parsePx(style.borderLeftWidth) +
+        parsePx(style.borderRightWidth);
+      if (numericWidth) {
+        return numericWidth;
+      }
+
+      const tooltipText = element.getAttribute("data-tooltip") || "";
+      if (!tooltipText) {
+        return 0;
+      }
+
+      const probe = document.createElement("span");
+      probe.textContent = tooltipText;
+      Object.assign(probe.style, {
+        position: "fixed",
+        display: "block",
+        visibility: "hidden",
+        pointerEvents: "none",
+        left: "0",
+        top: "0",
+        width: style.width,
+        maxWidth: style.maxWidth,
+        boxSizing: style.boxSizing,
+        padding: `${style.paddingTop} ${style.paddingRight} ${style.paddingBottom} ${style.paddingLeft}`,
+        borderStyle: style.borderStyle,
+        borderWidth: `${style.borderTopWidth} ${style.borderRightWidth} ${style.borderBottomWidth} ${style.borderLeftWidth}`,
+        fontFamily: style.fontFamily,
+        fontSize: style.fontSize,
+        fontStyle: style.fontStyle,
+        fontWeight: style.fontWeight,
+        letterSpacing: style.letterSpacing,
+        lineHeight: style.lineHeight,
+        textTransform: style.textTransform,
+        whiteSpace: style.whiteSpace
+      });
+
+      document.body.append(probe);
+      const measuredWidth = probe.getBoundingClientRect().width;
+      probe.remove();
+
+      return Number.isFinite(measuredWidth) ? measuredWidth : 0;
+    };
     const tooltipBoundsFor = (element, style, width) => {
       const rect = element.getBoundingClientRect();
       let translateX = transformX(style.transform);
@@ -8525,12 +8762,7 @@ try {
               return null;
             }
 
-            const width =
-              parsePx(style.width) +
-              parsePx(style.paddingLeft) +
-              parsePx(style.paddingRight) +
-              parsePx(style.borderLeftWidth) +
-              parsePx(style.borderRightWidth);
+            const width = measureTooltipWidth(element, style);
             if (!width) {
               return null;
             }
@@ -8714,7 +8946,7 @@ try {
   assert(
     (await touchPlayerLink.getAttribute("aria-expanded")) === "true" &&
       (await touchPlayerCard.locator(".player-card-name").innerText()).trim() === "Romelu Lukaku",
-    "On touch devices, the first player-name tap should open the player card instead of navigating away."
+    "On touch devices, the first player-name tap should open the player card without navigating away."
   );
   const secondTouchPlayerLink = touchPage.locator(".key-info-team .player-link", { hasText: "Kevin De Bruyne" }).first();
   await secondTouchPlayerLink.evaluate((link) => {

@@ -1,4 +1,4 @@
-const DATA_VERSION = "2026-06-30-official-history-videos-archive-times";
+const DATA_VERSION = "2026-07-01-publish-merge";
 const DATA_URLS = {
   adminMessage: `data/admin-message.json?v=${DATA_VERSION}`,
   fixtures: `data/fixtures.json?v=${DATA_VERSION}`,
@@ -22,6 +22,8 @@ const OFFICIAL_HIGHLIGHT_VIDEO_CHANNELS = new Map([
   ["UCwNqHDsnBCKT-olwJwIFyfg", "FOX Sports"],
   ["UCpcTrCXblq78GZrTUTLWeBw", "FIFA"]
 ]);
+const FIFA_SCHEDULE_RESULTS_URL =
+  "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/match-schedule-fixtures-results-teams-stadiums";
 const TEAM_SEARCH_URL_UPDATE_DELAY_MS = 180;
 const JUGGLE_BALL_EMOJI = "⚽";
 const JUGGLE_FALL_SPEED = 420;
@@ -290,8 +292,6 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "Latest changes": "最新更新",
     "Live": "直播",
     "Live score": "实时比分",
-    "Live status is manually verified and should be refreshed after full time.":
-      "实时状态为人工核验，完场后应刷新确认。",
     "local": "当地",
     "Loading catch-up notes": "正在加载比赛速览",
     "Loading matches": "正在加载比赛",
@@ -357,8 +357,15 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "Line ups": "阵容",
     "Line-ups": "阵容",
     "Line-ups (expected)": "预计阵容",
+    "Line-ups (prediction)": "预测阵容",
+    "Confirmed lineups": "已确认阵容",
+    "Final lineup record": "最终阵容记录",
+    "Lineup record": "阵容记录",
+    "Lineup record checked": "阵容记录核验",
     "Lineups": "阵容",
     "Lineups checked": "阵容核验",
+    "Predicted lineups": "预测阵容",
+    "Predicted lineups checked": "预测阵容核验",
     "Red card": "红牌",
     "Substituted off": "被换下",
     "Substituted on": "替补登场",
@@ -998,6 +1005,18 @@ const ZH_ADDITIONAL_EXACT_TRANSLATIONS = {
     "英格兰大部分时间被刚果民主共和国的防守阵型和利昂内尔·姆帕西的扑救压住，直到戈登、萨卡和埃泽在一小时后改变压力。",
   "Kane headed in the 75th-minute equalizer, then cut across the edge of the box and drove the 86th-minute winner into the top corner.":
     "凯恩第75分钟头球扳平，随后在禁区弧附近横向调整，并在第86分钟把制胜球轰入上角。",
+  "Balogun scrambled in the 45th-minute opener after a tense first half, then hit the bar before the break.":
+    "Balogun在紧张的上半场尾声抢点打进45分钟首球，半场前又击中横梁。",
+  "The USA played the last half-hour with ten men after Balogun's VAR red card, with Freese and Richards protecting the box.":
+    "Balogun经VAR确认被红牌罚下后，美国队最后半小时十人作战，Freese和Richards守住禁区。",
+  "Tillman curled in an 82nd-minute free kick to seal a 2-0 win and send the hosts into a last-16 meeting with Belgium.":
+    "Tillman在82分钟任意球弧线破门，锁定2-0胜局，也把东道主送进对比利时的16强战。",
+  "Diarra and Sarr gave Senegal a 2-0 lead before Lukaku turned in Meunier's 86th-minute cross to reopen the match.":
+    "Diarra和Sarr帮助塞内加尔取得2-0领先，随后Lukaku接Meunier第86分钟传中扳回悬念。",
+  "Tielemans met Trossard's delivery three minutes later, forcing extra time after Senegal had controlled the first 85 minutes.":
+    "三分钟后Tielemans接Trossard传球破门，把塞内加尔控制前85分钟的比赛拖入加时。",
+  "Tielemans converted a VAR penalty at 120+5 after Lukebakio hit the bar, completing Belgium's last-gasp comeback.":
+    "Lukebakio击中横梁后，比利时获得VAR点球，Tielemans在120+5分钟罚进，完成压哨逆转。",
   "Portugal and DR Congo split the points": "葡萄牙与刚果民主共和国各取一分",
   "Raúl Rangel made a huge late double save.": "Raúl Rangel最后阶段完成关键连续两连扑。",
   "Switzerland 4-1 Bosnia and Herzegovina": "瑞士4-1波黑",
@@ -1281,21 +1300,57 @@ const ZH_PLAYER_NAME_TRANSLATIONS = {
   Trezeguet: "特雷泽盖",
   "Viktor Gyokeres": "维克托·约克雷斯",
   "Vinicius Junior": "维尼修斯·儒尼奥尔",
+  "Anthony Gordon": "安东尼·戈登",
+  "Aaron Tshibola": "阿龙·奇博拉",
+  "Arthur Masuaku": "阿图尔·马苏亚库",
+  "Axel Tuanzebe": "阿克塞尔·图安泽贝",
+  "Brian Cipenga": "布赖恩·奇彭加",
   "Bukayo Saka": "布卡约·萨卡",
   "Caleb Yirenkyi": "卡莱布·伊伦基",
+  "Cedric Bakambu": "塞德里克·巴坎布",
+  "Chancel Mbemba": "尚塞尔·姆本巴",
+  "Charles Pickel": "查尔斯·皮克尔",
+  "Dan Burn": "丹·伯恩",
+  "Dean Henderson": "迪恩·亨德森",
   "Diogo Costa": "迪奥戈·科斯塔",
+  "Djed Spence": "杰德·斯彭斯",
   "Dominik Livaković": "多米尼克·利瓦科维奇",
   "Dominik Livakovic": "多米尼克·利瓦科维奇",
+  "Dylan Batubinsika": "迪伦·巴图宾西卡",
+  "Eberechi Eze": "埃贝雷奇·埃泽",
+  "Edo Kayembe": "埃多·卡延贝",
+  "Elliot Anderson": "埃利奥特·安德森",
+  "Ezri Konsa": "埃兹里·孔萨",
+  "Fiston Mayele": "菲斯顿·马耶莱",
+  "Gael Kakuta": "盖尔·卡库塔",
+  "Gedeon Kalulu": "热代翁·卡卢卢",
   "Jack Grealish": "杰克·格拉利什",
   "Jaminton Campaz": "哈明顿·坎帕斯",
+  "Ivan Toney": "伊万·托尼",
+  "James Trafford": "詹姆斯·特拉福德",
+  "Jarell Quansah": "贾雷尔·宽萨",
   "Joao Neves": "若昂·内维斯",
   "Johan Manzambi": "约翰·曼赞比",
+  "John Stones": "约翰·斯通斯",
+  "Joris Kayembe": "约里斯·卡延贝",
   "Jordan Pickford": "乔丹·皮克福德",
+  "Jordan Henderson": "乔丹·亨德森",
+  "Kobbie Mainoo": "科比·梅努",
+  "Lionel Mpasi": "利昂内尔·姆帕西",
+  "Marc Guehi": "马克·格伊",
   "Marcus Rashford": "马库斯·拉什福德",
+  "Matthieu Epolo": "马蒂厄·埃波洛",
+  "Meschack Elia": "梅沙克·埃利亚",
   "Michal Sadilek": "米哈尔·萨迪莱克",
   Messi: "梅西",
   Mbappé: "姆巴佩",
   Manzambi: "曼赞比",
+  "Morgan Rogers": "摩根·罗杰斯",
+  "Nathanael Mbuku": "纳塔纳埃尔·姆布库",
+  "Ngalayel Mukau": "恩加拉耶尔·穆考",
+  "Nico O'Reilly": "尼科·奥赖利",
+  "Noni Madueke": "诺尼·马杜埃凯",
+  "Ollie Watkins": "奥利·沃特金斯",
   "Raheem Sterling": "拉希姆·斯特林",
   "Rafael Leao": "拉斐尔·莱奥",
   "Rafael Leão": "拉斐尔·莱奥",
@@ -1469,7 +1524,14 @@ const ZH_PLAYER_NAME_TRANSLATIONS = {
   "Stefan Posch": "斯特凡·波施",
   "Unai Simon": "乌奈·西蒙",
   "Unai Simón": "乌奈·西蒙",
-  "Vitinha": "维蒂尼亚"
+  "Vitinha": "维蒂尼亚",
+  "Reece James": "里斯·詹姆斯",
+  "Samuel Moutoussamy": "萨穆埃尔·穆图萨米",
+  "Simon Banza": "西蒙·班扎",
+  "Steve Kapuadi": "史蒂夫·卡普阿迪",
+  "Theo Bongonda": "泰奥·邦贡达",
+  "Timothy Fayulu": "蒂莫西·法尤卢",
+  "Trevoh Chalobah": "特雷沃·查洛巴"
 };
 
 const ZH_CLUB_NAME_TRANSLATIONS = {
@@ -4176,6 +4238,8 @@ const teamGroupStageEliminationCache = new Map();
 const teamMaximumGroupPointsCache = new Map();
 let historicalPlayerProfilesByName = new Map();
 let historicalPlayerProfilesByVersion = new Map();
+let historicalPlayerProfilesLoadPromise = null;
+let hasLoadedHistoricalPlayerProfiles = false;
 let playerProfilesByName = new Map();
 let playerProfilesByTeamAndName = new Map();
 const lineupSubstitutionPreviewState = new Set();
@@ -7516,6 +7580,49 @@ async function loadOptionalJson(url, fallback, options = {}) {
   }
 }
 
+function applyHistoricalPlayerProfilesData(historicalPlayerProfilesData = { profiles: {} }) {
+  const historicalProfileLookups = buildHistoricalPlayerProfileLookups(historicalPlayerProfilesData.profiles);
+  historicalPlayerProfilesByName = historicalProfileLookups.byName;
+  historicalPlayerProfilesByVersion = historicalProfileLookups.byVersion;
+  hasLoadedHistoricalPlayerProfiles = true;
+
+  if (historicalPlayerProfilesData?.updatedAt) {
+    siteUpdatedAt = getLatestUpdatedAt([{ updatedAt: siteUpdatedAt }, historicalPlayerProfilesData]);
+  }
+
+  return historicalPlayerProfilesData;
+}
+
+function loadHistoricalPlayerProfiles() {
+  if (hasLoadedHistoricalPlayerProfiles) {
+    return Promise.resolve(null);
+  }
+
+  if (!historicalPlayerProfilesLoadPromise) {
+    historicalPlayerProfilesLoadPromise = loadOptionalJson(DATA_URLS.historicalPlayerProfiles, { profiles: {} })
+      .then(applyHistoricalPlayerProfilesData);
+  }
+
+  return historicalPlayerProfilesLoadPromise;
+}
+
+function scheduleHistoricalPlayerProfilesLoad() {
+  if (hasLoadedHistoricalPlayerProfiles || historicalPlayerProfilesLoadPromise) {
+    return;
+  }
+
+  loadHistoricalPlayerProfiles()
+    .then(() => {
+      if (!isInitialDataLoading) {
+        renderLoadedApp({ syncActiveView: true });
+      }
+    })
+    .catch((error) => {
+      historicalPlayerProfilesLoadPromise = null;
+      console.warn("Unable to load historical player profiles", error);
+    });
+}
+
 function getDayKey(date, timeZone) {
   const parts = new Intl.DateTimeFormat("en-US", {
     day: "2-digit",
@@ -8150,7 +8257,6 @@ function updateLineupTabIndicators(root = document) {
   });
 }
 
-
 function updateTabIndicators() {
   updateViewTabIndicator();
   updateStandingsModeTabIndicator();
@@ -8353,6 +8459,25 @@ function isVisiblyWrappedName(name) {
 
 const MOBILE_MATCH_ROW_META_MIN_GAP = 12;
 
+function getInlineContentRight(elements, fallbackLeft) {
+  const rights = elements
+    .map((element) => {
+      const range = document.createRange();
+      range.selectNodeContents(element);
+      const rects = Array.from(range.getClientRects()).filter((rect) => rect.width > 0 && rect.height > 0);
+      range.detach();
+
+      if (!rects.length) {
+        return element.getBoundingClientRect().right;
+      }
+
+      return Math.max(...rects.map((rect) => rect.right));
+    })
+    .filter(Number.isFinite);
+
+  return rights.length ? Math.max(...rights) : fallbackLeft;
+}
+
 function updateTruncatedTeamTooltips(root = document) {
   root
     .querySelectorAll(
@@ -8422,6 +8547,10 @@ function updateWrappedMatchRows(root = document) {
 
     const isWrapped = isVisuallyWrapped || isTooCloseToMeta;
 
+    if (isWrapped) {
+      row.classList.add("has-wrapped-matchup");
+    }
+
     if (isWrapped && meta) {
       const rowRect = row.getBoundingClientRect();
       const metaRect = meta.getBoundingClientRect();
@@ -8433,9 +8562,17 @@ function updateWrappedMatchRows(root = document) {
       const metaWidth = Math.max(metaRect.width, metaContentRight - metaContentLeft);
       const rowStyle = getComputedStyle(row);
       const rowGap = Number.parseFloat(rowStyle.columnGap || rowStyle.gap) || 8;
+      const matchupContentRight = getInlineContentRight(
+        Array.from(teams.querySelectorAll(".flag, .team-name, .match-versus")),
+        rowRect.left
+      );
       const maxTriggerWidth = Math.max(0, rowRect.width - metaWidth - rowGap);
+      const contentTriggerWidth = Math.max(0, matchupContentRight - rowRect.left + 2);
 
-      row.style.setProperty("--match-row-wrapped-trigger-width", `${Math.ceil(maxTriggerWidth)}px`);
+      row.style.setProperty(
+        "--match-row-wrapped-trigger-width",
+        `${Math.ceil(Math.min(maxTriggerWidth, contentTriggerWidth))}px`
+      );
       row.style.setProperty("--match-row-wrapped-meta-gap", `${Math.round(rowGap)}px`);
       row.style.setProperty("--match-row-wrapped-meta-width", `${Math.ceil(metaWidth)}px`);
     }
@@ -9157,22 +9294,34 @@ function normalizeOfficialMatchTime(value) {
   return /^\d{1,3}(?:\+\d{1,2})?'$/.test(text) ? text : "";
 }
 
-function getOfficialMatchTimeSnapshotTooltip(match) {
-  const matchTime = normalizeOfficialMatchTime(match?.officialMatchTime);
-  if (!matchTime) {
-    return "";
-  }
+function normalizeOfficialMatchPhase(value) {
+  const key = normalizeTextKey(value);
+  return /\b(?:ht|half time|halftime|interval)\b/.test(key) ? "Half-time" : "";
+}
 
+function getOfficialMatchSnapshotLabel(match) {
+  const matchTime = normalizeOfficialMatchTime(match?.officialMatchTime);
+  const matchPhase = localizeText(normalizeOfficialMatchPhase(match?.officialMatchPhase));
+  return matchPhase || matchTime;
+}
+
+function getOfficialMatchSnapshotFreshness(match) {
   const freshness = formatRelativeScoreFreshness(
     match?.officialMatchTimeUpdatedAt || liveDataCheckedAt
   );
-  if (!freshness) {
+  return freshness;
+}
+
+function getOfficialMatchTimeSnapshotTooltip(match) {
+  const snapshotLabel = getOfficialMatchSnapshotLabel(match);
+  const freshness = getOfficialMatchSnapshotFreshness(match);
+  if (!snapshotLabel || !freshness) {
     return "";
   }
 
   return currentLanguage === "zh"
-    ? `FIFA快照：${matchTime} · ${freshness}核验`
-    : `FIFA snapshot: ${matchTime} · checked ${freshness}`;
+    ? `FIFA快照：${snapshotLabel} · ${freshness}核验`
+    : `FIFA snapshot: ${snapshotLabel} · checked ${freshness}`;
 }
 
 function getMatchScoreOutcomeSide(match, score) {
@@ -15066,6 +15215,49 @@ function renderScoringDetailsList(match, options = {}) {
     : "";
 }
 
+function getFifaScheduleResultsUrl() {
+  const source = (tournament.sources || []).find(
+    (item) => item.label === "FIFA World Cup 2026 schedule and results"
+  );
+  return source?.url || FIFA_SCHEDULE_RESULTS_URL;
+}
+
+function getLiveScoreSourceFreshness(match) {
+  return formatRelativeScoreFreshness(
+    match?.officialMatchTimeUpdatedAt || getScoreFreshnessTimestamp(match)
+  );
+}
+
+function renderLiveScoreSourcePart(part, index) {
+  return `${index ? '<span class="live-source-separator" aria-hidden="true">·</span>' : ""}${part}`;
+}
+
+function renderLiveScoreSourceNote(match) {
+  const snapshotLabel = getOfficialMatchSnapshotLabel(match);
+  const freshness = getLiveScoreSourceFreshness(match);
+  const checkedLabel = freshness
+    ? currentLanguage === "zh"
+      ? `${freshness}核验`
+      : `checked ${freshness}`
+    : "";
+  const fifaUrl = getFifaScheduleResultsUrl();
+  const sourceLabel = currentLanguage === "zh" ? "查看 FIFA" : "Check FIFA";
+  const latestLabel = currentLanguage === "zh" ? "获取最新状态" : "for latest";
+  const sourcePart = `
+    <span class="live-source-latest">
+      <a class="live-source-link" href="${escapeHtml(fifaUrl)}" target="_blank" rel="noreferrer" aria-label="${escapeHtml(currentLanguage === "zh" ? "在 FIFA 查看最新比分" : "Check latest score at FIFA")}">${escapeHtml(sourceLabel)}</a>
+      <span>${escapeHtml(latestLabel)}</span>
+    </span>
+  `.trim();
+  const parts = [
+    snapshotLabel ? escapeHtml(snapshotLabel) : "",
+    checkedLabel ? escapeHtml(checkedLabel) : "",
+    sourcePart
+  ].filter(Boolean);
+
+  return `<p class="data-note live-source-note">${parts.map(renderLiveScoreSourcePart).join("")}</p>`;
+}
+
 function getYouTubeVideoId(url) {
   if (typeof url !== "string" || !url.trim()) {
     return "";
@@ -15827,7 +16019,7 @@ function getMockLineupPreview(match) {
   };
 }
 
-function getLineupUpdatedText(match) {
+function getLineupFreshness(match) {
   const timestamp =
     match?.lineupUpdatedAt ||
     match?.lineupCheckedAt ||
@@ -15836,19 +16028,43 @@ function getLineupUpdatedText(match) {
     match?.updatedAt ||
     liveDataCheckedAt ||
     siteUpdatedAt;
-  const freshness = formatRelativeScoreFreshness(timestamp);
 
+  return formatRelativeScoreFreshness(timestamp);
+}
+
+function getLineupCheckedText(label, freshness) {
   if (!freshness) {
     return "";
   }
 
-  return currentLanguage === "zh"
-    ? `阵容：${freshness}核验`
-    : `${localizeText("Lineups checked")} ${freshness}`;
+  if (currentLanguage === "zh") {
+    const subject = label === "Predicted lineups checked" ? "Predicted lineups" : "Lineup record";
+    return `${localizeText(subject)}：${freshness}核验`;
+  }
+
+  return `${localizeText(label)} ${freshness}`;
 }
 
-function renderLineupUpdatedCopy(match) {
-  const text = getLineupUpdatedText(match);
+function getLineupUpdatedText(match, lineup = null) {
+  if (match?.status === "FT") {
+    return localizeText("Final lineup record");
+  }
+
+  const freshness = getLineupFreshness(match);
+
+  if (match?.status === "LIVE") {
+    return getLineupCheckedText("Lineup record checked", freshness);
+  }
+
+  if (lineup?.mode === "prediction") {
+    return getLineupCheckedText("Predicted lineups checked", freshness) || localizeText("Predicted lineups");
+  }
+
+  return localizeText("Confirmed lineups");
+}
+
+function renderLineupUpdatedCopy(match, lineup = null) {
+  const text = getLineupUpdatedText(match, lineup);
   return text ? `<p class="data-note lineup-updated-copy">${escapeHtml(text)}</p>` : "";
 }
 
@@ -15896,12 +16112,12 @@ function getLocalizedLineupPosition(position) {
 }
 
 function getLineupHeadingLabel(lineup) {
-  return lineup?.mode === "prediction" ? "Line-ups (expected)" : "Line-ups";
+  return lineup?.mode === "prediction" ? "Line-ups (prediction)" : "Line-ups";
 }
 
 function renderLineupHeading(match, lineup) {
   const label = getLineupHeadingLabel(lineup);
-  const updatedText = getLineupUpdatedText(match);
+  const updatedText = getLineupUpdatedText(match, lineup);
   const helpButton = updatedText
     ? `<button class="info-tooltip-button" type="button" aria-label="${escapeHtml(updatedText)}" data-tooltip="${escapeHtml(updatedText)}">i</button>`
     : "";
@@ -16170,6 +16386,8 @@ function renderLineupTeamBand(match, lineup, teamLineup, side) {
 
 function renderLineupTabButton(match, side, isSelected, tabContext = "main") {
   const team = side === "home" ? match.homeTeam : match.awayTeam;
+  const fullLabel = getLocalizedTeamName(team);
+  const compactLabel = getTournamentTeamCode(team);
   const tabId = `lineup-tab-${match.id}-${tabContext}-${side}`;
   const panelId = `lineup-panel-${match.id}-${side}`;
   return `
@@ -16181,10 +16399,12 @@ function renderLineupTabButton(match, side, isSelected, tabContext = "main") {
       data-lineup-tab="${escapeHtml(side)}"
       aria-selected="${isSelected ? "true" : "false"}"
       aria-controls="${escapeHtml(panelId)}"
+      aria-label="${escapeHtml(fullLabel)}"
       ${isSelected ? "" : `tabindex="-1"`}
     >
       ${renderFlag(team)}
-      <span>${escapeHtml(getLocalizedTeamName(team))}</span>
+      <span class="lineup-tab-label lineup-tab-label-full">${escapeHtml(fullLabel)}</span>
+      <span class="lineup-tab-label lineup-tab-label-compact" aria-hidden="true">${escapeHtml(compactLabel)}</span>
     </button>
   `;
 }
@@ -16453,14 +16673,16 @@ function renderLineupPitchPanel(match, lineup, side, isSelected) {
         ${renderLineupTeamBand(match, lineup, teamLineup, side)}
         ${renderLineupBenchPanel(match, team, teamLineup, side)}
         <div class="lineup-pitch" role="img" aria-label="${escapeHtml(`${getLocalizedTeamName(team)} ${teamLineup.formation}`)}">
-          <span class="lineup-pitch-line is-mid"></span>
-          <span class="lineup-pitch-line is-circle"></span>
-          <span class="lineup-pitch-line is-spot"></span>
-          <span class="lineup-pitch-line is-box is-top"></span>
-          <span class="lineup-pitch-line is-six is-top"></span>
-          <span class="lineup-pitch-line is-box is-bottom"></span>
-          <span class="lineup-pitch-line is-six is-bottom"></span>
-          ${teamLineup.players.map((player) => renderLineupPlayerMarker(player, team, teamLineup, match, side)).join("")}
+          <div class="lineup-pitch-surface">
+            <span class="lineup-pitch-line is-mid"></span>
+            <span class="lineup-pitch-line is-circle"></span>
+            <span class="lineup-pitch-line is-spot"></span>
+            <span class="lineup-pitch-line is-box is-top"></span>
+            <span class="lineup-pitch-line is-six is-top"></span>
+            <span class="lineup-pitch-line is-box is-bottom"></span>
+            <span class="lineup-pitch-line is-six is-bottom"></span>
+            ${teamLineup.players.map((player) => renderLineupPlayerMarker(player, team, teamLineup, match, side)).join("")}
+          </div>
         </div>
       </div>
     </div>
@@ -16657,8 +16879,9 @@ function renderMatchStatusBlock(match) {
         <h3>${escapeHtml(localizeText("Live score"))}</h3>
         ${renderLiveScoreSummary(match)}
         ${renderScoringDetailsList(match, { showMissingWhenGoalsScored: true })}
-        <p class="data-note">${escapeHtml(localizeText("Live status is manually verified and should be refreshed after full time."))}</p>
+        ${renderLiveScoreSourceNote(match)}
       </section>
+      ${renderPredictionBlock(match)}
       ${renderLineupVisualPrototype(match)}
     `;
   }
@@ -16983,6 +17206,10 @@ function getHistoricalPlayerProfile(player) {
     return null;
   }
 
+  if (!hasLoadedHistoricalPlayerProfiles) {
+    scheduleHistoricalPlayerProfilesLoad();
+  }
+
   const name = getPlayerName(player);
   if (!name) {
     return null;
@@ -16998,6 +17225,14 @@ function getHistoricalPlayerProfile(player) {
   }
 
   return historicalPlayerProfilesByName.get(normalizeTextKey(name)) || null;
+}
+
+function isHistoricalPlayerProfilePending(player, profile) {
+  return isHistoricalPlayerCard(player) && !profile && !hasLoadedHistoricalPlayerProfiles;
+}
+
+function getHistoricalPlayerProfileLoadingLabel() {
+  return currentLanguage === "zh" ? "正在加载历届球员资料" : "Loading archive player profile";
 }
 
 function isHistoricalPlayerCard(player) {
@@ -17781,9 +18016,13 @@ function getPlayerMentionEntriesForText(players) {
   return entries;
 }
 
-function renderPlayerPhoto(player, profile) {
+function renderPlayerPhoto(player, profile, options = {}) {
   const displayName = getLocalizedPlayerDisplayName(player, profile);
   const initials = getPlayerInitials(displayName);
+  if (options.loading) {
+    return `<span class="player-photo-loading" aria-hidden="true"></span>`;
+  }
+
   if (profile?.imageUrl) {
     return `
       <img
@@ -17861,17 +18100,21 @@ function renderPlayerCardFlag(player, profile) {
 
 function renderPlayerMention(label, player, options = {}) {
   const profile = getPlayerProfile(player) || getHistoricalPlayerProfile(player);
+  const isProfileLoading = isHistoricalPlayerProfilePending(player, profile);
+  const loadingLabel = getHistoricalPlayerProfileLoadingLabel();
   const displayName = getLocalizedPlayerDisplayName(player, profile);
-  const uniformNumber = getPlayerUniformNumber(player, profile);
-  const position = getLocalizedPlayerPosition(player, profile);
-  const club = currentLanguage === "zh" ? getLocalizedPlayerClubLine(player, profile) : getPlayerClubLine(player, profile);
-  const sourceUrl = isHistoricalPlayerCard(player) ? "" : profile?.sourceUrl || "";
-  const note = getLocalizedPlayerNote(player, profile);
-  const ageLine = getLocalizedPlayerAgeLine(player, profile);
-  const valueLine = renderPlayerValueLine(player, profile);
-  const skills = getPlayerSkills(player, profile).map(localizePlayerSkill);
+  const uniformNumber = isProfileLoading ? null : getPlayerUniformNumber(player, profile);
+  const position = isProfileLoading ? "" : getLocalizedPlayerPosition(player, profile);
+  const club = isProfileLoading
+    ? ""
+    : currentLanguage === "zh" ? getLocalizedPlayerClubLine(player, profile) : getPlayerClubLine(player, profile);
+  const note = isProfileLoading ? "" : getLocalizedPlayerNote(player, profile);
+  const ageLine = isProfileLoading ? "" : getLocalizedPlayerAgeLine(player, profile);
+  const valueLine = isProfileLoading ? "" : renderPlayerValueLine(player, profile);
+  const skills = isProfileLoading ? [] : getPlayerSkills(player, profile).map(localizePlayerSkill);
   const cardFlag = renderPlayerCardFlag(player, profile);
-  const triggerLabel = `aria-label="${escapeHtml(`${displayName}: ${position}, ${club}`)}" aria-expanded="false"`;
+  const triggerAriaText = isProfileLoading ? `${displayName}: ${loadingLabel}` : `${displayName}: ${position}, ${club}`;
+  const triggerLabel = `aria-label="${escapeHtml(triggerAriaText)}" aria-expanded="false"`;
   const visibleLabel = shouldPreserveLocalizedMentionLabel(label)
     ? label
     : currentLanguage === "zh"
@@ -17881,18 +18124,36 @@ function renderPlayerMention(label, player, options = {}) {
   const triggerClass = ["player-link", options.triggerClass].filter(Boolean).join(" ");
   const beforeTriggerMarkup = options.beforeTriggerMarkup || "";
   const afterTriggerMarkup = options.afterTriggerMarkup || "";
-  const trigger = sourceUrl
-    ? `<a class="${escapeHtml(triggerClass)}" href="${escapeHtml(sourceUrl)}" target="_blank" rel="noopener" ${triggerLabel}>${escapeHtml(visibleLabel)}</a>`
-    : `<span class="${escapeHtml(triggerClass)}" role="button" tabindex="0" ${triggerLabel}>${escapeHtml(visibleLabel)}</span>`;
+  const trigger = `<span class="${escapeHtml(triggerClass)}" role="button" tabindex="0" data-player-card-trigger="true" ${triggerLabel}>${escapeHtml(visibleLabel)}</span>`;
   const numberBadge = uniformNumber
     ? `<span class="player-card-number">#${escapeHtml(uniformNumber)}</span>`
     : "";
-  const skillItems = skills.map((skill) => `<span>${escapeHtml(skill)}</span>`).join("");
+  const skillItems = isProfileLoading
+    ? `<span class="player-card-loading-pill"></span><span class="player-card-loading-pill is-short"></span>`
+    : skills.map((skill) => `<span>${escapeHtml(skill)}</span>`).join("");
   const noteMarkup = note ? `<span class="player-card-note">${escapeHtml(note)}</span>` : "";
   const metaLine = [ageLine ? escapeHtml(ageLine) : "", valueLine].filter(Boolean).join(" • ");
   const metaMarkup = metaLine ? `<span class="player-card-note">${metaLine}</span>` : "";
-  const copyMarkup = noteMarkup || metaMarkup
-    ? `<span class="player-card-copy">${noteMarkup}${metaMarkup}</span>`
+  const copyMarkup = isProfileLoading
+    ? `
+      <span class="player-card-copy player-card-loading-copy" aria-hidden="true">
+        <span class="player-card-loading-line"></span>
+        <span class="player-card-loading-line is-medium"></span>
+      </span>
+    `
+    : noteMarkup || metaMarkup
+      ? `<span class="player-card-copy">${noteMarkup}${metaMarkup}</span>`
+      : "";
+  const positionMarkup = isProfileLoading
+    ? `<span class="player-card-loading-line player-card-loading-position" aria-hidden="true"></span>`
+    : `<span class="player-card-position">${escapeHtml(position)}</span>`;
+  const clubMarkup = isProfileLoading
+    ? `<span class="player-card-loading-line player-card-loading-club" aria-hidden="true"></span>`
+    : `<span class="player-card-club">${escapeHtml(club)}</span>`;
+  const cardClass = isProfileLoading ? "player-card is-profile-loading" : "player-card";
+  const cardBusy = isProfileLoading ? ` aria-busy="true"` : "";
+  const loadingStatus = isProfileLoading
+    ? `<span class="visually-hidden">${escapeHtml(loadingLabel)}</span>`
     : "";
 
   return [
@@ -17900,20 +18161,21 @@ function renderPlayerMention(label, player, options = {}) {
     beforeTriggerMarkup,
     trigger,
     afterTriggerMarkup,
-    `<span class="player-card" role="tooltip">`,
+    `<span class="${cardClass}" role="tooltip"${cardBusy}>`,
+    loadingStatus,
     `<span class="player-card-header">`,
-    `<span class="player-photo">${renderPlayerPhoto(player, profile)}</span>`,
+    `<span class="player-photo">${renderPlayerPhoto(player, profile, { loading: isProfileLoading })}</span>`,
     `<span class="player-card-title">`,
     `<span class="player-card-name-line">`,
     cardFlag,
     `<strong class="player-card-name">${escapeHtml(displayName)}</strong>`,
     numberBadge,
     `</span>`,
-    `<span class="player-card-position">${escapeHtml(position)}</span>`,
-    `<span class="player-card-club">${escapeHtml(club)}</span>`,
+    positionMarkup,
+    clubMarkup,
     `</span>`,
     `</span>`,
-    `<span class="player-skill-list">${skillItems}</span>`,
+    `<span class="player-skill-list"${isProfileLoading ? ` aria-hidden="true"` : ""}>${skillItems}</span>`,
     copyMarkup,
     `</span>`,
     `</span>`
@@ -17964,7 +18226,9 @@ function hideFloatingPlayerCard() {
   floatingPlayerCardSource?.classList.remove("is-card-portaled");
   floatingPlayerCardSource = null;
   floatingPlayerCard?.classList.remove("is-visible");
+  floatingPlayerCard?.classList.remove("is-profile-loading");
   floatingPlayerCard?.setAttribute("aria-hidden", "true");
+  floatingPlayerCard?.removeAttribute("aria-busy");
 }
 
 function queueFloatingPlayerCardHide() {
@@ -18029,6 +18293,13 @@ function showFloatingPlayerCard(playerHover, cardWidth) {
     floatingPlayerCardSource?.classList.remove("is-card-portaled");
     floatingPlayerCardSource = playerHover;
     floatingCard.innerHTML = sourceCard.innerHTML;
+  }
+
+  floatingCard.classList.toggle("is-profile-loading", sourceCard.classList.contains("is-profile-loading"));
+  if (sourceCard.hasAttribute("aria-busy")) {
+    floatingCard.setAttribute("aria-busy", sourceCard.getAttribute("aria-busy") || "true");
+  } else {
+    floatingCard.removeAttribute("aria-busy");
   }
 
   playerHover.classList.add("is-card-portaled");
@@ -20273,7 +20544,7 @@ function renderHistoricalResultBlock(match) {
     : "";
 
   return `
-    <section class="info-block">
+    <section class="info-block match-result-block has-section-divider">
       ${renderResultHeading(match)}
       <p class="past-empty result-score-summary">${renderPlayerLinkedText(outcomeSummary, mentionPlayers)}</p>
       <div class="result-notes">
@@ -20753,6 +21024,9 @@ function renderMatchInfo(match, options = {}) {
   const tournamentContext = match.stage && match.stage !== "group" ? createTournamentProgressionContext() : null;
   const displayTeams = getDisplayMatchTeams(match, tournamentContext);
   const displayMatch = getDisplayMatch(match, displayTeams);
+  const matchContextMarkup = renderMatchContext(match, tournamentContext);
+  const matchStatusMarkup = renderMatchStatusBlock(displayMatch);
+  const shouldShowStatusBeforeContext = displayMatch.status === "LIVE" || displayMatch.status === "FT";
 
   matchInfo.innerHTML = `
     <section class="info-block match-summary">
@@ -20768,9 +21042,9 @@ function renderMatchInfo(match, options = {}) {
 
     ${renderFinishedMatchResultBlock(displayMatch)}
 
-    ${renderMatchContext(match, tournamentContext)}
+    ${shouldShowStatusBeforeContext ? matchStatusMarkup : matchContextMarkup}
 
-    ${renderMatchStatusBlock(displayMatch)}
+    ${shouldShowStatusBeforeContext ? matchContextMarkup : matchStatusMarkup}
 
     <section class="info-block match-key-info-block has-section-divider">
       <h3>${escapeHtml(localizeText("Key information"))}</h3>
@@ -22803,7 +23077,6 @@ function hasLiveDataSnapshot(liveData) {
 function applyDataSnapshot({
   fixturesData,
   historyData,
-  historicalPlayerProfilesData,
   playerProfilesData,
   standingsData,
   teamsData,
@@ -22813,11 +23086,10 @@ function applyDataSnapshot({
   teamsByName = buildTeamNameLookup(teamsData.teams);
   playerProfilesByName = buildPlayerProfileLookup(playerProfilesData.profiles);
   playerProfilesByTeamAndName = buildTeamPlayerProfileLookup(playerProfilesData.profiles);
-  {
-    const historicalProfileLookups = buildHistoricalPlayerProfileLookups(historicalPlayerProfilesData.profiles);
-    historicalPlayerProfilesByName = historicalProfileLookups.byName;
-    historicalPlayerProfilesByVersion = historicalProfileLookups.byVersion;
-  }
+  historicalPlayerProfilesByName = new Map();
+  historicalPlayerProfilesByVersion = new Map();
+  historicalPlayerProfilesLoadPromise = null;
+  hasLoadedHistoricalPlayerProfiles = false;
   shouldShowPlayerMarketValues = hasCompletePlayerMarketValues(playerProfilesData);
   fixtures = fixturesData.fixtures;
   history = historyData;
@@ -22831,7 +23103,6 @@ function applyDataSnapshot({
   siteUpdatedAt = getLatestUpdatedAt([
     fixturesData,
     historyData,
-    historicalPlayerProfilesData,
     playerProfilesData,
     teamsData,
     standingsData,
@@ -22861,7 +23132,6 @@ async function loadStaticData() {
     adminMessageData,
     fixturesData,
     historyData,
-    historicalPlayerProfilesData,
     playerProfilesData,
     teamsData,
     standingsData,
@@ -22870,7 +23140,6 @@ async function loadStaticData() {
     loadOptionalJson(DATA_URLS.adminMessage, { messages: [] }),
     loadJson(DATA_URLS.fixtures),
     loadJson(DATA_URLS.history),
-    loadOptionalJson(DATA_URLS.historicalPlayerProfiles, { profiles: {} }),
     loadOptionalJson(DATA_URLS.playerProfiles, { profiles: {} }),
     loadJson(DATA_URLS.teams),
     loadJson(DATA_URLS.standings),
@@ -22884,7 +23153,6 @@ async function loadStaticData() {
   applyDataSnapshot({
     fixturesData,
     historyData,
-    historicalPlayerProfilesData,
     playerProfilesData,
     standingsData,
     teamsData,
@@ -23267,6 +23535,35 @@ function handlePlayerLinkClick(event) {
   return false;
 }
 
+function handlePlayerLinkKeydown(event) {
+  if (!(event.target instanceof Element)) {
+    return false;
+  }
+
+  const playerTrigger = event.target.closest(".player-link[data-player-card-trigger]");
+  const playerHover = playerTrigger?.closest(".player-hover");
+  if (!playerTrigger || !playerHover) {
+    return false;
+  }
+
+  if (event.key === "Escape") {
+    if (activePlayerHover === playerHover || floatingPlayerCardSource === playerHover) {
+      event.preventDefault();
+      clearActivePlayerHover();
+      return true;
+    }
+    return false;
+  }
+
+  if (event.key !== "Enter" && event.key !== " ") {
+    return false;
+  }
+
+  event.preventDefault();
+  openPlayerHoverCard(playerHover);
+  return true;
+}
+
 function attachPlayerCardPositioning(root) {
   root?.addEventListener(
     "pointerenter",
@@ -23315,6 +23612,8 @@ function attachPlayerCardPositioning(root) {
       queueFloatingPlayerCardHide();
     }
   });
+
+  root?.addEventListener("keydown", handlePlayerLinkKeydown);
 }
 
 matchInfo.addEventListener("click", (event) => {

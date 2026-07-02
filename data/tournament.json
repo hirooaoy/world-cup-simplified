@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-02T01:30:21.314Z",
+  "updatedAt": "2026-07-02T02:19:33.871Z",
   "coverageNote": "The current seed dataset covers the full official fixture skeleton from June 11 through July 19. Rich previews, scores, live status and knockout participants are updated progressively.",
   "catchUp": [
     {
@@ -874,6 +874,27 @@
       "checkedAt": "2026-07-01T11:12:49-07:00"
     },
     {
+      "id": "guardian-usa-bosnia-result-2026-07-01",
+      "label": "Guardian USA vs Bosnia and Herzegovina live report",
+      "url": "https://www.theguardian.com/football/live/2026/jul/01/usa-v-bosnia-and-herzegovina-world-cup-2026-last-32-live",
+      "type": "cross-check",
+      "checkedAt": "2026-07-01T19:30:00-07:00"
+    },
+    {
+      "id": "fox-usa-bosnia-boxscore-2026-07-01",
+      "label": "FOX Sports USA vs Bosnia and Herzegovina box score",
+      "url": "https://www.foxsports.com/soccer/fifa-world-cup-men-united-states-vs-bosnia-and-herzegovina-jul-01-2026-game-boxscore-607910",
+      "type": "cross-check",
+      "checkedAt": "2026-07-01T19:30:00-07:00"
+    },
+    {
+      "id": "guardian-belgium-senegal-result-2026-07-01",
+      "label": "Guardian Belgium vs Senegal live report",
+      "url": "https://www.theguardian.com/football/live/2026/jul/01/belgium-v-senegal-world-cup-last-32-live",
+      "type": "cross-check",
+      "checkedAt": "2026-07-01T19:30:00-07:00"
+    },
+    {
       "id": "fifa-goal-events-sync-2026-06-23",
       "label": "FIFA official goal event timeline sync",
       "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/match-schedule-fixtures-results-teams-stadiums",
@@ -1047,8 +1068,24 @@
       "label": "FIFA official results sync",
       "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/match-schedule-fixtures-results-teams-stadiums",
       "type": "official",
-      "checkedAt": "2026-07-02T01:30:21.314Z",
-      "note": "1 fixture update merged from 104 matched FIFA fixtures."
+      "checkedAt": "2026-07-02T02:19:29.125Z",
+      "note": "3 fixture updates merged from 104 matched FIFA fixtures. 2 knockout participant slots resolved from official participants or completed results."
+    },
+    {
+      "id": "fifa-goal-events-sync-2026-07-02",
+      "label": "FIFA official goal event timeline sync",
+      "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/match-schedule-fixtures-results-teams-stadiums",
+      "type": "official",
+      "checkedAt": "2026-07-02T02:19:33.871Z",
+      "note": "2 fixture goal-event updates merged from 75 matched FIFA timelines."
+    },
+    {
+      "id": "national-football-teams-h2h-sync-2026-07-02",
+      "label": "National Football Teams H2H sync",
+      "url": "https://www.national-football-teams.com",
+      "type": "cross-check",
+      "checkedAt": "2026-07-02T02:21:44.406Z",
+      "note": "1 fixture H2H update merged from National Football Teams encounter pages."
     }
   ],
   "groups": [
