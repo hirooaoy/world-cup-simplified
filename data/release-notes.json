@@ -1,6 +1,19 @@
 {
-  "updatedAt": "2026-07-01T19:23:24-07:00",
+  "updatedAt": "2026-07-01T19:57:05-07:00",
   "releases": [
+    {
+      "date": "2026-07-01",
+      "title": "Lineup coach coverage",
+      "titleZh": "阵容教练覆盖",
+      "highlights": [
+        "Covered line-up cards now source coach metadata from the shared lineup model, so generated matches show both coach icons instead of only the hand-authored England-DR Congo card.",
+        "The UI smoke test now clicks every covered lineup match and fails if either coach source icon is missing."
+      ],
+      "highlightsZh": [
+        "已覆盖的阵容卡片现在从共享阵容模型读取教练资料，因此生成的比赛也会显示双方教练图标，不再只有手写的英格兰对刚果民主共和国卡片完整。",
+        "UI 冒烟测试现在会点击每一场已覆盖阵容的比赛；如果任一方教练来源图标缺失，就会失败。"
+      ]
+    },
     {
       "date": "2026-07-01",
       "title": "Live fallback safety",
@@ -30,10 +43,10 @@
       "title": "Lineup status wording",
       "titleZh": "阵容状态文案",
       "highlights": [
-        "Lineup cards now describe their state more naturally: predicted lineups stay freshness-based, live matches show a lineup record check, and finished matches settle into Final lineup record."
+        "Lineup cards now describe their state more naturally: predicted lineups stay freshness-based, live matches show a lineup record check, and finished matches settle into Line-ups with Final lineup record."
       ],
       "highlightsZh": [
-        "阵容卡片现在会按状态显示更自然的文案：预测阵容保留新鲜度提示，直播比赛显示阵容记录核验，完场后固定为“最终阵容记录”。"
+        "阵容卡片现在会按状态显示更自然的文案：预测阵容保留新鲜度提示，直播比赛显示阵容记录核验，完场后显示“阵容”和“最终阵容记录”。"
       ]
     },
     {
@@ -41,21 +54,21 @@
       "title": "Player cards stay in app",
       "titleZh": "球员卡片留在站内",
       "highlights": [
-        "Player names now open only the in-app player card and no longer navigate to Wikipedia or other source pages when clicked or tapped."
+        "Desktop player-name clicks no longer pin a card; hover and keyboard still show in-app cards, while touch taps open one card without navigating away."
       ],
       "highlightsZh": [
-        "点击或轻点球员姓名现在只会打开站内球员卡片，不再跳转到维基百科或其他来源页面。"
+        "桌面端点击球员姓名不再固定卡片；悬停和键盘仍会显示站内卡片，触屏轻点则只打开一张卡片且不会跳转离站。"
       ]
     },
     {
       "date": "2026-07-01",
-      "title": "Mobile lineup tab fit",
-      "titleZh": "移动端阵容标签适配",
+      "title": "Lineup tab fit",
+      "titleZh": "阵容标签适配",
       "highlights": [
-        "Mobile lineup cards now keep the team tabs, formation, and bench controls on one row, switching crowded country names to compact three-letter codes such as USA."
+        "Lineup cards now use compact team-code tabs such as USA and BIH, leaving more room for formation and bench controls without losing full accessible country names."
       ],
       "highlightsZh": [
-        "移动端阵容卡片现在会把球队标签、阵型和替补控制保持在同一行；国家名放不下时会切换成 USA 这类三字母代码。"
+        "阵容卡片现在使用 USA、BIH 这类紧凑球队代码标签，为阵型和替补控制留出更多空间，同时保留完整的无障碍国家名称。"
       ]
     },
     {

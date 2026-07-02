@@ -4295,6 +4295,178 @@ try {
     "Final match details should keep the prediction card below the result."
   );
 
+  const finalLineupModeCheck = await openPageAtTime(
+    "2026-07-02T02:45:00.000Z",
+    "/?view=matches&date=2026-07-01&tz=America%2FLos_Angeles"
+  );
+  await finalLineupModeCheck.page.locator('[data-match-id="match-81-round-of-32-2026-07-01"]').click();
+  const finalLineupState = await finalLineupModeCheck.page.locator("#match-info .lineup-preview-block").evaluate((block) => ({
+    ariaLabel: block.getAttribute("aria-label") || "",
+    helpLabel: block.querySelector(".lineup-heading .info-tooltip-button")?.getAttribute("aria-label") || "",
+    hasPredictedLineupsCopy: block.textContent.includes("Predicted lineups"),
+    hasPredictionHeadingCopy: block.textContent.includes("Line-ups (prediction)"),
+    heading: block.querySelector(".lineup-heading span")?.textContent.replace(/\s+/g, " ").trim() || "",
+    ...(() => {
+      const visibleTablist = [...block.querySelectorAll(".lineup-card-tabs")].find((tablist) => {
+        const bounds = tablist.getBoundingClientRect();
+        return bounds.width > 0 && bounds.height > 0;
+      });
+      const visibleTabs = [...(visibleTablist?.querySelectorAll(".lineup-tab") || [])];
+      const tabWidths = visibleTabs.map((tab) => Math.round(tab.getBoundingClientRect().width));
+      return {
+        tabAriaLabels: visibleTabs.map((tab) => tab.getAttribute("aria-label") || ""),
+        tabCompactLabels: visibleTabs.map(
+          (tab) => tab.querySelector(".lineup-tab-label-compact")?.textContent.replace(/\s+/g, " ").trim() || ""
+        ),
+        tabFullLabelsHidden: visibleTabs.every(
+          (tab) => getComputedStyle(tab.querySelector(".lineup-tab-label-full")).display === "none"
+        ),
+        tablistOverflow: visibleTablist ? visibleTablist.scrollWidth - visibleTablist.clientWidth : null,
+        tabWidthDelta: tabWidths.length ? Math.max(...tabWidths) - Math.min(...tabWidths) : null
+      };
+    })()
+  }));
+  assert(
+    finalLineupState.heading === "Line-ups" &&
+      finalLineupState.ariaLabel === "Line-ups" &&
+      finalLineupState.tabCompactLabels.length === 2 &&
+      finalLineupState.tabCompactLabels.every((label) => /^[A-Z0-9]{3}$/.test(label)) &&
+      finalLineupState.tabAriaLabels.length === 2 &&
+      finalLineupState.tabAriaLabels.every((label, index) => label && label !== finalLineupState.tabCompactLabels[index]) &&
+      finalLineupState.tabFullLabelsHidden &&
+      finalLineupState.tablistOverflow <= 1 &&
+      finalLineupState.tabWidthDelta <= 1 &&
+      finalLineupState.helpLabel === "Final lineup record" &&
+      !finalLineupState.hasPredictionHeadingCopy &&
+      !finalLineupState.hasPredictedLineupsCopy,
+    `Finished matches should not keep a prediction lineup heading, and team tabs should use compact visible codes. Measured ${JSON.stringify(finalLineupState)}.`
+  );
+
+  await finalLineupModeCheck.page.locator('[data-match-id="match-80-round-of-32-2026-07-01"]').click();
+  await finalLineupModeCheck.page.locator("#match-info .lineup-tab[data-lineup-tab='away']").first().click();
+  const cipengaLineupTrigger = finalLineupModeCheck.page
+    .locator("#match-info .lineup-tab-panel:not([hidden]) .lineup-player-name", { hasText: /Cipenga/ })
+    .first();
+  const sadikiLineupTrigger = finalLineupModeCheck.page
+    .locator("#match-info .lineup-tab-panel:not([hidden]) .lineup-player-name", { hasText: /Sadiki/ })
+    .first();
+  await cipengaLineupTrigger.click();
+  await finalLineupModeCheck.page.waitForTimeout(80);
+  await sadikiLineupTrigger.hover();
+  await finalLineupModeCheck.page.waitForTimeout(320);
+  const desktopLineupPlayerCardState = await finalLineupModeCheck.page.evaluate(() => {
+    const visibleCards = [...document.querySelectorAll(".player-card")]
+      .filter((card) => {
+        const style = getComputedStyle(card);
+        const rect = card.getBoundingClientRect();
+        return (
+          style.display !== "none" &&
+          style.visibility !== "hidden" &&
+          Number(style.opacity) > 0.05 &&
+          rect.width > 0 &&
+          rect.height > 0
+        );
+      })
+      .map((card) => card.querySelector(".player-card-name")?.textContent.trim() || "");
+
+    return {
+      activePlayerText:
+        document.activeElement?.closest?.(".player-hover")?.querySelector(".player-link")?.textContent.trim() || "",
+      visibleCards
+    };
+  });
+  assert(
+    desktopLineupPlayerCardState.activePlayerText !== "B. Cipenga" &&
+      desktopLineupPlayerCardState.visibleCards.length === 1 &&
+      desktopLineupPlayerCardState.visibleCards[0] === "Noah Sadiki",
+    `Desktop player-card clicks should not pin a clicked lineup card over the next hover. Measured ${JSON.stringify(desktopLineupPlayerCardState)}.`
+  );
+  await finalLineupModeCheck.context.close();
+
+  const coveredLineupCoachCases = [
+    {
+      date: "2026-06-30",
+      matchId: "match-77-round-of-32-2026-06-30",
+      coaches: ["Didier Deschamps", "Graham Potter"]
+    },
+    {
+      date: "2026-06-30",
+      matchId: "match-78-round-of-32-2026-06-30",
+      coaches: ["Emerse Faé", "Ståle Solbakken"]
+    },
+    {
+      date: "2026-06-30",
+      matchId: "match-79-round-of-32-2026-06-30",
+      coaches: ["Javier Aguirre", "Sebastián Beccacece"]
+    },
+    {
+      date: "2026-07-01",
+      matchId: "match-80-round-of-32-2026-07-01",
+      coaches: ["Thomas Tuchel", "Sébastien Desabre"]
+    },
+    {
+      date: "2026-07-01",
+      matchId: "match-81-round-of-32-2026-07-01",
+      coaches: ["Mauricio Pochettino", "Sergej Barbarez"]
+    },
+    {
+      date: "2026-07-01",
+      matchId: "match-82-round-of-32-2026-07-01",
+      coaches: ["Rudi Garcia", "Pape Thiaw"]
+    },
+    {
+      date: "2026-07-02",
+      matchId: "match-83-round-of-32-2026-07-02",
+      coaches: ["Roberto Martínez", "Zlatko Dalić"]
+    },
+    {
+      date: "2026-07-02",
+      matchId: "match-84-round-of-32-2026-07-02",
+      coaches: ["Luis de la Fuente", "Ralf Rangnick"]
+    },
+    {
+      date: "2026-07-02",
+      matchId: "match-85-round-of-32-2026-07-02",
+      coaches: ["Murat Yakin", "Vladimir Petković"]
+    }
+  ];
+  const lineupCoachCoverageCheck = await openPageAtTime(
+    "2026-07-01T22:00:00.000Z",
+    "/?view=matches&date=2026-06-30&tz=America%2FLos_Angeles"
+  );
+  let activeLineupCoachDate = "2026-06-30";
+  for (const coachCase of coveredLineupCoachCases) {
+    if (coachCase.date !== activeLineupCoachDate) {
+      await lineupCoachCoverageCheck.page.goto(
+        `${baseUrl}?view=matches&date=${coachCase.date}&tz=America%2FLos_Angeles`,
+        { waitUntil: "load" }
+      );
+      await lineupCoachCoverageCheck.page.waitForSelector(".match-row", { state: "attached" });
+      activeLineupCoachDate = coachCase.date;
+    }
+
+    await lineupCoachCoverageCheck.page.locator(`[data-match-id="${coachCase.matchId}"]`).click();
+    await lineupCoachCoverageCheck.page.locator("#match-info .lineup-preview-block").waitFor({
+      state: "attached"
+    });
+    const coachState = await lineupCoachCoverageCheck.page
+      .locator("#match-info .lineup-preview-block")
+      .evaluate((block) => {
+        const triggers = [...block.querySelectorAll(".lineup-coach-icon-trigger")];
+        return {
+          hrefs: triggers.map((trigger) => trigger.getAttribute("href") || ""),
+          names: triggers.map((trigger) => (trigger.getAttribute("aria-label") || "").split(":")[0].trim())
+        };
+      });
+    assert(
+      coachState.names.join("|") === coachCase.coaches.join("|") &&
+        coachState.hrefs.length === 2 &&
+        coachState.hrefs.every((href) => href.startsWith("https://")),
+      `Covered line-up match ${coachCase.matchId} should render both coach source icons. Measured ${JSON.stringify(coachState)}.`
+    );
+  }
+  await lineupCoachCoverageCheck.context.close();
+
   const matchStateCheck = await openPageAtTime("2026-06-18T05:30:00.000Z");
   const june17Scores = await matchStateCheck.page.locator("#match-list > .match-row .match-score").evaluateAll((scores) =>
     scores.map((score) => score.textContent.trim())

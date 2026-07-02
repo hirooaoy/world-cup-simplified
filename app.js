@@ -1,4 +1,4 @@
-const DATA_VERSION = "2026-07-01-publish-merge";
+const DATA_VERSION = "2026-07-01-lineup-coaches";
 const DATA_URLS = {
   adminMessage: `data/admin-message.json?v=${DATA_VERSION}`,
   fixtures: `data/fixtures.json?v=${DATA_VERSION}`,
@@ -15374,9 +15374,9 @@ const MOCK_LINEUP_LAYOUTS = {
     ["CB", 38, 75],
     ["CB", 62, 75],
     ["LB", 85, 75],
-    ["CM", 25, 56],
-    ["CM", 50, 55],
-    ["CM", 75, 56],
+    ["CM", 25, 53],
+    ["CM", 50, 53],
+    ["CM", 75, 53],
     ["RW", 18, 31],
     ["ST", 50, 21],
     ["LW", 82, 31]
@@ -15688,11 +15688,200 @@ const MOCK_LINEUP_TEAM_CONFIGS = {
   }
 };
 
+const MOCK_LINEUP_COACHES = {
+  BEL: {
+    name: "Rudi Garcia",
+    nameZh: "鲁迪·加西亚",
+    sinceYear: "2025",
+    sourceUrl: "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/rudi-garcia-belgium-interview",
+    note: {
+      en: "Garcia gives Belgium a compact base while leaving De Bruyne and the wide runners room to choose the attacking moment.",
+      zh: "加西亚给比利时保留紧凑基础，同时让德布劳内和边路冲刺球员有空间选择进攻时机。"
+    }
+  },
+  BIH: {
+    name: "Sergej Barbarez",
+    nameZh: "塞尔盖·巴巴雷兹",
+    sinceYear: "2024",
+    sourceUrl: "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/ermedin-demirovic-sergej-barbarez-bosnia-and-herzegovina-interview",
+    note: {
+      en: "Barbarez leans on Bosnia and Herzegovina's emotional edge, direct play, and box targets to keep games alive.",
+      zh: "巴巴雷兹依靠波黑的情绪能量、直接打法和禁区支点，让比赛始终保留机会。"
+    }
+  },
+  CIV: {
+    name: "Emerse Faé",
+    nameZh: "埃梅尔斯·法埃",
+    sinceYear: "2024",
+    sourceUrl: "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/emerse-fae-cote-divoire",
+    note: {
+      en: "Faé gives Côte d'Ivoire a balanced, player-friendly structure: midfield power first, then fast wide attacks.",
+      zh: "法埃给科特迪瓦搭出平衡且适合球员发挥的结构：先用中场力量站稳，再从边路提速。"
+    }
+  },
+  COD: {
+    name: "Sébastien Desabre",
+    nameZh: "塞巴斯蒂安·德萨布尔",
+    sinceYear: "2022",
+    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/S%C3%A9bastien%20Desabre.JPG?width=160",
+    sourceUrl: "https://www.espn.com/soccer/story/_/id/49101212/congo-dr-coach-urges-team-stay-humble-historic-draw-portugal",
+    note: {
+      en: "Desabre gives DR Congo structure first, then looks for speed, strength, and set pieces to turn defense into chances.",
+      zh: "德萨布尔先让刚果民主共和国站稳阵型，再用速度、身体和定位球把防守转成机会。"
+    }
+  },
+  CRO: {
+    name: "Zlatko Dalić",
+    nameZh: "兹拉特科·达利奇",
+    sinceYear: "2017",
+    sourceUrl: "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/croatia-squad-named",
+    note: {
+      en: "Dalić trusts Croatia's experienced midfield to slow matches down, then asks runners to attack spaces that open late.",
+      zh: "达利奇相信克罗地亚经验丰富的中场能放慢比赛，再让后插上球员冲击后段出现的空间。"
+    }
+  },
+  ECU: {
+    name: "Sebastián Beccacece",
+    nameZh: "塞巴斯蒂安·贝卡塞塞",
+    sinceYear: "2024",
+    sourceUrl: "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/beccacece-i-want-us-to-stand-up-and-be-counted",
+    note: {
+      en: "Beccacece's Ecuador are built around energy, pressure, and brave midfield carries, with risk when the team has to chase.",
+      zh: "贝卡塞塞的厄瓜多尔建立在活力、压迫和中场大胆推进上；被迫追分时也会露出空间。"
+    }
+  },
+  ENG: {
+    name: "Thomas Tuchel",
+    nameZh: "托马斯·图赫尔",
+    sinceYear: "2025",
+    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Thomas%20Tuchel%20Chelsea.jpg?width=160",
+    sourceUrl: "https://www.englandfootball.com/articles/2026/Jun/26/thomas-tuchel-pre-panama-match-press-conference-quotes-20262606",
+    note: {
+      en: "Tuchel is a detail-heavy coach: he likes control, clear roles, and patient problem-solving against packed defenses.",
+      zh: "图赫尔很重视细节：他喜欢掌控比赛、明确分工，并耐心破解密集防守。"
+    },
+    history: {
+      en: "He previously won the UEFA Champions League with Chelsea and league titles in France and Germany.",
+      zh: "他此前曾带领切尔西赢得欧冠，也在法国和德国拿过联赛冠军。"
+    }
+  },
+  ESP: {
+    name: "Luis de la Fuente",
+    nameZh: "路易斯·德拉富恩特",
+    sinceYear: "2022",
+    sourceUrl: "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/luis-de-la-fuente-spain-feature",
+    note: {
+      en: "De la Fuente keeps Spain connected and aggressive, using wide threat to stretch the pitch before midfielders play through.",
+      zh: "德拉富恩特让西班牙保持整体和进取性，先用边路威胁拉开球场，再让中场向前穿透。"
+    }
+  },
+  FRA: {
+    name: "Didier Deschamps",
+    nameZh: "迪迪埃·德尚",
+    sinceYear: "2012",
+    sourceUrl: "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/didier-deschamps-france-world-cup-interview",
+    note: {
+      en: "Deschamps keeps France pragmatic: protect the base, manage tournament moments, and release elite forwards into space.",
+      zh: "德尚让法国保持务实：保护基本盘、管理杯赛节点，再把顶级前锋释放到空间里。"
+    }
+  },
+  MEX: {
+    name: "Javier Aguirre",
+    nameZh: "哈维尔·阿吉雷",
+    sinceYear: "2024",
+    sourceUrl: "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/javier-aguirre-mexico-prematch-feature",
+    note: {
+      en: "Aguirre gives Mexico an assertive tournament edge, pressing high when the crowd lifts them and keeping the back line disciplined.",
+      zh: "阿吉雷给墨西哥注入强硬的杯赛气质，借主场声浪高位压迫，同时保持后防纪律。"
+    }
+  },
+  NOR: {
+    name: "Ståle Solbakken",
+    nameZh: "斯托勒·索尔巴肯",
+    sinceYear: "2020",
+    sourceUrl: "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/norway-reaction-erling-haaland-patrick-berg-stale-solbakken",
+    note: {
+      en: "Solbakken makes Norway direct and practical, building service patterns around Haaland while Ødegaard supplies the next pass.",
+      zh: "索尔巴肯让挪威直接而务实，围绕哈兰德设计输送线路，再由厄德高送出下一脚。"
+    }
+  },
+  POR: {
+    name: "Roberto Martínez",
+    nameZh: "罗伯托·马丁内斯",
+    sinceYear: "2023",
+    sourceUrl: "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/roberto-martinez-portugal-interview",
+    note: {
+      en: "Martínez gives Portugal a possession base while leaving room for Ronaldo and the wide attackers to decide games.",
+      zh: "马丁内斯给葡萄牙建立控球基础，同时给C罗和边路攻击手留下决定比赛的空间。"
+    }
+  },
+  SEN: {
+    name: "Pape Thiaw",
+    nameZh: "帕普·蒂亚乌",
+    sinceYear: "2024",
+    sourceUrl: "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/senegal-world-cup-squad-announcement-pape-thiaw",
+    note: {
+      en: "Thiaw keeps Senegal physical and resilient, with direct runners and midfield duels setting the tone.",
+      zh: "蒂亚乌让塞内加尔保持身体对抗和韧性，用直接冲刺和中场缠斗定下比赛基调。"
+    }
+  },
+  SUI: {
+    name: "Murat Yakin",
+    nameZh: "穆拉特·雅金",
+    sinceYear: "2021",
+    sourceUrl: "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/murat-yakin-interview-switzerland",
+    note: {
+      en: "Yakin keeps Switzerland compact and adaptable, leaning on midfield control and a back line comfortable with pressure.",
+      zh: "雅金让瑞士保持紧凑和可调整，依靠中场控制以及能承受压力的后防线。"
+    }
+  },
+  SWE: {
+    name: "Graham Potter",
+    nameZh: "格雷厄姆·波特",
+    sinceYear: "2025",
+    sourceUrl: "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/graham-potter-sweden-world-cup-interview",
+    note: {
+      en: "Potter brought Sweden back toward structure and belief, using two-forward threat without letting the midfield disconnect.",
+      zh: "波特把瑞典重新带回结构和信心，用双前锋威胁进攻，同时避免中场脱节。"
+    }
+  },
+  USA: {
+    name: "Mauricio Pochettino",
+    nameZh: "毛里西奥·波切蒂诺",
+    sinceYear: "2024",
+    sourceUrl: "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/mauricio-pochettino-usa-interview",
+    note: {
+      en: "Pochettino asks the USA to press and run vertically, using athletic midfield legs to make games uncomfortable.",
+      zh: "波切蒂诺要求美国队压迫并纵向冲刺，用中场的运动能力让比赛变得难受。"
+    }
+  },
+  AUT: {
+    name: "Ralf Rangnick",
+    nameZh: "拉尔夫·朗尼克",
+    sinceYear: "2022",
+    sourceUrl: "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/austria-ralf-rangnick-lost-time",
+    note: {
+      en: "Rangnick's Austria press in waves, trying to turn recoveries into immediate shots before opponents settle.",
+      zh: "朗尼克的奥地利一波波压迫，试图在对手站稳前把抢回球转成射门。"
+    }
+  },
+  ALG: {
+    name: "Vladimir Petković",
+    nameZh: "弗拉基米尔·佩特科维奇",
+    sinceYear: "2024",
+    sourceUrl: "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/vladimir-petkovic-switzerland-algeria",
+    note: {
+      en: "Petković gives Algeria a calmer structure around Mahrez and the left side, with enough balance to survive transitions.",
+      zh: "佩特科维奇围绕马赫雷斯和左路给阿尔及利亚更稳的结构，并保留转换防守的平衡。"
+    }
+  }
+};
+
 const MOCK_LINEUP_MATCH_COVERAGE = {
   "match-77-round-of-32-2026-06-30": { home: "FRA", away: "SWE" },
   "match-78-round-of-32-2026-06-30": { home: "CIV", away: "NOR" },
   "match-79-round-of-32-2026-06-30": { home: "MEX", away: "ECU" },
-  "match-81-round-of-32-2026-07-01": { home: "USA", away: "BIH", mode: "prediction" },
+  "match-81-round-of-32-2026-07-01": { home: "USA", away: "BIH" },
   "match-82-round-of-32-2026-07-01": { home: "BEL", away: "SEN" },
   "match-83-round-of-32-2026-07-02": { home: "POR", away: "CRO", mode: "prediction" },
   "match-84-round-of-32-2026-07-02": { home: "ESP", away: "AUT", mode: "prediction" },
@@ -15818,6 +16007,19 @@ function getLineupUsedNumbers(players) {
   return new Set(players.map((player) => String(player?.[0] || "")).filter(Boolean));
 }
 
+function getMockLineupCoach(teamId) {
+  const coach = MOCK_LINEUP_COACHES[teamId];
+  if (!coach) {
+    return null;
+  }
+
+  const team = getTeam(teamId);
+  return {
+    ...coach,
+    teamName: coach.teamName || team?.name || teamId
+  };
+}
+
 function createMockLineupTeam(teamId) {
   const config = MOCK_LINEUP_TEAM_CONFIGS[teamId];
   if (!config) {
@@ -15828,10 +16030,15 @@ function createMockLineupTeam(teamId) {
   return {
     formation: config.formation,
     formationNotes: getMockFormationNotes(config.formation),
+    coach: getMockLineupCoach(teamId),
     players,
     bench: createMockLineupBench(teamId, config.starters, getLineupUsedNumbers(players)),
     events: config.events || {}
   };
+}
+
+function isCompleteMockLineupTeam(teamLineup) {
+  return Boolean(teamLineup?.formation && teamLineup?.coach?.name && teamLineup?.players?.length);
 }
 
 function getGeneratedMockLineupPreview(match) {
@@ -15842,15 +16049,23 @@ function getGeneratedMockLineupPreview(match) {
 
   const home = createMockLineupTeam(coverage.home);
   const away = createMockLineupTeam(coverage.away);
-  if (!home || !away) {
+  if (!isCompleteMockLineupTeam(home) || !isCompleteMockLineupTeam(away)) {
     return null;
   }
 
   return {
-    mode: coverage.mode || (match.status === "SCHEDULED" ? "prediction" : "past"),
+    mode: getLineupModeForMatch(match, coverage.mode),
     home,
     away
   };
+}
+
+function getLineupModeForMatch(match, mode) {
+  if (match?.status === "SCHEDULED") {
+    return mode || "prediction";
+  }
+
+  return "past";
 }
 
 function getMockLineupPreview(match) {
@@ -15883,27 +16098,7 @@ function getMockLineupPreview(match) {
           zh: "如果边路球员一直压得很高，边后卫身后会容易被打，凯恩也可能在前场显得孤立。"
         }
       },
-      coach: {
-        name: "Thomas Tuchel",
-        nameZh: "托马斯·图赫尔",
-        teamName: "England",
-        sinceYear: "2025",
-        imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Thomas%20Tuchel%20Chelsea.jpg?width=160",
-        sourceUrl: "https://www.englandfootball.com/articles/2026/Jun/26/thomas-tuchel-pre-panama-match-press-conference-quotes-20262606",
-        skills: [
-          { en: "Cup-game control", zh: "杯赛控制" },
-          { en: "Flexible pressing", zh: "灵活逼抢" },
-          { en: "Set-piece detail", zh: "定位球细节" }
-        ],
-        note: {
-          en: "Tuchel is a detail-heavy coach: he likes control, clear roles, and patient problem-solving against packed defenses.",
-          zh: "图赫尔很重视细节：他喜欢掌控比赛、明确分工，并耐心破解密集防守。"
-        },
-        history: {
-          en: "He previously won the UEFA Champions League with Chelsea and league titles in France and Germany.",
-          zh: "他此前曾带领切尔西赢得欧冠，也在法国和德国拿过联赛冠军。"
-        }
-      },
+      coach: getMockLineupCoach("ENG"),
       players: [
         ["1", "J. Pickford", "Jordan Pickford", "GK", "JP", 50, 91, "#7d8ea2"],
         ["25", "D. Spence", "Djed Spence", "RB", "DS", 15, 75, "#60758b"],
@@ -15958,22 +16153,7 @@ function getMockLineupPreview(match) {
           zh: "如果边锋不回防，边后卫会被对手夹击，中场也容易被拉到边路。"
         }
       },
-      coach: {
-        name: "Sébastien Desabre",
-        nameZh: "塞巴斯蒂安·德萨布尔",
-        teamName: "DR Congo",
-        imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/S%C3%A9bastien%20Desabre.JPG?width=160",
-        sourceUrl: "https://www.espn.com/soccer/story/_/id/49101212/congo-dr-coach-urges-team-stay-humble-historic-draw-portugal",
-        skills: [
-          { en: "Compact defending", zh: "紧凑防守" },
-          { en: "Counter attacks", zh: "快速反击" },
-          { en: "Set pieces", zh: "定位球" }
-        ],
-        note: {
-          en: "Desabre gives DR Congo structure first, then looks for speed, strength, and set pieces to turn defense into chances.",
-          zh: "德萨布尔先让刚果民主共和国站稳阵型，再用速度、身体和定位球把防守转成机会。"
-        }
-      },
+      coach: getMockLineupCoach("COD"),
       players: [
         ["1", "L. Mpasi", "Lionel Mpasi", "GK", "LM", 50, 91, "#788394"],
         ["26", "A. Masuaku", "Arthur Masuaku", "LB", "AM", 15, 75, "#586371"],
@@ -16056,7 +16236,7 @@ function getLineupUpdatedText(match, lineup = null) {
     return getLineupCheckedText("Lineup record checked", freshness);
   }
 
-  if (lineup?.mode === "prediction") {
+  if (getLineupModeForMatch(match, lineup?.mode) === "prediction") {
     return getLineupCheckedText("Predicted lineups checked", freshness) || localizeText("Predicted lineups");
   }
 
@@ -16111,12 +16291,12 @@ function getLocalizedLineupPosition(position) {
   return currentLanguage === "zh" ? LINEUP_POSITION_ZH[value] || localizeText(value) : value;
 }
 
-function getLineupHeadingLabel(lineup) {
-  return lineup?.mode === "prediction" ? "Line-ups (prediction)" : "Line-ups";
+function getLineupHeadingLabel(match, lineup) {
+  return getLineupModeForMatch(match, lineup?.mode) === "prediction" ? "Line-ups (prediction)" : "Line-ups";
 }
 
 function renderLineupHeading(match, lineup) {
-  const label = getLineupHeadingLabel(lineup);
+  const label = getLineupHeadingLabel(match, lineup);
   const updatedText = getLineupUpdatedText(match, lineup);
   const helpButton = updatedText
     ? `<button class="info-tooltip-button" type="button" aria-label="${escapeHtml(updatedText)}" data-tooltip="${escapeHtml(updatedText)}">i</button>`
@@ -16361,7 +16541,7 @@ function renderLineupTeamBand(match, lineup, teamLineup, side) {
   const benchAriaLabel = benchCount ? `${benchLabel}: ${benchCount}` : benchLabel;
   return `
     <div class="lineup-team-band">
-      <div class="lineup-tabs lineup-card-tabs" role="tablist" aria-label="${escapeHtml(localizeText(getLineupHeadingLabel(lineup)))}">
+      <div class="lineup-tabs lineup-card-tabs" role="tablist" aria-label="${escapeHtml(localizeText(getLineupHeadingLabel(match, lineup)))}">
         ${renderLineupTabButton(match, "home", side === "home", side)}
         ${renderLineupTabButton(match, "away", side === "away", side)}
       </div>
@@ -16697,7 +16877,7 @@ function renderLineupVisualPrototype(match) {
   }
 
   return `
-    <section class="info-block lineup-preview-block has-section-divider" aria-label="${escapeHtml(localizeText(getLineupHeadingLabel(lineup)))}">
+    <section class="info-block lineup-preview-block has-section-divider" aria-label="${escapeHtml(localizeText(getLineupHeadingLabel(match, lineup)))}">
       <div class="lineup-header">
         ${renderLineupHeading(match, lineup)}
       </div>
@@ -23535,6 +23715,42 @@ function handlePlayerLinkClick(event) {
   return false;
 }
 
+function handlePlayerLinkPointerDown(event) {
+  if (!(event.target instanceof Element)) {
+    return false;
+  }
+
+  const playerTrigger = event.target.closest(".player-link[data-player-card-trigger]");
+  const playerHover = playerTrigger?.closest(".player-hover");
+  if (!playerTrigger || !playerHover || isTouchPlayerCardMode()) {
+    return false;
+  }
+
+  if (event.pointerType && event.pointerType !== "mouse") {
+    return false;
+  }
+
+  if (typeof event.button === "number" && event.button !== 0) {
+    return false;
+  }
+
+  event.preventDefault();
+
+  const activeElement = document.activeElement;
+  if (activeElement instanceof HTMLElement && getClosestPlayerHover(activeElement)) {
+    activeElement.blur();
+  }
+
+  if (activePlayerHover === playerHover) {
+    setPlayerHoverExpanded(playerHover, false);
+    activePlayerHover = null;
+  } else if (activePlayerHover) {
+    clearActivePlayerHover();
+  }
+
+  return true;
+}
+
 function handlePlayerLinkKeydown(event) {
   if (!(event.target instanceof Element)) {
     return false;
@@ -23565,6 +23781,8 @@ function handlePlayerLinkKeydown(event) {
 }
 
 function attachPlayerCardPositioning(root) {
+  root?.addEventListener("pointerdown", handlePlayerLinkPointerDown, true);
+
   root?.addEventListener(
     "pointerenter",
     (event) => {

@@ -5348,9 +5348,10 @@ h1 {
 .lineup-tabs {
   position: relative;
   isolation: isolate;
-  display: inline-flex;
+  display: flex;
   align-items: center;
   gap: 2px;
+  width: 100%;
   max-width: 100%;
   min-height: 34px;
   overflow: hidden;
@@ -5383,6 +5384,7 @@ h1 {
   position: relative;
   z-index: 1;
   display: inline-flex;
+  flex: 1 1 0;
   align-items: center;
   justify-content: center;
   gap: 6px;
@@ -5420,6 +5422,10 @@ h1 {
 }
 
 .lineup-tab-label-compact {
+  display: inline;
+}
+
+.lineup-card-tabs .lineup-tab-label-full {
   display: none;
 }
 
@@ -5865,7 +5871,7 @@ button.lineup-event-sub,
 
 .lineup-pitch {
   --lineup-pitch-height: clamp(420px, 62vw, 460px);
-  --lineup-pitch-top-trim: 30px;
+  --lineup-pitch-top-trim: 44px;
   position: relative;
   height: calc(var(--lineup-pitch-height) - var(--lineup-pitch-top-trim));
   overflow: hidden;
@@ -6087,22 +6093,7 @@ button.lineup-event-sub,
     border-radius: 14px;
   }
 
-  .lineup-tabs {
-    display: flex;
-    min-width: 0;
-    width: 100%;
-  }
-
-  .lineup-card-tabs .lineup-tab-label-full {
-    display: none;
-  }
-
-  .lineup-card-tabs .lineup-tab-label-compact {
-    display: inline;
-  }
-
   .lineup-tab {
-    flex: 1 1 0;
     padding: 0 7px;
   }
 
@@ -6183,7 +6174,7 @@ button.lineup-event-sub,
 
   .lineup-pitch {
     --lineup-pitch-height: 410px;
-    --lineup-pitch-top-trim: 24px;
+    --lineup-pitch-top-trim: 34px;
   }
 
   .lineup-player-marker {
