@@ -396,6 +396,7 @@ const sourceNoteData = await Promise.all(
   [
     "fixtures.json",
     "history.json",
+    "lineups.json",
     "historical-player-profiles.json",
     "player-profiles.json",
     "release-notes.json",
@@ -404,8 +405,8 @@ const sourceNoteData = await Promise.all(
     "tournament.json"
   ].map(async (fileName) => JSON.parse(await readFile(path.join(root, "data", fileName), "utf8")))
 );
-const [, , , , releaseNotesData, teamsData, standingsData, tournamentData] = sourceNoteData;
-const sourceNoteRefreshData = sourceNoteData.filter((_, index) => ![2, 4].includes(index));
+const [, , , , , releaseNotesData, teamsData, standingsData, tournamentData] = sourceNoteData;
+const sourceNoteRefreshData = sourceNoteData.filter((_, index) => ![3, 5].includes(index));
 const matchLiveWindowMs = 2.25 * 60 * 60 * 1000;
 const browser = await chromium.launch({ args: ["--blink-settings=imagesEnabled=false"] });
 const page = await browser.newPage();
@@ -4349,12 +4350,24 @@ try {
     lineupProductionStates.push({
       fixtureId,
       lineupBlocks: await lineupProductionTrustCheck.page.locator("#match-info .lineup-preview-block").count(),
+      eventTimelineBlocks: await lineupProductionTrustCheck.page.locator("#match-info .match-event-summary").count(),
+      helpLabel: await lineupProductionTrustCheck.page
+        .locator("#match-info .lineup-heading .info-tooltip-button")
+        .first()
+        .getAttribute("aria-label"),
       detailText: await lineupProductionTrustCheck.page.locator("#match-info").innerText()
     });
   }
   assert(
-    lineupProductionStates.every((state) => state.lineupBlocks === 0 && !/Final lineup record|Confirmed lineups|Predicted lineups/.test(state.detailText)),
-    `Production match details should not render line-up boards or status copy without trusted fixture.lineups data. Measured ${JSON.stringify(lineupProductionStates)}.`
+    lineupProductionStates.every(
+      (state) =>
+        state.lineupBlocks === 1 &&
+        state.eventTimelineBlocks === 0 &&
+        state.helpLabel?.startsWith("Final lineup record") &&
+        state.helpLabel?.includes("Official FIFA team sheet") &&
+        !/Formation & events|Predicted lineups/.test(state.detailText)
+    ),
+    `Production match details should render trusted final line-up boards and suppress the old event timeline. Measured ${JSON.stringify(lineupProductionStates)}.`
   );
   await lineupProductionTrustCheck.context.close();
 
@@ -4410,13 +4423,107 @@ try {
       finalLineupState.tablistWidth <= 170 &&
       finalLineupState.tabMaxWidth <= 80 &&
       Math.abs(finalLineupState.tablistHeight - finalLineupState.formationPillHeight) <= 1 &&
-      finalLineupState.helpLabel === "Final lineup record" &&
+      finalLineupState.helpLabel.startsWith("Final lineup record") &&
+      finalLineupState.helpLabel.includes("Official FIFA team sheet") &&
       !finalLineupState.hasPredictionHeadingCopy &&
       !finalLineupState.hasPredictedLineupsCopy,
     `Finished matches should not keep a prediction lineup heading, and team tabs should use compact visible codes. Measured ${JSON.stringify(finalLineupState)}.`
   );
 
   await finalLineupModeCheck.page.locator('[data-match-id="match-80-round-of-32-2026-07-01"]').click();
+  const lineupCornerEventState = await finalLineupModeCheck.page
+    .locator("#match-info .lineup-preview-block")
+    .evaluate((block) => {
+      const labelState = (selector) =>
+        [...block.querySelectorAll(selector)].map((badge) => ({
+          ariaLabel: badge.getAttribute("aria-label") || "",
+          text: badge.textContent.replace(/\s+/g, " ").trim(),
+          tooltip: badge.getAttribute("data-tooltip") || "",
+          title: badge.getAttribute("title") || ""
+        }));
+      return {
+        cardLabels: labelState(".lineup-player-event-row .lineup-event-card"),
+        scoreLabels: labelState(".lineup-avatar-score-events .lineup-event-score")
+      };
+    });
+  assert(
+    lineupCornerEventState.cardLabels.some(
+      (label) =>
+        label.ariaLabel.includes("19'") &&
+          label.ariaLabel.includes("Jude Bellingham") &&
+          label.ariaLabel.includes("Yellow card") &&
+          label.text.includes("19'") &&
+          label.tooltip === label.ariaLabel &&
+          label.title === ""
+    ) &&
+      lineupCornerEventState.scoreLabels.some(
+        (label) =>
+          label.ariaLabel.includes("75'") &&
+          label.ariaLabel.includes("Harry Kane") &&
+          label.ariaLabel.includes("Goal") &&
+          label.tooltip === "75' goal" &&
+          label.title === ""
+      ) &&
+      lineupCornerEventState.scoreLabels.some(
+        (label) =>
+          label.ariaLabel.includes("7'") &&
+          label.ariaLabel.includes("Chancel Mbemba") &&
+          label.ariaLabel.includes("Assist") &&
+          label.tooltip === "7' assist" &&
+          label.title === ""
+      ),
+    `Line-up player thumbnails should expose full event aria labels while goal and assist tooltips stay compact. Measured ${JSON.stringify(lineupCornerEventState)}.`
+  );
+  await finalLineupModeCheck.page
+    .locator('#match-info .lineup-event-score[aria-label*="Harry Kane"][aria-label*="Goal"]')
+    .first()
+    .hover();
+  await finalLineupModeCheck.page.waitForTimeout(160);
+  const lineupEventTooltipState = await finalLineupModeCheck.page.evaluate(() => {
+    const tooltip = document.querySelector(".lineup-event-tooltip-floating");
+    const tooltipBounds = tooltip?.getBoundingClientRect();
+    const visiblePlayerCards = [...document.querySelectorAll(".player-card")]
+      .filter((card) => {
+        const styles = getComputedStyle(card);
+        const bounds = card.getBoundingClientRect();
+        return (
+          styles.display !== "none" &&
+          styles.visibility !== "hidden" &&
+          Number(styles.opacity) > 0.05 &&
+          bounds.width > 0 &&
+          bounds.height > 0
+        );
+      })
+      .map((card) => card.querySelector(".player-card-name")?.textContent.trim() || "");
+    return {
+      tooltipText: tooltip?.textContent.trim() || "",
+      tooltipVisible: Boolean(tooltip?.classList.contains("is-visible")),
+      tooltipBounds: tooltipBounds
+        ? {
+            bottom: Math.round(tooltipBounds.bottom),
+            left: Math.round(tooltipBounds.left),
+            right: Math.round(tooltipBounds.right),
+            top: Math.round(tooltipBounds.top)
+          }
+        : null,
+      viewport: {
+        height: window.innerHeight,
+        width: window.innerWidth
+      },
+      visiblePlayerCards
+    };
+  });
+  assert(
+    lineupEventTooltipState.tooltipVisible &&
+      lineupEventTooltipState.tooltipText === "75' goal" &&
+      lineupEventTooltipState.tooltipBounds &&
+      lineupEventTooltipState.tooltipBounds.left >= 0 &&
+      lineupEventTooltipState.tooltipBounds.right <= lineupEventTooltipState.viewport.width &&
+      lineupEventTooltipState.tooltipBounds.top >= 0 &&
+      lineupEventTooltipState.tooltipBounds.bottom <= lineupEventTooltipState.viewport.height &&
+      lineupEventTooltipState.visiblePlayerCards.length === 0,
+    `Line-up event badges should show one unclipped floating tooltip without also showing a player card. Measured ${JSON.stringify(lineupEventTooltipState)}.`
+  );
   await finalLineupModeCheck.page
     .locator("#match-info .lineup-tab-panel:not([hidden]) .lineup-tab[data-lineup-tab='away']")
     .dispatchEvent("click");
@@ -4536,38 +4643,94 @@ try {
       desktopLineupPlayerCardState.visibleCards[0] === "Noah Sadiki",
     `Desktop player-card clicks should not pin a clicked lineup card over the next hover. Measured ${JSON.stringify(desktopLineupPlayerCardState)}.`
   );
+
+  await finalLineupModeCheck.page.goto(
+    `${baseUrl}?view=matches&date=2026-06-11&tz=America%2FLos_Angeles&lineupPrototype=1`,
+    { waitUntil: "load" }
+  );
+  await finalLineupModeCheck.page.waitForSelector(".match-row", { state: "attached" });
+  await finalLineupModeCheck.page.locator('[data-match-id="mexico-south-africa-2026-06-11"]').click();
+  await finalLineupModeCheck.page.locator("#match-info .lineup-preview-block").waitFor({ state: "attached" });
+  const redCardPillState = await finalLineupModeCheck.page
+    .locator("#match-info .lineup-preview-block")
+    .evaluate((block) => {
+      const formationCards = [...block.querySelectorAll(".lineup-formation-card")].map((card) => ({
+        title: card.querySelector(".player-card-name")?.textContent.trim() || "",
+        notes: [...card.querySelectorAll(".lineup-formation-note")].map((note) =>
+          note.textContent.replace(/\s+/g, " ").trim()
+        )
+      }));
+      const redCards = [...block.querySelectorAll(".lineup-player-event-row .lineup-event-card.is-red")].map((badge) => {
+        const bounds = badge.getBoundingClientRect();
+        return {
+          ariaLabel: badge.getAttribute("aria-label") || "",
+          text: badge.textContent.replace(/\s+/g, " ").trim(),
+          tooltip: badge.getAttribute("data-tooltip") || "",
+          width: Math.round(bounds.width),
+          height: Math.round(bounds.height),
+          radius: getComputedStyle(badge).borderTopLeftRadius
+        };
+      });
+      return { formationCards, redCards };
+    });
+  assert(
+    redCardPillState.formationCards.some(
+      (card) =>
+        card.title === "4-1-2-3" &&
+        card.notes.length === 2 &&
+        card.notes.some((note) => note.includes("Good at") && note.length > 24) &&
+        card.notes.some((note) => note.includes("Can struggle with") && note.length > 32)
+    ) &&
+      redCardPillState.redCards.some(
+        (card) =>
+          card.ariaLabel.includes("90+2'") &&
+          card.ariaLabel.includes("Cesar Montes") &&
+          card.ariaLabel.includes("Red card") &&
+          card.text.includes("90+2'") &&
+          card.height >= 14 &&
+          card.radius !== "2px" &&
+          card.tooltip === card.ariaLabel
+      ),
+    `4-1-2-3 should render populated formation-card notes, and red cards should render as card-time pills near substitution events. Measured ${JSON.stringify(redCardPillState)}.`
+  );
   await finalLineupModeCheck.context.close();
 
   const coveredLineupCoachCases = [
     {
       date: "2026-06-30",
       matchId: "match-77-round-of-32-2026-06-30",
-      coaches: ["Didier Deschamps", "Graham Potter"]
+      coaches: ["Didier Deschamps", "Graham Potter"],
+      source: "fifa"
     },
     {
       date: "2026-06-30",
       matchId: "match-78-round-of-32-2026-06-30",
-      coaches: ["Emerse Faé", "Ståle Solbakken"]
+      coaches: ["Emerse Fae", "Stale Solbakken"],
+      source: "fifa"
     },
     {
       date: "2026-06-30",
       matchId: "match-79-round-of-32-2026-06-30",
-      coaches: ["Javier Aguirre", "Sebastián Beccacece"]
+      coaches: ["Javier Aguirre", "Sebastian Beccacece"],
+      source: "fifa"
     },
     {
       date: "2026-07-01",
       matchId: "match-80-round-of-32-2026-07-01",
-      coaches: ["Thomas Tuchel", "Sébastien Desabre"]
+      coaches: ["Thomas Tuchel", "Sebastien Desabre"],
+      source: "fifa"
     },
     {
       date: "2026-07-01",
       matchId: "match-81-round-of-32-2026-07-01",
-      coaches: ["Mauricio Pochettino", "Sergej Barbarez"]
+      coaches: ["Mauricio Pochettino", "Sergej Barbarez"],
+      source: "fifa"
     },
     {
       date: "2026-07-01",
       matchId: "match-82-round-of-32-2026-07-01",
-      coaches: ["Rudi Garcia", "Pape Thiaw"]
+      coaches: ["Rudi Garcia", "Pape Thiaw"],
+      source: "fifa"
     },
     {
       date: "2026-07-02",
@@ -4609,6 +4772,16 @@ try {
       .evaluate((block) => {
         const triggers = [...block.querySelectorAll(".lineup-coach-icon-trigger")];
         return {
+          avatarCircleStates: [...block.querySelectorAll(".lineup-coach-avatar")].map((avatar) => {
+            const bounds = avatar.getBoundingClientRect();
+            const radius = getComputedStyle(avatar).borderTopLeftRadius;
+            return {
+              radius,
+              width: Math.round(bounds.width),
+              height: Math.round(bounds.height),
+              circular: radius === "50%" || parseFloat(radius) >= Math.min(bounds.width, bounds.height) / 2 - 1
+            };
+          }),
           cardPhotoRadii: [...block.querySelectorAll(".lineup-coach-card-photo")].map(
             (photo) => getComputedStyle(photo).borderTopLeftRadius
           ),
@@ -4625,12 +4798,16 @@ try {
         coachState.hrefs.length === 2 &&
         coachState.hrefs.every((href) => href.startsWith("https://")) &&
         coachState.imageUrls.length === 2 &&
-        coachState.imageUrls.every((url) => url.startsWith("https://commons.wikimedia.org/wiki/Special:FilePath/")) &&
+        (coachCase.source === "fifa"
+          ? coachState.imageUrls.every((url) => url.startsWith("https://digitalhub.fifa.com/transform/"))
+          : coachState.imageUrls.every((url) => url.startsWith("https://commons.wikimedia.org/wiki/Special:FilePath/"))) &&
         coachState.cardPhotoRadii.length === 2 &&
         coachState.cardPhotoRadii.every((radius) => radius === "13px") &&
+        coachState.avatarCircleStates.length === 2 &&
+        coachState.avatarCircleStates.every((state) => state.circular) &&
         coachState.copyNoteCounts.length === 2 &&
         coachState.copyNoteCounts.every((count) => count === 2),
-      `Covered line-up match ${coachCase.matchId} should render both coach source icons with rounded-square portrait images and two coach-card copy lines. Measured ${JSON.stringify(coachState)}.`
+      `Covered line-up match ${coachCase.matchId} should render both coach source icons with the expected portrait source and card copy shape. Measured ${JSON.stringify(coachState)}.`
     );
 
     const lineupSideState = await lineupCoachCoverageCheck.page

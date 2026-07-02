@@ -30,6 +30,7 @@
     "sync:h2h": "node scripts/sync-h2h-results.mjs",
     "sync:fifa:events": "node scripts/sync-fifa-match-events.mjs",
     "sync:fifa:goals": "node scripts/sync-fifa-goal-events.mjs",
+    "sync:fifa:lineups": "node scripts/sync-fifa-lineups.mjs",
     "sync:youtube": "node scripts/sync-youtube-highlights.mjs",
     "smoke": "node scripts/ui-smoke.mjs",
     "sync:fifa": "node scripts/sync-fifa-results.mjs",

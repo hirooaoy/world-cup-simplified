@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-02T05:36:36.901Z",
+  "updatedAt": "2026-07-02T17:52:49.393Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -14696,7 +14696,7 @@
         "sourceIds": [
           "fifa-match-events-sync-2026-07-02"
         ],
-        "checkedAt": "2026-07-02T05:35:25.953Z",
+        "checkedAt": "2026-07-02T17:52:49.393Z",
         "home": {
           "formation": "4-1-2-3",
           "cards": [
@@ -14782,14 +14782,14 @@
               "side": "away"
             },
             {
-              "offName": "Ferran Torres",
-              "onName": "Mikel Oyarzabal",
+              "offName": "Mikel Oyarzabal",
+              "onName": "Ferran Torres",
               "minute": 76,
               "side": "away"
             },
             {
-              "offName": "Nico Williams",
-              "onName": "Lamine Yamal",
+              "offName": "Lamine Yamal",
+              "onName": "Nico Williams",
               "minute": 76,
               "side": "away"
             }
@@ -18895,14 +18895,6 @@
         "checkedAt": "2026-07-01T19:30:00-07:00",
         "note": "Guardian live report and FOX Sports box score reviewed for Balogun opener, Balogun red card, late Bosnia pressure, Tillman free kick, and next-round path."
       },
-      "highlightVideoReview": {
-        "status": "not-found",
-        "platform": "youtube",
-        "sourceName": "FOX Sports",
-        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
-        "checkedAt": "2026-07-01T19:20:06-07:00",
-        "note": "No official FOX Sports YouTube highlights video matched this fixture during the automated channel check."
-      },
       "matchEvents": {
         "sourceIds": [
           "fifa-match-events-sync-2026-07-02"
@@ -18989,6 +18981,14 @@
             }
           ]
         }
+      },
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=NuuMIICMQxo",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-07-02T10:07:34-07:00",
+        "checkedAt": "2026-07-02T10:07:34-07:00"
       }
     },
     {

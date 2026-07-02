@@ -1,9 +1,10 @@
-const DATA_VERSION = "2026-07-02-official-match-events";
+const DATA_VERSION = "2026-07-02-lineup-backfill-v2";
 const DATA_URLS = {
   adminMessage: `data/admin-message.json?v=${DATA_VERSION}`,
   fixtures: `data/fixtures.json?v=${DATA_VERSION}`,
   history: `data/history.json?v=${DATA_VERSION}`,
   historicalPlayerProfiles: `data/historical-player-profiles.json?v=${DATA_VERSION}`,
+  lineups: `data/lineups.json?v=${DATA_VERSION}`,
   liveData: `api/live-data?v=${DATA_VERSION}`,
   playerProfiles: `data/player-profiles.json?v=${DATA_VERSION}`,
   releaseNotes: `data/release-notes.json?v=${DATA_VERSION}`,
@@ -351,11 +352,13 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "Penalties": "点球",
     "Bench": "替补席",
     "Coach": "主教练",
+    "Assist": "助攻",
     "Can struggle with": "可能吃亏",
     "Formation": "阵型",
     "Formation & events": "阵型与事件",
     "Formations": "阵型",
     "Good at": "擅长",
+    "Goal": "进球",
     "Head Coach": "主教练",
     "HT": "中场",
     "Line ups": "阵容",
@@ -364,12 +367,15 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "Line-ups (prediction)": "预测阵容",
     "Confirmed lineups": "已确认阵容",
     "Final lineup record": "最终阵容记录",
+    "Final lineup record. Official FIFA team sheet; pitch layout follows formation and team-sheet order.":
+      "最终阵容记录。队名单来自 FIFA 官方；球场站位按阵型和队名单顺序排列。",
     "Lineup record": "阵容记录",
     "Lineup record checked": "阵容记录核验",
     "Lineups": "阵容",
     "Lineups checked": "阵容核验",
     "Predicted lineups": "预测阵容",
     "Predicted lineups checked": "预测阵容核验",
+    "Own goal": "乌龙球",
     "Red card": "红牌",
     "Substitution": "换人",
     "Substituted off": "被换下",
@@ -4248,6 +4254,7 @@ let historicalPlayerProfilesLoadPromise = null;
 let hasLoadedHistoricalPlayerProfiles = false;
 let playerProfilesByName = new Map();
 let playerProfilesByTeamAndName = new Map();
+let lineupData = { lineups: {} };
 const lineupSubstitutionPreviewState = new Set();
 let shouldShowPlayerMarketValues = false;
 let adminMessages = { messages: [] };
@@ -15562,7 +15569,7 @@ function renderResultNotes(match) {
   const scoringHighlight = renderScoringDetailsHighlight(match);
   const canonicalHighlights = getResultStoryHighlights(match);
   const highlights = getResultDisplayHighlights(match);
-  const matchEvents = renderMatchEventsSummary(match);
+  const matchEvents = getFixtureLineupPreview(match) ? "" : renderMatchEventsSummary(match);
 
   if (!scoringHighlight && !highlights.length && !matchEvents) {
     return `<p class="data-note">${escapeHtml(localizeText("Final score reflected in the current standings after source checks."))}</p>`;
@@ -15649,6 +15656,76 @@ const MOCK_LINEUP_LAYOUTS = {
 };
 
 const MOCK_LINEUP_FORMATION_NOTES = {
+  "3-4-1-2": {
+    good: {
+      en: "Uses a back three for cover, wing-backs for width, and a No. 10 close to two strikers, so attacks can build through the middle quickly.",
+      zh: "三中卫提供保护，翼卫负责宽度，前腰靠近两名前锋，进攻能更快从中路推进。"
+    },
+    bad: {
+      en: "The wing-backs have long defensive runs, and the two central midfielders can be stretched if the No. 10 stays high.",
+      zh: "翼卫需要承担很长的回防距离；如果前腰留得太高，两名中场可能会被拉得很开。"
+    }
+  },
+  "3-4-3": {
+    good: {
+      en: "Keeps three defenders behind the ball while wing-backs and a front three can press high or counter into wide channels.",
+      zh: "三名后卫留在球后保护，翼卫和三名前锋可以高位压迫，也能快速反击到边路。"
+    },
+    bad: {
+      en: "With only two central midfielders, the team can be outnumbered inside if the wide forwards do not help connect play.",
+      zh: "中路只有两名中场；如果边锋不回收串联，球队在中路可能会被人数压制。"
+    }
+  },
+  "3-5-2": {
+    good: {
+      en: "Adds an extra central midfielder while keeping two strikers up front, giving the team numbers in midfield and a direct outlet.",
+      zh: "在保留双前锋的同时增加一名中场，球队既能在中路有人数，也有直接向前的出口。"
+    },
+    bad: {
+      en: "If the wing-backs are pinned deep, the team can lose high wide support and the strikers may have to chase long clearances.",
+      zh: "如果翼卫被压得很深，球队会缺少前场宽度，两名前锋也可能只能追长传解围。"
+    }
+  },
+  "4-1-2-3": {
+    good: {
+      en: "One holding midfielder screens transitions while two interiors connect to a front three, so the team can press and still keep a central guard.",
+      zh: "单后腰负责保护转换，两名内侧中场连接三名前锋，球队能压迫，同时保留中路屏障。"
+    },
+    bad: {
+      en: "If the holding midfielder gets isolated, counters can run through the middle and the full-backs need careful timing behind the wingers.",
+      zh: "如果后腰被孤立，反击会直接穿过中路；边后卫在边锋身后的前插时机也要很谨慎。"
+    }
+  },
+  "4-1-3-2": {
+    good: {
+      en: "Puts two strikers ahead of a three-player support line, with one holder behind them to keep second balls and counters under control.",
+      zh: "双前锋身后有三名支援球员，后方单后腰负责保护二点球和反击。"
+    },
+    bad: {
+      en: "The holding midfielder has a large space to protect, especially if the wide midfielders jump forward at the same time.",
+      zh: "后腰需要保护很大的区域，尤其是两侧中场同时前插时，中路会更容易暴露。"
+    }
+  },
+  "4-1-4-1": {
+    good: {
+      en: "Creates two compact midfield lines with a holder between defense and midfield, making it easier to protect the center before countering wide.",
+      zh: "形成两条紧凑的中场线，后腰站在后防和中场之间，更容易先保护中路再从边路反击。"
+    },
+    bad: {
+      en: "The lone striker can become isolated if the midfield line drops too deep or arrives late in support.",
+      zh: "如果中场线退得太深，或者支援到得太慢，单前锋很容易被孤立。"
+    }
+  },
+  "4-2-1-3": {
+    good: {
+      en: "The double pivot protects the back four while one creator plays close to a front three, giving the attack a clear link player.",
+      zh: "双后腰保护四后卫，一名组织者靠近三名前锋，让进攻有明确的连接点。"
+    },
+    bad: {
+      en: "If the central creator is marked out, the front three can become separated from the midfield and attacks may rely on individual wide play.",
+      zh: "如果中路组织者被盯死，三名前锋可能会和中场脱节，进攻也容易依赖边路个人发挥。"
+    }
+  },
   "4-2-3-1": {
     good: {
       en: "Keeps two midfielders behind the ball while four attackers fill the spaces around the striker, so the team can create without feeling wide open.",
@@ -15678,6 +15755,47 @@ const MOCK_LINEUP_FORMATION_NOTES = {
       en: "Can be outnumbered between the lines if one central midfielder gets pulled away from the middle.",
       zh: "如果一名中场被拉离中路，肋部和线间区域可能会被对手人数压制。"
     }
+  },
+  "5-2-3": {
+    good: {
+      en: "Protects the box with five defenders while keeping three forwards high enough to counter quickly after regains.",
+      zh: "五名后卫保护禁区，同时保留三名前锋在较高位置，夺回球权后可以快速反击。"
+    },
+    bad: {
+      en: "Only two central midfielders can be overloaded, and the front three may get detached if the wing-backs are forced deep.",
+      zh: "中路只有两名中场，容易被人数压制；如果翼卫被迫回撤，三名前锋也可能和后场脱节。"
+    }
+  },
+  "5-3-2": {
+    good: {
+      en: "Gives the team a protected back line, three central midfielders, and two strikers ready for direct counters.",
+      zh: "后防线保护更厚，中路有三名中场，两名前锋也能随时准备直接反击。"
+    },
+    bad: {
+      en: "The team can concede wide possession, and the wing-backs must cover long distances to turn defense into attack.",
+      zh: "球队可能会让出边路控球，翼卫也需要覆盖很长距离，才能把防守转换成进攻。"
+    }
+  },
+  "5-4-1": {
+    good: {
+      en: "Builds a deep, compact block with wide midfield help for the wing-backs, making the box difficult to attack cleanly.",
+      zh: "形成很深且紧凑的防守块，边前卫能帮助翼卫，让对手很难干净地打进禁区。"
+    },
+    bad: {
+      en: "The lone striker can be far from support, so counters need accurate first passes and quick runners from midfield.",
+      zh: "单前锋可能离支援很远，所以反击需要第一脚传球准确，也需要中场快速跟进。"
+    }
+  }
+};
+
+const FALLBACK_LINEUP_FORMATION_NOTES = {
+  good: {
+    en: "Shows the official team-sheet shape and gives a quick read on where the team starts its defensive and attacking lines.",
+    zh: "显示官方队名单阵型，帮助快速理解球队防守和进攻线条的起点。"
+  },
+  bad: {
+    en: "Real match positions can shift by phase, so use the shape as a starting map rather than a full tactical report.",
+    zh: "真实比赛站位会随阶段变化，所以这个阵型更像起始地图，而不是完整战术报告。"
   }
 };
 
@@ -16243,7 +16361,7 @@ const MOCK_LINEUP_MATCH_COVERAGE = {
 };
 
 function getMockFormationNotes(formation) {
-  return MOCK_LINEUP_FORMATION_NOTES[formation] || MOCK_LINEUP_FORMATION_NOTES["4-3-3"];
+  return MOCK_LINEUP_FORMATION_NOTES[formation] || FALLBACK_LINEUP_FORMATION_NOTES;
 }
 
 function formatLineupShortName(name) {
@@ -16383,7 +16501,7 @@ function createMockLineupTeam(teamId) {
   const players = createMockLineupPlayers(teamId, config.starters, config.formation);
   return {
     formation: config.formation,
-    formationNotes: getMockFormationNotes(config.formation),
+    formationNotes: getMockFormationNotes(config.formation) || MOCK_LINEUP_FORMATION_NOTES["4-3-3"],
     coach: getMockLineupCoach(teamId),
     players,
     bench: createMockLineupBench(teamId, config.starters, getLineupUsedNumbers(players)),
@@ -16438,7 +16556,27 @@ function normalizeLineupTeamEvents(events = {}) {
   const eventData = events && typeof events === "object" && !Array.isArray(events) ? events : {};
   return {
     cards: Array.isArray(eventData.cards) ? eventData.cards : [],
+    staffCards: Array.isArray(eventData.staffCards) ? eventData.staffCards : [],
     substitutions: Array.isArray(eventData.substitutions) ? eventData.substitutions : []
+  };
+}
+
+function normalizeLineupCoach(coach, teamId) {
+  if (!coach || typeof coach !== "object") {
+    return null;
+  }
+
+  const curatedCoach = MOCK_LINEUP_COACHES[teamId] || {};
+  const team = getTeam(teamId);
+  return {
+    ...curatedCoach,
+    ...coach,
+    teamId,
+    teamName: coach.teamName || curatedCoach.teamName || team?.name || teamId,
+    nameZh: coach.nameZh || curatedCoach.nameZh,
+    sinceYear: coach.sinceYear || curatedCoach.sinceYear,
+    note: coach.note || curatedCoach.note,
+    history: coach.history || curatedCoach.history
   };
 }
 
@@ -16468,7 +16606,7 @@ function normalizeLineupTeamData(teamLineup, teamId) {
   return {
     formation,
     formationNotes: teamLineup.formationNotes || getMockFormationNotes(formation),
-    coach: teamLineup.coach || null,
+    coach: normalizeLineupCoach(teamLineup.coach, teamId),
     players,
     bench,
     events: normalizeLineupTeamEvents(teamLineup.events)
@@ -16505,6 +16643,9 @@ function getFixtureLineupPreview(match) {
     checkedAt: lineup.checkedAt,
     updatedAt: lineup.updatedAt,
     sourceIds: lineup.sourceIds,
+    teamSheetSource: lineup.teamSheetSource || "",
+    eventSource: lineup.eventSource || "",
+    layoutSource: lineup.layoutSource || "",
     home,
     away
   };
@@ -16729,6 +16870,15 @@ function getLineupUpdatedText(match, lineup = null) {
   return localizeText("Confirmed lineups");
 }
 
+function getLineupHelpText(match, lineup = null) {
+  const mode = getLineupModeForMatch(match, lineup?.mode);
+  if (mode === "final" && lineup?.teamSheetSource === "fifa-official" && lineup?.layoutSource === "derived-team-sheet-order") {
+    return localizeText("Final lineup record. Official FIFA team sheet; pitch layout follows formation and team-sheet order.");
+  }
+
+  return getLineupUpdatedText(match, lineup);
+}
+
 function renderLineupUpdatedCopy(match, lineup = null) {
   const text = getLineupUpdatedText(match, lineup);
   return text ? `<p class="data-note lineup-updated-copy">${escapeHtml(text)}</p>` : "";
@@ -16762,9 +16912,11 @@ const LINEUP_POSITION_ZH = {
   LB: "左后卫",
   LM: "左中场",
   LW: "左边锋",
+  LWB: "左翼卫",
   RB: "右后卫",
   RM: "右中场",
   RW: "右边锋",
+  RWB: "右翼卫",
   ST: "前锋"
 };
 
@@ -16783,9 +16935,9 @@ function getLineupHeadingLabel(match, lineup) {
 
 function renderLineupHeading(match, lineup) {
   const label = getLineupHeadingLabel(match, lineup);
-  const updatedText = getLineupUpdatedText(match, lineup);
-  const helpButton = updatedText
-    ? `<button class="info-tooltip-button" type="button" aria-label="${escapeHtml(updatedText)}" data-tooltip="${escapeHtml(updatedText)}">i</button>`
+  const helpText = getLineupHelpText(match, lineup);
+  const helpButton = helpText
+    ? `<button class="info-tooltip-button" type="button" aria-label="${escapeHtml(helpText)}" data-tooltip="${escapeHtml(helpText)}">i</button>`
     : "";
 
   return `
@@ -16827,7 +16979,10 @@ function normalizeLineupEventName(name) {
 
 function getLineupEventNameMatch(playerName) {
   const normalizedName = normalizeLineupEventName(playerName);
-  return (candidateName) => normalizeLineupEventName(candidateName) === normalizedName;
+  const key = normalizeTextKey(playerName);
+  return (candidateName) =>
+    normalizeLineupEventName(candidateName) === normalizedName ||
+    (key && normalizeTextKey(candidateName) === key);
 }
 
 function getLineupSubstitutionPreviewKey(matchId, side, substitution) {
@@ -16889,10 +17044,72 @@ function getLineupSubstitutionEvents(teamLineup, playerName) {
     .filter(Boolean);
 }
 
+function getLineupGoalMinute(goal) {
+  const minute = goal?.minute;
+  if (minute === undefined || minute === null || minute === "") {
+    return "";
+  }
+
+  return goal?.offset ? `${minute}+${goal.offset}` : minute;
+}
+
+function getLineupMatchScoringEvents(match, side) {
+  if (!match) {
+    return [];
+  }
+
+  const scoringField = side === "away" ? "goalsAway" : "goalsHome";
+  const opponentField = side === "away" ? "goalsHome" : "goalsAway";
+  const scoringGoals = Array.isArray(match[scoringField]) ? match[scoringField] : [];
+  const opponentGoals = Array.isArray(match[opponentField]) ? match[opponentField] : [];
+  const events = [];
+
+  for (const goal of scoringGoals) {
+    const minute = getLineupGoalMinute(goal);
+    if (!goal?.ownGoal && goal?.name) {
+      events.push({
+        kind: "goal",
+        playerName: goal.name,
+        minute
+      });
+    }
+    if (!goal?.ownGoal && goal?.assistName) {
+      events.push({
+        kind: "assist",
+        playerName: goal.assistName,
+        scorerName: goal.name || "",
+        minute
+      });
+    }
+  }
+
+  for (const goal of opponentGoals) {
+    if (!goal?.ownGoal || !goal?.name) {
+      continue;
+    }
+    events.push({
+      kind: "ownGoal",
+      playerName: goal.name,
+      minute: getLineupGoalMinute(goal)
+    });
+  }
+
+  return events;
+}
+
+function getLineupScoringEvents(match, side, playerName) {
+  const isMatch = getLineupEventNameMatch(playerName);
+  return getLineupMatchScoringEvents(match, side).filter((event) => isMatch(event.playerName));
+}
+
 function formatLineupEventMinute(minute) {
   const value = String(minute || "").trim();
   if (!value) {
     return "";
+  }
+
+  if (["HT", "ET"].includes(value.toUpperCase())) {
+    return localizeText(value.toUpperCase());
   }
 
   return value.endsWith("'") ? value : `${value}'`;
@@ -16906,24 +17123,60 @@ function getLineupSubstitutionLabel(substitution) {
   return localizeText(substitution?.direction === "on" ? "Substituted on" : "Substituted off");
 }
 
+function getLineupScoringLabel(event) {
+  if (event?.kind === "assist") {
+    return localizeText("Assist");
+  }
+  if (event?.kind === "ownGoal") {
+    return localizeText("Own goal");
+  }
+  return localizeText("Goal");
+}
+
+function getLineupScoringTooltipLabel(event) {
+  const minute = formatLineupEventMinute(event.minute);
+  const eventLabel = getLineupScoringLabel(event);
+  const compactEventLabel = currentLanguage === "zh" ? eventLabel : eventLabel.toLowerCase();
+  return [minute, compactEventLabel].filter(Boolean).join(" ");
+}
+
 function getLineupEventBadgeLabel(event, playerName) {
   const minute = formatLineupEventMinute(event.minute);
   const eventLabel = event.kind === "substitution"
     ? getLineupSubstitutionLabel(event)
-    : getLineupCardLabel(event);
+    : ["goal", "assist", "ownGoal"].includes(event.kind)
+      ? getLineupScoringLabel(event)
+      : getLineupCardLabel(event);
   const localizedName = currentLanguage === "zh" ? translateEntityNameToZh(playerName) || playerName : playerName;
   return [minute, localizedName, eventLabel].filter(Boolean).join(" ");
 }
 
+function renderLineupBadgeTooltipAttributes(label, tooltipLabel = label) {
+  return `aria-label="${escapeHtml(label)}" data-tooltip="${escapeHtml(tooltipLabel)}"`;
+}
+
 function renderLineupCardBadge(card, playerName) {
   const type = card?.type === "red" ? "red" : "yellow";
+  const minute = formatLineupEventMinute(card.minute);
   const label = getLineupEventBadgeLabel({ ...card, kind: "card" }, playerName);
   return `
     <span
       class="lineup-event-badge lineup-event-card is-${escapeHtml(type)}"
-      aria-label="${escapeHtml(label)}"
-      title="${escapeHtml(label)}"
-    ></span>
+      ${renderLineupBadgeTooltipAttributes(label)}
+    ><span aria-hidden="true"></span>${escapeHtml(minute)}</span>
+  `;
+}
+
+function renderLineupScoringBadge(event, playerName) {
+  const kind = event?.kind === "assist" ? "assist" : event?.kind === "ownGoal" ? "own-goal" : "goal";
+  const text = event?.kind === "assist" ? "A" : event?.kind === "ownGoal" ? "OG" : "G";
+  const label = getLineupEventBadgeLabel(event, playerName);
+  const tooltipLabel = getLineupScoringTooltipLabel(event);
+  return `
+    <span
+      class="lineup-event-badge lineup-event-score is-${escapeHtml(kind)}"
+      ${renderLineupBadgeTooltipAttributes(label, tooltipLabel)}
+    >${escapeHtml(text)}</span>
   `;
 }
 
@@ -16935,8 +17188,7 @@ function renderLineupSubstitutionBadge(substitution, playerName) {
   return `
     <span
       class="lineup-event-badge lineup-event-sub is-${escapeHtml(direction)}"
-      aria-label="${escapeHtml(label)}"
-      title="${escapeHtml(label)}"
+      ${renderLineupBadgeTooltipAttributes(label)}
     >${escapeHtml(`${arrow}${minute}`)}</span>
   `;
 }
@@ -16986,7 +17238,9 @@ function renderLineupEventBadgeList(events, playerName, className = "") {
   const badges = events.map((event) =>
     event.kind === "substitution"
       ? renderLineupSubstitutionBadge(event, playerName)
-      : renderLineupCardBadge(event, playerName)
+      : ["goal", "assist", "ownGoal"].includes(event.kind)
+        ? renderLineupScoringBadge(event, playerName || event.playerName || event.name)
+        : renderLineupCardBadge(event, playerName || event.playerName || event.staffName || event.name)
   );
 
   if (!badges.length) {
@@ -17004,6 +17258,14 @@ function renderLineupCardBadges(playerName, teamLineup, className = "") {
   );
 }
 
+function renderLineupScoringBadges(playerName, match, side, className = "") {
+  return renderLineupEventBadgeList(
+    getLineupScoringEvents(match, side, playerName),
+    playerName,
+    className
+  );
+}
+
 function renderLineupSubstitutionBadges(playerName, teamLineup, className = "", direction = "") {
   const directionKey = String(direction || "").trim();
   const events = getLineupSubstitutionEvents(teamLineup, playerName)
@@ -17015,6 +17277,13 @@ function renderLineupSubstitutionBadges(playerName, teamLineup, className = "", 
 
 function getLineupPlayerEventSummary(playerName, teamLineup) {
   return getLineupPlayerEvents(teamLineup, playerName)
+    .map((event) => getLineupEventBadgeLabel(event, playerName))
+    .filter(Boolean)
+    .join(", ");
+}
+
+function getLineupPlayerScoringSummary(playerName, match, side) {
+  return getLineupScoringEvents(match, side, playerName)
     .map((event) => getLineupEventBadgeLabel(event, playerName))
     .filter(Boolean)
     .join(", ");
@@ -17198,6 +17467,28 @@ function renderLineupCoachIconMention(coach) {
 function renderLineupFormationCard(teamLineup) {
   const goodNote = localizeLineupCopy(teamLineup.formationNotes?.good);
   const badNote = localizeLineupCopy(teamLineup.formationNotes?.bad);
+  const noteMarkup = goodNote || badNote
+    ? `
+      <span class="player-card-copy lineup-formation-copy">
+        ${
+          goodNote
+            ? `<span class="lineup-formation-note">
+                <strong>${escapeHtml(localizeText("Good at"))}</strong>
+                ${escapeHtml(goodNote)}
+              </span>`
+            : ""
+        }
+        ${
+          badNote
+            ? `<span class="lineup-formation-note">
+                <strong>${escapeHtml(localizeText("Can struggle with"))}</strong>
+                ${escapeHtml(badNote)}
+              </span>`
+            : ""
+        }
+      </span>
+    `
+    : "";
 
   return `
     <span class="player-card lineup-formation-card" role="tooltip">
@@ -17207,16 +17498,7 @@ function renderLineupFormationCard(teamLineup) {
         </span>
         <span class="player-card-position">${escapeHtml(localizeText("Formation"))}</span>
       </span>
-      <span class="player-card-copy lineup-formation-copy">
-        <span class="lineup-formation-note">
-          <strong>${escapeHtml(localizeText("Good at"))}</strong>
-          ${escapeHtml(goodNote)}
-        </span>
-        <span class="lineup-formation-note">
-          <strong>${escapeHtml(localizeText("Can struggle with"))}</strong>
-          ${escapeHtml(badNote)}
-        </span>
-      </span>
+      ${noteMarkup}
     </span>
   `;
 }
@@ -17250,8 +17532,12 @@ function renderLineupPlayerMarker(player, team, teamLineup, match = null, side =
   const lineupPlayer = getLineupPlayerData(displayPlayer, team);
   const profile = getPlayerProfile(lineupPlayer.cardPlayer);
   const playerName = getLocalizedPlayerDisplayName(lineupPlayer.cardPlayer, profile);
-  const eventSummary = getLineupPlayerEventSummary(lineupPlayer.name, teamLineup);
-  const cardBadges = renderLineupCardBadges(lineupPlayer.name, teamLineup, "lineup-avatar-card-events");
+  const eventSummary = [
+    getLineupPlayerEventSummary(lineupPlayer.name, teamLineup),
+    getLineupPlayerScoringSummary(lineupPlayer.name, match, side)
+  ].filter(Boolean).join(", ");
+  const scoringBadges = renderLineupScoringBadges(lineupPlayer.name, match, side, "lineup-avatar-score-events");
+  const cardBadges = renderLineupCardBadges(lineupPlayer.name, teamLineup, "lineup-name-card-events");
   const subOffBadges = substitution
     ? renderLineupSubstitutionToggle(substitution, lineupPlayer.name, match, side, isPreviewActive)
     : "";
@@ -17264,10 +17550,11 @@ function renderLineupPlayerMarker(player, team, teamLineup, match = null, side =
     <span class="lineup-avatar-wrap" aria-hidden="true">
       ${renderLineupAvatar(lineupPlayer, profile)}
       <span class="lineup-player-number">${escapeHtml(lineupPlayer.number)}</span>
-      ${cardBadges}
+      ${scoringBadges}
     </span>
   `;
-  const subOffMarkup = subOffBadges ? `<span class="lineup-player-sub-row lineup-name-sub-events">${subOffBadges}</span>` : "";
+  const eventPills = [subOffBadges, cardBadges].filter(Boolean).join("");
+  const eventPillMarkup = eventPills ? `<span class="lineup-player-event-row">${eventPills}</span>` : "";
 
   return `
     <span
@@ -17284,7 +17571,7 @@ function renderLineupPlayerMarker(player, team, teamLineup, match = null, side =
         triggerClass: "lineup-player-name",
         wrapperClass: "lineup-player-hover"
       })}
-      ${subOffMarkup}
+      ${eventPillMarkup}
     </span>
   `;
 }
@@ -19037,9 +19324,100 @@ function positionPlayerCards() {
 }
 
 let activePlayerHover = null;
+let floatingLineupEventTooltip = null;
+let floatingLineupEventTooltipSource = null;
+let floatingLineupEventTooltipHideTimer = 0;
 
 function isTouchPlayerCardMode() {
   return window.matchMedia("(hover: none), (pointer: coarse)").matches;
+}
+
+function ensureFloatingLineupEventTooltip() {
+  if (floatingLineupEventTooltip) {
+    return floatingLineupEventTooltip;
+  }
+
+  floatingLineupEventTooltip = document.createElement("span");
+  floatingLineupEventTooltip.className = "lineup-event-tooltip-floating";
+  floatingLineupEventTooltip.setAttribute("role", "tooltip");
+  floatingLineupEventTooltip.setAttribute("aria-hidden", "true");
+  document.body.append(floatingLineupEventTooltip);
+  return floatingLineupEventTooltip;
+}
+
+function positionFloatingLineupEventTooltip(badge) {
+  const tooltip = ensureFloatingLineupEventTooltip();
+  const viewportMargin = 12;
+  const badgeRect = badge.getBoundingClientRect();
+  const tooltipRect = tooltip.getBoundingClientRect();
+  const tooltipWidth = tooltipRect.width || 0;
+  const tooltipHeight = tooltipRect.height || 0;
+  const centeredLeft = badgeRect.left + badgeRect.width / 2 - tooltipWidth / 2;
+  const maxLeft = Math.max(viewportMargin, window.innerWidth - tooltipWidth - viewportMargin);
+  const left = Math.min(Math.max(centeredLeft, viewportMargin), maxLeft);
+  const aboveTop = badgeRect.top - tooltipHeight - 7;
+  const belowTop = badgeRect.bottom + 7;
+  const top = aboveTop >= viewportMargin
+    ? aboveTop
+    : Math.min(
+        Math.max(viewportMargin, belowTop),
+        Math.max(viewportMargin, window.innerHeight - tooltipHeight - viewportMargin)
+      );
+
+  tooltip.style.setProperty("--lineup-event-tooltip-left", `${Math.round(left)}px`);
+  tooltip.style.setProperty("--lineup-event-tooltip-top", `${Math.round(top)}px`);
+}
+
+function getLineupEventBadge(target) {
+  return target instanceof Element ? target.closest(".lineup-event-badge[data-tooltip]") : null;
+}
+
+function suppressPlayerCardForLineupEventBadge(badge) {
+  const playerHover = badge?.closest(".player-hover");
+  hideFloatingPlayerCard();
+  closeInactivePlayerHovers();
+  activePlayerHover = null;
+  if (!playerHover) {
+    return;
+  }
+
+  setPlayerHoverExpanded(playerHover, false);
+}
+
+function showFloatingLineupEventTooltip(badge) {
+  const text = badge?.getAttribute("data-tooltip") || "";
+  if (!text) {
+    return;
+  }
+
+  window.clearTimeout(floatingLineupEventTooltipHideTimer);
+  suppressPlayerCardForLineupEventBadge(badge);
+  const tooltip = ensureFloatingLineupEventTooltip();
+  floatingLineupEventTooltipSource?.classList.remove("is-event-tooltip-open");
+  floatingLineupEventTooltipSource = badge;
+  badge.classList.add("is-event-tooltip-open");
+  document.body?.classList.add("is-lineup-event-tooltip-open");
+  tooltip.textContent = text;
+  tooltip.setAttribute("aria-hidden", "false");
+  tooltip.classList.add("is-visible");
+  positionFloatingLineupEventTooltip(badge);
+}
+
+function hideFloatingLineupEventTooltip() {
+  window.clearTimeout(floatingLineupEventTooltipHideTimer);
+  floatingLineupEventTooltipHideTimer = 0;
+  floatingLineupEventTooltipSource?.classList.remove("is-event-tooltip-open");
+  floatingLineupEventTooltipSource = null;
+  document.body?.classList.remove("is-lineup-event-tooltip-open");
+  floatingLineupEventTooltip?.classList.remove("is-visible");
+  floatingLineupEventTooltip?.setAttribute("aria-hidden", "true");
+}
+
+function queueFloatingLineupEventTooltipHide() {
+  window.clearTimeout(floatingLineupEventTooltipHideTimer);
+  floatingLineupEventTooltipHideTimer = window.setTimeout(() => {
+    hideFloatingLineupEventTooltip();
+  }, 50);
 }
 
 function shouldPreviewPlayerCardOnHover(event) {
@@ -23746,14 +24124,36 @@ function hasLiveDataSnapshot(liveData) {
   );
 }
 
+function mergeFixtureLineups(fixturesData, nextLineupData = lineupData) {
+  const lineupRecords =
+    nextLineupData && typeof nextLineupData === "object" && !Array.isArray(nextLineupData)
+      ? nextLineupData.lineups || {}
+      : {};
+  const fixturesWithLineups = (fixturesData.fixtures || []).map((fixture) => {
+    const lineups = lineupRecords[fixture.id] || fixture.lineups;
+    return lineups ? { ...fixture, lineups } : fixture;
+  });
+
+  return {
+    ...fixturesData,
+    fixtures: fixturesWithLineups
+  };
+}
+
 function applyDataSnapshot({
   fixturesData,
   historyData,
+  lineupsData,
   playerProfilesData,
   standingsData,
   teamsData,
   tournamentData
 }) {
+  lineupData =
+    lineupsData && typeof lineupsData === "object" && !Array.isArray(lineupsData)
+      ? lineupsData
+      : { lineups: {} };
+  const fixturesWithLineups = mergeFixtureLineups(fixturesData, lineupData);
   teamsById = new Map(teamsData.teams.map((team) => [team.id, team]));
   teamsByName = buildTeamNameLookup(teamsData.teams);
   playerProfilesByName = buildPlayerProfileLookup(playerProfilesData.profiles);
@@ -23763,18 +24163,19 @@ function applyDataSnapshot({
   historicalPlayerProfilesLoadPromise = null;
   hasLoadedHistoricalPlayerProfiles = false;
   shouldShowPlayerMarketValues = hasCompletePlayerMarketValues(playerProfilesData);
-  fixtures = fixturesData.fixtures;
+  fixtures = fixturesWithLineups.fixtures;
   history = historyData;
   historicalFixtures = historyData.fixtures || [];
   historicalProjectionCache.clear();
   standingsByGroup = standingsData.groups;
   tournament = tournamentData;
   clearGroupQualificationCaches();
-  dataCoverage = fixturesData.coverage || { status: "partial" };
+  dataCoverage = fixturesWithLineups.coverage || { status: "partial" };
   liveDataCheckedAt = "";
   siteUpdatedAt = getLatestUpdatedAt([
-    fixturesData,
+    fixturesWithLineups,
     historyData,
+    lineupData,
     playerProfilesData,
     teamsData,
     standingsData,
@@ -23784,15 +24185,16 @@ function applyDataSnapshot({
 }
 
 function applyLiveDataSnapshot(liveData) {
-  fixtures = liveData.fixturesData.fixtures;
+  const fixturesWithLineups = mergeFixtureLineups(liveData.fixturesData);
+  fixtures = fixturesWithLineups.fixtures;
   standingsByGroup = liveData.standingsData.groups;
   tournament = liveData.tournamentData;
   clearGroupQualificationCaches();
-  dataCoverage = liveData.fixturesData.coverage || { status: "partial" };
-  liveDataCheckedAt = liveData.syncStatus?.checkedAt || liveData.fixturesData.updatedAt || "";
+  dataCoverage = fixturesWithLineups.coverage || { status: "partial" };
+  liveDataCheckedAt = liveData.syncStatus?.checkedAt || fixturesWithLineups.updatedAt || "";
   siteUpdatedAt = getLatestUpdatedAt([
     { updatedAt: siteUpdatedAt },
-    liveData.fixturesData,
+    fixturesWithLineups,
     liveData.standingsData,
     liveData.tournamentData
   ]);
@@ -23804,6 +24206,7 @@ async function loadStaticData() {
     adminMessageData,
     fixturesData,
     historyData,
+    lineupsData,
     playerProfilesData,
     teamsData,
     standingsData,
@@ -23812,6 +24215,7 @@ async function loadStaticData() {
     loadOptionalJson(DATA_URLS.adminMessage, { messages: [] }),
     loadJson(DATA_URLS.fixtures),
     loadJson(DATA_URLS.history),
+    loadOptionalJson(DATA_URLS.lineups, { lineups: {} }),
     loadOptionalJson(DATA_URLS.playerProfiles, { profiles: {} }),
     loadJson(DATA_URLS.teams),
     loadJson(DATA_URLS.standings),
@@ -23825,6 +24229,7 @@ async function loadStaticData() {
   applyDataSnapshot({
     fixturesData,
     historyData,
+    lineupsData,
     playerProfilesData,
     standingsData,
     teamsData,
@@ -24282,8 +24687,17 @@ function attachPlayerCardPositioning(root) {
         return;
       }
 
+      const lineupEventBadge = getLineupEventBadge(event.target);
+      if (lineupEventBadge) {
+        showFloatingLineupEventTooltip(lineupEventBadge);
+        return;
+      }
+
       const playerHover = event.target.closest(".player-hover");
       if (playerHover) {
+        if (playerHover.querySelector(".lineup-event-badge:hover, .lineup-event-badge.is-event-tooltip-open")) {
+          return;
+        }
         positionPlayerCard(playerHover, { forceFloating: true });
       }
     },
@@ -24293,6 +24707,12 @@ function attachPlayerCardPositioning(root) {
   root?.addEventListener(
     "pointerleave",
     (event) => {
+      const lineupEventBadge = getLineupEventBadge(event.target);
+      if (lineupEventBadge) {
+        queueFloatingLineupEventTooltipHide();
+        return;
+      }
+
       const playerHover = event.target.closest?.(".player-hover");
       if (shouldUseFloatingPlayerCard(playerHover)) {
         queueFloatingPlayerCardHide();
@@ -24303,6 +24723,12 @@ function attachPlayerCardPositioning(root) {
 
   root?.addEventListener("focusin", (event) => {
     if (isTouchPlayerCardMode()) {
+      return;
+    }
+
+    const lineupEventBadge = getLineupEventBadge(event.target);
+    if (lineupEventBadge) {
+      showFloatingLineupEventTooltip(lineupEventBadge);
       return;
     }
 
@@ -24317,13 +24743,26 @@ function attachPlayerCardPositioning(root) {
       return;
     }
 
+    const lineupEventBadge = getLineupEventBadge(event.target);
+    if (lineupEventBadge) {
+      queueFloatingLineupEventTooltipHide();
+      return;
+    }
+
     const playerHover = event.target.closest(".player-hover");
     if (shouldUseFloatingPlayerCard(playerHover)) {
       queueFloatingPlayerCardHide();
     }
   });
 
-  root?.addEventListener("keydown", handlePlayerLinkKeydown);
+  root?.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && getLineupEventBadge(event.target)) {
+      hideFloatingLineupEventTooltip();
+      return;
+    }
+
+    handlePlayerLinkKeydown(event);
+  });
 }
 
 matchInfo.addEventListener("click", (event) => {
@@ -24492,6 +24931,9 @@ window.addEventListener("resize", () => {
   updateTimeZoneLabelForViewport();
   positionCatchUpPopover();
   positionPlayerCards();
+  if (floatingLineupEventTooltipSource?.isConnected) {
+    positionFloatingLineupEventTooltip(floatingLineupEventTooltipSource);
+  }
   updateWrappedMatchRows();
   updateTruncatedTeamTooltips();
   updateStandingNameTooltips();
@@ -24503,6 +24945,9 @@ window.addEventListener("resize", () => {
 	    updateStandingNameTooltips();
 	    updateMeasuredLabelTooltips();
 	    updateTooltipBounds();
+	    if (floatingLineupEventTooltipSource?.isConnected) {
+	      positionFloatingLineupEventTooltip(floatingLineupEventTooltipSource);
+	    }
 	    updateTournamentBoardLayout();
 	    updateTabIndicators();
 	  });
@@ -24512,6 +24957,9 @@ window.addEventListener(
   () => {
     positionCatchUpPopover();
     positionPlayerCards();
+    if (floatingLineupEventTooltipSource?.isConnected) {
+      positionFloatingLineupEventTooltip(floatingLineupEventTooltipSource);
+    }
     updateTooltipBounds();
   },
   true

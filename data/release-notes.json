@@ -1,6 +1,36 @@
 {
-  "updatedAt": "2026-07-01T22:45:00-07:00",
+  "updatedAt": "2026-07-02T10:36:00-07:00",
   "releases": [
+    {
+      "date": "2026-07-02",
+      "title": "USA-Bosnia highlights",
+      "titleZh": "美国-波黑集锦",
+      "highlights": [
+        "USA 2-0 Bosnia and Herzegovina now shows the verified FOX Sports YouTube highlight button in the Result card."
+      ],
+      "highlightsZh": [
+        "美国2-0波黑的比赛现在会在 Result 卡片中显示已核验的 FOX Sports YouTube 集锦按钮。"
+      ]
+    },
+    {
+      "date": "2026-07-02",
+      "title": "Final lineup backfill",
+      "titleZh": "完场阵容回填",
+      "highlights": [
+        "Completed matches now render FIFA official final team sheets on the pitch board, including starters, bench, card-time pills, substitutions, goals, and assists.",
+        "Formation hover cards now include contextual good/risk notes for every official shape currently in the final lineup backfill, including 4-1-2-3 and back-five setups.",
+        "Goal and assist badge tooltips now stay compact with just the minute and event type, while full player details remain available to assistive labels.",
+        "Coach icons stay circular in the formation row while the hover card keeps the richer rounded-square portrait, role, tenure, and coach notes where curated metadata exists.",
+        "Final lineup backfill now lives in data/lineups.json instead of bloating fixtures.json, with the pitch arrangement still labeled as formation/team-sheet-order derived."
+      ],
+      "highlightsZh": [
+        "已完赛比赛现在会在球场阵容板中显示 FIFA 官方最终队名单，包括首发、替补、带时间的红黄牌胶囊、换人、进球和助攻。",
+        "阵型悬停卡现在会为当前最终阵容回填中的每一种官方阵型显示“擅长/可能吃亏”的语境说明，包括 4-1-2-3 和五后卫阵型。",
+        "进球和助攻徽标的悬停提示现在只保留分钟和事件类型，完整球员信息仍保留在无障碍标签中。",
+        "教练图标在阵型栏保持圆形，悬停卡片继续使用更丰富的圆角方形头像、身份、执教年份和已策划的教练说明。",
+        "最终阵容回填现在存放在 data/lineups.json，不再撑大 fixtures.json；球场排布仍明确标记为按阵型/队名单顺序推导。"
+      ]
+    },
     {
       "date": "2026-07-01",
       "title": "Official formation and event logs",

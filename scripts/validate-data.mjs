@@ -16,6 +16,21 @@ const HISTORICAL_YOUTUBE_MATCHER_VERSION = "2026-06-29-official-fifa-highlights-
 const HISTORICAL_YOUTUBE_CHANNEL_ID = "UCpcTrCXblq78GZrTUTLWeBw";
 const HISTORICAL_YOUTUBE_SOURCE_NAME = "FIFA";
 const HIGHLIGHT_VIDEO_REVIEW_STATUSES = new Set(["not-found", "needs-review"]);
+const LINEUP_FORMATION_NOTE_FORMATIONS = new Set([
+  "3-4-1-2",
+  "3-4-3",
+  "3-5-2",
+  "4-1-2-3",
+  "4-1-3-2",
+  "4-1-4-1",
+  "4-2-1-3",
+  "4-2-3-1",
+  "4-3-3",
+  "4-4-2",
+  "5-2-3",
+  "5-3-2",
+  "5-4-1"
+]);
 
 async function readJson(fileName) {
   const filePath = path.join(dataDir, fileName);
@@ -687,6 +702,7 @@ function applyGroupResult(table, fixture) {
 const [
   fixturesData,
   historyData,
+  lineupsData,
   historicalPlayerProfilesData,
   adminMessageData,
   matchupResearchData,
@@ -699,6 +715,7 @@ const [
 ] = await Promise.all([
   readJson("fixtures.json"),
   readJson("history.json"),
+  readJson("lineups.json"),
   readJson("historical-player-profiles.json"),
   readOptionalJson("admin-message.json"),
   readOptionalJson("matchup-research-notes.json"),
@@ -755,6 +772,7 @@ for (const [index, item] of tournamentCatchUpItems.entries()) {
 
 requireSourceIds(fixturesData.sourceIds, sourceIds, "fixtures.json");
 requireSourceIds(historyData.sourceIds, sourceIds, "history.json");
+requireSourceIds(lineupsData.sourceIds, sourceIds, "lineups.json");
 requireSourceIds(historicalPlayerProfilesData.sourceIds, sourceIds, "historical-player-profiles.json");
 if (playerAvailabilityData) {
   requireSourceIds(playerAvailabilityData.sourceIds, sourceIds, "player-availability.json");
@@ -987,6 +1005,7 @@ const LINEUP_RECOGNIZED_POSITIONS = new Set([
   "RWB",
   "ST"
 ]);
+const LINEUP_SOURCE_POSITIONS = new Set(["goalkeeper", "defender", "midfielder", "forward"]);
 
 function normalizeLineupPositionCode(position) {
   const rawValue = String(position || "").trim();
@@ -1019,11 +1038,12 @@ function getLineupPositionSide(positionCode) {
 }
 
 function getLineupProfileExpectedSide(profile = {}) {
-  const value = String(profile.position || "").toLowerCase();
+  const value = String((profile || {}).position || "").toLowerCase();
   const rightSide = /\bright(?:-| )(?:back|wing-back|wing back|winger|midfielder)\b/.test(value);
   const leftSide = /\bleft(?:-| )(?:back|wing-back|wing back|winger|midfielder)\b/.test(value);
+  const centralRole = /\b(?:central midfielder|defensive midfielder|attacking midfielder|centre-back|center-back|striker|centre-forward|center-forward|goalkeeper)\b/.test(value);
 
-  if (rightSide === leftSide) {
+  if (rightSide === leftSide || centralRole) {
     return "";
   }
 
@@ -1056,6 +1076,15 @@ function hasLineupPlayerName(playerNames, playerName) {
     const candidateKey = getLineupPlayerKey(name);
     return candidateKey === key || isPlayerNameMatch(playerName, name) || isPlayerNameMatch(name, playerName);
   });
+}
+
+function hasExactLineupPlayerName(playerNames, playerName) {
+  const key = getLineupPlayerKey(playerName);
+  if (!key) {
+    return false;
+  }
+
+  return playerNames.some((name) => getLineupPlayerKey(name) === key);
 }
 
 function getLineupPlayerProfile(player, teamId) {
@@ -1120,6 +1149,12 @@ function validateLineupPlayer(player, owner, { teamId = "", requirePosition = tr
   if (requirePosition) {
     assert(typeof player.position === "string" && player.position.trim(), `${owner}.position must be a non-empty string`);
   }
+  if (player.sourcePosition !== undefined) {
+    assert(
+      LINEUP_SOURCE_POSITIONS.has(String(player.sourcePosition).trim()),
+      `${owner}.sourcePosition must be goalkeeper, defender, midfielder, or forward`
+    );
+  }
 
   for (const coordinate of ["x", "y"]) {
     if (player[coordinate] === undefined) {
@@ -1148,6 +1183,13 @@ function validateLineupSide(teamLineup, fixture, side) {
   }
 
   assert(typeof teamLineup.formation === "string" && teamLineup.formation.trim(), `${owner}.formation must be a non-empty string`);
+  if (typeof teamLineup.formation === "string" && teamLineup.formation.trim()) {
+    const formation = teamLineup.formation.trim();
+    assert(
+      LINEUP_FORMATION_NOTE_FORMATIONS.has(formation),
+      `${owner}.formation "${formation}" must have curated formation hover notes`
+    );
+  }
   if (teamLineup.coach !== undefined) {
     assert(isPlainObject(teamLineup.coach), `${owner}.coach must be an object`);
     if (isPlainObject(teamLineup.coach)) {
@@ -1173,7 +1215,7 @@ function validateLineupSide(teamLineup, fixture, side) {
       teamId: fixture[`${side}TeamId`]
     });
     if (name) {
-      assert(!hasLineupPlayerName(starterNames, name), `${owner}.players[${index}] duplicates starter "${name}"`);
+      assert(!hasExactLineupPlayerName(starterNames, name), `${owner}.players[${index}] duplicates starter "${name}"`);
       starterNames.push(name);
     }
   }
@@ -1186,7 +1228,7 @@ function validateLineupSide(teamLineup, fixture, side) {
       teamId: fixture[`${side}TeamId`]
     });
     if (name) {
-      assert(!hasLineupPlayerName([...starterNames, ...benchNames], name), `${owner}.bench[${index}] duplicates lineup player "${name}"`);
+      assert(!hasExactLineupPlayerName([...starterNames, ...benchNames], name), `${owner}.bench[${index}] duplicates lineup player "${name}"`);
       benchNames.push(name);
     }
   }
@@ -1228,8 +1270,24 @@ function validateLineupEvents(events, playerNames, owner) {
     }
   }
 
+  if (events.staffCards !== undefined) {
+    assert(Array.isArray(events.staffCards), `${owner}.events.staffCards must be an array`);
+    for (const [index, card] of (Array.isArray(events.staffCards) ? events.staffCards : []).entries()) {
+      const cardOwner = `${owner}.events.staffCards[${index}]`;
+      assert(isPlainObject(card), `${cardOwner} must be an object`);
+      if (!isPlainObject(card)) continue;
+      assert(typeof card.staffName === "string" && card.staffName.trim(), `${cardOwner}.staffName must be a non-empty string`);
+      assert(["yellow", "red"].includes(card.type), `${cardOwner}.type must be yellow or red`);
+      if (card.role !== undefined) {
+        assert(["coach", "staff"].includes(card.role), `${cardOwner}.role must be coach or staff`);
+      }
+      validateLineupMinute(card.minute, cardOwner);
+    }
+  }
+
   if (events.substitutions !== undefined) {
     assert(Array.isArray(events.substitutions), `${owner}.events.substitutions must be an array`);
+    const onFieldNames = [...playerNames.starters];
     for (const [index, substitution] of (Array.isArray(events.substitutions) ? events.substitutions : []).entries()) {
       const substitutionOwner = `${owner}.events.substitutions[${index}]`;
       assert(isPlainObject(substitution), `${substitutionOwner} must be an object`);
@@ -1238,13 +1296,20 @@ function validateLineupEvents(events, playerNames, owner) {
       assert(typeof substitution.onName === "string" && substitution.onName.trim(), `${substitutionOwner}.onName must be a non-empty string`);
       validateLineupMinute(substitution.minute, substitutionOwner);
       assert(
-        hasLineupPlayerName(playerNames.starters, substitution.offName),
-        `${substitutionOwner}.offName must match a starter`
+        hasLineupPlayerName(onFieldNames, substitution.offName),
+        `${substitutionOwner}.offName must match a player currently on the field`
       );
       assert(
         hasLineupPlayerName(playerNames.bench, substitution.onName),
         `${substitutionOwner}.onName must match a bench player`
       );
+      const offIndex = onFieldNames.findIndex((name) => hasLineupPlayerName([name], substitution.offName));
+      if (offIndex >= 0) {
+        onFieldNames.splice(offIndex, 1);
+      }
+      if (!hasLineupPlayerName(onFieldNames, substitution.onName)) {
+        onFieldNames.push(substitution.onName);
+      }
     }
   }
 }
@@ -1266,6 +1331,18 @@ function validateFixtureLineups(fixture, sourceIdSet) {
     `${owner}.sourceIds must include at least one source`
   );
   validateLineupTimestamp(fixture.lineups.checkedAt || fixture.lineups.updatedAt, `${owner}.checkedAt`);
+  if (fixture.lineups.teamSheetSource !== undefined) {
+    assert(["fifa-official", "provider", "editorial"].includes(fixture.lineups.teamSheetSource), `${owner}.teamSheetSource must be fifa-official, provider, or editorial`);
+  }
+  if (fixture.lineups.eventSource !== undefined) {
+    assert(["fifa-official", "provider", "editorial"].includes(fixture.lineups.eventSource), `${owner}.eventSource must be fifa-official, provider, or editorial`);
+  }
+  if (fixture.lineups.layoutSource !== undefined) {
+    assert(
+      ["fifa-official", "provider", "derived-team-sheet-order", "editorial"].includes(fixture.lineups.layoutSource),
+      `${owner}.layoutSource must be fifa-official, provider, derived-team-sheet-order, or editorial`
+    );
+  }
 
   const mode = String(fixture.lineups.mode || fixture.lineups.status || "").trim();
   assert(["prediction", "confirmed", "final"].includes(mode), `${owner}.mode must be prediction, confirmed, or final`);
@@ -1281,6 +1358,49 @@ function validateFixtureLineups(fixture, sourceIdSet) {
   const awayPlayers = validateLineupSide(fixture.lineups.away, fixture, "away");
   validateLineupEvents(fixture.lineups.home?.events, homePlayers, `${owner}.home`);
   validateLineupEvents(fixture.lineups.away?.events, awayPlayers, `${owner}.away`);
+}
+
+function collectLineupSidePlayerNames(teamLineup) {
+  const players = [
+    ...(Array.isArray(teamLineup?.players) ? teamLineup.players : []),
+    ...(Array.isArray(teamLineup?.starters) ? teamLineup.starters : []),
+    ...(Array.isArray(teamLineup?.bench) ? teamLineup.bench : [])
+  ];
+
+  return players.map(getLineupPlayerName).filter(Boolean);
+}
+
+function validateLineupGoalCoverage(fixture, owner) {
+  const lineups = fixture.lineups;
+  if (!lineups) {
+    return;
+  }
+
+  const namesBySide = {
+    home: collectLineupSidePlayerNames(lineups.home),
+    away: collectLineupSidePlayerNames(lineups.away)
+  };
+
+  for (const [field, scoringSide] of [
+    ["goalsHome", "home"],
+    ["goalsAway", "away"]
+  ]) {
+    const opponentSide = scoringSide === "home" ? "away" : "home";
+    for (const [index, goal] of (fixture[field] || []).entries()) {
+      const goalOwner = `${owner}.${field}[${index}]`;
+      const scorerSide = goal?.ownGoal ? opponentSide : scoringSide;
+      assert(
+        hasLineupPlayerName(namesBySide[scorerSide], goal?.name),
+        `${goalOwner}.name must match ${scorerSide} lineup player "${goal?.name || ""}"`
+      );
+      if (!goal?.ownGoal && goal?.assistName !== undefined) {
+        assert(
+          hasLineupPlayerName(namesBySide[scoringSide], goal.assistName),
+          `${goalOwner}.assistName must match ${scoringSide} lineup player "${goal.assistName}"`
+        );
+      }
+    }
+  }
 }
 
 function validateMatchEventsSide(sideEvents, fixture, side) {
@@ -1560,10 +1680,12 @@ for (const [groupId, rows] of Object.entries(standingsData.groups || {})) {
 }
 
 const fixtureIds = new Set();
+const fixturesById = new Map();
 for (const fixture of fixturesData.fixtures || []) {
   assert(fixture.id, "Each fixture must have an id");
   assert(!fixtureIds.has(fixture.id), `Duplicate fixture id "${fixture.id}"`);
   fixtureIds.add(fixture.id);
+  fixturesById.set(fixture.id, fixture);
   assert(stages.has(fixture.stage), `Fixture "${fixture.id}" references unknown stage "${fixture.stage}"`);
   assert(!Number.isNaN(new Date(fixture.kickoffUtc).getTime()), `Fixture "${fixture.id}" must have a valid kickoffUtc`);
   const hasHomeTeam = fixture.homeTeamId && teams.has(fixture.homeTeamId);
@@ -1696,7 +1818,7 @@ for (const fixture of fixturesData.fixtures || []) {
   validateHighlightVideo(fixture);
   validateHighlightVideoReview(fixture);
   validateResultStoryResearch(fixture, sourceIds);
-  validateFixtureLineups(fixture, sourceIds);
+  assert(fixture.lineups === undefined, `Fixture "${fixture.id}" must store lineup records in lineups.json, not fixtures.json`);
   validateFixtureMatchEvents(fixture, sourceIds);
 
   if (fixture.projection) {
@@ -1949,6 +2071,24 @@ for (const { teamId, index, player } of fixtureUnavailableRefs) {
     fixtureIds.has(player.fixtureId),
     `player-availability.json team "${teamId}" fixtureUnavailable[${index}] references unknown fixture "${player.fixtureId}"`
   );
+}
+
+assert(isPlainObject(lineupsData), "lineups.json must be an object");
+if (isPlainObject(lineupsData)) {
+  if (lineupsData.updatedAt !== undefined) {
+    assert(isValidDateTime(lineupsData.updatedAt), "lineups.json updatedAt must be a valid date-time when present");
+  }
+  assert(isPlainObject(lineupsData.lineups), "lineups.json lineups must be an object keyed by fixture id");
+  for (const [fixtureId, lineups] of Object.entries(isPlainObject(lineupsData.lineups) ? lineupsData.lineups : {})) {
+    const fixture = fixturesById.get(fixtureId);
+    assert(fixture, `lineups.json references unknown fixture "${fixtureId}"`);
+    if (!fixture) {
+      continue;
+    }
+    const fixtureWithLineups = { ...fixture, lineups };
+    validateFixtureLineups(fixtureWithLineups, sourceIds);
+    validateLineupGoalCoverage(fixtureWithLineups, `lineups.json fixture "${fixtureId}"`);
+  }
 }
 
 for (const playerName of requiredProfileNames) {
