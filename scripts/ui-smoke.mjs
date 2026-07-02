@@ -1610,12 +1610,44 @@ function getExpectedReleaseTooltipText(data) {
   return [title, ...highlights].filter(Boolean).join(" ");
 }
 
+async function useDesktopPointerMedia(context) {
+  await context.addInitScript(() => {
+    const realMatchMedia = window.matchMedia?.bind(window);
+    const makeMediaResult = (query, matches) => ({
+      matches,
+      media: String(query),
+      onchange: null,
+      addListener() {},
+      removeListener() {},
+      addEventListener() {},
+      removeEventListener() {},
+      dispatchEvent() {
+        return false;
+      }
+    });
+
+    window.matchMedia = (query) => {
+      const queryText = String(query);
+      if (/(hover:\s*none|pointer:\s*coarse)/.test(queryText)) {
+        return makeMediaResult(queryText, false);
+      }
+      if (/(hover:\s*hover|pointer:\s*fine)/.test(queryText)) {
+        return makeMediaResult(queryText, true);
+      }
+      return realMatchMedia ? realMatchMedia(query) : makeMediaResult(queryText, false);
+    };
+  });
+}
+
 async function openPageAtTime(
   nowIso,
   path = "/?view=matches&date=2026-06-17&tz=America%2FLos_Angeles",
   options = {}
 ) {
   const context = await browser.newContext(options.contextOptions || {});
+  if (options.desktopPointerMedia) {
+    await useDesktopPointerMedia(context);
+  }
   await context.addInitScript((mockNowIso) => {
     const RealDate = Date;
     const mockNow = new RealDate(mockNowIso);
@@ -4369,7 +4401,8 @@ try {
 
   const finalLineupModeCheck = await openPageAtTime(
     "2026-07-02T02:45:00.000Z",
-    "/?view=matches&date=2026-07-01&tz=America%2FLos_Angeles&lineupPrototype=1"
+    "/?view=matches&date=2026-07-01&tz=America%2FLos_Angeles&lineupPrototype=1",
+    { desktopPointerMedia: true }
   );
   await finalLineupModeCheck.page.locator('[data-match-id="match-81-round-of-32-2026-07-01"]').click();
   const finalLineupState = await finalLineupModeCheck.page.locator("#match-info .lineup-preview-block").evaluate((block) => ({
@@ -5994,7 +6027,11 @@ try {
     await pendingScoreCheck.context.close();
   }
 
-  const catchUpCheck = await openPageAtTime("2026-06-18T05:30:00.000Z");
+  const catchUpCheck = await openPageAtTime(
+    "2026-06-18T05:30:00.000Z",
+    "/?view=matches&date=2026-06-17&tz=America%2FLos_Angeles",
+    { desktopPointerMedia: true }
+  );
   const immediateCatchUpOpenState = await catchUpCheck.page.locator("#catch-up-button").evaluate((button) => {
     button.click();
     const popover = document.querySelector("#catch-up-popover");
