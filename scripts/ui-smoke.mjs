@@ -4478,10 +4478,12 @@ try {
       ),
     `Line-up player thumbnails should expose full event aria labels while goal and assist tooltips stay compact. Measured ${JSON.stringify(lineupCornerEventState)}.`
   );
-  await finalLineupModeCheck.page
+  const lineupEventBadge = finalLineupModeCheck.page
     .locator('#match-info .lineup-event-score[aria-label*="Harry Kane"][aria-label*="Goal"]')
-    .first()
-    .hover();
+    .first();
+  await lineupEventBadge.scrollIntoViewIfNeeded();
+  await lineupEventBadge.dispatchEvent("pointerover", { pointerType: "mouse", bubbles: true });
+  await lineupEventBadge.dispatchEvent("pointerenter", { pointerType: "mouse", bubbles: false });
   await finalLineupModeCheck.page.waitForTimeout(160);
   const lineupEventTooltipState = await finalLineupModeCheck.page.evaluate(() => {
     const tooltip = document.querySelector(".lineup-event-tooltip-floating");
@@ -4528,6 +4530,8 @@ try {
       lineupEventTooltipState.visiblePlayerCards.length === 0,
     `Line-up event badges should show one unclipped floating tooltip without also showing a player card. Measured ${JSON.stringify(lineupEventTooltipState)}.`
   );
+  await lineupEventBadge.dispatchEvent("pointerleave", { pointerType: "mouse", bubbles: false });
+  await finalLineupModeCheck.page.waitForTimeout(80);
   await finalLineupModeCheck.page
     .locator("#match-info .lineup-tab-panel:not([hidden]) .lineup-tab[data-lineup-tab='away']")
     .dispatchEvent("click");
