@@ -3679,7 +3679,8 @@ try {
       historicalScorerTriggerMeta.href === "",
     `Historical archive player-card triggers should not navigate to the raw dataset. Measured ${JSON.stringify(historicalScorerTriggerMeta)}.`
   );
-  await historicalScorerLink.hover();
+  await historicalScorerLink.focus();
+  await page.keyboard.press("Enter");
   const historicalScorerCard = page.locator(".player-card:visible").first();
   await historicalScorerCard.waitFor({ state: "visible" });
   const historicalScorerCardText = await historicalScorerCard.innerText();
