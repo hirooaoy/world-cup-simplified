@@ -24677,32 +24677,35 @@ function handlePlayerLinkKeydown(event) {
   return true;
 }
 
+function handlePlayerHoverPointerPreview(event, options = {}) {
+  if (!shouldPreviewPlayerCardOnHover(event)) {
+    return;
+  }
+
+  const lineupEventBadge = getLineupEventBadge(event.target);
+  if (lineupEventBadge) {
+    showFloatingLineupEventTooltip(lineupEventBadge);
+    return;
+  }
+
+  if (options.eventBadgesOnly) {
+    return;
+  }
+
+  const playerHover = event.target.closest(".player-hover");
+  if (playerHover) {
+    if (playerHover.querySelector(".lineup-event-badge:hover, .lineup-event-badge.is-event-tooltip-open")) {
+      return;
+    }
+    positionPlayerCard(playerHover, { forceFloating: true });
+  }
+}
+
 function attachPlayerCardPositioning(root) {
   root?.addEventListener("pointerdown", handlePlayerHoverPointerDown, true);
 
-  root?.addEventListener(
-    "pointerenter",
-    (event) => {
-      if (!shouldPreviewPlayerCardOnHover(event)) {
-        return;
-      }
-
-      const lineupEventBadge = getLineupEventBadge(event.target);
-      if (lineupEventBadge) {
-        showFloatingLineupEventTooltip(lineupEventBadge);
-        return;
-      }
-
-      const playerHover = event.target.closest(".player-hover");
-      if (playerHover) {
-        if (playerHover.querySelector(".lineup-event-badge:hover, .lineup-event-badge.is-event-tooltip-open")) {
-          return;
-        }
-        positionPlayerCard(playerHover, { forceFloating: true });
-      }
-    },
-    true
-  );
+  root?.addEventListener("pointerenter", handlePlayerHoverPointerPreview, true);
+  root?.addEventListener("pointerover", (event) => handlePlayerHoverPointerPreview(event, { eventBadgesOnly: true }), true);
 
   root?.addEventListener(
     "pointerleave",
