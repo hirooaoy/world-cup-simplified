@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-02T20:39:56.292Z",
+  "updatedAt": "2026-07-02T22:01:58.956Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -19410,7 +19410,7 @@
       "homeSlot": "Group H winner",
       "awaySlot": "Group J runner-up",
       "venue": "Los Angeles Stadium",
-      "status": "LIVE",
+      "status": "FT",
       "h2h": {
         "status": "loaded",
         "sourceId": "national-football-teams-h2h-sync-2026-06-30",
@@ -19584,7 +19584,7 @@
         "away": "Austria are a high-pressure European side with enough experience to make the press feel organized rather than wild, led by David Alaba, Marcel Sabitzer, and Konrad Laimer. Against Spain, their Sabitzer-Laimer pressure waves has to beat Spain's Yamal-Williams wide stretch. They want to force rushed passes and let Sabitzer and Laimer attack the next ball before defenses reset. The risk is Spain can stretch the pitch through Yamal and Williams before Pedri breaks the line."
       },
       "score": {
-        "home": 2,
+        "home": 3,
         "away": 0
       }
     },
@@ -20421,7 +20421,8 @@
           "matchId": "400021529",
           "matchNumber": 93
         }
-      }
+      },
+      "awayTeamId": "ESP"
     },
     {
       "id": "match-94-round-of-16-2026-07-06",
