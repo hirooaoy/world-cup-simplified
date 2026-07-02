@@ -1,6 +1,19 @@
 {
-  "updatedAt": "2026-07-01T17:14:39-07:00",
+  "updatedAt": "2026-07-01T17:25:05-07:00",
   "releases": [
+    {
+      "date": "2026-07-01",
+      "title": "Line-ups preview on Vercel",
+      "titleZh": "Vercel 阵容预览",
+      "highlights": [
+        "The guarded line-ups visual prototype can now be reviewed on Vercel with lineups=preview, while staying hidden by default on public production URLs.",
+        "Tomorrow's scheduled Round of 32 matches now have predicted-lineup mock coverage for the preview slice, and live preview pages can still show the prediction-labelled lineup visual."
+      ],
+      "highlightsZh": [
+        "受保护的阵容可视化原型现在可以通过 lineups=preview 在 Vercel 上预览，同时默认仍不会出现在公开生产链接中。",
+        "明天的32强赛程现在补上预测阵容的模拟覆盖；直播中的预览页也可以继续显示带“预测阵容”标签的阵容视觉。"
+      ]
+    },
     {
       "date": "2026-07-01",
       "title": "Result-first match details",

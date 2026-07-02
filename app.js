@@ -52,6 +52,11 @@ const LANGUAGE_LOCALES = {
 };
 const SUPPORTED_LANGUAGES = new Set(Object.keys(LANGUAGE_LOCALES));
 const LANGUAGE_SWITCH_PENDING_MIN_MS = 260;
+const INITIAL_URL_SEARCH_PARAMS = new URLSearchParams(window.location.search);
+const LINEUP_VISUAL_PROTOTYPE_PREVIEW_VALUES = new Set(["1", "preview", "true"]);
+const isLineupVisualPrototypePreviewRequested = LINEUP_VISUAL_PROTOTYPE_PREVIEW_VALUES.has(
+  String(INITIAL_URL_SEARCH_PARAMS.get("lineups") || "").toLowerCase()
+);
 const UI_TEXT = {
   en: {
     adminMessage: "Admin message",
@@ -1405,7 +1410,71 @@ const ZH_PLAYER_NAME_TRANSLATIONS = {
   "Willian Pacho": "威廉·帕乔",
   "Yahia Fofana": "亚希亚·福法纳",
   "Youri Tielemans": "尤里·蒂勒曼斯",
-  "Zeno Debast": "泽诺·德巴斯特"
+  "Zeno Debast": "泽诺·德巴斯特",
+  "Aissa Mandi": "艾萨·曼迪",
+  "Aïssa Mandi": "艾萨·曼迪",
+  "Andrej Kramaric": "安德烈·克拉马里奇",
+  "Andrej Kramarić": "安德烈·克拉马里奇",
+  "Ante Budimir": "安特·布迪米尔",
+  "Aymeric Laporte": "艾默里克·拉波尔特",
+  "Bernardo Silva": "贝尔纳多·席尔瓦",
+  "Dan Ndoye": "丹·恩多耶",
+  "Fabian Rieder": "法比安·里德尔",
+  "Fabian Ruiz": "法比安·鲁伊斯",
+  "Fabián Ruiz": "法比安·鲁伊斯",
+  "Goncalo Inacio": "贡萨洛·伊纳西奥",
+  "Gonçalo Inácio": "贡萨洛·伊纳西奥",
+  "Gregor Kobel": "格雷戈尔·科贝尔",
+  "Ivan Perisic": "伊万·佩里希奇",
+  "Ivan Perišić": "伊万·佩里希奇",
+  "Joao Cancelo": "若昂·坎塞洛",
+  "João Cancelo": "若昂·坎塞洛",
+  "João Neves": "若昂·内维斯",
+  "Josip Stanisic": "约西普·斯塔尼希奇",
+  "Josip Stanišić": "约西普·斯塔尼希奇",
+  "Josip Sutalo": "约西普·舒塔洛",
+  "Josip Šutalo": "约西普·舒塔洛",
+  "Kevin Danso": "凯文·丹索",
+  "Luca Zidane": "卢卡·齐达内",
+  "Marco Pasalic": "马尔科·帕沙利奇",
+  "Marco Pašalić": "马尔科·帕沙利奇",
+  "Marc Cucurella": "马克·库库雷利亚",
+  "Marko Arnautovic": "马尔科·阿瑙托维奇",
+  "Marko Arnautović": "马尔科·阿瑙托维奇",
+  "Martin Baturina": "马丁·巴图里纳",
+  "Mikel Oyarzabal": "米克尔·奥亚萨瓦尔",
+  "Mohamed Amoura": "穆罕默德·阿穆拉",
+  "Nabil Bentaleb": "纳比勒·本塔莱布",
+  "Nico Elvedi": "尼科·埃尔韦迪",
+  "Nicolas Seiwald": "尼古拉斯·塞瓦尔德",
+  "Patrick Pentz": "帕特里克·彭茨",
+  "Patrick Wimmer": "帕特里克·维默",
+  "Pau Cubarsi": "保·库巴尔西",
+  "Pau Cubarsí": "保·库巴尔西",
+  "Pedro Porro": "佩德罗·波罗",
+  "Pedri": "佩德里",
+  "Phillip Mwene": "菲利普·姆韦内",
+  "Phillipp Mwene": "菲利普·姆韦内",
+  "Rak Belghali": "拉菲克·贝尔加利",
+  "Rafik Belghali": "拉菲克·贝尔加利",
+  "Ramiz Zerrouki": "拉米兹·泽鲁基",
+  "Ramy Bensebaini": "拉米·本塞拜尼",
+  "Rayan Ait-Nouri": "拉扬·艾特-努里",
+  "Rayan Aït-Nouri": "拉扬·艾特-努里",
+  "Ricardo Rodriguez": "里卡多·罗德里格斯",
+  "Ricardo Rodríguez": "里卡多·罗德里格斯",
+  "Rodri": "罗德里",
+  "Romano Schmid": "罗马诺·施密德",
+  "Remo Freuler": "雷莫·弗罗伊勒",
+  "Ruben Dias": "鲁本·迪亚斯",
+  "Rúben Dias": "鲁本·迪亚斯",
+  "Rubén Vargas": "鲁文·巴尔加斯",
+  "Ruben Vargas": "鲁文·巴尔加斯",
+  "Silvan Widmer": "西尔万·威德默",
+  "Stefan Posch": "斯特凡·波施",
+  "Unai Simon": "乌奈·西蒙",
+  "Unai Simón": "乌奈·西蒙",
+  "Vitinha": "维蒂尼亚"
 };
 
 const ZH_CLUB_NAME_TRANSLATIONS = {
@@ -15095,7 +15164,11 @@ function renderResultNotes(match) {
 }
 
 function isLineupVisualPrototypeEnabled() {
-  return ["localhost", "127.0.0.1", ""].includes(window.location.hostname);
+  if (["localhost", "127.0.0.1", ""].includes(window.location.hostname)) {
+    return true;
+  }
+
+  return isLineupVisualPrototypePreviewRequested;
 }
 
 const MOCK_LINEUP_LAYOUTS = {
@@ -15270,6 +15343,102 @@ const MOCK_LINEUP_TEAM_CONFIGS = {
       "Julian Quinones"
     ]
   },
+  POR: {
+    formation: "4-2-3-1",
+    starters: [
+      "Diogo Costa",
+      "Joao Cancelo",
+      "Ruben Dias",
+      "Goncalo Inacio",
+      "Nuno Mendes",
+      "Joao Neves",
+      "Vitinha",
+      "Bernardo Silva",
+      "Bruno Fernandes",
+      "Rafael Leao",
+      "Cristiano Ronaldo"
+    ]
+  },
+  CRO: {
+    formation: "4-3-3",
+    starters: [
+      "Dominik Livakovic",
+      "Josip Stanisic",
+      "Josip Sutalo",
+      "Josko Gvardiol",
+      "Ivan Perisic",
+      "Mateo Kovacic",
+      "Luka Modric",
+      "Martin Baturina",
+      "Marco Pasalic",
+      "Ante Budimir",
+      "Andrej Kramaric"
+    ]
+  },
+  ESP: {
+    formation: "4-3-3",
+    starters: [
+      "Unai Simon",
+      "Pedro Porro",
+      "Pau Cubarsi",
+      "Aymeric Laporte",
+      "Marc Cucurella",
+      "Rodri",
+      "Pedri",
+      "Fabian Ruiz",
+      "Lamine Yamal",
+      "Mikel Oyarzabal",
+      "Nico Williams"
+    ]
+  },
+  AUT: {
+    formation: "4-2-3-1",
+    starters: [
+      "Patrick Pentz",
+      "Stefan Posch",
+      "Kevin Danso",
+      "David Alaba",
+      "Phillip Mwene",
+      "Nicolas Seiwald",
+      "Konrad Laimer",
+      "Patrick Wimmer",
+      "Marcel Sabitzer",
+      "Romano Schmid",
+      "Marko Arnautovic"
+    ]
+  },
+  SUI: {
+    formation: "4-2-3-1",
+    starters: [
+      "Gregor Kobel",
+      "Silvan Widmer",
+      "Manuel Akanji",
+      "Nico Elvedi",
+      "Ricardo Rodriguez",
+      "Granit Xhaka",
+      "Remo Freuler",
+      "Dan Ndoye",
+      "Fabian Rieder",
+      "Ruben Vargas",
+      "Breel Embolo"
+    ]
+  },
+  ALG: {
+    formation: "4-3-3",
+    starters: [
+      "Luca Zidane",
+      "Rak Belghali",
+      "Aissa Mandi",
+      "Ramy Bensebaini",
+      "Rayan Ait-Nouri",
+      "Nabil Bentaleb",
+      "Houssem Aouar",
+      "Ramiz Zerrouki",
+      "Riyad Mahrez",
+      "Amine Gouiri",
+      "Mohamed Amoura"
+    ]
+  },
   NOR: {
     formation: "4-3-3",
     starters: [
@@ -15341,7 +15510,10 @@ const MOCK_LINEUP_MATCH_COVERAGE = {
   "match-78-round-of-32-2026-06-30": { home: "CIV", away: "NOR" },
   "match-79-round-of-32-2026-06-30": { home: "MEX", away: "ECU" },
   "match-81-round-of-32-2026-07-01": { home: "USA", away: "BIH", mode: "prediction" },
-  "match-82-round-of-32-2026-07-01": { home: "BEL", away: "SEN" }
+  "match-82-round-of-32-2026-07-01": { home: "BEL", away: "SEN" },
+  "match-83-round-of-32-2026-07-02": { home: "POR", away: "CRO", mode: "prediction" },
+  "match-84-round-of-32-2026-07-02": { home: "ESP", away: "AUT", mode: "prediction" },
+  "match-85-round-of-32-2026-07-02": { home: "SUI", away: "ALG", mode: "prediction" }
 };
 
 function getMockFormationNotes(formation) {
@@ -16496,6 +16668,7 @@ function renderMatchStatusBlock(match) {
         ${renderScoringDetailsList(match, { showMissingWhenGoalsScored: true })}
         <p class="data-note">${escapeHtml(localizeText("Live status is manually verified and should be refreshed after full time."))}</p>
       </section>
+      ${renderLineupVisualPrototype(match)}
     `;
   }
 
@@ -22208,6 +22381,10 @@ function applyUrlState(options = {}) {
 
   if (currentLanguage !== DEFAULT_LANGUAGE) {
     params.set("lang", currentLanguage);
+  }
+
+  if (isLineupVisualPrototypePreviewRequested) {
+    params.set("lineups", "preview");
   }
 
   if (activeView === "standings" && selectedStandingsYear !== CURRENT_STANDINGS_YEAR) {
