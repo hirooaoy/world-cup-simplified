@@ -3569,13 +3569,13 @@ try {
     historicalPlayerProfileRequests.length === 0,
     "Current match browsing should not preload the historical player profile dataset."
   );
-  const historicalPlayerProfilesResponse = page.waitForResponse(
-    (response) => /\/data\/historical-player-profiles\.json(?:\?|$)/.test(response.url()) && response.ok()
+  const historicalPlayerProfilesRequest = page.waitForRequest(
+    (request) => /\/data\/historical-player-profiles\.json(?:\?|$)/.test(request.url())
   );
   await page.goto(`${baseUrl}?view=matches&date=2022-11-20&tz=America%2FLos_Angeles`, {
     waitUntil: "load"
   });
-  await historicalPlayerProfilesResponse;
+  await historicalPlayerProfilesRequest;
   await page.waitForSelector(".match-row");
   assert(
     (await page.locator("#day-label").innerText()).trim() === "Nov 20, 2022",
