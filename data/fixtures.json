@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-02T17:52:49.393Z",
+  "updatedAt": "2026-07-02T19:15:07.300Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -19410,7 +19410,7 @@
       "homeSlot": "Group H winner",
       "awaySlot": "Group J runner-up",
       "venue": "Los Angeles Stadium",
-      "status": "SCHEDULED",
+      "status": "LIVE",
       "h2h": {
         "status": "loaded",
         "sourceId": "national-football-teams-h2h-sync-2026-06-30",
@@ -19582,6 +19582,10 @@
         "sourceId": "editorial-preview-2026-06-22",
         "home": "Spain are one of the tournament's most polished possession teams, led by Lamine Yamal, Pedri, and Nico Williams. Against Austria, their Yamal-Williams wide stretch has to beat Austria's Sabitzer-Laimer pressure waves. They want to pin the wide defenders with Yamal and Williams before Pedri plays through the gaps. The risk is Austria can press the first pass, win territory, and attack before defenses reset.",
         "away": "Austria are a high-pressure European side with enough experience to make the press feel organized rather than wild, led by David Alaba, Marcel Sabitzer, and Konrad Laimer. Against Spain, their Sabitzer-Laimer pressure waves has to beat Spain's Yamal-Williams wide stretch. They want to force rushed passes and let Sabitzer and Laimer attack the next ball before defenses reset. The risk is Spain can stretch the pitch through Yamal and Williams before Pedri breaks the line."
+      },
+      "score": {
+        "home": 0,
+        "away": 0
       }
     },
     {
