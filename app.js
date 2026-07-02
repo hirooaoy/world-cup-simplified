@@ -1300,7 +1300,112 @@ const ZH_PLAYER_NAME_TRANSLATIONS = {
   "Rafael Leao": "拉斐尔·莱奥",
   "Rafael Leão": "拉斐尔·莱奥",
   "Raúl Rangel": "劳尔·兰赫尔",
-  "Yassine Bounou": "亚辛·布努"
+  "Yassine Bounou": "亚辛·布努",
+  "Adrien Rabiot": "阿德里安·拉比奥",
+  "Alan Franco": "阿兰·弗朗科",
+  "Amadou Onana": "阿马杜·奥纳纳",
+  "Amar Dedic": "阿马尔·德迪奇",
+  "Amar Dedić": "阿马尔·德迪奇",
+  "Amir Hadziahmetovic": "阿米尔·哈季艾哈梅托维奇",
+  "Amir Hadžiahmetović": "阿米尔·哈季艾哈梅托维奇",
+  "Angelo Preciado": "安赫洛·普雷西亚多",
+  "Ángelo Preciado": "安赫洛·普雷西亚多",
+  "Anthony Elanga": "安东尼·埃兰加",
+  "Antoine Mendy": "安托万·门迪",
+  "Antonee Robinson": "安东尼·罗宾逊",
+  "Arthur Theate": "阿图尔·泰特",
+  "Aurelien Tchouameni": "奥雷利安·楚阿梅尼",
+  "Aurélien Tchouaméni": "奥雷利安·楚阿梅尼",
+  "Benjamin Tahirovic": "本亚明·塔希罗维奇",
+  "Benjamin Tahirović": "本亚明·塔希罗维奇",
+  "Cesar Montes": "塞萨尔·蒙特斯",
+  "César Montes": "塞萨尔·蒙特斯",
+  "Chris Richards": "克里斯·理查兹",
+  "Dennis Hadzikadunic": "丹尼斯·哈季卡杜尼奇",
+  "Dennis Hadžikadunić": "丹尼斯·哈季卡杜尼奇",
+  "Edouard Mendy": "爱德华·门迪",
+  "Édouard Mendy": "爱德华·门迪",
+  "Elye Wahi": "埃利·瓦希",
+  "Emmanuel Agbadou": "埃马纽埃尔·阿格巴杜",
+  "Ermedin Demirovic": "埃尔梅丁·德米罗维奇",
+  "Ermedin Demirović": "埃尔梅丁·德米罗维奇",
+  "Evan Ndicka": "埃文·恩迪卡",
+  "Folarin Balogun": "福拉林·巴洛贡",
+  "Gabriel Gudmundsson": "加布里埃尔·古德蒙德松",
+  "Ghislain Konan": "吉斯兰·科南",
+  "Giovanni Reyna": "乔瓦尼·雷纳",
+  "Gonzalo Plata": "贡萨洛·普拉塔",
+  "Guela Doue": "盖拉·杜埃",
+  "Guéla Doué": "盖拉·杜埃",
+  "Guillermo Ochoa": "吉列尔莫·奥乔亚",
+  "Habib Diarra": "哈比卜·迪亚拉",
+  "Herman Johansson": "赫尔曼·约翰松",
+  "Hernan Galindez": "埃尔南·加林德斯",
+  "Hernán Galíndez": "埃尔南·加林德斯",
+  "Ibrahim Sangare": "易卜拉欣·桑加雷",
+  "Ibrahim Sangaré": "易卜拉欣·桑加雷",
+  "Ibrahima Konate": "易卜拉希马·科纳特",
+  "Ibrahima Konaté": "易卜拉希马·科纳特",
+  "Isak Hien": "伊萨克·希恩",
+  "Ismail Jakobs": "伊斯梅尔·雅各布斯",
+  "Ismaïl Jakobs": "伊斯梅尔·雅各布斯",
+  "Ismaila Sarr": "伊斯梅拉·萨尔",
+  "Ismaïla Sarr": "伊斯梅拉·萨尔",
+  "Jesper Karlstrom": "耶斯佩尔·卡尔斯特伦",
+  "Jesper Karlström": "耶斯佩尔·卡尔斯特伦",
+  "Jesus Gallardo": "赫苏斯·加利亚多",
+  "Jesús Gallardo": "赫苏斯·加利亚多",
+  "Johan Vasquez": "约翰·巴斯克斯",
+  "Johan Vásquez": "约翰·巴斯克斯",
+  "John Yeboah": "约翰·耶博阿",
+  "Jorge Sanchez": "豪尔赫·桑切斯",
+  "Jorge Sánchez": "豪尔赫·桑切斯",
+  "Jules Kounde": "儒勒·孔德",
+  "Jules Koundé": "儒勒·孔德",
+  "Julian Quinones": "胡利安·基尼奥内斯",
+  "Julián Quiñones": "胡利安·基尼奥内斯",
+  "Julian Ryerson": "尤利安·雷尔森",
+  "Kendry Paez": "肯德里·派斯",
+  "Kendry Páez": "肯德里·派斯",
+  "Kerim Alajbegovic": "凯里姆·阿拉伊贝戈维奇",
+  "Kerim Alajbegović": "凯里姆·阿拉伊贝戈维奇",
+  "Kristoffer Ajer": "克里斯托弗·阿耶尔",
+  "Lamine Camara": "拉明·卡马拉",
+  "Leo Ostigard": "莱奥·厄斯蒂高",
+  "Leo Østigård": "莱奥·厄斯蒂高",
+  "Luis Romo": "路易斯·罗莫",
+  "Marcus Holmgren Pedersen": "马库斯·霍姆格伦·佩德森",
+  "Matt Turner": "马特·特纳",
+  "Mattias Svanberg": "马蒂亚斯·斯万贝里",
+  "Maxim De Cuyper": "马克西姆·德屈佩尔",
+  "Mike Maignan": "迈克·迈尼昂",
+  "Moussa Niakhate": "穆萨·尼亚卡特",
+  "Moussa Niakhaté": "穆萨·尼亚卡特",
+  "Nihad Mujakic": "尼哈德·穆亚基奇",
+  "Nihad Mujakić": "尼哈德·穆亚基奇",
+  "Nikola Vasilj": "尼科拉·瓦西利",
+  "Oscar Bobb": "奥斯卡·鲍勃",
+  "Pape Gueye": "帕普·盖耶",
+  "Pervis Estupinan": "佩尔维斯·埃斯图皮尼安",
+  "Pervis Estupiñán": "佩尔维斯·埃斯图皮尼安",
+  "Roberto Alvarado": "罗伯托·阿尔瓦拉多",
+  "Sander Berge": "桑德尔·贝格",
+  "Seko Fofana": "塞科·福法纳",
+  "Sergino Dest": "塞尔吉尼奥·德斯特",
+  "Sergiño Dest": "塞尔吉尼奥·德斯特",
+  "Theo Hernandez": "特奥·埃尔南德斯",
+  "Théo Hernandez": "特奥·埃尔南德斯",
+  "Thibaut Courtois": "蒂博·库尔图瓦",
+  "Thomas Meunier": "托马斯·默尼耶",
+  "Tim Ream": "蒂姆·里姆",
+  "Timothy Weah": "蒂莫西·维阿",
+  "Victor Lindelof": "维克托·林德洛夫",
+  "Victor Lindelöf": "维克托·林德洛夫",
+  "Viktor Johansson": "维克托·约翰松",
+  "Willian Pacho": "威廉·帕乔",
+  "Yahia Fofana": "亚希亚·福法纳",
+  "Youri Tielemans": "尤里·蒂勒曼斯",
+  "Zeno Debast": "泽诺·德巴斯特"
 };
 
 const ZH_CLUB_NAME_TRANSLATIONS = {
@@ -14993,13 +15098,420 @@ function isLineupVisualPrototypeEnabled() {
   return ["localhost", "127.0.0.1", ""].includes(window.location.hostname);
 }
 
+const MOCK_LINEUP_LAYOUTS = {
+  "4-2-3-1": [
+    ["GK", 50, 91],
+    ["RB", 15, 75],
+    ["CB", 38, 75],
+    ["CB", 62, 75],
+    ["LB", 85, 75],
+    ["CM", 34, 59],
+    ["CM", 66, 59],
+    ["RW", 18, 40],
+    ["AM", 50, 40],
+    ["LW", 82, 40],
+    ["ST", 50, 20]
+  ],
+  "4-3-3": [
+    ["GK", 50, 91],
+    ["RB", 15, 75],
+    ["CB", 38, 75],
+    ["CB", 62, 75],
+    ["LB", 85, 75],
+    ["CM", 25, 56],
+    ["CM", 50, 55],
+    ["CM", 75, 56],
+    ["RW", 18, 31],
+    ["ST", 50, 21],
+    ["LW", 82, 31]
+  ],
+  "4-4-2": [
+    ["GK", 50, 91],
+    ["RB", 15, 75],
+    ["CB", 38, 75],
+    ["CB", 62, 75],
+    ["LB", 85, 75],
+    ["RM", 18, 52],
+    ["CM", 38, 55],
+    ["CM", 62, 55],
+    ["LM", 82, 52],
+    ["ST", 41, 24],
+    ["ST", 59, 24]
+  ]
+};
+
+const MOCK_LINEUP_FORMATION_NOTES = {
+  "4-2-3-1": {
+    good: {
+      en: "Keeps two midfielders behind the ball while four attackers fill the spaces around the striker, so the team can create without feeling wide open.",
+      zh: "两名中场留在球后保护，四名攻击手围绕中锋占住空当，球队能创造机会，同时不至于门户大开。"
+    },
+    bad: {
+      en: "If the wide players stay high, the full-backs can be exposed and the striker can feel alone up front.",
+      zh: "如果边路球员一直压得很高，边后卫身后会容易被打，中锋也可能在前场显得孤立。"
+    }
+  },
+  "4-3-3": {
+    good: {
+      en: "A simple shape for pressing and counterattacking: three midfielders protect the middle, while three forwards can attack space quickly.",
+      zh: "这是适合逼抢和反击的简单阵型：三名中场保护中路，三名前锋能很快冲向空当。"
+    },
+    bad: {
+      en: "If the wingers do not help back, the full-backs can get doubled up and the midfield can be pulled wide.",
+      zh: "如果边锋不回防，边后卫会被对手夹击，中场也容易被拉到边路。"
+    }
+  },
+  "4-4-2": {
+    good: {
+      en: "Keeps two forwards ready for direct balls while the midfield line is easy to understand and defend from.",
+      zh: "两名前锋随时准备接直接球，中场四人线也更容易理解和防守。"
+    },
+    bad: {
+      en: "Can be outnumbered between the lines if one central midfielder gets pulled away from the middle.",
+      zh: "如果一名中场被拉离中路，肋部和线间区域可能会被对手人数压制。"
+    }
+  }
+};
+
+const MOCK_LINEUP_TEAM_CONFIGS = {
+  BEL: {
+    formation: "4-2-3-1",
+    starters: [
+      "Thibaut Courtois",
+      "Thomas Meunier",
+      "Zeno Debast",
+      "Arthur Theate",
+      "Maxim De Cuyper",
+      "Amadou Onana",
+      "Youri Tielemans",
+      "Jeremy Doku",
+      "Kevin De Bruyne",
+      "Leandro Trossard",
+      "Romelu Lukaku"
+    ]
+  },
+  BIH: {
+    formation: "4-2-3-1",
+    starters: [
+      "Nikola Vasilj",
+      "Amar Dedic",
+      "Dennis Hadzikadunic",
+      "Sead Kolasinac",
+      "Nihad Mujakic",
+      "Benjamin Tahirovic",
+      "Amir Hadziahmetovic",
+      "Esmir Bajraktarevic",
+      "Ermedin Demirovic",
+      "Kerim Alajbegovic",
+      "Edin Dzeko"
+    ]
+  },
+  CIV: {
+    formation: "4-3-3",
+    starters: [
+      "Yahia Fofana",
+      "Guela Doue",
+      "Evan Ndicka",
+      "Emmanuel Agbadou",
+      "Ghislain Konan",
+      "Ibrahim Sangare",
+      "Franck Kessie",
+      "Seko Fofana",
+      "Amad Diallo",
+      "Elye Wahi",
+      "Simon Adingra"
+    ]
+  },
+  ECU: {
+    formation: "4-2-3-1",
+    starters: [
+      "Hernan Galindez",
+      "Angelo Preciado",
+      "Willian Pacho",
+      "Piero Hincapie",
+      "Pervis Estupinan",
+      "Moises Caicedo",
+      "Alan Franco",
+      "Gonzalo Plata",
+      "Kendry Paez",
+      "John Yeboah",
+      "Enner Valencia"
+    ]
+  },
+  FRA: {
+    formation: "4-2-3-1",
+    starters: [
+      "Mike Maignan",
+      "Jules Kounde",
+      "William Saliba",
+      "Ibrahima Konate",
+      "Theo Hernandez",
+      "Aurelien Tchouameni",
+      "Adrien Rabiot",
+      "Ousmane Dembele",
+      "Michael Olise",
+      "Bradley Barcola",
+      "Kylian Mbappe"
+    ]
+  },
+  MEX: {
+    formation: "4-3-3",
+    starters: [
+      "Guillermo Ochoa",
+      "Jorge Sanchez",
+      "Cesar Montes",
+      "Johan Vasquez",
+      "Jesus Gallardo",
+      "Edson Alvarez",
+      "Luis Romo",
+      "Luis Chavez",
+      "Roberto Alvarado",
+      "Santiago Gimenez",
+      "Julian Quinones"
+    ]
+  },
+  NOR: {
+    formation: "4-3-3",
+    starters: [
+      "Orjan Nyland",
+      "Marcus Holmgren Pedersen",
+      "Kristoffer Ajer",
+      "Leo Ostigard",
+      "Julian Ryerson",
+      "Sander Berge",
+      "Patrick Berg",
+      "Martin Odegaard",
+      "Oscar Bobb",
+      "Erling Haaland",
+      "Antonio Nusa"
+    ]
+  },
+  SEN: {
+    formation: "4-3-3",
+    starters: [
+      "Edouard Mendy",
+      "Antoine Mendy",
+      "Kalidou Koulibaly",
+      "Moussa Niakhate",
+      "Ismail Jakobs",
+      "Pape Gueye",
+      "Habib Diarra",
+      "Lamine Camara",
+      "Ismaila Sarr",
+      "Nicolas Jackson",
+      "Sadio Mane"
+    ]
+  },
+  SWE: {
+    formation: "4-4-2",
+    starters: [
+      "Viktor Johansson",
+      "Herman Johansson",
+      "Victor Lindelof",
+      "Isak Hien",
+      "Gabriel Gudmundsson",
+      "Anthony Elanga",
+      "Jesper Karlstrom",
+      "Yasin Ayari",
+      "Mattias Svanberg",
+      "Viktor Gyokeres",
+      "Alexander Isak"
+    ]
+  },
+  USA: {
+    formation: "4-3-3",
+    starters: [
+      "Matt Turner",
+      "Sergino Dest",
+      "Chris Richards",
+      "Tim Ream",
+      "Antonee Robinson",
+      "Tyler Adams",
+      "Weston McKennie",
+      "Giovanni Reyna",
+      "Timothy Weah",
+      "Folarin Balogun",
+      "Christian Pulisic"
+    ]
+  }
+};
+
+const MOCK_LINEUP_MATCH_COVERAGE = {
+  "match-77-round-of-32-2026-06-30": { home: "FRA", away: "SWE" },
+  "match-78-round-of-32-2026-06-30": { home: "CIV", away: "NOR" },
+  "match-79-round-of-32-2026-06-30": { home: "MEX", away: "ECU" },
+  "match-81-round-of-32-2026-07-01": { home: "USA", away: "BIH", mode: "prediction" },
+  "match-82-round-of-32-2026-07-01": { home: "BEL", away: "SEN" }
+};
+
+function getMockFormationNotes(formation) {
+  return MOCK_LINEUP_FORMATION_NOTES[formation] || MOCK_LINEUP_FORMATION_NOTES["4-3-3"];
+}
+
+function formatLineupShortName(name) {
+  const parts = String(name || "").trim().split(/\s+/).filter(Boolean);
+  if (parts.length <= 1) {
+    return parts[0] || "";
+  }
+
+  const first = parts[0].charAt(0);
+  const lastParts = [parts.at(-1)];
+  const particles = new Set(["al", "da", "de", "del", "der", "di", "el", "van", "von"]);
+  for (let index = parts.length - 2; index > 0; index -= 1) {
+    const part = parts[index];
+    if (!particles.has(part.toLowerCase())) {
+      break;
+    }
+    lastParts.unshift(part);
+  }
+
+  return `${first}. ${lastParts.join(" ")}`;
+}
+
+function getLineupProfileByName(teamId, name) {
+  return getPlayerProfile({ name, teamId }) || playerProfilesByName.get(normalizeTextKey(name)) || null;
+}
+
+function getLineupFallbackNumber(usedNumbers, reservedNumbers, start = 1) {
+  let number = start;
+  while (usedNumbers.has(String(number)) || reservedNumbers.has(String(number))) {
+    number += 1;
+  }
+  usedNumbers.add(String(number));
+  return String(number);
+}
+
+function getLineupPlayerNumber(profile, usedNumbers, reservedNumbers, start = 1) {
+  const profileNumber = String(profile?.uniformNumber || "").trim();
+  if (profileNumber && !usedNumbers.has(profileNumber)) {
+    usedNumbers.add(profileNumber);
+    return profileNumber;
+  }
+
+  return getLineupFallbackNumber(usedNumbers, reservedNumbers, start);
+}
+
+function getLineupProfilePositionCode(position) {
+  const value = String(position || "").toLowerCase();
+  if (value.includes("goalkeeper")) return "GK";
+  if (value.includes("right-back") || value.includes("right back")) return "RB";
+  if (value.includes("left-back") || value.includes("left back") || value.includes("left wing-back")) return "LB";
+  if (value.includes("centre-back") || value.includes("center-back") || value.includes("defender")) return "CB";
+  if (value.includes("defensive midfielder")) return "DM";
+  if (value.includes("attacking midfielder")) return "AM";
+  if (value.includes("right winger") || value.includes("right midfielder")) return "RW";
+  if (value.includes("left winger") || value.includes("left midfielder")) return "LW";
+  if (value.includes("winger") || value.includes("wide")) return "RW";
+  if (value.includes("striker") || value.includes("forward") || value.includes("centre-forward")) return "ST";
+  if (value.includes("midfielder")) return "CM";
+  return "CM";
+}
+
+function getMockAvatarColor(teamId, index) {
+  const palette = ["#64748b", "#6b7280", "#71717a", "#78716c", "#5f6f7f", "#6c7584"];
+  const teamSeed = String(teamId || "")
+    .split("")
+    .reduce((total, char) => total + char.charCodeAt(0), 0);
+  return palette[(teamSeed + index) % palette.length];
+}
+
+function createMockLineupPlayers(teamId, names, formation) {
+  const layout = MOCK_LINEUP_LAYOUTS[formation] || MOCK_LINEUP_LAYOUTS["4-3-3"];
+  const profiles = names.map((name) => getLineupProfileByName(teamId, name));
+  const reservedNumbers = new Set(
+    profiles.map((profile) => String(profile?.uniformNumber || "").trim()).filter(Boolean)
+  );
+  const usedNumbers = new Set();
+
+  return names.map((name, index) => {
+    const profile = profiles[index];
+    const displayName = profile?.displayName || name;
+    const [position, x, y] = layout[index] || layout.at(-1);
+    return [
+      getLineupPlayerNumber(profile, usedNumbers, reservedNumbers, index + 1),
+      formatLineupShortName(displayName),
+      name,
+      position,
+      getPlayerInitials(displayName),
+      x,
+      y,
+      getMockAvatarColor(teamId, index)
+    ];
+  });
+}
+
+function createMockLineupBench(teamId, starterNames, usedStarterNumbers = new Set()) {
+  const starterKeys = new Set(starterNames.map((name) => normalizeTextKey(name)));
+  const usedNumbers = new Set([...usedStarterNumbers].map(String));
+  const reservedNumbers = new Set();
+  const profiles = [...new Set(playerProfilesByName.values())]
+    .filter((profile) => profile?.teamId === teamId && !starterKeys.has(normalizeTextKey(profile.name)))
+    .slice(0, 15);
+
+  return profiles.map((profile, index) => {
+    const displayName = profile.displayName || profile.name;
+    return [
+      getLineupPlayerNumber(profile, usedNumbers, reservedNumbers, 12 + index),
+      formatLineupShortName(displayName),
+      profile.name,
+      getLineupProfilePositionCode(profile.position)
+    ];
+  });
+}
+
+function getLineupUsedNumbers(players) {
+  return new Set(players.map((player) => String(player?.[0] || "")).filter(Boolean));
+}
+
+function createMockLineupTeam(teamId) {
+  const config = MOCK_LINEUP_TEAM_CONFIGS[teamId];
+  if (!config) {
+    return null;
+  }
+
+  const players = createMockLineupPlayers(teamId, config.starters, config.formation);
+  return {
+    formation: config.formation,
+    formationNotes: getMockFormationNotes(config.formation),
+    players,
+    bench: createMockLineupBench(teamId, config.starters, getLineupUsedNumbers(players)),
+    events: config.events || {}
+  };
+}
+
+function getGeneratedMockLineupPreview(match) {
+  const coverage = MOCK_LINEUP_MATCH_COVERAGE[match?.id];
+  if (!coverage || coverage.home !== match?.homeTeamId || coverage.away !== match?.awayTeamId) {
+    return null;
+  }
+
+  const home = createMockLineupTeam(coverage.home);
+  const away = createMockLineupTeam(coverage.away);
+  if (!home || !away) {
+    return null;
+  }
+
+  return {
+    mode: coverage.mode || (match.status === "SCHEDULED" ? "prediction" : "past"),
+    home,
+    away
+  };
+}
+
 function getMockLineupPreview(match) {
+  if (!isLineupVisualPrototypeEnabled()) {
+    return null;
+  }
+
   if (
-    !isLineupVisualPrototypeEnabled() ||
     match?.id !== "match-80-round-of-32-2026-07-01" ||
     match?.homeTeamId !== "ENG" ||
     match?.awayTeamId !== "COD"
   ) {
+    return getGeneratedMockLineupPreview(match);
+  }
+
+  if (match?.homeTeamId !== "ENG" || match?.awayTeamId !== "COD") {
     return null;
   }
 
@@ -15203,8 +15715,10 @@ const LINEUP_POSITION_ZH = {
   DM: "后腰",
   GK: "门将",
   LB: "左后卫",
+  LM: "左中场",
   LW: "左边锋",
   RB: "右后卫",
+  RM: "右中场",
   RW: "右边锋",
   ST: "前锋"
 };
@@ -15473,7 +15987,7 @@ function renderLineupTeamBand(match, lineup, teamLineup, side) {
         ${renderLineupTabButton(match, "away", side === "away", side)}
       </div>
       <div class="lineup-team-actions">
-        ${renderLineupCoachIconMention(teamLineup.coach)}
+        ${teamLineup.coach ? renderLineupCoachIconMention(teamLineup.coach) : ""}
         ${renderLineupFormationMention(teamLineup)}
         <button
           class="lineup-bench-button"
@@ -15976,7 +16490,10 @@ function renderMatchStatusBlock(match) {
     `;
   }
 
-  return renderPredictionBlock(match);
+  return `
+    ${renderPredictionBlock(match)}
+    ${renderLineupVisualPrototype(match)}
+  `;
 }
 
 function getPlayerNames(players = []) {
