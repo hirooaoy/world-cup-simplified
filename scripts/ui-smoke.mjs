@@ -3569,13 +3569,9 @@ try {
     historicalPlayerProfileRequests.length === 0,
     "Current match browsing should not preload the historical player profile dataset."
   );
-  const historicalPlayerProfilesRequest = page.waitForRequest(
-    (request) => /\/data\/historical-player-profiles\.json(?:\?|$)/.test(request.url())
-  );
   await page.goto(`${baseUrl}?view=matches&date=2022-11-20&tz=America%2FLos_Angeles`, {
     waitUntil: "load"
   });
-  await historicalPlayerProfilesRequest;
   await page.waitForSelector(".match-row");
   assert(
     (await page.locator("#day-label").innerText()).trim() === "Nov 20, 2022",
@@ -3585,15 +3581,22 @@ try {
     (await page.locator(".match-row").first().innerText()).includes("Qatar"),
     "Historical dates should render archived World Cup matches."
   );
-  assert(
-    historicalPlayerProfileRequests.length === 1,
-    "Archive match views should lazy-load the historical player profile dataset only after current browsing reaches archive content."
-  );
+  const historicalPlayerProfilesRequest =
+    historicalPlayerProfileRequests.length === 0
+      ? page.waitForRequest((request) => /\/data\/historical-player-profiles\.json(?:\?|$)/.test(request.url()))
+      : null;
   await page.locator(".match-row").first().click();
+  if (historicalPlayerProfilesRequest) {
+    await historicalPlayerProfilesRequest;
+  }
   await page.waitForFunction(() =>
     [...document.querySelectorAll("#match-info .player-card")].some((card) =>
       card.textContent.includes("Ecuador 2022 World Cup archive")
     )
+  );
+  assert(
+    historicalPlayerProfileRequests.length === 1,
+    "Archive match views should lazy-load the historical player profile dataset once when archive content reaches historical player cards."
   );
   const historicalGroupDetailText = await page.locator("#match-info").innerText();
   assert(
