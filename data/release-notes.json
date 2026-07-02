@@ -1,6 +1,54 @@
 {
-  "updatedAt": "2026-07-02T12:04:42-07:00",
+  "updatedAt": "2026-07-02T23:03:00-07:00",
   "releases": [
+    {
+      "date": "2026-07-02",
+      "title": "Live score detail wording polish",
+      "titleZh": "实时比分文案优化",
+      "highlights": [
+        "Live match details now show the current score under the Live score heading and rewrite the source row to `Current time ...`, checked freshness, and a See latest link."
+      ],
+      "highlightsZh": [
+        "直播比赛详情现在在“实时比分”标题下直接显示当前比分，并将来源行改为“当前时间 ...”、核验时间和“查看最新”链接。"
+      ]
+    },
+    {
+      "date": "2026-07-02",
+      "title": "Coach age in lineup cards",
+      "titleZh": "阵容卡显示教练年龄",
+      "highlights": [
+        "Coach lineup hover cards now include age when a valid coach birthDate is present, while still hiding age if birthDate is unavailable."
+      ],
+      "highlightsZh": [
+        "阵容卡的教练悬停卡片现在在有有效出生日期时展示年龄；若缺少出生日期则继续不显示年龄。"
+      ]
+    },
+    {
+      "date": "2026-07-02",
+      "title": "Coach photos on lineup cards",
+      "titleZh": "阵容卡教练头像",
+      "highlights": [
+        "Lineup coach photos now render for Tunisia via a curated fallback so both icons and coach cards always show an image when the FIFA payload is missing one.",
+        "Production CSP now allows FIFA digitalhub image URLs so coach portraits from official data load the same way as other player visuals."
+      ],
+      "highlightsZh": [
+        "阵容卡中的教练现在在 FIFA 数据缺失时会使用人工补充头像，因此两侧图标与教练卡都始终显示图片。",
+        "生产环境 CSP 已放行 FIFA digitalhub 图片地址，保证官方教练头像按玩家头像一样可正常加载。"
+      ]
+    },
+    {
+      "date": "2026-07-02",
+      "title": "Verified Belgium-Senegal lineup layout",
+      "titleZh": "比利时-塞内加尔阵容排布核验",
+      "highlights": [
+        "Belgium-Senegal now keeps FIFA official starters, bench, cards, substitutions, goals, and formation while using a verified pitch layout from matching ESPN and FotMob public match-center checks.",
+        "The lineup sync now preserves verified layout overrides across future FIFA refreshes instead of silently falling back to inferred formation-slot positions."
+      ],
+      "highlightsZh": [
+        "比利时对塞内加尔现在继续使用 FIFA 官方首发、替补、红黄牌、换人、进球和阵型，同时采用经 ESPN 与 FotMob 公开比赛中心交叉核验一致的球场排布。",
+        "阵容同步现在会在后续 FIFA 刷新中保留已核验的排布覆盖，不会静默退回到按阵型槽位推导的位置。"
+      ]
+    },
     {
       "date": "2026-07-02",
       "title": "USA-Bosnia highlights",

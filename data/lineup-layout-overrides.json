@@ -1,0 +1,389 @@
+{
+  "sourceIds": [
+    "lineup-layout-verification-2026-07-02"
+  ],
+  "updatedAt": "2026-07-02T21:37:01.051Z",
+  "fixtures": {
+    "match-82-round-of-32-2026-07-01": {
+      "status": "verified",
+      "layoutSource": "editorial-verified",
+      "checkedAt": "2026-07-02T21:37:01.051Z",
+      "sourceIds": [
+        "lineup-layout-verification-2026-07-02"
+      ],
+      "homeTeamId": "BEL",
+      "awayTeamId": "SEN",
+      "sources": [
+        {
+          "name": "ESPN",
+          "url": "https://www.espn.co.uk/football/match/_/gameId/760493/senegal-belgium",
+          "status": "matched",
+          "sourceDetail": "public match-center board geometry",
+          "exactLayout": true,
+          "home": {
+            "formation": "4-2-3-1",
+            "players": [
+              {
+                "number": "17",
+                "name": "Charles De Ketelaere",
+                "position": "ST",
+                "x": 50,
+                "y": 10.5
+              },
+              {
+                "number": "11",
+                "name": "Jeremy Doku",
+                "position": "LW",
+                "x": 19.4,
+                "y": 30.1
+              },
+              {
+                "number": "7",
+                "name": "Kevin De Bruyne",
+                "position": "AM",
+                "x": 50,
+                "y": 30.1
+              },
+              {
+                "number": "10",
+                "name": "Leandro Trossard",
+                "position": "RW",
+                "x": 80.6,
+                "y": 30.1
+              },
+              {
+                "number": "20",
+                "name": "Hans Vanaken",
+                "position": "CM",
+                "x": 36.5,
+                "y": 49.9
+              },
+              {
+                "number": "8",
+                "name": "Youri Tielemans",
+                "position": "CM",
+                "x": 63.4,
+                "y": 49.9
+              },
+              {
+                "number": "5",
+                "name": "Maxim De Cuyper",
+                "position": "LB",
+                "x": 13.7,
+                "y": 62.8
+              },
+              {
+                "number": "21",
+                "name": "Timothy Castagne",
+                "position": "RB",
+                "x": 86.2,
+                "y": 62.8
+              },
+              {
+                "number": "3",
+                "name": "Arthur Theate",
+                "position": "CB",
+                "x": 33.3,
+                "y": 68.7
+              },
+              {
+                "number": "4",
+                "name": "Brandon Mechele",
+                "position": "CB",
+                "x": 66.5,
+                "y": 68.7
+              },
+              {
+                "number": "1",
+                "name": "Thibaut Courtois",
+                "position": "GK",
+                "x": 49.9,
+                "y": 90.5
+              }
+            ]
+          },
+          "away": {
+            "formation": "4-3-3",
+            "players": [
+              {
+                "number": "18",
+                "name": "Ismaila Sarr",
+                "position": "ST",
+                "x": 50,
+                "y": 10.5
+              },
+              {
+                "number": "10",
+                "name": "Sadio Mane",
+                "position": "LW",
+                "x": 18.6,
+                "y": 18.2
+              },
+              {
+                "number": "13",
+                "name": "Iliman Ndiaye",
+                "position": "RW",
+                "x": 81.4,
+                "y": 18.2
+              },
+              {
+                "number": "5",
+                "name": "Idrissa Gueye",
+                "position": "CM",
+                "x": 50,
+                "y": 37.6
+              },
+              {
+                "number": "26",
+                "name": "Pape Gueye",
+                "position": "CM",
+                "x": 18.6,
+                "y": 42.3
+              },
+              {
+                "number": "21",
+                "name": "Habib Diarra",
+                "position": "CM",
+                "x": 81.4,
+                "y": 42.3
+              },
+              {
+                "number": "14",
+                "name": "Ismail Jakobs",
+                "position": "LB",
+                "x": 13.7,
+                "y": 62.8
+              },
+              {
+                "number": "15",
+                "name": "Krepin Diatta",
+                "position": "RB",
+                "x": 86.6,
+                "y": 62.8
+              },
+              {
+                "number": "19",
+                "name": "Moussa Niakhate",
+                "position": "CB",
+                "x": 33.3,
+                "y": 68.7
+              },
+              {
+                "number": "6",
+                "name": "Pathe Ciss",
+                "position": "CB",
+                "x": 66.5,
+                "y": 68.7
+              },
+              {
+                "number": "23",
+                "name": "Mory Diaw",
+                "position": "GK",
+                "x": 49.9,
+                "y": 90.5
+              }
+            ]
+          },
+          "signature": {
+            "home": "charles de ketelaere|jeremy doku/kevin de bruyne/leandro trossard|hans vanaken/youri tielemans|maxim de cuyper/arthur theate/brandon mechele/timothy castagne|thibaut courtois",
+            "away": "sadio mane/ismaila sarr/iliman ndiaye|pape gueye/idrissa gueye/habib diarra|ismail jakobs/moussa niakhate/pathe ciss/krepin diatta|mory diaw"
+          }
+        },
+        {
+          "name": "FotMob",
+          "url": "https://www.fotmob.com/matches/senegal-vs-belgium/1rywdm",
+          "status": "matched",
+          "sourceDetail": "lineup payload source: enetpulse",
+          "exactLayout": false,
+          "signature": {
+            "home": "charles de ketelaere|jeremy doku/kevin de bruyne/leandro trossard|hans vanaken/youri tielemans|maxim de cuyper/arthur theate/brandon mechele/timothy castagne|thibaut courtois",
+            "away": "sadio mane/ismaila sarr/iliman ndiaye|pape gueye/idrissa gueye/habib diarra|ismail jakobs/moussa niakhate/pathe ciss/krepin diatta|mory diaw"
+          }
+        },
+        {
+          "name": "SofaScore",
+          "url": "https://www.sofascore.com/football/match/senegal-belgium/rUbsOUb",
+          "status": "unavailable",
+          "note": "403 Forbidden"
+        },
+        {
+          "name": "BBC Sport",
+          "url": "https://www.bbc.com/sport/football/live/cx2j5p9",
+          "status": "unavailable",
+          "note": "404 Not Found"
+        },
+        {
+          "name": "Concacaf",
+          "url": "https://www.concacaf.com/competitions/fifa-world-cup/matches/8ec2ae6a1b1246f4b398626f7f1c3040/belgium-vs-senegal/lineups",
+          "status": "unavailable",
+          "note": "No data available."
+        }
+      ],
+      "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout.",
+      "home": {
+        "formation": "4-2-3-1",
+        "players": [
+          {
+            "number": "17",
+            "name": "Charles De Ketelaere",
+            "position": "ST",
+            "x": 50,
+            "y": 10.5
+          },
+          {
+            "number": "11",
+            "name": "Jeremy Doku",
+            "position": "LW",
+            "x": 19.4,
+            "y": 30.1
+          },
+          {
+            "number": "7",
+            "name": "Kevin De Bruyne",
+            "position": "AM",
+            "x": 50,
+            "y": 30.1
+          },
+          {
+            "number": "10",
+            "name": "Leandro Trossard",
+            "position": "RW",
+            "x": 80.6,
+            "y": 30.1
+          },
+          {
+            "number": "20",
+            "name": "Hans Vanaken",
+            "position": "CM",
+            "x": 36.5,
+            "y": 49.9
+          },
+          {
+            "number": "8",
+            "name": "Youri Tielemans",
+            "position": "CM",
+            "x": 63.4,
+            "y": 49.9
+          },
+          {
+            "number": "5",
+            "name": "Maxim De Cuyper",
+            "position": "LB",
+            "x": 13.7,
+            "y": 62.8
+          },
+          {
+            "number": "21",
+            "name": "Timothy Castagne",
+            "position": "RB",
+            "x": 86.2,
+            "y": 62.8
+          },
+          {
+            "number": "3",
+            "name": "Arthur Theate",
+            "position": "CB",
+            "x": 33.3,
+            "y": 68.7
+          },
+          {
+            "number": "4",
+            "name": "Brandon Mechele",
+            "position": "CB",
+            "x": 66.5,
+            "y": 68.7
+          },
+          {
+            "number": "1",
+            "name": "Thibaut Courtois",
+            "position": "GK",
+            "x": 49.9,
+            "y": 90.5
+          }
+        ]
+      },
+      "away": {
+        "formation": "4-3-3",
+        "players": [
+          {
+            "number": "18",
+            "name": "Ismaila Sarr",
+            "position": "ST",
+            "x": 50,
+            "y": 10.5
+          },
+          {
+            "number": "10",
+            "name": "Sadio Mane",
+            "position": "LW",
+            "x": 18.6,
+            "y": 18.2
+          },
+          {
+            "number": "13",
+            "name": "Iliman Ndiaye",
+            "position": "RW",
+            "x": 81.4,
+            "y": 18.2
+          },
+          {
+            "number": "5",
+            "name": "Idrissa Gueye",
+            "position": "CM",
+            "x": 50,
+            "y": 37.6
+          },
+          {
+            "number": "26",
+            "name": "Pape Gueye",
+            "position": "CM",
+            "x": 18.6,
+            "y": 42.3
+          },
+          {
+            "number": "21",
+            "name": "Habib Diarra",
+            "position": "CM",
+            "x": 81.4,
+            "y": 42.3
+          },
+          {
+            "number": "14",
+            "name": "Ismail Jakobs",
+            "position": "LB",
+            "x": 13.7,
+            "y": 62.8
+          },
+          {
+            "number": "15",
+            "name": "Krepin Diatta",
+            "position": "RB",
+            "x": 86.6,
+            "y": 62.8
+          },
+          {
+            "number": "19",
+            "name": "Moussa Niakhate",
+            "position": "CB",
+            "x": 33.3,
+            "y": 68.7
+          },
+          {
+            "number": "6",
+            "name": "Pathe Ciss",
+            "position": "CB",
+            "x": 66.5,
+            "y": 68.7
+          },
+          {
+            "number": "23",
+            "name": "Mory Diaw",
+            "position": "GK",
+            "x": 49.9,
+            "y": 90.5
+          }
+        ]
+      }
+    }
+  }
+}

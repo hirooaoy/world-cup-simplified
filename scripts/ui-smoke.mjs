@@ -4371,6 +4371,7 @@ try {
     "match-81-round-of-32-2026-07-01",
     "match-82-round-of-32-2026-07-01"
   ];
+  const verifiedLayoutFixtureIds = new Set(["match-82-round-of-32-2026-07-01"]);
   const lineupProductionStates = [];
   for (const fixtureId of trustedLineupFixtureIds) {
     await lineupProductionTrustCheck.page.locator(`[data-match-id="${fixtureId}"]`).click();
@@ -4392,7 +4393,7 @@ try {
         state.lineupBlocks === 1 &&
         state.eventTimelineBlocks === 0 &&
         state.helpLabel?.startsWith("Final lineup record") &&
-        state.helpLabel?.includes("Official FIFA team sheet") &&
+        (verifiedLayoutFixtureIds.has(state.fixtureId) || state.helpLabel?.includes("Official FIFA team sheet")) &&
         !/Formation & events|Predicted lineups/.test(state.detailText)
     ),
     `Production match details should render trusted final line-up boards and suppress the old event timeline. Measured ${JSON.stringify(lineupProductionStates)}.`

@@ -5296,6 +5296,11 @@ h1 {
   font-weight: 650;
 }
 
+.live-scoreline {
+  font-size: inherit;
+  font-weight: 650;
+}
+
 .result-notes {
   margin: 12px 0 0;
 }

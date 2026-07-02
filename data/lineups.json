@@ -1,6 +1,7 @@
 {
   "sourceIds": [
-    "fifa-lineups-sync-2026-07-02"
+    "fifa-lineups-sync-2026-07-02",
+    "lineup-layout-verification-2026-07-02"
   ],
   "lineups": {
     "mexico-south-africa-2026-06-11": {
@@ -37442,9 +37443,10 @@
       "mode": "final",
       "teamSheetSource": "fifa-official",
       "eventSource": "fifa-official",
-      "layoutSource": "derived-team-sheet-order",
+      "layoutSource": "editorial-verified",
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-02"
+        "fifa-lineups-sync-2026-07-02",
+        "lineup-layout-verification-2026-07-02"
       ],
       "checkedAt": "2026-07-02T16:07:07.701Z",
       "home": {
@@ -37461,80 +37463,80 @@
             "name": "Thibaut Courtois",
             "sourcePosition": "goalkeeper",
             "position": "GK",
-            "x": 50,
-            "y": 91
+            "x": 49.9,
+            "y": 90.5
           },
           {
             "number": "3",
             "name": "Arthur Theate",
             "sourcePosition": "defender",
-            "position": "RB",
-            "x": 85,
-            "y": 75
+            "position": "CB",
+            "x": 33.3,
+            "y": 68.7
           },
           {
             "number": "4",
             "name": "Brandon Mechele",
             "sourcePosition": "defender",
             "position": "CB",
-            "x": 62,
-            "y": 75
+            "x": 66.5,
+            "y": 68.7
           },
           {
             "number": "5",
             "name": "Maxim De Cuyper",
             "sourcePosition": "defender",
             "position": "LB",
-            "x": 15,
-            "y": 75
+            "x": 13.7,
+            "y": 62.8
           },
           {
             "number": "21",
             "name": "Timothy Castagne",
             "sourcePosition": "defender",
-            "position": "CB",
-            "x": 38,
-            "y": 75
+            "position": "RB",
+            "x": 86.2,
+            "y": 62.8
           },
           {
             "number": "7",
             "name": "Kevin De Bruyne",
             "sourcePosition": "midfielder",
-            "position": "CM",
-            "x": 62,
-            "y": 59
+            "position": "AM",
+            "x": 50,
+            "y": 30.1
           },
           {
             "number": "8",
             "name": "Youri Tielemans",
             "sourcePosition": "midfielder",
             "position": "CM",
-            "x": 38,
-            "y": 59
+            "x": 63.4,
+            "y": 49.9
           },
           {
             "number": "20",
             "name": "Hans Vanaken",
             "sourcePosition": "midfielder",
-            "position": "AM",
-            "x": 50,
-            "y": 40
+            "position": "CM",
+            "x": 36.5,
+            "y": 49.9
           },
           {
             "number": "10",
             "name": "Leandro Trossard",
             "sourcePosition": "forward",
             "position": "RW",
-            "x": 82,
-            "y": 40
+            "x": 80.6,
+            "y": 30.1
           },
           {
             "number": "11",
             "name": "Jeremy Doku",
             "sourcePosition": "forward",
             "position": "LW",
-            "x": 18,
-            "y": 40
+            "x": 19.4,
+            "y": 30.1
           },
           {
             "number": "17",
@@ -37542,7 +37544,7 @@
             "sourcePosition": "forward",
             "position": "ST",
             "x": 50,
-            "y": 20
+            "y": 10.5
           }
         ],
         "bench": [
@@ -37695,80 +37697,80 @@
             "name": "Mory Diaw",
             "sourcePosition": "goalkeeper",
             "position": "GK",
-            "x": 50,
-            "y": 91
+            "x": 49.9,
+            "y": 90.5
           },
           {
             "number": "14",
             "name": "Ismail Jakobs",
             "sourcePosition": "defender",
             "position": "LB",
-            "x": 15,
-            "y": 75
+            "x": 13.7,
+            "y": 62.8
           },
           {
             "number": "15",
             "name": "Krepin Diatta",
             "sourcePosition": "defender",
             "position": "RB",
-            "x": 85,
-            "y": 75
+            "x": 86.6,
+            "y": 62.8
           },
           {
             "number": "19",
             "name": "Moussa Niakhate",
             "sourcePosition": "defender",
             "position": "CB",
-            "x": 62,
-            "y": 75
+            "x": 33.3,
+            "y": 68.7
           },
           {
             "number": "5",
             "name": "Idrissa Gueye",
             "sourcePosition": "midfielder",
-            "position": "CB",
-            "x": 38,
-            "y": 75
+            "position": "CM",
+            "x": 50,
+            "y": 37.6
           },
           {
             "number": "6",
             "name": "Pathe Ciss",
             "sourcePosition": "midfielder",
-            "position": "CM",
-            "x": 75,
-            "y": 53
+            "position": "CB",
+            "x": 66.5,
+            "y": 68.7
           },
           {
             "number": "21",
             "name": "Habib Diarra",
             "sourcePosition": "midfielder",
             "position": "CM",
-            "x": 50,
-            "y": 53
+            "x": 81.4,
+            "y": 42.3
           },
           {
             "number": "26",
             "name": "Pape Gueye",
             "sourcePosition": "midfielder",
             "position": "CM",
-            "x": 25,
-            "y": 53
+            "x": 18.6,
+            "y": 42.3
           },
           {
             "number": "10",
             "name": "Sadio Mane",
             "sourcePosition": "forward",
-            "position": "RW",
-            "x": 82,
-            "y": 31
+            "position": "LW",
+            "x": 18.6,
+            "y": 18.2
           },
           {
             "number": "13",
             "name": "Iliman Ndiaye",
             "sourcePosition": "forward",
-            "position": "LW",
-            "x": 18,
-            "y": 31
+            "position": "RW",
+            "x": 81.4,
+            "y": 18.2
           },
           {
             "number": "18",
@@ -37776,7 +37778,7 @@
             "sourcePosition": "forward",
             "position": "ST",
             "x": 50,
-            "y": 21
+            "y": 10.5
           }
         ],
         "bench": [
@@ -37907,8 +37909,510 @@
             }
           ]
         }
+      },
+      "layoutVerification": {
+        "status": "verified",
+        "checkedAt": "2026-07-02T21:37:01.051Z",
+        "sourceIds": [
+          "lineup-layout-verification-2026-07-02"
+        ],
+        "sources": [
+          {
+            "name": "ESPN",
+            "url": "https://www.espn.co.uk/football/match/_/gameId/760493/senegal-belgium",
+            "status": "matched",
+            "sourceDetail": "public match-center board geometry",
+            "exactLayout": true
+          },
+          {
+            "name": "FotMob",
+            "url": "https://www.fotmob.com/matches/senegal-vs-belgium/1rywdm",
+            "status": "matched",
+            "sourceDetail": "lineup payload source: enetpulse",
+            "exactLayout": false
+          },
+          {
+            "name": "SofaScore",
+            "url": "https://www.sofascore.com/football/match/senegal-belgium/rUbsOUb",
+            "status": "unavailable",
+            "note": "403 Forbidden"
+          },
+          {
+            "name": "BBC Sport",
+            "url": "https://www.bbc.com/sport/football/live/cx2j5p9",
+            "status": "unavailable",
+            "note": "404 Not Found"
+          },
+          {
+            "name": "Concacaf",
+            "url": "https://www.concacaf.com/competitions/fifa-world-cup/matches/8ec2ae6a1b1246f4b398626f7f1c3040/belgium-vs-senegal/lineups",
+            "status": "unavailable",
+            "note": "No data available."
+          }
+        ],
+        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
+      }
+    },
+    "match-84-round-of-32-2026-07-02": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "derived-team-sheet-order",
+      "sourceIds": [
+        "fifa-lineups-sync-2026-07-02"
+      ],
+      "checkedAt": "2026-07-02T22:09:34.246Z",
+      "home": {
+        "formation": "4-1-2-3",
+        "coach": {
+          "name": "Luis De La Fuente",
+          "teamName": "Spain",
+          "imageUrl": "https://digitalhub.fifa.com/transform/d91efb8f-281e-466c-beb0-a543a3a8c9ec/DE-LA-FUENTE-Luis_430724",
+          "sourceUrl": "https://www.fifa.com/en/match-centre/match/17/285023/289287/400021519"
+        },
+        "players": [
+          {
+            "number": "23",
+            "name": "Unai Simon",
+            "sourcePosition": "goalkeeper",
+            "position": "GK",
+            "x": 50,
+            "y": 91
+          },
+          {
+            "number": "12",
+            "name": "Pedro Porro",
+            "sourcePosition": "defender",
+            "position": "RB",
+            "x": 85,
+            "y": 75
+          },
+          {
+            "number": "14",
+            "name": "Aymeric Laporte",
+            "sourcePosition": "defender",
+            "position": "CB",
+            "x": 62,
+            "y": 75
+          },
+          {
+            "number": "22",
+            "name": "Pau Cubarsi",
+            "sourcePosition": "defender",
+            "position": "CB",
+            "x": 38,
+            "y": 75
+          },
+          {
+            "number": "24",
+            "name": "Marc Cucurella",
+            "sourcePosition": "defender",
+            "position": "LB",
+            "x": 15,
+            "y": 75
+          },
+          {
+            "number": "15",
+            "name": "Alex Baena",
+            "sourcePosition": "midfielder",
+            "position": "CM",
+            "x": 62,
+            "y": 49
+          },
+          {
+            "number": "16",
+            "name": "Rodri",
+            "sourcePosition": "midfielder",
+            "position": "DM",
+            "x": 50,
+            "y": 62
+          },
+          {
+            "number": "20",
+            "name": "Pedri",
+            "sourcePosition": "midfielder",
+            "position": "CM",
+            "x": 38,
+            "y": 49
+          },
+          {
+            "number": "10",
+            "name": "Dani Olmo",
+            "sourcePosition": "forward",
+            "position": "LW",
+            "x": 18,
+            "y": 30
+          },
+          {
+            "number": "19",
+            "name": "Lamine Yamal",
+            "sourcePosition": "forward",
+            "position": "RW",
+            "x": 82,
+            "y": 30
+          },
+          {
+            "number": "21",
+            "name": "Mikel Oyarzabal",
+            "sourcePosition": "forward",
+            "position": "ST",
+            "x": 50,
+            "y": 21
+          }
+        ],
+        "bench": [
+          {
+            "number": "1",
+            "name": "David Raya",
+            "sourcePosition": "goalkeeper",
+            "position": "GK"
+          },
+          {
+            "number": "13",
+            "name": "Joan Garcia",
+            "sourcePosition": "goalkeeper",
+            "position": "GK"
+          },
+          {
+            "number": "2",
+            "name": "Marc Pubill",
+            "sourcePosition": "defender",
+            "position": "CB"
+          },
+          {
+            "number": "3",
+            "name": "Alex Grimaldo",
+            "sourcePosition": "defender",
+            "position": "LB"
+          },
+          {
+            "number": "4",
+            "name": "Eric Garcia",
+            "sourcePosition": "defender",
+            "position": "CB"
+          },
+          {
+            "number": "5",
+            "name": "Marcos Llorente",
+            "sourcePosition": "defender",
+            "position": "RB"
+          },
+          {
+            "number": "6",
+            "name": "Mikel Merino",
+            "sourcePosition": "midfielder",
+            "position": "CM"
+          },
+          {
+            "number": "8",
+            "name": "Fabian Ruiz",
+            "sourcePosition": "midfielder",
+            "position": "CM"
+          },
+          {
+            "number": "9",
+            "name": "Gavi",
+            "sourcePosition": "midfielder",
+            "position": "CM"
+          },
+          {
+            "number": "18",
+            "name": "Martin Zubimendi",
+            "sourcePosition": "midfielder",
+            "position": "DM"
+          },
+          {
+            "number": "7",
+            "name": "Ferran Torres",
+            "sourcePosition": "forward",
+            "position": "RW"
+          },
+          {
+            "number": "11",
+            "name": "Yeremy Pino",
+            "sourcePosition": "forward",
+            "position": "RW"
+          },
+          {
+            "number": "17",
+            "name": "Nico Williams",
+            "sourcePosition": "forward",
+            "position": "RW"
+          },
+          {
+            "number": "25",
+            "name": "Victor Munoz",
+            "sourcePosition": "forward",
+            "position": "LW"
+          },
+          {
+            "number": "26",
+            "name": "Borja Iglesias",
+            "sourcePosition": "forward",
+            "position": "ST"
+          }
+        ],
+        "events": {
+          "cards": [],
+          "staffCards": [],
+          "substitutions": [
+            {
+              "offName": "Alex Baena",
+              "onName": "Ferran Torres",
+              "minute": 71
+            },
+            {
+              "offName": "Dani Olmo",
+              "onName": "Mikel Merino",
+              "minute": 71
+            },
+            {
+              "offName": "Lamine Yamal",
+              "onName": "Gavi",
+              "minute": 85
+            },
+            {
+              "offName": "Aymeric Laporte",
+              "onName": "Marc Pubill",
+              "minute": "90+3"
+            },
+            {
+              "offName": "Pedri",
+              "onName": "Fabian Ruiz",
+              "minute": "90+3"
+            }
+          ]
+        }
+      },
+      "away": {
+        "formation": "4-2-3-1",
+        "coach": {
+          "name": "Ralf Rangnick",
+          "teamName": "Austria",
+          "imageUrl": "https://digitalhub.fifa.com/transform/329483e5-377d-49b4-a583-4ab882c7de2c/RANGNICK-Ralf_442093",
+          "sourceUrl": "https://www.fifa.com/en/match-centre/match/17/285023/289287/400021519"
+        },
+        "players": [
+          {
+            "number": "1",
+            "name": "Alexander Schlager",
+            "sourcePosition": "goalkeeper",
+            "position": "GK",
+            "x": 50,
+            "y": 91
+          },
+          {
+            "number": "3",
+            "name": "Kevin Danso",
+            "sourcePosition": "defender",
+            "position": "CB",
+            "x": 62,
+            "y": 75
+          },
+          {
+            "number": "5",
+            "name": "Stefan Posch",
+            "sourcePosition": "defender",
+            "position": "RB",
+            "x": 85,
+            "y": 75
+          },
+          {
+            "number": "8",
+            "name": "David Alaba",
+            "sourcePosition": "defender",
+            "position": "CB",
+            "x": 38,
+            "y": 75
+          },
+          {
+            "number": "4",
+            "name": "Xaver Schlager",
+            "sourcePosition": "midfielder",
+            "position": "LB",
+            "x": 15,
+            "y": 75
+          },
+          {
+            "number": "6",
+            "name": "Nicolas Seiwald",
+            "sourcePosition": "midfielder",
+            "position": "CM",
+            "x": 62,
+            "y": 59
+          },
+          {
+            "number": "9",
+            "name": "Marcel Sabitzer",
+            "sourcePosition": "midfielder",
+            "position": "RW",
+            "x": 82,
+            "y": 40
+          },
+          {
+            "number": "18",
+            "name": "Romano Schmid",
+            "sourcePosition": "midfielder",
+            "position": "AM",
+            "x": 50,
+            "y": 40
+          },
+          {
+            "number": "20",
+            "name": "Konrad Laimer",
+            "sourcePosition": "midfielder",
+            "position": "CM",
+            "x": 38,
+            "y": 59
+          },
+          {
+            "number": "24",
+            "name": "Paul Wanner",
+            "sourcePosition": "midfielder",
+            "position": "LW",
+            "x": 18,
+            "y": 40
+          },
+          {
+            "number": "11",
+            "name": "Michael Gregoritsch",
+            "sourcePosition": "forward",
+            "position": "ST",
+            "x": 50,
+            "y": 20
+          }
+        ],
+        "bench": [
+          {
+            "number": "12",
+            "name": "Florian Wiegele",
+            "sourcePosition": "goalkeeper",
+            "position": "GK"
+          },
+          {
+            "number": "13",
+            "name": "Patrick Pentz",
+            "sourcePosition": "goalkeeper",
+            "position": "GK"
+          },
+          {
+            "number": "2",
+            "name": "David Affengruber",
+            "sourcePosition": "defender",
+            "position": "CB"
+          },
+          {
+            "number": "15",
+            "name": "Philipp Lienhart",
+            "sourcePosition": "defender",
+            "position": "CB"
+          },
+          {
+            "number": "16",
+            "name": "Phillip Mwene",
+            "sourcePosition": "defender",
+            "position": "CB"
+          },
+          {
+            "number": "23",
+            "name": "Marco Friedl",
+            "sourcePosition": "defender",
+            "position": "CB"
+          },
+          {
+            "number": "25",
+            "name": "Michael Svoboda",
+            "sourcePosition": "defender",
+            "position": "CB"
+          },
+          {
+            "number": "10",
+            "name": "Florian Grillitsch",
+            "sourcePosition": "midfielder",
+            "position": "DM"
+          },
+          {
+            "number": "17",
+            "name": "Carney Chukwuemeka",
+            "sourcePosition": "midfielder",
+            "position": "AM"
+          },
+          {
+            "number": "19",
+            "name": "Dejan Ljubicic",
+            "sourcePosition": "midfielder",
+            "position": "CM"
+          },
+          {
+            "number": "22",
+            "name": "Alexander Prass",
+            "sourcePosition": "midfielder",
+            "position": "CM"
+          },
+          {
+            "number": "26",
+            "name": "Alessandro Schoepf",
+            "sourcePosition": "midfielder",
+            "position": "CM"
+          },
+          {
+            "number": "7",
+            "name": "Marko Arnautovic",
+            "sourcePosition": "forward",
+            "position": "ST"
+          },
+          {
+            "number": "14",
+            "name": "Sasa Kalajdzic",
+            "sourcePosition": "forward",
+            "position": "ST"
+          },
+          {
+            "number": "21",
+            "name": "Patrick Wimmer",
+            "sourcePosition": "forward",
+            "position": "RW"
+          }
+        ],
+        "events": {
+          "cards": [
+            {
+              "playerName": "Stefan Posch",
+              "type": "yellow",
+              "minute": 83
+            }
+          ],
+          "staffCards": [],
+          "substitutions": [
+            {
+              "offName": "Xaver Schlager",
+              "onName": "Florian Grillitsch",
+              "minute": "HT"
+            },
+            {
+              "offName": "Nicolas Seiwald",
+              "onName": "Carney Chukwuemeka",
+              "minute": "HT"
+            },
+            {
+              "offName": "Michael Gregoritsch",
+              "onName": "Marko Arnautovic",
+              "minute": 60
+            },
+            {
+              "offName": "Romano Schmid",
+              "onName": "Sasa Kalajdzic",
+              "minute": 60
+            },
+            {
+              "offName": "Stefan Posch",
+              "onName": "Alexander Prass",
+              "minute": 85
+            }
+          ]
+        }
       }
     }
   },
-  "updatedAt": "2026-07-02T16:24:20.753Z"
+  "updatedAt": "2026-07-02T22:09:34.246Z"
 }

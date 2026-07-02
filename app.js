@@ -4,6 +4,7 @@ const DATA_URLS = {
   fixtures: `data/fixtures.json?v=${DATA_VERSION}`,
   history: `data/history.json?v=${DATA_VERSION}`,
   historicalPlayerProfiles: `data/historical-player-profiles.json?v=${DATA_VERSION}`,
+  coachProfiles: `data/coach-profiles.json?v=${DATA_VERSION}`,
   lineups: `data/lineups.json?v=${DATA_VERSION}`,
   liveData: `api/live-data?v=${DATA_VERSION}`,
   playerProfiles: `data/player-profiles.json?v=${DATA_VERSION}`,
@@ -24,7 +25,7 @@ const OFFICIAL_HIGHLIGHT_VIDEO_CHANNELS = new Map([
   ["UCpcTrCXblq78GZrTUTLWeBw", "FIFA"]
 ]);
 const FIFA_SCHEDULE_RESULTS_URL =
-  "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/match-schedule-fixtures-results-teams-stadiums";
+  "https://www.fifa.com";
 const TEAM_SEARCH_URL_UPDATE_DELAY_MS = 180;
 const JUGGLE_BALL_EMOJI = "⚽";
 const JUGGLE_FALL_SPEED = 420;
@@ -4252,6 +4253,8 @@ let historicalPlayerProfilesByName = new Map();
 let historicalPlayerProfilesByVersion = new Map();
 let historicalPlayerProfilesLoadPromise = null;
 let hasLoadedHistoricalPlayerProfiles = false;
+let coachProfilesByName = new Map();
+let coachProfilesByTeamAndName = new Map();
 let playerProfilesByName = new Map();
 let playerProfilesByTeamAndName = new Map();
 let lineupData = { lineups: {} };
@@ -7427,6 +7430,52 @@ function buildTeamPlayerProfileLookup(profiles = {}) {
 
     const entry = { name, ...profile };
     for (const alias of getPlayerProfileAliases(name, profile)) {
+      const key = normalizeTextKey(alias);
+      if (key) {
+        lookup.set(`${teamId}:${key}`, entry);
+      }
+    }
+  }
+
+  return lookup;
+}
+
+function getCoachProfileAliases(name, profile = {}) {
+  return [
+    name,
+    profile?.name,
+    profile?.displayName,
+    ...(Array.isArray(profile?.aliases) ? profile.aliases : [])
+  ];
+}
+
+function buildCoachProfileLookup(profiles = {}) {
+  const lookup = new Map();
+
+  for (const [name, profile] of Object.entries(profiles || {})) {
+    const entry = { name, ...profile };
+    for (const alias of getCoachProfileAliases(name, profile)) {
+      const key = normalizeTextKey(alias);
+      if (key) {
+        lookup.set(key, entry);
+      }
+    }
+  }
+
+  return lookup;
+}
+
+function buildCoachProfileTeamLookup(profiles = {}) {
+  const lookup = new Map();
+
+  for (const [name, profile] of Object.entries(profiles || {})) {
+    const teamId = String(profile?.teamId || "").trim().toUpperCase();
+    if (!teamId) {
+      continue;
+    }
+
+    const entry = { name, ...profile };
+    for (const alias of getCoachProfileAliases(name, profile)) {
       const key = normalizeTextKey(alias);
       if (key) {
         lookup.set(`${teamId}:${key}`, entry);
@@ -14425,7 +14474,13 @@ function renderScoreSummary(match, options = {}) {
 }
 
 function renderLiveScoreSummary(match) {
-  return getCatchUpScore(match) ? "" : renderScoreSummary(match, { live: true });
+  const score = getCatchUpScore(match);
+  if (!score) {
+    return renderScoreSummary(match, { live: true });
+  }
+
+  const scoreText = getMatchVisibleScoreText(match, score);
+  return `<p class="result-score-summary"><span class="live-scoreline">${escapeHtml(scoreText)}</span></p>`;
 }
 
 function getResultHighlights(match) {
@@ -15465,10 +15520,7 @@ function renderMatchEventsSummary(match) {
 }
 
 function getFifaScheduleResultsUrl() {
-  const source = (tournament.sources || []).find(
-    (item) => item.label === "FIFA World Cup 2026 schedule and results"
-  );
-  return source?.url || FIFA_SCHEDULE_RESULTS_URL;
+  return FIFA_SCHEDULE_RESULTS_URL;
 }
 
 function getLiveScoreSourceFreshness(match) {
@@ -15484,22 +15536,21 @@ function renderLiveScoreSourcePart(part, index) {
 function renderLiveScoreSourceNote(match) {
   const snapshotLabel = getOfficialMatchSnapshotLabel(match);
   const freshness = getLiveScoreSourceFreshness(match);
+  const currentTimeLabel = currentLanguage === "zh" ? "当前时间" : "Current time";
   const checkedLabel = freshness
     ? currentLanguage === "zh"
       ? `${freshness}核验`
-      : `checked ${freshness}`
+      : `Checked ${freshness}`
     : "";
   const fifaUrl = getFifaScheduleResultsUrl();
-  const sourceLabel = currentLanguage === "zh" ? "查看 FIFA" : "Check FIFA";
-  const latestLabel = currentLanguage === "zh" ? "获取最新状态" : "for latest";
+  const latestLabel = currentLanguage === "zh" ? "查看最新" : "See latest";
   const sourcePart = `
     <span class="live-source-latest">
-      <a class="live-source-link" href="${escapeHtml(fifaUrl)}" target="_blank" rel="noreferrer" aria-label="${escapeHtml(currentLanguage === "zh" ? "在 FIFA 查看最新比分" : "Check latest score at FIFA")}">${escapeHtml(sourceLabel)}</a>
-      <span>${escapeHtml(latestLabel)}</span>
+      <a class="live-source-link" href="${escapeHtml(fifaUrl)}" target="_blank" rel="noreferrer" aria-label="${escapeHtml(currentLanguage === "zh" ? "在 FIFA 查看最新比分" : "See latest score at FIFA")}">${escapeHtml(latestLabel)}</a>
     </span>
   `.trim();
   const parts = [
-    snapshotLabel ? escapeHtml(snapshotLabel) : "",
+    snapshotLabel ? `${escapeHtml(currentTimeLabel)} ${escapeHtml(snapshotLabel)}` : "",
     checkedLabel ? escapeHtml(checkedLabel) : "",
     sourcePart
   ].filter(Boolean);
@@ -16299,6 +16350,12 @@ const MOCK_LINEUP_COACHES = {
       zh: "他曾把厄斯特松德从瑞典低级别联赛带到欧战，之后执教布莱顿、切尔西和西汉姆联。"
     }
   },
+  TUN: {
+    name: "Sabri Lamouchi",
+    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Sabri_Lamouchi_-_Portrait_2022.jpg?width=160",
+    imageSourceUrl: "https://commons.wikimedia.org/wiki/File:Sabri_Lamouchi_-_Portrait_2022.jpg",
+    sourceUrl: "https://en.wikipedia.org/wiki/Sabri_Lamouchi"
+  },
   USA: {
     name: "Mauricio Pochettino",
     nameZh: "毛里西奥·波切蒂诺",
@@ -16492,6 +16549,15 @@ function getMockLineupCoach(teamId) {
   };
 }
 
+function getLocalizedLineupCoachAgeLine(coach, referenceDate = new Date()) {
+  const age = getPlayerAge(coach, referenceDate);
+  if (age === null) {
+    return "";
+  }
+
+  return currentLanguage === "zh" ? `年龄 ${age}` : `Age ${age}`;
+}
+
 function createMockLineupTeam(teamId) {
   const config = MOCK_LINEUP_TEAM_CONFIGS[teamId];
   if (!config) {
@@ -16568,9 +16634,12 @@ function normalizeLineupCoach(coach, teamId) {
 
   const curatedCoach = MOCK_LINEUP_COACHES[teamId] || {};
   const team = getTeam(teamId);
+  const coachProfile = getCoachProfile({ ...coach, teamId });
   return {
     ...curatedCoach,
     ...coach,
+    ...(!coach.imageUrl && coachProfile?.imageUrl ? { imageUrl: coachProfile.imageUrl } : {}),
+    ...(!coach.sourceUrl && coachProfile?.sourceUrl ? { sourceUrl: coachProfile.sourceUrl } : {}),
     teamId,
     teamName: coach.teamName || curatedCoach.teamName || team?.name || teamId,
     nameZh: coach.nameZh || curatedCoach.nameZh,
@@ -17404,9 +17473,10 @@ function renderLineupCoachCard(coach) {
       ? `${escapeHtml(coach.sinceYear)} 年起`
       : `${localizeText("Since")} ${escapeHtml(coach.sinceYear)}`
     : "";
+  const ageText = getLocalizedLineupCoachAgeLine(coach);
   const note = localizeLineupCopy(coach?.note);
   const history = localizeLineupCopy(coach?.history);
-  const copyItems = [note, history]
+  const copyItems = [note, ageText, history]
     .filter(Boolean)
     .map((item) => `<span class="player-card-note">${escapeHtml(item)}</span>`)
     .join("\n");
@@ -18159,6 +18229,24 @@ function getPlayerProfile(player) {
   }
 
   return playerProfilesByName.get(nameKey) || null;
+}
+
+function getCoachProfile(coach) {
+  const name = String(coach?.name || "").trim();
+  if (!name) {
+    return null;
+  }
+
+  const nameKey = normalizeTextKey(name);
+  const teamId = String(coach?.teamId || "").trim().toUpperCase();
+  if (teamId) {
+    const teamProfile = coachProfilesByTeamAndName.get(`${teamId}:${nameKey}`);
+    if (teamProfile) {
+      return teamProfile;
+    }
+  }
+
+  return coachProfilesByName.get(nameKey) || null;
 }
 
 function getPlayerTeamId(player) {
@@ -24153,6 +24241,7 @@ function applyDataSnapshot({
   fixturesData,
   historyData,
   lineupsData,
+  coachProfilesData,
   playerProfilesData,
   standingsData,
   teamsData,
@@ -24165,6 +24254,8 @@ function applyDataSnapshot({
   const fixturesWithLineups = mergeFixtureLineups(fixturesData, lineupData);
   teamsById = new Map(teamsData.teams.map((team) => [team.id, team]));
   teamsByName = buildTeamNameLookup(teamsData.teams);
+  coachProfilesByName = buildCoachProfileLookup(coachProfilesData.profiles);
+  coachProfilesByTeamAndName = buildCoachProfileTeamLookup(coachProfilesData.profiles);
   playerProfilesByName = buildPlayerProfileLookup(playerProfilesData.profiles);
   playerProfilesByTeamAndName = buildTeamPlayerProfileLookup(playerProfilesData.profiles);
   historicalPlayerProfilesByName = new Map();
@@ -24185,6 +24276,7 @@ function applyDataSnapshot({
     fixturesWithLineups,
     historyData,
     lineupData,
+    coachProfilesData,
     playerProfilesData,
     teamsData,
     standingsData,
@@ -24216,6 +24308,7 @@ async function loadStaticData() {
     fixturesData,
     historyData,
     lineupsData,
+    coachProfilesData,
     playerProfilesData,
     teamsData,
     standingsData,
@@ -24225,6 +24318,7 @@ async function loadStaticData() {
     loadJson(DATA_URLS.fixtures),
     loadJson(DATA_URLS.history),
     loadOptionalJson(DATA_URLS.lineups, { lineups: {} }),
+    loadOptionalJson(DATA_URLS.coachProfiles, { profiles: {} }),
     loadOptionalJson(DATA_URLS.playerProfiles, { profiles: {} }),
     loadJson(DATA_URLS.teams),
     loadJson(DATA_URLS.standings),
@@ -24239,6 +24333,7 @@ async function loadStaticData() {
     fixturesData,
     historyData,
     lineupsData,
+    coachProfilesData,
     playerProfilesData,
     standingsData,
     teamsData,

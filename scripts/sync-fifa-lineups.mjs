@@ -2,6 +2,7 @@
 import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { applyLineupLayoutOverride, getVerifiedLayoutOverride } from "./lineup-layout-overrides.mjs";
 import { isPlayerNameMatch } from "./player-name-matching.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -897,7 +898,22 @@ function sameLineups(left, right) {
   return JSON.stringify(comparableLineups(left)) === JSON.stringify(comparableLineups(right));
 }
 
-async function processFixture(fixture, existingLineups, teamsById, profileLookup) {
+function applyVerifiedLayoutIfAvailable(fixture, lineups, layoutOverridesData) {
+  const override = getVerifiedLayoutOverride(layoutOverridesData, fixture.id);
+  if (!override) {
+    return lineups;
+  }
+  if (
+    (override.homeTeamId && override.homeTeamId !== fixture.homeTeamId) ||
+    (override.awayTeamId && override.awayTeamId !== fixture.awayTeamId)
+  ) {
+    return lineups;
+  }
+
+  return applyLineupLayoutOverride(lineups, override);
+}
+
+async function processFixture(fixture, existingLineups, teamsById, profileLookup, layoutOverridesData) {
   const idMatch = fixtureFifaMatchId(fixture);
   if (!idMatch) {
     return {
@@ -958,6 +974,7 @@ async function processFixture(fixture, existingLineups, teamsById, profileLookup
         profileLookup
       )
     };
+    nextLineups = applyVerifiedLayoutIfAvailable(fixture, nextLineups, layoutOverridesData);
   } catch (error) {
     return {
       matched: true,
@@ -985,12 +1002,13 @@ async function processFixture(fixture, existingLineups, teamsById, profileLookup
   };
 }
 
-const [fixturesData, lineupsData, teamsData, tournamentData, profilesData] = await Promise.all([
+const [fixturesData, lineupsData, teamsData, tournamentData, profilesData, layoutOverridesData] = await Promise.all([
   readJson("fixtures.json"),
   readOptionalJson("lineups.json", { sourceIds: [], lineups: {} }),
   readJson("teams.json"),
   readJson("tournament.json"),
-  readJson("player-profiles.json")
+  readJson("player-profiles.json"),
+  readOptionalJson("lineup-layout-overrides.json", { fixtures: {} })
 ]);
 
 const teamsById = buildTeamLookup(teamsData.teams);
@@ -1022,7 +1040,13 @@ async function worker() {
   while (nextIndex < targetFixtures.length) {
     const fixture = targetFixtures[nextIndex];
     nextIndex += 1;
-    const result = await processFixture(fixture, lineupsByFixtureId[fixture.id], teamsById, profileLookup);
+    const result = await processFixture(
+      fixture,
+      lineupsByFixtureId[fixture.id],
+      teamsById,
+      profileLookup,
+      layoutOverridesData
+    );
     matchedCount += result.matched ? 1 : 0;
     updateCount += result.updated ? 1 : 0;
     results.push(result);
@@ -1048,7 +1072,10 @@ const nextLineupsByFixtureId = Object.fromEntries(
 if (shouldWrite && (updateCount || removedInlineCount)) {
   fixturesData.sourceIds = (fixturesData.sourceIds || []).filter((id) => !/^fifa-lineups-sync-/.test(id));
   fixturesData.updatedAt = checkedAt;
-  lineupsData.sourceIds = [...new Set([...(lineupsData.sourceIds || []), sourceId])];
+  const lineupRecordSourceIds = Object.values(nextLineupsByFixtureId).flatMap((lineups) =>
+    Array.isArray(lineups?.sourceIds) ? lineups.sourceIds : []
+  );
+  lineupsData.sourceIds = [...new Set([...(lineupsData.sourceIds || []), sourceId, ...lineupRecordSourceIds])];
   lineupsData.updatedAt = checkedAt;
   lineupsData.lineups = nextLineupsByFixtureId;
 

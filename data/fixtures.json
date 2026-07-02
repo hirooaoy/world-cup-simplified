@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-02T22:01:58.956Z",
+  "updatedAt": "2026-07-02T22:09:34.246Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -19586,6 +19586,37 @@
       "score": {
         "home": 3,
         "away": 0
+      },
+      "goalsHome": [
+        {
+          "minute": 36,
+          "name": "Mikel Oyarzabal",
+          "assistName": "Marc Cucurella"
+        },
+        {
+          "minute": 66,
+          "name": "Pedro Porro",
+          "assistName": "Alex Baena"
+        },
+        {
+          "minute": 89,
+          "name": "Mikel Oyarzabal",
+          "assistName": "Marc Cucurella"
+        }
+      ],
+      "goalsAway": [],
+      "resultStoryBullets": [
+        "Mikel Oyarzabal opened the scoring for Spain.",
+        "Marc Cucurella assisted Mikel Oyarzabal twice as Spain pulled away.",
+        "Pedro Porro added a mid-match goal, then Oyarzabal finished the match at 89'."
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=J9SxUH5VCSU",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-07-02T14:56:41-07:00",
+        "checkedAt": "2026-07-02T14:56:41-07:00"
       }
     },
     {

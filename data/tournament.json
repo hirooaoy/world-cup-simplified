@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-02T22:01:58.956Z",
+  "updatedAt": "2026-07-02T22:09:34.246Z",
   "coverageNote": "The current seed dataset covers the full official fixture skeleton from June 11 through July 19. Rich previews, scores, live status and knockout participants are updated progressively.",
   "catchUp": [
     {
@@ -1064,28 +1064,12 @@
       "note": "1 fixture goal-event update merged from 74 matched FIFA timelines."
     },
     {
-      "id": "fifa-goal-events-sync-2026-07-02",
-      "label": "FIFA official goal event timeline sync",
-      "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/match-schedule-fixtures-results-teams-stadiums",
-      "type": "official",
-      "checkedAt": "2026-07-02T02:19:33.871Z",
-      "note": "2 fixture goal-event updates merged from 75 matched FIFA timelines."
-    },
-    {
       "id": "national-football-teams-h2h-sync-2026-07-02",
       "label": "National Football Teams H2H sync",
       "url": "https://www.national-football-teams.com",
       "type": "cross-check",
       "checkedAt": "2026-07-02T02:21:44.406Z",
       "note": "1 fixture H2H update merged from National Football Teams encounter pages."
-    },
-    {
-      "id": "fifa-lineups-sync-2026-07-02",
-      "label": "FIFA official final lineups sync",
-      "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/match-schedule-fixtures-results-teams-stadiums",
-      "type": "official",
-      "checkedAt": "2026-07-02T16:24:20.753Z",
-      "note": "82 completed FIFA team sheets checked; lineups.json carries official starters, bench, cards, and substitutions for 82 completed fixtures; 0 changed on this pass."
     },
     {
       "id": "fifa-match-events-sync-2026-07-02",
@@ -1096,12 +1080,36 @@
       "note": "82 matched FIFA timelines checked; 82 active/completed fixtures carry official formation/card/substitution records; 1 changed on this pass."
     },
     {
+      "id": "lineup-layout-verification-2026-07-02",
+      "label": "Lineup layout verification",
+      "url": "https://www.espn.co.uk/football/match/_/gameId/760493/senegal-belgium",
+      "type": "editorial",
+      "checkedAt": "2026-07-02T21:37:01.051Z",
+      "note": "1 configured fixture layout checked against trusted public match centers; 1 verified override applied."
+    },
+    {
       "id": "fifa-official-results-sync-2026-07-02",
       "label": "FIFA official results sync",
       "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/match-schedule-fixtures-results-teams-stadiums",
       "type": "official",
       "checkedAt": "2026-07-02T22:01:58.956Z",
       "note": "2 fixture updates merged from 104 matched FIFA fixtures. 1 knockout participant slot resolved from official participants or completed results."
+    },
+    {
+      "id": "fifa-goal-events-sync-2026-07-02",
+      "label": "FIFA official goal event timeline sync",
+      "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/match-schedule-fixtures-results-teams-stadiums",
+      "type": "official",
+      "checkedAt": "2026-07-02T21:56:24.089Z",
+      "note": "1 fixture goal-event update merged from 76 matched FIFA timelines."
+    },
+    {
+      "id": "fifa-lineups-sync-2026-07-02",
+      "label": "FIFA official final lineups sync",
+      "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/match-schedule-fixtures-results-teams-stadiums",
+      "type": "official",
+      "checkedAt": "2026-07-02T22:09:34.246Z",
+      "note": "83 completed FIFA team sheets checked; lineups.json carries official starters, bench, cards, and substitutions for 83 completed fixtures; 1 changed on this pass."
     }
   ],
   "groups": [

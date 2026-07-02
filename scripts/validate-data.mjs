@@ -2,6 +2,7 @@
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { compareLineupsToLayoutOverride, VERIFIED_LAYOUT_SOURCE } from "./lineup-layout-overrides.mjs";
 import { isPlayerNameMatch, normalizePlayerName } from "./player-name-matching.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -703,6 +704,7 @@ const [
   fixturesData,
   historyData,
   lineupsData,
+  lineupLayoutOverridesData,
   historicalPlayerProfilesData,
   adminMessageData,
   matchupResearchData,
@@ -716,6 +718,7 @@ const [
   readJson("fixtures.json"),
   readJson("history.json"),
   readJson("lineups.json"),
+  readOptionalJson("lineup-layout-overrides.json"),
   readJson("historical-player-profiles.json"),
   readOptionalJson("admin-message.json"),
   readOptionalJson("matchup-research-notes.json"),
@@ -773,6 +776,9 @@ for (const [index, item] of tournamentCatchUpItems.entries()) {
 requireSourceIds(fixturesData.sourceIds, sourceIds, "fixtures.json");
 requireSourceIds(historyData.sourceIds, sourceIds, "history.json");
 requireSourceIds(lineupsData.sourceIds, sourceIds, "lineups.json");
+if (lineupLayoutOverridesData) {
+  requireSourceIds(lineupLayoutOverridesData.sourceIds, sourceIds, "lineup-layout-overrides.json");
+}
 requireSourceIds(historicalPlayerProfilesData.sourceIds, sourceIds, "historical-player-profiles.json");
 if (playerAvailabilityData) {
   requireSourceIds(playerAvailabilityData.sourceIds, sourceIds, "player-availability.json");
@@ -1314,6 +1320,45 @@ function validateLineupEvents(events, playerNames, owner) {
   }
 }
 
+function validateLineupLayoutVerification(verification, sourceIdSet, owner) {
+  if (verification === undefined) {
+    return;
+  }
+
+  assert(isPlainObject(verification), `${owner}.layoutVerification must be an object`);
+  if (!isPlainObject(verification)) {
+    return;
+  }
+
+  assert(["verified", "unresolved"].includes(verification.status), `${owner}.layoutVerification.status must be verified or unresolved`);
+  if (verification.checkedAt !== undefined) {
+    validateLineupTimestamp(verification.checkedAt, `${owner}.layoutVerification.checkedAt`);
+  }
+  if (verification.sourceIds !== undefined) {
+    requireSourceIds(verification.sourceIds, sourceIdSet, `${owner}.layoutVerification`);
+  }
+  if (verification.sources !== undefined) {
+    assert(Array.isArray(verification.sources), `${owner}.layoutVerification.sources must be an array`);
+    for (const [index, source] of (Array.isArray(verification.sources) ? verification.sources : []).entries()) {
+      const sourceOwner = `${owner}.layoutVerification.sources[${index}]`;
+      assert(isPlainObject(source), `${sourceOwner} must be an object`);
+      if (!isPlainObject(source)) continue;
+      assert(typeof source.name === "string" && source.name.trim(), `${sourceOwner}.name must be a non-empty string`);
+      assert(/^https?:\/\//.test(source.url || ""), `${sourceOwner}.url must be an http(s) URL`);
+      assert(
+        ["matched", "unavailable", "blocked", "error", "conflict"].includes(source.status),
+        `${sourceOwner}.status must be matched, unavailable, blocked, error, or conflict`
+      );
+    }
+  }
+  if (verification.unresolvedReason !== undefined) {
+    assert(
+      typeof verification.unresolvedReason === "string" && verification.unresolvedReason.trim(),
+      `${owner}.layoutVerification.unresolvedReason must be a non-empty string`
+    );
+  }
+}
+
 function validateFixtureLineups(fixture, sourceIdSet) {
   if (fixture.lineups === undefined) {
     return;
@@ -1339,8 +1384,15 @@ function validateFixtureLineups(fixture, sourceIdSet) {
   }
   if (fixture.lineups.layoutSource !== undefined) {
     assert(
-      ["fifa-official", "provider", "derived-team-sheet-order", "editorial"].includes(fixture.lineups.layoutSource),
-      `${owner}.layoutSource must be fifa-official, provider, derived-team-sheet-order, or editorial`
+      ["fifa-official", "provider", "derived-team-sheet-order", "editorial", VERIFIED_LAYOUT_SOURCE].includes(fixture.lineups.layoutSource),
+      `${owner}.layoutSource must be fifa-official, provider, derived-team-sheet-order, editorial, or ${VERIFIED_LAYOUT_SOURCE}`
+    );
+  }
+  validateLineupLayoutVerification(fixture.lineups.layoutVerification, sourceIdSet, owner);
+  if (fixture.lineups.layoutVerification?.status === "verified") {
+    assert(
+      fixture.lineups.layoutSource === VERIFIED_LAYOUT_SOURCE || fixture.lineups.layoutSource === "provider" || fixture.lineups.layoutSource === "fifa-official",
+      `${owner}.layoutSource must not be derived for a verified layout`
     );
   }
 
@@ -1445,6 +1497,103 @@ function validateMatchEventsSide(sideEvents, fixture, side) {
     validateLineupMinute(substitution.minute, substitutionOwner);
     if (substitution.side !== undefined) {
       assert(substitution.side === side, `${substitutionOwner}.side must match its parent side`);
+    }
+  }
+}
+
+function validateLineupLayoutOverridePlayer(player, owner) {
+  assert(isPlainObject(player), `${owner} must be an object`);
+  if (!isPlainObject(player)) {
+    return;
+  }
+
+  assert(typeof player.name === "string" && player.name.trim(), `${owner}.name must be a non-empty string`);
+  assert(typeof player.number === "string" || typeof player.number === "number", `${owner}.number must be a string or number`);
+  assert(normalizeLineupPositionCode(player.position), `${owner}.position must be a recognized lineup position`);
+  assert(isNumber(player.x) && player.x >= 0 && player.x <= 100, `${owner}.x must be a number from 0 to 100`);
+  assert(isNumber(player.y) && player.y >= 0 && player.y <= 100, `${owner}.y must be a number from 0 to 100`);
+}
+
+function validateLineupLayoutOverrideSide(sideOverride, owner) {
+  assert(isPlainObject(sideOverride), `${owner} must be an object`);
+  if (!isPlainObject(sideOverride)) {
+    return;
+  }
+  assert(typeof sideOverride.formation === "string" && sideOverride.formation.trim(), `${owner}.formation must be a non-empty string`);
+  assert(Array.isArray(sideOverride.players), `${owner}.players must be an array`);
+  assert(!Array.isArray(sideOverride.players) || sideOverride.players.length === 11, `${owner}.players must include exactly 11 starters`);
+  for (const [index, player] of (Array.isArray(sideOverride.players) ? sideOverride.players : []).entries()) {
+    validateLineupLayoutOverridePlayer(player, `${owner}.players[${index}]`);
+  }
+}
+
+function validateLineupLayoutOverrides(overridesData, lineupsDataValue) {
+  if (overridesData === null || overridesData === undefined) {
+    return;
+  }
+
+  assert(isPlainObject(overridesData), "lineup-layout-overrides.json must be an object");
+  if (!isPlainObject(overridesData)) {
+    return;
+  }
+  if (overridesData.updatedAt !== undefined) {
+    assert(isValidDateTime(overridesData.updatedAt), "lineup-layout-overrides.json updatedAt must be a valid date-time when present");
+  }
+  assert(isPlainObject(overridesData.fixtures), "lineup-layout-overrides.json fixtures must be an object keyed by fixture id");
+
+  for (const [fixtureId, override] of Object.entries(isPlainObject(overridesData.fixtures) ? overridesData.fixtures : {})) {
+    const owner = `lineup-layout-overrides.json fixture "${fixtureId}"`;
+    const fixture = fixturesById.get(fixtureId);
+    assert(fixture, `${owner} references unknown fixture`);
+    assert(isPlainObject(override), `${owner} must be an object`);
+    if (!fixture || !isPlainObject(override)) {
+      continue;
+    }
+
+    assert(["verified", "unresolved"].includes(override.status), `${owner}.status must be verified or unresolved`);
+    validateLineupTimestamp(override.checkedAt, `${owner}.checkedAt`);
+    requireSourceIds(override.sourceIds, sourceIds, owner);
+    if (override.homeTeamId !== undefined) {
+      assert(override.homeTeamId === fixture.homeTeamId, `${owner}.homeTeamId must match the fixture home team`);
+    }
+    if (override.awayTeamId !== undefined) {
+      assert(override.awayTeamId === fixture.awayTeamId, `${owner}.awayTeamId must match the fixture away team`);
+    }
+    if (override.layoutSource !== undefined) {
+      assert(override.layoutSource === VERIFIED_LAYOUT_SOURCE, `${owner}.layoutSource must be ${VERIFIED_LAYOUT_SOURCE}`);
+    }
+    if (override.sources !== undefined) {
+      assert(Array.isArray(override.sources), `${owner}.sources must be an array`);
+      for (const [index, source] of (Array.isArray(override.sources) ? override.sources : []).entries()) {
+        const sourceOwner = `${owner}.sources[${index}]`;
+        assert(isPlainObject(source), `${sourceOwner} must be an object`);
+        if (!isPlainObject(source)) continue;
+        assert(typeof source.name === "string" && source.name.trim(), `${sourceOwner}.name must be a non-empty string`);
+        assert(/^https?:\/\//.test(source.url || ""), `${sourceOwner}.url must be an http(s) URL`);
+        assert(
+          ["matched", "unavailable", "blocked", "error", "conflict"].includes(source.status),
+          `${sourceOwner}.status must be matched, unavailable, blocked, error, or conflict`
+        );
+      }
+    }
+    if (override.unresolvedReason !== undefined) {
+      assert(typeof override.unresolvedReason === "string" && override.unresolvedReason.trim(), `${owner}.unresolvedReason must be a non-empty string`);
+    }
+
+    if (override.status !== "verified") {
+      continue;
+    }
+
+    validateLineupLayoutOverrideSide(override.home, `${owner}.home`);
+    validateLineupLayoutOverrideSide(override.away, `${owner}.away`);
+
+    const lineups = lineupsDataValue?.lineups?.[fixtureId];
+    assert(lineups, `${owner} must be applied to lineups.json`);
+    if (!lineups) {
+      continue;
+    }
+    for (const issue of compareLineupsToLayoutOverride(lineups, override)) {
+      fail(`${owner}: ${issue}`);
     }
   }
 }
@@ -2090,6 +2239,7 @@ if (isPlainObject(lineupsData)) {
     validateLineupGoalCoverage(fixtureWithLineups, `lineups.json fixture "${fixtureId}"`);
   }
 }
+validateLineupLayoutOverrides(lineupLayoutOverridesData, lineupsData);
 
 for (const playerName of requiredProfileNames) {
   if (!playerProfilesData) {
