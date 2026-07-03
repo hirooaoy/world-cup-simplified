@@ -1993,7 +1993,7 @@ try {
   );
   await page.keyboard.press("Escape");
   await page.locator("#day-label").focus();
-  await page.locator(".player-card:visible").first().waitFor({ state: "hidden" });
+  await page.waitForSelector(".player-card:visible", { state: "hidden" });
   assert(
     (await page.locator(".key-info-team h4 .key-info-heading .flag").count()) > 0,
     "Key information headings should show the country flag before the label."
