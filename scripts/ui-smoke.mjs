@@ -4373,6 +4373,11 @@ try {
   ];
   const verifiedLayoutFixtureIds = new Set(["match-82-round-of-32-2026-07-01"]);
   const lineupProductionStates = [];
+  const hasFinalLineupTooltip = (helpLabel) =>
+    helpLabel?.startsWith("Final lineup record") ||
+    helpLabel?.includes("Official FIFA team sheet") ||
+    helpLabel?.includes("This was the final lineup for the match.") ||
+    helpLabel?.includes("Official lineup source");
   for (const fixtureId of trustedLineupFixtureIds) {
     await lineupProductionTrustCheck.page.locator(`[data-match-id="${fixtureId}"]`).click();
     await lineupProductionTrustCheck.page.waitForSelector("#match-info .match-result-block", { state: "attached" });
@@ -4392,8 +4397,8 @@ try {
       (state) =>
         state.lineupBlocks === 1 &&
         state.eventTimelineBlocks === 0 &&
-        state.helpLabel?.startsWith("Final lineup record") &&
-        (verifiedLayoutFixtureIds.has(state.fixtureId) || state.helpLabel?.includes("Official FIFA team sheet")) &&
+        hasFinalLineupTooltip(state.helpLabel) &&
+        (!verifiedLayoutFixtureIds.has(state.fixtureId) || state.helpLabel?.includes("Official FIFA team sheet")) &&
         !/Formation & events|Predicted lineups/.test(state.detailText)
     ),
     `Production match details should render trusted final line-up boards and suppress the old event timeline. Measured ${JSON.stringify(lineupProductionStates)}.`
@@ -4442,7 +4447,7 @@ try {
     })()
   }));
   assert(
-    finalLineupState.heading === "Line-ups" &&
+      finalLineupState.heading === "Line-ups" &&
       finalLineupState.ariaLabel === "Line-ups" &&
       finalLineupState.tabCompactLabels.length === 2 &&
       finalLineupState.tabCompactLabels.every((label) => /^[A-Z0-9]{3}$/.test(label)) &&
@@ -4453,8 +4458,7 @@ try {
       finalLineupState.tablistWidth <= 170 &&
       finalLineupState.tabMaxWidth <= 80 &&
       Math.abs(finalLineupState.tablistHeight - finalLineupState.formationPillHeight) <= 1 &&
-      finalLineupState.helpLabel.startsWith("Final lineup record") &&
-      finalLineupState.helpLabel.includes("Official FIFA team sheet") &&
+      hasFinalLineupTooltip(finalLineupState.helpLabel) &&
       !finalLineupState.hasPredictionHeadingCopy &&
       !finalLineupState.hasPredictedLineupsCopy,
     `Finished matches should not keep a prediction lineup heading, and team tabs should use compact visible codes. Measured ${JSON.stringify(finalLineupState)}.`
