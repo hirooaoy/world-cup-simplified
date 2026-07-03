@@ -2,6 +2,17 @@
   "updatedAt": "2026-07-02T23:10:00-07:00",
   "releases": [
     {
+      "date": "2026-07-03",
+      "title": "Fix startup crash during data load",
+      "titleZh": "修复数据加载启动崩溃",
+      "highlights": [
+        "Restored a missing runtime helper used during app startup so initial static data can be applied and the match list renders again instead of showing the data-unavailable error."
+      ],
+      "highlightsZh": [
+        "修复了启动期间缺失的运行时辅助函数，恢复了静态数据应用路径，比赛列表恢复可见，不再在加载后显示数据不可用错误。"
+      ]
+    },
+    {
       "date": "2026-07-02",
       "title": "Lineup parser and live-data synchronization",
       "titleZh": "阵容解析与实时数据联动更新",

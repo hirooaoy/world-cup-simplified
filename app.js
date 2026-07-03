@@ -7642,15 +7642,24 @@ function escapeRegExp(value) {
   return String(value).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
-function clampPercent(value) {
-  const number = Number(value);
-  if (!Number.isFinite(number)) {
-    return 0;
+  function clampPercent(value) {
+    const number = Number(value);
+    if (!Number.isFinite(number)) {
+      return 0;
+    }
+    return Math.max(0, Math.min(100, number));
   }
-  return Math.max(0, Math.min(100, number));
-}
 
-async function loadJson(url, options = {}) {
+  function isPlainObject(value) {
+    return (
+      value !== null &&
+      typeof value === "object" &&
+      !Array.isArray(value) &&
+      Object.prototype.toString.call(value) === "[object Object]"
+    );
+  }
+
+  async function loadJson(url, options = {}) {
   const { timeoutMs = 0 } = options;
   const controller =
     timeoutMs > 0 && typeof AbortController !== "undefined" ? new AbortController() : null;
