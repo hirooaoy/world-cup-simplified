@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-03T18:14:14.325Z",
+  "updatedAt": "2026-07-03T19:21:31.485Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -20022,7 +20022,7 @@
         "away": 35
       },
       "score": {
-        "home": 0,
+        "home": 1,
         "away": 1
       }
     },
