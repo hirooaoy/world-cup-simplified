@@ -15662,7 +15662,7 @@ function getOfficialHighlightVideo(match) {
 
 function renderResultHeading(match) {
   const video = getOfficialHighlightVideo(match);
-  const tooltip = appendInfoCardDisclaimer(localizeText("Play highlights on YouTube"));
+  const tooltip = localizeText("Play highlights on YouTube");
 
   return `
     <h3 class="info-heading result-heading">
