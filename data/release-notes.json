@@ -1,6 +1,19 @@
 {
-  "updatedAt": "2026-07-02T23:03:00-07:00",
+  "updatedAt": "2026-07-02T23:10:00-07:00",
   "releases": [
+    {
+      "date": "2026-07-02",
+      "title": "Lineup parser and live-data synchronization",
+      "titleZh": "阵容解析与实时数据联动更新",
+      "highlights": [
+        "Live data and lineup parsing now refresh together with stronger guardrails to better keep finalized match lineups and fixture states aligned.",
+        "The lineup candidate tooling keeps layout candidate propagation intact while reducing accidental regressions in live-data fallback paths."
+      ],
+      "highlightsZh": [
+        "实时数据与阵容解析更新联动更紧，进一步提高已完场比赛阵容和赛程状态的一致性。",
+        "阵容候选工具在保留排布候选传播的同时，加强了实时数据降级路径的防回退。"
+      ]
+    },
     {
       "date": "2026-07-02",
       "title": "Live score detail wording polish",
