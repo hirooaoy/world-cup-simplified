@@ -373,12 +373,9 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "Line ups": "阵容",
     "Line-ups": "阵容",
     "Line-ups (expected)": "预计阵容",
-    "Line-ups (probable)": "可能阵容",
-    "Line-ups (prediction)": "预测阵容",
     "low confidence": "低置信度",
     "medium confidence": "中等置信度",
     "high confidence": "高置信度",
-    "Line-ups (live)": "实时阵容",
     "Line-ups (official)": "官方阵容",
     "Line-ups (verified)": "官方确认阵容",
     "Expected lineups": "预计阵容",
@@ -402,11 +399,17 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "Predicted lineups": "预测阵容",
     "Expected lineups checked": "预计阵容核验",
     "Probable lineups checked": "可能阵容核验",
+    "Predicted from online sources": "来自在线来源的预测阵容",
+    "This was the final lineup for the match.": "这是本场比赛的最终阵容。",
+    "This feature is still work in progress and may not be accurate.": "该功能仍在开发中，可能不够准确。",
     "low confidence": "低置信度",
     "medium confidence": "中等置信度",
     "high confidence": "高置信度",
-    "Predicted lineups checked": "预测阵容核验",
-    "Own goal": "乌龙球",
+  "Predicted lineups checked": "预测阵容核验",
+  "Predicted from online sources": "来自在线来源的预测阵容",
+  "This was the final lineup for the match.": "这是本场比赛的最终阵容。",
+  "This feature is still work in progress and may not be accurate.": "该功能仍在开发中，可能不够准确。",
+  "Own goal": "乌龙球",
     "Red card": "红牌",
     "Substitution": "换人",
     "Substituted off": "被换下",
@@ -2300,10 +2303,8 @@ Object.entries({
   Likely: "可能",
   "Unknown scorer": "进球者未知",
   "No historical prediction is generated for cancelled fixtures.": "已取消的比赛不会生成历史预测。",
-  "Line-ups (live)": "实时阵容",
   "Line-ups (verified)": "官方确认阵容",
   "Line-ups (expected)": "预计阵容",
-  "Line-ups (probable)": "可能阵容",
   "Line-ups (official)": "官方阵容",
   "Final verified lineup": "最终确认阵容",
   "Expected lineups": "预计阵容",
@@ -14352,13 +14353,16 @@ function getProjectionMethodHelp(projection) {
 function renderPredictionHeading(projection) {
   const help = getProjectionMethodHelp(projection);
   const localizedHelp = help ? localizeText(help) : "";
+  const helpWithDisclaimer = appendInfoCardDisclaimer(localizedHelp);
+  const ariaHelp = localizedHelp ? localizeText(`Prediction source: ${help}`) : "";
+  const ariaHelpWithDisclaimer = ariaHelp ? appendInfoCardDisclaimer(ariaHelp) : "";
 
   return `
     <h3 class="info-heading">
       <span>${escapeHtml(localizeText("Prediction"))}</span>
       ${
         localizedHelp
-          ? `<button class="info-tooltip-button" type="button" aria-label="${escapeHtml(localizeText(`Prediction source: ${help}`))}" data-tooltip="${escapeHtml(localizedHelp)}">i</button>`
+          ? `<button class="info-tooltip-button" type="button" aria-label="${escapeHtml(ariaHelpWithDisclaimer)}" data-tooltip="${escapeHtml(helpWithDisclaimer)}">i</button>`
           : ""
       }
     </h3>
@@ -15658,7 +15662,7 @@ function getOfficialHighlightVideo(match) {
 
 function renderResultHeading(match) {
   const video = getOfficialHighlightVideo(match);
-  const tooltip = localizeText("Play highlights on YouTube");
+  const tooltip = appendInfoCardDisclaimer(localizeText("Play highlights on YouTube"));
 
   return `
     <h3 class="info-heading result-heading">
@@ -17097,16 +17101,8 @@ function getLineupSourceLabel(match, lineup = null) {
     return localizeText("Official FIFA live lineup");
   }
 
-  if (mode === "expected") {
-    return localizeText("Expected lineups");
-  }
-
-  if (mode === "probable") {
-    return localizeText("Probable lineups");
-  }
-
-  if (mode === "prediction") {
-    return localizeText("Predicted lineups");
+  if (["expected", "probable", "prediction"].includes(mode)) {
+    return localizeText("Predicted from online sources");
   }
 
   if (mode === "final" && lineup?.teamSheetSource === "fifa-official") {
@@ -17144,8 +17140,10 @@ function getLineupConfidenceText(lineup) {
 
 function getLineupUpdatedText(match, lineup = null) {
   const mode = getLineupModeForMatch(match, lineup?.mode);
-  if (mode === "final") {
-    return localizeText("Final verified lineup");
+  const isFutureLineup = ["expected", "probable", "prediction"].includes(mode);
+  const isPastLineup = ["final", "confirmed"].includes(mode);
+  if (isPastLineup) {
+    return localizeText("This was the final lineup for the match.");
   }
 
   if (mode === "live") {
@@ -17159,24 +17157,27 @@ function getLineupUpdatedText(match, lineup = null) {
     return getLineupCheckedText("Lineup record checked", freshness);
   }
 
-  if (mode === "expected") {
-    return `${getLineupCheckedText("Expected lineups checked", freshness)}${getLineupConfidenceText(lineup)}` || localizeText("Expected lineups");
-  }
-
-  if (mode === "probable") {
-    return `${getLineupCheckedText("Probable lineups checked", freshness)}${getLineupConfidenceText(lineup)}` || localizeText("Probable lineups");
-  }
-
-  if (mode === "prediction") {
-    return getLineupCheckedText("Predicted lineups checked", freshness) || localizeText("Predicted lineups");
+  if (isFutureLineup) {
+    return localizeText("Expected lineups") + getLineupConfidenceText(lineup);
   }
 
   return localizeText("Confirmed lineups");
 }
 
 function getLineupHelpText(match, lineup = null) {
+  const mode = getLineupModeForMatch(match, lineup?.mode);
+  const isFutureLineup = ["expected", "probable", "prediction"].includes(mode);
   const freshness = getLineupFreshness(match, lineup);
   const sourceLabel = getLineupSourceLabel(match, lineup);
+  const isPastLineup = ["final", "confirmed"].includes(mode);
+
+  if (isFutureLineup) {
+    return localizeText("Predicted from online sources");
+  }
+
+  if (isPastLineup) {
+    return localizeText("This was the final lineup for the match.");
+  }
 
   if (!freshness) {
     return sourceLabel;
@@ -17243,21 +17244,14 @@ function getLocalizedLineupPosition(position) {
 
 function getLineupHeadingLabel(match, lineup) {
   const mode = getLineupModeForMatch(match, lineup?.mode);
+  const isFutureLineup = ["expected", "probable", "prediction"].includes(mode);
 
-  if (mode === "expected") {
+  if (isFutureLineup) {
     return localizeText("Line-ups (expected)");
   }
 
-  if (mode === "probable") {
-    return localizeText("Line-ups (probable)");
-  }
-
-  if (mode === "prediction") {
-    return localizeText("Line-ups (prediction)");
-  }
-
   if (mode === "live") {
-    return localizeText("Line-ups (live)");
+    return localizeText("Line-ups");
   }
 
   if (mode === "final") {
@@ -17274,10 +17268,10 @@ function getLineupHeadingLabel(match, lineup) {
 function renderLineupHeading(match, lineup) {
   const label = getLineupHeadingLabel(match, lineup);
   const helpText = getLineupHelpText(match, lineup);
-  const lineupMode = getLineupModeForMatch(match, lineup?.mode);
-  const hasLineupHelpButton = ["live", "final", "confirmed"].includes(lineupMode) && !!helpText;
+  const helpTextWithDisclaimer = appendInfoCardDisclaimer(helpText);
+  const hasLineupHelpButton = !!helpText;
   const helpButton = hasLineupHelpButton
-    ? `<button class="info-tooltip-button" type="button" aria-label="${escapeHtml(helpText)}" data-tooltip="${escapeHtml(helpText)}">i</button>`
+    ? `<button class="info-tooltip-button" type="button" aria-label="${escapeHtml(helpTextWithDisclaimer)}" data-tooltip="${escapeHtml(helpTextWithDisclaimer)}">i</button>`
     : "";
 
   return `
@@ -17286,6 +17280,15 @@ function renderLineupHeading(match, lineup) {
       ${helpButton}
     </h3>
   `;
+}
+
+function appendInfoCardDisclaimer(tooltipText) {
+  const disclaimer = localizeText("This feature is still work in progress and may not be accurate.");
+  if (!tooltipText) {
+    return disclaimer;
+  }
+
+  return `${tooltipText}\n${disclaimer}`;
 }
 
 function getLineupPlayerData(player, team) {
@@ -17713,6 +17716,76 @@ function getLineupCoachInitials(coach) {
   return getPlayerInitials(coach?.name || "");
 }
 
+function normalizeCoachStyleTokens(value) {
+  if (!value) {
+    return [];
+  }
+
+  if (Array.isArray(value)) {
+    return value.map((item) => String(item || "").trim()).filter(Boolean);
+  }
+
+  if (typeof value === "string") {
+    return value
+      .split(/[,;|]/)
+      .map((item) => item.trim())
+      .filter(Boolean);
+  }
+
+  if (typeof value === "object") {
+    if (Array.isArray(value.tags)) {
+      return value.tags.map((item) => String(item || "").trim()).filter(Boolean);
+    }
+    if (Array.isArray(value.values)) {
+      return value.values.map((item) => String(item || "").trim()).filter(Boolean);
+    }
+    if (typeof value.name === "string") {
+      return [value.name.trim()].filter(Boolean);
+    }
+    if (typeof value.text === "string") {
+      return [value.text.trim()].filter(Boolean);
+    }
+    if (typeof value.en === "string") {
+      return [value.en.trim()].filter(Boolean);
+    }
+    return [];
+  }
+
+  return [];
+}
+
+function getLineupCoachStyleTags(coach) {
+  const candidates = [
+    coach?.styles,
+    coach?.styleTags,
+    coach?.style,
+    coach?.playingStyle,
+    coach?.tacticalStyle
+  ];
+  const styles = [];
+  const styleSet = new Set();
+
+  for (const candidate of candidates) {
+    for (const item of normalizeCoachStyleTokens(candidate)) {
+      const key = item.toLowerCase();
+      if (styleSet.has(key)) {
+        continue;
+      }
+
+      styleSet.add(key);
+      styles.push(item);
+      if (styles.length >= 3) {
+        break;
+      }
+    }
+    if (styles.length >= 3) {
+      break;
+    }
+  }
+
+  return styles;
+}
+
 function renderLineupCoachThumbnail(coach, className = "lineup-coach-avatar") {
   const initials = getLineupCoachInitials(coach);
 
@@ -17745,8 +17818,16 @@ function renderLineupCoachCard(coach) {
       : `${localizeText("Since")} ${escapeHtml(coach.sinceYear)}`
     : "";
   const ageText = getLocalizedLineupCoachAgeLine(coach);
+  const styleTags = getLineupCoachStyleTags(coach);
   const note = localizeLineupCopy(coach?.note);
   const history = localizeLineupCopy(coach?.history);
+  const styleItems = styleTags
+    .map((style) => {
+      const label = localizeLineupCopy(style);
+      return label ? `<span>${escapeHtml(label)}</span>` : "";
+    })
+    .filter(Boolean)
+    .join("");
   const copyItems = [note, ageText, history]
     .filter(Boolean)
     .map((item) => `<span class="player-card-note">${escapeHtml(item)}</span>`)
@@ -17756,14 +17837,15 @@ function renderLineupCoachCard(coach) {
     <span class="player-card lineup-coach-card" role="tooltip">
       <span class="player-card-header">
         <span class="player-photo">${renderLineupCoachThumbnail(coach, "lineup-coach-card-photo")}</span>
-        <span class="player-card-title">
-          <span class="player-card-name-line">
-            <strong class="player-card-name">${escapeHtml(coachName)}</strong>
-          </span>
-          <span class="player-card-position">${escapeHtml(roleText)}</span>
-          ${sinceText ? `<span class="player-card-club">${sinceText}</span>` : ""}
+      <span class="player-card-title">
+        <span class="player-card-name-line">
+          <strong class="player-card-name">${escapeHtml(coachName)}</strong>
+        </span>
+        <span class="player-card-position">${escapeHtml(roleText)}</span>
+        ${sinceText ? `<span class="player-card-club">${sinceText}</span>` : ""}
         </span>
       </span>
+      ${styleItems ? `<span class="player-skill-list">${styleItems}</span>` : ""}
       ${copyItems ? `<span class="player-card-copy lineup-coach-copy">${copyItems}</span>` : ""}
     </span>
   `;

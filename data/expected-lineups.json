@@ -26,7 +26,8 @@
           "coach": {
             "name": "Graham Arnold",
             "teamName": "Australia",
-            "sourceUrl": "https://en.wikipedia.org/wiki/Graham_Arnold"
+            "sourceUrl": "https://en.wikipedia.org/wiki/Graham_Arnold",
+            "imageUrl": "https://digitalhub.fifa.com/transform/941a1adb-7c8a-49f1-a2fb-2cbb304561fd/ARNOLD-Graham_175731"
           },
           "players": [
             {
@@ -118,14 +119,64 @@
               "y": 25.6
             }
           ],
-          "bench": []
+          "bench": [
+            {
+              "number": "12",
+              "name": "Paul Izzo",
+              "sourcePosition": "goalkeeper",
+              "position": "GK"
+            },
+            {
+              "number": "15",
+              "name": "Kai Trewin",
+              "sourcePosition": "defender",
+              "position": "CB"
+            },
+            {
+              "number": "16",
+              "name": "Aziz Behich",
+              "sourcePosition": "defender",
+              "position": "LB"
+            },
+            {
+              "number": "25",
+              "name": "Lucas Herrington",
+              "sourcePosition": "defender",
+              "position": "CB"
+            },
+            {
+              "number": "22",
+              "name": "Jackson Irvine",
+              "sourcePosition": "midfielder",
+              "position": "CM"
+            },
+            {
+              "number": "20",
+              "name": "Christian Volpato",
+              "sourcePosition": "forward",
+              "position": "RW"
+            },
+            {
+              "number": "23",
+              "name": "Nishan Velupillay",
+              "sourcePosition": "forward",
+              "position": "RW"
+            },
+            {
+              "number": "26",
+              "name": "Tete Yengi",
+              "sourcePosition": "forward",
+              "position": "ST"
+            }
+          ]
         },
         "away": {
           "formation": "4-2-3-1",
           "coach": {
             "name": "Hossam Hassan",
             "teamName": "Egypt",
-            "sourceUrl": "https://en.wikipedia.org/wiki/Hossam_Hassan"
+            "sourceUrl": "https://en.wikipedia.org/wiki/Hossam_Hassan",
+            "imageUrl": "https://digitalhub.fifa.com/transform/95af748d-2976-473b-938f-055fa4d71916/HOSSAM-HASSAN_174595"
           },
           "players": [
             {
@@ -217,7 +268,80 @@
               "y": 10.5
             }
           ],
-          "bench": []
+          "bench": [
+            {
+              "number": "1",
+              "name": "Mohamed El Shenawy",
+              "sourcePosition": "goalkeeper",
+              "position": "GK"
+            },
+            {
+              "number": "16",
+              "name": "Mahdy Soliman",
+              "sourcePosition": "goalkeeper",
+              "position": "GK"
+            },
+            {
+              "number": "26",
+              "name": "Mohamed Alaa",
+              "sourcePosition": "goalkeeper",
+              "position": "GK"
+            },
+            {
+              "number": "5",
+              "name": "Ramy Rabia",
+              "sourcePosition": "defender",
+              "position": "CB"
+            },
+            {
+              "number": "15",
+              "name": "Karim Hafez",
+              "sourcePosition": "defender",
+              "position": "LB"
+            },
+            {
+              "number": "24",
+              "name": "Tarek Alaa",
+              "sourcePosition": "defender",
+              "position": "RB"
+            },
+            {
+              "number": "18",
+              "name": "Nabil Donga",
+              "sourcePosition": "midfielder",
+              "position": "DM"
+            },
+            {
+              "number": "21",
+              "name": "Mahmoud Saber",
+              "sourcePosition": "midfielder",
+              "position": "CM"
+            },
+            {
+              "number": "7",
+              "name": "Trezeguet",
+              "sourcePosition": "forward",
+              "position": "LW"
+            },
+            {
+              "number": "9",
+              "name": "Hamza Abdelkarim",
+              "sourcePosition": "forward",
+              "position": "ST"
+            },
+            {
+              "number": "12",
+              "name": "Haissem Hassan",
+              "sourcePosition": "forward",
+              "position": "RW"
+            },
+            {
+              "number": "25",
+              "name": "Zizo",
+              "sourcePosition": "forward",
+              "position": "RW"
+            }
+          ]
         }
       }
     }

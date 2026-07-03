@@ -20,6 +20,179 @@ const wikiProfileSourceIds = [
   "wikipedia-page-summaries",
   "wikimedia-commons"
 ];
+const COACH_PAGE_TITLE_OVERRIDES = {
+  "hong myungbo": "Hong Myung-bo",
+  "amir ghalehnoy": "Amir Ghalenoei"
+};
+const COACH_STYLE_FALLBACK = ["Tactical control", "Match management", "Balanced transitions"];
+const COACH_STYLE_RULES = [
+  { label: "Counter-pressing", patterns: ["gegenpress", "gegen press", "gegen-press", "counter-press", "counter pressing", "counterpress"] },
+  { label: "High press", patterns: ["high press", "pressing high", "pressing up", "intense pressing", "press", "pressing"] },
+  { label: "Counter-attack", patterns: ["counter-attack", "counterattack", "counter attacking", "quick transition", "break quickly", "on the break"] },
+  { label: "Possession control", patterns: ["possession", "ball retention", "build-up", "build up", "short passing", "keeping the ball", "control the ball", "positional play"] },
+  { label: "Direct transitions", patterns: ["vertical", "verticality", "direct play", "direct style", "long ball", "quick balls", "vertical transitions"] },
+  { label: "Defensive organization", patterns: ["defensive", "defence", "compact", "deep block", "back line", "defensive shape", "low block"] },
+  { label: "Tactical flexibility", patterns: ["tactically flexible", "tactical flexibility", "adaptive", "adaptable", "multiple formations", "in-game", "formation switch"] },
+  { label: "Set-piece focus", patterns: ["set piece", "set-piece", "dead-ball", "corner", "corners", "free-kick", "free kick"] },
+  { label: "Wing overloads", patterns: ["wide", "wing", "crosses", "fullbacks", "flank", "overlaps"] },
+  { label: "Youth pipeline", patterns: ["youth", "academy", "developmental", "young talent", "youth players"] },
+  { label: "Attacking structure", patterns: ["attacking", "offensive", "goal threat", "penetration", "chance creation", "attack"] },
+  { label: "Positional discipline", patterns: ["organization", "organisation", "organized", "organised", "disciplined", "disciplined shape"] },
+  { label: "Match control", patterns: ["management", "tempo", "game control", "controlling the game", "game management"] }
+];
+const COACH_STYLE_OVERRIDES = {
+  "graham arnold": ["Counter-attack", "High press", "Direct transitions"],
+  "ralf rangnick": ["Counter-pressing", "High press", "Direct transitions"],
+  "marcelo bielsa": ["High press", "Counter-pressing", "Direct transitions"],
+  "thomas tuchel": ["Counter-pressing", "Possession control", "Attacking structure"],
+  "didier deschamps": ["Defensive organization", "Counter-attack", "Set-piece focus"],
+  "carlo ancelotti": ["Possession control", "Counter-pressing", "Defensive organization"],
+  "ronald koeman": ["Set-piece focus", "Possession control", "Defensive organization"],
+  "zlatko dalic": ["Counter-attack", "High press", "Defensive organization"],
+  "sergej barbarez": ["Counter-pressing", "Possession control", "Attacking structure"],
+  "javier aguirre": ["Counter-attack", "Defensive organization", "Attacking structure"],
+  "hugo broos": ["Defensive organization", "Counter-attack", "Set-piece focus"],
+  "hong myungbo": ["Defensive organization", "Counter-pressing", "Counter-attack"],
+  "miroslav koubek": ["Counter-pressing", "Defensive organization", "Counter-attack"],
+  "jesse marsch": ["Counter-pressing", "High press", "Direct transitions"],
+  "mauricio pochettino": ["High press", "Positional discipline", "Youth pipeline"],
+  "gustavo alfaro": ["Counter-attack", "Set-piece focus", "Defensive organization"],
+  "murat yakin": ["Defensive organization", "Counter-attack", "Set-piece focus"],
+  "julen lopetegui": ["Possession control", "Counter-pressing", "Set-piece focus"],
+  "mohamed ouahbi": ["Youth pipeline", "Defensive organization", "Counter-pressing"],
+  "sebastien migne": ["Defensive organization", "Set-piece focus", "Counter-attack"],
+  "steve clarke": ["Defensive organization", "Counter-attack", "Set-piece focus"],
+  "tony popovic": ["Defensive organization", "Counter-pressing", "Direct transitions"],
+  "vincenzo montella": ["Attacking structure", "Possession control", "High press"],
+  "julian nagelsmann": ["High press", "Counter-pressing", "Possession control"],
+  "dick advocaat": ["Defensive organization", "Counter-pressing", "Set-piece focus"],
+  "hajime moriyasu": ["Possession control", "Counter-attack", "Direct transitions"],
+  "emerse fae": ["Counter-attack", "Defensive organization", "Set-piece focus"],
+  "sebastian beccacece": ["Attacking structure", "Possession control", "High press"],
+  "graham potter": ["Possession control", "Attacking structure", "Wing overloads"],
+  "sabri lamouchi": ["Counter-pressing", "Possession control", "Direct transitions"],
+  "luis de la fuente": ["Youth pipeline", "Possession control", "Defensive organization"],
+  "bubista": ["Defensive organization", "Counter-attack", "Set-piece focus"],
+  "rudi garcia": ["Attacking structure", "Possession control", "High press"],
+  "hossam hassan": ["Counter-attack", "Defensive organization", "Set-piece focus"],
+  "georgios donis": ["Wing overloads", "Attacking structure", "Possession control"],
+  "amir ghalehnoy": ["Counter-pressing", "Defensive organization", "Counter-attack"],
+  "darren bazeley": ["Counter-pressing", "Positional discipline", "Set-piece focus"],
+  "pape thiaw": ["Attacking structure", "Direct transitions", "Counter-attack"],
+  "lionel scaloni": ["Possession control", "Counter-pressing", "Attacking structure"],
+  "vladimir petkovic": ["Defensive organization", "Counter-pressing", "Set-piece focus"],
+  "jamal sellami": ["Defensive organization", "Counter-attack", "Counter-pressing"],
+  "stale solbakken": ["Counter-attack", "Direct transitions", "Defensive organization"],
+  "sebastien desabre": ["Counter-attack", "Direct transitions", "High press"],
+  "carlos queiroz": ["Defensive organization", "Counter-pressing", "Counter-attack"],
+  "thomas christiansen": ["Attacking structure", "Direct transitions", "Counter-attack"],
+  "nestor lorenzo": ["Defensive organization", "Counter-pressing", "Counter-attack"],
+  "herve renard": ["Defensive organization", "Set-piece focus", "Counter-pressing"],
+  "roberto martinez": ["Defensive organization", "Counter-attack", "Set-piece focus"],
+  "fabio cannavaro": ["Defensive organization", "Set-piece focus", "Counter-attack"],
+  "z dalic": ["Counter-pressing", "Defensive organization", "Counter-attack"]
+};
+
+function getCoachStyleOverrides(coachName = "") {
+  return COACH_STYLE_OVERRIDES[normalizeText(coachName)] || null;
+}
+
+function normalizeStyleText(value) {
+  return cleanWikiText(value).toLowerCase();
+}
+
+function inferCoachStyles(profileText = "", fields = {}, coachName = "") {
+  const overrideStyles = getCoachStyleOverrides(coachName);
+  if (overrideStyles?.length) {
+    return [...new Set(overrideStyles)].slice(0, 3);
+  }
+
+  const styleFieldText = [
+    fields["style"] || "",
+    fields["style of play"] || "",
+    fields["playing style"] || "",
+    fields["managerial style"] || "",
+    fields["tactical philosophy"] || "",
+    fields["tactics"] || ""
+  ]
+    .map((item) => normalizeStyleText(item))
+    .join(" ");
+
+  const sourceText = [normalizeStyleText(profileText), styleFieldText]
+    .join(" ")
+    .replace(/[^a-z0-9\s-]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+
+  const scores = COACH_STYLE_RULES
+    .map(({ label, patterns }) => {
+      let score = 0;
+      for (const rawPattern of patterns) {
+        const escaped = rawPattern.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+        const regex = new RegExp(`\\b${escaped}\\b`, "g");
+        const matches = sourceText.match(regex);
+        if (matches) {
+          score += matches.length;
+        }
+      }
+      return { label, score };
+    })
+    .filter(({ score }) => score > 0)
+    .sort((a, b) => b.score - a.score || a.label.localeCompare(b.label));
+
+  const styles = [];
+  const seen = new Set();
+  for (const { label } of scores) {
+    const key = label.toLowerCase();
+    if (seen.has(key)) {
+      continue;
+    }
+    seen.add(key);
+    styles.push(label);
+    if (styles.length >= 3) {
+      break;
+    }
+  }
+
+  if (styles.length >= 2) {
+    return styles;
+  }
+
+  for (const { label, patterns } of COACH_STYLE_RULES) {
+    if (styles.includes(label)) {
+      continue;
+    }
+
+    const hits = patterns.some((pattern) => {
+      const escaped = pattern.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      return new RegExp(`\\b${escaped}\\b`, "i").test(sourceText);
+    });
+    if (hits) {
+      const key = label.toLowerCase();
+      if (!seen.has(key)) {
+        seen.add(key);
+        styles.push(label);
+      }
+      if (styles.length >= 3) {
+        break;
+      }
+    }
+  }
+
+  const fallback = [...COACH_STYLE_FALLBACK];
+  for (const label of fallback) {
+    const lower = label.toLowerCase();
+    if (!seen.has(lower)) {
+      styles.push(label);
+      seen.add(lower);
+      if (styles.length >= 3) {
+        break;
+      }
+    }
+  }
+
+  return styles.slice(0, 3);
+}
 
 function normalizeText(value) {
   return String(value || "")
@@ -228,6 +401,11 @@ function scoreSearchResult(result, name, teamName) {
 }
 
 async function searchCoachPage(coach, teamName) {
+  const override = COACH_PAGE_TITLE_OVERRIDES[normalizeText(coach)];
+  if (override) {
+    return override;
+  }
+
   const query = `${coach} ${teamName || ""} football coach`.trim();
   const data = await wikiJson({
     action: "query",
@@ -325,6 +503,7 @@ function getLineupCoachCandidates(fixturesData, lineupsData, teamsById) {
 function buildCoachProfile(candidate, existingProfile = {}, title, pageData = {}) {
   const normalizedExistingImage = existingProfile.imageUrl || "";
   const fields = getInfoboxFields(pageData.wikitext || "");
+  const styles = inferCoachStyles(pageData.extract, fields, existingProfile.name || candidate.name);
   const infoboxImage = getCommonsImageUrl(fields.image || fields.manager || fields.coach || "");
   const imageUrl = infoboxImage || pageData.thumbnail || normalizedExistingImage;
   const sourceUrl = existingProfile.sourceUrl || (title ? `https://en.wikipedia.org/wiki/${encodePageTitle(title)}` : "");
@@ -335,7 +514,8 @@ function buildCoachProfile(candidate, existingProfile = {}, title, pageData = {}
     teamId: candidate.teamId,
     teamName: existingProfile.teamName || candidate.teamName || "",
     ...(imageUrl ? { imageUrl } : {}),
-    ...(sourceUrl ? { sourceUrl } : {})
+    ...(sourceUrl ? { sourceUrl } : {}),
+    ...(styles ? { styles } : {})
   };
 }
 

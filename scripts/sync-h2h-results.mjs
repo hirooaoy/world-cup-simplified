@@ -229,7 +229,7 @@ function penaltyScoreNote(score, rowHomeTeamId, rowAwayTeamId, teamsById) {
   const winnerTeamId = score.shootoutHomeScore > score.shootoutAwayScore ? rowHomeTeamId : rowAwayTeamId;
   const winnerScore = Math.max(score.shootoutHomeScore, score.shootoutAwayScore);
   const loserScore = Math.min(score.shootoutHomeScore, score.shootoutAwayScore);
-  return `(${teamName(winnerTeamId, teamsById)} won ${winnerScore}-${loserScore} on penalties)`;
+  return `(${winnerScore}-${loserScore} pens)`;
 }
 
 function parseEncounterResults({ awayCountry, awayTeam, fixtureDayKey, homeCountry, homeTeam, html, teamsById, url }) {
