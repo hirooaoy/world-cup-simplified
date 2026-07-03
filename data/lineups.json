@@ -39968,7 +39968,7 @@
         "fifa-lineups-sync-2026-07-03",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-03T05:36:51.732Z",
+      "checkedAt": "2026-07-03T23:21:09.891Z",
       "home": {
         "formation": "4-2-3-1",
         "coach": {
@@ -40907,7 +40907,449 @@
         ],
         "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
       }
+    },
+    "match-88-round-of-32-2026-07-03": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "derived-team-sheet-order",
+      "sourceIds": [
+        "fifa-lineups-sync-2026-07-03"
+      ],
+      "checkedAt": "2026-07-03T23:21:09.891Z",
+      "home": {
+        "formation": "3-4-3",
+        "coach": {
+          "name": "Tony Popovic",
+          "teamName": "Australia",
+          "imageUrl": "https://digitalhub.fifa.com/transform/186370fc-5a39-49f3-b7cd-709e763838d9/POPOVIC-Tony_154065",
+          "sourceUrl": "https://www.fifa.com/en/match-centre/match/17/285023/289287/400021515"
+        },
+        "players": [
+          {
+            "number": "18",
+            "name": "Patrick Beach",
+            "sourcePosition": "goalkeeper",
+            "position": "GK",
+            "x": 50,
+            "y": 91
+          },
+          {
+            "number": "3",
+            "name": "Alessandro Circati",
+            "sourcePosition": "defender",
+            "position": "CB",
+            "x": 68,
+            "y": 75
+          },
+          {
+            "number": "5",
+            "name": "Jordan Bos",
+            "sourcePosition": "defender",
+            "position": "CB",
+            "x": 50,
+            "y": 75
+          },
+          {
+            "number": "16",
+            "name": "Aziz Behich",
+            "sourcePosition": "defender",
+            "position": "LM",
+            "x": 16,
+            "y": 53
+          },
+          {
+            "number": "19",
+            "name": "Harry Souttar",
+            "sourcePosition": "defender",
+            "position": "CB",
+            "x": 32,
+            "y": 75
+          },
+          {
+            "number": "25",
+            "name": "Lucas Herrington",
+            "sourcePosition": "defender",
+            "position": "RM",
+            "x": 84,
+            "y": 53
+          },
+          {
+            "number": "8",
+            "name": "Connor Metcalfe",
+            "sourcePosition": "midfielder",
+            "position": "CM",
+            "x": 60,
+            "y": 55
+          },
+          {
+            "number": "13",
+            "name": "Aiden Oneill",
+            "sourcePosition": "midfielder",
+            "position": "CM",
+            "x": 40,
+            "y": 55
+          },
+          {
+            "number": "22",
+            "name": "Jackson Irvine",
+            "sourcePosition": "midfielder",
+            "position": "ST",
+            "x": 50,
+            "y": 22
+          },
+          {
+            "number": "17",
+            "name": "Nestory Irankunda",
+            "sourcePosition": "forward",
+            "position": "RW",
+            "x": 82,
+            "y": 29
+          },
+          {
+            "number": "20",
+            "name": "Christian Volpato",
+            "sourcePosition": "forward",
+            "position": "LW",
+            "x": 18,
+            "y": 29
+          }
+        ],
+        "bench": [
+          {
+            "number": "1",
+            "name": "Mathew Ryan",
+            "sourcePosition": "goalkeeper",
+            "position": "GK"
+          },
+          {
+            "number": "12",
+            "name": "Paul Izzo",
+            "sourcePosition": "goalkeeper",
+            "position": "GK"
+          },
+          {
+            "number": "2",
+            "name": "Milos Degenek",
+            "sourcePosition": "defender",
+            "position": "CB"
+          },
+          {
+            "number": "6",
+            "name": "Jason Geria",
+            "sourcePosition": "defender",
+            "position": "RB"
+          },
+          {
+            "number": "15",
+            "name": "Kai Trewin",
+            "sourcePosition": "defender",
+            "position": "CB"
+          },
+          {
+            "number": "21",
+            "name": "Cameron Burgess",
+            "sourcePosition": "defender",
+            "position": "CB"
+          },
+          {
+            "number": "14",
+            "name": "Cameron Devlin",
+            "sourcePosition": "midfielder",
+            "position": "CM"
+          },
+          {
+            "number": "24",
+            "name": "Paul Okon-Engstler",
+            "sourcePosition": "midfielder",
+            "position": "DM"
+          },
+          {
+            "number": "9",
+            "name": "Mohamed Toure",
+            "sourcePosition": "forward",
+            "position": "ST"
+          },
+          {
+            "number": "10",
+            "name": "Ajdin Hrustic",
+            "sourcePosition": "forward",
+            "position": "ST"
+          },
+          {
+            "number": "11",
+            "name": "Awer Mabil",
+            "sourcePosition": "forward",
+            "position": "RW"
+          },
+          {
+            "number": "23",
+            "name": "Nishan Velupillay",
+            "sourcePosition": "forward",
+            "position": "RW"
+          },
+          {
+            "number": "26",
+            "name": "Tete Yengi",
+            "sourcePosition": "forward",
+            "position": "ST"
+          }
+        ],
+        "events": {
+          "cards": [],
+          "staffCards": [],
+          "substitutions": [
+            {
+              "offName": "Jordan Bos",
+              "onName": "Kai Trewin",
+              "minute": "HT"
+            },
+            {
+              "offName": "Christian Volpato",
+              "onName": "Ajdin Hrustic",
+              "minute": 74
+            },
+            {
+              "offName": "Nestory Irankunda",
+              "onName": "Mohamed Toure",
+              "minute": 74
+            },
+            {
+              "offName": "Connor Metcalfe",
+              "onName": "Awer Mabil",
+              "minute": "ET"
+            },
+            {
+              "offName": "Aiden Oneill",
+              "onName": "Paul Okon-Engstler",
+              "minute": "ET"
+            },
+            {
+              "offName": "Patrick Beach",
+              "onName": "Mathew Ryan",
+              "minute": 119
+            }
+          ]
+        }
+      },
+      "away": {
+        "formation": "4-4-2",
+        "coach": {
+          "name": "Hossam Hassan",
+          "teamName": "Egypt",
+          "imageUrl": "https://digitalhub.fifa.com/transform/95af748d-2976-473b-938f-055fa4d71916/HOSSAM-HASSAN_174595",
+          "sourceUrl": "https://www.fifa.com/en/match-centre/match/17/285023/289287/400021515"
+        },
+        "players": [
+          {
+            "number": "23",
+            "name": "Mostafa Shoubir",
+            "sourcePosition": "goalkeeper",
+            "position": "GK",
+            "x": 50,
+            "y": 91
+          },
+          {
+            "number": "2",
+            "name": "Yasser Ibrahim",
+            "sourcePosition": "defender",
+            "position": "CB",
+            "x": 62,
+            "y": 75
+          },
+          {
+            "number": "3",
+            "name": "Mohamed Hany",
+            "sourcePosition": "defender",
+            "position": "RB",
+            "x": 85,
+            "y": 75
+          },
+          {
+            "number": "5",
+            "name": "Ramy Rabia",
+            "sourcePosition": "defender",
+            "position": "CB",
+            "x": 38,
+            "y": 75
+          },
+          {
+            "number": "15",
+            "name": "Karim Hafez",
+            "sourcePosition": "defender",
+            "position": "LB",
+            "x": 15,
+            "y": 75
+          },
+          {
+            "number": "8",
+            "name": "Emam Ashour",
+            "sourcePosition": "midfielder",
+            "position": "CM",
+            "x": 62,
+            "y": 55
+          },
+          {
+            "number": "11",
+            "name": "Mostafa Zico",
+            "sourcePosition": "midfielder",
+            "position": "LM",
+            "x": 18,
+            "y": 52
+          },
+          {
+            "number": "14",
+            "name": "Hamdy Fathy",
+            "sourcePosition": "midfielder",
+            "position": "CM",
+            "x": 38,
+            "y": 55
+          },
+          {
+            "number": "19",
+            "name": "Marawan Attia",
+            "sourcePosition": "midfielder",
+            "position": "ST",
+            "x": 42,
+            "y": 24
+          },
+          {
+            "number": "10",
+            "name": "Mohamed Salah",
+            "sourcePosition": "forward",
+            "position": "RM",
+            "x": 82,
+            "y": 52
+          },
+          {
+            "number": "22",
+            "name": "Omar Marmoush",
+            "sourcePosition": "forward",
+            "position": "ST",
+            "x": 58,
+            "y": 24
+          }
+        ],
+        "bench": [
+          {
+            "number": "1",
+            "name": "Mohamed El Shenawy",
+            "sourcePosition": "goalkeeper",
+            "position": "GK"
+          },
+          {
+            "number": "16",
+            "name": "Mahdy Soliman",
+            "sourcePosition": "goalkeeper",
+            "position": "GK"
+          },
+          {
+            "number": "26",
+            "name": "Mohamed Alaa",
+            "sourcePosition": "goalkeeper",
+            "position": "GK"
+          },
+          {
+            "number": "4",
+            "name": "Hossam Abdelmaguid",
+            "sourcePosition": "defender",
+            "position": "CB"
+          },
+          {
+            "number": "24",
+            "name": "Tarek Alaa",
+            "sourcePosition": "defender",
+            "position": "RB"
+          },
+          {
+            "number": "18",
+            "name": "Nabil Donga",
+            "sourcePosition": "midfielder",
+            "position": "DM"
+          },
+          {
+            "number": "21",
+            "name": "Mahmoud Saber",
+            "sourcePosition": "midfielder",
+            "position": "CM"
+          },
+          {
+            "number": "7",
+            "name": "Trezeguet",
+            "sourcePosition": "forward",
+            "position": "LW"
+          },
+          {
+            "number": "9",
+            "name": "Hamza Abdelkarim",
+            "sourcePosition": "forward",
+            "position": "ST"
+          },
+          {
+            "number": "12",
+            "name": "Haissem Hassan",
+            "sourcePosition": "forward",
+            "position": "RW"
+          },
+          {
+            "number": "20",
+            "name": "Ibrahim Adel",
+            "sourcePosition": "forward",
+            "position": "LW"
+          },
+          {
+            "number": "25",
+            "name": "Zizo",
+            "sourcePosition": "forward",
+            "position": "RW"
+          }
+        ],
+        "events": {
+          "cards": [
+            {
+              "playerName": "Haissem Hassan",
+              "type": "yellow",
+              "minute": 104
+            },
+            {
+              "playerName": "Yasser Ibrahim",
+              "type": "yellow",
+              "minute": 120
+            }
+          ],
+          "staffCards": [
+            {
+              "staffName": "Saafan Elsaghir",
+              "role": "staff",
+              "type": "yellow",
+              "minute": 91
+            }
+          ],
+          "substitutions": [
+            {
+              "offName": "Mostafa Zico",
+              "onName": "Haissem Hassan",
+              "minute": 67
+            },
+            {
+              "offName": "Hamdy Fathy",
+              "onName": "Hossam Abdelmaguid",
+              "minute": 67
+            },
+            {
+              "offName": "Karim Hafez",
+              "onName": "Trezeguet",
+              "minute": 80
+            },
+            {
+              "offName": "Marawan Attia",
+              "onName": "Mahmoud Saber",
+              "minute": "120+1"
+            }
+          ]
+        }
+      }
     }
   },
-  "updatedAt": "2026-07-03T06:11:46.942Z"
+  "updatedAt": "2026-07-03T23:21:09.891Z"
 }

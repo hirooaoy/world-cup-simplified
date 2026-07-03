@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-03T19:21:31.485Z",
+  "updatedAt": "2026-07-03T23:21:21.376Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -130,7 +130,8 @@
     "national-football-teams-h2h-sync-2026-07-02",
     "fifa-match-events-sync-2026-07-02",
     "fifa-official-results-sync-2026-07-03",
-    "national-football-teams-h2h-sync-2026-07-03"
+    "national-football-teams-h2h-sync-2026-07-03",
+    "fifa-goal-events-sync-2026-07-03"
   ],
   "coverage": {
     "status": "complete-schedule",
@@ -19416,13 +19417,14 @@
         {
           "minute": 90,
           "offset": 4,
-          "name": "Gonçalo Ramos"
+          "name": "Goncalo Ramos",
+          "assistName": "Rafael Leao"
         }
       ],
       "goalsAway": [
         {
           "minute": 53,
-          "name": "Ivan Perišić"
+          "name": "Ivan Perisic"
         }
       ],
       "resultStoryBullets": [
@@ -19757,7 +19759,8 @@
       "goalsHome": [
         {
           "minute": 10,
-          "name": "Breel Embolo"
+          "name": "Breel Embolo",
+          "assistName": "Johan Manzambi"
         },
         {
           "minute": 46,
@@ -19793,7 +19796,7 @@
       "homeSlot": "Group J winner",
       "awaySlot": "Group H runner-up",
       "venue": "Miami Stadium",
-      "status": "SCHEDULED",
+      "status": "LIVE",
       "h2h": {
         "status": "verified-empty",
         "sourceId": "national-football-teams-h2h-sync-2026-06-30",
@@ -19854,7 +19857,25 @@
         "sourceId": "editorial-preview-2026-06-22",
         "home": "Argentina are the defending champions and still one of the most complete tournament teams, led by Lionel Messi, Julian Alvarez, and Enzo Fernandez. Against Cabo Verde, their Messi-Alvarez midfield breaks has to beat Cabo Verde's Mendes-led compact counterpunch. They want to press high through Alvarez, find Messi in space behind midfield, and let Enzo Fernandez change the angle of the attack. The risk is Cabo Verde can turn a slow match into one decisive Mendes action.",
         "away": "Cabo Verde are compact tournament disruptors who need experience and goalkeeping to keep matches close, led by Ryan Mendes, Roberto Lopes, and Vozinha. Against Argentina, their Mendes-led compact counterpunch has to beat Argentina's Messi-Alvarez midfield breaks. They want to stay compact long enough for Mendes to find a composed final pass or shot. The risk is Argentina can turn one midfield win into Messi touches, Alvarez movement, and Enzo service."
-      }
+      },
+      "score": {
+        "home": 1,
+        "away": 1
+      },
+      "goalsHome": [
+        {
+          "minute": 29,
+          "name": "Lionel Messi",
+          "assistName": "Lisandro Martinez"
+        }
+      ],
+      "goalsAway": [
+        {
+          "minute": 59,
+          "name": "Deroy Duarte",
+          "assistName": "Ryan Mendes"
+        }
+      ]
     },
     {
       "id": "match-87-round-of-32-2026-07-03",
@@ -19937,7 +19958,7 @@
       "homeSlot": "Group D runner-up",
       "awaySlot": "Group G runner-up",
       "venue": "Dallas Stadium",
-      "status": "LIVE",
+      "status": "FT",
       "h2h": {
         "status": "loaded",
         "sourceId": "national-football-teams-h2h-sync-2026-06-30",
@@ -20024,7 +20045,27 @@
       "score": {
         "home": 1,
         "away": 1
-      }
+      },
+      "scoreDetails": {
+        "penalties": {
+          "home": 2,
+          "away": 4
+        }
+      },
+      "goalsHome": [
+        {
+          "minute": 55,
+          "name": "Mohamed Hany",
+          "ownGoal": true
+        }
+      ],
+      "goalsAway": [
+        {
+          "minute": 13,
+          "name": "Emam Ashour",
+          "assistName": "Karim Hafez"
+        }
+      ]
     },
     {
       "id": "match-89-round-of-16-2026-07-04",
@@ -20986,7 +21027,8 @@
           "matchId": "400021528",
           "matchNumber": 95
         }
-      }
+      },
+      "awayTeamId": "EGY"
     },
     {
       "id": "match-96-round-of-16-2026-07-07",
