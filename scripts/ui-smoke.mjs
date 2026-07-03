@@ -9642,7 +9642,7 @@ try {
     "On touch devices, tapping a second player name should replace the first player card instead of showing two."
   );
   await touchPage.locator("#match-info .match-summary").click();
-  await touchPage.locator(".player-card:visible").first().waitFor({ state: "hidden" });
+  await touchPage.waitForSelector(".player-card:visible", { state: "hidden" });
   assert(
     (await touchPage.locator(".player-card:visible").count()) === 0 &&
       (await secondTouchPlayerLink.getAttribute("aria-expanded")) === "false",
