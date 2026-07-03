@@ -1496,7 +1496,21 @@ function getCommonsImageUrl(fileName) {
     return "";
   }
 
-  return `https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(cleaned)}?width=160`;
+  const withNormalizedPrefix = cleaned.replace(/^File:/i, "").trim();
+  let decoded = withNormalizedPrefix;
+  try {
+    decoded = decodeURIComponent(withNormalizedPrefix);
+  } catch {
+    decoded = withNormalizedPrefix;
+  }
+
+  const normalized = decoded.split("|")[0].trim();
+
+  if (!normalized) {
+    return "";
+  }
+
+  return `https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(normalized)}?width=160`;
 }
 
 function getTitleFromSourceUrl(sourceUrl) {

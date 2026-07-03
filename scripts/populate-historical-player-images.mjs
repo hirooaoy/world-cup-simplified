@@ -872,7 +872,20 @@ function getCommonsImageUrl(fileName) {
     return "";
   }
 
-  return `https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(cleaned)}?width=160`;
+  let decoded = cleaned;
+  try {
+    decoded = decodeURIComponent(cleaned);
+  } catch {
+    decoded = cleaned;
+  }
+
+  const normalized = decoded.split("|")[0].trim();
+
+  if (!normalized) {
+    return "";
+  }
+
+  return `https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(normalized)}?width=160`;
 }
 
 function stripHtml(value) {

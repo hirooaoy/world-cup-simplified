@@ -56,6 +56,9 @@ jobs:
       - name: Sync FIFA goal events
         run: pnpm sync:fifa:goals
 
+      - name: Sync FIFA expected lineups
+        run: pnpm sync:fifa:lineups:expected
+
       - name: Refresh result highlights
         run: pnpm results
 

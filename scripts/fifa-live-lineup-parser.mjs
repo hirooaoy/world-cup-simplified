@@ -233,6 +233,9 @@ export function buildFifaLineupsFromLiveMatch({
   mode = "live"
 }) {
   const safeMode = String(mode || "live").trim().toLowerCase();
+  const lineupMode = ["final", "expected", "probable", "prediction", "confirmed", "live"].includes(safeMode)
+    ? safeMode
+    : "live";
   const homeFormation = liveMatch?.Home?.Tactics || liveMatch?.HomeTeam?.Tactics || fixture?.matchEvents?.home?.formation || "";
   const awayFormation = liveMatch?.Away?.Tactics || liveMatch?.AwayTeam?.Tactics || fixture?.matchEvents?.away?.formation || "";
 
@@ -265,7 +268,7 @@ export function buildFifaLineupsFromLiveMatch({
   );
 
   return {
-    mode: safeMode === "final" ? "final" : "live",
+    mode: lineupMode,
     teamSheetSource: OFFICIAL_LINEUP_SOURCE,
     eventSource: OFFICIAL_LINEUP_SOURCE,
     layoutSource: DERIVED_LAYOUT_SOURCE,
