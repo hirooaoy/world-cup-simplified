@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-02T23:34:45.059Z",
+  "updatedAt": "2026-07-03T02:22:13.276Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -128,7 +128,9 @@
     "fifa-official-results-sync-2026-07-02",
     "fifa-goal-events-sync-2026-07-02",
     "national-football-teams-h2h-sync-2026-07-02",
-    "fifa-match-events-sync-2026-07-02"
+    "fifa-match-events-sync-2026-07-02",
+    "fifa-official-results-sync-2026-07-03",
+    "national-football-teams-h2h-sync-2026-07-03"
   ],
   "coverage": {
     "status": "complete-schedule",
@@ -19237,7 +19239,7 @@
       "homeSlot": "Group K runner-up",
       "awaySlot": "Group L runner-up",
       "venue": "Toronto Stadium",
-      "status": "LIVE",
+      "status": "FT",
       "h2h": {
         "status": "loaded",
         "sourceId": "national-football-teams-h2h-sync-2026-06-30",
@@ -19401,8 +19403,8 @@
         "away": "Croatia are a control team whose tournament identity still runs through midfield calm, led by Luka Modric, Josko Gvardiol, and Mateo Kovacic. Against Portugal, their Modric-Kovacic midfield control has to beat Portugal's Vitinha-Bruno-Ronaldo supply. They want to use Modric and Kovacic to turn pressure into possession and move the opponent side to side. The risk is Portugal can feed Ronaldo through Bruno Fernandes and Vitinha's supply."
       },
       "score": {
-        "home": 0,
-        "away": 0
+        "home": 2,
+        "away": 1
       }
     },
     {
@@ -20447,9 +20449,254 @@
       "venue": "Dallas Stadium",
       "status": "SCHEDULED",
       "h2h": {
-        "status": "not-loaded",
-        "summary": "Teams are not known yet. Past match research will load after the matchup is set.",
-        "results": null
+        "status": "loaded",
+        "sourceId": "national-football-teams-h2h-sync-2026-07-03",
+        "summary": "Before this fixture, Spain had the edge in the verified senior series: 3 Portugal wins, 12 draws, 9 Spain wins, 66 total goals.",
+        "results": [
+          {
+            "date": "2025-06-08",
+            "competition": "UEFA Nations League 2025 - Final",
+            "homeTeamId": "POR",
+            "awayTeamId": "ESP",
+            "homeScore": 2,
+            "awayScore": 2,
+            "venue": "Allianz Arena",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/41659/Portugal_Spain.html",
+            "scoreNote": "(Portugal won 5-3 on penalties)"
+          },
+          {
+            "date": "2022-09-27",
+            "competition": "UEFA Nations League 2023 - Group 2",
+            "homeTeamId": "POR",
+            "awayTeamId": "ESP",
+            "homeScore": 0,
+            "awayScore": 1,
+            "venue": "Estádio Municipal de Braga",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/35406/Portugal_Spain.html"
+          },
+          {
+            "date": "2022-06-02",
+            "competition": "UEFA Nations League 2023 - Group 2",
+            "homeTeamId": "ESP",
+            "awayTeamId": "POR",
+            "homeScore": 1,
+            "awayScore": 1,
+            "venue": "Estadio Benito Villamarín",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/34664/Spain_Portugal.html"
+          },
+          {
+            "date": "2021-06-04",
+            "competition": "Friendly",
+            "homeTeamId": "ESP",
+            "awayTeamId": "POR",
+            "homeScore": 0,
+            "awayScore": 0,
+            "venue": "Estadio Metropolitano Madrid",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/30995/Spain_Portugal.html"
+          },
+          {
+            "date": "2020-10-07",
+            "competition": "Friendly",
+            "homeTeamId": "POR",
+            "awayTeamId": "ESP",
+            "homeScore": 0,
+            "awayScore": 0,
+            "venue": "Estádio José Alvalade",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/28369/Portugal_Spain.html"
+          },
+          {
+            "date": "2018-06-15",
+            "competition": "World Cup 2018 - Group B",
+            "homeTeamId": "POR",
+            "awayTeamId": "ESP",
+            "homeScore": 3,
+            "awayScore": 3,
+            "venue": "Olimpiyskiy Stadion Fisht",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/15642/Portugal_Spain.html"
+          },
+          {
+            "date": "2012-06-27",
+            "competition": "Euro 2012 - Semi Finals",
+            "homeTeamId": "POR",
+            "awayTeamId": "ESP",
+            "homeScore": 0,
+            "awayScore": 0,
+            "venue": "Donbass Arena",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/3737/Portugal_Spain.html",
+            "scoreNote": "(Spain won 4-2 on penalties)"
+          },
+          {
+            "date": "2010-11-17",
+            "competition": "Friendly",
+            "homeTeamId": "POR",
+            "awayTeamId": "ESP",
+            "homeScore": 4,
+            "awayScore": 0,
+            "venue": "Estádio da Luz",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/10790/Portugal_Spain.html"
+          },
+          {
+            "date": "2010-06-29",
+            "competition": "World Cup 2010 - Round of 16",
+            "homeTeamId": "ESP",
+            "awayTeamId": "POR",
+            "homeScore": 1,
+            "awayScore": 0,
+            "venue": "Cape Town Stadium",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/2244/Spain_Portugal.html"
+          },
+          {
+            "date": "2004-06-20",
+            "competition": "Euro 2004 - Group 1",
+            "homeTeamId": "POR",
+            "awayTeamId": "ESP",
+            "homeScore": 1,
+            "awayScore": 0,
+            "venue": "Estádio José Alvalade",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/914/Portugal_Spain.html"
+          },
+          {
+            "date": "2003-09-06",
+            "competition": "Friendly",
+            "homeTeamId": "POR",
+            "awayTeamId": "ESP",
+            "homeScore": 0,
+            "awayScore": 3,
+            "venue": "Estádio D. Afonso Henriques",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/18697/Portugal_Spain.html"
+          },
+          {
+            "date": "2002-02-13",
+            "competition": "Friendly",
+            "homeTeamId": "ESP",
+            "awayTeamId": "POR",
+            "homeScore": 1,
+            "awayScore": 1,
+            "venue": "Estadi Olímpic Lluís Companys",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/19793/Spain_Portugal.html"
+          },
+          {
+            "date": "1994-01-19",
+            "competition": "Friendly",
+            "homeTeamId": "ESP",
+            "awayTeamId": "POR",
+            "homeScore": 2,
+            "awayScore": 2,
+            "venue": "Estadio Municipal de Balaídos",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/28018/Spain_Portugal.html"
+          },
+          {
+            "date": "1992-01-15",
+            "competition": "Friendly",
+            "homeTeamId": "POR",
+            "awayTeamId": "ESP",
+            "homeScore": 0,
+            "awayScore": 0,
+            "venue": "Estádio António Alves Vieira",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/30505/Portugal_Spain.html"
+          },
+          {
+            "date": "1991-01-16",
+            "competition": "Friendly",
+            "homeTeamId": "ESP",
+            "awayTeamId": "POR",
+            "homeScore": 1,
+            "awayScore": 1,
+            "venue": "Nou Estadi Castàlia",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/31379/Spain_Portugal.html"
+          },
+          {
+            "date": "1984-06-17",
+            "competition": "Euro 1984 - Group 2",
+            "homeTeamId": "POR",
+            "awayTeamId": "ESP",
+            "homeScore": 1,
+            "awayScore": 1,
+            "venue": "Stade Vélodrome",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/16338/Portugal_Spain.html"
+          },
+          {
+            "date": "1981-05-27",
+            "competition": "Friendly",
+            "homeTeamId": "POR",
+            "awayTeamId": "ESP",
+            "homeScore": 2,
+            "awayScore": 0,
+            "venue": "Estádio das Antas",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/43229/Portugal_Spain.html"
+          },
+          {
+            "date": "1950-09-04",
+            "competition": "World Cup 1950 - Group 6",
+            "homeTeamId": "POR",
+            "awayTeamId": "ESP",
+            "homeScore": 2,
+            "awayScore": 2,
+            "venue": "Estádio Nacional do Jamor",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/41870/Portugal_Spain.html"
+          },
+          {
+            "date": "1950-04-02",
+            "competition": "World Cup 1950 - Group 6",
+            "homeTeamId": "ESP",
+            "awayTeamId": "POR",
+            "homeScore": 5,
+            "awayScore": 1,
+            "venue": "Estadio Santiago Bernabéu",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/41869/Spain_Portugal.html"
+          },
+          {
+            "date": "1934-03-18",
+            "competition": "World Cup 1934 - Group 2",
+            "homeTeamId": "POR",
+            "awayTeamId": "ESP",
+            "homeScore": 1,
+            "awayScore": 2,
+            "venue": "Estádio do Lumiar",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/41562/Portugal_Spain.html"
+          },
+          {
+            "date": "1934-03-11",
+            "competition": "World Cup 1934 - Group 2",
+            "homeTeamId": "ESP",
+            "awayTeamId": "POR",
+            "homeScore": 9,
+            "awayScore": 0,
+            "venue": "Estadio Santiago Bernabéu",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/41561/Spain_Portugal.html"
+          },
+          {
+            "date": "1923-12-16",
+            "competition": "Friendly",
+            "homeTeamId": "ESP",
+            "awayTeamId": "POR",
+            "homeScore": 3,
+            "awayScore": 0,
+            "venue": "Campo de la Reina Victoria",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/33896/Spain_Portugal.html"
+          },
+          {
+            "date": "1922-12-17",
+            "competition": "Friendly",
+            "homeTeamId": "POR",
+            "awayTeamId": "ESP",
+            "homeScore": 1,
+            "awayScore": 2,
+            "venue": "Estádio do Lumiar",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/33836/Portugal_Spain.html"
+          },
+          {
+            "date": "1921-12-18",
+            "competition": "Friendly",
+            "homeTeamId": "ESP",
+            "awayTeamId": "POR",
+            "homeScore": 3,
+            "awayScore": 1,
+            "venue": "Campo de O'Donnell",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/33444/Spain_Portugal.html"
+          }
+        ],
+        "sourceUrl": "https://www.national-football-teams.com/encounter/teams/148/174/Portugal_vs_Spain.html"
       },
       "providerIds": {
         "fifa": {
@@ -20457,7 +20704,54 @@
           "matchNumber": 93
         }
       },
-      "awayTeamId": "ESP"
+      "awayTeamId": "ESP",
+      "homeTeamId": "POR",
+      "projection": {
+        "sourceId": "ranking-projection-2026-06-17",
+        "method": "fifa-ranking-baseline",
+        "basis": "FIFA ranking strength with host-country adjustment",
+        "home": 28,
+        "draw": 29,
+        "away": 43
+      },
+      "keyPlayers": {
+        "sourceId": "key-player-baseline-2026-06-22",
+        "method": "team-watchlist-baseline",
+        "basis": "Team-level key-player watchlist; replace with API/squad-sourced fixture notes when available",
+        "home": [
+          {
+            "name": "Cristiano Ronaldo",
+            "note": "The headline finisher and reference point in the box, still chasing the World Cup piece missing from his resume."
+          },
+          {
+            "name": "Bruno Fernandes",
+            "note": "Portugal's highest-volume chance creator, dangerous in open space and from free kicks and corners."
+          },
+          {
+            "name": "Vitinha",
+            "note": "A press-resistant rhythm setter who can turn Portugal's possession into cleaner entries around the box."
+          }
+        ],
+        "away": [
+          {
+            "name": "Lamine Yamal",
+            "note": "Spain's game-breaking wide creator, able to bend low blocks with dribbling, passing, and shot threat."
+          },
+          {
+            "name": "Pedri",
+            "note": "The rhythm setter in open space, making Spain's possession feel calmer and more incisive."
+          },
+          {
+            "name": "Nico Williams",
+            "note": "The vertical winger who turns switches of play into immediate pressure on the box."
+          }
+        ]
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-22",
+        "home": "Portugal are a star-heavy attacking side with enough creators to feed several different scoring routes, led by Cristiano Ronaldo, Bruno Fernandes, and Vitinha. Against Spain, their Vitinha-Bruno-Ronaldo supply has to beat Spain's Yamal-Williams wide stretch. They want to let Vitinha control the first pass, then use Bruno Fernandes to find Ronaldo or the far-side runner. The risk is Spain can stretch the pitch through Yamal and Williams before Pedri breaks the line.",
+        "away": "Spain are one of the tournament's most polished possession teams, led by Lamine Yamal, Pedri, and Nico Williams. Against Portugal, their Yamal-Williams wide stretch has to beat Portugal's Vitinha-Bruno-Ronaldo supply. They want to pin the wide defenders with Yamal and Williams before Pedri plays through the gaps. The risk is Portugal can feed Ronaldo through Bruno Fernandes and Vitinha's supply."
+      }
     },
     {
       "id": "match-94-round-of-16-2026-07-06",
