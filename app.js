@@ -16813,6 +16813,7 @@ function normalizeLineupCoach(coach, teamId) {
   return {
     ...curatedCoach,
     ...coach,
+    ...(!coach.styles?.length && coachProfile?.styles?.length ? { styles: coachProfile.styles } : {}),
     ...(!coach.imageUrl && coachProfile?.imageUrl ? { imageUrl: coachProfile.imageUrl } : {}),
     ...(!coach.sourceUrl && coachProfile?.sourceUrl ? { sourceUrl: coachProfile.sourceUrl } : {}),
     teamId,
