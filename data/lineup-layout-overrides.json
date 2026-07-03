@@ -976,7 +976,7 @@
               {
                 "number": "3",
                 "name": "Lee Gi-hyuk",
-                "position": "LCB",
+                "position": "CB",
                 "x": 25.3,
                 "y": 69.7
               },
@@ -990,7 +990,7 @@
               {
                 "number": "2",
                 "name": "Lee Han-beom",
-                "position": "RCB",
+                "position": "CB",
                 "x": 74.5,
                 "y": 69.7
               },
@@ -1147,7 +1147,7 @@
           {
             "number": "3",
             "name": "Lee Gi-hyuk",
-            "position": "LCB",
+            "position": "CB",
             "x": 25.3,
             "y": 69.7
           },
@@ -1161,7 +1161,7 @@
           {
             "number": "2",
             "name": "Lee Han-beom",
-            "position": "RCB",
+            "position": "CB",
             "x": 74.5,
             "y": 69.7
           },
@@ -1194,8 +1194,8 @@
           {
             "number": "17",
             "name": "Lukas Provod",
-            "position": "RW",
-            "x": 69.9,
+            "position": "LW",
+            "x": 30.1,
             "y": 28
           },
           {
@@ -1492,8 +1492,8 @@
           {
             "number": "22",
             "name": "Richie Laryea",
-            "position": "LB",
-            "x": 13.7,
+            "position": "RB",
+            "x": 86.3,
             "y": 62.8
           },
           {
@@ -3440,14 +3440,14 @@
               {
                 "number": "6",
                 "name": "Joshua Kimmich",
-                "position": "RCB",
+                "position": "CB",
                 "x": 86.2,
                 "y": 62.8
               },
               {
                 "number": "15",
                 "name": "Nico Schlotterbeck",
-                "position": "LCB",
+                "position": "CB",
                 "x": 33.3,
                 "y": 68.7
               },
@@ -3611,14 +3611,14 @@
           {
             "number": "6",
             "name": "Joshua Kimmich",
-            "position": "RCB",
+            "position": "CB",
             "x": 86.2,
             "y": 62.8
           },
           {
             "number": "15",
             "name": "Nico Schlotterbeck",
-            "position": "LCB",
+            "position": "CB",
             "x": 33.3,
             "y": 68.7
           },
@@ -3680,7 +3680,7 @@
             "number": "10",
             "name": "Leandro Bacuna",
             "position": "DM",
-            "x": 49.9,
+            "x": 50.1,
             "y": 50.5
           },
           {
@@ -3874,7 +3874,7 @@
               {
                 "number": "21",
                 "name": "Hiroki Ito",
-                "position": "LCB",
+                "position": "CB",
                 "x": 25.3,
                 "y": 69.7
               },
@@ -3888,7 +3888,7 @@
               {
                 "number": "16",
                 "name": "Tsuyoshi Watanabe",
-                "position": "RCB",
+                "position": "CB",
                 "x": 74.5,
                 "y": 69.7
               },
@@ -4045,7 +4045,7 @@
           {
             "number": "21",
             "name": "Hiroki Ito",
-            "position": "LCB",
+            "position": "CB",
             "x": 25.3,
             "y": 69.7
           },
@@ -4059,7 +4059,7 @@
           {
             "number": "16",
             "name": "Tsuyoshi Watanabe",
-            "position": "RCB",
+            "position": "CB",
             "x": 74.5,
             "y": 69.7
           },
@@ -4496,7 +4496,7 @@
               {
                 "number": "4",
                 "name": "Isak Hien",
-                "position": "LCB",
+                "position": "CB",
                 "x": 25.3,
                 "y": 69.7
               },
@@ -4510,7 +4510,7 @@
               {
                 "number": "3",
                 "name": "Victor Lindelof",
-                "position": "RCB",
+                "position": "CB",
                 "x": 74.5,
                 "y": 69.7
               },
@@ -4667,7 +4667,7 @@
           {
             "number": "4",
             "name": "Isak Hien",
-            "position": "LCB",
+            "position": "CB",
             "x": 25.3,
             "y": 69.7
           },
@@ -4681,7 +4681,7 @@
           {
             "number": "3",
             "name": "Victor Lindelof",
-            "position": "RCB",
+            "position": "CB",
             "x": 74.5,
             "y": 69.7
           },
@@ -4708,7 +4708,7 @@
             "number": "8",
             "name": "Elias Saad",
             "position": "ST",
-            "x": 66.5,
+            "x": 33.5,
             "y": 10.5
           },
           {
@@ -4985,13 +4985,13 @@
             "number": "5",
             "name": "Marcos Llorente",
             "position": "ST",
-            "x": 0.4,
+            "x": 99.6,
             "y": 0.4
           },
           {
             "number": "22",
             "name": "Pau Cubarsi",
-            "position": "RW",
+            "position": "LW",
             "x": 0.4,
             "y": 0.4
           },
@@ -5040,7 +5040,7 @@
           {
             "number": "21",
             "name": "Mikel Oyarzabal",
-            "position": "RB",
+            "position": "LB",
             "x": 0.9,
             "y": 0.9
           },
@@ -5073,7 +5073,7 @@
           {
             "number": "4",
             "name": "Roberto Lopes",
-            "position": "RW",
+            "position": "LW",
             "x": 0.3,
             "y": 0.3
           },
@@ -5122,7 +5122,7 @@
           {
             "number": "7",
             "name": "Jovane Cabral",
-            "position": "RB",
+            "position": "LB",
             "x": 0.7,
             "y": 0.7
           },
@@ -5432,8 +5432,8 @@
           {
             "number": "11",
             "name": "Mostafa Zico",
-            "position": "RW",
-            "x": 80.6,
+            "position": "LW",
+            "x": 19.4,
             "y": 30.1
           },
           {
@@ -6047,8 +6047,8 @@
           {
             "number": "17",
             "name": "Arya Yousefi",
-            "position": "LW",
-            "x": 13.7,
+            "position": "RW",
+            "x": 86.3,
             "y": 39
           },
           {
@@ -6123,7 +6123,7 @@
             "number": "11",
             "name": "Elijah Just",
             "position": "ST",
-            "x": 19.4,
+            "x": 80.6,
             "y": 30.1
           },
           {
@@ -6136,8 +6136,8 @@
           {
             "number": "20",
             "name": "Callum McCowatt",
-            "position": "RM",
-            "x": 80.6,
+            "position": "LM",
+            "x": 19.4,
             "y": 30.1
           },
           {
@@ -7576,7 +7576,7 @@
               {
                 "number": "16",
                 "name": "Mohammad Abu Alnadi",
-                "position": "LCB",
+                "position": "CB",
                 "x": 25.3,
                 "y": 69.7
               },
@@ -7590,7 +7590,7 @@
               {
                 "number": "3",
                 "name": "Abdallah Nasib",
-                "position": "RCB",
+                "position": "CB",
                 "x": 74.5,
                 "y": 69.7
               },
@@ -7712,8 +7712,8 @@
           {
             "number": "11",
             "name": "Odeh Fakhoury",
-            "position": "RW",
-            "x": 69.9,
+            "position": "LW",
+            "x": 30.1,
             "y": 28
           },
           {
@@ -7747,7 +7747,7 @@
           {
             "number": "16",
             "name": "Mohammad Abu Alnadi",
-            "position": "LCB",
+            "position": "CB",
             "x": 25.3,
             "y": 69.7
           },
@@ -7761,7 +7761,7 @@
           {
             "number": "3",
             "name": "Abdallah Nasib",
-            "position": "RCB",
+            "position": "CB",
             "x": 74.5,
             "y": 69.7
           },
@@ -8058,7 +8058,7 @@
             "number": "20",
             "name": "Yoane Wissa",
             "position": "ST",
-            "x": 66.5,
+            "x": 33.5,
             "y": 10.5
           },
           {
@@ -8280,7 +8280,7 @@
               {
                 "number": "4",
                 "name": "Josko Gvardiol",
-                "position": "LCB",
+                "position": "CB",
                 "x": 25.3,
                 "y": 69.7
               },
@@ -8294,7 +8294,7 @@
               {
                 "number": "6",
                 "name": "Josip Sutalo",
-                "position": "RCB",
+                "position": "CB",
                 "x": 74.5,
                 "y": 69.7
               },
@@ -8451,7 +8451,7 @@
           {
             "number": "4",
             "name": "Josko Gvardiol",
-            "position": "LCB",
+            "position": "CB",
             "x": 25.3,
             "y": 69.7
           },
@@ -8465,7 +8465,7 @@
           {
             "number": "6",
             "name": "Josip Sutalo",
-            "position": "RCB",
+            "position": "CB",
             "x": 74.5,
             "y": 69.7
           },
@@ -8632,7 +8632,7 @@
               {
                 "number": "16",
                 "name": "Andres Andrade",
-                "position": "LCB",
+                "position": "CB",
                 "x": 25.3,
                 "y": 69.7
               },
@@ -8646,7 +8646,7 @@
               {
                 "number": "13",
                 "name": "Jiovany Ramos",
-                "position": "RCB",
+                "position": "CB",
                 "x": 74.5,
                 "y": 69.7
               },
@@ -8775,8 +8775,8 @@
           {
             "number": "2",
             "name": "Cesar Blackman",
-            "position": "LM",
-            "x": 14.2,
+            "position": "RM",
+            "x": 85.8,
             "y": 42.8
           },
           {
@@ -8803,7 +8803,7 @@
           {
             "number": "16",
             "name": "Andres Andrade",
-            "position": "LCB",
+            "position": "CB",
             "x": 25.3,
             "y": 69.7
           },
@@ -8817,7 +8817,7 @@
           {
             "number": "13",
             "name": "Jiovany Ramos",
-            "position": "RCB",
+            "position": "CB",
             "x": 74.5,
             "y": 69.7
           },
@@ -8902,7 +8902,7 @@
               {
                 "number": "5",
                 "name": "Rustamjon Ashurmatov",
-                "position": "LCB",
+                "position": "CB",
                 "x": 25.3,
                 "y": 69.7
               },
@@ -8916,7 +8916,7 @@
               {
                 "number": "2",
                 "name": "Abdukodir Khusanov",
-                "position": "RCB",
+                "position": "CB",
                 "x": 74.5,
                 "y": 69.7
               },
@@ -9073,7 +9073,7 @@
           {
             "number": "5",
             "name": "Rustamjon Ashurmatov",
-            "position": "LCB",
+            "position": "CB",
             "x": 25.3,
             "y": 69.7
           },
@@ -9087,7 +9087,7 @@
           {
             "number": "2",
             "name": "Abdukodir Khusanov",
-            "position": "RCB",
+            "position": "CB",
             "x": 74.5,
             "y": 69.7
           },
@@ -9135,7 +9135,7 @@
             "number": "11",
             "name": "Jhon Arias",
             "position": "CM",
-            "x": 18.6,
+            "x": 81.4,
             "y": 42.3
           },
           {
@@ -9254,7 +9254,7 @@
               {
                 "number": "7",
                 "name": "Ladislav Krejci",
-                "position": "LCB",
+                "position": "CB",
                 "x": 25.3,
                 "y": 69.7
               },
@@ -9268,7 +9268,7 @@
               {
                 "number": "3",
                 "name": "Tomas Holes",
-                "position": "RCB",
+                "position": "CB",
                 "x": 74.5,
                 "y": 69.7
               },
@@ -9425,7 +9425,7 @@
           {
             "number": "7",
             "name": "Ladislav Krejci",
-            "position": "LCB",
+            "position": "CB",
             "x": 25.3,
             "y": 69.7
           },
@@ -9439,7 +9439,7 @@
           {
             "number": "3",
             "name": "Tomas Holes",
-            "position": "RCB",
+            "position": "CB",
             "x": 74.5,
             "y": 69.7
           },
@@ -10122,8 +10122,8 @@
           {
             "number": "22",
             "name": "Richie Laryea",
-            "position": "LB",
-            "x": 13.7,
+            "position": "RB",
+            "x": 86.3,
             "y": 62.8
           },
           {
@@ -10392,7 +10392,7 @@
               {
                 "number": "3",
                 "name": "Lee Gi-hyuk",
-                "position": "LCB",
+                "position": "CB",
                 "x": 25.3,
                 "y": 69.7
               },
@@ -10406,7 +10406,7 @@
               {
                 "number": "2",
                 "name": "Lee Han-beom",
-                "position": "RCB",
+                "position": "CB",
                 "x": 74.5,
                 "y": 69.7
               },
@@ -10535,8 +10535,8 @@
           {
             "number": "22",
             "name": "Seol Young-woo",
-            "position": "LM",
-            "x": 12.6,
+            "position": "RM",
+            "x": 87.4,
             "y": 47
           },
           {
@@ -10563,7 +10563,7 @@
           {
             "number": "3",
             "name": "Lee Gi-hyuk",
-            "position": "LCB",
+            "position": "CB",
             "x": 25.3,
             "y": 69.7
           },
@@ -10577,7 +10577,7 @@
           {
             "number": "2",
             "name": "Lee Han-beom",
-            "position": "RCB",
+            "position": "CB",
             "x": 74.5,
             "y": 69.7
           },
@@ -10662,7 +10662,7 @@
               {
                 "number": "13",
                 "name": "Tim Ream",
-                "position": "LCB",
+                "position": "CB",
                 "x": 25.3,
                 "y": 69.7
               },
@@ -10676,7 +10676,7 @@
               {
                 "number": "16",
                 "name": "Alex Freeman",
-                "position": "RCB",
+                "position": "CB",
                 "x": 74.5,
                 "y": 69.7
               },
@@ -10833,7 +10833,7 @@
           {
             "number": "13",
             "name": "Tim Ream",
-            "position": "LCB",
+            "position": "CB",
             "x": 25.3,
             "y": 69.7
           },
@@ -10847,7 +10847,7 @@
           {
             "number": "16",
             "name": "Alex Freeman",
-            "position": "RCB",
+            "position": "CB",
             "x": 74.5,
             "y": 69.7
           },
@@ -12152,7 +12152,7 @@
               {
                 "number": "4",
                 "name": "Isak Hien",
-                "position": "LCB",
+                "position": "CB",
                 "x": 25.3,
                 "y": 69.7
               },
@@ -12166,7 +12166,7 @@
               {
                 "number": "3",
                 "name": "Victor Lindelof",
-                "position": "RCB",
+                "position": "CB",
                 "x": 74.5,
                 "y": 69.7
               },
@@ -12323,7 +12323,7 @@
           {
             "number": "4",
             "name": "Isak Hien",
-            "position": "LCB",
+            "position": "CB",
             "x": 25.3,
             "y": 69.7
           },
@@ -12337,7 +12337,7 @@
           {
             "number": "3",
             "name": "Victor Lindelof",
-            "position": "RCB",
+            "position": "CB",
             "x": 74.5,
             "y": 69.7
           },
@@ -12774,7 +12774,7 @@
               {
                 "number": "6",
                 "name": "Willian Pacho",
-                "position": "LCB",
+                "position": "CB",
                 "x": 25.3,
                 "y": 69.7
               },
@@ -12788,7 +12788,7 @@
               {
                 "number": "3",
                 "name": "Piero Hincapie",
-                "position": "RCB",
+                "position": "CB",
                 "x": 74.5,
                 "y": 69.7
               },
@@ -12945,7 +12945,7 @@
           {
             "number": "6",
             "name": "Willian Pacho",
-            "position": "LCB",
+            "position": "CB",
             "x": 25.3,
             "y": 69.7
           },
@@ -12959,7 +12959,7 @@
           {
             "number": "3",
             "name": "Piero Hincapie",
-            "position": "RCB",
+            "position": "CB",
             "x": 74.5,
             "y": 69.7
           },
@@ -12993,7 +12993,7 @@
             "number": "10",
             "name": "Leandro Bacuna",
             "position": "CM",
-            "x": 36.5,
+            "x": 63.5,
             "y": 36
           },
           {
@@ -13028,7 +13028,7 @@
             "number": "5",
             "name": "Sherel Floranus",
             "position": "CB",
-            "x": 28.2,
+            "x": 71.8,
             "y": 61.2
           },
           {
@@ -13208,7 +13208,7 @@
               {
                 "number": "21",
                 "name": "Hiroki Ito",
-                "position": "LCB",
+                "position": "CB",
                 "x": 25.3,
                 "y": 69.7
               },
@@ -13222,7 +13222,7 @@
               {
                 "number": "22",
                 "name": "Takehiro Tomiyasu",
-                "position": "RCB",
+                "position": "CB",
                 "x": 74.5,
                 "y": 69.7
               },
@@ -13263,7 +13263,7 @@
             "number": "8",
             "name": "Elias Saad",
             "position": "CM",
-            "x": 69.9,
+            "x": 30.1,
             "y": 28
           },
           {
@@ -13379,7 +13379,7 @@
           {
             "number": "21",
             "name": "Hiroki Ito",
-            "position": "LCB",
+            "position": "CB",
             "x": 25.3,
             "y": 69.7
           },
@@ -13393,7 +13393,7 @@
           {
             "number": "22",
             "name": "Takehiro Tomiyasu",
-            "position": "RCB",
+            "position": "CB",
             "x": 74.5,
             "y": 69.7
           },
@@ -14319,13 +14319,13 @@
             "number": "13",
             "name": "Guillermo Varela",
             "position": "ST",
-            "x": 0.3,
+            "x": 99.7,
             "y": 0.3
           },
           {
             "number": "3",
             "name": "Sebastian Caceres",
-            "position": "RW",
+            "position": "LW",
             "x": 0.3,
             "y": 0.3
           },
@@ -14374,7 +14374,7 @@
           {
             "number": "20",
             "name": "Maxi Araujo",
-            "position": "RB",
+            "position": "LB",
             "x": 0.7,
             "y": 0.7
           },
@@ -14407,7 +14407,7 @@
           {
             "number": "4",
             "name": "Roberto Lopes",
-            "position": "RW",
+            "position": "LW",
             "x": 0.3,
             "y": 0.3
           },
@@ -14456,7 +14456,7 @@
           {
             "number": "11",
             "name": "Garry Rodrigues",
-            "position": "RB",
+            "position": "LB",
             "x": 0.7,
             "y": 0.7
           },
@@ -14671,7 +14671,7 @@
             "number": "11",
             "name": "Elijah Just",
             "position": "ST",
-            "x": 19.4,
+            "x": 80.6,
             "y": 30.1
           },
           {
@@ -14684,8 +14684,8 @@
           {
             "number": "20",
             "name": "Callum McCowatt",
-            "position": "RM",
-            "x": 80.6,
+            "position": "LM",
+            "x": 19.4,
             "y": 30.1
           },
           {
@@ -14766,8 +14766,8 @@
           {
             "number": "11",
             "name": "Mostafa Zico",
-            "position": "RW",
-            "x": 80.6,
+            "position": "LW",
+            "x": 19.4,
             "y": 30.1
           },
           {
@@ -15949,7 +15949,7 @@
               {
                 "number": "4",
                 "name": "Husam Abu Dahab",
-                "position": "LCB",
+                "position": "CB",
                 "x": 25.3,
                 "y": 69.7
               },
@@ -15963,7 +15963,7 @@
               {
                 "number": "3",
                 "name": "Abdallah Nasib",
-                "position": "RCB",
+                "position": "CB",
                 "x": 74.5,
                 "y": 69.7
               },
@@ -16124,7 +16124,7 @@
               {
                 "number": "20",
                 "name": "Mohannad Abu Taha",
-                "position": "LCB",
+                "position": "CB",
                 "x": 0.5,
                 "y": 0.5
               },
@@ -16138,7 +16138,7 @@
               {
                 "number": "13",
                 "name": "Mahmoud Al-Mardi",
-                "position": "RCB",
+                "position": "CB",
                 "x": 0.7,
                 "y": 0.7
               },
@@ -16295,7 +16295,7 @@
           {
             "number": "4",
             "name": "Husam Abu Dahab",
-            "position": "LCB",
+            "position": "CB",
             "x": 25.3,
             "y": 69.7
           },
@@ -16309,7 +16309,7 @@
           {
             "number": "3",
             "name": "Abdallah Nasib",
-            "position": "RCB",
+            "position": "CB",
             "x": 74.5,
             "y": 69.7
           },
@@ -16558,7 +16558,7 @@
               {
                 "number": "5",
                 "name": "Rustamjon Ashurmatov",
-                "position": "LCB",
+                "position": "CB",
                 "x": 25.3,
                 "y": 69.7
               },
@@ -16572,7 +16572,7 @@
               {
                 "number": "2",
                 "name": "Abdukodir Khusanov",
-                "position": "RCB",
+                "position": "CB",
                 "x": 74.5,
                 "y": 69.7
               },
@@ -16729,7 +16729,7 @@
           {
             "number": "5",
             "name": "Rustamjon Ashurmatov",
-            "position": "LCB",
+            "position": "CB",
             "x": 25.3,
             "y": 69.7
           },
@@ -16743,7 +16743,7 @@
           {
             "number": "2",
             "name": "Abdukodir Khusanov",
-            "position": "RCB",
+            "position": "CB",
             "x": 74.5,
             "y": 69.7
           },
@@ -16992,8 +16992,8 @@
           {
             "number": "25",
             "name": "Djed Spence",
-            "position": "LB",
-            "x": 13.7,
+            "position": "RB",
+            "x": 86.3,
             "y": 62.8
           },
           {
@@ -17180,7 +17180,7 @@
               {
                 "number": "16",
                 "name": "Andres Andrade",
-                "position": "LCB",
+                "position": "CB",
                 "x": 28.2,
                 "y": 61.2
               },
@@ -17194,7 +17194,7 @@
               {
                 "number": "13",
                 "name": "Jiovany Ramos",
-                "position": "RCB",
+                "position": "CB",
                 "x": 70.8,
                 "y": 61.2
               },
@@ -17337,8 +17337,8 @@
           {
             "number": "2",
             "name": "Cesar Blackman",
-            "position": "LM",
-            "x": 11.4,
+            "position": "RM",
+            "x": 88.6,
             "y": 55.7
           },
           {
@@ -17351,7 +17351,7 @@
           {
             "number": "16",
             "name": "Andres Andrade",
-            "position": "LCB",
+            "position": "CB",
             "x": 28.2,
             "y": 61.2
           },
@@ -17365,7 +17365,7 @@
           {
             "number": "13",
             "name": "Jiovany Ramos",
-            "position": "RCB",
+            "position": "CB",
             "x": 70.8,
             "y": 61.2
           },
@@ -17683,7 +17683,7 @@
             "number": "11",
             "name": "Jhon Arias",
             "position": "CM",
-            "x": 18.6,
+            "x": 81.4,
             "y": 42.3
           },
           {
@@ -18117,7 +18117,7 @@
             "number": "6",
             "name": "Mathieu Choiniere",
             "position": "CM",
-            "x": 35,
+            "x": 65,
             "y": 44.3
           },
           {
@@ -18130,8 +18130,8 @@
           {
             "number": "22",
             "name": "Richie Laryea",
-            "position": "LB",
-            "x": 13.7,
+            "position": "RB",
+            "x": 86.3,
             "y": 62.8
           },
           {
@@ -19436,7 +19436,7 @@
             "number": "21",
             "name": "David Doudera",
             "position": "CM",
-            "x": 12.6,
+            "x": 87.4,
             "y": 47
           },
           {
@@ -19726,7 +19726,7 @@
               {
                 "number": "3",
                 "name": "Lee Gi-hyuk",
-                "position": "LCB",
+                "position": "CB",
                 "x": 25.3,
                 "y": 69.7
               },
@@ -19740,7 +19740,7 @@
               {
                 "number": "2",
                 "name": "Lee Han-beom",
-                "position": "RCB",
+                "position": "CB",
                 "x": 74.5,
                 "y": 69.7
               },
@@ -19897,7 +19897,7 @@
           {
             "number": "3",
             "name": "Lee Gi-hyuk",
-            "position": "LCB",
+            "position": "CB",
             "x": 25.3,
             "y": 69.7
           },
@@ -19911,7 +19911,7 @@
           {
             "number": "2",
             "name": "Lee Han-beom",
-            "position": "RCB",
+            "position": "CB",
             "x": 74.5,
             "y": 69.7
           },
@@ -20485,7 +20485,7 @@
             "number": "10",
             "name": "Leandro Bacuna",
             "position": "CM",
-            "x": 36.5,
+            "x": 63.5,
             "y": 36
           },
           {
@@ -20505,8 +20505,8 @@
           {
             "number": "5",
             "name": "Sherel Floranus",
-            "position": "LWB",
-            "x": 11.4,
+            "position": "RWB",
+            "x": 88.6,
             "y": 55.7
           },
           {
@@ -20700,7 +20700,7 @@
               {
                 "number": "21",
                 "name": "Hiroki Ito",
-                "position": "LCB",
+                "position": "CB",
                 "x": 25.3,
                 "y": 69.7
               },
@@ -20714,7 +20714,7 @@
               {
                 "number": "20",
                 "name": "Ayumu Seko",
-                "position": "RCB",
+                "position": "CB",
                 "x": 74.5,
                 "y": 69.7
               },
@@ -20782,7 +20782,7 @@
               {
                 "number": "5",
                 "name": "Gabriel Gudmundsson",
-                "position": "LCB",
+                "position": "CB",
                 "x": 25.3,
                 "y": 69.7
               },
@@ -20796,7 +20796,7 @@
               {
                 "number": "2",
                 "name": "Gustaf Lagerbielke",
-                "position": "RCB",
+                "position": "CB",
                 "x": 74.5,
                 "y": 69.7
               },
@@ -20871,7 +20871,7 @@
           {
             "number": "21",
             "name": "Hiroki Ito",
-            "position": "LCB",
+            "position": "CB",
             "x": 25.3,
             "y": 69.7
           },
@@ -20885,7 +20885,7 @@
           {
             "number": "20",
             "name": "Ayumu Seko",
-            "position": "RCB",
+            "position": "CB",
             "x": 74.5,
             "y": 69.7
           },
@@ -20953,7 +20953,7 @@
           {
             "number": "5",
             "name": "Gabriel Gudmundsson",
-            "position": "LCB",
+            "position": "CB",
             "x": 25.3,
             "y": 69.7
           },
@@ -20967,7 +20967,7 @@
           {
             "number": "2",
             "name": "Gustaf Lagerbielke",
-            "position": "RCB",
+            "position": "CB",
             "x": 74.5,
             "y": 69.7
           },
@@ -21404,7 +21404,7 @@
               {
                 "number": "14",
                 "name": "Abdulkerim Bardakci",
-                "position": "LCB",
+                "position": "CB",
                 "x": 25.3,
                 "y": 69.7
               },
@@ -21418,7 +21418,7 @@
               {
                 "number": "2",
                 "name": "Zeki Celik",
-                "position": "RCB",
+                "position": "CB",
                 "x": 74.5,
                 "y": 69.7
               },
@@ -21575,7 +21575,7 @@
           {
             "number": "14",
             "name": "Abdulkerim Bardakci",
-            "position": "LCB",
+            "position": "CB",
             "x": 25.3,
             "y": 69.7
           },
@@ -21589,7 +21589,7 @@
           {
             "number": "2",
             "name": "Zeki Celik",
-            "position": "RCB",
+            "position": "CB",
             "x": 74.5,
             "y": 69.7
           },
@@ -21615,8 +21615,8 @@
           {
             "number": "21",
             "name": "Timothy Weah",
-            "position": "LW",
-            "x": 18.6,
+            "position": "RW",
+            "x": 81.4,
             "y": 18.2
           },
           {
@@ -21838,7 +21838,7 @@
               {
                 "number": "25",
                 "name": "Lucas Herrington",
-                "position": "LCB",
+                "position": "CB",
                 "x": 25.3,
                 "y": 69.7
               },
@@ -21852,7 +21852,7 @@
               {
                 "number": "3",
                 "name": "Alessandro Circati",
-                "position": "RCB",
+                "position": "CB",
                 "x": 74.5,
                 "y": 69.7
               },
@@ -22013,7 +22013,7 @@
               {
                 "number": "16",
                 "name": "Aziz Behich",
-                "position": "LCB",
+                "position": "CB",
                 "x": 0.5,
                 "y": 0.5
               },
@@ -22027,7 +22027,7 @@
               {
                 "number": "8",
                 "name": "Connor Metcalfe",
-                "position": "RCB",
+                "position": "CB",
                 "x": 0.7,
                 "y": 0.7
               },
@@ -22177,14 +22177,14 @@
           {
             "number": "5",
             "name": "Jordan Bos",
-            "position": "RM",
-            "x": 87.3,
+            "position": "LM",
+            "x": 12.7,
             "y": 47
           },
           {
             "number": "25",
             "name": "Lucas Herrington",
-            "position": "LCB",
+            "position": "CB",
             "x": 25.3,
             "y": 69.7
           },
@@ -22198,7 +22198,7 @@
           {
             "number": "3",
             "name": "Alessandro Circati",
-            "position": "RCB",
+            "position": "CB",
             "x": 74.5,
             "y": 69.7
           },
@@ -23124,13 +23124,13 @@
             "number": "24",
             "name": "Wagner Pina",
             "position": "ST",
-            "x": 0.3,
+            "x": 99.7,
             "y": 0.3
           },
           {
             "number": "4",
             "name": "Roberto Lopes",
-            "position": "RW",
+            "position": "LW",
             "x": 0.3,
             "y": 0.3
           },
@@ -23179,7 +23179,7 @@
           {
             "number": "17",
             "name": "Willy Semedo",
-            "position": "RB",
+            "position": "LB",
             "x": 0.7,
             "y": 0.7
           },
@@ -23206,7 +23206,7 @@
             "number": "12",
             "name": "Saud Abdulhamid",
             "position": "ST",
-            "x": 0.4,
+            "x": 99.6,
             "y": 0.4
           },
           {
@@ -23227,13 +23227,13 @@
             "number": "13",
             "name": "Nawaf Boushal",
             "position": "CM",
-            "x": 0.4,
+            "x": 99.6,
             "y": 0.4
           },
           {
             "number": "20",
             "name": "Sultan Mandash",
-            "position": "RM",
+            "position": "LM",
             "x": 0.6,
             "y": 0.6
           },
@@ -23261,7 +23261,7 @@
           {
             "number": "9",
             "name": "Firas Al-Buraikan",
-            "position": "RB",
+            "position": "LB",
             "x": 0.9,
             "y": 0.9
           },
@@ -24179,8 +24179,8 @@
           {
             "number": "11",
             "name": "Elijah Just",
-            "position": "LW",
-            "x": 19.4,
+            "position": "RW",
+            "x": 80.6,
             "y": 30.1
           },
           {
@@ -24402,7 +24402,7 @@
               {
                 "number": "16",
                 "name": "Andres Andrade",
-                "position": "LCB",
+                "position": "CB",
                 "x": 28.2,
                 "y": 61.2
               },
@@ -24416,7 +24416,7 @@
               {
                 "number": "4",
                 "name": "Fidel Escobar",
-                "position": "RCB",
+                "position": "CB",
                 "x": 70.8,
                 "y": 61.2
               },
@@ -24573,7 +24573,7 @@
           {
             "number": "16",
             "name": "Andres Andrade",
-            "position": "LCB",
+            "position": "CB",
             "x": 28.2,
             "y": 61.2
           },
@@ -24587,7 +24587,7 @@
           {
             "number": "4",
             "name": "Fidel Escobar",
-            "position": "RCB",
+            "position": "CB",
             "x": 70.8,
             "y": 61.2
           },
@@ -25540,7 +25540,7 @@
               {
                 "number": "26",
                 "name": "Jakhongir Urozov",
-                "position": "LCB",
+                "position": "CB",
                 "x": 25.3,
                 "y": 69.7
               },
@@ -25554,7 +25554,7 @@
               {
                 "number": "5",
                 "name": "Rustamjon Ashurmatov",
-                "position": "RCB",
+                "position": "CB",
                 "x": 74.5,
                 "y": 69.7
               },
@@ -25711,7 +25711,7 @@
           {
             "number": "26",
             "name": "Jakhongir Urozov",
-            "position": "LCB",
+            "position": "CB",
             "x": 25.3,
             "y": 69.7
           },
@@ -25725,7 +25725,7 @@
           {
             "number": "5",
             "name": "Rustamjon Ashurmatov",
-            "position": "RCB",
+            "position": "CB",
             "x": 74.5,
             "y": 69.7
           },
@@ -26337,7 +26337,7 @@
               {
                 "number": "4",
                 "name": "Husam Abu Dahab",
-                "position": "LCB",
+                "position": "CB",
                 "x": 25.3,
                 "y": 69.7
               },
@@ -26351,7 +26351,7 @@
               {
                 "number": "3",
                 "name": "Abdallah Nasib",
-                "position": "RCB",
+                "position": "CB",
                 "x": 74.5,
                 "y": 69.7
               },
@@ -26508,7 +26508,7 @@
           {
             "number": "4",
             "name": "Husam Abu Dahab",
-            "position": "LCB",
+            "position": "CB",
             "x": 25.3,
             "y": 69.7
           },
@@ -26522,7 +26522,7 @@
           {
             "number": "3",
             "name": "Abdallah Nasib",
-            "position": "RCB",
+            "position": "CB",
             "x": 74.5,
             "y": 69.7
           },
@@ -26935,8 +26935,8 @@
           {
             "number": "22",
             "name": "Richie Laryea",
-            "position": "LB",
-            "x": 13.7,
+            "position": "RB",
+            "x": 86.3,
             "y": 62.8
           },
           {
@@ -27393,7 +27393,7 @@
               {
                 "number": "5",
                 "name": "Nathan Ake",
-                "position": "LCB",
+                "position": "CB",
                 "x": 25.3,
                 "y": 69.7
               },
@@ -27407,7 +27407,7 @@
               {
                 "number": "6",
                 "name": "Jan Paul van Hecke",
-                "position": "RCB",
+                "position": "CB",
                 "x": 74.5,
                 "y": 69.7
               },
@@ -27564,7 +27564,7 @@
           {
             "number": "5",
             "name": "Nathan Ake",
-            "position": "LCB",
+            "position": "CB",
             "x": 25.3,
             "y": 69.7
           },
@@ -27578,7 +27578,7 @@
           {
             "number": "6",
             "name": "Jan Paul van Hecke",
-            "position": "RCB",
+            "position": "CB",
             "x": 74.5,
             "y": 69.7
           },
@@ -27827,7 +27827,7 @@
               {
                 "number": "21",
                 "name": "Hiroki Ito",
-                "position": "LCB",
+                "position": "CB",
                 "x": 25.3,
                 "y": 69.7
               },
@@ -27841,7 +27841,7 @@
               {
                 "number": "22",
                 "name": "Takehiro Tomiyasu",
-                "position": "RCB",
+                "position": "CB",
                 "x": 74.5,
                 "y": 69.7
               },
@@ -27998,7 +27998,7 @@
           {
             "number": "21",
             "name": "Hiroki Ito",
-            "position": "LCB",
+            "position": "CB",
             "x": 25.3,
             "y": 69.7
           },
@@ -28012,7 +28012,7 @@
           {
             "number": "22",
             "name": "Takehiro Tomiyasu",
-            "position": "RCB",
+            "position": "CB",
             "x": 74.5,
             "y": 69.7
           },
@@ -29680,14 +29680,14 @@
               {
                 "number": "16",
                 "name": "Alex Freeman",
-                "position": "RCB",
+                "position": "CB",
                 "x": 86.6,
                 "y": 62.8
               },
               {
                 "number": "13",
                 "name": "Tim Ream",
-                "position": "LCB",
+                "position": "CB",
                 "x": 33.3,
                 "y": 68.7
               },
@@ -29855,7 +29855,7 @@
               {
                 "number": "8",
                 "name": "Weston McKennie",
-                "position": "LCB",
+                "position": "CB",
                 "x": 0.7,
                 "y": 0.7
               },
@@ -29869,7 +29869,7 @@
               {
                 "number": "10",
                 "name": "Christian Pulisic",
-                "position": "RCB",
+                "position": "CB",
                 "x": 0.7,
                 "y": 0.7
               },
@@ -30026,14 +30026,14 @@
           {
             "number": "16",
             "name": "Alex Freeman",
-            "position": "RCB",
+            "position": "CB",
             "x": 86.6,
             "y": 62.8
           },
           {
             "number": "13",
             "name": "Tim Ream",
-            "position": "LCB",
+            "position": "CB",
             "x": 33.3,
             "y": 68.7
           },

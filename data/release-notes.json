@@ -14,6 +14,19 @@
     },
     {
       "date": "2026-07-02",
+      "title": "Lineup coach checks and tied-match smoke fixes",
+      "titleZh": "阵容教练检查与平局场景烟雾修复",
+      "highlights": [
+        "Lineup card labeling now handles final and confirmed records consistently while still showing contextual help on final, live, and confirmed lineups.",
+        "Tournament smoke checks now better isolate tie outcomes and verify coach coverage and lineup marker positioning with clearer predicates."
+      ],
+      "highlightsZh": [
+        "阵容卡当前状态文案在“最终”和“官方”阵容之间保持一致，并继续在直播、最终和官方阵容下展示说明徽标。",
+        "淘汰赛烟雾检查对平局场景拆分得更清晰，并加强了教练覆盖与阵容标记位置的校验。"
+      ]
+    },
+    {
+      "date": "2026-07-02",
       "title": "Lineup parser and live-data synchronization",
       "titleZh": "阵容解析与实时数据联动更新",
       "highlights": [
