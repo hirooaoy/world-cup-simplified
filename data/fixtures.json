@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-03T05:36:51.732Z",
+  "updatedAt": "2026-07-03T06:07:29.580Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -20999,7 +20999,8 @@
           "matchId": "400021535",
           "matchNumber": 96
         }
-      }
+      },
+      "homeTeamId": "SUI"
     },
     {
       "id": "match-97-quarter-final-2026-07-09",
