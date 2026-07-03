@@ -9002,10 +9002,7 @@ function updateTooltipBounds(root = document) {
       shift -= baseBounds.right + shift - maxRight;
     }
 
-    if (
-      element.matches(".standing-help[data-tooltip], .rank-pill[data-tooltip]") &&
-      style.left !== "auto"
-    ) {
+    if (element.matches(".standing-help[data-tooltip]") && style.left !== "auto") {
       const resolvedLeft = baseBounds.left + shift - rect.left;
       element.style.setProperty("--tooltip-left-x", `${resolvedLeft.toFixed(2)}px`);
       element.style.setProperty("--tooltip-transform-x", "0px");
@@ -24640,7 +24637,7 @@ async function loadStaticData() {
     fixturesData,
     historyData,
     lineupsData,
-    expectedLineupsFileData,
+    expectedLineupsData: expectedLineupsFileData,
     coachProfilesData,
     playerProfilesData,
     standingsData,
