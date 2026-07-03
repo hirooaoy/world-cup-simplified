@@ -16,6 +16,17 @@ function simplifyPlayerToken(value) {
   return value.replace(/(.)\1+/g, "$1");
 }
 
+const TOKEN_ALIASES = {
+  rafik: new Set(["rak"]),
+  rak: new Set(["rafik"]),
+  christian: new Set(["cristian"]),
+  cristian: new Set(["christian"])
+};
+
+function isTokenAliasMatch(left, right) {
+  return Boolean(TOKEN_ALIASES[left]?.has(right) || TOKEN_ALIASES[right]?.has(left));
+}
+
 function isSignificantToken(value) {
   return value.length >= 3;
 }
@@ -51,6 +62,10 @@ function isTokenMatch(displayToken, rosterToken) {
     rosterToken.length >= 5 &&
     getConsonantKey(displayToken) === getConsonantKey(rosterToken)
   ) {
+    return true;
+  }
+
+  if (isTokenAliasMatch(displayToken, rosterToken)) {
     return true;
   }
 

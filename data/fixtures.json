@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-03T02:22:13.276Z",
+  "updatedAt": "2026-07-03T05:36:51.732Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -19405,6 +19405,39 @@
       "score": {
         "home": 2,
         "away": 1
+      },
+      "winnerTeamId": "POR",
+      "goalsHome": [
+        {
+          "minute": 68,
+          "name": "Cristiano Ronaldo",
+          "penalty": true
+        },
+        {
+          "minute": 90,
+          "offset": 4,
+          "name": "Gonçalo Ramos"
+        }
+      ],
+      "goalsAway": [
+        {
+          "minute": 53,
+          "name": "Ivan Perišić"
+        }
+      ],
+      "resultStoryBullets": [
+        "Croatia took the lead through Ivan Perišić at 53'.",
+        "Cristiano Ronaldo leveled from the spot in the 68th minute to restore Portugal's edge.",
+        "Gonçalo Ramos' 90+4' finish gave Portugal the late winner and a 2-1 victory."
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=J9yS7PsoEck",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-07-02T22:24:36-07:00",
+        "checkedAt": "2026-07-02T22:24:36-07:00"
+      }
       }
     },
     {
@@ -19634,7 +19667,7 @@
       "homeSlot": "Group B winner",
       "awaySlot": "Group E/F/G/I/J third place",
       "venue": "BC Place Vancouver",
-      "status": "SCHEDULED",
+      "status": "FT",
       "h2h": {
         "status": "loaded",
         "sourceId": "national-football-teams-h2h-sync-2026-06-30",
@@ -19716,6 +19749,35 @@
         "sourceId": "editorial-preview-2026-06-22",
         "home": "Switzerland are a tournament-tested structure team who rarely look rushed when the match gets tense, led by Granit Xhaka, Manuel Akanji, and Breel Embolo. Against Algeria, their Xhaka-Embolo control-and-release has to beat Algeria's Mahrez-Aouar control. They want to let Xhaka dictate the first pass and find Embolo before the opponent can squeeze midfield. The risk is Algeria can slow the match through Mahrez and Aouar before finding Gouiri in open space.",
         "away": "Algeria are a technical North African side that want the game to run through the left foot and calm of midfield, led by Riyad Mahrez, Houssem Aouar, and Amine Gouiri. Against Switzerland, their Mahrez-Aouar control has to beat Switzerland's Xhaka-Embolo control-and-release. They want to give Mahrez time on the ball while Aouar connects the next pass toward Gouiri. The risk is Switzerland can slow the game through Xhaka and use Embolo as the release valve."
+      },
+      "score": {
+        "home": 2,
+        "away": 0
+      },
+      "winnerTeamId": "SUI",
+      "goalsHome": [
+        {
+          "minute": 10,
+          "name": "Breel Embolo"
+        },
+        {
+          "minute": 46,
+          "name": "Dan Ndoye"
+        }
+      ],
+      "goalsAway": [],
+      "resultStoryBullets": [
+        "Breel Embolo opened scoring for Switzerland on 10'.",
+        "Dan Ndoye doubled the lead on the first minute of the second half at 46'.",
+        "Switzerland then controlled the rest of the match to finish comfortably at 2-0."
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=bSZEbYXssBI",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-07-02T22:24:39-07:00",
+        "checkedAt": "2026-07-02T22:24:39-07:00"
       }
     },
     {

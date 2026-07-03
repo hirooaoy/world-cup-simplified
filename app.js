@@ -366,10 +366,17 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "Line-ups": "阵容",
     "Line-ups (expected)": "预计阵容",
     "Line-ups (prediction)": "预测阵容",
+    "Line-ups (live)": "实时阵容",
+    "Line-ups (verified)": "官方确认阵容",
     "Confirmed lineups": "已确认阵容",
+    "Final verified lineup": "最终确认阵容",
+    "Live lineup record": "实时阵容记录",
+    "Live lineup record checked": "实时阵容核验",
+    "Live lineup record from official FIFA feed": "来自FIFA官方实况的实时阵容记录",
+    "Official FIFA live lineup": "官方FIFA实况阵容",
+    "Official lineup source": "官方阵容",
     "Final lineup record": "最终阵容记录",
-    "Final lineup record. Official FIFA team sheet; pitch layout follows formation and team-sheet order.":
-      "最终阵容记录。队名单来自 FIFA 官方；球场站位按阵型和队名单顺序排列。",
+    "Official FIFA lineup": "官方FIFA阵容",
     "Lineup record": "阵容记录",
     "Lineup record checked": "阵容记录核验",
     "Lineups": "阵容",
@@ -2268,7 +2275,16 @@ Object.entries({
   TBD: "待定",
   Likely: "可能",
   "Unknown scorer": "进球者未知",
-  "No historical prediction is generated for cancelled fixtures.": "已取消的比赛不会生成历史预测。"
+  "No historical prediction is generated for cancelled fixtures.": "已取消的比赛不会生成历史预测。",
+  "Line-ups (live)": "实时阵容",
+  "Line-ups (verified)": "官方确认阵容",
+  "Final verified lineup": "最终确认阵容",
+  "Live lineup record": "实时阵容记录",
+  "Live lineup record checked": "实时阵容核验",
+  "Live lineup record from official FIFA feed": "来自FIFA官方实况的实时阵容记录",
+  "Official FIFA live lineup": "官方FIFA实况阵容",
+  "Official lineup source": "官方阵容",
+  "Official FIFA lineup": "官方FIFA阵容"
 }).forEach(([text, translation]) => {
   ZH_EXACT_TRANSLATIONS.set(text, translation);
 });
@@ -16488,6 +16504,118 @@ function getMockAvatarColor(teamId, index) {
   return palette[(teamSeed + index) % palette.length];
 }
 
+function isGoalkeeperPosition(position) {
+  const normalizedPosition = String(position || "").trim().toUpperCase();
+  return normalizedPosition === "GK" || normalizedPosition.startsWith("GK");
+}
+
+function getAdjustedLineupPlayerY(position, rawY) {
+  const y = Number(rawY);
+  if (!Number.isFinite(y)) {
+    return rawY;
+  }
+
+  const normalizedPosition = String(position || "").trim().toUpperCase();
+  if (isGoalkeeperPosition(normalizedPosition)) {
+    return y;
+  }
+
+  let offset = 0;
+
+  if (
+    /(CB|LB|RB|LWB|RWB)/.test(normalizedPosition) ||
+    normalizedPosition.includes("BACK")
+  ) {
+    offset += 2;
+  }
+
+  if (
+    normalizedPosition === "CM" ||
+    normalizedPosition === "DM" ||
+    normalizedPosition === "AM" ||
+    normalizedPosition.includes("MIDFIELD")
+  ) {
+    offset += 2.5;
+  }
+
+  return y + offset;
+}
+
+function normalizeLineupPlayerRowY(rows, { minY = 16, maxY = 92 } = {}) {
+  if (!Array.isArray(rows) || rows.length === 0) {
+    return rows;
+  }
+
+  const rowsWithMeta = rows.map((row) => {
+    const y = Number(row?.[6]);
+    return {
+      row,
+      y,
+      isFiniteY: Number.isFinite(y),
+      isGoalkeeper: isGoalkeeperPosition(row?.[3])
+    };
+  });
+
+  const outfieldRows = rowsWithMeta.filter((item) => item.isFiniteY && !item.isGoalkeeper);
+  if (outfieldRows.length === 0) {
+    return rows;
+  }
+
+  const outfieldYValues = outfieldRows.map((item) => item.y);
+  const min = Math.min(...outfieldYValues);
+  const max = Math.max(...outfieldYValues);
+  const span = max - min;
+  const targetSpan = maxY - minY;
+  if (
+    !Number.isFinite(span) ||
+    !Number.isFinite(targetSpan) ||
+    targetSpan <= 0 ||
+    span <= 0
+  ) {
+    return rows;
+  }
+
+  if (span > targetSpan) {
+    const scale = targetSpan / span;
+    return rows.map((row, index) => {
+      const item = rowsWithMeta[index];
+      if (!item || !item.isFiniteY || item.isGoalkeeper) {
+        return row;
+      }
+
+      const normalizedY = minY + (item.y - min) * scale;
+      return [
+        ...row.slice(0, 6),
+        clampNumber(normalizedY, minY, maxY),
+        ...row.slice(7)
+      ];
+    });
+  }
+
+  let shift = 0;
+  if (min < minY) {
+    shift = minY - min;
+  } else if (max > maxY) {
+    shift = maxY - max;
+  }
+  if (!shift) {
+    return rows;
+  }
+
+  return rows.map((row, index) => {
+    const item = rowsWithMeta[index];
+    if (!item || !item.isFiniteY || item.isGoalkeeper) {
+      return row;
+    }
+
+    return [
+      ...row.slice(0, 6),
+      clampNumber(item.y + shift, minY, maxY),
+      ...row.slice(7)
+    ];
+  });
+}
+
 function createMockLineupPlayers(teamId, names, formation) {
   const layout = MOCK_LINEUP_LAYOUTS[formation] || MOCK_LINEUP_LAYOUTS["4-3-3"];
   const profiles = names.map((name) => getLineupProfileByName(teamId, name));
@@ -16496,10 +16624,11 @@ function createMockLineupPlayers(teamId, names, formation) {
   );
   const usedNumbers = new Set();
 
-  return names.map((name, index) => {
+  const players = names.map((name, index) => {
     const profile = profiles[index];
     const displayName = profile?.displayName || name;
     const [position, x, y] = layout[index] || layout.at(-1);
+    const adjustedY = getAdjustedLineupPlayerY(position, y);
     return [
       getLineupPlayerNumber(profile, usedNumbers, reservedNumbers, index + 1),
       formatLineupShortName(displayName),
@@ -16507,10 +16636,11 @@ function createMockLineupPlayers(teamId, names, formation) {
       position,
       getPlayerInitials(displayName),
       x,
-      y,
+      adjustedY,
       getMockAvatarColor(teamId, index)
     ];
   });
+  return normalizeLineupPlayerRowY(players);
 }
 
 function createMockLineupBench(teamId, starterNames, usedStarterNumbers = new Set()) {
@@ -16598,7 +16728,8 @@ function normalizeLineupPlayerEntry(player, teamId, index = 0, layoutEntry = nul
   const number = String(player.number || player.uniformNumber || profile?.uniformNumber || "").trim();
   const position = String(player.position || player.role || layoutEntry?.[0] || getLineupProfilePositionCode(profile?.position)).trim();
   const x = Number.isFinite(Number(player.x)) ? Number(player.x) : layoutEntry?.[1];
-  const y = Number.isFinite(Number(player.y)) ? Number(player.y) : layoutEntry?.[2];
+  const rawY = Number.isFinite(Number(player.y)) ? Number(player.y) : layoutEntry?.[2];
+  const y = getAdjustedLineupPlayerY(position, rawY);
   const avatarColor = player.avatarColor || getMockAvatarColor(teamId, index);
 
   return [
@@ -16649,7 +16780,7 @@ function normalizeLineupCoach(coach, teamId) {
   };
 }
 
-function normalizeLineupTeamData(teamLineup, teamId) {
+function normalizeLineupTeamData(teamLineup, teamId, mode = "final") {
   if (!teamLineup || typeof teamLineup !== "object") {
     return null;
   }
@@ -16661,14 +16792,22 @@ function normalizeLineupTeamData(teamLineup, teamId) {
       ? teamLineup.starters
       : [];
   const layout = MOCK_LINEUP_LAYOUTS[formation] || MOCK_LINEUP_LAYOUTS["4-3-3"];
-  const players = sourcePlayers
+  const onFieldPlayers = mode === "live" && Array.isArray(teamLineup.onFieldPlayers)
+    ? new Set(teamLineup.onFieldPlayers.map((name) => normalizeTextKey(name)).filter(Boolean))
+    : null;
+  const sourcePlayersEntries = sourcePlayers
     .map((player, index) => normalizeLineupPlayerEntry(player, teamId, index, layout[index] || layout.at(-1)))
     .filter(Boolean);
+  const filteredPlayers = onFieldPlayers?.size
+    ? sourcePlayersEntries.filter((player) => onFieldPlayers.has(normalizeTextKey(player[2])))
+    : sourcePlayersEntries;
+  const players = filteredPlayers.length ? filteredPlayers : sourcePlayersEntries;
+  const adjustedPlayers = normalizeLineupPlayerRowY(players);
   const bench = (Array.isArray(teamLineup.bench) ? teamLineup.bench : [])
     .map((player, index) => normalizeLineupBenchEntry(player, teamId, index))
     .filter(Boolean);
 
-  if (!formation || players.length !== 11) {
+  if (!formation || (mode === "live" ? !players.length : players.length !== 11)) {
     return null;
   }
 
@@ -16676,7 +16815,7 @@ function normalizeLineupTeamData(teamLineup, teamId) {
     formation,
     formationNotes: teamLineup.formationNotes || getMockFormationNotes(formation),
     coach: normalizeLineupCoach(teamLineup.coach, teamId),
-    players,
+    players: adjustedPlayers,
     bench,
     events: normalizeLineupTeamEvents(teamLineup.events)
   };
@@ -16701,14 +16840,15 @@ function getFixtureLineupPreview(match) {
     return null;
   }
 
-  const home = normalizeLineupTeamData(lineup.home, match.homeTeamId);
-  const away = normalizeLineupTeamData(lineup.away, match.awayTeamId);
+  const mode = getLineupModeForMatch(match, lineup.mode || lineup.status);
+  const home = normalizeLineupTeamData(lineup.home, match.homeTeamId, mode);
+  const away = normalizeLineupTeamData(lineup.away, match.awayTeamId, mode);
   if (!home || !away) {
     return null;
   }
 
   return {
-    mode: getLineupModeForMatch(match, lineup.mode || lineup.status),
+    mode,
     checkedAt: lineup.checkedAt,
     updatedAt: lineup.updatedAt,
     sourceIds: lineup.sourceIds,
@@ -16741,7 +16881,7 @@ function getGeneratedMockLineupPreview(match) {
 
 function getLineupModeForMatch(match, mode) {
   const normalizedMode = String(mode || "").trim().toLowerCase();
-  if (["prediction", "confirmed", "final"].includes(normalizedMode)) {
+  if (["prediction", "confirmed", "final", "live"].includes(normalizedMode)) {
     return normalizedMode;
   }
   if (normalizedMode === "past") {
@@ -16752,6 +16892,9 @@ function getLineupModeForMatch(match, mode) {
   }
   if (match?.status === "FT") {
     return "final";
+  }
+  if (match?.status === "LIVE") {
+    return "live";
   }
 
   return "confirmed";
@@ -16907,6 +17050,20 @@ function getLineupFreshness(match, lineup = null) {
   return formatRelativeScoreFreshness(timestamp);
 }
 
+function getLineupSourceLabel(match, lineup = null) {
+  const mode = getLineupModeForMatch(match, lineup?.mode);
+
+  if (mode === "live") {
+    return localizeText("Official FIFA live lineup");
+  }
+
+  if (mode === "final" && lineup?.teamSheetSource === "fifa-official") {
+    return localizeText("Official FIFA lineup");
+  }
+
+  return localizeText("Official lineup source");
+}
+
 function getLineupCheckedText(label, freshness) {
   if (!freshness) {
     return "";
@@ -16923,7 +17080,12 @@ function getLineupCheckedText(label, freshness) {
 function getLineupUpdatedText(match, lineup = null) {
   const mode = getLineupModeForMatch(match, lineup?.mode);
   if (mode === "final") {
-    return localizeText("Final lineup record");
+    return localizeText("Final verified lineup");
+  }
+
+  if (mode === "live") {
+    const freshness = getLineupFreshness(match, lineup);
+    return getLineupCheckedText("Live lineup record checked", freshness) || localizeText("Live lineup record");
   }
 
   const freshness = getLineupFreshness(match, lineup);
@@ -16940,12 +17102,18 @@ function getLineupUpdatedText(match, lineup = null) {
 }
 
 function getLineupHelpText(match, lineup = null) {
-  const mode = getLineupModeForMatch(match, lineup?.mode);
-  if (mode === "final" && lineup?.teamSheetSource === "fifa-official" && lineup?.layoutSource === "derived-team-sheet-order") {
-    return localizeText("Final lineup record. Official FIFA team sheet; pitch layout follows formation and team-sheet order.");
+  const freshness = getLineupFreshness(match, lineup);
+  const sourceLabel = getLineupSourceLabel(match, lineup);
+
+  if (!freshness) {
+    return sourceLabel;
   }
 
-  return getLineupUpdatedText(match, lineup);
+  if (currentLanguage === "zh") {
+    return `${sourceLabel}（${freshness}）`;
+  }
+
+  return `${sourceLabel} (${freshness})`;
 }
 
 function renderLineupUpdatedCopy(match, lineup = null) {
@@ -16999,13 +17167,14 @@ function getLocalizedLineupPosition(position) {
 }
 
 function getLineupHeadingLabel(match, lineup) {
-  return getLineupModeForMatch(match, lineup?.mode) === "prediction" ? "Line-ups (prediction)" : "Line-ups";
+  return "Line-ups";
 }
 
 function renderLineupHeading(match, lineup) {
   const label = getLineupHeadingLabel(match, lineup);
   const helpText = getLineupHelpText(match, lineup);
-  const helpButton = helpText
+  const isLiveLineup = getLineupModeForMatch(match, lineup?.mode) === "live";
+  const helpButton = isLiveLineup && helpText
     ? `<button class="info-tooltip-button" type="button" aria-label="${escapeHtml(helpText)}" data-tooltip="${escapeHtml(helpText)}">i</button>`
     : "";
 
@@ -19275,6 +19444,10 @@ function isFloatingPlayerCardActive() {
   );
 }
 
+function prefersLineupFloatingCardBelow(playerHover) {
+  return Boolean(playerHover?.closest(".lineup-player-hover"));
+}
+
 function hideFloatingPlayerCard() {
   window.clearTimeout(floatingPlayerCardHideTimer);
   floatingPlayerCardHideTimer = 0;
@@ -19319,16 +19492,18 @@ function positionFloatingPlayerCard(playerHover, cardWidth) {
   const left = Math.min(Math.max(centeredLeft, viewportMargin), maxLeft);
   const belowTop = triggerRect.bottom + 9;
   const aboveTop = triggerRect.top - cardHeight - 9;
-  const canFitBelow = belowTop + cardHeight <= window.innerHeight - viewportMargin;
-  const canFitAbove = aboveTop >= viewportMargin;
-  const top = canFitBelow
-    ? belowTop
-    : canFitAbove
-      ? aboveTop
-      : Math.min(
-          Math.max(viewportMargin, belowTop),
-          Math.max(viewportMargin, window.innerHeight - cardHeight - viewportMargin)
-        );
+  const maxBottomTop = Math.max(viewportMargin, window.innerHeight - cardHeight - viewportMargin);
+  const prefersBelow = prefersLineupFloatingCardBelow(playerHover);
+  const top = prefersBelow
+    ? Math.min(Math.max(viewportMargin, belowTop), Math.max(viewportMargin, maxBottomTop))
+    : belowTop + cardHeight <= window.innerHeight - viewportMargin
+      ? belowTop
+      : aboveTop >= viewportMargin
+        ? aboveTop
+        : Math.min(
+            Math.max(viewportMargin, belowTop),
+            maxBottomTop
+          );
 
   floatingCard.style.setProperty("--player-card-floating-left", `${Math.round(left)}px`);
   floatingCard.style.setProperty("--player-card-floating-top", `${Math.round(top)}px`);
@@ -24227,7 +24402,15 @@ function mergeFixtureLineups(fixturesData, nextLineupData = lineupData) {
       ? nextLineupData.lineups || {}
       : {};
   const fixturesWithLineups = (fixturesData.fixtures || []).map((fixture) => {
-    const lineups = lineupRecords[fixture.id] || fixture.lineups;
+    const staticLineup = lineupRecords[fixture.id];
+    const liveLineup = fixture.lineups;
+    const isFinalFixture = fixture.status === "FT";
+    const isStaticFinal = staticLineup?.mode === "final";
+    const lineups =
+      isFinalFixture && isStaticFinal
+        ? staticLineup
+        : liveLineup || staticLineup;
+
     return lineups ? { ...fixture, lineups } : fixture;
   });
 
@@ -24798,9 +24981,18 @@ function handlePlayerHoverPointerPreview(event, options = {}) {
 
   const playerHover = event.target.closest(".player-hover");
   if (playerHover) {
+    if (playerHover.querySelector(".lineup-event-badge:hover")) {
+      return;
+    }
+
+    if (playerHover.querySelector(".lineup-event-badge.is-event-tooltip-open")) {
+      hideFloatingLineupEventTooltip();
+    }
+
     if (playerHover.querySelector(".lineup-event-badge:hover, .lineup-event-badge.is-event-tooltip-open")) {
       return;
     }
+
     positionPlayerCard(playerHover, { forceFloating: true });
   }
 }

@@ -6181,10 +6181,10 @@ button.lineup-event-sub,
 }
 
 .lineup-pitch {
-  --lineup-pitch-height: clamp(420px, 62vw, 460px);
-  --lineup-pitch-top-trim: 44px;
+  --lineup-pitch-height: clamp(360px, 40vw, 430px);
+  --lineup-pitch-top-trim: 0px;
   position: relative;
-  height: calc(var(--lineup-pitch-height) - var(--lineup-pitch-top-trim));
+  height: var(--lineup-pitch-height);
   overflow: hidden;
   background: #fbfbfb;
 }
@@ -6478,8 +6478,8 @@ button.lineup-event-sub,
   }
 
   .lineup-pitch {
-    --lineup-pitch-height: 410px;
-    --lineup-pitch-top-trim: 34px;
+    --lineup-pitch-height: 340px;
+    --lineup-pitch-top-trim: 0px;
   }
 
   .lineup-player-marker {

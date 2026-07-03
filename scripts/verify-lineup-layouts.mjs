@@ -185,19 +185,105 @@ function officialSideNames(lineups, side) {
 }
 
 function sameName(left, right) {
-  return (
-    normalizeLayoutPlayerName(left) === normalizeLayoutPlayerName(right) ||
-    isPlayerNameMatch(left, right) ||
-    isPlayerNameMatch(right, left)
-  );
+  const normalizedLeft = normalizeLayoutPlayerName(left);
+  const normalizedRight = normalizeLayoutPlayerName(right);
+
+  if (!normalizedLeft || !normalizedRight) {
+    return false;
+  }
+
+  if (normalizedLeft === normalizedRight) {
+    return true;
+  }
+
+  const leftTokens = normalizedLeft.split(" ").filter(Boolean);
+  const rightTokens = normalizedRight.split(" ").filter(Boolean);
+  if (leftTokens.length === 1 && rightTokens.length >= 2) {
+    return rightTokens.includes(leftTokens[0]) && leftTokens[0].length >= 4;
+  }
+  if (rightTokens.length === 1 && leftTokens.length >= 2) {
+    return leftTokens.includes(rightTokens[0]) && rightTokens[0].length >= 4;
+  }
+
+  return isPlayerNameMatch(left, right) || isPlayerNameMatch(right, left);
 }
 
 function officialNameForSourceName(sourceName, officialNames) {
-  return officialNames.find((officialName) => sameName(sourceName, officialName)) || sourceName;
+  const exactMatches = officialNames.filter((officialName) => normalizeLayoutPlayerName(officialName) === normalizeLayoutPlayerName(sourceName));
+  if (exactMatches.length === 1) {
+    return exactMatches[0];
+  }
+
+  const fuzzyMatches = officialNames.filter((officialName) => sameName(sourceName, officialName));
+  if (fuzzyMatches.length === 1) {
+    return fuzzyMatches[0];
+  }
+
+  if (fuzzyMatches.length > 1) {
+    return sourceName;
+  }
+
+  return sourceName;
 }
 
 function officialPlayerForSourceName(sourceName, officialPlayers) {
-  return officialPlayers.find((player) => sameName(playerName(player), sourceName)) || null;
+  const matches = officialPlayers.filter((player) => sameName(playerName(player), sourceName));
+  if (matches.length !== 1) {
+    return null;
+  }
+
+  return matches[0];
+}
+
+function applyOfficialGeometry(sourcePlayers, officialPlayers) {
+  return sourcePlayers.map((player) => {
+    const officialPlayer = officialPlayerForSourceName(player.name, officialPlayers);
+    if (!officialPlayer) {
+      return player;
+    }
+
+    const officialX = Number(officialPlayer.x);
+    const officialY = Number(officialPlayer.y);
+    return {
+      ...player,
+      name: officialNameForSourceName(player.name, officialPlayers.map(playerName)),
+      x: Number.isFinite(officialX) ? officialX : player.x,
+      y: Number.isFinite(officialY) ? officialY : player.y,
+      number: officialPlayer.number || player.number || ""
+    };
+  });
+}
+
+function getOfficialRowsByPlayerName(officialPlayers, formation) {
+  const officialPlayerRows = new Map();
+  const expectedRows = formationRowCounts(formation);
+
+  const withRows = officialPlayers
+    .filter((player) => Number.isFinite(Number(player?.y)))
+    .sort((left, right) => Number(left.y) - Number(right.y))
+    .map((player, index) => {
+      const row = (() => {
+        let count = 0;
+        let cursor = 0;
+
+        for (const rowCount of expectedRows) {
+          if (count + rowCount > index) {
+            return cursor;
+          }
+          count += rowCount;
+          cursor += 1;
+        }
+        return expectedRows.length - 1;
+      })();
+
+      return { player, row };
+    });
+
+  for (const { player, row } of withRows) {
+    officialPlayerRows.set(normalizeLayoutPlayerName(playerName(player)), row);
+  }
+
+  return officialPlayerRows;
 }
 
 function assignRolesForFormation(formation, sourcePlayers) {
@@ -309,7 +395,8 @@ function formationRowCounts(formation) {
   return [forwardCount, ...midfieldRows.slice().reverse(), defenderCount, 1];
 }
 
-function assertValidRowShape(rowGroups, expectedRows) {
+function assertValidRowShape(rowGroups, expectedRows, options = {}) {
+  const { validateColumns = true } = options;
   if (!Array.isArray(rowGroups) || rowGroups.length !== expectedRows.length) {
     return false;
   }
@@ -319,6 +406,10 @@ function assertValidRowShape(rowGroups, expectedRows) {
     const rowCount = Array.isArray(row) ? row.length : 0;
     if (rowCount !== expectedCount || !Number.isInteger(expectedCount) || expectedCount <= 0) {
       return false;
+    }
+
+    if (!validateColumns) {
+      return true;
     }
 
     const columns = row
@@ -466,13 +557,16 @@ function parseEspnLayout(html, lineups, source) {
     });
   }
 
+  const homeCanonicalPlayers = applyOfficialGeometry(homePlayers, lineups?.home?.players || []);
+  const awayCanonicalPlayers = applyOfficialGeometry(awayPlayers, lineups?.away?.players || []);
+
   return sourceClaimFromExactLayout({
     name: source.name,
     url: source.url,
     sourceDetail: "public match-center board geometry",
     lineups,
-    homePlayers,
-    awayPlayers
+    homePlayers: homeCanonicalPlayers,
+    awayPlayers: awayCanonicalPlayers
   });
 }
 
@@ -546,16 +640,35 @@ function fotmobRank(positionId, expectedRows) {
   return rank;
 }
 
-function buildFotmobRowsFromTeam(team, officialNames, formation) {
-  if (!team?.starters?.length) {
-    return null;
-  }
-
-  const starters = team.starters.map((starter) => ({
+function collectFotmobSourcePlayers(team, officialPlayers, formation) {
+  const officialNames = officialPlayers.map(playerName);
+  return (team?.starters || []).map((starter) => ({
+    sourceName: starter.name,
+    officialPlayer: officialPlayerForSourceName(starter.name, officialPlayers),
     name: officialNameForSourceName(starter.name, officialNames),
     positionId: Number(starter.positionId),
     x: normalizeNumber(starter.horizontalLayout?.x),
     y: normalizeNumber(starter.verticalLayout?.y),
+    layoutX: normalizeNumber(starter.horizontalLayout?.x),
+    layoutY: normalizeNumber(starter.verticalLayout?.y)
+  }));
+}
+
+function buildFotmobRowsFromTeam(team, officialPlayers, formation) {
+  const officialPlayerRows = getOfficialRowsByPlayerName(officialPlayers, formation);
+  if (!team?.starters?.length) {
+    return null;
+  }
+
+  const officialNames = officialPlayers.map(playerName);
+  const starters = team.starters.map((starter) => ({
+    sourceName: starter.name,
+    officialPlayer: officialPlayerForSourceName(starter.name, officialPlayers),
+    name: officialNameForSourceName(starter.name, officialNames),
+    positionId: Number(starter.positionId),
+    x: normalizeNumber(starter.horizontalLayout?.x),
+    y: normalizeNumber(starter.verticalLayout?.y),
+    pitchY: normalizeNumber(starter.verticalLayout?.y),
     layoutX: normalizeNumber(starter.horizontalLayout?.x),
     layoutY: normalizeNumber(starter.verticalLayout?.y)
   }));
@@ -588,15 +701,57 @@ function buildFotmobRowsFromTeam(team, officialNames, formation) {
     });
   }
 
-  const exactRowsByPosition = unmatched === 0 && assertValidRowShape(byPositionRows, expectedRows);
+  const rowsByOfficial = expectedRows.map(() => []);
+  let officialOnly = true;
+  for (const player of starters) {
+    const officialRow = officialPlayerRows.get(normalizeLayoutPlayerName(player.name));
+    if (!Number.isFinite(officialRow)) {
+      officialOnly = false;
+      break;
+    }
 
-  if (exactRowsByPosition) {
-    return byPositionRows;
+    rowsByOfficial[officialRow].push(player);
+  }
+
+  if (officialOnly && assertValidRowShape(rowsByOfficial, expectedRows)) {
+    return rowsByOfficial.map((row) =>
+      row
+        .slice()
+        .sort((left, right) => left.x - right.x)
+      .map((player, column) => ({
+        ...player,
+        column
+      }))
+    );
+  }
+
+  if (unmatched === 0) {
+    const exactRowsByPosition = assertValidRowShape(byPositionRows, expectedRows, {
+      validateColumns: false
+    });
+
+    if (exactRowsByPosition && !officialOnly) {
+      return byPositionRows;
+    }
+
+    const normalizedByPositionRows = byPositionRows.map((row) =>
+      row
+        .slice()
+        .sort((left, right) => left.x - right.x)
+        .map((player, column) => ({
+          ...player,
+          column
+        }))
+    );
+
+    if (exactRowsByPosition && assertValidRowShape(normalizedByPositionRows, expectedRows)) {
+      return normalizedByPositionRows;
+    }
   }
 
   const withCoordinates = starters.map((player) => ({
     ...player,
-    pitchY: Number.isNaN(player.layoutY) ? Number.NaN : 1 - player.layoutY,
+    pitchY: Number.isNaN(player.layoutY) ? Number.NaN : player.layoutY,
     pitchX: Number.isNaN(player.layoutX) ? Number.NaN : player.layoutX
   }));
   if (withCoordinates.some((player) => Number.isNaN(player.pitchX) || Number.isNaN(player.pitchY))) {
@@ -628,11 +783,19 @@ function buildFotmobRowsFromTeam(team, officialNames, formation) {
     return null;
   }
 
-  return byLayoutRows;
+  return byLayoutRows.map((row) =>
+    row
+      .slice()
+      .sort((left, right) => left.x - right.x)
+      .map((player, column) => ({
+        ...player,
+        column
+      }))
+  );
 }
 
-function signatureFromFotmobTeam(team, officialNames, formation) {
-  const rowGroups = buildFotmobRowsFromTeam(team, officialNames, formation);
+function signatureFromFotmobTeam(team, officialPlayers, formation) {
+  const rowGroups = buildFotmobRowsFromTeam(team, officialPlayers, formation);
   if (!rowGroups) {
     return { signature: "", exactLayout: false };
   }
@@ -660,34 +823,37 @@ function parseFotmobLayout(html, lineups, source) {
     });
   }
 
-  const home = signatureFromFotmobTeam(
+  const officialHomePlayers = lineups.home?.players || [];
+  const officialAwayPlayers = lineups.away?.players || [];
+  const homePlayers = collectFotmobSourcePlayers(
     lineup.homeTeam,
-    officialSideNames(lineups, "home"),
+    officialHomePlayers,
     lineups.home?.formation || ""
   );
-  const away = signatureFromFotmobTeam(
+  const awayPlayers = collectFotmobSourcePlayers(
     lineup.awayTeam,
-    officialSideNames(lineups, "away"),
+    officialAwayPlayers,
     lineups.away?.formation || ""
   );
-  if (!home.signature || !away.signature) {
+
+  if (homePlayers.length !== 11 || awayPlayers.length !== 11) {
     return sourceClaimEnvelope(source, {
       status: "unavailable",
-      note: "FotMob lineup rows could not be normalized."
+      note: "FotMob lineup rows could not be parsed into 11-player teams."
     });
   }
 
-  return {
-    ...sourceClaimEnvelope(source, {
-      status: "matched",
-      sourceDetail: lineup.source ? `lineup payload source: ${lineup.source}` : "lineup payload",
-      exactLayout: home.exactLayout && away.exactLayout
-    }),
-    signature: {
-      home: home.signature,
-      away: away.signature
-    }
-  };
+  const homeCanonicalPlayers = applyOfficialGeometry(homePlayers, officialHomePlayers);
+  const awayCanonicalPlayers = applyOfficialGeometry(awayPlayers, officialAwayPlayers);
+
+  return sourceClaimFromExactLayout({
+    name: source.name,
+    url: source.url,
+    sourceDetail: lineup.source ? `lineup payload source: ${lineup.source}` : "lineup payload",
+    lineups,
+    homePlayers: homeCanonicalPlayers,
+    awayPlayers: awayCanonicalPlayers
+  });
 }
 
 function parseUnavailableHtml(source, response) {

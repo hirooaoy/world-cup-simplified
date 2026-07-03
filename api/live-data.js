@@ -1,6 +1,12 @@
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import {
+  buildFifaLineupsFromLiveMatch,
+  buildProfileLookup,
+  buildFifaMatchCentreUrl,
+  fixtureFifaMatchId
+} from "../scripts/fifa-live-lineup-parser.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const dataDir = path.join(root, "data");
@@ -35,6 +41,7 @@ const FIFA_DEFAULT_SEASON_ID = "285023";
 const FIFA_PROVIDER_KEY = "fifa";
 const FIFA_GOAL_EVENTS_SOURCE_PREFIX = "fifa-official-goal-events-auto";
 const DEFAULT_FIFA_LIVE_SCORE_TIMEOUT_MS = 3000;
+const DEFAULT_FIFA_LIVE_LINEUP_TIMEOUT_MS = 5000;
 const DEFAULT_FIFA_GOAL_EVENTS_TIMEOUT_MS = 5000;
 const DEFAULT_FIFA_GOAL_EVENTS_PLAYER_TIMEOUT_MS = 2000;
 const DEFAULT_FIFA_GOAL_EVENTS_MAX_FIXTURES = 8;
@@ -133,9 +140,16 @@ export default async function handler(request, response) {
           teams: teamsData.teams,
           timeZone
         });
-        const mergedStandingsData = recomputeStandings({
+        const liveLineupMerge = await mergeLiveLineups({
           checkedAt,
           fixturesData: goalEventMerge.fixturesData,
+          playerProfilesData,
+          teams: teamsData.teams,
+          timeZone
+        });
+        const mergedStandingsData = recomputeStandings({
+          checkedAt,
+          fixturesData: liveLineupMerge.fixturesData,
           provider,
           standingsData,
           teams: teamsData.teams,
@@ -159,7 +173,7 @@ export default async function handler(request, response) {
         });
 
         return {
-          fixturesData: goalEventMerge.fixturesData,
+          fixturesData: liveLineupMerge.fixturesData,
           standingsData: mergedStandingsData,
           tournamentData: mergedTournamentData,
           syncStatus: {
@@ -167,6 +181,9 @@ export default async function handler(request, response) {
             goalEventFixtures: goalEventMerge.matchedCount,
             goalEventReason: goalEventMerge.reason || undefined,
             goalEventUpdates: goalEventMerge.updateCount,
+            lineupFixtures: liveLineupMerge.matchedCount,
+            lineupReason: liveLineupMerge.reason || undefined,
+            lineupUpdates: liveLineupMerge.updateCount,
             matchedFixtures: merge.matchedCount,
             ok: true,
             officialScoreFixtures: officialScoreMerge.matchedCount,
@@ -1645,6 +1662,83 @@ async function mergeOfficialGoalEvents({ checkedAt, fixturesData, playerProfiles
   }
 }
 
+async function mergeLiveLineups({ checkedAt, fixturesData, playerProfilesData, teams, timeZone }) {
+  const fixtures = fixturesData.fixtures.map((fixture) => ({ ...fixture }));
+  const candidates = fixtures.filter(
+    (fixture) => fixture.status === "LIVE" && fixture.homeTeamId && fixture.awayTeamId
+  );
+
+  if (!candidates.length) {
+    return {
+      fixturesData,
+      matchedCount: 0,
+      updateCount: 0
+    };
+  }
+
+  const teamsById = buildTeamsById(teams || []);
+  const profileLookup = buildProfileLookup(playerProfilesData);
+  const teamLookup = buildTeamLookup(teams || [], {}, FIFA_PROVIDER_KEY);
+
+  try {
+    const officialMatches = await fetchOfficialMatchesForLiveLineups(candidates, timeZone);
+    const officialIndex = indexOfficialLiveLineupMatches(
+      officialMatches,
+      teamLookup
+    );
+    const warnings = [];
+    let matchedCount = 0;
+    let updateCount = 0;
+
+    for (const fixture of candidates) {
+      const officialMatch = findOfficialLiveMatchForFixture(fixture, officialIndex);
+      if (!officialMatch?.IdMatch) {
+        warnings.push(`${fixture.id}: no official FIFA lineup source found`);
+        continue;
+      }
+
+      try {
+        const lineup = buildFifaLineupsFromLiveMatch({
+          checkedAt,
+          fixture,
+          liveMatch: officialMatch,
+          teamsById,
+          profileLookup,
+          sourceUrl: buildFifaMatchCentreUrl(fixture, officialMatch),
+          sourceIds: ["fifa-lineups-live"]
+        });
+
+        const before = JSON.stringify(fixture.lineups || null);
+        fixture.lineups = lineup;
+        if (before !== JSON.stringify(lineup)) {
+          updateCount += 1;
+        }
+        matchedCount += 1;
+      } catch (error) {
+        warnings.push(`${fixture.id}: ${error.message || "unable to parse FIFA live lineup"}`);
+      }
+    }
+
+    return {
+      fixturesData: {
+        ...fixturesData,
+        updatedAt: updateCount ? checkedAt : fixturesData.updatedAt,
+        fixtures
+      },
+      matchedCount,
+      reason: warnings.join("; "),
+      updateCount
+    };
+  } catch (error) {
+    return {
+      fixturesData,
+      matchedCount: 0,
+      reason: error.message || "Unable to sync FIFA live lineups",
+      updateCount: 0
+    };
+  }
+}
+
 function isOfficialGoalEventsEnabled() {
   const value = process.env.FIFA_GOAL_EVENTS_ENABLED;
   if (value === undefined || value === null || value === "") {
@@ -1694,6 +1788,26 @@ function getFixtureWindow(fixtures, timeZone) {
     endKey: shiftDayKey(endKey, 1),
     startKey: shiftDayKey(startKey, -1)
   };
+}
+
+async function fetchOfficialMatchesForLiveLineups(fixtures, timeZone) {
+  const { endKey, startKey } = getFixtureWindow(fixtures, timeZone);
+  const url = new URL(FIFA_API_URL);
+  url.searchParams.set("language", "en");
+  url.searchParams.set("count", "500");
+  url.searchParams.set("idCompetition", process.env.FIFA_COMPETITION_ID || FIFA_DEFAULT_COMPETITION_ID);
+  url.searchParams.set("idSeason", process.env.FIFA_SEASON_ID || FIFA_DEFAULT_SEASON_ID);
+  url.searchParams.set("from", startKey);
+  url.searchParams.set("to", shiftDayKey(endKey, 1));
+
+  return fetchJsonWithTimeout(
+    url,
+    "FIFA lineup fixture snapshot",
+    positiveInteger(
+      process.env.FIFA_LIVE_LINEUP_TIMEOUT_MS,
+      DEFAULT_FIFA_LIVE_LINEUP_TIMEOUT_MS
+    )
+  ).then((payload) => asArray(payload.Results || payload.results || payload));
 }
 
 async function fetchOfficialMatchesForGoalEvents(fixtures, timeZone) {
@@ -1891,6 +2005,82 @@ function findOfficialGoalEventMatch(fixture, officialIndex) {
   return (
     candidates.find((match) => Math.abs(new Date(match.Date).getTime() - kickoff) < 6 * 60 * 60 * 1000) ||
     null
+  );
+}
+
+function indexOfficialLiveLineupMatches(matches, teamLookup) {
+  const byMatchId = new Map();
+  const byMatchNumber = new Map();
+  const byParticipants = new Map();
+  const byParticipantsAndKickoff = new Map();
+
+  for (const match of matches) {
+    if (match.IdMatch) {
+      byMatchId.set(String(match.IdMatch), match);
+    }
+
+    if (match.MatchNumber) {
+      byMatchNumber.set(Number(match.MatchNumber), match);
+    }
+
+    const homeTeamId = officialParticipantTeamId(match.Home, teamLookup);
+    const awayTeamId = officialParticipantTeamId(match.Away, teamLookup);
+    const pairKey = homeTeamId && awayTeamId ? `${homeTeamId}:${awayTeamId}` : "";
+    if (!pairKey) {
+      continue;
+    }
+
+    if (!byParticipants.has(pairKey)) {
+      byParticipants.set(pairKey, []);
+    }
+    byParticipants.get(pairKey).push(match);
+
+    if (match.Date) {
+      byParticipantsAndKickoff.set(`${pairKey}:${match.Date}`, match);
+    }
+  }
+
+  return {
+    byMatchId,
+    byMatchNumber,
+    byParticipants,
+    byParticipantsAndKickoff
+  };
+}
+
+function findOfficialLiveMatchForFixture(fixture, officialIndex) {
+  const fifaMatchId = fixtureFifaMatchId(fixture);
+  if (fifaMatchId) {
+    const match = officialIndex.byMatchId.get(String(fifaMatchId));
+    if (match) {
+      return match;
+    }
+  }
+
+  if (fixture.matchNumber) {
+    const officialMatch = officialIndex.byMatchNumber?.get(Number(fixture.matchNumber));
+    if (officialMatch) {
+      return officialMatch;
+    }
+  }
+
+  const exactKey = `${fixture.homeTeamId}:${fixture.awayTeamId}:${fixture.kickoffUtc}`;
+  const exactMatch = officialIndex.byParticipantsAndKickoff.get(exactKey);
+  if (exactMatch) {
+    return exactMatch;
+  }
+
+  const candidates = officialIndex.byParticipants.get(`${fixture.homeTeamId}:${fixture.awayTeamId}`) || [];
+  if (!fixture.kickoffUtc || !candidates.length) {
+    return null;
+  }
+
+  const kickoff = new Date(fixture.kickoffUtc).getTime();
+  return (
+    candidates.find((match) => {
+      const officialKickoff = new Date(match.Date).getTime();
+      return Number.isFinite(officialKickoff) && Math.abs(officialKickoff - kickoff) < 6 * 60 * 60 * 1000;
+    }) || null
   );
 }
 

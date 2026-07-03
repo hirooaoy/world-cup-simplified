@@ -1126,6 +1126,22 @@
       "type": "cross-check",
       "checkedAt": "2026-07-03T02:22:13.276Z",
       "note": "1 fixture H2H update merged from National Football Teams encounter pages."
+    },
+    {
+      "id": "fifa-lineups-sync-2026-07-03",
+      "label": "FIFA official final lineups sync",
+      "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/match-schedule-fixtures-results-teams-stadiums",
+      "type": "official",
+      "checkedAt": "2026-07-03T05:36:51.732Z",
+      "note": "85 completed FIFA team sheets checked; lineups.json carries official starters, bench, cards, and substitutions for 85 completed fixtures; 2 changed on this pass."
+    },
+    {
+      "id": "lineup-layout-verification-2026-07-03",
+      "label": "Lineup layout verification",
+      "url": "https://www.fifa.com/fifaplus/en/match-centre",
+      "type": "editorial",
+      "checkedAt": "2026-07-03T05:49:40.841Z",
+      "note": "85 completed fixtures reviewed; 85 verified overrides applied."
     }
   ],
   "groups": [

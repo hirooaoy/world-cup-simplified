@@ -32,6 +32,7 @@ const LINEUP_FORMATION_NOTE_FORMATIONS = new Set([
   "5-3-2",
   "5-4-1"
 ]);
+const COMPLETED_FIXTURE_STATUSES = new Set(["FT", "AET", "PEN"]);
 
 async function readJson(fileName) {
   const filePath = path.join(dataDir, fileName);
@@ -1091,6 +1092,222 @@ function hasExactLineupPlayerName(playerNames, playerName) {
   }
 
   return playerNames.some((name) => getLineupPlayerKey(name) === key);
+}
+
+function collectLineupPlayerNames(teamLineup) {
+  const players = [
+    ...(Array.isArray(teamLineup?.players) ? teamLineup.players : []),
+    ...(Array.isArray(teamLineup?.bench) ? teamLineup.bench : [])
+  ];
+
+  return players.map(getLineupPlayerName).filter(Boolean);
+}
+
+function collectLineupPlayerNumbers(teamLineup) {
+  return (Array.isArray(teamLineup?.players) ? teamLineup.players : [])
+    .map((player) => String(player?.number || "").trim())
+    .filter(Boolean);
+}
+
+function validateCompletedFixtureTrust(fixture, lineups, override) {
+  if (!COMPLETED_FIXTURE_STATUSES.has(fixture.status)) {
+    return;
+  }
+
+  const owner = `Fixture "${fixture.id}"`;
+  assert(isNumber(fixture.score?.home), `${owner} completed match must have numeric score.home`);
+  assert(isNumber(fixture.score?.away), `${owner} completed match must have numeric score.away`);
+
+  if (!lineups) {
+    fail(`${owner} completed match must include lineups.json entry`);
+    return;
+  }
+
+  assert(isPlainObject(lineups), `${owner} lineups record must be an object`);
+  if (!isPlainObject(lineups)) {
+    return;
+  }
+
+  assert(lineups.mode === "final", `${owner}.lineups.mode should be "final" after completion`);
+
+  const homePlayers = collectLineupPlayerNames(lineups.home || {});
+  const awayPlayers = collectLineupPlayerNames(lineups.away || {});
+  const homeLineup = lineups.home || {};
+  const awayLineup = lineups.away || {};
+  const homeStarters = Array.isArray(homeLineup.players) ? homeLineup.players : [];
+  const awayStarters = Array.isArray(awayLineup.players) ? awayLineup.players : [];
+  const homeBench = Array.isArray(homeLineup.bench) ? homeLineup.bench : [];
+  const awayBench = Array.isArray(awayLineup.bench) ? awayLineup.bench : [];
+
+  assert(Array.isArray(homeStarters), `${owner}.lineups.home.players must be an array`);
+  assert(Array.isArray(awayStarters), `${owner}.lineups.away.players must be an array`);
+  assert(Array.isArray(homeBench), `${owner}.lineups.home.bench must be an array`);
+  assert(Array.isArray(awayBench), `${owner}.lineups.away.bench must be an array`);
+  assert(homeStarters.length === 11, `${owner}.lineups.home must include 11 starters`);
+  assert(awayStarters.length === 11, `${owner}.lineups.away must include 11 starters`);
+
+  const overlapByName = (side, starters, bench) => {
+    const startersByKey = new Set(starters.map((player) => getLineupPlayerKey(getLineupPlayerName(player))).filter(Boolean));
+    for (const player of bench) {
+      const key = getLineupPlayerKey(getLineupPlayerName(player));
+      if (key && startersByKey.has(key)) {
+        fail(`${owner}.lineups.${side} bench must be disjoint from starters`);
+        break;
+      }
+    }
+  };
+  overlapByName("home", homeStarters, homeBench);
+  overlapByName("away", awayStarters, awayBench);
+
+  const homeStarterNumberSet = new Set(collectLineupPlayerNumbers(homeLineup));
+  const awayStarterNumberSet = new Set(collectLineupPlayerNumbers(awayLineup));
+  const homeBenchNumbers = new Set(
+    homeBench.map((player) => String(player?.number || "").trim()).filter(Boolean)
+  );
+  const awayBenchNumbers = new Set(
+    awayBench.map((player) => String(player?.number || "").trim()).filter(Boolean)
+  );
+
+  for (const number of homeBenchNumbers) {
+    assert(!homeStarterNumberSet.has(number), `${owner}.lineups.home players cannot have overlapping starter and bench player number "${number}"`);
+  }
+  for (const number of awayBenchNumbers) {
+    assert(!awayStarterNumberSet.has(number), `${owner}.lineups.away players cannot have overlapping starter and bench player number "${number}"`);
+  }
+
+  const homeSideEventCards = isPlainObject(homeLineup.events) ? (homeLineup.events.cards || []) : [];
+  const awaySideEventCards = isPlainObject(awayLineup.events) ? (awayLineup.events.cards || []) : [];
+  const homeSideSubstitutions = isPlainObject(homeLineup.events) ? (homeLineup.events.substitutions || []) : [];
+  const awaySideSubstitutions = isPlainObject(awayLineup.events) ? (awayLineup.events.substitutions || []) : [];
+
+  for (const [index, substitution] of (Array.isArray(homeSideSubstitutions) ? homeSideSubstitutions : []).entries()) {
+    const subOwner = `${owner}.lineups.home.events.substitutions[${index}]`;
+    assert(isPlainObject(substitution), `${subOwner} must be an object`);
+    if (!isPlainObject(substitution)) {
+      continue;
+    }
+
+    assert(typeof substitution.offName === "string" && substitution.offName.trim(), `${subOwner}.offName must be a non-empty string`);
+    assert(typeof substitution.onName === "string" && substitution.onName.trim(), `${subOwner}.onName must be a non-empty string`);
+    assert(
+      hasLineupPlayerName(homePlayers, substitution.offName),
+      `${subOwner}.offName must map to a known home lineup player`
+    );
+    assert(
+      hasLineupPlayerName(homePlayers, substitution.onName),
+      `${subOwner}.onName must map to a known home lineup player`
+    );
+  }
+
+  for (const [index, substitution] of (Array.isArray(awaySideSubstitutions) ? awaySideSubstitutions : []).entries()) {
+    const subOwner = `${owner}.lineups.away.events.substitutions[${index}]`;
+    assert(isPlainObject(substitution), `${subOwner} must be an object`);
+    if (!isPlainObject(substitution)) {
+      continue;
+    }
+
+    assert(typeof substitution.offName === "string" && substitution.offName.trim(), `${subOwner}.offName must be a non-empty string`);
+    assert(typeof substitution.onName === "string" && substitution.onName.trim(), `${subOwner}.onName must be a non-empty string`);
+    assert(
+      hasLineupPlayerName(awayPlayers, substitution.offName),
+      `${subOwner}.offName must map to a known away lineup player`
+    );
+    assert(
+      hasLineupPlayerName(awayPlayers, substitution.onName),
+      `${subOwner}.onName must map to a known away lineup player`
+    );
+  }
+
+  for (const [index, card] of (Array.isArray(homeSideEventCards) ? homeSideEventCards : []).entries()) {
+    const cardOwner = `${owner}.lineups.home.events.cards[${index}]`;
+    const playerName = card?.playerName || card?.player || card?.name;
+    assert(isPlainObject(card), `${cardOwner} must be an object`);
+    if (!isPlainObject(card)) {
+      continue;
+    }
+    assert(typeof playerName === "string" && playerName.trim(), `${cardOwner}.playerName must be a non-empty string`);
+    assert(
+      hasLineupPlayerName(homePlayers, playerName),
+      `${cardOwner}.playerName must map to a known home lineup player`
+    );
+  }
+
+  for (const [index, card] of (Array.isArray(awaySideEventCards) ? awaySideEventCards : []).entries()) {
+    const cardOwner = `${owner}.lineups.away.events.cards[${index}]`;
+    const playerName = card?.playerName || card?.player || card?.name;
+    assert(isPlainObject(card), `${cardOwner} must be an object`);
+    if (!isPlainObject(card)) {
+      continue;
+    }
+    assert(typeof playerName === "string" && playerName.trim(), `${cardOwner}.playerName must be a non-empty string`);
+    assert(
+      hasLineupPlayerName(awayPlayers, playerName),
+      `${cardOwner}.playerName must map to a known away lineup player`
+    );
+  }
+
+  if (Array.isArray(fixture.cards)) {
+    for (const [index, card] of fixture.cards.entries()) {
+      const cardOwner = `${owner}.cards[${index}]`;
+      const playerName = card?.playerName || card?.player || card?.name;
+      assert(isPlainObject(card), `${cardOwner} must be an object`);
+      if (!isPlainObject(card)) {
+        continue;
+      }
+      assert(typeof playerName === "string" && playerName.trim(), `${cardOwner}.playerName must be a non-empty string`);
+      assert(
+        hasLineupPlayerName(homePlayers, playerName) || hasLineupPlayerName(awayPlayers, playerName),
+        `${cardOwner}.playerName must map to a known player in this fixture`
+      );
+    }
+  }
+
+  const goalsHome = Array.isArray(fixture.goalsHome) ? fixture.goalsHome : [];
+  const goalsAway = Array.isArray(fixture.goalsAway) ? fixture.goalsAway : [];
+  const hasOwnGoalFlags = goalsHome.some((goal) => goal?.ownGoal) || goalsAway.some((goal) => goal?.ownGoal);
+  if (!hasOwnGoalFlags) {
+    const totalHomeScorers = goalsHome.length;
+    const totalAwayScorers = goalsAway.length;
+    assert(totalHomeScorers === Number(fixture.score.home), `${owner}.score.home should match goal-event count`);
+    assert(totalAwayScorers === Number(fixture.score.away), `${owner}.score.away should match goal-event count`);
+  }
+
+  for (const [index, goal] of goalsHome.entries()) {
+    const goalOwner = `${owner}.goalsHome[${index}]`;
+    if (goal?.ownGoal) {
+      assert(
+        hasLineupPlayerName(awayPlayers, goal?.name),
+        `${goalOwner}.name must map to a known away lineup player for own goals`
+      );
+    } else {
+      assert(hasLineupPlayerName(homePlayers, goal?.name), `${goalOwner}.name must map to a known home lineup player`);
+    }
+    if (goal?.assistName !== undefined) {
+      assert(hasLineupPlayerName(homePlayers, goal.assistName), `${goalOwner}.assistName must map to a known home lineup player`);
+    }
+  }
+
+  for (const [index, goal] of goalsAway.entries()) {
+    const goalOwner = `${owner}.goalsAway[${index}]`;
+    if (goal?.ownGoal) {
+      assert(
+        hasLineupPlayerName(homePlayers, goal?.name),
+        `${goalOwner}.name must map to a known home lineup player for own goals`
+      );
+    } else {
+      assert(hasLineupPlayerName(awayPlayers, goal?.name), `${goalOwner}.name must map to a known away lineup player`);
+    }
+    if (goal?.assistName !== undefined) {
+      assert(hasLineupPlayerName(awayPlayers, goal.assistName), `${goalOwner}.assistName must map to a known away lineup player`);
+    }
+  }
+
+  if ((lineups.layoutVerification?.status === "verified") || (override?.status === "verified")) {
+    assert(
+      lineups.layoutSource !== "derived-team-sheet-order",
+      `${owner}.lineups.layoutSource must not be derived-team-sheet-order for verified layout`
+    );
+  }
 }
 
 function getLineupPlayerProfile(player, teamId) {
@@ -2240,6 +2457,15 @@ if (isPlainObject(lineupsData)) {
   }
 }
 validateLineupLayoutOverrides(lineupLayoutOverridesData, lineupsData);
+
+const completedFixtureLineupOverrides = isPlainObject(lineupLayoutOverridesData?.fixtures) ? lineupLayoutOverridesData.fixtures : {};
+for (const fixture of fixturesData.fixtures || []) {
+  const lineups = isPlainObject(lineupsData.lineups)
+    ? lineupsData.lineups[fixture.id]
+    : undefined;
+
+  validateCompletedFixtureTrust(fixture, lineups, completedFixtureLineupOverrides[fixture.id]);
+}
 
 for (const playerName of requiredProfileNames) {
   if (!playerProfilesData) {
