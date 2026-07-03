@@ -9400,17 +9400,19 @@ function formatRelativeScoreFreshness(timestamp, now = Date.now()) {
 }
 
 function normalizeOfficialMatchTime(value) {
-  const text = String(value || "").trim();
+  const text = String(value || "").replace(/\s+/g, "").trim();
   if (!text) {
     return "";
   }
 
-  const stoppageMatch = /^(\d{1,3})'\+(\d{1,2})'$/.exec(text);
-  if (stoppageMatch) {
-    return `${stoppageMatch[1]}+${stoppageMatch[2]}'`;
+  const minuteMatch = /^(\d{1,3})(?:\+(\d{1,2}))?'?$/.exec(text);
+  if (!minuteMatch) {
+    return "";
   }
 
-  return /^\d{1,3}(?:\+\d{1,2})?'$/.test(text) ? text : "";
+  const baseMinute = minuteMatch[1];
+  const stoppageMinute = minuteMatch[2];
+  return stoppageMinute ? `${baseMinute}+${stoppageMinute}'` : `${baseMinute}'`;
 }
 
 function normalizeOfficialMatchPhase(value) {
@@ -15286,7 +15288,12 @@ function getGoalScorerCardPlayer(match, goal) {
 
 function getGoalScorerTeam(goal, player) {
   const profile = getPlayerProfile(player);
-  return (profile?.teamId ? teamsById.get(profile.teamId) : null) || goal.team || null;
+  return (
+    (profile?.teamId ? teamsById.get(profile.teamId) : null)
+    || goal.scoringTeam
+    || goal.team
+    || null
+  );
 }
 
 function renderGoalScorerFlag(goal, player) {
@@ -15600,18 +15607,27 @@ function renderLiveScoreSourceNote(match) {
   const checkedLabel = freshness
     ? currentLanguage === "zh"
       ? `${freshness}核验`
-      : `Checked ${freshness}`
+      : `checked ${freshness}`
+    : "";
+  const snapshotWithFreshness = snapshotLabel
+    ? checkedLabel
+      ? currentLanguage === "zh"
+        ? `${snapshotLabel}（${checkedLabel}）`
+        : `${snapshotLabel} (${checkedLabel})`
+      : snapshotLabel
+    : checkedLabel;
+  const sourceLabel = snapshotWithFreshness
+    ? `${currentTimeLabel} ${snapshotWithFreshness}`
     : "";
   const fifaUrl = getFifaScheduleResultsUrl();
-  const latestLabel = currentLanguage === "zh" ? "查看最新" : "See latest";
+  const latestLabel = currentLanguage === "zh" ? "查看最新" : "See latest on FIFA";
   const sourcePart = `
     <span class="live-source-latest">
       <a class="live-source-link" href="${escapeHtml(fifaUrl)}" target="_blank" rel="noreferrer" aria-label="${escapeHtml(currentLanguage === "zh" ? "在 FIFA 查看最新比分" : "See latest score at FIFA")}">${escapeHtml(latestLabel)}</a>
     </span>
   `.trim();
   const parts = [
-    snapshotLabel ? `${escapeHtml(currentTimeLabel)} ${escapeHtml(snapshotLabel)}` : "",
-    checkedLabel ? escapeHtml(checkedLabel) : "",
+    sourceLabel ? `${escapeHtml(sourceLabel)}` : "",
     sourcePart
   ].filter(Boolean);
 
@@ -16946,138 +16962,11 @@ function getLineupModeForMatch(match, mode) {
 }
 
 function getMockLineupPreview(match) {
-  if (!isLineupVisualPrototypeEnabled()) {
-    return null;
-  }
-
-  if (
-    match?.id !== "match-80-round-of-32-2026-07-01" ||
-    match?.homeTeamId !== "ENG" ||
-    match?.awayTeamId !== "COD"
-  ) {
-    return getGeneratedMockLineupPreview(match);
-  }
-
-  if (match?.homeTeamId !== "ENG" || match?.awayTeamId !== "COD") {
-    return null;
-  }
-
-  return {
-    home: {
-      formation: "4-2-3-1",
-      formationNotes: {
-        good: {
-          en: "Keeps two midfielders behind the ball while four attackers fill the spaces around Kane, so England can create without feeling wide open.",
-          zh: "两名中场留在球后保护，四名攻击手围绕凯恩占住空当，英格兰能创造机会，同时不至于门户大开。"
-        },
-        bad: {
-          en: "If the wide players stay high, the full-backs can be exposed and Kane can feel alone up front.",
-          zh: "如果边路球员一直压得很高，边后卫身后会容易被打，凯恩也可能在前场显得孤立。"
-        }
-      },
-      coach: getMockLineupCoach("ENG"),
-      players: [
-        ["1", "J. Pickford", "Jordan Pickford", "GK", "JP", 50, 91, "#7d8ea2"],
-        ["25", "D. Spence", "Djed Spence", "RB", "DS", 85, 75, "#60758b"],
-        ["2", "E. Konsa", "Ezri Konsa", "CB", "EK", 62, 75, "#6b7b94"],
-        ["6", "M. Guehi", "Marc Guehi", "CB", "MG", 38, 75, "#697b88"],
-        ["3", "N. O'Reilly", "Nico O'Reilly", "LB", "NO", 15, 75, "#303540"],
-        ["8", "E. Anderson", "Elliot Anderson", "CM", "EA", 34, 59, "#8792a0"],
-        ["4", "D. Rice", "Declan Rice", "CM", "DR", 66, 59, "#8a929a"],
-        ["20", "N. Madueke", "Noni Madueke", "RW", "NM", 82, 40, "#718192"],
-        ["10", "J. Bellingham", "Jude Bellingham", "AM", "JB", 50, 40, "#6c7684"],
-        ["11", "M. Rashford", "Marcus Rashford", "LW", "MR", 18, 40, "#596a7f"],
-        ["9", "H. Kane", "Harry Kane", "ST", "HK", 50, 20, "#8b9297"]
-      ],
-      bench: [
-        ["5", "J. Stones", "John Stones", "CB"],
-        ["7", "B. Saka", "Bukayo Saka", "RW"],
-        ["12", "R. James", "Reece James", "RB"],
-        ["13", "D. Henderson", "Dean Henderson", "GK"],
-        ["14", "D. Burn", "Dan Burn", "LB"],
-        ["15", "J. Quansah", "Jarell Quansah", "CB"],
-        ["16", "T. Chalobah", "Trevoh Chalobah", "CB"],
-        ["17", "J. Henderson", "Jordan Henderson", "CM"],
-        ["18", "A. Gordon", "Anthony Gordon", "LW"],
-        ["19", "I. Toney", "Ivan Toney", "ST"],
-        ["21", "E. Eze", "Eberechi Eze", "AM"],
-        ["22", "K. Mainoo", "Kobbie Mainoo", "CM"],
-        ["23", "J. Trafford", "James Trafford", "GK"],
-        ["24", "M. Rogers", "Morgan Rogers", "AM"],
-        ["26", "O. Watkins", "Ollie Watkins", "ST"]
-      ],
-      events: {
-        cards: [
-          { playerName: "Jude Bellingham", type: "yellow", minute: 55 },
-          { playerName: "Djed Spence", type: "red", minute: 89 }
-        ],
-        substitutions: [
-          { offName: "Noni Madueke", onName: "Bukayo Saka", minute: 64 },
-          { offName: "Jude Bellingham", onName: "Eberechi Eze", minute: 78 },
-          { offName: "Harry Kane", onName: "Ollie Watkins", minute: "90+1" }
-        ]
-      }
-    },
-    away: {
-      formation: "4-3-3",
-      formationNotes: {
-        good: {
-          en: "A simple counterattacking shape: three midfielders protect the middle, and three forwards can sprint into space quickly.",
-          zh: "这是很直接的反击阵型：三名中场保护中路，三名前锋能很快冲向空当。"
-        },
-        bad: {
-          en: "If the wingers do not help back, the full-backs can get doubled up and the midfield can be pulled wide.",
-          zh: "如果边锋不回防，边后卫会被对手夹击，中场也容易被拉到边路。"
-        }
-      },
-      coach: getMockLineupCoach("COD"),
-      players: [
-        ["1", "L. Mpasi", "Lionel Mpasi", "GK", "LM", 50, 91, "#788394"],
-        ["26", "A. Masuaku", "Arthur Masuaku", "LB", "AM", 15, 75, "#586371"],
-        ["22", "C. Mbemba", "Chancel Mbemba", "CB", "CM", 38, 75, "#56616e"],
-        ["4", "A. Tuanzebe", "Axel Tuanzebe", "CB", "AT", 62, 75, "#687480"],
-        ["2", "A. Wan-Bissaka", "Aaron Wan-Bissaka", "RB", "AW", 85, 75, "#5c6878"],
-        ["14", "N. Sadiki", "Noah Sadiki", "CM", "NS", 22, 53, "#697487"],
-        ["6", "N. Mukau", "Ngalayel Mukau", "CM", "NM", 50, 53, "#758092"],
-        ["8", "S. Moutoussamy", "Samuel Moutoussamy", "CM", "SM", 78, 53, "#6d7480"],
-        ["9", "B. Cipenga", "Brian Cipenga", "LW", "BC", 18, 28, "#6d7888"],
-        ["20", "Y. Wissa", "Yoane Wissa", "ST", "YW", 50, 28, "#5d6777"],
-        ["7", "N. Mbuku", "Nathanael Mbuku", "RW", "NM", 82, 28, "#6f7f8e"]
-      ],
-      bench: [
-        ["3", "S. Kapuadi", "Steve Kapuadi", "CB"],
-        ["5", "D. Batubinsika", "Dylan Batubinsika", "CB"],
-        ["10", "T. Bongonda", "Theo Bongonda", "LW"],
-        ["11", "G. Kalulu", "Gedeon Kalulu", "RB"],
-        ["12", "J. Kayembe", "Joris Kayembe", "LB"],
-        ["13", "M. Elia", "Meschack Elia", "RW"],
-        ["15", "A. Tshibola", "Aaron Tshibola", "DM"],
-        ["16", "M. Epolo", "Matthieu Epolo", "GK"],
-        ["17", "C. Pickel", "Charles Pickel", "DM"],
-        ["18", "G. Kakuta", "Gael Kakuta", "AM"],
-        ["19", "F. Mayele", "Fiston Mayele", "ST"],
-        ["21", "C. Bakambu", "Cedric Bakambu", "ST"],
-        ["23", "T. Fayulu", "Timothy Fayulu", "GK"],
-        ["24", "S. Banza", "Simon Banza", "ST"],
-        ["25", "E. Kayembe", "Edo Kayembe", "CM"]
-      ],
-      events: {
-        cards: [
-          { playerName: "Noah Sadiki", type: "yellow", minute: 38 },
-          { playerName: "Chancel Mbemba", type: "red", minute: 82 }
-        ],
-        substitutions: [
-          { offName: "Brian Cipenga", onName: "Theo Bongonda", minute: 61 },
-          { offName: "Yoane Wissa", onName: "Cedric Bakambu", minute: 72 },
-          { offName: "Nathanael Mbuku", onName: "Meschack Elia", minute: 72 }
-        ]
-      }
-    }
-  };
+  return null;
 }
 
 function getLineupPreview(match) {
-  return getFixtureLineupPreview(match) || (isLineupVisualPrototypeEnabled() ? getMockLineupPreview(match) : null);
+  return getFixtureLineupPreview(match);
 }
 
 function getLineupFreshness(match, lineup = null) {
@@ -20024,7 +19913,7 @@ function getProfileMentionPlayersFromText(text) {
 function getMatchGoalPlayers(match) {
   return getFixtureGoals(match).map((goal) => ({
     name: goal.name,
-    team: goal.team,
+    team: goal.scoringTeam || goal.team,
     note: ""
   }));
 }
@@ -20924,8 +20813,20 @@ function formatGoalNote(goal) {
 
 function getHistoricalFixtureGoals(match) {
   return [
-    ...(match.goalsHome || []).map((goal) => ({ ...goal, side: "home", team: match.homeTeam })),
-    ...(match.goalsAway || []).map((goal) => ({ ...goal, side: "away", team: match.awayTeam }))
+    ...(match.goalsHome || []).map((goal) => ({
+      ...goal,
+      side: "home",
+      scoringTeam: match.homeTeam,
+      ownGoalTeam: match.awayTeam,
+      team: goal?.ownGoal ? match.awayTeam : match.homeTeam
+    })),
+    ...(match.goalsAway || []).map((goal) => ({
+      ...goal,
+      side: "away",
+      scoringTeam: match.awayTeam,
+      ownGoalTeam: match.homeTeam,
+      team: goal?.ownGoal ? match.homeTeam : match.awayTeam
+    }))
   ]
     .filter((goal) => typeof goal?.name === "string" && goal.name.trim())
     .sort((a, b) => {

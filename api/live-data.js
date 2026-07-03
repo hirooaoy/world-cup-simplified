@@ -1316,21 +1316,19 @@ function mergeProviderPenaltyScore(fixture, penalties) {
 }
 
 function getFifaMatchTime(match) {
-  const value = String(match?.MatchTime || "").trim();
+  const value = String(match?.MatchTime || "").replace(/\s+/g, "").trim();
   if (!value) {
     return "";
   }
 
-  const stoppageMatch = /^(\d{1,3})'\+(\d{1,2})'$/.exec(value);
-  if (stoppageMatch) {
-    return `${stoppageMatch[1]}+${stoppageMatch[2]}'`;
+  const minuteMatch = /^(\d{1,3})(?:\+(\d{1,2}))?'?$/.exec(value);
+  if (!minuteMatch) {
+    return "";
   }
 
-  if (/^\d{1,3}(?:\+\d{1,2})?'$/.test(value)) {
-    return value;
-  }
-
-  return "";
+  const baseMinute = minuteMatch[1];
+  const stoppageMinute = minuteMatch[2];
+  return stoppageMinute ? `${baseMinute}+${stoppageMinute}'` : `${baseMinute}'`;
 }
 
 function getFifaMatchPhase(match) {

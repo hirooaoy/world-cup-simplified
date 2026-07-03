@@ -6401,6 +6401,11 @@ button.lineup-event-sub,
     border-radius: 14px;
   }
 
+  .lineup-pitch {
+    --lineup-pitch-height: 380px;
+    --lineup-pitch-top-trim: 0px;
+  }
+
   .lineup-tab {
     padding: 0 7px;
   }
@@ -6483,7 +6488,7 @@ button.lineup-event-sub,
   }
 
   .lineup-pitch {
-    --lineup-pitch-height: 340px;
+    --lineup-pitch-height: 360px;
     --lineup-pitch-top-trim: 0px;
   }
 
