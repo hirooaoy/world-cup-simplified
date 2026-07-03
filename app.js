@@ -12970,7 +12970,17 @@ function renderTournamentMatchCard(match, context, options = {}) {
 
   const participants = getTournamentMatchParticipants(match, context);
   const winner = getTournamentMatchWinnerTeam(match, context);
-  const isComplete = match.status === "FT" || Boolean(winner);
+  const explicitWinner = getTournamentExplicitWinnerTeam(match, participants);
+  const isPenaltyFinalWithoutKnownWinner =
+    match?.status === "FT" &&
+    Number.isFinite(Number(match?.score?.home)) &&
+    Number.isFinite(Number(match?.score?.away)) &&
+    match.score.home === match.score.away &&
+    Boolean(match?.scoreDetails?.penalties) &&
+    Boolean(match?.homeTeamId) &&
+    Boolean(match?.awayTeamId) &&
+    !explicitWinner;
+  const isComplete = match.status === "FT" ? !isPenaltyFinalWithoutKnownWinner : Boolean(winner);
   const isLive = isMatchLive(match, options.currentTime ?? Date.now());
   const isNext = Boolean(options.nextMatchIds?.has(match.id));
   const nextMatchNumber = getTournamentNextMatchNumber(match.matchNumber);

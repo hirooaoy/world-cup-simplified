@@ -7465,12 +7465,18 @@ try {
     "bronze-final",
     "final"
   ]);
+  const isUnresolvedPenaltyFinal = (fixture) =>
+    fixture.status === "FT" &&
+    fixture.score?.home === fixture.score?.away &&
+    fixture.scoreDetails?.penalties &&
+    !fixture.winnerTeamId &&
+    !fixture.winner;
   const expectedOutcomeListCount = fixturesData.fixtures.filter(
     (fixture) =>
       knockoutStagesWithOutcomePills.has(fixture.stage) &&
-      fixture.status !== "FT" &&
       !fixture.winnerTeamId &&
-      !fixture.winner
+      !fixture.winner &&
+      (fixture.status !== "FT" || isUnresolvedPenaltyFinal(fixture))
   ).length;
   const expectedOutcomePillCount = expectedOutcomeListCount * 3;
   const expectedMatch74OpenMatchId =
@@ -7478,7 +7484,7 @@ try {
   const expectedMatch81Fixture = fixturesData.fixtures.find((fixture) => fixture.matchNumber === 81);
   const expectedM81HasOutcomePills = Boolean(
     expectedMatch81Fixture &&
-      expectedMatch81Fixture.status !== "FT" &&
+      (expectedMatch81Fixture.status !== "FT" || isUnresolvedPenaltyFinal(expectedMatch81Fixture)) &&
       !expectedMatch81Fixture.winnerTeamId &&
       !expectedMatch81Fixture.winner
   );
