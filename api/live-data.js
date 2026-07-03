@@ -1343,7 +1343,17 @@ function getFifaMatchPhase(match) {
       .join(" ")
   );
 
-  return /\b(?:ht|half time|halftime|interval)\b/.test(statusText) ? "Half-time" : "";
+  const compactStatusText = statusText.replace(/\s+/g, "");
+  if (/\b(?:ht|half time|halftime|interval)\b/.test(statusText)) {
+    return "Half-time";
+  }
+  if (/\b(?:2nd half|2ndhalf|second half|secondhalf|2h)\b/.test(statusText) || /\b2h\b/.test(compactStatusText)) {
+    return "2H";
+  }
+  if (/\b(?:1st half|1sthalf|first half|firsthalf|1h)\b/.test(statusText) || /\b1h\b/.test(compactStatusText)) {
+    return "1H";
+  }
+  return "";
 }
 
 function statusRank(status) {

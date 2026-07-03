@@ -9417,6 +9417,12 @@ function normalizeOfficialMatchTime(value) {
 
 function normalizeOfficialMatchPhase(value) {
   const key = normalizeTextKey(value);
+  if (/^2h$/.test(key) || /\b2nd(?:half|)\b/.test(key) || /\b(?:2nd|second) ?(?:half)?\b/.test(key) || key === "2ndhalf" || key === "secondhalf") {
+    return "2H";
+  }
+  if (/^1h$/.test(key) || /\b1st(?:half|)\b/.test(key) || /\b(?:1st|first) ?(?:half)?\b/.test(key) || key === "1sthalf" || key === "firsthalf") {
+    return "1H";
+  }
   return /\b(?:ht|half time|halftime|interval)\b/.test(key) ? "Half-time" : "";
 }
 
@@ -15616,9 +15622,7 @@ function renderLiveScoreSourceNote(match) {
         : `${snapshotLabel} (${checkedLabel})`
       : snapshotLabel
     : checkedLabel;
-  const sourceLabel = snapshotWithFreshness
-    ? `${currentTimeLabel} ${snapshotWithFreshness}`
-    : "";
+  const sourceLabel = snapshotWithFreshness ? `${currentTimeLabel} ${snapshotWithFreshness}` : "";
   const fifaUrl = getFifaScheduleResultsUrl();
   const latestLabel = currentLanguage === "zh" ? "查看最新" : "See latest on FIFA";
   const sourcePart = `
