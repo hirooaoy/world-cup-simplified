@@ -1362,6 +1362,31 @@ function hasScoreBearingStatus(status) {
   return status === "LIVE" || status === "FT";
 }
 
+function isMatchInProgress(status) {
+  const normalizedStatus = normalizeKey(status);
+  if (!normalizedStatus) {
+    return false;
+  }
+
+  const compactStatus = normalizedStatus.replace(/\s+/g, "");
+
+  return (
+    compactStatus === "live" ||
+    compactStatus === "ht" ||
+    compactStatus === "1h" ||
+    compactStatus === "2h" ||
+    compactStatus === "et" ||
+    compactStatus === "aet" ||
+    compactStatus === "pen" ||
+    compactStatus === "half" ||
+    compactStatus === "halftime" ||
+    compactStatus === "firsthalf" ||
+    compactStatus === "secondhalf" ||
+    compactStatus === "extratime" ||
+    compactStatus.includes("extra")
+  );
+}
+
 function mergeProviderFixtures({
   checkedAt,
   fixturesData,
@@ -1665,7 +1690,7 @@ async function mergeOfficialGoalEvents({ checkedAt, fixturesData, playerProfiles
 async function mergeLiveLineups({ checkedAt, fixturesData, playerProfilesData, teams, timeZone }) {
   const fixtures = fixturesData.fixtures.map((fixture) => ({ ...fixture }));
   const candidates = fixtures.filter(
-    (fixture) => fixture.status === "LIVE" && fixture.homeTeamId && fixture.awayTeamId
+    (fixture) => isMatchInProgress(fixture.status) && fixture.homeTeamId && fixture.awayTeamId
   );
 
   if (!candidates.length) {

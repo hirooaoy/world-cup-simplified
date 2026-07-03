@@ -705,6 +705,7 @@ const [
   fixturesData,
   historyData,
   lineupsData,
+  expectedLineupsData,
   lineupLayoutOverridesData,
   historicalPlayerProfilesData,
   adminMessageData,
@@ -719,6 +720,7 @@ const [
   readJson("fixtures.json"),
   readJson("history.json"),
   readJson("lineups.json"),
+  readOptionalJson("expected-lineups.json"),
   readOptionalJson("lineup-layout-overrides.json"),
   readJson("historical-player-profiles.json"),
   readOptionalJson("admin-message.json"),
@@ -779,6 +781,9 @@ requireSourceIds(historyData.sourceIds, sourceIds, "history.json");
 requireSourceIds(lineupsData.sourceIds, sourceIds, "lineups.json");
 if (lineupLayoutOverridesData) {
   requireSourceIds(lineupLayoutOverridesData.sourceIds, sourceIds, "lineup-layout-overrides.json");
+}
+if (expectedLineupsData?.sourceIds) {
+  requireSourceIds(expectedLineupsData.sourceIds, sourceIds, "expected-lineups.json");
 }
 requireSourceIds(historicalPlayerProfilesData.sourceIds, sourceIds, "historical-player-profiles.json");
 if (playerAvailabilityData) {
@@ -1614,9 +1619,15 @@ function validateFixtureLineups(fixture, sourceIdSet) {
   }
 
   const mode = String(fixture.lineups.mode || fixture.lineups.status || "").trim();
-  assert(["prediction", "confirmed", "final"].includes(mode), `${owner}.mode must be prediction, confirmed, or final`);
+  assert(
+    ["expected", "probable", "prediction", "confirmed", "final"].includes(mode),
+    `${owner}.mode must be expected, probable, prediction, confirmed, or final`
+  );
   if (mode === "prediction") {
     assert(fixture.status === "SCHEDULED", `${owner}.mode prediction should only be used before kickoff`);
+  }
+  if (mode === "expected" || mode === "probable") {
+    assert(fixture.status === "SCHEDULED", `${owner}.mode ${mode} should only be used before kickoff`);
   }
   if (mode === "final") {
     assert(fixture.status === "FT", `${owner}.mode final should only be used after full time`);
@@ -1627,6 +1638,68 @@ function validateFixtureLineups(fixture, sourceIdSet) {
   const awayPlayers = validateLineupSide(fixture.lineups.away, fixture, "away");
   validateLineupEvents(fixture.lineups.home?.events, homePlayers, `${owner}.home`);
   validateLineupEvents(fixture.lineups.away?.events, awayPlayers, `${owner}.away`);
+}
+
+function validateExpectedLineupConfidence(confidence, owner) {
+  if (!isPlainObject(confidence)) {
+    fail(`${owner} must be an object`);
+    return false;
+  }
+
+  assert(typeof confidence.label === "string" && confidence.label.trim(), `${owner}.label must be a non-empty string`);
+  const label = confidence.label.toLowerCase();
+  assert(["low", "medium", "high"].includes(label), `${owner}.label must be low, medium, or high`);
+
+  return true;
+}
+
+function validateExpectedLineupRecord(record, sourceIdSet, fixtureById, owner, seenFixtureIds) {
+  if (!isPlainObject(record)) {
+    fail(`${owner} must be an object`);
+    return;
+  }
+
+  assert(record.fixtureId && typeof record.fixtureId === "string" && record.fixtureId.trim(), `${owner}.fixtureId must be a non-empty string`);
+  if (!record.fixtureId || typeof record.fixtureId !== "string" || !record.fixtureId.trim()) {
+    return;
+  }
+
+  const fixture = fixtureById.get(record.fixtureId);
+  assert(fixture, `${owner}.fixtureId must reference an existing fixture`);
+  if (!fixture) {
+    return;
+  }
+
+  if (seenFixtureIds.has(record.fixtureId)) {
+    fail(`expected-lineups.json has duplicate fixture record for "${record.fixtureId}"`);
+    return;
+  }
+  seenFixtureIds.add(record.fixtureId);
+
+  const mode = String(record.mode || "").trim().toLowerCase();
+  assert(["expected", "probable"].includes(mode), `${owner}.mode must be expected or probable`);
+  if (mode === "expected" || mode === "probable") {
+    assert(Array.isArray(record.sourceIds), `${owner}.sourceIds must be an array`);
+    requireSourceIds(record.sourceIds, sourceIdSet, `${owner}`);
+    assert(record.sourceIds.length > 0, `${owner}.sourceIds must include at least one source`);
+    assert(isValidDateTime(record.lastUpdated), `${owner}.lastUpdated must be a valid date-time`);
+    validateExpectedLineupConfidence(record.confidence, `${owner}.confidence`);
+  }
+
+  assert(isPlainObject(record.lineup), `${owner}.lineup must be an object`);
+  if (!isPlainObject(record.lineup)) {
+    return;
+  }
+
+  const fixtureLineupRecord = {
+    ...record.lineup,
+    mode,
+    sourceIds: record.sourceIds,
+    checkedAt: record.lastUpdated,
+    updatedAt: record.lastUpdated
+  };
+  validateFixtureLineups({ ...fixture, lineups: fixtureLineupRecord }, sourceIdSet);
+  validateLineupGoalCoverage({ ...fixture, lineups: fixtureLineupRecord }, owner);
 }
 
 function collectLineupSidePlayerNames(teamLineup) {
@@ -2454,6 +2527,26 @@ if (isPlainObject(lineupsData)) {
     const fixtureWithLineups = { ...fixture, lineups };
     validateFixtureLineups(fixtureWithLineups, sourceIds);
     validateLineupGoalCoverage(fixtureWithLineups, `lineups.json fixture "${fixtureId}"`);
+  }
+}
+if (expectedLineupsData !== null) {
+  assert(isPlainObject(expectedLineupsData), "expected-lineups.json must be an object");
+  if (isPlainObject(expectedLineupsData)) {
+    assert(typeof expectedLineupsData.schemaVersion === "string" && expectedLineupsData.schemaVersion.trim(),
+      "expected-lineups.json.schemaVersion must be a non-empty string");
+    assert(isValidDateTime(expectedLineupsData.generatedAt), "expected-lineups.json.generatedAt must be a valid date-time");
+    assert(Array.isArray(expectedLineupsData.fixtures), "expected-lineups.json.fixtures must be an array");
+
+    const seenExpectedLineupFixtures = new Set();
+    for (const [index, expectedLineupRecord] of expectedLineupsData.fixtures.entries()) {
+      validateExpectedLineupRecord(
+        expectedLineupRecord,
+        sourceIds,
+        fixturesById,
+        `expected-lineups.json.fixtures[${index}]`,
+        seenExpectedLineupFixtures
+      );
+    }
   }
 }
 validateLineupLayoutOverrides(lineupLayoutOverridesData, lineupsData);

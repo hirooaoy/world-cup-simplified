@@ -6,6 +6,7 @@ const DATA_URLS = {
   historicalPlayerProfiles: `data/historical-player-profiles.json?v=${DATA_VERSION}`,
   coachProfiles: `data/coach-profiles.json?v=${DATA_VERSION}`,
   lineups: `data/lineups.json?v=${DATA_VERSION}`,
+  expectedLineups: `data/expected-lineups.json?v=${DATA_VERSION}`,
   liveData: `api/live-data?v=${DATA_VERSION}`,
   playerProfiles: `data/player-profiles.json?v=${DATA_VERSION}`,
   releaseNotes: `data/release-notes.json?v=${DATA_VERSION}`,
@@ -221,6 +222,13 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "FT": "全场",
     "Full time": "全场结束",
     "aet": "加时后",
+    "Breel Embolo opened the scoring for Switzerland on 10'.": "布里尔·恩博洛在第10分钟先入一球，开启瑞士进球。",
+    "Croatia took the lead through Ivan Perišić at 53'.": "克罗地亚在53分钟由伊万·佩里西奇先拔头筹。",
+    "Cristiano Ronaldo leveled from the spot in the 68th minute to restore Portugal's edge.": "克里斯蒂亚诺·罗纳尔多在第68分钟点球扳平，葡萄牙重新掌控局面。",
+    "Dan Ndoye doubled the lead on the first minute of the second half at 46'.": "丹·恩杜阿在下半场第46分钟再下一城。",
+    "Gonçalo Ramos' 90+4' finish gave Portugal the late winner and a 2-1 victory.": "冈萨洛·拉莫斯在加时4分钟破门，为葡萄牙带来赛场终场制胜球，最终2-1取胜。",
+    "Pedro Porro added a mid-match goal, then Oyarzabal finished the match at 89'.": "佩德罗·波罗在比赛中段再进一球，随后奥亚尔扎巴尔在第89分钟完成锁定。",
+    "Switzerland then controlled the rest of the match to finish comfortably at 2-0.": "瑞士随后掌控后程，最终以2比0轻松取胜。",
     "ConfedCup": "联合会杯",
     "Copa": "美洲杯",
     "Euro": "欧洲杯",
@@ -365,9 +373,19 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "Line ups": "阵容",
     "Line-ups": "阵容",
     "Line-ups (expected)": "预计阵容",
+    "Line-ups (probable)": "可能阵容",
     "Line-ups (prediction)": "预测阵容",
+    "low confidence": "低置信度",
+    "medium confidence": "中等置信度",
+    "high confidence": "高置信度",
     "Line-ups (live)": "实时阵容",
+    "Line-ups (official)": "官方阵容",
     "Line-ups (verified)": "官方确认阵容",
+    "Expected lineups": "预计阵容",
+    "Probable lineups": "可能阵容",
+    "Official lineups": "官方阵容",
+    "Expected lineups checked": "预计阵容核验",
+    "Probable lineups checked": "可能阵容核验",
     "Confirmed lineups": "已确认阵容",
     "Final verified lineup": "最终确认阵容",
     "Live lineup record": "实时阵容记录",
@@ -382,6 +400,11 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "Lineups": "阵容",
     "Lineups checked": "阵容核验",
     "Predicted lineups": "预测阵容",
+    "Expected lineups checked": "预计阵容核验",
+    "Probable lineups checked": "可能阵容核验",
+    "low confidence": "低置信度",
+    "medium confidence": "中等置信度",
+    "high confidence": "高置信度",
     "Predicted lineups checked": "预测阵容核验",
     "Own goal": "乌龙球",
     "Red card": "红牌",
@@ -2278,7 +2301,16 @@ Object.entries({
   "No historical prediction is generated for cancelled fixtures.": "已取消的比赛不会生成历史预测。",
   "Line-ups (live)": "实时阵容",
   "Line-ups (verified)": "官方确认阵容",
+  "Line-ups (expected)": "预计阵容",
+  "Line-ups (probable)": "可能阵容",
+  "Line-ups (official)": "官方阵容",
   "Final verified lineup": "最终确认阵容",
+  "Expected lineups": "预计阵容",
+  "Probable lineups": "可能阵容",
+  "Official lineups": "官方阵容",
+  "Expected lineups checked": "预计阵容核验",
+  "Probable lineups checked": "可能阵容核验",
+  "Predicted lineups checked": "预测阵容核验",
   "Live lineup record": "实时阵容记录",
   "Live lineup record checked": "实时阵容核验",
   "Live lineup record from official FIFA feed": "来自FIFA官方实况的实时阵容记录",
@@ -4274,6 +4306,7 @@ let coachProfilesByTeamAndName = new Map();
 let playerProfilesByName = new Map();
 let playerProfilesByTeamAndName = new Map();
 let lineupData = { lineups: {} };
+let expectedLineupsData = { fixtures: [] };
 const lineupSubstitutionPreviewState = new Set();
 let shouldShowPlayerMarketValues = false;
 let adminMessages = { messages: [] };
@@ -16881,7 +16914,7 @@ function getGeneratedMockLineupPreview(match) {
 
 function getLineupModeForMatch(match, mode) {
   const normalizedMode = String(mode || "").trim().toLowerCase();
-  if (["prediction", "confirmed", "final", "live"].includes(normalizedMode)) {
+  if (["prediction", "confirmed", "final", "live", "expected", "probable"].includes(normalizedMode)) {
     return normalizedMode;
   }
   if (normalizedMode === "past") {
@@ -17057,6 +17090,18 @@ function getLineupSourceLabel(match, lineup = null) {
     return localizeText("Official FIFA live lineup");
   }
 
+  if (mode === "expected") {
+    return localizeText("Expected lineups");
+  }
+
+  if (mode === "probable") {
+    return localizeText("Probable lineups");
+  }
+
+  if (mode === "prediction") {
+    return localizeText("Predicted lineups");
+  }
+
   if (mode === "final" && lineup?.teamSheetSource === "fifa-official") {
     return localizeText("Official FIFA lineup");
   }
@@ -17070,11 +17115,24 @@ function getLineupCheckedText(label, freshness) {
   }
 
   if (currentLanguage === "zh") {
-    const subject = label === "Predicted lineups checked" ? "Predicted lineups" : "Lineup record";
+    const subject =
+      label === "Predicted lineups checked" ? "Predicted lineups"
+        : label === "Expected lineups checked" ? "Expected lineups"
+          : label === "Probable lineups checked" ? "Probable lineups"
+            : "Lineup record";
     return `${localizeText(subject)}：${freshness}核验`;
   }
 
   return `${localizeText(label)} ${freshness}`;
+}
+
+function getLineupConfidenceText(lineup) {
+  const confidenceLabel = String(lineup?.confidence?.label || "").trim().toLowerCase();
+  if (!["low", "medium", "high"].includes(confidenceLabel)) {
+    return "";
+  }
+
+  return ` (${localizeText(`${confidenceLabel} confidence`)})`;
 }
 
 function getLineupUpdatedText(match, lineup = null) {
@@ -17092,6 +17150,14 @@ function getLineupUpdatedText(match, lineup = null) {
 
   if (mode === "confirmed" && match?.status === "LIVE") {
     return getLineupCheckedText("Lineup record checked", freshness);
+  }
+
+  if (mode === "expected") {
+    return `${getLineupCheckedText("Expected lineups checked", freshness)}${getLineupConfidenceText(lineup)}` || localizeText("Expected lineups");
+  }
+
+  if (mode === "probable") {
+    return `${getLineupCheckedText("Probable lineups checked", freshness)}${getLineupConfidenceText(lineup)}` || localizeText("Probable lineups");
   }
 
   if (mode === "prediction") {
@@ -17142,6 +17208,7 @@ function getLocalizedLineupCoachName(coach) {
 
 const LINEUP_POSITION_ZH = {
   AM: "前腰",
+  LCB: "左中卫",
   CB: "中卫",
   CM: "中场",
   DM: "后腰",
@@ -17154,6 +17221,7 @@ const LINEUP_POSITION_ZH = {
   RM: "右中场",
   RW: "右边锋",
   RWB: "右翼卫",
+  RCB: "右中卫",
   ST: "前锋"
 };
 
@@ -17167,7 +17235,33 @@ function getLocalizedLineupPosition(position) {
 }
 
 function getLineupHeadingLabel(match, lineup) {
-  return "Line-ups";
+  const mode = getLineupModeForMatch(match, lineup?.mode);
+
+  if (mode === "expected") {
+    return localizeText("Line-ups (expected)");
+  }
+
+  if (mode === "probable") {
+    return localizeText("Line-ups (probable)");
+  }
+
+  if (mode === "prediction") {
+    return localizeText("Line-ups (prediction)");
+  }
+
+  if (mode === "live") {
+    return localizeText("Line-ups (live)");
+  }
+
+  if (mode === "final") {
+    return localizeText("Line-ups (verified)");
+  }
+
+  if (mode === "confirmed") {
+    return localizeText("Line-ups (official)");
+  }
+
+  return localizeText("Line-ups");
 }
 
 function renderLineupHeading(match, lineup) {
@@ -24396,20 +24490,34 @@ function hasLiveDataSnapshot(liveData) {
   );
 }
 
-function mergeFixtureLineups(fixturesData, nextLineupData = lineupData) {
+function mergeFixtureLineups(fixturesData, nextLineupData = lineupData, nextExpectedLineupsData = expectedLineupsData) {
   const lineupRecords =
     nextLineupData && typeof nextLineupData === "object" && !Array.isArray(nextLineupData)
       ? nextLineupData.lineups || {}
       : {};
+  const expectedLineupsByFixtureId = new Map(
+    (Array.isArray(nextExpectedLineupsData?.fixtures) ? nextExpectedLineupsData.fixtures : [])
+      .filter((entry) => entry?.fixtureId)
+      .map((entry) => [entry.fixtureId, entry])
+  );
   const fixturesWithLineups = (fixturesData.fixtures || []).map((fixture) => {
     const staticLineup = lineupRecords[fixture.id];
     const liveLineup = fixture.lineups;
-    const isFinalFixture = fixture.status === "FT";
-    const isStaticFinal = staticLineup?.mode === "final";
+    const isCompletedFixture = ["FT", "AET", "PEN"].includes(fixture.status);
+    const expectedLineupRecord = expectedLineupsByFixtureId.get(fixture.id);
+    const expectedLineup = fixture.status === "SCHEDULED" && !liveLineup && !staticLineup && expectedLineupRecord?.lineup
+      ? {
+          ...expectedLineupRecord.lineup,
+          mode: expectedLineupRecord.mode,
+          sourceIds: expectedLineupRecord.sourceIds,
+          checkedAt: expectedLineupRecord.lastUpdated,
+          updatedAt: expectedLineupRecord.lastUpdated
+        }
+      : null;
     const lineups =
-      isFinalFixture && isStaticFinal
+      isCompletedFixture && staticLineup
         ? staticLineup
-        : liveLineup || staticLineup;
+        : liveLineup || staticLineup || expectedLineup;
 
     return lineups ? { ...fixture, lineups } : fixture;
   });
@@ -24424,6 +24532,7 @@ function applyDataSnapshot({
   fixturesData,
   historyData,
   lineupsData,
+  expectedLineupsData: nextExpectedLineupsData = null,
   coachProfilesData,
   playerProfilesData,
   standingsData,
@@ -24434,7 +24543,8 @@ function applyDataSnapshot({
     lineupsData && typeof lineupsData === "object" && !Array.isArray(lineupsData)
       ? lineupsData
       : { lineups: {} };
-  const fixturesWithLineups = mergeFixtureLineups(fixturesData, lineupData);
+  expectedLineupsData = isPlainObject(nextExpectedLineupsData) ? nextExpectedLineupsData : { fixtures: [] };
+  const fixturesWithLineups = mergeFixtureLineups(fixturesData, lineupData, expectedLineupsData);
   teamsById = new Map(teamsData.teams.map((team) => [team.id, team]));
   teamsByName = buildTeamNameLookup(teamsData.teams);
   coachProfilesByName = buildCoachProfileLookup(coachProfilesData.profiles);
@@ -24459,6 +24569,7 @@ function applyDataSnapshot({
     fixturesWithLineups,
     historyData,
     lineupData,
+    expectedLineupsData,
     coachProfilesData,
     playerProfilesData,
     teamsData,
@@ -24469,7 +24580,7 @@ function applyDataSnapshot({
 }
 
 function applyLiveDataSnapshot(liveData) {
-  const fixturesWithLineups = mergeFixtureLineups(liveData.fixturesData);
+  const fixturesWithLineups = mergeFixtureLineups(liveData.fixturesData, lineupData, expectedLineupsData);
   fixtures = fixturesWithLineups.fixtures;
   standingsByGroup = liveData.standingsData.groups;
   tournament = liveData.tournamentData;
@@ -24491,6 +24602,7 @@ async function loadStaticData() {
     fixturesData,
     historyData,
     lineupsData,
+    expectedLineupsFileData,
     coachProfilesData,
     playerProfilesData,
     teamsData,
@@ -24501,6 +24613,7 @@ async function loadStaticData() {
     loadJson(DATA_URLS.fixtures),
     loadJson(DATA_URLS.history),
     loadOptionalJson(DATA_URLS.lineups, { lineups: {} }),
+    loadOptionalJson(DATA_URLS.expectedLineups, { fixtures: [] }),
     loadOptionalJson(DATA_URLS.coachProfiles, { profiles: {} }),
     loadOptionalJson(DATA_URLS.playerProfiles, { profiles: {} }),
     loadJson(DATA_URLS.teams),
@@ -24516,6 +24629,7 @@ async function loadStaticData() {
     fixturesData,
     historyData,
     lineupsData,
+    expectedLineupsFileData,
     coachProfilesData,
     playerProfilesData,
     standingsData,

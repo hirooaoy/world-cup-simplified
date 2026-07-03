@@ -244,11 +244,13 @@ function applyOfficialGeometry(sourcePlayers, officialPlayers) {
 
     const officialX = Number(officialPlayer.x);
     const officialY = Number(officialPlayer.y);
+    const sourceX = Number(player.x);
+    const sourceY = Number(player.y);
     return {
       ...player,
       name: officialNameForSourceName(player.name, officialPlayers.map(playerName)),
-      x: Number.isFinite(officialX) ? officialX : player.x,
-      y: Number.isFinite(officialY) ? officialY : player.y,
+      x: Number.isFinite(sourceX) ? sourceX : Number.isFinite(officialX) ? officialX : player.x,
+      y: Number.isFinite(sourceY) ? sourceY : Number.isFinite(officialY) ? officialY : player.y,
       number: officialPlayer.number || player.number || ""
     };
   });
@@ -333,7 +335,7 @@ function assignRolesForFormation(formation, sourcePlayers) {
 function rolesForRow(type, count) {
   if (type === "goalkeeper") return ["GK"];
   if (type === "defense") {
-    if (count === 3) return ["CB", "CB", "CB"];
+    if (count === 3) return ["LCB", "CB", "RCB"];
     if (count === 4) return ["LB", "CB", "CB", "RB"];
     if (count === 5) return ["LWB", "CB", "CB", "CB", "RWB"];
   }
@@ -938,6 +940,8 @@ function buildOverrideFromClaims(fixtureId, fixture, lineups, claims) {
   const signatures = new Set(
     matchedClaims.map((claim) => `${claim.signature?.home || ""}::${claim.signature?.away || ""}`)
   );
+  const signatureKey = (claim) => `${claim.signature?.home || ""}::${claim.signature?.away || ""}`;
+  const espnClaim = matchedClaims.find((claim) => claim.name === "ESPN");
 
   if (!matchedClaims.length) {
     return {
@@ -951,6 +955,26 @@ function buildOverrideFromClaims(fixtureId, fixture, lineups, claims) {
   }
 
   if (signatures.size > 1) {
+    if (espnClaim?.exactLayout) {
+      const preferredSignature = signatureKey(espnClaim);
+      const preferredClaims = matchedClaims.filter(
+        (claim) => signatureKey(claim) === preferredSignature
+      );
+
+      return {
+        status: "verified",
+        layoutSource: VERIFIED_LAYOUT_SOURCE,
+        checkedAt,
+        sourceIds: [overrideSourceId],
+        homeTeamId: fixture.homeTeamId,
+        awayTeamId: fixture.awayTeamId,
+        sources: claims,
+        note: `Row-order disagreement was detected, ESPN was selected as the primary source. Matched claim signatures: ${preferredClaims.length}/${matchedClaims.length}.`,
+        home: espnClaim.home,
+        away: espnClaim.away
+      };
+    }
+
     for (const claim of matchedClaims) {
       claim.status = "conflict";
     }
