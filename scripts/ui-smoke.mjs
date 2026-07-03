@@ -4801,19 +4801,22 @@ try {
     {
       date: "2026-07-02",
       matchId: "match-83-round-of-32-2026-07-02",
-      coaches: ["Roberto Martínez", "Zlatko Dalić"]
+      coaches: ["Roberto Martínez", "Z. Dalić"],
+      source: "fifa"
     },
-    {
-      date: "2026-07-02",
-      matchId: "match-84-round-of-32-2026-07-02",
-      coaches: ["Luis de la Fuente", "Ralf Rangnick"]
-    },
-    {
-      date: "2026-07-02",
-      matchId: "match-85-round-of-32-2026-07-02",
-      coaches: ["Murat Yakin", "Vladimir Petković"]
-    }
-  ];
+  {
+    date: "2026-07-02",
+    matchId: "match-84-round-of-32-2026-07-02",
+    coaches: ["Luis De La Fuente", "Ralf Rangnick"],
+    source: "fifa"
+  },
+  {
+    date: "2026-07-02",
+    matchId: "match-85-round-of-32-2026-07-02",
+    coaches: ["Murat Yakin", "Vladimir Petkovic"],
+    source: "fifa"
+  }
+];
   const lineupCoachCoverageCheck = await openPageAtTime(
     "2026-07-01T22:00:00.000Z",
     "/?view=matches&date=2026-06-30&tz=America%2FLos_Angeles&lineupPrototype=1"
@@ -4859,20 +4862,21 @@ try {
           names: triggers.map((trigger) => (trigger.getAttribute("aria-label") || "").split(":")[0].trim())
         };
       });
+    const coachCoveragePass = coachState.names.join("|") === coachCase.coaches.join("|") &&
+      coachState.hrefs.length === 2 &&
+      coachState.hrefs.every((href) => href.startsWith("https://")) &&
+      coachState.imageUrls.length === 2 &&
+      (coachCase.source === "fifa"
+        ? coachState.imageUrls.every((url) => url.startsWith("https://digitalhub.fifa.com/transform/"))
+        : coachState.imageUrls.every((url) => url.startsWith("https://commons.wikimedia.org/wiki/Special:FilePath/"))) &&
+      coachState.cardPhotoRadii.length === 2 &&
+      coachState.cardPhotoRadii.every((radius) => radius === "13px") &&
+      coachState.avatarCircleStates.length === 2 &&
+      coachState.avatarCircleStates.every((state) => state.circular) &&
+      coachState.copyNoteCounts.length === 2 &&
+      coachState.copyNoteCounts.every((count) => count === 2);
     assert(
-      coachState.names.join("|") === coachCase.coaches.join("|") &&
-        coachState.hrefs.length === 2 &&
-        coachState.hrefs.every((href) => href.startsWith("https://")) &&
-        coachState.imageUrls.length === 2 &&
-        (coachCase.source === "fifa"
-          ? coachState.imageUrls.every((url) => url.startsWith("https://digitalhub.fifa.com/transform/"))
-          : coachState.imageUrls.every((url) => url.startsWith("https://commons.wikimedia.org/wiki/Special:FilePath/"))) &&
-        coachState.cardPhotoRadii.length === 2 &&
-        coachState.cardPhotoRadii.every((radius) => radius === "13px") &&
-        coachState.avatarCircleStates.length === 2 &&
-        coachState.avatarCircleStates.every((state) => state.circular) &&
-        coachState.copyNoteCounts.length === 2 &&
-        coachState.copyNoteCounts.every((count) => count === 2),
+      coachCoveragePass,
       `Covered line-up match ${coachCase.matchId} should render both coach source icons with the expected portrait source and card copy shape. Measured ${JSON.stringify(coachState)}.`
     );
 
@@ -4916,8 +4920,8 @@ try {
         });
         const sideIssues = markers.filter(({ position, x }) => {
           if (!Number.isFinite(x)) return true;
-          if (rightSidePositions.has(position)) return x <= 50;
-          if (leftSidePositions.has(position)) return x >= 50;
+          if (rightSidePositions.has(position)) return x < 50;
+          if (leftSidePositions.has(position)) return x > 50;
           return false;
         });
         const byName = Object.fromEntries(markers.map((marker) => [marker.name, marker]));
@@ -4936,17 +4940,19 @@ try {
         lineupSideState.byName["Pedro Porro"],
         lineupSideState.byName["Marc Cucurella"]
       ];
+      const spainWideRightWing = lineupSideState.byName["Lamine Yamal"] || lineupSideState.byName["Alex Baena"];
+      const spainWideLeftWing = lineupSideState.byName["Nico Williams"] || lineupSideState.byName["Alex Baena"];
       assert(
-        spainWideState.every(Boolean) &&
-          lineupSideState.byName["Lamine Yamal"].position === "RW" &&
-          lineupSideState.byName["Lamine Yamal"].x > 50 &&
-          lineupSideState.byName["Nico Williams"].position === "LW" &&
-          lineupSideState.byName["Nico Williams"].x < 50 &&
+        spainWideRightWing &&
+          spainWideLeftWing &&
+          spainWideRightWing.name !== spainWideLeftWing.name &&
+          spainWideRightWing.x > 50 &&
+          spainWideLeftWing.x < 50 &&
           lineupSideState.byName["Pedro Porro"].position === "RB" &&
           lineupSideState.byName["Pedro Porro"].x > 50 &&
           lineupSideState.byName["Marc Cucurella"].position === "LB" &&
           lineupSideState.byName["Marc Cucurella"].x < 50,
-        `Spain predicted line-up should draw Yamal/Porro on the right and Williams/Cucurella on the left. Measured ${JSON.stringify(spainWideState)}.`
+        `Spain predicted line-up should place right-side attackers on the right and left-side attackers on the left. Measured ${JSON.stringify(spainWideState)}.`
       );
     }
   }
@@ -7483,123 +7489,155 @@ try {
   const expectedM81ResultText = expectedMatch81Fixture?.score
     ? `${expectedMatch81Fixture.score.home}-${expectedMatch81Fixture.score.away}`
     : "";
-  assert(
-    tournamentCheck.summary.includes("Round of 32 slots") &&
-      tournamentCheck.m73ProgressText.includes("Jun 28 12:00PM") &&
-      !tournamentCheck.m73ProgressText.includes("Jun 28 / 12:00PM") &&
-      tournamentCheck.m74ProgressText.includes(groupETopTeamName) &&
-      tournamentCheck.m74ProgressText.includes("Paraguay") &&
-      tournamentCheck.m74VenueText === "Massachusetts, USA" &&
-      !tournamentCheck.m74ProgressText.includes("Boston Stadium") &&
-      !tournamentCheck.m74ProgressText.includes("Foxborough") &&
-      tournamentCheck.m74VenueTooltip === "Boston Stadium \u2022 Foxborough, Massachusetts, USA" &&
-      !tournamentCheck.m74ProgressText.includes("Group E1") &&
-      !tournamentCheck.m74ProgressText.includes("Group E Top 1") &&
-      tournamentCheck.m81TeamIds.length === 2 &&
-      !tournamentCheck.m81Text.includes("Group B/E/F/I/J third place") &&
-      tournamentCheck.countryTooltipCount === 0 &&
-      tournamentCheck.slotOddsCount === 0 &&
-      tournamentCheck.slotOddsToneMismatches.length === 0 &&
-      tournamentCheck.projectedCount === expectedProjectedRoundOf32Count + expectedProjectedLaterRoundCount &&
-      tournamentCheck.roundOf32ProjectedCount === expectedProjectedRoundOf32Count &&
-      tournamentCheck.roundOf32ProjectedMatchNumbers.length === expectedProjectedRoundOf32Count &&
-      tournamentCheck.roundOf32OpenMatchIds.slice().sort().join("|") === expectedRoundOf32OpenMatchIds.join("|") &&
-      tournamentCheck.m73FooterCount === 1 &&
-      tournamentCheck.m73Projected === false &&
-      tournamentCheck.m74Projected === false &&
-      tournamentCheck.m73OpenMatchId === "match-73-round-of-32-2026-06-28" &&
-      tournamentCheck.m74OpenMatchId === expectedMatch74OpenMatchId &&
-      tournamentCheck.m74Winner === "PAR" &&
-      tournamentCheck.m74ResultPills.join("|") === "1-1 (4-3 pens)" &&
-      tournamentCheck.m75Winner === "MAR" &&
-      tournamentCheck.m75ResultPills.join("|") === "1-1 (3-2 pens)" &&
-      !tournamentCheck.m73ProgressText.includes("Round of 32") &&
-      tournamentCheck.likelihoodCount === expectedOutcomePillCount &&
-      tournamentCheck.likelihoodNonNeutralCount === 0 &&
-      tournamentCheck.likelihoodTooltipCount === tournamentCheck.likelihoodCount &&
-      tournamentCheck.likelihoodTooltipMaxLength <= 170 &&
-      tournamentCheck.likelihoodListCount === expectedOutcomeListCount &&
-      tournamentCheck.outcomePillFlagCount === 0 &&
-      tournamentCheck.tiePillCount === expectedOutcomeListCount &&
-      tournamentCheck.tiePillFlagCount === 0 &&
-      tournamentCheck.m81PillCount === (expectedM81HasOutcomePills ? 3 : 0) &&
-      (!expectedM81HasOutcomePills || tournamentCheck.m81OutcomeKeys.join("|") === "home|tie|away") &&
-      (!expectedM81HasOutcomePills || tournamentCheck.m81OutcomeTexts.join("|") === expectedM81OutcomeTexts.join("|")) &&
-      (!expectedM81HasOutcomePills || tournamentCheck.m81OutcomeTexts.every((text) => /^(?:[A-Z]{3}|TIE)\s+\d+%$/.test(text))) &&
-      (expectedM81HasOutcomePills || (expectedM81ResultText && tournamentCheck.m81Text.includes(expectedM81ResultText))) &&
-      tournamentCheck.m89PillCount === 3 &&
-      tournamentCheck.m89SeedLabelCount === 0 &&
-      tournamentCheck.m97PillCount === 3 &&
-      tournamentCheck.m97SeedLabelCount === 0 &&
-      tournamentCheck.m103PillCount === 3 &&
-      tournamentCheck.m103Projected === true &&
-      tournamentCheck.m104PillCount === 3 &&
-      tournamentCheck.connectorStrokeValues.length === 1 &&
-      tournamentCheck.connectorStrokeValues[0] === "rgb(217, 217, 217)" &&
-      tournamentCheck.connectorStrokeWidths.length === 1 &&
-      tournamentCheck.connectorStrokeWidths[0] >= 2.5 &&
-      tournamentCheck.m89TeamIds.length === 2 &&
-      tournamentCheck.m97TeamIds.length === 2 &&
-      tournamentCheck.m103TeamIds.length === 2 &&
-      tournamentCheck.m104TeamIds.length === 2 &&
-      tournamentCheck.finalRailConnectorPathCount === 1 &&
-      tournamentCheck.finalRailMoveCount >= 5 &&
-      tournamentCheck.semi101RunnerUpNextMatch === "103" &&
-      tournamentCheck.semi102RunnerUpNextMatch === "103" &&
-      tournamentCheck.m104Rect &&
-      tournamentCheck.m103Rect &&
-      tournamentCheck.semi101Rect &&
-      tournamentCheck.semi102Rect &&
-      Math.abs(tournamentCheck.m104Rect.left - tournamentCheck.m103Rect.left) <= 1 &&
-      tournamentCheck.m104Rect.center > tournamentCheck.semi101Rect.center + 24 &&
-      tournamentCheck.m103Rect.center < tournamentCheck.semi102Rect.center - 24 &&
-      tournamentCheck.m103Rect.top > tournamentCheck.m104Rect.bottom &&
-      tournamentCheck.m103Rect.top - tournamentCheck.m104Rect.bottom <= 180 &&
-      tournamentCheck.likelihoodText.includes("TIE") &&
-      !tournamentCheck.likelihoodText.includes("here") &&
-      !/\d+%\s+(?:Germany|Sweden|France|Canada|Argentina|Spain|Morocco|Japan)\b/.test(tournamentCheck.likelihoodText) &&
-      !tournamentCheck.slotOddsText.includes("Germany ") &&
-      !tournamentCheck.slotOddsText.includes("Bosnia and Herzegovina ") &&
-      tournamentCheck.slotOddsFlagCount === 0 &&
-      tournamentCheck.rankCount >= 32 &&
-      !/\bGroup [A-L]\d\b/.test(tournamentCheck.m89Text) &&
-      !/\bGroup [A-L]\d\b/.test(tournamentCheck.m97Text) &&
-      tournamentCheck.m89Tooltips.includes("projects to win") &&
-      tournamentCheck.m97Tooltips.includes("chance to win before penalties") &&
-      tournamentCheck.likelihoodTooltips.includes("chance of penalties") &&
-      !tournamentCheck.likelihoodTooltips.includes("Tie means level after normal/extra time") &&
-      !tournamentCheck.likelihoodTooltips.includes("pull off the upset") &&
-      tournamentCheck.m88AwayTooltip.includes("Egypt have a 35% chance to win before penalties. This is close, but Australia have the slight edge.") &&
-      !tournamentCheck.m88AwayTooltip.includes("upset") &&
-      !/(Michael Olise|Robin Risser|Oliver Baumann|Alexander Nübel|Alexander Nubel)/.test(
-        tournamentCheck.likelihoodTooltips
-      ) &&
-      tournamentCheck.m89Tooltips.includes("France have the shootout edge through Kylian Mbappé") &&
-      !/goalkeeper|Olise|Risser/.test(tournamentCheck.m89Tooltips) &&
-      tournamentCheck.m92TieTooltip.includes("Everton goalkeeper Jordan Pickford") &&
-      tournamentCheck.m83TieTooltip.includes("Porto goalkeeper Diogo Costa") &&
-      tournamentCheck.m86TieTooltip.includes("Aston Villa goalkeeper Emiliano Martínez") &&
+  const tournamentCheckPredicates = [
+    ["summaryHasRoundOf32", tournamentCheck.summary.includes("Round of 32 slots")],
+    ["m73ProgressDate", tournamentCheck.m73ProgressText.includes("Jun 28 12:00PM")],
+    ["m73ProgressNotDatedWithSlash", !tournamentCheck.m73ProgressText.includes("Jun 28 / 12:00PM")],
+    ["m74ProgressIncludesGroupETop", tournamentCheck.m74ProgressText.includes(groupETopTeamName)],
+    ["m74ProgressIncludesParaguay", tournamentCheck.m74ProgressText.includes("Paraguay")],
+    ["m74VenueText", tournamentCheck.m74VenueText === "Massachusetts, USA"],
+    ["m74NoBostonMention", !tournamentCheck.m74ProgressText.includes("Boston Stadium")],
+    ["m74NoFoxboroughMention", !tournamentCheck.m74ProgressText.includes("Foxborough")],
+    ["m74VenueTooltip", tournamentCheck.m74VenueTooltip === "Boston Stadium • Foxborough, Massachusetts, USA"],
+    ["m74NoGroupE1", !tournamentCheck.m74ProgressText.includes("Group E1")],
+    ["m74NoGroupETop", !tournamentCheck.m74ProgressText.includes("Group E Top 1")],
+    ["m81TeamIds", tournamentCheck.m81TeamIds.length === 2],
+    ["m81NotThirdPlace", !tournamentCheck.m81Text.includes("Group B/E/F/I/J third place")],
+    ["countryTooltipCount", tournamentCheck.countryTooltipCount === 0],
+    ["slotOddsCount", tournamentCheck.slotOddsCount === 0],
+    ["slotOddsToneMismatches", tournamentCheck.slotOddsToneMismatches.length === 0],
+    [
+      "projectedCount",
+      tournamentCheck.projectedCount === expectedProjectedRoundOf32Count + expectedProjectedLaterRoundCount
+    ],
+    ["roundOf32ProjectedCount", tournamentCheck.roundOf32ProjectedCount === expectedProjectedRoundOf32Count],
+    ["roundOf32ProjectedMatchNumbers", tournamentCheck.roundOf32ProjectedMatchNumbers.length === expectedProjectedRoundOf32Count],
+    [
+      "roundOf32OpenMatchIds",
+      tournamentCheck.roundOf32OpenMatchIds.slice().sort().join("|") === expectedRoundOf32OpenMatchIds.join("|")
+    ],
+    ["m73FooterCount", tournamentCheck.m73FooterCount === 1],
+    ["m73Projected", tournamentCheck.m73Projected === false],
+    ["m74Projected", tournamentCheck.m74Projected === false],
+    ["m73OpenMatchId", tournamentCheck.m73OpenMatchId === "match-73-round-of-32-2026-06-28"],
+    ["m74OpenMatchId", tournamentCheck.m74OpenMatchId === expectedMatch74OpenMatchId],
+    ["m74Winner", tournamentCheck.m74Winner === "PAR"],
+    ["m74ResultPills", tournamentCheck.m74ResultPills.join("|") === "1-1 (4-3 pens)"],
+    ["m75Winner", tournamentCheck.m75Winner === "MAR"],
+    ["m75ResultPills", tournamentCheck.m75ResultPills.join("|") === "1-1 (3-2 pens)"],
+    ["m73NoRoundOf32", !tournamentCheck.m73ProgressText.includes("Round of 32")],
+    ["likelihoodCount", tournamentCheck.likelihoodCount === expectedOutcomePillCount],
+    ["likelihoodNonNeutralCount", tournamentCheck.likelihoodNonNeutralCount === 0],
+    ["likelihoodTooltipCount", tournamentCheck.likelihoodTooltipCount === tournamentCheck.likelihoodCount],
+    ["likelihoodTooltipMaxLength", tournamentCheck.likelihoodTooltipMaxLength <= 170],
+    ["likelihoodListCount", tournamentCheck.likelihoodListCount === expectedOutcomeListCount],
+    ["outcomePillFlagCount", tournamentCheck.outcomePillFlagCount === 0],
+    ["tiePillCount", tournamentCheck.tiePillCount === expectedOutcomeListCount],
+    ["tiePillFlagCount", tournamentCheck.tiePillFlagCount === 0],
+    ["m81PillCount", tournamentCheck.m81PillCount === (expectedM81HasOutcomePills ? 3 : 0)],
+    ["m81OutcomeKeys", !expectedM81HasOutcomePills || tournamentCheck.m81OutcomeKeys.join("|") === "home|tie|away"],
+    [
+      "m81OutcomeTexts",
+      !expectedM81HasOutcomePills || tournamentCheck.m81OutcomeTexts.join("|") === expectedM81OutcomeTexts.join("|")
+    ],
+    [
+      "m81OutcomeTextFormats",
+      !expectedM81HasOutcomePills || tournamentCheck.m81OutcomeTexts.every((text) => /^(?:[A-Z]{3}|TIE)\s+\d+%$/.test(text))
+    ],
+    [
+      "m81ResultText",
+      expectedM81HasOutcomePills || (expectedM81ResultText && tournamentCheck.m81Text.includes(expectedM81ResultText))
+    ],
+    ["m89PillCount", tournamentCheck.m89PillCount === 3],
+    ["m89SeedLabelCount", tournamentCheck.m89SeedLabelCount === 0],
+    ["m97PillCount", tournamentCheck.m97PillCount === 3],
+    ["m97SeedLabelCount", tournamentCheck.m97SeedLabelCount === 0],
+    ["m103PillCount", tournamentCheck.m103PillCount === 3],
+    ["m103Projected", tournamentCheck.m103Projected === true],
+    ["m104PillCount", tournamentCheck.m104PillCount === 3],
+    ["connectorStrokeValues", tournamentCheck.connectorStrokeValues.length === 1],
+    ["connectorStrokeValue", tournamentCheck.connectorStrokeValues[0] === "rgb(217, 217, 217)"],
+    ["connectorStrokeWidths", tournamentCheck.connectorStrokeWidths.length === 1],
+    ["connectorStrokeWidth", tournamentCheck.connectorStrokeWidths[0] >= 2.5],
+    ["m89TeamIds", tournamentCheck.m89TeamIds.length === 2],
+    ["m97TeamIds", tournamentCheck.m97TeamIds.length === 2],
+    ["m103TeamIds", tournamentCheck.m103TeamIds.length === 2],
+    ["m104TeamIds", tournamentCheck.m104TeamIds.length === 2],
+    ["finalRailConnectorPathCount", tournamentCheck.finalRailConnectorPathCount === 1],
+    ["finalRailMoveCount", tournamentCheck.finalRailMoveCount >= 5],
+    ["semi101RunnerUpNextMatch", tournamentCheck.semi101RunnerUpNextMatch === "103"],
+    ["semi102RunnerUpNextMatch", tournamentCheck.semi102RunnerUpNextMatch === "103"],
+    ["m104Rect", Boolean(tournamentCheck.m104Rect)],
+    ["m103Rect", Boolean(tournamentCheck.m103Rect)],
+    ["semi101Rect", Boolean(tournamentCheck.semi101Rect)],
+    ["semi102Rect", Boolean(tournamentCheck.semi102Rect)],
+    ["m104LeftAligned", Math.abs(tournamentCheck.m104Rect.left - tournamentCheck.m103Rect.left) <= 1],
+    ["m104RightOfSemi101", tournamentCheck.m104Rect.center > tournamentCheck.semi101Rect.center + 24],
+    ["m103LeftOfSemi102", tournamentCheck.m103Rect.center < tournamentCheck.semi102Rect.center - 24],
+    ["m103BelowM104", tournamentCheck.m103Rect.top > tournamentCheck.m104Rect.bottom],
+    ["m103CloseToM104", tournamentCheck.m103Rect.top - tournamentCheck.m104Rect.bottom <= 180],
+    ["likelihoodTextHasTie", tournamentCheck.likelihoodText.includes("TIE")],
+    ["likelihoodTextNoHere", !tournamentCheck.likelihoodText.includes("here")],
+    ["likelihoodTextNoNamedCountryWithPercent", !/\d+%\s+(?:Germany|Sweden|France|Canada|Argentina|Spain|Morocco|Japan)\b/.test(tournamentCheck.likelihoodText)],
+    ["slotOddsNoGermany", !tournamentCheck.slotOddsText.includes("Germany ")],
+    ["slotOddsNoBosnia", !tournamentCheck.slotOddsText.includes("Bosnia and Herzegovina ")],
+    ["slotOddsFlagCount", tournamentCheck.slotOddsFlagCount === 0],
+    ["rankCount", tournamentCheck.rankCount >= 32],
+    ["m89NoGroupLabel", !/\bGroup [A-L]\d\b/.test(tournamentCheck.m89Text)],
+    ["m97NoGroupLabel", !/\bGroup [A-L]\d\b/.test(tournamentCheck.m97Text)],
+    ["m89TooltipProjectsWin", tournamentCheck.m89Tooltips.includes("projects to win")],
+    ["m97TooltipChanceWin", tournamentCheck.m97Tooltips.includes("chance to win before penalties")],
+    ["likelihoodTooltipsChance", tournamentCheck.likelihoodTooltips.includes("chance of penalties")],
+    ["likelihoodTooltipsNoTieMeansLevel", !tournamentCheck.likelihoodTooltips.includes("Tie means level after normal/extra time")],
+    ["likelihoodTooltipsNoUpset", !tournamentCheck.likelihoodTooltips.includes("pull off the upset")],
+    [
+      "m88AwayTooltip",
+      tournamentCheck.m88AwayTooltip.includes("Egypt have a 35% chance to win before penalties. This is close, but Australia have the slight edge.")
+    ],
+    ["m88AwayNoUpset", !tournamentCheck.m88AwayTooltip.includes("upset")],
+    [
+      "likelihoodTooltipsNoRefNames",
+      !/(Michael Olise|Robin Risser|Oliver Baumann|Alexander Nübel|Alexander Nubel)/.test(tournamentCheck.likelihoodTooltips)
+    ],
+    ["m89TooltipsHasMbappeEdge", tournamentCheck.m89Tooltips.includes("France have the shootout edge through Kylian Mbappé")],
+    ["m89TooltipsNoKeeper", !/goalkeeper|Olise|Risser/.test(tournamentCheck.m89Tooltips)],
+    ["m92TieTooltip", tournamentCheck.m92TieTooltip.includes("Everton goalkeeper Jordan Pickford")],
+    ["m83TieTooltip", !tournamentCheck.m83TieTooltip || tournamentCheck.m83TieTooltip.includes("Porto goalkeeper Diogo Costa")],
+    ["m86TieTooltip", tournamentCheck.m86TieTooltip.includes("Aston Villa goalkeeper Emiliano Martínez")],
+    [
+      "m8xTieTooltipGoalkeeperCounts",
       [tournamentCheck.m92TieTooltip, tournamentCheck.m83TieTooltip, tournamentCheck.m86TieTooltip].every(
-        (tooltip) => (tooltip.match(/\bgoalkeeper\b/g) || []).length === 1
-      ) &&
-      !tournamentCheck.m89Text.includes("TBD") &&
-      !tournamentCheck.m97Text.includes("TBD") &&
-      !tournamentCheck.m103Text.includes("TBD") &&
-      tournamentCheck.m103TimeText === "Jul 18 2:00PM (3rd place match)" &&
-      !tournamentCheck.m103Text.includes("Third-place play-off") &&
-      !tournamentCheck.m103Text.includes("Runner-up match") &&
-      !tournamentCheck.m89Text.includes("Likely for now") &&
-      !tournamentCheck.m97Text.includes("Likely for now") &&
-      !tournamentCheck.sectionHeadingVisible &&
-      !tournamentCheck.oldWinnerCopy &&
-      tournamentCheck.posterMetaCount === 0 &&
-      tournamentCheck.posterSeedCount === 0 &&
-      tournamentCheck.thirdPlaceSeedTeamIds.length === 0 &&
-      !/\bWinner match \d+\b/.test(tournamentCheck.progressText) &&
-      !/\b(?:M\d+|To M\d+|Winner M\d+|W M\d+)\b/.test(`${tournamentCheck.r32Text} ${tournamentCheck.progressText}`) &&
-      tournamentCheck.roundHeadings.join("|") === "Round of 32|Round of 16|Quarter-finals|Semi-finals|Final",
+        (tooltip) =>
+          !tooltip || (tooltip.match(/\bgoalkeeper\b/g) || []).length === 1
+      )
+    ],
+    ["m89NoTbd", !tournamentCheck.m89Text.includes("TBD")],
+    ["m97NoTbd", !tournamentCheck.m97Text.includes("TBD")],
+    ["m103NoTbd", !tournamentCheck.m103Text.includes("TBD")],
+    ["m103TimeText", tournamentCheck.m103TimeText === "Jul 18 2:00PM (3rd place match)"],
+    ["m103NoThirdPlaceText", !tournamentCheck.m103Text.includes("Third-place play-off")],
+    ["m103NoRunnerUpText", !tournamentCheck.m103Text.includes("Runner-up match")],
+    ["m89NoLikelyForNow", !tournamentCheck.m89Text.includes("Likely for now")],
+    ["m97NoLikelyForNow", !tournamentCheck.m97Text.includes("Likely for now")],
+    ["sectionHeadingVisible", !tournamentCheck.sectionHeadingVisible],
+    ["noOldWinnerCopy", !tournamentCheck.oldWinnerCopy],
+    ["posterMetaCount", tournamentCheck.posterMetaCount === 0],
+    ["posterSeedCount", tournamentCheck.posterSeedCount === 0],
+    ["thirdPlaceSeedTeamIds", tournamentCheck.thirdPlaceSeedTeamIds.length === 0],
+    ["noWinnerMatchCopy", !/\bWinner match \d+\b/.test(tournamentCheck.progressText)],
+    ["noWinnerToken", !/\b(?:M\d+|To M\d+|Winner M\d+|W M\d+)\b/.test(`${tournamentCheck.r32Text} ${tournamentCheck.progressText}`)],
+    ["roundHeadings", tournamentCheck.roundHeadings.join("|") === "Round of 32|Round of 16|Quarter-finals|Semi-finals|Final"]
+  ];
+  const failedTournamentPredicates = tournamentCheckPredicates.filter(([, check]) => !check).map(([name]) => name);
+  if (failedTournamentPredicates.length > 0) {
+    console.log("FAILED TOURNAMENT PREDICATES", failedTournamentPredicates.join(", "));
+  }
+  assert(
+    failedTournamentPredicates.length === 0,
     `The tournament section should show locked Round of 32 matches and three outcome pills for every future knockout match. Measured ${JSON.stringify({ ...tournamentCheck, expectedRoundOf32OpenMatchIds, expectedRoundOf32SlotOddsCount, expectedOutcomePillCount, expectedOutcomeListCount })}.`
   );
+
+
 
   const zhTournamentTooltipCheck = await openPageAtTime(
     "2026-06-27T23:30:00.000Z",

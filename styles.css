@@ -5587,11 +5587,16 @@ h1 {
 }
 
 .lineup-tab-panel {
+  position: relative;
   margin-top: 16px;
 }
 
 .lineup-tab-panel[hidden] {
-  display: none;
+  display: block !important;
+  visibility: hidden;
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
 }
 
 .lineup-pitch-card {

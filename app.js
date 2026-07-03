@@ -1063,6 +1063,7 @@ const ZH_ADDITIONAL_EXACT_TRANSLATIONS = {
   "Portugal and DR Congo split the points": "葡萄牙与刚果民主共和国各取一分",
   "Raúl Rangel made a huge late double save.": "Raúl Rangel最后阶段完成关键连续两连扑。",
   "Switzerland 4-1 Bosnia and Herzegovina": "瑞士4-1波黑",
+  "Breel Embolo opened scoring for Switzerland on 10'.": "布雷尔·安博洛在第10分钟为瑞士先开纪录。",
   "Casemiro pulled Brazil level after halftime before Gabriel Martinelli won it deep into stoppage time.":
     "卡塞米罗下半场为巴西扳平，加布里埃尔·马丁内利随后在补时深段打入制胜球。",
   "an opponent": "对手",
@@ -17112,7 +17113,7 @@ function getLineupSourceLabel(match, lineup = null) {
   }
 
   if (mode === "final" && lineup?.teamSheetSource === "fifa-official") {
-    return localizeText("Official FIFA lineup");
+    return `${localizeText("Final lineup record")} (Official FIFA team sheet)`;
   }
 
   return localizeText("Official lineup source");
@@ -17263,11 +17264,11 @@ function getLineupHeadingLabel(match, lineup) {
   }
 
   if (mode === "final") {
-    return localizeText("Line-ups (verified)");
+    return localizeText("Line-ups");
   }
 
   if (mode === "confirmed") {
-    return localizeText("Line-ups (official)");
+    return localizeText("Line-ups");
   }
 
   return localizeText("Line-ups");
@@ -17276,8 +17277,9 @@ function getLineupHeadingLabel(match, lineup) {
 function renderLineupHeading(match, lineup) {
   const label = getLineupHeadingLabel(match, lineup);
   const helpText = getLineupHelpText(match, lineup);
-  const isLiveLineup = getLineupModeForMatch(match, lineup?.mode) === "live";
-  const helpButton = isLiveLineup && helpText
+  const lineupMode = getLineupModeForMatch(match, lineup?.mode);
+  const hasLineupHelpButton = ["live", "final", "confirmed"].includes(lineupMode) && !!helpText;
+  const helpButton = hasLineupHelpButton
     ? `<button class="info-tooltip-button" type="button" aria-label="${escapeHtml(helpText)}" data-tooltip="${escapeHtml(helpText)}">i</button>`
     : "";
 

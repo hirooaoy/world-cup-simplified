@@ -13,59 +13,57 @@
         "label": "medium"
       },
       "lineup": {
-        "mode": "final",
-        "teamSheetSource": "fifa-official",
-        "eventSource": "fifa-official",
-        "layoutSource": "editorial-verified",
+        "teamSheetSource": "editorial",
+        "eventSource": "editorial",
+        "layoutSource": "editorial",
         "sourceIds": [
           "fifa-lineups-sync-2026-07-02",
           "lineup-layout-verification-2026-07-03"
         ],
-        "checkedAt": "2026-07-02T16:07:07.701Z",
+        "checkedAt": "2026-07-03T06:05:28.923Z",
         "home": {
           "formation": "4-1-2-3",
           "coach": {
-            "name": "Javier Aguirre",
-            "teamName": "Mexico",
-            "imageUrl": "https://digitalhub.fifa.com/transform/b36d8467-71b2-45e2-a681-dfb7e80a9ada/AGUIRRE-Javier_45078",
-            "sourceUrl": "https://www.fifa.com/en/match-centre/match/17/285023/289273/400021443"
+            "name": "Graham Arnold",
+            "teamName": "Australia",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Graham_Arnold"
           },
           "players": [
             {
               "number": "1",
-              "name": "Raul Rangel",
+              "name": "Mathew Ryan",
               "sourcePosition": "goalkeeper",
               "position": "GK",
               "x": 49.9,
               "y": 90.5
             },
             {
-              "number": "3",
-              "name": "Cesar Montes",
-              "sourcePosition": "defender",
-              "position": "CB",
-              "x": 62.6,
-              "y": 68.7
-            },
-            {
-              "number": "5",
-              "name": "Johan Vasquez",
-              "sourcePosition": "defender",
-              "position": "CB",
-              "x": 37.3,
-              "y": 68.7
-            },
-            {
-              "number": "15",
-              "name": "Israel Reyes",
+              "number": "2",
+              "name": "Jason Geria",
               "sourcePosition": "defender",
               "position": "RB",
               "x": 86.6,
               "y": 62.8
             },
             {
-              "number": "23",
-              "name": "Jesus Gallardo",
+              "number": "3",
+              "name": "Alessandro Circati",
+              "sourcePosition": "defender",
+              "position": "CB",
+              "x": 62.6,
+              "y": 68.7
+            },
+            {
+              "number": "4",
+              "name": "Milos Degenek",
+              "sourcePosition": "defender",
+              "position": "CB",
+              "x": 37.3,
+              "y": 68.7
+            },
+            {
+              "number": "5",
+              "name": "Jordan Bos",
               "sourcePosition": "defender",
               "position": "LB",
               "x": 13.7,
@@ -73,7 +71,7 @@
             },
             {
               "number": "6",
-              "name": "Erik Lira",
+              "name": "Aiden Oneill",
               "sourcePosition": "midfielder",
               "position": "DM",
               "x": 49.9,
@@ -81,434 +79,145 @@
             },
             {
               "number": "8",
-              "name": "Alvaro Fidalgo",
+              "name": "Ajdin Hrustic",
               "sourcePosition": "midfielder",
               "position": "CM",
               "x": 37.3,
               "y": 30.4
             },
             {
-              "number": "26",
-              "name": "Brian Gutierrez",
+              "number": "10",
+              "name": "Cameron Devlin",
               "sourcePosition": "midfielder",
               "position": "CM",
               "x": 62.6,
               "y": 30.4
             },
             {
-              "number": "9",
-              "name": "Raul Jimenez",
-              "sourcePosition": "forward",
-              "position": "ST",
-              "x": 50,
-              "y": 10.5
-            },
-            {
-              "number": "16",
-              "name": "Julian Quinones",
+              "number": "11",
+              "name": "Awer Mabil",
               "sourcePosition": "forward",
               "position": "LW",
               "x": 13.7,
               "y": 25.6
             },
             {
-              "number": "25",
-              "name": "Roberto Alvarado",
+              "number": "17",
+              "name": "Mohamed Toure",
+              "sourcePosition": "forward",
+              "position": "ST",
+              "x": 50,
+              "y": 10.5
+            },
+            {
+              "number": "15",
+              "name": "Mathew Leckie",
               "sourcePosition": "forward",
               "position": "RW",
               "x": 86.6,
               "y": 25.6
             }
           ],
-          "bench": [
-            {
-              "number": "12",
-              "name": "Carlos Acevedo",
-              "sourcePosition": "goalkeeper",
-              "position": "GK"
-            },
-            {
-              "number": "13",
-              "name": "Guillermo Ochoa",
-              "sourcePosition": "goalkeeper",
-              "position": "GK"
-            },
-            {
-              "number": "2",
-              "name": "Jorge Sanchez",
-              "sourcePosition": "defender",
-              "position": "RB"
-            },
-            {
-              "number": "4",
-              "name": "Edson Alvarez",
-              "sourcePosition": "defender",
-              "position": "CB"
-            },
-            {
-              "number": "20",
-              "name": "Mateo Chavez",
-              "sourcePosition": "defender",
-              "position": "LB"
-            },
-            {
-              "number": "7",
-              "name": "Luis Romo",
-              "sourcePosition": "midfielder",
-              "position": "DM"
-            },
-            {
-              "number": "17",
-              "name": "Orbelin Pineda",
-              "sourcePosition": "midfielder",
-              "position": "CM"
-            },
-            {
-              "number": "18",
-              "name": "Obed Vargas",
-              "sourcePosition": "midfielder",
-              "position": "CM"
-            },
-            {
-              "number": "19",
-              "name": "Gilberto Mora",
-              "sourcePosition": "midfielder",
-              "position": "AM"
-            },
-            {
-              "number": "24",
-              "name": "Luis Chavez",
-              "sourcePosition": "midfielder",
-              "position": "CM"
-            },
-            {
-              "number": "10",
-              "name": "Alexis Vega",
-              "sourcePosition": "forward",
-              "position": "LW"
-            },
-            {
-              "number": "11",
-              "name": "Santiago Gimenez",
-              "sourcePosition": "forward",
-              "position": "ST"
-            },
-            {
-              "number": "14",
-              "name": "Armando Gonzalez",
-              "sourcePosition": "forward",
-              "position": "ST"
-            },
-            {
-              "number": "21",
-              "name": "Cesar Huerta",
-              "sourcePosition": "forward",
-              "position": "RW"
-            },
-            {
-              "number": "22",
-              "name": "Guillermo Martinez",
-              "sourcePosition": "forward",
-              "position": "ST"
-            }
-          ],
-          "events": {
-            "cards": [
-              {
-                "playerName": "Brian Gutierrez",
-                "type": "yellow",
-                "minute": 23
-              },
-              {
-                "playerName": "Cesar Montes",
-                "type": "red",
-                "minute": "90+2"
-              }
-            ],
-            "staffCards": [],
-            "substitutions": [
-              {
-                "offName": "Brian Gutierrez",
-                "onName": "Luis Chavez",
-                "minute": 66
-              },
-              {
-                "offName": "Alvaro Fidalgo",
-                "onName": "Gilberto Mora",
-                "minute": 66
-              },
-              {
-                "offName": "Erik Lira",
-                "onName": "Edson Alvarez",
-                "minute": 76
-              },
-              {
-                "offName": "Raul Jimenez",
-                "onName": "Armando Gonzalez",
-                "minute": 76
-              },
-              {
-                "offName": "Julian Quinones",
-                "onName": "Alexis Vega",
-                "minute": 79
-              }
-            ]
-          }
+          "bench": []
         },
         "away": {
-          "formation": "5-3-2",
+          "formation": "4-2-3-1",
           "coach": {
-            "name": "Hugo Broos",
-            "teamName": "South Africa",
-            "imageUrl": "https://digitalhub.fifa.com/transform/a3a1f2de-d006-4e46-b144-f5b88b685891/BROOS-Hugo_46980",
-            "sourceUrl": "https://www.fifa.com/en/match-centre/match/17/285023/289273/400021443"
+            "name": "Hossam Hassan",
+            "teamName": "Egypt",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Hossam_Hassan"
           },
           "players": [
             {
               "number": "1",
-              "name": "Ronwen Williams",
+              "name": "Mostafa Shoubir",
               "sourcePosition": "goalkeeper",
               "position": "GK",
               "x": 49.9,
               "y": 90.5
             },
             {
-              "number": "6",
-              "name": "Aubrey Modiba",
+              "number": "2",
+              "name": "Yasser Ibrahim",
               "sourcePosition": "defender",
-              "position": "LWB",
-              "x": 11.4,
-              "y": 57.2
+              "position": "CB",
+              "x": 33.3,
+              "y": 68.7
+            },
+            {
+              "number": "6",
+              "name": "Mohamed Hany",
+              "sourcePosition": "defender",
+              "position": "RB",
+              "x": 86.2,
+              "y": 62.8
             },
             {
               "number": "14",
-              "name": "Mbekezeli Mbokazi",
+              "name": "Ahmed Fatouh",
               "sourcePosition": "defender",
-              "position": "CB",
-              "x": 29,
-              "y": 62.7
-            },
-            {
-              "number": "19",
-              "name": "Nkosinathi Sibisi",
-              "sourcePosition": "defender",
-              "position": "CB",
-              "x": 70,
-              "y": 62.7
-            },
-            {
-              "number": "20",
-              "name": "Khuliso Mudau",
-              "sourcePosition": "defender",
-              "position": "RWB",
-              "x": 86.6,
-              "y": 57.2
-            },
-            {
-              "number": "21",
-              "name": "Ime Okon",
-              "sourcePosition": "defender",
-              "position": "CB",
-              "x": 49.9,
-              "y": 69.7
+              "position": "LB",
+              "x": 13.7,
+              "y": 62.8
             },
             {
               "number": "4",
-              "name": "Teboho Mokoena",
-              "sourcePosition": "midfielder",
-              "position": "CM",
-              "x": 72.5,
-              "y": 35.6
+              "name": "Hamza Abdelmaguid",
+              "sourcePosition": "defender",
+              "position": "CB",
+              "x": 66.5,
+              "y": 68.7
             },
             {
-              "number": "13",
-              "name": "Sphephelo Sithole",
+              "number": "19",
+              "name": "Hamdy Fathy",
               "sourcePosition": "midfielder",
               "position": "CM",
-              "x": 50,
-              "y": 42.3
+              "x": 36.5,
+              "y": 49.9
             },
             {
-              "number": "23",
-              "name": "Jayden Adams",
+              "number": "20",
+              "name": "Marawan Attia",
               "sourcePosition": "midfielder",
               "position": "CM",
-              "x": 27.5,
-              "y": 35.6
-            },
-            {
-              "number": "9",
-              "name": "Lyle Foster",
-              "sourcePosition": "forward",
-              "position": "ST",
-              "x": 33.5,
-              "y": 10.5
+              "x": 63.4,
+              "y": 49.9
             },
             {
               "number": "15",
-              "name": "Iqraam Rayners",
-              "sourcePosition": "forward",
-              "position": "ST",
-              "x": 66.5,
-              "y": 10.5
-            }
-          ],
-          "bench": [
-            {
-              "number": "16",
-              "name": "Sipho Chaine",
-              "sourcePosition": "goalkeeper",
-              "position": "GK"
-            },
-            {
-              "number": "22",
-              "name": "Ricardo Goss",
-              "sourcePosition": "goalkeeper",
-              "position": "GK"
-            },
-            {
-              "number": "2",
-              "name": "Thabang Matuludi",
-              "sourcePosition": "defender",
-              "position": "CB"
-            },
-            {
-              "number": "3",
-              "name": "Khulumani Ndamane",
-              "sourcePosition": "defender",
-              "position": "CB"
-            },
-            {
-              "number": "18",
-              "name": "Samukele Kabini",
-              "sourcePosition": "defender",
-              "position": "CB"
-            },
-            {
-              "number": "24",
-              "name": "Olwethu Makhanya",
-              "sourcePosition": "defender",
-              "position": "CB"
-            },
-            {
-              "number": "26",
-              "name": "Bradley Cross",
-              "sourcePosition": "defender",
-              "position": "LB"
-            },
-            {
-              "number": "5",
-              "name": "Thalente Mbatha",
+              "name": "Mostafa Zico",
               "sourcePosition": "midfielder",
-              "position": "DM"
+              "position": "RW",
+              "x": 80.6,
+              "y": 30.1
             },
             {
               "number": "11",
-              "name": "Themba Zwane",
+              "name": "Ibrahim Adel",
               "sourcePosition": "midfielder",
-              "position": "AM"
-            },
-            {
-              "number": "7",
-              "name": "Oswin Appollis",
-              "sourcePosition": "forward",
-              "position": "ST"
-            },
-            {
-              "number": "8",
-              "name": "Tshepang Moremi",
-              "sourcePosition": "forward",
-              "position": "RW"
+              "position": "LW",
+              "x": 19.4,
+              "y": 30.1
             },
             {
               "number": "10",
-              "name": "Relebohile Mofokeng",
+              "name": "Mohamed Salah",
               "sourcePosition": "forward",
-              "position": "ST"
+              "position": "AM",
+              "x": 50,
+              "y": 30.1
             },
             {
-              "number": "12",
-              "name": "Thapelo Maseko",
+              "number": "22",
+              "name": "Omar Marmoush",
               "sourcePosition": "forward",
-              "position": "RW"
-            },
-            {
-              "number": "17",
-              "name": "Evidence Makgopa",
-              "sourcePosition": "forward",
-              "position": "ST"
-            },
-            {
-              "number": "25",
-              "name": "Kamogelo Sebelebele",
-              "sourcePosition": "forward",
-              "position": "ST"
+              "position": "ST",
+              "x": 50,
+              "y": 10.5
             }
           ],
-          "events": {
-            "cards": [
-              {
-                "playerName": "Teboho Mokoena",
-                "type": "yellow",
-                "minute": 17
-              },
-              {
-                "playerName": "Sphephelo Sithole",
-                "type": "red",
-                "minute": 49
-              },
-              {
-                "playerName": "Nkosinathi Sibisi",
-                "type": "yellow",
-                "minute": 74
-              },
-              {
-                "playerName": "Themba Zwane",
-                "type": "red",
-                "minute": 84
-              }
-            ],
-            "staffCards": [],
-            "substitutions": [
-              {
-                "offName": "Lyle Foster",
-                "onName": "Thalente Mbatha",
-                "minute": 56
-              },
-              {
-                "offName": "Jayden Adams",
-                "onName": "Themba Zwane",
-                "minute": 61
-              },
-              {
-                "offName": "Iqraam Rayners",
-                "onName": "Evidence Makgopa",
-                "minute": 76
-              },
-              {
-                "offName": "Aubrey Modiba",
-                "onName": "Oswin Appollis",
-                "minute": 76
-              }
-            ]
-          }
-        },
-        "layoutVerification": {
-          "status": "verified",
-          "checkedAt": "2026-07-03T06:05:28.923Z",
-          "sourceIds": [
-            "lineup-layout-verification-2026-07-03"
-          ],
-          "sources": [
-            {
-              "name": "ESPN",
-              "url": "https://www.espn.com/soccer/match/_/gameId/760415",
-              "status": "matched",
-              "sourceDetail": "public match-center board geometry",
-              "exactLayout": true
-            }
-          ],
-          "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
+          "bench": []
         }
       }
     }
