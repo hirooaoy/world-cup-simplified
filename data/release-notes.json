@@ -3,6 +3,17 @@
   "releases": [
     {
       "date": "2026-07-03",
+      "title": "Knockout unresolved penalty finals",
+      "titleZh": "淘汰赛未决点球大战结果",
+      "highlights": [
+        "Tournament outcome pills remain visible for FT penalty games without an explicit winner, so unresolved tie-breakers do not auto-promote as completed before official winner data arrives."
+      ],
+      "highlightsZh": [
+        "在淘汰赛中，若最终比分为平且官方未给出明确胜者，比赛结果提示不再提前按“已完成”处理，避免未决点球大战提前推进。"
+      ]
+    },
+    {
+      "date": "2026-07-03",
       "title": "Result highlight tooltip cleanup",
       "titleZh": "结果集锦按钮文案清理",
       "highlights": [
