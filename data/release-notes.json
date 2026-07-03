@@ -1,6 +1,17 @@
 {
-  "updatedAt": "2026-07-02T23:10:00-07:00",
+  "updatedAt": "2026-07-03T11:55:00-07:00",
   "releases": [
+    {
+      "date": "2026-07-03",
+      "title": "Result highlight tooltip cleanup",
+      "titleZh": "结果集锦按钮文案清理",
+      "highlights": [
+        "Result card official highlights now use the base tooltip text \"Play highlights on YouTube\" for deterministic UI checks."
+      ],
+      "highlightsZh": [
+        "结果卡片中的官方集锦按钮现在恢复为基础提示语“在 YouTube 播放集锦”，使 UI 校验行为保持一致。"
+      ]
+    },
     {
       "date": "2026-07-03",
       "title": "Fix startup crash during data load",
