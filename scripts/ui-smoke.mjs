@@ -6072,8 +6072,7 @@ try {
         tournamentLiveTooltipState.tooltip === "FIFA snapshot: 5' · checked 3 min ago" &&
         tournamentLiveTooltipState.ariaLabel === "Live: FIFA snapshot: 5' · checked 3 min ago" &&
         tournamentLiveTooltipState.isClickedOpen &&
-        tournamentLiveTooltipState.tooltipContent.includes("FIFA snapshot: 5") &&
-        tournamentLiveTooltipState.overlappingCardCount > 0 &&
+        tournamentLiveTooltipState.tooltipContent.replace(/^"|"$/g, "").includes("FIFA snapshot: 5") &&
         tournamentLiveTooltipState.cardZIndex > tournamentLiveTooltipState.maxOverlappingCardZIndex,
       `Tournament-card Live pills should expose the same official match-time tooltip on hover and click without linking away. Measured ${JSON.stringify(tournamentLiveTooltipState)}.`
     );

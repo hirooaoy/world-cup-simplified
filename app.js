@@ -228,6 +228,12 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "Croatia took the lead through Ivan Perišić at 53'.": "克罗地亚在53分钟由伊万·佩里西奇先拔头筹。",
     "Cristiano Ronaldo leveled from the spot in the 68th minute to restore Portugal's edge.": "克里斯蒂亚诺·罗纳尔多在第68分钟点球扳平，葡萄牙重新掌控局面。",
     "Dan Ndoye doubled the lead on the first minute of the second half at 46'.": "丹·恩杜阿在下半场第46分钟再下一城。",
+    "Ghana pressed for an answer afterward, but the Colombian defense held on for a clean sheet through the remainder of the game.":
+      "加纳在场边持续压迫，但哥伦比亚防线在余下比赛时段守住了零封。",
+    "Jhon Arias scored in the 14th minute to give Colombia the match's opening and only goal.":
+      "若斯·阿里亚斯在第14分钟进球，为哥伦比亚打入全场首球，也成为全场唯一进球。",
+    "The round-of-32 tie ended 1-0, moving Colombia into match 89.":
+      "这场32强对决以1-0结束，将哥伦比亚带入第89场。",
     "Gonçalo Ramos' 90+4' finish gave Portugal the late winner and a 2-1 victory.": "冈萨洛·拉莫斯在加时4分钟破门，为葡萄牙带来赛场终场制胜球，最终2-1取胜。",
     "Pedro Porro added a mid-match goal, then Oyarzabal finished the match at 89'.": "佩德罗·波罗在比赛中段再进一球，随后奥亚尔扎巴尔在第89分钟完成锁定。",
     "Switzerland then controlled the rest of the match to finish comfortably at 2-0.": "瑞士随后掌控后程，最终以2比0轻松取胜。",
