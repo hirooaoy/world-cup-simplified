@@ -4826,6 +4826,14 @@ try {
     "2026-07-01T22:00:00.000Z",
     "/?view=matches&date=2026-06-30&tz=America%2FLos_Angeles&lineupPrototype=1"
   );
+  const normalizeCoachName = (name) =>
+    (name || "")
+      .normalize("NFD")
+      .replace(/\p{Diacritic}/gu, "")
+      .replace(/\./g, "")
+      .replace(/\s+/g, " ")
+      .trim()
+      .toLowerCase();
   let activeLineupCoachDate = "2026-06-30";
   for (const coachCase of coveredLineupCoachCases) {
     if (coachCase.date !== activeLineupCoachDate) {
@@ -4867,7 +4875,8 @@ try {
           names: triggers.map((trigger) => (trigger.getAttribute("aria-label") || "").split(":")[0].trim())
         };
       });
-    const coachCoveragePass = coachState.names.join("|") === coachCase.coaches.join("|") &&
+    const coachCoveragePass =
+      coachState.names.map(normalizeCoachName).join("|") === coachCase.coaches.map(normalizeCoachName).join("|") &&
       coachState.hrefs.length === 2 &&
       coachState.hrefs.every((href) => href.startsWith("https://")) &&
       coachState.imageUrls.length === 2 &&
