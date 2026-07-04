@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-04T04:25:29.700Z",
+  "updatedAt": "2026-07-04T17:13:17.776Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -19986,6 +19986,11 @@
         }
       ],
       "goalsAway": [],
+      "resultStoryBullets": [
+        "Jhon Arias scored in the 14th minute to give Colombia the match's opening and only goal.",
+        "Ghana pressed for an answer afterward, but the Colombian defense held on for a clean sheet through the remainder of the game.",
+        "The round-of-32 tie ended 1-0, moving Colombia into match 89."
+      ],
       "highlightVideo": {
         "platform": "youtube",
         "url": "https://www.youtube.com/watch?v=9TJRhuQOJuE",
@@ -20261,7 +20266,7 @@
       "homeSlot": "Winner match 73",
       "awaySlot": "Winner match 75",
       "venue": "Houston Stadium",
-      "status": "SCHEDULED",
+      "status": "LIVE",
       "h2h": {
         "status": "loaded",
         "sourceId": "national-football-teams-h2h-sync-2026-06-30",
@@ -20363,6 +20368,10 @@
         "sourceId": "editorial-preview-2026-06-22",
         "home": "Canada are a fast, direct host-side threat with enough top-end speed to change games in a few seconds, led by Alphonso Davies, Jonathan David, and Stephen Eustaquio. Against Morocco, their Davies-David open-field speed has to beat Morocco's Hakimi-Brahim right-side surges. They want to release Davies into space and get David facing goal before the opponent's defense is set. The risk is Morocco can combine Hakimi surges, Brahim's invention, and El Kaabi's box movement.",
         "away": "Morocco are a disciplined, dangerous side whose structure lets their flair players attack with freedom, led by Achraf Hakimi, Brahim Diaz, and Ayoub El Kaabi. Against Canada, their Hakimi-Brahim right-side surges has to beat Canada's Davies-David open-field speed. They want to use Hakimi's overlaps to tilt the field before Brahim or El Kaabi attacks the final pass or shot. The risk is Canada can run through Davies and David before defenders can recover."
+      },
+      "score": {
+        "home": 0,
+        "away": 0
       }
     },
     {
