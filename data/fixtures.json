@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-04T04:14:10.762Z",
+  "updatedAt": "2026-07-04T04:25:29.700Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -132,7 +132,9 @@
     "fifa-official-results-sync-2026-07-03",
     "national-football-teams-h2h-sync-2026-07-03",
     "fifa-goal-events-sync-2026-07-03",
-    "fifa-official-results-sync-2026-07-04"
+    "fifa-official-results-sync-2026-07-04",
+    "national-football-teams-h2h-sync-2026-07-04",
+    "fifa-goal-events-sync-2026-07-04"
   ],
   "coverage": {
     "status": "complete-schedule",
@@ -19868,6 +19870,16 @@
           "minute": 29,
           "name": "Lionel Messi",
           "assistName": "Lisandro Martinez"
+        },
+        {
+          "minute": 92,
+          "name": "Lisandro Martinez",
+          "assistName": "Alexis Mac Allister"
+        },
+        {
+          "minute": 111,
+          "name": "Diney Borges",
+          "ownGoal": true
         }
       ],
       "goalsAway": [
@@ -19875,8 +19887,21 @@
           "minute": 59,
           "name": "Deroy Duarte",
           "assistName": "Ryan Mendes"
+        },
+        {
+          "minute": 103,
+          "name": "Sidny Lopes Cabral",
+          "assistName": "Yannick Semedo"
         }
-      ]
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=EC2jOKluGRI",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-07-03T21:25:24-07:00",
+        "checkedAt": "2026-07-03T21:25:24-07:00"
+      }
     },
     {
       "id": "match-87-round-of-32-2026-07-03",
@@ -19952,6 +19977,22 @@
       "score": {
         "home": 1,
         "away": 0
+      },
+      "goalsHome": [
+        {
+          "minute": 14,
+          "name": "Jhon Arias",
+          "assistName": "Luis Suarez"
+        }
+      ],
+      "goalsAway": [],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=9TJRhuQOJuE",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-07-03T21:25:24-07:00",
+        "checkedAt": "2026-07-03T21:25:24-07:00"
       }
     },
     {
@@ -20079,13 +20120,13 @@
         "澳大利亚在反击中多次形成威胁，但埃及在漫长的节奏转换中始终保持组织，最终把淘汰赛对决稳住了局面。",
         "下半场后段，埃及更紧凑的防线成功吸收了澳大利亚最后一波冲击，使比赛直到点球阶段保持了高度胶着。"
       ],
-      "highlightVideoReview": {
-        "status": "not-found",
+      "highlightVideo": {
         "platform": "youtube",
-        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "url": "https://www.youtube.com/watch?v=ACWOG7t8Plk",
         "sourceName": "FOX Sports",
-        "checkedAt": "2026-07-03T23:54:00.000Z",
-        "note": "No official FOX Sports YouTube highlights video matched this fixture during the automated channel check."
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-07-03T21:25:24-07:00",
+        "checkedAt": "2026-07-03T21:25:24-07:00"
       }
     },
     {
@@ -21039,9 +21080,32 @@
       "venue": "Atlanta Stadium",
       "status": "SCHEDULED",
       "h2h": {
-        "status": "not-loaded",
-        "summary": "Teams are not known yet. Past match research will load after the matchup is set.",
-        "results": null
+        "status": "loaded",
+        "sourceId": "national-football-teams-h2h-sync-2026-07-04",
+        "summary": "Before this fixture, Argentina had the edge in the verified senior series: 2 Argentina wins, 0 draws, 0 Egypt wins, 8 total goals.",
+        "results": [
+          {
+            "date": "2008-03-26",
+            "competition": "Friendly",
+            "homeTeamId": "EGY",
+            "awayTeamId": "ARG",
+            "homeScore": 0,
+            "awayScore": 2,
+            "venue": "Cairo International Stadium",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/12283/Egypt_Argentina.html"
+          },
+          {
+            "date": "1928-06-06",
+            "competition": "Olympics 1928 - Semi Finals",
+            "homeTeamId": "ARG",
+            "awayTeamId": "EGY",
+            "homeScore": 6,
+            "awayScore": 0,
+            "venue": "Olympisch Stadion",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/40005/Argentina_Egypt.html"
+          }
+        ],
+        "sourceUrl": "https://www.national-football-teams.com/encounter/teams/9/57/Argentina_vs_Egypt.html"
       },
       "providerIds": {
         "fifa": {
@@ -21050,7 +21114,53 @@
         }
       },
       "awayTeamId": "EGY",
-      "homeTeamId": "ARG"
+      "homeTeamId": "ARG",
+      "projection": {
+        "sourceId": "ranking-projection-2026-06-17",
+        "method": "fifa-ranking-baseline",
+        "basis": "FIFA ranking strength with host-country adjustment",
+        "home": 63,
+        "draw": 25,
+        "away": 12
+      },
+      "keyPlayers": {
+        "sourceId": "key-player-baseline-2026-06-22",
+        "method": "team-watchlist-baseline",
+        "basis": "Team-level key-player watchlist; replace with API/squad-sourced fixture notes when available",
+        "home": [
+          {
+            "name": "Lionel Messi",
+            "note": "Argentina's central attacking reference, whose between-lines gravity can turn pressure into clean chances."
+          },
+          {
+            "name": "Julian Alvarez",
+            "note": "Argentina's pressing forward and flexible finisher, dangerous whether he starts moves or attacks the last line."
+          },
+          {
+            "name": "Enzo Fernandez",
+            "note": "The midfield passer who can change the angle of attacks and keep Argentina's control from going stale."
+          }
+        ],
+        "away": [
+          {
+            "name": "Mohamed Salah",
+            "note": "Egypt's decisive outlet, a transition runner and finisher every opponent has to bend their shape around."
+          },
+          {
+            "name": "Omar Marmoush",
+            "note": "A mobile second scoring threat who can attack channels and keep Egypt from becoming one-dimensional."
+          },
+          {
+            "name": "Zizo",
+            "note": "The right-side delivery and shooting option who can punish teams when Salah is tightly tracked."
+          }
+        ]
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-22",
+        "home": "Argentina are the defending champions and still one of the most complete tournament teams, led by Lionel Messi, Julian Alvarez, and Enzo Fernandez. Against Egypt, their Messi-Alvarez midfield breaks has to beat Egypt's Salah-Marmoush breakaway threat. They want to press high through Alvarez, find Messi in space behind midfield, and let Enzo Fernandez change the angle of the attack. The risk is Egypt can turn one loose pass into a Salah-led break.",
+        "away": "Egypt are a direct team built around Salah's runs that can look quiet until one attack opens the match, led by Mohamed Salah, Omar Marmoush, and Zizo. Against Argentina, their Salah-Marmoush breakaway threat has to beat Argentina's Messi-Alvarez midfield breaks. They want to release Salah early and let Marmoush arrive as the second wave. The risk is Argentina can turn one midfield win into Messi touches, Alvarez movement, and Enzo service."
+      }
     },
     {
       "id": "match-96-round-of-16-2026-07-07",
@@ -21063,9 +21173,52 @@
       "venue": "BC Place Vancouver",
       "status": "SCHEDULED",
       "h2h": {
-        "status": "not-loaded",
-        "summary": "Teams are not known yet. Past match research will load after the matchup is set.",
-        "results": null
+        "status": "loaded",
+        "sourceId": "national-football-teams-h2h-sync-2026-07-04",
+        "summary": "Before this fixture, Colombia had the edge in the verified senior series: 1 Switzerland win, 1 draw, 2 Colombia wins, 15 total goals.",
+        "results": [
+          {
+            "date": "2007-03-25",
+            "competition": "Friendly",
+            "homeTeamId": "COL",
+            "awayTeamId": "SUI",
+            "homeScore": 3,
+            "awayScore": 1,
+            "venue": "Miami Orange Bowl",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/13009/Colombia_Switzerland.html"
+          },
+          {
+            "date": "1994-06-26",
+            "competition": "World Cup 1994 - Group A",
+            "homeTeamId": "SUI",
+            "awayTeamId": "COL",
+            "homeScore": 0,
+            "awayScore": 2,
+            "venue": "Stanford Stadium",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/20501/Switzerland_Colombia.html"
+          },
+          {
+            "date": "1991-02-03",
+            "competition": "Friendly",
+            "homeTeamId": "COL",
+            "awayTeamId": "SUI",
+            "homeScore": 2,
+            "awayScore": 3,
+            "venue": "Miami Orange Bowl",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/30850/Colombia_Switzerland.html"
+          },
+          {
+            "date": "1985-02-01",
+            "competition": "Friendly",
+            "homeTeamId": "COL",
+            "awayTeamId": "SUI",
+            "homeScore": 2,
+            "awayScore": 2,
+            "venue": "Estadio Nemesio Camacho - El Campín",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/36417/Colombia_Switzerland.html"
+          }
+        ],
+        "sourceUrl": "https://www.national-football-teams.com/encounter/teams/180/43/Switzerland_vs_Colombia.html"
       },
       "providerIds": {
         "fifa": {
@@ -21074,7 +21227,53 @@
         }
       },
       "homeTeamId": "SUI",
-      "awayTeamId": "COL"
+      "awayTeamId": "COL",
+      "projection": {
+        "sourceId": "ranking-projection-2026-06-17",
+        "method": "fifa-ranking-baseline",
+        "basis": "FIFA ranking strength with host-country adjustment",
+        "home": 33,
+        "draw": 28,
+        "away": 39
+      },
+      "keyPlayers": {
+        "sourceId": "key-player-baseline-2026-06-22",
+        "method": "team-watchlist-baseline",
+        "basis": "Team-level key-player watchlist; replace with API/squad-sourced fixture notes when available",
+        "home": [
+          {
+            "name": "Granit Xhaka",
+            "note": "Switzerland's rhythm setter, controlling where the match is played and when pressure releases."
+          },
+          {
+            "name": "Manuel Akanji",
+            "note": "The defensive organizer, especially important when Switzerland have to manage direct central attacks."
+          },
+          {
+            "name": "Breel Embolo",
+            "note": "A powerful runner who can turn Switzerland's possession into box entries."
+          }
+        ],
+        "away": [
+          {
+            "name": "Luis Diaz",
+            "note": "Colombia's most explosive wide threat, dangerous attacking the box from the left and finishing moves himself."
+          },
+          {
+            "name": "James Rodriguez",
+            "note": "The experienced creator who still connects Colombia's attack, especially when the match slows near the area."
+          },
+          {
+            "name": "Luis Suarez",
+            "note": "A central striker arriving off a heavy club scoring season, giving Colombia a direct target in the box."
+          }
+        ]
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-22",
+        "home": "Switzerland are a tournament-tested structure team who rarely look rushed when the match gets tense, led by Granit Xhaka, Manuel Akanji, and Breel Embolo. Against Colombia, their Xhaka-Embolo control-and-release has to beat Colombia's Diaz-James width-and-service. They want to let Xhaka dictate the first pass and find Embolo before the opponent can squeeze midfield. The risk is Colombia can use Diaz's width and James' invention to create a clear chance in the box.",
+        "away": "Colombia are a rhythm-and-width team with enough individual quality to punish any loose defensive spacing, led by Luis Diaz, James Rodriguez, and Luis Suarez. Against Switzerland, their Diaz-James width-and-service has to beat Switzerland's Xhaka-Embolo control-and-release. They want to let Diaz run behind defenders while James looks for the pass that changes the speed of the move. The risk is Switzerland can slow the game through Xhaka and use Embolo as the release valve."
+      }
     },
     {
       "id": "match-97-quarter-final-2026-07-09",

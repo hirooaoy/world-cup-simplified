@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-04T04:14:10.762Z",
+  "updatedAt": "2026-07-04T04:25:09.795Z",
   "coverageNote": "The current seed dataset covers the full official fixture skeleton from June 11 through July 19. Rich previews, scores, live status and knockout participants are updated progressively.",
   "catchUp": [
     {
@@ -1156,8 +1156,32 @@
       "label": "FIFA official results sync",
       "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/match-schedule-fixtures-results-teams-stadiums",
       "type": "official",
-      "checkedAt": "2026-07-04T04:14:10.762Z",
-      "note": "4 fixture updates merged from 104 matched FIFA fixtures. 2 knockout participant slots resolved from official participants or completed results."
+      "checkedAt": "2026-07-04T04:24:47.900Z",
+      "note": "0 fixture updates merged from 104 matched FIFA fixtures."
+    },
+    {
+      "id": "national-football-teams-h2h-sync-2026-07-04",
+      "label": "National Football Teams H2H sync",
+      "url": "https://www.national-football-teams.com",
+      "type": "cross-check",
+      "checkedAt": "2026-07-04T04:24:55.979Z",
+      "note": "2 fixture H2H updates merged from National Football Teams encounter pages."
+    },
+    {
+      "id": "fifa-lineups-sync-2026-07-04",
+      "label": "FIFA official final lineups sync",
+      "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/match-schedule-fixtures-results-teams-stadiums",
+      "type": "official",
+      "checkedAt": "2026-07-04T04:24:58.686Z",
+      "note": "88 completed FIFA team sheets checked; lineups.json carries official starters, bench, cards, and substitutions for 88 completed fixtures; 3 changed on this pass."
+    },
+    {
+      "id": "fifa-goal-events-sync-2026-07-04",
+      "label": "FIFA official goal event timeline sync",
+      "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/match-schedule-fixtures-results-teams-stadiums",
+      "type": "official",
+      "checkedAt": "2026-07-04T04:25:09.795Z",
+      "note": "2 fixture goal-event updates merged from 81 matched FIFA timelines."
     }
   ],
   "groups": [

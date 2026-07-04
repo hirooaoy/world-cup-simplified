@@ -2876,8 +2876,10 @@ try {
         "Algeria won 2-1 against Jordan #63, tied 3-3 against Austria #24, and lost 0-3 to Argentina #1"
       ) &&
       switzerlandAlgeriaDetailText.includes("Next: Round of 16") &&
-      switzerlandAlgeriaNextText === "Winner will face winner of Colombia #13 vs Ghana #73",
-    `Switzerland-Algeria context should omit trailing periods while preserving ranked opponent copy. Measured ${JSON.stringify({
+      /^Winner will face(?:\s+(winner of Colombia #13 vs Ghana #73|Colombia #13 who (?:won|lost).+against Ghana #73))$/.test(
+        switzerlandAlgeriaNextText
+      ),
+    `Switzerland-Algeria context should support current expected opponent-copy formats while preserving ranked opponent copy. Measured ${JSON.stringify({
       switzerlandAlgeriaContextLines,
       switzerlandAlgeriaNextText
     })}.`
