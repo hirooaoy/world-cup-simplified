@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-03T23:21:21.376Z",
+  "updatedAt": "2026-07-04T04:14:10.762Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -131,7 +131,8 @@
     "fifa-match-events-sync-2026-07-02",
     "fifa-official-results-sync-2026-07-03",
     "national-football-teams-h2h-sync-2026-07-03",
-    "fifa-goal-events-sync-2026-07-03"
+    "fifa-goal-events-sync-2026-07-03",
+    "fifa-official-results-sync-2026-07-04"
   ],
   "coverage": {
     "status": "complete-schedule",
@@ -19796,7 +19797,7 @@
       "homeSlot": "Group J winner",
       "awaySlot": "Group H runner-up",
       "venue": "Miami Stadium",
-      "status": "LIVE",
+      "status": "FT",
       "h2h": {
         "status": "verified-empty",
         "sourceId": "national-football-teams-h2h-sync-2026-06-30",
@@ -19859,8 +19860,8 @@
         "away": "Cabo Verde are compact tournament disruptors who need experience and goalkeeping to keep matches close, led by Ryan Mendes, Roberto Lopes, and Vozinha. Against Argentina, their Mendes-led compact counterpunch has to beat Argentina's Messi-Alvarez midfield breaks. They want to stay compact long enough for Mendes to find a composed final pass or shot. The risk is Argentina can turn one midfield win into Messi touches, Alvarez movement, and Enzo service."
       },
       "score": {
-        "home": 1,
-        "away": 1
+        "home": 3,
+        "away": 2
       },
       "goalsHome": [
         {
@@ -19886,7 +19887,7 @@
       "homeSlot": "Group K winner",
       "awaySlot": "Group D/E/I/J/L third place",
       "venue": "Kansas City Stadium",
-      "status": "SCHEDULED",
+      "status": "FT",
       "h2h": {
         "status": "verified-empty",
         "sourceId": "national-football-teams-h2h-sync-2026-06-30",
@@ -19947,6 +19948,10 @@
         "sourceId": "editorial-preview-2026-06-22",
         "home": "Colombia are a rhythm-and-width team with enough individual quality to punish any loose defensive spacing, led by Luis Diaz, James Rodriguez, and Luis Suarez. Against Ghana, their Diaz-James width-and-service has to beat Ghana's Semenyo-Williams forward running. They want to let Diaz run behind defenders while James looks for the pass that changes the speed of the move. The risk is Ghana can attack space early through Semenyo and Williams.",
         "away": "Ghana are a fast front-line team that need their direct runners to turn defensive work into threat, led by Antoine Semenyo, Inaki Williams, and Jordan Ayew. Against Colombia, their Semenyo-Williams forward running has to beat Colombia's Diaz-James width-and-service. They want to send Semenyo and Williams into space before the opponent can compress the field. The risk is Colombia can use Diaz's width and James' invention to create a clear chance in the box."
+      },
+      "score": {
+        "home": 1,
+        "away": 0
       }
     },
     {
@@ -20076,7 +20081,11 @@
       ],
       "highlightVideoReview": {
         "status": "not-found",
-        "checkedAt": "2026-07-03T23:54:00.000Z"
+        "platform": "youtube",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "sourceName": "FOX Sports",
+        "checkedAt": "2026-07-03T23:54:00.000Z",
+        "note": "No official FOX Sports YouTube highlights video matched this fixture during the automated channel check."
       }
     },
     {
@@ -21040,7 +21049,8 @@
           "matchNumber": 95
         }
       },
-      "awayTeamId": "EGY"
+      "awayTeamId": "EGY",
+      "homeTeamId": "ARG"
     },
     {
       "id": "match-96-round-of-16-2026-07-07",
@@ -21063,7 +21073,8 @@
           "matchNumber": 96
         }
       },
-      "homeTeamId": "SUI"
+      "homeTeamId": "SUI",
+      "awayTeamId": "COL"
     },
     {
       "id": "match-97-quarter-final-2026-07-09",

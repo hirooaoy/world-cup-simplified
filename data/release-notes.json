@@ -1,6 +1,17 @@
 {
-  "updatedAt": "2026-07-03T11:55:00-07:00",
+  "updatedAt": "2026-07-03T16:56:00-07:00",
   "releases": [
+    {
+      "date": "2026-07-03",
+      "title": "Resolve m88 official-recap translation mapping",
+      "titleZh": "修复M88官方复盘映射翻译",
+      "highlights": [
+        "Added missing English/Chinese exact-match tooltip copy for match 88 knockout recap text so unresolved penalty-final result states can render consistently without fallback text."
+      ],
+      "highlightsZh": [
+        "为第88场淘汰赛复盘文本补齐精确英文中文映射，确保未决点球大战结果状态可稳定展示，不再回退到通用文案。"
+      ]
+    },
     {
       "date": "2026-07-03",
       "title": "Knockout unresolved penalty finals",
