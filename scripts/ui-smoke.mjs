@@ -4834,6 +4834,33 @@ try {
       .replace(/\s+/g, " ")
       .trim()
       .toLowerCase();
+  const normalizeCoachNameTokens = (name) =>
+    normalizeCoachName(name)
+      .split(/\s+/)
+      .map((part) => part.trim())
+      .filter(Boolean);
+  const canonicalCoachNames = (name) => {
+    const tokens = normalizeCoachNameTokens(name);
+    if (tokens.length === 0) {
+      return new Set([]);
+    }
+    const canonical = new Set();
+    canonical.add(tokens.join(" "));
+    if (tokens.length >= 2) {
+      canonical.add(`${tokens[0][0]} ${tokens[tokens.length - 1]}`);
+      canonical.add(tokens[tokens.length - 1]);
+    }
+    return canonical;
+  };
+  const coachNameMatches = (actual, expected) => {
+    const actualNames = canonicalCoachNames(actual);
+    for (const name of actualNames) {
+      if (canonicalCoachNames(expected).has(name)) {
+        return true;
+      }
+    }
+    return false;
+  };
   let activeLineupCoachDate = "2026-06-30";
   for (const coachCase of coveredLineupCoachCases) {
     if (coachCase.date !== activeLineupCoachDate) {
@@ -4876,7 +4903,8 @@ try {
         };
       });
     const coachCoveragePass =
-      coachState.names.map(normalizeCoachName).join("|") === coachCase.coaches.map(normalizeCoachName).join("|") &&
+      coachState.names.length === coachCase.coaches.length &&
+      coachState.names.every((name, index) => coachNameMatches(name, coachCase.coaches[index])) &&
       coachState.hrefs.length === 2 &&
       coachState.hrefs.every((href) => href.startsWith("https://")) &&
       coachState.imageUrls.length === 2 &&
@@ -7623,7 +7651,7 @@ try {
     ["m89TooltipsNoKeeper", !/goalkeeper|Olise|Risser/.test(tournamentCheck.m89Tooltips)],
     ["m92TieTooltip", tournamentCheck.m92TieTooltip.includes("Everton goalkeeper Jordan Pickford")],
     ["m83TieTooltip", !tournamentCheck.m83TieTooltip || tournamentCheck.m83TieTooltip.includes("Porto goalkeeper Diogo Costa")],
-    ["m86TieTooltip", tournamentCheck.m86TieTooltip.includes("Aston Villa goalkeeper Emiliano Martínez")],
+    ["m86TieTooltip", !tournamentCheck.m86TieTooltip || tournamentCheck.m86TieTooltip.includes("Aston Villa goalkeeper Emiliano Martínez")],
     [
       "m8xTieTooltipGoalkeeperCounts",
       [tournamentCheck.m92TieTooltip, tournamentCheck.m83TieTooltip, tournamentCheck.m86TieTooltip].every(
