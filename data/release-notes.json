@@ -2,6 +2,19 @@
   "updatedAt": "2026-07-03T16:56:00-07:00",
   "releases": [
     {
+      "date": "2026-07-04",
+      "title": "Release notes update and official lineup sync hardening",
+      "titleZh": "更新日志补齐与官方阵容同步加固",
+      "highlights": [
+        "Added release-note coverage for the latest app translation polish and smoke-test behavior updates.",
+        "Official FIFA sync now refreshes final lineups before validation and persists any final lineup updates to `data/lineups.json` as part of fallback snapshot commits."
+      ],
+      "highlightsZh": [
+        "补充最近应用翻译完善与烟雾测试行为更新的更新日志内容，避免产品变更遗漏日志导致校验失败。",
+        "官方 FIFA 同步现在会先补齐完场比赛阵容再进行校验，并在官方回填快照提交中持久化 `data/lineups.json` 的任何最终阵容更新。"
+      ]
+    },
+    {
       "date": "2026-07-03",
       "title": "Resolve m88 official-recap translation mapping",
       "titleZh": "修复M88官方复盘映射翻译",

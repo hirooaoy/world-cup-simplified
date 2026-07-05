@@ -442,6 +442,14 @@
       "teamName": "Argentina",
       "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/7/7c/Lionel_Scaloni_-_2022.jpg",
       "sourceUrl": "https://en.wikipedia.org/wiki/Lionel_Scaloni",
+      "note": {
+        "en": "Scaloni builds a compact, intelligent side that can switch from cautious possession into fast transitions, usually trusting top forwards to finish matches in short, decisive bursts.",
+        "zh": "斯卡洛尼构建紧凑而有逻辑的阵型，球队能在控球后的快速转移中迅速起速，常让头号前锋承担决定比赛的关键进攻。"
+      },
+      "history": {
+        "en": "Appointed in 2018, Scaloni lifted Argentina with the 2021 Copa América, 2022 Finalissima, and the 2022 FIFA World Cup, then kept the side competitive through a major generational rebuild.",
+        "zh": "他于2018年出任阿根廷主帅，先后拿下2021年美洲杯、2022年国际友谊杯（FIFA洲际决战）和2022年世界杯冠军，并在阵容换代阶段持续保持国家队竞争力。"
+      },
       "styles": [
         "Possession control",
         "Counter-pressing",
@@ -574,6 +582,14 @@
       "teamName": "Colombia",
       "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/FWC_2018_-_Round_of_16_-_COL_v_ENG_-_N%C3%A9stor_Lorenzo.jpg/250px-FWC_2018_-_Round_of_16_-_COL_v_ENG_-_N%C3%A9stor_Lorenzo.jpg",
       "sourceUrl": "https://en.wikipedia.org/wiki/N%C3%A9stor_Lorenzo",
+      "note": {
+        "en": "Lorenzo prefers a disciplined Colombian shape built on strong defensive cover, compact pressing windows, and quick vertical counters when teams attack from narrow zones.",
+        "zh": "洛伦索偏好纪律严明的球队结构，强调后场压缩与短时逼抢，并在对手从窄路由回的瞬间打出纵向快速反击。"
+      },
+      "history": {
+        "en": "He joined Colombia as head coach in 2024, bringing experience from domestic Argentine management and years in international coaching structures before moving to the senior national side.",
+        "zh": "他于2024年担任哥伦比亚主教练，在执教国家队之前累积了阿根达国内部俱乐部与国家队体系的管理经验。"
+      },
       "styles": [
         "Defensive organization",
         "Counter-pressing",

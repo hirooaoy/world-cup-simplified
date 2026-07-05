@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-05T02:22:00.314Z",
+  "updatedAt": "2026-07-05T02:24:24.101Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -134,7 +134,8 @@
     "fifa-goal-events-sync-2026-07-03",
     "fifa-official-results-sync-2026-07-04",
     "national-football-teams-h2h-sync-2026-07-04",
-    "fifa-goal-events-sync-2026-07-04"
+    "fifa-goal-events-sync-2026-07-04",
+    "national-football-teams-h2h-sync-2026-07-05"
   ],
   "coverage": {
     "status": "complete-schedule",
@@ -3778,10 +3779,12 @@
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/67/163/France_vs_Senegal.html"
       },
       "projection": {
-        "sourceId": "editorial-preview-2026-06-17",
-        "home": 58,
-        "draw": 24,
-        "away": 18
+        "sourceId": "ranking-projection-2026-06-17",
+        "method": "fifa-ranking-baseline",
+        "basis": "FIFA ranking strength with host-country adjustment",
+        "home": 50,
+        "draw": 27,
+        "away": 23
       },
       "keyPlayers": {
         "sourceId": "key-player-baseline-2026-06-22",
@@ -3952,10 +3955,12 @@
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/89/138/Iraq_vs_Norway.html"
       },
       "projection": {
-        "sourceId": "editorial-preview-2026-06-17",
-        "home": 18,
-        "draw": 24,
-        "away": 58
+        "sourceId": "ranking-projection-2026-06-17",
+        "method": "fifa-ranking-baseline",
+        "basis": "FIFA ranking strength with host-country adjustment",
+        "home": 32,
+        "draw": 25,
+        "away": 43
       },
       "keyPlayers": {
         "sourceId": "editorial-preview-2026-06-17",
@@ -4176,10 +4181,12 @@
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/9/3/Argentina_vs_Algeria.html"
       },
       "projection": {
-        "sourceId": "editorial-preview-2026-06-17",
-        "home": 64,
-        "draw": 21,
-        "away": 15
+        "sourceId": "ranking-projection-2026-06-17",
+        "method": "fifa-ranking-baseline",
+        "basis": "FIFA ranking strength with host-country adjustment",
+        "home": 63,
+        "draw": 25,
+        "away": 12
       },
       "keyPlayers": {
         "sourceId": "key-player-baseline-2026-06-22",
@@ -4360,10 +4367,12 @@
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/13/95/Austria_vs_Jordan.html"
       },
       "projection": {
-        "sourceId": "editorial-preview-2026-06-17",
-        "home": 55,
-        "draw": 26,
-        "away": 19
+        "sourceId": "ranking-projection-2026-06-17",
+        "method": "fifa-ranking-baseline",
+        "basis": "FIFA ranking strength with host-country adjustment",
+        "home": 48,
+        "draw": 23,
+        "away": 29
       },
       "keyPlayers": {
         "sourceId": "editorial-preview-2026-06-17",
@@ -4569,10 +4578,12 @@
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/148/55/Portugal_vs_Dr_Congo.html"
       },
       "projection": {
-        "sourceId": "editorial-preview-2026-06-17",
-        "home": 62,
-        "draw": 23,
-        "away": 15
+        "sourceId": "ranking-projection-2026-06-17",
+        "method": "fifa-ranking-baseline",
+        "basis": "FIFA ranking strength with host-country adjustment",
+        "home": 59,
+        "draw": 22,
+        "away": 19
       },
       "keyPlayers": {
         "sourceId": "editorial-preview-2026-06-17",
@@ -4883,10 +4894,12 @@
         ]
       },
       "projection": {
-        "sourceId": "editorial-preview-2026-06-17",
-        "home": 46,
+        "sourceId": "ranking-projection-2026-06-17",
+        "method": "fifa-ranking-baseline",
+        "basis": "FIFA ranking strength with host-country adjustment",
+        "home": 45,
         "draw": 28,
-        "away": 26
+        "away": 27
       },
       "keyInformation": {
         "sourceId": "editorial-preview-2026-06-22",
@@ -5097,10 +5110,12 @@
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/72/142/Ghana_vs_Panama.html"
       },
       "projection": {
-        "sourceId": "editorial-preview-2026-06-17",
-        "home": 51,
-        "draw": 28,
-        "away": 21
+        "sourceId": "ranking-projection-2026-06-17",
+        "method": "fifa-ranking-baseline",
+        "basis": "FIFA ranking strength with host-country adjustment",
+        "home": 31,
+        "draw": 23,
+        "away": 46
       },
       "keyPlayers": {
         "sourceId": "editorial-preview-2026-06-17",
@@ -5297,10 +5312,12 @@
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/201/43/Uzbekistan_vs_Colombia.html"
       },
       "projection": {
-        "sourceId": "editorial-preview-2026-06-17",
-        "home": 20,
-        "draw": 25,
-        "away": 55
+        "sourceId": "ranking-projection-2026-06-17",
+        "method": "fifa-ranking-baseline",
+        "basis": "FIFA ranking strength with host-country adjustment",
+        "home": 26,
+        "draw": 23,
+        "away": 51
       },
       "keyPlayers": {
         "sourceId": "editorial-preview-2026-06-17",
@@ -5524,10 +5541,12 @@
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/50/172/Czechia_vs_South_Africa.html"
       },
       "projection": {
-        "sourceId": "editorial-preview-2026-06-17",
-        "home": 42,
-        "draw": 29,
-        "away": 29
+        "sourceId": "ranking-projection-2026-06-17",
+        "method": "fifa-ranking-baseline",
+        "basis": "FIFA ranking strength with host-country adjustment",
+        "home": 41,
+        "draw": 26,
+        "away": 33
       },
       "keyPlayers": {
         "sourceId": "editorial-preview-2026-06-17",
@@ -5735,10 +5754,12 @@
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/180/26/Switzerland_vs_Bosnia_Herzegovina.html"
       },
       "projection": {
-        "sourceId": "editorial-preview-2026-06-17",
+        "sourceId": "ranking-projection-2026-06-17",
+        "method": "fifa-ranking-baseline",
+        "basis": "FIFA ranking strength with host-country adjustment",
         "home": 50,
-        "draw": 27,
-        "away": 23
+        "draw": 22,
+        "away": 28
       },
       "keyPlayers": {
         "sourceId": "editorial-preview-2026-06-17",
@@ -5972,10 +5993,12 @@
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/36/150/Canada_vs_Qatar.html"
       },
       "projection": {
-        "sourceId": "editorial-preview-2026-06-17",
+        "sourceId": "ranking-projection-2026-06-17",
+        "method": "fifa-ranking-baseline",
+        "basis": "FIFA ranking strength with host-country adjustment",
         "home": 48,
-        "draw": 27,
-        "away": 25
+        "draw": 25,
+        "away": 27
       },
       "keyPlayers": {
         "sourceId": "editorial-preview-2026-06-17",
@@ -6338,10 +6361,12 @@
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/121/173/Mexico_vs_South_Korea.html"
       },
       "projection": {
-        "sourceId": "editorial-preview-2026-06-17",
-        "home": 48,
+        "sourceId": "ranking-projection-2026-06-17",
+        "method": "fifa-ranking-baseline",
+        "basis": "FIFA ranking strength with host-country adjustment",
+        "home": 46,
         "draw": 27,
-        "away": 25
+        "away": 27
       },
       "keyPlayers": {
         "sourceId": "editorial-preview-2026-06-17",
@@ -6562,12 +6587,12 @@
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/200/12/Usa_vs_Australia.html"
       },
       "projection": {
-        "sourceId": "market-odds-usa-australia-2026-06-19",
-        "method": "market-implied-consensus",
-        "basis": "No-vig average of public 90-minute moneyline odds from ESPN, CBS/FanDuel, VSiN, and Oddschecker checked before kickoff on June 19, 2026",
-        "home": 59,
-        "draw": 22,
-        "away": 19
+        "sourceId": "ranking-projection-2026-06-17",
+        "method": "fifa-ranking-baseline",
+        "basis": "FIFA ranking strength with host-country adjustment",
+        "home": 45,
+        "draw": 27,
+        "away": 28
       },
       "keyPlayers": {
         "sourceId": "key-player-baseline-2026-06-17",
@@ -6798,12 +6823,12 @@
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/162/125/Scotland_vs_Morocco.html"
       },
       "projection": {
-        "sourceId": "market-odds-scotland-morocco-2026-06-19",
-        "method": "market-implied-consensus",
-        "basis": "No-vig blend of public 90-minute moneyline odds from Covers/Kalshi and Kalshi event probabilities checked before kickoff on June 19, 2026",
-        "home": 18,
-        "draw": 26,
-        "away": 56
+        "sourceId": "ranking-projection-2026-06-17",
+        "method": "fifa-ranking-baseline",
+        "basis": "FIFA ranking strength with host-country adjustment",
+        "home": 22,
+        "draw": 23,
+        "away": 55
       },
       "keyPlayers": {
         "sourceId": "key-player-baseline-2026-06-17",
@@ -7005,12 +7030,12 @@
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/28/81/Brazil_vs_Haiti.html"
       },
       "projection": {
-        "sourceId": "market-odds-brazil-haiti-2026-06-19",
-        "method": "market-implied-consensus",
-        "basis": "No-vig blend of public 90-minute moneyline odds from Covers/Kalshi and Sports Interaction checked before kickoff on June 19, 2026",
-        "home": 87,
-        "draw": 8,
-        "away": 5
+        "sourceId": "ranking-projection-2026-06-17",
+        "method": "fifa-ranking-baseline",
+        "basis": "FIFA ranking strength with host-country adjustment",
+        "home": 64,
+        "draw": 19,
+        "away": 17
       },
       "keyPlayers": {
         "sourceId": "key-player-baseline-2026-06-17",
@@ -7229,12 +7254,12 @@
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/192/144/Turkey_vs_Paraguay.html"
       },
       "projection": {
-        "sourceId": "market-odds-turkiye-paraguay-2026-06-19",
-        "method": "market-implied-consensus",
-        "basis": "No-vig average of public 90-minute moneyline odds from Covers/Kalshi and Oddschecker checked before kickoff on June 19, 2026",
-        "home": 47,
-        "draw": 28,
-        "away": 25
+        "sourceId": "ranking-projection-2026-06-17",
+        "method": "fifa-ranking-baseline",
+        "basis": "FIFA ranking strength with host-country adjustment",
+        "home": 43,
+        "draw": 26,
+        "away": 31
       },
       "keyPlayers": {
         "sourceId": "key-player-baseline-2026-06-17",
@@ -7612,12 +7637,12 @@
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/129/179/Netherlands_vs_Sweden.html"
       },
       "projection": {
-        "sourceId": "market-odds-netherlands-sweden-2026-06-20",
-        "method": "market-implied-consensus",
-        "basis": "No-vig average of public 90-minute moneyline odds from Oddschecker, FanDuel, and published operator prices checked on June 19, 2026",
-        "home": 56,
+        "sourceId": "ranking-projection-2026-06-17",
+        "method": "fifa-ranking-baseline",
+        "basis": "FIFA ranking strength with host-country adjustment",
+        "home": 52,
         "draw": 24,
-        "away": 20
+        "away": 24
       },
       "keyPlayers": {
         "sourceId": "key-player-baseline-2026-06-17",
@@ -7844,12 +7869,12 @@
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/71/209/Germany_vs_Ivory_Coast.html"
       },
       "projection": {
-        "sourceId": "market-odds-germany-cote-divoire-2026-06-20",
-        "method": "market-implied-consensus",
-        "basis": "No-vig average of public 90-minute moneyline odds from Oddschecker, Covers/Kalshi, and Sports Interaction checked on June 19, 2026",
-        "home": 62,
-        "draw": 21,
-        "away": 17
+        "sourceId": "ranking-projection-2026-06-17",
+        "method": "fifa-ranking-baseline",
+        "basis": "FIFA ranking strength with host-country adjustment",
+        "home": 48,
+        "draw": 25,
+        "away": 27
       },
       "keyPlayers": {
         "sourceId": "key-player-baseline-2026-06-17",
@@ -8032,12 +8057,12 @@
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/56/280/Ecuador_vs_Curacao.html"
       },
       "projection": {
-        "sourceId": "market-odds-ecuador-curacao-2026-06-20",
-        "method": "market-implied-consensus",
-        "basis": "No-vig blend of public 90-minute moneyline odds from FanDuel and Kalshi event probabilities checked on June 19, 2026",
-        "home": 87,
-        "draw": 9,
-        "away": 4
+        "sourceId": "ranking-projection-2026-06-17",
+        "method": "fifa-ranking-baseline",
+        "basis": "FIFA ranking strength with host-country adjustment",
+        "home": 52,
+        "draw": 20,
+        "away": 28
       },
       "keyPlayers": {
         "sourceId": "key-player-baseline-2026-06-17",
@@ -8295,12 +8320,12 @@
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/190/94/Tunisia_vs_Japan.html"
       },
       "projection": {
-        "sourceId": "market-odds-tunisia-japan-2026-06-21",
-        "method": "market-implied-consensus",
-        "basis": "No-vig average of public 90-minute moneyline odds from Oddschecker and RotoWire's operator table checked on June 19, 2026",
-        "home": 14,
-        "draw": 24,
-        "away": 62
+        "sourceId": "ranking-projection-2026-06-17",
+        "method": "fifa-ranking-baseline",
+        "basis": "FIFA ranking strength with host-country adjustment",
+        "home": 29,
+        "draw": 25,
+        "away": 46
       },
       "keyPlayers": {
         "sourceId": "key-player-baseline-2026-06-17",
@@ -8518,12 +8543,12 @@
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/174/161/Spain_vs_Saudi_Arabia.html"
       },
       "projection": {
-        "sourceId": "market-odds-spain-saudi-arabia-2026-06-21",
-        "method": "market-implied-consensus",
-        "basis": "Prediction-market aggregate of Spain, draw, and Saudi Arabia regulation outcomes checked on June 19, 2026",
-        "home": 88,
-        "draw": 8,
-        "away": 4
+        "sourceId": "ranking-projection-2026-06-17",
+        "method": "fifa-ranking-baseline",
+        "basis": "FIFA ranking strength with host-country adjustment",
+        "home": 68,
+        "draw": 20,
+        "away": 12
       },
       "keyPlayers": {
         "sourceId": "key-player-baseline-2026-06-17",
@@ -8719,12 +8744,12 @@
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/20/88/Belgium_vs_Iran.html"
       },
       "projection": {
-        "sourceId": "market-odds-belgium-ir-iran-2026-06-21",
-        "method": "market-implied-consensus",
-        "basis": "No-vig average of public 90-minute moneyline odds from Oddschecker and DraftKings Network checked on June 19, 2026",
-        "home": 68,
-        "draw": 20,
-        "away": 12
+        "sourceId": "ranking-projection-2026-06-17",
+        "method": "fifa-ranking-baseline",
+        "basis": "FIFA ranking strength with host-country adjustment",
+        "home": 44,
+        "draw": 27,
+        "away": 29
       },
       "keyPlayers": {
         "sourceId": "key-player-baseline-2026-06-22",
@@ -8909,12 +8934,12 @@
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/198/37/Uruguay_vs_Cape_Verde.html"
       },
       "projection": {
-        "sourceId": "market-odds-uruguay-cabo-verde-2026-06-21",
-        "method": "market-implied-consensus",
-        "basis": "No-vig average of public 90-minute moneyline odds from Oddschecker and FanDuel/SportsLine checked on June 19, 2026",
-        "home": 65,
-        "draw": 22,
-        "away": 13
+        "sourceId": "ranking-projection-2026-06-17",
+        "method": "fifa-ranking-baseline",
+        "basis": "FIFA ranking strength with host-country adjustment",
+        "home": 53,
+        "draw": 21,
+        "away": 26
       },
       "keyPlayers": {
         "sourceId": "key-player-baseline-2026-06-17",
@@ -9145,12 +9170,12 @@
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/132/57/New_Zealand_vs_Egypt.html"
       },
       "projection": {
-        "sourceId": "market-odds-new-zealand-egypt-2026-06-21",
-        "method": "market-implied-consensus",
-        "basis": "No-vig average of published operator 90-minute moneyline odds from SheKicks/JuveFC checked on June 19, 2026",
-        "home": 17,
-        "draw": 23,
-        "away": 60
+        "sourceId": "ranking-projection-2026-06-17",
+        "method": "fifa-ranking-baseline",
+        "basis": "FIFA ranking strength with host-country adjustment",
+        "home": 29,
+        "draw": 20,
+        "away": 51
       },
       "keyPlayers": {
         "sourceId": "key-player-baseline-2026-06-22",
@@ -9418,12 +9443,12 @@
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/9/13/Argentina_vs_Austria.html"
       },
       "projection": {
-        "sourceId": "market-odds-argentina-austria-2026-06-22",
-        "method": "market-implied-consensus",
-        "basis": "No-vig blend of public 90-minute moneyline odds from FanDuel and Kalshi event probabilities checked on June 19, 2026",
-        "home": 61,
-        "draw": 24,
-        "away": 15
+        "sourceId": "ranking-projection-2026-06-17",
+        "method": "fifa-ranking-baseline",
+        "basis": "FIFA ranking strength with host-country adjustment",
+        "home": 62,
+        "draw": 25,
+        "away": 13
       },
       "keyPlayers": {
         "sourceId": "key-player-baseline-2026-06-17",
@@ -9642,12 +9667,12 @@
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/67/89/France_vs_Iraq.html"
       },
       "projection": {
-        "sourceId": "market-odds-france-iraq-2026-06-22",
-        "method": "market-implied-consensus",
-        "basis": "No-vig average of public 90-minute moneyline odds from Oddschecker and DraftKings Network checked on June 19, 2026",
-        "home": 88,
-        "draw": 9,
-        "away": 3
+        "sourceId": "ranking-projection-2026-06-17",
+        "method": "fifa-ranking-baseline",
+        "basis": "FIFA ranking strength with host-country adjustment",
+        "home": 65,
+        "draw": 20,
+        "away": 15
       },
       "keyPlayers": {
         "sourceId": "key-player-baseline-2026-06-22",
@@ -9822,12 +9847,12 @@
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/138/163/Norway_vs_Senegal.html"
       },
       "projection": {
-        "sourceId": "market-odds-norway-senegal-2026-06-22",
-        "method": "market-implied-consensus",
-        "basis": "No-vig public 90-minute moneyline estimate from Oddschecker checked on June 19, 2026",
-        "home": 46,
-        "draw": 27,
-        "away": 27
+        "sourceId": "ranking-projection-2026-06-17",
+        "method": "fifa-ranking-baseline",
+        "basis": "FIFA ranking strength with host-country adjustment",
+        "home": 30,
+        "draw": 26,
+        "away": 44
       },
       "keyPlayers": {
         "sourceId": "matchup-research-2026-06-23",
@@ -10038,12 +10063,12 @@
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/95/3/Jordan_vs_Algeria.html"
       },
       "projection": {
-        "sourceId": "market-odds-jordan-algeria-2026-06-22",
-        "method": "market-implied-consensus",
-        "basis": "Prediction-market regulation probabilities from Kalshi checked on June 19, 2026",
-        "home": 16,
+        "sourceId": "ranking-projection-2026-06-17",
+        "method": "fifa-ranking-baseline",
+        "basis": "FIFA ranking strength with host-country adjustment",
+        "home": 31,
         "draw": 23,
-        "away": 61
+        "away": 46
       },
       "keyPlayers": {
         "sourceId": "matchup-research-2026-06-23",
@@ -10247,12 +10272,12 @@
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/148/201/Portugal_vs_Uzbekistan.html"
       },
       "projection": {
-        "sourceId": "market-odds-portugal-uzbekistan-2026-06-23",
-        "method": "market-implied-consensus",
-        "basis": "No-vig three-way moneyline from Oddschecker (-450/+600/+1500), cross-checked against Kalshi's Portugal/Tie/Uzbekistan market.",
-        "home": 80,
-        "draw": 14,
-        "away": 6
+        "sourceId": "ranking-projection-2026-06-17",
+        "method": "fifa-ranking-baseline",
+        "basis": "FIFA ranking strength with host-country adjustment",
+        "home": 59,
+        "draw": 22,
+        "away": 19
       },
       "keyPlayers": {
         "sourceId": "matchup-research-2026-06-23",
@@ -10474,12 +10499,12 @@
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/59/72/England_vs_Ghana.html"
       },
       "projection": {
-        "sourceId": "market-odds-england-ghana-2026-06-23",
-        "method": "market-implied-consensus",
-        "basis": "No-vig three-way moneyline from Oddschecker (-450/+550/+1300), with Kalshi's England/Tie/Ghana market showing a similar split.",
-        "home": 78,
-        "draw": 15,
-        "away": 7
+        "sourceId": "ranking-projection-2026-06-17",
+        "method": "fifa-ranking-baseline",
+        "basis": "FIFA ranking strength with host-country adjustment",
+        "home": 66,
+        "draw": 19,
+        "away": 15
       },
       "keyPlayers": {
         "sourceId": "matchup-research-2026-06-23",
@@ -10659,12 +10684,12 @@
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/142/47/Panama_vs_Croatia.html"
       },
       "projection": {
-        "sourceId": "market-odds-panama-croatia-2026-06-23",
-        "method": "market-implied-consensus",
-        "basis": "No-vig three-way moneyline from Oddschecker (+600/+310/-185), normalized to remove sportsbook margin.",
-        "home": 14,
-        "draw": 23,
-        "away": 63
+        "sourceId": "ranking-projection-2026-06-17",
+        "method": "fifa-ranking-baseline",
+        "basis": "FIFA ranking strength with host-country adjustment",
+        "home": 27,
+        "draw": 25,
+        "away": 48
       },
       "keyPlayers": {
         "sourceId": "matchup-research-2026-06-23",
@@ -10850,12 +10875,12 @@
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/43/55/Colombia_vs_Dr_Congo.html"
       },
       "projection": {
-        "sourceId": "market-odds-colombia-dr-congo-2026-06-23",
-        "method": "market-implied-consensus",
-        "basis": "No-vig three-way moneyline from Oddschecker (-200/+330/+650), cross-checked against FanDuel and FOX Sports Colombia pricing.",
-        "home": 65,
-        "draw": 22,
-        "away": 13
+        "sourceId": "ranking-projection-2026-06-17",
+        "method": "fifa-ranking-baseline",
+        "basis": "FIFA ranking strength with host-country adjustment",
+        "home": 50,
+        "draw": 24,
+        "away": 26
       },
       "keyPlayers": {
         "sourceId": "matchup-research-2026-06-23",
@@ -11053,12 +11078,12 @@
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/180/36/Switzerland_vs_Canada.html"
       },
       "projection": {
-        "sourceId": "market-odds-switzerland-canada-2026-06-24",
-        "method": "market-implied-consensus",
-        "basis": "No-vig three-way moneyline from Oddschecker (+145/+215/+225), normalized to remove sportsbook margin.",
-        "home": 39,
-        "draw": 31,
-        "away": 30
+        "sourceId": "ranking-projection-2026-06-17",
+        "method": "fifa-ranking-baseline",
+        "basis": "FIFA ranking strength with host-country adjustment",
+        "home": 36,
+        "draw": 27,
+        "away": 37
       },
       "keyPlayers": {
         "sourceId": "matchup-research-2026-06-23",
@@ -11288,12 +11313,12 @@
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/26/150/Bosnia_Herzegovina_vs_Qatar.html"
       },
       "projection": {
-        "sourceId": "market-odds-bosnia-qatar-2026-06-24",
-        "method": "market-implied-consensus",
-        "basis": "No-vig three-way moneyline from Oddschecker (-220/+400/+650), with FanDuel also pricing Bosnia as the clear favorite.",
-        "home": 67,
-        "draw": 20,
-        "away": 13
+        "sourceId": "ranking-projection-2026-06-17",
+        "method": "fifa-ranking-baseline",
+        "basis": "FIFA ranking strength with host-country adjustment",
+        "home": 35,
+        "draw": 28,
+        "away": 37
       },
       "keyPlayers": {
         "sourceId": "matchup-research-2026-06-23",
@@ -11562,12 +11587,12 @@
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/162/28/Scotland_vs_Brazil.html"
       },
       "projection": {
-        "sourceId": "market-odds-scotland-brazil-2026-06-24",
-        "method": "market-implied-consensus",
-        "basis": "No-vig three-way moneyline from Oddschecker (+650/+410/-225), cross-checked against FanDuel's Brazil-favored market.",
-        "home": 13,
-        "draw": 19,
-        "away": 68
+        "sourceId": "ranking-projection-2026-06-17",
+        "method": "fifa-ranking-baseline",
+        "basis": "FIFA ranking strength with host-country adjustment",
+        "home": 21,
+        "draw": 23,
+        "away": 56
       },
       "keyPlayers": {
         "sourceId": "matchup-research-2026-06-23",
@@ -11776,12 +11801,12 @@
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/125/81/Morocco_vs_Haiti.html"
       },
       "projection": {
-        "sourceId": "market-odds-morocco-haiti-2026-06-24",
-        "method": "market-implied-consensus",
-        "basis": "No-vig three-way moneyline from Oddschecker (-370/+500/+1000), cross-checked against Sports Interaction's Morocco-favored line.",
-        "home": 75,
-        "draw": 16,
-        "away": 9
+        "sourceId": "ranking-projection-2026-06-17",
+        "method": "fifa-ranking-baseline",
+        "basis": "FIFA ranking strength with host-country adjustment",
+        "home": 63,
+        "draw": 19,
+        "away": 18
       },
       "keyPlayers": {
         "sourceId": "matchup-research-2026-06-23",
@@ -12016,12 +12041,12 @@
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/50/121/Czechia_vs_Mexico.html"
       },
       "projection": {
-        "sourceId": "market-odds-czechia-mexico-2026-06-24",
-        "method": "market-implied-consensus",
-        "basis": "No-vig three-way moneyline from Oddschecker (+240/+270/+115), cross-checked against DraftKings Network opening odds.",
-        "home": 29,
-        "draw": 26,
-        "away": 45
+        "sourceId": "ranking-projection-2026-06-17",
+        "method": "fifa-ranking-baseline",
+        "basis": "FIFA ranking strength with host-country adjustment",
+        "home": 23,
+        "draw": 25,
+        "away": 52
       },
       "keyPlayers": {
         "sourceId": "matchup-research-2026-06-23",
@@ -12217,12 +12242,12 @@
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/172/173/South_Africa_vs_South_Korea.html"
       },
       "projection": {
-        "sourceId": "market-odds-south-africa-south-korea-2026-06-24",
-        "method": "market-implied-consensus",
-        "basis": "No-vig three-way moneyline from Oddschecker (+500/+300/-152), normalized to remove sportsbook margin.",
-        "home": 16,
-        "draw": 25,
-        "away": 59
+        "sourceId": "ranking-projection-2026-06-17",
+        "method": "fifa-ranking-baseline",
+        "basis": "FIFA ranking strength with host-country adjustment",
+        "home": 30,
+        "draw": 23,
+        "away": 47
       },
       "keyPlayers": {
         "sourceId": "matchup-research-2026-06-23",
@@ -12423,12 +12448,12 @@
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/56/71/Ecuador_vs_Germany.html"
       },
       "projection": {
-        "sourceId": "market-odds-ecuador-germany-2026-06-25",
-        "method": "market-implied-consensus",
-        "basis": "No-vig three-way moneyline from Oddschecker (+410/+300/-145), cross-checked against Action Network's Germany-favored pricing.",
-        "home": 19,
-        "draw": 24,
-        "away": 57
+        "sourceId": "ranking-projection-2026-06-17",
+        "method": "fifa-ranking-baseline",
+        "basis": "FIFA ranking strength with host-country adjustment",
+        "home": 29,
+        "draw": 27,
+        "away": 44
       },
       "keyPlayers": {
         "sourceId": "key-player-baseline-2026-06-17",
@@ -12638,12 +12663,12 @@
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/280/209/Curacao_vs_Ivory_Coast.html"
       },
       "projection": {
-        "sourceId": "market-odds-curacao-cote-divoire-2026-06-25",
-        "method": "market-implied-consensus",
-        "basis": "No-vig three-way moneyline from Oddschecker (+1800/+800/-700), normalized to remove sportsbook margin.",
-        "home": 5,
-        "draw": 11,
-        "away": 84
+        "sourceId": "ranking-projection-2026-06-17",
+        "method": "fifa-ranking-baseline",
+        "basis": "FIFA ranking strength with host-country adjustment",
+        "home": 31,
+        "draw": 21,
+        "away": 48
       },
       "keyPlayers": {
         "sourceId": "key-player-baseline-2026-06-17",
@@ -12881,12 +12906,12 @@
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/94/179/Japan_vs_Sweden.html"
       },
       "projection": {
-        "sourceId": "market-odds-japan-sweden-2026-06-25",
-        "method": "market-implied-consensus",
-        "basis": "No-vig three-way moneyline from Oddschecker (+120/+250/+240), normalized to remove sportsbook margin.",
+        "sourceId": "ranking-projection-2026-06-17",
+        "method": "fifa-ranking-baseline",
+        "basis": "FIFA ranking strength with host-country adjustment",
         "home": 44,
-        "draw": 28,
-        "away": 28
+        "draw": 26,
+        "away": 30
       },
       "keyPlayers": {
         "sourceId": "key-player-baseline-2026-06-17",
@@ -13106,12 +13131,12 @@
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/190/129/Tunisia_vs_Netherlands.html"
       },
       "projection": {
-        "sourceId": "market-odds-tunisia-netherlands-2026-06-25",
-        "method": "market-implied-consensus",
-        "basis": "No-vig three-way moneyline from Oddschecker (+950/+450/-300), normalized to remove sportsbook margin.",
-        "home": 9,
-        "draw": 18,
-        "away": 73
+        "sourceId": "ranking-projection-2026-06-17",
+        "method": "fifa-ranking-baseline",
+        "basis": "FIFA ranking strength with host-country adjustment",
+        "home": 23,
+        "draw": 23,
+        "away": 54
       },
       "keyPlayers": {
         "sourceId": "key-player-baseline-2026-06-17",
@@ -13350,12 +13375,12 @@
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/192/200/Turkey_vs_Usa.html"
       },
       "projection": {
-        "sourceId": "market-odds-turkiye-united-states-2026-06-25",
-        "method": "market-implied-consensus",
-        "basis": "No-vig three-way moneyline from Oddschecker (+180/+290/+140), cross-checked against FanDuel's close USA-Turkiye market.",
-        "home": 35,
-        "draw": 25,
-        "away": 40
+        "sourceId": "ranking-projection-2026-06-17",
+        "method": "fifa-ranking-baseline",
+        "basis": "FIFA ranking strength with host-country adjustment",
+        "home": 29,
+        "draw": 28,
+        "away": 43
       },
       "keyPlayers": {
         "sourceId": "key-player-baseline-2026-06-17",
@@ -13606,12 +13631,12 @@
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/144/12/Paraguay_vs_Australia.html"
       },
       "projection": {
-        "sourceId": "market-odds-paraguay-australia-2026-06-25",
-        "method": "market-implied-consensus",
-        "basis": "No-vig three-way moneyline from Oddschecker (+120/+240/+255), cross-checked against FanDuel's Paraguay-Australia market.",
-        "home": 44,
-        "draw": 29,
-        "away": 27
+        "sourceId": "ranking-projection-2026-06-17",
+        "method": "fifa-ranking-baseline",
+        "basis": "FIFA ranking strength with host-country adjustment",
+        "home": 33,
+        "draw": 27,
+        "away": 40
       },
       "keyPlayers": {
         "sourceId": "key-player-baseline-2026-06-17",
@@ -13909,12 +13934,12 @@
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/138/67/Norway_vs_France.html"
       },
       "projection": {
-        "sourceId": "market-odds-norway-france-2026-06-26",
-        "method": "market-implied-consensus",
-        "basis": "No-vig three-way moneyline from Oddschecker (+350/+290/-125), normalized to remove sportsbook margin.",
-        "home": 21,
+        "sourceId": "ranking-projection-2026-06-17",
+        "method": "fifa-ranking-baseline",
+        "basis": "FIFA ranking strength with host-country adjustment",
+        "home": 18,
         "draw": 25,
-        "away": 54
+        "away": 57
       },
       "keyPlayers": {
         "sourceId": "key-player-baseline-2026-06-22",
@@ -14122,12 +14147,12 @@
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/163/89/Senegal_vs_Iraq.html"
       },
       "projection": {
-        "sourceId": "market-odds-senegal-iraq-2026-06-26",
-        "method": "market-implied-consensus",
-        "basis": "No-vig three-way moneyline from Oddschecker (-330/+450/+1000), cross-checked against FanDuel's Senegal-favored market.",
-        "home": 74,
-        "draw": 17,
-        "away": 9
+        "sourceId": "ranking-projection-2026-06-17",
+        "method": "fifa-ranking-baseline",
+        "basis": "FIFA ranking strength with host-country adjustment",
+        "home": 52,
+        "draw": 22,
+        "away": 26
       },
       "keyPlayers": {
         "sourceId": "key-player-baseline-2026-06-17",
@@ -14351,12 +14376,12 @@
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/37/161/Cape_Verde_vs_Saudi_Arabia.html"
       },
       "projection": {
-        "sourceId": "market-odds-cabo-verde-saudi-arabia-2026-06-26",
-        "method": "market-implied-consensus",
-        "basis": "No-vig three-way moneyline from Oddschecker (+180/+275/+148), normalized to remove sportsbook margin.",
+        "sourceId": "ranking-projection-2026-06-17",
+        "method": "fifa-ranking-baseline",
+        "basis": "FIFA ranking strength with host-country adjustment",
         "home": 35,
-        "draw": 26,
-        "away": 39
+        "draw": 28,
+        "away": 37
       },
       "keyPlayers": {
         "sourceId": "key-player-baseline-2026-06-17",
@@ -14618,12 +14643,12 @@
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/198/174/Uruguay_vs_Spain.html"
       },
       "projection": {
-        "sourceId": "market-odds-uruguay-spain-2026-06-26",
-        "method": "market-implied-consensus",
-        "basis": "No-vig three-way moneyline from Oddschecker (+525/+350/-165), normalized to remove sportsbook margin.",
-        "home": 16,
-        "draw": 22,
-        "away": 62
+        "sourceId": "ranking-projection-2026-06-17",
+        "method": "fifa-ranking-baseline",
+        "basis": "FIFA ranking strength with host-country adjustment",
+        "home": 19,
+        "draw": 27,
+        "away": 54
       },
       "keyPlayers": {
         "sourceId": "key-player-baseline-2026-06-17",
@@ -14832,12 +14857,12 @@
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/57/88/Egypt_vs_Iran.html"
       },
       "projection": {
-        "sourceId": "market-odds-egypt-ir-iran-2026-06-26",
-        "method": "market-implied-consensus",
-        "basis": "No-vig three-way moneyline from Oddschecker (+110/+230/+300), cross-checked against FanDuel's Egypt-Iran market.",
-        "home": 46,
-        "draw": 30,
-        "away": 24
+        "sourceId": "ranking-projection-2026-06-17",
+        "method": "fifa-ranking-baseline",
+        "basis": "FIFA ranking strength with host-country adjustment",
+        "home": 33,
+        "draw": 28,
+        "away": 39
       },
       "keyPlayers": {
         "sourceId": "key-player-baseline-2026-06-22",
@@ -15047,12 +15072,12 @@
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/132/20/New_Zealand_vs_Belgium.html"
       },
       "projection": {
-        "sourceId": "market-odds-new-zealand-belgium-2026-06-26",
-        "method": "market-implied-consensus",
-        "basis": "No-vig three-way moneyline from Oddschecker (+1200/+550/-425), normalized to remove sportsbook margin.",
-        "home": 7,
-        "draw": 15,
-        "away": 78
+        "sourceId": "ranking-projection-2026-06-17",
+        "method": "fifa-ranking-baseline",
+        "basis": "FIFA ranking strength with host-country adjustment",
+        "home": 20,
+        "draw": 19,
+        "away": 61
       },
       "keyPlayers": {
         "sourceId": "key-player-baseline-2026-06-17",
@@ -15272,12 +15297,12 @@
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/142/59/Panama_vs_England.html"
       },
       "projection": {
-        "sourceId": "market-odds-panama-england-2026-06-27",
-        "method": "market-implied-consensus",
-        "basis": "No-vig three-way moneyline from Oddschecker (+950/+600/-400), normalized to remove sportsbook margin.",
-        "home": 9,
-        "draw": 14,
-        "away": 77
+        "sourceId": "ranking-projection-2026-06-17",
+        "method": "fifa-ranking-baseline",
+        "basis": "FIFA ranking strength with host-country adjustment",
+        "home": 19,
+        "draw": 24,
+        "away": 57
       },
       "keyPlayers": {
         "sourceId": "key-player-baseline-2026-06-17",
@@ -15474,12 +15499,12 @@
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/47/72/Croatia_vs_Ghana.html"
       },
       "projection": {
-        "sourceId": "market-odds-croatia-ghana-2026-06-27",
-        "method": "market-implied-consensus",
-        "basis": "No-vig three-way moneyline from Oddschecker (-160/+310/+500), cross-checked against FanDuel's Croatia-Ghana market.",
-        "home": 60,
-        "draw": 24,
-        "away": 16
+        "sourceId": "ranking-projection-2026-06-17",
+        "method": "fifa-ranking-baseline",
+        "basis": "FIFA ranking strength with host-country adjustment",
+        "home": 58,
+        "draw": 19,
+        "away": 23
       },
       "keyPlayers": {
         "sourceId": "key-player-baseline-2026-06-17",
@@ -15670,12 +15695,12 @@
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/43/148/Colombia_vs_Portugal.html"
       },
       "projection": {
-        "sourceId": "market-odds-colombia-portugal-2026-06-27",
-        "method": "market-implied-consensus",
-        "basis": "No-vig three-way moneyline from Oddschecker (+265/+250/+110), normalized to remove sportsbook margin.",
-        "home": 26,
+        "sourceId": "ranking-projection-2026-06-17",
+        "method": "fifa-ranking-baseline",
+        "basis": "FIFA ranking strength with host-country adjustment",
+        "home": 28,
         "draw": 28,
-        "away": 46
+        "away": 44
       },
       "keyPlayers": {
         "sourceId": "key-player-baseline-2026-06-17",
@@ -15847,12 +15872,12 @@
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/55/201/Dr_Congo_vs_Uzbekistan.html"
       },
       "projection": {
-        "sourceId": "market-odds-dr-congo-uzbekistan-2026-06-27",
-        "method": "market-implied-consensus",
-        "basis": "No-vig three-way moneyline from Oddschecker (+110/+270/+240), cross-checked against FanDuel's DR Congo-Uzbekistan market.",
-        "home": 46,
-        "draw": 26,
-        "away": 28
+        "sourceId": "ranking-projection-2026-06-17",
+        "method": "fifa-ranking-baseline",
+        "basis": "FIFA ranking strength with host-country adjustment",
+        "home": 37,
+        "draw": 28,
+        "away": 35
       },
       "keyPlayers": {
         "sourceId": "key-player-baseline-2026-06-17",
@@ -16083,12 +16108,12 @@
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/3/13/Algeria_vs_Austria.html"
       },
       "projection": {
-        "sourceId": "market-odds-algeria-austria-2026-06-27",
-        "method": "market-implied-consensus",
-        "basis": "No-vig three-way moneyline from Oddschecker (+215/+210/+155), cross-checked against FanDuel and Paddy Power pricing.",
-        "home": 31,
-        "draw": 31,
-        "away": 38
+        "sourceId": "ranking-projection-2026-06-17",
+        "method": "fifa-ranking-baseline",
+        "basis": "FIFA ranking strength with host-country adjustment",
+        "home": 35,
+        "draw": 28,
+        "away": 37
       },
       "keyPlayers": {
         "sourceId": "key-player-baseline-2026-06-22",
@@ -16288,12 +16313,12 @@
         "sourceUrl": "https://www.national-football-teams.com/encounter/teams/95/9/Jordan_vs_Argentina.html"
       },
       "projection": {
-        "sourceId": "market-odds-jordan-argentina-2026-06-27",
-        "method": "market-implied-consensus",
-        "basis": "No-vig three-way moneyline from Oddschecker (+1400/+650/-525), normalized to remove sportsbook margin.",
-        "home": 6,
-        "draw": 13,
-        "away": 81
+        "sourceId": "ranking-projection-2026-06-17",
+        "method": "fifa-ranking-baseline",
+        "basis": "FIFA ranking strength with host-country adjustment",
+        "home": 9,
+        "draw": 19,
+        "away": 72
       },
       "keyPlayers": {
         "sourceId": "key-player-baseline-2026-06-17",
@@ -16749,8 +16774,8 @@
         "sourceId": "ranking-projection-2026-06-17",
         "method": "fifa-ranking-baseline",
         "basis": "FIFA ranking strength with host-country adjustment",
-        "home": 50,
-        "draw": 25,
+        "home": 51,
+        "draw": 24,
         "away": 25
       },
       "keyInformation": {
@@ -17773,9 +17798,9 @@
         "sourceId": "ranking-projection-2026-06-17",
         "method": "fifa-ranking-baseline",
         "basis": "FIFA ranking strength with host-country adjustment",
-        "home": 61,
+        "home": 60,
         "draw": 23,
-        "away": 16
+        "away": 17
       },
       "keyInformation": {
         "sourceId": "editorial-preview-2026-06-22",
@@ -19059,9 +19084,9 @@
         "sourceId": "ranking-projection-2026-06-17",
         "method": "fifa-ranking-baseline",
         "basis": "FIFA ranking strength with host-country adjustment",
-        "home": 47,
-        "draw": 26,
-        "away": 27
+        "home": 41,
+        "draw": 28,
+        "away": 31
       },
       "keyInformation": {
         "sourceId": "editorial-preview-2026-06-22",
@@ -19745,9 +19770,9 @@
         "sourceId": "ranking-projection-2026-06-17",
         "method": "fifa-ranking-baseline",
         "basis": "FIFA ranking strength with host-country adjustment",
-        "home": 34,
+        "home": 39,
         "draw": 28,
-        "away": 38
+        "away": 33
       },
       "keyInformation": {
         "sourceId": "editorial-preview-2026-06-22",
@@ -20266,13 +20291,26 @@
         "Paraguay had several clear spells but did not make enough punishment count.",
         "France held firm after the lead and advanced with a narrow 1-0 quarter-final win."
       ],
+      "resultStoryBulletsZh": [
+        "姆巴佩在第70分钟点球中打进比赛唯一一球。",
+        "巴拉圭一度有过数次漂亮机会，但射门次数和威胁度都不足以改变比赛走向。",
+        "法国在领先后稳定守住，最终以1比0小胜晋级四分之一决赛。"
+      ],
       "goalsAway": [
         {
           "minute": 70,
           "name": "Kylian Mbappé",
           "penalty": true
         }
-      ]
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=2ANrnnZEE6c",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-07-04T19:24:22-07:00",
+        "checkedAt": "2026-07-04T19:24:22-07:00"
+      }
     },
     {
       "id": "match-90-round-of-16-2026-07-04",
@@ -20377,9 +20415,9 @@
         "sourceId": "ranking-projection-2026-06-17",
         "method": "fifa-ranking-baseline",
         "basis": "FIFA ranking strength with host-country adjustment",
-        "home": 35,
-        "draw": 28,
-        "away": 37
+        "home": 29,
+        "draw": 25,
+        "away": 46
       },
       "keyInformation": {
         "sourceId": "editorial-preview-2026-06-22",
@@ -20394,6 +20432,11 @@
         "Azzedine Ounahi opened the scoring for Morocco in the 50th minute.",
         "He doubled Morocco's lead at 82', then Soufiane Rahimi sealed it at 90+8'.",
         "Canada could not respond and Morocco moved on as 3-0 winners."
+      ],
+      "resultStoryBulletsZh": [
+        "奥纳希在第50分钟为摩洛哥首开纪录。",
+        "他在第82分钟再下一城，随后苏菲安·拉希米在90+8分钟再入一球，完成收官。",
+        "加拿大始终未能有效反击，摩洛哥以3比0晋级。"
       ],
       "goalsAway": [
         {
@@ -21337,18 +21380,129 @@
       "kickoffUtc": "2026-07-09T20:00:00Z",
       "homeSlot": "Winner match 89",
       "awaySlot": "Winner match 90",
+      "homeTeamId": "FRA",
+      "awayTeamId": "MAR",
       "venue": "Boston Stadium",
       "status": "SCHEDULED",
       "h2h": {
-        "status": "not-loaded",
-        "summary": "Teams are not known yet. Past match research will load after the matchup is set.",
-        "results": null
+        "status": "loaded",
+        "sourceId": "national-football-teams-h2h-sync-2026-07-05",
+        "summary": "Before this fixture, France had the edge in the verified senior series: 4 France wins, 2 draws, 0 Morocco wins, 20 total goals.",
+        "results": [
+          {
+            "date": "2022-12-14",
+            "competition": "World Cup 2022 - Semi Finals",
+            "homeTeamId": "FRA",
+            "awayTeamId": "MAR",
+            "homeScore": 2,
+            "awayScore": 0,
+            "venue": "Al-Bayt Stadium",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/35884/France_Morocco.html"
+          },
+          {
+            "date": "2007-11-16",
+            "competition": "Friendly",
+            "homeTeamId": "FRA",
+            "awayTeamId": "MAR",
+            "homeScore": 2,
+            "awayScore": 2,
+            "venue": "Stade de France",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/12948/France_Morocco.html"
+          },
+          {
+            "date": "2000-06-06",
+            "competition": "Friendly",
+            "homeTeamId": "MAR",
+            "awayTeamId": "FRA",
+            "homeScore": 1,
+            "awayScore": 5,
+            "venue": "Stade Mohamed V",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/22179/Morocco_France.html"
+          },
+          {
+            "date": "1999-01-20",
+            "competition": "Friendly",
+            "homeTeamId": "FRA",
+            "awayTeamId": "MAR",
+            "homeScore": 1,
+            "awayScore": 0,
+            "venue": "Stade Vélodrome",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/23462/France_Morocco.html"
+          },
+          {
+            "date": "1998-05-29",
+            "competition": "Friendly",
+            "homeTeamId": "MAR",
+            "awayTeamId": "FRA",
+            "homeScore": 2,
+            "awayScore": 2,
+            "venue": "Stade Mohamed V",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/24963/Morocco_France.html"
+          },
+          {
+            "date": "1988-02-05",
+            "competition": "Friendly",
+            "homeTeamId": "FRA",
+            "awayTeamId": "MAR",
+            "homeScore": 2,
+            "awayScore": 1,
+            "venue": "Stade Louis II",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/33078/France_Morocco.html"
+          }
+        ],
+        "sourceUrl": "https://www.national-football-teams.com/encounter/teams/67/125/France_vs_Morocco.html"
       },
       "providerIds": {
         "fifa": {
           "matchId": "400021536",
           "matchNumber": 97
         }
+      },
+      "keyPlayers": {
+        "sourceId": "key-player-baseline-2026-06-22",
+        "method": "team-watchlist-baseline",
+        "basis": "Team-level key-player watchlist; replace with API/squad-sourced fixture notes when available",
+        "home": [
+          {
+            "name": "Kylian Mbappe",
+            "note": "France's game-breaking runner and finisher, the player who turns one channel ball into panic."
+          },
+          {
+            "name": "Michael Olise",
+            "note": "The current creative hinge, dangerous as a passer, dribbler, or left-footed shooter between defenders."
+          },
+          {
+            "name": "William Saliba",
+            "note": "The defensive stabilizer, calm enough to defend space while France's athletes surge forward."
+          }
+        ],
+        "away": [
+          {
+            "name": "Achraf Hakimi",
+            "note": "A two-way right-side force whose overlaps, recovery speed, and set pieces shape Morocco's best stretches."
+          },
+          {
+            "name": "Brahim Diaz",
+            "note": "The between-lines creator who can receive under pressure and turn Hakimi support into final-third chances."
+          },
+          {
+            "name": "Ayoub El Kaabi",
+            "note": "The box finisher who gives Morocco a direct endpoint when wide pressure turns into service."
+          }
+        ]
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-22",
+        "home": "France are an elite attacking side with Mbappe's speed now fed by Olise's left-footed creation, led by Kylian Mbappe, Michael Olise, and William Saliba. Against Morocco, their Olise-to-Mbappe chance creation has to beat Morocco's Hakimi-Brahim right-side surges. They want to let Olise receive inside, draw pressure, and release Mbappe before the defense can reset. The risk is Morocco can combine Hakimi surges, Brahim's invention, and El Kaabi's box movement.",
+        "away": "Morocco are a disciplined, dangerous side whose structure lets their flair players attack with freedom, led by Achraf Hakimi, Brahim Diaz, and Ayoub El Kaabi. Against France, their Hakimi-Brahim right-side surges has to beat France's Olise-to-Mbappe chance creation. They want to use Hakimi's overlaps to tilt the field before Brahim or El Kaabi attacks the final pass or shot. The risk is France can combine Olise's final ball with Mbappe's acceleration before Saliba controls the counter."
+      },
+      "projection": {
+        "sourceId": "ranking-projection-2026-06-17",
+        "method": "fifa-ranking-baseline",
+        "basis": "FIFA ranking strength with host-country adjustment",
+        "home": 44,
+        "draw": 28,
+        "away": 28
       }
     },
     {

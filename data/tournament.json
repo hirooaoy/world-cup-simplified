@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-04T04:25:09.795Z",
+  "updatedAt": "2026-07-05T02:23:29.567Z",
   "coverageNote": "The current seed dataset covers the full official fixture skeleton from June 11 through July 19. Rich previews, scores, live status and knockout participants are updated progressively.",
   "catchUp": [
     {
@@ -1182,6 +1182,22 @@
       "type": "official",
       "checkedAt": "2026-07-04T04:25:09.795Z",
       "note": "2 fixture goal-event updates merged from 81 matched FIFA timelines."
+    },
+    {
+      "id": "fifa-lineups-sync-2026-07-05",
+      "label": "FIFA official final lineups sync",
+      "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/match-schedule-fixtures-results-teams-stadiums",
+      "type": "official",
+      "checkedAt": "2026-07-05T02:23:29.567Z",
+      "note": "90 completed FIFA team sheets checked; lineups.json carries official starters, bench, cards, and substitutions for 90 completed fixtures; 2 changed on this pass."
+    },
+    {
+      "id": "national-football-teams-h2h-sync-2026-07-05",
+      "label": "National Football Teams H2H sync",
+      "url": "https://www.national-football-teams.com",
+      "type": "cross-check",
+      "checkedAt": "2026-07-05T02:23:59.204Z",
+      "note": "1 fixture H2H update merged from National Football Teams encounter pages."
     }
   ],
   "groups": [

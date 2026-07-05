@@ -147,7 +147,11 @@ const UI_TEXT = {
 const ZH_EXACT_TRANSLATIONS = new Map(
   Object.entries({
     "After extra time": "加时后",
+    "Azzedine Ounahi opened the scoring for Morocco in the 50th minute.":
+      "奥纳希在第50分钟为摩洛哥先拔头筹。",
     "archive": "存档",
+    "He doubled Morocco's lead at 82', then Soufiane Rahimi sealed it at 90+8'.":
+      "他在第82分钟将摩洛哥的优势扩大到2球，苏菲安·拉希米随后在90+8分钟再下一城。",
     "As it stands": "当前形势",
     "A compact Egyptian defensive shape in the late phase absorbed Australia's final pressure and kept the match balanced into the post-timeframe conclusion.": "埃及在后段的紧凑防守吸收了澳大利亚最后一波压力，使比赛一直在点球阶段前保持平衡。",
     "Best third-place race": "最佳第三名竞争",
@@ -175,6 +179,8 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "Australia were dangerous on transition, but Egypt kept the knockout tie controlled and composed through long quiet passages before the penalty stage.": "澳大利亚在反击中屡有威胁，但埃及在漫长的宁静阶段始终保持比赛控制和沉着，直至点球阶段。",
     "Austria": "奥地利",
     "Belgium": "比利时",
+    "France held firm after the lead and advanced with a narrow 1-0 quarter-final win.":
+      "法国在领先后守住阵脚，凭借1比0小胜挺进后续淘汰赛。",
     "Bosnia and Herzegovina": "波斯尼亚和黑塞哥维那",
     "Brazil": "巴西",
     "Cabo Verde": "佛得角",
@@ -225,6 +231,8 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "Full time": "全场结束",
     "aet": "加时后",
     "Breel Embolo opened the scoring for Switzerland on 10'.": "布里尔·恩博洛在第10分钟先入一球，开启瑞士进球。",
+    "Kylian Mbappé scored the match's only goal on a 70th-minute penalty.":
+      "姆巴佩在第70分钟点球中打进比赛唯一一球。",
     "Croatia took the lead through Ivan Perišić at 53'.": "克罗地亚在53分钟由伊万·佩里西奇先拔头筹。",
     "Cristiano Ronaldo leveled from the spot in the 68th minute to restore Portugal's edge.": "克里斯蒂亚诺·罗纳尔多在第68分钟点球扳平，葡萄牙重新掌控局面。",
     "Dan Ndoye doubled the lead on the first minute of the second half at 46'.": "丹·恩杜阿在下半场第46分钟再下一城。",
@@ -1037,8 +1045,12 @@ const ZH_ADDITIONAL_EXACT_TRANSLATIONS = {
     "加拿大在另一端守住南非，并把这个最后阶段的进球变成淘汰赛胜利。",
   "Enciso headed Paraguay in front from Galarza's cross before Havertz redirected Wirtz's delivery for Germany's 54th-minute equalizer.":
     "恩西索接加拉尔萨传中头球破门让巴拉圭领先，随后哈弗茨把维尔茨的传中改写为德国第54分钟扳平球。",
-  "Paraguay spent long stretches in a compact 4-5-1, making Germany's possession feel blunt until extra time and a disallowed Tah header.":
-    "巴拉圭大部分时间保持紧凑的4-5-1，让德国的控球显得迟钝，直到加时赛塔赫的头球被判无效。",
+    "Paraguay spent long stretches in a compact 4-5-1, making Germany's possession feel blunt until extra time and a disallowed Tah header.":
+      "巴拉圭大部分时间保持紧凑的4-5-1，让德国的控球显得迟钝，直到加时赛塔赫的头球被判无效。",
+    "Paraguay had several clear spells but did not make enough punishment count.":
+      "巴拉圭一度有多次明确机会，但射门次数和威胁力度仍不足以改变对抗局面。",
+    "Canada could not respond and Morocco moved on as 3-0 winners.":
+      "加拿大始终无法有效反击，摩洛哥以3比0胜出并晋级。",
   "Gill saved from Havertz and Woltemade before Jose Canale sealed Paraguay's 4-3 shootout win.":
     "吉尔先后扑出哈弗茨和沃尔特马德的点球，随后何塞·卡纳莱锁定巴拉圭4-3的点球胜利。",
   "Cody Gakpo broke through in the 72nd minute, but Issa Diop answered in stoppage time to force extra time.":
@@ -20615,7 +20627,7 @@ function renderKnockoutCompletedSummary(match, context) {
       return `${homeName} 和 ${awayName} 以 ${scoreText} 战平。`;
     }
 
-    return `${homeName} and ${awayName} tied ${scoreText}.`;
+    return `${homeName} and ${awayName} tied ${scoreText}`;
   }
 
   const winnerSide = participants.away.team?.id === winner.id ? "away" : "home";
@@ -20633,14 +20645,14 @@ function renderKnockoutCompletedSummary(match, context) {
       return `${winnerName}在 ${scoreText} 战平后通过点球 ${penaltyText} 击败 ${loserName}。`;
     }
 
-    return `${winnerName} beat ${loserName} on penalties after a ${scoreText} tie (${penaltyText} pens).`;
+    return `${winnerName} beat ${loserName} on penalties after a ${scoreText} tie (${penaltyText} pens)`;
   }
 
   if (currentLanguage === "zh") {
     return `${winnerName}以 ${winnerScoreText} 击败 ${loserName}。`;
   }
 
-  return `${winnerName} beat ${loserName} ${winnerScoreText}.`;
+  return `${winnerName} beat ${loserName} ${winnerScoreText}`;
 }
 
 function renderKnockoutSourceMatchSummary(match, context) {
@@ -21373,7 +21385,7 @@ function renderHistoricalKnockoutCompletedSummary(match) {
     const awayName = renderHistoricalKnockoutTeamName(match.awaySlot, { showRank: true });
     return currentLanguage === "zh"
       ? `${homeName} 和 ${awayName} 以 ${scoreText} 战平。`
-      : `${homeName} and ${awayName} tied ${scoreText}.`;
+      : `${homeName} and ${awayName} tied ${scoreText}`;
   }
 
   const loser = getHistoricalOpponent(match, winner);
@@ -21385,12 +21397,12 @@ function renderHistoricalKnockoutCompletedSummary(match) {
   if (penaltyText) {
     return currentLanguage === "zh"
       ? `${winnerName}在 ${scoreText} 战平后通过点球 ${penaltyText} 击败 ${loserName}。`
-      : `${winnerName} beat ${loserName} on penalties after a ${scoreText} tie (${penaltyText} pens).`;
+      : `${winnerName} beat ${loserName} on penalties after a ${scoreText} tie (${penaltyText} pens)`;
   }
 
   return currentLanguage === "zh"
     ? `${winnerName}以 ${winnerScoreText} 击败 ${loserName}。`
-    : `${winnerName} beat ${loserName} ${winnerScoreText}.`;
+    : `${winnerName} beat ${loserName} ${winnerScoreText}`;
 }
 
 function renderHistoricalPreviousKnockoutContext(match) {
