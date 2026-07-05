@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-04T17:13:17.776Z",
+  "updatedAt": "2026-07-05T02:22:00.314Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -20103,6 +20103,7 @@
           "away": 4
         }
       },
+      "winnerTeamId": "EGY",
       "goalsHome": [
         {
           "minute": 55,
@@ -20143,7 +20144,11 @@
       "homeSlot": "Winner match 74",
       "awaySlot": "Winner match 77",
       "venue": "Philadelphia Stadium",
-      "status": "SCHEDULED",
+      "status": "FT",
+      "score": {
+        "home": 0,
+        "away": 1
+      },
       "h2h": {
         "status": "loaded",
         "sourceId": "national-football-teams-h2h-sync-2026-06-30",
@@ -20255,7 +20260,19 @@
         "sourceId": "editorial-preview-2026-06-22",
         "home": "Paraguay are rugged counterpunchers who are comfortable turning matches into physical, tight contests, led by Miguel Almiron, Julio Enciso, and Gustavo Gomez. Against France, their Almiron-Enciso counters has to beat France's Olise-to-Mbappe chance creation. They want to release Almiron into space and let Enciso attack the pocket before defenders settle. The risk is France can combine Olise's final ball with Mbappe's acceleration before Saliba controls the counter.",
         "away": "France are an elite attacking side with Mbappe's speed now fed by Olise's left-footed creation, led by Kylian Mbappe, Michael Olise, and William Saliba. Against Paraguay, their Olise-to-Mbappe chance creation has to beat Paraguay's Almiron-Enciso counters. They want to let Olise receive inside, draw pressure, and release Mbappe before the defense can reset. The risk is Paraguay can turn one Almiron break or Enciso shot into a tight-game swing."
-      }
+      },
+      "resultStoryBullets": [
+        "Kylian Mbappé scored the match's only goal on a 70th-minute penalty.",
+        "Paraguay had several clear spells but did not make enough punishment count.",
+        "France held firm after the lead and advanced with a narrow 1-0 quarter-final win."
+      ],
+      "goalsAway": [
+        {
+          "minute": 70,
+          "name": "Kylian Mbappé",
+          "penalty": true
+        }
+      ]
     },
     {
       "id": "match-90-round-of-16-2026-07-04",
@@ -20266,7 +20283,7 @@
       "homeSlot": "Winner match 73",
       "awaySlot": "Winner match 75",
       "venue": "Houston Stadium",
-      "status": "LIVE",
+      "status": "FT",
       "h2h": {
         "status": "loaded",
         "sourceId": "national-football-teams-h2h-sync-2026-06-30",
@@ -20371,7 +20388,35 @@
       },
       "score": {
         "home": 0,
-        "away": 0
+        "away": 3
+      },
+      "resultStoryBullets": [
+        "Azzedine Ounahi opened the scoring for Morocco in the 50th minute.",
+        "He doubled Morocco's lead at 82', then Soufiane Rahimi sealed it at 90+8'.",
+        "Canada could not respond and Morocco moved on as 3-0 winners."
+      ],
+      "goalsAway": [
+        {
+          "minute": 50,
+          "name": "Azzedine Ounahi"
+        },
+        {
+          "minute": 82,
+          "name": "Azzedine Ounahi"
+        },
+        {
+          "minute": 90,
+          "offset": 8,
+          "name": "Soufiane Rahimi"
+        }
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=QLFucR6SGr4",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-07-04T19:21:58-07:00",
+        "checkedAt": "2026-07-04T19:21:58-07:00"
       }
     },
     {
