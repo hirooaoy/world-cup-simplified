@@ -8357,17 +8357,26 @@ try {
   });
   const tournamentBoardBox = await page.locator(".tournament-progression").boundingBox();
   assert(tournamentBoardBox, "Mobile tournament board should have a measurable canvas.");
-  await page.mouse.move(
-    tournamentBoardBox.x + tournamentBoardBox.width - 34,
-    tournamentBoardBox.y + Math.min(tournamentBoardBox.height - 34, 460)
-  );
-  await page.mouse.down();
-  await page.mouse.move(
-    tournamentBoardBox.x + 46,
-    tournamentBoardBox.y + Math.max(40, Math.min(tournamentBoardBox.height - 170, 300)),
-    { steps: 10 }
-  );
-  await page.mouse.up();
+  await page.evaluate(() => {
+    const progression = document.querySelector(".tournament-progression");
+    const rect = progression.getBoundingClientRect();
+    const startX = rect.right - 34;
+    const startY = rect.top + Math.min(rect.height - 34, 460);
+    const endX = rect.left + 46;
+    const endY = rect.top + Math.max(40, Math.min(rect.height - 170, 300));
+    const eventBase = {
+      bubbles: true,
+      button: 0,
+      buttons: 1,
+      cancelable: true,
+      isPrimary: true,
+      pointerId: 17,
+      pointerType: "touch"
+    };
+    progression.dispatchEvent(new PointerEvent("pointerdown", { ...eventBase, clientX: startX, clientY: startY }));
+    progression.dispatchEvent(new PointerEvent("pointermove", { ...eventBase, clientX: endX, clientY: endY }));
+    progression.dispatchEvent(new PointerEvent("pointerup", { ...eventBase, buttons: 0, clientX: endX, clientY: endY }));
+  });
   await page.waitForTimeout(80);
   const mobileTournamentCanvasAfterDrag = await page.evaluate(() => {
     const progression = document.querySelector(".tournament-progression");

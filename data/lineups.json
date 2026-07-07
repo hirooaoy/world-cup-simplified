@@ -38,7 +38,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T17:31:12.299Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "4-1-2-3",
         "coach": {
@@ -60,6 +60,7 @@
             "number": "3",
             "name": "Cesar Montes",
             "sourcePosition": "defender",
+            "isCaptain": true,
             "position": "CB",
             "x": 62.6,
             "y": 68.7
@@ -285,6 +286,7 @@
             "number": "1",
             "name": "Ronwen Williams",
             "sourcePosition": "goalkeeper",
+            "isCaptain": true,
             "position": "GK",
             "x": 49.9,
             "y": 90.5
@@ -537,7 +539,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T17:31:12.299Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "3-4-3",
         "coach": {
@@ -631,6 +633,7 @@
             "number": "7",
             "name": "Son Heung-min",
             "sourcePosition": "forward",
+            "isCaptain": true,
             "position": "ST",
             "x": 50,
             "y": 10.5
@@ -811,6 +814,7 @@
             "number": "7",
             "name": "Ladislav Krejci",
             "sourcePosition": "defender",
+            "isCaptain": true,
             "position": "LWB",
             "x": 25.3,
             "y": 69.7
@@ -1010,7 +1014,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T17:31:12.299Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "4-4-2",
         "coach": {
@@ -1064,6 +1068,7 @@
             "number": "7",
             "name": "Stephen Eustaquio",
             "sourcePosition": "midfielder",
+            "isCaptain": true,
             "position": "CM",
             "x": 35,
             "y": 44.3
@@ -1273,6 +1278,7 @@
             "number": "5",
             "name": "Sead Kolasinac",
             "sourcePosition": "defender",
+            "isCaptain": true,
             "position": "LB",
             "x": 13.7,
             "y": 62.8
@@ -1509,7 +1515,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T17:31:12.299Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "4-2-3-1",
         "coach": {
@@ -1555,6 +1561,7 @@
             "number": "13",
             "name": "Tim Ream",
             "sourcePosition": "defender",
+            "isCaptain": true,
             "position": "CB",
             "x": 33.3,
             "y": 68.7
@@ -1778,6 +1785,7 @@
             "number": "15",
             "name": "Gustavo Gomez",
             "sourcePosition": "defender",
+            "isCaptain": true,
             "position": "CB",
             "x": 66.5,
             "y": 68.7
@@ -2008,7 +2016,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T17:31:12.299Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "4-2-3-1",
         "coach": {
@@ -2070,6 +2078,7 @@
             "number": "16",
             "name": "Boualem Khoukhi",
             "sourcePosition": "defender",
+            "isCaptain": true,
             "position": "CB",
             "x": 33.3,
             "y": 68.7
@@ -2303,6 +2312,7 @@
             "number": "10",
             "name": "Granit Xhaka",
             "sourcePosition": "midfielder",
+            "isCaptain": true,
             "position": "CM",
             "x": 50,
             "y": 37.6
@@ -2497,7 +2507,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T17:31:12.299Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "4-4-2",
         "coach": {
@@ -2527,6 +2537,7 @@
             "number": "4",
             "name": "Marquinhos",
             "sourcePosition": "defender",
+            "isCaptain": true,
             "position": "CB",
             "x": 66.5,
             "y": 68.7
@@ -2746,6 +2757,7 @@
             "number": "2",
             "name": "Achraf Hakimi",
             "sourcePosition": "defender",
+            "isCaptain": true,
             "position": "RB",
             "x": 86.2,
             "y": 62.8
@@ -2974,7 +2986,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T17:31:12.299Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "4-4-2",
         "coach": {
@@ -2988,6 +3000,7 @@
             "number": "1",
             "name": "Johny Placide",
             "sourcePosition": "goalkeeper",
+            "isCaptain": true,
             "position": "GK",
             "x": 49.9,
             "y": 90.5
@@ -3222,6 +3235,7 @@
             "number": "3",
             "name": "Andy Robertson",
             "sourcePosition": "defender",
+            "isCaptain": true,
             "position": "LB",
             "x": 13.7,
             "y": 62.8
@@ -3458,7 +3472,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T17:31:12.299Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "5-4-1",
         "coach": {
@@ -3504,6 +3518,7 @@
             "number": "19",
             "name": "Harry Souttar",
             "sourcePosition": "defender",
+            "isCaptain": true,
             "position": "CB",
             "x": 49.9,
             "y": 71
@@ -3742,6 +3757,7 @@
             "number": "10",
             "name": "Hakan Calhanoglu",
             "sourcePosition": "midfielder",
+            "isCaptain": true,
             "position": "CM",
             "x": 36.5,
             "y": 49.9
@@ -3936,7 +3952,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T17:31:12.299Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "3-4-3",
         "coach": {
@@ -3966,6 +3982,7 @@
             "number": "6",
             "name": "Joshua Kimmich",
             "sourcePosition": "defender",
+            "isCaptain": true,
             "position": "CB",
             "x": 86.2,
             "y": 62.8
@@ -4228,6 +4245,7 @@
             "number": "10",
             "name": "Leandro Bacuna",
             "sourcePosition": "midfielder",
+            "isCaptain": true,
             "position": "DM",
             "x": 50.1,
             "y": 50.5
@@ -4398,7 +4416,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T17:31:12.299Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "4-1-2-3",
         "coach": {
@@ -4420,6 +4438,7 @@
             "number": "4",
             "name": "Virgil van Dijk",
             "sourcePosition": "defender",
+            "isCaptain": true,
             "position": "CB",
             "x": 33.3,
             "y": 68.7
@@ -4690,6 +4709,7 @@
             "number": "10",
             "name": "Ritsu Doan",
             "sourcePosition": "midfielder",
+            "isCaptain": true,
             "position": "RM",
             "x": 87.3,
             "y": 47
@@ -4886,7 +4906,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T17:31:12.299Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "4-4-2",
         "coach": {
@@ -4948,6 +4968,7 @@
             "number": "8",
             "name": "Franck Kessie",
             "sourcePosition": "midfielder",
+            "isCaptain": true,
             "position": "CM",
             "x": 64.9,
             "y": 44.3
@@ -5210,6 +5231,7 @@
             "number": "13",
             "name": "Enner Valencia",
             "sourcePosition": "forward",
+            "isCaptain": true,
             "position": "ST",
             "x": 35.7,
             "y": 10.5
@@ -5375,7 +5397,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T17:31:12.299Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "3-4-1-2",
         "coach": {
@@ -5405,6 +5427,7 @@
             "number": "3",
             "name": "Victor Lindelof",
             "sourcePosition": "defender",
+            "isCaptain": true,
             "position": "CB",
             "x": 74.5,
             "y": 69.7
@@ -5674,6 +5697,7 @@
             "number": "17",
             "name": "Ellyes Skhiri",
             "sourcePosition": "midfielder",
+            "isCaptain": true,
             "position": "CM",
             "x": 50,
             "y": 42.3
@@ -5858,7 +5882,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T17:31:12.299Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "4-1-2-3",
         "coach": {
@@ -5928,6 +5952,7 @@
             "number": "16",
             "name": "Rodri",
             "sourcePosition": "midfielder",
+            "isCaptain": true,
             "position": "LB",
             "x": 0.6,
             "y": 0.6
@@ -6175,6 +6200,7 @@
             "number": "20",
             "name": "Ryan Mendes",
             "sourcePosition": "forward",
+            "isCaptain": true,
             "position": "LB",
             "x": 0.7,
             "y": 0.7
@@ -6337,7 +6363,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T17:31:12.299Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "4-2-3-1",
         "coach": {
@@ -6399,6 +6425,7 @@
             "number": "8",
             "name": "Youri Tielemans",
             "sourcePosition": "midfielder",
+            "isCaptain": true,
             "position": "CM",
             "x": 36.5,
             "y": 49.9
@@ -6650,6 +6677,7 @@
             "number": "10",
             "name": "Mohamed Salah",
             "sourcePosition": "forward",
+            "isCaptain": true,
             "position": "AM",
             "x": 50,
             "y": 30.1
@@ -6825,7 +6853,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T17:31:12.299Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "4-4-2",
         "coach": {
@@ -6919,6 +6947,7 @@
             "number": "10",
             "name": "Salem Al-Dawsari",
             "sourcePosition": "forward",
+            "isCaptain": true,
             "position": "LM",
             "x": 13.7,
             "y": 39
@@ -7123,6 +7152,7 @@
             "number": "8",
             "name": "Federico Valverde",
             "sourcePosition": "midfielder",
+            "isCaptain": true,
             "position": "RM",
             "x": 80.6,
             "y": 30.1
@@ -7291,7 +7321,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T17:31:12.299Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "4-3-3",
         "coach": {
@@ -7377,6 +7407,7 @@
             "number": "9",
             "name": "Mehdi Taremi",
             "sourcePosition": "forward",
+            "isCaptain": true,
             "position": "ST",
             "x": 35.7,
             "y": 10.5
@@ -7608,6 +7639,7 @@
             "number": "9",
             "name": "Chris Wood",
             "sourcePosition": "forward",
+            "isCaptain": true,
             "position": "ST",
             "x": 50,
             "y": 10.5
@@ -7758,7 +7790,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T17:31:12.299Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "4-2-3-1",
         "coach": {
@@ -7836,6 +7868,7 @@
             "number": "10",
             "name": "Kylian Mbappe",
             "sourcePosition": "forward",
+            "isCaptain": true,
             "position": "ST",
             "x": 50,
             "y": 10.5
@@ -7987,6 +8020,7 @@
             "number": "3",
             "name": "Kalidou Koulibaly",
             "sourcePosition": "defender",
+            "isCaptain": true,
             "position": "CB",
             "x": 66.5,
             "y": 68.7
@@ -8215,7 +8249,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T17:31:12.299Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "4-4-2",
         "coach": {
@@ -8229,6 +8263,7 @@
             "number": "12",
             "name": "Jalal Hassan",
             "sourcePosition": "goalkeeper",
+            "isCaptain": true,
             "position": "GK",
             "x": 49.9,
             "y": 90.5
@@ -8497,6 +8532,7 @@
             "number": "10",
             "name": "Martin Odegaard",
             "sourcePosition": "midfielder",
+            "isCaptain": true,
             "position": "CM",
             "x": 86.6,
             "y": 39
@@ -8700,7 +8736,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T17:31:12.299Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "4-3-3",
         "coach": {
@@ -8778,6 +8814,7 @@
             "number": "10",
             "name": "Lionel Messi",
             "sourcePosition": "forward",
+            "isCaptain": true,
             "position": "RW",
             "x": 64.3,
             "y": 10.5
@@ -8944,6 +8981,7 @@
             "number": "2",
             "name": "Aissa Mandi",
             "sourcePosition": "defender",
+            "isCaptain": true,
             "position": "CB",
             "x": 66.5,
             "y": 68.7
@@ -9172,7 +9210,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T17:31:12.299Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "4-2-3-1",
         "coach": {
@@ -9202,6 +9240,7 @@
             "number": "8",
             "name": "David Alaba",
             "sourcePosition": "defender",
+            "isCaptain": true,
             "position": "CB",
             "x": 33.3,
             "y": 68.7
@@ -9446,6 +9485,7 @@
             "number": "23",
             "name": "Ehsan Haddad",
             "sourcePosition": "defender",
+            "isCaptain": true,
             "position": "RM",
             "x": 87.3,
             "y": 47
@@ -9650,7 +9690,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T17:31:12.299Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "4-2-3-1",
         "coach": {
@@ -9736,6 +9776,7 @@
             "number": "7",
             "name": "Cristiano Ronaldo",
             "sourcePosition": "forward",
+            "isCaptain": true,
             "position": "ST",
             "x": 50,
             "y": 10.5
@@ -9929,6 +9970,7 @@
             "number": "22",
             "name": "Chancel Mbemba",
             "sourcePosition": "defender",
+            "isCaptain": true,
             "position": "CB",
             "x": 70,
             "y": 62.7
@@ -10139,7 +10181,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T17:31:12.299Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "4-2-3-1",
         "coach": {
@@ -10217,6 +10259,7 @@
             "number": "9",
             "name": "Harry Kane",
             "sourcePosition": "forward",
+            "isCaptain": true,
             "position": "ST",
             "x": 50,
             "y": 10.5
@@ -10409,6 +10452,7 @@
             "number": "10",
             "name": "Luka Modric",
             "sourcePosition": "midfielder",
+            "isCaptain": true,
             "position": "CM",
             "x": 62.4,
             "y": 47
@@ -10605,7 +10649,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T17:31:12.299Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "4-1-2-3",
         "coach": {
@@ -10683,6 +10727,7 @@
             "number": "9",
             "name": "Jordan Ayew",
             "sourcePosition": "forward",
+            "isCaptain": true,
             "position": "ST",
             "x": 50,
             "y": 10.5
@@ -10913,6 +10958,7 @@
             "number": "11",
             "name": "Edgar Yoel Barcenas",
             "sourcePosition": "midfielder",
+            "isCaptain": true,
             "position": "CM",
             "x": 36,
             "y": 50.2
@@ -11083,7 +11129,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T17:31:12.299Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "3-4-3",
         "coach": {
@@ -11177,6 +11223,7 @@
             "number": "14",
             "name": "Eldor Shomurodov",
             "sourcePosition": "forward",
+            "isCaptain": true,
             "position": "ST",
             "x": 50,
             "y": 10.5
@@ -11373,6 +11420,7 @@
             "number": "10",
             "name": "James Rodriguez",
             "sourcePosition": "midfielder",
+            "isCaptain": true,
             "position": "RW",
             "x": 81.4,
             "y": 18.2
@@ -11567,7 +11615,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T17:31:12.299Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "3-5-2",
         "coach": {
@@ -11613,6 +11661,7 @@
             "number": "7",
             "name": "Ladislav Krejci",
             "sourcePosition": "defender",
+            "isCaptain": true,
             "position": "CB",
             "x": 25.3,
             "y": 69.7
@@ -11803,6 +11852,7 @@
             "number": "1",
             "name": "Ronwen Williams",
             "sourcePosition": "goalkeeper",
+            "isCaptain": true,
             "position": "GK",
             "x": 49.9,
             "y": 90.5
@@ -12028,7 +12078,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T17:31:12.299Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "4-3-3",
         "coach": {
@@ -12090,6 +12140,7 @@
             "number": "10",
             "name": "Granit Xhaka",
             "sourcePosition": "midfielder",
+            "isCaptain": true,
             "position": "CM",
             "x": 49.9,
             "y": 50.5
@@ -12336,6 +12387,7 @@
             "number": "11",
             "name": "Edin Dzeko",
             "sourcePosition": "forward",
+            "isCaptain": true,
             "position": "ST",
             "x": 35.7,
             "y": 10.5
@@ -12516,7 +12568,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T17:31:12.299Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "4-4-2",
         "coach": {
@@ -12570,6 +12622,7 @@
             "number": "7",
             "name": "Stephen Eustaquio",
             "sourcePosition": "midfielder",
+            "isCaptain": true,
             "position": "CM",
             "x": 35,
             "y": 44.3
@@ -12800,6 +12853,7 @@
             "number": "16",
             "name": "Boualem Khoukhi",
             "sourcePosition": "defender",
+            "isCaptain": true,
             "position": "CB",
             "x": 33.3,
             "y": 68.7
@@ -13004,7 +13058,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T17:31:12.299Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "4-1-2-3",
         "coach": {
@@ -13034,6 +13088,7 @@
             "number": "4",
             "name": "Edson Alvarez",
             "sourcePosition": "defender",
+            "isCaptain": true,
             "position": "CB",
             "x": 66.5,
             "y": 68.7
@@ -13314,6 +13369,7 @@
             "number": "7",
             "name": "Son Heung-min",
             "sourcePosition": "forward",
+            "isCaptain": true,
             "position": "ST",
             "x": 50,
             "y": 10.5
@@ -13481,7 +13537,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T17:31:12.299Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "3-5-2",
         "coach": {
@@ -13527,6 +13583,7 @@
             "number": "13",
             "name": "Tim Ream",
             "sourcePosition": "defender",
+            "isCaptain": true,
             "position": "CB",
             "x": 25.3,
             "y": 69.7
@@ -13759,6 +13816,7 @@
             "number": "19",
             "name": "Harry Souttar",
             "sourcePosition": "defender",
+            "isCaptain": true,
             "position": "CB",
             "x": 49.9,
             "y": 71
@@ -13984,7 +14042,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T17:31:12.299Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "4-4-2",
         "coach": {
@@ -14006,6 +14064,7 @@
             "number": "3",
             "name": "Andy Robertson",
             "sourcePosition": "defender",
+            "isCaptain": true,
             "position": "LB",
             "x": 13.7,
             "y": 62.8
@@ -14234,6 +14293,7 @@
             "number": "2",
             "name": "Achraf Hakimi",
             "sourcePosition": "defender",
+            "isCaptain": true,
             "position": "RB",
             "x": 86.2,
             "y": 62.8
@@ -14463,7 +14523,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T17:31:12.299Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "4-3-3",
         "coach": {
@@ -14493,6 +14553,7 @@
             "number": "4",
             "name": "Marquinhos",
             "sourcePosition": "defender",
+            "isCaptain": true,
             "position": "CB",
             "x": 66.5,
             "y": 68.7
@@ -14699,6 +14760,7 @@
             "number": "1",
             "name": "Johny Placide",
             "sourcePosition": "goalkeeper",
+            "isCaptain": true,
             "position": "GK",
             "x": 49.9,
             "y": 90.5
@@ -14951,7 +15013,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T17:31:12.299Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "4-2-3-1",
         "coach": {
@@ -15005,6 +15067,7 @@
             "number": "10",
             "name": "Hakan Calhanoglu",
             "sourcePosition": "midfielder",
+            "isCaptain": true,
             "position": "CM",
             "x": 63.4,
             "y": 49.9
@@ -15232,6 +15295,7 @@
             "number": "15",
             "name": "Gustavo Gomez",
             "sourcePosition": "defender",
+            "isCaptain": true,
             "position": "CB",
             "x": 66.5,
             "y": 68.7
@@ -15454,7 +15518,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T17:31:12.299Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "4-3-3",
         "coach": {
@@ -15476,6 +15540,7 @@
             "number": "4",
             "name": "Virgil van Dijk",
             "sourcePosition": "defender",
+            "isCaptain": true,
             "position": "CB",
             "x": 33.3,
             "y": 68.7
@@ -15700,6 +15765,7 @@
             "number": "3",
             "name": "Victor Lindelof",
             "sourcePosition": "defender",
+            "isCaptain": true,
             "position": "CB",
             "x": 74.5,
             "y": 69.7
@@ -15936,7 +16002,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T17:31:12.299Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "4-2-3-1",
         "coach": {
@@ -15966,6 +16032,7 @@
             "number": "6",
             "name": "Joshua Kimmich",
             "sourcePosition": "defender",
+            "isCaptain": true,
             "position": "RB",
             "x": 86.2,
             "y": 62.8
@@ -16212,6 +16279,7 @@
             "number": "8",
             "name": "Franck Kessie",
             "sourcePosition": "midfielder",
+            "isCaptain": true,
             "position": "CM",
             "x": 62.6,
             "y": 30.4
@@ -16408,7 +16476,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T17:31:12.299Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "3-5-2",
         "coach": {
@@ -16494,6 +16562,7 @@
             "number": "13",
             "name": "Enner Valencia",
             "sourcePosition": "forward",
+            "isCaptain": true,
             "position": "ST",
             "x": 35.7,
             "y": 10.5
@@ -16709,6 +16778,7 @@
             "number": "10",
             "name": "Leandro Bacuna",
             "sourcePosition": "midfielder",
+            "isCaptain": true,
             "position": "CM",
             "x": 63.5,
             "y": 36
@@ -16907,7 +16977,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T17:31:12.299Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "5-3-2",
         "coach": {
@@ -16977,6 +17047,7 @@
             "number": "17",
             "name": "Ellyes Skhiri",
             "sourcePosition": "midfielder",
+            "isCaptain": true,
             "position": "CM",
             "x": 37.5,
             "y": 47
@@ -17151,6 +17222,7 @@
             "number": "4",
             "name": "Kou Itakura",
             "sourcePosition": "defender",
+            "isCaptain": true,
             "position": "CB",
             "x": 49.9,
             "y": 69.7
@@ -17367,7 +17439,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T17:31:12.299Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "4-1-2-3",
         "coach": {
@@ -17429,6 +17501,7 @@
             "number": "16",
             "name": "Rodri",
             "sourcePosition": "midfielder",
+            "isCaptain": true,
             "position": "CM",
             "x": 50,
             "y": 37.6
@@ -17683,6 +17756,7 @@
             "number": "10",
             "name": "Salem Al-Dawsari",
             "sourcePosition": "forward",
+            "isCaptain": true,
             "position": "LM",
             "x": 18.9,
             "y": 30
@@ -17850,7 +17924,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T17:31:12.299Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "4-2-3-1",
         "coach": {
@@ -17912,6 +17986,7 @@
             "number": "8",
             "name": "Youri Tielemans",
             "sourcePosition": "midfielder",
+            "isCaptain": true,
             "position": "CM",
             "x": 36.5,
             "y": 49.9
@@ -18101,6 +18176,7 @@
             "number": "3",
             "name": "Ehsan Hajisafi",
             "sourcePosition": "defender",
+            "isCaptain": true,
             "position": "LWB",
             "x": 11.4,
             "y": 55.7
@@ -18333,7 +18409,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T17:31:12.299Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "4-1-2-3",
         "coach": {
@@ -18395,6 +18471,7 @@
             "number": "8",
             "name": "Federico Valverde",
             "sourcePosition": "midfielder",
+            "isCaptain": true,
             "position": "CB",
             "x": 0.7,
             "y": 0.7
@@ -18638,6 +18715,7 @@
             "number": "20",
             "name": "Ryan Mendes",
             "sourcePosition": "forward",
+            "isCaptain": true,
             "position": "LB",
             "x": 0.7,
             "y": 0.7
@@ -18805,7 +18883,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T17:31:12.299Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "4-4-2",
         "coach": {
@@ -18899,6 +18977,7 @@
             "number": "9",
             "name": "Chris Wood",
             "sourcePosition": "forward",
+            "isCaptain": true,
             "position": "ST",
             "x": 50,
             "y": 10.5
@@ -19124,6 +19203,7 @@
             "number": "10",
             "name": "Mohamed Salah",
             "sourcePosition": "forward",
+            "isCaptain": true,
             "position": "AM",
             "x": 50,
             "y": 30.1
@@ -19299,7 +19379,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T17:31:12.299Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "4-1-3-2",
         "coach": {
@@ -19377,6 +19457,7 @@
             "number": "10",
             "name": "Lionel Messi",
             "sourcePosition": "forward",
+            "isCaptain": true,
             "position": "ST",
             "x": 64.3,
             "y": 10.5
@@ -19570,6 +19651,7 @@
             "number": "8",
             "name": "David Alaba",
             "sourcePosition": "defender",
+            "isCaptain": true,
             "position": "CB",
             "x": 33.3,
             "y": 68.7
@@ -19793,7 +19875,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T17:31:12.299Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "4-2-3-1",
         "coach": {
@@ -19871,6 +19953,7 @@
             "number": "10",
             "name": "Kylian Mbappe",
             "sourcePosition": "forward",
+            "isCaptain": true,
             "position": "ST",
             "x": 50,
             "y": 10.5
@@ -20109,6 +20192,7 @@
             "number": "18",
             "name": "Aymen Hussein",
             "sourcePosition": "forward",
+            "isCaptain": true,
             "position": "ST",
             "x": 50,
             "y": 10.5
@@ -20271,7 +20355,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T17:31:12.299Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "4-1-2-3",
         "coach": {
@@ -20325,6 +20409,7 @@
             "number": "10",
             "name": "Martin Odegaard",
             "sourcePosition": "midfielder",
+            "isCaptain": true,
             "position": "DM",
             "x": 81.4,
             "y": 42.3
@@ -20515,6 +20600,7 @@
             "number": "3",
             "name": "Kalidou Koulibaly",
             "sourcePosition": "defender",
+            "isCaptain": true,
             "position": "CB",
             "x": 66.5,
             "y": 68.7
@@ -20750,7 +20836,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T17:31:12.299Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "3-4-3",
         "coach": {
@@ -20796,6 +20882,7 @@
             "number": "23",
             "name": "Ehsan Haddad",
             "sourcePosition": "defender",
+            "isCaptain": true,
             "position": "RM",
             "x": 87.3,
             "y": 47
@@ -21064,6 +21151,7 @@
             "number": "7",
             "name": "Riyad Mahrez",
             "sourcePosition": "forward",
+            "isCaptain": true,
             "position": "DM",
             "x": 80.6,
             "y": 30.1
@@ -21228,7 +21316,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T17:31:12.299Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "4-2-3-1",
         "coach": {
@@ -21306,6 +21394,7 @@
             "number": "7",
             "name": "Cristiano Ronaldo",
             "sourcePosition": "forward",
+            "isCaptain": true,
             "position": "ST",
             "x": 50,
             "y": 10.5
@@ -21550,6 +21639,7 @@
             "number": "14",
             "name": "Eldor Shomurodov",
             "sourcePosition": "forward",
+            "isCaptain": true,
             "position": "ST",
             "x": 50,
             "y": 10.5
@@ -21712,7 +21802,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T17:31:12.299Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "4-2-3-1",
         "coach": {
@@ -21790,6 +21880,7 @@
             "number": "9",
             "name": "Harry Kane",
             "sourcePosition": "forward",
+            "isCaptain": true,
             "position": "ST",
             "x": 50,
             "y": 10.5
@@ -22026,6 +22117,7 @@
             "number": "9",
             "name": "Jordan Ayew",
             "sourcePosition": "forward",
+            "isCaptain": true,
             "position": "ST",
             "x": 50,
             "y": 10.5
@@ -22191,7 +22283,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T17:31:12.299Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "3-4-3",
         "coach": {
@@ -22277,6 +22369,7 @@
             "number": "11",
             "name": "Edgar Yoel Barcenas",
             "sourcePosition": "midfielder",
+            "isCaptain": true,
             "position": "CM",
             "x": 36.5,
             "y": 36
@@ -22476,6 +22569,7 @@
             "number": "10",
             "name": "Luka Modric",
             "sourcePosition": "midfielder",
+            "isCaptain": true,
             "position": "CM",
             "x": 63.4,
             "y": 49.9
@@ -22670,7 +22764,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T17:31:12.299Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "4-1-2-3",
         "coach": {
@@ -22732,6 +22826,7 @@
             "number": "10",
             "name": "James Rodriguez",
             "sourcePosition": "midfielder",
+            "isCaptain": true,
             "position": "RW",
             "x": 81.4,
             "y": 18.2
@@ -22939,6 +23034,7 @@
             "number": "22",
             "name": "Chancel Mbemba",
             "sourcePosition": "defender",
+            "isCaptain": true,
             "position": "CB",
             "x": 70,
             "y": 62.7
@@ -23149,7 +23245,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T17:31:12.299Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "4-4-2",
         "coach": {
@@ -23219,6 +23315,7 @@
             "number": "10",
             "name": "Granit Xhaka",
             "sourcePosition": "midfielder",
+            "isCaptain": true,
             "position": "LM",
             "x": 36.5,
             "y": 49.9
@@ -23449,6 +23546,7 @@
             "number": "10",
             "name": "Jonathan David",
             "sourcePosition": "forward",
+            "isCaptain": true,
             "position": "ST",
             "x": 64.3,
             "y": 10.5
@@ -23620,7 +23718,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T17:31:12.299Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "4-4-2",
         "coach": {
@@ -23698,6 +23796,7 @@
             "number": "11",
             "name": "Edin Dzeko",
             "sourcePosition": "forward",
+            "isCaptain": true,
             "position": "ST",
             "x": 35.7,
             "y": 10.5
@@ -23928,6 +24027,7 @@
             "number": "10",
             "name": "Hassan Alhaydos",
             "sourcePosition": "forward",
+            "isCaptain": true,
             "position": "LW",
             "x": 18.6,
             "y": 18.2
@@ -24086,7 +24186,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T17:31:12.299Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "4-2-3-1",
         "coach": {
@@ -24108,6 +24208,7 @@
             "number": "3",
             "name": "Andy Robertson",
             "sourcePosition": "defender",
+            "isCaptain": true,
             "position": "LB",
             "x": 13.7,
             "y": 62.8
@@ -24344,6 +24445,7 @@
             "number": "4",
             "name": "Marquinhos",
             "sourcePosition": "defender",
+            "isCaptain": true,
             "position": "CB",
             "x": 66.5,
             "y": 68.7
@@ -24569,7 +24671,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T17:31:12.299Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "4-2-3-1",
         "coach": {
@@ -24591,6 +24693,7 @@
             "number": "2",
             "name": "Achraf Hakimi",
             "sourcePosition": "defender",
+            "isCaptain": true,
             "position": "RB",
             "x": 86.2,
             "y": 62.8
@@ -24805,6 +24908,7 @@
             "number": "1",
             "name": "Johny Placide",
             "sourcePosition": "goalkeeper",
+            "isCaptain": true,
             "position": "GK",
             "x": 49.9,
             "y": 90.5
@@ -25057,7 +25161,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T17:31:12.299Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "5-2-3",
         "coach": {
@@ -25103,6 +25207,7 @@
             "number": "7",
             "name": "Ladislav Krejci",
             "sourcePosition": "defender",
+            "isCaptain": true,
             "position": "LWB",
             "x": 25.3,
             "y": 69.7
@@ -25311,6 +25416,7 @@
             "number": "4",
             "name": "Edson Alvarez",
             "sourcePosition": "defender",
+            "isCaptain": true,
             "position": "CM",
             "x": 50,
             "y": 37.6
@@ -25529,7 +25635,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T17:31:12.299Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "4-2-3-1",
         "coach": {
@@ -25543,6 +25649,7 @@
             "number": "1",
             "name": "Ronwen Williams",
             "sourcePosition": "goalkeeper",
+            "isCaptain": true,
             "position": "GK",
             "x": 49.9,
             "y": 90.5
@@ -25765,6 +25872,7 @@
             "number": "4",
             "name": "Kim Min-jae",
             "sourcePosition": "defender",
+            "isCaptain": true,
             "position": "CB",
             "x": 49.9,
             "y": 69.7
@@ -25991,7 +26099,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T17:31:12.299Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "4-4-2",
         "coach": {
@@ -26053,6 +26161,7 @@
             "number": "23",
             "name": "Moises Caicedo",
             "sourcePosition": "midfielder",
+            "isCaptain": true,
             "position": "CM",
             "x": 64.9,
             "y": 44.3
@@ -26267,6 +26376,7 @@
             "number": "6",
             "name": "Joshua Kimmich",
             "sourcePosition": "defender",
+            "isCaptain": true,
             "position": "CB",
             "x": 74.5,
             "y": 69.7
@@ -26473,7 +26583,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T17:31:12.299Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "5-4-1",
         "coach": {
@@ -26551,6 +26661,7 @@
             "number": "10",
             "name": "Leandro Bacuna",
             "sourcePosition": "midfielder",
+            "isCaptain": true,
             "position": "CM",
             "x": 63.5,
             "y": 36
@@ -26760,6 +26871,7 @@
             "number": "8",
             "name": "Franck Kessie",
             "sourcePosition": "midfielder",
+            "isCaptain": true,
             "position": "CM",
             "x": 36.5,
             "y": 49.9
@@ -26962,7 +27074,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T17:31:12.299Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "3-4-3",
         "coach": {
@@ -26992,6 +27104,7 @@
             "number": "4",
             "name": "Kou Itakura",
             "sourcePosition": "defender",
+            "isCaptain": true,
             "position": "CB",
             "x": 49.9,
             "y": 69.7
@@ -27214,6 +27327,7 @@
             "number": "3",
             "name": "Victor Lindelof",
             "sourcePosition": "defender",
+            "isCaptain": true,
             "position": "CM",
             "x": 63.9,
             "y": 50.2
@@ -27445,7 +27559,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T17:31:12.299Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "5-4-1",
         "coach": {
@@ -27523,6 +27637,7 @@
             "number": "17",
             "name": "Ellyes Skhiri",
             "sourcePosition": "midfielder",
+            "isCaptain": true,
             "position": "CB",
             "x": 49.9,
             "y": 71
@@ -27677,6 +27792,7 @@
             "number": "4",
             "name": "Virgil van Dijk",
             "sourcePosition": "defender",
+            "isCaptain": true,
             "position": "CB",
             "x": 33.3,
             "y": 68.7
@@ -27905,7 +28021,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T17:31:12.299Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "3-4-3",
         "coach": {
@@ -27927,6 +28043,7 @@
             "number": "2",
             "name": "Zeki Celik",
             "sourcePosition": "defender",
+            "isCaptain": true,
             "position": "CB",
             "x": 74.5,
             "y": 69.7
@@ -28189,6 +28306,7 @@
             "number": "8",
             "name": "Weston McKennie",
             "sourcePosition": "midfielder",
+            "isCaptain": true,
             "position": "DM",
             "x": 81.4,
             "y": 42.3
@@ -28384,7 +28502,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T17:31:12.299Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "5-3-2",
         "coach": {
@@ -28430,6 +28548,7 @@
             "number": "15",
             "name": "Gustavo Gomez",
             "sourcePosition": "defender",
+            "isCaptain": true,
             "position": "CB",
             "x": 49.9,
             "y": 69.7
@@ -28652,6 +28771,7 @@
             "number": "19",
             "name": "Harry Souttar",
             "sourcePosition": "defender",
+            "isCaptain": true,
             "position": "CB",
             "x": 49.9,
             "y": 69.7
@@ -28840,7 +28960,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T17:31:12.299Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "4-1-2-3",
         "coach": {
@@ -28886,6 +29006,7 @@
             "number": "6",
             "name": "Patrick Berg",
             "sourcePosition": "midfielder",
+            "isCaptain": true,
             "position": "CM",
             "x": 50,
             "y": 37.6
@@ -29140,6 +29261,7 @@
             "number": "10",
             "name": "Kylian Mbappe",
             "sourcePosition": "forward",
+            "isCaptain": true,
             "position": "ST",
             "x": 50,
             "y": 10.5
@@ -29318,7 +29440,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T17:31:12.299Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "4-1-2-3",
         "coach": {
@@ -29372,6 +29494,7 @@
             "number": "5",
             "name": "Idrissa Gueye",
             "sourcePosition": "midfielder",
+            "isCaptain": true,
             "position": "CM",
             "x": 50,
             "y": 37.6
@@ -29599,6 +29722,7 @@
             "number": "8",
             "name": "Ibrahim Bayesh",
             "sourcePosition": "midfielder",
+            "isCaptain": true,
             "position": "ST",
             "x": 19.4,
             "y": 30.1
@@ -29817,7 +29941,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T17:31:12.299Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "4-1-2-3",
         "coach": {
@@ -29911,6 +30035,7 @@
             "number": "20",
             "name": "Ryan Mendes",
             "sourcePosition": "forward",
+            "isCaptain": true,
             "position": "LB",
             "x": 0.7,
             "y": 0.7
@@ -30119,6 +30244,7 @@
             "number": "10",
             "name": "Salem Al-Dawsari",
             "sourcePosition": "forward",
+            "isCaptain": true,
             "position": "CB",
             "x": 0.6,
             "y": 0.6
@@ -30299,7 +30425,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T17:31:12.299Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "4-1-2-3",
         "coach": {
@@ -30361,6 +30487,7 @@
             "number": "8",
             "name": "Federico Valverde",
             "sourcePosition": "midfielder",
+            "isCaptain": true,
             "position": "CM",
             "x": 37.3,
             "y": 30.4
@@ -30607,6 +30734,7 @@
             "number": "16",
             "name": "Rodri",
             "sourcePosition": "midfielder",
+            "isCaptain": true,
             "position": "CM",
             "x": 36.5,
             "y": 49.9
@@ -30793,7 +30921,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T17:31:12.299Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "4-2-3-1",
         "coach": {
@@ -30887,6 +31015,7 @@
             "number": "10",
             "name": "Mohamed Salah",
             "sourcePosition": "forward",
+            "isCaptain": true,
             "position": "AM",
             "x": 50,
             "y": 30.1
@@ -31113,6 +31242,7 @@
             "number": "9",
             "name": "Mehdi Taremi",
             "sourcePosition": "forward",
+            "isCaptain": true,
             "position": "ST",
             "x": 50,
             "y": 10.5
@@ -31280,7 +31410,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T17:31:12.299Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "4-2-3-1",
         "coach": {
@@ -31374,6 +31504,7 @@
             "number": "9",
             "name": "Chris Wood",
             "sourcePosition": "forward",
+            "isCaptain": true,
             "position": "ST",
             "x": 50,
             "y": 10.5
@@ -31575,6 +31706,7 @@
             "number": "8",
             "name": "Youri Tielemans",
             "sourcePosition": "midfielder",
+            "isCaptain": true,
             "position": "CM",
             "x": 63.4,
             "y": 49.9
@@ -31751,7 +31883,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T17:31:12.299Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "3-4-3",
         "coach": {
@@ -31837,6 +31969,7 @@
             "number": "11",
             "name": "Edgar Yoel Barcenas",
             "sourcePosition": "midfielder",
+            "isCaptain": true,
             "position": "CM",
             "x": 36.5,
             "y": 36
@@ -32070,6 +32203,7 @@
             "number": "9",
             "name": "Harry Kane",
             "sourcePosition": "forward",
+            "isCaptain": true,
             "position": "ST",
             "x": 50,
             "y": 10.5
@@ -32234,7 +32368,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T17:31:12.299Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "4-2-3-1",
         "coach": {
@@ -32288,6 +32422,7 @@
             "number": "10",
             "name": "Luka Modric",
             "sourcePosition": "midfielder",
+            "isCaptain": true,
             "position": "CM",
             "x": 63.4,
             "y": 49.9
@@ -32543,6 +32678,7 @@
             "number": "9",
             "name": "Jordan Ayew",
             "sourcePosition": "forward",
+            "isCaptain": true,
             "position": "ST",
             "x": 50,
             "y": 10.5
@@ -32713,7 +32849,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T17:31:12.299Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "4-1-2-3",
         "coach": {
@@ -32775,6 +32911,7 @@
             "number": "10",
             "name": "James Rodriguez",
             "sourcePosition": "midfielder",
+            "isCaptain": true,
             "position": "RW",
             "x": 81.4,
             "y": 18.2
@@ -33019,6 +33156,7 @@
             "number": "7",
             "name": "Cristiano Ronaldo",
             "sourcePosition": "forward",
+            "isCaptain": true,
             "position": "ST",
             "x": 50,
             "y": 10.5
@@ -33191,7 +33329,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T17:31:12.299Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "4-4-2",
         "coach": {
@@ -33229,6 +33367,7 @@
             "number": "22",
             "name": "Chancel Mbemba",
             "sourcePosition": "defender",
+            "isCaptain": true,
             "position": "CB",
             "x": 66.5,
             "y": 68.7
@@ -33523,6 +33662,7 @@
             "number": "14",
             "name": "Eldor Shomurodov",
             "sourcePosition": "forward",
+            "isCaptain": true,
             "position": "ST",
             "x": 50,
             "y": 10.5
@@ -33697,7 +33837,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T17:31:12.299Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "4-2-3-1",
         "coach": {
@@ -33783,6 +33923,7 @@
             "number": "7",
             "name": "Riyad Mahrez",
             "sourcePosition": "forward",
+            "isCaptain": true,
             "position": "RW",
             "x": 80.6,
             "y": 30.1
@@ -33938,6 +34079,7 @@
             "number": "8",
             "name": "David Alaba",
             "sourcePosition": "defender",
+            "isCaptain": true,
             "position": "CB",
             "x": 33.3,
             "y": 68.7
@@ -34164,7 +34306,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T17:31:12.299Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "3-4-3",
         "coach": {
@@ -34210,6 +34352,7 @@
             "number": "23",
             "name": "Ehsan Haddad",
             "sourcePosition": "defender",
+            "isCaptain": true,
             "position": "RM",
             "x": 87.3,
             "y": 47
@@ -34440,6 +34583,7 @@
             "number": "19",
             "name": "Nicolas Otamendi",
             "sourcePosition": "defender",
+            "isCaptain": true,
             "position": "CB",
             "x": 66.5,
             "y": 68.7
@@ -34652,7 +34796,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T17:31:12.299Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "4-2-3-1",
         "coach": {
@@ -34666,6 +34810,7 @@
             "number": "1",
             "name": "Ronwen Williams",
             "sourcePosition": "goalkeeper",
+            "isCaptain": true,
             "position": "GK",
             "x": 49.9,
             "y": 90.5
@@ -34912,6 +35057,7 @@
             "number": "7",
             "name": "Stephen Eustaquio",
             "sourcePosition": "midfielder",
+            "isCaptain": true,
             "position": "CM",
             "x": 35,
             "y": 44.3
@@ -35113,7 +35259,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T17:31:12.299Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "4-2-3-1",
         "coach": {
@@ -35151,6 +35297,7 @@
             "number": "6",
             "name": "Joshua Kimmich",
             "sourcePosition": "defender",
+            "isCaptain": true,
             "position": "RB",
             "x": 86.6,
             "y": 62.8
@@ -35404,6 +35551,7 @@
             "number": "15",
             "name": "Gustavo Gomez",
             "sourcePosition": "defender",
+            "isCaptain": true,
             "position": "CB",
             "x": 66.5,
             "y": 68.7
@@ -35631,7 +35779,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T17:31:12.299Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "3-4-3",
         "coach": {
@@ -35653,6 +35801,7 @@
             "number": "4",
             "name": "Virgil van Dijk",
             "sourcePosition": "defender",
+            "isCaptain": true,
             "position": "CB",
             "x": 49.9,
             "y": 69.7
@@ -35880,6 +36029,7 @@
             "number": "2",
             "name": "Achraf Hakimi",
             "sourcePosition": "defender",
+            "isCaptain": true,
             "position": "RB",
             "x": 86.2,
             "y": 62.8
@@ -36114,7 +36264,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T17:31:12.299Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "4-1-2-3",
         "coach": {
@@ -36144,6 +36294,7 @@
             "number": "4",
             "name": "Marquinhos",
             "sourcePosition": "defender",
+            "isCaptain": true,
             "position": "CB",
             "x": 66.5,
             "y": 68.7
@@ -36382,6 +36533,7 @@
             "number": "10",
             "name": "Ritsu Doan",
             "sourcePosition": "midfielder",
+            "isCaptain": true,
             "position": "RM",
             "x": 87.3,
             "y": 47
@@ -36602,7 +36754,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T17:31:12.299Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "4-2-3-1",
         "coach": {
@@ -36680,6 +36832,7 @@
             "number": "10",
             "name": "Kylian Mbappe",
             "sourcePosition": "forward",
+            "isCaptain": true,
             "position": "ST",
             "x": 50,
             "y": 10.5
@@ -36854,6 +37007,7 @@
             "number": "3",
             "name": "Victor Lindelof",
             "sourcePosition": "defender",
+            "isCaptain": true,
             "position": "CB",
             "x": 33.3,
             "y": 68.7
@@ -37068,7 +37222,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T17:31:12.299Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "4-1-2-3",
         "coach": {
@@ -37122,6 +37276,7 @@
             "number": "8",
             "name": "Franck Kessie",
             "sourcePosition": "midfielder",
+            "isCaptain": true,
             "position": "CM",
             "x": 62.6,
             "y": 30.4
@@ -37360,6 +37515,7 @@
             "number": "10",
             "name": "Martin Odegaard",
             "sourcePosition": "midfielder",
+            "isCaptain": true,
             "position": "CM",
             "x": 81.4,
             "y": 42.3
@@ -37536,7 +37692,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T17:31:12.299Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "4-1-2-3",
         "coach": {
@@ -37566,6 +37722,7 @@
             "number": "3",
             "name": "Cesar Montes",
             "sourcePosition": "defender",
+            "isCaptain": true,
             "position": "CB",
             "x": 66.5,
             "y": 68.7
@@ -37820,6 +37977,7 @@
             "number": "23",
             "name": "Moises Caicedo",
             "sourcePosition": "midfielder",
+            "isCaptain": true,
             "position": "CM",
             "x": 64.9,
             "y": 44.3
@@ -38036,7 +38194,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T17:31:12.299Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "4-2-3-1",
         "coach": {
@@ -38114,6 +38272,7 @@
             "number": "9",
             "name": "Harry Kane",
             "sourcePosition": "forward",
+            "isCaptain": true,
             "position": "ST",
             "x": 50,
             "y": 10.5
@@ -38297,6 +38456,7 @@
             "number": "22",
             "name": "Chancel Mbemba",
             "sourcePosition": "defender",
+            "isCaptain": true,
             "position": "CB",
             "x": 66.5,
             "y": 68.7
@@ -38522,7 +38682,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T17:31:12.299Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "3-5-2",
         "coach": {
@@ -38568,6 +38728,7 @@
             "number": "13",
             "name": "Tim Ream",
             "sourcePosition": "defender",
+            "isCaptain": true,
             "position": "CB",
             "x": 33.3,
             "y": 68.7
@@ -38814,6 +38975,7 @@
             "number": "11",
             "name": "Edin Dzeko",
             "sourcePosition": "forward",
+            "isCaptain": true,
             "position": "ST",
             "x": 66.5,
             "y": 10.5
@@ -39016,7 +39178,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T17:31:12.299Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "4-2-3-1",
         "coach": {
@@ -39078,6 +39240,7 @@
             "number": "8",
             "name": "Youri Tielemans",
             "sourcePosition": "midfielder",
+            "isCaptain": true,
             "position": "CM",
             "x": 63.4,
             "y": 49.9
@@ -39296,6 +39459,7 @@
             "number": "5",
             "name": "Idrissa Gueye",
             "sourcePosition": "midfielder",
+            "isCaptain": true,
             "position": "CM",
             "x": 50,
             "y": 37.6
@@ -39512,7 +39676,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T17:31:12.299Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "4-1-2-3",
         "coach": {
@@ -39574,6 +39738,7 @@
             "number": "16",
             "name": "Rodri",
             "sourcePosition": "midfielder",
+            "isCaptain": true,
             "position": "DM",
             "x": 63.4,
             "y": 49.9
@@ -39772,6 +39937,7 @@
             "number": "8",
             "name": "David Alaba",
             "sourcePosition": "defender",
+            "isCaptain": true,
             "position": "CB",
             "x": 33.3,
             "y": 68.7
@@ -39990,7 +40156,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T17:31:12.299Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "4-2-3-1",
         "coach": {
@@ -40068,6 +40234,7 @@
             "number": "7",
             "name": "Cristiano Ronaldo",
             "sourcePosition": "forward",
+            "isCaptain": true,
             "position": "ST",
             "x": 50,
             "y": 10.5
@@ -40272,6 +40439,7 @@
             "number": "10",
             "name": "Luka Modric",
             "sourcePosition": "midfielder",
+            "isCaptain": true,
             "position": "CM",
             "x": 63.4,
             "y": 49.9
@@ -40474,7 +40642,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T17:31:12.299Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "4-2-3-1",
         "coach": {
@@ -40544,6 +40712,7 @@
             "number": "10",
             "name": "Granit Xhaka",
             "sourcePosition": "midfielder",
+            "isCaptain": true,
             "position": "CM",
             "x": 36.5,
             "y": 49.9
@@ -40784,6 +40953,7 @@
             "number": "7",
             "name": "Riyad Mahrez",
             "sourcePosition": "forward",
+            "isCaptain": true,
             "position": "RW",
             "x": 81.4,
             "y": 18.2
@@ -40918,11 +41088,28 @@
       "teamSheetSource": "fifa-official",
       "eventSource": "fifa-official",
       "layoutSource": "verified-layout",
+      "layoutVerification": {
+        "status": "verified",
+        "checkedAt": "2026-07-07T20:00:00.000Z",
+        "sourceIds": [
+          "lineup-layout-verification-2026-07-07"
+        ],
+        "sources": [
+          {
+            "name": "ESPN",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760499/egypt-australia",
+            "status": "matched",
+            "sourceDetail": "public match-center board geometry",
+            "exactLayout": true
+          }
+        ],
+        "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry."
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-03",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-07"
       ],
-      "checkedAt": "2026-07-03T23:21:09.891Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "3-4-3",
         "coach": {
@@ -40968,6 +41155,7 @@
             "number": "19",
             "name": "Harry Souttar",
             "sourcePosition": "defender",
+            "isCaptain": true,
             "position": "CB",
             "x": 49.9,
             "y": 69.7
@@ -41223,6 +41411,7 @@
             "number": "10",
             "name": "Mohamed Salah",
             "sourcePosition": "forward",
+            "isCaptain": true,
             "position": "ST",
             "x": 64.3,
             "y": 10.5
@@ -41354,7 +41543,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "match-86-round-of-32-2026-07-03": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-07T20:00:00.000Z",
@@ -41364,25 +41559,25 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760499/egypt-australia",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760500/cape-verde-argentina",
+            "status": "unavailable",
+            "note": "Expected 11 starters per side from ESPN; parsed 11 home and 10 away."
+          },
+          {
+            "name": "FotMob",
+            "url": "https://www.fotmob.com/matches/cape-verde-vs-argentina/1b81pp",
             "status": "matched",
-            "sourceDetail": "public match-center board geometry",
+            "sourceDetail": "lineup payload source: enetpulse",
             "exactLayout": true
           }
         ],
-        "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry."
-      }
-    },
-    "match-86-round-of-32-2026-07-03": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "verified-layout",
+        "note": "FIFA official team sheet kept for facts; FotMob supplied exact board geometry."
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-04",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-07"
       ],
-      "checkedAt": "2026-07-04T04:24:58.686Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "4-4-2",
         "coach": {
@@ -41460,6 +41655,7 @@
             "number": "10",
             "name": "Lionel Messi",
             "sourcePosition": "forward",
+            "isCaptain": true,
             "position": "ST",
             "x": 70,
             "y": 13
@@ -41704,6 +41900,7 @@
             "number": "20",
             "name": "Ryan Mendes",
             "sourcePosition": "forward",
+            "isCaptain": true,
             "position": "RM",
             "x": 87.5,
             "y": 32.2
@@ -41843,7 +42040,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "match-87-round-of-32-2026-07-03": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-07T20:00:00.000Z",
@@ -41853,31 +42056,19 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760500/cape-verde-argentina",
-            "status": "unavailable",
-            "note": "Expected 11 starters per side from ESPN; parsed 11 home and 10 away."
-          },
-          {
-            "name": "FotMob",
-            "url": "https://www.fotmob.com/matches/cape-verde-vs-argentina/1b81pp",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760501/ghana-colombia",
             "status": "matched",
-            "sourceDetail": "lineup payload source: enetpulse",
+            "sourceDetail": "public match-center board geometry",
             "exactLayout": true
           }
         ],
-        "note": "FIFA official team sheet kept for facts; FotMob supplied exact board geometry."
-      }
-    },
-    "match-87-round-of-32-2026-07-03": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "verified-layout",
+        "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry."
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-04",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-07"
       ],
-      "checkedAt": "2026-07-04T04:24:58.686Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "4-1-2-3",
         "coach": {
@@ -41939,6 +42130,7 @@
             "number": "10",
             "name": "James Rodriguez",
             "sourcePosition": "midfielder",
+            "isCaptain": true,
             "position": "RW",
             "x": 81.4,
             "y": 18.2
@@ -42191,6 +42383,7 @@
             "number": "9",
             "name": "Jordan Ayew",
             "sourcePosition": "forward",
+            "isCaptain": true,
             "position": "ST",
             "x": 50,
             "y": 10.5
@@ -42343,7 +42536,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "match-90-round-of-16-2026-07-04": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-07T20:00:00.000Z",
@@ -42353,25 +42552,19 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760501/ghana-colombia",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760502/morocco-canada",
             "status": "matched",
             "sourceDetail": "public match-center board geometry",
             "exactLayout": true
           }
         ],
         "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry."
-      }
-    },
-    "match-90-round-of-16-2026-07-04": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "verified-layout",
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-05",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-07"
       ],
-      "checkedAt": "2026-07-05T02:23:29.567Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "4-4-2",
         "coach": {
@@ -42433,6 +42626,7 @@
             "number": "7",
             "name": "Stephen Eustaquio",
             "sourcePosition": "midfielder",
+            "isCaptain": true,
             "position": "CM",
             "x": 35,
             "y": 44.3
@@ -42630,6 +42824,7 @@
             "number": "2",
             "name": "Achraf Hakimi",
             "sourcePosition": "defender",
+            "isCaptain": true,
             "position": "RB",
             "x": 86.2,
             "y": 62.8
@@ -42851,7 +43046,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "match-89-round-of-16-2026-07-04": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-07T20:00:00.000Z",
@@ -42861,25 +43062,19 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760502/morocco-canada",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760503/france-paraguay",
             "status": "matched",
             "sourceDetail": "public match-center board geometry",
             "exactLayout": true
           }
         ],
         "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry."
-      }
-    },
-    "match-89-round-of-16-2026-07-04": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "verified-layout",
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-05",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-07"
       ],
-      "checkedAt": "2026-07-05T02:23:29.567Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "5-4-1",
         "coach": {
@@ -42933,6 +43128,7 @@
             "number": "15",
             "name": "Gustavo Gomez",
             "sourcePosition": "defender",
+            "isCaptain": true,
             "position": "CB",
             "x": 49.9,
             "y": 71
@@ -43181,6 +43377,7 @@
             "number": "10",
             "name": "Kylian Mbappe",
             "sourcePosition": "forward",
+            "isCaptain": true,
             "position": "ST",
             "x": 50,
             "y": 10.5
@@ -43326,7 +43523,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "match-93-round-of-16-2026-07-06": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-07T20:00:00.000Z",
@@ -43336,25 +43539,19 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760503/france-paraguay",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760506/spain-portugal",
             "status": "matched",
             "sourceDetail": "public match-center board geometry",
             "exactLayout": true
           }
         ],
         "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry."
-      }
-    },
-    "match-93-round-of-16-2026-07-06": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "verified-layout",
+      },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-07"
       ],
-      "checkedAt": "2026-07-07T16:19:18.645Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "4-2-3-1",
         "coach": {
@@ -43432,6 +43629,7 @@
             "number": "7",
             "name": "Cristiano Ronaldo",
             "sourcePosition": "forward",
+            "isCaptain": true,
             "position": "ST",
             "x": 50,
             "y": 10.5
@@ -43649,6 +43847,7 @@
             "number": "16",
             "name": "Rodri",
             "sourcePosition": "midfielder",
+            "isCaptain": true,
             "position": "DM",
             "x": 63.4,
             "y": 49.9
@@ -43810,7 +44009,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "match-94-round-of-16-2026-07-06": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-07T20:00:00.000Z",
@@ -43820,25 +44025,19 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760506/spain-portugal",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760507/belgium-united-states",
             "status": "matched",
             "sourceDetail": "public match-center board geometry",
             "exactLayout": true
           }
         ],
         "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry."
-      }
-    },
-    "match-94-round-of-16-2026-07-06": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "verified-layout",
+      },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-07"
       ],
-      "checkedAt": "2026-07-07T16:19:18.645Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "3-5-2",
         "coach": {
@@ -43884,6 +44083,7 @@
             "number": "13",
             "name": "Tim Ream",
             "sourcePosition": "defender",
+            "isCaptain": true,
             "position": "LCB",
             "x": 33.3,
             "y": 68.7
@@ -44119,6 +44319,7 @@
             "number": "8",
             "name": "Youri Tielemans",
             "sourcePosition": "midfielder",
+            "isCaptain": true,
             "position": "AM",
             "x": 50,
             "y": 30.1
@@ -44287,7 +44488,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "match-92-round-of-16-2026-07-05": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-07T20:00:00.000Z",
@@ -44297,25 +44504,19 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760507/belgium-united-states",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760505/england-mexico",
             "status": "matched",
             "sourceDetail": "public match-center board geometry",
             "exactLayout": true
           }
         ],
         "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry."
-      }
-    },
-    "match-92-round-of-16-2026-07-05": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "verified-layout",
+      },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-07"
       ],
-      "checkedAt": "2026-07-07T16:19:18.645Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "4-1-2-3",
         "coach": {
@@ -44345,6 +44546,7 @@
             "number": "3",
             "name": "Cesar Montes",
             "sourcePosition": "defender",
+            "isCaptain": true,
             "position": "CB",
             "x": 66.5,
             "y": 68.7
@@ -44634,6 +44836,7 @@
             "number": "9",
             "name": "Harry Kane",
             "sourcePosition": "forward",
+            "isCaptain": true,
             "position": "ST",
             "x": 50,
             "y": 10.5
@@ -44791,7 +44994,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "match-91-round-of-16-2026-07-05": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-07T20:00:00.000Z",
@@ -44801,25 +45010,19 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760505/england-mexico",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760504",
             "status": "matched",
             "sourceDetail": "public match-center board geometry",
             "exactLayout": true
           }
         ],
         "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry."
-      }
-    },
-    "match-91-round-of-16-2026-07-05": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "verified-layout",
+      },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-07"
       ],
-      "checkedAt": "2026-07-07T16:19:18.645Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "4-1-2-3",
         "coach": {
@@ -44849,6 +45052,7 @@
             "number": "4",
             "name": "Marquinhos",
             "sourcePosition": "defender",
+            "isCaptain": true,
             "position": "CB",
             "x": 66.5,
             "y": 68.7
@@ -45098,6 +45302,7 @@
             "number": "10",
             "name": "Martin Odegaard",
             "sourcePosition": "midfielder",
+            "isCaptain": true,
             "position": "DM",
             "x": 81.4,
             "y": 42.3
@@ -45247,23 +45452,6 @@
             }
           ]
         }
-      },
-      "layoutVerification": {
-        "status": "verified",
-        "checkedAt": "2026-07-07T20:00:00.000Z",
-        "sourceIds": [
-          "lineup-layout-verification-2026-07-07"
-        ],
-        "sources": [
-          {
-            "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760504",
-            "status": "matched",
-            "sourceDetail": "public match-center board geometry",
-            "exactLayout": true
-          }
-        ],
-        "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry."
       }
     },
     "match-95-round-of-16-2026-07-07": {
@@ -45293,7 +45481,7 @@
         "fifa-lineups-sync-2026-07-07",
         "google-argentina-egypt-lineup-visual-2026-07-07"
       ],
-      "checkedAt": "2026-07-07T19:46:06.259Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "4-1-3-2",
         "coach": {
@@ -45387,6 +45575,7 @@
             "number": "10",
             "name": "Lionel Messi",
             "sourcePosition": "forward",
+            "isCaptain": true,
             "position": "ST",
             "x": 58,
             "y": 23
@@ -45601,6 +45790,7 @@
             "number": "10",
             "name": "Mohamed Salah",
             "sourcePosition": "forward",
+            "isCaptain": true,
             "position": "AM",
             "x": 50,
             "y": 30.1
@@ -45763,7 +45953,7 @@
       }
     },
     "match-96-round-of-16-2026-07-07": {
-      "mode": "confirmed",
+      "mode": "final",
       "teamSheetSource": "fifa-official",
       "eventSource": "fifa-official",
       "layoutSource": "verified-layout",
@@ -45789,7 +45979,7 @@
         "fifa-lineups-sync-2026-07-07",
         "google-switzerland-colombia-lineup-visual-2026-07-07"
       ],
-      "checkedAt": "2026-07-07T22:47:09.411Z",
+      "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
         "formation": "4-1-2-3",
         "coach": {
@@ -45851,6 +46041,7 @@
             "number": "10",
             "name": "Granit Xhaka",
             "sourcePosition": "midfielder",
+            "isCaptain": true,
             "position": "CM",
             "x": 62,
             "y": 49
@@ -46076,6 +46267,7 @@
             "number": "10",
             "name": "James Rodriguez",
             "sourcePosition": "midfielder",
+            "isCaptain": true,
             "position": "RW",
             "x": 82,
             "y": 30
@@ -46257,5 +46449,5 @@
       }
     }
   },
-  "updatedAt": "2026-07-07T22:47:09.411Z"
+  "updatedAt": "2026-07-07T22:59:37.002Z"
 }

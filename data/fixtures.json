@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-07T22:35:44.535Z",
+  "updatedAt": "2026-07-07T22:59:37.002Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -21483,7 +21483,7 @@
       "homeSlot": "Winner match 85",
       "awaySlot": "Winner match 87",
       "venue": "BC Place Vancouver",
-      "status": "LIVE",
+      "status": "FT",
       "h2h": {
         "status": "loaded",
         "sourceId": "national-football-teams-h2h-sync-2026-07-04",
@@ -21589,6 +21589,28 @@
       "score": {
         "home": 0,
         "away": 0
+      },
+      "scoreDetails": {
+        "penalties": {
+          "home": 4,
+          "away": 3
+        }
+      },
+      "resultStoryBullets": [
+        "Switzerland and Colombia stayed locked at 0-0 through extra time, with both sides kept from turning pressure into a breakthrough.",
+        "Switzerland won the shootout 4-3 to move on from BC Place."
+      ],
+      "resultStoryBulletsZh": [
+        "瑞士和哥伦比亚在加时赛后仍以0比0僵持，双方的压力都没有转化成破门。",
+        "瑞士在卑诗体育馆的点球大战中4比3取胜晋级。"
+      ],
+      "highlightVideoReview": {
+        "status": "not-found",
+        "platform": "youtube",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "checkedAt": "2026-07-07T15:56:22-07:00",
+        "note": "No official FOX Sports YouTube highlights video matched this fixture during the automated channel check."
       }
     },
     {
@@ -22133,15 +22155,135 @@
       "status": "SCHEDULED",
       "homeTeamId": "ARG",
       "h2h": {
-        "status": "not-loaded",
-        "summary": "Teams are not known yet. Past match research will load after the matchup is set.",
-        "results": null
+        "status": "loaded",
+        "sourceId": "national-football-teams-h2h-sync-2026-07-07",
+        "summary": "Before this fixture, Argentina had the edge in the verified senior series: 5 Argentina wins, 2 draws, 0 Switzerland wins, 18 total goals.",
+        "results": [
+          {
+            "date": "2014-07-01",
+            "competition": "World Cup 2014 - Round of 16",
+            "homeTeamId": "ARG",
+            "awayTeamId": "SUI",
+            "homeScore": 1,
+            "awayScore": 0,
+            "venue": "Arena Corinthians",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/9726/Argentina_Switzerland.html"
+          },
+          {
+            "date": "2012-02-29",
+            "competition": "Friendly",
+            "homeTeamId": "SUI",
+            "awayTeamId": "ARG",
+            "homeScore": 1,
+            "awayScore": 3,
+            "venue": "Wankdorf Stadion",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/8553/Switzerland_Argentina.html"
+          },
+          {
+            "date": "2007-06-02",
+            "competition": "Friendly",
+            "homeTeamId": "SUI",
+            "awayTeamId": "ARG",
+            "homeScore": 1,
+            "awayScore": 1,
+            "venue": "St. Jakob Park",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/12960/Switzerland_Argentina.html"
+          },
+          {
+            "date": "1990-05-08",
+            "competition": "Friendly",
+            "homeTeamId": "SUI",
+            "awayTeamId": "ARG",
+            "homeScore": 1,
+            "awayScore": 1,
+            "venue": "Wankdorf Stadion",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/30921/Switzerland_Argentina.html"
+          },
+          {
+            "date": "1984-09-01",
+            "competition": "Friendly",
+            "homeTeamId": "SUI",
+            "awayTeamId": "ARG",
+            "homeScore": 0,
+            "awayScore": 2,
+            "venue": "Wankdorf Stadion",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/37962/Switzerland_Argentina.html"
+          },
+          {
+            "date": "1980-12-16",
+            "competition": "Friendly",
+            "homeTeamId": "ARG",
+            "awayTeamId": "SUI",
+            "homeScore": 5,
+            "awayScore": 0,
+            "venue": "Estadio Mario Alberto Kempes",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/43730/Argentina_Switzerland.html"
+          },
+          {
+            "date": "1966-07-19",
+            "competition": "World Cup 1966 - Group 2",
+            "homeTeamId": "ARG",
+            "awayTeamId": "SUI",
+            "homeScore": 2,
+            "awayScore": 0,
+            "venue": "Hillsborough",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/15076/Argentina_Switzerland.html"
+          }
+        ],
+        "sourceUrl": "https://www.national-football-teams.com/encounter/teams/9/180/Argentina_vs_Switzerland.html"
       },
       "providerIds": {
         "fifa": {
           "matchId": "400021537",
           "matchNumber": 100
         }
+      },
+      "awayTeamId": "SUI",
+      "projection": {
+        "sourceId": "ranking-projection-2026-06-17",
+        "method": "fifa-ranking-baseline",
+        "basis": "FIFA ranking strength with host-country adjustment",
+        "home": 60,
+        "draw": 26,
+        "away": 14
+      },
+      "keyPlayers": {
+        "sourceId": "key-player-baseline-2026-06-22",
+        "method": "team-watchlist-baseline",
+        "basis": "Team-level key-player watchlist; replace with API/squad-sourced fixture notes when available",
+        "home": [
+          {
+            "name": "Lionel Messi",
+            "note": "Argentina's central attacking reference, whose between-lines gravity can turn pressure into clean chances."
+          },
+          {
+            "name": "Julian Alvarez",
+            "note": "Argentina's pressing forward and flexible finisher, dangerous whether he starts moves or attacks the last line."
+          },
+          {
+            "name": "Enzo Fernandez",
+            "note": "The midfield passer who can change the angle of attacks and keep Argentina's control from going stale."
+          }
+        ],
+        "away": [
+          {
+            "name": "Granit Xhaka",
+            "note": "Switzerland's rhythm setter, controlling where the match is played and when pressure releases."
+          },
+          {
+            "name": "Manuel Akanji",
+            "note": "The defensive organizer, especially important when Switzerland have to manage direct central attacks."
+          },
+          {
+            "name": "Breel Embolo",
+            "note": "A powerful runner who can turn Switzerland's possession into box entries."
+          }
+        ]
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-22",
+        "home": "Argentina are the defending champions and still one of the most complete tournament teams, led by Lionel Messi, Julian Alvarez, and Enzo Fernandez. Against Switzerland, their Messi-Alvarez midfield breaks has to beat Switzerland's Xhaka-Embolo control-and-release. They want to press high through Alvarez, find Messi in space behind midfield, and let Enzo Fernandez change the angle of the attack. The risk is Switzerland can slow the game through Xhaka and use Embolo as the release valve.",
+        "away": "Switzerland are a tournament-tested structure team who rarely look rushed when the match gets tense, led by Granit Xhaka, Manuel Akanji, and Breel Embolo. Against Argentina, their Xhaka-Embolo control-and-release has to beat Argentina's Messi-Alvarez midfield breaks. They want to let Xhaka dictate the first pass and find Embolo before the opponent can squeeze midfield. The risk is Argentina can turn one midfield win into Messi touches, Alvarez movement, and Enzo service."
       }
     },
     {

@@ -621,6 +621,20 @@ function playerNumber(player) {
   return String(player?.ShirtNumber || player?.ShirtNum || player?.JerseyNumber || player?.Bib || "").trim();
 }
 
+function isFifaPlayerCaptain(player) {
+  const value = player?.Captain ?? player?.IsCaptain ?? player?.PlayerCaptain ?? player?.TeamCaptain ?? player?.captain ?? player?.isCaptain;
+  if (typeof value === "boolean") {
+    return value;
+  }
+  if (typeof value === "number") {
+    return value === 1;
+  }
+  if (typeof value === "string") {
+    return ["1", "true", "yes", "y", "captain", "c"].includes(value.trim().toLowerCase());
+  }
+  return false;
+}
+
 function buildRawPlayer(player, teamId, profileLookup) {
   const baseName = normalizePersonName(description(player?.PlayerName) || description(player?.ShortName), teamId, profileLookup);
   const profile = findProfileForName(baseName, teamId, profileLookup);
@@ -633,6 +647,7 @@ function buildRawPlayer(player, teamId, profileLookup) {
     rawPosition: player?.Position,
     sourcePosition: sourcePositionFromFifaPosition(player?.Position),
     fifaLine: playerLineFromFifaPosition(player?.Position),
+    isCaptain: isFifaPlayerCaptain(player),
     profile
   };
 }
@@ -692,6 +707,7 @@ function lineupPlayerEntry(player, targetSlot) {
     ...(player.sourcePosition ? { sourcePosition: player.sourcePosition } : {}),
     ...(player.displayName ? { displayName: player.displayName } : {}),
     ...(player.label ? { label: player.label } : {}),
+    ...(player.isCaptain ? { isCaptain: true } : {}),
     position: targetSlot.role,
     x: targetSlot.x,
     y: targetSlot.y
@@ -705,6 +721,7 @@ function benchPlayerEntry(player) {
     ...(player.sourcePosition ? { sourcePosition: player.sourcePosition } : {}),
     ...(player.displayName ? { displayName: player.displayName } : {}),
     ...(player.label ? { label: player.label } : {}),
+    ...(player.isCaptain ? { isCaptain: true } : {}),
     position: positionCodeForBench(player.profile, player.rawPosition)
   };
 }

@@ -1109,6 +1109,10 @@ const ZH_ADDITIONAL_EXACT_TRANSLATIONS = {
     "摩洛哥的年轻替补改变比赛，并在疯狂又身体对抗激烈的收官阶段继续通过萨伊巴里制造机会。",
   "Saibari converted the deciding penalty after five misses in the shootout, sending Morocco to Canada in the last 16.":
     "五次罚失后的点球大战里，萨伊巴里罚入决定性点球，送摩洛哥进入对加拿大的16强赛。",
+  "Switzerland and Colombia stayed locked at 0-0 through extra time, with both sides kept from turning pressure into a breakthrough.":
+    "瑞士和哥伦比亚在加时赛后仍以0比0僵持，双方的压力都没有转化成破门。",
+  "Switzerland won the shootout 4-3 to move on from BC Place.":
+    "瑞士在卑诗体育馆的点球大战中4比3取胜晋级。",
   "Julian Quinones turned in Alvarado's 22nd-minute delivery, then Raul Jimenez finished Quinones's pass nine minutes later.":
     "基尼奥内斯第22分钟接阿尔瓦拉多传球破门，随后9分钟后又助攻劳尔·希门尼斯扩大比分。",
   "Mexico's first-half pressure lifted the home crowd in Mexico City, and their defense protected a fourth straight World Cup clean sheet.":
@@ -16857,6 +16861,36 @@ function formatLineupShortName(name) {
   return `${first}. ${lastParts.join(" ")}`;
 }
 
+function isLineupPlayerCaptain(player) {
+  if (!player || typeof player !== "object" || Array.isArray(player)) {
+    return false;
+  }
+
+  const value = player.isCaptain ?? player.captain ?? player.is_captain ?? player.Captain ?? player.IsCaptain;
+  if (typeof value === "boolean") {
+    return value;
+  }
+
+  if (typeof value === "number") {
+    return value === 1;
+  }
+
+  if (typeof value === "string") {
+    return ["1", "true", "yes", "y", "captain", "c"].includes(value.trim().toLowerCase());
+  }
+
+  return false;
+}
+
+function formatLineupCaptainLabel(label, isCaptain) {
+  const text = String(label || "").trim();
+  if (!text) {
+    return "";
+  }
+
+  return isCaptain && !/\(C\)$/i.test(text) ? `${text} (C)` : text;
+}
+
 function getLineupProfileByName(teamId, name) {
   return getPlayerProfile({ name, teamId }) || playerProfilesByName.get(normalizeTextKey(name)) || null;
 }
@@ -17131,6 +17165,7 @@ function normalizeLineupPlayerEntry(player, teamId, index = 0, layoutEntry = nul
   const rawY = Number.isFinite(Number(player.y)) ? Number(player.y) : layoutEntry?.[2];
   const y = getAdjustedLineupPlayerY(position, rawY);
   const avatarColor = player.avatarColor || getMockAvatarColor(teamId, index);
+  const isCaptain = isLineupPlayerCaptain(player);
 
   return [
     number,
@@ -17140,13 +17175,14 @@ function normalizeLineupPlayerEntry(player, teamId, index = 0, layoutEntry = nul
     player.initials || getPlayerInitials(displayName),
     x,
     y,
-    avatarColor
+    avatarColor,
+    isCaptain
   ];
 }
 
 function normalizeLineupBenchEntry(player, teamId, index = 0) {
   const normalizedPlayer = normalizeLineupPlayerEntry(player, teamId, index);
-  return normalizedPlayer ? normalizedPlayer.slice(0, 4) : null;
+  return normalizedPlayer ? [...normalizedPlayer.slice(0, 4), normalizedPlayer[8]] : null;
 }
 
 function normalizeLineupTeamEvents(events = {}) {
@@ -17736,6 +17772,8 @@ function appendInfoCardDisclaimer(tooltipText) {
 function getLineupPlayerData(player, team) {
   const [number, label, name, position, initials, x, y, avatarColor] = player;
   const fullName = name || label;
+  const isCaptain = Boolean(typeof player?.[8] === "boolean" ? player[8] : player?.[4] === true);
+  const displayLabel = formatLineupCaptainLabel(label, isCaptain);
   const cardPlayer = {
     name: fullName,
     team,
@@ -17747,13 +17785,14 @@ function getLineupPlayerData(player, team) {
 
   return {
     number,
-    label,
+    label: displayLabel,
     name: fullName,
     position,
-    initials: initials || getPlayerInitials(fullName),
+    initials: typeof initials === "string" ? initials : getPlayerInitials(fullName),
     x,
     y,
     avatarColor,
+    isCaptain,
     cardPlayer
   };
 }
@@ -18403,6 +18442,7 @@ function renderLineupPlayerMarker(player, team, teamLineup, match = null, side =
   const lineupPlayer = getLineupPlayerData(displayPlayer, team);
   const profile = getPlayerProfile(lineupPlayer.cardPlayer);
   const playerName = getLocalizedPlayerDisplayName(lineupPlayer.cardPlayer, profile);
+  const playerLabel = formatLineupCaptainLabel(playerName, lineupPlayer.isCaptain);
   const eventSummary = [
     getLineupPlayerEventSummary(lineupPlayer.name, teamLineup),
     getLineupPlayerScoringSummary(lineupPlayer.name, match, side)
@@ -18414,7 +18454,7 @@ function renderLineupPlayerMarker(player, team, teamLineup, match = null, side =
     : "";
   const numberLabel = String(lineupPlayer.number || "").trim();
   const ariaLabel = [
-    [numberLabel, playerName].filter(Boolean).join(" "),
+    [numberLabel, playerLabel].filter(Boolean).join(" "),
     getLocalizedLineupPosition(lineupPlayer.position),
     eventSummary
   ].filter(Boolean).join(", ");
