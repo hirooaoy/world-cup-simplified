@@ -336,7 +336,17 @@ function buildPredictedSide(scoredSide) {
     evidence: {
       confidence: confidenceForSide(scoredSide, starters),
       formationScores: scoredSide.formationScores,
-      starterScores: starters.map((player) => playerScoreFor(scoredSide, player)).filter(Boolean)
+      starterScores: starters
+        .map((player) => playerScoreFor(scoredSide, player))
+        .filter(Boolean)
+        .map((score) => ({
+          name: score.name,
+          score: score.score,
+          starterVotes: score.starterVotes,
+          benchVotes: score.benchVotes,
+          providerIds: score.providerIds,
+          sourceIds: score.sourceIds
+        }))
     }
   });
 }
