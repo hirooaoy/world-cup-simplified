@@ -260,19 +260,8 @@ try {
 
   const payload = JSON.parse(chunks.join(""));
   const byId = new Map((payload.fixturesData?.fixtures || []).map((fixture) => [fixture.id, fixture]));
-  const liveFixture = byId.get("match-95-round-of-16-2026-07-07");
   const confirmedFixture = byId.get("match-96-round-of-16-2026-07-07");
-
-  assert.equal(liveFixture?.lineups?.mode, "live");
-  assert.equal(liveFixture.lineups.teamSheetSource, "fifa-official");
-  assert.equal(liveFixture.lineups.layoutSource, "derived-team-sheet-order");
-  assert.equal(liveFixture.lineups.layoutVerification?.status, "unverified");
-  assert.equal(liveFixture.lineups.layoutVerification?.exact, false);
-  assert.equal(liveFixture.lineups.home.players.length, 11);
-  assert.equal(liveFixture.lineups.away.players.length, 11);
-  assert(liveFixture.lineups.home.bench.length > 0);
-  assert(liveFixture.lineups.away.bench.length > 0);
-  assert.equal(liveFixture.lineups.home.coach.name, "Lionel Scaloni");
+  const completedStaticFixture = byId.get("match-95-round-of-16-2026-07-07");
 
   assert.equal(confirmedFixture?.lineups?.mode, "confirmed");
   assert.equal(confirmedFixture.lineups.teamSheetSource, "fifa-official");
@@ -282,13 +271,20 @@ try {
   assert.equal(confirmedFixture.lineups.home.players.length, 11);
   assert.equal(confirmedFixture.lineups.away.players.length, 11);
 
-  assert.equal(fetchHits.calendar, 2);
-  assert.equal(fetchHits.liveFootball.get("400021528"), 1);
-  assert.equal(fetchHits.liveFootball.get("400021535"), 1);
-  assert.equal(payload.syncStatus.lineupFixtures, 2);
-  assert.equal(payload.syncStatus.lineupUpdates, 2);
+  assert.equal(completedStaticFixture?.lineups?.mode, "final");
+  assert.equal(completedStaticFixture.lineups.teamSheetSource, "fifa-official");
+  assert.equal(completedStaticFixture.lineups.home.players.length, 11);
+  assert.equal(completedStaticFixture.lineups.away.players.length, 11);
 
-  console.log("Live lineup smoke passed: FIFA team sheets reached /api/live-data.");
+  assert.equal(fetchHits.calendar, 2);
+  assert.equal(fetchHits.liveFootball.get("400021528") || 0, 0);
+  assert.equal(fetchHits.liveFootball.get("400021535"), 1);
+  assert.equal(payload.syncStatus.lineupFixtures, 1);
+  assert.equal(payload.syncStatus.lineupUpdates, 1);
+  assert(payload.syncStatus.staticLineupFixtures >= 1);
+  assert(payload.syncStatus.staticLineupUpdates >= 1);
+
+  console.log("Live lineup smoke passed: FIFA team sheets and completed static lineups reached /api/live-data.");
 } finally {
   globalThis.fetch = previousFetch;
   for (const [key, value] of Object.entries(previousEnv)) {

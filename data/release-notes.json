@@ -1,6 +1,17 @@
 {
-  "updatedAt": "2026-07-07T12:27:00-07:00",
+  "updatedAt": "2026-07-07T12:54:00-07:00",
   "releases": [
+    {
+      "date": "2026-07-07",
+      "title": "Completed lineup refresh fix",
+      "titleZh": "完场阵容刷新修复",
+      "highlights": [
+        "Completed match lineups now flow through the live-data refresh path, so open tabs can pick up official final lineups without a hard refresh."
+      ],
+      "highlightsZh": [
+        "完场比赛阵容现在会通过实时数据刷新路径送达，因此已打开的页面无需强制刷新也能拿到官方最终阵容。"
+      ]
+    },
     {
       "date": "2026-07-07",
       "title": "Argentina-Egypt result added",

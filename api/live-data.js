@@ -82,12 +82,13 @@ export default async function handler(request, response) {
     return;
   }
 
-  const [fixturesData, standingsData, teamsData, tournamentData, playerProfilesData] = await Promise.all([
+  const [fixturesData, standingsData, teamsData, tournamentData, playerProfilesData, lineupsData] = await Promise.all([
     readJson("fixtures.json"),
     readJson("standings.json"),
     readJson("teams.json"),
     readJson("tournament.json"),
-    readOptionalJson("player-profiles.json")
+    readOptionalJson("player-profiles.json"),
+    readOptionalJson("lineups.json")
   ]);
   const providerMap = (await readOptionalJson("provider-map.json")) || {};
   const provider = getLiveDataProvider();
@@ -150,9 +151,13 @@ export default async function handler(request, response) {
           teams: teamsData.teams,
           timeZone
         });
+        const staticLineupMerge = mergeStaticLineupsForLivePayload({
+          fixturesData: liveLineupMerge.fixturesData,
+          lineupsData
+        });
         const mergedStandingsData = recomputeStandings({
           checkedAt,
-          fixturesData: liveLineupMerge.fixturesData,
+          fixturesData: staticLineupMerge.fixturesData,
           provider,
           standingsData,
           teams: teamsData.teams,
@@ -176,7 +181,7 @@ export default async function handler(request, response) {
         });
 
         return {
-          fixturesData: liveLineupMerge.fixturesData,
+          fixturesData: staticLineupMerge.fixturesData,
           standingsData: mergedStandingsData,
           tournamentData: mergedTournamentData,
           syncStatus: {
@@ -193,6 +198,8 @@ export default async function handler(request, response) {
             officialScoreReason: officialScoreMerge.reason || undefined,
             officialScoreUpdates: officialScoreMerge.updateCount,
             provider: provider.name,
+            staticLineupFixtures: staticLineupMerge.matchedCount || undefined,
+            staticLineupUpdates: staticLineupMerge.updateCount || undefined,
             updatedFixtures: merge.updateCount
           }
         };
@@ -1878,6 +1885,58 @@ function shouldFetchOfficialLiveLineup(fixture, checkedAt) {
   }
 
   return isFixtureNearKickoffForLineups(fixture, checkedAt);
+}
+
+function shouldExposeStaticLineupInLivePayload(fixture, lineup) {
+  if (!fixture || !lineup || typeof lineup !== "object" || Array.isArray(lineup)) {
+    return false;
+  }
+
+  return ["FT", "AET", "PEN"].includes(fixture.status);
+}
+
+function mergeStaticLineupsForLivePayload({ fixturesData, lineupsData }) {
+  const lineupRecords =
+    lineupsData && typeof lineupsData === "object" && !Array.isArray(lineupsData)
+      ? lineupsData.lineups || {}
+      : {};
+
+  if (!lineupRecords || !Object.keys(lineupRecords).length) {
+    return {
+      fixturesData,
+      matchedCount: 0,
+      updateCount: 0
+    };
+  }
+
+  let matchedCount = 0;
+  let updateCount = 0;
+  const fixtures = (fixturesData.fixtures || []).map((fixture) => {
+    if (fixture.lineups) {
+      return fixture;
+    }
+
+    const lineup = lineupRecords[fixture.id];
+    if (!shouldExposeStaticLineupInLivePayload(fixture, lineup)) {
+      return fixture;
+    }
+
+    matchedCount += 1;
+    updateCount += 1;
+    return {
+      ...fixture,
+      lineups: lineup
+    };
+  });
+
+  return {
+    fixturesData: {
+      ...fixturesData,
+      fixtures
+    },
+    matchedCount,
+    updateCount
+  };
 }
 
 function isOfficialGoalEventsEnabled() {
