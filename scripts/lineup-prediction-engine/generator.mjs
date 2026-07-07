@@ -192,6 +192,35 @@ function playerNameKey(player) {
   return String(player?.name || "").trim().toLowerCase();
 }
 
+function normalizeProfilesData(data) {
+  const profiles = data?.profiles || data?.players || data || {};
+  return profiles && typeof profiles === "object" && !Array.isArray(profiles) ? profiles : {};
+}
+
+function createPlayerProfileLookup(playerProfilesData) {
+  const profiles = normalizeProfilesData(playerProfilesData);
+  const byName = new Map();
+  for (const profile of Object.values(profiles)) {
+    const key = playerNameKey(profile);
+    if (key && !byName.has(key)) {
+      byName.set(key, profile);
+    }
+  }
+  return byName;
+}
+
+function createCoachProfileLookup(coachProfilesData) {
+  const profiles = normalizeProfilesData(coachProfilesData);
+  const byTeamId = new Map();
+  for (const profile of Object.values(profiles)) {
+    const teamId = String(profile?.teamId || "").trim();
+    if (teamId && !byTeamId.has(teamId)) {
+      byTeamId.set(teamId, profile);
+    }
+  }
+  return byTeamId;
+}
+
 function getLayout(formation) {
   return FORMATION_LAYOUTS[formation] || FORMATION_LAYOUTS[DEFAULT_FORMATION];
 }
@@ -259,6 +288,18 @@ function chooseBench(scoredSide, starters) {
 function playerScoreFor(scoredSide, player) {
   const key = playerNameKey(player);
   return scoredSide.playerScores.find((score) => playerNameKey(score.player) === key);
+}
+
+function getPredictedPlayerNumber(player, score, playerProfilesByName) {
+  const profile = playerProfilesByName.get(playerNameKey(player));
+  return String(
+    player?.number ||
+      score?.number ||
+      score?.player?.number ||
+      player?.uniformNumber ||
+      profile?.uniformNumber ||
+      ""
+  ).trim();
 }
 
 function normalizedPlayerEvidenceScore(playerScore, options = {}) {
@@ -350,6 +391,7 @@ function confidenceForSide(scoredSide, starters, options = {}) {
 function predictedPlayerFromCandidate(player, scoredSide, slot, index, options = {}) {
   const score = playerScoreFor(scoredSide, player);
   const [slotPosition, slotX, slotY] = slot;
+  const playerProfilesByName = options.playerProfilesByName || createPlayerProfileLookup(options.playerProfilesData);
   const confidence = normalizeConfidence({
     score: normalizedPlayerEvidenceScore(score || player.confidence?.score || 0, options),
     method: "provider-weighted-player-evidence-v1"
@@ -357,7 +399,7 @@ function predictedPlayerFromCandidate(player, scoredSide, slot, index, options =
 
   return createPredictedPlayer({
     name: player.name,
-    number: player.number,
+    number: getPredictedPlayerNumber(player, score, playerProfilesByName),
     position: player.position || slotPosition,
     x: Number.isFinite(Number(player.x)) ? Number(player.x) : slotX,
     y: Number.isFinite(Number(player.y)) ? Number(player.y) : slotY,
@@ -368,10 +410,12 @@ function predictedPlayerFromCandidate(player, scoredSide, slot, index, options =
   });
 }
 
-function predictedBenchPlayer(player) {
+function predictedBenchPlayer(player, scoredSide, options = {}) {
+  const score = playerScoreFor(scoredSide, player);
+  const playerProfilesByName = options.playerProfilesByName || createPlayerProfileLookup(options.playerProfilesData);
   return {
     name: player.name,
-    number: String(player.number || "").trim(),
+    number: getPredictedPlayerNumber(player, score, playerProfilesByName),
     position: String(player.position || "").trim(),
     confidence: normalizeConfidence(player.confidence),
     sourceIds: uniqueStrings(player.sourceIds || []),
@@ -388,16 +432,20 @@ function buildPredictedSide(scoredSide, options = {}) {
   }
 
   const layout = getLayout(formation);
+  const primarySide = choosePrimarySide(scoredSide);
+  const coachProfilesByTeamId = options.coachProfilesByTeamId || createCoachProfileLookup(options.coachProfilesData);
+  const coach = coachProfilesByTeamId.get(primarySide?.teamId) || null;
   const players = starters.map((player, index) =>
     predictedPlayerFromCandidate(player, scoredSide, layout[index] || layout.at(-1), index, options)
   );
-  const bench = chooseBench(scoredSide, starters).map(predictedBenchPlayer);
+  const bench = chooseBench(scoredSide, starters).map((player) => predictedBenchPlayer(player, scoredSide, options));
   const sourceIds = uniqueStrings([
     ...scoredSide.scoredSideCandidates.flatMap((candidate) => candidate.candidate.sourceIds),
     ...players.flatMap((player) => player.sourceIds || [])
   ]);
 
   return createPredictedSide({
+    coach,
     formation,
     players,
     bench,
@@ -435,9 +483,14 @@ export function generateFixturePrediction({ candidates, fixture, generatedAt = n
     throw new Error("generateFixturePrediction requires fixture.id");
   }
 
+  const generatorOptions = {
+    ...options,
+    coachProfilesByTeamId: options.coachProfilesByTeamId || createCoachProfileLookup(options.coachProfilesData),
+    playerProfilesByName: options.playerProfilesByName || createPlayerProfileLookup(options.playerProfilesData)
+  };
   const scored = scoreFixtureCandidates(fixture.id, candidates, options);
-  const home = buildPredictedSide(scored.home, options);
-  const away = buildPredictedSide(scored.away, options);
+  const home = buildPredictedSide(scored.home, generatorOptions);
+  const away = buildPredictedSide(scored.away, generatorOptions);
   if (!home || !away) {
     return null;
   }

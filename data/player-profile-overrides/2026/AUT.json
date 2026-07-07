@@ -82,6 +82,8 @@
       "noteZh": "丘库埃梅卡增加中场带球力量，当奥地利需要用盘带破压时很有用。"
     },
     "David Affengruber": {
+      "transfermarktPlayerCode": "david-affengruber",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/452483-1779272314.jpg?lm=1",
       "skills": ["Centre-back defending", "Aerial duels", "Box clearances"],
       "note": "Affengruber gives Austria centre-back depth, especially useful for aerial spells and low-box defending.",
       "noteZh": "阿芬格鲁伯给奥地利中卫深度，尤其适合空中球阶段和低位禁区防守。"
@@ -155,6 +157,8 @@
       "noteZh": "彭茨给奥地利敏捷扑救和快速开球，当球队想迅速向前时很有用。"
     },
     "Patrick Wimmer": {
+      "transfermarktPlayerCode": "patrick-wimmer",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/533295-1752736631.jpg?lm=1",
       "skills": ["Wide dribbling", "Pressing energy", "Cutbacks"],
       "note": "Wimmer gives Austria a direct wide runner, useful for pressing full-backs and driving to the byline.",
       "noteZh": "维默给奥地利直接边路跑动，适合压迫边后卫并冲到底线。"

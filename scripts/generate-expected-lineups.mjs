@@ -56,6 +56,8 @@ const { document } = await runLineupPredictionEngine({
     { file: "data/free-lineup-prediction-sources.json", role: "free public probable-lineup source candidates" }
   ],
   options: {
+    coachProfilesData: context.coachProfilesData,
+    playerProfilesData: context.playerProfilesData,
     sourceIndependenceKeys
   },
   providers: [localProvider, freeProvider],

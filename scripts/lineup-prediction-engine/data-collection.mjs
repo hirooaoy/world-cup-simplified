@@ -30,6 +30,7 @@ function isFutureLineupFixture(fixture) {
 
 export async function collectLineupPredictionData() {
   const [
+    coachProfilesData,
     fixturesData,
     freeLineupPredictionsData,
     lineupsData,
@@ -38,6 +39,7 @@ export async function collectLineupPredictionData() {
     teamsData,
     tournamentData
   ] = await Promise.all([
+    readOptionalJson("coach-profiles.json", { profiles: {} }),
     readJson("fixtures.json"),
     readOptionalJson("free-lineup-prediction-sources.json", { sources: [], fixtures: [] }),
     readJson("lineups.json"),
@@ -52,6 +54,7 @@ export async function collectLineupPredictionData() {
     .filter((fixture) => !fixture.lineups && !staticLineups[fixture.id]);
 
   return {
+    coachProfilesData,
     fixturesData,
     freeLineupPredictionsData,
     lineupsData,

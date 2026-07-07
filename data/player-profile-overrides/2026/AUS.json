@@ -6,7 +6,9 @@
     "Aiden Oneill": {
       "displayName": "Aiden O'Neill",
       "aliases": ["Aiden O'Neill", "ONEILL Aiden"],
+      "transfermarktPlayerCode": "aiden-oneill",
       "league": "Major League Soccer",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/385918-1771711165.jpg?lm=1",
       "skills": ["Midfield screening", "Simple progression", "Second-ball work"],
       "note": "Australia's defensive-midfield organizer, useful for protecting the back line and keeping passes moving.",
       "noteZh": "艾登·奥尼尔是澳大利亚防守型中场组织者，适合保护防线并保持传球流动。"
@@ -51,7 +53,7 @@
       "position": "Central midfielder",
       "club": "Heart of Midlothian",
       "league": "Scottish Premiership",
-      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/399162-1643812197.jpg?lm=1",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/399162-1780322939.jpg?lm=1",
       "marketValueEurMillions": 2,
       "skills": ["Ball-winning bite", "Pressing range", "Combative energy"],
       "note": "Australia's midfield irritant, useful for pressing, tackling, and making opponents play faster than they want.",

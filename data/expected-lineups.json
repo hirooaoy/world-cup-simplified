@@ -1,6 +1,6 @@
 {
   "schemaVersion": "2",
-  "generatedAt": "2026-07-07T18:55:59.189Z",
+  "generatedAt": "2026-07-07T21:19:46.346Z",
   "engine": {
     "id": "lineup-prediction-engine",
     "version": "1",
@@ -11,7 +11,7 @@
       "id": "lineup-prediction-official-history-2026-07-07",
       "label": "Lineup prediction official-history provider",
       "type": "lineup-prediction-provider",
-      "checkedAt": "2026-07-07T18:55:59.189Z",
+      "checkedAt": "2026-07-07T21:19:46.346Z",
       "note": "Uses local FIFA official lineup history, recent formations, minutes/load, cards, and player availability."
     }
   ],
@@ -45,7 +45,7 @@
         "fifa-lineups-sync-2026-07-05",
         "lineup-layout-verification-2026-07-07"
       ],
-      "lastUpdated": "2026-07-07T18:55:59.189Z",
+      "lastUpdated": "2026-07-07T21:19:46.346Z",
       "confidence": {
         "label": "high",
         "score": 0.889,
@@ -545,10 +545,30 @@
       "lineup": {
         "home": {
           "formation": "4-2-3-1",
+          "coach": {
+            "name": "Didier Deschamps",
+            "teamId": "FRA",
+            "teamName": "France",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Didier_Deschamps_France_v_Senegal_16_June_2026-519_%28cropped%29.jpg/250px-Didier_Deschamps_France_v_Senegal_16_June_2026-519_%28cropped%29.jpg",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Didier_Deschamps",
+            "styles": [
+              "Defensive organization",
+              "Counter-attack",
+              "Set-piece focus"
+            ],
+            "note": {
+              "en": "Deschamps keeps France ruthlessly practical: defend the center, manage momentum, and let elite transition players decide matches."
+            },
+            "history": {
+              "en": "Appointed in 2012, he led France to the 2018 World Cup title, the Euro 2016 final, and the 2022 World Cup final."
+            },
+            "sinceYear": 2012,
+            "birthDate": "1968-10-15"
+          },
           "players": [
             {
               "name": "Mike Maignan",
-              "number": "",
+              "number": "16",
               "position": "GK",
               "x": 50,
               "y": 91,
@@ -576,7 +596,7 @@
             },
             {
               "name": "Jules Kounde",
-              "number": "",
+              "number": "5",
               "position": "RB",
               "x": 85,
               "y": 75,
@@ -604,7 +624,7 @@
             },
             {
               "name": "Dayot Upamecano",
-              "number": "",
+              "number": "4",
               "position": "CB",
               "x": 62,
               "y": 75,
@@ -632,7 +652,7 @@
             },
             {
               "name": "William Saliba",
-              "number": "",
+              "number": "17",
               "position": "CB",
               "x": 38,
               "y": 75,
@@ -660,7 +680,7 @@
             },
             {
               "name": "Lucas Digne",
-              "number": "",
+              "number": "3",
               "position": "LB",
               "x": 15,
               "y": 75,
@@ -688,7 +708,7 @@
             },
             {
               "name": "Manu Kone",
-              "number": "",
+              "number": "6",
               "position": "CM",
               "x": 34,
               "y": 59,
@@ -716,7 +736,7 @@
             },
             {
               "name": "Adrien Rabiot",
-              "number": "",
+              "number": "14",
               "position": "CM",
               "x": 66,
               "y": 59,
@@ -744,7 +764,7 @@
             },
             {
               "name": "Ousmane Dembele",
-              "number": "",
+              "number": "7",
               "position": "RW",
               "x": 82,
               "y": 40,
@@ -772,7 +792,7 @@
             },
             {
               "name": "Michael Olise",
-              "number": "",
+              "number": "11",
               "position": "AM",
               "x": 50,
               "y": 40,
@@ -800,7 +820,7 @@
             },
             {
               "name": "Bradley Barcola",
-              "number": "",
+              "number": "12",
               "position": "LW",
               "x": 18,
               "y": 40,
@@ -828,7 +848,7 @@
             },
             {
               "name": "Kylian Mbappe",
-              "number": "",
+              "number": "10",
               "position": "ST",
               "x": 50,
               "y": 20,
@@ -1389,10 +1409,30 @@
         },
         "away": {
           "formation": "4-2-3-1",
+          "coach": {
+            "name": "Mohamed Ouahbi",
+            "teamId": "MAR",
+            "teamName": "Morocco",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Mohamed_Ouahbi_vs_Paraguay.jpg/250px-Mohamed_Ouahbi_vs_Paraguay.jpg",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Mohamed_Ouahbi",
+            "styles": [
+              "Youth pipeline",
+              "Defensive organization",
+              "Counter-pressing"
+            ],
+            "note": {
+              "en": "Ouahbi brings a development coach's lens to Morocco, pairing organized defending with quick pressing moments and faith in younger technical players."
+            },
+            "history": {
+              "en": "Promoted after work in Morocco's youth pathway, he carries federation continuity from the country's recent international rise."
+            },
+            "sinceYear": 2025,
+            "birthDate": "1976-09-07"
+          },
           "players": [
             {
               "name": "Yassine Bounou",
-              "number": "",
+              "number": "1",
               "position": "GK",
               "x": 50,
               "y": 91,
@@ -1420,7 +1460,7 @@
             },
             {
               "name": "Achraf Hakimi",
-              "number": "",
+              "number": "2",
               "position": "RB",
               "x": 85,
               "y": 75,
@@ -1448,7 +1488,7 @@
             },
             {
               "name": "Issa Diop",
-              "number": "",
+              "number": "14",
               "position": "CB",
               "x": 62,
               "y": 75,
@@ -1476,7 +1516,7 @@
             },
             {
               "name": "Chadi Riad",
-              "number": "",
+              "number": "18",
               "position": "CB",
               "x": 38,
               "y": 75,
@@ -1504,7 +1544,7 @@
             },
             {
               "name": "Noussair Mazraoui",
-              "number": "",
+              "number": "3",
               "position": "LB",
               "x": 15,
               "y": 75,
@@ -1532,7 +1572,7 @@
             },
             {
               "name": "Neil El Aynaoui",
-              "number": "",
+              "number": "24",
               "position": "CM",
               "x": 34,
               "y": 59,
@@ -1561,7 +1601,7 @@
             },
             {
               "name": "Ayyoub Bouaddi",
-              "number": "",
+              "number": "6",
               "position": "CM",
               "x": 66,
               "y": 59,
@@ -1590,7 +1630,7 @@
             },
             {
               "name": "Brahim Diaz",
-              "number": "",
+              "number": "10",
               "position": "RW",
               "x": 82,
               "y": 40,
@@ -1618,7 +1658,7 @@
             },
             {
               "name": "Azzedine Ounahi",
-              "number": "",
+              "number": "8",
               "position": "AM",
               "x": 50,
               "y": 40,
@@ -1646,7 +1686,7 @@
             },
             {
               "name": "Bilal El Khannouss",
-              "number": "",
+              "number": "23",
               "position": "LW",
               "x": 18,
               "y": 40,
@@ -1674,7 +1714,7 @@
             },
             {
               "name": "Soufiane Rahimi",
-              "number": "",
+              "number": "9",
               "position": "ST",
               "x": 50,
               "y": 20,
@@ -2262,7 +2302,7 @@
           "status": "unverified",
           "exact": false,
           "source": "derived-team-sheet-order",
-          "checkedAt": "2026-07-07T18:55:59.189Z"
+          "checkedAt": "2026-07-07T21:19:46.346Z"
         },
         "confidence": {
           "label": "high",
@@ -2278,8 +2318,8 @@
           "fifa-lineups-sync-2026-07-05",
           "lineup-layout-verification-2026-07-07"
         ],
-        "checkedAt": "2026-07-07T18:55:59.189Z",
-        "updatedAt": "2026-07-07T18:55:59.189Z"
+        "checkedAt": "2026-07-07T21:19:46.346Z",
+        "updatedAt": "2026-07-07T21:19:46.346Z"
       }
     },
     {
@@ -2292,7 +2332,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-07"
       ],
-      "lastUpdated": "2026-07-07T18:55:59.189Z",
+      "lastUpdated": "2026-07-07T21:19:46.346Z",
       "confidence": {
         "label": "high",
         "score": 0.889,
@@ -2774,10 +2814,30 @@
       "lineup": {
         "home": {
           "formation": "4-2-3-1",
+          "coach": {
+            "name": "Luis De La Fuente",
+            "teamId": "ESP",
+            "teamName": "Spain",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Luis_de_la_Fuente_Castillo_-_2023_05_06_Final_de_la_Copa_del_Rey_0001_%28cropped%29.jpg/250px-Luis_de_la_Fuente_Castillo_-_2023_05_06_Final_de_la_Copa_del_Rey_0001_%28cropped%29.jpg",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Luis_de_la_Fuente_(footballer%2C_born_1961)",
+            "styles": [
+              "Youth pipeline",
+              "Possession control",
+              "Defensive organization"
+            ],
+            "note": {
+              "en": "De la Fuente keeps Spain connected to its possession identity while adding vertical runners and trust in players he developed through the youth teams."
+            },
+            "history": {
+              "en": "Promoted to the senior job in 2022, he previously led Spain's under-19, under-21, and Olympic teams."
+            },
+            "sinceYear": 2022,
+            "birthDate": "1961-06-21"
+          },
           "players": [
             {
               "name": "Unai Simon",
-              "number": "",
+              "number": "23",
               "position": "GK",
               "x": 50,
               "y": 91,
@@ -2804,7 +2864,7 @@
             },
             {
               "name": "Pedro Porro",
-              "number": "",
+              "number": "12",
               "position": "RB",
               "x": 85,
               "y": 75,
@@ -2831,7 +2891,7 @@
             },
             {
               "name": "Pau Cubarsi",
-              "number": "",
+              "number": "22",
               "position": "CB",
               "x": 62,
               "y": 75,
@@ -2858,7 +2918,7 @@
             },
             {
               "name": "Aymeric Laporte",
-              "number": "",
+              "number": "14",
               "position": "CB",
               "x": 38,
               "y": 75,
@@ -2885,7 +2945,7 @@
             },
             {
               "name": "Marc Cucurella",
-              "number": "",
+              "number": "24",
               "position": "LB",
               "x": 15,
               "y": 75,
@@ -2912,7 +2972,7 @@
             },
             {
               "name": "Rodri",
-              "number": "",
+              "number": "16",
               "position": "CM",
               "x": 34,
               "y": 59,
@@ -2939,7 +2999,7 @@
             },
             {
               "name": "Pedri",
-              "number": "",
+              "number": "20",
               "position": "CM",
               "x": 66,
               "y": 59,
@@ -2966,7 +3026,7 @@
             },
             {
               "name": "Lamine Yamal",
-              "number": "",
+              "number": "19",
               "position": "RW",
               "x": 82,
               "y": 40,
@@ -2993,7 +3053,7 @@
             },
             {
               "name": "Dani Olmo",
-              "number": "",
+              "number": "10",
               "position": "AM",
               "x": 50,
               "y": 40,
@@ -3020,7 +3080,7 @@
             },
             {
               "name": "Alex Baena",
-              "number": "",
+              "number": "15",
               "position": "LW",
               "x": 18,
               "y": 40,
@@ -3047,7 +3107,7 @@
             },
             {
               "name": "Mikel Oyarzabal",
-              "number": "",
+              "number": "21",
               "position": "ST",
               "x": 50,
               "y": 20,
@@ -3609,10 +3669,30 @@
         },
         "away": {
           "formation": "4-2-3-1",
+          "coach": {
+            "name": "Rudi Garcia",
+            "teamId": "BEL",
+            "teamName": "Belgium",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Rudi_Garcia_%28Flickr%2C_2011%29.jpg/250px-Rudi_Garcia_%28Flickr%2C_2011%29.jpg",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Rudi_Garcia",
+            "styles": [
+              "Attacking structure",
+              "Possession control",
+              "High press"
+            ],
+            "note": {
+              "en": "Garcia gives Belgium an attacking structure based on passing rhythm, wide support, and pressure from advanced midfielders."
+            },
+            "history": {
+              "en": "Appointed in 2025, he brought club experience from Lille, Roma, Marseille, Lyon, Al Nassr, and Napoli."
+            },
+            "sinceYear": 2025,
+            "birthDate": "1964-02-20"
+          },
           "players": [
             {
               "name": "Thibaut Courtois",
-              "number": "",
+              "number": "1",
               "position": "GK",
               "x": 50,
               "y": 91,
@@ -3639,7 +3719,7 @@
             },
             {
               "name": "Timothy Castagne",
-              "number": "",
+              "number": "21",
               "position": "RB",
               "x": 85,
               "y": 75,
@@ -3666,7 +3746,7 @@
             },
             {
               "name": "Brandon Mechele",
-              "number": "",
+              "number": "4",
               "position": "CB",
               "x": 62,
               "y": 75,
@@ -3693,7 +3773,7 @@
             },
             {
               "name": "Nathan Ngoy",
-              "number": "",
+              "number": "25",
               "position": "CB",
               "x": 38,
               "y": 75,
@@ -3720,7 +3800,7 @@
             },
             {
               "name": "Maxim De Cuyper",
-              "number": "",
+              "number": "5",
               "position": "LB",
               "x": 15,
               "y": 75,
@@ -3747,7 +3827,7 @@
             },
             {
               "name": "Hans Vanaken",
-              "number": "",
+              "number": "20",
               "position": "CM",
               "x": 34,
               "y": 59,
@@ -3774,7 +3854,7 @@
             },
             {
               "name": "Youri Tielemans",
-              "number": "",
+              "number": "8",
               "position": "CM",
               "x": 66,
               "y": 59,
@@ -3801,7 +3881,7 @@
             },
             {
               "name": "Jeremy Doku",
-              "number": "",
+              "number": "11",
               "position": "RW",
               "x": 82,
               "y": 40,
@@ -3828,7 +3908,7 @@
             },
             {
               "name": "Kevin De Bruyne",
-              "number": "",
+              "number": "7",
               "position": "AM",
               "x": 50,
               "y": 40,
@@ -3857,7 +3937,7 @@
             },
             {
               "name": "Leandro Trossard",
-              "number": "",
+              "number": "10",
               "position": "LW",
               "x": 18,
               "y": 40,
@@ -3884,7 +3964,7 @@
             },
             {
               "name": "Charles De Ketelaere",
-              "number": "",
+              "number": "17",
               "position": "ST",
               "x": 50,
               "y": 20,
@@ -4437,7 +4517,7 @@
           "status": "unverified",
           "exact": false,
           "source": "derived-team-sheet-order",
-          "checkedAt": "2026-07-07T18:55:59.189Z"
+          "checkedAt": "2026-07-07T21:19:46.346Z"
         },
         "confidence": {
           "label": "high",
@@ -4452,8 +4532,8 @@
           "fifa-lineups-sync-2026-07-07",
           "lineup-layout-verification-2026-07-07"
         ],
-        "checkedAt": "2026-07-07T18:55:59.189Z",
-        "updatedAt": "2026-07-07T18:55:59.189Z"
+        "checkedAt": "2026-07-07T21:19:46.346Z",
+        "updatedAt": "2026-07-07T21:19:46.346Z"
       }
     },
     {
@@ -4466,7 +4546,7 @@
         "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-07"
       ],
-      "lastUpdated": "2026-07-07T18:55:59.189Z",
+      "lastUpdated": "2026-07-07T21:19:46.346Z",
       "confidence": {
         "label": "high",
         "score": 0.889,
@@ -4944,10 +5024,31 @@
       "lineup": {
         "home": {
           "formation": "4-3-3",
+          "coach": {
+            "name": "Stale Solbakken",
+            "teamId": "NOR",
+            "teamName": "Norway",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Kopengagen-_%282%29.jpg/250px-Kopengagen-_%282%29.jpg",
+            "sourceUrl": "https://en.wikipedia.org/wiki/St%C3%A5le_Solbakken",
+            "styles": [
+              "Counter-attack",
+              "Direct transitions",
+              "Defensive organization"
+            ],
+            "note": {
+              "en": "Solbakken gives Norway a compact, counter-punching shape, using direct transitions to maximize the side's elite attacking finishers."
+            },
+            "history": {
+              "en": "Appointed in 2020, he arrived after a long club career, especially with Copenhagen, and has steered Norway through multiple qualification cycles."
+            },
+            "displayName": "Stale Solbakken",
+            "sinceYear": 2020,
+            "birthDate": "1968-02-27"
+          },
           "players": [
             {
               "name": "Orjan Nyland",
-              "number": "",
+              "number": "1",
               "position": "GK",
               "x": 50,
               "y": 91,
@@ -4974,7 +5075,7 @@
             },
             {
               "name": "Julian Ryerson",
-              "number": "",
+              "number": "26",
               "position": "RB",
               "x": 85,
               "y": 75,
@@ -5001,7 +5102,7 @@
             },
             {
               "name": "Kristoffer Ajer",
-              "number": "",
+              "number": "3",
               "position": "CB",
               "x": 62,
               "y": 75,
@@ -5028,7 +5129,7 @@
             },
             {
               "name": "Torbjorn Heggem",
-              "number": "",
+              "number": "17",
               "position": "CB",
               "x": 38,
               "y": 75,
@@ -5055,7 +5156,7 @@
             },
             {
               "name": "David Moller Wolfe",
-              "number": "",
+              "number": "5",
               "position": "LB",
               "x": 15,
               "y": 75,
@@ -5082,7 +5183,7 @@
             },
             {
               "name": "Sander Berge",
-              "number": "",
+              "number": "8",
               "position": "CM",
               "x": 25,
               "y": 53,
@@ -5109,7 +5210,7 @@
             },
             {
               "name": "Martin Odegaard",
-              "number": "",
+              "number": "10",
               "position": "CM",
               "x": 50,
               "y": 53,
@@ -5136,7 +5237,7 @@
             },
             {
               "name": "Patrick Berg",
-              "number": "",
+              "number": "6",
               "position": "CM",
               "x": 75,
               "y": 53,
@@ -5163,7 +5264,7 @@
             },
             {
               "name": "Alexander Sorloth",
-              "number": "",
+              "number": "7",
               "position": "RW",
               "x": 82,
               "y": 31,
@@ -5190,7 +5291,7 @@
             },
             {
               "name": "Erling Haaland",
-              "number": "",
+              "number": "9",
               "position": "ST",
               "x": 50,
               "y": 21,
@@ -5217,7 +5318,7 @@
             },
             {
               "name": "Antonio Nusa",
-              "number": "",
+              "number": "20",
               "position": "LW",
               "x": 18,
               "y": 31,
@@ -5779,10 +5880,30 @@
         },
         "away": {
           "formation": "4-2-3-1",
+          "coach": {
+            "name": "Thomas Tuchel",
+            "teamId": "ENG",
+            "teamName": "England",
+            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Thomas_Tuchel_England_v_Ghana_23_June_2026-081.jpg/250px-Thomas_Tuchel_England_v_Ghana_23_June_2026-081.jpg",
+            "sourceUrl": "https://en.wikipedia.org/wiki/Thomas_Tuchel",
+            "styles": [
+              "Counter-pressing",
+              "Possession control",
+              "Attacking structure"
+            ],
+            "note": {
+              "en": "Tuchel is detail-heavy: he likes control, clear roles, counter-pressing, and patient problem-solving against packed defenses."
+            },
+            "history": {
+              "en": "Appointed England head coach in 2025, he brought Champions League-winning club experience from Chelsea plus major roles at Dortmund, PSG, and Bayern Munich."
+            },
+            "sinceYear": 2025,
+            "birthDate": "1973-08-29"
+          },
           "players": [
             {
               "name": "Jordan Pickford",
-              "number": "",
+              "number": "1",
               "position": "GK",
               "x": 50,
               "y": 91,
@@ -5809,7 +5930,7 @@
             },
             {
               "name": "Djed Spence",
-              "number": "",
+              "number": "25",
               "position": "RB",
               "x": 85,
               "y": 75,
@@ -5836,7 +5957,7 @@
             },
             {
               "name": "Ezri Konsa",
-              "number": "",
+              "number": "2",
               "position": "CB",
               "x": 62,
               "y": 75,
@@ -5863,7 +5984,7 @@
             },
             {
               "name": "Marc Guehi",
-              "number": "",
+              "number": "6",
               "position": "CB",
               "x": 38,
               "y": 75,
@@ -5911,7 +6032,7 @@
             },
             {
               "name": "Elliot Anderson",
-              "number": "",
+              "number": "8",
               "position": "CM",
               "x": 34,
               "y": 59,
@@ -5938,7 +6059,7 @@
             },
             {
               "name": "Declan Rice",
-              "number": "",
+              "number": "4",
               "position": "CM",
               "x": 66,
               "y": 59,
@@ -5965,7 +6086,7 @@
             },
             {
               "name": "Bukayo Saka",
-              "number": "",
+              "number": "7",
               "position": "RW",
               "x": 82,
               "y": 40,
@@ -5992,7 +6113,7 @@
             },
             {
               "name": "Jude Bellingham",
-              "number": "",
+              "number": "10",
               "position": "AM",
               "x": 50,
               "y": 40,
@@ -6019,7 +6140,7 @@
             },
             {
               "name": "Anthony Gordon",
-              "number": "",
+              "number": "18",
               "position": "LW",
               "x": 18,
               "y": 40,
@@ -6046,7 +6167,7 @@
             },
             {
               "name": "Harry Kane",
-              "number": "",
+              "number": "9",
               "position": "ST",
               "x": 50,
               "y": 20,
@@ -6595,7 +6716,7 @@
           "status": "unverified",
           "exact": false,
           "source": "derived-team-sheet-order",
-          "checkedAt": "2026-07-07T18:55:59.189Z"
+          "checkedAt": "2026-07-07T21:19:46.346Z"
         },
         "confidence": {
           "label": "high",
@@ -6610,15 +6731,15 @@
           "fifa-lineups-sync-2026-07-07",
           "lineup-layout-verification-2026-07-07"
         ],
-        "checkedAt": "2026-07-07T18:55:59.189Z",
-        "updatedAt": "2026-07-07T18:55:59.189Z"
+        "checkedAt": "2026-07-07T21:19:46.346Z",
+        "updatedAt": "2026-07-07T21:19:46.346Z"
       }
     }
   ],
   "run": {
     "providerCount": 2,
-    "candidateCount": 12,
-    "fixtureCount": 4,
+    "candidateCount": 9,
+    "fixtureCount": 3,
     "skippedFixtureCount": 0
   }
 }

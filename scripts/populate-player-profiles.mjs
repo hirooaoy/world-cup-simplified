@@ -229,14 +229,15 @@ let profileFieldOverrides = {
     transfermarktPlayerCode: "mohamed-hany"
   },
   "Mohamed Manai": {
-    imageUrl: "https://img.a.transfermarkt.technology/portrait/header/822935-1740224672.jpg",
+    imageUrl: "https://img.a.transfermarkt.technology/portrait/header/822935-1739291004.jpg?lm=1",
     marketValueEurMillions: 0.3
   },
   "Mostafa Zico": {
     displayName: "Mostafa Ziko",
     position: "Left winger",
     club: "Pyramids",
-    imageUrl: "https://tmssl.akamaized.net//images/portrait/header/1205357-1730385107.png",
+    transfermarktPlayerCode: "mostafa-ziko",
+    imageUrl: "https://img.a.transfermarkt.technology/portrait/header/896616-1761430268.jpg?lm=1",
     marketValueEurMillions: 1.5
   },
   "Mohammed Al-Owais": {

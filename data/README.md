@@ -48,10 +48,15 @@ For matchday live starts, use a bounded one-time verification pass instead of an
 
 ```bash
 pnpm sync:fifa:lineups:live
+pnpm lineups:google-kickoff-check
 pnpm lineups:verify-live-start
 ```
 
-Run it shortly after kickoff, once FIFA/Google-style lineup boards are likely to exist. The live-start verifier only targets `LIVE` fixtures in the early match window, defaults to 90 minutes after kickoff, accepts only FIFA-official lineup records, and skips fixtures that already have a verified layout override. Use `LINEUP_LAYOUT_LIVE_START_WINDOW_MINUTES` only if tournament timing requires a wider early-match window.
+Run the Google kickoff check once around kickoff, after FIFA official lineups have synced. It is a manual editorial checkpoint: it prints the relevant Google lineup search URL, requires FIFA-official lineup facts before any geometry review, skips fixtures that already have a verified layout override, and does not fetch Google or write data.
+
+The kickoff Google check defaults to a tight `-5` to `+20` minute window from kickoff. Use `LINEUP_GOOGLE_KICKOFF_BEFORE_MINUTES` or `LINEUP_GOOGLE_KICKOFF_AFTER_MINUTES` only if tournament timing requires a different one-time window. If Google confirms a meaningful exact-layout issue, add an audited manual override with the Google URL, `checkedAt`, notes, and `verified-layout` metadata; do not tune the generic inference algorithm.
+
+The live-start verifier remains a broader safety check for early live fixtures. It only targets `LIVE` fixtures in the early match window, defaults to 90 minutes after kickoff, accepts only FIFA-official lineup records, and skips fixtures that already have a verified layout override. Use `LINEUP_LAYOUT_LIVE_START_WINDOW_MINUTES` only if tournament timing requires a wider early-match window.
 
 ## Projection Baselines
 

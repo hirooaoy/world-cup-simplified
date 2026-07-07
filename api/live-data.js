@@ -921,6 +921,10 @@ async function fetchFifaOfficialFixtures({ timeZone, timeoutMs }) {
     beforeDays: process.env.FIFA_WINDOW_BEFORE_DAYS,
     timeZone
   });
+  const liveScoreTimeoutMs = positiveInteger(
+    timeoutMs ?? process.env.FIFA_LIVE_SCORE_TIMEOUT_MS,
+    DEFAULT_FIFA_LIVE_SCORE_TIMEOUT_MS
+  );
   const url = new URL(FIFA_API_URL);
   url.searchParams.set("language", "en");
   url.searchParams.set("count", "500");
@@ -932,12 +936,57 @@ async function fetchFifaOfficialFixtures({ timeZone, timeoutMs }) {
   const payload = await fetchJsonWithTimeout(
     url,
     "FIFA official live score",
-    positiveInteger(
-      timeoutMs ?? process.env.FIFA_LIVE_SCORE_TIMEOUT_MS,
-      DEFAULT_FIFA_LIVE_SCORE_TIMEOUT_MS
-    )
+    liveScoreTimeoutMs
   );
-  return asArray(payload.Results || payload.results || payload);
+  const fixtures = asArray(payload.Results || payload.results || payload);
+  return addFifaLivePositionDetails(fixtures, liveScoreTimeoutMs);
+}
+
+function needsFifaLivePositionDetails(match) {
+  return (
+    getProviderStatus(match, FIFA_PROVIDER_KEY) === "LIVE" &&
+    getFifaScore(match) &&
+    !getFifaMatchTime(match) &&
+    !getFifaMatchPhase(match) &&
+    getProviderFixtureId(match, FIFA_PROVIDER_KEY)
+  );
+}
+
+async function addFifaLivePositionDetails(fixtures, timeoutMs) {
+  const enrichedFixtures = await Promise.all(
+    fixtures.map(async (fixture) => {
+      if (!needsFifaLivePositionDetails(fixture)) {
+        return fixture;
+      }
+
+      try {
+        const liveMatch = await fetchFifaLivePositionMatch(
+          getProviderFixtureId(fixture, FIFA_PROVIDER_KEY),
+          timeoutMs
+        );
+        if (!getFifaMatchTime(liveMatch) && !getFifaMatchPhase(liveMatch)) {
+          return fixture;
+        }
+
+        return {
+          ...fixture,
+          LastPeriodUpdate: liveMatch.LastPeriodUpdate ?? fixture.LastPeriodUpdate,
+          MatchStatus: liveMatch.MatchStatus ?? fixture.MatchStatus,
+          MatchStatusDescription: liveMatch.MatchStatusDescription || fixture.MatchStatusDescription,
+          MatchStatusName: liveMatch.MatchStatusName || fixture.MatchStatusName,
+          MatchTime: liveMatch.MatchTime ?? fixture.MatchTime,
+          Period: liveMatch.Period ?? fixture.Period,
+          ResultType: liveMatch.ResultType ?? fixture.ResultType,
+          Status: liveMatch.Status || fixture.Status,
+          TimeDefined: liveMatch.TimeDefined ?? fixture.TimeDefined
+        };
+      } catch {
+        return fixture;
+      }
+    })
+  );
+
+  return enrichedFixtures;
 }
 
 function buildTeamLookup(teams, providerMap, providerKey) {
@@ -1359,6 +1408,15 @@ function getFifaMatchTime(match) {
   return "";
 }
 
+function getFifaMatchPeriodPhase(match) {
+  const period = Number(match?.Period);
+  if (period === 4) {
+    return "Half-time";
+  }
+
+  return "";
+}
+
 function normalizeProviderMatchPhase(value) {
   const key = normalizeKey(value);
   const compactKey = key.replace(/\s+/g, "");
@@ -1421,7 +1479,7 @@ function getFifaMatchPhase(match) {
     }
   }
 
-  return "";
+  return getFifaMatchPeriodPhase(match);
 }
 
 function statusRank(status) {
@@ -2020,6 +2078,20 @@ async function fetchOfficialLiveFootballMatch(idMatch) {
     positiveInteger(
       process.env.FIFA_LIVE_LINEUP_TIMEOUT_MS,
       DEFAULT_FIFA_LIVE_LINEUP_TIMEOUT_MS
+    )
+  );
+}
+
+async function fetchFifaLivePositionMatch(idMatch, timeoutMs) {
+  const url = new URL(`${FIFA_LIVE_FOOTBALL_URL}/${idMatch}`);
+  url.searchParams.set("language", "en");
+
+  return fetchJsonWithTimeout(
+    url,
+    `FIFA live match position ${idMatch}`,
+    positiveInteger(
+      process.env.FIFA_LIVE_PHASE_TIMEOUT_MS || timeoutMs,
+      DEFAULT_FIFA_LIVE_SCORE_TIMEOUT_MS
     )
   );
 }

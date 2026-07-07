@@ -325,6 +325,7 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "Latest changes": "最新更新",
     "Live": "直播",
     "Live score": "实时比分",
+    "Current time unavailable": "当前时间不可用",
     "First half": "上半场",
     "Second half": "下半场",
     "Extra time": "加时赛",
@@ -15935,8 +15936,13 @@ function renderLiveScoreSourceNote(match) {
       <a class="live-source-link" href="${escapeHtml(fifaUrl)}" target="_blank" rel="noreferrer" aria-label="${escapeHtml(currentLanguage === "zh" ? "在 FIFA 查看最新比分" : "See latest score at FIFA")}">${escapeHtml(latestLabel)}</a>
     </span>
   `.trim();
+  const currentTimePart = snapshotLabel
+    ? `${escapeHtml(currentTimeLabel)} ${escapeHtml(snapshotLabel)}`
+    : match?.status === "LIVE" && match?.score
+      ? escapeHtml(localizeText("Current time unavailable"))
+      : "";
   const parts = [
-    snapshotLabel ? `${escapeHtml(currentTimeLabel)} ${escapeHtml(snapshotLabel)}` : "",
+    currentTimePart,
     checkedLabel ? escapeHtml(checkedLabel) : "",
     sourcePart
   ].filter(Boolean);
@@ -18240,7 +18246,7 @@ function renderLineupCoachCard(coach) {
     })
     .filter(Boolean)
     .join("");
-  const copyItems = [note, ageText, history]
+  const copyItems = [note, history, ageText]
     .filter(Boolean)
     .map((item) => `<span class="player-card-note">${escapeHtml(item)}</span>`)
     .join("\n");
@@ -18382,15 +18388,16 @@ function renderLineupPlayerMarker(player, team, teamLineup, match = null, side =
   const subOffBadges = substitution
     ? renderLineupSubstitutionToggle(substitution, lineupPlayer.name, match, side, isPreviewActive)
     : "";
+  const numberLabel = String(lineupPlayer.number || "").trim();
   const ariaLabel = [
-    `${lineupPlayer.number} ${playerName}`,
+    [numberLabel, playerName].filter(Boolean).join(" "),
     getLocalizedLineupPosition(lineupPlayer.position),
     eventSummary
   ].filter(Boolean).join(", ");
   const avatarMarkup = `
     <span class="lineup-avatar-wrap" aria-hidden="true">
       ${renderLineupAvatar(lineupPlayer, profile)}
-      <span class="lineup-player-number">${escapeHtml(lineupPlayer.number)}</span>
+      ${numberLabel ? `<span class="lineup-player-number">${escapeHtml(numberLabel)}</span>` : ""}
       ${scoringBadges}
     </span>
   `;
@@ -18419,10 +18426,11 @@ function renderLineupPlayerMarker(player, team, teamLineup, match = null, side =
 
 function renderLineupBenchPlayer(player, team, teamLineup) {
   const lineupPlayer = getLineupPlayerData(player, team);
+  const numberLabel = String(lineupPlayer.number || "").trim();
 
   return `
     <li class="lineup-bench-player">
-      <span class="lineup-bench-number">${escapeHtml(lineupPlayer.number)}</span>
+      ${numberLabel ? `<span class="lineup-bench-number">${escapeHtml(numberLabel)}</span>` : ""}
       <span class="lineup-bench-name">${renderPlayerMention(lineupPlayer.label, lineupPlayer.cardPlayer)}</span>
       ${renderLineupEventBadges(lineupPlayer.name, teamLineup, "lineup-bench-events")}
       <span class="lineup-bench-position">${escapeHtml(getLocalizedLineupPosition(lineupPlayer.position))}</span>

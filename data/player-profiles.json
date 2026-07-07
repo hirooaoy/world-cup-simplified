@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-07T16:20:27.340Z",
+  "updatedAt": "2026-07-07T21:20:57.683Z",
   "sourceIds": [
     "wikipedia-football-infobox",
     "wikipedia-page-summaries",
@@ -3209,12 +3209,12 @@
       "displayName": "Mohamed Manai",
       "teamId": "QAT",
       "birthDate": "2002-10-25",
-      "summary": "Mohamed Naceur Manai (Arabic: محمد مناعي‎; born 25 October 2002) is a Qatari professional footballer who plays as a defensive midfielder for Qatar Stars League club Al-Shamal, on loan from Al-Sadd, and the Qatar national team.",
+      "summary": "Mohamed Naceur Manai (Arabic: محمد مناعي‎; born 25 October 2002) is a professional footballer who plays as a defensive midfielder for Qatar Stars League club Al-Shamal, on loan from Al-Sadd, and the Qatar national team.",
       "marketValueEurMillions": 0.3,
       "position": "Defensive midfielder",
       "club": "Al-Shamal",
       "league": "Qatar Stars League",
-      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/822935-1740224672.jpg",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/822935-1739291004.jpg?lm=1",
       "skills": [
         "Midfield screening",
         "Tackle timing",
@@ -3317,7 +3317,7 @@
       "position": "Left winger",
       "club": "Pyramids",
       "league": "Egyptian Premier League",
-      "imageUrl": "https://tmssl.akamaized.net//images/portrait/header/1205357-1730385107.png",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/896616-1761430268.jpg?lm=1",
       "skills": [
         "Wide scoring",
         "Direct carries",
@@ -3325,7 +3325,8 @@
       ],
       "note": "Zico gives Egypt a direct wide scorer, dangerous when he attacks the far post instead of staying outside.",
       "noteZh": "齐科给埃及带来直接的边路得分点，冲击后点而不是留在外线时很危险。",
-      "sourceUrl": "https://en.wikipedia.org/wiki/Mostafa_Ziko"
+      "sourceUrl": "https://en.wikipedia.org/wiki/Mostafa_Ziko",
+      "transfermarktPlayerCode": "mostafa-ziko"
     },
     "Mousa Al-Taamari": {
       "name": "Mousa Al-Taamari",
@@ -5483,7 +5484,7 @@
       "position": "Goalkeeper",
       "club": "Inter Miami",
       "league": "Major League Soccer",
-      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Dayne_St._Clair_-_MNUFC_-_May_2025.jpg/640px-Dayne_St._Clair_-_MNUFC_-_May_2025.jpg",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/439750-1771695035.jpg?lm=1",
       "skills": [
         "Shot stopping",
         "Reflex saves",
@@ -6090,8 +6091,9 @@
       "birthDate": "2005-03-11",
       "position": "Defender",
       "league": "Qatar Stars League",
-      "imageUrl": "https://qatarfoot.com/wp-content/uploads/2026/02/Ayoub-Aloui-360x495.avif",
-      "noteZh": "阿尤布·阿卢伊是卡塔尔年轻后卫，能完成回追、覆盖边路空间，并在防守传中时增加身高对抗。"
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/1054631-1762259857.jpg?lm=1",
+      "noteZh": "阿尤布·阿卢伊是卡塔尔年轻后卫，能完成回追、覆盖边路空间，并在防守传中时增加身高对抗。",
+      "marketValueEurMillions": 0.4
     },
     "Boualem Khoukhi": {
       "name": "Boualem Khoukhi",
@@ -8903,7 +8905,7 @@
       "position": "Left-back",
       "club": "Kaizer Chiefs",
       "league": "South African Premiership",
-      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/555209-1727333418.jpg?lm=1",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/555209-1715353823.jpg?lm=1",
       "skills": [
         "Left-back defending",
         "Left-footed balance",
@@ -14653,7 +14655,7 @@
       "position": "Defensive midfielder",
       "club": "New York City FC",
       "league": "Major League Soccer",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Aiden%20O'Neill%20CF%20Montreal%20NYCFC%206.28.25-034%20(cropped).jpg%7C?width=160",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/385918-1771711165.jpg?lm=1",
       "skills": [
         "Midfield screening",
         "Simple progression",
@@ -14758,7 +14760,7 @@
       "position": "Central midfielder",
       "club": "Heart of Midlothian",
       "league": "Scottish Premiership",
-      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/399162-1643812197.jpg?lm=1",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/399162-1780322939.jpg?lm=1",
       "skills": [
         "Ball-winning bite",
         "Pressing range",
@@ -18060,7 +18062,7 @@
       "position": "Left-back, centre-back",
       "club": "Napoli",
       "league": "Serie A",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Math%25C3%25ADas_Olivera_WC2022.jpg?width=160",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/376514-1681910576.jpg?lm=1",
       "skills": [
         "Left-back defending",
         "Back-three cover",
@@ -19362,7 +19364,7 @@
       "position": "Winger",
       "club": "Tractor",
       "league": "Persian Gulf Pro League",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Mahdi%20Torabi%20in%202018%20qualifiers.png?width=160",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/283833-1668859546.jpg?lm=1",
       "skills": [
         "Wide service",
         "Set-piece threat",
@@ -21995,7 +21997,7 @@
       "position": "Centre-back",
       "club": "Elche",
       "league": "La Liga",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/FC%20RB%20Salzburg%20gegen%20SK%20Sturm%20Graz%20(2023-05-21)%2056.jpg?width=160",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/452483-1779272314.jpg?lm=1",
       "skills": [
         "Centre-back defending",
         "Aerial duels",
@@ -22759,7 +22761,7 @@
       "position": "Right winger",
       "club": "Hoffenheim",
       "league": "Bundesliga",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/U19%20Austria%20vs.%20Ireland%20(19.%20November%202019%20)%2042.jpg?width=160",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/533295-1752736631.jpg?lm=1",
       "skills": [
         "Wide dribbling",
         "Pressing energy",
@@ -24410,7 +24412,7 @@
       "position": "Central midfielder",
       "club": "Benfica",
       "league": "Primeira Liga",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/200px?width=160",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/735573-1779797805.jpg?lm=1",
       "skills": [
         "Ball carrying",
         "Midfield strength",

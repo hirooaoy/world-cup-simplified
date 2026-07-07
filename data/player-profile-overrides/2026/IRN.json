@@ -188,6 +188,8 @@
       "noteZh": "塔雷米是伊朗最有技巧的得分手，既能巧妙做球，也有冷酷的禁区时机。"
     },
     "Mehdi Torabi": {
+      "transfermarktPlayerCode": "mehdi-torabi",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/283833-1668859546.jpg?lm=1",
       "skills": ["Wide service", "Set-piece threat", "Two-footed crossing"],
       "note": "Torabi adds wide delivery and restart quality, useful when Iran need service into a packed box.",
       "noteZh": "托拉比增加边路传递和定位球质量，当伊朗需要向拥挤禁区送球时很有用。"

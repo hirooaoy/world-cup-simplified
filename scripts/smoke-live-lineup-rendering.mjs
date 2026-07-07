@@ -20,7 +20,7 @@ try {
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const matchId = "match-95-round-of-16-2026-07-07";
-const predictedMatchId = "match-96-round-of-16-2026-07-07";
+const predictedMatchId = "match-97-quarter-final-2026-07-09";
 const checkedAt = "2026-07-07T17:36:51.017Z";
 const mimeTypes = new Map([
   [".css", "text/css; charset=utf-8"],
@@ -299,8 +299,8 @@ try {
     await page.goto(`${baseUrl}/?view=matches&date=2026-07-07&tz=America%2FLos_Angeles`, {
       waitUntil: "load"
     });
-    await page.waitForSelector(`[data-match-id="${matchId}"]`, { state: "attached" });
     await liveDataPromise;
+    await page.waitForSelector(`[data-match-id="${matchId}"]`, { state: "attached" });
     await page.locator(`[data-match-id="${matchId}"] .match-row-trigger`).click();
     await page.waitForSelector("#match-info .lineup-preview-block", { state: "attached" });
 
@@ -434,7 +434,7 @@ try {
     });
 
     const page = await context.newPage();
-    await page.goto(`${baseUrl}/?view=matches&date=2026-07-07&tz=America%2FLos_Angeles`, {
+    await page.goto(`${baseUrl}/?view=matches&date=2026-07-09&tz=America%2FLos_Angeles`, {
       waitUntil: "load"
     });
     await page.waitForSelector(`[data-match-id="${predictedMatchId}"]`, { state: "attached" });

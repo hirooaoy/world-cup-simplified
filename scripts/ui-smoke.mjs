@@ -6369,9 +6369,10 @@ try {
     const afterLiveWindow = new Date(
       new Date(pendingScoreFixture.kickoffUtc).getTime() + 2.5 * 60 * 60 * 1000
     );
+    const pendingScoreDate = pendingScoreFixture.date || pendingScoreFixture.kickoffUtc.slice(0, 10);
     const pendingScoreCheck = await openPageAtTime(
       afterLiveWindow.toISOString(),
-      `/?view=matches&date=${pendingScoreFixture.date}&tz=America%2FLos_Angeles`
+      `/?view=matches&date=${pendingScoreDate}&tz=America%2FLos_Angeles`
     );
     await pendingScoreCheck.page.waitForSelector(".match-row");
     assert(

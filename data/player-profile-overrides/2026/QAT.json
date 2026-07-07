@@ -132,7 +132,8 @@
       "position": "Defender",
       "club": "Al-Gharafa",
       "league": "Qatar Stars League",
-      "imageUrl": "https://qatarfoot.com/wp-content/uploads/2026/02/Ayoub-Aloui-360x495.avif",
+      "transfermarktPlayerCode": "ayoub-al-oui",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/1054631-1762259857.jpg?lm=1",
       "estimatedMarketValueEurMillions": 0.7,
       "skills": [
         "Defensive recovery",

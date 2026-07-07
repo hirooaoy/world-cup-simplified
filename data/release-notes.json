@@ -1,6 +1,32 @@
 {
-  "updatedAt": "2026-07-07T13:08:00-07:00",
+  "updatedAt": "2026-07-07T14:25:27-07:00",
   "releases": [
+    {
+      "date": "2026-07-07",
+      "title": "Player photo reliability audit",
+      "titleZh": "球员照片可靠性审计",
+      "highlights": [
+        "Current player profile photos now use verified working image URLs for the broken Egypt, Qatar, Australia, South Africa, Uruguay, Iran, Austria, Colombia, and Canada entries.",
+        "A new profile image audit checks every current player photo URL, including Commons metadata redirects, so stale or empty image assets are caught before they fall back to initials."
+      ],
+      "highlightsZh": [
+        "当前球员资料照片现在为此前失效的埃及、卡塔尔、澳大利亚、南非、乌拉圭、伊朗、奥地利、哥伦比亚和加拿大条目改用已验证可用的图片链接。",
+        "新增球员资料图片审计，会检查每个当前球员照片链接，包括 Commons 元数据重定向，避免过期或空图片资源上线后才退回首字母占位。"
+      ]
+    },
+    {
+      "date": "2026-07-07",
+      "title": "Live half-time fallback",
+      "titleZh": "直播半场进程兜底",
+      "highlights": [
+        "Live score sync now uses FIFA's official live-football period when the calendar MatchTime is blank, so half-time can still show as Half-time instead of a plain checked score.",
+        "If FIFA still provides no official position, live score details now say Current time unavailable rather than silently omitting the time row."
+      ],
+      "highlightsZh": [
+        "当赛程接口的 MatchTime 为空时，实时比分同步现在会改用 FIFA 官方 live-football 的 Period 字段，因此半场仍可显示为“半场”，不会只剩普通核验比分。",
+        "如果 FIFA 仍未提供官方进程，直播比分详情现在会显示“当前时间不可用”，而不是静默省略时间行。"
+      ]
+    },
     {
       "date": "2026-07-07",
       "title": "Predicted lineup heading",
