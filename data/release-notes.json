@@ -3,6 +3,17 @@
   "releases": [
     {
       "date": "2026-07-07",
+      "title": "Live stoppage-time labels",
+      "titleZh": "直播补时标签",
+      "highlights": [
+        "Live match detail rows now add a stoppage-time hint beside official FIFA minute snapshots beyond 90, or beyond 45 when FIFA marks the match as first half, such as Current time 97' (90+7)."
+      ],
+      "highlightsZh": [
+        "直播比赛详情现在会在 FIFA 官方分钟超过90时补充补时提示；如果 FIFA 标记为上半场，则超过45也会显示，例如“当前时间 97' (90+7)”。"
+      ]
+    },
+    {
+      "date": "2026-07-07",
       "title": "Player photo reliability audit",
       "titleZh": "球员照片可靠性审计",
       "highlights": [

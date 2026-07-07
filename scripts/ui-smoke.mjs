@@ -5528,7 +5528,7 @@ try {
         const fixture = data.fixtures.find((item) => item.id === "match-82-round-of-32-2026-07-01");
         fixture.status = "LIVE";
         fixture.score = { home: 0, away: 0 };
-        fixture.officialMatchTime = "5'";
+        fixture.officialMatchTime = "97'";
         fixture.officialMatchTimeUpdatedAt = "2026-07-01T20:04:00.000Z";
       }
     }
@@ -5557,6 +5557,22 @@ try {
       /^Tie \d+%$/.test(liveDetailPredictionRows[1]) &&
       /^Senegal \d+%$/.test(liveDetailPredictionRows[2]),
     `Live match detail should keep the prediction card below the live score. Measured ${JSON.stringify({ liveDetailBlockOrder, liveDetailPredictionRows })}.`
+  );
+  const liveDetailStoppageState = await liveDetailPredictionCheck.page.locator("#match-info").evaluate((info) => {
+    const heading = info.querySelector(".match-live-block h3");
+    return {
+      headingAria: heading?.getAttribute("aria-label") || "",
+      headingText: heading?.textContent.replace(/\s+/g, " ").trim() || "",
+      sourceText: info.querySelector(".live-source-note")?.textContent.replace(/\s+/g, " ").trim() || ""
+    };
+  });
+  assert(
+    liveDetailStoppageState.headingText === "Live score 97' (90+7)" &&
+      liveDetailStoppageState.headingAria === "Live score, 97' (90+7)" &&
+      liveDetailStoppageState.sourceText.includes("Current time 97' (90+7)") &&
+      liveDetailStoppageState.sourceText.includes("Checked 1 min ago") &&
+      liveDetailStoppageState.sourceText.includes("See latest"),
+    `Live match details should show inferred stoppage time beside official minute snapshots beyond 90. Measured ${JSON.stringify(liveDetailStoppageState)}.`
   );
   await liveDetailPredictionCheck.context.close();
 

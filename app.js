@@ -9620,6 +9620,29 @@ function normalizeOfficialMatchTime(value) {
   return /^\d{1,3}(?:\+\d{1,2})?'$/.test(text) ? text : "";
 }
 
+function formatOfficialMatchTimeLabel(value, phase = "") {
+  const matchTime = normalizeOfficialMatchTime(value);
+  const minuteMatch = /^(\d{1,3})'$/.exec(matchTime);
+  if (!minuteMatch) {
+    return matchTime;
+  }
+
+  const minute = Number(minuteMatch[1]);
+  if (!Number.isFinite(minute)) {
+    return matchTime;
+  }
+
+  if (minute > 90) {
+    return `${matchTime} (90+${minute - 90})`;
+  }
+
+  if (minute > 45 && normalizeOfficialMatchPhase(phase) === "First half") {
+    return `${matchTime} (45+${minute - 45})`;
+  }
+
+  return matchTime;
+}
+
 function normalizeOfficialMatchPhase(value) {
   const key = normalizeTextKey(value);
   const compactKey = key.replace(/\s+/g, "");
@@ -9671,10 +9694,10 @@ function shouldPreferOfficialMatchPhase(phase) {
 }
 
 function getOfficialMatchSnapshotLabel(match) {
-  const matchTime = normalizeOfficialMatchTime(match?.officialMatchTime);
   const matchPhase =
     normalizeOfficialMatchPhase(match?.officialMatchPhase) ||
     normalizeOfficialMatchPhase(match?.officialMatchTime);
+  const matchTime = formatOfficialMatchTimeLabel(match?.officialMatchTime, matchPhase);
   if (matchPhase && (!matchTime || shouldPreferOfficialMatchPhase(matchPhase))) {
     return localizeText(matchPhase);
   }
