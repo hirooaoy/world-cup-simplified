@@ -3,6 +3,17 @@
   "releases": [
     {
       "date": "2026-07-07",
+      "title": "Quarterfinals admin note",
+      "titleZh": "四分之一决赛站内便笺",
+      "highlights": [
+        "The top admin note now announces the set quarterfinal field: Argentina, France, Spain, England, Belgium, Morocco, Norway, and Switzerland."
+      ],
+      "highlightsZh": [
+        "顶部站内便笺现在宣布八强席位已定：阿根廷、法国、西班牙、英格兰、比利时、摩洛哥、挪威和瑞士。"
+      ]
+    },
+    {
+      "date": "2026-07-07",
       "title": "Live stoppage-time labels",
       "titleZh": "直播补时标签",
       "highlights": [
