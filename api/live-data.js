@@ -33,6 +33,7 @@ const API_FOOTBALL_DEFAULT_SEASON = "2026";
 const SPORTMONKS_BASE_URL = "https://api.sportmonks.com/v3/football";
 const SPORTMONKS_FIXTURE_INCLUDE = "participants;scores;state";
 const FIFA_API_URL = "https://api.fifa.com/api/v3/calendar/matches";
+const FIFA_LIVE_FOOTBALL_URL = "https://api.fifa.com/api/v3/live/football";
 const FIFA_TIMELINE_URL = "https://api.fifa.com/api/v3/timelines";
 const FIFA_SCHEDULE_URL =
   "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/match-schedule-fixtures-results-teams-stadiums";
@@ -42,6 +43,8 @@ const FIFA_PROVIDER_KEY = "fifa";
 const FIFA_GOAL_EVENTS_SOURCE_PREFIX = "fifa-official-goal-events-auto";
 const DEFAULT_FIFA_LIVE_SCORE_TIMEOUT_MS = 3000;
 const DEFAULT_FIFA_LIVE_LINEUP_TIMEOUT_MS = 5000;
+const DEFAULT_FIFA_LIVE_LINEUP_WINDOW_BEFORE_MINUTES = 180;
+const DEFAULT_FIFA_LIVE_LINEUP_WINDOW_AFTER_MINUTES = 360;
 const DEFAULT_FIFA_GOAL_EVENTS_TIMEOUT_MS = 5000;
 const DEFAULT_FIFA_GOAL_EVENTS_PLAYER_TIMEOUT_MS = 2000;
 const DEFAULT_FIFA_GOAL_EVENTS_MAX_FIXTURES = 8;
@@ -1690,7 +1693,7 @@ async function mergeOfficialGoalEvents({ checkedAt, fixturesData, playerProfiles
 async function mergeLiveLineups({ checkedAt, fixturesData, playerProfilesData, teams, timeZone }) {
   const fixtures = fixturesData.fixtures.map((fixture) => ({ ...fixture }));
   const candidates = fixtures.filter(
-    (fixture) => isMatchInProgress(fixture.status) && fixture.homeTeamId && fixture.awayTeamId
+    (fixture) => shouldFetchOfficialLiveLineup(fixture, checkedAt)
   );
 
   if (!candidates.length) {
@@ -1717,19 +1720,22 @@ async function mergeLiveLineups({ checkedAt, fixturesData, playerProfilesData, t
 
     for (const fixture of candidates) {
       const officialMatch = findOfficialLiveMatchForFixture(fixture, officialIndex);
-      if (!officialMatch?.IdMatch) {
+      const idMatch = officialMatch?.IdMatch || fixtureFifaMatchId(fixture);
+      if (!idMatch) {
         warnings.push(`${fixture.id}: no official FIFA lineup source found`);
         continue;
       }
 
       try {
+        const liveMatch = await fetchOfficialLiveFootballMatch(idMatch);
         const lineup = buildFifaLineupsFromLiveMatch({
           checkedAt,
           fixture,
-          liveMatch: officialMatch,
+          liveMatch,
+          mode: isMatchInProgress(fixture.status) ? "live" : "confirmed",
           teamsById,
           profileLookup,
-          sourceUrl: buildFifaMatchCentreUrl(fixture, officialMatch),
+          sourceUrl: buildFifaMatchCentreUrl(fixture, liveMatch),
           sourceIds: ["fifa-lineups-live"]
         });
 
@@ -1740,7 +1746,7 @@ async function mergeLiveLineups({ checkedAt, fixturesData, playerProfilesData, t
         }
         matchedCount += 1;
       } catch (error) {
-        warnings.push(`${fixture.id}: ${error.message || "unable to parse FIFA live lineup"}`);
+        warnings.push(`${fixture.id}: ${error.message || "unable to fetch or parse FIFA live lineup"}`);
       }
     }
 
@@ -1762,6 +1768,49 @@ async function mergeLiveLineups({ checkedAt, fixturesData, playerProfilesData, t
       updateCount: 0
     };
   }
+}
+
+function getLiveLineupWindowMinutes(name, fallback) {
+  return positiveInteger(process.env[name], fallback);
+}
+
+function isFixtureNearKickoffForLineups(fixture, checkedAt) {
+  if (!fixture?.kickoffUtc) {
+    return false;
+  }
+
+  const kickoff = new Date(fixture.kickoffUtc).getTime();
+  const current = new Date(checkedAt).getTime();
+  if (!Number.isFinite(kickoff) || !Number.isFinite(current)) {
+    return false;
+  }
+
+  const beforeMs = getLiveLineupWindowMinutes(
+    "FIFA_LIVE_LINEUP_WINDOW_BEFORE_MINUTES",
+    DEFAULT_FIFA_LIVE_LINEUP_WINDOW_BEFORE_MINUTES
+  ) * 60 * 1000;
+  const afterMs = getLiveLineupWindowMinutes(
+    "FIFA_LIVE_LINEUP_WINDOW_AFTER_MINUTES",
+    DEFAULT_FIFA_LIVE_LINEUP_WINDOW_AFTER_MINUTES
+  ) * 60 * 1000;
+
+  return current >= kickoff - beforeMs && current <= kickoff + afterMs;
+}
+
+function shouldFetchOfficialLiveLineup(fixture, checkedAt) {
+  if (!fixture?.homeTeamId || !fixture?.awayTeamId) {
+    return false;
+  }
+
+  if (isMatchInProgress(fixture.status)) {
+    return true;
+  }
+
+  if (!["SCHEDULED", "DELAYED"].includes(fixture.status)) {
+    return false;
+  }
+
+  return isFixtureNearKickoffForLineups(fixture, checkedAt);
 }
 
 function isOfficialGoalEventsEnabled() {
@@ -1833,6 +1882,20 @@ async function fetchOfficialMatchesForLiveLineups(fixtures, timeZone) {
       DEFAULT_FIFA_LIVE_LINEUP_TIMEOUT_MS
     )
   ).then((payload) => asArray(payload.Results || payload.results || payload));
+}
+
+async function fetchOfficialLiveFootballMatch(idMatch) {
+  const url = new URL(`${FIFA_LIVE_FOOTBALL_URL}/${idMatch}`);
+  url.searchParams.set("language", "en");
+
+  return fetchJsonWithTimeout(
+    url,
+    `FIFA live football lineup ${idMatch}`,
+    positiveInteger(
+      process.env.FIFA_LIVE_LINEUP_TIMEOUT_MS,
+      DEFAULT_FIFA_LIVE_LINEUP_TIMEOUT_MS
+    )
+  );
 }
 
 async function fetchOfficialMatchesForGoalEvents(fixtures, timeZone) {

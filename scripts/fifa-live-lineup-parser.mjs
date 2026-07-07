@@ -265,7 +265,7 @@ export function buildFifaLineupsFromLiveMatch({
   );
 
   return {
-    mode: safeMode === "final" ? "final" : "live",
+    mode: ["confirmed", "final", "live"].includes(safeMode) ? safeMode : "live",
     teamSheetSource: OFFICIAL_LINEUP_SOURCE,
     eventSource: OFFICIAL_LINEUP_SOURCE,
     layoutSource: DERIVED_LAYOUT_SOURCE,
