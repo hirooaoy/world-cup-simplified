@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-07T19:25:23.671Z",
+  "updatedAt": "2026-07-07T19:46:11.754Z",
   "coverageNote": "The current seed dataset covers the full official fixture skeleton from June 11 through July 19. Rich previews, scores, live status and knockout participants are updated progressively.",
   "catchUp": [
     {
@@ -1216,14 +1216,6 @@
       "note": "7 fixture updates merged from 104 matched FIFA fixtures. 4 knockout participant slots resolved from official participants or completed results."
     },
     {
-      "id": "fifa-goal-events-sync-2026-07-07",
-      "label": "FIFA official goal event timeline sync",
-      "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/match-schedule-fixtures-results-teams-stadiums",
-      "type": "official",
-      "checkedAt": "2026-07-07T16:19:45.515Z",
-      "note": "5 fixture goal-event updates merged from 88 matched FIFA timelines."
-    },
-    {
       "id": "national-football-teams-h2h-sync-2026-07-07",
       "label": "National Football Teams H2H sync",
       "url": "https://www.national-football-teams.com",
@@ -1284,8 +1276,16 @@
       "label": "FIFA official final lineups sync",
       "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/match-schedule-fixtures-results-teams-stadiums",
       "type": "official",
-      "checkedAt": "2026-07-07T19:25:23.671Z",
+      "checkedAt": "2026-07-07T19:46:06.259Z",
       "note": "95 completed FIFA team sheets checked; lineups.json carries official starters, bench, cards, and substitutions for 95 completed fixtures; 1 changed on this pass."
+    },
+    {
+      "id": "fifa-goal-events-sync-2026-07-07",
+      "label": "FIFA official goal event timeline sync",
+      "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/match-schedule-fixtures-results-teams-stadiums",
+      "type": "official",
+      "checkedAt": "2026-07-07T19:46:11.754Z",
+      "note": "1 fixture goal-event update merged from 88 matched FIFA timelines."
     }
   ],
   "groups": [

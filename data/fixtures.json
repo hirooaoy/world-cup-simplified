@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-07T19:25:23.671Z",
+  "updatedAt": "2026-07-07T19:46:11.754Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -21429,26 +21429,31 @@
       "goalsHome": [
         {
           "minute": 79,
-          "name": "Cristian Romero"
+          "name": "Cristian Romero",
+          "assistName": "Lionel Messi"
         },
         {
           "minute": 83,
-          "name": "Lionel Messi"
+          "name": "Lionel Messi",
+          "assistName": "Gonzalo Montiel"
         },
         {
           "minute": 90,
           "offset": 2,
-          "name": "Enzo Fernández"
+          "name": "Enzo Fernandez",
+          "assistName": "Lautaro Martinez"
         }
       ],
       "goalsAway": [
         {
           "minute": 15,
-          "name": "Yasser Ibrahim"
+          "name": "Yasser Ibrahim",
+          "assistName": "Marawan Attia"
         },
         {
           "minute": 67,
-          "name": "Mostafa Zico"
+          "name": "Mostafa Zico",
+          "assistName": "Haissem Hassan"
         }
       ],
       "resultStoryBullets": [
