@@ -24,6 +24,35 @@ Use this order when sources disagree:
 Do not mix official facts and editorial projections without labeling them. The app footer already separates those categories.
 Ranking-based projection baselines may use FIFA ranking data as input, but the model output remains an editorial preview.
 
+## Lineup Lifecycle
+
+Lineups follow a trust ladder:
+
+- Before kickoff, `data/expected-lineups.json` may provide predicted lineups. These records must stay `mode: "expected"` or `mode: "probable"`, use `layoutSource: "derived-team-sheet-order"`, and keep `layoutVerification.exact` false unless a genuinely verified layout exists.
+- When FIFA publishes the team sheet, `pnpm sync:fifa:lineups` writes official starters, bench, formation, coaches, cards, and substitutions into `data/lineups.json`.
+- During live matches, the UI displays the official starting XI and represents substitutions separately.
+- After full time, completed fixtures must keep a final `lineups.json` record. Official facts should come from FIFA whenever possible.
+
+Exact pitch geometry is separate from official team-sheet facts. Do not tune the generic placement heuristics to fix one match. If a public FIFA payload does not expose reliable coordinates, keep the layout `derived-team-sheet-order` and unverified.
+
+When exact placement matters, use an audited manual override in `data/lineup-layout-overrides.json`:
+
+1. Compare the official FIFA team sheet against a trusted free visual reference such as a public lineup board.
+2. Record the source URL, `checkedAt`, a short `note`, and source claims that include `status: "matched"`, `exactLayout: true`, and `sourceDetail`.
+3. Store the verified home and away player coordinates in the override.
+4. Run `pnpm sync:fifa:lineups`, then `pnpm validate` and `pnpm smoke:lineup-layouts`.
+
+`pnpm validate` rejects verified overrides that do not include at least one matched exact-layout source, so completed/live matches cannot silently present guessed placement as verified.
+
+For matchday live starts, use a bounded one-time verification pass instead of an always-on scraper:
+
+```bash
+pnpm sync:fifa:lineups:live
+pnpm lineups:verify-live-start
+```
+
+Run it shortly after kickoff, once FIFA/Google-style lineup boards are likely to exist. The live-start verifier only targets `LIVE` fixtures in the early match window, defaults to 90 minutes after kickoff, accepts only FIFA-official lineup records, and skips fixtures that already have a verified layout override. Use `LINEUP_LAYOUT_LIVE_START_WINDOW_MINUTES` only if tournament timing requires a wider early-match window.
+
 ## Projection Baselines
 
 Run this after fixture or ranking updates to populate missing known-team group fixtures:

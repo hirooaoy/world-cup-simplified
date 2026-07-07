@@ -1,7 +1,11 @@
 #!/usr/bin/env node
 import assert from "node:assert/strict";
 import { buildFifaLineupsFromLiveMatch } from "./fifa-live-lineup-parser.mjs";
-import { applyLineupLayoutOverride, compareLineupsToLayoutOverride } from "./lineup-layout-overrides.mjs";
+import {
+  applyLineupLayoutOverride,
+  compareLineupsToLayoutOverride,
+  getLayoutOverrideProvenanceIssues
+} from "./lineup-layout-overrides.mjs";
 import {
   DERIVED_TEAM_SHEET_ORDER_LAYOUT_SOURCE,
   getLineupLayoutStatus,
@@ -120,6 +124,7 @@ const override = {
       name: "Smoke verified board",
       url: "https://example.com/verified-lineup",
       status: "matched",
+      sourceDetail: "synthetic public board geometry",
       exactLayout: true
     }
   ],
@@ -133,6 +138,25 @@ const override = {
     players: lineups.away.players.map((player) => ({ ...player }))
   }
 };
+
+assert.deepEqual(getLayoutOverrideProvenanceIssues(override), []);
+
+const weakOverride = structuredClone(override);
+weakOverride.sources = [
+  {
+    name: "Smoke source without exact geometry",
+    url: "https://example.com/lineup",
+    status: "matched",
+    exactLayout: false,
+    sourceDetail: "team-sheet order only"
+  }
+];
+assert(
+  getLayoutOverrideProvenanceIssues(weakOverride).some((issue) =>
+    issue.includes("exactLayout true")
+  ),
+  "Verified layout overrides must require at least one matched exact-layout source."
+);
 
 const verifiedLineups = applyLineupLayoutOverride(lineups, override);
 assert.equal(verifiedLineups.layoutSource, VERIFIED_LAYOUT_SOURCE);

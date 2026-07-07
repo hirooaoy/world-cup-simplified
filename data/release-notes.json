@@ -1,6 +1,17 @@
 {
-  "updatedAt": "2026-07-07T12:54:00-07:00",
+  "updatedAt": "2026-07-07T13:08:00-07:00",
   "releases": [
+    {
+      "date": "2026-07-07",
+      "title": "Predicted lineup heading",
+      "titleZh": "预测阵容标题",
+      "highlights": [
+        "Future expected lineup boards now say Line-ups (predicted), while pre-kickoff FIFA team sheets are labeled as official instead of looking like completed-match lineups."
+      ],
+      "highlightsZh": [
+        "未来比赛的预计阵容板现在显示“预测阵容”；开赛前的 FIFA 官方名单则标为官方阵容，不再像完场阵容一样只显示普通标题。"
+      ]
+    },
     {
       "date": "2026-07-07",
       "title": "Completed lineup refresh fix",
@@ -28,10 +39,12 @@
       "title": "Coach card copy audit",
       "titleZh": "教练卡片文案审校",
       "highlights": [
-        "All lineup coach cards now use the same two-line rhythm: one tactical note plus one career context line, with corrected Colombia and Croatia coach metadata."
+        "All lineup coach cards now use the same two-line rhythm: one tactical note plus one career context line, with corrected Colombia and Croatia coach metadata.",
+        "Coach cards now show an age line using the same card-note style as player cards when a sourced birth date is available."
       ],
       "highlightsZh": [
-        "所有阵容教练卡片现在统一为两行结构：一条战术说明加一条履历背景，并修正了哥伦比亚和克罗地亚教练信息。"
+        "所有阵容教练卡片现在统一为两行结构：一条战术说明加一条履历背景，并修正了哥伦比亚和克罗地亚教练信息。",
+        "当有来源支持的出生日期可用时，教练卡片现在会用与球员卡片相同的说明样式显示年龄。"
       ]
     },
     {

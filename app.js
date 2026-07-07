@@ -1,4 +1,4 @@
-const DATA_VERSION = "2026-07-07-argentina-egypt-result";
+const DATA_VERSION = "2026-07-07-argentina-egypt-result-coach-card-age";
 const DATA_URLS = {
   adminMessage: `data/admin-message.json?v=${DATA_VERSION}`,
   fixtures: `data/fixtures.json?v=${DATA_VERSION}`,
@@ -402,6 +402,7 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "Line ups": "阵容",
     "Line-ups": "阵容",
     "Line-ups (expected)": "预计阵容",
+    "Line-ups (predicted)": "预测阵容",
     "low confidence": "低置信度",
     "medium confidence": "中等置信度",
     "high confidence": "高置信度",
@@ -2378,6 +2379,7 @@ Object.entries({
   "No historical prediction is generated for cancelled fixtures.": "已取消的比赛不会生成历史预测。",
   "Line-ups (verified)": "官方确认阵容",
   "Line-ups (expected)": "预计阵容",
+  "Line-ups (predicted)": "预测阵容",
   "Line-ups (official)": "官方阵容",
   "Final verified lineup": "最终确认阵容",
   "Expected lineups": "预计阵容",
@@ -17143,7 +17145,8 @@ function normalizeLineupCoach(coach, teamId) {
     teamId,
     teamName: coach.teamName || curatedCoach.teamName || team?.name || teamId,
     nameZh: coach.nameZh || curatedCoach.nameZh || coachProfile?.nameZh || coachProfile?.displayNameZh,
-    sinceYear: coach.sinceYear || curatedCoach.sinceYear,
+    birthDate: coach.birthDate || curatedCoach.birthDate || coachProfile?.birthDate,
+    sinceYear: coach.sinceYear || curatedCoach.sinceYear || coachProfile?.sinceYear,
     note: coach.note || curatedCoach.note || coachProfile?.note,
     history: coach.history || curatedCoach.history || coachProfile?.history
   };
@@ -17328,6 +17331,14 @@ function getLineupModeForMatch(match, mode) {
   }
 
   return "confirmed";
+}
+
+function isPredictedLineupMode(mode) {
+  return ["expected", "probable", "prediction"].includes(String(mode || "").trim().toLowerCase());
+}
+
+function isCompletedLineupMatch(match) {
+  return ["FT", "AET", "PEN"].includes(String(match?.status || "").trim().toUpperCase());
 }
 
 function getMockLineupPreview(match) {
@@ -17526,8 +17537,8 @@ function getLineupConfidenceText(lineup) {
 
 function getLineupUpdatedText(match, lineup = null) {
   const mode = getLineupModeForMatch(match, lineup?.mode);
-  const isFutureLineup = ["expected", "probable", "prediction"].includes(mode);
-  const isPastLineup = ["final", "confirmed"].includes(mode);
+  const isFutureLineup = isPredictedLineupMode(mode);
+  const isPastLineup = mode === "final" || isCompletedLineupMatch(match);
   if (isPastLineup) {
     return localizeText("This was the final lineup for the match.");
   }
@@ -17544,7 +17555,7 @@ function getLineupUpdatedText(match, lineup = null) {
   }
 
   if (isFutureLineup) {
-    return localizeText("Expected lineups") + getLineupConfidenceText(lineup);
+    return localizeText("Predicted lineups") + getLineupConfidenceText(lineup);
   }
 
   return localizeText("Confirmed lineups");
@@ -17552,10 +17563,10 @@ function getLineupUpdatedText(match, lineup = null) {
 
 function getLineupHelpText(match, lineup = null) {
   const mode = getLineupModeForMatch(match, lineup?.mode);
-  const isFutureLineup = ["expected", "probable", "prediction"].includes(mode);
+  const isFutureLineup = isPredictedLineupMode(mode);
   const freshness = getLineupFreshness(match, lineup);
   const sourceLabel = getLineupSourceLabel(match, lineup);
-  const isPastLineup = ["final", "confirmed"].includes(mode);
+  const isPastLineup = mode === "final" || isCompletedLineupMatch(match);
   const layoutCaveat = getLineupLayoutCaveat(lineup);
 
   if (isFutureLineup) {
@@ -17641,10 +17652,14 @@ function getLocalizedLineupPosition(position) {
 
 function getLineupHeadingLabel(match, lineup) {
   const mode = getLineupModeForMatch(match, lineup?.mode);
-  const isFutureLineup = ["expected", "probable", "prediction"].includes(mode);
+  const isFutureLineup = isPredictedLineupMode(mode);
 
   if (isFutureLineup) {
-    return localizeText("Line-ups (expected)");
+    return localizeText("Line-ups (predicted)");
+  }
+
+  if (["SCHEDULED", "DELAYED"].includes(match?.status) && mode === "confirmed") {
+    return localizeText("Line-ups (official)");
   }
 
   if (mode === "live") {

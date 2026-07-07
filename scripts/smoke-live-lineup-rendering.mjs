@@ -20,6 +20,7 @@ try {
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const matchId = "match-95-round-of-16-2026-07-07";
+const predictedMatchId = "match-96-round-of-16-2026-07-07";
 const checkedAt = "2026-07-07T17:36:51.017Z";
 const mimeTypes = new Map([
   [".css", "text/css; charset=utf-8"],
@@ -384,9 +385,89 @@ try {
     await context.close();
   }
 
+  async function runPredictedHeadingScenario() {
+    let liveDataServed;
+    const liveDataPromise = new Promise((resolve) => {
+      liveDataServed = resolve;
+    });
+    const context = await browser.newContext();
+
+    await context.addInitScript(() => {
+      const RealDate = Date;
+      const mockNow = new RealDate("2026-07-07T17:45:00Z");
+
+      class MockDate extends RealDate {
+        constructor(...args) {
+          return args.length === 0 ? new RealDate(mockNow) : new RealDate(...args);
+        }
+
+        static now() {
+          return mockNow.getTime();
+        }
+      }
+
+      window.Date = MockDate;
+    });
+    await context.route("**/data/lineups.json*", async (route) => {
+      await route.fulfill({
+        body: JSON.stringify({ lineups: {} }),
+        contentType: "application/json",
+        status: 200
+      });
+    });
+    await context.route("**/api/live-data*", async (route) => {
+      liveDataServed();
+      await route.fulfill({
+        body: JSON.stringify({
+          fixturesData,
+          standingsData,
+          tournamentData,
+          syncStatus: {
+            checkedAt,
+            ok: true,
+            provider: "lineup-rendering-smoke"
+          }
+        }),
+        contentType: "application/json",
+        status: 200
+      });
+    });
+
+    const page = await context.newPage();
+    await page.goto(`${baseUrl}/?view=matches&date=2026-07-07&tz=America%2FLos_Angeles`, {
+      waitUntil: "load"
+    });
+    await page.waitForSelector(`[data-match-id="${predictedMatchId}"]`, { state: "attached" });
+    await liveDataPromise;
+    await page.locator(`[data-match-id="${predictedMatchId}"] .match-row-trigger`).click();
+    await page.waitForSelector("#match-info .lineup-preview-block", { state: "attached" });
+
+    const headingState = await page.locator("#match-info .lineup-preview-block").evaluate((block) => ({
+      ariaLabel: block.getAttribute("aria-label") || "",
+      helpLabel: block.querySelector(".lineup-heading .info-tooltip-button")?.getAttribute("aria-label") || "",
+      heading: block.querySelector(".lineup-heading span")?.textContent.replace(/\s+/g, " ").trim() || "",
+      text: block.textContent.replace(/\s+/g, " ").trim()
+    }));
+
+    assert.equal(
+      headingState.heading,
+      "Line-ups (predicted)",
+      `Future expected lineups should use the predicted heading. Measured ${JSON.stringify(headingState)}.`
+    );
+    assert.equal(headingState.ariaLabel, "Line-ups (predicted)");
+    assert(
+      headingState.helpLabel.includes("Predicted from online sources") &&
+        !headingState.text.includes("This was the final lineup for the match."),
+      `Future predicted lineups should not read as final or official-only copy. Measured ${JSON.stringify(headingState)}.`
+    );
+
+    await context.close();
+  }
+
   for (const scenario of scenarios) {
     await runScenario(scenario);
   }
+  await runPredictedHeadingScenario();
 
   console.log("Live lineup rendering smoke passed: official XI stays at 11 across substitution scenarios.");
 } finally {

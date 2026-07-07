@@ -1,9 +1,11 @@
 {
-  "updatedAt": "2026-07-07T19:06:26.704Z",
+  "updatedAt": "2026-07-07T19:51:00.022Z",
   "sourceIds": [
     "wikipedia-coach-search",
     "wikipedia-page-summaries",
-    "wikimedia-commons"
+    "wikimedia-commons",
+    "transfermarkt-coach-birthdate-cross-check",
+    "national-football-teams-coach-birthdate-cross-check"
   ],
   "profiles": {
     "Javier Aguirre": {
@@ -22,7 +24,9 @@
       },
       "history": {
         "en": "Back for a third spell with Mexico, he brings long international and club experience from Mexico, Spain, Japan, Egypt, and Mallorca."
-      }
+      },
+      "sinceYear": 2024,
+      "birthDate": "1958-12-01"
     },
     "Hugo Broos": {
       "name": "Hugo Broos",
@@ -40,7 +44,9 @@
       },
       "history": {
         "en": "Appointed in 2021, he rebuilt Bafana Bafana around a younger core after previously winning the Africa Cup of Nations with Cameroon in 2017."
-      }
+      },
+      "sinceYear": 2021,
+      "birthDate": "1952-04-10"
     },
     "Hong Myungbo": {
       "name": "Hong Myungbo",
@@ -58,7 +64,9 @@
       },
       "history": {
         "en": "A former national-team captain and 2012 Olympic bronze-medal coach, he returned to the South Korea job in 2024."
-      }
+      },
+      "sinceYear": 2024,
+      "birthDate": "1969-02-12"
     },
     "Miroslav Koubek": {
       "name": "Miroslav Koubek",
@@ -76,7 +84,9 @@
       },
       "history": {
         "en": "A veteran Czech manager, he has led top-flight clubs including Viktoria Plzen and brings decades of domestic experience to the national setup."
-      }
+      },
+      "sinceYear": 2025,
+      "birthDate": "1951-09-01"
     },
     "Jesse Marsch": {
       "name": "Jesse Marsch",
@@ -94,7 +104,9 @@
       },
       "history": {
         "en": "Appointed in 2024, he arrived after senior jobs with New York Red Bulls, Salzburg, Leipzig, Leeds United, and Canada's new-era program."
-      }
+      },
+      "sinceYear": 2024,
+      "birthDate": "1973-11-08"
     },
     "Sergej Barbarez": {
       "name": "Sergej Barbarez",
@@ -112,7 +124,9 @@
       },
       "history": {
         "en": "A former national-team star, he took the Bosnia and Herzegovina job in 2024 after a long playing career in Germany."
-      }
+      },
+      "sinceYear": 2024,
+      "birthDate": "1971-09-17"
     },
     "Mauricio Pochettino": {
       "name": "Mauricio Pochettino",
@@ -130,7 +144,9 @@
       },
       "history": {
         "en": "Appointed in 2024, he came to the USMNT after major club roles with Southampton, Tottenham, Paris Saint-Germain, Chelsea, and Espanyol."
-      }
+      },
+      "sinceYear": 2024,
+      "birthDate": "1972-03-02"
     },
     "Gustavo Alfaro": {
       "name": "Gustavo Alfaro",
@@ -148,7 +164,9 @@
       },
       "history": {
         "en": "He took over Paraguay in 2024 after leading Ecuador at the 2022 World Cup and Costa Rica through a transition cycle."
-      }
+      },
+      "sinceYear": 2024,
+      "birthDate": "1962-08-14"
     },
     "Julen Lopetegui": {
       "name": "Julen Lopetegui",
@@ -166,7 +184,9 @@
       },
       "history": {
         "en": "A former Spain, Porto, Real Madrid, Sevilla, Wolves, and West Ham coach, he brings extensive club and international experience."
-      }
+      },
+      "sinceYear": 2025,
+      "birthDate": "1966-08-28"
     },
     "Murat Yakin": {
       "name": "Murat Yakin",
@@ -184,7 +204,9 @@
       },
       "history": {
         "en": "Appointed in 2021, he led Switzerland through the 2022 World Cup and Euro 2024 while keeping a veteran core competitive."
-      }
+      },
+      "sinceYear": 2021,
+      "birthDate": "1974-09-15"
     },
     "Carlo Ancelotti": {
       "name": "Carlo Ancelotti",
@@ -202,7 +224,9 @@
       },
       "history": {
         "en": "He moved from a trophy-laden Real Madrid spell to Brazil in 2025, adding the national-team role to one of club football's deepest resumes."
-      }
+      },
+      "sinceYear": 2025,
+      "birthDate": "1959-06-10"
     },
     "Mohamed Ouahbi": {
       "name": "Mohamed Ouahbi",
@@ -220,7 +244,9 @@
       },
       "history": {
         "en": "Promoted after work in Morocco's youth pathway, he carries federation continuity from the country's recent international rise."
-      }
+      },
+      "sinceYear": 2025,
+      "birthDate": "1976-09-07"
     },
     "Sebastien Migne": {
       "name": "Sebastien Migne",
@@ -237,7 +263,9 @@
       },
       "history": {
         "en": "He has built a broad international resume across African national teams and clubs before taking charge of Haiti."
-      }
+      },
+      "sinceYear": 2024,
+      "birthDate": "1972-11-30"
     },
     "Steve Clarke": {
       "name": "Steve Clarke",
@@ -255,7 +283,9 @@
       },
       "history": {
         "en": "Appointed in 2019, he guided Scotland back to major tournaments after successful spells with Kilmarnock and West Bromwich Albion."
-      }
+      },
+      "sinceYear": 2019,
+      "birthDate": "1963-08-29"
     },
     "Tony Popovic": {
       "name": "Tony Popovic",
@@ -273,7 +303,9 @@
       },
       "history": {
         "en": "Appointed in 2024, the former Socceroo arrived after A-League success with Western Sydney Wanderers, Perth Glory, and Melbourne Victory."
-      }
+      },
+      "sinceYear": 2024,
+      "birthDate": "1973-07-04"
     },
     "Vincenzo Montella": {
       "name": "Vincenzo Montella",
@@ -291,7 +323,9 @@
       },
       "history": {
         "en": "Appointed in 2023, he came from club management in Italy and Türkiye and led the national side into a more expansive phase."
-      }
+      },
+      "sinceYear": 2023,
+      "birthDate": "1974-06-18"
     },
     "Julian Nagelsmann": {
       "name": "Julian Nagelsmann",
@@ -309,7 +343,9 @@
       },
       "history": {
         "en": "Appointed in 2023, he brought high-level Bundesliga and Champions League experience from Hoffenheim, Leipzig, and Bayern Munich."
-      }
+      },
+      "sinceYear": 2023,
+      "birthDate": "1987-07-23"
     },
     "Dick Advocaat": {
       "name": "Dick Advocaat",
@@ -327,7 +363,9 @@
       },
       "history": {
         "en": "One of international football's most traveled managers, he took charge of Curacao after long spells with clubs and national teams across Europe and beyond."
-      }
+      },
+      "sinceYear": 2024,
+      "birthDate": "1947-09-27"
     },
     "Ronald Koeman": {
       "name": "Ronald Koeman",
@@ -345,7 +383,9 @@
       },
       "history": {
         "en": "Back in charge since 2023, he returned to the Netherlands job after earlier national-team work and major club roles including Barcelona."
-      }
+      },
+      "sinceYear": 2023,
+      "birthDate": "1963-03-21"
     },
     "Hajime Moriyasu": {
       "name": "Hajime Moriyasu",
@@ -363,7 +403,9 @@
       },
       "history": {
         "en": "Appointed in 2018, he led Japan at the 2022 World Cup and kept the program on a steady post-tournament path."
-      }
+      },
+      "sinceYear": 2018,
+      "birthDate": "1968-08-23"
     },
     "Emerse Fae": {
       "name": "Emerse Fae",
@@ -381,7 +423,9 @@
       },
       "history": {
         "en": "Promoted during the 2023 Africa Cup of Nations, he guided Cote d'Ivoire to the title and stayed on as head coach."
-      }
+      },
+      "sinceYear": 2024,
+      "birthDate": "1984-01-24"
     },
     "Sebastian Beccacece": {
       "name": "Sebastian Beccacece",
@@ -399,7 +443,9 @@
       },
       "history": {
         "en": "Appointed in 2024, he arrived after coaching spells in Argentina, Chile, Spain, and the Ecuadorian club game."
-      }
+      },
+      "sinceYear": 2024,
+      "birthDate": "1980-12-17"
     },
     "Graham Potter": {
       "name": "Graham Potter",
@@ -417,7 +463,9 @@
       },
       "history": {
         "en": "Appointed after his Premier League and European club work, he brought a development-focused coaching background to Sweden."
-      }
+      },
+      "sinceYear": 2025,
+      "birthDate": "1975-05-20"
     },
     "Sabri Lamouchi": {
       "name": "Sabri Lamouchi",
@@ -435,7 +483,9 @@
       },
       "history": {
         "en": "A former France international, he has managed Cote d'Ivoire, Rennes, Nottingham Forest, Cardiff City, and several clubs in the Middle East."
-      }
+      },
+      "sinceYear": 2025,
+      "birthDate": "1971-11-09"
     },
     "Luis De La Fuente": {
       "name": "Luis De La Fuente",
@@ -453,14 +503,16 @@
       },
       "history": {
         "en": "Promoted to the senior job in 2022, he previously led Spain's under-19, under-21, and Olympic teams."
-      }
+      },
+      "sinceYear": 2022,
+      "birthDate": "1961-06-21"
     },
     "Bubista": {
       "name": "Bubista",
       "teamId": "CPV",
       "teamName": "Cabo Verde",
       "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Flag_of_Cape_Verde.svg/250px-Flag_of_Cape_Verde.svg.png",
-      "sourceUrl": "https://en.wikipedia.org/wiki/Cape_Verde_national_football_team",
+      "sourceUrl": "https://www.national-football-teams.com/coach/1313/Bubista.html",
       "styles": [
         "Defensive organization",
         "Counter-attack",
@@ -471,7 +523,9 @@
       },
       "history": {
         "en": "A former Cabo Verde international, he has led the national team since 2020 and overseen one of its strongest competitive periods."
-      }
+      },
+      "sinceYear": 2020,
+      "birthDate": "1970-01-06"
     },
     "Rudi Garcia": {
       "name": "Rudi Garcia",
@@ -489,7 +543,9 @@
       },
       "history": {
         "en": "Appointed in 2025, he brought club experience from Lille, Roma, Marseille, Lyon, Al Nassr, and Napoli."
-      }
+      },
+      "sinceYear": 2025,
+      "birthDate": "1964-02-20"
     },
     "Hossam Hassan": {
       "name": "Hossam Hassan",
@@ -507,7 +563,9 @@
       },
       "history": {
         "en": "The country's all-time leading scorer became Egypt head coach in 2024 after a long domestic managerial career."
-      }
+      },
+      "sinceYear": 2024,
+      "birthDate": "1966-08-10"
     },
     "Georgios Donis": {
       "name": "Georgios Donis",
@@ -524,7 +582,9 @@
       },
       "history": {
         "en": "A former Greece international, he has coached clubs in Greece, Cyprus, Saudi Arabia, and the Gulf before this national-team spell."
-      }
+      },
+      "sinceYear": 2025,
+      "birthDate": "1969-10-22"
     },
     "Marcelo Bielsa": {
       "name": "Marcelo Bielsa",
@@ -542,7 +602,9 @@
       },
       "history": {
         "en": "Appointed in 2023, he brought his influential club and international career to Uruguay after spells with Argentina, Chile, Athletic Club, Marseille, Lille, and Leeds."
-      }
+      },
+      "sinceYear": 2023,
+      "birthDate": "1955-07-21"
     },
     "Amir Ghalehnoy": {
       "name": "Amir Ghalehnoy",
@@ -560,7 +622,9 @@
       },
       "history": {
         "en": "Back in charge since 2023, he previously managed Iran in the 2000s and built a long title-winning resume in Iranian club football."
-      }
+      },
+      "sinceYear": 2023,
+      "birthDate": "1963-11-22"
     },
     "Darren Bazeley": {
       "name": "Darren Bazeley",
@@ -578,7 +642,9 @@
       },
       "history": {
         "en": "Appointed in 2023, he moved up from New Zealand youth and interim roles after a long playing and coaching career in the country."
-      }
+      },
+      "sinceYear": 2023,
+      "birthDate": "1972-10-05"
     },
     "Didier Deschamps": {
       "name": "Didier Deschamps",
@@ -596,7 +662,9 @@
       },
       "history": {
         "en": "Appointed in 2012, he led France to the 2018 World Cup title, the Euro 2016 final, and the 2022 World Cup final."
-      }
+      },
+      "sinceYear": 2012,
+      "birthDate": "1968-10-15"
     },
     "Pape Thiaw": {
       "name": "Pape Thiaw",
@@ -614,7 +682,9 @@
       },
       "history": {
         "en": "A former Senegal international, he moved through assistant and interim roles before taking over the senior national team."
-      }
+      },
+      "sinceYear": 2024,
+      "birthDate": "1981-02-05"
     },
     "Graham Arnold": {
       "name": "Graham Arnold",
@@ -632,7 +702,9 @@
       },
       "history": {
         "en": "A former Australia head coach and A-League winner, he brings major-tournament experience from the Socceroos and Sydney FC."
-      }
+      },
+      "sinceYear": 2025,
+      "birthDate": "1963-08-03"
     },
     "Stale Solbakken": {
       "name": "Stale Solbakken",
@@ -651,7 +723,9 @@
       "history": {
         "en": "Appointed in 2020, he arrived after a long club career, especially with Copenhagen, and has steered Norway through multiple qualification cycles."
       },
-      "displayName": "Stale Solbakken"
+      "displayName": "Stale Solbakken",
+      "sinceYear": 2020,
+      "birthDate": "1968-02-27"
     },
     "Lionel Scaloni": {
       "name": "Lionel Scaloni",
@@ -669,7 +743,9 @@
         "Possession control",
         "Counter-pressing",
         "Attacking structure"
-      ]
+      ],
+      "sinceYear": 2018,
+      "birthDate": "1978-05-16"
     },
     "Vladimir Petkovic": {
       "name": "Vladimir Petkovic",
@@ -687,7 +763,9 @@
       },
       "history": {
         "en": "Appointed in 2024, he previously led Switzerland from 2014 to 2021 and coached clubs including Lazio and Bordeaux."
-      }
+      },
+      "sinceYear": 2024,
+      "birthDate": "1963-08-15"
     },
     "Ralf Rangnick": {
       "name": "Ralf Rangnick",
@@ -705,7 +783,9 @@
       },
       "history": {
         "en": "Appointed in 2022, he brought his influential pressing background from German club football and consultancy roles to Austria."
-      }
+      },
+      "sinceYear": 2022,
+      "birthDate": "1958-06-29"
     },
     "Jamal Sellami": {
       "name": "Jamal Sellami",
@@ -723,7 +803,9 @@
       },
       "history": {
         "en": "A former Morocco international, he took the Jordan job in 2024 after work with Morocco's domestic and youth programs."
-      }
+      },
+      "sinceYear": 2024,
+      "birthDate": "1970-10-06"
     },
     "Roberto Martinez": {
       "name": "Roberto Martinez",
@@ -742,7 +824,9 @@
       "history": {
         "en": "Appointed in 2023, he came to Portugal after leading Belgium through an extended top-ranked era and the 2018 World Cup semifinals."
       },
-      "nameZh": "罗伯托·马丁内斯"
+      "nameZh": "罗伯托·马丁内斯",
+      "sinceYear": 2023,
+      "birthDate": "1973-07-13"
     },
     "Sebastien Desabre": {
       "name": "Sebastien Desabre",
@@ -760,7 +844,9 @@
       },
       "history": {
         "en": "Appointed in 2022, he arrived after extensive club and national-team work across Africa and helped DR Congo return to continental prominence."
-      }
+      },
+      "sinceYear": 2022,
+      "birthDate": "1976-08-02"
     },
     "Thomas Tuchel": {
       "name": "Thomas Tuchel",
@@ -778,7 +864,9 @@
       },
       "history": {
         "en": "Appointed England head coach in 2025, he brought Champions League-winning club experience from Chelsea plus major roles at Dortmund, PSG, and Bayern Munich."
-      }
+      },
+      "sinceYear": 2025,
+      "birthDate": "1973-08-29"
     },
     "Zlatko Dalic": {
       "name": "Zlatko Dalic",
@@ -796,7 +884,9 @@
       },
       "history": {
         "en": "Appointed in 2017, he led Croatia to the 2018 World Cup final, the 2022 World Cup semifinals, and the 2023 Nations League final."
-      }
+      },
+      "sinceYear": 2017,
+      "birthDate": "1966-10-26"
     },
     "Carlos Queiroz": {
       "name": "Carlos Queiroz",
@@ -814,7 +904,9 @@
       },
       "history": {
         "en": "A veteran international coach, he has led Portugal, Iran, Egypt, Colombia, and South Africa, alongside major assistant and club roles."
-      }
+      },
+      "sinceYear": 2025,
+      "birthDate": "1953-03-01"
     },
     "Thomas Christiansen": {
       "name": "Thomas Christiansen",
@@ -832,7 +924,9 @@
       },
       "history": {
         "en": "Appointed in 2020, he led Panama through a strong qualification cycle after club roles in Cyprus, England, Belgium, and Spain."
-      }
+      },
+      "sinceYear": 2020,
+      "birthDate": "1973-03-11"
     },
     "Fabio Cannavaro": {
       "name": "Fabio Cannavaro",
@@ -850,7 +944,9 @@
       },
       "history": {
         "en": "The 2006 Ballon d'Or winner moved into management after his playing career, coaching in China, Saudi Arabia, Italy, and Croatia before Uzbekistan."
-      }
+      },
+      "sinceYear": 2025,
+      "birthDate": "1973-09-13"
     },
     "Nestor Lorenzo": {
       "name": "Nestor Lorenzo",
@@ -868,7 +964,9 @@
         "Defensive organization",
         "Counter-pressing",
         "Counter-attack"
-      ]
+      ],
+      "sinceYear": 2022,
+      "birthDate": "1966-02-26"
     },
     "Herve Renard": {
       "name": "Herve Renard",
@@ -886,7 +984,9 @@
       },
       "history": {
         "en": "A two-time Africa Cup of Nations winner with Zambia and Cote d'Ivoire, he brings extensive national-team experience across Africa, Asia, and Europe."
-      }
+      },
+      "sinceYear": 2025,
+      "birthDate": "1968-09-30"
     },
     "Z. Dalić": {
       "name": "Z. Dalić",
@@ -904,7 +1004,9 @@
       },
       "history": {
         "en": "This abbreviated FIFA lineup name refers to Zlatko Dalic, Croatia's head coach since 2017 and a World Cup finalist in 2018."
-      }
+      },
+      "sinceYear": 2017,
+      "birthDate": "1966-10-26"
     }
   }
 }

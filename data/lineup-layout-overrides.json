@@ -2,9 +2,10 @@
   "sourceIds": [
     "lineup-layout-verification-2026-07-02",
     "lineup-layout-verification-2026-07-03",
-    "lineup-layout-verification-2026-07-07"
+    "lineup-layout-verification-2026-07-07",
+    "google-argentina-egypt-lineup-visual-2026-07-07"
   ],
-  "updatedAt": "2026-07-07T20:00:00.000Z",
+  "updatedAt": "2026-07-07T20:43:54.000Z",
   "fixtures": {
     "match-82-round-of-32-2026-07-01": {
       "status": "verified",
@@ -34536,6 +34537,359 @@
           {
             "number": "1",
             "name": "Thibaut Courtois",
+            "position": "GK",
+            "x": 49.9,
+            "y": 90.5
+          }
+        ]
+      }
+    },
+    "match-95-round-of-16-2026-07-07": {
+      "status": "verified",
+      "layoutSource": "verified-layout",
+      "checkedAt": "2026-07-07T20:43:54.000Z",
+      "sourceIds": [
+        "google-argentina-egypt-lineup-visual-2026-07-07"
+      ],
+      "homeTeamId": "ARG",
+      "awayTeamId": "EGY",
+      "sources": [
+        {
+          "name": "Google",
+          "url": "https://www.google.com/search?q=Argentina+Egypt+World+Cup+2026+lineups",
+          "status": "matched",
+          "sourceDetail": "Google match lineup visual board; manual visual check of Egypt attacking-band placement.",
+          "exactLayout": true,
+          "note": "Egypt front four shown with Mostafa Zico central, Mohamed Salah in the central attacking role, and Haissem Hassan on the right.",
+          "home": {
+            "formation": "4-1-3-2",
+            "players": [
+              {
+                "number": "9",
+                "name": "Julian Alvarez",
+                "position": "ST",
+                "x": 42,
+                "y": 23
+              },
+              {
+                "number": "10",
+                "name": "Lionel Messi",
+                "position": "ST",
+                "x": 58,
+                "y": 23
+              },
+              {
+                "number": "24",
+                "name": "Enzo Fernandez",
+                "position": "LW",
+                "x": 24,
+                "y": 44
+              },
+              {
+                "number": "20",
+                "name": "Alexis Mac Allister",
+                "position": "AM",
+                "x": 50,
+                "y": 42
+              },
+              {
+                "number": "7",
+                "name": "Rodrigo De Paul",
+                "position": "RW",
+                "x": 76,
+                "y": 44
+              },
+              {
+                "number": "5",
+                "name": "Leandro Paredes",
+                "position": "DM",
+                "x": 50,
+                "y": 62
+              },
+              {
+                "number": "3",
+                "name": "Nicolas Tagliafico",
+                "position": "LB",
+                "x": 15,
+                "y": 75
+              },
+              {
+                "number": "13",
+                "name": "Cristian Romero",
+                "position": "CB",
+                "x": 38,
+                "y": 75
+              },
+              {
+                "number": "6",
+                "name": "Lisandro Martinez",
+                "position": "CB",
+                "x": 62,
+                "y": 75
+              },
+              {
+                "number": "26",
+                "name": "Nahuel Molina",
+                "position": "RB",
+                "x": 85,
+                "y": 75
+              },
+              {
+                "number": "23",
+                "name": "Emiliano Martinez",
+                "position": "GK",
+                "x": 50,
+                "y": 91
+              }
+            ]
+          },
+          "away": {
+            "formation": "4-2-3-1",
+            "players": [
+              {
+                "number": "11",
+                "name": "Mostafa Zico",
+                "position": "ST",
+                "x": 50,
+                "y": 10.5
+              },
+              {
+                "number": "19",
+                "name": "Marawan Attia",
+                "position": "LW",
+                "x": 19.4,
+                "y": 30.1
+              },
+              {
+                "number": "10",
+                "name": "Mohamed Salah",
+                "position": "AM",
+                "x": 50,
+                "y": 30.1
+              },
+              {
+                "number": "12",
+                "name": "Haissem Hassan",
+                "position": "RW",
+                "x": 80.6,
+                "y": 30.1
+              },
+              {
+                "number": "17",
+                "name": "Mohanad Lashin",
+                "position": "CM",
+                "x": 36.5,
+                "y": 49.9
+              },
+              {
+                "number": "8",
+                "name": "Emam Ashour",
+                "position": "CM",
+                "x": 63.4,
+                "y": 49.9
+              },
+              {
+                "number": "15",
+                "name": "Karim Hafez",
+                "position": "LB",
+                "x": 13.7,
+                "y": 62.8
+              },
+              {
+                "number": "5",
+                "name": "Ramy Rabia",
+                "position": "CB",
+                "x": 33.3,
+                "y": 68.7
+              },
+              {
+                "number": "2",
+                "name": "Yasser Ibrahim",
+                "position": "CB",
+                "x": 66.5,
+                "y": 68.7
+              },
+              {
+                "number": "3",
+                "name": "Mohamed Hany",
+                "position": "RB",
+                "x": 86.2,
+                "y": 62.8
+              },
+              {
+                "number": "23",
+                "name": "Mostafa Shoubir",
+                "position": "GK",
+                "x": 49.9,
+                "y": 90.5
+              }
+            ]
+          },
+          "signature": {
+            "home": "julian alvarez/lionel messi|enzo fernandez/alexis mac allister/rodrigo de paul|leandro paredes|nicolas tagliafico/cristian romero/lisandro martinez/nahuel molina|emiliano martinez",
+            "away": "mostafa zico|marawan attia/mohamed salah/haissem hassan|mohanad lashin/emam ashour|karim hafez/ramy rabia/yasser ibrahim/mohamed hany|mostafa shoubir"
+          }
+        }
+      ],
+      "note": "FIFA official team sheet kept for facts; Google lineup visual manually verified Egypt attacking placement: Zico central striker, Salah central attacking midfielder, Haissem Hassan right winger.",
+      "home": {
+        "formation": "4-1-3-2",
+        "players": [
+          {
+            "number": "9",
+            "name": "Julian Alvarez",
+            "position": "ST",
+            "x": 42,
+            "y": 23
+          },
+          {
+            "number": "10",
+            "name": "Lionel Messi",
+            "position": "ST",
+            "x": 58,
+            "y": 23
+          },
+          {
+            "number": "24",
+            "name": "Enzo Fernandez",
+            "position": "LW",
+            "x": 24,
+            "y": 44
+          },
+          {
+            "number": "20",
+            "name": "Alexis Mac Allister",
+            "position": "AM",
+            "x": 50,
+            "y": 42
+          },
+          {
+            "number": "7",
+            "name": "Rodrigo De Paul",
+            "position": "RW",
+            "x": 76,
+            "y": 44
+          },
+          {
+            "number": "5",
+            "name": "Leandro Paredes",
+            "position": "DM",
+            "x": 50,
+            "y": 62
+          },
+          {
+            "number": "3",
+            "name": "Nicolas Tagliafico",
+            "position": "LB",
+            "x": 15,
+            "y": 75
+          },
+          {
+            "number": "13",
+            "name": "Cristian Romero",
+            "position": "CB",
+            "x": 38,
+            "y": 75
+          },
+          {
+            "number": "6",
+            "name": "Lisandro Martinez",
+            "position": "CB",
+            "x": 62,
+            "y": 75
+          },
+          {
+            "number": "26",
+            "name": "Nahuel Molina",
+            "position": "RB",
+            "x": 85,
+            "y": 75
+          },
+          {
+            "number": "23",
+            "name": "Emiliano Martinez",
+            "position": "GK",
+            "x": 50,
+            "y": 91
+          }
+        ]
+      },
+      "away": {
+        "formation": "4-2-3-1",
+        "players": [
+          {
+            "number": "11",
+            "name": "Mostafa Zico",
+            "position": "ST",
+            "x": 50,
+            "y": 10.5
+          },
+          {
+            "number": "19",
+            "name": "Marawan Attia",
+            "position": "LW",
+            "x": 19.4,
+            "y": 30.1
+          },
+          {
+            "number": "10",
+            "name": "Mohamed Salah",
+            "position": "AM",
+            "x": 50,
+            "y": 30.1
+          },
+          {
+            "number": "12",
+            "name": "Haissem Hassan",
+            "position": "RW",
+            "x": 80.6,
+            "y": 30.1
+          },
+          {
+            "number": "17",
+            "name": "Mohanad Lashin",
+            "position": "CM",
+            "x": 36.5,
+            "y": 49.9
+          },
+          {
+            "number": "8",
+            "name": "Emam Ashour",
+            "position": "CM",
+            "x": 63.4,
+            "y": 49.9
+          },
+          {
+            "number": "15",
+            "name": "Karim Hafez",
+            "position": "LB",
+            "x": 13.7,
+            "y": 62.8
+          },
+          {
+            "number": "5",
+            "name": "Ramy Rabia",
+            "position": "CB",
+            "x": 33.3,
+            "y": 68.7
+          },
+          {
+            "number": "2",
+            "name": "Yasser Ibrahim",
+            "position": "CB",
+            "x": 66.5,
+            "y": 68.7
+          },
+          {
+            "number": "3",
+            "name": "Mohamed Hany",
+            "position": "RB",
+            "x": 86.2,
+            "y": 62.8
+          },
+          {
+            "number": "23",
+            "name": "Mostafa Shoubir",
             "position": "GK",
             "x": 49.9,
             "y": 90.5

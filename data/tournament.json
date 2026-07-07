@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-07T19:46:11.754Z",
+  "updatedAt": "2026-07-07T20:43:54.000Z",
   "coverageNote": "The current seed dataset covers the full official fixture skeleton from June 11 through July 19. Rich previews, scores, live status and knockout participants are updated progressively.",
   "catchUp": [
     {
@@ -1230,6 +1230,14 @@
       "type": "editorial",
       "checkedAt": "2026-07-07T20:00:00.000Z",
       "note": "9 completed fixtures reviewed; 9 verified overrides applied."
+    },
+    {
+      "id": "google-argentina-egypt-lineup-visual-2026-07-07",
+      "label": "Google ARG-EGY lineup visual verification",
+      "url": "https://www.google.com/search?q=Argentina+Egypt+World+Cup+2026+lineups",
+      "type": "editorial",
+      "checkedAt": "2026-07-07T20:43:54.000Z",
+      "note": "Manual visual check used only for ARG-EGY exact Egypt attacking layout; FIFA remains the source for starters, bench, events, and formation."
     },
     {
       "id": "rotowire-world-cup-lineups-2026-07-07",

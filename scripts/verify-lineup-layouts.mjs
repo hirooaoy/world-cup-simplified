@@ -5,6 +5,7 @@ import { fileURLToPath } from "node:url";
 import {
   applyLineupLayoutOverride,
   compareLineupsToLayoutOverride,
+  getVerifiedLayoutOverride,
   normalizeLayoutPlayerName,
   VERIFIED_LAYOUT_SOURCE
 } from "./lineup-layout-overrides.mjs";
@@ -19,9 +20,11 @@ const checkedAt = process.env.LINEUP_LAYOUT_CHECKED_AT || new Date().toISOString
 const overrideSourceId = `lineup-layout-verification-${checkedAt.slice(0, 10)}`;
 const requestTimeoutMs = Number(process.env.LINEUP_LAYOUT_TIMEOUT_MS || 15000);
 const COMPLETED_STATUSES = new Set(["FT", "AET", "PEN"]);
-const VALID_SCOPE_VALUES = new Set(["all-completed", "knockout", "recent-completed"]);
+const LIVE_START_STATUSES = new Set(["LIVE"]);
+const VALID_SCOPE_VALUES = new Set(["all-completed", "knockout", "recent-completed", "live-start"]);
 const DEFAULT_SCOPE = "all-completed";
 const DEFAULT_RECENT_COMPLETED_DAYS = 30;
+const DEFAULT_LIVE_START_WINDOW_MINUTES = 90;
 const CLAIM_STATUSES = new Set(["matched", "unavailable", "blocked", "error", "conflict"]);
 const BLOCKED_HTTP_STATUSES = new Set([403, 429, 451]);
 const requestedFixtureFilter = new Set(
@@ -66,9 +69,41 @@ function getRequestedRecentCompletedDays() {
   return parsed;
 }
 
+function getRequestedLiveStartWindowMinutes() {
+  const argValue = getArgValue("--live-start-window-minutes=");
+  if (!argValue) {
+    return Number(process.env.LINEUP_LAYOUT_LIVE_START_WINDOW_MINUTES || DEFAULT_LIVE_START_WINDOW_MINUTES);
+  }
+
+  const parsed = Number(argValue);
+  if (!Number.isFinite(parsed) || parsed <= 0) {
+    console.error(`--live-start-window-minutes must be a positive number. Received: ${argValue}`);
+    process.exit(1);
+  }
+
+  return parsed;
+}
+
+function getAuditNow() {
+  const value = process.env.LINEUP_LAYOUT_NOW || "";
+  if (!value) {
+    return new Date();
+  }
+
+  const parsed = new Date(value);
+  if (Number.isNaN(parsed.getTime())) {
+    console.error(`LINEUP_LAYOUT_NOW must be a valid date-time. Received: ${value}`);
+    process.exit(1);
+  }
+
+  return parsed;
+}
+
 const requestedScope = getRequestedScope();
 const requestedRecentDays = getRequestedRecentCompletedDays();
+const requestedLiveStartWindowMinutes = getRequestedLiveStartWindowMinutes();
 const requestedFixtureIds = getRequestedFixtureFilter();
+const auditNow = getAuditNow();
 
 function getRequestedFixtureFilter() {
   if (!requestedFixtureFilter.size) {
@@ -113,12 +148,34 @@ function isRecentCompletedFixture(fixture) {
     return false;
   }
 
-  const cutoff = Date.now() - requestedRecentDays * 24 * 60 * 60 * 1000;
+  const cutoff = auditNow.getTime() - requestedRecentDays * 24 * 60 * 60 * 1000;
   const fixtureTime = getFixtureTimestamp(fixture);
   return Number.isFinite(fixtureTime) ? fixtureTime >= cutoff : false;
 }
 
+function minutesSinceKickoff(fixture) {
+  const fixtureTime = getFixtureTimestamp(fixture);
+  return Number.isFinite(fixtureTime) ? (auditNow.getTime() - fixtureTime) / 60000 : Number.NaN;
+}
+
+function isLiveStartFixture(fixture) {
+  if (!LIVE_START_STATUSES.has(fixture?.status)) {
+    return false;
+  }
+
+  const minutes = minutesSinceKickoff(fixture);
+  if (!Number.isFinite(minutes)) {
+    return true;
+  }
+
+  return minutes >= -15 && minutes <= requestedLiveStartWindowMinutes;
+}
+
 function isFixtureInScope(fixture, scope) {
+  if (scope === "live-start") {
+    return isLiveStartFixture(fixture);
+  }
+
   if (!isCompletedFixture(fixture)) {
     return false;
   }
@@ -139,7 +196,8 @@ function isVerifiedLineupSource(lineups) {
     return false;
   }
 
-  const sourceReady = lineups.mode === "final" && lineups.teamSheetSource === "fifa-official" && lineups.eventSource === "fifa-official";
+  const modeReady = ["confirmed", "final", "live"].includes(String(lineups.mode || "").trim().toLowerCase());
+  const sourceReady = modeReady && lineups.teamSheetSource === "fifa-official" && lineups.eventSource === "fifa-official";
   const homePlayers = Array.isArray(lineups?.home?.players) ? lineups.home.players : [];
   const awayPlayers = Array.isArray(lineups?.away?.players) ? lineups.away.players : [];
   return sourceReady && homePlayers.length === 11 && awayPlayers.length === 11;
@@ -1084,6 +1142,7 @@ const nextOverrides = {
   }
 };
 const summary = {
+  existingVerified: [],
   verified: [],
   unresolved: [],
   skipped: [],
@@ -1100,23 +1159,66 @@ for (const fixture of fixturesData.fixtures || []) {
     continue;
   }
 
-  if (!isCompletedFixture(fixture)) {
-    summary.skipped.push({
-      id: fixtureId,
-      reason: "not_completed"
-    });
-    continue;
-  }
+  if (requestedScope === "live-start") {
+    if (!requestedFixtureIds && !isFixtureInScope(fixture, requestedScope)) {
+      summary.skipped.push({
+        id: fixtureId,
+        reason: LIVE_START_STATUSES.has(fixture.status) ? "outside_live_start_window" : "not_live_start"
+      });
+      continue;
+    }
+  } else {
+    if (!isCompletedFixture(fixture)) {
+      summary.skipped.push({
+        id: fixtureId,
+        reason: "not_completed"
+      });
+      continue;
+    }
 
-  if (!requestedFixtureIds && !isFixtureInScope(fixture, requestedScope)) {
-    summary.skipped.push({
-      id: fixtureId,
-      reason: "not_in_scope"
-    });
-    continue;
+    if (!requestedFixtureIds && !isFixtureInScope(fixture, requestedScope)) {
+      summary.skipped.push({
+        id: fixtureId,
+        reason: "not_in_scope"
+      });
+      continue;
+    }
   }
 
   const sourceCandidates = getSourceCandidatesForFixture(fixtureId);
+  const existingOverride = getVerifiedLayoutOverride(nextOverrides, fixtureId);
+  const lineups = lineupsData.lineups?.[fixtureId];
+  const shouldUseExistingOverride =
+    existingOverride && (requestedScope === "live-start" || !Array.isArray(sourceCandidates) || sourceCandidates.length === 0);
+
+  if (shouldUseExistingOverride) {
+    if (!lineups || !isVerifiedLineupSource(lineups)) {
+      summary.skipped.push({
+        id: fixtureId,
+        reason: !lineups ? "missing_lineups_record" : "incomplete_official_lineups"
+      });
+      continue;
+    }
+
+    let nextLineups = lineups;
+    let issues = compareLineupsToLayoutOverride(nextLineups, existingOverride);
+    if (issues.length) {
+      nextLineups = applyLineupLayoutOverride(lineups, existingOverride);
+      issues = compareLineupsToLayoutOverride(nextLineups, existingOverride);
+      if (issues.length) {
+        throw new Error(`${fixtureId} existing verified override failed to apply: ${issues.join("; ")}`);
+      }
+      if (shouldWrite) {
+        lineupsData.lineups[fixtureId] = nextLineups;
+        changedCount += 1;
+      }
+    }
+
+    summary.existingVerified.push(fixtureId);
+    console.log(`${fixtureId}: verified (existing override)`);
+    continue;
+  }
+
   if (!Array.isArray(sourceCandidates) || sourceCandidates.length === 0) {
     summary.skipped.push({
       id: fixtureId,
@@ -1125,7 +1227,6 @@ for (const fixture of fixturesData.fixtures || []) {
     continue;
   }
 
-  const lineups = lineupsData.lineups?.[fixtureId];
   if (!lineups || !isVerifiedLineupSource(lineups)) {
     summary.skipped.push({
       id: fixtureId,
@@ -1166,15 +1267,18 @@ for (const fixture of fixturesData.fixtures || []) {
   }
 }
 
-if (shouldWrite && (summary.verified.length || summary.unresolved.length)) {
-  lineupsData.sourceIds = [...new Set([...(lineupsData.sourceIds || []), overrideSourceId])];
+const hasNewVerificationClaims = summary.verified.length || summary.unresolved.length;
+if (shouldWrite && (hasNewVerificationClaims || changedCount)) {
   lineupsData.updatedAt = checkedAt;
-  upsertSource(
-    tournamentData,
-    overrideSourceId,
-    summary.verified.length + summary.unresolved.length,
-    changedCount
-  );
+  if (hasNewVerificationClaims) {
+    lineupsData.sourceIds = [...new Set([...(lineupsData.sourceIds || []), overrideSourceId])];
+    upsertSource(
+      tournamentData,
+      overrideSourceId,
+      summary.verified.length + summary.unresolved.length,
+      changedCount
+    );
+  }
   await Promise.all([
     writeJson("lineup-layout-overrides.json", nextOverrides),
     writeJson("lineups.json", lineupsData),
@@ -1199,6 +1303,7 @@ const unresolvedByReason = summary.unresolved.reduce(
 console.log(
   [
     "Verification summary:",
+    `  existing verified=${summary.existingVerified.length}: ${summary.existingVerified.join(", ") || "none"}`,
     `  verified=${summary.verified.length}: ${summary.verified.join(", ") || "none"}`,
     `  unresolved=${summary.unresolved.length}: ${summary.unresolved.map((entry) => `${entry.id}[${entry.reason}]`).join(", ") || "none"}`,
     `  skipped=${summary.skipped.length}: ${summary.skipped.map((entry) => `${entry.id}[${entry.reason}]`).join(", ") || "none"}`,
@@ -1212,4 +1317,6 @@ console.log(
   ].join("\n")
 );
 
+const verifiedCoverageCount = summary.existingVerified.length + summary.verified.length;
+console.log(`${verifiedCoverageCount} verified lineup layout override${verifiedCoverageCount === 1 ? "" : "s"} covered.`);
 console.log(`${changedCount} verified lineup layout override${changedCount === 1 ? "" : "s"} ${shouldWrite ? "written" : "detected"}.`);

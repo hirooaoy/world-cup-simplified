@@ -369,6 +369,44 @@ function getCommonsImageUrl(fileName) {
   return `https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(cleaned)}?width=160`;
 }
 
+function parseCoachBirthDate(value = "") {
+  const source = String(value || "");
+  const templateMatch = source.match(
+    /\{\{\s*(?:birth date and age|birth date|birth-date and age|birth-date)\s*(?:\|\s*df\s*=\s*y)?\s*\|\s*(\d{4})\s*\|\s*(\d{1,2})\s*\|\s*(\d{1,2})/i
+  );
+  if (templateMatch) {
+    return [
+      templateMatch[1],
+      templateMatch[2].padStart(2, "0"),
+      templateMatch[3].padStart(2, "0")
+    ].join("-");
+  }
+
+  const textMatch = cleanWikiText(source).match(/(\d{1,2})\s+([A-Za-z]+)\s+(\d{4})/);
+  if (!textMatch) {
+    return "";
+  }
+
+  const months = new Map(
+    [
+      "january",
+      "february",
+      "march",
+      "april",
+      "may",
+      "june",
+      "july",
+      "august",
+      "september",
+      "october",
+      "november",
+      "december"
+    ].map((month, index) => [month, String(index + 1).padStart(2, "0")])
+  );
+  const month = months.get(textMatch[2].toLowerCase());
+  return month ? [textMatch[3], month, textMatch[1].padStart(2, "0")].join("-") : "";
+}
+
 function scoreSearchResult(result, name, teamName) {
   const resultTitle = normalizeText(result.title);
   const snippet = normalizeText(result.snippet);
@@ -508,6 +546,7 @@ function buildCoachProfile(candidate, existingProfile = {}, title, pageData = {}
   const infoboxImage = getCommonsImageUrl(fields.image || fields.manager || fields.coach || "");
   const imageUrl = infoboxImage || pageData.thumbnail || normalizedExistingImage;
   const sourceUrl = existingProfile.sourceUrl || (title ? `https://en.wikipedia.org/wiki/${encodePageTitle(title)}` : "");
+  const birthDate = existingProfile.birthDate || parseCoachBirthDate(fields.birth_date || fields["birth date"] || "");
 
   return {
     ...existingProfile,
@@ -516,6 +555,7 @@ function buildCoachProfile(candidate, existingProfile = {}, title, pageData = {}
     teamName: existingProfile.teamName || candidate.teamName || "",
     ...(imageUrl ? { imageUrl } : {}),
     ...(sourceUrl ? { sourceUrl } : {}),
+    ...(birthDate ? { birthDate } : {}),
     ...(styles ? { styles } : {})
   };
 }

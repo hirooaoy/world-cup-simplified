@@ -2,7 +2,11 @@
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { compareLineupsToLayoutOverride, VERIFIED_LAYOUT_SOURCE } from "./lineup-layout-overrides.mjs";
+import {
+  compareLineupsToLayoutOverride,
+  getLayoutOverrideProvenanceIssues,
+  VERIFIED_LAYOUT_SOURCE
+} from "./lineup-layout-overrides.mjs";
 import {
   DERIVED_TEAM_SHEET_ORDER_LAYOUT_SOURCE,
   isDerivedLayoutSource,
@@ -1605,6 +1609,15 @@ function validateLineupLayoutVerification(verification, sourceIdSet, owner) {
         ["matched", "unavailable", "blocked", "error", "conflict"].includes(source.status),
         `${sourceOwner}.status must be matched, unavailable, blocked, error, or conflict`
       );
+      if (source.exactLayout !== undefined) {
+        assert(typeof source.exactLayout === "boolean", `${sourceOwner}.exactLayout must be a boolean when provided`);
+      }
+      if (source.status === "matched" && source.exactLayout === true) {
+        assert(
+          typeof source.sourceDetail === "string" && source.sourceDetail.trim(),
+          `${sourceOwner}.sourceDetail must describe the exact layout evidence`
+        );
+      }
     }
   }
   if (verification.unresolvedReason !== undefined) {
@@ -1890,6 +1903,7 @@ function validateLineupLayoutOverrides(overridesData, lineupsDataValue) {
     assert(["verified", "unresolved"].includes(override.status), `${owner}.status must be verified or unresolved`);
     validateLineupTimestamp(override.checkedAt, `${owner}.checkedAt`);
     requireSourceIds(override.sourceIds, sourceIds, owner);
+    assert(Array.isArray(override.sourceIds) && override.sourceIds.length > 0, `${owner}.sourceIds must include at least one source`);
     if (override.homeTeamId !== undefined) {
       assert(override.homeTeamId === fixture.homeTeamId, `${owner}.homeTeamId must match the fixture home team`);
     }
@@ -1899,22 +1913,32 @@ function validateLineupLayoutOverrides(overridesData, lineupsDataValue) {
     if (override.layoutSource !== undefined) {
       assert(normalizeLayoutSource(override.layoutSource) === VERIFIED_LAYOUT_SOURCE, `${owner}.layoutSource must be ${VERIFIED_LAYOUT_SOURCE}`);
     }
-    if (override.sources !== undefined) {
-      assert(Array.isArray(override.sources), `${owner}.sources must be an array`);
-      for (const [index, source] of (Array.isArray(override.sources) ? override.sources : []).entries()) {
-        const sourceOwner = `${owner}.sources[${index}]`;
-        assert(isPlainObject(source), `${sourceOwner} must be an object`);
-        if (!isPlainObject(source)) continue;
-        assert(typeof source.name === "string" && source.name.trim(), `${sourceOwner}.name must be a non-empty string`);
-        assert(/^https?:\/\//.test(source.url || ""), `${sourceOwner}.url must be an http(s) URL`);
+    assert(Array.isArray(override.sources) && override.sources.length > 0, `${owner}.sources must include at least one checked source`);
+    for (const [index, source] of (Array.isArray(override.sources) ? override.sources : []).entries()) {
+      const sourceOwner = `${owner}.sources[${index}]`;
+      assert(isPlainObject(source), `${sourceOwner} must be an object`);
+      if (!isPlainObject(source)) continue;
+      assert(typeof source.name === "string" && source.name.trim(), `${sourceOwner}.name must be a non-empty string`);
+      assert(/^https?:\/\//.test(source.url || ""), `${sourceOwner}.url must be an http(s) URL`);
+      assert(
+        ["matched", "unavailable", "blocked", "error", "conflict"].includes(source.status),
+        `${sourceOwner}.status must be matched, unavailable, blocked, error, or conflict`
+      );
+      if (source.exactLayout !== undefined) {
+        assert(typeof source.exactLayout === "boolean", `${sourceOwner}.exactLayout must be a boolean when provided`);
+      }
+      if (source.status === "matched" && source.exactLayout === true) {
         assert(
-          ["matched", "unavailable", "blocked", "error", "conflict"].includes(source.status),
-          `${sourceOwner}.status must be matched, unavailable, blocked, error, or conflict`
+          typeof source.sourceDetail === "string" && source.sourceDetail.trim(),
+          `${sourceOwner}.sourceDetail must describe the exact layout evidence`
         );
       }
     }
     if (override.unresolvedReason !== undefined) {
       assert(typeof override.unresolvedReason === "string" && override.unresolvedReason.trim(), `${owner}.unresolvedReason must be a non-empty string`);
+    }
+    for (const issue of getLayoutOverrideProvenanceIssues(override)) {
+      fail(`${owner}: ${issue}`);
     }
 
     if (override.status !== "verified") {

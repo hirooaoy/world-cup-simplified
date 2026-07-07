@@ -22,6 +22,7 @@ const DERIVED_LAYOUT_SOURCE = DERIVED_TEAM_SHEET_ORDER_LAYOUT_SOURCE;
 const sourceId = `fifa-lineups-sync-${new Date().toISOString().slice(0, 10)}`;
 const checkedAt = process.env.FIFA_LINEUPS_CHECKED_AT || new Date().toISOString();
 const shouldWrite = !process.argv.includes("--check");
+const includeLive = process.argv.includes("--include-live");
 const requestTimeoutMs = Number(process.env.FIFA_LINEUPS_TIMEOUT_MS || 10000);
 const requestRetries = Number(process.env.FIFA_LINEUPS_RETRIES || 2);
 const requestConcurrency = Number(process.env.FIFA_LINEUPS_CONCURRENCY || 8);
@@ -918,6 +919,10 @@ function applyVerifiedLayoutIfAvailable(fixture, lineups, layoutOverridesData) {
   return applyLineupLayoutOverride(lineups, override);
 }
 
+function lineupModeForFixture(fixture) {
+  return fixture?.status === "LIVE" ? "confirmed" : "final";
+}
+
 async function processFixture(fixture, existingLineups, teamsById, profileLookup, layoutOverridesData) {
   const idMatch = fixtureFifaMatchId(fixture);
   if (!idMatch) {
@@ -954,7 +959,7 @@ async function processFixture(fixture, existingLineups, teamsById, profileLookup
   let nextLineups;
   try {
     nextLineups = {
-      mode: "final",
+      mode: lineupModeForFixture(fixture),
       teamSheetSource: OFFICIAL_SOURCE,
       eventSource: OFFICIAL_SOURCE,
       layoutSource: DERIVED_LAYOUT_SOURCE,
@@ -1020,7 +1025,11 @@ const [fixturesData, lineupsData, teamsData, tournamentData, profilesData, layou
 const teamsById = buildTeamLookup(teamsData.teams);
 const profileLookup = buildProfileLookup(profilesData);
 const targetFixtures = (fixturesData.fixtures || []).filter(
-  (fixture) => fixture.status === "FT" && fixture.homeTeamId && fixture.awayTeamId && fixtureFifaMatchId(fixture)
+  (fixture) =>
+    (fixture.status === "FT" || (includeLive && fixture.status === "LIVE")) &&
+    fixture.homeTeamId &&
+    fixture.awayTeamId &&
+    fixtureFifaMatchId(fixture)
 );
 const skippedCount = (fixturesData.fixtures || []).length - targetFixtures.length;
 const lineupsByFixtureId = {
@@ -1074,6 +1083,8 @@ const targetFixtureIds = new Set(targetFixtures.map((fixture) => fixture.id));
 const nextLineupsByFixtureId = Object.fromEntries(
   Object.entries(lineupsByFixtureId).filter(([fixtureId]) => targetFixtureIds.has(fixtureId))
 );
+const completedTargetCount = targetFixtures.filter((fixture) => fixture.status === "FT").length;
+const liveTargetCount = targetFixtures.filter((fixture) => fixture.status === "LIVE").length;
 
 if (shouldWrite && (updateCount || removedInlineCount)) {
   fixturesData.sourceIds = (fixturesData.sourceIds || []).filter((id) => !/^fifa-lineups-sync-/.test(id));
@@ -1088,11 +1099,11 @@ if (shouldWrite && (updateCount || removedInlineCount)) {
   const sources = (tournamentData.sources || []).filter((source) => source.id !== sourceId);
   sources.push({
     id: sourceId,
-    label: "FIFA official final lineups sync",
+    label: includeLive ? "FIFA official lineups sync" : "FIFA official final lineups sync",
     url: FIFA_SCHEDULE_URL,
     type: "official",
     checkedAt,
-    note: `${matchedCount} completed FIFA team sheet${matchedCount === 1 ? "" : "s"} checked; lineups.json carries official starters, bench, cards, and substitutions for ${Object.keys(nextLineupsByFixtureId).length} completed fixture${Object.keys(nextLineupsByFixtureId).length === 1 ? "" : "s"}; ${updateCount} changed on this pass.`
+    note: `${matchedCount} FIFA team sheet${matchedCount === 1 ? "" : "s"} checked across ${completedTargetCount} completed and ${liveTargetCount} live fixture${completedTargetCount + liveTargetCount === 1 ? "" : "s"}; lineups.json carries official starters, bench, cards, and substitutions for ${Object.keys(nextLineupsByFixtureId).length} fixture${Object.keys(nextLineupsByFixtureId).length === 1 ? "" : "s"}; ${updateCount} changed on this pass.`
   });
   tournamentData.sources = sources;
   tournamentData.updatedAt = checkedAt;

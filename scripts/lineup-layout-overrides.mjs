@@ -8,6 +8,8 @@ import {
 
 export { VERIFIED_LAYOUT_SOURCE };
 
+const LAYOUT_OVERRIDE_SOURCE_STATUSES = new Set(["matched", "unavailable", "blocked", "error", "conflict"]);
+
 export function normalizeLayoutPlayerName(value) {
   return normalizePlayerName(value || "");
 }
@@ -127,6 +129,79 @@ function summarizeOverrideSources(sources) {
     ...(source.exactLayout !== undefined ? { exactLayout: source.exactLayout } : {}),
     ...(source.note ? { note: source.note } : {})
   }));
+}
+
+function isPlainObject(value) {
+  return Boolean(value && typeof value === "object" && !Array.isArray(value));
+}
+
+function isHttpUrl(value) {
+  return /^https?:\/\//.test(String(value || ""));
+}
+
+function hasText(value) {
+  return typeof value === "string" && value.trim().length > 0;
+}
+
+function isMatchedExactLayoutSource(source) {
+  return source?.status === "matched" && source?.exactLayout === true;
+}
+
+export function getLayoutOverrideProvenanceIssues(override) {
+  const issues = [];
+  if (!isPlainObject(override)) {
+    return ["override must be an object"];
+  }
+
+  if (!Array.isArray(override.sourceIds) || override.sourceIds.length === 0) {
+    issues.push("sourceIds must include at least one source id");
+  }
+
+  const sources = Array.isArray(override.sources) ? override.sources : [];
+  if (!Array.isArray(override.sources) || sources.length === 0) {
+    issues.push("sources must include at least one checked source");
+  }
+
+  for (const [index, source] of sources.entries()) {
+    const prefix = `sources[${index}]`;
+    if (!isPlainObject(source)) {
+      issues.push(`${prefix} must be an object`);
+      continue;
+    }
+    if (!hasText(source.name)) {
+      issues.push(`${prefix}.name must be a non-empty string`);
+    }
+    if (!isHttpUrl(source.url)) {
+      issues.push(`${prefix}.url must be an http(s) URL`);
+    }
+    if (!LAYOUT_OVERRIDE_SOURCE_STATUSES.has(source.status)) {
+      issues.push(`${prefix}.status must be matched, unavailable, blocked, error, or conflict`);
+    }
+    if (source.exactLayout !== undefined && typeof source.exactLayout !== "boolean") {
+      issues.push(`${prefix}.exactLayout must be a boolean when provided`);
+    }
+    if (isMatchedExactLayoutSource(source) && !hasText(source.sourceDetail)) {
+      issues.push(`${prefix}.sourceDetail must describe the exact layout evidence`);
+    }
+  }
+
+  if (override.status === "verified") {
+    if (normalizeLayoutSource(override.layoutSource) !== VERIFIED_LAYOUT_SOURCE) {
+      issues.push(`layoutSource must be ${VERIFIED_LAYOUT_SOURCE} for verified overrides`);
+    }
+    if (!hasText(override.note)) {
+      issues.push("note must explain what was verified");
+    }
+    if (!sources.some(isMatchedExactLayoutSource)) {
+      issues.push("verified overrides must include at least one matched source with exactLayout true");
+    }
+  }
+
+  if (override.status === "unresolved" && !hasText(override.unresolvedReason)) {
+    issues.push("unresolvedReason must explain why the layout was not verified");
+  }
+
+  return issues;
 }
 
 function coordinatesMatch(left, right) {

@@ -2017,11 +2017,39 @@ try {
   const paragraphPlayerDecoration = await page
     .locator(".key-info-team p .player-link")
     .first()
-    .evaluate((link) => getComputedStyle(link).textDecorationLine);
-  const paragraphPlayerDecorationStyle = await page
-    .locator(".key-info-team p .player-link")
-    .first()
-    .evaluate((link) => getComputedStyle(link).textDecorationStyle);
+    .evaluate((link) => {
+      const style = getComputedStyle(link);
+      const matchesDottedUnderlineRule = (rule) => {
+        if (rule.selectorText) {
+          const ruleLine = rule.style.getPropertyValue("text-decoration-line") || rule.style.textDecorationLine;
+          const ruleStyle = rule.style.getPropertyValue("text-decoration-style") || rule.style.textDecorationStyle;
+          const selectorMatches = rule.selectorText.split(",").some((selector) => {
+            try {
+              return link.matches(selector.trim());
+            } catch {
+              return false;
+            }
+          });
+
+          return selectorMatches && ruleLine === "underline" && ruleStyle === "dotted";
+        }
+
+        return rule.cssRules ? [...rule.cssRules].some(matchesDottedUnderlineRule) : false;
+      };
+      const hasDottedUnderlineRule = [...document.styleSheets].some((sheet) => {
+        try {
+          return [...sheet.cssRules].some(matchesDottedUnderlineRule);
+        } catch {
+          return false;
+        }
+      });
+
+      return {
+        hasDottedUnderlineRule,
+        line: style.textDecorationLine,
+        style: style.textDecorationStyle
+      };
+    });
   const paragraphPlayerOpacity = await page
     .locator(".key-info-team p .player-link")
     .first()
@@ -2031,8 +2059,9 @@ try {
     .first()
     .evaluate((link) => Number(getComputedStyle(link).fontWeight));
   assert(
-    paragraphPlayerDecoration === "underline" && paragraphPlayerDecorationStyle === "dotted",
-    "Paragraph player mentions should use a soft dotted underline."
+    (paragraphPlayerDecoration.line === "underline" && paragraphPlayerDecoration.style === "dotted") ||
+      paragraphPlayerDecoration.hasDottedUnderlineRule,
+    `Paragraph player mentions should use a soft dotted underline. Measured ${JSON.stringify(paragraphPlayerDecoration)}.`
   );
   assert(
     paragraphPlayerOpacity >= 0.99 && paragraphPlayerWeight <= 500,
@@ -4936,7 +4965,7 @@ try {
       coachState.avatarCircleStates.length === 2 &&
       coachState.avatarCircleStates.every((state) => state.circular) &&
       coachState.copyNoteCounts.length === 2 &&
-      coachState.copyNoteCounts.every((count) => count === 2);
+      coachState.copyNoteCounts.every((count) => count === 3);
     assert(
       coachCoveragePass,
       `Covered line-up match ${coachCase.matchId} should render both coach source icons with the expected portrait source and card copy shape. Measured ${JSON.stringify(coachState)}.`

@@ -7,7 +7,8 @@
     "fifa-lineups-sync-2026-07-04",
     "fifa-lineups-sync-2026-07-05",
     "fifa-lineups-sync-2026-07-07",
-    "lineup-layout-verification-2026-07-07"
+    "lineup-layout-verification-2026-07-07",
+    "google-argentina-egypt-lineup-visual-2026-07-07"
   ],
   "lineups": {
     "mexico-south-africa-2026-06-11": {
@@ -45268,16 +45269,28 @@
       "mode": "final",
       "teamSheetSource": "fifa-official",
       "eventSource": "fifa-official",
-      "layoutSource": "derived-team-sheet-order",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
-        "status": "unverified",
-        "source": "derived-team-sheet-order",
-        "exact": false,
-        "checkedAt": "2026-07-07T19:46:06.259Z",
-        "note": "Official team sheet confirms players, bench, events, and formation; pitch coordinates are generated from formation slots and are not exact left/right placements."
+        "status": "verified",
+        "checkedAt": "2026-07-07T20:43:54.000Z",
+        "sourceIds": [
+          "google-argentina-egypt-lineup-visual-2026-07-07"
+        ],
+        "sources": [
+          {
+            "name": "Google",
+            "url": "https://www.google.com/search?q=Argentina+Egypt+World+Cup+2026+lineups",
+            "status": "matched",
+            "sourceDetail": "Google match lineup visual board; manual visual check of Egypt attacking-band placement.",
+            "exactLayout": true,
+            "note": "Egypt front four shown with Mostafa Zico central, Mohamed Salah in the central attacking role, and Haissem Hassan on the right."
+          }
+        ],
+        "note": "FIFA official team sheet kept for facts; Google lineup visual manually verified Egypt attacking placement: Zico central striker, Salah central attacking midfielder, Haissem Hassan right winger."
       },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-07"
+        "fifa-lineups-sync-2026-07-07",
+        "google-argentina-egypt-lineup-visual-2026-07-07"
       ],
       "checkedAt": "2026-07-07T19:46:06.259Z",
       "home": {
@@ -45516,88 +45529,88 @@
             "name": "Mostafa Shoubir",
             "sourcePosition": "goalkeeper",
             "position": "GK",
-            "x": 50,
-            "y": 91
+            "x": 49.9,
+            "y": 90.5
           },
           {
             "number": "2",
             "name": "Yasser Ibrahim",
             "sourcePosition": "defender",
             "position": "CB",
-            "x": 62,
-            "y": 75
+            "x": 66.5,
+            "y": 68.7
           },
           {
             "number": "3",
             "name": "Mohamed Hany",
             "sourcePosition": "defender",
             "position": "RB",
-            "x": 85,
-            "y": 75
+            "x": 86.2,
+            "y": 62.8
           },
           {
             "number": "5",
             "name": "Ramy Rabia",
             "sourcePosition": "defender",
             "position": "CB",
-            "x": 38,
-            "y": 75
+            "x": 33.3,
+            "y": 68.7
           },
           {
             "number": "15",
             "name": "Karim Hafez",
             "sourcePosition": "defender",
             "position": "LB",
-            "x": 15,
-            "y": 75
+            "x": 13.7,
+            "y": 62.8
           },
           {
             "number": "8",
             "name": "Emam Ashour",
             "sourcePosition": "midfielder",
             "position": "CM",
-            "x": 62,
-            "y": 59
+            "x": 63.4,
+            "y": 49.9
           },
           {
             "number": "11",
             "name": "Mostafa Zico",
             "sourcePosition": "midfielder",
-            "position": "LW",
-            "x": 18,
-            "y": 40
+            "position": "ST",
+            "x": 50,
+            "y": 10.5
           },
           {
             "number": "17",
             "name": "Mohanad Lashin",
             "sourcePosition": "midfielder",
             "position": "CM",
-            "x": 38,
-            "y": 59
+            "x": 36.5,
+            "y": 49.9
           },
           {
             "number": "19",
             "name": "Marawan Attia",
             "sourcePosition": "midfielder",
-            "position": "AM",
-            "x": 50,
-            "y": 40
+            "position": "LW",
+            "x": 19.4,
+            "y": 30.1
           },
           {
             "number": "10",
             "name": "Mohamed Salah",
             "sourcePosition": "forward",
-            "position": "RW",
-            "x": 82,
-            "y": 40
+            "position": "AM",
+            "x": 50,
+            "y": 30.1
           },
           {
             "number": "12",
             "name": "Haissem Hassan",
             "sourcePosition": "forward",
-            "position": "ST",
-            "x": 50,
-            "y": 20
+            "position": "RW",
+            "x": 80.6,
+            "y": 30.1
           }
         ],
         "bench": [
@@ -45749,5 +45762,5 @@
       }
     }
   },
-  "updatedAt": "2026-07-07T19:46:06.259Z"
+  "updatedAt": "2026-07-07T20:43:54.000Z"
 }
