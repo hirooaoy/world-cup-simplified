@@ -32,6 +32,17 @@ async function readJson(fileName) {
   return JSON.parse(await readFile(path.join(dataDir, fileName), "utf8"));
 }
 
+async function readOptionalJson(fileName, fallback = null) {
+  try {
+    return await readJson(fileName);
+  } catch (error) {
+    if (error?.code === "ENOENT") {
+      return fallback;
+    }
+    throw error;
+  }
+}
+
 async function writeJson(fileName, value) {
   await writeFile(path.join(dataDir, fileName), `${JSON.stringify(value, null, 2)}\n`);
 }
@@ -1019,6 +1030,35 @@ function populateResolvedKnockoutParticipants({ fixturesData, standingsData, tea
   };
 }
 
+function isPreMatchExpectedLineupFixture(fixture) {
+  return ["SCHEDULED", "DELAYED"].includes(fixture?.status);
+}
+
+function pruneExpectedLineupsForSyncedFixtures(expectedLineupsData, fixturesData) {
+  if (!expectedLineupsData || typeof expectedLineupsData !== "object" || !Array.isArray(expectedLineupsData.fixtures)) {
+    return { expectedLineupsData, pruneCount: 0 };
+  }
+
+  const fixturesById = new Map((fixturesData.fixtures || []).map((fixture) => [fixture.id, fixture]));
+  const fixtures = expectedLineupsData.fixtures.filter((record) => {
+    const fixture = fixturesById.get(record?.fixtureId);
+    return !fixture || isPreMatchExpectedLineupFixture(fixture);
+  });
+  const pruneCount = expectedLineupsData.fixtures.length - fixtures.length;
+
+  if (pruneCount === 0) {
+    return { expectedLineupsData, pruneCount };
+  }
+
+  return {
+    expectedLineupsData: {
+      ...expectedLineupsData,
+      fixtures
+    },
+    pruneCount
+  };
+}
+
 function addSyncSource(tournamentData, { matchedCount, participantUpdateCount = 0, updateCount }) {
   const sourceId = sourceIdForDate(checkedAt);
   const sources = (tournamentData.sources || []).filter((source) => source.id !== sourceId);
@@ -1041,11 +1081,12 @@ function addSyncSource(tournamentData, { matchedCount, participantUpdateCount = 
   };
 }
 
-const [fixturesData, standingsData, teamsData, tournamentData] = await Promise.all([
+const [fixturesData, standingsData, teamsData, tournamentData, expectedLineupsData] = await Promise.all([
   readJson("fixtures.json"),
   readJson("standings.json"),
   readJson("teams.json"),
-  readJson("tournament.json")
+  readJson("tournament.json"),
+  readOptionalJson("expected-lineups.json")
 ]);
 const officialData = await fetchOfficialSchedule(fixturesData);
 const officialMatches = officialData.Results || [];
@@ -1062,7 +1103,8 @@ const participantMerge = populateResolvedKnockoutParticipants({
   teams: teamsData.teams,
   tournamentData
 });
-const totalUpdateCount = merge.updateCount + participantMerge.updateCount;
+const expectedLineupsPrune = pruneExpectedLineupsForSyncedFixtures(expectedLineupsData, participantMerge.fixturesData);
+const totalUpdateCount = merge.updateCount + participantMerge.updateCount + expectedLineupsPrune.pruneCount;
 const totalParticipantUpdateCount = merge.officialParticipantUpdateCount + participantMerge.updateCount;
 const nextTournamentData = addSyncSource(tournamentData, {
   matchedCount: merge.matchedCount,
@@ -1071,11 +1113,17 @@ const nextTournamentData = addSyncSource(tournamentData, {
 });
 
 if (shouldWrite && (!skipUnchangedWrites || totalUpdateCount > 0)) {
-  await Promise.all([
+  const writes = [
     writeJson("fixtures.json", participantMerge.fixturesData),
     writeJson("standings.json", nextStandingsData),
     writeJson("tournament.json", nextTournamentData)
-  ]);
+  ];
+
+  if (expectedLineupsPrune.pruneCount > 0) {
+    writes.push(writeJson("expected-lineups.json", expectedLineupsPrune.expectedLineupsData));
+  }
+
+  await Promise.all(writes);
 }
 
 console.log(`FIFA official sync source: ${FIFA_SCHEDULE_URL}`);
@@ -1089,4 +1137,9 @@ if (shouldWrite && skipUnchangedWrites && totalUpdateCount === 0) {
   console.log(
     `${totalParticipantUpdateCount} knockout participant update${totalParticipantUpdateCount === 1 ? "" : "s"} ${shouldWrite ? "written" : "detected"}.`
   );
+  if (expectedLineupsPrune.pruneCount > 0) {
+    console.log(
+      `${expectedLineupsPrune.pruneCount} stale expected lineup record${expectedLineupsPrune.pruneCount === 1 ? "" : "s"} ${shouldWrite ? "pruned" : "detected"}.`
+    );
+  }
 }

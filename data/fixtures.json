@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-07T19:46:11.754Z",
+  "updatedAt": "2026-07-07T21:13:10.963Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -21484,7 +21484,7 @@
       "homeSlot": "Winner match 85",
       "awaySlot": "Winner match 87",
       "venue": "BC Place Vancouver",
-      "status": "SCHEDULED",
+      "status": "LIVE",
       "h2h": {
         "status": "loaded",
         "sourceId": "national-football-teams-h2h-sync-2026-07-04",
@@ -21586,6 +21586,10 @@
         "sourceId": "editorial-preview-2026-06-22",
         "home": "Switzerland are a tournament-tested structure team who rarely look rushed when the match gets tense, led by Granit Xhaka, Manuel Akanji, and Breel Embolo. Against Colombia, their Xhaka-Embolo control-and-release has to beat Colombia's Diaz-James width-and-service. They want to let Xhaka dictate the first pass and find Embolo before the opponent can squeeze midfield. The risk is Colombia can use Diaz's width and James' invention to create a clear chance in the box.",
         "away": "Colombia are a rhythm-and-width team with enough individual quality to punish any loose defensive spacing, led by Luis Diaz, James Rodriguez, and Luis Suarez. Against Switzerland, their Diaz-James width-and-service has to beat Switzerland's Xhaka-Embolo control-and-release. They want to let Diaz run behind defenders while James looks for the pass that changes the speed of the move. The risk is Switzerland can slow the game through Xhaka and use Embolo as the release valve."
+      },
+      "score": {
+        "home": 0,
+        "away": 0
       }
     },
     {
