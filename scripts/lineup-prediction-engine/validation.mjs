@@ -78,6 +78,7 @@ function validateRecord(record, knownSourceIds, owner) {
 }
 
 export function validatePredictionDocument(document, {
+  externalSourceIds = [],
   maxAgeHours = DEFAULT_MAX_AGE_HOURS,
   now = new Date()
 } = {}) {
@@ -86,7 +87,7 @@ export function validatePredictionDocument(document, {
   const generatedAt = parseTime(document.generatedAt, "Prediction document generatedAt");
   assert(Array.isArray(document.fixtures), "Prediction document fixtures must be an array");
 
-  const sourceIds = new Set();
+  const sourceIds = new Set(externalSourceIds);
   if (document.sources !== undefined) {
     assert(Array.isArray(document.sources), "Prediction document sources must be an array");
     for (const [index, source] of document.sources.entries()) {

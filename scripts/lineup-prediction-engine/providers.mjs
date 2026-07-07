@@ -108,6 +108,8 @@ export function normalizeProviderPlayer(player = {}) {
     name,
     number: normalizeString(player.number),
     position: normalizeString(player.position || player.role),
+    ...(Number.isFinite(Number(player.x)) ? { x: Number(player.x) } : {}),
+    ...(Number.isFinite(Number(player.y)) ? { y: Number(player.y) } : {}),
     rank: Number.isFinite(Number(player.rank)) ? Number(player.rank) : null,
     confidence: normalizeConfidence(player.confidence),
     sourceIds: uniqueStrings(player.sourceIds),
@@ -125,6 +127,7 @@ export function normalizeProviderSide(side = {}) {
   return {
     teamId,
     formation: normalizeString(side.formation),
+    confidence: normalizeConfidence(side.confidence),
     starters: (Array.isArray(side.starters) ? side.starters : []).map(normalizeProviderPlayer),
     benchCandidates: (Array.isArray(side.benchCandidates) ? side.benchCandidates : []).map(normalizeProviderPlayer),
     unavailable: (Array.isArray(side.unavailable) ? side.unavailable : []).map((player) => ({
