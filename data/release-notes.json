@@ -1,6 +1,17 @@
 {
-  "updatedAt": "2026-07-07T10:56:03-07:00",
+  "updatedAt": "2026-07-07T12:01:50-07:00",
   "releases": [
+    {
+      "date": "2026-07-07",
+      "title": "Lineup prediction source quality",
+      "titleZh": "阵容预测来源质量提升",
+      "highlights": [
+        "Future match lineup predictions now combine verified recent team sheets with free public probable-lineup sources and availability checks, while confirmed FIFA lineups still replace predictions immediately."
+      ],
+      "highlightsZh": [
+        "未来比赛阵容预测现在会结合近期已验证球队阵容、免费公开预计阵容来源和伤停检查；一旦 FIFA 官方阵容确认，仍会立即替换预测。"
+      ]
+    },
     {
       "date": "2026-07-07",
       "title": "Live lineup starter rendering",
