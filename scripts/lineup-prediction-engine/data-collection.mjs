@@ -9,6 +9,17 @@ async function readJson(fileName) {
   return JSON.parse(await readFile(path.join(dataDir, fileName), "utf8"));
 }
 
+async function readOptionalJson(fileName, fallback = null) {
+  try {
+    return await readJson(fileName);
+  } catch (error) {
+    if (error?.code === "ENOENT") {
+      return fallback;
+    }
+    throw error;
+  }
+}
+
 function hasConfirmedTeams(fixture) {
   return Boolean(fixture?.homeTeamId && fixture?.awayTeamId);
 }
@@ -20,6 +31,7 @@ function isFutureLineupFixture(fixture) {
 export async function collectLineupPredictionData() {
   const [
     fixturesData,
+    freeLineupPredictionsData,
     lineupsData,
     playerAvailabilityData,
     playerProfilesData,
@@ -27,6 +39,7 @@ export async function collectLineupPredictionData() {
     tournamentData
   ] = await Promise.all([
     readJson("fixtures.json"),
+    readOptionalJson("free-lineup-prediction-sources.json", { sources: [], fixtures: [] }),
     readJson("lineups.json"),
     readJson("player-availability.json"),
     readJson("player-profiles.json"),
@@ -40,6 +53,7 @@ export async function collectLineupPredictionData() {
 
   return {
     fixturesData,
+    freeLineupPredictionsData,
     lineupsData,
     playerAvailabilityData,
     playerProfilesData,

@@ -3,6 +3,7 @@ import { collectLineupPredictionData } from "./lineup-prediction-engine/data-col
 import { runLineupPredictionEngine } from "./lineup-prediction-engine/engine.mjs";
 import { createPredictionSource } from "./lineup-prediction-engine/model.mjs";
 import { writeExpectedLineupsDocument } from "./lineup-prediction-engine/output.mjs";
+import { createFreePublicLineupsProvider } from "./lineup-prediction-engine/providers/free-public-lineups.mjs";
 import { createLocalOfficialHistoryProvider } from "./lineup-prediction-engine/providers/local-official-history.mjs";
 
 const generatedAt = new Date();
@@ -17,9 +18,30 @@ const officialHistorySource = createPredictionSource({
 });
 
 const context = await collectLineupPredictionData();
-const provider = createLocalOfficialHistoryProvider({
+const externalSourceIds = (context.tournamentData.sources || []).map((source) => source.id);
+const externalSourceIdSet = new Set(externalSourceIds);
+const freePredictionSources = (context.freeLineupPredictionsData.sources || []).map((source) =>
+  createPredictionSource({
+    id: source.id,
+    label: source.label,
+    type: source.type || "free-public-probable-lineup",
+    checkedAt: source.checkedAt || generatedAt,
+    url: source.url,
+    note: source.note
+  })
+).filter((source) => !externalSourceIdSet.has(source.id));
+const sourceIndependenceKeys = Object.fromEntries(
+  (context.freeLineupPredictionsData.sources || []).map((source) => [
+    source.id,
+    source.independenceKey || source.outlet || source.id
+  ])
+);
+const localProvider = createLocalOfficialHistoryProvider({
   checkedAt: generatedAt,
   sourceId: officialHistorySourceId
+});
+const freeProvider = createFreePublicLineupsProvider({
+  checkedAt: generatedAt
 });
 const { document } = await runLineupPredictionEngine({
   context,
@@ -30,13 +52,16 @@ const { document } = await runLineupPredictionEngine({
   inputs: [
     { file: "data/fixtures.json", role: "target fixtures and kickoff dates" },
     { file: "data/lineups.json", role: "last verified XI, formation, bench, cards, substitutions" },
-    { file: "data/player-availability.json", role: "injury, omission, and fixture availability exclusions" }
+    { file: "data/player-availability.json", role: "injury, omission, and fixture availability exclusions" },
+    { file: "data/free-lineup-prediction-sources.json", role: "free public probable-lineup source candidates" }
   ],
-  providers: [provider],
-  sources: [officialHistorySource],
+  options: {
+    sourceIndependenceKeys
+  },
+  providers: [localProvider, freeProvider],
+  sources: [officialHistorySource, ...freePredictionSources],
   targetFixtures: context.targetFixtures
 });
-const externalSourceIds = (context.tournamentData.sources || []).map((source) => source.id);
 const output = await writeExpectedLineupsDocument(document, {
   externalSourceIds,
   fixtures: context.fixturesData.fixtures

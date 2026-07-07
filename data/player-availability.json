@@ -1,12 +1,17 @@
 {
-  "updatedAt": "2026-06-22T10:17:00-07:00",
+  "updatedAt": "2026-07-07T18:49:39Z",
   "sourceIds": [
     "fifa-squad-list-2026-06-21",
     "canada-soccer-world-cup-squad-2026-05-29",
     "aljazeera-japan-squad-2026-05-15",
     "nippon-japan-squad-update-2026-06-15",
     "nippon-kubo-injury-2026-06-18",
-    "toi-belgium-doku-illness-2026-06-21"
+    "toi-belgium-doku-illness-2026-06-21",
+    "rotowire-world-cup-lineups-2026-07-07",
+    "standard-switzerland-colombia-lineups-2026-07-07",
+    "365scores-france-morocco-lineups-2026-07-07",
+    "365scores-norway-england-lineups-2026-07-07",
+    "squawka-spain-belgium-lineups-2026-07-07"
   ],
   "teams": {
     "ALG": {
@@ -440,6 +445,12 @@
           "name": "Jeremy Doku",
           "reason": "Ruled out of Belgium vs IR Iran due to illness.",
           "sourceId": "toi-belgium-doku-illness-2026-06-21"
+        },
+        {
+          "fixtureId": "match-98-quarter-final-2026-07-10",
+          "name": "Amadou Onana",
+          "reason": "Reported out for the rest of the tournament after an ACL injury.",
+          "sourceId": "squawka-spain-belgium-lineups-2026-07-07"
         }
       ]
     },
@@ -886,7 +897,15 @@
         "Y. MINA",
         "Yerry Fernando MINA GONZALEZ"
       ],
-      "unavailable": []
+      "unavailable": [],
+      "fixtureUnavailable": [
+        {
+          "fixtureId": "match-96-round-of-16-2026-07-07",
+          "name": "Jhon Cordoba",
+          "reason": "Reported out of the Switzerland vs Colombia lineup after an adductor injury against Ghana.",
+          "sourceId": "standard-switzerland-colombia-lineups-2026-07-07"
+        }
+      ]
     },
     "CPV": {
       "tournament": "FIFA World Cup 2026",
@@ -1425,7 +1444,15 @@
         "WATKINS",
         "WATKINS Ollie"
       ],
-      "unavailable": []
+      "unavailable": [],
+      "fixtureUnavailable": [
+        {
+          "fixtureId": "match-99-quarter-final-2026-07-11",
+          "name": "Jordan Henderson",
+          "reason": "Listed as missing for Norway vs England probable lineups.",
+          "sourceId": "365scores-norway-england-lineups-2026-07-07"
+        }
+      ]
     },
     "ESP": {
       "tournament": "FIFA World Cup 2026",
@@ -1591,7 +1618,15 @@
         "ZAIRE-EMERY",
         "ZAIRE-EMERY Warren"
       ],
-      "unavailable": []
+      "unavailable": [],
+      "fixtureUnavailable": [
+        {
+          "fixtureId": "match-97-quarter-final-2026-07-09",
+          "name": "Aurelien Tchouameni",
+          "reason": "Listed as missing for France vs Morocco probable lineups.",
+          "sourceId": "365scores-france-morocco-lineups-2026-07-07"
+        }
+      ]
     },
     "GER": {
       "tournament": "FIFA World Cup 2026",
@@ -3351,7 +3386,27 @@
         "ZAKARIA",
         "ZAKARIA Denis"
       ],
-      "unavailable": []
+      "unavailable": [],
+      "fixtureUnavailable": [
+        {
+          "fixtureId": "match-96-round-of-16-2026-07-07",
+          "name": "Johan Manzambi",
+          "reason": "Reported injured and left out of the Switzerland XI.",
+          "sourceId": "standard-switzerland-colombia-lineups-2026-07-07"
+        },
+        {
+          "fixtureId": "match-96-round-of-16-2026-07-07",
+          "name": "Luca Jaquez",
+          "reason": "Listed injured for Switzerland vs Colombia.",
+          "sourceId": "standard-switzerland-colombia-lineups-2026-07-07"
+        },
+        {
+          "fixtureId": "match-96-round-of-16-2026-07-07",
+          "name": "Michel Aebischer",
+          "reason": "Listed injured for Switzerland vs Colombia.",
+          "sourceId": "standard-switzerland-colombia-lineups-2026-07-07"
+        }
+      ]
     },
     "SWE": {
       "tournament": "FIFA World Cup 2026",

@@ -1246,6 +1246,46 @@
       "type": "official",
       "checkedAt": "2026-07-07T17:31:12.299Z",
       "note": "94 completed FIFA team sheets checked; lineups.json carries official starters, bench, cards, and substitutions for 94 completed fixtures; 85 changed on this pass."
+    },
+    {
+      "id": "rotowire-world-cup-lineups-2026-07-07",
+      "label": "RotoWire World Cup predicted lineups",
+      "url": "https://www.rotowire.com/soccer/lineups.php?league=WOC",
+      "type": "cross-check",
+      "checkedAt": "2026-07-07T18:49:39Z",
+      "note": "Free public predicted lineup page used as a lineup prediction source."
+    },
+    {
+      "id": "standard-switzerland-colombia-lineups-2026-07-07",
+      "label": "The Standard Switzerland vs Colombia lineups and injury latest",
+      "url": "https://www.standard.co.uk/sport/football/switzerland-vs-colombia-lineups-confirmed-team-news-predicted-xis-injury-latest-world-cup-2026-b1288974.html",
+      "type": "cross-check",
+      "checkedAt": "2026-07-07T18:49:39Z",
+      "note": "Free public lineup and injury notes used as a lineup prediction source."
+    },
+    {
+      "id": "365scores-france-morocco-lineups-2026-07-07",
+      "label": "365Scores France vs Morocco probable lineups",
+      "url": "https://www.365scores.com/football/match/fifa-world-cup-5930/france-morocco-5061-5093-5930",
+      "type": "cross-check",
+      "checkedAt": "2026-07-07T18:49:39Z",
+      "note": "Free public probable lineup page used as a lineup prediction source."
+    },
+    {
+      "id": "365scores-norway-england-lineups-2026-07-07",
+      "label": "365Scores Norway vs England probable lineups",
+      "url": "https://www.365scores.com/en-us/football/match/fifa-world-cup-5930/england-norway-2376-5054-5930",
+      "type": "cross-check",
+      "checkedAt": "2026-07-07T18:49:39Z",
+      "note": "Free public probable lineup page used as a lineup prediction source."
+    },
+    {
+      "id": "squawka-spain-belgium-lineups-2026-07-07",
+      "label": "Squawka Spain vs Belgium team news and predicted lineups",
+      "url": "https://www.squawka.com/en/news/world-cup/spain-vs-belgium-team-news-predicted-lineups/",
+      "type": "cross-check",
+      "checkedAt": "2026-07-07T18:49:39Z",
+      "note": "Free public predicted lineup and injury notes used as a lineup prediction source."
     }
   ],
   "groups": [

@@ -7,6 +7,10 @@ import {
 import { scoreFixtureCandidates } from "./scoring.mjs";
 
 const DEFAULT_FORMATION = "4-2-3-1";
+const DEFAULT_LOCAL_PROVIDER_IDS = new Set(["local-official-history"]);
+const DEFAULT_LOCAL_ONLY_CONFIDENCE_CAP = 0.72;
+const DEFAULT_SINGLE_EXTERNAL_SOURCE_CONFIDENCE_CAP = 0.74;
+const DEFAULT_MAX_PLAYER_CONFIDENCE = 0.92;
 
 const FORMATION_LAYOUTS = {
   "3-4-1-2": [
@@ -257,32 +261,97 @@ function playerScoreFor(scoredSide, player) {
   return scoredSide.playerScores.find((score) => playerNameKey(score.player) === key);
 }
 
-function confidenceForSide(scoredSide, starters) {
+function normalizedPlayerEvidenceScore(playerScore, options = {}) {
+  const maxScore = Number(options.maxPlayerConfidence ?? DEFAULT_MAX_PLAYER_CONFIDENCE);
+  if (playerScore && typeof playerScore === "object" && !Array.isArray(playerScore)) {
+    const starterVotes = Number(playerScore.starterVotes || 0);
+    if (starterVotes >= 3) {
+      return maxScore;
+    }
+    if (starterVotes === 2) {
+      return Math.min(maxScore, 0.84);
+    }
+    if (starterVotes === 1) {
+      return Math.min(maxScore, 0.72);
+    }
+    return 0;
+  }
+
+  const value = Number(playerScore || 0);
+  return Math.max(0, Math.min(maxScore, value));
+}
+
+function localProviderIds(options = {}) {
+  return new Set(options.localProviderIds || DEFAULT_LOCAL_PROVIDER_IDS);
+}
+
+function independentExternalSourceCount(scoredSide, options = {}) {
+  const localIds = localProviderIds(options);
+  const sourceKeys = new Set();
+  const independenceKeys = options.sourceIndependenceKeys || {};
+  const hasIndependenceMap = Object.keys(independenceKeys).length > 0;
+
+  for (const scoredCandidate of scoredSide.scoredSideCandidates) {
+    if (localIds.has(scoredCandidate.candidate.providerId)) {
+      continue;
+    }
+    for (const sourceId of scoredCandidate.candidate.sourceIds || []) {
+      if (hasIndependenceMap && !Object.prototype.hasOwnProperty.call(independenceKeys, sourceId)) {
+        continue;
+      }
+      sourceKeys.add(independenceKeys[sourceId] || sourceId);
+    }
+  }
+
+  return sourceKeys.size;
+}
+
+function cappedConfidenceScore(score, scoredSide, options = {}) {
+  const localIds = localProviderIds(options);
+  const providerIds = new Set(scoredSide.scoredSideCandidates.map((candidate) => candidate.candidate.providerId));
+  const hasOnlyLocalProviders = [...providerIds].every((providerId) => localIds.has(providerId));
+  if (hasOnlyLocalProviders) {
+    return Math.min(score, Number(options.localOnlyConfidenceCap ?? DEFAULT_LOCAL_ONLY_CONFIDENCE_CAP));
+  }
+
+  const externalSourceCount = independentExternalSourceCount(scoredSide, options);
+  if (externalSourceCount < 2) {
+    return Math.min(score, Number(options.singleExternalSourceConfidenceCap ?? DEFAULT_SINGLE_EXTERNAL_SOURCE_CONFIDENCE_CAP));
+  }
+
+  return score;
+}
+
+function confidenceForSide(scoredSide, starters, options = {}) {
   if (!starters.length) {
     return normalizeConfidence({ score: 0, reason: "No starter candidates" });
   }
 
   const playerScores = starters
-    .map((player) => playerScoreFor(scoredSide, player)?.score || 0)
+    .map((player) => normalizedPlayerEvidenceScore(playerScoreFor(scoredSide, player), options))
     .filter((score) => Number.isFinite(score));
   const averagePlayerScore = playerScores.reduce((sum, score) => sum + score, 0) / Math.max(1, playerScores.length);
   const completeness = starters.length === 11 ? 1 : starters.length / 11;
   const providerCount = new Set(scoredSide.scoredSideCandidates.map((candidate) => candidate.candidate.providerId)).size;
   const providerBonus = Math.min(0.15, Math.max(0, providerCount - 1) * 0.05);
-  const score = Math.max(0, Math.min(1, averagePlayerScore * 0.7 + completeness * 0.2 + providerBonus));
+  const rawScore = Math.max(0, Math.min(1, averagePlayerScore * 0.7 + completeness * 0.2 + providerBonus));
+  const score = cappedConfidenceScore(rawScore, scoredSide, options);
+  const externalSourceCount = independentExternalSourceCount(scoredSide, options);
 
   return normalizeConfidence({
     score,
     method: "provider-weighted-evidence-v1",
-    reason: `${starters.length}/11 starters selected from ${providerCount} provider${providerCount === 1 ? "" : "s"}`
+    reason:
+      `${starters.length}/11 starters selected from ${providerCount} provider${providerCount === 1 ? "" : "s"}; ` +
+      `${externalSourceCount} independent external source${externalSourceCount === 1 ? "" : "s"}`
   });
 }
 
-function predictedPlayerFromCandidate(player, scoredSide, slot, index) {
+function predictedPlayerFromCandidate(player, scoredSide, slot, index, options = {}) {
   const score = playerScoreFor(scoredSide, player);
   const [slotPosition, slotX, slotY] = slot;
   const confidence = normalizeConfidence({
-    score: Math.min(1, score?.score || player.confidence?.score || 0),
+    score: normalizedPlayerEvidenceScore(score || player.confidence?.score || 0, options),
     method: "provider-weighted-player-evidence-v1"
   });
 
@@ -311,7 +380,7 @@ function predictedBenchPlayer(player) {
   };
 }
 
-function buildPredictedSide(scoredSide) {
+function buildPredictedSide(scoredSide, options = {}) {
   const formation = chooseFormation(scoredSide);
   const starters = chooseStarters(scoredSide);
   if (starters.length !== 11) {
@@ -320,7 +389,7 @@ function buildPredictedSide(scoredSide) {
 
   const layout = getLayout(formation);
   const players = starters.map((player, index) =>
-    predictedPlayerFromCandidate(player, scoredSide, layout[index] || layout.at(-1), index)
+    predictedPlayerFromCandidate(player, scoredSide, layout[index] || layout.at(-1), index, options)
   );
   const bench = chooseBench(scoredSide, starters).map(predictedBenchPlayer);
   const sourceIds = uniqueStrings([
@@ -334,7 +403,7 @@ function buildPredictedSide(scoredSide) {
     bench,
     sourceIds,
     evidence: {
-      confidence: confidenceForSide(scoredSide, starters),
+      confidence: confidenceForSide(scoredSide, starters, options),
       formationScores: scoredSide.formationScores,
       starterScores: starters
         .map((player) => playerScoreFor(scoredSide, player))
@@ -367,8 +436,8 @@ export function generateFixturePrediction({ candidates, fixture, generatedAt = n
   }
 
   const scored = scoreFixtureCandidates(fixture.id, candidates, options);
-  const home = buildPredictedSide(scored.home);
-  const away = buildPredictedSide(scored.away);
+  const home = buildPredictedSide(scored.home, options);
+  const away = buildPredictedSide(scored.away, options);
   if (!home || !away) {
     return null;
   }

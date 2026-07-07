@@ -1,0 +1,405 @@
+{
+  "updatedAt": "2026-07-07T18:49:39Z",
+  "sources": [
+    {
+      "id": "rotowire-world-cup-lineups-2026-07-07",
+      "label": "RotoWire World Cup predicted lineups",
+      "url": "https://www.rotowire.com/soccer/lineups.php?league=WOC",
+      "type": "free-public-probable-lineup",
+      "checkedAt": "2026-07-07T18:49:39Z",
+      "outlet": "rotowire",
+      "independenceKey": "rotowire",
+      "note": "Free public World Cup lineup page with predicted and confirmed starter status."
+    },
+    {
+      "id": "standard-switzerland-colombia-lineups-2026-07-07",
+      "label": "The Standard Switzerland vs Colombia lineups and injury latest",
+      "url": "https://www.standard.co.uk/sport/football/switzerland-vs-colombia-lineups-confirmed-team-news-predicted-xis-injury-latest-world-cup-2026-b1288974.html",
+      "type": "free-public-probable-lineup",
+      "checkedAt": "2026-07-07T18:49:39Z",
+      "outlet": "standard",
+      "independenceKey": "standard",
+      "note": "Free public team-news article with starting XIs and injury notes."
+    },
+    {
+      "id": "365scores-france-morocco-lineups-2026-07-07",
+      "label": "365Scores France vs Morocco probable lineups",
+      "url": "https://www.365scores.com/football/match/fifa-world-cup-5930/france-morocco-5061-5093-5930",
+      "type": "free-public-probable-lineup",
+      "checkedAt": "2026-07-07T18:49:39Z",
+      "outlet": "365scores",
+      "independenceKey": "365scores",
+      "note": "Free public probable lineup page."
+    },
+    {
+      "id": "365scores-norway-england-lineups-2026-07-07",
+      "label": "365Scores Norway vs England probable lineups",
+      "url": "https://www.365scores.com/en-us/football/match/fifa-world-cup-5930/england-norway-2376-5054-5930",
+      "type": "free-public-probable-lineup",
+      "checkedAt": "2026-07-07T18:49:39Z",
+      "outlet": "365scores",
+      "independenceKey": "365scores",
+      "note": "Free public probable lineup page."
+    },
+    {
+      "id": "squawka-spain-belgium-lineups-2026-07-07",
+      "label": "Squawka Spain vs Belgium team news and predicted lineups",
+      "url": "https://www.squawka.com/en/news/world-cup/spain-vs-belgium-team-news-predicted-lineups/",
+      "type": "free-public-probable-lineup",
+      "checkedAt": "2026-07-07T18:49:39Z",
+      "outlet": "squawka",
+      "independenceKey": "squawka",
+      "note": "Free public team-news article with predicted XIs."
+    }
+  ],
+  "fixtures": [
+    {
+      "fixtureId": "match-96-round-of-16-2026-07-07",
+      "sources": [
+        {
+          "sourceId": "rotowire-world-cup-lineups-2026-07-07",
+          "confidence": 0.86,
+          "note": "RotoWire listed predicted XIs and injuries for Switzerland vs Colombia.",
+          "teams": {
+            "home": {
+              "teamId": "SUI",
+              "formation": "4-2-3-1",
+              "starters": [
+                { "name": "Gregor Kobel", "position": "GK" },
+                { "name": "Denis Zakaria", "position": "RB" },
+                { "name": "Nico Elvedi", "position": "CB" },
+                { "name": "Manuel Akanji", "position": "CB" },
+                { "name": "Ricardo Rodriguez", "position": "LB" },
+                { "name": "Remo Freuler", "position": "CM" },
+                { "name": "Granit Xhaka", "position": "CM" },
+                { "name": "Dan Ndoye", "position": "RW" },
+                { "name": "Fabian Rieder", "position": "AM" },
+                { "name": "Ruben Vargas", "position": "LW" },
+                { "name": "Breel Embolo", "position": "ST" }
+              ]
+            },
+            "away": {
+              "teamId": "COL",
+              "formation": "4-3-3",
+              "starters": [
+                { "name": "Camilo Vargas", "position": "GK" },
+                { "name": "Daniel Munoz", "position": "RB" },
+                { "name": "Davinson Sanchez", "position": "CB" },
+                { "name": "Jhon Lucumi", "position": "CB" },
+                { "name": "Johan Mojica", "position": "LB" },
+                { "name": "Gustavo Puerta", "position": "CM" },
+                { "name": "Jefferson Lerma", "position": "CM" },
+                { "name": "Jhon Arias", "position": "CM" },
+                { "name": "James Rodriguez", "position": "RW" },
+                { "name": "Luis Suarez", "position": "ST" },
+                { "name": "Luis Diaz", "position": "LW" }
+              ]
+            }
+          }
+        },
+        {
+          "sourceId": "standard-switzerland-colombia-lineups-2026-07-07",
+          "confidence": 0.86,
+          "note": "The Standard listed starting XIs and reported Manzambi/Cordoba injury context.",
+          "teams": {
+            "home": {
+              "teamId": "SUI",
+              "formation": "4-2-3-1",
+              "starters": [
+                { "name": "Gregor Kobel", "position": "GK" },
+                { "name": "Denis Zakaria", "position": "RB" },
+                { "name": "Nico Elvedi", "position": "CB" },
+                { "name": "Manuel Akanji", "position": "CB" },
+                { "name": "Ricardo Rodriguez", "position": "LB" },
+                { "name": "Remo Freuler", "position": "CM" },
+                { "name": "Granit Xhaka", "position": "CM" },
+                { "name": "Dan Ndoye", "position": "RW" },
+                { "name": "Fabian Rieder", "position": "AM" },
+                { "name": "Ardon Jashari", "position": "LW" },
+                { "name": "Breel Embolo", "position": "ST" }
+              ]
+            },
+            "away": {
+              "teamId": "COL",
+              "formation": "4-3-3",
+              "starters": [
+                { "name": "Camilo Vargas", "position": "GK" },
+                { "name": "Daniel Munoz", "position": "RB" },
+                { "name": "Davinson Sanchez", "position": "CB" },
+                { "name": "Jhon Lucumi", "position": "CB" },
+                { "name": "Johan Mojica", "position": "LB" },
+                { "name": "Gustavo Puerta", "position": "CM" },
+                { "name": "Jefferson Lerma", "position": "CM" },
+                { "name": "Jhon Arias", "position": "CM" },
+                { "name": "James Rodriguez", "position": "RW" },
+                { "name": "Luis Suarez", "position": "ST" },
+                { "name": "Luis Diaz", "position": "LW" }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "fixtureId": "match-97-quarter-final-2026-07-09",
+      "sources": [
+        {
+          "sourceId": "rotowire-world-cup-lineups-2026-07-07",
+          "confidence": 0.86,
+          "note": "RotoWire listed France vs Morocco predicted XIs and injury/questionable flags.",
+          "teams": {
+            "home": {
+              "teamId": "FRA",
+              "formation": "4-2-3-1",
+              "starters": [
+                { "name": "Mike Maignan", "position": "GK" },
+                { "name": "Jules Kounde", "position": "RB" },
+                { "name": "Dayot Upamecano", "position": "CB" },
+                { "name": "William Saliba", "position": "CB" },
+                { "name": "Lucas Digne", "position": "LB" },
+                { "name": "Manu Kone", "position": "CM" },
+                { "name": "Adrien Rabiot", "position": "CM" },
+                { "name": "Ousmane Dembele", "position": "RW" },
+                { "name": "Michael Olise", "position": "AM" },
+                { "name": "Bradley Barcola", "position": "LW" },
+                { "name": "Kylian Mbappe", "position": "ST" }
+              ]
+            },
+            "away": {
+              "teamId": "MAR",
+              "formation": "4-2-3-1",
+              "starters": [
+                { "name": "Yassine Bounou", "position": "GK" },
+                { "name": "Achraf Hakimi", "position": "RB" },
+                { "name": "Issa Diop", "position": "CB" },
+                { "name": "Chadi Riad", "position": "CB" },
+                { "name": "Noussair Mazraoui", "position": "LB" },
+                { "name": "Neil El Aynaoui", "position": "CM" },
+                { "name": "Ayyoub Bouaddi", "position": "CM" },
+                { "name": "Brahim Diaz", "position": "RW" },
+                { "name": "Azzedine Ounahi", "position": "AM" },
+                { "name": "Bilal El Khannouss", "position": "LW" },
+                { "name": "Soufiane Rahimi", "position": "ST" }
+              ]
+            }
+          }
+        },
+        {
+          "sourceId": "365scores-france-morocco-lineups-2026-07-07",
+          "confidence": 0.84,
+          "note": "365Scores listed probable lineups and missing France players.",
+          "teams": {
+            "home": {
+              "teamId": "FRA",
+              "formation": "4-2-3-1",
+              "starters": [
+                { "name": "Mike Maignan", "position": "GK" },
+                { "name": "Jules Kounde", "position": "RB" },
+                { "name": "Dayot Upamecano", "position": "CB" },
+                { "name": "William Saliba", "position": "CB" },
+                { "name": "Lucas Digne", "position": "LB" },
+                { "name": "Manu Kone", "position": "CM" },
+                { "name": "Adrien Rabiot", "position": "CM" },
+                { "name": "Ousmane Dembele", "position": "RW" },
+                { "name": "Michael Olise", "position": "AM" },
+                { "name": "Bradley Barcola", "position": "LW" },
+                { "name": "Kylian Mbappe", "position": "ST" }
+              ]
+            },
+            "away": {
+              "teamId": "MAR",
+              "formation": "4-2-3-1",
+              "starters": [
+                { "name": "Yassine Bounou", "position": "GK" },
+                { "name": "Achraf Hakimi", "position": "RB" },
+                { "name": "Issa Diop", "position": "CB" },
+                { "name": "Chadi Riad", "position": "CB" },
+                { "name": "Noussair Mazraoui", "position": "LB" },
+                { "name": "Ayyoub Bouaddi", "position": "CM" },
+                { "name": "Neil El Aynaoui", "position": "CM" },
+                { "name": "Brahim Diaz", "position": "RW" },
+                { "name": "Azzedine Ounahi", "position": "AM" },
+                { "name": "Bilal El Khannouss", "position": "LW" },
+                { "name": "Soufiane Rahimi", "position": "ST" }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "fixtureId": "match-98-quarter-final-2026-07-10",
+      "sources": [
+        {
+          "sourceId": "rotowire-world-cup-lineups-2026-07-07",
+          "confidence": 0.86,
+          "note": "RotoWire listed Spain vs Belgium predicted XIs and injuries.",
+          "teams": {
+            "home": {
+              "teamId": "ESP",
+              "formation": "4-2-3-1",
+              "starters": [
+                { "name": "Unai Simon", "position": "GK" },
+                { "name": "Pedro Porro", "position": "RB" },
+                { "name": "Pau Cubarsi", "position": "CB" },
+                { "name": "Aymeric Laporte", "position": "CB" },
+                { "name": "Marc Cucurella", "position": "LB" },
+                { "name": "Rodri", "position": "CM" },
+                { "name": "Pedri", "position": "CM" },
+                { "name": "Lamine Yamal", "position": "RW" },
+                { "name": "Dani Olmo", "position": "AM" },
+                { "name": "Alex Baena", "position": "LW" },
+                { "name": "Mikel Oyarzabal", "position": "ST" }
+              ]
+            },
+            "away": {
+              "teamId": "BEL",
+              "formation": "4-2-3-1",
+              "starters": [
+                { "name": "Thibaut Courtois", "position": "GK" },
+                { "name": "Timothy Castagne", "position": "RB" },
+                { "name": "Brandon Mechele", "position": "CB" },
+                { "name": "Nathan Ngoy", "position": "CB" },
+                { "name": "Maxim De Cuyper", "position": "LB" },
+                { "name": "Hans Vanaken", "position": "CM" },
+                { "name": "Youri Tielemans", "position": "CM" },
+                { "name": "Jeremy Doku", "position": "RW" },
+                { "name": "Kevin De Bruyne", "position": "AM" },
+                { "name": "Leandro Trossard", "position": "LW" },
+                { "name": "Charles De Ketelaere", "position": "ST" }
+              ]
+            }
+          }
+        },
+        {
+          "sourceId": "squawka-spain-belgium-lineups-2026-07-07",
+          "confidence": 0.86,
+          "note": "Squawka listed predicted lineups and reported Amadou Onana out for the tournament.",
+          "teams": {
+            "home": {
+              "teamId": "ESP",
+              "formation": "4-2-3-1",
+              "starters": [
+                { "name": "Unai Simon", "position": "GK" },
+                { "name": "Pedro Porro", "position": "RB" },
+                { "name": "Pau Cubarsi", "position": "CB" },
+                { "name": "Aymeric Laporte", "position": "CB" },
+                { "name": "Marc Cucurella", "position": "LB" },
+                { "name": "Rodri", "position": "CM" },
+                { "name": "Pedri", "position": "CM" },
+                { "name": "Lamine Yamal", "position": "RW" },
+                { "name": "Dani Olmo", "position": "AM" },
+                { "name": "Alex Baena", "position": "LW" },
+                { "name": "Mikel Oyarzabal", "position": "ST" }
+              ]
+            },
+            "away": {
+              "teamId": "BEL",
+              "formation": "4-2-3-1",
+              "starters": [
+                { "name": "Thibaut Courtois", "position": "GK" },
+                { "name": "Timothy Castagne", "position": "RB" },
+                { "name": "Brandon Mechele", "position": "CB" },
+                { "name": "Nathan Ngoy", "position": "CB" },
+                { "name": "Maxim De Cuyper", "position": "LB" },
+                { "name": "Hans Vanaken", "position": "CM" },
+                { "name": "Youri Tielemans", "position": "CM" },
+                { "name": "Jeremy Doku", "position": "RW" },
+                { "name": "Kevin De Bruyne", "position": "AM" },
+                { "name": "Leandro Trossard", "position": "LW" },
+                { "name": "Charles De Ketelaere", "position": "ST" }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "fixtureId": "match-99-quarter-final-2026-07-11",
+      "sources": [
+        {
+          "sourceId": "rotowire-world-cup-lineups-2026-07-07",
+          "confidence": 0.86,
+          "note": "RotoWire listed Norway vs England predicted XIs and injuries.",
+          "teams": {
+            "home": {
+              "teamId": "NOR",
+              "formation": "4-3-3",
+              "starters": [
+                { "name": "Orjan Nyland", "position": "GK" },
+                { "name": "Julian Ryerson", "position": "RB" },
+                { "name": "Kristoffer Ajer", "position": "CB" },
+                { "name": "Torbjorn Heggem", "position": "CB" },
+                { "name": "David Moller Wolfe", "position": "LB" },
+                { "name": "Sander Berge", "position": "CM" },
+                { "name": "Martin Odegaard", "position": "CM" },
+                { "name": "Patrick Berg", "position": "CM" },
+                { "name": "Alexander Sorloth", "position": "RW" },
+                { "name": "Erling Haaland", "position": "ST" },
+                { "name": "Antonio Nusa", "position": "LW" }
+              ]
+            },
+            "away": {
+              "teamId": "ENG",
+              "formation": "4-2-3-1",
+              "starters": [
+                { "name": "Jordan Pickford", "position": "GK" },
+                { "name": "Djed Spence", "position": "RB" },
+                { "name": "Ezri Konsa", "position": "CB" },
+                { "name": "Marc Guehi", "position": "CB" },
+                { "name": "Nico O'Reilly", "position": "LB" },
+                { "name": "Elliot Anderson", "position": "CM" },
+                { "name": "Declan Rice", "position": "CM" },
+                { "name": "Bukayo Saka", "position": "RW" },
+                { "name": "Jude Bellingham", "position": "AM" },
+                { "name": "Anthony Gordon", "position": "LW" },
+                { "name": "Harry Kane", "position": "ST" }
+              ]
+            }
+          }
+        },
+        {
+          "sourceId": "365scores-norway-england-lineups-2026-07-07",
+          "confidence": 0.84,
+          "note": "365Scores listed Norway vs England probable lineups and missing players.",
+          "teams": {
+            "home": {
+              "teamId": "NOR",
+              "formation": "4-3-3",
+              "starters": [
+                { "name": "Orjan Nyland", "position": "GK" },
+                { "name": "Julian Ryerson", "position": "RB" },
+                { "name": "Kristoffer Ajer", "position": "CB" },
+                { "name": "Torbjorn Heggem", "position": "CB" },
+                { "name": "David Moller Wolfe", "position": "LB" },
+                { "name": "Sander Berge", "position": "CM" },
+                { "name": "Martin Odegaard", "position": "CM" },
+                { "name": "Patrick Berg", "position": "CM" },
+                { "name": "Alexander Sorloth", "position": "RW" },
+                { "name": "Erling Haaland", "position": "ST" },
+                { "name": "Antonio Nusa", "position": "LW" }
+              ]
+            },
+            "away": {
+              "teamId": "ENG",
+              "formation": "4-2-3-1",
+              "starters": [
+                { "name": "Jordan Pickford", "position": "GK" },
+                { "name": "Djed Spence", "position": "RB" },
+                { "name": "Ezri Konsa", "position": "CB" },
+                { "name": "Marc Guehi", "position": "CB" },
+                { "name": "Nico O'Reilly", "position": "LB" },
+                { "name": "Elliot Anderson", "position": "CM" },
+                { "name": "Declan Rice", "position": "CM" },
+                { "name": "Bukayo Saka", "position": "RW" },
+                { "name": "Jude Bellingham", "position": "AM" },
+                { "name": "Anthony Gordon", "position": "LW" },
+                { "name": "Harry Kane", "position": "ST" }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
