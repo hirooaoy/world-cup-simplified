@@ -1,6 +1,17 @@
 {
-  "updatedAt": "2026-07-07T10:00:25-07:00",
+  "updatedAt": "2026-07-07T10:56:03-07:00",
   "releases": [
+    {
+      "date": "2026-07-07",
+      "title": "Live lineup starter rendering",
+      "titleZh": "直播阵容首发渲染修复",
+      "highlights": [
+        "Live and final lineup boards now keep all 11 official starters visible after substitutions, while substitute appearances remain represented through lineup event controls."
+      ],
+      "highlightsZh": [
+        "直播和完场阵容板现在会在换人后继续显示全部 11 名官方首发，替补登场则继续通过阵容事件控件呈现。"
+      ]
+    },
     {
       "date": "2026-07-07",
       "title": "Live match position labels",

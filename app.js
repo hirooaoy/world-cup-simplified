@@ -17217,22 +17217,15 @@ function normalizeLineupTeamData(teamLineup, teamId, mode = "final") {
       ? teamLineup.starters
       : [];
   const layout = MOCK_LINEUP_LAYOUTS[formation] || MOCK_LINEUP_LAYOUTS["4-3-3"];
-  const onFieldPlayers = mode === "live" && Array.isArray(teamLineup.onFieldPlayers)
-    ? new Set(teamLineup.onFieldPlayers.map((name) => normalizeTextKey(name)).filter(Boolean))
-    : null;
   const sourcePlayersEntries = sourcePlayers
     .map((player, index) => normalizeLineupPlayerEntry(player, teamId, index, layout[index] || layout.at(-1)))
     .filter(Boolean);
-  const filteredPlayers = onFieldPlayers?.size
-    ? sourcePlayersEntries.filter((player) => onFieldPlayers.has(normalizeTextKey(player[2])))
-    : sourcePlayersEntries;
-  const players = filteredPlayers.length ? filteredPlayers : sourcePlayersEntries;
-  const adjustedPlayers = normalizeLineupPlayerRowY(players);
+  const adjustedPlayers = normalizeLineupPlayerRowY(sourcePlayersEntries);
   const bench = (Array.isArray(teamLineup.bench) ? teamLineup.bench : [])
     .map((player, index) => normalizeLineupBenchEntry(player, teamId, index))
     .filter(Boolean);
 
-  if (!formation || (mode === "live" ? !players.length : players.length !== 11)) {
+  if (!formation || sourcePlayersEntries.length !== 11) {
     return null;
   }
 
