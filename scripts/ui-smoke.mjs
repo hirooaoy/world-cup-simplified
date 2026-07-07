@@ -3012,17 +3012,22 @@ try {
   const roundOf16MatchupStateReady =
     roundOf16DetailText.includes("Predicted matchup; participants come from current knockout-path estimates.") ||
     /Round of 16 .+#\d+ vs .+#\d+/.test(roundOf16DetailText);
+  const roundOf16NextPathReady =
+    /Winner will face winner of [^#]+ #\d+ vs [^#]+ #\d+(?!\.)/.test(roundOf16DetailText) ||
+    /Winner will face [^#]+ #\d+ who won \d+-\d+(?: on penalties after a \d+-\d+ tie)? against [^#]+ #\d+(?!\.)/.test(
+      roundOf16DetailText
+    );
   assert(
     !roundOf16ProjectedRowText.includes("Predicted") &&
       roundOf16MatchupStateReady &&
       roundOf16DetailText.includes("Previous: Round of 32") &&
       roundOf16SourceStatusReady &&
       roundOf16DetailText.includes("Next: Quarter-finals") &&
-      /Winner will face winner of [A-Za-z ]+ #\d+ vs [A-Za-z ]+ #\d+(?!\.)/.test(roundOf16DetailText) &&
+      roundOf16NextPathReady &&
       roundOf16DetailText.includes("Prediction") &&
       !roundOf16DetailText.includes("Previous: Group round") &&
       !roundOf16DetailText.includes("bracket details are not loaded yet"),
-    "Round of 16 and later match rows should skip redundant predicted chips while details show either a projected note or resolved participants plus source matches scheduled, live, predicted, or completed."
+    `Round of 16 and later match rows should skip redundant predicted chips while details show either a projected note or resolved participants plus source matches scheduled, live, predicted, or completed. Measured ${JSON.stringify({ roundOf16ProjectedRowText, roundOf16DetailText })}.`
   );
   const roundOf16ContextMetrics = await page.locator("#match-info").evaluate((info) => ({
     contextFlags: info.querySelectorAll(".knockout-context-team-flag .flag").length,
