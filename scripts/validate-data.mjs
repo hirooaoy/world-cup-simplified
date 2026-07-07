@@ -3,6 +3,13 @@ import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { compareLineupsToLayoutOverride, VERIFIED_LAYOUT_SOURCE } from "./lineup-layout-overrides.mjs";
+import {
+  DERIVED_TEAM_SHEET_ORDER_LAYOUT_SOURCE,
+  isDerivedLayoutSource,
+  isExactLayoutSource,
+  isKnownLayoutSource,
+  normalizeLayoutSource
+} from "./lineup-layout-sources.mjs";
 import { isPlayerNameMatch, normalizePlayerName } from "./player-name-matching.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -1552,7 +1559,19 @@ function validateLineupLayoutVerification(verification, sourceIdSet, owner) {
     return;
   }
 
-  assert(["verified", "unresolved"].includes(verification.status), `${owner}.layoutVerification.status must be verified or unresolved`);
+  assert(
+    ["verified", "unresolved", "unverified"].includes(verification.status),
+    `${owner}.layoutVerification.status must be verified, unresolved, or unverified`
+  );
+  if (verification.status === "verified" && verification.exact !== undefined) {
+    assert(verification.exact === true, `${owner}.layoutVerification.exact must be true for verified layouts`);
+  }
+  if (verification.status === "unverified") {
+    assert(verification.exact === false, `${owner}.layoutVerification.exact must be false for unverified layouts`);
+  }
+  if (verification.source !== undefined) {
+    assert(isKnownLayoutSource(verification.source), `${owner}.layoutVerification.source must be a known layout source`);
+  }
   if (verification.checkedAt !== undefined) {
     validateLineupTimestamp(verification.checkedAt, `${owner}.layoutVerification.checkedAt`);
   }
@@ -1606,14 +1625,27 @@ function validateFixtureLineups(fixture, sourceIdSet) {
   }
   if (fixture.lineups.layoutSource !== undefined) {
     assert(
-      ["fifa-official", "provider", "derived-team-sheet-order", "editorial", VERIFIED_LAYOUT_SOURCE].includes(fixture.lineups.layoutSource),
-      `${owner}.layoutSource must be fifa-official, provider, derived-team-sheet-order, editorial, or ${VERIFIED_LAYOUT_SOURCE}`
+      isKnownLayoutSource(fixture.lineups.layoutSource),
+      `${owner}.layoutSource must be ${VERIFIED_LAYOUT_SOURCE}, provider-layout, fifa-official-layout, or ${DERIVED_TEAM_SHEET_ORDER_LAYOUT_SOURCE}`
     );
   }
   validateLineupLayoutVerification(fixture.lineups.layoutVerification, sourceIdSet, owner);
+  const normalizedLayoutSource = normalizeLayoutSource(fixture.lineups.layoutSource);
+  if (isDerivedLayoutSource(normalizedLayoutSource)) {
+    assert(
+      fixture.lineups.layoutVerification?.status !== "verified",
+      `${owner}.layoutVerification.status must not be verified when layoutSource is ${DERIVED_TEAM_SHEET_ORDER_LAYOUT_SOURCE}`
+    );
+    if (fixture.lineups.layoutVerification?.exact !== undefined) {
+      assert(
+        fixture.lineups.layoutVerification.exact === false,
+        `${owner}.layoutVerification.exact must be false when layoutSource is ${DERIVED_TEAM_SHEET_ORDER_LAYOUT_SOURCE}`
+      );
+    }
+  }
   if (fixture.lineups.layoutVerification?.status === "verified") {
     assert(
-      fixture.lineups.layoutSource === VERIFIED_LAYOUT_SOURCE || fixture.lineups.layoutSource === "provider" || fixture.lineups.layoutSource === "fifa-official",
+      isExactLayoutSource(normalizedLayoutSource),
       `${owner}.layoutSource must not be derived for a verified layout`
     );
   }
@@ -1850,7 +1882,7 @@ function validateLineupLayoutOverrides(overridesData, lineupsDataValue) {
       assert(override.awayTeamId === fixture.awayTeamId, `${owner}.awayTeamId must match the fixture away team`);
     }
     if (override.layoutSource !== undefined) {
-      assert(override.layoutSource === VERIFIED_LAYOUT_SOURCE, `${owner}.layoutSource must be ${VERIFIED_LAYOUT_SOURCE}`);
+      assert(normalizeLayoutSource(override.layoutSource) === VERIFIED_LAYOUT_SOURCE, `${owner}.layoutSource must be ${VERIFIED_LAYOUT_SOURCE}`);
     }
     if (override.sources !== undefined) {
       assert(Array.isArray(override.sources), `${owner}.sources must be an array`);

@@ -265,6 +265,9 @@ try {
 
   assert.equal(liveFixture?.lineups?.mode, "live");
   assert.equal(liveFixture.lineups.teamSheetSource, "fifa-official");
+  assert.equal(liveFixture.lineups.layoutSource, "derived-team-sheet-order");
+  assert.equal(liveFixture.lineups.layoutVerification?.status, "unverified");
+  assert.equal(liveFixture.lineups.layoutVerification?.exact, false);
   assert.equal(liveFixture.lineups.home.players.length, 11);
   assert.equal(liveFixture.lineups.away.players.length, 11);
   assert(liveFixture.lineups.home.bench.length > 0);
@@ -273,6 +276,9 @@ try {
 
   assert.equal(confirmedFixture?.lineups?.mode, "confirmed");
   assert.equal(confirmedFixture.lineups.teamSheetSource, "fifa-official");
+  assert.equal(confirmedFixture.lineups.layoutSource, "derived-team-sheet-order");
+  assert.equal(confirmedFixture.lineups.layoutVerification?.status, "unverified");
+  assert.equal(confirmedFixture.lineups.layoutVerification?.exact, false);
   assert.equal(confirmedFixture.lineups.home.players.length, 11);
   assert.equal(confirmedFixture.lineups.away.players.length, 11);
 

@@ -1,7 +1,11 @@
 import { isPlayerNameMatch } from "./player-name-matching.mjs";
+import {
+  buildDerivedLayoutVerification,
+  DERIVED_TEAM_SHEET_ORDER_LAYOUT_SOURCE
+} from "./lineup-layout-sources.mjs";
 
 export const OFFICIAL_LINEUP_SOURCE = "fifa-official";
-export const DERIVED_LAYOUT_SOURCE = "derived-team-sheet-order";
+export const DERIVED_LAYOUT_SOURCE = DERIVED_TEAM_SHEET_ORDER_LAYOUT_SOURCE;
 export const FIFA_LIVE_MATCH_URL = "https://api.fifa.com/api/v3/live/football";
 export const FIFA_PROVIDER_KEY = "fifa";
 
@@ -269,6 +273,7 @@ export function buildFifaLineupsFromLiveMatch({
     teamSheetSource: OFFICIAL_LINEUP_SOURCE,
     eventSource: OFFICIAL_LINEUP_SOURCE,
     layoutSource: DERIVED_LAYOUT_SOURCE,
+    layoutVerification: buildDerivedLayoutVerification(checkedAt),
     sourceIds: Array.isArray(sourceIds) && sourceIds.length ? sourceIds : ["fifa-lineups-live"],
     checkedAt,
     home: {

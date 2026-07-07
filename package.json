@@ -36,6 +36,7 @@
     "sync:youtube": "node scripts/sync-youtube-highlights.mjs",
     "smoke": "node scripts/ui-smoke.mjs",
     "smoke:live-lineups": "node scripts/smoke-live-lineups.mjs",
+    "smoke:lineup-layouts": "node scripts/smoke-lineup-layout-sources.mjs",
     "sync:fifa": "node scripts/sync-fifa-results.mjs",
     "sync:fifa:pr": "node scripts/sync-fifa-results.mjs --skip-unchanged",
     "test": "node scripts/validate-data.mjs && node scripts/audit-matchup-copy.mjs && node scripts/audit-data.mjs && node scripts/audit-result-enrichment.mjs && node scripts/audit-player-card-coverage.mjs && node scripts/ui-smoke.mjs",

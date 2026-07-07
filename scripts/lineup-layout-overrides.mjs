@@ -1,6 +1,12 @@
 import { isPlayerNameMatch, normalizePlayerName } from "./player-name-matching.mjs";
+import {
+  DERIVED_TEAM_SHEET_ORDER_LAYOUT_SOURCE,
+  isDerivedLayoutSource,
+  normalizeLayoutSource,
+  VERIFIED_LAYOUT_SOURCE
+} from "./lineup-layout-sources.mjs";
 
-export const VERIFIED_LAYOUT_SOURCE = "editorial-verified";
+export { VERIFIED_LAYOUT_SOURCE };
 
 export function normalizeLayoutPlayerName(value) {
   return normalizePlayerName(value || "");
@@ -93,7 +99,7 @@ export function applyLineupLayoutOverride(lineups, override) {
     return lineups;
   }
 
-  const layoutSource = override.layoutSource || VERIFIED_LAYOUT_SOURCE;
+  const layoutSource = normalizeLayoutSource(override.layoutSource) || VERIFIED_LAYOUT_SOURCE;
   const overrideSourceIds = Array.isArray(override.sourceIds) ? override.sourceIds : [];
 
   return {
@@ -177,13 +183,14 @@ export function compareLineupsToLayoutOverride(lineups, override) {
   }
 
   const issues = [];
-  const expectedSource = override.layoutSource || VERIFIED_LAYOUT_SOURCE;
+  const expectedSource = normalizeLayoutSource(override.layoutSource) || VERIFIED_LAYOUT_SOURCE;
+  const actualSource = normalizeLayoutSource(lineups.layoutSource);
 
-  if (lineups.layoutSource !== expectedSource) {
+  if (actualSource !== expectedSource) {
     issues.push(`layoutSource must be ${expectedSource}, not ${lineups.layoutSource || "(blank)"}`);
   }
-  if (lineups.layoutSource === "derived-team-sheet-order") {
-    issues.push("verified layout must not use derived-team-sheet-order");
+  if (isDerivedLayoutSource(lineups.layoutSource)) {
+    issues.push(`verified layout must not use ${DERIVED_TEAM_SHEET_ORDER_LAYOUT_SOURCE}`);
   }
 
   const lineupsSourceIds = new Set(Array.isArray(lineups.sourceIds) ? lineups.sourceIds : []);

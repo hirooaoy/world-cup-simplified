@@ -408,6 +408,7 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "Official lineup source": "官方阵容",
     "Final lineup record": "最终阵容记录",
     "Official FIFA lineup": "官方FIFA阵容",
+    "Pitch layout is provisional.": "球场站位仍为临时推定。",
     "Lineup record": "阵容记录",
     "Lineup record checked": "阵容记录核验",
     "Lineups": "阵容",
@@ -2338,7 +2339,8 @@ Object.entries({
   "Live lineup record from official FIFA feed": "来自FIFA官方实况的实时阵容记录",
   "Official FIFA live lineup": "官方FIFA实况阵容",
   "Official lineup source": "官方阵容",
-  "Official FIFA lineup": "官方FIFA阵容"
+  "Official FIFA lineup": "官方FIFA阵容",
+  "Pitch layout is provisional.": "球场站位仍为临时推定。"
 }).forEach(([text, translation]) => {
   ZH_EXACT_TRANSLATIONS.set(text, translation);
 });
@@ -16855,6 +16857,68 @@ function normalizeLineupCoach(coach, teamId) {
   };
 }
 
+const LINEUP_LAYOUT_SOURCE_ALIASES = new Map([
+  ["verified-layout", "verified-layout"],
+  ["provider-layout", "provider-layout"],
+  ["fifa-official-layout", "fifa-official-layout"],
+  ["derived-team-sheet-order", "derived-team-sheet-order"],
+  ["editorial-verified", "verified-layout"],
+  ["editorial", "verified-layout"],
+  ["provider", "provider-layout"],
+  ["fifa-official", "fifa-official-layout"]
+]);
+
+function normalizeLineupLayoutSource(value) {
+  return LINEUP_LAYOUT_SOURCE_ALIASES.get(String(value || "").trim().toLowerCase()) || "";
+}
+
+function getLineupLayoutStatus(lineup = {}) {
+  const source = normalizeLineupLayoutSource(lineup.layoutSource);
+  const verificationStatus = String(lineup.layoutVerification?.status || "").trim().toLowerCase();
+  const exactSources = new Set(["verified-layout", "provider-layout", "fifa-official-layout"]);
+  const exact = source !== "derived-team-sheet-order" && (exactSources.has(source) || verificationStatus === "verified");
+
+  return {
+    source,
+    exact,
+    provisional: source === "derived-team-sheet-order" || !exact,
+    verified: exact && verificationStatus !== "unverified",
+    status: exact ? "verified" : "unverified"
+  };
+}
+
+function getLineupLayoutVerification(lineup = {}, layoutStatus = getLineupLayoutStatus(lineup)) {
+  const verification = lineup.layoutVerification && typeof lineup.layoutVerification === "object" && !Array.isArray(lineup.layoutVerification)
+    ? { ...lineup.layoutVerification }
+    : {};
+
+  if (layoutStatus.source) {
+    verification.source = normalizeLineupLayoutSource(verification.source) || layoutStatus.source;
+  }
+
+  if (layoutStatus.provisional) {
+    return {
+      ...verification,
+      status: "unverified",
+      exact: false
+    };
+  }
+
+  if (Object.keys(verification).length) {
+    return {
+      ...verification,
+      status: verification.status || layoutStatus.status,
+      exact: verification.exact !== undefined ? verification.exact : layoutStatus.exact
+    };
+  }
+
+  return null;
+}
+
+function getLineupLayoutCaveat(lineup = {}) {
+  return getLineupLayoutStatus(lineup).provisional ? localizeText("Pitch layout is provisional.") : "";
+}
+
 function normalizeLineupTeamData(teamLineup, teamId, mode = "final") {
   if (!teamLineup || typeof teamLineup !== "object") {
     return null;
@@ -16921,6 +16985,8 @@ function getFixtureLineupPreview(match) {
   if (!home || !away) {
     return null;
   }
+  const layoutStatus = getLineupLayoutStatus(lineup);
+  const layoutVerification = getLineupLayoutVerification(lineup, layoutStatus);
 
   return {
     mode,
@@ -16929,7 +16995,11 @@ function getFixtureLineupPreview(match) {
     sourceIds: lineup.sourceIds,
     teamSheetSource: lineup.teamSheetSource || "",
     eventSource: lineup.eventSource || "",
-    layoutSource: lineup.layoutSource || "",
+    layoutSource: layoutStatus.source || "",
+    layoutExact: layoutStatus.exact,
+    layoutProvisional: layoutStatus.provisional,
+    layoutVerified: layoutStatus.verified,
+    ...(layoutVerification ? { layoutVerification } : {}),
     home,
     away
   };
@@ -17201,13 +17271,24 @@ function getLineupHelpText(match, lineup = null) {
   const freshness = getLineupFreshness(match, lineup);
   const sourceLabel = getLineupSourceLabel(match, lineup);
   const isPastLineup = ["final", "confirmed"].includes(mode);
+  const layoutCaveat = getLineupLayoutCaveat(lineup);
 
   if (isFutureLineup) {
     return localizeText("Predicted from online sources");
   }
 
   if (isPastLineup) {
-    return localizeText("This was the final lineup for the match.");
+    return [localizeText("This was the final lineup for the match."), layoutCaveat].filter(Boolean).join("\n");
+  }
+
+  const sourceText = !freshness
+    ? sourceLabel
+    : currentLanguage === "zh"
+      ? `${sourceLabel}（${freshness}）`
+      : `${sourceLabel} (${freshness})`;
+
+  if (layoutCaveat) {
+    return `${sourceText}\n${layoutCaveat}`;
   }
 
   if (!freshness) {

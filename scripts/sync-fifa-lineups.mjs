@@ -3,6 +3,10 @@ import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { applyLineupLayoutOverride, getVerifiedLayoutOverride } from "./lineup-layout-overrides.mjs";
+import {
+  buildDerivedLayoutVerification,
+  DERIVED_TEAM_SHEET_ORDER_LAYOUT_SOURCE
+} from "./lineup-layout-sources.mjs";
 import { isPlayerNameMatch } from "./player-name-matching.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -14,7 +18,7 @@ const FIFA_COMPETITION_ID = process.env.FIFA_COMPETITION_ID || "17";
 const FIFA_SEASON_ID = process.env.FIFA_SEASON_ID || "285023";
 const FIFA_PROVIDER_KEY = "fifa";
 const OFFICIAL_SOURCE = "fifa-official";
-const DERIVED_LAYOUT_SOURCE = "derived-team-sheet-order";
+const DERIVED_LAYOUT_SOURCE = DERIVED_TEAM_SHEET_ORDER_LAYOUT_SOURCE;
 const sourceId = `fifa-lineups-sync-${new Date().toISOString().slice(0, 10)}`;
 const checkedAt = process.env.FIFA_LINEUPS_CHECKED_AT || new Date().toISOString();
 const shouldWrite = !process.argv.includes("--check");
@@ -889,6 +893,7 @@ function comparableLineups(lineups) {
     teamSheetSource: lineups.teamSheetSource || "",
     eventSource: lineups.eventSource || "",
     layoutSource: lineups.layoutSource || "",
+    layoutVerification: lineups.layoutVerification || null,
     home: lineups.home || null,
     away: lineups.away || null
   };
@@ -953,6 +958,7 @@ async function processFixture(fixture, existingLineups, teamsById, profileLookup
       teamSheetSource: OFFICIAL_SOURCE,
       eventSource: OFFICIAL_SOURCE,
       layoutSource: DERIVED_LAYOUT_SOURCE,
+      layoutVerification: buildDerivedLayoutVerification(checkedAt),
       sourceIds: [sourceId],
       checkedAt,
       home: buildLineupSide(
