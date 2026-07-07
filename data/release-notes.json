@@ -6,10 +6,10 @@
       "title": "Live stoppage-time labels",
       "titleZh": "直播补时标签",
       "highlights": [
-        "Live match detail rows now add a stoppage-time hint beside official FIFA minute snapshots beyond 90, or beyond 45 when FIFA marks the match as first half, such as Current time 97' (90+7)."
+        "Live match detail rows now add FIFA's announced regulation added-time value beside official first-half or second-half minute snapshots when available, such as Current time 97' (+10 added), while extra time and penalties stay separate."
       ],
       "highlightsZh": [
-        "直播比赛详情现在会在 FIFA 官方分钟超过90时补充补时提示；如果 FIFA 标记为上半场，则超过45也会显示，例如“当前时间 97' (90+7)”。"
+        "直播比赛详情现在会在 FIFA 提供时，把常规时间上半场或下半场官方公布的补时时长显示在官方分钟旁，例如“当前时间 97' (+10 added)”；加时赛和点球大战会保持独立状态。"
       ]
     },
     {

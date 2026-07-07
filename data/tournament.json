@@ -1232,6 +1232,14 @@
       "note": "Manual visual check used only for ARG-EGY exact Egypt attacking layout; FIFA remains the source for starters, bench, events, and formation."
     },
     {
+      "id": "google-switzerland-colombia-lineup-visual-2026-07-07",
+      "label": "Google SUI-COL lineup visual verification",
+      "url": "https://www.google.com/search?q=Switzerland+Colombia+World+Cup+2026+lineups",
+      "type": "editorial",
+      "checkedAt": "2026-07-07T22:27:34.000Z",
+      "note": "Manual visual check used only for SUI-COL exact Colombia defensive and midfield layout; FIFA remains the source for starters, bench, events, and formation."
+    },
+    {
       "id": "rotowire-world-cup-lineups-2026-07-07",
       "label": "RotoWire World Cup predicted lineups",
       "url": "https://www.rotowire.com/soccer/lineups.php?league=WOC",
@@ -1272,14 +1280,6 @@
       "note": "Free public predicted lineup and injury notes used as a lineup prediction source."
     },
     {
-      "id": "fifa-lineups-sync-2026-07-07",
-      "label": "FIFA official final lineups sync",
-      "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/match-schedule-fixtures-results-teams-stadiums",
-      "type": "official",
-      "checkedAt": "2026-07-07T19:46:06.259Z",
-      "note": "95 completed FIFA team sheets checked; lineups.json carries official starters, bench, cards, and substitutions for 95 completed fixtures; 1 changed on this pass."
-    },
-    {
       "id": "fifa-official-results-sync-2026-07-07",
       "label": "FIFA official results sync",
       "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/match-schedule-fixtures-results-teams-stadiums",
@@ -1294,6 +1294,14 @@
       "type": "official",
       "checkedAt": "2026-07-07T22:35:44.535Z",
       "note": "1 fixture goal-event update merged from 88 matched FIFA timelines."
+    },
+    {
+      "id": "fifa-lineups-sync-2026-07-07",
+      "label": "FIFA official lineups sync",
+      "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/match-schedule-fixtures-results-teams-stadiums",
+      "type": "official",
+      "checkedAt": "2026-07-07T22:47:09.411Z",
+      "note": "96 FIFA team sheets checked across 95 completed and 1 live fixtures; lineups.json carries official starters, bench, cards, and substitutions for 96 fixtures; 1 changed on this pass."
     }
   ],
   "groups": [

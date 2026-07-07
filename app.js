@@ -9620,24 +9620,21 @@ function normalizeOfficialMatchTime(value) {
   return /^\d{1,3}(?:\+\d{1,2})?'$/.test(text) ? text : "";
 }
 
-function formatOfficialMatchTimeLabel(value, phase = "") {
+function formatOfficialMatchTimeLabel(value, addedTime = null, phase = "") {
   const matchTime = normalizeOfficialMatchTime(value);
-  const minuteMatch = /^(\d{1,3})'$/.exec(matchTime);
-  if (!minuteMatch) {
-    return matchTime;
+  const addedMinutes = Number(addedTime);
+  const matchPhase = normalizeOfficialMatchPhase(phase);
+  if (
+    matchTime &&
+    Number.isInteger(addedMinutes) &&
+    addedMinutes > 0 &&
+    ["First half", "Second half"].includes(matchPhase)
+  ) {
+    return `${matchTime} (+${addedMinutes} added)`;
   }
 
-  const minute = Number(minuteMatch[1]);
-  if (!Number.isFinite(minute)) {
-    return matchTime;
-  }
-
-  if (minute > 90) {
-    return `${matchTime} (90+${minute - 90})`;
-  }
-
-  if (minute > 45 && normalizeOfficialMatchPhase(phase) === "First half") {
-    return `${matchTime} (45+${minute - 45})`;
+  if (matchTime && matchPhase === "Extra time") {
+    return `${matchTime} (${localizeText("Extra time")})`;
   }
 
   return matchTime;
@@ -9697,7 +9694,11 @@ function getOfficialMatchSnapshotLabel(match) {
   const matchPhase =
     normalizeOfficialMatchPhase(match?.officialMatchPhase) ||
     normalizeOfficialMatchPhase(match?.officialMatchTime);
-  const matchTime = formatOfficialMatchTimeLabel(match?.officialMatchTime, matchPhase);
+  const matchTime = formatOfficialMatchTimeLabel(
+    match?.officialMatchTime,
+    match?.officialMatchAddedTime,
+    matchPhase
+  );
   if (matchPhase && (!matchTime || shouldPreferOfficialMatchPhase(matchPhase))) {
     return localizeText(matchPhase);
   }

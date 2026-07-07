@@ -8,7 +8,8 @@
     "fifa-lineups-sync-2026-07-05",
     "fifa-lineups-sync-2026-07-07",
     "lineup-layout-verification-2026-07-07",
-    "google-argentina-egypt-lineup-visual-2026-07-07"
+    "google-argentina-egypt-lineup-visual-2026-07-07",
+    "google-switzerland-colombia-lineup-visual-2026-07-07"
   ],
   "lineups": {
     "mexico-south-africa-2026-06-11": {
@@ -45760,7 +45761,501 @@
           ]
         }
       }
+    },
+    "match-96-round-of-16-2026-07-07": {
+      "mode": "confirmed",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
+      "layoutVerification": {
+        "status": "verified",
+        "checkedAt": "2026-07-07T22:27:34.000Z",
+        "sourceIds": [
+          "google-switzerland-colombia-lineup-visual-2026-07-07"
+        ],
+        "sources": [
+          {
+            "name": "Google",
+            "url": "https://www.google.com/search?q=Switzerland+Colombia+World+Cup+2026+lineups",
+            "status": "matched",
+            "sourceDetail": "Google match lineup visual board; manual visual check from attached 2026-07-07 3:27 PM screenshot.",
+            "exactLayout": true,
+            "note": "Colombia board shows James Rodriguez high right, Jhon Arias left central midfield, Gustavo Puerta right central midfield, Jhon Lucumi left centre-back, and Davinson Sanchez right centre-back."
+          }
+        ],
+        "note": "FIFA official team sheet kept for facts; Google lineup visual manually verified Colombia placement: James high right, Arias left central midfield, Puerta right central midfield, Lucumi left centre-back, Sanchez right centre-back."
+      },
+      "sourceIds": [
+        "fifa-lineups-sync-2026-07-07",
+        "google-switzerland-colombia-lineup-visual-2026-07-07"
+      ],
+      "checkedAt": "2026-07-07T22:47:09.411Z",
+      "home": {
+        "formation": "4-1-2-3",
+        "coach": {
+          "name": "Murat Yakin",
+          "teamName": "Switzerland",
+          "imageUrl": "https://digitalhub.fifa.com/transform/0951d425-6260-40aa-8905-0e79111bdf42/YAKIN-Murat_157842",
+          "sourceUrl": "https://www.fifa.com/en/match-centre/match/17/285023/289288/400021535"
+        },
+        "players": [
+          {
+            "number": "1",
+            "name": "Gregor Kobel",
+            "sourcePosition": "goalkeeper",
+            "position": "GK",
+            "x": 50,
+            "y": 91
+          },
+          {
+            "number": "4",
+            "name": "Nico Elvedi",
+            "sourcePosition": "defender",
+            "position": "CB",
+            "x": 62,
+            "y": 75
+          },
+          {
+            "number": "5",
+            "name": "Manuel Akanji",
+            "sourcePosition": "defender",
+            "position": "CB",
+            "x": 38,
+            "y": 75
+          },
+          {
+            "number": "13",
+            "name": "Ricardo Rodriguez",
+            "sourcePosition": "defender",
+            "position": "LB",
+            "x": 15,
+            "y": 75
+          },
+          {
+            "number": "6",
+            "name": "Denis Zakaria",
+            "sourcePosition": "midfielder",
+            "position": "DM",
+            "x": 50,
+            "y": 62
+          },
+          {
+            "number": "8",
+            "name": "Remo Freuler",
+            "sourcePosition": "midfielder",
+            "position": "RB",
+            "x": 85,
+            "y": 75
+          },
+          {
+            "number": "10",
+            "name": "Granit Xhaka",
+            "sourcePosition": "midfielder",
+            "position": "CM",
+            "x": 62,
+            "y": 49
+          },
+          {
+            "number": "14",
+            "name": "Ardon Jashari",
+            "sourcePosition": "midfielder",
+            "position": "CM",
+            "x": 38,
+            "y": 49
+          },
+          {
+            "number": "22",
+            "name": "Fabian Rieder",
+            "sourcePosition": "midfielder",
+            "position": "RW",
+            "x": 82,
+            "y": 30
+          },
+          {
+            "number": "7",
+            "name": "Breel Embolo",
+            "sourcePosition": "forward",
+            "position": "ST",
+            "x": 50,
+            "y": 21
+          },
+          {
+            "number": "11",
+            "name": "Dan Ndoye",
+            "sourcePosition": "forward",
+            "position": "LW",
+            "x": 18,
+            "y": 30
+          }
+        ],
+        "bench": [
+          {
+            "number": "12",
+            "name": "Yvon Mvogo",
+            "sourcePosition": "goalkeeper",
+            "position": "GK"
+          },
+          {
+            "number": "21",
+            "name": "Marvin Keller",
+            "sourcePosition": "goalkeeper",
+            "position": "GK"
+          },
+          {
+            "number": "2",
+            "name": "Miro Muheim",
+            "sourcePosition": "defender",
+            "position": "CB"
+          },
+          {
+            "number": "3",
+            "name": "Silvan Widmer",
+            "sourcePosition": "defender",
+            "position": "RB"
+          },
+          {
+            "number": "18",
+            "name": "Eray Coemert",
+            "sourcePosition": "defender",
+            "position": "CB"
+          },
+          {
+            "number": "24",
+            "name": "Aurele Amenda",
+            "sourcePosition": "defender",
+            "position": "CB"
+          },
+          {
+            "number": "15",
+            "name": "Djibril Sow",
+            "sourcePosition": "midfielder",
+            "position": "DM"
+          },
+          {
+            "number": "16",
+            "name": "Christian Fassnacht",
+            "sourcePosition": "forward",
+            "position": "RW"
+          },
+          {
+            "number": "17",
+            "name": "Ruben Vargas",
+            "sourcePosition": "forward",
+            "position": "RW"
+          },
+          {
+            "number": "19",
+            "name": "Noah Okafor",
+            "sourcePosition": "forward",
+            "position": "ST"
+          },
+          {
+            "number": "23",
+            "name": "Zeki Amdouni",
+            "sourcePosition": "forward",
+            "position": "ST"
+          },
+          {
+            "number": "26",
+            "name": "Cedric Itten",
+            "sourcePosition": "forward",
+            "position": "ST"
+          }
+        ],
+        "events": {
+          "cards": [
+            {
+              "playerName": "Granit Xhaka",
+              "type": "yellow",
+              "minute": 51
+            },
+            {
+              "playerName": "Denis Zakaria",
+              "type": "yellow",
+              "minute": 59
+            },
+            {
+              "playerName": "Miro Muheim",
+              "type": "yellow",
+              "minute": 105
+            }
+          ],
+          "staffCards": [],
+          "substitutions": [
+            {
+              "offName": "Ardon Jashari",
+              "onName": "Djibril Sow",
+              "minute": "HT"
+            },
+            {
+              "offName": "Ricardo Rodriguez",
+              "onName": "Miro Muheim",
+              "minute": 71
+            },
+            {
+              "offName": "Breel Embolo",
+              "onName": "Cedric Itten",
+              "minute": 87
+            },
+            {
+              "offName": "Denis Zakaria",
+              "onName": "Silvan Widmer",
+              "minute": 87
+            },
+            {
+              "offName": "Dan Ndoye",
+              "onName": "Ruben Vargas",
+              "minute": "90+1"
+            },
+            {
+              "offName": "Fabian Rieder",
+              "onName": "Zeki Amdouni",
+              "minute": 103
+            }
+          ]
+        }
+      },
+      "away": {
+        "formation": "4-1-2-3",
+        "coach": {
+          "name": "Nestor Lorenzo",
+          "teamName": "Colombia",
+          "imageUrl": "https://digitalhub.fifa.com/transform/d4fcd1b1-2d31-424e-a0ca-d4f7537fcda9/LORENZO-Nestor_44325",
+          "sourceUrl": "https://www.fifa.com/en/match-centre/match/17/285023/289288/400021535"
+        },
+        "players": [
+          {
+            "number": "12",
+            "name": "Camilo Vargas",
+            "sourcePosition": "goalkeeper",
+            "position": "GK",
+            "x": 50,
+            "y": 91
+          },
+          {
+            "number": "2",
+            "name": "Daniel Munoz",
+            "sourcePosition": "defender",
+            "position": "RB",
+            "x": 85,
+            "y": 75
+          },
+          {
+            "number": "3",
+            "name": "Jhon Lucumi",
+            "sourcePosition": "defender",
+            "position": "CB",
+            "x": 38,
+            "y": 75
+          },
+          {
+            "number": "14",
+            "name": "Gustavo Puerta",
+            "sourcePosition": "defender",
+            "position": "CM",
+            "x": 62,
+            "y": 49
+          },
+          {
+            "number": "17",
+            "name": "Johan Mojica",
+            "sourcePosition": "defender",
+            "position": "LB",
+            "x": 15,
+            "y": 75
+          },
+          {
+            "number": "23",
+            "name": "Davinson Sanchez",
+            "sourcePosition": "defender",
+            "position": "CB",
+            "x": 62,
+            "y": 75
+          },
+          {
+            "number": "10",
+            "name": "James Rodriguez",
+            "sourcePosition": "midfielder",
+            "position": "RW",
+            "x": 82,
+            "y": 30
+          },
+          {
+            "number": "11",
+            "name": "Jhon Arias",
+            "sourcePosition": "midfielder",
+            "position": "CM",
+            "x": 38,
+            "y": 49
+          },
+          {
+            "number": "16",
+            "name": "Jefferson Lerma",
+            "sourcePosition": "midfielder",
+            "position": "DM",
+            "x": 50,
+            "y": 62
+          },
+          {
+            "number": "7",
+            "name": "Luis Diaz",
+            "sourcePosition": "forward",
+            "position": "LW",
+            "x": 18,
+            "y": 30
+          },
+          {
+            "number": "25",
+            "name": "Luis Suarez",
+            "sourcePosition": "forward",
+            "position": "ST",
+            "x": 50,
+            "y": 21
+          }
+        ],
+        "bench": [
+          {
+            "number": "1",
+            "name": "David Ospina",
+            "sourcePosition": "goalkeeper",
+            "position": "GK"
+          },
+          {
+            "number": "24",
+            "name": "Alvaro Montero",
+            "sourcePosition": "goalkeeper",
+            "position": "GK"
+          },
+          {
+            "number": "4",
+            "name": "Santiago Arias",
+            "sourcePosition": "defender",
+            "position": "RB"
+          },
+          {
+            "number": "13",
+            "name": "Yerry Mina",
+            "sourcePosition": "defender",
+            "position": "CB"
+          },
+          {
+            "number": "18",
+            "name": "Willer Ditta",
+            "sourcePosition": "defender",
+            "position": "CB"
+          },
+          {
+            "number": "22",
+            "name": "Deiver Machado",
+            "sourcePosition": "defender",
+            "position": "LB"
+          },
+          {
+            "number": "5",
+            "name": "Kevin Castano",
+            "sourcePosition": "midfielder",
+            "position": "DM"
+          },
+          {
+            "number": "6",
+            "name": "Richard Rios",
+            "sourcePosition": "midfielder",
+            "position": "CM"
+          },
+          {
+            "number": "8",
+            "name": "Jorge Carrascal",
+            "sourcePosition": "midfielder",
+            "position": "AM"
+          },
+          {
+            "number": "15",
+            "name": "Juan Portilla",
+            "sourcePosition": "midfielder",
+            "position": "CM"
+          },
+          {
+            "number": "20",
+            "name": "Juan Quintero",
+            "sourcePosition": "midfielder",
+            "position": "AM"
+          },
+          {
+            "number": "9",
+            "name": "Jhon Cordoba",
+            "sourcePosition": "forward",
+            "position": "ST"
+          },
+          {
+            "number": "19",
+            "name": "Cucho Hernandez",
+            "sourcePosition": "forward",
+            "position": "ST"
+          },
+          {
+            "number": "21",
+            "name": "Jaminton Campaz",
+            "sourcePosition": "forward",
+            "position": "ST"
+          },
+          {
+            "number": "26",
+            "name": "Andres Gomez",
+            "sourcePosition": "forward",
+            "position": "RW"
+          }
+        ],
+        "events": {
+          "cards": [
+            {
+              "playerName": "Luis Suarez",
+              "type": "yellow",
+              "minute": 60
+            },
+            {
+              "playerName": "Davinson Sanchez",
+              "type": "yellow",
+              "minute": 94
+            }
+          ],
+          "staffCards": [
+            {
+              "staffName": "Luis Perea",
+              "role": "staff",
+              "type": "yellow",
+              "minute": 95
+            }
+          ],
+          "substitutions": [
+            {
+              "offName": "Jhon Arias",
+              "onName": "Jaminton Campaz",
+              "minute": 66
+            },
+            {
+              "offName": "James Rodriguez",
+              "onName": "Juan Quintero",
+              "minute": 66
+            },
+            {
+              "offName": "Jefferson Lerma",
+              "onName": "Richard Rios",
+              "minute": 82
+            },
+            {
+              "offName": "Luis Suarez",
+              "onName": "Cucho Hernandez",
+              "minute": 82
+            },
+            {
+              "offName": "Jhon Lucumi",
+              "onName": "Yerry Mina",
+              "minute": 118
+            }
+          ]
+        }
+      }
     }
   },
-  "updatedAt": "2026-07-07T20:43:54.000Z"
+  "updatedAt": "2026-07-07T22:47:09.411Z"
 }

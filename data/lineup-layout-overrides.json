@@ -3,9 +3,10 @@
     "lineup-layout-verification-2026-07-02",
     "lineup-layout-verification-2026-07-03",
     "lineup-layout-verification-2026-07-07",
-    "google-argentina-egypt-lineup-visual-2026-07-07"
+    "google-argentina-egypt-lineup-visual-2026-07-07",
+    "google-switzerland-colombia-lineup-visual-2026-07-07"
   ],
-  "updatedAt": "2026-07-07T20:43:54.000Z",
+  "updatedAt": "2026-07-07T22:27:34.000Z",
   "fixtures": {
     "match-82-round-of-32-2026-07-01": {
       "status": "verified",
@@ -34893,6 +34894,357 @@
             "position": "GK",
             "x": 49.9,
             "y": 90.5
+          }
+        ]
+      }
+    },
+    "match-96-round-of-16-2026-07-07": {
+      "status": "verified",
+      "sourceIds": [
+        "google-switzerland-colombia-lineup-visual-2026-07-07"
+      ],
+      "checkedAt": "2026-07-07T22:27:34.000Z",
+      "layoutSource": "verified-layout",
+      "sources": [
+        {
+          "name": "Google",
+          "url": "https://www.google.com/search?q=Switzerland+Colombia+World+Cup+2026+lineups",
+          "status": "matched",
+          "sourceDetail": "Google match lineup visual board; manual visual check from attached 2026-07-07 3:27 PM screenshot.",
+          "exactLayout": true,
+          "note": "Colombia board shows James Rodriguez high right, Jhon Arias left central midfield, Gustavo Puerta right central midfield, Jhon Lucumi left centre-back, and Davinson Sanchez right centre-back.",
+          "home": {
+            "formation": "4-1-2-3",
+            "players": [
+              {
+                "number": "1",
+                "name": "Gregor Kobel",
+                "position": "GK",
+                "x": 50,
+                "y": 91
+              },
+              {
+                "number": "4",
+                "name": "Nico Elvedi",
+                "position": "CB",
+                "x": 62,
+                "y": 75
+              },
+              {
+                "number": "5",
+                "name": "Manuel Akanji",
+                "position": "CB",
+                "x": 38,
+                "y": 75
+              },
+              {
+                "number": "13",
+                "name": "Ricardo Rodriguez",
+                "position": "LB",
+                "x": 15,
+                "y": 75
+              },
+              {
+                "number": "6",
+                "name": "Denis Zakaria",
+                "position": "DM",
+                "x": 50,
+                "y": 62
+              },
+              {
+                "number": "8",
+                "name": "Remo Freuler",
+                "position": "RB",
+                "x": 85,
+                "y": 75
+              },
+              {
+                "number": "10",
+                "name": "Granit Xhaka",
+                "position": "CM",
+                "x": 62,
+                "y": 49
+              },
+              {
+                "number": "14",
+                "name": "Ardon Jashari",
+                "position": "CM",
+                "x": 38,
+                "y": 49
+              },
+              {
+                "number": "22",
+                "name": "Fabian Rieder",
+                "position": "RW",
+                "x": 82,
+                "y": 30
+              },
+              {
+                "number": "7",
+                "name": "Breel Embolo",
+                "position": "ST",
+                "x": 50,
+                "y": 21
+              },
+              {
+                "number": "11",
+                "name": "Dan Ndoye",
+                "position": "LW",
+                "x": 18,
+                "y": 30
+              }
+            ]
+          },
+          "away": {
+            "formation": "4-1-2-3",
+            "players": [
+              {
+                "number": "7",
+                "name": "Luis Diaz",
+                "position": "LW",
+                "x": 18,
+                "y": 30
+              },
+              {
+                "number": "25",
+                "name": "Luis Suarez",
+                "position": "ST",
+                "x": 50,
+                "y": 21
+              },
+              {
+                "number": "10",
+                "name": "James Rodriguez",
+                "position": "RW",
+                "x": 82,
+                "y": 30
+              },
+              {
+                "number": "11",
+                "name": "Jhon Arias",
+                "position": "CM",
+                "x": 38,
+                "y": 49
+              },
+              {
+                "number": "14",
+                "name": "Gustavo Puerta",
+                "position": "CM",
+                "x": 62,
+                "y": 49
+              },
+              {
+                "number": "16",
+                "name": "Jefferson Lerma",
+                "position": "DM",
+                "x": 50,
+                "y": 62
+              },
+              {
+                "number": "17",
+                "name": "Johan Mojica",
+                "position": "LB",
+                "x": 15,
+                "y": 75
+              },
+              {
+                "number": "3",
+                "name": "Jhon Lucumi",
+                "position": "CB",
+                "x": 38,
+                "y": 75
+              },
+              {
+                "number": "23",
+                "name": "Davinson Sanchez",
+                "position": "CB",
+                "x": 62,
+                "y": 75
+              },
+              {
+                "number": "2",
+                "name": "Daniel Munoz",
+                "position": "RB",
+                "x": 85,
+                "y": 75
+              },
+              {
+                "number": "12",
+                "name": "Camilo Vargas",
+                "position": "GK",
+                "x": 50,
+                "y": 91
+              }
+            ]
+          },
+          "signature": {
+            "home": "dan ndoye/breel embolo/fabian rieder|ardon jashari/granit xhaka|denis zakaria|ricardo rodriguez/manuel akanji/nico elvedi/remo freuler|gregor kobel",
+            "away": "luis diaz/luis suarez/james rodriguez|jhon arias/gustavo puerta|jefferson lerma|johan mojica/jhon lucumi/davinson sanchez/daniel munoz|camilo vargas"
+          }
+        }
+      ],
+      "note": "FIFA official team sheet kept for facts; Google lineup visual manually verified Colombia placement: James high right, Arias left central midfield, Puerta right central midfield, Lucumi left centre-back, Sanchez right centre-back.",
+      "home": {
+        "formation": "4-1-2-3",
+        "players": [
+          {
+            "name": "Gregor Kobel",
+            "position": "GK",
+            "x": 50,
+            "y": 91,
+            "number": "1"
+          },
+          {
+            "name": "Nico Elvedi",
+            "position": "CB",
+            "x": 62,
+            "y": 75,
+            "number": "4"
+          },
+          {
+            "name": "Manuel Akanji",
+            "position": "CB",
+            "x": 38,
+            "y": 75,
+            "number": "5"
+          },
+          {
+            "name": "Ricardo Rodriguez",
+            "position": "LB",
+            "x": 15,
+            "y": 75,
+            "number": "13"
+          },
+          {
+            "name": "Denis Zakaria",
+            "position": "DM",
+            "x": 50,
+            "y": 62,
+            "number": "6"
+          },
+          {
+            "name": "Remo Freuler",
+            "position": "RB",
+            "x": 85,
+            "y": 75,
+            "number": "8"
+          },
+          {
+            "name": "Granit Xhaka",
+            "position": "CM",
+            "x": 62,
+            "y": 49,
+            "number": "10"
+          },
+          {
+            "name": "Ardon Jashari",
+            "position": "CM",
+            "x": 38,
+            "y": 49,
+            "number": "14"
+          },
+          {
+            "name": "Fabian Rieder",
+            "position": "RW",
+            "x": 82,
+            "y": 30,
+            "number": "22"
+          },
+          {
+            "name": "Breel Embolo",
+            "position": "ST",
+            "x": 50,
+            "y": 21,
+            "number": "7"
+          },
+          {
+            "name": "Dan Ndoye",
+            "position": "LW",
+            "x": 18,
+            "y": 30,
+            "number": "11"
+          }
+        ]
+      },
+      "away": {
+        "formation": "4-1-2-3",
+        "players": [
+          {
+            "name": "Luis Diaz",
+            "position": "LW",
+            "x": 18,
+            "y": 30,
+            "number": "7"
+          },
+          {
+            "name": "Luis Suarez",
+            "position": "ST",
+            "x": 50,
+            "y": 21,
+            "number": "25"
+          },
+          {
+            "name": "James Rodriguez",
+            "position": "RW",
+            "x": 82,
+            "y": 30,
+            "number": "10"
+          },
+          {
+            "name": "Jhon Arias",
+            "position": "CM",
+            "x": 38,
+            "y": 49,
+            "number": "11"
+          },
+          {
+            "name": "Gustavo Puerta",
+            "position": "CM",
+            "x": 62,
+            "y": 49,
+            "number": "14"
+          },
+          {
+            "name": "Jefferson Lerma",
+            "position": "DM",
+            "x": 50,
+            "y": 62,
+            "number": "16"
+          },
+          {
+            "name": "Johan Mojica",
+            "position": "LB",
+            "x": 15,
+            "y": 75,
+            "number": "17"
+          },
+          {
+            "name": "Jhon Lucumi",
+            "position": "CB",
+            "x": 38,
+            "y": 75,
+            "number": "3"
+          },
+          {
+            "name": "Davinson Sanchez",
+            "position": "CB",
+            "x": 62,
+            "y": 75,
+            "number": "23"
+          },
+          {
+            "name": "Daniel Munoz",
+            "position": "RB",
+            "x": 85,
+            "y": 75,
+            "number": "2"
+          },
+          {
+            "name": "Camilo Vargas",
+            "position": "GK",
+            "x": 50,
+            "y": 91,
+            "number": "12"
           }
         ]
       }

@@ -10,6 +10,7 @@ const dataDir = path.join(root, "data");
 const args = process.argv.slice(2).filter((arg) => arg !== "--");
 const DEFAULT_BEFORE_MINUTES = 5;
 const DEFAULT_AFTER_MINUTES = 20;
+const DEFAULT_LATE_LIVE_MINUTES = 180;
 const KICKOFF_STATUSES = new Set(["LIVE", "SCHEDULED", "DELAYED"]);
 
 const requestedFixtureFilter = new Set(
@@ -69,6 +70,11 @@ const afterMinutes = getPositiveNumberArg({
   envName: "LINEUP_GOOGLE_KICKOFF_AFTER_MINUTES",
   fallback: DEFAULT_AFTER_MINUTES
 });
+const lateLiveMinutes = getPositiveNumberArg({
+  argPrefix: "--late-live-minutes=",
+  envName: "LINEUP_GOOGLE_KICKOFF_LATE_LIVE_MINUTES",
+  fallback: DEFAULT_LATE_LIVE_MINUTES
+});
 const auditNow = getAuditNow();
 const outputJson = hasFlag("--json");
 
@@ -121,6 +127,15 @@ function isInKickoffWindow(fixture) {
   return minutes >= -beforeMinutes && minutes <= afterMinutes;
 }
 
+function isInLateLiveWindow(fixture) {
+  const minutes = minutesSinceKickoff(fixture);
+  if (!Number.isFinite(minutes)) {
+    return false;
+  }
+
+  return minutes > afterMinutes && minutes <= lateLiveMinutes;
+}
+
 function isOfficialLineupReady(lineups) {
   if (!lineups) {
     return false;
@@ -144,6 +159,20 @@ function hasVerifiedLayout(lineups, overridesData, fixtureId) {
   );
 }
 
+function shouldIncludeUnfilteredFixture(fixture, lineups, overridesData) {
+  if (isInKickoffWindow(fixture)) {
+    return true;
+  }
+
+  const status = String(fixture?.status || "").trim().toUpperCase();
+  return (
+    status === "LIVE" &&
+    isInLateLiveWindow(fixture) &&
+    isOfficialLineupReady(lineups) &&
+    !hasVerifiedLayout(lineups, overridesData, fixture.id)
+  );
+}
+
 function buildGoogleLineupUrl(homeName, awayName) {
   const query = `${homeName} ${awayName} World Cup 2026 lineups`;
   return `https://www.google.com/search?q=${encodeURIComponent(query)}`;
@@ -155,6 +184,7 @@ function buildItem({ fixture, lineups, overridesData, teamsById }) {
   const minutes = minutesSinceKickoff(fixture);
   const status = String(fixture.status || "").trim().toUpperCase();
   const inWindow = isInKickoffWindow(fixture);
+  const lateLiveWindow = status === "LIVE" && isInLateLiveWindow(fixture);
   const statusEligible = KICKOFF_STATUSES.has(status);
   const officialLineupsReady = isOfficialLineupReady(lineups);
   const verifiedLayout = hasVerifiedLayout(lineups, overridesData, fixture.id);
@@ -164,6 +194,9 @@ function buildItem({ fixture, lineups, overridesData, teamsById }) {
   if (verifiedLayout) {
     checkStatus = "already_verified";
     action = "Skip; this fixture already has verified exact layout metadata.";
+  } else if (lateLiveWindow && statusEligible && officialLineupsReady) {
+    checkStatus = "late_live_needs_google_visual_check";
+    action = "Open the Google lineup board now; FIFA official lineups are stored, but exact geometry was not verified during the kickoff window.";
   } else if (!inWindow) {
     checkStatus = "outside_kickoff_window";
     action = "Skip for the kickoff pass; use a manual override later only if a visible layout issue is noticed.";
@@ -186,6 +219,7 @@ function buildItem({ fixture, lineups, overridesData, teamsById }) {
     kickoffUtc: fixture.kickoffUtc || fixture.date || "",
     minutesSinceKickoff: Number.isFinite(minutes) ? Math.round(minutes * 10) / 10 : null,
     inKickoffWindow: inWindow,
+    lateLiveWindow,
     officialLineupsReady,
     verifiedLayout,
     googleLineupUrl: buildGoogleLineupUrl(homeName, awayName),
@@ -254,11 +288,15 @@ const [fixturesData, teamsData, lineupsData, overridesData] = await Promise.all(
 const teamsById = new Map((teamsData.teams || []).map((team) => [team.id, team]));
 const items = (fixturesData.fixtures || [])
   .filter((fixture) => fixture?.id && isRequestedFixture(fixture))
-  .filter((fixture) => requestedFixtureFilter.size || isInKickoffWindow(fixture))
-  .map((fixture) =>
+  .map((fixture) => ({
+    fixture,
+    lineups: lineupsData.lineups?.[fixture.id]
+  }))
+  .filter(({ fixture, lineups }) => requestedFixtureFilter.size || shouldIncludeUnfilteredFixture(fixture, lineups, overridesData))
+  .map(({ fixture, lineups }) =>
     buildItem({
       fixture,
-      lineups: lineupsData.lineups?.[fixture.id],
+      lineups,
       overridesData,
       teamsById
     })
@@ -268,11 +306,13 @@ const report = {
   now: auditNow.toISOString(),
   window: {
     beforeMinutes,
-    afterMinutes
+    afterMinutes,
+    lateLiveMinutes
   },
   policy: {
     source: "Google visual board is a manual geometry check only; FIFA remains authoritative for starters, bench, events, coaches, and formation.",
-    automation: "This script does not fetch Google and does not write overrides."
+    automation: "This script does not fetch Google and does not write overrides.",
+    lateLiveWindow: `LIVE fixtures with FIFA official lineups remain actionable until +${lateLiveMinutes} minutes when exact geometry is still unverified.`
   },
   summary: summarize(items),
   items

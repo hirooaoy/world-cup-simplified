@@ -34,7 +34,12 @@ function footballDataLiveMatch() {
   };
 }
 
-function fifaCalendarMatch({ matchTime = "", statusName = "Live" } = {}) {
+function fifaCalendarMatch({
+  firstHalfExtraTime = null,
+  matchTime = "",
+  secondHalfExtraTime = null,
+  statusName = "Live"
+} = {}) {
   return {
     IdCompetition: "17",
     IdSeason: "285023",
@@ -45,6 +50,8 @@ function fifaCalendarMatch({ matchTime = "", statusName = "Live" } = {}) {
     MatchStatus: 3,
     MatchStatusName: localized(statusName),
     MatchTime: matchTime,
+    FirstHalfExtraTime: firstHalfExtraTime,
+    SecondHalfExtraTime: secondHalfExtraTime,
     ResultType: 0,
     HomeTeamScore: 0,
     AwayTeamScore: 0,
@@ -61,9 +68,15 @@ function fifaCalendarMatch({ matchTime = "", statusName = "Live" } = {}) {
   };
 }
 
-function fifaLiveFootballMatch({ matchTime = "", period = null, statusName = "Live" } = {}) {
+function fifaLiveFootballMatch({
+  firstHalfExtraTime = null,
+  matchTime = "",
+  period = null,
+  secondHalfExtraTime = null,
+  statusName = "Live"
+} = {}) {
   return {
-    ...fifaCalendarMatch({ matchTime, statusName }),
+    ...fifaCalendarMatch({ firstHalfExtraTime, matchTime, secondHalfExtraTime, statusName }),
     Period: period,
     HomeTeam: {
       Tactics: "",
@@ -156,9 +169,63 @@ try {
   assert.equal(unavailableFixture.officialMatchPhase, undefined);
   assert.equal(unavailableFixture.officialMatchTime, undefined);
 
+  currentFifaCalendarMatch = fifaCalendarMatch({
+    matchTime: "97'",
+    secondHalfExtraTime: 10,
+    statusName: "Second half"
+  });
+  currentFifaLiveFootballMatch = fifaLiveFootballMatch();
+  const addedTimeFixture = await getLiveFixture(handler);
+
+  assert.equal(addedTimeFixture.status, "LIVE");
+  assert.equal(addedTimeFixture.officialMatchTime, "97'");
+  assert.equal(addedTimeFixture.officialMatchAddedTime, 10);
+  assert.ok(addedTimeFixture.officialMatchTimeUpdatedAt);
+
+  currentFifaCalendarMatch = fifaCalendarMatch({
+    matchTime: "110'",
+    secondHalfExtraTime: 10,
+    statusName: "Extra time"
+  });
+  currentFifaLiveFootballMatch = fifaLiveFootballMatch();
+  const extraTimeFixture = await getLiveFixture(handler);
+
+  assert.equal(extraTimeFixture.status, "LIVE");
+  assert.equal(extraTimeFixture.officialMatchPhase, "Extra time");
+  assert.equal(extraTimeFixture.officialMatchTime, "110'");
+  assert.equal(extraTimeFixture.officialMatchAddedTime, undefined);
+  assert.ok(extraTimeFixture.officialMatchTimeUpdatedAt);
+
+  currentFifaCalendarMatch = fifaCalendarMatch({
+    matchTime: "118'",
+    secondHalfExtraTime: 10
+  });
+  currentFifaLiveFootballMatch = fifaLiveFootballMatch({
+    matchTime: "118'",
+    period: 9,
+    secondHalfExtraTime: 10
+  });
+  const periodExtraTimeFixture = await getLiveFixture(handler);
+
+  assert.equal(periodExtraTimeFixture.status, "LIVE");
+  assert.equal(periodExtraTimeFixture.officialMatchPhase, "Extra time");
+  assert.equal(periodExtraTimeFixture.officialMatchTime, "118'");
+  assert.equal(periodExtraTimeFixture.officialMatchAddedTime, undefined);
+  assert.ok(periodExtraTimeFixture.officialMatchTimeUpdatedAt);
+
+  currentFifaCalendarMatch = fifaCalendarMatch();
+  currentFifaLiveFootballMatch = fifaLiveFootballMatch({ period: 16 });
+  const periodPenaltyFixture = await getLiveFixture(handler);
+
+  assert.equal(periodPenaltyFixture.status, "LIVE");
+  assert.equal(periodPenaltyFixture.officialMatchPhase, "Penalty shootout");
+  assert.equal(periodPenaltyFixture.officialMatchTime, undefined);
+  assert.equal(periodPenaltyFixture.officialMatchAddedTime, undefined);
+  assert.ok(periodPenaltyFixture.officialMatchTimeUpdatedAt);
+
   assert(fetchHits.footballData >= 2);
-  assert(fetchHits.fifaCalendar >= 2);
-  assert(fetchHits.liveFootball >= 2);
+  assert(fetchHits.fifaCalendar >= 6);
+  assert(fetchHits.liveFootball >= 4);
 
   console.log("Live match phase smoke passed: FIFA Period fills half-time without wall-clock guessing.");
 } finally {

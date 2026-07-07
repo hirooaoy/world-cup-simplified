@@ -5528,7 +5528,9 @@ try {
         const fixture = data.fixtures.find((item) => item.id === "match-82-round-of-32-2026-07-01");
         fixture.status = "LIVE";
         fixture.score = { home: 0, away: 0 };
+        fixture.officialMatchPhase = "Second half";
         fixture.officialMatchTime = "97'";
+        fixture.officialMatchAddedTime = 10;
         fixture.officialMatchTimeUpdatedAt = "2026-07-01T20:04:00.000Z";
       }
     }
@@ -5567,14 +5569,73 @@ try {
     };
   });
   assert(
-    liveDetailStoppageState.headingText === "Live score 97' (90+7)" &&
-      liveDetailStoppageState.headingAria === "Live score, 97' (90+7)" &&
-      liveDetailStoppageState.sourceText.includes("Current time 97' (90+7)") &&
+    liveDetailStoppageState.headingText === "Live score 97' (+10 added)" &&
+      liveDetailStoppageState.headingAria === "Live score, 97' (+10 added)" &&
+      liveDetailStoppageState.sourceText.includes("Current time 97' (+10 added)") &&
       liveDetailStoppageState.sourceText.includes("Checked 1 min ago") &&
       liveDetailStoppageState.sourceText.includes("See latest"),
-    `Live match details should show inferred stoppage time beside official minute snapshots beyond 90. Measured ${JSON.stringify(liveDetailStoppageState)}.`
+    `Live match details should show FIFA's announced added time beside official minute snapshots. Measured ${JSON.stringify(liveDetailStoppageState)}.`
   );
   await liveDetailPredictionCheck.context.close();
+
+  const applyLivePhaseFixture = (phase, matchTime, addedTime = 10) => (data) => {
+    const fixture = data.fixtures.find((item) => item.id === "match-82-round-of-32-2026-07-01");
+    fixture.status = "LIVE";
+    fixture.score = { home: 0, away: 0 };
+    fixture.officialMatchPhase = phase;
+    fixture.officialMatchTime = matchTime;
+    fixture.officialMatchAddedTime = addedTime;
+    fixture.officialMatchTimeUpdatedAt = "2026-07-01T20:04:00.000Z";
+  };
+  const liveExtraTimeCheck = await openPageAtTime(
+    "2026-07-01T20:05:00.000Z",
+    "/?view=matches&date=2026-07-01&tz=America%2FLos_Angeles",
+    {
+      fixtureTransform: applyLivePhaseFixture("Extra time", "118'")
+    }
+  );
+  await liveExtraTimeCheck.page.locator('[data-match-id="match-82-round-of-32-2026-07-01"]').click();
+  const liveExtraTimeState = await liveExtraTimeCheck.page.locator("#match-info").evaluate((info) => {
+    const heading = info.querySelector(".match-live-block h3");
+    return {
+      headingAria: heading?.getAttribute("aria-label") || "",
+      headingText: heading?.textContent.replace(/\s+/g, " ").trim() || "",
+      sourceText: info.querySelector(".live-source-note")?.textContent.replace(/\s+/g, " ").trim() || ""
+    };
+  });
+  assert(
+    liveExtraTimeState.headingText === "Live score 118' (Extra time)" &&
+      liveExtraTimeState.headingAria === "Live score, 118' (Extra time)" &&
+      liveExtraTimeState.sourceText.includes("Current time 118' (Extra time)") &&
+      !liveExtraTimeState.sourceText.includes("+10 added"),
+    `Live extra-time labels should show the phase without reusing regulation added time. Measured ${JSON.stringify(liveExtraTimeState)}.`
+  );
+  await liveExtraTimeCheck.context.close();
+
+  const livePenaltyCheck = await openPageAtTime(
+    "2026-07-01T20:05:00.000Z",
+    "/?view=matches&date=2026-07-01&tz=America%2FLos_Angeles",
+    {
+      fixtureTransform: applyLivePhaseFixture("Penalty shootout", "120'")
+    }
+  );
+  await livePenaltyCheck.page.locator('[data-match-id="match-82-round-of-32-2026-07-01"]').click();
+  const livePenaltyState = await livePenaltyCheck.page.locator("#match-info").evaluate((info) => {
+    const heading = info.querySelector(".match-live-block h3");
+    return {
+      headingAria: heading?.getAttribute("aria-label") || "",
+      headingText: heading?.textContent.replace(/\s+/g, " ").trim() || "",
+      sourceText: info.querySelector(".live-source-note")?.textContent.replace(/\s+/g, " ").trim() || ""
+    };
+  });
+  assert(
+    livePenaltyState.headingText === "Live score Penalty shootout" &&
+      livePenaltyState.headingAria === "Live score, Penalty shootout" &&
+      livePenaltyState.sourceText.includes("Current time Penalty shootout") &&
+      !livePenaltyState.sourceText.includes("+10 added"),
+    `Live penalty labels should prefer the shootout phase instead of a minute or regulation added time. Measured ${JSON.stringify(livePenaltyState)}.`
+  );
+  await livePenaltyCheck.context.close();
 
   const applyHalfTimeLiveFixture = (data) => {
     const fixture = data.fixtures.find(
@@ -5694,6 +5755,7 @@ try {
       (fixture) => fixture.id === "czechia-south-africa-2026-06-18"
     );
     delayedFixture.status = "DELAYED";
+    delete delayedFixture.officialMatchAddedTime;
     delete delayedFixture.officialMatchPhase;
     delete delayedFixture.officialMatchTime;
     delete delayedFixture.officialMatchTimeUpdatedAt;
@@ -6154,6 +6216,7 @@ try {
 
             if (fixture.id === nextScheduledKnockoutFixture.id) {
               fixture.status = "DELAYED";
+              delete fixture.officialMatchAddedTime;
               delete fixture.officialMatchPhase;
               delete fixture.officialMatchTime;
               delete fixture.officialMatchTimeUpdatedAt;

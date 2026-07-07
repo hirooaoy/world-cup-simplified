@@ -326,6 +326,7 @@ function sanitizeStaticFallbackFixturesData(fixturesData) {
 
     delete nextFixture.goalsAway;
     delete nextFixture.goalsHome;
+    delete nextFixture.officialMatchAddedTime;
     delete nextFixture.officialMatchPhase;
     delete nextFixture.officialMatchTime;
     delete nextFixture.officialMatchTimeUpdatedAt;
@@ -943,12 +944,17 @@ async function fetchFifaOfficialFixtures({ timeZone, timeoutMs }) {
 }
 
 function needsFifaLivePositionDetails(match) {
+  const matchTime = getFifaMatchTime(match);
+  const matchPhase = getFifaMatchPhase(match);
+  const hasRegulationPhase = ["First half", "Second half"].includes(matchPhase);
+
   return (
     getProviderStatus(match, FIFA_PROVIDER_KEY) === "LIVE" &&
     getFifaScore(match) &&
-    !getFifaMatchTime(match) &&
-    !getFifaMatchPhase(match) &&
-    getProviderFixtureId(match, FIFA_PROVIDER_KEY)
+    getProviderFixtureId(match, FIFA_PROVIDER_KEY) &&
+    (!matchTime ||
+      !matchPhase ||
+      (hasRegulationPhase && !getFifaMatchAddedTime(match, matchTime, matchPhase)))
   );
 }
 
@@ -976,6 +982,8 @@ async function addFifaLivePositionDetails(fixtures, timeoutMs) {
           MatchStatusName: liveMatch.MatchStatusName || fixture.MatchStatusName,
           MatchTime: liveMatch.MatchTime ?? fixture.MatchTime,
           Period: liveMatch.Period ?? fixture.Period,
+          FirstHalfExtraTime: liveMatch.FirstHalfExtraTime ?? fixture.FirstHalfExtraTime,
+          SecondHalfExtraTime: liveMatch.SecondHalfExtraTime ?? fixture.SecondHalfExtraTime,
           ResultType: liveMatch.ResultType ?? fixture.ResultType,
           Status: liveMatch.Status || fixture.Status,
           TimeDefined: liveMatch.TimeDefined ?? fixture.TimeDefined
@@ -1408,10 +1416,38 @@ function getFifaMatchTime(match) {
   return "";
 }
 
+function getFifaMatchAddedTime(match, officialMatchTime, officialMatchPhase) {
+  const phase = normalizeProviderMatchPhase(officialMatchPhase) || getFifaMatchPhase(match);
+  const addedTime =
+    phase === "Second half"
+      ? Number(match?.SecondHalfExtraTime)
+      : phase === "First half"
+        ? Number(match?.FirstHalfExtraTime)
+        : 0;
+
+  return Number.isInteger(addedTime) && addedTime > 0 ? addedTime : null;
+}
+
 function getFifaMatchPeriodPhase(match) {
   const period = Number(match?.Period);
+  if (
+    getProviderStatus(match, FIFA_PROVIDER_KEY) === "LIVE" &&
+    (scoreValue(match?.HomeTeamPenaltyScore) !== null ||
+      scoreValue(match?.AwayTeamPenaltyScore) !== null)
+  ) {
+    return "Penalty shootout";
+  }
+
   if (period === 4) {
     return "Half-time";
+  }
+
+  if ([8, 9].includes(period)) {
+    return "Extra time";
+  }
+
+  if ([11, 12, 15, 16].includes(period)) {
+    return "Penalty shootout";
   }
 
   return "";
@@ -1558,6 +1594,10 @@ function mergeProviderFixtures({
       provider.key === FIFA_PROVIDER_KEY ? getFifaMatchTime(providerFixture) : "";
     const officialMatchPhase =
       provider.key === FIFA_PROVIDER_KEY ? getFifaMatchPhase(providerFixture) : "";
+    const officialMatchAddedTime =
+      provider.key === FIFA_PROVIDER_KEY
+        ? getFifaMatchAddedTime(providerFixture, officialMatchTime, officialMatchPhase)
+        : null;
     const previousStatus = fixture.status;
     const nextStatus =
       forceStatus || statusRank(providerStatus) >= statusRank(fixture.status)
@@ -1569,6 +1609,7 @@ function mergeProviderFixtures({
       (forceStatus || statusRank(providerStatus) >= statusRank(previousStatus));
     const before = JSON.stringify({
       providerIds: fixture.providerIds,
+      officialMatchAddedTime: fixture.officialMatchAddedTime,
       officialMatchPhase: fixture.officialMatchPhase,
       officialMatchTime: fixture.officialMatchTime,
       officialMatchTimeUpdatedAt: fixture.officialMatchTimeUpdatedAt,
@@ -1613,8 +1654,14 @@ function mergeProviderFixtures({
         } else {
           delete fixture.officialMatchPhase;
         }
+        if (officialMatchAddedTime) {
+          fixture.officialMatchAddedTime = officialMatchAddedTime;
+        } else {
+          delete fixture.officialMatchAddedTime;
+        }
         fixture.officialMatchTimeUpdatedAt = checkedAt;
       } else {
+        delete fixture.officialMatchAddedTime;
         delete fixture.officialMatchPhase;
         delete fixture.officialMatchTime;
         delete fixture.officialMatchTimeUpdatedAt;
@@ -1623,6 +1670,7 @@ function mergeProviderFixtures({
 
     const after = JSON.stringify({
       providerIds: fixture.providerIds,
+      officialMatchAddedTime: fixture.officialMatchAddedTime,
       officialMatchPhase: fixture.officialMatchPhase,
       officialMatchTime: fixture.officialMatchTime,
       officialMatchTimeUpdatedAt: fixture.officialMatchTimeUpdatedAt,
