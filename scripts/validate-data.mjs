@@ -489,6 +489,22 @@ function requireSourceIds(sourceIds, sourceIdSet, owner) {
   }
 }
 
+function registerSource(source, sourceIdSet, owner) {
+  assert(source && typeof source === "object" && !Array.isArray(source), `${owner} must be an object`);
+  if (!source || typeof source !== "object" || Array.isArray(source)) {
+    return;
+  }
+  assert(source.id, `${owner} must have an id`);
+  if (!source.id) {
+    return;
+  }
+  assert(!sourceIdSet.has(source.id), `Duplicate source id "${source.id}"`);
+  sourceIdSet.add(source.id);
+  assert(source.label, `Source "${source.id}" must have a label`);
+  assert(source.type, `Source "${source.id}" must have a type`);
+  assert(!Number.isNaN(new Date(source.checkedAt).getTime()), `Source "${source.id}" must have a valid checkedAt`);
+}
+
 function isGeneratedScorerNote(note) {
   return /^Scored for .+ in .+ vs .+\.$/.test(String(note || "").trim());
 }
@@ -742,12 +758,7 @@ const [
 
 const sourceIds = new Set();
 for (const source of tournamentData.sources || []) {
-  assert(source.id, "Each source must have an id");
-  assert(!sourceIds.has(source.id), `Duplicate source id "${source.id}"`);
-  sourceIds.add(source.id);
-  assert(source.label, `Source "${source.id}" must have a label`);
-  assert(source.type, `Source "${source.id}" must have a type`);
-  assert(!Number.isNaN(new Date(source.checkedAt).getTime()), `Source "${source.id}" must have a valid checkedAt`);
+  registerSource(source, sourceIds, "Tournament source");
 }
 
 const tournamentCatchUpItems = [tournamentData.catchUp, tournamentData.news].flatMap((items) =>
@@ -2572,12 +2583,28 @@ if (expectedLineupsData !== null) {
       "expected-lineups.json.schemaVersion must be a non-empty string");
     assert(isValidDateTime(expectedLineupsData.generatedAt), "expected-lineups.json.generatedAt must be a valid date-time");
     assert(Array.isArray(expectedLineupsData.fixtures), "expected-lineups.json.fixtures must be an array");
+    if (expectedLineupsData.engine !== undefined) {
+      assert(isPlainObject(expectedLineupsData.engine), "expected-lineups.json.engine must be an object");
+      if (isPlainObject(expectedLineupsData.engine)) {
+        assert(typeof expectedLineupsData.engine.id === "string" && expectedLineupsData.engine.id.trim(),
+          "expected-lineups.json.engine.id must be a non-empty string");
+        assert(typeof expectedLineupsData.engine.version === "string" && expectedLineupsData.engine.version.trim(),
+          "expected-lineups.json.engine.version must be a non-empty string");
+      }
+    }
+    const expectedLineupSourceIds = new Set(sourceIds);
+    if (expectedLineupsData.sources !== undefined) {
+      assert(Array.isArray(expectedLineupsData.sources), "expected-lineups.json.sources must be an array");
+      for (const [index, source] of (Array.isArray(expectedLineupsData.sources) ? expectedLineupsData.sources : []).entries()) {
+        registerSource(source, expectedLineupSourceIds, `expected-lineups.json.sources[${index}]`);
+      }
+    }
 
     const seenExpectedLineupFixtures = new Set();
     for (const [index, expectedLineupRecord] of expectedLineupsData.fixtures.entries()) {
       validateExpectedLineupRecord(
         expectedLineupRecord,
-        sourceIds,
+        expectedLineupSourceIds,
         fixturesById,
         `expected-lineups.json.fixtures[${index}]`,
         seenExpectedLineupFixtures
