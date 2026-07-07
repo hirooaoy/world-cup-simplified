@@ -67,6 +67,11 @@ jobs:
           set -o pipefail
           pnpm matchday:readiness | tee matchday-readiness.log
 
+      - name: Sync FIFA goal events
+        run: |
+          set -o pipefail
+          pnpm sync:fifa:goals | tee fifa-goal-events-sync.log
+
       - name: Validate official fallback data
         run: |
           set -o pipefail
@@ -94,11 +99,6 @@ jobs:
           git add data/fixtures.json data/standings.json data/tournament.json data/lineups.json
           git commit -m "Update official FIFA fallback snapshot"
           git push origin HEAD:main
-
-      - name: Sync FIFA goal events
-        run: |
-          set -o pipefail
-          pnpm sync:fifa:goals | tee fifa-goal-events-sync.log
 
       - name: Refresh result highlights
         run: |

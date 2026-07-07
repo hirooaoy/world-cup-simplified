@@ -8,6 +8,7 @@ const dataDir = path.join(root, "data");
 const timeZone = process.env.WORLD_CUP_TZ || "America/Los_Angeles";
 const now = process.env.MATCHDAY_NOW ? new Date(process.env.MATCHDAY_NOW) : new Date();
 const statusStaleHours = Number(process.env.MATCHDAY_STATUS_STALE_HOURS || 2.25);
+const delayedStatusStaleHours = Number(process.env.MATCHDAY_DELAYED_STATUS_STALE_HOURS || 6);
 const knockoutLiveStatusStaleHours = Number(process.env.MATCHDAY_KNOCKOUT_LIVE_STATUS_STALE_HOURS || 3.5);
 const marketFreshHours = Number(process.env.MATCHDAY_MARKET_FRESH_HOURS || 24);
 const contextFreshHours = Number(process.env.MATCHDAY_CONTEXT_FRESH_HOURS || 72);
@@ -182,6 +183,15 @@ for (const fixture of focusFixtures) {
   if (fixture.status === "SCHEDULED" && hoursSinceKickoff > 0) {
     const message = `${label} kicked off ${hoursSinceKickoff.toFixed(1)}h ago but is still SCHEDULED. Run pnpm sync:fifa, then verify live status if FIFA has no update.`;
     if (hoursSinceKickoff > statusStaleHours) {
+      blockers.push(message);
+    } else {
+      actions.push(message);
+    }
+  }
+
+  if (fixture.status === "DELAYED" && hoursSinceKickoff > 0) {
+    const message = `${label} is DELAYED ${hoursSinceKickoff.toFixed(1)}h after scheduled kickoff. Re-run pnpm sync:fifa and confirm revised kickoff or live status.`;
+    if (hoursSinceKickoff > delayedStatusStaleHours) {
       blockers.push(message);
     } else {
       actions.push(message);

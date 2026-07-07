@@ -594,6 +594,24 @@ function normalizeNumber(value) {
   return Number.isFinite(parsed) ? parsed : Number.NaN;
 }
 
+function normalizeFotmobPercent(value, { invert = false } = {}) {
+  const normalized = normalizeNumber(value);
+  if (!Number.isFinite(normalized)) {
+    return Number.NaN;
+  }
+
+  const percent = Math.abs(normalized) <= 1 ? normalized * 100 : normalized;
+  return invert ? 100 - percent : percent;
+}
+
+function fotmobPitchX(starter) {
+  return normalizeFotmobPercent(starter?.verticalLayout?.x, { invert: true });
+}
+
+function fotmobPitchY(starter) {
+  return normalizeFotmobPercent(starter?.verticalLayout?.y, { invert: true });
+}
+
 function fotmobRank(positionId, expectedRows) {
   const expectedRowCount = Number.isFinite(expectedRows) && expectedRows > 0 ? expectedRows : 5;
   const rankByPositionId = {
@@ -649,10 +667,10 @@ function collectFotmobSourcePlayers(team, officialPlayers, formation) {
     officialPlayer: officialPlayerForSourceName(starter.name, officialPlayers),
     name: officialNameForSourceName(starter.name, officialNames),
     positionId: Number(starter.positionId),
-    x: normalizeNumber(starter.horizontalLayout?.x),
-    y: normalizeNumber(starter.verticalLayout?.y),
-    layoutX: normalizeNumber(starter.horizontalLayout?.x),
-    layoutY: normalizeNumber(starter.verticalLayout?.y)
+    x: fotmobPitchX(starter),
+    y: fotmobPitchY(starter),
+    layoutX: fotmobPitchX(starter),
+    layoutY: fotmobPitchY(starter)
   }));
 }
 
@@ -668,11 +686,11 @@ function buildFotmobRowsFromTeam(team, officialPlayers, formation) {
     officialPlayer: officialPlayerForSourceName(starter.name, officialPlayers),
     name: officialNameForSourceName(starter.name, officialNames),
     positionId: Number(starter.positionId),
-    x: normalizeNumber(starter.horizontalLayout?.x),
-    y: normalizeNumber(starter.verticalLayout?.y),
-    pitchY: normalizeNumber(starter.verticalLayout?.y),
-    layoutX: normalizeNumber(starter.horizontalLayout?.x),
-    layoutY: normalizeNumber(starter.verticalLayout?.y)
+    x: fotmobPitchX(starter),
+    y: fotmobPitchY(starter),
+    pitchY: fotmobPitchY(starter),
+    layoutX: fotmobPitchX(starter),
+    layoutY: fotmobPitchY(starter)
   }));
 
   if (starters.length !== 11) {
@@ -999,6 +1017,15 @@ function buildOverrideFromClaims(fixtureId, fixture, lineups, claims) {
     };
   }
 
+  const exactSourceNames = matchedClaims
+    .filter((claim) => claim.exactLayout)
+    .map((claim) => claim.name)
+    .filter(Boolean);
+  const exactSourceNote =
+    exactSourceNames.length > 1
+      ? `${exactSourceNames.join(" and ")} agreed on the tactical layout.`
+      : `${exactSourceNames[0] || "A trusted source"} supplied exact board geometry.`;
+
   const override = {
     status: "verified",
     layoutSource: VERIFIED_LAYOUT_SOURCE,
@@ -1007,7 +1034,7 @@ function buildOverrideFromClaims(fixtureId, fixture, lineups, claims) {
     homeTeamId: fixture.homeTeamId,
     awayTeamId: fixture.awayTeamId,
     sources: claims,
-    note: "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout.",
+    note: `FIFA official team sheet kept for facts; ${exactSourceNote}`,
     home: exactClaim.home,
     away: exactClaim.away
   };

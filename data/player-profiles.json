@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-28T04:20:02.738Z",
+  "updatedAt": "2026-07-07T16:20:27.340Z",
   "sourceIds": [
     "wikipedia-football-infobox",
     "wikipedia-page-summaries",
@@ -25636,6 +25636,25 @@
       "note": "Abulaila gives Jordan proven tournament composure in goal, organizing the box through long defensive spells.",
       "noteZh": "阿布莱拉给约旦在门前经过大赛证明的冷静，能在长时间防守中组织禁区。",
       "sourceUrl": "https://en.wikipedia.org/wiki/Yazeed_Abulaila"
+    },
+    "Neymar Jr": {
+      "name": "Neymar Jr",
+      "displayName": "Neymar",
+      "teamId": "BRA",
+      "birthDate": "1992-02-05",
+      "summary": "Neymar da Silva Santos Júnior (Brazilian Portuguese pronunciation: [nejˈmaʁ dɐ ˈsiwvɐ ˈsɐ̃tuz‿ˈʒuni.oʁ] ; born 5 February 1992) is a Brazilian professional footballer who plays as an attacking midfielder or a forward for Campeonato Brasileiro Série A club...",
+      "marketValueEurMillions": 8,
+      "position": "Attacking midfielder, forward",
+      "club": "Santos",
+      "league": "Campeonato Brasileiro Série A",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Neymar%20Junior%20Brazil%20V%20Morocco%2013%20June%202026-40.jpg?width=160",
+      "skills": [
+        "Box presence",
+        "Chance creation",
+        "Runs in behind"
+      ],
+      "note": "Brazil's between-lines option, useful for turning possession into final passes and late box runs.",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Neymar"
     }
   }
 }

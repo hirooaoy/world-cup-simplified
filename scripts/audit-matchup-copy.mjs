@@ -159,6 +159,10 @@ function normalizeText(value) {
     .trim();
 }
 
+function escapeRegExp(value) {
+  return String(value).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
 function wordCount(value) {
   return String(value || "")
     .trim()
@@ -250,6 +254,166 @@ function hasChineseTranslationPattern(value) {
   }
 
   return appChineseTranslationPatterns.some((pattern) => pattern.test(text));
+}
+
+const allowedChineseTranslationLatinTerms = new Set([
+  "AFC",
+  "CAF",
+  "CONCACAF",
+  "CONMEBOL",
+  "FIFA",
+  "FOX",
+  "GD",
+  "AEK",
+  "ESPN",
+  "JSON",
+  "NATION",
+  "OPENFOOTBALL",
+  "SPORTS",
+  "TSC",
+  "UEFA",
+  "UNAM",
+  "USL",
+  "USA",
+  "VAR",
+  "YOUTUBE"
+]);
+const cjkCharacterPattern = /[\u3400-\u9fff\uf900-\ufaff]/u;
+let appKnownZhEntityReplacements = null;
+
+function getLatinLeaks(value) {
+  return [...String(value || "").matchAll(/\p{Script=Latin}[\p{Script=Latin}'-]{2,}/gu)]
+    .map((match) => match[0])
+    .filter((term) => !allowedChineseTranslationLatinTerms.has(term.toUpperCase()));
+}
+
+function getAppObjectBlock(source, name) {
+  const match = source.match(new RegExp(`const ${name} = \\{([\\s\\S]+?)\\n\\};`));
+  return match?.[1] || "";
+}
+
+function parseAppTranslationEntries(block) {
+  const entries = [];
+  const entryPattern =
+    /(?:^|,)\s*(?:"((?:\\.|[^"\\])*)"|([A-Za-zÀ-ÖØ-öø-ÿ][A-Za-zÀ-ÖØ-öø-ÿ0-9.'-]*))\s*:\s*("(?:(?:\\.)|[^"\\])*")/gm;
+
+  for (const match of block.matchAll(entryPattern)) {
+    let source = "";
+    let translation = "";
+
+    try {
+      source = match[1] !== undefined ? JSON.parse(`"${match[1]}"`) : match[2];
+      translation = JSON.parse(match[3]);
+    } catch {
+      continue;
+    }
+
+    if (source && translation) {
+      entries.push([source, translation]);
+    }
+  }
+
+  return entries;
+}
+
+function addKnownZhEntityReplacement(entries, source, translation) {
+  const alias = String(source || "").trim().replace(/\s+/g, " ");
+  const text = String(translation || "").trim();
+
+  if (!alias || !text || /\p{Script=Latin}/u.test(text)) {
+    return;
+  }
+
+  const normalizedKey = normalizeText(alias);
+  const key = alias.toLocaleLowerCase("en-US");
+  if (normalizedKey && key && !entries.has(key)) {
+    entries.set(key, { source: alias, translation: text });
+  }
+}
+
+function addKnownZhNameReplacement(entries, source, translation) {
+  addKnownZhEntityReplacement(entries, source, translation);
+
+  const sourceParts = String(source || "").split(/\s+/).filter(Boolean);
+  const translationParts = String(translation || "").split("·").filter(Boolean);
+  if (sourceParts.length > 1 && translationParts.length) {
+    addKnownZhEntityReplacement(entries, sourceParts.at(-1), translationParts.at(-1));
+  }
+}
+
+function getAppKnownZhEntityReplacements(source) {
+  if (appKnownZhEntityReplacements) {
+    return appKnownZhEntityReplacements;
+  }
+
+  const entries = new Map();
+  for (const name of ["ZH_PLAYER_NAME_TRANSLATIONS", "ZH_HISTORICAL_SCORER_TRANSLATIONS"]) {
+    for (const [entrySource, translation] of parseAppTranslationEntries(getAppObjectBlock(source, name))) {
+      addKnownZhNameReplacement(entries, entrySource, translation);
+    }
+  }
+
+  appKnownZhEntityReplacements = [...entries.values()].sort((a, b) => b.source.length - a.source.length);
+  return appKnownZhEntityReplacements;
+}
+
+function normalizeAppKnownZhEntities(source, value) {
+  let output = String(value || "");
+
+  for (const { source: alias, translation } of getAppKnownZhEntityReplacements(source)) {
+    const pattern = new RegExp(
+      `(^|[^A-Za-zÀ-ÖØ-öø-ÿ])(${escapeRegExp(alias)})(?=$|[^A-Za-zÀ-ÖØ-öø-ÿ])`,
+      "g"
+    );
+    output = output.replace(pattern, (_, prefix) => `${prefix}${translation}`);
+  }
+
+  return output;
+}
+
+function getAppChineseTranslationValueBlocks(source) {
+  const blocks = [];
+  const blockPatterns = [
+    /const ZH_EXACT_TRANSLATIONS = new Map\(\s*Object\.entries\(\{([\s\S]+?)\}\)\s*\);/,
+    /const ZH_ADDITIONAL_EXACT_TRANSLATIONS = \{([\s\S]+?)\n\};/,
+    /Object\.entries\(\{([\s\S]+?)\}\)\.forEach\(\(\[text, translation\]\) => \{\s*ZH_EXACT_TRANSLATIONS\.set\(text, translation\);\s*\}\);/
+  ];
+
+  for (const pattern of blockPatterns) {
+    const match = source.match(pattern);
+    if (match?.[1]) {
+      blocks.push(match[1]);
+    }
+  }
+
+  return blocks;
+}
+
+function getAppChineseTranslationLatinLeakIssues(source) {
+  const issues = [];
+
+  for (const block of getAppChineseTranslationValueBlocks(source)) {
+    for (const match of block.matchAll(/:\s*("(?:(?:\\.)|[^"\\])*")/g)) {
+      let translation = "";
+      try {
+        translation = JSON.parse(match[1]);
+      } catch {
+        continue;
+      }
+
+      if (!cjkCharacterPattern.test(translation)) {
+        continue;
+      }
+
+      const normalizedTranslation = normalizeAppKnownZhEntities(source, translation);
+      const leaks = getLatinLeaks(normalizedTranslation);
+      if (leaks.length) {
+        issues.push(issue("Chinese translation Latin leak", `${leaks.join(", ")} in ${normalizedTranslation}`));
+      }
+    }
+  }
+
+  return issues;
 }
 
 function isChineseAuthoredCopyCovered(source, value) {
@@ -616,12 +780,13 @@ if (missingChineseTeamTerms.length) {
 if (missingChinesePlayerTerms.length) {
   chineseTranslationIssues.push(issue("missing Chinese key-player translations", missingChinesePlayerTerms.join(", ")));
 }
+chineseTranslationIssues.push(...getAppChineseTranslationLatinLeakIssues(appSource));
 
 const issueRows = rows.filter((row) => row.issues.length);
 const historicalIssueRows = historicalRows.filter((row) => row.issues.length);
 const resultIssueRows = resultRows.filter((row) => row.issues.length);
 const authoredChineseCopyIssueRows = authoredChineseCopyRows.filter((row) => row.issues.length);
-const statusSummary = ["FT", "LIVE", "SCHEDULED"]
+const statusSummary = ["FT", "LIVE", "DELAYED", "SCHEDULED"]
   .filter((status) => statusCounts.has(status))
   .map((status) => `${status}: ${statusCounts.get(status)}`)
   .join(", ");

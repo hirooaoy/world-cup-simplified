@@ -342,6 +342,10 @@ function officialStatus(match) {
     return "LIVE";
   }
 
+  if (/delay/.test(statusText)) {
+    return "DELAYED";
+  }
+
   if (statusCode === 1 || !score) {
     return "SCHEDULED";
   }
@@ -352,6 +356,7 @@ function officialStatus(match) {
 function statusRank(status) {
   return {
     SCHEDULED: 0,
+    DELAYED: 0,
     LIVE: 1,
     FT: 2,
     POSTPONED: 3,
@@ -383,6 +388,7 @@ function mergeOfficialMatches(fixturesData, officialMatches, teams) {
       providerIds: fixture.providerIds,
       score: fixture.score,
       scoreDetails: fixture.scoreDetails,
+      scoreUpdatedAt: fixture.scoreUpdatedAt,
       status: fixture.status
     });
     const beforeStatus = JSON.stringify({
@@ -391,6 +397,7 @@ function mergeOfficialMatches(fixturesData, officialMatches, teams) {
       providerIds: fixture.providerIds,
       score: fixture.score,
       scoreDetails: fixture.scoreDetails,
+      scoreUpdatedAt: fixture.scoreUpdatedAt,
       status: fixture.status
     });
     const nextStatus = officialStatus(match);
@@ -420,9 +427,10 @@ function mergeOfficialMatches(fixturesData, officialMatches, teams) {
     if ((fixture.status === "LIVE" || fixture.status === "FT") && nextScore) {
       fixture.score = nextScore;
       mergePenaltyScore(fixture, nextPenaltyScore);
-    } else if (fixture.status === "SCHEDULED") {
+    } else if (!["LIVE", "FT"].includes(fixture.status)) {
       delete fixture.score;
       delete fixture.scoreDetails;
+      delete fixture.scoreUpdatedAt;
     }
 
     const after = JSON.stringify({
@@ -433,6 +441,7 @@ function mergeOfficialMatches(fixturesData, officialMatches, teams) {
       providerIds: fixture.providerIds,
       score: fixture.score,
       scoreDetails: fixture.scoreDetails,
+      scoreUpdatedAt: fixture.scoreUpdatedAt,
       status: fixture.status
     });
     const afterStatus = JSON.stringify({
@@ -441,6 +450,7 @@ function mergeOfficialMatches(fixturesData, officialMatches, teams) {
       providerIds: fixture.providerIds,
       score: fixture.score,
       scoreDetails: fixture.scoreDetails,
+      scoreUpdatedAt: fixture.scoreUpdatedAt,
       status: fixture.status
     });
 

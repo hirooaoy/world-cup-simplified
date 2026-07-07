@@ -222,6 +222,12 @@ const ZH_EXACT_TRANSLATIONS = new Map(
       "来源核对后，最终比分已反映在当前积分榜中。",
     "Final pending": "最终比分待确认",
     "Pending": "待确认",
+    "Delayed": "延迟",
+    "delayed": "延迟",
+    "Postponed": "延期",
+    "postponed": "延期",
+    "Kickoff delayed": "开球延迟",
+    "Official feed has not marked this match live yet.": "官方数据源尚未将这场比赛标记为直播。",
     "Final score": "最终比分",
     "FIFA World Cup": "FIFA世界杯",
     "FIFA World Cup qualifier": "世界杯预选赛",
@@ -319,6 +325,13 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "Latest changes": "最新更新",
     "Live": "直播",
     "Live score": "实时比分",
+    "First half": "上半场",
+    "Second half": "下半场",
+    "Extra time": "加时赛",
+    "Penalty shootout": "点球大战",
+    "Suspended": "暂停",
+    "Interrupted": "中断",
+    "Break": "休息",
     "local": "当地",
     "Loading catch-up notes": "正在加载比赛速览",
     "Loading matches": "正在加载比赛",
@@ -620,6 +633,24 @@ const ZH_ADDITIONAL_EXACT_TRANSLATIONS = {
   "Al Thumama Stadium": "阿图玛玛球场",
   "Al Thumama Stadium, Doha": "阿图玛玛球场，多哈",
   Angola: "安哥拉",
+  "Erling Haaland scored in the 79th and 90th minutes to turn Norway's late pressure into the upset.":
+    "埃尔林·哈兰德在第79分钟和第90分钟连入两球，把挪威的后段压力转化为冷门胜利。",
+  "Hans Vanaken and Romelu Lukaku finished the 4-1 rout after Belgium kept finding space late.":
+    "比利时在后段持续找到空间，汉斯·瓦纳肯和罗梅卢·卢卡库把比分扩大为4比1。",
+  "Harry Kane's penalty gave England the cushion they needed, even after Raul Jimenez answered from the spot.":
+    "哈里·凯恩的点球给了英格兰所需的缓冲，即便劳尔·希门尼斯随后也点球回应。",
+  "Jude Bellingham scored twice in two minutes to flip the match before halftime.":
+    "裘德·贝林厄姆两分钟内梅开二度，在半场前扭转了比赛。",
+  "Lionel Messi put Argentina ahead before Cabo Verde twice pulled the tie level.":
+    "莱昂内尔·梅西先让阿根廷取得领先，随后佛得角两次把比分扳平。",
+  "Lisandro Martinez struck in stoppage time, and Diney Borges' extra-time own goal finally carried Argentina through.":
+    "利桑德罗·马丁内斯在补时破门，迪内·博尔热斯加时赛的乌龙球最终把阿根廷送入下一轮。",
+  "Malik Tillman briefly brought the United States level, but De Ketelaere answered two minutes later.":
+    "马利克·蒂尔曼一度为美国扳平，但德凯特拉雷两分钟后立即回应。",
+  "Mikel Merino waited until 90+1' to break Portugal's resistance.":
+    "米克尔·梅里诺直到90+1分钟才打破葡萄牙的抵抗。",
+  "Neymar Jr's 90+10' penalty only cut the gap after Norway had already found the decisive second goal.":
+    "内马尔在90+10分钟的点球只是缩小差距，因为挪威已经打进决定性的第二球。",
   "Athletic pressing with direct attacking bursts": "运动能力压迫和直接进攻爆发",
   "Attacking midfielder": "攻击型中场",
   "Attacking midfielder,": "攻击型中场",
@@ -627,7 +658,10 @@ const ZH_ADDITIONAL_EXACT_TRANSLATIONS = {
   "Attacking midfielder, left midfielder": "攻击型中场、左中场",
   "Attacking midfielder, left winger": "攻击型中场、左边锋",
   "Attacking midfielder, winger": "攻击型中场、边锋",
+  "Attacking structure": "进攻结构",
   "Winger, attacking midfielder": "边锋、攻击型中场",
+  "Wing overloads": "边路人数优势",
+  "Youth pipeline": "青年梯队",
   "Back-line command": "后防线指挥",
   "Back-line courage": "后防线出球勇气",
   "Back-line passing": "后防线传球",
@@ -679,6 +713,8 @@ const ZH_ADDITIONAL_EXACT_TRANSLATIONS = {
   "Controlled buildup with defenders who start attacks": "由后卫发起的可控推进",
   "Costa Rica": "哥斯达黎加",
   "Counter attacks": "反击",
+  "Counter-attack": "反击",
+  "Counter-pressing": "丢球反抢",
   "Counter runs": "反击跑动",
   "Counter timing": "反击时机",
   "Counter width": "反击宽度",
@@ -702,12 +738,14 @@ const ZH_ADDITIONAL_EXACT_TRANSLATIONS = {
   "Defensive grit with fast breaks through the channels": "防守韧性配合肋部快速反击",
   "Defensive midfielder": "防守型中场",
   "Defensive midfielder, centre-back": "防守型中场、中后卫",
+  "Defensive organization": "防守组织",
   "Depth scoring": "纵深得分",
   Denmark: "丹麦",
   "Diagonal runs": "斜向跑动",
   "Direct attacking underdog with enough forward power to punish loose defending": "直接进攻型弱势方，锋线力量足以惩罚松散防守",
   "Direct combinations": "直接配合",
   "Direct counters": "直接反击",
+  "Direct transitions": "直接转换",
   "Direct outlets": "直接出球点",
   "Direct pace and physical pressure in transition": "转换中的直接速度和身体压力",
   "Direct service": "直接传送",
@@ -848,7 +886,9 @@ const ZH_ADDITIONAL_EXACT_TRANSLATIONS = {
   "Physical forward play built for open-field breaks": "为开阔地反击打造的身体型锋线打法",
   "Pocket passing": "小空间传递",
   Poland: "波兰",
+  "Possession control": "控球控制",
   "Possession patience": "控球耐心",
+  "Positional discipline": "位置纪律",
   "Power through midfield with pace on the edges": "中场力量配合边路速度",
   "Precise, fast-passing side that can make possession feel sudden and sharp": "精准快速传递型球队，能让控球突然变得锐利",
   "Preliminary round": "预赛轮",
@@ -885,6 +925,7 @@ const ZH_ADDITIONAL_EXACT_TRANSLATIONS = {
   "Serbia and Montenegro": "塞尔维亚和黑山",
   "Serie A": "意甲",
   "Set pieces": "定位球",
+  "Set-piece focus": "定位球重点",
   "Set-piece bite": "定位球威胁",
   "Set-piece threat": "定位球威胁",
   "Set-piece threat with hard-running midfield cover": "定位球威胁配合勤跑中场保护",
@@ -1073,17 +1114,17 @@ const ZH_ADDITIONAL_EXACT_TRANSLATIONS = {
   "Kane headed in the 75th-minute equalizer, then cut across the edge of the box and drove the 86th-minute winner into the top corner.":
     "凯恩第75分钟头球扳平，随后在禁区弧附近横向调整，并在第86分钟把制胜球轰入上角。",
   "Balogun scrambled in the 45th-minute opener after a tense first half, then hit the bar before the break.":
-    "Balogun在紧张的上半场尾声抢点打进45分钟首球，半场前又击中横梁。",
+    "巴洛贡在紧张的上半场尾声抢点打进45分钟首球，半场前又击中横梁。",
   "The USA played the last half-hour with ten men after Balogun's VAR red card, with Freese and Richards protecting the box.":
-    "Balogun经VAR确认被红牌罚下后，美国队最后半小时十人作战，Freese和Richards守住禁区。",
+    "巴洛贡经VAR确认被红牌罚下后，美国队最后半小时十人作战，弗里斯和理查兹守住禁区。",
   "Tillman curled in an 82nd-minute free kick to seal a 2-0 win and send the hosts into a last-16 meeting with Belgium.":
-    "Tillman在82分钟任意球弧线破门，锁定2-0胜局，也把东道主送进对比利时的16强战。",
+    "蒂尔曼在82分钟任意球弧线破门，锁定2-0胜局，也把东道主送进对比利时的16强战。",
   "Diarra and Sarr gave Senegal a 2-0 lead before Lukaku turned in Meunier's 86th-minute cross to reopen the match.":
-    "Diarra和Sarr帮助塞内加尔取得2-0领先，随后Lukaku接Meunier第86分钟传中扳回悬念。",
+    "迪亚拉和萨尔帮助塞内加尔取得2-0领先，随后卢卡库接默尼耶第86分钟传中扳回悬念。",
   "Tielemans met Trossard's delivery three minutes later, forcing extra time after Senegal had controlled the first 85 minutes.":
-    "三分钟后Tielemans接Trossard传球破门，把塞内加尔控制前85分钟的比赛拖入加时。",
+    "三分钟后蒂勒曼斯接特罗萨德传球破门，把塞内加尔控制前85分钟的比赛拖入加时。",
   "Tielemans converted a VAR penalty at 120+5 after Lukebakio hit the bar, completing Belgium's last-gasp comeback.":
-    "Lukebakio击中横梁后，比利时获得VAR点球，Tielemans在120+5分钟罚进，完成压哨逆转。",
+    "卢克巴基奥击中横梁后，比利时获得VAR点球，蒂勒曼斯在120+5分钟罚进，完成压哨逆转。",
   "Portugal and DR Congo split the points": "葡萄牙与刚果民主共和国各取一分",
   "Raúl Rangel made a huge late double save.": "Raúl Rangel最后阶段完成关键连续两连扑。",
   "Switzerland 4-1 Bosnia and Herzegovina": "瑞士4-1波黑",
@@ -1446,6 +1487,8 @@ const ZH_PLAYER_NAME_TRANSLATIONS = {
   "Chris Richards": "克里斯·理查兹",
   "Dennis Hadzikadunic": "丹尼斯·哈季卡杜尼奇",
   "Dennis Hadžikadunić": "丹尼斯·哈季卡杜尼奇",
+  "Dodi Lukebakio": "多迪·卢克巴基奥",
+  "Dodi Lukébakio": "多迪·卢克巴基奥",
   "Edouard Mendy": "爱德华·门迪",
   "Édouard Mendy": "爱德华·门迪",
   "Elye Wahi": "埃利·瓦希",
@@ -1462,6 +1505,7 @@ const ZH_PLAYER_NAME_TRANSLATIONS = {
   "Guéla Doué": "盖拉·杜埃",
   "Guillermo Ochoa": "吉列尔莫·奥乔亚",
   "Habib Diarra": "哈比卜·迪亚拉",
+  "Hans Vanaken": "汉斯·瓦纳肯",
   "Herman Johansson": "赫尔曼·约翰松",
   "Hernan Galindez": "埃尔南·加林德斯",
   "Hernán Galíndez": "埃尔南·加林德斯",
@@ -1498,6 +1542,8 @@ const ZH_PLAYER_NAME_TRANSLATIONS = {
   "Leo Østigård": "莱奥·厄斯蒂高",
   "Luis Romo": "路易斯·罗莫",
   "Marcus Holmgren Pedersen": "马库斯·霍姆格伦·佩德森",
+  "Malik Tillman": "马利克·蒂尔曼",
+  "Matt Freese": "马特·弗里斯",
   "Matt Turner": "马特·特纳",
   "Mattias Svanberg": "马蒂亚斯·斯万贝里",
   "Maxim De Cuyper": "马克西姆·德屈佩尔",
@@ -2940,11 +2986,11 @@ const ZH_PATTERN_TRANSLATIONS = [
     replace: (_, favorite, chaser) => `${translateTextToZh(favorite)} 的FIFA排名更高，所以 ${translateTextToZh(chaser)} 只需要几个亮眼瞬间就能成为话题。`
   },
   {
-    pattern: /^⚽ (.+) and (.+) shared a 0-0 draw\.$/,
+    pattern: /^⚽ (.+?) and (.+) shared a 0-0 draw\.$/,
     replace: (_, home, away) => `⚽ ${translateTextToZh(home)} 和 ${translateTextToZh(away)} 0-0握手言和。`
   },
   {
-    pattern: /^⚽ (.+) and (.+) finished level at (.+)\.$/,
+    pattern: /^⚽ (.+?) and (.+) finished level at (.+)\.$/,
     replace: (_, home, away, score) => `⚽ ${translateTextToZh(home)} 和 ${translateTextToZh(away)} 以 ${score} 战平。`
   },
   {
@@ -3025,17 +3071,17 @@ const ZH_PATTERN_TRANSLATIONS = [
     replace: () => "🌟 双方都没能真正拉开差距。"
   },
   {
-    pattern: /^🌟 (.+) and (.+) carried the duel without a breakthrough\.$/,
+    pattern: /^🌟 (.+?) and (.+) carried the duel without a breakthrough\.$/,
     replace: (_, home, away) =>
       `🌟 ${translateTextToZh(home)}和${translateTextToZh(away)}都没能打出突破。`
   },
   {
-    pattern: /^🌟 (.+) and (.+) traded momentum without a winner\.$/,
+    pattern: /^🌟 (.+?) and (.+) traded momentum without a winner\.$/,
     replace: (_, home, away) =>
       `🌟 ${translateTextToZh(home)}和${translateTextToZh(away)}互有回应，但没有分出胜负。`
   },
   {
-    pattern: /^🌟 (.+) and (.+) cancelled each other out\.$/,
+    pattern: /^🌟 (.+?) and (.+) cancelled each other out\.$/,
     replace: (_, home, away) =>
       `🌟 ${translateTextToZh(home)}和${translateTextToZh(away)}彼此抵消。`
   },
@@ -3246,9 +3292,18 @@ const ZH_PATTERN_TRANSLATIONS = [
     replace: (_, scorer, team) => `${translateTextToZh(scorer)}完成最后进球，${translateTextToZh(team)}拉开差距。`
   },
   {
-    pattern: /^(.+) assisted (.+) as (.+) pulled away\.$/,
-    replace: (_, creator, scorers, team) =>
-      `${translateTextToZh(creator)}助攻${translateTextToZh(scorers)}破门，${translateTextToZh(team)}拉开差距。`
+    pattern: /^(.+) assisted (.+?)(?: (twice|three times|\d+ times))? as (.+) pulled away\.$/,
+    replace: (_, creator, scorers, countText, team) => {
+      const countLabel =
+        countText === "twice"
+          ? "两次"
+          : countText === "three times"
+            ? "三次"
+            : countText
+              ? `${countText.replace(" times", "")}次`
+              : "";
+      return `${translateTextToZh(creator)}${countLabel ? `${countLabel}助攻` : "助攻"}${translateTextToZh(scorers)}破门，${translateTextToZh(team)}拉开差距。`;
+    }
   },
   {
     pattern: /^(.+) scored (twice|three times|\d+ times) as (.+) kept widening the gap\.$/,
@@ -3308,7 +3363,7 @@ const ZH_PATTERN_TRANSLATIONS = [
     replace: (_, team) => `${translateTextToZh(team)}稳住结果，没有让比赛再出现最后转折。`
   },
   {
-    pattern: /^(.+) and (.+) traded pressure without finding a goal\.$/,
+    pattern: /^(.+?) and (.+) traded pressure without finding a goal\.$/,
     replace: (_, home, away) =>
       `${translateTextToZh(home)}和${translateTextToZh(away)}互相施压，但都没有进球。`
   },
@@ -3317,11 +3372,11 @@ const ZH_PATTERN_TRANSLATIONS = [
     replace: () => "双方防守都封住了得分通道，直到终场。"
   },
   {
-    pattern: /^(.+) and (.+) stayed locked together until the final whistle\.$/,
+    pattern: /^(.+?) and (.+) stayed locked together until the final whistle\.$/,
     replace: (_, home, away) => `${translateTextToZh(home)}和${translateTextToZh(away)}一直胶着到终场哨响。`
   },
   {
-    pattern: /^(.+) and (.+) kept trading momentum instead of pulling clear\.$/,
+    pattern: /^(.+?) and (.+) kept trading momentum instead of pulling clear\.$/,
     replace: (_, home, away) => `${translateTextToZh(home)}和${translateTextToZh(away)}轮流掌握势头，却没人拉开差距。`
   },
   {
@@ -3338,7 +3393,7 @@ const ZH_PATTERN_TRANSLATIONS = [
     replace: (_, minute) => `${minute}的乌龙球最终把比赛拖入点球大战。`
   },
   {
-    pattern: /^(.+) and (.+) stayed scoreless until penalties\.$/,
+    pattern: /^(.+?) and (.+) stayed scoreless until penalties\.$/,
     replace: (_, home, away) =>
       `${translateTextToZh(home)}和${translateTextToZh(away)}一直到点球大战前都没有进球。`
   },
@@ -3493,15 +3548,15 @@ const ZH_PATTERN_TRANSLATIONS = [
     replace: (_, winner, loser, score) => `${translateTextToZh(winner)} 以 ${score} 领先 ${translateTextToZh(loser)}。`
   },
   {
-    pattern: /^(.+) and (.+) drew (\d+-\d+)\.$/,
+    pattern: /^(.+?) and (.+) drew (\d+-\d+)\.$/,
     replace: (_, home, away, score) => `${translateTextToZh(home)} 和 ${translateTextToZh(away)} 以 ${score} 战平。`
   },
   {
-    pattern: /^(.+) and (.+) tied (\d+-\d+)\.$/,
+    pattern: /^(.+?) and (.+) tied (\d+-\d+)\.$/,
     replace: (_, home, away, score) => `${translateTextToZh(home)} 和 ${translateTextToZh(away)} 以 ${score} 战平。`
   },
   {
-    pattern: /^(.+) and (.+) are level (\d+-\d+)\.$/,
+    pattern: /^(.+?) and (.+) are level (\d+-\d+)\.$/,
     replace: (_, home, away, score) => `${translateTextToZh(home)} 和 ${translateTextToZh(away)} 以 ${score} 战平。`
   },
   {
@@ -4516,27 +4571,64 @@ function translateTextToZh(value) {
 
   const exactTranslation = ZH_EXACT_TRANSLATIONS.get(compactText);
   if (exactTranslation) {
-    return `${leadingWhitespace}${exactTranslation}${trailingWhitespace}`;
+    return formatZhTranslationOutput(exactTranslation, leadingWhitespace, trailingWhitespace);
   }
 
   const routeLabelTranslation = translateGeneratedRouteLabelToZh(compactText);
   if (routeLabelTranslation) {
-    return `${leadingWhitespace}${routeLabelTranslation}${trailingWhitespace}`;
+    return formatZhTranslationOutput(routeLabelTranslation, leadingWhitespace, trailingWhitespace);
   }
 
   const longFormTranslation = translateGeneratedLongFormTextToZh(compactText);
   if (longFormTranslation && longFormTranslation !== compactText) {
-    return `${leadingWhitespace}${longFormTranslation}${trailingWhitespace}`;
+    return formatZhTranslationOutput(longFormTranslation, leadingWhitespace, trailingWhitespace);
   }
 
   for (const { pattern, replace } of ZH_PATTERN_TRANSLATIONS) {
     if (pattern.test(compactText)) {
       pattern.lastIndex = 0;
-      return `${leadingWhitespace}${compactText.replace(pattern, replace)}${trailingWhitespace}`;
+      return formatZhTranslationOutput(compactText.replace(pattern, replace), leadingWhitespace, trailingWhitespace);
     }
   }
 
+  const entityTranslation = translateEnglishEntityTextToZh(compactText);
+  if (entityTranslation && entityTranslation !== compactText) {
+    return formatZhTranslationOutput(entityTranslation, leadingWhitespace, trailingWhitespace);
+  }
+
   return text;
+}
+
+function translateEnglishEntityTextToZh(value) {
+  const text = String(value || "").trim().replace(/\s+/g, " ");
+  if (!text || text.length > 80 || !/\p{Script=Latin}/u.test(text)) {
+    return "";
+  }
+
+  if (isEnglishNameSeriesPart(text)) {
+    const translated = translateEntityNameToZh(text);
+    return translated && translated !== text && !/\p{Script=Latin}/u.test(translated) ? translated : "";
+  }
+
+  const directEntityTranslation =
+    ZH_EXACT_TRANSLATIONS.get(text) ||
+    ZH_ADDITIONAL_EXACT_TRANSLATIONS[text] ||
+    getZhNormalizedEntityTranslations().get(normalizeTextKey(text));
+  if (
+    directEntityTranslation &&
+    directEntityTranslation !== text &&
+    !/\p{Script=Latin}/u.test(directEntityTranslation)
+  ) {
+    return directEntityTranslation;
+  }
+
+  const series = splitEnglishNameSeries(text);
+  if (series.length > 1 && series.every(isEnglishNameSeriesPart)) {
+    const translated = translateNameSeriesToZh(text);
+    return translated && !/\p{Script=Latin}/u.test(translated) ? translated : "";
+  }
+
+  return "";
 }
 
 function formatZhPointCount(value) {
@@ -4623,7 +4715,80 @@ function replaceKnownLocalizedEntities(value, translationMap) {
       (output, [source, translation]) =>
         output.replace(new RegExp(escapeRegExp(source), "g"), translation),
       text
+	    );
+}
+
+let zhInlineEntityTranslations = null;
+
+function addZhInlineEntityTranslation(entries, source, translation) {
+  const alias = String(source || "").trim().replace(/\s+/g, " ");
+  const text = String(translation || "").trim();
+  const normalizedKey = normalizeTextKey(alias);
+  const key = alias.toLocaleLowerCase("en-US");
+
+  if (!alias || !text || !normalizedKey || !key || /\p{Script=Latin}/u.test(text) || entries.has(key)) {
+    return;
+  }
+
+  entries.set(key, { source: alias, translation: text });
+}
+
+function addZhInlineNameTranslation(entries, source, translation) {
+  addZhInlineEntityTranslation(entries, source, translation);
+
+  const sourceParts = String(source || "").split(/\s+/).filter(Boolean);
+  const translationParts = String(translation || "").split("·").filter(Boolean);
+  if (sourceParts.length <= 1 || !translationParts.length) {
+    return;
+  }
+
+  addZhInlineEntityTranslation(entries, sourceParts.at(-1), translationParts.at(-1));
+}
+
+function getZhInlineEntityTranslations() {
+  if (zhInlineEntityTranslations) {
+    return zhInlineEntityTranslations;
+  }
+
+  const entries = new Map();
+  [ZH_PLAYER_NAME_TRANSLATIONS, ZH_HISTORICAL_SCORER_TRANSLATIONS].forEach((translationMap) => {
+    Object.entries(translationMap).forEach(([source, translation]) => {
+      addZhInlineNameTranslation(entries, source, translation);
+    });
+  });
+
+  [ZH_CLUB_NAME_TRANSLATIONS, ZH_LEAGUE_NAME_TRANSLATIONS, ZH_SOURCE_LABEL_TRANSLATIONS].forEach(
+    (translationMap) => {
+      Object.entries(translationMap).forEach(([source, translation]) => {
+        addZhInlineEntityTranslation(entries, source, translation);
+      });
+    }
+  );
+
+  zhInlineEntityTranslations = [...entries.values()].sort((a, b) => b.source.length - a.source.length);
+  return zhInlineEntityTranslations;
+}
+
+function replaceKnownZhInlineEntities(value) {
+  let output = String(value ?? "");
+
+  if (!/\p{Script=Latin}/u.test(output)) {
+    return output;
+  }
+
+  for (const { source, translation } of getZhInlineEntityTranslations()) {
+    const pattern = new RegExp(
+      `(^|[^\\p{Script=Latin}])(${escapeRegExp(source)})(?=$|[^\\p{Script=Latin}])`,
+      "gu"
     );
+    output = output.replace(pattern, (_, prefix) => `${prefix}${translation}`);
+  }
+
+  return output;
+}
+
+function formatZhTranslationOutput(value, leadingWhitespace, trailingWhitespace) {
+  return `${leadingWhitespace}${replaceKnownZhInlineEntities(value)}${trailingWhitespace}`;
 }
 
 function localizeKnownPlayerNames(value) {
@@ -5793,7 +5958,7 @@ function isEnglishNameSeriesPart(value) {
   }
 
   return tokens.every((token) =>
-    /^(?:[A-ZÀ-ÖØ-Þ][A-Za-zÀ-ÖØ-öø-ÿ.'-]*|al|bin|da|de|del|der|di|dos|el|la|le|van|von)$/.test(token)
+    /^(?:\p{Lu}[\p{Letter}.'-]*|al|bin|da|de|del|der|di|dos|el|la|le|van|von)$/u.test(token)
   );
 }
 
@@ -9275,6 +9440,10 @@ function getMatchState(match, nextMatchIds, currentTime) {
     return "complete";
   }
 
+  if (match.status === "DELAYED") {
+    return "delayed";
+  }
+
   if (isMatchLive(match, currentTime)) {
     return "live";
   }
@@ -9323,7 +9492,7 @@ function getNextMatchIds(currentTime, liveMatchIds) {
       ({ kickoffTime, match }) =>
         Number.isFinite(kickoffTime) &&
         kickoffTime > currentTime &&
-        match.status !== "FT"
+        match.status === "SCHEDULED"
     )
     .sort((a, b) => a.kickoffTime - b.kickoffTime);
   const nextKickoffTime = upcomingMatches[0]?.kickoffTime;
@@ -9344,7 +9513,13 @@ function getGlobalNextMatchIds(currentTime = Date.now()) {
 }
 
 function shouldShowScorePending(match, state, currentTime) {
-  if (match.score || !match.kickoffUtc || match.status === "CANCELLED" || match.status === "POSTPONED") {
+  if (
+    match.score ||
+    !match.kickoffUtc ||
+    match.status === "CANCELLED" ||
+    match.status === "POSTPONED" ||
+    match.status === "DELAYED"
+  ) {
     return false;
   }
 
@@ -9361,6 +9536,7 @@ function getScorePendingText(match, state, currentTime) {
     !match.score &&
     match.status !== "CANCELLED" &&
     match.status !== "POSTPONED" &&
+    match.status !== "DELAYED" &&
     (match.status === "LIVE" || state === "live")
   ) {
     return localizeText("Pending");
@@ -9437,13 +9613,64 @@ function normalizeOfficialMatchTime(value) {
 
 function normalizeOfficialMatchPhase(value) {
   const key = normalizeTextKey(value);
-  return /\b(?:ht|half time|halftime|interval)\b/.test(key) ? "Half-time" : "";
+  const compactKey = key.replace(/\s+/g, "");
+  if (!key) {
+    return "";
+  }
+
+  if (/\b(?:susp|suspended)\b/.test(key) || compactKey === "susp") {
+    return "Suspended";
+  }
+
+  if (/\b(?:int|interrupted)\b/.test(key) || compactKey === "int") {
+    return "Interrupted";
+  }
+
+  if (
+    /\b(?:p|pen|pens)\b/.test(key) ||
+    /\b(?:penalty|penalties|shootout)\b/.test(key) ||
+    ["p", "pen", "pens"].includes(compactKey)
+  ) {
+    return "Penalty shootout";
+  }
+
+  if (/\b(?:ht|half time|halftime|interval|intermission)\b/.test(key) || compactKey === "ht") {
+    return "Half-time";
+  }
+
+  if (/\b(?:bt|break)\b/.test(key) || compactKey === "bt") {
+    return "Break";
+  }
+
+  if (/\b(?:et|extra time|extratime)\b/.test(key) || compactKey === "et") {
+    return "Extra time";
+  }
+
+  if (/\b(?:2h|2nd half|second half)\b/.test(key) || compactKey === "2h") {
+    return "Second half";
+  }
+
+  if (/\b(?:1h|1st half|first half)\b/.test(key) || compactKey === "1h") {
+    return "First half";
+  }
+
+  return "";
+}
+
+function shouldPreferOfficialMatchPhase(phase) {
+  return ["Half-time", "Penalty shootout", "Suspended", "Interrupted", "Break"].includes(phase);
 }
 
 function getOfficialMatchSnapshotLabel(match) {
   const matchTime = normalizeOfficialMatchTime(match?.officialMatchTime);
-  const matchPhase = localizeText(normalizeOfficialMatchPhase(match?.officialMatchPhase));
-  return matchPhase || matchTime;
+  const matchPhase =
+    normalizeOfficialMatchPhase(match?.officialMatchPhase) ||
+    normalizeOfficialMatchPhase(match?.officialMatchTime);
+  if (matchPhase && (!matchTime || shouldPreferOfficialMatchPhase(matchPhase))) {
+    return localizeText(matchPhase);
+  }
+
+  return matchTime || localizeText(matchPhase);
 }
 
 function getOfficialMatchSnapshotFreshness(match) {
@@ -9558,10 +9785,15 @@ function renderScoreStatus(match, state, currentTime) {
 
 function getLivePillAttributes(match, options = {}) {
   const tooltip = getOfficialMatchTimeSnapshotTooltip(match);
+  const positionLabel = getOfficialMatchSnapshotLabel(match);
   const ariaLabel = tooltip
     ? currentLanguage === "zh"
       ? `直播：${tooltip}`
       : `Live: ${tooltip}`
+    : positionLabel
+      ? currentLanguage === "zh"
+        ? `直播：${positionLabel}`
+        : `Live: ${positionLabel}`
     : localizeText("Live");
   const interactionAttributes = tooltip && options.focusable !== false ? ` role="button" tabindex="0"` : "";
   const tooltipAttributes = tooltip
@@ -9570,13 +9802,33 @@ function getLivePillAttributes(match, options = {}) {
   return `aria-label="${escapeHtml(ariaLabel)}"${tooltipAttributes}`;
 }
 
+function getLivePillVisibleLabel(match) {
+  return getOfficialMatchSnapshotLabel(match) || localizeText("Live");
+}
+
 function renderLivePill(options = {}) {
-  const className = ["live-pill", options.className || ""].filter(Boolean).join(" ");
-  return `<span class="${escapeHtml(className)}" ${getLivePillAttributes(options.match, { focusable: options.focusable })}>${escapeHtml(localizeText("Live"))}</span>`;
+  const positionLabel = getOfficialMatchSnapshotLabel(options.match);
+  const className = [
+    "live-pill",
+    positionLabel ? "has-match-position" : "",
+    options.className || ""
+  ]
+    .filter(Boolean)
+    .join(" ");
+  return `<span class="${escapeHtml(className)}" ${getLivePillAttributes(options.match, { focusable: options.focusable })}>${escapeHtml(getLivePillVisibleLabel(options.match))}</span>`;
 }
 
 function renderTournamentLivePill(match) {
-  return `<span class="tournament-live-pill" ${getLivePillAttributes(match)}>${escapeHtml(localizeText("Live"))}</span>`;
+  const positionLabel = getOfficialMatchSnapshotLabel(match);
+  const className = ["tournament-live-pill", positionLabel ? "has-match-position" : ""]
+    .filter(Boolean)
+    .join(" ");
+  return `<span class="${escapeHtml(className)}" ${getLivePillAttributes(match)}>${escapeHtml(getLivePillVisibleLabel(match))}</span>`;
+}
+
+function renderDelayedPill(className = "delayed-pill") {
+  const label = localizeText("Delayed");
+  return `<span class="${escapeHtml(className)}" aria-label="${escapeHtml(label)}">${escapeHtml(label)}</span>`;
 }
 
 function getMatchDateTimeValue(match) {
@@ -9594,6 +9846,14 @@ function getMatchTimeLabel(match) {
 
   if (match.status === "CANCELLED") {
     return localizeText("Canceled");
+  }
+
+  if (match.status === "POSTPONED") {
+    return localizeText("Postponed");
+  }
+
+  if (match.status === "DELAYED") {
+    return localizeText("Delayed");
   }
 
   return match.status === "FT" ? "" : localizeText("Final");
@@ -9682,14 +9942,27 @@ function renderMatchRow(match, state, currentTime = Date.now(), options = {}) {
   const displayScore = getDisplayScore(match, state);
   const winnerSide = getMatchScoreOutcomeSide(match, displayScore);
   const stateLabel =
-    state === "live" ? `${localizeText("Live")}, ` : state === "next" ? `${localizeText("Up next")}, ` : "";
-  const statusLabel = match.status === "CANCELLED" ? `, ${localizeText("cancelled")}` : "";
+    state === "live"
+      ? `${localizeText("Live")}, `
+      : state === "next"
+        ? `${localizeText("Up next")}, `
+        : state === "delayed"
+          ? `${localizeText("Delayed")}, `
+          : "";
+  const statusLabel =
+    match.status === "CANCELLED"
+      ? `, ${localizeText("cancelled")}`
+      : match.status === "POSTPONED"
+        ? `, ${localizeText("postponed")}`
+        : "";
   const scoreStatus = renderScoreStatus(match, state, currentTime);
   const stateBadge =
     state === "live"
       ? renderLivePill({ match })
       : state === "next"
         ? `<span class="up-next-pill">${escapeHtml(localizeText("Up next"))}</span>`
+        : state === "delayed"
+          ? renderDelayedPill()
         : "";
   const score = renderScore(match, state, options);
   const rowMeta = `${stateBadge}${scoreStatus}${score}`;
@@ -13005,6 +13278,7 @@ function renderTournamentMatchCard(match, context, options = {}) {
   const isComplete = match.status === "FT" ? !isPenaltyFinalWithoutKnownWinner : Boolean(winner);
   const isLive = isMatchLive(match, options.currentTime ?? Date.now());
   const isNext = Boolean(options.nextMatchIds?.has(match.id));
+  const isDelayed = match.status === "DELAYED";
   const nextMatchNumber = getTournamentNextMatchNumber(match.matchNumber);
   const runnerUpNextMatchNumber = getTournamentRunnerUpNextMatchNumber(match.matchNumber);
   const resultText =
@@ -13030,6 +13304,7 @@ function renderTournamentMatchCard(match, context, options = {}) {
     options.className || "progress-match",
     isComplete ? "is-complete" : "",
     isNext ? "is-next" : "",
+    isDelayed ? "is-delayed" : "",
     isProjected ? "is-projected" : "",
     isLocked ? "is-openable" : ""
   ]
@@ -13051,13 +13326,15 @@ function renderTournamentMatchCard(match, context, options = {}) {
     : "";
   const statusBadgeHtml = isLive
     ? renderTournamentLivePill(match)
-    : isNext
-      ? `<span class="tournament-up-next-pill" aria-label="${escapeHtml(localizeText("Up next"))}">${escapeHtml(localizeText("Up next"))}</span>`
-      : "";
+    : isDelayed
+      ? renderDelayedPill("tournament-delayed-pill")
+      : isNext
+        ? `<span class="tournament-up-next-pill" aria-label="${escapeHtml(localizeText("Up next"))}">${escapeHtml(localizeText("Up next"))}</span>`
+        : "";
 
   return `
     <article class="${escapeHtml(cardClasses)}" data-match-number="${escapeHtml(match.matchNumber)}"${roundIdAttribute}${roundIndexAttribute}${matchIndexAttribute}${nextMatchNumber ? ` data-next-match="${escapeHtml(nextMatchNumber)}"` : ""}${runnerUpNextMatchNumber ? ` data-runner-up-next-match="${escapeHtml(runnerUpNextMatchNumber)}"` : ""}${winner ? ` data-winner-team-id="${escapeHtml(winner.id)}"` : ""}${openMatchAttributes}${styleText}>
-      <header class="knockout-match-header${statusBadgeHtml ? " has-status-badge" : ""}${isNext ? " has-up-next" : ""}${isLive ? " has-live" : ""}">
+      <header class="knockout-match-header${statusBadgeHtml ? " has-status-badge" : ""}${isNext ? " has-up-next" : ""}${isLive ? " has-live" : ""}${isDelayed ? " has-delayed" : ""}">
         <span class="knockout-match-meta">
           <time datetime="${escapeHtml(match.kickoffUtc || "")}">${escapeHtml(getTournamentMatchDateLabel(match))}</time>
           ${venueLabel ? `<span class="knockout-match-venue"${venueTooltip ? ` aria-label="${escapeHtml(venueTooltip)}" data-tooltip="${escapeHtml(venueTooltip)}" tabindex="0"` : ""}>${escapeHtml(venueLabel)}</span>` : ""}
@@ -14385,16 +14662,14 @@ function getProjectionMethodHelp(projection) {
 function renderPredictionHeading(projection) {
   const help = getProjectionMethodHelp(projection);
   const localizedHelp = help ? localizeText(help) : "";
-  const helpWithDisclaimer = appendInfoCardDisclaimer(localizedHelp);
   const ariaHelp = localizedHelp ? localizeText(`Prediction source: ${help}`) : "";
-  const ariaHelpWithDisclaimer = ariaHelp ? appendInfoCardDisclaimer(ariaHelp) : "";
 
   return `
     <h3 class="info-heading">
       <span>${escapeHtml(localizeText("Prediction"))}</span>
       ${
         localizedHelp
-          ? `<button class="info-tooltip-button" type="button" aria-label="${escapeHtml(ariaHelpWithDisclaimer)}" data-tooltip="${escapeHtml(helpWithDisclaimer)}">i</button>`
+          ? `<button class="info-tooltip-button" type="button" aria-label="${escapeHtml(ariaHelp)}" data-tooltip="${escapeHtml(localizedHelp)}">i</button>`
           : ""
       }
     </h3>
@@ -14573,6 +14848,17 @@ function renderLiveScoreSummary(match) {
 
   const scoreText = getMatchVisibleScoreText(match, score);
   return `<p class="result-score-summary"><span class="live-scoreline">${escapeHtml(scoreText)}</span></p>`;
+}
+
+function renderLiveScoreHeading(match) {
+  const headingText = localizeText("Live score");
+  const positionLabel = getOfficialMatchSnapshotLabel(match);
+  const ariaLabel = positionLabel ? ` aria-label="${escapeHtml(`${headingText}, ${positionLabel}`)}"` : "";
+  const positionBadge = positionLabel
+    ? ` <span class="live-position-badge">${escapeHtml(positionLabel)}</span>`
+    : "";
+
+  return `<h3 class="live-score-heading"${ariaLabel}><span>${escapeHtml(headingText)}</span>${positionBadge}</h3>`;
 }
 
 function getResultHighlights(match) {
@@ -16850,7 +17136,7 @@ function normalizeLineupCoach(coach, teamId) {
     ...(!coach.sourceUrl && coachProfile?.sourceUrl ? { sourceUrl: coachProfile.sourceUrl } : {}),
     teamId,
     teamName: coach.teamName || curatedCoach.teamName || team?.name || teamId,
-    nameZh: coach.nameZh || curatedCoach.nameZh,
+    nameZh: coach.nameZh || curatedCoach.nameZh || coachProfile?.nameZh || coachProfile?.displayNameZh,
     sinceYear: coach.sinceYear || curatedCoach.sinceYear,
     note: coach.note || curatedCoach.note,
     history: coach.history || curatedCoach.history
@@ -17032,7 +17318,7 @@ function getLineupModeForMatch(match, mode) {
   if (normalizedMode === "past") {
     return "final";
   }
-  if (match?.status === "SCHEDULED") {
+  if (match?.status === "SCHEDULED" || match?.status === "DELAYED") {
     return "prediction";
   }
   if (match?.status === "FT") {
@@ -18364,6 +18650,15 @@ function renderFinishedMatchResultBlock(match) {
   `;
 }
 
+function renderDelayedMatchStatusBlock() {
+  return `
+    <section class="info-block match-delay-block has-section-divider">
+      <h3>${escapeHtml(localizeText("Kickoff delayed"))}</h3>
+      <p class="data-note">${escapeHtml(localizeText("Official feed has not marked this match live yet."))}</p>
+    </section>
+  `;
+}
+
 function renderMatchStatusBlock(match) {
   if (match.status === "FT") {
     return `
@@ -18375,11 +18670,19 @@ function renderMatchStatusBlock(match) {
   if (match.status === "LIVE") {
     return `
       <section class="info-block match-live-block has-section-divider">
-        <h3>${escapeHtml(localizeText("Live score"))}</h3>
+        ${renderLiveScoreHeading(match)}
         ${renderLiveScoreSummary(match)}
         ${renderScoringDetailsList(match, { showMissingWhenGoalsScored: true })}
         ${renderLiveScoreSourceNote(match)}
       </section>
+      ${renderPredictionBlock(match)}
+      ${renderLineupVisualPrototype(match)}
+    `;
+  }
+
+  if (match.status === "DELAYED") {
+    return `
+      ${renderDelayedMatchStatusBlock()}
       ${renderPredictionBlock(match)}
       ${renderLineupVisualPrototype(match)}
     `;
@@ -20756,6 +21059,14 @@ function renderKnockoutSourceMatchSummary(match, context) {
     return `${matchup} is live at ${scoreText}.`;
   }
 
+  if (match.status === "DELAYED") {
+    if (currentLanguage === "zh") {
+      return `${matchup} 开球延迟。`;
+    }
+
+    return `${matchup} is delayed.`;
+  }
+
   if (isKnockoutMatchupPredicted(match, context)) {
     if (currentLanguage === "zh") {
       return `${matchup} 是当前预测。`;
@@ -22644,7 +22955,8 @@ function renderMatchInfo(match, options = {}) {
   const displayMatch = getDisplayMatch(match, displayTeams);
   const matchContextMarkup = renderMatchContext(match, tournamentContext);
   const matchStatusMarkup = renderMatchStatusBlock(displayMatch);
-  const shouldShowStatusBeforeContext = displayMatch.status === "LIVE" || displayMatch.status === "FT";
+  const shouldShowStatusBeforeContext =
+    displayMatch.status === "LIVE" || displayMatch.status === "FT" || displayMatch.status === "DELAYED";
 
   matchInfo.innerHTML = `
     <section class="info-block match-summary">
@@ -22781,6 +23093,10 @@ function getMatchesForSelectedDay() {
 
 function isPastMatchPreviewReady(match, currentTime) {
   if (isMatchLive(match, currentTime)) {
+    return false;
+  }
+
+  if (match.status === "DELAYED") {
     return false;
   }
 
@@ -23186,6 +23502,10 @@ function getTeamSearchMatchedSide(match, team) {
 function isCurrentTournamentPastSearchMatch(match, currentTime) {
   if (match.status === "FT") {
     return true;
+  }
+
+  if (match.status === "DELAYED") {
+    return false;
   }
 
   const kickoffTime = match.kickoffUtc ? new Date(match.kickoffUtc).getTime() : NaN;
@@ -24464,7 +24784,9 @@ function readUrlState(options = {}) {
   const requestedStandingsMode = params.get("standingsMode") || params.get("standings");
   const nextActiveView = requestedView === "standings" ? "standings" : "matches";
   const requestedMatch =
-    nextActiveView === "matches" && !requestedTeam ? getFixtureById(requestedMatchId) : null;
+    !options.forceToday && nextActiveView === "matches" && !requestedTeam
+      ? getFixtureById(requestedMatchId)
+      : null;
   const shouldUseRequestedDate = !options.forceToday && isDayKey(requestedDate);
   const shouldUseUrlDefaults = options.useUrlDefaults === true;
 
@@ -24707,7 +25029,7 @@ function mergeFixtureLineups(fixturesData, nextLineupData = lineupData, nextExpe
     const liveLineup = fixture.lineups;
     const isCompletedFixture = ["FT", "AET", "PEN"].includes(fixture.status);
     const expectedLineupRecord = expectedLineupsByFixtureId.get(fixture.id);
-    const expectedLineup = fixture.status === "SCHEDULED" && !liveLineup && !staticLineup && expectedLineupRecord?.lineup
+    const expectedLineup = ["SCHEDULED", "DELAYED"].includes(fixture.status) && !liveLineup && !staticLineup && expectedLineupRecord?.lineup
       ? {
           ...expectedLineupRecord.lineup,
           mode: expectedLineupRecord.mode,

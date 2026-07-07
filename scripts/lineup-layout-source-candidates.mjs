@@ -664,6 +664,74 @@ export const TRUSTED_SOURCE_CANDIDATES_BY_FIXTURE = {
       url: "https://www.espn.com/soccer/match/_/gameId/760498"
     },
   ],
+  "match-86-round-of-32-2026-07-03": [
+    {
+      name: "ESPN",
+      adapter: "espn",
+      url: "https://www.espn.com/soccer/match/_/gameId/760500/cape-verde-argentina"
+    },
+    {
+      name: "FotMob",
+      adapter: "fotmob",
+      url: "https://www.fotmob.com/matches/cape-verde-vs-argentina/1b81pp"
+    },
+  ],
+  "match-87-round-of-32-2026-07-03": [
+    {
+      name: "ESPN",
+      adapter: "espn",
+      url: "https://www.espn.com/soccer/match/_/gameId/760501/ghana-colombia"
+    },
+  ],
+  "match-88-round-of-32-2026-07-03": [
+    {
+      name: "ESPN",
+      adapter: "espn",
+      url: "https://www.espn.com/soccer/match/_/gameId/760499/egypt-australia"
+    },
+  ],
+  "match-89-round-of-16-2026-07-04": [
+    {
+      name: "ESPN",
+      adapter: "espn",
+      url: "https://www.espn.com/soccer/match/_/gameId/760503/france-paraguay"
+    },
+  ],
+  "match-90-round-of-16-2026-07-04": [
+    {
+      name: "ESPN",
+      adapter: "espn",
+      url: "https://www.espn.com/soccer/match/_/gameId/760502/morocco-canada"
+    },
+  ],
+  "match-91-round-of-16-2026-07-05": [
+    {
+      name: "ESPN",
+      adapter: "espn",
+      url: "https://www.espn.com/soccer/match/_/gameId/760504"
+    },
+  ],
+  "match-92-round-of-16-2026-07-05": [
+    {
+      name: "ESPN",
+      adapter: "espn",
+      url: "https://www.espn.com/soccer/match/_/gameId/760505/england-mexico"
+    },
+  ],
+  "match-93-round-of-16-2026-07-06": [
+    {
+      name: "ESPN",
+      adapter: "espn",
+      url: "https://www.espn.com/soccer/match/_/gameId/760506/spain-portugal"
+    },
+  ],
+  "match-94-round-of-16-2026-07-06": [
+    {
+      name: "ESPN",
+      adapter: "espn",
+      url: "https://www.espn.com/soccer/match/_/gameId/760507/belgium-united-states"
+    },
+  ],
 };
 
 export function getSourceCandidatesForFixture(fixtureId) {

@@ -1606,6 +1606,7 @@ h1 {
 }
 
 .yesterday-match-meta .live-pill,
+.yesterday-match-meta .delayed-pill,
 .yesterday-match-meta .match-score,
 .yesterday-match-meta .score-status {
   height: 22px;
@@ -1770,6 +1771,7 @@ h1 {
 
 .live-pill,
 .up-next-pill,
+.delayed-pill,
 .match-score,
 .score-status {
   display: inline-flex;
@@ -1790,6 +1792,11 @@ h1 {
   background: #ff3b30;
   text-decoration: none;
   text-transform: uppercase;
+}
+
+.live-pill.has-match-position,
+.tournament-live-pill.has-match-position {
+  text-transform: none;
 }
 
 .live-pill[data-tooltip],
@@ -1839,6 +1846,12 @@ h1 {
   background: #0a0a0a;
 }
 
+.delayed-pill {
+  border: 1px solid rgba(120, 92, 0, 0.22);
+  background: #f7e8a4;
+  color: #4a3b00;
+}
+
 .match-score {
   background: #0a0a0a;
   color: #ffffff;
@@ -1873,6 +1886,7 @@ h1 {
 .match-row.is-idle,
 .match-row.is-next,
 .match-row.is-live,
+.match-row.is-delayed,
 .match-row.is-complete {
   opacity: 1;
 }
@@ -1985,6 +1999,7 @@ h1 {
   }
 }
 
+.delayed-pill,
 .match-score,
 .score-status {
   transform: translateY(1px);
@@ -4550,7 +4565,8 @@ h1 {
 }
 
 .tournament-up-next-pill,
-.tournament-live-pill {
+.tournament-live-pill,
+.tournament-delayed-pill {
   position: relative;
   display: inline-flex;
   align-items: center;
@@ -4572,6 +4588,12 @@ h1 {
   background: #ff3b30;
   text-decoration: none;
   text-transform: uppercase;
+}
+
+.tournament-delayed-pill {
+  border: 1px solid rgba(120, 92, 0, 0.22);
+  background: #f7e8a4;
+  color: #4a3b00;
 }
 
 .knockout-likelihood .flag,
@@ -5299,6 +5321,25 @@ h1 {
 .live-scoreline {
   font-size: inherit;
   font-weight: 650;
+}
+
+.live-score-heading {
+  align-items: center;
+}
+
+.live-position-badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 18px;
+  padding: 0 7px;
+  border-radius: 999px;
+  background: #ff3b30;
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 750;
+  letter-spacing: 0;
+  line-height: 1;
+  white-space: nowrap;
 }
 
 .result-notes {
@@ -8013,6 +8054,7 @@ button.lineup-event-sub,
 
   .live-pill,
   .up-next-pill,
+  .delayed-pill,
   .match-score,
   .score-status {
     height: 28px;
@@ -8366,6 +8408,7 @@ button.lineup-event-sub,
 
   .live-pill,
   .up-next-pill,
+  .delayed-pill,
   .match-score,
   .score-status {
     height: 22px;
@@ -8414,6 +8457,7 @@ button.lineup-event-sub,
   }
 
   .yesterday-match-meta .live-pill,
+  .yesterday-match-meta .delayed-pill,
   .yesterday-match-meta .match-score,
   .yesterday-match-meta .score-status {
     min-width: 29px;
@@ -8421,7 +8465,8 @@ button.lineup-event-sub,
   }
 
   .tournament-up-next-pill,
-  .tournament-live-pill {
+  .tournament-live-pill,
+  .tournament-delayed-pill {
     height: 20px;
     padding-inline: 7px;
     font-size: 9px;
@@ -8655,6 +8700,7 @@ button.lineup-event-sub,
 
   .live-pill,
   .up-next-pill,
+  .delayed-pill,
   .match-score,
   .score-status {
     height: 22px;
@@ -8734,6 +8780,7 @@ button.lineup-event-sub,
 
   .live-pill,
   .up-next-pill,
+  .delayed-pill,
   .match-score,
   .score-status {
     height: 20px;
@@ -8746,7 +8793,8 @@ button.lineup-event-sub,
   }
 
   .tournament-up-next-pill,
-  .tournament-live-pill {
+  .tournament-live-pill,
+  .tournament-delayed-pill {
     height: 19px;
     padding-inline: 6px;
     font-size: 8px;

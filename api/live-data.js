@@ -1157,6 +1157,10 @@ function getProviderStatus(providerFixture, providerKey) {
       return "LIVE";
     }
 
+    if (/delay/.test(statusText)) {
+      return "DELAYED";
+    }
+
     if (statusCode === 1 || !score) {
       return "SCHEDULED";
     }
@@ -1173,6 +1177,10 @@ function getProviderStatus(providerFixture, providerKey) {
 
     if (status === "POSTPONED") {
       return "POSTPONED";
+    }
+
+    if (status === "DELAYED") {
+      return "DELAYED";
     }
 
     if (["FINISHED", "AWARDED"].includes(status)) {
@@ -1195,6 +1203,10 @@ function getProviderStatus(providerFixture, providerKey) {
 
     if (status === "PST") {
       return "POSTPONED";
+    }
+
+    if (status === "DEL") {
+      return "DELAYED";
     }
 
     if (["FT", "AET", "PEN"].includes(status)) {
@@ -1234,6 +1246,10 @@ function getProviderStatus(providerFixture, providerKey) {
 
   if (/live|in play|1st|2nd|half|break|extra time|penalt/.test(text)) {
     return "LIVE";
+  }
+
+  if (/delay/.test(text)) {
+    return "DELAYED";
   }
 
   return "SCHEDULED";
@@ -1336,24 +1352,75 @@ function getFifaMatchTime(match) {
   return "";
 }
 
-function getFifaMatchPhase(match) {
-  const statusText = normalizeKey(
-    [
-      description(match?.MatchStatusName),
-      match?.Status,
-      match?.MatchStatusDescription,
-      match?.ResultType
-    ]
-      .filter(Boolean)
-      .join(" ")
-  );
+function normalizeProviderMatchPhase(value) {
+  const key = normalizeKey(value);
+  const compactKey = key.replace(/\s+/g, "");
+  if (!key) {
+    return "";
+  }
 
-  return /\b(?:ht|half time|halftime|interval)\b/.test(statusText) ? "Half-time" : "";
+  if (/\b(?:susp|suspended)\b/.test(key) || compactKey === "susp") {
+    return "Suspended";
+  }
+
+  if (/\b(?:int|interrupted)\b/.test(key) || compactKey === "int") {
+    return "Interrupted";
+  }
+
+  if (
+    /\b(?:p|pen|pens)\b/.test(key) ||
+    /\b(?:penalty|penalties|shootout)\b/.test(key) ||
+    ["p", "pen", "pens"].includes(compactKey)
+  ) {
+    return "Penalty shootout";
+  }
+
+  if (/\b(?:ht|half time|halftime|interval|intermission)\b/.test(key) || compactKey === "ht") {
+    return "Half-time";
+  }
+
+  if (/\b(?:bt|break)\b/.test(key) || compactKey === "bt") {
+    return "Break";
+  }
+
+  if (/\b(?:et|extra time|extratime)\b/.test(key) || compactKey === "et") {
+    return "Extra time";
+  }
+
+  if (/\b(?:2h|2nd half|second half)\b/.test(key) || compactKey === "2h") {
+    return "Second half";
+  }
+
+  if (/\b(?:1h|1st half|first half)\b/.test(key) || compactKey === "1h") {
+    return "First half";
+  }
+
+  return "";
+}
+
+function getFifaMatchPhase(match) {
+  const phaseSources = [
+    match?.MatchTime,
+    description(match?.MatchStatusName),
+    match?.Status,
+    match?.MatchStatusDescription,
+    match?.ResultType
+  ].filter(Boolean);
+
+  for (const phaseSource of phaseSources) {
+    const phase = normalizeProviderMatchPhase(phaseSource);
+    if (phase) {
+      return phase;
+    }
+  }
+
+  return "";
 }
 
 function statusRank(status) {
   return {
     SCHEDULED: 0,
+    DELAYED: 0,
     LIVE: 1,
     FT: 2,
     POSTPONED: 3,

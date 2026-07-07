@@ -1006,8 +1006,8 @@ function validateLineupTimestamp(value, owner) {
   assert(isValidDateTime(value), `${owner} must be a valid timestamp`);
 }
 
-const LINEUP_LEFT_SIDE_POSITIONS = new Set(["LB", "LWB", "LM", "LW"]);
-const LINEUP_RIGHT_SIDE_POSITIONS = new Set(["RB", "RWB", "RM", "RW"]);
+const LINEUP_LEFT_SIDE_POSITIONS = new Set(["LB", "LCB", "LWB", "LM", "LW"]);
+const LINEUP_RIGHT_SIDE_POSITIONS = new Set(["RB", "RCB", "RWB", "RM", "RW"]);
 const LINEUP_RECOGNIZED_POSITIONS = new Set([
   "AM",
   "CB",
@@ -1015,10 +1015,12 @@ const LINEUP_RECOGNIZED_POSITIONS = new Set([
   "DM",
   "GK",
   "LB",
+  "LCB",
   "LM",
   "LW",
   "LWB",
   "RB",
+  "RCB",
   "RM",
   "RW",
   "RWB",
@@ -1336,7 +1338,7 @@ function getLineupPlayerProfile(player, teamId) {
   return profile;
 }
 
-function validateLineupPlayerPosition(player, owner, teamId, { requireCoordinates = false } = {}) {
+function validateLineupPlayerPosition(player, owner, teamId, { allowVerifiedSourceSide = false, requireCoordinates = false } = {}) {
   if (!requireCoordinates && player.x === undefined && player.y === undefined) {
     return;
   }
@@ -1356,7 +1358,7 @@ function validateLineupPlayerPosition(player, owner, teamId, { requireCoordinate
     );
   }
 
-  const profileSide = getLineupProfileExpectedSide(getLineupPlayerProfile(player, teamId));
+  const profileSide = allowVerifiedSourceSide ? "" : getLineupProfileExpectedSide(getLineupPlayerProfile(player, teamId));
   if (profileSide) {
     assert(
       !positionSide || positionSide === profileSide,
@@ -1369,7 +1371,7 @@ function validateLineupPlayerPosition(player, owner, teamId, { requireCoordinate
   }
 }
 
-function validateLineupPlayer(player, owner, { teamId = "", requirePosition = true, requireCoordinates = false } = {}) {
+function validateLineupPlayer(player, owner, { allowVerifiedSourceSide = false, teamId = "", requirePosition = true, requireCoordinates = false } = {}) {
   assert(isPlainObject(player), `${owner} must be an object`);
   if (!isPlainObject(player)) {
     return "";
@@ -1404,13 +1406,13 @@ function validateLineupPlayer(player, owner, { teamId = "", requirePosition = tr
   }
 
   if (requirePosition) {
-    validateLineupPlayerPosition(player, owner, teamId, { requireCoordinates });
+    validateLineupPlayerPosition(player, owner, teamId, { allowVerifiedSourceSide, requireCoordinates });
   }
 
   return name;
 }
 
-function validateLineupSide(teamLineup, fixture, side) {
+function validateLineupSide(teamLineup, fixture, side, lineupRecord = {}) {
   const owner = `Fixture "${fixture.id}" lineups.${side}`;
   assert(isPlainObject(teamLineup), `${owner} must be an object`);
   if (!isPlainObject(teamLineup)) {
@@ -1442,10 +1444,12 @@ function validateLineupSide(teamLineup, fixture, side) {
       : null;
   assert(Array.isArray(starters), `${owner}.players must be an array`);
   assert(!Array.isArray(starters) || starters.length === 11, `${owner}.players must include exactly 11 starters`);
+  const allowVerifiedSourceSide = isExactLayoutSource(normalizeLayoutSource(lineupRecord.layoutSource));
 
   const starterNames = [];
   for (const [index, player] of (starters || []).entries()) {
     const name = validateLineupPlayer(player, `${owner}.players[${index}]`, {
+      allowVerifiedSourceSide,
       requireCoordinates: true,
       teamId: fixture[`${side}TeamId`]
     });
@@ -1656,18 +1660,18 @@ function validateFixtureLineups(fixture, sourceIdSet) {
     `${owner}.mode must be expected, probable, prediction, confirmed, or final`
   );
   if (mode === "prediction") {
-    assert(fixture.status === "SCHEDULED", `${owner}.mode prediction should only be used before kickoff`);
+    assert(["SCHEDULED", "DELAYED"].includes(fixture.status), `${owner}.mode prediction should only be used before kickoff`);
   }
   if (mode === "expected" || mode === "probable") {
-    assert(fixture.status === "SCHEDULED", `${owner}.mode ${mode} should only be used before kickoff`);
+    assert(["SCHEDULED", "DELAYED"].includes(fixture.status), `${owner}.mode ${mode} should only be used before kickoff`);
   }
   if (mode === "final") {
     assert(fixture.status === "FT", `${owner}.mode final should only be used after full time`);
   }
 
   assert(teams.has(fixture.homeTeamId) && teams.has(fixture.awayTeamId), `${owner} requires confirmed home and away teams`);
-  const homePlayers = validateLineupSide(fixture.lineups.home, fixture, "home");
-  const awayPlayers = validateLineupSide(fixture.lineups.away, fixture, "away");
+  const homePlayers = validateLineupSide(fixture.lineups.home, fixture, "home", fixture.lineups);
+  const awayPlayers = validateLineupSide(fixture.lineups.away, fixture, "away", fixture.lineups);
   validateLineupEvents(fixture.lineups.home?.events, homePlayers, `${owner}.home`);
   validateLineupEvents(fixture.lineups.away?.events, awayPlayers, `${owner}.away`);
 }
@@ -2177,7 +2181,7 @@ for (const fixture of fixturesData.fixtures || []) {
     assert(fixture.homeTeamId !== fixture.awayTeamId, `Fixture "${fixture.id}" cannot use the same team twice`);
   }
   assert(fixture.venue, `Fixture "${fixture.id}" must have a venue`);
-  assert(["SCHEDULED", "LIVE", "FT", "POSTPONED", "CANCELLED"].includes(fixture.status), `Fixture "${fixture.id}" has invalid status`);
+  assert(["SCHEDULED", "DELAYED", "LIVE", "FT", "POSTPONED", "CANCELLED"].includes(fixture.status), `Fixture "${fixture.id}" has invalid status`);
 
   if (!["LIVE", "FT"].includes(fixture.status)) {
     assert(fixture.score === undefined, `Non-live fixture "${fixture.id}" must not include a score`);

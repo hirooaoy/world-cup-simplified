@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-05T20:08:56.143Z",
+  "updatedAt": "2026-07-07T16:23:04.758Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -136,7 +136,10 @@
     "national-football-teams-h2h-sync-2026-07-04",
     "fifa-goal-events-sync-2026-07-04",
     "national-football-teams-h2h-sync-2026-07-05",
-    "fifa-official-results-sync-2026-07-05"
+    "fifa-official-results-sync-2026-07-05",
+    "fifa-goal-events-sync-2026-07-07",
+    "fifa-official-results-sync-2026-07-07",
+    "national-football-teams-h2h-sync-2026-07-07"
   ],
   "coverage": {
     "status": "complete-schedule",
@@ -19927,7 +19930,11 @@
         "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
         "publishedAt": "2026-07-03T21:25:24-07:00",
         "checkedAt": "2026-07-03T21:25:24-07:00"
-      }
+      },
+      "resultStoryBullets": [
+        "Lionel Messi put Argentina ahead before Cabo Verde twice pulled the tie level.",
+        "Lisandro Martinez struck in stoppage time, and Diney Borges' extra-time own goal finally carried Argentina through."
+      ]
     },
     {
       "id": "match-87-round-of-32-2026-07-03",
@@ -20300,7 +20307,7 @@
       "goalsAway": [
         {
           "minute": 70,
-          "name": "Kylian Mbappé",
+          "name": "Kylian Mbappe",
           "penalty": true
         }
       ],
@@ -20311,7 +20318,8 @@
         "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
         "publishedAt": "2026-07-04T19:24:22-07:00",
         "checkedAt": "2026-07-04T19:24:22-07:00"
-      }
+      },
+      "goalsHome": []
     },
     {
       "id": "match-90-round-of-16-2026-07-04",
@@ -20442,16 +20450,19 @@
       "goalsAway": [
         {
           "minute": 50,
-          "name": "Azzedine Ounahi"
+          "name": "Azzedine Ounahi",
+          "assistName": "Achraf Hakimi"
         },
         {
           "minute": 82,
-          "name": "Azzedine Ounahi"
+          "name": "Azzedine Ounahi",
+          "assistName": "Brahim Diaz"
         },
         {
           "minute": 90,
           "offset": 8,
-          "name": "Soufiane Rahimi"
+          "name": "Soufiane Rahimi",
+          "assistName": "Brahim Diaz"
         }
       ],
       "highlightVideo": {
@@ -20461,7 +20472,8 @@
         "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
         "publishedAt": "2026-07-04T19:21:58-07:00",
         "checkedAt": "2026-07-04T19:21:58-07:00"
-      }
+      },
+      "goalsHome": []
     },
     {
       "id": "match-91-round-of-16-2026-07-05",
@@ -20472,7 +20484,7 @@
       "homeSlot": "Winner match 76",
       "awaySlot": "Winner match 78",
       "venue": "New York New Jersey Stadium",
-      "status": "LIVE",
+      "status": "FT",
       "h2h": {
         "status": "loaded",
         "sourceId": "national-football-teams-h2h-sync-2026-06-30",
@@ -20576,20 +20588,52 @@
         "away": 23
       },
       "score": {
-        "home": 0,
-        "away": 0
-      }
+        "home": 1,
+        "away": 2
+      },
+      "goalsHome": [
+        {
+          "minute": 90,
+          "offset": 10,
+          "name": "Neymar Jr",
+          "penalty": true
+        }
+      ],
+      "goalsAway": [
+        {
+          "minute": 79,
+          "name": "Erling Haaland",
+          "assistName": "Andreas Schjelderup"
+        },
+        {
+          "minute": 90,
+          "name": "Erling Haaland",
+          "assistName": "Andreas Schjelderup"
+        }
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=vpcukTVSD8Q",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-07-07T09:20:56-07:00",
+        "checkedAt": "2026-07-07T09:20:56-07:00"
+      },
+      "resultStoryBullets": [
+        "Erling Haaland scored in the 79th and 90th minutes to turn Norway's late pressure into the upset.",
+        "Neymar Jr's 90+10' penalty only cut the gap after Norway had already found the decisive second goal."
+      ]
     },
     {
       "id": "match-92-round-of-16-2026-07-05",
       "matchNumber": 92,
       "stage": "round-of-16",
       "round": "round-of-16",
-      "kickoffUtc": "2026-07-06T00:00:00Z",
+      "kickoffUtc": "2026-07-06T01:00:00Z",
       "homeSlot": "Winner match 79",
       "awaySlot": "Winner match 80",
       "venue": "Mexico City Stadium",
-      "status": "SCHEDULED",
+      "status": "FT",
       "h2h": {
         "status": "loaded",
         "sourceId": "national-football-teams-h2h-sync-2026-07-01",
@@ -20711,7 +20755,51 @@
         "sourceId": "editorial-preview-2026-06-22",
         "home": "Mexico are a home-side pressure team that want territory, crowd energy, and repeated penalty-area touches, led by Santiago Gimenez, Edson Alvarez, and Luis Chavez. Against England, their Gimenez-Chavez home pressure has to beat England's Kane-Bellingham box entries. They want to keep the ball in the opponent's half and feed Gimenez before Chavez attacks free kicks, corners, or rebounds. The risk is England can attack quickly through Kane and Bellingham while Rice controls the counter.",
         "away": "England are one of the strongest teams in the tournament, built around power, speed, and danger near goal, led by Jude Bellingham, Harry Kane, and Declan Rice. Against Mexico, their Kane-Bellingham box entries has to beat Mexico's Gimenez-Chavez home pressure. They want to turn Kane's dropping movements into Bellingham runs and fast cutbacks from wide areas. The risk is Mexico can turn home pressure into Gimenez touches and Chavez free-kick or corner chances."
-      }
+      },
+      "score": {
+        "home": 2,
+        "away": 3
+      },
+      "goalsHome": [
+        {
+          "minute": 42,
+          "name": "Julian Quinones"
+        },
+        {
+          "minute": 69,
+          "name": "Raul Jimenez",
+          "penalty": true
+        }
+      ],
+      "goalsAway": [
+        {
+          "minute": 36,
+          "name": "Jude Bellingham",
+          "assistName": "Bukayo Saka"
+        },
+        {
+          "minute": 38,
+          "name": "Jude Bellingham",
+          "assistName": "Harry Kane"
+        },
+        {
+          "minute": 60,
+          "name": "Harry Kane",
+          "penalty": true
+        }
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=n7cA4k6TJbs",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-07-07T09:20:56-07:00",
+        "checkedAt": "2026-07-07T09:20:56-07:00"
+      },
+      "resultStoryBullets": [
+        "Jude Bellingham scored twice in two minutes to flip the match before halftime.",
+        "Harry Kane's penalty gave England the cushion they needed, even after Raul Jimenez answered from the spot."
+      ]
     },
     {
       "id": "match-93-round-of-16-2026-07-06",
@@ -20722,7 +20810,7 @@
       "homeSlot": "Winner match 83",
       "awaySlot": "Winner match 84",
       "venue": "Dallas Stadium",
-      "status": "SCHEDULED",
+      "status": "FT",
       "h2h": {
         "status": "loaded",
         "sourceId": "national-football-teams-h2h-sync-2026-07-03",
@@ -21026,7 +21114,32 @@
         "sourceId": "editorial-preview-2026-06-22",
         "home": "Portugal are a star-heavy attacking side with enough creators to feed several different scoring routes, led by Cristiano Ronaldo, Bruno Fernandes, and Vitinha. Against Spain, their Vitinha-Bruno-Ronaldo supply has to beat Spain's Yamal-Williams wide stretch. They want to let Vitinha control the first pass, then use Bruno Fernandes to find Ronaldo or the far-side runner. The risk is Spain can stretch the pitch through Yamal and Williams before Pedri breaks the line.",
         "away": "Spain are one of the tournament's most polished possession teams, led by Lamine Yamal, Pedri, and Nico Williams. Against Portugal, their Yamal-Williams wide stretch has to beat Portugal's Vitinha-Bruno-Ronaldo supply. They want to pin the wide defenders with Yamal and Williams before Pedri plays through the gaps. The risk is Portugal can feed Ronaldo through Bruno Fernandes and Vitinha's supply."
-      }
+      },
+      "score": {
+        "home": 0,
+        "away": 1
+      },
+      "goalsHome": [],
+      "goalsAway": [
+        {
+          "minute": 90,
+          "offset": 1,
+          "name": "Mikel Merino",
+          "assistName": "Ferran Torres"
+        }
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=xINJD9fo6BM",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-07-07T09:20:56-07:00",
+        "checkedAt": "2026-07-07T09:20:56-07:00"
+      },
+      "resultStoryBullets": [
+        "Mikel Merino waited until 90+1' to break Portugal's resistance.",
+        "Mikel Merino's 90+1' winner settled a tight match for Spain."
+      ]
     },
     {
       "id": "match-94-round-of-16-2026-07-06",
@@ -21037,7 +21150,7 @@
       "homeSlot": "Winner match 81",
       "awaySlot": "Winner match 82",
       "venue": "Seattle Stadium",
-      "status": "SCHEDULED",
+      "status": "FT",
       "h2h": {
         "status": "loaded",
         "sourceId": "national-football-teams-h2h-sync-2026-07-02",
@@ -21169,7 +21282,52 @@
         "sourceId": "editorial-preview-2026-06-22",
         "home": "United States are an athletic pressing team with enough direct attacking talent to make games feel stretched, led by Christian Pulisic, Weston McKennie, and Tyler Adams. Against Belgium, their Pulisic-McKennie pressure breaks has to beat Belgium's De Bruyne-to-Lukaku chance creation. They want to press into turnovers and let Pulisic or McKennie attack before the defense resets. The risk is Belgium can turn De Bruyne service into Lukaku chances.",
         "away": "Belgium are an elite chance-creation team when their creators get space to face forward, led by Kevin De Bruyne, Romelu Lukaku, and Jeremy Doku. Against United States, their De Bruyne-to-Lukaku chance creation has to beat United States' Pulisic-McKennie pressure breaks. They want to feed De Bruyne early and create the separation Lukaku needs in the box. The risk is United States can turn pressure into Pulisic carries and McKennie second-ball runs."
-      }
+      },
+      "score": {
+        "home": 1,
+        "away": 4
+      },
+      "goalsHome": [
+        {
+          "minute": 31,
+          "name": "Malik Tillman"
+        }
+      ],
+      "goalsAway": [
+        {
+          "minute": 9,
+          "name": "Charles De Ketelaere"
+        },
+        {
+          "minute": 33,
+          "name": "Charles De Ketelaere",
+          "assistName": "Leandro Trossard"
+        },
+        {
+          "minute": 57,
+          "name": "Hans Vanaken",
+          "assistName": "Charles De Ketelaere"
+        },
+        {
+          "minute": 90,
+          "offset": 3,
+          "name": "Romelu Lukaku",
+          "assistName": "Hans Vanaken"
+        }
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=QL3kCTgeVKA",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-07-07T09:20:56-07:00",
+        "checkedAt": "2026-07-07T09:20:56-07:00"
+      },
+      "resultStoryBullets": [
+        "Charles De Ketelaere put Belgium ahead early, making United States chase the match.",
+        "Malik Tillman briefly brought the United States level, but De Ketelaere answered two minutes later.",
+        "Hans Vanaken and Romelu Lukaku finished the 4-1 rout after Belgium kept finding space late."
+      ]
     },
     {
       "id": "match-95-round-of-16-2026-07-07",
@@ -21180,7 +21338,7 @@
       "homeSlot": "Winner match 86",
       "awaySlot": "Winner match 88",
       "venue": "Atlanta Stadium",
-      "status": "SCHEDULED",
+      "status": "LIVE",
       "h2h": {
         "status": "loaded",
         "sourceId": "national-football-teams-h2h-sync-2026-07-04",
@@ -21262,7 +21420,19 @@
         "sourceId": "editorial-preview-2026-06-22",
         "home": "Argentina are the defending champions and still one of the most complete tournament teams, led by Lionel Messi, Julian Alvarez, and Enzo Fernandez. Against Egypt, their Messi-Alvarez midfield breaks has to beat Egypt's Salah-Marmoush breakaway threat. They want to press high through Alvarez, find Messi in space behind midfield, and let Enzo Fernandez change the angle of the attack. The risk is Egypt can turn one loose pass into a Salah-led break.",
         "away": "Egypt are a direct team built around Salah's runs that can look quiet until one attack opens the match, led by Mohamed Salah, Omar Marmoush, and Zizo. Against Argentina, their Salah-Marmoush breakaway threat has to beat Argentina's Messi-Alvarez midfield breaks. They want to release Salah early and let Marmoush arrive as the second wave. The risk is Argentina can turn one midfield win into Messi touches, Alvarez movement, and Enzo service."
-      }
+      },
+      "score": {
+        "home": 0,
+        "away": 1
+      },
+      "goalsHome": [],
+      "goalsAway": [
+        {
+          "minute": 15,
+          "name": "Yasser Ibrahim",
+          "assistName": "Marawan Attia"
+        }
+      ]
     },
     {
       "id": "match-96-round-of-16-2026-07-07",
@@ -21521,15 +21691,237 @@
       "venue": "Los Angeles Stadium",
       "status": "SCHEDULED",
       "h2h": {
-        "status": "not-loaded",
-        "summary": "Teams are not known yet. Past match research will load after the matchup is set.",
-        "results": null
+        "status": "loaded",
+        "sourceId": "national-football-teams-h2h-sync-2026-07-07",
+        "summary": "Before this fixture, Spain had the edge in the verified senior series: 10 Spain wins, 3 draws, 4 Belgium wins, 46 total goals.",
+        "results": [
+          {
+            "date": "2016-09-01",
+            "competition": "Friendly",
+            "homeTeamId": "BEL",
+            "awayTeamId": "ESP",
+            "homeScore": 0,
+            "awayScore": 2,
+            "venue": "Stade Roi Baudouin",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/15726/Belgium_Spain.html"
+          },
+          {
+            "date": "2009-09-05",
+            "competition": "World Cup 2010 - Group 5",
+            "homeTeamId": "ESP",
+            "awayTeamId": "BEL",
+            "homeScore": 5,
+            "awayScore": 0,
+            "venue": "Estadio Municipal de Riazor",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/2845/Spain_Belgium.html"
+          },
+          {
+            "date": "2008-10-15",
+            "competition": "World Cup 2010 - Group 5",
+            "homeTeamId": "BEL",
+            "awayTeamId": "ESP",
+            "homeScore": 1,
+            "awayScore": 2,
+            "venue": "Stade Roi Baudouin",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/2836/Belgium_Spain.html"
+          },
+          {
+            "date": "2005-10-08",
+            "competition": "World Cup 2006 - Group 7",
+            "homeTeamId": "BEL",
+            "awayTeamId": "ESP",
+            "homeScore": 0,
+            "awayScore": 2,
+            "venue": "Stade Roi Baudouin",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/631/Belgium_Spain.html"
+          },
+          {
+            "date": "2004-10-09",
+            "competition": "World Cup 2006 - Group 7",
+            "homeTeamId": "ESP",
+            "awayTeamId": "BEL",
+            "homeScore": 2,
+            "awayScore": 0,
+            "venue": "Campos de Sport de El Sardinero",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/609/Spain_Belgium.html"
+          },
+          {
+            "date": "1995-03-29",
+            "competition": "Euro 1996 - Group 2",
+            "homeTeamId": "ESP",
+            "awayTeamId": "BEL",
+            "homeScore": 1,
+            "awayScore": 1,
+            "venue": "Estadio Ramón Sánchez-Pizjuán",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/27399/Spain_Belgium.html"
+          },
+          {
+            "date": "1994-12-17",
+            "competition": "Euro 1996 - Group 2",
+            "homeTeamId": "BEL",
+            "awayTeamId": "ESP",
+            "homeScore": 1,
+            "awayScore": 4,
+            "venue": "Lotto Park",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/28012/Belgium_Spain.html"
+          },
+          {
+            "date": "1990-06-21",
+            "competition": "World Cup 1990 - Group E",
+            "homeTeamId": "BEL",
+            "awayTeamId": "ESP",
+            "homeScore": 1,
+            "awayScore": 2,
+            "venue": "Stadio Marc'Antonio Bentegodi",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/20739/Belgium_Spain.html"
+          },
+          {
+            "date": "1986-06-22",
+            "competition": "World Cup 1986 - Quarter Finals",
+            "homeTeamId": "ESP",
+            "awayTeamId": "BEL",
+            "homeScore": 1,
+            "awayScore": 1,
+            "venue": "Estadio Cuauhtémoc",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/15629/Spain_Belgium.html",
+            "scoreNote": "(5-4 pens)"
+          },
+          {
+            "date": "1986-02-19",
+            "competition": "Friendly",
+            "homeTeamId": "ESP",
+            "awayTeamId": "BEL",
+            "homeScore": 3,
+            "awayScore": 0,
+            "venue": "Manuel Martínez Valero",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/35170/Spain_Belgium.html"
+          },
+          {
+            "date": "1981-12-16",
+            "competition": "Friendly",
+            "homeTeamId": "ESP",
+            "awayTeamId": "BEL",
+            "homeScore": 2,
+            "awayScore": 0,
+            "venue": "Estadio de Mestalla",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/41284/Spain_Belgium.html"
+          },
+          {
+            "date": "1980-06-15",
+            "competition": "Euro 1980 - Group B",
+            "homeTeamId": "BEL",
+            "awayTeamId": "ESP",
+            "homeScore": 2,
+            "awayScore": 1,
+            "venue": "San Siro-Giuseppe Meazza",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/16360/Belgium_Spain.html"
+          },
+          {
+            "date": "1969-02-23",
+            "competition": "World Cup 1970 - Group 6",
+            "homeTeamId": "BEL",
+            "awayTeamId": "ESP",
+            "homeScore": 2,
+            "awayScore": 1,
+            "venue": "Stade Maurice Dufrasne",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/42538/Belgium_Spain.html"
+          },
+          {
+            "date": "1968-12-11",
+            "competition": "World Cup 1970 - Group 6",
+            "homeTeamId": "ESP",
+            "awayTeamId": "BEL",
+            "homeScore": 1,
+            "awayScore": 1,
+            "venue": "Estadio Santiago Bernabéu",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/42539/Spain_Belgium.html"
+          },
+          {
+            "date": "1923-02-04",
+            "competition": "Friendly",
+            "homeTeamId": "BEL",
+            "awayTeamId": "ESP",
+            "homeScore": 1,
+            "awayScore": 0,
+            "venue": "Olympisch Stadion Antwerp",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/33895/Belgium_Spain.html"
+          },
+          {
+            "date": "1921-10-09",
+            "competition": "Friendly",
+            "homeTeamId": "ESP",
+            "awayTeamId": "BEL",
+            "homeScore": 2,
+            "awayScore": 0,
+            "venue": "Estadio de San Mamés",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/33442/Spain_Belgium.html"
+          },
+          {
+            "date": "1920-08-29",
+            "competition": "Olympics 1920 - Quarter Finals",
+            "homeTeamId": "BEL",
+            "awayTeamId": "ESP",
+            "homeScore": 3,
+            "awayScore": 1,
+            "venue": "Olympisch Stadion Antwerp",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/33287/Belgium_Spain.html"
+          }
+        ],
+        "sourceUrl": "https://www.national-football-teams.com/encounter/teams/174/20/Spain_vs_Belgium.html"
       },
       "providerIds": {
         "fifa": {
           "matchId": "400021538",
           "matchNumber": 98
         }
+      },
+      "homeTeamId": "ESP",
+      "awayTeamId": "BEL",
+      "projection": {
+        "sourceId": "ranking-projection-2026-06-17",
+        "method": "fifa-ranking-baseline",
+        "basis": "FIFA ranking strength with host-country adjustment",
+        "home": 49,
+        "draw": 28,
+        "away": 23
+      },
+      "keyPlayers": {
+        "sourceId": "key-player-baseline-2026-06-22",
+        "method": "team-watchlist-baseline",
+        "basis": "Team-level key-player watchlist; replace with API/squad-sourced fixture notes when available",
+        "home": [
+          {
+            "name": "Lamine Yamal",
+            "note": "Spain's game-breaking wide creator, able to bend low blocks with dribbling, passing, and shot threat."
+          },
+          {
+            "name": "Pedri",
+            "note": "The rhythm setter in open space, making Spain's possession feel calmer and more incisive."
+          },
+          {
+            "name": "Nico Williams",
+            "note": "The vertical winger who turns switches of play into immediate pressure on the box."
+          }
+        ],
+        "away": [
+          {
+            "name": "Kevin De Bruyne",
+            "note": "Belgium's elite chance architect, able to find early crosses, through balls, and shots before defenses settle."
+          },
+          {
+            "name": "Romelu Lukaku",
+            "note": "The reference point in the box and power finisher, built to punish any service into his stride or feet."
+          },
+          {
+            "name": "Jeremy Doku",
+            "note": "The one-v-one destabilizer, stretching games wide open with direct carries from the flank."
+          }
+        ]
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-22",
+        "home": "Spain are one of the tournament's most polished possession teams, led by Lamine Yamal, Pedri, and Nico Williams. Against Belgium, their Yamal-Williams wide stretch has to beat Belgium's De Bruyne-to-Lukaku chance creation. They want to pin the wide defenders with Yamal and Williams before Pedri plays through the gaps. The risk is Belgium can turn De Bruyne service into Lukaku chances.",
+        "away": "Belgium are an elite chance-creation team when their creators get space to face forward, led by Kevin De Bruyne, Romelu Lukaku, and Jeremy Doku. Against Spain, their De Bruyne-to-Lukaku chance creation has to beat Spain's Yamal-Williams wide stretch. They want to feed De Bruyne early and create the separation Lukaku needs in the box. The risk is Spain can stretch the pitch through Yamal and Williams before Pedri breaks the line."
       }
     },
     {
@@ -21543,15 +21935,146 @@
       "venue": "Miami Stadium",
       "status": "SCHEDULED",
       "h2h": {
-        "status": "not-loaded",
-        "summary": "Teams are not known yet. Past match research will load after the matchup is set.",
-        "results": null
+        "status": "loaded",
+        "sourceId": "national-football-teams-h2h-sync-2026-07-07",
+        "summary": "Before this fixture, England had the edge in the verified senior series: 2 Norway wins, 3 draws, 3 England wins, 13 total goals.",
+        "results": [
+          {
+            "date": "2014-09-03",
+            "competition": "Friendly",
+            "homeTeamId": "ENG",
+            "awayTeamId": "NOR",
+            "homeScore": 1,
+            "awayScore": 0,
+            "venue": "Wembley Stadium",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/11145/England_Norway.html"
+          },
+          {
+            "date": "2012-05-26",
+            "competition": "Friendly",
+            "homeTeamId": "NOR",
+            "awayTeamId": "ENG",
+            "homeScore": 0,
+            "awayScore": 1,
+            "venue": "Ullevaal Stadion",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/8496/Norway_England.html"
+          },
+          {
+            "date": "1995-10-11",
+            "competition": "Friendly",
+            "homeTeamId": "NOR",
+            "awayTeamId": "ENG",
+            "homeScore": 0,
+            "awayScore": 0,
+            "venue": "Ullevaal Stadion",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/27611/Norway_England.html"
+          },
+          {
+            "date": "1994-05-22",
+            "competition": "Friendly",
+            "homeTeamId": "ENG",
+            "awayTeamId": "NOR",
+            "homeScore": 0,
+            "awayScore": 0,
+            "venue": "Wembley Stadium",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/28236/England_Norway.html"
+          },
+          {
+            "date": "1993-06-02",
+            "competition": "World Cup 1994 - Group 2",
+            "homeTeamId": "NOR",
+            "awayTeamId": "ENG",
+            "homeScore": 2,
+            "awayScore": 0,
+            "venue": "Ullevaal Stadion",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/29210/Norway_England.html"
+          },
+          {
+            "date": "1992-10-14",
+            "competition": "World Cup 1994 - Group 2",
+            "homeTeamId": "ENG",
+            "awayTeamId": "NOR",
+            "homeScore": 1,
+            "awayScore": 1,
+            "venue": "Wembley Stadium",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/30171/England_Norway.html"
+          },
+          {
+            "date": "1981-09-09",
+            "competition": "World Cup 1982 - Group 4",
+            "homeTeamId": "NOR",
+            "awayTeamId": "ENG",
+            "homeScore": 2,
+            "awayScore": 1,
+            "venue": "Ullevaal Stadion",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/43172/Norway_England.html"
+          },
+          {
+            "date": "1980-09-10",
+            "competition": "World Cup 1982 - Group 4",
+            "homeTeamId": "ENG",
+            "awayTeamId": "NOR",
+            "homeScore": 4,
+            "awayScore": 0,
+            "venue": "Wembley Stadium",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/43755/England_Norway.html"
+          }
+        ],
+        "sourceUrl": "https://www.national-football-teams.com/encounter/teams/138/59/Norway_vs_England.html"
       },
       "providerIds": {
         "fifa": {
           "matchId": "400021539",
           "matchNumber": 99
         }
+      },
+      "homeTeamId": "NOR",
+      "awayTeamId": "ENG",
+      "projection": {
+        "sourceId": "ranking-projection-2026-06-17",
+        "method": "fifa-ranking-baseline",
+        "basis": "FIFA ranking strength with host-country adjustment",
+        "home": 20,
+        "draw": 25,
+        "away": 55
+      },
+      "keyPlayers": {
+        "sourceId": "key-player-baseline-2026-06-22",
+        "method": "team-watchlist-baseline",
+        "basis": "Team-level key-player watchlist; replace with API/squad-sourced fixture notes when available",
+        "home": [
+          {
+            "name": "Erling Haaland",
+            "note": "Norway's headline finisher, a box force who changes how every opponent defends crosses and depth."
+          },
+          {
+            "name": "Martin Odegaard",
+            "note": "The left-footed creator and rhythm setter, responsible for turning Norway's possession into service for Haaland."
+          },
+          {
+            "name": "Antonio Nusa",
+            "note": "The young wide spark, able to beat defenders and give Norway a different speed outside the main stars."
+          }
+        ],
+        "away": [
+          {
+            "name": "Jude Bellingham",
+            "note": "The connector between midfield and attack, dangerous because he arrives late rather than standing still as a No. 10."
+          },
+          {
+            "name": "Harry Kane",
+            "note": "England's captain and central finisher. His dropping movements can pull center-backs out of shape."
+          },
+          {
+            "name": "Declan Rice",
+            "note": "The balance piece in midfield, responsible for stopping counters before opponents can slow the game down."
+          }
+        ]
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-22",
+        "home": "Norway are a direct star-powered side whose attacking question is how quickly they can serve the finisher, led by Erling Haaland, Martin Odegaard, and Antonio Nusa. Against England, their Odegaard-to-Haaland supply has to beat England's Kane-Bellingham box entries. They want to get Odegaard facing forward and deliver early enough for Haaland to attack the box. The risk is England can attack quickly through Kane and Bellingham while Rice controls the counter.",
+        "away": "England are one of the strongest teams in the tournament, built around power, speed, and danger near goal, led by Jude Bellingham, Harry Kane, and Declan Rice. Against Norway, their Kane-Bellingham box entries has to beat Norway's Odegaard-to-Haaland supply. They want to turn Kane's dropping movements into Bellingham runs and fast cutbacks from wide areas. The risk is Norway can feed Haaland through Odegaard's service and Nusa's change of speed."
       }
     },
     {

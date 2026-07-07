@@ -1,9 +1,10 @@
 {
   "sourceIds": [
     "lineup-layout-verification-2026-07-02",
-    "lineup-layout-verification-2026-07-03"
+    "lineup-layout-verification-2026-07-03",
+    "lineup-layout-verification-2026-07-07"
   ],
-  "updatedAt": "2026-07-03T06:11:46.942Z",
+  "updatedAt": "2026-07-07T20:00:00.000Z",
   "fixtures": {
     "match-82-round-of-32-2026-07-01": {
       "status": "verified",
@@ -31360,6 +31361,3181 @@
           {
             "number": "23",
             "name": "Luca Zidane",
+            "position": "GK",
+            "x": 49.9,
+            "y": 90.5
+          }
+        ]
+      }
+    },
+    "match-86-round-of-32-2026-07-03": {
+      "status": "verified",
+      "layoutSource": "verified-layout",
+      "checkedAt": "2026-07-07T20:00:00.000Z",
+      "sourceIds": [
+        "lineup-layout-verification-2026-07-07"
+      ],
+      "homeTeamId": "ARG",
+      "awayTeamId": "CPV",
+      "sources": [
+        {
+          "name": "ESPN",
+          "adapter": "espn",
+          "url": "https://www.espn.com/soccer/match/_/gameId/760500/cape-verde-argentina",
+          "status": "unavailable",
+          "note": "Expected 11 starters per side from ESPN; parsed 11 home and 10 away."
+        },
+        {
+          "name": "FotMob",
+          "url": "https://www.fotmob.com/matches/cape-verde-vs-argentina/1b81pp",
+          "status": "matched",
+          "sourceDetail": "lineup payload source: enetpulse",
+          "exactLayout": true,
+          "home": {
+            "formation": "4-4-2",
+            "players": [
+              {
+                "number": "23",
+                "name": "Emiliano Martinez",
+                "position": "GK",
+                "x": 50,
+                "y": 90
+              },
+              {
+                "number": "26",
+                "name": "Nahuel Molina",
+                "position": "RB",
+                "x": 87.5,
+                "y": 64.3
+              },
+              {
+                "number": "13",
+                "name": "Cristian Romero",
+                "position": "CB",
+                "x": 62.5,
+                "y": 64.3
+              },
+              {
+                "number": "6",
+                "name": "Lisandro Martinez",
+                "position": "CB",
+                "x": 37.5,
+                "y": 64.3
+              },
+              {
+                "number": "25",
+                "name": "Facundo Medina",
+                "position": "LB",
+                "x": 12.5,
+                "y": 64.3
+              },
+              {
+                "number": "7",
+                "name": "Rodrigo De Paul",
+                "position": "RM",
+                "x": 87.5,
+                "y": 38.7
+              },
+              {
+                "number": "20",
+                "name": "Alexis Mac Allister",
+                "position": "CM",
+                "x": 62.5,
+                "y": 38.7
+              },
+              {
+                "number": "24",
+                "name": "Enzo Fernandez",
+                "position": "CM",
+                "x": 37.5,
+                "y": 38.7
+              },
+              {
+                "number": "16",
+                "name": "Thiago Almada",
+                "position": "LM",
+                "x": 12.5,
+                "y": 38.7
+              },
+              {
+                "number": "10",
+                "name": "Lionel Messi",
+                "position": "ST",
+                "x": 70,
+                "y": 13
+              },
+              {
+                "number": "22",
+                "name": "Lautaro Martinez",
+                "position": "ST",
+                "x": 30,
+                "y": 13
+              }
+            ]
+          },
+          "away": {
+            "formation": "4-1-4-1",
+            "players": [
+              {
+                "number": "1",
+                "name": "Vozinha",
+                "position": "GK",
+                "x": 50,
+                "y": 90
+              },
+              {
+                "number": "22",
+                "name": "Steven Moreira",
+                "position": "RB",
+                "x": 87.5,
+                "y": 70.8
+              },
+              {
+                "number": "4",
+                "name": "Roberto Lopes",
+                "position": "CB",
+                "x": 62.5,
+                "y": 70.8
+              },
+              {
+                "number": "3",
+                "name": "Diney Borges",
+                "position": "CB",
+                "x": 37.5,
+                "y": 70.8
+              },
+              {
+                "number": "13",
+                "name": "Sidny Lopes Cabral",
+                "position": "LB",
+                "x": 12.5,
+                "y": 70.8
+              },
+              {
+                "number": "6",
+                "name": "Kevin Pina",
+                "position": "DM",
+                "x": 50,
+                "y": 51.5
+              },
+              {
+                "number": "20",
+                "name": "Ryan Mendes",
+                "position": "RM",
+                "x": 87.5,
+                "y": 32.2
+              },
+              {
+                "number": "15",
+                "name": "Laros Duarte",
+                "position": "CM",
+                "x": 62.5,
+                "y": 32.2
+              },
+              {
+                "number": "14",
+                "name": "Deroy Duarte",
+                "position": "CM",
+                "x": 37.5,
+                "y": 32.2
+              },
+              {
+                "number": "7",
+                "name": "Jovane Cabral",
+                "position": "LM",
+                "x": 12.5,
+                "y": 32.2
+              },
+              {
+                "number": "21",
+                "name": "Nuno da Costa",
+                "position": "ST",
+                "x": 50,
+                "y": 11
+              }
+            ]
+          },
+          "signature": {
+            "home": "lautaro martinez/lionel messi|thiago almada/enzo fernandez/alexis mac allister/rodrigo de paul|facundo medina/lisandro martinez/cristian romero/nahuel molina|emiliano martinez",
+            "away": "nuno da costa|jovane cabral/deroy duarte/laros duarte/ryan mendes|kevin pina|sidny lopes cabral/diney borges/roberto lopes/steven moreira|vozinha"
+          }
+        }
+      ],
+      "note": "FIFA official team sheet kept for facts; FotMob supplied exact board geometry.",
+      "home": {
+        "formation": "4-4-2",
+        "players": [
+          {
+            "number": "23",
+            "name": "Emiliano Martinez",
+            "position": "GK",
+            "x": 50,
+            "y": 90
+          },
+          {
+            "number": "26",
+            "name": "Nahuel Molina",
+            "position": "RB",
+            "x": 87.5,
+            "y": 64.3
+          },
+          {
+            "number": "13",
+            "name": "Cristian Romero",
+            "position": "CB",
+            "x": 62.5,
+            "y": 64.3
+          },
+          {
+            "number": "6",
+            "name": "Lisandro Martinez",
+            "position": "CB",
+            "x": 37.5,
+            "y": 64.3
+          },
+          {
+            "number": "25",
+            "name": "Facundo Medina",
+            "position": "LB",
+            "x": 12.5,
+            "y": 64.3
+          },
+          {
+            "number": "7",
+            "name": "Rodrigo De Paul",
+            "position": "RM",
+            "x": 87.5,
+            "y": 38.7
+          },
+          {
+            "number": "20",
+            "name": "Alexis Mac Allister",
+            "position": "CM",
+            "x": 62.5,
+            "y": 38.7
+          },
+          {
+            "number": "24",
+            "name": "Enzo Fernandez",
+            "position": "CM",
+            "x": 37.5,
+            "y": 38.7
+          },
+          {
+            "number": "16",
+            "name": "Thiago Almada",
+            "position": "LM",
+            "x": 12.5,
+            "y": 38.7
+          },
+          {
+            "number": "10",
+            "name": "Lionel Messi",
+            "position": "ST",
+            "x": 70,
+            "y": 13
+          },
+          {
+            "number": "22",
+            "name": "Lautaro Martinez",
+            "position": "ST",
+            "x": 30,
+            "y": 13
+          }
+        ]
+      },
+      "away": {
+        "formation": "4-1-4-1",
+        "players": [
+          {
+            "number": "1",
+            "name": "Vozinha",
+            "position": "GK",
+            "x": 50,
+            "y": 90
+          },
+          {
+            "number": "22",
+            "name": "Steven Moreira",
+            "position": "RB",
+            "x": 87.5,
+            "y": 70.8
+          },
+          {
+            "number": "4",
+            "name": "Roberto Lopes",
+            "position": "CB",
+            "x": 62.5,
+            "y": 70.8
+          },
+          {
+            "number": "3",
+            "name": "Diney Borges",
+            "position": "CB",
+            "x": 37.5,
+            "y": 70.8
+          },
+          {
+            "number": "13",
+            "name": "Sidny Lopes Cabral",
+            "position": "LB",
+            "x": 12.5,
+            "y": 70.8
+          },
+          {
+            "number": "6",
+            "name": "Kevin Pina",
+            "position": "DM",
+            "x": 50,
+            "y": 51.5
+          },
+          {
+            "number": "20",
+            "name": "Ryan Mendes",
+            "position": "RM",
+            "x": 87.5,
+            "y": 32.2
+          },
+          {
+            "number": "15",
+            "name": "Laros Duarte",
+            "position": "CM",
+            "x": 62.5,
+            "y": 32.2
+          },
+          {
+            "number": "14",
+            "name": "Deroy Duarte",
+            "position": "CM",
+            "x": 37.5,
+            "y": 32.2
+          },
+          {
+            "number": "7",
+            "name": "Jovane Cabral",
+            "position": "LM",
+            "x": 12.5,
+            "y": 32.2
+          },
+          {
+            "number": "21",
+            "name": "Nuno da Costa",
+            "position": "ST",
+            "x": 50,
+            "y": 11
+          }
+        ]
+      }
+    },
+    "match-87-round-of-32-2026-07-03": {
+      "status": "verified",
+      "layoutSource": "verified-layout",
+      "checkedAt": "2026-07-07T20:00:00.000Z",
+      "sourceIds": [
+        "lineup-layout-verification-2026-07-07"
+      ],
+      "homeTeamId": "COL",
+      "awayTeamId": "GHA",
+      "sources": [
+        {
+          "name": "ESPN",
+          "url": "https://www.espn.com/soccer/match/_/gameId/760501/ghana-colombia",
+          "status": "matched",
+          "sourceDetail": "public match-center board geometry",
+          "exactLayout": true,
+          "home": {
+            "formation": "4-1-2-3",
+            "players": [
+              {
+                "number": "9",
+                "name": "Jhon Cordoba",
+                "position": "ST",
+                "x": 50,
+                "y": 10.5
+              },
+              {
+                "number": "7",
+                "name": "Luis Diaz",
+                "position": "LW",
+                "x": 18.6,
+                "y": 18.2
+              },
+              {
+                "number": "10",
+                "name": "James Rodriguez",
+                "position": "RW",
+                "x": 81.4,
+                "y": 18.2
+              },
+              {
+                "number": "16",
+                "name": "Jefferson Lerma",
+                "position": "CM",
+                "x": 50,
+                "y": 37.6
+              },
+              {
+                "number": "11",
+                "name": "Jhon Arias",
+                "position": "CM",
+                "x": 18.6,
+                "y": 42.3
+              },
+              {
+                "number": "14",
+                "name": "Gustavo Puerta",
+                "position": "DM",
+                "x": 81.4,
+                "y": 42.3
+              },
+              {
+                "number": "17",
+                "name": "Johan Mojica",
+                "position": "LB",
+                "x": 13.7,
+                "y": 62.8
+              },
+              {
+                "number": "2",
+                "name": "Daniel Munoz",
+                "position": "RB",
+                "x": 86.6,
+                "y": 62.8
+              },
+              {
+                "number": "3",
+                "name": "Jhon Lucumi",
+                "position": "CB",
+                "x": 33.3,
+                "y": 68.7
+              },
+              {
+                "number": "23",
+                "name": "Davinson Sanchez",
+                "position": "CB",
+                "x": 66.5,
+                "y": 68.7
+              },
+              {
+                "number": "12",
+                "name": "Camilo Vargas",
+                "position": "GK",
+                "x": 49.9,
+                "y": 90.5
+              }
+            ]
+          },
+          "away": {
+            "formation": "4-1-2-3",
+            "players": [
+              {
+                "number": "9",
+                "name": "Jordan Ayew",
+                "position": "ST",
+                "x": 50,
+                "y": 10.5
+              },
+              {
+                "number": "11",
+                "name": "Antoine Semenyo",
+                "position": "LW",
+                "x": 13.7,
+                "y": 25.6
+              },
+              {
+                "number": "19",
+                "name": "Inaki Williams",
+                "position": "RW",
+                "x": 86.6,
+                "y": 25.6
+              },
+              {
+                "number": "8",
+                "name": "Kwasi Sibo",
+                "position": "CM",
+                "x": 37.3,
+                "y": 30.4
+              },
+              {
+                "number": "3",
+                "name": "Caleb Yirenkyi",
+                "position": "CM",
+                "x": 62.6,
+                "y": 30.4
+              },
+              {
+                "number": "5",
+                "name": "Thomas Partey",
+                "position": "DM",
+                "x": 49.9,
+                "y": 49.2
+              },
+              {
+                "number": "14",
+                "name": "Gideon Mensah",
+                "position": "LB",
+                "x": 13.7,
+                "y": 62.8
+              },
+              {
+                "number": "26",
+                "name": "Marvin Senaya",
+                "position": "RB",
+                "x": 86.6,
+                "y": 62.8
+              },
+              {
+                "number": "18",
+                "name": "Jerome Opoku",
+                "position": "CB",
+                "x": 37.3,
+                "y": 68.7
+              },
+              {
+                "number": "23",
+                "name": "Derrick Luckassen",
+                "position": "CB",
+                "x": 62.6,
+                "y": 68.7
+              },
+              {
+                "number": "1",
+                "name": "Lawrence Ati-Zigi",
+                "position": "GK",
+                "x": 49.9,
+                "y": 90.5
+              }
+            ]
+          },
+          "signature": {
+            "home": "luis diaz/jhon cordoba/james rodriguez|jhon arias/jefferson lerma|gustavo puerta|johan mojica/jhon lucumi/davinson sanchez/daniel munoz|camilo vargas",
+            "away": "antoine semenyo/jordan ayew/inaki williams|kwasi sibo/caleb yirenkyi|thomas partey|gideon mensah/jerome opoku/derrick luckassen/marvin senaya|lawrence ati zigi"
+          }
+        }
+      ],
+      "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry.",
+      "home": {
+        "formation": "4-1-2-3",
+        "players": [
+          {
+            "number": "9",
+            "name": "Jhon Cordoba",
+            "position": "ST",
+            "x": 50,
+            "y": 10.5
+          },
+          {
+            "number": "7",
+            "name": "Luis Diaz",
+            "position": "LW",
+            "x": 18.6,
+            "y": 18.2
+          },
+          {
+            "number": "10",
+            "name": "James Rodriguez",
+            "position": "RW",
+            "x": 81.4,
+            "y": 18.2
+          },
+          {
+            "number": "16",
+            "name": "Jefferson Lerma",
+            "position": "CM",
+            "x": 50,
+            "y": 37.6
+          },
+          {
+            "number": "11",
+            "name": "Jhon Arias",
+            "position": "CM",
+            "x": 18.6,
+            "y": 42.3
+          },
+          {
+            "number": "14",
+            "name": "Gustavo Puerta",
+            "position": "DM",
+            "x": 81.4,
+            "y": 42.3
+          },
+          {
+            "number": "17",
+            "name": "Johan Mojica",
+            "position": "LB",
+            "x": 13.7,
+            "y": 62.8
+          },
+          {
+            "number": "2",
+            "name": "Daniel Munoz",
+            "position": "RB",
+            "x": 86.6,
+            "y": 62.8
+          },
+          {
+            "number": "3",
+            "name": "Jhon Lucumi",
+            "position": "CB",
+            "x": 33.3,
+            "y": 68.7
+          },
+          {
+            "number": "23",
+            "name": "Davinson Sanchez",
+            "position": "CB",
+            "x": 66.5,
+            "y": 68.7
+          },
+          {
+            "number": "12",
+            "name": "Camilo Vargas",
+            "position": "GK",
+            "x": 49.9,
+            "y": 90.5
+          }
+        ]
+      },
+      "away": {
+        "formation": "4-1-2-3",
+        "players": [
+          {
+            "number": "9",
+            "name": "Jordan Ayew",
+            "position": "ST",
+            "x": 50,
+            "y": 10.5
+          },
+          {
+            "number": "11",
+            "name": "Antoine Semenyo",
+            "position": "LW",
+            "x": 13.7,
+            "y": 25.6
+          },
+          {
+            "number": "19",
+            "name": "Inaki Williams",
+            "position": "RW",
+            "x": 86.6,
+            "y": 25.6
+          },
+          {
+            "number": "8",
+            "name": "Kwasi Sibo",
+            "position": "CM",
+            "x": 37.3,
+            "y": 30.4
+          },
+          {
+            "number": "3",
+            "name": "Caleb Yirenkyi",
+            "position": "CM",
+            "x": 62.6,
+            "y": 30.4
+          },
+          {
+            "number": "5",
+            "name": "Thomas Partey",
+            "position": "DM",
+            "x": 49.9,
+            "y": 49.2
+          },
+          {
+            "number": "14",
+            "name": "Gideon Mensah",
+            "position": "LB",
+            "x": 13.7,
+            "y": 62.8
+          },
+          {
+            "number": "26",
+            "name": "Marvin Senaya",
+            "position": "RB",
+            "x": 86.6,
+            "y": 62.8
+          },
+          {
+            "number": "18",
+            "name": "Jerome Opoku",
+            "position": "CB",
+            "x": 37.3,
+            "y": 68.7
+          },
+          {
+            "number": "23",
+            "name": "Derrick Luckassen",
+            "position": "CB",
+            "x": 62.6,
+            "y": 68.7
+          },
+          {
+            "number": "1",
+            "name": "Lawrence Ati-Zigi",
+            "position": "GK",
+            "x": 49.9,
+            "y": 90.5
+          }
+        ]
+      }
+    },
+    "match-88-round-of-32-2026-07-03": {
+      "status": "verified",
+      "layoutSource": "verified-layout",
+      "checkedAt": "2026-07-07T20:00:00.000Z",
+      "sourceIds": [
+        "lineup-layout-verification-2026-07-07"
+      ],
+      "homeTeamId": "AUS",
+      "awayTeamId": "EGY",
+      "sources": [
+        {
+          "name": "ESPN",
+          "url": "https://www.espn.com/soccer/match/_/gameId/760499/egypt-australia",
+          "status": "matched",
+          "sourceDetail": "public match-center board geometry",
+          "exactLayout": true,
+          "home": {
+            "formation": "3-4-3",
+            "players": [
+              {
+                "number": "17",
+                "name": "Nestory Irankunda",
+                "position": "ST",
+                "x": 50,
+                "y": 10.5
+              },
+              {
+                "number": "8",
+                "name": "Connor Metcalfe",
+                "position": "LW",
+                "x": 30,
+                "y": 28
+              },
+              {
+                "number": "20",
+                "name": "Christian Volpato",
+                "position": "RW",
+                "x": 69.9,
+                "y": 28
+              },
+              {
+                "number": "16",
+                "name": "Aziz Behich",
+                "position": "LM",
+                "x": 12.6,
+                "y": 47
+              },
+              {
+                "number": "13",
+                "name": "Aiden Oneill",
+                "position": "CM",
+                "x": 37.5,
+                "y": 47
+              },
+              {
+                "number": "22",
+                "name": "Jackson Irvine",
+                "position": "CM",
+                "x": 62.4,
+                "y": 47
+              },
+              {
+                "number": "5",
+                "name": "Jordan Bos",
+                "position": "RM",
+                "x": 87.3,
+                "y": 47
+              },
+              {
+                "number": "25",
+                "name": "Lucas Herrington",
+                "position": "LCB",
+                "x": 25.3,
+                "y": 69.7
+              },
+              {
+                "number": "19",
+                "name": "Harry Souttar",
+                "position": "CB",
+                "x": 49.9,
+                "y": 69.7
+              },
+              {
+                "number": "3",
+                "name": "Alessandro Circati",
+                "position": "RCB",
+                "x": 74.5,
+                "y": 69.7
+              },
+              {
+                "number": "18",
+                "name": "Patrick Beach",
+                "position": "GK",
+                "x": 49.9,
+                "y": 90.5
+              }
+            ]
+          },
+          "away": {
+            "formation": "4-4-2",
+            "players": [
+              {
+                "number": "11",
+                "name": "Mostafa Zico",
+                "position": "ST",
+                "x": 35.7,
+                "y": 10.5
+              },
+              {
+                "number": "10",
+                "name": "Mohamed Salah",
+                "position": "ST",
+                "x": 64.3,
+                "y": 10.5
+              },
+              {
+                "number": "22",
+                "name": "Omar Marmoush",
+                "position": "LM",
+                "x": 13.7,
+                "y": 39
+              },
+              {
+                "number": "8",
+                "name": "Emam Ashour",
+                "position": "RM",
+                "x": 86.6,
+                "y": 39
+              },
+              {
+                "number": "19",
+                "name": "Marawan Attia",
+                "position": "CM",
+                "x": 35,
+                "y": 44.3
+              },
+              {
+                "number": "14",
+                "name": "Hamdy Fathy",
+                "position": "CM",
+                "x": 64.9,
+                "y": 44.3
+              },
+              {
+                "number": "15",
+                "name": "Karim Hafez",
+                "position": "LB",
+                "x": 13.7,
+                "y": 62.8
+              },
+              {
+                "number": "3",
+                "name": "Mohamed Hany",
+                "position": "RB",
+                "x": 86.6,
+                "y": 62.8
+              },
+              {
+                "number": "5",
+                "name": "Ramy Rabia",
+                "position": "CB",
+                "x": 33.3,
+                "y": 68.7
+              },
+              {
+                "number": "2",
+                "name": "Yasser Ibrahim",
+                "position": "CB",
+                "x": 66.5,
+                "y": 68.7
+              },
+              {
+                "number": "23",
+                "name": "Mostafa Shoubir",
+                "position": "GK",
+                "x": 49.9,
+                "y": 90.5
+              }
+            ]
+          },
+          "signature": {
+            "home": "connor metcalfe/nestory irankunda/christian volpato|aziz behich/aiden oneill/jackson irvine/jordan bos|lucas herrington/harry souttar/alessandro circati|patrick beach",
+            "away": "mostafa zico/mohamed salah|omar marmoush/marawan attia/hamdy fathy/emam ashour|karim hafez/ramy rabia/yasser ibrahim/mohamed hany|mostafa shoubir"
+          }
+        }
+      ],
+      "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry.",
+      "home": {
+        "formation": "3-4-3",
+        "players": [
+          {
+            "number": "17",
+            "name": "Nestory Irankunda",
+            "position": "ST",
+            "x": 50,
+            "y": 10.5
+          },
+          {
+            "number": "8",
+            "name": "Connor Metcalfe",
+            "position": "LW",
+            "x": 30,
+            "y": 28
+          },
+          {
+            "number": "20",
+            "name": "Christian Volpato",
+            "position": "RW",
+            "x": 69.9,
+            "y": 28
+          },
+          {
+            "number": "16",
+            "name": "Aziz Behich",
+            "position": "LM",
+            "x": 12.6,
+            "y": 47
+          },
+          {
+            "number": "13",
+            "name": "Aiden Oneill",
+            "position": "CM",
+            "x": 37.5,
+            "y": 47
+          },
+          {
+            "number": "22",
+            "name": "Jackson Irvine",
+            "position": "CM",
+            "x": 62.4,
+            "y": 47
+          },
+          {
+            "number": "5",
+            "name": "Jordan Bos",
+            "position": "RM",
+            "x": 87.3,
+            "y": 47
+          },
+          {
+            "number": "25",
+            "name": "Lucas Herrington",
+            "position": "LCB",
+            "x": 25.3,
+            "y": 69.7
+          },
+          {
+            "number": "19",
+            "name": "Harry Souttar",
+            "position": "CB",
+            "x": 49.9,
+            "y": 69.7
+          },
+          {
+            "number": "3",
+            "name": "Alessandro Circati",
+            "position": "RCB",
+            "x": 74.5,
+            "y": 69.7
+          },
+          {
+            "number": "18",
+            "name": "Patrick Beach",
+            "position": "GK",
+            "x": 49.9,
+            "y": 90.5
+          }
+        ]
+      },
+      "away": {
+        "formation": "4-4-2",
+        "players": [
+          {
+            "number": "11",
+            "name": "Mostafa Zico",
+            "position": "ST",
+            "x": 35.7,
+            "y": 10.5
+          },
+          {
+            "number": "10",
+            "name": "Mohamed Salah",
+            "position": "ST",
+            "x": 64.3,
+            "y": 10.5
+          },
+          {
+            "number": "22",
+            "name": "Omar Marmoush",
+            "position": "LM",
+            "x": 13.7,
+            "y": 39
+          },
+          {
+            "number": "8",
+            "name": "Emam Ashour",
+            "position": "RM",
+            "x": 86.6,
+            "y": 39
+          },
+          {
+            "number": "19",
+            "name": "Marawan Attia",
+            "position": "CM",
+            "x": 35,
+            "y": 44.3
+          },
+          {
+            "number": "14",
+            "name": "Hamdy Fathy",
+            "position": "CM",
+            "x": 64.9,
+            "y": 44.3
+          },
+          {
+            "number": "15",
+            "name": "Karim Hafez",
+            "position": "LB",
+            "x": 13.7,
+            "y": 62.8
+          },
+          {
+            "number": "3",
+            "name": "Mohamed Hany",
+            "position": "RB",
+            "x": 86.6,
+            "y": 62.8
+          },
+          {
+            "number": "5",
+            "name": "Ramy Rabia",
+            "position": "CB",
+            "x": 33.3,
+            "y": 68.7
+          },
+          {
+            "number": "2",
+            "name": "Yasser Ibrahim",
+            "position": "CB",
+            "x": 66.5,
+            "y": 68.7
+          },
+          {
+            "number": "23",
+            "name": "Mostafa Shoubir",
+            "position": "GK",
+            "x": 49.9,
+            "y": 90.5
+          }
+        ]
+      }
+    },
+    "match-89-round-of-16-2026-07-04": {
+      "status": "verified",
+      "layoutSource": "verified-layout",
+      "checkedAt": "2026-07-07T20:00:00.000Z",
+      "sourceIds": [
+        "lineup-layout-verification-2026-07-07"
+      ],
+      "homeTeamId": "PAR",
+      "awayTeamId": "FRA",
+      "sources": [
+        {
+          "name": "ESPN",
+          "url": "https://www.espn.com/soccer/match/_/gameId/760503/france-paraguay",
+          "status": "matched",
+          "sourceDetail": "public match-center board geometry",
+          "exactLayout": true,
+          "home": {
+            "formation": "5-4-1",
+            "players": [
+              {
+                "number": "19",
+                "name": "Julio Enciso",
+                "position": "ST",
+                "x": 50,
+                "y": 10.5
+              },
+              {
+                "number": "23",
+                "name": "Matias Galarza",
+                "position": "LM",
+                "x": 18.9,
+                "y": 30
+              },
+              {
+                "number": "14",
+                "name": "Andres Cubas",
+                "position": "CM",
+                "x": 36.5,
+                "y": 36
+              },
+              {
+                "number": "8",
+                "name": "Diego Gomez",
+                "position": "CM",
+                "x": 63.4,
+                "y": 36
+              },
+              {
+                "number": "10",
+                "name": "Miguel Almiron",
+                "position": "RM",
+                "x": 81,
+                "y": 30
+              },
+              {
+                "number": "6",
+                "name": "Junior Alonso",
+                "position": "LWB",
+                "x": 11.4,
+                "y": 55.7
+              },
+              {
+                "number": "4",
+                "name": "Juan Jose Caceres",
+                "position": "RWB",
+                "x": 86.6,
+                "y": 55.7
+              },
+              {
+                "number": "3",
+                "name": "Omar Alderete",
+                "position": "CB",
+                "x": 28.2,
+                "y": 61.2
+              },
+              {
+                "number": "15",
+                "name": "Gustavo Gomez",
+                "position": "CB",
+                "x": 49.9,
+                "y": 71
+              },
+              {
+                "number": "2",
+                "name": "Gustavo Velazquez",
+                "position": "CB",
+                "x": 70.8,
+                "y": 61.2
+              },
+              {
+                "number": "12",
+                "name": "Orlando Gill",
+                "position": "GK",
+                "x": 49.9,
+                "y": 90.5
+              }
+            ]
+          },
+          "away": {
+            "formation": "4-2-3-1",
+            "players": [
+              {
+                "number": "10",
+                "name": "Kylian Mbappe",
+                "position": "ST",
+                "x": 50,
+                "y": 10.5
+              },
+              {
+                "number": "12",
+                "name": "Bradley Barcola",
+                "position": "LW",
+                "x": 19.4,
+                "y": 30.1
+              },
+              {
+                "number": "11",
+                "name": "Michael Olise",
+                "position": "AM",
+                "x": 50,
+                "y": 30.1
+              },
+              {
+                "number": "7",
+                "name": "Ousmane Dembele",
+                "position": "RW",
+                "x": 80.6,
+                "y": 30.1
+              },
+              {
+                "number": "14",
+                "name": "Adrien Rabiot",
+                "position": "CM",
+                "x": 36.5,
+                "y": 49.9
+              },
+              {
+                "number": "6",
+                "name": "Manu Kone",
+                "position": "CM",
+                "x": 63.4,
+                "y": 49.9
+              },
+              {
+                "number": "3",
+                "name": "Lucas Digne",
+                "position": "LB",
+                "x": 13.7,
+                "y": 62.8
+              },
+              {
+                "number": "5",
+                "name": "Jules Kounde",
+                "position": "RB",
+                "x": 86.2,
+                "y": 62.8
+              },
+              {
+                "number": "17",
+                "name": "William Saliba",
+                "position": "CB",
+                "x": 33.3,
+                "y": 68.7
+              },
+              {
+                "number": "4",
+                "name": "Dayot Upamecano",
+                "position": "CB",
+                "x": 66.5,
+                "y": 68.7
+              },
+              {
+                "number": "16",
+                "name": "Mike Maignan",
+                "position": "GK",
+                "x": 49.9,
+                "y": 90.5
+              }
+            ]
+          },
+          "signature": {
+            "home": "julio enciso|matias galarza/andres cubas/diego gomez/miguel almiron|junior alonso/omar alderete/gustavo gomez/gustavo velazquez/juan jose caceres|orlando gill",
+            "away": "kylian mbappe|bradley barcola/michael olise/ousmane dembele|adrien rabiot/manu kone|lucas digne/william saliba/dayot upamecano/jules kounde|mike maignan"
+          }
+        }
+      ],
+      "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry.",
+      "home": {
+        "formation": "5-4-1",
+        "players": [
+          {
+            "number": "19",
+            "name": "Julio Enciso",
+            "position": "ST",
+            "x": 50,
+            "y": 10.5
+          },
+          {
+            "number": "23",
+            "name": "Matias Galarza",
+            "position": "LM",
+            "x": 18.9,
+            "y": 30
+          },
+          {
+            "number": "14",
+            "name": "Andres Cubas",
+            "position": "CM",
+            "x": 36.5,
+            "y": 36
+          },
+          {
+            "number": "8",
+            "name": "Diego Gomez",
+            "position": "CM",
+            "x": 63.4,
+            "y": 36
+          },
+          {
+            "number": "10",
+            "name": "Miguel Almiron",
+            "position": "RM",
+            "x": 81,
+            "y": 30
+          },
+          {
+            "number": "6",
+            "name": "Junior Alonso",
+            "position": "LWB",
+            "x": 11.4,
+            "y": 55.7
+          },
+          {
+            "number": "4",
+            "name": "Juan Jose Caceres",
+            "position": "RWB",
+            "x": 86.6,
+            "y": 55.7
+          },
+          {
+            "number": "3",
+            "name": "Omar Alderete",
+            "position": "CB",
+            "x": 28.2,
+            "y": 61.2
+          },
+          {
+            "number": "15",
+            "name": "Gustavo Gomez",
+            "position": "CB",
+            "x": 49.9,
+            "y": 71
+          },
+          {
+            "number": "2",
+            "name": "Gustavo Velazquez",
+            "position": "CB",
+            "x": 70.8,
+            "y": 61.2
+          },
+          {
+            "number": "12",
+            "name": "Orlando Gill",
+            "position": "GK",
+            "x": 49.9,
+            "y": 90.5
+          }
+        ]
+      },
+      "away": {
+        "formation": "4-2-3-1",
+        "players": [
+          {
+            "number": "10",
+            "name": "Kylian Mbappe",
+            "position": "ST",
+            "x": 50,
+            "y": 10.5
+          },
+          {
+            "number": "12",
+            "name": "Bradley Barcola",
+            "position": "LW",
+            "x": 19.4,
+            "y": 30.1
+          },
+          {
+            "number": "11",
+            "name": "Michael Olise",
+            "position": "AM",
+            "x": 50,
+            "y": 30.1
+          },
+          {
+            "number": "7",
+            "name": "Ousmane Dembele",
+            "position": "RW",
+            "x": 80.6,
+            "y": 30.1
+          },
+          {
+            "number": "14",
+            "name": "Adrien Rabiot",
+            "position": "CM",
+            "x": 36.5,
+            "y": 49.9
+          },
+          {
+            "number": "6",
+            "name": "Manu Kone",
+            "position": "CM",
+            "x": 63.4,
+            "y": 49.9
+          },
+          {
+            "number": "3",
+            "name": "Lucas Digne",
+            "position": "LB",
+            "x": 13.7,
+            "y": 62.8
+          },
+          {
+            "number": "5",
+            "name": "Jules Kounde",
+            "position": "RB",
+            "x": 86.2,
+            "y": 62.8
+          },
+          {
+            "number": "17",
+            "name": "William Saliba",
+            "position": "CB",
+            "x": 33.3,
+            "y": 68.7
+          },
+          {
+            "number": "4",
+            "name": "Dayot Upamecano",
+            "position": "CB",
+            "x": 66.5,
+            "y": 68.7
+          },
+          {
+            "number": "16",
+            "name": "Mike Maignan",
+            "position": "GK",
+            "x": 49.9,
+            "y": 90.5
+          }
+        ]
+      }
+    },
+    "match-90-round-of-16-2026-07-04": {
+      "status": "verified",
+      "layoutSource": "verified-layout",
+      "checkedAt": "2026-07-07T20:00:00.000Z",
+      "sourceIds": [
+        "lineup-layout-verification-2026-07-07"
+      ],
+      "homeTeamId": "CAN",
+      "awayTeamId": "MAR",
+      "sources": [
+        {
+          "name": "ESPN",
+          "url": "https://www.espn.com/soccer/match/_/gameId/760502/morocco-canada",
+          "status": "matched",
+          "sourceDetail": "public match-center board geometry",
+          "exactLayout": true,
+          "home": {
+            "formation": "4-4-2",
+            "players": [
+              {
+                "number": "12",
+                "name": "Tani Oluwaseyi",
+                "position": "ST",
+                "x": 35.7,
+                "y": 10.5
+              },
+              {
+                "number": "10",
+                "name": "Jonathan David",
+                "position": "ST",
+                "x": 64.3,
+                "y": 10.5
+              },
+              {
+                "number": "20",
+                "name": "Ali Ahmed",
+                "position": "LM",
+                "x": 13.7,
+                "y": 39
+              },
+              {
+                "number": "17",
+                "name": "Tajon Buchanan",
+                "position": "RM",
+                "x": 86.6,
+                "y": 39
+              },
+              {
+                "number": "7",
+                "name": "Stephen Eustaquio",
+                "position": "CM",
+                "x": 35,
+                "y": 44.3
+              },
+              {
+                "number": "23",
+                "name": "Niko Sigur",
+                "position": "CM",
+                "x": 64.9,
+                "y": 44.3
+              },
+              {
+                "number": "22",
+                "name": "Richie Laryea",
+                "position": "LB",
+                "x": 13.7,
+                "y": 62.8
+              },
+              {
+                "number": "2",
+                "name": "Alistair Johnston",
+                "position": "RB",
+                "x": 86.6,
+                "y": 62.8
+              },
+              {
+                "number": "4",
+                "name": "Luc De Fougerolles",
+                "position": "CB",
+                "x": 33.3,
+                "y": 68.7
+              },
+              {
+                "number": "15",
+                "name": "Moise Bombito",
+                "position": "CB",
+                "x": 66.5,
+                "y": 68.7
+              },
+              {
+                "number": "16",
+                "name": "Maxime Crepeau",
+                "position": "GK",
+                "x": 49.9,
+                "y": 90.5
+              }
+            ]
+          },
+          "away": {
+            "formation": "4-2-3-1",
+            "players": [
+              {
+                "number": "11",
+                "name": "Ismael Saibari",
+                "position": "ST",
+                "x": 50,
+                "y": 10.5
+              },
+              {
+                "number": "23",
+                "name": "Bilal El Khannouss",
+                "position": "LW",
+                "x": 19.4,
+                "y": 30.1
+              },
+              {
+                "number": "8",
+                "name": "Azzedine Ounahi",
+                "position": "AM",
+                "x": 50,
+                "y": 30.1
+              },
+              {
+                "number": "10",
+                "name": "Brahim Diaz",
+                "position": "RW",
+                "x": 80.6,
+                "y": 30.1
+              },
+              {
+                "number": "24",
+                "name": "Neil El Aynaoui",
+                "position": "CM",
+                "x": 36.5,
+                "y": 49.9
+              },
+              {
+                "number": "6",
+                "name": "Ayyoub Bouaddi",
+                "position": "CM",
+                "x": 63.4,
+                "y": 49.9
+              },
+              {
+                "number": "3",
+                "name": "Noussair Mazraoui",
+                "position": "LB",
+                "x": 13.7,
+                "y": 62.8
+              },
+              {
+                "number": "2",
+                "name": "Achraf Hakimi",
+                "position": "RB",
+                "x": 86.2,
+                "y": 62.8
+              },
+              {
+                "number": "25",
+                "name": "Redouane Halhal",
+                "position": "CB",
+                "x": 33.3,
+                "y": 68.7
+              },
+              {
+                "number": "14",
+                "name": "Issa Diop",
+                "position": "CB",
+                "x": 66.5,
+                "y": 68.7
+              },
+              {
+                "number": "1",
+                "name": "Yassine Bounou",
+                "position": "GK",
+                "x": 49.9,
+                "y": 90.5
+              }
+            ]
+          },
+          "signature": {
+            "home": "tani oluwaseyi/jonathan david|ali ahmed/stephen eustaquio/niko sigur/tajon buchanan|richie laryea/luc de fougerolles/moise bombito/alistair johnston|maxime crepeau",
+            "away": "ismael saibari|bilal el khannouss/azzedine ounahi/brahim diaz|neil el aynaoui/ayyoub bouaddi|noussair mazraoui/redouane halhal/issa diop/achraf hakimi|yassine bounou"
+          }
+        }
+      ],
+      "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry.",
+      "home": {
+        "formation": "4-4-2",
+        "players": [
+          {
+            "number": "12",
+            "name": "Tani Oluwaseyi",
+            "position": "ST",
+            "x": 35.7,
+            "y": 10.5
+          },
+          {
+            "number": "10",
+            "name": "Jonathan David",
+            "position": "ST",
+            "x": 64.3,
+            "y": 10.5
+          },
+          {
+            "number": "20",
+            "name": "Ali Ahmed",
+            "position": "LM",
+            "x": 13.7,
+            "y": 39
+          },
+          {
+            "number": "17",
+            "name": "Tajon Buchanan",
+            "position": "RM",
+            "x": 86.6,
+            "y": 39
+          },
+          {
+            "number": "7",
+            "name": "Stephen Eustaquio",
+            "position": "CM",
+            "x": 35,
+            "y": 44.3
+          },
+          {
+            "number": "23",
+            "name": "Niko Sigur",
+            "position": "CM",
+            "x": 64.9,
+            "y": 44.3
+          },
+          {
+            "number": "22",
+            "name": "Richie Laryea",
+            "position": "LB",
+            "x": 13.7,
+            "y": 62.8
+          },
+          {
+            "number": "2",
+            "name": "Alistair Johnston",
+            "position": "RB",
+            "x": 86.6,
+            "y": 62.8
+          },
+          {
+            "number": "4",
+            "name": "Luc De Fougerolles",
+            "position": "CB",
+            "x": 33.3,
+            "y": 68.7
+          },
+          {
+            "number": "15",
+            "name": "Moise Bombito",
+            "position": "CB",
+            "x": 66.5,
+            "y": 68.7
+          },
+          {
+            "number": "16",
+            "name": "Maxime Crepeau",
+            "position": "GK",
+            "x": 49.9,
+            "y": 90.5
+          }
+        ]
+      },
+      "away": {
+        "formation": "4-2-3-1",
+        "players": [
+          {
+            "number": "11",
+            "name": "Ismael Saibari",
+            "position": "ST",
+            "x": 50,
+            "y": 10.5
+          },
+          {
+            "number": "23",
+            "name": "Bilal El Khannouss",
+            "position": "LW",
+            "x": 19.4,
+            "y": 30.1
+          },
+          {
+            "number": "8",
+            "name": "Azzedine Ounahi",
+            "position": "AM",
+            "x": 50,
+            "y": 30.1
+          },
+          {
+            "number": "10",
+            "name": "Brahim Diaz",
+            "position": "RW",
+            "x": 80.6,
+            "y": 30.1
+          },
+          {
+            "number": "24",
+            "name": "Neil El Aynaoui",
+            "position": "CM",
+            "x": 36.5,
+            "y": 49.9
+          },
+          {
+            "number": "6",
+            "name": "Ayyoub Bouaddi",
+            "position": "CM",
+            "x": 63.4,
+            "y": 49.9
+          },
+          {
+            "number": "3",
+            "name": "Noussair Mazraoui",
+            "position": "LB",
+            "x": 13.7,
+            "y": 62.8
+          },
+          {
+            "number": "2",
+            "name": "Achraf Hakimi",
+            "position": "RB",
+            "x": 86.2,
+            "y": 62.8
+          },
+          {
+            "number": "25",
+            "name": "Redouane Halhal",
+            "position": "CB",
+            "x": 33.3,
+            "y": 68.7
+          },
+          {
+            "number": "14",
+            "name": "Issa Diop",
+            "position": "CB",
+            "x": 66.5,
+            "y": 68.7
+          },
+          {
+            "number": "1",
+            "name": "Yassine Bounou",
+            "position": "GK",
+            "x": 49.9,
+            "y": 90.5
+          }
+        ]
+      }
+    },
+    "match-91-round-of-16-2026-07-05": {
+      "status": "verified",
+      "layoutSource": "verified-layout",
+      "checkedAt": "2026-07-07T20:00:00.000Z",
+      "sourceIds": [
+        "lineup-layout-verification-2026-07-07"
+      ],
+      "homeTeamId": "BRA",
+      "awayTeamId": "NOR",
+      "sources": [
+        {
+          "name": "ESPN",
+          "url": "https://www.espn.com/soccer/match/_/gameId/760504",
+          "status": "matched",
+          "sourceDetail": "public match-center board geometry",
+          "exactLayout": true,
+          "home": {
+            "formation": "4-1-2-3",
+            "players": [
+              {
+                "number": "7",
+                "name": "Vinicius Junior",
+                "position": "ST",
+                "x": 35.7,
+                "y": 10.5
+              },
+              {
+                "number": "9",
+                "name": "Matheus Cunha",
+                "position": "RW",
+                "x": 64.3,
+                "y": 10.5
+              },
+              {
+                "number": "22",
+                "name": "Gabriel Martinelli",
+                "position": "LW",
+                "x": 13.7,
+                "y": 39
+              },
+              {
+                "number": "26",
+                "name": "Rayan",
+                "position": "CM",
+                "x": 86.6,
+                "y": 39
+              },
+              {
+                "number": "5",
+                "name": "Casemiro",
+                "position": "CM",
+                "x": 35,
+                "y": 44.3
+              },
+              {
+                "number": "8",
+                "name": "Bruno Guimaraes",
+                "position": "DM",
+                "x": 64.9,
+                "y": 44.3
+              },
+              {
+                "number": "16",
+                "name": "Douglas Santos",
+                "position": "LB",
+                "x": 13.7,
+                "y": 62.8
+              },
+              {
+                "number": "13",
+                "name": "Danilo",
+                "position": "RB",
+                "x": 86.6,
+                "y": 62.8
+              },
+              {
+                "number": "3",
+                "name": "Gabriel Magalhaes",
+                "position": "CB",
+                "x": 33.3,
+                "y": 68.7
+              },
+              {
+                "number": "4",
+                "name": "Marquinhos",
+                "position": "CB",
+                "x": 66.5,
+                "y": 68.7
+              },
+              {
+                "number": "1",
+                "name": "Alisson",
+                "position": "GK",
+                "x": 49.9,
+                "y": 90.5
+              }
+            ]
+          },
+          "away": {
+            "formation": "4-1-2-3",
+            "players": [
+              {
+                "number": "9",
+                "name": "Erling Haaland",
+                "position": "ST",
+                "x": 50,
+                "y": 10.5
+              },
+              {
+                "number": "20",
+                "name": "Antonio Nusa",
+                "position": "LW",
+                "x": 18.6,
+                "y": 18.2
+              },
+              {
+                "number": "7",
+                "name": "Alexander Sorloth",
+                "position": "RW",
+                "x": 81.4,
+                "y": 18.2
+              },
+              {
+                "number": "8",
+                "name": "Sander Berge",
+                "position": "CM",
+                "x": 50,
+                "y": 37.6
+              },
+              {
+                "number": "6",
+                "name": "Patrick Berg",
+                "position": "CM",
+                "x": 18.6,
+                "y": 42.3
+              },
+              {
+                "number": "10",
+                "name": "Martin Odegaard",
+                "position": "DM",
+                "x": 81.4,
+                "y": 42.3
+              },
+              {
+                "number": "5",
+                "name": "David Moller Wolfe",
+                "position": "LB",
+                "x": 13.7,
+                "y": 62.8
+              },
+              {
+                "number": "26",
+                "name": "Julian Ryerson",
+                "position": "RB",
+                "x": 86.6,
+                "y": 62.8
+              },
+              {
+                "number": "17",
+                "name": "Torbjorn Heggem",
+                "position": "CB",
+                "x": 33.3,
+                "y": 68.7
+              },
+              {
+                "number": "3",
+                "name": "Kristoffer Ajer",
+                "position": "CB",
+                "x": 66.5,
+                "y": 68.7
+              },
+              {
+                "number": "1",
+                "name": "Orjan Nyland",
+                "position": "GK",
+                "x": 49.9,
+                "y": 90.5
+              }
+            ]
+          },
+          "signature": {
+            "home": "gabriel martinelli/vinicius junior/matheus cunha|casemiro/rayan|bruno guimaraes|douglas santos/gabriel magalhaes/marquinhos/danilo|alisson",
+            "away": "antonio nusa/erling haaland/alexander sorloth|patrick berg/sander berge|martin odegaard|david moller wolfe/torbjorn heggem/kristoffer ajer/julian ryerson|orjan nyland"
+          }
+        }
+      ],
+      "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry.",
+      "home": {
+        "formation": "4-1-2-3",
+        "players": [
+          {
+            "number": "7",
+            "name": "Vinicius Junior",
+            "position": "ST",
+            "x": 35.7,
+            "y": 10.5
+          },
+          {
+            "number": "9",
+            "name": "Matheus Cunha",
+            "position": "RW",
+            "x": 64.3,
+            "y": 10.5
+          },
+          {
+            "number": "22",
+            "name": "Gabriel Martinelli",
+            "position": "LW",
+            "x": 13.7,
+            "y": 39
+          },
+          {
+            "number": "26",
+            "name": "Rayan",
+            "position": "CM",
+            "x": 86.6,
+            "y": 39
+          },
+          {
+            "number": "5",
+            "name": "Casemiro",
+            "position": "CM",
+            "x": 35,
+            "y": 44.3
+          },
+          {
+            "number": "8",
+            "name": "Bruno Guimaraes",
+            "position": "DM",
+            "x": 64.9,
+            "y": 44.3
+          },
+          {
+            "number": "16",
+            "name": "Douglas Santos",
+            "position": "LB",
+            "x": 13.7,
+            "y": 62.8
+          },
+          {
+            "number": "13",
+            "name": "Danilo",
+            "position": "RB",
+            "x": 86.6,
+            "y": 62.8
+          },
+          {
+            "number": "3",
+            "name": "Gabriel Magalhaes",
+            "position": "CB",
+            "x": 33.3,
+            "y": 68.7
+          },
+          {
+            "number": "4",
+            "name": "Marquinhos",
+            "position": "CB",
+            "x": 66.5,
+            "y": 68.7
+          },
+          {
+            "number": "1",
+            "name": "Alisson",
+            "position": "GK",
+            "x": 49.9,
+            "y": 90.5
+          }
+        ]
+      },
+      "away": {
+        "formation": "4-1-2-3",
+        "players": [
+          {
+            "number": "9",
+            "name": "Erling Haaland",
+            "position": "ST",
+            "x": 50,
+            "y": 10.5
+          },
+          {
+            "number": "20",
+            "name": "Antonio Nusa",
+            "position": "LW",
+            "x": 18.6,
+            "y": 18.2
+          },
+          {
+            "number": "7",
+            "name": "Alexander Sorloth",
+            "position": "RW",
+            "x": 81.4,
+            "y": 18.2
+          },
+          {
+            "number": "8",
+            "name": "Sander Berge",
+            "position": "CM",
+            "x": 50,
+            "y": 37.6
+          },
+          {
+            "number": "6",
+            "name": "Patrick Berg",
+            "position": "CM",
+            "x": 18.6,
+            "y": 42.3
+          },
+          {
+            "number": "10",
+            "name": "Martin Odegaard",
+            "position": "DM",
+            "x": 81.4,
+            "y": 42.3
+          },
+          {
+            "number": "5",
+            "name": "David Moller Wolfe",
+            "position": "LB",
+            "x": 13.7,
+            "y": 62.8
+          },
+          {
+            "number": "26",
+            "name": "Julian Ryerson",
+            "position": "RB",
+            "x": 86.6,
+            "y": 62.8
+          },
+          {
+            "number": "17",
+            "name": "Torbjorn Heggem",
+            "position": "CB",
+            "x": 33.3,
+            "y": 68.7
+          },
+          {
+            "number": "3",
+            "name": "Kristoffer Ajer",
+            "position": "CB",
+            "x": 66.5,
+            "y": 68.7
+          },
+          {
+            "number": "1",
+            "name": "Orjan Nyland",
+            "position": "GK",
+            "x": 49.9,
+            "y": 90.5
+          }
+        ]
+      }
+    },
+    "match-92-round-of-16-2026-07-05": {
+      "status": "verified",
+      "layoutSource": "verified-layout",
+      "checkedAt": "2026-07-07T20:00:00.000Z",
+      "sourceIds": [
+        "lineup-layout-verification-2026-07-07"
+      ],
+      "homeTeamId": "MEX",
+      "awayTeamId": "ENG",
+      "sources": [
+        {
+          "name": "ESPN",
+          "url": "https://www.espn.com/soccer/match/_/gameId/760505/england-mexico",
+          "status": "matched",
+          "sourceDetail": "public match-center board geometry",
+          "exactLayout": true,
+          "home": {
+            "formation": "4-1-2-3",
+            "players": [
+              {
+                "number": "9",
+                "name": "Raul Jimenez",
+                "position": "ST",
+                "x": 50,
+                "y": 10.5
+              },
+              {
+                "number": "16",
+                "name": "Julian Quinones",
+                "position": "LW",
+                "x": 18.6,
+                "y": 18.2
+              },
+              {
+                "number": "25",
+                "name": "Roberto Alvarado",
+                "position": "RW",
+                "x": 81.4,
+                "y": 18.2
+              },
+              {
+                "number": "6",
+                "name": "Erik Lira",
+                "position": "CM",
+                "x": 50,
+                "y": 37.6
+              },
+              {
+                "number": "7",
+                "name": "Luis Romo",
+                "position": "CM",
+                "x": 18.6,
+                "y": 42.3
+              },
+              {
+                "number": "19",
+                "name": "Gilberto Mora",
+                "position": "DM",
+                "x": 81.4,
+                "y": 42.3
+              },
+              {
+                "number": "23",
+                "name": "Jesus Gallardo",
+                "position": "LB",
+                "x": 13.7,
+                "y": 62.8
+              },
+              {
+                "number": "2",
+                "name": "Jorge Sanchez",
+                "position": "RB",
+                "x": 86.6,
+                "y": 62.8
+              },
+              {
+                "number": "5",
+                "name": "Johan Vasquez",
+                "position": "CB",
+                "x": 33.3,
+                "y": 68.7
+              },
+              {
+                "number": "3",
+                "name": "Cesar Montes",
+                "position": "CB",
+                "x": 66.5,
+                "y": 68.7
+              },
+              {
+                "number": "1",
+                "name": "Raul Rangel",
+                "position": "GK",
+                "x": 49.9,
+                "y": 90.5
+              }
+            ]
+          },
+          "away": {
+            "formation": "4-2-3-1",
+            "players": [
+              {
+                "number": "9",
+                "name": "Harry Kane",
+                "position": "ST",
+                "x": 50,
+                "y": 10.5
+              },
+              {
+                "number": "18",
+                "name": "Anthony Gordon",
+                "position": "LW",
+                "x": 19.4,
+                "y": 30.1
+              },
+              {
+                "number": "10",
+                "name": "Jude Bellingham",
+                "position": "AM",
+                "x": 50,
+                "y": 30.1
+              },
+              {
+                "number": "7",
+                "name": "Bukayo Saka",
+                "position": "RW",
+                "x": 80.6,
+                "y": 30.1
+              },
+              {
+                "number": "8",
+                "name": "Elliot Anderson",
+                "position": "CM",
+                "x": 36.5,
+                "y": 49.9
+              },
+              {
+                "number": "4",
+                "name": "Declan Rice",
+                "position": "CM",
+                "x": 63.4,
+                "y": 49.9
+              },
+              {
+                "number": "3",
+                "name": "Nico Oreilly",
+                "position": "LB",
+                "x": 13.7,
+                "y": 62.8
+              },
+              {
+                "number": "26",
+                "name": "Jarell Quansah",
+                "position": "RB",
+                "x": 86.2,
+                "y": 62.8
+              },
+              {
+                "number": "6",
+                "name": "Marc Guehi",
+                "position": "CB",
+                "x": 33.3,
+                "y": 68.7
+              },
+              {
+                "number": "2",
+                "name": "Ezri Konsa",
+                "position": "CB",
+                "x": 66.5,
+                "y": 68.7
+              },
+              {
+                "number": "1",
+                "name": "Jordan Pickford",
+                "position": "GK",
+                "x": 49.9,
+                "y": 90.5
+              }
+            ]
+          },
+          "signature": {
+            "home": "julian quinones/raul jimenez/roberto alvarado|luis romo/erik lira|gilberto mora|jesus gallardo/johan vasquez/cesar montes/jorge sanchez|raul rangel",
+            "away": "harry kane|anthony gordon/jude bellingham/bukayo saka|elliot anderson/declan rice|nico oreilly/marc guehi/ezri konsa/jarell quansah|jordan pickford"
+          }
+        }
+      ],
+      "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry.",
+      "home": {
+        "formation": "4-1-2-3",
+        "players": [
+          {
+            "number": "9",
+            "name": "Raul Jimenez",
+            "position": "ST",
+            "x": 50,
+            "y": 10.5
+          },
+          {
+            "number": "16",
+            "name": "Julian Quinones",
+            "position": "LW",
+            "x": 18.6,
+            "y": 18.2
+          },
+          {
+            "number": "25",
+            "name": "Roberto Alvarado",
+            "position": "RW",
+            "x": 81.4,
+            "y": 18.2
+          },
+          {
+            "number": "6",
+            "name": "Erik Lira",
+            "position": "CM",
+            "x": 50,
+            "y": 37.6
+          },
+          {
+            "number": "7",
+            "name": "Luis Romo",
+            "position": "CM",
+            "x": 18.6,
+            "y": 42.3
+          },
+          {
+            "number": "19",
+            "name": "Gilberto Mora",
+            "position": "DM",
+            "x": 81.4,
+            "y": 42.3
+          },
+          {
+            "number": "23",
+            "name": "Jesus Gallardo",
+            "position": "LB",
+            "x": 13.7,
+            "y": 62.8
+          },
+          {
+            "number": "2",
+            "name": "Jorge Sanchez",
+            "position": "RB",
+            "x": 86.6,
+            "y": 62.8
+          },
+          {
+            "number": "5",
+            "name": "Johan Vasquez",
+            "position": "CB",
+            "x": 33.3,
+            "y": 68.7
+          },
+          {
+            "number": "3",
+            "name": "Cesar Montes",
+            "position": "CB",
+            "x": 66.5,
+            "y": 68.7
+          },
+          {
+            "number": "1",
+            "name": "Raul Rangel",
+            "position": "GK",
+            "x": 49.9,
+            "y": 90.5
+          }
+        ]
+      },
+      "away": {
+        "formation": "4-2-3-1",
+        "players": [
+          {
+            "number": "9",
+            "name": "Harry Kane",
+            "position": "ST",
+            "x": 50,
+            "y": 10.5
+          },
+          {
+            "number": "18",
+            "name": "Anthony Gordon",
+            "position": "LW",
+            "x": 19.4,
+            "y": 30.1
+          },
+          {
+            "number": "10",
+            "name": "Jude Bellingham",
+            "position": "AM",
+            "x": 50,
+            "y": 30.1
+          },
+          {
+            "number": "7",
+            "name": "Bukayo Saka",
+            "position": "RW",
+            "x": 80.6,
+            "y": 30.1
+          },
+          {
+            "number": "8",
+            "name": "Elliot Anderson",
+            "position": "CM",
+            "x": 36.5,
+            "y": 49.9
+          },
+          {
+            "number": "4",
+            "name": "Declan Rice",
+            "position": "CM",
+            "x": 63.4,
+            "y": 49.9
+          },
+          {
+            "number": "3",
+            "name": "Nico Oreilly",
+            "position": "LB",
+            "x": 13.7,
+            "y": 62.8
+          },
+          {
+            "number": "26",
+            "name": "Jarell Quansah",
+            "position": "RB",
+            "x": 86.2,
+            "y": 62.8
+          },
+          {
+            "number": "6",
+            "name": "Marc Guehi",
+            "position": "CB",
+            "x": 33.3,
+            "y": 68.7
+          },
+          {
+            "number": "2",
+            "name": "Ezri Konsa",
+            "position": "CB",
+            "x": 66.5,
+            "y": 68.7
+          },
+          {
+            "number": "1",
+            "name": "Jordan Pickford",
+            "position": "GK",
+            "x": 49.9,
+            "y": 90.5
+          }
+        ]
+      }
+    },
+    "match-93-round-of-16-2026-07-06": {
+      "status": "verified",
+      "layoutSource": "verified-layout",
+      "checkedAt": "2026-07-07T20:00:00.000Z",
+      "sourceIds": [
+        "lineup-layout-verification-2026-07-07"
+      ],
+      "homeTeamId": "POR",
+      "awayTeamId": "ESP",
+      "sources": [
+        {
+          "name": "ESPN",
+          "url": "https://www.espn.com/soccer/match/_/gameId/760506/spain-portugal",
+          "status": "matched",
+          "sourceDetail": "public match-center board geometry",
+          "exactLayout": true,
+          "home": {
+            "formation": "4-2-3-1",
+            "players": [
+              {
+                "number": "7",
+                "name": "Cristiano Ronaldo",
+                "position": "ST",
+                "x": 50,
+                "y": 10.5
+              },
+              {
+                "number": "11",
+                "name": "Joao Felix",
+                "position": "LW",
+                "x": 19.4,
+                "y": 30.1
+              },
+              {
+                "number": "8",
+                "name": "Bruno Fernandes",
+                "position": "AM",
+                "x": 50,
+                "y": 30.1
+              },
+              {
+                "number": "18",
+                "name": "Pedro Neto",
+                "position": "RW",
+                "x": 80.6,
+                "y": 30.1
+              },
+              {
+                "number": "15",
+                "name": "Joao Neves",
+                "position": "CM",
+                "x": 36.5,
+                "y": 49.9
+              },
+              {
+                "number": "23",
+                "name": "Vitinha",
+                "position": "CM",
+                "x": 63.4,
+                "y": 49.9
+              },
+              {
+                "number": "25",
+                "name": "Nuno Mendes",
+                "position": "LB",
+                "x": 13.7,
+                "y": 62.8
+              },
+              {
+                "number": "20",
+                "name": "Joao Cancelo",
+                "position": "RB",
+                "x": 86.2,
+                "y": 62.8
+              },
+              {
+                "number": "13",
+                "name": "Renato Veiga",
+                "position": "CB",
+                "x": 33.3,
+                "y": 68.7
+              },
+              {
+                "number": "3",
+                "name": "Ruben Dias",
+                "position": "CB",
+                "x": 66.5,
+                "y": 68.7
+              },
+              {
+                "number": "1",
+                "name": "Diogo Costa",
+                "position": "GK",
+                "x": 49.9,
+                "y": 90.5
+              }
+            ]
+          },
+          "away": {
+            "formation": "4-1-2-3",
+            "players": [
+              {
+                "number": "21",
+                "name": "Mikel Oyarzabal",
+                "position": "ST",
+                "x": 50,
+                "y": 10.5
+              },
+              {
+                "number": "15",
+                "name": "Alex Baena",
+                "position": "LW",
+                "x": 19.4,
+                "y": 30.1
+              },
+              {
+                "number": "10",
+                "name": "Dani Olmo",
+                "position": "RW",
+                "x": 50,
+                "y": 30.1
+              },
+              {
+                "number": "19",
+                "name": "Lamine Yamal",
+                "position": "CM",
+                "x": 80.6,
+                "y": 30.1
+              },
+              {
+                "number": "20",
+                "name": "Pedri",
+                "position": "CM",
+                "x": 36.5,
+                "y": 49.9
+              },
+              {
+                "number": "16",
+                "name": "Rodri",
+                "position": "DM",
+                "x": 63.4,
+                "y": 49.9
+              },
+              {
+                "number": "24",
+                "name": "Marc Cucurella",
+                "position": "LB",
+                "x": 13.7,
+                "y": 62.8
+              },
+              {
+                "number": "12",
+                "name": "Pedro Porro",
+                "position": "RB",
+                "x": 86.2,
+                "y": 62.8
+              },
+              {
+                "number": "14",
+                "name": "Aymeric Laporte",
+                "position": "CB",
+                "x": 33.3,
+                "y": 68.7
+              },
+              {
+                "number": "22",
+                "name": "Pau Cubarsi",
+                "position": "CB",
+                "x": 66.5,
+                "y": 68.7
+              },
+              {
+                "number": "23",
+                "name": "Unai Simon",
+                "position": "GK",
+                "x": 49.9,
+                "y": 90.5
+              }
+            ]
+          },
+          "signature": {
+            "home": "cristiano ronaldo|joao felix/bruno fernandes/pedro neto|joao neves/vitinha|nuno mendes/renato veiga/ruben dias/joao cancelo|diogo costa",
+            "away": "alex baena/mikel oyarzabal/dani olmo|pedri/lamine yamal|rodri|marc cucurella/aymeric laporte/pau cubarsi/pedro porro|unai simon"
+          }
+        }
+      ],
+      "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry.",
+      "home": {
+        "formation": "4-2-3-1",
+        "players": [
+          {
+            "number": "7",
+            "name": "Cristiano Ronaldo",
+            "position": "ST",
+            "x": 50,
+            "y": 10.5
+          },
+          {
+            "number": "11",
+            "name": "Joao Felix",
+            "position": "LW",
+            "x": 19.4,
+            "y": 30.1
+          },
+          {
+            "number": "8",
+            "name": "Bruno Fernandes",
+            "position": "AM",
+            "x": 50,
+            "y": 30.1
+          },
+          {
+            "number": "18",
+            "name": "Pedro Neto",
+            "position": "RW",
+            "x": 80.6,
+            "y": 30.1
+          },
+          {
+            "number": "15",
+            "name": "Joao Neves",
+            "position": "CM",
+            "x": 36.5,
+            "y": 49.9
+          },
+          {
+            "number": "23",
+            "name": "Vitinha",
+            "position": "CM",
+            "x": 63.4,
+            "y": 49.9
+          },
+          {
+            "number": "25",
+            "name": "Nuno Mendes",
+            "position": "LB",
+            "x": 13.7,
+            "y": 62.8
+          },
+          {
+            "number": "20",
+            "name": "Joao Cancelo",
+            "position": "RB",
+            "x": 86.2,
+            "y": 62.8
+          },
+          {
+            "number": "13",
+            "name": "Renato Veiga",
+            "position": "CB",
+            "x": 33.3,
+            "y": 68.7
+          },
+          {
+            "number": "3",
+            "name": "Ruben Dias",
+            "position": "CB",
+            "x": 66.5,
+            "y": 68.7
+          },
+          {
+            "number": "1",
+            "name": "Diogo Costa",
+            "position": "GK",
+            "x": 49.9,
+            "y": 90.5
+          }
+        ]
+      },
+      "away": {
+        "formation": "4-1-2-3",
+        "players": [
+          {
+            "number": "21",
+            "name": "Mikel Oyarzabal",
+            "position": "ST",
+            "x": 50,
+            "y": 10.5
+          },
+          {
+            "number": "15",
+            "name": "Alex Baena",
+            "position": "LW",
+            "x": 19.4,
+            "y": 30.1
+          },
+          {
+            "number": "10",
+            "name": "Dani Olmo",
+            "position": "RW",
+            "x": 50,
+            "y": 30.1
+          },
+          {
+            "number": "19",
+            "name": "Lamine Yamal",
+            "position": "CM",
+            "x": 80.6,
+            "y": 30.1
+          },
+          {
+            "number": "20",
+            "name": "Pedri",
+            "position": "CM",
+            "x": 36.5,
+            "y": 49.9
+          },
+          {
+            "number": "16",
+            "name": "Rodri",
+            "position": "DM",
+            "x": 63.4,
+            "y": 49.9
+          },
+          {
+            "number": "24",
+            "name": "Marc Cucurella",
+            "position": "LB",
+            "x": 13.7,
+            "y": 62.8
+          },
+          {
+            "number": "12",
+            "name": "Pedro Porro",
+            "position": "RB",
+            "x": 86.2,
+            "y": 62.8
+          },
+          {
+            "number": "14",
+            "name": "Aymeric Laporte",
+            "position": "CB",
+            "x": 33.3,
+            "y": 68.7
+          },
+          {
+            "number": "22",
+            "name": "Pau Cubarsi",
+            "position": "CB",
+            "x": 66.5,
+            "y": 68.7
+          },
+          {
+            "number": "23",
+            "name": "Unai Simon",
+            "position": "GK",
+            "x": 49.9,
+            "y": 90.5
+          }
+        ]
+      }
+    },
+    "match-94-round-of-16-2026-07-06": {
+      "status": "verified",
+      "layoutSource": "verified-layout",
+      "checkedAt": "2026-07-07T20:00:00.000Z",
+      "sourceIds": [
+        "lineup-layout-verification-2026-07-07"
+      ],
+      "homeTeamId": "USA",
+      "awayTeamId": "BEL",
+      "sources": [
+        {
+          "name": "ESPN",
+          "url": "https://www.espn.com/soccer/match/_/gameId/760507/belgium-united-states",
+          "status": "matched",
+          "sourceDetail": "public match-center board geometry",
+          "exactLayout": true,
+          "home": {
+            "formation": "3-5-2",
+            "players": [
+              {
+                "number": "20",
+                "name": "Folarin Balogun",
+                "position": "ST",
+                "x": 50,
+                "y": 10.5
+              },
+              {
+                "number": "10",
+                "name": "Christian Pulisic",
+                "position": "ST",
+                "x": 18.6,
+                "y": 18.2
+              },
+              {
+                "number": "2",
+                "name": "Sergino Dest",
+                "position": "CM",
+                "x": 81.4,
+                "y": 18.2
+              },
+              {
+                "number": "4",
+                "name": "Tyler Adams",
+                "position": "CM",
+                "x": 50,
+                "y": 37.6
+              },
+              {
+                "number": "17",
+                "name": "Malik Tillman",
+                "position": "CM",
+                "x": 18.6,
+                "y": 42.3
+              },
+              {
+                "number": "8",
+                "name": "Weston McKennie",
+                "position": "RWB",
+                "x": 81.4,
+                "y": 42.3
+              },
+              {
+                "number": "5",
+                "name": "Antonee Robinson",
+                "position": "LWB",
+                "x": 13.7,
+                "y": 62.8
+              },
+              {
+                "number": "16",
+                "name": "Alex Freeman",
+                "position": "RCB",
+                "x": 86.6,
+                "y": 62.8
+              },
+              {
+                "number": "13",
+                "name": "Tim Ream",
+                "position": "LCB",
+                "x": 33.3,
+                "y": 68.7
+              },
+              {
+                "number": "3",
+                "name": "Chris Richards",
+                "position": "CB",
+                "x": 66.5,
+                "y": 68.7
+              },
+              {
+                "number": "24",
+                "name": "Matt Freese",
+                "position": "GK",
+                "x": 49.9,
+                "y": 90.5
+              }
+            ]
+          },
+          "away": {
+            "formation": "4-2-3-1",
+            "players": [
+              {
+                "number": "17",
+                "name": "Charles De Ketelaere",
+                "position": "ST",
+                "x": 50,
+                "y": 10.5
+              },
+              {
+                "number": "10",
+                "name": "Leandro Trossard",
+                "position": "LW",
+                "x": 19.4,
+                "y": 30.1
+              },
+              {
+                "number": "8",
+                "name": "Youri Tielemans",
+                "position": "AM",
+                "x": 50,
+                "y": 30.1
+              },
+              {
+                "number": "14",
+                "name": "Dodi Lukebakio",
+                "position": "RW",
+                "x": 80.6,
+                "y": 30.1
+              },
+              {
+                "number": "23",
+                "name": "Nicolas Raskin",
+                "position": "CM",
+                "x": 36.5,
+                "y": 49.9
+              },
+              {
+                "number": "24",
+                "name": "Amadou Onana",
+                "position": "CM",
+                "x": 63.4,
+                "y": 49.9
+              },
+              {
+                "number": "5",
+                "name": "Maxim De Cuyper",
+                "position": "LB",
+                "x": 13.7,
+                "y": 62.8
+              },
+              {
+                "number": "21",
+                "name": "Timothy Castagne",
+                "position": "RB",
+                "x": 86.2,
+                "y": 62.8
+              },
+              {
+                "number": "4",
+                "name": "Brandon Mechele",
+                "position": "CB",
+                "x": 33.3,
+                "y": 68.7
+              },
+              {
+                "number": "25",
+                "name": "Nathan Ngoy",
+                "position": "CB",
+                "x": 66.5,
+                "y": 68.7
+              },
+              {
+                "number": "1",
+                "name": "Thibaut Courtois",
+                "position": "GK",
+                "x": 49.9,
+                "y": 90.5
+              }
+            ]
+          },
+          "signature": {
+            "home": "christian pulisic/folarin balogun|antonee robinson/malik tillman/tyler adams/sergino dest/weston mckennie|tim ream/chris richards/alex freeman|matt freese",
+            "away": "charles de ketelaere|leandro trossard/youri tielemans/dodi lukebakio|nicolas raskin/amadou onana|maxim de cuyper/brandon mechele/nathan ngoy/timothy castagne|thibaut courtois"
+          }
+        }
+      ],
+      "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry.",
+      "home": {
+        "formation": "3-5-2",
+        "players": [
+          {
+            "number": "20",
+            "name": "Folarin Balogun",
+            "position": "ST",
+            "x": 50,
+            "y": 10.5
+          },
+          {
+            "number": "10",
+            "name": "Christian Pulisic",
+            "position": "ST",
+            "x": 18.6,
+            "y": 18.2
+          },
+          {
+            "number": "2",
+            "name": "Sergino Dest",
+            "position": "CM",
+            "x": 81.4,
+            "y": 18.2
+          },
+          {
+            "number": "4",
+            "name": "Tyler Adams",
+            "position": "CM",
+            "x": 50,
+            "y": 37.6
+          },
+          {
+            "number": "17",
+            "name": "Malik Tillman",
+            "position": "CM",
+            "x": 18.6,
+            "y": 42.3
+          },
+          {
+            "number": "8",
+            "name": "Weston McKennie",
+            "position": "RWB",
+            "x": 81.4,
+            "y": 42.3
+          },
+          {
+            "number": "5",
+            "name": "Antonee Robinson",
+            "position": "LWB",
+            "x": 13.7,
+            "y": 62.8
+          },
+          {
+            "number": "16",
+            "name": "Alex Freeman",
+            "position": "RCB",
+            "x": 86.6,
+            "y": 62.8
+          },
+          {
+            "number": "13",
+            "name": "Tim Ream",
+            "position": "LCB",
+            "x": 33.3,
+            "y": 68.7
+          },
+          {
+            "number": "3",
+            "name": "Chris Richards",
+            "position": "CB",
+            "x": 66.5,
+            "y": 68.7
+          },
+          {
+            "number": "24",
+            "name": "Matt Freese",
+            "position": "GK",
+            "x": 49.9,
+            "y": 90.5
+          }
+        ]
+      },
+      "away": {
+        "formation": "4-2-3-1",
+        "players": [
+          {
+            "number": "17",
+            "name": "Charles De Ketelaere",
+            "position": "ST",
+            "x": 50,
+            "y": 10.5
+          },
+          {
+            "number": "10",
+            "name": "Leandro Trossard",
+            "position": "LW",
+            "x": 19.4,
+            "y": 30.1
+          },
+          {
+            "number": "8",
+            "name": "Youri Tielemans",
+            "position": "AM",
+            "x": 50,
+            "y": 30.1
+          },
+          {
+            "number": "14",
+            "name": "Dodi Lukebakio",
+            "position": "RW",
+            "x": 80.6,
+            "y": 30.1
+          },
+          {
+            "number": "23",
+            "name": "Nicolas Raskin",
+            "position": "CM",
+            "x": 36.5,
+            "y": 49.9
+          },
+          {
+            "number": "24",
+            "name": "Amadou Onana",
+            "position": "CM",
+            "x": 63.4,
+            "y": 49.9
+          },
+          {
+            "number": "5",
+            "name": "Maxim De Cuyper",
+            "position": "LB",
+            "x": 13.7,
+            "y": 62.8
+          },
+          {
+            "number": "21",
+            "name": "Timothy Castagne",
+            "position": "RB",
+            "x": 86.2,
+            "y": 62.8
+          },
+          {
+            "number": "4",
+            "name": "Brandon Mechele",
+            "position": "CB",
+            "x": 33.3,
+            "y": 68.7
+          },
+          {
+            "number": "25",
+            "name": "Nathan Ngoy",
+            "position": "CB",
+            "x": 66.5,
+            "y": 68.7
+          },
+          {
+            "number": "1",
+            "name": "Thibaut Courtois",
             "position": "GK",
             "x": 49.9,
             "y": 90.5

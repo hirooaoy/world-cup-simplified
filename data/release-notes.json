@@ -1,6 +1,69 @@
 {
-  "updatedAt": "2026-07-03T16:56:00-07:00",
+  "updatedAt": "2026-07-07T10:00:25-07:00",
   "releases": [
+    {
+      "date": "2026-07-07",
+      "title": "Live match position labels",
+      "titleZh": "直播比赛进程标签",
+      "highlights": [
+        "Live match rows, tournament cards, and match details now surface the official FIFA position such as 15', Half-time, extra time, or penalties when available.",
+        "FIFA live sync now preserves phase values like HT or interval even when they arrive through MatchTime instead of status text."
+      ],
+      "highlightsZh": [
+        "直播比赛行、淘汰赛卡片和比赛详情现在会在可用时显示 FIFA 官方进程，例如 15 分钟、半场、加时或点球大战。",
+        "FIFA 实时同步现在会保留通过 MatchTime 而非状态文本传来的 HT 或 interval 等阶段值。"
+      ]
+    },
+    {
+      "date": "2026-07-07",
+      "title": "Prediction tooltip copy cleanup",
+      "titleZh": "预测提示文案清理",
+      "highlights": [
+        "Prediction info buttons now show only the prediction source/method copy, while the work-in-progress caution remains scoped to line-up info buttons."
+      ],
+      "highlightsZh": [
+        "预测信息按钮现在只显示预测来源/方法说明；“仍在开发中”的提示继续仅用于阵容信息按钮。"
+      ]
+    },
+    {
+      "date": "2026-07-07",
+      "title": "Chinese lineup and recap localization cleanup",
+      "titleZh": "中文阵容与复盘本地化清理",
+      "highlights": [
+        "Chinese recap translations now normalize known player surnames inside otherwise translated bullets, preventing names like Trossard or Tielemans from leaking in English.",
+        "Lineup coach style chips now share the Chinese glossary used elsewhere, covering labels such as Counter-attack, Defensive organization, and Set-piece focus."
+      ],
+      "highlightsZh": [
+        "中文复盘翻译现在会在已翻译的要点中继续规范已知球员姓氏，避免 Trossard、Tielemans 等名字残留英文。",
+        "阵容教练风格标签现在复用全站中文术语表，覆盖“反击”“防守组织”“定位球重点”等标签。"
+      ]
+    },
+    {
+      "date": "2026-07-07",
+      "title": "Delayed kickoff status handling",
+      "titleZh": "开球延迟状态处理",
+      "highlights": [
+        "Weather or operations delays can now show a neutral Delayed chip instead of being inferred as Live from the original kickoff time.",
+        "Delayed fixtures stay score-free and non-live across match rows, tournament cards, validation, and matchday readiness checks."
+      ],
+      "highlightsZh": [
+        "天气或运营原因导致的开球延迟现在会显示中性的“延迟”标记，而不会仅凭原定开球时间推断为直播。",
+        "延迟状态的比赛会在比赛行、淘汰赛卡片、数据验证和比赛日检查中保持无比分、非直播状态。"
+      ]
+    },
+    {
+      "date": "2026-07-07",
+      "title": "Recent result recaps and official highlights",
+      "titleZh": "近期赛果复盘与官方集锦",
+      "highlights": [
+        "Recent finished knockout matches now include concise Result-card story bullets alongside verified FOX Sports YouTube highlight links.",
+        "Chinese localization now covers the newest knockout recap bullets so Result cards do not fall back to English prose."
+      ],
+      "highlightsZh": [
+        "近期完场淘汰赛现在在结果卡片中补充简洁复盘要点，并配套已验证的 FOX Sports YouTube 官方集锦链接。",
+        "中文本地化现已覆盖最新淘汰赛复盘要点，避免结果卡片回退显示英文段落。"
+      ]
+    },
     {
       "date": "2026-07-04",
       "title": "Release notes update and official lineup sync hardening",

@@ -1599,7 +1599,7 @@ function formatExpectedSourceUpdatedAt(value) {
 }
 
 function getExpectedReleaseTooltipText(data) {
-  const release = (data.releases || [])
+  const release = [...(data.releases || [])]
     .filter((item) => item && typeof item === "object")
     .sort((a, b) => new Date(b.date || 0).getTime() - new Date(a.date || 0).getTime())[0];
   const title = String(release?.title || "Latest changes").trim();
@@ -2554,7 +2554,7 @@ try {
     const fixturesResponse = await fetch(`data/fixtures.json?coverage=${Date.now()}`);
     const fixturesData = await fixturesResponse.json();
     const hasLatinLeak = (value) =>
-      /[A-Za-zÀ-ÖØ-öø-ÿ][a-zà-öø-ÿ]{2,}/.test(
+      /\p{Script=Latin}[\p{Script=Latin}'-]{2,}/u.test(
         String(value || "").replace(/\bFIFA\b/g, "")
       );
     const issues = [];
@@ -2601,6 +2601,11 @@ try {
 
     const staleEnglishGrammarPattern =
       /\b(?:won\s+(?:the|on|after)|survived|shootout|after|draw|stayed|scoreless|penalties|eventually|forced|gave|reply|winner|settled|kept|pulled|chase|match|through|goal|point|teams?|Group|Round|lifted|title|level|unresolved)\b/i;
+    const allowedLatinTerms = new Set(["AFC", "CAF", "CONCACAF", "CONMEBOL", "FIFA", "FOX", "GD", "UEFA", "USA", "VAR"]);
+    const getLatinLeaks = (value) =>
+      [...String(value || "").matchAll(/\p{Script=Latin}[\p{Script=Latin}'-]{2,}/gu)]
+        .map((match) => match[0])
+        .filter((term) => !allowedLatinTerms.has(term.toUpperCase()));
     const issues = [];
 
     for (const file of ["data/fixtures.json", "data/history.json"]) {
@@ -2615,12 +2620,14 @@ try {
             }
 
             const translated = translateTextToZh(source).trim();
-            if (translated === source || staleEnglishGrammarPattern.test(translated)) {
+            const latinLeaks = getLatinLeaks(translated);
+            if (translated === source || staleEnglishGrammarPattern.test(translated) || latinLeaks.length) {
               issues.push({
                 file,
                 fixtureId: fixture.id,
                 field,
                 index,
+                latinLeaks,
                 source,
                 translated
               });
@@ -2990,14 +2997,14 @@ try {
     "Round of 32 normal-score next path should show ranking pills for both the winning opponent and defeated team."
   );
 
-  await page.goto(`${baseUrl}?view=matches&date=2026-07-05&tz=America%2FLos_Angeles`, {
+  await page.goto(`${baseUrl}?view=matches&date=2026-07-07&tz=America%2FLos_Angeles`, {
     waitUntil: "load"
   });
   await page.waitForSelector(".match-row");
   const roundOf16ProjectedRowText = normalizeFlaggedText(
-    await page.locator('[data-match-id="match-92-round-of-16-2026-07-05"]').innerText()
+    await page.locator('[data-match-id="match-96-round-of-16-2026-07-07"]').innerText()
   );
-  await page.locator('[data-match-id="match-92-round-of-16-2026-07-05"]').click();
+  await page.locator('[data-match-id="match-96-round-of-16-2026-07-07"]').click();
   const roundOf16DetailText = normalizeFlaggedText(await page.locator("#match-info").innerText());
   const roundOf16SourceStatusReady =
     /\bis (?:scheduled|live at \d+-\d+|predicted)\b/.test(roundOf16DetailText) ||
@@ -3011,7 +3018,7 @@ try {
       roundOf16DetailText.includes("Previous: Round of 32") &&
       roundOf16SourceStatusReady &&
       roundOf16DetailText.includes("Next: Quarter-finals") &&
-      /Winner will face winner of Brazil #\d+ vs Norway #\d+(?!\.)/.test(roundOf16DetailText) &&
+      /Winner will face winner of [A-Za-z ]+ #\d+ vs [A-Za-z ]+ #\d+(?!\.)/.test(roundOf16DetailText) &&
       roundOf16DetailText.includes("Prediction") &&
       !roundOf16DetailText.includes("Previous: Group round") &&
       !roundOf16DetailText.includes("bracket details are not loaded yet"),
@@ -5313,6 +5320,7 @@ try {
       (fixture) => fixture.id === "czechia-south-africa-2026-06-18"
     );
     liveFixture.status = "SCHEDULED";
+    liveFixture.officialMatchPhase = "First half";
     liveFixture.officialMatchTime = "5'";
     liveFixture.officialMatchTimeUpdatedAt = "2026-06-18T16:02:00.000Z";
     delete liveFixture.score;
@@ -5369,7 +5377,7 @@ try {
   });
   assert(
     liveFallbackScoreCheck.context.pages().length === desktopPageCountBeforeLiveClick &&
-      desktopLiveTooltipState.visibleText === "Live" &&
+      desktopLiveTooltipState.visibleText === "5'" &&
       desktopLiveTooltipState.tooltip === "FIFA snapshot: 5' · checked 3 min ago" &&
       desktopLiveTooltipState.href === null &&
       desktopLiveTooltipState.pageUrl === desktopUrlBeforeLiveClick,
@@ -5413,7 +5421,7 @@ try {
   });
   assert(
     liveFallbackTouchCheck.context.pages().length === touchPageCountBeforeLiveTap &&
-      touchLiveTooltipState.visibleText === "Live" &&
+      touchLiveTooltipState.visibleText === "5'" &&
       touchLiveTooltipState.tooltip === "FIFA snapshot: 5' · checked 3 min ago" &&
       touchLiveTooltipState.href === null &&
       touchLiveTooltipState.pageUrl === touchUrlBeforeLiveTap,
@@ -5422,13 +5430,13 @@ try {
   await liveFallbackTouchCheck.context.close();
   const liveFallbackText = (await liveFallbackRow.innerText()).replace(/\s+/g, " ").trim();
   const liveFallbackUpperText = liveFallbackText.toUpperCase();
-  const liveFallbackOrder = ["CZECHIA", "VS", "SOUTH AFRICA", "LIVE"].map((text) =>
+  const liveFallbackOrder = ["CZECHIA", "VS", "SOUTH AFRICA", "5'"].map((text) =>
     liveFallbackUpperText.indexOf(text)
   );
   assert(
     liveFallbackOrder.every((index) => index >= 0) &&
       liveFallbackOrder.every((index, itemIndex) => itemIndex === 0 || index > liveFallbackOrder[itemIndex - 1]),
-    "A live fixture without a loaded score should keep vs between teams and show Live after the matchup."
+    "A live fixture without a loaded score should keep vs between teams and show the official match time after the matchup."
   );
   assert(
     !liveFallbackText.includes("0-0"),
@@ -5438,8 +5446,8 @@ try {
     .locator(".match-row-meta > *")
     .evaluateAll((items) => items.map((item) => item.innerText.trim().toUpperCase()).join("|"));
   assert(
-    liveFallbackMetaText === "LIVE|PENDING",
-    "The live row should label score-pending state when no verified score is loaded."
+    liveFallbackMetaText === "5'|PENDING",
+    "The live row should label the official match time and score-pending state when no verified score is loaded."
   );
   assert(
     (await liveFallbackRow.locator(".score-status.is-pending").count()) === 1,
@@ -5509,6 +5517,89 @@ try {
     `Live match detail should keep the prediction card below the live score. Measured ${JSON.stringify({ liveDetailBlockOrder, liveDetailPredictionRows })}.`
   );
   await liveDetailPredictionCheck.context.close();
+
+  const applyHalfTimeLiveFixture = (data) => {
+    const fixture = data.fixtures.find(
+      (item) => item.id === "czechia-south-africa-2026-06-18"
+    );
+    fixture.status = "LIVE";
+    fixture.score = { home: 0, away: 1 };
+    fixture.scoreUpdatedAt = "2026-06-18T16:03:00.000Z";
+    fixture.officialMatchTime = "HT";
+    fixture.officialMatchTimeUpdatedAt = "2026-06-18T16:03:00.000Z";
+    delete fixture.officialMatchPhase;
+  };
+  const liveHalfTimeCheck = await openPageAtTime(
+    "2026-06-18T16:05:00.000Z",
+    "/?view=matches&date=2026-06-18&tz=America%2FLos_Angeles",
+    {
+      fixtureTransform: applyHalfTimeLiveFixture
+    }
+  );
+  const liveHalfTimeRow = liveHalfTimeCheck.page.locator(
+    '[data-match-id="czechia-south-africa-2026-06-18"]'
+  );
+  const liveHalfTimeRowState = await liveHalfTimeRow.evaluate((row) => {
+    const pill = row.querySelector(".live-pill");
+    return {
+      ariaLabel: pill?.getAttribute("aria-label") || "",
+      pillText: pill?.textContent.replace(/\s+/g, " ").trim() || "",
+      scoreText: row.querySelector(".match-score")?.textContent.replace(/\s+/g, " ").trim() || "",
+      tooltip: pill?.getAttribute("data-tooltip") || ""
+    };
+  });
+  assert(
+    liveHalfTimeRowState.pillText === "Half-time" &&
+      liveHalfTimeRowState.scoreText === "0-1 · 2 min ago" &&
+      liveHalfTimeRowState.tooltip === "FIFA snapshot: Half-time · checked 2 min ago" &&
+      liveHalfTimeRowState.ariaLabel === "Live: FIFA snapshot: Half-time · checked 2 min ago",
+    `A live row should show official half-time position from MatchTime=HT instead of only Live. Measured ${JSON.stringify(liveHalfTimeRowState)}.`
+  );
+  await liveHalfTimeRow.click();
+  const liveHalfTimeDetailState = await liveHalfTimeCheck.page.locator("#match-info").evaluate((info) => {
+    const heading = info.querySelector(".match-live-block h3");
+    return {
+      headingAria: heading?.getAttribute("aria-label") || "",
+      headingText: heading?.textContent.replace(/\s+/g, " ").trim() || "",
+      sourceText: info.querySelector(".live-source-note")?.textContent.replace(/\s+/g, " ").trim() || ""
+    };
+  });
+  assert(
+    liveHalfTimeDetailState.headingText === "Live score Half-time" &&
+      liveHalfTimeDetailState.headingAria === "Live score, Half-time" &&
+      liveHalfTimeDetailState.sourceText.includes("Current time Half-time") &&
+      liveHalfTimeDetailState.sourceText.includes("Checked 2 min ago") &&
+      liveHalfTimeDetailState.sourceText.includes("See latest"),
+    `Live match details should keep the official match position visible in the heading and source row. Measured ${JSON.stringify(liveHalfTimeDetailState)}.`
+  );
+  await liveHalfTimeCheck.context.close();
+
+  const liveHalfTimeZhCheck = await openPageAtTime(
+    "2026-06-18T16:05:00.000Z",
+    "/?view=matches&date=2026-06-18&lang=zh&tz=America%2FLos_Angeles",
+    {
+      fixtureTransform: applyHalfTimeLiveFixture
+    }
+  );
+  const liveHalfTimeZhRow = liveHalfTimeZhCheck.page.locator(
+    '[data-match-id="czechia-south-africa-2026-06-18"]'
+  );
+  assert(
+    (await liveHalfTimeZhRow.locator(".live-pill").innerText()).trim() === "半场",
+    "A live half-time pill should localize the official match position in Chinese."
+  );
+  await liveHalfTimeZhRow.click();
+  const liveHalfTimeZhDetailText = normalizeFlaggedText(
+    await liveHalfTimeZhCheck.page.locator("#match-info").innerText()
+  );
+  assert(
+    liveHalfTimeZhDetailText.includes("实时比分 半场") &&
+      liveHalfTimeZhDetailText.includes("当前时间 半场") &&
+      liveHalfTimeZhDetailText.includes("查看最新"),
+    `Live half-time details should localize the position label in Chinese. Measured ${JSON.stringify(liveHalfTimeZhDetailText)}.`
+  );
+  await liveHalfTimeZhCheck.context.close();
+
   await liveFallbackScoreCheck.page.setViewportSize({ width: 390, height: 844 });
   await liveFallbackScoreCheck.page.waitForTimeout(80);
   const liveFallbackLayout = await liveFallbackRow.evaluate((row) => {
@@ -5539,6 +5630,90 @@ try {
     "Tiny live/current-score rows should keep live, score, and pending chips out of the matchup text."
   );
   await liveFallbackScoreCheck.context.close();
+
+  const applyDelayedKickoffFixture = (data) => {
+    const delayedFixture = data.fixtures.find(
+      (fixture) => fixture.id === "czechia-south-africa-2026-06-18"
+    );
+    delayedFixture.status = "DELAYED";
+    delete delayedFixture.officialMatchPhase;
+    delete delayedFixture.officialMatchTime;
+    delete delayedFixture.officialMatchTimeUpdatedAt;
+    delete delayedFixture.score;
+    delete delayedFixture.scoreDetails;
+    delete delayedFixture.scoreUpdatedAt;
+  };
+  const delayedKickoffCheck = await openPageAtTime(
+    "2026-06-18T16:05:00.000Z",
+    "/?view=matches&date=2026-06-18&tz=America%2FLos_Angeles",
+    {
+      fixtureTransform: applyDelayedKickoffFixture
+    }
+  );
+  const delayedKickoffRow = delayedKickoffCheck.page.locator(
+    '[data-match-id="czechia-south-africa-2026-06-18"]'
+  );
+  const delayedKickoffState = await delayedKickoffRow.evaluate((row) => ({
+    ariaLabel: row.getAttribute("aria-label") || "",
+    delayedCount: row.querySelectorAll(".delayed-pill").length,
+    liveCount: row.querySelectorAll(".live-pill").length,
+    metaText: Array.from(row.querySelectorAll(".match-row-meta > *"))
+      .map((item) => item.textContent.replace(/\s+/g, " ").trim().toUpperCase())
+      .join("|"),
+    pendingCount: row.querySelectorAll(".score-status").length,
+    scoreCount: row.querySelectorAll(".match-score").length,
+    state: row.dataset.state,
+    text: row.textContent.replace(/\s+/g, " ").trim()
+  }));
+  assert(
+    delayedKickoffState.state === "delayed" &&
+      delayedKickoffState.delayedCount === 1 &&
+      delayedKickoffState.liveCount === 0 &&
+      delayedKickoffState.pendingCount === 0 &&
+      delayedKickoffState.scoreCount === 0 &&
+      delayedKickoffState.metaText === "DELAYED" &&
+      delayedKickoffState.ariaLabel.startsWith("Delayed, Czechia vs South Africa") &&
+      !delayedKickoffState.text.includes("Live") &&
+      !delayedKickoffState.text.includes("Pending") &&
+      !delayedKickoffState.text.includes("0-0"),
+    `A delayed kickoff should stay non-live with a Delayed chip and no score/pending shell. Measured ${JSON.stringify(delayedKickoffState)}.`
+  );
+  await delayedKickoffRow.click();
+  const delayedKickoffDetailText = normalizeFlaggedText(
+    await delayedKickoffCheck.page.locator("#match-info").innerText()
+  );
+  assert(
+    delayedKickoffDetailText.includes("Kickoff delayed") &&
+      delayedKickoffDetailText.includes("Official feed has not marked this match live yet.") &&
+      !delayedKickoffDetailText.includes("Live score"),
+    `Delayed match details should explain the kickoff delay without showing the live-score panel. Measured ${JSON.stringify(delayedKickoffDetailText)}.`
+  );
+  await delayedKickoffCheck.context.close();
+
+  const delayedKickoffZhCheck = await openPageAtTime(
+    "2026-06-18T16:05:00.000Z",
+    "/?view=matches&date=2026-06-18&lang=zh&tz=America%2FLos_Angeles",
+    {
+      fixtureTransform: applyDelayedKickoffFixture
+    }
+  );
+  const delayedKickoffZhRow = delayedKickoffZhCheck.page.locator(
+    '[data-match-id="czechia-south-africa-2026-06-18"]'
+  );
+  assert(
+    (await delayedKickoffZhRow.locator(".delayed-pill").innerText()).trim() === "延迟",
+    "A delayed kickoff should localize the Delayed chip in Chinese."
+  );
+  await delayedKickoffZhRow.click();
+  const delayedKickoffZhDetailText = normalizeFlaggedText(
+    await delayedKickoffZhCheck.page.locator("#match-info").innerText()
+  );
+  assert(
+    delayedKickoffZhDetailText.includes("开球延迟") &&
+      delayedKickoffZhDetailText.includes("官方数据源尚未将这场比赛标记为直播。"),
+    `Delayed match details should localize the kickoff-delay explanation in Chinese. Measured ${JSON.stringify(delayedKickoffZhDetailText)}.`
+  );
+  await delayedKickoffZhCheck.context.close();
 
   const pendingScoreCheck = await openPageAtTime(
     "2026-06-18T05:30:00.000Z",
@@ -5904,6 +6079,69 @@ try {
     );
     await tournamentUpNextCheck.context.close();
 
+    const tournamentDelayedCheckTime = new Date(
+      new Date(nextKnockoutKickoffUtc).getTime() + 5 * 60 * 1000
+    );
+    const tournamentDelayedMatchNumber = String(nextScheduledKnockoutFixture.matchNumber);
+    const tournamentDelayedCheck = await openPageAtTime(
+      tournamentDelayedCheckTime.toISOString(),
+      "/?view=standings&standingsMode=tournament&tz=America%2FLos_Angeles",
+      {
+        fixtureTransform(data) {
+          for (const fixture of data.fixtures || []) {
+            if (fixture.status === "LIVE") {
+              fixture.status = "FT";
+              fixture.score ||= { home: 0, away: 0 };
+            }
+
+            if (fixture.id === nextScheduledKnockoutFixture.id) {
+              fixture.status = "DELAYED";
+              delete fixture.officialMatchPhase;
+              delete fixture.officialMatchTime;
+              delete fixture.officialMatchTimeUpdatedAt;
+              delete fixture.score;
+              delete fixture.scoreDetails;
+              delete fixture.scoreUpdatedAt;
+            }
+          }
+        }
+      }
+    );
+    await tournamentDelayedCheck.page.waitForSelector(
+      `.progress-match[data-match-number="${tournamentDelayedMatchNumber}"] .tournament-delayed-pill`
+    );
+    const tournamentDelayedState = await tournamentDelayedCheck.page.evaluate((matchNumber) => {
+      const card = document.querySelector(`.progress-match[data-match-number="${matchNumber}"]`);
+      const header = card?.querySelector(".knockout-match-header");
+      const pill = card?.querySelector(".tournament-delayed-pill");
+      const cardRect = card?.getBoundingClientRect();
+      const pillRect = pill?.getBoundingClientRect();
+
+      return {
+        cardIsDelayed: card?.classList.contains("is-delayed") || false,
+        delayedCount: card?.querySelectorAll(".tournament-delayed-pill").length || 0,
+        headerHasDelayed: header?.classList.contains("has-delayed") || false,
+        headerOverflow: header ? header.scrollWidth - header.clientWidth : null,
+        label: pill?.textContent.replace(/\s+/g, " ").trim() || "",
+        liveCount: card?.querySelectorAll(".tournament-live-pill").length || 0,
+        rightGap: cardRect && pillRect ? Math.round(cardRect.right - pillRect.right) : null,
+        upNextCount: card?.querySelectorAll(".tournament-up-next-pill").length || 0
+      };
+    }, tournamentDelayedMatchNumber);
+    assert(
+      tournamentDelayedState.cardIsDelayed &&
+        tournamentDelayedState.headerHasDelayed &&
+        tournamentDelayedState.delayedCount === 1 &&
+        tournamentDelayedState.liveCount === 0 &&
+        tournamentDelayedState.upNextCount === 0 &&
+        tournamentDelayedState.label === "Delayed" &&
+        tournamentDelayedState.headerOverflow <= 1 &&
+        tournamentDelayedState.rightGap >= 6 &&
+        tournamentDelayedState.rightGap <= 12,
+      `Tournament cards should show a delayed kickoff as Delayed, not Live or Up next. Measured ${JSON.stringify(tournamentDelayedState)}.`
+    );
+    await tournamentDelayedCheck.context.close();
+
     const tournamentLiveCheckTime = new Date(
       new Date(nextKnockoutKickoffUtc).getTime() + 5 * 60 * 1000
     );
@@ -6068,7 +6306,7 @@ try {
         tournamentLiveTooltipCheck.context.pages().length === tournamentPageCountBeforeLiveClick &&
         tournamentLiveTooltipCheck.page.url() === tournamentUrlBeforeLiveClick &&
         tournamentLiveTooltipState.href === null &&
-        tournamentLiveTooltipState.label === "Live" &&
+        tournamentLiveTooltipState.label === "5'" &&
         tournamentLiveTooltipState.role === "button" &&
         tournamentLiveTooltipState.tabindex === "0" &&
         tournamentLiveTooltipState.title === null &&
@@ -7270,6 +7508,7 @@ try {
       m83TieTooltip: getOutcomeTooltip(83, "tie"),
       m86TieTooltip: getOutcomeTooltip(86, "tie"),
       m92TieTooltip: getOutcomeTooltip(92, "tie"),
+      m99TieTooltip: getOutcomeTooltip(99, "tie"),
       m88AwayTooltip: getOutcomeTooltip(88, "away"),
       m73PillCount: document.querySelectorAll('.progress-match[data-match-number="73"] .knockout-likelihood').length,
       m89PillCount: document.querySelectorAll('.progress-match[data-match-number="89"] .knockout-likelihood').length,
@@ -7388,8 +7627,8 @@ try {
   const m92ResolvedState =
     tournamentCheck.m92Projected === false &&
     tournamentCheck.m92TeamVisuals.length === 2 &&
-    tournamentCheck.m92TeamVisuals.every(isLockedResolvedCountry) &&
-    getCssColorAlpha(tournamentCheck.m92VersusColor) >= 0.7;
+    tournamentCheck.m92TeamVisuals.every(isResolvedRoundOf16Country) &&
+    getCssColorAlpha(tournamentCheck.m92VersusColor) >= 0.35;
   const m92ProjectedState =
     tournamentCheck.m92Projected === true &&
     tournamentCheck.m92TeamVisuals.length === 2 &&
@@ -7661,12 +7900,12 @@ try {
       tournamentCheck.m89PillCount === 0 || tournamentCheck.m89Tooltips.includes("France have the shootout edge through Kylian Mbappé")
     ],
     ["m89TooltipsNoKeeper", !/goalkeeper|Olise|Risser/.test(tournamentCheck.m89Tooltips)],
-    ["m92TieTooltip", tournamentCheck.m92TieTooltip.includes("Everton goalkeeper Jordan Pickford")],
+    ["m99TieTooltip", tournamentCheck.m99TieTooltip.includes("Everton goalkeeper Jordan Pickford")],
     ["m83TieTooltip", !tournamentCheck.m83TieTooltip || tournamentCheck.m83TieTooltip.includes("Porto goalkeeper Diogo Costa")],
     ["m86TieTooltip", !tournamentCheck.m86TieTooltip || tournamentCheck.m86TieTooltip.includes("Aston Villa goalkeeper Emiliano Martínez")],
     [
       "m8xTieTooltipGoalkeeperCounts",
-      [tournamentCheck.m92TieTooltip, tournamentCheck.m83TieTooltip, tournamentCheck.m86TieTooltip].every(
+      [tournamentCheck.m99TieTooltip, tournamentCheck.m83TieTooltip, tournamentCheck.m86TieTooltip].every(
         (tooltip) =>
           !tooltip || (tooltip.match(/\bgoalkeeper\b/g) || []).length === 1
       )
@@ -9288,6 +9527,15 @@ try {
     predictionOutcomeLabels.some((label) => /^Tie\b/.test(label)) &&
       predictionOutcomeLabels.every((label) => !/^Draw\b/.test(label)),
     `Prediction rows should use Tie instead of Draw. Measured ${JSON.stringify(predictionOutcomeLabels)}.`
+  );
+  const predictionHelpLabel = await page
+    .locator("#match-info .match-prediction-block .info-tooltip-button")
+    .first()
+    .getAttribute("aria-label");
+  assert(
+    predictionHelpLabel &&
+      !predictionHelpLabel.includes("This feature is still work in progress and may not be accurate."),
+    `Prediction info button should not include the lineup work-in-progress disclaimer. Measured ${JSON.stringify(predictionHelpLabel)}.`
   );
   const matchInfoStandingHeaders = await page
     .locator("#match-info .standings-table th")

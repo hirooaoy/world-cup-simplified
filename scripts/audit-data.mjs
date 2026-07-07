@@ -11,6 +11,7 @@ const staleSourceHours = Number(process.env.STALE_SOURCE_HOURS || 12);
 const staleLiveHours = Number(process.env.STALE_LIVE_HOURS || 2.5);
 const knockoutStaleLiveHours = Number(process.env.KNOCKOUT_STALE_LIVE_HOURS || 3.5);
 const scheduledLiveWindowHours = Number(process.env.SCHEDULED_LIVE_WINDOW_HOURS || 2.25);
+const delayedStatusStaleHours = Number(process.env.DELAYED_STATUS_STALE_HOURS || 6);
 const enrichmentWindowHours = Number(process.env.ENRICHMENT_WINDOW_HOURS || 48);
 const warnings = [];
 const failures = [];
@@ -158,6 +159,12 @@ for (const fixture of fixtures) {
     warnings.push(
       `${label} kicked off ${hoursSinceKickoff.toFixed(1)}h ago and is being treated as live until the status updates.`
     );
+  }
+
+  if (fixture.status === "DELAYED" && hoursSinceKickoff > delayedStatusStaleHours) {
+    failures.push(`${label} has been delayed for ${hoursSinceKickoff.toFixed(1)}h. Confirm revised kickoff or final status.`);
+  } else if (fixture.status === "DELAYED" && hoursSinceKickoff > 0) {
+    warnings.push(`${label} is delayed ${hoursSinceKickoff.toFixed(1)}h after scheduled kickoff. Confirm revised kickoff or live status soon.`);
   }
 
   const liveHoursLimit = liveStaleHours(fixture);
