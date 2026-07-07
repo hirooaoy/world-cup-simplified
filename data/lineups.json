@@ -14,12 +14,29 @@
       "mode": "final",
       "teamSheetSource": "fifa-official",
       "eventSource": "fifa-official",
-      "layoutSource": "editorial-verified",
+      "layoutSource": "verified-layout",
+      "layoutVerification": {
+        "status": "verified",
+        "checkedAt": "2026-07-03T06:11:46.942Z",
+        "sourceIds": [
+          "lineup-layout-verification-2026-07-03"
+        ],
+        "sources": [
+          {
+            "name": "ESPN",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760415",
+            "status": "matched",
+            "sourceDetail": "public match-center board geometry",
+            "exactLayout": true
+          }
+        ],
+        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-02",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-02T16:07:07.701Z",
+      "checkedAt": "2026-07-07T17:31:12.299Z",
       "home": {
         "formation": "4-1-2-3",
         "coach": {
@@ -490,7 +507,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "south-korea-czechia-2026-06-11": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-03T06:11:46.942Z",
@@ -500,25 +523,19 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760415",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760414",
             "status": "matched",
             "sourceDetail": "public match-center board geometry",
             "exactLayout": true
           }
         ],
         "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
-      }
-    },
-    "south-korea-czechia-2026-06-11": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "editorial-verified",
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-02",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-02T16:07:07.701Z",
+      "checkedAt": "2026-07-07T17:31:12.299Z",
       "home": {
         "formation": "3-4-3",
         "coach": {
@@ -963,7 +980,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "canada-bosnia-2026-06-12": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-03T06:11:46.942Z",
@@ -973,25 +996,19 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760414",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760416",
             "status": "matched",
             "sourceDetail": "public match-center board geometry",
             "exactLayout": true
           }
         ],
         "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
-      }
-    },
-    "canada-bosnia-2026-06-12": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "editorial-verified",
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-02",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-02T16:07:07.701Z",
+      "checkedAt": "2026-07-07T17:31:12.299Z",
       "home": {
         "formation": "4-4-2",
         "coach": {
@@ -1462,7 +1479,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "united-states-paraguay-2026-06-12": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-03T06:11:46.942Z",
@@ -1472,25 +1495,19 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760416",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760417",
             "status": "matched",
             "sourceDetail": "public match-center board geometry",
             "exactLayout": true
           }
         ],
         "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
-      }
-    },
-    "united-states-paraguay-2026-06-12": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "editorial-verified",
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-02",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-02T16:07:07.701Z",
+      "checkedAt": "2026-07-07T17:31:12.299Z",
       "home": {
         "formation": "4-2-3-1",
         "coach": {
@@ -1961,7 +1978,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "qatar-switzerland-2026-06-13": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-03T06:11:46.942Z",
@@ -1971,25 +1994,19 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760417",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760420",
             "status": "matched",
             "sourceDetail": "public match-center board geometry",
             "exactLayout": true
           }
         ],
         "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
-      }
-    },
-    "qatar-switzerland-2026-06-13": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "editorial-verified",
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-02",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-02T16:07:07.701Z",
+      "checkedAt": "2026-07-07T17:31:12.299Z",
       "home": {
         "formation": "4-2-3-1",
         "coach": {
@@ -2450,7 +2467,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "brazil-morocco-2026-06-13": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-03T06:11:46.942Z",
@@ -2460,25 +2483,19 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760420",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760419",
             "status": "matched",
             "sourceDetail": "public match-center board geometry",
             "exactLayout": true
           }
         ],
         "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
-      }
-    },
-    "brazil-morocco-2026-06-13": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "editorial-verified",
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-02",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-02T16:07:07.701Z",
+      "checkedAt": "2026-07-07T17:31:12.299Z",
       "home": {
         "formation": "4-4-2",
         "coach": {
@@ -2927,7 +2944,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "haiti-scotland-2026-06-13": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-03T06:11:46.942Z",
@@ -2937,25 +2960,19 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760419",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760418",
             "status": "matched",
             "sourceDetail": "public match-center board geometry",
             "exactLayout": true
           }
         ],
         "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
-      }
-    },
-    "haiti-scotland-2026-06-13": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "editorial-verified",
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-02",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-02T16:07:07.701Z",
+      "checkedAt": "2026-07-07T17:31:12.299Z",
       "home": {
         "formation": "4-4-2",
         "coach": {
@@ -3411,7 +3428,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "australia-turkiye-2026-06-13": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-03T06:11:46.942Z",
@@ -3421,25 +3444,19 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760418",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760421",
             "status": "matched",
             "sourceDetail": "public match-center board geometry",
             "exactLayout": true
           }
         ],
         "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
-      }
-    },
-    "australia-turkiye-2026-06-13": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "editorial-verified",
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-02",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-02T16:07:07.701Z",
+      "checkedAt": "2026-07-07T17:31:12.299Z",
       "home": {
         "formation": "5-4-1",
         "coach": {
@@ -3889,7 +3906,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "germany-curacao-2026-06-14": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-03T06:11:46.942Z",
@@ -3899,25 +3922,19 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760421",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760422",
             "status": "matched",
             "sourceDetail": "public match-center board geometry",
             "exactLayout": true
           }
         ],
         "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
-      }
-    },
-    "germany-curacao-2026-06-14": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "editorial-verified",
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-02",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-02T16:07:07.701Z",
+      "checkedAt": "2026-07-07T17:31:12.299Z",
       "home": {
         "formation": "3-4-3",
         "coach": {
@@ -4351,7 +4368,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "netherlands-japan-2026-06-14": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-03T06:11:46.942Z",
@@ -4361,25 +4384,19 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760422",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760425",
             "status": "matched",
             "sourceDetail": "public match-center board geometry",
             "exactLayout": true
           }
         ],
         "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
-      }
-    },
-    "netherlands-japan-2026-06-14": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "editorial-verified",
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-02",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-02T16:07:07.701Z",
+      "checkedAt": "2026-07-07T17:31:12.299Z",
       "home": {
         "formation": "4-1-2-3",
         "coach": {
@@ -4839,7 +4856,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "cote-divoire-ecuador-2026-06-14": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-03T06:11:46.942Z",
@@ -4849,25 +4872,19 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760425",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760423",
             "status": "matched",
             "sourceDetail": "public match-center board geometry",
             "exactLayout": true
           }
         ],
         "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
-      }
-    },
-    "cote-divoire-ecuador-2026-06-14": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "editorial-verified",
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-02",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-02T16:07:07.701Z",
+      "checkedAt": "2026-07-07T17:31:12.299Z",
       "home": {
         "formation": "4-4-2",
         "coach": {
@@ -5328,7 +5345,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "sweden-tunisia-2026-06-14": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-03T06:11:46.942Z",
@@ -5338,25 +5361,19 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760423",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760424",
             "status": "matched",
             "sourceDetail": "public match-center board geometry",
             "exactLayout": true
           }
         ],
         "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
-      }
-    },
-    "sweden-tunisia-2026-06-14": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "editorial-verified",
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-02",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-02T16:07:07.701Z",
+      "checkedAt": "2026-07-07T17:31:12.299Z",
       "home": {
         "formation": "3-4-1-2",
         "coach": {
@@ -5805,7 +5822,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "spain-cabo-verde-2026-06-15": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-03T06:11:46.942Z",
@@ -5815,25 +5838,25 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760424",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760428",
+            "status": "unavailable",
+            "note": "Expected 11 starters per side from ESPN; parsed 11 home and 10 away."
+          },
+          {
+            "name": "FotMob",
+            "url": "https://www.fotmob.com/matches/cape-verde-vs-spain/1bbtuo",
             "status": "matched",
-            "sourceDetail": "public match-center board geometry",
+            "sourceDetail": "lineup payload source: enetpulse",
             "exactLayout": true
           }
         ],
         "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
-      }
-    },
-    "spain-cabo-verde-2026-06-15": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "editorial-verified",
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-02",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-02T16:07:07.701Z",
+      "checkedAt": "2026-07-07T17:31:12.299Z",
       "home": {
         "formation": "4-1-2-3",
         "coach": {
@@ -6284,7 +6307,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "belgium-egypt-2026-06-15": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-03T06:11:46.942Z",
@@ -6294,31 +6323,19 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760428",
-            "status": "unavailable",
-            "note": "Expected 11 starters per side from ESPN; parsed 11 home and 10 away."
-          },
-          {
-            "name": "FotMob",
-            "url": "https://www.fotmob.com/matches/cape-verde-vs-spain/1bbtuo",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760426",
             "status": "matched",
-            "sourceDetail": "lineup payload source: enetpulse",
+            "sourceDetail": "public match-center board geometry",
             "exactLayout": true
           }
         ],
         "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
-      }
-    },
-    "belgium-egypt-2026-06-15": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "editorial-verified",
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-02",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-02T16:07:07.701Z",
+      "checkedAt": "2026-07-07T17:31:12.299Z",
       "home": {
         "formation": "4-2-3-1",
         "coach": {
@@ -6778,7 +6795,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "saudi-arabia-uruguay-2026-06-15": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-03T06:11:46.942Z",
@@ -6788,25 +6811,19 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760426",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760429",
             "status": "matched",
             "sourceDetail": "public match-center board geometry",
             "exactLayout": true
           }
         ],
         "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
-      }
-    },
-    "saudi-arabia-uruguay-2026-06-15": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "editorial-verified",
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-02",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-02T16:07:07.701Z",
+      "checkedAt": "2026-07-07T17:31:12.299Z",
       "home": {
         "formation": "4-4-2",
         "coach": {
@@ -7244,7 +7261,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "ir-iran-new-zealand-2026-06-15": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-03T06:11:46.942Z",
@@ -7254,25 +7277,19 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760429",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760427",
             "status": "matched",
             "sourceDetail": "public match-center board geometry",
             "exactLayout": true
           }
         ],
         "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
-      }
-    },
-    "ir-iran-new-zealand-2026-06-15": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "editorial-verified",
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-02",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-02T16:07:07.701Z",
+      "checkedAt": "2026-07-07T17:31:12.299Z",
       "home": {
         "formation": "4-3-3",
         "coach": {
@@ -7711,7 +7728,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "france-senegal-2026-06-16": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-03T06:11:46.942Z",
@@ -7721,25 +7744,19 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760427",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760432",
             "status": "matched",
             "sourceDetail": "public match-center board geometry",
             "exactLayout": true
           }
         ],
         "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
-      }
-    },
-    "france-senegal-2026-06-16": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "editorial-verified",
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-02",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-02T16:07:07.701Z",
+      "checkedAt": "2026-07-07T17:31:12.299Z",
       "home": {
         "formation": "4-2-3-1",
         "coach": {
@@ -8168,7 +8185,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "iraq-norway-2026-06-16": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-03T06:11:46.942Z",
@@ -8178,25 +8201,19 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760432",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760430",
             "status": "matched",
             "sourceDetail": "public match-center board geometry",
             "exactLayout": true
           }
         ],
         "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
-      }
-    },
-    "iraq-norway-2026-06-16": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "editorial-verified",
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-02",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-02T16:07:07.701Z",
+      "checkedAt": "2026-07-07T17:31:12.299Z",
       "home": {
         "formation": "4-4-2",
         "coach": {
@@ -8646,7 +8663,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "argentina-algeria-2026-06-16": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-03T06:11:46.942Z",
@@ -8656,25 +8679,26 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760430",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760433",
             "status": "matched",
             "sourceDetail": "public match-center board geometry",
             "exactLayout": true
+          },
+          {
+            "name": "FotMob",
+            "url": "https://www.fotmob.com/matches/algeria-vs-argentina/1ehtqa",
+            "status": "matched",
+            "sourceDetail": "lineup payload source: enetpulse",
+            "exactLayout": true
           }
         ],
-        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
-      }
-    },
-    "argentina-algeria-2026-06-16": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "editorial-verified",
+        "note": "Row-order disagreement was detected, ESPN was selected as the primary source. Matched claim signatures: 1/2."
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-02",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-02T16:07:07.701Z",
+      "checkedAt": "2026-07-07T17:31:12.299Z",
       "home": {
         "formation": "4-3-3",
         "coach": {
@@ -9118,7 +9142,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "austria-jordan-2026-06-16": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-03T06:11:46.942Z",
@@ -9128,32 +9158,19 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760433",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760431",
             "status": "matched",
             "sourceDetail": "public match-center board geometry",
             "exactLayout": true
-          },
-          {
-            "name": "FotMob",
-            "url": "https://www.fotmob.com/matches/algeria-vs-argentina/1ehtqa",
-            "status": "matched",
-            "sourceDetail": "lineup payload source: enetpulse",
-            "exactLayout": true
           }
         ],
-        "note": "Row-order disagreement was detected, ESPN was selected as the primary source. Matched claim signatures: 1/2."
-      }
-    },
-    "austria-jordan-2026-06-16": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "editorial-verified",
+        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-02",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-02T16:07:07.701Z",
+      "checkedAt": "2026-07-07T17:31:12.299Z",
       "home": {
         "formation": "4-2-3-1",
         "coach": {
@@ -9603,7 +9620,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "portugal-dr-congo-2026-06-17": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-03T06:11:46.942Z",
@@ -9613,25 +9636,19 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760431",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760435",
             "status": "matched",
             "sourceDetail": "public match-center board geometry",
             "exactLayout": true
           }
         ],
         "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
-      }
-    },
-    "portugal-dr-congo-2026-06-17": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "editorial-verified",
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-02",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-02T16:07:07.701Z",
+      "checkedAt": "2026-07-07T17:31:12.299Z",
       "home": {
         "formation": "4-2-3-1",
         "coach": {
@@ -10092,7 +10109,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "england-croatia-2026-06-17": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-03T06:11:46.942Z",
@@ -10102,25 +10125,19 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760435",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760437",
             "status": "matched",
             "sourceDetail": "public match-center board geometry",
             "exactLayout": true
           }
         ],
         "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
-      }
-    },
-    "england-croatia-2026-06-17": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "editorial-verified",
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-02",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-02T16:07:07.701Z",
+      "checkedAt": "2026-07-07T17:31:12.299Z",
       "home": {
         "formation": "4-2-3-1",
         "coach": {
@@ -10558,7 +10575,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "ghana-panama-2026-06-17": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-03T06:11:46.942Z",
@@ -10568,25 +10591,19 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760437",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760434",
             "status": "matched",
             "sourceDetail": "public match-center board geometry",
             "exactLayout": true
           }
         ],
         "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
-      }
-    },
-    "ghana-panama-2026-06-17": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "editorial-verified",
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-02",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-02T16:07:07.701Z",
+      "checkedAt": "2026-07-07T17:31:12.299Z",
       "home": {
         "formation": "4-1-2-3",
         "coach": {
@@ -11036,7 +11053,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "uzbekistan-colombia-2026-06-17": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-03T06:11:46.942Z",
@@ -11046,25 +11069,19 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760434",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760436",
             "status": "matched",
             "sourceDetail": "public match-center board geometry",
             "exactLayout": true
           }
         ],
         "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
-      }
-    },
-    "uzbekistan-colombia-2026-06-17": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "editorial-verified",
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-02",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-02T16:07:07.701Z",
+      "checkedAt": "2026-07-07T17:31:12.299Z",
       "home": {
         "formation": "3-4-3",
         "coach": {
@@ -11520,7 +11537,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "czechia-south-africa-2026-06-18": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-03T06:11:46.942Z",
@@ -11530,25 +11553,19 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760436",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760438",
             "status": "matched",
             "sourceDetail": "public match-center board geometry",
             "exactLayout": true
           }
         ],
         "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
-      }
-    },
-    "czechia-south-africa-2026-06-18": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "editorial-verified",
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-02",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-02T16:07:07.701Z",
+      "checkedAt": "2026-07-07T17:31:12.299Z",
       "home": {
         "formation": "3-5-2",
         "coach": {
@@ -11981,7 +11998,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "switzerland-bosnia-2026-06-18": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-03T06:11:46.942Z",
@@ -11991,25 +12014,19 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760438",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760439",
             "status": "matched",
             "sourceDetail": "public match-center board geometry",
             "exactLayout": true
           }
         ],
         "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
-      }
-    },
-    "switzerland-bosnia-2026-06-18": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "editorial-verified",
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-02",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-02T16:07:07.701Z",
+      "checkedAt": "2026-07-07T17:31:12.299Z",
       "home": {
         "formation": "4-3-3",
         "coach": {
@@ -12469,7 +12486,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "canada-qatar-2026-06-18": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-03T06:11:46.942Z",
@@ -12479,25 +12502,19 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760439",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760440",
             "status": "matched",
             "sourceDetail": "public match-center board geometry",
             "exactLayout": true
           }
         ],
         "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
-      }
-    },
-    "canada-qatar-2026-06-18": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "editorial-verified",
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-02",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-02T16:07:07.701Z",
+      "checkedAt": "2026-07-07T17:31:12.299Z",
       "home": {
         "formation": "4-4-2",
         "coach": {
@@ -12957,7 +12974,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "mexico-south-korea-2026-06-18": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-03T06:11:46.942Z",
@@ -12967,25 +12990,19 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760440",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760441",
             "status": "matched",
             "sourceDetail": "public match-center board geometry",
             "exactLayout": true
           }
         ],
         "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
-      }
-    },
-    "mexico-south-korea-2026-06-18": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "editorial-verified",
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-02",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-02T16:07:07.701Z",
+      "checkedAt": "2026-07-07T17:31:12.299Z",
       "home": {
         "formation": "4-1-2-3",
         "coach": {
@@ -13434,7 +13451,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "united-states-australia-2026-06-19": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-03T06:11:46.942Z",
@@ -13444,25 +13467,19 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760441",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760442",
             "status": "matched",
             "sourceDetail": "public match-center board geometry",
             "exactLayout": true
           }
         ],
         "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
-      }
-    },
-    "united-states-australia-2026-06-19": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "editorial-verified",
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-02",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-02T16:07:07.701Z",
+      "checkedAt": "2026-07-07T17:31:12.299Z",
       "home": {
         "formation": "3-5-2",
         "coach": {
@@ -13937,7 +13954,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "scotland-morocco-2026-06-19": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-03T06:11:46.942Z",
@@ -13947,25 +13970,19 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760442",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760445",
             "status": "matched",
             "sourceDetail": "public match-center board geometry",
             "exactLayout": true
           }
         ],
         "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
-      }
-    },
-    "scotland-morocco-2026-06-19": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "editorial-verified",
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-02",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-02T16:07:07.701Z",
+      "checkedAt": "2026-07-07T17:31:12.299Z",
       "home": {
         "formation": "4-4-2",
         "coach": {
@@ -14416,7 +14433,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "brazil-haiti-2026-06-19": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-03T06:11:46.942Z",
@@ -14426,25 +14449,19 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760445",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760444",
             "status": "matched",
             "sourceDetail": "public match-center board geometry",
             "exactLayout": true
           }
         ],
         "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
-      }
-    },
-    "brazil-haiti-2026-06-19": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "editorial-verified",
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-02",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-02T16:07:07.701Z",
+      "checkedAt": "2026-07-07T17:31:12.299Z",
       "home": {
         "formation": "4-3-3",
         "coach": {
@@ -14904,7 +14921,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "turkiye-paraguay-2026-06-19": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-03T06:11:46.942Z",
@@ -14914,25 +14937,19 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760444",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760443",
             "status": "matched",
             "sourceDetail": "public match-center board geometry",
             "exactLayout": true
           }
         ],
         "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
-      }
-    },
-    "turkiye-paraguay-2026-06-19": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "editorial-verified",
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-02",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-02T16:07:07.701Z",
+      "checkedAt": "2026-07-07T17:31:12.299Z",
       "home": {
         "formation": "4-2-3-1",
         "coach": {
@@ -15407,7 +15424,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "netherlands-sweden-2026-06-20": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-03T06:11:46.942Z",
@@ -15417,25 +15440,19 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760443",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760447",
             "status": "matched",
             "sourceDetail": "public match-center board geometry",
             "exactLayout": true
           }
         ],
         "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
-      }
-    },
-    "netherlands-sweden-2026-06-20": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "editorial-verified",
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-02",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-02T16:07:07.701Z",
+      "checkedAt": "2026-07-07T17:31:12.299Z",
       "home": {
         "formation": "4-3-3",
         "coach": {
@@ -15889,7 +15906,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "germany-cote-divoire-2026-06-20": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-03T06:11:46.942Z",
@@ -15899,25 +15922,19 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760447",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760448",
             "status": "matched",
             "sourceDetail": "public match-center board geometry",
             "exactLayout": true
           }
         ],
         "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
-      }
-    },
-    "germany-cote-divoire-2026-06-20": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "editorial-verified",
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-02",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-02T16:07:07.701Z",
+      "checkedAt": "2026-07-07T17:31:12.299Z",
       "home": {
         "formation": "4-2-3-1",
         "coach": {
@@ -16361,7 +16378,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "ecuador-curacao-2026-06-20": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-03T06:11:46.942Z",
@@ -16371,25 +16394,19 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760448",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760446",
             "status": "matched",
             "sourceDetail": "public match-center board geometry",
             "exactLayout": true
           }
         ],
         "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
-      }
-    },
-    "ecuador-curacao-2026-06-20": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "editorial-verified",
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-02",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-02T16:07:07.701Z",
+      "checkedAt": "2026-07-07T17:31:12.299Z",
       "home": {
         "formation": "3-5-2",
         "coach": {
@@ -16860,7 +16877,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "tunisia-japan-2026-06-20": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-03T06:11:46.942Z",
@@ -16870,25 +16893,19 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760446",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760449",
             "status": "matched",
             "sourceDetail": "public match-center board geometry",
             "exactLayout": true
           }
         ],
         "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
-      }
-    },
-    "tunisia-japan-2026-06-20": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "editorial-verified",
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-02",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-02T16:07:07.701Z",
+      "checkedAt": "2026-07-07T17:31:12.299Z",
       "home": {
         "formation": "5-3-2",
         "coach": {
@@ -17320,7 +17337,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "spain-saudi-arabia-2026-06-21": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-03T06:11:46.942Z",
@@ -17330,25 +17353,19 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760449",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760453",
             "status": "matched",
             "sourceDetail": "public match-center board geometry",
             "exactLayout": true
           }
         ],
         "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
-      }
-    },
-    "spain-saudi-arabia-2026-06-21": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "editorial-verified",
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-02",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-02T16:07:07.701Z",
+      "checkedAt": "2026-07-07T17:31:12.299Z",
       "home": {
         "formation": "4-1-2-3",
         "coach": {
@@ -17803,7 +17820,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "belgium-ir-iran-2026-06-21": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-03T06:11:46.942Z",
@@ -17813,25 +17836,19 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760453",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760451",
             "status": "matched",
             "sourceDetail": "public match-center board geometry",
             "exactLayout": true
           }
         ],
         "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
-      }
-    },
-    "belgium-ir-iran-2026-06-21": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "editorial-verified",
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-02",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-02T16:07:07.701Z",
+      "checkedAt": "2026-07-07T17:31:12.299Z",
       "home": {
         "formation": "4-2-3-1",
         "coach": {
@@ -18280,7 +18297,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "uruguay-cabo-verde-2026-06-21": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-03T06:11:46.942Z",
@@ -18290,25 +18313,25 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760451",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760450",
+            "status": "unavailable",
+            "note": "Expected 11 starters per side from ESPN; parsed 11 home and 10 away."
+          },
+          {
+            "name": "FotMob",
+            "url": "https://www.fotmob.com/matches/uruguay-vs-cape-verde/14n97e",
             "status": "matched",
-            "sourceDetail": "public match-center board geometry",
+            "sourceDetail": "lineup payload source: enetpulse",
             "exactLayout": true
           }
         ],
         "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
-      }
-    },
-    "uruguay-cabo-verde-2026-06-21": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "editorial-verified",
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-02",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-02T16:07:07.701Z",
+      "checkedAt": "2026-07-07T17:31:12.299Z",
       "home": {
         "formation": "4-1-2-3",
         "coach": {
@@ -18752,7 +18775,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "new-zealand-egypt-2026-06-21": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-03T06:11:46.942Z",
@@ -18762,31 +18791,19 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760450",
-            "status": "unavailable",
-            "note": "Expected 11 starters per side from ESPN; parsed 11 home and 10 away."
-          },
-          {
-            "name": "FotMob",
-            "url": "https://www.fotmob.com/matches/uruguay-vs-cape-verde/14n97e",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760452",
             "status": "matched",
-            "sourceDetail": "lineup payload source: enetpulse",
+            "sourceDetail": "public match-center board geometry",
             "exactLayout": true
           }
         ],
         "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
-      }
-    },
-    "new-zealand-egypt-2026-06-21": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "editorial-verified",
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-02",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-02T16:07:07.701Z",
+      "checkedAt": "2026-07-07T17:31:12.299Z",
       "home": {
         "formation": "4-4-2",
         "coach": {
@@ -19252,7 +19269,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "argentina-austria-2026-06-22": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-03T06:11:46.942Z",
@@ -19262,25 +19285,19 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760452",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760456",
             "status": "matched",
             "sourceDetail": "public match-center board geometry",
             "exactLayout": true
           }
         ],
         "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
-      }
-    },
-    "argentina-austria-2026-06-22": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "editorial-verified",
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-02",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-02T16:07:07.701Z",
+      "checkedAt": "2026-07-07T17:31:12.299Z",
       "home": {
         "formation": "4-1-3-2",
         "coach": {
@@ -19746,7 +19763,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "france-iraq-2026-06-22": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-03T06:11:46.942Z",
@@ -19756,25 +19779,19 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760456",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760457",
             "status": "matched",
             "sourceDetail": "public match-center board geometry",
             "exactLayout": true
           }
         ],
         "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
-      }
-    },
-    "france-iraq-2026-06-22": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "editorial-verified",
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-02",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-02T16:07:07.701Z",
+      "checkedAt": "2026-07-07T17:31:12.299Z",
       "home": {
         "formation": "4-2-3-1",
         "coach": {
@@ -20224,7 +20241,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "norway-senegal-2026-06-22": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-03T06:11:46.942Z",
@@ -20234,25 +20257,19 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760457",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760454",
             "status": "matched",
             "sourceDetail": "public match-center board geometry",
             "exactLayout": true
           }
         ],
         "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
-      }
-    },
-    "norway-senegal-2026-06-22": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "editorial-verified",
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-02",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-02T16:07:07.701Z",
+      "checkedAt": "2026-07-07T17:31:12.299Z",
       "home": {
         "formation": "4-1-2-3",
         "coach": {
@@ -20696,7 +20713,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "jordan-algeria-2026-06-22": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-03T06:11:46.942Z",
@@ -20706,25 +20729,26 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760454",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760455",
             "status": "matched",
             "sourceDetail": "public match-center board geometry",
             "exactLayout": true
+          },
+          {
+            "name": "FotMob",
+            "url": "https://www.fotmob.com/matches/jordan-vs-algeria/17tvf0",
+            "status": "matched",
+            "sourceDetail": "lineup payload source: enetpulse",
+            "exactLayout": true
           }
         ],
-        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
-      }
-    },
-    "jordan-algeria-2026-06-22": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "editorial-verified",
+        "note": "Row-order disagreement was detected, ESPN was selected as the primary source. Matched claim signatures: 1/2."
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-02",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-02T16:07:07.701Z",
+      "checkedAt": "2026-07-07T17:31:12.299Z",
       "home": {
         "formation": "3-4-3",
         "coach": {
@@ -21174,7 +21198,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "portugal-uzbekistan-2026-06-23": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-03T06:11:46.942Z",
@@ -21184,32 +21214,19 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760455",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760461",
             "status": "matched",
             "sourceDetail": "public match-center board geometry",
             "exactLayout": true
-          },
-          {
-            "name": "FotMob",
-            "url": "https://www.fotmob.com/matches/jordan-vs-algeria/17tvf0",
-            "status": "matched",
-            "sourceDetail": "lineup payload source: enetpulse",
-            "exactLayout": true
           }
         ],
-        "note": "Row-order disagreement was detected, ESPN was selected as the primary source. Matched claim signatures: 1/2."
-      }
-    },
-    "portugal-uzbekistan-2026-06-23": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "editorial-verified",
+        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-02",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-02T16:07:07.701Z",
+      "checkedAt": "2026-07-07T17:31:12.299Z",
       "home": {
         "formation": "4-2-3-1",
         "coach": {
@@ -21665,7 +21682,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "england-ghana-2026-06-23": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-03T06:11:46.942Z",
@@ -21675,25 +21698,19 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760461",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760458",
             "status": "matched",
             "sourceDetail": "public match-center board geometry",
             "exactLayout": true
           }
         ],
         "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
-      }
-    },
-    "england-ghana-2026-06-23": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "editorial-verified",
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-02",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-02T16:07:07.701Z",
+      "checkedAt": "2026-07-07T17:31:12.299Z",
       "home": {
         "formation": "4-2-3-1",
         "coach": {
@@ -22144,7 +22161,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "panama-croatia-2026-06-23": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-03T06:11:46.942Z",
@@ -22154,25 +22177,19 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760458",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760460",
             "status": "matched",
             "sourceDetail": "public match-center board geometry",
             "exactLayout": true
           }
         ],
         "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
-      }
-    },
-    "panama-croatia-2026-06-23": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "editorial-verified",
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-02",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-02T16:07:07.701Z",
+      "checkedAt": "2026-07-07T17:31:12.299Z",
       "home": {
         "formation": "3-4-3",
         "coach": {
@@ -22623,7 +22640,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "colombia-dr-congo-2026-06-23": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-03T06:11:46.942Z",
@@ -22633,25 +22656,19 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760460",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760459",
             "status": "matched",
             "sourceDetail": "public match-center board geometry",
             "exactLayout": true
           }
         ],
         "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
-      }
-    },
-    "colombia-dr-congo-2026-06-23": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "editorial-verified",
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-02",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-02T16:07:07.701Z",
+      "checkedAt": "2026-07-07T17:31:12.299Z",
       "home": {
         "formation": "4-1-2-3",
         "coach": {
@@ -23102,7 +23119,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "switzerland-canada-2026-06-24": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-03T06:11:46.942Z",
@@ -23112,25 +23135,19 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760459",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760463",
             "status": "matched",
             "sourceDetail": "public match-center board geometry",
             "exactLayout": true
           }
         ],
         "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
-      }
-    },
-    "switzerland-canada-2026-06-24": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "editorial-verified",
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-02",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-02T16:07:07.701Z",
+      "checkedAt": "2026-07-07T17:31:12.299Z",
       "home": {
         "formation": "4-4-2",
         "coach": {
@@ -23573,7 +23590,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "bosnia-qatar-2026-06-24": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-03T06:11:46.942Z",
@@ -23583,25 +23606,19 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760463",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760462",
             "status": "matched",
             "sourceDetail": "public match-center board geometry",
             "exactLayout": true
           }
         ],
         "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
-      }
-    },
-    "bosnia-qatar-2026-06-24": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "editorial-verified",
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-02",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-02T16:07:07.701Z",
+      "checkedAt": "2026-07-07T17:31:12.299Z",
       "home": {
         "formation": "4-4-2",
         "coach": {
@@ -24039,7 +24056,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "scotland-brazil-2026-06-24": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-03T06:11:46.942Z",
@@ -24049,25 +24072,19 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760462",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760465",
             "status": "matched",
             "sourceDetail": "public match-center board geometry",
             "exactLayout": true
           }
         ],
         "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
-      }
-    },
-    "scotland-brazil-2026-06-24": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "editorial-verified",
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-02",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-02T16:07:07.701Z",
+      "checkedAt": "2026-07-07T17:31:12.299Z",
       "home": {
         "formation": "4-2-3-1",
         "coach": {
@@ -24522,7 +24539,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "morocco-haiti-2026-06-24": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-03T06:11:46.942Z",
@@ -24532,25 +24555,19 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760465",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760464",
             "status": "matched",
             "sourceDetail": "public match-center board geometry",
             "exactLayout": true
           }
         ],
         "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
-      }
-    },
-    "morocco-haiti-2026-06-24": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "editorial-verified",
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-02",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-02T16:07:07.701Z",
+      "checkedAt": "2026-07-07T17:31:12.299Z",
       "home": {
         "formation": "4-2-3-1",
         "coach": {
@@ -25010,7 +25027,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "czechia-mexico-2026-06-24": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-03T06:11:46.942Z",
@@ -25020,25 +25043,19 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760464",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760467",
             "status": "matched",
             "sourceDetail": "public match-center board geometry",
             "exactLayout": true
           }
         ],
         "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
-      }
-    },
-    "czechia-mexico-2026-06-24": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "editorial-verified",
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-02",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-02T16:07:07.701Z",
+      "checkedAt": "2026-07-07T17:31:12.299Z",
       "home": {
         "formation": "5-2-3",
         "coach": {
@@ -25482,7 +25499,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "south-africa-south-korea-2026-06-24": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-03T06:11:46.942Z",
@@ -25492,25 +25515,19 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760467",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760466",
             "status": "matched",
             "sourceDetail": "public match-center board geometry",
             "exactLayout": true
           }
         ],
         "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
-      }
-    },
-    "south-africa-south-korea-2026-06-24": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "editorial-verified",
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-02",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-02T16:07:07.701Z",
+      "checkedAt": "2026-07-07T17:31:12.299Z",
       "home": {
         "formation": "4-2-3-1",
         "coach": {
@@ -25944,7 +25961,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "ecuador-germany-2026-06-25": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-03T06:11:46.942Z",
@@ -25954,25 +25977,19 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760466",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760468",
             "status": "matched",
             "sourceDetail": "public match-center board geometry",
             "exactLayout": true
           }
         ],
         "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
-      }
-    },
-    "ecuador-germany-2026-06-25": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "editorial-verified",
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-02",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-02T16:07:07.701Z",
+      "checkedAt": "2026-07-07T17:31:12.299Z",
       "home": {
         "formation": "4-4-2",
         "coach": {
@@ -26426,7 +26443,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "curacao-cote-divoire-2026-06-25": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-03T06:11:46.942Z",
@@ -26436,25 +26459,19 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760468",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760473",
             "status": "matched",
             "sourceDetail": "public match-center board geometry",
             "exactLayout": true
           }
         ],
         "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
-      }
-    },
-    "curacao-cote-divoire-2026-06-25": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "editorial-verified",
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-02",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-02T16:07:07.701Z",
+      "checkedAt": "2026-07-07T17:31:12.299Z",
       "home": {
         "formation": "5-4-1",
         "coach": {
@@ -26915,7 +26932,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "japan-sweden-2026-06-25": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-03T06:11:46.942Z",
@@ -26925,25 +26948,19 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760473",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760471",
             "status": "matched",
             "sourceDetail": "public match-center board geometry",
             "exactLayout": true
           }
         ],
         "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
-      }
-    },
-    "japan-sweden-2026-06-25": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "editorial-verified",
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-02",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-02T16:07:07.701Z",
+      "checkedAt": "2026-07-07T17:31:12.299Z",
       "home": {
         "formation": "3-4-3",
         "coach": {
@@ -27398,7 +27415,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "tunisia-netherlands-2026-06-25": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-03T06:11:46.942Z",
@@ -27408,25 +27431,19 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760471",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760472",
             "status": "matched",
             "sourceDetail": "public match-center board geometry",
             "exactLayout": true
           }
         ],
         "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
-      }
-    },
-    "tunisia-netherlands-2026-06-25": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "editorial-verified",
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-02",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-02T16:07:07.701Z",
+      "checkedAt": "2026-07-07T17:31:12.299Z",
       "home": {
         "formation": "5-4-1",
         "coach": {
@@ -27858,7 +27875,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "turkiye-united-states-2026-06-25": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-03T06:11:46.942Z",
@@ -27868,25 +27891,19 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760472",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760470",
             "status": "matched",
             "sourceDetail": "public match-center board geometry",
             "exactLayout": true
           }
         ],
         "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
-      }
-    },
-    "turkiye-united-states-2026-06-25": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "editorial-verified",
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-02",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-02T16:07:07.701Z",
+      "checkedAt": "2026-07-07T17:31:12.299Z",
       "home": {
         "formation": "3-4-3",
         "coach": {
@@ -28330,7 +28347,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "paraguay-australia-2026-06-25": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-03T06:11:46.942Z",
@@ -28340,25 +28363,26 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760470",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760469",
             "status": "matched",
             "sourceDetail": "public match-center board geometry",
             "exactLayout": true
+          },
+          {
+            "name": "FotMob",
+            "url": "https://www.fotmob.com/matches/australia-vs-paraguay/1hs39g",
+            "status": "matched",
+            "sourceDetail": "lineup payload source: enetpulse",
+            "exactLayout": true
           }
         ],
-        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
-      }
-    },
-    "paraguay-australia-2026-06-25": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "editorial-verified",
+        "note": "Row-order disagreement was detected, ESPN was selected as the primary source. Matched claim signatures: 1/2."
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-02",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-02T16:07:07.701Z",
+      "checkedAt": "2026-07-07T17:31:12.299Z",
       "home": {
         "formation": "5-3-2",
         "coach": {
@@ -28786,7 +28810,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "norway-france-2026-06-26": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-03T06:11:46.942Z",
@@ -28796,32 +28826,19 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760469",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760475",
             "status": "matched",
             "sourceDetail": "public match-center board geometry",
             "exactLayout": true
-          },
-          {
-            "name": "FotMob",
-            "url": "https://www.fotmob.com/matches/australia-vs-paraguay/1hs39g",
-            "status": "matched",
-            "sourceDetail": "lineup payload source: enetpulse",
-            "exactLayout": true
           }
         ],
-        "note": "Row-order disagreement was detected, ESPN was selected as the primary source. Matched claim signatures: 1/2."
-      }
-    },
-    "norway-france-2026-06-26": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "editorial-verified",
+        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-02",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-02T16:07:07.701Z",
+      "checkedAt": "2026-07-07T17:31:12.299Z",
       "home": {
         "formation": "4-1-2-3",
         "coach": {
@@ -29271,7 +29288,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "senegal-iraq-2026-06-26": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-03T06:11:46.942Z",
@@ -29281,25 +29304,19 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760475",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760474",
             "status": "matched",
             "sourceDetail": "public match-center board geometry",
             "exactLayout": true
           }
         ],
         "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
-      }
-    },
-    "senegal-iraq-2026-06-26": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "editorial-verified",
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-02",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-02T16:07:07.701Z",
+      "checkedAt": "2026-07-07T17:31:12.299Z",
       "home": {
         "formation": "4-1-2-3",
         "coach": {
@@ -29764,7 +29781,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "cabo-verde-saudi-arabia-2026-06-26": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-03T06:11:46.942Z",
@@ -29774,25 +29797,25 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760474",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760478",
+            "status": "unavailable",
+            "note": "Expected 11 starters per side from ESPN; parsed 10 home and 11 away."
+          },
+          {
+            "name": "FotMob",
+            "url": "https://www.fotmob.com/matches/cape-verde-vs-saudi-arabia/1jqqyp",
             "status": "matched",
-            "sourceDetail": "public match-center board geometry",
+            "sourceDetail": "lineup payload source: enetpulse",
             "exactLayout": true
           }
         ],
         "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
-      }
-    },
-    "cabo-verde-saudi-arabia-2026-06-26": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "editorial-verified",
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-02",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-02T16:07:07.701Z",
+      "checkedAt": "2026-07-07T17:31:12.299Z",
       "home": {
         "formation": "4-1-2-3",
         "coach": {
@@ -30246,7 +30269,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "uruguay-spain-2026-06-26": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-03T06:11:46.942Z",
@@ -30256,31 +30285,19 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760478",
-            "status": "unavailable",
-            "note": "Expected 11 starters per side from ESPN; parsed 10 home and 11 away."
-          },
-          {
-            "name": "FotMob",
-            "url": "https://www.fotmob.com/matches/cape-verde-vs-saudi-arabia/1jqqyp",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760479",
             "status": "matched",
-            "sourceDetail": "lineup payload source: enetpulse",
+            "sourceDetail": "public match-center board geometry",
             "exactLayout": true
           }
         ],
         "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
-      }
-    },
-    "uruguay-spain-2026-06-26": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "editorial-verified",
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-02",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-02T16:07:07.701Z",
+      "checkedAt": "2026-07-07T17:31:12.299Z",
       "home": {
         "formation": "4-1-2-3",
         "coach": {
@@ -30746,7 +30763,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "egypt-ir-iran-2026-06-26": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-03T06:11:46.942Z",
@@ -30756,25 +30779,19 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760479",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760476",
             "status": "matched",
             "sourceDetail": "public match-center board geometry",
             "exactLayout": true
           }
         ],
         "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
-      }
-    },
-    "egypt-ir-iran-2026-06-26": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "editorial-verified",
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-02",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-02T16:07:07.701Z",
+      "checkedAt": "2026-07-07T17:31:12.299Z",
       "home": {
         "formation": "4-2-3-1",
         "coach": {
@@ -31233,7 +31250,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "new-zealand-belgium-2026-06-26": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-03T06:11:46.942Z",
@@ -31243,25 +31266,19 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760476",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760477",
             "status": "matched",
             "sourceDetail": "public match-center board geometry",
             "exactLayout": true
           }
         ],
         "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
-      }
-    },
-    "new-zealand-belgium-2026-06-26": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "editorial-verified",
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-02",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-02T16:07:07.701Z",
+      "checkedAt": "2026-07-07T17:31:12.299Z",
       "home": {
         "formation": "4-2-3-1",
         "coach": {
@@ -31704,7 +31721,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "panama-england-2026-06-27": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-03T06:11:46.942Z",
@@ -31714,25 +31737,19 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760477",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760485",
             "status": "matched",
             "sourceDetail": "public match-center board geometry",
             "exactLayout": true
           }
         ],
         "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
-      }
-    },
-    "panama-england-2026-06-27": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "editorial-verified",
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-02",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-02T16:07:07.701Z",
+      "checkedAt": "2026-07-07T17:31:12.299Z",
       "home": {
         "formation": "3-4-3",
         "coach": {
@@ -32187,7 +32204,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "croatia-ghana-2026-06-27": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-03T06:11:46.942Z",
@@ -32197,25 +32220,19 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760485",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760480",
             "status": "matched",
             "sourceDetail": "public match-center board geometry",
             "exactLayout": true
           }
         ],
         "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
-      }
-    },
-    "croatia-ghana-2026-06-27": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "editorial-verified",
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-02",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-02T16:07:07.701Z",
+      "checkedAt": "2026-07-07T17:31:12.299Z",
       "home": {
         "formation": "4-2-3-1",
         "coach": {
@@ -32666,7 +32683,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "colombia-portugal-2026-06-27": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-03T06:11:46.942Z",
@@ -32676,25 +32699,19 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760480",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760481",
             "status": "matched",
             "sourceDetail": "public match-center board geometry",
             "exactLayout": true
           }
         ],
         "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
-      }
-    },
-    "colombia-portugal-2026-06-27": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "editorial-verified",
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-02",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-02T16:07:07.701Z",
+      "checkedAt": "2026-07-07T17:31:12.299Z",
       "home": {
         "formation": "4-1-2-3",
         "coach": {
@@ -33144,7 +33161,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "dr-congo-uzbekistan-2026-06-27": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-03T06:11:46.942Z",
@@ -33154,25 +33177,19 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760481",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760482",
             "status": "matched",
             "sourceDetail": "public match-center board geometry",
             "exactLayout": true
           }
         ],
         "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
-      }
-    },
-    "dr-congo-uzbekistan-2026-06-27": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "editorial-verified",
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-02",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-02T16:07:07.701Z",
+      "checkedAt": "2026-07-07T17:31:12.299Z",
       "home": {
         "formation": "4-4-2",
         "coach": {
@@ -33643,7 +33660,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "algeria-austria-2026-06-27": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-03T06:11:46.942Z",
@@ -33653,25 +33676,26 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760482",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760484",
             "status": "matched",
             "sourceDetail": "public match-center board geometry",
             "exactLayout": true
+          },
+          {
+            "name": "FotMob",
+            "url": "https://www.fotmob.com/matches/algeria-vs-austria/1r7yil",
+            "status": "matched",
+            "sourceDetail": "lineup payload source: enetpulse",
+            "exactLayout": true
           }
         ],
-        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
-      }
-    },
-    "algeria-austria-2026-06-27": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "editorial-verified",
+        "note": "Row-order disagreement was detected, ESPN was selected as the primary source. Matched claim signatures: 1/2."
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-02",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-02T16:07:07.701Z",
+      "checkedAt": "2026-07-07T17:31:12.299Z",
       "home": {
         "formation": "4-2-3-1",
         "coach": {
@@ -34110,7 +34134,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "jordan-argentina-2026-06-27": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-03T06:11:46.942Z",
@@ -34120,32 +34150,19 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760484",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760483",
             "status": "matched",
             "sourceDetail": "public match-center board geometry",
             "exactLayout": true
-          },
-          {
-            "name": "FotMob",
-            "url": "https://www.fotmob.com/matches/algeria-vs-austria/1r7yil",
-            "status": "matched",
-            "sourceDetail": "lineup payload source: enetpulse",
-            "exactLayout": true
           }
         ],
-        "note": "Row-order disagreement was detected, ESPN was selected as the primary source. Matched claim signatures: 1/2."
-      }
-    },
-    "jordan-argentina-2026-06-27": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "editorial-verified",
+        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-02",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-02T16:07:07.701Z",
+      "checkedAt": "2026-07-07T17:31:12.299Z",
       "home": {
         "formation": "3-4-3",
         "coach": {
@@ -34605,7 +34622,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "match-73-round-of-32-2026-06-28": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-03T06:11:46.942Z",
@@ -34615,25 +34638,19 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760483",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760486",
             "status": "matched",
             "sourceDetail": "public match-center board geometry",
             "exactLayout": true
           }
         ],
         "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
-      }
-    },
-    "match-73-round-of-32-2026-06-28": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "editorial-verified",
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-02",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-02T16:07:07.701Z",
+      "checkedAt": "2026-07-07T17:31:12.299Z",
       "home": {
         "formation": "4-2-3-1",
         "coach": {
@@ -35066,7 +35083,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "match-74-round-of-32-2026-06-29": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-03T06:11:46.942Z",
@@ -35076,25 +35099,19 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760486",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760489",
             "status": "matched",
             "sourceDetail": "public match-center board geometry",
             "exactLayout": true
           }
         ],
         "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
-      }
-    },
-    "match-74-round-of-32-2026-06-29": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "editorial-verified",
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-02",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-02T16:08:47.657Z",
+      "checkedAt": "2026-07-07T17:31:12.299Z",
       "home": {
         "formation": "4-2-3-1",
         "coach": {
@@ -35584,7 +35601,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "match-75-round-of-32-2026-06-29": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-03T06:11:46.942Z",
@@ -35594,25 +35617,19 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760489",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760488",
             "status": "matched",
             "sourceDetail": "public match-center board geometry",
             "exactLayout": true
           }
         ],
         "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
-      }
-    },
-    "match-75-round-of-32-2026-06-29": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "editorial-verified",
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-02",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-02T16:07:07.701Z",
+      "checkedAt": "2026-07-07T17:31:12.299Z",
       "home": {
         "formation": "3-4-3",
         "coach": {
@@ -36067,7 +36084,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "match-76-round-of-32-2026-06-29": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-03T06:11:46.942Z",
@@ -36077,25 +36100,19 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760488",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760487",
             "status": "matched",
             "sourceDetail": "public match-center board geometry",
             "exactLayout": true
           }
         ],
         "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
-      }
-    },
-    "match-76-round-of-32-2026-06-29": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "editorial-verified",
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-02",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-02T16:07:07.701Z",
+      "checkedAt": "2026-07-07T17:31:12.299Z",
       "home": {
         "formation": "4-1-2-3",
         "coach": {
@@ -36555,7 +36572,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "match-77-round-of-32-2026-06-30": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-03T06:11:46.942Z",
@@ -36565,25 +36588,19 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760487",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760492",
             "status": "matched",
             "sourceDetail": "public match-center board geometry",
             "exactLayout": true
           }
         ],
         "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
-      }
-    },
-    "match-77-round-of-32-2026-06-30": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "editorial-verified",
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-02",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-02T16:07:07.701Z",
+      "checkedAt": "2026-07-07T17:31:12.299Z",
       "home": {
         "formation": "4-2-3-1",
         "coach": {
@@ -37021,7 +37038,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "match-78-round-of-32-2026-06-30": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-03T06:11:46.942Z",
@@ -37031,25 +37054,19 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760492",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760490",
             "status": "matched",
             "sourceDetail": "public match-center board geometry",
             "exactLayout": true
           }
         ],
         "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
-      }
-    },
-    "match-78-round-of-32-2026-06-30": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "editorial-verified",
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-02",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-02T16:07:07.701Z",
+      "checkedAt": "2026-07-07T17:31:12.299Z",
       "home": {
         "formation": "4-1-2-3",
         "coach": {
@@ -37489,7 +37506,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "match-79-round-of-32-2026-06-30": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-03T06:11:46.942Z",
@@ -37499,25 +37522,19 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760490",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760491",
             "status": "matched",
             "sourceDetail": "public match-center board geometry",
             "exactLayout": true
           }
         ],
         "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
-      }
-    },
-    "match-79-round-of-32-2026-06-30": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "editorial-verified",
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-02",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-02T16:07:07.701Z",
+      "checkedAt": "2026-07-07T17:31:12.299Z",
       "home": {
         "formation": "4-1-2-3",
         "coach": {
@@ -37982,7 +37999,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "match-80-round-of-32-2026-07-01": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-03T06:11:46.942Z",
@@ -37992,25 +38015,26 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760491",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760495/congo-dr-england",
             "status": "matched",
             "sourceDetail": "public match-center board geometry",
             "exactLayout": true
+          },
+          {
+            "name": "FotMob",
+            "url": "https://www.fotmob.com/matches/dr-congo-vs-england/1tbjj5",
+            "status": "matched",
+            "sourceDetail": "lineup payload source: enetpulse",
+            "exactLayout": true
           }
         ],
-        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
-      }
-    },
-    "match-80-round-of-32-2026-07-01": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "editorial-verified",
+        "note": "Row-order disagreement was detected, ESPN was selected as the primary source. Matched claim signatures: 1/2."
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-02",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-02T16:07:07.701Z",
+      "checkedAt": "2026-07-07T17:31:12.299Z",
       "home": {
         "formation": "4-2-3-1",
         "coach": {
@@ -38461,7 +38485,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "match-81-round-of-32-2026-07-01": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-03T06:11:46.942Z",
@@ -38471,32 +38501,26 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760495/congo-dr-england",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760494/bosnia-herzegovina-united-states",
             "status": "matched",
             "sourceDetail": "public match-center board geometry",
             "exactLayout": true
           },
           {
             "name": "FotMob",
-            "url": "https://www.fotmob.com/matches/dr-congo-vs-england/1tbjj5",
+            "url": "https://www.fotmob.com/matches/usa-vs-bosnia-herzegovina/2c7uzr",
             "status": "matched",
             "sourceDetail": "lineup payload source: enetpulse",
             "exactLayout": true
           }
         ],
         "note": "Row-order disagreement was detected, ESPN was selected as the primary source. Matched claim signatures: 1/2."
-      }
-    },
-    "match-81-round-of-32-2026-07-01": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "editorial-verified",
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-02",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-02T16:07:07.701Z",
+      "checkedAt": "2026-07-07T17:31:12.299Z",
       "home": {
         "formation": "3-5-2",
         "coach": {
@@ -38937,7 +38961,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "match-82-round-of-32-2026-07-01": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-03T06:11:46.942Z",
@@ -38947,33 +38977,44 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760494/bosnia-herzegovina-united-states",
+            "url": "https://www.espn.co.uk/football/match/_/gameId/760493/senegal-belgium",
             "status": "matched",
             "sourceDetail": "public match-center board geometry",
             "exactLayout": true
           },
           {
             "name": "FotMob",
-            "url": "https://www.fotmob.com/matches/usa-vs-bosnia-herzegovina/2c7uzr",
+            "url": "https://www.fotmob.com/matches/senegal-vs-belgium/1rywdm",
             "status": "matched",
             "sourceDetail": "lineup payload source: enetpulse",
             "exactLayout": true
+          },
+          {
+            "name": "SofaScore",
+            "url": "https://www.sofascore.com/football/match/senegal-belgium/rUbsOUb",
+            "status": "blocked",
+            "note": "403 Forbidden"
+          },
+          {
+            "name": "BBC Sport",
+            "url": "https://www.bbc.com/sport/football/live/cx2j5p9",
+            "status": "unavailable",
+            "note": "404 Not Found"
+          },
+          {
+            "name": "Concacaf",
+            "url": "https://www.concacaf.com/competitions/fifa-world-cup/matches/8ec2ae6a1b1246f4b398626f7f1c3040/belgium-vs-senegal/lineups",
+            "status": "unavailable",
+            "note": "No parser is registered for source adapter \"concacaf\"."
           }
         ],
         "note": "Row-order disagreement was detected, ESPN was selected as the primary source. Matched claim signatures: 1/2."
-      }
-    },
-    "match-82-round-of-32-2026-07-01": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "editorial-verified",
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-02",
-        "lineup-layout-verification-2026-07-02",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-02T16:07:07.701Z",
+      "checkedAt": "2026-07-07T17:31:12.299Z",
       "home": {
         "formation": "4-2-3-1",
         "coach": {
@@ -39434,7 +39475,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "match-84-round-of-32-2026-07-02": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-03T06:11:46.942Z",
@@ -39444,50 +39491,26 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.co.uk/football/match/_/gameId/760493/senegal-belgium",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760497/austria-spain",
             "status": "matched",
             "sourceDetail": "public match-center board geometry",
             "exactLayout": true
           },
           {
             "name": "FotMob",
-            "url": "https://www.fotmob.com/matches/senegal-vs-belgium/1rywdm",
+            "url": "https://www.fotmob.com/matches/spain-vs-austria/i9x9deku",
             "status": "matched",
             "sourceDetail": "lineup payload source: enetpulse",
             "exactLayout": true
-          },
-          {
-            "name": "SofaScore",
-            "url": "https://www.sofascore.com/football/match/senegal-belgium/rUbsOUb",
-            "status": "blocked",
-            "note": "403 Forbidden"
-          },
-          {
-            "name": "BBC Sport",
-            "url": "https://www.bbc.com/sport/football/live/cx2j5p9",
-            "status": "unavailable",
-            "note": "404 Not Found"
-          },
-          {
-            "name": "Concacaf",
-            "url": "https://www.concacaf.com/competitions/fifa-world-cup/matches/8ec2ae6a1b1246f4b398626f7f1c3040/belgium-vs-senegal/lineups",
-            "status": "unavailable",
-            "note": "No parser is registered for source adapter \"concacaf\"."
           }
         ],
         "note": "Row-order disagreement was detected, ESPN was selected as the primary source. Matched claim signatures: 1/2."
-      }
-    },
-    "match-84-round-of-32-2026-07-02": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "editorial-verified",
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-02",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-02T22:09:34.246Z",
+      "checkedAt": "2026-07-07T17:31:12.299Z",
       "home": {
         "formation": "4-1-2-3",
         "coach": {
@@ -39937,7 +39960,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "match-83-round-of-32-2026-07-02": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-03T06:11:46.942Z",
@@ -39947,32 +39976,19 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760497/austria-spain",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760496",
             "status": "matched",
             "sourceDetail": "public match-center board geometry",
             "exactLayout": true
-          },
-          {
-            "name": "FotMob",
-            "url": "https://www.fotmob.com/matches/spain-vs-austria/i9x9deku",
-            "status": "matched",
-            "sourceDetail": "lineup payload source: enetpulse",
-            "exactLayout": true
           }
         ],
-        "note": "Row-order disagreement was detected, ESPN was selected as the primary source. Matched claim signatures: 1/2."
-      }
-    },
-    "match-83-round-of-32-2026-07-02": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "editorial-verified",
+        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-04",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-04T04:24:58.686Z",
+      "checkedAt": "2026-07-07T17:31:12.299Z",
       "home": {
         "formation": "4-2-3-1",
         "coach": {
@@ -40428,7 +40444,13 @@
             }
           ]
         }
-      },
+      }
+    },
+    "match-85-round-of-32-2026-07-02": {
+      "mode": "final",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
         "checkedAt": "2026-07-03T06:11:46.942Z",
@@ -40438,25 +40460,19 @@
         "sources": [
           {
             "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760496",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760498",
             "status": "matched",
             "sourceDetail": "public match-center board geometry",
             "exactLayout": true
           }
         ],
         "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
-      }
-    },
-    "match-85-round-of-32-2026-07-02": {
-      "mode": "final",
-      "teamSheetSource": "fifa-official",
-      "eventSource": "fifa-official",
-      "layoutSource": "editorial-verified",
+      },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-03",
+        "fifa-lineups-sync-2026-07-07",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-03T05:36:51.732Z",
+      "checkedAt": "2026-07-07T17:31:12.299Z",
       "home": {
         "formation": "4-2-3-1",
         "coach": {
@@ -40893,23 +40909,6 @@
             }
           ]
         }
-      },
-      "layoutVerification": {
-        "status": "verified",
-        "checkedAt": "2026-07-03T06:11:46.942Z",
-        "sourceIds": [
-          "lineup-layout-verification-2026-07-03"
-        ],
-        "sources": [
-          {
-            "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760498",
-            "status": "matched",
-            "sourceDetail": "public match-center board geometry",
-            "exactLayout": true
-          }
-        ],
-        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
       }
     },
     "match-88-round-of-32-2026-07-03": {
@@ -45266,5 +45265,5 @@
       }
     }
   },
-  "updatedAt": "2026-07-07T20:00:00.000Z"
+  "updatedAt": "2026-07-07T17:31:12.299Z"
 }
