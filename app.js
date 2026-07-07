@@ -1,4 +1,4 @@
-const DATA_VERSION = "2026-07-02-lineup-backfill-v2";
+const DATA_VERSION = "2026-07-07-argentina-egypt-result";
 const DATA_URLS = {
   adminMessage: `data/admin-message.json?v=${DATA_VERSION}`,
   fixtures: `data/fixtures.json?v=${DATA_VERSION}`,
@@ -635,6 +635,10 @@ const ZH_ADDITIONAL_EXACT_TRANSLATIONS = {
   Angola: "安哥拉",
   "Erling Haaland scored in the 79th and 90th minutes to turn Norway's late pressure into the upset.":
     "埃尔林·哈兰德在第79分钟和第90分钟连入两球，把挪威的后段压力转化为冷门胜利。",
+  "Egypt also had a goal ruled out after VAR, a swing that kept Argentina close before the late comeback.":
+    "埃及还有一粒进球在VAR介入后被判无效，这个转折让阿根廷仍留在比赛里，并为最后阶段的逆转留下空间。",
+  "Cristian Romero, Lionel Messi, and Enzo Fernández scored from 79' to 90+2' to turn the tie into a 3-2 Argentina win.":
+    "克里斯蒂安·罗梅罗、梅西和恩佐·费尔南德斯在第79分钟到90+2分钟连续破门，阿根廷最终3比2逆转取胜。",
   "Hans Vanaken and Romelu Lukaku finished the 4-1 rout after Belgium kept finding space late.":
     "比利时在后段持续找到空间，汉斯·瓦纳肯和罗梅卢·卢卡库把比分扩大为4比1。",
   "Harry Kane's penalty gave England the cushion they needed, even after Raul Jimenez answered from the spot.":
@@ -651,6 +655,8 @@ const ZH_ADDITIONAL_EXACT_TRANSLATIONS = {
     "米克尔·梅里诺直到90+1分钟才打破葡萄牙的抵抗。",
   "Neymar Jr's 90+10' penalty only cut the gap after Norway had already found the decisive second goal.":
     "内马尔在90+10分钟的点球只是缩小差距，因为挪威已经打进决定性的第二球。",
+  "Yasser Ibrahim and Mostafa Ziko gave Egypt a 2-0 lead and pushed Argentina to the edge.":
+    "亚塞尔·易卜拉欣和穆斯塔法·齐科帮助埃及取得2比0领先，把阿根廷逼到悬崖边。",
   "Athletic pressing with direct attacking bursts": "运动能力压迫和直接进攻爆发",
   "Attacking midfielder": "攻击型中场",
   "Attacking midfielder,": "攻击型中场",
@@ -17138,8 +17144,8 @@ function normalizeLineupCoach(coach, teamId) {
     teamName: coach.teamName || curatedCoach.teamName || team?.name || teamId,
     nameZh: coach.nameZh || curatedCoach.nameZh || coachProfile?.nameZh || coachProfile?.displayNameZh,
     sinceYear: coach.sinceYear || curatedCoach.sinceYear,
-    note: coach.note || curatedCoach.note,
-    history: coach.history || curatedCoach.history
+    note: coach.note || curatedCoach.note || coachProfile?.note,
+    history: coach.history || curatedCoach.history || coachProfile?.history
   };
 }
 

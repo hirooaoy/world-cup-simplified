@@ -22,7 +22,8 @@ const wikiProfileSourceIds = [
 ];
 const COACH_PAGE_TITLE_OVERRIDES = {
   "hong myungbo": "Hong Myung-bo",
-  "amir ghalehnoy": "Amir Ghalenoei"
+  "amir ghalehnoy": "Amir Ghalenoei",
+  "z dalic": "Zlatko Dalić"
 };
 const COACH_STYLE_FALLBACK = ["Tactical control", "Match management", "Balanced transitions"];
 const COACH_STYLE_RULES = [

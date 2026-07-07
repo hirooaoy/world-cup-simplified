@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-07T17:31:12.299Z",
+  "updatedAt": "2026-07-07T19:25:23.671Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -21338,7 +21338,7 @@
       "homeSlot": "Winner match 86",
       "awaySlot": "Winner match 88",
       "venue": "Atlanta Stadium",
-      "status": "LIVE",
+      "status": "FT",
       "h2h": {
         "status": "loaded",
         "sourceId": "national-football-teams-h2h-sync-2026-07-04",
@@ -21422,17 +21422,53 @@
         "away": "Egypt are a direct team built around Salah's runs that can look quiet until one attack opens the match, led by Mohamed Salah, Omar Marmoush, and Zizo. Against Argentina, their Salah-Marmoush breakaway threat has to beat Argentina's Messi-Alvarez midfield breaks. They want to release Salah early and let Marmoush arrive as the second wave. The risk is Argentina can turn one midfield win into Messi touches, Alvarez movement, and Enzo service."
       },
       "score": {
-        "home": 0,
-        "away": 1
+        "home": 3,
+        "away": 2
       },
-      "goalsHome": [],
+      "winnerTeamId": "ARG",
+      "goalsHome": [
+        {
+          "minute": 79,
+          "name": "Cristian Romero"
+        },
+        {
+          "minute": 83,
+          "name": "Lionel Messi"
+        },
+        {
+          "minute": 90,
+          "offset": 2,
+          "name": "Enzo Fernández"
+        }
+      ],
       "goalsAway": [
         {
           "minute": 15,
-          "name": "Yasser Ibrahim",
-          "assistName": "Marawan Attia"
+          "name": "Yasser Ibrahim"
+        },
+        {
+          "minute": 67,
+          "name": "Mostafa Zico"
         }
-      ]
+      ],
+      "resultStoryBullets": [
+        "Yasser Ibrahim and Mostafa Ziko gave Egypt a 2-0 lead and pushed Argentina to the edge.",
+        "Egypt also had a goal ruled out after VAR, a swing that kept Argentina close before the late comeback.",
+        "Cristian Romero, Lionel Messi, and Enzo Fernández scored from 79' to 90+2' to turn the tie into a 3-2 Argentina win."
+      ],
+      "resultStoryBulletsZh": [
+        "亚塞尔·易卜拉欣和穆斯塔法·齐科帮助埃及取得2比0领先，把阿根廷逼到悬崖边。",
+        "埃及还有一粒进球在VAR介入后被判无效，这个转折让阿根廷仍留在比赛里，并为最后阶段的逆转留下空间。",
+        "克里斯蒂安·罗梅罗、梅西和恩佐·费尔南德斯在第79分钟到90+2分钟连续破门，阿根廷最终3比2逆转取胜。"
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=XO3x8vm0Ijc",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-07-07T12:24:46-07:00",
+        "checkedAt": "2026-07-07T12:24:46-07:00"
+      }
     },
     {
       "id": "match-96-round-of-16-2026-07-07",
@@ -22087,6 +22123,7 @@
       "awaySlot": "Winner match 96",
       "venue": "Kansas City Stadium",
       "status": "SCHEDULED",
+      "homeTeamId": "ARG",
       "h2h": {
         "status": "not-loaded",
         "summary": "Teams are not known yet. Past match research will load after the matchup is set.",

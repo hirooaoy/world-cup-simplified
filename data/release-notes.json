@@ -1,6 +1,28 @@
 {
-  "updatedAt": "2026-07-07T12:01:50-07:00",
+  "updatedAt": "2026-07-07T12:27:00-07:00",
   "releases": [
+    {
+      "date": "2026-07-07",
+      "title": "Argentina-Egypt result added",
+      "titleZh": "阿根廷对埃及赛果更新",
+      "highlights": [
+        "Argentina's 3-2 comeback over Egypt now includes the full scorer timeline, the VAR-reversed Egypt goal context, three recap bullets, and the official FOX Sports YouTube highlights."
+      ],
+      "highlightsZh": [
+        "阿根廷3比2逆转埃及的赛果现已补齐完整进球时间线、埃及进球被VAR取消的关键背景、三条复盘要点以及 FOX Sports 官方 YouTube 集锦。"
+      ]
+    },
+    {
+      "date": "2026-07-07",
+      "title": "Coach card copy audit",
+      "titleZh": "教练卡片文案审校",
+      "highlights": [
+        "All lineup coach cards now use the same two-line rhythm: one tactical note plus one career context line, with corrected Colombia and Croatia coach metadata."
+      ],
+      "highlightsZh": [
+        "所有阵容教练卡片现在统一为两行结构：一条战术说明加一条履历背景，并修正了哥伦比亚和克罗地亚教练信息。"
+      ]
+    },
     {
       "date": "2026-07-07",
       "title": "Lineup prediction source quality",

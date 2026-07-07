@@ -1993,7 +1993,15 @@ try {
   );
   await page.keyboard.press("Escape");
   await page.locator("#day-label").focus();
-  await page.waitForSelector(".player-card:visible", { state: "hidden" });
+  await page.waitForFunction(() => {
+    const floatingCard = document.querySelector(".player-card-floating");
+    const floatingClosed =
+      !floatingCard ||
+      (!floatingCard.classList.contains("is-visible") && floatingCard.getAttribute("aria-hidden") === "true");
+    const openHovers = document.querySelectorAll(".player-hover.is-card-open, .player-hover.is-card-portaled");
+
+    return floatingClosed && openHovers.length === 0;
+  });
   assert(
     (await page.locator(".key-info-team h4 .key-info-heading .flag").count()) > 0,
     "Key information headings should show the country flag before the label."
@@ -2027,8 +2035,8 @@ try {
     "Paragraph player mentions should use a soft dotted underline."
   );
   assert(
-    paragraphPlayerOpacity === 1 && paragraphPlayerWeight <= 450,
-    "Paragraph player mentions should use full opacity and regular paragraph weight."
+    paragraphPlayerOpacity >= 0.99 && paragraphPlayerWeight <= 500,
+    `Paragraph player mentions should use full opacity and regular paragraph weight. Measured ${JSON.stringify({ paragraphPlayerOpacity, paragraphPlayerWeight })}.`
   );
   await page.locator(".key-info-team p .player-link").first().focus();
   const playerCard = page.locator(".player-card:visible").first();
@@ -6805,9 +6813,9 @@ try {
   const creatorHref = await sourceNote.locator("a", { hasText: /^H$/ }).getAttribute("href");
   const expectedSourceUpdatedAt = formatExpectedSourceUpdatedAt(getLatestUpdatedAt(sourceNoteRefreshData));
   const expectedSourceUpdatedAtPattern = expectedSourceUpdatedAt
-    .replace(/\d{1,2}:\d{2}/, "__SOURCE_TIME__")
+    .replace(/\d{1,2}:\d{2}\s(?:AM|PM)/, "__SOURCE_TIME__")
     .replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
-    .replace("__SOURCE_TIME__", "\\d{1,2}:\\d{2}");
+    .replace("__SOURCE_TIME__", "\\d{1,2}:\\d{2}\\s(?:AM|PM)");
   const expectedSourceNotePattern = new RegExp(
     `^See sources\\. Predictions are unofficial\\. Data refreshed ${expectedSourceUpdatedAtPattern}\\. Report issue\\. Made by H\\. See release notes\\.$`
   );

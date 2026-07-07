@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-03T17:37:50.424Z",
+  "updatedAt": "2026-07-07T19:06:26.704Z",
   "sourceIds": [
     "wikipedia-coach-search",
     "wikipedia-page-summaries",
@@ -16,7 +16,13 @@
         "Counter-attack",
         "Defensive organization",
         "Attacking structure"
-      ]
+      ],
+      "note": {
+        "en": "Aguirre gives Mexico a pragmatic tournament shape, with compact defending, fast counters, and enough attacking freedom for the front line to improvise."
+      },
+      "history": {
+        "en": "Back for a third spell with Mexico, he brings long international and club experience from Mexico, Spain, Japan, Egypt, and Mallorca."
+      }
     },
     "Hugo Broos": {
       "name": "Hugo Broos",
@@ -28,7 +34,13 @@
         "Defensive organization",
         "Counter-attack",
         "Set-piece focus"
-      ]
+      ],
+      "note": {
+        "en": "Broos favors a disciplined South Africa block, asking his side to protect central spaces before breaking quickly through direct runners."
+      },
+      "history": {
+        "en": "Appointed in 2021, he rebuilt Bafana Bafana around a younger core after previously winning the Africa Cup of Nations with Cameroon in 2017."
+      }
     },
     "Hong Myungbo": {
       "name": "Hong Myungbo",
@@ -40,7 +52,13 @@
         "Counter-attack"
       ],
       "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Hong_Myung-Bo.jpg/250px-Hong_Myung-Bo.jpg",
-      "sourceUrl": "https://en.wikipedia.org/wiki/Hong_Myung-bo"
+      "sourceUrl": "https://en.wikipedia.org/wiki/Hong_Myung-bo",
+      "note": {
+        "en": "Hong leans on defensive order and controlled transitions, using South Korea's athletic midfield to press in bursts rather than chase every phase."
+      },
+      "history": {
+        "en": "A former national-team captain and 2012 Olympic bronze-medal coach, he returned to the South Korea job in 2024."
+      }
     },
     "Miroslav Koubek": {
       "name": "Miroslav Koubek",
@@ -52,7 +70,13 @@
         "Counter-pressing",
         "Defensive organization",
         "Counter-attack"
-      ]
+      ],
+      "note": {
+        "en": "Koubek sets Czechia up with a coach's eye for structure: compact lines, physical pressure, and quick service into attacking zones."
+      },
+      "history": {
+        "en": "A veteran Czech manager, he has led top-flight clubs including Viktoria Plzen and brings decades of domestic experience to the national setup."
+      }
     },
     "Jesse Marsch": {
       "name": "Jesse Marsch",
@@ -64,7 +88,13 @@
         "Counter-pressing",
         "High press",
         "Direct transitions"
-      ]
+      ],
+      "note": {
+        "en": "Marsch wants Canada to play on the front foot, pressing aggressively and turning recoveries into quick vertical attacks."
+      },
+      "history": {
+        "en": "Appointed in 2024, he arrived after senior jobs with New York Red Bulls, Salzburg, Leipzig, Leeds United, and Canada's new-era program."
+      }
     },
     "Sergej Barbarez": {
       "name": "Sergej Barbarez",
@@ -76,7 +106,13 @@
         "Counter-pressing",
         "Possession control",
         "Attacking structure"
-      ]
+      ],
+      "note": {
+        "en": "Barbarez gives Bosnia and Herzegovina a possession-minded but emotionally direct identity, with midfield control feeding early forward runs."
+      },
+      "history": {
+        "en": "A former national-team star, he took the Bosnia and Herzegovina job in 2024 after a long playing career in Germany."
+      }
     },
     "Mauricio Pochettino": {
       "name": "Mauricio Pochettino",
@@ -88,7 +124,13 @@
         "High press",
         "Positional discipline",
         "Youth pipeline"
-      ]
+      ],
+      "note": {
+        "en": "Pochettino brings a high-energy United States model built around pressing triggers, brave fullbacks, and quick support around the ball."
+      },
+      "history": {
+        "en": "Appointed in 2024, he came to the USMNT after major club roles with Southampton, Tottenham, Paris Saint-Germain, Chelsea, and Espanyol."
+      }
     },
     "Gustavo Alfaro": {
       "name": "Gustavo Alfaro",
@@ -100,7 +142,13 @@
         "Counter-attack",
         "Set-piece focus",
         "Defensive organization"
-      ]
+      ],
+      "note": {
+        "en": "Alfaro gives Paraguay a rugged, detail-heavy shape: protect the box, compete on set pieces, and counter through direct wide outlets."
+      },
+      "history": {
+        "en": "He took over Paraguay in 2024 after leading Ecuador at the 2022 World Cup and Costa Rica through a transition cycle."
+      }
     },
     "Julen Lopetegui": {
       "name": "Julen Lopetegui",
@@ -112,7 +160,13 @@
         "Possession control",
         "Counter-pressing",
         "Set-piece focus"
-      ]
+      ],
+      "note": {
+        "en": "Lopetegui usually wants controlled buildup and positional patience, with Qatar trying to move opponents before attacking the final third."
+      },
+      "history": {
+        "en": "A former Spain, Porto, Real Madrid, Sevilla, Wolves, and West Ham coach, he brings extensive club and international experience."
+      }
     },
     "Murat Yakin": {
       "name": "Murat Yakin",
@@ -124,7 +178,13 @@
         "Defensive organization",
         "Counter-attack",
         "Set-piece focus"
-      ]
+      ],
+      "note": {
+        "en": "Yakin's Switzerland is comfortable managing tight games, defending compactly, and using set pieces or quick counters to tilt margins."
+      },
+      "history": {
+        "en": "Appointed in 2021, he led Switzerland through the 2022 World Cup and Euro 2024 while keeping a veteran core competitive."
+      }
     },
     "Carlo Ancelotti": {
       "name": "Carlo Ancelotti",
@@ -136,7 +196,13 @@
         "Possession control",
         "Counter-pressing",
         "Defensive organization"
-      ]
+      ],
+      "note": {
+        "en": "Ancelotti keeps Brazil balanced rather than frantic, trusting flexible possession, experienced game management, and individual quality between the lines."
+      },
+      "history": {
+        "en": "He moved from a trophy-laden Real Madrid spell to Brazil in 2025, adding the national-team role to one of club football's deepest resumes."
+      }
     },
     "Mohamed Ouahbi": {
       "name": "Mohamed Ouahbi",
@@ -148,7 +214,13 @@
         "Youth pipeline",
         "Defensive organization",
         "Counter-pressing"
-      ]
+      ],
+      "note": {
+        "en": "Ouahbi brings a development coach's lens to Morocco, pairing organized defending with quick pressing moments and faith in younger technical players."
+      },
+      "history": {
+        "en": "Promoted after work in Morocco's youth pathway, he carries federation continuity from the country's recent international rise."
+      }
     },
     "Sebastien Migne": {
       "name": "Sebastien Migne",
@@ -159,7 +231,13 @@
         "Defensive organization",
         "Set-piece focus",
         "Counter-attack"
-      ]
+      ],
+      "note": {
+        "en": "Migne keeps Haiti pragmatic, asking for defensive discipline first before using set pieces and quick breaks to create tournament chances."
+      },
+      "history": {
+        "en": "He has built a broad international resume across African national teams and clubs before taking charge of Haiti."
+      }
     },
     "Steve Clarke": {
       "name": "Steve Clarke",
@@ -171,7 +249,13 @@
         "Defensive organization",
         "Counter-attack",
         "Set-piece focus"
-      ]
+      ],
+      "note": {
+        "en": "Clarke's Scotland is organized and stubborn, built on back-line discipline, second-ball pressure, and quick counters from wide areas."
+      },
+      "history": {
+        "en": "Appointed in 2019, he guided Scotland back to major tournaments after successful spells with Kilmarnock and West Bromwich Albion."
+      }
     },
     "Tony Popovic": {
       "name": "Tony Popovic",
@@ -183,7 +267,13 @@
         "Defensive organization",
         "Counter-pressing",
         "Direct transitions"
-      ]
+      ],
+      "note": {
+        "en": "Popovic gives Australia a direct, physically secure structure, combining defensive spacing with quick pressure after turnovers."
+      },
+      "history": {
+        "en": "Appointed in 2024, the former Socceroo arrived after A-League success with Western Sydney Wanderers, Perth Glory, and Melbourne Victory."
+      }
     },
     "Vincenzo Montella": {
       "name": "Vincenzo Montella",
@@ -195,7 +285,13 @@
         "Attacking structure",
         "Possession control",
         "High press"
-      ]
+      ],
+      "note": {
+        "en": "Montella's Türkiye tries to attack with rhythm, using technical midfielders, wide combinations, and pressing spells to keep opponents under stress."
+      },
+      "history": {
+        "en": "Appointed in 2023, he came from club management in Italy and Türkiye and led the national side into a more expansive phase."
+      }
     },
     "Julian Nagelsmann": {
       "name": "Julian Nagelsmann",
@@ -207,7 +303,13 @@
         "High press",
         "Counter-pressing",
         "Possession control"
-      ]
+      ],
+      "note": {
+        "en": "Nagelsmann gives Germany flexible pressing and possession patterns, shifting shapes to create overloads without losing rest-defense cover."
+      },
+      "history": {
+        "en": "Appointed in 2023, he brought high-level Bundesliga and Champions League experience from Hoffenheim, Leipzig, and Bayern Munich."
+      }
     },
     "Dick Advocaat": {
       "name": "Dick Advocaat",
@@ -219,7 +321,13 @@
         "Defensive organization",
         "Counter-pressing",
         "Set-piece focus"
-      ]
+      ],
+      "note": {
+        "en": "Advocaat keeps Curacao organized and practical, leaning on defensive clarity, set-piece detail, and experienced game management."
+      },
+      "history": {
+        "en": "One of international football's most traveled managers, he took charge of Curacao after long spells with clubs and national teams across Europe and beyond."
+      }
     },
     "Ronald Koeman": {
       "name": "Ronald Koeman",
@@ -231,7 +339,13 @@
         "Set-piece focus",
         "Possession control",
         "Defensive organization"
-      ]
+      ],
+      "note": {
+        "en": "Koeman balances Dutch possession with set-piece threat and measured defensive structure, preferring control over constant risk."
+      },
+      "history": {
+        "en": "Back in charge since 2023, he returned to the Netherlands job after earlier national-team work and major club roles including Barcelona."
+      }
     },
     "Hajime Moriyasu": {
       "name": "Hajime Moriyasu",
@@ -243,7 +357,13 @@
         "Possession control",
         "Counter-attack",
         "Direct transitions"
-      ]
+      ],
+      "note": {
+        "en": "Moriyasu's Japan can control the ball or counter at speed, using disciplined spacing and direct transitions from a deep technical squad."
+      },
+      "history": {
+        "en": "Appointed in 2018, he led Japan at the 2022 World Cup and kept the program on a steady post-tournament path."
+      }
     },
     "Emerse Fae": {
       "name": "Emerse Fae",
@@ -255,7 +375,13 @@
         "Counter-attack",
         "Defensive organization",
         "Set-piece focus"
-      ]
+      ],
+      "note": {
+        "en": "Fae gives Cote d'Ivoire a calm counter-attacking base, prioritizing defensive balance before releasing powerful runners into space."
+      },
+      "history": {
+        "en": "Promoted during the 2023 Africa Cup of Nations, he guided Cote d'Ivoire to the title and stayed on as head coach."
+      }
     },
     "Sebastian Beccacece": {
       "name": "Sebastian Beccacece",
@@ -267,7 +393,13 @@
         "Attacking structure",
         "Possession control",
         "High press"
-      ]
+      ],
+      "note": {
+        "en": "Beccacece wants Ecuador to play with intensity, pressing high when possible and using possession to create aggressive attacking angles."
+      },
+      "history": {
+        "en": "Appointed in 2024, he arrived after coaching spells in Argentina, Chile, Spain, and the Ecuadorian club game."
+      }
     },
     "Graham Potter": {
       "name": "Graham Potter",
@@ -279,7 +411,13 @@
         "Possession control",
         "Attacking structure",
         "Wing overloads"
-      ]
+      ],
+      "note": {
+        "en": "Potter's Sweden is expected to value patient buildup, flexible attacking rotations, and wide combinations rather than pure direct play."
+      },
+      "history": {
+        "en": "Appointed after his Premier League and European club work, he brought a development-focused coaching background to Sweden."
+      }
     },
     "Sabri Lamouchi": {
       "name": "Sabri Lamouchi",
@@ -291,7 +429,13 @@
         "Counter-pressing",
         "Possession control",
         "Direct transitions"
-      ]
+      ],
+      "note": {
+        "en": "Lamouchi gives Tunisia a transition-minded setup, mixing midfield pressure with direct forward runs once possession is recovered."
+      },
+      "history": {
+        "en": "A former France international, he has managed Cote d'Ivoire, Rennes, Nottingham Forest, Cardiff City, and several clubs in the Middle East."
+      }
     },
     "Luis De La Fuente": {
       "name": "Luis De La Fuente",
@@ -303,7 +447,13 @@
         "Youth pipeline",
         "Possession control",
         "Defensive organization"
-      ]
+      ],
+      "note": {
+        "en": "De la Fuente keeps Spain connected to its possession identity while adding vertical runners and trust in players he developed through the youth teams."
+      },
+      "history": {
+        "en": "Promoted to the senior job in 2022, he previously led Spain's under-19, under-21, and Olympic teams."
+      }
     },
     "Bubista": {
       "name": "Bubista",
@@ -315,7 +465,13 @@
         "Defensive organization",
         "Counter-attack",
         "Set-piece focus"
-      ]
+      ],
+      "note": {
+        "en": "Bubista makes Cabo Verde hard to play through, using compact defending, counters, and set pieces to keep matches within reach."
+      },
+      "history": {
+        "en": "A former Cabo Verde international, he has led the national team since 2020 and overseen one of its strongest competitive periods."
+      }
     },
     "Rudi Garcia": {
       "name": "Rudi Garcia",
@@ -327,7 +483,13 @@
         "Attacking structure",
         "Possession control",
         "High press"
-      ]
+      ],
+      "note": {
+        "en": "Garcia gives Belgium an attacking structure based on passing rhythm, wide support, and pressure from advanced midfielders."
+      },
+      "history": {
+        "en": "Appointed in 2025, he brought club experience from Lille, Roma, Marseille, Lyon, Al Nassr, and Napoli."
+      }
     },
     "Hossam Hassan": {
       "name": "Hossam Hassan",
@@ -339,7 +501,13 @@
         "Counter-attack",
         "Defensive organization",
         "Set-piece focus"
-      ]
+      ],
+      "note": {
+        "en": "Hassan's Egypt is direct and emotionally intense, built around defensive security, quick counters, and set-piece pressure."
+      },
+      "history": {
+        "en": "The country's all-time leading scorer became Egypt head coach in 2024 after a long domestic managerial career."
+      }
     },
     "Georgios Donis": {
       "name": "Georgios Donis",
@@ -350,7 +518,13 @@
         "Wing overloads",
         "Attacking structure",
         "Possession control"
-      ]
+      ],
+      "note": {
+        "en": "Donis tends to use wide overloads and attacking rotations, asking Saudi Arabia to move quickly from buildup into the final third."
+      },
+      "history": {
+        "en": "A former Greece international, he has coached clubs in Greece, Cyprus, Saudi Arabia, and the Gulf before this national-team spell."
+      }
     },
     "Marcelo Bielsa": {
       "name": "Marcelo Bielsa",
@@ -362,7 +536,13 @@
         "High press",
         "Counter-pressing",
         "Direct transitions"
-      ]
+      ],
+      "note": {
+        "en": "Bielsa's Uruguay plays with relentless pressing, direct running, and man-oriented intensity that can turn games into physical sprints."
+      },
+      "history": {
+        "en": "Appointed in 2023, he brought his influential club and international career to Uruguay after spells with Argentina, Chile, Athletic Club, Marseille, Lille, and Leeds."
+      }
     },
     "Amir Ghalehnoy": {
       "name": "Amir Ghalehnoy",
@@ -374,7 +554,13 @@
         "Counter-attack"
       ],
       "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Amir_Ghalenoei_14021114000776638425776058160814_23579.jpg/250px-Amir_Ghalenoei_14021114000776638425776058160814_23579.jpg",
-      "sourceUrl": "https://en.wikipedia.org/wiki/Amir_Ghalenoei"
+      "sourceUrl": "https://en.wikipedia.org/wiki/Amir_Ghalenoei",
+      "note": {
+        "en": "Ghalehnoy keeps Iran compact and combative, mixing defensive organization with sharp counters through experienced attackers."
+      },
+      "history": {
+        "en": "Back in charge since 2023, he previously managed Iran in the 2000s and built a long title-winning resume in Iranian club football."
+      }
     },
     "Darren Bazeley": {
       "name": "Darren Bazeley",
@@ -386,7 +572,13 @@
         "Counter-pressing",
         "Positional discipline",
         "Set-piece focus"
-      ]
+      ],
+      "note": {
+        "en": "Bazeley gives New Zealand a disciplined, development-minded setup, with clear roles, organized pressing, and set-piece attention."
+      },
+      "history": {
+        "en": "Appointed in 2023, he moved up from New Zealand youth and interim roles after a long playing and coaching career in the country."
+      }
     },
     "Didier Deschamps": {
       "name": "Didier Deschamps",
@@ -398,7 +590,13 @@
         "Defensive organization",
         "Counter-attack",
         "Set-piece focus"
-      ]
+      ],
+      "note": {
+        "en": "Deschamps keeps France ruthlessly practical: defend the center, manage momentum, and let elite transition players decide matches."
+      },
+      "history": {
+        "en": "Appointed in 2012, he led France to the 2018 World Cup title, the Euro 2016 final, and the 2022 World Cup final."
+      }
     },
     "Pape Thiaw": {
       "name": "Pape Thiaw",
@@ -410,7 +608,13 @@
         "Attacking structure",
         "Direct transitions",
         "Counter-attack"
-      ]
+      ],
+      "note": {
+        "en": "Thiaw gives Senegal direct attacking energy, looking for quick service into forwards while keeping enough midfield cover behind the ball."
+      },
+      "history": {
+        "en": "A former Senegal international, he moved through assistant and interim roles before taking over the senior national team."
+      }
     },
     "Graham Arnold": {
       "name": "Graham Arnold",
@@ -422,7 +626,13 @@
         "Counter-attack",
         "High press",
         "Direct transitions"
-      ]
+      ],
+      "note": {
+        "en": "Arnold's Iraq profile is direct and competitive, using organized defending, pressing spells, and quick forward balls to unsettle opponents."
+      },
+      "history": {
+        "en": "A former Australia head coach and A-League winner, he brings major-tournament experience from the Socceroos and Sydney FC."
+      }
     },
     "Stale Solbakken": {
       "name": "Stale Solbakken",
@@ -434,7 +644,14 @@
         "Counter-attack",
         "Direct transitions",
         "Defensive organization"
-      ]
+      ],
+      "note": {
+        "en": "Solbakken gives Norway a compact, counter-punching shape, using direct transitions to maximize the side's elite attacking finishers."
+      },
+      "history": {
+        "en": "Appointed in 2020, he arrived after a long club career, especially with Copenhagen, and has steered Norway through multiple qualification cycles."
+      },
+      "displayName": "Stale Solbakken"
     },
     "Lionel Scaloni": {
       "name": "Lionel Scaloni",
@@ -443,12 +660,10 @@
       "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/7/7c/Lionel_Scaloni_-_2022.jpg",
       "sourceUrl": "https://en.wikipedia.org/wiki/Lionel_Scaloni",
       "note": {
-        "en": "Scaloni builds a compact, intelligent side that can switch from cautious possession into fast transitions, usually trusting top forwards to finish matches in short, decisive bursts.",
-        "zh": "斯卡洛尼构建紧凑而有逻辑的阵型，球队能在控球后的快速转移中迅速起速，常让头号前锋承担决定比赛的关键进攻。"
+        "en": "Scaloni builds a compact, intelligent Argentina side that can switch from cautious possession into fast transitions and decisive forward bursts."
       },
       "history": {
-        "en": "Appointed in 2018, Scaloni lifted Argentina with the 2021 Copa América, 2022 Finalissima, and the 2022 FIFA World Cup, then kept the side competitive through a major generational rebuild.",
-        "zh": "他于2018年出任阿根廷主帅，先后拿下2021年美洲杯、2022年国际友谊杯（FIFA洲际决战）和2022年世界杯冠军，并在阵容换代阶段持续保持国家队竞争力。"
+        "en": "Appointed in 2018, he lifted the 2021 Copa America, 2022 Finalissima, 2022 World Cup, and 2024 Copa America."
       },
       "styles": [
         "Possession control",
@@ -466,7 +681,13 @@
         "Defensive organization",
         "Counter-pressing",
         "Set-piece focus"
-      ]
+      ],
+      "note": {
+        "en": "Petkovic gives Algeria defensive structure and pressing discipline, with set pieces and quick wide attacks as practical routes to chances."
+      },
+      "history": {
+        "en": "Appointed in 2024, he previously led Switzerland from 2014 to 2021 and coached clubs including Lazio and Bordeaux."
+      }
     },
     "Ralf Rangnick": {
       "name": "Ralf Rangnick",
@@ -478,7 +699,13 @@
         "Counter-pressing",
         "High press",
         "Direct transitions"
-      ]
+      ],
+      "note": {
+        "en": "Rangnick's Austria is defined by coordinated pressure, quick vertical passing, and aggressive counter-pressing after losing the ball."
+      },
+      "history": {
+        "en": "Appointed in 2022, he brought his influential pressing background from German club football and consultancy roles to Austria."
+      }
     },
     "Jamal Sellami": {
       "name": "Jamal Sellami",
@@ -490,7 +717,13 @@
         "Defensive organization",
         "Counter-attack",
         "Counter-pressing"
-      ]
+      ],
+      "note": {
+        "en": "Sellami keeps Jordan organized and brave in transition, protecting central spaces before springing counters through quick support runs."
+      },
+      "history": {
+        "en": "A former Morocco international, he took the Jordan job in 2024 after work with Morocco's domestic and youth programs."
+      }
     },
     "Roberto Martinez": {
       "name": "Roberto Martinez",
@@ -502,7 +735,14 @@
         "Defensive organization",
         "Counter-attack",
         "Set-piece focus"
-      ]
+      ],
+      "note": {
+        "en": "Martinez gives Portugal possession control with pragmatic tournament safeguards, letting creative attackers rotate while the back line stays protected."
+      },
+      "history": {
+        "en": "Appointed in 2023, he came to Portugal after leading Belgium through an extended top-ranked era and the 2018 World Cup semifinals."
+      },
+      "nameZh": "罗伯托·马丁内斯"
     },
     "Sebastien Desabre": {
       "name": "Sebastien Desabre",
@@ -514,7 +754,13 @@
         "Counter-attack",
         "Direct transitions",
         "High press"
-      ]
+      ],
+      "note": {
+        "en": "Desabre's DR Congo side is built for speed: compact defending, direct transitions, and aggressive forward runs once space opens."
+      },
+      "history": {
+        "en": "Appointed in 2022, he arrived after extensive club and national-team work across Africa and helped DR Congo return to continental prominence."
+      }
     },
     "Thomas Tuchel": {
       "name": "Thomas Tuchel",
@@ -526,7 +772,13 @@
         "Counter-pressing",
         "Possession control",
         "Attacking structure"
-      ]
+      ],
+      "note": {
+        "en": "Tuchel is detail-heavy: he likes control, clear roles, counter-pressing, and patient problem-solving against packed defenses."
+      },
+      "history": {
+        "en": "Appointed England head coach in 2025, he brought Champions League-winning club experience from Chelsea plus major roles at Dortmund, PSG, and Bayern Munich."
+      }
     },
     "Zlatko Dalic": {
       "name": "Zlatko Dalic",
@@ -538,7 +790,13 @@
         "Counter-attack",
         "High press",
         "Defensive organization"
-      ]
+      ],
+      "note": {
+        "en": "Dalic gives Croatia tournament calm, trusting midfield control, compact defending, and timely counters rather than chasing every game state."
+      },
+      "history": {
+        "en": "Appointed in 2017, he led Croatia to the 2018 World Cup final, the 2022 World Cup semifinals, and the 2023 Nations League final."
+      }
     },
     "Carlos Queiroz": {
       "name": "Carlos Queiroz",
@@ -550,7 +808,13 @@
         "Defensive organization",
         "Counter-pressing",
         "Counter-attack"
-      ]
+      ],
+      "note": {
+        "en": "Queiroz gives Ghana a safety-first tournament shape, emphasizing defensive organization, compact midfield spacing, and counters from wide areas."
+      },
+      "history": {
+        "en": "A veteran international coach, he has led Portugal, Iran, Egypt, Colombia, and South Africa, alongside major assistant and club roles."
+      }
     },
     "Thomas Christiansen": {
       "name": "Thomas Christiansen",
@@ -562,7 +826,13 @@
         "Attacking structure",
         "Direct transitions",
         "Counter-attack"
-      ]
+      ],
+      "note": {
+        "en": "Christiansen's Panama plays with attacking intent, using direct transitions, wide support, and quick combinations around the forwards."
+      },
+      "history": {
+        "en": "Appointed in 2020, he led Panama through a strong qualification cycle after club roles in Cyprus, England, Belgium, and Spain."
+      }
     },
     "Fabio Cannavaro": {
       "name": "Fabio Cannavaro",
@@ -574,7 +844,13 @@
         "Defensive organization",
         "Set-piece focus",
         "Counter-attack"
-      ]
+      ],
+      "note": {
+        "en": "Cannavaro's Uzbekistan is built from defensive detail, with set pieces and quick counters used to protect leads and punish mistakes."
+      },
+      "history": {
+        "en": "The 2006 Ballon d'Or winner moved into management after his playing career, coaching in China, Saudi Arabia, Italy, and Croatia before Uzbekistan."
+      }
     },
     "Nestor Lorenzo": {
       "name": "Nestor Lorenzo",
@@ -583,12 +859,10 @@
       "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/FWC_2018_-_Round_of_16_-_COL_v_ENG_-_N%C3%A9stor_Lorenzo.jpg/250px-FWC_2018_-_Round_of_16_-_COL_v_ENG_-_N%C3%A9stor_Lorenzo.jpg",
       "sourceUrl": "https://en.wikipedia.org/wiki/N%C3%A9stor_Lorenzo",
       "note": {
-        "en": "Lorenzo prefers a disciplined Colombian shape built on strong defensive cover, compact pressing windows, and quick vertical counters when teams attack from narrow zones.",
-        "zh": "洛伦索偏好纪律严明的球队结构，强调后场压缩与短时逼抢，并在对手从窄路由回的瞬间打出纵向快速反击。"
+        "en": "Lorenzo prefers a disciplined Colombia shape built on defensive cover, compact pressing windows, and quick vertical counters from narrow zones."
       },
       "history": {
-        "en": "He joined Colombia as head coach in 2024, bringing experience from domestic Argentine management and years in international coaching structures before moving to the senior national side.",
-        "zh": "他于2024年担任哥伦比亚主教练，在执教国家队之前累积了阿根达国内部俱乐部与国家队体系的管理经验。"
+        "en": "Appointed in 2022, he steadied Colombia after years as an assistant with the national team and coaching experience in Peru."
       },
       "styles": [
         "Defensive organization",
@@ -606,19 +880,31 @@
         "Defensive organization",
         "Set-piece focus",
         "Counter-pressing"
-      ]
+      ],
+      "note": {
+        "en": "Renard gives Tunisia a rugged tournament identity, emphasizing defensive organization, set pieces, and confident pressing in selected moments."
+      },
+      "history": {
+        "en": "A two-time Africa Cup of Nations winner with Zambia and Cote d'Ivoire, he brings extensive national-team experience across Africa, Asia, and Europe."
+      }
     },
     "Z. Dalić": {
       "name": "Z. Dalić",
       "teamId": "CRO",
       "teamName": "Croatia",
-      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/Ante_Cacic_in_charge_of_Dinamo_Zagreb_%28cropped2%29.jpg/250px-Ante_Cacic_in_charge_of_Dinamo_Zagreb_%28cropped2%29.jpg",
-      "sourceUrl": "https://en.wikipedia.org/wiki/Ante_%C4%8Ca%C4%8Di%C4%87",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Zlatko_Dali%C4%87_Croatia.jpg/250px-Zlatko_Dali%C4%87_Croatia.jpg",
+      "sourceUrl": "https://en.wikipedia.org/wiki/Zlatko_Dali%C4%87",
       "styles": [
-        "Counter-pressing",
-        "Defensive organization",
-        "Counter-attack"
-      ]
+        "Counter-attack",
+        "High press",
+        "Defensive organization"
+      ],
+      "note": {
+        "en": "Dalic gives Croatia tournament calm, trusting midfield control, compact defending, and timely counters rather than chasing every game state."
+      },
+      "history": {
+        "en": "This abbreviated FIFA lineup name refers to Zlatko Dalic, Croatia's head coach since 2017 and a World Cup finalist in 2018."
+      }
     }
   }
 }
