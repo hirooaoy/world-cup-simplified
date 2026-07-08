@@ -9969,6 +9969,9 @@ function handleTouchTooltipPointerDown(event) {
     return;
   }
 
+  if (tooltipElement.matches?.(footerTooltipTriggerSelector)) {
+    event.preventDefault();
+  }
   event.stopPropagation();
   setActiveTouchTooltip(tooltipElement);
 }
@@ -14298,7 +14301,6 @@ function renderTournamentProgression(context, options = {}) {
       <div class="progress-rounds">
         ${TOURNAMENT_PROGRESS_ROUNDS.map((round, roundIndex) => renderTournamentProgressRound(round, context, roundIndex, options)).join("")}
       </div>
-      ${renderTournamentShowNextButton(options.nextMatchIds)}
     </section>
   `;
 }
@@ -14311,6 +14313,7 @@ function renderTournamentView() {
   return `
     <section class="tournament-view" aria-label="${escapeHtml(localizeText("Tournament bracket"))}">
       ${renderTournamentProgression(context, { currentTime, nextMatchIds })}
+      ${renderTournamentShowNextButton(nextMatchIds)}
     </section>
   `;
 }
@@ -14832,6 +14835,43 @@ function getWindowMaxScrollY() {
   );
 
   return Math.max(0, scrollHeight - window.innerHeight);
+}
+
+function getFixedViewportBottomCompensation(visualBottom) {
+  if (!document.body || !Number.isFinite(visualBottom)) {
+    return 0;
+  }
+
+  const probe = document.createElement("span");
+  probe.setAttribute("aria-hidden", "true");
+  probe.style.cssText = [
+    "position: fixed",
+    "right: 0",
+    "bottom: 0",
+    "width: 1px",
+    "height: 1px",
+    "opacity: 0",
+    "pointer-events: none",
+    "contain: strict"
+  ].join(";");
+  document.body.appendChild(probe);
+  const fixedBottom = probe.getBoundingClientRect().bottom;
+  probe.remove();
+
+  return Math.max(0, Math.round(fixedBottom - visualBottom));
+}
+
+function updateVisualViewportInsets() {
+  const viewport = window.visualViewport;
+  const layoutHeight = window.innerHeight || document.documentElement.clientHeight || 0;
+  const visualBottom =
+    viewport && Number.isFinite(viewport.height)
+      ? (Number(viewport.offsetTop) || 0) + Number(viewport.height)
+      : layoutHeight;
+  const viewportGap = Math.max(0, Math.round(layoutHeight - visualBottom));
+  const bottomInset = viewportGap > 0 ? getFixedViewportBottomCompensation(visualBottom) : 0;
+
+  document.documentElement.style.setProperty("--visual-viewport-bottom-inset", `${bottomInset}px`);
 }
 
 function handleTournamentBoardPointerDown(event) {
@@ -26962,6 +27002,7 @@ document.addEventListener(
 );
 
 window.addEventListener("resize", () => {
+  updateVisualViewportInsets();
   updateTabIndicators();
   updateTimeZoneLabelForViewport();
   positionCatchUpPopover();
@@ -26974,22 +27015,26 @@ window.addEventListener("resize", () => {
   updateStandingNameTooltips();
   updateMeasuredLabelTooltips();
   updateTooltipBounds();
-	  window.requestAnimationFrame(() => {
-	    updateWrappedMatchRows();
-	    updateTruncatedTeamTooltips();
-	    updateStandingNameTooltips();
-	    updateMeasuredLabelTooltips();
-	    updateTooltipBounds();
-	    if (floatingLineupEventTooltipSource?.isConnected) {
-	      positionFloatingLineupEventTooltip(floatingLineupEventTooltipSource);
-	    }
-	    updateTournamentBoardLayout();
-	    updateTabIndicators();
-	  });
-	});
+  window.requestAnimationFrame(() => {
+    updateWrappedMatchRows();
+    updateTruncatedTeamTooltips();
+    updateStandingNameTooltips();
+    updateMeasuredLabelTooltips();
+    updateTooltipBounds();
+    if (floatingLineupEventTooltipSource?.isConnected) {
+      positionFloatingLineupEventTooltip(floatingLineupEventTooltipSource);
+    }
+    updateVisualViewportInsets();
+    updateTournamentBoardLayout();
+    updateTabIndicators();
+  });
+});
+window.visualViewport?.addEventListener?.("resize", updateVisualViewportInsets);
+window.visualViewport?.addEventListener?.("scroll", updateVisualViewportInsets);
 window.addEventListener(
   "scroll",
   () => {
+    updateVisualViewportInsets();
     clearActiveTouchTooltip();
     hideFloatingLineupEventTooltip();
     positionCatchUpPopover();
@@ -27119,6 +27164,7 @@ const languageObserver = new MutationObserver(() => {
 });
 
 readInitialChromeState();
+updateVisualViewportInsets();
 renderStaticText();
 renderTimeZoneOptions();
 setHeaderControlsLoading(false);

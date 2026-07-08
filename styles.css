@@ -4603,7 +4603,7 @@ h1 {
 .tournament-show-next-button {
   position: fixed;
   right: 18px;
-  bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+  bottom: calc(18px + env(safe-area-inset-bottom, 0px) + var(--visual-viewport-bottom-inset, 0px));
   z-index: 80;
   display: inline-flex;
   align-items: center;
@@ -7459,8 +7459,8 @@ button.lineup-event-sub,
   }
 }
 
-.source-tooltip-trigger.is-touch-tooltip-open ~ .source-tooltip,
-.release-tooltip-trigger.is-touch-tooltip-open ~ .release-tooltip {
+.source-tooltip-wrapper .source-tooltip-trigger.is-touch-tooltip-open ~ .source-tooltip,
+.release-tooltip-wrapper .release-tooltip-trigger.is-touch-tooltip-open ~ .release-tooltip {
   opacity: 1;
   pointer-events: auto;
   transform: translate(-50%, 0);
@@ -8350,7 +8350,7 @@ button.lineup-event-sub,
 @media (max-width: 520px) {
   .tournament-show-next-button {
     right: 14px;
-    bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+    bottom: calc(14px + env(safe-area-inset-bottom, 0px) + var(--visual-viewport-bottom-inset, 0px));
   }
 
   .match-summary h2 {

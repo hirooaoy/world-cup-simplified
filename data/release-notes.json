@@ -1,6 +1,19 @@
 {
-  "updatedAt": "2026-07-08T13:49:06-07:00",
+  "updatedAt": "2026-07-08T14:20:47-07:00",
   "releases": [
+    {
+      "date": "2026-07-08",
+      "title": "Mobile tournament and footer tap polish",
+      "titleZh": "移动端赛程图与页脚点按优化",
+      "highlights": [
+        "On mobile, the tournament Show next button now floats from the page bottom-right instead of being clipped by the bracket canvas or browser chrome.",
+        "Footer tooltips now keep See release notes open after a normal tap, matching See sources."
+      ],
+      "highlightsZh": [
+        "移动端淘汰赛图里的“Show next”按钮现在会从页面右下角浮动显示，不再被对阵图画布或浏览器底部工具栏截断。",
+        "页脚提示现在会在普通点按后保持“查看发布说明”打开，和“查看来源”的行为一致。"
+      ]
+    },
     {
       "date": "2026-07-08",
       "title": "Footer tooltip taps",

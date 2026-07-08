@@ -1648,6 +1648,9 @@ async function openPageAtTime(
   if (options.desktopPointerMedia) {
     await useDesktopPointerMedia(context);
   }
+  if (options.initScript) {
+    await context.addInitScript(options.initScript);
+  }
   await context.addInitScript((mockNowIso) => {
     const RealDate = Date;
     const mockNow = new RealDate(mockNowIso);
@@ -6602,6 +6605,99 @@ try {
     );
     await tournamentUpNextCheck.context.close();
 
+    const tournamentShowNextFloatingCheck = await openPageAtTime(
+      beforeKnockoutKickoff.toISOString(),
+      "/?view=standings&standingsMode=tournament&tz=America%2FLos_Angeles",
+      {
+        contextOptions: {
+          hasTouch: true,
+          isMobile: true,
+          viewport: { width: 390, height: 844 }
+        },
+        initScript() {
+          Object.defineProperty(window, "visualViewport", {
+            configurable: true,
+            value: {
+              addEventListener() {},
+              removeEventListener() {},
+              get height() {
+                return Math.max(0, window.innerHeight - 112);
+              },
+              get offsetTop() {
+                return 0;
+              },
+              get pageLeft() {
+                return window.scrollX;
+              },
+              get pageTop() {
+                return window.scrollY;
+              },
+              get scale() {
+                return 1;
+              },
+              get width() {
+                return window.innerWidth;
+              }
+            }
+          });
+        },
+        fixtureTransform(data) {
+          for (const fixture of data.fixtures || []) {
+            if (fixture.status === "LIVE") {
+              fixture.status = "FT";
+              fixture.score ||= { home: 0, away: 0 };
+            }
+          }
+        }
+      }
+    );
+    await tournamentShowNextFloatingCheck.page.waitForSelector(".tournament-show-next-button");
+    await tournamentShowNextFloatingCheck.page.evaluate(() => {
+      window.dispatchEvent(new Event("resize"));
+    });
+    await tournamentShowNextFloatingCheck.page.waitForTimeout(80);
+    const tournamentShowNextFloatingState = await tournamentShowNextFloatingCheck.page.evaluate(() => {
+      const button = document.querySelector(".tournament-show-next-button");
+      const progression = document.querySelector(".tournament-progression");
+      const rect = button?.getBoundingClientRect();
+      const style = button ? getComputedStyle(button) : null;
+      const rootStyle = getComputedStyle(document.documentElement);
+      const viewportBottom =
+        (window.visualViewport?.offsetTop || 0) + (window.visualViewport?.height || window.innerHeight);
+
+      return {
+        bottomGapToLayoutViewport: rect ? Math.round(window.innerHeight - rect.bottom) : null,
+        bottomGapToVisualViewport: rect ? Math.round(viewportBottom - rect.bottom) : null,
+        buttonInsideProgression: Boolean(button?.closest(".tournament-progression")),
+        buttonParentClass: button?.parentElement?.className || "",
+        buttonPosition: style?.position || "",
+        label: button?.textContent.replace(/\s+/g, " ").trim() || "",
+        progressionContainsButton: Boolean(button && progression?.contains(button)),
+        rightGap: rect ? Math.round(window.innerWidth - rect.right) : null,
+        targetMatchNumber: button?.dataset.showNextTournamentMatch || "",
+        visualViewportBottomInset: Math.round(
+          Number.parseFloat(rootStyle.getPropertyValue("--visual-viewport-bottom-inset")) || 0
+        )
+      };
+    });
+    assert(
+      tournamentShowNextFloatingState.label === "Show next" &&
+        nextScheduledKnockoutMatchNumbers.includes(tournamentShowNextFloatingState.targetMatchNumber) &&
+        tournamentShowNextFloatingState.buttonParentClass.includes("tournament-view") &&
+        !tournamentShowNextFloatingState.buttonInsideProgression &&
+        !tournamentShowNextFloatingState.progressionContainsButton &&
+        tournamentShowNextFloatingState.buttonPosition === "fixed" &&
+        tournamentShowNextFloatingState.visualViewportBottomInset >= 0 &&
+        tournamentShowNextFloatingState.bottomGapToVisualViewport >= 10 &&
+        tournamentShowNextFloatingState.bottomGapToVisualViewport <= 22 &&
+        tournamentShowNextFloatingState.bottomGapToLayoutViewport >=
+          tournamentShowNextFloatingState.bottomGapToVisualViewport &&
+        tournamentShowNextFloatingState.rightGap >= 10 &&
+        tournamentShowNextFloatingState.rightGap <= 18,
+      `Mobile Show next should float from the page bottom-right, outside the bracket canvas, and clear bottom browser chrome. Measured ${JSON.stringify(tournamentShowNextFloatingState)}.`
+    );
+    await tournamentShowNextFloatingCheck.context.close();
+
     const tournamentDelayedCheckTime = new Date(
       new Date(nextKnockoutKickoffUtc).getTime() + 5 * 60 * 1000
     );
@@ -10402,8 +10498,7 @@ try {
       touchCatchUpOpenState.realItems === 0,
     `On touch devices, opening catch-up should show the skeleton immediately. Measured ${JSON.stringify(touchCatchUpOpenState)}.`
   );
-  const touchFooterTooltipState = await touchPage.evaluate(async () => {
-    const waitForPaint = () => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+  const readTouchFooterTooltipState = () => touchPage.evaluate(() => {
     const readTooltip = (selector) => {
       const element = document.querySelector(selector);
       if (!element) {
@@ -10417,42 +10512,39 @@ try {
         visibility: styles.visibility
       };
     };
-    const tapElement = async (element) => {
-      element?.dispatchEvent(
-        new PointerEvent("pointerdown", {
-          bubbles: true,
-          button: 0,
-          cancelable: true,
-          pointerType: "touch"
-        })
-      );
-      await waitForPaint();
-    };
     const sourceTrigger = document.querySelector(".source-tooltip-trigger");
     const releaseTrigger = document.querySelector(".release-tooltip-trigger");
 
-    await tapElement(sourceTrigger);
-    const sourceTapped = readTooltip(".source-tooltip");
-    const sourceActiveAfterSourceTap = sourceTrigger?.classList.contains("is-touch-tooltip-open") || false;
-
-    await tapElement(releaseTrigger);
-    const releaseTapped = readTooltip(".release-tooltip");
-    const sourceActiveAfterReleaseTap = sourceTrigger?.classList.contains("is-touch-tooltip-open") || false;
-    const releaseActiveAfterReleaseTap = releaseTrigger?.classList.contains("is-touch-tooltip-open") || false;
-
-    await tapElement(document.querySelector("#catch-up-button"));
-
     return {
       coarsePointer: matchMedia("(hover: none), (pointer: coarse)").matches,
-      releaseActiveAfterReleaseTap,
-      releaseAfterOutsideTap: readTooltip(".release-tooltip"),
-      releaseTapped,
-      sourceAfterOutsideTap: readTooltip(".source-tooltip"),
-      sourceActiveAfterReleaseTap,
-      sourceActiveAfterSourceTap,
-      sourceTapped
+      release: readTooltip(".release-tooltip"),
+      releaseActive: releaseTrigger?.classList.contains("is-touch-tooltip-open") || false,
+      source: readTooltip(".source-tooltip"),
+      sourceActive: sourceTrigger?.classList.contains("is-touch-tooltip-open") || false
     };
   });
+  await touchPage.locator(".source-tooltip-trigger").tap();
+  const touchFooterSourceTapState = await readTouchFooterTooltipState();
+  await touchPage.locator(".release-tooltip-trigger").tap();
+  const touchFooterReleaseTapState = await readTouchFooterTooltipState();
+  await touchPage.locator("#catch-up-button").dispatchEvent("pointerdown", {
+    bubbles: true,
+    button: 0,
+    cancelable: true,
+    pointerType: "touch"
+  });
+  await touchPage.evaluate(() => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve))));
+  const touchFooterOutsideTapState = await readTouchFooterTooltipState();
+  const touchFooterTooltipState = {
+    coarsePointer: touchFooterSourceTapState.coarsePointer,
+    releaseActiveAfterReleaseTap: touchFooterReleaseTapState.releaseActive,
+    releaseAfterOutsideTap: touchFooterOutsideTapState.release,
+    releaseTapped: touchFooterReleaseTapState.release,
+    sourceAfterOutsideTap: touchFooterOutsideTapState.source,
+    sourceActiveAfterReleaseTap: touchFooterReleaseTapState.sourceActive,
+    sourceActiveAfterSourceTap: touchFooterSourceTapState.sourceActive,
+    sourceTapped: touchFooterSourceTapState.source
+  };
   assert(
     touchFooterTooltipState.coarsePointer &&
       touchFooterTooltipState.sourceActiveAfterSourceTap &&
