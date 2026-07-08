@@ -2007,15 +2007,12 @@ try {
     "Keyboard activation should open the in-app player card without relying on a source link."
   );
   await page.keyboard.press("Escape");
+  await page.mouse.move(0, 0);
   await page.locator("#day-label").focus();
   await page.waitForFunction(() => {
-    const floatingCard = document.querySelector(".player-card-floating");
-    const floatingClosed =
-      !floatingCard ||
-      (!floatingCard.classList.contains("is-visible") && floatingCard.getAttribute("aria-hidden") === "true");
-    const openHovers = document.querySelectorAll(".player-hover.is-card-open, .player-hover.is-card-portaled");
+    const expandedTriggers = document.querySelectorAll(".player-link[data-player-card-trigger][aria-expanded='true']");
 
-    return floatingClosed && openHovers.length === 0;
+    return expandedTriggers.length === 0;
   });
   assert(
     (await page.locator(".key-info-team h4 .key-info-heading .flag").count()) > 0,
@@ -2464,6 +2461,7 @@ try {
   );
   const chinesePlayerCardLocalizationLeaks = await page.evaluate(async () => {
     const hasLowercaseLatinWord = (value) => /[A-Za-zÀ-ÖØ-öø-ÿ][a-zà-öø-ÿ]{2,}/.test(String(value || ""));
+    const hasUnlocalizedFallback = (value) => /俱乐部待译/.test(String(value || ""));
     const hooks = window.__worldCupTestHooks?.playerCards;
     if (
       typeof hooks?.getLocalizedPlayerPosition !== "function" ||
@@ -2480,7 +2478,7 @@ try {
           { field: "position", value: hooks.getLocalizedPlayerPosition(player, profile) },
           { field: "club", value: hooks.getLocalizedPlayerClubLine(player, profile) }
         ]
-          .filter((entry) => hasLowercaseLatinWord(entry.value))
+          .filter((entry) => hasLowercaseLatinWord(entry.value) || hasUnlocalizedFallback(entry.value))
           .map((entry) => ({ player: profileName, ...entry }));
       })
       .slice(0, 20);
@@ -4159,18 +4157,89 @@ try {
   const chineseAppliedCheck = await page.evaluate(() => ({
     activeLanguage: document.querySelector(".language-option.is-active")?.dataset.language || "",
     documentLanguage: document.documentElement.lang,
+    languageOptions: [...document.querySelectorAll(".language-option")].map((button) => ({
+      ariaLabel: button.getAttribute("aria-label") || "",
+      language: button.dataset.language || "",
+      text: button.textContent.trim()
+    })),
     savedLanguage: localStorage.getItem("world-cup-simplified-language") || "",
     switchBusy: document.querySelector("#language-switch")?.getAttribute("aria-busy") || "",
     width: Math.round(document.querySelector("#language-switch")?.getBoundingClientRect().width || 0)
   }));
+  const chineseEnglishOption = chineseAppliedCheck.languageOptions.find((option) => option.language === "en");
   assert(
     chineseAppliedCheck.activeLanguage === "zh" &&
       chineseAppliedCheck.documentLanguage === "zh-Hans" &&
+      chineseEnglishOption?.text === "English" &&
+      chineseEnglishOption?.ariaLabel === "English" &&
       chineseAppliedCheck.savedLanguage === "zh" &&
       chineseAppliedCheck.switchBusy === "false" &&
       Math.abs(chineseAppliedCheck.width - languageSwitchWidthBefore) <= 1,
     `Chinese should apply after the pending language spinner clears without resizing the control. Measured ${JSON.stringify(chineseAppliedCheck)} with starting width ${languageSwitchWidthBefore}.`
   );
+  const zhLocalizationRegressionPage = await browser.newPage();
+  await zhLocalizationRegressionPage.goto(
+    `${baseUrl}?view=standings&standingsMode=groups&lang=zh&tz=America%2FLos_Angeles`,
+    { waitUntil: "load" }
+  );
+  await zhLocalizationRegressionPage.waitForFunction(
+    () => document.querySelectorAll(".standings-card[data-group-id] > h2").length === 12
+  );
+  const zhGroupLabelRegressionCheck = await zhLocalizationRegressionPage.evaluate(() => ({
+    badTokens: [...document.querySelectorAll(".language-option, .standings-card[data-group-id] > h2, #source-note a")]
+      .map((element) => element.textContent.trim())
+      .filter((text) => /^(?:[阿布克德埃夫格赫伊杰勒]|恩格利什|菲法)$/.test(text)),
+    footerLinks: [...document.querySelectorAll("#source-note a")].map((link) => link.textContent.trim()),
+    groupHeadings: [...document.querySelectorAll(".standings-card[data-group-id] > h2")].map((heading) =>
+      heading.textContent.trim()
+    ),
+    languageOptions: [...document.querySelectorAll(".language-option")].map((button) => ({
+      language: button.dataset.language || "",
+      text: button.textContent.trim()
+    }))
+  }));
+  assert(
+    zhGroupLabelRegressionCheck.badTokens.length === 0 &&
+      zhGroupLabelRegressionCheck.groupHeadings.length === 12 &&
+      zhGroupLabelRegressionCheck.groupHeadings.every((heading) => /^[A-L]组$/.test(heading)) &&
+      zhGroupLabelRegressionCheck.languageOptions.some(
+        (option) => option.language === "en" && option.text === "English"
+      ) &&
+      zhGroupLabelRegressionCheck.footerLinks.includes("FIFA赛程") &&
+      zhGroupLabelRegressionCheck.footerLinks.includes("H"),
+    `Chinese localization should not phonetically transliterate language tabs, group labels, FIFA, or creator initials. Measured ${JSON.stringify(zhGroupLabelRegressionCheck)}.`
+  );
+  await zhLocalizationRegressionPage.goto(
+    `${baseUrl}?view=standings&standingsMode=third-place&lang=zh&tz=America%2FLos_Angeles`,
+    { waitUntil: "load" }
+  );
+  await zhLocalizationRegressionPage.waitForFunction(
+    () => document.querySelectorAll(".third-place-group-button").length === 12
+  );
+  const zhThirdPlaceGroupLabelRegressionCheck = await zhLocalizationRegressionPage
+    .locator(".third-place-group-button")
+    .evaluateAll((buttons) => buttons.map((button) => button.textContent.trim()));
+  assert(
+    zhThirdPlaceGroupLabelRegressionCheck.length === 12 &&
+      zhThirdPlaceGroupLabelRegressionCheck.every((label) => /^[A-L]组$/.test(label)),
+    `Chinese third-place group buttons should keep group-letter labels instead of phonetic one-character fallbacks. Measured ${JSON.stringify(zhThirdPlaceGroupLabelRegressionCheck)}.`
+  );
+  await zhLocalizationRegressionPage.goto(
+    `${baseUrl}?view=standings&standingsYear=2022&standingsMode=groups&lang=zh&tz=America%2FLos_Angeles`,
+    { waitUntil: "load" }
+  );
+  await zhLocalizationRegressionPage.waitForFunction(
+    () => document.querySelectorAll(".standings-card > h2").length >= 8
+  );
+  const zhHistoricalGroupLabelRegressionCheck = await zhLocalizationRegressionPage
+    .locator(".standings-card > h2")
+    .evaluateAll((headings) => headings.map((heading) => heading.textContent.trim()).filter(Boolean));
+  assert(
+    zhHistoricalGroupLabelRegressionCheck.length >= 8 &&
+      zhHistoricalGroupLabelRegressionCheck.every((heading) => /^[A-L]组$/.test(heading)),
+    `Chinese historical group headings should keep group-letter labels instead of phonetic one-character fallbacks. Measured ${JSON.stringify(zhHistoricalGroupLabelRegressionCheck)}.`
+  );
+  await zhLocalizationRegressionPage.close();
   await page.locator('[data-language="en"]').click();
   await page.waitForFunction(() => !document.querySelector(".language-option.is-pending"));
   assert(

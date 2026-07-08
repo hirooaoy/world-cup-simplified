@@ -120,7 +120,7 @@ const UI_TEXT = {
     countrySearch: "搜索国家队比赛",
     groups: "小组",
     language: "语言",
-    languageEnglish: "英文",
+    languageEnglish: "English",
     languageChinese: "中文",
     languageSwitching: "正在切换语言",
     juggleBall: "足球",
@@ -1027,12 +1027,13 @@ const ZH_ADDITIONAL_EXACT_TRANSLATIONS = {
   "World Cup 2014": "2014年世界杯",
   "World Cup 2018": "2018年世界杯",
   "World Cup 2022": "2022年世界杯",
+  Toronto: "多伦多",
   Yugoslavia: "南斯拉夫",
   Zaire: "扎伊尔",
   "1-1 keeps Group K open and gives both teams something to carry into the next match.":
     "1-1让K组仍有悬念，也给双方带来下一场的延续点。",
   "Caleb Yirenkyi scored in stoppage time to settle a tense opener in Toronto.":
-    "Caleb Yirenkyi补时破门，在多伦多结束了这场紧张的首战。",
+    "卡莱布·伊伦基补时破门，在多伦多结束了这场紧张的首战。",
   "Colombia take control of Group K": "哥伦比亚掌控K组局面",
   "Colombia's 3-1 win over Uzbekistan moves them top after the opening Group K matches.":
     "哥伦比亚3-1击败乌兹别克斯坦，在K组首轮比赛后升至榜首。",
@@ -1768,6 +1769,395 @@ const ZH_CLUB_NAME_TRANSLATIONS = {
   "İstanbul Başakşehir": "伊斯坦布尔巴沙克谢希尔"
 };
 
+const ZH_CURRENT_PROFILE_CLUB_NAME_TRANSLATIONS = {
+  Abha: "艾卜哈",
+  Ajax: "阿贾克斯",
+  Alanyaspor: "阿兰亚体育",
+  Alianza: "阿利安萨",
+  Anderlecht: "安德莱赫特",
+  Angers: "昂热",
+  Astana: "阿斯塔纳",
+  Atlas: "阿特拉斯",
+  Atromitos: "阿特罗米托斯",
+  Augsburg: "奥格斯堡",
+  Auxerre: "欧塞尔",
+  Baniyas: "巴尼亚斯",
+  Barnsley: "巴恩斯利",
+  Betis: "贝蒂斯",
+  Beveren: "贝弗伦",
+  Bologna: "博洛尼亚",
+  "Bodø/Glimt": "博德闪耀",
+  Botafogo: "博塔弗戈",
+  Braga: "布拉加",
+  Brentford: "布伦特福德",
+  "BSC Young Boys U21": "伯尔尼年轻人U21",
+  Bukhara: "布哈拉",
+  Buxoro: "布哈拉",
+  Cagliari: "卡利亚里",
+  Celta: "塞尔塔",
+  "Cercle Brugge": "色格拉布鲁日",
+  Charleroi: "沙勒罗瓦",
+  Charlotte: "夏洛特FC",
+  Cobresal: "科布雷萨尔",
+  Como: "科莫",
+  Copenhagen: "哥本哈根",
+  Corinthians: "科林蒂安",
+  Cracovia: "克拉科维亚",
+  Cremonese: "克雷莫内塞",
+  Dibba: "迪巴",
+  Elche: "埃尔切",
+  Espanyol: "西班牙人",
+  Estudiantes: "拉普拉塔大学生",
+  Farense: "法伦斯",
+  "FC Augsburg": "奥格斯堡",
+  Fiorentina: "佛罗伦萨",
+  Flamengo: "弗拉门戈",
+  Fluminense: "弗鲁米嫩塞",
+  Frosinone: "弗罗西诺内",
+  Fulham: "富勒姆",
+  Galatasaray: "加拉塔萨雷",
+  Gaziantep: "加济安泰普",
+  Genk: "亨克",
+  Genoa: "热那亚",
+  Gent: "根特",
+  Girona: "赫罗纳",
+  Granada: "格拉纳达",
+  Guadalajara: "瓜达拉哈拉",
+  Guingamp: "甘冈",
+  "Hannover 96": "汉诺威96",
+  Hoffenheim: "霍芬海姆",
+  Huracán: "飓风队",
+  Independiente: "独立队",
+  Internacional: "巴西国际",
+  Kayserispor: "开塞利体育",
+  Konyaspor: "科尼亚体育",
+  Krasnodar: "克拉斯诺达尔",
+  Lens: "朗斯",
+  Lille: "里尔",
+  Livingston: "利文斯顿",
+  Lorient: "洛里昂",
+  Lugano: "卢加诺",
+  Lyon: "里昂",
+  "Machida Zelvia": "町田泽维亚",
+  "Mainz 05": "美因茨05",
+  Mallorca: "马略卡",
+  Maribor: "马里博尔",
+  Mechelen: "梅赫伦",
+  Middlesbrough: "米德尔斯堡",
+  Midtjylland: "中日德兰",
+  Millwall: "米尔沃尔",
+  Molde: "莫尔德",
+  Monaco: "摩纳哥",
+  Montana: "蒙塔纳",
+  Monterrey: "蒙特雷",
+  Montpellier: "蒙彼利埃",
+  Nacional: "民族队",
+  Nancy: "南锡",
+  Nasaf: "纳萨夫",
+  Navbahor: "纳夫巴霍",
+  "New England Revolution": "新英格兰革命",
+  Nice: "尼斯",
+  Noah: "诺亚",
+  Nordsjaelland: "北西兰",
+  Olimpia: "奥林匹亚",
+  Osasuna: "奥萨苏纳",
+  Oviedo: "奥维耶多",
+  Pafos: "帕福斯",
+  Pakhtakor: "棉农",
+  Panathinaikos: "帕纳辛奈科斯",
+  Parma: "帕尔马",
+  Partizan: "贝尔格莱德游击",
+  Persepolis: "波斯波利斯",
+  Pisa: "比萨",
+  Port: "泰港",
+  Portsmouth: "朴茨茅斯",
+  Randers: "兰讷斯",
+  Reims: "兰斯",
+  Rijeka: "里耶卡",
+  Roma: "罗马",
+  Rostov: "罗斯托夫",
+  Sampdoria: "桑普多利亚",
+  Samsunspor: "萨姆松体育",
+  "San Carlos": "圣卡洛斯",
+  "Sarpsborg 08": "萨普斯堡08",
+  Sepahan: "塞帕罕",
+  Servette: "塞尔维特",
+  Sevilla: "塞维利亚",
+  Silkeborg: "锡尔克堡",
+  Sion: "锡永",
+  Sochaux: "索肖",
+  Southampton: "南安普顿",
+  "SuperSport United": "超级体育联",
+  Surkhon: "苏尔洪",
+  Talleres: "塔列雷斯",
+  Telstar: "特尔斯达",
+  Terengganu: "登嘉楼",
+  Tijuana: "蒂华纳",
+  Toluca: "托卢卡",
+  Tondela: "通德拉",
+  Torino: "都灵",
+  Toulouse: "图卢兹",
+  Trabzonspor: "特拉布宗体育",
+  Tractor: "大不里士拖拉机",
+  Twente: "特温特",
+  Udinese: "乌迪内斯",
+  "Universidad Católica": "天主教大学",
+  Venezia: "威尼斯",
+  Viking: "维京",
+  Villarreal: "比利亚雷亚尔",
+  Vizela: "维泽拉",
+  Volendam: "福伦丹",
+  Watford: "沃特福德",
+  Zamalek: "扎马莱克",
+  "A.E. Kifisia": "基菲西亚",
+  "AEK Athens": "雅典AEK",
+  "AEK Larnaca": "拉纳卡AEK",
+  AEL: "拉里萨阿埃尔",
+  "AEL Limassol": "利马索尔阿埃尔",
+  AGF: "奥胡斯",
+  AIK: "索尔纳",
+  "Akron Tolyatti": "陶里亚蒂阿克隆",
+  "Al Ahly SC": "开罗国民",
+  "Al Ain": "阿尔艾因",
+  "Al Bataeh": "巴塔赫",
+  "Al Jazira": "阿布扎比半岛",
+  "Al Talaba SC": "塔拉巴",
+  "Al-Ain": "阿尔艾因",
+  "Al-Arabi": "阿拉比",
+  "Al-Dhafra": "迪哈夫拉",
+  "Al-Ettifaq": "达曼协作",
+  "Al-Faisaly": "费萨里",
+  "Al-Fateh": "哈萨征服",
+  "Al-Fayha": "费哈",
+  "Al-Gharafa": "加拉法",
+  "Al-Hussein": "胡塞因",
+  "Al-Najma": "纳吉马",
+  "Al-Nasr SC": "迪拜胜利",
+  "Al-Qadsiah": "卡迪西亚",
+  "Al-Qadsiah FC": "卡迪西亚",
+  "Al-Quwa Al-Jawiya": "空军体育",
+  "Al-Rayyan": "赖扬",
+  "Al-Shabab": "利雅得青年",
+  "Al-Shamal": "舒马尔",
+  "Al-Shorta": "警察体育",
+  "Al-Talaba": "塔拉巴",
+  "Al-Wahda FC": "阿布扎比统一",
+  "Al-Wakrah": "沃克拉",
+  "Al-Wehdat": "维达特",
+  "Al-Zawraa": "扎瓦拉",
+  "Albirex Niigata": "新潟天鹅",
+  "Almere City": "阿尔梅勒城",
+  América: "墨西哥美洲",
+  APOEL: "希腊人竞技",
+  "Apollon Limassol": "利马索尔阿波罗",
+  "Aris Limassol": "利马索尔阿里斯",
+  "AS FAR": "拉巴特皇家武装",
+  "Athletico Paranaense": "巴拉纳竞技",
+  "Atlético Mineiro": "米内罗竞技",
+  "Atlético Nacional": "国民竞技",
+  "Auckland FC": "奥克兰FC",
+  "Austria Wien": "奥地利维也纳",
+  AZ: "阿尔克马尔",
+  "Beerschot VA": "比尔肖特VA",
+  "Birmingham City": "伯明翰城",
+  "Boca Juniors": "博卡青年",
+  "Borac Banja Luka": "巴尼亚卢卡战士",
+  "Borussia Mönchengladbach": "门兴格拉德巴赫",
+  Brøndby: "布隆德比",
+  "Casa Pia": "卡萨皮亚",
+  Castellón: "卡斯特利翁",
+  "Çaykur Rizespor": "里泽体育",
+  "Cerro Porteño": "波特诺山丘",
+  "Charlton Athletic": "查尔顿竞技",
+  "Chicago Fire": "芝加哥火焰",
+  "Club Africain": "非洲人",
+  "Club Brugge": "布鲁日",
+  "Club Tijuana": "蒂华纳",
+  "Colorado Rapids": "科罗拉多急流",
+  "Colorado Springs Switchbacks": "科罗拉多泉跃迁",
+  "Columbus Crew": "哥伦布机员",
+  "Coventry City": "考文垂",
+  "Cruz Azul": "蓝十字",
+  "CS Sfaxien": "斯法克斯",
+  "Daejeon Hana Citizen": "大田韩亚市民",
+  "Den Bosch": "登博思",
+  "Deportivo La Guaira": "拉瓜伊拉体育",
+  "Deportivo Saprissa": "萨普里萨",
+  "Derby County": "德比郡",
+  "Dinamo Samarqand": "撒马尔罕迪纳摩",
+  "Dynamo Makhachkala": "马哈奇卡拉迪纳摩",
+  "El Gouna": "古纳",
+  "El Paso Locomotive FC": "埃尔帕索机车FC",
+  "ES Sahel": "萨赫勒之星",
+  "Espérance de Tunis": "突尼斯希望",
+  "Estrela Amadora": "阿马多拉之星",
+  "FC Cincinnati": "辛辛那提FC",
+  "FC Cosmos Koblenz": "科布伦茨宇宙",
+  "FC Dallas": "达拉斯FC",
+  "FC Neftchi Fergana": "费尔干纳石油",
+  "FC Seoul": "首尔FC",
+  "FC Tokyo": "FC东京",
+  FCSB: "布加勒斯特星",
+  Fenerbahçe: "费内巴切",
+  Ferencváros: "费伦茨瓦罗斯",
+  "Foolad FC": "胡齐斯坦钢铁",
+  "Fortuna Düsseldorf": "杜塞尔多夫",
+  "Gangwon FC": "江原FC",
+  "Gil Vicente": "吉尔维森特",
+  "Grazer AK": "格拉茨AK",
+  Grêmio: "格雷米奥",
+  Győr: "杰尔",
+  "Hajduk Split": "斯普利特海杜克",
+  "Hamburger SV": "汉堡",
+  "Hearts of Oak": "橡树之心",
+  "Hellas Verona": "维罗纳",
+  "Heracles Almelo": "阿尔梅罗赫拉克勒斯",
+  "Holstein Kiel": "荷尔斯泰因基尔",
+  "Hradec Králové": "赫拉德茨克拉洛韦",
+  "Hull City": "赫尔城",
+  "IFK Norrköping": "北雪平",
+  "Independiente del Valle": "山谷独立",
+  "Independiente Rivadavia": "里瓦达维亚独立",
+  "Inter Miami": "迈阿密国际",
+  "Ipswich Town": "伊普斯维奇",
+  "Ironi Kiryat Shmona": "谢莫纳城",
+  "Jeonbuk Hyundai Motors": "全北现代",
+  "JS Kabylie": "卡比利亚",
+  Juárez: "华雷斯",
+  "Kaizer Chiefs": "凯泽酋长",
+  "Karlsruher SC": "卡尔斯鲁厄",
+  "Kashima Antlers": "鹿岛鹿角",
+  Kasımpaşa: "卡斯帕萨",
+  "L.D.U. Quito": "基多大学",
+  Lanús: "拉努斯",
+  LASK: "林茨",
+  "Lausanne-Sport": "洛桑体育",
+  "Le Havre": "勒阿弗尔",
+  "Lechia Gdańsk": "格但斯克莱希亚",
+  "Leeds United": "利兹联",
+  "Lokomotiv Moscow": "莫斯科火车头",
+  "Ludogorets Razgrad": "卢多戈雷茨",
+  "Luton Town": "卢顿",
+  "Maccabi Haifa": "海法马卡比",
+  "Maccabi Tel Aviv": "特拉维夫马卡比",
+  "Malavan Bandar Anzali": "安扎利马拉万",
+  "Malmö FF": "马尔默",
+  Marathón: "马拉松",
+  Mazatlán: "马萨特兰",
+  "Melbourne City": "墨尔本城",
+  "Melbourne Victory": "墨尔本胜利",
+  "Miami FC": "迈阿密FC",
+  "Mjällby AIF": "米亚尔比",
+  "Nashville SC": "纳什维尔",
+  NEC: "奈梅亨",
+  "NEC Nijmegen": "奈梅亨",
+  "Neftchi Fergana": "费尔干纳石油",
+  "NEOM SC": "尼奥姆",
+  "New York City FC": "纽约城",
+  Nordsjælland: "北西兰",
+  "Norwich City": "诺维奇",
+  "OKMK Olmaliq": "阿尔马雷克矿冶",
+  "Omonia Nicosia": "尼科西亚奥莫尼亚",
+  "Orlando City": "奥兰多城",
+  "Orlando Pirates": "奥兰多海盗",
+  PAOK: "塞萨洛尼基",
+  "Pari Nizhny Novgorod": "下诺夫哥罗德帕里",
+  "Paris FC": "巴黎FC",
+  "PEC Zwolle": "兹沃勒",
+  "Persib Bandung": "万隆",
+  "Philadelphia Union": "费城联合",
+  "Plaza Amador": "阿马多尔广场",
+  "Polokwane City": "波洛克瓦尼城",
+  "Port Vale": "维尔港",
+  "PSV Eindhoven": "埃因霍温",
+  "Puerto Cabello": "卡贝略港",
+  CAI: "独立竞技",
+  "Puskás Akadémia": "普斯卡什学院",
+  "Pyramids FC": "金字塔FC",
+  Qarabağ: "卡拉巴赫",
+  "Qatar SC": "卡塔尔体育",
+  "Racing Santander": "桑坦德竞技",
+  "Raja CA": "拉贾卡萨布兰卡",
+  "Rayo Vallecano": "巴列卡诺",
+  "Real Betis": "皇家贝蒂斯",
+  "Real Oviedo": "皇家奥维耶多",
+  "Real Salt Lake": "皇家盐湖城",
+  "Real Zaragoza": "皇家萨拉戈萨",
+  "Red Bull Bragantino": "布拉干蒂诺红牛",
+  "Red Bull Salzburg": "萨尔茨堡红牛",
+  "Red Star Belgrade": "贝尔格莱德红星",
+  "River Plate": "河床",
+  "RKC Waalwijk": "瓦尔韦克",
+  "Rosario Central": "罗萨里奥中央",
+  "Royal Antwerp": "安特卫普",
+  "RS Berkane": "勒内桑斯贝尔卡尼",
+  "Saint-Etienne": "圣埃蒂安",
+  "Saint-Étienne": "圣埃蒂安",
+  "San Diego FC": "圣迭戈FC",
+  "San Lorenzo de Almagro": "圣洛伦索",
+  "Sanfrecce Hiroshima": "广岛三箭",
+  "Santos Laguna": "桑托斯拉古纳",
+  "São Paulo": "圣保罗",
+  "SC Freiburg": "弗赖堡",
+  "SC União Torreense": "托伦斯联合",
+  "Seattle Sounders FC": "西雅图海湾人",
+  "Sint-Truiden": "圣图尔登",
+  SJK: "塞伊奈约基",
+  "SK Slavia Prague": "布拉格斯拉维亚",
+  "Slavia Prague": "布拉格斯拉维亚",
+  "Slovan Bratislava": "布拉迪斯拉发斯洛万",
+  "Slovan Liberec": "利贝雷茨斯洛万",
+  "Sparta Prague": "布拉格斯巴达",
+  "Spartak Moscow": "莫斯科斯巴达",
+  "St Patrick's Athletic": "圣帕特里克竞技",
+  "St. Gallen": "圣加仑",
+  "St. Pauli": "圣保利",
+  "Stade Nyonnais": "尼永体育",
+  "Stade Tunisien": "突尼斯人体育",
+  "Standard Liège": "标准列日",
+  "Stoke City": "斯托克城",
+  "Sturm Graz": "格拉茨风暴",
+  "Swansea City": "斯旺西",
+  "Sydney FC": "悉尼FC",
+  "Tatran Prešov": "普雷绍夫塔特兰",
+  "Tigres UANL": "老虎大学",
+  "Toronto FC": "多伦多FC",
+  "Tottenham Hotspur": "托特纳姆热刺",
+  "Turan Tovuz": "图兰托武兹",
+  "Ulsan HD": "蔚山HD",
+  "Union Berlin": "柏林联合",
+  "Union Saint-Gilloise": "圣吉罗斯联合",
+  "Union SG": "圣吉罗斯联合",
+  "Universidad de Concepción": "康塞普西翁大学",
+  "Universitatea Cluj": "克卢日大学",
+  "US Monastir": "莫纳斯提尔",
+  "USM Alger": "阿尔及尔联合",
+  "Vancouver Whitecaps": "温哥华白浪",
+  "Vancouver Whitecaps FC": "温哥华白浪",
+  "Vasco da Gama": "瓦斯科达伽马",
+  "Vélez Sarsfield": "萨斯菲尔德",
+  "VfB Stuttgart": "斯图加特",
+  "VfL Wolfsburg": "沃尔夫斯堡",
+  "Viktoria Plzen": "比尔森胜利",
+  "Viktoria Plzeň": "比尔森胜利",
+  "Violette AC": "紫罗兰AC",
+  "Vitória Guimarães": "吉马良斯",
+  VVV: "芬洛",
+  "Wellington Phoenix": "惠灵顿凤凰",
+  "Werder Bremen": "云达不莱梅",
+  "Widzew Łódź": "维泽夫罗兹",
+  "Wolfsberger AC": "沃尔夫斯贝格",
+  "Young Boys": "伯尔尼年轻人",
+  ZED: "泽德",
+  "ZED FC": "泽德FC",
+  "Zenit Saint Petersburg": "圣彼得堡泽尼特",
+  "Zhejiang FC": "浙江FC",
+  "Zulte Waregem": "威尔郡",
+  Zürich: "苏黎世"
+};
+
+Object.assign(ZH_CLUB_NAME_TRANSLATIONS, ZH_CURRENT_PROFILE_CLUB_NAME_TRANSLATIONS);
+
 const ZH_LEAGUE_NAME_TRANSLATIONS = {
   "2. Bundesliga": "德乙",
   "A-League Men": "澳大利亚A联赛",
@@ -2405,6 +2795,36 @@ Object.entries({
 }).forEach(([text, translation]) => {
   ZH_EXACT_TRANSLATIONS.set(text, translation);
 });
+function translateResultPlayerNameToZh(value) {
+  const translated = translateEntityNameToZh(value);
+  return translated && !/[A-Za-z]/.test(translated) ? translated : translateTextToZh(value);
+}
+
+function translateResultPlayerSeriesToZh(value) {
+  const translated = translateNameSeriesToZh(value);
+  return translated && !/[A-Za-z]/.test(translated) ? translated : translateTextToZh(value);
+}
+
+function translateGeneratedTeamPairToZh(firstTeam, secondTeam) {
+  const text = `${String(firstTeam || "").trim()} and ${String(secondTeam || "").trim()}`
+    .replace(/\s+/g, " ")
+    .trim();
+  const parts = text.split(/\s+and\s+/).map((part) => part.trim()).filter(Boolean);
+  if (parts.length > 2) {
+    for (let index = 1; index < parts.length; index += 1) {
+      const left = parts.slice(0, index).join(" and ");
+      const right = parts.slice(index).join(" and ");
+      const leftZh = translateTextToZh(left);
+      const rightZh = translateTextToZh(right);
+      if (leftZh !== left && rightZh !== right && !/[A-Za-z]/.test(`${leftZh}${rightZh}`)) {
+        return `${leftZh}和${rightZh}`;
+      }
+    }
+  }
+
+  return `${translateTextToZh(firstTeam)}和${translateTextToZh(secondTeam)}`;
+}
+
 const ZH_PATTERN_TRANSLATIONS = [
   {
     pattern: /^(.+) flag$/,
@@ -2425,6 +2845,14 @@ const ZH_PATTERN_TRANSLATIONS = [
   {
     pattern: /^Group (\d+)$/,
     replace: (_, groupId) => `第${groupId}组`
+  },
+  {
+    pattern: /^Group ([A-L])$/,
+    replace: (_, groupId) => `${groupId}组`
+  },
+  {
+    pattern: /^([A-L])组$/,
+    replace: (_, groupId) => `${groupId}组`
   },
   {
     pattern: /^Group ([A-L]) Top (\d+)$/,
@@ -3001,12 +3429,12 @@ const ZH_PATTERN_TRANSLATIONS = [
     replace: (_, favorite, chaser) => `${translateTextToZh(favorite)} 的FIFA排名更高，所以 ${translateTextToZh(chaser)} 只需要几个亮眼瞬间就能成为话题。`
   },
   {
-    pattern: /^⚽ (.+?) and (.+) shared a 0-0 draw\.$/,
-    replace: (_, home, away) => `⚽ ${translateTextToZh(home)} 和 ${translateTextToZh(away)} 0-0握手言和。`
+    pattern: /^⚽ (.+) and (.+) shared a 0-0 draw\.$/,
+    replace: (_, home, away) => `⚽ ${translateGeneratedTeamPairToZh(home, away)} 0-0握手言和。`
   },
   {
-    pattern: /^⚽ (.+?) and (.+) finished level at (.+)\.$/,
-    replace: (_, home, away, score) => `⚽ ${translateTextToZh(home)} 和 ${translateTextToZh(away)} 以 ${score} 战平。`
+    pattern: /^⚽ (.+) and (.+) finished level at (.+)\.$/,
+    replace: (_, home, away, score) => `⚽ ${translateGeneratedTeamPairToZh(home, away)}以 ${score} 战平。`
   },
   {
     pattern: /^⚽ (.+) beat (.+) (.+)\.$/,
@@ -3086,19 +3514,19 @@ const ZH_PATTERN_TRANSLATIONS = [
     replace: () => "🌟 双方都没能真正拉开差距。"
   },
   {
-    pattern: /^🌟 (.+?) and (.+) carried the duel without a breakthrough\.$/,
+    pattern: /^🌟 (.+) and (.+) carried the duel without a breakthrough\.$/,
     replace: (_, home, away) =>
-      `🌟 ${translateTextToZh(home)}和${translateTextToZh(away)}都没能打出突破。`
+      `🌟 ${translateGeneratedTeamPairToZh(home, away)}都没能打出突破。`
   },
   {
-    pattern: /^🌟 (.+?) and (.+) traded momentum without a winner\.$/,
+    pattern: /^🌟 (.+) and (.+) traded momentum without a winner\.$/,
     replace: (_, home, away) =>
-      `🌟 ${translateTextToZh(home)}和${translateTextToZh(away)}互有回应，但没有分出胜负。`
+      `🌟 ${translateGeneratedTeamPairToZh(home, away)}互有回应，但没有分出胜负。`
   },
   {
-    pattern: /^🌟 (.+?) and (.+) cancelled each other out\.$/,
+    pattern: /^🌟 (.+) and (.+) cancelled each other out\.$/,
     replace: (_, home, away) =>
-      `🌟 ${translateTextToZh(home)}和${translateTextToZh(away)}彼此抵消。`
+      `🌟 ${translateGeneratedTeamPairToZh(home, away)}彼此抵消。`
   },
   {
     pattern: /^🌟 No breakthrough came from a tight draw\.$/,
@@ -3107,32 +3535,32 @@ const ZH_PATTERN_TRANSLATIONS = [
   {
     pattern: /^🌟 (.+) opened it before (.+) finished the scoring\.$/,
     replace: (_, opener, closer) =>
-      `🌟 ${translateTextToZh(opener)}首开纪录，${translateTextToZh(closer)}完成最后一击。`
+      `🌟 ${translateResultPlayerNameToZh(opener)}首开纪录，${translateResultPlayerNameToZh(closer)}完成最后一击。`
   },
   {
     pattern: /^🌟 (.+) put (.+) in front before (.+) chased the match back\.$/,
     replace: (_, scorer, leadingTeam, winner) =>
-      `🌟 ${translateTextToZh(scorer)}帮助${translateTextToZh(leadingTeam)}领先，随后${translateTextToZh(winner)}追回比赛。`
+      `🌟 ${translateResultPlayerNameToZh(scorer)}帮助${translateTextToZh(leadingTeam)}领先，随后${translateResultPlayerNameToZh(winner)}追回比赛。`
   },
   {
     pattern: /^🌟 (.+)'s (\d+(?:\+\d+)?') winner settled it for (.+)\.$/,
     replace: (_, player, minute, team) =>
-      `🌟 ${translateTextToZh(player)}在${minute}打入制胜球，帮助${translateTextToZh(team)}锁定胜局。`
+      `🌟 ${translateResultPlayerNameToZh(player)}在${minute}打入制胜球，帮助${translateTextToZh(team)}锁定胜局。`
   },
   {
     pattern: /^🌟 (.+)'s (\d+(?:\+\d+)?') equalizer earned (.+) a point\.$/,
     replace: (_, player, minute, team) =>
-      `🌟 ${translateTextToZh(player)}在${minute}扳平，帮助${translateTextToZh(team)}拿到1分。`
+      `🌟 ${translateResultPlayerNameToZh(player)}在${minute}扳平，帮助${translateTextToZh(team)}拿到1分。`
   },
   {
     pattern: /^🌟 (.+) scored twice as (.+) pulled clear\.$/,
     replace: (_, player, team) =>
-      `🌟 ${translateTextToZh(player)}梅开二度，帮助${translateTextToZh(team)}拉开差距。`
+      `🌟 ${translateResultPlayerNameToZh(player)}梅开二度，帮助${translateTextToZh(team)}拉开差距。`
   },
   {
     pattern: /^🌟 (.+) completed a hat trick as (.+) ran away with it\.$/,
     replace: (_, player, team) =>
-      `🌟 ${translateTextToZh(player)}完成帽子戏法，${translateTextToZh(team)}彻底拉开比分。`
+      `🌟 ${translateResultPlayerNameToZh(player)}完成帽子戏法，${translateTextToZh(team)}彻底拉开比分。`
   },
   {
     pattern: /^🌟 A (\d+(?:\+\d+)?') own goal earned (.+) a point\.$/,
@@ -3147,7 +3575,7 @@ const ZH_PATTERN_TRANSLATIONS = [
   {
     pattern: /^🌟 (.+)'s late penalty sealed (.+)'s win\.$/,
     replace: (_, player, team) =>
-      `🌟 ${translateTextToZh(player)}最后阶段罚入点球，锁定${translateTextToZh(team)}的胜利。`
+      `🌟 ${translateResultPlayerNameToZh(player)}最后阶段罚入点球，锁定${translateTextToZh(team)}的胜利。`
   },
   {
     pattern: /^🌟 Cabo Verde held Spain's possession game to a scoreless tournament debut\.$/,
@@ -3164,27 +3592,27 @@ const ZH_PATTERN_TRANSLATIONS = [
   {
     pattern: /^🌟 (.+) headed (.+) in front early\.$/,
     replace: (_, player, team) =>
-      `🌟 ${translateTextToZh(player)}早早头球帮助${translateTextToZh(team)}领先。`
+      `🌟 ${translateResultPlayerNameToZh(player)}早早头球帮助${translateTextToZh(team)}领先。`
   },
   {
     pattern: /^🌟 (.+) scored twice, while (.+) and (.+) added second-half goals\.$/,
     replace: (_, firstPlayer, secondPlayer, thirdPlayer) =>
-      `🌟 ${translateTextToZh(firstPlayer)}梅开二度，${translateTextToZh(secondPlayer)}和${translateTextToZh(thirdPlayer)}下半场也取得进球。`
+      `🌟 ${translateResultPlayerNameToZh(firstPlayer)}梅开二度，${translateResultPlayerNameToZh(secondPlayer)}和${translateResultPlayerNameToZh(thirdPlayer)}下半场也取得进球。`
   },
   {
     pattern: /^🌟 (.+) scored in stoppage time to settle a tense opener in (.+)\.$/,
     replace: (_, player, city) =>
-      `🌟 ${translateTextToZh(player)}补时破门，在${translateTextToZh(city)}结束了这场紧张的首战。`
+      `🌟 ${translateResultPlayerNameToZh(player)}补时破门，在${translateResultPlayerNameToZh(city)}结束了这场紧张的首战。`
   },
   {
     pattern: /^🌟 (.+) scored and helped (.+) answer (.+)'s first World Cup goal\.$/,
     replace: (_, player, team, opponent) =>
-      `🌟 ${translateTextToZh(player)}破门，并帮助${translateTextToZh(team)}回应${translateTextToZh(opponent)}队史世界杯首球。`
+      `🌟 ${translateResultPlayerNameToZh(player)}破门，并帮助${translateTextToZh(team)}回应${translateTextToZh(opponent)}队史世界杯首球。`
   },
   {
     pattern: /^🌟 (.+)'s press made it scrappy, but (.+) sealed (.+)'s control late\.$/,
     replace: (_, pressingTeam, player, controllingTeam) =>
-      `🌟 ${translateTextToZh(pressingTeam)}的逼抢让比赛很零碎，但${translateTextToZh(player)}最后阶段锁定了${translateTextToZh(controllingTeam)}的控制。`
+      `🌟 ${translateTextToZh(pressingTeam)}的逼抢让比赛很零碎，但${translateResultPlayerNameToZh(player)}最后阶段锁定了${translateTextToZh(controllingTeam)}的控制。`
   },
   {
     pattern: /^🌟 (.+) started bravely, then the wet restart exposed their build-out mistakes\.$/,
@@ -3198,17 +3626,17 @@ const ZH_PATTERN_TRANSLATIONS = [
   {
     pattern: /^A (\d+(?:\+\d+)?') own goal put (.+) in front before (.+) answered for (.+)\.$/,
     replace: (_, minute, leadingTeam, answeringPlayer, answeringTeam) =>
-      `${minute}的乌龙球让${translateTextToZh(leadingTeam)}领先，随后${translateTextToZh(answeringPlayer)}为${translateTextToZh(answeringTeam)}回应。`
+      `${minute}的乌龙球让${translateTextToZh(leadingTeam)}领先，随后${translateResultPlayerNameToZh(answeringPlayer)}为${translateTextToZh(answeringTeam)}回应。`
   },
   {
     pattern: /^(.+) put (.+) in front before a (\d+(?:\+\d+)?') own goal answered for (.+)\.$/,
     replace: (_, opener, leadingTeam, minute, answeringTeam) =>
-      `${translateTextToZh(opener)}让${translateTextToZh(leadingTeam)}领先，随后${minute}的乌龙球让${translateTextToZh(answeringTeam)}回应。`
+      `${translateResultPlayerNameToZh(opener)}让${translateTextToZh(leadingTeam)}领先，随后${minute}的乌龙球让${translateTextToZh(answeringTeam)}回应。`
   },
   {
     pattern: /^(.+) put (.+) in front before (.+) answered for (.+)\.$/,
     replace: (_, opener, leadingTeam, answeringPlayer, answeringTeam) =>
-      `${translateTextToZh(opener)}让${translateTextToZh(leadingTeam)}领先，随后${translateTextToZh(answeringPlayer)}为${translateTextToZh(answeringTeam)}回应。`
+      `${translateResultPlayerNameToZh(opener)}让${translateTextToZh(leadingTeam)}领先，随后${translateResultPlayerNameToZh(answeringPlayer)}为${translateTextToZh(answeringTeam)}回应。`
   },
   {
     pattern: /^A (\d+(?:\+\d+)?') own goal struck first for (.+), forcing (.+) to chase the match\.$/,
@@ -3218,7 +3646,7 @@ const ZH_PATTERN_TRANSLATIONS = [
   {
     pattern: /^(.+) struck first for (.+), forcing (.+) to chase the match\.$/,
     replace: (_, scorer, leader, chaser) =>
-      `${translateTextToZh(scorer)}先为${translateTextToZh(leader)}破门，迫使${translateTextToZh(chaser)}追赶比分。`
+      `${translateResultPlayerNameToZh(scorer)}先为${translateTextToZh(leader)}破门，迫使${translateTextToZh(chaser)}追赶比分。`
   },
   {
     pattern: /^A (\d+(?:\+\d+)?') own goal put (.+) ahead early, making (.+) chase the match\.$/,
@@ -3228,7 +3656,7 @@ const ZH_PATTERN_TRANSLATIONS = [
   {
     pattern: /^(.+) put (.+) ahead early, making (.+) chase the match\.$/,
     replace: (_, scorer, leader, chaser) =>
-      `${translateTextToZh(scorer)}早早帮助${translateTextToZh(leader)}领先，让${translateTextToZh(chaser)}陷入追赶。`
+      `${translateResultPlayerNameToZh(scorer)}早早帮助${translateTextToZh(leader)}领先，让${translateTextToZh(chaser)}陷入追赶。`
   },
   {
     pattern: /^A (\d+(?:\+\d+)?') own goal opened the scoring for (.+)\.$/,
@@ -3236,7 +3664,7 @@ const ZH_PATTERN_TRANSLATIONS = [
   },
   {
     pattern: /^(.+) opened the scoring for (.+)\.$/,
-    replace: (_, scorer, team) => `${translateTextToZh(scorer)}帮助${translateTextToZh(team)}首开纪录。`
+    replace: (_, scorer, team) => `${translateResultPlayerNameToZh(scorer)}帮助${translateTextToZh(team)}首开纪录。`
   },
   {
     pattern: /^A (\d+(?:\+\d+)?') own goal broke through for (.+), shifting the match toward (.+)\.$/,
@@ -3246,22 +3674,22 @@ const ZH_PATTERN_TRANSLATIONS = [
   {
     pattern: /^(.+) broke through for (.+), shifting the match toward (.+)\.$/,
     replace: (_, scorer, team, sameTeam) =>
-      `${translateTextToZh(scorer)}为${translateTextToZh(team)}打破僵局，比赛开始向${translateTextToZh(sameTeam)}倾斜。`
+      `${translateResultPlayerNameToZh(scorer)}为${translateTextToZh(team)}打破僵局，比赛开始向${translateTextToZh(sameTeam)}倾斜。`
   },
   {
     pattern: /^A (\d+(?:\+\d+)?') own goal brought (.+) level before (.+) completed the turnaround\.$/,
     replace: (_, minute, team, winner) =>
-      `${minute}的乌龙球让${translateTextToZh(team)}扳平，随后${translateTextToZh(winner)}完成逆转。`
+      `${minute}的乌龙球让${translateTextToZh(team)}扳平，随后${translateResultPlayerNameToZh(winner)}完成逆转。`
   },
   {
     pattern: /^(.+) brought (.+) level before a (\d+(?:\+\d+)?') own goal completed the turnaround\.$/,
     replace: (_, equalizer, team, minute) =>
-      `${translateTextToZh(equalizer)}帮助${translateTextToZh(team)}扳平，随后${minute}的乌龙球完成逆转。`
+      `${translateResultPlayerNameToZh(equalizer)}帮助${translateTextToZh(team)}扳平，随后${minute}的乌龙球完成逆转。`
   },
   {
     pattern: /^(.+) brought (.+) level before (.+) completed the turnaround\.$/,
     replace: (_, equalizer, team, winner) =>
-      `${translateTextToZh(equalizer)}帮助${translateTextToZh(team)}扳平，随后${translateTextToZh(winner)}完成逆转。`
+      `${translateResultPlayerNameToZh(equalizer)}帮助${translateTextToZh(team)}扳平，随后${translateResultPlayerNameToZh(winner)}完成逆转。`
   },
   {
     pattern: /^A (\d+(?:\+\d+)?') own goal rescued a point for (.+)\.$/,
@@ -3270,7 +3698,7 @@ const ZH_PATTERN_TRANSLATIONS = [
   {
     pattern: /^(.+)'s (\d+(?:\+\d+)?') equalizer rescued a point for (.+)\.$/,
     replace: (_, scorer, minute, team) =>
-      `${translateTextToZh(scorer)}在${minute}扳平，帮助${translateTextToZh(team)}抢下1分。`
+      `${translateResultPlayerNameToZh(scorer)}在${minute}扳平，帮助${translateTextToZh(team)}抢下1分。`
   },
   {
     pattern: /^A (\d+(?:\+\d+)?') own goal brought (.+) level\.$/,
@@ -3279,7 +3707,7 @@ const ZH_PATTERN_TRANSLATIONS = [
   {
     pattern: /^(.+)'s (\d+(?:\+\d+)?') equalizer brought (.+) level\.$/,
     replace: (_, scorer, minute, team) =>
-      `${translateTextToZh(scorer)}在${minute}扳平，帮助${translateTextToZh(team)}追平比分。`
+      `${translateResultPlayerNameToZh(scorer)}在${minute}扳平，帮助${translateTextToZh(team)}追平比分。`
   },
   {
     pattern: /^A (\d+(?:\+\d+)?') own goal settled a tight match for (.+)\.$/,
@@ -3288,7 +3716,7 @@ const ZH_PATTERN_TRANSLATIONS = [
   {
     pattern: /^(.+)'s (\d+(?:\+\d+)?') winner settled a tight match for (.+)\.$/,
     replace: (_, scorer, minute, team) =>
-      `${translateTextToZh(scorer)}在${minute}打入制胜球，帮助${translateTextToZh(team)}赢下胶着比赛。`
+      `${translateResultPlayerNameToZh(scorer)}在${minute}打入制胜球，帮助${translateTextToZh(team)}赢下胶着比赛。`
   },
   {
     pattern: /^A (\d+(?:\+\d+)?') own goal added the final word as (.+) pulled away\.$/,
@@ -3296,7 +3724,7 @@ const ZH_PATTERN_TRANSLATIONS = [
   },
   {
     pattern: /^(.+) added the final word as (.+) pulled away\.$/,
-    replace: (_, scorer, team) => `${translateTextToZh(scorer)}完成最后一击，${translateTextToZh(team)}拉开差距。`
+    replace: (_, scorer, team) => `${translateResultPlayerNameToZh(scorer)}完成最后一击，${translateTextToZh(team)}拉开差距。`
   },
   {
     pattern: /^A (\d+(?:\+\d+)?') own goal finished the scoring as (.+) pulled away\.$/,
@@ -3304,7 +3732,7 @@ const ZH_PATTERN_TRANSLATIONS = [
   },
   {
     pattern: /^(.+) finished the scoring as (.+) pulled away\.$/,
-    replace: (_, scorer, team) => `${translateTextToZh(scorer)}完成最后进球，${translateTextToZh(team)}拉开差距。`
+    replace: (_, scorer, team) => `${translateResultPlayerNameToZh(scorer)}完成最后进球，${translateTextToZh(team)}拉开差距。`
   },
   {
     pattern: /^(.+) assisted (.+?)(?: (twice|three times|\d+ times))? as (.+) pulled away\.$/,
@@ -3317,7 +3745,7 @@ const ZH_PATTERN_TRANSLATIONS = [
             : countText
               ? `${countText.replace(" times", "")}次`
               : "";
-      return `${translateTextToZh(creator)}${countLabel ? `${countLabel}助攻` : "助攻"}${translateTextToZh(scorers)}破门，${translateTextToZh(team)}拉开差距。`;
+      return `${translateResultPlayerNameToZh(creator)}${countLabel ? `${countLabel}助攻` : "助攻"}${translateResultPlayerSeriesToZh(scorers)}破门，${translateTextToZh(team)}拉开差距。`;
     }
   },
   {
@@ -3325,7 +3753,7 @@ const ZH_PATTERN_TRANSLATIONS = [
     replace: (_, scorer, countText, team) => {
       const scoringText =
         countText === "twice" ? "梅开二度" : countText === "three times" ? "上演帽子戏法" : `打进${countText.replace(" times", "")}球`;
-      return `${translateTextToZh(scorer)}${scoringText}，${translateTextToZh(team)}不断拉开差距。`;
+      return `${translateResultPlayerNameToZh(scorer)}${scoringText}，${translateTextToZh(team)}不断拉开差距。`;
     }
   },
   {
@@ -3333,7 +3761,7 @@ const ZH_PATTERN_TRANSLATIONS = [
     replace: (_, scorer, countText, team) => {
       const scoringText =
         countText === "twice" ? "梅开二度" : countText === "three times" ? "帽子戏法" : `${countText.replace(" times", "")}球`;
-      return `${translateTextToZh(scorer)}的${scoringText}帮助${translateTextToZh(team)}拉开比分。`;
+      return `${translateResultPlayerNameToZh(scorer)}的${scoringText}帮助${translateTextToZh(team)}拉开比分。`;
     }
   },
   {
@@ -3378,21 +3806,21 @@ const ZH_PATTERN_TRANSLATIONS = [
     replace: (_, team) => `${translateTextToZh(team)}稳住结果，没有让比赛再出现最后转折。`
   },
   {
-    pattern: /^(.+?) and (.+) traded pressure without finding a goal\.$/,
+    pattern: /^(.+) and (.+) traded pressure without finding a goal\.$/,
     replace: (_, home, away) =>
-      `${translateTextToZh(home)}和${translateTextToZh(away)}互相施压，但都没有进球。`
+      `${translateGeneratedTeamPairToZh(home, away)}互相施压，但都没有进球。`
   },
   {
     pattern: /^Both defenses kept the scoring lanes closed through full time\.$/,
     replace: () => "双方防守都封住了得分通道，直到终场。"
   },
   {
-    pattern: /^(.+?) and (.+) stayed locked together until the final whistle\.$/,
-    replace: (_, home, away) => `${translateTextToZh(home)}和${translateTextToZh(away)}一直胶着到终场哨响。`
+    pattern: /^(.+) and (.+) stayed locked together until the final whistle\.$/,
+    replace: (_, home, away) => `${translateGeneratedTeamPairToZh(home, away)}一直胶着到终场哨响。`
   },
   {
-    pattern: /^(.+?) and (.+) kept trading momentum instead of pulling clear\.$/,
-    replace: (_, home, away) => `${translateTextToZh(home)}和${translateTextToZh(away)}轮流掌握势头，却没人拉开差距。`
+    pattern: /^(.+) and (.+) kept trading momentum instead of pulling clear\.$/,
+    replace: (_, home, away) => `${translateGeneratedTeamPairToZh(home, away)}轮流掌握势头，却没人拉开差距。`
   },
   {
     pattern: /^The late pressure never produced a winner after the match came back level\.$/,
@@ -3401,16 +3829,16 @@ const ZH_PATTERN_TRANSLATIONS = [
   {
     pattern: /^(.+)'s (\d+(?:\+\d+)?') equalizer eventually forced the shootout\.$/,
     replace: (_, player, minute) =>
-      `${translateTextToZh(player)}在${minute}扳平，最终把比赛拖入点球大战。`
+      `${translateResultPlayerNameToZh(player)}在${minute}扳平，最终把比赛拖入点球大战。`
   },
   {
     pattern: /^A (\d+(?:\+\d+)?') own goal eventually forced the shootout\.$/,
     replace: (_, minute) => `${minute}的乌龙球最终把比赛拖入点球大战。`
   },
   {
-    pattern: /^(.+?) and (.+) stayed scoreless until penalties\.$/,
+    pattern: /^(.+) and (.+) stayed scoreless until penalties\.$/,
     replace: (_, home, away) =>
-      `${translateTextToZh(home)}和${translateTextToZh(away)}一直到点球大战前都没有进球。`
+      `${translateGeneratedTeamPairToZh(home, away)}一直到点球大战前都没有进球。`
   },
   {
     pattern: /^The (.+) grind kept (.+)'s (.+) relevant all the way to penalties\.$/,
@@ -3454,7 +3882,7 @@ const ZH_PATTERN_TRANSLATIONS = [
   {
     pattern: /^(.+)'s (\d+(?:\+\d+)?') (goal|penalty) gave (.+) a reply\.$/,
     replace: (_, player, minute, finishType, team) =>
-      `${translateTextToZh(player)}在${minute}${finishType === "penalty" ? "罚入点球" : "进球"}，帮助${translateTextToZh(team)}作出回应。`
+      `${translateResultPlayerNameToZh(player)}在${minute}${finishType === "penalty" ? "罚入点球" : "进球"}，帮助${translateTextToZh(team)}作出回应。`
   },
   {
     pattern: /^A (\d+(?:\+\d+)?') own goal gave (.+) a reply\.$/,
@@ -3464,7 +3892,7 @@ const ZH_PATTERN_TRANSLATIONS = [
   {
     pattern: /^(.+)'s (\d+(?:\+\d+)?') equalizer left the tie level\.$/,
     replace: (_, player, minute) =>
-      `${translateTextToZh(player)}在${minute}扳平，让这组对决仍然持平。`
+      `${translateResultPlayerNameToZh(player)}在${minute}扳平，让这组对决仍然持平。`
   },
   {
     pattern: /^A (\d+(?:\+\d+)?') own goal left the tie level\.$/,
@@ -3475,7 +3903,7 @@ const ZH_PATTERN_TRANSLATIONS = [
     replace: (_, scorer, countText) => {
       const scoringText =
         countText === "twice" ? "梅开二度" : countText === "three times" ? "上演帽子戏法" : `打进${countText.replace(" times", "")}球`;
-      return `${translateTextToZh(scorer)}${scoringText}，让这场平局持续摇摆。`;
+      return `${translateResultPlayerNameToZh(scorer)}${scoringText}，让这场平局持续摇摆。`;
     }
   },
   {
@@ -3563,16 +3991,16 @@ const ZH_PATTERN_TRANSLATIONS = [
     replace: (_, winner, loser, score) => `${translateTextToZh(winner)} 以 ${score} 领先 ${translateTextToZh(loser)}。`
   },
   {
-    pattern: /^(.+?) and (.+) drew (\d+-\d+)\.$/,
-    replace: (_, home, away, score) => `${translateTextToZh(home)} 和 ${translateTextToZh(away)} 以 ${score} 战平。`
+    pattern: /^(.+) and (.+) drew (\d+-\d+)\.$/,
+    replace: (_, home, away, score) => `${translateGeneratedTeamPairToZh(home, away)}以 ${score} 战平。`
   },
   {
-    pattern: /^(.+?) and (.+) tied (\d+-\d+)\.$/,
-    replace: (_, home, away, score) => `${translateTextToZh(home)} 和 ${translateTextToZh(away)} 以 ${score} 战平。`
+    pattern: /^(.+) and (.+) tied (\d+-\d+)\.$/,
+    replace: (_, home, away, score) => `${translateGeneratedTeamPairToZh(home, away)}以 ${score} 战平。`
   },
   {
-    pattern: /^(.+?) and (.+) are level (\d+-\d+)\.$/,
-    replace: (_, home, away, score) => `${translateTextToZh(home)} 和 ${translateTextToZh(away)} 以 ${score} 战平。`
+    pattern: /^(.+) and (.+) are level (\d+-\d+)\.$/,
+    replace: (_, home, away, score) => `${translateGeneratedTeamPairToZh(home, away)}以 ${score} 战平。`
   },
   {
     pattern: /^Group ([A-Z0-9]+)$/,
@@ -4621,14 +5049,11 @@ function translateEnglishEntityTextToZh(value) {
   }
 
   if (isEnglishNameSeriesPart(text)) {
-    const translated = translateEntityNameToZh(text);
+    const translated = getKnownEntityNameTranslationToZh(text);
     return translated && translated !== text && !/\p{Script=Latin}/u.test(translated) ? translated : "";
   }
 
-  const directEntityTranslation =
-    ZH_EXACT_TRANSLATIONS.get(text) ||
-    ZH_ADDITIONAL_EXACT_TRANSLATIONS[text] ||
-    getZhNormalizedEntityTranslations().get(normalizeTextKey(text));
+  const directEntityTranslation = getKnownEntityNameTranslationToZh(text);
   if (
     directEntityTranslation &&
     directEntityTranslation !== text &&
@@ -4639,7 +5064,7 @@ function translateEnglishEntityTextToZh(value) {
 
   const series = splitEnglishNameSeries(text);
   if (series.length > 1 && series.every(isEnglishNameSeriesPart)) {
-    const translated = translateNameSeriesToZh(text);
+    const translated = series.map(getKnownEntityNameTranslationToZh).filter(Boolean).join("、");
     return translated && !/\p{Script=Latin}/u.test(translated) ? translated : "";
   }
 
@@ -5925,6 +6350,42 @@ function translateEntityNameToZh(value) {
     return "";
   }
 
+  const knownTranslation = getKnownEntityNameTranslationToZh(text);
+  if (knownTranslation) {
+    return knownTranslation;
+  }
+
+  if (!/^[\p{Script=Latin}\s.'’-]+$/u.test(text)) {
+    return text;
+  }
+
+  if (/^[A-Z]$/i.test(text)) {
+    return text;
+  }
+
+  if (/^[A-Z]{2,}$/.test(text)) {
+    return text;
+  }
+
+  if (text.includes("-")) {
+    const parts = text.split("-").map((part) => part.trim()).filter(Boolean);
+    if (parts.length > 1 && parts.every((part) => /^[A-ZÀ-ÖØ-Þ]/.test(part))) {
+      const translatedParts = parts.map((part) => translateEntityNameToZh(part));
+      if (translatedParts.every((part, index) => part && part !== parts[index])) {
+        return translatedParts.join("-");
+      }
+    }
+  }
+
+  return transliterateHistoricalScorerName(text);
+}
+
+function getKnownEntityNameTranslationToZh(value) {
+  const text = String(value || "").trim().replace(/\s+/g, " ");
+  if (!text) {
+    return "";
+  }
+
   const exact =
     ZH_PLAYER_NAME_TRANSLATIONS[text] ||
     ZH_HISTORICAL_SCORER_TRANSLATIONS[text] ||
@@ -5939,17 +6400,7 @@ function translateEntityNameToZh(value) {
     return normalized;
   }
 
-  if (text.includes("-")) {
-    const parts = text.split("-").map((part) => part.trim()).filter(Boolean);
-    if (parts.length > 1 && parts.every((part) => /^[A-ZÀ-ÖØ-Þ]/.test(part))) {
-      const translatedParts = parts.map((part) => translateEntityNameToZh(part));
-      if (translatedParts.every((part, index) => part && part !== parts[index])) {
-        return translatedParts.join("-");
-      }
-    }
-  }
-
-  return transliterateHistoricalScorerName(text);
+  return "";
 }
 
 function splitEnglishNameSeries(value) {
@@ -5973,7 +6424,7 @@ function isEnglishNameSeriesPart(value) {
   }
 
   return tokens.every((token) =>
-    /^(?:\p{Lu}[\p{Letter}.'-]*|al|bin|da|de|del|der|di|dos|el|la|le|van|von)$/u.test(token)
+    /^(?:[A-ZÀ-ÖØ-Þ][\p{Script=Latin}.'-]*|al|bin|da|de|del|der|di|dos|el|la|le|van|von)$/u.test(token)
   );
 }
 
@@ -19457,9 +19908,16 @@ function localizePlayerClubName(value) {
     return direct;
   }
 
-  const loanMatch = text.match(/^(.+?)\s+\(on loan from (.+)\)$/i);
-  if (loanMatch) {
-    return `${localizePlayerClubName(loanMatch[1])}（从${localizePlayerClubName(loanMatch[2])}租借）`;
+  const loanPatterns = [
+    /^(.+?)\s+\(on loan from (.+)\)$/i,
+    /^(.+?)\s+\(loan from (.+)\)$/i,
+    /^(.+?)\s+\(on loan (.+)\)$/i
+  ];
+  for (const pattern of loanPatterns) {
+    const loanMatch = text.match(pattern);
+    if (loanMatch) {
+      return `${localizePlayerClubName(loanMatch[1])}（从${localizePlayerClubName(loanMatch[2])}租借）`;
+    }
   }
 
   const replaced = localizeKnownDisplayEntities(text);

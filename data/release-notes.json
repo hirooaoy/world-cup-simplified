@@ -1,15 +1,17 @@
 {
-  "updatedAt": "2026-07-07T18:41:15-07:00",
+  "updatedAt": "2026-07-07T19:27:22-07:00",
   "releases": [
     {
       "date": "2026-07-07",
       "title": "Line-up goal badge polish",
       "titleZh": "阵容进球徽章优化",
       "highlights": [
-        "Line-up boards now collapse multi-goal player badges into a single count like 2G, keeping the portrait clear while preserving the goal-minute tooltip."
+        "Line-up boards now collapse multi-goal player badges into a single count like 2G, keeping the portrait clear while preserving the goal-minute tooltip.",
+        "Chinese mode now keeps English, FIFA, group letters, and creator initials literal while localizing player-card clubs and result-story names without stale English leaks."
       ],
       "highlightsZh": [
-        "阵容板现在会把多球球员的进球徽章合并成“2G”这样的单个计数，避免遮住头像，同时保留进球分钟提示。"
+        "阵容板现在会把多球球员的进球徽章合并成“2G”这样的单个计数，避免遮住头像，同时保留进球分钟提示。",
+        "中文模式现在会保留 English、FIFA、小组字母和作者首字母，同时补齐球员卡俱乐部和赛果故事里的中文姓名，不再漏出奇怪英文。"
       ]
     },
     {
