@@ -1882,10 +1882,20 @@ try {
   }, getExpectedReleaseTooltipText(releaseNotesData));
   await releaseNotesLoadingContext.close();
 
-  await page.goto(baseUrl, { waitUntil: "load" });
-  await page.waitForSelector(".match-row");
+  {
+  const defaultMatchViewCheck = await openPageAtTime("2026-07-07T12:00:00-07:00", "/", {
+    contextOptions: { timezoneId: "America/Los_Angeles" }
+  });
+  const page = defaultMatchViewCheck.page;
 
-  assert(new URL(page.url()).search === "", "The default match view should keep the URL clean.");
+  const defaultMatchUrl = new URL(page.url());
+  const unexpectedDefaultMatchParams = [...new Set(defaultMatchUrl.searchParams.keys())].filter(
+    (key) => key !== "date"
+  );
+  assert(
+    unexpectedDefaultMatchParams.length === 0,
+    `The default match view should omit redundant match-view URL state. Saw ${defaultMatchUrl.search || "(empty)"}.`
+  );
   assert(
     !(await page.locator("#match-info").isVisible()),
     "Match detail should stay hidden until a match is chosen."
@@ -1909,10 +1919,15 @@ try {
   );
   await page.goBack();
   await page.waitForFunction(
-    () =>
-      location.origin.startsWith("http://127.0.0.1") &&
-      location.search === "" &&
-      document.querySelector("#matches-view")?.hidden === false
+    () => {
+      const params = new URL(location.href).searchParams;
+      const unexpectedParams = [...new Set(params.keys())].filter((key) => key !== "date");
+      return (
+        location.origin.startsWith("http://127.0.0.1") &&
+        unexpectedParams.length === 0 &&
+        document.querySelector("#matches-view")?.hidden === false
+      );
+    }
   );
   await page.goForward();
   await page.waitForFunction(
@@ -2093,6 +2108,8 @@ try {
       firstCardBox.x + firstCardBox.width <= viewportSize.width,
     "Player hover card should stay inside the viewport horizontally."
   );
+  await defaultMatchViewCheck.context.close();
+  }
 
   await page.goto(`${baseUrl}?view=matches&date=2026-06-20&tz=America%2FLos_Angeles`, {
     waitUntil: "load"
