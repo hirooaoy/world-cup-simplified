@@ -491,6 +491,27 @@ function getTournamentAuthoredChineseCopyFields(tournament) {
   ];
 }
 
+function getCoachProfileChineseCopyFields(coachProfiles) {
+  const fields = [];
+
+  for (const [profileName, profile] of Object.entries(coachProfiles?.profiles || {})) {
+    for (const key of ["note", "history"]) {
+      const value = profile?.[key];
+      if (!isLocalizedCopy(value)) {
+        continue;
+      }
+
+      fields.push({
+        field: `coach-profiles.${profileName}.${key}`,
+        text: value.en.trim(),
+        zh: String(value.zh || "").trim()
+      });
+    }
+  }
+
+  return fields;
+}
+
 function isFiniteScore(value) {
   return Number.isFinite(Number(value));
 }
@@ -499,12 +520,13 @@ function hasFinalScore(fixture) {
   return isFiniteScore(fixture.score?.home) && isFiniteScore(fixture.score?.away);
 }
 
-const [fixturesData, historyData, playerAvailabilityData, playerProfilesData, teamsData, tournamentData] =
+const [fixturesData, historyData, playerAvailabilityData, playerProfilesData, coachProfilesData, teamsData, tournamentData] =
   await Promise.all([
     readJson("fixtures.json"),
     readJson("history.json"),
     readJson("player-availability.json"),
     readJson("player-profiles.json"),
+    readJson("coach-profiles.json"),
     readJson("teams.json"),
     readJson("tournament.json")
   ]);
@@ -561,6 +583,30 @@ if (tournamentAuthoredChineseCopyFields.length) {
     fixtureId: "tournament",
     fixture: "Tournament news",
     checked: tournamentAuthoredChineseCopyFields.length,
+    issues
+  });
+}
+
+const coachProfileChineseCopyFields = getCoachProfileChineseCopyFields(coachProfilesData);
+if (coachProfileChineseCopyFields.length) {
+  const issues = [];
+  for (const { field, zh } of coachProfileChineseCopyFields) {
+    if (!zh) {
+      issues.push(issue(`${field} missing Chinese coverage`));
+      continue;
+    }
+
+    const normalizedZh = normalizeAppKnownZhEntities(appSource, zh);
+    const leaks = getLatinLeaks(normalizedZh);
+    if (leaks.length) {
+      issues.push(issue(`${field} Chinese Latin leak`, `${leaks.join(", ")} in ${normalizedZh}`));
+    }
+  }
+
+  authoredChineseCopyRows.push({
+    fixtureId: "coach-profiles",
+    fixture: "Coach profiles",
+    checked: coachProfileChineseCopyFields.length,
     issues
   });
 }
@@ -802,7 +848,7 @@ console.log(`Confirmed fixture statuses checked: ${statusSummary || "none"}`);
 console.log(
   `Finished result sections checked: ${resultRows.length} (${authoredResultCount} authored, ${generatedResultCount} generated from final score)`
 );
-console.log(`Authored Chinese match/news copy checked: ${authoredChineseCopyCount}`);
+console.log(`Authored Chinese match/news/coach copy checked: ${authoredChineseCopyCount}`);
 console.log(
   `Chinese translation terms checked: ${chineseTeamTerms.size + chinesePlayerTerms.size} (${chineseTeamTerms.size} team/style, ${chinesePlayerTerms.size} key-player)`
 );
@@ -810,7 +856,7 @@ console.log(`Paragraphs needing review: ${issueRows.length}`);
 console.log(`Historical paragraphs needing review: ${historicalIssueRows.length}`);
 console.log(`Team descriptors needing review: ${teamTaglineIssues.length}`);
 console.log(`Finished result sections needing review: ${resultIssueRows.length}`);
-console.log(`Authored Chinese match/news copy needing review: ${authoredChineseCopyIssueRows.length}`);
+console.log(`Authored Chinese match/news/coach copy needing review: ${authoredChineseCopyIssueRows.length}`);
 console.log(`Chinese translation terms needing review: ${chineseTranslationIssues.length}`);
 
 if (teamTaglineIssues.length) {
@@ -847,7 +893,7 @@ if (resultIssueRows.length) {
 
 if (authoredChineseCopyIssueRows.length) {
   console.log("");
-  console.log("Authored Chinese match/news copy issues");
+  console.log("Authored Chinese match/news/coach copy issues");
   for (const row of authoredChineseCopyIssueRows) {
     console.log(`- ${row.fixtureId} ${row.fixture}: ${formatIssues(row.issues)}`);
   }
@@ -888,7 +934,7 @@ if (showDetails) {
   }
 
   console.log("");
-  console.log("Authored Chinese match/news copy details");
+  console.log("Authored Chinese match/news/coach copy details");
   for (const row of authoredChineseCopyRows) {
     console.log(`${row.fixtureId} | ${row.fixture} | ${row.checked} field(s) | ${formatIssues(row.issues)}`);
   }

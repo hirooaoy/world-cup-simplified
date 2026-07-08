@@ -6191,8 +6191,8 @@ button.lineup-event-sub,
 
 .lineup-avatar-score-events {
   position: absolute;
-  top: -8px;
-  right: -13px;
+  top: -7px;
+  right: -8px;
   z-index: 1;
   gap: 1px;
   pointer-events: auto;
@@ -6209,13 +6209,18 @@ button.lineup-event-sub,
 }
 
 .lineup-player-event-row {
+  position: absolute;
+  top: calc(100% + 2px);
+  left: 50%;
   display: flex;
   flex-wrap: nowrap;
   justify-content: center;
   gap: 2px;
-  width: 100%;
+  width: max-content;
+  min-width: 100%;
   min-height: 15px;
-  margin-top: 3px;
+  margin-top: 0;
+  transform: translateX(-50%);
 }
 
 .lineup-name-sub-events,
@@ -6242,6 +6247,9 @@ button.lineup-event-sub,
 }
 
 .lineup-pitch {
+  --lineup-avatar-size: 34px;
+  --lineup-marker-core-height: 60px;
+  --lineup-marker-width: 68px;
   --lineup-pitch-height: clamp(360px, 40vw, 430px);
   --lineup-pitch-top-trim: 0px;
   position: relative;
@@ -6329,9 +6337,11 @@ button.lineup-event-sub,
   top: var(--y);
   left: var(--x);
   display: grid;
+  align-content: start;
   justify-items: center;
-  width: 68px;
-  min-height: 58px;
+  width: var(--lineup-marker-width);
+  height: var(--lineup-marker-core-height);
+  min-height: var(--lineup-marker-core-height);
   color: inherit;
   pointer-events: auto;
   transform: translate(-50%, -50%);
@@ -6370,14 +6380,14 @@ button.lineup-event-sub,
   position: relative;
   display: grid;
   place-items: center;
-  width: 34px;
-  height: 34px;
+  width: var(--lineup-avatar-size);
+  height: var(--lineup-avatar-size);
 }
 
 .lineup-avatar {
   display: grid;
-  width: 34px;
-  height: 34px;
+  width: var(--lineup-avatar-size);
+  height: var(--lineup-avatar-size);
   place-items: center;
   border: 1px solid rgba(10, 10, 10, 0.1);
   border-radius: 999px;
@@ -6391,8 +6401,8 @@ button.lineup-event-sub,
 
 .lineup-avatar-image {
   display: block;
-  width: 34px;
-  height: 34px;
+  width: var(--lineup-avatar-size);
+  height: var(--lineup-avatar-size);
   border: 1px solid rgba(10, 10, 10, 0.1);
   border-radius: 999px;
   object-fit: cover;
@@ -6458,6 +6468,9 @@ button.lineup-event-sub,
   }
 
   .lineup-pitch {
+    --lineup-avatar-size: 38px;
+    --lineup-marker-core-height: 66px;
+    --lineup-marker-width: clamp(50px, 13.5vw, 58px);
     --lineup-pitch-height: clamp(500px, 140vw, 600px);
   }
 
@@ -6490,17 +6503,6 @@ button.lineup-event-sub,
 
   .lineup-formation-pill {
     padding: 0 10px;
-  }
-
-  .lineup-player-marker {
-    width: 62px;
-  }
-
-  .lineup-avatar-wrap,
-  .lineup-avatar,
-  .lineup-avatar-image {
-    width: 38px;
-    height: 38px;
   }
 
   .lineup-avatar {
@@ -6543,19 +6545,11 @@ button.lineup-event-sub,
   }
 
   .lineup-pitch {
+    --lineup-avatar-size: 35px;
+    --lineup-marker-core-height: 63px;
+    --lineup-marker-width: 50px;
     --lineup-pitch-height: 500px;
     --lineup-pitch-top-trim: 0px;
-  }
-
-  .lineup-player-marker {
-    width: 54px;
-  }
-
-  .lineup-avatar-wrap,
-  .lineup-avatar,
-  .lineup-avatar-image {
-    width: 35px;
-    height: 35px;
   }
 
   .lineup-player-number {

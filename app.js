@@ -1157,6 +1157,7 @@ const ZH_ADDITIONAL_EXACT_TRANSLATIONS = {
 };
 
 const ZH_PLAYER_NAME_TRANSLATIONS = {
+  "Alexis Mac Allister": "亚历克西斯·麦卡利斯特",
   "Anthony Gordon": "安东尼·戈登",
   "Aaron Tshibola": "阿龙·奇博拉",
   "Arthur Masuaku": "阿图尔·马苏亚库",
@@ -26164,6 +26165,14 @@ function handlePlayerHoverPointerDown(event) {
     return false;
   }
 
+  const lineupEventBadge = getLineupEventBadge(event.target);
+  if (lineupEventBadge && isTouchTooltipPointerEvent(event)) {
+    event.preventDefault();
+    event.stopPropagation();
+    showFloatingLineupEventTooltip(lineupEventBadge);
+    return true;
+  }
+
   const playerTrigger = event.target.closest(".player-hover .player-link");
   const playerHover = playerTrigger?.closest(".player-hover");
   if (!playerTrigger || !playerHover || playerTrigger.closest("a[href]") || isTouchPlayerCardMode()) {
@@ -26388,6 +26397,10 @@ document.addEventListener(
 );
 
 document.addEventListener("pointerdown", (event) => {
+  if (floatingLineupEventTooltipSource && !getLineupEventBadge(event.target)) {
+    hideFloatingLineupEventTooltip();
+  }
+
   if (activePlayerHover && !getClosestPlayerHover(event.target)) {
     clearActivePlayerHover();
   }
@@ -26442,6 +26455,7 @@ document.addEventListener("keydown", (event) => {
   }
 
   clearActiveTouchTooltip();
+  hideFloatingLineupEventTooltip();
   clearActivePlayerHover();
 
   if (isCalendarOpen) {
@@ -26514,11 +26528,10 @@ window.addEventListener("resize", () => {
 window.addEventListener(
   "scroll",
   () => {
+    clearActiveTouchTooltip();
+    hideFloatingLineupEventTooltip();
     positionCatchUpPopover();
     positionPlayerCards();
-    if (floatingLineupEventTooltipSource?.isConnected) {
-      positionFloatingLineupEventTooltip(floatingLineupEventTooltipSource);
-    }
     updateTooltipBounds();
   },
   true

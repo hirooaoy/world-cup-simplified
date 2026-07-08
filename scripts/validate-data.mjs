@@ -734,6 +734,7 @@ const [
   lineupsData,
   expectedLineupsData,
   lineupLayoutOverridesData,
+  coachProfilesData,
   historicalPlayerProfilesData,
   adminMessageData,
   matchupResearchData,
@@ -749,6 +750,7 @@ const [
   readJson("lineups.json"),
   readOptionalJson("expected-lineups.json"),
   readOptionalJson("lineup-layout-overrides.json"),
+  readOptionalJson("coach-profiles.json"),
   readJson("historical-player-profiles.json"),
   readOptionalJson("admin-message.json"),
   readOptionalJson("matchup-research-notes.json"),
@@ -2041,6 +2043,28 @@ if (playerProfilesData) {
     playerProfilesData.profiles && typeof playerProfilesData.profiles === "object",
     "player-profiles.json must include profiles"
   );
+}
+if (coachProfilesData) {
+  assert(
+    typeof coachProfilesData.updatedAt === "string" &&
+      !Number.isNaN(new Date(coachProfilesData.updatedAt).getTime()),
+    "coach-profiles.json must include a valid updatedAt"
+  );
+  assert(
+    coachProfilesData.profiles && typeof coachProfilesData.profiles === "object",
+    "coach-profiles.json must include profiles"
+  );
+
+  for (const [profileName, profile] of Object.entries(coachProfilesData.profiles || {})) {
+    const owner = `coach-profiles.json "${profileName}"`;
+    assert(profile && typeof profile === "object" && !Array.isArray(profile), `${owner} must be an object`);
+    if (!profile || typeof profile !== "object" || Array.isArray(profile)) {
+      continue;
+    }
+
+    validateLocalizedCopy(profile.note, `${owner}.note`);
+    validateLocalizedCopy(profile.history, `${owner}.history`);
+  }
 }
 assert(
   typeof historicalPlayerProfilesData.updatedAt === "string" &&

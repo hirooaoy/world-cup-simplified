@@ -4945,19 +4945,25 @@ try {
       coaches: ["Roberto Martínez", "Z. Dalić"],
       source: "fifa"
     },
-  {
-    date: "2026-07-02",
-    matchId: "match-84-round-of-32-2026-07-02",
-    coaches: ["Luis De La Fuente", "Ralf Rangnick"],
-    source: "fifa"
-  },
-  {
-    date: "2026-07-02",
-    matchId: "match-85-round-of-32-2026-07-02",
-    coaches: ["Murat Yakin", "Vladimir Petkovic"],
-    source: "fifa"
-  }
-];
+    {
+      date: "2026-07-02",
+      matchId: "match-84-round-of-32-2026-07-02",
+      coaches: ["Luis De La Fuente", "Ralf Rangnick"],
+      source: "fifa"
+    },
+    {
+      date: "2026-07-02",
+      matchId: "match-85-round-of-32-2026-07-02",
+      coaches: ["Murat Yakin", "Vladimir Petkovic"],
+      source: "fifa"
+    },
+    {
+      date: "2026-07-07",
+      matchId: "match-95-round-of-16-2026-07-07",
+      coaches: ["Lionel Scaloni", "Hossam Hassan"],
+      source: "fifa"
+    }
+  ];
   const lineupCoachCoverageCheck = await openPageAtTime(
     "2026-07-01T22:00:00.000Z",
     "/?view=matches&date=2026-06-30&tz=America%2FLos_Angeles&lineupPrototype=1"
@@ -5134,6 +5140,88 @@ try {
       );
     }
   }
+  await lineupCoachCoverageCheck.page.goto(
+    `${baseUrl}?view=matches&date=2026-07-07&lang=zh&tz=America%2FLos_Angeles&lineupPrototype=1`,
+    { waitUntil: "load" }
+  );
+  await lineupCoachCoverageCheck.page.waitForSelector(".match-row", { state: "attached" });
+  await lineupCoachCoverageCheck.page.locator('[data-match-id="match-95-round-of-16-2026-07-07"]').click();
+  await lineupCoachCoverageCheck.page.locator("#match-info .lineup-preview-block").waitFor({
+    state: "attached"
+  });
+  const argentinaEgyptZhLineupState = await lineupCoachCoverageCheck.page
+    .locator("#match-info .lineup-preview-block")
+    .evaluate((block) => {
+      const macAllisterMarker = block.querySelector('[data-lineup-player-name="Alexis Mac Allister"]');
+      const macAllisterLabel = macAllisterMarker?.querySelector(".lineup-player-name")?.textContent
+        .replace(/\s+/g, " ")
+        .trim() || "";
+      const coachCardText = [...block.querySelectorAll(".lineup-coach-card")]
+        .map((card) => card.textContent.replace(/\s+/g, " ").trim())
+        .join(" ");
+
+      return {
+        coachCardText,
+        macAllisterLabel
+      };
+    });
+  assert(
+    argentinaEgyptZhLineupState.macAllisterLabel === "亚历克西斯·麦卡利斯特" &&
+      argentinaEgyptZhLineupState.coachCardText.includes("斯卡洛尼打造了一支紧凑而聪明的阿根廷队") &&
+      argentinaEgyptZhLineupState.coachCardText.includes("2022年世界杯") &&
+      !argentinaEgyptZhLineupState.macAllisterLabel.includes("Alexis") &&
+      !argentinaEgyptZhLineupState.coachCardText.includes("Scaloni builds") &&
+      !argentinaEgyptZhLineupState.coachCardText.includes("Appointed in 2018"),
+    `Argentina-Egypt Chinese lineup cards should fully localize Mac Allister and Scaloni coach copy. Measured ${JSON.stringify(argentinaEgyptZhLineupState)}.`
+  );
+  const argentinaEgyptDesktopLineupGeometry = await lineupCoachCoverageCheck.page
+    .locator("#match-info .lineup-preview-block")
+    .evaluate((block) => {
+      const readMarker = (name) => {
+        const marker = block.querySelector(`[data-lineup-player-name="${name}"]`);
+        const avatar = marker?.querySelector(".lineup-avatar-wrap");
+        const label = marker?.querySelector(".lineup-player-name");
+        const scoreEvents = marker?.querySelector(".lineup-avatar-score-events");
+        if (!marker || !avatar || !label) {
+          return null;
+        }
+
+        const markerBounds = marker.getBoundingClientRect();
+        const avatarBounds = avatar.getBoundingClientRect();
+        const labelBounds = label.getBoundingClientRect();
+        const scoreBounds = scoreEvents?.getBoundingClientRect();
+        const avatarCenterX = (avatarBounds.left + avatarBounds.right) / 2;
+        const labelCenterX = (labelBounds.left + labelBounds.right) / 2;
+
+        return {
+          avatarCenterX,
+          avatarCenterY: (avatarBounds.top + avatarBounds.bottom) / 2,
+          eventRows: marker.querySelectorAll(":scope > .lineup-player-event-row").length,
+          labelCenterX,
+          markerHeight: markerBounds.height,
+          nameCenterDelta: labelCenterX - avatarCenterX,
+          scoreOverlapRight: scoreBounds ? scoreBounds.right - avatarBounds.right : null,
+          scoreOverlapsAvatar: scoreBounds ? scoreBounds.left < avatarBounds.right : null
+        };
+      };
+
+      return {
+        alvarez: readMarker("Julian Alvarez"),
+        messi: readMarker("Lionel Messi")
+      };
+    });
+  assert(
+    argentinaEgyptDesktopLineupGeometry.alvarez &&
+      argentinaEgyptDesktopLineupGeometry.messi &&
+      Math.abs(argentinaEgyptDesktopLineupGeometry.alvarez.nameCenterDelta) <= 1 &&
+      Math.abs(argentinaEgyptDesktopLineupGeometry.messi.nameCenterDelta) <= 1 &&
+      Math.abs(argentinaEgyptDesktopLineupGeometry.alvarez.avatarCenterY - argentinaEgyptDesktopLineupGeometry.messi.avatarCenterY) <= 1 &&
+      argentinaEgyptDesktopLineupGeometry.alvarez.eventRows === 1 &&
+      argentinaEgyptDesktopLineupGeometry.messi.eventRows === 0 &&
+      argentinaEgyptDesktopLineupGeometry.messi.scoreOverlapsAvatar &&
+      argentinaEgyptDesktopLineupGeometry.messi.scoreOverlapRight <= 9,
+    `Argentina-Egypt desktop striker markers should anchor avatar/name together without sub or G/A pills shifting the row. Measured ${JSON.stringify(argentinaEgyptDesktopLineupGeometry)}.`
+  );
   await lineupCoachCoverageCheck.context.close();
 
   const matchStateCheck = await openPageAtTime("2026-06-18T05:30:00.000Z");
@@ -10071,6 +10159,134 @@ try {
       touchYesterdayDetailText.includes("Croatia") &&
       (await touchYesterdayCard.locator(".yesterday-match-button").getAttribute("aria-pressed")) === "true",
     "On touch devices, tapping a Past 24 hours card should open its match detail card."
+  );
+
+  await touchPage.goto(`${baseUrl}?view=matches&date=2026-07-07&tz=America%2FLos_Angeles&lineupPrototype=1`, {
+    waitUntil: "load"
+  });
+  await touchPage.waitForSelector(".match-row");
+  await touchPage.locator('[data-match-id="match-95-round-of-16-2026-07-07"]').tap();
+  await touchPage.locator("#match-info .lineup-preview-block").waitFor({
+    state: "attached"
+  });
+  const touchArgentinaEgyptLineupGeometry = await touchPage
+    .locator("#match-info .lineup-preview-block")
+    .evaluate((block) => {
+      const readMarker = (name) => {
+        const marker = block.querySelector(`[data-lineup-player-name="${name}"]`);
+        const avatar = marker?.querySelector(".lineup-avatar-wrap");
+        const label = marker?.querySelector(".lineup-player-name");
+        const scoreEvents = marker?.querySelector(".lineup-avatar-score-events");
+        if (!marker || !avatar || !label) {
+          return null;
+        }
+
+        const avatarBounds = avatar.getBoundingClientRect();
+        const labelBounds = label.getBoundingClientRect();
+        const scoreBounds = scoreEvents?.getBoundingClientRect();
+        const avatarCenterX = (avatarBounds.left + avatarBounds.right) / 2;
+        const labelCenterX = (labelBounds.left + labelBounds.right) / 2;
+
+        return {
+          avatarCenterX,
+          avatarCenterY: (avatarBounds.top + avatarBounds.bottom) / 2,
+          eventRows: marker.querySelectorAll(":scope > .lineup-player-event-row").length,
+          labelCenterX,
+          nameCenterDelta: labelCenterX - avatarCenterX,
+          scoreOverlapRight: scoreBounds ? scoreBounds.right - avatarBounds.right : null,
+          scoreOverlapsAvatar: scoreBounds ? scoreBounds.left < avatarBounds.right : null
+        };
+      };
+
+      return {
+        alvarez: readMarker("Julian Alvarez"),
+        messi: readMarker("Lionel Messi")
+      };
+    });
+  assert(
+    touchArgentinaEgyptLineupGeometry.alvarez &&
+      touchArgentinaEgyptLineupGeometry.messi &&
+      Math.abs(touchArgentinaEgyptLineupGeometry.alvarez.nameCenterDelta) <= 1 &&
+      Math.abs(touchArgentinaEgyptLineupGeometry.messi.nameCenterDelta) <= 1 &&
+      Math.abs(touchArgentinaEgyptLineupGeometry.alvarez.avatarCenterY - touchArgentinaEgyptLineupGeometry.messi.avatarCenterY) <= 1 &&
+      touchArgentinaEgyptLineupGeometry.alvarez.eventRows === 1 &&
+      touchArgentinaEgyptLineupGeometry.messi.eventRows === 0 &&
+      touchArgentinaEgyptLineupGeometry.messi.scoreOverlapsAvatar &&
+      touchArgentinaEgyptLineupGeometry.messi.scoreOverlapRight <= 9,
+    `Argentina-Egypt mobile striker markers should keep avatar/name anchored while event pills float independently. Measured ${JSON.stringify(touchArgentinaEgyptLineupGeometry)}.`
+  );
+  const touchMessiGoalBadge = touchPage
+    .locator('#match-info [data-lineup-player-name="Lionel Messi"] .lineup-avatar-score-events .lineup-event-score.is-goal')
+    .first();
+  await touchMessiGoalBadge.scrollIntoViewIfNeeded();
+  await touchMessiGoalBadge.dispatchEvent("pointerdown", {
+    bubbles: true,
+    cancelable: true,
+    pointerType: "touch"
+  });
+  await touchPage.waitForFunction(() => {
+    const tooltip = document.querySelector(".lineup-event-tooltip-floating");
+    const styles = tooltip ? getComputedStyle(tooltip) : null;
+    return (
+      tooltip?.textContent.trim() === "83' goal" &&
+      tooltip?.classList.contains("is-visible") &&
+      styles?.visibility === "visible" &&
+      Number(styles.opacity) > 0.05
+    );
+  });
+  const touchLineupEventTooltipOpen = await touchPage.evaluate(() => {
+    const tooltip = document.querySelector(".lineup-event-tooltip-floating");
+    const tooltipBounds = tooltip?.getBoundingClientRect();
+    const badge = document.querySelector(".lineup-event-badge.is-event-tooltip-open");
+    return {
+      badgeText: badge?.textContent.replace(/\s+/g, " ").trim() || "",
+      playerCardsVisible: [...document.querySelectorAll(".player-card")].filter((card) => {
+        const styles = getComputedStyle(card);
+        const bounds = card.getBoundingClientRect();
+        return styles.visibility !== "hidden" && Number(styles.opacity) > 0.05 && bounds.width > 0 && bounds.height > 0;
+      }).length,
+      tooltipBounds: tooltipBounds
+        ? {
+            bottom: Math.round(tooltipBounds.bottom),
+            left: Math.round(tooltipBounds.left),
+            right: Math.round(tooltipBounds.right),
+            top: Math.round(tooltipBounds.top)
+          }
+        : null,
+      tooltipText: tooltip?.textContent.trim() || "",
+      tooltipVisible: Boolean(tooltip?.classList.contains("is-visible")),
+      viewport: {
+        height: window.innerHeight,
+        width: window.innerWidth
+      }
+    };
+  });
+  assert(
+    touchLineupEventTooltipOpen.badgeText === "G" &&
+      touchLineupEventTooltipOpen.tooltipVisible &&
+      touchLineupEventTooltipOpen.tooltipText === "83' goal" &&
+      touchLineupEventTooltipOpen.tooltipBounds &&
+      touchLineupEventTooltipOpen.tooltipBounds.left >= 0 &&
+      touchLineupEventTooltipOpen.tooltipBounds.right <= touchLineupEventTooltipOpen.viewport.width &&
+      touchLineupEventTooltipOpen.tooltipBounds.top >= 0 &&
+      touchLineupEventTooltipOpen.tooltipBounds.bottom <= touchLineupEventTooltipOpen.viewport.height &&
+      touchLineupEventTooltipOpen.playerCardsVisible === 0,
+    `On touch devices, tapping a line-up G/A badge should open the compact event tooltip without a player card. Measured ${JSON.stringify(touchLineupEventTooltipOpen)}.`
+  );
+  await touchPage.evaluate(() => {
+    window.scrollBy(0, window.scrollY > 120 ? -120 : 120);
+  });
+  await touchPage.waitForFunction(() => {
+    const tooltip = document.querySelector(".lineup-event-tooltip-floating");
+    return !tooltip?.classList.contains("is-visible") && !document.querySelector(".lineup-event-badge.is-event-tooltip-open");
+  });
+  const touchLineupEventTooltipClosed = await touchPage.evaluate(() => ({
+    openBadges: document.querySelectorAll(".lineup-event-badge.is-event-tooltip-open").length,
+    tooltipVisible: Boolean(document.querySelector(".lineup-event-tooltip-floating.is-visible"))
+  }));
+  assert(
+    touchLineupEventTooltipClosed.openBadges === 0 && !touchLineupEventTooltipClosed.tooltipVisible,
+    `On touch devices, scrolling away from an open line-up event tooltip should close it. Measured ${JSON.stringify(touchLineupEventTooltipClosed)}.`
   );
 
   await touchPage.goto(`${baseUrl}?view=standings&standingsMode=tournament&tz=America%2FLos_Angeles`, {
