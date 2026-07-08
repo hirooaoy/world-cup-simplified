@@ -6069,6 +6069,19 @@ try {
     "A live half-time pill should localize the official match position in Chinese."
   );
   await liveHalfTimeZhRow.click();
+  await liveHalfTimeZhCheck.page.waitForFunction(() => {
+    const info = document.querySelector("#match-info");
+    const headingText =
+      info?.querySelector(".match-live-block h3")?.textContent.replace(/\s+/g, " ").trim() || "";
+    const sourceText =
+      info?.querySelector(".live-source-note")?.textContent.replace(/\s+/g, " ").trim() || "";
+    return (
+      headingText.includes("实时比分") &&
+      headingText.includes("半场") &&
+      sourceText.includes("当前时间") &&
+      sourceText.includes("半场")
+    );
+  });
   const liveHalfTimeZhDetailText = normalizeFlaggedText(
     await liveHalfTimeZhCheck.page.locator("#match-info").innerText()
   );
