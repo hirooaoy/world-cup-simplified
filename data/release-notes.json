@@ -1,16 +1,29 @@
 {
-  "updatedAt": "2026-07-07T19:27:22-07:00",
+  "updatedAt": "2026-07-07T22:18:57-07:00",
   "releases": [
+    {
+      "date": "2026-07-07",
+      "title": "Admin note emphasis",
+      "titleZh": "站内便笺重点优化",
+      "highlights": [
+        "The quarterfinals admin note now bolds only the opening phrase while leaving the rest of the sentence at normal weight."
+      ],
+      "highlightsZh": [
+        "四分之一决赛站内便笺现在只加粗开头重点短语，其余句子保持常规字重。"
+      ]
+    },
     {
       "date": "2026-07-07",
       "title": "Line-up goal badge polish",
       "titleZh": "阵容进球徽章优化",
       "highlights": [
         "Line-up boards now collapse multi-goal player badges into a single count like 2G, keeping the portrait clear while preserving the goal-minute tooltip.",
+        "Player event pills now keep substitution and card badges side by side under the name when both apply.",
         "Chinese mode now keeps English, FIFA, group letters, and creator initials literal while localizing player-card clubs and result-story names without stale English leaks."
       ],
       "highlightsZh": [
         "阵容板现在会把多球球员的进球徽章合并成“2G”这样的单个计数，避免遮住头像，同时保留进球分钟提示。",
+        "球员事件徽章现在会在换人和黄/红牌同时出现时并排显示在姓名下方。",
         "中文模式现在会保留 English、FIFA、小组字母和作者首字母，同时补齐球员卡俱乐部和赛果故事里的中文姓名，不再漏出奇怪英文。"
       ]
     },

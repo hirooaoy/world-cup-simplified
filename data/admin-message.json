@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-07T16:01:43-07:00",
+  "updatedAt": "2026-07-07T22:15:32-07:00",
   "messages": [
     {
       "id": "2026-07-07-quarterfinals-set",
@@ -7,7 +7,9 @@
       "startsAt": "2026-07-07T16:01:43-07:00",
       "endsAt": "2026-07-08T16:01:43-07:00",
       "message": "Quarterfinals are set: Defending champions Argentina, former winners France, Spain, and England, and first-time hopefuls Belgium, Morocco, Norway, and Switzerland make up the final eight.",
-      "messageZh": "四分之一决赛席位已定：卫冕冠军阿根廷，前冠军法国、西班牙和英格兰，以及首次冲击冠军的比利时、摩洛哥、挪威和瑞士组成八强。"
+      "messageZh": "四分之一决赛席位已定：卫冕冠军阿根廷，前冠军法国、西班牙和英格兰，以及首次冲击冠军的比利时、摩洛哥、挪威和瑞士组成八强。",
+      "emphasis": "Quarterfinals are set",
+      "emphasisZh": "四分之一决赛席位已定"
     }
   ]
 }

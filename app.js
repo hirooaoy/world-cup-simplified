@@ -4637,6 +4637,38 @@ function getLocalizedAdminMessageCopy(message) {
   return String(text || "").trim();
 }
 
+function getLocalizedAdminMessageEmphasis(message) {
+  const emphasis = message?.emphasis;
+  if (emphasis && typeof emphasis === "object" && !Array.isArray(emphasis)) {
+    const text = currentLanguage === "zh" ? emphasis.zh || emphasis.en : emphasis.en || emphasis.zh;
+    return String(text || "").trim();
+  }
+
+  const text =
+    currentLanguage === "zh"
+      ? message?.emphasisZh || message?.emphasis || message?.emphasisEn
+      : message?.emphasis || message?.emphasisEn || message?.emphasisZh;
+  return typeof text === "string" ? text.trim() : "";
+}
+
+function renderAdminMessageCopy(message, copy) {
+  if (!adminMessageText) {
+    return;
+  }
+
+  const emphasis = getLocalizedAdminMessageEmphasis(message);
+  adminMessageText.textContent = "";
+
+  if (!emphasis || !copy.startsWith(emphasis)) {
+    adminMessageText.textContent = copy;
+    return;
+  }
+
+  const strong = document.createElement("strong");
+  strong.textContent = emphasis;
+  adminMessageText.append(strong, document.createTextNode(copy.slice(emphasis.length)));
+}
+
 function getActiveAdminMessage(now = Date.now()) {
   return getAdminMessageEntries()
     .filter((message) => {
@@ -4728,14 +4760,14 @@ function hideAdminMessage(options = {}) {
   }, ADMIN_MESSAGE_COLLAPSE_DURATION_MS);
 }
 
-function showAdminMessage(messageId, copy) {
+function showAdminMessage(messageId, message, copy) {
   if (!adminMessageBanner || !adminMessageText) {
     return;
   }
 
   clearAdminMessageCollapseTimer();
   renderedAdminMessageId = messageId;
-  adminMessageText.textContent = copy;
+  renderAdminMessageCopy(message, copy);
   adminMessageBanner.hidden = false;
   adminMessageBanner.classList.remove("is-hidden", "is-collapsing");
   document.body.classList.add("has-admin-message");
@@ -4764,7 +4796,7 @@ function renderAdminMessage() {
   }
 
   if (renderedAdminMessageId === messageId && !adminMessageBanner.classList.contains("is-collapsing")) {
-    adminMessageText.textContent = copy;
+    renderAdminMessageCopy(message, copy);
     adminMessageBanner.setAttribute("aria-label", t("adminMessage"));
     if (adminMessageDismiss) {
       adminMessageDismiss.setAttribute("aria-label", t("adminMessageDismiss"));
@@ -4773,7 +4805,7 @@ function renderAdminMessage() {
     return;
   }
 
-  showAdminMessage(messageId, copy);
+  showAdminMessage(messageId, message, copy);
 }
 
 function setShowYesterdayMatches(value, options = {}) {
