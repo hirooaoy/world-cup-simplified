@@ -1,10 +1,11 @@
 #!/usr/bin/env node
-import { readFile, writeFile } from "node:fs/promises";
+import { readdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const dataDir = path.join(root, "data");
+const playerProfileOverridesDir = path.join(dataDir, "player-profile-overrides", "2026");
 const FIFA_API_URL = "https://api.fifa.com/api/v3/calendar/matches";
 const FIFA_TIMELINE_URL = "https://api.fifa.com/api/v3/timelines";
 const FIFA_SCHEDULE_URL =
@@ -317,43 +318,114 @@ function playerNameFromEvent(event) {
   return titleCaseName(match?.[1] || "");
 }
 
+function addNameCandidate(map, value, canonicalName) {
+  const key = normalizeText(value);
+  if (key && canonicalName && !map.has(key)) {
+    map.set(key, canonicalName);
+  }
+}
+
+function teamProfileMap(profileNames, teamId) {
+  const id = String(teamId || "").trim().toUpperCase();
+  return id ? profileNames.byTeam.get(id) || null : null;
+}
+
 function getProfileNameLookup(profilesData) {
-  const names = new Map();
+  const names = {
+    byTeam: new Map(),
+    global: new Map()
+  };
 
   for (const profile of Object.values(profilesData.profiles || {})) {
+    const canonicalName = profile.name || profile.displayName;
+    const teamId = String(profile.teamId || "").trim().toUpperCase();
+    const teamNames = teamId ? names.byTeam.get(teamId) || new Map() : null;
     const aliases = [
       profile.name,
       profile.displayName,
       ...(Array.isArray(profile.aliases) ? profile.aliases : [])
     ];
     for (const value of aliases) {
-      const key = normalizeText(value);
-      if (key && !names.has(key)) {
-        names.set(key, profile.name || profile.displayName);
+      addNameCandidate(names.global, value, canonicalName);
+      if (teamNames) {
+        addNameCandidate(teamNames, value, canonicalName);
       }
+    }
+    if (teamId && teamNames) {
+      names.byTeam.set(teamId, teamNames);
     }
   }
 
   return names;
 }
 
-function normalizeGoalName(name, profileNames) {
-  return profileNames.get(normalizeText(name)) || name;
+async function loadRosterNameOverrides() {
+  const byTeam = new Map();
+  let fileNames = [];
+  try {
+    fileNames = await readdir(playerProfileOverridesDir);
+  } catch (error) {
+    if (error?.code === "ENOENT") {
+      return byTeam;
+    }
+    throw error;
+  }
+
+  await Promise.all(
+    fileNames
+      .filter((fileName) => fileName.endsWith(".json"))
+      .map(async (fileName) => {
+        const fileTeamId = path.basename(fileName, ".json").toUpperCase();
+        const overrideFile = JSON.parse(await readFile(path.join(playerProfileOverridesDir, fileName), "utf8"));
+        const teamId = String(overrideFile.teamId || fileTeamId).trim().toUpperCase();
+        if (teamId !== fileTeamId) {
+          throw new Error(`${fileName}: teamId ${teamId} does not match file name ${fileTeamId}`);
+        }
+
+        const teamNames = byTeam.get(teamId) || new Map();
+        for (const [rawName, candidates] of Object.entries(overrideFile.rosterNameOverrides || {})) {
+          const canonicalName = (Array.isArray(candidates) ? candidates : [candidates]).find(
+            (candidate) => typeof candidate === "string" && candidate.trim()
+          );
+          if (canonicalName) {
+            addNameCandidate(teamNames, rawName, canonicalName.trim());
+          }
+        }
+        byTeam.set(teamId, teamNames);
+      })
+  );
+
+  return byTeam;
 }
 
-async function playerNameFromId(idPlayer, profileNames) {
+function normalizeGoalName(name, profileNames, rosterNameOverrides, teamId = "") {
+  const normalizedName = titleCaseName(name);
+  const normalizedKey = normalizeText(normalizedName);
+  const teamProfiles = teamProfileMap(profileNames, teamId);
+  const teamRosterNames = rosterNameOverrides.get(String(teamId || "").trim().toUpperCase());
+  const rosterName = teamRosterNames?.get(normalizedKey) || "";
+
+  if (rosterName) {
+    return teamProfiles?.get(normalizeText(rosterName)) || profileNames.global.get(normalizeText(rosterName)) || rosterName;
+  }
+
+  return teamProfiles?.get(normalizedKey) || profileNames.global.get(normalizedKey) || normalizedName;
+}
+
+async function playerNameFromId(idPlayer, profileNames, rosterNameOverrides, teamId = "") {
   const id = String(idPlayer || "").trim();
   if (!id) {
     return "";
   }
 
-  if (playerNameCache.has(id)) {
-    return playerNameCache.get(id);
+  const cacheKey = `${String(teamId || "").trim().toUpperCase()}:${id}`;
+  if (playerNameCache.has(cacheKey)) {
+    return playerNameCache.get(cacheKey);
   }
 
   const player = await fetchJson(`https://api.fifa.com/api/v3/players/${id}?language=en`, `FIFA player request for ${id}`);
-  const name = normalizeGoalName(titleCaseName(description(player?.Name)), profileNames);
-  playerNameCache.set(id, name);
+  const name = normalizeGoalName(description(player?.Name), profileNames, rosterNameOverrides, teamId);
+  playerNameCache.set(cacheKey, name);
   return name;
 }
 
@@ -361,7 +433,7 @@ function isScoringEvent(event) {
   return event.Type === 0 || event.Type === 34 || event.Type === 41;
 }
 
-async function goalsFromTimeline(timeline, profileNames) {
+async function goalsFromTimeline(timeline, profileNames, rosterNameOverrides, teamIds) {
   const goals = { home: [], away: [] };
   let previousHome = 0;
   let previousAway = 0;
@@ -383,12 +455,13 @@ async function goalsFromTimeline(timeline, profileNames) {
     const homeDelta = Number.isFinite(homeGoals) ? homeGoals - previousHome : 0;
     const awayDelta = Number.isFinite(awayGoals) ? awayGoals - previousAway : 0;
     const side = homeDelta > 0 ? "home" : awayDelta > 0 ? "away" : "";
-    const name = normalizeGoalName(playerNameFromEvent(event), profileNames);
+    const playerSide = event.Type === 34 ? (side === "home" ? "away" : "home") : side;
+    const name = normalizeGoalName(playerNameFromEvent(event), profileNames, rosterNameOverrides, teamIds[playerSide]);
 
     if (side && name) {
       const assistName =
         event.Type === 0 && event.IdSubPlayer && String(event.IdSubPlayer) !== String(event.IdPlayer)
-          ? await playerNameFromId(event.IdSubPlayer, profileNames).catch(() => "")
+          ? await playerNameFromId(event.IdSubPlayer, profileNames, rosterNameOverrides, teamIds[side]).catch(() => "")
           : "";
       goals[side].push({
         ...parseMinute(event.MatchMinute),
@@ -423,6 +496,7 @@ const [fixturesData, teamsData, tournamentData, profilesData] = await Promise.al
 const officialData = await fetchOfficialSchedule(fixturesData);
 const officialIndex = indexOfficialMatches(officialData.Results || [], buildTeamLookup(teamsData.teams));
 const profileNames = getProfileNameLookup(profilesData);
+const rosterNameOverrides = await loadRosterNameOverrides();
 async function processFixture(fixture) {
   const officialMatch = findOfficialMatch(fixture, officialIndex);
   if (!officialMatch?.IdMatch) {
@@ -445,7 +519,10 @@ async function processFixture(fixture) {
     };
   }
 
-  const goals = await goalsFromTimeline(timeline, profileNames);
+  const goals = await goalsFromTimeline(timeline, profileNames, rosterNameOverrides, {
+    home: fixture.homeTeamId,
+    away: fixture.awayTeamId
+  });
   const total = goals.home.length + goals.away.length;
   const expectedTotal = scoreTotal(fixture.score);
 
