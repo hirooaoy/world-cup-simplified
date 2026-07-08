@@ -1,6 +1,19 @@
 {
-  "updatedAt": "2026-07-07T22:18:57-07:00",
+  "updatedAt": "2026-07-07T23:35:38-07:00",
   "releases": [
+    {
+      "date": "2026-07-07",
+      "title": "Line-up badge and coach copy polish",
+      "titleZh": "阵容徽章与教练文案优化",
+      "highlights": [
+        "Line-up event badges now keep touch tooltips tappable, close cleanly, and stay anchored around fixed player marker dimensions on mobile and desktop.",
+        "Coach cards now include localized note and history copy with validation and smoke coverage, so Chinese mode does not fall back to English."
+      ],
+      "highlightsZh": [
+        "阵容事件徽章现在在触屏上可点开提示、可干净关闭，并在移动端和桌面端围绕固定球员标记尺寸稳定定位。",
+        "教练卡片现在补齐本地化战术说明和履历文案，并加入验证与冒烟覆盖，避免中文模式回退到英文。"
+      ]
+    },
     {
       "date": "2026-07-07",
       "title": "Admin note emphasis",
