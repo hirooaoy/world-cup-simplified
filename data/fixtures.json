@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-08T01:35:45.241Z",
+  "updatedAt": "2026-07-08T08:14:32.460Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -139,7 +139,8 @@
     "fifa-official-results-sync-2026-07-05",
     "fifa-goal-events-sync-2026-07-07",
     "fifa-official-results-sync-2026-07-07",
-    "national-football-teams-h2h-sync-2026-07-07"
+    "national-football-teams-h2h-sync-2026-07-07",
+    "fifa-goal-events-sync-2026-07-08"
   ],
   "coverage": {
     "status": "complete-schedule",
@@ -265,7 +266,8 @@
       "goalsHome": [
         {
           "minute": 9,
-          "name": "Julian Quinones"
+          "name": "Julian Quinones",
+          "assistName": "Erik Lira"
         },
         {
           "minute": 67,
@@ -4441,7 +4443,8 @@
       "goalsAway": [
         {
           "minute": 50,
-          "name": "Ali Olwan"
+          "name": "Ali Olwan",
+          "assistName": "Noor Al-Rawabdeh"
         }
       ],
       "providerIds": {
@@ -7698,7 +7701,8 @@
         },
         {
           "minute": 17,
-          "name": "Brian Brobbey"
+          "name": "Brian Brobbey",
+          "assistName": "Denzel Dumfries"
         },
         {
           "minute": 47,
@@ -20595,7 +20599,7 @@
         {
           "minute": 90,
           "offset": 10,
-          "name": "Neymar Jr",
+          "name": "Neymar",
           "penalty": true
         }
       ],
@@ -20779,7 +20783,8 @@
         },
         {
           "minute": 38,
-          "name": "Jude Bellingham"
+          "name": "Jude Bellingham",
+          "assistName": "Harry Kane"
         },
         {
           "minute": 60,
@@ -21294,8 +21299,9 @@
       ],
       "goalsAway": [
         {
-          "minute": 9,
-          "name": "Charles De Ketelaere"
+          "minute": 0,
+          "name": "Charles De Ketelaere",
+          "assistName": "Nicolas Raskin"
         },
         {
           "minute": 33,
