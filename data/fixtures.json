@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-07T22:59:37.002Z",
+  "updatedAt": "2026-07-08T01:35:45.241Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -21597,20 +21597,22 @@
         }
       },
       "resultStoryBullets": [
-        "Switzerland and Colombia stayed locked at 0-0 through extra time, with both sides kept from turning pressure into a breakthrough.",
-        "Switzerland won the shootout 4-3 to move on from BC Place."
+        "Switzerland and Colombia turned the last round-of-16 tie into a tense 120-minute stalemate at BC Place.",
+        "Both attacks found pressure but not the finish, leaving the match 0-0 through extra time.",
+        "Switzerland held their nerve in the shootout, winning 4-3 on penalties to claim the final quarterfinal place."
       ],
       "resultStoryBulletsZh": [
-        "瑞士和哥伦比亚在加时赛后仍以0比0僵持，双方的压力都没有转化成破门。",
-        "瑞士在卑诗体育馆的点球大战中4比3取胜晋级。"
+        "瑞士和哥伦比亚在卑诗体育馆把最后一场16强战拖成紧绷的120分钟僵局。",
+        "双方都制造了压力却没能完成终结，比赛在加时赛后仍是0比0。",
+        "瑞士在点球大战中更稳，以4比3取胜，拿到最后一个四分之一决赛席位。"
       ],
-      "highlightVideoReview": {
-        "status": "not-found",
+      "highlightVideo": {
         "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=_uEzppRKcd0",
         "sourceName": "FOX Sports",
         "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
-        "checkedAt": "2026-07-07T15:56:22-07:00",
-        "note": "No official FOX Sports YouTube highlights video matched this fixture during the automated channel check."
+        "publishedAt": "2026-07-07T18:35:43-07:00",
+        "checkedAt": "2026-07-07T18:35:43-07:00"
       }
     },
     {

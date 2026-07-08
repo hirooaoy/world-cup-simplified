@@ -6100,6 +6100,11 @@ body.is-lineup-event-tooltip-open .player-card-floating {
   white-space: nowrap;
 }
 
+.lineup-event-score.is-count {
+  min-width: 19px;
+  padding: 0 4px;
+}
+
 .lineup-event-score.is-assist {
   background: #ffffff;
   border-color: rgba(10, 10, 10, 0.18);
@@ -6182,10 +6187,10 @@ button.lineup-event-sub,
 
 .lineup-avatar-score-events {
   position: absolute;
-  top: -7px;
-  right: -8px;
+  top: -8px;
+  right: -13px;
   z-index: 1;
-  gap: 2px;
+  gap: 1px;
   pointer-events: auto;
 }
 
@@ -6193,6 +6198,10 @@ button.lineup-event-sub,
   min-width: 14px;
   height: 14px;
   box-shadow: none;
+}
+
+.lineup-avatar-score-events .lineup-event-score.is-count {
+  min-width: 19px;
 }
 
 .lineup-player-event-row {

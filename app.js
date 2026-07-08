@@ -1109,10 +1109,12 @@ const ZH_ADDITIONAL_EXACT_TRANSLATIONS = {
     "摩洛哥的年轻替补改变比赛，并在疯狂又身体对抗激烈的收官阶段继续通过萨伊巴里制造机会。",
   "Saibari converted the deciding penalty after five misses in the shootout, sending Morocco to Canada in the last 16.":
     "五次罚失后的点球大战里，萨伊巴里罚入决定性点球，送摩洛哥进入对加拿大的16强赛。",
-  "Switzerland and Colombia stayed locked at 0-0 through extra time, with both sides kept from turning pressure into a breakthrough.":
-    "瑞士和哥伦比亚在加时赛后仍以0比0僵持，双方的压力都没有转化成破门。",
-  "Switzerland won the shootout 4-3 to move on from BC Place.":
-    "瑞士在卑诗体育馆的点球大战中4比3取胜晋级。",
+  "Switzerland and Colombia turned the last round-of-16 tie into a tense 120-minute stalemate at BC Place.":
+    "瑞士和哥伦比亚在卑诗体育馆把最后一场16强战拖成紧绷的120分钟僵局。",
+  "Both attacks found pressure but not the finish, leaving the match 0-0 through extra time.":
+    "双方都制造了压力却没能完成终结，比赛在加时赛后仍是0比0。",
+  "Switzerland held their nerve in the shootout, winning 4-3 on penalties to claim the final quarterfinal place.":
+    "瑞士在点球大战中更稳，以4比3取胜，拿到最后一个四分之一决赛席位。",
   "Julian Quinones turned in Alvarado's 22nd-minute delivery, then Raul Jimenez finished Quinones's pass nine minutes later.":
     "基尼奥内斯第22分钟接阿尔瓦拉多传球破门，随后9分钟后又助攻劳尔·希门尼斯扩大比分。",
   "Mexico's first-half pressure lifted the home crowd in Mexico City, and their defense protected a fourth straight World Cup clean sheet.":
@@ -17999,12 +18001,14 @@ function renderLineupCardBadge(card, playerName) {
 
 function renderLineupScoringBadge(event, playerName) {
   const kind = event?.kind === "assist" ? "assist" : event?.kind === "ownGoal" ? "own-goal" : "goal";
-  const text = event?.kind === "assist" ? "A" : event?.kind === "ownGoal" ? "OG" : "G";
-  const label = getLineupEventBadgeLabel(event, playerName);
-  const tooltipLabel = getLineupScoringTooltipLabel(event);
+  const baseText = event?.kind === "assist" ? "A" : event?.kind === "ownGoal" ? "OG" : "G";
+  const count = Number(event?.count || 1);
+  const text = count > 1 ? `${count}${baseText}` : baseText;
+  const label = event?.label || getLineupEventBadgeLabel(event, playerName);
+  const tooltipLabel = event?.tooltipLabel || getLineupScoringTooltipLabel(event);
   return `
     <span
-      class="lineup-event-badge lineup-event-score is-${escapeHtml(kind)}"
+      class="lineup-event-badge lineup-event-score is-${escapeHtml(kind)}${count > 1 ? " is-count" : ""}"
       ${renderLineupBadgeTooltipAttributes(label, tooltipLabel)}
     >${escapeHtml(text)}</span>
   `;
@@ -18080,6 +18084,48 @@ function renderLineupEventBadgeList(events, playerName, className = "") {
   return `<span class="${escapeHtml(["lineup-event-list", className].filter(Boolean).join(" "))}">${badges.join("")}</span>`;
 }
 
+function renderLineupScoringBadgeList(events, playerName, className = "") {
+  const groups = [];
+  for (const event of events) {
+    const key = event?.kind || "goal";
+    let group = groups.find((candidate) => candidate.key === key);
+    if (!group) {
+      group = { key, events: [] };
+      groups.push(group);
+    }
+    group.events.push(event);
+  }
+
+  const badges = groups.map((group) => {
+    const [firstEvent] = group.events;
+    if (group.events.length <= 1) {
+      return renderLineupScoringBadge(firstEvent, playerName || firstEvent?.playerName || firstEvent?.name);
+    }
+
+    return renderLineupScoringBadge(
+      {
+        ...firstEvent,
+        count: group.events.length,
+        label: group.events
+          .map((event) => getLineupEventBadgeLabel(event, playerName || event.playerName || event.name))
+          .filter(Boolean)
+          .join(", "),
+        tooltipLabel: group.events
+          .map((event) => getLineupScoringTooltipLabel(event))
+          .filter(Boolean)
+          .join(", ")
+      },
+      playerName || firstEvent?.playerName || firstEvent?.name
+    );
+  });
+
+  if (!badges.length) {
+    return "";
+  }
+
+  return `<span class="${escapeHtml(["lineup-event-list", className].filter(Boolean).join(" "))}">${badges.join("")}</span>`;
+}
+
 function renderLineupCardBadges(playerName, teamLineup, className = "") {
   return renderLineupEventBadgeList(
     getLineupCardEvents(teamLineup, playerName).map((event) => ({ ...event, kind: "card" })),
@@ -18089,7 +18135,7 @@ function renderLineupCardBadges(playerName, teamLineup, className = "") {
 }
 
 function renderLineupScoringBadges(playerName, match, side, className = "") {
-  return renderLineupEventBadgeList(
+  return renderLineupScoringBadgeList(
     getLineupScoringEvents(match, side, playerName),
     playerName,
     className

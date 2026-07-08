@@ -4530,6 +4530,9 @@ try {
         scoreLabels: labelState(".lineup-avatar-score-events .lineup-event-score")
       };
     });
+  const kaneGoalLabels = lineupCornerEventState.scoreLabels.filter(
+    (label) => label.ariaLabel.includes("Harry Kane") && label.ariaLabel.includes("Goal")
+  );
   assert(
     lineupCornerEventState.cardLabels.some(
       (label) =>
@@ -4540,14 +4543,12 @@ try {
           label.tooltip === "19' Yellow card" &&
           label.title === ""
     ) &&
-      lineupCornerEventState.scoreLabels.some(
-        (label) =>
-          label.ariaLabel.includes("75'") &&
-          label.ariaLabel.includes("Harry Kane") &&
-          label.ariaLabel.includes("Goal") &&
-          label.tooltip === "75' goal" &&
-          label.title === ""
-      ) &&
+      kaneGoalLabels.length === 1 &&
+      kaneGoalLabels[0].ariaLabel.includes("75'") &&
+      kaneGoalLabels[0].ariaLabel.includes("86'") &&
+      kaneGoalLabels[0].text === "2G" &&
+      kaneGoalLabels[0].tooltip === "75' goal, 86' goal" &&
+      kaneGoalLabels[0].title === "" &&
       lineupCornerEventState.scoreLabels.some(
         (label) =>
           label.ariaLabel.includes("7'") &&
@@ -4569,7 +4570,7 @@ try {
     const tooltip = document.querySelector(".lineup-event-tooltip-floating");
     const styles = tooltip ? getComputedStyle(tooltip) : null;
     return (
-      tooltip?.textContent.trim() === "75' goal" &&
+      tooltip?.textContent.trim() === "75' goal, 86' goal" &&
       tooltip?.classList.contains("is-visible") &&
       styles?.visibility === "visible" &&
       Number(styles.opacity) > 0.05
@@ -4611,7 +4612,7 @@ try {
   });
   assert(
     lineupEventTooltipState.tooltipVisible &&
-      lineupEventTooltipState.tooltipText === "75' goal" &&
+      lineupEventTooltipState.tooltipText === "75' goal, 86' goal" &&
       lineupEventTooltipState.tooltipBounds &&
       lineupEventTooltipState.tooltipBounds.left >= 0 &&
       lineupEventTooltipState.tooltipBounds.right <= lineupEventTooltipState.viewport.width &&

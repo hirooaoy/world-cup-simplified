@@ -1,6 +1,17 @@
 {
-  "updatedAt": "2026-07-07T14:25:27-07:00",
+  "updatedAt": "2026-07-07T18:41:15-07:00",
   "releases": [
+    {
+      "date": "2026-07-07",
+      "title": "Line-up goal badge polish",
+      "titleZh": "阵容进球徽章优化",
+      "highlights": [
+        "Line-up boards now collapse multi-goal player badges into a single count like 2G, keeping the portrait clear while preserving the goal-minute tooltip."
+      ],
+      "highlightsZh": [
+        "阵容板现在会把多球球员的进球徽章合并成“2G”这样的单个计数，避免遮住头像，同时保留进球分钟提示。"
+      ]
+    },
     {
       "date": "2026-07-07",
       "title": "Quarterfinals admin note",
@@ -17,11 +28,13 @@
       "title": "Switzerland-Colombia shootout recap",
       "titleZh": "瑞士对哥伦比亚点球大战回顾",
       "highlights": [
-        "Switzerland-Colombia now has a concise finished-match recap for the 0-0 draw and Switzerland's 4-3 shootout win.",
+        "Switzerland-Colombia now has a three-beat finished-match recap for the 0-0 draw, Switzerland's 4-3 shootout win, and the final quarterfinal place.",
+        "The result card now links the official FOX Sports YouTube highlights for Switzerland-Colombia.",
         "Official lineup cards now preserve captain markers from FIFA team sheets."
       ],
       "highlightsZh": [
-        "瑞士对哥伦比亚现在补上了简洁的完场回顾，说明0比0僵局以及瑞士在卑诗体育馆点球大战4比3取胜。",
+        "瑞士对哥伦比亚现在补上了三段式完场回顾，说明0比0僵局、瑞士点球大战4比3取胜以及最后一个八强席位。",
+        "赛果卡现在加入瑞士对哥伦比亚的 FOX Sports 官方 YouTube 集锦链接。",
         "官方阵容卡现在会保留FIFA球队名单中的队长标记。"
       ]
     },
