@@ -6035,7 +6035,7 @@ try {
       liveHalfTimeRowState.ariaLabel === "Live: FIFA snapshot: Half-time · checked 2 min ago",
     `A live row should show official half-time position from MatchTime=HT instead of only Live. Measured ${JSON.stringify(liveHalfTimeRowState)}.`
   );
-  await liveHalfTimeRow.click();
+  await liveHalfTimeRow.locator(".match-row-trigger").click();
   const liveHalfTimeDetailState = await liveHalfTimeCheck.page.locator("#match-info").evaluate((info) => {
     const heading = info.querySelector(".match-live-block h3");
     return {
@@ -6068,7 +6068,7 @@ try {
     (await liveHalfTimeZhRow.locator(".live-pill").innerText()).trim() === "半场",
     "A live half-time pill should localize the official match position in Chinese."
   );
-  await liveHalfTimeZhRow.click();
+  await liveHalfTimeZhRow.locator(".match-row-trigger").click();
   await liveHalfTimeZhCheck.page.waitForFunction(() => {
     const info = document.querySelector("#match-info");
     const headingText =
