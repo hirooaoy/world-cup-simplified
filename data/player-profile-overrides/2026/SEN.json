@@ -36,29 +36,54 @@
   ],
   "profiles": {
     "Abdoulaye Seck": {
-      "skills": ["Aerial defending", "Centre-back strength", "Set-piece presence"],
-      "note": "Senegal's physical centre-back option, useful for clearing crosses and attacking dead balls.",
-      "noteZh": "阿卜杜拉耶·塞克是塞内加尔身体型中卫选择，适合解围传中并冲击定位球。"
+      "skills": [
+        "Chance passes",
+        "Aerial defending",
+        "Centre-back strength"
+      ],
+      "note": "Seck has already created a goal for Senegal in this tournament. Watch the timing of his release, because the pass often matters more than the carry.",
+      "noteZh": "他已经参与了Senegal的一粒世界杯进球。那脚传球的意义，是在防守者完全转身前到达。"
     },
     "Antoine Mendy": {
-      "aliases": ["Antoine Alpha", "Antoine Alpha Mendy"],
-      "skills": ["Right-back defending", "Centre-back cover", "Recovery speed"],
-      "note": "Senegal's right-side defensive cover, able to defend wide or tuck inside when the shape changes.",
-      "noteZh": "安托万·门迪是塞内加尔右侧防守保障，阵型变化时能守边路，也能内收到中路。"
+      "aliases": [
+        "Antoine Alpha",
+        "Antoine Alpha Mendy"
+      ],
+      "skills": [
+        "Right-back defending",
+        "Centre-back cover",
+        "Recovery speed"
+      ],
+      "note": "Mendy gives Senegal cover for the minutes when defending becomes more about nerve than shape. One solid duel can calm the whole line.",
+      "noteZh": "他是Senegal后防线的保险。卡片不华丽：赢球、稳传、重新站好。"
     },
     "Assane Diao": {
-      "skills": ["Wing acceleration", "Direct dribbling", "Transition runs"],
-      "note": "Senegal's direct wide runner, dangerous when space opens and he can attack at speed.",
-      "noteZh": "阿萨内·迪奥是塞内加尔直接型边路跑动点，空间打开并能提速冲击时很危险。"
+      "skills": [
+        "Wing acceleration",
+        "Direct dribbling",
+        "Transition runs"
+      ],
+      "note": "Diao is attacking depth for Senegal. If the game slows down, he is there to make the back line move again.",
+      "noteZh": "他是Senegal前场计划的一部分。他先拉扯防守者，再寻找把压力变成机会的触球。"
     },
     "Bamba Dieng": {
-      "aliases": ["Cheikh Ahmadou Bamba Mbacke", "Cheikh Ahmadou Bamba Mbacke Dieng"],
-      "skills": ["Forward bursts", "Penalty-box finishing", "Pressing speed"],
-      "note": "Senegal's lively forward option, useful for chasing centre-backs and snapping at loose chances.",
-      "noteZh": "班巴·迪昂是塞内加尔活跃的前锋选择，适合追压中卫并抓住松散机会。"
+      "aliases": [
+        "Cheikh Ahmadou Bamba Mbacke",
+        "Cheikh Ahmadou Bamba Mbacke Dieng"
+      ],
+      "skills": [
+        "Forward bursts",
+        "Penalty-box finishing",
+        "Pressing speed"
+      ],
+      "note": "Dieng is the forward Senegal can use when the match needs new legs. His first job is to make tired defenders turn.",
+      "noteZh": "他给Senegal替补席上的另一种进攻速度。有时关键触球，是那次帮队友拉开空间的跑动。"
     },
     "Bara Sapoko Ndiaye": {
-      "aliases": ["Bara Sapoko", "Bara Joseph Sapoko Ndiaye"],
+      "aliases": [
+        "Bara Sapoko",
+        "Bara Joseph Sapoko Ndiaye"
+      ],
       "sourceTitle": "Bara Sapoko Ndiaye",
       "transfermarktPlayerCode": "bara-sapoko-ndiaye",
       "birthDate": "2007-12-31",
@@ -68,135 +93,254 @@
       "league": "Bundesliga",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Bara%20Ndiaye%20France%20v%20Senegal%2016%20June%202026-229%20(cropped).jpg?width=160",
       "marketValueEurMillions": 4,
-      "skills": ["Youthful ball carrying", "Midfield mobility", "Long-term upside"],
-      "note": "Senegal's teenage midfield wildcard, useful for fresh legs and brave carries through pressure.",
-      "noteZh": "巴拉·萨波科·恩迪亚耶是塞内加尔青少年中场变招，适合带来新鲜腿脚并勇敢带球穿过压力。",
+      "skills": [
+        "Youthful ball carrying",
+        "Midfield mobility",
+        "Long-term upside"
+      ],
+      "note": "Ndiaye is midfield insurance for Senegal. He is there for the messy phase: second ball, one calmer touch, then the next pass.",
+      "noteZh": "他给Senegal一种在比赛打开后稳住中路的办法。最好的工作，是让下一次决定没那么急。",
       "sourceUrl": "https://www.transfermarkt.com/bara-sapoko-ndiaye/profil/spieler/1497653"
     },
     "Cherif Ndiaye": {
       "displayName": "Chérif Ndiaye",
-      "aliases": ["Pape Cherif", "Pape Chérif Ndiaye"],
-      "skills": ["Centre-forward hold-up", "Box finishing", "Aerial pressure"],
-      "note": "Senegal's penalty-box forward, useful for holding off defenders and finishing service from wide areas.",
-      "noteZh": "谢里夫·恩迪亚耶是塞内加尔禁区前锋，适合抗住防守者并终结来自边路的传球。"
+      "aliases": [
+        "Pape Cherif",
+        "Pape Chérif Ndiaye"
+      ],
+      "skills": [
+        "Centre-forward hold-up",
+        "Box finishing",
+        "Aerial pressure"
+      ],
+      "note": "Ndiaye gives Senegal a different attacking speed from the bench. The important touch may be the run that opens space for someone else.",
+      "noteZh": "他是Senegal在比赛需要新腿时可以使用的前锋。第一项工作，是让疲劳的后卫转身。"
     },
     "Edouard Mendy": {
       "displayName": "Édouard Mendy",
-      "aliases": ["Edouard Osoque", "Édouard Osoque Mendy"],
-      "skills": ["Goalkeeper command", "Cross claiming", "Tournament experience"],
-      "note": "Senegal's experienced goalkeeper, trusted for box command and calming long defensive stretches.",
-      "noteZh": "爱德华·门迪是塞内加尔经验丰富的门将，禁区指挥和稳定漫长防守阶段都值得信任。"
+      "aliases": [
+        "Edouard Osoque",
+        "Édouard Osoque Mendy"
+      ],
+      "skills": [
+        "Goalkeeper command",
+        "Cross claiming",
+        "Tournament experience"
+      ],
+      "note": "Mendy gives Senegal a keeper option if the night turns sideways. His card is about being warm enough for one big save.",
+      "noteZh": "他在Senegal首发门将身后等待，但这个角色不是装饰。他要随时处理传中、开球和冷启动。"
     },
     "El Hadji Malick Diouf": {
-      "aliases": ["El Hadji Malick"],
-      "skills": ["Left-back surges", "Wing-back width", "Recovery speed"],
-      "note": "Senegal's explosive left-sided runner, able to turn a recovery into a quick attack down the flank.",
-      "noteZh": "埃尔·哈吉·马利克·迪乌夫是塞内加尔爆发型左路跑动点，能把一次回追变成边路快速进攻。"
+      "aliases": [
+        "El Hadji Malick"
+      ],
+      "skills": [
+        "Left-back surges",
+        "Wing-back width",
+        "Recovery speed"
+      ],
+      "note": "Diouf is defensive rotation for Senegal. The watch point is how early he closes the lane that looked open.",
+      "noteZh": "他是Senegal后防线的保险。卡片不华丽：赢球、稳传、重新站好。"
     },
     "Habib Diarra": {
-      "aliases": ["Mouhamadou Habib Diarra", "Mouhamadou Habib Mbacke"],
-      "skills": ["Midfield carrying", "Box-to-box range", "Pressing energy"],
-      "note": "Senegal's powerful midfield carrier, useful for driving through contact and joining the attack late.",
-      "noteZh": "哈比卜·迪亚拉是塞内加尔力量型中场推进者，适合带球穿过对抗并后插上参与进攻。"
+      "aliases": [
+        "Mouhamadou Habib Diarra",
+        "Mouhamadou Habib Mbacke"
+      ],
+      "skills": [
+        "Goal threat",
+        "Midfield carrying",
+        "Box-to-box range"
+      ],
+      "note": "Diarra has already punished Iraq and Belgium for Senegal. The watch point is how little room he needs once the chance is alive.",
+      "noteZh": "他让Senegal拥有一个必须被惦记的得分点。每个松散球都可能突然变重。"
     },
     "Ibrahim Mbaye": {
-      "skills": ["Wing explosiveness", "Teenage creativity", "One-on-one threat"],
-      "note": "Senegal's teenage wide spark, dangerous when he can isolate a defender and run directly at goal.",
-      "noteZh": "易卜拉欣·姆巴耶是塞内加尔青少年边路火花，能一对一面对防守者并直接冲向球门时很危险。"
+      "skills": [
+        "Goal threat",
+        "Wing explosiveness",
+        "Teenage creativity"
+      ],
+      "note": "Mbaye has already turned one tournament chance into a goal against France. Watch whether defenders start giving him the extra step.",
+      "noteZh": "他已经为Senegal进入这届世界杯的进球名单。一个终结会改变对手下一次防他的方式。"
     },
     "Idrissa Gueye": {
       "displayName": "Idrissa Gueye",
-      "aliases": ["Idrissa Gana", "Idrissa Gana Gueye"],
-      "skills": ["Ball-winning range", "Midfield anticipation", "Counter defense"],
-      "note": "Senegal's veteran midfield reader, still valuable for sensing danger and stopping counters early.",
-      "noteZh": "伊德里萨·盖耶是塞内加尔老将中场阅读者，依然能提前感知危险并尽早阻断反击。"
+      "aliases": [
+        "Idrissa Gana",
+        "Idrissa Gana Gueye"
+      ],
+      "skills": [
+        "Ball-winning range",
+        "Midfield anticipation",
+        "Counter defense"
+      ],
+      "note": "Gueye gives Senegal structure when the ball changes feet. He is often most valuable in the second after a loose touch.",
+      "noteZh": "他给Senegal控制节奏。拥挤区域里的触球，能变成下一名队友更舒服的角度。"
     },
     "Iliman Ndiaye": {
-      "aliases": ["Iliman Cheikh Baroy", "Iliman Cheikh Baroy Ndiaye"],
-      "skills": ["Between-lines dribbling", "Final-third invention", "Quick combinations"],
-      "note": "Senegal's clever attacking connector, able to receive in traffic and slip into the box with short touches.",
-      "noteZh": "伊利曼·恩迪亚耶是塞内加尔聪明的进攻连接点，能在人群中接球并用小范围触球钻入禁区。"
+      "aliases": [
+        "Iliman Cheikh Baroy",
+        "Iliman Cheikh Baroy Ndiaye"
+      ],
+      "skills": [
+        "Goal threat",
+        "Chance passes",
+        "Between-lines dribbling"
+      ],
+      "note": "Ndiaye has both scored and created for Senegal in this run. He matters because the same movement can become the shot or the pass before it.",
+      "noteZh": "他在这段征程中既进球也创造机会。同一次跑动，可能变成射门，也可能变成射门前的一脚传球。"
     },
     "Ismail Jakobs": {
       "displayName": "Ismaïl Jakobs",
-      "aliases": ["Ismail Joshua", "Ismail Joshua Jakobs"],
-      "skills": ["Left-back pace", "Overlap timing", "Wide recovery"],
-      "note": "Senegal's left-back runner, useful for overlaps and fast recovery against switches.",
-      "noteZh": "伊斯梅尔·雅各布斯是塞内加尔左后卫跑动点，适合套边并快速回追应对转移球。"
+      "aliases": [
+        "Ismail Joshua",
+        "Ismail Joshua Jakobs"
+      ],
+      "skills": [
+        "Left-back pace",
+        "Overlap timing",
+        "Wide recovery"
+      ],
+      "note": "Jakobs gives Senegal defensive range. His job is to make the opponent's first opening feel smaller than it looked.",
+      "noteZh": "他是Senegal后防线的保险。卡片不华丽：赢球、稳传、重新站好。"
     },
     "Ismaila Sarr": {
       "displayName": "Ismaïla Sarr",
-      "skills": ["Right-wing speed", "Vertical carries", "Transition finishing"],
-      "note": "Senegal's vertical winger, dangerous when he can run beyond the full-back before the defense resets.",
-      "noteZh": "伊斯梅拉·萨尔是塞内加尔纵向边锋，能在防线重整前冲到边后卫身后时很危险。"
+      "skills": [
+        "Goal threat",
+        "Chance passes",
+        "Right-wing speed"
+      ],
+      "note": "Sarr has put goals and service into Senegal's tournament, with finishes against Norway, Iraq, and Belgium. His card is the next action after the first touch.",
+      "noteZh": "他这届世界杯已经同时给Senegal带来终结和传球。防守者不能只防他的一种选择。"
     },
     "Kalidou Koulibaly": {
-      "skills": ["Defensive leadership", "Aerial command", "Physical duels"],
-      "note": "Senegal's defensive leader, still the voice and physical anchor of the back line.",
-      "noteZh": "卡利杜·库利巴利是塞内加尔防守领袖，仍然是后防线的声音和身体支柱。"
+      "skills": [
+        "Defensive leadership",
+        "Aerial command",
+        "Physical duels"
+      ],
+      "note": "Koulibaly gives Senegal another way to protect the edge of the box. His value shows up when the obvious pass disappears.",
+      "noteZh": "他是Senegal在比赛变窄时可以使用的后卫。任务是第一下接触、清楚解围、简单出球。"
     },
     "Krepin Diatta": {
       "displayName": "Krépin Diatta",
-      "skills": ["Right-side work rate", "Wing-back cover", "Direct carries"],
-      "note": "Senegal's tireless right-side runner, useful for shuttling between defense and attack.",
-      "noteZh": "克雷潘·迪亚塔是塞内加尔不知疲倦的右路跑动点，适合在防守和进攻之间来回穿梭。"
+      "skills": [
+        "Right-side work rate",
+        "Wing-back cover",
+        "Direct carries"
+      ],
+      "note": "Diatta gives Senegal a front-line rhythm that keeps defenders facing their own goal. His value often starts before the ball reaches him.",
+      "noteZh": "他给Senegal替补席上的另一种进攻速度。有时关键触球，是那次帮队友拉开空间的跑动。"
     },
     "Lamine Camara": {
-      "skills": ["Midfield progression", "Set-piece delivery", "Long shooting"],
-      "note": "Senegal's young midfield passer, able to progress play and threaten from restarts or distance.",
-      "noteZh": "拉明·卡马拉是塞内加尔年轻中场传球手，能推进进攻，并在定位球或远射中制造威胁。"
+      "skills": [
+        "Chance passes",
+        "Midfield progression",
+        "Set-piece delivery"
+      ],
+      "note": "Camara has supplied one of Senegal's tournament goals. The pass matters because it arrives before the defender can fully turn.",
+      "noteZh": "他这届世界杯已经为Senegal创造过进球。注意他出球的时机，因为那一脚传球往往比带球更重要。"
     },
     "Mamadou Sarr": {
-      "skills": ["Centre-back upside", "Recovery defending", "Aerial duels"],
-      "note": "Senegal's young centre-back option, useful for recovery defending and growing into physical duels.",
-      "noteZh": "马马杜·萨尔是塞内加尔年轻中卫选择，适合回追防守，并逐渐适应身体对抗。"
+      "skills": [
+        "Centre-back upside",
+        "Recovery defending",
+        "Aerial duels"
+      ],
+      "note": "Sarr is the kind of defender Senegal can turn to when the match gets narrow. His job is first contact, clean clearance, simple pass.",
+      "noteZh": "他是Senegal艰难时间段的防守深度。他要赢下第一下接触，并让下一脚传球简单起来。"
     },
     "Mory Diaw": {
-      "skills": ["Goalkeeper depth", "Shot stopping", "Penalty-area reach"],
-      "note": "Senegal's goalkeeper depth, bringing reach and shot-stopping cover behind the senior options.",
-      "noteZh": "莫里·迪奥是塞内加尔门将深度，在资深选择身后提供覆盖范围和扑救保障。"
+      "skills": [
+        "Goalkeeper depth",
+        "Shot stopping",
+        "Penalty-area reach"
+      ],
+      "note": "Diaw is goalkeeper cover for Senegal. The role is readiness: saves, restarts, and no panic if the match suddenly needs him.",
+      "noteZh": "他是Senegal门线上的安全网。这个工作说起来简单，做起来很难：冷着上场，并让禁区安静。"
     },
     "Moussa Niakhate": {
       "displayName": "Moussa Niakhaté",
-      "skills": ["Left-footed centre-back play", "Recovery cover", "Aerial defending"],
-      "note": "Senegal's left-footed defensive balance, useful for covering channels and passing out cleanly.",
-      "noteZh": "穆萨·尼亚哈特是塞内加尔左脚防守平衡点，适合覆盖通道并干净出球。"
+      "skills": [
+        "Chance passes",
+        "Left-footed centre-back play",
+        "Recovery cover"
+      ],
+      "note": "Niakhaté has supplied one of Senegal's tournament goals. The pass matters because it arrives before the defender can fully turn.",
+      "noteZh": "他这届世界杯已经为Senegal创造过进球。注意他出球的时机，因为那一脚传球往往比带球更重要。"
     },
     "Nicolas Jackson": {
-      "skills": ["Channel running", "Striker pressing", "Penalty-box movement"],
-      "note": "Senegal's restless striker, dangerous when he stretches centre-backs and attacks loose balls.",
-      "noteZh": "尼古拉斯·杰克逊是塞内加尔活跃中锋，拉扯中卫并冲击松散球时很危险。"
+      "skills": [
+        "Chance passes",
+        "Channel running",
+        "Striker pressing"
+      ],
+      "note": "Jackson has already made a goal happen for Senegal. His value is picking the moment when the defense is still moving.",
+      "noteZh": "他已经为Senegal送出一次进球前的传球。重点是机会真正显眼前的那次触球。"
     },
     "Pape Gueye": {
-      "aliases": ["Pape Alassane", "Pape Alassane Gueye"],
-      "skills": ["Defensive midfield size", "Left-footed passing", "Duel strength"],
-      "note": "Senegal's big midfield screen, useful for winning contact and feeding the next pass forward.",
-      "noteZh": "帕普·盖耶是塞内加尔高大中场屏障，适合赢下对抗并向前送出下一脚传球。"
+      "aliases": [
+        "Pape Alassane",
+        "Pape Alassane Gueye"
+      ],
+      "skills": [
+        "Goal threat",
+        "Chance passes",
+        "Defensive midfield size"
+      ],
+      "note": "Gueye has put goals and service into Senegal's tournament, with finishes against Iraq. His card is the next action after the first touch.",
+      "noteZh": "他这届世界杯已经同时给Senegal带来终结和传球。防守者不能只防他的一种选择。"
     },
     "Pape Matar Sarr": {
-      "aliases": ["Pape Matar"],
-      "skills": ["Box-to-box running", "Press resistance", "Late box arrivals"],
-      "note": "Senegal's box-to-box engine, able to carry through pressure and arrive beyond the first wave.",
-      "noteZh": "帕普·马塔尔·萨尔是塞内加尔双向发动机，能带球穿过压力并在第一波进攻后继续前插。"
+      "aliases": [
+        "Pape Matar"
+      ],
+      "skills": [
+        "Box-to-box running",
+        "Press resistance",
+        "Late box arrivals"
+      ],
+      "note": "Sarr is midfield insurance for Senegal. He is there for the messy phase: second ball, one calmer touch, then the next pass.",
+      "noteZh": "他给Senegal一种在比赛打开后稳住中路的办法。最好的工作，是让下一次决定没那么急。"
     },
     "Pathe Ciss": {
       "displayName": "Pathé Ciss",
-      "aliases": ["Ismaila Pathe", "Pathé Ismaël Ciss"],
-      "skills": ["Midfield duels", "Second-ball work", "Simple progression"],
-      "note": "Senegal's midfield battler, useful for second balls and keeping possession moving after contact.",
-      "noteZh": "帕特·西斯是塞内加尔中场斗士，适合争抢第二落点并在对抗后让控球继续流动。"
+      "aliases": [
+        "Ismaila Pathe",
+        "Pathé Ismaël Ciss"
+      ],
+      "skills": [
+        "Midfield duels",
+        "Second-ball work",
+        "Simple progression"
+      ],
+      "note": "Ciss gives Senegal a way to settle the middle if the match opens up. His best work is making the next decision less hurried.",
+      "noteZh": "他是Senegal的中场保险。那些混乱阶段里，他要抢第二点、稳一下，再把球送出去。"
     },
     "Sadio Mane": {
       "displayName": "Sadio Mané",
-      "skills": ["Forward movement", "Penalty-box instinct", "Big-game experience"],
-      "note": "Senegal's attacking reference point, still valuable for movement, timing, and decisive box touches.",
-      "noteZh": "萨迪奥·马内是塞内加尔进攻参照点，在跑动、时机和禁区关键触球上依然很有价值。"
+      "skills": [
+        "Chance passes",
+        "Forward movement",
+        "Penalty-box instinct"
+      ],
+      "note": "Mané has one tournament assist in the bank for Senegal. The detail is the touch just before the obvious chance appears.",
+      "noteZh": "他已经帮Senegal制造过进球。价值在于防线还在移动时，选对出球瞬间。"
     },
     "Yehvann Diouf": {
-      "aliases": ["Yehvann Djibril Victor", "Yehvann Djibril Victor Diouf"],
-      "skills": ["Goalkeeper reactions", "Box confidence", "Shot stopping"],
-      "note": "Senegal's athletic goalkeeper option, useful for reaction saves and confident penalty-area work.",
-      "noteZh": "耶万·迪乌夫是塞内加尔运动能力强的门将选择，适合反应扑救和自信处理禁区事务。"
+      "aliases": [
+        "Yehvann Djibril Victor",
+        "Yehvann Djibril Victor Diouf"
+      ],
+      "skills": [
+        "Goalkeeper reactions",
+        "Box confidence",
+        "Shot stopping"
+      ],
+      "note": "Diouf is goalkeeper cover for Senegal. The role is readiness: saves, restarts, and no panic if the match suddenly needs him.",
+      "noteZh": "他是Senegal门线上的安全网。这个工作说起来简单，做起来很难：冷着上场，并让禁区安静。"
     }
   }
 }

@@ -58,146 +58,252 @@
     "Xaver SCHLAGER": "Xaver Schlager",
     "SCHLAGER Xaver": "Xaver Schlager"
   },
-  "removeProfiles": ["Alessandro Schoepf"],
+  "removeProfiles": [
+    "Alessandro Schoepf"
+  ],
   "profiles": {
     "Alessandro Schopf": {
       "displayName": "Alessandro Schöpf",
-      "skills": ["Midfield work rate", "Wide cover", "Late runs"],
-      "note": "Schöpf gives Austria experienced running power, helping the midfield cover wide spaces and arrive late.",
-      "noteZh": "舍普夫给奥地利有经验的跑动能力，帮助中场覆盖边路空间并后插上。"
+      "skills": [
+        "Midfield work rate",
+        "Wide cover",
+        "Late runs"
+      ],
+      "note": "Schöpf is midfield insurance for Austria. He is there for the messy phase: second ball, one calmer touch, then the next pass.",
+      "noteZh": "他给Austria一种在比赛打开后稳住中路的办法。最好的工作，是让下一次决定没那么急。"
     },
     "Alexander Prass": {
-      "skills": ["Left-side energy", "Progressive carries", "Crossing"],
-      "note": "Prass gives Austria left-sided thrust, carrying forward and supplying early service from wide areas.",
-      "noteZh": "普拉斯给奥地利左侧推进力，能向前带球并从边路早早送出传中。"
+      "skills": [
+        "Left-side energy",
+        "Progressive carries",
+        "Crossing"
+      ],
+      "note": "Prass is defensive cover for Austria's harder minutes. He is there to win the first contact and make the next pass simple.",
+      "noteZh": "他是Austria在比赛变窄时可以使用的后卫。任务是第一下接触、清楚解围、简单出球。"
     },
     "Alexander Schlager": {
-      "skills": ["Goalkeeper reflexes", "Box control", "Distribution"],
-      "note": "Schlager gives Austria an experienced goalkeeper option, steady when pressure arrives through crosses.",
-      "noteZh": "施拉格给奥地利有经验的门将选择，当压力来自传中时很稳定。"
+      "skills": [
+        "Goalkeeper reflexes",
+        "Box control",
+        "Distribution"
+      ],
+      "note": "Schlager has carried the keeper minutes for Austria. The card is clean hands, clear restarts, and defenders who do not have to rush.",
+      "noteZh": "他是Austria防守结构最后的声音。压力停在禁区时，他要让下一步动作简单下来。"
     },
     "Carney Chukwuemeka": {
-      "skills": ["Ball carrying", "Midfield power", "Box entries"],
-      "note": "Chukwuemeka adds carrying power through midfield, useful when Austria need to break pressure by dribbling.",
-      "noteZh": "丘库埃梅卡增加中场带球力量，当奥地利需要用盘带破压时很有用。"
+      "skills": [
+        "Ball carrying",
+        "Midfield power",
+        "Box entries"
+      ],
+      "note": "Chukwuemeka gives Austria midfield depth for games that get stretched. He helps turn a loose ball into a calmer next pass.",
+      "noteZh": "他适合那些空间变丑的时间段。对Austria来说，这可能就是压力到来前的一次干净触球。"
     },
     "David Affengruber": {
       "transfermarktPlayerCode": "david-affengruber",
       "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/452483-1779272314.jpg?lm=1",
-      "skills": ["Centre-back defending", "Aerial duels", "Box clearances"],
-      "note": "Affengruber gives Austria centre-back depth, especially useful for aerial spells and low-box defending.",
-      "noteZh": "阿芬格鲁伯给奥地利中卫深度，尤其适合空中球阶段和低位禁区防守。"
+      "skills": [
+        "Centre-back defending",
+        "Aerial duels",
+        "Box clearances"
+      ],
+      "note": "Affengruber gives Austria cover for the minutes when defending becomes more about nerve than shape. One solid duel can calm the whole line.",
+      "noteZh": "他是Austria后防线的保险。卡片不华丽：赢球、稳传、重新站好。"
     },
     "David Alaba": {
-      "skills": ["Defensive leadership", "Left-footed passing", "Set pieces"],
-      "note": "Alaba remains Austria's organiser, bringing left-footed passing and calm leadership across the back line.",
-      "noteZh": "阿拉巴仍是奥地利组织者，给后防带来左脚传球和冷静领导力。"
+      "skills": [
+        "Chance passes",
+        "Defensive leadership",
+        "Left-footed passing"
+      ],
+      "note": "Alaba has supplied one of Austria's tournament goals. The pass matters because it arrives before the defender can fully turn.",
+      "noteZh": "他这届世界杯已经为Austria创造过进球。注意他出球的时机，因为那一脚传球往往比带球更重要。"
     },
     "Dejan Ljubicic": {
       "displayName": "Dejan Ljubičić",
-      "skills": ["Midfield pressing", "Right-side cover", "Short passing"],
-      "note": "Ljubičić gives Austria flexible midfield legs, useful for pressing and covering the right channel.",
-      "noteZh": "柳比契奇给奥地利灵活的中场跑动，适合压迫并覆盖右侧通道。"
+      "skills": [
+        "Midfield pressing",
+        "Right-side cover",
+        "Short passing"
+      ],
+      "note": "Ljubičić is there for the part of the game where spacing gets ugly. For Austria, that can mean one clean touch before pressure arrives.",
+      "noteZh": "他给Austria提供中场深度，适合比赛被拉开的时候。他把松散球变成更冷静的下一脚。"
     },
     "Florian Grillitsch": {
-      "skills": ["Deep passing", "Midfield screening", "Tempo control"],
-      "note": "Grillitsch gives Austria a deeper passing base, slowing the game down and protecting the center.",
-      "noteZh": "格里利奇给奥地利更靠后的传球基础，能放慢比赛并保护中路。"
+      "skills": [
+        "Deep passing",
+        "Midfield screening",
+        "Tempo control"
+      ],
+      "note": "Grillitsch gives Austria a way to settle the middle if the match opens up. His best work is making the next decision less hurried.",
+      "noteZh": "他是Austria的中场保险。那些混乱阶段里，他要抢第二点、稳一下，再把球送出去。"
     },
     "Florian Wiegele": {
-      "skills": ["Goalkeeper depth", "Reaction saves", "Penalty-area reach"],
-      "note": "Wiegele gives Austria extra goalkeeper depth, useful insurance behind the senior options.",
-      "noteZh": "维格勒给奥地利额外门将深度，是主力门将身后的有用保障。"
+      "skills": [
+        "Goalkeeper depth",
+        "Reaction saves",
+        "Penalty-area reach"
+      ],
+      "note": "Wiegele is Austria's safety net in goal. The job is simple to say and hard to do: enter cold and make the box quieter.",
+      "noteZh": "他是Austria的门将保障。角色是随时准备好扑救、重新开球，并在突然需要他时不慌。"
     },
     "Kevin Danso": {
-      "skills": ["Centre-back strength", "Recovery defending", "Aerial power"],
-      "note": "Danso gives Austria pace and strength at centre-back, important when the line has to defend space.",
-      "noteZh": "丹索给奥地利中卫位置的速度和力量，当防线需要防守空间时很重要。"
+      "skills": [
+        "Centre-back strength",
+        "Recovery defending",
+        "Aerial power"
+      ],
+      "note": "Danso gives Austria another way to protect the edge of the box. His value shows up when the obvious pass disappears.",
+      "noteZh": "他给Austria那些靠胆量守住的分钟提供保障。一次扎实对抗就能让整条线冷静下来。"
     },
     "Konrad Laimer": {
-      "skills": ["Pressing engine", "Ball winning", "Right-side runs"],
-      "note": "Laimer is Austria's pressing engine, turning loose touches into forward momentum.",
-      "noteZh": "莱默是奥地利压迫发动机，能把对手松散触球变成向前势头。"
+      "skills": [
+        "Chance passes",
+        "Pressing engine",
+        "Ball winning"
+      ],
+      "note": "Laimer has one tournament assist in the bank for Austria. The detail is the touch just before the obvious chance appears.",
+      "noteZh": "他已经帮Austria制造过进球。价值在于防线还在移动时，选对出球瞬间。"
     },
     "Marcel Sabitzer": {
-      "skills": ["Long shooting", "Set pieces", "Midfield leadership"],
-      "note": "Sabitzer gives Austria midfield punch, especially through set pieces, late runs, and shots from range.",
-      "noteZh": "萨比策给奥地利中场冲击，尤其体现在定位球、后插上和远射。"
+      "skills": [
+        "Goal threat",
+        "Long shooting",
+        "Set pieces"
+      ],
+      "note": "Sabitzer has already turned one tournament chance into a goal against Algeria. Watch whether defenders start giving him the extra step.",
+      "noteZh": "他已经为Austria进入这届世界杯的进球名单。一个终结会改变对手下一次防他的方式。"
     },
     "Marco Friedl": {
-      "skills": ["Left-sided defending", "Aerial cover", "Back-line passing"],
-      "note": "Friedl gives Austria left-sided defensive cover, helping the back line stay balanced in buildup.",
-      "noteZh": "弗里德尔给奥地利左侧防守保护，帮助后防在组织时保持平衡。"
+      "skills": [
+        "Left-sided defending",
+        "Aerial cover",
+        "Back-line passing"
+      ],
+      "note": "Friedl is back-line insurance for Austria. The card is not glamorous: win the ball, keep the pass safe, reset the shape.",
+      "noteZh": "他给Austria那些靠胆量守住的分钟提供保障。一次扎实对抗就能让整条线冷静下来。"
     },
     "Marko Arnautovic": {
       "displayName": "Marko Arnautović",
       "league": "Serbian SuperLiga",
-      "skills": ["Hold-up play", "Box finishing", "Veteran edge"],
-      "note": "Arnautović gives Austria a veteran focal point, able to pin defenders and finish direct service.",
-      "noteZh": "阿瑙托维奇给奥地利老练支点，能牵制后卫并终结直接输送。"
+      "skills": [
+        "Goal threat",
+        "Hold-up play",
+        "Box finishing"
+      ],
+      "note": "Arnautović has already punished Jordan and Algeria for Austria. The watch point is how little room he needs once the chance is alive.",
+      "noteZh": "他已经多次为Austria把机会变成进球。看他需要的空间有多小。"
     },
     "Michael Gregoritsch": {
-      "skills": ["Aerial target", "Left-footed finishing", "Box movement"],
-      "note": "Gregoritsch gives Austria a taller forward route, dangerous when crosses and second balls matter.",
-      "noteZh": "格雷戈里奇给奥地利更高的锋线路线，当传中和第二落点重要时很危险。"
+      "skills": [
+        "Chance passes",
+        "Aerial target",
+        "Left-footed finishing"
+      ],
+      "note": "Gregoritsch has already created a goal for Austria in this tournament. Watch the timing of his release, because the pass often matters more than the carry.",
+      "noteZh": "他已经参与了Austria的一粒世界杯进球。那脚传球的意义，是在防守者完全转身前到达。"
     },
     "Michael Svoboda": {
-      "skills": ["Centre-back depth", "Aerial defending", "Simple passing"],
-      "note": "Svoboda gives Austria a straightforward defensive option, useful for protecting leads and clearing pressure.",
-      "noteZh": "斯沃博达给奥地利直接的防守选择，适合保护领先并化解压力。"
+      "skills": [
+        "Centre-back depth",
+        "Aerial defending",
+        "Simple passing"
+      ],
+      "note": "Svoboda is defensive cover for Austria's harder minutes. He is there to win the first contact and make the next pass simple.",
+      "noteZh": "他是Austria在比赛变窄时可以使用的后卫。任务是第一下接触、清楚解围、简单出球。"
     },
     "Nicolas Seiwald": {
-      "skills": ["Midfield screening", "Press resistance", "Ball circulation"],
-      "note": "Seiwald gives Austria midfield structure, keeping the press connected and the ball moving.",
-      "noteZh": "塞瓦尔德给奥地利中场结构，能保持压迫衔接并让球运转。"
+      "skills": [
+        "Midfield screening",
+        "Press resistance",
+        "Ball circulation"
+      ],
+      "note": "Seiwald has been one of Austria's players who keeps possessions from fraying. The detail to watch is how early he knows the next pass.",
+      "noteZh": "他是Austria这届赛事中的中场连接点之一。他让下一脚传球继续存在，也帮助球队避免仓促选择。"
     },
     "Patrick Pentz": {
-      "skills": ["Shot stopping", "Goalkeeper command", "Quick restarts"],
-      "note": "Pentz gives Austria sharp shot-stopping and quick restarts when the team wants to spring forward.",
-      "noteZh": "彭茨给奥地利敏捷扑救和快速开球，当球队想迅速向前时很有用。"
+      "skills": [
+        "Shot stopping",
+        "Goalkeeper command",
+        "Quick restarts"
+      ],
+      "note": "Pentz gives Austria a keeper option if the night turns sideways. His card is about being warm enough for one big save.",
+      "noteZh": "他在Austria首发门将身后等待，但这个角色不是装饰。他要随时处理传中、开球和冷启动。"
     },
     "Patrick Wimmer": {
       "transfermarktPlayerCode": "patrick-wimmer",
       "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/533295-1752736631.jpg?lm=1",
-      "skills": ["Wide dribbling", "Pressing energy", "Cutbacks"],
-      "note": "Wimmer gives Austria a direct wide runner, useful for pressing full-backs and driving to the byline.",
-      "noteZh": "维默给奥地利直接边路跑动，适合压迫边后卫并冲到底线。"
+      "skills": [
+        "Wide dribbling",
+        "Pressing energy",
+        "Pulled-back passes"
+      ],
+      "note": "Wimmer is an attacking change-up for Austria. He gives the front line fresh running when the first plan starts to look predictable.",
+      "noteZh": "他是Austria的进攻深度。如果比赛慢下来，他要让后防线重新移动。"
     },
     "Paul Wanner": {
-      "skills": ["Creative receiving", "Left-footed passing", "Between-lines play"],
-      "note": "Wanner adds young creativity between the lines, giving Austria a softer touch against compact blocks.",
-      "noteZh": "万纳增加两线之间的年轻创造力，让奥地利面对密集防守时多一份细腻触球。"
+      "skills": [
+        "Creative receiving",
+        "Left-footed passing",
+        "Between-lines play"
+      ],
+      "note": "Wanner is the midfield player Austria can use when possession needs a sharper touch near the box. He tries to make one small gap matter.",
+      "noteZh": "他给Austria一种在比赛打开后稳住中路的办法。最好的工作，是让下一次决定没那么急。"
     },
     "Philipp Lienhart": {
-      "skills": ["Centre-back timing", "Aerial defending", "Calm passing"],
-      "note": "Lienhart gives Austria reliable centre-back timing, steady in aerial duels and first passes.",
-      "noteZh": "林哈特给奥地利可靠的中卫时机，空中对抗和第一脚传球都很稳定。"
+      "skills": [
+        "Centre-back timing",
+        "Aerial defending",
+        "Calm passing"
+      ],
+      "note": "Lienhart is defensive rotation for Austria. The watch point is how early he closes the lane that looked open.",
+      "noteZh": "他是Austria后防线的保险。卡片不华丽：赢球、稳传、重新站好。"
     },
     "Phillip Mwene": {
-      "skills": ["Full-back versatility", "Wide recovery", "Overlap support"],
-      "note": "Mwene gives Austria full-back flexibility, switching sides and keeping the outside lanes secure.",
-      "noteZh": "姆韦内给奥地利边后卫灵活性，能换边并保证外侧通道安全。"
+      "skills": [
+        "Full-back versatility",
+        "Wide recovery",
+        "Overlap support"
+      ],
+      "note": "Mwene gives Austria defensive range. His job is to make the opponent's first opening feel smaller than it looked.",
+      "noteZh": "他给Austria那些靠胆量守住的分钟提供保障。一次扎实对抗就能让整条线冷静下来。"
     },
     "Romano Schmid": {
-      "skills": ["Quick combinations", "Pressing support", "Final pass"],
-      "note": "Schmid gives Austria short-touch creativity, useful when combinations have to open a narrow block.",
-      "noteZh": "施密德给奥地利短传创造力，当配合需要打开狭窄防线时很有用。"
+      "skills": [
+        "Goal threat",
+        "Quick combinations",
+        "Pressing support"
+      ],
+      "note": "Schmid already has a World Cup goal in this run, against Jordan. His card is about finding the moment before the match settles again.",
+      "noteZh": "他的世界杯已经有了进球。下一次机会也许仍来自阵型重新站稳前的那一小段时间。"
     },
     "Sasa Kalajdzic": {
       "displayName": "Saša Kalajdžić",
-      "skills": ["Aerial target", "Hold-up play", "Box finishing"],
-      "note": "Kalajdžić gives Austria a true aerial target, changing the attack when direct balls become necessary.",
-      "noteZh": "卡拉季奇给奥地利真正的空中支点，当必须打直接球时能改变进攻形态。"
+      "skills": [
+        "Goal threat",
+        "Aerial target",
+        "Hold-up play"
+      ],
+      "note": "Kalajdžić's World Cup has already included a goal against Algeria. The next one may come from the same small window before the shape resets.",
+      "noteZh": "他这届世界杯已经有进球。他的看点是在比赛重新稳定前，先找到属于自己的那个瞬间。"
     },
     "Stefan Posch": {
-      "skills": ["Right-back defending", "Centre-back cover", "Aerial duels"],
-      "note": "Posch gives Austria defensive versatility on the right, able to tuck inside and protect the box.",
-      "noteZh": "波施给奥地利右侧防守多面性，能内收并保护禁区。"
+      "skills": [
+        "Right-back defending",
+        "Centre-back cover",
+        "Aerial duels"
+      ],
+      "note": "Posch gives Austria one of the steady pieces in the back line. Watch the small choices: step, hold, or clear the lane.",
+      "noteZh": "他是Austria无球答案的一部分。第一个跑动被拖慢，整体阵型才不容易散。"
     },
     "Xaver Schlager": {
-      "skills": ["Ball winning", "Pressing range", "Midfield bite"],
-      "note": "Schlager gives Austria midfield bite, hunting second balls and keeping pressure on the opponent's first pass.",
-      "noteZh": "施拉格给奥地利中场硬度，争抢第二落点并持续压迫对手第一脚传球。"
+      "skills": [
+        "Chance passes",
+        "Ball winning",
+        "Pressing range"
+      ],
+      "note": "Schlager has supplied one of Austria's tournament goals. The pass matters because it arrives before the defender can fully turn.",
+      "noteZh": "他这届世界杯已经为Austria创造过进球。注意他出球的时机，因为那一脚传球往往比带球更重要。"
     }
   }
 }

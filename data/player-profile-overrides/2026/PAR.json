@@ -18,37 +18,61 @@
     "Alex Arce": {
       "displayName": "Álex Arce",
       "league": "Argentine Primera División",
-      "skills": ["Penalty-box finishing", "Aerial target play", "First-time shots"],
-      "note": "Paraguay's penalty-box reference point, useful for direct service and first-time finishes under contact.",
-      "noteZh": "阿莱克斯·阿尔塞是巴拉圭禁区参照点，适合直接传中和在对抗下第一时间终结。"
+      "skills": [
+        "Penalty-box finishing",
+        "Aerial target play",
+        "First-time shots"
+      ],
+      "note": "Arce is the forward Paraguay can use when the match needs new legs. His first job is to make tired defenders turn.",
+      "noteZh": "他给Paraguay替补席上的另一种进攻速度。有时关键触球，是那次帮队友拉开空间的跑动。"
     },
     "Alexandro Maidana": {
-      "skills": ["Left-back defending", "Recovery speed", "Forward support"],
-      "note": "Paraguay's young left-back option, giving recovery legs and enough width to support long possessions.",
-      "noteZh": "亚历山德罗·迈达纳是巴拉圭年轻左后卫选择，能提供回追腿脚和支撑长时间控球所需的宽度。"
+      "skills": [
+        "Left-back defending",
+        "Recovery speed",
+        "Forward support"
+      ],
+      "note": "Maidana is the kind of defender Paraguay can turn to when the match gets narrow. His job is first contact, clean clearance, simple pass.",
+      "noteZh": "他是Paraguay艰难时间段的防守深度。他要赢下第一下接触，并让下一脚传球简单起来。"
     },
     "Andres Cubas": {
       "displayName": "Andrés Cubas",
       "position": "Defensive midfielder",
-      "skills": ["Ball winning", "Midfield screening", "Counter control"],
-      "note": "Paraguay's midfield stopper, built to break counters early and keep the centre from opening up.",
-      "noteZh": "安德烈斯·库巴斯是巴拉圭中场拦截者，负责提前破坏反击并避免中路被打开。"
+      "skills": [
+        "Ball winning",
+        "Midfield screening",
+        "Counter control"
+      ],
+      "note": "Cubas gives Paraguay structure when the ball changes feet. He is often most valuable in the second after a loose touch.",
+      "noteZh": "他给Paraguay控制节奏。拥挤区域里的触球，能变成下一名队友更舒服的角度。"
     },
     "Antonio Sanabria": {
-      "skills": ["Centre-forward link play", "Aerial timing", "Box finishing"],
-      "note": "Paraguay's experienced forward connector, able to hold play, attack crosses, and finish loose chances.",
-      "noteZh": "安东尼奥·萨纳布里亚是巴拉圭经验丰富的前场连接点，能支住进攻、冲击传中并终结松散机会。"
+      "skills": [
+        "Centre-forward link play",
+        "Aerial timing",
+        "Box finishing"
+      ],
+      "note": "Sanabria is attacking depth for Paraguay. If the game slows down, he is there to make the back line move again.",
+      "noteZh": "他是Paraguay前场计划的一部分。他先拉扯防守者，再寻找把压力变成机会的触球。"
     },
     "Braian Ojeda": {
-      "skills": ["Central ball carrying", "Duel energy", "Simple progression"],
-      "note": "Paraguay's mobile central midfielder, useful for carrying through pressure and joining second-ball fights.",
-      "noteZh": "布赖恩·奥赫达是巴拉圭机动中场，适合带球穿过压力并加入第二落点争抢。"
+      "skills": [
+        "Central ball carrying",
+        "Duel energy",
+        "Simple progression"
+      ],
+      "note": "Ojeda is midfield insurance for Paraguay. He is there for the messy phase: second ball, one calmer touch, then the next pass.",
+      "noteZh": "他给Paraguay一种在比赛打开后稳住中路的办法。最好的工作，是让下一次决定没那么急。"
     },
     "Damian Bobadilla": {
       "displayName": "Damián Bobadilla",
-      "skills": ["Box-to-box running", "Late arrivals", "Defensive work rate"],
-      "note": "Paraguay's box-to-box runner, valuable for arriving late and still doing the recovery work afterward.",
-      "noteZh": "达米安·博瓦迪利亚是巴拉圭双向跑动型中场，能后插上，并在之后继续完成回防工作。"
+      "skills": [
+        "Box-to-box running",
+        "Late arrivals",
+        "Defensive work rate"
+      ],
+      "note": "Bobadilla is there for the part of the game where spacing gets ugly. For Paraguay, that can mean one clean touch before pressure arrives.",
+      "noteZh": "他给Paraguay提供中场深度，适合比赛被拉开的时候。他把松散球变成更冷静的下一脚。"
     },
     "Diego Gomez": {
       "displayName": "Diego Gómez",
@@ -61,89 +85,152 @@
       "league": "Premier League",
       "imageUrl": "https://img.a.transfermarkt.technology/portrait/big/996897-1710077684.jpg?lm=1",
       "marketValueEurMillions": 25,
-      "skills": ["Powerful carrying", "Midfield shooting", "Box-to-box range"],
-      "note": "Paraguay's forceful midfield driver, dangerous when he breaks lines and arrives near the box with momentum.",
-      "noteZh": "迭戈·戈麦斯是巴拉圭强力中场推进者，带球破线并带着冲势靠近禁区时很危险。",
+      "skills": [
+        "Powerful carrying",
+        "Midfield shooting",
+        "Box-to-box range"
+      ],
+      "note": "Gómez is a tempo player for Paraguay. He turns crowded touches into cleaner angles for the next runner.",
+      "noteZh": "他让Paraguay在球权转换时更有结构。最有价值的往往是松散触球之后那一秒。",
       "sourceUrl": "https://www.transfermarkt.com/diego-gomez/profil/spieler/996897"
     },
     "Fabian Balbuena": {
       "displayName": "Fabián Balbuena",
-      "skills": ["Centre-back experience", "Aerial clearances", "Back-line organization"],
-      "note": "Paraguay's veteran centre-back organizer, important for aerial clearances and managing deep defensive spells.",
-      "noteZh": "法维安·巴尔武埃纳是巴拉圭老将中卫组织者，对空中解围和管理深位防守阶段很重要。"
+      "skills": [
+        "Centre-back experience",
+        "Aerial clearances",
+        "Back-line organization"
+      ],
+      "note": "Balbuena is back-line insurance for Paraguay. The card is not glamorous: win the ball, keep the pass safe, reset the shape.",
+      "noteZh": "他给Paraguay那些靠胆量守住的分钟提供保障。一次扎实对抗就能让整条线冷静下来。"
     },
     "Gabriel Avalos": {
       "displayName": "Gabriel Ávalos",
-      "skills": ["Target-forward play", "Aerial finishing", "Penalty-box instincts"],
-      "note": "Paraguay's target-forward alternative, useful when they need a stronger aerial presence near goal.",
-      "noteZh": "加布里埃尔·阿瓦洛斯是巴拉圭支点前锋替代选择，球队需要更强门前空中存在感时很有用。"
+      "skills": [
+        "Target-forward play",
+        "Aerial finishing",
+        "Penalty-box instincts"
+      ],
+      "note": "Ávalos is an attacking change-up for Paraguay. He gives the front line fresh running when the first plan starts to look predictable.",
+      "noteZh": "他是Paraguay的进攻深度。如果比赛慢下来，他要让后防线重新移动。"
     },
     "Gaston Olveira": {
       "displayName": "Gastón Olveira",
       "league": "Paraguayan Primera División",
-      "skills": ["Goalkeeper command", "Cross claiming", "Short distribution"],
-      "note": "Paraguay's commanding goalkeeper option, comfortable claiming crosses and restarting play quickly.",
-      "noteZh": "加斯顿·奥尔韦拉是巴拉圭指挥型门将选择，能舒服地摘传中并快速重新发起进攻。"
+      "skills": [
+        "Goalkeeper command",
+        "Cross claiming",
+        "Short distribution"
+      ],
+      "note": "Olveira gives Paraguay a keeper option if the night turns sideways. His card is about being warm enough for one big save.",
+      "noteZh": "他在Paraguay首发门将身后等待，但这个角色不是装饰。他要随时处理传中、开球和冷启动。"
     },
     "Gatito Fernandez": {
       "displayName": "Gatito Fernández",
-      "aliases": ["Roberto Fernandez", "Roberto Fernández", "Roberto Junior Fernandez Torres", "Roberto Junior FERNANDEZ TORRES"],
+      "aliases": [
+        "Roberto Fernandez",
+        "Roberto Fernández",
+        "Roberto Junior Fernandez Torres",
+        "Roberto Junior FERNANDEZ TORRES"
+      ],
       "league": "Paraguayan Primera División",
-      "skills": ["Veteran goalkeeping", "Penalty-area bravery", "Reaction saves"],
-      "note": "Paraguay's veteran goalkeeper, trusted for brave penalty-area decisions and reflex stops.",
-      "noteZh": "加蒂托·费尔南德斯是巴拉圭老将门将，禁区内勇敢决策和反应扑救都值得信任。"
+      "skills": [
+        "Veteran goalkeeping",
+        "Penalty-area bravery",
+        "Reaction saves"
+      ],
+      "note": "Fernández is goalkeeper cover for Paraguay. The role is readiness: saves, restarts, and no panic if the match suddenly needs him.",
+      "noteZh": "他是Paraguay门线上的安全网。这个工作说起来简单，做起来很难：冷着上场，并让禁区安静。"
     },
     "Gustavo Caballero": {
-      "skills": ["Wide running", "Pressing from the front", "Direct carries"],
-      "note": "Paraguay's hard-running wide option, useful for pressing full-backs and carrying into open grass.",
-      "noteZh": "古斯塔沃·卡瓦列罗是巴拉圭勤奋跑动的边路选择，适合压迫边后卫并带球冲向开阔空间。"
+      "skills": [
+        "Wide running",
+        "Pressing from the front",
+        "Direct carries"
+      ],
+      "note": "Caballero is an attacking change-up for Paraguay. He gives the front line fresh running when the first plan starts to look predictable.",
+      "noteZh": "他是Paraguay的进攻深度。如果比赛慢下来，他要让后防线重新移动。"
     },
     "Gustavo Gomez": {
       "displayName": "Gustavo Gómez",
-      "skills": ["Defensive leadership", "Aerial dominance", "Set-piece threat"],
-      "note": "Paraguay's defensive captain, the main voice in the back line and a major set-piece target.",
-      "noteZh": "古斯塔沃·戈麦斯是巴拉圭防守队长，是后防线主要声音，也是重要定位球目标。"
+      "skills": [
+        "Defensive leadership",
+        "Aerial dominance",
+        "Set-piece threat"
+      ],
+      "note": "Gómez has been part of Paraguay's main defensive shape. He keeps the first duel clean so the team does not spend the next phase chasing.",
+      "noteZh": "他在Paraguay体系里做的是安静工作。他让对手的进攻不容易变成混乱。"
     },
     "Gustavo Velazquez": {
       "displayName": "Gustavo Velázquez",
       "league": "Paraguayan Primera División",
-      "skills": ["Centre-back duels", "Penalty-area defending", "Aerial strength"],
-      "note": "Paraguay's no-frills centre-back depth, useful for direct duels and defending their own box.",
-      "noteZh": "古斯塔沃·贝拉斯克斯是巴拉圭朴实型中卫深度，适合直接对抗和防守本方禁区。"
+      "skills": [
+        "Centre-back duels",
+        "Penalty-area defending",
+        "Aerial strength"
+      ],
+      "note": "Velázquez gives Paraguay cover for the minutes when defending becomes more about nerve than shape. One solid duel can calm the whole line.",
+      "noteZh": "他是Paraguay后防线的保险。卡片不华丽：赢球、稳传、重新站好。"
     },
     "Isidro Pitta": {
-      "skills": ["Power-forward runs", "Box contact", "Hold-up play"],
-      "note": "Paraguay's powerful forward runner, able to absorb contact and keep attacks alive near the box.",
-      "noteZh": "伊西德罗·皮塔是巴拉圭力量型前锋跑动点，能承受对抗并在禁区附近延续进攻。"
+      "skills": [
+        "Power-forward runs",
+        "Box contact",
+        "Hold-up play"
+      ],
+      "note": "Pitta is an attacking change-up for Paraguay. He gives the front line fresh running when the first plan starts to look predictable.",
+      "noteZh": "他是Paraguay的进攻深度。如果比赛慢下来，他要让后防线重新移动。"
     },
     "Jose Canale": {
       "displayName": "José Canale",
       "league": "Argentine Primera División",
-      "skills": ["Centre-back cover", "Aerial duels", "Left-sided balance"],
-      "note": "Paraguay's centre-back cover option, giving balance and aerial help when the defensive group rotates.",
-      "noteZh": "何塞·卡纳莱是巴拉圭中卫轮换选择，防守组合轮换时能提供平衡和空中帮助。"
+      "skills": [
+        "Centre-back cover",
+        "Aerial duels",
+        "Left-sided balance"
+      ],
+      "note": "Canale is the kind of defender Paraguay can turn to when the match gets narrow. His job is first contact, clean clearance, simple pass.",
+      "noteZh": "他是Paraguay艰难时间段的防守深度。他要赢下第一下接触，并让下一脚传球简单起来。"
     },
     "Juan Jose Caceres": {
       "displayName": "Juan José Cáceres",
-      "skills": ["Right-back defending", "Wide duels", "Overlap restraint"],
-      "note": "Paraguay's disciplined right-back, valuable for staying connected and keeping wide duels under control.",
-      "noteZh": "胡安·何塞·卡塞雷斯是巴拉圭纪律性右后卫，对保持阵型连接并控制边路对抗很有价值。"
+      "skills": [
+        "Right-back defending",
+        "Wide duels",
+        "Overlap restraint"
+      ],
+      "note": "Cáceres gives Paraguay one of the steady pieces in the back line. Watch the small choices: step, hold, or clear the lane.",
+      "noteZh": "他是Paraguay无球答案的一部分。第一个跑动被拖慢，整体阵型才不容易散。"
     },
     "Julio Enciso": {
       "displayName": "Julio Enciso",
-      "skills": ["Explosive shooting", "Inside creation", "Tempo changes"],
-      "note": "Paraguay's spark player between the lines, capable of changing a match with one dribble or long shot.",
-      "noteZh": "胡利奥·恩西索是巴拉圭线间火花型球员，能用一次盘带或远射改变比赛。"
+      "skills": [
+        "Goal threat",
+        "Chance passes",
+        "Explosive shooting"
+      ],
+      "note": "Enciso has shown both sides of the attacking job for Paraguay. One action can pull the defender, and the next one can decide the chance.",
+      "noteZh": "他给Paraguay展示了进攻工作的两面。一脚拉开防守，下一脚就可能决定机会。"
     },
     "Junior Alonso": {
       "displayName": "Júnior Alonso",
-      "skills": ["Left-sided defending", "Aerial leadership", "Back-line cover"],
-      "note": "Paraguay's experienced left-sided defender, useful for covering the channel and winning aerial contact.",
-      "noteZh": "儒尼奥尔·阿隆索是巴拉圭经验丰富的左侧防守者，适合覆盖通道并赢下空中对抗。"
+      "skills": [
+        "Left-sided defending",
+        "Aerial leadership",
+        "Back-line cover"
+      ],
+      "note": "Alonso has been part of Paraguay's main defensive shape. He keeps the first duel clean so the team does not spend the next phase chasing.",
+      "noteZh": "他在Paraguay体系里做的是安静工作。他让对手的进攻不容易变成混乱。"
     },
     "Kaku": {
       "displayName": "Kaku",
-      "aliases": ["Alejandro Romero", "Alejandro Romero Gamarra", "Alejandro Sebastian Romero Gamarra", "Alejandro Sebastian ROMERO GAMARRA", "ROMERO GAMARRA Alejandro"],
+      "aliases": [
+        "Alejandro Romero",
+        "Alejandro Romero Gamarra",
+        "Alejandro Sebastian Romero Gamarra",
+        "Alejandro Sebastian ROMERO GAMARRA",
+        "ROMERO GAMARRA Alejandro"
+      ],
       "sourceTitle": "Kaku",
       "transfermarktPlayerCode": "kaku",
       "birthDate": "1995-01-11",
@@ -153,47 +240,78 @@
       "league": "UAE Pro League",
       "imageUrl": "https://img.a.transfermarkt.technology/portrait/big/355817-1685909664.JPG?lm=1",
       "marketValueEurMillions": 4.5,
-      "skills": ["Left-footed creativity", "Final passes", "Set-piece service"],
-      "note": "Paraguay's left-footed creator, useful for unlocking a defense with clipped passes or a restart delivery.",
-      "noteZh": "卡库是巴拉圭左脚创造者，适合用挑传或定位球传递撬开防线。",
+      "skills": [
+        "Left-footed creativity",
+        "Final passes",
+        "Set-piece service"
+      ],
+      "note": "Kaku is midfield insurance for Paraguay. He is there for the messy phase: second ball, one calmer touch, then the next pass.",
+      "noteZh": "他给Paraguay一种在比赛打开后稳住中路的办法。最好的工作，是让下一次决定没那么急。",
       "sourceUrl": "https://www.transfermarkt.com/kaku/profil/spieler/355817"
     },
     "Matias Galarza": {
       "displayName": "Matías Galarza",
-      "skills": ["Midfield intensity", "Forward pressing", "Carrying through contact"],
-      "note": "Paraguay's high-intensity midfielder, useful for pressing forward and driving through contact.",
-      "noteZh": "马蒂亚斯·加拉萨是巴拉圭高强度中场，适合向前压迫并带球穿过对抗。"
+      "skills": [
+        "Goal threat",
+        "Chance passes",
+        "Midfield intensity"
+      ],
+      "note": "Galarza has both scored and created for Paraguay in this run. He matters because the same movement can become the shot or the pass before it.",
+      "noteZh": "他这届世界杯已经为Paraguay贡献进球和传球。防守者必须同时判断射门和分球。"
     },
     "Mauricio": {
       "displayName": "Maurício",
-      "aliases": ["Mauricio Magalhaes Prado", "Mauricio MAGALHAES PRADO"],
+      "aliases": [
+        "Mauricio Magalhaes Prado",
+        "Mauricio MAGALHAES PRADO"
+      ],
       "league": "Campeonato Brasileiro Série A",
-      "skills": ["Between-lines receiving", "Late box runs", "Combination play"],
-      "note": "Paraguay's between-lines option, useful for turning possession into final passes and late box runs.",
-      "noteZh": "毛里西奥是巴拉圭线间选择，能把控球转化为最后一传和后插上禁区跑动。"
+      "skills": [
+        "Goal threat",
+        "Between-lines receiving",
+        "Late box runs"
+      ],
+      "note": "Maurício has already turned one tournament chance into a goal against United States. Watch whether defenders start giving him the extra step.",
+      "noteZh": "他已经为Paraguay进入这届世界杯的进球名单。一个终结会改变对手下一次防他的方式。"
     },
     "Miguel Almiron": {
       "displayName": "Miguel Almirón",
-      "skills": ["Left-footed transitions", "Right-wing carries", "Counter speed"],
-      "note": "Paraguay's transition accelerator, dangerous when he drives inside from the right at retreating defenders.",
-      "noteZh": "米格尔·阿尔米隆是巴拉圭转换加速器，从右路内切冲击后退防守者时很危险。"
+      "skills": [
+        "Left-footed transitions",
+        "Right-wing carries",
+        "Counter speed"
+      ],
+      "note": "Almirón gives Paraguay structure when the ball changes feet. He is often most valuable in the second after a loose touch.",
+      "noteZh": "他给Paraguay控制节奏。拥挤区域里的触球，能变成下一名队友更舒服的角度。"
     },
     "Omar Alderete": {
-      "skills": ["Left-footed centre-back play", "Aerial defending", "Long passing"],
-      "note": "Paraguay's left-footed centre-back, valuable for aerial defending and opening the field with longer passes.",
-      "noteZh": "奥马尔·阿尔德雷特是巴拉圭左脚中卫，对空中防守和用长传打开球场很有价值。"
+      "skills": [
+        "Left-footed centre-back play",
+        "Aerial defending",
+        "Long passing"
+      ],
+      "note": "Alderete has been part of Paraguay's main defensive shape. He keeps the first duel clean so the team does not spend the next phase chasing.",
+      "noteZh": "他在Paraguay体系里做的是安静工作。他让对手的进攻不容易变成混乱。"
     },
     "Orlando Gill": {
       "league": "Argentine Primera División",
-      "skills": ["Goalkeeper reflexes", "Penalty-area reach", "Shot stopping"],
-      "note": "Paraguay's goalkeeper depth, bringing reach and reflexes if they need a different profile in goal.",
-      "noteZh": "奥兰多·吉尔是巴拉圭门将深度，如果需要不同类型门将，他能带来覆盖范围和反应。"
+      "skills": [
+        "Goalkeeper reflexes",
+        "Penalty-area reach",
+        "Shot stopping"
+      ],
+      "note": "Gill is the last voice in Paraguay's defensive shape. When pressure sticks, his job is to make the next action feel simple.",
+      "noteZh": "他承担了Paraguay的门将时间。重点是稳手、清楚开球，以及让身前后卫不用慌。"
     },
     "Ramon Sosa": {
       "displayName": "Ramón Sosa",
-      "skills": ["Wing acceleration", "One-on-one dribbling", "Cutback creation"],
-      "note": "Paraguay's explosive winger, able to beat a defender wide and turn the byline into cutbacks.",
-      "noteZh": "拉蒙·索萨是巴拉圭爆发型边锋，能在边路突破防守者并把底线位置变成倒三角。"
+      "skills": [
+        "Wing acceleration",
+        "One-on-one dribbling",
+        "Pulled-back passes"
+      ],
+      "note": "Sosa is attacking depth for Paraguay. If the game slows down, he is there to make the back line move again.",
+      "noteZh": "他是Paraguay前场计划的一部分。他先拉扯防守者，再寻找把压力变成机会的触球。"
     }
   }
 }

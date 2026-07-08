@@ -5,47 +5,78 @@
   "profiles": {
     "Aiden Oneill": {
       "displayName": "Aiden O'Neill",
-      "aliases": ["Aiden O'Neill", "ONEILL Aiden"],
+      "aliases": [
+        "Aiden O'Neill",
+        "ONEILL Aiden"
+      ],
       "transfermarktPlayerCode": "aiden-oneill",
       "league": "Major League Soccer",
       "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/385918-1771711165.jpg?lm=1",
-      "skills": ["Midfield screening", "Simple progression", "Second-ball work"],
-      "note": "Australia's defensive-midfield organizer, useful for protecting the back line and keeping passes moving.",
-      "noteZh": "艾登·奥尼尔是澳大利亚防守型中场组织者，适合保护防线并保持传球流动。"
+      "skills": [
+        "Midfield screening",
+        "Simple progression",
+        "Second-ball work"
+      ],
+      "note": "O'Neill is a tempo player for Australia. He turns crowded touches into cleaner angles for the next runner.",
+      "noteZh": "他让Australia在球权转换时更有结构。最有价值的往往是松散触球之后那一秒。"
     },
     "Ajdin Hrustic": {
       "displayName": "Ajdin Hrustić",
       "league": "Eerste Divisie",
-      "skills": ["Left-footed passing", "Set-piece delivery", "Tempo control"],
-      "note": "Australia's left-footed passer, valuable for restarts, switches, and calmer possession spells.",
-      "noteZh": "阿伊丁·赫鲁斯蒂奇是澳大利亚左脚传球手，对定位球、转移球和更冷静的控球阶段很有价值。"
+      "skills": [
+        "Left-footed passing",
+        "Set-piece delivery",
+        "Tempo control"
+      ],
+      "note": "Hrustić is there for the part of the game where spacing gets ugly. For Australia, that can mean one clean touch before pressure arrives.",
+      "noteZh": "他给Australia提供中场深度，适合比赛被拉开的时候。他把松散球变成更冷静的下一脚。"
     },
     "Alessandro Circati": {
       "position": "Centre-back",
-      "skills": ["Centre-back composure", "Aerial defending", "Forward passing"],
-      "note": "Australia's young centre-back pillar, comfortable defending crosses and playing the first pass forward.",
-      "noteZh": "亚历山德罗·奇尔卡蒂是澳大利亚年轻中卫支柱，能舒服地防守传中并向前送出第一脚传球。"
+      "skills": [
+        "Centre-back composure",
+        "Aerial defending",
+        "Forward passing"
+      ],
+      "note": "Circati has been part of Australia's main defensive shape. He keeps the first duel clean so the team does not spend the next phase chasing.",
+      "noteZh": "他在Australia体系里做的是安静工作。他让对手的进攻不容易变成混乱。"
     },
     "Awer Mabil": {
       "league": "Segunda División",
-      "skills": ["Wing speed", "One-on-one dribbling", "Counter runs"],
-      "note": "Australia's pace winger, useful for stretching tired full-backs and attacking space in transition.",
-      "noteZh": "阿韦尔·马比尔是澳大利亚速度型边锋，适合拉扯疲劳边后卫并在转换中冲击空间。"
+      "skills": [
+        "Wing speed",
+        "One-on-one dribbling",
+        "Counter runs"
+      ],
+      "note": "Mabil is an attacking change-up for Australia. He gives the front line fresh running when the first plan starts to look predictable.",
+      "noteZh": "他是Australia的进攻深度。如果比赛慢下来，他要让后防线重新移动。"
     },
     "Aziz Behich": {
       "position": "Left-back",
-      "skills": ["Left-back experience", "Wide duels", "Overlap timing"],
-      "note": "Australia's veteran left-back, trusted for wide duels and measured support runs.",
-      "noteZh": "阿齐兹·贝希奇是澳大利亚老将左后卫，边路对抗和有分寸的支援跑动都值得信任。"
+      "skills": [
+        "Left-back experience",
+        "Wide duels",
+        "Overlap timing"
+      ],
+      "note": "Behich gives Australia another way to protect the edge of the box. His value shows up when the obvious pass disappears.",
+      "noteZh": "他给Australia那些靠胆量守住的分钟提供保障。一次扎实对抗就能让整条线冷静下来。"
     },
     "Cameron Burgess": {
-      "skills": ["Aerial defending", "Left-sided centre-back play", "Box clearances"],
-      "note": "Australia's left-sided centre-back option, useful for clearing crosses and defending deep pressure.",
-      "noteZh": "卡梅伦·伯吉斯是澳大利亚左侧中卫选择，适合解围传中并防守深位压力。"
+      "skills": [
+        "Aerial defending",
+        "Left-sided centre-back play",
+        "Box clearances"
+      ],
+      "note": "Burgess is defensive rotation for Australia. The watch point is how early he closes the lane that looked open.",
+      "noteZh": "他是Australia后防线的保险。卡片不华丽：赢球、稳传、重新站好。"
     },
     "Cameron Devlin": {
       "displayName": "Cammy Devlin",
-      "aliases": ["Cameron Peter Devlin", "Cammy Devlin", "DEVLIN Cameron"],
+      "aliases": [
+        "Cameron Peter Devlin",
+        "Cammy Devlin",
+        "DEVLIN Cameron"
+      ],
       "sourceTitle": "Cammy Devlin",
       "transfermarktPlayerCode": "cammy-devlin",
       "birthDate": "1998-06-07",
@@ -55,83 +86,141 @@
       "league": "Scottish Premiership",
       "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/399162-1780322939.jpg?lm=1",
       "marketValueEurMillions": 2,
-      "skills": ["Ball-winning bite", "Pressing range", "Combative energy"],
-      "note": "Australia's midfield irritant, useful for pressing, tackling, and making opponents play faster than they want.",
-      "noteZh": "卡米·德夫林是澳大利亚中场干扰点，适合压迫、铲抢，并迫使对手比自己想要的节奏更快出球。",
+      "skills": [
+        "Ball-winning bite",
+        "Pressing range",
+        "Combative energy"
+      ],
+      "note": "Devlin gives Australia a way to settle the middle if the match opens up. His best work is making the next decision less hurried.",
+      "noteZh": "他是Australia的中场保险。那些混乱阶段里，他要抢第二点、稳一下，再把球送出去。",
       "sourceUrl": "https://www.transfermarkt.com/cammy-devlin/profil/spieler/399162"
     },
     "Christian Volpato": {
       "displayName": "Cristian Volpato",
-      "aliases": ["Cristian Volpato", "VOLPATO Cristian"],
-      "skills": ["Attacking midfield flair", "Left-footed creation", "Between-lines receiving"],
-      "note": "Australia's creative upside player, dangerous when he receives between lines and carries onto his left foot.",
-      "noteZh": "克里斯蒂安·沃尔帕托是澳大利亚有创造上限的球员，在线间接球并带到左脚时很危险。"
+      "aliases": [
+        "Cristian Volpato",
+        "VOLPATO Cristian"
+      ],
+      "skills": [
+        "Attacking midfield flair",
+        "Left-footed creation",
+        "Between-lines receiving"
+      ],
+      "note": "Volpato is midfield insurance for Australia. He is there for the messy phase: second ball, one calmer touch, then the next pass.",
+      "noteZh": "他给Australia一种在比赛打开后稳住中路的办法。最好的工作，是让下一次决定没那么急。"
     },
     "Connor Metcalfe": {
-      "skills": ["Midfield running", "Box arrivals", "Counter-pressing"],
-      "note": "Australia's hard-running central midfielder, useful for joining attacks and immediately pressing after loss.",
-      "noteZh": "康纳·梅特卡夫是澳大利亚勤奋跑动的中场，适合参与进攻并在丢球后立刻反抢。"
+      "skills": [
+        "Goal threat",
+        "Midfield running",
+        "Box arrivals"
+      ],
+      "note": "Metcalfe is on the scoresheet for Australia, with his goal coming against Türkiye. One finish can change how opponents defend the next run.",
+      "noteZh": "他已经把一次世界杯机会变成进球。接下来要看防守者会不会开始多给他一步空间。"
     },
     "Harry Souttar": {
-      "skills": ["Aerial dominance", "Centre-back clearances", "Set-piece threat"],
-      "note": "Australia's towering centre-back, a major aerial answer in both penalty areas.",
-      "noteZh": "哈里·苏塔尔是澳大利亚高大型中卫，是两个禁区里的重要空中答案。"
+      "skills": [
+        "Aerial dominance",
+        "Centre-back clearances",
+        "Set-piece threat"
+      ],
+      "note": "Souttar has been part of Australia's answer without the ball. He matters when the first runner has to be slowed before the whole shape breaks.",
+      "noteZh": "他给Australia后防线一个稳定零件。看的是那些小选择：上抢、站住，还是先封线路。"
     },
     "Jackson Irvine": {
-      "skills": ["Midfield leadership", "Late box runs", "Aerial midfield duels"],
-      "note": "Australia's midfield captain figure, valuable for late runs, leadership, and awkward aerial duels.",
-      "noteZh": "杰克逊·欧文是澳大利亚中场队长型人物，对后插上、领导力和棘手空中对抗很有价值。"
+      "skills": [
+        "Midfield leadership",
+        "Late box runs",
+        "Aerial midfield duels"
+      ],
+      "note": "Irvine is there for the part of the game where spacing gets ugly. For Australia, that can mean one clean touch before pressure arrives.",
+      "noteZh": "他给Australia提供中场深度，适合比赛被拉开的时候。他把松散球变成更冷静的下一脚。"
     },
     "Jacob Italiano": {
-      "skills": ["Right-back support", "Wide recovery", "Crossing angles"],
-      "note": "Australia's right-side support option, useful for recovery runs and cleaner crossing angles.",
-      "noteZh": "雅各布·伊塔利亚诺是澳大利亚右路支援选择，适合回追跑动和更干净的传中角度。"
+      "skills": [
+        "Right-back support",
+        "Wide recovery",
+        "Crossing angles"
+      ],
+      "note": "Italiano gives Australia another way to protect the edge of the box. His value shows up when the obvious pass disappears.",
+      "noteZh": "他是Australia在比赛变窄时可以使用的后卫。任务是第一下接触、清楚解围、简单出球。"
     },
     "Jason Geria": {
       "league": "J2 League",
-      "skills": ["Right-back discipline", "Defensive positioning", "Wide duels"],
-      "note": "Australia's disciplined right-back, valuable when the match calls for secure wide defending.",
-      "noteZh": "杰森·格里亚是澳大利亚纪律性右后卫，比赛需要稳妥边路防守时很有价值。"
+      "skills": [
+        "Right-back discipline",
+        "Defensive positioning",
+        "Wide duels"
+      ],
+      "note": "Geria gives Australia a tournament role built on clean decisions. Watch whether his first touch settles the team or speeds the next attack.",
+      "noteZh": "他在Australia的赛事角色建立在干净决策上。看他的第一脚触球，是让球队稳下来，还是让下一次进攻加速。"
     },
     "Jordan Bos": {
       "league": "Eredivisie",
-      "skills": ["Left-back acceleration", "Forward carries", "Overlap timing"],
-      "note": "Australia's explosive left-back, able to turn a defensive regain into a long carry up the flank.",
-      "noteZh": "乔丹·博斯是澳大利亚爆发型左后卫，能把一次防守夺回变成长距离边路推进。"
+      "skills": [
+        "Left-back acceleration",
+        "Forward carries",
+        "Overlap timing"
+      ],
+      "note": "Bos is in the quiet-work part of Australia's setup. He keeps attacks from becoming scrambles.",
+      "noteZh": "他是Australia主要防守结构的一部分。他把第一下对抗处理干净，避免球队下一阶段只能追着球跑。"
     },
     "Kai Trewin": {
       "position": "Centre-back",
-      "skills": ["Centre-back passing", "Defensive midfield cover", "Calm duels"],
-      "note": "Australia's flexible defensive passer, able to cover centre-back zones or step into midfield support.",
-      "noteZh": "凯·特鲁温是澳大利亚灵活的防守传球手，能覆盖中卫区域，也能前顶支援中场。"
+      "skills": [
+        "Centre-back passing",
+        "Defensive midfield cover",
+        "Calm duels"
+      ],
+      "note": "Trewin gives Australia cover for the minutes when defending becomes more about nerve than shape. One solid duel can calm the whole line.",
+      "noteZh": "他是Australia后防线的保险。卡片不华丽：赢球、稳传、重新站好。"
     },
     "Lucas Herrington": {
       "position": "Centre-back",
-      "skills": ["Teenage composure", "Aerial defending", "Back-line upside"],
-      "note": "Australia's teenage centre-back project, bringing height, composure, and a high ceiling to the squad.",
-      "noteZh": "卢卡斯·赫林顿是澳大利亚青少年中卫计划，能给名单带来身高、沉稳和很高上限。"
+      "skills": [
+        "Teenage composure",
+        "Aerial defending",
+        "Back-line upside"
+      ],
+      "note": "Herrington gives Australia defensive range. His job is to make the opponent's first opening feel smaller than it looked.",
+      "noteZh": "他是Australia后防线的保险。卡片不华丽：赢球、稳传、重新站好。"
     },
     "Mathew Leckie": {
       "league": "A-League Men",
-      "skills": ["Veteran wing running", "Defensive work rate", "Direct carries"],
-      "note": "Australia's veteran wide worker, useful for hard defensive shifts and direct runs into space.",
-      "noteZh": "马修·莱基是澳大利亚老将边路工兵，适合艰苦防守轮转和直接冲击空间。"
+      "skills": [
+        "Veteran wing running",
+        "Defensive work rate",
+        "Direct carries"
+      ],
+      "note": "Leckie is the forward Australia can use when the match needs new legs. His first job is to make tired defenders turn.",
+      "noteZh": "他给Australia替补席上的另一种进攻速度。有时关键触球，是那次帮队友拉开空间的跑动。"
     },
     "Mathew Ryan": {
-      "skills": ["Goalkeeper leadership", "Shot stopping", "Short distribution"],
-      "note": "Australia's captain in goal, trusted for organization, reflex saves, and composed restarts.",
-      "noteZh": "马修·瑞安是澳大利亚门线上的队长，组织、防守反应扑救和冷静重新发起进攻都值得信任。"
+      "skills": [
+        "Goalkeeper leadership",
+        "Shot stopping",
+        "Short distribution"
+      ],
+      "note": "Ryan gives Australia a keeper option if the night turns sideways. His card is about being warm enough for one big save.",
+      "noteZh": "他在Australia首发门将身后等待，但这个角色不是装饰。他要随时处理传中、开球和冷启动。"
     },
     "Milos Degenek": {
       "displayName": "Miloš Degenek",
       "league": "Cypriot First Division",
-      "skills": ["Centre-back versatility", "Tournament experience", "Aerial duels"],
-      "note": "Australia's experienced defensive cover, able to handle centre-back duels and tense tournament minutes.",
-      "noteZh": "米洛什·德格内克是澳大利亚经验丰富的防守保障，能处理中卫对抗和紧张的杯赛时间。"
+      "skills": [
+        "Centre-back versatility",
+        "Tournament experience",
+        "Aerial duels"
+      ],
+      "note": "Degenek is the kind of defender Australia can turn to when the match gets narrow. His job is first contact, clean clearance, simple pass.",
+      "noteZh": "他是Australia艰难时间段的防守深度。他要赢下第一下接触，并让下一脚传球简单起来。"
     },
     "Mohamed Toure": {
       "displayName": "Mohamed Touré",
-      "aliases": ["Mohamed Touré", "TOURE Mohamed"],
+      "aliases": [
+        "Mohamed Touré",
+        "TOURE Mohamed"
+      ],
       "sourceTitle": "Mohamed Touré",
       "transfermarktPlayerCode": "mohamed-toure",
       "birthDate": "2004-03-26",
@@ -141,44 +230,72 @@
       "league": "EFL Championship",
       "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/742770-1747724540.jpg?lm=1",
       "marketValueEurMillions": 8,
-      "skills": ["Pace in behind", "Penalty-box finishing", "Direct channel runs"],
-      "note": "Australia's fast young striker, dangerous when he runs beyond centre-backs and finishes before they reset.",
-      "noteZh": "穆罕默德·图雷是澳大利亚年轻速度型中锋，冲到中卫身后并在他们重整前终结时很危险。",
+      "skills": [
+        "Pace in behind",
+        "Penalty-box finishing",
+        "Direct channel runs"
+      ],
+      "note": "Touré is an attacking change-up for Australia. He gives the front line fresh running when the first plan starts to look predictable.",
+      "noteZh": "他是Australia的进攻深度。如果比赛慢下来，他要让后防线重新移动。",
       "sourceUrl": "https://www.transfermarkt.com/mohamed-toure/profil/spieler/742770"
     },
     "Nestory Irankunda": {
-      "skills": ["Explosive wing pace", "Power shooting", "One-on-one threat"],
-      "note": "Australia's explosive wide threat, capable of turning one touch into a sprint or a violent shot.",
-      "noteZh": "内斯托里·伊兰昆达是澳大利亚爆发型边路威胁，能把一次触球变成冲刺或大力射门。"
+      "skills": [
+        "Goal threat",
+        "Explosive wing pace",
+        "Power shooting"
+      ],
+      "note": "Irankunda has already turned one tournament chance into a goal against Türkiye. Watch whether defenders start giving him the extra step.",
+      "noteZh": "他已经为Australia进入这届世界杯的进球名单。一个终结会改变对手下一次防他的方式。"
     },
     "Nishan Velupillay": {
       "league": "A-League Men",
-      "skills": ["Wide acceleration", "Pressing runs", "Back-post movement"],
-      "note": "Australia's energetic winger, useful for pressing wide and arriving at the back post.",
-      "noteZh": "尼尚·韦卢皮莱是澳大利亚活力边锋，适合在边路压迫并冲到后点。"
+      "skills": [
+        "Wide acceleration",
+        "Pressing runs",
+        "Back-post movement"
+      ],
+      "note": "Velupillay gives Australia a different attacking speed from the bench. The important touch may be the run that opens space for someone else.",
+      "noteZh": "他是Australia在比赛需要新腿时可以使用的前锋。第一项工作，是让疲劳的后卫转身。"
     },
     "Patrick Beach": {
-      "skills": ["Goalkeeper upside", "Reaction saves", "Penalty-area command"],
-      "note": "Australia's young goalkeeper depth, bringing reflexes and upside behind the senior options.",
-      "noteZh": "帕特里克·比奇是澳大利亚年轻门将深度，在资深选择身后提供反应和上升空间。"
+      "skills": [
+        "Goalkeeper upside",
+        "Reaction saves",
+        "Penalty-area command"
+      ],
+      "note": "Beach is the last voice in Australia's defensive shape. When pressure sticks, his job is to make the next action feel simple.",
+      "noteZh": "他承担了Australia的门将时间。重点是稳手、清楚开球，以及让身前后卫不用慌。"
     },
     "Paul Izzo": {
       "league": "Danish Superliga",
-      "skills": ["Shot stopping", "Goalkeeper depth", "Box reactions"],
-      "note": "Australia's experienced goalkeeper depth, useful for sharp reaction saves and steady tournament cover.",
-      "noteZh": "保罗·伊佐是澳大利亚经验型门将深度，适合快速反应扑救和稳定杯赛保障。"
+      "skills": [
+        "Shot stopping",
+        "Goalkeeper depth",
+        "Box reactions"
+      ],
+      "note": "Izzo gives Australia a keeper option if the night turns sideways. His card is about being warm enough for one big save.",
+      "noteZh": "他在Australia首发门将身后等待，但这个角色不是装饰。他要随时处理传中、开球和冷启动。"
     },
     "Paul Okon-Engstler": {
       "league": "A-League Men",
-      "skills": ["Defensive midfield promise", "Simple passing", "Duel timing"],
-      "note": "Australia's young midfield shield, useful for simple circulation and learning the tempo of senior matches.",
-      "noteZh": "保罗·奥孔-恩斯特勒是澳大利亚年轻中场屏障，适合简单流转并适应成年队比赛节奏。"
+      "skills": [
+        "Chance passes",
+        "Defensive midfield promise",
+        "Simple passing"
+      ],
+      "note": "Okon-Engstler has supplied one of Australia's tournament goals. The pass matters because it arrives before the defender can fully turn.",
+      "noteZh": "他这届世界杯已经为Australia创造过进球。注意他出球的时机，因为那一脚传球往往比带球更重要。"
     },
     "Tete Yengi": {
       "league": "J1 League",
-      "skills": ["Striker power", "Channel runs", "Aerial pressure"],
-      "note": "Australia's powerful striker option, useful for direct balls, channel runs, and making centre-backs uncomfortable.",
-      "noteZh": "特特·延吉是澳大利亚力量型中锋选择，适合直接球、通道跑动，并让中卫不舒服。"
+      "skills": [
+        "Striker power",
+        "Channel runs",
+        "Aerial pressure"
+      ],
+      "note": "Yengi gives Australia a different attacking speed from the bench. The important touch may be the run that opens space for someone else.",
+      "noteZh": "他是Australia在比赛需要新腿时可以使用的前锋。第一项工作，是让疲劳的后卫转身。"
     }
   }
 }

@@ -3779,10 +3779,11 @@ try {
       historicalScorerCardText.includes("Forward") &&
       historicalScorerCardText.includes("Ecuador 2022 World Cup archive") &&
       historicalScorerCardText.includes(
-        "Ecuador 2022 archive: A starting forward whose repeat finishing tilted Ecuador's match against Qatar."
+        "Valencia made Ecuador's 2022 attack feel alive whenever the chance opened."
       ) &&
-      historicalScorerCardText.includes("Scored twice against Qatar (2-0 win)") &&
-      historicalScorerCardText.includes("One goal came from the spot.") &&
+      historicalScorerCardText.includes(
+        "He scored three times, including twice against Qatar (2-0 win) and a goal against Netherlands (1-1 tie)."
+      ) &&
       historicalScorerCardText.includes("2022 age 33") &&
       historicalScorerCardText.includes("Peak value €11m") &&
       !historicalScorerCardText.includes("scored 2 goals in this match"),
@@ -3946,7 +3947,7 @@ try {
   await page.locator(".match-row").first().click();
   await page.waitForFunction(() =>
     [...document.querySelectorAll("#match-info .scorer-highlight .player-card")].some((card) =>
-      card.textContent.includes("Brazil 1970 archive")
+      card.textContent.includes("Alberto's 1970 card belongs to the final stage for Brazil.")
     )
   );
   const scorerOnlyHistoricalLink = page.locator("#match-info .scorer-highlight .player-link", { hasText: "Carlos Alberto" }).first();
@@ -3959,9 +3960,9 @@ try {
   assert(
     scorerOnlyHistoricalCardText.includes("Carlos Alberto") &&
       scorerOnlyHistoricalCardText.includes("Brazil 1970 World Cup archive") &&
-      scorerOnlyHistoricalCardText.includes("Brazil 1970 archive: A final scorer in Brazil's archive route alongside Gérson and Jairzinho.") &&
-      scorerOnlyHistoricalCardText.includes("Scored against Italy in the Final (4-1 win).") &&
-      !scorerOnlyHistoricalCardText.includes("credited with 1 World Cup goal"),
+      scorerOnlyHistoricalCardText.includes("Alberto's 1970 card belongs to the final stage for Brazil.") &&
+      scorerOnlyHistoricalCardText.includes("He scored against Italy in the Final (4-1 win).") &&
+      !scorerOnlyHistoricalCardText.includes("Credited with 1 World Cup goal"),
     "Historical scorer-only names should use the generated archive card profile."
   );
 
@@ -4756,6 +4757,187 @@ try {
       desktopLineupTriggerState.coachAnchor?.target === "_blank" &&
       desktopLineupTriggerState.coachAnchor?.rel.includes("noopener"),
     `Desktop lineup triggers should keep non-link player and formation controls internal while preserving coach source anchors. Measured ${JSON.stringify(desktopLineupTriggerState)}.`
+  );
+  const hoverLineupPlayerTrigger = finalLineupModeCheck.page
+    .locator("#match-info .lineup-tab-panel:not([hidden]) .lineup-player-name")
+    .first();
+  await hoverLineupPlayerTrigger.scrollIntoViewIfNeeded();
+  await hoverLineupPlayerTrigger.hover();
+  await finalLineupModeCheck.page.waitForFunction(() => {
+    const card = document.querySelector(".player-card-floating.is-visible");
+    return card && Number(getComputedStyle(card).opacity) > 0.8;
+  });
+  await finalLineupModeCheck.page.evaluate(() => window.scrollBy(0, window.scrollY > 220 ? -220 : 220));
+  await finalLineupModeCheck.page.mouse.click(24, 24);
+  await finalLineupModeCheck.page.waitForFunction(() => {
+    const card = document.querySelector(".player-card-floating");
+    const styles = card ? getComputedStyle(card) : null;
+    const visibleCards = [...document.querySelectorAll(".player-card")].filter((playerCard) => {
+      const cardStyles = getComputedStyle(playerCard);
+      const bounds = playerCard.getBoundingClientRect();
+      return (
+        cardStyles.display !== "none" &&
+        cardStyles.visibility !== "hidden" &&
+        Number(cardStyles.opacity) > 0.05 &&
+        bounds.width > 0 &&
+        bounds.height > 0
+      );
+    });
+    return (
+      !document.querySelector(".player-hover.is-card-portaled, .player-hover.is-card-open") &&
+      visibleCards.length === 0 &&
+      (!card ||
+        !card.classList.contains("is-visible") ||
+        styles?.visibility === "hidden" ||
+        Number(styles?.opacity || 0) <= 0.05)
+    );
+  });
+  const desktopHoverScrollClickCardState = await finalLineupModeCheck.page.evaluate(() => {
+    const card = document.querySelector(".player-card-floating");
+    const styles = card ? getComputedStyle(card) : null;
+    return {
+      floatingCardVisible: Boolean(
+        card?.classList.contains("is-visible") &&
+          styles?.visibility !== "hidden" &&
+          Number(styles?.opacity || 0) > 0.05
+      ),
+      portaledSources: document.querySelectorAll(".player-hover.is-card-portaled").length,
+      openSources: document.querySelectorAll(".player-hover.is-card-open").length,
+      visibleCards: [...document.querySelectorAll(".player-card")]
+        .filter((playerCard) => {
+          const cardStyles = getComputedStyle(playerCard);
+          const bounds = playerCard.getBoundingClientRect();
+          return (
+            cardStyles.display !== "none" &&
+            cardStyles.visibility !== "hidden" &&
+            Number(cardStyles.opacity) > 0.05 &&
+            bounds.width > 0 &&
+            bounds.height > 0
+          );
+        })
+        .map((playerCard) => playerCard.querySelector(".player-card-name")?.textContent.trim() || "")
+    };
+  });
+  assert(
+    !desktopHoverScrollClickCardState.floatingCardVisible &&
+      desktopHoverScrollClickCardState.portaledSources === 0 &&
+      desktopHoverScrollClickCardState.openSources === 0 &&
+      desktopHoverScrollClickCardState.visibleCards.length === 0,
+    `Desktop lineup hover cards should fade away after scrolling and clicking outside. Measured ${JSON.stringify(desktopHoverScrollClickCardState)}.`
+  );
+  const focusedCoachTrigger = finalLineupModeCheck.page
+    .locator(
+      "#match-info .lineup-tab-panel:not([hidden]) .lineup-coach-trigger, #match-info .lineup-tab-panel:not([hidden]) .lineup-coach-icon-trigger"
+    )
+    .first();
+  await focusedCoachTrigger.focus();
+  await finalLineupModeCheck.page.waitForFunction(() =>
+    [...document.querySelectorAll(".player-card")]
+      .filter((card) => {
+        const style = getComputedStyle(card);
+        const rect = card.getBoundingClientRect();
+        return (
+          style.display !== "none" &&
+          style.visibility !== "hidden" &&
+          Number(style.opacity) > 0.05 &&
+          rect.width > 0 &&
+          rect.height > 0
+        );
+      })
+      .some((card) => card.textContent.includes("Head Coach"))
+  );
+  await finalLineupModeCheck.page.keyboard.press("Escape");
+  await finalLineupModeCheck.page.waitForFunction(() =>
+    [...document.querySelectorAll(".player-card")].every((card) => {
+      const style = getComputedStyle(card);
+      const rect = card.getBoundingClientRect();
+      return (
+        style.display === "none" ||
+        style.visibility === "hidden" ||
+        Number(style.opacity) <= 0.05 ||
+        rect.width === 0 ||
+        rect.height === 0
+      );
+    })
+  );
+  const desktopCoachFocusCloseState = await finalLineupModeCheck.page.evaluate(() => ({
+    activeHoverText:
+      document.activeElement?.closest?.(".player-hover")?.querySelector(".player-link")?.textContent.trim() || "",
+    visibleCards: [...document.querySelectorAll(".player-card")]
+      .filter((card) => {
+        const style = getComputedStyle(card);
+        const rect = card.getBoundingClientRect();
+        return (
+          style.display !== "none" &&
+          style.visibility !== "hidden" &&
+          Number(style.opacity) > 0.05 &&
+          rect.width > 0 &&
+          rect.height > 0
+        );
+      })
+      .map((card) => card.querySelector(".player-card-name")?.textContent.trim() || "")
+  }));
+  assert(
+    desktopCoachFocusCloseState.activeHoverText === "" && desktopCoachFocusCloseState.visibleCards.length === 0,
+    `Escape should close focus-only coach cards by blurring the transient trigger. Measured ${JSON.stringify(desktopCoachFocusCloseState)}.`
+  );
+  const focusedFormationPill = finalLineupModeCheck.page
+    .locator("#match-info .lineup-tab-panel:not([hidden]) .lineup-formation-pill")
+    .first();
+  await focusedFormationPill.focus();
+  await finalLineupModeCheck.page.waitForFunction(() =>
+    [...document.querySelectorAll(".player-card")]
+      .filter((card) => {
+        const style = getComputedStyle(card);
+        const rect = card.getBoundingClientRect();
+        return (
+          style.display !== "none" &&
+          style.visibility !== "hidden" &&
+          Number(style.opacity) > 0.05 &&
+          rect.width > 0 &&
+          rect.height > 0
+        );
+      })
+      .some(
+        (card) =>
+          card.querySelector(".player-card-position")?.textContent.trim() === "Formation" &&
+          /\d/.test(card.querySelector(".player-card-name")?.textContent || "")
+      )
+  );
+  await finalLineupModeCheck.page.keyboard.press("Escape");
+  await finalLineupModeCheck.page.waitForFunction(() =>
+    [...document.querySelectorAll(".player-card")].every((card) => {
+      const style = getComputedStyle(card);
+      const rect = card.getBoundingClientRect();
+      return (
+        style.display === "none" ||
+        style.visibility === "hidden" ||
+        Number(style.opacity) <= 0.05 ||
+        rect.width === 0 ||
+        rect.height === 0
+      );
+    })
+  );
+  const desktopFormationFocusCloseState = await finalLineupModeCheck.page.evaluate(() => ({
+    activeHoverText:
+      document.activeElement?.closest?.(".player-hover")?.querySelector(".player-link")?.textContent.trim() || "",
+    visibleCards: [...document.querySelectorAll(".player-card")]
+      .filter((card) => {
+        const style = getComputedStyle(card);
+        const rect = card.getBoundingClientRect();
+        return (
+          style.display !== "none" &&
+          style.visibility !== "hidden" &&
+          Number(style.opacity) > 0.05 &&
+          rect.width > 0 &&
+          rect.height > 0
+        );
+      })
+      .map((card) => card.querySelector(".player-card-name")?.textContent.trim() || "")
+  }));
+  assert(
+    desktopFormationFocusCloseState.activeHoverText === "" && desktopFormationFocusCloseState.visibleCards.length === 0,
+    `Escape should close focus-only formation cards by blurring the transient trigger. Measured ${JSON.stringify(desktopFormationFocusCloseState)}.`
   );
   const cipengaLineupTrigger = finalLineupModeCheck.page
     .locator("#match-info .lineup-tab-panel:not([hidden]) .lineup-player-name", { hasText: /Cipenga/ })
@@ -7786,6 +7968,7 @@ try {
       m104TeamIds: [...document.querySelectorAll('.progress-match[data-match-number="104"] .knockout-team[data-team-id]')]
         .map((element) => element.dataset.teamId),
       m104Rect: getRectSummary('.progress-match[data-match-number="104"]'),
+      m104TimeText: document.querySelector('.progress-match[data-match-number="104"] time')?.textContent.trim() || "",
       oldWinnerCopy: allText(".tournament-view").includes(["Winner", "advances"].join(" ")),
       posterMetaCount: document.querySelectorAll(".poster-match-meta").length,
       posterSeedCount: document.querySelectorAll(".poster-team-seed").length,
@@ -8261,6 +8444,7 @@ try {
     ["m97NoTbd", !tournamentCheck.m97Text.includes("TBD")],
     ["m103NoTbd", !tournamentCheck.m103Text.includes("TBD")],
     ["m103TimeText", tournamentCheck.m103TimeText === "Jul 18 2:00PM (3rd place match)"],
+    ["m104TimeText", tournamentCheck.m104TimeText === "Jul 19 12:00PM (Final)"],
     ["m103NoThirdPlaceText", !tournamentCheck.m103Text.includes("Third-place play-off")],
     ["m103NoRunnerUpText", !tournamentCheck.m103Text.includes("Runner-up match")],
     ["m89NoLikelyForNow", !tournamentCheck.m89Text.includes("Likely for now")],
@@ -10176,6 +10360,53 @@ try {
       touchCatchUpOpenState.realItems === 0,
     `On touch devices, opening catch-up should show the skeleton immediately. Measured ${JSON.stringify(touchCatchUpOpenState)}.`
   );
+  const touchFooterTooltipState = await touchPage.evaluate(async () => {
+    const waitForPaint = () => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+    const readTooltip = (selector) => {
+      const element = document.querySelector(selector);
+      if (!element) {
+        return null;
+      }
+
+      const styles = getComputedStyle(element);
+      return {
+        opacity: Number(styles.opacity),
+        pointerEvents: styles.pointerEvents,
+        visibility: styles.visibility
+      };
+    };
+    const sourceTrigger = document.querySelector(".source-tooltip-trigger");
+    const releaseTrigger = document.querySelector(".release-tooltip-trigger");
+
+    sourceTrigger?.focus({ preventScroll: true });
+    await waitForPaint();
+    const sourceFocused = readTooltip(".source-tooltip");
+
+    releaseTrigger?.focus({ preventScroll: true });
+    await waitForPaint();
+    const releaseFocused = readTooltip(".release-tooltip");
+
+    releaseTrigger?.blur();
+    await waitForPaint();
+
+    return {
+      coarsePointer: matchMedia("(hover: none), (pointer: coarse)").matches,
+      releaseAfterBlur: readTooltip(".release-tooltip"),
+      releaseFocused,
+      sourceAfterBlur: readTooltip(".source-tooltip"),
+      sourceFocused
+    };
+  });
+  assert(
+    touchFooterTooltipState.coarsePointer &&
+      touchFooterTooltipState.sourceFocused?.visibility === "visible" &&
+      touchFooterTooltipState.sourceFocused.opacity > 0.8 &&
+      touchFooterTooltipState.releaseFocused?.visibility === "visible" &&
+      touchFooterTooltipState.releaseFocused.opacity > 0.8 &&
+      touchFooterTooltipState.sourceAfterBlur?.visibility === "hidden" &&
+      touchFooterTooltipState.releaseAfterBlur?.visibility === "hidden",
+    `On touch devices, footer source/release tooltips should be focus-driven and close on blur. Measured ${JSON.stringify(touchFooterTooltipState)}.`
+  );
   await waitForCatchUpItems(touchPage);
   await touchPage.locator("#catch-up-button").click();
   const touchTodayRow = touchPage.locator('[data-match-id="switzerland-bosnia-2026-06-18"]');
@@ -10338,6 +10569,53 @@ try {
     touchLineupEventTooltipClosed.openBadges === 0 && !touchLineupEventTooltipClosed.tooltipVisible,
     `On touch devices, scrolling away from an open line-up event tooltip should close it. Measured ${JSON.stringify(touchLineupEventTooltipClosed)}.`
   );
+  const touchFormationPill = touchPage
+    .locator("#match-info .lineup-tab-panel:not([hidden]) .lineup-formation-pill")
+    .first();
+  await touchFormationPill.tap();
+  await touchPage.waitForFunction(() => {
+    const card = document.querySelector(".player-card-floating.is-visible");
+    return (
+      card &&
+      card.querySelector(".player-card-position")?.textContent.trim() === "Formation" &&
+      /\d/.test(card.querySelector(".player-card-name")?.textContent || "")
+    );
+  });
+  await touchPage.locator("#standings-tab").tap();
+  await touchPage.waitForFunction(() => {
+    const visibleCards = [...document.querySelectorAll(".player-card")].filter((card) => {
+      const styles = getComputedStyle(card);
+      const bounds = card.getBoundingClientRect();
+      return styles.visibility !== "hidden" && Number(styles.opacity) > 0.05 && bounds.width > 0 && bounds.height > 0;
+    });
+    return (
+      document.querySelector("#standings-tab")?.getAttribute("aria-selected") === "true" &&
+      visibleCards.length === 0 &&
+      !document.querySelector(".player-hover.is-card-open, .player-hover.is-card-portaled") &&
+      !document.querySelector(".is-touch-tooltip-open") &&
+      !document.querySelector(".lineup-event-tooltip-floating.is-visible")
+    );
+  });
+  const touchFormationTabSwitchState = await touchPage.evaluate(() => {
+    const visibleCards = [...document.querySelectorAll(".player-card")].filter((card) => {
+      const styles = getComputedStyle(card);
+      const bounds = card.getBoundingClientRect();
+      return styles.visibility !== "hidden" && Number(styles.opacity) > 0.05 && bounds.width > 0 && bounds.height > 0;
+    });
+    return {
+      activePlayerHovers: document.querySelectorAll(".player-hover.is-card-open, .player-hover.is-card-portaled").length,
+      activeTouchTooltips: document.querySelectorAll(".is-touch-tooltip-open").length,
+      selectedStandings: document.querySelector("#standings-tab")?.getAttribute("aria-selected") || "",
+      visibleCards: visibleCards.map((card) => card.querySelector(".player-card-name")?.textContent.trim() || "")
+    };
+  });
+  assert(
+    touchFormationTabSwitchState.selectedStandings === "true" &&
+      touchFormationTabSwitchState.visibleCards.length === 0 &&
+      touchFormationTabSwitchState.activePlayerHovers === 0 &&
+      touchFormationTabSwitchState.activeTouchTooltips === 0,
+    `On touch devices, switching main tabs should clear an open formation/player card and any touch tooltip state. Measured ${JSON.stringify(touchFormationTabSwitchState)}.`
+  );
 
   await touchPage.goto(`${baseUrl}?view=standings&standingsMode=tournament&tz=America%2FLos_Angeles`, {
     waitUntil: "load"
@@ -10403,6 +10681,41 @@ try {
       touchTournamentTooltipClosed.view === "standings" &&
       touchTournamentTooltipClosed.match === "",
     `On touch devices, tapping outside an open tournament odds tooltip should close it without navigating. Measured ${JSON.stringify(touchTournamentTooltipClosed)}.`
+  );
+  await touchTournamentOddsPill.evaluate((pill) => {
+    pill.dispatchEvent(
+      new PointerEvent("pointerdown", {
+        bubbles: true,
+        cancelable: true,
+        pointerType: "touch"
+      })
+    );
+  });
+  await touchPage.waitForFunction(() => document.querySelector(".knockout-likelihood.is-touch-tooltip-open"));
+  await touchPage.locator("#matches-tab").tap();
+  await touchPage.waitForFunction(() => {
+    const params = new URL(window.location.href).searchParams;
+    return (
+      document.querySelector("#matches-tab")?.getAttribute("aria-selected") === "true" &&
+      !params.get("view") &&
+      !document.querySelector(".is-touch-tooltip-open")
+    );
+  });
+  const touchTournamentTooltipTabSwitchState = await touchPage.evaluate(() => {
+    const params = new URL(window.location.href).searchParams;
+    return {
+      activeTooltipCount: document.querySelectorAll(".is-touch-tooltip-open").length,
+      selectedMatches: document.querySelector("#matches-tab")?.getAttribute("aria-selected") || "",
+      selectedStandings: document.querySelector("#standings-tab")?.getAttribute("aria-selected") || "",
+      view: params.get("view") || ""
+    };
+  });
+  assert(
+    touchTournamentTooltipTabSwitchState.activeTooltipCount === 0 &&
+      touchTournamentTooltipTabSwitchState.selectedMatches === "true" &&
+      touchTournamentTooltipTabSwitchState.selectedStandings === "false" &&
+      touchTournamentTooltipTabSwitchState.view === "",
+    `On touch devices, switching main tabs should clear an open tournament odds tooltip. Measured ${JSON.stringify(touchTournamentTooltipTabSwitchState)}.`
   );
 
   await touchPage.goto(`${baseUrl}?view=matches&date=2026-06-21&tz=America%2FLos_Angeles`, {

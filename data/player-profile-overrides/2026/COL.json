@@ -3,60 +3,349 @@
   "teamId": "COL",
   "teamName": "Colombia",
   "rosterNameOverrides": {
-    "MONTERO Alvaro": "Alvaro Montero", "Álvaro David MONTERO PERALES": "Alvaro Montero",
-    "GOMEZ Andres": "Andres Gomez", "A. GOMEZ": "Andres Gomez", "Carlos Andrés GÓMEZ HINESTROZA": "Andres Gomez",
-    "VARGAS Camilo": "Camilo Vargas", "C. VARGAS": "Camilo Vargas", "Camilo Andres VARGAS GIL": "Camilo Vargas",
-    "HERNANDEZ Cucho": "Cucho Hernandez", "C. HERNANDEZ": "Cucho Hernandez", "Juan Camilo HERNANDEZ SUAREZ": "Cucho Hernandez",
-    "MUNOZ Daniel": "Daniel Munoz", "D. MUÑOZ": "Daniel Munoz", "Daniel MUÑOZ MEJIA": "Daniel Munoz",
-    "OSPINA David": "David Ospina", "David OSPINA RAMIREZ": "David Ospina",
-    "SANCHEZ Davinson": "Davinson Sanchez", "Davinson SÁNCHEZ MINA": "Davinson Sanchez",
-    "MACHADO Deiver": "Deiver Machado", "Deiver MACHADO MENA": "Deiver Machado",
-    "PUERTA Gustavo": "Gustavo Puerta", "Gustavo Adolfo PUERTA MOLANO": "Gustavo Puerta",
-    "RODRIGUEZ James": "James Rodriguez", "JAMES": "James Rodriguez", "James David RODRÍGUEZ RUBIO": "James Rodriguez",
-    "CAMPAZ Jaminton": "Jaminton Campaz", "Jaminton Leandro CAMPAZ": "Jaminton Campaz",
-    "LERMA Jefferson": "Jefferson Lerma", "J. LERMA": "Jefferson Lerma", "Jefferson Andrés LERMA SOLIS": "Jefferson Lerma",
-    "ARIAS Jhon": "Jhon Arias", "J. ARIAS": "Jhon Arias", "Jhon Adolfo ARIAS ANDRADE": "Jhon Arias",
-    "CORDOBA Jhon": "Jhon Cordoba", "Jhon Andrés CÓRDOBA COPETE": "Jhon Cordoba",
-    "LUCUMI Jhon": "Jhon Lucumi", "J. LUCUMI": "Jhon Lucumi", "Jhon Janer LUCUMI BONILLA": "Jhon Lucumi",
-    "MOJICA Johan": "Johan Mojica", "J. MOJICA": "Johan Mojica", "Johan Andrés MOJICA PALACIO": "Johan Mojica",
-    "CARRASCAL Jorge": "Jorge Carrascal", "Jorge Andres CARRASCAL GUARDO": "Jorge Carrascal",
-    "PORTILLA Juan": "Juan Portilla", "Juan Camilo PORTILLA OROZCO": "Juan Portilla",
-    "QUINTERO Juan": "Juan Quintero", "Juan Fernando QUINTERO PANIAGUA": "Juan Quintero",
-    "CASTANO Kevin": "Kevin Castano", "K. CASTAÑO": "Kevin Castano", "Kevin Duvan CASTAÑO GIL": "Kevin Castano",
-    "DIAZ Luis": "Luis Diaz", "LUIS DIAZ": "Luis Diaz", "Luis Fernando DÍAZ MARULANDA": "Luis Diaz",
-    "SUAREZ Luis": "Luis Suarez", "Luis Javier SUÁREZ CHARRIS": "Luis Suarez",
-    "RIOS Richard": "Richard Rios", "RICHARD RIOS": "Richard Rios", "Richard RÍOS MONTOYA": "Richard Rios",
-    "ARIAS Santiago": "Santiago Arias", "Santiago ARIAS NARANJO": "Santiago Arias",
-    "DITTA Willer": "Willer Ditta", "W. DITTA": "Willer Ditta", "Willer Emilio DITTA PEREZ": "Willer Ditta",
-    "MINA Yerry": "Yerry Mina", "Y. MINA": "Yerry Mina", "Yerry Fernando MINA GONZALEZ": "Yerry Mina"
+    "MONTERO Alvaro": "Alvaro Montero",
+    "Álvaro David MONTERO PERALES": "Alvaro Montero",
+    "GOMEZ Andres": "Andres Gomez",
+    "A. GOMEZ": "Andres Gomez",
+    "Carlos Andrés GÓMEZ HINESTROZA": "Andres Gomez",
+    "VARGAS Camilo": "Camilo Vargas",
+    "C. VARGAS": "Camilo Vargas",
+    "Camilo Andres VARGAS GIL": "Camilo Vargas",
+    "HERNANDEZ Cucho": "Cucho Hernandez",
+    "C. HERNANDEZ": "Cucho Hernandez",
+    "Juan Camilo HERNANDEZ SUAREZ": "Cucho Hernandez",
+    "MUNOZ Daniel": "Daniel Munoz",
+    "D. MUÑOZ": "Daniel Munoz",
+    "Daniel MUÑOZ MEJIA": "Daniel Munoz",
+    "OSPINA David": "David Ospina",
+    "David OSPINA RAMIREZ": "David Ospina",
+    "SANCHEZ Davinson": "Davinson Sanchez",
+    "Davinson SÁNCHEZ MINA": "Davinson Sanchez",
+    "MACHADO Deiver": "Deiver Machado",
+    "Deiver MACHADO MENA": "Deiver Machado",
+    "PUERTA Gustavo": "Gustavo Puerta",
+    "Gustavo Adolfo PUERTA MOLANO": "Gustavo Puerta",
+    "RODRIGUEZ James": "James Rodriguez",
+    "JAMES": "James Rodriguez",
+    "James David RODRÍGUEZ RUBIO": "James Rodriguez",
+    "CAMPAZ Jaminton": "Jaminton Campaz",
+    "Jaminton Leandro CAMPAZ": "Jaminton Campaz",
+    "LERMA Jefferson": "Jefferson Lerma",
+    "J. LERMA": "Jefferson Lerma",
+    "Jefferson Andrés LERMA SOLIS": "Jefferson Lerma",
+    "ARIAS Jhon": "Jhon Arias",
+    "J. ARIAS": "Jhon Arias",
+    "Jhon Adolfo ARIAS ANDRADE": "Jhon Arias",
+    "CORDOBA Jhon": "Jhon Cordoba",
+    "Jhon Andrés CÓRDOBA COPETE": "Jhon Cordoba",
+    "LUCUMI Jhon": "Jhon Lucumi",
+    "J. LUCUMI": "Jhon Lucumi",
+    "Jhon Janer LUCUMI BONILLA": "Jhon Lucumi",
+    "MOJICA Johan": "Johan Mojica",
+    "J. MOJICA": "Johan Mojica",
+    "Johan Andrés MOJICA PALACIO": "Johan Mojica",
+    "CARRASCAL Jorge": "Jorge Carrascal",
+    "Jorge Andres CARRASCAL GUARDO": "Jorge Carrascal",
+    "PORTILLA Juan": "Juan Portilla",
+    "Juan Camilo PORTILLA OROZCO": "Juan Portilla",
+    "QUINTERO Juan": "Juan Quintero",
+    "Juan Fernando QUINTERO PANIAGUA": "Juan Quintero",
+    "CASTANO Kevin": "Kevin Castano",
+    "K. CASTAÑO": "Kevin Castano",
+    "Kevin Duvan CASTAÑO GIL": "Kevin Castano",
+    "DIAZ Luis": "Luis Diaz",
+    "LUIS DIAZ": "Luis Diaz",
+    "Luis Fernando DÍAZ MARULANDA": "Luis Diaz",
+    "SUAREZ Luis": "Luis Suarez",
+    "Luis Javier SUÁREZ CHARRIS": "Luis Suarez",
+    "RIOS Richard": "Richard Rios",
+    "RICHARD RIOS": "Richard Rios",
+    "Richard RÍOS MONTOYA": "Richard Rios",
+    "ARIAS Santiago": "Santiago Arias",
+    "Santiago ARIAS NARANJO": "Santiago Arias",
+    "DITTA Willer": "Willer Ditta",
+    "W. DITTA": "Willer Ditta",
+    "Willer Emilio DITTA PEREZ": "Willer Ditta",
+    "MINA Yerry": "Yerry Mina",
+    "Y. MINA": "Yerry Mina",
+    "Yerry Fernando MINA GONZALEZ": "Yerry Mina"
   },
-  "removeProfiles": ["Juan Camilo Hernandez Suarez"],
+  "removeProfiles": [
+    "Juan Camilo Hernandez Suarez"
+  ],
   "profiles": {
-    "Alvaro Montero": {"sourceTitle": "Álvaro Montero (Colombian footballer)", "displayName": "Álvaro Montero", "position": "Goalkeeper", "club": "Vélez Sarsfield", "league": "Argentine Primera División", "transfermarktPlayerCode": "alvaro-montero", "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/292985-1688673218.jpg?lm=1", "marketValueEurMillions": 2.5, "sourceUrl": "https://www.transfermarkt.co.uk/alvaro-montero/profil/spieler/292985", "skills": ["Goalkeeper reach", "Shot stopping", "Cross command"], "note": "Montero gives Colombia a tall goalkeeper profile, useful when crosses and set pieces pile up.", "noteZh": "蒙特罗给哥伦比亚高大门将类型，当传中和定位球增多时很有用。"},
-    "Andres Gomez": {"displayName": "Andrés Gómez", "skills": ["Wide speed", "Direct dribbling", "Transition runs"], "note": "Gómez gives Colombia another direct wide runner, dangerous when space opens behind full-backs.", "noteZh": "戈麦斯给哥伦比亚另一名直接边路跑手，当边后卫身后出现空间时很危险。"},
-    "Camilo Vargas": {"skills": ["Goalkeeper experience", "Reaction saves", "Box command"], "note": "Vargas gives Colombia experienced goalkeeping security, especially in tense low-margin spells.", "noteZh": "巴尔加斯给哥伦比亚有经验的门将安全感，尤其在紧张的小比分阶段。"},
-    "Cucho Hernandez": {"displayName": "Cucho Hernández", "aliases": ["Juan Camilo Hernández"], "skills": ["Box finishing", "Pressing energy", "Channel movement"], "note": "Cucho gives Colombia a hard-running finisher, pressing centre-backs and attacking early balls into the box.", "noteZh": "库乔给哥伦比亚勤跑的终结点，能压迫中卫并攻击早传入禁区的球。"},
-    "Daniel Munoz": {"displayName": "Daniel Muñoz", "skills": ["Right-wing-back runs", "Aerial arrivals", "Recovery defending"], "note": "Muñoz gives Colombia a right-side engine, arriving in the box while still covering transition defense.", "noteZh": "穆尼奥斯给哥伦比亚右侧发动机，能进入禁区，也能覆盖转换防守。"},
-    "David Ospina": {"club": "Atlético Nacional", "league": "Categoría Primera A", "transfermarktPlayerCode": "david-ospina", "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/73396-1722444561.JPG?lm=1", "marketValueEurMillions": 0.1, "skills": ["Veteran goalkeeping", "Shot stopping", "Tournament calm"], "note": "Ospina gives Colombia veteran tournament calm, valuable when one save has to settle the team.", "noteZh": "奥斯皮纳给哥伦比亚老练杯赛冷静，当一次扑救需要稳住全队时很有价值。"},
-    "Davinson Sanchez": {"displayName": "Davinson Sánchez", "skills": ["Centre-back pace", "Aerial duels", "Recovery defending"], "note": "Sánchez gives Colombia recovery speed at centre-back, important when the line has to defend space.", "noteZh": "达文森·桑切斯给哥伦比亚中卫回追速度，当防线需要防守空间时很重要。"},
-    "Deiver Machado": {"skills": ["Left-back width", "Overlap timing", "Crossing"], "note": "Machado gives Colombia left-side width, pushing attacks forward and supplying service from deep.", "noteZh": "马查多给哥伦比亚左侧宽度，能推动进攻并从后场送出传球。"},
-    "Gustavo Puerta": {"league": "LaLiga2", "skills": ["Midfield passing", "Press resistance", "Tempo control"], "note": "Puerta gives Colombia midfield composure, helping possession survive pressure and move forward.", "noteZh": "普埃尔塔给哥伦比亚中场冷静，帮助控球承受压力并向前推进。"},
-    "James Rodriguez": {"displayName": "James Rodríguez", "skills": ["Final pass", "Set pieces", "Left-footed craft"], "note": "James remains Colombia's creative reference, shaping chances with set pieces and left-footed passes.", "noteZh": "哈梅斯仍是哥伦比亚创造核心，用定位球和左脚传球塑造机会。"},
-    "Jaminton Campaz": {"skills": ["Attacking midfield craft", "Dribbling", "Final pass"], "note": "Campaz gives Colombia a low-center creative option, slipping between lines and feeding runners.", "noteZh": "坎帕斯给哥伦比亚低重心创造点，能钻入两线之间并喂给跑动者。"},
-    "Jefferson Lerma": {"skills": ["Midfield ball winning", "Aerial duels", "Set-piece threat"], "note": "Lerma gives Colombia midfield steel, winning duels and adding a set-piece target.", "noteZh": "莱尔马给哥伦比亚中场硬度，能赢下对抗并增加定位球目标。"},
-    "Jhon Arias": {"sourceTitle": "Jhon Arias (footballer)", "position": "Right winger", "club": "Palmeiras", "league": "Campeonato Brasileiro Série A", "transfermarktPlayerCode": "jhon-arias", "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/588989-1719245400.jpg?lm=1", "marketValueEurMillions": 15, "sourceUrl": "https://www.transfermarkt.co.uk/jhon-arias/profil/spieler/588989", "skills": ["Wide combinations", "Pressing work", "Final-third timing"], "note": "Arias gives Colombia clever wide combinations, connecting midfield control to final-third movement.", "noteZh": "阿里亚斯给哥伦比亚聪明的边路配合，把中场控制衔接到前场跑动。"},
-    "Jhon Cordoba": {"displayName": "Jhon Córdoba", "skills": ["Hold-up power", "Box finishing", "Aerial target"], "note": "Córdoba gives Colombia a powerful central striker, pinning defenders and attacking crosses.", "noteZh": "科尔多瓦给哥伦比亚强力中锋，能牵制后卫并攻击传中。"},
-    "Jhon Lucumi": {"displayName": "Jhon Lucumí", "skills": ["Left-footed defending", "Recovery pace", "Build-up passing"], "note": "Lucumí gives Colombia left-footed defensive balance, useful for clean exits against pressure.", "noteZh": "卢库米给哥伦比亚左脚防守平衡，适合在压力下干净出球。"},
-    "Johan Mojica": {"skills": ["Left-back speed", "Crossing", "Recovery defending"], "note": "Mojica gives Colombia experienced left-back speed, stretching the flank without losing recovery.", "noteZh": "莫希卡给哥伦比亚有经验的左后卫速度，能拉开边路且不丢回追。"},
-    "Jorge Carrascal": {"skills": ["Central dribbling", "Creative passing", "Set-piece touch"], "note": "Carrascal gives Colombia central flair, useful when a tight block needs a dribble or disguised pass.", "noteZh": "卡拉斯卡尔给哥伦比亚中路灵气，当密集防线需要盘带或隐蔽传球时很有用。"},
-    "Juan Portilla": {"skills": ["Midfield bite", "Short progression", "Defensive coverage"], "note": "Portilla gives Colombia midfield bite, keeping pressure connected and the next pass simple.", "noteZh": "波蒂利亚给哥伦比亚中场硬度，能保持压迫衔接并把下一脚处理简单。"},
-    "Juan Quintero": {"skills": ["Left-footed passing", "Set pieces", "Chance creation"], "note": "Quintero gives Colombia a left-footed unlocker, dangerous from dead balls and clipped final passes.", "noteZh": "金特罗给哥伦比亚左脚解锁者，定位球和挑传最后一传都很危险。"},
-    "Kevin Castano": {"displayName": "Kevin Castaño", "skills": ["Midfield screening", "Ball recovery", "Simple passing"], "note": "Castaño gives Colombia a midfield screen, protecting the center and moving regained balls forward.", "noteZh": "卡斯塔尼奥给哥伦比亚中场屏障，保护中路并把抢回的球向前送。"},
-    "Luis Diaz": {"displayName": "Luis Díaz", "skills": ["Left-wing acceleration", "One-on-one dribbling", "Inside finishing"], "note": "Díaz is Colombia's main isolation threat, turning the left wing into shots and cutbacks.", "noteZh": "路易斯·迪亚斯是哥伦比亚主要一对一威胁，能把左路变成射门和倒三角。"},
-    "Luis Suarez": {"displayName": "Luis Suárez", "skills": ["Striker movement", "Box finishing", "Channel runs"], "note": "Suárez gives Colombia another penalty-box runner, sharp when service comes early behind the line.", "noteZh": "苏亚雷斯给哥伦比亚另一名禁区跑动点，当传球早早打到防线身后时很敏锐。"},
-    "Richard Rios": {"displayName": "Richard Ríos", "transfermarktPlayerCode": "richard-rios", "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/735573-1779797805.jpg?lm=1", "skills": ["Ball carrying", "Midfield strength", "Forward passing"], "note": "Ríos gives Colombia carrying power through midfield, changing tempo with one forward burst.", "noteZh": "里奥斯给哥伦比亚中场带球力量，能用一次向前突破改变节奏。"},
-    "Santiago Arias": {"skills": ["Right-back experience", "Overlap timing", "Wide defending"], "note": "Arias gives Colombia experienced right-back cover, balancing overlap support with defensive positioning.", "noteZh": "圣地亚哥·阿里亚斯给哥伦比亚有经验的右后卫保障，平衡套上支援和防守站位。"},
-    "Willer Ditta": {"skills": ["Centre-back strength", "Aerial defending", "Box clearances"], "note": "Ditta gives Colombia centre-back strength, useful when the match becomes direct and physical.", "noteZh": "迪塔给哥伦比亚中卫强度，当比赛变得直接而身体化时很有用。"},
-    "Yerry Mina": {"skills": ["Aerial defending", "Set-piece threat", "Defensive leadership"], "note": "Mina gives Colombia aerial authority, protecting the box and attacking set pieces at the other end.", "noteZh": "米纳给哥伦比亚空中权威，能保护禁区，也能在另一端攻击定位球。"}
+    "Alvaro Montero": {
+      "sourceTitle": "Álvaro Montero (Colombian footballer)",
+      "displayName": "Álvaro Montero",
+      "position": "Goalkeeper",
+      "club": "Vélez Sarsfield",
+      "league": "Argentine Primera División",
+      "transfermarktPlayerCode": "alvaro-montero",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/292985-1688673218.jpg?lm=1",
+      "marketValueEurMillions": 2.5,
+      "sourceUrl": "https://www.transfermarkt.co.uk/alvaro-montero/profil/spieler/292985",
+      "skills": [
+        "Goalkeeper reach",
+        "Shot stopping",
+        "Cross command"
+      ],
+      "note": "Montero gives Colombia a keeper option if the night turns sideways. His card is about being warm enough for one big save.",
+      "noteZh": "他在Colombia首发门将身后等待，但这个角色不是装饰。他要随时处理传中、开球和冷启动。"
+    },
+    "Andres Gomez": {
+      "displayName": "Andrés Gómez",
+      "skills": [
+        "Wide speed",
+        "Direct dribbling",
+        "Transition runs"
+      ],
+      "note": "Gómez gives Colombia a different attacking speed from the bench. The important touch may be the run that opens space for someone else.",
+      "noteZh": "他是Colombia在比赛需要新腿时可以使用的前锋。第一项工作，是让疲劳的后卫转身。"
+    },
+    "Camilo Vargas": {
+      "skills": [
+        "Goalkeeper experience",
+        "Reaction saves",
+        "Box command"
+      ],
+      "note": "Vargas has carried the keeper minutes for Colombia. The card is clean hands, clear restarts, and defenders who do not have to rush.",
+      "noteZh": "他是Colombia防守结构最后的声音。压力停在禁区时，他要让下一步动作简单下来。"
+    },
+    "Cucho Hernandez": {
+      "displayName": "Cucho Hernández",
+      "aliases": [
+        "Juan Camilo Hernández"
+      ],
+      "skills": [
+        "Chance passes",
+        "Box finishing",
+        "Pressing energy"
+      ],
+      "note": "Hernández has one tournament assist in the bank for Colombia. The detail is the touch just before the obvious chance appears.",
+      "noteZh": "他已经帮Colombia制造过进球。价值在于防线还在移动时，选对出球瞬间。"
+    },
+    "Daniel Munoz": {
+      "displayName": "Daniel Muñoz",
+      "skills": [
+        "Goal threat",
+        "Right-wing-back runs",
+        "Aerial arrivals"
+      ],
+      "note": "Muñoz has already punished Uzbekistan and DR Congo for Colombia. The watch point is how little room he needs once the chance is alive.",
+      "noteZh": "他已经是Colombia这届世界杯的真实得分故事之一。他的危险在于防守者还没处理完第一个问题，他已经到位。"
+    },
+    "David Ospina": {
+      "club": "Atlético Nacional",
+      "league": "Categoría Primera A",
+      "transfermarktPlayerCode": "david-ospina",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/73396-1722444561.JPG?lm=1",
+      "marketValueEurMillions": 0.1,
+      "skills": [
+        "Veteran goalkeeping",
+        "Shot stopping",
+        "Tournament calm"
+      ],
+      "note": "Ospina sits behind the starter for Colombia, but the role is not decorative. He has to be ready for crosses, restarts, and a cold first touch.",
+      "noteZh": "他给Colombia保留另一个门将选择。真正需要他时，重点可能就是一次大扑救。"
+    },
+    "Davinson Sanchez": {
+      "displayName": "Davinson Sánchez",
+      "skills": [
+        "Centre-back pace",
+        "Aerial duels",
+        "Recovery defending"
+      ],
+      "note": "Sánchez has been part of Colombia's main defensive shape. He keeps the first duel clean so the team does not spend the next phase chasing.",
+      "noteZh": "他在Colombia体系里做的是安静工作。他让对手的进攻不容易变成混乱。"
+    },
+    "Deiver Machado": {
+      "skills": [
+        "Left-back width",
+        "Overlap timing",
+        "Crossing"
+      ],
+      "note": "Machado is back-line insurance for Colombia. The card is not glamorous: win the ball, keep the pass safe, reset the shape.",
+      "noteZh": "他给Colombia那些靠胆量守住的分钟提供保障。一次扎实对抗就能让整条线冷静下来。"
+    },
+    "Gustavo Puerta": {
+      "league": "LaLiga2",
+      "skills": [
+        "Chance passes",
+        "Midfield passing",
+        "Press resistance"
+      ],
+      "note": "Puerta has already created a goal for Colombia in this tournament. Watch the timing of his release, because the pass often matters more than the carry.",
+      "noteZh": "他已经参与了Colombia的一粒世界杯进球。那脚传球的意义，是在防守者完全转身前到达。"
+    },
+    "James Rodriguez": {
+      "displayName": "James Rodríguez",
+      "skills": [
+        "Final pass",
+        "Set pieces",
+        "Left-footed craft"
+      ],
+      "note": "Rodríguez has been one of Colombia's midfield connectors in this tournament. He keeps the next pass alive and helps the team avoid rushed choices.",
+      "noteZh": "他是Colombia让控球不散掉的球员之一。看点是他多早就知道下一脚传给谁。"
+    },
+    "Jaminton Campaz": {
+      "skills": [
+        "Goal threat",
+        "Attacking midfield craft",
+        "Dribbling"
+      ],
+      "note": "Campaz already has a World Cup goal in this run, against Uzbekistan. His card is about finding the moment before the match settles again.",
+      "noteZh": "他的世界杯已经有了进球。下一次机会也许仍来自阵型重新站稳前的那一小段时间。"
+    },
+    "Jefferson Lerma": {
+      "skills": [
+        "Midfield ball winning",
+        "Aerial duels",
+        "Set-piece threat"
+      ],
+      "note": "Lerma is in the quiet-work part of Colombia's setup. He keeps attacks from becoming scrambles.",
+      "noteZh": "他是Colombia主要防守结构的一部分。他把第一下对抗处理干净，避免球队下一阶段只能追着球跑。"
+    },
+    "Jhon Arias": {
+      "sourceTitle": "Jhon Arias (footballer)",
+      "position": "Right winger",
+      "club": "Palmeiras",
+      "league": "Campeonato Brasileiro Série A",
+      "transfermarktPlayerCode": "jhon-arias",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/588989-1719245400.jpg?lm=1",
+      "marketValueEurMillions": 15,
+      "sourceUrl": "https://www.transfermarkt.co.uk/jhon-arias/profil/spieler/588989",
+      "skills": [
+        "Goal threat",
+        "Wide combinations",
+        "Pressing work"
+      ],
+      "note": "Arias's World Cup has already included a goal against Ghana. The next one may come from the same small window before the shape resets.",
+      "noteZh": "他这届世界杯已经有进球。他的看点是在比赛重新稳定前，先找到属于自己的那个瞬间。"
+    },
+    "Jhon Cordoba": {
+      "displayName": "Jhon Córdoba",
+      "skills": [
+        "Hold-up power",
+        "Box finishing",
+        "Aerial target"
+      ],
+      "note": "Córdoba is an attacking change-up for Colombia. He gives the front line fresh running when the first plan starts to look predictable.",
+      "noteZh": "他是Colombia的进攻深度。如果比赛慢下来，他要让后防线重新移动。"
+    },
+    "Jhon Lucumi": {
+      "displayName": "Jhon Lucumí",
+      "skills": [
+        "Left-footed defending",
+        "Recovery pace",
+        "Build-up passing"
+      ],
+      "note": "Lucumí has been part of Colombia's main defensive shape. He keeps the first duel clean so the team does not spend the next phase chasing.",
+      "noteZh": "他在Colombia体系里做的是安静工作。他让对手的进攻不容易变成混乱。"
+    },
+    "Johan Mojica": {
+      "skills": [
+        "Left-back speed",
+        "Crossing",
+        "Recovery defending"
+      ],
+      "note": "Mojica is in the quiet-work part of Colombia's setup. He keeps attacks from becoming scrambles.",
+      "noteZh": "他是Colombia主要防守结构的一部分。他把第一下对抗处理干净，避免球队下一阶段只能追着球跑。"
+    },
+    "Jorge Carrascal": {
+      "skills": [
+        "Central dribbling",
+        "Creative passing",
+        "Set-piece touch"
+      ],
+      "note": "Carrascal is there for the part of the game where spacing gets ugly. For Colombia, that can mean one clean touch before pressure arrives.",
+      "noteZh": "他给Colombia提供中场深度，适合比赛被拉开的时候。他把松散球变成更冷静的下一脚。"
+    },
+    "Juan Portilla": {
+      "skills": [
+        "Midfield bite",
+        "Short progression",
+        "Defensive coverage"
+      ],
+      "note": "Portilla is there for the part of the game where spacing gets ugly. For Colombia, that can mean one clean touch before pressure arrives.",
+      "noteZh": "他给Colombia提供中场深度，适合比赛被拉开的时候。他把松散球变成更冷静的下一脚。"
+    },
+    "Juan Quintero": {
+      "skills": [
+        "Chance passes",
+        "Left-footed passing",
+        "Set pieces"
+      ],
+      "note": "Quintero has one tournament assist in the bank for Colombia. The detail is the touch just before the obvious chance appears.",
+      "noteZh": "他已经帮Colombia制造过进球。价值在于防线还在移动时，选对出球瞬间。"
+    },
+    "Kevin Castano": {
+      "displayName": "Kevin Castaño",
+      "skills": [
+        "Midfield screening",
+        "Ball recovery",
+        "Simple passing"
+      ],
+      "note": "Castaño gives Colombia midfield depth for games that get stretched. He helps turn a loose ball into a calmer next pass.",
+      "noteZh": "他适合那些空间变丑的时间段。对Colombia来说，这可能就是压力到来前的一次干净触球。"
+    },
+    "Luis Diaz": {
+      "displayName": "Luis Díaz",
+      "skills": [
+        "Goal threat",
+        "Chance passes",
+        "Left-wing acceleration"
+      ],
+      "note": "Díaz has already given Colombia a goal and a setup in this tournament. Defenders have to read shot and pass at the same time.",
+      "noteZh": "他给Colombia展示了进攻工作的两面。一脚拉开防守，下一脚就可能决定机会。"
+    },
+    "Luis Suarez": {
+      "displayName": "Luis Suárez",
+      "skills": [
+        "Chance passes",
+        "Striker movement",
+        "Box finishing"
+      ],
+      "note": "Suárez has supplied one of Colombia's tournament goals. The pass matters because it arrives before the defender can fully turn.",
+      "noteZh": "他这届世界杯已经为Colombia创造过进球。注意他出球的时机，因为那一脚传球往往比带球更重要。"
+    },
+    "Richard Rios": {
+      "displayName": "Richard Ríos",
+      "transfermarktPlayerCode": "richard-rios",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/735573-1779797805.jpg?lm=1",
+      "skills": [
+        "Ball carrying",
+        "Midfield strength",
+        "Forward passing"
+      ],
+      "note": "Ríos gives Colombia midfield depth for games that get stretched. He helps turn a loose ball into a calmer next pass.",
+      "noteZh": "他适合那些空间变丑的时间段。对Colombia来说，这可能就是压力到来前的一次干净触球。"
+    },
+    "Santiago Arias": {
+      "skills": [
+        "Right-back experience",
+        "Overlap timing",
+        "Wide defending"
+      ],
+      "note": "Arias is back-line insurance for Colombia. The card is not glamorous: win the ball, keep the pass safe, reset the shape.",
+      "noteZh": "他给Colombia那些靠胆量守住的分钟提供保障。一次扎实对抗就能让整条线冷静下来。"
+    },
+    "Willer Ditta": {
+      "skills": [
+        "Centre-back strength",
+        "Aerial defending",
+        "Box clearances"
+      ],
+      "note": "Ditta gives Colombia cover for the minutes when defending becomes more about nerve than shape. One solid duel can calm the whole line.",
+      "noteZh": "他是Colombia后防线的保险。卡片不华丽：赢球、稳传、重新站好。"
+    },
+    "Yerry Mina": {
+      "skills": [
+        "Aerial defending",
+        "Set-piece threat",
+        "Defensive leadership"
+      ],
+      "note": "Mina is back-line insurance for Colombia. The card is not glamorous: win the ball, keep the pass safe, reset the shape.",
+      "noteZh": "他给Colombia那些靠胆量守住的分钟提供保障。一次扎实对抗就能让整条线冷静下来。"
+    }
   }
 }

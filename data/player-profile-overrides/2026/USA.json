@@ -21,13 +21,22 @@
   "profiles": {
     "Alex Freeman": {
       "position": "Right-back",
-      "skills": ["Right-back acceleration", "Overlapping runs", "Recovery defending"],
-      "note": "United States' young right-side runner, useful for pushing the line higher and recovering wide space.",
-      "noteZh": "亚历克斯·弗里曼是美国年轻的右路跑动点，适合把边路位置推高并回追边路空间。"
+      "skills": [
+        "Goal threat",
+        "Chance passes",
+        "Right-back acceleration"
+      ],
+      "note": "Freeman has already given United States a goal and a setup in this tournament. Defenders have to read shot and pass at the same time.",
+      "noteZh": "他这届世界杯已经为United States贡献进球和传球。防守者必须同时判断射门和分球。"
     },
     "Alex Zendejas": {
       "displayName": "Álex Zendejas",
-      "aliases": ["Alejandro Zendejas", "Alejandro Zendejas Saavedra", "ZENDEJAS Alex", "Alejandro ZENDEJAS SAAVEDRA"],
+      "aliases": [
+        "Alejandro Zendejas",
+        "Alejandro Zendejas Saavedra",
+        "ZENDEJAS Alex",
+        "Alejandro ZENDEJAS SAAVEDRA"
+      ],
       "sourceTitle": "Álex Zendejas",
       "transfermarktPlayerCode": "alex-zendejas",
       "birthDate": "1998-02-07",
@@ -37,76 +46,136 @@
       "league": "Liga MX",
       "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/351505-1735980931.jpg?lm=1",
       "marketValueEurMillions": 10,
-      "skills": ["Left-footed service", "Box arrivals", "Wide combinations"],
-      "note": "United States' left-footed right winger, dangerous when he slips inside and serves early balls into the box.",
-      "noteZh": "阿莱克斯·森德哈斯是美国左脚右边锋，内收到中路并提前把球送入禁区时很危险。",
+      "skills": [
+        "Left-footed service",
+        "Box arrivals",
+        "Wide combinations"
+      ],
+      "note": "Zendejas is an attacking change-up for United States. He gives the front line fresh running when the first plan starts to look predictable.",
+      "noteZh": "他是United States的进攻深度。如果比赛慢下来，他要让后防线重新移动。",
       "sourceUrl": "https://www.transfermarkt.com/alex-zendejas/profil/spieler/351505"
     },
     "Antonee Robinson": {
-      "skills": ["Left-back speed", "Overlap volume", "Recovery defending"],
-      "note": "United States' left-flank engine, able to create width repeatedly and still recover behind the ball.",
-      "noteZh": "安东尼·罗宾逊是美国左路发动机，能反复制造宽度，并仍然回收到球后防守。"
+      "skills": [
+        "Left-back speed",
+        "Overlap volume",
+        "Recovery defending"
+      ],
+      "note": "Robinson is in the quiet-work part of United States's setup. He keeps attacks from becoming scrambles.",
+      "noteZh": "他是United States主要防守结构的一部分。他把第一下对抗处理干净，避免球队下一阶段只能追着球跑。"
     },
     "Auston Trusty": {
       "position": "Centre-back",
-      "skills": ["Left-sided defending", "Aerial duels", "Recovery cover"],
-      "note": "United States' left-sided centre-back option, useful for aerial defending and covering space beside Robinson.",
-      "noteZh": "奥斯顿·特拉斯蒂是美国左侧中卫选择，适合空中防守并覆盖罗宾逊身旁的空间。"
+      "skills": [
+        "Goal threat",
+        "Left-sided defending",
+        "Aerial duels"
+      ],
+      "note": "Trusty has already turned one tournament chance into a goal against Türkiye. Watch whether defenders start giving him the extra step.",
+      "noteZh": "他已经为United States进入这届世界杯的进球名单。一个终结会改变对手下一次防他的方式。"
     },
     "Brenden Aaronson": {
-      "skills": ["Pressing energy", "Between-lines movement", "Quick combinations"],
-      "note": "United States' pressing connector, valuable for turning loose touches into attacks before defenses reset.",
-      "noteZh": "布伦登·阿伦森是美国压迫连接点，能在防守重整前把松散触球变成进攻。"
+      "skills": [
+        "Pressing energy",
+        "Between-lines movement",
+        "Quick combinations"
+      ],
+      "note": "Aaronson gives United States a way to settle the middle if the match opens up. His best work is making the next decision less hurried.",
+      "noteZh": "他是United States的中场保险。那些混乱阶段里，他要抢第二点、稳一下，再把球送出去。"
     },
     "Chris Brady": {
-      "skills": ["Goalkeeper reflexes", "Young shot stopping", "Box command"],
-      "note": "United States' young goalkeeper depth, bringing reflexes and upside if the match gets stretched.",
-      "noteZh": "克里斯·布雷迪是美国年轻门将深度，比赛被拉开时能带来反应和上升空间。"
+      "skills": [
+        "Goalkeeper reflexes",
+        "Young shot stopping",
+        "Box command"
+      ],
+      "note": "Brady sits behind the starter for United States, but the role is not decorative. He has to be ready for crosses, restarts, and a cold first touch.",
+      "noteZh": "他给United States保留另一个门将选择。真正需要他时，重点可能就是一次大扑救。"
     },
     "Chris Richards": {
-      "skills": ["Centre-back range", "Front-foot defending", "Set-piece threat"],
-      "note": "United States' athletic defensive anchor, trusted to defend space and attack first contacts on set pieces.",
-      "noteZh": "克里斯·理查兹是美国运动能力强的防守支柱，能防守空间并在定位球中争抢第一点。"
+      "skills": [
+        "Centre-back range",
+        "Front-foot defending",
+        "Set-piece threat"
+      ],
+      "note": "Richards has been part of United States's main defensive shape. He keeps the first duel clean so the team does not spend the next phase chasing.",
+      "noteZh": "他在United States体系里做的是安静工作。他让对手的进攻不容易变成混乱。"
     },
     "Christian Pulisic": {
       "position": "Winger",
-      "skills": ["Wing isolation", "Inside finishing", "Penalty-box creation"],
-      "note": "United States' headline attacker, most dangerous when he isolates a defender and drives into shooting zones.",
-      "noteZh": "克里斯蒂安·普利西奇是美国头号攻击手，一对一面对防守者并推进到射门区域时最危险。"
+      "skills": [
+        "Chance passes",
+        "Wing isolation",
+        "Inside finishing"
+      ],
+      "note": "Pulisic has one tournament assist in the bank for United States. The detail is the touch just before the obvious chance appears.",
+      "noteZh": "他已经帮United States制造过进球。价值在于防线还在移动时，选对出球瞬间。"
     },
     "Cristian Roldan": {
-      "skills": ["Midfield reliability", "Counter-pressing", "Short combinations"],
-      "note": "United States' steady midfield glue, useful for keeping attacks connected and closing transition leaks.",
-      "noteZh": "克里斯蒂安·罗尔丹是美国稳健的中场粘合剂，适合保持进攻连接并堵住转换漏洞。"
+      "skills": [
+        "Midfield reliability",
+        "Counter-pressing",
+        "Short combinations"
+      ],
+      "note": "Roldan gives United States a way to settle the middle if the match opens up. His best work is making the next decision less hurried.",
+      "noteZh": "他是United States的中场保险。那些混乱阶段里，他要抢第二点、稳一下，再把球送出去。"
     },
     "Folarin Balogun": {
-      "skills": ["Runs in behind", "Striker finishing", "Channel movement"],
-      "note": "United States' line-stretching striker, dangerous when he bends runs behind and finishes early.",
-      "noteZh": "福拉林·巴洛贡是美国拉扯防线的中锋，弯线冲到身后并提前终结时很危险。"
+      "skills": [
+        "Goal threat",
+        "Runs in behind",
+        "Striker finishing"
+      ],
+      "note": "Balogun has been one of United States's real scoring stories, with goals against Paraguay and Bosnia and Herzegovina. His danger is arriving before defenders have finished sorting the first problem.",
+      "noteZh": "他让United States拥有一个必须被惦记的得分点。每个松散球都可能突然变重。"
     },
     "Giovanni Reyna": {
-      "skills": ["Central creativity", "Final pass", "Tempo changes"],
-      "note": "United States' central creator, able to slow the game down, pick the final pass, and change rhythm.",
-      "noteZh": "乔瓦尼·雷纳是美国中路创造者，能放慢比赛、选择最后一传并改变节奏。"
+      "skills": [
+        "Goal threat",
+        "Central creativity",
+        "Final pass"
+      ],
+      "note": "Reyna's World Cup has already included a goal against Paraguay. The next one may come from the same small window before the shape resets.",
+      "noteZh": "他这届世界杯已经有进球。他的看点是在比赛重新稳定前，先找到属于自己的那个瞬间。"
     },
     "Haji Wright": {
-      "skills": ["Forward power", "Left-side runs", "Penalty-box finishing"],
-      "note": "United States' power forward option, useful for channel runs and direct finishes when games open up.",
-      "noteZh": "哈吉·赖特是美国力量型前锋选择，比赛拉开时适合通道跑动和直接终结。"
+      "skills": [
+        "Forward power",
+        "Left-side runs",
+        "Penalty-box finishing"
+      ],
+      "note": "Wright is attacking depth for United States. If the game slows down, he is there to make the back line move again.",
+      "noteZh": "他是United States前场计划的一部分。他先拉扯防守者，再寻找把压力变成机会的触球。"
     },
     "Joe Scally": {
-      "aliases": ["Joseph Michael Scally", "Joseph Michael SCALLY"],
-      "skills": ["Full-back defending", "One-on-one duels", "Back-post discipline"],
-      "note": "United States' duel-focused full-back, valuable for staying attached to wingers and protecting the back post.",
-      "noteZh": "乔·斯卡利是美国注重对抗的边后卫，对贴住边锋并保护后点很有价值。"
+      "aliases": [
+        "Joseph Michael Scally",
+        "Joseph Michael SCALLY"
+      ],
+      "skills": [
+        "Full-back defending",
+        "One-on-one duels",
+        "Back-post discipline"
+      ],
+      "note": "Scally is defensive cover for United States's harder minutes. He is there to win the first contact and make the next pass simple.",
+      "noteZh": "他是United States在比赛变窄时可以使用的后卫。任务是第一下接触、清楚解围、简单出球。"
     },
     "Malik Tillman": {
-      "skills": ["Attacking midfield timing", "Box arrivals", "Close control"],
-      "note": "United States' smooth attacking midfielder, useful for late box runs and composed touches around pressure.",
-      "noteZh": "马利克·蒂尔曼是美国流畅的攻击型中场，适合后插上进入禁区并在压力周围冷静触球。"
+      "skills": [
+        "Goal threat",
+        "Chance passes",
+        "Attacking midfield timing"
+      ],
+      "note": "Tillman has given United States both the finish and the pass, including goals against Bosnia and Herzegovina and Belgium. That double threat is why defenders cannot settle on one answer.",
+      "noteZh": "他这届世界杯已经同时给United States带来终结和传球。防守者不能只防他的一种选择。"
     },
     "Mark McKenzie": {
-      "aliases": ["McKENZIE Mark", "MCKENZIE Mark", "Mckenzie Mark", "Mark Alexander McKenzie"],
+      "aliases": [
+        "McKENZIE Mark",
+        "MCKENZIE Mark",
+        "Mckenzie Mark",
+        "Mark Alexander McKenzie"
+      ],
       "sourceTitle": "Mark McKenzie",
       "transfermarktPlayerCode": "mark-mckenzie",
       "birthDate": "1999-02-25",
@@ -116,68 +185,122 @@
       "league": "Ligue 1",
       "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Mark%20McKenzie%20USMNT%20v%20Belgium%20Mar%2028%202026-53%20%28cropped%29.jpg?width=160",
       "marketValueEurMillions": 7,
-      "skills": ["Recovery defending", "Clean passing", "Aerial control"],
-      "note": "United States' composed centre-back option, useful for covering space and playing the first pass through pressure.",
-      "noteZh": "马克·麦肯齐是美国沉稳的中卫选择，适合覆盖空间并在压力下送出第一脚传球。",
+      "skills": [
+        "Recovery defending",
+        "Clean passing",
+        "Aerial control"
+      ],
+      "note": "McKenzie is back-line insurance for United States. The card is not glamorous: win the ball, keep the pass safe, reset the shape.",
+      "noteZh": "他给United States那些靠胆量守住的分钟提供保障。一次扎实对抗就能让整条线冷静下来。",
       "sourceUrl": "https://en.wikipedia.org/wiki/Mark_McKenzie_(soccer,_born_1999)"
     },
     "Matt Freese": {
-      "skills": ["Goalkeeper reactions", "Penalty-area bravery", "Short distribution"],
-      "note": "United States' in-form goalkeeper option, bringing sharp reactions and bravery in crowded areas.",
-      "noteZh": "马特·弗里斯是美国状态正佳的门将选择，能在拥挤区域带来敏锐反应和勇气。"
+      "skills": [
+        "Goalkeeper reactions",
+        "Penalty-area bravery",
+        "Short distribution"
+      ],
+      "note": "Freese has carried the keeper minutes for United States. The card is clean hands, clear restarts, and defenders who do not have to rush.",
+      "noteZh": "他是United States防守结构最后的声音。压力停在禁区时，他要让下一步动作简单下来。"
     },
     "Matt Turner": {
-      "skills": ["Shot stopping", "Tournament experience", "Penalty presence"],
-      "note": "United States' experienced shot stopper, trusted for reflex saves and high-pressure goalkeeper moments.",
-      "noteZh": "马特·特纳是美国经验丰富的扑救型门将，反应扑救和高压门将场景都值得信任。"
+      "skills": [
+        "Shot stopping",
+        "Tournament experience",
+        "Penalty presence"
+      ],
+      "note": "Turner gives United States a keeper option if the night turns sideways. His card is about being warm enough for one big save.",
+      "noteZh": "他在United States首发门将身后等待，但这个角色不是装饰。他要随时处理传中、开球和冷启动。"
     },
     "Max Arfsten": {
-      "aliases": ["Maximilian Michael Arfsten", "Maximilian Michael ARFSTEN"],
-      "skills": ["Left-sided wing play", "Direct crossing", "Late box support"],
-      "note": "United States' left-sided width option, useful for early service and arriving beyond the first attack.",
-      "noteZh": "马克斯·阿夫斯滕是美国左路宽度选择，适合提前传中并在第一波进攻后继续前插。"
+      "aliases": [
+        "Maximilian Michael Arfsten",
+        "Maximilian Michael ARFSTEN"
+      ],
+      "skills": [
+        "Left-sided wing play",
+        "Direct crossing",
+        "Late box support"
+      ],
+      "note": "Arfsten is the forward United States can use when the match needs new legs. His first job is to make tired defenders turn.",
+      "noteZh": "他给United States替补席上的另一种进攻速度。有时关键触球，是那次帮队友拉开空间的跑动。"
     },
     "Miles Robinson": {
-      "skills": ["Recovery speed", "Centre-back duels", "Set-piece defending"],
-      "note": "United States' recovery-speed centre-back, built to erase space when the defensive line gets stretched.",
-      "noteZh": "迈尔斯·罗宾逊是美国回追速度型中卫，防线被拉开时能抹掉身后的空间。"
+      "skills": [
+        "Recovery speed",
+        "Centre-back duels",
+        "Set-piece defending"
+      ],
+      "note": "Robinson gives United States cover for the minutes when defending becomes more about nerve than shape. One solid duel can calm the whole line.",
+      "noteZh": "他是United States后防线的保险。卡片不华丽：赢球、稳传、重新站好。"
     },
     "Ricardo Pepi": {
-      "skills": ["Box finishing", "Near-post movement", "Striker pressing"],
-      "note": "United States' penalty-box finisher, sharp around near-post runs and loose balls inside the area.",
-      "noteZh": "里卡多·佩皮是美国禁区终结者，近门柱跑动和禁区内松散球处理都很敏锐。"
+      "skills": [
+        "Box finishing",
+        "Near-post movement",
+        "Striker pressing"
+      ],
+      "note": "Pepi gives United States a different attacking speed from the bench. The important touch may be the run that opens space for someone else.",
+      "noteZh": "他是United States在比赛需要新腿时可以使用的前锋。第一项工作，是让疲劳的后卫转身。"
     },
     "Sebastian Berhalter": {
-      "skills": ["Set-piece delivery", "Midfield passing", "Counter-pressing"],
-      "note": "United States' set-piece and midfield passing option, useful when they need cleaner restarts and pressure after loss.",
-      "noteZh": "塞巴斯蒂安·贝尔哈特是美国定位球和中场传球选择，球队需要更干净的定位球和丢球后压迫时很有用。"
+      "skills": [
+        "Goal threat",
+        "Chance passes",
+        "Set-piece delivery"
+      ],
+      "note": "Berhalter has both scored and created for United States in this run. He matters because the same movement can become the shot or the pass before it.",
+      "noteZh": "他给United States展示了进攻工作的两面。一脚拉开防守，下一脚就可能决定机会。"
     },
     "Sergino Dest": {
       "displayName": "Sergiño Dest",
-      "skills": ["Full-back dribbling", "Inside carries", "Right-side creation"],
-      "note": "United States' dribbling full-back, able to turn right-side possession into central creation.",
-      "noteZh": "塞尔吉尼奥·德斯特是美国盘带型边后卫，能把右路控球变成中路创造。"
+      "skills": [
+        "Full-back dribbling",
+        "Inside carries",
+        "Right-side creation"
+      ],
+      "note": "Dest gives United States one of the steady pieces in the back line. Watch the small choices: step, hold, or clear the lane.",
+      "noteZh": "他是United States无球答案的一部分。第一个跑动被拖慢，整体阵型才不容易散。"
     },
     "Tim Ream": {
-      "aliases": ["Timothy Michael Ream", "Timothy Michael REAM"],
-      "skills": ["Veteran defending", "Left-footed passing", "Back-line leadership"],
-      "note": "United States' veteran back-line organizer, valuable for left-footed passing and calm defensive decisions.",
-      "noteZh": "蒂姆·里姆是美国老将防线组织者，对左脚传球和冷静防守决策很有价值。"
+      "aliases": [
+        "Timothy Michael Ream",
+        "Timothy Michael REAM"
+      ],
+      "skills": [
+        "Veteran defending",
+        "Left-footed passing",
+        "Back-line leadership"
+      ],
+      "note": "Ream gives United States one of the steady pieces in the back line. Watch the small choices: step, hold, or clear the lane.",
+      "noteZh": "他是United States无球答案的一部分。第一个跑动被拖慢，整体阵型才不容易散。"
     },
     "Timothy Weah": {
-      "skills": ["Right-side speed", "Vertical runs", "Wing-back cover"],
-      "note": "United States' vertical right-side runner, useful for stretching the field and covering multiple flank roles.",
-      "noteZh": "蒂莫西·维阿是美国纵向右路跑动点，适合拉长球场并覆盖多个边路职责。"
+      "skills": [
+        "Right-side speed",
+        "Vertical runs",
+        "Wing-back cover"
+      ],
+      "note": "Weah is the kind of defender United States can turn to when the match gets narrow. His job is first contact, clean clearance, simple pass.",
+      "noteZh": "他是United States艰难时间段的防守深度。他要赢下第一下接触，并让下一脚传球简单起来。"
     },
     "Tyler Adams": {
-      "skills": ["Midfield screening", "Counter control", "Press leadership"],
-      "note": "United States' midfield alarm bell, built to stop counters early and organize the press around him.",
-      "noteZh": "泰勒·亚当斯是美国中场警报器，负责提前阻断反击并组织身边的压迫。"
+      "skills": [
+        "Midfield screening",
+        "Counter control",
+        "Press leadership"
+      ],
+      "note": "Adams is a tempo player for United States. He turns crowded touches into cleaner angles for the next runner.",
+      "noteZh": "他让United States在球权转换时更有结构。最有价值的往往是松散触球之后那一秒。"
     },
     "Weston McKennie": {
-      "skills": ["Box-to-box power", "Aerial arrivals", "Set-piece chaos"],
-      "note": "United States' box-to-box force, dangerous when he arrives late or turns set pieces into messy chances.",
-      "noteZh": "韦斯顿·麦肯尼是美国双向中场力量点，后插上或把定位球变成混乱机会时很危险。"
+      "skills": [
+        "Box-to-box power",
+        "Aerial arrivals",
+        "Set-piece chaos"
+      ],
+      "note": "McKennie has been one of United States's midfield connectors in this tournament. He keeps the next pass alive and helps the team avoid rushed choices.",
+      "noteZh": "他是United States让控球不散掉的球员之一。看点是他多早就知道下一脚传给谁。"
     }
   }
 }

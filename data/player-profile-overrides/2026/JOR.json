@@ -91,31 +91,402 @@
     "Yazan Alarab"
   ],
   "profiles": {
-    "Abdallah Al-Fakhori": {"displayName": "Abdallah Al-Fakhouri", "aliases": ["Abdallah Al-Fakhori"], "transfermarktPlayerCode": "abdallah-al-fakhouri", "position": "Goalkeeper", "club": "Al-Wehdat", "league": "Jordanian Pro League", "skills": ["Goalkeeper command", "Shot stopping", "Box organization"], "note": "Al-Fakhori gives Jordan another box-organizing goalkeeper, useful when long spells of pressure need calm handling.", "noteZh": "法胡里给约旦另一名能组织禁区的门将，当长时间受压需要冷静处理时很有用。"},
-    "Abdallah Nasib": {"sourceTitle": "Abdallah Nasib", "transfermarktPlayerCode": "abdallah-nasib", "position": "Centre-back", "club": "Al-Zawraa", "league": "Iraq Stars League", "skills": ["Centre-back duels", "Aerial defending", "Set-piece marking"], "note": "Nasib gives Jordan centre-back size, helping them defend crosses and stay firm on set pieces.", "noteZh": "纳西布给约旦中卫身材，帮助球队防守传中，并在定位球上保持稳固。"},
-    "Mohammad Abu Alnadi": {"displayName": "Mohammad Abu Alnadi", "aliases": ["Mohammad Abualnadi"], "summary": "Mohammad Abu Alnadi is a Jordanian centre-back for Selangor and the Jordan national team.", "transfermarktPlayerCode": "mohammad-abualnadi", "position": "Centre-back", "club": "Selangor", "league": "Malaysia Super League", "marketValueEurMillions": 0.35, "sourceUrl": "https://www.transfermarkt.co.uk/mohammad-abualnadi/profil/spieler/658052", "skills": ["Centre-back cover", "Aerial duels", "Back-line passing"], "note": "Abu Alnadi gives Jordan defensive cover, stepping across to protect space and clear aerial pressure.", "noteZh": "阿布·阿尔纳迪给约旦防守覆盖，能横移保护空间并清理空中压力。"},
-    "Husam Abu Dahab": {"transfermarktPlayerCode": "husam-abu-dahab", "position": "Centre-back", "club": "Al-Faisaly", "league": "Jordanian Pro League", "skills": ["Back-line cover", "Physical defending", "Simple build-up"], "note": "Abu Dahab gives Jordan a sturdy centre-back option, keeping duels simple and the first pass safe.", "noteZh": "阿布·达哈卜给约旦稳固中卫选择，能把对抗处理简单，并保证第一脚传球安全。"},
-    "Mohammad Abu Ghoush": {"transfermarktPlayerCode": "mohammad-abu-ghoush", "position": "Left-back", "club": "Al-Hussein", "league": "Jordanian Pro League", "skills": ["Left-back support", "Wide defending", "Recovery runs"], "note": "Abu Ghoush gives Jordan left-side defensive support, holding width and recovering when counters break.", "noteZh": "阿布·古什给约旦左侧防守支援，能保持宽度，并在反击打出时回追。"},
-    "Mohammad Abu Hasheesh": {"transfermarktPlayerCode": "mohammad-abu-hasheesh", "position": "Left-back", "club": "Al-Karma", "league": "Iraq Stars League", "skills": ["Left-back defending", "Cross blocking", "Overlap timing"], "note": "Abu Hasheesh gives Jordan a left-back who can block service first and join attacks when space appears.", "noteZh": "阿布·哈希什给约旦一名左后卫，能先封堵传中，并在空间出现时参与进攻。"},
-    "Mohannad Abu Taha": {"transfermarktPlayerCode": "mohannad-abu-taha", "position": "Left-back", "club": "Al-Quwa Al-Jawiya", "league": "Iraq Stars League", "skills": ["Left-side running", "Recovery defending", "Crossing"], "note": "Abu Taha gives Jordan left-side running power, useful for covering counters and sending early crosses.", "noteZh": "阿布·塔哈给约旦左侧跑动力，适合覆盖反击并送出早传中。"},
-    "Mohammad Abu Zraiq": {"sourceTitle": "Mohammad Abu Zrayq", "displayName": "Mohammad Abu Zraiq", "aliases": ["Mohammad Abu Zrayq", "Sharara"], "transfermarktPlayerCode": "mohammad-abu-zrayq", "position": "Right winger", "club": "Raja CA", "league": "Botola Pro", "skills": ["Transition dribbling", "Wide acceleration", "Final-third carries"], "note": "Abu Zraiq gives Jordan a transition carrier, driving into open space before the defense can reset.", "noteZh": "阿布·兹赖克给约旦转换推进点，能在防线重组前带球冲进开阔空间。"},
-    "Yazan Al-Arab": {"sourceTitle": "Yazan Al-Arab", "aliases": ["Yazan Alarab"], "transfermarktPlayerCode": "yazan-al-arab", "position": "Centre-back", "club": "FC Seoul", "league": "K League 1", "skills": ["Centre-back leadership", "Aerial duels", "Line control"], "note": "Al-Arab gives Jordan defensive leadership, keeping the line compact and attacking aerial balls.", "noteZh": "阿尔-阿拉卜给约旦防守领导力，能让防线保持紧凑并争抢高空球。"},
-    "Mohammad Al-Daoud": {"displayName": "Mohammad Al-Daoud", "aliases": ["Mohammad Al-Dawoud"], "transfermarktPlayerCode": "mohammad-al-dawoud", "position": "Central midfielder", "club": "Al-Wehdat", "league": "Jordanian Pro League", "skills": ["Midfield circulation", "Second balls", "Defensive positioning"], "note": "Al-Daoud gives Jordan a central connector, helping them collect second balls and keep passes moving.", "noteZh": "达乌德给约旦中路连接点，帮助球队收下第二落点并保持传球流动。"},
-    "Ali Azaizeh": {"transfermarktPlayerCode": "ali-azaizeh", "position": "Right winger", "club": "Al-Shabab", "league": "Saudi Pro League", "skills": ["Right-wing outlet", "Direct running", "Low crosses"], "note": "Azaizeh gives Jordan a right-wing outlet, pushing counters wide and cutting low service into the box.", "noteZh": "阿扎伊泽给约旦右路出口，能把反击推向边路，并把低平传球送入禁区。"},
-    "Ali Olwan": {"sourceTitle": "Ali Olwan", "transfermarktPlayerCode": "ali-olwan", "position": "Centre-forward", "club": "Al-Sailiya", "league": "Qatari Second Division", "skills": ["Box finishing", "Forward pressing", "Near-post runs"], "note": "Olwan gives Jordan their central finishing threat, pressing first and attacking the near post when service arrives.", "noteZh": "奥尔万给约旦中路终结威胁，能率先压迫，并在传球到来时冲击前点。"},
-    "Mahmoud Al-Mardi": {"sourceTitle": "Mahmoud Al-Mardi", "transfermarktPlayerCode": "mahmoud-al-mardi", "position": "Left winger", "club": "Al-Hussein", "league": "Jordanian Pro League", "skills": ["Left-wing finishing", "Inside runs", "Counter support"], "note": "Al-Mardi gives Jordan a left-sided scorer, arriving inside when counters pull defenders toward Al-Taamari.", "noteZh": "马尔迪给约旦左侧得分点，当反击把防守吸向塔马里时能内收。"},
-    "Noor Al-Rawabdeh": {"sourceTitle": "Noor Al-Rawabdeh", "transfermarktPlayerCode": "noor-al-rawabdeh", "position": "Central midfielder", "club": "Selangor", "league": "Malaysia Super League", "skills": ["Midfield organization", "Defensive cover", "Tempo passing"], "note": "Al-Rawabdeh gives Jordan midfield organization, keeping their counterattacking shape connected between clearances.", "noteZh": "拉瓦布德给约旦中场组织，让反击阵型在解围之间保持衔接。"},
-    "Mousa Al-Taamari": {"sourceTitle": "Musa Al-Taamari", "displayName": "Mousa Al-Taamari", "aliases": ["Musa Al-Taamari", "Mousa Tamari", "Mousa Altamari"], "transfermarktPlayerCode": "mousa-tamari", "position": "Right winger", "club": "Rennes", "league": "Ligue 1", "skills": ["Counter acceleration", "One-on-one dribbling", "Left-footed finishing"], "note": "Al-Taamari is Jordan's breakaway weapon, carrying counters at speed and turning isolated defenders into chances.", "noteZh": "塔马里是约旦的反击武器，能高速推进反击，并把被孤立的防守者变成机会。"},
-    "Amer Jamous": {"transfermarktPlayerCode": "amer-jamous", "position": "Central midfielder", "club": "Al-Zawraa", "league": "Iraq Stars League", "skills": ["Midfield running", "Ball recovery", "Short passing"], "note": "Jamous gives Jordan midfield legs, closing gaps quickly and keeping recovered balls simple.", "noteZh": "贾穆斯给约旦中场跑动力，能快速补上空当，并把抢回的球处理简单。"},
-    "Anas Badawi": {"transfermarktPlayerCode": "anas-badawi", "position": "Right-back", "club": "Al-Faisaly", "league": "Jordanian Pro League", "skills": ["Right-back defending", "Overlap support", "Recovery speed"], "note": "Badawi gives Jordan right-back energy, supporting counters without leaving the recovery lane empty.", "noteZh": "巴达维给约旦右后卫活力，能支援反击，同时不把回追通道放空。"},
-    "Nour Bani Attiah": {"sourceTitle": "Nour Bani Attiah", "displayName": "Nour Bani Attiah", "aliases": ["Noor Bane Ataya", "Noureddin Bani Attiah"], "transfermarktPlayerCode": "noor-bane-ataya", "position": "Goalkeeper", "club": "Al-Faisaly", "league": "Jordanian Pro League", "marketValueEurMillions": 0.25, "skills": ["Goalkeeper command", "Close-range saves", "Cross handling"], "note": "Bani Attiah gives Jordan a veteran goalkeeper presence, valuable when crosses and second balls crowd the box.", "noteZh": "巴尼·阿蒂亚给约旦老练门将存在感，当传中和第二落点挤满禁区时很有价值。"},
-    "Ehsan Haddad": {"sourceTitle": "Ehsan Haddad", "transfermarktPlayerCode": "ehsan-haddad", "position": "Right-back", "club": "Al-Hussein", "league": "Jordanian Pro League", "skills": ["Right-back experience", "Cross blocking", "Set-piece service"], "note": "Haddad gives Jordan experienced right-back detail, blocking crosses and offering set-piece delivery.", "noteZh": "哈达德给约旦有经验的右后卫细节，能封堵传中并提供定位球输送。"},
-    "Ibrahim Sadeh": {"sourceTitle": "Ibrahim Sadeh", "displayName": "Ibrahim Sadeh", "aliases": ["Ibrahim Saadeh"], "transfermarktPlayerCode": "ibrahim-saadeh", "position": "Central midfielder", "club": "Al-Karma", "league": "Iraq Stars League", "skills": ["Central passing", "Pressure release", "Second-ball timing"], "note": "Sadeh gives Jordan a central release valve, helping them play out after the first defensive action.", "noteZh": "萨德赫给约旦中路释放压力的出口，帮助球队在第一波防守后出球。"},
-    "Nizar Al-Rashdan": {"sourceTitle": "Nizar Al-Rashdan", "aliases": ["Nizar Alrashdan"], "transfermarktPlayerCode": "nizar-al-rashdan", "position": "Defensive midfielder", "club": "Qatar SC", "league": "Qatar Stars League", "skills": ["Midfield screening", "Ball winning", "Forward passing"], "note": "Al-Rashdan gives Jordan a midfield screen, protecting the center before finding the first forward pass.", "noteZh": "拉什丹给约旦中场屏障，先保护中路，再找到第一脚向前传球。"},
-    "Odeh Fakhoury": {"transfermarktPlayerCode": "odeh-fakhoury", "position": "Left winger", "club": "Pyramids FC", "league": "Egyptian Premier League", "skills": ["Left-wing runs", "Counter support", "Final-third movement"], "note": "Fakhoury gives Jordan left-wing support, joining counters quickly and attacking the far-side lane.", "noteZh": "法胡里给约旦左路支援，能快速参与反击并冲击远侧通道。"},
-    "Rajaei Ayed": {"sourceTitle": "Rajaei Ayed", "transfermarktPlayerCode": "rajaei-ayed", "position": "Central midfielder", "club": "Al-Hussein", "league": "Jordanian Pro League", "skills": ["Midfield balance", "Ball retention", "Defensive cover"], "note": "Ayed gives Jordan midfield balance, holding possession just long enough for the counter shape to form.", "noteZh": "阿耶德给约旦中场平衡，能把球稳住到反击阵型成形。"},
-    "Saed Al-Rosan": {"displayName": "Saed Al-Rosan", "aliases": ["Saed Al-Rousan"], "transfermarktPlayerCode": "saed-al-rosan", "position": "Centre-back", "club": "Al-Hussein", "league": "Jordanian Pro League", "skills": ["Centre-back defending", "Aerial contests", "Box clearances"], "note": "Al-Rosan gives Jordan another centre-back body, clearing the box when opponents attack directly.", "noteZh": "罗桑给约旦另一名中卫身体，当对手直接进攻时能清理禁区。"},
-    "Saleem Obaid": {"transfermarktPlayerCode": "saleem-obaid", "position": "Centre-back", "club": "Al-Hussein", "league": "Jordanian Pro League", "skills": ["Defensive depth", "Aerial cover", "Simple passes"], "note": "Obaid gives Jordan centre-back depth, adding aerial cover and safe passing when protecting a result.", "noteZh": "奥贝德给约旦中卫深度，在保护结果时增加空中覆盖和安全传球。"},
-    "Yazeed Abulaila": {"sourceTitle": "Yazeed Abulaila", "transfermarktPlayerCode": "yazeed-abulaila", "position": "Goalkeeper", "club": "Al-Hussein", "league": "Jordanian Pro League", "skills": ["Shot stopping", "Tournament composure", "Box command"], "note": "Abulaila gives Jordan proven tournament composure in goal, organizing the box through long defensive spells.", "noteZh": "阿布莱拉给约旦在门前经过大赛证明的冷静，能在长时间防守中组织禁区。"}
+    "Abdallah Al-Fakhori": {
+      "displayName": "Abdallah Al-Fakhouri",
+      "aliases": [
+        "Abdallah Al-Fakhori"
+      ],
+      "transfermarktPlayerCode": "abdallah-al-fakhouri",
+      "position": "Goalkeeper",
+      "club": "Al-Wehdat",
+      "league": "Jordanian Pro League",
+      "skills": [
+        "Goalkeeper command",
+        "Shot stopping",
+        "Box organization"
+      ],
+      "note": "Al-Fakhouri sits behind the starter for Jordan, but the role is not decorative. He has to be ready for crosses, restarts, and a cold first touch.",
+      "noteZh": "他给Jordan保留另一个门将选择。真正需要他时，重点可能就是一次大扑救。"
+    },
+    "Abdallah Nasib": {
+      "sourceTitle": "Abdallah Nasib",
+      "transfermarktPlayerCode": "abdallah-nasib",
+      "position": "Centre-back",
+      "club": "Al-Zawraa",
+      "league": "Iraq Stars League",
+      "skills": [
+        "Centre-back duels",
+        "Aerial defending",
+        "Set-piece marking"
+      ],
+      "note": "Nasib has been part of Jordan's answer without the ball. He matters when the first runner has to be slowed before the whole shape breaks.",
+      "noteZh": "他给Jordan后防线一个稳定零件。看的是那些小选择：上抢、站住，还是先封线路。"
+    },
+    "Mohammad Abu Alnadi": {
+      "displayName": "Mohammad Abu Alnadi",
+      "aliases": [
+        "Mohammad Abualnadi"
+      ],
+      "summary": "Mohammad Abu Alnadi is a Jordanian centre-back for Selangor and the Jordan national team.",
+      "transfermarktPlayerCode": "mohammad-abualnadi",
+      "position": "Centre-back",
+      "club": "Selangor",
+      "league": "Malaysia Super League",
+      "marketValueEurMillions": 0.35,
+      "sourceUrl": "https://www.transfermarkt.co.uk/mohammad-abualnadi/profil/spieler/658052",
+      "skills": [
+        "Centre-back cover",
+        "Aerial duels",
+        "Back-line passing"
+      ],
+      "note": "Alnadi is back-line insurance for Jordan. The card is not glamorous: win the ball, keep the pass safe, reset the shape.",
+      "noteZh": "他给Jordan那些靠胆量守住的分钟提供保障。一次扎实对抗就能让整条线冷静下来。"
+    },
+    "Husam Abu Dahab": {
+      "transfermarktPlayerCode": "husam-abu-dahab",
+      "position": "Centre-back",
+      "club": "Al-Faisaly",
+      "league": "Jordanian Pro League",
+      "skills": [
+        "Back-line cover",
+        "Physical defending",
+        "Simple build-up"
+      ],
+      "note": "Dahab gives Jordan another way to protect the edge of the box. His value shows up when the obvious pass disappears.",
+      "noteZh": "他是Jordan后防线的保险。卡片不华丽：赢球、稳传、重新站好。"
+    },
+    "Mohammad Abu Ghoush": {
+      "transfermarktPlayerCode": "mohammad-abu-ghoush",
+      "position": "Left-back",
+      "club": "Al-Hussein",
+      "league": "Jordanian Pro League",
+      "skills": [
+        "Left-back support",
+        "Wide defending",
+        "Recovery runs"
+      ],
+      "note": "Taha gives Jordan cover for the minutes when defending becomes more about nerve than shape. One solid duel can calm the whole line.",
+      "noteZh": "他是Jordan后防线的保险。卡片不华丽：赢球、稳传、重新站好。"
+    },
+    "Mohammad Abu Hasheesh": {
+      "transfermarktPlayerCode": "mohammad-abu-hasheesh",
+      "position": "Left-back",
+      "club": "Al-Karma",
+      "league": "Iraq Stars League",
+      "skills": [
+        "Left-back defending",
+        "Cross blocking",
+        "Overlap timing"
+      ],
+      "note": "Hashish is back-line insurance for Jordan. The card is not glamorous: win the ball, keep the pass safe, reset the shape.",
+      "noteZh": "他给Jordan那些靠胆量守住的分钟提供保障。一次扎实对抗就能让整条线冷静下来。"
+    },
+    "Mohannad Abu Taha": {
+      "transfermarktPlayerCode": "mohannad-abu-taha",
+      "position": "Left-back",
+      "club": "Al-Quwa Al-Jawiya",
+      "league": "Iraq Stars League",
+      "skills": [
+        "Left-side running",
+        "Recovery defending",
+        "Crossing"
+      ],
+      "note": "Taha has been part of Jordan's answer without the ball. He matters when the first runner has to be slowed before the whole shape breaks.",
+      "noteZh": "他给Jordan后防线一个稳定零件。看的是那些小选择：上抢、站住，还是先封线路。"
+    },
+    "Mohammad Abu Zraiq": {
+      "sourceTitle": "Mohammad Abu Zrayq",
+      "displayName": "Mohammad Abu Zraiq",
+      "aliases": [
+        "Mohammad Abu Zrayq",
+        "Sharara"
+      ],
+      "transfermarktPlayerCode": "mohammad-abu-zrayq",
+      "position": "Right winger",
+      "club": "Raja CA",
+      "league": "Botola Pro",
+      "skills": [
+        "Transition dribbling",
+        "Wide acceleration",
+        "Box-area carries"
+      ],
+      "note": "Zraiq is the forward Jordan can use when the match needs new legs. His first job is to make tired defenders turn.",
+      "noteZh": "他给Jordan替补席上的另一种进攻速度。有时关键触球，是那次帮队友拉开空间的跑动。"
+    },
+    "Yazan Al-Arab": {
+      "sourceTitle": "Yazan Al-Arab",
+      "aliases": [
+        "Yazan Alarab"
+      ],
+      "transfermarktPlayerCode": "yazan-al-arab",
+      "position": "Centre-back",
+      "club": "FC Seoul",
+      "league": "K League 1",
+      "skills": [
+        "Centre-back leadership",
+        "Aerial duels",
+        "Line control"
+      ],
+      "note": "Al-Arab gives Jordan one of the steady pieces in the back line. Watch the small choices: step, hold, or clear the lane.",
+      "noteZh": "他是Jordan无球答案的一部分。第一个跑动被拖慢，整体阵型才不容易散。"
+    },
+    "Mohammad Al-Daoud": {
+      "displayName": "Mohammad Al-Daoud",
+      "aliases": [
+        "Mohammad Al-Dawoud"
+      ],
+      "transfermarktPlayerCode": "mohammad-al-dawoud",
+      "position": "Central midfielder",
+      "club": "Al-Wehdat",
+      "league": "Jordanian Pro League",
+      "skills": [
+        "Midfield circulation",
+        "Second balls",
+        "Defensive positioning"
+      ],
+      "note": "Al-Daoud gives Jordan a way to settle the middle if the match opens up. His best work is making the next decision less hurried.",
+      "noteZh": "他是Jordan的中场保险。那些混乱阶段里，他要抢第二点、稳一下，再把球送出去。"
+    },
+    "Ali Azaizeh": {
+      "transfermarktPlayerCode": "ali-azaizeh",
+      "position": "Right winger",
+      "club": "Al-Shabab",
+      "league": "Saudi Pro League",
+      "skills": [
+        "Right-wing outlet",
+        "Direct running",
+        "Low crosses"
+      ],
+      "note": "Azaizeh gives Jordan a different attacking speed from the bench. The important touch may be the run that opens space for someone else.",
+      "noteZh": "他是Jordan在比赛需要新腿时可以使用的前锋。第一项工作，是让疲劳的后卫转身。"
+    },
+    "Ali Olwan": {
+      "sourceTitle": "Ali Olwan",
+      "transfermarktPlayerCode": "ali-olwan",
+      "position": "Centre-forward",
+      "club": "Al-Sailiya",
+      "league": "Qatari Second Division",
+      "skills": [
+        "Goal threat",
+        "Box finishing",
+        "Forward pressing"
+      ],
+      "note": "Olwan already has a World Cup goal in this run, against Austria. His card is about finding the moment before the match settles again.",
+      "noteZh": "他的世界杯已经有了进球。下一次机会也许仍来自阵型重新站稳前的那一小段时间。"
+    },
+    "Mahmoud Al-Mardi": {
+      "sourceTitle": "Mahmoud Al-Mardi",
+      "transfermarktPlayerCode": "mahmoud-al-mardi",
+      "position": "Left winger",
+      "club": "Al-Hussein",
+      "league": "Jordanian Pro League",
+      "skills": [
+        "Left-wing finishing",
+        "Inside runs",
+        "Counter support"
+      ],
+      "note": "Mardi gives Jordan a different attacking speed from the bench. The important touch may be the run that opens space for someone else.",
+      "noteZh": "他是Jordan在比赛需要新腿时可以使用的前锋。第一项工作，是让疲劳的后卫转身。"
+    },
+    "Noor Al-Rawabdeh": {
+      "sourceTitle": "Noor Al-Rawabdeh",
+      "transfermarktPlayerCode": "noor-al-rawabdeh",
+      "position": "Central midfielder",
+      "club": "Selangor",
+      "league": "Malaysia Super League",
+      "skills": [
+        "Midfield organization",
+        "Defensive cover",
+        "Tempo passing"
+      ],
+      "note": "Al-Rawabdeh is a tempo player for Jordan. He turns crowded touches into cleaner angles for the next runner.",
+      "noteZh": "他让Jordan在球权转换时更有结构。最有价值的往往是松散触球之后那一秒。"
+    },
+    "Mousa Al-Taamari": {
+      "sourceTitle": "Musa Al-Taamari",
+      "displayName": "Mousa Al-Taamari",
+      "aliases": [
+        "Musa Al-Taamari",
+        "Mousa Tamari",
+        "Mousa Altamari"
+      ],
+      "transfermarktPlayerCode": "mousa-tamari",
+      "position": "Right winger",
+      "club": "Rennes",
+      "league": "Ligue 1",
+      "skills": [
+        "Goal threat",
+        "Chance passes",
+        "Counter acceleration"
+      ],
+      "note": "Al-Taamari has shown both sides of the attacking job for Jordan. One action can pull the defender, and the next one can decide the chance.",
+      "noteZh": "他给Jordan展示了进攻工作的两面。一脚拉开防守，下一脚就可能决定机会。"
+    },
+    "Amer Jamous": {
+      "transfermarktPlayerCode": "amer-jamous",
+      "position": "Central midfielder",
+      "club": "Al-Zawraa",
+      "league": "Iraq Stars League",
+      "skills": [
+        "Midfield running",
+        "Ball recovery",
+        "Short passing"
+      ],
+      "note": "Jamous is midfield insurance for Jordan. He is there for the messy phase: second ball, one calmer touch, then the next pass.",
+      "noteZh": "他给Jordan一种在比赛打开后稳住中路的办法。最好的工作，是让下一次决定没那么急。"
+    },
+    "Anas Badawi": {
+      "transfermarktPlayerCode": "anas-badawi",
+      "position": "Right-back",
+      "club": "Al-Faisaly",
+      "league": "Jordanian Pro League",
+      "skills": [
+        "Right-back defending",
+        "Overlap support",
+        "Recovery speed"
+      ],
+      "note": "Badawi is the kind of defender Jordan can turn to when the match gets narrow. His job is first contact, clean clearance, simple pass.",
+      "noteZh": "他是Jordan艰难时间段的防守深度。他要赢下第一下接触，并让下一脚传球简单起来。"
+    },
+    "Nour Bani Attiah": {
+      "sourceTitle": "Nour Bani Attiah",
+      "displayName": "Nour Bani Attiah",
+      "aliases": [
+        "Noor Bane Ataya",
+        "Noureddin Bani Attiah"
+      ],
+      "transfermarktPlayerCode": "noor-bane-ataya",
+      "position": "Goalkeeper",
+      "club": "Al-Faisaly",
+      "league": "Jordanian Pro League",
+      "marketValueEurMillions": 0.25,
+      "skills": [
+        "Goalkeeper command",
+        "Close-range saves",
+        "Cross handling"
+      ],
+      "note": "Attiah is goalkeeper cover for Jordan. The role is readiness: saves, restarts, and no panic if the match suddenly needs him.",
+      "noteZh": "他是Jordan门线上的安全网。这个工作说起来简单，做起来很难：冷着上场，并让禁区安静。"
+    },
+    "Ehsan Haddad": {
+      "sourceTitle": "Ehsan Haddad",
+      "transfermarktPlayerCode": "ehsan-haddad",
+      "position": "Right-back",
+      "club": "Al-Hussein",
+      "league": "Jordanian Pro League",
+      "skills": [
+        "Chance passes",
+        "Right-back experience",
+        "Cross blocking"
+      ],
+      "note": "Haddad has already made a goal happen for Jordan. His value is picking the moment when the defense is still moving.",
+      "noteZh": "他已经为Jordan送出一次进球前的传球。重点是机会真正显眼前的那次触球。"
+    },
+    "Ibrahim Sadeh": {
+      "sourceTitle": "Ibrahim Sadeh",
+      "displayName": "Ibrahim Sadeh",
+      "aliases": [
+        "Ibrahim Saadeh"
+      ],
+      "transfermarktPlayerCode": "ibrahim-saadeh",
+      "position": "Central midfielder",
+      "club": "Al-Karma",
+      "league": "Iraq Stars League",
+      "skills": [
+        "Central passing",
+        "Pressure release",
+        "Second-ball timing"
+      ],
+      "note": "Sadeh gives Jordan a way to settle the middle if the match opens up. His best work is making the next decision less hurried.",
+      "noteZh": "他是Jordan的中场保险。那些混乱阶段里，他要抢第二点、稳一下，再把球送出去。"
+    },
+    "Nizar Al-Rashdan": {
+      "sourceTitle": "Nizar Al-Rashdan",
+      "aliases": [
+        "Nizar Alrashdan"
+      ],
+      "transfermarktPlayerCode": "nizar-al-rashdan",
+      "position": "Defensive midfielder",
+      "club": "Qatar SC",
+      "league": "Qatar Stars League",
+      "skills": [
+        "Goal threat",
+        "Midfield screening",
+        "Ball winning"
+      ],
+      "note": "Al-Rashdan already has a World Cup goal in this run, against Algeria. His card is about finding the moment before the match settles again.",
+      "noteZh": "他的世界杯已经有了进球。下一次机会也许仍来自阵型重新站稳前的那一小段时间。"
+    },
+    "Odeh Fakhoury": {
+      "transfermarktPlayerCode": "odeh-fakhoury",
+      "position": "Left winger",
+      "club": "Pyramids FC",
+      "league": "Egyptian Premier League",
+      "skills": [
+        "Left-wing runs",
+        "Counter support",
+        "Box-area movement"
+      ],
+      "note": "Al-Fakhouri is the forward Jordan can use when the match needs new legs. His first job is to make tired defenders turn.",
+      "noteZh": "他给Jordan替补席上的另一种进攻速度。有时关键触球，是那次帮队友拉开空间的跑动。"
+    },
+    "Rajaei Ayed": {
+      "sourceTitle": "Rajaei Ayed",
+      "transfermarktPlayerCode": "rajaei-ayed",
+      "position": "Central midfielder",
+      "club": "Al-Hussein",
+      "league": "Jordanian Pro League",
+      "skills": [
+        "Midfield balance",
+        "Ball retention",
+        "Defensive cover"
+      ],
+      "note": "Ayed gives Jordan a way to settle the middle if the match opens up. His best work is making the next decision less hurried.",
+      "noteZh": "他是Jordan的中场保险。那些混乱阶段里，他要抢第二点、稳一下，再把球送出去。"
+    },
+    "Saed Al-Rosan": {
+      "displayName": "Saed Al-Rosan",
+      "aliases": [
+        "Saed Al-Rousan"
+      ],
+      "transfermarktPlayerCode": "saed-al-rosan",
+      "position": "Centre-back",
+      "club": "Al-Hussein",
+      "league": "Jordanian Pro League",
+      "skills": [
+        "Centre-back defending",
+        "Aerial contests",
+        "Box clearances"
+      ],
+      "note": "Al-Rosan is defensive cover for Jordan's harder minutes. He is there to win the first contact and make the next pass simple.",
+      "noteZh": "他是Jordan在比赛变窄时可以使用的后卫。任务是第一下接触、清楚解围、简单出球。"
+    },
+    "Saleem Obaid": {
+      "transfermarktPlayerCode": "saleem-obaid",
+      "position": "Centre-back",
+      "club": "Al-Hussein",
+      "league": "Jordanian Pro League",
+      "skills": [
+        "Defensive depth",
+        "Aerial cover",
+        "Simple passes"
+      ],
+      "note": "Obaid gives Jordan cover for the minutes when defending becomes more about nerve than shape. One solid duel can calm the whole line.",
+      "noteZh": "他是Jordan后防线的保险。卡片不华丽：赢球、稳传、重新站好。"
+    },
+    "Yazeed Abulaila": {
+      "sourceTitle": "Yazeed Abulaila",
+      "transfermarktPlayerCode": "yazeed-abulaila",
+      "position": "Goalkeeper",
+      "club": "Al-Hussein",
+      "league": "Jordanian Pro League",
+      "skills": [
+        "Shot stopping",
+        "Tournament composure",
+        "Box command"
+      ],
+      "note": "Laila is the last voice in Jordan's defensive shape. When pressure sticks, his job is to make the next action feel simple.",
+      "noteZh": "他承担了Jordan的门将时间。重点是稳手、清楚开球，以及让身前后卫不用慌。"
+    }
   }
 }

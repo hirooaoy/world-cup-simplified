@@ -47,34 +47,58 @@
   ],
   "profiles": {
     "Abdulelah Al-Amri": {
-      "aliases": ["Abdulelah Alamri", "ABDULELAH ALAMRI"],
+      "aliases": [
+        "Abdulelah Alamri",
+        "ABDULELAH ALAMRI"
+      ],
       "transfermarktPlayerCode": "abdulelah-al-amri",
       "club": "Al-Nassr",
       "league": "Saudi Pro League",
-      "skills": ["Front-foot defending", "Aerial contests", "Recovery tackles"],
-      "note": "A front-foot Saudi centre-back, useful when the line steps up and has to contest early balls.",
-      "noteZh": "阿卜杜勒拉·阿姆里是沙特主动上抢型中卫，当防线前压并需要争抢第一点时很有用。"
+      "skills": [
+        "Goal threat",
+        "Front-foot defending",
+        "Aerial contests"
+      ],
+      "note": "Al-Amri already has a World Cup goal in this run, against Uruguay. His card is about finding the moment before the match settles again.",
+      "noteZh": "他的世界杯已经有了进球。下一次机会也许仍来自阵型重新站稳前的那一小段时间。"
     },
     "Abdullah Al-Hamdan": {
-      "aliases": ["Abdullah Alhamddan", "ABDULLAH ALHAMDDAN"],
+      "aliases": [
+        "Abdullah Alhamddan",
+        "ABDULLAH ALHAMDDAN"
+      ],
       "transfermarktPlayerCode": "abdullah-al-hamdan",
       "club": "Al-Nassr",
       "league": "Saudi Pro League",
-      "skills": ["Forward pressing", "Link play", "Channel movement"],
-      "note": "He gives Saudi Arabia a selfless forward runner who presses, links short passes, and pulls centre-backs around.",
-      "noteZh": "阿卜杜拉·哈姆丹给沙特带来自我牺牲的前锋跑动，能压迫、短传串联，并牵动中卫。"
+      "skills": [
+        "Forward pressing",
+        "Link play",
+        "Channel movement"
+      ],
+      "note": "Al-Hamdan gives Saudi Arabia a different attacking speed from the bench. The important touch may be the run that opens space for someone else.",
+      "noteZh": "他是Saudi Arabia在比赛需要新腿时可以使用的前锋。第一项工作，是让疲劳的后卫转身。"
     },
     "Abdullah Al-Khaibari": {
-      "aliases": ["Abdullah Alkhaibari", "ABDULLAH ALKHAIBARI"],
+      "aliases": [
+        "Abdullah Alkhaibari",
+        "ABDULLAH ALKHAIBARI"
+      ],
       "transfermarktPlayerCode": "abdullah-al-khaibari",
       "club": "Al-Nassr",
       "league": "Saudi Pro League",
-      "skills": ["Midfield screening", "Second balls", "Simple circulation"],
-      "note": "Saudi Arabia's holding-midfield stabilizer, important for screening counters and keeping the next pass simple.",
-      "noteZh": "阿卜杜拉·海巴里是沙特后腰稳定器，对保护反击和简洁处理下一脚传球很重要。"
+      "skills": [
+        "Midfield screening",
+        "Second balls",
+        "Simple circulation"
+      ],
+      "note": "Al-Khaibari has been one of Saudi Arabia's midfield connectors in this tournament. He keeps the next pass alive and helps the team avoid rushed choices.",
+      "noteZh": "他是Saudi Arabia让控球不散掉的球员之一。看点是他多早就知道下一脚传给谁。"
     },
     "Ahmed Al-Kassar": {
-      "aliases": ["Ahmed Alkassar", "AHMED ALKASSAR"],
+      "aliases": [
+        "Ahmed Alkassar",
+        "AHMED ALKASSAR"
+      ],
       "transfermarktPlayerCode": "ahmed-al-kassar",
       "birthDate": "1991-05-08",
       "summary": "Ahmed Al-Kassar is a Saudi Arabia goalkeeper from Al-Qadsiah who brings experience, reaction saves, and penalty-area control.",
@@ -83,13 +107,20 @@
       "league": "Saudi Pro League",
       "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/177956-1697280635.png?lm=1",
       "marketValueEurMillions": 0.18,
-      "skills": ["Reaction saves", "Penalty-area control", "Restart choices"],
-      "note": "An experienced goalkeeper option, useful for calm box management and quick reaction stops.",
-      "noteZh": "艾哈迈德·卡萨尔是经验型门将选择，适合冷静管理禁区并完成快速反应扑救。",
+      "skills": [
+        "Reaction saves",
+        "Penalty-area control",
+        "Restart choices"
+      ],
+      "note": "Al-Kassar is Saudi Arabia's safety net in goal. The job is simple to say and hard to do: enter cold and make the box quieter.",
+      "noteZh": "他是Saudi Arabia的门将保障。角色是随时准备好扑救、重新开球，并在突然需要他时不慌。",
       "sourceUrl": "https://www.transfermarkt.com/ahmed-al-kassar/profil/spieler/177956"
     },
     "Alaa Hejji": {
-      "aliases": ["Ala Alhajji", "ALA ALHAJJI"],
+      "aliases": [
+        "Ala Alhajji",
+        "ALA ALHAJJI"
+      ],
       "transfermarktPlayerCode": "alaa-hejji",
       "birthDate": "1995-12-03",
       "summary": "Alaa Hejji is a Saudi Arabia central midfielder from NEOM SC who helps connect possession and support counter-pressing phases.",
@@ -98,56 +129,92 @@
       "league": "Saudi Pro League",
       "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/443937-1685533107.JPG?lm=1",
       "marketValueEurMillions": 0.3,
-      "skills": ["Central circulation", "Counter-press support", "Tempo control"],
-      "note": "In midfield, Hejji can keep Saudi Arabia connected and close space quickly after turnovers.",
-      "noteZh": "在中场，赫吉能让沙特保持连接，并在丢球后快速压缩空间。",
+      "skills": [
+        "Central circulation",
+        "Counter-press support",
+        "Tempo control"
+      ],
+      "note": "Hejji gives Saudi Arabia a way to settle the middle if the match opens up. His best work is making the next decision less hurried.",
+      "noteZh": "他是Saudi Arabia的中场保险。那些混乱阶段里，他要抢第二点、稳一下，再把球送出去。",
       "sourceUrl": "https://www.transfermarkt.com/alaa-hejji/profil/spieler/443937"
     },
     "Ali Lajami": {
       "transfermarktPlayerCode": "ali-lajami",
       "club": "Al-Hilal",
       "league": "Saudi Pro League",
-      "skills": ["Centre-back cover", "Aerial defending", "Box clearances"],
-      "note": "A steady defensive cover piece, valuable when Saudi Arabia need clean headers and back-post protection.",
-      "noteZh": "阿里·拉贾米是稳定的防守保障，当沙特需要干净头球解围和后点保护时很有价值。"
+      "skills": [
+        "Centre-back cover",
+        "Aerial defending",
+        "Box clearances"
+      ],
+      "note": "Lajami is defensive cover for Saudi Arabia's harder minutes. He is there to win the first contact and make the next pass simple.",
+      "noteZh": "他是Saudi Arabia在比赛变窄时可以使用的后卫。任务是第一下接触、清楚解围、简单出球。"
     },
     "Ali Majrashi": {
       "transfermarktPlayerCode": "ali-majrashi",
       "club": "Al-Ahli",
       "league": "Saudi Pro League",
-      "skills": ["Right-back overlaps", "Recovery speed", "Wide duels"],
-      "note": "Majrashi adds right-side drive, especially when Saudi Arabia want overlaps without losing recovery speed.",
-      "noteZh": "马杰拉希给沙特右路增加推进力，尤其适合既要套边又不能丢掉回追速度的场景。"
+      "skills": [
+        "Right-back overlaps",
+        "Recovery speed",
+        "Wide duels"
+      ],
+      "note": "Majrashi is part of Saudi Arabia's tournament depth. His card is about making the simple play feel available under pressure.",
+      "noteZh": "他在Saudi Arabia的赛事角色建立在干净决策上。看他的第一脚触球，是让球队稳下来，还是让下一次进攻加速。"
     },
     "Ayman Yahya": {
-      "aliases": ["Aiman Yahya", "AIMAN YAHYA"],
+      "aliases": [
+        "Aiman Yahya",
+        "AIMAN YAHYA"
+      ],
       "transfermarktPlayerCode": "ayman-yahya",
       "club": "Al-Nassr",
       "league": "Saudi Pro League",
-      "skills": ["Wide carrying", "Left-side flexibility", "One-on-one defending"],
-      "note": "A flexible left-side outlet, able to carry forward from deep or defend the flank in longer spells.",
-      "noteZh": "艾曼·叶海亚是灵活的左路出口，能从后场带球向前，也能在长时间防守阶段守住边路。"
+      "skills": [
+        "Wide carrying",
+        "Left-side flexibility",
+        "One-on-one defending"
+      ],
+      "note": "Yahya gives Saudi Arabia cover for the minutes when defending becomes more about nerve than shape. One solid duel can calm the whole line.",
+      "noteZh": "他是Saudi Arabia后防线的保险。卡片不华丽：赢球、稳传、重新站好。"
     },
     "Firas Al-Buraikan": {
-      "aliases": ["Feras Albrikan", "FERAS ALBRIKAN"],
+      "aliases": [
+        "Feras Albrikan",
+        "FERAS ALBRIKAN"
+      ],
       "transfermarktPlayerCode": "firas-al-buraikan",
       "club": "Al-Ahli",
       "league": "Saudi Pro League",
-      "skills": ["Centre-forward movement", "Link play", "Penalty-box timing"],
-      "note": "A mobile centre-forward for Saudi Arabia, dangerous when he links play and then attacks the next cross.",
-      "noteZh": "菲拉斯·布赖坎是沙特机动中锋，先串联进攻再冲击下一脚传中时很危险。"
+      "skills": [
+        "Centre-forward movement",
+        "Link play",
+        "Penalty-box timing"
+      ],
+      "note": "Al-Buraikan is one of Saudi Arabia's named attacking routes in this tournament. His job is to make the first defender move so the finish or final pass can appear.",
+      "noteZh": "他给Saudi Arabia一种把控球变成压力的路线。他要让防守者必须做选择。"
     },
     "Hassan Al-Tambakti": {
-      "aliases": ["Hassan Altambakti", "HASSAN ALTAMBAKTI"],
+      "aliases": [
+        "Hassan Altambakti",
+        "HASSAN ALTAMBAKTI"
+      ],
       "transfermarktPlayerCode": "hassan-tambakti",
       "club": "Al-Hilal",
       "league": "Saudi Pro League",
-      "skills": ["Recovery pace", "Duel defending", "High-line cover"],
-      "note": "Saudi Arabia's quickest centre-back profile, useful for defending space behind a braver line.",
-      "noteZh": "哈桑·坦巴克蒂是沙特速度最快的中卫类型，适合保护更大胆防线身后的空间。"
+      "skills": [
+        "Recovery pace",
+        "Duel defending",
+        "High-line cover"
+      ],
+      "note": "Al-Tambakti gives Saudi Arabia one of the steady pieces in the back line. Watch the small choices: step, hold, or clear the lane.",
+      "noteZh": "他是Saudi Arabia无球答案的一部分。第一个跑动被拖慢，整体阵型才不容易散。"
     },
     "Hassan Kadesh": {
-      "aliases": ["Hassan Kadish", "HASSAN KADISH"],
+      "aliases": [
+        "Hassan Kadish",
+        "HASSAN KADISH"
+      ],
       "transfermarktPlayerCode": "hassan-kadesh",
       "birthDate": "1992-09-26",
       "summary": "Hassan Kadesh is a Saudi Arabia left-back from Al-Ittihad who gives the team left-footed balance, defensive experience, and set-piece presence.",
@@ -156,13 +223,20 @@
       "league": "Saudi Pro League",
       "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/260859-1703280060.png?lm=1",
       "marketValueEurMillions": 0.28,
-      "skills": ["Left-footed balance", "Back-post defending", "Set-piece presence"],
-      "note": "A left-sided defensive veteran, useful for balancing the back line and competing at the far post.",
-      "noteZh": "哈桑·卡德什是左侧防守老将，适合平衡防线并在后点对抗。",
+      "skills": [
+        "Left-footed balance",
+        "Back-post defending",
+        "Set-piece presence"
+      ],
+      "note": "Kadesh gives Saudi Arabia cover for the minutes when defending becomes more about nerve than shape. One solid duel can calm the whole line.",
+      "noteZh": "他是Saudi Arabia后防线的保险。卡片不华丽：赢球、稳传、重新站好。",
       "sourceUrl": "https://www.transfermarkt.com/hassan-kadesh/profil/spieler/260859"
     },
     "Jehad Thakri": {
-      "aliases": ["Jehad Thikri", "JEHAD THIKRI"],
+      "aliases": [
+        "Jehad Thikri",
+        "JEHAD THIKRI"
+      ],
       "transfermarktPlayerCode": "jehad-thakri",
       "birthDate": "2001-07-21",
       "summary": "Jehad Thakri is a Saudi Arabia centre-back from Al-Qadsiah who adds size, aerial defending, and squad depth.",
@@ -171,30 +245,48 @@
       "league": "Saudi Pro League",
       "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/901334-1698420724.JPG?lm=1",
       "marketValueEurMillions": 1.2,
-      "skills": ["Centre-back depth", "Aerial defending", "Box protection"],
-      "note": "Thakri gives Saudi Arabia another centre-back body for aerial spells and late box protection.",
-      "noteZh": "萨克里给沙特增加中卫厚度，适合应对空中球阶段和比赛末段的禁区保护。",
+      "skills": [
+        "Centre-back depth",
+        "Aerial defending",
+        "Box protection"
+      ],
+      "note": "Thakri is the kind of defender Saudi Arabia can turn to when the match gets narrow. His job is first contact, clean clearance, simple pass.",
+      "noteZh": "他是Saudi Arabia艰难时间段的防守深度。他要赢下第一下接触，并让下一脚传球简单起来。",
       "sourceUrl": "https://www.transfermarkt.com/jehad-thakri/profil/spieler/901334"
     },
     "Khalid Al-Ghannam": {
-      "aliases": ["Khalid Alghannam", "KHALID ALGHANNAM"],
+      "aliases": [
+        "Khalid Alghannam",
+        "KHALID ALGHANNAM"
+      ],
       "transfermarktPlayerCode": "khalid-al-ghannam",
       "club": "Al-Ettifaq",
       "league": "Saudi Pro League",
-      "skills": ["Left-wing dribbling", "Transition carries", "Inside runs"],
-      "note": "Al-Ghannam is a direct left-wing carrier, best when Saudi Arabia can release him into transition lanes.",
-      "noteZh": "加纳姆是直接的左路带球手，沙特能把他送入转换通道时最有威胁。"
+      "skills": [
+        "Left-wing dribbling",
+        "Transition carries",
+        "Inside runs"
+      ],
+      "note": "Al-Ghannam is attacking depth for Saudi Arabia. If the game slows down, he is there to make the back line move again.",
+      "noteZh": "他是Saudi Arabia前场计划的一部分。他先拉扯防守者，再寻找把压力变成机会的触球。"
     },
     "Mohamed Kanno": {
       "transfermarktPlayerCode": "mohamed-kanno",
       "club": "Al-Hilal",
       "league": "Saudi Pro League",
-      "skills": ["Midfield power", "Ball carrying", "Late box runs"],
-      "note": "Kanno gives the midfield height and force, with the range to carry through pressure and arrive late.",
-      "noteZh": "卡诺给中场带来身高和力量，也有能力在压力中带球推进并后插上。"
+      "skills": [
+        "Midfield power",
+        "Ball carrying",
+        "Late box runs"
+      ],
+      "note": "Kanno is midfield insurance for Saudi Arabia. He is there for the messy phase: second ball, one calmer touch, then the next pass.",
+      "noteZh": "他给Saudi Arabia一种在比赛打开后稳住中路的办法。最好的工作，是让下一次决定没那么急。"
     },
     "Mohammed Abu Al-Shamat": {
-      "aliases": ["Mohammed Abu Alshamat", "MOHAMMED ABU ALSHAMAT"],
+      "aliases": [
+        "Mohammed Abu Alshamat",
+        "MOHAMMED ABU ALSHAMAT"
+      ],
       "transfermarktPlayerCode": "mohammed-abu-al-shamat",
       "birthDate": "2002-08-11",
       "summary": "Mohammed Abu Al-Shamat is a Saudi Arabia right-back from Al-Qadsiah who offers recovery speed, overlap timing, and defensive energy.",
@@ -203,9 +295,13 @@
       "league": "Saudi Pro League",
       "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/1181852-1774859021.jpg?lm=1",
       "marketValueEurMillions": 1.8,
-      "skills": ["Right-back recovery", "Overlap timing", "Defensive energy"],
-      "note": "A younger right-back option, useful when Saudi Arabia need fresh legs to overlap and recover.",
-      "noteZh": "阿布沙马特是更年轻的右后卫选择，当沙特需要套边和回追的体能时很有用。",
+      "skills": [
+        "Right-back recovery",
+        "Overlap timing",
+        "Defensive energy"
+      ],
+      "note": "Al-Shamat gives Saudi Arabia cover for the minutes when defending becomes more about nerve than shape. One solid duel can calm the whole line.",
+      "noteZh": "他是Saudi Arabia后防线的保险。卡片不华丽：赢球、稳传、重新站好。",
       "sourceUrl": "https://www.transfermarkt.com/mohammed-abu-al-shamat/profil/spieler/1181852"
     },
     "Mohammed Al-Owais": {
@@ -213,12 +309,19 @@
       "club": "Al-Ula FC",
       "league": "Saudi First Division League",
       "marketValueEurMillions": 0.28,
-      "skills": ["Shot stopping", "Big-game calm", "Long reach"],
-      "note": "Saudi Arabia's battle-tested goalkeeper, trusted for sharp saves and big-match composure.",
-      "noteZh": "穆罕默德·奥韦斯是沙特久经考验的门将，敏捷扑救和大场面稳定性值得信任。"
+      "skills": [
+        "Shot stopping",
+        "Big-game calm",
+        "Long reach"
+      ],
+      "note": "Al-Owais is the last voice in Saudi Arabia's defensive shape. When pressure sticks, his job is to make the next action feel simple.",
+      "noteZh": "他承担了Saudi Arabia的门将时间。重点是稳手、清楚开球，以及让身前后卫不用慌。"
     },
     "Moteb Al-Harbi": {
-      "aliases": ["Moteb Alharbi", "MOTEB ALHARBI"],
+      "aliases": [
+        "Moteb Alharbi",
+        "MOTEB ALHARBI"
+      ],
       "transfermarktPlayerCode": "moteb-al-harbi",
       "birthDate": "2000-02-19",
       "summary": "Moteb Al-Harbi is a Saudi Arabia left-back from Al-Hilal who brings overlap timing, recovery defending, and left-footed service.",
@@ -227,22 +330,36 @@
       "league": "Saudi Pro League",
       "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/869509-1685911461.jpg?lm=1",
       "marketValueEurMillions": 1.4,
-      "skills": ["Left-back overlaps", "Recovery defending", "Left-footed service"],
-      "note": "Al-Harbi stretches the left side, giving Saudi Arabia width and a defender who can still recover.",
-      "noteZh": "哈比能拉开左路宽度，给沙特提供边路宽度，同时仍能回追防守。",
+      "skills": [
+        "Left-back overlaps",
+        "Recovery defending",
+        "Left-footed service"
+      ],
+      "note": "Al-Harbi is defensive rotation for Saudi Arabia. The watch point is how early he closes the lane that looked open.",
+      "noteZh": "他给Saudi Arabia那些靠胆量守住的分钟提供保障。一次扎实对抗就能让整条线冷静下来。",
       "sourceUrl": "https://www.transfermarkt.com/moteb-al-harbi/profil/spieler/869509"
     },
     "Musab Al-Juwayr": {
-      "aliases": ["Musab Aljuwayr", "MUSAB ALJUWAYR"],
+      "aliases": [
+        "Musab Aljuwayr",
+        "MUSAB ALJUWAYR"
+      ],
       "transfermarktPlayerCode": "musab-al-juwayr",
       "club": "Al-Qadsiah FC",
       "league": "Saudi Pro League",
-      "skills": ["Progressive passing", "Set-piece delivery", "Midfield tempo"],
-      "note": "A cleaner midfield passer, able to change Saudi Arabia's tempo and deliver useful restarts.",
-      "noteZh": "穆萨布·朱韦尔是更干净的中场传球手，能改变沙特节奏并送出有用的定位球。"
+      "skills": [
+        "Progressive passing",
+        "Set-piece delivery",
+        "Midfield tempo"
+      ],
+      "note": "Al-Juwayr is there for the part of the game where spacing gets ugly. For Saudi Arabia, that can mean one clean touch before pressure arrives.",
+      "noteZh": "他给Saudi Arabia提供中场深度，适合比赛被拉开的时候。他把松散球变成更冷静的下一脚。"
     },
     "Nasser Al-Dawsari": {
-      "aliases": ["Nasser Aldawsari", "NASSER ALDAWSARI"],
+      "aliases": [
+        "Nasser Aldawsari",
+        "NASSER ALDAWSARI"
+      ],
       "transfermarktPlayerCode": "nasser-al-dawsari",
       "birthDate": "1998-12-19",
       "summary": "Nasser Al-Dawsari is a Saudi Arabia central midfielder from Al-Hilal who adds coverage, passing discipline, and late shooting threat.",
@@ -251,22 +368,36 @@
       "league": "Saudi Pro League",
       "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/509911-1681408247.jpg?lm=1",
       "marketValueEurMillions": 0.9,
-      "skills": ["Midfield coverage", "Passing discipline", "Late shooting"],
-      "note": "Nasser Al-Dawsari is a practical midfield shifter, covering left-sided gaps and arriving for second balls.",
-      "noteZh": "纳赛尔·达乌萨里是实用的中场调节者，能覆盖左侧空当并冲抢第二落点。",
+      "skills": [
+        "Midfield coverage",
+        "Passing discipline",
+        "Late shooting"
+      ],
+      "note": "Al-Dawsari gives Saudi Arabia a way to settle the middle if the match opens up. His best work is making the next decision less hurried.",
+      "noteZh": "他是Saudi Arabia的中场保险。那些混乱阶段里，他要抢第二点、稳一下，再把球送出去。",
       "sourceUrl": "https://www.transfermarkt.com/nasser-al-dawsari/profil/spieler/509911"
     },
     "Nawaf Al-Aqidi": {
-      "aliases": ["Nawaf Alaqidi", "NAWAF ALAQIDI"],
+      "aliases": [
+        "Nawaf Alaqidi",
+        "NAWAF ALAQIDI"
+      ],
       "transfermarktPlayerCode": "nawaf-al-aqidi",
       "club": "Al-Nassr",
       "league": "Saudi Pro League",
-      "skills": ["Reflex saves", "Goalkeeper distribution", "Cross handling"],
-      "note": "Al-Aqidi is the higher-upside goalkeeper option, useful for reflex work and cleaner restarts.",
-      "noteZh": "阿基迪是上限更高的门将选择，适合反应扑救和更干净的后场重启。"
+      "skills": [
+        "Reflex saves",
+        "Goalkeeper distribution",
+        "Cross handling"
+      ],
+      "note": "Al-Aqidi is goalkeeper cover for Saudi Arabia. The role is readiness: saves, restarts, and no panic if the match suddenly needs him.",
+      "noteZh": "他是Saudi Arabia门线上的安全网。这个工作说起来简单，做起来很难：冷着上场，并让禁区安静。"
     },
     "Nawaf Boushal": {
-      "aliases": ["Nawaf Bu Washl", "NAWAF BU WASHL"],
+      "aliases": [
+        "Nawaf Bu Washl",
+        "NAWAF BU WASHL"
+      ],
       "transfermarktPlayerCode": "nawaf-boushal",
       "birthDate": "1999-09-16",
       "summary": "Nawaf Boushal is a Saudi Arabia right-back from Al-Nassr who brings overlap energy, recovery speed, and wide defensive bite.",
@@ -275,47 +406,76 @@
       "league": "Saudi Pro League",
       "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/821377-1685035434.png?lm=1",
       "marketValueEurMillions": 1.4,
-      "skills": ["Right-back energy", "Recovery speed", "Wide defending"],
-      "note": "Boushal gives Saudi Arabia a high-energy right-back who can join attacks and still chase back.",
-      "noteZh": "布沙尔给沙特带来高能量右后卫，能参与进攻，也能迅速回追。",
+      "skills": [
+        "Right-back energy",
+        "Recovery speed",
+        "Wide defending"
+      ],
+      "note": "Boushal is back-line insurance for Saudi Arabia. The card is not glamorous: win the ball, keep the pass safe, reset the shape.",
+      "noteZh": "他给Saudi Arabia那些靠胆量守住的分钟提供保障。一次扎实对抗就能让整条线冷静下来。",
       "sourceUrl": "https://www.transfermarkt.com/nawaf-boushal/profil/spieler/821377"
     },
     "Saleh Al-Shehri": {
-      "aliases": ["Saleh Alshehri", "SALEH ALSHEHRI"],
+      "aliases": [
+        "Saleh Alshehri",
+        "SALEH ALSHEHRI"
+      ],
       "transfermarktPlayerCode": "saleh-al-shehri",
       "club": "Al-Ittihad",
       "league": "Saudi Pro League",
-      "skills": ["Penalty-box movement", "First-time finishing", "Aerial timing"],
-      "note": "Al-Shehri remains a box striker for Saudi Arabia, sharpest when service arrives early.",
-      "noteZh": "谢赫里仍是沙特禁区型前锋，传球早点送到时最敏锐。"
+      "skills": [
+        "Penalty-box movement",
+        "First-time finishing",
+        "Aerial timing"
+      ],
+      "note": "Al-Shehri gives Saudi Arabia a different attacking speed from the bench. The important touch may be the run that opens space for someone else.",
+      "noteZh": "他是Saudi Arabia在比赛需要新腿时可以使用的前锋。第一项工作，是让疲劳的后卫转身。"
     },
     "Salem Al-Dawsari": {
-      "aliases": ["Salem Aldawsari", "SALEM ALDAWSARI"],
+      "aliases": [
+        "Salem Aldawsari",
+        "SALEM ALDAWSARI"
+      ],
       "transfermarktPlayerCode": "salem-al-dawsari",
       "club": "Al-Hilal",
       "league": "Saudi Pro League",
-      "skills": ["Left-wing creation", "Inside shooting", "Big-moment carrying"],
-      "note": "Saudi Arabia's decisive wide attacker, dangerous when he carries inside and turns possession into a shot.",
-      "noteZh": "萨勒姆·达乌萨里是沙特关键边路攻击手，内切带球并把控球转化为射门时很危险。"
+      "skills": [
+        "Left-wing creation",
+        "Inside shooting",
+        "Big-moment carrying"
+      ],
+      "note": "Al-Dawsari is one of Saudi Arabia's attacking paths this tournament. Watch how the first defender reacts when he receives facing goal.",
+      "noteZh": "他现在会出现在对手的赛前报告里。对Saudi Arabia来说，他的触球可以把协防从下一个跑动上拉走。"
     },
     "Saud Abdulhamid": {
       "transfermarktPlayerCode": "saud-abdulhamid",
       "club": "Lens",
       "league": "Ligue 1",
-      "skills": ["Right-back engine", "Overlap timing", "Recovery defending"],
-      "note": "Saud is Saudi Arabia's running power on the right, constantly turning full-back space into an outlet.",
-      "noteZh": "沙特·阿卜杜勒哈米德是沙特右路奔跑动力，能不断把边后卫空间变成出球点。"
+      "skills": [
+        "Right-back engine",
+        "Overlap timing",
+        "Recovery defending"
+      ],
+      "note": "Abdulhamid has been part of Saudi Arabia's answer without the ball. He matters when the first runner has to be slowed before the whole shape breaks.",
+      "noteZh": "他给Saudi Arabia后防线一个稳定零件。看的是那些小选择：上抢、站住，还是先封线路。"
     },
     "Sultan Mandash": {
       "transfermarktPlayerCode": "sultan-mandash",
       "club": "Al-Hilal",
       "league": "Saudi Pro League",
-      "skills": ["Right-wing width", "Pressing effort", "Direct carrying"],
-      "note": "Mandash is a width-and-work-rate winger, useful when Saudi Arabia want the far side stretched.",
-      "noteZh": "曼达什是提供宽度和跑动强度的边锋，当沙特需要拉开远侧宽度时很有用。"
+      "skills": [
+        "Right-wing width",
+        "Pressing effort",
+        "Direct carrying"
+      ],
+      "note": "Mandash is the forward Saudi Arabia can use when the match needs new legs. His first job is to make tired defenders turn.",
+      "noteZh": "他给Saudi Arabia替补席上的另一种进攻速度。有时关键触球，是那次帮队友拉开空间的跑动。"
     },
     "Ziyad Al-Johani": {
-      "aliases": ["Ziyad Aljohani", "ZIYAD ALJOHANI"],
+      "aliases": [
+        "Ziyad Aljohani",
+        "ZIYAD ALJOHANI"
+      ],
       "transfermarktPlayerCode": "ziyad-al-johani",
       "birthDate": "2001-11-11",
       "summary": "Ziyad Al-Johani is a Saudi Arabia defensive midfielder from Al-Ahli who adds ball winning, central coverage, and short progression.",
@@ -324,9 +484,13 @@
       "league": "Saudi Pro League",
       "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/901079-1749200517.jpg?lm=1",
       "marketValueEurMillions": 0.8,
-      "skills": ["Ball winning", "Central coverage", "Short progression"],
-      "note": "Al-Johani gives Saudi Arabia a younger defensive-midfield option for winning duels and moving play on.",
-      "noteZh": "乔哈尼给沙特提供更年轻的后腰选择，适合赢下对抗并把球继续推进。",
+      "skills": [
+        "Ball winning",
+        "Central coverage",
+        "Short progression"
+      ],
+      "note": "Al-Johani is there for the part of the game where spacing gets ugly. For Saudi Arabia, that can mean one clean touch before pressure arrives.",
+      "noteZh": "他给Saudi Arabia提供中场深度，适合比赛被拉开的时候。他把松散球变成更冷静的下一脚。",
       "sourceUrl": "https://www.transfermarkt.com/ziyad-al-johani/profil/spieler/901079"
     }
   }

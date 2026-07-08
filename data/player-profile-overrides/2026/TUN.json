@@ -36,10 +36,16 @@
   "profiles": {
     "Adam Arous": {
       "displayName": "Adem Arous",
-      "aliases": ["Adam Arous"],
-      "skills": ["Centre-back aggression", "Recovery defending", "Young upside"],
-      "note": "Tunisia's young centre-back option, useful for front-foot defending and covering space behind the line.",
-      "noteZh": "阿德姆·阿鲁斯是突尼斯年轻中卫选择，适合主动上抢并保护防线身后空间。"
+      "aliases": [
+        "Adam Arous"
+      ],
+      "skills": [
+        "Centre-back aggression",
+        "Recovery defending",
+        "Young upside"
+      ],
+      "note": "Arous is back-line insurance for Tunisia. The card is not glamorous: win the ball, keep the pass safe, reset the shape.",
+      "noteZh": "他给Tunisia那些靠胆量守住的分钟提供保障。一次扎实对抗就能让整条线冷静下来。"
     },
     "Ali Abdi": {
       "summary": "Ali Abdi is a Tunisia left-back at Nice who gives the national team overlap timing, crossing quality, and wide defending.",
@@ -50,14 +56,23 @@
       "league": "Ligue 1",
       "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/211474-1756827001.jpg?lm=1",
       "marketValueEurMillions": 2,
-      "skills": ["Left-back overlaps", "Crossing service", "Wide defending"],
-      "note": "Tunisia's experienced left-back outlet, able to defend the flank and still add early service forward.",
-      "noteZh": "阿里·阿卜迪是突尼斯经验丰富的左后卫出口，能防守边路，也能向前送出早传。",
+      "skills": [
+        "Left-back overlaps",
+        "Crossing service",
+        "Wide defending"
+      ],
+      "note": "Abdi is in the quiet-work part of Tunisia's setup. He keeps attacks from becoming scrambles.",
+      "noteZh": "他是Tunisia主要防守结构的一部分。他把第一下对抗处理干净，避免球队下一阶段只能追着球跑。",
       "sourceUrl": "https://www.transfermarkt.co.uk/ali-abdi/profil/spieler/211474"
     },
     "Amine Ben Hmida": {
       "displayName": "Mohamed Amine Ben Hamida",
-      "aliases": ["Amine Ben Hamida", "Mohamed Amine Ben Hmida", "Mohamed Amine Ben Hamida", "BEN HMIDA Mohamed Amine"],
+      "aliases": [
+        "Amine Ben Hamida",
+        "Mohamed Amine Ben Hmida",
+        "Mohamed Amine Ben Hamida",
+        "BEN HMIDA Mohamed Amine"
+      ],
       "summary": "Mohamed Amine Ben Hamida is a Tunisia left-back at Espérance de Tunis who gives the national team defensive width, left-footed balance, and tournament experience.",
       "transfermarktPlayerCode": "mohamed-amine-ben-hamida",
       "birthDate": "1995-12-15",
@@ -66,14 +81,21 @@
       "league": "Tunisian Ligue Professionnelle 1",
       "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/454495-1646245853.jpeg?lm=1",
       "marketValueEurMillions": 1,
-      "skills": ["Left-back balance", "Defensive positioning", "Set-piece support"],
-      "note": "Tunisia's left-back stabilizer, important for defensive width and safer possession on the outside.",
-      "noteZh": "穆罕默德·阿明·本·哈米达是突尼斯左后卫稳定点，对防守宽度和边路安全控球很重要。",
+      "skills": [
+        "Left-back balance",
+        "Defensive positioning",
+        "Set-piece support"
+      ],
+      "note": "Hamida gives Tunisia defensive range. His job is to make the opponent's first opening feel smaller than it looked.",
+      "noteZh": "他是Tunisia在比赛变窄时可以使用的后卫。任务是第一下接触、清楚解围、简单出球。",
       "sourceUrl": "https://www.transfermarkt.co.uk/mohamed-amine-ben-hamida/profil/spieler/454495"
     },
     "Anis Slimane": {
       "displayName": "Anis Ben Slimane",
-      "aliases": ["Anis Slimane", "SLIMANE Anis"],
+      "aliases": [
+        "Anis Slimane",
+        "SLIMANE Anis"
+      ],
       "summary": "Anis Ben Slimane is a Tunisia attacking midfielder at Norwich City who gives the national team carrying power, between-lines receiving, and midfield height.",
       "transfermarktPlayerCode": "anis-ben-slimane",
       "birthDate": "2001-03-16",
@@ -82,86 +104,149 @@
       "league": "Premier League",
       "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/546712-1668422834.jpg?lm=1",
       "marketValueEurMillions": 2.5,
-      "skills": ["Between-lines carrying", "Midfield height", "Forward support"],
-      "note": "Tunisia's rangy attacking midfielder, useful for carrying through pressure and joining the front line late.",
-      "noteZh": "阿尼斯·本·斯利曼是突尼斯高大型攻击中场，适合在压力下带球推进并后插上支援锋线。",
+      "skills": [
+        "Between-lines carrying",
+        "Midfield height",
+        "Forward support"
+      ],
+      "note": "Slimane has been one of Tunisia's midfield connectors in this tournament. He keeps the next pass alive and helps the team avoid rushed choices.",
+      "noteZh": "他是Tunisia让控球不散掉的球员之一。看点是他多早就知道下一脚传给谁。",
       "sourceUrl": "https://www.transfermarkt.co.uk/anis-ben-slimane/profil/spieler/546712"
     },
     "Aymen Dahmen": {
       "league": "Tunisian Ligue Professionnelle 1",
-      "skills": ["Goalkeeper command", "Shot stopping", "Penalty-area calm"],
-      "note": "Tunisia's steady goalkeeper option, trusted for box command and calm handling in long defensive spells.",
-      "noteZh": "艾门·达门是突尼斯稳健的门将选择，长时间防守时能提供禁区指挥和冷静处理。"
+      "skills": [
+        "Goalkeeper command",
+        "Shot stopping",
+        "Penalty-area calm"
+      ],
+      "note": "Dahmen sits behind the starter for Tunisia, but the role is not decorative. He has to be ready for crosses, restarts, and a cold first touch.",
+      "noteZh": "他给Tunisia保留另一个门将选择。真正需要他时，重点可能就是一次大扑救。"
     },
     "Dylan Bronn": {
-      "skills": ["Centre-back experience", "Aerial defending", "Back-line communication"],
-      "note": "Tunisia's experienced centre-back, valuable for organizing the line and winning direct balls into the box.",
-      "noteZh": "迪伦·布隆是突尼斯经验型中卫，能组织防线并赢下打入禁区的直接球。"
+      "skills": [
+        "Centre-back experience",
+        "Aerial defending",
+        "Back-line communication"
+      ],
+      "note": "Bronn is the kind of defender Tunisia can turn to when the match gets narrow. His job is first contact, clean clearance, simple pass.",
+      "noteZh": "他是Tunisia艰难时间段的防守深度。他要赢下第一下接触，并让下一脚传球简单起来。"
     },
     "Elias Achouri": {
-      "skills": ["Wide creativity", "Quick combinations", "Pressing energy"],
-      "note": "Tunisia's lively wide creator, able to combine quickly and keep full-backs under pressure.",
-      "noteZh": "埃利亚斯·阿舒里是突尼斯活跃的边路创造者，能快速配合并持续压迫边后卫。"
+      "skills": [
+        "Wide creativity",
+        "Quick combinations",
+        "Pressing energy"
+      ],
+      "note": "Achouri gives Tunisia midfield depth for games that get stretched. He helps turn a loose ball into a calmer next pass.",
+      "noteZh": "他适合那些空间变丑的时间段。对Tunisia来说，这可能就是压力到来前的一次干净触球。"
     },
     "Elias Saad": {
-      "skills": ["Left-wing acceleration", "Inside dribbling", "Transition runs"],
-      "note": "Tunisia's left-side accelerator, dangerous when he drives inside before the defense is settled.",
-      "noteZh": "埃利亚斯·萨阿德是突尼斯左路加速点，在防守站稳前内切推进时很危险。"
+      "skills": [
+        "Left-wing acceleration",
+        "Inside dribbling",
+        "Transition runs"
+      ],
+      "note": "Saad gives Tunisia a route when possession needs to become pressure. He is there to make a defender choose.",
+      "noteZh": "他是Tunisia这届赛事中被重点使用的进攻路线之一。他先让第一名防守者移动，再让终结或最后一传出现。"
     },
     "Ellyes Skhiri": {
-      "skills": ["Midfield screening", "Ball recovery", "Simple progression"],
-      "note": "Tunisia's midfield anchor, built to protect the centre and move the next pass without fuss.",
-      "noteZh": "埃利斯·斯希里是突尼斯中场锚点，负责保护中路并干净利落地推进下一脚传球。"
+      "skills": [
+        "Midfield screening",
+        "Ball recovery",
+        "Simple progression"
+      ],
+      "note": "Skhiri is a tempo player for Tunisia. He turns crowded touches into cleaner angles for the next runner.",
+      "noteZh": "他让Tunisia在球权转换时更有结构。最有价值的往往是松散触球之后那一秒。"
     },
     "Firas Chaouat": {
       "league": "Tunisian Ligue Professionnelle 1",
-      "skills": ["Centre-forward presence", "Box finishing", "Hold-up touches"],
-      "note": "Tunisia's penalty-box striker option, useful when they need a target and a simpler route to goal.",
-      "noteZh": "菲拉斯·绍瓦特是突尼斯禁区中锋选择，球队需要支点和更直接的进球路线时很有用。"
+      "skills": [
+        "Centre-forward presence",
+        "Box finishing",
+        "Hold-up touches"
+      ],
+      "note": "Chaouat gives Tunisia a different attacking speed from the bench. The important touch may be the run that opens space for someone else.",
+      "noteZh": "他是Tunisia在比赛需要新腿时可以使用的前锋。第一项工作，是让疲劳的后卫转身。"
     },
     "Hannibal Mejbri": {
-      "skills": ["Midfield intensity", "Pressing bite", "Forward passing"],
-      "note": "Tunisia's high-intensity midfielder, able to lift the tempo with pressure, carries, and aggressive passes.",
-      "noteZh": "汉尼拔·梅布里是突尼斯高强度中场，能用压迫、带球和积极传球提升节奏。"
+      "skills": [
+        "Chance passes",
+        "Midfield intensity",
+        "Pressing bite"
+      ],
+      "note": "Mejbri has already made goals for Tunisia against Sweden and Netherlands. Watch the pass before the chance looks obvious.",
+      "noteZh": "他这届赛事的价值在于供给Tunisia的进攻。他能在防线移动还没完成时看见跑动。"
     },
     "Hazem Mastouri": {
       "league": "Russian Premier League",
-      "skills": ["Centre-forward running", "Penalty-box timing", "Pressing work"],
-      "note": "Tunisia's mobile striker, useful for chasing centre-backs and arriving quickly around loose balls.",
-      "noteZh": "哈泽姆·马斯图里是突尼斯机动型前锋，适合追压中卫并快速赶到散落球附近。"
+      "skills": [
+        "Goal threat",
+        "Centre-forward running",
+        "Penalty-box timing"
+      ],
+      "note": "Mastouri has already turned one tournament chance into a goal against Netherlands. Watch whether defenders start giving him the extra step.",
+      "noteZh": "他已经为Tunisia进入这届世界杯的进球名单。一个终结会改变对手下一次防他的方式。"
     },
     "Ismael Gharbi": {
       "displayName": "Ismaël Gharbi",
-      "skills": ["Attacking midfield craft", "Tight-space passing", "Final-third spark"],
-      "note": "Tunisia's technical attacking midfielder, able to add quick feet and small-space passing around the box.",
-      "noteZh": "伊斯梅尔·加尔比是突尼斯技术型攻击中场，能在禁区周围带来快脚和小空间传球。"
+      "skills": [
+        "Attacking midfield craft",
+        "Tight-space passing",
+        "Box-area spark"
+      ],
+      "note": "Gharbi is there for the part of the game where spacing gets ugly. For Tunisia, that can mean one clean touch before pressure arrives.",
+      "noteZh": "他给Tunisia提供中场深度，适合比赛被拉开的时候。他把松散球变成更冷静的下一脚。"
     },
     "Khalil Ayari": {
-      "skills": ["Wing acceleration", "One-on-one dribbling", "Young attacking upside"],
-      "note": "Tunisia's young winger, useful for changing the rhythm with direct carries and fearless isolation play.",
-      "noteZh": "哈利勒·阿亚里是突尼斯年轻边锋，能用直接带球和大胆一对一改变节奏。"
+      "skills": [
+        "Wing acceleration",
+        "One-on-one dribbling",
+        "Young attacking upside"
+      ],
+      "note": "Ayari is the forward Tunisia can use when the match needs new legs. His first job is to make tired defenders turn.",
+      "noteZh": "他给Tunisia替补席上的另一种进攻速度。有时关键触球，是那次帮队友拉开空间的跑动。"
     },
     "Mohamed Hadj Mahmoud": {
       "displayName": "Mohamed Belhadj Mahmoud",
-      "aliases": ["Mohamed Hadj Mahmoud", "Hadj Mahmoud", "Mohamed Elyes"],
-      "skills": ["Central midfield cover", "Second-ball work", "Short circulation"],
-      "note": "Tunisia's central midfield cover, valuable for second balls and keeping possession from breaking open.",
-      "noteZh": "穆罕默德·贝勒哈吉·马哈茂德是突尼斯中场保护选择，能争第二落点并避免控球被打散。"
+      "aliases": [
+        "Mohamed Hadj Mahmoud",
+        "Hadj Mahmoud",
+        "Mohamed Elyes"
+      ],
+      "skills": [
+        "Central midfield cover",
+        "Second-ball work",
+        "Short circulation"
+      ],
+      "note": "Mahmoud gives Tunisia a way to settle the middle if the match opens up. His best work is making the next decision less hurried.",
+      "noteZh": "他是Tunisia的中场保险。那些混乱阶段里，他要抢第二点、稳一下，再把球送出去。"
     },
     "Montassar Talbi": {
-      "skills": ["Centre-back leadership", "Aerial duels", "Line organization"],
-      "note": "Tunisia's defensive leader, important for organizing the line and handling aerial pressure.",
-      "noteZh": "蒙塔萨尔·塔尔比是突尼斯防守领袖，对组织防线和处理空中压力很重要。"
+      "skills": [
+        "Centre-back leadership",
+        "Aerial duels",
+        "Line organization"
+      ],
+      "note": "Talbi has been part of Tunisia's answer without the ball. He matters when the first runner has to be slowed before the whole shape breaks.",
+      "noteZh": "他给Tunisia后防线一个稳定零件。看的是那些小选择：上抢、站住，还是先封线路。"
     },
     "Mortadha Ben Ouanes": {
       "displayName": "Mortadha Ben Ouanes",
-      "skills": ["Left-side running", "Wing-back flexibility", "Crossing threat"],
-      "note": "Tunisia's left-side runner, able to play high or deep and keep the flank moving forward.",
-      "noteZh": "穆尔塔达·本·瓦内斯是突尼斯左路跑动点，能踢高位或低位，并让边路持续向前。"
+      "skills": [
+        "Left-side running",
+        "Wing-back flexibility",
+        "Crossing threat"
+      ],
+      "note": "Ouanes gives Tunisia cover for the minutes when defending becomes more about nerve than shape. One solid duel can calm the whole line.",
+      "noteZh": "他是Tunisia后防线的保险。卡片不华丽：赢球、稳传、重新站好。"
     },
     "Mouhib Chamakh": {
       "displayName": "Abdelmouhib Chamakh",
-      "aliases": ["Mouhib Chamakh", "Abdelmouhib Chamakh"],
+      "aliases": [
+        "Mouhib Chamakh",
+        "Abdelmouhib Chamakh"
+      ],
       "summary": "Abdelmouhib Chamakh is a Tunisia goalkeeper at Club Africain who gives the national team shot-stopping depth, height, and domestic title-winning rhythm.",
       "transfermarktPlayerCode": "abdelmouhib-chamakh",
       "birthDate": "2001-08-25",
@@ -170,21 +255,33 @@
       "league": "Tunisian Ligue Professionnelle 1",
       "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/584250-1780556345.jpg?lm=1",
       "marketValueEurMillions": 0.8,
-      "skills": ["Goalkeeper size", "Shot-stopping depth", "Domestic confidence"],
-      "note": "Tunisia's tall goalkeeper option, bringing shot-stopping depth and confidence from a strong club season.",
-      "noteZh": "阿卜杜勒穆希卜·沙马克是突尼斯高大门将选择，带来扑救深度和强势俱乐部赛季后的信心。",
+      "skills": [
+        "Goalkeeper size",
+        "Shot-stopping depth",
+        "Domestic confidence"
+      ],
+      "note": "Chamakh is goalkeeper cover for Tunisia. The role is readiness: saves, restarts, and no panic if the match suddenly needs him.",
+      "noteZh": "他是Tunisia门线上的安全网。这个工作说起来简单，做起来很难：冷着上场，并让禁区安静。",
       "sourceUrl": "https://www.transfermarkt.co.uk/abdelmouhib-chamakh/profil/spieler/584250"
     },
     "Moutaz Neffati": {
       "league": "Allsvenskan",
-      "skills": ["Right-back speed", "Overlap support", "Recovery defending"],
-      "note": "Tunisia's young right-back option, useful for overlap support and recovery speed down the flank.",
-      "noteZh": "穆塔兹·内法蒂是突尼斯年轻右后卫选择，适合套边支援和边路回追。"
+      "skills": [
+        "Right-back speed",
+        "Overlap support",
+        "Recovery defending"
+      ],
+      "note": "Neffati is the kind of defender Tunisia can turn to when the match gets narrow. His job is first contact, clean clearance, simple pass.",
+      "noteZh": "他是Tunisia艰难时间段的防守深度。他要赢下第一下接触，并让下一脚传球简单起来。"
     },
     "Omar Rekik": {
-      "skills": ["Centre-back depth", "Aerial defending", "Left-sided cover"],
-      "note": "Tunisia's centre-back depth, giving them size, aerial cover, and another left-sided defensive option.",
-      "noteZh": "奥马尔·雷基克是突尼斯中卫深度选择，能提供身材、空中覆盖和另一名左侧防守选择。"
+      "skills": [
+        "Goal threat",
+        "Centre-back depth",
+        "Aerial defending"
+      ],
+      "note": "Rekik has already turned one tournament chance into a goal against Sweden. Watch whether defenders start giving him the extra step.",
+      "noteZh": "他已经为Tunisia进入这届世界杯的进球名单。一个终结会改变对手下一次防他的方式。"
     },
     "Raed Chikhaoui": {
       "summary": "Raed Chikhaoui is a Tunisia centre-back at US Monastir who gives the national team size, aerial defending, and fresh back-line depth.",
@@ -195,41 +292,65 @@
       "league": "Tunisian Ligue Professionnelle 1",
       "imageUrl": "https://www.jawharafm.net/ar/imageResize/resize/francais_image2_272437_1741475002.jpg/1100",
       "marketValueEurMillions": 0.6,
-      "skills": ["Centre-back size", "Aerial defending", "Fresh defensive depth"],
-      "note": "Tunisia's young centre-back depth, useful for adding size and contesting crosses late in matches.",
-      "noteZh": "拉埃德·希哈维是突尼斯年轻中卫深度，适合增加身高并在比赛后段争顶传中。",
+      "skills": [
+        "Centre-back size",
+        "Aerial defending",
+        "Fresh defensive depth"
+      ],
+      "note": "Chikhaoui is the kind of defender Tunisia can turn to when the match gets narrow. His job is first contact, clean clearance, simple pass.",
+      "noteZh": "他是Tunisia艰难时间段的防守深度。他要赢下第一下接触，并让下一脚传球简单起来。",
       "sourceUrl": "https://www.transfermarkt.co.uk/raed-chikhaoui/profil/spieler/1075790"
     },
     "Rani Khedira": {
-      "skills": ["Defensive midfield discipline", "Duel control", "Tempo safety"],
-      "note": "Tunisia's disciplined midfield shield, useful for closing central lanes and calming difficult phases.",
-      "noteZh": "拉尼·赫迪拉是突尼斯纪律性强的中场屏障，适合封住中路线路并稳定困难阶段。"
+      "skills": [
+        "Defensive midfield discipline",
+        "Duel control",
+        "Tempo safety"
+      ],
+      "note": "Khedira is there for the part of the game where spacing gets ugly. For Tunisia, that can mean one clean touch before pressure arrives.",
+      "noteZh": "他给Tunisia提供中场深度，适合比赛被拉开的时候。他把松散球变成更冷静的下一脚。"
     },
     "Rayan Elloumi": {
       "league": "Major League Soccer",
-      "skills": ["Young striker movement", "Channel runs", "Pressing energy"],
-      "note": "Tunisia's teenage forward runner, able to stretch tired defenders and press with fresh energy.",
-      "noteZh": "拉扬·埃卢米是突尼斯十几岁的前锋跑动点，能拉扯疲惫后卫并用新鲜体能压迫。"
+      "skills": [
+        "Young striker movement",
+        "Channel runs",
+        "Pressing energy"
+      ],
+      "note": "Elloumi gives Tunisia a different attacking speed from the bench. The important touch may be the run that opens space for someone else.",
+      "noteZh": "他是Tunisia在比赛需要新腿时可以使用的前锋。第一项工作，是让疲劳的后卫转身。"
     },
     "Sabri Ben Hessen": {
       "league": "Tunisian Ligue Professionnelle 1",
-      "skills": ["Goalkeeper cover", "Reaction saves", "Domestic experience"],
-      "note": "Tunisia's domestic goalkeeper cover, bringing reaction saves and familiarity with tense local matches.",
-      "noteZh": "萨布里·本·赫森是突尼斯本土门将保障，带来反应扑救和紧张本土比赛经验。"
+      "skills": [
+        "Goalkeeper cover",
+        "Reaction saves",
+        "Domestic experience"
+      ],
+      "note": "Hessen is Tunisia's safety net in goal. The job is simple to say and hard to do: enter cold and make the box quieter.",
+      "noteZh": "他是Tunisia的门将保障。角色是随时准备好扑救、重新开球，并在突然需要他时不慌。"
     },
     "Sebastian Tounekti": {
-      "skills": ["Wing versatility", "Direct dribbling", "Crossing delivery"],
-      "note": "Tunisia's flexible winger, able to carry directly and keep both touchline and inside routes alive.",
-      "noteZh": "塞巴斯蒂安·图内克蒂是突尼斯灵活边锋，能直接带球并同时保持边线和内线路线。"
+      "skills": [
+        "Wing versatility",
+        "Direct dribbling",
+        "Crossing delivery"
+      ],
+      "note": "Tounekti is the forward Tunisia can use when the match needs new legs. His first job is to make tired defenders turn.",
+      "noteZh": "他给Tunisia替补席上的另一种进攻速度。有时关键触球，是那次帮队友拉开空间的跑动。"
     },
     "Yan Valery": {
       "club": "Young Boys",
       "league": "Swiss Super League",
       "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/406008-1672669807.jpg?lm=1",
       "sourceUrl": "https://www.transfermarkt.co.uk/yan-valery/profil/spieler/406008",
-      "skills": ["Right-back power", "Recovery defending", "Wide progression"],
-      "note": "Tunisia's right-back power runner, useful for carrying up the flank and recovering into defensive duels.",
-      "noteZh": "扬·瓦莱里是突尼斯力量型右后卫，适合沿边路推进并回到防守对抗中。"
+      "skills": [
+        "Right-back power",
+        "Recovery defending",
+        "Wide progression"
+      ],
+      "note": "Valery gives Tunisia one of the steady pieces in the back line. Watch the small choices: step, hold, or clear the lane.",
+      "noteZh": "他是Tunisia无球答案的一部分。第一个跑动被拖慢，整体阵型才不容易散。"
     }
   }
 }

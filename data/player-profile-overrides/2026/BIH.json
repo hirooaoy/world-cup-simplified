@@ -11,8 +11,8 @@
         "Recovery speed",
         "Early crossing"
       ],
-      "note": "Bosnia's high-energy right-back, useful for carrying play up the flank, recovering quickly, and serving early balls into the box.",
-      "noteZh": "阿马尔·德迪奇是波黑高能量右后卫，能沿边路推进、快速回追，并早早把球送入禁区。"
+      "note": "Dedić has been part of Bosnia and Herzegovina's answer without the ball. He matters when the first runner has to be slowed before the whole shape breaks.",
+      "noteZh": "他给Bosnia and Herzegovina后防线一个稳定零件。看的是那些小选择：上抢、站住，还是先封线路。"
     },
     "Amar Memic": {
       "displayName": "Amar Memić",
@@ -22,8 +22,8 @@
         "Diagonal runs",
         "Pressing"
       ],
-      "note": "Bosnia's direct wide runner, giving them dribbles from the flank, diagonal movement inside, and pressure on opposing full-backs.",
-      "noteZh": "阿马尔·梅米奇是波黑直接型边路球员，能从边路带球、斜插内线，并向对方边后卫施压。"
+      "note": "Memić gives Bosnia and Herzegovina a different attacking speed from the bench. The important touch may be the run that opens space for someone else.",
+      "noteZh": "他是Bosnia and Herzegovina在比赛需要新腿时可以使用的前锋。第一项工作，是让疲劳的后卫转身。"
     },
     "Amir Hadziahmetovic": {
       "displayName": "Amir Hadžiahmetović",
@@ -33,8 +33,8 @@
         "First pass",
         "Tempo control"
       ],
-      "note": "Bosnia's midfield stabilizer, useful for screening counterattacks, playing the first forward pass, and calming possession after pressure.",
-      "noteZh": "阿米尔·哈季艾哈迈托维奇是波黑中场稳定器，能保护反击路线、送出第一脚向前传球，并在受压后稳住控球。"
+      "note": "Hadžiahmetović gives Bosnia and Herzegovina midfield depth for games that get stretched. He helps turn a loose ball into a calmer next pass.",
+      "noteZh": "他适合那些空间变丑的时间段。对Bosnia and Herzegovina来说，这可能就是压力到来前的一次干净触球。"
     },
     "Arjan Malic": {
       "displayName": "Arjan Malić",
@@ -44,8 +44,8 @@
         "Overlap support",
         "Back-post cover"
       ],
-      "note": "Bosnia's young right-back option, helping with timed challenges, overlap support, and back-post cover when the far side is overloaded.",
-      "noteZh": "阿尔扬·马利奇是波黑年轻右后卫选择，能把握抢断时机、支援套边，并在远端被压制时保护后点。"
+      "note": "Malić is defensive cover for Bosnia and Herzegovina's harder minutes. He is there to win the first contact and make the next pass simple.",
+      "noteZh": "他是Bosnia and Herzegovina在比赛变窄时可以使用的后卫。任务是第一下接触、清楚解围、简单出球。"
     },
     "Armin Gigovic": {
       "displayName": "Armin Gigović",
@@ -55,8 +55,8 @@
         "Second balls",
         "Late support"
       ],
-      "note": "Bosnia's box-to-box runner, giving them second-ball energy, vertical midfield support, and late arrivals around the penalty area.",
-      "noteZh": "阿明·吉戈维奇是波黑的往返型中场，能争抢第二落点、纵向支援中场，并后插上到禁区周围。"
+      "note": "Gigović gives Bosnia and Herzegovina midfield depth for games that get stretched. He helps turn a loose ball into a calmer next pass.",
+      "noteZh": "他适合那些空间变丑的时间段。对Bosnia and Herzegovina来说，这可能就是压力到来前的一次干净触球。"
     },
     "Benjamin Tahirovic": {
       "displayName": "Benjamin Tahirović",
@@ -66,19 +66,19 @@
         "Passing range",
         "Aerial duels"
       ],
-      "note": "Bosnia's holding midfielder, useful for protecting the centre, switching play, and adding height when midfield duels become physical.",
-      "noteZh": "本亚明·塔希罗维奇是波黑的拖后中场，能保护中路、转移进攻，并在中场对抗变得强硬时增加高度。"
+      "note": "Tahirović gives Bosnia and Herzegovina midfield depth for games that get stretched. He helps turn a loose ball into a calmer next pass.",
+      "noteZh": "他适合那些空间变丑的时间段。对Bosnia and Herzegovina来说，这可能就是压力到来前的一次干净触球。"
     },
     "Dennis Hadzikadunic": {
       "displayName": "Dennis Hadžikadunić",
       "sourceTitle": "Dennis Hadžikadunić",
       "skills": [
+        "Chance passes",
         "Centre-back duels",
-        "Line holding",
-        "Set-piece defending"
+        "Line holding"
       ],
-      "note": "Bosnia's centre-back marker, giving them duel strength, a steadier defensive line, and reliable set-piece defending.",
-      "noteZh": "丹尼斯·哈季卡杜尼奇是波黑中卫盯防者，能提供对抗强度、更稳定的防线，以及可靠的定位球防守。"
+      "note": "Hadžikadunić has supplied one of Bosnia and Herzegovina's tournament goals. The pass matters because it arrives before the defender can fully turn.",
+      "noteZh": "他这届世界杯已经为Bosnia and Herzegovina创造过进球。注意他出球的时机，因为那一脚传球往往比带球更重要。"
     },
     "Dzenis Burnic": {
       "displayName": "Dženis Burnić",
@@ -88,8 +88,8 @@
         "Short passing",
         "Press resistance"
       ],
-      "note": "Bosnia's combative midfielder, useful for disrupting rhythm, keeping short passes moving, and playing through pressure in central areas.",
-      "noteZh": "杰尼斯·布尔尼奇是波黑强硬型中场，能打断对手节奏、保持短传流动，并在中路压力下完成出球。"
+      "note": "Burnić is there for the part of the game where spacing gets ugly. For Bosnia and Herzegovina, that can mean one clean touch before pressure arrives.",
+      "noteZh": "他给Bosnia and Herzegovina提供中场深度，适合比赛被拉开的时候。他把松散球变成更冷静的下一脚。"
     },
     "Edin Dzeko": {
       "displayName": "Edin Džeko",
@@ -99,8 +99,8 @@
         "Penalty-box finishing",
         "Leadership"
       ],
-      "note": "Bosnia's captain and reference striker, turning direct service into hold-up play, box finishing, and calm leadership late in matches.",
-      "noteZh": "埃丁·哲科是波黑队长和锋线支点，能把直接传球转化为背身拿球、禁区终结，以及比赛后段的冷静领导力。"
+      "note": "Džeko is one of Bosnia and Herzegovina's attacking paths this tournament. Watch how the first defender reacts when he receives facing goal.",
+      "noteZh": "他现在会出现在对手的赛前报告里。对Bosnia and Herzegovina来说，他的触球可以把协防从下一个跑动上拉走。"
     },
     "Ermedin Demirovic": {
       "displayName": "Ermedin Demirović",
@@ -110,19 +110,19 @@
         "Link play",
         "Near-post runs"
       ],
-      "note": "Bosnia's mobile forward, giving them front-line pressing, clean link play, and aggressive near-post movement when crosses arrive.",
-      "noteZh": "埃尔梅丁·德米罗维奇是波黑机动型前锋，能前场压迫、清晰衔接进攻，并在传中到来时冲击前点。"
+      "note": "Demirović is part of Bosnia and Herzegovina's attacking shape, even when he is not the finisher. His movement decides who gets the next clear touch.",
+      "noteZh": "他是Bosnia and Herzegovina在比赛需要新腿时可以使用的前锋。第一项工作，是让疲劳的后卫转身。"
     },
     "Ermin Mahmic": {
       "displayName": "Ermin Mahmić",
       "sourceTitle": "Ermin Mahmić",
       "skills": [
+        "Goal threat",
         "Pocket receiving",
-        "Final pass",
-        "Quick turns"
+        "Final pass"
       ],
-      "note": "Bosnia's young attacking midfielder, useful for receiving between lines, turning quickly, and slipping passes into runners.",
-      "noteZh": "埃尔明·马赫米奇是波黑年轻攻击型中场，能在两线之间接球、快速转身，并把传球塞给前插队友。"
+      "note": "Mahmić has been one of Bosnia and Herzegovina's real scoring stories, with goals against Switzerland and Qatar. His danger is arriving before defenders have finished sorting the first problem.",
+      "noteZh": "他已经多次为Bosnia and Herzegovina把机会变成进球。看他需要的空间有多小。"
     },
     "Esmir Bajraktarevic": {
       "displayName": "Esmir Bajraktarević",
@@ -132,8 +132,8 @@
         "Left-footed delivery",
         "Transition speed"
       ],
-      "note": "Bosnia's creative winger, giving them one-on-one threat, left-footed service, and quick transition carries from wide areas.",
-      "noteZh": "埃斯米尔·巴伊拉克塔雷维奇是波黑创造型边锋，能提供一对一威胁、左脚输送，以及从边路发起的快速转换推进。"
+      "note": "Bajraktarević gives Bosnia and Herzegovina a route when possession needs to become pressure. He is there to make a defender choose.",
+      "noteZh": "他是Bosnia and Herzegovina这届赛事中被重点使用的进攻路线之一。他先让第一名防守者移动，再让终结或最后一传出现。"
     },
     "Haris Tabakovic": {
       "displayName": "Haris Tabaković",
@@ -143,20 +143,20 @@
         "Box positioning",
         "Second-phase shots"
       ],
-      "note": "Bosnia's penalty-area finisher, useful for attacking crosses, finding space between centre-backs, and shooting from loose second phases.",
-      "noteZh": "哈里斯·塔巴科维奇是波黑禁区终结者，能冲击传中、在中卫之间找空间，并在二次进攻乱战中完成射门。"
+      "note": "Tabaković is attacking depth for Bosnia and Herzegovina. If the game slows down, he is there to make the back line move again.",
+      "noteZh": "他是Bosnia and Herzegovina前场计划的一部分。他先拉扯防守者，再寻找把压力变成机会的触球。"
     },
     "Ivan Basic": {
       "displayName": "Ivan Bašić",
       "sourceTitle": "Ivan Bašić",
       "league": "Kazakhstan Premier League",
       "skills": [
+        "Chance passes",
         "Central carrying",
-        "Support angles",
-        "Ball retention"
+        "Support angles"
       ],
-      "note": "Bosnia's central connector, helping the midfield carry into space, offer safer passing angles, and keep attacks from breaking down.",
-      "noteZh": "伊万·巴希奇是波黑中路连接点，能帮助中场带球进入空间、提供更安全的传球角度，并避免进攻轻易中断。"
+      "note": "Bašić has one tournament assist in the bank for Bosnia and Herzegovina. The detail is the touch just before the obvious chance appears.",
+      "noteZh": "他已经帮Bosnia and Herzegovina制造过进球。价值在于防线还在移动时，选对出球瞬间。"
     },
     "Ivan Sunjic": {
       "displayName": "Ivan Šunjić",
@@ -167,30 +167,30 @@
         "Midfield screening",
         "Simple distribution"
       ],
-      "note": "Bosnia's defensive-midfield shield, useful for winning loose balls, blocking central lanes, and moving possession on simply.",
-      "noteZh": "伊万·舒尼奇是波黑防守型中场屏障，能争回散落球、封住中路线路，并用简洁传球继续控球。"
+      "note": "Šunjić is a tempo player for Bosnia and Herzegovina. He turns crowded touches into cleaner angles for the next runner.",
+      "noteZh": "他让Bosnia and Herzegovina在球权转换时更有结构。最有价值的往往是松散触球之后那一秒。"
     },
     "Jovo Lukic": {
       "displayName": "Jovo Lukić",
       "sourceTitle": "Jovo Lukić",
       "skills": [
+        "Goal threat",
         "Hold-up play",
-        "Penalty-area strength",
-        "Short layoffs"
+        "Penalty-area strength"
       ],
-      "note": "Bosnia's physical forward option, giving them hold-up strength, short layoff passes, and a body to attack crowded penalty areas.",
-      "noteZh": "约沃·卢基奇是波黑力量型锋线选择，能背身拿球、做出短距离回做，并在拥挤禁区里提供冲击点。"
+      "note": "Lukić is on the scoresheet for Bosnia and Herzegovina, with his goal coming against Canada. One finish can change how opponents defend the next run.",
+      "noteZh": "他已经把一次世界杯机会变成进球。接下来要看防守者会不会开始多给他一步空间。"
     },
     "Kerim Alajbegovic": {
       "displayName": "Kerim Alajbegović",
       "sourceTitle": "Kerim Alajbegović",
       "skills": [
+        "Goal threat",
         "Wide acceleration",
-        "Inside cuts",
-        "Final-third invention"
+        "Inside cuts"
       ],
-      "note": "Bosnia's teenage winger, useful for sudden acceleration, cutting inside from the flank, and adding invention around the box.",
-      "noteZh": "克里姆·阿拉伊贝戈维奇是波黑年轻边锋，能突然加速、从边路内切，并在禁区周围增加创造力。"
+      "note": "Alajbegović already has a World Cup goal in this run, against Qatar. His card is about finding the moment before the match settles again.",
+      "noteZh": "他的世界杯已经有了进球。下一次机会也许仍来自阵型重新站稳前的那一小段时间。"
     },
     "Martin Zlomislic": {
       "displayName": "Martin Zlomislić",
@@ -200,8 +200,8 @@
         "Cross claiming",
         "Calm restarts"
       ],
-      "note": "Bosnia's goalkeeping option, giving them shot-stopping depth, cross claiming, and calmer restarts after defensive pressure.",
-      "noteZh": "马丁·兹洛米斯利奇是波黑门将选择，能提供扑救深度、摘下传中，并在防守受压后冷静重新开球。"
+      "note": "Zlomislić is goalkeeper cover for Bosnia and Herzegovina. The role is readiness: saves, restarts, and no panic if the match suddenly needs him.",
+      "noteZh": "他是Bosnia and Herzegovina门线上的安全网。这个工作说起来简单，做起来很难：冷着上场，并让禁区安静。"
     },
     "Mladen Jurkas": {
       "displayName": "Mladen Jurkas",
@@ -214,8 +214,8 @@
         "Reach",
         "Box command"
       ],
-      "note": "Bosnia's young goalkeeper, useful for his reach, shot-stopping base, and added depth behind the senior keeper group.",
-      "noteZh": "姆拉登·尤尔卡斯是波黑年轻门将，能依靠臂展和扑救基础，为资深门将组身后增加深度。"
+      "note": "Jurkas sits behind the starter for Bosnia and Herzegovina, but the role is not decorative. He has to be ready for crosses, restarts, and a cold first touch.",
+      "noteZh": "他给Bosnia and Herzegovina保留另一个门将选择。真正需要他时，重点可能就是一次大扑救。"
     },
     "Nihad Mujakic": {
       "displayName": "Nihad Mujakić",
@@ -225,8 +225,8 @@
         "Aerial duels",
         "Cover tackles"
       ],
-      "note": "Bosnia's left-sided centre-back, helping them defend aerially, cover space behind the full-back, and clear pressure from the box.",
-      "noteZh": "尼哈德·穆亚基奇是波黑左侧中卫，能争顶防守、覆盖边后卫身后空间，并把禁区压力解围出去。"
+      "note": "Mujakić gives Bosnia and Herzegovina cover for the minutes when defending becomes more about nerve than shape. One solid duel can calm the whole line.",
+      "noteZh": "他是Bosnia and Herzegovina后防线的保险。卡片不华丽：赢球、稳传、重新站好。"
     },
     "Nikola Katic": {
       "displayName": "Nikola Katić",
@@ -236,8 +236,8 @@
         "Set-piece threat",
         "Centre-back aggression"
       ],
-      "note": "Bosnia's aggressive centre-back, giving them aerial defending, set-piece presence, and front-foot challenges against target forwards.",
-      "noteZh": "尼科拉·卡蒂奇是波黑主动型中卫，能提供空中防守、定位球存在感，并前压对抗支点前锋。"
+      "note": "Katić is in the quiet-work part of Bosnia and Herzegovina's setup. He keeps attacks from becoming scrambles.",
+      "noteZh": "他是Bosnia and Herzegovina主要防守结构的一部分。他把第一下对抗处理干净，避免球队下一阶段只能追着球跑。"
     },
     "Nikola Vasilj": {
       "displayName": "Nikola Vasilj",
@@ -247,8 +247,8 @@
         "Area control",
         "Distribution"
       ],
-      "note": "Bosnia's senior goalkeeper, giving the back line reflex saves, area control, and a reliable first pass after saves.",
-      "noteZh": "尼科拉·瓦西利是波黑资深门将，能为防线提供反应扑救、禁区控制，以及扑救后的可靠第一脚传球。"
+      "note": "Vasilj is the last voice in Bosnia and Herzegovina's defensive shape. When pressure sticks, his job is to make the next action feel simple.",
+      "noteZh": "他承担了Bosnia and Herzegovina的门将时间。重点是稳手、清楚开球，以及让身前后卫不用慌。"
     },
     "Samed Bazdar": {
       "displayName": "Samed Baždar",
@@ -259,19 +259,19 @@
         "Quick finishing",
         "Forward pressing"
       ],
-      "note": "Bosnia's sharp forward runner, useful for attacking channels, pressing centre-backs, and finishing before defenders can reset.",
-      "noteZh": "萨梅德·巴日达尔是波黑犀利的前插型前锋，能冲击肋部通道、压迫中卫，并在防守重组前完成终结。"
+      "note": "Baždar gives Bosnia and Herzegovina a different attacking speed from the bench. The important touch may be the run that opens space for someone else.",
+      "noteZh": "他是Bosnia and Herzegovina在比赛需要新腿时可以使用的前锋。第一项工作，是让疲劳的后卫转身。"
     },
     "Sead Kolasinac": {
       "displayName": "Sead Kolašinac",
       "sourceTitle": "Sead Kolašinac",
       "skills": [
+        "Chance passes",
         "Defensive power",
-        "Left-side cover",
-        "Carrying out"
+        "Left-side cover"
       ],
-      "note": "Bosnia's powerful left-sided defender, giving them duel strength, recovery cover, and the ability to carry out of pressure.",
-      "noteZh": "塞亚德·科拉希纳茨是波黑强力左侧后卫，能提供对抗强度、回追保护，并带球摆脱压力。"
+      "note": "Kolašinac has supplied one of Bosnia and Herzegovina's tournament goals. The pass matters because it arrives before the defender can fully turn.",
+      "noteZh": "他这届世界杯已经为Bosnia and Herzegovina创造过进球。注意他出球的时机，因为那一脚传球往往比带球更重要。"
     },
     "Stjepan Radeljic": {
       "displayName": "Stjepan Radeljić",
@@ -281,8 +281,8 @@
         "Aerial clearances",
         "Simple build-up"
       ],
-      "note": "Bosnia's reliable centre-back depth, useful for aerial clearances, compact defending, and simple passes into midfield.",
-      "noteZh": "斯捷潘·拉德利奇是波黑可靠的中卫深度，能完成空中解围、保持紧凑防守，并把球简单传入中场。"
+      "note": "Radeljić is defensive rotation for Bosnia and Herzegovina. The watch point is how early he closes the lane that looked open.",
+      "noteZh": "他给Bosnia and Herzegovina那些靠胆量守住的分钟提供保障。一次扎实对抗就能让整条线冷静下来。"
     },
     "Tarik Muharemovic": {
       "displayName": "Tarik Muharemović",
@@ -292,8 +292,8 @@
         "Progressive passing",
         "Back-line recovery"
       ],
-      "note": "Bosnia's composed young centre-back, giving them progressive passing, recovery speed, and another calm option under pressure.",
-      "noteZh": "塔里克·穆哈雷莫维奇是波黑冷静的年轻中卫，能提供向前传球、回追速度，以及受压时的另一名稳定选择。"
+      "note": "Muharemović has been part of Bosnia and Herzegovina's main defensive shape. He keeps the first duel clean so the team does not spend the next phase chasing.",
+      "noteZh": "他在Bosnia and Herzegovina体系里做的是安静工作。他让对手的进攻不容易变成混乱。"
     }
   }
 }

@@ -4,152 +4,256 @@
   "teamName": "Panama",
   "profiles": {
     "Adalberto Carrasquilla": {
-      "skills": ["Midfield carrying", "Press resistance", "Final pass"],
-      "note": "Carrasquilla is Panama's midfield escape valve, able to carry through pressure and find the next runner.",
-      "noteZh": "卡拉斯基利亚是巴拿马中场摆脱阀，能带球穿过压力并找到下一名跑动者。"
+      "skills": [
+        "Midfield carrying",
+        "Press resistance",
+        "Final pass"
+      ],
+      "note": "Carrasquilla is midfield insurance for Panama. He is there for the messy phase: second ball, one calmer touch, then the next pass.",
+      "noteZh": "他给Panama一种在比赛打开后稳住中路的办法。最好的工作，是让下一次决定没那么急。"
     },
     "Alberto Quintero": {
-      "skills": ["Veteran wing play", "Direct dribbling", "Crossing"],
-      "note": "Quintero gives Panama veteran width, useful when the match needs a direct carry and early service.",
-      "noteZh": "金特罗给巴拿马带来老将边路宽度，当比赛需要直接带球和早传时很有用。"
+      "skills": [
+        "Veteran wing play",
+        "Direct dribbling",
+        "Crossing"
+      ],
+      "note": "Quintero gives Panama a different attacking speed from the bench. The important touch may be the run that opens space for someone else.",
+      "noteZh": "他是Panama在比赛需要新腿时可以使用的前锋。第一项工作，是让疲劳的后卫转身。"
     },
     "Andres Andrade": {
       "displayName": "Andrés Andrade",
-      "skills": ["Centre-back passing", "Aerial defending", "Left-side cover"],
-      "note": "Andrade gives Panama a composed centre-back who can defend the box and start attacks cleanly.",
-      "noteZh": "安德拉德给巴拿马带来冷静中卫，能防守禁区，也能干净发起进攻。"
+      "skills": [
+        "Centre-back passing",
+        "Aerial defending",
+        "Left-side cover"
+      ],
+      "note": "Andrade is in the quiet-work part of Panama's setup. He keeps attacks from becoming scrambles.",
+      "noteZh": "他是Panama主要防守结构的一部分。他把第一下对抗处理干净，避免球队下一阶段只能追着球跑。"
     },
     "Anibal Godoy": {
       "displayName": "Aníbal Godoy",
-      "skills": ["Midfield leadership", "Ball winning", "Tempo control"],
-      "note": "Godoy is Panama's midfield organizer, trusted to slow the game and win contact in central areas.",
-      "noteZh": "戈多伊是巴拿马中场组织者，可信赖地放慢比赛并赢下中路身体对抗。"
+      "skills": [
+        "Midfield leadership",
+        "Ball winning",
+        "Tempo control"
+      ],
+      "note": "Godoy gives Panama a way to settle the middle if the match opens up. His best work is making the next decision less hurried.",
+      "noteZh": "他是Panama的中场保险。那些混乱阶段里，他要抢第二点、稳一下，再把球送出去。"
     },
     "Azarias Londono": {
       "displayName": "Azarias Londoño",
-      "skills": ["Forward pressing", "Channel runs", "Penalty-box movement"],
-      "note": "Londoño gives Panama a mobile forward option, useful for pressing and running beyond the first line.",
-      "noteZh": "隆多尼奥给巴拿马带来机动前锋选择，适合压迫并冲到第一道防线身后。"
+      "skills": [
+        "Forward pressing",
+        "Channel runs",
+        "Penalty-box movement"
+      ],
+      "note": "Londoño is an attacking change-up for Panama. He gives the front line fresh running when the first plan starts to look predictable.",
+      "noteZh": "他是Panama的进攻深度。如果比赛慢下来，他要让后防线重新移动。"
     },
     "Carlos Harvey": {
-      "skills": ["Defensive midfield size", "Aerial duels", "Central cover"],
-      "note": "Harvey gives Panama size in midfield, helping them protect counters and compete for second balls.",
-      "noteZh": "哈维给巴拿马中场带来身材，帮助保护反击并争抢第二落点。"
+      "skills": [
+        "Defensive midfield size",
+        "Aerial duels",
+        "Central cover"
+      ],
+      "note": "Harvey gives Panama structure when the ball changes feet. He is often most valuable in the second after a loose touch.",
+      "noteZh": "他给Panama控制节奏。拥挤区域里的触球，能变成下一名队友更舒服的角度。"
     },
     "Cecilio Waterman": {
-      "skills": ["Target-forward play", "Aerial finishing", "Box presence"],
-      "note": "Waterman is a physical striker option, useful when Panama want crosses and knockdowns to stick.",
-      "noteZh": "沃特曼是身体型前锋选择，当巴拿马希望传中和摆渡能站住时很有用。"
+      "skills": [
+        "Target-forward play",
+        "Aerial finishing",
+        "Box presence"
+      ],
+      "note": "Waterman is attacking depth for Panama. If the game slows down, he is there to make the back line move again.",
+      "noteZh": "他是Panama前场计划的一部分。他先拉扯防守者，再寻找把压力变成机会的触球。"
     },
     "Cesar Blackman": {
       "displayName": "César Blackman",
       "league": "Slovak First Football League",
-      "skills": ["Right-back speed", "Overlap timing", "Recovery defending"],
-      "note": "Blackman gives Panama pace from right-back, stretching the flank and recovering quickly behind it.",
-      "noteZh": "布莱克曼给巴拿马右后卫位置带来速度，能拉开边路并迅速回追身后。"
+      "skills": [
+        "Right-back speed",
+        "Overlap timing",
+        "Recovery defending"
+      ],
+      "note": "Blackman gives Panama defensive range. His job is to make the opponent's first opening feel smaller than it looked.",
+      "noteZh": "他是Panama艰难时间段的防守深度。他要赢下第一下接触，并让下一脚传球简单起来。"
     },
     "Cesar Samudio": {
       "displayName": "César Samudio",
-      "skills": ["Goalkeeper reactions", "Shot stopping", "Penalty-area command"],
-      "note": "Samudio gives Panama a reaction goalkeeper, useful when the back line faces close-range chances.",
-      "noteZh": "萨穆迪奥给巴拿马带来反应型门将，当防线面对近距离机会时很有用。"
+      "skills": [
+        "Goalkeeper reactions",
+        "Shot stopping",
+        "Penalty-area command"
+      ],
+      "note": "Samudio is Panama's safety net in goal. The job is simple to say and hard to do: enter cold and make the box quieter.",
+      "noteZh": "他是Panama的门将保障。角色是随时准备好扑救、重新开球，并在突然需要他时不慌。"
     },
     "Cesar Yanis": {
       "displayName": "César Yanis",
-      "skills": ["Left-wing carrying", "Transition speed", "Cutback threat"],
-      "note": "Yanis adds transition speed on the left, dangerous when he can drive to the line and cut service back.",
-      "noteZh": "亚尼斯增加左路转换速度，能冲到底线并倒三角传球时很危险。"
+      "skills": [
+        "Left-wing carrying",
+        "Transition speed",
+        "Pulled-back passes"
+      ],
+      "note": "Yanis gives Panama a different attacking speed from the bench. The important touch may be the run that opens space for someone else.",
+      "noteZh": "他是Panama在比赛需要新腿时可以使用的前锋。第一项工作，是让疲劳的后卫转身。"
     },
     "Cristian Martinez": {
       "displayName": "Cristian Martínez",
-      "skills": ["Defensive midfield cover", "Short passing", "Duel timing"],
-      "note": "Martínez gives Panama a tidy midfield shield, keeping passes simple after he wins contact.",
-      "noteZh": "马丁内斯给巴拿马整洁的中场屏障，赢下对抗后能简洁处理传球。"
+      "skills": [
+        "Defensive midfield cover",
+        "Short passing",
+        "Duel timing"
+      ],
+      "note": "Martínez gives Panama structure when the ball changes feet. He is often most valuable in the second after a loose touch.",
+      "noteZh": "他给Panama控制节奏。拥挤区域里的触球，能变成下一名队友更舒服的角度。"
     },
     "Edgar Yoel Barcenas": {
       "displayName": "Yoel Bárcenas",
-      "skills": ["Creative wing play", "Set-piece service", "Inside shooting"],
-      "note": "Bárcenas gives Panama invention from wide areas, especially on restarts and inside touches.",
-      "noteZh": "巴尔塞纳斯给巴拿马边路创造力，尤其体现在定位球和内收触球。"
+      "skills": [
+        "Creative wing play",
+        "Set-piece service",
+        "Inside shooting"
+      ],
+      "note": "Bárcenas has been part of Panama's front-line plan. He stretches defenders first, then looks for the touch that turns pressure into a chance.",
+      "noteZh": "他是Panama前场计划的一部分。他先拉扯防守者，再寻找把压力变成机会的触球。"
     },
     "Edgardo Farina": {
       "displayName": "Edgardo Fariña",
-      "skills": ["Centre-back mobility", "Aerial defending", "Recovery cover"],
-      "note": "Fariña gives Panama a mobile centre-back, useful when the defensive line has to cover space.",
-      "noteZh": "法里尼亚给巴拿马带来机动中卫，当防线需要覆盖空间时很有用。"
+      "skills": [
+        "Centre-back mobility",
+        "Aerial defending",
+        "Recovery cover"
+      ],
+      "note": "Fariña is the kind of defender Panama can turn to when the match gets narrow. His job is first contact, clean clearance, simple pass.",
+      "noteZh": "他是Panama艰难时间段的防守深度。他要赢下第一下接触，并让下一脚传球简单起来。"
     },
     "Eric Davis": {
-      "skills": ["Left-back experience", "Set-piece delivery", "Defensive width"],
-      "note": "Davis gives Panama left-side experience and set-piece quality, a steady outlet under pressure.",
-      "noteZh": "戴维斯给巴拿马左侧经验和定位球质量，是压力下稳定的出球点。"
+      "skills": [
+        "Left-back experience",
+        "Set-piece delivery",
+        "Defensive width"
+      ],
+      "note": "Davis is defensive cover for Panama's harder minutes. He is there to win the first contact and make the next pass simple.",
+      "noteZh": "他是Panama在比赛变窄时可以使用的后卫。任务是第一下接触、清楚解围、简单出球。"
     },
     "Fidel Escobar": {
-      "skills": ["Centre-back leadership", "Long passing", "Aerial duels"],
-      "note": "Escobar is Panama's defensive organizer, able to clear danger and hit the first forward pass.",
-      "noteZh": "埃斯科巴是巴拿马防守组织者，能清理危险并送出第一脚向前传球。"
+      "skills": [
+        "Centre-back leadership",
+        "Long passing",
+        "Aerial duels"
+      ],
+      "note": "Escobar is back-line insurance for Panama. The card is not glamorous: win the ball, keep the pass safe, reset the shape.",
+      "noteZh": "他给Panama那些靠胆量守住的分钟提供保障。一次扎实对抗就能让整条线冷静下来。"
     },
     "Ismael Diaz": {
       "displayName": "Ismael Díaz",
-      "skills": ["Forward movement", "Inside runs", "Quick finishing"],
-      "note": "Díaz gives Panama sharp movement near goal, especially when he can slip between centre-backs.",
-      "noteZh": "迪亚斯给巴拿马门前敏锐跑动，尤其能钻进两名中卫之间时很危险。"
+      "skills": [
+        "Forward movement",
+        "Inside runs",
+        "Quick finishing"
+      ],
+      "note": "Díaz is one of Panama's attacking paths this tournament. Watch how the first defender reacts when he receives facing goal.",
+      "noteZh": "他现在会出现在对手的赛前报告里。对Panama来说，他的触球可以把协防从下一个跑动上拉走。"
     },
     "Jiovany Ramos": {
-      "skills": ["Centre-back depth", "Box defending", "Aerial cover"],
-      "note": "Ramos gives Panama another centre-back body for aerial spells and late defensive pressure.",
-      "noteZh": "拉莫斯给巴拿马增加中卫厚度，适合空中球阶段和比赛末段防守压力。"
+      "skills": [
+        "Centre-back depth",
+        "Box defending",
+        "Aerial cover"
+      ],
+      "note": "Ramos gives Panama defensive range. His job is to make the opponent's first opening feel smaller than it looked.",
+      "noteZh": "他是Panama在比赛变窄时可以使用的后卫。任务是第一下接触、清楚解围、简单出球。"
     },
     "Jorge Gutierrez": {
       "displayName": "Jorge Gutiérrez",
-      "skills": ["Goalkeeper depth", "Reaction saves", "Cross handling"],
-      "note": "Gutiérrez adds goalkeeper depth, useful for reaction saves and managing repeated crosses.",
-      "noteZh": "古铁雷斯增加门将深度，适合反应扑救和处理连续传中。"
+      "skills": [
+        "Goalkeeper depth",
+        "Reaction saves",
+        "Cross handling"
+      ],
+      "note": "Gutiérrez gives Panama cover for the minutes when defending becomes more about nerve than shape. One solid duel can calm the whole line.",
+      "noteZh": "他是Panama后防线的保险。卡片不华丽：赢球、稳传、重新站好。"
     },
     "Jose Cordoba": {
       "displayName": "José Córdoba",
-      "skills": ["Centre-back pace", "Left-footed defending", "Recovery tackles"],
-      "note": "Córdoba gives Panama speed at centre-back, important when they defend space behind the line.",
-      "noteZh": "科尔多瓦给巴拿马中卫位置带来速度，对防守身后空间很重要。"
+      "skills": [
+        "Centre-back pace",
+        "Left-footed defending",
+        "Recovery tackles"
+      ],
+      "note": "Córdoba has been part of Panama's main defensive shape. He keeps the first duel clean so the team does not spend the next phase chasing.",
+      "noteZh": "他在Panama体系里做的是安静工作。他让对手的进攻不容易变成混乱。"
     },
     "Jose Fajardo": {
       "displayName": "José Fajardo",
-      "skills": ["Striker movement", "Aerial finishing", "Channel runs"],
-      "note": "Fajardo is a direct striker option, attacking channels and giving Panama a target for early balls.",
-      "noteZh": "法哈多是直接前锋选择，冲击通道，并给巴拿马早传提供目标。"
+      "skills": [
+        "Striker movement",
+        "Aerial finishing",
+        "Channel runs"
+      ],
+      "note": "Fajardo is an attacking change-up for Panama. He gives the front line fresh running when the first plan starts to look predictable.",
+      "noteZh": "他是Panama的进攻深度。如果比赛慢下来，他要让后防线重新移动。"
     },
     "Jose Luis Rodriguez": {
       "displayName": "José Luis Rodríguez",
-      "skills": ["Wide speed", "Direct dribbling", "Transition service"],
-      "note": "Rodríguez gives Panama speed on the break, especially when he can attack the outside shoulder.",
-      "noteZh": "罗德里格斯给巴拿马反击速度，尤其能冲击外侧肩膀时很有威胁。"
+      "skills": [
+        "Wide speed",
+        "Direct dribbling",
+        "Transition service"
+      ],
+      "note": "Rodríguez gives Panama a front-line rhythm that keeps defenders facing their own goal. His value often starts before the ball reaches him.",
+      "noteZh": "他给Panama替补席上的另一种进攻速度。有时关键触球，是那次帮队友拉开空间的跑动。"
     },
     "Luis Mejia": {
       "displayName": "Luis Mejía",
       "league": "Uruguayan Primera División",
-      "skills": ["Goalkeeper command", "Shot stopping", "Tournament experience"],
-      "note": "Mejía brings goalkeeper experience, steady when Panama need calm through pressure.",
-      "noteZh": "梅希亚带来门将经验，当巴拿马需要在压力中保持冷静时很稳定。"
+      "skills": [
+        "Goalkeeper command",
+        "Shot stopping",
+        "Tournament experience"
+      ],
+      "note": "Mejía sits behind the starter for Panama, but the role is not decorative. He has to be ready for crosses, restarts, and a cold first touch.",
+      "noteZh": "他给Panama保留另一个门将选择。真正需要他时，重点可能就是一次大扑救。"
     },
     "Michael Murillo": {
-      "skills": ["Right-back power", "Overlap runs", "Back-post arrivals"],
-      "note": "Murillo is Panama's powerful right-back, dangerous when his overlaps become box arrivals.",
-      "noteZh": "穆里略是巴拿马强力右后卫，当套边变成禁区到位时很危险。"
+      "skills": [
+        "Right-back power",
+        "Overlap runs",
+        "Back-post arrivals"
+      ],
+      "note": "Murillo is the kind of defender Panama can turn to when the match gets narrow. His job is first contact, clean clearance, simple pass.",
+      "noteZh": "他是Panama艰难时间段的防守深度。他要赢下第一下接触，并让下一脚传球简单起来。"
     },
     "Orlando Mosquera": {
-      "skills": ["Goalkeeper reach", "Shot stopping", "Penalty-area presence"],
-      "note": "Mosquera gives Panama reach in goal, useful when opponents start shooting through traffic.",
-      "noteZh": "莫斯克拉给巴拿马门前覆盖范围，当对手在人群中射门时很有用。"
+      "skills": [
+        "Goalkeeper reach",
+        "Shot stopping",
+        "Penalty-area presence"
+      ],
+      "note": "Mosquera has carried the keeper minutes for Panama. The card is clean hands, clear restarts, and defenders who do not have to rush.",
+      "noteZh": "他是Panama防守结构最后的声音。压力停在禁区时，他要让下一步动作简单下来。"
     },
     "Roderick Miller": {
-      "skills": ["Centre-back strength", "Aerial defending", "Set-piece marking"],
-      "note": "Miller gives Panama defensive strength, especially for aerial duels and set-piece marking.",
-      "noteZh": "米勒给巴拿马防守强度，尤其适合空中对抗和定位球盯防。"
+      "skills": [
+        "Centre-back strength",
+        "Aerial defending",
+        "Set-piece marking"
+      ],
+      "note": "Miller is defensive cover for Panama's harder minutes. He is there to win the first contact and make the next pass simple.",
+      "noteZh": "他是Panama在比赛变窄时可以使用的后卫。任务是第一下接触、清楚解围、简单出球。"
     },
     "Tomas Rodriguez": {
       "displayName": "Tomás Rodríguez",
-      "skills": ["Forward depth", "Pressing runs", "Box movement"],
-      "note": "Rodríguez gives Panama forward depth, useful when the press needs fresh legs near the box.",
-      "noteZh": "托马斯·罗德里格斯给巴拿马前锋深度，当禁区附近压迫需要新鲜跑动时很有用。"
+      "skills": [
+        "Forward depth",
+        "Pressing runs",
+        "Box movement"
+      ],
+      "note": "Rodríguez is the forward Panama can use when the match needs new legs. His first job is to make tired defenders turn.",
+      "noteZh": "他给Panama替补席上的另一种进攻速度。有时关键触球，是那次帮队友拉开空间的跑动。"
     }
   }
 }

@@ -67,116 +67,198 @@
   },
   "profiles": {
     "Alexis Mac Allister": {
-      "skills": ["Press-resistant passing", "Midfield timing", "Set-piece delivery"],
-      "note": "Mac Allister gives Argentina calm progression, receiving under pressure and turning midfield control into cleaner final-third entries.",
-      "noteZh": "麦卡利斯特给阿根廷冷静推进，能在压力下接球，并把中场控制转成更清晰的前场进入。"
+      "skills": [
+        "Press-resistant passing",
+        "Midfield timing",
+        "Set-piece delivery"
+      ],
+      "note": "Mac Allister is Argentina's calm connector under pressure. His extra-time assist against Cabo Verde showed how he keeps seeing the clean pass after the match has become messy.",
+      "noteZh": "麦卡利斯特是阿根廷压力下的冷静连接点。他对佛得角加时的助攻说明，即使比赛变乱，他仍能看见干净传球。"
     },
     "Cristian Romero": {
-      "skills": ["Aggressive defending", "Aerial duels", "Back-line leadership"],
-      "note": "Romero is Argentina's front-foot centre-back, stepping into duels early and setting the defensive tone.",
-      "noteZh": "罗梅罗是阿根廷主动上抢型中卫，会提前进入对抗，并定下防线强度。"
+      "skills": [
+        "Aggressive defending",
+        "Aerial duels",
+        "Back-line leadership"
+      ],
+      "note": "Romero sparked Argentina's comeback against Egypt with the first late goal. He is the defender who attacks danger at both ends, sometimes before anyone else has reacted.",
+      "noteZh": "罗梅罗用第一个后段进球点燃了阿根廷对埃及的逆转。他是会在两端主动攻击危险的后卫，有时比别人反应更早。"
     },
     "Damian Emiliano Martinez": {
       "sourceTitle": "Emiliano Martínez",
-      "aliases": ["Emiliano Martinez", "Damián Emiliano Martínez"],
+      "aliases": [
+        "Emiliano Martinez",
+        "Damián Emiliano Martínez"
+      ],
       "displayName": "Emiliano Martínez",
-      "skills": ["Penalty presence", "Shot stopping", "Box command"],
-      "note": "Martínez gives Argentina elite tournament goalkeeping, especially when one save or penalty read can swing the tie.",
-      "noteZh": "马丁内斯给阿根廷顶级杯赛门将能力，尤其当一次扑救或点球判断能改变比赛时。"
+      "skills": [
+        "Penalty presence",
+        "Shot stopping",
+        "Box command"
+      ],
+      "note": "Martinez gives Argentina the belief that chaos can still be survived. His tournament card is saves, penalties, and the confidence that changes nervous defenders.",
+      "noteZh": "马丁内斯让阿根廷相信混乱仍能被熬过去。他的赛事卡片是扑救、点球，以及能改变紧张后卫的信心。"
     },
     "Enzo Fernandez": {
       "displayName": "Enzo Fernández",
-      "skills": ["Line-breaking passing", "Midfield range", "Second balls"],
-      "note": "Fernández gives Argentina vertical passing from midfield, helping attacks move forward before defenses reset.",
-      "noteZh": "恩佐·费尔南德斯给阿根廷中场纵向传球，帮助进攻在防线重组前向前推进。"
+      "skills": [
+        "Line-breaking passing",
+        "Midfield range",
+        "Second balls"
+      ],
+      "note": "Enzo gave Argentina the final punch against Egypt at 90+2. His passing moves the team forward, but his value now also includes arriving when Messi has bent the defense.",
+      "noteZh": "恩佐在对埃及时90+2分钟打出最后一击。他的传球推动球队向前，但现在的价值也包括在梅西拉弯防线后及时到位。"
     },
     "Exequiel Palacios": {
-      "skills": ["Tempo control", "Press resistance", "Midfield coverage"],
-      "note": "Palacios gives Argentina a tidy midfield connector, valuable when possession needs patience and protection.",
-      "noteZh": "帕拉西奥斯给阿根廷细腻的中场连接，当控球需要耐心和保护时很有价值。"
+      "skills": [
+        "Tempo control",
+        "Press resistance",
+        "Midfield coverage"
+      ],
+      "note": "Palacios is Argentina's tidy midfield cover. He is there when the team needs possession to calm down rather than another risky pass toward Messi.",
+      "noteZh": "帕拉西奥斯是阿根廷整洁的中场深度。当球队需要控球降温，而不是再冒险找梅西时，他有价值。"
     },
     "Facundo Medina": {
-      "skills": ["Left-sided defending", "Recovery speed", "Progressive passing"],
-      "note": "Medina offers left-footed defensive cover, useful when Argentina need both back-line aggression and clean exits.",
-      "noteZh": "梅迪纳提供左脚防守保护，当阿根廷需要防线侵略性和干净出球时很有用。"
+      "skills": [
+        "Left-sided defending",
+        "Recovery speed",
+        "Progressive passing"
+      ],
+      "note": "Medina has been Argentina's left-side defender and already assisted Messi against Austria. He gives aggression at the back plus a first pass that can matter.",
+      "noteZh": "梅迪纳是阿根廷左侧防守者，也已经在对奥地利时助攻梅西。他既给后场带来侵略性，也有可能送出重要第一传。"
     },
     "Geronimo Rulli": {
       "displayName": "Gerónimo Rulli",
-      "skills": ["Goalkeeper depth", "Reaction saves", "Distribution"],
-      "note": "Rulli gives Argentina experienced goalkeeper depth, comfortable managing spells when the back line has the ball.",
-      "noteZh": "鲁利给阿根廷有经验的门将深度，能在后场控球阶段稳住节奏。"
+      "skills": [
+        "Goalkeeper depth",
+        "Reaction saves",
+        "Distribution"
+      ],
+      "note": "Rulli is experienced goalkeeper cover behind Martinez. His job is to be ready if Argentina need a calmer keeper to manage possession spells.",
+      "noteZh": "鲁利是马丁内斯身后的经验门将保障。如果阿根廷需要一名更冷静的门将管理控球阶段，他要随时准备。"
     },
     "Giovani Lo Celso": {
-      "skills": ["Left-footed craft", "Final pass", "Between-lines receiving"],
-      "note": "Lo Celso adds left-footed invention, finding pockets where Argentina can turn possession into a chance.",
-      "noteZh": "洛塞尔索增加左脚创造力，能找到阿根廷把控球转成机会的空当。"
+      "skills": [
+        "Left-footed craft",
+        "Final pass",
+        "Between-lines receiving"
+      ],
+      "note": "Lo Celso scored in the rotated Jordan match and remains Argentina's left-footed pocket passer. He gives Messi another player who understands the soft space.",
+      "noteZh": "洛塞尔索在轮换对约旦时进球，依然是阿根廷左脚空当传球手。他给梅西身边再添一个理解柔软空间的人。"
     },
     "Giuliano Simeone": {
-      "skills": ["Forward pressing", "Channel running", "Direct energy"],
-      "note": "Simeone brings front-line intensity, attacking channels and keeping defenders hurried without the ball.",
-      "noteZh": "小西蒙尼带来锋线强度，冲击通道，并在无球时持续逼迫防守者。"
+      "skills": [
+        "Forward pressing",
+        "Channel running",
+        "Direct energy"
+      ],
+      "note": "Simeone is Argentina's energy forward. He presses like the possession can be won back immediately, then runs the channel before defenders settle.",
+      "noteZh": "小西蒙尼是阿根廷的活力前锋。他压迫时像球马上就能抢回来，然后在防守者站稳前冲击通道。"
     },
     "Gonzalo Montiel": {
-      "skills": ["Right-back defending", "Penalty composure", "Back-post cover"],
-      "note": "Montiel gives Argentina a battle-tested right-back who can defend the far post and handle late pressure.",
-      "noteZh": "蒙铁尔给阿根廷经过考验的右后卫，能保护后点，也能处理末段压力。"
+      "skills": [
+        "Right-back defending",
+        "Penalty composure",
+        "Back-post cover"
+      ],
+      "note": "Montiel assisted Messi's late winner against Egypt and still carries late-game trust. Argentina know he can survive tense minutes and make one simple pass count.",
+      "noteZh": "蒙铁尔助攻梅西打进对埃及的后段反超球，也依然承载比赛后段的信任。阿根廷知道他能熬过紧张时刻，并让一次简单传球产生价值。"
     },
     "Jose Manuel Lopez": {
       "sourceTitle": "José Manuel López (footballer)",
       "displayName": "José Manuel López",
-      "aliases": ["Flaco López", "Jose Manuel Alberto Lopez"],
+      "aliases": [
+        "Flaco López",
+        "Jose Manuel Alberto Lopez"
+      ],
       "position": "Centre-forward",
       "club": "Palmeiras",
       "league": "Campeonato Brasileiro Série A",
       "transfermarktPlayerCode": "flaco-lopez",
       "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/844797-1739618753.jpg?lm=1",
       "marketValueEurMillions": 25,
-      "skills": ["Box presence", "Aerial target", "Hold-up play"],
-      "note": "López gives Argentina a taller penalty-area option when crosses and direct service become the route.",
-      "noteZh": "洛佩斯给阿根廷更高的禁区选择，当传中和直接输送成为路线时很有用。"
+      "skills": [
+        "Box presence",
+        "Aerial target",
+        "Hold-up play"
+      ],
+      "note": "Lopez is Argentina's taller box option. If Switzerland force the game wide, he gives crosses a target and centre-backs a different problem.",
+      "noteZh": "洛佩斯是阿根廷更高大的禁区选择。如果瑞士迫使比赛走边路，他会给传中一个目标，也给中卫不同问题。"
     },
     "Juan Musso": {
-      "skills": ["Goalkeeper depth", "Cross handling", "Shot stopping"],
-      "note": "Musso adds experienced goalkeeper cover, steady for games that ask for crosses and set-piece command.",
-      "noteZh": "穆索增加有经验的门将保障，适合需要处理传中和定位球指挥的比赛。"
+      "skills": [
+        "Goalkeeper depth",
+        "Cross handling",
+        "Shot stopping"
+      ],
+      "note": "Musso is experienced goalkeeper depth. He is there for training-ground standards and emergency cover, not as a likely quarter-final storyline.",
+      "noteZh": "穆索是经验门将深度。他的价值是训练标准和紧急保障，而不是八强战很可能出现的主线。"
     },
     "Julian Alvarez": {
       "displayName": "Julián Álvarez",
-      "skills": ["Forward pressing", "Box finishing", "Link runs"],
-      "note": "Álvarez gives Argentina relentless forward work, pressing from the front and still arriving to finish.",
-      "noteZh": "阿尔瓦雷斯给阿根廷不间断的锋线工作量，能从前场压迫，也能及时到位终结。"
+      "skills": [
+        "Forward pressing",
+        "Box finishing",
+        "Link runs"
+      ],
+      "note": "Alvarez is Argentina's pressure starter when Messi needs the game tilted around him. He runs first, presses first, and makes defenders play before they are comfortable.",
+      "noteZh": "阿尔瓦雷斯是阿根廷为梅西创造环境的压迫起点。他先跑、先压迫，让防守者在还不舒服时就必须处理球。"
     },
     "Lautaro Martinez": {
       "displayName": "Lautaro Martínez",
-      "skills": ["Box finishing", "Near-post movement", "Forward duels"],
-      "note": "Lautaro is Argentina's penalty-box striker, sharp at attacking the first gap before defenders settle.",
-      "noteZh": "劳塔罗是阿根廷禁区前锋，擅长在防守者站稳前攻击第一道空隙。"
+      "skills": [
+        "Box finishing",
+        "Near-post movement",
+        "Forward duels"
+      ],
+      "note": "Lautaro has scored in this tournament and assisted Enzo's late winner against Egypt. He keeps the box occupied while Messi decides where the opening really is.",
+      "noteZh": "劳塔罗这届赛事已经进球，也助攻恩佐打进对埃及的后段制胜球。他占住禁区，让梅西决定真正的空当在哪里。"
     },
     "Leandro Paredes": {
-      "skills": ["Deep passing", "Midfield control", "Set-piece range"],
-      "note": "Paredes gives Argentina a deep passing hub, useful for slowing chaos and changing the point of attack.",
-      "noteZh": "帕雷德斯给阿根廷后腰传球枢纽，适合放慢混乱节奏并转移进攻方向。"
+      "skills": [
+        "Deep passing",
+        "Midfield control",
+        "Set-piece range"
+      ],
+      "note": "Paredes gives Argentina a deeper passing reset when the midfield gets frantic. He can slow the game before Messi has to solve everything himself.",
+      "noteZh": "帕雷德斯在中场变得急躁时给阿根廷更深的传球重置。他能先把比赛放慢，而不是让梅西独自解决一切。"
     },
     "Lionel Messi": {
-      "skills": ["Final pass", "Set pieces", "Central creation"],
-      "note": "Messi remains Argentina's central problem-solver, turning small pockets into the pass or shot others cannot see.",
-      "noteZh": "梅西仍是阿根廷中路解题者，能把狭小空间变成别人看不到的传球或射门。"
+      "skills": [
+        "Final pass",
+        "Set pieces",
+        "Central creation"
+      ],
+      "note": "Messi has carried Argentina through this tournament with goals, assists, and late answers. The pattern is still the same: give him one pocket and the whole match changes shape.",
+      "noteZh": "梅西用进球、助攻和后段回应带着阿根廷前进。这种模式仍然没变：给他一个空当，整场比赛的形状都会改变。"
     },
     "Lisandro Martinez": {
       "displayName": "Lisandro Martínez",
-      "skills": ["Left-sided defending", "Build-up passing", "Aggressive duels"],
-      "note": "Lisandro gives Argentina bite and passing from the left side of defense, helping the back line play forward.",
-      "noteZh": "利桑德罗给阿根廷左侧防线带来硬度和传球，帮助后场向前组织。"
+      "skills": [
+        "Left-sided defending",
+        "Build-up passing",
+        "Aggressive duels"
+      ],
+      "note": "Lisandro has been both defender and emergency scorer, assisting Messi against Cabo Verde before scoring in extra time. His bite comes with a forward pass.",
+      "noteZh": "利桑德罗既是防守者，也是紧急得分点，对佛得角先助攻梅西再在加时进球。他的硬度还带着向前传球。"
     },
     "Marcos Senesi": {
-      "skills": ["Centre-back passing", "Aerial defending", "Left-side cover"],
-      "note": "Senesi gives Argentina another left-sided centre-back option, steady when the game asks for controlled buildup.",
-      "noteZh": "塞内西给阿根廷另一个左侧中卫选择，当比赛需要有控制的组织时很稳定。"
+      "skills": [
+        "Centre-back passing",
+        "Aerial defending",
+        "Left-side cover"
+      ],
+      "note": "Senesi is left-sided centre-back cover for Argentina's rotation. He keeps the passing angle alive when the staff want control more than pure aggression.",
+      "noteZh": "塞内西是阿根廷轮换中的左侧中卫深度。当教练组想要控制多于纯粹侵略性时，他能保持传球角度。"
     },
     "Nahuel Molina": {
-      "skills": ["Right-side runs", "Recovery defending", "Overlap timing"],
-      "note": "Molina stretches Argentina's right side, timing overlaps while still recovering into the defensive line.",
-      "noteZh": "莫利纳拉开阿根廷右路，能掌握套上时机，也能回到防线位置。"
+      "skills": [
+        "Right-side runs",
+        "Recovery defending",
+        "Overlap timing"
+      ],
+      "note": "Molina has been Argentina's main right-back in the knockout run. His job is to run beyond De Paul and still recover before counters reach Romero.",
+      "noteZh": "莫利纳是阿根廷淘汰赛阶段的主要右后卫。他要在德保罗身前前插，同时在反击到达罗梅罗前回追。"
     },
     "Nico Gonzalez": {
       "sourceTitle": "Nicolás González (footballer, born 1998)",
@@ -185,42 +267,70 @@
       "club": "Atlético Madrid (on loan from Juventus)",
       "league": "La Liga",
       "transfermarktPlayerCode": "nico-gonzalez",
-      "skills": ["Wide running", "Aerial arrivals", "Pressing work"],
-      "note": "González gives Argentina vertical wing energy, attacking the back post and working hard without the ball.",
-      "noteZh": "尼科·冈萨雷斯给阿根廷纵向边路活力，能攻击后点，也能无球勤奋压迫。"
+      "skills": [
+        "Wide running",
+        "Aerial arrivals",
+        "Pressing work"
+      ],
+      "note": "Gonzalez assisted Messi in the opener and remains Argentina's hard-running wide option. He attacks the far post and does the work that keeps the front line balanced.",
+      "noteZh": "尼科·冈萨雷斯在首战助攻梅西，仍是阿根廷高强度跑动的边路选择。他冲击远端，也做保持锋线平衡的工作。"
     },
     "Nico Paz": {
-      "skills": ["Creative receiving", "Left-footed passing", "Late box runs"],
-      "note": "Paz gives Argentina a younger creative option, comfortable receiving between lines and playing forward quickly.",
-      "noteZh": "尼科·帕斯给阿根廷年轻创造力，能在两线之间接球并快速向前处理。"
+      "skills": [
+        "Creative receiving",
+        "Left-footed passing",
+        "Late box runs"
+      ],
+      "note": "Paz is Argentina's younger creative midfielder for rotation games. He receives between pressure lines and tries to play forward before the safe pass appears.",
+      "noteZh": "尼科·帕斯是阿根廷轮换比赛中的年轻创造型中场。他在压力线之间接球，并试图在安全传球出现前就向前处理。"
     },
     "Nicolas Otamendi": {
       "displayName": "Nicolás Otamendi",
-      "skills": ["Aerial defending", "Veteran control", "Set-piece threat"],
-      "note": "Otamendi gives Argentina veteran defensive authority, especially in aerial spells and tense late phases.",
-      "noteZh": "奥塔门迪给阿根廷老将防守权威，尤其在空中球阶段和紧张末段很重要。"
+      "skills": [
+        "Aerial defending",
+        "Veteran control",
+        "Set-piece threat"
+      ],
+      "note": "Otamendi is veteran defensive authority if Argentina need to close a match. He gives aerial command and the personality to make late minutes feel smaller.",
+      "noteZh": "如果阿根廷需要收掉比赛，奥塔门迪是老将防守权威。他提供空中控制，也用气场让后段时间显得没那么大。"
     },
     "Nicolas Tagliafico": {
       "displayName": "Nicolás Tagliafico",
-      "skills": ["Left-back defending", "Back-post timing", "Compact passing"],
-      "note": "Tagliafico gives Argentina a reliable left-back base, defending narrow and arriving when the far side opens.",
-      "noteZh": "塔利亚菲科给阿根廷可靠的左后卫基础，能内收防守，也能在远侧打开时前插。"
+      "skills": [
+        "Left-back defending",
+        "Back-post timing",
+        "Compact passing"
+      ],
+      "note": "Tagliafico has returned as the safer left-back in the knockout mix. He narrows the defense and lets the midfield take more of the attacking risk.",
+      "noteZh": "塔利亚菲科在淘汰赛组合中作为更安全的左后卫回归。他收窄防线，让中场承担更多进攻风险。"
     },
     "Rodrigo De Paul": {
-      "skills": ["Midfield legs", "Pressing support", "Forward passing"],
-      "note": "De Paul gives Argentina the running power around Messi, covering ground and keeping attacks connected.",
-      "noteZh": "德保罗给阿根廷围绕梅西的奔跑能力，覆盖空间并保持进攻衔接。"
+      "skills": [
+        "Midfield legs",
+        "Pressing support",
+        "Forward passing"
+      ],
+      "note": "De Paul remains Argentina's running power around Messi, with an assist in the opener and constant cover afterward. He connects the genius to the grind.",
+      "noteZh": "德保罗依然是梅西身边的跑动力量，首战有助攻，此后不断补位。他把天才和脏活连接起来。"
     },
     "Thiago Almada": {
-      "skills": ["Set-piece delivery", "Creative dribbling", "Final pass"],
-      "note": "Almada adds another creative spark, dangerous when Argentina need a sharper pass or set-piece delivery.",
-      "noteZh": "阿尔马达增加另一处创造火花，当阿根廷需要更锋利的传球或定位球输送时很危险。"
+      "skills": [
+        "Set-piece delivery",
+        "Creative dribbling",
+        "Final pass"
+      ],
+      "note": "Almada has started across the attacking midfield line and gives Argentina another set-piece and shooting option. He keeps defenders from loading every answer onto Messi.",
+      "noteZh": "阿尔马达已经在进攻中场线上多个位置首发，给阿根廷另一名定位球和射门选择。他让防守者不能把所有答案都压到梅西身上。"
     },
     "Valentin Barco": {
       "displayName": "Valentín Barco",
-      "skills": ["Left-footed delivery", "Ball carrying", "Wide invention"],
-      "note": "Barco gives Argentina left-sided invention, carrying from deep and changing the angle of attacks.",
-      "noteZh": "巴尔科给阿根廷左侧创造力，能从后场带球，并改变进攻角度。"
+      "skills": [
+        "Left-footed delivery",
+        "Ball carrying",
+        "Wide invention"
+      ],
+      "note": "Barco is left-footed invention from deeper or wider spaces. He is the change-up if Argentina need a different angle rather than another central combination.",
+      "noteZh": "巴尔科是在更深或更宽位置提供左脚创造力的人。如果阿根廷需要不同角度，而不是又一次中路配合，他就是变化。"
     }
   }
 }

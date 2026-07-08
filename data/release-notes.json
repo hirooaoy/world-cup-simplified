@@ -1,6 +1,21 @@
 {
-  "updatedAt": "2026-07-08T00:12:45-07:00",
+  "updatedAt": "2026-07-08T13:15:03-07:00",
   "releases": [
+    {
+      "date": "2026-07-08",
+      "title": "Player cards and match-control polish",
+      "titleZh": "球员卡与比赛操作体验优化",
+      "highlights": [
+        "Player cards now use tournament-grounded notes for current and historical squads, with audit and refresh tooling to keep the copy specific.",
+        "Line-up previews now animate into view, keep predicted-source help copy precise, and clear hover cards or tooltips when switching match, calendar, standings, or search views.",
+        "The mobile tournament bracket can now jump straight to the next knockout match, and the final card keeps its date label explicit."
+      ],
+      "highlightsZh": [
+        "当前和历史阵容的球员卡现在使用更贴近赛事证据的说明，并加入审核与刷新工具，帮助文案保持具体。",
+        "阵容预览现在会以动画进入视图，预测来源提示更精确，并会在切换比赛、日历、积分榜或搜索视图时清理悬浮卡片与提示。",
+        "移动端淘汰赛对阵图现在可以直接跳到下一场淘汰赛，决赛卡片的日期标签也会明确标出。"
+      ]
+    },
     {
       "date": "2026-07-08",
       "title": "Analytics and Chinese-mode performance",

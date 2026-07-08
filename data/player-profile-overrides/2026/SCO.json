@@ -27,8 +27,8 @@
         "Recovery speed",
         "Underlap timing"
       ],
-      "note": "Scotland's flexible full-back, useful on either side for recovery runs, underlaps, and carrying pressure into midfield.",
-      "noteZh": "阿伦·希基是苏格兰灵活的边后卫，左右两侧都能回追、内切套跑，并把压力带入中场。"
+      "note": "Hickey is defensive cover for Scotland's harder minutes. He is there to win the first contact and make the next pass simple.",
+      "noteZh": "他是Scotland在比赛变窄时可以使用的后卫。任务是第一下接触、清楚解围、简单出球。"
     },
     "Andy Robertson": {
       "displayName": "Andy Robertson",
@@ -38,8 +38,8 @@
         "Crossing volume",
         "Recovery runs"
       ],
-      "note": "Scotland's captain and left-side engine, giving them crossing volume, recovery runs, and emotional control in tense stretches.",
-      "noteZh": "安迪·罗伯逊是苏格兰队长和左路发动机，能提供大量传中、回追跑动，以及紧张阶段的情绪控制。"
+      "note": "Robertson is in the quiet-work part of Scotland's setup. He keeps attacks from becoming scrambles.",
+      "noteZh": "他是Scotland主要防守结构的一部分。他把第一下对抗处理干净，避免球队下一阶段只能追着球跑。"
     },
     "Angus Gunn": {
       "displayName": "Angus Gunn",
@@ -57,8 +57,8 @@
         "Keeper communication",
         "Calm restarts"
       ],
-      "note": "Scotland's first-choice goalkeeper, giving them shot-stopping, clear defensive calls, and calm restarts after saves.",
-      "noteZh": "安格斯·冈恩是苏格兰一号门将，能提供扑救、清晰的防线指挥，以及扑救后的冷静重新开球。",
+      "note": "Gunn has been Scotland's goalkeeper through this run. His value is keeping the box calm long enough for the next attack to start cleanly.",
+      "noteZh": "他给Scotland提供从后场开始的冷静第一步。看他如何把扑救或摘球变成重新组织。",
       "sourceUrl": "https://talksport.com/football/4320406/scotland-world-cup-nottingham-forest-angus-gunn-released/"
     },
     "Anthony Ralston": {
@@ -69,8 +69,8 @@
         "Back-post cover",
         "Set-piece edge"
       ],
-      "note": "Scotland's rugged right-back, useful for back-post defending, close-range duels, and adding edge on set pieces.",
-      "noteZh": "安东尼·拉尔斯顿是苏格兰硬朗右后卫，能防守后点、完成近距离对抗，并在定位球中增加强度。"
+      "note": "Ralston is defensive cover for Scotland's harder minutes. He is there to win the first contact and make the next pass simple.",
+      "noteZh": "他是Scotland在比赛变窄时可以使用的后卫。任务是第一下接触、清楚解围、简单出球。"
     },
     "Ben Gannon-Doak": {
       "displayName": "Ben Gannon-Doak",
@@ -86,8 +86,8 @@
         "One-on-one dribbling",
         "Fearless carries"
       ],
-      "note": "Scotland's fearless young winger, giving them right-side acceleration, one-on-one dribbling, and direct carries that unsettle defenders.",
-      "noteZh": "本·甘农-多克是苏格兰无畏的年轻边锋，能在右路加速、一对一带球，并用直接推进扰乱后卫。"
+      "note": "Gannon-Doak gives Scotland a different attacking speed from the bench. The important touch may be the run that opens space for someone else.",
+      "noteZh": "他是Scotland在比赛需要新腿时可以使用的前锋。第一项工作，是让疲劳的后卫转身。"
     },
     "Che Adams": {
       "displayName": "Ché Adams",
@@ -97,8 +97,8 @@
         "Forward link play",
         "Pressing"
       ],
-      "note": "Scotland's mobile forward, useful for running channels, linking attacks quickly, and pressing centre-backs before they settle.",
-      "noteZh": "切·亚当斯是苏格兰机动型前锋，能冲击肋部通道、快速衔接进攻，并在中卫站稳前完成压迫。"
+      "note": "Adams gives Scotland a different attacking speed from the bench. The important touch may be the run that opens space for someone else.",
+      "noteZh": "他是Scotland在比赛需要新腿时可以使用的前锋。第一项工作，是让疲劳的后卫转身。"
     },
     "Craig Gordon": {
       "displayName": "Craig Gordon",
@@ -108,8 +108,8 @@
         "Reflex saves",
         "Box command"
       ],
-      "note": "Scotland's veteran goalkeeper, giving the squad reflex saves, box command, and experience if the game turns chaotic.",
-      "noteZh": "克雷格·戈登是苏格兰老将门将，能在比赛变乱时提供反应扑救、禁区指挥和经验。"
+      "note": "Gordon is goalkeeper cover for Scotland. The role is readiness: saves, restarts, and no panic if the match suddenly needs him.",
+      "noteZh": "他是Scotland门线上的安全网。这个工作说起来简单，做起来很难：冷着上场，并让禁区安静。"
     },
     "Dominic Hyam": {
       "displayName": "Dominic Hyam",
@@ -119,8 +119,8 @@
         "Aerial defending",
         "Calm clearances"
       ],
-      "note": "Scotland's steady centre-back option, useful for aerial defending, compact positioning, and clearing pressure without panic.",
-      "noteZh": "多米尼克·海亚姆是苏格兰稳健的中卫选择，能完成空中防守、保持紧凑站位，并冷静解围压力。"
+      "note": "Hyam gives Scotland another trusted body for the awkward minutes. One clean decision can keep the match from tilting.",
+      "noteZh": "他给Scotland那些尴尬分钟多一个可信选择。一次干净决定，就能避免比赛倾斜。"
     },
     "Findlay Curtis": {
       "displayName": "Findlay Curtis",
@@ -132,8 +132,8 @@
         "Direct runs",
         "Youthful pressing"
       ],
-      "note": "Scotland's emerging wide runner, giving them left-side energy, direct movement, and fresh pressing legs off the bench.",
-      "noteZh": "芬德利·柯蒂斯是苏格兰新兴边路跑动点，能带来左路活力、直接前插，以及替补登场后的压迫体能。"
+      "note": "Curtis gives Scotland midfield depth for games that get stretched. He helps turn a loose ball into a calmer next pass.",
+      "noteZh": "他适合那些空间变丑的时间段。对Scotland来说，这可能就是压力到来前的一次干净触球。"
     },
     "George Hirst": {
       "displayName": "George Hirst",
@@ -143,8 +143,8 @@
         "Aerial targets",
         "Penalty-box finishing"
       ],
-      "note": "Scotland's centre-forward target, useful for attacking crosses, occupying centre-backs, and finishing from crowded penalty areas.",
-      "noteZh": "乔治·赫斯特是苏格兰中锋支点，能冲击传中、牵制中卫，并在拥挤禁区中完成终结。"
+      "note": "Hirst is the forward Scotland can use when the match needs new legs. His first job is to make tired defenders turn.",
+      "noteZh": "他给Scotland替补席上的另一种进攻速度。有时关键触球，是那次帮队友拉开空间的跑动。"
     },
     "Grant Hanley": {
       "displayName": "Grant Hanley",
@@ -154,8 +154,8 @@
         "Aerial duels",
         "Deep-block organisation"
       ],
-      "note": "Scotland's experienced centre-back, giving them aerial power, deep-block organisation, and leadership when defending late pressure.",
-      "noteZh": "格兰特·汉利是苏格兰经验丰富的中卫，能提供空中力量、低位防守组织，以及抵挡比赛后段压力时的领导力。"
+      "note": "Hanley is defensive rotation for Scotland. The watch point is how early he closes the lane that looked open.",
+      "noteZh": "他是Scotland艰难时间段的防守深度。他要赢下第一下接触，并让下一脚传球简单起来。"
     },
     "Jack Hendry": {
       "displayName": "Jack Hendry",
@@ -165,19 +165,19 @@
         "Progressive passing",
         "Set-piece defending"
       ],
-      "note": "Scotland's mobile centre-back, useful for recovery runs, passing through the first line, and defending set-piece traffic.",
-      "noteZh": "杰克·亨德里是苏格兰机动中卫，能回追补位、穿过第一道压力出球，并防守定位球混战。"
+      "note": "Hendry has been part of Scotland's main defensive shape. He keeps the first duel clean so the team does not spend the next phase chasing.",
+      "noteZh": "他在Scotland体系里做的是安静工作。他让对手的进攻不容易变成混乱。"
     },
     "John McGinn": {
       "displayName": "John McGinn",
       "sourceTitle": "John McGinn",
       "skills": [
+        "Goal threat",
         "Midfield carrying",
-        "Ball shielding",
-        "Late box runs"
+        "Ball shielding"
       ],
-      "note": "Scotland's midfield driver, turning shoulder checks and ball shielding into forward carries and late runs into scoring areas.",
-      "noteZh": "约翰·麦金是苏格兰中场推进器，能用观察和护球转化为向前带球，并后插上进入得分区域。"
+      "note": "McGinn has already turned one tournament chance into a goal against Haiti. Watch whether defenders start giving him the extra step.",
+      "noteZh": "他已经为Scotland进入这届世界杯的进球名单。一个终结会改变对手下一次防他的方式。"
     },
     "John Souttar": {
       "displayName": "John Souttar",
@@ -187,8 +187,8 @@
         "Passing lanes",
         "Box defending"
       ],
-      "note": "Scotland's right-sided centre-back option, helping them win duels, find passing lanes, and defend the box cleanly.",
-      "noteZh": "约翰·苏塔尔是苏格兰右侧中卫选择，能赢下对抗、找到传球线路，并干净地防守禁区。"
+      "note": "Souttar is back-line insurance for Scotland. The card is not glamorous: win the ball, keep the pass safe, reset the shape.",
+      "noteZh": "他给Scotland那些靠胆量守住的分钟提供保障。一次扎实对抗就能让整条线冷静下来。"
     },
     "Kenny McLean": {
       "displayName": "Kenny McLean",
@@ -205,8 +205,8 @@
         "Left-footed passing",
         "Game management"
       ],
-      "note": "Scotland's experienced central midfielder, useful for left-footed circulation, game management, and keeping possession connected.",
-      "noteZh": "肯尼·麦克莱恩是苏格兰经验丰富的中前卫，能用左脚组织传导、管理比赛节奏，并保持控球衔接。"
+      "note": "McLean gives Scotland a way to settle the middle if the match opens up. His best work is making the next decision less hurried.",
+      "noteZh": "他是Scotland的中场保险。那些混乱阶段里，他要抢第二点、稳一下，再把球送出去。"
     },
     "Kieran Tierney": {
       "displayName": "Kieran Tierney",
@@ -216,8 +216,8 @@
         "Overlap timing",
         "Back-three cover"
       ],
-      "note": "Scotland's left-side defender, giving them overlap timing, back-three cover, and sharp recovery runs when the flank opens.",
-      "noteZh": "基兰·蒂尔尼是苏格兰左侧防守者，能把握套边时机、覆盖三中卫体系，并在边路打开时快速回追。"
+      "note": "Tierney is defensive cover for Scotland's harder minutes. He is there to win the first contact and make the next pass simple.",
+      "noteZh": "他是Scotland在比赛变窄时可以使用的后卫。任务是第一下接触、清楚解围、简单出球。"
     },
     "Lawrence Shankland": {
       "displayName": "Lawrence Shankland",
@@ -227,8 +227,8 @@
         "First-time shots",
         "Near-post movement"
       ],
-      "note": "Scotland's penalty-box finisher, useful for first-time shots, near-post runs, and turning half-chances into attempts.",
-      "noteZh": "劳伦斯·尚克兰是苏格兰禁区终结者，能完成第一时间射门、冲击前点，并把半机会转化为射门。"
+      "note": "Shankland is attacking depth for Scotland. If the game slows down, he is there to make the back line move again.",
+      "noteZh": "他是Scotland前场计划的一部分。他先拉扯防守者，再寻找把压力变成机会的触球。"
     },
     "Lewis Ferguson": {
       "displayName": "Lewis Ferguson",
@@ -238,8 +238,8 @@
         "Late arrivals",
         "Pressing angles"
       ],
-      "note": "Scotland's timing midfielder, giving them late box arrivals, smart pressing angles, and calm touches between the lines.",
-      "noteZh": "刘易斯·弗格森是苏格兰擅长把握时机的中场，能后插上到禁区、选择聪明压迫角度，并在两线之间冷静处理球。"
+      "note": "Ferguson gives Scotland structure when the ball changes feet. He is often most valuable in the second after a loose touch.",
+      "noteZh": "他给Scotland控制节奏。拥挤区域里的触球，能变成下一名队友更舒服的角度。"
     },
     "Liam Kelly": {
       "displayName": "Liam Kelly",
@@ -256,8 +256,8 @@
         "Penalty saves",
         "Shot stopping"
       ],
-      "note": "Scotland's goalkeeping depth, giving them penalty-save confidence, shot-stopping cover, and a trusted dressing-room presence.",
-      "noteZh": "利亚姆·凯利是苏格兰门将深度，能提供扑点信心、扑救保护，以及更衣室中值得信任的存在。"
+      "note": "Kelly gives Scotland a keeper option if the night turns sideways. His card is about being warm enough for one big save.",
+      "noteZh": "他在Scotland首发门将身后等待，但这个角色不是装饰。他要随时处理传中、开球和冷启动。"
     },
     "Lyndon Dykes": {
       "displayName": "Lyndon Dykes",
@@ -267,8 +267,8 @@
         "Aerial duels",
         "Pressing work"
       ],
-      "note": "Scotland's physical forward, useful for target play, aerial duels, and grinding centre-backs through repeated pressing work.",
-      "noteZh": "林登·戴克斯是苏格兰力量型前锋，能作为支点、争顶对抗，并通过持续压迫消耗中卫。"
+      "note": "Dykes gives Scotland a different attacking speed from the bench. The important touch may be the run that opens space for someone else.",
+      "noteZh": "他是Scotland在比赛需要新腿时可以使用的前锋。第一项工作，是让疲劳的后卫转身。"
     },
     "Nathan Patterson": {
       "displayName": "Nathan Patterson",
@@ -285,8 +285,8 @@
         "Overlap runs",
         "Recovery defending"
       ],
-      "note": "Scotland's pacey right-back, giving them overlap runs, recovery defending, and a direct outlet when the right side opens.",
-      "noteZh": "内森·帕特森是苏格兰速度型右后卫，能套边前插、回追防守，并在右路打开时提供直接出口。"
+      "note": "Patterson gives Scotland defensive range. His job is to make the opponent's first opening feel smaller than it looked.",
+      "noteZh": "他是Scotland在比赛变窄时可以使用的后卫。任务是第一下接触、清楚解围、简单出球。"
     },
     "Ross Stewart": {
       "displayName": "Ross Stewart",
@@ -303,8 +303,8 @@
         "Box presence",
         "Direct finishing"
       ],
-      "note": "Scotland's tall centre-forward option, useful for aerial targets, penalty-box presence, and direct finishing from crosses.",
-      "noteZh": "罗斯·斯图尔特是苏格兰高点中锋选择，能作为空中目标、提供禁区存在感，并接传中直接终结。",
+      "note": "Stewart is the forward Scotland can use when the match needs new legs. His first job is to make tired defenders turn.",
+      "noteZh": "他给Scotland替补席上的另一种进攻速度。有时关键触球，是那次帮队友拉开空间的跑动。",
       "sourceUrl": "https://talksport.com/football/4326851/scotland-star-released-world-cup-ross-stewart-southampton/"
     },
     "Ryan Christie": {
@@ -315,8 +315,8 @@
         "Between-lines receiving",
         "Set-piece delivery"
       ],
-      "note": "Scotland's pressing engine, useful for receiving between lines, chasing second balls, and delivering set pieces with his left foot.",
-      "noteZh": "瑞安·克里斯蒂是苏格兰压迫发动机，能在两线之间接球、追抢第二落点，并用左脚主罚定位球。"
+      "note": "Christie gives Scotland midfield depth for games that get stretched. He helps turn a loose ball into a calmer next pass.",
+      "noteZh": "他适合那些空间变丑的时间段。对Scotland来说，这可能就是压力到来前的一次干净触球。"
     },
     "Scott McKenna": {
       "displayName": "Scott McKenna",
@@ -332,8 +332,8 @@
         "Aerial clearances",
         "Back-line strength"
       ],
-      "note": "Scotland's left-footed centre-back, giving them aerial clearances, physical cover, and balance on the left side of defence.",
-      "noteZh": "斯科特·麦肯纳是苏格兰左脚中卫，能完成空中解围、提供身体保护，并平衡防线左侧。"
+      "note": "McKenna gives Scotland cover for the minutes when defending becomes more about nerve than shape. One solid duel can calm the whole line.",
+      "noteZh": "他是Scotland后防线的保险。卡片不华丽：赢球、稳传、重新站好。"
     },
     "Scott McTominay": {
       "displayName": "Scott McTominay",
@@ -343,8 +343,8 @@
         "Midfield power",
         "Long-range shooting"
       ],
-      "note": "Scotland's power midfielder, turning late box runs, long-range shots, and physical duels into their clearest attacking surges.",
-      "noteZh": "斯科特·麦克托米奈是苏格兰力量型中场，能把后插上、远射和身体对抗转化为最直接的进攻冲击。"
+      "note": "McTominay is a tempo player for Scotland. He turns crowded touches into cleaner angles for the next runner.",
+      "noteZh": "他让Scotland在球权转换时更有结构。最有价值的往往是松散触球之后那一秒。"
     },
     "Tyler Fletcher": {
       "displayName": "Tyler Fletcher",
@@ -354,8 +354,8 @@
         "Press resistance",
         "Forward passing"
       ],
-      "note": "Scotland's young midfield option, giving them fresh energy, pressure resistance, and forward passes when legs tire.",
-      "noteZh": "泰勒·弗莱彻是苏格兰年轻中场选择，能在体能下降时带来新鲜活力、抗压能力和向前传球。"
+      "note": "Fletcher gives Scotland midfield depth for games that get stretched. He helps turn a loose ball into a calmer next pass.",
+      "noteZh": "他适合那些空间变丑的时间段。对Scotland来说，这可能就是压力到来前的一次干净触球。"
     }
   }
 }

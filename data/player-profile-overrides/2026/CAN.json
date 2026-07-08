@@ -27,8 +27,8 @@
         "Aerial cover",
         "Ball progression"
       ],
-      "note": "Alfie Jones gives Canada a strong defensive connector, useful for aerial duels, covering space, and moving play out cleanly.",
-      "noteZh": "阿尔菲·琼斯为加拿大提供强硬的防守衔接点，适合争顶、补位覆盖，并把球干净地带出后场。"
+      "note": "Jones is back-line insurance for Canada. The card is not glamorous: win the ball, keep the pass safe, reset the shape.",
+      "noteZh": "他给Canada那些靠胆量守住的分钟提供保障。一次扎实对抗就能让整条线冷静下来。"
     },
     "Ali Ahmed": {
       "sourceTitle": "Ali Ahmed (soccer)",
@@ -37,8 +37,8 @@
         "Pressing",
         "Combination play"
       ],
-      "note": "Ali Ahmed gives Canada a flexible wide midfielder, carrying through pressure and linking quick combinations on the flank.",
-      "noteZh": "阿里·艾哈迈德为加拿大提供灵活的边路中场，能在压力下带球推进，并在边路串联快速配合。"
+      "note": "Ahmed is a tempo player for Canada. He turns crowded touches into cleaner angles for the next runner.",
+      "noteZh": "他让Canada在球权转换时更有结构。最有价值的往往是松散触球之后那一秒。"
     },
     "Alistair Johnston": {
       "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/637446-1701212171.jpg?lm=1",
@@ -47,8 +47,8 @@
         "Overlap timing",
         "Recovery runs"
       ],
-      "note": "Alistair Johnston steadies Canada's right side, mixing tight defending with well-timed overlaps when the attack needs width.",
-      "noteZh": "阿利斯泰尔·约翰斯顿稳住加拿大右路，把紧凑防守和恰到好处的套边结合起来，在进攻需要宽度时很有用。"
+      "note": "Johnston gives Canada one of the steady pieces in the back line. Watch the small choices: step, hold, or clear the lane.",
+      "noteZh": "他是Canada无球答案的一部分。第一个跑动被拖慢，整体阵型才不容易散。"
     },
     "Alphonso Davies": {
       "skills": [
@@ -56,17 +56,17 @@
         "Ball carrying",
         "Left-side overloads"
       ],
-      "note": "Alphonso Davies is Canada's left-side accelerator, turning recoveries into breaks and forcing opponents to defend deeper.",
-      "noteZh": "阿方索·戴维斯是加拿大左路的加速器，能把夺回球权转化为反击，并迫使对手防线后撤。"
+      "note": "Davies is the kind of defender Canada can turn to when the match gets narrow. His job is first contact, clean clearance, simple pass.",
+      "noteZh": "他是Canada艰难时间段的防守深度。他要赢下第一下接触，并让下一脚传球简单起来。"
     },
     "Cyle Larin": {
       "skills": [
+        "Goal threat",
         "Box presence",
-        "Hold-up play",
-        "First-time finishing"
+        "Hold-up play"
       ],
-      "note": "Cyle Larin gives Canada a seasoned penalty-area target, helping crosses, layoffs, and loose balls become real chances.",
-      "noteZh": "赛尔·拉林为加拿大提供经验丰富的禁区支点，帮助传中、做球和二点球转化为真正机会。"
+      "note": "Larin has been one of Canada's real scoring stories, with goals against Bosnia and Herzegovina and Qatar. His danger is arriving before defenders have finished sorting the first problem.",
+      "noteZh": "他已经多次为Canada把机会变成进球。看他需要的空间有多小。"
     },
     "Dayne St. Clair": {
       "sourceTitle": "Dayne St. Clair",
@@ -82,8 +82,8 @@
         "Reflex saves",
         "Distribution"
       ],
-      "note": "Dayne St. Clair gives Canada another high-reflex goalkeeper, useful when the match turns into saves and fast restarts.",
-      "noteZh": "戴恩·圣克莱尔为加拿大提供另一名反应很快的门将，在比赛变成连续扑救和快速再发动时很有价值。"
+      "note": "Clair gives Canada a keeper option if the night turns sideways. His card is about being warm enough for one big save.",
+      "noteZh": "他在Canada首发门将身后等待，但这个角色不是装饰。他要随时处理传中、开球和冷启动。"
     },
     "Derek Cornelius": {
       "club": "Marseille",
@@ -93,8 +93,8 @@
         "Line control",
         "Left-footed passing"
       ],
-      "note": "Derek Cornelius gives Canada a left-sided centre-back presence, helping them defend the box and start attacks from deeper zones.",
-      "noteZh": "德里克·科尼利厄斯为加拿大提供左脚中卫存在感，帮助球队保护禁区，并从更靠后的区域发动进攻。"
+      "note": "Cornelius is in the quiet-work part of Canada's setup. He keeps attacks from becoming scrambles.",
+      "noteZh": "他是Canada主要防守结构的一部分。他把第一下对抗处理干净，避免球队下一阶段只能追着球跑。"
     },
     "Ismael Kone": {
       "displayName": "Ismaël Koné",
@@ -111,8 +111,8 @@
         "Carrying power",
         "Forward passing"
       ],
-      "note": "Ismaël Koné gives Canada midfield surge, breaking pressure with carries and turning recoveries into forward passes.",
-      "noteZh": "伊斯梅尔·科内为加拿大带来中场冲击力，能用带球摆脱压力，并把夺回球权转化为向前传球。"
+      "note": "Koné gives Canada a way to settle the middle if the match opens up. His best work is making the next decision less hurried.",
+      "noteZh": "他是Canada的中场保险。那些混乱阶段里，他要抢第二点、稳一下，再把球送出去。"
     },
     "Jacob Shaffelburg": {
       "skills": [
@@ -120,8 +120,8 @@
         "Direct running",
         "Early crosses"
       ],
-      "note": "Jacob Shaffelburg changes Canada's tempo from the left, attacking space early and forcing defenders to turn toward goal.",
-      "noteZh": "雅各布·沙费尔伯格从左路改变加拿大节奏，提前冲击空间，并迫使防守球员转身面对本方球门。"
+      "note": "Shaffelburg is the forward Canada can use when the match needs new legs. His first job is to make tired defenders turn.",
+      "noteZh": "他给Canada替补席上的另一种进攻速度。有时关键触球，是那次帮队友拉开空间的跑动。"
     },
     "Joel Waterman": {
       "league": "Major League Soccer",
@@ -130,17 +130,17 @@
         "Back-line cover",
         "Simple circulation"
       ],
-      "note": "Joel Waterman gives Canada a composed defensive option, useful for holding shape and keeping possession simple under pressure.",
-      "noteZh": "乔尔·沃特曼为加拿大提供冷静的防守选择，适合保持阵型，并在压力下用简洁传导稳住球权。"
+      "note": "Waterman gives Canada cover for the minutes when defending becomes more about nerve than shape. One solid duel can calm the whole line.",
+      "noteZh": "他是Canada后防线的保险。卡片不华丽：赢球、稳传、重新站好。"
     },
     "Jonathan David": {
       "skills": [
+        "Goal threat",
         "Finishing",
-        "Between-lines movement",
-        "Press triggers"
+        "Between-lines movement"
       ],
-      "note": "Jonathan David is Canada's sharpest central scorer, finding pockets early and finishing before the back line can reset.",
-      "noteZh": "乔纳森·戴维是加拿大最犀利的中路得分点，能提前找到空当，并在防线重组前完成终结。"
+      "note": "David has been one of Canada's real scoring stories, with goals against Qatar. His danger is arriving before defenders have finished sorting the first problem.",
+      "noteZh": "他已经多次为Canada把机会变成进球。看他需要的空间有多小。"
     },
     "Jonathan Osorio": {
       "skills": [
@@ -148,8 +148,8 @@
         "Late runs",
         "Combination play"
       ],
-      "note": "Jonathan Osorio gives Canada experienced midfield timing, arriving late around the box and keeping attacks connected.",
-      "noteZh": "乔纳森·奥索里奥为加拿大提供经验丰富的中场时机感，能后插上到禁区周围，并保持进攻衔接。"
+      "note": "Osorio gives Canada midfield depth for games that get stretched. He helps turn a loose ball into a calmer next pass.",
+      "noteZh": "他适合那些空间变丑的时间段。对Canada来说，这可能就是压力到来前的一次干净触球。"
     },
     "Liam Millar": {
       "league": "EFL Championship",
@@ -158,8 +158,8 @@
         "One-v-one attacks",
         "Crossing"
       ],
-      "note": "Liam Millar gives Canada a natural wide outlet, stretching the left side and creating service before defenses settle.",
-      "noteZh": "利亚姆·米勒为加拿大提供天然的边路出口，拉开左路宽度，并在防线站稳前创造传中服务。"
+      "note": "Millar gives Canada midfield depth for games that get stretched. He helps turn a loose ball into a calmer next pass.",
+      "noteZh": "他适合那些空间变丑的时间段。对Canada来说，这可能就是压力到来前的一次干净触球。"
     },
     "Luc De Fougerolles": {
       "displayName": "Luc de Fougerolles",
@@ -169,8 +169,8 @@
         "Recovery pace",
         "Defensive cover"
       ],
-      "note": "Luc de Fougerolles gives Canada young defensive depth, helping cover space when the back line has to defend bigger gaps.",
-      "noteZh": "吕克·德富热罗勒为加拿大提供年轻的防线深度，在后防需要覆盖更大空间时能帮助补位。"
+      "note": "Fougerolles gives Canada one of the steady pieces in the back line. Watch the small choices: step, hold, or clear the lane.",
+      "noteZh": "他是Canada无球答案的一部分。第一个跑动被拖慢，整体阵型才不容易散。"
     },
     "Marcelo Flores": {
       "sourceTitle": "Marcelo Flores",
@@ -182,12 +182,12 @@
       "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/e/e2/Inter_Miami_CF_2-1_UANL_%2820_August_2025%29_26_%28cropped%29.jpg",
       "marketValueEurMillions": 4.5,
       "skills": [
-        "Final-third creativity",
+        "Box-area creativity",
         "Dribbling",
         "Inside runs"
       ],
-      "note": "Marcelo Flores gives Canada a crafty final-third option, drifting inside to combine, dribble, and slip passes into runners.",
-      "noteZh": "马塞洛·弗洛雷斯为加拿大提供灵巧的进攻三区选择，能内收配合、带球突破，并把传球送到前插队友脚下。"
+      "note": "Flores gives Canada midfield depth for games that get stretched. He helps turn a loose ball into a calmer next pass.",
+      "noteZh": "他适合那些空间变丑的时间段。对Canada来说，这可能就是压力到来前的一次干净触球。"
     },
     "Mathieu Choiniere": {
       "displayName": "Mathieu Choinière",
@@ -197,8 +197,8 @@
         "Pressing",
         "Short passing"
       ],
-      "note": "Mathieu Choinière gives Canada a useful midfield utility piece, covering ground and keeping the next pass available.",
-      "noteZh": "马蒂厄·舒瓦尼埃为加拿大提供实用的中场多面手，能覆盖空间，并让下一脚传球始终有出口。"
+      "note": "Choinière is midfield insurance for Canada. He is there for the messy phase: second ball, one calmer touch, then the next pass.",
+      "noteZh": "他给Canada一种在比赛打开后稳住中路的办法。最好的工作，是让下一次决定没那么急。"
     },
     "Maxime Crepeau": {
       "displayName": "Maxime Crépeau",
@@ -208,8 +208,8 @@
         "Box command",
         "Leadership"
       ],
-      "note": "Maxime Crépeau gives Canada an experienced voice in goal, organizing the box and handling pressure moments calmly.",
-      "noteZh": "马克西姆·克雷波为加拿大球门带来有经验的指挥声音，能组织禁区，并冷静处理高压时刻。"
+      "note": "Crépeau is the last voice in Canada's defensive shape. When pressure sticks, his job is to make the next action feel simple.",
+      "noteZh": "他承担了Canada的门将时间。重点是稳手、清楚开球，以及让身前后卫不用慌。"
     },
     "Moise Bombito": {
       "displayName": "Moïse Bombito",
@@ -219,17 +219,17 @@
         "Centre-back duels",
         "Open-field defending"
       ],
-      "note": "Moïse Bombito gives Canada recovery speed at centre-back, important when their press leaves space behind the line.",
-      "noteZh": "莫伊兹·邦比托为加拿大中卫位置带来回追速度，在球队压迫后防线身后留下空间时很重要。"
+      "note": "Bombito is defensive rotation for Canada. The watch point is how early he closes the lane that looked open.",
+      "noteZh": "他是Canada后防线的保险。卡片不华丽：赢球、稳传、重新站好。"
     },
     "Nathan Saliba": {
       "skills": [
-        "Midfield ball-winning",
-        "Press support",
-        "Forward carries"
+        "Goal threat",
+        "Chance passes",
+        "Midfield ball-winning"
       ],
-      "note": "Nathan Saliba adds energy to Canada's midfield, contesting second balls and carrying play into better areas.",
-      "noteZh": "内森·萨利巴为加拿大中场增加活力，能争抢第二落点，并把比赛带到更有利区域。"
+      "note": "Saliba has already given Canada a goal and a setup in this tournament. Defenders have to read shot and pass at the same time.",
+      "noteZh": "他这届世界杯已经为Canada贡献进球和传球。防守者必须同时判断射门和分球。"
     },
     "Niko Sigur": {
       "league": "Croatian Football League",
@@ -238,8 +238,8 @@
         "Right-side cover",
         "Tactical flexibility"
       ],
-      "note": "Niko Sigur gives Canada flexible defensive cover, able to protect midfield lanes or slide across to the right side.",
-      "noteZh": "尼科·西古尔为加拿大提供灵活的防守保护，既能守住中场通道，也能横移到右路补位。"
+      "note": "Sigur is there for the part of the game where spacing gets ugly. For Canada, that can mean one clean touch before pressure arrives.",
+      "noteZh": "他给Canada提供中场深度，适合比赛被拉开的时候。他把松散球变成更冷静的下一脚。"
     },
     "Owen Goodman": {
       "club": "Barnsley (on loan from Crystal Palace)",
@@ -249,17 +249,17 @@
         "Penalty-area control",
         "Long distribution"
       ],
-      "note": "Owen Goodman gives Canada a young goalkeeping option, useful for reach, box control, and longer distribution.",
-      "noteZh": "欧文·古德曼为加拿大提供年轻门将选择，适合利用臂展、控制禁区，并完成较长距离出球。"
+      "note": "Goodman is goalkeeper cover for Canada. The role is readiness: saves, restarts, and no panic if the match suddenly needs him.",
+      "noteZh": "他是Canada门线上的安全网。这个工作说起来简单，做起来很难：冷着上场，并让禁区安静。"
     },
     "Promise David": {
       "skills": [
-        "Box movement",
-        "Hold-up play",
-        "Direct finishing"
+        "Goal threat",
+        "Chance passes",
+        "Box movement"
       ],
-      "note": "Promise David gives Canada a powerful forward alternative, pinning centre-backs and attacking loose balls in the area.",
-      "noteZh": "普罗米斯·戴维为加拿大提供强力的锋线选择，能牵制中卫，并冲击禁区里的二点机会。"
+      "note": "David has already given Canada a goal and a setup in this tournament. Defenders have to read shot and pass at the same time.",
+      "noteZh": "他这届世界杯已经为Canada贡献进球和传球。防守者必须同时判断射门和分球。"
     },
     "Richie Laryea": {
       "club": "Toronto FC",
@@ -268,20 +268,20 @@
         "Overlaps",
         "Defensive recovery"
       ],
-      "note": "Richie Laryea gives Canada a direct right-side runner, pushing the ball forward and recovering quickly when attacks break down.",
-      "noteZh": "里奇·拉耶阿为加拿大提供直接的右路推进者，能把球向前带，并在进攻中断后快速回追。"
+      "note": "Laryea gives Canada one of the steady pieces in the back line. Watch the small choices: step, hold, or clear the lane.",
+      "noteZh": "他是Canada无球答案的一部分。第一个跑动被拖慢，整体阵型才不容易散。"
     },
     "Stephen Eustaquio": {
       "displayName": "Stephen Eustáquio",
       "sourceTitle": "Stephen Eustáquio",
       "club": "Los Angeles FC (on loan from Porto)",
       "skills": [
+        "Goal threat",
         "Tempo control",
-        "Set pieces",
-        "Line-breaking passes"
+        "Set pieces"
       ],
-      "note": "Stephen Eustáquio gives Canada midfield calm, setting the tempo and finding passes that move pressure into the final third.",
-      "noteZh": "斯蒂芬·欧斯塔基奥为加拿大中场带来冷静，能控制节奏，并找到把压力推进到进攻三区的传球。"
+      "note": "Eustáquio's World Cup has already included a goal against South Africa. The next one may come from the same small window before the shape resets.",
+      "noteZh": "他这届世界杯已经有进球。他的看点是在比赛重新稳定前，先找到属于自己的那个瞬间。"
     },
     "Tajon Buchanan": {
       "skills": [
@@ -289,8 +289,8 @@
         "Right-wing pace",
         "Box entries"
       ],
-      "note": "Tajon Buchanan gives Canada explosive one-v-one threat, driving into the box from wide positions before help arrives.",
-      "noteZh": "塔琼·布坎南为加拿大提供爆发力很强的一对一威胁，能在协防到位前从边路带球杀入禁区。"
+      "note": "Buchanan has been part of Canada's main defensive shape. He keeps the first duel clean so the team does not spend the next phase chasing.",
+      "noteZh": "他在Canada体系里做的是安静工作。他让对手的进攻不容易变成混乱。"
     },
     "Tani Oluwaseyi": {
       "skills": [
@@ -298,8 +298,8 @@
         "Pressing",
         "Finishing"
       ],
-      "note": "Tani Oluwaseyi gives Canada vertical forward running, stretching centre-backs and turning early passes into chances.",
-      "noteZh": "塔尼·奥卢瓦塞伊为加拿大提供纵向前锋跑动，拉伸中卫，并把早传球转化为机会。"
+      "note": "Oluwaseyi has been part of Canada's front-line plan. He stretches defenders first, then looks for the touch that turns pressure into a chance.",
+      "noteZh": "他是Canada前场计划的一部分。他先拉扯防守者，再寻找把压力变成机会的触球。"
     }
   }
 }

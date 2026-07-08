@@ -588,6 +588,8 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "To be decided": "待定",
     "Today": "今天",
     "today": "今天",
+    "Show next": "显示下一场",
+    "Show next match in bracket": "在对阵图中显示下一场",
     "Top two in each group advance. The best eight third-place teams also reach the Round of 32.":
       "每组前两名晋级，成绩最好的八支第三名球队也将进入32强。",
     "Tournament": "淘汰赛",
@@ -7595,16 +7597,73 @@ function localizeRenderedText(root = document.body) {
     });
 }
 
+const LANGUAGE_OBSERVER_OPTIONS = {
+  attributeFilter: ["aria-label", "data-tooltip", "placeholder", "title"],
+  attributes: true,
+  characterData: true,
+  childList: true,
+  subtree: true
+};
+
 let isApplyingLanguage = false;
+let languageObserverFrameId = 0;
+let languageObserverPauseDepth = 0;
+let isLanguageObserverConnected = false;
+
+function cancelPendingLanguageObserverFrame() {
+  if (!languageObserverFrameId) {
+    return;
+  }
+
+  window.cancelAnimationFrame(languageObserverFrameId);
+  languageObserverFrameId = 0;
+}
+
+function connectLanguageObserver() {
+  if (isLanguageObserverConnected || !document.body) {
+    return;
+  }
+
+  languageObserver.observe(document.body, LANGUAGE_OBSERVER_OPTIONS);
+  isLanguageObserverConnected = true;
+}
+
+function disconnectLanguageObserver() {
+  if (!isLanguageObserverConnected) {
+    return;
+  }
+
+  languageObserver.disconnect();
+  isLanguageObserverConnected = false;
+}
+
+function withLanguageObserverPaused(callback) {
+  languageObserverPauseDepth += 1;
+  if (languageObserverPauseDepth === 1) {
+    disconnectLanguageObserver();
+    cancelPendingLanguageObserverFrame();
+  }
+
+  try {
+    return callback();
+  } finally {
+    languageObserverPauseDepth = Math.max(0, languageObserverPauseDepth - 1);
+    if (languageObserverPauseDepth === 0) {
+      connectLanguageObserver();
+    }
+  }
+}
 
 function applyLanguageToPage() {
-  isApplyingLanguage = true;
-  try {
-    renderStaticText();
-    localizeRenderedText(document.body);
-  } finally {
-    isApplyingLanguage = false;
-  }
+  withLanguageObserverPaused(() => {
+    isApplyingLanguage = true;
+    try {
+      renderStaticText();
+      localizeRenderedText(document.body);
+    } finally {
+      isApplyingLanguage = false;
+    }
+  });
 }
 
 function readStoredJuggleRecord() {
@@ -9016,6 +9075,10 @@ function renderCalendar() {
 }
 
 function setCalendarOpen(isOpen) {
+  if (isOpen !== isCalendarOpen) {
+    clearTransientInteractionState();
+  }
+
   if (isOpen) {
     setCatchUpOpen(false);
     setSettingsOpen(false);
@@ -9033,6 +9096,7 @@ function setCalendarOpen(isOpen) {
 }
 
 function selectCalendarDay(dayKey) {
+  clearTransientInteractionState();
   selectedDayKey = dayKey;
   calendarMonthKey = getMonthKeyFromDayKey(dayKey);
   clearTeamSearch({ render: false });
@@ -9043,6 +9107,10 @@ function selectCalendarDay(dayKey) {
 function setStandingsYearOpen(isOpen) {
   if (!standingsYearButton || !standingsYearPopover) {
     return;
+  }
+
+  if (isOpen !== isStandingsYearOpen) {
+    clearTransientInteractionState();
   }
 
   if (isOpen) {
@@ -9129,7 +9197,11 @@ function queueTabIndicatorUpdate() {
 }
 
 function selectStandingsYear(year, options = {}) {
-  selectedStandingsYear = getValidStandingsYear(year);
+  const nextYear = getValidStandingsYear(year);
+  if (nextYear !== selectedStandingsYear) {
+    clearTransientInteractionState();
+  }
+  selectedStandingsYear = nextYear;
   selectedStandingsMode = getValidStandingsMode(
     selectedStandingsMode,
     getDefaultStandingsModeForYear(selectedStandingsYear),
@@ -9141,7 +9213,11 @@ function selectStandingsYear(year, options = {}) {
 }
 
 function selectStandingsMode(mode, options = {}) {
-  selectedStandingsMode = getValidStandingsMode(mode, null, selectedStandingsYear);
+  const nextMode = getValidStandingsMode(mode, null, selectedStandingsYear);
+  if (nextMode !== selectedStandingsMode) {
+    clearTransientInteractionState();
+  }
+  selectedStandingsMode = nextMode;
   renderStandingsView();
   updateUrlState(options);
 }
@@ -9151,6 +9227,7 @@ function openStandingsGroup(groupId, options = {}) {
     return;
   }
 
+  clearTransientInteractionState();
   selectedStandingsMode = "groups";
   renderStandingsView();
   updateUrlState(options);
@@ -9527,6 +9604,13 @@ const boundedTooltipSelector = [
   ".knockout-slot-odds[data-tooltip]"
 ].join(",");
 const boundedElementTooltipSelector = ".source-tooltip, .release-tooltip";
+const transientFocusSelector = [
+  boundedTooltipSelector,
+  ".lineup-event-badge[data-tooltip]",
+  ".player-hover",
+  ".source-tooltip-wrapper",
+  ".release-tooltip-wrapper"
+].join(",");
 let activeTouchTooltipElement = null;
 
 function getPixelValue(value) {
@@ -9778,13 +9862,22 @@ function updateTooltipBounds(root = document) {
   });
 }
 
+function getEventTargetElement(target) {
+  if (target instanceof Element) {
+    return target;
+  }
+
+  return target instanceof Node ? target.parentElement : null;
+}
+
 function updateTooltipBoundsForTarget(target) {
-  if (!(target instanceof Element)) {
+  const targetElement = getEventTargetElement(target);
+  if (!targetElement) {
     return;
   }
 
-  const tooltipElement = target.closest(boundedTooltipSelector);
-  const tooltipWrapper = target.closest(".source-tooltip-wrapper, .release-tooltip-wrapper");
+  const tooltipElement = targetElement.closest(boundedTooltipSelector);
+  const tooltipWrapper = targetElement.closest(".source-tooltip-wrapper, .release-tooltip-wrapper");
   const root = tooltipElement || tooltipWrapper;
 
   if (!root) {
@@ -9805,11 +9898,12 @@ function isTouchTooltipPointerEvent(event) {
 }
 
 function getNonLinkTooltipElement(target) {
-  if (!(target instanceof Element)) {
+  const targetElement = getEventTargetElement(target);
+  if (!targetElement) {
     return null;
   }
 
-  const tooltipElement = target.closest(boundedTooltipSelector);
+  const tooltipElement = targetElement.closest(boundedTooltipSelector);
   if (!tooltipElement || tooltipElement.closest("a[href]")) {
     return null;
   }
@@ -9818,11 +9912,12 @@ function getNonLinkTooltipElement(target) {
 }
 
 function getLivePillTooltipElement(target) {
-  if (!(target instanceof Element)) {
+  const targetElement = getEventTargetElement(target);
+  if (!targetElement) {
     return null;
   }
 
-  return target.closest(".live-pill[data-tooltip], .tournament-live-pill[data-tooltip]");
+  return targetElement.closest(".live-pill[data-tooltip], .tournament-live-pill[data-tooltip]");
 }
 
 function clearActiveTouchTooltip() {
@@ -9895,7 +9990,7 @@ function handleLivePillTooltipKeydown(event) {
   setActiveTouchTooltip(tooltipElement);
 }
 
-function shouldIgnoreContainerClickForTooltip(target) {
+function shouldIgnoreContainerInteractionForTooltip(target) {
   return Boolean(getNonLinkTooltipElement(target));
 }
 
@@ -10573,17 +10668,23 @@ function renderMatchRow(match, state, currentTime = Date.now(), options = {}) {
       renderMatchInfo(match);
     }
   });
-  row.addEventListener("focusin", () => {
+  row.addEventListener("focusin", (event) => {
+    if (shouldIgnoreContainerInteractionForTooltip(event.target)) {
+      return;
+    }
+
     if (syncUrl && !isRestoringHistoryState) {
       renderMatchInfo(match);
     }
   });
   row.addEventListener("click", (event) => {
-    if (event.target instanceof Element && event.target.closest("a")) {
+    const targetElement = getEventTargetElement(event.target);
+
+    if (targetElement?.closest("a")) {
       return;
     }
 
-    if (shouldIgnoreContainerClickForTooltip(event.target)) {
+    if (shouldIgnoreContainerInteractionForTooltip(event.target)) {
       event.preventDefault();
       return;
     }
@@ -12580,6 +12681,10 @@ function getTournamentMatchDateLabel(match) {
   const timeLabel = getMatchTimeLabel(match);
   const baseLabel = [navDateFormatter.format(getDateFromKey(dateKey)), timeLabel].filter(Boolean).join(" ");
 
+  if (match.stage === "final" || match.matchNumber === 104) {
+    return `${baseLabel} (${localizeText("Final")})`;
+  }
+
   if (match.stage === "bronze-final" || match.matchNumber === 103) {
     return `${baseLabel} (${localizeText("3rd place match")})`;
   }
@@ -14146,6 +14251,37 @@ function renderTournamentLoadingView() {
   `;
 }
 
+function getNextTournamentMatchNumber(nextMatchIds) {
+  if (!(nextMatchIds instanceof Set) || !nextMatchIds.size) {
+    return "";
+  }
+
+  const nextTournamentMatch = fixtures
+    .map(hydrateFixture)
+    .find(
+      (match) =>
+        nextMatchIds.has(match.id) &&
+        match.stage &&
+        match.stage !== "group" &&
+        getTournamentFixtureByMatchNumber(match.matchNumber)
+    );
+
+  return nextTournamentMatch?.matchNumber || "";
+}
+
+function renderTournamentShowNextButton(nextMatchIds) {
+  const nextMatchNumber = getNextTournamentMatchNumber(nextMatchIds);
+
+  if (!nextMatchNumber) {
+    return "";
+  }
+
+  const label = localizeText("Show next");
+  const ariaLabel = localizeText("Show next match in bracket");
+
+  return `<button class="tournament-show-next-button" type="button" data-show-next-tournament-match="${escapeHtml(nextMatchNumber)}" aria-label="${escapeHtml(ariaLabel)}">${escapeHtml(label)}</button>`;
+}
+
 function renderTournamentProgression(context, options = {}) {
   return `
     <section class="tournament-progression" aria-label="${escapeHtml(localizeText("Knockout winner progression"))}" tabindex="0">
@@ -14153,6 +14289,7 @@ function renderTournamentProgression(context, options = {}) {
       <div class="progress-rounds">
         ${TOURNAMENT_PROGRESS_ROUNDS.map((round, roundIndex) => renderTournamentProgressRound(round, context, roundIndex, options)).join("")}
       </div>
+      ${renderTournamentShowNextButton(options.nextMatchIds)}
     </section>
   `;
 }
@@ -14574,6 +14711,54 @@ function getTournamentProgressionElements(root = standingsGrid) {
   return { progression, rounds };
 }
 
+function getTournamentShowNextElements(root = standingsGrid) {
+  const button = root?.querySelector(".tournament-show-next-button");
+  const progression = button?.closest(".tournament-progression") || root?.querySelector(".tournament-progression");
+  const matchNumber = button?.dataset.showNextTournamentMatch || "";
+  const targetCard =
+    matchNumber && progression
+      ? progression.querySelector(`.progress-match[data-match-number="${CSS.escape(matchNumber)}"]`)
+      : null;
+
+  return { button, progression, targetCard };
+}
+
+function getVisibleTournamentCardRatio(card, progression) {
+  if (!card || !progression) {
+    return 0;
+  }
+
+  const cardRect = card.getBoundingClientRect();
+  const progressionRect = progression.getBoundingClientRect();
+  const cardArea = cardRect.width * cardRect.height;
+
+  if (cardArea <= 0) {
+    return 0;
+  }
+
+  const visibleLeft = Math.max(cardRect.left, progressionRect.left, 0);
+  const visibleRight = Math.min(cardRect.right, progressionRect.right, window.innerWidth);
+  const visibleTop = Math.max(cardRect.top, progressionRect.top, 0);
+  const visibleBottom = Math.min(cardRect.bottom, progressionRect.bottom, window.innerHeight);
+  const visibleWidth = Math.max(0, visibleRight - visibleLeft);
+  const visibleHeight = Math.max(0, visibleBottom - visibleTop);
+
+  return (visibleWidth * visibleHeight) / cardArea;
+}
+
+function updateTournamentShowNextButtonVisibility(root = standingsGrid) {
+  const { button, progression, targetCard } = getTournamentShowNextElements(root);
+
+  if (!button) {
+    return;
+  }
+
+  const targetIsVisible = getVisibleTournamentCardRatio(targetCard, progression) >= 0.6;
+  button.classList.toggle("is-target-visible", targetIsVisible);
+  button.disabled = targetIsVisible;
+  button.setAttribute("aria-hidden", String(targetIsVisible));
+}
+
 function updateTournamentBoardLayout(root = standingsGrid) {
   const { progression, rounds } = getTournamentProgressionElements(root);
 
@@ -14602,18 +14787,25 @@ function updateTournamentBoardLayout(root = standingsGrid) {
     match.style.removeProperty("--mobile-path-row");
     match.style.removeProperty("--mobile-path-span");
   });
+  updateTournamentShowNextButtonVisibility(root);
 
   scheduleTournamentConnectorUpdate();
 }
 
 function getTournamentProgressionFromEvent(event) {
-  if (!(event.target instanceof Element)) {
+  const targetElement = getEventTargetElement(event.target);
+  if (!targetElement) {
     return null;
   }
 
-  const progression = event.target.closest(".tournament-progression");
+  const progression = targetElement.closest(".tournament-progression");
 
-  if (!progression || !standingsGrid.contains(progression) || !isTournamentMobileLayout()) {
+  if (
+    !progression ||
+    targetElement.closest(".tournament-show-next-button") ||
+    !standingsGrid.contains(progression) ||
+    !isTournamentMobileLayout()
+  ) {
     return null;
   }
 
@@ -18174,7 +18366,7 @@ function getLineupHelpText(match, lineup = null) {
   const layoutCaveat = getLineupLayoutCaveat(lineup);
 
   if (isFutureLineup) {
-    return localizeText("Predicted from online sources");
+    return withLocalizedSentenceEnd(localizeText("Predicted from online sources"));
   }
 
   if (isPastLineup) {
@@ -18200,6 +18392,15 @@ function getLineupHelpText(match, lineup = null) {
   }
 
   return `${sourceLabel} (${freshness})`;
+}
+
+function withLocalizedSentenceEnd(text) {
+  const trimmed = String(text || "").trim();
+  if (!trimmed || /[.!?。！？]$/.test(trimmed)) {
+    return trimmed;
+  }
+
+  return `${trimmed}${currentLanguage === "zh" ? "。" : "."}`;
 }
 
 function renderLineupUpdatedCopy(match, lineup = null) {
@@ -19013,7 +19214,16 @@ function renderLineupFormationMention(teamLineup) {
   `;
 }
 
-function renderLineupPlayerMarker(player, team, teamLineup, match = null, side = "") {
+function getLineupMarkerRevealDelayMs(playerY) {
+  const y = Number(playerY);
+  if (!Number.isFinite(y)) {
+    return 0;
+  }
+
+  return Math.min(320, Math.max(0, Math.round((y - 8) * 3.8)));
+}
+
+function renderLineupPlayerMarker(player, team, teamLineup, match = null, side = "", options = {}) {
   const starterName = getLineupPlayerFullName(player);
   const substitution = match && side ? getLineupSubstitutionForStarter(teamLineup, starterName) : null;
   const substitutionKey = substitution ? getLineupSubstitutionPreviewKey(match.id, side, substitution) : "";
@@ -19049,11 +19259,18 @@ function renderLineupPlayerMarker(player, team, teamLineup, match = null, side =
   `;
   const eventPills = [subOffBadges, cardBadges].filter(Boolean).join("");
   const eventPillMarkup = eventPills ? `<span class="lineup-player-event-row">${eventPills}</span>` : "";
+  const shouldAnimateEntrance = Boolean(options.animateEntrance);
+  const markerClasses = [
+    "lineup-player-marker",
+    isPreviewActive ? "is-substitution-preview" : "",
+    shouldAnimateEntrance ? "is-lineup-entering" : ""
+  ].filter(Boolean).join(" ");
+  const revealDelay = `${shouldAnimateEntrance ? getLineupMarkerRevealDelayMs(lineupPlayer.y) : 0}ms`;
 
   return `
     <span
-      class="lineup-player-marker${isPreviewActive ? " is-substitution-preview" : ""}"
-      style="--x: ${escapeHtml(lineupPlayer.x)}%; --y: ${escapeHtml(lineupPlayer.y)}%; --avatar-bg: ${escapeHtml(lineupPlayer.avatarColor)};"
+      class="${escapeHtml(markerClasses)}"
+      style="--x: ${escapeHtml(lineupPlayer.x)}%; --y: ${escapeHtml(lineupPlayer.y)}%; --avatar-bg: ${escapeHtml(lineupPlayer.avatarColor)}; --lineup-reveal-delay: ${escapeHtml(revealDelay)};"
       aria-label="${escapeHtml(ariaLabel)}"
       data-lineup-marker-key="${escapeHtml(substitutionKey || normalizeLineupEventName(starterName))}"
       data-lineup-player-name="${escapeHtml(lineupPlayer.name)}"
@@ -19104,7 +19321,7 @@ function renderLineupBenchPanel(match, team, teamLineup, side) {
   `;
 }
 
-function renderLineupPitchPanel(match, lineup, side, isSelected) {
+function renderLineupPitchPanel(match, lineup, side, isSelected, options = {}) {
   const team = side === "home" ? match.homeTeam : match.awayTeam;
   const panelId = `lineup-panel-${match.id}-${side}`;
   const tabId = `lineup-tab-${match.id}-${side}-${side}`;
@@ -19131,7 +19348,7 @@ function renderLineupPitchPanel(match, lineup, side, isSelected) {
             <span class="lineup-pitch-line is-six is-top"></span>
             <span class="lineup-pitch-line is-box is-bottom"></span>
             <span class="lineup-pitch-line is-six is-bottom"></span>
-            ${teamLineup.players.map((player) => renderLineupPlayerMarker(player, team, teamLineup, match, side)).join("")}
+            ${teamLineup.players.map((player) => renderLineupPlayerMarker(player, team, teamLineup, match, side, options)).join("")}
           </div>
         </div>
       </div>
@@ -19139,26 +19356,52 @@ function renderLineupPitchPanel(match, lineup, side, isSelected) {
   `;
 }
 
-function renderLineupVisualPrototype(match) {
+function renderLineupVisualPrototype(match, options = {}) {
   const lineup = getLineupPreview(match);
 
   if (!lineup) {
     return "";
   }
 
+  const pitchOptions = {
+    animateEntrance: Boolean(options.animateEntrance)
+  };
+
   return `
     <section class="info-block lineup-preview-block has-section-divider" aria-label="${escapeHtml(localizeText(getLineupHeadingLabel(match, lineup)))}">
       <div class="lineup-header">
         ${renderLineupHeading(match, lineup)}
       </div>
-      ${renderLineupPitchPanel(match, lineup, "home", true)}
-      ${renderLineupPitchPanel(match, lineup, "away", false)}
+      ${renderLineupPitchPanel(match, lineup, "home", true, pitchOptions)}
+      ${renderLineupPitchPanel(match, lineup, "away", false, pitchOptions)}
     </section>
   `;
 }
 
+function animateLineupPanelEntrance(panel) {
+  if (!(panel instanceof HTMLElement) || window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches) {
+    return;
+  }
+
+  const markers = Array.from(panel.querySelectorAll(".lineup-player-marker"));
+  if (!markers.length) {
+    return;
+  }
+
+  markers.forEach((marker) => {
+    const markerY = Number.parseFloat(marker.style.getPropertyValue("--y"));
+    marker.style.setProperty("--lineup-reveal-delay", `${getLineupMarkerRevealDelayMs(markerY)}ms`);
+    marker.classList.remove("is-lineup-entering");
+  });
+
+  void panel.offsetWidth;
+  markers.forEach((marker) => {
+    marker.classList.add("is-lineup-entering");
+  });
+}
+
 function handleLineupTabClick(event) {
-  const tab = event.target instanceof Element ? event.target.closest("[data-lineup-tab]") : null;
+  const tab = getEventTargetElement(event.target)?.closest("[data-lineup-tab]") || null;
   if (!tab) {
     return false;
   }
@@ -19171,6 +19414,9 @@ function handleLineupTabClick(event) {
 
   event.preventDefault();
   event.stopPropagation();
+  clearTransientInteractionState();
+  const shouldAnimatePanel = !tab.classList.contains("is-active");
+  let activePanel = null;
 
   block.querySelectorAll("[data-lineup-tab]").forEach((button) => {
     const isActive = button.dataset.lineupTab === side;
@@ -19182,17 +19428,23 @@ function handleLineupTabClick(event) {
     const isActive = panel.dataset.lineupPanel === side;
     panel.classList.toggle("is-active", isActive);
     panel.hidden = !isActive;
+    if (isActive) {
+      activePanel = panel;
+    }
   });
 
   window.requestAnimationFrame(() => {
     updateLineupTabIndicators(block);
+    if (shouldAnimatePanel) {
+      animateLineupPanelEntrance(activePanel);
+    }
     positionPlayerCards();
   });
   return true;
 }
 
 function handleLineupBenchClick(event) {
-  const button = event.target instanceof Element ? event.target.closest("[data-lineup-bench-toggle]") : null;
+  const button = getEventTargetElement(event.target)?.closest("[data-lineup-bench-toggle]") || null;
   if (!button) {
     return false;
   }
@@ -19260,9 +19512,7 @@ function animateLineupMarkerSwap(marker, nextMarkup) {
 }
 
 function handleLineupSubstitutionToggleClick(event) {
-  const button = event.target instanceof Element
-    ? event.target.closest("[data-lineup-substitution-toggle]")
-    : null;
+  const button = getEventTargetElement(event.target)?.closest("[data-lineup-substitution-toggle]") || null;
   if (!(button instanceof HTMLElement)) {
     return false;
   }
@@ -19327,11 +19577,15 @@ function renderDelayedMatchStatusBlock() {
   `;
 }
 
-function renderMatchStatusBlock(match) {
+function renderMatchStatusBlock(match, options = {}) {
+  const lineupMarkup = renderLineupVisualPrototype(match, {
+    animateEntrance: Boolean(options.animateLineupEntrance)
+  });
+
   if (match.status === "FT") {
     return `
       ${renderPredictionBlock(match)}
-      ${renderLineupVisualPrototype(match)}
+      ${lineupMarkup}
     `;
   }
 
@@ -19344,7 +19598,7 @@ function renderMatchStatusBlock(match) {
         ${renderLiveScoreSourceNote(match)}
       </section>
       ${renderPredictionBlock(match)}
-      ${renderLineupVisualPrototype(match)}
+      ${lineupMarkup}
     `;
   }
 
@@ -19352,13 +19606,13 @@ function renderMatchStatusBlock(match) {
     return `
       ${renderDelayedMatchStatusBlock()}
       ${renderPredictionBlock(match)}
-      ${renderLineupVisualPrototype(match)}
+      ${lineupMarkup}
     `;
   }
 
   return `
     ${renderPredictionBlock(match)}
-    ${renderLineupVisualPrototype(match)}
+    ${lineupMarkup}
   `;
 }
 
@@ -20350,6 +20604,11 @@ function getPlayerCardNote(player, profile = getPlayerProfile(player)) {
 
 function getLocalizedPlayerNote(player, profile = getPlayerProfile(player)) {
   if (currentLanguage === "zh" && isHistoricalPlayerCard(player)) {
+    const authoredHistoricalNote = profile?.styleNoteZh || profile?.noteZh;
+    if (authoredHistoricalNote) {
+      return localizeKnownPlayerNames(authoredHistoricalNote);
+    }
+
     return getHistoricalPlayerNoteZh(player, profile);
   }
 
@@ -20712,9 +20971,23 @@ function ensureFloatingPlayerCard() {
 function isFloatingPlayerCardActive() {
   return Boolean(
     floatingPlayerCardSource?.isConnected &&
-      (floatingPlayerCardSource.matches(":hover, :focus-within") ||
-        floatingPlayerCard?.matches(":hover, :focus-within") ||
-        floatingPlayerCardSource.classList.contains("is-card-open"))
+      shouldKeepFloatingPlayerCardForSource(floatingPlayerCardSource)
+  );
+}
+
+function shouldKeepFloatingPlayerCardForSource(playerHover) {
+  return Boolean(
+    playerHover?.matches(":hover, :focus-within") ||
+      floatingPlayerCard?.matches(":hover, :focus-within") ||
+      playerHover?.classList.contains("is-card-open")
+  );
+}
+
+function isPlayerCardInteractionTarget(target) {
+  const targetElement = getEventTargetElement(target);
+  return Boolean(
+    targetElement?.closest(".player-card-floating") ||
+      getClosestPlayerHover(targetElement)
   );
 }
 
@@ -20838,11 +21111,11 @@ function positionPlayerCard(playerHover, options = {}) {
   if (shouldUseFloatingPlayerCard(playerHover)) {
     if (
       forceFloating ||
-      playerHover.matches(":hover, :focus-within") ||
-      playerHover.classList.contains("is-card-open") ||
-      floatingPlayerCardSource === playerHover
+      shouldKeepFloatingPlayerCardForSource(playerHover)
     ) {
       showFloatingPlayerCard(playerHover, cardWidth);
+    } else if (floatingPlayerCardSource === playerHover) {
+      hideFloatingPlayerCard();
     }
     return;
   }
@@ -20915,7 +21188,7 @@ function positionFloatingLineupEventTooltip(badge) {
 }
 
 function getLineupEventBadge(target) {
-  return target instanceof Element ? target.closest(".lineup-event-badge[data-tooltip]") : null;
+  return getEventTargetElement(target)?.closest(".lineup-event-badge[data-tooltip]") || null;
 }
 
 function suppressPlayerCardForLineupEventBadge(badge) {
@@ -20981,11 +21254,7 @@ function setPlayerHoverExpanded(playerHover, isExpanded) {
 }
 
 function getClosestPlayerHover(target) {
-  if (!(target instanceof Element)) {
-    return null;
-  }
-
-  return target.closest(".player-hover");
+  return getEventTargetElement(target)?.closest(".player-hover") || null;
 }
 
 function closeInactivePlayerHovers(currentPlayerHover = null) {
@@ -21012,6 +21281,24 @@ function clearActivePlayerHover() {
   setPlayerHoverExpanded(activePlayerHover, false);
   activePlayerHover = null;
   hideFloatingPlayerCard();
+}
+
+function blurActiveTransientElement() {
+  const activeElement = document.activeElement;
+  if (!(activeElement instanceof HTMLElement)) {
+    return;
+  }
+
+  if (activeElement.closest(transientFocusSelector)) {
+    activeElement.blur();
+  }
+}
+
+function clearTransientInteractionState() {
+  clearActiveTouchTooltip();
+  hideFloatingLineupEventTooltip();
+  clearActivePlayerHover();
+  blurActiveTransientElement();
 }
 
 function openPlayerHoverCard(playerHover) {
@@ -23564,6 +23851,21 @@ function renderProjectedMatchNote(match, context) {
   return `<p class="data-note knockout-projection-note">${escapeHtml(localizeText("Predicted matchup; participants come from current knockout-path estimates."))}</p>`;
 }
 
+function spotlightTournamentMatchCard(targetMatchNumber, root = standingsGrid) {
+  const progression = root?.querySelector(".tournament-progression");
+  const targetCard =
+    targetMatchNumber && progression
+      ? progression.querySelector(`.progress-match[data-match-number="${CSS.escape(String(targetMatchNumber))}"]`)
+      : null;
+
+  if (!targetCard) {
+    return false;
+  }
+
+  spotlightDrillTarget(targetCard);
+  return true;
+}
+
 function openTournamentTabFromMatchInfo(targetMatchNumber = "") {
   selectedStandingsYear = CURRENT_STANDINGS_YEAR;
   selectedStandingsMode = "tournament";
@@ -23573,13 +23875,8 @@ function openTournamentTabFromMatchInfo(targetMatchNumber = "") {
 
   window.requestAnimationFrame(() => {
     const progression = standingsGrid.querySelector(".tournament-progression");
-    const targetCard =
-      targetMatchNumber && progression
-        ? progression.querySelector(`.progress-match[data-match-number="${CSS.escape(String(targetMatchNumber))}"]`)
-        : null;
 
-    if (targetCard) {
-      spotlightDrillTarget(targetCard);
+    if (spotlightTournamentMatchCard(targetMatchNumber)) {
       return;
     }
 
@@ -23589,8 +23886,11 @@ function openTournamentTabFromMatchInfo(targetMatchNumber = "") {
 }
 
 function renderMatchInfo(match, options = {}) {
-  clearActivePlayerHover();
-  const shouldAnimateEntrance = matchInfo.hidden || matchInfo.classList.contains("is-hidden");
+  clearTransientInteractionState();
+  const wasMatchInfoHidden = matchInfo.hidden || matchInfo.classList.contains("is-hidden");
+  const shouldAnimateEntrance = wasMatchInfoHidden;
+  const shouldAnimateLineupEntrance =
+    options.animateLineupEntrance !== false && (wasMatchInfoHidden || activeMatchId !== match.id);
   activeMatchId = match.id;
   viewPanels.matches.classList.add("has-match-info");
   matchInfo.classList.remove("is-hidden");
@@ -23629,7 +23929,9 @@ function renderMatchInfo(match, options = {}) {
   const displayTeams = getDisplayMatchTeams(match, tournamentContext);
   const displayMatch = getDisplayMatch(match, displayTeams);
   const matchContextMarkup = renderMatchContext(match, tournamentContext);
-  const matchStatusMarkup = renderMatchStatusBlock(displayMatch);
+  const matchStatusMarkup = renderMatchStatusBlock(displayMatch, {
+    animateLineupEntrance: shouldAnimateLineupEntrance
+  });
   const shouldShowStatusBeforeContext =
     displayMatch.status === "LIVE" || displayMatch.status === "FT" || displayMatch.status === "DELAYED";
 
@@ -23675,6 +23977,7 @@ function renderMatchInfo(match, options = {}) {
 }
 
 function renderMatchInfoPrompt() {
+  clearTransientInteractionState();
   activeMatchId = "";
   viewPanels.matches.classList.remove("has-match-info");
   document.querySelectorAll(".match-row, .yesterday-match-card").forEach((row) => {
@@ -23713,6 +24016,7 @@ function setLiveTodayMatchFocus(enabled) {
 }
 
 function renderEmptyState() {
+  clearTransientInteractionState();
   activeMatchId = "";
   viewPanels.matches.classList.remove("has-match-info");
   setLiveTodayMatchFocus(false);
@@ -23724,6 +24028,7 @@ function renderEmptyState() {
 }
 
 function renderMatchLoadingState() {
+  clearTransientInteractionState();
   viewPanels.matches.classList.remove("has-match-info");
   setLiveTodayMatchFocus(false);
   matchList.setAttribute("aria-busy", "true");
@@ -25116,6 +25421,10 @@ function positionCatchUpPopover() {
 }
 
 function setCatchUpOpen(isOpen) {
+  if (isOpen !== isCatchUpOpen) {
+    clearTransientInteractionState();
+  }
+
   isCatchUpOpen = isOpen;
   catchUpPopover.classList.toggle("is-hidden", !isOpen);
   catchUpButton.setAttribute("aria-expanded", String(isOpen));
@@ -25136,6 +25445,10 @@ function setCatchUpOpen(isOpen) {
 function setSettingsOpen(isOpen) {
   if (!settingsButton || !settingsPopover) {
     return;
+  }
+
+  if (isOpen !== isSettingsOpen) {
+    clearTransientInteractionState();
   }
 
   isSettingsOpen = isOpen;
@@ -25193,7 +25506,12 @@ function scheduleTeamSearchRender(options = {}) {
 }
 
 function setTeamSearchOpen(isOpen, options = {}) {
-  isTeamSearchOpen = isOpen || hasTeamSearchQuery();
+  const nextIsOpen = isOpen || hasTeamSearchQuery();
+  if (nextIsOpen !== isTeamSearchOpen) {
+    clearTransientInteractionState();
+  }
+
+  isTeamSearchOpen = nextIsOpen;
   updateTeamSearchControls();
 
   if (isTeamSearchOpen && options.focus !== false) {
@@ -25411,7 +25729,11 @@ function updateActiveViewElements() {
 }
 
 function setActiveView(view, options = {}) {
-  activeView = view === "standings" ? "standings" : "matches";
+  const nextView = view === "standings" ? "standings" : "matches";
+  if (nextView !== activeView) {
+    clearTransientInteractionState();
+  }
+  activeView = nextView;
   updateActiveViewElements();
   updateWrappedMatchRows(viewPanels.matches);
   updateTruncatedTeamTooltips(viewPanels.matches);
@@ -25871,25 +26193,28 @@ async function loadLiveData() {
 }
 
 function renderLoadedApp(options = {}) {
-  ensureSelectableSelectedDay();
-  selectedStandingsYear = getValidStandingsYear(selectedStandingsYear);
-  selectedStandingsMode = getValidStandingsMode(
-    selectedStandingsMode,
-    getDefaultStandingsModeForYear(selectedStandingsYear),
-    selectedStandingsYear
-  );
-  renderTimeZoneOptions();
-  setHeaderControlsLoading(false);
-  updateTeamSearchControls();
-  renderStandingsView();
+  withLanguageObserverPaused(() => {
+    clearTransientInteractionState();
+    ensureSelectableSelectedDay();
+    selectedStandingsYear = getValidStandingsYear(selectedStandingsYear);
+    selectedStandingsMode = getValidStandingsMode(
+      selectedStandingsMode,
+      getDefaultStandingsModeForYear(selectedStandingsYear),
+      selectedStandingsYear
+    );
+    renderTimeZoneOptions();
+    setHeaderControlsLoading(false);
+    updateTeamSearchControls();
+    renderStandingsView();
 
-  if (options.syncActiveView) {
-    setActiveView(activeView);
-  }
+    if (options.syncActiveView) {
+      setActiveView(activeView);
+    }
 
-  renderSchedule();
-  renderSourceNote();
-  applyLanguageToPage();
+    renderSchedule();
+    renderSourceNote();
+    applyLanguageToPage();
+  });
 }
 
 async function setLanguage(language) {
@@ -26030,7 +26355,9 @@ standingsModeTabs.forEach((tab) => {
 });
 
 standingsGrid.addEventListener("click", (event) => {
-  if (shouldIgnoreContainerClickForTooltip(event.target)) {
+  const targetElement = getEventTargetElement(event.target);
+
+  if (shouldIgnoreContainerInteractionForTooltip(event.target)) {
     event.preventDefault();
     event.stopPropagation();
     return;
@@ -26038,22 +26365,30 @@ standingsGrid.addEventListener("click", (event) => {
 
   if (
     Date.now() < tournamentBoardSuppressClickUntil &&
-    event.target instanceof Element &&
-    event.target.closest(".tournament-progression")
+    targetElement?.closest(".tournament-progression")
   ) {
     event.preventDefault();
     tournamentBoardSuppressClickUntil = 0;
     return;
   }
 
-  const groupButton = event.target.closest(".third-place-group-button");
+  const showNextButton = targetElement?.closest(".tournament-show-next-button");
+
+  if (showNextButton) {
+    event.preventDefault();
+    event.stopPropagation();
+    spotlightTournamentMatchCard(showNextButton.dataset.showNextTournamentMatch || "");
+    return;
+  }
+
+  const groupButton = targetElement?.closest(".third-place-group-button");
 
   if (groupButton) {
     openStandingsGroup(groupButton.dataset.groupId, { historyMode: "push" });
     return;
   }
 
-  const matchCard = event.target.closest(".progress-match[data-open-match-id]");
+  const matchCard = targetElement?.closest(".progress-match[data-open-match-id]");
 
   if (matchCard) {
     openMatchFromTournament(matchCard.dataset.openMatchId);
@@ -26063,8 +26398,9 @@ standingsGrid.addEventListener("pointerdown", handleTournamentBoardPointerDown);
 standingsGrid.addEventListener("pointermove", handleTournamentBoardPointerMove);
 standingsGrid.addEventListener("pointerup", finishTournamentBoardPointerGesture);
 standingsGrid.addEventListener("pointercancel", cancelTournamentBoardPointerGesture);
+standingsGrid.addEventListener("scroll", () => updateTournamentShowNextButtonVisibility(), true);
 standingsGrid.addEventListener("keydown", (event) => {
-  const matchCard = event.target.closest(".progress-match[data-open-match-id]");
+  const matchCard = getEventTargetElement(event.target)?.closest(".progress-match[data-open-match-id]") || null;
 
   if (matchCard && (event.key === "Enter" || event.key === " ")) {
     event.preventDefault();
@@ -26076,7 +26412,7 @@ standingsGrid.addEventListener("keydown", (event) => {
 });
 
 matchInfo.addEventListener("click", (event) => {
-  const target = event.target instanceof Element ? event.target.closest("[data-open-tournament-tab]") : null;
+  const target = getEventTargetElement(event.target)?.closest("[data-open-tournament-tab]") || null;
 
   if (target) {
     openTournamentTabFromMatchInfo(target.dataset.tournamentMatchNumber || "");
@@ -26182,7 +26518,7 @@ calendarYesterdayButton.addEventListener("click", () => {
 });
 
 calendarGrid.addEventListener("click", (event) => {
-  const dayButton = event.target.closest(".calendar-day");
+  const dayButton = getEventTargetElement(event.target)?.closest(".calendar-day") || null;
   if (!dayButton || dayButton.disabled) {
     return;
   }
@@ -26190,7 +26526,7 @@ calendarGrid.addEventListener("click", (event) => {
 });
 
 standingsYearGrid.addEventListener("click", (event) => {
-  const yearButton = event.target.closest(".standings-year-option");
+  const yearButton = getEventTargetElement(event.target)?.closest(".standings-year-option") || null;
   if (!yearButton) {
     return;
   }
@@ -26198,11 +26534,12 @@ standingsYearGrid.addEventListener("click", (event) => {
 });
 
 function handlePlayerLinkClick(event) {
-  if (!(event.target instanceof Element)) {
+  const targetElement = getEventTargetElement(event.target);
+  if (!targetElement) {
     return false;
   }
 
-  const playerTrigger = event.target.closest(".player-link");
+  const playerTrigger = targetElement.closest(".player-link");
   const playerHover = playerTrigger?.closest(".player-hover");
   if (!playerTrigger || !playerHover || !isTouchPlayerCardMode()) {
     return false;
@@ -26223,11 +26560,12 @@ function handlePlayerLinkClick(event) {
 }
 
 function handlePlayerHoverPointerDown(event) {
-  if (!(event.target instanceof Element)) {
+  const targetElement = getEventTargetElement(event.target);
+  if (!targetElement) {
     return false;
   }
 
-  const lineupEventBadge = getLineupEventBadge(event.target);
+  const lineupEventBadge = getLineupEventBadge(targetElement);
   if (lineupEventBadge && isTouchTooltipPointerEvent(event)) {
     event.preventDefault();
     event.stopPropagation();
@@ -26235,7 +26573,7 @@ function handlePlayerHoverPointerDown(event) {
     return true;
   }
 
-  const playerTrigger = event.target.closest(".player-hover .player-link");
+  const playerTrigger = targetElement.closest(".player-hover .player-link");
   const playerHover = playerTrigger?.closest(".player-hover");
   if (!playerTrigger || !playerHover || playerTrigger.closest("a[href]") || isTouchPlayerCardMode()) {
     return false;
@@ -26267,11 +26605,12 @@ function handlePlayerHoverPointerDown(event) {
 }
 
 function handlePlayerLinkKeydown(event) {
-  if (!(event.target instanceof Element)) {
+  const targetElement = getEventTargetElement(event.target);
+  if (!targetElement) {
     return false;
   }
 
-  const playerTrigger = event.target.closest(".player-link[data-player-card-trigger]");
+  const playerTrigger = targetElement.closest(".player-link[data-player-card-trigger]");
   const playerHover = playerTrigger?.closest(".player-hover");
   if (!playerTrigger || !playerHover) {
     return false;
@@ -26310,7 +26649,8 @@ function handlePlayerHoverPointerPreview(event, options = {}) {
     return;
   }
 
-  const playerHover = event.target.closest(".player-hover");
+  const targetElement = getEventTargetElement(event.target);
+  const playerHover = targetElement?.closest(".player-hover");
   if (playerHover) {
     if (playerHover.querySelector(".lineup-event-badge:hover")) {
       return;
@@ -26343,7 +26683,7 @@ function attachPlayerCardPositioning(root) {
         return;
       }
 
-      const playerHover = event.target.closest?.(".player-hover");
+      const playerHover = getClosestPlayerHover(event.target);
       if (shouldUseFloatingPlayerCard(playerHover)) {
         queueFloatingPlayerCardHide();
       }
@@ -26362,7 +26702,7 @@ function attachPlayerCardPositioning(root) {
       return;
     }
 
-    const playerHover = event.target.closest(".player-hover");
+    const playerHover = getClosestPlayerHover(event.target);
     if (playerHover) {
       positionPlayerCard(playerHover);
     }
@@ -26379,7 +26719,7 @@ function attachPlayerCardPositioning(root) {
       return;
     }
 
-    const playerHover = event.target.closest(".player-hover");
+    const playerHover = getClosestPlayerHover(event.target);
     if (shouldUseFloatingPlayerCard(playerHover)) {
       queueFloatingPlayerCardHide();
     }
@@ -26396,7 +26736,8 @@ function attachPlayerCardPositioning(root) {
 }
 
 matchInfo.addEventListener("click", (event) => {
-  if (!(event.target instanceof Element)) {
+  const targetElement = getEventTargetElement(event.target);
+  if (!targetElement) {
     return;
   }
 
@@ -26416,7 +26757,7 @@ matchInfo.addEventListener("click", (event) => {
     return;
   }
 
-  const revealButton = event.target.closest("[data-past-reveal]");
+  const revealButton = targetElement.closest("[data-past-reveal]");
   if (!revealButton) {
     return;
   }
@@ -26463,7 +26804,7 @@ document.addEventListener("pointerdown", (event) => {
     hideFloatingLineupEventTooltip();
   }
 
-  if (activePlayerHover && !getClosestPlayerHover(event.target)) {
+  if ((activePlayerHover || floatingPlayerCardSource) && !isPlayerCardInteractionTarget(event.target)) {
     clearActivePlayerHover();
   }
 
@@ -26516,9 +26857,7 @@ document.addEventListener("keydown", (event) => {
     return;
   }
 
-  clearActiveTouchTooltip();
-  hideFloatingLineupEventTooltip();
-  clearActivePlayerHover();
+  clearTransientInteractionState();
 
   if (isCalendarOpen) {
     setCalendarOpen(false);
@@ -26595,11 +26934,13 @@ window.addEventListener(
     positionCatchUpPopover();
     positionPlayerCards();
     updateTooltipBounds();
+    updateTournamentShowNextButtonVisibility();
   },
   true
 );
 
 timezoneSelect.addEventListener("change", () => {
+  clearTransientInteractionState();
   const wasViewingToday =
     selectedDayKey === getDayKey(new Date(), selectedTimeZone);
   selectedTimeZone = timezoneSelect.value;
@@ -26668,6 +27009,7 @@ standingsModeTabs.forEach((tab, index) => {
 
 window.addEventListener("popstate", () => {
   clearPendingUrlStateUpdate();
+  clearTransientInteractionState();
   syncUrl = false;
   isRestoringHistoryState = true;
   if (document.activeElement instanceof HTMLElement) {
@@ -26694,16 +27036,23 @@ const languageObserver = new MutationObserver(() => {
     return;
   }
 
-  window.requestAnimationFrame(() => {
+  if (languageObserverFrameId) {
+    return;
+  }
+
+  languageObserverFrameId = window.requestAnimationFrame(() => {
+    languageObserverFrameId = 0;
     if (currentLanguage === "zh" && !isApplyingLanguage) {
-      isApplyingLanguage = true;
-      try {
-        localizeRenderedText(document.body);
-        updateWrappedMatchRows();
-        updateTooltipBounds();
-      } finally {
-        isApplyingLanguage = false;
-      }
+      withLanguageObserverPaused(() => {
+        isApplyingLanguage = true;
+        try {
+          localizeRenderedText(document.body);
+          updateWrappedMatchRows();
+          updateTooltipBounds();
+        } finally {
+          isApplyingLanguage = false;
+        }
+      });
     }
   });
 });
@@ -26715,12 +27064,6 @@ setHeaderControlsLoading(false);
 updateActiveViewElements();
 renderInitialLoadingState();
 initializeJuggleToy();
-languageObserver.observe(document.body, {
-  attributeFilter: ["aria-label", "data-tooltip", "placeholder", "title"],
-  attributes: true,
-  characterData: true,
-  childList: true,
-  subtree: true
-});
+connectLanguageObserver();
 
 boot();

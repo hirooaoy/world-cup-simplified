@@ -61,24 +61,40 @@
   },
   "profiles": {
     "Aaron Tshibola": {
-      "skills": ["Midfield strength", "Second balls", "Box-to-box runs"],
-      "note": "Tshibola gives DR Congo midfield size, helping them compete for second balls and drive through contact.",
-      "noteZh": "奇博拉给刚果民主共和国中场体格，帮助球队争抢第二落点并带球穿过对抗。"
+      "skills": [
+        "Midfield strength",
+        "Second balls",
+        "Box-to-box runs"
+      ],
+      "note": "Tshibola is there for the part of the game where spacing gets ugly. For DR Congo, that can mean one clean touch before pressure arrives.",
+      "noteZh": "他给DR Congo提供中场深度，适合比赛被拉开的时候。他把松散球变成更冷静的下一脚。"
     },
     "Aaron Wan-Bissaka": {
-      "skills": ["One-on-one defending", "Recovery tackles", "Right-back cover"],
-      "note": "Wan-Bissaka gives DR Congo elite one-on-one defending, especially when quick wingers attack the outside lane.",
-      "noteZh": "万-比萨卡给刚果民主共和国顶级一对一防守，尤其适合应对快速边锋冲击外线。"
+      "skills": [
+        "One-on-one defending",
+        "Recovery tackles",
+        "Right-back cover"
+      ],
+      "note": "Wan-Bissaka gives DR Congo one of the steady pieces in the back line. Watch the small choices: step, hold, or clear the lane.",
+      "noteZh": "他是DR Congo无球答案的一部分。第一个跑动被拖慢，整体阵型才不容易散。"
     },
     "Arthur Masuaku": {
-      "skills": ["Left-footed delivery", "Wing-back carrying", "Set pieces"],
-      "note": "Masuaku gives DR Congo left-side delivery and carrying, a route to move attacks up the flank.",
-      "noteZh": "马苏亚库给刚果民主共和国左路传递和带球，是沿边路推进进攻的一条路线。"
+      "skills": [
+        "Chance passes",
+        "Left-footed delivery",
+        "Wing-back carrying"
+      ],
+      "note": "Masuaku has one tournament assist in the bank for DR Congo. The detail is the touch just before the obvious chance appears.",
+      "noteZh": "他已经帮DR Congo制造过进球。价值在于防线还在移动时，选对出球瞬间。"
     },
     "Axel Tuanzebe": {
-      "skills": ["Defensive recovery", "Centre-back cover", "Right-side defending"],
-      "note": "Tuanzebe adds defensive recovery speed, useful when DR Congo's back line has to defend transition space.",
-      "noteZh": "图安泽贝增加防守回追速度，当刚果民主共和国防线需要防守转换空间时很有用。"
+      "skills": [
+        "Defensive recovery",
+        "Centre-back cover",
+        "Right-side defending"
+      ],
+      "note": "Tuanzebe has been part of DR Congo's main defensive shape. He keeps the first duel clean so the team does not spend the next phase chasing.",
+      "noteZh": "他在DR Congo体系里做的是安静工作。他让对手的进攻不容易变成混乱。"
     },
     "Brian Cipenga": {
       "position": "Left winger",
@@ -87,111 +103,187 @@
       "transfermarktPlayerCode": "brian-cipenga",
       "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/700565-1726738089.jpg?lm=1",
       "marketValueEurMillions": 2,
-      "skills": ["Wide running", "Direct dribbling", "Transition speed"],
-      "note": "Cipenga gives DR Congo another wide runner, useful for quick breaks before the opponent's block settles.",
-      "noteZh": "奇彭加给刚果民主共和国另一名边路跑手，适合在对手阵型站稳前快速反击。"
+      "skills": [
+        "Goal threat",
+        "Wide running",
+        "Direct dribbling"
+      ],
+      "note": "Cipenga's World Cup has already included a goal against England. The next one may come from the same small window before the shape resets.",
+      "noteZh": "他这届世界杯已经有进球。他的看点是在比赛重新稳定前，先找到属于自己的那个瞬间。"
     },
     "Cedric Bakambu": {
       "displayName": "Cédric Bakambu",
-      "skills": ["Channel runs", "Box finishing", "Counter threat"],
-      "note": "Bakambu remains DR Congo's direct scoring threat, attacking space behind and finishing early chances.",
-      "noteZh": "巴坎布仍是刚果民主共和国直接得分威胁，能攻击身后空间并终结早期机会。"
+      "skills": [
+        "Channel runs",
+        "Box finishing",
+        "Counter threat"
+      ],
+      "note": "Bakambu has been part of how DR Congo turns territory into chances. Watch the run before the pass, not only the shot after it.",
+      "noteZh": "他是DR Congo的进攻深度。如果比赛慢下来，他要让后防线重新移动。"
     },
     "Chancel Mbemba": {
-      "skills": ["Defensive leadership", "Aerial duels", "Set-piece threat"],
-      "note": "Mbemba gives DR Congo defensive authority, winning aerial duels and organising tense phases.",
-      "noteZh": "姆本巴给刚果民主共和国防守权威，能赢下空中对抗并组织紧张阶段。"
+      "skills": [
+        "Chance passes",
+        "Defensive leadership",
+        "Aerial duels"
+      ],
+      "note": "Mbemba has already created a goal for DR Congo in this tournament. Watch the timing of his release, because the pass often matters more than the carry.",
+      "noteZh": "他已经参与了DR Congo的一粒世界杯进球。那脚传球的意义，是在防守者完全转身前到达。"
     },
     "Charles Pickel": {
-      "skills": ["Midfield screening", "Ball winning", "Simple progression"],
-      "note": "Pickel gives DR Congo a midfield shield, breaking attacks and moving the first pass forward.",
-      "noteZh": "皮克尔给刚果民主共和国中场屏障，能破坏进攻并把第一脚传球向前送。"
+      "skills": [
+        "Midfield screening",
+        "Ball winning",
+        "Simple progression"
+      ],
+      "note": "Pickel gives DR Congo midfield depth for games that get stretched. He helps turn a loose ball into a calmer next pass.",
+      "noteZh": "他适合那些空间变丑的时间段。对DR Congo来说，这可能就是压力到来前的一次干净触球。"
     },
     "Dylan Batubinsika": {
-      "skills": ["Centre-back strength", "Aerial defending", "Box protection"],
-      "note": "Batubinsika adds centre-back strength, useful when DR Congo need to absorb crosses and clear the box.",
-      "noteZh": "巴图宾西卡增加中卫强度，当刚果民主共和国需要承受传中并清理禁区时很有用。"
+      "skills": [
+        "Centre-back strength",
+        "Aerial defending",
+        "Box protection"
+      ],
+      "note": "Batubinsika gives DR Congo cover for the minutes when defending becomes more about nerve than shape. One solid duel can calm the whole line.",
+      "noteZh": "他是DR Congo后防线的保险。卡片不华丽：赢球、稳传、重新站好。"
     },
     "Edo Kayembe": {
-      "skills": ["Midfield running", "Pressing cover", "Left-footed passing"],
-      "note": "Kayembe gives DR Congo midfield running, covering pressure and helping the ball escape left.",
-      "noteZh": "卡延贝给刚果民主共和国中场跑动，能覆盖压力并帮助皮球从左侧脱身。"
+      "skills": [
+        "Midfield running",
+        "Pressing cover",
+        "Left-footed passing"
+      ],
+      "note": "Kayembe gives DR Congo a way to settle the middle if the match opens up. His best work is making the next decision less hurried.",
+      "noteZh": "他是DR Congo的中场保险。那些混乱阶段里，他要抢第二点、稳一下，再把球送出去。"
     },
     "Fiston Mayele": {
       "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/727157-1761427125.jpg?lm=1",
-      "skills": ["Penalty-box movement", "Finishing instinct", "Pressing effort"],
-      "note": "Mayele gives DR Congo a penalty-box poacher, alive to loose balls and quick service.",
-      "noteZh": "马耶莱给刚果民主共和国禁区抢点能力，对松散球和快速传球很敏锐。"
+      "skills": [
+        "Goal threat",
+        "Penalty-box movement",
+        "Finishing instinct"
+      ],
+      "note": "Mayele already has a World Cup goal in this run, against Uzbekistan. His card is about finding the moment before the match settles again.",
+      "noteZh": "他的世界杯已经有了进球。下一次机会也许仍来自阵型重新站稳前的那一小段时间。"
     },
     "Gael Kakuta": {
       "displayName": "Gaël Kakuta",
       "league": "Cypriot First Division",
-      "skills": ["Left-footed craft", "Final pass", "Set pieces"],
-      "note": "Kakuta gives DR Congo left-footed imagination, especially when a final pass has to break a compact block.",
-      "noteZh": "卡库塔给刚果民主共和国左脚想象力，尤其当最后一传需要打破密集防线时。"
+      "skills": [
+        "Left-footed craft",
+        "Final pass",
+        "Set pieces"
+      ],
+      "note": "Kakuta is attacking depth for DR Congo. If the game slows down, he is there to make the back line move again.",
+      "noteZh": "他是DR Congo前场计划的一部分。他先拉扯防守者，再寻找把压力变成机会的触球。"
     },
     "Gedeon Kalulu": {
       "displayName": "Gédéon Kalulu",
       "league": "Cypriot First Division",
-      "skills": ["Right-back speed", "Overlap timing", "Recovery defending"],
-      "note": "Kalulu gives DR Congo right-side speed, overlapping when space opens and recovering quickly.",
-      "noteZh": "卡卢卢给刚果民主共和国右路速度，能在空间打开时套上，也能快速回追。"
+      "skills": [
+        "Right-back speed",
+        "Overlap timing",
+        "Recovery defending"
+      ],
+      "note": "Kalulu is back-line insurance for DR Congo. The card is not glamorous: win the ball, keep the pass safe, reset the shape.",
+      "noteZh": "他给DR Congo那些靠胆量守住的分钟提供保障。一次扎实对抗就能让整条线冷静下来。"
     },
     "Joris Kayembe": {
-      "skills": ["Left-back width", "Crossing", "Wide recovery"],
-      "note": "Kayembe gives DR Congo width from full-back, pushing attacks up the left without losing recovery speed.",
-      "noteZh": "约里斯·卡延贝给刚果民主共和国边后卫宽度，能从左路推进进攻且不丢回追速度。"
+      "skills": [
+        "Left-back width",
+        "Crossing",
+        "Wide recovery"
+      ],
+      "note": "Kayembe is defensive cover for DR Congo's harder minutes. He is there to win the first contact and make the next pass simple.",
+      "noteZh": "他是DR Congo在比赛变窄时可以使用的后卫。任务是第一下接触、清楚解围、简单出球。"
     },
     "Lionel Mpasi": {
-      "skills": ["Goalkeeper command", "Shot stopping", "Penalty-area reach"],
-      "note": "Mpasi gives DR Congo a commanding goalkeeper presence, important when games become set-piece heavy.",
-      "noteZh": "姆帕西给刚果民主共和国有指挥力的门将存在感，当比赛充满定位球时很重要。"
+      "skills": [
+        "Goalkeeper command",
+        "Shot stopping",
+        "Penalty-area reach"
+      ],
+      "note": "Mpasi has been DR Congo's goalkeeper through this run. His value is keeping the box calm long enough for the next attack to start cleanly.",
+      "noteZh": "他给DR Congo提供从后场开始的冷静第一步。看他如何把扑救或摘球变成重新组织。"
     },
     "Matthieu Epolo": {
-      "skills": ["Goalkeeper reactions", "Line saves", "Distribution"],
-      "note": "Epolo gives DR Congo young goalkeeper depth, useful insurance for reactive saves and distribution.",
-      "noteZh": "埃波洛给刚果民主共和国年轻门将深度，是反应扑救和出球方面的有用保障。"
+      "skills": [
+        "Goalkeeper reactions",
+        "Line saves",
+        "Distribution"
+      ],
+      "note": "Epolo sits behind the starter for DR Congo, but the role is not decorative. He has to be ready for crosses, restarts, and a cold first touch.",
+      "noteZh": "他给DR Congo保留另一个门将选择。真正需要他时，重点可能就是一次大扑救。"
     },
     "Meschack Elia": {
-      "skills": ["Explosive pace", "Channel running", "Counter attacks"],
-      "note": "Elia gives DR Congo burst speed, stretching defenders and making counters feel immediate.",
-      "noteZh": "埃利亚给刚果民主共和国爆发速度，能拉开防守者并让反击马上形成威胁。"
+      "skills": [
+        "Chance passes",
+        "Explosive pace",
+        "Channel running"
+      ],
+      "note": "Elia has already made a goal happen for DR Congo. His value is picking the moment when the defense is still moving.",
+      "noteZh": "他已经为DR Congo送出一次进球前的传球。重点是机会真正显眼前的那次触球。"
     },
     "Nathanael Mbuku": {
       "displayName": "Nathanaël Mbuku",
       "league": "Ligue 2",
-      "skills": ["Wide dribbling", "Inside shooting", "Pressing energy"],
-      "note": "Mbuku adds wide invention, able to cut inside and turn a quiet possession into a shot.",
-      "noteZh": "姆布库增加边路创造，能内切并把平静控球转成射门。"
+      "skills": [
+        "Wide dribbling",
+        "Inside shooting",
+        "Pressing energy"
+      ],
+      "note": "Mbuku is the forward DR Congo can use when the match needs new legs. His first job is to make tired defenders turn.",
+      "noteZh": "他给DR Congo替补席上的另一种进攻速度。有时关键触球，是那次帮队友拉开空间的跑动。"
     },
     "Ngalayel Mukau": {
       "displayName": "Ngal'ayel Mukau",
-      "skills": ["Midfield bite", "Ball winning", "Short progression"],
-      "note": "Mukau gives DR Congo midfield bite, useful for winning duels and keeping the next pass simple.",
-      "noteZh": "穆考给刚果民主共和国中场硬度，适合赢下对抗并把下一脚处理简单化。"
+      "skills": [
+        "Midfield bite",
+        "Ball winning",
+        "Short progression"
+      ],
+      "note": "Mukau gives DR Congo structure when the ball changes feet. He is often most valuable in the second after a loose touch.",
+      "noteZh": "他给DR Congo控制节奏。拥挤区域里的触球，能变成下一名队友更舒服的角度。"
     },
     "Noah Sadiki": {
-      "skills": ["Press resistance", "Midfield versatility", "Ball carrying"],
-      "note": "Sadiki gives DR Congo flexible midfield control, able to receive pressure and carry into space.",
-      "noteZh": "萨迪基给刚果民主共和国灵活中场控制，能在压力下接球并带入空间。"
+      "skills": [
+        "Press resistance",
+        "Midfield versatility",
+        "Ball carrying"
+      ],
+      "note": "Sadiki is there for the part of the game where spacing gets ugly. For DR Congo, that can mean one clean touch before pressure arrives.",
+      "noteZh": "他给DR Congo提供中场深度，适合比赛被拉开的时候。他把松散球变成更冷静的下一脚。"
     },
     "Samuel Moutoussamy": {
       "league": "Greek Super League",
-      "skills": ["Midfield coverage", "Pressing range", "Link passing"],
-      "note": "Moutoussamy gives DR Congo midfield coverage, helping connect defensive work to the first forward pass.",
-      "noteZh": "穆图萨米给刚果民主共和国中场覆盖，帮助把防守工作衔接到第一脚向前传球。"
+      "skills": [
+        "Midfield coverage",
+        "Pressing range",
+        "Link passing"
+      ],
+      "note": "Moutoussamy is a tempo player for DR Congo. He turns crowded touches into cleaner angles for the next runner.",
+      "noteZh": "他让DR Congo在球权转换时更有结构。最有价值的往往是松散触球之后那一秒。"
     },
     "Simon Banza": {
       "league": "UAE Pro League",
-      "skills": ["Box finishing", "Aerial target", "Hold-up play"],
-      "note": "Banza gives DR Congo a strong box target, useful when crosses and early service become the plan.",
-      "noteZh": "班扎给刚果民主共和国强力禁区目标，当传中和早传成为计划时很有用。"
+      "skills": [
+        "Box finishing",
+        "Aerial target",
+        "Hold-up play"
+      ],
+      "note": "Banza is attacking depth for DR Congo. If the game slows down, he is there to make the back line move again.",
+      "noteZh": "他是DR Congo前场计划的一部分。他先拉扯防守者，再寻找把压力变成机会的触球。"
     },
     "Steve Kapuadi": {
       "league": "Ekstraklasa",
-      "skills": ["Centre-back reach", "Aerial duels", "Left-side cover"],
-      "note": "Kapuadi gives DR Congo extra reach in defense, valuable against crosses and direct balls.",
-      "noteZh": "卡普阿迪给刚果民主共和国防线额外覆盖范围，面对传中和直接球很有价值。"
+      "skills": [
+        "Centre-back reach",
+        "Aerial duels",
+        "Left-side cover"
+      ],
+      "note": "Kapuadi is defensive rotation for DR Congo. The watch point is how early he closes the lane that looked open.",
+      "noteZh": "他给DR Congo那些靠胆量守住的分钟提供保障。一次扎实对抗就能让整条线冷静下来。"
     },
     "Theo Bongonda": {
       "displayName": "Théo Bongonda",
@@ -201,20 +293,32 @@
       "transfermarktPlayerCode": "theo-bongonda",
       "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/280701-1689146026.png?lm=1",
       "marketValueEurMillions": 3,
-      "skills": ["Wing acceleration", "One-on-one dribbling", "Cutbacks"],
-      "note": "Bongonda gives DR Congo a true winger's threat, beating defenders wide and looking for cutbacks.",
-      "noteZh": "邦贡达给刚果民主共和国真正的边锋威胁，能从外线过人并寻找倒三角。"
+      "skills": [
+        "Wing acceleration",
+        "One-on-one dribbling",
+        "Pulled-back passes"
+      ],
+      "note": "Bongonda is attacking depth for DR Congo. If the game slows down, he is there to make the back line move again.",
+      "noteZh": "他是DR Congo前场计划的一部分。他先拉扯防守者，再寻找把压力变成机会的触球。"
     },
     "Timothy Fayulu": {
       "league": "Armenian Premier League",
-      "skills": ["Goalkeeper depth", "Shot stopping", "Cross handling"],
-      "note": "Fayulu gives DR Congo another goalkeeper option, useful for depth and training-ground competition.",
-      "noteZh": "法尤卢给刚果民主共和国另一个门将选择，适合阵容深度和队内竞争。"
+      "skills": [
+        "Goalkeeper depth",
+        "Shot stopping",
+        "Cross handling"
+      ],
+      "note": "Fayulu is goalkeeper cover for DR Congo. The role is readiness: saves, restarts, and no panic if the match suddenly needs him.",
+      "noteZh": "他是DR Congo门线上的安全网。这个工作说起来简单，做起来很难：冷着上场，并让禁区安静。"
     },
     "Yoane Wissa": {
-      "skills": ["Forward pressing", "Box finishing", "Left-side runs"],
-      "note": "Wissa gives DR Congo Premier League sharpness, pressing hard and attacking the box from the left.",
-      "noteZh": "维萨给刚果民主共和国英超级别的锐度，能强力压迫并从左侧攻击禁区。"
+      "skills": [
+        "Goal threat",
+        "Forward pressing",
+        "Box finishing"
+      ],
+      "note": "Wissa gives DR Congo a scorer opponents now have to carry in their heads. His goals against Portugal and Uzbekistan make every loose ball feel heavier.",
+      "noteZh": "他已经是DR Congo这届世界杯的真实得分故事之一。他的危险在于防守者还没处理完第一个问题，他已经到位。"
     }
   }
 }

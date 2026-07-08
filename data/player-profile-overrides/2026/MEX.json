@@ -16,20 +16,20 @@
       "skills": [
         "Left-wing dribbling",
         "Set-piece delivery",
-        "Final-third invention"
+        "Box-area invention"
       ],
-      "note": "Mexico's left-side creator, dangerous when he can isolate, whip restarts, or turn a loose touch into a shot.",
-      "noteZh": "亚历克西斯·维加是墨西哥左路创造者，在获得单挑、主罚定位球或把松散触球转成射门时很有威胁。",
+      "note": "Vega is an attacking change-up for Mexico. He gives the front line fresh running when the first plan starts to look predictable.",
+      "noteZh": "他是Mexico的进攻深度。如果比赛慢下来，他要让后防线重新移动。",
       "sourceUrl": "https://www.transfermarkt.us/alexis-vega/profil/spieler/424689"
     },
     "Alvaro Fidalgo": {
       "skills": [
+        "Goal threat",
         "Central rhythm",
-        "Press resistance",
-        "Short combinations"
+        "Press resistance"
       ],
-      "note": "Mexico's Spanish-born midfield metronome, helping them pass through pressure and keep attacks connected.",
-      "noteZh": "阿尔瓦罗·菲达尔戈是墨西哥西班牙出生的中场节拍器，能帮助球队穿过压力并保持进攻连接。"
+      "note": "Fidalgo's World Cup has already included a goal against Czechia. The next one may come from the same small window before the shape resets.",
+      "noteZh": "他这届世界杯已经有进球。他的看点是在比赛重新稳定前，先找到属于自己的那个瞬间。"
     },
     "Armando Gonzalez": {
       "displayName": "Armando González",
@@ -46,8 +46,8 @@
         "Young striker movement",
         "Near-post runs"
       ],
-      "note": "Mexico's emerging No. 9, giving them box movement, near-post runs, and a younger finishing profile behind the veterans.",
-      "noteZh": "阿曼多·冈萨雷斯是墨西哥新兴九号位，能提供禁区跑动、前点冲刺，以及老将身后的年轻终结选择。",
+      "note": "González is attacking depth for Mexico. If the game slows down, he is there to make the back line move again.",
+      "noteZh": "他是Mexico前场计划的一部分。他先拉扯防守者，再寻找把压力变成机会的触球。",
       "sourceUrl": "https://www.transfermarkt.co.uk/armando-gonzalez/profil/spieler/837619"
     },
     "Brian Gutierrez": {
@@ -65,8 +65,8 @@
         "Chance creation",
         "Quick turns"
       ],
-      "note": "Mexico's between-lines option, useful for quick turns, small-space passing, and finding runners before blocks settle.",
-      "noteZh": "布赖恩·古铁雷斯是墨西哥线间选择，能快速转身、小范围传球，并在防线站稳前找到跑动队友。"
+      "note": "Gutiérrez is there for the part of the game where spacing gets ugly. For Mexico, that can mean one clean touch before pressure arrives.",
+      "noteZh": "他给Mexico提供中场深度，适合比赛被拉开的时候。他把松散球变成更冷静的下一脚。"
     },
     "Carlos Acevedo": {
       "skills": [
@@ -74,8 +74,8 @@
         "Keeper depth",
         "Long distribution"
       ],
-      "note": "Mexico's goalkeeper depth, giving them shot-stopping cover and longer distribution if they need to play over pressure.",
-      "noteZh": "卡洛斯·阿塞韦多是墨西哥门将深度，能提供扑救保障，并在需要越过压力时送出长传。"
+      "note": "Acevedo gives Mexico a keeper option if the night turns sideways. His card is about being warm enough for one big save.",
+      "noteZh": "他在Mexico首发门将身后等待，但这个角色不是装饰。他要随时处理传中、开球和冷启动。"
     },
     "Cesar Huerta": {
       "skills": [
@@ -83,8 +83,8 @@
         "Direct running",
         "Cut-inside shots"
       ],
-      "note": "Mexico's direct left winger, stretching defensive lines with carries, cut-inside shots, and fearless one-on-ones.",
-      "noteZh": "塞萨尔·韦尔塔是墨西哥直接型左边锋，能用带球、内切射门和无畏单挑拉扯防线。"
+      "note": "Huerta is an attacking change-up for Mexico. He gives the front line fresh running when the first plan starts to look predictable.",
+      "noteZh": "他是Mexico的进攻深度。如果比赛慢下来，他要让后防线重新移动。"
     },
     "Cesar Montes": {
       "skills": [
@@ -92,8 +92,8 @@
         "Centre-back leadership",
         "Set-piece threat"
       ],
-      "note": "Mexico's defensive tower, important for aerial clearances, set-piece threat, and organizing the centre-backs.",
-      "noteZh": "塞萨尔·蒙特斯是墨西哥防线高塔，对空中解围、定位球威胁和中卫组织都很重要。"
+      "note": "Montes gives Mexico one of the steady pieces in the back line. Watch the small choices: step, hold, or clear the lane.",
+      "noteZh": "他是Mexico无球答案的一部分。第一个跑动被拖慢，整体阵型才不容易散。"
     },
     "Edson Alvarez": {
       "skills": [
@@ -101,8 +101,8 @@
         "Counter stopping",
         "Defensive versatility"
       ],
-      "note": "Mexico's midfield anchor, slowing counters, protecting the back line, and dropping into defense when needed.",
-      "noteZh": "埃德松·阿尔瓦雷斯是墨西哥中场锚点，能拖慢反击、保护防线，并在需要时回撤到后防。"
+      "note": "Álvarez gives Mexico defensive range. His job is to make the opponent's first opening feel smaller than it looked.",
+      "noteZh": "他是Mexico艰难时间段的防守深度。他要赢下第一下接触，并让下一脚传球简单起来。"
     },
     "Erik Lira": {
       "skills": [
@@ -110,8 +110,8 @@
         "Defensive midfield cover",
         "Simple passing"
       ],
-      "note": "Mexico's ball-winning midfielder, useful for closing central gaps and moving possession on without overcomplicating it.",
-      "noteZh": "埃里克·利拉是墨西哥抢球型中场，能封住中路空当，并用简洁方式转移球权。"
+      "note": "Lira has been one of Mexico's midfield connectors in this tournament. He keeps the next pass alive and helps the team avoid rushed choices.",
+      "noteZh": "他是Mexico让控球不散掉的球员之一。看点是他多早就知道下一脚传给谁。"
     },
     "Gilberto Mora": {
       "sourceTitle": "Gilberto Mora",
@@ -128,8 +128,8 @@
         "Quick feet",
         "Central chance creation"
       ],
-      "note": "Mexico's teenage creative wildcard, able to receive in tight spaces and slip a final pass before defenders react.",
-      "noteZh": "希尔贝托·莫拉是墨西哥年轻创造变数，能在狭小空间接球，并在后卫反应前送出最后一传。",
+      "note": "Mora has been one of Mexico's midfield connectors in this tournament. He keeps the next pass alive and helps the team avoid rushed choices.",
+      "noteZh": "他是Mexico让控球不散掉的球员之一。看点是他多早就知道下一脚传给谁。",
       "sourceUrl": "https://www.transfermarkt.co.uk/gilberto-mora/profil/spieler/1155723"
     },
     "Guillermo Martinez": {
@@ -147,8 +147,8 @@
         "Aerial duels",
         "Box finishing"
       ],
-      "note": "Mexico's physical striker option, useful for aerial duels, holding up direct balls, and attacking crosses late.",
-      "noteZh": "吉列尔莫·马丁内斯是墨西哥身体型中锋选择，能争顶、背身拿住直传，并在后段冲击传中。"
+      "note": "Martínez is the forward Mexico can use when the match needs new legs. His first job is to make tired defenders turn.",
+      "noteZh": "他给Mexico替补席上的另一种进攻速度。有时关键触球，是那次帮队友拉开空间的跑动。"
     },
     "Guillermo Ochoa": {
       "league": "Cyprus League",
@@ -157,8 +157,8 @@
         "Reflex saves",
         "Tournament calm"
       ],
-      "note": "Mexico's veteran goalkeeper icon, bringing reflex saves, tournament calm, and authority in high-pressure moments.",
-      "noteZh": "吉列尔莫·奥乔亚是墨西哥标志性老将门将，能带来反应扑救、大赛冷静和高压时刻的权威感。"
+      "note": "Ochoa sits behind the starter for Mexico, but the role is not decorative. He has to be ready for crosses, restarts, and a cold first touch.",
+      "noteZh": "他给Mexico保留另一个门将选择。真正需要他时，重点可能就是一次大扑救。"
     },
     "Israel Reyes": {
       "skills": [
@@ -166,8 +166,8 @@
         "Right-side cover",
         "Aerial marking"
       ],
-      "note": "Mexico's versatile defender, able to cover centre-back, right-back, or midfield while keeping duels competitive.",
-      "noteZh": "以色列·雷耶斯是墨西哥多面防守者，能覆盖中卫、右后卫或中场，并保持对抗强度。"
+      "note": "Reyes is defensive rotation for Mexico. The watch point is how early he closes the lane that looked open.",
+      "noteZh": "他是Mexico艰难时间段的防守深度。他要赢下第一下接触，并让下一脚传球简单起来。"
     },
     "Jesus Gallardo": {
       "skills": [
@@ -175,8 +175,8 @@
         "Recovery runs",
         "Veteran service"
       ],
-      "note": "Mexico's veteran left-side outlet, giving them width, recovery runs, and steady service from deeper zones.",
-      "noteZh": "赫苏斯·加利亚多是墨西哥老练的左路出口，能提供宽度、回追跑动和来自深处的稳定传球。"
+      "note": "Gallardo gives Mexico one of the steady pieces in the back line. Watch the small choices: step, hold, or clear the lane.",
+      "noteZh": "他是Mexico无球答案的一部分。第一个跑动被拖慢，整体阵型才不容易散。"
     },
     "Johan Vasquez": {
       "sourceTitle": "Johan Vásquez",
@@ -193,8 +193,8 @@
         "Aerial power",
         "Serie A duels"
       ],
-      "note": "Mexico's left-footed centre-back, giving them aerial power, recovery defending, and confidence in physical duels.",
-      "noteZh": "约翰·巴斯克斯是墨西哥左脚中卫，能提供空中力量、回追防守和身体对抗中的信心。",
+      "note": "Vásquez has been part of Mexico's answer without the ball. He matters when the first runner has to be slowed before the whole shape breaks.",
+      "noteZh": "他给Mexico后防线一个稳定零件。看的是那些小选择：上抢、站住，还是先封线路。",
       "sourceUrl": "https://www.transfermarkt.co.uk/johan-vasquez/profil/spieler/532937"
     },
     "Jorge Sanchez": {
@@ -209,22 +209,22 @@
       "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/356044-1777755351.png?lm=1",
       "marketValueEurMillions": 2,
       "skills": [
+        "Chance passes",
         "Right-back defending",
-        "Overlap timing",
-        "Wide recovery"
+        "Overlap timing"
       ],
-      "note": "Mexico's experienced right-back, useful for wide recovery, overlaps, and surviving one-on-one defensive spells.",
-      "noteZh": "豪尔赫·桑切斯是墨西哥经验型右后卫，能完成边路回追、套边，并撑过一对一防守阶段。",
+      "note": "Sánchez has supplied one of Mexico's tournament goals. The pass matters because it arrives before the defender can fully turn.",
+      "noteZh": "他这届世界杯已经为Mexico创造过进球。注意他出球的时机，因为那一脚传球往往比带球更重要。",
       "sourceUrl": "https://www.transfermarkt.com/jorge-sanchez/profil/spieler/356044"
     },
     "Julian Quinones": {
       "skills": [
-        "Forward power",
-        "Runs in behind",
-        "Box finishing"
+        "Goal threat",
+        "Chance passes",
+        "Forward power"
       ],
-      "note": "Mexico's powerful forward runner, attacking channels, finishing through contact, and giving the front line vertical force.",
-      "noteZh": "胡利安·基尼奥内斯是墨西哥强力前场跑动点，能冲击通道、对抗中终结，并给锋线带来纵向力量。"
+      "note": "Quiñones has given Mexico both the finish and the pass, including goals against South Africa, Czechia, and Ecuador. That double threat is why defenders cannot settle on one answer.",
+      "noteZh": "他这届世界杯已经同时给Mexico带来终结和传球。防守者不能只防他的一种选择。"
     },
     "Luis Chavez": {
       "skills": [
@@ -232,26 +232,26 @@
         "Long-range shooting",
         "Set pieces"
       ],
-      "note": "Mexico's left-footed launcher, valuable for diagonal passing, long-range shots, and dead-ball delivery.",
-      "noteZh": "路易斯·查韦斯是墨西哥左脚发射器，斜传、远射和定位球传球都很有价值。"
+      "note": "Chávez gives Mexico midfield depth for games that get stretched. He helps turn a loose ball into a calmer next pass.",
+      "noteZh": "他适合那些空间变丑的时间段。对Mexico来说，这可能就是压力到来前的一次干净触球。"
     },
     "Luis Romo": {
       "skills": [
-        "Midfield coverage",
-        "Defensive versatility",
-        "Late runs"
+        "Goal threat",
+        "Chance passes",
+        "Midfield coverage"
       ],
-      "note": "Mexico's hybrid midfielder, able to cover defensive gaps, step into duels, and arrive late around the box.",
-      "noteZh": "路易斯·罗莫是墨西哥混合型中场，能补防空当、进入对抗，并后插上到禁区周围。"
+      "note": "Romo has already given Mexico a goal and a setup in this tournament. Defenders have to read shot and pass at the same time.",
+      "noteZh": "他给Mexico展示了进攻工作的两面。一脚拉开防守，下一脚就可能决定机会。"
     },
     "Mateo Chavez": {
       "skills": [
+        "Goal threat",
         "Left-back development",
-        "Forward support",
-        "Recovery speed"
+        "Forward support"
       ],
-      "note": "Mexico's young left-back, giving them recovery speed, forward support, and a fresher flank profile.",
-      "noteZh": "马特奥·查韦斯是墨西哥年轻左后卫，能提供回追速度、前插支援和更有活力的边路选择。"
+      "note": "Chávez is on the scoresheet for Mexico, with his goal coming against Czechia. One finish can change how opponents defend the next run.",
+      "noteZh": "他已经把一次世界杯机会变成进球。接下来要看防守者会不会开始多给他一步空间。"
     },
     "Obed Vargas": {
       "skills": [
@@ -259,8 +259,8 @@
         "Pressure escapes",
         "Two-way running"
       ],
-      "note": "Mexico's mobile young midfielder, helping them escape pressure and cover ground on both sides of the ball.",
-      "noteZh": "奥贝德·巴尔加斯是墨西哥机动型年轻中场，能帮助球队摆脱压力，并在攻守两端覆盖空间。"
+      "note": "Vargas gives Mexico midfield depth for games that get stretched. He helps turn a loose ball into a calmer next pass.",
+      "noteZh": "他适合那些空间变丑的时间段。对Mexico来说，这可能就是压力到来前的一次干净触球。"
     },
     "Orbelin Pineda": {
       "skills": [
@@ -268,19 +268,19 @@
         "Quick combinations",
         "Late box movement"
       ],
-      "note": "Mexico's creative connector, combining quickly between lines and arriving late when the box opens.",
-      "noteZh": "奥尔贝林·皮内达是墨西哥创造型连接点，能在线间快速配合，并在禁区打开时后插上。"
+      "note": "Pineda gives Mexico a way to settle the middle if the match opens up. His best work is making the next decision less hurried.",
+      "noteZh": "他是Mexico的中场保险。那些混乱阶段里，他要抢第二点、稳一下，再把球送出去。"
     },
     "Raul Jimenez": {
       "club": "Wolverhampton Wanderers",
       "league": "EFL Championship",
       "skills": [
+        "Goal threat",
         "Veteran striker craft",
-        "Hold-up play",
-        "Penalty-box finishing"
+        "Hold-up play"
       ],
-      "note": "Mexico's veteran striker reference, using hold-up craft, penalty-box timing, and experience to steady the front line.",
-      "noteZh": "劳尔·希门尼斯是墨西哥老将锋线支点，能用背身技术、禁区时机和经验稳住前场。"
+      "note": "Jiménez has been one of Mexico's real scoring stories, with goals against South Africa, Ecuador, and England. His danger is arriving before defenders have finished sorting the first problem.",
+      "noteZh": "他已经是Mexico这届世界杯的真实得分故事之一。他的危险在于防守者还没处理完第一个问题，他已经到位。"
     },
     "Raul Rangel": {
       "displayName": "Raúl Rangel",
@@ -298,18 +298,18 @@
         "Keeper distribution",
         "Goalkeeper depth"
       ],
-      "note": "Mexico's rising goalkeeper option, giving them reflex saves, cleaner distribution, and pressure on the veteran hierarchy.",
-      "noteZh": "劳尔·兰赫尔是墨西哥上升中的门将选择，能提供反应扑救、更干净的出球，并给老将层级带来竞争。",
+      "note": "Rangel has carried the keeper minutes for Mexico. The card is clean hands, clear restarts, and defenders who do not have to rush.",
+      "noteZh": "他是Mexico防守结构最后的声音。压力停在禁区时，他要让下一步动作简单下来。",
       "sourceUrl": "https://www.transfermarkt.co.uk/raul-rangel/profil/spieler/802855"
     },
     "Roberto Alvarado": {
       "skills": [
+        "Chance passes",
         "Right-wing creativity",
-        "Left-footed cut-ins",
-        "Pressing work"
+        "Left-footed cut-ins"
       ],
-      "note": "Mexico's crafty wide creator, cutting inside onto his left foot while still doing the defensive pressing work.",
-      "noteZh": "罗伯托·阿尔瓦拉多是墨西哥灵巧边路创造者，能内切到左脚处理，同时完成防守压迫工作。"
+      "note": "Alvarado has already made goals for Mexico against South Africa, Czechia, and Ecuador. Watch the pass before the chance looks obvious.",
+      "noteZh": "他已经多次帮Mexico制造进球。看的是明显机会出现前的那脚传球。"
     },
     "Santiago Gimenez": {
       "skills": [
@@ -317,8 +317,8 @@
         "Penalty-box movement",
         "First-time shots"
       ],
-      "note": "Mexico's prime-age No. 9, built for penalty-box movement, first-time finishes, and carrying the main scoring burden.",
-      "noteZh": "圣地亚哥·希门尼斯是墨西哥黄金年龄九号位，擅长禁区跑动、第一时间射门，并承担主要进球责任。"
+      "note": "Giménez is one of Mexico's named attacking routes in this tournament. His job is to make the first defender move so the finish or final pass can appear.",
+      "noteZh": "他给Mexico一种把控球变成压力的路线。他要让防守者必须做选择。"
     }
   }
 }

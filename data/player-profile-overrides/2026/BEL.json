@@ -45,138 +45,244 @@
   ],
   "profiles": {
     "Alexis Saelemaekers": {
-      "skills": ["Wide work rate", "Crossing", "Defensive tracking"],
-      "note": "Saelemaekers gives Belgium wide balance, pressing hard while still supplying useful service.",
-      "noteZh": "萨勒马科尔斯给比利时带来边路平衡，能强力压迫，也能送出有用传球。"
+      "skills": [
+        "Wide work rate",
+        "Crossing",
+        "Defensive tracking"
+      ],
+      "note": "Saelemaekers gives Belgium running balance on the outside. His late goal against New Zealand showed he can still arrive after doing the less glamorous work.",
+      "noteZh": "萨勒马克尔斯给比利时边路提供跑动平衡。他对新西兰的后段进球说明，做完不显眼的工作后，他仍能到位。"
     },
     "Amadou Onana": {
-      "skills": ["Midfield size", "Ball winning", "Aerial control"],
-      "note": "Onana gives Belgium midfield height and bite, especially when second balls start deciding territory.",
-      "noteZh": "奥纳纳给比利时中场带来高度和硬度，尤其当第二落点开始决定场面位置时。"
+      "skills": [
+        "Midfield size",
+        "Ball winning",
+        "Aerial control"
+      ],
+      "note": "Onana gives Belgium size in midfield when games become about second balls. Against Spain, his value is making the first contact hard enough for De Bruyne to play after it.",
+      "noteZh": "奥纳纳在比赛变成第二落点争夺时给比利时中场提供身材。对西班牙时，他的价值是把第一下对抗做硬，让德布劳内能在之后处理球。"
     },
     "Arthur Theate": {
-      "skills": ["Left-sided defending", "Aerial duels", "Back-three cover"],
-      "note": "Theate gives Belgium left-sided defensive strength, useful as a centre-back or wider cover.",
-      "noteZh": "蒂亚特给比利时左侧防守强度，既能踢中卫，也能提供更宽的保护。"
+      "skills": [
+        "Left-sided defending",
+        "Aerial duels",
+        "Back-three cover"
+      ],
+      "note": "Theate is left-side defensive strength for a Belgium back line that has rotated often. He helps when the match asks for contact more than clean buildup.",
+      "noteZh": "泰特是比利时轮换后防中的左侧力量点。当比赛更需要身体对抗而不是干净组织时，他能帮上忙。"
     },
     "Axel Witsel": {
-      "skills": ["Veteran control", "Defensive positioning", "Calm passing"],
-      "note": "Witsel is Belgium's veteran stabilizer, valuable when the game needs calm more than speed.",
-      "noteZh": "维特塞尔是比利时老将稳定器，当比赛更需要冷静而不是速度时很有价值。"
+      "skills": [
+        "Veteran control",
+        "Defensive positioning",
+        "Calm passing"
+      ],
+      "note": "Witsel is Belgium's emergency calm. If the match starts moving too fast, he gives them the veteran pass and position that lower the temperature.",
+      "noteZh": "维特塞尔是比利时的紧急冷静按钮。如果比赛开始过快，他用老将的传球和站位帮球队降温。"
     },
     "Brandon Mechele": {
       "league": "Belgian Pro League",
-      "skills": ["Centre-back depth", "Aerial defending", "Box clearances"],
-      "note": "Mechele gives Belgium reliable centre-back depth for aerial spells and set-piece defending.",
-      "noteZh": "梅赫勒给比利时可靠的中卫深度，适合空中球阶段和定位球防守。"
+      "skills": [
+        "Centre-back depth",
+        "Aerial defending",
+        "Box clearances"
+      ],
+      "note": "Mechele has been a regular centre-back through Belgium's run. His job is not fancy: clear the first ball, organize the box, and let the creators decide the other end.",
+      "noteZh": "梅赫勒是比利时这段征程中的常规中卫。他的任务并不花哨：处理第一点、组织禁区，再让进攻端的创造者决定比赛。"
     },
     "Charles De Ketelaere": {
-      "skills": ["Between-lines receiving", "Link play", "Tall attacking touch"],
-      "note": "De Ketelaere gives Belgium a tall connector, able to link attacks without losing penalty-area presence.",
-      "noteZh": "德凯特拉雷给比利时带来高大连接点，能串联进攻，也不丢禁区存在感。"
+      "skills": [
+        "Between-lines receiving",
+        "Link play",
+        "Tall attacking touch"
+      ],
+      "note": "De Ketelaere turned the United States match with two early goals and an assist. He gives Belgium height up front without making the attack feel stiff.",
+      "noteZh": "德凯特拉雷用两个早段进球和一次助攻改变了对美国的比赛。他给比利时锋线提供身高，却不会让进攻变得僵硬。"
     },
     "Diego Moreira": {
-      "aliases": ["Moreira Jr"],
-      "skills": ["Wing acceleration", "One-on-one dribbling", "Transition runs"],
-      "note": "Moreira adds left-side speed, useful when Belgium want to attack before the block settles.",
-      "noteZh": "莫雷拉增加左路速度，当比利时想在防线站稳前进攻时很有用。"
+      "aliases": [
+        "Moreira Jr"
+      ],
+      "skills": [
+        "Wing acceleration",
+        "One-on-one dribbling",
+        "Transition runs"
+      ],
+      "note": "Moreira is Belgium's left-side speed card from the bench. He matters if Spain pin Belgium back and the first outlet has to travel fast.",
+      "noteZh": "莫雷拉是比利时替补席上的左侧速度牌。如果西班牙把比利时压回去，而第一条出路必须很快，他就有价值。"
     },
     "Dodi Lukebakio": {
-      "skills": ["Right-wing power", "Inside shooting", "Direct carries"],
-      "note": "Lukebakio gives Belgium direct power from the right, dangerous when he cuts inside early.",
-      "noteZh": "卢克巴基奥给比利时右路带来直接力量，提前内切时很危险。"
+      "skills": [
+        "Right-wing power",
+        "Inside shooting",
+        "Direct carries"
+      ],
+      "note": "Lukebakio has become the direct wide runner in Belgium's knockout mix. Even when he misses, like the bar before the Senegal penalty, he changes the pressure.",
+      "noteZh": "卢克巴基奥已经成为比利时淘汰赛组合中的直接边路跑动点。即使没有进球，比如对塞内加尔点球前击中横梁，他也会改变压力。"
     },
     "Hans Vanaken": {
-      "skills": ["Attacking midfield timing", "Aerial arrivals", "Final pass"],
-      "note": "Vanaken gives Belgium height and timing between midfield and attack, especially around the box.",
-      "noteZh": "瓦纳肯给比利时中前场之间带来高度和时机，尤其在禁区附近。"
+      "skills": [
+        "Attacking midfield timing",
+        "Aerial arrivals",
+        "Final pass"
+      ],
+      "note": "Vanaken has given Belgium late height and timing, scoring against the United States and setting up Lukaku. He arrives when defenders are already watching the ball.",
+      "noteZh": "瓦纳肯给比利时比赛后段带来身高和时机，对美国进球并助攻卢卡库。他会在防守者已经盯球时到达。"
     },
     "Jeremy Doku": {
-      "skills": ["One-on-one dribbling", "Explosive carries", "Cutback creation"],
-      "note": "Doku is Belgium's pure isolator, turning one defender into a full defensive emergency.",
-      "noteZh": "多库是比利时纯粹的一对一爆点，能把一个防守者变成整条防线的警报。"
+      "skills": [
+        "One-on-one dribbling",
+        "Explosive carries",
+        "Pulled-back passes"
+      ],
+      "note": "Doku is Belgium's defender remover. He has switched sides in this run, but the job stays the same: isolate one player and make the whole block lean toward him.",
+      "noteZh": "多库是比利时拆掉防守者的人。这段征程中他换过边，但任务不变：一对一吸住一名防守者，让整条防线向他倾斜。"
     },
     "Joaquin Seys": {
-      "skills": ["Full-back energy", "Overlap timing", "Recovery defending"],
-      "note": "Seys adds young full-back energy, useful when Belgium need fresh legs on the outside.",
-      "noteZh": "塞斯增加年轻边后卫活力，当比利时需要外侧新鲜跑动时很有用。"
+      "skills": [
+        "Full-back energy",
+        "Overlap timing",
+        "Recovery defending"
+      ],
+      "note": "Seys is young full-back energy for Belgium. His path is late minutes, outside pressure, and keeping the flank from feeling tired.",
+      "noteZh": "塞斯是比利时年轻的边后卫活力。他的路径是后段出场、边路施压，并让这一侧不显得疲劳。"
     },
     "Kevin De Bruyne": {
       "displayName": "Kevin De Bruyne",
-      "skills": ["Final pass", "Crossing range", "Chance creation"],
-      "note": "De Bruyne remains Belgium's chance engine, able to turn one clean look into a Lukaku chance.",
-      "noteZh": "德布劳内仍是比利时机会发动机，能把一次干净观察变成卢卡库机会。"
+      "skills": [
+        "Final pass",
+        "Crossing range",
+        "Chance creation"
+      ],
+      "note": "De Bruyne is still Belgium's chance architect, even with others taking the goals. When he faces forward, Lukaku and the late runners start moving before the pass is played.",
+      "noteZh": "德布劳内依然是比利时机会的设计者，即使进球来自其他人。当他面向前场时，卢卡库和后插上球员会在传球前就开始跑动。"
     },
     "Koni De Winter": {
-      "skills": ["Centre-back mobility", "Back-line passing", "Right-side cover"],
-      "note": "De Winter gives Belgium a mobile defensive option who can pass out and cover the right channel.",
-      "noteZh": "德温特给比利时机动防守选择，能出球，也能覆盖右侧通道。"
+      "skills": [
+        "Centre-back mobility",
+        "Back-line passing",
+        "Right-side cover"
+      ],
+      "note": "De Winter is mobile defensive cover if Belgium need another passer at the back. He gives them a cleaner exit without losing too much range.",
+      "noteZh": "德温特是比利时需要后场多一名出球者时的机动防守深度。他能提供更干净的出路，同时不损失太多覆盖范围。"
     },
     "Leandro Trossard": {
-      "skills": ["Inside movement", "Quick finishing", "Combination play"],
-      "note": "Trossard gives Belgium a clever inside forward, sharp when attacks need a short-touch finish.",
-      "noteZh": "特罗萨德给比利时聪明的内收前锋，当进攻需要短触终结时很敏锐。"
+      "skills": [
+        "Inside movement",
+        "Quick finishing",
+        "Combination play"
+      ],
+      "note": "Trossard has been Belgium's quiet connector and finisher, with goals against New Zealand and key service in the comeback over Senegal. He finds the small finish before the defense resets.",
+      "noteZh": "特罗萨德是比利时安静的连接点和终结点，对新西兰有进球，也在逆转塞内加尔时送出关键传球。他会在防线重置前找到小空间完成处理。"
     },
     "Matias Fernandez-Pardo": {
       "displayName": "Matías Fernandez-Pardo",
-      "skills": ["Wide acceleration", "Direct dribbling", "Pressing effort"],
-      "note": "Fernandez-Pardo is a fresh wide runner, useful for late speed and pressure from the bench.",
-      "noteZh": "费尔南德斯-帕尔多是新鲜边路跑动点，适合替补席上的末段速度和压迫。"
+      "skills": [
+        "Wide acceleration",
+        "Direct dribbling",
+        "Pressing effort"
+      ],
+      "note": "Fernandez-Pardo is a late wide-speed option. Belgium would use him when the match has opened and tired full-backs can be made to turn again.",
+      "noteZh": "费尔南德斯-帕尔多是比赛后段的边路速度选择。当比赛已经打开、疲劳边后卫还要再次转身时，比利时会用到他。"
     },
     "Maxim De Cuyper": {
-      "skills": ["Left-back delivery", "Set-piece service", "Wide recovery"],
-      "note": "De Cuyper gives Belgium left-footed delivery and a cleaner route into the box from deep.",
-      "noteZh": "德凯珀给比利时左脚传递，也提供从后场进入禁区的更干净路线。"
+      "skills": [
+        "Left-back delivery",
+        "Set-piece service",
+        "Wide recovery"
+      ],
+      "note": "De Cuyper has settled into Belgium's left-back role in the knockouts. He gives them service from deep and enough recovery work to survive counters.",
+      "noteZh": "德库伊佩尔已经在淘汰赛中稳住比利时左后卫位置。他提供深处传球，也有足够回追来应对反击。"
     },
     "Mike Penders": {
-      "skills": ["Goalkeeper potential", "Reaction saves", "Penalty-area reach"],
-      "note": "Penders is Belgium's young goalkeeper option, useful depth behind the established names.",
-      "noteZh": "彭德斯是比利时年轻门将选择，是成名门将身后的有用深度。"
+      "skills": [
+        "Goalkeeper potential",
+        "Reaction saves",
+        "Penalty-area reach"
+      ],
+      "note": "Penders is young goalkeeper depth behind Courtois and Lammens. For this tournament, his role is insurance rather than a likely match story.",
+      "noteZh": "彭德斯是库尔图瓦和拉门斯身后的年轻门将深度。在这届世界杯中，他更像保险，而不是马上会成为比赛主线的人。"
     },
     "Nathan Ngoy": {
-      "skills": ["Centre-back athleticism", "Aerial defending", "Recovery runs"],
-      "note": "Ngoy gives Belgium an athletic centre-back profile for defending space and repeated crosses.",
-      "noteZh": "恩戈伊给比利时带来运动能力强的中卫类型，适合防守空间和反复传中。"
+      "skills": [
+        "Centre-back athleticism",
+        "Aerial defending",
+        "Recovery runs"
+      ],
+      "note": "Ngoy has started several matches as Belgium's athletic centre-back. He gives them recovery runs when the game gets stretched around De Bruyne's riskier passes.",
+      "noteZh": "恩戈伊已经多次作为比利时运动型中卫首发。当德布劳内更冒险的传球让比赛被拉开时，他提供回追能力。"
     },
     "Nicolas Raskin": {
-      "skills": ["Midfield bite", "Press resistance", "Short progression"],
-      "note": "Raskin gives Belgium midfield bite, useful when pressure has to become a forward pass.",
-      "noteZh": "拉斯金给比利时中场带来硬度，当压力需要转成向前传球时很有用。"
+      "skills": [
+        "Midfield bite",
+        "Press resistance",
+        "Short progression"
+      ],
+      "note": "Raskin gave Belgium a key assist for Lukaku against New Zealand. He is the midfield bite who tries to turn a loose touch into a forward pass.",
+      "noteZh": "拉斯金对新西兰为卢卡库送出关键助攻。他是有咬劲的中场，试图把一次松散触球变成向前传球。"
     },
     "Romelu Lukaku": {
-      "skills": ["Target play", "Box finishing", "Aerial power"],
-      "note": "Lukaku is Belgium's penalty-box reference, still built to turn service into high-value shots.",
-      "noteZh": "卢卡库是比利时禁区支点，依然适合把传球转成高价值射门。"
+      "skills": [
+        "Target play",
+        "Box finishing",
+        "Aerial power"
+      ],
+      "note": "Lukaku has kept Belgium alive late, scoring against New Zealand, Senegal, and the United States. His card is simple: service into the box still changes the match.",
+      "noteZh": "卢卡库在比赛后段不断让比利时活下来，对新西兰、塞内加尔和美国都有进球。他的卡片很简单：传进禁区的球依然会改变比赛。"
     },
     "Senne Lammens": {
-      "skills": ["Goalkeeper size", "Shot stopping", "Cross command"],
-      "note": "Lammens gives Belgium a big goalkeeper profile, useful for crosses and close-range saves.",
-      "noteZh": "拉门斯给比利时带来高大门将类型，适合处理传中和近距离扑救。"
+      "skills": [
+        "Goalkeeper size",
+        "Shot stopping",
+        "Cross command"
+      ],
+      "note": "Lammens is Belgium's big goalkeeper cover. He is there if the match asks for reach, crosses, and a calmer penalty-area presence behind Courtois.",
+      "noteZh": "拉门斯是比利时高大型门将保障。如果比赛需要覆盖范围、处理传中，以及库尔图瓦身后的冷静禁区存在感，他就有价值。"
     },
     "Thibaut Courtois": {
-      "skills": ["Elite shot stopping", "Penalty-area command", "Big-game calm"],
-      "note": "Courtois gives Belgium elite goalkeeping security, especially when chances arrive suddenly.",
-      "noteZh": "库尔图瓦给比利时顶级门将安全感，尤其当机会突然出现时。"
+      "skills": [
+        "Elite shot stopping",
+        "Penalty-area command",
+        "Big-game calm"
+      ],
+      "note": "Courtois gives Belgium the freedom to survive messy stretches. Against Spain, one reaction save can matter as much as anything De Bruyne creates.",
+      "noteZh": "库尔图瓦让比利时有能力熬过混乱阶段。对西班牙时，一次反应扑救可能和德布劳内创造的机会一样重要。"
     },
     "Thomas Meunier": {
-      "skills": ["Right-back experience", "Back-post runs", "Aerial support"],
-      "note": "Meunier gives Belgium veteran right-side experience and a back-post threat from deep.",
-      "noteZh": "默尼耶给比利时右侧带来老将经验，也能从后场形成后点威胁。"
+      "skills": [
+        "Right-back experience",
+        "Back-post runs",
+        "Aerial support"
+      ],
+      "note": "Meunier's cross reopened the Senegal comeback for Lukaku. He is the veteran wide player Belgium trust when the box needs one more high ball.",
+      "noteZh": "默尼耶的传中为卢卡库打开了逆转塞内加尔的门。他是比利时在禁区还需要一次高球时信任的老将边路。"
     },
     "Timothy Castagne": {
-      "skills": ["Full-back versatility", "Wide defending", "Overlap support"],
-      "note": "Castagne gives Belgium reliable full-back versatility, switching sides without changing the plan.",
-      "noteZh": "卡斯塔涅给比利时可靠的边后卫多面性，换边也不改变战术计划。"
+      "skills": [
+        "Full-back versatility",
+        "Wide defending",
+        "Overlap support"
+      ],
+      "note": "Castagne has switched defensive jobs without changing Belgium's plan. He gives them a full-back who can survive either flank while the attack rotates ahead.",
+      "noteZh": "卡斯塔涅在比利时防线中换过职责，却不改变球队计划。他让球队拥有能应付两侧的边后卫，身前进攻也能轮换。"
     },
     "Youri Tielemans": {
-      "skills": ["Midfield passing", "Long-range shooting", "Tempo control"],
-      "note": "Tielemans gives Belgium midfield rhythm and the long shot that punishes passive defending.",
-      "noteZh": "蒂勒曼斯给比利时中场节奏，也有能惩罚被动防守的远射。"
+      "skills": [
+        "Midfield passing",
+        "Long-range shooting",
+        "Tempo control"
+      ],
+      "note": "Tielemans owns Belgium's wildest moment so far, the equalizer and 120+5 penalty against Senegal. His value is the calm shot when the match is anything but calm.",
+      "noteZh": "蒂勒曼斯拥有比利时目前最疯狂的时刻，对塞内加尔扳平并在120+5分钟罚进点球。他的价值是在比赛完全不冷静时，仍能冷静射门。"
     },
     "Zeno Debast": {
-      "skills": ["Centre-back passing", "Line breaking", "Defensive timing"],
-      "note": "Debast gives Belgium a passing centre-back, important when build-up needs a cleaner first break.",
-      "noteZh": "德巴斯特给比利时传球型中卫，当后场组织需要更干净的第一下突破时很重要。"
+      "skills": [
+        "Centre-back passing",
+        "Line breaking",
+        "Defensive timing"
+      ],
+      "note": "Debast is Belgium's passing centre-back option. If Spain force long defensive spells, he can help the first pass come out cleaner.",
+      "noteZh": "德巴斯特是比利时的传球型中卫选择。如果西班牙迫使比利时长时间防守，他能让第一脚出球更干净。"
     }
   }
 }

@@ -55,33 +55,283 @@
     "BELAID Zineddine": "Zineddine Belaid",
     "Zineddine BELAÏD": "Zineddine Belaid"
   },
-  "removeProfiles": ["Ait Nouri", "Amine Ferid Ghouiri", "Amir Selmane Rami Bensebaini", "Hadj Moussa"],
+  "removeProfiles": [
+    "Ait Nouri",
+    "Amine Ferid Ghouiri",
+    "Amir Selmane Rami Bensebaini",
+    "Hadj Moussa"
+  ],
   "profiles": {
-    "Achref Abada": {"league": "Algerian Ligue Professionnelle 1", "skills": ["Goalkeeper depth", "Reaction saves", "Box command"], "note": "Abada gives Algeria another goalkeeper option, useful depth for shot-stopping and managing crowded boxes.", "noteZh": "阿巴达给阿尔及利亚另一个门将选择，是扑救和处理拥挤禁区的有用深度。"},
-    "Adil Boulbina": {"league": "Qatar Stars League", "skills": ["Wide dribbling", "Inside shooting", "Pressing energy"], "note": "Boulbina adds a young wide threat, useful when Algeria need direct carries and quick shots.", "noteZh": "布尔比纳增加年轻边路威胁，当阿尔及利亚需要直接带球和快速射门时很有用。"},
-    "Aissa Mandi": {"displayName": "Aïssa Mandi", "skills": ["Defensive experience", "Aerial duels", "Back-line passing"], "note": "Mandi gives Algeria veteran defensive balance, steady in aerial duels and first passes from the back.", "noteZh": "曼迪给阿尔及利亚老练防守平衡，空中对抗和后场第一脚传球都很稳定。"},
-    "Amine Gouiri": {"skills": ["Forward linking", "Inside finishing", "Combination play"], "note": "Gouiri gives Algeria a forward who can connect attacks, drift inside, and still finish around the box.", "noteZh": "古伊里给阿尔及利亚能串联进攻的前锋，可内收活动，也能在禁区附近终结。"},
-    "Anis Hadj Moussa": {"skills": ["One-on-one dribbling", "Right-wing burst", "Cutbacks"], "note": "Hadj Moussa gives Algeria a sharp isolation winger, dangerous when he can attack a full-back alone.", "noteZh": "哈吉·穆萨给阿尔及利亚犀利的一对一边锋，当他能单挑边后卫时很危险。"},
-    "Fares Chaibi": {"displayName": "Farès Chaïbi", "skills": ["Set-piece delivery", "Final pass", "Wide-midfield craft"], "note": "Chaïbi gives Algeria delivery and invention, especially from set pieces and half-space crosses.", "noteZh": "沙伊比给阿尔及利亚传球和创造力，尤其体现在定位球和肋部传中。"},
-    "Fares Ghedjemis": {"displayName": "Farès Ghedjemis", "skills": ["Wide pace", "Transition runs", "Pressing work"], "note": "Ghedjemis adds wide speed, useful when Algeria want to attack before the defense settles.", "noteZh": "格杰米斯增加边路速度，当阿尔及利亚想在防线站稳前进攻时很有用。"},
-    "Hicham Boudaoui": {"skills": ["Midfield coverage", "Ball carrying", "Press resistance"], "note": "Boudaoui gives Algeria midfield mobility, carrying through pressure and covering loose second balls.", "noteZh": "布道维给阿尔及利亚中场机动性，能带球穿过压力并覆盖松散第二落点。"},
-    "Houssem Aouar": {"skills": ["Between-lines receiving", "Final pass", "Late box runs"], "note": "Aouar gives Algeria between-lines craft, turning controlled possession into late runs and final passes.", "noteZh": "奥亚尔给阿尔及利亚两线之间的技术，能把控球转成后插上和最后一传。"},
-    "Ibrahim Maza": {"skills": ["Creative dribbling", "Central receiving", "Quick combinations"], "note": "Maza adds young central creativity, useful against compact blocks that require quick touches.", "noteZh": "马扎增加年轻中路创造力，适合面对需要快速触球破解的密集防守。"},
-    "Jaouen Hadjam": {"skills": ["Left-back energy", "Overlap timing", "Recovery defending"], "note": "Hadjam gives Algeria left-side energy, overlapping aggressively while still recovering into shape.", "noteZh": "哈贾姆给阿尔及利亚左侧活力，能积极套上，同时回到阵型。"},
-    "Luca Zidane": {"skills": ["Goalkeeper reactions", "Distribution", "Penalty-area command"], "note": "Zidane gives Algeria a composed goalkeeper option, comfortable restarting attacks after saves.", "noteZh": "齐达内给阿尔及利亚冷静的门将选择，能在扑救后舒服地重新发起进攻。"},
-    "Melvin Mastil": {"league": "Swiss Challenge League", "transfermarktPlayerCode": "melvin-mastil", "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/534398-1692797432.jpg?lm=1", "marketValueEurMillions": 0.25, "skills": ["Goalkeeper depth", "Shot stopping", "Cross handling"], "note": "Mastil adds goalkeeper depth, useful for training competition and cover across the tournament.", "noteZh": "马斯蒂尔增加门将深度，适合队内竞争和整届赛事的保障。"},
-    "Mohamed Amine Tougai": {"league": "Tunisian Ligue Professionnelle 1", "skills": ["Centre-back defending", "Aerial duels", "Box protection"], "note": "Tougai gives Algeria penalty-area protection, important when games turn into crosses and clearances.", "noteZh": "图盖给阿尔及利亚禁区保护，当比赛变成传中和解围时很重要。"},
-    "Mohamed Amoura": {"skills": ["Explosive runs", "Counter threat", "Box finishing"], "note": "Amoura gives Algeria explosive depth, stretching the line and turning counters into shots quickly.", "noteZh": "阿穆拉给阿尔及利亚爆发纵深，能拉伸防线并快速把反击转成射门。"},
-    "Nabil Bentaleb": {"skills": ["Deep passing", "Midfield screening", "Tempo control"], "note": "Bentaleb gives Algeria a deeper passing base, useful for controlling rhythm and protecting the center.", "noteZh": "本塔莱布给阿尔及利亚更靠后的传球基础，适合控制节奏并保护中路。"},
-    "Nadhir Benbouali": {"league": "Nemzeti Bajnokság I", "skills": ["Forward pressing", "Channel runs", "Box movement"], "note": "Benbouali gives Algeria forward depth, pressing defenders and attacking loose balls around the box.", "noteZh": "本布阿利给阿尔及利亚锋线深度，能压迫后卫并攻击禁区附近松散球。"},
-    "Oussama Benbot": {"sourceTitle": "Oussama Benbot", "displayName": "Oussama Benbot", "aliases": ["Oussama Benbout"], "league": "Algerian Ligue Professionnelle 1", "transfermarktPlayerCode": "oussama-benbout", "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/437982-1685952979.jpg?lm=1", "marketValueEurMillions": 0.85, "skills": ["Goalkeeper command", "Shot stopping", "Set-piece control"], "note": "Benbot gives Algeria domestic goalkeeper experience, useful when set pieces create pressure.", "noteZh": "本博特给阿尔及利亚本土门将经验，当定位球制造压力时很有用。"},
-    "Rak Belghali": {"sourceTitle": "Rafik Belghali", "displayName": "Rafik Belghali", "aliases": ["Rak Belghali"], "position": "Right-back", "club": "Hellas Verona", "league": "Serie A", "transfermarktPlayerCode": "rafik-belghali", "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/864306-1706263707.jpg?lm=1", "marketValueEurMillions": 7, "sourceUrl": "https://www.transfermarkt.com/rafik-belghali/profil/spieler/864306", "skills": ["Right-back energy", "Overlap support", "Wide recovery"], "note": "Belghali gives Algeria right-side running, helping stretch attacks while recovering into the back line.", "noteZh": "贝尔加利给阿尔及利亚右侧跑动，能拉开进攻并回收到防线。"},
-    "Ramy Bensebaini": {"skills": ["Left-sided defending", "Aerial power", "Set-piece threat"], "note": "Bensebaini gives Algeria left-side authority, defending the box and adding set-piece danger.", "noteZh": "本塞拜尼给阿尔及利亚左侧权威，能防守禁区并增加定位球威胁。"},
-    "Ramiz Zerrouki": {"skills": ["Midfield passing", "Ball winning", "Tempo setting"], "note": "Zerrouki gives Algeria a midfield metronome, keeping the ball moving and contesting second balls.", "noteZh": "泽鲁基给阿尔及利亚中场节拍器，能让球运转并争抢第二落点。"},
-    "Rayan Ait-Nouri": {"displayName": "Rayan Aït-Nouri", "skills": ["Left-back dribbling", "Progressive carries", "Final-third support"], "note": "Aït-Nouri gives Algeria a high-upside left flank, carrying past pressure and creating from deep.", "noteZh": "艾特-努里给阿尔及利亚高上限左路，能带球摆脱压力并从后场创造。"},
-    "Riyad Mahrez": {"skills": ["Right-wing craft", "Left-footed delivery", "Set pieces"], "note": "Mahrez remains Algeria's creative reference, shaping attacks with his left foot and calm final ball.", "noteZh": "马赫雷斯仍是阿尔及利亚创造核心，用左脚和冷静最后一传塑造进攻。"},
-    "Samir Chergui": {"skills": ["Centre-back depth", "Aerial defending", "Simple buildup"], "note": "Chergui gives Algeria defensive depth, useful for aerial spells and simple buildup under pressure.", "noteZh": "谢尔吉给阿尔及利亚防守深度，适合空中球阶段和压力下简单组织。"},
-    "Yassine Titraoui": {"displayName": "Yacine Titraoui", "league": "Belgian Pro League", "skills": ["Central dribbling", "Short passing", "Press resistance"], "note": "Titraoui adds midfield craft, helping Algeria keep the ball when pressure closes around him.", "noteZh": "蒂特拉维增加中场技术，帮助阿尔及利亚在压力逼近时保住球权。"},
-    "Zineddine Belaid": {"displayName": "Zineddine Belaïd", "league": "Algerian Ligue Professionnelle 1", "skills": ["Centre-back defending", "Aerial duels", "Line control"], "note": "Belaïd gives Algeria another centre-back organiser, strong when the line must manage crosses.", "noteZh": "贝莱德给阿尔及利亚另一名中卫组织者，当防线需要处理传中时很可靠。"}
+    "Achref Abada": {
+      "league": "Algerian Ligue Professionnelle 1",
+      "skills": [
+        "Goalkeeper depth",
+        "Reaction saves",
+        "Box command"
+      ],
+      "note": "Abada is back-line insurance for Algeria. The card is not glamorous: win the ball, keep the pass safe, reset the shape.",
+      "noteZh": "他给Algeria那些靠胆量守住的分钟提供保障。一次扎实对抗就能让整条线冷静下来。"
+    },
+    "Adil Boulbina": {
+      "league": "Qatar Stars League",
+      "skills": [
+        "Wide dribbling",
+        "Inside shooting",
+        "Pressing energy"
+      ],
+      "note": "Boulbina is attacking depth for Algeria. If the game slows down, he is there to make the back line move again.",
+      "noteZh": "他是Algeria前场计划的一部分。他先拉扯防守者，再寻找把压力变成机会的触球。"
+    },
+    "Aissa Mandi": {
+      "displayName": "Aïssa Mandi",
+      "skills": [
+        "Defensive experience",
+        "Aerial duels",
+        "Back-line passing"
+      ],
+      "note": "Mandi gives Algeria one of the steady pieces in the back line. Watch the small choices: step, hold, or clear the lane.",
+      "noteZh": "他是Algeria无球答案的一部分。第一个跑动被拖慢，整体阵型才不容易散。"
+    },
+    "Amine Gouiri": {
+      "skills": [
+        "Goal threat",
+        "Forward linking",
+        "Inside finishing"
+      ],
+      "note": "Gouiri's World Cup has already included a goal against Jordan. The next one may come from the same small window before the shape resets.",
+      "noteZh": "他这届世界杯已经有进球。他的看点是在比赛重新稳定前，先找到属于自己的那个瞬间。"
+    },
+    "Anis Hadj Moussa": {
+      "skills": [
+        "One-on-one dribbling",
+        "Right-wing burst",
+        "Pulled-back passes"
+      ],
+      "note": "Moussa is the forward Algeria can use when the match needs new legs. His first job is to make tired defenders turn.",
+      "noteZh": "他给Algeria替补席上的另一种进攻速度。有时关键触球，是那次帮队友拉开空间的跑动。"
+    },
+    "Fares Chaibi": {
+      "displayName": "Farès Chaïbi",
+      "skills": [
+        "Set-piece delivery",
+        "Final pass",
+        "Wide-midfield craft"
+      ],
+      "note": "Chaïbi is a tempo player for Algeria. He turns crowded touches into cleaner angles for the next runner.",
+      "noteZh": "他让Algeria在球权转换时更有结构。最有价值的往往是松散触球之后那一秒。"
+    },
+    "Fares Ghedjemis": {
+      "displayName": "Farès Ghedjemis",
+      "skills": [
+        "Wide pace",
+        "Transition runs",
+        "Pressing work"
+      ],
+      "note": "Ghedjemis is an attacking change-up for Algeria. He gives the front line fresh running when the first plan starts to look predictable.",
+      "noteZh": "他是Algeria的进攻深度。如果比赛慢下来，他要让后防线重新移动。"
+    },
+    "Hicham Boudaoui": {
+      "skills": [
+        "Midfield coverage",
+        "Ball carrying",
+        "Press resistance"
+      ],
+      "note": "Boudaoui gives Algeria midfield depth for games that get stretched. He helps turn a loose ball into a calmer next pass.",
+      "noteZh": "他适合那些空间变丑的时间段。对Algeria来说，这可能就是压力到来前的一次干净触球。"
+    },
+    "Houssem Aouar": {
+      "skills": [
+        "Chance passes",
+        "Between-lines receiving",
+        "Final pass"
+      ],
+      "note": "Aouar's tournament has been about supply for Algeria, especially against Austria. He sees the runner before the block finishes shifting.",
+      "noteZh": "他已经多次为Algeria送出进球前的传球。他最好的时刻，常常来自防线还没准备好时的那一脚。"
+    },
+    "Ibrahim Maza": {
+      "skills": [
+        "Creative dribbling",
+        "Central receiving",
+        "Quick combinations"
+      ],
+      "note": "Maza is a tempo player for Algeria. He turns crowded touches into cleaner angles for the next runner.",
+      "noteZh": "他让Algeria在球权转换时更有结构。最有价值的往往是松散触球之后那一秒。"
+    },
+    "Jaouen Hadjam": {
+      "skills": [
+        "Left-back energy",
+        "Overlap timing",
+        "Recovery defending"
+      ],
+      "note": "Hadjam is defensive cover for Algeria's harder minutes. He is there to win the first contact and make the next pass simple.",
+      "noteZh": "他是Algeria在比赛变窄时可以使用的后卫。任务是第一下接触、清楚解围、简单出球。"
+    },
+    "Luca Zidane": {
+      "skills": [
+        "Goalkeeper reactions",
+        "Distribution",
+        "Penalty-area command"
+      ],
+      "note": "Zidane is the last voice in Algeria's defensive shape. When pressure sticks, his job is to make the next action feel simple.",
+      "noteZh": "他承担了Algeria的门将时间。重点是稳手、清楚开球，以及让身前后卫不用慌。"
+    },
+    "Melvin Mastil": {
+      "league": "Swiss Challenge League",
+      "transfermarktPlayerCode": "melvin-mastil",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/534398-1692797432.jpg?lm=1",
+      "marketValueEurMillions": 0.25,
+      "skills": [
+        "Goalkeeper depth",
+        "Shot stopping",
+        "Cross handling"
+      ],
+      "note": "Mastil gives Algeria a keeper option if the night turns sideways. His card is about being warm enough for one big save.",
+      "noteZh": "他在Algeria首发门将身后等待，但这个角色不是装饰。他要随时处理传中、开球和冷启动。"
+    },
+    "Mohamed Amine Tougai": {
+      "league": "Tunisian Ligue Professionnelle 1",
+      "skills": [
+        "Centre-back defending",
+        "Aerial duels",
+        "Box protection"
+      ],
+      "note": "Tougai is the kind of defender Algeria can turn to when the match gets narrow. His job is first contact, clean clearance, simple pass.",
+      "noteZh": "他是Algeria艰难时间段的防守深度。他要赢下第一下接触，并让下一脚传球简单起来。"
+    },
+    "Mohamed Amoura": {
+      "skills": [
+        "Explosive runs",
+        "Counter threat",
+        "Box finishing"
+      ],
+      "note": "Amoura is attacking depth for Algeria. If the game slows down, he is there to make the back line move again.",
+      "noteZh": "他是Algeria前场计划的一部分。他先拉扯防守者，再寻找把压力变成机会的触球。"
+    },
+    "Nabil Bentaleb": {
+      "skills": [
+        "Deep passing",
+        "Midfield screening",
+        "Tempo control"
+      ],
+      "note": "Bentaleb is a tempo player for Algeria. He turns crowded touches into cleaner angles for the next runner.",
+      "noteZh": "他让Algeria在球权转换时更有结构。最有价值的往往是松散触球之后那一秒。"
+    },
+    "Nadhir Benbouali": {
+      "league": "Nemzeti Bajnokság I",
+      "skills": [
+        "Goal threat",
+        "Forward pressing",
+        "Channel runs"
+      ],
+      "note": "Benbouali is on the scoresheet for Algeria, with his goal coming against Jordan. One finish can change how opponents defend the next run.",
+      "noteZh": "他已经把一次世界杯机会变成进球。接下来要看防守者会不会开始多给他一步空间。"
+    },
+    "Oussama Benbot": {
+      "sourceTitle": "Oussama Benbot",
+      "displayName": "Oussama Benbot",
+      "aliases": [
+        "Oussama Benbout"
+      ],
+      "league": "Algerian Ligue Professionnelle 1",
+      "transfermarktPlayerCode": "oussama-benbout",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/437982-1685952979.jpg?lm=1",
+      "marketValueEurMillions": 0.85,
+      "skills": [
+        "Goalkeeper command",
+        "Shot stopping",
+        "Set-piece control"
+      ],
+      "note": "Benbot gives Algeria a keeper option if the night turns sideways. His card is about being warm enough for one big save.",
+      "noteZh": "他在Algeria首发门将身后等待，但这个角色不是装饰。他要随时处理传中、开球和冷启动。"
+    },
+    "Rak Belghali": {
+      "sourceTitle": "Rafik Belghali",
+      "displayName": "Rafik Belghali",
+      "aliases": [
+        "Rak Belghali"
+      ],
+      "position": "Right-back",
+      "club": "Hellas Verona",
+      "league": "Serie A",
+      "transfermarktPlayerCode": "rafik-belghali",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/864306-1706263707.jpg?lm=1",
+      "marketValueEurMillions": 7,
+      "sourceUrl": "https://www.transfermarkt.com/rafik-belghali/profil/spieler/864306",
+      "skills": [
+        "Goal threat",
+        "Right-back energy",
+        "Overlap support"
+      ],
+      "note": "Belghali has already turned one tournament chance into a goal against Austria. Watch whether defenders start giving him the extra step.",
+      "noteZh": "他已经为Algeria进入这届世界杯的进球名单。一个终结会改变对手下一次防他的方式。"
+    },
+    "Ramy Bensebaini": {
+      "skills": [
+        "Left-sided defending",
+        "Aerial power",
+        "Set-piece threat"
+      ],
+      "note": "Bensebaini has been part of Algeria's answer without the ball. He matters when the first runner has to be slowed before the whole shape breaks.",
+      "noteZh": "他给Algeria后防线一个稳定零件。看的是那些小选择：上抢、站住，还是先封线路。"
+    },
+    "Ramiz Zerrouki": {
+      "skills": [
+        "Midfield passing",
+        "Ball winning",
+        "Tempo setting"
+      ],
+      "note": "Zerrouki gives Algeria midfield depth for games that get stretched. He helps turn a loose ball into a calmer next pass.",
+      "noteZh": "他适合那些空间变丑的时间段。对Algeria来说，这可能就是压力到来前的一次干净触球。"
+    },
+    "Rayan Ait-Nouri": {
+      "displayName": "Rayan Aït-Nouri",
+      "skills": [
+        "Left-back dribbling",
+        "Progressive carries",
+        "Box-area support"
+      ],
+      "note": "Aït-Nouri has been part of Algeria's answer without the ball. He matters when the first runner has to be slowed before the whole shape breaks.",
+      "noteZh": "他给Algeria后防线一个稳定零件。看的是那些小选择：上抢、站住，还是先封线路。"
+    },
+    "Riyad Mahrez": {
+      "skills": [
+        "Goal threat",
+        "Chance passes",
+        "Right-wing craft"
+      ],
+      "note": "Mahrez has given Algeria both the finish and the pass, including goals against Austria. That double threat is why defenders cannot settle on one answer.",
+      "noteZh": "他已经把进球和助攻都放进了Algeria的赛事故事里。看点是第一脚之后，第二个动作有多快。"
+    },
+    "Samir Chergui": {
+      "skills": [
+        "Centre-back depth",
+        "Aerial defending",
+        "Simple buildup"
+      ],
+      "note": "Chergui is defensive cover for Algeria's harder minutes. He is there to win the first contact and make the next pass simple.",
+      "noteZh": "他是Algeria在比赛变窄时可以使用的后卫。任务是第一下接触、清楚解围、简单出球。"
+    },
+    "Yassine Titraoui": {
+      "displayName": "Yacine Titraoui",
+      "league": "Belgian Pro League",
+      "skills": [
+        "Central dribbling",
+        "Short passing",
+        "Press resistance"
+      ],
+      "note": "Titraoui is there for the part of the game where spacing gets ugly. For Algeria, that can mean one clean touch before pressure arrives.",
+      "noteZh": "他给Algeria提供中场深度，适合比赛被拉开的时候。他把松散球变成更冷静的下一脚。"
+    },
+    "Zineddine Belaid": {
+      "displayName": "Zineddine Belaïd",
+      "league": "Algerian Ligue Professionnelle 1",
+      "skills": [
+        "Centre-back defending",
+        "Aerial duels",
+        "Line control"
+      ],
+      "note": "Belaïd is defensive cover for Algeria's harder minutes. He is there to win the first contact and make the next pass simple.",
+      "noteZh": "他是Algeria在比赛变窄时可以使用的后卫。任务是第一下接触、清楚解围、简单出球。"
+    }
   }
 }

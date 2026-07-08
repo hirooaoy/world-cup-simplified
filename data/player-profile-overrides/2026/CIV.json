@@ -4,14 +4,22 @@
   "teamName": "Côte d'Ivoire",
   "profiles": {
     "Alban Lafont": {
-      "skills": ["Penalty-area command", "Reaction saves", "Distribution under pressure"],
-      "note": "Côte d'Ivoire's back-line organizer, valuable for calm restarts and saves through crowded penalty areas.",
-      "noteZh": "阿尔班·拉丰是科特迪瓦防线后的组织者，能带来冷静的重新发起进攻和禁区人群中的扑救。"
+      "skills": [
+        "Penalty-area command",
+        "Reaction saves",
+        "Distribution under pressure"
+      ],
+      "note": "Lafont sits behind the starter for Côte d'Ivoire, but the role is not decorative. He has to be ready for crosses, restarts, and a cold first touch.",
+      "noteZh": "他给Côte d'Ivoire保留另一个门将选择。真正需要他时，重点可能就是一次大扑救。"
     },
     "Amad Diallo": {
-      "skills": ["Right-wing creation", "Inside cuts", "Quick combinations"],
-      "note": "Côte d'Ivoire's sharp right-side creator, dangerous when he cuts inside and links fast around the box.",
-      "noteZh": "阿马德·迪亚洛是科特迪瓦锐利的右路创造者，内切后在禁区周围快速配合时最有威胁。"
+      "skills": [
+        "Goal threat",
+        "Right-wing creation",
+        "Inside cuts"
+      ],
+      "note": "Diallo has been one of Côte d'Ivoire's real scoring stories, with goals against Ecuador and Norway. His danger is arriving before defenders have finished sorting the first problem.",
+      "noteZh": "他让Côte d'Ivoire拥有一个必须被惦记的得分点。每个松散球都可能突然变重。"
     },
     "Ange-Yoan Bonny": {
       "displayName": "Ange-Yoan Bonny",
@@ -23,107 +31,179 @@
       "league": "Serie A",
       "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/827734-1751380953.jpg?lm=1",
       "marketValueEurMillions": 35,
-      "skills": ["Centre-forward hold-up", "Box movement", "Power running"],
-      "note": "Côte d'Ivoire's powerful centre-forward option, built for pinning centre-backs and attacking first-time chances.",
-      "noteZh": "安热-约安·博尼是科特迪瓦力量型中锋选择，适合压住中卫并冲击第一时间机会。",
+      "skills": [
+        "Centre-forward hold-up",
+        "Box movement",
+        "Power running"
+      ],
+      "note": "Bonny has been part of how Côte d'Ivoire turns territory into chances. Watch the run before the pass, not only the shot after it.",
+      "noteZh": "他是Côte d'Ivoire的进攻深度。如果比赛慢下来，他要让后防线重新移动。",
       "sourceUrl": "https://www.transfermarkt.co.uk/ange-yoan-bonny/profil/spieler/827734"
     },
     "Bazoumana Toure": {
       "displayName": "Bazoumana Touré",
-      "skills": ["Left-side acceleration", "One-on-one dribbling", "Counter threat"],
-      "note": "Côte d'Ivoire's young left-side accelerator, able to turn open grass into direct pressure on retreating defenders.",
-      "noteZh": "巴祖马纳·图雷是科特迪瓦年轻的左路加速点，能把开阔空间变成对回追后卫的直接压力。"
+      "skills": [
+        "Left-side acceleration",
+        "One-on-one dribbling",
+        "Counter threat"
+      ],
+      "note": "Touré is there for the part of the game where spacing gets ugly. For Côte d'Ivoire, that can mean one clean touch before pressure arrives.",
+      "noteZh": "他给Côte d'Ivoire提供中场深度，适合比赛被拉开的时候。他把松散球变成更冷静的下一脚。"
     },
     "Christ Inao Oulai": {
       "displayName": "Christ Inao Oulaï",
       "league": "Süper Lig",
-      "skills": ["Central progression", "Press resistance", "Ball-winning energy"],
-      "note": "Côte d'Ivoire's high-energy central midfielder, useful for carrying through pressure and snapping into second balls.",
-      "noteZh": "克里斯特·伊瑙·乌莱是科特迪瓦高能中场，适合在压力下推进并快速争抢第二落点。"
+      "skills": [
+        "Central progression",
+        "Press resistance",
+        "Ball-winning energy"
+      ],
+      "note": "Oulaï gives Côte d'Ivoire midfield depth for games that get stretched. He helps turn a loose ball into a calmer next pass.",
+      "noteZh": "他适合那些空间变丑的时间段。对Côte d'Ivoire来说，这可能就是压力到来前的一次干净触球。"
     },
     "Christopher Operi": {
       "displayName": "Christopher Opéri",
-      "skills": ["Left-back crossing", "Overlap timing", "Wide recovery"],
-      "note": "Côte d'Ivoire's left-back outlet, giving width with measured overlaps and early service from the flank.",
-      "noteZh": "克里斯托弗·奥佩里是科特迪瓦左后卫出口，能用有节奏的套边和早传提供边路宽度。"
+      "skills": [
+        "Left-back crossing",
+        "Overlap timing",
+        "Wide recovery"
+      ],
+      "note": "Opéri is back-line insurance for Côte d'Ivoire. The card is not glamorous: win the ball, keep the pass safe, reset the shape.",
+      "noteZh": "他给Côte d'Ivoire那些靠胆量守住的分钟提供保障。一次扎实对抗就能让整条线冷静下来。"
     },
     "Elye Wahi": {
-      "skills": ["Runs in behind", "Penalty-box finishing", "Pressing speed"],
-      "note": "Côte d'Ivoire's line-stretching forward, dangerous when he can sprint behind and finish before defenders reset.",
-      "noteZh": "埃利·瓦希是科特迪瓦拉扯防线的前锋，能冲到身后并在防守重整前完成终结。"
+      "skills": [
+        "Runs in behind",
+        "Penalty-box finishing",
+        "Pressing speed"
+      ],
+      "note": "Wahi is attacking depth for Côte d'Ivoire. If the game slows down, he is there to make the back line move again.",
+      "noteZh": "他是Côte d'Ivoire前场计划的一部分。他先拉扯防守者，再寻找把压力变成机会的触球。"
     },
     "Emmanuel Agbadou": {
-      "skills": ["Centre-back duels", "Aerial defending", "Line-breaking passes"],
-      "note": "Côte d'Ivoire's physical centre-back, important for winning contact and playing assertive passes through pressure.",
-      "noteZh": "埃马纽埃尔·阿格巴杜是科特迪瓦身体型中卫，能赢下对抗并在压力中送出积极的穿透传球。"
+      "skills": [
+        "Centre-back duels",
+        "Aerial defending",
+        "Line-breaking passes"
+      ],
+      "note": "Agbadou is in the quiet-work part of Côte d'Ivoire's setup. He keeps attacks from becoming scrambles.",
+      "noteZh": "他是Côte d'Ivoire主要防守结构的一部分。他把第一下对抗处理干净，避免球队下一阶段只能追着球跑。"
     },
     "Evan Ndicka": {
-      "skills": ["Left-footed defending", "Calm build-up", "Recovery cover"],
-      "note": "Côte d'Ivoire's composed left-sided centre-back, giving the back line balance and cleaner build-up angles.",
-      "noteZh": "埃万·恩迪卡是科特迪瓦沉稳的左脚中卫，能让防线更平衡并提供更干净的出球角度。"
+      "skills": [
+        "Left-footed defending",
+        "Calm build-up",
+        "Recovery cover"
+      ],
+      "note": "Ndicka is the kind of defender Côte d'Ivoire can turn to when the match gets narrow. His job is first contact, clean clearance, simple pass.",
+      "noteZh": "他是Côte d'Ivoire艰难时间段的防守深度。他要赢下第一下接触，并让下一脚传球简单起来。"
     },
     "Evann Guessand": {
-      "skills": ["Forward link play", "Channel running", "Front-line pressing"],
-      "note": "Côte d'Ivoire's flexible forward connector, comfortable dropping short before bursting into the channels.",
-      "noteZh": "埃万·盖桑是科特迪瓦灵活的锋线连接点，能回撤接应后再突然冲入边中通道。"
+      "skills": [
+        "Forward link play",
+        "Channel running",
+        "Front-line pressing"
+      ],
+      "note": "Guessand gives Côte d'Ivoire midfield depth for games that get stretched. He helps turn a loose ball into a calmer next pass.",
+      "noteZh": "他适合那些空间变丑的时间段。对Côte d'Ivoire来说，这可能就是压力到来前的一次干净触球。"
     },
     "Franck Kessie": {
       "displayName": "Franck Kessié",
-      "skills": ["Box-to-box control", "Penalty composure", "Late midfield runs"],
-      "note": "Côte d'Ivoire's midfield governor, blending strength, calm penalty-box timing, and leadership in tense spells.",
-      "noteZh": "弗兰克·凯西耶是科特迪瓦中场掌控者，结合力量、禁区时机和紧张阶段的领导力。"
+      "skills": [
+        "Goal threat",
+        "Box-to-box control",
+        "Penalty composure"
+      ],
+      "note": "Kessié is on the scoresheet for Côte d'Ivoire, with his goal coming against Germany. One finish can change how opponents defend the next run.",
+      "noteZh": "他已经把一次世界杯机会变成进球。接下来要看防守者会不会开始多给他一步空间。"
     },
     "Ghislain Konan": {
-      "skills": ["Left-back defending", "Cross prevention", "Steady support runs"],
-      "note": "Côte d'Ivoire's steady left-back cover, useful when the team needs secure defending more than constant risk.",
-      "noteZh": "吉斯兰·科南是科特迪瓦稳健的左后卫保障，适合球队更需要安全防守而不是持续冒险时使用。"
+      "skills": [
+        "Left-back defending",
+        "Cross prevention",
+        "Steady support runs"
+      ],
+      "note": "Konan gives Côte d'Ivoire one of the steady pieces in the back line. Watch the small choices: step, hold, or clear the lane.",
+      "noteZh": "他是Côte d'Ivoire无球答案的一部分。第一个跑动被拖慢，整体阵型才不容易散。"
     },
     "Guela Doue": {
       "displayName": "Guéla Doué",
-      "skills": ["Right-back defending", "Back-three flexibility", "Duel strength"],
-      "note": "Côte d'Ivoire's right-side defensive hybrid, able to defend wide or tuck inside when the shape changes.",
-      "noteZh": "盖拉·杜埃是科特迪瓦右路防守混合型球员，阵型变化时能守边路，也能内收到中路。"
+      "skills": [
+        "Right-back defending",
+        "Back-three flexibility",
+        "Duel strength"
+      ],
+      "note": "Doué is in the quiet-work part of Côte d'Ivoire's setup. He keeps attacks from becoming scrambles.",
+      "noteZh": "他是Côte d'Ivoire主要防守结构的一部分。他把第一下对抗处理干净，避免球队下一阶段只能追着球跑。"
     },
     "Ibrahim Sangare": {
       "displayName": "Ibrahim Sangaré",
-      "skills": ["Midfield screening", "Ball winning", "Simple progression"],
-      "note": "Côte d'Ivoire's central shield, built to break up counters and move the next pass before pressure arrives.",
-      "noteZh": "易卜拉欣·桑加雷是科特迪瓦中路屏障，负责破坏反击并在压力到来前推进下一脚传球。"
+      "skills": [
+        "Chance passes",
+        "Midfield screening",
+        "Ball winning"
+      ],
+      "note": "Sangaré has supplied one of Côte d'Ivoire's tournament goals. The pass matters because it arrives before the defender can fully turn.",
+      "noteZh": "他这届世界杯已经为Côte d'Ivoire创造过进球。注意他出球的时机，因为那一脚传球往往比带球更重要。"
     },
     "Jean Michael Seri": {
       "displayName": "Jean Michaël Seri",
-      "skills": ["Tempo setting", "Press escape", "Through-ball vision"],
-      "note": "Côte d'Ivoire's rhythm passer, useful for slowing a frantic match and finding the first forward angle.",
-      "noteZh": "让·米沙埃尔·塞里是科特迪瓦节奏传球手，能让混乱比赛降速并找到第一条向前线路。"
+      "skills": [
+        "Tempo setting",
+        "Press escape",
+        "Through-ball vision"
+      ],
+      "note": "Seri gives Côte d'Ivoire a way to settle the middle if the match opens up. His best work is making the next decision less hurried.",
+      "noteZh": "他是Côte d'Ivoire的中场保险。那些混乱阶段里，他要抢第二点、稳一下，再把球送出去。"
     },
     "Mohamed Kone": {
       "displayName": "Mohamed Koné",
       "league": "Belgian Pro League",
-      "skills": ["Goalkeeper depth", "Reaction saves", "Long distribution"],
-      "note": "Côte d'Ivoire's goalkeeper depth, offering quick reactions and direct distribution when games stretch.",
-      "noteZh": "穆罕默德·科内是科特迪瓦门将深度选择，在比赛拉开时能提供快速反应和直接长传。"
+      "skills": [
+        "Goalkeeper depth",
+        "Reaction saves",
+        "Long distribution"
+      ],
+      "note": "Koné is goalkeeper cover for Côte d'Ivoire. The role is readiness: saves, restarts, and no panic if the match suddenly needs him.",
+      "noteZh": "他是Côte d'Ivoire门线上的安全网。这个工作说起来简单，做起来很难：冷着上场，并让禁区安静。"
     },
     "Nicolas Pepe": {
       "displayName": "Nicolas Pépé",
-      "skills": ["Left-footed shooting", "Right-wing isolation", "Set-piece delivery"],
-      "note": "Côte d'Ivoire's left-footed winger, still dangerous when isolated on the right or standing over restarts.",
-      "noteZh": "尼古拉·佩佩是科特迪瓦左脚边锋，在右路一对一或主罚定位球时依然很危险。"
+      "skills": [
+        "Goal threat",
+        "Chance passes",
+        "Left-footed shooting"
+      ],
+      "note": "Pépé has given Côte d'Ivoire both the finish and the pass, including goals against Curaçao. That double threat is why defenders cannot settle on one answer.",
+      "noteZh": "他已经把进球和助攻都放进了Côte d'Ivoire的赛事故事里。看点是第一脚之后，第二个动作有多快。"
     },
     "Odilon Kossounou": {
-      "skills": ["Recovery defending", "Back-line versatility", "Duel power"],
-      "note": "Côte d'Ivoire's athletic defensive piece, strong enough for central duels and quick enough to cover space.",
-      "noteZh": "奥迪隆·科苏努是科特迪瓦运动能力出色的防守棋子，既能处理中路对抗，也能快速覆盖空间。"
+      "skills": [
+        "Recovery defending",
+        "Back-line versatility",
+        "Duel power"
+      ],
+      "note": "Kossounou has been part of Côte d'Ivoire's answer without the ball. He matters when the first runner has to be slowed before the whole shape breaks.",
+      "noteZh": "他给Côte d'Ivoire后防线一个稳定零件。看的是那些小选择：上抢、站住，还是先封线路。"
     },
     "Oumar Diakite": {
       "displayName": "Oumar Diakité",
-      "skills": ["Box movement", "Pressing from the front", "Late attacking runs"],
-      "note": "Côte d'Ivoire's restless forward option, valuable for chasing centre-backs and arriving late in the box.",
-      "noteZh": "乌马尔·迪亚基特是科特迪瓦活跃的前锋选择，适合追压中卫并后插上进入禁区。"
+      "skills": [
+        "Box movement",
+        "Pressing from the front",
+        "Late attacking runs"
+      ],
+      "note": "Diakité gives Côte d'Ivoire a different attacking speed from the bench. The important touch may be the run that opens space for someone else.",
+      "noteZh": "他是Côte d'Ivoire在比赛需要新腿时可以使用的前锋。第一项工作，是让疲劳的后卫转身。"
     },
     "Ousmane Diomande": {
-      "skills": ["Ball-playing centre-back", "Front-foot tackles", "Aerial composure"],
-      "note": "Côte d'Ivoire's possession centre-back, able to step out with the ball and defend aggressively on the front foot.",
-      "noteZh": "乌斯曼·迪奥曼德是科特迪瓦控球型中卫，能带球前压，也能主动上抢防守。"
+      "skills": [
+        "Ball-playing centre-back",
+        "Front-foot tackles",
+        "Aerial composure"
+      ],
+      "note": "Diomande is defensive cover for Côte d'Ivoire's harder minutes. He is there to win the first contact and make the next pass simple.",
+      "noteZh": "他是Côte d'Ivoire在比赛变窄时可以使用的后卫。任务是第一下接触、清楚解围、简单出球。"
     },
     "Parfait Guiagon": {
       "displayName": "Parfait Guiagon",
@@ -135,35 +215,59 @@
       "league": "Belgian Pro League",
       "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/624913-1758629240.jpg?lm=1",
       "marketValueEurMillions": 5,
-      "skills": ["Left-wing creativity", "Tight-space dribbling", "Central combinations"],
-      "note": "Côte d'Ivoire's close-control winger, useful for slipping through traffic and combining near the left half-space.",
-      "noteZh": "帕尔费·吉亚贡是科特迪瓦近距离控球型边锋，适合穿过密集区域并在左肋附近配合。",
+      "skills": [
+        "Left-wing creativity",
+        "Tight-space dribbling",
+        "Central combinations"
+      ],
+      "note": "Guiagon gives Côte d'Ivoire a different attacking speed from the bench. The important touch may be the run that opens space for someone else.",
+      "noteZh": "他是Côte d'Ivoire在比赛需要新腿时可以使用的前锋。第一项工作，是让疲劳的后卫转身。",
       "sourceUrl": "https://www.transfermarkt.co.uk/parfait-guiagon/profil/spieler/624913"
     },
     "Seko Fofana": {
-      "skills": ["Box-to-box surges", "Second-ball power", "Long shooting"],
-      "note": "Côte d'Ivoire's midfield surge runner, capable of carrying through contact and turning loose balls into shots.",
-      "noteZh": "塞科·福法纳是科特迪瓦中场冲刺推进者，能带球穿过对抗，并把散落球转化为射门。"
+      "skills": [
+        "Box-to-box surges",
+        "Second-ball power",
+        "Long shooting"
+      ],
+      "note": "Fofana is there for the part of the game where spacing gets ugly. For Côte d'Ivoire, that can mean one clean touch before pressure arrives.",
+      "noteZh": "他给Côte d'Ivoire提供中场深度，适合比赛被拉开的时候。他把松散球变成更冷静的下一脚。"
     },
     "Simon Adingra": {
-      "skills": ["Wing isolation", "Cutback creation", "Transition speed"],
-      "note": "Côte d'Ivoire's isolation winger, excellent at attacking a full-back and turning the byline into cutbacks.",
-      "noteZh": "西蒙·阿丁格拉是科特迪瓦一对一边锋，擅长冲击边后卫并把底线位置转化为倒三角传球。"
+      "skills": [
+        "Wing isolation",
+        "Pulled-back passes",
+        "Transition speed"
+      ],
+      "note": "Adingra gives Côte d'Ivoire a route when possession needs to become pressure. He is there to make a defender choose.",
+      "noteZh": "他是Côte d'Ivoire这届赛事中被重点使用的进攻路线之一。他先让第一名防守者移动，再让终结或最后一传出现。"
     },
     "Wilfried Singo": {
-      "skills": ["Right-side power", "Aerial defending", "Recovery speed"],
-      "note": "Côte d'Ivoire's powerful right-side defender, giving the team speed, aerial bite, and back-post protection.",
-      "noteZh": "威尔弗里德·辛戈是科特迪瓦力量型右路后卫，能提供速度、空中对抗和后点保护。"
+      "skills": [
+        "Chance passes",
+        "Right-side power",
+        "Aerial defending"
+      ],
+      "note": "Singo has already made a goal happen for Côte d'Ivoire. His value is picking the moment when the defense is still moving.",
+      "noteZh": "他已经为Côte d'Ivoire送出一次进球前的传球。重点是机会真正显眼前的那次触球。"
     },
     "Yahia Fofana": {
-      "skills": ["Shot stopping", "Cross claiming", "Goalkeeper distribution"],
-      "note": "Côte d'Ivoire's reliable goalkeeper option, strong on reaction saves and steady when claiming crosses.",
-      "noteZh": "亚希亚·福法纳是科特迪瓦可靠门将选择，反应扑救出色，摘传中时也很稳。"
+      "skills": [
+        "Shot stopping",
+        "Cross claiming",
+        "Goalkeeper distribution"
+      ],
+      "note": "Fofana has been Côte d'Ivoire's goalkeeper through this run. His value is keeping the box calm long enough for the next attack to start cleanly.",
+      "noteZh": "他给Côte d'Ivoire提供从后场开始的冷静第一步。看他如何把扑救或摘球变成重新组织。"
     },
     "Yan Diomande": {
-      "skills": ["Explosive carries", "Wing acceleration", "Early final balls"],
-      "note": "Côte d'Ivoire's explosive young winger, able to change a possession with one carry or an early final ball.",
-      "noteZh": "扬·迪奥曼德是科特迪瓦爆发力很强的年轻边锋，能用一次带球或早传改变一次控球。"
+      "skills": [
+        "Chance passes",
+        "Explosive carries",
+        "Wing acceleration"
+      ],
+      "note": "Diomande has one tournament assist in the bank for Côte d'Ivoire. The detail is the touch just before the obvious chance appears.",
+      "noteZh": "他已经帮Côte d'Ivoire制造过进球。价值在于防线还在移动时，选对出球瞬间。"
     }
   }
 }

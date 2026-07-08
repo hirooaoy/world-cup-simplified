@@ -4,113 +4,243 @@
   "teamName": "Switzerland",
   "profiles": {
     "Ardon Jashari": {
-      "note": "Ardon Jashari gives Switzerland a press-resistant midfield outlet, helping them keep the ball moving when opponents squeeze the center.",
-      "noteZh": "阿尔东·贾沙里为瑞士提供抗压的中场出球点，帮助球队在对手压缩中路时继续流畅推进。"
+      "note": "Jashari stepped into the Colombia match to give Switzerland another calm midfielder. He keeps the ball moving when opponents squeeze Xhaka.",
+      "noteZh": "贾沙里在对哥伦比亚时进入阵容，给瑞士增加一名冷静中场。当对手压缩扎卡时，他能让球继续流动。",
+      "skills": [
+        "Press resistance",
+        "Central passing",
+        "Midfield support"
+      ]
     },
     "Aurele Amenda": {
-      "note": "Aurèle Amenda gives Switzerland another calm centre-back option, useful when they need fresh legs without losing build-up security.",
-      "noteZh": "奥雷勒·阿门达为瑞士增加一名冷静的中卫选择，在球队需要换上新鲜体能但仍保持后场组织安全时很有价值。"
+      "note": "Amenda is centre-back depth for Switzerland's long tournament. He is there if fresh legs are needed without changing the team's passing habits.",
+      "noteZh": "阿门达是瑞士漫长赛事中的中卫深度。如果球队需要新鲜体能但不想改变传球习惯，他就有价值。",
+      "skills": [
+        "Centre-back depth",
+        "Calm passing",
+        "Recovery defending"
+      ]
     },
     "Breel Embolo": {
-      "note": "Breel Embolo gives Switzerland a powerful reference point up front, turning direct service into hold-up play and box pressure.",
-      "noteZh": "布雷尔·恩博洛为瑞士提供强力的锋线支点，把直接传球转化为背身拿球和禁区压力。"
+      "note": "Embolo is Switzerland's release valve, with goals against Qatar and Algeria and assists in the group. When pressure builds, he gives Xhaka a forward target.",
+      "noteZh": "恩博洛是瑞士的出球阀门，对卡塔尔和阿尔及利亚都有进球，小组赛也有助攻。当压力升高时，他给扎卡一个向前目标。",
+      "skills": [
+        "Hold-up play",
+        "Penalty-box runs",
+        "Direct outlet"
+      ]
     },
     "Cedric Itten": {
-      "note": "Cedric Itten gives Switzerland a penalty-area striker who can attack crosses and keep centre-backs occupied late in games.",
-      "noteZh": "塞德里克·伊滕为瑞士提供禁区型前锋，能够冲击传中，并在比赛后段持续牵制中卫。"
+      "note": "Itten is the alternate penalty-area target. Switzerland can use him when the final minutes need crosses, contact, and a forward who stays between centre-backs.",
+      "noteZh": "伊滕是瑞士的备用禁区目标。当最后阶段需要传中、对抗，以及站在中卫之间的前锋时，他有价值。",
+      "skills": [
+        "Box target",
+        "Aerial finishing",
+        "Late hold-up play"
+      ]
     },
     "Christian Fassnacht": {
-      "note": "Christian Fassnacht gives Switzerland a disciplined attacking runner, arriving from midfield zones to add numbers around the box.",
-      "noteZh": "克里斯蒂安·法斯纳赫特为瑞士提供纪律性很强的进攻跑动，从中场区域前插，为禁区周围增加人数。"
+      "note": "Fassnacht is the disciplined runner Switzerland can add from midfield zones. He is not the headline, but he arrives where tired defenders stop tracking.",
+      "noteZh": "法斯纳赫特是瑞士可以从中场区域增加的纪律型跑动者。他不是头条人物，但会出现在疲劳防守者停止跟防的位置。",
+      "skills": [
+        "Late arrivals",
+        "Wide pressing",
+        "Back-post runs"
+      ]
     },
     "Dan Ndoye": {
-      "note": "Dan Ndoye brings Switzerland vertical speed, stretching the back line and turning transitions into immediate danger.",
-      "noteZh": "丹·恩多耶为瑞士带来纵向速度，拉伸对方防线，并把转换进攻变成即时威胁。"
+      "note": "Ndoye has given Switzerland a direct outlet and scored right after halftime against Algeria. He stretches the field so Xhaka does not have to pass through traffic every time.",
+      "noteZh": "恩多耶给瑞士提供直接出路，并在对阿尔及利亚时下半场刚开始进球。他拉开球场，让扎卡不必每次都从人群中传球。",
+      "skills": [
+        "Vertical speed",
+        "Wide running",
+        "Pressing work"
+      ]
     },
     "Denis Zakaria": {
-      "note": "Denis Zakaria gives Switzerland ball-winning range in midfield, closing space quickly and carrying play out of pressure.",
-      "noteZh": "丹尼斯·扎卡里亚为瑞士提供覆盖范围很大的中场抢断能力，能快速封锁空间并带球摆脱压力。"
+      "note": "Zakaria has been used as both cover and stopper in Switzerland's shape. His range matters when the midfield gets pulled away from Xhaka.",
+      "noteZh": "扎卡里亚在瑞士阵型中既当保护也当拦截者。当中场被拉离扎卡身边时，他的覆盖范围很重要。",
+      "skills": [
+        "Ball winning",
+        "Defensive range",
+        "Pressure carries"
+      ]
     },
     "Djibril Sow": {
-      "note": "Djibril Sow helps Switzerland stabilize the middle, linking defensive recoveries to cleaner forward passes.",
-      "noteZh": "吉布里尔·索乌帮助瑞士稳住中场，把防守夺回球权衔接成更干净的向前传球。"
+      "note": "Sow gives Switzerland a tidy bridge from recovery to attack. If the match becomes about second balls, he helps make the next pass cleaner.",
+      "noteZh": "索乌给瑞士提供从夺回球权到进攻的整洁桥梁。如果比赛变成第二落点争夺，他能让下一脚传球更干净。",
+      "skills": [
+        "Midfield linking",
+        "Defensive recoveries",
+        "Forward passing"
+      ]
     },
     "Eray Coemert": {
       "displayName": "Eray Cömert",
       "sourceTitle": "Eray Cömert",
-      "note": "Eray Cömert gives Switzerland a sturdy centre-back option, useful for protecting the box and restarting attacks with simple passes.",
-      "noteZh": "埃赖·居梅尔特为瑞士提供稳健的中卫选择，适合保护禁区，并用简洁传球重新发起进攻。"
+      "note": "Cömert is sturdy centre-back cover. Switzerland would use him when the priority is clearing the box and restarting with simple passes.",
+      "noteZh": "居梅尔特是稳健的中卫深度。当首要任务是清理禁区并用简单传球重新开始时，瑞士会用到他。",
+      "skills": [
+        "Centre-back cover",
+        "Box defending",
+        "Simple exits"
+      ]
     },
     "Fabian Rieder": {
-      "note": "Fabian Rieder gives Switzerland a creative set-piece and final-pass option when they need one cleaner action near the box.",
-      "noteZh": "法比安·里德为瑞士提供定位球和最后一传的创造力，在球队需要禁区附近一次更干净处理时很关键。"
+      "note": "Rieder started the Colombia stalemate as Switzerland looked for one clean action near the box. His set pieces and left foot can decide a tight match.",
+      "noteZh": "里德在对哥伦比亚的僵局中首发，瑞士需要禁区附近一次干净处理。他的定位球和左脚能决定胶着比赛。",
+      "skills": [
+        "Set-piece delivery",
+        "Chance passes",
+        "Right-side pressing"
+      ]
     },
     "Granit Xhaka": {
-      "note": "Granit Xhaka is Switzerland's tempo setter, using his passing range to organize possession and tilt the game into better areas.",
-      "noteZh": "格拉尼特·扎卡是瑞士的节奏掌控者，依靠传球范围组织控球，并把比赛引向更有利的区域。"
+      "note": "Xhaka is Switzerland's metronome and penalty nerve, scoring late against Bosnia. Against Argentina, every Swiss attack probably starts with his first decision.",
+      "noteZh": "扎卡是瑞士的节拍器和点球胆量来源，对波黑后段破门。对阿根廷时，瑞士每次进攻大概都从他的第一判断开始。",
+      "skills": [
+        "Tempo control",
+        "Long passing",
+        "Midfield leadership"
+      ]
     },
     "Gregor Kobel": {
-      "note": "Gregor Kobel gives Switzerland elite shot-stopping behind the block, keeping them alive when pressure reaches their box.",
-      "noteZh": "格雷戈尔·科贝尔为瑞士防线身后提供顶级扑救能力，在压力进入禁区时帮助球队保住比赛。"
+      "note": "Kobel has been Switzerland's goalkeeper through the knockout grind. His value is staying calm through long pressure spells, then giving Xhaka a playable restart.",
+      "noteZh": "科贝尔是瑞士淘汰赛苦战中的门将。他的价值是在长时间压力中保持冷静，然后给扎卡一个可处理的重新开球。",
+      "skills": [
+        "Shot stopping",
+        "Box command",
+        "Calm distribution"
+      ]
     },
     "Johan Manzambi": {
-      "note": "Johan Manzambi adds carrying power to Switzerland's midfield, helping break pressure and push the team into the final third.",
-      "noteZh": "约翰·曼赞比为瑞士中场增加带球推进能力，帮助球队摆脱压迫并进入进攻三区。"
+      "note": "Manzambi has become Switzerland's tournament surprise, scoring against Bosnia and Canada and assisting Embolo against Algeria. He turns midfield carries into goals.",
+      "noteZh": "曼赞比已经成为瑞士这届赛事的惊喜，对波黑和加拿大进球，并助攻恩博洛攻破阿尔及利亚。他把中场推进变成进球。",
+      "skills": [
+        "Midfield carrying",
+        "Late box runs",
+        "Goal threat"
+      ]
     },
     "Luca Jaquez": {
-      "note": "Luca Jaquez gives Switzerland a young defensive option who can hold the line and keep possession simple under pressure.",
-      "noteZh": "卢卡·雅克斯为瑞士提供年轻的防守选择，能够稳住防线，并在压力下保持简单控球。"
+      "note": "Jaquez has started in Switzerland's rotation and gives them simple defensive cover. His job is to hold the line, not to become the story.",
+      "noteZh": "雅克斯已经在瑞士轮换中首发，提供简单可靠的防守深度。他的任务是守住防线，而不是成为故事本身。",
+      "skills": [
+        "Defensive depth",
+        "Right-side cover",
+        "Simple possession"
+      ]
     },
     "Manuel Akanji": {
-      "note": "Manuel Akanji anchors Switzerland's back line with recovery pace, duels, and the calm first pass that starts attacks.",
-      "noteZh": "曼努埃尔·阿坎吉用回追速度、对抗和冷静的第一脚传球支撑瑞士后防，并开启进攻。"
+      "note": "Akanji is the calm defender who lets Switzerland absorb pressure without looking frantic. Against Argentina, he has to make Messi's pockets feel smaller.",
+      "noteZh": "阿坎吉是让瑞士承受压力时不显慌乱的冷静后卫。对阿根廷时，他必须让梅西的空当显得更小。",
+      "skills": [
+        "Back-line command",
+        "Recovery defending",
+        "First pass"
+      ]
     },
     "Marvin Keller": {
       "sourceTitle": "Marvin Keller (footballer)",
-      "note": "Marvin Keller gives Switzerland a young goalkeeping option, ready to add shot-stopping depth behind the senior choices.",
-      "noteZh": "马尔文·凯勒为瑞士提供年轻门将选择，在主力门将之后增加扑救深度。"
+      "note": "Keller is young goalkeeper cover behind Kobel and Mvogo. His tournament role is development depth, not the quarter-final spotlight.",
+      "noteZh": "凯勒是科贝尔和姆沃戈身后的年轻门将保障。他在这届赛事中的角色是培养型深度，而不是八强战焦点。",
+      "skills": [
+        "Goalkeeper depth",
+        "Reaction saves",
+        "Distribution growth"
+      ]
     },
     "Michel Aebischer": {
-      "note": "Michel Aebischer helps Switzerland connect midfield control to sharper final-third passes and late box runs.",
-      "noteZh": "米歇尔·埃比舍帮助瑞士把中场控制衔接成更锐利的进攻三区传球和后插上禁区跑动。"
+      "note": "Aebischer has been part of Switzerland's midfield control and late box threat. He keeps the shape connected while others make the more obvious runs.",
+      "noteZh": "埃比舍是瑞士中场控制和后插上威胁的一部分。他让阵型保持连接，同时让其他人完成更明显的跑动。",
+      "skills": [
+        "Midfield timing",
+        "Late arrivals",
+        "Wide balance"
+      ]
     },
     "Miro Muheim": {
-      "note": "Miro Muheim gives Switzerland a wide outlet, helping the team progress down the flank without losing defensive balance.",
-      "noteZh": "米罗·穆海姆为瑞士提供边路出球点，帮助球队沿边路推进，同时不失去防守平衡。"
+      "note": "Muheim rescued a point against Qatar with the late own-goal pressure. He gives Switzerland width when the left side needs a cleaner outlet.",
+      "noteZh": "穆海姆在对卡塔尔时制造后段压力，帮助瑞士拿到一分。当左侧需要更干净的出球点时，他提供宽度。",
+      "skills": [
+        "Wide outlet",
+        "Left-footed service",
+        "Recovery balance"
+      ]
     },
     "Nico Elvedi": {
-      "note": "Nico Elvedi gives Switzerland a reliable centre-back presence, strong in defensive positioning and calm circulation.",
-      "noteZh": "尼科·埃尔韦迪为瑞士提供可靠的中卫存在感，防守站位稳健，传导也冷静。"
+      "note": "Elvedi is the reliable centre-back beside Akanji. He keeps Switzerland from overreacting when opponents try to turn pressure into chaos.",
+      "noteZh": "埃尔韦迪是阿坎吉身边可靠的中卫。当对手试图把压力变成混乱时，他避免瑞士过度反应。",
+      "skills": [
+        "Centre-back positioning",
+        "Aerial defending",
+        "Calm circulation"
+      ]
     },
     "Noah Okafor": {
-      "note": "Noah Okafor gives Switzerland acceleration in attack, threatening space behind defenders and changing the rhythm off the bench.",
-      "noteZh": "诺阿·奥卡福为瑞士进攻带来加速能力，威胁后卫身后空间，并能替补登场改变节奏。"
+      "note": "Okafor is Switzerland's attacking burst from the bench. If Argentina push high, he is the player who can turn one clearance into a chase.",
+      "noteZh": "奥卡福是瑞士替补席上的进攻爆发力。如果阿根廷压得很高，他能把一次解围变成追逐。",
+      "skills": [
+        "Attacking burst",
+        "Runs behind",
+        "Bench speed"
+      ]
     },
     "Remo Freuler": {
-      "note": "Remo Freuler gives Switzerland midfield order, reading second balls and keeping attacks connected after recoveries.",
-      "noteZh": "雷莫·弗罗伊勒为瑞士带来中场秩序，判断第二落点，并在夺回球权后保持进攻衔接。"
+      "note": "Freuler is Switzerland's midfield order around Xhaka. He reads the loose ball, covers the next lane, and lets the team avoid panic passes.",
+      "noteZh": "弗罗伊勒是扎卡身边的瑞士中场秩序。他判断松散球，保护下一条线路，让球队避免慌乱传球。",
+      "skills": [
+        "Midfield order",
+        "Second balls",
+        "Defensive linking"
+      ]
     },
     "Ricardo Rodriguez": {
       "displayName": "Ricardo Rodríguez",
       "sourceTitle": "Ricardo Rodríguez (footballer)",
-      "note": "Ricardo Rodríguez gives Switzerland experienced defensive control, especially when they need composure around their own box.",
-      "noteZh": "里卡多·罗德里格斯为瑞士提供经验丰富的防守控制，尤其在本方禁区周围需要冷静处理时很重要。"
+      "note": "Rodriguez is Switzerland's experienced left-back base. In a quarter-final against Argentina, his calm around the box may matter more than any overlap.",
+      "noteZh": "罗德里格斯是瑞士经验丰富的左后卫底座。对阿根廷的八强战中，他在禁区周围的冷静可能比任何套边都重要。",
+      "skills": [
+        "Left-back control",
+        "Defensive experience",
+        "Set-piece composure"
+      ]
     },
     "Ruben Vargas": {
-      "note": "Ruben Vargas gives Switzerland one-v-one threat from wide areas, turning settled attacks into sudden box entries.",
-      "noteZh": "鲁本·巴尔加斯为瑞士在边路提供一对一威胁，把阵地进攻突然转化为禁区突破。"
+      "note": "Vargas has scored and assisted in Switzerland's run while moving across the front line. He is the runner who appears after Embolo has occupied the first defender.",
+      "noteZh": "巴尔加斯在瑞士这段征程中既进球又助攻，并在锋线多个位置移动。他会在恩博洛牵制第一名防守者后出现。",
+      "skills": [
+        "Wide-to-striker movement",
+        "Box arrivals",
+        "Quick finishing"
+      ]
     },
     "Silvan Widmer": {
-      "note": "Silvan Widmer gives Switzerland a seasoned right-sided defender, balancing overlap timing with recovery runs.",
-      "noteZh": "西尔万·维德默为瑞士提供经验丰富的右路防守者，能平衡套边时机和回追跑动。"
+      "note": "Widmer is seasoned right-back cover for Switzerland. He balances the overlap with the recovery run, which matters when opponents counter through stars.",
+      "noteZh": "维德默是瑞士经验丰富的右后卫深度。他能平衡套边和回追，这在对手通过球星反击时很重要。",
+      "skills": [
+        "Right-back experience",
+        "Overlap timing",
+        "Recovery runs"
+      ]
     },
     "Yvon Mvogo": {
-      "note": "Yvon Mvogo gives Switzerland experienced goalkeeping cover, steadying the box when the match becomes stretched.",
-      "noteZh": "伊冯·姆沃戈为瑞士提供经验丰富的门将保障，在比赛变得拉开时帮助禁区保持稳定。"
+      "note": "Mvogo is experienced goalkeeper cover. If Kobel is unavailable, Switzerland still have a keeper who can steady the box through pressure.",
+      "noteZh": "姆沃戈是经验门将保障。如果科贝尔无法出场，瑞士仍有一名能在压力下稳住禁区的门将。",
+      "skills": [
+        "Goalkeeper cover",
+        "Shot stopping",
+        "Box steadiness"
+      ]
     },
     "Zeki Amdouni": {
-      "note": "Zeki Amdouni gives Switzerland a clever forward link, drifting between lines to combine and still threaten the finish.",
-      "noteZh": "泽基·阿姆杜尼为瑞士提供聪明的锋线衔接，在两线之间游走配合，同时保持终结威胁。"
+      "note": "Amdouni is the clever forward link Switzerland can add if Embolo needs support. He drifts into pockets, combines once, then still threatens the finish.",
+      "noteZh": "阿姆杜尼是瑞士在恩博洛需要支援时可以加入的聪明锋线连接点。他会游到空当，配合一次，然后仍保持终结威胁。",
+      "skills": [
+        "Forward link play",
+        "Pocket movement",
+        "Late finishing"
+      ]
     }
   }
 }

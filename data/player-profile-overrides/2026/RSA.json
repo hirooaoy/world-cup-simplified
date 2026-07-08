@@ -9,8 +9,8 @@
         "Set-piece service",
         "Recovery defending"
       ],
-      "note": "South Africa's left-side outlet, useful for width, set-piece service, and recovery defending when the flank opens.",
-      "noteZh": "奥布里·莫迪巴是南非左路出口，能提供宽度、定位球传球，并在边路打开时回追防守。"
+      "note": "Modiba has been part of South Africa's main defensive shape. He keeps the first duel clean so the team does not spend the next phase chasing.",
+      "noteZh": "他在South Africa体系里做的是安静工作。他让对手的进攻不容易变成混乱。"
     },
     "Bradley Cross": {
       "sourceTitle": "Bradley Cross (soccer)",
@@ -27,8 +27,8 @@
         "Left-footed balance",
         "Recovery speed"
       ],
-      "note": "South Africa's left-back cover, giving them a natural left foot, recovery speed, and steadier wide defending.",
-      "noteZh": "布拉德利·克罗斯是南非左后卫保障，能提供天然左脚、回追速度和更稳定的边路防守。",
+      "note": "Cross is defensive cover for South Africa's harder minutes. He is there to win the first contact and make the next pass simple.",
+      "noteZh": "他是South Africa在比赛变窄时可以使用的后卫。任务是第一下接触、清楚解围、简单出球。",
       "sourceUrl": "https://www.transfermarkt.com/bradley-cross/profil/spieler/555209"
     },
     "Evidence Makgopa": {
@@ -38,8 +38,8 @@
         "Aerial pressure",
         "Box finishing"
       ],
-      "note": "South Africa's target-forward option, useful for aerial pressure, hold-up touches, and finishing from direct service.",
-      "noteZh": "埃维登斯·马克戈帕是南非支点前锋选择，能施加空中压力、背身做球，并接应直接传球终结。"
+      "note": "Makgopa gives South Africa a different attacking speed from the bench. The important touch may be the run that opens space for someone else.",
+      "noteZh": "他是South Africa在比赛需要新腿时可以使用的前锋。第一项工作，是让疲劳的后卫转身。"
     },
     "Ime Okon": {
       "skills": [
@@ -47,8 +47,8 @@
         "Aerial defending",
         "Young defensive upside"
       ],
-      "note": "South Africa's young centre-back, bringing composure, aerial defending, and long-term upside against stronger attacks.",
-      "noteZh": "伊梅·奥孔是南非年轻中卫，面对强队时能带来沉稳、空中防守和长期潜力。"
+      "note": "Okon has been part of South Africa's main defensive shape. He keeps the first duel clean so the team does not spend the next phase chasing.",
+      "noteZh": "他在South Africa体系里做的是安静工作。他让对手的进攻不容易变成混乱。"
     },
     "Iqraam Rayners": {
       "skills": [
@@ -56,8 +56,8 @@
         "Quick finishing",
         "Pressing runs"
       ],
-      "note": "South Africa's sharp penalty-box runner, built for quick finishes, pressing runs, and small openings around goal.",
-      "noteZh": "伊克拉姆·雷纳斯是南非敏锐的禁区跑动点，擅长快速终结、压迫跑动和抓住门前小空当。"
+      "note": "Rayners is an attacking change-up for South Africa. He gives the front line fresh running when the first plan starts to look predictable.",
+      "noteZh": "他是South Africa的进攻深度。如果比赛慢下来，他要让后防线重新移动。"
     },
     "Jayden Adams": {
       "skills": [
@@ -65,8 +65,8 @@
         "Ball carrying",
         "Press support"
       ],
-      "note": "South Africa's mobile midfielder, helping them carry through pressure and support the press after turnovers.",
-      "noteZh": "杰登·亚当斯是南非机动型中场，能带球穿过压力，并在丢球后支援压迫。"
+      "note": "Adams is midfield insurance for South Africa. He is there for the messy phase: second ball, one calmer touch, then the next pass.",
+      "noteZh": "他给South Africa一种在比赛打开后稳住中路的办法。最好的工作，是让下一次决定没那么急。"
     },
     "Kamogelo Sebelebele": {
       "league": "South African Premiership",
@@ -75,8 +75,8 @@
         "Wide support",
         "Second-ball pressure"
       ],
-      "note": "South Africa's energetic midfield option, giving them wide support, second-ball pressure, and fresh running.",
-      "noteZh": "卡莫盖洛·塞贝莱贝莱是南非活力型中场选择，能提供边路支援、第二落点压迫和新鲜跑动。"
+      "note": "Sebelebele is there for the part of the game where spacing gets ugly. For South Africa, that can mean one clean touch before pressure arrives.",
+      "noteZh": "他给South Africa提供中场深度，适合比赛被拉开的时候。他把松散球变成更冷静的下一脚。"
     },
     "Khuliso Mudau": {
       "skills": [
@@ -84,8 +84,8 @@
         "Overlap timing",
         "Defensive recovery"
       ],
-      "note": "South Africa's right-back engine, strong in duels, overlaps, and recovery runs against quick wide players.",
-      "noteZh": "库利索·穆道是南非右后卫发动机，对抗、套边和回追速度型边路球员都很重要。"
+      "note": "Mudau has been part of South Africa's answer without the ball. He matters when the first runner has to be slowed before the whole shape breaks.",
+      "noteZh": "他给South Africa后防线一个稳定零件。看的是那些小选择：上抢、站住，还是先封线路。"
     },
     "Khulumani Ndamane": {
       "skills": [
@@ -93,8 +93,8 @@
         "Aerial cover",
         "Simple exits"
       ],
-      "note": "South Africa's centre-back depth, useful for aerial cover, compact defending, and simple passes out.",
-      "noteZh": "库卢马尼·恩达马内是南非中卫深度，能提供空中覆盖、紧凑防守和简洁出球。"
+      "note": "Ndamane is back-line insurance for South Africa. The card is not glamorous: win the ball, keep the pass safe, reset the shape.",
+      "noteZh": "他给South Africa那些靠胆量守住的分钟提供保障。一次扎实对抗就能让整条线冷静下来。"
     },
     "Lyle Foster": {
       "skills": [
@@ -102,8 +102,8 @@
         "Channel runs",
         "Hold-up touches"
       ],
-      "note": "South Africa's highest-profile forward, running channels, holding up direct balls, and carrying the main scoring burden.",
-      "noteZh": "莱尔·福斯特是南非最受关注的前锋，能冲击通道、背身拿住直传，并承担主要进球责任。"
+      "note": "Foster is one of South Africa's named attacking routes in this tournament. His job is to make the first defender move so the finish or final pass can appear.",
+      "noteZh": "他给South Africa一种把控球变成压力的路线。他要让防守者必须做选择。"
     },
     "Mbekezeli Mbokazi": {
       "league": "Major League Soccer",
@@ -112,8 +112,8 @@
         "Line-breaking passing",
         "Young leadership"
       ],
-      "note": "South Africa's standout young centre-back, giving them left-footed passing, calm defending, and unusual leadership for his age.",
-      "noteZh": "姆贝克泽利·姆博卡齐是南非突出的年轻中卫，能提供左脚出球、冷静防守和超出年龄的领导力。"
+      "note": "Mbokazi has been part of South Africa's answer without the ball. He matters when the first runner has to be slowed before the whole shape breaks.",
+      "noteZh": "他给South Africa后防线一个稳定零件。看的是那些小选择：上抢、站住，还是先封线路。"
     },
     "Nkosinathi Sibisi": {
       "league": "South African Premiership",
@@ -122,8 +122,8 @@
         "Aerial duels",
         "Box protection"
       ],
-      "note": "South Africa's experienced centre-back, useful for aerial duels, box protection, and late defensive organization.",
-      "noteZh": "恩科西纳蒂·西比西是南非经验型中卫，能争顶、保护禁区，并在后段组织防守。"
+      "note": "Sibisi is defensive cover for South Africa's harder minutes. He is there to win the first contact and make the next pass simple.",
+      "noteZh": "他是South Africa在比赛变窄时可以使用的后卫。任务是第一下接触、清楚解围、简单出球。"
     },
     "Olwethu Makhanya": {
       "league": "Major League Soccer",
@@ -132,8 +132,8 @@
         "Recovery speed",
         "Centre-back upside"
       ],
-      "note": "South Africa's athletic defensive option, giving them recovery speed, centre-back depth, and a higher ceiling.",
-      "noteZh": "奥尔韦图·马坎亚是南非运动能力强的防守选择，能提供回追速度、中卫深度和更高潜力。"
+      "note": "Makhanya is the kind of defender South Africa can turn to when the match gets narrow. His job is first contact, clean clearance, simple pass.",
+      "noteZh": "他是South Africa艰难时间段的防守深度。他要赢下第一下接触，并让下一脚传球简单起来。"
     },
     "Oswin Appollis": {
       "skills": [
@@ -141,8 +141,8 @@
         "One-on-one dribbling",
         "Final pass"
       ],
-      "note": "South Africa's attacking spark, able to beat the first defender and slip the final pass when space opens.",
-      "noteZh": "奥斯温·阿波利斯是南非进攻火花，能过掉第一名防守人，并在空间出现时送出最后一传。"
+      "note": "Appollis has been one of South Africa's players who keeps possessions from fraying. The detail to watch is how early he knows the next pass.",
+      "noteZh": "他是South Africa这届赛事中的中场连接点之一。他让下一脚传球继续存在，也帮助球队避免仓促选择。"
     },
     "Relebohile Mofokeng": {
       "league": "South African Premiership",
@@ -151,8 +151,8 @@
         "Quick feet",
         "Fearless carries"
       ],
-      "note": "South Africa's fearless young creator, bringing quick feet, left-side carries, and invention against deep blocks.",
-      "noteZh": "雷莱博希莱·莫福肯是南非无畏的年轻创造者，能用快脚、左路带球和灵感冲击低位防守。"
+      "note": "Mofokeng is the midfield player South Africa can use when possession needs a sharper touch near the box. He tries to make one small gap matter.",
+      "noteZh": "他给South Africa一种在比赛打开后稳住中路的办法。最好的工作，是让下一次决定没那么急。"
     },
     "Ricardo Goss": {
       "league": "South African Premiership",
@@ -161,8 +161,8 @@
         "Shot stopping",
         "Box communication"
       ],
-      "note": "South Africa's goalkeeper cover, giving them shot-stopping depth and a vocal option behind Williams.",
-      "noteZh": "里卡多·戈斯是南非门将保障，能在威廉姆斯身后提供扑救深度和清晰指挥。"
+      "note": "Goss sits behind the starter for South Africa, but the role is not decorative. He has to be ready for crosses, restarts, and a cold first touch.",
+      "noteZh": "他给South Africa保留另一个门将选择。真正需要他时，重点可能就是一次大扑救。"
     },
     "Ronwen Williams": {
       "skills": [
@@ -170,8 +170,8 @@
         "Penalty saves",
         "Distribution calm"
       ],
-      "note": "South Africa's captain and goalkeeper anchor, trusted for penalty saves, distribution calm, and defensive command.",
-      "noteZh": "龙文·威廉姆斯是南非队长和门将核心，点球扑救、冷静出球和防线指挥都值得信任。"
+      "note": "Williams has carried the keeper minutes for South Africa. The card is clean hands, clear restarts, and defenders who do not have to rush.",
+      "noteZh": "他是South Africa防守结构最后的声音。压力停在禁区时，他要让下一步动作简单下来。"
     },
     "Samukele Kabini": {
       "league": "Eliteserien",
@@ -180,8 +180,8 @@
         "European experience",
         "Wide defending"
       ],
-      "note": "South Africa's European-based left-back, giving them recovery speed, wide defending, and a fresher outlet.",
-      "noteZh": "萨穆凯莱·卡比尼是南非效力欧洲的左后卫，能提供回追速度、边路防守和更有活力的出口。"
+      "note": "Kabini gives South Africa cover for the minutes when defending becomes more about nerve than shape. One solid duel can calm the whole line.",
+      "noteZh": "他是South Africa后防线的保险。卡片不华丽：赢球、稳传、重新站好。"
     },
     "Sipho Chaine": {
       "league": "South African Premiership",
@@ -190,8 +190,8 @@
         "Domestic experience",
         "Back-line voice"
       ],
-      "note": "South Africa's domestic goalkeeper option, useful for reaction saves and keeping the back line organized.",
-      "noteZh": "西福·查伊内是南非本土门将选择，能完成反应扑救，并保持后防线组织。"
+      "note": "Chaine is South Africa's safety net in goal. The job is simple to say and hard to do: enter cold and make the box quieter.",
+      "noteZh": "他是South Africa的门将保障。角色是随时准备好扑救、重新开球，并在突然需要他时不慌。"
     },
     "Sphephelo Sithole": {
       "league": "Liga Portugal 2",
@@ -200,17 +200,17 @@
         "Ball winning",
         "Tempo control"
       ],
-      "note": "South Africa's rangy midfielder, using size, ball-winning, and simple tempo control to steady the middle.",
-      "noteZh": "斯菲费洛·西托莱是南非覆盖范围大的中场，能用身材、抢球和简洁节奏控制稳住中路。"
+      "note": "Sithole has been one of South Africa's players who keeps possessions from fraying. The detail to watch is how early he knows the next pass.",
+      "noteZh": "他是South Africa这届赛事中的中场连接点之一。他让下一脚传球继续存在，也帮助球队避免仓促选择。"
     },
     "Teboho Mokoena": {
       "skills": [
+        "Goal threat",
         "Long-range shooting",
-        "Midfield control",
-        "Set pieces"
+        "Midfield control"
       ],
-      "note": "South Africa's midfield reference point, dangerous from range and important for set pieces and tempo.",
-      "noteZh": "特博霍·莫科纳是南非中场参照点，远射有威胁，也对定位球和节奏很重要。"
+      "note": "Mokoena's World Cup has already included a goal against Czechia. The next one may come from the same small window before the shape resets.",
+      "noteZh": "他这届世界杯已经有进球。他的看点是在比赛重新稳定前，先找到属于自己的那个瞬间。"
     },
     "Thabang Matuludi": {
       "league": "South African Premiership",
@@ -219,8 +219,8 @@
         "Wide tackling",
         "Support runs"
       ],
-      "note": "South Africa's right-back cover, useful for wide tackling, support runs, and late-game defensive energy.",
-      "noteZh": "塔邦·马图卢迪是南非右后卫保障，能边路抢断、支援跑动，并在比赛后段提供防守体能。"
+      "note": "Matuludi is back-line insurance for South Africa. The card is not glamorous: win the ball, keep the pass safe, reset the shape.",
+      "noteZh": "他给South Africa那些靠胆量守住的分钟提供保障。一次扎实对抗就能让整条线冷静下来。"
     },
     "Thalente Mbatha": {
       "league": "South African Premiership",
@@ -229,36 +229,36 @@
         "Short passing",
         "Counter pressure"
       ],
-      "note": "South Africa's defensive midfield bite, helping them press counters early and recycle possession quickly.",
-      "noteZh": "塔伦特·姆巴塔是南非防守型中场硬度来源，能提前压制反击并快速回收球权。"
+      "note": "Mbatha gives South Africa midfield depth for games that get stretched. He helps turn a loose ball into a calmer next pass.",
+      "noteZh": "他适合那些空间变丑的时间段。对South Africa来说，这可能就是压力到来前的一次干净触球。"
     },
     "Thapelo Maseko": {
       "skills": [
+        "Goal threat",
         "Wide speed",
-        "Direct dribbling",
-        "Transition runs"
+        "Direct dribbling"
       ],
-      "note": "South Africa's wide-speed threat, useful for direct dribbling, transition runs, and stretching tired full-backs.",
-      "noteZh": "塔佩洛·马塞科是南非边路速度威胁，能直接盘带、转换冲刺，并拉扯疲劳边后卫。"
+      "note": "Maseko is on the scoresheet for South Africa, with his goal coming against South Korea. One finish can change how opponents defend the next run.",
+      "noteZh": "他已经把一次世界杯机会变成进球。接下来要看防守者会不会开始多给他一步空间。"
     },
     "Themba Zwane": {
       "skills": [
         "Veteran creativity",
         "Between-lines passing",
-        "Final-third calm"
+        "Box-area calm"
       ],
-      "note": "South Africa's veteran creator, bringing calm touches between lines and better decisions near the box.",
-      "noteZh": "滕巴·兹瓦内是南非老将创造者，能在线间冷静触球，并在禁区附近做出更好选择。"
+      "note": "Zwane gives South Africa a way to settle the middle if the match opens up. His best work is making the next decision less hurried.",
+      "noteZh": "他是South Africa的中场保险。那些混乱阶段里，他要抢第二点、稳一下，再把球送出去。"
     },
     "Tshepang Moremi": {
       "league": "South African Premiership",
       "skills": [
+        "Chance passes",
         "Wing play",
-        "Direct carries",
-        "Bench pace"
+        "Direct carries"
       ],
-      "note": "South Africa's bench-speed winger, able to carry directly and test defenders once the match opens up.",
-      "noteZh": "采潘·莫雷米是南非替补速度型边锋，能直接带球，并在比赛打开后考验防守人。"
+      "note": "Moremi has one tournament assist in the bank for South Africa. The detail is the touch just before the obvious chance appears.",
+      "noteZh": "他已经帮South Africa制造过进球。价值在于防线还在移动时，选对出球瞬间。"
     }
   }
 }

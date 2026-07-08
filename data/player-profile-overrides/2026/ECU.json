@@ -4,139 +4,243 @@
   "teamName": "Ecuador",
   "profiles": {
     "Alan Franco": {
-      "skills": ["Ball-winning balance", "Simple circulation", "Midfield coverage"],
-      "note": "Ecuador's steady midfield balancer, useful for closing central gaps and keeping the next pass simple.",
-      "noteZh": "阿兰·弗朗科是厄瓜多尔稳定的中场平衡点，能封住中路空当，并把下一脚传球处理得简洁。"
+      "skills": [
+        "Ball-winning balance",
+        "Simple circulation",
+        "Midfield coverage"
+      ],
+      "note": "Franco has been one of Ecuador's players who keeps possessions from fraying. The detail to watch is how early he knows the next pass.",
+      "noteZh": "他是Ecuador这届赛事中的中场连接点之一。他让下一脚传球继续存在，也帮助球队避免仓促选择。"
     },
     "Alan Minda": {
-      "skills": ["Direct dribbling", "Wing speed", "Inside runs"],
-      "note": "Ecuador's quick wide runner, able to attack tired full-backs and turn loose transitions into carries.",
-      "noteZh": "阿兰·明达是厄瓜多尔速度型边路跑动点，能冲击疲劳的边后卫，并把松散转换变成带球推进。"
+      "skills": [
+        "Direct dribbling",
+        "Wing speed",
+        "Inside runs"
+      ],
+      "note": "Minda is attacking depth for Ecuador. If the game slows down, he is there to make the back line move again.",
+      "noteZh": "他是Ecuador前场计划的一部分。他先拉扯防守者，再寻找把压力变成机会的触球。"
     },
     "Angelo Preciado": {
-      "skills": ["Right-back thrust", "Overlap timing", "Wide recovery"],
-      "note": "Ecuador's attacking right-back, giving them overlaps, recovery pace, and a real crossing lane from deep.",
-      "noteZh": "安赫洛·普雷西亚多是厄瓜多尔进攻型右后卫，能提供套边、回追速度和来自深处的真实传中通道。"
+      "skills": [
+        "Right-back thrust",
+        "Overlap timing",
+        "Wide recovery"
+      ],
+      "note": "Preciado is the kind of defender Ecuador can turn to when the match gets narrow. His job is first contact, clean clearance, simple pass.",
+      "noteZh": "他是Ecuador艰难时间段的防守深度。他要赢下第一下接触，并让下一脚传球简单起来。"
     },
     "Anthony Valencia": {
       "league": "Belgian Pro League",
-      "skills": ["Midfield mobility", "Press support", "Forward carries"],
-      "note": "Ecuador's mobile midfield option, useful for pressing support and carrying the ball through the first line.",
-      "noteZh": "安东尼·瓦伦西亚是厄瓜多尔机动型中场选择，能支援压迫，并带球穿过第一道防线。"
+      "skills": [
+        "Midfield mobility",
+        "Press support",
+        "Forward carries"
+      ],
+      "note": "Valencia is there for the part of the game where spacing gets ugly. For Ecuador, that can mean one clean touch before pressure arrives.",
+      "noteZh": "他给Ecuador提供中场深度，适合比赛被拉开的时候。他把松散球变成更冷静的下一脚。"
     },
     "Denil Castillo": {
-      "skills": ["Defensive screening", "Long passing", "Central duels"],
-      "note": "Ecuador's young holding midfielder, adding size, long passing, and protection in front of the centre-backs.",
-      "noteZh": "德尼尔·卡斯蒂略是厄瓜多尔年轻后腰，能增加身材、长传和中卫身前的保护。"
+      "skills": [
+        "Defensive screening",
+        "Long passing",
+        "Central duels"
+      ],
+      "note": "Castillo gives Ecuador a way to settle the middle if the match opens up. His best work is making the next decision less hurried.",
+      "noteZh": "他是Ecuador的中场保险。那些混乱阶段里，他要抢第二点、稳一下，再把球送出去。"
     },
     "Enner Valencia": {
-      "skills": ["Captain finishing", "Penalty-box movement", "Aerial timing"],
-      "note": "Ecuador's captain and historic scorer, still the player they trust most to turn one clear chance into a goal.",
-      "noteZh": "恩纳·瓦伦西亚是厄瓜多尔队长和历史射手，依然是球队最信任、能把一次清晰机会转成进球的人。"
+      "skills": [
+        "Captain finishing",
+        "Penalty-box movement",
+        "Aerial timing"
+      ],
+      "note": "Valencia gives Ecuador a route when possession needs to become pressure. He is there to make a defender choose.",
+      "noteZh": "他是Ecuador这届赛事中被重点使用的进攻路线之一。他先让第一名防守者移动，再让终结或最后一传出现。"
     },
     "Felix Torres": {
-      "skills": ["Centre-back marking", "Aerial defending", "Set-piece threat"],
-      "note": "Ecuador's physical centre-back, important for aerial clearances, tight marking, and attacking set pieces.",
-      "noteZh": "费利克斯·托雷斯是厄瓜多尔身体型中卫，对空中解围、紧密盯人和进攻定位球都很重要。"
+      "skills": [
+        "Centre-back marking",
+        "Aerial defending",
+        "Set-piece threat"
+      ],
+      "note": "Torres is back-line insurance for Ecuador. The card is not glamorous: win the ball, keep the pass safe, reset the shape.",
+      "noteZh": "他给Ecuador那些靠胆量守住的分钟提供保障。一次扎实对抗就能让整条线冷静下来。"
     },
     "Gonzalo Plata": {
-      "skills": ["One-on-one dribbling", "Right-wing creation", "Cut-inside shots"],
-      "note": "Ecuador's right-side creator, dangerous when he isolates a defender and cuts inside onto his stronger actions.",
-      "noteZh": "贡萨洛·普拉塔是厄瓜多尔右路创造者，在单挑防守人并内切做出强势动作时最有威胁。"
+      "skills": [
+        "Goal threat",
+        "One-on-one dribbling",
+        "Right-wing creation"
+      ],
+      "note": "Plata is on the scoresheet for Ecuador, with his goal coming against Germany. One finish can change how opponents defend the next run.",
+      "noteZh": "他已经把一次世界杯机会变成进球。接下来要看防守者会不会开始多给他一步空间。"
     },
     "Gonzalo Valle": {
       "league": "Ecuadorian Serie A",
-      "skills": ["Goalkeeper depth", "Reaction saves", "Domestic rhythm"],
-      "note": "Ecuador's goalkeeper cover, bringing domestic rhythm and a reliable shot-stopping option behind the starters.",
-      "noteZh": "贡萨洛·巴列是厄瓜多尔门将保障，带来本土比赛节奏，并在主力身后提供可靠扑救选择。"
+      "skills": [
+        "Goalkeeper depth",
+        "Reaction saves",
+        "Domestic rhythm"
+      ],
+      "note": "Valle gives Ecuador a keeper option if the night turns sideways. His card is about being warm enough for one big save.",
+      "noteZh": "他在Ecuador首发门将身后等待，但这个角色不是装饰。他要随时处理传中、开球和冷启动。"
     },
     "Hernan Galindez": {
-      "skills": ["Veteran goalkeeping", "Box command", "Penalty saves"],
-      "note": "Ecuador's veteran keeper, trusted for command, tournament calm, and saves when the back line bends.",
-      "noteZh": "埃尔南·加林德斯是厄瓜多尔老练门将，在指挥、大赛冷静和防线承压时的扑救上值得信任。"
+      "skills": [
+        "Veteran goalkeeping",
+        "Box command",
+        "Penalty saves"
+      ],
+      "note": "Galíndez has been Ecuador's goalkeeper through this run. His value is keeping the box calm long enough for the next attack to start cleanly.",
+      "noteZh": "他给Ecuador提供从后场开始的冷静第一步。看他如何把扑救或摘球变成重新组织。"
     },
     "Jackson Porozo": {
-      "skills": ["Centre-back depth", "Aerial size", "Recovery defending"],
-      "note": "Ecuador's athletic centre-back depth, useful when they need size and recovery speed against direct forwards.",
-      "noteZh": "杰克逊·波罗索是厄瓜多尔运动能力强的中卫深度，在面对直接型前锋时能提供身材和回追速度。"
+      "skills": [
+        "Centre-back depth",
+        "Aerial size",
+        "Recovery defending"
+      ],
+      "note": "Porozo gives Ecuador cover for the minutes when defending becomes more about nerve than shape. One solid duel can calm the whole line.",
+      "noteZh": "他是Ecuador后防线的保险。卡片不华丽：赢球、稳传、重新站好。"
     },
     "Jeremy Arevalo": {
-      "skills": ["Forward movement", "Pressing runs", "Box instincts"],
-      "note": "Ecuador's young striker option, bringing pressing runs, penalty-box movement, and fresh energy off the bench.",
-      "noteZh": "杰里米·阿雷瓦洛是厄瓜多尔年轻前锋选择，能带来压迫跑动、禁区走位和替补席上的新鲜活力。"
+      "skills": [
+        "Forward movement",
+        "Pressing runs",
+        "Box instincts"
+      ],
+      "note": "Arévalo is an attacking change-up for Ecuador. He gives the front line fresh running when the first plan starts to look predictable.",
+      "noteZh": "他是Ecuador的进攻深度。如果比赛慢下来，他要让后防线重新移动。"
     },
     "Joel Ordonez": {
-      "skills": ["Aerial dominance", "Composed defending", "Line-breaking passing"],
-      "note": "Ecuador's high-upside centre-back, giving them aerial power, calm defending, and passes that beat pressure.",
-      "noteZh": "乔尔·奥多涅斯是厄瓜多尔高潜力中卫，能提供空中力量、冷静防守和穿透压力的传球。"
+      "skills": [
+        "Aerial dominance",
+        "Composed defending",
+        "Line-breaking passing"
+      ],
+      "note": "Ordóñez has been part of Ecuador's main defensive shape. He keeps the first duel clean so the team does not spend the next phase chasing.",
+      "noteZh": "他在Ecuador体系里做的是安静工作。他让对手的进攻不容易变成混乱。"
     },
     "John Yeboah": {
-      "skills": ["Left-footed dribbling", "Wide creativity", "Transition bursts"],
-      "note": "Ecuador's left-footed wide threat, useful for fast breaks, sharp changes of direction, and final-third invention.",
-      "noteZh": "约翰·耶博阿是厄瓜多尔左脚边路威胁，适合快攻、突然变向和前场创造。"
+      "skills": [
+        "Left-footed dribbling",
+        "Wide creativity",
+        "Transition bursts"
+      ],
+      "note": "Yeboah has been part of Ecuador's front-line plan. He stretches defenders first, then looks for the touch that turns pressure into a chance.",
+      "noteZh": "他是Ecuador前场计划的一部分。他先拉扯防守者，再寻找把压力变成机会的触球。"
     },
     "Jordy Alcivar": {
       "league": "Ecuadorian Serie A",
-      "skills": ["Midfield tackling", "Set-piece delivery", "Tempo control"],
-      "note": "Ecuador's domestic midfield controller, helping with tackles, restarts, and a calmer rhythm when games get frantic.",
-      "noteZh": "约尔迪·阿尔西瓦尔是厄瓜多尔本土中场控制者，能在比赛变乱时提供抢断、定位球和更冷静的节奏。"
+      "skills": [
+        "Midfield tackling",
+        "Set-piece delivery",
+        "Tempo control"
+      ],
+      "note": "Alcívar gives Ecuador cover for the minutes when defending becomes more about nerve than shape. One solid duel can calm the whole line.",
+      "noteZh": "他是Ecuador后防线的保险。卡片不华丽：赢球、稳传、重新站好。"
     },
     "Jordy Caicedo": {
       "league": "Argentine Primera División",
-      "skills": ["Power forward play", "Aerial duels", "Late box runs"],
-      "note": "Ecuador's physical striker alternative, useful for direct service, aerial duels, and late runs across defenders.",
-      "noteZh": "约尔迪·凯塞多是厄瓜多尔身体型中锋替代方案，适合直接传球、空中对抗和后段横向冲击后卫。"
+      "skills": [
+        "Power forward play",
+        "Aerial duels",
+        "Late box runs"
+      ],
+      "note": "Caicedo is an attacking change-up for Ecuador. He gives the front line fresh running when the first plan starts to look predictable.",
+      "noteZh": "他是Ecuador的进攻深度。如果比赛慢下来，他要让后防线重新移动。"
     },
     "Kendry Paez": {
-      "skills": ["Teenage creativity", "Between-lines touch", "Final pass"],
-      "note": "Ecuador's teenage creative wildcard, able to receive between lines and find a final pass before pressure arrives.",
-      "noteZh": "肯德里·派斯是厄瓜多尔年轻创造变数，能在线间接球，并在压力到来前找到最后一传。"
+      "skills": [
+        "Teenage creativity",
+        "Between-lines touch",
+        "Final pass"
+      ],
+      "note": "Páez gives Ecuador a way to settle the middle if the match opens up. His best work is making the next decision less hurried.",
+      "noteZh": "他是Ecuador的中场保险。那些混乱阶段里，他要抢第二点、稳一下，再把球送出去。"
     },
     "Kevin Rodriguez": {
       "league": "Belgian Pro League",
-      "skills": ["Forward pressing", "Channel running", "Direct finishing"],
-      "note": "Ecuador's energetic forward runner, giving them pressing, channel attacks, and a direct route behind defenders.",
-      "noteZh": "凯文·罗德里格斯是厄瓜多尔活力型前锋跑动点，能提供压迫、通道冲击和打到后卫身后的直接路线。"
+      "skills": [
+        "Chance passes",
+        "Forward pressing",
+        "Channel running"
+      ],
+      "note": "Rodríguez has supplied one of Ecuador's tournament goals. The pass matters because it arrives before the defender can fully turn.",
+      "noteZh": "他这届世界杯已经为Ecuador创造过进球。注意他出球的时机，因为那一脚传球往往比带球更重要。"
     },
     "Moises Caicedo": {
-      "skills": ["Elite ball winning", "Press resistance", "Transition control"],
-      "note": "Ecuador's midfield engine, built to win duels, escape pressure, and stop counters before they become dangerous.",
-      "noteZh": "莫伊塞斯·凯塞多是厄瓜多尔中场发动机，擅长赢下对抗、摆脱压力，并在反击变危险前将其截停。"
+      "skills": [
+        "Elite ball winning",
+        "Press resistance",
+        "Transition control"
+      ],
+      "note": "Caicedo is a tempo player for Ecuador. He turns crowded touches into cleaner angles for the next runner.",
+      "noteZh": "他让Ecuador在球权转换时更有结构。最有价值的往往是松散触球之后那一秒。"
     },
     "Moises Ramirez": {
-      "skills": ["Goalkeeper reactions", "Sweeper cover", "Distribution choices"],
-      "note": "Ecuador's younger goalkeeper option, useful for reaction saves, sweeper cover, and cleaner restart decisions.",
-      "noteZh": "莫伊塞斯·拉米雷斯是厄瓜多尔较年轻的门将选择，能完成反应扑救、清道夫式覆盖和更干净的出球决策。"
+      "skills": [
+        "Goalkeeper reactions",
+        "Sweeper cover",
+        "Distribution choices"
+      ],
+      "note": "Ramírez is Ecuador's safety net in goal. The job is simple to say and hard to do: enter cold and make the box quieter.",
+      "noteZh": "他是Ecuador的门将保障。角色是随时准备好扑救、重新开球，并在突然需要他时不慌。"
     },
     "Nilson Angulo": {
-      "skills": ["Wing acceleration", "One-on-one pressure", "Direct carries"],
-      "note": "Ecuador's acceleration winger, able to stress full-backs with direct carries and repeated one-on-ones.",
-      "noteZh": "尼尔松·安古洛是厄瓜多尔加速型边锋，能用直接带球和反复一对一给边后卫施压。"
+      "skills": [
+        "Goal threat",
+        "Wing acceleration",
+        "One-on-one pressure"
+      ],
+      "note": "Angulo has already turned one tournament chance into a goal against Germany. Watch whether defenders start giving him the extra step.",
+      "noteZh": "他已经为Ecuador进入这届世界杯的进球名单。一个终结会改变对手下一次防他的方式。"
     },
     "Pedro Vite": {
-      "skills": ["Attacking midfield craft", "Quick combinations", "Late runs"],
-      "note": "Ecuador's clever attacking midfielder, linking short combinations and arriving late around the box.",
-      "noteZh": "佩德罗·维特是厄瓜多尔聪明的前腰，能串联短传配合，并后插上到禁区周围。"
+      "skills": [
+        "Chance passes",
+        "Attacking midfield craft",
+        "Quick combinations"
+      ],
+      "note": "Vite has supplied one of Ecuador's tournament goals. The pass matters because it arrives before the defender can fully turn.",
+      "noteZh": "他这届世界杯已经为Ecuador创造过进球。注意他出球的时机，因为那一脚传球往往比带球更重要。"
     },
     "Pervis Estupinan": {
-      "skills": ["Left-back width", "Overlap power", "Crossing volume"],
-      "note": "Ecuador's left-side outlet, stretching the flank with power runs and serving early balls into the area.",
-      "noteZh": "佩尔维斯·埃斯图皮尼安是厄瓜多尔左路出口，能用强力跑动拉开边路，并早早把球送入禁区。"
+      "skills": [
+        "Left-back width",
+        "Overlap power",
+        "Crossing volume"
+      ],
+      "note": "Estupiñán gives Ecuador cover for the minutes when defending becomes more about nerve than shape. One solid duel can calm the whole line.",
+      "noteZh": "他是Ecuador后防线的保险。卡片不华丽：赢球、稳传、重新站好。"
     },
     "Piero Hincapie": {
-      "skills": ["Left-footed defending", "Back-line versatility", "Progressive passing"],
-      "note": "Ecuador's left-footed defensive leader, comfortable at centre-back or left-back and calm passing out.",
-      "noteZh": "皮耶罗·因卡皮耶是厄瓜多尔左脚防线领袖，能踢中卫或左后卫，并冷静完成后场出球。"
+      "skills": [
+        "Left-footed defending",
+        "Back-line versatility",
+        "Progressive passing"
+      ],
+      "note": "Hincapié has been part of Ecuador's answer without the ball. He matters when the first runner has to be slowed before the whole shape breaks.",
+      "noteZh": "他给Ecuador后防线一个稳定零件。看的是那些小选择：上抢、站住，还是先封线路。"
     },
     "Willian Pacho": {
-      "skills": ["Elite centre-back defending", "Recovery pace", "Aerial control"],
-      "note": "Ecuador's top-level centre-back, giving them recovery pace, aerial control, and confidence against elite forwards.",
-      "noteZh": "威廉·帕乔是厄瓜多尔顶级中卫，能提供回追速度、空中控制和面对精英前锋时的信心。"
+      "skills": [
+        "Elite centre-back defending",
+        "Recovery pace",
+        "Aerial control"
+      ],
+      "note": "Pacho gives Ecuador one of the steady pieces in the back line. Watch the small choices: step, hold, or clear the lane.",
+      "noteZh": "他是Ecuador无球答案的一部分。第一个跑动被拖慢，整体阵型才不容易散。"
     },
     "Yaimar Medina": {
-      "skills": ["Midfield spark", "Forward carries", "Quick passing"],
-      "note": "Ecuador's young midfield spark, useful for carrying through space and speeding up attacks with quick passes.",
-      "noteZh": "亚伊马尔·梅迪纳是厄瓜多尔年轻中场火花，能带球穿过空间，并用快速传球加快进攻。"
+      "skills": [
+        "Midfield spark",
+        "Forward carries",
+        "Quick passing"
+      ],
+      "note": "Medina gives Ecuador a way to settle the middle if the match opens up. His best work is making the next decision less hurried.",
+      "noteZh": "他是Ecuador的中场保险。那些混乱阶段里，他要抢第二点、稳一下，再把球送出去。"
     }
   }
 }

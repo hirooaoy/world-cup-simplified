@@ -28,77 +28,133 @@
       "league": "Bundesliga",
       "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/792380-1727098078.jpg?lm=1",
       "marketValueEurMillions": 90,
-      "skills": ["Press resistance", "Calm distribution", "Midfield screening"],
-      "note": "Germany's young midfield stabilizer, useful for receiving under pressure and keeping the build-up calm.",
-      "noteZh": "亚历山大·帕夫洛维奇是德国年轻的中场稳定器，能在压力下接球，并让组织推进保持冷静。",
+      "skills": [
+        "Press resistance",
+        "Calm distribution",
+        "Midfield screening"
+      ],
+      "note": "Pavlović gives Germany structure when the ball changes feet. He is often most valuable in the second after a loose touch.",
+      "noteZh": "他给Germany控制节奏。拥挤区域里的触球，能变成下一名队友更舒服的角度。",
       "sourceUrl": "https://www.transfermarkt.co.uk/aleksandar-pavlovic/profil/spieler/792380"
     },
     "Alexander Nübel": {
       "transfermarktPlayerCode": "alexander-nubel",
-      "skills": ["Goalkeeper depth", "Sweeper cover", "Shot stopping"],
-      "note": "Germany's goalkeeper depth, giving them a modern sweeper option and reliable shot-stopping behind the starters.",
-      "noteZh": "亚历山大·努贝尔是德国门将深度，能在主力身后提供现代清道夫门将选择和可靠扑救。"
+      "skills": [
+        "Goalkeeper depth",
+        "Sweeper cover",
+        "Shot stopping"
+      ],
+      "note": "Nübel gives Germany a keeper option if the night turns sideways. His card is about being warm enough for one big save.",
+      "noteZh": "他在Germany首发门将身后等待，但这个角色不是装饰。他要随时处理传中、开球和冷启动。"
     },
     "Angelo Stiller": {
-      "skills": ["Deep playmaking", "Left-footed balance", "Tempo control"],
-      "note": "Germany's left-footed rhythm player, able to slow the game down and pick cleaner passes from deep.",
-      "noteZh": "安杰洛·施蒂勒是德国左脚节奏点，能放慢比赛，并从较深位置选择更干净的传球。"
+      "skills": [
+        "Deep playmaking",
+        "Left-footed balance",
+        "Tempo control"
+      ],
+      "note": "Stiller is midfield insurance for Germany. He is there for the messy phase: second ball, one calmer touch, then the next pass.",
+      "noteZh": "他给Germany一种在比赛打开后稳住中路的办法。最好的工作，是让下一次决定没那么急。"
     },
     "Antonio Rüdiger": {
       "transfermarktPlayerCode": "antonio-rudiger",
-      "skills": ["Elite centre-back defending", "Recovery speed", "Aggressive duels"],
-      "note": "Germany's defensive enforcer, trusted to defend big spaces, attack duels, and bring edge to the back line.",
-      "noteZh": "安东尼奥·吕迪格是德国防线强硬点，能防守大片空间、主动进入对抗，并给后防增加锋芒。"
+      "skills": [
+        "Elite centre-back defending",
+        "Recovery speed",
+        "Aggressive duels"
+      ],
+      "note": "Rüdiger is defensive cover for Germany's harder minutes. He is there to win the first contact and make the next pass simple.",
+      "noteZh": "他是Germany在比赛变窄时可以使用的后卫。任务是第一下接触、清楚解围、简单出球。"
     },
     "Assan Ouedraogo": {
-      "skills": ["Box-to-box carrying", "Youthful power", "Late surges"],
-      "note": "Germany's young midfield power runner, useful when they need carries, late surges, and fresh legs through the middle.",
-      "noteZh": "阿桑·韦德拉奥戈是德国年轻的中场力量跑动点，在球队需要带球、后插上和中路新鲜腿脚时很有用。"
+      "skills": [
+        "Box-to-box carrying",
+        "Youthful power",
+        "Late surges"
+      ],
+      "note": "Ouédraogo is there for the part of the game where spacing gets ugly. For Germany, that can mean one clean touch before pressure arrives.",
+      "noteZh": "他给Germany提供中场深度，适合比赛被拉开的时候。他把松散球变成更冷静的下一脚。"
     },
     "David Raum": {
-      "skills": ["Left-back width", "Crossing volume", "Recovery runs"],
-      "note": "Germany's left-side width provider, stretching the flank with overlaps and serving repeated crosses into the area.",
-      "noteZh": "大卫·劳姆是德国左路宽度来源，能用套边拉开边路，并持续把传中送入禁区。"
+      "skills": [
+        "Left-back width",
+        "Crossing volume",
+        "Recovery runs"
+      ],
+      "note": "Raum gives Germany cover for the minutes when defending becomes more about nerve than shape. One solid duel can calm the whole line.",
+      "noteZh": "他是Germany后防线的保险。卡片不华丽：赢球、稳传、重新站好。"
     },
     "Deniz Undav": {
-      "skills": ["Penalty-box finishing", "Combination play", "Pressing work"],
-      "note": "Germany's compact forward finisher, sharp around loose balls and clever enough to combine near the box.",
-      "noteZh": "德尼兹·翁达夫是德国紧凑型终结前锋，善于抓住松散球权，也能在禁区附近聪明配合。"
+      "skills": [
+        "Goal threat",
+        "Chance passes",
+        "Penalty-box finishing"
+      ],
+      "note": "Undav has given Germany both the finish and the pass, including goals against Curaçao and Côte d'Ivoire. That double threat is why defenders cannot settle on one answer.",
+      "noteZh": "他已经把进球和助攻都放进了Germany的赛事故事里。看点是第一脚之后，第二个动作有多快。"
     },
     "Felix Nmecha": {
-      "skills": ["Central ball carrying", "Physical duels", "Late midfield runs"],
-      "note": "Germany's rangy midfield runner, adding carries, physical duels, and arrivals beyond the first wave.",
-      "noteZh": "费利克斯·恩梅查是德国覆盖范围大的中场跑动点，能带球、对抗，并在第一波进攻后继续前插。"
+      "skills": [
+        "Goal threat",
+        "Chance passes",
+        "Central ball carrying"
+      ],
+      "note": "Nmecha has both scored and created for Germany in this run. He matters because the same movement can become the shot or the pass before it.",
+      "noteZh": "他这届世界杯已经为Germany贡献进球和传球。防守者必须同时判断射门和分球。"
     },
     "Florian Wirtz": {
-      "skills": ["Elite chance creation", "Between-lines receiving", "Final pass"],
-      "note": "Germany's main creative lock-picker, dangerous when he receives between lines and releases runners early.",
-      "noteZh": "弗洛里安·维尔茨是德国主要的破密集创造者，在线间接球并提前释放跑动队友时最危险。"
+      "skills": [
+        "Chance passes",
+        "Elite chance creation",
+        "Between-lines receiving"
+      ],
+      "note": "Wirtz has been a provider for Germany, creating goals against Curaçao, Ecuador, and Paraguay. His best moments come when he plays the pass before the defense is ready.",
+      "noteZh": "他已经多次帮Germany制造进球。看的是明显机会出现前的那脚传球。"
     },
     "Jamal Musiala": {
-      "skills": ["Tight-space dribbling", "Central creation", "Shot creation"],
-      "note": "Germany's slalom dribbler, able to slip through crowded midfield zones and turn half-openings into shots.",
-      "noteZh": "贾马尔·穆西亚拉是德国的蛇形盘带手，能穿过拥挤中场区域，并把半机会变成射门。"
+      "skills": [
+        "Goal threat",
+        "Tight-space dribbling",
+        "Central creation"
+      ],
+      "note": "Musiala is on the scoresheet for Germany, with his goal coming against Curaçao. One finish can change how opponents defend the next run.",
+      "noteZh": "他已经把一次世界杯机会变成进球。接下来要看防守者会不会开始多给他一步空间。"
     },
     "Jamie Leweling": {
-      "skills": ["Right-wing speed", "Direct carries", "Counter runs"],
-      "note": "Germany's direct wide runner, useful for stretching tired full-backs and giving transitions more speed.",
-      "noteZh": "杰米·勒韦林是德国直接型边路跑动点，能拉扯疲劳的边后卫，并让转换进攻更有速度。"
+      "skills": [
+        "Right-wing speed",
+        "Direct carries",
+        "Counter runs"
+      ],
+      "note": "Leweling is midfield insurance for Germany. He is there for the messy phase: second ball, one calmer touch, then the next pass.",
+      "noteZh": "他给Germany一种在比赛打开后稳住中路的办法。最好的工作，是让下一次决定没那么急。"
     },
     "Jonathan Tah": {
-      "skills": ["Centre-back control", "Aerial strength", "Back-line leadership"],
-      "note": "Germany's commanding centre-back, giving them size, calm clearances, and organization when pressure builds.",
-      "noteZh": "约纳坦·塔是德国指挥型中卫，能在压力上升时提供身材、冷静解围和防线组织。"
+      "skills": [
+        "Centre-back control",
+        "Aerial strength",
+        "Back-line leadership"
+      ],
+      "note": "Tah gives Germany one of the steady pieces in the back line. Watch the small choices: step, hold, or clear the lane.",
+      "noteZh": "他是Germany无球答案的一部分。第一个跑动被拖慢，整体阵型才不容易散。"
     },
     "Joshua Kimmich": {
-      "skills": ["Midfield leadership", "Set-piece delivery", "Press control"],
-      "note": "Germany's tactical reference point, important for tempo, set pieces, and deciding when the team presses.",
-      "noteZh": "约书亚·基米希是德国战术参照点，对节奏、定位球和球队何时压迫的判断都很重要。"
+      "skills": [
+        "Chance passes",
+        "Midfield leadership",
+        "Set-piece delivery"
+      ],
+      "note": "Kimmich has been a provider for Germany, creating goals against Curaçao. His best moments come when he plays the pass before the defense is ready.",
+      "noteZh": "他这届赛事的价值在于供给Germany的进攻。他能在防线移动还没完成时看见跑动。"
     },
     "Kai Havertz": {
-      "skills": ["Hybrid forward play", "Aerial timing", "Late box movement"],
-      "note": "Germany's hybrid forward, linking play as a false nine and arriving late to attack crosses or cutbacks.",
-      "noteZh": "凯·哈弗茨是德国混合型前锋，能像伪九号一样串联，并后插上攻击传中或倒三角。"
+      "skills": [
+        "Goal threat",
+        "Hybrid forward play",
+        "Aerial timing"
+      ],
+      "note": "Havertz has been one of Germany's real scoring stories, with goals against Curaçao and Paraguay. His danger is arriving before defenders have finished sorting the first problem.",
+      "noteZh": "他已经是Germany这届世界杯的真实得分故事之一。他的危险在于防守者还没处理完第一个问题，他已经到位。"
     },
     "Leon Goretzka": {
       "transfermarktPlayerCode": "leon-goretzka",
@@ -108,56 +164,96 @@
       "league": "Bundesliga",
       "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/153084-1700040179.jpg?lm=1",
       "marketValueEurMillions": 12,
-      "skills": ["Box-to-box power", "Late arrivals", "Defensive duels"],
-      "note": "Germany's power midfielder, bringing late box arrivals, defensive duels, and extra force in transition.",
-      "noteZh": "莱昂·格雷茨卡是德国力量型中场，能带来后插上、防守对抗和转换中的额外冲击。",
+      "skills": [
+        "Box-to-box power",
+        "Late arrivals",
+        "Defensive duels"
+      ],
+      "note": "Goretzka is midfield insurance for Germany. He is there for the messy phase: second ball, one calmer touch, then the next pass.",
+      "noteZh": "他给Germany一种在比赛打开后稳住中路的办法。最好的工作，是让下一次决定没那么急。",
       "sourceUrl": "https://www.transfermarkt.co.uk/leon-goretzka/profil/spieler/153084"
     },
     "Leroy Sane": {
       "displayName": "Leroy Sané",
-      "skills": ["Explosive wing pace", "Left-footed shooting", "Transition threat"],
-      "note": "Germany's explosive winger, most dangerous when he can run at space and cut inside onto his left foot.",
-      "noteZh": "勒罗伊·萨内是德国爆发型边锋，在能冲向空间并内切到左脚时最有威胁。"
+      "skills": [
+        "Goal threat",
+        "Explosive wing pace",
+        "Left-footed shooting"
+      ],
+      "note": "Sané already has a World Cup goal in this run, against Ecuador. His card is about finding the moment before the match settles again.",
+      "noteZh": "他的世界杯已经有了进球。下一次机会也许仍来自阵型重新站稳前的那一小段时间。"
     },
     "Malick Thiaw": {
-      "skills": ["Aerial defending", "Recovery speed", "Centre-back depth"],
-      "note": "Germany's athletic centre-back option, useful for aerial defending and recovering when the line plays high.",
-      "noteZh": "马利克·佳夫是德国运动能力强的中卫选择，适合空中防守和高位防线后的回追。"
+      "skills": [
+        "Aerial defending",
+        "Recovery speed",
+        "Centre-back depth"
+      ],
+      "note": "Thiaw is the kind of defender Germany can turn to when the match gets narrow. His job is first contact, clean clearance, simple pass.",
+      "noteZh": "他是Germany艰难时间段的防守深度。他要赢下第一下接触，并让下一脚传球简单起来。"
     },
     "Manuel Neuer": {
-      "skills": ["Sweeper-keeper command", "Tournament experience", "Short distribution"],
-      "note": "Germany's legendary goalkeeper, still valuable for sweeping high, organizing calmly, and starting attacks quickly.",
-      "noteZh": "曼努埃尔·诺伊尔是德国传奇门将，依然能高位清扫、冷静组织，并快速发起进攻。"
+      "skills": [
+        "Sweeper-keeper command",
+        "Tournament experience",
+        "Short distribution"
+      ],
+      "note": "Neuer has carried the keeper minutes for Germany. The card is clean hands, clear restarts, and defenders who do not have to rush.",
+      "noteZh": "他是Germany防守结构最后的声音。压力停在禁区时，他要让下一步动作简单下来。"
     },
     "Maximilian Beier": {
-      "skills": ["Forward speed", "Channel runs", "Quick finishing"],
-      "note": "Germany's fast striker option, giving them channel runs and a different finishing rhythm behind Havertz.",
-      "noteZh": "马克西米利安·拜尔是德国速度型前锋选择，能提供通道跑动，并在哈弗茨身后带来不同终结节奏。"
+      "skills": [
+        "Forward speed",
+        "Channel runs",
+        "Quick finishing"
+      ],
+      "note": "Beier is the forward Germany can use when the match needs new legs. His first job is to make tired defenders turn.",
+      "noteZh": "他给Germany替补席上的另一种进攻速度。有时关键触球，是那次帮队友拉开空间的跑动。"
     },
     "Nadiem Amiri": {
-      "skills": ["Central creativity", "Set-piece touch", "Pressing energy"],
-      "note": "Germany's creative midfield connector, useful for restarts, short combinations, and energetic counter-pressure.",
-      "noteZh": "纳迪姆·阿米里是德国创造型中场连接点，能处理定位球、短传配合，并积极反抢。"
+      "skills": [
+        "Chance passes",
+        "Central creativity",
+        "Set-piece touch"
+      ],
+      "note": "Amiri has already created a goal for Germany in this tournament. Watch the timing of his release, because the pass often matters more than the carry.",
+      "noteZh": "他已经参与了Germany的一粒世界杯进球。那脚传球的意义，是在防守者完全转身前到达。"
     },
     "Nathaniel Brown": {
-      "skills": ["Left-back acceleration", "Forward support", "Recovery speed"],
-      "note": "Germany's young left-back spark, offering forward support, quick recovery, and a fresher flank profile.",
-      "noteZh": "纳撒尼尔·布朗是德国年轻左后卫火花，能提供前插支援、快速回追和更有活力的边路选择。"
+      "skills": [
+        "Goal threat",
+        "Chance passes",
+        "Left-back acceleration"
+      ],
+      "note": "Brown has shown both sides of the attacking job for Germany. One action can pull the defender, and the next one can decide the chance.",
+      "noteZh": "他给Germany展示了进攻工作的两面。一脚拉开防守，下一脚就可能决定机会。"
     },
     "Nick Woltemade": {
-      "skills": ["Tall forward link play", "Soft first touch", "Box finishing"],
-      "note": "Germany's tall forward connector, unusual because he can cushion passes, combine, and still finish in the box.",
-      "noteZh": "尼克·沃尔特马德是德国高大型前场连接点，特别之处在于能柔和停球、参与配合，同时在禁区终结。"
+      "skills": [
+        "Tall forward link play",
+        "Soft first touch",
+        "Box finishing"
+      ],
+      "note": "Woltemade is there for the part of the game where spacing gets ugly. For Germany, that can mean one clean touch before pressure arrives.",
+      "noteZh": "他给Germany提供中场深度，适合比赛被拉开的时候。他把松散球变成更冷静的下一脚。"
     },
     "Nico Schlotterbeck": {
-      "skills": ["Left-footed defending", "Progressive passing", "Aggressive stepping"],
-      "note": "Germany's left-footed centre-back, valuable for stepping forward and passing through the first press.",
-      "noteZh": "尼科·施洛特贝克是德国左脚中卫，对前顶防守和穿过第一道压迫的传球很有价值。"
+      "skills": [
+        "Goal threat",
+        "Left-footed defending",
+        "Progressive passing"
+      ],
+      "note": "Schlotterbeck already has a World Cup goal in this run, against Curaçao. His card is about finding the moment before the match settles again.",
+      "noteZh": "他的世界杯已经有了进球。下一次机会也许仍来自阵型重新站稳前的那一小段时间。"
     },
     "Oliver Baumann": {
-      "skills": ["Shot-stopping reliability", "Keeper communication", "Penalty-box command"],
-      "note": "Germany's steady goalkeeper option, trusted for reliable saves and clear communication with the back line.",
-      "noteZh": "奥利弗·鲍曼是德国稳健门将选择，可靠扑救和与防线清晰沟通都值得信任。"
+      "skills": [
+        "Shot-stopping reliability",
+        "Keeper communication",
+        "Penalty-box command"
+      ],
+      "note": "Baumann gives Germany a keeper option if the night turns sideways. His card is about being warm enough for one big save.",
+      "noteZh": "他在Germany首发门将身后等待，但这个角色不是装饰。他要随时处理传中、开球和冷启动。"
     },
     "Pascal Groß": {
       "displayName": "Pascal Groß",
@@ -170,15 +266,23 @@
       "league": "Premier League",
       "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/82873-1746195832.jpg?lm=1",
       "marketValueEurMillions": 2.5,
-      "skills": ["Passing range", "Set-piece quality", "Veteran control"],
-      "note": "Germany's veteran passer, useful for set pieces, switches of play, and calming possession late.",
-      "noteZh": "帕斯卡尔·格罗斯是德国老练传球手，能处理定位球、转移球，并在后段让控球冷静下来。",
+      "skills": [
+        "Passing range",
+        "Set-piece quality",
+        "Veteran control"
+      ],
+      "note": "Groß is midfield insurance for Germany. He is there for the messy phase: second ball, one calmer touch, then the next pass.",
+      "noteZh": "他给Germany一种在比赛打开后稳住中路的办法。最好的工作，是让下一次决定没那么急。",
       "sourceUrl": "https://www.transfermarkt.co.uk/pascal-gross/profil/spieler/82873"
     },
     "Waldemar Anton": {
-      "skills": ["Defensive versatility", "Centre-back cover", "Right-side duels"],
-      "note": "Germany's versatile defender, able to cover centre-back or right-back and keep duels competitive.",
-      "noteZh": "瓦尔德马尔·安东是德国多面防守者，能覆盖中卫或右后卫，并保持对抗强度。"
+      "skills": [
+        "Defensive versatility",
+        "Centre-back cover",
+        "Right-side duels"
+      ],
+      "note": "Anton is defensive cover for Germany's harder minutes. He is there to win the first contact and make the next pass simple.",
+      "noteZh": "他是Germany在比赛变窄时可以使用的后卫。任务是第一下接触、清楚解围、简单出球。"
     }
   }
 }

@@ -455,8 +455,13 @@ try {
       `Future expected lineups should use the predicted heading. Measured ${JSON.stringify(headingState)}.`
     );
     assert.equal(headingState.ariaLabel, "Line-ups (predicted)");
+    assert.equal(
+      headingState.helpLabel,
+      "Predicted from online sources.\nThis feature is still work in progress and may not be accurate.",
+      `Future predicted lineup help should keep the sentence period before the disclaimer. Measured ${JSON.stringify(headingState)}.`
+    );
     assert(
-      headingState.helpLabel.includes("Predicted from online sources") &&
+      headingState.helpLabel.includes("Predicted from online sources.") &&
         !headingState.text.includes("This was the final lineup for the match."),
       `Future predicted lineups should not read as final or official-only copy. Measured ${JSON.stringify(headingState)}.`
     );

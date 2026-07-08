@@ -3,60 +3,337 @@
   "teamId": "UZB",
   "teamName": "Uzbekistan",
   "rosterNameOverrides": {
-    "FAYZULLAEV Abbosbek": "Abbosbek Fayzullaev", "Abbosbek FAYZULLAEV": "Abbosbek Fayzullaev",
-    "KHUSANOV Abdukodir": "Abdukodir Khusanov", "Abdukodir KHUSANOV": "Abdukodir Khusanov",
-    "ABDULLAEV Abdulla": "Abdulla Abdullaev", "Abdulla ABDULLAEV": "Abdulla Abdullaev",
-    "NEMATOV Abduvohid": "Abduvohid Nematov", "Abduvakhid NEMATOV": "Abduvohid Nematov",
-    "MOZGOVOY Akmal": "Akmal Mozgovoy", "Akmal MOZGOVOY": "Akmal Mozgovoy",
-    "ULMASALIYEV Avazbek": "Avazbek Ulmasaliyev", "Avazbek ULMASALIYEV": "Avazbek Ulmasaliyev",
-    "AMONOV Azizbek": "Azizbek Amonov", "Azizbek AMONOV": "Azizbek Amonov",
-    "GANIEV Azizjon": "Azizjon Ganiev", "Azizjon GANIEV": "Azizjon Ganiev",
-    "KARIMOV Behruzjon": "Behruzjon Karimov", "Behruzjon KARIMOV": "Behruzjon Karimov",
-    "ERGASHEV Botirali": "Botirali Ergashev", "Botirali ERGASHEV": "Botirali Ergashev",
-    "KHAMDAMOV Dostonbek": "Dostonbek Khamdamov", "Dostonbek KHAMDAMOV": "Dostonbek Khamdamov",
-    "SHOMURODOV Eldor": "Eldor Shomurodov", "Eldor SHOMURODOV": "Eldor Shomurodov",
-    "SAYFIEV Farrukh": "Farrukh Sayfiev", "Farrukh SAYFIEV": "Farrukh Sayfiev",
-    "SERGEEV Igor": "Igor Sergeev", "Igor SERGEEV": "Igor Sergeev",
-    "UROZOV Jakhongir": "Jakhongir Urozov", "Jakhongir UROZOV": "Jakhongir Urozov",
-    "ISKANDEROV Jamshid": "Jamshid Iskanderov", "Jamshid ISKANDEROV": "Jamshid Iskanderov",
-    "ALIJONOV Khojiakbar": "Khojiakbar Alijonov", "Khojiakbar ALIJONOV": "Khojiakbar Alijonov",
-    "XAMROBEKOV Odiljon": "Odiljon Xamrobekov", "Odiljon XAMROBEKOV": "Odiljon Xamrobekov",
-    "URUNOV Oston": "Oston Urunov", "Oston URUNOV": "Oston Urunov",
-    "SHUKUROV Otabek": "Otabek Shukurov", "Otabek SHUKUROV": "Otabek Shukurov",
-    "JIYANOV Ruslanbek": "Ruslanbek Jiyanov", "Ruslanbek JIYANOV": "Ruslanbek Jiyanov",
-    "ASHURMATOV Rustam": "Rustamjon Ashurmatov", "Rustamjon ASHURMATOV": "Rustamjon Ashurmatov",
-    "ESANOV Sherzod": "Sherzod Esanov", "Sherzod ESANOV": "Sherzod Esanov",
-    "NASRULLAEV Sherzod": "Sherzod Nasrullaev", "Sherzod NASRULLAEV": "Sherzod Nasrullaev",
-    "ESHMURODOV Umar": "Umarbek Eshmurodov", "Umarbek ESHMURODOV": "Umarbek Eshmurodov",
-    "YUSUPOV Utkir": "Utkir Yusupov", "Utkir YUSUPOV": "Utkir Yusupov"
+    "FAYZULLAEV Abbosbek": "Abbosbek Fayzullaev",
+    "Abbosbek FAYZULLAEV": "Abbosbek Fayzullaev",
+    "KHUSANOV Abdukodir": "Abdukodir Khusanov",
+    "Abdukodir KHUSANOV": "Abdukodir Khusanov",
+    "ABDULLAEV Abdulla": "Abdulla Abdullaev",
+    "Abdulla ABDULLAEV": "Abdulla Abdullaev",
+    "NEMATOV Abduvohid": "Abduvohid Nematov",
+    "Abduvakhid NEMATOV": "Abduvohid Nematov",
+    "MOZGOVOY Akmal": "Akmal Mozgovoy",
+    "Akmal MOZGOVOY": "Akmal Mozgovoy",
+    "ULMASALIYEV Avazbek": "Avazbek Ulmasaliyev",
+    "Avazbek ULMASALIYEV": "Avazbek Ulmasaliyev",
+    "AMONOV Azizbek": "Azizbek Amonov",
+    "Azizbek AMONOV": "Azizbek Amonov",
+    "GANIEV Azizjon": "Azizjon Ganiev",
+    "Azizjon GANIEV": "Azizjon Ganiev",
+    "KARIMOV Behruzjon": "Behruzjon Karimov",
+    "Behruzjon KARIMOV": "Behruzjon Karimov",
+    "ERGASHEV Botirali": "Botirali Ergashev",
+    "Botirali ERGASHEV": "Botirali Ergashev",
+    "KHAMDAMOV Dostonbek": "Dostonbek Khamdamov",
+    "Dostonbek KHAMDAMOV": "Dostonbek Khamdamov",
+    "SHOMURODOV Eldor": "Eldor Shomurodov",
+    "Eldor SHOMURODOV": "Eldor Shomurodov",
+    "SAYFIEV Farrukh": "Farrukh Sayfiev",
+    "Farrukh SAYFIEV": "Farrukh Sayfiev",
+    "SERGEEV Igor": "Igor Sergeev",
+    "Igor SERGEEV": "Igor Sergeev",
+    "UROZOV Jakhongir": "Jakhongir Urozov",
+    "Jakhongir UROZOV": "Jakhongir Urozov",
+    "ISKANDEROV Jamshid": "Jamshid Iskanderov",
+    "Jamshid ISKANDEROV": "Jamshid Iskanderov",
+    "ALIJONOV Khojiakbar": "Khojiakbar Alijonov",
+    "Khojiakbar ALIJONOV": "Khojiakbar Alijonov",
+    "XAMROBEKOV Odiljon": "Odiljon Xamrobekov",
+    "Odiljon XAMROBEKOV": "Odiljon Xamrobekov",
+    "URUNOV Oston": "Oston Urunov",
+    "Oston URUNOV": "Oston Urunov",
+    "SHUKUROV Otabek": "Otabek Shukurov",
+    "Otabek SHUKUROV": "Otabek Shukurov",
+    "JIYANOV Ruslanbek": "Ruslanbek Jiyanov",
+    "Ruslanbek JIYANOV": "Ruslanbek Jiyanov",
+    "ASHURMATOV Rustam": "Rustamjon Ashurmatov",
+    "Rustamjon ASHURMATOV": "Rustamjon Ashurmatov",
+    "ESANOV Sherzod": "Sherzod Esanov",
+    "Sherzod ESANOV": "Sherzod Esanov",
+    "NASRULLAEV Sherzod": "Sherzod Nasrullaev",
+    "Sherzod NASRULLAEV": "Sherzod Nasrullaev",
+    "ESHMURODOV Umar": "Umarbek Eshmurodov",
+    "Umarbek ESHMURODOV": "Umarbek Eshmurodov",
+    "YUSUPOV Utkir": "Utkir Yusupov",
+    "Utkir YUSUPOV": "Utkir Yusupov"
   },
-  "removeProfiles": ["Abduvakhid Nematov", "Umar Eshmurodov"],
+  "removeProfiles": [
+    "Abduvakhid Nematov",
+    "Umar Eshmurodov"
+  ],
   "profiles": {
-    "Abbosbek Fayzullaev": {"skills": ["Creative dribbling", "Final pass", "Between-lines receiving"], "note": "Fayzullaev is Uzbekistan's creative spark, finding pockets and turning carries into final passes.", "noteZh": "法伊祖拉耶夫是乌兹别克斯坦创造火花，能找到空当并把带球转成最后一传。"},
-    "Abdukodir Khusanov": {"skills": ["Centre-back speed", "Aerial defending", "Recovery tackles"], "note": "Khusanov gives Uzbekistan elite defensive upside, fast enough to defend space behind the line.", "noteZh": "胡萨诺夫给乌兹别克斯坦顶级防守潜力，速度足以防守身后空间。"},
-    "Abdulla Abdullaev": {"league": "UAE Pro League", "skills": ["Defensive midfield", "Second balls", "Short passing"], "note": "Abdullaev gives Uzbekistan a midfield shield, useful for second balls and simple exits.", "noteZh": "阿卜杜拉耶夫给乌兹别克斯坦中场屏障，适合第二落点和简单出球。"},
-    "Abduvohid Nematov": {"league": "Uzbekistan Super League", "skills": ["Goalkeeper command", "Shot stopping", "Penalty-area reach"], "note": "Nematov gives Uzbekistan a commanding goalkeeper base, important when pressure comes through crosses.", "noteZh": "内马托夫给乌兹别克斯坦有指挥力的门将基础，当压力来自传中时很重要。"},
-    "Akmal Mozgovoy": {"league": "Uzbekistan Super League", "skills": ["Midfield coverage", "Ball recovery", "Tempo support"], "note": "Mozgovoy gives Uzbekistan midfield balance, covering runners and keeping possession moving.", "noteZh": "莫兹戈沃伊给乌兹别克斯坦中场平衡，能覆盖跑动并保持控球运转。"},
-    "Avazbek Ulmasaliyev": {"sourceTitle": "Avazbek Ulmasaliev", "displayName": "Avazbek Ulmasaliyev", "aliases": ["Avazbek Ulmasaliev"], "position": "Centre-back", "club": "OKMK Olmaliq", "league": "Uzbekistan Super League", "transfermarktPlayerCode": "avazbek-ulmasaliev", "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/538764-1726298244.png?lm=1", "marketValueEurMillions": 0.5, "sourceUrl": "https://www.transfermarkt.us/avazbek-ulmasaliev/profil/spieler/538764", "skills": ["Full-back energy", "Wide recovery", "Overlap support"], "note": "Ulmasaliyev adds defensive flexibility, helping Uzbekistan cover wide spaces and centre-back duels.", "noteZh": "乌尔马萨利耶夫增加防守灵活性，帮助乌兹别克斯坦覆盖边路空间和中卫对抗。"},
-    "Azizbek Amonov": {"league": "Uzbekistan Super League", "skills": ["Wide creativity", "One-on-one dribbling", "Cutbacks"], "note": "Amonov gives Uzbekistan wide invention, useful when the attack needs a defender beaten cleanly.", "noteZh": "阿莫诺夫给乌兹别克斯坦边路创造，当进攻需要干净过掉防守者时很有用。"},
-    "Azizjon Ganiev": {"displayName": "Aziz Ganiev", "league": "UAE Pro League", "transfermarktPlayerCode": "aziz-ganiev", "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/431911-1762622827.png?lm=1", "marketValueEurMillions": 2, "skills": ["Midfield passing", "Set pieces", "Tempo control"], "note": "Ganiev gives Uzbekistan passing rhythm, especially from deeper midfield and dead-ball moments.", "noteZh": "加尼耶夫给乌兹别克斯坦传球节奏，尤其来自后腰位置和定位球时刻。"},
-    "Behruzjon Karimov": {"league": "Uzbekistan Super League", "skills": ["Defensive cover", "Aerial duels", "Simple buildup"], "note": "Karimov gives Uzbekistan defensive depth, useful for protecting the box and moving the ball simply.", "noteZh": "卡里莫夫给乌兹别克斯坦防守深度，适合保护禁区并简单转移球。"},
-    "Botirali Ergashev": {"league": "Uzbekistan Super League", "skills": ["Goalkeeper depth", "Shot stopping", "Cross handling"], "note": "Ergashev gives Uzbekistan another goalkeeper option, steady cover across a long tournament.", "noteZh": "埃尔加舍夫给乌兹别克斯坦另一个门将选择，是漫长赛事中的稳定保障。"},
-    "Dostonbek Khamdamov": {"league": "Uzbekistan Super League", "skills": ["Wide movement", "Combination play", "Final-third timing"], "note": "Khamdamov gives Uzbekistan clever wide movement, connecting counters to the final pass.", "noteZh": "哈姆达莫夫给乌兹别克斯坦聪明的边路移动，把反击衔接到最后一传。"},
-    "Eldor Shomurodov": {"skills": ["Target play", "Box finishing", "Aerial threat"], "note": "Shomurodov is Uzbekistan's attacking reference, giving them a target and a penalty-box finisher.", "noteZh": "绍穆罗多夫是乌兹别克斯坦进攻参照点，提供支点和禁区终结。"},
-    "Farrukh Sayfiev": {"league": "Uzbekistan Super League", "skills": ["Left-back experience", "Crossing", "Wide defending"], "note": "Sayfiev gives Uzbekistan experienced left-side cover, balancing overlaps with defensive recovery.", "noteZh": "赛菲耶夫给乌兹别克斯坦有经验的左侧保护，平衡套上和防守回追。"},
-    "Igor Sergeev": {"league": "Persian Gulf Pro League", "skills": ["Striker depth", "Aerial target", "Box movement"], "note": "Sergeev gives Uzbekistan a second central-forward route, useful when direct service is needed.", "noteZh": "谢尔盖耶夫给乌兹别克斯坦第二条中锋路线，当需要直接输送时很有用。"},
-    "Jakhongir Urozov": {"league": "Uzbekistan Super League", "skills": ["Wide defending", "Recovery speed", "Overlap support"], "note": "Urozov gives Uzbekistan wide defensive energy, useful against teams that attack the flanks quickly.", "noteZh": "乌罗佐夫给乌兹别克斯坦边路防守活力，适合应对快速打边路的球队。"},
-    "Jamshid Iskanderov": {"league": "Uzbekistan Super League", "skills": ["Attacking midfield", "Final pass", "Set-piece touch"], "note": "Iskanderov gives Uzbekistan an attacking-midfield option who can slow down and pick a pass.", "noteZh": "伊斯坎德罗夫给乌兹别克斯坦前腰选择，能放慢节奏并挑出传球。"},
-    "Khojiakbar Alijonov": {"league": "Uzbekistan Super League", "skills": ["Right-back running", "Crossing", "Recovery defending"], "note": "Alijonov gives Uzbekistan right-side running, supporting attacks without abandoning recovery duties.", "noteZh": "阿利若诺夫给乌兹别克斯坦右侧跑动，能支援进攻且不放弃回追职责。"},
-    "Odiljon Xamrobekov": {"displayName": "Odiljon Hamrobekov", "league": "Persian Gulf Pro League", "skills": ["Midfield control", "Ball winning", "Short passing"], "note": "Xamrobekov gives Uzbekistan central control, contesting duels and keeping the next pass available.", "noteZh": "哈姆罗别科夫给乌兹别克斯坦中路控制，能争抢对抗并保持下一脚传球选择。"},
-    "Oston Urunov": {"skills": ["Left-wing dribbling", "Acceleration", "Inside shooting"], "note": "Urunov gives Uzbekistan a direct wing threat, carrying inside and forcing defenders backward.", "noteZh": "乌鲁诺夫给乌兹别克斯坦直接边路威胁，能内切带球并迫使防守者后退。"},
-    "Otabek Shukurov": {"league": "UAE Pro League", "skills": ["Midfield passing", "Set-piece delivery", "Defensive balance"], "note": "Shukurov gives Uzbekistan midfield balance and delivery, useful when control has to become service.", "noteZh": "舒库罗夫给乌兹别克斯坦中场平衡和传球，当控制需要变成输送时很有用。"},
-    "Ruslanbek Jiyanov": {"league": "Uzbekistan Super League", "skills": ["Forward depth", "Pressing", "Channel runs"], "note": "Jiyanov gives Uzbekistan forward depth, pressing defenders and attacking channels off Shomurodov.", "noteZh": "吉亚诺夫给乌兹别克斯坦锋线深度，能压迫后卫并在绍穆罗多夫身边冲击通道。"},
-    "Rustamjon Ashurmatov": {"skills": ["Centre-back defending", "Aerial duels", "Back-line leadership"], "note": "Ashurmatov gives Uzbekistan centre-back authority, organising the line and winning first contacts.", "noteZh": "阿舒尔马托夫给乌兹别克斯坦中卫权威，能组织防线并赢下第一点。"},
-    "Sherzod Esanov": {"league": "Uzbekistan Super League", "skills": ["Wide depth", "Direct running", "Pressing effort"], "note": "Esanov gives Uzbekistan another wide runner, useful for late energy and transition pressure.", "noteZh": "埃萨诺夫给乌兹别克斯坦另一名边路跑手，适合末段活力和转换压迫。"},
-    "Sherzod Nasrullaev": {"league": "Uzbekistan Super League", "skills": ["Left-back support", "Crossing", "Defensive recovery"], "note": "Nasrullaev gives Uzbekistan left-side depth, supporting attacks while keeping the flank protected.", "noteZh": "纳斯鲁拉耶夫给乌兹别克斯坦左侧深度，能支援进攻并保护边路。"},
-    "Umarbek Eshmurodov": {"aliases": ["Umar Eshmurodov"], "league": "Uzbekistan Super League", "skills": ["Centre-back cover", "Aerial defending", "Simple passing"], "note": "Eshmurodov gives Uzbekistan defensive cover, useful when the team needs height and clearances.", "noteZh": "埃什穆罗多夫给乌兹别克斯坦防守保障，当球队需要高度和解围时很有用。"},
-    "Utkir Yusupov": {"league": "Uzbekistan Super League", "skills": ["Goalkeeper experience", "Shot stopping", "Game management"], "note": "Yusupov gives Uzbekistan experienced goalkeeping depth, steady for managing difficult spells.", "noteZh": "尤苏波夫给乌兹别克斯坦有经验的门将深度，适合管理困难阶段。"}
+    "Abbosbek Fayzullaev": {
+      "skills": [
+        "Goal threat",
+        "Creative dribbling",
+        "Final pass"
+      ],
+      "note": "Fayzullaev's World Cup has already included a goal against Colombia. The next one may come from the same small window before the shape resets.",
+      "noteZh": "他这届世界杯已经有进球。他的看点是在比赛重新稳定前，先找到属于自己的那个瞬间。"
+    },
+    "Abdukodir Khusanov": {
+      "skills": [
+        "Centre-back speed",
+        "Aerial defending",
+        "Recovery tackles"
+      ],
+      "note": "Khusanov is in the quiet-work part of Uzbekistan's setup. He keeps attacks from becoming scrambles.",
+      "noteZh": "他是Uzbekistan主要防守结构的一部分。他把第一下对抗处理干净，避免球队下一阶段只能追着球跑。"
+    },
+    "Abdulla Abdullaev": {
+      "league": "UAE Pro League",
+      "skills": [
+        "Defensive midfield",
+        "Second balls",
+        "Short passing"
+      ],
+      "note": "Abdullaev gives Uzbekistan defensive range. His job is to make the opponent's first opening feel smaller than it looked.",
+      "noteZh": "他是Uzbekistan艰难时间段的防守深度。他要赢下第一下接触，并让下一脚传球简单起来。"
+    },
+    "Abduvohid Nematov": {
+      "league": "Uzbekistan Super League",
+      "skills": [
+        "Goalkeeper command",
+        "Shot stopping",
+        "Penalty-area reach"
+      ],
+      "note": "Nematov gives Uzbekistan a keeper option if the night turns sideways. His card is about being warm enough for one big save.",
+      "noteZh": "他在Uzbekistan首发门将身后等待，但这个角色不是装饰。他要随时处理传中、开球和冷启动。"
+    },
+    "Akmal Mozgovoy": {
+      "league": "Uzbekistan Super League",
+      "skills": [
+        "Chance passes",
+        "Midfield coverage",
+        "Ball recovery"
+      ],
+      "note": "Mozgovoy has supplied one of Uzbekistan's tournament goals. The pass matters because it arrives before the defender can fully turn.",
+      "noteZh": "他这届世界杯已经为Uzbekistan创造过进球。注意他出球的时机，因为那一脚传球往往比带球更重要。"
+    },
+    "Avazbek Ulmasaliyev": {
+      "sourceTitle": "Avazbek Ulmasaliev",
+      "displayName": "Avazbek Ulmasaliyev",
+      "aliases": [
+        "Avazbek Ulmasaliev"
+      ],
+      "position": "Centre-back",
+      "club": "OKMK Olmaliq",
+      "league": "Uzbekistan Super League",
+      "transfermarktPlayerCode": "avazbek-ulmasaliev",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/538764-1726298244.png?lm=1",
+      "marketValueEurMillions": 0.5,
+      "sourceUrl": "https://www.transfermarkt.us/avazbek-ulmasaliev/profil/spieler/538764",
+      "skills": [
+        "Full-back energy",
+        "Wide recovery",
+        "Overlap support"
+      ],
+      "note": "Ulmasaliyev gives Uzbekistan cover for the minutes when defending becomes more about nerve than shape. One solid duel can calm the whole line.",
+      "noteZh": "他是Uzbekistan后防线的保险。卡片不华丽：赢球、稳传、重新站好。"
+    },
+    "Azizbek Amonov": {
+      "league": "Uzbekistan Super League",
+      "skills": [
+        "Wide creativity",
+        "One-on-one dribbling",
+        "Pulled-back passes"
+      ],
+      "note": "Amonov is midfield insurance for Uzbekistan. He is there for the messy phase: second ball, one calmer touch, then the next pass.",
+      "noteZh": "他给Uzbekistan一种在比赛打开后稳住中路的办法。最好的工作，是让下一次决定没那么急。"
+    },
+    "Azizjon Ganiev": {
+      "displayName": "Aziz Ganiev",
+      "league": "UAE Pro League",
+      "transfermarktPlayerCode": "aziz-ganiev",
+      "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/431911-1762622827.png?lm=1",
+      "marketValueEurMillions": 2,
+      "skills": [
+        "Midfield passing",
+        "Set pieces",
+        "Tempo control"
+      ],
+      "note": "Ganiev gives Uzbekistan a way to settle the middle if the match opens up. His best work is making the next decision less hurried.",
+      "noteZh": "他是Uzbekistan的中场保险。那些混乱阶段里，他要抢第二点、稳一下，再把球送出去。"
+    },
+    "Behruzjon Karimov": {
+      "league": "Uzbekistan Super League",
+      "skills": [
+        "Defensive cover",
+        "Aerial duels",
+        "Simple buildup"
+      ],
+      "note": "Karimov gives Uzbekistan another way to protect the edge of the box. His value shows up when the obvious pass disappears.",
+      "noteZh": "他是Uzbekistan后防线的保险。卡片不华丽：赢球、稳传、重新站好。"
+    },
+    "Botirali Ergashev": {
+      "league": "Uzbekistan Super League",
+      "skills": [
+        "Goalkeeper depth",
+        "Shot stopping",
+        "Cross handling"
+      ],
+      "note": "Ergashev sits behind the starter for Uzbekistan, but the role is not decorative. He has to be ready for crosses, restarts, and a cold first touch.",
+      "noteZh": "他给Uzbekistan保留另一个门将选择。真正需要他时，重点可能就是一次大扑救。"
+    },
+    "Dostonbek Khamdamov": {
+      "league": "Uzbekistan Super League",
+      "skills": [
+        "Wide movement",
+        "Combination play",
+        "Box-area timing"
+      ],
+      "note": "Khamdamov is attacking depth for Uzbekistan. If the game slows down, he is there to make the back line move again.",
+      "noteZh": "他是Uzbekistan前场计划的一部分。他先拉扯防守者，再寻找把压力变成机会的触球。"
+    },
+    "Eldor Shomurodov": {
+      "skills": [
+        "Goal threat",
+        "Target play",
+        "Box finishing"
+      ],
+      "note": "Shomurodov's World Cup has already included a goal against DR Congo. The next one may come from the same small window before the shape resets.",
+      "noteZh": "他这届世界杯已经有进球。他的看点是在比赛重新稳定前，先找到属于自己的那个瞬间。"
+    },
+    "Farrukh Sayfiev": {
+      "league": "Uzbekistan Super League",
+      "skills": [
+        "Left-back experience",
+        "Crossing",
+        "Wide defending"
+      ],
+      "note": "Sayfiyev gives Uzbekistan cover for the minutes when defending becomes more about nerve than shape. One solid duel can calm the whole line.",
+      "noteZh": "他是Uzbekistan后防线的保险。卡片不华丽：赢球、稳传、重新站好。"
+    },
+    "Igor Sergeev": {
+      "league": "Persian Gulf Pro League",
+      "skills": [
+        "Striker depth",
+        "Aerial target",
+        "Box movement"
+      ],
+      "note": "Sergeev gives Uzbekistan a different attacking speed from the bench. The important touch may be the run that opens space for someone else.",
+      "noteZh": "他是Uzbekistan在比赛需要新腿时可以使用的前锋。第一项工作，是让疲劳的后卫转身。"
+    },
+    "Jakhongir Urozov": {
+      "league": "Uzbekistan Super League",
+      "skills": [
+        "Wide defending",
+        "Recovery speed",
+        "Overlap support"
+      ],
+      "note": "Urozov is defensive cover for Uzbekistan's harder minutes. He is there to win the first contact and make the next pass simple.",
+      "noteZh": "他是Uzbekistan在比赛变窄时可以使用的后卫。任务是第一下接触、清楚解围、简单出球。"
+    },
+    "Jamshid Iskanderov": {
+      "league": "Uzbekistan Super League",
+      "skills": [
+        "Attacking midfield",
+        "Final pass",
+        "Set-piece touch"
+      ],
+      "note": "Iskanderov is midfield insurance for Uzbekistan. He is there for the messy phase: second ball, one calmer touch, then the next pass.",
+      "noteZh": "他给Uzbekistan一种在比赛打开后稳住中路的办法。最好的工作，是让下一次决定没那么急。"
+    },
+    "Khojiakbar Alijonov": {
+      "league": "Uzbekistan Super League",
+      "skills": [
+        "Right-back running",
+        "Crossing",
+        "Recovery defending"
+      ],
+      "note": "Alijonov gives Uzbekistan cover for the minutes when defending becomes more about nerve than shape. One solid duel can calm the whole line.",
+      "noteZh": "他是Uzbekistan后防线的保险。卡片不华丽：赢球、稳传、重新站好。"
+    },
+    "Odiljon Xamrobekov": {
+      "displayName": "Odiljon Hamrobekov",
+      "league": "Persian Gulf Pro League",
+      "skills": [
+        "Midfield control",
+        "Ball winning",
+        "Short passing"
+      ],
+      "note": "Hamrobekov gives Uzbekistan midfield depth for games that get stretched. He helps turn a loose ball into a calmer next pass.",
+      "noteZh": "他适合那些空间变丑的时间段。对Uzbekistan来说，这可能就是压力到来前的一次干净触球。"
+    },
+    "Oston Urunov": {
+      "skills": [
+        "Left-wing dribbling",
+        "Acceleration",
+        "Inside shooting"
+      ],
+      "note": "Urunov is there for the part of the game where spacing gets ugly. For Uzbekistan, that can mean one clean touch before pressure arrives.",
+      "noteZh": "他给Uzbekistan提供中场深度，适合比赛被拉开的时候。他把松散球变成更冷静的下一脚。"
+    },
+    "Otabek Shukurov": {
+      "league": "UAE Pro League",
+      "skills": [
+        "Midfield passing",
+        "Set-piece delivery",
+        "Defensive balance"
+      ],
+      "note": "Shukurov has been one of Uzbekistan's players who keeps possessions from fraying. The detail to watch is how early he knows the next pass.",
+      "noteZh": "他是Uzbekistan这届赛事中的中场连接点之一。他让下一脚传球继续存在，也帮助球队避免仓促选择。"
+    },
+    "Ruslanbek Jiyanov": {
+      "league": "Uzbekistan Super League",
+      "skills": [
+        "Forward depth",
+        "Pressing",
+        "Channel runs"
+      ],
+      "note": "Jiyanov is the forward Uzbekistan can use when the match needs new legs. His first job is to make tired defenders turn.",
+      "noteZh": "他给Uzbekistan替补席上的另一种进攻速度。有时关键触球，是那次帮队友拉开空间的跑动。"
+    },
+    "Rustamjon Ashurmatov": {
+      "skills": [
+        "Centre-back defending",
+        "Aerial duels",
+        "Back-line leadership"
+      ],
+      "note": "Ashurmatov has been part of Uzbekistan's main defensive shape. He keeps the first duel clean so the team does not spend the next phase chasing.",
+      "noteZh": "他在Uzbekistan体系里做的是安静工作。他让对手的进攻不容易变成混乱。"
+    },
+    "Sherzod Esanov": {
+      "league": "Uzbekistan Super League",
+      "skills": [
+        "Wide depth",
+        "Direct running",
+        "Pressing effort"
+      ],
+      "note": "Esanov gives Uzbekistan midfield depth for games that get stretched. He helps turn a loose ball into a calmer next pass.",
+      "noteZh": "他适合那些空间变丑的时间段。对Uzbekistan来说，这可能就是压力到来前的一次干净触球。"
+    },
+    "Sherzod Nasrullaev": {
+      "league": "Uzbekistan Super League",
+      "skills": [
+        "Left-back support",
+        "Crossing",
+        "Defensive recovery"
+      ],
+      "note": "Nasrullaev has been part of Uzbekistan's answer without the ball. He matters when the first runner has to be slowed before the whole shape breaks.",
+      "noteZh": "他给Uzbekistan后防线一个稳定零件。看的是那些小选择：上抢、站住，还是先封线路。"
+    },
+    "Umarbek Eshmurodov": {
+      "aliases": [
+        "Umar Eshmurodov"
+      ],
+      "league": "Uzbekistan Super League",
+      "skills": [
+        "Centre-back cover",
+        "Aerial defending",
+        "Simple passing"
+      ],
+      "note": "Eshmurodov is the kind of defender Uzbekistan can turn to when the match gets narrow. His job is first contact, clean clearance, simple pass.",
+      "noteZh": "他是Uzbekistan艰难时间段的防守深度。他要赢下第一下接触，并让下一脚传球简单起来。"
+    },
+    "Utkir Yusupov": {
+      "league": "Uzbekistan Super League",
+      "skills": [
+        "Goalkeeper experience",
+        "Shot stopping",
+        "Game management"
+      ],
+      "note": "Yusupov is Uzbekistan's safety net in goal. The job is simple to say and hard to do: enter cold and make the box quieter.",
+      "noteZh": "他是Uzbekistan的门将保障。角色是随时准备好扑救、重新开球，并在突然需要他时不慌。"
+    }
   }
 }

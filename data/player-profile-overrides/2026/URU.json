@@ -5,78 +5,130 @@
   "profiles": {
     "Agustin Canobbio": {
       "displayName": "Agustín Canobbio",
-      "skills": ["Wide pressing", "Inside movement", "Direct running"],
-      "note": "A busy wide attacker for Uruguay, useful when the press needs edge and the far-side run has to arrive early.",
-      "noteZh": "卡诺比奥是乌拉圭勤奋的边路攻击手，当压迫需要强度、远侧跑动需要提前到位时很有用。"
+      "skills": [
+        "Goal threat",
+        "Wide pressing",
+        "Inside movement"
+      ],
+      "note": "Canobbio has already turned one tournament chance into a goal against Cabo Verde. Watch whether defenders start giving him the extra step.",
+      "noteZh": "他已经为Uruguay进入这届世界杯的进球名单。一个终结会改变对手下一次防他的方式。"
     },
     "Brian Rodriguez": {
       "displayName": "Brian Rodríguez",
-      "skills": ["Wing acceleration", "One-on-one dribbling", "Transition carries"],
-      "note": "Rodríguez changes the tempo from wide areas, especially when Uruguay can release him into open grass.",
-      "noteZh": "布赖恩·罗德里格斯能从边路改变节奏，尤其当乌拉圭能把他送进开阔空间时。"
+      "skills": [
+        "Wing acceleration",
+        "One-on-one dribbling",
+        "Transition carries"
+      ],
+      "note": "Rodríguez gives Uruguay a different attacking speed from the bench. The important touch may be the run that opens space for someone else.",
+      "noteZh": "他是Uruguay在比赛需要新腿时可以使用的前锋。第一项工作，是让疲劳的后卫转身。"
     },
     "Darwin Nunez": {
       "displayName": "Darwin Núñez",
-      "skills": ["Channel running", "Aerial finishing", "Chaos creation"],
-      "note": "Uruguay's chaos forward, dangerous when he attacks space first and forces defenders into recovery runs.",
-      "noteZh": "努涅斯是乌拉圭制造混乱的前锋，先冲击空间并迫使后卫回追时最危险。"
+      "skills": [
+        "Channel running",
+        "Aerial finishing",
+        "Chaos creation"
+      ],
+      "note": "Núñez is in the scouting report now. For Uruguay, that means his touches can pull help away from the next runner.",
+      "noteZh": "他是Uruguay这届赛事的一条进攻路径。看他面对球门接球时，第一名防守者怎么反应。"
     },
     "Emiliano Martinez": {
       "displayName": "Emiliano Martínez",
-      "skills": ["Midfield ball winning", "Short progression", "Second-ball pressure"],
-      "note": "Martínez gives Uruguay a sturdy midfield worker who can win loose balls and keep the next pass moving.",
-      "noteZh": "埃米利亚诺·马丁内斯给乌拉圭带来稳健中场工兵，能赢下松散球并让下一脚传球继续运转。"
+      "skills": [
+        "Midfield ball winning",
+        "Short progression",
+        "Second-ball pressure"
+      ],
+      "note": "Martínez gives Uruguay midfield depth for games that get stretched. He helps turn a loose ball into a calmer next pass.",
+      "noteZh": "他适合那些空间变丑的时间段。对Uruguay来说，这可能就是压力到来前的一次干净触球。"
     },
     "Facundo Pellistri": {
       "league": "Super League Greece",
-      "skills": ["Touchline speed", "Early crosses", "Defensive tracking"],
-      "note": "Pellistri is a natural width option, stretching the right side and still tracking runners behind him.",
-      "noteZh": "佩利斯特里是天然的宽度选择，能拉开右路，同时还能回追身后的跑动。"
+      "skills": [
+        "Touchline speed",
+        "Early crosses",
+        "Defensive tracking"
+      ],
+      "note": "Pellistri is attacking depth for Uruguay. If the game slows down, he is there to make the back line move again.",
+      "noteZh": "他是Uruguay前场计划的一部分。他先拉扯防守者，再寻找把压力变成机会的触球。"
     },
     "Federico Valverde": {
-      "skills": ["Midfield engine", "Long-range shooting", "Two-way coverage"],
-      "note": "Uruguay's engine and tone-setter, able to turn a defensive recovery into a forward surge almost instantly.",
-      "noteZh": "巴尔韦德是乌拉圭的发动机和节奏标尺，几乎能立刻把防守回收转成向前冲刺。"
+      "skills": [
+        "Midfield engine",
+        "Long-range shooting",
+        "Two-way coverage"
+      ],
+      "note": "Valverde has been one of Uruguay's players who keeps possessions from fraying. The detail to watch is how early he knows the next pass.",
+      "noteZh": "他是Uruguay这届赛事中的中场连接点之一。他让下一脚传球继续存在，也帮助球队避免仓促选择。"
     },
     "Federico Vinas": {
       "displayName": "Federico Viñas",
       "league": "La Liga",
-      "skills": ["Penalty-box movement", "Hold-up play", "Aerial targets"],
-      "note": "Viñas is a penalty-area forward for Uruguay, useful when crosses and second balls become the route in.",
-      "noteZh": "维尼亚斯是乌拉圭禁区型前锋，当传中和第二落点成为进攻路线时很有用。"
+      "skills": [
+        "Penalty-box movement",
+        "Hold-up play",
+        "Aerial targets"
+      ],
+      "note": "Viñas is attacking depth for Uruguay. If the game slows down, he is there to make the back line move again.",
+      "noteZh": "他是Uruguay前场计划的一部分。他先拉扯防守者，再寻找把压力变成机会的触球。"
     },
     "Fernando Muslera": {
-      "skills": ["Veteran command", "Shot stopping", "Tournament calm"],
-      "note": "A veteran goalkeeper presence, Muslera gives Uruguay command and calm if the match turns into survival mode.",
-      "noteZh": "穆斯莱拉是老将门将存在感，当比赛进入守势阶段时能给乌拉圭带来指挥和冷静。"
+      "skills": [
+        "Veteran command",
+        "Shot stopping",
+        "Tournament calm"
+      ],
+      "note": "Muslera gives Uruguay the calmest first pass from the back. Watch how quickly he turns a save or claim into a reset.",
+      "noteZh": "他是Uruguay这段征程中的门将。价值在于让禁区保持冷静，并让下一次进攻能干净开始。"
     },
     "Giorgian De Arrascaeta": {
       "displayName": "Giorgian de Arrascaeta",
-      "skills": ["Final pass", "Set-piece quality", "Between-lines touch"],
-      "note": "Uruguay's clearest lock-picker, valuable when possession needs a disguised final pass or a cleaner restart.",
-      "noteZh": "德阿拉斯凯塔是乌拉圭最清晰的破局者，当控球需要隐蔽最后一传或更干净的定位球时很有价值。"
+      "skills": [
+        "Final pass",
+        "Set-piece quality",
+        "Between-lines touch"
+      ],
+      "note": "Arrascaeta gives Uruguay midfield depth for games that get stretched. He helps turn a loose ball into a calmer next pass.",
+      "noteZh": "他适合那些空间变丑的时间段。对Uruguay来说，这可能就是压力到来前的一次干净触球。"
     },
     "Guillermo Varela": {
-      "skills": ["Right-back duels", "Overlap timing", "Back-post defending"],
-      "note": "Varela is a practical right-back option, trusted for wide duels and controlled support rather than constant risk.",
-      "noteZh": "巴雷拉是实用型右后卫，可信赖的是边路对抗和可控支援，而不是持续冒险。"
+      "skills": [
+        "Right-back duels",
+        "Overlap timing",
+        "Back-post defending"
+      ],
+      "note": "Varela has been part of Uruguay's answer without the ball. He matters when the first runner has to be slowed before the whole shape breaks.",
+      "noteZh": "他给Uruguay后防线一个稳定零件。看的是那些小选择：上抢、站住，还是先封线路。"
     },
     "Joaquin Piquerez": {
       "displayName": "Joaquín Piquerez",
-      "skills": ["Left-back crossing", "Set-piece delivery", "Wide defending"],
-      "note": "Piquerez gives Uruguay left-footed service from deep and enough edge to defend the same flank.",
-      "noteZh": "皮克雷斯给乌拉圭提供后场左脚传递，也有足够硬度守住同一侧边路。"
+      "skills": [
+        "Left-back crossing",
+        "Set-piece delivery",
+        "Wide defending"
+      ],
+      "note": "Piquerez is back-line insurance for Uruguay. The card is not glamorous: win the ball, keep the pass safe, reset the shape.",
+      "noteZh": "他给Uruguay那些靠胆量守住的分钟提供保障。一次扎实对抗就能让整条线冷静下来。"
     },
     "Jose Maria Gimenez": {
       "displayName": "José María Giménez",
-      "skills": ["Centre-back leadership", "Aerial duels", "Box defending"],
-      "note": "Giménez is Uruguay's defensive authority, especially when the box gets crowded and every header matters.",
-      "noteZh": "希门尼斯是乌拉圭防线权威，尤其在禁区拥挤、每次头球都关键时。"
+      "skills": [
+        "Centre-back leadership",
+        "Aerial duels",
+        "Box defending"
+      ],
+      "note": "Giménez is back-line insurance for Uruguay. The card is not glamorous: win the ball, keep the pass safe, reset the shape.",
+      "noteZh": "他给Uruguay那些靠胆量守住的分钟提供保障。一次扎实对抗就能让整条线冷静下来。"
     },
     "Juan Manuel Sanabria": {
-      "skills": ["Left-side flexibility", "Midfield coverage", "Crossing angles"],
-      "note": "Sanabria gives Uruguay flexible left-side cover, able to step into midfield or keep the flank supplied.",
-      "noteZh": "萨纳夫里亚给乌拉圭提供灵活左侧保障，既能进入中场，也能持续供应边路。"
+      "skills": [
+        "Left-side flexibility",
+        "Midfield coverage",
+        "Crossing angles"
+      ],
+      "note": "Sanabria gives Uruguay another way to protect the edge of the box. His value shows up when the obvious pass disappears.",
+      "noteZh": "他是Uruguay后防线的保险。卡片不华丽：赢球、稳传、重新站好。"
     },
     "Manuel Ugarte": {
       "sourceTitle": "Manuel Ugarte (footballer)",
@@ -86,79 +138,131 @@
       "league": "Premier League",
       "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/476701-1715107512.jpg?lm=1",
       "marketValueEurMillions": 25,
-      "skills": ["Ball winning", "Counter-pressure", "Central screening"],
-      "note": "Ugarte is Uruguay's midfield bite, built for stopping counters before they become real danger.",
-      "noteZh": "乌加特是乌拉圭中场硬度来源，专门在反击真正形成威胁前将其截断。",
+      "skills": [
+        "Ball winning",
+        "Counter-pressure",
+        "Central screening"
+      ],
+      "note": "Ugarte gives Uruguay structure when the ball changes feet. He is often most valuable in the second after a loose touch.",
+      "noteZh": "他给Uruguay控制节奏。拥挤区域里的触球，能变成下一名队友更舒服的角度。",
       "sourceUrl": "https://www.transfermarkt.com/manuel-ugarte/profil/spieler/476701"
     },
     "Mathias Olivera": {
       "displayName": "Mathías Olivera",
       "transfermarktPlayerCode": "mathias-olivera",
       "imageUrl": "https://img.a.transfermarkt.technology/portrait/header/376514-1681910576.jpg?lm=1",
-      "skills": ["Left-back defending", "Back-three cover", "Aerial support"],
-      "note": "Olivera gives Uruguay a left-sided defender who can shift from full-back into a tougher back line.",
-      "noteZh": "奥利韦拉给乌拉圭带来左侧防守者，能从边后卫转换进更硬朗的防线。"
+      "skills": [
+        "Left-back defending",
+        "Back-three cover",
+        "Aerial support"
+      ],
+      "note": "Olivera has been part of Uruguay's answer without the ball. He matters when the first runner has to be slowed before the whole shape breaks.",
+      "noteZh": "他给Uruguay后防线一个稳定零件。看的是那些小选择：上抢、站住，还是先封线路。"
     },
     "Matias Vina": {
       "displayName": "Matías Viña",
       "league": "Campeonato Brasileiro Série A",
-      "skills": ["Left-side depth", "Wing-back runs", "Recovery defending"],
-      "note": "Viña is another left-side runner, useful when Uruguay want wing-back depth without losing recovery legs.",
-      "noteZh": "比尼亚是另一名左侧跑动点，当乌拉圭想要翼卫深度又不失回追能力时很有用。"
+      "skills": [
+        "Left-side depth",
+        "Wing-back runs",
+        "Recovery defending"
+      ],
+      "note": "Viña gives Uruguay cover for the minutes when defending becomes more about nerve than shape. One solid duel can calm the whole line.",
+      "noteZh": "他是Uruguay后防线的保险。卡片不华丽：赢球、稳传、重新站好。"
     },
     "Maxi Araujo": {
       "displayName": "Maximiliano Araújo",
-      "skills": ["Left-wing speed", "Direct carries", "Far-post arrivals"],
-      "note": "Araújo gives Uruguay vertical speed on the left, with the timing to arrive as a scorer rather than only a crosser.",
-      "noteZh": "阿劳霍给乌拉圭左路带来纵向速度，也有作为得分点而不只是传中手的到位时机。"
+      "skills": [
+        "Goal threat",
+        "Chance passes",
+        "Left-wing speed"
+      ],
+      "note": "Araújo has already shaped Uruguay's tournament with goals against Saudi Arabia and Cabo Verde and service for teammates. Watch how quickly his next action follows the first touch.",
+      "noteZh": "他这届世界杯已经同时给Uruguay带来终结和传球。防守者不能只防他的一种选择。"
     },
     "Nicolas De La Cruz": {
       "displayName": "Nicolás de la Cruz",
-      "skills": ["Midfield pressing", "Combination play", "Set-piece service"],
-      "note": "De la Cruz is a connector with bite, linking midfield moves while still joining the first wave of pressure.",
-      "noteZh": "德拉克鲁斯是带硬度的连接者，既串联中场推进，也能加入第一波压迫。"
+      "skills": [
+        "Midfield pressing",
+        "Combination play",
+        "Set-piece service"
+      ],
+      "note": "Cruz is there for the part of the game where spacing gets ugly. For Uruguay, that can mean one clean touch before pressure arrives.",
+      "noteZh": "他给Uruguay提供中场深度，适合比赛被拉开的时候。他把松散球变成更冷静的下一脚。"
     },
     "Rodrigo Aguirre": {
-      "skills": ["Striker depth", "Penalty-box strength", "Direct finishing"],
-      "note": "Aguirre is a robust striker option, useful when Uruguay need a simpler route to goal late in matches.",
-      "noteZh": "阿吉雷是强壮的前锋选择，当乌拉圭在比赛末段需要更直接的进球路线时很有用。"
+      "skills": [
+        "Striker depth",
+        "Penalty-box strength",
+        "Direct finishing"
+      ],
+      "note": "Aguirre is an attacking change-up for Uruguay. He gives the front line fresh running when the first plan starts to look predictable.",
+      "noteZh": "他是Uruguay的进攻深度。如果比赛慢下来，他要让后防线重新移动。"
     },
     "Rodrigo Bentancur": {
-      "skills": ["Press resistance", "Central progression", "Midfield timing"],
-      "note": "Bentancur gives Uruguay calm under pressure, turning crowded midfield touches into forward rhythm.",
-      "noteZh": "本坦库尔给乌拉圭带来压力下的冷静，能把拥挤中场触球转成向前节奏。"
+      "skills": [
+        "Press resistance",
+        "Central progression",
+        "Midfield timing"
+      ],
+      "note": "Bentancur has been one of Uruguay's players who keeps possessions from fraying. The detail to watch is how early he knows the next pass.",
+      "noteZh": "他是Uruguay这届赛事中的中场连接点之一。他让下一脚传球继续存在，也帮助球队避免仓促选择。"
     },
     "Rodrigo Zalazar": {
-      "skills": ["Attacking midfield punch", "Line-breaking passes", "Long-range shooting"],
-      "note": "Zalazar adds punch between midfield and attack, especially when Uruguay need a pass or shot through traffic.",
-      "noteZh": "萨拉萨尔给乌拉圭中前场连接增加冲击，尤其适合在人群中送出传球或射门。"
+      "skills": [
+        "Attacking midfield punch",
+        "Line-breaking passes",
+        "Long-range shooting"
+      ],
+      "note": "Zalazar is there for the part of the game where spacing gets ugly. For Uruguay, that can mean one clean touch before pressure arrives.",
+      "noteZh": "他给Uruguay提供中场深度，适合比赛被拉开的时候。他把松散球变成更冷静的下一脚。"
     },
     "Ronald Araujo": {
       "displayName": "Ronald Araújo",
-      "skills": ["Recovery defending", "Elite duels", "Right-side cover"],
-      "note": "Araújo is Uruguay's emergency brake, able to defend huge spaces and still win the physical duel.",
-      "noteZh": "罗纳德·阿劳霍是乌拉圭的紧急刹车，能防守大片空间并赢下身体对抗。"
+      "skills": [
+        "Recovery defending",
+        "Elite duels",
+        "Right-side cover"
+      ],
+      "note": "Araújo is back-line insurance for Uruguay. The card is not glamorous: win the ball, keep the pass safe, reset the shape.",
+      "noteZh": "他给Uruguay那些靠胆量守住的分钟提供保障。一次扎实对抗就能让整条线冷静下来。"
     },
     "Santiago Bueno": {
-      "skills": ["Centre-back depth", "Aerial defending", "Low-block clearances"],
-      "note": "Bueno gives Uruguay centre-back depth for aerial spells and long defensive stretches.",
-      "noteZh": "布埃诺给乌拉圭增加中卫深度，适合应对空中球阶段和长时间防守。"
+      "skills": [
+        "Centre-back depth",
+        "Aerial defending",
+        "Low-block clearances"
+      ],
+      "note": "Bueno gives Uruguay cover for the minutes when defending becomes more about nerve than shape. One solid duel can calm the whole line.",
+      "noteZh": "他是Uruguay后防线的保险。卡片不华丽：赢球、稳传、重新站好。"
     },
     "Santiago Mele": {
-      "skills": ["Goalkeeper reactions", "Cross claiming", "Penalty-area command"],
-      "note": "Mele is a sharper goalkeeper option for reactive games, especially when crosses keep arriving.",
-      "noteZh": "梅莱是更敏捷的门将选择，尤其适合不断有传中到来的被动比赛。"
+      "skills": [
+        "Goalkeeper reactions",
+        "Cross claiming",
+        "Penalty-area command"
+      ],
+      "note": "Mele gives Uruguay a keeper option if the night turns sideways. His card is about being warm enough for one big save.",
+      "noteZh": "他在Uruguay首发门将身后等待，但这个角色不是装饰。他要随时处理传中、开球和冷启动。"
     },
     "Sebastian Caceres": {
       "displayName": "Sebastián Cáceres",
-      "skills": ["Centre-back mobility", "Front-foot duels", "Set-piece defending"],
-      "note": "Cáceres adds mobile centre-back cover, useful when Uruguay need aggression without opening the back door.",
-      "noteZh": "卡塞雷斯增加机动中卫保障，当乌拉圭需要侵略性又不能打开身后空间时很有用。"
+      "skills": [
+        "Centre-back mobility",
+        "Front-foot duels",
+        "Set-piece defending"
+      ],
+      "note": "Cáceres gives Uruguay one of the steady pieces in the back line. Watch the small choices: step, hold, or clear the lane.",
+      "noteZh": "他是Uruguay无球答案的一部分。第一个跑动被拖慢，整体阵型才不容易散。"
     },
     "Sergio Rochet": {
-      "skills": ["Shot stopping", "Goalkeeper command", "Tournament experience"],
-      "note": "Rochet is Uruguay's reliable tournament goalkeeper, steady with angles and vocal in the box.",
-      "noteZh": "罗切特是乌拉圭可靠的大赛门将，站位角度稳定，也能在禁区内出声指挥。"
+      "skills": [
+        "Shot stopping",
+        "Goalkeeper command",
+        "Tournament experience"
+      ],
+      "note": "Rochet sits behind the starter for Uruguay, but the role is not decorative. He has to be ready for crosses, restarts, and a cold first touch.",
+      "noteZh": "他给Uruguay保留另一个门将选择。真正需要他时，重点可能就是一次大扑救。"
     }
   }
 }
