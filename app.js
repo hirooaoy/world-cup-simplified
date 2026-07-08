@@ -1,4 +1,4 @@
-const DATA_VERSION = "2026-07-07-argentina-egypt-result-coach-card-age";
+const DATA_VERSION = "2026-07-08-coach-lineup-zh";
 const DATA_URLS = {
   adminMessage: `data/admin-message.json?v=${DATA_VERSION}`,
   fixtures: `data/fixtures.json?v=${DATA_VERSION}`,
@@ -9604,6 +9604,7 @@ const boundedTooltipSelector = [
   ".knockout-slot-odds[data-tooltip]"
 ].join(",");
 const boundedElementTooltipSelector = ".source-tooltip, .release-tooltip";
+const footerTooltipTriggerSelector = ".source-tooltip-trigger, .release-tooltip-trigger";
 const transientFocusSelector = [
   boundedTooltipSelector,
   ".lineup-event-badge[data-tooltip]",
@@ -9903,6 +9904,11 @@ function getNonLinkTooltipElement(target) {
     return null;
   }
 
+  const footerTooltipTrigger = targetElement.closest(footerTooltipTriggerSelector);
+  if (footerTooltipTrigger) {
+    return footerTooltipTrigger;
+  }
+
   const tooltipElement = targetElement.closest(boundedTooltipSelector);
   if (!tooltipElement || tooltipElement.closest("a[href]")) {
     return null;
@@ -9941,8 +9947,11 @@ function setActiveTouchTooltip(tooltipElement) {
   activeTouchTooltipElement = tooltipElement;
   activeTouchTooltipElement.classList.add("is-touch-tooltip-open");
   activeTouchTooltipElement.focus?.({ preventScroll: true });
-  updateTooltipBounds(activeTouchTooltipElement);
-  window.requestAnimationFrame(() => updateTooltipBounds(activeTouchTooltipElement));
+  const boundsRoot =
+    activeTouchTooltipElement.closest?.(".source-tooltip-wrapper, .release-tooltip-wrapper") ||
+    activeTouchTooltipElement;
+  updateTooltipBounds(boundsRoot);
+  window.requestAnimationFrame(() => updateTooltipBounds(boundsRoot));
 }
 
 function handleTouchTooltipPointerDown(event) {
@@ -17932,6 +17941,12 @@ function normalizeLineupCoach(coach, teamId) {
   const curatedCoach = MOCK_LINEUP_COACHES[teamId] || {};
   const team = getTeam(teamId);
   const coachProfile = getCoachProfile({ ...coach, teamId });
+  const note = coach.note
+    ? mergeLocalizedLineupCopy(coach.note, coachProfile?.note, curatedCoach.note)
+    : mergeLocalizedLineupCopy(curatedCoach.note, coachProfile?.note);
+  const history = coach.history
+    ? mergeLocalizedLineupCopy(coach.history, coachProfile?.history, curatedCoach.history)
+    : mergeLocalizedLineupCopy(curatedCoach.history, coachProfile?.history);
   return {
     ...curatedCoach,
     ...coach,
@@ -17943,8 +17958,8 @@ function normalizeLineupCoach(coach, teamId) {
     nameZh: coach.nameZh || curatedCoach.nameZh || coachProfile?.nameZh || coachProfile?.displayNameZh,
     birthDate: coach.birthDate || curatedCoach.birthDate || coachProfile?.birthDate,
     sinceYear: coach.sinceYear || curatedCoach.sinceYear || coachProfile?.sinceYear,
-    note: coach.note || curatedCoach.note || coachProfile?.note,
-    history: coach.history || curatedCoach.history || coachProfile?.history
+    note: note || coachProfile?.note,
+    history: history || coachProfile?.history
   };
 }
 
@@ -18415,6 +18430,52 @@ function localizeLineupCopy(value) {
   }
 
   return localizeText(value || "");
+}
+
+function normalizeLineupCopyKey(value) {
+  return normalizeTextKey(value).replace(/\s+/g, " ");
+}
+
+function getLineupCopyObject(value) {
+  if (value && typeof value === "object" && !Array.isArray(value)) {
+    return Object.fromEntries(
+      Object.entries(value)
+        .map(([language, text]) => [language, String(text || "").trim()])
+        .filter(([, text]) => text)
+    );
+  }
+
+  const text = String(value || "").trim();
+  return text ? { en: text } : null;
+}
+
+function mergeLocalizedLineupCopy(primary, ...fallbacks) {
+  const base = getLineupCopyObject(primary);
+  const merged = base ? { ...base } : {};
+
+  for (const fallback of fallbacks) {
+    const fallbackCopy = getLineupCopyObject(fallback);
+    if (!fallbackCopy) {
+      continue;
+    }
+
+    const primaryEnKey = normalizeLineupCopyKey(merged.en || "");
+    const fallbackEnKey = normalizeLineupCopyKey(fallbackCopy.en || "");
+    const canShareTranslations = !primaryEnKey || !fallbackEnKey || primaryEnKey === fallbackEnKey;
+
+    for (const [language, text] of Object.entries(fallbackCopy)) {
+      if (merged[language] || (language !== "en" && !canShareTranslations)) {
+        continue;
+      }
+      merged[language] = text;
+    }
+  }
+
+  if (!Object.keys(merged).length) {
+    return undefined;
+  }
+
+  return merged;
 }
 
 function getLocalizedLineupCoachName(coach) {

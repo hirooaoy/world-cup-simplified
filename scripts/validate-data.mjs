@@ -1451,6 +1451,8 @@ function validateLineupSide(teamLineup, fixture, side, lineupRecord = {}) {
       if (teamLineup.coach.sourceUrl !== undefined) {
         assert(/^https?:\/\//.test(teamLineup.coach.sourceUrl), `${owner}.coach.sourceUrl must be an http(s) URL`);
       }
+      validateLocalizedCopy(teamLineup.coach.note, `${owner}.coach.note`);
+      validateLocalizedCopy(teamLineup.coach.history, `${owner}.coach.history`);
     }
   }
 

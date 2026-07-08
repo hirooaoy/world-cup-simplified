@@ -1,6 +1,28 @@
 {
-  "updatedAt": "2026-07-08T13:15:03-07:00",
+  "updatedAt": "2026-07-08T13:49:06-07:00",
   "releases": [
+    {
+      "date": "2026-07-08",
+      "title": "Footer tooltip taps",
+      "titleZh": "页脚提示点按修复",
+      "highlights": [
+        "On mobile, See sources and See release notes now open their footer tooltips on tap, switch cleanly, and close when you tap elsewhere."
+      ],
+      "highlightsZh": [
+        "移动端现在可以点按“查看来源”和“查看发布说明”打开页脚提示，两个提示能顺畅切换，并会在点按其他位置时关闭。"
+      ]
+    },
+    {
+      "date": "2026-07-08",
+      "title": "Predicted line-up coach translations",
+      "titleZh": "预测阵容教练翻译修复",
+      "highlights": [
+        "Predicted line-up coach cards now merge missing Chinese note and history copy from the canonical coach profiles, covering France-Morocco and future generated lineups."
+      ],
+      "highlightsZh": [
+        "预测阵容里的教练卡片现在会从权威教练资料补齐缺失的中文战术说明和履历，覆盖法国对摩洛哥以及后续生成的阵容。"
+      ]
+    },
     {
       "date": "2026-07-08",
       "title": "Player cards and match-control polish",

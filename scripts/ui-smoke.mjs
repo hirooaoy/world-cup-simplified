@@ -5408,6 +5408,35 @@ try {
       argentinaEgyptDesktopLineupGeometry.messi.scoreOverlapRight <= 9,
     `Argentina-Egypt desktop striker markers should anchor avatar/name together without sub or G/A pills shifting the row. Measured ${JSON.stringify(argentinaEgyptDesktopLineupGeometry)}.`
   );
+  await lineupCoachCoverageCheck.page.goto(
+    `${baseUrl}?view=matches&date=2026-07-09&lang=zh&tz=America%2FLos_Angeles&lineupPrototype=1`,
+    { waitUntil: "load" }
+  );
+  await lineupCoachCoverageCheck.page.waitForSelector(".match-row", { state: "attached" });
+  await lineupCoachCoverageCheck.page.locator('[data-match-id="match-97-quarter-final-2026-07-09"]').click();
+  await lineupCoachCoverageCheck.page.locator("#match-info .lineup-preview-block").waitFor({
+    state: "attached"
+  });
+  const franceMoroccoZhLineupState = await lineupCoachCoverageCheck.page
+    .locator("#match-info .lineup-preview-block")
+    .evaluate((block) => {
+      const coachCardText = [...block.querySelectorAll(".lineup-coach-card")]
+        .map((card) => card.textContent.replace(/\s+/g, " ").trim())
+        .join(" ");
+
+      return { coachCardText };
+    });
+  assert(
+    franceMoroccoZhLineupState.coachCardText.includes("德尚让法国保持极其务实") &&
+      franceMoroccoZhLineupState.coachCardText.includes("2018年世界杯") &&
+      franceMoroccoZhLineupState.coachCardText.includes("瓦赫比把培养型教练视角带到摩洛哥") &&
+      franceMoroccoZhLineupState.coachCardText.includes("摩洛哥青训体系") &&
+      !franceMoroccoZhLineupState.coachCardText.includes("Deschamps keeps France ruthlessly practical") &&
+      !franceMoroccoZhLineupState.coachCardText.includes("Appointed in 2012") &&
+      !franceMoroccoZhLineupState.coachCardText.includes("Ouahbi brings a development coach") &&
+      !franceMoroccoZhLineupState.coachCardText.includes("Promoted after work"),
+    `France-Morocco predicted Chinese lineup coach cards should merge profile zh copy instead of leaking English. Measured ${JSON.stringify(franceMoroccoZhLineupState)}.`
+  );
   await lineupCoachCoverageCheck.context.close();
 
   const matchStateCheck = await openPageAtTime("2026-06-18T05:30:00.000Z");
@@ -10388,37 +10417,54 @@ try {
         visibility: styles.visibility
       };
     };
+    const tapElement = async (element) => {
+      element?.dispatchEvent(
+        new PointerEvent("pointerdown", {
+          bubbles: true,
+          button: 0,
+          cancelable: true,
+          pointerType: "touch"
+        })
+      );
+      await waitForPaint();
+    };
     const sourceTrigger = document.querySelector(".source-tooltip-trigger");
     const releaseTrigger = document.querySelector(".release-tooltip-trigger");
 
-    sourceTrigger?.focus({ preventScroll: true });
-    await waitForPaint();
-    const sourceFocused = readTooltip(".source-tooltip");
+    await tapElement(sourceTrigger);
+    const sourceTapped = readTooltip(".source-tooltip");
+    const sourceActiveAfterSourceTap = sourceTrigger?.classList.contains("is-touch-tooltip-open") || false;
 
-    releaseTrigger?.focus({ preventScroll: true });
-    await waitForPaint();
-    const releaseFocused = readTooltip(".release-tooltip");
+    await tapElement(releaseTrigger);
+    const releaseTapped = readTooltip(".release-tooltip");
+    const sourceActiveAfterReleaseTap = sourceTrigger?.classList.contains("is-touch-tooltip-open") || false;
+    const releaseActiveAfterReleaseTap = releaseTrigger?.classList.contains("is-touch-tooltip-open") || false;
 
-    releaseTrigger?.blur();
-    await waitForPaint();
+    await tapElement(document.querySelector("#catch-up-button"));
 
     return {
       coarsePointer: matchMedia("(hover: none), (pointer: coarse)").matches,
-      releaseAfterBlur: readTooltip(".release-tooltip"),
-      releaseFocused,
-      sourceAfterBlur: readTooltip(".source-tooltip"),
-      sourceFocused
+      releaseActiveAfterReleaseTap,
+      releaseAfterOutsideTap: readTooltip(".release-tooltip"),
+      releaseTapped,
+      sourceAfterOutsideTap: readTooltip(".source-tooltip"),
+      sourceActiveAfterReleaseTap,
+      sourceActiveAfterSourceTap,
+      sourceTapped
     };
   });
   assert(
     touchFooterTooltipState.coarsePointer &&
-      touchFooterTooltipState.sourceFocused?.visibility === "visible" &&
-      touchFooterTooltipState.sourceFocused.opacity > 0.8 &&
-      touchFooterTooltipState.releaseFocused?.visibility === "visible" &&
-      touchFooterTooltipState.releaseFocused.opacity > 0.8 &&
-      touchFooterTooltipState.sourceAfterBlur?.visibility === "hidden" &&
-      touchFooterTooltipState.releaseAfterBlur?.visibility === "hidden",
-    `On touch devices, footer source/release tooltips should be focus-driven and close on blur. Measured ${JSON.stringify(touchFooterTooltipState)}.`
+      touchFooterTooltipState.sourceActiveAfterSourceTap &&
+      touchFooterTooltipState.sourceTapped?.visibility === "visible" &&
+      touchFooterTooltipState.sourceTapped.opacity > 0.8 &&
+      !touchFooterTooltipState.sourceActiveAfterReleaseTap &&
+      touchFooterTooltipState.releaseActiveAfterReleaseTap &&
+      touchFooterTooltipState.releaseTapped?.visibility === "visible" &&
+      touchFooterTooltipState.releaseTapped.opacity > 0.8 &&
+      touchFooterTooltipState.sourceAfterOutsideTap?.visibility === "hidden" &&
+      touchFooterTooltipState.releaseAfterOutsideTap?.visibility === "hidden",
+    `On touch devices, footer source/release tooltips should open on tap, switch cleanly, and close on outside tap. Measured ${JSON.stringify(touchFooterTooltipState)}.`
   );
   await waitForCatchUpItems(touchPage);
   await touchPage.locator("#catch-up-button").click();

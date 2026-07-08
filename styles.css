@@ -7459,6 +7459,14 @@ button.lineup-event-sub,
   }
 }
 
+.source-tooltip-trigger.is-touch-tooltip-open ~ .source-tooltip,
+.release-tooltip-trigger.is-touch-tooltip-open ~ .release-tooltip {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, 0);
+  visibility: visible;
+}
+
 @media (max-width: 360px) {
   .release-tooltip {
     width: min(310px, calc(100vw - 28px));
