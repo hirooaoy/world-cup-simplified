@@ -4098,35 +4098,38 @@ try {
     `Historical Round of 16 Next context should semibold the resolved opponent winner. Measured ${JSON.stringify(historicalRoundOf16NextWinner)}.`
   );
 
-  await page.goto(`${baseUrl}?lang=en&tz=America%2FLos_Angeles`, { waitUntil: "load" });
-  await page.waitForSelector(".match-row");
-  await page.waitForFunction(
+  const languageTimezoneCheck = await openPageAtTime(
+    "2026-07-07T12:00:00-07:00",
+    "/?lang=en&tz=America%2FLos_Angeles"
+  );
+  const languageTimezonePage = languageTimezoneCheck.page;
+  await languageTimezonePage.waitForFunction(
     () =>
       document.documentElement.lang === "en" &&
       document.querySelector(".language-option.is-active")?.dataset.language === "en" &&
       localStorage.getItem("world-cup-simplified-language") === "en"
   );
-  const beforeTimeZoneText = await page.locator("#day-label").innerText();
+  const beforeTimeZoneText = await languageTimezonePage.locator("#day-label").innerText();
   assert(beforeTimeZoneText.trim() === "Today", "Initial default date should be Today.");
-  await page.locator("#settings-button").click();
+  await languageTimezonePage.locator("#settings-button").click();
   assert(
-    await page.locator("#settings-popover").isVisible(),
+    await languageTimezonePage.locator("#settings-popover").isVisible(),
     "Settings should reveal language and timezone controls."
   );
-  await page.locator("#timezone-select").selectOption("Asia/Tokyo");
+  await languageTimezonePage.locator("#timezone-select").selectOption("Asia/Tokyo");
   assert(
-    (await page.locator("#day-label").innerText()).trim() === "Today",
+    (await languageTimezonePage.locator("#day-label").innerText()).trim() === "Today",
     "Changing timezone while viewing Today should keep the view on Today."
   );
   assert(
-    (await page.evaluate(() => localStorage.getItem("world-cup-simplified-timezone"))) === "Asia/Tokyo",
+    (await languageTimezonePage.evaluate(() => localStorage.getItem("world-cup-simplified-timezone"))) === "Asia/Tokyo",
     "Changing timezone should persist the selection for account-free reloads."
   );
-  const languageSwitchWidthBefore = await page
+  const languageSwitchWidthBefore = await languageTimezonePage
     .locator("#language-switch")
     .evaluate((element) => Math.round(element.getBoundingClientRect().width));
-  await page.locator('[data-language="zh"]').click({ trial: true });
-  const pendingLanguageCheck = await page.evaluate(() => {
+  await languageTimezonePage.locator('[data-language="zh"]').click({ trial: true });
+  const pendingLanguageCheck = await languageTimezonePage.evaluate(() => {
     const switchShell = document.querySelector("#language-switch");
     const englishButton = document.querySelector('[data-language="en"]');
     const chineseButton = document.querySelector('[data-language="zh"]');
@@ -4153,8 +4156,8 @@ try {
       Math.abs(pendingLanguageCheck.width - languageSwitchWidthBefore) <= 1,
     `Switching language should show an in-tab pending spinner without resizing the control. Measured ${JSON.stringify(pendingLanguageCheck)} with starting width ${languageSwitchWidthBefore}.`
   );
-  await page.waitForFunction(() => !document.querySelector(".language-option.is-pending"));
-  const chineseAppliedCheck = await page.evaluate(() => ({
+  await languageTimezonePage.waitForFunction(() => !document.querySelector(".language-option.is-pending"));
+  const chineseAppliedCheck = await languageTimezonePage.evaluate(() => ({
     activeLanguage: document.querySelector(".language-option.is-active")?.dataset.language || "",
     documentLanguage: document.documentElement.lang,
     languageOptions: [...document.querySelectorAll(".language-option")].map((button) => ({
@@ -4240,10 +4243,10 @@ try {
     `Chinese historical group headings should keep group-letter labels instead of phonetic one-character fallbacks. Measured ${JSON.stringify(zhHistoricalGroupLabelRegressionCheck)}.`
   );
   await zhLocalizationRegressionPage.close();
-  await page.locator('[data-language="en"]').click();
-  await page.waitForFunction(() => !document.querySelector(".language-option.is-pending"));
+  await languageTimezonePage.locator('[data-language="en"]').click();
+  await languageTimezonePage.waitForFunction(() => !document.querySelector(".language-option.is-pending"));
   assert(
-    (await page.evaluate(
+    (await languageTimezonePage.evaluate(
       () =>
         document.documentElement.lang === "en" &&
         document.querySelector(".language-option.is-active")?.dataset.language === "en" &&
@@ -4251,12 +4254,13 @@ try {
     )) === true,
     "Switching back to English should clear the pending spinner and restore English before later smoke checks."
   );
-  await page.goto(baseUrl, { waitUntil: "load" });
-  await page.waitForSelector(".match-row");
+  await languageTimezonePage.goto(baseUrl, { waitUntil: "load" });
+  await languageTimezonePage.waitForSelector(".match-row");
   assert(
-    (await page.locator("#timezone-select").inputValue()) === "Asia/Tokyo",
+    (await languageTimezonePage.locator("#timezone-select").inputValue()) === "Asia/Tokyo",
     "A saved timezone should be restored on a clean visit without requiring an account."
   );
+  await languageTimezoneCheck.context.close();
 
   await page.goto(`${baseUrl}?view=matches&date=2026-06-18&tz=America%2FLos_Angeles`, {
     waitUntil: "load"
@@ -7216,6 +7220,48 @@ try {
   );
   await tomorrowDuringKickoff.context.close();
 
+  const futureSelectedDayUpNextCheck = await openPageAtTime(
+    "2026-07-08T12:00:00-07:00",
+    "/?view=matches&date=2026-07-09&tz=America%2FLos_Angeles",
+    {
+      fixtureTransform(data) {
+        for (const fixture of data.fixtures || []) {
+          if (fixture.status === "LIVE") {
+            fixture.status = "FT";
+            fixture.score ||= { home: 0, away: 0 };
+          }
+        }
+
+        const franceMoroccoFixture = data.fixtures.find(
+          (fixture) => fixture.id === "match-97-quarter-final-2026-07-09"
+        );
+        if (franceMoroccoFixture) {
+          franceMoroccoFixture.status = "SCHEDULED";
+          delete franceMoroccoFixture.score;
+        }
+      }
+    }
+  );
+  const futureSelectedDayUpNextState = await futureSelectedDayUpNextCheck.page
+    .locator('[data-match-id="match-97-quarter-final-2026-07-09"]')
+    .evaluate((row) => ({
+      ariaLabel: row.getAttribute("aria-label") || "",
+      label: row.querySelector(".up-next-pill")?.textContent.trim() || "",
+      rowIsNext: row.classList.contains("is-next"),
+      scoreCount: row.querySelectorAll(".match-score, .score-status").length,
+      text: row.textContent.replace(/\s+/g, " ").trim(),
+      upNextCount: row.querySelectorAll(".up-next-pill").length
+    }));
+  assert(
+    futureSelectedDayUpNextState.rowIsNext &&
+      futureSelectedDayUpNextState.upNextCount === 1 &&
+      futureSelectedDayUpNextState.label === "Up next" &&
+      futureSelectedDayUpNextState.scoreCount === 0 &&
+      futureSelectedDayUpNextState.ariaLabel.startsWith("Up next, France vs Morocco"),
+    `The next global fixture should show Up next even when it is on a future selected day. Measured ${JSON.stringify(futureSelectedDayUpNextState)}.`
+  );
+  await futureSelectedDayUpNextCheck.context.close();
+
   const tomorrowPast24DuringLive = await openPageAtTime(
     "2026-06-29T21:34:00.000Z",
     "/?view=matches&date=2026-06-30&tz=America%2FLos_Angeles",
@@ -7235,24 +7281,28 @@ try {
   );
   await tomorrowPast24DuringLive.context.close();
 
-  const todayUrlDate = getDayKeyForTimeZone(new Date().toISOString());
-  await page.goto(`${baseUrl}?view=matches&date=${todayUrlDate}&tz=America%2FLos_Angeles`, {
-    waitUntil: "load"
-  });
-  await page.reload({ waitUntil: "load" });
-  await page.waitForFunction(
+  const cleanTodayUrlCheck = await openPageAtTime(
+    "2026-07-07T12:00:00-07:00",
+    "/?view=matches&date=2026-07-07&tz=America%2FLos_Angeles"
+  );
+  await cleanTodayUrlCheck.page.reload({ waitUntil: "load" });
+  await cleanTodayUrlCheck.page.waitForFunction(
     () => document.querySelector("#day-label")?.textContent.trim() === "Today"
   );
-  await page
+  await cleanTodayUrlCheck.page
     .waitForFunction(() => !new URL(window.location.href).searchParams.has("date"), null, {
       timeout: 1000
     })
     .catch(() => {});
-  const reloadedTodayUrl = page.url();
+  const reloadedTodayUrl = cleanTodayUrlCheck.page.url();
   assert(
     !new URL(reloadedTodayUrl).searchParams.has("date"),
     `Reload should replace stale date state with a clean today URL. Current URL: ${reloadedTodayUrl}`
   );
+  await cleanTodayUrlCheck.context.close();
+
+  await page.goto(baseUrl, { waitUntil: "load" });
+  await page.waitForSelector(".match-row");
 
   await page.locator("#standings-tab").click();
   assert(

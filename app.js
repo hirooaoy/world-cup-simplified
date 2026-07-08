@@ -4876,6 +4876,9 @@ let standingsByGroup = {};
 let dataCoverage = { status: "partial" };
 let siteUpdatedAt = "";
 let liveDataCheckedAt = "";
+let calendarDayMatchCounts = null;
+let calendarAvailableDayKeys = null;
+let calendarAvailableMonthKeys = null;
 let syncUrl = true;
 let isRestoringHistoryState = false;
 let isInitialDataLoading = true;
@@ -5192,6 +5195,7 @@ function replaceKnownLocalizedEntities(value, translationMap) {
 }
 
 let zhInlineEntityTranslations = null;
+let zhInlineEntityMatcher = null;
 
 function addZhInlineEntityTranslation(entries, source, translation) {
   const alias = String(source || "").trim().replace(/\s+/g, " ");
@@ -5242,22 +5246,44 @@ function getZhInlineEntityTranslations() {
   return zhInlineEntityTranslations;
 }
 
+function getZhInlineEntityMatcher() {
+  if (zhInlineEntityMatcher) {
+    return zhInlineEntityMatcher;
+  }
+
+  const entries = getZhInlineEntityTranslations();
+  if (!entries.length) {
+    zhInlineEntityMatcher = null;
+    return zhInlineEntityMatcher;
+  }
+
+  zhInlineEntityMatcher = {
+    pattern: new RegExp(
+      `(^|[^\\p{Script=Latin}])(${entries.map(({ source }) => escapeRegExp(source)).join("|")})(?=$|[^\\p{Script=Latin}])`,
+      "gu"
+    ),
+    translationsBySource: new Map(entries.map(({ source, translation }) => [source, translation]))
+  };
+  return zhInlineEntityMatcher;
+}
+
 function replaceKnownZhInlineEntities(value) {
-  let output = String(value ?? "");
+  const output = String(value ?? "");
 
   if (!/\p{Script=Latin}/u.test(output)) {
     return output;
   }
 
-  for (const { source, translation } of getZhInlineEntityTranslations()) {
-    const pattern = new RegExp(
-      `(^|[^\\p{Script=Latin}])(${escapeRegExp(source)})(?=$|[^\\p{Script=Latin}])`,
-      "gu"
-    );
-    output = output.replace(pattern, (_, prefix) => `${prefix}${translation}`);
+  const matcher = getZhInlineEntityMatcher();
+  if (!matcher) {
+    return output;
   }
 
-  return output;
+  matcher.pattern.lastIndex = 0;
+  return output.replace(
+    matcher.pattern,
+    (_, prefix, source) => `${prefix}${matcher.translationsBySource.get(source) || source}`
+  );
 }
 
 function formatZhTranslationOutput(value, leadingWhitespace, trailingWhitespace) {
@@ -8774,6 +8800,25 @@ function getCalendarFixtures() {
   return [...historicalFixtures, ...fixtures];
 }
 
+function clearCalendarFixtureCaches() {
+  calendarDayMatchCounts = null;
+  calendarAvailableDayKeys = null;
+  calendarAvailableMonthKeys = null;
+}
+
+function getCalendarDayMatchCounts() {
+  if (calendarDayMatchCounts) {
+    return calendarDayMatchCounts;
+  }
+
+  calendarDayMatchCounts = new Map();
+  for (const fixture of getCalendarFixtures()) {
+    const dayKey = getFixtureDayKey(fixture);
+    calendarDayMatchCounts.set(dayKey, (calendarDayMatchCounts.get(dayKey) || 0) + 1);
+  }
+  return calendarDayMatchCounts;
+}
+
 function getFixtureById(matchId) {
   const id = String(matchId || "").trim();
   return id ? getCalendarFixtures().find((fixture) => fixture.id === id) || null : null;
@@ -8792,11 +8837,17 @@ function getFixtureSortValue(fixture) {
 }
 
 function getAvailableDayKeys() {
-  return [...new Set(getCalendarFixtures().map(getFixtureDayKey))].sort();
+  if (!calendarAvailableDayKeys) {
+    calendarAvailableDayKeys = [...getCalendarDayMatchCounts().keys()].sort();
+  }
+  return calendarAvailableDayKeys;
 }
 
 function getAvailableMonthKeys() {
-  return [...new Set(getAvailableDayKeys().map(getMonthKeyFromDayKey))].sort();
+  if (!calendarAvailableMonthKeys) {
+    calendarAvailableMonthKeys = [...new Set(getAvailableDayKeys().map(getMonthKeyFromDayKey))].sort();
+  }
+  return calendarAvailableMonthKeys;
 }
 
 function getAdjacentCalendarMonthKey(direction) {
@@ -8843,8 +8894,7 @@ function getAdjacentMatchDay(direction) {
 }
 
 function getMatchCountForDay(dayKey) {
-  return getCalendarFixtures().filter((fixture) => getFixtureDayKey(fixture) === dayKey)
-    .length;
+  return getCalendarDayMatchCounts().get(dayKey) || 0;
 }
 
 function getSelectedDateLabel() {
@@ -8871,7 +8921,9 @@ function updateDateControls() {
   dayLabel.classList.toggle("is-today", isToday);
   dayLabel.setAttribute("aria-label", localizeText(`Choose match date, ${selectedDateLabel}`));
   dayLabel.setAttribute("aria-expanded", String(isCalendarOpen));
-  renderCalendar();
+  if (isCalendarOpen) {
+    renderCalendar();
+  }
 }
 
 function getCalendarDayKeys(monthKey) {
@@ -25287,7 +25339,7 @@ function renderSchedule(options = {}) {
   setYesterdayLayoutOffset(!shouldShowYesterdayMatches && todayMatches.length > 0);
   const liveMatchIds = getLiveMatchIds(currentTime);
   const selectedIsToday = selectedDayKey === getDayKey(new Date(), selectedTimeZone);
-  const nextMatchIds = selectedIsToday ? getNextMatchIds(currentTime, liveMatchIds) : new Set();
+  const nextMatchIds = getNextMatchIds(currentTime, liveMatchIds);
 
   updateDateControls();
   if (isCatchUpOpen) {
@@ -25378,12 +25430,16 @@ function readInitialChromeState() {
   const requestedView = params.get("view");
   const requestedStandingsYear = params.get("standingsYear") || params.get("year");
   const requestedStandingsMode = params.get("standingsMode") || params.get("standings");
+  const previousTimeZone = selectedTimeZone;
 
   if (requestedTimeZone && timeZones.includes(requestedTimeZone)) {
     selectedTimeZone = requestedTimeZone;
     storeTimeZone(selectedTimeZone);
     selectedDayKey = getDayKey(initialDate, selectedTimeZone);
     calendarMonthKey = getMonthKeyFromDayKey(selectedDayKey);
+  }
+  if (selectedTimeZone !== previousTimeZone) {
+    clearCalendarFixtureCaches();
   }
 
   activeView = requestedView === "standings" ? "standings" : "matches";
@@ -25412,6 +25468,7 @@ function readUrlState(options = {}) {
       : null;
   const shouldUseRequestedDate = !options.forceToday && isDayKey(requestedDate);
   const shouldUseUrlDefaults = options.useUrlDefaults === true;
+  const previousTimeZone = selectedTimeZone;
 
   if (requestedTimeZone && timeZones.includes(requestedTimeZone)) {
     selectedTimeZone = requestedTimeZone;
@@ -25419,6 +25476,9 @@ function readUrlState(options = {}) {
   } else if (shouldUseUrlDefaults) {
     selectedTimeZone = defaultTimeZone;
     storeTimeZone(selectedTimeZone);
+  }
+  if (selectedTimeZone !== previousTimeZone) {
+    clearCalendarFixtureCaches();
   }
 
   if (requestedLanguage) {
@@ -25706,6 +25766,7 @@ function applyDataSnapshot({
   fixtures = fixturesWithLineups.fixtures;
   history = historyData;
   historicalFixtures = historyData.fixtures || [];
+  clearCalendarFixtureCaches();
   historicalProjectionCache.clear();
   standingsByGroup = standingsData.groups;
   tournament = tournamentData;
@@ -25729,6 +25790,7 @@ function applyDataSnapshot({
 function applyLiveDataSnapshot(liveData) {
   const fixturesWithLineups = mergeFixtureLineups(liveData.fixturesData, lineupData, expectedLineupsData);
   fixtures = fixturesWithLineups.fixtures;
+  clearCalendarFixtureCaches();
   standingsByGroup = liveData.standingsData.groups;
   tournament = liveData.tournamentData;
   clearGroupQualificationCaches();
@@ -26542,6 +26604,7 @@ timezoneSelect.addEventListener("change", () => {
     selectedDayKey === getDayKey(new Date(), selectedTimeZone);
   selectedTimeZone = timezoneSelect.value;
   storeTimeZone(selectedTimeZone);
+  clearCalendarFixtureCaches();
   if (wasViewingToday) {
     selectedDayKey = getDayKey(new Date(), selectedTimeZone);
     calendarMonthKey = getMonthKeyFromDayKey(selectedDayKey);

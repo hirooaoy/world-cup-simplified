@@ -1,6 +1,21 @@
 {
-  "updatedAt": "2026-07-07T23:35:38-07:00",
+  "updatedAt": "2026-07-08T00:12:45-07:00",
   "releases": [
+    {
+      "date": "2026-07-08",
+      "title": "Analytics and Chinese-mode performance",
+      "titleZh": "分析统计与中文模式性能优化",
+      "highlights": [
+        "The site now loads Vercel Web Analytics from the app root and report page without adding Google Analytics or custom tracking events.",
+        "Chinese-mode text replacement now reuses one inline-entity matcher instead of rebuilding many regular expressions during localization.",
+        "The match calendar now caches day and month availability, and the next global fixture can still show Up next when it falls on a future selected day."
+      ],
+      "highlightsZh": [
+        "网站现在会在主页面和反馈页面加载 Vercel Web Analytics，不加入 Google Analytics，也不添加自定义追踪事件。",
+        "中文模式的内联名称替换现在会复用同一个匹配器，不再在本地化过程中反复重建大量正则表达式。",
+        "比赛日历现在会缓存日期和月份可用状态，即使下一个全局比赛在未来选中的日期，也能继续显示“Up next”。"
+      ]
+    },
     {
       "date": "2026-07-07",
       "title": "Line-up badge and coach copy polish",
