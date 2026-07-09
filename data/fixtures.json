@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-09T21:54:27.296Z",
+  "updatedAt": "2026-07-09T23:05:26.444Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -21634,7 +21634,7 @@
       "homeTeamId": "FRA",
       "awayTeamId": "MAR",
       "venue": "Boston Stadium",
-      "status": "LIVE",
+      "status": "FT",
       "h2h": {
         "status": "loaded",
         "sourceId": "national-football-teams-h2h-sync-2026-07-05",
@@ -22333,7 +22333,8 @@
           "matchId": "400021541",
           "matchNumber": 101
         }
-      }
+      },
+      "homeTeamId": "FRA"
     },
     {
       "id": "match-102-semi-final-2026-07-15",
