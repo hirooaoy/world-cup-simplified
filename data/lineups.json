@@ -10,7 +10,8 @@
     "lineup-layout-verification-2026-07-07",
     "google-argentina-egypt-lineup-visual-2026-07-07",
     "google-switzerland-colombia-lineup-visual-2026-07-07",
-    "fifa-lineups-sync-2026-07-09"
+    "fifa-lineups-sync-2026-07-09",
+    "fifa-lineups-sync-2026-07-10"
   ],
   "lineups": {
     "mexico-south-africa-2026-06-11": {
@@ -46458,13 +46459,13 @@
         "status": "unverified",
         "source": "derived-team-sheet-order",
         "exact": false,
-        "checkedAt": "2026-07-09T23:05:26.444Z",
+        "checkedAt": "2026-07-10T01:07:13.806Z",
         "note": "Official team sheet confirms players, bench, events, and formation; pitch coordinates are generated from formation slots and are not exact left/right placements."
       },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-09"
+        "fifa-lineups-sync-2026-07-10"
       ],
-      "checkedAt": "2026-07-09T23:05:26.444Z",
+      "checkedAt": "2026-07-10T01:07:13.806Z",
       "home": {
         "formation": "4-2-3-1",
         "coach": {
@@ -46914,5 +46915,5 @@
       }
     }
   },
-  "updatedAt": "2026-07-09T23:05:26.444Z"
+  "updatedAt": "2026-07-10T01:07:13.806Z"
 }
