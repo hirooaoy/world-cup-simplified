@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-10T18:19:01.673Z",
+  "updatedAt": "2026-07-10T19:57:30.197Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -21802,7 +21802,7 @@
       "homeSlot": "Winner match 93",
       "awaySlot": "Winner match 94",
       "venue": "Los Angeles Stadium",
-      "status": "SCHEDULED",
+      "status": "LIVE",
       "h2h": {
         "status": "loaded",
         "sourceId": "national-football-teams-h2h-sync-2026-07-07",
@@ -22035,7 +22035,24 @@
         "sourceId": "editorial-preview-2026-06-22",
         "home": "Spain are one of the tournament's most polished possession teams, led by Lamine Yamal, Pedri, and Nico Williams. Against Belgium, their Yamal-Williams wide stretch has to beat Belgium's De Bruyne-to-Lukaku chance creation. They want to pin the wide defenders with Yamal and Williams before Pedri plays through the gaps. The risk is Belgium can turn De Bruyne service into Lukaku chances.",
         "away": "Belgium are an elite chance-creation team when their creators get space to face forward, led by Kevin De Bruyne, Romelu Lukaku, and Jeremy Doku. Against Spain, their De Bruyne-to-Lukaku chance creation has to beat Spain's Yamal-Williams wide stretch. They want to feed De Bruyne early and create the separation Lukaku needs in the box. The risk is Spain can stretch the pitch through Yamal and Williams before Pedri breaks the line."
-      }
+      },
+      "score": {
+        "home": 1,
+        "away": 1
+      },
+      "goalsHome": [
+        {
+          "minute": 30,
+          "name": "Fabian Ruiz"
+        }
+      ],
+      "goalsAway": [
+        {
+          "minute": 41,
+          "name": "Charles De Ketelaere",
+          "assistName": "Timothy Castagne"
+        }
+      ]
     },
     {
       "id": "match-99-quarter-final-2026-07-11",
