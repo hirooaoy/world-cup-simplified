@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-10T19:57:30.197Z",
+  "updatedAt": "2026-07-10T21:05:39.190Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -144,7 +144,8 @@
     "fifa-official-results-sync-2026-07-09",
     "fifa-goal-events-sync-2026-07-09",
     "fifa-official-results-sync-2026-07-10",
-    "fifa-goal-events-sync-2026-07-10"
+    "fifa-goal-events-sync-2026-07-10",
+    "national-football-teams-h2h-sync-2026-07-10"
   ],
   "coverage": {
     "status": "complete-schedule",
@@ -21802,7 +21803,7 @@
       "homeSlot": "Winner match 93",
       "awaySlot": "Winner match 94",
       "venue": "Los Angeles Stadium",
-      "status": "LIVE",
+      "status": "FT",
       "h2h": {
         "status": "loaded",
         "sourceId": "national-football-teams-h2h-sync-2026-07-07",
@@ -22037,13 +22038,17 @@
         "away": "Belgium are an elite chance-creation team when their creators get space to face forward, led by Kevin De Bruyne, Romelu Lukaku, and Jeremy Doku. Against Spain, their De Bruyne-to-Lukaku chance creation has to beat Spain's Yamal-Williams wide stretch. They want to feed De Bruyne early and create the separation Lukaku needs in the box. The risk is Spain can stretch the pitch through Yamal and Williams before Pedri breaks the line."
       },
       "score": {
-        "home": 1,
+        "home": 2,
         "away": 1
       },
       "goalsHome": [
         {
           "minute": 30,
           "name": "Fabian Ruiz"
+        },
+        {
+          "minute": 88,
+          "name": "Mikel Merino"
         }
       ],
       "goalsAway": [
@@ -22361,9 +22366,242 @@
       "venue": "Dallas Stadium",
       "status": "SCHEDULED",
       "h2h": {
-        "status": "not-loaded",
-        "summary": "Teams are not known yet. Past match research will load after the matchup is set.",
-        "results": null
+        "status": "loaded",
+        "sourceId": "national-football-teams-h2h-sync-2026-07-10",
+        "summary": "Before this fixture, Spain had the edge in the verified senior series: 9 France wins, 3 draws, 11 Spain wins, 61 total goals.",
+        "results": [
+          {
+            "date": "2025-06-05",
+            "competition": "UEFA Nations League 2025 - Semi Finals",
+            "homeTeamId": "ESP",
+            "awayTeamId": "FRA",
+            "homeScore": 5,
+            "awayScore": 4,
+            "venue": "MHPArena",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/41602/Spain_France.html"
+          },
+          {
+            "date": "2024-07-09",
+            "competition": "Euro 2024 - Semi Finals",
+            "homeTeamId": "ESP",
+            "awayTeamId": "FRA",
+            "homeScore": 2,
+            "awayScore": 1,
+            "venue": "Allianz Arena",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/39291/Spain_France.html"
+          },
+          {
+            "date": "2021-10-10",
+            "competition": "UEFA Nations League 2021 - Final",
+            "homeTeamId": "ESP",
+            "awayTeamId": "FRA",
+            "homeScore": 1,
+            "awayScore": 2,
+            "venue": "San Siro-Giuseppe Meazza",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/32151/Spain_France.html"
+          },
+          {
+            "date": "2017-03-28",
+            "competition": "Friendly",
+            "homeTeamId": "FRA",
+            "awayTeamId": "ESP",
+            "homeScore": 0,
+            "awayScore": 2,
+            "venue": "Stade de France",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/17147/France_Spain.html"
+          },
+          {
+            "date": "2014-09-04",
+            "competition": "Friendly",
+            "homeTeamId": "FRA",
+            "awayTeamId": "ESP",
+            "homeScore": 1,
+            "awayScore": 0,
+            "venue": "Stade de France",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/11154/France_Spain.html"
+          },
+          {
+            "date": "2013-03-26",
+            "competition": "World Cup 2014 - Group I",
+            "homeTeamId": "FRA",
+            "awayTeamId": "ESP",
+            "homeScore": 0,
+            "awayScore": 1,
+            "venue": "Stade de France",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/4310/France_Spain.html"
+          },
+          {
+            "date": "2012-10-16",
+            "competition": "World Cup 2014 - Group I",
+            "homeTeamId": "ESP",
+            "awayTeamId": "FRA",
+            "homeScore": 1,
+            "awayScore": 1,
+            "venue": "Estadio Vicente Calderón",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/4307/Spain_France.html"
+          },
+          {
+            "date": "2012-06-23",
+            "competition": "Euro 2012 - Quarter Finals",
+            "homeTeamId": "ESP",
+            "awayTeamId": "FRA",
+            "homeScore": 2,
+            "awayScore": 0,
+            "venue": "Donbass Arena",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/3735/Spain_France.html"
+          },
+          {
+            "date": "2010-03-03",
+            "competition": "Friendly",
+            "homeTeamId": "FRA",
+            "awayTeamId": "ESP",
+            "homeScore": 0,
+            "awayScore": 2,
+            "venue": "Stade de France",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/10047/France_Spain.html"
+          },
+          {
+            "date": "2008-02-06",
+            "competition": "Friendly",
+            "homeTeamId": "ESP",
+            "awayTeamId": "FRA",
+            "homeScore": 1,
+            "awayScore": 0,
+            "venue": "Estadio La Rosaleda",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/12293/Spain_France.html"
+          },
+          {
+            "date": "2006-06-27",
+            "competition": "World Cup 2006 - Round of 16",
+            "homeTeamId": "ESP",
+            "awayTeamId": "FRA",
+            "homeScore": 1,
+            "awayScore": 3,
+            "venue": "HDI-Arena",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/56/Spain_France.html"
+          },
+          {
+            "date": "2001-03-28",
+            "competition": "Friendly",
+            "homeTeamId": "ESP",
+            "awayTeamId": "FRA",
+            "homeScore": 2,
+            "awayScore": 1,
+            "venue": "Estadio de Mestalla",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/20939/Spain_France.html"
+          },
+          {
+            "date": "2000-06-25",
+            "competition": "Euro 2000 - Quarter Finals",
+            "homeTeamId": "ESP",
+            "awayTeamId": "FRA",
+            "homeScore": 1,
+            "awayScore": 2,
+            "venue": "Jan Breydel Stadium",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/16128/Spain_France.html"
+          },
+          {
+            "date": "1998-01-28",
+            "competition": "Friendly",
+            "homeTeamId": "FRA",
+            "awayTeamId": "ESP",
+            "homeScore": 1,
+            "awayScore": 0,
+            "venue": "Stade de France",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/24968/France_Spain.html"
+          },
+          {
+            "date": "1996-06-15",
+            "competition": "Euro 1996 - Group B",
+            "homeTeamId": "FRA",
+            "awayTeamId": "ESP",
+            "homeScore": 1,
+            "awayScore": 1,
+            "venue": "Elland Road Football Stadium",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/16141/France_Spain.html"
+          },
+          {
+            "date": "1991-10-12",
+            "competition": "Euro 1992 - Group 1",
+            "homeTeamId": "ESP",
+            "awayTeamId": "FRA",
+            "homeScore": 1,
+            "awayScore": 2,
+            "venue": "Estadio Benito Villamarín",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/30711/Spain_France.html"
+          },
+          {
+            "date": "1991-02-20",
+            "competition": "Euro 1992 - Group 1",
+            "homeTeamId": "FRA",
+            "awayTeamId": "ESP",
+            "homeScore": 3,
+            "awayScore": 1,
+            "venue": "Parc des Princes",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/30708/France_Spain.html"
+          },
+          {
+            "date": "1988-03-23",
+            "competition": "Friendly",
+            "homeTeamId": "FRA",
+            "awayTeamId": "ESP",
+            "homeScore": 2,
+            "awayScore": 1,
+            "venue": "Parc Lescure",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/33075/France_Spain.html"
+          },
+          {
+            "date": "1984-06-27",
+            "competition": "Euro 1984 - Final",
+            "homeTeamId": "FRA",
+            "awayTeamId": "ESP",
+            "homeScore": 2,
+            "awayScore": 0,
+            "venue": "Parc des Princes",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/16343/France_Spain.html"
+          },
+          {
+            "date": "1983-10-05",
+            "competition": "Friendly",
+            "homeTeamId": "FRA",
+            "awayTeamId": "ESP",
+            "homeScore": 1,
+            "awayScore": 1,
+            "venue": "Parc des Princes",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/38989/France_Spain.html"
+          },
+          {
+            "date": "1981-02-18",
+            "competition": "Friendly",
+            "homeTeamId": "ESP",
+            "awayTeamId": "FRA",
+            "homeScore": 1,
+            "awayScore": 0,
+            "venue": "Estadio Vicente Calderón",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/43191/Spain_France.html"
+          },
+          {
+            "date": "1923-01-28",
+            "competition": "Friendly",
+            "homeTeamId": "ESP",
+            "awayTeamId": "FRA",
+            "homeScore": 3,
+            "awayScore": 0,
+            "venue": "Estadio Municipal de Atocha",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/33894/Spain_France.html"
+          },
+          {
+            "date": "1922-04-30",
+            "competition": "Friendly",
+            "homeTeamId": "FRA",
+            "awayTeamId": "ESP",
+            "homeScore": 0,
+            "awayScore": 4,
+            "venue": "Stade Sainte-Germaine",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/33835/France_Spain.html"
+          }
+        ],
+        "sourceUrl": "https://www.national-football-teams.com/encounter/teams/67/174/France_vs_Spain.html"
       },
       "providerIds": {
         "fifa": {
@@ -22371,7 +22609,54 @@
           "matchNumber": 101
         }
       },
-      "homeTeamId": "FRA"
+      "homeTeamId": "FRA",
+      "awayTeamId": "ESP",
+      "projection": {
+        "sourceId": "ranking-projection-2026-06-17",
+        "method": "fifa-ranking-baseline",
+        "basis": "FIFA ranking strength with host-country adjustment",
+        "home": 32,
+        "draw": 29,
+        "away": 39
+      },
+      "keyPlayers": {
+        "sourceId": "key-player-baseline-2026-06-22",
+        "method": "team-watchlist-baseline",
+        "basis": "Team-level key-player watchlist; replace with API/squad-sourced fixture notes when available",
+        "home": [
+          {
+            "name": "Kylian Mbappe",
+            "note": "France's game-breaking runner and finisher, the player who turns one channel ball into panic."
+          },
+          {
+            "name": "Michael Olise",
+            "note": "The current creative hinge, dangerous as a passer, dribbler, or left-footed shooter between defenders."
+          },
+          {
+            "name": "William Saliba",
+            "note": "The defensive stabilizer, calm enough to defend space while France's athletes surge forward."
+          }
+        ],
+        "away": [
+          {
+            "name": "Lamine Yamal",
+            "note": "Spain's game-breaking wide creator, able to bend low blocks with dribbling, passing, and shot threat."
+          },
+          {
+            "name": "Pedri",
+            "note": "The rhythm setter in open space, making Spain's possession feel calmer and more incisive."
+          },
+          {
+            "name": "Nico Williams",
+            "note": "The vertical winger who turns switches of play into immediate pressure on the box."
+          }
+        ]
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-22",
+        "home": "France are an elite attacking side with Mbappe's speed now fed by Olise's left-footed creation, led by Kylian Mbappe, Michael Olise, and William Saliba. Against Spain, their Olise-to-Mbappe chance creation has to beat Spain's Yamal-Williams wide stretch. They want to let Olise receive inside, draw pressure, and release Mbappe before the defense can reset. The risk is Spain can stretch the pitch through Yamal and Williams before Pedri breaks the line.",
+        "away": "Spain are one of the tournament's most polished possession teams, led by Lamine Yamal, Pedri, and Nico Williams. Against France, their Yamal-Williams wide stretch has to beat France's Olise-to-Mbappe chance creation. They want to pin the wide defenders with Yamal and Williams before Pedri plays through the gaps. The risk is France can combine Olise's final ball with Mbappe's acceleration before Saliba controls the counter."
+      }
     },
     {
       "id": "match-102-semi-final-2026-07-15",
