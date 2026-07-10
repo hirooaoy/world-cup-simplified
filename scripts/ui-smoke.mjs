@@ -5370,27 +5370,37 @@ try {
         const marker = block.querySelector(`[data-lineup-player-name="${name}"]`);
         const avatar = marker?.querySelector(".lineup-avatar-wrap");
         const label = marker?.querySelector(".lineup-player-name");
+        const value = marker?.querySelector(".lineup-player-value");
         const scoreEvents = marker?.querySelector(".lineup-avatar-score-events");
-        if (!marker || !avatar || !label) {
+        const eventRow = marker?.querySelector(".lineup-player-event-row");
+        if (!marker || !avatar || !label || !value) {
           return null;
         }
 
         const markerBounds = marker.getBoundingClientRect();
         const avatarBounds = avatar.getBoundingClientRect();
         const labelBounds = label.getBoundingClientRect();
+        const valueBounds = value.getBoundingClientRect();
         const scoreBounds = scoreEvents?.getBoundingClientRect();
+        const eventRowBounds = eventRow?.getBoundingClientRect();
         const avatarCenterX = (avatarBounds.left + avatarBounds.right) / 2;
         const labelCenterX = (labelBounds.left + labelBounds.right) / 2;
+        const valueCenterX = (valueBounds.left + valueBounds.right) / 2;
 
         return {
           avatarCenterX,
           avatarCenterY: (avatarBounds.top + avatarBounds.bottom) / 2,
-          eventRows: marker.querySelectorAll(":scope > .lineup-player-event-row").length,
+          eventRows: marker.querySelectorAll(".lineup-player-event-row").length,
+          eventRowGap: eventRowBounds ? eventRowBounds.top - valueBounds.bottom : null,
+          labelValueGap: valueBounds.top - labelBounds.bottom,
           labelCenterX,
           markerHeight: markerBounds.height,
           nameCenterDelta: labelCenterX - avatarCenterX,
           scoreOverlapRight: scoreBounds ? scoreBounds.right - avatarBounds.right : null,
-          scoreOverlapsAvatar: scoreBounds ? scoreBounds.left < avatarBounds.right : null
+          scoreOverlapsAvatar: scoreBounds ? scoreBounds.left < avatarBounds.right : null,
+          valueCenterDelta: valueCenterX - avatarCenterX,
+          valueCount: marker.querySelectorAll(".lineup-player-value").length,
+          valueText: value.textContent.replace(/\s+/g, " ").trim()
         };
       };
 
@@ -5404,8 +5414,20 @@ try {
       argentinaEgyptDesktopLineupGeometry.messi &&
       Math.abs(argentinaEgyptDesktopLineupGeometry.alvarez.nameCenterDelta) <= 1 &&
       Math.abs(argentinaEgyptDesktopLineupGeometry.messi.nameCenterDelta) <= 1 &&
+      Math.abs(argentinaEgyptDesktopLineupGeometry.alvarez.valueCenterDelta) <= 1 &&
+      Math.abs(argentinaEgyptDesktopLineupGeometry.messi.valueCenterDelta) <= 1 &&
       Math.abs(argentinaEgyptDesktopLineupGeometry.alvarez.avatarCenterY - argentinaEgyptDesktopLineupGeometry.messi.avatarCenterY) <= 1 &&
+      argentinaEgyptDesktopLineupGeometry.alvarez.valueCount === 1 &&
+      argentinaEgyptDesktopLineupGeometry.messi.valueCount === 1 &&
+      argentinaEgyptDesktopLineupGeometry.alvarez.valueText.includes("€") &&
+      argentinaEgyptDesktopLineupGeometry.messi.valueText.includes("€") &&
+      argentinaEgyptDesktopLineupGeometry.alvarez.labelValueGap >= 0 &&
+      argentinaEgyptDesktopLineupGeometry.alvarez.labelValueGap <= 3 &&
+      argentinaEgyptDesktopLineupGeometry.messi.labelValueGap >= 0 &&
+      argentinaEgyptDesktopLineupGeometry.messi.labelValueGap <= 3 &&
       argentinaEgyptDesktopLineupGeometry.alvarez.eventRows === 1 &&
+      argentinaEgyptDesktopLineupGeometry.alvarez.eventRowGap >= 0 &&
+      argentinaEgyptDesktopLineupGeometry.alvarez.eventRowGap <= 4 &&
       argentinaEgyptDesktopLineupGeometry.messi.eventRows === 0 &&
       argentinaEgyptDesktopLineupGeometry.messi.scoreOverlapsAvatar &&
       argentinaEgyptDesktopLineupGeometry.messi.scoreOverlapRight <= 9,
@@ -5420,20 +5442,28 @@ try {
   await lineupCoachCoverageCheck.page.locator("#match-info .lineup-preview-block").waitFor({
     state: "attached"
   });
+  await lineupCoachCoverageCheck.page.locator('#match-info .lineup-card-tabs [data-lineup-tab="away"]').first().click();
   const franceMoroccoZhLineupState = await lineupCoachCoverageCheck.page
     .locator("#match-info .lineup-preview-block")
     .evaluate((block) => {
       const coachCardText = [...block.querySelectorAll(".lineup-coach-card")]
         .map((card) => card.textContent.replace(/\s+/g, " ").trim())
         .join(" ");
+      const coachCardCompactText = coachCardText.replace(/\s+/g, "");
+      const hakimiMarker = block.querySelector('[data-lineup-player-name="Achraf Hakimi"]');
+      const hakimiLabel = hakimiMarker?.querySelector(".lineup-player-name")?.textContent
+        .replace(/\s+/g, " ")
+        .trim() || "";
 
-      return { coachCardText };
+      return { coachCardText, coachCardCompactText, hakimiLabel };
     });
   assert(
-    franceMoroccoZhLineupState.coachCardText.includes("德尚让法国保持极其务实") &&
-      franceMoroccoZhLineupState.coachCardText.includes("2018年世界杯") &&
+    franceMoroccoZhLineupState.coachCardText.includes("德尚让法国保持务实") &&
+      franceMoroccoZhLineupState.coachCardCompactText.includes("2018年世界杯") &&
       franceMoroccoZhLineupState.coachCardText.includes("瓦赫比把培养型教练视角带到摩洛哥") &&
       franceMoroccoZhLineupState.coachCardText.includes("摩洛哥青训体系") &&
+      franceMoroccoZhLineupState.hakimiLabel === "阿什拉夫·哈基米 (C)" &&
+      !franceMoroccoZhLineupState.coachCardText.includes("Deschamps keeps France pragmatic") &&
       !franceMoroccoZhLineupState.coachCardText.includes("Deschamps keeps France ruthlessly practical") &&
       !franceMoroccoZhLineupState.coachCardText.includes("Appointed in 2012") &&
       !franceMoroccoZhLineupState.coachCardText.includes("Ouahbi brings a development coach") &&
@@ -8430,13 +8460,19 @@ try {
   const expectedOutcomePillCount = expectedOutcomeListCount * 3;
   const expectedMatch74OpenMatchId =
     fixturesData.fixtures.find((fixture) => fixture.matchNumber === 74)?.id || "";
-  const expectedMatch81Fixture = fixturesData.fixtures.find((fixture) => fixture.matchNumber === 81);
-  const expectedM81HasOutcomePills = Boolean(
-    expectedMatch81Fixture &&
-      (expectedMatch81Fixture.status !== "FT" || isUnresolvedPenaltyFinal(expectedMatch81Fixture)) &&
-      !expectedMatch81Fixture.winnerTeamId &&
-      !expectedMatch81Fixture.winner
+  const shouldShowOutcomePills = (fixture) => Boolean(
+    fixture &&
+      (fixture.status !== "FT" || isUnresolvedPenaltyFinal(fixture)) &&
+      !fixture.winnerTeamId &&
+      !fixture.winner
   );
+  const expectedMatch81Fixture = fixturesData.fixtures.find((fixture) => fixture.matchNumber === 81);
+  const expectedMatch97Fixture = fixturesData.fixtures.find((fixture) => fixture.matchNumber === 97);
+  const expectedM81HasOutcomePills = shouldShowOutcomePills(expectedMatch81Fixture);
+  const expectedM97HasOutcomePills = shouldShowOutcomePills(expectedMatch97Fixture);
+  const expectedM97ResultText = expectedMatch97Fixture?.score
+    ? `${expectedMatch97Fixture.score.home}-${expectedMatch97Fixture.score.away}`
+    : "";
   const expectedM81OutcomeTexts = expectedM81HasOutcomePills
     ? [
         `${expectedMatch81Fixture.homeTeamId} ${expectedMatch81Fixture.projection.home}%`,
@@ -8508,7 +8544,11 @@ try {
     ],
     ["m89PillCount", tournamentCheck.m89PillCount === 0 || tournamentCheck.m89PillCount === 3],
     ["m89SeedLabelCount", tournamentCheck.m89SeedLabelCount === 0],
-    ["m97PillCount", tournamentCheck.m97PillCount === 3],
+    ["m97PillCount", tournamentCheck.m97PillCount === (expectedM97HasOutcomePills ? 3 : 0)],
+    [
+      "m97ResultText",
+      expectedM97HasOutcomePills || (expectedM97ResultText && tournamentCheck.m97Text.includes(expectedM97ResultText))
+    ],
     ["m97SeedLabelCount", tournamentCheck.m97SeedLabelCount === 0],
     ["m103PillCount", tournamentCheck.m103PillCount === 3],
     ["m103Projected", tournamentCheck.m103Projected === true],
@@ -8547,7 +8587,10 @@ try {
       "m89TooltipProjectsWin",
       tournamentCheck.m89PillCount === 0 || tournamentCheck.m89Tooltips.includes("projects to win")
     ],
-    ["m97TooltipChanceWin", tournamentCheck.m97Tooltips.includes("chance to win before penalties")],
+    [
+      "m97TooltipChanceWin",
+      !expectedM97HasOutcomePills || tournamentCheck.m97Tooltips.includes("chance to win before penalties")
+    ],
     ["likelihoodTooltipsChance", tournamentCheck.likelihoodTooltips.includes("chance of penalties")],
     ["likelihoodTooltipsNoTieMeansLevel", !tournamentCheck.likelihoodTooltips.includes("Tie means level after normal/extra time")],
     ["likelihoodTooltipsNoUpset", !tournamentCheck.likelihoodTooltips.includes("pull off the upset")],
@@ -10608,25 +10651,35 @@ try {
         const marker = block.querySelector(`[data-lineup-player-name="${name}"]`);
         const avatar = marker?.querySelector(".lineup-avatar-wrap");
         const label = marker?.querySelector(".lineup-player-name");
+        const value = marker?.querySelector(".lineup-player-value");
         const scoreEvents = marker?.querySelector(".lineup-avatar-score-events");
-        if (!marker || !avatar || !label) {
+        const eventRow = marker?.querySelector(".lineup-player-event-row");
+        if (!marker || !avatar || !label || !value) {
           return null;
         }
 
         const avatarBounds = avatar.getBoundingClientRect();
         const labelBounds = label.getBoundingClientRect();
+        const valueBounds = value.getBoundingClientRect();
         const scoreBounds = scoreEvents?.getBoundingClientRect();
+        const eventRowBounds = eventRow?.getBoundingClientRect();
         const avatarCenterX = (avatarBounds.left + avatarBounds.right) / 2;
         const labelCenterX = (labelBounds.left + labelBounds.right) / 2;
+        const valueCenterX = (valueBounds.left + valueBounds.right) / 2;
 
         return {
           avatarCenterX,
           avatarCenterY: (avatarBounds.top + avatarBounds.bottom) / 2,
-          eventRows: marker.querySelectorAll(":scope > .lineup-player-event-row").length,
+          eventRows: marker.querySelectorAll(".lineup-player-event-row").length,
+          eventRowGap: eventRowBounds ? eventRowBounds.top - valueBounds.bottom : null,
+          labelValueGap: valueBounds.top - labelBounds.bottom,
           labelCenterX,
           nameCenterDelta: labelCenterX - avatarCenterX,
           scoreOverlapRight: scoreBounds ? scoreBounds.right - avatarBounds.right : null,
-          scoreOverlapsAvatar: scoreBounds ? scoreBounds.left < avatarBounds.right : null
+          scoreOverlapsAvatar: scoreBounds ? scoreBounds.left < avatarBounds.right : null,
+          valueCenterDelta: valueCenterX - avatarCenterX,
+          valueCount: marker.querySelectorAll(".lineup-player-value").length,
+          valueText: value.textContent.replace(/\s+/g, " ").trim()
         };
       };
 
@@ -10640,8 +10693,20 @@ try {
       touchArgentinaEgyptLineupGeometry.messi &&
       Math.abs(touchArgentinaEgyptLineupGeometry.alvarez.nameCenterDelta) <= 1 &&
       Math.abs(touchArgentinaEgyptLineupGeometry.messi.nameCenterDelta) <= 1 &&
+      Math.abs(touchArgentinaEgyptLineupGeometry.alvarez.valueCenterDelta) <= 1 &&
+      Math.abs(touchArgentinaEgyptLineupGeometry.messi.valueCenterDelta) <= 1 &&
       Math.abs(touchArgentinaEgyptLineupGeometry.alvarez.avatarCenterY - touchArgentinaEgyptLineupGeometry.messi.avatarCenterY) <= 1 &&
+      touchArgentinaEgyptLineupGeometry.alvarez.valueCount === 1 &&
+      touchArgentinaEgyptLineupGeometry.messi.valueCount === 1 &&
+      touchArgentinaEgyptLineupGeometry.alvarez.valueText.includes("€") &&
+      touchArgentinaEgyptLineupGeometry.messi.valueText.includes("€") &&
+      touchArgentinaEgyptLineupGeometry.alvarez.labelValueGap >= 0 &&
+      touchArgentinaEgyptLineupGeometry.alvarez.labelValueGap <= 3 &&
+      touchArgentinaEgyptLineupGeometry.messi.labelValueGap >= 0 &&
+      touchArgentinaEgyptLineupGeometry.messi.labelValueGap <= 3 &&
       touchArgentinaEgyptLineupGeometry.alvarez.eventRows === 1 &&
+      touchArgentinaEgyptLineupGeometry.alvarez.eventRowGap >= 0 &&
+      touchArgentinaEgyptLineupGeometry.alvarez.eventRowGap <= 4 &&
       touchArgentinaEgyptLineupGeometry.messi.eventRows === 0 &&
       touchArgentinaEgyptLineupGeometry.messi.scoreOverlapsAvatar &&
       touchArgentinaEgyptLineupGeometry.messi.scoreOverlapRight <= 9,

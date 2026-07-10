@@ -6256,9 +6256,6 @@ button.lineup-event-sub,
 }
 
 .lineup-player-event-row {
-  position: absolute;
-  top: calc(100% + 2px);
-  left: 50%;
   display: flex;
   flex-wrap: nowrap;
   justify-content: center;
@@ -6266,8 +6263,17 @@ button.lineup-event-sub,
   width: max-content;
   min-width: 100%;
   min-height: 15px;
-  margin-top: 0;
-  transform: translateX(-50%);
+  margin-top: 2px;
+}
+
+.lineup-player-value {
+  display: block;
+  margin-top: 1px;
+  color: rgba(10, 10, 10, 0.48);
+  font-size: 9px;
+  font-weight: 650;
+  line-height: 1.08;
+  text-align: center;
 }
 
 .lineup-name-sub-events,
@@ -6297,7 +6303,7 @@ button.lineup-event-sub,
   --lineup-avatar-size: 34px;
   --lineup-marker-core-height: 60px;
   --lineup-marker-width: 68px;
-  --lineup-pitch-height: clamp(360px, 40vw, 430px);
+  --lineup-pitch-height: clamp(380px, 43vw, 460px);
   --lineup-pitch-top-trim: 0px;
   position: relative;
   height: var(--lineup-pitch-height);
@@ -6536,7 +6542,7 @@ button.lineup-event-sub,
     --lineup-avatar-size: 38px;
     --lineup-marker-core-height: 66px;
     --lineup-marker-width: clamp(50px, 13.5vw, 58px);
-    --lineup-pitch-height: clamp(500px, 140vw, 600px);
+    --lineup-pitch-height: clamp(510px, 144vw, 620px);
   }
 
   .lineup-tab {
@@ -6613,7 +6619,7 @@ button.lineup-event-sub,
     --lineup-avatar-size: 35px;
     --lineup-marker-core-height: 63px;
     --lineup-marker-width: 50px;
-    --lineup-pitch-height: 500px;
+    --lineup-pitch-height: 515px;
     --lineup-pitch-top-trim: 0px;
   }
 

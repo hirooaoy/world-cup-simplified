@@ -1,6 +1,21 @@
 {
-  "updatedAt": "2026-07-08T14:20:47-07:00",
+  "updatedAt": "2026-07-09T21:10:41-07:00",
   "releases": [
+    {
+      "date": "2026-07-09",
+      "title": "France-Morocco result and lineup polish",
+      "titleZh": "法国对摩洛哥赛果与阵容优化",
+      "highlights": [
+        "France-Morocco now shows the 2-0 final, official goal events, FOX Sports highlights, three recap bullets, and the official final lineup while removing the stale probable lineup.",
+        "Line-up boards now add each player's market value under the name, keep captain suffixes visible in Chinese, and tighten card or substitution pills with a taller, more readable pitch.",
+        "The header juggle mini-game now avoids Chinese-mode observer churn and warms audio during idle so active play starts and stays smoother."
+      ],
+      "highlightsZh": [
+        "法国对摩洛哥现在显示2比0完场、官方进球事件、FOX Sports 集锦、三段赛果回顾和官方最终阵容，并移除过期的预测阵容。",
+        "阵容板现在会在球员姓名下显示身价，中文模式保留队长 (C) 标记，并用更紧凑的牌/换人标签和更高的球场提升可读性。",
+        "页眉颠球小游戏现在避开中文模式的全页观察器抖动，并在空闲时预热音频，让开局和游玩更顺滑。"
+      ]
+    },
     {
       "date": "2026-07-08",
       "title": "Mobile tournament and footer tap polish",

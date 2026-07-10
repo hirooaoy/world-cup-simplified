@@ -132,6 +132,18 @@ const franceMoroccoCalendar = calendarMatch({
   statusName: "Scheduled"
 });
 
+const spainBelgiumCalendar = calendarMatch({
+  idMatch: "400021538",
+  matchNumber: 98,
+  date: "2026-07-10T19:00:00Z",
+  homeTeam: "Spain",
+  homeAbbreviation: "ESP",
+  awayTeam: "Belgium",
+  awayAbbreviation: "BEL",
+  statusCode: 1,
+  statusName: "Scheduled"
+});
+
 const livePayloads = new Map([
   [
     "400021528",
@@ -178,45 +190,45 @@ const livePayloads = new Map([
     })
   ],
   [
-    "400021536",
+    "400021538",
     liveFootballMatch({
-      base: franceMoroccoCalendar,
+      base: spainBelgiumCalendar,
       homeFormation: "4-2-3-1",
       awayFormation: "4-3-3",
       home: {
-        coach: "Didier Deschamps",
+        coach: "Luis de la Fuente",
         players: [
-          player(41, "Mike Maignan", 16, 0),
-          player(42, "Jules Kounde", 5, 1),
-          player(43, "William Saliba", 17, 1),
-          player(44, "Ibrahima Konate", 13, 1),
-          player(45, "Theo Hernandez", 22, 1),
-          player(46, "Aurelien Tchouameni", 8, 2),
-          player(47, "Adrien Rabiot", 14, 2),
-          player(48, "Michael Olise", 7, 2),
-          player(49, "Antoine Griezmann", 11, 2),
-          player(50, "Kylian Mbappe", 10, 3),
-          player(51, "Marcus Thuram", 9, 3),
-          player(52, "Brice Samba", 1, 0, 2),
-          player(53, "Ousmane Dembele", 20, 3, 2)
+          player(41, "Unai Simon", 23, 0),
+          player(42, "Marc Cucurella", 24, 1),
+          player(43, "Robin Le Normand", 3, 1),
+          player(44, "Aymeric Laporte", 14, 1),
+          player(45, "Dani Carvajal", 2, 1),
+          player(46, "Rodri", 16, 2),
+          player(47, "Pedri", 8, 2),
+          player(48, "Nico Williams", 17, 2),
+          player(49, "Dani Olmo", 10, 2),
+          player(50, "Lamine Yamal", 19, 3),
+          player(51, "Alvaro Morata", 7, 3),
+          player(52, "David Raya", 1, 0, 2),
+          player(53, "Mikel Oyarzabal", 21, 3, 2)
         ]
       },
       away: {
-        coach: "Walid Regragui",
+        coach: "Domenico Tedesco",
         players: [
-          player(61, "Yassine Bounou", 1, 0),
-          player(62, "Achraf Hakimi", 2, 1),
-          player(63, "Nayef Aguerd", 5, 1),
-          player(64, "Romain Saiss", 6, 1),
-          player(65, "Noussair Mazraoui", 3, 1),
-          player(66, "Sofyan Amrabat", 4, 2),
-          player(67, "Azzedine Ounahi", 8, 2),
-          player(68, "Brahim Diaz", 10, 2),
-          player(69, "Hakim Ziyech", 7, 3),
-          player(70, "Ayoub El Kaabi", 9, 3),
-          player(71, "Abde Ezzalzouli", 17, 3),
-          player(72, "Munir Mohamedi", 12, 0, 2),
-          player(73, "Youssef En-Nesyri", 19, 3, 2)
+          player(61, "Thibaut Courtois", 1, 0),
+          player(62, "Timothy Castagne", 21, 1),
+          player(63, "Wout Faes", 4, 1),
+          player(64, "Jan Vertonghen", 5, 1),
+          player(65, "Arthur Theate", 3, 1),
+          player(66, "Amadou Onana", 6, 2),
+          player(67, "Youri Tielemans", 8, 2),
+          player(68, "Kevin De Bruyne", 7, 2),
+          player(69, "Jeremy Doku", 11, 3),
+          player(70, "Romelu Lukaku", 10, 3),
+          player(71, "Leandro Trossard", 9, 3),
+          player(72, "Koen Casteels", 13, 0, 2),
+          player(73, "Charles De Ketelaere", 17, 3, 2)
         ]
       }
     })
@@ -242,7 +254,9 @@ globalThis.fetch = async (url) => {
   const href = String(url);
   if (href.includes("/api/v3/calendar/matches")) {
     fetchHits.calendar += 1;
-    return jsonResponse({ Results: [argentinaEgyptCalendar, switzerlandColombiaCalendar, franceMoroccoCalendar] });
+    return jsonResponse({
+      Results: [argentinaEgyptCalendar, switzerlandColombiaCalendar, franceMoroccoCalendar, spainBelgiumCalendar]
+    });
   }
 
   const liveMatch = href.match(/\/api\/v3\/live\/football\/([^?]+)/);
@@ -274,7 +288,8 @@ try {
 
   const payload = JSON.parse(chunks.join(""));
   const byId = new Map((payload.fixturesData?.fixtures || []).map((fixture) => [fixture.id, fixture]));
-  const confirmedFixture = byId.get("match-97-quarter-final-2026-07-09");
+  const confirmedFixture = byId.get("match-98-quarter-final-2026-07-10");
+  const newlyCompletedFixture = byId.get("match-97-quarter-final-2026-07-09");
   const completedStaticFixture = byId.get("match-95-round-of-16-2026-07-07");
 
   assert.equal(confirmedFixture?.lineups?.mode, "confirmed");
@@ -285,6 +300,14 @@ try {
   assert.equal(confirmedFixture.lineups.home.players.length, 11);
   assert.equal(confirmedFixture.lineups.away.players.length, 11);
 
+  assert.equal(newlyCompletedFixture?.lineups?.mode, "final");
+  assert.equal(newlyCompletedFixture.lineups.teamSheetSource, "fifa-official");
+  assert.equal(newlyCompletedFixture.lineups.layoutSource, "derived-team-sheet-order");
+  assert.equal(newlyCompletedFixture.lineups.layoutVerification?.status, "unverified");
+  assert.equal(newlyCompletedFixture.lineups.layoutVerification?.exact, false);
+  assert.equal(newlyCompletedFixture.lineups.home.players.length, 11);
+  assert.equal(newlyCompletedFixture.lineups.away.players.length, 11);
+
   assert.equal(completedStaticFixture?.lineups?.mode, "final");
   assert.equal(completedStaticFixture.lineups.teamSheetSource, "fifa-official");
   assert.equal(completedStaticFixture.lineups.home.players.length, 11);
@@ -293,7 +316,8 @@ try {
   assert.equal(fetchHits.calendar, 2);
   assert.equal(fetchHits.liveFootball.get("400021528") || 0, 0);
   assert.equal(fetchHits.liveFootball.get("400021535") || 0, 0);
-  assert.equal(fetchHits.liveFootball.get("400021536"), 1);
+  assert.equal(fetchHits.liveFootball.get("400021536") || 0, 0);
+  assert.equal(fetchHits.liveFootball.get("400021538"), 1);
   assert.equal(payload.syncStatus.lineupFixtures, 1);
   assert.equal(payload.syncStatus.lineupUpdates, 1);
   assert(payload.syncStatus.staticLineupFixtures >= 1);

@@ -659,6 +659,12 @@ const ZH_ADDITIONAL_EXACT_TRANSLATIONS = {
     "米克尔·梅里诺直到90+1分钟才打破葡萄牙的抵抗。",
   "Neymar Jr's 90+10' penalty only cut the gap after Norway had already found the decisive second goal.":
     "内马尔在90+10分钟的点球只是缩小差距，因为挪威已经打进决定性的第二球。",
+  "Bounou's first-half penalty save kept Morocco level, but France kept Morocco under pressure after the restart.":
+    "亚辛·布努上半场扑出点球，让摩洛哥带着平局进入中场，但法国在下半场继续施压。",
+  "Mbappé broke the game open in the 60th minute, curling France ahead when the Moroccan block finally cracked.":
+    "姆巴佩第60分钟打破僵局，在摩洛哥防线终于松动时弧线球帮助法国领先。",
+  "Dembélé struck six minutes later from Mbappé's pass, and France closed out the 2-0 win to reach the semi-finals.":
+    "登贝莱6分钟后接姆巴佩传球再下一城，法国以2比0收官并晋级半决赛。",
   "Yasser Ibrahim and Mostafa Ziko gave Egypt a 2-0 lead and pushed Argentina to the edge.":
     "亚塞尔·易卜拉欣和穆斯塔法·齐科帮助埃及取得2比0领先，把阿根廷逼到悬崖边。",
   "Athletic pressing with direct attacking bursts": "运动能力压迫和直接进攻爆发",
@@ -4926,6 +4932,8 @@ let currentLanguage = getInitialLanguage();
 const juggleToy = {
   animationFrameId: 0,
   audioContext: null,
+  audioWarmupId: 0,
+  audioWarmupType: "",
   best: readStoredJuggleRecord(),
   blockPageClickUntil: 0,
   count: 0,
@@ -7693,16 +7701,35 @@ function renderJuggleRecord() {
     return;
   }
 
-  const isActive = isJuggleRunActive();
-  const label = isActive ? t("juggleCurrent") : t("juggleRecord");
-  const action = t("juggleRecordAction");
-  const value = isActive ? juggleToy.count : juggleToy.best;
-  const title = isActive ? `${label}: ${value}` : `${label}: ${value}. ${action}`;
-  juggleRecord.hidden = false;
-  juggleRecord.textContent = `(${value})`;
-  juggleRecord.disabled = !canLaunchJuggleBall();
-  juggleRecord.setAttribute("aria-label", title);
-  juggleRecord.setAttribute("title", title);
+  const render = () => {
+    const isActive = isJuggleRunActive();
+    const label = isActive ? t("juggleCurrent") : t("juggleRecord");
+    const action = t("juggleRecordAction");
+    const value = isActive ? juggleToy.count : juggleToy.best;
+    const title = isActive ? `${label}: ${value}` : `${label}: ${value}. ${action}`;
+    const nextText = `(${value})`;
+    const nextDisabled = !canLaunchJuggleBall();
+
+    juggleRecord.hidden = false;
+    if (juggleRecord.textContent !== nextText) {
+      juggleRecord.textContent = nextText;
+    }
+    if (juggleRecord.disabled !== nextDisabled) {
+      juggleRecord.disabled = nextDisabled;
+    }
+    if (juggleRecord.getAttribute("aria-label") !== title) {
+      juggleRecord.setAttribute("aria-label", title);
+    }
+    if (juggleRecord.getAttribute("title") !== title) {
+      juggleRecord.setAttribute("title", title);
+    }
+  };
+
+  if (isLanguageObserverConnected) {
+    withLanguageObserverPaused(render);
+  } else {
+    render();
+  }
 }
 
 function getRandomNumber(min, max) {
@@ -7901,15 +7928,18 @@ function initializeJuggleToy() {
   document.addEventListener("visibilitychange", handleJuggleVisibilityChange);
   window.addEventListener("pagehide", persistPendingJuggleRecord);
   renderJuggleRecord();
+  scheduleJuggleAudioWarmup();
 }
 
 function handleJuggleVisibilityChange() {
   if (document.hidden) {
+    clearPendingJuggleAudioWarmup();
     finishJuggleRun();
     return;
   }
 
   renderJuggleRecord();
+  scheduleJuggleAudioWarmup();
 }
 
 function spawnJuggleBall() {
@@ -7918,7 +7948,7 @@ function spawnJuggleBall() {
   }
 
   window.cancelAnimationFrame(juggleToy.animationFrameId);
-  primeJuggleAudioContext();
+  clearPendingJuggleAudioWarmup();
 
   const width = window.innerWidth;
   const height = window.innerHeight;
@@ -8080,6 +8110,53 @@ function getJuggleAudioContext() {
   return juggleToy.audioContext;
 }
 
+function getExistingJuggleAudioContext() {
+  return juggleToy.audioContext;
+}
+
+function clearPendingJuggleAudioWarmup() {
+  if (!juggleToy.audioWarmupId) {
+    return;
+  }
+
+  if (juggleToy.audioWarmupType === "idle" && window.cancelIdleCallback) {
+    window.cancelIdleCallback(juggleToy.audioWarmupId);
+  } else {
+    window.clearTimeout(juggleToy.audioWarmupId);
+  }
+
+  juggleToy.audioWarmupId = 0;
+  juggleToy.audioWarmupType = "";
+}
+
+function scheduleJuggleAudioWarmup() {
+  if (
+    juggleToy.audioContext ||
+    juggleToy.audioWarmupId ||
+    prefersReducedJuggleMotion() ||
+    document.hidden ||
+    isJuggleRunActive()
+  ) {
+    return;
+  }
+
+  const warmup = () => {
+    juggleToy.audioWarmupId = 0;
+    juggleToy.audioWarmupType = "";
+    if (!document.hidden && !isJuggleRunActive()) {
+      getJuggleAudioContext();
+    }
+  };
+
+  if (window.requestIdleCallback) {
+    juggleToy.audioWarmupType = "idle";
+    juggleToy.audioWarmupId = window.requestIdleCallback(warmup, { timeout: 5000 });
+  } else {
+    juggleToy.audioWarmupType = "timeout";
+    juggleToy.audioWarmupId = window.setTimeout(warmup, 2500);
+  }
+}
+
 function primeJuggleAudioContext() {
   const audioContext = getJuggleAudioContext();
   if (!audioContext || audioContext.state !== "suspended") {
@@ -8090,7 +8167,7 @@ function primeJuggleAudioContext() {
 }
 
 function playJuggleTapSound() {
-  const audioContext = getJuggleAudioContext();
+  const audioContext = getExistingJuggleAudioContext();
   if (!audioContext) {
     return;
   }
@@ -8205,6 +8282,7 @@ function finishJuggleRun() {
   juggleToy.shadowElement?.classList.remove("is-active");
   document.body.classList.remove("is-juggle-active");
   renderJuggleRecord();
+  scheduleJuggleAudioWarmup();
 }
 
 function normalizeTextKey(value) {
@@ -18637,6 +18715,24 @@ function getLineupPlayerData(player, team) {
   };
 }
 
+function getLineupDisplayY(y) {
+  const value = Number(y);
+  if (!Number.isFinite(value)) {
+    return y;
+  }
+
+  const sourceTop = 20;
+  const sourceBottom = 91;
+  if (value < sourceTop) {
+    return value;
+  }
+
+  const targetTop = 16;
+  const targetBottom = 92;
+  const ratio = clampNumber((value - sourceTop) / (sourceBottom - sourceTop), 0, 1);
+  return Math.round((targetTop + ratio * (targetBottom - targetTop)) * 10) / 10;
+}
+
 function normalizeLineupEventName(name) {
   return String(name || "").trim().toLowerCase();
 }
@@ -19360,6 +19456,8 @@ function renderLineupPlayerMarker(player, team, teamLineup, match = null, side =
   `;
   const eventPills = [subOffBadges, cardBadges].filter(Boolean).join("");
   const eventPillMarkup = eventPills ? `<span class="lineup-player-event-row">${eventPills}</span>` : "";
+  const valueMarkup = renderLineupPlayerValueLine(profile);
+  const localizedVisibleLabel = currentLanguage === "zh" ? playerLabel : "";
   const shouldAnimateEntrance = Boolean(options.animateEntrance);
   const markerClasses = [
     "lineup-player-marker",
@@ -19367,11 +19465,12 @@ function renderLineupPlayerMarker(player, team, teamLineup, match = null, side =
     shouldAnimateEntrance ? "is-lineup-entering" : ""
   ].filter(Boolean).join(" ");
   const revealDelay = `${shouldAnimateEntrance ? getLineupMarkerRevealDelayMs(lineupPlayer.y) : 0}ms`;
+  const displayY = getLineupDisplayY(lineupPlayer.y);
 
   return `
     <span
       class="${escapeHtml(markerClasses)}"
-      style="--x: ${escapeHtml(lineupPlayer.x)}%; --y: ${escapeHtml(lineupPlayer.y)}%; --avatar-bg: ${escapeHtml(lineupPlayer.avatarColor)}; --lineup-reveal-delay: ${escapeHtml(revealDelay)};"
+      style="--x: ${escapeHtml(lineupPlayer.x)}%; --y: ${escapeHtml(displayY)}%; --avatar-bg: ${escapeHtml(lineupPlayer.avatarColor)}; --lineup-reveal-delay: ${escapeHtml(revealDelay)};"
       aria-label="${escapeHtml(ariaLabel)}"
       data-lineup-marker-key="${escapeHtml(substitutionKey || normalizeLineupEventName(starterName))}"
       data-lineup-player-name="${escapeHtml(lineupPlayer.name)}"
@@ -19380,8 +19479,10 @@ function renderLineupPlayerMarker(player, team, teamLineup, match = null, side =
     >
       ${renderPlayerMention(lineupPlayer.label, lineupPlayer.cardPlayer, {
         beforeTriggerMarkup: avatarMarkup,
+        afterTriggerMarkup: valueMarkup,
         triggerClass: "lineup-player-name",
-        wrapperClass: "lineup-player-hover"
+        wrapperClass: "lineup-player-hover",
+        ...(localizedVisibleLabel ? { visibleLabel: localizedVisibleLabel } : {})
       })}
       ${eventPillMarkup}
     </span>
@@ -20558,6 +20659,16 @@ function renderPlayerMarketValueLine(profile) {
   return `<span class="player-card-value-help" tabindex="0" aria-label="${escapeHtml(tooltip)}" data-tooltip="${escapeHtml(tooltip)}">${escapeHtml(label)}</span> ${escapeHtml(value)}`;
 }
 
+function renderLineupPlayerValueLine(profile) {
+  if (!shouldShowPlayerMarketValues) {
+    return "";
+  }
+
+  const marketValue = getPlayerMarketValueInfo(profile);
+  const value = formatMarketValueEur(marketValue?.value);
+  return value ? `<span class="lineup-player-value">(${escapeHtml(value)})</span>` : "";
+}
+
 function renderHistoricalPeakValueLine(profile) {
   const value = formatMarketValueEur(profile?.peakMarketValueEurMillions);
   if (!value) {
@@ -20971,13 +21082,17 @@ function renderPlayerMention(label, player, options = {}) {
   const valueLine = isProfileLoading ? "" : renderPlayerValueLine(player, profile);
   const skills = isProfileLoading ? [] : getPlayerSkills(player, profile).map(localizePlayerSkill);
   const cardFlag = renderPlayerCardFlag(player, profile);
-  const triggerAriaText = isProfileLoading ? `${displayName}: ${loadingLabel}` : `${displayName}: ${position}, ${club}`;
+  const explicitVisibleLabel = typeof options.visibleLabel === "string" ? options.visibleLabel.trim() : "";
+  const triggerName = explicitVisibleLabel || displayName;
+  const triggerAriaText = isProfileLoading ? `${triggerName}: ${loadingLabel}` : `${triggerName}: ${position}, ${club}`;
   const triggerLabel = `aria-label="${escapeHtml(triggerAriaText)}" aria-expanded="false"`;
-  const visibleLabel = shouldPreserveLocalizedMentionLabel(label)
-    ? label
-    : currentLanguage === "zh"
-      ? displayName
-      : label;
+  const visibleLabel = explicitVisibleLabel || (
+    shouldPreserveLocalizedMentionLabel(label)
+      ? label
+      : currentLanguage === "zh"
+        ? displayName
+        : label
+  );
   const wrapperClass = ["player-hover", options.wrapperClass].filter(Boolean).join(" ");
   const triggerClass = ["player-link", options.triggerClass].filter(Boolean).join(" ");
   const beforeTriggerMarkup = options.beforeTriggerMarkup || "";

@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-10T01:07:13.806Z",
+  "updatedAt": "2026-07-10T03:44:10.960Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -143,7 +143,8 @@
     "fifa-goal-events-sync-2026-07-08",
     "fifa-official-results-sync-2026-07-09",
     "fifa-goal-events-sync-2026-07-09",
-    "fifa-official-results-sync-2026-07-10"
+    "fifa-official-results-sync-2026-07-10",
+    "fifa-goal-events-sync-2026-07-10"
   ],
   "coverage": {
     "status": "complete-schedule",
@@ -21772,7 +21773,25 @@
           "assistName": "Kylian Mbappe"
         }
       ],
-      "goalsAway": []
+      "goalsAway": [],
+      "resultStoryBullets": [
+        "Bounou's first-half penalty save kept Morocco level, but France kept Morocco under pressure after the restart.",
+        "Mbappé broke the game open in the 60th minute, curling France ahead when the Moroccan block finally cracked.",
+        "Dembélé struck six minutes later from Mbappé's pass, and France closed out the 2-0 win to reach the semi-finals."
+      ],
+      "resultStoryBulletsZh": [
+        "亚辛·布努上半场扑出点球，让摩洛哥带着平局进入中场，但法国在下半场继续施压。",
+        "姆巴佩第60分钟打破僵局，在摩洛哥防线终于松动时弧线球帮助法国领先。",
+        "登贝莱6分钟后接姆巴佩传球再下一城，法国以2比0收官并晋级半决赛。"
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=J_1iFnRsHG0",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-07-09T20:42:05-07:00",
+        "checkedAt": "2026-07-09T20:42:05-07:00"
+      }
     },
     {
       "id": "match-98-quarter-final-2026-07-10",

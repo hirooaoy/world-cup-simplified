@@ -20,7 +20,7 @@ try {
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const matchId = "match-95-round-of-16-2026-07-07";
-const predictedMatchId = "match-97-quarter-final-2026-07-09";
+const predictedMatchId = "match-98-quarter-final-2026-07-10";
 const checkedAt = "2026-07-07T17:36:51.017Z";
 const mimeTypes = new Map([
   [".css", "text/css; charset=utf-8"],
@@ -350,13 +350,30 @@ try {
 
     if (scenario.substitutions.length) {
       await homePanel.locator("[data-lineup-substitution-toggle]").first().click();
-      await page.waitForFunction(
-        ({ expectedName }) =>
-          [...document.querySelectorAll("#match-info [data-lineup-panel='home']:not([hidden]) .lineup-player-marker")]
-            .some((marker) => marker.dataset.lineupPlayerName === expectedName),
-        { expectedName: scenario.substitutions[0].onName },
-        { timeout: 3000 }
-      );
+      try {
+        await page.waitForFunction(
+          ({ expectedName }) =>
+            [...document.querySelectorAll("#match-info [data-lineup-panel='home']:not([hidden]) .lineup-player-marker")]
+              .some((marker) => marker.dataset.lineupPlayerName === expectedName),
+          { expectedName: scenario.substitutions[0].onName },
+          { timeout: 3000 }
+        );
+      } catch (error) {
+        const postClickState = await homePanel.evaluate((panel) => ({
+          markers: [...panel.querySelectorAll(".lineup-player-marker")].map((marker) => ({
+            currentName: marker.dataset.lineupPlayerName || "",
+            starterName: marker.dataset.lineupStarterName || "",
+            text: marker.textContent.replace(/\s+/g, " ").trim()
+          })),
+          toggles: [...panel.querySelectorAll("[data-lineup-substitution-toggle]")].map((toggle) => ({
+            ariaPressed: toggle.getAttribute("aria-pressed") || "",
+            offName: toggle.dataset.lineupOffName || "",
+            onName: toggle.dataset.lineupOnName || "",
+            text: toggle.textContent.replace(/\s+/g, " ").trim()
+          }))
+        }));
+        throw new Error(`${scenario.label}: substitution preview did not show ${scenario.substitutions[0].onName}. Measured ${JSON.stringify(postClickState)}.`, { cause: error });
+      }
       const previewState = await homePanel.evaluate((panel) => ({
         currentNames: [...panel.querySelectorAll(".lineup-player-marker")].map((marker) => marker.dataset.lineupPlayerName || ""),
         markerCount: panel.querySelectorAll(".lineup-player-marker").length,
@@ -434,7 +451,7 @@ try {
     });
 
     const page = await context.newPage();
-    await page.goto(`${baseUrl}/?view=matches&date=2026-07-09&tz=America%2FLos_Angeles`, {
+    await page.goto(`${baseUrl}/?view=matches&date=2026-07-10&tz=America%2FLos_Angeles`, {
       waitUntil: "load"
     });
     await page.waitForSelector(`[data-match-id="${predictedMatchId}"]`, { state: "attached" });
