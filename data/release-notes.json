@@ -1,6 +1,21 @@
 {
-  "updatedAt": "2026-07-10T20:16:20-07:00",
+  "updatedAt": "2026-07-10T22:41:49-07:00",
   "releases": [
+    {
+      "date": "2026-07-10",
+      "title": "Line-up board touch and badge polish",
+      "titleZh": "阵容板触控与徽章优化",
+      "highlights": [
+        "Line-up event badges now float around the player avatar so goals, assists, cards, and substitutions stay readable without pushing names or values out of alignment.",
+        "Coach icons now open the in-app coach card instead of navigating away, matching the internal player and formation controls.",
+        "On touch devices, tapping the market-value help inside an open player card now keeps the card open and shows the value tooltip."
+      ],
+      "highlightsZh": [
+        "阵容事件徽章现在会浮在球员头像两侧，让进球、助攻、牌和换人信息保持可读，同时不再挤动姓名或身价对齐。",
+        "教练图标现在会打开站内教练卡片，不再跳转离开页面，并与球员和阵型的内部控件行为保持一致。",
+        "触屏设备上，在已打开的球员卡里点按身价提示时，现在会保持卡片打开并显示身价说明。"
+      ]
+    },
     {
       "date": "2026-07-10",
       "title": "Prime values and quarterfinal polish",

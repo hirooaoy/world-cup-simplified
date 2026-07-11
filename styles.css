@@ -5038,9 +5038,12 @@ h1 {
   .player-hover:hover .player-card,
   .player-hover:focus-within .player-card,
   .player-hover.is-card-open .player-card,
-  .player-card-floating,
-  .player-card-floating.is-visible {
+  .player-card-floating {
     pointer-events: none;
+  }
+
+  .player-card-floating.is-visible {
+    pointer-events: auto;
   }
 }
 
@@ -6236,13 +6239,39 @@ button.lineup-event-sub,
   font-size: 9px;
 }
 
-.lineup-avatar-score-events {
+.lineup-avatar-frame {
+  position: relative;
+  display: grid;
+  width: var(--lineup-avatar-size);
+  height: var(--lineup-avatar-size);
+  place-items: center;
+}
+
+.lineup-avatar-event-lane {
   position: absolute;
-  top: -7px;
-  right: -8px;
-  z-index: 1;
-  gap: 1px;
+  top: -15px;
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  z-index: 3;
+  white-space: nowrap;
   pointer-events: auto;
+}
+
+.lineup-avatar-left-events {
+  left: -16px;
+}
+
+.lineup-avatar-right-events {
+  left: calc(100% - 20px);
+}
+
+.lineup-avatar-event-lane .lineup-event-list {
+  gap: 2px;
+}
+
+.lineup-avatar-score-events {
+  position: static;
 }
 
 .lineup-avatar-score-events .lineup-event-score {
@@ -6253,6 +6282,31 @@ button.lineup-event-sub,
 
 .lineup-avatar-score-events .lineup-event-score.is-count {
   min-width: 19px;
+}
+
+.lineup-avatar-card-events .lineup-event-card,
+.lineup-avatar-right-events .lineup-event-sub {
+  min-width: 28px;
+  height: 15px;
+  padding-right: 3px;
+  padding-left: 3px;
+  box-shadow: none;
+  font-size: 8px;
+}
+
+.lineup-avatar-card-events .lineup-event-card {
+  width: 16px;
+  min-width: 16px;
+  padding: 0;
+  gap: 2px;
+  border-color: transparent;
+  background: transparent;
+  color: transparent;
+}
+
+.lineup-avatar-card-events .lineup-event-card > span {
+  width: 8px;
+  height: 11px;
 }
 
 .lineup-player-event-row {
@@ -6303,7 +6357,7 @@ button.lineup-event-sub,
   --lineup-avatar-size: 34px;
   --lineup-marker-core-height: 60px;
   --lineup-marker-width: 68px;
-  --lineup-pitch-height: clamp(380px, 43vw, 460px);
+  --lineup-pitch-height: clamp(410px, 45vw, 500px);
   --lineup-pitch-top-trim: 0px;
   position: relative;
   height: var(--lineup-pitch-height);
@@ -6542,7 +6596,7 @@ button.lineup-event-sub,
     --lineup-avatar-size: 38px;
     --lineup-marker-core-height: 66px;
     --lineup-marker-width: clamp(50px, 13.5vw, 58px);
-    --lineup-pitch-height: clamp(510px, 144vw, 620px);
+    --lineup-pitch-height: clamp(545px, 150vw, 660px);
   }
 
   .lineup-tab {
@@ -6619,7 +6673,7 @@ button.lineup-event-sub,
     --lineup-avatar-size: 35px;
     --lineup-marker-core-height: 63px;
     --lineup-marker-width: 50px;
-    --lineup-pitch-height: 515px;
+    --lineup-pitch-height: 545px;
     --lineup-pitch-top-trim: 0px;
   }
 

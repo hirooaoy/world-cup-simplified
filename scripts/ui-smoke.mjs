@@ -4625,7 +4625,7 @@ try {
           title: badge.getAttribute("title") || ""
         }));
       return {
-        cardLabels: labelState(".lineup-player-event-row .lineup-event-card"),
+        cardLabels: labelState(".lineup-avatar-card-events .lineup-event-card"),
         scoreLabels: labelState(".lineup-avatar-score-events .lineup-event-score")
       };
     });
@@ -4638,7 +4638,7 @@ try {
         label.ariaLabel.includes("19'") &&
           label.ariaLabel.includes("Jude Bellingham") &&
           label.ariaLabel.includes("Yellow card") &&
-          label.text.includes("19'") &&
+          label.text === "" &&
           label.tooltip === "19' Yellow card" &&
           label.title === ""
     ) &&
@@ -4746,8 +4746,8 @@ try {
     };
 
     return {
-      coachAnchor: readTrigger(
-        "#match-info .lineup-preview-block .lineup-coach-trigger[href], #match-info .lineup-preview-block .lineup-coach-icon-trigger[href]"
+      coach: readTrigger(
+        "#match-info .lineup-preview-block .lineup-coach-trigger, #match-info .lineup-preview-block .lineup-coach-icon-trigger"
       ),
       formation: readTrigger("#match-info .lineup-tab-panel:not([hidden]) .lineup-formation-pill"),
       player: readTrigger("#match-info .lineup-tab-panel:not([hidden]) .lineup-player-name")
@@ -4760,11 +4760,13 @@ try {
       desktopLineupTriggerState.formation?.role === "button" &&
       desktopLineupTriggerState.formation?.tabIndex === 0 &&
       desktopLineupTriggerState.formation?.href === "" &&
-      desktopLineupTriggerState.coachAnchor?.tagName === "A" &&
-      Boolean(desktopLineupTriggerState.coachAnchor?.href) &&
-      desktopLineupTriggerState.coachAnchor?.target === "_blank" &&
-      desktopLineupTriggerState.coachAnchor?.rel.includes("noopener"),
-    `Desktop lineup triggers should keep non-link player and formation controls internal while preserving coach source anchors. Measured ${JSON.stringify(desktopLineupTriggerState)}.`
+      desktopLineupTriggerState.coach?.tagName === "SPAN" &&
+      desktopLineupTriggerState.coach?.role === "button" &&
+      desktopLineupTriggerState.coach?.tabIndex === 0 &&
+      desktopLineupTriggerState.coach?.href === "" &&
+      desktopLineupTriggerState.coach?.target === "" &&
+      desktopLineupTriggerState.coach?.rel === "",
+    `Desktop lineup triggers should keep player, formation, and coach controls internal with no coach source link. Measured ${JSON.stringify(desktopLineupTriggerState)}.`
   );
   const hoverLineupPlayerTrigger = finalLineupModeCheck.page
     .locator("#match-info .lineup-tab-panel:not([hidden]) .lineup-player-name")
@@ -5061,7 +5063,7 @@ try {
           note.textContent.replace(/\s+/g, " ").trim()
         )
       }));
-      const redCards = [...block.querySelectorAll(".lineup-player-event-row .lineup-event-card.is-red")].map((badge) => {
+      const redCards = [...block.querySelectorAll(".lineup-avatar-card-events .lineup-event-card.is-red")].map((badge) => {
         const bounds = badge.getBoundingClientRect();
         return {
           ariaLabel: badge.getAttribute("aria-label") || "",
@@ -5087,12 +5089,12 @@ try {
           card.ariaLabel.includes("90+2'") &&
           card.ariaLabel.includes("Cesar Montes") &&
           card.ariaLabel.includes("Red card") &&
-          card.text.includes("90+2'") &&
+          card.text === "" &&
           card.height >= 14 &&
           card.radius !== "2px" &&
           card.tooltip === "90+2' Red card"
       ),
-    `4-1-2-3 should render populated formation-card notes, and red cards should render as compact-tooltip card-time pills near substitution events. Measured ${JSON.stringify(redCardPillState)}.`
+    `4-1-2-3 should render populated formation-card notes, and floating red cards should keep timing in the tooltip instead of visible text. Measured ${JSON.stringify(redCardPillState)}.`
   );
   await finalLineupModeCheck.context.close();
 
@@ -5242,7 +5244,7 @@ try {
       coachState.names.length === coachCase.coaches.length &&
       coachState.names.every((name, index) => coachNameMatches(name, coachCase.coaches[index])) &&
       coachState.hrefs.length === 2 &&
-      coachState.hrefs.every((href) => href.startsWith("https://")) &&
+      coachState.hrefs.every((href) => href === "") &&
       coachState.imageUrls.length === 2 &&
       (coachCase.source === "fifa"
         ? coachState.imageUrls.every((url) => url.startsWith("https://digitalhub.fifa.com/transform/"))
@@ -5255,7 +5257,7 @@ try {
       coachState.copyNoteCounts.every((count) => count === 3);
     assert(
       coachCoveragePass,
-      `Covered line-up match ${coachCase.matchId} should render both coach source icons with the expected portrait source and card copy shape. Measured ${JSON.stringify(coachState)}.`
+      `Covered line-up match ${coachCase.matchId} should render both coach icons without links and with the expected portrait source and card copy shape. Measured ${JSON.stringify(coachState)}.`
     );
 
     const brokenCoachFallbackState = await lineupCoachCoverageCheck.page
@@ -5378,6 +5380,7 @@ try {
         const value = marker?.querySelector(".lineup-player-value");
         const scoreEvents = marker?.querySelector(".lineup-avatar-score-events");
         const eventRow = marker?.querySelector(".lineup-player-event-row");
+        const avatarRightEvents = marker?.querySelector(".lineup-avatar-right-events");
         if (!marker || !avatar || !label || !value) {
           return null;
         }
@@ -5388,6 +5391,7 @@ try {
         const valueBounds = value.getBoundingClientRect();
         const scoreBounds = scoreEvents?.getBoundingClientRect();
         const eventRowBounds = eventRow?.getBoundingClientRect();
+        const avatarRightEventBounds = avatarRightEvents?.getBoundingClientRect();
         const avatarCenterX = (avatarBounds.left + avatarBounds.right) / 2;
         const labelCenterX = (labelBounds.left + labelBounds.right) / 2;
         const valueCenterX = (valueBounds.left + valueBounds.right) / 2;
@@ -5395,6 +5399,8 @@ try {
         return {
           avatarCenterX,
           avatarCenterY: (avatarBounds.top + avatarBounds.bottom) / 2,
+          avatarRightEvents: marker.querySelectorAll(".lineup-avatar-right-events").length,
+          avatarRightEventOverlapTop: avatarRightEventBounds ? avatarRightEventBounds.bottom - avatarBounds.top : null,
           eventRows: marker.querySelectorAll(".lineup-player-event-row").length,
           eventRowGap: eventRowBounds ? eventRowBounds.top - valueBounds.bottom : null,
           labelValueGap: valueBounds.top - labelBounds.bottom,
@@ -5403,6 +5409,7 @@ try {
           nameCenterDelta: labelCenterX - avatarCenterX,
           scoreOverlapRight: scoreBounds ? scoreBounds.right - avatarBounds.right : null,
           scoreOverlapsAvatar: scoreBounds ? scoreBounds.left < avatarBounds.right : null,
+          subToggles: marker.querySelectorAll(".lineup-avatar-right-events [data-lineup-substitution-toggle]").length,
           valueCenterDelta: valueCenterX - avatarCenterX,
           valueCount: marker.querySelectorAll(".lineup-player-value").length,
           valueText: value.textContent.replace(/\s+/g, " ").trim()
@@ -5430,12 +5437,14 @@ try {
       argentinaEgyptDesktopLineupGeometry.alvarez.labelValueGap <= 3 &&
       argentinaEgyptDesktopLineupGeometry.messi.labelValueGap >= 1.5 &&
       argentinaEgyptDesktopLineupGeometry.messi.labelValueGap <= 3 &&
-      argentinaEgyptDesktopLineupGeometry.alvarez.eventRows === 1 &&
-      argentinaEgyptDesktopLineupGeometry.alvarez.eventRowGap >= 0 &&
-      argentinaEgyptDesktopLineupGeometry.alvarez.eventRowGap <= 4 &&
+      argentinaEgyptDesktopLineupGeometry.alvarez.eventRows === 0 &&
+      argentinaEgyptDesktopLineupGeometry.alvarez.avatarRightEvents === 1 &&
+      argentinaEgyptDesktopLineupGeometry.alvarez.subToggles === 1 &&
+      argentinaEgyptDesktopLineupGeometry.alvarez.avatarRightEventOverlapTop >= -1 &&
+      argentinaEgyptDesktopLineupGeometry.alvarez.avatarRightEventOverlapTop <= 3 &&
       argentinaEgyptDesktopLineupGeometry.messi.eventRows === 0 &&
       argentinaEgyptDesktopLineupGeometry.messi.scoreOverlapsAvatar &&
-      argentinaEgyptDesktopLineupGeometry.messi.scoreOverlapRight <= 9,
+      argentinaEgyptDesktopLineupGeometry.messi.scoreOverlapRight <= 12,
     `Argentina-Egypt desktop striker markers should anchor avatar/name together without sub or G/A pills shifting the row. Measured ${JSON.stringify(argentinaEgyptDesktopLineupGeometry)}.`
   );
   await lineupCoachCoverageCheck.page.goto(
@@ -5447,6 +5456,47 @@ try {
   await lineupCoachCoverageCheck.page.locator("#match-info .lineup-preview-block").waitFor({
     state: "attached"
   });
+  const franceMoroccoHomeBadgeRowState = await lineupCoachCoverageCheck.page
+    .locator('#match-info [data-lineup-panel="home"]:not([hidden]) [data-lineup-player-name="Kylian Mbappe"]')
+    .evaluate((marker) => {
+      const avatar = marker.querySelector(".lineup-avatar-wrap");
+      const lane = marker.querySelector(".lineup-avatar-right-events");
+      const badges = [...lane.querySelectorAll(".lineup-event-badge")];
+      const avatarBounds = avatar.getBoundingClientRect();
+      const laneBounds = lane.getBoundingClientRect();
+      return {
+        badgeLefts: badges.map((badge) =>
+          Math.round((badge.getBoundingClientRect().left - avatarBounds.left) * 10) / 10
+        ),
+        badges: badges.map((badge) => ({
+          ariaLabel: badge.getAttribute("aria-label") || "",
+          text: badge.textContent.replace(/\s+/g, " ").trim(),
+          title: badge.getAttribute("title") || "",
+          tooltip: badge.getAttribute("data-tooltip") || ""
+        })),
+        badgeTexts: badges.map((badge) => badge.textContent.replace(/\s+/g, " ").trim()),
+        laneLeftDelta: Math.round((laneBounds.left - avatarBounds.left) * 10) / 10,
+        laneRightDelta: Math.round((laneBounds.right - avatarBounds.right) * 10) / 10
+      };
+    });
+  assert(
+    franceMoroccoHomeBadgeRowState.badgeTexts.join(" ") === "G A ↓77'" &&
+      franceMoroccoHomeBadgeRowState.laneLeftDelta >= 13 &&
+      franceMoroccoHomeBadgeRowState.laneLeftDelta <= 15 &&
+      franceMoroccoHomeBadgeRowState.laneRightDelta > 30 &&
+      franceMoroccoHomeBadgeRowState.badgeLefts.every(
+        (left, index, lefts) => index === 0 || left > lefts[index - 1]
+      ) &&
+      franceMoroccoHomeBadgeRowState.badges[0]?.ariaLabel === "60' 基利安·姆巴佩 进球" &&
+      franceMoroccoHomeBadgeRowState.badges[0]?.tooltip === "60' 进球" &&
+      franceMoroccoHomeBadgeRowState.badges[1]?.ariaLabel === "66' 基利安·姆巴佩 助攻" &&
+      franceMoroccoHomeBadgeRowState.badges[1]?.tooltip === "66' 助攻" &&
+      franceMoroccoHomeBadgeRowState.badges[2]?.ariaLabel ===
+        "77' 基利安·姆巴佩 被换下。切换显示让-菲利普·马特塔" &&
+      franceMoroccoHomeBadgeRowState.badges[2]?.title ===
+        "77' 基利安·姆巴佩 被换下。切换显示让-菲利普·马特塔",
+    `France-Morocco Mbappe G/A/sub badges should share a fixed left start, grow rightward, and keep Chinese labels localized. Measured ${JSON.stringify(franceMoroccoHomeBadgeRowState)}.`
+  );
   await lineupCoachCoverageCheck.page.locator('#match-info .lineup-card-tabs [data-lineup-tab="away"]').first().click();
   const franceMoroccoZhLineupState = await lineupCoachCoverageCheck.page
     .locator("#match-info .lineup-preview-block")
@@ -10659,6 +10709,7 @@ try {
         const value = marker?.querySelector(".lineup-player-value");
         const scoreEvents = marker?.querySelector(".lineup-avatar-score-events");
         const eventRow = marker?.querySelector(".lineup-player-event-row");
+        const avatarRightEvents = marker?.querySelector(".lineup-avatar-right-events");
         if (!marker || !avatar || !label || !value) {
           return null;
         }
@@ -10668,6 +10719,7 @@ try {
         const valueBounds = value.getBoundingClientRect();
         const scoreBounds = scoreEvents?.getBoundingClientRect();
         const eventRowBounds = eventRow?.getBoundingClientRect();
+        const avatarRightEventBounds = avatarRightEvents?.getBoundingClientRect();
         const avatarCenterX = (avatarBounds.left + avatarBounds.right) / 2;
         const labelCenterX = (labelBounds.left + labelBounds.right) / 2;
         const valueCenterX = (valueBounds.left + valueBounds.right) / 2;
@@ -10675,6 +10727,8 @@ try {
         return {
           avatarCenterX,
           avatarCenterY: (avatarBounds.top + avatarBounds.bottom) / 2,
+          avatarRightEvents: marker.querySelectorAll(".lineup-avatar-right-events").length,
+          avatarRightEventOverlapTop: avatarRightEventBounds ? avatarRightEventBounds.bottom - avatarBounds.top : null,
           eventRows: marker.querySelectorAll(".lineup-player-event-row").length,
           eventRowGap: eventRowBounds ? eventRowBounds.top - valueBounds.bottom : null,
           labelValueGap: valueBounds.top - labelBounds.bottom,
@@ -10682,6 +10736,7 @@ try {
           nameCenterDelta: labelCenterX - avatarCenterX,
           scoreOverlapRight: scoreBounds ? scoreBounds.right - avatarBounds.right : null,
           scoreOverlapsAvatar: scoreBounds ? scoreBounds.left < avatarBounds.right : null,
+          subToggles: marker.querySelectorAll(".lineup-avatar-right-events [data-lineup-substitution-toggle]").length,
           valueCenterDelta: valueCenterX - avatarCenterX,
           valueCount: marker.querySelectorAll(".lineup-player-value").length,
           valueText: value.textContent.replace(/\s+/g, " ").trim()
@@ -10709,12 +10764,14 @@ try {
       touchArgentinaEgyptLineupGeometry.alvarez.labelValueGap <= 3 &&
       touchArgentinaEgyptLineupGeometry.messi.labelValueGap >= 1.5 &&
       touchArgentinaEgyptLineupGeometry.messi.labelValueGap <= 3 &&
-      touchArgentinaEgyptLineupGeometry.alvarez.eventRows === 1 &&
-      touchArgentinaEgyptLineupGeometry.alvarez.eventRowGap >= 0 &&
-      touchArgentinaEgyptLineupGeometry.alvarez.eventRowGap <= 4 &&
+      touchArgentinaEgyptLineupGeometry.alvarez.eventRows === 0 &&
+      touchArgentinaEgyptLineupGeometry.alvarez.avatarRightEvents === 1 &&
+      touchArgentinaEgyptLineupGeometry.alvarez.subToggles === 1 &&
+      touchArgentinaEgyptLineupGeometry.alvarez.avatarRightEventOverlapTop >= -1 &&
+      touchArgentinaEgyptLineupGeometry.alvarez.avatarRightEventOverlapTop <= 3 &&
       touchArgentinaEgyptLineupGeometry.messi.eventRows === 0 &&
       touchArgentinaEgyptLineupGeometry.messi.scoreOverlapsAvatar &&
-      touchArgentinaEgyptLineupGeometry.messi.scoreOverlapRight <= 9,
+      touchArgentinaEgyptLineupGeometry.messi.scoreOverlapRight <= 12,
     `Argentina-Egypt mobile striker markers should keep avatar/name anchored while event pills float independently. Measured ${JSON.stringify(touchArgentinaEgyptLineupGeometry)}.`
   );
   const touchMessiGoalBadge = touchPage
@@ -10952,6 +11009,49 @@ try {
     (await touchPlayerLink.getAttribute("aria-expanded")) === "true" &&
       (await touchPlayerCard.locator(".player-card-name").innerText()).trim() === "Romelu Lukaku",
     "On touch devices, the first player-name tap should open the player card without navigating away."
+  );
+  await touchPage.locator(".player-card-floating .player-card-value-help").first().tap();
+  await touchPage.waitForFunction(() => {
+    const card = document.querySelector(".player-card-floating.is-visible");
+    const help = card?.querySelector(".player-card-value-help.is-touch-tooltip-open");
+    const helpStyles = help ? getComputedStyle(help, "::after") : null;
+    return (
+      card &&
+      help &&
+      helpStyles?.visibility !== "hidden" &&
+      Number(helpStyles?.opacity || 0) > 0.8
+    );
+  });
+  const touchPlayerValueHelpState = await touchPage.evaluate(() => {
+    const card = document.querySelector(".player-card-floating");
+    const cardStyles = card ? getComputedStyle(card) : null;
+    const help = card?.querySelector(".player-card-value-help.is-touch-tooltip-open");
+    const helpStyles = help ? getComputedStyle(help, "::after") : null;
+    return {
+      cardVisible: Boolean(
+        card?.classList.contains("is-visible") &&
+          cardStyles?.visibility !== "hidden" &&
+          Number(cardStyles?.opacity || 0) > 0.8
+      ),
+      floatingPointerEvents: cardStyles?.pointerEvents || "",
+      openPlayerCards: document.querySelectorAll(".player-hover.is-card-open, .player-hover.is-card-portaled").length,
+      tooltipLabel: help?.textContent.trim() || "",
+      tooltipText: help?.getAttribute("data-tooltip") || "",
+      tooltipVisible: Boolean(
+        help &&
+          helpStyles?.visibility !== "hidden" &&
+          Number(helpStyles?.opacity || 0) > 0.8
+      )
+    };
+  });
+  assert(
+    touchPlayerValueHelpState.cardVisible &&
+      touchPlayerValueHelpState.floatingPointerEvents !== "none" &&
+      touchPlayerValueHelpState.openPlayerCards === 1 &&
+      touchPlayerValueHelpState.tooltipVisible &&
+      /^(Value|Est\. value|身价|估值)$/.test(touchPlayerValueHelpState.tooltipLabel) &&
+      Boolean(touchPlayerValueHelpState.tooltipText),
+    `On touch devices, tapping Value inside an open player card should keep the card open and show the value tooltip. Measured ${JSON.stringify(touchPlayerValueHelpState)}.`
   );
   const secondTouchPlayerLink = touchPage.locator(".key-info-team .player-link", { hasText: "Kevin De Bruyne" }).first();
   await secondTouchPlayerLink.evaluate((link) => {

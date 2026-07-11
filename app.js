@@ -1230,6 +1230,7 @@ const ZH_PLAYER_NAME_TRANSLATIONS = {
   "Alireza Jahanbakhsh": "阿里雷扎·贾汉巴赫什",
   "Almoez Ali": "阿尔莫埃兹·阿里",
   "Alphonso Davies": "阿方索·戴维斯",
+  "Alexis Saelemaekers": "亚历克西斯·萨勒马克尔斯",
   "Álvaro Fidalgo": "阿尔瓦罗·菲达尔戈",
   "Amad Diallo": "阿马德·迪亚洛",
   "Amine Gouiri": "阿明·古伊里",
@@ -1467,8 +1468,10 @@ const ZH_PLAYER_NAME_TRANSLATIONS = {
   "Jaminton Campaz": "哈明顿·坎帕斯",
   "Ivan Toney": "伊万·托尼",
   "James Trafford": "詹姆斯·特拉福德",
+  "Jean-Philippe Mateta": "让-菲利普·马特塔",
   "Jarell Quansah": "贾雷尔·宽萨",
   "Joao Neves": "若昂·内维斯",
+  "Joaquin Seys": "若阿金·塞斯",
   "Johan Manzambi": "约翰·曼赞比",
   "John Stones": "约翰·斯通斯",
   "Joris Kayembe": "约里斯·卡延贝",
@@ -1589,6 +1592,7 @@ const ZH_PLAYER_NAME_TRANSLATIONS = {
   "Pervis Estupiñán": "佩尔维斯·埃斯图皮尼安",
   "Roberto Alvarado": "罗伯托·阿尔瓦拉多",
   "Sander Berge": "桑德尔·贝格",
+  "Senne Lammens": "森内·拉门斯",
   "Seko Fofana": "塞科·福法纳",
   "Sergino Dest": "塞尔吉尼奥·德斯特",
   "Sergiño Dest": "塞尔吉尼奥·德斯特",
@@ -18733,8 +18737,8 @@ function getLineupDisplayY(y) {
     return value;
   }
 
-  const targetTop = 16;
-  const targetBottom = 92;
+  const targetTop = 15;
+  const targetBottom = 90;
   const ratio = clampNumber((value - sourceTop) / (sourceBottom - sourceTop), 0, 1);
   return Math.round((targetTop + ratio * (targetBottom - targetTop)) * 10) / 10;
 }
@@ -18926,16 +18930,17 @@ function renderLineupBadgeTooltipAttributes(label, tooltipLabel = label) {
   return `aria-label="${escapeHtml(label)}" data-tooltip="${escapeHtml(tooltipLabel)}" tabindex="0"`;
 }
 
-function renderLineupCardBadge(card, playerName) {
+function renderLineupCardBadge(card, playerName, options = {}) {
   const type = card?.type === "red" ? "red" : "yellow";
   const minute = formatLineupEventMinute(card.minute);
   const label = getLineupEventBadgeLabel({ ...card, kind: "card" }, playerName);
   const tooltipLabel = getLineupCardTooltipLabel(card);
+  const showMinute = options.showMinute !== false;
   return `
     <span
       class="lineup-event-badge lineup-event-card is-${escapeHtml(type)}"
       ${renderLineupBadgeTooltipAttributes(label, tooltipLabel)}
-    ><span aria-hidden="true"></span>${escapeHtml(minute)}</span>
+    ><span aria-hidden="true"></span>${showMinute ? escapeHtml(minute) : ""}</span>
   `;
 }
 
@@ -19066,12 +19071,15 @@ function renderLineupScoringBadgeList(events, playerName, className = "") {
   return `<span class="${escapeHtml(["lineup-event-list", className].filter(Boolean).join(" "))}">${badges.join("")}</span>`;
 }
 
-function renderLineupCardBadges(playerName, teamLineup, className = "") {
-  return renderLineupEventBadgeList(
-    getLineupCardEvents(teamLineup, playerName).map((event) => ({ ...event, kind: "card" })),
-    playerName,
-    className
-  );
+function renderLineupCardBadges(playerName, teamLineup, className = "", options = {}) {
+  const badges = getLineupCardEvents(teamLineup, playerName)
+    .map((event) => renderLineupCardBadge({ ...event, kind: "card" }, playerName, options));
+
+  if (!badges.length) {
+    return "";
+  }
+
+  return `<span class="${escapeHtml(["lineup-event-list", className].filter(Boolean).join(" "))}">${badges.join("")}</span>`;
 }
 
 function renderLineupScoringBadges(playerName, match, side, className = "") {
@@ -19330,9 +19338,7 @@ function renderLineupCoachMention(coach) {
       <span class="lineup-coach-name-text">${escapeHtml(localizeText("Coach"))}</span>
     </span>
   `;
-  const trigger = coach.sourceUrl
-    ? `<a class="player-link lineup-coach-trigger" href="${escapeHtml(coach.sourceUrl)}" target="_blank" rel="noopener" ${triggerLabel}>${triggerContent}</a>`
-    : `<span class="player-link lineup-coach-trigger" role="button" tabindex="0" ${triggerLabel}>${triggerContent}</span>`;
+  const trigger = `<span class="player-link lineup-coach-trigger" role="button" tabindex="0" ${triggerLabel}>${triggerContent}</span>`;
 
   return `
     <span class="player-hover lineup-coach-hover">
@@ -19348,9 +19354,7 @@ function renderLineupCoachIconMention(coach) {
   const ariaLabel = `${coachName}: ${localizeText("Coach")}, ${teamName}`;
   const triggerLabel = `aria-label="${escapeHtml(ariaLabel)}" aria-expanded="false"`;
   const triggerContent = renderLineupCoachThumbnail(coach);
-  const trigger = coach.sourceUrl
-    ? `<a class="player-link lineup-coach-icon-trigger" href="${escapeHtml(coach.sourceUrl)}" target="_blank" rel="noopener" ${triggerLabel}>${triggerContent}</a>`
-    : `<span class="player-link lineup-coach-icon-trigger" role="button" tabindex="0" ${triggerLabel}>${triggerContent}</span>`;
+  const trigger = `<span class="player-link lineup-coach-icon-trigger" role="button" tabindex="0" ${triggerLabel}>${triggerContent}</span>`;
 
   return `
     <span class="player-hover lineup-coach-hover lineup-coach-icon-hover">
@@ -19443,9 +19447,18 @@ function renderLineupPlayerMarker(player, team, teamLineup, match = null, side =
     getLineupPlayerScoringSummary(lineupPlayer.name, match, side)
   ].filter(Boolean).join(", ");
   const scoringBadges = renderLineupScoringBadges(lineupPlayer.name, match, side, "lineup-avatar-score-events");
-  const cardBadges = renderLineupCardBadges(lineupPlayer.name, teamLineup, "lineup-name-card-events");
+  const cardBadges = renderLineupCardBadges(lineupPlayer.name, teamLineup, "lineup-avatar-card-events", {
+    showMinute: false
+  });
   const subOffBadges = substitution
     ? renderLineupSubstitutionToggle(substitution, lineupPlayer.name, match, side, isPreviewActive)
+    : "";
+  const avatarRightEvents = [scoringBadges, subOffBadges].filter(Boolean).join("");
+  const avatarRightEventMarkup = avatarRightEvents
+    ? `<span class="lineup-avatar-event-lane lineup-avatar-right-events">${avatarRightEvents}</span>`
+    : "";
+  const avatarLeftEventMarkup = cardBadges
+    ? `<span class="lineup-avatar-event-lane lineup-avatar-left-events">${cardBadges}</span>`
     : "";
   const numberLabel = String(lineupPlayer.number || "").trim();
   const ariaLabel = [
@@ -19454,14 +19467,15 @@ function renderLineupPlayerMarker(player, team, teamLineup, match = null, side =
     eventSummary
   ].filter(Boolean).join(", ");
   const avatarMarkup = `
-    <span class="lineup-avatar-wrap" aria-hidden="true">
-      ${renderLineupAvatar(lineupPlayer, profile)}
-      ${numberLabel ? `<span class="lineup-player-number">${escapeHtml(numberLabel)}</span>` : ""}
-      ${scoringBadges}
+    <span class="lineup-avatar-frame">
+      <span class="lineup-avatar-wrap" aria-hidden="true">
+        ${renderLineupAvatar(lineupPlayer, profile)}
+        ${numberLabel ? `<span class="lineup-player-number">${escapeHtml(numberLabel)}</span>` : ""}
+      </span>
+      ${avatarLeftEventMarkup}
+      ${avatarRightEventMarkup}
     </span>
   `;
-  const eventPills = [subOffBadges, cardBadges].filter(Boolean).join("");
-  const eventPillMarkup = eventPills ? `<span class="lineup-player-event-row">${eventPills}</span>` : "";
   const valueMarkup = renderLineupPlayerValueLine(profile);
   const localizedVisibleLabel = currentLanguage === "zh" ? playerLabel : "";
   const shouldAnimateEntrance = Boolean(options.animateEntrance);
@@ -19490,7 +19504,6 @@ function renderLineupPlayerMarker(player, team, teamLineup, match = null, side =
         wrapperClass: "lineup-player-hover",
         ...(localizedVisibleLabel ? { visibleLabel: localizedVisibleLabel } : {})
       })}
-      ${eventPillMarkup}
     </span>
   `;
 }
@@ -21246,6 +21259,9 @@ function prefersLineupFloatingCardBelow(playerHover) {
 function hideFloatingPlayerCard() {
   window.clearTimeout(floatingPlayerCardHideTimer);
   floatingPlayerCardHideTimer = 0;
+  if (activeTouchTooltipElement && floatingPlayerCard?.contains(activeTouchTooltipElement)) {
+    clearActiveTouchTooltip();
+  }
   floatingPlayerCardSource?.classList.remove("is-card-portaled");
   floatingPlayerCardSource = null;
   floatingPlayerCard?.classList.remove("is-visible");
