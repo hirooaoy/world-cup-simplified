@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-11T21:17:51.907Z",
+  "updatedAt": "2026-07-11T22:12:19.422Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -22232,9 +22232,24 @@
         "away": "England are one of the strongest teams in the tournament, built around power, speed, and danger near goal, led by Jude Bellingham, Harry Kane, and Declan Rice. Against Norway, their Kane-Bellingham box entries has to beat Norway's Odegaard-to-Haaland supply. They want to turn Kane's dropping movements into Bellingham runs and fast cutbacks from wide areas. The risk is Norway can feed Haaland through Odegaard's service and Nusa's change of speed."
       },
       "score": {
-        "home": 0,
-        "away": 0
-      }
+        "home": 1,
+        "away": 1
+      },
+      "goalsHome": [
+        {
+          "minute": 36,
+          "name": "Andreas Schjelderup",
+          "assistName": "Martin Odegaard"
+        }
+      ],
+      "goalsAway": [
+        {
+          "minute": 45,
+          "offset": 2,
+          "name": "Jude Bellingham",
+          "assistName": "Anthony Gordon"
+        }
+      ]
     },
     {
       "id": "match-100-quarter-final-2026-07-11",
