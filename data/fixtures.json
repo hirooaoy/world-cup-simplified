@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-10T23:53:46.462Z",
+  "updatedAt": "2026-07-11T02:02:02.576Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -145,7 +145,8 @@
     "fifa-goal-events-sync-2026-07-09",
     "fifa-official-results-sync-2026-07-10",
     "fifa-goal-events-sync-2026-07-10",
-    "national-football-teams-h2h-sync-2026-07-10"
+    "national-football-teams-h2h-sync-2026-07-10",
+    "fifa-official-results-sync-2026-07-11"
   ],
   "coverage": {
     "status": "complete-schedule",
