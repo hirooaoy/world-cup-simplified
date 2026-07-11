@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-11T22:12:19.422Z",
+  "updatedAt": "2026-07-11T23:23:44.923Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -22233,7 +22233,7 @@
       },
       "score": {
         "home": 1,
-        "away": 1
+        "away": 2
       },
       "goalsHome": [
         {
@@ -22248,6 +22248,10 @@
           "offset": 2,
           "name": "Jude Bellingham",
           "assistName": "Anthony Gordon"
+        },
+        {
+          "minute": 93,
+          "name": "Jude Bellingham"
         }
       ]
     },
