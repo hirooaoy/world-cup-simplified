@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-11T02:02:02.576Z",
+  "updatedAt": "2026-07-11T03:07:12.958Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -145,8 +145,9 @@
     "fifa-goal-events-sync-2026-07-09",
     "fifa-official-results-sync-2026-07-10",
     "fifa-goal-events-sync-2026-07-10",
-    "national-football-teams-h2h-sync-2026-07-10",
-    "fifa-official-results-sync-2026-07-11"
+    "fifa-official-results-sync-2026-07-11",
+    "fifa-goal-events-sync-2026-07-11",
+    "national-football-teams-h2h-sync-2026-07-11"
   ],
   "coverage": {
     "status": "complete-schedule",
@@ -22058,7 +22059,25 @@
           "name": "Charles De Ketelaere",
           "assistName": "Timothy Castagne"
         }
-      ]
+      ],
+      "resultStoryBullets": [
+        "Fabián Ruiz put Spain ahead at the half-hour, giving their possession a finish after Belgium had kept the tie tight.",
+        "De Ketelaere answered 11 minutes later from Castagne's service, pulling Belgium level before halftime.",
+        "Mikel Merino arrived in the 88th minute to settle it, sending Spain through 2-1 to the semi-finals."
+      ],
+      "resultStoryBulletsZh": [
+        "法比安·鲁伊斯第30分钟为西班牙先拔头筹，在比利时把局面咬紧后给控球优势兑现了终结。",
+        "德凯特拉雷11分钟后接卡斯塔涅传球扳平，比利时在半场前把比赛拉回均势。",
+        "米克尔·梅里诺第88分钟完成制胜，西班牙2比1晋级半决赛。"
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=jqG_pZGkLcc",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-07-10T20:06:06-07:00",
+        "checkedAt": "2026-07-10T20:06:06-07:00"
+      }
     },
     {
       "id": "match-99-quarter-final-2026-07-11",
@@ -22368,7 +22387,7 @@
       "status": "SCHEDULED",
       "h2h": {
         "status": "loaded",
-        "sourceId": "national-football-teams-h2h-sync-2026-07-10",
+        "sourceId": "national-football-teams-h2h-sync-2026-07-11",
         "summary": "Before this fixture, Spain had the edge in the verified senior series: 9 France wins, 3 draws, 11 Spain wins, 61 total goals.",
         "results": [
           {

@@ -1,19 +1,19 @@
 {
-  "updatedAt": "2026-07-09T21:10:41-07:00",
+  "updatedAt": "2026-07-10T20:16:20-07:00",
   "releases": [
     {
-      "date": "2026-07-09",
-      "title": "France-Morocco result and lineup polish",
-      "titleZh": "法国对摩洛哥赛果与阵容优化",
+      "date": "2026-07-10",
+      "title": "Prime values and quarterfinal polish",
+      "titleZh": "巅峰身价与四分之一决赛优化",
       "highlights": [
-        "France-Morocco now shows the 2-0 final, official goal events, FOX Sports highlights, three recap bullets, and the official final lineup while removing the stale probable lineup.",
-        "Line-up boards now add each player's market value under the name, keep captain suffixes visible in Chinese, and tighten card or substitution pills with a taller, more readable pitch.",
-        "The header juggle mini-game now avoids Chinese-mode observer churn and warms audio during idle so active play starts and stays smoother."
+        "Player cards now show a Prime market-value suffix when the sourced career peak is higher than the current value, backed by generation, validation, and smoke coverage.",
+        "Spain-Belgium now shows the 2-1 final with official goal events, FOX Sports highlights, three recap bullets, Chinese recap copy, and no stale probable lineup.",
+        "Official FIFA fallback data is refreshed through the July 11 syncs while lineup value spacing remains stable on desktop and mobile."
       ],
       "highlightsZh": [
-        "法国对摩洛哥现在显示2比0完场、官方进球事件、FOX Sports 集锦、三段赛果回顾和官方最终阵容，并移除过期的预测阵容。",
-        "阵容板现在会在球员姓名下显示身价，中文模式保留队长 (C) 标记，并用更紧凑的牌/换人标签和更高的球场提升可读性。",
-        "页眉颠球小游戏现在避开中文模式的全页观察器抖动，并在空闲时预热音频，让开局和游玩更顺滑。"
+        "当有来源的生涯峰值高于当前身价时，球员卡现在会显示 Prime 巅峰身价，并配套生成、验证和冒烟覆盖。",
+        "西班牙对比利时现在显示2比1完场、官方进球事件、FOX Sports 集锦、三段赛果回顾和中文回顾文案，并移除过期的预测阵容。",
+        "官方 FIFA 备用数据已刷新到7月11日同步，同时阵容身价间距在桌面端和移动端保持稳定。"
       ]
     },
     {

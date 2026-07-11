@@ -20,7 +20,7 @@ try {
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const matchId = "match-95-round-of-16-2026-07-07";
-const predictedMatchId = "match-98-quarter-final-2026-07-10";
+const predictedMatchId = "match-99-quarter-final-2026-07-11";
 const checkedAt = "2026-07-07T17:36:51.017Z";
 const mimeTypes = new Map([
   [".css", "text/css; charset=utf-8"],
@@ -451,7 +451,7 @@ try {
     });
 
     const page = await context.newPage();
-    await page.goto(`${baseUrl}/?view=matches&date=2026-07-10&tz=America%2FLos_Angeles`, {
+    await page.goto(`${baseUrl}/?view=matches&date=2026-07-11&tz=America%2FLos_Angeles`, {
       waitUntil: "load"
     });
     await page.waitForSelector(`[data-match-id="${predictedMatchId}"]`, { state: "attached" });

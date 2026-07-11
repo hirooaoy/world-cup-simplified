@@ -2732,6 +2732,22 @@ for (const playerName of requiredProfileNames) {
       `player-profiles.json "${playerName}" estimatedMarketValueEurMillions must be a positive number when present`
     );
   }
+  if (profile.peakMarketValueEurMillions !== undefined) {
+    assert(
+      isNumber(profile.peakMarketValueEurMillions) && profile.peakMarketValueEurMillions > 0,
+      `player-profiles.json "${playerName}" peakMarketValueEurMillions must be a positive number when present`
+    );
+    assert(
+      typeof profile.peakMarketValueSource === "string" && profile.peakMarketValueSource.trim(),
+      `player-profiles.json "${playerName}" peakMarketValueSource must be a non-empty string when peakMarketValueEurMillions is present`
+    );
+    if (profile.peakMarketValueSourceUrl !== undefined) {
+      assert(
+        /^https?:\/\//.test(profile.peakMarketValueSourceUrl),
+        `player-profiles.json "${playerName}" peakMarketValueSourceUrl must be an HTTP URL when present`
+      );
+    }
+  }
   assert(
     profile.marketValueEurMillions !== undefined || profile.estimatedMarketValueEurMillions !== undefined,
     `player-profiles.json "${playerName}" must include marketValueEurMillions or estimatedMarketValueEurMillions`

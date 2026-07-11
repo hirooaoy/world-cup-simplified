@@ -1752,6 +1752,38 @@ function getMarketValueFields(player, profileSeed, overrides = {}, transfermarkt
   return estimatedMarketValueEurMillions ? { estimatedMarketValueEurMillions } : {};
 }
 
+function getPeakMarketValueFields(player, overrides = {}, transfermarktRecord = null) {
+  const existingProfile = existingProfilesData.profiles?.[player.name] || {};
+  const overrideValue = Number(overrides.peakMarketValueEurMillions);
+  const overrideTransfermarktValue =
+    parseEurMillions(overrides.transfermarktHighestMarketValueEur) ??
+    parseEurMillions(overrides.transfermarktHighestMarketValueInEur);
+  const transfermarktValue = parseEurMillions(transfermarktRecord?.highest_market_value_in_eur);
+  const existingValue = Number(existingProfile.peakMarketValueEurMillions);
+  const value =
+    (Number.isFinite(overrideValue) && overrideValue > 0 ? overrideValue : undefined) ??
+    overrideTransfermarktValue ??
+    transfermarktValue ??
+    (Number.isFinite(existingValue) && existingValue > 0 ? existingValue : undefined);
+
+  if (!value) {
+    return {};
+  }
+
+  const source =
+    overrides.peakMarketValueSource ||
+    (overrideTransfermarktValue || transfermarktValue ? transfermarktDatasetSourceId : existingProfile.peakMarketValueSource);
+  const sourceUrl =
+    overrides.peakMarketValueSourceUrl ||
+    (overrideTransfermarktValue || transfermarktValue ? transfermarktRecord?.url : existingProfile.peakMarketValueSourceUrl);
+
+  return {
+    peakMarketValueEurMillions: value,
+    ...(source ? { peakMarketValueSource: source } : {}),
+    ...(sourceUrl ? { peakMarketValueSourceUrl: sourceUrl } : {})
+  };
+}
+
 function inferSkills(note) {
   const lower = normalizeText(note);
   const skills = [];
@@ -2124,6 +2156,7 @@ async function buildProfile(player, transfermarktIndex = {}) {
       ...getProfileAliasField(overrides, existingProfile),
       summary,
       ...getMarketValueFields(player, profileSeed, overrides, transfermarktRecord),
+      ...getPeakMarketValueFields(player, overrides, transfermarktRecord),
       position,
       club: profileClub,
       league: profileLeague,
@@ -2172,6 +2205,7 @@ async function buildProfile(player, transfermarktIndex = {}) {
     ...getProfileAliasField(overrides, existingProfile),
     summary,
     ...getMarketValueFields(player, profileSeed, overrides, transfermarktRecord),
+    ...getPeakMarketValueFields(player, overrides, transfermarktRecord),
     position: overrides.position || position,
     club: profileClub,
     league: profileLeague,
@@ -2230,6 +2264,7 @@ function buildProfileFromPageData(player, title, pageData = {}, transfermarktInd
       ...getProfileAliasField(overrides, existingProfile),
       summary,
       ...getMarketValueFields(player, profileSeed, overrides, transfermarktRecord),
+      ...getPeakMarketValueFields(player, overrides, transfermarktRecord),
       position,
       club: finalClub,
       league: finalLeague,
@@ -2283,6 +2318,7 @@ function buildProfileFromPageData(player, title, pageData = {}, transfermarktInd
     ...getProfileAliasField(overrides, existingProfile),
     summary,
     ...getMarketValueFields(player, profileSeed, overrides, transfermarktRecord),
+    ...getPeakMarketValueFields(player, overrides, transfermarktRecord),
     position: overrides.position || position || existingProfile.position,
     club: profileClub,
     league: profileLeague,

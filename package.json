@@ -24,6 +24,7 @@
     "profiles:country": "node scripts/profile-country-workflow.mjs",
     "profiles:country:audit": "node scripts/audit-country-player-profiles.mjs",
     "profiles:images:check": "node scripts/audit-player-profile-images.mjs",
+    "profiles:prime-values": "node scripts/enrich-player-prime-values.mjs",
     "profiles:notes:audit": "node scripts/audit-player-card-notes.mjs",
     "profiles:overrides:sync": "node scripts/sync-player-profile-overrides.mjs",
     "profiles:notes:refresh": "node scripts/refresh-player-card-notes-from-tournament-evidence.mjs",

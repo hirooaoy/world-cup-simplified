@@ -2429,6 +2429,11 @@ try {
       "Belgium flag",
     "Player hover card should show the player's country flag before the name."
   );
+  const lukakuCardText = await lukakuCard.innerText();
+  assert(
+    lukakuCardText.includes("Value €6m (Prime €100m)"),
+    "Current player cards should show Prime value when the sourced peak is higher than the current value."
+  );
 
   await page.goto(`${baseUrl}?view=matches&date=2026-06-20&lang=zh&tz=America%2FLos_Angeles`, {
     waitUntil: "load"
@@ -5421,9 +5426,9 @@ try {
       argentinaEgyptDesktopLineupGeometry.messi.valueCount === 1 &&
       argentinaEgyptDesktopLineupGeometry.alvarez.valueText.includes("€") &&
       argentinaEgyptDesktopLineupGeometry.messi.valueText.includes("€") &&
-      argentinaEgyptDesktopLineupGeometry.alvarez.labelValueGap >= 0 &&
+      argentinaEgyptDesktopLineupGeometry.alvarez.labelValueGap >= 1.5 &&
       argentinaEgyptDesktopLineupGeometry.alvarez.labelValueGap <= 3 &&
-      argentinaEgyptDesktopLineupGeometry.messi.labelValueGap >= 0 &&
+      argentinaEgyptDesktopLineupGeometry.messi.labelValueGap >= 1.5 &&
       argentinaEgyptDesktopLineupGeometry.messi.labelValueGap <= 3 &&
       argentinaEgyptDesktopLineupGeometry.alvarez.eventRows === 1 &&
       argentinaEgyptDesktopLineupGeometry.alvarez.eventRowGap >= 0 &&
@@ -10700,9 +10705,9 @@ try {
       touchArgentinaEgyptLineupGeometry.messi.valueCount === 1 &&
       touchArgentinaEgyptLineupGeometry.alvarez.valueText.includes("€") &&
       touchArgentinaEgyptLineupGeometry.messi.valueText.includes("€") &&
-      touchArgentinaEgyptLineupGeometry.alvarez.labelValueGap >= 0 &&
+      touchArgentinaEgyptLineupGeometry.alvarez.labelValueGap >= 1.5 &&
       touchArgentinaEgyptLineupGeometry.alvarez.labelValueGap <= 3 &&
-      touchArgentinaEgyptLineupGeometry.messi.labelValueGap >= 0 &&
+      touchArgentinaEgyptLineupGeometry.messi.labelValueGap >= 1.5 &&
       touchArgentinaEgyptLineupGeometry.messi.labelValueGap <= 3 &&
       touchArgentinaEgyptLineupGeometry.alvarez.eventRows === 1 &&
       touchArgentinaEgyptLineupGeometry.alvarez.eventRowGap >= 0 &&

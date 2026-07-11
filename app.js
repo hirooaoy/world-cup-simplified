@@ -665,6 +665,12 @@ const ZH_ADDITIONAL_EXACT_TRANSLATIONS = {
     "姆巴佩第60分钟打破僵局，在摩洛哥防线终于松动时弧线球帮助法国领先。",
   "Dembélé struck six minutes later from Mbappé's pass, and France closed out the 2-0 win to reach the semi-finals.":
     "登贝莱6分钟后接姆巴佩传球再下一城，法国以2比0收官并晋级半决赛。",
+  "Fabián Ruiz put Spain ahead at the half-hour, giving their possession a finish after Belgium had kept the tie tight.":
+    "法比安·鲁伊斯第30分钟为西班牙先拔头筹，在比利时把局面咬紧后给控球优势兑现了终结。",
+  "De Ketelaere answered 11 minutes later from Castagne's service, pulling Belgium level before halftime.":
+    "德凯特拉雷11分钟后接卡斯塔涅传球扳平，比利时在半场前把比赛拉回均势。",
+  "Mikel Merino arrived in the 88th minute to settle it, sending Spain through 2-1 to the semi-finals.":
+    "米克尔·梅里诺第88分钟完成制胜，西班牙2比1晋级半决赛。",
   "Yasser Ibrahim and Mostafa Ziko gave Egypt a 2-0 lead and pushed Argentina to the edge.":
     "亚塞尔·易卜拉欣和穆斯塔法·齐科帮助埃及取得2比0领先，把阿根廷逼到悬崖边。",
   "Athletic pressing with direct attacking bursts": "运动能力压迫和直接进攻爆发",
@@ -20640,6 +20646,7 @@ function renderPlayerMarketValueLine(profile) {
   if (!value) {
     return "";
   }
+  const primeSuffix = renderPlayerPrimeMarketValueSuffix(profile, marketValue.value);
 
   const label = marketValue.estimated
     ? currentLanguage === "zh"
@@ -20656,7 +20663,32 @@ function renderPlayerMarketValueLine(profile) {
       ? "来自公开球员估值数据的市场价值。"
       : "Market value from sourced player valuation data.";
 
-  return `<span class="player-card-value-help" tabindex="0" aria-label="${escapeHtml(tooltip)}" data-tooltip="${escapeHtml(tooltip)}">${escapeHtml(label)}</span> ${escapeHtml(value)}`;
+  return `<span class="player-card-value-help" tabindex="0" aria-label="${escapeHtml(tooltip)}" data-tooltip="${escapeHtml(tooltip)}">${escapeHtml(label)}</span> ${escapeHtml(value)}${primeSuffix}`;
+}
+
+function getPlayerPrimeMarketValueEurMillions(profile, currentValue) {
+  const peak = Number(profile?.peakMarketValueEurMillions);
+  const current = Number(currentValue);
+  if (!Number.isFinite(peak) || peak <= 0 || !Number.isFinite(current) || current <= 0) {
+    return null;
+  }
+
+  return peak > current ? peak : null;
+}
+
+function renderPlayerPrimeMarketValueSuffix(profile, currentValue) {
+  const primeValue = formatMarketValueEur(getPlayerPrimeMarketValueEurMillions(profile, currentValue));
+  if (!primeValue) {
+    return "";
+  }
+
+  const label = currentLanguage === "zh" ? "巅峰" : "Prime";
+  const tooltip =
+    currentLanguage === "zh"
+      ? "来自Transfermarkt数据集的球员生涯峰值市场价值。"
+      : "Career-high market value from the Transfermarkt dataset.";
+
+  return ` (<span class="player-card-value-help" tabindex="0" aria-label="${escapeHtml(tooltip)}" data-tooltip="${escapeHtml(tooltip)}">${escapeHtml(label)}</span> ${escapeHtml(primeValue)})`;
 }
 
 function renderLineupPlayerValueLine(profile) {
