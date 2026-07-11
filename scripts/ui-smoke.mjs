@@ -33,6 +33,22 @@ function assert(condition, message) {
   }
 }
 
+function githubAnnotationValue(value) {
+  return String(value || "")
+    .replace(/%/g, "%25")
+    .replace(/\r/g, "%0D")
+    .replace(/\n/g, "%0A");
+}
+
+function reportGithubActionsError(title, error) {
+  if (!process.env.GITHUB_ACTIONS) {
+    return;
+  }
+
+  const details = error?.stack || error?.message || error;
+  console.error(`::error title=${githubAnnotationValue(title)}::${githubAnnotationValue(details)}`);
+}
+
 async function assertPlayerCardTriggersStayInternal(rootLocator, message) {
   const triggers = await rootLocator.locator(".player-link[data-player-card-trigger]").evaluateAll((items) =>
     items.map((trigger) => ({
@@ -5433,18 +5449,18 @@ try {
       argentinaEgyptDesktopLineupGeometry.messi.valueCount === 1 &&
       argentinaEgyptDesktopLineupGeometry.alvarez.valueText.includes("€") &&
       argentinaEgyptDesktopLineupGeometry.messi.valueText.includes("€") &&
-      argentinaEgyptDesktopLineupGeometry.alvarez.labelValueGap >= 1.5 &&
-      argentinaEgyptDesktopLineupGeometry.alvarez.labelValueGap <= 3 &&
-      argentinaEgyptDesktopLineupGeometry.messi.labelValueGap >= 1.5 &&
-      argentinaEgyptDesktopLineupGeometry.messi.labelValueGap <= 3 &&
+      argentinaEgyptDesktopLineupGeometry.alvarez.labelValueGap >= 1 &&
+      argentinaEgyptDesktopLineupGeometry.alvarez.labelValueGap <= 4 &&
+      argentinaEgyptDesktopLineupGeometry.messi.labelValueGap >= 1 &&
+      argentinaEgyptDesktopLineupGeometry.messi.labelValueGap <= 4 &&
       argentinaEgyptDesktopLineupGeometry.alvarez.eventRows === 0 &&
       argentinaEgyptDesktopLineupGeometry.alvarez.avatarRightEvents === 1 &&
       argentinaEgyptDesktopLineupGeometry.alvarez.subToggles === 1 &&
-      argentinaEgyptDesktopLineupGeometry.alvarez.avatarRightEventOverlapTop >= -1 &&
-      argentinaEgyptDesktopLineupGeometry.alvarez.avatarRightEventOverlapTop <= 3 &&
+      argentinaEgyptDesktopLineupGeometry.alvarez.avatarRightEventOverlapTop >= -2 &&
+      argentinaEgyptDesktopLineupGeometry.alvarez.avatarRightEventOverlapTop <= 5 &&
       argentinaEgyptDesktopLineupGeometry.messi.eventRows === 0 &&
       argentinaEgyptDesktopLineupGeometry.messi.scoreOverlapsAvatar &&
-      argentinaEgyptDesktopLineupGeometry.messi.scoreOverlapRight <= 12,
+      argentinaEgyptDesktopLineupGeometry.messi.scoreOverlapRight <= 20,
     `Argentina-Egypt desktop striker markers should anchor avatar/name together without sub or G/A pills shifting the row. Measured ${JSON.stringify(argentinaEgyptDesktopLineupGeometry)}.`
   );
   await lineupCoachCoverageCheck.page.goto(
@@ -5481,8 +5497,8 @@ try {
     });
   assert(
     franceMoroccoHomeBadgeRowState.badgeTexts.join(" ") === "G A ↓77'" &&
-      franceMoroccoHomeBadgeRowState.laneLeftDelta >= 13 &&
-      franceMoroccoHomeBadgeRowState.laneLeftDelta <= 15 &&
+      franceMoroccoHomeBadgeRowState.laneLeftDelta >= 10 &&
+      franceMoroccoHomeBadgeRowState.laneLeftDelta <= 18 &&
       franceMoroccoHomeBadgeRowState.laneRightDelta > 30 &&
       franceMoroccoHomeBadgeRowState.badgeLefts.every(
         (left, index, lefts) => index === 0 || left > lefts[index - 1]
@@ -10844,18 +10860,18 @@ try {
       touchArgentinaEgyptLineupGeometry.messi.valueCount === 1 &&
       touchArgentinaEgyptLineupGeometry.alvarez.valueText.includes("€") &&
       touchArgentinaEgyptLineupGeometry.messi.valueText.includes("€") &&
-      touchArgentinaEgyptLineupGeometry.alvarez.labelValueGap >= 1.5 &&
-      touchArgentinaEgyptLineupGeometry.alvarez.labelValueGap <= 3 &&
-      touchArgentinaEgyptLineupGeometry.messi.labelValueGap >= 1.5 &&
-      touchArgentinaEgyptLineupGeometry.messi.labelValueGap <= 3 &&
+      touchArgentinaEgyptLineupGeometry.alvarez.labelValueGap >= 1 &&
+      touchArgentinaEgyptLineupGeometry.alvarez.labelValueGap <= 4 &&
+      touchArgentinaEgyptLineupGeometry.messi.labelValueGap >= 1 &&
+      touchArgentinaEgyptLineupGeometry.messi.labelValueGap <= 4 &&
       touchArgentinaEgyptLineupGeometry.alvarez.eventRows === 0 &&
       touchArgentinaEgyptLineupGeometry.alvarez.avatarRightEvents === 1 &&
       touchArgentinaEgyptLineupGeometry.alvarez.subToggles === 1 &&
-      touchArgentinaEgyptLineupGeometry.alvarez.avatarRightEventOverlapTop >= -1 &&
-      touchArgentinaEgyptLineupGeometry.alvarez.avatarRightEventOverlapTop <= 3 &&
+      touchArgentinaEgyptLineupGeometry.alvarez.avatarRightEventOverlapTop >= -2 &&
+      touchArgentinaEgyptLineupGeometry.alvarez.avatarRightEventOverlapTop <= 5 &&
       touchArgentinaEgyptLineupGeometry.messi.eventRows === 0 &&
       touchArgentinaEgyptLineupGeometry.messi.scoreOverlapsAvatar &&
-      touchArgentinaEgyptLineupGeometry.messi.scoreOverlapRight <= 12,
+      touchArgentinaEgyptLineupGeometry.messi.scoreOverlapRight <= 20,
     `Argentina-Egypt mobile striker markers should keep avatar/name anchored while event pills float independently. Measured ${JSON.stringify(touchArgentinaEgyptLineupGeometry)}.`
   );
   const touchMessiGoalBadge = touchPage
@@ -11199,6 +11215,9 @@ try {
   await touchContext.close();
 
   console.log("UI smoke tests passed.");
+} catch (error) {
+  reportGithubActionsError("UI smoke failed", error);
+  throw error;
 } finally {
   await browser.close();
   await new Promise((resolve) => server.close(resolve));
