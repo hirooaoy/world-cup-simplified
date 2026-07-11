@@ -360,12 +360,20 @@ async function main() {
   ]);
   const teamsById = new Map((teamsData.teams || []).map((team) => [team.id, team]));
   const teamIds = new Set(teamsById.keys());
-  const countryIndex = await loadNationalFootballTeamsIndex();
   const targetFixtures = (fixturesData.fixtures || []).filter((fixture) => shouldSyncFixture(fixture, teamIds));
   const warnings = [];
   let updatedCount = 0;
   let loadedCount = 0;
   let emptyCount = 0;
+
+  if (!targetFixtures.length) {
+    console.log(
+      `National Football Teams H2H sync: 0 updates ${shouldWrite ? "written" : "detected"} (0 loaded, 0 verified empty).`
+    );
+    return;
+  }
+
+  const countryIndex = await loadNationalFootballTeamsIndex();
 
   for (const fixture of targetFixtures) {
     const homeTeam = teamsById.get(fixture.homeTeamId);
