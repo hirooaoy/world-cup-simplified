@@ -5525,6 +5525,90 @@ try {
       !franceMoroccoZhLineupState.coachCardText.includes("Promoted after work"),
     `France-Morocco predicted Chinese lineup coach cards should merge profile zh copy instead of leaking English. Measured ${JSON.stringify(franceMoroccoZhLineupState)}.`
   );
+  await lineupCoachCoverageCheck.page.goto(
+    `${baseUrl}?view=matches&date=2026-07-10&lang=zh&tz=America%2FLos_Angeles&lineupPrototype=1`,
+    { waitUntil: "load" }
+  );
+  await lineupCoachCoverageCheck.page.waitForSelector(".match-row", { state: "attached" });
+  await lineupCoachCoverageCheck.page.locator('[data-match-id="match-98-quarter-final-2026-07-10"]').click();
+  await lineupCoachCoverageCheck.page.locator("#match-info .lineup-preview-block").waitFor({
+    state: "attached"
+  });
+  await lineupCoachCoverageCheck.page.locator('#match-info .lineup-card-tabs [data-lineup-tab="away"]').first().click();
+  const belgiumSpainZhBadgeState = await lineupCoachCoverageCheck.page
+    .locator('#match-info [data-lineup-panel="away"]:not([hidden])')
+    .evaluate((panel) => {
+      const readMarker = (name) => {
+        const marker = panel.querySelector(`[data-lineup-player-name="${name}"]`);
+        const card = marker?.querySelector(".lineup-avatar-card-events .lineup-event-card");
+        const sub = marker?.querySelector(".lineup-avatar-right-events [data-lineup-substitution-toggle]");
+        return {
+          card: {
+            ariaLabel: card?.getAttribute("aria-label") || "",
+            text: card?.textContent.replace(/\s+/g, " ").trim() || "",
+            tooltip: card?.getAttribute("data-tooltip") || ""
+          },
+          sub: {
+            ariaLabel: sub?.getAttribute("aria-label") || "",
+            text: sub?.textContent.replace(/\s+/g, " ").trim() || "",
+            title: sub?.getAttribute("title") || ""
+          },
+          visibleName: marker?.querySelector(".lineup-player-name")?.textContent.replace(/\s+/g, " ").trim() || ""
+        };
+      };
+
+      return {
+        courtois: readMarker("Thibaut Courtois"),
+        deBruyne: readMarker("Kevin De Bruyne"),
+        deCuyper: readMarker("Maxim De Cuyper")
+      };
+    });
+  assert(
+    belgiumSpainZhBadgeState.deBruyne.visibleName === "凯文·德布劳内 (C)" &&
+      belgiumSpainZhBadgeState.deBruyne.card.text === "" &&
+      belgiumSpainZhBadgeState.deBruyne.card.ariaLabel === "85' 凯文·德布劳内 黄牌" &&
+      belgiumSpainZhBadgeState.deBruyne.card.tooltip === "85' 黄牌" &&
+      belgiumSpainZhBadgeState.deBruyne.sub.text === "↓86'" &&
+      belgiumSpainZhBadgeState.deBruyne.sub.ariaLabel ===
+        "86' 凯文·德布劳内 被换下。切换显示亚历克西斯·萨勒马克尔斯" &&
+      belgiumSpainZhBadgeState.deBruyne.sub.title ===
+        "86' 凯文·德布劳内 被换下。切换显示亚历克西斯·萨勒马克尔斯" &&
+      belgiumSpainZhBadgeState.courtois.sub.ariaLabel ===
+        "71' 蒂博·库尔图瓦 被换下。切换显示森内·拉门斯" &&
+      belgiumSpainZhBadgeState.deCuyper.sub.ariaLabel ===
+        "60' 马克西姆·德屈佩尔 被换下。切换显示若阿金·塞斯",
+    `Spain-Belgium Chinese lineup badges should localize card, keeper sub, and Belgium sub target names. Measured ${JSON.stringify(belgiumSpainZhBadgeState)}.`
+  );
+  await lineupCoachCoverageCheck.page
+    .locator(
+      '#match-info [data-lineup-panel="away"]:not([hidden]) [data-lineup-player-name="Maxim De Cuyper"] [data-lineup-substitution-toggle]'
+    )
+    .click();
+  await lineupCoachCoverageCheck.page.waitForFunction(() =>
+    document.querySelector('#match-info [data-lineup-panel="away"]:not([hidden]) [data-lineup-player-name="Joaquin Seys"]')
+  );
+  const belgiumSpainZhPreviewState = await lineupCoachCoverageCheck.page
+    .locator('#match-info [data-lineup-panel="away"]:not([hidden]) [data-lineup-player-name="Joaquin Seys"]')
+    .evaluate((marker) => {
+      const sub = marker.querySelector(".lineup-avatar-right-events [data-lineup-substitution-toggle]");
+      return {
+        sub: {
+          ariaLabel: sub?.getAttribute("aria-label") || "",
+          text: sub?.textContent.replace(/\s+/g, " ").trim() || "",
+          title: sub?.getAttribute("title") || ""
+        },
+        visibleName: marker.querySelector(".lineup-player-name")?.textContent.replace(/\s+/g, " ").trim() || ""
+      };
+    });
+  assert(
+    belgiumSpainZhPreviewState.visibleName === "若阿金·塞斯" &&
+      belgiumSpainZhPreviewState.sub.text === "↑60'" &&
+      belgiumSpainZhPreviewState.sub.ariaLabel ===
+        "60' 若阿金·塞斯 替补登场。切换显示马克西姆·德屈佩尔" &&
+      belgiumSpainZhPreviewState.sub.title ===
+        "60' 若阿金·塞斯 替补登场。切换显示马克西姆·德屈佩尔",
+    `Clicked Spain-Belgium substitution preview should keep Chinese substitute labels readable. Measured ${JSON.stringify(belgiumSpainZhPreviewState)}.`
+  );
   await lineupCoachCoverageCheck.context.close();
 
   const matchStateCheck = await openPageAtTime("2026-06-18T05:30:00.000Z");
