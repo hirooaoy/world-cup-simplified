@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-11T13:03:54.153Z",
+  "updatedAt": "2026-07-11T21:12:57.160Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -22088,7 +22088,7 @@
       "homeSlot": "Winner match 91",
       "awaySlot": "Winner match 92",
       "venue": "Miami Stadium",
-      "status": "SCHEDULED",
+      "status": "LIVE",
       "h2h": {
         "status": "loaded",
         "sourceId": "national-football-teams-h2h-sync-2026-07-07",
@@ -22230,6 +22230,10 @@
         "sourceId": "editorial-preview-2026-06-22",
         "home": "Norway are a direct star-powered side whose attacking question is how quickly they can serve the finisher, led by Erling Haaland, Martin Odegaard, and Antonio Nusa. Against England, their Odegaard-to-Haaland supply has to beat England's Kane-Bellingham box entries. They want to get Odegaard facing forward and deliver early enough for Haaland to attack the box. The risk is England can attack quickly through Kane and Bellingham while Rice controls the counter.",
         "away": "England are one of the strongest teams in the tournament, built around power, speed, and danger near goal, led by Jude Bellingham, Harry Kane, and Declan Rice. Against Norway, their Kane-Bellingham box entries has to beat Norway's Odegaard-to-Haaland supply. They want to turn Kane's dropping movements into Bellingham runs and fast cutbacks from wide areas. The risk is Norway can feed Haaland through Odegaard's service and Nusa's change of speed."
+      },
+      "score": {
+        "home": 0,
+        "away": 0
       }
     },
     {
