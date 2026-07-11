@@ -407,7 +407,6 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "low confidence": "低置信度",
     "medium confidence": "中等置信度",
     "high confidence": "高置信度",
-    "Line-ups (official)": "官方阵容",
     "Line-ups (verified)": "官方确认阵容",
     "Expected lineups": "预计阵容",
     "Probable lineups": "可能阵容",
@@ -524,6 +523,7 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "Shown in current table order. Group ties use FIFA head-to-head before overall goal difference.":
       "按当前积分榜顺序显示；小组同分时先按 FIFA 交锋规则，再看总净胜球。",
     "Show all matches": "显示全部比赛",
+    "See all": "查看全部",
     "See release notes": "查看发布说明",
     "See sources": "查看来源",
     "Source links stay available inside the tooltip.": "来源链接仍可在提示框中打开。",
@@ -556,6 +556,7 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "South Africa": "南非",
     "South Korea": "韩国",
     "Spain": "西班牙",
+    "Live score pending": "实时比分待确认",
     "Score pending": "当前比分待确认",
     "Sweden": "瑞典",
     "Switzerland": "瑞士",
@@ -2796,7 +2797,6 @@ Object.entries({
   "Line-ups (verified)": "官方确认阵容",
   "Line-ups (expected)": "预计阵容",
   "Line-ups (predicted)": "预测阵容",
-  "Line-ups (official)": "官方阵容",
   "Final verified lineup": "最终确认阵容",
   "Expected lineups": "预计阵容",
   "Probable lineups": "可能阵容",
@@ -4165,6 +4165,10 @@ const ZH_PATTERN_TRANSLATIONS = [
     replace: () => "最终比分待确认；已核验比分尚未载入"
   },
   {
+    pattern: /^Live score pending; verified score is not loaded yet$/,
+    replace: () => "实时比分待确认；已核验比分尚未载入"
+  },
+  {
     pattern: /^Score pending; verified score is not loaded yet$/,
     replace: () => "当前比分待确认；已核验比分尚未载入"
   }
@@ -4864,6 +4868,7 @@ let isShowingOlderTeamMatches = false;
 let fixtures = [];
 let historicalFixtures = [];
 let history = { coverage: {}, fixtures: [], source: null, tournaments: [] };
+let playerTournamentStatsByKey = null;
 const historicalProjectionCache = new Map();
 const thirdPlaceAdvancementEstimateCache = new Map();
 const thirdPlaceGroupScenarioCache = new Map();
@@ -10285,7 +10290,7 @@ function getScorePendingText(match, state, currentTime) {
     match.status !== "DELAYED" &&
     (match.status === "LIVE" || state === "live")
   ) {
-    return localizeText("Pending");
+    return localizeText("Live score pending");
   }
 
   if (!shouldShowScorePending(match, state, currentTime)) {
@@ -17749,13 +17754,13 @@ function isLineupPlayerCaptain(player) {
   return false;
 }
 
-function formatLineupCaptainLabel(label, isCaptain) {
-  const text = String(label || "").trim();
+function formatLineupNumberLabel(number, isCaptain) {
+  const text = String(number || "").trim();
   if (!text) {
     return "";
   }
 
-  return isCaptain && !/\(C\)$/i.test(text) ? `${text} (C)` : text;
+  return isCaptain && !/\(C\)$/i.test(text) ? `${text}(C)` : text;
 }
 
 function getLineupProfileByName(teamId, name) {
@@ -18652,10 +18657,6 @@ function getLineupHeadingLabel(match, lineup) {
     return localizeText("Line-ups (predicted)");
   }
 
-  if (["SCHEDULED", "DELAYED"].includes(match?.status) && mode === "confirmed") {
-    return localizeText("Line-ups (official)");
-  }
-
   if (mode === "live") {
     return localizeText("Line-ups");
   }
@@ -18701,7 +18702,6 @@ function getLineupPlayerData(player, team) {
   const [number, label, name, position, initials, x, y, avatarColor] = player;
   const fullName = name || label;
   const isCaptain = Boolean(typeof player?.[8] === "boolean" ? player[8] : player?.[4] === true);
-  const displayLabel = formatLineupCaptainLabel(label, isCaptain);
   const cardPlayer = {
     name: fullName,
     team,
@@ -18713,7 +18713,7 @@ function getLineupPlayerData(player, team) {
 
   return {
     number,
-    label: displayLabel,
+    label,
     name: fullName,
     position,
     initials: typeof initials === "string" ? initials : getPlayerInitials(fullName),
@@ -18955,7 +18955,7 @@ function renderLineupScoringBadge(event, playerName) {
     <span
       class="lineup-event-badge lineup-event-score is-${escapeHtml(kind)}${count > 1 ? " is-count" : ""}"
       ${renderLineupBadgeTooltipAttributes(label, tooltipLabel)}
-    >${escapeHtml(text)}</span>
+    ><span class="lineup-event-score-label" aria-hidden="true">${escapeHtml(text)}</span></span>
   `;
 }
 
@@ -19441,7 +19441,7 @@ function renderLineupPlayerMarker(player, team, teamLineup, match = null, side =
   const lineupPlayer = getLineupPlayerData(displayPlayer, team);
   const profile = getPlayerProfile(lineupPlayer.cardPlayer);
   const playerName = getLocalizedPlayerDisplayName(lineupPlayer.cardPlayer, profile);
-  const playerLabel = formatLineupCaptainLabel(playerName, lineupPlayer.isCaptain);
+  const playerLabel = playerName;
   const eventSummary = [
     getLineupPlayerEventSummary(lineupPlayer.name, teamLineup),
     getLineupPlayerScoringSummary(lineupPlayer.name, match, side)
@@ -19460,7 +19460,7 @@ function renderLineupPlayerMarker(player, team, teamLineup, match = null, side =
   const avatarLeftEventMarkup = cardBadges
     ? `<span class="lineup-avatar-event-lane lineup-avatar-left-events">${cardBadges}</span>`
     : "";
-  const numberLabel = String(lineupPlayer.number || "").trim();
+  const numberLabel = formatLineupNumberLabel(lineupPlayer.number, lineupPlayer.isCaptain);
   const ariaLabel = [
     [numberLabel, playerLabel].filter(Boolean).join(" "),
     getLocalizedLineupPosition(lineupPlayer.position),
@@ -19510,7 +19510,7 @@ function renderLineupPlayerMarker(player, team, teamLineup, match = null, side =
 
 function renderLineupBenchPlayer(player, team, teamLineup) {
   const lineupPlayer = getLineupPlayerData(player, team);
-  const numberLabel = String(lineupPlayer.number || "").trim();
+  const numberLabel = formatLineupNumberLabel(lineupPlayer.number, lineupPlayer.isCaptain);
 
   return `
     <li class="lineup-bench-player">
@@ -20754,6 +20754,142 @@ function renderPlayerValueLine(player, profile) {
   return renderPlayerMarketValueLine(profile);
 }
 
+function clearPlayerTournamentStatsCache() {
+  playerTournamentStatsByKey = null;
+}
+
+function createEmptyPlayerTournamentStats() {
+  return { goals: 0, assists: 0 };
+}
+
+function isFixtureCountableForPlayerTournamentStats(fixture) {
+  const status = String(fixture?.status || "").trim().toUpperCase();
+  return status === "LIVE" || isCompletedLineupMatch(fixture);
+}
+
+function addPlayerTournamentStat(statsByKey, teamId, playerName, statName) {
+  const nameKey = normalizeTextKey(playerName);
+  if (!nameKey || !["goals", "assists"].includes(statName)) {
+    return;
+  }
+
+  const normalizedTeamId = String(teamId || "").trim().toUpperCase();
+  const keys = normalizedTeamId ? [`${normalizedTeamId}:${nameKey}`, nameKey] : [nameKey];
+  for (const key of keys) {
+    const stats = statsByKey.get(key) || createEmptyPlayerTournamentStats();
+    stats[statName] += 1;
+    statsByKey.set(key, stats);
+  }
+}
+
+function buildPlayerTournamentStatsByKey() {
+  const statsByKey = new Map();
+
+  for (const fixture of fixtures || []) {
+    if (!isFixtureCountableForPlayerTournamentStats(fixture)) {
+      continue;
+    }
+
+    for (const [side, goals] of [
+      ["home", fixture.goalsHome || []],
+      ["away", fixture.goalsAway || []]
+    ]) {
+      const teamId = side === "home" ? fixture.homeTeamId : fixture.awayTeamId;
+      for (const goal of goals) {
+        if (goal?.ownGoal) {
+          continue;
+        }
+
+        addPlayerTournamentStat(statsByKey, teamId, goal?.name, "goals");
+        if (goal?.assistName && normalizeTextKey(goal.assistName) !== normalizeTextKey(goal.name)) {
+          addPlayerTournamentStat(statsByKey, teamId, goal.assistName, "assists");
+        }
+      }
+    }
+  }
+
+  return statsByKey;
+}
+
+function getPlayerTournamentStatsByKey() {
+  if (!playerTournamentStatsByKey) {
+    playerTournamentStatsByKey = buildPlayerTournamentStatsByKey();
+  }
+
+  return playerTournamentStatsByKey;
+}
+
+function getPlayerTournamentStatKeys(player, profile = getPlayerProfile(player)) {
+  const aliases = getPlayerProfileAliases(getPlayerName(player), profile)
+    .filter((alias) => typeof alias === "string" && alias.trim())
+    .map(normalizeTextKey)
+    .filter(Boolean);
+  const teamId = String(profile?.teamId || getPlayerTeamId(player)).trim().toUpperCase();
+  const keys = new Set();
+
+  for (const alias of aliases) {
+    keys.add(teamId ? `${teamId}:${alias}` : alias);
+  }
+
+  return [...keys];
+}
+
+function getPlayerTournamentStats(player, profile = getPlayerProfile(player)) {
+  if (isHistoricalPlayerCard(player)) {
+    return null;
+  }
+
+  const statsByKey = getPlayerTournamentStatsByKey();
+  const totals = createEmptyPlayerTournamentStats();
+
+  for (const key of getPlayerTournamentStatKeys(player, profile)) {
+    const stats = statsByKey.get(key);
+    if (!stats) {
+      continue;
+    }
+
+    totals.goals += stats.goals;
+    totals.assists += stats.assists;
+  }
+
+  return totals.goals || totals.assists ? totals : null;
+}
+
+function formatPlayerTournamentStatCount(count, statName) {
+  const number = Number(count);
+  if (!Number.isInteger(number) || number <= 0) {
+    return "";
+  }
+
+  if (currentLanguage === "zh") {
+    return statName === "goals" ? `${number}球` : `${number}助攻`;
+  }
+
+  if (statName === "goals") {
+    return `${number} ${number === 1 ? "goal" : "goals"}`;
+  }
+
+  return `${number} ${number === 1 ? "assist" : "assists"}`;
+}
+
+function renderPlayerTournamentStatsLine(player, profile = getPlayerProfile(player)) {
+  const stats = getPlayerTournamentStats(player, profile);
+  if (!stats) {
+    return "";
+  }
+
+  const parts = [
+    formatPlayerTournamentStatCount(stats.goals, "goals"),
+    formatPlayerTournamentStatCount(stats.assists, "assists")
+  ].filter(Boolean);
+
+  if (!parts.length) {
+    return "";
+  }
+
+  return currentLanguage === "zh" ? `本届世界杯：${parts.join("，")}` : `This World Cup: ${parts.join(", ")}`;
+}
+
 function getPlayerSkills(player, profile = getPlayerProfile(player)) {
   const skills = Array.isArray(profile?.skills) ? profile.skills.filter(Boolean) : [];
   if (skills.length) {
@@ -21125,6 +21261,7 @@ function renderPlayerMention(label, player, options = {}) {
   const note = isProfileLoading ? "" : getLocalizedPlayerNote(player, profile);
   const ageLine = isProfileLoading ? "" : getLocalizedPlayerAgeLine(player, profile);
   const valueLine = isProfileLoading ? "" : renderPlayerValueLine(player, profile);
+  const tournamentStatsLine = isProfileLoading ? "" : renderPlayerTournamentStatsLine(player, profile);
   const skills = isProfileLoading ? [] : getPlayerSkills(player, profile).map(localizePlayerSkill);
   const cardFlag = renderPlayerCardFlag(player, profile);
   const explicitVisibleLabel = typeof options.visibleLabel === "string" ? options.visibleLabel.trim() : "";
@@ -21150,6 +21287,9 @@ function renderPlayerMention(label, player, options = {}) {
     ? `<span class="player-card-loading-pill"></span><span class="player-card-loading-pill is-short"></span>`
     : skills.map((skill) => `<span>${escapeHtml(skill)}</span>`).join("");
   const noteMarkup = note ? `<span class="player-card-note">${escapeHtml(note)}</span>` : "";
+  const tournamentStatsMarkup = tournamentStatsLine
+    ? `<span class="player-card-note player-card-tournament-stats">${escapeHtml(tournamentStatsLine)}</span>`
+    : "";
   const metaLine = [ageLine ? escapeHtml(ageLine) : "", valueLine].filter(Boolean).join(" • ");
   const metaMarkup = metaLine ? `<span class="player-card-note">${metaLine}</span>` : "";
   const copyMarkup = isProfileLoading
@@ -21159,8 +21299,8 @@ function renderPlayerMention(label, player, options = {}) {
         <span class="player-card-loading-line is-medium"></span>
       </span>
     `
-    : noteMarkup || metaMarkup
-      ? `<span class="player-card-copy">${noteMarkup}${metaMarkup}</span>`
+    : noteMarkup || tournamentStatsMarkup || metaMarkup
+      ? `<span class="player-card-copy">${noteMarkup}${tournamentStatsMarkup}${metaMarkup}</span>`
       : "";
   const positionMarkup = isProfileLoading
     ? `<span class="player-card-loading-line player-card-loading-position" aria-hidden="true"></span>`
@@ -22009,6 +22149,42 @@ function renderKnockoutContextTeamName(team, label = getLocalizedTeamName(team),
   return `<span class="${escapeHtml(className)}"><span class="knockout-context-team-name">${escapeHtml(labelText)}</span>${rankHtml ? ` ${rankHtml}` : ""}</span>`;
 }
 
+function getKnockoutContextSearchQuery(teamOrName) {
+  if (typeof teamOrName === "string") {
+    return teamOrName.trim();
+  }
+
+  if (!teamOrName || teamOrName.isSlot) {
+    return "";
+  }
+
+  const canonicalTeam = getCanonicalTeamSearchTeam(teamOrName);
+  return String(
+    canonicalTeam?.name || teamOrName.name || teamOrName.standingName || teamOrName.officialName || ""
+  ).trim();
+}
+
+function renderKnockoutContextSearchAction(teamOrName) {
+  const query = getKnockoutContextSearchQuery(teamOrName);
+
+  if (!query || normalizeTextKey(query) === "tbd") {
+    return "";
+  }
+
+  const teamLabel =
+    typeof teamOrName === "string"
+      ? localizeText(teamOrName)
+      : getLocalizedTeamName(teamOrName);
+  const ariaLabel =
+    currentLanguage === "zh"
+      ? `查看${teamLabel}全部比赛`
+      : `See all ${teamLabel} matches`;
+
+  return ` <button class="knockout-context-search-action" type="button" data-team-search-query="${escapeHtml(
+    query
+  )}" aria-label="${escapeHtml(ariaLabel)}">${escapeHtml(localizeText("See all"))}</button>`;
+}
+
 function renderKnockoutParticipantLabel(entry, options = {}) {
   if (entry?.team) {
     return renderKnockoutContextTeamName(entry.team, getTournamentTeamDisplayName(entry.team), options);
@@ -22091,12 +22267,14 @@ function formatGroupRoundSummaryZh(team, resultItems, remainingCount) {
     return `以 ${scoreText} 战平 ${opponent}`;
   });
   const remainingText = remainingCount > 0 ? `还有${remainingCount}场小组赛未完。` : "";
-  return `${teamName}小组赛：${segments.join("；")}。${remainingText}`;
+  return `${teamName}小组赛：${segments.join("；")}。${remainingText}${renderKnockoutContextSearchAction(team)}`;
 }
 
 function formatGroupRoundSummary(team, resultItems, remainingCount) {
   if (!resultItems.length) {
-    return `${renderKnockoutContextTeamName(team)}: ${escapeHtml(localizeText("No loaded group-round results yet."))}`;
+    return `${renderKnockoutContextTeamName(team)}: ${escapeHtml(
+      localizeText("No loaded group-round results yet.")
+    )}${renderKnockoutContextSearchAction(team)}`;
   }
 
   if (currentLanguage === "zh") {
@@ -22139,7 +22317,8 @@ function formatGroupRoundSummary(team, resultItems, remainingCount) {
       : "";
 
   const summaryText = `${renderKnockoutContextTeamName(team, getLocalizedTeamName(team), { isSubject: true })} ${getNameSeries(phrases)}`;
-  return remainingText ? `${summaryText}.${escapeHtml(remainingText)}` : summaryText;
+  const summary = remainingText ? `${summaryText}.${escapeHtml(remainingText)}` : summaryText;
+  return `${summary}${renderKnockoutContextSearchAction(team)}`;
 }
 
 function getGroupRoundSummaryForParticipant(entry) {
@@ -22249,20 +22428,21 @@ function renderKnockoutCompletedSummary(match, context) {
   const loserName = renderKnockoutParticipantLabel(participants[loserSide], { showRank: true });
   const winnerScoreText = escapeHtml(getKnockoutScorePairForSide(match, winnerSide));
   const penaltyText = escapeHtml(getKnockoutPenaltyPairForSide(match, winnerSide));
+  const searchAction = renderKnockoutContextSearchAction(winner);
 
   if (penaltyText) {
     if (currentLanguage === "zh") {
-      return `${winnerName}在 ${scoreText} 战平后通过点球 ${penaltyText} 击败 ${loserName}。`;
+      return `${winnerName}在 ${scoreText} 战平后通过点球 ${penaltyText} 击败 ${loserName}。${searchAction}`;
     }
 
-    return `${winnerName} beat ${loserName} on penalties after a ${scoreText} tie (${penaltyText} pens)`;
+    return `${winnerName} beat ${loserName} on penalties after a ${scoreText} tie (${penaltyText} pens)${searchAction}`;
   }
 
   if (currentLanguage === "zh") {
-    return `${winnerName}以 ${winnerScoreText} 击败 ${loserName}。`;
+    return `${winnerName}以 ${winnerScoreText} 击败 ${loserName}。${searchAction}`;
   }
 
-  return `${winnerName} beat ${loserName} ${winnerScoreText}`;
+  return `${winnerName} beat ${loserName} ${winnerScoreText}${searchAction}`;
 }
 
 function renderKnockoutSourceMatchSummary(match, context) {
@@ -22325,9 +22505,12 @@ function renderResolvedNextKnockoutOpponentLine(match, context) {
     showRank: true,
     isSubject: true
   });
+  const fallbackSearchAction = renderKnockoutContextSearchAction(winner);
 
   if (!winnerSide || !participants[winnerSide]) {
-    return currentLanguage === "zh" ? `胜者将对阵 ${fallbackWinnerName}。` : `Winner will face ${fallbackWinnerName}`;
+    return currentLanguage === "zh"
+      ? `胜者将对阵 ${fallbackWinnerName}。${fallbackSearchAction}`
+      : `Winner will face ${fallbackWinnerName}${fallbackSearchAction}`;
   }
 
   const loserSide = winnerSide === "away" ? "home" : "away";
@@ -22339,20 +22522,23 @@ function renderResolvedNextKnockoutOpponentLine(match, context) {
   const scoreText = escapeHtml(formatScorePair(match.score));
   const winnerScoreText = escapeHtml(getKnockoutScorePairForSide(match, winnerSide));
   const penaltyText = escapeHtml(getKnockoutPenaltyPairForSide(match, winnerSide));
+  const searchAction = renderKnockoutContextSearchAction(winner);
 
   if (penaltyText && scoreText) {
     return currentLanguage === "zh"
-      ? `胜者将对阵 ${winnerName}，后者在 ${scoreText} 战平后通过点球 ${penaltyText} 击败 ${loserName}。`
-      : `Winner will face ${winnerName} who won ${penaltyText} on penalties after a ${scoreText} tie against ${loserName}`;
+      ? `胜者将对阵 ${winnerName}，后者在 ${scoreText} 战平后通过点球 ${penaltyText} 击败 ${loserName}。${searchAction}`
+      : `Winner will face ${winnerName} who won ${penaltyText} on penalties after a ${scoreText} tie against ${loserName}${searchAction}`;
   }
 
   if (winnerScoreText) {
     return currentLanguage === "zh"
-      ? `胜者将对阵 ${winnerName}，后者以 ${winnerScoreText} 击败 ${loserName}。`
-      : `Winner will face ${winnerName} who won ${winnerScoreText} against ${loserName}`;
+      ? `胜者将对阵 ${winnerName}，后者以 ${winnerScoreText} 击败 ${loserName}。${searchAction}`
+      : `Winner will face ${winnerName} who won ${winnerScoreText} against ${loserName}${searchAction}`;
   }
 
-  return currentLanguage === "zh" ? `胜者将对阵 ${winnerName}。` : `Winner will face ${winnerName}`;
+  return currentLanguage === "zh"
+    ? `胜者将对阵 ${winnerName}。${searchAction}`
+    : `Winner will face ${winnerName}${searchAction}`;
 }
 
 function isTerminalKnockoutMatch(match) {
@@ -22427,9 +22613,14 @@ function renderNextKnockoutOpponentLine(match, nextMatch, context) {
   }
 
   if (otherSlot) {
+    const otherSlotTeam =
+      teamsByName.get(normalizeTextKey(otherSlot)) ||
+      teamsById.get(String(otherSlot || "").trim()) ||
+      null;
+    const searchAction = otherSlotTeam ? renderKnockoutContextSearchAction(otherSlotTeam) : "";
     return currentLanguage === "zh"
-      ? `胜者将对阵 ${escapeHtml(localizeText(otherSlot))}。`
-      : `Winner will face ${escapeHtml(localizeText(otherSlot))}`;
+      ? `胜者将对阵 ${escapeHtml(localizeText(otherSlot))}。${searchAction}`
+      : `Winner will face ${escapeHtml(localizeText(otherSlot))}${searchAction}`;
   }
 
   const nextStage = escapeHtml(getTournamentStageLabel(nextMatch.stage));
@@ -23011,16 +23202,17 @@ function renderHistoricalKnockoutCompletedSummary(match) {
   const loserName = renderHistoricalKnockoutTeamName(loser);
   const winnerScoreText = escapeHtml(formatScorePair(getHistoricalScorePairForTeam(match, winner)));
   const penaltyText = escapeHtml(formatScorePair(getHistoricalPenaltyPairForTeam(match, winner)));
+  const searchAction = renderKnockoutContextSearchAction(winner);
 
   if (penaltyText) {
     return currentLanguage === "zh"
-      ? `${winnerName}在 ${scoreText} 战平后通过点球 ${penaltyText} 击败 ${loserName}。`
-      : `${winnerName} beat ${loserName} on penalties after a ${scoreText} tie (${penaltyText} pens)`;
+      ? `${winnerName}在 ${scoreText} 战平后通过点球 ${penaltyText} 击败 ${loserName}。${searchAction}`
+      : `${winnerName} beat ${loserName} on penalties after a ${scoreText} tie (${penaltyText} pens)${searchAction}`;
   }
 
   return currentLanguage === "zh"
-    ? `${winnerName}以 ${winnerScoreText} 击败 ${loserName}。`
-    : `${winnerName} beat ${loserName} ${winnerScoreText}`;
+    ? `${winnerName}以 ${winnerScoreText} 击败 ${loserName}。${searchAction}`
+    : `${winnerName} beat ${loserName} ${winnerScoreText}${searchAction}`;
 }
 
 function renderHistoricalPreviousKnockoutContext(match) {
@@ -23130,12 +23322,13 @@ function renderHistoricalAdvancedNextLine(entry) {
   const opponentName = getHistoricalOpponent(entry.fixture, entry.teamName);
   const clause = getHistoricalOpponentQualificationClause(entry.fixture, opponentName);
   const teamName = renderHistoricalKnockoutTeamName(entry.teamName, { showRank: true });
+  const searchAction = renderKnockoutContextSearchAction(opponentName);
 
   if (currentLanguage === "zh") {
-    return `${teamName}随后晋级对阵${clause}。`;
+    return `${teamName}随后晋级对阵${clause}。${searchAction}`;
   }
 
-  return `${teamName} advanced to face${clause}.`;
+  return `${teamName} advanced to face${clause}.${searchAction}`;
 }
 
 function getHistoricalOpponentQualificationClause(nextMatch, opponentName) {
@@ -23184,12 +23377,13 @@ function getHistoricalOpponentQualificationClause(nextMatch, opponentName) {
 function renderHistoricalNextPathLine(entry) {
   const opponentName = getHistoricalOpponent(entry.fixture, entry.teamName);
   const clause = getHistoricalOpponentQualificationClause(entry.fixture, opponentName);
+  const searchAction = renderKnockoutContextSearchAction(opponentName);
 
   if (currentLanguage === "zh") {
-    return `${entry.kind === "winner" ? "胜者" : "败者"}随后对阵${clause}。`;
+    return `${entry.kind === "winner" ? "胜者" : "败者"}随后对阵${clause}。${searchAction}`;
   }
 
-  return `${entry.kind === "winner" ? "Winner" : "Loser"} faced${clause}.`;
+  return `${entry.kind === "winner" ? "Winner" : "Loser"} faced${clause}.${searchAction}`;
 }
 
 function renderHistoricalNextKnockoutContext(match) {
@@ -25728,6 +25922,39 @@ function setSettingsOpen(isOpen) {
   }
 }
 
+function openTeamSearchResults(query, options = {}) {
+  const nextQuery = String(query || "").trim();
+
+  if (!nextQuery) {
+    return;
+  }
+
+  cancelPendingTeamSearchRender();
+  clearPendingUrlStateUpdate();
+  setCalendarOpen(false);
+  setCatchUpOpen(false);
+  setSettingsOpen(false);
+  setStandingsYearOpen(false);
+  if (activeView !== "matches") {
+    activeView = "matches";
+    updateActiveViewElements();
+  }
+
+  teamSearchQuery = nextQuery;
+  isShowingOlderTeamMatches = false;
+  isTeamSearchOpen = true;
+  activeMatchId = "";
+  updateTeamSearchControls();
+  renderSchedule({ historyMode: options.historyMode || "push" });
+
+  if (options.focus !== false) {
+    window.setTimeout(() => {
+      teamSearchInput?.focus();
+      teamSearchInput?.select();
+    }, 0);
+  }
+}
+
 function updateTeamSearchControls() {
   if (!teamSearch || !teamSearchInput || !teamSearchToggle || !teamSearchClear) {
     return;
@@ -26350,6 +26577,7 @@ function applyDataSnapshot({
   hasLoadedHistoricalPlayerProfiles = false;
   shouldShowPlayerMarketValues = hasCompletePlayerMarketValues(playerProfilesData);
   fixtures = fixturesWithLineups.fixtures;
+  clearPlayerTournamentStatsCache();
   history = historyData;
   historicalFixtures = historyData.fixtures || [];
   clearCalendarFixtureCaches();
@@ -26376,6 +26604,7 @@ function applyDataSnapshot({
 function applyLiveDataSnapshot(liveData) {
   const fixturesWithLineups = mergeFixtureLineups(liveData.fixturesData, lineupData, expectedLineupsData);
   fixtures = fixturesWithLineups.fixtures;
+  clearPlayerTournamentStatsCache();
   clearCalendarFixtureCaches();
   standingsByGroup = liveData.standingsData.groups;
   tournament = liveData.tournamentData;
@@ -27018,6 +27247,13 @@ matchInfo.addEventListener("click", (event) => {
   }
 
   if (handlePlayerLinkClick(event)) {
+    return;
+  }
+
+  const teamSearchAction = targetElement.closest("[data-team-search-query]");
+  if (teamSearchAction) {
+    event.preventDefault();
+    openTeamSearchResults(teamSearchAction.dataset.teamSearchQuery, { historyMode: "push" });
     return;
   }
 

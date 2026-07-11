@@ -1,6 +1,21 @@
 {
-  "updatedAt": "2026-07-10T22:41:49-07:00",
+  "updatedAt": "2026-07-11T14:13:13-07:00",
   "releases": [
+    {
+      "date": "2026-07-11",
+      "title": "Player stats and line-up polish",
+      "titleZh": "球员数据与阵容体验优化",
+      "highlights": [
+        "Current player cards now add a compact This World Cup goals-and-assists row when official event data gives the player a non-zero tournament total.",
+        "Knockout previous and next context lines now include See all actions for resolved teams, opening the same country search as typing that team name.",
+        "Line-up boards now use plain Line-ups for confirmed teams, keep captain markers in the shirt-number pill, center G/A badges, add more row spacing, and label missing live scores as Live score pending."
+      ],
+      "highlightsZh": [
+        "当前球员卡现在会在官方事件数据统计到非零进球或助攻时，加入紧凑的“本届世界杯”进球助攻行。",
+        "淘汰赛的上一轮和下一轮说明现在会在已确定球队旁加入“查看全部”，打开与手动搜索该球队相同的国家搜索结果。",
+        "阵容板现在会把已确认阵容显示为普通“阵容”，把队长标记放进球衣号码徽章，居中 G/A 徽章，增加行距，并把缺失的实时比分标为“实时比分待确认”。"
+      ]
+    },
     {
       "date": "2026-07-10",
       "title": "Line-up board touch and badge polish",

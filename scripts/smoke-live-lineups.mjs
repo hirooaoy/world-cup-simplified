@@ -292,7 +292,7 @@ try {
   const newlyCompletedFixture = byId.get("match-97-quarter-final-2026-07-09");
   const completedStaticFixture = byId.get("match-95-round-of-16-2026-07-07");
 
-  assert.equal(confirmedFixture?.lineups?.mode, "confirmed");
+  assert.equal(confirmedFixture?.lineups?.mode, "live");
   assert.equal(confirmedFixture.lineups.teamSheetSource, "fifa-official");
   assert.equal(confirmedFixture.lineups.layoutSource, "derived-team-sheet-order");
   assert.equal(confirmedFixture.lineups.layoutVerification?.status, "unverified");

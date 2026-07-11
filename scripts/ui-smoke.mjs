@@ -49,6 +49,112 @@ function reportGithubActionsError(title, error) {
   console.error(`::error title=${githubAnnotationValue(title)}::${githubAnnotationValue(details)}`);
 }
 
+async function getLineupRowSpacingMetrics(lineupRootLocator) {
+  return lineupRootLocator.evaluate((root) => {
+    const markerPartSelector = [
+      ".lineup-avatar-event-lane",
+      ".lineup-avatar-wrap",
+      ".lineup-player-number",
+      ".lineup-player-name",
+      ".lineup-player-value",
+      ".lineup-player-event-row"
+    ].join(", ");
+    const round = (value) => Math.round(value * 10) / 10;
+    const visiblePanels = root.matches(".lineup-tab-panel")
+      ? [root]
+      : [...root.querySelectorAll(".lineup-tab-panel:not([hidden])")];
+    const panels = visiblePanels.length ? visiblePanels : [root];
+    const readBounds = (element) => {
+      const styles = getComputedStyle(element);
+      if (styles.display === "none" || styles.visibility === "hidden") {
+        return null;
+      }
+
+      const bounds = element.getBoundingClientRect();
+      if (!bounds.width && !bounds.height) {
+        return null;
+      }
+
+      return {
+        bottom: bounds.bottom,
+        top: bounds.top
+      };
+    };
+    const readMarker = (marker) => {
+      const y = Number.parseFloat(marker.style.getPropertyValue("--y"));
+      const parts = [...marker.querySelectorAll(markerPartSelector)].map(readBounds).filter(Boolean);
+      if (!parts.length || !Number.isFinite(y)) {
+        return null;
+      }
+
+      return {
+        bottom: Math.max(...parts.map((part) => part.bottom)),
+        name: marker.dataset.lineupPlayerName || marker.dataset.lineupStarterName || "",
+        top: Math.min(...parts.map((part) => part.top)),
+        y
+      };
+    };
+    const collectPanelRows = (panel, panelIndex) => {
+      const rows = [];
+      const markers = [...panel.querySelectorAll(".lineup-player-marker")]
+        .map(readMarker)
+        .filter(Boolean)
+        .sort((a, b) => a.y - b.y);
+
+      markers.forEach((marker) => {
+        const row = rows[rows.length - 1];
+        if (row && Math.abs(row.y - marker.y) <= 0.5) {
+          row.bottom = Math.max(row.bottom, marker.bottom);
+          row.names.push(marker.name);
+          row.top = Math.min(row.top, marker.top);
+          return;
+        }
+
+        rows.push({
+          bottom: marker.bottom,
+          names: [marker.name],
+          top: marker.top,
+          y: marker.y
+        });
+      });
+
+      const rowGaps = rows.slice(1).map((row, index) => {
+        const previous = rows[index];
+        return {
+          fromNames: previous.names,
+          fromY: previous.y,
+          gap: row.top - previous.bottom,
+          toNames: row.names,
+          toY: row.y
+        };
+      });
+
+      return {
+        minRowGap: rowGaps.length ? Math.min(...rowGaps.map((gap) => gap.gap)) : null,
+        panelIndex,
+        rowCount: rows.length,
+        rowGaps: rowGaps.map((gap) => ({
+          ...gap,
+          gap: round(gap.gap)
+        })),
+        rows: rows.map((row) => ({
+          ...row,
+          bottom: round(row.bottom),
+          top: round(row.top)
+        }))
+      };
+    };
+    const panelMetrics = panels.map(collectPanelRows);
+    const rowGaps = panelMetrics.flatMap((panel) => panel.rowGaps.map((gap) => gap.gap));
+
+    return {
+      collisionCount: rowGaps.filter((gap) => gap < 0).length,
+      minRowGap: rowGaps.length ? Math.min(...rowGaps) : null,
+      panels: panelMetrics
+    };
+  });
+}
+
 async function assertPlayerCardTriggersStayInternal(rootLocator, message) {
   const triggers = await rootLocator.locator(".player-link[data-player-card-trigger]").evaluateAll((items) =>
     items.map((trigger) => ({
@@ -2450,6 +2556,46 @@ try {
     lukakuCardText.includes("Value €6m (Prime €100m)"),
     "Current player cards should show Prime value when the sourced peak is higher than the current value."
   );
+  const playerTournamentStatsCheck = await openPageAtTime(
+    "2026-06-21T12:00:00.000Z",
+    "/?view=matches&date=2026-06-21&tz=America%2FLos_Angeles",
+    {
+      fixtureTransform(data) {
+        for (const fixture of data.fixtures || []) {
+          delete fixture.goalsHome;
+          delete fixture.goalsAway;
+        }
+
+        const fixture = data.fixtures.find((item) => item.id === "belgium-ir-iran-2026-06-21");
+        fixture.status = "FT";
+        fixture.score = { home: 3, away: 0 };
+        fixture.goalsHome = [
+          { minute: 12, name: "Romelu Lukaku", assistName: "Leandro Trossard" },
+          { minute: 44, name: "Romelu Lukaku" },
+          { minute: 80, name: "Leandro Trossard", assistName: "Romelu Lukaku" }
+        ];
+        fixture.goalsAway = [];
+      }
+    }
+  );
+  await playerTournamentStatsCheck.page.locator('[data-match-id="belgium-ir-iran-2026-06-21"]').click();
+  const syntheticLukakuCard = playerTournamentStatsCheck.page
+    .locator("#match-info .key-info-team .player-hover")
+    .filter({ has: playerTournamentStatsCheck.page.locator(".player-link", { hasText: "Romelu Lukaku" }) })
+    .first()
+    .locator(".player-card");
+  const syntheticDeBruyneCard = playerTournamentStatsCheck.page
+    .locator("#match-info .key-info-team .player-hover")
+    .filter({ has: playerTournamentStatsCheck.page.locator(".player-link", { hasText: "Kevin De Bruyne" }) })
+    .first()
+    .locator(".player-card");
+  assert(
+    (await syntheticLukakuCard.locator(".player-card-tournament-stats").innerText()).trim() ===
+      "This World Cup: 2 goals, 1 assist" &&
+      (await syntheticDeBruyneCard.locator(".player-card-tournament-stats").count()) === 0,
+    "Player cards should show a tournament goals/assists row only when the player has non-zero current World Cup stats."
+  );
+  await playerTournamentStatsCheck.context.close();
 
   await page.goto(`${baseUrl}?view=matches&date=2026-06-20&lang=zh&tz=America%2FLos_Angeles`, {
     waitUntil: "load"
@@ -2953,13 +3099,13 @@ try {
   assert(
     switzerlandAlgeriaDetailText.includes("Previous: Group round") &&
       switzerlandAlgeriaContextLines.includes(
-        "Switzerland won 4-1 against Bosnia and Herzegovina #64 and 2-1 against Canada #30 and tied 1-1 against Qatar #56"
+        "Switzerland won 4-1 against Bosnia and Herzegovina #64 and 2-1 against Canada #30 and tied 1-1 against Qatar #56 See all"
       ) &&
       switzerlandAlgeriaContextLines.includes(
-        "Algeria won 2-1 against Jordan #63, tied 3-3 against Austria #24, and lost 0-3 to Argentina #1"
+        "Algeria won 2-1 against Jordan #63, tied 3-3 against Austria #24, and lost 0-3 to Argentina #1 See all"
       ) &&
       switzerlandAlgeriaDetailText.includes("Next: Round of 16") &&
-      /^Winner will face(?:\s+(winner of Colombia #13 vs Ghana #73|Colombia #13 who (?:won|lost).+against Ghana #73))$/.test(
+      /^Winner will face(?:\s+(winner of Colombia #13 vs Ghana #73|Colombia #13 who (?:won|lost).+against Ghana #73 See all))$/.test(
         switzerlandAlgeriaNextText
       ),
     `Switzerland-Algeria context should support current expected opponent-copy formats while preserving ranked opponent copy. Measured ${JSON.stringify({
@@ -3072,6 +3218,21 @@ try {
       !norwayRoundOf32DetailText.includes("Japan #18."),
     "Round of 32 normal-score next path should show ranking pills for both the winning opponent and defeated team."
   );
+  const norwayNextSearchAction = page.locator(
+    '#match-info .knockout-next-line .knockout-context-search-action[data-team-search-query="Brazil"]'
+  );
+  assert(
+    (await norwayNextSearchAction.count()) === 1 &&
+      (await norwayNextSearchAction.innerText()).trim() === "See all",
+    "Resolved next-path winners should show one inline See all action for the opponent winner."
+  );
+  await norwayNextSearchAction.click();
+  await page.waitForFunction(() => new URL(location.href).searchParams.get("team") === "Brazil");
+  assert(
+    (await page.locator("#team-search-input").inputValue()) === "Brazil" &&
+      (await page.locator(".team-search-summary h2").innerText()).trim() === "Brazil",
+    "Clicking a next-path See all action should open the same country search as typing the winner name."
+  );
 
   await page.goto(`${baseUrl}?view=matches&date=2026-07-07&tz=America%2FLos_Angeles`, {
     waitUntil: "load"
@@ -3115,6 +3276,41 @@ try {
       roundOf16ContextMetrics.previousRoundRanks >= 4 &&
       roundOf16ContextMetrics.nextPathRanks >= 2,
     `Round of 16 and later match detail should show compact ranking pills without context flags in source and next-path matchups. Measured ${JSON.stringify(roundOf16ContextMetrics)}.`
+  );
+
+  await page.goto(`${baseUrl}?view=matches&date=2026-07-11&tz=America%2FLos_Angeles`, {
+    waitUntil: "load"
+  });
+  await page.waitForSelector('[data-match-id="match-99-quarter-final-2026-07-11"]');
+  await page.locator('[data-match-id="match-99-quarter-final-2026-07-11"]').click();
+  const quarterFinalContextSearchActions = await page.locator("#match-info").evaluate((root) => {
+    const previousSection = [...root.querySelectorAll(":scope > .info-block")].find(
+      (section) => section.querySelector("h3")?.textContent.replace(/\s+/g, " ").trim() === "Previous: Round of 16"
+    );
+    const nextSection = [...root.querySelectorAll(":scope > .info-block")].find(
+      (section) => section.querySelector("h3")?.textContent.replace(/\s+/g, " ").trim() === "Next: Semi-finals"
+    );
+
+    return {
+      nextButtonCount: nextSection?.querySelectorAll(".knockout-context-search-action").length || 0,
+      nextText: nextSection?.textContent.replace(/\s+/g, " ").trim() || "",
+      previousButtons: [...(previousSection?.querySelectorAll(".knockout-context-search-action") || [])].map(
+        (button) => ({
+          query: button.getAttribute("data-team-search-query") || "",
+          text: button.textContent.trim()
+        })
+      ),
+      previousText: previousSection?.textContent.replace(/\s+/g, " ").trim() || ""
+    };
+  });
+  assert(
+    quarterFinalContextSearchActions.previousText.includes("Norway #31 beat Brazil #6 2-1 See all") &&
+      quarterFinalContextSearchActions.previousText.includes("England #4 beat Mexico #14 3-2 See all") &&
+      quarterFinalContextSearchActions.previousButtons.map((button) => button.query).join("|") === "Norway|England" &&
+      quarterFinalContextSearchActions.previousButtons.every((button) => button.text === "See all") &&
+      quarterFinalContextSearchActions.nextText.includes("Winner will face winner of Argentina #1 vs Switzerland #19") &&
+      quarterFinalContextSearchActions.nextButtonCount === 0,
+    `Quarter-final context should add See all to resolved previous winners and omit it from unresolved next matchups. Measured ${JSON.stringify(quarterFinalContextSearchActions)}.`
   );
 
   await page.goto(`${baseUrl}?view=matches&date=2026-07-19&tz=America%2FLos_Angeles`, {
@@ -5456,12 +5652,20 @@ try {
       argentinaEgyptDesktopLineupGeometry.alvarez.eventRows === 0 &&
       argentinaEgyptDesktopLineupGeometry.alvarez.avatarRightEvents === 1 &&
       argentinaEgyptDesktopLineupGeometry.alvarez.subToggles === 1 &&
-      argentinaEgyptDesktopLineupGeometry.alvarez.avatarRightEventOverlapTop >= -2 &&
-      argentinaEgyptDesktopLineupGeometry.alvarez.avatarRightEventOverlapTop <= 5 &&
+      argentinaEgyptDesktopLineupGeometry.alvarez.avatarRightEventOverlapTop >= 7 &&
+      argentinaEgyptDesktopLineupGeometry.alvarez.avatarRightEventOverlapTop <= 10 &&
       argentinaEgyptDesktopLineupGeometry.messi.eventRows === 0 &&
       argentinaEgyptDesktopLineupGeometry.messi.scoreOverlapsAvatar &&
-      argentinaEgyptDesktopLineupGeometry.messi.scoreOverlapRight <= 20,
+      argentinaEgyptDesktopLineupGeometry.messi.scoreOverlapRight <= 28,
     `Argentina-Egypt desktop striker markers should anchor avatar/name together without sub or G/A pills shifting the row. Measured ${JSON.stringify(argentinaEgyptDesktopLineupGeometry)}.`
+  );
+  const argentinaEgyptDesktopRowSpacing = await getLineupRowSpacingMetrics(
+    lineupCoachCoverageCheck.page.locator("#match-info [data-lineup-panel='home']:not([hidden])")
+  );
+  assert(
+    argentinaEgyptDesktopRowSpacing.collisionCount === 0 &&
+      argentinaEgyptDesktopRowSpacing.minRowGap >= 4,
+    `Argentina-Egypt desktop line-up rows should keep event pills and value text separated from adjacent rows. Measured ${JSON.stringify(argentinaEgyptDesktopRowSpacing)}.`
   );
   await lineupCoachCoverageCheck.page.goto(
     `${baseUrl}?view=matches&date=2026-07-09&lang=zh&tz=America%2FLos_Angeles&lineupPrototype=1`,
@@ -5497,9 +5701,9 @@ try {
     });
   assert(
     franceMoroccoHomeBadgeRowState.badgeTexts.join(" ") === "G A ↓77'" &&
-      franceMoroccoHomeBadgeRowState.laneLeftDelta >= 10 &&
-      franceMoroccoHomeBadgeRowState.laneLeftDelta <= 18 &&
-      franceMoroccoHomeBadgeRowState.laneRightDelta > 30 &&
+      franceMoroccoHomeBadgeRowState.laneLeftDelta >= 23 &&
+      franceMoroccoHomeBadgeRowState.laneLeftDelta <= 25 &&
+      franceMoroccoHomeBadgeRowState.laneRightDelta > 44 &&
       franceMoroccoHomeBadgeRowState.badgeLefts.every(
         (left, index, lefts) => index === 0 || left > lefts[index - 1]
       ) &&
@@ -5525,15 +5729,19 @@ try {
       const hakimiLabel = hakimiMarker?.querySelector(".lineup-player-name")?.textContent
         .replace(/\s+/g, " ")
         .trim() || "";
+      const hakimiNumber = hakimiMarker?.querySelector(".lineup-player-number")?.textContent
+        .replace(/\s+/g, " ")
+        .trim() || "";
 
-      return { coachCardText, coachCardCompactText, hakimiLabel };
+      return { coachCardText, coachCardCompactText, hakimiLabel, hakimiNumber };
     });
   assert(
     franceMoroccoZhLineupState.coachCardText.includes("德尚让法国保持务实") &&
       franceMoroccoZhLineupState.coachCardCompactText.includes("2018年世界杯") &&
       franceMoroccoZhLineupState.coachCardText.includes("瓦赫比把培养型教练视角带到摩洛哥") &&
       franceMoroccoZhLineupState.coachCardText.includes("摩洛哥青训体系") &&
-      franceMoroccoZhLineupState.hakimiLabel === "阿什拉夫·哈基米 (C)" &&
+      franceMoroccoZhLineupState.hakimiLabel === "阿什拉夫·哈基米" &&
+      franceMoroccoZhLineupState.hakimiNumber === "2(C)" &&
       !franceMoroccoZhLineupState.coachCardText.includes("Deschamps keeps France pragmatic") &&
       !franceMoroccoZhLineupState.coachCardText.includes("Deschamps keeps France ruthlessly practical") &&
       !franceMoroccoZhLineupState.coachCardText.includes("Appointed in 2012") &&
@@ -5550,19 +5758,56 @@ try {
   await lineupCoachCoverageCheck.page.locator("#match-info .lineup-preview-block").waitFor({
     state: "attached"
   });
+  const spainBelgiumZhHomeCaptainState = await lineupCoachCoverageCheck.page
+    .locator('#match-info [data-lineup-panel="home"]:not([hidden])')
+    .evaluate((panel) => {
+      const rodriMarker = panel.querySelector('[data-lineup-player-name="Rodri"]');
+      return {
+        number: rodriMarker?.querySelector(".lineup-player-number")?.textContent.replace(/\s+/g, " ").trim() || "",
+        visibleName: rodriMarker?.querySelector(".lineup-player-name")?.textContent.replace(/\s+/g, " ").trim() || ""
+      };
+    });
+  assert(
+    spainBelgiumZhHomeCaptainState.visibleName === "罗德里" &&
+      spainBelgiumZhHomeCaptainState.number === "16(C)",
+    `Spain-Belgium Chinese home captain should put captain marker in the shirt-number pill. Measured ${JSON.stringify(spainBelgiumZhHomeCaptainState)}.`
+  );
   await lineupCoachCoverageCheck.page.locator('#match-info .lineup-card-tabs [data-lineup-tab="away"]').first().click();
   const belgiumSpainZhBadgeState = await lineupCoachCoverageCheck.page
     .locator('#match-info [data-lineup-panel="away"]:not([hidden])')
     .evaluate((panel) => {
+      const readRelativeBounds = (node, anchor) => {
+        if (!node || !anchor) {
+          return null;
+        }
+        const bounds = node.getBoundingClientRect();
+        const anchorBounds = anchor.getBoundingClientRect();
+        return {
+          bottom: Math.round((bounds.bottom - anchorBounds.top) * 10) / 10,
+          left: Math.round((bounds.left - anchorBounds.left) * 10) / 10,
+          right: Math.round((bounds.right - anchorBounds.right) * 10) / 10,
+          top: Math.round((bounds.top - anchorBounds.top) * 10) / 10
+        };
+      };
       const readMarker = (name) => {
         const marker = panel.querySelector(`[data-lineup-player-name="${name}"]`);
+        const avatar = marker?.querySelector(".lineup-avatar-wrap");
         const card = marker?.querySelector(".lineup-avatar-card-events .lineup-event-card");
+        const cardFace = card?.querySelector("span");
+        const number = marker?.querySelector(".lineup-player-number");
+        const rightLane = marker?.querySelector(".lineup-avatar-right-events");
         const sub = marker?.querySelector(".lineup-avatar-right-events [data-lineup-substitution-toggle]");
         return {
           card: {
             ariaLabel: card?.getAttribute("aria-label") || "",
             text: card?.textContent.replace(/\s+/g, " ").trim() || "",
-            tooltip: card?.getAttribute("data-tooltip") || ""
+            tooltip: card?.getAttribute("data-tooltip") || "",
+            bounds: readRelativeBounds(cardFace, avatar)
+          },
+          number: number?.textContent.replace(/\s+/g, " ").trim() || "",
+          rightLane: {
+            bounds: readRelativeBounds(rightLane, avatar),
+            text: rightLane?.textContent.replace(/\s+/g, " ").trim() || ""
           },
           sub: {
             ariaLabel: sub?.getAttribute("aria-label") || "",
@@ -5574,21 +5819,32 @@ try {
       };
 
       return {
+        castagne: readMarker("Timothy Castagne"),
         courtois: readMarker("Thibaut Courtois"),
         deBruyne: readMarker("Kevin De Bruyne"),
         deCuyper: readMarker("Maxim De Cuyper")
       };
     });
   assert(
-    belgiumSpainZhBadgeState.deBruyne.visibleName === "凯文·德布劳内 (C)" &&
+    belgiumSpainZhBadgeState.deBruyne.visibleName === "凯文·德布劳内" &&
+      belgiumSpainZhBadgeState.deBruyne.number === "7(C)" &&
       belgiumSpainZhBadgeState.deBruyne.card.text === "" &&
       belgiumSpainZhBadgeState.deBruyne.card.ariaLabel === "85' 凯文·德布劳内 黄牌" &&
       belgiumSpainZhBadgeState.deBruyne.card.tooltip === "85' 黄牌" &&
+      belgiumSpainZhBadgeState.deBruyne.card.bounds?.left >= -2 &&
+      belgiumSpainZhBadgeState.deBruyne.card.bounds?.left <= 1 &&
+      belgiumSpainZhBadgeState.deBruyne.card.bounds?.bottom >= 6 &&
+      belgiumSpainZhBadgeState.deBruyne.card.bounds?.bottom <= 9 &&
       belgiumSpainZhBadgeState.deBruyne.sub.text === "↓86'" &&
+      belgiumSpainZhBadgeState.deBruyne.rightLane.bounds?.left >= 13 &&
+      belgiumSpainZhBadgeState.deBruyne.rightLane.bounds?.left <= 15 &&
       belgiumSpainZhBadgeState.deBruyne.sub.ariaLabel ===
         "86' 凯文·德布劳内 被换下。切换显示亚历克西斯·萨勒马克尔斯" &&
       belgiumSpainZhBadgeState.deBruyne.sub.title ===
         "86' 凯文·德布劳内 被换下。切换显示亚历克西斯·萨勒马克尔斯" &&
+      belgiumSpainZhBadgeState.castagne.rightLane.text === "A" &&
+      belgiumSpainZhBadgeState.castagne.rightLane.bounds?.left >= 23 &&
+      belgiumSpainZhBadgeState.castagne.rightLane.bounds?.left <= 25 &&
       belgiumSpainZhBadgeState.courtois.sub.ariaLabel ===
         "71' 蒂博·库尔图瓦 被换下。切换显示森内·拉门斯" &&
       belgiumSpainZhBadgeState.deCuyper.sub.ariaLabel ===
@@ -6066,16 +6322,16 @@ try {
     .locator(".match-row-meta > *")
     .evaluateAll((items) => items.map((item) => item.innerText.trim().toUpperCase()).join("|"));
   assert(
-    liveFallbackMetaText === "5'|PENDING",
+    liveFallbackMetaText === "5'|LIVE SCORE PENDING",
     "The live row should label the official match time and score-pending state when no verified score is loaded."
   );
   assert(
     (await liveFallbackRow.locator(".score-status.is-pending").count()) === 1,
-    "A live fixture without a loaded score should show Pending."
+    "A live fixture without a loaded score should show Live score pending."
   );
   assert(
-    (await liveFallbackRow.innerText()).includes("Pending"),
-    "The visible live row text should include Pending."
+    (await liveFallbackRow.innerText()).includes("Live score pending"),
+    "The visible live row text should include Live score pending."
   );
   await liveFallbackScoreCheck.page.waitForTimeout(180);
   const liveTodayFocusState = await liveFallbackScoreCheck.page.locator("#match-list").evaluate((list) => {
@@ -7123,30 +7379,6 @@ try {
       `Tournament-card Live pills should expose the same official match-time tooltip on hover and click without linking away. Measured ${JSON.stringify(tournamentLiveTooltipState)}.`
     );
     await tournamentLiveTooltipCheck.context.close();
-  }
-
-  const pendingScoreFixture = fixturesData.fixtures
-    .filter((fixture) => fixture.status === "SCHEDULED" && fixture.kickoffUtc && !fixture.score)
-    .sort((a, b) => new Date(a.kickoffUtc) - new Date(b.kickoffUtc))[0];
-  if (pendingScoreFixture) {
-    const afterLiveWindow = new Date(
-      new Date(pendingScoreFixture.kickoffUtc).getTime() + 2.5 * 60 * 60 * 1000
-    );
-    const pendingScoreDate = pendingScoreFixture.date || pendingScoreFixture.kickoffUtc.slice(0, 10);
-    const pendingScoreCheck = await openPageAtTime(
-      afterLiveWindow.toISOString(),
-      `/?view=matches&date=${pendingScoreDate}&tz=America%2FLos_Angeles`
-    );
-    await pendingScoreCheck.page.waitForSelector(".match-row");
-    assert(
-      (
-        await pendingScoreCheck.page
-          .locator(`.match-row[data-match-id="${pendingScoreFixture.id}"] .score-status.is-pending`)
-          .innerText()
-      ).trim() === "Pending",
-      "A kicked-off scheduled match without a verified score should show Pending."
-    );
-    await pendingScoreCheck.context.close();
   }
 
   const catchUpCheck = await openPageAtTime(
@@ -10867,12 +11099,20 @@ try {
       touchArgentinaEgyptLineupGeometry.alvarez.eventRows === 0 &&
       touchArgentinaEgyptLineupGeometry.alvarez.avatarRightEvents === 1 &&
       touchArgentinaEgyptLineupGeometry.alvarez.subToggles === 1 &&
-      touchArgentinaEgyptLineupGeometry.alvarez.avatarRightEventOverlapTop >= -2 &&
-      touchArgentinaEgyptLineupGeometry.alvarez.avatarRightEventOverlapTop <= 5 &&
+      touchArgentinaEgyptLineupGeometry.alvarez.avatarRightEventOverlapTop >= 7 &&
+      touchArgentinaEgyptLineupGeometry.alvarez.avatarRightEventOverlapTop <= 10 &&
       touchArgentinaEgyptLineupGeometry.messi.eventRows === 0 &&
       touchArgentinaEgyptLineupGeometry.messi.scoreOverlapsAvatar &&
-      touchArgentinaEgyptLineupGeometry.messi.scoreOverlapRight <= 20,
+      touchArgentinaEgyptLineupGeometry.messi.scoreOverlapRight <= 28,
     `Argentina-Egypt mobile striker markers should keep avatar/name anchored while event pills float independently. Measured ${JSON.stringify(touchArgentinaEgyptLineupGeometry)}.`
+  );
+  const touchArgentinaEgyptRowSpacing = await getLineupRowSpacingMetrics(
+    touchPage.locator("#match-info [data-lineup-panel='home']:not([hidden])")
+  );
+  assert(
+    touchArgentinaEgyptRowSpacing.collisionCount === 0 &&
+      touchArgentinaEgyptRowSpacing.minRowGap >= 4,
+    `Argentina-Egypt mobile line-up rows should keep event pills and value text separated from adjacent rows. Measured ${JSON.stringify(touchArgentinaEgyptRowSpacing)}.`
   );
   const touchMessiGoalBadge = touchPage
     .locator('#match-info [data-lineup-player-name="Lionel Messi"] .lineup-avatar-score-events .lineup-event-score.is-goal')

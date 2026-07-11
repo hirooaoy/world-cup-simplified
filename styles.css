@@ -5260,6 +5260,11 @@ h1 {
   line-height: 1.38;
 }
 
+.player-card-tournament-stats {
+  color: rgba(10, 10, 10, 0.78);
+  font-weight: 700;
+}
+
 .player-card-value-help {
   position: relative;
   color: inherit;
@@ -6136,9 +6141,8 @@ body.is-lineup-event-tooltip-open .player-card-floating {
 }
 
 .lineup-event-score {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  display: inline-grid;
+  place-items: center;
   min-width: 14px;
   height: 14px;
   padding: 0 3px;
@@ -6150,8 +6154,29 @@ body.is-lineup-event-tooltip-open .player-card-floating {
   font-size: 7px;
   font-weight: 850;
   letter-spacing: 0;
+  line-height: 1;
   text-align: center;
   white-space: nowrap;
+}
+
+.lineup-event-score:not(.is-count) {
+  width: 14px;
+  min-width: 14px;
+  padding: 0;
+}
+
+.lineup-event-score-label {
+  display: block;
+  line-height: 1;
+  transform: translate(0, -0.65px);
+}
+
+.lineup-event-score.is-assist .lineup-event-score-label {
+  transform: translate(-0.35px, -0.85px);
+}
+
+.lineup-event-score.is-count .lineup-event-score-label {
+  transform: translateY(0.3px);
 }
 
 .lineup-event-score.is-count {
@@ -6249,7 +6274,7 @@ button.lineup-event-sub,
 
 .lineup-avatar-event-lane {
   position: absolute;
-  top: -15px;
+  top: -8px;
   display: inline-flex;
   align-items: center;
   gap: 2px;
@@ -6259,11 +6284,18 @@ button.lineup-event-sub,
 }
 
 .lineup-avatar-left-events {
-  left: -16px;
+  top: -6px;
+  left: -4px;
 }
 
 .lineup-avatar-right-events {
+  top: -6px;
   left: calc(100% - 20px);
+}
+
+.lineup-avatar-right-events:has(.lineup-avatar-score-events) {
+  top: -6px;
+  left: calc(100% - 10px);
 }
 
 .lineup-avatar-event-lane .lineup-event-list {
@@ -6357,7 +6389,7 @@ button.lineup-event-sub,
   --lineup-avatar-size: 34px;
   --lineup-marker-core-height: 60px;
   --lineup-marker-width: 68px;
-  --lineup-pitch-height: clamp(410px, 45vw, 500px);
+  --lineup-pitch-height: clamp(520px, 54vw, 680px);
   --lineup-pitch-top-trim: 0px;
   position: relative;
   height: var(--lineup-pitch-height);
@@ -6541,8 +6573,10 @@ button.lineup-event-sub,
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  box-sizing: border-box;
   min-width: 21px;
   height: 17px;
+  padding: 0 4px;
   border: 2px solid #fbfbfb;
   border-radius: 999px;
   background: #0a0a0a;
@@ -6550,6 +6584,7 @@ button.lineup-event-sub,
   font-size: 9px;
   font-weight: 700;
   line-height: 1;
+  white-space: nowrap;
 }
 
 .lineup-player-marker .player-link.lineup-player-name {
@@ -6596,7 +6631,7 @@ button.lineup-event-sub,
     --lineup-avatar-size: 38px;
     --lineup-marker-core-height: 66px;
     --lineup-marker-width: clamp(50px, 13.5vw, 58px);
-    --lineup-pitch-height: clamp(545px, 150vw, 660px);
+    --lineup-pitch-height: clamp(660px, 172vw, 800px);
   }
 
   .lineup-tab {
@@ -6673,7 +6708,7 @@ button.lineup-event-sub,
     --lineup-avatar-size: 35px;
     --lineup-marker-core-height: 63px;
     --lineup-marker-width: 50px;
-    --lineup-pitch-height: 545px;
+    --lineup-pitch-height: 660px;
     --lineup-pitch-top-trim: 0px;
   }
 
@@ -6713,6 +6748,29 @@ button.lineup-event-sub,
   font-size: 9px;
   vertical-align: 0.16em;
   transform: none;
+}
+
+.knockout-context-search-action {
+  display: inline;
+  margin-left: 6px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: rgba(10, 10, 10, 0.46);
+  cursor: pointer;
+  font: inherit;
+  letter-spacing: 0;
+  white-space: nowrap;
+}
+
+.knockout-context-search-action:hover {
+  color: rgba(10, 10, 10, 0.72);
+}
+
+.knockout-context-search-action:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+  border-radius: 4px;
 }
 
 .scorer-highlight {
