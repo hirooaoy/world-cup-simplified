@@ -27,6 +27,7 @@ const HISTORICAL_YOUTUBE_CACHE_SCHEMA_VERSION = 1;
 const HISTORICAL_YOUTUBE_MATCHER_VERSION = "2026-06-29-official-fifa-highlights-v5";
 const HISTORICAL_YOUTUBE_CHANNEL_ID = "UCpcTrCXblq78GZrTUTLWeBw";
 const HISTORICAL_YOUTUBE_SOURCE_NAME = "FIFA";
+const H2H_SOURCE_OPTIONAL = process.env.H2H_SOURCE_OPTIONAL === "1" || process.env.H2H_WARN_ONLY === "1";
 const HIGHLIGHT_VIDEO_REVIEW_STATUSES = new Set(["not-found", "needs-review"]);
 const LINEUP_FORMATION_NOTE_FORMATIONS = new Set([
   "3-4-1-2",
@@ -2478,10 +2479,18 @@ for (const fixture of fixturesData.fixtures || []) {
     `Fixture "${fixture.id}" has invalid h2h status`
   );
   if (hasConfirmedTeams) {
-    assert(
-      !["not-loaded", "research-pending"].includes(fixture.h2h.status),
-      `Confirmed fixture "${fixture.id}" must include loaded or verified-empty H2H; run pnpm sync:h2h or add verified senior results`
-    );
+    const hasPendingH2h = ["not-loaded", "research-pending"].includes(fixture.h2h.status);
+
+    if (hasPendingH2h && H2H_SOURCE_OPTIONAL) {
+      console.warn(
+        `Warning: Confirmed fixture "${fixture.id}" has pending H2H while H2H_SOURCE_OPTIONAL is enabled.`
+      );
+    } else {
+      assert(
+        !hasPendingH2h,
+        `Confirmed fixture "${fixture.id}" must include loaded or verified-empty H2H; run pnpm sync:h2h or add verified senior results`
+      );
+    }
   }
   if (fixture.h2h.sourceId) {
     assert(sourceIds.has(fixture.h2h.sourceId), `Fixture "${fixture.id}" h2h references unknown source`);

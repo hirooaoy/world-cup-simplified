@@ -29,6 +29,8 @@ const sourceId = `national-football-teams-h2h-sync-${checkedAt.slice(0, 10)}`;
 const fixtureTimeZone = "America/Los_Angeles";
 const shouldWrite = !process.argv.includes("--check");
 const overwrite = process.argv.includes("--overwrite");
+const warnOnly =
+  process.env.H2H_WARN_ONLY === "1" || process.env.H2H_SOURCE_OPTIONAL === "1" || process.argv.includes("--warn-only");
 const fixtureFilter = new Set(
   process.argv
     .filter((arg) => arg.startsWith("--fixture="))
@@ -117,9 +119,21 @@ function shouldSyncFixture(fixture, teamIds) {
 }
 
 async function fetchText(url) {
-  const response = await fetch(url);
+  let response;
+
+  try {
+    response = await fetch(url);
+  } catch (error) {
+    const detail = error.cause?.code ? `${error.message} (${error.cause.code})` : error.message;
+    const fetchError = new Error(`${url} fetch failed: ${detail}`);
+    fetchError.h2hFetchError = true;
+    throw fetchError;
+  }
+
   if (!response.ok) {
-    throw new Error(`${url} returned ${response.status} ${response.statusText}`);
+    const error = new Error(`${url} returned ${response.status} ${response.statusText}`);
+    error.h2hFetchError = true;
+    throw error;
   }
 
   return response.text();
@@ -438,6 +452,11 @@ async function main() {
 }
 
 main().catch((error) => {
+  if (warnOnly && error.h2hFetchError) {
+    console.warn(`Warning: H2H sync skipped because the source was unavailable: ${error.message}`);
+    return;
+  }
+
   console.error(`H2H sync failed: ${error.message}`);
   process.exit(1);
 });
