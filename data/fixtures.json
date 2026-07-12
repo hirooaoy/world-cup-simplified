@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-11T23:23:44.923Z",
+  "updatedAt": "2026-07-12T01:02:07.721Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -147,7 +147,8 @@
     "fifa-goal-events-sync-2026-07-10",
     "fifa-official-results-sync-2026-07-11",
     "fifa-goal-events-sync-2026-07-11",
-    "national-football-teams-h2h-sync-2026-07-11"
+    "national-football-teams-h2h-sync-2026-07-11",
+    "fifa-official-results-sync-2026-07-12"
   ],
   "coverage": {
     "status": "complete-schedule",
@@ -22088,7 +22089,7 @@
       "homeSlot": "Winner match 91",
       "awaySlot": "Winner match 92",
       "venue": "Miami Stadium",
-      "status": "LIVE",
+      "status": "FT",
       "h2h": {
         "status": "loaded",
         "sourceId": "national-football-teams-h2h-sync-2026-07-07",
@@ -22264,7 +22265,7 @@
       "homeSlot": "Winner match 95",
       "awaySlot": "Winner match 96",
       "venue": "Kansas City Stadium",
-      "status": "SCHEDULED",
+      "status": "LIVE",
       "homeTeamId": "ARG",
       "h2h": {
         "status": "loaded",
@@ -22396,6 +22397,10 @@
         "sourceId": "editorial-preview-2026-06-22",
         "home": "Argentina are the defending champions and still one of the most complete tournament teams, led by Lionel Messi, Julian Alvarez, and Enzo Fernandez. Against Switzerland, their Messi-Alvarez midfield breaks has to beat Switzerland's Xhaka-Embolo control-and-release. They want to press high through Alvarez, find Messi in space behind midfield, and let Enzo Fernandez change the angle of the attack. The risk is Switzerland can slow the game through Xhaka and use Embolo as the release valve.",
         "away": "Switzerland are a tournament-tested structure team who rarely look rushed when the match gets tense, led by Granit Xhaka, Manuel Akanji, and Breel Embolo. Against Argentina, their Xhaka-Embolo control-and-release has to beat Argentina's Messi-Alvarez midfield breaks. They want to let Xhaka dictate the first pass and find Embolo before the opponent can squeeze midfield. The risk is Argentina can turn one midfield win into Messi touches, Alvarez movement, and Enzo service."
+      },
+      "score": {
+        "home": 0,
+        "away": 0
       }
     },
     {
@@ -22721,7 +22726,8 @@
           "matchId": "400021540",
           "matchNumber": 102
         }
-      }
+      },
+      "homeTeamId": "ENG"
     },
     {
       "id": "match-103-bronze-final-2026-07-18",
