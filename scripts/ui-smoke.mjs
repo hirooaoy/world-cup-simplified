@@ -11195,6 +11195,81 @@ try {
     touchLineupEventTooltipClosed.openBadges === 0 && !touchLineupEventTooltipClosed.tooltipVisible,
     `On touch devices, scrolling away from an open line-up event tooltip should close it. Measured ${JSON.stringify(touchLineupEventTooltipClosed)}.`
   );
+  await touchPage.goto(`${baseUrl}?view=matches&date=2026-07-10&tz=America%2FLos_Angeles&lineupPrototype=1`, {
+    waitUntil: "load"
+  });
+  await touchPage.waitForSelector(".match-row");
+  await touchPage.locator('[data-match-id="match-98-quarter-final-2026-07-10"]').click();
+  await touchPage.locator('#match-info .lineup-tab-panel:not([hidden]) .lineup-card-tabs [data-lineup-tab="away"]').tap();
+  const touchBelgiumSubToggle = touchPage.locator(
+    '#match-info [data-lineup-panel="away"]:not([hidden]) [data-lineup-player-name="Maxim De Cuyper"] [data-lineup-substitution-toggle]'
+  );
+  await touchBelgiumSubToggle.scrollIntoViewIfNeeded();
+  await touchBelgiumSubToggle.tap();
+  await touchPage.waitForFunction(() =>
+    document.querySelector('#match-info [data-lineup-panel="away"]:not([hidden]) [data-lineup-player-name="Joaquin Seys"]')
+  );
+  const touchLineupSubstitutionState = await touchPage
+    .locator('#match-info [data-lineup-panel="away"]:not([hidden]) [data-lineup-player-name="Joaquin Seys"]')
+    .evaluate((marker) => {
+      const button = marker.querySelector("[data-lineup-substitution-toggle]");
+      const avatar = marker.querySelector(".lineup-avatar-wrap");
+      const lane = marker.querySelector(".lineup-avatar-right-events");
+      const buttonBounds = button?.getBoundingClientRect();
+      const avatarBounds = avatar?.getBoundingClientRect();
+      const y = buttonBounds ? buttonBounds.top + buttonBounds.height / 2 : 0;
+      const hitXs = buttonBounds
+        ? [
+            buttonBounds.left + 2,
+            buttonBounds.left + 6,
+            buttonBounds.left + 10,
+            buttonBounds.left + buttonBounds.width / 2,
+            buttonBounds.right - 2
+          ]
+        : [];
+      const visibleCards = [...document.querySelectorAll(".player-card")].filter((card) => {
+        const styles = getComputedStyle(card);
+        const bounds = card.getBoundingClientRect();
+        return styles.visibility !== "hidden" && Number(styles.opacity) > 0.05 && bounds.width > 0 && bounds.height > 0;
+      });
+
+      return {
+        ariaPressed: button?.getAttribute("aria-pressed") || "",
+        buttonText: button?.textContent.replace(/\s+/g, " ").trim() || "",
+        laneLeftDelta: lane && avatarBounds
+          ? Math.round((lane.getBoundingClientRect().left - avatarBounds.left) * 10) / 10
+          : null,
+        openPlayerHovers: document.querySelectorAll(".player-hover.is-card-open, .player-hover.is-card-portaled").length,
+        overlapWidth: buttonBounds && avatarBounds
+          ? Math.round(Math.max(0, Math.min(buttonBounds.right, avatarBounds.right) - Math.max(buttonBounds.left, avatarBounds.left)) * 10) / 10
+          : null,
+        topHitTags: hitXs.map((x) => {
+          const element = document.elementFromPoint(x, y);
+          return {
+            className: element?.className || "",
+            tagName: element?.tagName || "",
+            text: element?.textContent.replace(/\s+/g, " ").trim() || ""
+          };
+        }),
+        visibleCards: visibleCards.map((card) => card.querySelector(".player-card-name")?.textContent.trim() || ""),
+        markerName: marker.dataset.lineupPlayerName || "",
+        visibleName: marker.querySelector(".lineup-player-name")?.textContent.replace(/\s+/g, " ").trim() || ""
+      };
+    });
+  assert(
+    touchLineupSubstitutionState.markerName === "Joaquin Seys" &&
+      touchLineupSubstitutionState.buttonText === "↑60'" &&
+      touchLineupSubstitutionState.ariaPressed === "true" &&
+      touchLineupSubstitutionState.visibleCards.length === 0 &&
+      touchLineupSubstitutionState.openPlayerHovers === 0 &&
+      touchLineupSubstitutionState.overlapWidth <= 16 &&
+      touchLineupSubstitutionState.laneLeftDelta >= 20 &&
+      touchLineupSubstitutionState.topHitTags.every(
+        (hit) => hit.tagName === "BUTTON" && hit.className.includes("lineup-substitution-toggle")
+      ),
+    `On touch devices, tapping a line-up sub pill should swap the player without auto-opening the player card, and the return pill should stay above the portrait edge. Measured ${JSON.stringify(touchLineupSubstitutionState)}.`
+  );
+  await touchPage.waitForTimeout(350);
   const touchFormationPill = touchPage
     .locator("#match-info .lineup-tab-panel:not([hidden]) .lineup-formation-pill")
     .first();

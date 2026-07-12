@@ -1,6 +1,21 @@
 {
-  "updatedAt": "2026-07-11T21:24:03-07:00",
+  "updatedAt": "2026-07-12T08:54:21-07:00",
   "releases": [
+    {
+      "date": "2026-07-12",
+      "title": "Semifinal predicted line-ups and mobile touch polish",
+      "titleZh": "半决赛预测阵容与移动端触控优化",
+      "highlights": [
+        "France-Spain and England-Argentina now have regenerated predicted line-ups while they wait for official team sheets.",
+        "On mobile, tapping a substitution pill now swaps the player without accidentally opening the incoming player's card, and the return sub pill stays above the portrait edge.",
+        "Line-up boards are slightly shorter at desktop and large-mobile caps while preserving row spacing for long and Chinese labels."
+      ],
+      "highlightsZh": [
+        "法国对西班牙、英格兰对阿根廷现在已重新生成预测阵容，可在官方首发公布前显示。",
+        "移动端点按换人标签现在只会切换球员，不会误打开替补球员卡，返回换人标签也会保持在头像边缘上方。",
+        "阵容板在桌面端和较大移动端上限略微缩短，同时保留长文本和中文标签所需的行距。"
+      ]
+    },
     {
       "date": "2026-07-11",
       "title": "Quarterfinal recaps and highlights",

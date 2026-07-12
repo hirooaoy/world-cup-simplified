@@ -19744,15 +19744,7 @@ function animateLineupMarkerSwap(marker, nextMarkup) {
   }, 140);
 }
 
-function handleLineupSubstitutionToggleClick(event) {
-  const button = getEventTargetElement(event.target)?.closest("[data-lineup-substitution-toggle]") || null;
-  if (!(button instanceof HTMLElement)) {
-    return false;
-  }
-
-  event.preventDefault();
-  event.stopPropagation();
-
+function toggleLineupSubstitutionPreviewFromButton(button) {
   const side = button.dataset.lineupSide || "";
   const match = getFixtureById(button.dataset.lineupMatchId || "");
   const lineup = getLineupPreview(match);
@@ -19785,6 +19777,35 @@ function handleLineupSubstitutionToggleClick(event) {
   const nextMarkup = renderLineupPlayerMarker(starterPlayer, team, teamLineup, match, side);
   animateLineupMarkerSwap(marker, nextMarkup);
   return true;
+}
+
+function handleLineupSubstitutionToggleClick(event) {
+  const button = getEventTargetElement(event.target)?.closest("[data-lineup-substitution-toggle]") || null;
+  if (!(button instanceof HTMLElement)) {
+    return false;
+  }
+
+  event.preventDefault();
+  event.stopPropagation();
+
+  return toggleLineupSubstitutionPreviewFromButton(button);
+}
+
+function handleLineupSubstitutionTogglePointerDown(event) {
+  if (!isTouchTooltipPointerEvent(event)) {
+    return false;
+  }
+
+  const button = getEventTargetElement(event.target)?.closest("[data-lineup-substitution-toggle]") || null;
+  if (!(button instanceof HTMLElement)) {
+    return false;
+  }
+
+  event.preventDefault();
+  event.stopPropagation();
+  event.stopImmediatePropagation?.();
+  suppressPlayerCardClicksBriefly();
+  return toggleLineupSubstitutionPreviewFromButton(button);
 }
 
 function renderFinishedMatchResultBlock(match) {
@@ -21559,6 +21580,7 @@ function positionPlayerCards() {
 }
 
 let activePlayerHover = null;
+let suppressPlayerCardClickUntil = 0;
 let floatingLineupEventTooltip = null;
 let floatingLineupEventTooltipSource = null;
 let floatingLineupEventTooltipHideTimer = 0;
@@ -21715,6 +21737,14 @@ function clearTransientInteractionState() {
   hideFloatingLineupEventTooltip();
   clearActivePlayerHover();
   blurActiveTransientElement();
+}
+
+function suppressPlayerCardClicksBriefly(durationMs = 320) {
+  suppressPlayerCardClickUntil = Date.now() + durationMs;
+}
+
+function isPlayerCardClickSuppressed() {
+  return Date.now() < suppressPlayerCardClickUntil;
 }
 
 function openPlayerHoverCard(playerHover) {
@@ -27050,6 +27080,12 @@ function handlePlayerLinkClick(event) {
     return false;
   }
 
+  if (isPlayerCardClickSuppressed()) {
+    event.preventDefault();
+    event.stopPropagation();
+    return true;
+  }
+
   if (activePlayerHover !== playerHover) {
     event.preventDefault();
     openPlayerHoverCard(playerHover);
@@ -27289,6 +27325,7 @@ catchUpPopover.addEventListener("click", (event) => {
   handlePlayerLinkClick(event);
 });
 
+matchInfo.addEventListener("pointerdown", handleLineupSubstitutionTogglePointerDown, true);
 attachPlayerCardPositioning(matchInfo);
 attachPlayerCardPositioning(catchUpPopover);
 
