@@ -20,7 +20,7 @@ try {
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const matchId = "match-95-round-of-16-2026-07-07";
-const predictedMatchId = "match-100-quarter-final-2026-07-11";
+const predictedMatchId = "match-102-semi-final-2026-07-15";
 const checkedAt = "2026-07-07T17:36:51.017Z";
 const mimeTypes = new Map([
   [".css", "text/css; charset=utf-8"],
@@ -165,6 +165,36 @@ function buildLivePayload(fixturesData, standingsData, tournamentData, scenario)
       liveFixtures: 1,
       provider: "fifa"
     }
+  };
+}
+
+function buildExpectedLineupsPayload() {
+  const lineup = buildLiveLineups({ mode: "expected", substitutions: [] });
+
+  delete lineup.teamSheetSource;
+  delete lineup.eventSource;
+  lineup.sourceIds = ["lineup-rendering-smoke-expected"];
+
+  return {
+    schemaVersion: "2",
+    generatedAt: checkedAt,
+    sources: [
+      {
+        id: "lineup-rendering-smoke-expected",
+        label: "Lineup rendering smoke expected-lineup source",
+        type: "lineup-prediction-provider",
+        checkedAt
+      }
+    ],
+    fixtures: [
+      {
+        fixtureId: predictedMatchId,
+        mode: "expected",
+        sourceIds: ["lineup-rendering-smoke-expected"],
+        lastUpdated: checkedAt,
+        lineup
+      }
+    ]
   };
 }
 
@@ -407,6 +437,10 @@ try {
     const liveDataPromise = new Promise((resolve) => {
       liveDataServed = resolve;
     });
+    let expectedLineupsServed;
+    const expectedLineupsPromise = new Promise((resolve) => {
+      expectedLineupsServed = resolve;
+    });
     const context = await browser.newContext();
 
     await context.addInitScript(() => {
@@ -432,6 +466,14 @@ try {
         status: 200
       });
     });
+    await context.route("**/data/expected-lineups.json*", async (route) => {
+      expectedLineupsServed();
+      await route.fulfill({
+        body: JSON.stringify(buildExpectedLineupsPayload()),
+        contentType: "application/json",
+        status: 200
+      });
+    });
     await context.route("**/api/live-data*", async (route) => {
       liveDataServed();
       await route.fulfill({
@@ -451,11 +493,12 @@ try {
     });
 
     const page = await context.newPage();
-    await page.goto(`${baseUrl}/?view=matches&date=2026-07-11&tz=America%2FLos_Angeles`, {
+    await page.goto(`${baseUrl}/?view=matches&date=2026-07-15&tz=America%2FLos_Angeles`, {
       waitUntil: "load"
     });
     await page.waitForSelector(`[data-match-id="${predictedMatchId}"]`, { state: "attached" });
     await liveDataPromise;
+    await expectedLineupsPromise;
     await page.locator(`[data-match-id="${predictedMatchId}"] .match-row-trigger`).click();
     await page.waitForSelector("#match-info .lineup-preview-block", { state: "attached" });
 
