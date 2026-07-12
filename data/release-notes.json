@@ -1,6 +1,21 @@
 {
-  "updatedAt": "2026-07-11T14:13:13-07:00",
+  "updatedAt": "2026-07-11T21:24:03-07:00",
   "releases": [
+    {
+      "date": "2026-07-11",
+      "title": "Quarterfinal recaps and highlights",
+      "titleZh": "四分之一决赛回顾与集锦",
+      "highlights": [
+        "Norway-England now shows the 1-2 extra-time final with three researched recap bullets, Chinese recap copy, official goal events, and a verified FOX Sports YouTube highlight.",
+        "Argentina-Switzerland now shows the 3-1 extra-time final with three researched recap bullets, Chinese recap copy, official goal events, a verified FOX Sports YouTube highlight, and the resolved England semi-final path.",
+        "The stale Argentina-Switzerland expected lineup was cleared now that the final official lineup is available."
+      ],
+      "highlightsZh": [
+        "挪威对英格兰现在显示1比2加时完场，加入三段有来源的赛果回顾、中文回顾文案、官方进球事件和已验证的 FOX Sports YouTube 集锦。",
+        "阿根廷对瑞士现在显示3比1加时完场，加入三段有来源的赛果回顾、中文回顾文案、官方进球事件、已验证的 FOX Sports YouTube 集锦，并更新英格兰半决赛路径。",
+        "阿根廷对瑞士的最终官方阵容可用后，已清理过期的预计阵容。"
+      ]
+    },
     {
       "date": "2026-07-11",
       "title": "Player stats and line-up polish",

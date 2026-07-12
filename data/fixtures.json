@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-12T01:02:07.721Z",
+  "updatedAt": "2026-07-12T04:24:03.225Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -148,7 +148,15 @@
     "fifa-official-results-sync-2026-07-11",
     "fifa-goal-events-sync-2026-07-11",
     "national-football-teams-h2h-sync-2026-07-11",
-    "fifa-official-results-sync-2026-07-12"
+    "fifa-official-results-sync-2026-07-12",
+    "fifa-goal-events-sync-2026-07-12",
+    "fox-norway-england-live-blog-2026-07-11",
+    "ap-norway-england-result-2026-07-11",
+    "fox-youtube-norway-england-highlights-2026-07-11",
+    "ap-argentina-switzerland-result-2026-07-11",
+    "guardian-argentina-switzerland-live-reaction-2026-07-11",
+    "fox-youtube-argentina-switzerland-highlights-2026-07-11",
+    "11v11-england-argentina-h2h-2026-07-11"
   ],
   "coverage": {
     "status": "complete-schedule",
@@ -22254,7 +22262,35 @@
           "minute": 93,
           "name": "Jude Bellingham"
         }
-      ]
+      ],
+      "resultStoryBullets": [
+        "Schjelderup put Norway in front in the 36th minute, but Bellingham answered before halftime after England absorbed a tense opening half.",
+        "Norway had a second-half goal ruled out for Haaland's foul and later hit the crossbar, keeping the tie at 1-1 into extra time.",
+        "Bellingham struck again early in extra time to complete his brace, sending England through 2-1 to an Argentina semi-final."
+      ],
+      "resultStoryBulletsZh": [
+        "施耶尔德鲁普第36分钟让挪威领先，但裘德·贝林厄姆半场前扳平，英格兰撑过了紧张的上半场。",
+        "挪威下半场一粒进球因哈兰德犯规被判无效，随后还曾击中横梁，比赛以1比1进入加时。",
+        "裘德·贝林厄姆加时赛开局再度破门完成梅开二度，英格兰2比1晋级并将在半决赛对阵阿根廷。"
+      ],
+      "resultStoryResearch": {
+        "status": "researched",
+        "sourceIds": [
+          "fox-norway-england-live-blog-2026-07-11",
+          "ap-norway-england-result-2026-07-11",
+          "fox-youtube-norway-england-highlights-2026-07-11"
+        ],
+        "checkedAt": "2026-07-11T21:12:34-07:00",
+        "note": "FOX/AP plus official FOX Sports highlights checked for the opener, Bellingham brace, disallowed goal, crossbar chance, and semi-final path."
+      },
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=dVWBrxpPVuY",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-07-11T21:11:37-07:00",
+        "checkedAt": "2026-07-11T21:11:37-07:00"
+      }
     },
     {
       "id": "match-100-quarter-final-2026-07-11",
@@ -22265,7 +22301,7 @@
       "homeSlot": "Winner match 95",
       "awaySlot": "Winner match 96",
       "venue": "Kansas City Stadium",
-      "status": "LIVE",
+      "status": "FT",
       "homeTeamId": "ARG",
       "h2h": {
         "status": "loaded",
@@ -22399,8 +22435,60 @@
         "away": "Switzerland are a tournament-tested structure team who rarely look rushed when the match gets tense, led by Granit Xhaka, Manuel Akanji, and Breel Embolo. Against Argentina, their Xhaka-Embolo control-and-release has to beat Argentina's Messi-Alvarez midfield breaks. They want to let Xhaka dictate the first pass and find Embolo before the opponent can squeeze midfield. The risk is Argentina can turn one midfield win into Messi touches, Alvarez movement, and Enzo service."
       },
       "score": {
-        "home": 0,
-        "away": 0
+        "home": 3,
+        "away": 1
+      },
+      "goalsHome": [
+        {
+          "minute": 10,
+          "name": "Alexis Mac Allister",
+          "assistName": "Lionel Messi"
+        },
+        {
+          "minute": 112,
+          "name": "Julian Alvarez",
+          "assistName": "Jose Manuel Lopez"
+        },
+        {
+          "minute": 120,
+          "offset": 1,
+          "name": "Lautaro Martinez"
+        }
+      ],
+      "goalsAway": [
+        {
+          "minute": 67,
+          "name": "Dan Ndoye",
+          "assistName": "Ricardo Rodriguez"
+        }
+      ],
+      "resultStoryBullets": [
+        "Mac Allister headed in Messi's early corner, giving Argentina control before Switzerland dragged the quarter-final into a grind.",
+        "Ndoye pulled Switzerland level in the 67th minute, but Embolo's second yellow left them protecting 1-1 with ten men.",
+        "Alvarez curled Argentina back ahead in the 112th minute and Lautaro Martinez finished it late, setting up the England semi-final."
+      ],
+      "resultStoryBulletsZh": [
+        "麦卡利斯特开场阶段接梅西角球头球破门，阿根廷取得控制权，但瑞士随后把四分之一决赛拖进硬仗。",
+        "恩多耶第67分钟为瑞士扳平，不过恩博洛第二张黄牌离场，让瑞士只能十人守住1比1。",
+        "阿尔瓦雷斯第112分钟弧线球帮助阿根廷再度领先，劳塔罗·马丁内斯尾声锁定胜局，半决赛将对阵英格兰。"
+      ],
+      "resultStoryResearch": {
+        "status": "researched",
+        "sourceIds": [
+          "ap-argentina-switzerland-result-2026-07-11",
+          "guardian-argentina-switzerland-live-reaction-2026-07-11",
+          "fox-youtube-argentina-switzerland-highlights-2026-07-11"
+        ],
+        "checkedAt": "2026-07-11T21:12:34-07:00",
+        "note": "AP, Guardian, and official FOX Sports highlights reviewed for the opener, equalizer, Embolo dismissal, extra-time winner, and semi-final path."
+      },
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=FGhW41kIpgQ",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-07-11T21:24:01-07:00",
+        "checkedAt": "2026-07-11T21:24:01-07:00"
       }
     },
     {
@@ -22717,9 +22805,152 @@
       "venue": "Atlanta Stadium",
       "status": "SCHEDULED",
       "h2h": {
-        "status": "not-loaded",
-        "summary": "Teams are not known yet. Past match research will load after the matchup is set.",
-        "results": null
+        "status": "loaded",
+        "sourceId": "11v11-england-argentina-h2h-2026-07-11",
+        "summary": "Before this fixture, England had the edge in the verified senior series: 2 Argentina wins, 6 draws, 6 England wins, 36 total goals.",
+        "results": [
+          {
+            "date": "2005-11-12",
+            "competition": "Friendly",
+            "homeTeamId": "ARG",
+            "awayTeamId": "ENG",
+            "homeScore": 2,
+            "awayScore": 3,
+            "venue": "Stade de Geneve",
+            "sourceUrl": "https://www.11v11.com/teams/england/tab/opposingTeams/opposition/Argentina/"
+          },
+          {
+            "date": "2002-06-07",
+            "competition": "World Cup 2002 - Group F",
+            "homeTeamId": "ARG",
+            "awayTeamId": "ENG",
+            "homeScore": 0,
+            "awayScore": 1,
+            "venue": "Sapporo Dome",
+            "sourceUrl": "https://www.11v11.com/teams/england/tab/opposingTeams/opposition/Argentina/"
+          },
+          {
+            "date": "2000-02-23",
+            "competition": "Friendly",
+            "homeTeamId": "ENG",
+            "awayTeamId": "ARG",
+            "homeScore": 0,
+            "awayScore": 0,
+            "venue": "Wembley Stadium",
+            "sourceUrl": "https://www.11v11.com/teams/england/tab/opposingTeams/opposition/Argentina/"
+          },
+          {
+            "date": "1998-06-30",
+            "competition": "World Cup 1998 - Round of 16",
+            "homeTeamId": "ARG",
+            "awayTeamId": "ENG",
+            "homeScore": 2,
+            "awayScore": 2,
+            "venue": "Stade Geoffroy-Guichard",
+            "sourceUrl": "https://www.11v11.com/teams/england/tab/opposingTeams/opposition/Argentina/"
+          },
+          {
+            "date": "1991-05-25",
+            "competition": "Challenge Cup",
+            "homeTeamId": "ENG",
+            "awayTeamId": "ARG",
+            "homeScore": 2,
+            "awayScore": 2,
+            "venue": "Wembley Stadium",
+            "sourceUrl": "https://www.11v11.com/teams/england/tab/opposingTeams/opposition/Argentina/"
+          },
+          {
+            "date": "1986-06-22",
+            "competition": "World Cup 1986 - Quarter Finals",
+            "homeTeamId": "ARG",
+            "awayTeamId": "ENG",
+            "homeScore": 2,
+            "awayScore": 1,
+            "venue": "Azteca",
+            "sourceUrl": "https://www.11v11.com/teams/england/tab/opposingTeams/opposition/Argentina/"
+          },
+          {
+            "date": "1980-05-13",
+            "competition": "Friendly",
+            "homeTeamId": "ENG",
+            "awayTeamId": "ARG",
+            "homeScore": 3,
+            "awayScore": 1,
+            "venue": "Wembley Stadium",
+            "sourceUrl": "https://www.11v11.com/teams/england/tab/opposingTeams/opposition/Argentina/"
+          },
+          {
+            "date": "1977-06-12",
+            "competition": "Friendly",
+            "homeTeamId": "ARG",
+            "awayTeamId": "ENG",
+            "homeScore": 1,
+            "awayScore": 1,
+            "venue": "Boca Juniors",
+            "sourceUrl": "https://www.11v11.com/teams/england/tab/opposingTeams/opposition/Argentina/"
+          },
+          {
+            "date": "1974-05-22",
+            "competition": "Friendly",
+            "homeTeamId": "ENG",
+            "awayTeamId": "ARG",
+            "homeScore": 2,
+            "awayScore": 2,
+            "venue": "Wembley Stadium",
+            "sourceUrl": "https://www.11v11.com/teams/england/tab/opposingTeams/opposition/Argentina/"
+          },
+          {
+            "date": "1966-07-23",
+            "competition": "World Cup 1966 - Quarter Finals",
+            "homeTeamId": "ENG",
+            "awayTeamId": "ARG",
+            "homeScore": 1,
+            "awayScore": 0,
+            "venue": "Wembley Stadium",
+            "sourceUrl": "https://www.11v11.com/teams/england/tab/opposingTeams/opposition/Argentina/"
+          },
+          {
+            "date": "1964-06-06",
+            "competition": "Taca das Nacoes",
+            "homeTeamId": "ARG",
+            "awayTeamId": "ENG",
+            "homeScore": 1,
+            "awayScore": 0,
+            "venue": "Maracana",
+            "sourceUrl": "https://www.11v11.com/teams/england/tab/opposingTeams/opposition/Argentina/"
+          },
+          {
+            "date": "1962-06-02",
+            "competition": "World Cup 1962 - Group 4",
+            "homeTeamId": "ENG",
+            "awayTeamId": "ARG",
+            "homeScore": 3,
+            "awayScore": 1,
+            "venue": "El Teniente",
+            "sourceUrl": "https://www.11v11.com/teams/england/tab/opposingTeams/opposition/Argentina/"
+          },
+          {
+            "date": "1953-05-17",
+            "competition": "Friendly",
+            "homeTeamId": "ARG",
+            "awayTeamId": "ENG",
+            "homeScore": 0,
+            "awayScore": 0,
+            "venue": "River Plate",
+            "sourceUrl": "https://www.11v11.com/teams/england/tab/opposingTeams/opposition/Argentina/"
+          },
+          {
+            "date": "1951-05-09",
+            "competition": "Friendly",
+            "homeTeamId": "ENG",
+            "awayTeamId": "ARG",
+            "homeScore": 2,
+            "awayScore": 1,
+            "venue": "Wembley Stadium",
+            "sourceUrl": "https://www.11v11.com/teams/england/tab/opposingTeams/opposition/Argentina/"
+          }
+        ],
+        "sourceUrl": "https://www.11v11.com/teams/england/tab/opposingTeams/opposition/Argentina/"
       },
       "providerIds": {
         "fifa": {
@@ -22727,7 +22958,54 @@
           "matchNumber": 102
         }
       },
-      "homeTeamId": "ENG"
+      "homeTeamId": "ENG",
+      "awayTeamId": "ARG",
+      "projection": {
+        "sourceId": "ranking-projection-2026-06-17",
+        "method": "fifa-ranking-baseline",
+        "basis": "FIFA ranking strength with host-country adjustment",
+        "home": 24,
+        "draw": 29,
+        "away": 47
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-22",
+        "home": "England are one of the strongest teams in the tournament, built around power, speed, and danger near goal, led by Jude Bellingham, Harry Kane, and Declan Rice. Against Argentina, their Kane-Bellingham box entries has to beat Argentina's Messi-Alvarez midfield breaks. They want to turn Kane's dropping movements into Bellingham runs and fast cutbacks from wide areas. The risk is Argentina can turn one midfield win into Messi touches, Alvarez movement, and Enzo service.",
+        "away": "Argentina are the defending champions and still one of the most complete tournament teams, led by Lionel Messi, Julian Alvarez, and Enzo Fernandez. Against England, their Messi-Alvarez midfield breaks has to beat England's Kane-Bellingham box entries. They want to press high through Alvarez, find Messi in space behind midfield, and let Enzo Fernandez change the angle of the attack. The risk is England can attack quickly through Kane and Bellingham while Rice controls the counter."
+      },
+      "keyPlayers": {
+        "sourceId": "key-player-baseline-2026-06-22",
+        "method": "team-watchlist-baseline",
+        "basis": "Team-level key-player watchlist; replace with API/squad-sourced fixture notes when available",
+        "home": [
+          {
+            "name": "Jude Bellingham",
+            "note": "The connector between midfield and attack, dangerous because he arrives late rather than standing still as a No. 10."
+          },
+          {
+            "name": "Harry Kane",
+            "note": "England's captain and central finisher. His dropping movements can pull center-backs out of shape."
+          },
+          {
+            "name": "Declan Rice",
+            "note": "The balance piece in midfield, responsible for stopping counters before opponents can slow the game down."
+          }
+        ],
+        "away": [
+          {
+            "name": "Lionel Messi",
+            "note": "Argentina's central attacking reference, whose between-lines gravity can turn pressure into clean chances."
+          },
+          {
+            "name": "Julian Alvarez",
+            "note": "Argentina's pressing forward and flexible finisher, dangerous whether he starts moves or attacks the last line."
+          },
+          {
+            "name": "Enzo Fernandez",
+            "note": "The midfield passer who can change the angle of attacks and keep Argentina's control from going stale."
+          }
+        ]
+      }
     },
     {
       "id": "match-103-bronze-final-2026-07-18",

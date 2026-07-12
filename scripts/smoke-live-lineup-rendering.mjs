@@ -21,6 +21,7 @@ try {
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const matchId = "match-95-round-of-16-2026-07-07";
 const predictedMatchId = "match-102-semi-final-2026-07-15";
+const predictedMatchDate = "2026-07-15";
 const checkedAt = "2026-07-07T17:36:51.017Z";
 const mimeTypes = new Map([
   [".css", "text/css; charset=utf-8"],
@@ -198,6 +199,33 @@ function buildExpectedLineupsPayload() {
   };
 }
 
+function buildPredictedHeadingPayload(fixturesData, standingsData, tournamentData) {
+  const fixturesDataCopy = JSON.parse(JSON.stringify(fixturesData));
+  const fixture = fixturesDataCopy.fixtures.find((item) => item.id === predictedMatchId);
+  assert(fixture, `Missing fixture ${predictedMatchId} in data/fixtures.json`);
+
+  const expectedLineupRecord = buildExpectedLineupsPayload().fixtures[0];
+  fixture.status = "SCHEDULED";
+  fixture.lineups = {
+    ...expectedLineupRecord.lineup,
+    mode: expectedLineupRecord.mode,
+    sourceIds: expectedLineupRecord.sourceIds,
+    checkedAt: expectedLineupRecord.lastUpdated,
+    updatedAt: expectedLineupRecord.lastUpdated
+  };
+
+  return {
+    fixturesData: fixturesDataCopy,
+    standingsData,
+    tournamentData,
+    syncStatus: {
+      checkedAt,
+      ok: true,
+      provider: "lineup-rendering-smoke"
+    }
+  };
+}
+
 const server = createServer(async (request, response) => {
   const filePath = safePath(request.url || "/");
 
@@ -312,6 +340,13 @@ try {
     await context.route("**/data/lineups.json*", async (route) => {
       await route.fulfill({
         body: JSON.stringify({ lineups: {} }),
+        contentType: "application/json",
+        status: 200
+      });
+    });
+    await context.route("**/data/expected-lineups.json*", async (route) => {
+      await route.fulfill({
+        body: JSON.stringify(buildExpectedLineupsPayload()),
         contentType: "application/json",
         status: 200
       });
@@ -477,23 +512,14 @@ try {
     await context.route("**/api/live-data*", async (route) => {
       liveDataServed();
       await route.fulfill({
-        body: JSON.stringify({
-          fixturesData,
-          standingsData,
-          tournamentData,
-          syncStatus: {
-            checkedAt,
-            ok: true,
-            provider: "lineup-rendering-smoke"
-          }
-        }),
+        body: JSON.stringify(buildPredictedHeadingPayload(fixturesData, standingsData, tournamentData)),
         contentType: "application/json",
         status: 200
       });
     });
 
     const page = await context.newPage();
-    await page.goto(`${baseUrl}/?view=matches&date=2026-07-15&tz=America%2FLos_Angeles`, {
+    await page.goto(`${baseUrl}/?view=matches&date=${predictedMatchDate}&tz=America%2FLos_Angeles`, {
       waitUntil: "load"
     });
     await page.waitForSelector(`[data-match-id="${predictedMatchId}"]`, { state: "attached" });

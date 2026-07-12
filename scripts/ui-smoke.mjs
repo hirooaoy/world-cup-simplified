@@ -3292,6 +3292,10 @@ try {
     );
 
     return {
+      nextButtons: [...(nextSection?.querySelectorAll(".knockout-context-search-action") || [])].map((button) => ({
+        query: button.getAttribute("data-team-search-query") || "",
+        text: button.textContent.trim()
+      })),
       nextButtonCount: nextSection?.querySelectorAll(".knockout-context-search-action").length || 0,
       nextText: nextSection?.textContent.replace(/\s+/g, " ").trim() || "",
       previousButtons: [...(previousSection?.querySelectorAll(".knockout-context-search-action") || [])].map(
@@ -3308,9 +3312,11 @@ try {
       quarterFinalContextSearchActions.previousText.includes("England #4 beat Mexico #14 3-2 See all") &&
       quarterFinalContextSearchActions.previousButtons.map((button) => button.query).join("|") === "Norway|England" &&
       quarterFinalContextSearchActions.previousButtons.every((button) => button.text === "See all") &&
-      quarterFinalContextSearchActions.nextText.includes("Winner will face winner of Argentina #1 vs Switzerland #19") &&
-      quarterFinalContextSearchActions.nextButtonCount === 0,
-    `Quarter-final context should add See all to resolved previous winners and omit it from unresolved next matchups. Measured ${JSON.stringify(quarterFinalContextSearchActions)}.`
+      quarterFinalContextSearchActions.nextText.includes("Winner will face Argentina #1 who won 3-1 against Switzerland #19 See all") &&
+      quarterFinalContextSearchActions.nextButtonCount === 1 &&
+      quarterFinalContextSearchActions.nextButtons.map((button) => button.query).join("|") === "Argentina" &&
+      quarterFinalContextSearchActions.nextButtons.every((button) => button.text === "See all"),
+    `Quarter-final context should add See all to resolved previous winners and the resolved next-match winner. Measured ${JSON.stringify(quarterFinalContextSearchActions)}.`
   );
 
   await page.goto(`${baseUrl}?view=matches&date=2026-07-19&tz=America%2FLos_Angeles`, {
@@ -3327,10 +3333,11 @@ try {
       unresolvedFinalDetailText.includes("Winner match 101 vs Winner match 102") &&
       unresolvedFinalDetailText.includes("Predicted matchup; participants come from current knockout-path estimates.") &&
       unresolvedFinalDetailText.includes("Previous: Semi-finals") &&
-      unresolvedFinalDetailText.includes("is predicted.") &&
+      unresolvedFinalDetailText.includes("France #3 vs Spain #2 is scheduled.") &&
+      unresolvedFinalDetailText.includes("England #4 vs Argentina #1 is scheduled.") &&
       !unresolvedFinalDetailText.includes("Round path") &&
       !unresolvedFinalDetailText.includes("No next knockout match is loaded yet."),
-    "The Final detail should keep unresolved winner slots in the title, label semi-final sources as predicted, and omit a dead-end next-path block."
+    "The Final detail should keep unresolved winner slots in the title, label the resolved semi-final sources as scheduled, and omit a dead-end next-path block."
   );
 
   await page.goto(`${baseUrl}?view=matches&date=2026-07-18&tz=America%2FLos_Angeles`, {
@@ -3347,10 +3354,11 @@ try {
       unresolvedBronzeDetailText.includes("Runner-up match 101 vs Runner-up match 102") &&
       unresolvedBronzeDetailText.includes("Predicted matchup; participants come from current knockout-path estimates.") &&
       unresolvedBronzeDetailText.includes("Previous: Semi-finals") &&
-      unresolvedBronzeDetailText.includes("is predicted.") &&
+      unresolvedBronzeDetailText.includes("France #3 vs Spain #2 is scheduled.") &&
+      unresolvedBronzeDetailText.includes("England #4 vs Argentina #1 is scheduled.") &&
       !unresolvedBronzeDetailText.includes("Round path") &&
       !unresolvedBronzeDetailText.includes("No next knockout match is loaded yet."),
-    "The third-place detail should keep unresolved runner-up slots, label semi-final sources as predicted, and omit a dead-end next-path block."
+    "The third-place detail should keep unresolved runner-up slots, label the resolved semi-final sources as scheduled, and omit a dead-end next-path block."
   );
 
   const resolvedFinalCheck = await openPageAtTime(
@@ -8593,7 +8601,7 @@ try {
       m83TieTooltip: getOutcomeTooltip(83, "tie"),
       m86TieTooltip: getOutcomeTooltip(86, "tie"),
       m92TieTooltip: getOutcomeTooltip(92, "tie"),
-      m99TieTooltip: getOutcomeTooltip(99, "tie"),
+      m102TieTooltip: getOutcomeTooltip(102, "tie"),
       m88AwayTooltip: getOutcomeTooltip(88, "away"),
       m73PillCount: document.querySelectorAll('.progress-match[data-match-number="73"] .knockout-likelihood').length,
       m89PillCount: document.querySelectorAll('.progress-match[data-match-number="89"] .knockout-likelihood').length,
@@ -8998,12 +9006,12 @@ try {
       tournamentCheck.m89PillCount === 0 || tournamentCheck.m89Tooltips.includes("France have the shootout edge through Kylian Mbappé")
     ],
     ["m89TooltipsNoKeeper", !/goalkeeper|Olise|Risser/.test(tournamentCheck.m89Tooltips)],
-    ["m99TieTooltip", tournamentCheck.m99TieTooltip.includes("Everton goalkeeper Jordan Pickford")],
+    ["m102TieTooltip", tournamentCheck.m102TieTooltip.includes("Aston Villa goalkeeper Emiliano Martínez")],
     ["m83TieTooltip", !tournamentCheck.m83TieTooltip || tournamentCheck.m83TieTooltip.includes("Porto goalkeeper Diogo Costa")],
     ["m86TieTooltip", !tournamentCheck.m86TieTooltip || tournamentCheck.m86TieTooltip.includes("Aston Villa goalkeeper Emiliano Martínez")],
     [
       "m8xTieTooltipGoalkeeperCounts",
-      [tournamentCheck.m99TieTooltip, tournamentCheck.m83TieTooltip, tournamentCheck.m86TieTooltip].every(
+      [tournamentCheck.m102TieTooltip, tournamentCheck.m83TieTooltip, tournamentCheck.m86TieTooltip].every(
         (tooltip) =>
           !tooltip || (tooltip.match(/\bgoalkeeper\b/g) || []).length === 1
       )
@@ -9150,8 +9158,8 @@ try {
   assert(
     semiFinalStageLinkTarget.activeMatchNumber === "102" &&
       semiFinalStageLinkTarget.highlighted === true &&
-      semiFinalStageLinkTarget.tabIndex === "-1",
-    `Clicking a projected semi-final round label should focus and highlight its projected bracket card. Measured ${JSON.stringify(semiFinalStageLinkTarget)}.`
+      semiFinalStageLinkTarget.tabIndex === "0",
+    `Clicking a semi-final round label should focus and highlight its scheduled bracket card. Measured ${JSON.stringify(semiFinalStageLinkTarget)}.`
   );
 	  await page.goto(`${baseUrl}?view=standings&tz=America%2FLos_Angeles`, {
 	    waitUntil: "load"
@@ -11368,6 +11376,8 @@ try {
     const help = card?.querySelector(".player-card-value-help.is-touch-tooltip-open");
     const helpStyles = help ? getComputedStyle(help, "::after") : null;
     return {
+      cardOpen: Boolean(card?.classList.contains("is-visible") && cardStyles?.visibility !== "hidden"),
+      cardOpacity: cardStyles?.opacity || "",
       cardVisible: Boolean(
         card?.classList.contains("is-visible") &&
           cardStyles?.visibility !== "hidden" &&
@@ -11385,7 +11395,7 @@ try {
     };
   });
   assert(
-    touchPlayerValueHelpState.cardVisible &&
+    touchPlayerValueHelpState.cardOpen &&
       touchPlayerValueHelpState.floatingPointerEvents !== "none" &&
       touchPlayerValueHelpState.openPlayerCards === 1 &&
       touchPlayerValueHelpState.tooltipVisible &&

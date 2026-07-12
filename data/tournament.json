@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-12T01:02:07.721Z",
+  "updatedAt": "2026-07-12T04:24:03.225Z",
   "coverageNote": "The current seed dataset covers the full official fixture skeleton from June 11 through July 19. Rich previews, scores, live status and knockout participants are updated progressively.",
   "catchUp": [
     {
@@ -1368,6 +1368,14 @@
       "note": "98 FIFA team sheets checked across 98 completed and 0 live fixtures; lineups.json carries official starters, bench, cards, and substitutions for 98 fixtures; 2 changed on this pass."
     },
     {
+      "id": "fifa-goal-events-sync-2026-07-11",
+      "label": "FIFA official goal event timeline sync",
+      "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/match-schedule-fixtures-results-teams-stadiums",
+      "type": "official",
+      "checkedAt": "2026-07-11T23:23:44.923Z",
+      "note": "1 fixture goal-event update merged from 91 matched FIFA timelines."
+    },
+    {
       "id": "national-football-teams-h2h-sync-2026-07-11",
       "label": "National Football Teams H2H sync",
       "url": "https://www.national-football-teams.com",
@@ -1392,28 +1400,84 @@
       "note": "98 FIFA team sheets checked across 98 completed and 0 live fixtures; lineups.json carries official starters, bench, cards, and substitutions for 98 fixtures; 2 changed on this pass."
     },
     {
-      "id": "fifa-goal-events-sync-2026-07-11",
-      "label": "FIFA official goal event timeline sync",
-      "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/match-schedule-fixtures-results-teams-stadiums",
-      "type": "official",
-      "checkedAt": "2026-07-11T23:23:44.923Z",
-      "note": "1 fixture goal-event update merged from 91 matched FIFA timelines."
-    },
-    {
       "id": "fifa-official-results-sync-2026-07-12",
       "label": "FIFA official results sync",
       "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/match-schedule-fixtures-results-teams-stadiums",
       "type": "official",
-      "checkedAt": "2026-07-12T01:02:06.887Z",
-      "note": "3 fixture updates merged from 104 matched FIFA fixtures. 1 knockout participant slot resolved from official participants or completed results."
+      "checkedAt": "2026-07-12T04:10:56.535Z",
+      "note": "Two July 11 quarterfinal score and status updates merged from the official FIFA schedule."
+    },
+    {
+      "id": "fifa-goal-events-sync-2026-07-12",
+      "label": "FIFA official goal event timeline sync",
+      "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/match-schedule-fixtures-results-teams-stadiums",
+      "type": "official",
+      "checkedAt": "2026-07-12T04:14:32.767Z",
+      "note": "Goal-event timelines merged for the two July 11 quarterfinals."
+    },
+    {
+      "id": "fox-norway-england-live-blog-2026-07-11",
+      "label": "FOX Sports Norway vs England live blog",
+      "url": "https://www.foxsports.com/live-blog/soccer/norway-vs-england-live-updates-score-latest-world-cup-news-goals",
+      "type": "cross-check",
+      "checkedAt": "2026-07-11T21:12:34-07:00",
+      "note": "Reviewed for the final score and major match moments."
+    },
+    {
+      "id": "ap-norway-england-result-2026-07-11",
+      "label": "AP Norway vs England result report",
+      "url": "https://apnews.com/article/f246f138c3a8563cb5a0e3f4037e930a",
+      "type": "cross-check",
+      "checkedAt": "2026-07-11T21:12:34-07:00",
+      "note": "Reviewed for the final score, scorer context, and semifinal path."
+    },
+    {
+      "id": "fox-youtube-norway-england-highlights-2026-07-11",
+      "label": "FOX Sports Norway vs England YouTube highlights",
+      "url": "https://www.youtube.com/watch?v=dVWBrxpPVuY",
+      "type": "official",
+      "checkedAt": "2026-07-11T21:11:37-07:00",
+      "note": "Official FOX Sports YouTube highlight video verified."
+    },
+    {
+      "id": "ap-argentina-switzerland-result-2026-07-11",
+      "label": "AP Argentina vs Switzerland result report",
+      "url": "https://apnews.com/article/d47ccb4ac5b3af67eca1f82228155174",
+      "type": "cross-check",
+      "checkedAt": "2026-07-11T21:12:34-07:00",
+      "note": "Reviewed for the final score, scorer context, red-card context, and semifinal path."
+    },
+    {
+      "id": "guardian-argentina-switzerland-live-reaction-2026-07-11",
+      "label": "Guardian Argentina vs Switzerland live reaction",
+      "url": "https://www.theguardian.com/football/live/2026/jul/11/argentina-v-switzerland-world-cup-2026-quarter-final-live",
+      "type": "cross-check",
+      "checkedAt": "2026-07-11T21:12:34-07:00",
+      "note": "Reviewed for match chronology and extra-time context."
+    },
+    {
+      "id": "fox-youtube-argentina-switzerland-highlights-2026-07-11",
+      "label": "FOX Sports Argentina vs Switzerland YouTube highlights",
+      "url": "https://www.youtube.com/watch?v=FGhW41kIpgQ",
+      "type": "official",
+      "checkedAt": "2026-07-11T21:24:01-07:00",
+      "note": "Official FOX Sports YouTube highlight video verified."
+    },
+    {
+      "id": "11v11-england-argentina-h2h-2026-07-11",
+      "label": "11v11 England vs Argentina head-to-head",
+      "url": "https://www.11v11.com/teams/england/tab/opposingTeams/opposition/Argentina/",
+      "type": "cross-check",
+      "checkedAt": "2026-07-11T21:20:00-07:00",
+      "note": "Reviewed for the resolved England-Argentina semifinal head-to-head list."
     },
     {
       "id": "fifa-lineups-sync-2026-07-12",
       "label": "FIFA official final lineups sync",
       "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/match-schedule-fixtures-results-teams-stadiums",
       "type": "official",
-      "checkedAt": "2026-07-12T01:02:07.721Z",
-      "note": "99 FIFA team sheets checked across 99 completed and 0 live fixtures; lineups.json carries official starters, bench, cards, and substitutions for 99 fixtures; 3 changed on this pass."
+      "checkedAt": "2026-07-12T04:21:39.416Z",
+      "note": "100 FIFA team sheets checked across 100 completed and 0 live fixtures; lineups.json carries official starters, bench, cards, and substitutions for 100 fixtures; 4 changed on this pass."
     }
   ],
   "groups": [

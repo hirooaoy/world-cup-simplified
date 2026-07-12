@@ -672,6 +672,18 @@ const ZH_ADDITIONAL_EXACT_TRANSLATIONS = {
     "德凯特拉雷11分钟后接卡斯塔涅传球扳平，比利时在半场前把比赛拉回均势。",
   "Mikel Merino arrived in the 88th minute to settle it, sending Spain through 2-1 to the semi-finals.":
     "米克尔·梅里诺第88分钟完成制胜，西班牙2比1晋级半决赛。",
+  "Schjelderup put Norway in front in the 36th minute, but Bellingham answered before halftime after England absorbed a tense opening half.":
+    "施耶尔德鲁普第36分钟让挪威领先，但裘德·贝林厄姆半场前扳平，英格兰撑过了紧张的上半场。",
+  "Norway had a second-half goal ruled out for Haaland's foul and later hit the crossbar, keeping the tie at 1-1 into extra time.":
+    "挪威下半场一粒进球因哈兰德犯规被判无效，随后还曾击中横梁，比赛以1比1进入加时。",
+  "Bellingham struck again early in extra time to complete his brace, sending England through 2-1 to an Argentina semi-final.":
+    "裘德·贝林厄姆加时赛开局再度破门完成梅开二度，英格兰2比1晋级并将在半决赛对阵阿根廷。",
+  "Mac Allister headed in Messi's early corner, giving Argentina control before Switzerland dragged the quarter-final into a grind.":
+    "麦卡利斯特开场阶段接梅西角球头球破门，阿根廷取得控制权，但瑞士随后把四分之一决赛拖进硬仗。",
+  "Ndoye pulled Switzerland level in the 67th minute, but Embolo's second yellow left them protecting 1-1 with ten men.":
+    "恩多耶第67分钟为瑞士扳平，不过恩博洛第二张黄牌离场，让瑞士只能十人守住1比1。",
+  "Alvarez curled Argentina back ahead in the 112th minute and Lautaro Martinez finished it late, setting up the England semi-final.":
+    "阿尔瓦雷斯第112分钟弧线球帮助阿根廷再度领先，劳塔罗·马丁内斯尾声锁定胜局，半决赛将对阵英格兰。",
   "Yasser Ibrahim and Mostafa Ziko gave Egypt a 2-0 lead and pushed Argentina to the edge.":
     "亚塞尔·易卜拉欣和穆斯塔法·齐科帮助埃及取得2比0领先，把阿根廷逼到悬崖边。",
   "Athletic pressing with direct attacking bursts": "运动能力压迫和直接进攻爆发",

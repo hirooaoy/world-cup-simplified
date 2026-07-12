@@ -132,16 +132,16 @@ const franceMoroccoCalendar = calendarMatch({
   statusName: "Scheduled"
 });
 
-const norwayEnglandCalendar = calendarMatch({
-  idMatch: "400021539",
-  matchNumber: 99,
-  date: "2026-07-11T21:00:00Z",
-  homeTeam: "Norway",
-  homeAbbreviation: "NOR",
-  awayTeam: "England",
-  awayAbbreviation: "ENG",
-  statusCode: 1,
-  statusName: "Scheduled"
+const franceSpainCalendar = calendarMatch({
+  idMatch: "400021541",
+  matchNumber: 101,
+  date: "2026-07-14T19:00:00Z",
+  homeTeam: "France",
+  homeAbbreviation: "FRA",
+  awayTeam: "Spain",
+  awayAbbreviation: "ESP",
+  statusCode: 3,
+  statusName: "Live"
 });
 
 const livePayloads = new Map([
@@ -190,45 +190,45 @@ const livePayloads = new Map([
     })
   ],
   [
-    "400021539",
+    "400021541",
     liveFootballMatch({
-      base: norwayEnglandCalendar,
-      homeFormation: "4-2-3-1",
-      awayFormation: "4-3-3",
+      base: franceSpainCalendar,
+      homeFormation: "4-3-3",
+      awayFormation: "4-2-3-1",
       home: {
-        coach: "Stale Solbakken",
+        coach: "Didier Deschamps",
         players: [
-          player(41, "Orjan Nyland", 1, 0),
-          player(42, "Marcus Holmgren Pedersen", 22, 1),
-          player(43, "Leo Ostigard", 4, 1),
-          player(44, "Kristoffer Ajer", 3, 1),
-          player(45, "David Moller Wolfe", 5, 1),
-          player(46, "Sander Berge", 8, 2),
-          player(47, "Patrick Berg", 6, 2),
-          player(48, "Antonio Nusa", 20, 2),
-          player(49, "Martin Odegaard", 10, 2),
-          player(50, "Oscar Bobb", 7, 3),
-          player(51, "Erling Haaland", 9, 3),
-          player(52, "Egil Selvik", 12, 0, 2),
-          player(53, "Alexander Sorloth", 11, 3, 2)
+          player(41, "Mike Maignan", 16, 0),
+          player(42, "Jules Kounde", 5, 1),
+          player(43, "William Saliba", 17, 1),
+          player(44, "Dayot Upamecano", 4, 1),
+          player(45, "Theo Hernandez", 22, 1),
+          player(46, "Aurelien Tchouameni", 8, 2),
+          player(47, "Eduardo Camavinga", 6, 2),
+          player(48, "Antoine Griezmann", 7, 2),
+          player(49, "Ousmane Dembele", 11, 3),
+          player(50, "Kylian Mbappe", 10, 3),
+          player(51, "Marcus Thuram", 9, 3),
+          player(52, "Brice Samba", 23, 0, 2),
+          player(53, "Bradley Barcola", 20, 3, 2)
         ]
       },
       away: {
-        coach: "Thomas Tuchel",
+        coach: "Luis de la Fuente",
         players: [
-          player(61, "Jordan Pickford", 1, 0),
-          player(62, "Kyle Walker", 2, 1),
-          player(63, "John Stones", 5, 1),
-          player(64, "Marc Guehi", 6, 1),
-          player(65, "Ben Chilwell", 3, 1),
-          player(66, "Declan Rice", 4, 2),
-          player(67, "Jude Bellingham", 10, 2),
-          player(68, "Phil Foden", 11, 2),
-          player(69, "Bukayo Saka", 7, 3),
-          player(70, "Harry Kane", 9, 3),
-          player(71, "Anthony Gordon", 18, 3),
-          player(72, "Aaron Ramsdale", 13, 0, 2),
-          player(73, "Ollie Watkins", 19, 3, 2)
+          player(61, "Unai Simon", 23, 0),
+          player(62, "Dani Carvajal", 2, 1),
+          player(63, "Robin Le Normand", 3, 1),
+          player(64, "Aymeric Laporte", 14, 1),
+          player(65, "Marc Cucurella", 24, 1),
+          player(66, "Rodri", 16, 2),
+          player(67, "Fabian Ruiz", 8, 2),
+          player(68, "Dani Olmo", 10, 2),
+          player(69, "Lamine Yamal", 19, 3),
+          player(70, "Mikel Oyarzabal", 21, 3),
+          player(71, "Nico Williams", 17, 3),
+          player(72, "David Raya", 1, 0, 2),
+          player(73, "Ferran Torres", 11, 3, 2)
         ]
       }
     })
@@ -255,7 +255,7 @@ globalThis.fetch = async (url) => {
   if (href.includes("/api/v3/calendar/matches")) {
     fetchHits.calendar += 1;
     return jsonResponse({
-      Results: [argentinaEgyptCalendar, switzerlandColombiaCalendar, franceMoroccoCalendar, norwayEnglandCalendar]
+      Results: [argentinaEgyptCalendar, switzerlandColombiaCalendar, franceMoroccoCalendar, franceSpainCalendar]
     });
   }
 
@@ -288,17 +288,17 @@ try {
 
   const payload = JSON.parse(chunks.join(""));
   const byId = new Map((payload.fixturesData?.fixtures || []).map((fixture) => [fixture.id, fixture]));
-  const confirmedFixture = byId.get("match-99-quarter-final-2026-07-11");
+  const liveFixture = byId.get("match-101-semi-final-2026-07-14");
   const newlyCompletedFixture = byId.get("match-97-quarter-final-2026-07-09");
   const completedStaticFixture = byId.get("match-95-round-of-16-2026-07-07");
 
-  assert(["confirmed", "live", "final"].includes(confirmedFixture?.lineups?.mode));
-  assert.equal(confirmedFixture.lineups.teamSheetSource, "fifa-official");
-  assert.equal(confirmedFixture.lineups.layoutSource, "derived-team-sheet-order");
-  assert.equal(confirmedFixture.lineups.layoutVerification?.status, "unverified");
-  assert.equal(confirmedFixture.lineups.layoutVerification?.exact, false);
-  assert.equal(confirmedFixture.lineups.home.players.length, 11);
-  assert.equal(confirmedFixture.lineups.away.players.length, 11);
+  assert.equal(liveFixture?.lineups?.mode, "live");
+  assert.equal(liveFixture.lineups.teamSheetSource, "fifa-official");
+  assert.equal(liveFixture.lineups.layoutSource, "derived-team-sheet-order");
+  assert.equal(liveFixture.lineups.layoutVerification?.status, "unverified");
+  assert.equal(liveFixture.lineups.layoutVerification?.exact, false);
+  assert.equal(liveFixture.lineups.home.players.length, 11);
+  assert.equal(liveFixture.lineups.away.players.length, 11);
 
   assert.equal(newlyCompletedFixture?.lineups?.mode, "final");
   assert.equal(newlyCompletedFixture.lineups.teamSheetSource, "fifa-official");
@@ -318,13 +318,10 @@ try {
   assert.equal(fetchHits.liveFootball.get("400021535") || 0, 0);
   assert.equal(fetchHits.liveFootball.get("400021536") || 0, 0);
   assert.equal(fetchHits.liveFootball.get("400021538") || 0, 0);
-  const norwayEnglandLineupFetches = fetchHits.liveFootball.get("400021539") || 0;
-  assert(
-    norwayEnglandLineupFetches === 0 || norwayEnglandLineupFetches === 1,
-    `Expected 0 or 1 Norway-England lineup fetches, got ${norwayEnglandLineupFetches}`
-  );
-  assert.equal(payload.syncStatus.lineupFixtures, norwayEnglandLineupFetches);
-  assert.equal(payload.syncStatus.lineupUpdates, norwayEnglandLineupFetches);
+  assert.equal(fetchHits.liveFootball.get("400021539") || 0, 0);
+  assert.equal(fetchHits.liveFootball.get("400021541"), 1);
+  assert.equal(payload.syncStatus.lineupFixtures, 1);
+  assert.equal(payload.syncStatus.lineupUpdates, 1);
   assert(payload.syncStatus.staticLineupFixtures >= 1);
   assert(payload.syncStatus.staticLineupUpdates >= 1);
 
