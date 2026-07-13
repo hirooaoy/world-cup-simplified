@@ -1,17 +1,19 @@
 {
-  "updatedAt": "2026-07-13T12:42:12-07:00",
+  "updatedAt": "2026-07-13T12:51:31-07:00",
   "releases": [
     {
       "date": "2026-07-13",
-      "title": "Ball Boy chat, Golden Boot stories, and lineup polish",
-      "titleZh": "Ball Boy 聊天、金靴奖动态与阵容优化",
+      "title": "Ball Boy chat, Clarity tracking, and tournament polish",
+      "titleZh": "Ball Boy 聊天、Clarity 追踪与赛事优化",
       "highlights": [
         "Ball Boy now adds a free in-app chat bubble for players, countries, matches, and rules, with neutral factual football answers and playful small talk kept separate.",
+        "Microsoft Clarity now loads once on the main app and report page alongside unchanged Vercel Web Analytics, with the CSP opened only for official Clarity script, collect, and image endpoints.",
         "When yesterday and today have no live or finished match notes during the tournament, Catch Up now shows one sourced Golden Boot race story, then keeps a confirmed post-final tournament wrap.",
         "Line-up boards are shorter with safer mobile substitution taps, and knockout See all links now stay attached to wrapped score text while browser back clears the search state."
       ],
       "highlightsZh": [
         "Ball Boy 现在加入免费的站内聊天气泡，可回答球员、国家队、比赛和规则问题；足球事实回答保持中立，玩笑式闲聊则单独处理。",
+        "Microsoft Clarity 现在会与保留不变的 Vercel Web Analytics 一起，在主应用和反馈页各加载一次；CSP 只为官方 Clarity 脚本、收集和图片端点放行。",
         "赛事期间，如果昨天和今天没有进行中或已结束的比赛速览，Catch Up 现在会显示一条有来源的金靴奖竞争动态，并在决赛后保留已确认的赛事总结。",
         "阵容板现在更短，移动端换人点按更安全；淘汰赛的“查看全部”链接会跟随换行后的比分文字，浏览器返回也会清空搜索状态。"
       ]
