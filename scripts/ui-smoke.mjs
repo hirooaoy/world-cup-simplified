@@ -103,7 +103,7 @@ async function getLineupRowSpacingMetrics(lineupRootLocator) {
 
       markers.forEach((marker) => {
         const row = rows[rows.length - 1];
-        if (row && Math.abs(row.y - marker.y) <= 0.5) {
+        if (row && Math.abs(row.y - marker.y) <= 1) {
           row.bottom = Math.max(row.bottom, marker.bottom);
           row.names.push(marker.name);
           row.top = Math.min(row.top, marker.top);
@@ -146,11 +146,20 @@ async function getLineupRowSpacingMetrics(lineupRootLocator) {
     };
     const panelMetrics = panels.map(collectPanelRows);
     const rowGaps = panelMetrics.flatMap((panel) => panel.rowGaps.map((gap) => gap.gap));
+    const pitchBounds = root.querySelector(".lineup-pitch")?.getBoundingClientRect();
+    const contentRows = panelMetrics.flatMap((panel) => panel.rows);
 
     return {
+      bottomClearance: pitchBounds && contentRows.length
+        ? round(pitchBounds.bottom - Math.max(...contentRows.map((row) => row.bottom)))
+        : null,
       collisionCount: rowGaps.filter((gap) => gap < 0).length,
       minRowGap: rowGaps.length ? Math.min(...rowGaps) : null,
-      panels: panelMetrics
+      panels: panelMetrics,
+      pitchHeight: round(pitchBounds?.height || 0),
+      topClearance: pitchBounds && contentRows.length
+        ? round(Math.min(...contentRows.map((row) => row.top)) - pitchBounds.top)
+        : null
     };
   });
 }
@@ -1802,6 +1811,18 @@ async function openPageAtTime(
     });
   }
 
+  if (options.tournamentTransform) {
+    const patchedTournamentData = JSON.parse(JSON.stringify(tournamentData));
+    options.tournamentTransform(patchedTournamentData);
+    await context.route("**/data/tournament.json*", async (route) => {
+      await route.fulfill({
+        body: JSON.stringify(patchedTournamentData),
+        contentType: "application/json",
+        status: 200
+      });
+    });
+  }
+
   const mockedPage = await context.newPage();
   await mockedPage.goto(`${baseUrl}${path}`, { waitUntil: "load" });
   await mockedPage.waitForSelector(
@@ -3233,6 +3254,23 @@ try {
       (await page.locator(".team-search-summary h2").innerText()).trim() === "Brazil",
     "Clicking a next-path See all action should open the same country search as typing the winner name."
   );
+  await page.goBack();
+  await page.waitForFunction(
+    () =>
+      !new URL(location.href).searchParams.has("team") &&
+      document.querySelector("#team-search-input")?.value === "" &&
+      !document.querySelector("#team-search")?.classList.contains("has-value")
+  );
+  assert(
+    (await page.locator("#team-search-input").inputValue()) === "",
+    "Browser Back after a See all country search should clear the visible search value."
+  );
+  await page.goForward();
+  await page.waitForFunction(
+    () =>
+      new URL(location.href).searchParams.get("team") === "Brazil" &&
+      document.querySelector("#team-search-input")?.value === "Brazil"
+  );
 
   await page.goto(`${baseUrl}?view=matches&date=2026-07-07&tz=America%2FLos_Angeles`, {
     waitUntil: "load"
@@ -3318,6 +3356,37 @@ try {
       quarterFinalContextSearchActions.nextButtons.every((button) => button.text === "See all"),
     `Quarter-final context should add See all to resolved previous winners and the resolved next-match winner. Measured ${JSON.stringify(quarterFinalContextSearchActions)}.`
   );
+
+  await page.setViewportSize({ width: 1142, height: 720 });
+  await page.locator('[data-match-id="match-100-quarter-final-2026-07-11"]').click();
+  const wrappedPenaltySearchActionLayout = await page
+    .locator("#match-info .knockout-context-list li")
+    .nth(1)
+    .evaluate((row) => {
+      const tail = row.querySelector(".knockout-context-search-tail");
+      const action = tail?.querySelector(".knockout-context-search-action");
+      const tailRect = tail?.getBoundingClientRect();
+      const actionRect = action?.getBoundingClientRect();
+
+      return {
+        actionFollowsTail: Boolean(tailRect && actionRect && actionRect.left > tailRect.left),
+        actionTopDelta: tailRect && actionRect ? Math.abs(actionRect.top - tailRect.top) : null,
+        documentScrollOverflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
+        rowScrollOverflow: row.scrollWidth - row.clientWidth,
+        tailRectCount: tail?.getClientRects().length || 0,
+        tailText: tail?.textContent.replace(/\s+/g, " ").trim() || ""
+      };
+    });
+  assert(
+    wrappedPenaltySearchActionLayout.tailText === "(4-3 pens) See all" &&
+      wrappedPenaltySearchActionLayout.tailRectCount === 1 &&
+      wrappedPenaltySearchActionLayout.actionFollowsTail &&
+      wrappedPenaltySearchActionLayout.actionTopDelta <= 2 &&
+      wrappedPenaltySearchActionLayout.rowScrollOverflow <= 1 &&
+      wrappedPenaltySearchActionLayout.documentScrollOverflow <= 1,
+    `A wrapped penalty result should keep its final score fragment and See all action together without overflow. Measured ${JSON.stringify(wrappedPenaltySearchActionLayout)}.`
+  );
+  await page.setViewportSize({ width: 1280, height: 720 });
 
   await page.goto(`${baseUrl}?view=matches&date=2026-07-19&tz=America%2FLos_Angeles`, {
     waitUntil: "load"
@@ -5671,10 +5740,28 @@ try {
     lineupCoachCoverageCheck.page.locator("#match-info [data-lineup-panel='home']:not([hidden])")
   );
   assert(
-    argentinaEgyptDesktopRowSpacing.collisionCount === 0 &&
+    argentinaEgyptDesktopRowSpacing.topClearance >= 0 &&
+      argentinaEgyptDesktopRowSpacing.bottomClearance >= 0 &&
+      argentinaEgyptDesktopRowSpacing.pitchHeight >= 550 &&
+      argentinaEgyptDesktopRowSpacing.pitchHeight <= 585 &&
+      argentinaEgyptDesktopRowSpacing.collisionCount === 0 &&
       argentinaEgyptDesktopRowSpacing.minRowGap >= 4,
     `Argentina-Egypt desktop line-up rows should keep event pills and value text separated from adjacent rows. Measured ${JSON.stringify(argentinaEgyptDesktopRowSpacing)}.`
   );
+  await lineupCoachCoverageCheck.page.setViewportSize({ width: 1000, height: 720 });
+  const argentinaEgyptCompactDesktopRowSpacing = await getLineupRowSpacingMetrics(
+    lineupCoachCoverageCheck.page.locator("#match-info [data-lineup-panel='home']:not([hidden])")
+  );
+  assert(
+    argentinaEgyptCompactDesktopRowSpacing.topClearance >= 0 &&
+      argentinaEgyptCompactDesktopRowSpacing.bottomClearance >= 0 &&
+      argentinaEgyptCompactDesktopRowSpacing.pitchHeight >= 549 &&
+      argentinaEgyptCompactDesktopRowSpacing.pitchHeight <= 551 &&
+      argentinaEgyptCompactDesktopRowSpacing.collisionCount === 0 &&
+      argentinaEgyptCompactDesktopRowSpacing.minRowGap >= 4,
+    `Argentina-Egypt compact desktop line-up rows should stay clear at the minimum pitch height. Measured ${JSON.stringify(argentinaEgyptCompactDesktopRowSpacing)}.`
+  );
+  await lineupCoachCoverageCheck.page.setViewportSize({ width: 1280, height: 720 });
   await lineupCoachCoverageCheck.page.goto(
     `${baseUrl}?view=matches&date=2026-07-09&lang=zh&tz=America%2FLos_Angeles&lineupPrototype=1`,
     { waitUntil: "load" }
@@ -7655,6 +7742,137 @@ try {
     "Tournament-level localized catch-up objects should render Chinese subtitles from data."
   );
   await tournamentCatchUpCheck.context.close();
+
+  const quietDayCatchUpCheck = await openPageAtTime(
+    "2026-07-13T19:00:00.000Z",
+    "/?view=matches&date=2026-07-13&tz=America%2FLos_Angeles"
+  );
+  await openCatchUp(quietDayCatchUpCheck.page);
+  const quietDayCatchUpItem = await quietDayCatchUpCheck.page.locator(".catch-up-item").evaluate((item) => {
+    const visibleText = (node) => {
+      const clone = node?.cloneNode(true);
+      clone?.querySelectorAll(".player-card").forEach((card) => card.remove());
+      return clone?.textContent.replace(/\s+/g, " ").trim() || "";
+    };
+
+    return {
+      count: document.querySelectorAll(".catch-up-item").length,
+      headline: visibleText(item.querySelector(".catch-up-title-row h3 > span")),
+      sourceHref: item.querySelector(".catch-up-source")?.getAttribute("href") || "",
+      subtitle: visibleText(item.querySelector(".catch-up-subtitle"))
+    };
+  });
+  assert(
+    quietDayCatchUpItem.count === 1 &&
+      quietDayCatchUpItem.headline ===
+        "Kylian Mbappe and Lionel Messi are level at the top of the Golden Boot race" &&
+      quietDayCatchUpItem.subtitle.includes("Kylian Mbappe and Lionel Messi have 8 goals each") &&
+      quietDayCatchUpItem.subtitle.includes("Erling Haaland is next on 7") &&
+      quietDayCatchUpItem.subtitle.includes("Harry Kane and Jude Bellingham on 6") &&
+      quietDayCatchUpItem.sourceHref.includes("fifa.com"),
+    `A tournament rest day should replace the empty state with one sourced Golden Boot story. Measured ${JSON.stringify(quietDayCatchUpItem)}.`
+  );
+  await quietDayCatchUpCheck.page.locator("#settings-button").click();
+  await quietDayCatchUpCheck.page.locator('[data-language="zh"]').click();
+  await openCatchUp(quietDayCatchUpCheck.page);
+  const quietDayChineseText = await quietDayCatchUpCheck.page.locator("#catch-up-popover").evaluate((popover) => {
+    const clone = popover.cloneNode(true);
+    clone.querySelectorAll(".player-card").forEach((card) => card.remove());
+    return clone.textContent.replace(/\s+/g, " ").trim();
+  });
+  assert(
+    quietDayChineseText.includes("基利安·姆巴佩和利昂内尔·梅西并列领跑金靴奖竞争") &&
+      quietDayChineseText.includes("同为8球") &&
+      quietDayChineseText.includes("埃尔林·哈兰德以7球紧随其后") &&
+      quietDayChineseText.includes("哈里·凯恩和裘德·贝林厄姆同为6球") &&
+      !/Golden Boot|goals|next on/i.test(quietDayChineseText),
+    `The generated rest-day Golden Boot story should be fully bilingual. Measured ${quietDayChineseText}.`
+  );
+  await quietDayCatchUpCheck.context.close();
+
+  const completeMockTournamentFixtures = (data) => {
+    const resultsByMatchNumber = new Map([
+      [101, { homeTeamId: "FRA", awayTeamId: "ESP", score: { home: 2, away: 1 }, goalsHome: [{ name: "Kylian Mbappe", minute: 31 }, { name: "Ousmane Dembele", minute: 74 }], goalsAway: [{ name: "Mikel Oyarzabal", minute: 58 }] }],
+      [102, { homeTeamId: "ENG", awayTeamId: "ARG", score: { home: 1, away: 2 }, goalsHome: [{ name: "Harry Kane", minute: 44 }], goalsAway: [{ name: "Lionel Messi", minute: 18 }, { name: "Lionel Messi", minute: 82 }] }],
+      [103, { homeTeamId: "ESP", awayTeamId: "ENG", score: { home: 1, away: 0 }, goalsHome: [{ name: "Mikel Oyarzabal", minute: 67 }], goalsAway: [] }],
+      [104, { homeTeamId: "FRA", awayTeamId: "ARG", score: { home: 1, away: 0 }, goalsHome: [{ name: "Kylian Mbappe", minute: 63 }], goalsAway: [] }]
+    ]);
+
+    for (const fixture of data.fixtures || []) {
+      const result = resultsByMatchNumber.get(Number(fixture.matchNumber));
+      if (!result) {
+        continue;
+      }
+      Object.assign(fixture, result, { status: "FT" });
+    }
+  };
+  const confirmMockGoldenBootAward = (data) => {
+    data.awards = {
+      ...(data.awards || {}),
+      goldenBoot: {
+        assists: 4,
+        goals: 10,
+        playerName: "Kylian Mbappe",
+        sourceId: "fifa-official-results-sync-2026-07-12",
+        status: "confirmed"
+      }
+    };
+  };
+
+  const finalDayCatchUpCheck = await openPageAtTime(
+    "2026-07-19T23:00:00.000Z",
+    "/?view=matches&date=2026-07-19&tz=America%2FLos_Angeles",
+    {
+      fixtureTransform: completeMockTournamentFixtures,
+      tournamentTransform: confirmMockGoldenBootAward
+    }
+  );
+  await openCatchUp(finalDayCatchUpCheck.page);
+  const finalDayCatchUpHeadlines = await finalDayCatchUpCheck.page
+    .locator(".catch-up-title-row h3 > span")
+    .allTextContents();
+  assert(
+    finalDayCatchUpHeadlines[0]?.trim() === "France win the World Cup" &&
+      finalDayCatchUpHeadlines.some((headline) => headline.trim() === "Kylian Mbappe wins the Golden Boot") &&
+      finalDayCatchUpHeadlines.some((headline) => headline.includes("The 2026 World Cup: 104 matches")) &&
+      !finalDayCatchUpHeadlines.some((headline) => headline.includes("are 2026 world champions")),
+    `Immediately after the final, Catch Up should lead with the match recap and add the confirmed award without duplicating the champion story. Measured ${JSON.stringify(finalDayCatchUpHeadlines)}.`
+  );
+  await finalDayCatchUpCheck.context.close();
+
+  const postTournamentCatchUpCheck = await openPageAtTime(
+    "2026-08-01T19:00:00.000Z",
+    "/?view=matches&date=2026-07-19&tz=America%2FLos_Angeles",
+    {
+      fixtureTransform: completeMockTournamentFixtures,
+      tournamentTransform: confirmMockGoldenBootAward
+    }
+  );
+  await openCatchUp(postTournamentCatchUpCheck.page);
+  const postTournamentCatchUpItems = await postTournamentCatchUpCheck.page.locator(".catch-up-item").evaluateAll((items) =>
+    items.map((item) => {
+      const visibleText = (node) => {
+        const clone = node?.cloneNode(true);
+        clone?.querySelectorAll(".player-card").forEach((card) => card.remove());
+        return clone?.textContent.replace(/\s+/g, " ").trim() || "";
+      };
+
+      return {
+        headline: visibleText(item.querySelector(".catch-up-title-row h3 > span")),
+        subtitle: visibleText(item.querySelector(".catch-up-subtitle"))
+      };
+    })
+  );
+  assert(
+    postTournamentCatchUpItems.length === 3 &&
+      postTournamentCatchUpItems[0]?.headline === "France are 2026 world champions" &&
+      postTournamentCatchUpItems[1]?.headline === "Kylian Mbappe wins the Golden Boot" &&
+      postTournamentCatchUpItems[1]?.subtitle ===
+        "Kylian Mbappe finished the tournament with 10 goals and 4 assists." &&
+      postTournamentCatchUpItems[2]?.headline.includes("The 2026 World Cup: 104 matches"),
+    `After the rolling window expires, Catch Up should keep the three-item tournament wrap. Measured ${JSON.stringify(postTournamentCatchUpItems)}.`
+  );
+  await postTournamentCatchUpCheck.context.close();
 
   const knockoutCatchUpCheck = await openPageAtTime(
     "2026-06-28T23:30:00.000Z",
@@ -11118,7 +11336,11 @@ try {
     touchPage.locator("#match-info [data-lineup-panel='home']:not([hidden])")
   );
   assert(
-    touchArgentinaEgyptRowSpacing.collisionCount === 0 &&
+    touchArgentinaEgyptRowSpacing.topClearance >= 0 &&
+      touchArgentinaEgyptRowSpacing.bottomClearance >= 0 &&
+      touchArgentinaEgyptRowSpacing.pitchHeight >= 569 &&
+      touchArgentinaEgyptRowSpacing.pitchHeight <= 571 &&
+      touchArgentinaEgyptRowSpacing.collisionCount === 0 &&
       touchArgentinaEgyptRowSpacing.minRowGap >= 4,
     `Argentina-Egypt mobile line-up rows should keep event pills and value text separated from adjacent rows. Measured ${JSON.stringify(touchArgentinaEgyptRowSpacing)}.`
   );
@@ -11209,6 +11431,11 @@ try {
   await touchPage.waitForFunction(() =>
     document.querySelector('#match-info [data-lineup-panel="away"]:not([hidden]) [data-lineup-player-name="Joaquin Seys"]')
   );
+  await touchPage
+    .locator(
+      '#match-info [data-lineup-panel="away"]:not([hidden]) [data-lineup-player-name="Joaquin Seys"] [data-lineup-substitution-toggle]'
+    )
+    .scrollIntoViewIfNeeded();
   const touchLineupSubstitutionState = await touchPage
     .locator('#match-info [data-lineup-panel="away"]:not([hidden]) [data-lineup-player-name="Joaquin Seys"]')
     .evaluate((marker) => {

@@ -586,7 +586,7 @@ body.is-juggle-active {
 
 .catch-up-title-row {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   gap: 8px;
   min-width: 0;
@@ -608,9 +608,7 @@ body.is-juggle-active {
 
 .catch-up-copy h3 span {
   display: block;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  white-space: normal;
 }
 
 .catch-up-subtitle {
@@ -6389,7 +6387,7 @@ button.lineup-event-sub,
   --lineup-avatar-size: 34px;
   --lineup-marker-core-height: 60px;
   --lineup-marker-width: 68px;
-  --lineup-pitch-height: clamp(550px, 49vw, 625px);
+  --lineup-pitch-height: clamp(550px, 45vw, 585px);
   --lineup-pitch-top-trim: 0px;
   position: relative;
   height: var(--lineup-pitch-height);
@@ -6632,7 +6630,7 @@ button.lineup-event-sub,
     --lineup-avatar-size: 38px;
     --lineup-marker-core-height: 66px;
     --lineup-marker-width: clamp(50px, 13.5vw, 58px);
-    --lineup-pitch-height: clamp(575px, 146vw, 690px);
+    --lineup-pitch-height: clamp(570px, 140vw, 660px);
   }
 
   .lineup-avatar-right-events {
@@ -6717,7 +6715,7 @@ button.lineup-event-sub,
     --lineup-avatar-size: 35px;
     --lineup-marker-core-height: 63px;
     --lineup-marker-width: 50px;
-    --lineup-pitch-height: 575px;
+    --lineup-pitch-height: 570px;
     --lineup-pitch-top-trim: 0px;
   }
 
@@ -6769,6 +6767,10 @@ button.lineup-event-sub,
   cursor: pointer;
   font: inherit;
   letter-spacing: 0;
+  white-space: nowrap;
+}
+
+.knockout-context-search-tail {
   white-space: nowrap;
 }
 

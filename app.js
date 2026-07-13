@@ -18749,8 +18749,8 @@ function getLineupDisplayY(y) {
     return value;
   }
 
-  const targetTop = 15;
-  const targetBottom = 90;
+  const targetTop = 7.2;
+  const targetBottom = 92.3;
   const ratio = clampNumber((value - sourceTop) / (sourceBottom - sourceTop), 0, 1);
   return Math.round((targetTop + ratio * (targetBottom - targetTop)) * 10) / 10;
 }
@@ -22227,6 +22227,16 @@ function renderKnockoutContextSearchAction(teamOrName) {
   )}" aria-label="${escapeHtml(ariaLabel)}">${escapeHtml(localizeText("See all"))}</button>`;
 }
 
+function renderKnockoutContextSearchTail(content, teamOrName) {
+  const searchAction = renderKnockoutContextSearchAction(teamOrName);
+
+  if (!searchAction) {
+    return content;
+  }
+
+  return `<span class="knockout-context-search-tail">${content}${searchAction}</span>`;
+}
+
 function renderKnockoutParticipantLabel(entry, options = {}) {
   if (entry?.team) {
     return renderKnockoutContextTeamName(entry.team, getTournamentTeamDisplayName(entry.team), options);
@@ -22470,21 +22480,20 @@ function renderKnockoutCompletedSummary(match, context) {
   const loserName = renderKnockoutParticipantLabel(participants[loserSide], { showRank: true });
   const winnerScoreText = escapeHtml(getKnockoutScorePairForSide(match, winnerSide));
   const penaltyText = escapeHtml(getKnockoutPenaltyPairForSide(match, winnerSide));
-  const searchAction = renderKnockoutContextSearchAction(winner);
 
   if (penaltyText) {
     if (currentLanguage === "zh") {
-      return `${winnerName}在 ${scoreText} 战平后通过点球 ${penaltyText} 击败 ${loserName}。${searchAction}`;
+      return `${winnerName}在 ${scoreText} 战平后通过点球 ${penaltyText} 击败 ${renderKnockoutContextSearchTail(`${loserName}。`, winner)}`;
     }
 
-    return `${winnerName} beat ${loserName} on penalties after a ${scoreText} tie (${penaltyText} pens)${searchAction}`;
+    return `${winnerName} beat ${loserName} on penalties after a ${scoreText} tie ${renderKnockoutContextSearchTail(`(${penaltyText} pens)`, winner)}`;
   }
 
   if (currentLanguage === "zh") {
-    return `${winnerName}以 ${winnerScoreText} 击败 ${loserName}。${searchAction}`;
+    return `${winnerName}以 ${winnerScoreText} 击败 ${renderKnockoutContextSearchTail(`${loserName}。`, winner)}`;
   }
 
-  return `${winnerName} beat ${loserName} ${winnerScoreText}${searchAction}`;
+  return `${winnerName} beat ${loserName} ${renderKnockoutContextSearchTail(winnerScoreText, winner)}`;
 }
 
 function renderKnockoutSourceMatchSummary(match, context) {
@@ -23244,17 +23253,16 @@ function renderHistoricalKnockoutCompletedSummary(match) {
   const loserName = renderHistoricalKnockoutTeamName(loser);
   const winnerScoreText = escapeHtml(formatScorePair(getHistoricalScorePairForTeam(match, winner)));
   const penaltyText = escapeHtml(formatScorePair(getHistoricalPenaltyPairForTeam(match, winner)));
-  const searchAction = renderKnockoutContextSearchAction(winner);
 
   if (penaltyText) {
     return currentLanguage === "zh"
-      ? `${winnerName}在 ${scoreText} 战平后通过点球 ${penaltyText} 击败 ${loserName}。${searchAction}`
-      : `${winnerName} beat ${loserName} on penalties after a ${scoreText} tie (${penaltyText} pens)${searchAction}`;
+      ? `${winnerName}在 ${scoreText} 战平后通过点球 ${penaltyText} 击败 ${renderKnockoutContextSearchTail(`${loserName}。`, winner)}`
+      : `${winnerName} beat ${loserName} on penalties after a ${scoreText} tie ${renderKnockoutContextSearchTail(`(${penaltyText} pens)`, winner)}`;
   }
 
   return currentLanguage === "zh"
-    ? `${winnerName}以 ${winnerScoreText} 击败 ${loserName}。${searchAction}`
-    : `${winnerName} beat ${loserName} ${winnerScoreText}${searchAction}`;
+    ? `${winnerName}以 ${winnerScoreText} 击败 ${renderKnockoutContextSearchTail(`${loserName}。`, winner)}`
+    : `${winnerName} beat ${loserName} ${renderKnockoutContextSearchTail(winnerScoreText, winner)}`;
 }
 
 function renderHistoricalPreviousKnockoutContext(match) {
@@ -25274,6 +25282,354 @@ function getTournamentCatchUpItems(dayKeys) {
     .filter((item) => item && dayKeys.has(item.dateKey));
 }
 
+function getLatestOfficialTournamentCatchUpSource(preferredPattern = /goal event|results|schedule/i) {
+  const officialSources = [...(tournament.sources || [])]
+    .reverse()
+    .filter((source) => source?.type === "official" && source.url);
+
+  return (
+    officialSources.find((source) => preferredPattern.test(`${source.id || ""} ${source.label || ""}`)) ||
+    officialSources[0] ||
+    null
+  );
+}
+
+function getGeneratedTournamentCatchUpSourceFields(
+  sourceId = "",
+  preferredPattern = /goal event|results|schedule/i
+) {
+  const source = getTournamentSource(sourceId) || getLatestOfficialTournamentCatchUpSource(preferredPattern);
+
+  return source
+    ? {
+        sourceLabel: source.label || "FIFA official tournament data",
+        sourceUrl: source.url || ""
+      }
+    : {};
+}
+
+function getGoldenBootStandings() {
+  const rowsByKey = new Map();
+  const getRow = (teamId, playerName) => {
+    const name = String(playerName || "").trim();
+    const key = `${String(teamId || "").trim().toUpperCase()}:${normalizeTextKey(name)}`;
+    if (!name || !normalizeTextKey(name)) {
+      return null;
+    }
+
+    if (!rowsByKey.has(key)) {
+      rowsByKey.set(key, {
+        assists: 0,
+        goals: 0,
+        name,
+        teamId: String(teamId || "").trim().toUpperCase()
+      });
+    }
+
+    return rowsByKey.get(key);
+  };
+
+  for (const fixture of fixtures || []) {
+    if (!hasMatchStarted(fixture)) {
+      continue;
+    }
+
+    for (const [side, goals] of [
+      ["home", fixture.goalsHome || []],
+      ["away", fixture.goalsAway || []]
+    ]) {
+      const teamId = side === "home" ? fixture.homeTeamId : fixture.awayTeamId;
+      for (const goal of goals) {
+        if (goal?.ownGoal) {
+          continue;
+        }
+
+        const scorer = getRow(teamId, goal?.name);
+        if (scorer) {
+          scorer.goals += 1;
+        }
+
+        if (goal?.assistName && normalizeTextKey(goal.assistName) !== normalizeTextKey(goal?.name)) {
+          const assistant = getRow(teamId, goal.assistName);
+          if (assistant) {
+            assistant.assists += 1;
+          }
+        }
+      }
+    }
+  }
+
+  return [...rowsByKey.values()]
+    .filter((row) => row.goals > 0)
+    .sort(
+      (a, b) =>
+        b.goals - a.goals ||
+        b.assists - a.assists ||
+        a.name.localeCompare(b.name)
+    );
+}
+
+function getGoldenBootPlayerDisplayName(player, language = "en") {
+  return language === "zh" ? translateResultPlayerNameToZh(player?.name) : player?.name || "";
+}
+
+function formatGoldenBootPlayerList(players, language = "en") {
+  const names = players.map((player) => getGoldenBootPlayerDisplayName(player, language)).filter(Boolean);
+  if (names.length <= 1) {
+    return names[0] || "";
+  }
+  if (language === "zh") {
+    return names.length === 2 ? names.join("和") : `${names.slice(0, -1).join("、")}和${names.at(-1)}`;
+  }
+  if (names.length === 2) {
+    return names.join(" and ");
+  }
+  return `${names.slice(0, -1).join(", ")}, and ${names.at(-1)}`;
+}
+
+function getGoldenBootChaserCopy(chasers, language = "en") {
+  if (!chasers.length) {
+    return "";
+  }
+
+  const firstGoalTotal = chasers[0].goals;
+  const firstGroup = chasers.filter((player) => player.goals === firstGoalTotal);
+  const secondGroup = chasers.filter((player) => player.goals !== firstGoalTotal);
+  const firstNames = formatGoldenBootPlayerList(firstGroup, language);
+
+  if (language === "zh") {
+    const firstClause = `${firstNames}以${firstGoalTotal}球紧随其后`;
+    if (!secondGroup.length) {
+      return `${firstClause}。`;
+    }
+    return `${firstClause}，${formatGoldenBootPlayerList(secondGroup, language)}同为${secondGroup[0].goals}球。`;
+  }
+
+  const firstClause = `${firstNames} ${firstGroup.length === 1 ? "is" : "are"} next on ${firstGoalTotal}`;
+  if (!secondGroup.length) {
+    return `${firstClause}.`;
+  }
+  return `${firstClause}, with ${formatGoldenBootPlayerList(secondGroup, language)} on ${secondGroup[0].goals}.`;
+}
+
+function getGoldenBootRaceCopy(standings) {
+  const topGoalTotal = standings[0]?.goals;
+  if (!Number.isFinite(topGoalTotal)) {
+    return null;
+  }
+
+  const leaders = standings.filter((player) => player.goals === topGoalTotal);
+  const chasers = standings.filter((player) => player.goals < topGoalTotal).slice(0, 3);
+  const leaderNamesEn = formatGoldenBootPlayerList(leaders, "en");
+  const leaderNamesZh = formatGoldenBootPlayerList(leaders, "zh");
+  const chaserCopyEn = getGoldenBootChaserCopy(chasers, "en");
+  const chaserCopyZh = getGoldenBootChaserCopy(chasers, "zh");
+
+  return {
+    body: {
+      en: `${leaderNamesEn} ${leaders.length === 1 ? "has" : "have"} ${topGoalTotal} goals${leaders.length === 1 ? "" : " each"}. ${chaserCopyEn}`.trim(),
+      zh: `${leaderNamesZh}${leaders.length === 1 ? `以${topGoalTotal}球领跑。` : `同为${topGoalTotal}球。`}${chaserCopyZh}`
+    },
+    headline: {
+      en:
+        leaders.length === 1
+          ? `${leaderNamesEn} leads the Golden Boot race with ${topGoalTotal} goals`
+          : `${leaderNamesEn} are level at the top of the Golden Boot race`,
+      zh:
+        leaders.length === 1
+          ? `${leaderNamesZh}以${topGoalTotal}球领跑金靴奖竞争`
+          : `${leaderNamesZh}并列领跑金靴奖竞争`
+    }
+  };
+}
+
+function isInsideCurrentTournamentSchedule(dayKey) {
+  const scheduleDayKeys = (fixtures || [])
+    .map((fixture) => (fixture?.kickoffUtc ? getFixtureDayKey(fixture) : ""))
+    .filter(Boolean)
+    .sort();
+
+  return Boolean(
+    dayKey &&
+      scheduleDayKeys.length &&
+      dayKey >= scheduleDayKeys[0] &&
+      dayKey <= scheduleDayKeys.at(-1)
+  );
+}
+
+function getQuietDayGoldenBootCatchUpItem() {
+  const todayKey = getDayKey(new Date(), selectedTimeZone);
+  if (!isInsideCurrentTournamentSchedule(todayKey)) {
+    return null;
+  }
+
+  const standings = getGoldenBootStandings();
+  const copy = getGoldenBootRaceCopy(standings);
+  if (!copy) {
+    return null;
+  }
+
+  const mentionText = `${copy.headline.en} ${copy.body.en}`;
+  return {
+    body: copy.body,
+    dateKey: todayKey,
+    headline: copy.headline,
+    kind: "golden-boot-race",
+    mentionPlayers: getProfileMentionPlayersFromText(mentionText),
+    meta: { en: "Golden Boot race", zh: "金靴奖竞争" },
+    priority: 80,
+    sortValue: new Date().toISOString(),
+    ...getGeneratedTournamentCatchUpSourceFields("", /goal event|results|schedule/i)
+  };
+}
+
+function getCompletedTournamentFinal() {
+  const finalFixture = (fixtures || []).find((fixture) => fixture.stage === "final");
+  if (!finalFixture || finalFixture.status !== "FT") {
+    return null;
+  }
+
+  const match = hydrateFixture(finalFixture);
+  const score = getCatchUpScore(match);
+  return score && getResultWinnerSide(match, score) ? match : null;
+}
+
+function getConfirmedGoldenBootAward() {
+  const award = tournament.awards?.goldenBoot;
+  const playerName = String(award?.playerName || award?.name || "").trim();
+  const goals = Number(award?.goals);
+
+  if (award?.status !== "confirmed" || !playerName || !Number.isInteger(goals) || goals < 1) {
+    return null;
+  }
+
+  return {
+    ...award,
+    assists: Number.isInteger(Number(award.assists)) ? Number(award.assists) : null,
+    goals,
+    name: playerName
+  };
+}
+
+function getTournamentWrapChampionItem(finalMatch) {
+  const score = getCatchUpScore(finalMatch);
+  const winnerSide = getResultWinnerSide(finalMatch, score);
+  const winner = finalMatch[`${winnerSide}Team`];
+  const loser = finalMatch[`${winnerSide === "home" ? "away" : "home"}Team`];
+  const scoreText = getResultScorePairForSide(score, winnerSide);
+  const penaltyText = getResultScorePairForSide(finalMatch.scoreDetails?.penalties, winnerSide);
+  const dateKey = getFixtureDayKey(finalMatch);
+  const bodyEn = penaltyText
+    ? `${winner.name} beat ${loser.name} on penalties after a ${scoreText} draw in the final.`
+    : `${winner.name} beat ${loser.name} ${scoreText} in the final.`;
+  const bodyZh = penaltyText
+    ? `${translateTextToZh(winner.name)}在决赛${scoreText}战平后，以${penaltyText}赢下点球大战击败${translateTextToZh(loser.name)}。`
+    : `${translateTextToZh(winner.name)}在决赛中以${scoreText}击败${translateTextToZh(loser.name)}。`;
+
+  return {
+    body: { en: bodyEn, zh: bodyZh },
+    dateKey,
+    headline: {
+      en: `${winner.name} are 2026 world champions`,
+      zh: `${translateTextToZh(winner.name)}成为2026年世界杯冠军`
+    },
+    kind: "tournament-champion",
+    mentionPlayers: [],
+    meta: { en: "Tournament wrap", zh: "赛事总结" },
+    priority: 4,
+    sortValue: getFixtureSortValue(finalMatch),
+    ...getGeneratedTournamentCatchUpSourceFields("", /results|schedule/i)
+  };
+}
+
+function getTournamentWrapGoldenBootItem(finalMatch) {
+  const award = getConfirmedGoldenBootAward();
+  const standings = getGoldenBootStandings();
+  const loadedLeaders = standings.filter((player) => player.goals === standings[0]?.goals);
+  const dateKey = getFixtureDayKey(finalMatch);
+  let headline;
+  let body;
+  let sourceFields;
+
+  if (award) {
+    const player = { name: award.name };
+    const playerNameZh = getGoldenBootPlayerDisplayName(player, "zh");
+    const assistCopyEn = Number.isInteger(award.assists) ? ` and ${award.assists} assists` : "";
+    const assistCopyZh = Number.isInteger(award.assists) ? `、${award.assists}次助攻` : "";
+    headline = {
+      en: `${award.name} wins the Golden Boot`,
+      zh: `${playerNameZh}赢得世界杯金靴奖`
+    };
+    body = {
+      en: `${award.name} finished the tournament with ${award.goals} goals${assistCopyEn}.`,
+      zh: `${playerNameZh}以${award.goals}球${assistCopyZh}结束本届赛事。`
+    };
+    sourceFields = getGeneratedTournamentCatchUpSourceFields(award.sourceId, /award|golden boot|results/i);
+  } else {
+    const leaderNamesEn = formatGoldenBootPlayerList(loadedLeaders, "en");
+    const leaderNamesZh = formatGoldenBootPlayerList(loadedLeaders, "zh");
+    const goalTotal = standings[0]?.goals || 0;
+    headline = {
+      en: "Golden Boot confirmation is pending",
+      zh: "金靴奖官方确认待载入"
+    };
+    body = {
+      en: `${leaderNamesEn} ${loadedLeaders.length === 1 ? "finished as the loaded top scorer" : "finished level in the loaded scoring data"} with ${goalTotal} goals. The official award has not been loaded yet.`,
+      zh: `${leaderNamesZh}在已载入的进球数据中以${goalTotal}球${loadedLeaders.length === 1 ? "排名第一" : "并列第一"}，官方奖项结果尚未载入。`
+    };
+    sourceFields = getGeneratedTournamentCatchUpSourceFields("", /goal event|results|schedule/i);
+  }
+
+  return {
+    body,
+    dateKey,
+    headline,
+    kind: "tournament-golden-boot",
+    mentionPlayers: getProfileMentionPlayersFromText(`${headline.en} ${body.en}`),
+    meta: { en: "Tournament wrap", zh: "赛事总结" },
+    priority: 5,
+    sortValue: getFixtureSortValue(finalMatch),
+    ...sourceFields
+  };
+}
+
+function getTournamentWrapNumbersItem(finalMatch) {
+  const completedMatches = (fixtures || []).filter(
+    (fixture) => fixture.status === "FT" && getCatchUpScore(fixture)
+  );
+  const totalGoals = completedMatches.reduce((total, fixture) => {
+    const score = getCatchUpScore(fixture);
+    return total + score.home + score.away;
+  }, 0);
+  const matchCount = completedMatches.length;
+
+  return {
+    body: {
+      en: "The complete match archive remains available by date and team.",
+      zh: "完整比赛档案仍可按日期和球队查看。"
+    },
+    dateKey: getFixtureDayKey(finalMatch),
+    headline: {
+      en: `The 2026 World Cup: ${matchCount} matches, ${totalGoals} goals`,
+      zh: `2026年世界杯：${matchCount}场比赛，${totalGoals}个进球`
+    },
+    kind: "tournament-numbers",
+    mentionPlayers: [],
+    meta: { en: "Tournament wrap", zh: "赛事总结" },
+    priority: 6,
+    sortValue: getFixtureSortValue(finalMatch),
+    ...getGeneratedTournamentCatchUpSourceFields("", /results|schedule/i)
+  };
+}
+
+function getTournamentWrapCatchUpItems(finalMatch) {
+  return [
+    getTournamentWrapChampionItem(finalMatch),
+    getTournamentWrapGoldenBootItem(finalMatch),
+    getTournamentWrapNumbersItem(finalMatch)
+  ];
+}
+
 function getPlayerName(player) {
   return typeof player === "string" ? player : player?.name || "";
 }
@@ -25706,10 +26062,32 @@ function getCatchUpItems() {
       const authoredItems = getAuthoredCatchUpItems(match);
       return authoredItems.length ? authoredItems : getGeneratedCatchUpItems(match);
     });
+  const recentItems = [...getTournamentCatchUpItems(dayKeys), ...matchItems]
+    .sort(compareCatchUpItemsByRecency);
+  const completedFinal = getCompletedTournamentFinal();
 
-  return [...getTournamentCatchUpItems(dayKeys), ...matchItems]
-    .sort(compareCatchUpItemsByRecency)
-    .slice(0, 5);
+  if (completedFinal) {
+    const wrapItems = getTournamentWrapCatchUpItems(completedFinal);
+    if (dayKeys.has(getFixtureDayKey(completedFinal))) {
+      const immediateWrapItems = wrapItems
+        .filter((item) => item.kind !== "tournament-champion")
+        .map((item, index) => ({ ...item, priority: 35 + index }));
+      return [...recentItems, ...immediateWrapItems]
+        .sort(compareCatchUpItemsByRecency)
+        .slice(0, 5);
+    }
+
+    if (!recentItems.length) {
+      return wrapItems;
+    }
+  }
+
+  if (recentItems.length) {
+    return recentItems.slice(0, 5);
+  }
+
+  const goldenBootItem = getQuietDayGoldenBootCatchUpItem();
+  return goldenBootItem ? [goldenBootItem] : [];
 }
 
 function stripCatchUpDescriptionMarker(text) {
@@ -27571,6 +27949,7 @@ window.addEventListener("popstate", () => {
   }
   try {
     readUrlState({ useUrlDefaults: true });
+    updateTeamSearchControls();
     ensureSelectableSelectedDay();
     renderTimeZoneOptions();
     renderStandingsView();
