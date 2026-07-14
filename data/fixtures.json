@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-14T10:39:52.661Z",
+  "updatedAt": "2026-07-14T20:06:15.972Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -163,7 +163,9 @@
     "uefa-spain-croatia-shootout-2023",
     "as-spain-penalty-takers-2026-07-10",
     "betfair-england-argentina-method-victory-2026-07-13",
-    "conmebol-emiliano-martinez-shootout-record-2024"
+    "conmebol-emiliano-martinez-shootout-record-2024",
+    "fifa-official-results-sync-2026-07-14",
+    "fifa-goal-events-sync-2026-07-14"
   ],
   "coverage": {
     "status": "complete-schedule",
@@ -23745,7 +23747,7 @@
       "homeSlot": "Winner match 97",
       "awaySlot": "Winner match 98",
       "venue": "Dallas Stadium",
-      "status": "SCHEDULED",
+      "status": "LIVE",
       "h2h": {
         "status": "loaded",
         "sourceId": "national-football-teams-h2h-sync-2026-07-11",
@@ -24101,7 +24103,19 @@
             "taken": 57
           }
         ]
-      }
+      },
+      "score": {
+        "home": 0,
+        "away": 1
+      },
+      "goalsHome": [],
+      "goalsAway": [
+        {
+          "minute": 22,
+          "name": "Mikel Oyarzabal",
+          "penalty": true
+        }
+      ]
     },
     {
       "id": "match-102-semi-final-2026-07-15",
