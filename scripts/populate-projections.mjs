@@ -62,6 +62,7 @@ const [fixturesData, teamsData] = await Promise.all([
 const teamsById = new Map(teamsData.teams.map((team) => [team.id, team]));
 let populated = 0;
 let skipped = 0;
+let requiresOnlineConsensus = 0;
 
 fixturesData.sourceIds = [...new Set([...(fixturesData.sourceIds || []), projectionSourceId])];
 fixturesData.fixtures = fixturesData.fixtures.map((fixture) => {
@@ -72,6 +73,15 @@ fixturesData.fixtures = fixturesData.fixtures.map((fixture) => {
 
   if (fixture.projection && !overwrite) {
     skipped += 1;
+    return fixture;
+  }
+
+  if (fixture.stage && fixture.stage !== "group") {
+    if (fixture.projection) {
+      skipped += 1;
+    } else {
+      requiresOnlineConsensus += 1;
+    }
     return fixture;
   }
 
@@ -93,3 +103,8 @@ await writeFile(fixturesPath, `${JSON.stringify(fixturesData, null, 2)}\n`);
 console.log(
   `${overwrite ? "Wrote" : "Populated"} ${populated} projection${populated === 1 ? "" : "s"}; skipped ${skipped}.`
 );
+if (requiresOnlineConsensus) {
+  console.log(
+    `Left ${requiresOnlineConsensus} confirmed knockout fixture${requiresOnlineConsensus === 1 ? "" : "s"} without a ranking fallback; add a sourced online consensus before publishing.`
+  );
+}

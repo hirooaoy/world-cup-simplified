@@ -275,6 +275,30 @@
       "note": "Each fixture stores its exact Opta match-preview URL and publication date."
     },
     {
+      "id": "opta-world-cup-semifinal-projections-2026-07-12",
+      "label": "Opta World Cup semi-final tournament projections",
+      "url": "https://theanalyst.com/articles/world-cup-2026-semi-final-predictions-opta-supercomputer",
+      "type": "forecast",
+      "checkedAt": "2026-07-14T15:50:58-07:00",
+      "note": "Published final-reach and tournament-win simulation rates for Spain, England, and Argentina; conditional title strength is derived by dividing win rate by final-reach rate and normalizing the two potential finalists."
+    },
+    {
+      "id": "sportsbettingdime-final-lookahead-2026-07-14",
+      "label": "Sports Betting Dime World Cup final lookahead lines",
+      "url": "https://www.sportsbettingdime.com/news/soccer/world-cup-final-odds-see-the-lookahead-lines-for-spain-vs-england-spain-vs-argentina/",
+      "type": "prediction-market-analysis",
+      "checkedAt": "2026-07-14T15:50:58-07:00",
+      "note": "Captured Kalshi lookahead prices after Spain reached the final: Spain 56c vs England 45c and Spain 58c vs Argentina 43c, normalized to remove market margin."
+    },
+    {
+      "id": "oddschecker-world-cup-outrights-2026-07-14",
+      "label": "Oddschecker World Cup winner and finalist markets",
+      "url": "https://www.oddschecker.com/football/world-cup",
+      "type": "market-odds",
+      "checkedAt": "2026-07-14T15:50:58-07:00",
+      "note": "Captured current bookmaker comparison prices for Spain, England, and Argentina to win the tournament and for England or Argentina to reach the final."
+    },
+    {
       "id": "oddschecker-england-argentina-odds-2026-07-13",
       "label": "Oddschecker England vs Argentina public odds",
       "url": "https://www.oddschecker.com/us/soccer/world-cup/england-v-argentina",

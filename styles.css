@@ -5956,10 +5956,6 @@ h1 {
   line-height: 1.2;
 }
 
-.match-info .data-note.lineup-updated-copy {
-  margin: 0 0 9px;
-}
-
 .lineup-bench-panel {
   display: grid;
   grid-template-rows: 0fr;

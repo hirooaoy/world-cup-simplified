@@ -18403,7 +18403,7 @@
       ],
       "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
-        "formation": "4-1-2-3",
+        "formation": "4-2-3-1",
         "coach": {
           "name": "Marcelo Bielsa",
           "teamName": "Uruguay",
@@ -18455,7 +18455,7 @@
             "number": "6",
             "name": "Rodrigo Bentancur",
             "sourcePosition": "midfielder",
-            "position": "DM",
+            "position": "CM",
             "x": 70,
             "y": 51.5
           },
@@ -18464,7 +18464,7 @@
             "name": "Federico Valverde",
             "sourcePosition": "midfielder",
             "isCaptain": true,
-            "position": "RW",
+            "position": "AM",
             "x": 50,
             "y": 32.2
           },
@@ -18472,7 +18472,7 @@
             "number": "14",
             "name": "Agustin Canobbio",
             "sourcePosition": "midfielder",
-            "position": "CM",
+            "position": "RW",
             "x": 83.8,
             "y": 32.2
           },
@@ -18615,7 +18615,7 @@
         }
       },
       "away": {
-        "formation": "4-1-2-3",
+        "formation": "4-1-4-1",
         "coach": {
           "name": "Bubista",
           "teamName": "Cabo Verde",
@@ -18675,7 +18675,7 @@
             "number": "10",
             "name": "Jamiro Monteiro",
             "sourcePosition": "midfielder",
-            "position": "ST",
+            "position": "CM",
             "x": 37.5,
             "y": 32.2
           },
@@ -18683,7 +18683,7 @@
             "number": "11",
             "name": "Garry Rodrigues",
             "sourcePosition": "midfielder",
-            "position": "LW",
+            "position": "LM",
             "x": 12.5,
             "y": 32.2
           },
@@ -18699,7 +18699,7 @@
             "number": "9",
             "name": "Gilson Benchimol",
             "sourcePosition": "forward",
-            "position": "RW",
+            "position": "ST",
             "x": 50,
             "y": 11
           },
@@ -18708,7 +18708,7 @@
             "name": "Ryan Mendes",
             "sourcePosition": "forward",
             "isCaptain": true,
-            "position": "CM",
+            "position": "RM",
             "x": 87.5,
             "y": 32.2
           }

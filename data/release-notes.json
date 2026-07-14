@@ -1,6 +1,21 @@
 {
-  "updatedAt": "2026-07-14T15:19:50-07:00",
+  "updatedAt": "2026-07-14T16:24:05-07:00",
   "releases": [
+    {
+      "date": "2026-07-14",
+      "title": "Sourced final forecasts and Ball Boy matchup answers",
+      "titleZh": "有来源的决赛预测与 Ball Boy 对阵问答",
+      "highlights": [
+        "Ball Boy now understands country-versus-country questions with schedule status, current tournament comparison, and verified senior head-to-head history, including bilingual answers that preserve the teams' typed order.",
+        "Matchup follow-ups can answer who would win, the last meeting, and whether one team has beaten another; they use stored pre-match projections or completed results, and decline to invent probabilities for hypothetical fixtures.",
+        "Projected finals no longer invent ranking-based percentages: potential Spain-England and Spain-Argentina finals use reproducible conditional consensus from Opta simulations, current bookmaker markets, and prediction-market lookahead prices, with validation blocking unsourced or post-kickoff inputs."
+      ],
+      "highlightsZh": [
+        "Ball Boy 现在可以理解国家队对阵提问，回答是否有赛程、本届赛事表现对比和已验证的成年男足交锋历史；中英文回答都会保留用户输入的球队顺序。",
+        "对阵后的追问现在可以回答谁更可能获胜、上次交手结果，以及一支球队是否击败过另一支；答案只使用保存的赛前预测或已完成比赛结果，并会拒绝为假设对阵虚构概率。",
+        "预测决赛不再使用排名虚构百分比：潜在的西班牙对英格兰和西班牙对阿根廷决赛采用可复核的条件综合预测，数据来自 Opta 模拟、当前庄家市场和预测市场前瞻价格；验证规则会拦截无来源或赛后输入。"
+      ]
+    },
     {
       "date": "2026-07-14",
       "title": "Repaired line-up geometry and durable placement checks",

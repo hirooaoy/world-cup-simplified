@@ -1,0 +1,87 @@
+{
+  "updatedAt": "2026-07-14T22:28:00Z",
+  "source": {
+    "name": "National Football Teams",
+    "url": "https://www.national-football-teams.com"
+  },
+  "pairs": {
+    "ARG|ESP": {
+      "status": "loaded",
+      "sourceUrl": "https://www.national-football-teams.com/encounter/teams/9/174/Argentina_vs_Spain.html",
+      "results": [
+        {
+          "date": "2018-03-27",
+          "competition": "Friendly",
+          "homeTeamId": "ESP",
+          "awayTeamId": "ARG",
+          "homeScore": 6,
+          "awayScore": 1,
+          "venue": "Estadio Metropolitano Madrid"
+        },
+        {
+          "date": "2010-09-07",
+          "competition": "Friendly",
+          "homeTeamId": "ARG",
+          "awayTeamId": "ESP",
+          "homeScore": 4,
+          "awayScore": 1,
+          "venue": "Estadio Mas Monumental"
+        },
+        {
+          "date": "2009-11-14",
+          "competition": "Friendly",
+          "homeTeamId": "ESP",
+          "awayTeamId": "ARG",
+          "homeScore": 2,
+          "awayScore": 1,
+          "venue": "Estadio Vicente Calderón"
+        },
+        {
+          "date": "2006-10-11",
+          "competition": "Friendly",
+          "homeTeamId": "ESP",
+          "awayTeamId": "ARG",
+          "homeScore": 2,
+          "awayScore": 1,
+          "venue": "Estadio Nueva Condomina"
+        },
+        {
+          "date": "1999-11-17",
+          "competition": "Friendly",
+          "homeTeamId": "ESP",
+          "awayTeamId": "ARG",
+          "homeScore": 0,
+          "awayScore": 2,
+          "venue": "Estadio de La Cartuja"
+        },
+        {
+          "date": "1995-09-20",
+          "competition": "Friendly",
+          "homeTeamId": "ESP",
+          "awayTeamId": "ARG",
+          "homeScore": 2,
+          "awayScore": 1,
+          "venue": "Estadio Vicente Calderón"
+        },
+        {
+          "date": "1988-10-12",
+          "competition": "Friendly",
+          "homeTeamId": "ESP",
+          "awayTeamId": "ARG",
+          "homeScore": 1,
+          "awayScore": 1,
+          "venue": "Estadio Ramón Sánchez-Pizjuán"
+        },
+        {
+          "date": "1966-07-13",
+          "competition": "World Cup 1966 - Group 2",
+          "homeTeamId": "ARG",
+          "awayTeamId": "ESP",
+          "homeScore": 2,
+          "awayScore": 1,
+          "venue": "Villa Park"
+        }
+      ]
+    }
+  }
+}

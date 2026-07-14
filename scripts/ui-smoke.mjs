@@ -5132,12 +5132,7 @@ try {
     "match-82-round-of-32-2026-07-01"
   ];
   const lineupProductionStates = [];
-  const hasFinalLineupTooltip = (helpLabel) =>
-    helpLabel?.startsWith("Final lineup record") ||
-    helpLabel?.includes("Official FIFA team sheet") ||
-    helpLabel?.includes("This was the final lineup for the match.") ||
-    helpLabel?.includes("Official lineup source") ||
-    helpLabel?.includes("This feature is still work in progress and may not be accurate.");
+  const hasFinalLineupTooltip = (helpLabel) => helpLabel === "This was the final lineup for the match.";
   for (const fixtureId of trustedLineupFixtureIds) {
     await lineupProductionTrustCheck.page.locator(`[data-match-id="${fixtureId}"]`).click();
     await lineupProductionTrustCheck.page.waitForSelector("#match-info .match-result-block", { state: "attached" });
@@ -5163,6 +5158,45 @@ try {
     `Production match details should render trusted final line-up boards and suppress the old event timeline. Measured ${JSON.stringify(lineupProductionStates)}.`
   );
   await lineupProductionTrustCheck.context.close();
+
+  const exactLineupGeometryCheck = await openPageAtTime(
+    "2026-06-22T02:00:00.000Z",
+    "/?view=matches&date=2026-06-21&tz=America%2FLos_Angeles"
+  );
+  await exactLineupGeometryCheck.page
+    .locator('[data-match-id="uruguay-cabo-verde-2026-06-21"]')
+    .click();
+  const exactLineupBlock = exactLineupGeometryCheck.page.locator("#match-info .lineup-preview-block");
+  await exactLineupBlock.locator("[data-lineup-panel='home'] [data-lineup-tab='away']").click();
+  const caboVerdeExactState = await exactLineupBlock
+    .locator("[data-lineup-panel='away']:not([hidden])")
+    .evaluate((panel) => {
+      const trackedNames = new Set([
+        "Garry Rodrigues",
+        "Jamiro Monteiro",
+        "Telmo Arcanjo",
+        "Ryan Mendes"
+      ]);
+      const rowMarkers = [...panel.querySelectorAll(".lineup-player-marker")]
+        .filter((marker) => trackedNames.has(marker.dataset.lineupStarterName || ""))
+        .map((marker) => ({
+          name: marker.dataset.lineupStarterName || "",
+          position: marker.dataset.lineupPosition || "",
+          y: marker.style.getPropertyValue("--y")
+        }));
+
+      return {
+        formation: panel.querySelector(".lineup-formation-pill")?.textContent.trim() || "",
+        rowMarkers
+      };
+    });
+  assert(
+    caboVerdeExactState.formation === "4-1-4-1" &&
+      caboVerdeExactState.rowMarkers.length === 4 &&
+      new Set(caboVerdeExactState.rowMarkers.map((marker) => marker.y)).size === 1,
+    `Verified source geometry should preserve Cabo Verde's four-player midfield row and source formation. Measured ${JSON.stringify(caboVerdeExactState)}.`
+  );
+  await exactLineupGeometryCheck.context.close();
 
   const finalLineupModeCheck = await openPageAtTime(
     "2026-07-02T02:45:00.000Z",
@@ -9153,6 +9187,13 @@ try {
       m103TimeText: document.querySelector('.progress-match[data-match-number="103"] time')?.textContent.trim() || "",
       m104TeamIds: [...document.querySelectorAll('.progress-match[data-match-number="104"] .knockout-team[data-team-id]')]
         .map((element) => element.dataset.teamId),
+      m104OutcomeBasis: document.querySelector('.progress-match[data-match-number="104"] .knockout-likelihood-list')?.dataset.outcomeBasis || "",
+      m104OutcomeKeys: [...document.querySelectorAll('.progress-match[data-match-number="104"] .knockout-likelihood')]
+        .map((element) => element.dataset.outcome || ""),
+      m104OutcomeTexts: [...document.querySelectorAll('.progress-match[data-match-number="104"] .knockout-likelihood')]
+        .map((element) => element.textContent.replace(/\s+/g, " ").trim()),
+      m104OutcomeTooltips: [...document.querySelectorAll('.progress-match[data-match-number="104"] .knockout-likelihood')]
+        .map((element) => element.getAttribute("data-tooltip") || ""),
       m104Rect: getRectSummary('.progress-match[data-match-number="104"]'),
       m104TimeText: document.querySelector('.progress-match[data-match-number="104"] time')?.textContent.trim() || "",
       oldWinnerCopy: allText(".tournament-view").includes(["Winner", "advances"].join(" ")),
@@ -9471,21 +9512,46 @@ try {
     fixture.scoreDetails?.penalties &&
     !fixture.winnerTeamId &&
     !fixture.winner;
+  const hasSourcedOutcomeForecast = (fixture) => Boolean(
+    fixture?.projection || Array.isArray(fixture?.conditionalProjections) && fixture.conditionalProjections.length
+  );
   const expectedOutcomeListCount = fixturesData.fixtures.filter(
     (fixture) =>
       knockoutStagesWithOutcomePills.has(fixture.stage) &&
       !fixture.winnerTeamId &&
       !fixture.winner &&
-      (fixture.status !== "FT" || isUnresolvedPenaltyFinal(fixture))
+      (fixture.status !== "FT" || isUnresolvedPenaltyFinal(fixture)) &&
+      hasSourcedOutcomeForecast(fixture)
   ).length;
-  const expectedOutcomePillCount = expectedOutcomeListCount * 3;
+  const expectedOutcomePillCount = fixturesData.fixtures.reduce((count, fixture) => {
+    if (
+      !knockoutStagesWithOutcomePills.has(fixture.stage) ||
+      fixture.winnerTeamId ||
+      fixture.winner ||
+      !(fixture.status !== "FT" || isUnresolvedPenaltyFinal(fixture))
+    ) {
+      return count;
+    }
+    if (fixture.projection) return count + 3;
+    if (Array.isArray(fixture.conditionalProjections) && fixture.conditionalProjections.length) return count + 2;
+    return count;
+  }, 0);
+  const expectedTiePillCount = fixturesData.fixtures.filter(
+    (fixture) =>
+      knockoutStagesWithOutcomePills.has(fixture.stage) &&
+      !fixture.winnerTeamId &&
+      !fixture.winner &&
+      (fixture.status !== "FT" || isUnresolvedPenaltyFinal(fixture)) &&
+      fixture.projection
+  ).length;
   const expectedMatch74OpenMatchId =
     fixturesData.fixtures.find((fixture) => fixture.matchNumber === 74)?.id || "";
   const shouldShowOutcomePills = (fixture) => Boolean(
     fixture &&
       (fixture.status !== "FT" || isUnresolvedPenaltyFinal(fixture)) &&
       !fixture.winnerTeamId &&
-      !fixture.winner
+      !fixture.winner &&
+      hasSourcedOutcomeForecast(fixture)
   );
   const expectedMatch81Fixture = fixturesData.fixtures.find((fixture) => fixture.matchNumber === 81);
   const expectedMatch97Fixture = fixturesData.fixtures.find((fixture) => fixture.matchNumber === 97);
@@ -9556,6 +9622,21 @@ try {
     const team = getTeam(teamId);
     return team.standingName || team.name;
   });
+  const expectedFinalFixture = fixturesByMatchNumber.get(104);
+  const expectedFinalConditionalProjection = (expectedFinalFixture?.conditionalProjections || []).find(
+    (projection) =>
+      expectedFinalTeamIds.length === 2 &&
+      expectedFinalTeamIds.every((teamId) => [projection.homeTeamId, projection.awayTeamId].includes(teamId))
+  );
+  const expectedFinalConditionalTexts = expectedFinalConditionalProjection
+    ? expectedFinalTeamIds.map((teamId) => {
+        const team = getTeam(teamId);
+        const percent = teamId === expectedFinalConditionalProjection.homeTeamId
+          ? expectedFinalConditionalProjection.home
+          : expectedFinalConditionalProjection.away;
+        return `${team.id} ${percent}%`;
+      })
+    : [];
   const tournamentCheckPredicates = [
     ["summaryHasRoundOf32", tournamentCheck.summary.includes("Round of 32 slots")],
     ["m73ProgressDate", tournamentCheck.m73ProgressText.includes("Jun 28 12:00PM")],
@@ -9599,7 +9680,7 @@ try {
     ["likelihoodTooltipMaxLength", tournamentCheck.likelihoodTooltipMaxLength <= 170],
     ["likelihoodListCount", tournamentCheck.likelihoodListCount === expectedOutcomeListCount],
     ["outcomePillFlagCount", tournamentCheck.outcomePillFlagCount === 0],
-    ["tiePillCount", tournamentCheck.tiePillCount === expectedOutcomeListCount],
+    ["tiePillCount", tournamentCheck.tiePillCount === expectedTiePillCount],
     ["tiePillFlagCount", tournamentCheck.tiePillFlagCount === 0],
     ["m81PillCount", tournamentCheck.m81PillCount === (expectedM81HasOutcomePills ? 3 : 0)],
     ["m81OutcomeKeys", !expectedM81HasOutcomePills || tournamentCheck.m81OutcomeKeys.join("|") === "home|tie|away"],
@@ -9623,9 +9704,25 @@ try {
       expectedM97HasOutcomePills || (expectedM97ResultText && tournamentCheck.m97Text.includes(expectedM97ResultText))
     ],
     ["m97SeedLabelCount", tournamentCheck.m97SeedLabelCount === 0],
-    ["m103PillCount", tournamentCheck.m103PillCount === 3],
+    ["m103PillCount", tournamentCheck.m103PillCount === 0],
     ["m103Projected", tournamentCheck.m103Projected === true],
-    ["m104PillCount", tournamentCheck.m104PillCount === 3],
+    ["m104PillCount", tournamentCheck.m104PillCount === 2],
+    ["m104ConditionalBasis", tournamentCheck.m104OutcomeBasis === "conditional-online"],
+    ["m104ConditionalKeys", tournamentCheck.m104OutcomeKeys.join("|") === "home|away"],
+    [
+      "m104ConditionalTexts",
+      expectedFinalConditionalTexts.length === 2 &&
+        tournamentCheck.m104OutcomeTexts.join("|") === expectedFinalConditionalTexts.join("|")
+    ],
+    [
+      "m104ConditionalTooltips",
+      tournamentCheck.m104OutcomeTooltips.length === 2 &&
+        tournamentCheck.m104OutcomeTooltips.every(
+          (tooltip) =>
+            tooltip.includes("including extra time and penalties") &&
+            tooltip.includes("Conditional forecast from Opta and current markets")
+        )
+    ],
     ["connectorStrokeValues", tournamentCheck.connectorStrokeValues.length === 1],
     ["connectorStrokeValue", tournamentCheck.connectorStrokeValues[0] === "rgb(217, 217, 217)"],
     ["connectorStrokeWidths", tournamentCheck.connectorStrokeWidths.length === 1],
@@ -9703,11 +9800,10 @@ try {
       tournamentCheck.m102TieTooltip.includes("won 6 of 7 World Cup shootouts") &&
         tournamentCheck.m102TieTooltip.includes("Emiliano Martínez has never lost one for his country")
     ],
-    ["m103TieTooltip", tournamentCheck.m103TieTooltip.includes("Argentina may have a slight record edge")],
+    ["m103TieTooltip", tournamentCheck.m103TieTooltip === ""],
     [
       "m104TieTooltip",
-      tournamentCheck.m104TieTooltip.startsWith("If it goes to penalties") &&
-        expectedFinalTeamNames.every((teamName) => tournamentCheck.m104TieTooltip.includes(teamName))
+      tournamentCheck.m104TieTooltip === "" && expectedFinalTeamNames.length === 2
     ],
     [
       "m83TieTooltip",
@@ -9741,8 +9837,54 @@ try {
   }
   assert(
     failedTournamentPredicates.length === 0,
-    `The tournament section should show locked Round of 32 matches and three outcome pills for every future knockout match. Measured ${JSON.stringify({ ...tournamentCheck, expectedRoundOf32OpenMatchIds, expectedRoundOf32SlotOddsCount, expectedOutcomePillCount, expectedOutcomeListCount })}.`
+    `The tournament section should show sourced three-way forecasts for confirmed matchups, sourced two-way forecasts for conditional finals, and no rank-only fallback. Measured ${JSON.stringify({ ...tournamentCheck, expectedRoundOf32OpenMatchIds, expectedRoundOf32SlotOddsCount, expectedOutcomePillCount, expectedOutcomeListCount })}.`
   );
+
+  const argentinaFinalProjectionCheck = await openPageAtTime(
+    "2026-07-14T23:00:00.000Z",
+    "/?view=standings&standingsMode=tournament&tz=America%2FLos_Angeles",
+    {
+      fixtureTransform(data) {
+        const semiFinal = data.fixtures.find((fixture) => fixture.matchNumber === 102);
+        semiFinal.projection = {
+          ...semiFinal.projection,
+          home: 31,
+          draw: 32,
+          away: 37
+        };
+      }
+    }
+  );
+  await argentinaFinalProjectionCheck.page.waitForSelector('.progress-match[data-match-number="104"]');
+  const argentinaFinalProjection = await argentinaFinalProjectionCheck.page.evaluate(() => {
+    const match = document.querySelector('.progress-match[data-match-number="104"]');
+    return {
+      basis: match?.querySelector(".knockout-likelihood-list")?.dataset.outcomeBasis || "",
+      teamIds: [...(match?.querySelectorAll(".knockout-team[data-team-id]") || [])].map(
+        (element) => element.dataset.teamId
+      ),
+      texts: [...(match?.querySelectorAll(".knockout-likelihood") || [])].map((element) =>
+        element.textContent.replace(/\s+/g, " ").trim()
+      ),
+      tooltips: [...(match?.querySelectorAll(".knockout-likelihood") || [])].map(
+        (element) => element.getAttribute("data-tooltip") || ""
+      ),
+      tieCount: match?.querySelectorAll('[data-outcome="tie"]').length || 0
+    };
+  });
+  assert(
+    argentinaFinalProjection.basis === "conditional-online" &&
+      argentinaFinalProjection.teamIds.join("|") === "ESP|ARG" &&
+      argentinaFinalProjection.texts.join("|") === "ESP 58%|ARG 42%" &&
+      argentinaFinalProjection.tieCount === 0 &&
+      argentinaFinalProjection.tooltips.every(
+        (tooltip) =>
+          tooltip.includes("including extra time and penalties") &&
+          tooltip.includes("Conditional forecast from Opta and current markets")
+      ),
+    `A projected Spain-Argentina final should use its sourced two-way conditional forecast without inventing a draw price. Measured ${JSON.stringify(argentinaFinalProjection)}.`
+  );
+  await argentinaFinalProjectionCheck.context.close();
 
 
 
@@ -9766,7 +9908,9 @@ try {
       m101Tie: getOutcomeTooltip(101, "tie"),
       m102Tie: getOutcomeTooltip(102, "tie"),
       m103Tie: getOutcomeTooltip(103, "tie"),
-      m104Tie: getOutcomeTooltip(104, "tie")
+      m104Tie: getOutcomeTooltip(104, "tie"),
+      m104Home: getOutcomeTooltip(104, "home"),
+      m104Away: getOutcomeTooltip(104, "away")
     };
   });
   const hasM88AwayTooltip = Boolean(zhTournamentTooltips.m88Away);
@@ -9779,9 +9923,11 @@ try {
           zhTournamentTooltips.m101Tie.includes("职业生涯点球命中率为89%"))) &&
       zhTournamentTooltips.m102Tie.includes("7次世界杯点球大战中赢下6次") &&
       zhTournamentTooltips.m102Tie.includes("代表国家队参加点球大战从未失利") &&
-      zhTournamentTooltips.m103Tie.includes("阿根廷可能略占历史战绩优势") &&
-      zhTournamentTooltips.m104Tie.startsWith("如果进入点球大战") &&
-      zhTournamentTooltips.m104Tie.includes("略占") &&
+      zhTournamentTooltips.m103Tie === "" &&
+      zhTournamentTooltips.m104Tie === "" &&
+      zhTournamentTooltips.m104Home.includes("包括加时赛和点球大战") &&
+      zhTournamentTooltips.m104Home.includes("综合Opta与当前市场数据") &&
+      zhTournamentTooltips.m104Away.includes("包括加时赛和点球大战") &&
       !/chance|penalties|shootout|goalkeeper|favored|upset|projects|before penalties/i.test(zhTournamentTooltips.all),
     `Chinese tournament outcome tooltips should use localized close-match wording and avoid stale English/upset templates. Measured ${JSON.stringify(zhTournamentTooltips)}.`
   );

@@ -2546,6 +2546,76 @@ for (const fixture of fixturesData.fixtures || []) {
     }
   }
 
+  if (fixture.conditionalProjections !== undefined) {
+    assert(
+      Array.isArray(fixture.conditionalProjections) && fixture.conditionalProjections.length > 0,
+      `Fixture "${fixture.id}" conditionalProjections must be a non-empty array`
+    );
+    const matchupKeys = new Set();
+
+    for (const [index, projection] of (fixture.conditionalProjections || []).entries()) {
+      const owner = `Fixture "${fixture.id}" conditionalProjections[${index}]`;
+      assert(projection && typeof projection === "object" && !Array.isArray(projection), `${owner} must be an object`);
+      assert(teams.has(projection?.homeTeamId), `${owner} has unknown homeTeamId "${projection?.homeTeamId}"`);
+      assert(teams.has(projection?.awayTeamId), `${owner} has unknown awayTeamId "${projection?.awayTeamId}"`);
+      assert(projection?.homeTeamId !== projection?.awayTeamId, `${owner} cannot use the same team twice`);
+      const matchupKey = [projection?.homeTeamId, projection?.awayTeamId].sort().join("|");
+      assert(!matchupKeys.has(matchupKey), `${owner} duplicates conditional matchup "${matchupKey}"`);
+      matchupKeys.add(matchupKey);
+      assert(projection?.market === "match-winner", `${owner} market must be "match-winner"`);
+      assert(
+        projection?.method === "conditional-online-consensus",
+        `${owner} method must be "conditional-online-consensus"`
+      );
+      assert(sourceIds.has(projection?.sourceId), `${owner} references unknown sourceId`);
+      requireSourceIds(projection?.sourceIds, sourceIds, owner);
+      assert(
+        Array.isArray(projection?.sourceIds) && new Set(projection.sourceIds).size >= 2,
+        `${owner} must include at least two independent sources`
+      );
+      assert(projection.sourceIds.includes(projection.sourceId), `${owner} sourceIds must include sourceId`);
+      assert(typeof projection?.basis === "string" && projection.basis.trim(), `${owner} must describe its basis`);
+      assert(isValidDateTime(projection?.capturedAt), `${owner} must include a valid capturedAt`);
+      assert(
+        new Date(projection?.capturedAt).getTime() < new Date(fixture.kickoffUtc).getTime(),
+        `${owner} must be captured before kickoff`
+      );
+      assert(isNumber(projection?.home) && isNumber(projection?.away), `${owner} must include numeric home and away`);
+      assert(
+        projection.home >= 0 && projection.home <= 100 && projection.away >= 0 && projection.away <= 100,
+        `${owner} home and away must each be between 0 and 100`
+      );
+      assert(projection.home + projection.away === 100, `${owner} home and away must total 100`);
+      assert(
+        Array.isArray(projection?.inputs) && projection.inputs.length >= 2,
+        `${owner} must preserve at least two normalized source inputs`
+      );
+
+      const inputSourceIds = new Set();
+      for (const [inputIndex, input] of (projection.inputs || []).entries()) {
+        const inputOwner = `${owner}.inputs[${inputIndex}]`;
+        assert(sourceIds.has(input?.sourceId), `${inputOwner} references unknown sourceId`);
+        assert(projection.sourceIds.includes(input?.sourceId), `${inputOwner} sourceId must appear in sourceIds`);
+        assert(!inputSourceIds.has(input?.sourceId), `${inputOwner} duplicates sourceId "${input?.sourceId}"`);
+        inputSourceIds.add(input?.sourceId);
+        assert(isNumber(input?.home) && isNumber(input?.away), `${inputOwner} must include numeric home and away`);
+        assert(
+          input.home >= 0 && input.home <= 100 && input.away >= 0 && input.away <= 100,
+          `${inputOwner} home and away must each be between 0 and 100`
+        );
+        assert(input.home + input.away === 100, `${inputOwner} home and away must total 100`);
+        assert(typeof input?.basis === "string" && input.basis.trim(), `${inputOwner} must describe its derivation`);
+      }
+      const consensusHome = Math.round(
+        projection.inputs.reduce((total, input) => total + input.home, 0) / projection.inputs.length
+      );
+      assert(
+        projection.home === consensusHome && projection.away === 100 - consensusHome,
+        `${owner} must equal the rounded unweighted mean of its normalized source inputs`
+      );
+    }
+  }
+
   if (fixture.shootoutForecast !== undefined) {
     const forecast = fixture.shootoutForecast;
     assert(
@@ -2767,6 +2837,14 @@ for (const fixture of fixturesData.fixtures || []) {
       fixture.projection,
       `Confirmed fixture "${fixture.id}" must include projection; run pnpm projections`
     );
+    if (fixture.stage !== "group") {
+      assert(
+        ["market-implied-consensus", "online-source-consensus", "online-source-forecast"].includes(
+          fixture.projection?.method
+        ),
+        `Confirmed knockout fixture "${fixture.id}" must use a sourced online projection, not a ranking fallback`
+      );
+    }
     assert(fixture.keyInformation, `Confirmed fixture "${fixture.id}" must include matchup-aware keyInformation`);
 
     for (const side of ["home", "away"]) {

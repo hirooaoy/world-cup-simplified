@@ -13808,7 +13808,7 @@
           "sourceDetail": "lineup payload source: enetpulse",
           "exactLayout": true,
           "home": {
-            "formation": "4-1-2-3",
+            "formation": "4-2-3-1",
             "players": [
               {
                 "number": "23",
@@ -13848,7 +13848,7 @@
               {
                 "number": "6",
                 "name": "Rodrigo Bentancur",
-                "position": "DM",
+                "position": "CM",
                 "x": 70,
                 "y": 51.5
               },
@@ -13862,14 +13862,14 @@
               {
                 "number": "14",
                 "name": "Agustin Canobbio",
-                "position": "CM",
+                "position": "RW",
                 "x": 83.8,
                 "y": 32.2
               },
               {
                 "number": "8",
                 "name": "Federico Valverde",
-                "position": "RW",
+                "position": "AM",
                 "x": 50,
                 "y": 32.2
               },
@@ -13890,7 +13890,7 @@
             ]
           },
           "away": {
-            "formation": "4-1-2-3",
+            "formation": "4-1-4-1",
             "players": [
               {
                 "number": "1",
@@ -13937,7 +13937,7 @@
               {
                 "number": "20",
                 "name": "Ryan Mendes",
-                "position": "CM",
+                "position": "RM",
                 "x": 87.5,
                 "y": 32.2
               },
@@ -13951,35 +13951,35 @@
               {
                 "number": "10",
                 "name": "Jamiro Monteiro",
-                "position": "ST",
+                "position": "CM",
                 "x": 37.5,
                 "y": 32.2
               },
               {
                 "number": "11",
                 "name": "Garry Rodrigues",
-                "position": "LW",
+                "position": "LM",
                 "x": 12.5,
                 "y": 32.2
               },
               {
                 "number": "9",
                 "name": "Gilson Benchimol",
-                "position": "RW",
+                "position": "ST",
                 "x": 50,
                 "y": 11
               }
             ]
           },
           "signature": {
-            "home": "maxi araujo/federico vinas/federico valverde|manuel ugarte/agustin canobbio|rodrigo bentancur|juan manuel sanabria/mathias olivera/sebastian caceres/guillermo varela|fernando muslera",
-            "away": "garry rodrigues/jamiro monteiro/gilson benchimol|telmo arcanjo/ryan mendes|kevin pina|sidny lopes cabral/diney borges/roberto lopes/steven moreira|vozinha"
+            "home": "federico vinas|maxi araujo/federico valverde/agustin canobbio|manuel ugarte/rodrigo bentancur|juan manuel sanabria/mathias olivera/sebastian caceres/guillermo varela|fernando muslera",
+            "away": "gilson benchimol|garry rodrigues/jamiro monteiro/telmo arcanjo/ryan mendes|kevin pina|sidny lopes cabral/diney borges/roberto lopes/steven moreira|vozinha"
           }
         }
       ],
       "note": "FIFA official team sheet kept for facts; FotMob supplied exact board geometry.",
       "home": {
-        "formation": "4-1-2-3",
+        "formation": "4-2-3-1",
         "players": [
           {
             "number": "23",
@@ -14019,7 +14019,7 @@
           {
             "number": "6",
             "name": "Rodrigo Bentancur",
-            "position": "DM",
+            "position": "CM",
             "x": 70,
             "y": 51.5
           },
@@ -14033,14 +14033,14 @@
           {
             "number": "14",
             "name": "Agustin Canobbio",
-            "position": "CM",
+            "position": "RW",
             "x": 83.8,
             "y": 32.2
           },
           {
             "number": "8",
             "name": "Federico Valverde",
-            "position": "RW",
+            "position": "AM",
             "x": 50,
             "y": 32.2
           },
@@ -14061,7 +14061,7 @@
         ]
       },
       "away": {
-        "formation": "4-1-2-3",
+        "formation": "4-1-4-1",
         "players": [
           {
             "number": "1",
@@ -14108,7 +14108,7 @@
           {
             "number": "20",
             "name": "Ryan Mendes",
-            "position": "CM",
+            "position": "RM",
             "x": 87.5,
             "y": 32.2
           },
@@ -14122,21 +14122,21 @@
           {
             "number": "10",
             "name": "Jamiro Monteiro",
-            "position": "ST",
+            "position": "CM",
             "x": 37.5,
             "y": 32.2
           },
           {
             "number": "11",
             "name": "Garry Rodrigues",
-            "position": "LW",
+            "position": "LM",
             "x": 12.5,
             "y": 32.2
           },
           {
             "number": "9",
             "name": "Gilson Benchimol",
-            "position": "RW",
+            "position": "ST",
             "x": 50,
             "y": 11
           }

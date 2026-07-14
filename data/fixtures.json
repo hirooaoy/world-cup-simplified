@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-14T21:34:55.226Z",
+  "updatedAt": "2026-07-14T22:50:58.000Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -165,7 +165,10 @@
     "betfair-england-argentina-method-victory-2026-07-13",
     "conmebol-emiliano-martinez-shootout-record-2024",
     "fifa-official-results-sync-2026-07-14",
-    "fifa-goal-events-sync-2026-07-14"
+    "fifa-goal-events-sync-2026-07-14",
+    "opta-world-cup-semifinal-projections-2026-07-12",
+    "sportsbettingdime-final-lookahead-2026-07-14",
+    "oddschecker-world-cup-outrights-2026-07-14"
   ],
   "coverage": {
     "status": "complete-schedule",
@@ -24454,7 +24457,81 @@
           "matchNumber": 104
         }
       },
-      "homeTeamId": "ESP"
+      "homeTeamId": "ESP",
+      "conditionalProjections": [
+        {
+          "homeTeamId": "ESP",
+          "awayTeamId": "ENG",
+          "market": "match-winner",
+          "sourceId": "sportsbettingdime-final-lookahead-2026-07-14",
+          "sourceIds": [
+            "opta-world-cup-semifinal-projections-2026-07-12",
+            "sportsbettingdime-final-lookahead-2026-07-14",
+            "oddschecker-world-cup-outrights-2026-07-14"
+          ],
+          "method": "conditional-online-consensus",
+          "basis": "Blended conditional final-win forecast from Opta tournament simulations, current Kalshi lookahead prices, and margin-normalized bookmaker outright and finalist markets",
+          "capturedAt": "2026-07-14T15:50:58-07:00",
+          "home": 57,
+          "away": 43,
+          "inputs": [
+            {
+              "sourceId": "opta-world-cup-semifinal-projections-2026-07-12",
+              "home": 56,
+              "away": 44,
+              "basis": "Conditional title strength normalized from Spain and England tournament-win and final-reach simulation rates"
+            },
+            {
+              "sourceId": "sportsbettingdime-final-lookahead-2026-07-14",
+              "home": 55,
+              "away": 45,
+              "basis": "Margin-normalized Spain 56c and England 45c Kalshi lookahead prices"
+            },
+            {
+              "sourceId": "oddschecker-world-cup-outrights-2026-07-14",
+              "home": 59,
+              "away": 41,
+              "basis": "Conditional title strength normalized from current champion and to-reach-final bookmaker prices"
+            }
+          ]
+        },
+        {
+          "homeTeamId": "ESP",
+          "awayTeamId": "ARG",
+          "market": "match-winner",
+          "sourceId": "sportsbettingdime-final-lookahead-2026-07-14",
+          "sourceIds": [
+            "opta-world-cup-semifinal-projections-2026-07-12",
+            "sportsbettingdime-final-lookahead-2026-07-14",
+            "oddschecker-world-cup-outrights-2026-07-14"
+          ],
+          "method": "conditional-online-consensus",
+          "basis": "Blended conditional final-win forecast from Opta tournament simulations, current Kalshi lookahead prices, and margin-normalized bookmaker outright and finalist markets",
+          "capturedAt": "2026-07-14T15:50:58-07:00",
+          "home": 58,
+          "away": 42,
+          "inputs": [
+            {
+              "sourceId": "opta-world-cup-semifinal-projections-2026-07-12",
+              "home": 57,
+              "away": 43,
+              "basis": "Conditional title strength normalized from Spain and Argentina tournament-win and final-reach simulation rates"
+            },
+            {
+              "sourceId": "sportsbettingdime-final-lookahead-2026-07-14",
+              "home": 57,
+              "away": 43,
+              "basis": "Margin-normalized Spain 58c and Argentina 43c Kalshi lookahead prices"
+            },
+            {
+              "sourceId": "oddschecker-world-cup-outrights-2026-07-14",
+              "home": 60,
+              "away": 40,
+              "basis": "Conditional title strength normalized from current champion and to-reach-final bookmaker prices"
+            }
+          ]
+        }
+      ]
     }
   ]
 }

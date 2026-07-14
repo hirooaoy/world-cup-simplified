@@ -4,7 +4,7 @@ import {
   preloadBallBoyCore,
   rememberBallBoyReply,
   resetBallBoyContext
-} from "./chatbot-knowledge.js?v=2026-07-14-ball-boy-voice-4";
+} from "./chatbot-knowledge.js?v=2026-07-14-country-matchup-intents";
 
 const SCOUT_PUPIL_TRAVEL = 3.6;
 const SCOUT_REPLY_DELAY_MS = 650;
@@ -119,6 +119,11 @@ const SCOUT_COPY = {
     penaltyShort: "pen.",
     matchChanges: "Key moments",
     playPlans: "How they may play",
+    currentComparison: "Current tournament comparison",
+    pastMeetings: "Past meetings",
+    prediction90: "Verified 90-minute projection",
+    verifiedH2hSource: "Verified head-to-head source ↗",
+    verifiedPredictionSource: "Verified prediction source ↗",
     noH2h: "No verified previous senior meetings before this fixture.",
     checkingH2h: "Previous-meeting history is still being checked.",
     beforeMatch: "Before this match",
@@ -226,6 +231,11 @@ const SCOUT_COPY = {
     penaltyShort: "点球",
     matchChanges: "关键时刻",
     playPlans: "可能的比赛方式",
+    currentComparison: "本届赛事对比",
+    pastMeetings: "过往交锋",
+    prediction90: "已核验的90分钟赛果预测",
+    verifiedH2hSource: "查看已核验的交锋来源 ↗",
+    verifiedPredictionSource: "查看已核验的预测来源 ↗",
     noH2h: "这场比赛前，双方没有经过核验的成年国家队交锋记录。",
     checkingH2h: "双方过往交锋记录仍在核验中。",
     beforeMatch: "赛前交锋",
@@ -1650,6 +1660,100 @@ function appendCountryReply(reply, options = {}) {
   createScoutVisualMessage("country", reply.lead, body, reply.followUps, options);
 }
 
+function appendMatchupReply(reply, options = {}) {
+  const focus = reply.focus || "overview";
+  const showComparison = focus === "overview";
+  const showHistory = focus !== "prediction";
+  const comparison = reply.comparison
+    .map(({ record, team }) => {
+      const meta = Number.isFinite(Number(team.fifaRank))
+        ? scoutText("fifaRank", team.fifaRank)
+        : "";
+      const styles = (team.styleTags || []).slice(0, 3).join(" · ");
+      return `
+        <section class="scout-matchup-team">
+          <header>
+            ${renderScoutFlag(team, "scout-matchup-flag", { decorative: true })}
+            <div>
+              <h3>${escapeScoutHtml(team.name)}</h3>
+              ${meta ? `<p>${escapeScoutHtml(meta)}</p>` : ""}
+            </div>
+          </header>
+          <div class="scout-matchup-record" aria-label="${escapeScoutHtml(scoutText("fullRecord"))}">
+            <span><strong>${record.wins}</strong>${escapeScoutHtml(scoutText("wins"))}</span>
+            <span><strong>${record.draws}</strong>${escapeScoutHtml(scoutText("draws"))}</span>
+            <span><strong>${record.losses}</strong>${escapeScoutHtml(scoutText("losses"))}</span>
+          </div>
+          <p class="scout-matchup-goals">${escapeScoutHtml(scoutText("goalsBalance", record.goalsFor, record.goalsAgainst))}</p>
+          ${styles ? `<p class="scout-matchup-styles">${escapeScoutHtml(styles)}</p>` : ""}
+        </section>
+      `;
+    })
+    .join("");
+  const history = reply.history.length
+    ? `
+      <div class="scout-h2h-results">
+        ${reply.history
+          .map(
+            (result) => `
+              <div class="scout-h2h-result">
+                <time>${escapeScoutHtml(result.dateLabel)}</time>
+                <span class="${result.winnerTeamId === result.home.id ? "is-winner" : ""}">${renderScoutFlag(result.home, "scout-h2h-flag", { decorative: true })}<span>${escapeScoutHtml(result.home.name)}</span></span>
+                <strong aria-label="${escapeScoutHtml(scoutText("scoreAria", result.homeScore, result.awayScore))}">${result.homeScore}–${result.awayScore}</strong>
+                <span class="is-away ${result.winnerTeamId === result.away.id ? "is-winner" : ""}"><span>${escapeScoutHtml(result.away.name)}</span>${renderScoutFlag(result.away, "scout-h2h-flag", { decorative: true })}</span>
+                ${result.competition ? `<small>${escapeScoutHtml(result.competition)}</small>` : ""}
+              </div>
+            `
+          )
+          .join("")}
+      </div>
+    `
+    : "";
+  const prediction = reply.prediction
+    ? `
+      <div class="scout-matchup-prediction">
+        <p class="scout-section-label">${escapeScoutHtml(scoutText("prediction90"))}</p>
+        <div>
+          ${reply.prediction.outcomes
+            .map((outcome) => {
+              const value = Math.max(0, Math.min(100, Number(outcome.value) || 0));
+              return `
+                <div class="scout-prediction-row">
+                  <span>${escapeScoutHtml(outcome.label)}</span>
+                  <div aria-hidden="true"><i style="width:${value}%"></i></div>
+                  <strong>${value}%</strong>
+                </div>
+              `;
+            })
+            .join("")}
+        </div>
+      </div>
+    `
+    : "";
+  const sourceUrl = reply.sourceUrl ? getSafeScoutUrl(reply.sourceUrl) : "";
+  const cardContent = `
+      ${showComparison ? `<div class="scout-matchup-section">
+        <p class="scout-section-label">${escapeScoutHtml(scoutText("currentComparison"))}</p>
+        <div class="scout-matchup-grid">${comparison}</div>
+      </div>` : ""}
+      ${prediction}
+      ${showHistory ? `<div class="scout-matchup-history">
+        <p class="scout-section-label">${escapeScoutHtml(reply.historyLabel || scoutText("pastMeetings"))}</p>
+        <p class="scout-matchup-history-summary">${escapeScoutHtml(reply.historySummary)}</p>
+        ${history}
+      </div>` : ""}
+      ${sourceUrl ? `<a class="scout-source-link" href="${escapeScoutHtml(sourceUrl)}" target="_blank" rel="noreferrer">${escapeScoutHtml(scoutText(focus === "prediction" ? "verifiedPredictionSource" : "verifiedH2hSource"))}</a>` : ""}
+  `;
+  const body = cardContent.trim()
+    ? `
+    <article class="scout-data-card scout-matchup-card">
+      ${cardContent}
+    </article>
+  `
+    : "";
+  createScoutVisualMessage("matchup", reply.lead, body, reply.followUps, options);
+}
+
 function appendMatchReply(reply, options = {}) {
   const { fixture, teams } = reply;
   const focus = reply.focus || "overview";
@@ -1932,6 +2036,8 @@ function appendPreviewReply(reply, { animate = true, scroll = true } = {}) {
     appendCountryReply(reply, options);
   } else if (reply.kind === "match") {
     appendMatchReply(reply, options);
+  } else if (reply.kind === "matchup") {
+    appendMatchupReply(reply, options);
   } else if (reply.kind === "rule") {
     appendRuleReply(reply, options);
   } else if (reply.kind === "help") {

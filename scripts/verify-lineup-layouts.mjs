@@ -487,9 +487,33 @@ function buildSideFromExactLayout(lineups, side, formation, sourcePlayers) {
   };
 }
 
-function sourceClaimFromExactLayout({ name, url, sourceDetail = "", lineups, homePlayers, awayPlayers }) {
-  const homeFormation = lineups.home?.formation || "";
-  const awayFormation = lineups.away?.formation || "";
+function normalizeExactSourceFormation(value, fallback = "") {
+  const digits = String(value || "")
+    .trim()
+    .split("-")
+    .map((part) => Number(part));
+
+  return digits.length >= 2 && digits.every((part) => Number.isInteger(part) && part > 0) &&
+    digits.reduce((sum, part) => sum + part, 0) === 10
+    ? digits.join("-")
+    : fallback;
+}
+
+function sourceClaimFromExactLayout({
+  name,
+  url,
+  sourceDetail = "",
+  lineups,
+  homePlayers,
+  awayPlayers,
+  homeFormation: sourceHomeFormation = "",
+  awayFormation: sourceAwayFormation = ""
+}) {
+  // An exact board provider owns both the coordinates and the tactical shape.
+  // FIFA's team-sheet tactics can be generic, so keeping that formation while
+  // importing a different board geometry produces internally inconsistent UI.
+  const homeFormation = normalizeExactSourceFormation(sourceHomeFormation, lineups.home?.formation || "");
+  const awayFormation = normalizeExactSourceFormation(sourceAwayFormation, lineups.away?.formation || "");
   const home = buildSideFromExactLayout(lineups, "home", homeFormation, homePlayers);
   const away = buildSideFromExactLayout(lineups, "away", awayFormation, awayPlayers);
 
@@ -899,7 +923,9 @@ function parseFotmobLayout(html, lineups, source) {
     sourceDetail: lineup.source ? `lineup payload source: ${lineup.source}` : "lineup payload",
     lineups,
     homePlayers: homeCanonicalPlayers,
-    awayPlayers: awayCanonicalPlayers
+    awayPlayers: awayCanonicalPlayers,
+    homeFormation: lineup.homeTeam.formation,
+    awayFormation: lineup.awayTeam.formation
   });
 }
 

@@ -1,7 +1,8 @@
 import { ZH_CLUB_NAME_TRANSLATIONS, ZH_LEAGUE_NAME_TRANSLATIONS, ZH_PLAYER_NAME_TRANSLATIONS } from "./football-locale-zh.js?v=2026-07-13-locale-2";
 
-const BALL_BOY_DATA_VERSION = "2026-07-13-player-card-audit";
+const BALL_BOY_DATA_VERSION = "2026-07-14-country-matchup-intents";
 const BALL_BOY_DATA_URLS = {
+  chatbotH2h: `data/chatbot-h2h.json?v=${BALL_BOY_DATA_VERSION}`,
   fixtures: `data/fixtures.json?v=${BALL_BOY_DATA_VERSION}`,
   liveData: `api/live-data?v=${BALL_BOY_DATA_VERSION}`,
   playerProfiles: `data/player-profiles.json?v=${BALL_BOY_DATA_VERSION}`,
@@ -722,10 +723,12 @@ const ZH_PERSONALITY_COPY = {
 
 let teamsPromise = null;
 let fixturesPromise = null;
+let chatbotH2hPromise = null;
 let standingsPromise = null;
 let profilesPromise = null;
 let teamsCache = [];
 let fixturesCache = [];
+let chatbotH2hCache = {};
 let standingsCache = {};
 let teamAliasEntries = [];
 let playerIndexCache = null;
@@ -733,7 +736,8 @@ let liveRefreshPromise = null;
 let replyContext = {
   fixtureId: "",
   playerName: "",
-  teamId: ""
+  teamId: "",
+  teamIds: []
 };
 
 export function normalizeBallBoyText(value) {
@@ -943,6 +947,9 @@ function canonicalizeChineseQuestion(value) {
     [/上一场比赛|最近一场比赛|上场比赛/g, " last match "],
     [/是谁进球|谁进了球|进球的是谁/g, " who scored "],
     [/谁赢了|谁获胜|比赛结果/g, " who won result "],
+    [/谁会赢|谁能赢|哪支队会赢|哪个国家会赢|预测谁赢/g, " who would win "],
+    [/上次交手|上一次交手|最近一次交手|最近交手/g, " last meeting "],
+    [/有没有赢过|是否赢过|赢过/g, " beaten "],
     [/比分是多少|比分/g, " score "],
     [/对阵|对/g, " vs "],
     [/什么时候开球|几点开球|比赛时间/g, " kickoff when "],
@@ -1073,6 +1080,16 @@ async function loadFixtures() {
   return fixturesCache;
 }
 
+async function loadChatbotH2h() {
+  if (!chatbotH2hPromise) {
+    chatbotH2hPromise = loadJson(BALL_BOY_DATA_URLS.chatbotH2h, { pairs: {} }).then((data) => {
+      chatbotH2hCache = data?.pairs && typeof data.pairs === "object" ? data.pairs : {};
+      return chatbotH2hCache;
+    });
+  }
+  return chatbotH2hPromise;
+}
+
 async function loadStandings() {
   if (!standingsPromise) {
     standingsPromise = loadJson(BALL_BOY_DATA_URLS.standings, { groups: {} }).then((data) => {
@@ -1175,14 +1192,16 @@ async function loadProfiles() {
 }
 
 async function loadCoreData() {
-  const [teams, fixtures, standings] = await Promise.all([
+  const [teams, fixtures, standings, chatbotH2h] = await Promise.all([
     loadTeams(),
     loadFixtures(),
-    loadStandings()
+    loadStandings(),
+    loadChatbotH2h()
   ]);
   await refreshFixturesFromLiveData();
   return {
     fixtures: fixturesCache.length ? fixturesCache : fixtures,
+    chatbotH2h: Object.keys(chatbotH2hCache).length ? chatbotH2hCache : chatbotH2h,
     standings: Object.keys(standingsCache).length ? standingsCache : standings,
     teams,
     teamsById: new Map(teams.map((team) => [team.id, team]))
@@ -1197,11 +1216,16 @@ function findTeamsInQuestion(question) {
   const normalized = normalizeBallBoyText(question);
   const matches = [];
   for (const entry of teamAliasEntries) {
-    if (containsPhrase(normalized, entry.key) && !matches.some((team) => team.id === entry.team.id)) {
-      matches.push(entry.team);
+    if (containsPhrase(normalized, entry.key) && !matches.some((match) => match.team.id === entry.team.id)) {
+      matches.push({
+        index: normalized.indexOf(entry.key),
+        team: entry.team
+      });
     }
   }
-  return matches;
+  return matches
+    .sort((left, right) => left.index - right.index)
+    .map((match) => match.team);
 }
 
 function resolvePlayer(question, playerIndex, teamIds = []) {
@@ -2201,6 +2225,388 @@ function getMatchH2hSummary(fixture, teams, locale = "en") {
     : "Previous-meeting history is still being checked.";
 }
 
+function getMatchupIntent(question) {
+  if (/\b(who would win|who will win|which (?:team|country) (?:would|will) win|prediction|predict|favorite|favourite|more likely to win)\b/.test(question)) {
+    return "prediction";
+  }
+  if (/\b(last meeting|last played|last time .* play|most recent meeting|previous meeting)\b/.test(question)) {
+    return "last-meeting";
+  }
+  if (/\b(beaten|ever beat|has .* beat|have .* beat)\b/.test(question)) {
+    return "has-beaten";
+  }
+  return "overview";
+}
+
+function getTeamPairKey(teams) {
+  return teams
+    .map((team) => team?.id || "")
+    .filter(Boolean)
+    .sort()
+    .join("|");
+}
+
+function getMatchupFixture(teams, fixtures) {
+  const upcoming = resolveFixture("next match", teams, fixtures);
+  return upcoming || resolveFixture("result", teams, fixtures);
+}
+
+function getMatchupH2h(teams, core) {
+  const cached = core.chatbotH2h?.[getTeamPairKey(teams)];
+  if (cached && ["loaded", "verified-empty"].includes(cached.status)) {
+    return cached;
+  }
+
+  const teamIds = new Set(teams.map((team) => team.id));
+  return sortFixturesLatestFirst(
+    core.fixtures.filter((fixture) => {
+      const fixtureIds = [fixture.homeTeamId, fixture.awayTeamId];
+      return fixtureIds.every((teamId) => teamIds.has(teamId)) &&
+        ["loaded", "verified-empty"].includes(fixture.h2h?.status);
+    })
+  )[0]?.h2h || null;
+}
+
+function getCompletedMatchupResults(teams, core, locale = "en") {
+  const teamIds = new Set(teams.map((team) => team.id));
+  return core.fixtures
+    .filter((fixture) => {
+      const fixtureIds = [fixture.homeTeamId, fixture.awayTeamId];
+      return fixtureIds.every((teamId) => teamIds.has(teamId)) && isCompletedFixture(fixture);
+    })
+    .map((fixture) => {
+      const homeScore = Number(fixture.score?.home);
+      const awayScore = Number(fixture.score?.away);
+      if (!Number.isFinite(homeScore) || !Number.isFinite(awayScore)) {
+        return null;
+      }
+      return {
+        awayScore,
+        awayTeamId: fixture.awayTeamId,
+        competitionLabel: isZhLocale(locale)
+          ? `2026年世界杯 · ${getStageLabel(fixture, locale)}`
+          : `World Cup 2026 · ${getStageLabel(fixture, locale)}`,
+        date: String(fixture.kickoffUtc || "").slice(0, 10),
+        homeScore,
+        homeTeamId: fixture.homeTeamId,
+        venue: fixture.venue || ""
+      };
+    })
+    .filter(Boolean);
+}
+
+function getMatchupResultKey(result) {
+  return [
+    result.date,
+    result.homeTeamId,
+    result.awayTeamId,
+    result.homeScore,
+    result.awayScore
+  ].join("|");
+}
+
+function getMatchupResultWinnerId(result) {
+  const homeScore = Number(result?.homeScore);
+  const awayScore = Number(result?.awayScore);
+  if (!Number.isFinite(homeScore) || !Number.isFinite(awayScore) || homeScore === awayScore) {
+    return "";
+  }
+  return homeScore > awayScore ? result.homeTeamId : result.awayTeamId;
+}
+
+function summarizeMatchupH2h(h2h, teams, hasFixture, locale = "en") {
+  if (!h2h || !["loaded", "verified-empty"].includes(h2h.status)) {
+    return isZhLocale(locale)
+      ? "双方经过核验的成年国家队交锋记录尚未载入。"
+      : "Verified senior men's head-to-head history is not available yet.";
+  }
+
+  const [firstTeam, secondTeam] = teams;
+  const results = Array.isArray(h2h.results) ? h2h.results : [];
+  if (!results.length) {
+    if (isZhLocale(locale)) {
+      return hasFixture
+        ? `${firstTeam.name}与${secondTeam.name}此前从未在经过核验的成年国家队比赛中交手，因此这是双方首次交锋。`
+        : `${firstTeam.name}与${secondTeam.name}此前从未在经过核验的成年国家队比赛中交手。未来如果交手，将是双方首次碰面。`;
+    }
+    return `${firstTeam.name} and ${secondTeam.name} have never met in a verified senior men's international. ${hasFixture ? "This is their first head-to-head meeting." : "A future match would be their first head-to-head meeting."}`;
+  }
+
+  const record = results.reduce(
+    (summary, result) => {
+      const homeScore = Number(result.homeScore);
+      const awayScore = Number(result.awayScore);
+      if (!Number.isFinite(homeScore) || !Number.isFinite(awayScore)) {
+        return summary;
+      }
+      summary.goals += homeScore + awayScore;
+      if (homeScore === awayScore) {
+        summary.draws += 1;
+      } else {
+        const winnerTeamId = homeScore > awayScore ? result.homeTeamId : result.awayTeamId;
+        if (winnerTeamId === firstTeam.id) {
+          summary.firstWins += 1;
+        } else if (winnerTeamId === secondTeam.id) {
+          summary.secondWins += 1;
+        }
+      }
+      return summary;
+    },
+    { draws: 0, firstWins: 0, goals: 0, secondWins: 0 }
+  );
+
+  if (isZhLocale(locale)) {
+    return `此前经过核验的成年国家队交锋：${firstTeam.name}${record.firstWins}胜，平局${record.draws}场，${secondTeam.name}${record.secondWins}胜，共产生${record.goals}个进球。`;
+  }
+
+  const leader = record.firstWins > record.secondWins
+    ? firstTeam.name
+    : record.secondWins > record.firstWins
+      ? secondTeam.name
+      : "";
+  const prefix = leader
+    ? `${leader} had the edge in the verified senior series`
+    : "The verified senior series was level";
+  const fixturePrefix = hasFixture ? "Before this fixture, " : "";
+  return `${fixturePrefix}${prefix}: ${record.firstWins} ${firstTeam.name} ${record.firstWins === 1 ? "win" : "wins"}, ${record.draws} ${record.draws === 1 ? "draw" : "draws"}, ${record.secondWins} ${secondTeam.name} ${record.secondWins === 1 ? "win" : "wins"}, ${record.goals} total ${record.goals === 1 ? "goal" : "goals"}.`;
+}
+
+function formatMatchupHistoryDate(value, locale = "en") {
+  const date = new Date(`${value}T12:00:00Z`);
+  if (Number.isNaN(date.getTime())) {
+    return value || "";
+  }
+  return new Intl.DateTimeFormat(isZhLocale(locale) ? "zh-CN" : "en", {
+    day: "numeric",
+    month: "short",
+    timeZone: "UTC",
+    year: "numeric"
+  }).format(date);
+}
+
+function localizeMatchupCompetition(value, locale = "en") {
+  const competition = String(value || "");
+  if (!isZhLocale(locale)) {
+    return competition;
+  }
+  if (competition === "Friendly") {
+    return "友谊赛";
+  }
+  const worldCupGroup = competition.match(/^World Cup (\d{4}) - Group (.+)$/);
+  if (worldCupGroup) {
+    return `${worldCupGroup[1]}年世界杯 · 第${worldCupGroup[2]}组`;
+  }
+  return competition.replace("World Cup", "世界杯");
+}
+
+function formatMatchupHistoryResult(result, core, locale = "en") {
+  const home = localizeTeam(core.teamsById.get(result.homeTeamId), locale);
+  const away = localizeTeam(core.teamsById.get(result.awayTeamId), locale);
+  const homeScore = Number(result.homeScore);
+  const awayScore = Number(result.awayScore);
+  return {
+    away,
+    awayScore,
+    competition: result.competitionLabel || localizeMatchupCompetition(result.competition, locale),
+    dateLabel: formatMatchupHistoryDate(result.date, locale),
+    home,
+    homeScore,
+    winnerTeamId: getMatchupResultWinnerId(result)
+  };
+}
+
+function buildLastMeetingLead(result, locale = "en") {
+  if (!result) {
+    return isZhLocale(locale)
+      ? "双方最近一次经过核验的成年国家队交锋记录尚未载入。"
+      : "Their most recent verified senior men's meeting is not available yet.";
+  }
+  if (result.homeScore === result.awayScore) {
+    return isZhLocale(locale)
+      ? `双方最近一次经过核验的成年国家队交锋中，${result.home.name}与${result.away.name}在${result.dateLabel}以${result.homeScore}-${result.awayScore}战平。`
+      : `${result.home.name} and ${result.away.name} drew ${result.homeScore}-${result.awayScore} on ${result.dateLabel} in their most recent verified senior men's meeting.`;
+  }
+  const winner = result.winnerTeamId === result.home.id ? result.home : result.away;
+  const loser = result.winnerTeamId === result.home.id ? result.away : result.home;
+  const winnerScore = result.winnerTeamId === result.home.id ? result.homeScore : result.awayScore;
+  const loserScore = result.winnerTeamId === result.home.id ? result.awayScore : result.homeScore;
+  return isZhLocale(locale)
+    ? `双方最近一次经过核验的成年国家队交锋中，${winner.name}在${result.dateLabel}以${winnerScore}-${loserScore}击败${loser.name}。`
+    : `${winner.name} beat ${loser.name} ${winnerScore}-${loserScore} on ${result.dateLabel} in their most recent verified senior men's meeting.`;
+}
+
+function buildHasBeatenLead(subject, opponent, result, hasVerifiedHistory, locale = "en") {
+  if (result) {
+    const subjectScore = result.home.id === subject.id ? result.homeScore : result.awayScore;
+    const opponentScore = result.home.id === opponent.id ? result.homeScore : result.awayScore;
+    return isZhLocale(locale)
+      ? `${subject.name}曾在经过核验的成年国家队比赛中击败${opponent.name}。最近一次是在${result.dateLabel}以${subjectScore}-${opponentScore}获胜。`
+      : `${subject.name} have beaten ${opponent.name} in a verified senior men's international. Their most recent win was ${subjectScore}-${opponentScore} on ${result.dateLabel}.`;
+  }
+  if (hasVerifiedHistory) {
+    return isZhLocale(locale)
+      ? `${subject.name}尚未在经过核验的成年国家队比赛中击败${opponent.name}。`
+      : `${subject.name} have not beaten ${opponent.name} in the verified senior series.`;
+  }
+  return isZhLocale(locale)
+    ? `目前没有足够的经过核验的交锋记录来确认${subject.name}是否击败过${opponent.name}。`
+    : `There is not enough verified head-to-head history available to confirm whether ${subject.name} have beaten ${opponent.name}.`;
+}
+
+function getMatchupPrediction(fixture, core, locale = "en") {
+  const projection = fixture?.projection;
+  const homeValue = Number(projection?.home);
+  const drawValue = Number(projection?.draw);
+  const awayValue = Number(projection?.away);
+  if (![homeValue, drawValue, awayValue].every(Number.isFinite)) {
+    return null;
+  }
+  const home = localizeTeam(core.teamsById.get(fixture.homeTeamId), locale);
+  const away = localizeTeam(core.teamsById.get(fixture.awayTeamId), locale);
+  return {
+    outcomes: [
+      { id: home.id, label: home.name, value: homeValue },
+      { id: "draw", label: isZhLocale(locale) ? "平局" : "Draw", value: drawValue },
+      { id: away.id, label: away.name, value: awayValue }
+    ],
+    sourceUrl: projection.sourceUrl || ""
+  };
+}
+
+function buildPredictionLead(fixture, prediction, core, localizedTeams, locale = "en") {
+  if (!fixture) {
+    return isZhLocale(locale)
+      ? `${localizedTeams[0].name}与${localizedTeams[1].name}目前没有安排在本届世界杯交手，因此没有经过核验的比赛预测。`
+      : `${localizedTeams[0].name} and ${localizedTeams[1].name} are not currently scheduled to meet at this World Cup, so there is no verified match prediction.`;
+  }
+  const fixtureTeams = getFixtureTeams(fixture, core.teamsById);
+  const localizedFixtureTeams = {
+    away: localizeTeam(fixtureTeams.away, locale),
+    home: localizeTeam(fixtureTeams.home, locale)
+  };
+  if (isCompletedFixture(fixture)) {
+    const result = buildMatchLead(fixture, localizedFixtureTeams, getGoalTimeline(fixture, locale), locale);
+    return isZhLocale(locale) ? `这场比赛已经结束。${result}` : `This match has already been played. ${result}`;
+  }
+  if (String(fixture.status || "").toUpperCase() === "LIVE") {
+    const live = buildMatchLead(fixture, localizedFixtureTeams, getGoalTimeline(fixture, locale), locale);
+    return isZhLocale(locale) ? `比赛已经开始。${live}` : `The match is already in progress. ${live}`;
+  }
+  if (!prediction) {
+    return isZhLocale(locale)
+      ? "这场比赛暂时没有载入经过核验的预测。"
+      : "No verified prediction is loaded for this fixture yet.";
+  }
+  const highest = [...prediction.outcomes].sort((left, right) => right.value - left.value)[0];
+  const home = prediction.outcomes[0];
+  const draw = prediction.outcomes[1];
+  const away = prediction.outcomes[2];
+  if (isZhLocale(locale)) {
+    return highest.id === "draw"
+      ? `经过核验的90分钟赛果预测中，平局概率最高，为${draw.value}%；${home.label}胜率${home.value}%，${away.label}胜率${away.value}%。预测为非官方内容。`
+      : `${highest.label}在经过核验的90分钟赛果预测中胜率最高，为${highest.value}%；平局${draw.value}%，${highest.id === home.id ? away.label : home.label}胜率${highest.id === home.id ? away.value : home.value}%。预测为非官方内容。`;
+  }
+  return highest.id === "draw"
+    ? `A draw is the highest-probability 90-minute outcome at ${draw.value}%. ${home.label} are ${home.value}% and ${away.label} are ${away.value}%. Predictions are unofficial.`
+    : `${highest.label} have the highest 90-minute win probability at ${highest.value}%. The draw is ${draw.value}%, and ${highest.id === home.id ? away.label : home.label} are ${highest.id === home.id ? away.value : home.value}%. Predictions are unofficial.`;
+}
+
+function buildMatchupReply(requestedTeams, core, locale = "en", intent = "overview") {
+  const teams = requestedTeams.slice(0, 2);
+  const localizedTeams = teams.map((team) => localizeTeam(team, locale));
+  const fixture = getMatchupFixture(teams, core.fixtures);
+  const fixtureTeams = fixture ? getFixtureTeams(fixture, core.teamsById) : null;
+  const localizedFixtureTeams = fixtureTeams
+    ? {
+        away: localizeTeam(fixtureTeams.away, locale),
+        home: localizeTeam(fixtureTeams.home, locale)
+      }
+    : null;
+  let lead = fixture
+    ? buildMatchLead(fixture, localizedFixtureTeams, getGoalTimeline(fixture, locale), locale)
+    : isZhLocale(locale)
+      ? `${localizedTeams[0].name}与${localizedTeams[1].name}目前没有安排在本届世界杯交手。`
+      : `${localizedTeams[0].name} and ${localizedTeams[1].name} are not currently scheduled to meet at this World Cup.`;
+  const h2h = getMatchupH2h(teams, core);
+  const h2hResults = Array.isArray(h2h?.results) ? h2h.results : [];
+  const allResults = uniqueBy(
+    [...getCompletedMatchupResults(teams, core, locale), ...h2hResults]
+      .filter((result) => core.teamsById.has(result.homeTeamId) && core.teamsById.has(result.awayTeamId))
+      .sort((left, right) => String(right.date || "").localeCompare(String(left.date || ""))),
+    getMatchupResultKey
+  );
+  let selectedResults = h2hResults.slice(0, 3);
+  let historySummary = summarizeMatchupH2h(h2h, localizedTeams, Boolean(fixture), locale);
+  let historyLabel = isZhLocale(locale) ? "过往交锋" : "Past meetings";
+  let prediction = null;
+
+  if (intent === "prediction") {
+    prediction = !fixture || (!isCompletedFixture(fixture) && String(fixture.status || "").toUpperCase() !== "LIVE")
+      ? getMatchupPrediction(fixture, core, locale)
+      : null;
+    lead = buildPredictionLead(fixture, prediction, core, localizedTeams, locale);
+    selectedResults = [];
+  } else if (intent === "last-meeting") {
+    selectedResults = allResults.slice(0, 1);
+    const latest = selectedResults[0] ? formatMatchupHistoryResult(selectedResults[0], core, locale) : null;
+    lead = buildLastMeetingLead(latest, locale);
+    historySummary = isZhLocale(locale)
+      ? "这是双方最近一次经过核验的成年国家队交锋。"
+      : "This is their most recent verified senior men's international.";
+    historyLabel = isZhLocale(locale) ? "最近一次交锋" : "Last meeting";
+  } else if (intent === "has-beaten") {
+    const subject = localizedTeams[0];
+    const opponent = localizedTeams[1];
+    const latestWin = allResults.find((result) => getMatchupResultWinnerId(result) === teams[0].id) || null;
+    selectedResults = latestWin ? [latestWin] : [];
+    const formattedWin = latestWin ? formatMatchupHistoryResult(latestWin, core, locale) : null;
+    lead = buildHasBeatenLead(
+      subject,
+      opponent,
+      formattedWin,
+      Boolean(allResults.length || (h2h && ["loaded", "verified-empty"].includes(h2h.status))),
+      locale
+    );
+    historySummary = formattedWin
+      ? isZhLocale(locale) ? `${subject.name}最近一次战胜${opponent.name}。` : `${subject.name}'s most recent win over ${opponent.name}.`
+      : summarizeMatchupH2h(h2h, localizedTeams, Boolean(fixture), locale);
+    historyLabel = isZhLocale(locale) ? "交锋结果" : "Head-to-head answer";
+  }
+
+  const history = selectedResults.map((result) => formatMatchupHistoryResult(result, core, locale));
+  const hasBeatenPrompt = isZhLocale(locale)
+    ? `${localizedTeams[0].name}赢过${localizedTeams[1].name}吗？`
+    : `Has ${localizedTeams[0].name} beaten ${localizedTeams[1].name}?`;
+  const followUps = intent === "overview"
+    ? [isZhLocale(locale) ? "谁会赢？" : "Who would win?", isZhLocale(locale) ? "上次交手" : "Last meeting", hasBeatenPrompt]
+    : intent === "prediction"
+      ? [isZhLocale(locale) ? "上次交手" : "Last meeting", hasBeatenPrompt]
+      : [isZhLocale(locale) ? "谁会赢？" : "Who would win?", intent === "has-beaten" ? (isZhLocale(locale) ? "上次交手" : "Last meeting") : hasBeatenPrompt];
+
+  return {
+    comparison: teams.map((team, index) => ({
+      record: getTeamRecord(team.id, core.fixtures).record,
+      team: localizedTeams[index]
+    })),
+    fixture: fixture
+      ? {
+          id: fixture.id,
+          status: fixture.status
+        }
+      : null,
+    contextTeamIds: teams.map((team) => team.id),
+    focus: intent,
+    followUps,
+    history,
+    historyLabel,
+    historySummary,
+    kind: "matchup",
+    lead,
+    prediction,
+    sourceUrl: intent === "prediction" ? prediction?.sourceUrl || "" : h2h?.sourceUrl || ""
+  };
+}
+
 function buildMatchReply(fixture, core, question, locale = "en") {
   const isZh = isZhLocale(locale);
   const rawTeams = getFixtureTeams(fixture, core.teamsById);
@@ -2546,19 +2952,30 @@ function rememberReply(reply, source = {}) {
     replyContext = {
       fixtureId: "",
       playerName: reply.profile.displayName,
-      teamId: reply.team?.id || source.teamId || ""
+      teamId: reply.team?.id || source.teamId || "",
+      teamIds: []
     };
     return;
   }
   if (reply.kind === "country") {
-    replyContext = { fixtureId: "", playerName: "", teamId: reply.team.id };
+    replyContext = { fixtureId: "", playerName: "", teamId: reply.team.id, teamIds: [] };
     return;
   }
   if (reply.kind === "match") {
     replyContext = {
       fixtureId: reply.fixture.id,
       playerName: "",
-      teamId: source.teamId || ""
+      teamId: source.teamId || "",
+      teamIds: []
+    };
+    return;
+  }
+  if (reply.kind === "matchup") {
+    replyContext = {
+      fixtureId: reply.fixture?.id || "",
+      playerName: "",
+      teamId: "",
+      teamIds: reply.contextTeamIds || []
     };
     return;
   }
@@ -2566,7 +2983,8 @@ function rememberReply(reply, source = {}) {
     replyContext = {
       fixtureId: reply.fixtureId || "",
       playerName: "",
-      teamId: source.teamId || ""
+      teamId: source.teamId || "",
+      teamIds: []
     };
     return;
   }
@@ -2577,7 +2995,8 @@ function rememberReply(reply, source = {}) {
     replyContext = {
       fixtureId: "",
       playerName: reply.contextPlayerName || "",
-      teamId: reply.contextTeamId || ""
+      teamId: reply.contextTeamId || "",
+      teamIds: []
     };
   }
 }
@@ -2587,7 +3006,7 @@ export function rememberBallBoyReply(reply) {
 }
 
 export function resetBallBoyContext() {
-  replyContext = { fixtureId: "", playerName: "", teamId: "" };
+  replyContext = { fixtureId: "", playerName: "", teamId: "", teamIds: [] };
 }
 
 export async function getBallBoyReply(rawQuestion, options = {}) {
@@ -2615,6 +3034,7 @@ export async function getBallBoyReply(rawQuestion, options = {}) {
 
   const core = await loadCoreData();
   let teams = findTeamsInQuestion(question);
+  const matchupIntent = getMatchupIntent(question);
   const contextTeam = getContextTeam(core);
   const contextFixtureId = getContextFixtureId(core);
   const asksWhoToWatch = /\b(who should i watch|players to watch|who to watch|key players|best players)\b/.test(question);
@@ -2629,6 +3049,15 @@ export async function getBallBoyReply(rawQuestion, options = {}) {
     teams = [contextTeam];
   }
 
+  if (
+    !teams.length &&
+    matchupIntent !== "overview" &&
+    Array.isArray(replyContext.teamIds) &&
+    replyContext.teamIds.length === 2
+  ) {
+    teams = replyContext.teamIds.map((teamId) => core.teamsById.get(teamId)).filter(Boolean);
+  }
+
   if (asksWhoToWatch) {
     const playerIndex = await loadProfiles();
     if (!teams.length && contextTeam) {
@@ -2637,6 +3066,14 @@ export async function getBallBoyReply(rawQuestion, options = {}) {
     const reply = buildWatchReply(core, playerIndex, teams, locale);
     reply.contextTeamId = teams[0]?.id || contextTeam?.id || "";
     return reply;
+  }
+
+  if (teams.length >= 2 && matchupIntent !== "overview") {
+    return buildMatchupReply(teams, core, locale, matchupIntent);
+  }
+
+  if (teams.length >= 2 && !isMatchQuestion(question)) {
+    return buildMatchupReply(teams, core, locale, "overview");
   }
 
   if (
@@ -2648,6 +3085,9 @@ export async function getBallBoyReply(rawQuestion, options = {}) {
       const reply = buildMatchReply(fixture, core, question, locale);
       reply.contextTeamId = teams[0]?.id || "";
       return reply;
+    }
+    if (teams.length >= 2) {
+      return buildMatchupReply(teams, core, locale, "overview");
     }
   }
 

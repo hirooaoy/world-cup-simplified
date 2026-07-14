@@ -86,6 +86,7 @@ function fixtureName(fixture, teamsById) {
 function fixtureSourceIds(fixture) {
   return [
     fixture.projection?.sourceId,
+    ...(fixture.conditionalProjections || []).flatMap((projection) => projection.sourceIds || []),
     fixture.keyPlayers?.sourceId,
     fixture.keyInformation?.sourceId,
     ...(fixture.keyInformation?.researchSourceIds || []),
@@ -108,7 +109,7 @@ function sourceThresholdHours(source) {
     return contextFreshHours;
   }
 
-  if (source.type === "market-odds") {
+  if (String(source.type || "").includes("market")) {
     return marketFreshHours;
   }
 
@@ -251,6 +252,28 @@ for (const fixture of focusFixtures) {
 
   if (fixture.status === "FT" && !fixture.score) {
     blockers.push(`${label} is FT but has no score.`);
+  }
+
+  if (
+    isKnockoutFixture(fixture) &&
+    ["SCHEDULED", "DELAYED"].includes(fixture.status) &&
+    fixture.homeTeamId &&
+    fixture.awayTeamId
+  ) {
+    const projectionMethod = fixture.projection?.method || "";
+    const hasSourcedProjection = [
+      "market-implied-consensus",
+      "online-source-consensus",
+      "online-source-forecast"
+    ].includes(projectionMethod);
+    if (!hasSourcedProjection) {
+      const message = `${label} needs a direct Opta/bookmaker 1X2 forecast before publishing; ranking fallbacks are not accepted for confirmed knockout fixtures.`;
+      if (hoursUntilKickoff <= lineupResearchRequiredHours) {
+        addEditorialFreshnessIssue(message);
+      } else {
+        actions.push(message);
+      }
+    }
   }
 
   if (

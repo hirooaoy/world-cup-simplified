@@ -100,30 +100,47 @@ function computeScenarioOnField(starters, substitutions = []) {
   return [...onField];
 }
 
-function buildLiveLineups({ mode = "live", substitutions = [], official = true } = {}) {
+function buildLiveLineups({ mode = "live", substitutions = [], official = true, exactGeometry = false } = {}) {
+  const exactHomeGeometry = [
+    [50, 90],
+    [12.5, 70.8],
+    [37.5, 70.8],
+    [62.5, 70.8],
+    [87.5, 70.8],
+    [50, 51.5],
+    [12.5, 32.2],
+    [37.5, 30.2],
+    [62.5, 32.2],
+    [87.5, 32.2],
+    [50, 11]
+  ];
+  const exactHomeStarters = homeStarters.map((starter, index) => ({
+    ...starter,
+    ...(exactGeometry ? { x: exactHomeGeometry[index][0], y: exactHomeGeometry[index][1] } : {})
+  }));
   const lineups = {
     mode,
     ...(official ? { teamSheetSource: "fifa-official", eventSource: "fifa-official" } : {}),
-    layoutSource: "derived-team-sheet-order",
+    layoutSource: exactGeometry ? "verified-layout" : "derived-team-sheet-order",
     layoutVerification: {
-      status: "unverified",
-      exact: false,
-      source: "derived-team-sheet-order",
+      status: exactGeometry ? "verified" : "unverified",
+      exact: exactGeometry,
+      source: exactGeometry ? "verified-layout" : "derived-team-sheet-order",
       checkedAt
     },
     sourceIds: ["fifa-lineups-live-rendering-smoke"],
     checkedAt,
     home: {
-      formation: "4-1-3-2",
+      formation: exactGeometry ? "4-1-4-1" : "4-1-3-2",
       coach: { name: "Lionel Scaloni", teamName: "Argentina" },
-      players: homeStarters,
+      players: exactHomeStarters,
       bench: homeBench,
       events: {
         cards: [],
         staffCards: [],
         substitutions
       },
-      onFieldPlayers: computeScenarioOnField(homeStarters, substitutions)
+      onFieldPlayers: computeScenarioOnField(exactHomeStarters, substitutions)
     },
     away: {
       formation: "4-2-3-1",
@@ -338,6 +355,13 @@ try {
         { minute: 72, offName: "Julian Alvarez", onName: "Paulo Dybala" },
         { minute: 84, offName: "Enzo Fernandez", onName: "Exequiel Palacios" }
       ]
+    },
+    {
+      label: "verified exact geometry preserves mixed-role rows",
+      mode: "final",
+      status: "FT",
+      substitutions: [],
+      exactGeometry: true
     }
   ];
 
@@ -402,7 +426,8 @@ try {
       markers: [...panel.querySelectorAll(".lineup-player-marker")].map((marker) => ({
         currentName: marker.dataset.lineupPlayerName || "",
         starterName: marker.dataset.lineupStarterName || "",
-        position: marker.dataset.lineupPosition || ""
+        position: marker.dataset.lineupPosition || "",
+        displayY: marker.style.getPropertyValue("--y")
       })),
       substitutionToggles: [...panel.querySelectorAll("[data-lineup-substitution-toggle]")].map((toggle) => ({
         minute: toggle.dataset.lineupMinute || "",
@@ -427,6 +452,18 @@ try {
       scenario.substitutions.length,
       `${scenario.label}: substitution events should be represented as starter marker toggles.`
     );
+
+    if (scenario.exactGeometry) {
+      const sameSourceRow = homeState.markers.filter((marker) =>
+        ["Rodrigo De Paul", "Alexis Mac Allister", "Enzo Fernandez", "Julian Alvarez"].includes(marker.starterName)
+      );
+      assert.equal(sameSourceRow.length, 4, `${scenario.label}: expected all four mixed-role row markers.`);
+      assert.equal(
+        new Set(sameSourceRow.map((marker) => marker.displayY)).size,
+        1,
+        `${scenario.label}: verified source players sharing one y coordinate must render on one row. Measured ${JSON.stringify(sameSourceRow)}.`
+      );
+    }
 
     for (const substitution of scenario.substitutions) {
       assert(
@@ -570,11 +607,7 @@ try {
       ariaLabel: block.getAttribute("aria-label") || "",
       helpLabel: block.querySelector(".lineup-heading .info-tooltip-button")?.getAttribute("aria-label") || "",
       heading: block.querySelector(".lineup-heading span")?.textContent.replace(/\s+/g, " ").trim() || "",
-      sourceLinks: [...block.querySelectorAll(".lineup-updated-copy a")].map((link) => ({
-        href: link.href,
-        text: link.textContent.replace(/\s+/g, " ").trim()
-      })),
-      updatedText: block.querySelector(".lineup-updated-copy")?.textContent.replace(/\s+/g, " ").trim() || "",
+      updatedCopyCount: block.querySelectorAll(".lineup-updated-copy").length,
       text: block.textContent.replace(/\s+/g, " ").trim()
     }));
 
@@ -584,25 +617,16 @@ try {
       `Future expected lineups should use the predicted heading. Measured ${JSON.stringify(headingState)}.`
     );
     assert.equal(headingState.ariaLabel, "Line-ups (predicted)");
+    assert.equal(
+      headingState.helpLabel,
+      localOnly ? "Predicted from recent official lineups." : "Predicted from online sources.",
+      `Future predicted lineups should keep a short source tooltip. Measured ${JSON.stringify(headingState)}.`
+    );
     assert(
-      headingState.helpLabel.includes(
-        localOnly ? "Predicted from recent official lineups." : "Predicted from online sources."
-      ) &&
-        headingState.helpLabel.includes("Evidence strength: medium (not a calibrated probability).") &&
-        headingState.helpLabel.includes(
-          localOnly ? "Sources: Recent FIFA official XIs." : "Sources: Sports Mole semifinal preview."
-        ) &&
-        headingState.helpLabel.includes("Disputed slots: England CM Rodrigo De Paul / Giovani Lo Celso.") &&
-        headingState.helpLabel.includes("Pitch layout is provisional.") &&
-        headingState.updatedText.includes("Evidence strength: medium") &&
-        headingState.updatedText.includes("Checked 1 min ago") &&
-        headingState.updatedText.includes("1 disputed slot") &&
-        (localOnly
-          ? headingState.sourceLinks.length === 0
-          : headingState.sourceLinks.length === 1 &&
-            headingState.sourceLinks[0].href === "https://example.com/predicted-lineup") &&
-        !headingState.text.includes("This was the final lineup for the match."),
-      `Future predicted lineups should expose evidence strength, freshness, sources, disputes, and provisional placement without reading as official. Measured ${JSON.stringify(headingState)}.`
+      headingState.updatedCopyCount === 0 &&
+        !headingState.text.includes("This was the final lineup for the match.") &&
+        !headingState.text.includes("Pitch layout is provisional."),
+      `Lineup headings should not render a subtitle beneath them. Measured ${JSON.stringify(headingState)}.`
     );
 
     await context.close();
