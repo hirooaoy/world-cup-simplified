@@ -1829,6 +1829,10 @@ async function openPageAtTime(
     path.includes("view=standings") ? ".standings-card, .third-place-table, .tournament-view" : ".match-row",
     { state: "attached" }
   );
+  await mockedPage.waitForFunction(() => {
+    const matchList = document.querySelector("#match-list");
+    return matchList && !matchList.hasAttribute("aria-busy");
+  });
 
   return { context, page: mockedPage };
 }
