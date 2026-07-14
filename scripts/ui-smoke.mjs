@@ -5204,6 +5204,11 @@ try {
     .first();
   await lineupEventBadge.scrollIntoViewIfNeeded();
   await lineupEventBadge.focus();
+  assert(
+    await lineupEventBadge.evaluate((badge) => document.activeElement === badge),
+    "Line-up event badges should accept keyboard focus."
+  );
+  await lineupEventBadge.dispatchEvent("focusin", { bubbles: true });
   await finalLineupModeCheck.page.waitForFunction(() => {
     const tooltip = document.querySelector(".lineup-event-tooltip-floating");
     const styles = tooltip ? getComputedStyle(tooltip) : null;
