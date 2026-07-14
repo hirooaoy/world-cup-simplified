@@ -24190,10 +24190,10 @@
         "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
       },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-07",
+        "fifa-lineups-sync-2026-07-14",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T22:59:37.002Z",
+      "checkedAt": "2026-07-14T10:39:52.661Z",
       "home": {
         "formation": "4-2-3-1",
         "coach": {
@@ -24579,7 +24579,7 @@
           },
           {
             "number": "10",
-            "name": "Neymar Jr",
+            "name": "Neymar",
             "sourcePosition": "forward",
             "position": "ST"
           },
@@ -24635,7 +24635,7 @@
             },
             {
               "offName": "Matheus Cunha",
-              "onName": "Neymar Jr",
+              "onName": "Neymar",
               "minute": 76
             },
             {
@@ -36268,10 +36268,10 @@
         "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
       },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-07",
+        "fifa-lineups-sync-2026-07-14",
         "lineup-layout-verification-2026-07-03"
       ],
-      "checkedAt": "2026-07-07T22:59:37.002Z",
+      "checkedAt": "2026-07-14T10:39:52.661Z",
       "home": {
         "formation": "4-1-2-3",
         "coach": {
@@ -36428,7 +36428,7 @@
           },
           {
             "number": "10",
-            "name": "Neymar Jr",
+            "name": "Neymar",
             "sourcePosition": "forward",
             "position": "ST"
           },
@@ -45026,10 +45026,10 @@
         "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry."
       },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-07",
+        "fifa-lineups-sync-2026-07-14",
         "lineup-layout-verification-2026-07-07"
       ],
-      "checkedAt": "2026-07-07T22:59:37.002Z",
+      "checkedAt": "2026-07-14T10:39:52.661Z",
       "home": {
         "formation": "4-1-2-3",
         "coach": {
@@ -45186,7 +45186,7 @@
           },
           {
             "number": "10",
-            "name": "Neymar Jr",
+            "name": "Neymar",
             "sourcePosition": "forward",
             "position": "ST"
           },
@@ -45218,7 +45218,7 @@
         "events": {
           "cards": [
             {
-              "playerName": "Neymar Jr",
+              "playerName": "Neymar",
               "type": "yellow",
               "minute": "90+6"
             }
@@ -45232,7 +45232,7 @@
             },
             {
               "offName": "Gabriel Martinelli",
-              "onName": "Neymar Jr",
+              "onName": "Neymar",
               "minute": 67
             },
             {
@@ -48383,5 +48383,5 @@
       }
     }
   },
-  "updatedAt": "2026-07-14T08:33:18.996Z"
+  "updatedAt": "2026-07-14T10:39:52.661Z"
 }
