@@ -267,6 +267,104 @@
       "checkedAt": "2026-06-17T11:40:00-07:00"
     },
     {
+      "id": "opta-world-cup-match-predictions-2026",
+      "label": "Opta World Cup pre-match supercomputer forecasts",
+      "url": "https://theanalyst.com/articles/world-cup",
+      "type": "forecast",
+      "checkedAt": "2026-07-13T14:47:45-07:00",
+      "note": "Each fixture stores its exact Opta match-preview URL and publication date."
+    },
+    {
+      "id": "oddschecker-england-argentina-odds-2026-07-13",
+      "label": "Oddschecker England vs Argentina public odds",
+      "url": "https://www.oddschecker.com/us/soccer/world-cup/england-v-argentina",
+      "type": "market-odds",
+      "checkedAt": "2026-07-13T14:47:45-07:00"
+    },
+    {
+      "id": "kalshi-england-argentina-market-2026-07-13",
+      "label": "Kalshi England vs Argentina regulation-time market",
+      "url": "https://kalshi.com/markets/kx/test/kxwcgame-26jul15engarg",
+      "type": "prediction-market",
+      "checkedAt": "2026-07-13T14:47:45-07:00"
+    },
+    {
+      "id": "ladbrokes-france-spain-method-victory-2026-07-13",
+      "label": "Ladbrokes France vs Spain method-of-victory odds",
+      "url": "https://www.ladbrokes.com/en/sports/event/257073153",
+      "type": "shootout-market",
+      "checkedAt": "2026-07-13T15:00:35-07:00",
+      "note": "France and Spain were both priced at 10/1 to win in a penalty shootout."
+    },
+    {
+      "id": "betfair-england-argentina-method-victory-2026-07-13",
+      "label": "Betfair England vs Argentina method-of-victory odds",
+      "url": "https://www.betfair.com/betting/football/fifa-world-cup/england-v-argentina/e-35815366",
+      "type": "shootout-market",
+      "checkedAt": "2026-07-13T15:00:35-07:00",
+      "note": "England and Argentina were both priced at 13/2 to win in a penalty shootout."
+    },
+    {
+      "id": "as-unai-simon-shootout-record-2026-07-06",
+      "label": "AS Unai Simón career shootout record",
+      "url": "https://as.com/futbol/seleccion/cuantos-penaltis-ha-parado-unai-simon-el-porcentaje-de-acierto-del-portero-de-espana-f202607-n-2/",
+      "type": "shootout-research",
+      "checkedAt": "2026-07-13T15:25:20-07:00",
+      "note": "Recorded eight saves from 22 career shootout kicks faced."
+    },
+    {
+      "id": "uefa-spain-croatia-shootout-2023",
+      "label": "UEFA Spain vs Croatia 2023 Nations League final shootout",
+      "url": "https://www.uefa.com/uefanationsleague/news/0282-1849d8b2412c-f43f87000e15-1000--spain-win-nations-league-croatia-edged-out-on-penalties/",
+      "type": "shootout-research",
+      "checkedAt": "2026-07-13T15:25:20-07:00",
+      "note": "Confirmed that Unai Simón made two saves in Spain's final victory."
+    },
+    {
+      "id": "as-spain-penalty-takers-2026-07-10",
+      "label": "AS Spain penalty-taker records",
+      "url": "https://as.com/futbol/seleccion/quien-tira-los-penaltis-en-espana-estos-son-los-jugadores-de-la-seleccion-con-mas-acierto-f202607-n/",
+      "type": "shootout-research",
+      "checkedAt": "2026-07-13T15:25:20-07:00",
+      "note": "Recorded Mikel Oyarzabal at 51 goals from 57 career penalty attempts."
+    },
+    {
+      "id": "conmebol-emiliano-martinez-shootout-record-2024",
+      "label": "CONMEBOL technical report on Emiliano Martínez shootouts",
+      "url": "https://cdn.conmebol.com/wp-content/uploads/2024/12/LIBRO-GET-CONMEBOL-INGLES-04-12-24.pdf",
+      "type": "shootout-research",
+      "checkedAt": "2026-07-13T15:25:20-07:00",
+      "note": "The technical report states that Argentina won every shootout played with Emiliano Martínez through 2024."
+    },
+    {
+      "id": "opta-france-spain-forecast-2026-07-13",
+      "label": "Opta France vs Spain match forecast",
+      "url": "https://theanalyst.com/articles/france-vs-spain-prediction-world-cup-2026-match-preview",
+      "type": "forecast",
+      "checkedAt": "2026-07-13T14:32:52-07:00"
+    },
+    {
+      "id": "oddschecker-france-spain-odds-2026-07-13",
+      "label": "Oddschecker France vs Spain public odds",
+      "url": "https://www.oddschecker.com/us/soccer/world-cup/france-v-spain",
+      "type": "market-odds",
+      "checkedAt": "2026-07-13T14:32:52-07:00"
+    },
+    {
+      "id": "rotowire-france-spain-odds-2026-07-13",
+      "label": "RotoWire France vs Spain public odds",
+      "url": "https://www.rotowire.com/betting/soccer/game/france-vs-spain-odds-2026-07-14-2608359",
+      "type": "market-odds",
+      "checkedAt": "2026-07-13T14:32:52-07:00"
+    },
+    {
+      "id": "kalshi-france-spain-market-2026-07-13",
+      "label": "Kalshi France vs Spain prediction market",
+      "url": "https://kalshi.com/combos/games/france-vs-spain/props",
+      "type": "prediction-market",
+      "checkedAt": "2026-07-13T14:32:52-07:00"
+    },
+    {
       "id": "market-odds-usa-australia-2026-06-19",
       "label": "USA vs Australia public odds consensus",
       "url": "https://www.oddschecker.com/us/soccer/world-cup/usa-v-australia",
@@ -1486,6 +1584,14 @@
       "type": "official",
       "checkedAt": "2026-07-13T23:24:19.312Z",
       "note": "100 FIFA team sheets checked across 100 completed and 0 live fixtures; lineups.json carries official starters, bench, cards, and substitutions for 100 fixtures; 4 changed on this pass."
+    },
+    {
+      "id": "lineup-layout-verification-2026-07-13",
+      "label": "Lineup layout verification",
+      "url": "https://www.fifa.com/fifaplus/en/match-centre",
+      "type": "editorial",
+      "checkedAt": "2026-07-13T22:55:07.000Z",
+      "note": "4 completed fixtures reviewed; 4 verified overrides applied."
     },
     {
       "id": "fifa-lineups-sync-2026-07-14",

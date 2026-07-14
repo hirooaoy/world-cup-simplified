@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-07T18:49:39Z",
+  "updatedAt": "2026-07-13T22:50:33Z",
   "sources": [
     {
       "id": "rotowire-world-cup-lineups-2026-07-07",
@@ -50,6 +50,26 @@
       "outlet": "squawka",
       "independenceKey": "squawka",
       "note": "Free public team-news article with predicted XIs."
+    },
+    {
+      "id": "fifa-france-spain-preview-2026-07-13",
+      "label": "FIFA France vs Spain semi-final match preview",
+      "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/france-v-spain-live-stream-team-news-tickets-and-more",
+      "type": "free-public-probable-lineup",
+      "checkedAt": "2026-07-13T22:42:29Z",
+      "outlet": "fifa",
+      "independenceKey": "fifa",
+      "note": "FIFA match preview with current likely XIs for the France vs Spain semi-final."
+    },
+    {
+      "id": "fifa-england-argentina-preview-2026-07-13",
+      "label": "FIFA England vs Argentina semi-final match preview",
+      "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/england-v-argentina-live-stream-team-news-tickets-and-more",
+      "type": "free-public-probable-lineup",
+      "checkedAt": "2026-07-13T22:50:33Z",
+      "outlet": "fifa",
+      "independenceKey": "fifa",
+      "note": "FIFA match preview with current likely XIs for the England vs Argentina semi-final."
     }
   ],
   "fixtures": [
@@ -395,6 +415,100 @@
                 { "name": "Jude Bellingham", "position": "AM" },
                 { "name": "Anthony Gordon", "position": "LW" },
                 { "name": "Harry Kane", "position": "ST" }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "fixtureId": "match-101-semi-final-2026-07-14",
+      "sources": [
+        {
+          "sourceId": "fifa-france-spain-preview-2026-07-13",
+          "confidence": 0.88,
+          "checkedAt": "2026-07-13T22:42:29Z",
+          "note": "FIFA's current match preview lists Pedri back in Spain's likely XI; the published line order maps both teams to 4-2-3-1 shapes.",
+          "teams": {
+            "home": {
+              "teamId": "FRA",
+              "formation": "4-2-3-1",
+              "starters": [
+                { "name": "Mike Maignan", "position": "GK" },
+                { "name": "Jules Kounde", "position": "RB" },
+                { "name": "Dayot Upamecano", "position": "CB" },
+                { "name": "William Saliba", "position": "CB" },
+                { "name": "Lucas Digne", "position": "LB" },
+                { "name": "Manu Kone", "position": "CM" },
+                { "name": "Adrien Rabiot", "position": "CM" },
+                { "name": "Michael Olise", "position": "RW" },
+                { "name": "Ousmane Dembele", "position": "AM" },
+                { "name": "Desire Doue", "position": "LW" },
+                { "name": "Kylian Mbappe", "position": "ST" }
+              ]
+            },
+            "away": {
+              "teamId": "ESP",
+              "formation": "4-2-3-1",
+              "starters": [
+                { "name": "Unai Simon", "position": "GK" },
+                { "name": "Pedro Porro", "position": "RB" },
+                { "name": "Pau Cubarsi", "position": "CB" },
+                { "name": "Aymeric Laporte", "position": "CB" },
+                { "name": "Marc Cucurella", "position": "LB" },
+                { "name": "Rodri", "position": "CM" },
+                { "name": "Pedri", "position": "CM" },
+                { "name": "Lamine Yamal", "position": "RW" },
+                { "name": "Dani Olmo", "position": "AM" },
+                { "name": "Alex Baena", "position": "LW" },
+                { "name": "Mikel Oyarzabal", "position": "ST" }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "fixtureId": "match-102-semi-final-2026-07-15",
+      "sources": [
+        {
+          "sourceId": "fifa-england-argentina-preview-2026-07-13",
+          "confidence": 0.88,
+          "checkedAt": "2026-07-13T22:50:33Z",
+          "note": "FIFA's current match preview restores Reece James and Bukayo Saka to England's likely XI; Argentina's published line order maps to a Paredes-anchored 4-1-3-2.",
+          "teams": {
+            "home": {
+              "teamId": "ENG",
+              "formation": "4-2-3-1",
+              "starters": [
+                { "name": "Jordan Pickford", "position": "GK" },
+                { "name": "Reece James", "position": "RB" },
+                { "name": "Ezri Konsa", "position": "CB" },
+                { "name": "Marc Guehi", "position": "CB" },
+                { "name": "Nico O'Reilly", "position": "LB" },
+                { "name": "Elliot Anderson", "position": "CM" },
+                { "name": "Declan Rice", "position": "CM" },
+                { "name": "Bukayo Saka", "position": "RW" },
+                { "name": "Jude Bellingham", "position": "AM" },
+                { "name": "Anthony Gordon", "position": "LW" },
+                { "name": "Harry Kane", "position": "ST" }
+              ]
+            },
+            "away": {
+              "teamId": "ARG",
+              "formation": "4-1-3-2",
+              "starters": [
+                { "name": "Emiliano Martinez", "position": "GK" },
+                { "name": "Nahuel Molina", "position": "RB" },
+                { "name": "Cristian Romero", "position": "CB" },
+                { "name": "Lisandro Martinez", "position": "CB" },
+                { "name": "Nicolas Tagliafico", "position": "LB" },
+                { "name": "Leandro Paredes", "position": "DM" },
+                { "name": "Rodrigo De Paul", "position": "RW" },
+                { "name": "Alexis Mac Allister", "position": "AM" },
+                { "name": "Enzo Fernandez", "position": "LW" },
+                { "name": "Lionel Messi", "position": "ST" },
+                { "name": "Julian Alvarez", "position": "ST" }
               ]
             }
           }

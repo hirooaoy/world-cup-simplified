@@ -732,6 +732,34 @@ export const TRUSTED_SOURCE_CANDIDATES_BY_FIXTURE = {
       url: "https://www.espn.com/soccer/match/_/gameId/760507/belgium-united-states"
     },
   ],
+  "match-97-quarter-final-2026-07-09": [
+    {
+      name: "ESPN",
+      adapter: "espn",
+      url: "https://www.espn.com/soccer/match/_/gameId/760510/morocco-france"
+    },
+  ],
+  "match-98-quarter-final-2026-07-10": [
+    {
+      name: "ESPN",
+      adapter: "espn",
+      url: "https://www.espn.com/soccer/match/_/gameId/760511/belgium-spain"
+    },
+  ],
+  "match-99-quarter-final-2026-07-11": [
+    {
+      name: "ESPN",
+      adapter: "espn",
+      url: "https://www.espn.com/soccer/match/_/gameId/760512/england-norway"
+    },
+  ],
+  "match-100-quarter-final-2026-07-11": [
+    {
+      name: "ESPN",
+      adapter: "espn",
+      url: "https://www.espn.com/soccer/match/_/gameId/760513/switzerland-argentina"
+    },
+  ],
 };
 
 export function getSourceCandidatesForFixture(fixtureId) {

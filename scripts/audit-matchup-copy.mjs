@@ -2,6 +2,7 @@
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { ZH_PLAYER_NAME_TRANSLATIONS } from "../football-locale-zh.js";
 import { getPlayerTokens, isPlayerNameMatch } from "./player-name-matching.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -221,7 +222,11 @@ function hasChineseTranslationEntry(source, value) {
     return true;
   }
 
-  return source.includes(`${JSON.stringify(text)}:`) || source.includes(`${text}:`);
+  return (
+    Object.hasOwn(ZH_PLAYER_NAME_TRANSLATIONS, text) ||
+    source.includes(`${JSON.stringify(text)}:`) ||
+    source.includes(`${text}:`)
+  );
 }
 
 function getAppChineseTranslationPatternBlock(source) {
@@ -347,10 +352,13 @@ function getAppKnownZhEntityReplacements(source) {
   }
 
   const entries = new Map();
-  for (const name of ["ZH_PLAYER_NAME_TRANSLATIONS", "ZH_HISTORICAL_SCORER_TRANSLATIONS"]) {
-    for (const [entrySource, translation] of parseAppTranslationEntries(getAppObjectBlock(source, name))) {
-      addKnownZhNameReplacement(entries, entrySource, translation);
-    }
+  for (const [entrySource, translation] of Object.entries(ZH_PLAYER_NAME_TRANSLATIONS)) {
+    addKnownZhNameReplacement(entries, entrySource, translation);
+  }
+  for (const [entrySource, translation] of parseAppTranslationEntries(
+    getAppObjectBlock(source, "ZH_HISTORICAL_SCORER_TRANSLATIONS")
+  )) {
+    addKnownZhNameReplacement(entries, entrySource, translation);
   }
 
   appKnownZhEntityReplacements = [...entries.values()].sort((a, b) => b.source.length - a.source.length);

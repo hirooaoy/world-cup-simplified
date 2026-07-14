@@ -1,7 +1,12 @@
 #!/usr/bin/env node
 import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import { collectLineupPredictionData } from "./lineup-prediction-engine/data-collection.mjs";
 import { runLineupPredictionEngine } from "./lineup-prediction-engine/engine.mjs";
 import { createPredictionSource } from "./lineup-prediction-engine/model.mjs";
+import { createFreePublicLineupsProvider } from "./lineup-prediction-engine/providers/free-public-lineups.mjs";
 import { validatePredictionDocument } from "./lineup-prediction-engine/validation.mjs";
 
 const generatedAt = "2026-07-07T18:30:00.000Z";
@@ -154,4 +159,64 @@ assert.throws(
   /stale/
 );
 
-console.log("Lineup prediction engine smoke passed: output, confidence caps, malformed, and stale cases covered.");
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+const freePredictionSources = JSON.parse(
+  await readFile(path.join(root, "data/free-lineup-prediction-sources.json"), "utf8")
+);
+const currentPredictionContext = await collectLineupPredictionData();
+const currentTargetFixtureIds = currentPredictionContext.targetFixtures.map((fixture) => fixture.id);
+const curatedFixtureIds = new Set(
+  (freePredictionSources.fixtures || [])
+    .filter((fixture) => Array.isArray(fixture.sources) && fixture.sources.length > 0)
+    .map((fixture) => fixture.fixtureId)
+);
+assert.deepEqual(
+  currentTargetFixtureIds.filter((fixtureId) => !curatedFixtureIds.has(fixtureId)),
+  [],
+  "Every upcoming confirmed fixture must have a current curated probable-lineup source; history-only fallback must not ship silently"
+);
+
+const franceSpainFixtureId = "match-101-semi-final-2026-07-14";
+const fifaPreviewSourceId = "fifa-france-spain-preview-2026-07-13";
+const fifaPreviewProvider = createFreePublicLineupsProvider({ checkedAt: generatedAt });
+const fifaPreviewRaw = await fifaPreviewProvider.collect({
+  freeLineupPredictionsData: freePredictionSources,
+  playerAvailabilityData: {},
+  targetFixtures: currentPredictionContext.targetFixtures
+});
+const fifaPreviewCandidates = await fifaPreviewProvider.normalize(fifaPreviewRaw);
+assert.deepEqual(
+  currentTargetFixtureIds.filter((fixtureId) =>
+    !fifaPreviewCandidates.some((candidate) => candidate.fixtureId === fixtureId)
+  ),
+  [],
+  "Every upcoming confirmed fixture must normalize at least one curated probable-lineup candidate"
+);
+const fifaPreviewCandidate = fifaPreviewCandidates.find((candidate) =>
+  candidate.fixtureId === franceSpainFixtureId && candidate.sourceIds.includes(fifaPreviewSourceId)
+);
+assert(fifaPreviewCandidate, "France-Spain FIFA probable-lineup source should remain wired into prediction generation");
+assert.equal(fifaPreviewCandidate.sides.away.formation, "4-2-3-1");
+assert(
+  fifaPreviewCandidate.sides.away.starters.some((player) => player.name === "Pedri") &&
+    !fifaPreviewCandidate.sides.away.starters.some((player) => player.name === "Fabian Ruiz"),
+  "FIFA's current France-Spain preview should restore Pedri instead of carrying over the Belgium-only Fabian Ruiz selection"
+);
+
+const englandArgentinaFixtureId = "match-102-semi-final-2026-07-15";
+const englandArgentinaSourceId = "fifa-england-argentina-preview-2026-07-13";
+const englandArgentinaCandidate = fifaPreviewCandidates.find((candidate) =>
+  candidate.fixtureId === englandArgentinaFixtureId && candidate.sourceIds.includes(englandArgentinaSourceId)
+);
+assert(englandArgentinaCandidate, "England-Argentina FIFA probable-lineup source should remain wired into prediction generation");
+assert.equal(englandArgentinaCandidate.sides.home.formation, "4-2-3-1");
+assert(
+  englandArgentinaCandidate.sides.home.starters.some((player) => player.name === "Reece James") &&
+    englandArgentinaCandidate.sides.home.starters.some((player) => player.name === "Bukayo Saka") &&
+    !englandArgentinaCandidate.sides.home.starters.some((player) => player.name === "John Stones") &&
+    !englandArgentinaCandidate.sides.home.starters.some((player) => player.name === "Noni Madueke"),
+  "FIFA's current England-Argentina preview should supersede the history-only XI"
+);
+assert.equal(englandArgentinaCandidate.sides.away.formation, "4-1-3-2");
+
+console.log("Lineup prediction engine smoke passed: output, confidence caps, malformed, stale, upcoming coverage, and FIFA preview cases covered.");

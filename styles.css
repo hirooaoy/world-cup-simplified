@@ -6282,17 +6282,17 @@ button.lineup-event-sub,
 }
 
 .lineup-avatar-left-events {
-  top: -6px;
+  top: -5px;
   left: -4px;
 }
 
 .lineup-avatar-right-events {
-  top: -6px;
+  top: -5px;
   left: calc(100% - 20px);
 }
 
 .lineup-avatar-right-events:has(.lineup-avatar-score-events) {
-  top: -6px;
+  top: -5px;
   left: calc(100% - 10px);
 }
 
@@ -6352,7 +6352,7 @@ button.lineup-event-sub,
 
 .lineup-player-value {
   display: block;
-  margin-top: 2px;
+  margin-top: 1px;
   color: rgba(10, 10, 10, 0.48);
   font-size: 9px;
   font-weight: 650;
@@ -6384,10 +6384,10 @@ button.lineup-event-sub,
 }
 
 .lineup-pitch {
-  --lineup-avatar-size: 34px;
+  --lineup-avatar-size: 30px;
   --lineup-marker-core-height: 60px;
   --lineup-marker-width: 68px;
-  --lineup-pitch-height: clamp(550px, 45vw, 585px);
+  --lineup-pitch-height: clamp(540px, 42vw, 550px);
   --lineup-pitch-top-trim: 0px;
   position: relative;
   height: var(--lineup-pitch-height);
@@ -6589,7 +6589,7 @@ button.lineup-event-sub,
 .lineup-player-marker .player-link.lineup-player-name {
   display: block;
   width: 100%;
-  margin-top: 6px;
+  margin-top: 4px;
   color: rgba(10, 10, 10, 0.58);
   font-size: 9px;
   font-weight: 600;
@@ -6627,10 +6627,10 @@ button.lineup-event-sub,
   }
 
   .lineup-pitch {
-    --lineup-avatar-size: 38px;
+    --lineup-avatar-size: 33px;
     --lineup-marker-core-height: 66px;
     --lineup-marker-width: clamp(50px, 13.5vw, 58px);
-    --lineup-pitch-height: clamp(570px, 140vw, 660px);
+    --lineup-pitch-height: clamp(562px, 132vw, 620px);
   }
 
   .lineup-avatar-right-events {
@@ -6712,10 +6712,10 @@ button.lineup-event-sub,
   }
 
   .lineup-pitch {
-    --lineup-avatar-size: 35px;
+    --lineup-avatar-size: 33px;
     --lineup-marker-core-height: 63px;
     --lineup-marker-width: 50px;
-    --lineup-pitch-height: 570px;
+    --lineup-pitch-height: 562px;
     --lineup-pitch-top-trim: 0px;
   }
 

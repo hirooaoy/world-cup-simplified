@@ -2359,9 +2359,187 @@ for (const fixture of fixturesData.fixtures || []) {
   validateFixtureMatchEvents(fixture, sourceIds);
 
   if (fixture.projection) {
-    const total = fixture.projection.home + fixture.projection.draw + fixture.projection.away;
-    assert(sourceIds.has(fixture.projection.sourceId), `Fixture "${fixture.id}" projection references unknown source`);
+    const projection = fixture.projection;
+    const total = projection.home + projection.draw + projection.away;
+    assert(sourceIds.has(projection.sourceId), `Fixture "${fixture.id}" projection references unknown source`);
     assert(total === 100, `Fixture "${fixture.id}" projection must total 100`);
+
+    if (projection.sourceIds !== undefined) {
+      requireSourceIds(projection.sourceIds, sourceIds, `Fixture "${fixture.id}" projection`);
+      assert(
+        projection.sourceIds.includes(projection.sourceId),
+        `Fixture "${fixture.id}" projection sourceIds must include sourceId`
+      );
+    }
+
+    if (projection.method === "online-source-consensus") {
+      assert(
+        Array.isArray(projection.sourceIds) && projection.sourceIds.length >= 2,
+        `Fixture "${fixture.id}" online-source-consensus projection must include at least two sources`
+      );
+      assert(
+        typeof projection.basis === "string" && projection.basis.trim(),
+        `Fixture "${fixture.id}" online-source-consensus projection must describe its basis`
+      );
+      assert(
+        isValidDateTime(projection.capturedAt),
+        `Fixture "${fixture.id}" online-source-consensus projection must include a valid capturedAt`
+      );
+    }
+
+    if (projection.method === "online-source-forecast") {
+      assert(
+        typeof projection.sourceUrl === "string" && /^https?:\/\//.test(projection.sourceUrl),
+        `Fixture "${fixture.id}" online-source-forecast projection must include a sourceUrl`
+      );
+      assert(
+        isValidDateTime(projection.publishedAt),
+        `Fixture "${fixture.id}" online-source-forecast projection must include a valid publishedAt`
+      );
+      assert(
+        new Date(projection.publishedAt).getTime() < new Date(fixture.kickoffUtc).getTime(),
+        `Fixture "${fixture.id}" online-source-forecast projection must have been published before kickoff`
+      );
+      assert(
+        isValidDateTime(projection.recoveredAt),
+        `Fixture "${fixture.id}" online-source-forecast projection must include a valid recoveredAt`
+      );
+    }
+  }
+
+  if (fixture.shootoutForecast !== undefined) {
+    const forecast = fixture.shootoutForecast;
+    assert(
+      forecast && typeof forecast === "object" && !Array.isArray(forecast),
+      `Fixture "${fixture.id}" shootoutForecast must be an object`
+    );
+    assert(
+      sourceIds.has(forecast?.sourceId),
+      `Fixture "${fixture.id}" shootoutForecast references unknown source`
+    );
+    assert(
+      forecast?.method === "method-of-victory-market",
+      `Fixture "${fixture.id}" shootoutForecast must use method-of-victory-market`
+    );
+    assert(
+      isValidDateTime(forecast?.capturedAt),
+      `Fixture "${fixture.id}" shootoutForecast must include a valid capturedAt`
+    );
+    assert(
+      isValidDateTime(forecast?.capturedAt) &&
+        new Date(forecast.capturedAt).getTime() < new Date(fixture.kickoffUtc).getTime(),
+      `Fixture "${fixture.id}" shootoutForecast must be captured before kickoff`
+    );
+    assert(
+      forecast?.homeTeamId === fixture.homeTeamId && forecast?.awayTeamId === fixture.awayTeamId,
+      `Fixture "${fixture.id}" shootoutForecast participants must match the fixture`
+    );
+    assert(
+      Number.isFinite(forecast?.home) && Number.isFinite(forecast?.away),
+      `Fixture "${fixture.id}" shootoutForecast probabilities must be numeric`
+    );
+    assert(
+      forecast?.home >= 0 && forecast?.home <= 100 && forecast?.away >= 0 && forecast?.away <= 100,
+      `Fixture "${fixture.id}" shootoutForecast probabilities must be between 0 and 100`
+    );
+    assert(
+      forecast?.home + forecast?.away === 100,
+      `Fixture "${fixture.id}" shootoutForecast probabilities must total 100`
+    );
+    assert(
+      forecast?.prices && typeof forecast.prices === "object" && !Array.isArray(forecast.prices),
+      `Fixture "${fixture.id}" shootoutForecast must preserve its market prices`
+    );
+    for (const side of ["home", "away"]) {
+      assert(
+        typeof forecast?.prices?.[side] === "string" && forecast.prices[side].trim(),
+        `Fixture "${fixture.id}" shootoutForecast prices.${side} must be a non-empty string`
+      );
+    }
+  }
+
+  if (fixture.stage !== "group" && fixture.homeTeamId && fixture.awayTeamId) {
+    assert(
+      fixture.shootoutOutlook && typeof fixture.shootoutOutlook === "object" && !Array.isArray(fixture.shootoutOutlook),
+      `Fixture "${fixture.id}" must include a shootoutOutlook once both knockout teams are confirmed`
+    );
+  }
+
+  if (fixture.shootoutOutlook !== undefined) {
+    const outlook = fixture.shootoutOutlook;
+    assert(
+      outlook && typeof outlook === "object" && !Array.isArray(outlook),
+      `Fixture "${fixture.id}" shootoutOutlook must be an object`
+    );
+    requireSourceIds(outlook?.sourceIds, sourceIds, `Fixture "${fixture.id}" shootoutOutlook`);
+    assert(
+      outlook?.method === "world-cup-shootout-history" || outlook?.method === "sourced-shootout-evidence",
+      `Fixture "${fixture.id}" shootoutOutlook has an unsupported method`
+    );
+    assert(
+      isValidDateTime(outlook?.generatedAt),
+      `Fixture "${fixture.id}" shootoutOutlook must include a valid generatedAt`
+    );
+    assert(
+      outlook?.cutoffAt === fixture.kickoffUtc,
+      `Fixture "${fixture.id}" shootoutOutlook cutoffAt must match kickoffUtc`
+    );
+    assert(
+      outlook?.homeTeamId === fixture.homeTeamId && outlook?.awayTeamId === fixture.awayTeamId,
+      `Fixture "${fixture.id}" shootoutOutlook participants must match the fixture`
+    );
+
+    for (const side of ["home", "away"]) {
+      const record = outlook?.[side];
+      assert(
+        record && typeof record === "object" && !Array.isArray(record),
+        `Fixture "${fixture.id}" shootoutOutlook.${side} must be an object`
+      );
+      for (const field of ["wins", "losses", "appearances"]) {
+        assert(
+          Number.isInteger(record?.[field]) && record[field] >= 0,
+          `Fixture "${fixture.id}" shootoutOutlook.${side}.${field} must be a non-negative integer`
+        );
+      }
+      assert(
+        record?.wins + record?.losses === record?.appearances,
+        `Fixture "${fixture.id}" shootoutOutlook.${side} wins and losses must total appearances`
+      );
+    }
+
+    if (outlook?.method === "sourced-shootout-evidence") {
+      assert(
+        Array.isArray(outlook.sourceIds) && outlook.sourceIds.length >= 3,
+        `Fixture "${fixture.id}" sourced shootoutOutlook must include at least three sources`
+      );
+      assert(
+        isValidDateTime(outlook.capturedAt) &&
+          new Date(outlook.capturedAt).getTime() < new Date(fixture.kickoffUtc).getTime(),
+        `Fixture "${fixture.id}" sourced shootoutOutlook must be captured before kickoff`
+      );
+      assert(
+        [fixture.homeTeamId, fixture.awayTeamId].includes(outlook.leanTeamId),
+        `Fixture "${fixture.id}" sourced shootoutOutlook leanTeamId must be a participant`
+      );
+      assert(
+        outlook.confidence === "slight",
+        `Fixture "${fixture.id}" sourced shootoutOutlook must keep the evidence lean slight`
+      );
+      assert(
+        Array.isArray(outlook.evidence) && outlook.evidence.length >= 2,
+        `Fixture "${fixture.id}" sourced shootoutOutlook must include at least two evidence items`
+      );
+      for (const [index, evidence] of (outlook.evidence || []).entries()) {
+        assert(
+          evidence && typeof evidence === "object" && typeof evidence.type === "string" && evidence.type.trim(),
+          `Fixture "${fixture.id}" shootoutOutlook evidence[${index}] must include a type`
+        );
+        assert(
+          [fixture.homeTeamId, fixture.awayTeamId].includes(evidence?.teamId),
+          `Fixture "${fixture.id}" shootoutOutlook evidence[${index}] teamId must be a participant`
+        );
+      }
+    }
   }
 
   for (const field of ["goalsHome", "goalsAway"]) {

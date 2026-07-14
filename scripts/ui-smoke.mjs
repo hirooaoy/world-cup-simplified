@@ -2628,8 +2628,9 @@ try {
     japanTunisiaChineseInfo.includes("上田绮世") &&
       japanTunisiaChineseInfo.includes("堂安律") &&
       japanTunisiaChineseInfo.includes("镰田大地") &&
-      japanTunisiaChineseInfo.includes("对阵突尼斯"),
-    "Chinese Japan key information should localize the post-Kubo key-player trio against Tunisia."
+      japanTunisiaChineseInfo.includes("面对突尼斯") &&
+      japanTunisiaChineseInfo.includes("日本的基本思路是"),
+    "Chinese Japan key information should use the structured localized preview with the post-Kubo trio against Tunisia."
   );
   assert(
     !/Takefusa Kubo|久保建英|Ayase Ueda/.test(japanTunisiaChineseInfo),
@@ -2736,9 +2737,10 @@ try {
     japanSwedenChineseInfo.includes("久保建英") &&
       japanSwedenChineseInfo.includes("堂安律") &&
       japanSwedenChineseInfo.includes("镰田大地") &&
-      japanSwedenChineseInfo.includes("对阵瑞典") &&
+      japanSwedenChineseInfo.includes("面对瑞典") &&
+      japanSwedenChineseInfo.includes("日本的基本思路是") &&
       !/Takefusa Kubo|Ritsu Doan|Daichi Kamada|Ayase Ueda/.test(japanSwedenChineseInfo),
-    "Chinese Japan key information should localize the Kubo-led Japan trio against Sweden."
+    "Chinese Japan key information should use the structured localized preview with the Kubo-led trio against Sweden."
   );
 
   const pendingH2hFixture = fixturesData.fixtures.find(
@@ -2771,31 +2773,33 @@ try {
   const brazilChineseInfo = brazilJapanChineseInfo[0] || "";
   const japanBrazilChineseInfo = brazilJapanChineseInfo[1] || "";
   assert(
-    brazilChineseInfo.includes("内马尔-维尼修斯单挑加速") &&
-      brazilChineseInfo.includes("堂安律-镰田大地配合速度") &&
-      brazilChineseInfo.includes("内马尔已在小腿伤势后替补复出") &&
-      brazilChineseInfo.includes("尽快让维尼修斯获得单挑空间") &&
-      brazilChineseInfo.includes("日本可能把快速配合转化为禁区机会") &&
-      !/巴西看点|球队特点|风格关键词|They want|the risk is|Neymar has returned|Vinicius isolated/.test(brazilChineseInfo),
-    "Chinese Brazil key information should translate the latest compact Round of 32 note instead of falling back to generic team tags."
+    brazilChineseInfo.includes("巴西的基本思路是") &&
+      brazilChineseInfo.includes("面对日本") &&
+      brazilChineseInfo.includes("最值得关注的是") &&
+      brazilChineseInfo.includes("同时限制对手的") &&
+      !/球队特点|风格关键词|They want|the risk is|Neymar has returned|Vinicius isolated|[A-Za-z]{3,}/.test(brazilChineseInfo),
+    "Chinese Brazil key information should be assembled from localized team, player, and style fields rather than retranslating the English paragraph."
   );
   assert(
-    japanBrazilChineseInfo.includes("堂安律-镰田大地配合速度") &&
-      japanBrazilChineseInfo.includes("内马尔-维尼修斯单挑加速") &&
-      japanBrazilChineseInfo.includes("久保建英膝伤后仍可能参与比赛") &&
-      japanBrazilChineseInfo.includes("上田绮世和堂安律") &&
-      japanBrazilChineseInfo.includes("巴西可能通过内马尔和维尼修斯撕开阵型") &&
-      !/日本看点|球队特点|风格关键词|They want|the risk is|Kubo could play|Brazil breaking/.test(japanBrazilChineseInfo),
-    "Chinese Japan key information should translate the latest Kubo Round of 32 note instead of falling back to generic team tags."
+    japanBrazilChineseInfo.includes("日本的基本思路是") &&
+      japanBrazilChineseInfo.includes("面对巴西") &&
+      japanBrazilChineseInfo.includes("最值得关注的是") &&
+      japanBrazilChineseInfo.includes("同时限制对手的") &&
+      !/球队特点|风格关键词|They want|the risk is|Kubo could play|Brazil breaking|[A-Za-z]{3,}/.test(japanBrazilChineseInfo),
+    "Chinese Japan key information should be assembled from localized team, player, and style fields rather than retranslating the English paragraph."
   );
   const chineseKeyInformationCoverageIssues = await page.evaluate(async () => {
-    const translateTextToZh = window.__worldCupTestHooks?.localization?.translateTextToZh;
-    if (typeof translateTextToZh !== "function") {
+    const buildStructuredPreview =
+      window.__worldCupTestHooks?.localization?.buildLocalizedKeyInformationFallback;
+    if (typeof buildStructuredPreview !== "function") {
       return [{ fixtureId: "test-hooks", side: "all", issue: "missing localization test hook" }];
     }
 
-    const fixturesResponse = await fetch(`data/fixtures.json?coverage=${Date.now()}`);
-    const fixturesData = await fixturesResponse.json();
+    const [fixturesData, teamsData] = await Promise.all([
+      fetch(`data/fixtures.json?coverage=${Date.now()}`).then((response) => response.json()),
+      fetch(`data/teams.json?coverage=${Date.now()}`).then((response) => response.json())
+    ]);
+    const teamsById = new Map((teamsData.teams || []).map((team) => [team.id, team]));
     const hasLatinLeak = (value) =>
       /\p{Script=Latin}[\p{Script=Latin}'-]{2,}/u.test(
         String(value || "").replace(/\bFIFA\b/g, "")
@@ -2813,11 +2817,18 @@ try {
           continue;
         }
 
-        const translated = translateTextToZh(source);
+        const teamId = side === "home" ? fixture.homeTeamId : fixture.awayTeamId;
+        const opponentId = side === "home" ? fixture.awayTeamId : fixture.homeTeamId;
+        const team = teamsById.get(teamId);
+        const opponent = teamsById.get(opponentId);
+        const players = fixture.keyPlayers?.[side] || [];
+        const translated = team ? buildStructuredPreview(team, players, opponent) : "";
         const stale =
+          !translated ||
           translated === source ||
-          /Against |They want|The risk is|has to beat|led by|main names to track|key information/i.test(translated) ||
-          /看点。.*球队特点：.*风格关键词：/.test(translated);
+          !translated.includes("的基本思路是") ||
+          (opponent && !translated.includes("重点看")) ||
+          /Against |They want|The risk is|has to beat|led by|main names to track|key information|球队特点|风格关键词/i.test(translated);
 
         if (stale || hasLatinLeak(translated)) {
           issues.push({
@@ -2834,11 +2845,12 @@ try {
   });
   assert(
     chineseKeyInformationCoverageIssues.length === 0,
-    `Chinese key-information translator should cover every current confirmed fixture without stale English or generic fallback copy. Issues: ${JSON.stringify(chineseKeyInformationCoverageIssues)}.`
+    `All current Chinese key-information paragraphs should render through the structured bilingual template without stale English. Issues: ${JSON.stringify(chineseKeyInformationCoverageIssues)}.`
   );
   const chineseResultBulletCoverageIssues = await page.evaluate(async () => {
     const translateTextToZh = window.__worldCupTestHooks?.localization?.translateTextToZh;
-    if (typeof translateTextToZh !== "function") {
+    const getResultHighlights = window.__worldCupTestHooks?.localization?.getResultHighlights;
+    if (typeof translateTextToZh !== "function" || typeof getResultHighlights !== "function") {
       return [{ file: "test-hooks", fixtureId: "all", field: "all", issue: "missing localization test hook" }];
     }
 
@@ -2856,7 +2868,27 @@ try {
       const data = await response.json();
 
       for (const fixture of data.fixtures || []) {
+        if (file === "data/fixtures.json" && Array.isArray(fixture.resultStoryBulletsZh)) {
+          const selected = getResultHighlights(fixture);
+          if (JSON.stringify(selected) !== JSON.stringify(fixture.resultStoryBulletsZh)) {
+            issues.push({
+              file,
+              fixtureId: fixture.id,
+              field: "resultStoryBulletsZh",
+              issue: "authored-zh-not-selected"
+            });
+          }
+        }
+
         for (const field of ["resultStoryBullets", "resultHighlights"]) {
+          if (
+            file === "data/fixtures.json" &&
+            field === "resultStoryBullets" &&
+            Array.isArray(fixture.resultStoryBulletsZh) &&
+            fixture.resultStoryBulletsZh.length
+          ) {
+            continue;
+          }
           for (const [index, source] of (fixture[field] || []).entries()) {
             if (typeof source !== "string" || !/[A-Za-z]/.test(source)) {
               continue;
@@ -2885,6 +2917,84 @@ try {
   assert(
     chineseResultBulletCoverageIssues.length === 0,
     `Chinese result bullet translation should cover current and historical story bullets without stale English grammar. Issues: ${JSON.stringify(chineseResultBulletCoverageIssues)}.`
+  );
+
+  await page.goto(`${baseUrl}?view=matches&date=2026-07-04&lang=zh&tz=America%2FLos_Angeles`, {
+    waitUntil: "load"
+  });
+  await page.waitForSelector('[data-match-id="match-90-round-of-16-2026-07-04"]');
+  await page.locator('[data-match-id="match-90-round-of-16-2026-07-04"]').click();
+  const moroccoCanadaRenderedStories = await page
+    .locator("#match-info .result-story-highlights li")
+    .evaluateAll((items) => items.map((item) => item.innerText.replace(/\s+/g, " ").trim()));
+  assert(
+    moroccoCanadaRenderedStories.some((story) => story.includes("90+8分钟")) &&
+      !moroccoCanadaRenderedStories.some((story) => /加时\s*8\s*分钟/.test(story)),
+    `The complete Chinese Morocco-Canada card should keep 90+8 as stoppage time, not extra time. Measured ${JSON.stringify(moroccoCanadaRenderedStories)}.`
+  );
+
+  await page.goto(`${baseUrl}?view=matches&date=2026-07-11&lang=zh&tz=America%2FLos_Angeles`, {
+    waitUntil: "load"
+  });
+  await page.waitForSelector('[data-match-id="match-99-quarter-final-2026-07-11"]');
+  await page.locator('[data-match-id="match-99-quarter-final-2026-07-11"]').click();
+  const norwayEnglandRenderedCard = await page.locator("#match-info").evaluate((card) => ({
+    stories: [...card.querySelectorAll(".result-story-highlights li")]
+      .map((item) => item.innerText.replace(/\s+/g, " ").trim()),
+    text: card.innerText.replace(/\s+/g, " ").trim()
+  }));
+  const bellinghamRenderedCard = page
+    .locator("#match-info .player-hover")
+    .filter({ has: page.locator('.player-link', { hasText: "裘德·贝林厄姆" }) })
+    .first()
+    .locator(".player-card");
+  const bellinghamRenderedText = (await bellinghamRenderedCard.innerText()).replace(/\s+/g, " ").trim();
+  assert(
+    JSON.stringify(norwayEnglandRenderedCard.stories) === JSON.stringify([
+      "施耶尔德鲁普第36分钟让挪威领先，但裘德·贝林厄姆半场前扳平，英格兰撑过了紧张的上半场。",
+      "挪威下半场一粒进球因哈兰德犯规被判无效，随后还曾击中横梁，比赛以1比1进入加时。",
+      "裘德·贝林厄姆加时赛开局再度破门完成梅开二度，英格兰2比1晋级并将在半决赛对阵阿根廷。"
+    ]) &&
+      norwayEnglandRenderedCard.text.includes("加时赛") &&
+      !/Bellingham|after extra time|England survived|Norway had a second-half goal/i.test(norwayEnglandRenderedCard.text),
+    `The complete Chinese Norway-England card should render the authored resultStoryBulletsZh exactly. Measured ${JSON.stringify(norwayEnglandRenderedCard)}.`
+  );
+  assert(
+    bellinghamRenderedText.includes("裘德·贝林厄姆") &&
+      bellinghamRenderedText.includes("中场") &&
+      bellinghamRenderedText.includes("皇家马德里（西甲）") &&
+      bellinghamRenderedText.includes("23岁") &&
+      bellinghamRenderedText.includes("英格兰") &&
+      !/Jude|Midfielder|Real Madrid|La Liga|Age|England/.test(bellinghamRenderedText),
+    `The complete Chinese Bellingham card should localize its identity, role, club, age, and note. Measured ${bellinghamRenderedText}.`
+  );
+
+  await page.locator('[data-match-id="match-100-quarter-final-2026-07-11"]').click();
+  const argentinaSwitzerlandRenderedStories = await page
+    .locator("#match-info .result-story-highlights li")
+    .evaluateAll((items) => items.map((item) => item.innerText.replace(/\s+/g, " ").trim()));
+  const emboloRenderedCard = page
+    .locator("#match-info .player-hover")
+    .filter({ has: page.locator('.player-link', { hasText: "恩博洛" }) })
+    .first()
+    .locator(".player-card");
+  const emboloRenderedText = (await emboloRenderedCard.innerText()).replace(/\s+/g, " ").trim();
+  assert(
+    JSON.stringify(argentinaSwitzerlandRenderedStories) === JSON.stringify([
+      "麦卡利斯特开场阶段接梅西角球头球破门，阿根廷取得控制权，但瑞士随后把四分之一决赛拖进硬仗。",
+      "恩多耶第67分钟为瑞士扳平，不过恩博洛第二张黄牌离场，让瑞士只能十人守住1比1。",
+      "阿尔瓦雷斯第112分钟弧线球帮助阿根廷再度领先，劳塔罗·马丁内斯尾声锁定胜局，半决赛将对阵英格兰。"
+    ]),
+    `The complete Chinese Argentina-Switzerland card should use its authored result story and canonical player spellings. Measured ${JSON.stringify(argentinaSwitzerlandRenderedStories)}.`
+  );
+  assert(
+    emboloRenderedText.includes("布雷尔·恩博洛") &&
+      emboloRenderedText.includes("前锋") &&
+      emboloRenderedText.includes("雷恩（法甲）") &&
+      emboloRenderedText.includes("29岁") &&
+      emboloRenderedText.includes("瑞士") &&
+      !/Breel|Forward|Rennes|Ligue|Age|Switzerland|安博洛/.test(emboloRenderedText),
+    `The complete Chinese Embolo card should keep one canonical name and localize every detail. Measured ${emboloRenderedText}.`
   );
 
   await page.goto(`${baseUrl}?view=matches&date=2026-06-11&lang=en&tz=America%2FLos_Angeles`, {
@@ -4517,12 +4627,18 @@ try {
   await zhLocalizationRegressionPage.waitForFunction(
     () => document.querySelectorAll(".third-place-group-button").length === 12
   );
-  const zhThirdPlaceGroupLabelRegressionCheck = await zhLocalizationRegressionPage
-    .locator(".third-place-group-button")
-    .evaluateAll((buttons) => buttons.map((button) => button.textContent.trim()));
+  const zhThirdPlaceGroupLabelRegressionCheck = await zhLocalizationRegressionPage.evaluate(() => ({
+    groupLabels: [...document.querySelectorAll(".third-place-group-button")]
+      .map((button) => button.textContent.trim()),
+    note: document.querySelector(".third-place-note")?.textContent.replace(/\s+/g, " ").trim() || "",
+    sectionLabel: document.querySelector(".third-place-race")?.getAttribute("aria-label") || ""
+  }));
   assert(
-    zhThirdPlaceGroupLabelRegressionCheck.length === 12 &&
-      zhThirdPlaceGroupLabelRegressionCheck.every((label) => /^[A-L]组$/.test(label)),
+    zhThirdPlaceGroupLabelRegressionCheck.groupLabels.length === 12 &&
+      zhThirdPlaceGroupLabelRegressionCheck.groupLabels.every((label) => /^[A-L]组$/.test(label)) &&
+      zhThirdPlaceGroupLabelRegressionCheck.sectionLabel === "最佳小组第三排名" &&
+      zhThirdPlaceGroupLabelRegressionCheck.note.includes("同分排序") &&
+      !zhThirdPlaceGroupLabelRegressionCheck.note.includes("平局排序"),
     `Chinese third-place group buttons should keep group-letter labels instead of phonetic one-character fallbacks. Measured ${JSON.stringify(zhThirdPlaceGroupLabelRegressionCheck)}.`
   );
   await zhLocalizationRegressionPage.goto(
@@ -5742,11 +5858,24 @@ try {
   assert(
     argentinaEgyptDesktopRowSpacing.topClearance >= 0 &&
       argentinaEgyptDesktopRowSpacing.bottomClearance >= 0 &&
-      argentinaEgyptDesktopRowSpacing.pitchHeight >= 550 &&
-      argentinaEgyptDesktopRowSpacing.pitchHeight <= 585 &&
+      argentinaEgyptDesktopRowSpacing.pitchHeight >= 539 &&
+      argentinaEgyptDesktopRowSpacing.pitchHeight <= 551 &&
       argentinaEgyptDesktopRowSpacing.collisionCount === 0 &&
       argentinaEgyptDesktopRowSpacing.minRowGap >= 4,
     `Argentina-Egypt desktop line-up rows should keep event pills and value text separated from adjacent rows. Measured ${JSON.stringify(argentinaEgyptDesktopRowSpacing)}.`
+  );
+  await lineupCoachCoverageCheck.page.setViewportSize({ width: 560, height: 720 });
+  const argentinaEgyptLargeMobileRowSpacing = await getLineupRowSpacingMetrics(
+    lineupCoachCoverageCheck.page.locator("#match-info [data-lineup-panel='home']:not([hidden])")
+  );
+  assert(
+    argentinaEgyptLargeMobileRowSpacing.topClearance >= 0 &&
+      argentinaEgyptLargeMobileRowSpacing.bottomClearance >= 0 &&
+      argentinaEgyptLargeMobileRowSpacing.pitchHeight >= 619 &&
+      argentinaEgyptLargeMobileRowSpacing.pitchHeight <= 621 &&
+      argentinaEgyptLargeMobileRowSpacing.collisionCount === 0 &&
+      argentinaEgyptLargeMobileRowSpacing.minRowGap >= 4,
+    `Argentina-Egypt large-mobile line-up rows should stay clear at the mobile height cap. Measured ${JSON.stringify(argentinaEgyptLargeMobileRowSpacing)}.`
   );
   await lineupCoachCoverageCheck.page.setViewportSize({ width: 1000, height: 720 });
   const argentinaEgyptCompactDesktopRowSpacing = await getLineupRowSpacingMetrics(
@@ -5755,8 +5884,8 @@ try {
   assert(
     argentinaEgyptCompactDesktopRowSpacing.topClearance >= 0 &&
       argentinaEgyptCompactDesktopRowSpacing.bottomClearance >= 0 &&
-      argentinaEgyptCompactDesktopRowSpacing.pitchHeight >= 549 &&
-      argentinaEgyptCompactDesktopRowSpacing.pitchHeight <= 551 &&
+      argentinaEgyptCompactDesktopRowSpacing.pitchHeight >= 539 &&
+      argentinaEgyptCompactDesktopRowSpacing.pitchHeight <= 541 &&
       argentinaEgyptCompactDesktopRowSpacing.collisionCount === 0 &&
       argentinaEgyptCompactDesktopRowSpacing.minRowGap >= 4,
     `Argentina-Egypt compact desktop line-up rows should stay clear at the minimum pitch height. Measured ${JSON.stringify(argentinaEgyptCompactDesktopRowSpacing)}.`
@@ -5780,6 +5909,7 @@ try {
       const avatarBounds = avatar.getBoundingClientRect();
       const laneBounds = lane.getBoundingClientRect();
       return {
+        markerY: Number.parseFloat(marker.style.getPropertyValue("--y")),
         badgeLefts: badges.map((badge) =>
           Math.round((badge.getBoundingClientRect().left - avatarBounds.left) * 10) / 10
         ),
@@ -5795,9 +5925,14 @@ try {
       };
     });
   assert(
-    franceMoroccoHomeBadgeRowState.badgeTexts.join(" ") === "G A ↓77'" &&
-      franceMoroccoHomeBadgeRowState.laneLeftDelta >= 23 &&
-      franceMoroccoHomeBadgeRowState.laneLeftDelta <= 25 &&
+    franceMoroccoHomeBadgeRowState.markerY >= 14 &&
+      franceMoroccoHomeBadgeRowState.markerY <= 16 &&
+      franceMoroccoHomeBadgeRowState.badgeTexts.join(" ") === "G A ↓77'" &&
+      franceMoroccoHomeBadgeRowState.laneLeftDelta >= 19 &&
+      Math.abs(
+        franceMoroccoHomeBadgeRowState.badgeLefts[0] -
+          franceMoroccoHomeBadgeRowState.laneLeftDelta
+      ) <= 1 &&
       franceMoroccoHomeBadgeRowState.laneRightDelta > 44 &&
       franceMoroccoHomeBadgeRowState.badgeLefts.every(
         (left, index, lefts) => index === 0 || left > lefts[index - 1]
@@ -5931,15 +6066,15 @@ try {
       belgiumSpainZhBadgeState.deBruyne.card.bounds?.bottom >= 6 &&
       belgiumSpainZhBadgeState.deBruyne.card.bounds?.bottom <= 9 &&
       belgiumSpainZhBadgeState.deBruyne.sub.text === "↓86'" &&
-      belgiumSpainZhBadgeState.deBruyne.rightLane.bounds?.left >= 13 &&
-      belgiumSpainZhBadgeState.deBruyne.rightLane.bounds?.left <= 15 &&
+      belgiumSpainZhBadgeState.deBruyne.rightLane.bounds?.left >= 9 &&
+      belgiumSpainZhBadgeState.deBruyne.rightLane.bounds?.left <= 11 &&
       belgiumSpainZhBadgeState.deBruyne.sub.ariaLabel ===
         "86' 凯文·德布劳内 被换下。切换显示亚历克西斯·萨勒马克尔斯" &&
       belgiumSpainZhBadgeState.deBruyne.sub.title ===
         "86' 凯文·德布劳内 被换下。切换显示亚历克西斯·萨勒马克尔斯" &&
       belgiumSpainZhBadgeState.castagne.rightLane.text === "A" &&
-      belgiumSpainZhBadgeState.castagne.rightLane.bounds?.left >= 23 &&
-      belgiumSpainZhBadgeState.castagne.rightLane.bounds?.left <= 25 &&
+      belgiumSpainZhBadgeState.castagne.rightLane.bounds?.left >= 19 &&
+      belgiumSpainZhBadgeState.castagne.rightLane.bounds?.left <= 21 &&
       belgiumSpainZhBadgeState.courtois.sub.ariaLabel ===
         "71' 蒂博·库尔图瓦 被换下。切换显示森内·拉门斯" &&
       belgiumSpainZhBadgeState.deCuyper.sub.ariaLabel ===
@@ -6633,7 +6768,7 @@ try {
     '[data-match-id="czechia-south-africa-2026-06-18"]'
   );
   assert(
-    (await liveHalfTimeZhRow.locator(".live-pill").innerText()).trim() === "半场",
+    (await liveHalfTimeZhRow.locator(".live-pill").innerText()).trim() === "半场结束",
     "A live half-time pill should localize the official match position in Chinese."
   );
   await liveHalfTimeZhRow.locator(".match-row-trigger").click();
@@ -6645,17 +6780,17 @@ try {
       info?.querySelector(".live-source-note")?.textContent.replace(/\s+/g, " ").trim() || "";
     return (
       headingText.includes("实时比分") &&
-      headingText.includes("半场") &&
+      headingText.includes("半场结束") &&
       sourceText.includes("当前时间") &&
-      sourceText.includes("半场")
+      sourceText.includes("半场结束")
     );
   });
   const liveHalfTimeZhDetailText = normalizeFlaggedText(
     await liveHalfTimeZhCheck.page.locator("#match-info").innerText()
   );
   assert(
-    liveHalfTimeZhDetailText.includes("实时比分 半场") &&
-      liveHalfTimeZhDetailText.includes("当前时间 半场") &&
+    liveHalfTimeZhDetailText.includes("实时比分 半场结束") &&
+      liveHalfTimeZhDetailText.includes("当前时间 半场结束") &&
       liveHalfTimeZhDetailText.includes("查看最新"),
     `Live half-time details should localize the position label in Chinese. Measured ${JSON.stringify(liveHalfTimeZhDetailText)}.`
   );
@@ -8819,7 +8954,10 @@ try {
       m83TieTooltip: getOutcomeTooltip(83, "tie"),
       m86TieTooltip: getOutcomeTooltip(86, "tie"),
       m92TieTooltip: getOutcomeTooltip(92, "tie"),
+      m101TieTooltip: getOutcomeTooltip(101, "tie"),
       m102TieTooltip: getOutcomeTooltip(102, "tie"),
+      m103TieTooltip: getOutcomeTooltip(103, "tie"),
+      m104TieTooltip: getOutcomeTooltip(104, "tie"),
       m88AwayTooltip: getOutcomeTooltip(88, "away"),
       m73PillCount: document.querySelectorAll('.progress-match[data-match-number="73"] .knockout-likelihood').length,
       m89PillCount: document.querySelectorAll('.progress-match[data-match-number="89"] .knockout-likelihood').length,
@@ -9198,41 +9336,51 @@ try {
     ["m97NoGroupLabel", !/\bGroup [A-L]\d\b/.test(tournamentCheck.m97Text)],
     [
       "m89TooltipProjectsWin",
-      tournamentCheck.m89PillCount === 0 || tournamentCheck.m89Tooltips.includes("projects to win")
+      tournamentCheck.m89PillCount === 0 || tournamentCheck.m89Tooltips.includes("chance to win in regulation")
     ],
     [
       "m97TooltipChanceWin",
-      !expectedM97HasOutcomePills || tournamentCheck.m97Tooltips.includes("chance to win before penalties")
+      !expectedM97HasOutcomePills || tournamentCheck.m97Tooltips.includes("chance to win in regulation")
     ],
-    ["likelihoodTooltipsChance", tournamentCheck.likelihoodTooltips.includes("chance of penalties")],
-    ["likelihoodTooltipsNoTieMeansLevel", !tournamentCheck.likelihoodTooltips.includes("Tie means level after normal/extra time")],
+    ["likelihoodTooltipsShootoutFirst", tournamentCheck.likelihoodTooltips.includes("If it goes to penalties")],
+    ["likelihoodTooltipsNoRegulationPreamble", !tournamentCheck.likelihoodTooltips.includes("chance the match is tied after regulation")],
     ["likelihoodTooltipsNoUpset", !tournamentCheck.likelihoodTooltips.includes("pull off the upset")],
     [
       "m88AwayTooltip",
       !tournamentCheck.m88AwayTooltip ||
-        tournamentCheck.m88AwayTooltip.includes(
-          "Egypt have a 35% chance to win before penalties. This is close, but Australia have the slight edge."
-        )
+        tournamentCheck.m88AwayTooltip.includes("Egypt have a 40% chance to win in regulation.")
     ],
     ["m88AwayNoUpset", !tournamentCheck.m88AwayTooltip.includes("upset")],
     [
       "likelihoodTooltipsNoRefNames",
       !/(Michael Olise|Robin Risser|Oliver Baumann|Alexander Nübel|Alexander Nubel)/.test(tournamentCheck.likelihoodTooltips)
     ],
+    ["likelihoodTooltipsNoMarketNeutral", !tournamentCheck.likelihoodTooltips.includes("no clear edge")],
     [
-      "m89TooltipsHasMbappeEdge",
-      tournamentCheck.m89PillCount === 0 || tournamentCheck.m89Tooltips.includes("France have the shootout edge through Kylian Mbappé")
-    ],
-    ["m89TooltipsNoKeeper", !/goalkeeper|Olise|Risser/.test(tournamentCheck.m89Tooltips)],
-    ["m102TieTooltip", tournamentCheck.m102TieTooltip.includes("Aston Villa goalkeeper Emiliano Martínez")],
-    ["m83TieTooltip", !tournamentCheck.m83TieTooltip || tournamentCheck.m83TieTooltip.includes("Porto goalkeeper Diogo Costa")],
-    ["m86TieTooltip", !tournamentCheck.m86TieTooltip || tournamentCheck.m86TieTooltip.includes("Aston Villa goalkeeper Emiliano Martínez")],
-    [
-      "m8xTieTooltipGoalkeeperCounts",
-      [tournamentCheck.m102TieTooltip, tournamentCheck.m83TieTooltip, tournamentCheck.m86TieTooltip].every(
-        (tooltip) =>
-          !tooltip || (tooltip.match(/\bgoalkeeper\b/g) || []).length === 1
+      "likelihoodTooltipsNoUnsupportedPlayerEdge",
+      !/(shootout edge through|Kylian Mbappé|Ousmane Dembélé|Diogo Costa)/.test(
+        tournamentCheck.likelihoodTooltips
       )
+    ],
+    [
+      "m101TieTooltip",
+      tournamentCheck.m101TieTooltip.includes("Unai Simón has saved 8 of 22 shootout kicks") &&
+        tournamentCheck.m101TieTooltip.includes("Oyarzabal converts 89% of career penalties")
+    ],
+    [
+      "m102TieTooltip",
+      tournamentCheck.m102TieTooltip.includes("won 6 of 7 World Cup shootouts") &&
+        tournamentCheck.m102TieTooltip.includes("Emiliano Martínez has never lost one for his country")
+    ],
+    ["m103TieTooltip", tournamentCheck.m103TieTooltip.includes("France may have a slight record edge")],
+    ["m104TieTooltip", tournamentCheck.m104TieTooltip.includes("Argentina may have a slight record edge")],
+    [
+      "m83TieTooltip",
+      !tournamentCheck.m83TieTooltip || tournamentCheck.m83TieTooltip.startsWith("If it goes to penalties")
+    ],
+    [
+      "m86TieTooltip",
+      !tournamentCheck.m86TieTooltip || tournamentCheck.m86TieTooltip.startsWith("If it goes to penalties")
     ],
     ["m89NoTbd", !tournamentCheck.m89Text.includes("TBD")],
     ["m97NoTbd", !tournamentCheck.m97Text.includes("TBD")],
@@ -9279,7 +9427,11 @@ try {
 
     return {
       all,
-      m88Away: getOutcomeTooltip(88, "away")
+      m88Away: getOutcomeTooltip(88, "away"),
+      m101Tie: getOutcomeTooltip(101, "tie"),
+      m102Tie: getOutcomeTooltip(102, "tie"),
+      m103Tie: getOutcomeTooltip(103, "tie"),
+      m104Tie: getOutcomeTooltip(104, "tie")
     };
   });
   const hasM88AwayTooltip = Boolean(zhTournamentTooltips.m88Away);
@@ -9287,6 +9439,12 @@ try {
     (!hasM88AwayTooltip ||
       (zhTournamentTooltips.m88Away.includes("埃及点球前取胜概率约35%。这场很接近，但澳大利亚略占优势。") &&
         !zhTournamentTooltips.m88Away.includes("爆冷"))) &&
+      zhTournamentTooltips.m101Tie.includes("面对22次点球大战罚球扑出8次") &&
+      zhTournamentTooltips.m101Tie.includes("职业生涯点球命中率为89%") &&
+      zhTournamentTooltips.m102Tie.includes("7次世界杯点球大战中赢下6次") &&
+      zhTournamentTooltips.m102Tie.includes("代表国家队参加点球大战从未失利") &&
+      zhTournamentTooltips.m103Tie.includes("法国可能略占历史战绩优势") &&
+      zhTournamentTooltips.m104Tie.includes("阿根廷可能略占历史战绩优势") &&
       !/chance|penalties|shootout|goalkeeper|favored|upset|projects|before penalties/i.test(zhTournamentTooltips.all),
     `Chinese tournament outcome tooltips should use localized close-match wording and avoid stale English/upset templates. Measured ${JSON.stringify(zhTournamentTooltips)}.`
   );
@@ -11338,8 +11496,8 @@ try {
   assert(
     touchArgentinaEgyptRowSpacing.topClearance >= 0 &&
       touchArgentinaEgyptRowSpacing.bottomClearance >= 0 &&
-      touchArgentinaEgyptRowSpacing.pitchHeight >= 569 &&
-      touchArgentinaEgyptRowSpacing.pitchHeight <= 571 &&
+    touchArgentinaEgyptRowSpacing.pitchHeight >= 561 &&
+      touchArgentinaEgyptRowSpacing.pitchHeight <= 563 &&
       touchArgentinaEgyptRowSpacing.collisionCount === 0 &&
       touchArgentinaEgyptRowSpacing.minRowGap >= 4,
     `Argentina-Egypt mobile line-up rows should keep event pills and value text separated from adjacent rows. Measured ${JSON.stringify(touchArgentinaEgyptRowSpacing)}.`
@@ -11490,7 +11648,7 @@ try {
       touchLineupSubstitutionState.visibleCards.length === 0 &&
       touchLineupSubstitutionState.openPlayerHovers === 0 &&
       touchLineupSubstitutionState.overlapWidth <= 16 &&
-      touchLineupSubstitutionState.laneLeftDelta >= 20 &&
+      touchLineupSubstitutionState.laneLeftDelta >= 18 &&
       touchLineupSubstitutionState.topHitTags.every(
         (hit) => hit.tagName === "BUTTON" && hit.className.includes("lineup-substitution-toggle")
       ),
@@ -11763,6 +11921,824 @@ try {
       (await bellinghamTouchLink.getAttribute("aria-expanded")) === "false" &&
       (await riceTouchLink.getAttribute("aria-expanded")) === "true",
     "On touch devices, England-Ghana player taps should render only one floating player card with no inline source card."
+  );
+
+  await touchPage.setViewportSize({ width: 390, height: 844 });
+  await touchPage.goto(`${baseUrl}?ballBoySmoke=1`, { waitUntil: "load" });
+  await touchPage.locator("#scout-launcher").click();
+  const ballBoySend = touchPage.locator(".scout-send");
+  const ballBoyInput = touchPage.locator("#scout-input");
+  assert(await ballBoySend.isDisabled(), "Ball Boy send should begin disabled when its input is empty.");
+  const initialBallBoyPrompts = await touchPage
+    .locator("#scout-suggestions [data-scout-prompt]")
+    .evaluateAll((buttons) => buttons.map((button) => button.dataset.scoutPrompt));
+  assert(
+    JSON.stringify(initialBallBoyPrompts) === JSON.stringify([
+      "Explain offside",
+      "Tell me about Mbappe",
+      "How does Argentina play?"
+    ]),
+    `Ball Boy should open with the three curated questions in order. Measured ${JSON.stringify(initialBallBoyPrompts)}.`
+  );
+  await ballBoyInput.fill("Tell me about Haaland");
+  await ballBoySend.click();
+  await touchPage.getByRole("heading", { name: "Erling Haaland" }).waitFor({ state: "visible" });
+  const haalandBallBoyMetrics = await touchPage.evaluate(() => {
+    const conversation = document.querySelector("#scout-conversation");
+    const answer = [...document.querySelectorAll(".scout-answer")].at(-1);
+    const card = answer?.querySelector(".scout-player-card");
+    const valueCell = card?.querySelector(".scout-player-fact-section:last-child .is-value");
+    const lead = answer?.querySelector(".scout-answer-lead")?.textContent.replace(/\s+/g, " ").trim() || "";
+    const note = [...(card?.querySelectorAll(".scout-explainer") || [])]
+      .at(-1)
+      ?.querySelector("p:last-child")
+      ?.textContent.replace(/\s+/g, " ")
+      .trim() || "";
+    const prompts = [...(answer?.querySelectorAll("[data-scout-prompt]") || [])]
+      .map((item) => item.dataset.scoutPrompt.trim().toLowerCase());
+
+    return {
+      avatarFlagCount: card?.querySelectorAll(".scout-avatar-flag").length,
+      cardOverflow: card ? card.scrollWidth - card.clientWidth : null,
+      club: card?.querySelector(".scout-entity-copy small")?.textContent.trim() || "",
+      conversationOverflow: conversation ? conversation.scrollWidth - conversation.clientWidth : null,
+      followUpCount: answer?.querySelectorAll(".scout-followup").length,
+      inlineFlagCount: card?.querySelectorAll(".scout-inline-flag").length,
+      lead,
+      moreHidden: document.querySelector("#scout-more")?.hidden,
+      note,
+      promptCount: prompts.length,
+      promptUniqueCount: new Set(prompts).size,
+      remaining: conversation
+        ? conversation.scrollHeight - conversation.clientHeight - conversation.scrollTop
+        : null,
+      roleZone: card?.querySelector(".scout-section-heading > span:last-child")?.textContent.trim() || "",
+      scopes: [...(card?.querySelectorAll(".scout-player-fact-section > .scout-section-label") || [])]
+        .map((item) => item.textContent.trim()),
+      signatureLabel: card?.querySelector(".scout-skill-section > .scout-section-label")?.textContent.trim() || "",
+      statCells: [...(card?.querySelectorAll(".scout-player-fact-row > div") || [])]
+        .map((item) => item.innerText.replace(/\s+/g, " ").trim()),
+      valueTitle: valueCell?.getAttribute("title") || "",
+      zoneLabel: card?.querySelector(".scout-role-pitch")?.getAttribute("aria-label") || ""
+    };
+  });
+  assert(
+    haalandBallBoyMetrics.lead === "" &&
+      haalandBallBoyMetrics.club === "Manchester City (Premier League)" &&
+      JSON.stringify(haalandBallBoyMetrics.scopes) === JSON.stringify(["This World Cup", "Player details"]) &&
+      haalandBallBoyMetrics.statCells[0] === "7 Goals" &&
+      haalandBallBoyMetrics.statCells[1] === "0 Assists" &&
+      haalandBallBoyMetrics.statCells[2] === "25 Age" &&
+      haalandBallBoyMetrics.statCells[3] === "€200m Value" &&
+      haalandBallBoyMetrics.valueTitle.includes("sourced public player data") &&
+      haalandBallBoyMetrics.zoneLabel.endsWith("Finishing third") &&
+      haalandBallBoyMetrics.roleZone === "Finishing third" &&
+      haalandBallBoyMetrics.signatureLabel === "Signature traits" &&
+      haalandBallBoyMetrics.avatarFlagCount === 0 &&
+      haalandBallBoyMetrics.inlineFlagCount === 1 &&
+      haalandBallBoyMetrics.note.startsWith("Haaland scored seven goals in Norway's run to the quarter-finals.") &&
+      haalandBallBoyMetrics.followUpCount === 3 &&
+      haalandBallBoyMetrics.promptCount === haalandBallBoyMetrics.promptUniqueCount &&
+      haalandBallBoyMetrics.remaining > 8 &&
+      haalandBallBoyMetrics.moreHidden === false &&
+      haalandBallBoyMetrics.cardOverflow <= 4 &&
+      haalandBallBoyMetrics.conversationOverflow <= 1,
+    `Ball Boy's Haaland card should show complete, current, scoped player facts. Measured ${JSON.stringify(haalandBallBoyMetrics)}.`
+  );
+
+  const ballBoyMore = touchPage.locator("#scout-more");
+  for (let attempt = 0; attempt < 6 && !(await ballBoyMore.isHidden()); attempt += 1) {
+    const scrollStep = await touchPage.locator("#scout-conversation").evaluate((conversation) => ({
+      target: Math.min(
+        conversation.scrollHeight - conversation.clientHeight,
+        conversation.scrollTop + Math.max(160, conversation.clientHeight * 0.7)
+      )
+    }));
+    await ballBoyMore.click();
+    await touchPage.waitForFunction(
+      ({ target }) => {
+        const conversation = document.querySelector("#scout-conversation");
+        const more = document.querySelector("#scout-more");
+        return Boolean(more?.hidden || (conversation && conversation.scrollTop >= target - 1));
+      },
+      scrollStep
+    );
+  }
+  const ballBoyBottomMetrics = await touchPage.evaluate(() => {
+    const conversation = document.querySelector("#scout-conversation");
+    const conversationBounds = conversation?.getBoundingClientRect();
+    const lastFollowUp = document.querySelector(".scout-followup:last-child")?.getBoundingClientRect();
+    return {
+      lastFollowUpVisible: Boolean(
+        conversationBounds &&
+          lastFollowUp &&
+          lastFollowUp.top >= conversationBounds.top &&
+          lastFollowUp.bottom <= conversationBounds.bottom
+      ),
+      maskImage: conversation ? getComputedStyle(conversation).maskImage : "",
+      moreHidden: document.querySelector("#scout-more")?.hidden,
+      remaining: conversation
+        ? conversation.scrollHeight - conversation.clientHeight - conversation.scrollTop
+        : null
+    };
+  });
+  assert(
+    ballBoyBottomMetrics.lastFollowUpVisible &&
+      ballBoyBottomMetrics.moreHidden === true &&
+      ballBoyBottomMetrics.remaining <= 1 &&
+      ballBoyBottomMetrics.maskImage === "none",
+    `Ball Boy's continuation control should reveal the note and all follow-ups, then clear. Measured ${JSON.stringify(ballBoyBottomMetrics)}.`
+  );
+
+  await ballBoyInput.fill("What is his value?");
+  assert(!(await ballBoySend.isDisabled()), "Ball Boy send should enable after text is entered.");
+  await ballBoySend.click();
+  await touchPage
+    .getByText("Erling Haaland's market value is €200m.", { exact: true })
+    .waitFor({ state: "visible" });
+
+  await touchPage.setViewportSize({ width: 320, height: 568 });
+  await touchPage.locator("#scout-reset").click();
+  await ballBoyInput.fill("Tell me about Ibrahim Mbaye");
+  await ballBoySend.click();
+  await touchPage.getByRole("heading", { name: "Ibrahim Mbaye" }).waitFor({ state: "visible" });
+  const narrowBallBoyMetrics = await touchPage.evaluate(() => {
+    const conversation = document.querySelector("#scout-conversation");
+    const widget = document.querySelector("#scout-widget")?.getBoundingClientRect();
+    return {
+      conversationOverflow: conversation ? conversation.scrollWidth - conversation.clientWidth : null,
+      skillOverflow: [...document.querySelectorAll(".scout-player-card .scout-flow-step")]
+        .map((skill) => ({
+          overflow: skill.scrollWidth - skill.clientWidth,
+          text: skill.textContent.trim()
+        })),
+      widget: widget
+        ? { bottom: widget.bottom, left: widget.left, right: widget.right, top: widget.top }
+        : null
+    };
+  });
+  assert(
+    narrowBallBoyMetrics.conversationOverflow <= 1 &&
+      narrowBallBoyMetrics.skillOverflow.length === 3 &&
+      narrowBallBoyMetrics.skillOverflow.every((skill) => skill.overflow <= 1) &&
+      narrowBallBoyMetrics.skillOverflow.some((skill) => skill.text === "Wing explosiveness") &&
+      narrowBallBoyMetrics.widget &&
+      narrowBallBoyMetrics.widget.left >= 0 &&
+      narrowBallBoyMetrics.widget.top >= 0 &&
+      narrowBallBoyMetrics.widget.right <= 320 &&
+      narrowBallBoyMetrics.widget.bottom <= 568,
+    `Ball Boy's player card should fit a 320px-wide phone without clipping skills or the safe area. Measured ${JSON.stringify(narrowBallBoyMetrics)}.`
+  );
+
+  await touchPage.locator("#scout-reset").click();
+  await ballBoyInput.fill("Tell me about Abduvohid Nematov");
+  await ballBoySend.click();
+  await touchPage.getByRole("heading", { name: "Abduvohid Nematov" }).waitFor({ state: "visible" });
+  const estimatedValueMetrics = await touchPage.evaluate(() => {
+    const card = document.querySelector(".scout-player-card");
+    const facts = card?.querySelector(".scout-player-facts");
+    const valueCell = card?.querySelector(".scout-player-fact-section:last-child .is-value");
+    return {
+      statOverflow: facts ? facts.scrollWidth - facts.clientWidth : null,
+      value: valueCell?.innerText.replace(/\s+/g, " ").trim() || "",
+      valueOverflow: valueCell ? valueCell.scrollWidth - valueCell.clientWidth : null
+    };
+  });
+  assert(
+    estimatedValueMetrics.value === "€600k Est. value Prime €1.5m" &&
+      estimatedValueMetrics.statOverflow <= 1 &&
+      estimatedValueMetrics.valueOverflow <= 1,
+    `Ball Boy should label estimated and prime values without overflowing at 320px. Measured ${JSON.stringify(estimatedValueMetrics)}.`
+  );
+
+  await touchPage.locator("#scout-reset").click();
+  await ballBoyInput.fill("How do Norway play?");
+  await ballBoySend.click();
+  await touchPage.locator(".scout-answer.is-country").waitFor({ state: "visible" });
+  const countryBallBoyMetrics = await touchPage.evaluate(() => {
+    const answer = [...document.querySelectorAll(".scout-answer")].at(-1);
+    const conversation = document.querySelector("#scout-conversation");
+    const card = answer.querySelector(".scout-country-card");
+    const widget = document.querySelector(".scout-widget").getBoundingClientRect();
+    const repeatedSentence = "They move the ball forward with a clear purpose, then attack before the opponent resets.";
+    const prompts = [...answer.querySelectorAll("[data-scout-prompt]")]
+      .map((item) => item.dataset.scoutPrompt.trim().toLowerCase());
+    const fixtureNames = [...answer.querySelectorAll(".scout-compact-team > span:last-child")];
+    const englandFlag = answer.querySelector(".scout-compact-fixture .flag-england")?.getBoundingClientRect();
+    const formStyles = [...answer.querySelectorAll(".scout-form-result")]
+      .map((item) => getComputedStyle(item));
+    const flowSteps = [...answer.querySelectorAll(".scout-country-card .scout-flow-step")];
+    const keyPlayerSection = answer.querySelector(".scout-key-players");
+    const keyPlayerLabel = keyPlayerSection?.querySelector(".scout-section-label");
+    const keyPlayerList = keyPlayerSection?.querySelector(":scope > div");
+    const keyPlayerButtons = [...answer.querySelectorAll(".scout-key-players button")];
+    const keyPlayerSectionBounds = keyPlayerSection?.getBoundingClientRect();
+    const keyPlayerLabelBounds = keyPlayerLabel?.getBoundingClientRect();
+    const keyPlayerListBounds = keyPlayerList?.getBoundingClientRect();
+    const keyPlayerButtonBounds = keyPlayerButtons.map((item) => item.getBoundingClientRect());
+    const isTransparent = (value) => value === "transparent" || value === "rgba(0, 0, 0, 0)";
+    return {
+      cardBackground: getComputedStyle(card).backgroundColor,
+      cardOverflow: card.scrollWidth - card.clientWidth,
+      conversationOverflow: conversation.scrollWidth - conversation.clientWidth,
+      countryFlags: answer.querySelectorAll(".scout-country-flag").length,
+      englandFlag: englandFlag ? { height: englandFlag.height, width: englandFlag.width } : null,
+      fixtureColumns: getComputedStyle(answer.querySelector(".scout-fixture-pair")).gridTemplateColumns.split(" ").length,
+      fixtureNameOverflow: fixtureNames.map((name) => name.scrollWidth - name.clientWidth),
+      flowIsPlain: flowSteps.every((item) => {
+        const style = getComputedStyle(item);
+        return isTransparent(style.backgroundColor) && parseFloat(style.borderRadius) === 0;
+      }),
+      flowOverflow: flowSteps.map((item) => item.scrollWidth - item.clientWidth),
+      formIsNeutral: new Set(formStyles.map((style) => style.backgroundColor)).size === 1 &&
+        new Set(formStyles.map((style) => style.color)).size === 1 &&
+        formStyles.every((style) => isTransparent(style.backgroundColor)),
+      keyPlayerActions: keyPlayerButtons.map((item) => {
+        const bounds = item.getBoundingClientRect();
+        const style = getComputedStyle(item);
+        return {
+          height: bounds.height,
+          width: bounds.width,
+          plain: isTransparent(style.backgroundColor) && parseFloat(style.borderRadius) === 0
+        };
+      }),
+      keyPlayerLayout:
+        keyPlayerSectionBounds && keyPlayerLabelBounds && keyPlayerListBounds
+          ? {
+              labelAboveList: keyPlayerLabelBounds.bottom <= keyPlayerListBounds.top,
+              labelInset: keyPlayerLabelBounds.left - keyPlayerSectionBounds.left,
+              listInset: keyPlayerListBounds.left - keyPlayerSectionBounds.left,
+              listRightInset: keyPlayerSectionBounds.right - keyPlayerListBounds.right,
+              rowCount: new Set(keyPlayerButtonBounds.map((bounds) => Math.round(bounds.top))).size,
+              sectionHeight: keyPlayerSectionBounds.height
+            }
+          : null,
+      labelsUseSentenceCase: [...card.querySelectorAll(".scout-section-label")]
+        .every((item) => getComputedStyle(item).textTransform === "none"),
+      promptCount: prompts.length,
+      promptUniqueCount: new Set(prompts).size,
+      repeatedSentenceCount: answer.innerText.split(repeatedSentence).length - 1,
+      topScorerHasEmoji: answer.querySelector(".scout-top-scorer")?.innerText.includes("⚽") || false,
+      widget: {
+        bottom: widget.bottom,
+        left: widget.left,
+        right: widget.right,
+        top: widget.top
+      }
+    };
+  });
+  assert(
+    countryBallBoyMetrics.cardBackground === "rgb(255, 255, 255)" &&
+      countryBallBoyMetrics.countryFlags === 1 &&
+      countryBallBoyMetrics.repeatedSentenceCount === 1 &&
+      countryBallBoyMetrics.promptCount === countryBallBoyMetrics.promptUniqueCount &&
+      countryBallBoyMetrics.fixtureColumns === 1 &&
+      countryBallBoyMetrics.fixtureNameOverflow.every((overflow) => overflow <= 1) &&
+      countryBallBoyMetrics.flowIsPlain &&
+      countryBallBoyMetrics.flowOverflow.every((overflow) => overflow <= 1) &&
+      countryBallBoyMetrics.formIsNeutral &&
+      countryBallBoyMetrics.keyPlayerActions.every((item) => item.height >= 40 && item.width >= 40 && item.plain) &&
+      countryBallBoyMetrics.keyPlayerLayout?.labelAboveList &&
+      Math.abs(countryBallBoyMetrics.keyPlayerLayout.labelInset - 13) <= 1 &&
+      Math.abs(countryBallBoyMetrics.keyPlayerLayout.listInset - 13) <= 1 &&
+      Math.abs(countryBallBoyMetrics.keyPlayerLayout.listRightInset - 13) <= 1 &&
+      countryBallBoyMetrics.keyPlayerLayout.rowCount <= 2 &&
+      countryBallBoyMetrics.keyPlayerLayout.sectionHeight <= 116 &&
+      countryBallBoyMetrics.labelsUseSentenceCase &&
+      !countryBallBoyMetrics.topScorerHasEmoji &&
+      countryBallBoyMetrics.englandFlag?.width > 0 &&
+      countryBallBoyMetrics.englandFlag?.height > 0 &&
+      countryBallBoyMetrics.cardOverflow <= 1 &&
+      countryBallBoyMetrics.conversationOverflow <= 1 &&
+      countryBallBoyMetrics.widget.left >= 0 &&
+      countryBallBoyMetrics.widget.top >= 0 &&
+      countryBallBoyMetrics.widget.right <= 320 &&
+      countryBallBoyMetrics.widget.bottom <= 568,
+    `Ball Boy's country card should stay neutral, readable, and unclipped. Measured ${JSON.stringify(countryBallBoyMetrics)}.`
+  );
+
+  await touchPage.locator("#scout-reset").click();
+  await ballBoyInput.fill("Who won Norway vs England?");
+  await ballBoySend.click();
+  await touchPage.locator(".scout-answer.is-match").waitFor({ state: "visible" });
+  const matchBallBoyMetrics = await touchPage.evaluate(() => {
+    const answer = [...document.querySelectorAll(".scout-answer")].at(-1);
+    const prompts = [...answer.querySelectorAll("[data-scout-prompt]")]
+      .map((item) => item.dataset.scoutPrompt.trim().toLowerCase());
+    const flags = [...answer.querySelectorAll(".scout-score-flag")];
+    return {
+      englandFlag: flags.some((flag) => flag.classList.contains("flag-england")),
+      flagSizes: flags.map((flag) => {
+        const bounds = flag.getBoundingClientRect();
+        return { height: bounds.height, width: bounds.width };
+      }),
+      overflow: answer.scrollWidth - answer.clientWidth,
+      promptCount: prompts.length,
+      promptUniqueCount: new Set(prompts).size,
+      status: answer.querySelector(".scout-match-meta")?.innerText.replace(/\s+/g, " ").trim() || ""
+    };
+  });
+  assert(
+    matchBallBoyMetrics.flagSizes.length === 2 &&
+      matchBallBoyMetrics.flagSizes.every((flag) => flag.width > 0 && flag.height > 0) &&
+      matchBallBoyMetrics.englandFlag &&
+      matchBallBoyMetrics.status.includes("After extra time") &&
+      matchBallBoyMetrics.promptCount === matchBallBoyMetrics.promptUniqueCount &&
+      matchBallBoyMetrics.overflow <= 1,
+    `Ball Boy's match card should show both flags, an accurate finish state, unique actions, and no clipping. Measured ${JSON.stringify(matchBallBoyMetrics)}.`
+  );
+
+  await touchPage.locator("#scout-reset").click();
+  await ballBoyInput.fill("Explain offside");
+  await ballBoySend.click();
+  await touchPage.locator(".scout-answer.is-offside").waitFor({ state: "visible" });
+  const offsideBallBoyMetrics = await touchPage.evaluate(() => {
+    const answer = [...document.querySelectorAll(".scout-answer")].at(-1);
+    const source = answer.querySelector(".scout-source-link")?.getBoundingClientRect();
+    return {
+      overflow: answer.scrollWidth - answer.clientWidth,
+      scenarioColumns: [...answer.querySelectorAll(".offside-scenario")]
+        .map((scenario) => getComputedStyle(scenario).gridTemplateColumns.split(" ").length),
+      scenarioCount: answer.querySelectorAll(".offside-scenario").length,
+      sourceHeight: source?.height || 0
+    };
+  });
+  assert(
+    offsideBallBoyMetrics.scenarioCount === 2 &&
+      offsideBallBoyMetrics.scenarioColumns.every((count) => count === 1) &&
+      offsideBallBoyMetrics.sourceHeight >= 40 &&
+      offsideBallBoyMetrics.overflow <= 1,
+    `Ball Boy's visual offside answer should stack cleanly and keep its source touchable at 320px. Measured ${JSON.stringify(offsideBallBoyMetrics)}.`
+  );
+
+  await touchPage.locator("#scout-reset").click();
+  await ballBoyInput.fill("Explain a red card");
+  await ballBoySend.click();
+  await touchPage.locator(".scout-answer.is-rule").waitFor({ state: "visible" });
+  const ruleBallBoyMetrics = await touchPage.evaluate(() => {
+    const answer = [...document.querySelectorAll(".scout-answer")].at(-1);
+    const card = answer.querySelector(".scout-rule-card");
+    const source = answer.querySelector(".scout-source-link")?.getBoundingClientRect();
+    const takeaway = answer.querySelector(".scout-takeaway");
+    const prompts = [...answer.querySelectorAll("[data-scout-prompt]")]
+      .map((item) => item.dataset.scoutPrompt.trim().toLowerCase());
+    return {
+      flowSteps: answer.querySelectorAll(".scout-rule-step").length,
+      overflow: answer.scrollWidth - answer.clientWidth,
+      pointCount: answer.querySelectorAll(".scout-rule-points > div").length,
+      promptCount: prompts.length,
+      promptUniqueCount: new Set(prompts).size,
+      sourceHeight: source?.height || 0,
+      sourceWidthDifference: card && source ? Math.abs(card.clientWidth - source.width) : null,
+      takeawayBackground: takeaway ? getComputedStyle(takeaway).backgroundColor : "",
+      takeawayTextAlign: takeaway ? getComputedStyle(takeaway).textAlign : ""
+    };
+  });
+  assert(
+    ruleBallBoyMetrics.flowSteps === 3 &&
+      ruleBallBoyMetrics.pointCount === 2 &&
+      ruleBallBoyMetrics.sourceHeight >= 40 &&
+      ruleBallBoyMetrics.sourceWidthDifference <= 1 &&
+      ruleBallBoyMetrics.takeawayBackground !== "rgb(10, 10, 10)" &&
+      ruleBallBoyMetrics.takeawayTextAlign === "left" &&
+      ruleBallBoyMetrics.promptCount === ruleBallBoyMetrics.promptUniqueCount &&
+      ruleBallBoyMetrics.overflow <= 1,
+    `Ball Boy's standard rule card should end as one continuous, readable, touchable surface at 320px. Measured ${JSON.stringify(ruleBallBoyMetrics)}.`
+  );
+
+  await touchPage.locator("#scout-reset").click();
+  await ballBoyInput.fill("What can I ask?");
+  await ballBoySend.click();
+  await touchPage.locator(".scout-answer.is-help").waitFor({ state: "visible" });
+  const helpBallBoyMetrics = await touchPage.evaluate(() => {
+    const answer = [...document.querySelectorAll(".scout-answer")].at(-1);
+    const prompts = [...answer.querySelectorAll("[data-scout-prompt]")]
+      .map((item) => item.dataset.scoutPrompt.trim().toLowerCase());
+    const example = answer.querySelector(".scout-help-grid small");
+    return {
+      cards: answer.querySelectorAll(".scout-help-grid button").length,
+      exampleFont: example ? Number.parseFloat(getComputedStyle(example).fontSize) : 0,
+      followUps: answer.querySelectorAll(".scout-followup").length,
+      overflow: answer.scrollWidth - answer.clientWidth,
+      promptCount: prompts.length,
+      promptUniqueCount: new Set(prompts).size
+    };
+  });
+  assert(
+    helpBallBoyMetrics.cards === 4 &&
+      helpBallBoyMetrics.followUps === 0 &&
+      helpBallBoyMetrics.promptCount === helpBallBoyMetrics.promptUniqueCount &&
+      helpBallBoyMetrics.exampleFont >= 10 &&
+      helpBallBoyMetrics.overflow <= 1,
+    `Ball Boy's help grid should be the single clear set of choices with readable examples. Measured ${JSON.stringify(helpBallBoyMetrics)}.`
+  );
+
+  await touchPage.locator("#scout-reset").click();
+  await ballBoyInput.fill("Who should I watch for Norway?");
+  await ballBoySend.click();
+  await touchPage.locator(".scout-answer.is-player-list").waitFor({ state: "visible" });
+  const watchBallBoyMetrics = await touchPage.evaluate(() => {
+    const answer = [...document.querySelectorAll(".scout-answer")].at(-1);
+    const cards = [...answer.querySelectorAll(".scout-watch-card")];
+    const prompts = cards.map((item) => item.dataset.scoutPrompt.trim().toLowerCase());
+    const note = answer.querySelector(".scout-watch-card em");
+    return {
+      cardCount: cards.length,
+      countryNames: cards.map((card) => card.querySelector("small")?.textContent.trim() || ""),
+      flagCounts: cards.map((card) => card.querySelectorAll(".scout-avatar-flag").length),
+      followUps: answer.querySelectorAll(".scout-followup").length,
+      noteFont: note ? Number.parseFloat(getComputedStyle(note).fontSize) : 0,
+      overflow: answer.scrollWidth - answer.clientWidth,
+      promptCount: prompts.length,
+      promptUniqueCount: new Set(prompts).size
+    };
+  });
+  assert(
+    watchBallBoyMetrics.cardCount === 3 &&
+      watchBallBoyMetrics.flagCounts.every((count) => count === 1) &&
+      watchBallBoyMetrics.countryNames.every((text) => / · /.test(text)) &&
+      watchBallBoyMetrics.followUps === 0 &&
+      watchBallBoyMetrics.noteFont >= 10 &&
+      watchBallBoyMetrics.promptCount === watchBallBoyMetrics.promptUniqueCount &&
+      watchBallBoyMetrics.overflow <= 1,
+    `Ball Boy's player list should use one contextual flag per card without repeated follow-up actions. Measured ${JSON.stringify(watchBallBoyMetrics)}.`
+  );
+
+  await touchPage.locator("#scout-reset").click();
+  await ballBoyInput.fill("Tell me about Emiliano Martinez");
+  await ballBoySend.click();
+  await touchPage.locator(".scout-answer.is-clarify").waitFor({ state: "visible" });
+  const clarifyBallBoyMetrics = await touchPage.evaluate(() => {
+    const answer = [...document.querySelectorAll(".scout-answer")].at(-1);
+    const prompts = [...answer.querySelectorAll("[data-scout-prompt]")]
+      .map((item) => item.dataset.scoutPrompt.trim().toLowerCase());
+    return {
+      followUps: answer.querySelectorAll(".scout-followup").length,
+      options: answer.querySelectorAll(".scout-clarify-list button").length,
+      overflow: answer.scrollWidth - answer.clientWidth,
+      promptCount: prompts.length,
+      promptUniqueCount: new Set(prompts).size
+    };
+  });
+  assert(
+    clarifyBallBoyMetrics.options === 2 &&
+      clarifyBallBoyMetrics.followUps === 0 &&
+      clarifyBallBoyMetrics.promptCount === clarifyBallBoyMetrics.promptUniqueCount &&
+      clarifyBallBoyMetrics.overflow <= 1,
+    `Ball Boy's clarification choices should appear once without duplicate pills. Measured ${JSON.stringify(clarifyBallBoyMetrics)}.`
+  );
+
+  await touchPage.locator("#scout-reset").click();
+  await ballBoyInput.fill("Who are you?");
+  await ballBoySend.click();
+  await touchPage.locator(".scout-answer.is-personality").waitFor({ state: "visible" });
+  const personalityBallBoyMetrics = await touchPage.evaluate(() => {
+    const answer = [...document.querySelectorAll(".scout-answer")].at(-1);
+    const prompts = [...answer.querySelectorAll("[data-scout-prompt]")]
+      .map((item) => item.dataset.scoutPrompt.trim().toLowerCase());
+    return {
+      dataCards: answer.querySelectorAll(".scout-data-card").length,
+      overflow: answer.scrollWidth - answer.clientWidth,
+      promptCount: prompts.length,
+      promptUniqueCount: new Set(prompts).size,
+      stamps: answer.querySelectorAll(".scout-personality-stamp").length
+    };
+  });
+  assert(
+    personalityBallBoyMetrics.stamps === 1 &&
+      personalityBallBoyMetrics.dataCards === 0 &&
+      personalityBallBoyMetrics.promptCount === personalityBallBoyMetrics.promptUniqueCount &&
+      personalityBallBoyMetrics.overflow <= 1,
+    `Ball Boy's personality answer should stay playful without pretending to be a data card. Measured ${JSON.stringify(personalityBallBoyMetrics)}.`
+  );
+
+  await touchPage.locator("#scout-reset").click();
+  await ballBoyInput.fill("purple bananas");
+  await ballBoySend.click();
+  await touchPage.locator(".scout-answer.is-unknown").waitFor({ state: "visible" });
+  const unknownBallBoyMetrics = await touchPage.evaluate(() => {
+    const answer = [...document.querySelectorAll(".scout-answer")].at(-1);
+    const prompts = [...answer.querySelectorAll("[data-scout-prompt]")]
+      .map((item) => item.dataset.scoutPrompt.trim().toLowerCase());
+    return {
+      eyeCount: answer.querySelectorAll(".scout-unknown-mark i").length,
+      overflow: answer.scrollWidth - answer.clientWidth,
+      promptCount: prompts.length,
+      promptUniqueCount: new Set(prompts).size
+    };
+  });
+  assert(
+    unknownBallBoyMetrics.eyeCount === 2 &&
+      unknownBallBoyMetrics.promptCount === unknownBallBoyMetrics.promptUniqueCount &&
+      unknownBallBoyMetrics.overflow <= 1,
+    `Ball Boy's fallback should use the playful eyes without a misleading external-link arrow. Measured ${JSON.stringify(unknownBallBoyMetrics)}.`
+  );
+
+  await touchPage.setViewportSize({ width: 568, height: 320 });
+  await touchPage.waitForTimeout(450);
+  const shortBallBoyMetrics = await touchPage.evaluate(() => {
+    const conversation = document.querySelector("#scout-conversation")?.getBoundingClientRect();
+    const widget = document.querySelector("#scout-widget")?.getBoundingClientRect();
+    return {
+      conversationHeight: conversation?.height || 0,
+      headerButtonWidths: [...document.querySelectorAll(".scout-reset, .scout-close")]
+        .map((button) => button.getBoundingClientRect().width),
+      inputFont: Number.parseFloat(getComputedStyle(document.querySelector("#scout-input")).fontSize),
+      widget: widget ? { bottom: widget.bottom, left: widget.left, right: widget.right, top: widget.top } : null
+    };
+  });
+  assert(
+    shortBallBoyMetrics.conversationHeight >= 100 &&
+      shortBallBoyMetrics.headerButtonWidths.every((width) => width >= 40) &&
+      shortBallBoyMetrics.inputFont >= 16 &&
+      shortBallBoyMetrics.widget?.left >= 0 &&
+      shortBallBoyMetrics.widget?.top >= 0 &&
+      shortBallBoyMetrics.widget?.right <= 568 &&
+      shortBallBoyMetrics.widget?.bottom <= 320,
+    `Ball Boy's short landscape layout should preserve usable conversation and controls. Measured ${JSON.stringify(shortBallBoyMetrics)}.`
+  );
+
+  await touchPage.setViewportSize({ width: 390, height: 844 });
+  await touchPage.goto(`${baseUrl}?ballBoySmoke=1&lang=zh`, { waitUntil: "load" });
+  await touchPage.waitForFunction(
+    () => document.documentElement.lang === "zh-Hans" && document.querySelector(".scout-title")?.textContent === "球童"
+  );
+  await touchPage.locator("#scout-launcher").click();
+  const zhBallBoyInput = touchPage.locator("#scout-input");
+  const zhBallBoySend = touchPage.locator(".scout-send");
+  const zhBallBoyShell = await touchPage.evaluate(() => ({
+    chatAria: document.querySelector("#scout-panel")?.getAttribute("aria-label") || "",
+    closeAria: document.querySelector("#scout-close")?.getAttribute("aria-label") || "",
+    initial: document.querySelector("#scout-messages")?.innerText.replace(/\s+/g, " ").trim() || "",
+    inputAria: document.querySelector("label[for='scout-input']")?.textContent.trim() || "",
+    openAria: document.querySelector("#scout-launcher")?.getAttribute("aria-label") || "",
+    placeholder: document.querySelector("#scout-input")?.getAttribute("placeholder") || "",
+    prompts: [...document.querySelectorAll("#scout-suggestions [data-scout-prompt]")]
+      .map((button) => button.dataset.scoutPrompt),
+    resetAria: document.querySelector("#scout-reset")?.getAttribute("aria-label") || "",
+    sendAria: document.querySelector(".scout-send")?.getAttribute("aria-label") || "",
+    status: document.querySelector(".scout-status")?.textContent.trim() || "",
+    suggestionsAria: document.querySelector("#scout-suggestions")?.getAttribute("aria-label") || "",
+    title: document.querySelector(".scout-title")?.textContent.trim() || ""
+  }));
+  assert(
+    zhBallBoyShell.title === "球童" &&
+      zhBallBoyShell.status === "问我足球问题" &&
+      zhBallBoyShell.initial === "球童 你可以问我球员、国家队、比赛或规则。" &&
+      zhBallBoyShell.openAria === "打开球童聊天" &&
+      zhBallBoyShell.chatAria === "球童聊天窗口" &&
+      zhBallBoyShell.resetAria === "开始新对话" &&
+      zhBallBoyShell.closeAria === "关闭球童聊天" &&
+      zhBallBoyShell.suggestionsAria === "推荐问题" &&
+      zhBallBoyShell.inputAria === "向球童提问" &&
+      zhBallBoyShell.placeholder === "问一个足球问题…" &&
+      zhBallBoyShell.sendAria === "发送问题" &&
+      JSON.stringify(zhBallBoyShell.prompts) === JSON.stringify([
+        "解释越位",
+        "介绍一下姆巴佩",
+        "阿根廷怎么踢？"
+      ]) &&
+      (await zhBallBoySend.isDisabled()),
+    `Chinese Ball Boy shell, curated prompts, and accessibility copy should render together. Measured ${JSON.stringify(zhBallBoyShell)}.`
+  );
+
+  await zhBallBoyInput.fill("解释越位");
+  assert(!(await zhBallBoySend.isDisabled()), "Chinese Ball Boy send should enable after text is entered.");
+  await zhBallBoySend.click();
+  await touchPage.locator(".scout-answer.is-offside").waitFor({ state: "visible" });
+  const zhOffsideBallBoyMetrics = await touchPage.evaluate(() => {
+    const answer = [...document.querySelectorAll(".scout-answer")].at(-1);
+    return {
+      imageLabels: [...answer.querySelectorAll('[role="img"]')].map((item) => item.getAttribute("aria-label") || ""),
+      overflow: answer.scrollWidth - answer.clientWidth,
+      source: answer.querySelector(".scout-source-link")?.textContent.trim() || "",
+      text: answer.innerText.replace(/\s+/g, " ").trim()
+    };
+  });
+  assert(
+    zhOffsideBallBoyMetrics.text.includes("只看一个时刻") &&
+      zhOffsideBallBoyMetrics.text.includes("P传球时，A已经越过越位线") &&
+      zhOffsideBallBoyMetrics.text.includes("P踢球时，A与越位线平行") &&
+      zhOffsideBallBoyMetrics.source === "阅读IFAB官方规则 ↗" &&
+      zhOffsideBallBoyMetrics.imageLabels.length >= 2 &&
+      zhOffsideBallBoyMetrics.imageLabels.every((label) => /越位示例|不越位示例/.test(label)) &&
+      !/The one check|Offside example|Onside example|Read the official/.test(zhOffsideBallBoyMetrics.text) &&
+      zhOffsideBallBoyMetrics.overflow <= 1,
+    `Chinese Ball Boy offside answer should be visual, concise, accessible, and fully localized. Measured ${JSON.stringify(zhOffsideBallBoyMetrics)}.`
+  );
+
+  await touchPage.locator("#scout-reset").click();
+  await zhBallBoyInput.fill("介绍一下姆巴佩");
+  await zhBallBoySend.click();
+  await touchPage.getByRole("heading", { name: "基利安·姆巴佩" }).waitFor({ state: "visible" });
+  const zhPlayerBallBoyMetrics = await touchPage.evaluate(() => {
+    const answer = [...document.querySelectorAll(".scout-answer")].at(-1);
+    const card = answer.querySelector(".scout-player-card");
+    return {
+      labels: [...card.querySelectorAll(".scout-section-label")].map((item) => item.textContent.trim()),
+      overflow: card.scrollWidth - card.clientWidth,
+      text: card.innerText.replace(/\s+/g, " ").trim(),
+      worldCupAria: card.querySelector(".scout-player-facts")?.getAttribute("aria-label") || ""
+    };
+  });
+  assert(
+    zhPlayerBallBoyMetrics.text.includes("基利安·姆巴佩") &&
+      zhPlayerBallBoyMetrics.text.includes("法国") &&
+      zhPlayerBallBoyMetrics.labels.includes("本届世界杯") &&
+      zhPlayerBallBoyMetrics.labels.includes("球员资料") &&
+      zhPlayerBallBoyMetrics.labels.includes("常见活动区域") &&
+      zhPlayerBallBoyMetrics.labels.includes("新手版") &&
+      zhPlayerBallBoyMetrics.labels.includes("标志性特点") &&
+      zhPlayerBallBoyMetrics.worldCupAria === "世界杯数据和球员资料" &&
+      !/This World Cup|Player details|Usual role zone|Beginner version|Signature traits/.test(zhPlayerBallBoyMetrics.text) &&
+      zhPlayerBallBoyMetrics.overflow <= 1,
+    `Chinese Ball Boy player cards should localize their complete content and accessibility labels. Measured ${JSON.stringify(zhPlayerBallBoyMetrics)}.`
+  );
+
+  await touchPage.locator("#scout-reset").click();
+  await zhBallBoyInput.fill("介绍一下Abduvohid Nematov");
+  await zhBallBoySend.click();
+  await touchPage.getByRole("heading", { name: "阿卜杜沃希德·内马托夫" }).waitFor({ state: "visible" });
+  const zhNematovCard = await touchPage.evaluate(() => {
+    const card = [...document.querySelectorAll(".scout-answer.is-player")].at(-1)?.querySelector(".scout-player-card");
+    return {
+      club: card?.querySelector(".scout-entity-copy small")?.textContent.trim() || "",
+      overflow: card ? card.scrollWidth - card.clientWidth : null,
+      text: card?.innerText.replace(/\s+/g, " ").trim() || ""
+    };
+  });
+  assert(
+    zhNematovCard.club === "纳萨夫 (乌兹别克斯坦超级联赛)" &&
+      !/Nasaf|Uzbekistan Super League/.test(zhNematovCard.text) &&
+      zhNematovCard.overflow <= 1,
+    `Chinese Ball Boy should localize less prominent player, club, and league names on the complete card. Measured ${JSON.stringify(zhNematovCard)}.`
+  );
+
+  await touchPage.locator("#scout-reset").click();
+  await zhBallBoyInput.fill("阿根廷怎么踢？");
+  await zhBallBoySend.click();
+  await touchPage.locator(".scout-answer.is-country").waitFor({ state: "visible" });
+  const zhCountryBallBoyMetrics = await touchPage.evaluate(() => {
+    const answer = [...document.querySelectorAll(".scout-answer")].at(-1);
+    const card = answer.querySelector(".scout-country-card");
+    return {
+      overflow: card.scrollWidth - card.clientWidth,
+      text: card.innerText.replace(/\s+/g, " ").trim()
+    };
+  });
+  assert(
+    zhCountryBallBoyMetrics.text.includes("阿根廷") &&
+      zhCountryBallBoyMetrics.text.includes("他们怎么踢") &&
+      zhCountryBallBoyMetrics.text.includes("关键球员") &&
+      zhCountryBallBoyMetrics.text.includes("上一场") &&
+      /\d{1,2}月\d{1,2}日/.test(zhCountryBallBoyMetrics.text) &&
+      !/How they play|Key players|Last match|Next match/.test(zhCountryBallBoyMetrics.text) &&
+      zhCountryBallBoyMetrics.overflow <= 1,
+    `Chinese Ball Boy country cards should localize labels, dates, and the full visual surface. Measured ${JSON.stringify(zhCountryBallBoyMetrics)}.`
+  );
+
+  await touchPage.locator("#scout-reset").click();
+  await zhBallBoyInput.fill("墨西哥有哪些球员值得关注？");
+  await zhBallBoySend.click();
+  await touchPage.locator(".scout-answer.is-player-list").waitFor({ state: "visible" });
+  const zhWatchListBallBoyMetrics = await touchPage.evaluate(() => {
+    const answer = [...document.querySelectorAll(".scout-answer")].at(-1);
+    const cards = [...answer.querySelectorAll(".scout-watch-card")];
+    return {
+      cardCount: cards.length,
+      countries: cards.map((card) => card.querySelector("small")?.textContent.trim() || ""),
+      lead: answer.querySelector(".scout-answer-lead")?.textContent.trim() || "",
+      overflow: answer.scrollWidth - answer.clientWidth
+    };
+  });
+  assert(
+    zhWatchListBallBoyMetrics.cardCount === 3 &&
+      zhWatchListBallBoyMetrics.countries.every((country) => country.startsWith("墨西哥 · ")) &&
+      zhWatchListBallBoyMetrics.lead.includes("三名墨西哥球员") &&
+      zhWatchListBallBoyMetrics.overflow <= 1,
+    `A generated Chinese country follow-up should round-trip to three players from that country. Measured ${JSON.stringify(zhWatchListBallBoyMetrics)}.`
+  );
+
+  await touchPage.locator("#scout-reset").click();
+  await zhBallBoyInput.fill("谁赢了挪威对英格兰？");
+  await zhBallBoySend.click();
+  await touchPage.locator(".scout-answer.is-match").waitFor({ state: "visible" });
+  const zhMatchBallBoyMetrics = await touchPage.evaluate(() => {
+    const answer = [...document.querySelectorAll(".scout-answer")].at(-1);
+    const card = answer.querySelector(".scout-match-card");
+    return {
+      overflow: card.scrollWidth - card.clientWidth,
+      recap: card.querySelector(".scout-match-recap")?.innerText.replace(/\s+/g, " ").trim() || "",
+      status: card.querySelector(".scout-match-meta")?.innerText.replace(/\s+/g, " ").trim() || "",
+      text: card.innerText.replace(/\s+/g, " ").trim(),
+      timelineNames: [...card.querySelectorAll(".scout-goal-row strong, .scout-goal-row small")]
+        .map((item) => item.textContent.trim())
+    };
+  });
+  assert(
+    zhMatchBallBoyMetrics.text.includes("挪威") &&
+      zhMatchBallBoyMetrics.text.includes("英格兰") &&
+      zhMatchBallBoyMetrics.status.includes("加时赛后") &&
+      zhMatchBallBoyMetrics.recap.includes("比赛转折点") &&
+      zhMatchBallBoyMetrics.timelineNames.length >= 5 &&
+      zhMatchBallBoyMetrics.timelineNames.every((name) => !/[A-Za-z]/.test(name)) &&
+      !/After extra time|What changed the match|Goal timeline/.test(zhMatchBallBoyMetrics.text) &&
+      zhMatchBallBoyMetrics.overflow <= 1,
+    `Chinese Ball Boy match cards should preserve extra-time semantics and authored Chinese recap copy. Measured ${JSON.stringify(zhMatchBallBoyMetrics)}.`
+  );
+
+  const zhMatchAnswerCount = await touchPage.locator(".scout-answer.is-match").count();
+  await touchPage
+    .locator('.scout-answer.is-match [data-scout-prompt="挪威对英格兰是谁进球？"]')
+    .click();
+  await touchPage.waitForFunction(
+    (count) => document.querySelectorAll(".scout-answer.is-match").length === count + 1,
+    zhMatchAnswerCount
+  );
+  assert(
+    (await touchPage.locator(".scout-answer.is-match").count()) === zhMatchAnswerCount + 1 &&
+      (await touchPage.locator(".scout-answer.is-country").count()) === 0,
+    "The generated Chinese scorer follow-up should remain a match intent instead of becoming a country card."
+  );
+
+  await touchPage.locator("#scout-reset").click();
+  await zhBallBoyInput.fill("你是谁？");
+  await zhBallBoySend.click();
+  await touchPage.locator(".scout-answer.is-personality").waitFor({ state: "visible" });
+  const zhPersonalityText = await touchPage
+    .locator(".scout-answer.is-personality")
+    .innerText();
+  assert(
+    zhPersonalityText.includes("我是球童。我让足球更容易懂。") &&
+      !/哈兰德|挪威|可疑|无可奉告/.test(zhPersonalityText),
+    `Ball Boy's Chinese identity should be generic, dry, and free of the retired Haaland disguise. Measured ${JSON.stringify(zhPersonalityText)}.`
+  );
+
+  await touchPage.locator("#scout-close").click();
+  await touchPage.locator("#settings-button").click();
+  await touchPage.locator('[data-language="en"]').click();
+  await touchPage.waitForFunction(
+    () =>
+      document.documentElement.lang === "en" &&
+      !document.querySelector(".language-option.is-pending") &&
+      document.querySelector(".scout-title")?.textContent === "Ball Boy" &&
+      document.querySelector(".scout-answer.is-personality .scout-answer-lead")?.textContent.includes("I’m Ball Boy.")
+  );
+  if (await touchPage.locator("#settings-popover").isVisible()) {
+    await touchPage.locator("#settings-button").click();
+  }
+  await touchPage.locator("#scout-launcher").click();
+  const englishRerenderedBallBoy = await touchPage.evaluate(() => ({
+    answer: document.querySelector(".scout-answer.is-personality .scout-answer-lead")?.textContent.trim() || "",
+    initialUserQuestion: document.querySelector(".scout-message.is-user")?.textContent.trim() || "",
+    status: document.querySelector(".scout-status")?.textContent.trim() || ""
+  }));
+  assert(
+    englishRerenderedBallBoy.answer ===
+      "I’m Ball Boy. I make football easier to understand." &&
+      englishRerenderedBallBoy.initialUserQuestion === "你是谁？" &&
+      englishRerenderedBallBoy.status === "Ask me about football",
+    `Language switching should rebuild the existing Ball Boy answer in English without losing the turn. Measured ${JSON.stringify(englishRerenderedBallBoy)}.`
+  );
+
+  await touchPage.locator("#scout-close").click();
+  await touchPage.locator("#settings-button").click();
+  await touchPage.locator('[data-language="zh"]').click();
+  await touchPage.waitForFunction(
+    () =>
+      document.documentElement.lang === "zh-Hans" &&
+      !document.querySelector(".language-option.is-pending") &&
+      document.querySelector(".scout-title")?.textContent === "球童" &&
+      document.querySelector(".scout-answer.is-personality .scout-answer-lead")?.textContent.includes("我是球童。")
+  );
+  const chineseRerenderedBallBoy = await touchPage.evaluate(() => ({
+    answer: document.querySelector(".scout-answer.is-personality .scout-answer-lead")?.textContent.trim() || "",
+    status: document.querySelector(".scout-status")?.textContent.trim() || "",
+    widgetOverflow: document.querySelector("#scout-widget")?.scrollWidth - document.querySelector("#scout-widget")?.clientWidth
+  }));
+  assert(
+    chineseRerenderedBallBoy.answer ===
+      "我是球童。我让足球更容易懂。" &&
+      chineseRerenderedBallBoy.status === "问我足球问题" &&
+      chineseRerenderedBallBoy.widgetOverflow <= 1,
+    `Switching back to Chinese should rebuild the same turn and keep the mobile widget unclipped. Measured ${JSON.stringify(chineseRerenderedBallBoy)}.`
+  );
+  await touchPage.goto(`${baseUrl}?ballBoySmoke=1&lang=en`, { waitUntil: "load" });
+  await touchPage.waitForFunction(
+    () =>
+      document.documentElement.lang === "en" &&
+      document.querySelector(".scout-title")?.textContent === "Ball Boy"
+  );
+  const explicitEnglishBallBoyLocale = await touchPage.evaluate(() => ({
+    launcher: document.querySelector("#scout-launcher")?.getAttribute("aria-label") || "",
+    saved: localStorage.getItem("world-cup-simplified-language") || "",
+    status: document.querySelector(".scout-status")?.textContent.trim() || ""
+  }));
+  assert(
+    explicitEnglishBallBoyLocale.launcher === "Open Ball Boy" &&
+      explicitEnglishBallBoyLocale.saved === "en" &&
+      explicitEnglishBallBoyLocale.status === "Ask me about football",
+    `An explicit English URL should override the previously saved Chinese locale during Ball Boy initialization. Measured ${JSON.stringify(explicitEnglishBallBoyLocale)}.`
   );
   await touchContext.close();
 

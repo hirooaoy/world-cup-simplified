@@ -1,4 +1,6 @@
-const DATA_VERSION = "2026-07-08-coach-lineup-zh";
+import { ZH_CLUB_NAME_TRANSLATIONS, ZH_LEAGUE_NAME_TRANSLATIONS, ZH_PLAYER_NAME_TRANSLATIONS } from "./football-locale-zh.js?v=2026-07-13-locale-2";
+
+const DATA_VERSION = "2026-07-13-shootout-outlooks";
 const DATA_URLS = {
   adminMessage: `data/admin-message.json?v=${DATA_VERSION}`,
   fixtures: `data/fixtures.json?v=${DATA_VERSION}`,
@@ -138,7 +140,7 @@ const UI_TEXT = {
     standings: "积分榜",
     standingsSections: "积分榜分区",
     standingsSummary: "每组前两名晋级，成绩最好的八支第三名球队也将进入32强。",
-    thirdPlaceRace: "第三名竞争",
+    thirdPlaceRace: "最佳小组第三排名",
     timeZone: "时区",
     tournament: "淘汰赛",
     worldCupViews: "世界杯视图"
@@ -154,7 +156,7 @@ const ZH_EXACT_TRANSLATIONS = new Map(
       "他在第82分钟将摩洛哥的优势扩大到2球，苏菲安·拉希米随后在90+8分钟再下一城。",
     "As it stands": "当前形势",
     "A compact Egyptian defensive shape in the late phase absorbed Australia's final pressure and kept the match balanced into the post-timeframe conclusion.": "埃及在后段的紧凑防守吸收了澳大利亚最后一波压力，使比赛一直在点球阶段前保持平衡。",
-    "Best third-place race": "最佳第三名竞争",
+    "Best third-place race": "最佳小组第三排名",
     "bracket details are not loaded yet.": "对阵详情尚未载入。",
     "bracket-ready": "对阵待接入",
     "Canceled": "已取消",
@@ -202,7 +204,7 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "Data refreshed": "数据刷新于",
     "Data refreshed stays separate from app release notes.": "数据刷新时间与应用发布说明分开显示。",
     "Eliminated": "已淘汰",
-    "ET": "加时前",
+    "ET": "加时结束",
     "No remaining group result combination can move this team into a Round of 32 place.":
       "剩余小组赛结果已无法让这支球队进入32强席位。",
     "FIFA schedule": "FIFA赛程",
@@ -229,6 +231,7 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "Kickoff delayed": "开球延迟",
     "Official feed has not marked this match live yet.": "官方数据源尚未将这场比赛标记为直播。",
     "Final score": "最终比分",
+    "Final": "决赛",
     "FIFA World Cup": "FIFA世界杯",
     "FIFA World Cup qualifier": "世界杯预选赛",
     "Friendly": "友谊赛",
@@ -236,7 +239,7 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "FT": "全场",
     "Full time": "全场结束",
     "aet": "加时后",
-    "Breel Embolo opened the scoring for Switzerland on 10'.": "布里尔·恩博洛在第10分钟先入一球，开启瑞士进球。",
+    "Breel Embolo opened the scoring for Switzerland on 10'.": "布雷尔·恩博洛在第10分钟为瑞士首开纪录。",
     "Kylian Mbappé scored the match's only goal on a 70th-minute penalty.":
       "姆巴佩在第70分钟点球中打进比赛唯一一球。",
     "Croatia took the lead through Ivan Perišić at 53'.": "克罗地亚在53分钟由伊万·佩里西奇先拔头筹。",
@@ -248,7 +251,7 @@ const ZH_EXACT_TRANSLATIONS = new Map(
       "若斯·阿里亚斯在第14分钟进球，为哥伦比亚打入全场首球，也成为全场唯一进球。",
     "The round-of-32 tie ended 1-0, moving Colombia into match 89.":
       "这场32强对决以1-0结束，将哥伦比亚带入第89场。",
-    "Gonçalo Ramos' 90+4' finish gave Portugal the late winner and a 2-1 victory.": "冈萨洛·拉莫斯在加时4分钟破门，为葡萄牙带来赛场终场制胜球，最终2-1取胜。",
+    "Gonçalo Ramos' 90+4' finish gave Portugal the late winner and a 2-1 victory.": "冈萨洛·拉莫斯在第90+4分钟破门，为葡萄牙打入制胜球，最终2比1取胜。",
     "Pedro Porro added a mid-match goal, then Oyarzabal finished the match at 89'.": "佩德罗·波罗在比赛中段再进一球，随后奥亚尔扎巴尔在第89分钟完成锁定。",
     "Switzerland then controlled the rest of the match to finish comfortably at 2-0.": "瑞士随后掌控后程，最终以2比0轻松取胜。",
     "ConfedCup": "联合会杯",
@@ -268,10 +271,10 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "Goal difference is goals scored minus goals allowed. If teams are tied on points, a better goal difference can help decide who advances.":
       "净胜球为进球数减失球数。若积分相同，净胜球更好可能决定晋级。",
     "Goal difference is goals scored minus goals allowed. In the third-place race, it helps break ties after points.":
-      "净胜球为进球数减失球数。在第三名竞争中，它用于积分相同后的排序。",
+      "净胜球为进球数减失球数。在最佳小组第三排名中，它用于积分相同后的排序。",
     "Goals": "进球",
     "Goals scored is the total goals for. It can break ties after points and goal difference in the third-place race.":
-      "进球数是球队总进球。在第三名竞争中，它可用于积分和净胜球之后的同分排序。",
+      "进球数是球队总进球。在最佳小组第三排名中，它可用于积分和净胜球之后的同分排序。",
     "Games Left": "剩余场次",
     "Games Left shows how many group matches this current third-place team still has before its table is final.":
       "剩余场次显示这支当前小组第三球队在小组表最终确定前还有几场比赛。",
@@ -297,7 +300,7 @@ const ZH_EXACT_TRANSLATIONS = new Map(
       "小组积分榜应显示每支当前第三名球队的跨组排名。",
     "Groups": "小组",
     "Haiti": "海地",
-    "Half-time": "半场",
+    "Half-time": "半场结束",
     "Hide Past 24 hours": "隐藏过去24小时",
     "IR Iran": "伊朗",
     "Iraq": "伊拉克",
@@ -342,6 +345,7 @@ const ZH_EXACT_TRANSLATIONS = new Map(
       "基于FIFA排名的本地估算，并非博彩赔率。",
     "Local historical-form estimate. Not betting odds.": "基于历史世界杯状态的本地估算，并非博彩赔率。",
     "Local preview estimate. Not betting odds.": "本地预览估算，并非博彩赔率。",
+    "Forecast from online sources": "预测来自在线来源",
     "Market consensus based on public odds. Not betting advice.":
       "基于公开赔率的市场共识；这不是投注建议。",
     "Match plan": "比赛计划",
@@ -399,7 +403,7 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "Good at": "擅长",
     "Goal": "进球",
     "Head Coach": "主教练",
-    "HT": "中场",
+    "HT": "半场结束",
     "Line ups": "阵容",
     "Line-ups": "阵容",
     "Line-ups (expected)": "预计阵容",
@@ -573,12 +577,12 @@ const ZH_EXACT_TRANSLATIONS = new Map(
       "球队尚未确定。对阵确定后会载入历史交锋研究。",
     "The striker Qatar look for when they need a direct finish from limited chances.":
       "卡塔尔需要在有限机会中直接终结时，会寻找这名前锋。",
-    "Third-Place Race": "第三名竞争",
-    "Third-place play-off": "三四名决赛",
+    "Third-Place Race": "最佳小组第三排名",
+    "Third-place play-off": "季军赛",
     "Tunisia": "突尼斯",
     "Türkiye": "土耳其",
     "Tie order follows points, goal difference, goals scored, loaded fair-play conduct when available, then FIFA ranking as the final deterministic fallback.":
-      "平局排序依次参考积分、净胜球、进球数、已载入的公平竞赛表现，最后以FIFA排名作为确定性兜底。",
+      "同分排序依次参考积分、净胜球、进球数、已载入的公平竞赛表现，最后以FIFA排名作为确定性兜底。",
     "Needs results elsewhere to move into the top eight.": "需要其他比赛结果帮助才能进入前八。",
     "Next match": "下一场",
     "Next team outside the top eight.": "前八名之外的第一支球队。",
@@ -651,7 +655,7 @@ const ZH_ADDITIONAL_EXACT_TRANSLATIONS = {
   "Jude Bellingham scored twice in two minutes to flip the match before halftime.":
     "裘德·贝林厄姆两分钟内梅开二度，在半场前扭转了比赛。",
   "Lionel Messi put Argentina ahead before Cabo Verde twice pulled the tie level.":
-    "莱昂内尔·梅西先让阿根廷取得领先，随后佛得角两次把比分扳平。",
+    "利昂内尔·梅西先让阿根廷取得领先，随后佛得角两次把比分扳平。",
   "Lisandro Martinez struck in stoppage time, and Diney Borges' extra-time own goal finally carried Argentina through.":
     "利桑德罗·马丁内斯在补时破门，迪内·博尔热斯加时赛的乌龙球最终把阿根廷送入下一轮。",
   "Malik Tillman briefly brought the United States level, but De Ketelaere answered two minutes later.":
@@ -793,7 +797,7 @@ const ZH_ADDITIONAL_EXACT_TRANSLATIONS = {
   "Dutch East Indies": "荷属东印度",
   "East Germany": "东德",
   "Early crosses": "早传中",
-  "Early service": "早供给",
+  "Early service": "尽早传入禁区",
   "Early shots": "早射门",
   "Education City Stadium": "教育城体育场",
   "Education City Stadium, Al Rayyan": "教育城体育场，赖扬",
@@ -991,10 +995,10 @@ const ZH_ADDITIONAL_EXACT_TRANSLATIONS = {
   "Tempo control": "节奏控制",
   "TFF First League": "土耳其甲级联赛",
   "Third place match": "季军赛",
-  "Third place play-off": "季军附加赛",
+  "Third place play-off": "季军赛",
   "Third-man runs": "第三人跑动",
   "Third-place match": "季军赛",
-  "Third-place play-off": "季军附加赛",
+  "Third-place play-off": "季军赛",
   "Togo": "多哥",
   "Trinidad and Tobago": "特立尼达和多巴哥",
   Turkey: "土耳其",
@@ -1088,7 +1092,7 @@ const ZH_ADDITIONAL_EXACT_TRANSLATIONS = {
   "Kylian Mbappé scored twice as France beat Senegal 3-1 in their Group I opener on June 16.":
     "Kylian Mbappé梅开二度，法国在6月16日的I组首战中3-1击败塞内加尔。",
   "Lionel Messi scored all three goals as Argentina beat Algeria 3-0 to start their World Cup defence.":
-    "Lionel Messi包办三球，阿根廷3-0击败阿尔及利亚开启世界杯卫冕之旅。",
+    "利昂内尔·梅西包办三球，阿根廷3比0击败阿尔及利亚，开启世界杯卫冕之旅。",
   "Luis Diaz scored and helped Colombia answer Uzbekistan's first World Cup goal before Jaminton Campaz sealed it late.":
     "Luis Diaz破门并帮助哥伦比亚回应乌兹别克斯坦队史世界杯首球，Jaminton Campaz最后阶段锁定胜局。",
   "Manzambi sparks Swiss surge past Bosnia": "Manzambi带动瑞士击败波黑",
@@ -1170,7 +1174,7 @@ const ZH_ADDITIONAL_EXACT_TRANSLATIONS = {
   "Portugal and DR Congo split the points": "葡萄牙与刚果民主共和国各取一分",
   "Raúl Rangel made a huge late double save.": "Raúl Rangel最后阶段完成关键连续两连扑。",
   "Switzerland 4-1 Bosnia and Herzegovina": "瑞士4-1波黑",
-  "Breel Embolo opened scoring for Switzerland on 10'.": "布雷尔·安博洛在第10分钟为瑞士先开纪录。",
+  "Breel Embolo opened scoring for Switzerland on 10'.": "布雷尔·恩博洛在第10分钟为瑞士首开纪录。",
   "Casemiro pulled Brazil level after halftime before Gabriel Martinelli won it deep into stoppage time.":
     "卡塞米罗下半场为巴西扳平，加布里埃尔·马丁内利随后在补时深段打入制胜球。",
   "an opponent": "对手",
@@ -1181,1113 +1185,6 @@ const ZH_ADDITIONAL_EXACT_TRANSLATIONS = {
   "pens": "点球",
   "right-back": "右后卫",
   "score unavailable": "比分不可用"
-};
-
-const ZH_PLAYER_NAME_TRANSLATIONS = {
-  "Alexis Mac Allister": "亚历克西斯·麦卡利斯特",
-  "Anthony Gordon": "安东尼·戈登",
-  "Aaron Tshibola": "阿龙·奇博拉",
-  "Arthur Masuaku": "阿图尔·马苏亚库",
-  "Axel Tuanzebe": "阿克塞尔·图安泽贝",
-  "Brian Cipenga": "布赖恩·奇彭加",
-  "Cedric Bakambu": "塞德里克·巴坎布",
-  "Chancel Mbemba": "尚塞尔·姆本巴",
-  "Charles Pickel": "查尔斯·皮克尔",
-  "Dan Burn": "丹·伯恩",
-  "Dean Henderson": "迪恩·亨德森",
-  "Djed Spence": "杰德·斯彭斯",
-  "Dylan Batubinsika": "迪伦·巴图宾西卡",
-  "Eberechi Eze": "埃贝雷奇·埃泽",
-  "Edo Kayembe": "埃多·卡延贝",
-  "Elliot Anderson": "埃利奥特·安德森",
-  "Ezri Konsa": "埃兹里·孔萨",
-  "Fiston Mayele": "菲斯顿·马耶莱",
-  "Gael Kakuta": "盖尔·卡库塔",
-  "Gedeon Kalulu": "热代翁·卡卢卢",
-  "Ivan Toney": "伊万·托尼",
-  "James Trafford": "詹姆斯·特拉福德",
-  "Jarell Quansah": "贾雷尔·宽萨",
-  "John Stones": "约翰·斯通斯",
-  "Joris Kayembe": "约里斯·卡延贝",
-  "Jordan Henderson": "乔丹·亨德森",
-  "Kobbie Mainoo": "科比·梅努",
-  "Lionel Mpasi": "利昂内尔·姆帕西",
-  "Marc Guehi": "马克·格伊",
-  "Matthieu Epolo": "马蒂厄·埃波洛",
-  "Meschack Elia": "梅沙克·埃利亚",
-  "Morgan Rogers": "摩根·罗杰斯",
-  "Nathanael Mbuku": "纳塔纳埃尔·姆布库",
-  "Ngalayel Mukau": "恩加拉耶尔·穆考",
-  "Nico O'Reilly": "尼科·奥赖利",
-  "Noni Madueke": "诺尼·马杜埃凯",
-  "Ollie Watkins": "奥利·沃特金斯",
-  "Reece James": "里斯·詹姆斯",
-  "Samuel Moutoussamy": "萨穆埃尔·穆图萨米",
-  "Simon Banza": "西蒙·班扎",
-  "Steve Kapuadi": "史蒂夫·卡普阿迪",
-  "Theo Bongonda": "泰奥·邦贡达",
-  "Timothy Fayulu": "蒂莫西·法尤卢",
-  "Trevoh Chalobah": "特雷沃·查洛巴",
-  "Aaron Wan-Bissaka": "阿龙·万-比萨卡",
-  "Abbosbek Fayzullaev": "阿博斯别克·法伊祖拉耶夫",
-  "Abdukodir Khusanov": "阿卜杜科迪尔·胡萨诺夫",
-  "Abduvohid Nematov": "阿卜杜沃希德·内马托夫",
-  "Achraf Hakimi": "阿什拉夫·哈基米",
-  "Adalberto Carrasquilla": "阿达尔贝托·卡拉斯基利亚",
-  "Adam Hložek": "亚当·赫洛热克",
-  "Akram Afif": "阿克拉姆·阿菲夫",
-  "Alexander Isak": "亚历山大·伊萨克",
-  "Alvaro Fidalgo": "阿尔瓦罗·菲达尔戈",
-  "Ali Jasim": "阿里·贾西姆",
-  "Ali Olwan": "阿里·奥尔万",
-  "Alireza Jahanbakhsh": "阿里雷扎·贾汉巴赫什",
-  "Almoez Ali": "阿尔莫埃兹·阿里",
-  "Alphonso Davies": "阿方索·戴维斯",
-  "Alexis Saelemaekers": "亚历克西斯·萨勒马克尔斯",
-  "Álvaro Fidalgo": "阿尔瓦罗·菲达尔戈",
-  "Amad Diallo": "阿马德·迪亚洛",
-  "Amine Gouiri": "阿明·古伊里",
-  "Andy Robertson": "安迪·罗伯逊",
-  "Antoine Griezmann": "安托万·格列兹曼",
-  "Antoine Semenyo": "安托万·塞梅尼奥",
-  "Antonio Nusa": "安东尼奥·努萨",
-  "Arda Güler": "阿尔达·居莱尔",
-  "Aymen Hussein": "艾曼·侯赛因",
-  "Ayase Ueda": "上田绮世",
-  "Ayoub El Kaabi": "阿尤布·埃尔卡比",
-  "Brahim Díaz": "布拉欣·迪亚斯",
-  "Breel Embolo": "布雷尔·恩博洛",
-  "Bruno Fernandes": "布鲁诺·费尔南德斯",
-  Casemiro: "卡塞米罗",
-  "Chris Wood": "克里斯·伍德",
-  "Christian Pulisic": "克里斯蒂安·普利希奇",
-  "Cody Gakpo": "科迪·加克波",
-  "Cristian Volpato": "克里斯蒂安·沃尔帕托",
-  "Cristiano Ronaldo": "克里斯蒂亚诺·罗纳尔多",
-  "Daichi Kamada": "镰田大地",
-  "Darwin Núñez": "达尔温·努涅斯",
-  "David Alaba": "大卫·阿拉巴",
-  "Declan Rice": "德克兰·赖斯",
-  "Duckens Nazon": "杜肯斯·纳松",
-  "Edin Džeko": "埃丁·哲科",
-  "Edson Álvarez": "埃德森·阿尔瓦雷斯",
-  "Eldor Shomurodov": "埃尔多尔·肖穆罗多夫",
-  "Elias Saad": "埃利亚斯·萨阿德",
-  "Ellyes Skhiri": "埃利耶斯·斯希里",
-  "Emiliano Martínez": "埃米利亚诺·马丁内斯",
-  "Enner Valencia": "恩纳·瓦伦西亚",
-  "Enzo Fernández": "恩佐·费尔南德斯",
-  "Erling Haaland": "埃尔林·哈兰德",
-  "Esmir Bajraktarević": "埃斯米尔·巴伊拉克塔雷维奇",
-  "Evann Guessand": "埃万·盖桑",
-  "Federico Valverde": "费德里科·巴尔韦德",
-  "Finn Surman": "芬恩·瑟曼",
-  "Firas Al-Buraikan": "菲拉斯·布赖坎",
-  "Florian Wirtz": "弗洛里安·维尔茨",
-  "Franck Kessié": "弗兰克·凯西",
-  "Gabriel Martinelli": "加布里埃尔·马丁内利",
-  "Frantzdy Pierrot": "弗朗茨迪·皮埃罗",
-  "Frenkie de Jong": "弗兰基·德容",
-  "Granit Xhaka": "格拉尼特·扎卡",
-  "Gustavo Gómez": "古斯塔沃·戈麦斯",
-  "Hakan Çalhanoğlu": "哈坎·恰尔汗奥卢",
-  "Hannibal Mejbri": "汉尼拔·梅杰布里",
-  "Harry Kane": "哈里·凯恩",
-  "Homam Ahmed": "霍马姆·艾哈迈德",
-  "Houssem Aouar": "侯赛姆·奥亚尔",
-  "Ismael Díaz": "伊斯梅尔·迪亚斯",
-  "Ismaël Bennacer إِسْمَاعِيل بِن نَاصِر": "伊斯梅尔·本纳塞尔",
-  "Iñaki Williams": "伊尼亚基·威廉姆斯",
-  "Jackson Irvine": "杰克逊·欧文",
-  "Jamal Musiala": "贾马尔·穆西亚拉",
-  "James Rodríguez": "哈梅斯·罗德里格斯",
-  "Jean-Ricner Bellegarde": "让-里克内尔·贝勒加德",
-  "John McGinn": "约翰·麦金",
-  "Jonathan David": "乔纳森·戴维",
-  "Jordan Ayew": "乔丹·阿尤",
-  "Joshua Kimmich": "约书亚·基米希",
-  "Joško Gvardiol": "约什科·格瓦迪奥尔",
-  "Jude Bellingham": "裘德·贝林厄姆",
-  "Julio César Enciso": "胡利奥·塞萨尔·恩西索",
-  "Julián Alvarez": "胡利安·阿尔瓦雷斯",
-  "Julián Álvarez": "胡利安·阿尔瓦雷斯",
-  "Juninho Bacuna": "儒尼尼奥·巴库纳",
-  "Kaishu Sano": "佐野海舟",
-  "Kaishū Sano": "佐野海舟",
-  "Jérémy Doku": "杰里米·多库",
-  "Kalidou Koulibaly": "卡利杜·库利巴利",
-  "Kenan Yıldız": "凯南·伊尔迪兹",
-  "Kevin De Bruyne": "凯文·德布劳内",
-  "Kim Min-jae": "金玟哉",
-  "Konrad Laimer": "康拉德·莱默",
-  "Kylian Mbappé": "基利安·姆巴佩",
-  "Lamine Yamal": "拉明·亚马尔",
-  "Leandro Bacuna": "莱安德罗·巴库纳",
-  "Leandro Trossard": "莱安德罗·特罗萨德",
-  "Lee Kang-in": "李刚仁",
-  "Liberato Cacace": "利贝拉托·卡卡切",
-  "Luis Chávez": "路易斯·查韦斯",
-  "Luis Díaz": "路易斯·迪亚斯",
-  "Luis Diaz": "路易斯·迪亚斯",
-  "Luis Suárez": "路易斯·苏亚雷斯",
-  "Luka Modrić": "卢卡·莫德里奇",
-  "Lyle Foster": "莱尔·福斯特",
-  "Manuel Akanji": "曼努埃尔·阿坎吉",
-  "Marcel Sabitzer": "马塞尔·萨比策",
-  "Martin Ødegaard": "马丁·厄德高",
-  "Mateo Chavez": "马特奥·查韦斯",
-  "Mateo Chávez": "马特奥·查韦斯",
-  "Mateo Kovačić": "马特奥·科瓦契奇",
-  "Mathew Ryan": "马修·瑞安",
-  "Mehdi Taremi": "迈赫迪·塔雷米",
-  "Michael Amir Murillo": "迈克尔·阿米尔·穆里略",
-  "Michael Olise": "迈克尔·奥利塞",
-  "Miguel Almirón": "米格尔·阿尔米隆",
-  "Mohamed Salah": "穆罕默德·萨拉赫",
-  "Mohammed Al-Owais": "穆罕默德·奥韦斯",
-  "Moisés Caicedo": "莫伊塞斯·凯塞多",
-  "Mostafa Mohamed مُصْطَفَى مُحَمَّد": "穆斯塔法·穆罕默德",
-  "Mostafa Zico": "穆斯塔法·齐科",
-  "Mostafa Ziko": "穆斯塔法·齐科",
-  "Musa Al-Taamari": "穆萨·塔马里",
-  Neymar: "内马尔",
-  "Nico Williams": "尼科·威廉姆斯",
-  "Nicolas Jackson": "尼古拉斯·杰克逊",
-  "Nicolas Pepe": "尼古拉斯·佩佩",
-  "Noah Sadiki": "诺亚·萨迪基",
-  "Noor Al-Rawabdeh": "努尔·拉瓦布德",
-  "Nuno Mendes": "努诺·门德斯",
-  "Omar Marmoush": "奥马尔·马尔穆什",
-  "Ousmane Dembele": "奥斯曼·登贝莱",
-  "Ousmane Dembélé": "奥斯曼·登贝莱",
-  "Orjan Nyland": "厄扬·尼兰",
-  "Patrick Berg": "帕特里克·贝格",
-  "Patrik Schick": "帕特里克·希克",
-  Pedri: "佩德里",
-  "Pico Lopes": "皮科·洛佩斯",
-  "Piero Hincapié": "皮耶罗·因卡皮耶",
-  "Ritsu Dōan": "堂安律",
-  "Riyad Mahrez": "利雅得·马赫雷斯",
-  "Romelu Lukaku": "罗梅卢·卢卡库",
-  "Ronald Araújo": "罗纳德·阿劳霍",
-  "Ronwen Williams": "龙文·威廉姆斯",
-  "Ryan Mendes": "瑞安·门德斯",
-  "Sadio Mané": "萨迪奥·马内",
-  "Salem Al-Dawsari": "萨利姆·多萨里",
-  "Saman Ghoddos": "萨曼·戈多斯",
-  "Santiago Giménez": "圣地亚哥·希门尼斯",
-  "Sardar Azmoun سردار آزمون": "萨达尔·阿兹蒙",
-  "Sarpreet Singh": "萨普里特·辛格",
-  "Scott McTominay": "斯科特·麦克托米奈",
-  "Sead Kolašinac": "塞亚德·科拉希纳茨",
-  "Simon Adingra": "西蒙·阿丁格拉",
-  "Son Heung-min": "孙兴慜",
-  "Stephen Eustáquio": "斯蒂芬·欧斯塔基奥",
-  "Tahith Chong": "塔希斯·钟",
-  "Takefusa Kubo": "久保建英",
-  "Takehiro Tomiyasu": "富安健洋",
-  "Teboho Mokoena": "特博霍·莫科纳",
-  "Thelo Aasgaard": "泰洛·奥斯加德",
-  "Tomáš Souček": "托马什·绍切克",
-  Trézéguet: "特雷泽盖",
-  "Tyler Adams": "泰勒·亚当斯",
-  "Viktor Gyökeres": "维克托·约克雷斯",
-  "Vinícius Júnior": "维尼修斯·儒尼奥尔",
-  "Virgil van Dijk": "维吉尔·范戴克",
-  Vitinha: "维蒂尼亚",
-  Vozinha: "沃齐尼亚",
-  "Weston McKennie": "韦斯顿·麦肯尼",
-  "William Saliba": "威廉·萨利巴",
-  "Yasin Ayari": "亚辛·阿亚里",
-  "Yoane Wissa": "约安·维萨",
-  "Zion Suzuki": "铃木彩艳",
-  "Zidane Iqbal": "齐达内·伊克巴尔",
-  Zizo: "齐佐",
-  "Adam Hlozek": "亚当·赫洛热克",
-  "Arda Guler": "阿尔达·居莱尔",
-  "Brahim Diaz": "布拉欣·迪亚斯",
-  "Bradley Barcola": "布拉德利·巴尔科拉",
-  "Christian Volpato": "克里斯蒂安·沃尔帕托",
-  "Darwin Nunez": "达尔温·努涅斯",
-  "Edin Dzeko": "埃丁·哲科",
-  "Edson Alvarez": "埃德森·阿尔瓦雷斯",
-  "Emiliano Martinez": "埃米利亚诺·马丁内斯",
-  "Enzo Fernandez": "恩佐·费尔南德斯",
-  "Esmir Bajraktarevic": "埃斯米尔·巴伊拉克塔雷维奇",
-  "Franck Kessie": "弗兰克·凯西",
-  "Gustavo Gomez": "古斯塔沃·戈麦斯",
-  "Hakan Calhanoglu": "哈坎·恰尔汗奥卢",
-  "Inaki Williams": "伊尼亚基·威廉姆斯",
-  "Ismael Bennacer": "伊斯梅尔·本纳塞尔",
-  "Ismael Diaz": "伊斯梅尔·迪亚斯",
-  "James Rodriguez": "哈梅斯·罗德里格斯",
-  "Jeremy Doku": "杰里米·多库",
-  "Josko Gvardiol": "约什科·格瓦迪奥尔",
-  "Julian Alvarez": "胡利安·阿尔瓦雷斯",
-  "Julio Enciso": "胡利奥·塞萨尔·恩西索",
-  "Kai Havertz": "凯·哈弗茨",
-  "Kenan Yildiz": "凯南·伊尔迪兹",
-  "Kylian Mbappe": "基利安·姆巴佩",
-  "Lautaro Martínez": "劳塔罗·马丁内斯",
-  "Lautaro Martinez": "劳塔罗·马丁内斯",
-  "Luis Chavez": "路易斯·查韦斯",
-  "Luis Suarez": "路易斯·苏亚雷斯",
-  "Luka Modric": "卢卡·莫德里奇",
-  "Martin Odegaard": "马丁·厄德高",
-  "Mateo Kovacic": "马特奥·科瓦契奇",
-  "Michael Murillo": "迈克尔·阿米尔·穆里略",
-  "Miguel Almiron": "米格尔·阿尔米隆",
-  "Moises Caicedo": "莫伊塞斯·凯塞多",
-  "Mostafa Mohamed": "穆斯塔法·穆罕默德",
-  "Mousa Al-Taamari": "穆萨·塔马里",
-  "Piero Hincapie": "皮耶罗·因卡皮耶",
-  "Ritsu Doan": "堂安律",
-  "Roberto Lopes": "皮科·洛佩斯",
-  "Ronald Araujo": "罗纳德·阿劳霍",
-  "Sadio Mane": "萨迪奥·马内",
-  "Santiago Gimenez": "圣地亚哥·希门尼斯",
-  "Sardar Azmoun": "萨达尔·阿兹蒙",
-  "Sead Kolasinac": "塞亚德·科拉希纳茨",
-  "Stephen Eustaquio": "斯蒂芬·欧斯塔基奥",
-  "Tomas Soucek": "托马什·绍切克",
-  Trezeguet: "特雷泽盖",
-  "Viktor Gyokeres": "维克托·约克雷斯",
-  "Vinicius Junior": "维尼修斯·儒尼奥尔",
-  "Anthony Gordon": "安东尼·戈登",
-  "Aaron Tshibola": "阿龙·奇博拉",
-  "Arthur Masuaku": "阿图尔·马苏亚库",
-  "Axel Tuanzebe": "阿克塞尔·图安泽贝",
-  "Brian Cipenga": "布赖恩·奇彭加",
-  "Bukayo Saka": "布卡约·萨卡",
-  "Caleb Yirenkyi": "卡莱布·伊伦基",
-  "Cedric Bakambu": "塞德里克·巴坎布",
-  "Chancel Mbemba": "尚塞尔·姆本巴",
-  "Charles Pickel": "查尔斯·皮克尔",
-  "Dan Burn": "丹·伯恩",
-  "Dean Henderson": "迪恩·亨德森",
-  "Diogo Costa": "迪奥戈·科斯塔",
-  "Djed Spence": "杰德·斯彭斯",
-  "Dominik Livaković": "多米尼克·利瓦科维奇",
-  "Dominik Livakovic": "多米尼克·利瓦科维奇",
-  "Dylan Batubinsika": "迪伦·巴图宾西卡",
-  "Eberechi Eze": "埃贝雷奇·埃泽",
-  "Edo Kayembe": "埃多·卡延贝",
-  "Elliot Anderson": "埃利奥特·安德森",
-  "Ezri Konsa": "埃兹里·孔萨",
-  "Fiston Mayele": "菲斯顿·马耶莱",
-  "Gael Kakuta": "盖尔·卡库塔",
-  "Gedeon Kalulu": "热代翁·卡卢卢",
-  "Jack Grealish": "杰克·格拉利什",
-  "Jaminton Campaz": "哈明顿·坎帕斯",
-  "Ivan Toney": "伊万·托尼",
-  "James Trafford": "詹姆斯·特拉福德",
-  "Jean-Philippe Mateta": "让-菲利普·马特塔",
-  "Jarell Quansah": "贾雷尔·宽萨",
-  "Joao Neves": "若昂·内维斯",
-  "Joaquin Seys": "若阿金·塞斯",
-  "Johan Manzambi": "约翰·曼赞比",
-  "John Stones": "约翰·斯通斯",
-  "Joris Kayembe": "约里斯·卡延贝",
-  "Jordan Pickford": "乔丹·皮克福德",
-  "Jordan Henderson": "乔丹·亨德森",
-  "Kobbie Mainoo": "科比·梅努",
-  "Lionel Mpasi": "利昂内尔·姆帕西",
-  "Marc Guehi": "马克·格伊",
-  "Marcus Rashford": "马库斯·拉什福德",
-  "Matthieu Epolo": "马蒂厄·埃波洛",
-  "Meschack Elia": "梅沙克·埃利亚",
-  "Michal Sadilek": "米哈尔·萨迪莱克",
-  Messi: "梅西",
-  Mbappé: "姆巴佩",
-  Manzambi: "曼赞比",
-  "Morgan Rogers": "摩根·罗杰斯",
-  "Nathanael Mbuku": "纳塔纳埃尔·姆布库",
-  "Ngalayel Mukau": "恩加拉耶尔·穆考",
-  "Nico O'Reilly": "尼科·奥赖利",
-  "Noni Madueke": "诺尼·马杜埃凯",
-  "Ollie Watkins": "奥利·沃特金斯",
-  "Raheem Sterling": "拉希姆·斯特林",
-  "Rafael Leao": "拉斐尔·莱奥",
-  "Rafael Leão": "拉斐尔·莱奥",
-  "Raúl Rangel": "劳尔·兰赫尔",
-  "Yassine Bounou": "亚辛·布努",
-  "Adrien Rabiot": "阿德里安·拉比奥",
-  "Alan Franco": "阿兰·弗朗科",
-  "Amadou Onana": "阿马杜·奥纳纳",
-  "Amar Dedic": "阿马尔·德迪奇",
-  "Amar Dedić": "阿马尔·德迪奇",
-  "Amir Hadziahmetovic": "阿米尔·哈季艾哈梅托维奇",
-  "Amir Hadžiahmetović": "阿米尔·哈季艾哈梅托维奇",
-  "Angelo Preciado": "安赫洛·普雷西亚多",
-  "Ángelo Preciado": "安赫洛·普雷西亚多",
-  "Anthony Elanga": "安东尼·埃兰加",
-  "Antoine Mendy": "安托万·门迪",
-  "Antonee Robinson": "安东尼·罗宾逊",
-  "Arthur Theate": "阿图尔·泰特",
-  "Aurelien Tchouameni": "奥雷利安·楚阿梅尼",
-  "Aurélien Tchouaméni": "奥雷利安·楚阿梅尼",
-  "Benjamin Tahirovic": "本亚明·塔希罗维奇",
-  "Benjamin Tahirović": "本亚明·塔希罗维奇",
-  "Cesar Montes": "塞萨尔·蒙特斯",
-  "César Montes": "塞萨尔·蒙特斯",
-  "Chris Richards": "克里斯·理查兹",
-  "Dennis Hadzikadunic": "丹尼斯·哈季卡杜尼奇",
-  "Dennis Hadžikadunić": "丹尼斯·哈季卡杜尼奇",
-  "Dodi Lukebakio": "多迪·卢克巴基奥",
-  "Dodi Lukébakio": "多迪·卢克巴基奥",
-  "Edouard Mendy": "爱德华·门迪",
-  "Édouard Mendy": "爱德华·门迪",
-  "Elye Wahi": "埃利·瓦希",
-  "Emmanuel Agbadou": "埃马纽埃尔·阿格巴杜",
-  "Ermedin Demirovic": "埃尔梅丁·德米罗维奇",
-  "Ermedin Demirović": "埃尔梅丁·德米罗维奇",
-  "Evan Ndicka": "埃文·恩迪卡",
-  "Folarin Balogun": "福拉林·巴洛贡",
-  "Gabriel Gudmundsson": "加布里埃尔·古德蒙德松",
-  "Ghislain Konan": "吉斯兰·科南",
-  "Giovanni Reyna": "乔瓦尼·雷纳",
-  "Gonzalo Plata": "贡萨洛·普拉塔",
-  "Guela Doue": "盖拉·杜埃",
-  "Guéla Doué": "盖拉·杜埃",
-  "Guillermo Ochoa": "吉列尔莫·奥乔亚",
-  "Habib Diarra": "哈比卜·迪亚拉",
-  "Hans Vanaken": "汉斯·瓦纳肯",
-  "Herman Johansson": "赫尔曼·约翰松",
-  "Hernan Galindez": "埃尔南·加林德斯",
-  "Hernán Galíndez": "埃尔南·加林德斯",
-  "Ibrahim Sangare": "易卜拉欣·桑加雷",
-  "Ibrahim Sangaré": "易卜拉欣·桑加雷",
-  "Ibrahima Konate": "易卜拉希马·科纳特",
-  "Ibrahima Konaté": "易卜拉希马·科纳特",
-  "Isak Hien": "伊萨克·希恩",
-  "Ismail Jakobs": "伊斯梅尔·雅各布斯",
-  "Ismaïl Jakobs": "伊斯梅尔·雅各布斯",
-  "Ismaila Sarr": "伊斯梅拉·萨尔",
-  "Ismaïla Sarr": "伊斯梅拉·萨尔",
-  "Jesper Karlstrom": "耶斯佩尔·卡尔斯特伦",
-  "Jesper Karlström": "耶斯佩尔·卡尔斯特伦",
-  "Jesus Gallardo": "赫苏斯·加利亚多",
-  "Jesús Gallardo": "赫苏斯·加利亚多",
-  "Johan Vasquez": "约翰·巴斯克斯",
-  "Johan Vásquez": "约翰·巴斯克斯",
-  "John Yeboah": "约翰·耶博阿",
-  "Jorge Sanchez": "豪尔赫·桑切斯",
-  "Jorge Sánchez": "豪尔赫·桑切斯",
-  "Jules Kounde": "儒勒·孔德",
-  "Jules Koundé": "儒勒·孔德",
-  "Julian Quinones": "胡利安·基尼奥内斯",
-  "Julián Quiñones": "胡利安·基尼奥内斯",
-  "Julian Ryerson": "尤利安·雷尔森",
-  "Kendry Paez": "肯德里·派斯",
-  "Kendry Páez": "肯德里·派斯",
-  "Kerim Alajbegovic": "凯里姆·阿拉伊贝戈维奇",
-  "Kerim Alajbegović": "凯里姆·阿拉伊贝戈维奇",
-  "Kristoffer Ajer": "克里斯托弗·阿耶尔",
-  "Lamine Camara": "拉明·卡马拉",
-  "Leo Ostigard": "莱奥·厄斯蒂高",
-  "Leo Østigård": "莱奥·厄斯蒂高",
-  "Luis Romo": "路易斯·罗莫",
-  "Marcus Holmgren Pedersen": "马库斯·霍姆格伦·佩德森",
-  "Malik Tillman": "马利克·蒂尔曼",
-  "Matt Freese": "马特·弗里斯",
-  "Matt Turner": "马特·特纳",
-  "Mattias Svanberg": "马蒂亚斯·斯万贝里",
-  "Maxim De Cuyper": "马克西姆·德屈佩尔",
-  "Mike Maignan": "迈克·迈尼昂",
-  "Moussa Niakhate": "穆萨·尼亚卡特",
-  "Moussa Niakhaté": "穆萨·尼亚卡特",
-  "Nihad Mujakic": "尼哈德·穆亚基奇",
-  "Nihad Mujakić": "尼哈德·穆亚基奇",
-  "Nikola Vasilj": "尼科拉·瓦西利",
-  "Oscar Bobb": "奥斯卡·鲍勃",
-  "Pape Gueye": "帕普·盖耶",
-  "Pervis Estupinan": "佩尔维斯·埃斯图皮尼安",
-  "Pervis Estupiñán": "佩尔维斯·埃斯图皮尼安",
-  "Roberto Alvarado": "罗伯托·阿尔瓦拉多",
-  "Sander Berge": "桑德尔·贝格",
-  "Senne Lammens": "森内·拉门斯",
-  "Seko Fofana": "塞科·福法纳",
-  "Sergino Dest": "塞尔吉尼奥·德斯特",
-  "Sergiño Dest": "塞尔吉尼奥·德斯特",
-  "Theo Hernandez": "特奥·埃尔南德斯",
-  "Théo Hernandez": "特奥·埃尔南德斯",
-  "Thibaut Courtois": "蒂博·库尔图瓦",
-  "Thomas Meunier": "托马斯·默尼耶",
-  "Tim Ream": "蒂姆·里姆",
-  "Timothy Weah": "蒂莫西·维阿",
-  "Victor Lindelof": "维克托·林德洛夫",
-  "Victor Lindelöf": "维克托·林德洛夫",
-  "Viktor Johansson": "维克托·约翰松",
-  "Willian Pacho": "威廉·帕乔",
-  "Yahia Fofana": "亚希亚·福法纳",
-  "Youri Tielemans": "尤里·蒂勒曼斯",
-  "Zeno Debast": "泽诺·德巴斯特",
-  "Aissa Mandi": "艾萨·曼迪",
-  "Aïssa Mandi": "艾萨·曼迪",
-  "Andrej Kramaric": "安德烈·克拉马里奇",
-  "Andrej Kramarić": "安德烈·克拉马里奇",
-  "Ante Budimir": "安特·布迪米尔",
-  "Aymeric Laporte": "艾默里克·拉波尔特",
-  "Bernardo Silva": "贝尔纳多·席尔瓦",
-  "Dan Ndoye": "丹·恩多耶",
-  "Fabian Rieder": "法比安·里德尔",
-  "Fabian Ruiz": "法比安·鲁伊斯",
-  "Fabián Ruiz": "法比安·鲁伊斯",
-  "Goncalo Inacio": "贡萨洛·伊纳西奥",
-  "Gonçalo Inácio": "贡萨洛·伊纳西奥",
-  "Gregor Kobel": "格雷戈尔·科贝尔",
-  "Ivan Perisic": "伊万·佩里希奇",
-  "Ivan Perišić": "伊万·佩里希奇",
-  "Joao Cancelo": "若昂·坎塞洛",
-  "João Cancelo": "若昂·坎塞洛",
-  "João Neves": "若昂·内维斯",
-  "Josip Stanisic": "约西普·斯塔尼希奇",
-  "Josip Stanišić": "约西普·斯塔尼希奇",
-  "Josip Sutalo": "约西普·舒塔洛",
-  "Josip Šutalo": "约西普·舒塔洛",
-  "Kevin Danso": "凯文·丹索",
-  "Luca Zidane": "卢卡·齐达内",
-  "Marco Pasalic": "马尔科·帕沙利奇",
-  "Marco Pašalić": "马尔科·帕沙利奇",
-  "Marc Cucurella": "马克·库库雷利亚",
-  "Marko Arnautovic": "马尔科·阿瑙托维奇",
-  "Marko Arnautović": "马尔科·阿瑙托维奇",
-  "Martin Baturina": "马丁·巴图里纳",
-  "Mikel Oyarzabal": "米克尔·奥亚萨瓦尔",
-  "Mohamed Amoura": "穆罕默德·阿穆拉",
-  "Nabil Bentaleb": "纳比勒·本塔莱布",
-  "Nico Elvedi": "尼科·埃尔韦迪",
-  "Nicolas Seiwald": "尼古拉斯·塞瓦尔德",
-  "Patrick Pentz": "帕特里克·彭茨",
-  "Patrick Wimmer": "帕特里克·维默",
-  "Pau Cubarsi": "保·库巴尔西",
-  "Pau Cubarsí": "保·库巴尔西",
-  "Pedro Porro": "佩德罗·波罗",
-  "Pedri": "佩德里",
-  "Phillip Mwene": "菲利普·姆韦内",
-  "Phillipp Mwene": "菲利普·姆韦内",
-  "Rak Belghali": "拉菲克·贝尔加利",
-  "Rafik Belghali": "拉菲克·贝尔加利",
-  "Ramiz Zerrouki": "拉米兹·泽鲁基",
-  "Ramy Bensebaini": "拉米·本塞拜尼",
-  "Rayan Ait-Nouri": "拉扬·艾特-努里",
-  "Rayan Aït-Nouri": "拉扬·艾特-努里",
-  "Ricardo Rodriguez": "里卡多·罗德里格斯",
-  "Ricardo Rodríguez": "里卡多·罗德里格斯",
-  "Rodri": "罗德里",
-  "Romano Schmid": "罗马诺·施密德",
-  "Remo Freuler": "雷莫·弗罗伊勒",
-  "Ruben Dias": "鲁本·迪亚斯",
-  "Rúben Dias": "鲁本·迪亚斯",
-  "Rubén Vargas": "鲁文·巴尔加斯",
-  "Ruben Vargas": "鲁文·巴尔加斯",
-  "Silvan Widmer": "西尔万·威德默",
-  "Stefan Posch": "斯特凡·波施",
-  "Unai Simon": "乌奈·西蒙",
-  "Unai Simón": "乌奈·西蒙",
-  "Vitinha": "维蒂尼亚",
-  "Reece James": "里斯·詹姆斯",
-  "Samuel Moutoussamy": "萨穆埃尔·穆图萨米",
-  "Simon Banza": "西蒙·班扎",
-  "Steve Kapuadi": "史蒂夫·卡普阿迪",
-  "Theo Bongonda": "泰奥·邦贡达",
-  "Timothy Fayulu": "蒂莫西·法尤卢",
-  "Trevoh Chalobah": "特雷沃·查洛巴"
-};
-
-const ZH_CLUB_NAME_TRANSLATIONS = {
-  "AC Milan": "AC米兰",
-  "Al Hilal": "利雅得新月",
-  "Al Sadd": "萨德",
-  "Al Sailiya SC": "赛利亚体育",
-  "Al-Ahli": "吉达国民",
-  "Al-Duhail": "杜海勒",
-  "Al-Hilal": "利雅得新月",
-  "Al-Ittihad": "吉达联合",
-  "Al-Karma": "卡尔马",
-  "Al-Najma (on loan from Como)": "纳吉马（从科莫租借）",
-  "Al-Nassr": "利雅得胜利",
-  "Al-Ula": "乌拉",
-  Arsenal: "阿森纳",
-  "Arsenal (on loan from Bayer Leverkusen)": "阿森纳（从勒沃库森租借）",
-  "Aston Villa": "阿斯顿维拉",
-  Atalanta: "亚特兰大",
-  "Athletic Bilbao": "毕尔巴鄂竞技",
-  "Atlanta United": "亚特兰大联",
-  "Atlético Madrid": "马德里竞技",
-  Barcelona: "巴塞罗那",
-  "Bayer Leverkusen": "勒沃库森",
-  "Bayern Munich": "拜仁慕尼黑",
-  Benfica: "本菲卡",
-  Beşiktaş: "贝西克塔斯",
-  "Borussia Dortmund": "多特蒙德",
-  Bournemouth: "伯恩茅斯",
-  "Brighton & Hove Albion": "布莱顿",
-  Burnley: "伯恩利",
-  Celtic: "凯尔特人",
-  Chelsea: "切尔西",
-  "Crystal Palace": "水晶宫",
-  "Cultural Leonesa (on loan from Al-Duhail)": "莱昂内萨文化（从杜海勒租借）",
-  "Dender EH": "登德尔EH",
-  "Dinamo Zagreb": "萨格勒布迪纳摩",
-  Everton: "埃弗顿",
-  "Dinamo Zagreb (on loan from AC Milan)": "萨格勒布迪纳摩（从AC米兰租借）",
-  "Dynamo Moscow": "莫斯科迪纳摩",
-  "Eintracht Frankfurt": "法兰克福",
-  Esteghlal: "德黑兰独立",
-  "FC St. Pauli": "圣保利",
-  "Fenerbahçe (on loan from West Ham United)": "费内巴切（从西汉姆联租借）",
-  Feyenoord: "费耶诺德",
-  "Free agent": "自由球员",
-  "G.D. Chaves": "查韦斯",
-  "Hannover 96 (on loan from FC Augsburg)": "汉诺威96（从奥格斯堡租借）",
-  "Heart of Midlothian": "哈茨",
-  Hibernian: "希伯尼安",
-  "Inter Milan": "国际米兰",
-  "Inter Milan (on loan from Manchester City)": "国际米兰（从曼城租借）",
-  Iğdır: "厄德尔",
-  "Iğdır FK": "厄德尔FK",
-  Juventus: "尤文图斯",
-  Kalba: "卡尔巴",
-  Kilmarnock: "基尔马诺克",
-  "Kilmarnock (on loan from Rangers)": "基尔马诺克（从格拉斯哥流浪者租借）",
-  "Leicester City": "莱斯特城",
-  Levante: "莱万特",
-  León: "莱昂",
-  Liverpool: "利物浦",
-  "Los Angeles (on loan from Porto)": "洛杉矶（从波尔图租借）",
-  "Los Angeles FC": "洛杉矶FC",
-  "Mamelodi Sundowns": "马梅洛迪日落",
-  "Manchester City": "曼城",
-  "Manchester United": "曼联",
-  Marseille: "马赛",
-  "Minnesota United": "明尼苏达联",
-  "Monaco (on loan from Sunderland)": "摩纳哥（从桑德兰租借）",
-  Motherwell: "马瑟韦尔",
-  Nantes: "南特",
-  Napoli: "那不勒斯",
-  "Newcastle United": "纽卡斯尔联",
-  "Nottingham Forest": "诺丁汉森林",
-  Olympiacos: "奥林匹亚科斯",
-  Porto: "波尔图",
-  PSV: "埃因霍温",
-  Pachuca: "帕丘卡",
-  Palmeiras: "帕尔梅拉斯",
-  "Paris Saint-Germain": "巴黎圣日耳曼",
-  "Pumas UNAM": "美洲狮UNAM",
-  "RB Leipzig": "RB莱比锡",
-  Rangers: "格拉斯哥流浪者",
-  "Real Madrid": "皇家马德里",
-  "Real Sociedad": "皇家社会",
-  Rennes: "雷恩",
-  Santos: "桑托斯",
-  Sassuolo: "萨索洛",
-  "Schalke 04": "沙尔克04",
-  Selangor: "雪兰莪",
-  "Shabab Al Ahli": "迪拜青年国民",
-  "Shamrock Rovers": "沙姆洛克流浪",
-  "Sheffield United": "谢菲尔德联",
-  "Sporting CP": "葡萄牙体育",
-  Strasbourg: "斯特拉斯堡",
-  Sunderland: "桑德兰",
-  "TSG Hoffenheim": "霍芬海姆",
-  Utrecht: "乌德勒支",
-  "Volendam (on loan from Gaziantep)": "福伦丹（从加济安泰普租借）",
-  "Wellington Phoenix (on loan from TSC)": "惠灵顿凤凰（从TSC租借）",
-  "West Ham United": "西汉姆联",
-  "Wolverhampton Wanderers": "狼队",
-  Wrexham: "雷克瑟姆",
-  "Çaykur Rizespor (on loan from AEK Athens)": "里泽体育（从雅典AEK租借）",
-  "İstanbul Başakşehir": "伊斯坦布尔巴沙克谢希尔"
-};
-
-const ZH_CURRENT_PROFILE_CLUB_NAME_TRANSLATIONS = {
-  Abha: "艾卜哈",
-  Ajax: "阿贾克斯",
-  Alanyaspor: "阿兰亚体育",
-  Alianza: "阿利安萨",
-  Anderlecht: "安德莱赫特",
-  Angers: "昂热",
-  Astana: "阿斯塔纳",
-  Atlas: "阿特拉斯",
-  Atromitos: "阿特罗米托斯",
-  Augsburg: "奥格斯堡",
-  Auxerre: "欧塞尔",
-  Baniyas: "巴尼亚斯",
-  Barnsley: "巴恩斯利",
-  Betis: "贝蒂斯",
-  Beveren: "贝弗伦",
-  Bologna: "博洛尼亚",
-  "Bodø/Glimt": "博德闪耀",
-  Botafogo: "博塔弗戈",
-  Braga: "布拉加",
-  Brentford: "布伦特福德",
-  "BSC Young Boys U21": "伯尔尼年轻人U21",
-  Bukhara: "布哈拉",
-  Buxoro: "布哈拉",
-  Cagliari: "卡利亚里",
-  Celta: "塞尔塔",
-  "Cercle Brugge": "色格拉布鲁日",
-  Charleroi: "沙勒罗瓦",
-  Charlotte: "夏洛特FC",
-  Cobresal: "科布雷萨尔",
-  Como: "科莫",
-  Copenhagen: "哥本哈根",
-  Corinthians: "科林蒂安",
-  Cracovia: "克拉科维亚",
-  Cremonese: "克雷莫内塞",
-  Dibba: "迪巴",
-  Elche: "埃尔切",
-  Espanyol: "西班牙人",
-  Estudiantes: "拉普拉塔大学生",
-  Farense: "法伦斯",
-  "FC Augsburg": "奥格斯堡",
-  Fiorentina: "佛罗伦萨",
-  Flamengo: "弗拉门戈",
-  Fluminense: "弗鲁米嫩塞",
-  Frosinone: "弗罗西诺内",
-  Fulham: "富勒姆",
-  Galatasaray: "加拉塔萨雷",
-  Gaziantep: "加济安泰普",
-  Genk: "亨克",
-  Genoa: "热那亚",
-  Gent: "根特",
-  Girona: "赫罗纳",
-  Granada: "格拉纳达",
-  Guadalajara: "瓜达拉哈拉",
-  Guingamp: "甘冈",
-  "Hannover 96": "汉诺威96",
-  Hoffenheim: "霍芬海姆",
-  Huracán: "飓风队",
-  Independiente: "独立队",
-  Internacional: "巴西国际",
-  Kayserispor: "开塞利体育",
-  Konyaspor: "科尼亚体育",
-  Krasnodar: "克拉斯诺达尔",
-  Lens: "朗斯",
-  Lille: "里尔",
-  Livingston: "利文斯顿",
-  Lorient: "洛里昂",
-  Lugano: "卢加诺",
-  Lyon: "里昂",
-  "Machida Zelvia": "町田泽维亚",
-  "Mainz 05": "美因茨05",
-  Mallorca: "马略卡",
-  Maribor: "马里博尔",
-  Mechelen: "梅赫伦",
-  Middlesbrough: "米德尔斯堡",
-  Midtjylland: "中日德兰",
-  Millwall: "米尔沃尔",
-  Molde: "莫尔德",
-  Monaco: "摩纳哥",
-  Montana: "蒙塔纳",
-  Monterrey: "蒙特雷",
-  Montpellier: "蒙彼利埃",
-  Nacional: "民族队",
-  Nancy: "南锡",
-  Nasaf: "纳萨夫",
-  Navbahor: "纳夫巴霍",
-  "New England Revolution": "新英格兰革命",
-  Nice: "尼斯",
-  Noah: "诺亚",
-  Nordsjaelland: "北西兰",
-  Olimpia: "奥林匹亚",
-  Osasuna: "奥萨苏纳",
-  Oviedo: "奥维耶多",
-  Pafos: "帕福斯",
-  Pakhtakor: "棉农",
-  Panathinaikos: "帕纳辛奈科斯",
-  Parma: "帕尔马",
-  Partizan: "贝尔格莱德游击",
-  Persepolis: "波斯波利斯",
-  Pisa: "比萨",
-  Port: "泰港",
-  Portsmouth: "朴茨茅斯",
-  Randers: "兰讷斯",
-  Reims: "兰斯",
-  Rijeka: "里耶卡",
-  Roma: "罗马",
-  Rostov: "罗斯托夫",
-  Sampdoria: "桑普多利亚",
-  Samsunspor: "萨姆松体育",
-  "San Carlos": "圣卡洛斯",
-  "Sarpsborg 08": "萨普斯堡08",
-  Sepahan: "塞帕罕",
-  Servette: "塞尔维特",
-  Sevilla: "塞维利亚",
-  Silkeborg: "锡尔克堡",
-  Sion: "锡永",
-  Sochaux: "索肖",
-  Southampton: "南安普顿",
-  "SuperSport United": "超级体育联",
-  Surkhon: "苏尔洪",
-  Talleres: "塔列雷斯",
-  Telstar: "特尔斯达",
-  Terengganu: "登嘉楼",
-  Tijuana: "蒂华纳",
-  Toluca: "托卢卡",
-  Tondela: "通德拉",
-  Torino: "都灵",
-  Toulouse: "图卢兹",
-  Trabzonspor: "特拉布宗体育",
-  Tractor: "大不里士拖拉机",
-  Twente: "特温特",
-  Udinese: "乌迪内斯",
-  "Universidad Católica": "天主教大学",
-  Venezia: "威尼斯",
-  Viking: "维京",
-  Villarreal: "比利亚雷亚尔",
-  Vizela: "维泽拉",
-  Volendam: "福伦丹",
-  Watford: "沃特福德",
-  Zamalek: "扎马莱克",
-  "A.E. Kifisia": "基菲西亚",
-  "AEK Athens": "雅典AEK",
-  "AEK Larnaca": "拉纳卡AEK",
-  AEL: "拉里萨阿埃尔",
-  "AEL Limassol": "利马索尔阿埃尔",
-  AGF: "奥胡斯",
-  AIK: "索尔纳",
-  "Akron Tolyatti": "陶里亚蒂阿克隆",
-  "Al Ahly SC": "开罗国民",
-  "Al Ain": "阿尔艾因",
-  "Al Bataeh": "巴塔赫",
-  "Al Jazira": "阿布扎比半岛",
-  "Al Talaba SC": "塔拉巴",
-  "Al-Ain": "阿尔艾因",
-  "Al-Arabi": "阿拉比",
-  "Al-Dhafra": "迪哈夫拉",
-  "Al-Ettifaq": "达曼协作",
-  "Al-Faisaly": "费萨里",
-  "Al-Fateh": "哈萨征服",
-  "Al-Fayha": "费哈",
-  "Al-Gharafa": "加拉法",
-  "Al-Hussein": "胡塞因",
-  "Al-Najma": "纳吉马",
-  "Al-Nasr SC": "迪拜胜利",
-  "Al-Qadsiah": "卡迪西亚",
-  "Al-Qadsiah FC": "卡迪西亚",
-  "Al-Quwa Al-Jawiya": "空军体育",
-  "Al-Rayyan": "赖扬",
-  "Al-Shabab": "利雅得青年",
-  "Al-Shamal": "舒马尔",
-  "Al-Shorta": "警察体育",
-  "Al-Talaba": "塔拉巴",
-  "Al-Wahda FC": "阿布扎比统一",
-  "Al-Wakrah": "沃克拉",
-  "Al-Wehdat": "维达特",
-  "Al-Zawraa": "扎瓦拉",
-  "Albirex Niigata": "新潟天鹅",
-  "Almere City": "阿尔梅勒城",
-  América: "墨西哥美洲",
-  APOEL: "希腊人竞技",
-  "Apollon Limassol": "利马索尔阿波罗",
-  "Aris Limassol": "利马索尔阿里斯",
-  "AS FAR": "拉巴特皇家武装",
-  "Athletico Paranaense": "巴拉纳竞技",
-  "Atlético Mineiro": "米内罗竞技",
-  "Atlético Nacional": "国民竞技",
-  "Auckland FC": "奥克兰FC",
-  "Austria Wien": "奥地利维也纳",
-  AZ: "阿尔克马尔",
-  "Beerschot VA": "比尔肖特VA",
-  "Birmingham City": "伯明翰城",
-  "Boca Juniors": "博卡青年",
-  "Borac Banja Luka": "巴尼亚卢卡战士",
-  "Borussia Mönchengladbach": "门兴格拉德巴赫",
-  Brøndby: "布隆德比",
-  "Casa Pia": "卡萨皮亚",
-  Castellón: "卡斯特利翁",
-  "Çaykur Rizespor": "里泽体育",
-  "Cerro Porteño": "波特诺山丘",
-  "Charlton Athletic": "查尔顿竞技",
-  "Chicago Fire": "芝加哥火焰",
-  "Club Africain": "非洲人",
-  "Club Brugge": "布鲁日",
-  "Club Tijuana": "蒂华纳",
-  "Colorado Rapids": "科罗拉多急流",
-  "Colorado Springs Switchbacks": "科罗拉多泉跃迁",
-  "Columbus Crew": "哥伦布机员",
-  "Coventry City": "考文垂",
-  "Cruz Azul": "蓝十字",
-  "CS Sfaxien": "斯法克斯",
-  "Daejeon Hana Citizen": "大田韩亚市民",
-  "Den Bosch": "登博思",
-  "Deportivo La Guaira": "拉瓜伊拉体育",
-  "Deportivo Saprissa": "萨普里萨",
-  "Derby County": "德比郡",
-  "Dinamo Samarqand": "撒马尔罕迪纳摩",
-  "Dynamo Makhachkala": "马哈奇卡拉迪纳摩",
-  "El Gouna": "古纳",
-  "El Paso Locomotive FC": "埃尔帕索机车FC",
-  "ES Sahel": "萨赫勒之星",
-  "Espérance de Tunis": "突尼斯希望",
-  "Estrela Amadora": "阿马多拉之星",
-  "FC Cincinnati": "辛辛那提FC",
-  "FC Cosmos Koblenz": "科布伦茨宇宙",
-  "FC Dallas": "达拉斯FC",
-  "FC Neftchi Fergana": "费尔干纳石油",
-  "FC Seoul": "首尔FC",
-  "FC Tokyo": "FC东京",
-  FCSB: "布加勒斯特星",
-  Fenerbahçe: "费内巴切",
-  Ferencváros: "费伦茨瓦罗斯",
-  "Foolad FC": "胡齐斯坦钢铁",
-  "Fortuna Düsseldorf": "杜塞尔多夫",
-  "Gangwon FC": "江原FC",
-  "Gil Vicente": "吉尔维森特",
-  "Grazer AK": "格拉茨AK",
-  Grêmio: "格雷米奥",
-  Győr: "杰尔",
-  "Hajduk Split": "斯普利特海杜克",
-  "Hamburger SV": "汉堡",
-  "Hearts of Oak": "橡树之心",
-  "Hellas Verona": "维罗纳",
-  "Heracles Almelo": "阿尔梅罗赫拉克勒斯",
-  "Holstein Kiel": "荷尔斯泰因基尔",
-  "Hradec Králové": "赫拉德茨克拉洛韦",
-  "Hull City": "赫尔城",
-  "IFK Norrköping": "北雪平",
-  "Independiente del Valle": "山谷独立",
-  "Independiente Rivadavia": "里瓦达维亚独立",
-  "Inter Miami": "迈阿密国际",
-  "Ipswich Town": "伊普斯维奇",
-  "Ironi Kiryat Shmona": "谢莫纳城",
-  "Jeonbuk Hyundai Motors": "全北现代",
-  "JS Kabylie": "卡比利亚",
-  Juárez: "华雷斯",
-  "Kaizer Chiefs": "凯泽酋长",
-  "Karlsruher SC": "卡尔斯鲁厄",
-  "Kashima Antlers": "鹿岛鹿角",
-  Kasımpaşa: "卡斯帕萨",
-  "L.D.U. Quito": "基多大学",
-  Lanús: "拉努斯",
-  LASK: "林茨",
-  "Lausanne-Sport": "洛桑体育",
-  "Le Havre": "勒阿弗尔",
-  "Lechia Gdańsk": "格但斯克莱希亚",
-  "Leeds United": "利兹联",
-  "Lokomotiv Moscow": "莫斯科火车头",
-  "Ludogorets Razgrad": "卢多戈雷茨",
-  "Luton Town": "卢顿",
-  "Maccabi Haifa": "海法马卡比",
-  "Maccabi Tel Aviv": "特拉维夫马卡比",
-  "Malavan Bandar Anzali": "安扎利马拉万",
-  "Malmö FF": "马尔默",
-  Marathón: "马拉松",
-  Mazatlán: "马萨特兰",
-  "Melbourne City": "墨尔本城",
-  "Melbourne Victory": "墨尔本胜利",
-  "Miami FC": "迈阿密FC",
-  "Mjällby AIF": "米亚尔比",
-  "Nashville SC": "纳什维尔",
-  NEC: "奈梅亨",
-  "NEC Nijmegen": "奈梅亨",
-  "Neftchi Fergana": "费尔干纳石油",
-  "NEOM SC": "尼奥姆",
-  "New York City FC": "纽约城",
-  Nordsjælland: "北西兰",
-  "Norwich City": "诺维奇",
-  "OKMK Olmaliq": "阿尔马雷克矿冶",
-  "Omonia Nicosia": "尼科西亚奥莫尼亚",
-  "Orlando City": "奥兰多城",
-  "Orlando Pirates": "奥兰多海盗",
-  PAOK: "塞萨洛尼基",
-  "Pari Nizhny Novgorod": "下诺夫哥罗德帕里",
-  "Paris FC": "巴黎FC",
-  "PEC Zwolle": "兹沃勒",
-  "Persib Bandung": "万隆",
-  "Philadelphia Union": "费城联合",
-  "Plaza Amador": "阿马多尔广场",
-  "Polokwane City": "波洛克瓦尼城",
-  "Port Vale": "维尔港",
-  "PSV Eindhoven": "埃因霍温",
-  "Puerto Cabello": "卡贝略港",
-  CAI: "独立竞技",
-  "Puskás Akadémia": "普斯卡什学院",
-  "Pyramids FC": "金字塔FC",
-  Qarabağ: "卡拉巴赫",
-  "Qatar SC": "卡塔尔体育",
-  "Racing Santander": "桑坦德竞技",
-  "Raja CA": "拉贾卡萨布兰卡",
-  "Rayo Vallecano": "巴列卡诺",
-  "Real Betis": "皇家贝蒂斯",
-  "Real Oviedo": "皇家奥维耶多",
-  "Real Salt Lake": "皇家盐湖城",
-  "Real Zaragoza": "皇家萨拉戈萨",
-  "Red Bull Bragantino": "布拉干蒂诺红牛",
-  "Red Bull Salzburg": "萨尔茨堡红牛",
-  "Red Star Belgrade": "贝尔格莱德红星",
-  "River Plate": "河床",
-  "RKC Waalwijk": "瓦尔韦克",
-  "Rosario Central": "罗萨里奥中央",
-  "Royal Antwerp": "安特卫普",
-  "RS Berkane": "勒内桑斯贝尔卡尼",
-  "Saint-Etienne": "圣埃蒂安",
-  "Saint-Étienne": "圣埃蒂安",
-  "San Diego FC": "圣迭戈FC",
-  "San Lorenzo de Almagro": "圣洛伦索",
-  "Sanfrecce Hiroshima": "广岛三箭",
-  "Santos Laguna": "桑托斯拉古纳",
-  "São Paulo": "圣保罗",
-  "SC Freiburg": "弗赖堡",
-  "SC União Torreense": "托伦斯联合",
-  "Seattle Sounders FC": "西雅图海湾人",
-  "Sint-Truiden": "圣图尔登",
-  SJK: "塞伊奈约基",
-  "SK Slavia Prague": "布拉格斯拉维亚",
-  "Slavia Prague": "布拉格斯拉维亚",
-  "Slovan Bratislava": "布拉迪斯拉发斯洛万",
-  "Slovan Liberec": "利贝雷茨斯洛万",
-  "Sparta Prague": "布拉格斯巴达",
-  "Spartak Moscow": "莫斯科斯巴达",
-  "St Patrick's Athletic": "圣帕特里克竞技",
-  "St. Gallen": "圣加仑",
-  "St. Pauli": "圣保利",
-  "Stade Nyonnais": "尼永体育",
-  "Stade Tunisien": "突尼斯人体育",
-  "Standard Liège": "标准列日",
-  "Stoke City": "斯托克城",
-  "Sturm Graz": "格拉茨风暴",
-  "Swansea City": "斯旺西",
-  "Sydney FC": "悉尼FC",
-  "Tatran Prešov": "普雷绍夫塔特兰",
-  "Tigres UANL": "老虎大学",
-  "Toronto FC": "多伦多FC",
-  "Tottenham Hotspur": "托特纳姆热刺",
-  "Turan Tovuz": "图兰托武兹",
-  "Ulsan HD": "蔚山HD",
-  "Union Berlin": "柏林联合",
-  "Union Saint-Gilloise": "圣吉罗斯联合",
-  "Union SG": "圣吉罗斯联合",
-  "Universidad de Concepción": "康塞普西翁大学",
-  "Universitatea Cluj": "克卢日大学",
-  "US Monastir": "莫纳斯提尔",
-  "USM Alger": "阿尔及尔联合",
-  "Vancouver Whitecaps": "温哥华白浪",
-  "Vancouver Whitecaps FC": "温哥华白浪",
-  "Vasco da Gama": "瓦斯科达伽马",
-  "Vélez Sarsfield": "萨斯菲尔德",
-  "VfB Stuttgart": "斯图加特",
-  "VfL Wolfsburg": "沃尔夫斯堡",
-  "Viktoria Plzen": "比尔森胜利",
-  "Viktoria Plzeň": "比尔森胜利",
-  "Violette AC": "紫罗兰AC",
-  "Vitória Guimarães": "吉马良斯",
-  VVV: "芬洛",
-  "Wellington Phoenix": "惠灵顿凤凰",
-  "Werder Bremen": "云达不莱梅",
-  "Widzew Łódź": "维泽夫罗兹",
-  "Wolfsberger AC": "沃尔夫斯贝格",
-  "Young Boys": "伯尔尼年轻人",
-  ZED: "泽德",
-  "ZED FC": "泽德FC",
-  "Zenit Saint Petersburg": "圣彼得堡泽尼特",
-  "Zhejiang FC": "浙江FC",
-  "Zulte Waregem": "威尔郡",
-  Zürich: "苏黎世"
-};
-
-Object.assign(ZH_CLUB_NAME_TRANSLATIONS, ZH_CURRENT_PROFILE_CLUB_NAME_TRANSLATIONS);
-
-const ZH_LEAGUE_NAME_TRANSLATIONS = {
-  "2. Bundesliga": "德乙",
-  "A-League Men": "澳大利亚A联赛",
-  "Algerian Ligue Professionnelle 1": "阿尔及利亚甲级联赛",
-  Allsvenskan: "瑞典超级联赛",
-  "Argentine Primera División": "阿根廷甲级联赛",
-  "Armenian Premier League": "亚美尼亚超级联赛",
-  "Austrian Bundesliga": "奥地利甲级联赛",
-  "Azerbaijan Premier League": "阿塞拜疆超级联赛",
-  "Belgian Challenger Pro League": "比利时挑战者职业联赛",
-  "Belgian Pro League": "比利时职业联赛",
-  "Bosnian Premier League": "波黑超级联赛",
-  "Botola Pro": "摩洛哥职业联赛",
-  "Bulgarian First League": "保加利亚甲级联赛",
-  Bundesliga: "德甲",
-  "Campeonato Brasileiro Série A": "巴西甲级联赛",
-  "Categoría Primera A": "哥伦比亚甲级联赛",
-  "Championnat National": "法国全国联赛",
-  "Chilean Primera División": "智利甲级联赛",
-  "Chinese Super League": "中超",
-  "Costa Rican Primera División": "哥斯达黎加甲级联赛",
-  "Croatian Football League": "克罗地亚甲级联赛",
-  "Cypriot First Division": "塞浦路斯甲级联赛",
-  "Cyprus First Division": "塞浦路斯甲级联赛",
-  "Cyprus League": "塞浦路斯联赛",
-  "Czech First League": "捷克甲级联赛",
-  "Danish Superliga": "丹麦超级联赛",
-  "EFL Championship": "英冠",
-  "EFL League One": "英甲",
-  "Ecuadorian Serie A": "厄瓜多尔甲级联赛",
-  "Eerste Divisie": "荷乙",
-  "Egyptian Premier League": "埃及超级联赛",
-  Ekstraklasa: "波兰甲级联赛",
-  Eliteserien: "挪威超级联赛",
-  Eredivisie: "荷甲",
-  "German 3. Liga": "德丙",
-  "Ghana Premier League": "加纳超级联赛",
-  "Greek Super League": "希腊超级联赛",
-  "Indonesian Super League": "印尼超级联赛",
-  "Iraq Stars League": "伊拉克星级联赛",
-  "Israeli Premier League": "以色列超级联赛",
-  "J1 League": "J1联赛",
-  "J2 League": "J2联赛",
-  "Jordanian Pro League": "约旦职业联赛",
-  "K League 1": "K联赛1",
-  "Kazakhstan Premier League": "哈萨克斯坦超级联赛",
-  "Keuken Kampioen Divisie": "荷乙",
-  "La Liga": "西甲",
-  LaLiga2: "西乙",
-  "League of Ireland Premier Division": "爱尔兰超级联赛",
-  "Liga I": "罗马尼亚甲级联赛",
-  "Liga MX": "墨西哥超级联赛",
-  "Liga Nacional de Honduras": "洪都拉斯国家联赛",
-  "Liga Panameña de Fútbol": "巴拿马足球联赛",
-  "Liga Portugal": "葡超",
-  "Liga Portugal 2": "葡甲二级联赛",
-  "Ligue 1": "法甲",
-  "Ligue 2": "法乙",
-  "Ligue Haïtienne": "海地联赛",
-  "Major League Soccer": "美国职业足球大联盟",
-  "Malaysia Super League": "马来西亚超级联赛",
-  "Nemzeti Bajnoksag I": "匈牙利甲级联赛",
-  "Nemzeti Bajnokság I": "匈牙利甲级联赛",
-  "Oberliga Rheinland-Pfalz/Saar": "德国莱茵兰-普法尔茨/萨尔高级联赛",
-  "Paraguayan Primera División": "巴拉圭甲级联赛",
-  "Persian Gulf Pro League": "波斯湾职业联赛",
-  "Premier League": "英超",
-  "Primeira Liga": "葡超",
-  "Primera B de Chile": "智利乙级联赛",
-  "Primera Federación": "西班牙第三级联赛",
-  "Qatar Stars League": "卡塔尔星级联赛",
-  "Qatari Second Division": "卡塔尔乙级联赛",
-  "Russian Premier League": "俄超",
-  "Saudi First Division League": "沙特甲级联赛",
-  "Saudi Pro League": "沙特职业联赛",
-  "Scottish Premiership": "苏格兰超级联赛",
-  "Segunda División": "西乙",
-  "Serbian SuperLiga": "塞尔维亚超级联赛",
-  "Serie A": "意甲",
-  "Serie B": "意乙",
-  "Slovak First Football League": "斯洛伐克甲级联赛",
-  "Slovenian PrvaLiga": "斯洛文尼亚甲级联赛",
-  "South African Premiership": "南非超级联赛",
-  "Super League Greece": "希腊超级联赛",
-  "Swiss Challenge League": "瑞士挑战联赛",
-  "Swiss Promotion League": "瑞士晋级联赛",
-  "Swiss Super League": "瑞士超级联赛",
-  "Süper Lig": "土超",
-  "TFF First League": "土耳其甲级联赛",
-  "Thai League 1": "泰国甲级联赛",
-  "Tunisian Ligue Professionnelle 1": "突尼斯职业甲级联赛",
-  "Turkish Super Lig": "土耳其超级联赛",
-  "UAE Pro League": "阿联酋职业联赛",
-  "USL Championship": "USL冠军联赛",
-  "Uruguayan Primera División": "乌拉圭甲级联赛",
-  "Uzbekistan Super League": "乌兹别克斯坦超级联赛",
-  Veikkausliiga: "芬兰超级联赛",
-  "Venezuelan Primera División": "委内瑞拉甲级联赛"
 };
 
 const ZH_SOURCE_LABEL_TRANSLATIONS = {
@@ -2976,7 +1873,7 @@ const ZH_PATTERN_TRANSLATIONS = [
   },
   {
     pattern: /^3rd race (.+)$/,
-    replace: (_, rank) => `第三名竞争 ${translateTextToZh(rank)}`
+    replace: (_, rank) => `最佳小组第三排名 ${translateTextToZh(rank)}`
   },
   {
     pattern: /^(.+)\/(\d+) third-place teams; top (\d+) qualify\.$/,
@@ -3116,13 +2013,13 @@ const ZH_PATTERN_TRANSLATIONS = [
   {
     pattern: /^(.+) is (.+) in the best third-place race: (.+)$/,
     replace: (_, teamName, rank, status) =>
-      `${translateTextToZh(teamName)}在最佳第三名竞争中排名${translateTextToZh(rank)}：${translateTextToZh(status)}`
+      `${translateTextToZh(teamName)}在最佳小组第三排名中位列${translateTextToZh(rank)}：${translateTextToZh(status)}`
   },
   {
     pattern:
       /^Currently (.+) in the third-place race: (\d+) points?, (.+) goal difference, (\d+) goals? scored\.$/,
     replace: (_, rank, points, gd, goals) =>
-      `当前在第三名竞争中排名${translateTextToZh(rank)}：${points}分，净胜球${gd}，进${goals}球。`
+      `当前在最佳小组第三排名中位列${translateTextToZh(rank)}：${points}分，净胜球${gd}，进${goals}球。`
   },
   {
     pattern:
@@ -3181,25 +2078,25 @@ const ZH_PATTERN_TRANSLATIONS = [
     pattern:
       /^Currently (.+) in the third-place race: (\d+) points?, (.+) goal difference, (\d+) goals? scored\. To stay top 8, keep ahead of (.+) \((.+)\) on (.+): (.+) vs (.+)\.$/,
     replace: (_, rank, points, gd, goals, target, targetRank, label, candidateValue, targetValue) =>
-      `当前在第三名竞争中排名${translateTextToZh(rank)}：${points}分，净胜球${gd}，进${goals}球。要留在前8，需要在${formatThirdPlaceDeciderLabelZh(label)}上继续领先${translateTextToZh(target)}（${translateTextToZh(targetRank)}）：${translateTextToZh(candidateValue)} 对 ${translateTextToZh(targetValue)}。`
+      `当前在最佳小组第三排名中位列${translateTextToZh(rank)}：${points}分，净胜球${gd}，进${goals}球。要留在前8，需要在${formatThirdPlaceDeciderLabelZh(label)}上继续领先${translateTextToZh(target)}（${translateTextToZh(targetRank)}）：${translateTextToZh(candidateValue)} 对 ${translateTextToZh(targetValue)}。`
   },
   {
     pattern:
       /^Currently (.+) in the third-place race: (\d+) points?, (.+) goal difference, (\d+) goals? scored\. To make the top 8, move ahead of (.+) \((.+)\) on (.+): (.+) vs (.+)\.$/,
     replace: (_, rank, points, gd, goals, target, targetRank, label, candidateValue, targetValue) =>
-      `当前在第三名竞争中排名${translateTextToZh(rank)}：${points}分，净胜球${gd}，进${goals}球。要进入前8，需要在${formatThirdPlaceDeciderLabelZh(label)}上超过${translateTextToZh(target)}（${translateTextToZh(targetRank)}）：${translateTextToZh(candidateValue)} 对 ${translateTextToZh(targetValue)}。`
+      `当前在最佳小组第三排名中位列${translateTextToZh(rank)}：${points}分，净胜球${gd}，进${goals}球。要进入前8，需要在${formatThirdPlaceDeciderLabelZh(label)}上超过${translateTextToZh(target)}（${translateTextToZh(targetRank)}）：${translateTextToZh(candidateValue)} 对 ${translateTextToZh(targetValue)}。`
   },
   {
     pattern:
       /^Currently (.+) in the third-place race: (\d+) points?, (.+) goal difference, (\d+) goals? scored\. Top-8 place is tied from (.+)-(.+); fair-play data is pending\.$/,
     replace: (_, rank, points, gd, goals, start, end) =>
-      `当前在第三名竞争中排名${translateTextToZh(rank)}：${points}分，净胜球${gd}，进${goals}球。前8席位在${translateTextToZh(start)}至${translateTextToZh(end)}名之间打平；公平竞赛数据待确认。`
+      `当前在最佳小组第三排名中位列${translateTextToZh(rank)}：${points}分，净胜球${gd}，进${goals}球。前8席位在${translateTextToZh(start)}至${translateTextToZh(end)}名之间打平；公平竞赛数据待确认。`
   },
   {
     pattern:
       /^Currently (.+) in the third-place race: (\d+) points?, (.+) goal difference, (\d+) goals? scored\. To (stay top 8|make the top 8), the tie with (.+) \((.+)\) is still unresolved on loaded points, goal difference and goals scored; fair-play data is pending\.$/,
     replace: (_, rank, points, gd, goals, action, target, targetRank) =>
-      `当前在第三名竞争中排名${translateTextToZh(rank)}：${points}分，净胜球${gd}，进${goals}球。要${action === "stay top 8" ? "留在前8" : "进入前8"}，与${translateTextToZh(target)}（${translateTextToZh(targetRank)}）的同分排序仍未在已载入的积分、净胜球和进球数中分出；公平竞赛数据待确认。`
+      `当前在最佳小组第三排名中位列${translateTextToZh(rank)}：${points}分，净胜球${gd}，进${goals}球。要${action === "stay top 8" ? "留在前8" : "进入前8"}，与${translateTextToZh(target)}（${translateTextToZh(targetRank)}）的同分排序仍未在已载入的积分、净胜球和进球数中分出；公平竞赛数据待确认。`
   },
   {
     pattern: /^Tied on loaded stats for (.+)-(.+)\.$/,
@@ -4069,6 +2966,10 @@ const ZH_PATTERN_TRANSLATIONS = [
   {
     pattern: /^UEFA Nations League (\d+) - Group ([A-Z0-9]+)$/,
     replace: (_, year, groupId) => `${year}年${translateTextToZh("UEFA Nations League")} - ${groupId}组`
+  },
+  {
+    pattern: /^UEFA Nations League (\d+) - (.+)$/,
+    replace: (_, year, stage) => `${year}年${translateTextToZh("UEFA Nations League")} - ${translateTextToZh(stage)}`
   },
   {
     pattern: /^World Cup (\d+) - Group ([A-Z])$/,
@@ -7240,7 +6141,6 @@ function translateGeneratedLongFormTextToZh(value) {
 
   return (
     translateHistoricalKeyInformationToZh(text) ||
-    translateCurrentMatchPreviewToZh(text) ||
     translatePlayerNoteToZh(text)
   );
 }
@@ -7699,6 +6599,12 @@ function applyLanguageToPage() {
       isApplyingLanguage = false;
     }
   });
+
+  window.dispatchEvent(
+    new CustomEvent("worldcup:languagechange", {
+      detail: { language: currentLanguage }
+    })
+  );
 }
 
 function readStoredJuggleRecord() {
@@ -12589,7 +11495,7 @@ function localizeStageLabel(label) {
       "Round of 16": "16强赛",
       "Round of 32": "32强赛",
       "Semi-finals": "半决赛",
-      "Third-place play-off": "三四名决赛"
+      "Third-place play-off": "季军赛"
     }[label] || localizeText(label)
   );
 }
@@ -12973,124 +11879,6 @@ function getTournamentPenaltyEdgeSide(participants, percents) {
   return "home";
 }
 
-const TOURNAMENT_SHOOTOUT_PROFILES = {
-  ALG: { takers: ["Riyad Mahrez", "Mohamed Amoura"] },
-  ARG: {
-    takers: ["Lionel Messi", "Lautaro Martinez"],
-    goalkeeper: { name: "Damian Emiliano Martinez", club: "Aston Villa" }
-  },
-  AUS: { takers: ["Ajdin Hrustic", "Nestory Irankunda"] },
-  AUT: { takers: ["Marko Arnautovic", "Marcel Sabitzer", "David Alaba"] },
-  BEL: { takers: ["Kevin De Bruyne", "Romelu Lukaku"] },
-  BIH: { takers: ["Edin Dzeko", "Ermedin Demirovic"] },
-  BRA: { takers: ["Raphinha", "Neymar", "Lucas Paqueta"] },
-  CAN: { takers: ["Jonathan David", "Alphonso Davies"] },
-  CIV: { takers: ["Franck Kessie", "Ibrahim Sangare"] },
-  COD: { takers: ["Yoane Wissa", "Cedric Bakambu"] },
-  COL: { takers: ["James Rodriguez", "Luis Diaz"] },
-  CPV: { takers: ["Ryan Mendes", "Dailon Livramento"] },
-  CRO: {
-    takers: ["Luka Modric", "Ante Budimir"],
-    goalkeeper: { name: "Dominik Livakovic", club: "Dinamo Zagreb" }
-  },
-  ECU: { takers: ["Enner Valencia", "Jordy Caicedo"] },
-  EGY: { takers: ["Mohamed Salah", "Omar Marmoush"] },
-  ENG: {
-    takers: ["Harry Kane", "Bukayo Saka"],
-    goalkeeper: { name: "Jordan Pickford", club: "Everton" }
-  },
-  ESP: { takers: ["Mikel Oyarzabal", "Lamine Yamal", "Rodri"] },
-  FRA: { takers: ["Kylian Mbappe", "Ousmane Dembele"] },
-  GER: { takers: ["Kai Havertz", "Joshua Kimmich"] },
-  GHA: { takers: ["Jordan Ayew"] },
-  JPN: { takers: ["Ayase Ueda", "Ritsu Doan"] },
-  MAR: {
-    takers: ["Brahim Diaz", "Achraf Hakimi"],
-    goalkeeper: { name: "Yassine Bounou", club: "Al Hilal" }
-  },
-  MEX: { takers: ["Raul Jimenez", "Santiago Gimenez"] },
-  NED: { takers: ["Cody Gakpo", "Memphis Depay", "Wout Weghorst"] },
-  NOR: { takers: ["Erling Haaland", "Martin Odegaard"] },
-  PAR: { takers: ["Diego Gomez", "Miguel Almiron", "Julio Enciso"] },
-  POR: {
-    takers: ["Cristiano Ronaldo", "Bruno Fernandes"],
-    goalkeeper: { name: "Diogo Costa", club: "Porto" }
-  },
-  RSA: { takers: ["Teboho Mokoena", "Lyle Foster"] },
-  SEN: { takers: ["Sadio Mane", "Nicolas Jackson"] },
-  SUI: { takers: ["Granit Xhaka", "Breel Embolo", "Zeki Amdouni"] },
-  SWE: { takers: ["Viktor Gyokeres", "Alexander Isak"] },
-  USA: { takers: ["Christian Pulisic", "Folarin Balogun"] }
-};
-
-function getTournamentShootoutPlayerEntry(team, name, role = "taker", clubOverride = "") {
-  const teamId = String(team?.id || "").trim().toUpperCase();
-  const nameKey = normalizeTextKey(name);
-  const profile =
-    (teamId && playerProfilesByTeamAndName.get(`${teamId}:${nameKey}`)) ||
-    playerProfilesByName.get(nameKey) ||
-    null;
-
-  return {
-    role,
-    name: profile?.displayName || profile?.name || name,
-    club: clubOverride || profile?.club || ""
-  };
-}
-
-function getTournamentShootoutEntries(team) {
-  const teamId = String(team?.id || "").trim().toUpperCase();
-  const profile = TOURNAMENT_SHOOTOUT_PROFILES[teamId];
-
-  if (!profile) {
-    return [];
-  }
-
-  const takers = (profile.takers || [])
-    .filter(Boolean)
-    .map((name) => getTournamentShootoutPlayerEntry(team, name, "taker"));
-  const entries = takers.slice(0, profile.goalkeeper ? 2 : 3);
-
-  if (profile.goalkeeper && entries.length < 3) {
-    entries.push(
-      getTournamentShootoutPlayerEntry(
-        team,
-        profile.goalkeeper.name,
-        "goalkeeper",
-        profile.goalkeeper.club
-      )
-    );
-  }
-
-  return entries;
-}
-
-function formatTournamentShootoutEntry(entry) {
-  const name = currentLanguage === "zh" ? translateTextToZh(entry.name) || entry.name : entry.name;
-
-  if (entry.role !== "goalkeeper") {
-    return name;
-  }
-
-  const club = currentLanguage === "zh" ? translateTextToZh(entry.club) || entry.club : entry.club;
-  if (!club) {
-    return currentLanguage === "zh" ? `门将${name}` : `goalkeeper ${name}`;
-  }
-
-  return currentLanguage === "zh" ? `${club}门将${name}` : `${club} goalkeeper ${name}`;
-}
-
-function formatTournamentPenaltyEdgeProfiles(team) {
-  const entries = getTournamentShootoutEntries(team);
-
-  if (!entries.length) {
-    return currentLanguage === "zh" ? "主要点球手" : "their main penalty takers";
-  }
-
-  const names = entries.map(formatTournamentShootoutEntry);
-  return currentLanguage === "zh" ? getLocalizedNameSeries(names) : getNameSeries(names);
-}
-
 function getTournamentOutcomeTeamReason(match, participants, side, percent, basis) {
   const team = participants?.[side]?.team;
   const otherSide = side === "home" ? "away" : "home";
@@ -13109,35 +11897,228 @@ function getTournamentOutcomeTeamReason(match, participants, side, percent, basi
 
   if (currentLanguage === "zh") {
     if (side === favoriteSide) {
-      return `${teamName}点球前取胜概率约${percent}%，依据球队评分和近期结果。`;
+      return `${teamName}常规时间取胜概率约为${percent}%。`;
     }
 
     return favoriteGap <= 5
-      ? `${teamName}点球前取胜概率约${percent}%。这场很接近，但${favoriteName}略占优势。`
-      : `${teamName}点球前取胜概率约${percent}%。仍有赢球路径，但${favoriteName}更被看好。`;
+      ? `${teamName}常规时间取胜概率约为${percent}%。比赛非常接近，但${favoriteName}略占优势。`
+      : `${teamName}常规时间取胜概率约为${percent}%。他们仍有机会，但${favoriteName}更被看好。`;
   }
 
   if (side === favoriteSide) {
-    return `${teamName} projects to win ${percent}% before penalties based on team rating and recent results.`;
+    return `${teamName} have a ${percent}% chance to win in regulation.`;
   }
 
   return favoriteGap <= 5
-    ? `${teamName} have a ${percent}% chance to win before penalties. This is close, but ${favoriteName} have the slight edge.`
-    : `${teamName} have a ${percent}% chance to win before penalties. They can still win, but ${favoriteName} are favored.`;
+    ? `${teamName} have a ${percent}% chance to win in regulation. This is close, but ${favoriteName} have the slight edge.`
+    : `${teamName} have a ${percent}% chance to win in regulation. They can still win, but ${favoriteName} are favored.`;
+}
+
+function getTournamentShootoutHistoryRecord(match, participants, side) {
+  const teamId = participants?.[side]?.team?.id;
+  const directOutlook = match?.shootoutOutlook;
+  if (
+    teamId &&
+    directOutlook?.homeTeamId === participants?.home?.team?.id &&
+    directOutlook?.awayTeamId === participants?.away?.team?.id
+  ) {
+    return directOutlook?.[side] || null;
+  }
+
+  const cutoffTime = new Date(match?.kickoffUtc || Number.POSITIVE_INFINITY).getTime();
+  let latest = null;
+  let latestCutoff = Number.NEGATIVE_INFINITY;
+  for (const fixture of fixtures) {
+    const outlook = fixture?.shootoutOutlook;
+    const outlookCutoff = new Date(outlook?.cutoffAt || fixture?.kickoffUtc || 0).getTime();
+    if (!outlook || !Number.isFinite(outlookCutoff) || outlookCutoff >= cutoffTime || outlookCutoff <= latestCutoff) {
+      continue;
+    }
+
+    if (outlook.homeTeamId === teamId) {
+      latest = outlook.home;
+      latestCutoff = outlookCutoff;
+    } else if (outlook.awayTeamId === teamId) {
+      latest = outlook.away;
+      latestCutoff = outlookCutoff;
+    }
+  }
+
+  return latest;
+}
+
+function getTournamentShootoutHistoryReason(match, participants) {
+  const homeTeam = participants?.home?.team;
+  const awayTeam = participants?.away?.team;
+  const home = getTournamentShootoutHistoryRecord(match, participants, "home");
+  const away = getTournamentShootoutHistoryRecord(match, participants, "away");
+  const homeWins = Number(home?.wins) || 0;
+  const awayWins = Number(away?.wins) || 0;
+  const homeAppearances = Number(home?.appearances) || 0;
+  const awayAppearances = Number(away?.appearances) || 0;
+  const homeName = getTournamentTeamDisplayName(homeTeam);
+  const awayName = getTournamentTeamDisplayName(awayTeam);
+
+  if (!homeAppearances && !awayAppearances) {
+    return currentLanguage === "zh"
+      ? `如果进入点球大战，这将是${homeName}与${awayName}首次参加世界杯点球大战。`
+      : `If it goes to penalties, it would be a first World Cup shootout for both ${homeName} and ${awayName}.`;
+  }
+
+  if (!homeAppearances || !awayAppearances) {
+    const experiencedSide = homeAppearances ? "home" : "away";
+    const experiencedName = experiencedSide === "home" ? homeName : awayName;
+    const newName = experiencedSide === "home" ? awayName : homeName;
+    const wins = experiencedSide === "home" ? homeWins : awayWins;
+    const appearances = experiencedSide === "home" ? homeAppearances : awayAppearances;
+
+    if (!wins) {
+      return currentLanguage === "zh"
+        ? `如果进入点球大战，${newName}将首次参赛；${experiencedName}此前${appearances}次世界杯点球大战仍未取胜。`
+        : `If it goes to penalties, it would be ${newName}'s first; ${experiencedName} are still seeking a win after ${appearances} World Cup shootout${appearances === 1 ? "" : "s"}.`;
+    }
+
+    return currentLanguage === "zh"
+      ? `如果进入点球大战，${experiencedName}拥有${appearances}次世界杯点球大战${wins}胜的经验；${newName}将首次参赛。`
+      : `If it goes to penalties, ${experiencedName} bring ${wins} win${wins === 1 ? "" : "s"} from ${appearances} World Cup shootout${appearances === 1 ? "" : "s"}; it would be ${newName}'s first.`;
+  }
+
+  if (!homeWins && !awayWins) {
+    return currentLanguage === "zh"
+      ? `如果进入点球大战，两队都将争取世界杯点球大战首胜：${homeName}此前${homeAppearances}次未胜，${awayName}${awayAppearances}次未胜。`
+      : `If it goes to penalties, both are chasing a first World Cup shootout win: ${homeName} have tried ${homeAppearances} time${homeAppearances === 1 ? "" : "s"}, ${awayName} ${awayAppearances}.`;
+  }
+
+  const homeRate = homeWins / homeAppearances;
+  const awayRate = awayWins / awayAppearances;
+  if (homeWins === awayWins && homeAppearances === awayAppearances) {
+    return currentLanguage === "zh"
+      ? `如果进入点球大战，${homeName}与${awayName}的世界杯点球大战记录相同，都是${homeAppearances}次${homeWins}胜。`
+      : `If it goes to penalties, ${homeName} and ${awayName} share a World Cup shootout record of ${homeWins} win${homeWins === 1 ? "" : "s"} in ${homeAppearances}.`;
+  }
+
+  const leanSide = homeRate === awayRate ? (homeAppearances > awayAppearances ? "home" : "away") : homeRate > awayRate ? "home" : "away";
+  const leanName = leanSide === "home" ? homeName : awayName;
+  const otherName = leanSide === "home" ? awayName : homeName;
+  const leanWins = leanSide === "home" ? homeWins : awayWins;
+  const leanAppearances = leanSide === "home" ? homeAppearances : awayAppearances;
+  const otherWins = leanSide === "home" ? awayWins : homeWins;
+  const otherAppearances = leanSide === "home" ? awayAppearances : homeAppearances;
+  const edgeType = homeRate === awayRate ? "experience" : "record";
+
+  return currentLanguage === "zh"
+    ? `如果进入点球大战，${leanName}可能略占${edgeType === "experience" ? "经验" : "历史战绩"}优势：世界杯点球大战${leanAppearances}次${leanWins}胜，${otherName}则是${otherAppearances}次${otherWins}胜。`
+    : `If it goes to penalties, ${leanName} may have a slight ${edgeType} edge: ${leanWins} win${leanWins === 1 ? "" : "s"} in ${leanAppearances} World Cup shootout${leanAppearances === 1 ? "" : "s"}, compared with ${otherWins} in ${otherAppearances} for ${otherName}.`;
+}
+
+function getTournamentSourcedShootoutReason(match, participants) {
+  const outlook = match?.shootoutOutlook;
+  const homeTeamId = participants?.home?.team?.id;
+  const awayTeamId = participants?.away?.team?.id;
+  if (
+    outlook?.method !== "sourced-shootout-evidence" ||
+    outlook.homeTeamId !== homeTeamId ||
+    outlook.awayTeamId !== awayTeamId
+  ) {
+    return "";
+  }
+
+  const evidence = Array.isArray(outlook.evidence) ? outlook.evidence : [];
+  const goalkeeperRecord = evidence.find((entry) => entry?.type === "goalkeeper-shootout-record");
+  const takerRecord = evidence.find((entry) => entry?.type === "taker-penalty-record");
+  if (goalkeeperRecord && takerRecord) {
+    const teamName = getTournamentTeamDisplayName(
+      outlook.leanTeamId === homeTeamId ? participants?.home?.team : participants?.away?.team
+    );
+    const goalkeeperName = currentLanguage === "zh"
+      ? translateTextToZh(goalkeeperRecord.player) || goalkeeperRecord.player
+      : goalkeeperRecord.player;
+    const takerName = currentLanguage === "zh"
+      ? translateTextToZh(takerRecord.player) || takerRecord.player
+      : String(takerRecord.player || "").split(" ").at(-1);
+    const conversion = Math.round((Number(takerRecord.scored) / Number(takerRecord.taken)) * 100);
+
+    return currentLanguage === "zh"
+      ? `如果进入点球大战，${teamName}可能略占优势：${goalkeeperName}面对${goalkeeperRecord.faced}次点球大战罚球扑出${goalkeeperRecord.saved}次，其中${goalkeeperRecord.highlightSaved}次来自2023年决赛；${takerName}职业生涯点球命中率为${conversion}%。`
+      : `If it goes to penalties, ${teamName} may have a slight edge: ${goalkeeperName} has saved ${goalkeeperRecord.saved} of ${goalkeeperRecord.faced} shootout kicks—${goalkeeperRecord.highlightSaved} in the 2023 final—and ${takerName} converts ${conversion}% of career penalties.`;
+  }
+
+  const teamRecord = evidence.find((entry) => entry?.type === "team-world-cup-shootout-record");
+  const unbeatenKeeper = evidence.find((entry) => entry?.type === "goalkeeper-unbeaten-national-shootouts");
+  if (teamRecord && unbeatenKeeper) {
+    const teamName = getTournamentTeamDisplayName(
+      outlook.leanTeamId === homeTeamId ? participants?.home?.team : participants?.away?.team
+    );
+    const goalkeeperName = currentLanguage === "zh"
+      ? translateTextToZh(unbeatenKeeper.player) || unbeatenKeeper.player
+      : unbeatenKeeper.player;
+    return currentLanguage === "zh"
+      ? `如果进入点球大战，${teamName}可能略占优势：他们在${teamRecord.appearances}次世界杯点球大战中赢下${teamRecord.wins}次，而${goalkeeperName}代表国家队参加点球大战从未失利。`
+      : `If it goes to penalties, ${teamName} may have a slight edge: they have won ${teamRecord.wins} of ${teamRecord.appearances} World Cup shootouts, and ${goalkeeperName} has never lost one for his country.`;
+  }
+
+  return "";
+}
+
+function getTournamentShootoutReason(match, participants) {
+  const sourcedReason = getTournamentSourcedShootoutReason(match, participants);
+  if (sourcedReason) {
+    return sourcedReason;
+  }
+
+  const outlook = match?.shootoutOutlook;
+  const matchesOutlookParticipants =
+    outlook?.homeTeamId === participants?.home?.team?.id &&
+    outlook?.awayTeamId === participants?.away?.team?.id;
+  if (matchesOutlookParticipants || participants?.home?.team?.id && participants?.away?.team?.id) {
+    return getTournamentShootoutHistoryReason(match, participants);
+  }
+
+  const forecast = match?.shootoutForecast;
+  const homeTeam = participants?.home?.team;
+  const awayTeam = participants?.away?.team;
+  const homePercent = Number(forecast?.home);
+  const awayPercent = Number(forecast?.away);
+  const matchesParticipants =
+    forecast?.homeTeamId === homeTeam?.id && forecast?.awayTeamId === awayTeam?.id;
+
+  if (!matchesParticipants || !Number.isFinite(homePercent) || !Number.isFinite(awayPercent)) {
+    return currentLanguage === "zh"
+      ? "若120分钟后仍战平，比赛将进入点球大战。"
+      : "If it is still tied after 120 minutes, the match goes to a penalty shootout.";
+  }
+
+  const homeName = getTournamentTeamDisplayName(homeTeam);
+  const awayName = getTournamentTeamDisplayName(awayTeam);
+
+  if (Math.abs(homePercent - awayPercent) < 4) {
+    return currentLanguage === "zh"
+      ? `若120分钟后仍战平，最新点球市场认为${homeName}与${awayName}之间没有明显优势。`
+      : `If it is still tied after 120 minutes, the shootout market sees no clear edge between ${homeName} and ${awayName}.`;
+  }
+
+  const edgeSide = homePercent > awayPercent ? "home" : "away";
+  const edgeName = getTournamentTeamDisplayName(participants?.[edgeSide]?.team);
+  const edgePercent = Math.round(Math.max(homePercent, awayPercent));
+
+  return currentLanguage === "zh"
+    ? `若120分钟后仍战平，最新点球市场认为${edgeName}略占优势，概率约为${edgePercent}%。`
+    : `If it is still tied after 120 minutes, the shootout market gives ${edgeName} a slight edge at ${edgePercent}%.`;
 }
 
 function getTournamentOutcomeTieReason(match, participants, percents, basis) {
-  const edgeSide = getTournamentPenaltyEdgeSide(participants, percents);
-  const edgeTeam = participants?.[edgeSide]?.team;
-  const edgeName = getTournamentTeamDisplayName(edgeTeam);
-  const edgeProfiles = formatTournamentPenaltyEdgeProfiles(edgeTeam);
   const tiePercent = clampPercent(Math.round(Number(percents?.tie)));
+  const isKnockout = Boolean(match?.stage && match.stage !== "group");
 
   if (currentLanguage === "zh") {
-    return `这场约有${tiePercent}%概率进入点球。若进入点球，${edgeName}凭借${edgeProfiles}更有优势。`;
+    return isKnockout
+      ? getTournamentShootoutReason(match, participants)
+      : `本场常规时间战平的概率约为${tiePercent}%。小组赛将以平局结束。`;
   }
 
-  return `There is a ${tiePercent}% chance of penalties. If so, ${edgeName} have the shootout edge through ${edgeProfiles}.`;
+  return isKnockout
+    ? getTournamentShootoutReason(match, participants)
+    : `There is a ${tiePercent}% chance the match is tied after regulation. Group matches end as a tie.`;
 }
 
 function cloneTournamentStandingStates(states) {
@@ -13932,7 +12913,7 @@ function renderTournamentOutcomePill(outcome) {
   const teamAttributes = outcome.team ? ` data-team-id="${escapeHtml(outcome.team.id)}"` : "";
   const labelHtml = outcome.team
     ? renderTournamentProbabilityLabel(outcome.team, `${percent}%`)
-    : `<span>${escapeHtml(`TIE ${percent}%`)}</span>`;
+    : `<span>${escapeHtml(`${currentLanguage === "zh" ? "平局" : "TIE"} ${percent}%`)}</span>`;
 
   return `<span class="knockout-likelihood is-${escapeHtml(tone)}" tabindex="0" aria-label="${escapeHtml(reason)}" data-tooltip="${escapeHtml(reason)}" data-outcome="${escapeHtml(outcome.key)}"${teamAttributes}>${labelHtml}</span>`;
 }
@@ -15569,8 +14550,8 @@ function getProjectionMethodHelp(projection) {
     return "Local estimate using FIFA rankings. Not betting odds.";
   }
 
-  if (projection?.method === "market-implied-consensus") {
-    return "Market consensus based on public odds. Not betting advice.";
+  if (["market-implied-consensus", "online-source-consensus", "online-source-forecast"].includes(projection?.method)) {
+    return "Forecast from online sources";
   }
 
   if (projection?.method === "historical-world-cup-form-baseline") {
@@ -15782,19 +14763,32 @@ function renderLiveScoreHeading(match) {
   return `<h3 class="live-score-heading"${ariaLabel}><span>${escapeHtml(headingText)}</span>${positionBadge}</h3>`;
 }
 
-function getResultHighlights(match) {
+function getResultHighlights(match, options = {}) {
+  const language = normalizeLanguage(options.language) || currentLanguage;
+  const localizedStoryBullets =
+    language === "zh" && Array.isArray(match.resultStoryBulletsZh)
+      ? match.resultStoryBulletsZh.filter((highlight) => typeof highlight === "string" && highlight.trim())
+      : [];
   const storyBullets = Array.isArray(match.resultStoryBullets)
     ? match.resultStoryBullets.filter((highlight) => typeof highlight === "string" && highlight.trim())
     : [];
+  const localizedAuthoredHighlights =
+    language === "zh" && Array.isArray(match.resultHighlightsZh)
+      ? match.resultHighlightsZh.filter((highlight) => typeof highlight === "string" && highlight.trim())
+      : [];
   const authoredHighlights = Array.isArray(match.resultHighlights)
     ? match.resultHighlights.filter((highlight) => typeof highlight === "string" && highlight.trim())
     : [];
+
+  if (localizedStoryBullets.length) {
+    return localizedStoryBullets;
+  }
 
   if (storyBullets.length) {
     return storyBullets;
   }
 
-  return authoredHighlights;
+  return localizedAuthoredHighlights.length ? localizedAuthoredHighlights : authoredHighlights;
 }
 
 function stripResultHighlightMarker(text) {
@@ -15821,9 +14815,9 @@ function isResultImpactHighlight(highlight) {
   );
 }
 
-function getResultStoryHighlights(match) {
+function getResultStoryHighlights(match, options = {}) {
   const seen = new Set();
-  return getResultHighlights(match)
+  return getResultHighlights(match, options)
     .filter((highlight) => typeof highlight === "string" && highlight.trim())
     .filter((highlight) => !isResultScorelineHighlight(highlight) && !isResultImpactHighlight(highlight))
     .filter((highlight) => {
@@ -16922,7 +15916,7 @@ function renderResultHeading(match) {
 
 function renderResultNotes(match) {
   const scoringHighlight = renderScoringDetailsHighlight(match);
-  const canonicalHighlights = getResultStoryHighlights(match);
+  const canonicalHighlights = getResultStoryHighlights(match, { language: "en" });
   const highlights = getResultDisplayHighlights(match);
   const matchEvents = getFixtureLineupPreview(match) ? "" : renderMatchEventsSummary(match);
 
@@ -18003,7 +16997,7 @@ function getLocalizedLineupCoachAgeLine(coach, referenceDate = new Date()) {
     return "";
   }
 
-  return currentLanguage === "zh" ? `年龄 ${age}` : `Age ${age}`;
+  return currentLanguage === "zh" ? `${age}岁` : `Age ${age}`;
 }
 
 function createMockLineupTeam(teamId) {
@@ -18749,7 +17743,7 @@ function getLineupDisplayY(y) {
     return value;
   }
 
-  const targetTop = 7.2;
+  const targetTop = 15;
   const targetBottom = 92.3;
   const ratio = clampNumber((value - sourceTop) / (sourceBottom - sourceTop), 0, 1);
   return Math.round((targetTop + ratio * (targetBottom - targetTop)) * 10) / 10;
@@ -19716,6 +18710,7 @@ function animateLineupMarkerSwap(marker, nextMarkup) {
 
   const shouldReduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
   if (shouldReduceMotion) {
+    clearActivePlayerHover();
     marker.outerHTML = nextMarkup;
     window.requestAnimationFrame(positionPlayerCards);
     return;
@@ -19723,6 +18718,7 @@ function animateLineupMarkerSwap(marker, nextMarkup) {
 
   marker.classList.add("is-substitution-exiting");
   window.setTimeout(() => {
+    clearActivePlayerHover();
     marker.insertAdjacentHTML("afterend", nextMarkup);
     const nextMarker = marker.nextElementSibling;
     marker.remove();
@@ -19804,7 +18800,7 @@ function handleLineupSubstitutionTogglePointerDown(event) {
   event.preventDefault();
   event.stopPropagation();
   event.stopImmediatePropagation?.();
-  suppressPlayerCardClicksBriefly();
+  suppressPlayerCardClicksBriefly(800);
   return toggleLineupSubstitutionPreviewFromButton(button);
 }
 
@@ -19888,6 +18884,22 @@ function getKeyInformationCopy(info) {
   return "";
 }
 
+function getSourceLocalizedKeyInformationCopy(info, language = currentLanguage) {
+  if (!info || typeof info !== "object" || Array.isArray(info)) {
+    return "";
+  }
+
+  const languageKeys = language === "zh" ? ["zh", "zhHans", "zh-Hans"] : ["en"];
+  for (const key of languageKeys) {
+    const value = getKeyInformationCopy(info[key]);
+    if (value) {
+      return value;
+    }
+  }
+
+  return "";
+}
+
 function getNameSeries(names) {
   if (names.length <= 1) {
     return names.join("");
@@ -19915,33 +18927,36 @@ function buildLocalizedKeyInformationFallback(team, players = [], opponent = nul
   const playerNames = players
     .map((player) => getLocalizedPlayerDisplayName(player))
     .filter(Boolean);
-  const tags = getTeamStyleTags(team).map(localizeText).filter(Boolean);
-  const opponentTags = opponent ? getTeamStyleTags(opponent).map(localizeText).filter(Boolean) : [];
-  const tagline = team?.tagline ? localizeText(team.tagline) : "";
+  const tags = getTeamStyleTags(team).map(localizeText).filter((value) => value && !/[A-Za-z]/.test(value));
+  const opponentTags = opponent
+    ? getTeamStyleTags(opponent).map(localizeText).filter((value) => value && !/[A-Za-z]/.test(value))
+    : [];
+  const localizedTagline = team?.tagline ? localizeText(team.tagline) : "";
+  const tagline = localizedTagline && !/[A-Za-z]/.test(localizedTagline) ? localizedTagline : "";
   const mainTag = tags[0] || tagline || "自身节奏";
   const opponentTag = opponentTags[0] || "对方节奏";
   const playerText = playerNames.length
-    ? `关键球员：${getLocalizedNameSeries(playerNames)}。`
-    : "关键球员信息尚未载入。";
-  const matchupText = opponentName
-    ? `对阵${opponentName}，重点看${teamName}能否把${mainTag}转化为稳定机会。`
+    ? `最值得关注的是${getLocalizedNameSeries(playerNames)}。`
     : "";
-  const styleText = tags.length ? `风格关键词：${tags.join("、")}。` : "";
-  const taglineText = tagline ? `球队特点：${tagline}。` : "";
-  const riskText = opponentName
-    ? `风险点：${opponentName}的${opponentTag}可能打断这个节奏。`
+  const identityText = tagline || mainTag;
+  const matchupText = opponentName
+    ? `面对${opponentName}，重点看${teamName}能否用${mainTag}创造机会，同时限制对手的${opponentTag}。`
     : "";
 
-  return `${teamName}看点。${playerText}${matchupText}${taglineText}${styleText}${riskText}`;
+  return `${teamName}的基本思路是${identityText}。${playerText}${matchupText}`;
 }
 
 function getKeyInformationText(team, info, players = [], opponent = null) {
-  const specificCopy = getKeyInformationCopy(info);
+  if (currentLanguage === "zh") {
+    const sourceCopy = getSourceLocalizedKeyInformationCopy(info, "zh");
+    return sourceCopy
+      ? localizeKnownDisplayEntities(sourceCopy)
+      : buildLocalizedKeyInformationFallback(team, players, opponent);
+  }
+
+  const specificCopy = getSourceLocalizedKeyInformationCopy(info, "en") || getKeyInformationCopy(info);
   if (specificCopy) {
-    const localizedCopy = localizeText(specificCopy);
-    return currentLanguage === "zh" && localizedCopy === specificCopy
-      ? buildLocalizedKeyInformationFallback(team, players, opponent)
-      : localizedCopy;
+    return specificCopy;
   }
 
   const names = players
@@ -19958,10 +18973,6 @@ function getKeyInformationText(team, info, players = [], opponent = null) {
         ? "Key information will be populated once this matchup is confirmed."
         : "Key information will be populated based on the opponent."
     );
-  }
-
-  if (currentLanguage === "zh") {
-    return buildLocalizedKeyInformationFallback(team, players, opponent);
   }
 
   return `${team.name}'s key pieces here are ${getNameSeries(names)}. ${notes.join(" ")}`;
@@ -20569,6 +19580,8 @@ function exposeLocalPlayerCardLocalizationTestHooks() {
   window.__worldCupTestHooks = {
     ...(window.__worldCupTestHooks || {}),
     localization: {
+      buildLocalizedKeyInformationFallback,
+      getResultHighlights,
       translateTextToZh
     },
     playerCards: {
@@ -20629,12 +19642,12 @@ function getLocalizedPlayerAgeLine(player, profile) {
   if (isHistoricalPlayerCard(player)) {
     const tournamentYear = Number(player?.tournamentYear || player?.year);
     if (Number.isInteger(tournamentYear) && tournamentYear > 0) {
-      return currentLanguage === "zh" ? `${tournamentYear}年年龄 ${age}` : `${tournamentYear} age ${age}`;
+      return currentLanguage === "zh" ? `${tournamentYear}年时${age}岁` : `${tournamentYear} age ${age}`;
     }
-    return currentLanguage === "zh" ? `当时年龄 ${age}` : `Age then ${age}`;
+    return currentLanguage === "zh" ? `当时${age}岁` : `Age then ${age}`;
   }
 
-  return currentLanguage === "zh" ? `年龄 ${age}` : `Age ${age}`;
+  return currentLanguage === "zh" ? `${age}岁` : `Age ${age}`;
 }
 
 function getPlayerMarketValueInfo(profile) {
@@ -20933,8 +19946,14 @@ function getPlayerSkills(player, profile = getPlayerProfile(player)) {
   const position = formatPlayerPosition(getPlayerPositionValue(player, profile));
   const fallbackSkills = [];
 
-  if (position) {
-    fallbackSkills.push(position);
+  if (/goalkeeper/i.test(position)) {
+    fallbackSkills.push("Shot stopping", "Aerial command");
+  } else if (/defender|back/i.test(position)) {
+    fallbackSkills.push("Defensive control", "Ball winning");
+  } else if (/midfielder/i.test(position)) {
+    fallbackSkills.push("Ball winning", "Creative passing");
+  } else if (/forward|winger|striker/i.test(position)) {
+    fallbackSkills.push("Forward press", "Box finishing");
   }
   if (/scored|goal|finisher/i.test(note)) {
     fallbackSkills.push("Goal threat");
@@ -21032,7 +20051,7 @@ function getLocalizedPlayerNote(player, profile = getPlayerProfile(player)) {
   if (currentLanguage === "zh" && isHistoricalPlayerCard(player)) {
     const authoredHistoricalNote = profile?.styleNoteZh || profile?.noteZh;
     if (authoredHistoricalNote) {
-      return localizeKnownPlayerNames(authoredHistoricalNote);
+      return localizeKnownDisplayEntities(authoredHistoricalNote);
     }
 
     return getHistoricalPlayerNoteZh(player, profile);
@@ -21044,7 +20063,7 @@ function getLocalizedPlayerNote(player, profile = getPlayerProfile(player)) {
   }
 
   if (currentLanguage === "zh" && profile?.noteZh) {
-    return localizeKnownPlayerNames(profile.noteZh);
+    return localizeKnownDisplayEntities(profile.noteZh);
   }
 
   const localizedNote = localizeText(note);

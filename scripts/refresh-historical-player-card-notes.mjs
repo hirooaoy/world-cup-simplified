@@ -319,6 +319,31 @@ function lowerFirst(value) {
   return text ? `${text[0].toLocaleLowerCase("en-US")}${text.slice(1)}` : "";
 }
 
+function stableHash(value) {
+  let hash = 0;
+  for (const char of String(value || "")) {
+    hash = (hash * 31 + char.charCodeAt(0)) >>> 0;
+  }
+  return hash;
+}
+
+function chooseZhVariant(profile, bucket, variants) {
+  const seed = `${profile.profileKey || profile.name || "player"}:${bucket}`;
+  return variants[stableHash(seed) % variants.length]();
+}
+
+const GENERIC_ROLE_SKILL_REPLACEMENTS = new Map([
+  ["Goalkeeper", "Shot stopping"],
+  ["Defender", "Physical duels"],
+  ["Midfielder", "Tempo control"],
+  ["Forward", "Runs in behind"]
+]);
+
+function refinedSkills(profile) {
+  const skills = Array.isArray(profile.skills) ? profile.skills : [];
+  return [...new Set(skills.map((skill) => GENERIC_ROLE_SKILL_REPLACEMENTS.get(skill) || skill).filter(Boolean))];
+}
+
 function listItems(items, limit = 2) {
   const clean = [...new Set(items.filter(Boolean))].slice(0, limit);
   if (!clean.length) return "";
@@ -418,7 +443,7 @@ function roundPhraseZh(round = "") {
   if (/quarterfinals|quarter-finals/i.test(round)) return "四分之一决赛";
   if (/round of 16/i.test(round)) return "十六强赛";
   if (/match for third place|third-place match|third place match/i.test(round)) return "季军赛";
-  if (/third-place play-off|third place play-off/i.test(round)) return "季军附加赛";
+  if (/third-place play-off|third place play-off/i.test(round)) return "季军赛";
   return "历史比赛";
 }
 
@@ -628,18 +653,38 @@ function buildGoalStyleNoteZh(profile, fact) {
   const evidence = goalEvidenceSentenceZh(profile, fact);
 
   if (hasFinalGoal) {
-    return `他的${year}卡片属于${team}的决赛舞台。${evidence}`;
+    return chooseZhVariant(profile, "final-goal", [
+      () => `决赛是他在${team}${year}年世界杯最值得回看的舞台。${evidence}`,
+      () => `${team}走到${year}年世界杯决赛时，他也留下了自己的进球印记。${evidence}`,
+      () => `他在${team}${year}年世界杯的决赛阶段抓住了机会。${evidence}`
+    ]);
   }
   if (total >= 5) {
-    return `他是${team}在${year}世界杯的得分故事。${evidence}`;
+    return chooseZhVariant(profile, "high-scoring", [
+      () => `他是${team}${year}年世界杯最重要的得分手之一。${evidence}`,
+      () => `${team}${year}年世界杯的进攻很大程度依赖他的终结。${evidence}`,
+      () => `对手很难忽略他在${team}${year}年世界杯的持续得分威胁。${evidence}`
+    ]);
   }
   if (hasKnockoutGoal) {
-    return `他给${team}的${year}淘汰赛留下了一个关键时刻。${evidence}`;
+    return chooseZhVariant(profile, "knockout-goal", [
+      () => `淘汰赛是他在${team}${year}年世界杯最值得回看的部分。${evidence}`,
+      () => `${team}进入${year}年世界杯淘汰赛后，他依然能找到射门空间。${evidence}`,
+      () => `他在${team}${year}年世界杯的淘汰赛阶段抓住了关键机会。${evidence}`
+    ]);
   }
   if (total >= 2) {
-    return `只要机会打开，他就让${team}${year}的进攻变得有生命力。${evidence}`;
+    return chooseZhVariant(profile, "multiple-goals", [
+      () => `他让${team}${year}年世界杯的进攻多了一个稳定得分点。${evidence}`,
+      () => `对手不能把他当作一次性的威胁；他在${team}${year}年世界杯不止一次完成终结。${evidence}`,
+      () => `他多次把${team}${year}年世界杯的进攻变成进球。${evidence}`
+    ]);
   }
-  return `他给${team}留下了${year}世界杯的一个具体瞬间。${evidence}`;
+  return chooseZhVariant(profile, "single-goal", [
+    () => `他为${team}${year}年世界杯留下一粒有明确比赛背景的进球。${evidence}`,
+    () => `他的${team}${year}年世界杯记忆里有一个值得回看的终结瞬间。${evidence}`,
+    () => `${team}${year}年世界杯的进球名单里有他的名字。${evidence}`
+  ]);
 }
 
 function buildAppearanceStyleNote(profile, fact) {
@@ -666,20 +711,35 @@ function buildAppearanceStyleNote(profile, fact) {
 function buildAppearanceStyleNoteZh(profile, fact) {
   const team = teamZh(profile.teamName);
   const year = profile.tournamentYear;
-  const role = roleLabel(profile.position);
-  const structure = roleStructureZh(role);
+  const role = roleLabelZh(profile.position);
   const appearance = appearanceSentenceZh(profile, fact);
 
   if (isStarter(profile, fact)) {
-    return `他是${team}${year}${structure}的一部分。${appearance}`;
+    return chooseZhVariant(profile, "starter", [
+      () => `他是${team}${year}年世界杯常用的${role}。${appearance}`,
+      () => `${team}在${year}年世界杯的重要比赛里使用了这名${role}。${appearance}`,
+      () => `作为${role}，他进入了${team}${year}年世界杯的主要比赛安排。${appearance}`
+    ]);
   }
   if (fact.keyEvents.length > 1) {
-    return `他让${team}${year}${structure}的轮廓更完整。${appearance}`;
+    return chooseZhVariant(profile, "rotation", [
+      () => `他为${team}${year}年世界杯提供${role}位置的轮换选择。${appearance}`,
+      () => `${team}在${year}年世界杯多次用到这名${role}。${appearance}`,
+      () => `他补充了${team}${year}年世界杯在${role}位置上的阵容深度。${appearance}`
+    ]);
   }
   if (fact.keyEvents.length === 1) {
-    return `他给${team}${year}${structure}留下一个具体比赛点。${appearance}`;
+    return chooseZhVariant(profile, "one-appearance", [
+      () => `他在${team}${year}年世界杯有一场明确的重点比赛记录。${appearance}`,
+      () => `这名${role}在${team}${year}年世界杯留下了一次具体出场记录。${appearance}`,
+      () => `他的${team}${year}年世界杯档案里有一场可回看的比赛。${appearance}`
+    ]);
   }
-  return `他是${team}${year}世界杯阵容图景的一部分。这张卡帮助读者把阵容放到更熟悉的名字旁边。`;
+  return chooseZhVariant(profile, "squad-context", [
+    () => `他是${team}${year}年世界杯阵容中的${role}，帮助补全这支球队的人员轮廓。`,
+    () => `${team}${year}年世界杯名单里包括这名${role}。这张卡让当届阵容更容易理解。`,
+    () => `作为${role}，他属于${team}${year}年世界杯阵容的一员。`
+  ]);
 }
 
 function buildStyleNote(profile, fact) {
@@ -718,9 +778,10 @@ function buildNoteZh(profile, fact) {
   const role = roleLabelZh(profile.position);
   const goals = Number(profile.goals || 0);
   const keyMatches = Number(profile.keyMatchCount || fact.keyEvents.length || 0);
-  const goalText = goals > 0 ? ` 世界杯进球${goals}个。` : "";
-  const matchText = keyMatches > 0 ? ` 出现在${keyMatches}场重点比赛卡片中。` : "";
-  return `${team}${year}世界杯${role}。${goalText}${matchText}`.replace(/\s+/g, " ").trim();
+  const roleText = role === "球员" ? "具体位置未细分" : `位置是${role}`;
+  const goalText = goals > 0 ? `本届打进${goals}球。` : "";
+  const matchText = keyMatches > 0 ? `本站收录了他${keyMatches}场重点比赛。` : "";
+  return `他在${year}年世界杯代表${team}，${roleText}。${goalText}${matchText}`.replace(/\s+/g, " ").trim();
 }
 
 function cleanNote(note) {
@@ -798,6 +859,7 @@ function addFixtureFacts(facts, fixture) {
 }
 
 const dryRun = hasArg("dry-run");
+const zhOnly = hasArg("zh-only");
 const [profilesData, historyData] = await Promise.all([readJson(profilesPath), readJson(historyPath)]);
 const profiles = profilesData.profiles || {};
 const requestedYears = parseYears(getArgValue("years"));
@@ -813,15 +875,25 @@ for (const fixture of historyData.fixtures || []) {
 let updated = 0;
 for (const fact of facts.values()) {
   const profile = fact.profile;
-  const styleNote = cleanNote(buildStyleNote(profile, fact));
+  const styleNote = zhOnly ? profile.styleNote : cleanNote(buildStyleNote(profile, fact));
   const styleNoteZh = cleanNoteZh(buildStyleNoteZh(profile, fact));
-  const note = cleanNote(buildNote(profile, fact));
+  const note = zhOnly ? profile.note : cleanNote(buildNote(profile, fact));
   const noteZh = cleanNoteZh(buildNoteZh(profile, fact));
-  if (profile.styleNote !== styleNote || profile.styleNoteZh !== styleNoteZh || profile.note !== note || profile.noteZh !== noteZh) {
-    profile.styleNote = styleNote;
+  const skills = refinedSkills(profile);
+  if (
+    profile.styleNote !== styleNote ||
+    profile.styleNoteZh !== styleNoteZh ||
+    profile.note !== note ||
+    profile.noteZh !== noteZh ||
+    JSON.stringify(profile.skills || []) !== JSON.stringify(skills)
+  ) {
+    if (!zhOnly) {
+      profile.styleNote = styleNote;
+      profile.note = note;
+    }
     profile.styleNoteZh = styleNoteZh;
-    profile.note = note;
     profile.noteZh = noteZh;
+    profile.skills = skills;
     updated += 1;
   }
 }

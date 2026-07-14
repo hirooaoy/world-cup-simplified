@@ -7,6 +7,7 @@
   "scripts": {
     "audit": "node scripts/audit-data.mjs",
     "audit:copy": "node scripts/audit-matchup-copy.mjs",
+    "audit:zh": "node scripts/audit-zh-semantics.mjs",
     "audit:schedule": "node scripts/audit-fifa-schedule.mjs",
     "history:goals": "node scripts/sync-historical-goal-events.mjs",
     "import:history": "node scripts/import-world-cup-history.mjs",
@@ -19,6 +20,7 @@
     "matchday:update": "node scripts/matchday-update.mjs",
     "matchday:readiness": "node scripts/matchday-readiness.mjs",
     "projections": "node scripts/populate-projections.mjs",
+    "shootout-outlooks": "node scripts/populate-shootout-outlooks.mjs",
     "profiles": "node scripts/populate-player-profiles.mjs",
     "coach-profiles": "node scripts/populate-coach-profiles.mjs",
     "profiles:country": "node scripts/profile-country-workflow.mjs",
@@ -53,7 +55,7 @@
     "smoke:lineup-layouts": "node scripts/smoke-lineup-layout-sources.mjs",
     "sync:fifa": "node scripts/sync-fifa-results.mjs",
     "sync:fifa:pr": "node scripts/sync-fifa-results.mjs --skip-unchanged",
-    "test": "node scripts/validate-data.mjs && node scripts/audit-matchup-copy.mjs && node scripts/audit-data.mjs && node scripts/audit-result-enrichment.mjs && node scripts/audit-player-card-coverage.mjs && node scripts/smoke-lineup-prediction-engine.mjs && node scripts/smoke-live-match-phase.mjs && node scripts/smoke-live-lineups.mjs && node scripts/smoke-live-lineup-rendering.mjs && node scripts/ui-smoke.mjs",
+    "test": "node scripts/validate-data.mjs && node scripts/audit-matchup-copy.mjs && node scripts/audit-zh-semantics.mjs && node scripts/audit-data.mjs && node scripts/audit-result-enrichment.mjs && node scripts/audit-player-card-coverage.mjs && node scripts/smoke-lineup-prediction-engine.mjs && node scripts/smoke-live-match-phase.mjs && node scripts/smoke-live-lineups.mjs && node scripts/smoke-live-lineup-rendering.mjs && node scripts/ui-smoke.mjs",
     "validate": "node scripts/validate-data.mjs",
     "release-notes:check": "node scripts/validate-release-notes.mjs",
     "validate:profiles": "node scripts/validate-with-profile-refresh.mjs"

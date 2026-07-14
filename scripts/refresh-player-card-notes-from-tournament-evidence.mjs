@@ -12,6 +12,57 @@ const args = process.argv.slice(2);
 
 const QF_TEAMS = new Set(["FRA", "MAR", "ESP", "BEL", "NOR", "ENG", "ARG", "SUI"]);
 
+const TEAM_NAME_ZH_BY_ID = new Map([
+  ["ALG", "阿尔及利亚"],
+  ["ARG", "阿根廷"],
+  ["AUS", "澳大利亚"],
+  ["AUT", "奥地利"],
+  ["BEL", "比利时"],
+  ["BIH", "波斯尼亚和黑塞哥维那"],
+  ["BRA", "巴西"],
+  ["CAN", "加拿大"],
+  ["CIV", "科特迪瓦"],
+  ["COD", "刚果民主共和国"],
+  ["COL", "哥伦比亚"],
+  ["CPV", "佛得角"],
+  ["CRO", "克罗地亚"],
+  ["CUW", "库拉索"],
+  ["CZE", "捷克"],
+  ["ECU", "厄瓜多尔"],
+  ["EGY", "埃及"],
+  ["ENG", "英格兰"],
+  ["ESP", "西班牙"],
+  ["FRA", "法国"],
+  ["GER", "德国"],
+  ["GHA", "加纳"],
+  ["HAI", "海地"],
+  ["IRN", "伊朗"],
+  ["IRQ", "伊拉克"],
+  ["JOR", "约旦"],
+  ["JPN", "日本"],
+  ["KOR", "韩国"],
+  ["KSA", "沙特阿拉伯"],
+  ["MAR", "摩洛哥"],
+  ["MEX", "墨西哥"],
+  ["NED", "荷兰"],
+  ["NOR", "挪威"],
+  ["NZL", "新西兰"],
+  ["PAN", "巴拿马"],
+  ["PAR", "巴拉圭"],
+  ["POR", "葡萄牙"],
+  ["QAT", "卡塔尔"],
+  ["RSA", "南非"],
+  ["SCO", "苏格兰"],
+  ["SEN", "塞内加尔"],
+  ["SUI", "瑞士"],
+  ["SWE", "瑞典"],
+  ["TUN", "突尼斯"],
+  ["TUR", "土耳其"],
+  ["URU", "乌拉圭"],
+  ["USA", "美国"],
+  ["UZB", "乌兹别克斯坦"]
+]);
+
 function getArgValue(name) {
   const flag = `--${name}=`;
   const arg = args.find((item) => item.startsWith(flag));
@@ -20,6 +71,10 @@ function getArgValue(name) {
 
 function hasArg(name) {
   return args.includes(`--${name}`) || args.some((item) => item.startsWith(`--${name}=`));
+}
+
+function teamNameZh(teamId, fallback = "") {
+  return TEAM_NAME_ZH_BY_ID.get(String(teamId || "").toUpperCase()) || String(fallback || "").trim() || "球队";
 }
 
 function parseList(value) {
@@ -515,7 +570,7 @@ function englishNote(profileName, profile, fact, teamsById) {
 }
 
 function chineseNote(profileName, profile, fact) {
-  const team = fact.teamName;
+  const team = teamNameZh(fact.teamId, fact.teamName);
   const group = roleGroup(profile, fact);
   const goals = fact.goals || [];
   const assists = fact.assists || [];
@@ -526,44 +581,44 @@ function chineseNote(profileName, profile, fact) {
 
   if (goals.length >= 2 && assists.length) {
     return note("goals-assists", [
-      ({ team }) => `他已经用进球和助攻塑造了${team}的这届世界杯。注意他的第一脚触球之后，下一步动作来得有多快。`,
-      ({ team }) => `他这届世界杯已经同时给${team}带来终结和传球。防守者不能只防他的一种选择。`,
-      ({ team }) => `他已经把进球和助攻都放进了${team}的赛事故事里。看点是第一脚之后，第二个动作有多快。`
+      ({ team }) => `他已经用进球和助攻影响了${team}的这届世界杯。注意第一脚触球之后，他能多快做出下一步选择。`,
+      ({ team }) => `他这届世界杯既为${team}进球，也为队友创造机会。防守者不能只防他的一种选择。`,
+      ({ team }) => `他已经为${team}贡献进球和助攻。看点是第一脚之后，第二个动作有多快。`
     ]);
   }
   if (goals.length >= 2) {
     return note("multi-goal", [
-      ({ team }) => `他已经是${team}这届世界杯的真实得分故事之一。他的危险在于防守者还没处理完第一个问题，他已经到位。`,
+      ({ team }) => `他已经成为${team}这届世界杯的重要得分点。防守者还没落好位置时，他往往已经到位。`,
       ({ team }) => `他已经多次为${team}把机会变成进球。看他需要的空间有多小。`,
-      ({ team }) => `他让${team}拥有一个必须被惦记的得分点。每个松散球都可能突然变重。`
+      ({ team }) => `他是${team}必须优先寻找的得分点。禁区里的二点球也可能被他变成射门。`
     ]);
   }
   if (goals.length === 1 && assists.length) {
     return note("goal-assist", [
       () => `他在这段征程中既进球也创造机会。同一次跑动，可能变成射门，也可能变成射门前的一脚传球。`,
-      ({ team }) => `他这届世界杯已经为${team}贡献进球和传球。防守者必须同时判断射门和分球。`,
-      ({ team }) => `他给${team}展示了进攻工作的两面。一脚拉开防守，下一脚就可能决定机会。`
+      ({ team }) => `他这届世界杯已经为${team}贡献进球和助攻。防守者必须同时判断射门和分球。`,
+      ({ team }) => `他既能为${team}终结机会，也能为队友创造机会。一脚拉开防守，下一脚就可能决定进攻。`
     ]);
   }
   if (goals.length === 1) {
     return note("one-goal", [
       () => `他这届世界杯已经有进球。他的看点是在比赛重新稳定前，先找到属于自己的那个瞬间。`,
-      ({ team }) => `他已经为${team}进入这届世界杯的进球名单。一个终结会改变对手下一次防他的方式。`,
-      () => `他已经把一次世界杯机会变成进球。接下来要看防守者会不会开始多给他一步空间。`,
+      ({ team }) => `他已经为${team}攻入一球。一次终结会改变对手下一次防他的方式。`,
+      () => `他已经把一次世界杯机会变成进球。接下来要看防守者会不会因此贴得更紧。`,
       () => `他的世界杯已经有了进球。下一次机会也许仍来自阵型重新站稳前的那一小段时间。`
     ]);
   }
   if (assists.length >= 2) {
     return note("multi-assist", [
-      ({ team }) => `他已经多次为${team}送出进球前的传球。他最好的时刻，常常来自防线还没准备好时的那一脚。`,
+      ({ team }) => `他已经多次为${team}送出助攻。他最好的时刻，常常来自防线还没准备好时的那一脚传球。`,
       ({ team }) => `他已经多次帮${team}制造进球。看的是明显机会出现前的那脚传球。`,
-      ({ team }) => `他这届赛事的价值在于供给${team}的进攻。他能在防线移动还没完成时看见跑动。`
+      ({ team }) => `他这届赛事的价值在于为${team}组织进攻。他能在防线移动还没完成时看见队友的跑动。`
     ]);
   }
   if (assists.length === 1) {
     return note("one-assist", [
-      ({ team }) => `他这届世界杯已经为${team}创造过进球。注意他出球的时机，因为那一脚传球往往比带球更重要。`,
-      ({ team }) => `他已经为${team}送出一次进球前的传球。重点是机会真正显眼前的那次触球。`,
+      ({ team }) => `他这届世界杯已经为${team}送出助攻。注意出球时机，因为那一脚传球往往比继续带球更重要。`,
+      ({ team }) => `他已经为${team}送出一次助攻。重点是明显机会出现前的那次触球。`,
       ({ team }) => `他已经帮${team}制造过进球。价值在于防线还在移动时，选对出球瞬间。`,
       ({ team }) => `他已经参与了${team}的一粒世界杯进球。那脚传球的意义，是在防守者完全转身前到达。`
     ]);
@@ -573,66 +628,66 @@ function chineseNote(profileName, profile, fact) {
     return regular
       ? note("gk-regular", [
           ({ team }) => `他是${team}这段征程中的门将。价值在于让禁区保持冷静，并让下一次进攻能干净开始。`,
-          ({ team }) => `他给${team}提供从后场开始的冷静第一步。看他如何把扑救或摘球变成重新组织。`,
-          ({ team }) => `他承担了${team}的门将时间。重点是稳手、清楚开球，以及让身前后卫不用慌。`,
-          ({ team }) => `他是${team}防守结构最后的声音。压力停在禁区时，他要让下一步动作简单下来。`
+          ({ team }) => `他是${team}后场组织的第一步。看他如何把扑救或摘球变成一次稳妥的重新组织。`,
+          ({ team }) => `他在${team}多次出任门将。重点看接球是否稳妥、开球是否清楚，以及如何指挥身前防线。`,
+          ({ team }) => `他是${team}指挥防线的最后一道声音。对手持续施压时，他要让禁区里的每个决定更简单。`
         ])
       : note("gk-cover", [
-          ({ team }) => `他是${team}的门将保障。角色是随时准备好扑救、重新开球，并在突然需要他时不慌。`,
+          ({ team }) => `他是${team}的替补门将。任务是随时准备好扑救和开球，并在突然登场时保持冷静。`,
           ({ team }) => `他给${team}保留另一个门将选择。真正需要他时，重点可能就是一次大扑救。`,
-          ({ team }) => `他在${team}首发门将身后等待，但这个角色不是装饰。他要随时处理传中、开球和冷启动。`,
-          ({ team }) => `他是${team}门线上的安全网。这个工作说起来简单，做起来很难：冷着上场，并让禁区安静。`
+          ({ team }) => `他在${team}首发门将身后等待，但这个角色不是装饰。他要随时处理传中、开球，并在替补登场后马上进入节奏。`,
+          ({ team }) => `他是${team}门线上的后备选择。临时登场后，也要尽快让禁区恢复秩序。`
         ]);
   }
   if (group === "defender") {
     return regular
       ? note("defender-regular", [
-          ({ team }) => `他是${team}主要防守结构的一部分。他把第一下对抗处理干净，避免球队下一阶段只能追着球跑。`,
-          ({ team }) => `他是${team}无球答案的一部分。第一个跑动被拖慢，整体阵型才不容易散。`,
-          ({ team }) => `他给${team}后防线一个稳定零件。看的是那些小选择：上抢、站住，还是先封线路。`,
-          ({ team }) => `他在${team}体系里做的是安静工作。他让对手的进攻不容易变成混乱。`
+          ({ team }) => `他是${team}主力防守体系的一员。他要处理好第一下对抗，避免球队随后只能追着球跑。`,
+          ({ team }) => `他是${team}无球防守的重要一环。先拖慢第一个跑动，整体阵型才不容易散。`,
+          ({ team }) => `他是${team}后防线的稳定成员。看的是那些小选择：上抢、站住，还是先封住传球线路。`,
+          ({ team }) => `他在${team}体系里做的是不显眼但重要的工作，让对手的进攻不容易制造混乱。`
         ])
       : note("defender-cover", [
-          ({ team }) => `他是${team}艰难时间段的防守深度。他要赢下第一下接触，并让下一脚传球简单起来。`,
-          ({ team }) => `他是${team}在比赛变窄时可以使用的后卫。任务是第一下接触、清楚解围、简单出球。`,
-          ({ team }) => `他给${team}那些靠胆量守住的分钟提供保障。一次扎实对抗就能让整条线冷静下来。`,
-          ({ team }) => `他是${team}后防线的保险。卡片不华丽：赢球、稳传、重新站好。`
+          ({ team }) => `他是${team}在艰难阶段可用的后卫轮换。他要赢下第一下对抗，并让下一脚传球简单起来。`,
+          ({ team }) => `他是${team}在比赛进入拉锯时可以使用的后卫。任务是赢下第一下对抗、果断解围、简单出球。`,
+          ({ team }) => `他能在${team}需要守住比分时提供保障。一次扎实对抗就能让整条防线冷静下来。`,
+          ({ team }) => `他是${team}后防线的保险。任务并不花哨：赢下对抗、稳妥传球、迅速回到位置。`
         ]);
   }
   if (group === "midfielder") {
     return regular
       ? note("midfield-regular", [
-          ({ team }) => `他是${team}这届赛事中的中场连接点之一。他让下一脚传球继续存在，也帮助球队避免仓促选择。`,
+          ({ team }) => `他是${team}这届赛事中的中场连接点之一，让球队始终有安全的下一脚选择。`,
           ({ team }) => `他是${team}让控球不散掉的球员之一。看点是他多早就知道下一脚传给谁。`,
-          ({ team }) => `他给${team}控制节奏。拥挤区域里的触球，能变成下一名队友更舒服的角度。`,
-          ({ team }) => `他让${team}在球权转换时更有结构。最有价值的往往是松散触球之后那一秒。`
+          ({ team }) => `他帮助${team}控制节奏。拥挤区域里的触球，能为下一名队友创造更舒服的接球角度。`,
+          ({ team }) => `他让${team}在攻防转换时更有结构。最有价值的往往是刚刚夺回球权后的那一秒。`
         ])
       : note("midfield-cover", [
-          ({ team }) => `他给${team}提供中场深度，适合比赛被拉开的时候。他把松散球变成更冷静的下一脚。`,
+          ({ team }) => `他给${team}提供中场轮换，适合攻防被拉开的时候。他能把二点球处理成更稳妥的下一脚。`,
           ({ team }) => `他是${team}的中场保险。那些混乱阶段里，他要抢第二点、稳一下，再把球送出去。`,
-          ({ team }) => `他给${team}一种在比赛打开后稳住中路的办法。最好的工作，是让下一次决定没那么急。`,
-          ({ team }) => `他适合那些空间变丑的时间段。对${team}来说，这可能就是压力到来前的一次干净触球。`
+          ({ team }) => `他给${team}一种在攻防拉开后稳住中路的办法。最好的工作，是让下一次决定没那么仓促。`,
+          ({ team }) => `他适合中路变得拥挤的时间段。对${team}来说，一次稳妥触球就能缓解压力。`
         ]);
   }
   if (group === "forward") {
     return keyMentioned
       ? note("forward-key", [
-          ({ team }) => `他是${team}这届赛事中被重点使用的进攻路线之一。他先让第一名防守者移动，再让终结或最后一传出现。`,
-          ({ team }) => `他是${team}这届赛事的一条进攻路径。看他面对球门接球时，第一名防守者怎么反应。`,
-          ({ team }) => `他现在会出现在对手的赛前报告里。对${team}来说，他的触球可以把协防从下一个跑动上拉走。`,
-          ({ team }) => `他给${team}一种把控球变成压力的路线。他要让防守者必须做选择。`
+          ({ team }) => `他是${team}这届赛事的主要进攻选择之一。他先让第一名防守者移动，再寻找射门或最后一传。`,
+          ({ team }) => `他是${team}这届赛事的主要进攻点之一。看他面向球门接球时，第一名防守者如何应对。`,
+          ({ team }) => `他已经成为对手赛前必须注意的人。对${team}来说，他的触球能吸引协防，为队友的跑动打开空间。`,
+          ({ team }) => `他给${team}一种把控球变成威胁的办法，迫使防守者做出选择。`
         ])
       : note("forward-cover", [
           ({ team }) => `他是${team}前场计划的一部分。他先拉扯防守者，再寻找把压力变成机会的触球。`,
-          ({ team }) => `他是${team}在比赛需要新腿时可以使用的前锋。第一项工作，是让疲劳的后卫转身。`,
+          ({ team }) => `他是${team}需要增加速度时可以使用的前锋。第一项工作，是迫使疲劳的后卫转身回追。`,
           ({ team }) => `他给${team}替补席上的另一种进攻速度。有时关键触球，是那次帮队友拉开空间的跑动。`,
-          ({ team }) => `他是${team}的进攻深度。如果比赛慢下来，他要让后防线重新移动。`
+          ({ team }) => `他是${team}的前锋轮换。如果比赛慢下来，他要让对方后防线重新移动。`
         ]);
   }
   return note("player-fallback", [
-    ({ team }) => `他在${team}的赛事角色建立在干净决策上。看他的第一脚触球，是让球队稳下来，还是让下一次进攻加速。`,
-    ({ team }) => `他是${team}赛事深度的一部分。压力下还能让简单选择出现，这就是这张卡的意义。`,
-    ({ team }) => `他给${team}那些尴尬分钟多一个可信选择。一次干净决定，就能避免比赛倾斜。`
+    ({ team }) => `他在${team}的价值来自稳妥决定。看他的第一脚触球，是让球队稳下来，还是让下一次进攻加速。`,
+    ({ team }) => `他是${team}阵容轮换的一部分。压力下仍能找到简单选择，就是他的价值。`,
+    ({ team }) => `他给${team}在困难阶段多一个可信选择。一次正确决定，就能避免局面失控。`
   ]);
 }
 
@@ -661,7 +716,13 @@ const [profilesData, teamsData, fixturesData, lineupsData] = await Promise.all([
 const teamsById = new Map((teamsData.teams || []).map((team) => [team.id, team]));
 const facts = buildFacts({ fixturesData, lineupsData, profilesData, teamsById });
 const teams = targetTeams(teamsData);
+const missingTeamTranslations = teams.filter((teamId) => !TEAM_NAME_ZH_BY_ID.has(teamId));
+if (missingTeamTranslations.length) {
+  throw new Error(`Missing Chinese team names for: ${missingTeamTranslations.join(", ")}`);
+}
 const dryRun = hasArg("dry-run");
+const zhOnly = hasArg("zh-only");
+const skipOverrides = hasArg("skip-overrides");
 let updatedProfiles = 0;
 let updatedOverrides = 0;
 
@@ -674,23 +735,27 @@ for (const teamId of teams) {
     const fact = facts.get(getUsageKey(teamId, profileName));
     if (!fact) continue;
 
-    const note = englishNote(profileName, profile, fact, teamsById);
+    const note = zhOnly ? profile.note : englishNote(profileName, profile, fact, teamsById);
     const noteZh = chineseNote(profileName, profile, fact, teamsById);
-    const skills = nextSkills(profile, fact);
-    profile.note = note;
+    const skills = zhOnly ? profile.skills : nextSkills(profile, fact);
+    if (!zhOnly) {
+      profile.note = note;
+      profile.skills = skills;
+    }
     profile.noteZh = noteZh;
-    profile.skills = skills;
     updatedProfiles += 1;
 
-    if (overrideData?.profiles?.[profileName]) {
-      overrideData.profiles[profileName].note = note;
+    if (!skipOverrides && overrideData?.profiles?.[profileName]) {
+      if (!zhOnly) {
+        overrideData.profiles[profileName].note = note;
+        overrideData.profiles[profileName].skills = skills;
+      }
       overrideData.profiles[profileName].noteZh = noteZh;
-      overrideData.profiles[profileName].skills = skills;
       updatedOverrides += 1;
     }
   }
 
-  if (overrideData && !dryRun) {
+  if (overrideData && !skipOverrides && !dryRun) {
     await writeFile(overridePath, `${JSON.stringify(overrideData, null, 2)}\n`);
   }
 }

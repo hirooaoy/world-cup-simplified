@@ -62,13 +62,12 @@
   "removeProfiles": [
     "Álisson Ramsés Becker",
     "Danilo Luiz Da Silva",
-    "Douglas Santos",
     "Ederson Santana De Moraes",
-    "Ederson Silva",
     "Fabio Henrique Tavares",
     "Gleison Bremer Silva Nascimento",
     "Leonardo Pereira",
     "Marcos Aoas Correa",
+    "Neymar Jr",
     "Raphael Dias Belloli",
     "Rayan Vitor Simplicio Rocha",
     "Weverton Pereira Da Silva"
@@ -221,8 +220,8 @@
         "Overlap timing",
         "Defensive recovery"
       ],
-      "note": "Brazil's left-back rotation piece, useful for clean circulation, measured overlaps, and recovery runs if the flank opens.",
-      "noteZh": "道格拉斯·桑托斯是巴西左后卫轮换选择，能完成干净传导、把握套边时机，并在边路被打开时回追补位。",
+      "note": "Douglas Santos is Brazil's left-back rotation piece. Watch for clean circulation, measured overlaps, and recovery runs when the flank opens.",
+      "noteZh": "道格拉斯·桑托斯是巴西的左后卫轮换选择。边路打开时，可以观察他的干净传导、克制套边和回追。",
       "sourceUrl": "https://www.transfermarkt.co.uk/douglas-santos/profil/spieler/220793"
     },
     "Ederson": {
@@ -455,6 +454,9 @@
     },
     "Neymar": {
       "displayName": "Neymar",
+      "aliases": [
+        "Neymar Jr"
+      ],
       "sourceTitle": "Neymar",
       "transfermarktPlayerCode": "neymar",
       "birthDate": "1992-02-05",

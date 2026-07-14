@@ -60,15 +60,23 @@ The live-start verifier remains a broader safety check for early live fixtures. 
 
 ## Projection Baselines
 
-Run this after fixture or ranking updates to populate missing known-team group fixtures:
+Run this after fixture or ranking updates to populate missing known-team fixtures:
 
 ```bash
 node scripts/populate-projections.mjs
 ```
 
-The script preserves hand-curated projections by default. Pass `--overwrite` only when you intentionally want every known-team group fixture regenerated from the ranking baseline.
+The script preserves hand-curated projections by default. Pass `--overwrite` only when you intentionally want every known-team fixture regenerated from the ranking baseline.
 
-For high-attention fixtures where the ranking baseline feels off, use a sourced market-implied projection instead of copying a single site's pick. Record the source in `data/tournament.json`, normalize public 90-minute moneyline odds to remove the sportsbook margin, and keep the UI labeled as unofficial/not betting advice.
+For high-attention fixtures where the ranking baseline feels off, use an `online-source-consensus` projection instead of copying a single site's pick. Blend multiple independent forecasts, margin-adjusted bookmaker odds, or prediction markets; list every source in `sourceIds`; and record the snapshot time in `capturedAt`. Register each source in `data/tournament.json`. The UI labels these projections `Forecast from online sources`, while ranking fallbacks keep their separate local-estimate label.
+
+For an archived fixture with a trustworthy pre-match forecast but no recoverable multi-source market snapshot, use `online-source-forecast`. Store the exact article in `sourceUrl`, its original publication timestamp in `publishedAt`, and the recovery timestamp in `recoveredAt`. Validation requires publication before kickoff. Never use the final score to tune a historical projection.
+
+Refresh future online-source projections as better information arrives, stopping at kickoff. Once a match starts, preserve the final pre-match snapshot so past fixtures do not silently inherit hindsight. Newly confirmed fixtures may use the ranking baseline temporarily, then be upgraded without changing the display contract.
+
+Knockout shootout guidance is separate from the 90-minute projection. Run `node scripts/populate-shootout-outlooks.mjs` after knockout participants or results change. Every confirmed knockout fixture receives a `shootoutOutlook` cut off at kickoff, using the World Cup shootout archive plus any earlier 2026 shootouts, so later results cannot leak into older forecasts. When stronger player-level research is available, `sourced-shootout-evidence` may replace the archive wording only with at least two verified facts, such as a goalkeeper's shootout record and a likely taker's career conversion record.
+
+Keep `shootoutForecast` for the separate method-of-victory market: preserve the displayed prices and normalize the two shootout outcomes to 100. An even market does not force bland copy if verified historical or player evidence supports a cautious `may have a slight edge` outlook. Never infer a shootout edge from the regulation forecast, FIFA rank, unverified save quality, or a static list of famous players. Distinguish goalkeeper saves from misses or shots off the frame, and do not call a save difficult without shot-quality data or footage review.
 
 ## Preview Baselines
 

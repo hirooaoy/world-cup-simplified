@@ -302,9 +302,13 @@ try {
 
   assert.equal(newlyCompletedFixture?.lineups?.mode, "final");
   assert.equal(newlyCompletedFixture.lineups.teamSheetSource, "fifa-official");
-  assert.equal(newlyCompletedFixture.lineups.layoutSource, "derived-team-sheet-order");
-  assert.equal(newlyCompletedFixture.lineups.layoutVerification?.status, "unverified");
-  assert.equal(newlyCompletedFixture.lineups.layoutVerification?.exact, false);
+  assert.equal(newlyCompletedFixture.lineups.layoutSource, "verified-layout");
+  assert.equal(newlyCompletedFixture.lineups.layoutVerification?.status, "verified");
+  assert(
+    newlyCompletedFixture.lineups.layoutVerification?.sources?.some(
+      (source) => source.exactLayout === true
+    )
+  );
   assert.equal(newlyCompletedFixture.lineups.home.players.length, 11);
   assert.equal(newlyCompletedFixture.lineups.away.players.length, 11);
 
