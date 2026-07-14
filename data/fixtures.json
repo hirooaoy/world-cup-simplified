@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-14T20:06:15.972Z",
+  "updatedAt": "2026-07-14T21:28:54.043Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -23747,7 +23747,7 @@
       "homeSlot": "Winner match 97",
       "awaySlot": "Winner match 98",
       "venue": "Dallas Stadium",
-      "status": "LIVE",
+      "status": "FT",
       "h2h": {
         "status": "loaded",
         "sourceId": "national-football-teams-h2h-sync-2026-07-11",
@@ -24106,7 +24106,7 @@
       },
       "score": {
         "home": 0,
-        "away": 1
+        "away": 2
       },
       "goalsHome": [],
       "goalsAway": [
@@ -24114,6 +24114,11 @@
           "minute": 22,
           "name": "Mikel Oyarzabal",
           "penalty": true
+        },
+        {
+          "minute": 58,
+          "name": "Pedro Porro",
+          "assistName": "Dani Olmo"
         }
       ]
     },
@@ -24407,7 +24412,8 @@
           "matchId": "400021542",
           "matchNumber": 103
         }
-      }
+      },
+      "homeTeamId": "FRA"
     },
     {
       "id": "match-104-final-2026-07-19",
@@ -24429,7 +24435,8 @@
           "matchId": "400021543",
           "matchNumber": 104
         }
-      }
+      },
+      "homeTeamId": "ESP"
     }
   ]
 }
