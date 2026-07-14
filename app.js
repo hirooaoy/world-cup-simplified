@@ -9138,6 +9138,10 @@ function getNonLinkTooltipElement(target) {
     return null;
   }
 
+  if (targetElement.closest(".lineup-event-badge[data-tooltip]")) {
+    return null;
+  }
+
   const footerTooltipTrigger = targetElement.closest(footerTooltipTriggerSelector);
   if (footerTooltipTrigger) {
     return footerTooltipTrigger;
