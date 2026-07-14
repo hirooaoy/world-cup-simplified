@@ -63,6 +63,32 @@ const TEAM_NAME_ZH_BY_ID = new Map([
   ["UZB", "乌兹别克斯坦"]
 ]);
 
+// These source records were polluted with page titles or malformed scraped text.
+// Repair them every time notes are regenerated so the bad values cannot return.
+const CANONICAL_DISPLAY_NAMES = new Map([
+  ["Ali Nemati", "Ali Nemati"],
+  ["Amirhossein Hosseinzadeh", "Amirhossein Hosseinzadeh"],
+  ["Arya Yousefi", "Arya Yousefi"],
+  ["Mehdi Ghayedi", "Mehdi Ghayedi"],
+  ["Milad Mohammadi", "Milad Mohammadi"],
+  ["Mohammad Ghorbani", "Mohammad Ghorbani"]
+]);
+
+function repairCanonicalDisplayNames(profilesData) {
+  let repaired = 0;
+  for (const [profileName, displayName] of CANONICAL_DISPLAY_NAMES) {
+    const profile = profilesData.profiles?.[profileName];
+    if (!profile) {
+      throw new Error(`Missing canonical player profile: ${profileName}`);
+    }
+    if (profile.displayName !== displayName) {
+      profile.displayName = displayName;
+      repaired += 1;
+    }
+  }
+  return repaired;
+}
+
 function getArgValue(name) {
   const flag = `--${name}=`;
   const arg = args.find((item) => item.startsWith(flag));
@@ -121,20 +147,25 @@ function roleGroup(profile = {}, usage) {
   if (isGoalkeeper(profile)) return "goalkeeper";
 
   const profilePosition = String(profile.position || "");
+  const primaryProfilePosition = profilePosition.split(/[,/;]/)[0].trim();
   const usagePositionText = usage?.positions ? [...usage.positions.keys()].join(" ") : "";
   const defenderPattern = /\b(?:centre-back|center-back|defender|full-back|right-back|left-back|wing-back|CB|RB|LB|RWB|LWB)\b/i;
   const midfielderPattern = /\b(?:midfielder|midfield|defensive midfielder|central midfielder|attacking midfielder|CM|DM|AM|RM|LM)\b/i;
   const forwardPattern = /\b(?:forward|striker|winger|centre-forward|center-forward|ST|RW|LW)\b/i;
 
-  if (defenderPattern.test(profilePosition)) {
+  if (defenderPattern.test(primaryProfilePosition)) {
     return "defender";
   }
-  if (midfielderPattern.test(profilePosition)) {
+  if (midfielderPattern.test(primaryProfilePosition)) {
     return "midfielder";
   }
-  if (forwardPattern.test(profilePosition)) {
+  if (forwardPattern.test(primaryProfilePosition)) {
     return "forward";
   }
+
+  if (defenderPattern.test(profilePosition)) return "defender";
+  if (midfielderPattern.test(profilePosition)) return "midfielder";
+  if (forwardPattern.test(profilePosition)) return "forward";
 
   if (defenderPattern.test(usagePositionText)) {
     return "defender";
@@ -394,301 +425,270 @@ function listNames(names) {
   return `${clean.slice(0, 2).join(", ")}, and ${clean[2]}`;
 }
 
-function hashText(value) {
-  let hash = 0;
-  for (const char of String(value || "")) {
-    hash = (hash * 31 + char.charCodeAt(0)) >>> 0;
+function positionLabel(profile, fact) {
+  const raw = String(profile.position || topCount(fact?.positions) || "player")
+    .replace(/[;/]+/g, ",")
+    .split(/[,/]/)[0]
+    .replace(/\bdefensive midfield\b/i, "defensive midfielder")
+    .replace(/\bcentral midfield\b/i, "central midfielder")
+    .replace(/\bcentre forward\b/i, "centre-forward")
+    .replace(/\bcentre back\b/i, "centre-back")
+    .replace(/\bcenter back\b/i, "center-back")
+    .replace(/\bright back\b/i, "right-back")
+    .replace(/\bleft back\b/i, "left-back")
+    .replace(/\s+/g, " ")
+    .trim()
+    .toLowerCase();
+  const claimedSide = /\bright\b/.test(raw) ? "right" : /\bleft\b/.test(raw) ? "left" : "";
+  if (claimedSide && fact?.appearances && (fact.sides.get(claimedSide) || 0) / fact.appearances < 0.5) {
+    const group = roleGroup(profile, fact);
+    if (group === "defender") return "defender";
+    if (group === "midfielder") return "midfielder";
+    if (group === "forward") return "forward";
   }
-  return hash;
+  return raw || "player";
 }
 
-function renderVariant(seed, variants, values = {}) {
-  const choice = variants[hashText(seed) % variants.length];
-  return choice(values);
+function positionWithArticle(profile, fact) {
+  const position = positionLabel(profile, fact);
+  return `${/^[aeiou]/i.test(position) ? "an" : "a"} ${position}`;
 }
 
-function variantSeed(fact, profileName, bucket) {
-  return `${fact.teamId}:${profileName}:${bucket}`;
+function actionForSkill(skill, group) {
+  const value = cleanSkill(skill).toLowerCase();
+  if (!value || /^(?:tournament|match|squad|team)\b/.test(value)) return "";
+
+  if (/penalt(?:y|ies).*(?:save|stop)|(?:save|stop).*penalt/.test(value)) return "saves penalties";
+  if (/shot.?stop|reaction|reflex|one-on-one sav|quick saves?/.test(value)) return "reacts quickly to shots";
+  if (/cross.*(?:claim|handl|command)|claim.*cross|box command|penalty-area command|high balls?/.test(value) && group === "goalkeeper") return "claims crosses";
+  if (/distribution|restart|throwing|goal kicks?|keeper passing/.test(value) && group === "goalkeeper") return "starts attacks with his passing";
+  if (/set.?piece.*(?:deliver|service|quality)|dead-ball|free.?kick|corner/.test(value)) return "creates chances from set pieces";
+  if (/long.?range|long shooting|shooting range|distance shooting/.test(value)) return "shoots from distance";
+  if (/finish|goal threat|inside shooting|quick shooting|box presence|box movement|penalty-box movement|penalty-area movement|near-post|striker movement/.test(value)) return "finds space for shots in the box";
+  if (/chance pass|chance creat|creative pass|final pass|through ball|playmak|vision|assist/.test(value)) return "creates chances with his passing";
+  if (/overlap/.test(value)) return "times his forward runs";
+  if (/cross|service|delivery/.test(value)) return "crosses from wide areas";
+  if (/dribbl|ball carrying|direct carr|progressive carr|close control|tight-space|take-ons?/.test(value)) return "carries the ball past defenders";
+  if (/run.*behind|channel run|counter run|transition run|inside run|forward movement|late run|box arrival/.test(value)) return "runs into space away from defenders";
+  if (/acceleration|pace|speed|direct running|wide running|counter threat/.test(value)) {
+    if (group === "defender") return "recovers when opponents break forward";
+    if (group === "midfielder") return "carries the ball into open space";
+    return "attacks open space at speed";
+  }
+  if (/press/.test(value)) return "closes down opponents";
+  if (/hold-up|target/.test(value)) return "holds the ball for teammates";
+  if (/link play|combination/.test(value)) return "combines with nearby teammates";
+  if (/aerial|heading|headers?|high-ball/.test(value)) return "competes for high balls";
+  if (/recover/.test(value) && group === "defender") return "recovers into position";
+  if (/track|mark/.test(value) && group === "defender") return "tracks runners";
+  if (/duel|tackl|ball winning|intercept/.test(value)) {
+    if (group === "midfielder") return "wins the ball in midfield";
+    if (group === "forward") return "challenges defenders for loose balls";
+    return "wins defensive duels";
+  }
+  if (/defend|cover|clear|block|screen|protect/.test(value)) {
+    if (group === "midfielder") return "covers central space";
+    if (group === "forward") return "helps defend from the front";
+    return "protects space near the box";
+  }
+  if (/second ball|loose ball/.test(value)) return "reacts quickly to loose balls";
+  if (/between-lines|pocket|receiv|first touch|turns?/.test(value)) return "receives between the lines and turns";
+  if (/tempo|press resistance|pressure escape|circulation|short pass|simple pass|possession|ball retention/.test(value)) return "keeps possession under pressure";
+  if (/pass|progression|build-up|switching/.test(value)) return "moves the ball forward with simple passes";
+  if (/leadership|organi[sz]|line control|communication|command/.test(value)) return "organizes teammates";
+  return "";
+}
+
+function defaultActions(group) {
+  if (group === "goalkeeper") return ["reacts quickly to shots", "claims crosses"];
+  if (group === "defender") return ["wins defensive duels", "tracks runners"];
+  if (group === "midfielder") return ["keeps possession under pressure", "moves the ball forward"];
+  if (group === "forward") return ["runs into space behind defenders", "finds room for shots"];
+  return ["keeps his first touch simple", "moves into space for the next pass"];
+}
+
+function actionsOverlap(left, right) {
+  const normalize = (value) => String(value || "")
+    .toLowerCase()
+    .replace(/\b(?:a|an|and|at|for|from|his|in|into|of|the|to|with)\b/g, " ")
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean);
+  const leftTokens = normalize(left);
+  const rightTokens = normalize(right);
+  if (!leftTokens.length || !rightTokens.length) return false;
+  const leftText = leftTokens.join(" ");
+  const rightText = rightTokens.join(" ");
+  if (leftText === rightText || leftText.includes(rightText) || rightText.includes(leftText)) return true;
+  const shared = leftTokens.filter((token) => rightTokens.includes(token));
+  return shared.length >= 2 && shared.length / Math.min(leftTokens.length, rightTokens.length) >= 0.6;
+}
+
+function observableActions(profile, fact) {
+  const group = roleGroup(profile, fact);
+  const skills = Array.isArray(profile.skills) ? profile.skills : [];
+  const actions = [];
+  for (const skill of [...skills, ...roleSkills(profile, fact)]) {
+    const action = actionForSkill(skill, group);
+    if (action && !actions.some((existing) => actionsOverlap(existing, action))) actions.push(action);
+    if (actions.length === 2) break;
+  }
+  for (const action of defaultActions(group)) {
+    if (!actions.some((existing) => actionsOverlap(existing, action))) actions.push(action);
+    if (actions.length === 2) break;
+  }
+  return actions;
+}
+
+function actionSentence(profile, fact) {
+  const [first, second] = observableActions(profile, fact);
+  return `He ${first}. He also ${second}.`;
 }
 
 function englishNote(profileName, profile, fact, teamsById) {
   const name = shortName(profileName, profile);
   const team = fact.teamName;
-  const group = roleGroup(profile, fact);
   const goals = fact.goals || [];
   const assists = fact.assists || [];
   const goalOpponents = opponentNames(goals, teamsById);
   const assistOpponents = opponentNames(assists, teamsById);
-  const keyMentioned = fact.keyMentions.length > 0;
-  const regular = fact.starts >= 3;
-  const bench = fact.substitutionsOn > fact.starts || fact.starts <= 1;
-  const topPosition = topCount(fact.positions);
-  const note = (bucket, variants, values = {}) =>
-    renderVariant(variantSeed(fact, profileName, bucket), variants, { name, team, ...values });
+  let evidence;
 
-  if (goals.length >= 2 && assists.length) {
-    return note("goals-assists", [
-      ({ name, team, opponents }) => `${name} has already shaped ${team}'s tournament with goals against ${opponents} and service for teammates. Watch how quickly his next action follows the first touch.`,
-      ({ name, team, opponents }) => `${name} has given ${team} both the finish and the pass, including goals against ${opponents}. That double threat is why defenders cannot settle on one answer.`,
-      ({ name, team, opponents }) => `${name} has put goals and service into ${team}'s tournament, with finishes against ${opponents}. His card is the next action after the first touch.`
-    ], { opponents: listNames(goalOpponents) });
-  }
-  if (goals.length >= 2) {
-    return note("multi-goal", [
-      ({ name, team, opponents }) => `${name} has been one of ${team}'s real scoring stories, with goals against ${opponents}. His danger is arriving before defenders have finished sorting the first problem.`,
-      ({ name, team, opponents }) => `${name} has already punished ${opponents} for ${team}. The watch point is how little room he needs once the chance is alive.`,
-      ({ name, team, opponents }) => `${name} gives ${team} a scorer opponents now have to carry in their heads. His goals against ${opponents} make every loose ball feel heavier.`
-    ], { opponents: listNames(goalOpponents) });
-  }
-  if (goals.length === 1 && assists.length) {
-    return note("goal-assist", [
-      ({ name, team }) => `${name} has both scored and created for ${team} in this run. He matters because the same movement can become the shot or the pass before it.`,
-      ({ name, team }) => `${name} has already given ${team} a goal and a setup in this tournament. Defenders have to read shot and pass at the same time.`,
-      ({ name, team }) => `${name} has shown both sides of the attacking job for ${team}. One action can pull the defender, and the next one can decide the chance.`
-    ]);
-  }
-  if (goals.length === 1) {
-    return note("one-goal", [
-      ({ name, opponent }) => `${name} already has a World Cup goal in this run, against ${opponent}. His card is about finding the moment before the match settles again.`,
-      ({ name, team, opponent }) => `${name} is on the scoresheet for ${team}, with his goal coming against ${opponent}. One finish can change how opponents defend the next run.`,
-      ({ name, opponent }) => `${name} has already turned one tournament chance into a goal against ${opponent}. Watch whether defenders start giving him the extra step.`,
-      ({ name, opponent }) => `${name}'s World Cup has already included a goal against ${opponent}. The next one may come from the same small window before the shape resets.`
-    ], { opponent: goalOpponents[0] || "the group" });
-  }
-  if (assists.length >= 2) {
-    return note("multi-assist", [
-      ({ name, team, opponents }) => `${name} has been a provider for ${team}, creating goals against ${opponents}. His best moments come when he plays the pass before the defense is ready.`,
-      ({ name, team, opponents }) => `${name} has already made goals for ${team} against ${opponents}. Watch the pass before the chance looks obvious.`,
-      ({ name, team, opponents }) => `${name}'s tournament has been about supply for ${team}, especially against ${opponents}. He sees the runner before the block finishes shifting.`
-    ], { opponents: listNames(assistOpponents) });
-  }
-  if (assists.length === 1) {
-    return note("one-assist", [
-      ({ name, team }) => `${name} has already created a goal for ${team} in this tournament. Watch the timing of his release, because the pass often matters more than the carry.`,
-      ({ name, team }) => `${name} has one tournament assist in the bank for ${team}. The detail is the touch just before the obvious chance appears.`,
-      ({ name, team }) => `${name} has already made a goal happen for ${team}. His value is picking the moment when the defense is still moving.`,
-      ({ name, team }) => `${name} has supplied one of ${team}'s tournament goals. The pass matters because it arrives before the defender can fully turn.`
-    ]);
+  if (goals.length && assists.length) {
+    evidence = `${name} has ${goals.length} ${goals.length === 1 ? "goal" : "goals"} and ${assists.length} ${assists.length === 1 ? "assist" : "assists"} for ${team} at this World Cup.`;
+  } else if (goals.length === 1) {
+    evidence = `${name} scored against ${goalOpponents[0] || "their opponent"} for ${team} at this World Cup.`;
+  } else if (goals.length > 1) {
+    evidence = `${name} has scored ${goals.length} goals for ${team} at this World Cup, against ${listNames(goalOpponents)}.`;
+  } else if (assists.length === 1) {
+    evidence = `${name} has one assist for ${team} at this World Cup${assistOpponents[0] ? `, against ${assistOpponents[0]}` : ""}.`;
+  } else if (assists.length > 1) {
+    evidence = `${name} has ${assists.length} assists for ${team} at this World Cup, against ${listNames(assistOpponents)}.`;
+  } else {
+    evidence = `${name} is ${positionWithArticle(profile, fact)} for ${team}.`;
   }
 
-  if (group === "goalkeeper") {
-    if (regular) {
-      return note("gk-regular", [
-        ({ name, team }) => `${name} has been ${team}'s goalkeeper through this run. His value is keeping the box calm long enough for the next attack to start cleanly.`,
-        ({ name, team }) => `${name} gives ${team} the calmest first pass from the back. Watch how quickly he turns a save or claim into a reset.`,
-        ({ name, team }) => `${name} has carried the keeper minutes for ${team}. The card is clean hands, clear restarts, and defenders who do not have to rush.`,
-        ({ name, team }) => `${name} is the last voice in ${team}'s defensive shape. When pressure sticks, his job is to make the next action feel simple.`
-      ]);
-    }
-    return note("gk-cover", [
-      ({ name, team }) => `${name} is goalkeeper cover for ${team}. The role is readiness: saves, restarts, and no panic if the match suddenly needs him.`,
-      ({ name, team }) => `${name} gives ${team} a keeper option if the night turns sideways. His card is about being warm enough for one big save.`,
-      ({ name, team }) => `${name} sits behind the starter for ${team}, but the role is not decorative. He has to be ready for crosses, restarts, and a cold first touch.`,
-      ({ name, team }) => `${name} is ${team}'s safety net in goal. The job is simple to say and hard to do: enter cold and make the box quieter.`
-    ]);
-  }
-
-  if (group === "defender") {
-    if (regular) {
-      return note("defender-regular", [
-        ({ name, team }) => `${name} has been part of ${team}'s main defensive shape. He keeps the first duel clean so the team does not spend the next phase chasing.`,
-        ({ name, team }) => `${name} has been part of ${team}'s answer without the ball. He matters when the first runner has to be slowed before the whole shape breaks.`,
-        ({ name, team }) => `${name} gives ${team} one of the steady pieces in the back line. Watch the small choices: step, hold, or clear the lane.`,
-        ({ name, team }) => `${name} is in the quiet-work part of ${team}'s setup. He keeps attacks from becoming scrambles.`
-      ]);
-    }
-    if (bench) {
-      return note("defender-cover", [
-        ({ name, team }) => `${name} is defensive cover for ${team}'s harder minutes. He is there to win the first contact and make the next pass simple.`,
-        ({ name, team }) => `${name} is the kind of defender ${team} can turn to when the match gets narrow. His job is first contact, clean clearance, simple pass.`,
-        ({ name, team }) => `${name} gives ${team} cover for the minutes when defending becomes more about nerve than shape. One solid duel can calm the whole line.`,
-        ({ name, team }) => `${name} is back-line insurance for ${team}. The card is not glamorous: win the ball, keep the pass safe, reset the shape.`
-      ]);
-    }
-    return note("defender-rotation", [
-      ({ name, team }) => `${name} gives ${team} defensive range. His job is to make the opponent's first opening feel smaller than it looked.`,
-      ({ name, team }) => `${name} is defensive rotation for ${team}. The watch point is how early he closes the lane that looked open.`,
-      ({ name, team }) => `${name} gives ${team} another way to protect the edge of the box. His value shows up when the obvious pass disappears.`
-    ]);
-  }
-
-  if (group === "midfielder") {
-    if (regular) {
-      return note("midfield-regular", [
-        ({ name, team }) => `${name} has been one of ${team}'s midfield connectors in this tournament. He keeps the next pass alive and helps the team avoid rushed choices.`,
-        ({ name, team }) => `${name} has been one of ${team}'s players who keeps possessions from fraying. The detail to watch is how early he knows the next pass.`,
-        ({ name, team }) => `${name} is a tempo player for ${team}. He turns crowded touches into cleaner angles for the next runner.`,
-        ({ name, team }) => `${name} gives ${team} structure when the ball changes feet. He is often most valuable in the second after a loose touch.`
-      ]);
-    }
-    if (/AM/i.test(topPosition)) {
-      return note("midfield-attacking", [
-        ({ name, team }) => `${name} is the midfield player ${team} can use when possession needs a sharper touch near the box. He tries to make one small gap matter.`,
-        ({ name, team }) => `${name} gives ${team} a different midfield rhythm near the box. He looks for the little pause before the pass or shot.`,
-        ({ name, team }) => `${name} is the midfielder ${team} can use when the attack needs a softer touch. One clean receive can change the angle.`,
-        ({ name, team }) => `${name} matters for ${team} when possession reaches crowded areas. He is there to turn a small opening into a real choice.`
-      ]);
-    }
-    return note("midfield-cover", [
-      ({ name, team }) => `${name} gives ${team} midfield depth for games that get stretched. He helps turn a loose ball into a calmer next pass.`,
-      ({ name, team }) => `${name} is midfield insurance for ${team}. He is there for the messy phase: second ball, one calmer touch, then the next pass.`,
-      ({ name, team }) => `${name} gives ${team} a way to settle the middle if the match opens up. His best work is making the next decision less hurried.`,
-      ({ name, team }) => `${name} is there for the part of the game where spacing gets ugly. For ${team}, that can mean one clean touch before pressure arrives.`
-    ]);
-  }
-
-  if (group === "forward") {
-    if (keyMentioned) {
-      return note("forward-key", [
-        ({ name, team }) => `${name} is one of ${team}'s named attacking routes in this tournament. His job is to make the first defender move so the finish or final pass can appear.`,
-        ({ name, team }) => `${name} is one of ${team}'s attacking paths this tournament. Watch how the first defender reacts when he receives facing goal.`,
-        ({ name, team }) => `${name} is in the scouting report now. For ${team}, that means his touches can pull help away from the next runner.`,
-        ({ name, team }) => `${name} gives ${team} a route when possession needs to become pressure. He is there to make a defender choose.`
-      ]);
-    }
-    if (regular) {
-      return note("forward-regular", [
-        ({ name, team }) => `${name} has been part of ${team}'s front-line plan. He stretches defenders first, then looks for the touch that turns pressure into a chance.`,
-        ({ name, team }) => `${name} has been part of how ${team} turns territory into chances. Watch the run before the pass, not only the shot after it.`,
-        ({ name, team }) => `${name} gives ${team} a front-line rhythm that keeps defenders facing their own goal. His value often starts before the ball reaches him.`,
-        ({ name, team }) => `${name} is part of ${team}'s attacking shape, even when he is not the finisher. His movement decides who gets the next clear touch.`
-      ]);
-    }
-    return note("forward-cover", [
-      ({ name, team }) => `${name} is an attacking change-up for ${team}. He gives the front line fresh running when the first plan starts to look predictable.`,
-      ({ name, team }) => `${name} is the forward ${team} can use when the match needs new legs. His first job is to make tired defenders turn.`,
-      ({ name, team }) => `${name} gives ${team} a different attacking speed from the bench. The important touch may be the run that opens space for someone else.`,
-      ({ name, team }) => `${name} is attacking depth for ${team}. If the game slows down, he is there to make the back line move again.`
-    ]);
-  }
-
-  return note("player-fallback", [
-    ({ name, team }) => `${name} gives ${team} a tournament role built on clean decisions. Watch whether his first touch settles the team or speeds the next attack.`,
-    ({ name, team }) => `${name} is part of ${team}'s tournament depth. His card is about making the simple play feel available under pressure.`,
-    ({ name, team }) => `${name} gives ${team} another trusted body for the awkward minutes. One clean decision can keep the match from tilting.`
-  ]);
+  return `${evidence} ${actionSentence(profile, fact)}`;
 }
 
-function chineseNote(profileName, profile, fact) {
-  const team = teamNameZh(fact.teamId, fact.teamName);
+function positionLabelZh(profile, fact) {
+  const position = positionLabel(profile, fact);
+  if (/goalkeeper/.test(position)) return "门将";
+  if (/centre-back|center-back|central defender|sweeper/.test(position)) return "中后卫";
+  if (/right-back|right wing-back/.test(position)) return "右后卫";
+  if (/left-back|left wing-back/.test(position)) return "左后卫";
+  if (/full-back|wing-back/.test(position)) return "边后卫";
+  if (/defensive midfielder/.test(position)) return "防守型中场";
+  if (/attacking midfielder/.test(position)) return "攻击型中场";
+  if (/central midfielder|midfielder/.test(position)) return "中场";
+  if (/right winger|right midfielder/.test(position)) return "右边锋";
+  if (/left winger|left midfielder/.test(position)) return "左边锋";
+  if (/winger|wide midfielder/.test(position)) return "边锋";
+  if (/striker|centre-forward|center-forward/.test(position)) return "中锋";
+  if (/forward/.test(position)) return "前锋";
+  if (/defender/.test(position)) return "后卫";
+  return "球员";
+}
+
+function actionForSkillZh(skill, group) {
+  const value = cleanSkill(skill).toLowerCase();
+  if (!value || /^(?:tournament|match|squad|team)\b/.test(value)) return "";
+  if (/penalt(?:y|ies).*(?:save|stop)|(?:save|stop).*penalt/.test(value)) return "扑点球";
+  if (/shot.?stop|reaction|reflex|one-on-one sav|quick saves?/.test(value)) return "快速应对射门";
+  if (/cross.*(?:claim|handl|command)|claim.*cross|box command|penalty-area command|high balls?/.test(value) && group === "goalkeeper") return "处理传中球";
+  if (/distribution|restart|throwing|goal kicks?|keeper passing/.test(value) && group === "goalkeeper") return "用传球发动进攻";
+  if (/set.?piece.*(?:deliver|service|quality)|dead-ball|free.?kick|corner/.test(value)) return "用定位球创造机会";
+  if (/long.?range|long shooting|shooting range|distance shooting/.test(value)) return "远射";
+  if (/finish|goal threat|inside shooting|quick shooting|box presence|box movement|penalty-box movement|penalty-area movement|near-post|striker movement/.test(value)) return "在禁区内寻找射门空间";
+  if (/chance pass|chance creat|creative pass|final pass|through ball|playmak|vision|assist/.test(value)) return "用传球创造机会";
+  if (/overlap/.test(value)) return "把握前插时机";
+  if (/cross|service|delivery/.test(value)) return "从边路传中";
+  if (/dribbl|ball carrying|direct carr|progressive carr|close control|tight-space|take-ons?/.test(value)) return "带球突破防守者";
+  if (/run.*behind|channel run|counter run|transition run|inside run|forward movement|late run|box arrival/.test(value)) return "无球跑到防守者身后";
+  if (/acceleration|pace|speed|direct running|wide running|counter threat/.test(value)) {
+    if (group === "defender") return "在对手反击时快速回追";
+    if (group === "midfielder") return "带球进入空当";
+    return "加速攻击空当";
+  }
+  if (/press/.test(value)) return "逼抢持球人";
+  if (/hold-up|target/.test(value)) return "背身护球";
+  if (/link play|combination/.test(value)) return "与身边队友配合";
+  if (/aerial|heading|headers?|high-ball/.test(value)) return "争抢高空球";
+  if (/recover/.test(value) && group === "defender") return "回追到位";
+  if (/track|mark/.test(value) && group === "defender") return "盯住无球跑动";
+  if (/duel|tackl|ball winning|intercept/.test(value)) {
+    if (group === "midfielder") return "在中场抢回球权";
+    if (group === "forward") return "争抢前场二点球";
+    return "赢下防守对抗";
+  }
+  if (/defend|cover|clear|block|screen|protect/.test(value)) {
+    if (group === "midfielder") return "保护中路空间";
+    if (group === "forward") return "从前场开始防守";
+    return "保护禁区附近的空间";
+  }
+  if (/second ball|loose ball/.test(value)) return "争抢二点球";
+  if (/between-lines|pocket|receiv|first touch|turns?/.test(value)) return "在两条防线之间接球转身";
+  if (/tempo|press resistance|pressure escape|circulation|short pass|simple pass|possession|ball retention/.test(value)) return "在压力下稳住球权";
+  if (/pass|progression|build-up|switching/.test(value)) return "用简单传球向前推进";
+  if (/leadership|organi[sz]|line control|communication|command/.test(value)) return "指挥队友站位";
+  return "";
+}
+
+function defaultActionsZh(group) {
+  if (group === "goalkeeper") return ["快速应对射门", "处理传中球"];
+  if (group === "defender") return ["赢下防守对抗", "盯住无球跑动"];
+  if (group === "midfielder") return ["在压力下稳住球权", "用简单传球向前推进"];
+  if (group === "forward") return ["无球跑到防守者身后", "在禁区内寻找射门空间"];
+  return ["控制好第一脚触球", "跑到空当接应队友"];
+}
+
+function observableActionsZh(profile, fact) {
   const group = roleGroup(profile, fact);
+  const skills = Array.isArray(profile.skills) ? profile.skills : [];
+  const actions = [];
+  for (const skill of [...skills, ...roleSkills(profile, fact)]) {
+    const action = actionForSkillZh(skill, group);
+    if (action && !actions.includes(action)) actions.push(action);
+    if (actions.length === 2) break;
+  }
+  for (const action of defaultActionsZh(group)) {
+    if (!actions.includes(action)) actions.push(action);
+    if (actions.length === 2) break;
+  }
+  return actions;
+}
+
+function chineseNote(profileName, profile, fact, teamsById) {
+  const team = teamNameZh(fact.teamId, fact.teamName);
   const goals = fact.goals || [];
   const assists = fact.assists || [];
-  const regular = fact.starts >= 3;
-  const keyMentioned = fact.keyMentions.length > 0;
-  const note = (bucket, variants, values = {}) =>
-    renderVariant(variantSeed(fact, profileName, `zh-${bucket}`), variants, { team, ...values });
+  const goalOpponents = [...new Set(goals.map((item) => item.opponentId).filter(Boolean))]
+    .map((teamId) => teamNameZh(teamId, teamsById.get(teamId)?.name));
+  const assistOpponents = [...new Set(assists.map((item) => item.opponentId).filter(Boolean))]
+    .map((teamId) => teamNameZh(teamId, teamsById.get(teamId)?.name));
+  const [firstAction, secondAction] = observableActionsZh(profile, fact);
+  let evidence;
 
-  if (goals.length >= 2 && assists.length) {
-    return note("goals-assists", [
-      ({ team }) => `他已经用进球和助攻影响了${team}的这届世界杯。注意第一脚触球之后，他能多快做出下一步选择。`,
-      ({ team }) => `他这届世界杯既为${team}进球，也为队友创造机会。防守者不能只防他的一种选择。`,
-      ({ team }) => `他已经为${team}贡献进球和助攻。看点是第一脚之后，第二个动作有多快。`
-    ]);
-  }
-  if (goals.length >= 2) {
-    return note("multi-goal", [
-      ({ team }) => `他已经成为${team}这届世界杯的重要得分点。防守者还没落好位置时，他往往已经到位。`,
-      ({ team }) => `他已经多次为${team}把机会变成进球。看他需要的空间有多小。`,
-      ({ team }) => `他是${team}必须优先寻找的得分点。禁区里的二点球也可能被他变成射门。`
-    ]);
-  }
-  if (goals.length === 1 && assists.length) {
-    return note("goal-assist", [
-      () => `他在这段征程中既进球也创造机会。同一次跑动，可能变成射门，也可能变成射门前的一脚传球。`,
-      ({ team }) => `他这届世界杯已经为${team}贡献进球和助攻。防守者必须同时判断射门和分球。`,
-      ({ team }) => `他既能为${team}终结机会，也能为队友创造机会。一脚拉开防守，下一脚就可能决定进攻。`
-    ]);
-  }
-  if (goals.length === 1) {
-    return note("one-goal", [
-      () => `他这届世界杯已经有进球。他的看点是在比赛重新稳定前，先找到属于自己的那个瞬间。`,
-      ({ team }) => `他已经为${team}攻入一球。一次终结会改变对手下一次防他的方式。`,
-      () => `他已经把一次世界杯机会变成进球。接下来要看防守者会不会因此贴得更紧。`,
-      () => `他的世界杯已经有了进球。下一次机会也许仍来自阵型重新站稳前的那一小段时间。`
-    ]);
-  }
-  if (assists.length >= 2) {
-    return note("multi-assist", [
-      ({ team }) => `他已经多次为${team}送出助攻。他最好的时刻，常常来自防线还没准备好时的那一脚传球。`,
-      ({ team }) => `他已经多次帮${team}制造进球。看的是明显机会出现前的那脚传球。`,
-      ({ team }) => `他这届赛事的价值在于为${team}组织进攻。他能在防线移动还没完成时看见队友的跑动。`
-    ]);
-  }
-  if (assists.length === 1) {
-    return note("one-assist", [
-      ({ team }) => `他这届世界杯已经为${team}送出助攻。注意出球时机，因为那一脚传球往往比继续带球更重要。`,
-      ({ team }) => `他已经为${team}送出一次助攻。重点是明显机会出现前的那次触球。`,
-      ({ team }) => `他已经帮${team}制造过进球。价值在于防线还在移动时，选对出球瞬间。`,
-      ({ team }) => `他已经参与了${team}的一粒世界杯进球。那脚传球的意义，是在防守者完全转身前到达。`
-    ]);
+  if (goals.length && assists.length) {
+    evidence = `他在本届世界杯为${team}打进${goals.length}球，并送出${assists.length}次助攻。`;
+  } else if (goals.length === 1) {
+    evidence = goalOpponents[0]
+      ? `他在本届世界杯对${goalOpponents[0]}的比赛中为${team}打进一球。`
+      : `他在本届世界杯为${team}打进一球。`;
+  } else if (goals.length > 1) {
+    evidence = `他在本届世界杯为${team}打进${goals.length}球。`;
+  } else if (assists.length === 1) {
+    evidence = assistOpponents[0]
+      ? `他在本届世界杯对${assistOpponents[0]}的比赛中为${team}送出一次助攻。`
+      : `他在本届世界杯为${team}送出一次助攻。`;
+  } else if (assists.length > 1) {
+    evidence = `他在本届世界杯为${team}送出${assists.length}次助攻。`;
+  } else {
+    evidence = `他在${team}司职${positionLabelZh(profile, fact)}。`;
   }
 
-  if (group === "goalkeeper") {
-    return regular
-      ? note("gk-regular", [
-          ({ team }) => `他是${team}这段征程中的门将。价值在于让禁区保持冷静，并让下一次进攻能干净开始。`,
-          ({ team }) => `他是${team}后场组织的第一步。看他如何把扑救或摘球变成一次稳妥的重新组织。`,
-          ({ team }) => `他在${team}多次出任门将。重点看接球是否稳妥、开球是否清楚，以及如何指挥身前防线。`,
-          ({ team }) => `他是${team}指挥防线的最后一道声音。对手持续施压时，他要让禁区里的每个决定更简单。`
-        ])
-      : note("gk-cover", [
-          ({ team }) => `他是${team}的替补门将。任务是随时准备好扑救和开球，并在突然登场时保持冷静。`,
-          ({ team }) => `他给${team}保留另一个门将选择。真正需要他时，重点可能就是一次大扑救。`,
-          ({ team }) => `他在${team}首发门将身后等待，但这个角色不是装饰。他要随时处理传中、开球，并在替补登场后马上进入节奏。`,
-          ({ team }) => `他是${team}门线上的后备选择。临时登场后，也要尽快让禁区恢复秩序。`
-        ]);
-  }
-  if (group === "defender") {
-    return regular
-      ? note("defender-regular", [
-          ({ team }) => `他是${team}主力防守体系的一员。他要处理好第一下对抗，避免球队随后只能追着球跑。`,
-          ({ team }) => `他是${team}无球防守的重要一环。先拖慢第一个跑动，整体阵型才不容易散。`,
-          ({ team }) => `他是${team}后防线的稳定成员。看的是那些小选择：上抢、站住，还是先封住传球线路。`,
-          ({ team }) => `他在${team}体系里做的是不显眼但重要的工作，让对手的进攻不容易制造混乱。`
-        ])
-      : note("defender-cover", [
-          ({ team }) => `他是${team}在艰难阶段可用的后卫轮换。他要赢下第一下对抗，并让下一脚传球简单起来。`,
-          ({ team }) => `他是${team}在比赛进入拉锯时可以使用的后卫。任务是赢下第一下对抗、果断解围、简单出球。`,
-          ({ team }) => `他能在${team}需要守住比分时提供保障。一次扎实对抗就能让整条防线冷静下来。`,
-          ({ team }) => `他是${team}后防线的保险。任务并不花哨：赢下对抗、稳妥传球、迅速回到位置。`
-        ]);
-  }
-  if (group === "midfielder") {
-    return regular
-      ? note("midfield-regular", [
-          ({ team }) => `他是${team}这届赛事中的中场连接点之一，让球队始终有安全的下一脚选择。`,
-          ({ team }) => `他是${team}让控球不散掉的球员之一。看点是他多早就知道下一脚传给谁。`,
-          ({ team }) => `他帮助${team}控制节奏。拥挤区域里的触球，能为下一名队友创造更舒服的接球角度。`,
-          ({ team }) => `他让${team}在攻防转换时更有结构。最有价值的往往是刚刚夺回球权后的那一秒。`
-        ])
-      : note("midfield-cover", [
-          ({ team }) => `他给${team}提供中场轮换，适合攻防被拉开的时候。他能把二点球处理成更稳妥的下一脚。`,
-          ({ team }) => `他是${team}的中场保险。那些混乱阶段里，他要抢第二点、稳一下，再把球送出去。`,
-          ({ team }) => `他给${team}一种在攻防拉开后稳住中路的办法。最好的工作，是让下一次决定没那么仓促。`,
-          ({ team }) => `他适合中路变得拥挤的时间段。对${team}来说，一次稳妥触球就能缓解压力。`
-        ]);
-  }
-  if (group === "forward") {
-    return keyMentioned
-      ? note("forward-key", [
-          ({ team }) => `他是${team}这届赛事的主要进攻选择之一。他先让第一名防守者移动，再寻找射门或最后一传。`,
-          ({ team }) => `他是${team}这届赛事的主要进攻点之一。看他面向球门接球时，第一名防守者如何应对。`,
-          ({ team }) => `他已经成为对手赛前必须注意的人。对${team}来说，他的触球能吸引协防，为队友的跑动打开空间。`,
-          ({ team }) => `他给${team}一种把控球变成威胁的办法，迫使防守者做出选择。`
-        ])
-      : note("forward-cover", [
-          ({ team }) => `他是${team}前场计划的一部分。他先拉扯防守者，再寻找把压力变成机会的触球。`,
-          ({ team }) => `他是${team}需要增加速度时可以使用的前锋。第一项工作，是迫使疲劳的后卫转身回追。`,
-          ({ team }) => `他给${team}替补席上的另一种进攻速度。有时关键触球，是那次帮队友拉开空间的跑动。`,
-          ({ team }) => `他是${team}的前锋轮换。如果比赛慢下来，他要让对方后防线重新移动。`
-        ]);
-  }
-  return note("player-fallback", [
-    ({ team }) => `他在${team}的价值来自稳妥决定。看他的第一脚触球，是让球队稳下来，还是让下一次进攻加速。`,
-    ({ team }) => `他是${team}阵容轮换的一部分。压力下仍能找到简单选择，就是他的价值。`,
-    ({ team }) => `他给${team}在困难阶段多一个可信选择。一次正确决定，就能避免局面失控。`
-  ]);
+  return `${evidence}比赛中，他${firstAction}，也${secondAction}。`;
 }
 
 function targetTeams(teamsData) {
@@ -713,6 +713,7 @@ const [profilesData, teamsData, fixturesData, lineupsData] = await Promise.all([
   readJson(path.join(dataDir, "lineups.json"))
 ]);
 
+const repairedDisplayNames = repairCanonicalDisplayNames(profilesData);
 const teamsById = new Map((teamsData.teams || []).map((team) => [team.id, team]));
 const facts = buildFacts({ fixturesData, lineupsData, profilesData, teamsById });
 const teams = targetTeams(teamsData);
@@ -765,5 +766,5 @@ if (!dryRun) {
 }
 
 console.log(
-  `${dryRun ? "Would refresh" : "Refreshed"} ${updatedProfiles} generated profile notes and ${updatedOverrides} override entries for ${teams.length} teams.`
+  `${dryRun ? "Would refresh" : "Refreshed"} ${updatedProfiles} generated profile notes, ${updatedOverrides} override entries, and ${repairedDisplayNames} canonical display names for ${teams.length} teams.`
 );

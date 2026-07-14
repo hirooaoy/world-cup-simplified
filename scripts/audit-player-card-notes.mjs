@@ -195,6 +195,114 @@ const genericChecks = [
   }
 ];
 
+const repeatedTemplateChecks = [
+  {
+    pattern: /\bquiet-work part\b/i,
+    message: "replace the repeated quiet-work template with a concrete action to watch"
+  },
+  {
+    pattern: /\b(?:the )?small window before the shape resets\b/i,
+    message: "replace the repeated small-window metaphor with a concrete scoring action"
+  },
+  {
+    pattern: /\bmidfield insurance\b|\bback-line insurance\b/i,
+    message: "replace the insurance metaphor with the player's actual defensive job"
+  },
+  {
+    pattern: /\b(?:the )?night turns sideways\b/i,
+    message: "replace the night-turns-sideways metaphor with a direct goalkeeper description"
+  },
+  {
+    pattern: /\bthe messy phase\b|\bwhen the match gets narrow\b/i,
+    message: "replace the repeated match-state metaphor with a specific action"
+  },
+  {
+    pattern: /\bone of .+? steady pieces? in the back line\b/i,
+    message: "replace the repeated steady-piece template with a concrete defensive action"
+  },
+  {
+    pattern: /\b(?:part of|one of) .+?'s answer without the ball\b/i,
+    message: "replace the answer-without-the-ball template with a direct defensive description"
+  },
+  {
+    pattern: /\b(?:the forward .+? can use when the match needs new legs|make tired defenders turn)\b/i,
+    message: "replace the repeated new-legs template with the player's actual attacking action"
+  },
+  {
+    pattern: /\b(?:attacking change-up|first plan starts to look predictable)\b/i,
+    message: "replace the change-up template with a direct role description"
+  },
+  {
+    pattern: /\bway to settle the middle\b|\bnext decision less hurried\b/i,
+    message: "replace the settle-the-middle template with a concrete midfield action"
+  },
+  {
+    pattern: /\b(?:named attacking routes?|attacking paths?) (?:in )?this tournament\b/i,
+    message: "replace the attacking-route template with a concrete action to watch"
+  },
+  {
+    pattern: /\b(?:his|her|their) card is\b|\bthe card is\b/i,
+    message: "describe the player directly instead of referring to the card"
+  },
+  {
+    pattern: /\bwatch the small choices\b|\bfirst defender (?:reacts|move)\b/i,
+    message: "replace the repeated first-defender prompt with an observable action"
+  }
+];
+
+const corruptDisplayNamePattern =
+  /\b(?:national (?:football|soccer) team|(?:fifa )?world cup group [a-l]|football award winners?)\b|\b(?:F\.?C\.?|S\.?C\.?)$/i;
+
+function normalizedTeamLabels(team = {}) {
+  const labels = new Set();
+  for (const value of [team.name, team.officialName, team.standingName]) {
+    const normalized = normalizePlayerName(value);
+    if (!normalized) {
+      continue;
+    }
+    labels.add(normalized);
+    const meaningfulTokens = normalized
+      .split(/\s+/)
+      .filter((token) => !["dr", "ir", "republic", "the", "united", "states"].includes(token));
+    if (meaningfulTokens.length === 1) {
+      labels.add(meaningfulTokens[0]);
+    }
+  }
+  return labels;
+}
+
+function getDisplayNameIssue(profileName, profile = {}, team = {}) {
+  const displayName = String(profile.displayName || "").trim();
+  if (!displayName) {
+    return "profile has no display name";
+  }
+
+  if (/[|{}<>]/.test(displayName)) {
+    return `display name contains a page-title artifact: ${displayName}`;
+  }
+  if (corruptDisplayNamePattern.test(displayName)) {
+    return `display name looks like a team, club, or page title: ${displayName}`;
+  }
+
+  const displayKey = normalizePlayerName(displayName);
+  const profileKey = normalizePlayerName(profileName);
+  const clubKey = normalizePlayerName(profile.club);
+  const leagueKey = normalizePlayerName(profile.league);
+  if (displayKey && displayKey !== profileKey && (displayKey === clubKey || displayKey === leagueKey)) {
+    return `display name matches club or league copy instead of the player: ${displayName}`;
+  }
+
+  if (
+    profileKey.split(/\s+/).length >= 2 &&
+    displayKey.split(/\s+/).length === 1 &&
+    normalizedTeamLabels(team).has(displayKey)
+  ) {
+    return `display name matches the country instead of the player: ${displayName}`;
+  }
+
+  return "";
+}
+
 function countSentences(note) {
   const matches = String(note || "").match(/[.!?]+/g);
   return matches ? matches.length : 0;
@@ -204,9 +312,13 @@ function addIssue(issues, profileName, kind, message) {
   issues.push({ profileName, kind, message });
 }
 
-function auditProfile(profileName, profile, usage, issues) {
+function auditProfile(profileName, profile, usage, team, issues) {
   const note = String(profile?.note || "").trim();
   const skills = Array.isArray(profile?.skills) ? profile.skills.filter(Boolean) : [];
+  const displayNameIssue = getDisplayNameIssue(profileName, profile, team);
+  if (displayNameIssue) {
+    addIssue(issues, profileName, "display-name", displayNameIssue);
+  }
   if (!note) {
     addIssue(issues, profileName, "missing-note", "profile has no player-card note");
     return;
@@ -240,6 +352,12 @@ function auditProfile(profileName, profile, usage, issues) {
   for (const check of genericChecks) {
     if (check.pattern.test(note)) {
       addIssue(issues, profileName, "generic-voice", check.message);
+    }
+  }
+
+  for (const check of repeatedTemplateChecks) {
+    if (check.pattern.test(note)) {
+      addIssue(issues, profileName, "repeated-template", check.message);
     }
   }
 
@@ -316,7 +434,7 @@ if (!profiles.length) {
 const issues = [];
 for (const [profileName, profile] of profiles) {
   const usage = usageByPlayer.get(getUsageKey(profile?.teamId, profileName));
-  auditProfile(profileName, profile, usage, issues);
+  auditProfile(profileName, profile, usage, teamsById.get(profile?.teamId), issues);
 }
 
 const scopeLabel = teamIds.length

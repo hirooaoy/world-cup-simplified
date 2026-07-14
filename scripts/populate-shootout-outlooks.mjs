@@ -8,6 +8,7 @@ const fixturesPath = path.join(root, "data", "fixtures.json");
 const historyPath = path.join(root, "data", "history.json");
 const teamsPath = path.join(root, "data", "teams.json");
 const generatedAt = "2026-07-13T15:25:20-07:00";
+const historicalGeneratedAt = "2026-07-14T01:06:19-07:00";
 const archiveSourceId = "openfootball-worldcup-json-2026-06-17";
 const currentResultsSourceId = "fifa-official-results-sync-2026-07-12";
 
@@ -116,6 +117,62 @@ function addTeamEvent(eventsByTeam, teamId, event) {
   eventsByTeam.set(teamId, events);
 }
 
+function getHistoricalTeamKey(teamName) {
+  const normalizedName = normalizeName(teamName);
+  return normalizedName === "west germany" ? "germany" : normalizedName;
+}
+
+function isHistoricalGroupPlayoffFixture(fixture) {
+  return /^Group\s+.+\s+Play-?off$/i.test(String(fixture?.round || "").trim());
+}
+
+function isHistoricalShootoutOutlookFixture(fixture) {
+  return (
+    Number(fixture?.tournamentYear) >= 1978 &&
+    !fixture?.group &&
+    !isHistoricalGroupPlayoffFixture(fixture)
+  );
+}
+
+function buildHistoricalShootoutEvents(historyData) {
+  const eventsByTeam = new Map();
+
+  for (const fixture of historyData.fixtures || []) {
+    const penalties = getPenaltyScore(fixture);
+    if (!penalties) {
+      continue;
+    }
+
+    const sourceIds = [fixture.sourceId || archiveSourceId];
+    addTeamEvent(eventsByTeam, getHistoricalTeamKey(fixture.homeSlot), {
+      sortKey: fixture.sortKey,
+      won: penalties.home > penalties.away,
+      sourceIds
+    });
+    addTeamEvent(eventsByTeam, getHistoricalTeamKey(fixture.awaySlot), {
+      sortKey: fixture.sortKey,
+      won: penalties.away > penalties.home,
+      sourceIds
+    });
+  }
+
+  return eventsByTeam;
+}
+
+function buildHistoricalTeamRecord(eventsByTeam, teamName, cutoffKey) {
+  const events = (eventsByTeam.get(getHistoricalTeamKey(teamName)) || []).filter(
+    (event) => String(event.sortKey || "").localeCompare(String(cutoffKey || "")) < 0
+  );
+  const wins = events.filter((event) => event.won).length;
+
+  return {
+    wins,
+    losses: events.length - wins,
+    appearances: events.length,
+    sourceIds: [...new Set(events.flatMap((event) => event.sourceIds || []))]
+  };
+}
+
 function buildShootoutEvents(historyData, fixturesData, teamsData) {
   const teamIdsByName = new Map();
   for (const team of teamsData.teams || []) {
@@ -199,8 +256,10 @@ const [fixturesData, historyData, teamsData] = await Promise.all([
 ]);
 
 const eventsByTeam = buildShootoutEvents(historyData, fixturesData, teamsData);
+const historicalEventsByTeam = buildHistoricalShootoutEvents(historyData);
 const usedSourceIds = new Set(fixturesData.sourceIds || []);
 let populated = 0;
+let historicalPopulated = 0;
 
 fixturesData.fixtures = fixturesData.fixtures.map((fixture) => {
   if (fixture.stage === "group" || !fixture.homeTeamId || !fixture.awayTeamId) {
@@ -246,6 +305,59 @@ fixturesData.fixtures = fixturesData.fixtures.map((fixture) => {
 
 fixturesData.sourceIds = [...usedSourceIds];
 fixturesData.updatedAt = generatedAt;
+historyData.fixtures = (historyData.fixtures || []).map((fixture) => {
+  if (!isHistoricalShootoutOutlookFixture(fixture)) {
+    if (fixture.shootoutOutlook === undefined) {
+      return fixture;
+    }
+
+    const { shootoutOutlook: _removedShootoutOutlook, ...fixtureWithoutOutlook } = fixture;
+    return fixtureWithoutOutlook;
+  }
+
+  const homeRecord = buildHistoricalTeamRecord(
+    historicalEventsByTeam,
+    fixture.homeSlot,
+    fixture.sortKey
+  );
+  const awayRecord = buildHistoricalTeamRecord(
+    historicalEventsByTeam,
+    fixture.awaySlot,
+    fixture.sortKey
+  );
+  const sourceIds = [
+    fixture.sourceId || archiveSourceId,
+    ...homeRecord.sourceIds,
+    ...awayRecord.sourceIds
+  ];
+
+  historicalPopulated += 1;
+  return {
+    ...fixture,
+    shootoutOutlook: {
+      method: "world-cup-shootout-history",
+      sourceIds: [...new Set(sourceIds)],
+      generatedAt: historicalGeneratedAt,
+      cutoffAt: fixture.date,
+      cutoffKey: fixture.sortKey,
+      homeTeamName: fixture.homeSlot,
+      awayTeamName: fixture.awaySlot,
+      home: {
+        wins: homeRecord.wins,
+        losses: homeRecord.losses,
+        appearances: homeRecord.appearances
+      },
+      away: {
+        wins: awayRecord.wins,
+        losses: awayRecord.losses,
+        appearances: awayRecord.appearances
+      }
+    }
+  };
+});
+historyData.updatedAt = historicalGeneratedAt;
 await writeFile(fixturesPath, `${JSON.stringify(fixturesData, null, 2)}\n`);
+await writeFile(historyPath, `${JSON.stringify(historyData, null, 2)}\n`);
 
 console.log(`Populated sourced shootout outlooks for ${populated} confirmed knockout fixtures.`);
+console.log(`Populated cutoff-safe shootout outlooks for ${historicalPopulated} historical knockout fixtures.`);

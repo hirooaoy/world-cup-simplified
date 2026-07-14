@@ -2,6 +2,7 @@
 import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { archiveCompletedExpectedLineups } from "./lineup-prediction-history.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const dataDir = path.join(root, "data");
@@ -1081,12 +1082,13 @@ function addSyncSource(tournamentData, { matchedCount, participantUpdateCount = 
   };
 }
 
-const [fixturesData, standingsData, teamsData, tournamentData, expectedLineupsData] = await Promise.all([
+const [fixturesData, standingsData, teamsData, tournamentData, expectedLineupsData, predictionHistoryData] = await Promise.all([
   readJson("fixtures.json"),
   readJson("standings.json"),
   readJson("teams.json"),
   readJson("tournament.json"),
-  readOptionalJson("expected-lineups.json")
+  readOptionalJson("expected-lineups.json"),
+  readOptionalJson("lineup-prediction-history.json", { schemaVersion: "1.0", updatedAt: checkedAt, fixtures: [] })
 ]);
 const officialData = await fetchOfficialSchedule(fixturesData);
 const officialMatches = officialData.Results || [];
@@ -1102,6 +1104,12 @@ const participantMerge = populateResolvedKnockoutParticipants({
   standingsData: nextStandingsData,
   teams: teamsData.teams,
   tournamentData
+});
+const predictionHistoryArchive = archiveCompletedExpectedLineups({
+  historyData: predictionHistoryData,
+  expectedLineupsData,
+  fixturesData: participantMerge.fixturesData,
+  capturedAt: checkedAt
 });
 const expectedLineupsPrune = pruneExpectedLineupsForSyncedFixtures(expectedLineupsData, participantMerge.fixturesData);
 const totalUpdateCount = merge.updateCount + participantMerge.updateCount + expectedLineupsPrune.pruneCount;
@@ -1122,6 +1130,9 @@ if (shouldWrite && (!skipUnchangedWrites || totalUpdateCount > 0)) {
   if (expectedLineupsPrune.pruneCount > 0) {
     writes.push(writeJson("expected-lineups.json", expectedLineupsPrune.expectedLineupsData));
   }
+  if (predictionHistoryArchive.archivedCount > 0) {
+    writes.push(writeJson("lineup-prediction-history.json", predictionHistoryArchive.historyData));
+  }
 
   await Promise.all(writes);
 }
@@ -1140,6 +1151,11 @@ if (shouldWrite && skipUnchangedWrites && totalUpdateCount === 0) {
   if (expectedLineupsPrune.pruneCount > 0) {
     console.log(
       `${expectedLineupsPrune.pruneCount} stale expected lineup record${expectedLineupsPrune.pruneCount === 1 ? "" : "s"} ${shouldWrite ? "pruned" : "detected"}.`
+    );
+  }
+  if (predictionHistoryArchive.archivedCount > 0) {
+    console.log(
+      `${predictionHistoryArchive.archivedCount} expected lineup record${predictionHistoryArchive.archivedCount === 1 ? "" : "s"} ${shouldWrite ? "archived before pruning" : "ready to archive"}.`
     );
   }
 }

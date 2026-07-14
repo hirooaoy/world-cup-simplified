@@ -29,9 +29,12 @@ Ranking-based projection baselines may use FIFA ranking data as input, but the m
 Lineups follow a trust ladder:
 
 - Before kickoff, `data/expected-lineups.json` may provide predicted lineups. These records must stay `mode: "expected"` or `mode: "probable"`, use `layoutSource: "derived-team-sheet-order"`, and keep `layoutVerification.exact` false unless a genuinely verified layout exists.
+- `data/lineup-prediction-history.json` preserves the last available pre-kickoff prediction after a fixture starts. `pnpm sync:fifa` archives a completed fixture's expected-lineup record before pruning it, while `pnpm lineups:history:backfill` reconstructs only snapshots that demonstrably existed in Git before kickoff. Never manufacture older forecasts from final lineups.
 - When FIFA publishes the team sheet, `pnpm sync:fifa:lineups` writes official starters, bench, formation, coaches, cards, and substitutions into `data/lineups.json`.
 - During live matches, the UI displays the official starting XI and represents substitutions separately.
 - After full time, completed fixtures must keep a final `lineups.json` record. Official facts should come from FIFA whenever possible.
+
+Run `pnpm lineups:history:audit` to compare archived predictions with the final official starting XIs and formation labels.
 
 Exact pitch geometry is separate from official team-sheet facts. Do not tune the generic placement heuristics to fix one match. If a public FIFA payload does not expose reliable coordinates, keep the layout `derived-team-sheet-order` and unverified.
 
@@ -74,7 +77,7 @@ For an archived fixture with a trustworthy pre-match forecast but no recoverable
 
 Refresh future online-source projections as better information arrives, stopping at kickoff. Once a match starts, preserve the final pre-match snapshot so past fixtures do not silently inherit hindsight. Newly confirmed fixtures may use the ranking baseline temporarily, then be upgraded without changing the display contract.
 
-Knockout shootout guidance is separate from the 90-minute projection. Run `node scripts/populate-shootout-outlooks.mjs` after knockout participants or results change. Every confirmed knockout fixture receives a `shootoutOutlook` cut off at kickoff, using the World Cup shootout archive plus any earlier 2026 shootouts, so later results cannot leak into older forecasts. When stronger player-level research is available, `sourced-shootout-evidence` may replace the archive wording only with at least two verified facts, such as a goalkeeper's shootout record and a likely taker's career conversion record.
+Knockout shootout guidance is separate from the 90-minute projection. Run `node scripts/populate-shootout-outlooks.mjs` after knockout participants or results change. Every confirmed knockout fixture receives a `shootoutOutlook` cut off at kickoff, using the World Cup shootout archive plus any earlier 2026 shootouts, so later results cannot leak into older forecasts. The same command backfills all 166 eligible archive knockout matches from 1978-2022 with only the World Cup shootouts known before each match; 1978 is included because shootouts were available even though the first was not needed until 1982, while earlier fixtures deliberately receive no penalty language. When stronger player-level research is available, `sourced-shootout-evidence` may replace the archive wording only with at least two verified facts, such as a goalkeeper's shootout record and a likely taker's career conversion record.
 
 Keep `shootoutForecast` for the separate method-of-victory market: preserve the displayed prices and normalize the two shootout outcomes to 100. An even market does not force bland copy if verified historical or player evidence supports a cautious `may have a slight edge` outlook. Never infer a shootout edge from the regulation forecast, FIFA rank, unverified save quality, or a static list of famous players. Distinguish goalkeeper saves from misses or shots off the frame, and do not call a save difficult without shot-quality data or footage review.
 

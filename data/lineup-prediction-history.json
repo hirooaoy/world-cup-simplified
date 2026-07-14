@@ -1,0 +1,1681 @@
+{
+  "schemaVersion": "1.0",
+  "updatedAt": "2026-07-14T08:03:48.633Z",
+  "fixtures": [
+    {
+      "fixtureId": "match-96-round-of-16-2026-07-07",
+      "kickoffUtc": "2026-07-07T20:00:00Z",
+      "capturedAt": "2026-07-07T11:59:57-07:00",
+      "predictionGeneratedAt": "2026-07-07T18:55:59.189Z",
+      "captureMethod": "git-pre-kickoff-backfill",
+      "snapshotRef": "2fd69e8",
+      "mode": "probable",
+      "confidence": {
+        "label": "high",
+        "score": 0.889,
+        "method": "provider-weighted-lineup-evidence-v1",
+        "reason": "Average confidence across predicted home and away XIs"
+      },
+      "providers": [
+        {
+          "providerId": "local-official-history",
+          "providerVersion": "1",
+          "score": 0.854,
+          "sourceIds": [
+            "lineup-prediction-official-history-2026-07-07",
+            "fifa-lineups-sync-2026-07-07",
+            "lineup-layout-verification-2026-07-03",
+            "standard-switzerland-colombia-lineups-2026-07-07",
+            "fifa-lineups-sync-2026-07-04",
+            "lineup-layout-verification-2026-07-07"
+          ]
+        },
+        {
+          "providerId": "free-public-lineups",
+          "providerVersion": "1",
+          "score": 0.951,
+          "sourceIds": [
+            "rotowire-world-cup-lineups-2026-07-07",
+            "standard-switzerland-colombia-lineups-2026-07-07"
+          ]
+        },
+        {
+          "providerId": "free-public-lineups",
+          "providerVersion": "1",
+          "score": 0.951,
+          "sourceIds": [
+            "standard-switzerland-colombia-lineups-2026-07-07"
+          ]
+        }
+      ],
+      "sourceIds": [
+        "rotowire-world-cup-lineups-2026-07-07",
+        "standard-switzerland-colombia-lineups-2026-07-07",
+        "lineup-prediction-official-history-2026-07-07",
+        "fifa-lineups-sync-2026-07-07",
+        "lineup-layout-verification-2026-07-03",
+        "fifa-lineups-sync-2026-07-04",
+        "lineup-layout-verification-2026-07-07"
+      ],
+      "sources": [
+        {
+          "id": "lineup-prediction-official-history-2026-07-07",
+          "label": "Lineup prediction official-history provider",
+          "type": "lineup-prediction-provider",
+          "checkedAt": "2026-07-07T18:55:59.189Z",
+          "note": "Uses local FIFA official lineup history, recent formations, minutes/load, cards, and player availability."
+        }
+      ],
+      "home": {
+        "teamId": "SUI",
+        "formation": "4-2-3-1",
+        "starters": [
+          {
+            "name": "Gregor Kobel",
+            "number": "",
+            "position": "GK",
+            "x": 50,
+            "y": 91,
+            "confidence": {
+              "label": "high",
+              "score": 0.92,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Denis Zakaria",
+            "number": "",
+            "position": "RB",
+            "x": 85,
+            "y": 75,
+            "confidence": {
+              "label": "high",
+              "score": 0.92,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Nico Elvedi",
+            "number": "",
+            "position": "CB",
+            "x": 62,
+            "y": 75,
+            "confidence": {
+              "label": "high",
+              "score": 0.92,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Manuel Akanji",
+            "number": "",
+            "position": "CB",
+            "x": 38,
+            "y": 75,
+            "confidence": {
+              "label": "high",
+              "score": 0.92,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Ricardo Rodriguez",
+            "number": "",
+            "position": "LB",
+            "x": 15,
+            "y": 75,
+            "confidence": {
+              "label": "high",
+              "score": 0.92,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Remo Freuler",
+            "number": "",
+            "position": "CM",
+            "x": 34,
+            "y": 59,
+            "confidence": {
+              "label": "high",
+              "score": 0.92,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Granit Xhaka",
+            "number": "",
+            "position": "CM",
+            "x": 66,
+            "y": 59,
+            "confidence": {
+              "label": "high",
+              "score": 0.92,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Dan Ndoye",
+            "number": "",
+            "position": "RW",
+            "x": 82,
+            "y": 40,
+            "confidence": {
+              "label": "high",
+              "score": 0.92,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Fabian Rieder",
+            "number": "",
+            "position": "AM",
+            "x": 50,
+            "y": 40,
+            "confidence": {
+              "label": "high",
+              "score": 0.84,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Ruben Vargas",
+            "number": "",
+            "position": "LW",
+            "x": 18,
+            "y": 40,
+            "confidence": {
+              "label": "high",
+              "score": 0.84,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Breel Embolo",
+            "number": "",
+            "position": "ST",
+            "x": 50,
+            "y": 20,
+            "confidence": {
+              "label": "high",
+              "score": 0.92,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          }
+        ]
+      },
+      "away": {
+        "teamId": "COL",
+        "formation": "4-3-3",
+        "starters": [
+          {
+            "name": "Camilo Vargas",
+            "number": "",
+            "position": "GK",
+            "x": 50,
+            "y": 91,
+            "confidence": {
+              "label": "high",
+              "score": 0.92,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Daniel Munoz",
+            "number": "",
+            "position": "RB",
+            "x": 85,
+            "y": 75,
+            "confidence": {
+              "label": "high",
+              "score": 0.92,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Davinson Sanchez",
+            "number": "",
+            "position": "CB",
+            "x": 62,
+            "y": 75,
+            "confidence": {
+              "label": "high",
+              "score": 0.92,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Jhon Lucumi",
+            "number": "",
+            "position": "CB",
+            "x": 38,
+            "y": 75,
+            "confidence": {
+              "label": "high",
+              "score": 0.92,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Johan Mojica",
+            "number": "",
+            "position": "LB",
+            "x": 15,
+            "y": 75,
+            "confidence": {
+              "label": "high",
+              "score": 0.92,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Gustavo Puerta",
+            "number": "",
+            "position": "CM",
+            "x": 25,
+            "y": 53,
+            "confidence": {
+              "label": "high",
+              "score": 0.92,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Jefferson Lerma",
+            "number": "",
+            "position": "CM",
+            "x": 50,
+            "y": 53,
+            "confidence": {
+              "label": "high",
+              "score": 0.92,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Jhon Arias",
+            "number": "",
+            "position": "CM",
+            "x": 75,
+            "y": 53,
+            "confidence": {
+              "label": "high",
+              "score": 0.92,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "James Rodriguez",
+            "number": "",
+            "position": "RW",
+            "x": 82,
+            "y": 31,
+            "confidence": {
+              "label": "high",
+              "score": 0.92,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Luis Suarez",
+            "number": "",
+            "position": "ST",
+            "x": 50,
+            "y": 21,
+            "confidence": {
+              "label": "high",
+              "score": 0.92,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Luis Diaz",
+            "number": "",
+            "position": "LW",
+            "x": 18,
+            "y": 31,
+            "confidence": {
+              "label": "high",
+              "score": 0.92,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fixtureId": "match-97-quarter-final-2026-07-09",
+      "kickoffUtc": "2026-07-09T20:00:00Z",
+      "capturedAt": "2026-07-08T14:01:21-07:00",
+      "predictionGeneratedAt": "2026-07-08T20:28:43.407Z",
+      "captureMethod": "git-pre-kickoff-backfill",
+      "snapshotRef": "7ab4b0c",
+      "mode": "probable",
+      "confidence": {
+        "label": "high",
+        "score": 0.889,
+        "method": "provider-weighted-lineup-evidence-v1",
+        "reason": "Average confidence across predicted home and away XIs"
+      },
+      "providers": [
+        {
+          "providerId": "local-official-history",
+          "providerVersion": "1",
+          "score": 0.923,
+          "sourceIds": [
+            "lineup-prediction-official-history-2026-07-08",
+            "fifa-lineups-sync-2026-07-07",
+            "lineup-layout-verification-2026-07-07",
+            "365scores-france-morocco-lineups-2026-07-07",
+            "fifa-squad-list-2026-06-21"
+          ]
+        },
+        {
+          "providerId": "free-public-lineups",
+          "providerVersion": "1",
+          "score": 0.951,
+          "sourceIds": [
+            "rotowire-world-cup-lineups-2026-07-07",
+            "365scores-france-morocco-lineups-2026-07-07",
+            "fifa-squad-list-2026-06-21"
+          ]
+        },
+        {
+          "providerId": "free-public-lineups",
+          "providerVersion": "1",
+          "score": 0.944,
+          "sourceIds": [
+            "365scores-france-morocco-lineups-2026-07-07",
+            "fifa-squad-list-2026-06-21"
+          ]
+        }
+      ],
+      "sourceIds": [
+        "rotowire-world-cup-lineups-2026-07-07",
+        "365scores-france-morocco-lineups-2026-07-07",
+        "fifa-squad-list-2026-06-21",
+        "lineup-prediction-official-history-2026-07-08",
+        "fifa-lineups-sync-2026-07-07",
+        "lineup-layout-verification-2026-07-07"
+      ],
+      "sources": [
+        {
+          "id": "lineup-prediction-official-history-2026-07-08",
+          "label": "Lineup prediction official-history provider",
+          "type": "lineup-prediction-provider",
+          "checkedAt": "2026-07-08T20:28:43.407Z",
+          "note": "Uses local FIFA official lineup history, recent formations, minutes/load, cards, and player availability."
+        }
+      ],
+      "home": {
+        "teamId": "FRA",
+        "formation": "4-2-3-1",
+        "starters": [
+          {
+            "name": "Mike Maignan",
+            "number": "16",
+            "position": "GK",
+            "x": 50,
+            "y": 91,
+            "confidence": {
+              "label": "high",
+              "score": 0.92,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Jules Kounde",
+            "number": "5",
+            "position": "RB",
+            "x": 85,
+            "y": 75,
+            "confidence": {
+              "label": "high",
+              "score": 0.92,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Dayot Upamecano",
+            "number": "4",
+            "position": "CB",
+            "x": 62,
+            "y": 75,
+            "confidence": {
+              "label": "high",
+              "score": 0.92,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "William Saliba",
+            "number": "17",
+            "position": "CB",
+            "x": 38,
+            "y": 75,
+            "confidence": {
+              "label": "high",
+              "score": 0.92,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Lucas Digne",
+            "number": "3",
+            "position": "LB",
+            "x": 15,
+            "y": 75,
+            "confidence": {
+              "label": "high",
+              "score": 0.92,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Manu Kone",
+            "number": "6",
+            "position": "CM",
+            "x": 34,
+            "y": 59,
+            "confidence": {
+              "label": "high",
+              "score": 0.92,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Adrien Rabiot",
+            "number": "14",
+            "position": "CM",
+            "x": 66,
+            "y": 59,
+            "confidence": {
+              "label": "high",
+              "score": 0.92,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Ousmane Dembele",
+            "number": "7",
+            "position": "RW",
+            "x": 82,
+            "y": 40,
+            "confidence": {
+              "label": "high",
+              "score": 0.92,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Michael Olise",
+            "number": "11",
+            "position": "AM",
+            "x": 50,
+            "y": 40,
+            "confidence": {
+              "label": "high",
+              "score": 0.92,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Bradley Barcola",
+            "number": "12",
+            "position": "LW",
+            "x": 18,
+            "y": 40,
+            "confidence": {
+              "label": "high",
+              "score": 0.92,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Kylian Mbappe",
+            "number": "10",
+            "position": "ST",
+            "x": 50,
+            "y": 20,
+            "confidence": {
+              "label": "high",
+              "score": 0.92,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          }
+        ]
+      },
+      "away": {
+        "teamId": "MAR",
+        "formation": "4-2-3-1",
+        "starters": [
+          {
+            "name": "Yassine Bounou",
+            "number": "1",
+            "position": "GK",
+            "x": 50,
+            "y": 91,
+            "confidence": {
+              "label": "high",
+              "score": 0.92,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Achraf Hakimi",
+            "number": "2",
+            "position": "RB",
+            "x": 85,
+            "y": 75,
+            "confidence": {
+              "label": "high",
+              "score": 0.92,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Issa Diop",
+            "number": "14",
+            "position": "CB",
+            "x": 62,
+            "y": 75,
+            "confidence": {
+              "label": "high",
+              "score": 0.92,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Chadi Riad",
+            "number": "18",
+            "position": "CB",
+            "x": 38,
+            "y": 75,
+            "confidence": {
+              "label": "high",
+              "score": 0.84,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Noussair Mazraoui",
+            "number": "3",
+            "position": "LB",
+            "x": 15,
+            "y": 75,
+            "confidence": {
+              "label": "high",
+              "score": 0.92,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Neil El Aynaoui",
+            "number": "24",
+            "position": "CM",
+            "x": 34,
+            "y": 59,
+            "confidence": {
+              "label": "high",
+              "score": 0.92,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Ayyoub Bouaddi",
+            "number": "6",
+            "position": "CM",
+            "x": 66,
+            "y": 59,
+            "confidence": {
+              "label": "high",
+              "score": 0.92,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Brahim Diaz",
+            "number": "10",
+            "position": "RW",
+            "x": 82,
+            "y": 40,
+            "confidence": {
+              "label": "high",
+              "score": 0.92,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Azzedine Ounahi",
+            "number": "8",
+            "position": "AM",
+            "x": 50,
+            "y": 40,
+            "confidence": {
+              "label": "high",
+              "score": 0.92,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Bilal El Khannouss",
+            "number": "23",
+            "position": "LW",
+            "x": 18,
+            "y": 40,
+            "confidence": {
+              "label": "high",
+              "score": 0.92,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Soufiane Rahimi",
+            "number": "9",
+            "position": "ST",
+            "x": 50,
+            "y": 20,
+            "confidence": {
+              "label": "high",
+              "score": 0.84,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fixtureId": "match-98-quarter-final-2026-07-10",
+      "kickoffUtc": "2026-07-10T19:00:00Z",
+      "capturedAt": "2026-07-09T21:21:11-07:00",
+      "predictionGeneratedAt": "2026-07-08T20:28:43.407Z",
+      "captureMethod": "git-pre-kickoff-backfill",
+      "snapshotRef": "cb6f0d4",
+      "mode": "probable",
+      "confidence": {
+        "label": "high",
+        "score": 0.889,
+        "method": "provider-weighted-lineup-evidence-v1",
+        "reason": "Average confidence across predicted home and away XIs"
+      },
+      "providers": [
+        {
+          "providerId": "local-official-history",
+          "providerVersion": "1",
+          "score": 0.895,
+          "sourceIds": [
+            "lineup-prediction-official-history-2026-07-08",
+            "fifa-lineups-sync-2026-07-07",
+            "lineup-layout-verification-2026-07-07",
+            "squawka-spain-belgium-lineups-2026-07-07"
+          ]
+        },
+        {
+          "providerId": "free-public-lineups",
+          "providerVersion": "1",
+          "score": 0.951,
+          "sourceIds": [
+            "rotowire-world-cup-lineups-2026-07-07",
+            "squawka-spain-belgium-lineups-2026-07-07"
+          ]
+        },
+        {
+          "providerId": "free-public-lineups",
+          "providerVersion": "1",
+          "score": 0.951,
+          "sourceIds": [
+            "squawka-spain-belgium-lineups-2026-07-07"
+          ]
+        }
+      ],
+      "sourceIds": [
+        "rotowire-world-cup-lineups-2026-07-07",
+        "squawka-spain-belgium-lineups-2026-07-07",
+        "lineup-prediction-official-history-2026-07-08",
+        "fifa-lineups-sync-2026-07-07",
+        "lineup-layout-verification-2026-07-07"
+      ],
+      "sources": [
+        {
+          "id": "lineup-prediction-official-history-2026-07-08",
+          "label": "Lineup prediction official-history provider",
+          "type": "lineup-prediction-provider",
+          "checkedAt": "2026-07-08T20:28:43.407Z",
+          "note": "Uses local FIFA official lineup history, recent formations, minutes/load, cards, and player availability."
+        }
+      ],
+      "home": {
+        "teamId": "ESP",
+        "formation": "4-2-3-1",
+        "starters": [
+          {
+            "name": "Unai Simon",
+            "number": "23",
+            "position": "GK",
+            "x": 50,
+            "y": 91,
+            "confidence": {
+              "label": "high",
+              "score": 0.92,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Pedro Porro",
+            "number": "12",
+            "position": "RB",
+            "x": 85,
+            "y": 75,
+            "confidence": {
+              "label": "high",
+              "score": 0.92,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Pau Cubarsi",
+            "number": "22",
+            "position": "CB",
+            "x": 62,
+            "y": 75,
+            "confidence": {
+              "label": "high",
+              "score": 0.92,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Aymeric Laporte",
+            "number": "14",
+            "position": "CB",
+            "x": 38,
+            "y": 75,
+            "confidence": {
+              "label": "high",
+              "score": 0.92,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Marc Cucurella",
+            "number": "24",
+            "position": "LB",
+            "x": 15,
+            "y": 75,
+            "confidence": {
+              "label": "high",
+              "score": 0.92,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Rodri",
+            "number": "16",
+            "position": "CM",
+            "x": 34,
+            "y": 59,
+            "confidence": {
+              "label": "high",
+              "score": 0.92,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Pedri",
+            "number": "20",
+            "position": "CM",
+            "x": 66,
+            "y": 59,
+            "confidence": {
+              "label": "high",
+              "score": 0.92,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Lamine Yamal",
+            "number": "19",
+            "position": "RW",
+            "x": 82,
+            "y": 40,
+            "confidence": {
+              "label": "high",
+              "score": 0.92,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Dani Olmo",
+            "number": "10",
+            "position": "AM",
+            "x": 50,
+            "y": 40,
+            "confidence": {
+              "label": "high",
+              "score": 0.92,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Alex Baena",
+            "number": "15",
+            "position": "LW",
+            "x": 18,
+            "y": 40,
+            "confidence": {
+              "label": "high",
+              "score": 0.92,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Mikel Oyarzabal",
+            "number": "21",
+            "position": "ST",
+            "x": 50,
+            "y": 20,
+            "confidence": {
+              "label": "high",
+              "score": 0.92,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          }
+        ]
+      },
+      "away": {
+        "teamId": "BEL",
+        "formation": "4-2-3-1",
+        "starters": [
+          {
+            "name": "Thibaut Courtois",
+            "number": "1",
+            "position": "GK",
+            "x": 50,
+            "y": 91,
+            "confidence": {
+              "label": "high",
+              "score": 0.92,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Timothy Castagne",
+            "number": "21",
+            "position": "RB",
+            "x": 85,
+            "y": 75,
+            "confidence": {
+              "label": "high",
+              "score": 0.92,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Brandon Mechele",
+            "number": "4",
+            "position": "CB",
+            "x": 62,
+            "y": 75,
+            "confidence": {
+              "label": "high",
+              "score": 0.92,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Nathan Ngoy",
+            "number": "25",
+            "position": "CB",
+            "x": 38,
+            "y": 75,
+            "confidence": {
+              "label": "high",
+              "score": 0.92,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Maxim De Cuyper",
+            "number": "5",
+            "position": "LB",
+            "x": 15,
+            "y": 75,
+            "confidence": {
+              "label": "high",
+              "score": 0.92,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Hans Vanaken",
+            "number": "20",
+            "position": "CM",
+            "x": 34,
+            "y": 59,
+            "confidence": {
+              "label": "high",
+              "score": 0.84,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Youri Tielemans",
+            "number": "8",
+            "position": "CM",
+            "x": 66,
+            "y": 59,
+            "confidence": {
+              "label": "high",
+              "score": 0.92,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Jeremy Doku",
+            "number": "11",
+            "position": "RW",
+            "x": 82,
+            "y": 40,
+            "confidence": {
+              "label": "high",
+              "score": 0.84,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Kevin De Bruyne",
+            "number": "7",
+            "position": "AM",
+            "x": 50,
+            "y": 40,
+            "confidence": {
+              "label": "high",
+              "score": 0.92,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Leandro Trossard",
+            "number": "10",
+            "position": "LW",
+            "x": 18,
+            "y": 40,
+            "confidence": {
+              "label": "high",
+              "score": 0.92,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Charles De Ketelaere",
+            "number": "17",
+            "position": "ST",
+            "x": 50,
+            "y": 20,
+            "confidence": {
+              "label": "high",
+              "score": 0.92,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fixtureId": "match-99-quarter-final-2026-07-11",
+      "kickoffUtc": "2026-07-11T21:00:00Z",
+      "capturedAt": "2026-07-10T20:21:17-07:00",
+      "predictionGeneratedAt": "2026-07-08T20:28:43.407Z",
+      "captureMethod": "git-pre-kickoff-backfill",
+      "snapshotRef": "82f60ec",
+      "mode": "probable",
+      "confidence": {
+        "label": "high",
+        "score": 0.889,
+        "method": "provider-weighted-lineup-evidence-v1",
+        "reason": "Average confidence across predicted home and away XIs"
+      },
+      "providers": [
+        {
+          "providerId": "local-official-history",
+          "providerVersion": "1",
+          "score": 0.895,
+          "sourceIds": [
+            "lineup-prediction-official-history-2026-07-08",
+            "fifa-lineups-sync-2026-07-07",
+            "lineup-layout-verification-2026-07-07",
+            "365scores-norway-england-lineups-2026-07-07"
+          ]
+        },
+        {
+          "providerId": "free-public-lineups",
+          "providerVersion": "1",
+          "score": 0.951,
+          "sourceIds": [
+            "rotowire-world-cup-lineups-2026-07-07",
+            "365scores-norway-england-lineups-2026-07-07"
+          ]
+        },
+        {
+          "providerId": "free-public-lineups",
+          "providerVersion": "1",
+          "score": 0.944,
+          "sourceIds": [
+            "365scores-norway-england-lineups-2026-07-07"
+          ]
+        }
+      ],
+      "sourceIds": [
+        "rotowire-world-cup-lineups-2026-07-07",
+        "365scores-norway-england-lineups-2026-07-07",
+        "lineup-prediction-official-history-2026-07-08",
+        "fifa-lineups-sync-2026-07-07",
+        "lineup-layout-verification-2026-07-07"
+      ],
+      "sources": [
+        {
+          "id": "lineup-prediction-official-history-2026-07-08",
+          "label": "Lineup prediction official-history provider",
+          "type": "lineup-prediction-provider",
+          "checkedAt": "2026-07-08T20:28:43.407Z",
+          "note": "Uses local FIFA official lineup history, recent formations, minutes/load, cards, and player availability."
+        }
+      ],
+      "home": {
+        "teamId": "NOR",
+        "formation": "4-3-3",
+        "starters": [
+          {
+            "name": "Orjan Nyland",
+            "number": "1",
+            "position": "GK",
+            "x": 50,
+            "y": 91,
+            "confidence": {
+              "label": "high",
+              "score": 0.92,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Julian Ryerson",
+            "number": "26",
+            "position": "RB",
+            "x": 85,
+            "y": 75,
+            "confidence": {
+              "label": "high",
+              "score": 0.92,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Kristoffer Ajer",
+            "number": "3",
+            "position": "CB",
+            "x": 62,
+            "y": 75,
+            "confidence": {
+              "label": "high",
+              "score": 0.92,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Torbjorn Heggem",
+            "number": "17",
+            "position": "CB",
+            "x": 38,
+            "y": 75,
+            "confidence": {
+              "label": "high",
+              "score": 0.92,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "David Moller Wolfe",
+            "number": "5",
+            "position": "LB",
+            "x": 15,
+            "y": 75,
+            "confidence": {
+              "label": "high",
+              "score": 0.92,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Sander Berge",
+            "number": "8",
+            "position": "CM",
+            "x": 25,
+            "y": 53,
+            "confidence": {
+              "label": "high",
+              "score": 0.92,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Martin Odegaard",
+            "number": "10",
+            "position": "CM",
+            "x": 50,
+            "y": 53,
+            "confidence": {
+              "label": "high",
+              "score": 0.92,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Patrick Berg",
+            "number": "6",
+            "position": "CM",
+            "x": 75,
+            "y": 53,
+            "confidence": {
+              "label": "high",
+              "score": 0.92,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Alexander Sorloth",
+            "number": "7",
+            "position": "RW",
+            "x": 82,
+            "y": 31,
+            "confidence": {
+              "label": "high",
+              "score": 0.92,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Erling Haaland",
+            "number": "9",
+            "position": "ST",
+            "x": 50,
+            "y": 21,
+            "confidence": {
+              "label": "high",
+              "score": 0.92,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Antonio Nusa",
+            "number": "20",
+            "position": "LW",
+            "x": 18,
+            "y": 31,
+            "confidence": {
+              "label": "high",
+              "score": 0.92,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          }
+        ]
+      },
+      "away": {
+        "teamId": "ENG",
+        "formation": "4-2-3-1",
+        "starters": [
+          {
+            "name": "Jordan Pickford",
+            "number": "1",
+            "position": "GK",
+            "x": 50,
+            "y": 91,
+            "confidence": {
+              "label": "high",
+              "score": 0.92,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Djed Spence",
+            "number": "25",
+            "position": "RB",
+            "x": 85,
+            "y": 75,
+            "confidence": {
+              "label": "high",
+              "score": 0.84,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Ezri Konsa",
+            "number": "2",
+            "position": "CB",
+            "x": 62,
+            "y": 75,
+            "confidence": {
+              "label": "high",
+              "score": 0.92,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Marc Guehi",
+            "number": "6",
+            "position": "CB",
+            "x": 38,
+            "y": 75,
+            "confidence": {
+              "label": "high",
+              "score": 0.92,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Nico O'Reilly",
+            "number": "",
+            "position": "LB",
+            "x": 15,
+            "y": 75,
+            "confidence": {
+              "label": "high",
+              "score": 0.84,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Elliot Anderson",
+            "number": "8",
+            "position": "CM",
+            "x": 34,
+            "y": 59,
+            "confidence": {
+              "label": "high",
+              "score": 0.92,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Declan Rice",
+            "number": "4",
+            "position": "CM",
+            "x": 66,
+            "y": 59,
+            "confidence": {
+              "label": "high",
+              "score": 0.92,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Bukayo Saka",
+            "number": "7",
+            "position": "RW",
+            "x": 82,
+            "y": 40,
+            "confidence": {
+              "label": "high",
+              "score": 0.92,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Jude Bellingham",
+            "number": "10",
+            "position": "AM",
+            "x": 50,
+            "y": 40,
+            "confidence": {
+              "label": "high",
+              "score": 0.92,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Anthony Gordon",
+            "number": "18",
+            "position": "LW",
+            "x": 18,
+            "y": 40,
+            "confidence": {
+              "label": "high",
+              "score": 0.92,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Harry Kane",
+            "number": "9",
+            "position": "ST",
+            "x": 50,
+            "y": 20,
+            "confidence": {
+              "label": "high",
+              "score": 0.92,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fixtureId": "match-100-quarter-final-2026-07-11",
+      "kickoffUtc": "2026-07-12T01:00:00Z",
+      "capturedAt": "2026-07-11T14:24:45-07:00",
+      "predictionGeneratedAt": "2026-07-08T20:28:43.407Z",
+      "captureMethod": "git-pre-kickoff-backfill",
+      "snapshotRef": "104a268",
+      "mode": "expected",
+      "confidence": {
+        "label": "medium",
+        "score": 0.704,
+        "method": "provider-weighted-lineup-evidence-v1",
+        "reason": "Average confidence across predicted home and away XIs"
+      },
+      "providers": [
+        {
+          "providerId": "local-official-history",
+          "providerVersion": "1",
+          "score": 0.907,
+          "sourceIds": [
+            "lineup-prediction-official-history-2026-07-08",
+            "fifa-lineups-sync-2026-07-07",
+            "google-argentina-egypt-lineup-visual-2026-07-07",
+            "google-switzerland-colombia-lineup-visual-2026-07-07"
+          ]
+        }
+      ],
+      "sourceIds": [
+        "lineup-prediction-official-history-2026-07-08",
+        "fifa-lineups-sync-2026-07-07",
+        "google-argentina-egypt-lineup-visual-2026-07-07",
+        "google-switzerland-colombia-lineup-visual-2026-07-07"
+      ],
+      "sources": [
+        {
+          "id": "lineup-prediction-official-history-2026-07-08",
+          "label": "Lineup prediction official-history provider",
+          "type": "lineup-prediction-provider",
+          "checkedAt": "2026-07-08T20:28:43.407Z",
+          "note": "Uses local FIFA official lineup history, recent formations, minutes/load, cards, and player availability."
+        }
+      ],
+      "home": {
+        "teamId": "ARG",
+        "formation": "4-1-3-2",
+        "starters": [
+          {
+            "name": "Emiliano Martinez",
+            "number": "23",
+            "position": "GK",
+            "x": 50,
+            "y": 91,
+            "confidence": {
+              "label": "medium",
+              "score": 0.72,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Nicolas Tagliafico",
+            "number": "3",
+            "position": "LB",
+            "x": 15,
+            "y": 75,
+            "confidence": {
+              "label": "medium",
+              "score": 0.72,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Lisandro Martinez",
+            "number": "6",
+            "position": "CB",
+            "x": 62,
+            "y": 75,
+            "confidence": {
+              "label": "medium",
+              "score": 0.72,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Cristian Romero",
+            "number": "13",
+            "position": "CB",
+            "x": 38,
+            "y": 75,
+            "confidence": {
+              "label": "medium",
+              "score": 0.72,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Nahuel Molina",
+            "number": "26",
+            "position": "RB",
+            "x": 85,
+            "y": 75,
+            "confidence": {
+              "label": "medium",
+              "score": 0.72,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Leandro Paredes",
+            "number": "5",
+            "position": "DM",
+            "x": 50,
+            "y": 62,
+            "confidence": {
+              "label": "medium",
+              "score": 0.72,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Rodrigo De Paul",
+            "number": "7",
+            "position": "RW",
+            "x": 76,
+            "y": 44,
+            "confidence": {
+              "label": "medium",
+              "score": 0.72,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Alexis Mac Allister",
+            "number": "20",
+            "position": "AM",
+            "x": 50,
+            "y": 42,
+            "confidence": {
+              "label": "medium",
+              "score": 0.72,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Enzo Fernandez",
+            "number": "24",
+            "position": "LW",
+            "x": 24,
+            "y": 44,
+            "confidence": {
+              "label": "medium",
+              "score": 0.72,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Julian Alvarez",
+            "number": "9",
+            "position": "ST",
+            "x": 42,
+            "y": 23,
+            "confidence": {
+              "label": "medium",
+              "score": 0.72,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Lionel Messi",
+            "number": "10",
+            "position": "ST",
+            "x": 58,
+            "y": 23,
+            "confidence": {
+              "label": "medium",
+              "score": 0.72,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          }
+        ]
+      },
+      "away": {
+        "teamId": "SUI",
+        "formation": "4-1-2-3",
+        "starters": [
+          {
+            "name": "Gregor Kobel",
+            "number": "1",
+            "position": "GK",
+            "x": 50,
+            "y": 91,
+            "confidence": {
+              "label": "medium",
+              "score": 0.72,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Nico Elvedi",
+            "number": "4",
+            "position": "CB",
+            "x": 62,
+            "y": 75,
+            "confidence": {
+              "label": "medium",
+              "score": 0.72,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Manuel Akanji",
+            "number": "5",
+            "position": "CB",
+            "x": 38,
+            "y": 75,
+            "confidence": {
+              "label": "medium",
+              "score": 0.72,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Ricardo Rodriguez",
+            "number": "13",
+            "position": "LB",
+            "x": 15,
+            "y": 75,
+            "confidence": {
+              "label": "medium",
+              "score": 0.72,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Denis Zakaria",
+            "number": "6",
+            "position": "DM",
+            "x": 50,
+            "y": 62,
+            "confidence": {
+              "label": "medium",
+              "score": 0.72,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Remo Freuler",
+            "number": "8",
+            "position": "RB",
+            "x": 85,
+            "y": 75,
+            "confidence": {
+              "label": "medium",
+              "score": 0.72,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Granit Xhaka",
+            "number": "10",
+            "position": "CM",
+            "x": 62,
+            "y": 49,
+            "confidence": {
+              "label": "medium",
+              "score": 0.72,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Ardon Jashari",
+            "number": "14",
+            "position": "CM",
+            "x": 38,
+            "y": 49,
+            "confidence": {
+              "label": "medium",
+              "score": 0.72,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Fabian Rieder",
+            "number": "22",
+            "position": "RW",
+            "x": 82,
+            "y": 30,
+            "confidence": {
+              "label": "medium",
+              "score": 0.72,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Breel Embolo",
+            "number": "7",
+            "position": "ST",
+            "x": 50,
+            "y": 21,
+            "confidence": {
+              "label": "medium",
+              "score": 0.72,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          },
+          {
+            "name": "Dan Ndoye",
+            "number": "11",
+            "position": "LW",
+            "x": 18,
+            "y": 30,
+            "confidence": {
+              "label": "medium",
+              "score": 0.72,
+              "method": "provider-weighted-player-evidence-v1"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

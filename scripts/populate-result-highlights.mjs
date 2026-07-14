@@ -2,6 +2,7 @@
 import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { ZH_PLAYER_NAME_TRANSLATIONS } from "../football-locale-zh.js";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const dataDir = path.join(root, "data");
@@ -12,9 +13,12 @@ const tournamentPath = path.join(dataDir, "tournament.json");
 const overwrite = process.argv.includes("--overwrite");
 const refreshGeneric = process.argv.includes("--refresh-generic");
 const refreshWeakStories = process.argv.includes("--refresh-weak-stories");
-const generateCurrentStories = process.argv.includes("--generate-current-stories");
-const currentOnly = process.argv.includes("--current-only");
+const currentStoriesOnly = process.argv.includes("--current-stories-only");
+const generateCurrentStories = process.argv.includes("--generate-current-stories") || currentStoriesOnly;
+const syncChineseStories = process.argv.includes("--sync-chinese-stories");
+const currentOnly = process.argv.includes("--current-only") || currentStoriesOnly;
 const historyOnly = process.argv.includes("--history-only");
+const dryRun = process.argv.includes("--dry-run");
 
 if (currentOnly && historyOnly) {
   throw new Error("Use either --current-only or --history-only, not both.");
@@ -32,6 +36,60 @@ const weakStoryPattern =
   /\b(?:won the shootout \d+-\d+ after a \d+-\d+ draw|survived the shootout after a \d+-\d+ draw|exited after penalties kept|stayed close enough to keep the final minutes tense|stayed locked together until the final whistle|got the decisive details right in a match that stayed tight|closed the result without needing another late twist)\b/i;
 const weakCurrentStoryPattern =
   /\b(?:broke through for .+?, shifting the match toward|added the final word as .+? pulled away|scored (?:twice|three times|\d+ times) as .+? kept widening the gap)\b/i;
+const repeatedGenericCurrentStoryPattern =
+  /\b(?:chase the match|pulled away|trading momentum|rescued a point|settled a tight match|traded pressure without finding a goal|both defenses kept the scoring lanes closed|made .+ sweat|later chances finally turned|own goal scored|scored their final goal|chasing a \d+-\d+ match|super goal|shaped .+ attack|restore .+ edge|opened scoring|first minute of the second half|finish comfortably|finished the match|match's opening and only goal|moving .+ into match \d+|did not make enough punishment count|quarter-final win|assisted .+ for .+)\b|\b(?:United States|Netherlands)'s\b/i;
+const weakChineseCurrentStoryPattern =
+  /(?:漫长的节奏转换|稳住了局面|更紧凑的防线|吸收了.+冲击|高度胶着|比赛变得开放|始终保持组织)/u;
+const ZH_TEAM_NAMES = Object.freeze({
+  ALG: "阿尔及利亚",
+  ARG: "阿根廷",
+  AUS: "澳大利亚",
+  AUT: "奥地利",
+  BEL: "比利时",
+  BIH: "波黑",
+  BRA: "巴西",
+  CAN: "加拿大",
+  CIV: "科特迪瓦",
+  COD: "刚果民主共和国",
+  COL: "哥伦比亚",
+  CPV: "佛得角",
+  CRO: "克罗地亚",
+  CUW: "库拉索",
+  CZE: "捷克",
+  ECU: "厄瓜多尔",
+  EGY: "埃及",
+  ENG: "英格兰",
+  ESP: "西班牙",
+  FRA: "法国",
+  GER: "德国",
+  GHA: "加纳",
+  HAI: "海地",
+  IRN: "伊朗",
+  IRQ: "伊拉克",
+  JOR: "约旦",
+  JPN: "日本",
+  KOR: "韩国",
+  KSA: "沙特阿拉伯",
+  MAR: "摩洛哥",
+  MEX: "墨西哥",
+  NED: "荷兰",
+  NOR: "挪威",
+  NZL: "新西兰",
+  PAN: "巴拿马",
+  PAR: "巴拉圭",
+  POR: "葡萄牙",
+  QAT: "卡塔尔",
+  RSA: "南非",
+  SCO: "苏格兰",
+  SEN: "塞内加尔",
+  SUI: "瑞士",
+  SWE: "瑞典",
+  TUN: "突尼斯",
+  TUR: "土耳其",
+  URU: "乌拉圭",
+  USA: "美国",
+  UZB: "乌兹别克斯坦"
+});
 
 async function readJson(filePath) {
   return JSON.parse(await readFile(filePath, "utf8"));
@@ -134,7 +192,14 @@ function hasWeakStoryBullets(fixture) {
 }
 
 function hasWeakCurrentStoryBullets(fixture) {
-  return (fixture.resultStoryBullets || []).some((highlight) => weakStoryPattern.test(String(highlight || "")) || weakCurrentStoryPattern.test(String(highlight || "")));
+  return (fixture.resultStoryBullets || []).some((highlight) =>
+    isWeakCurrentStoryBullet(highlight)
+  );
+}
+
+function isWeakCurrentStoryBullet(highlight) {
+  const text = String(highlight || "");
+  return weakStoryPattern.test(text) || weakCurrentStoryPattern.test(text) || repeatedGenericCurrentStoryPattern.test(text);
 }
 
 function storyMinuteValue(highlight) {
@@ -162,7 +227,14 @@ function needsShootoutTextureRefresh(fixture) {
   }
 
   const bullets = fixture.resultStoryBullets || [];
-  return !bullets.some((highlight) => /^The \d+-\d+ grind .+ penalties\.$/.test(String(highlight || "")));
+  const mentionsExtraTime = bullets.some((highlight) =>
+    /\bextra time\b/i.test(String(highlight || ""))
+  );
+  const mentionsShootout = bullets.some((highlight) =>
+    /\b(?:penalt(?:y|ies)|shootout)\b/i.test(String(highlight || ""))
+  );
+
+  return !(mentionsExtraTime && mentionsShootout);
 }
 
 function createStanding(teamId) {
@@ -311,6 +383,10 @@ function formatNameList(names) {
   return `${values.slice(0, -1).join(", ")}, and ${values.at(-1)}`;
 }
 
+function possessiveName(name) {
+  return /s$/i.test(String(name || "")) ? `${name}'` : `${name}'s`;
+}
+
 function buildAssistStory(goals, side, teamName) {
   const topAssist = assistCounts(goals, side);
   if (!topAssist || topAssist[1].length < 2) {
@@ -323,7 +399,7 @@ function buildAssistStory(goals, side, teamName) {
     ? `${scorerNames[0]} twice`
     : formatNameList(scorerNames);
 
-  return `${assistName} assisted ${scorerText} as ${teamName} pulled away`;
+  return `${assistName} assisted ${scorerText} for ${teamName}`;
 }
 
 function otherSide(side) {
@@ -353,43 +429,11 @@ function goalPossessiveLabel(goal) {
 
 function addEqualizerStory(bullets, goal, teamName) {
   if (goal.ownGoal) {
-    addStoryBullet(bullets, `${goalPossessiveLabel(goal)} rescued a point for ${teamName}`);
-    return;
-  }
-
-  addStoryBullet(bullets, `${goalPossessiveLabel(goal)} equalizer rescued a point for ${teamName}`);
-}
-
-function addLevelerStory(bullets, goal, teamName) {
-  if (goal.ownGoal) {
     addStoryBullet(bullets, `${goalPossessiveLabel(goal)} brought ${teamName} level`);
     return;
   }
 
   addStoryBullet(bullets, `${goalPossessiveLabel(goal)} equalizer brought ${teamName} level`);
-}
-
-function addWinnerStory(bullets, goal, teamName) {
-  if (goal.ownGoal) {
-    addStoryBullet(bullets, `${goalPossessiveLabel(goal)} settled a tight match for ${teamName}`);
-    return;
-  }
-
-  addStoryBullet(bullets, `${goalPossessiveLabel(goal)} winner settled a tight match for ${teamName}`);
-}
-
-function addReplyStory(bullets, goal, teamName) {
-  if (!goal) {
-    return;
-  }
-
-  if (goal.ownGoal) {
-    addStoryBullet(bullets, `${goalPossessiveLabel(goal)} gave ${teamName} a reply`);
-    return;
-  }
-
-  const finishType = goal.penalty ? "penalty" : "goal";
-  addStoryBullet(bullets, `${goalPossessiveLabel(goal)} ${finishType} gave ${teamName} a reply`);
 }
 
 function addShootoutEqualizerStory(bullets, goal) {
@@ -398,11 +442,11 @@ function addShootoutEqualizerStory(bullets, goal) {
   }
 
   if (goal.ownGoal) {
-    addStoryBullet(bullets, `${goalPossessiveLabel(goal)} eventually forced the shootout`);
+    addStoryBullet(bullets, `${goalPossessiveLabel(goal)} brought the match level before the shootout`);
     return;
   }
 
-  addStoryBullet(bullets, `${goalPossessiveLabel(goal)} equalizer eventually forced the shootout`);
+  addStoryBullet(bullets, `${goalPossessiveLabel(goal)} equalizer brought the match level before the shootout`);
 }
 
 function addKnockoutDrawEqualizerStory(bullets, goal) {
@@ -411,21 +455,11 @@ function addKnockoutDrawEqualizerStory(bullets, goal) {
   }
 
   if (goal.ownGoal) {
-    addStoryBullet(bullets, `${goalPossessiveLabel(goal)} left the tie level`);
+    addStoryBullet(bullets, `${goalPossessiveLabel(goal)} brought the tie level`);
     return;
   }
 
-  addStoryBullet(bullets, `${goalPossessiveLabel(goal)} equalizer left the tie level`);
-}
-
-function scoreWord(count) {
-  if (count === 2) {
-    return "twice";
-  }
-  if (count === 3) {
-    return "three times";
-  }
-  return `${count} times`;
+  addStoryBullet(bullets, `${goalPossessiveLabel(goal)} equalizer brought the tie level`);
 }
 
 function lastGoalForSide(goals, side) {
@@ -451,30 +485,15 @@ function goalHappensBefore(goals, firstGoal, secondGoal) {
   return firstIndex >= 0 && secondIndex >= 0 && firstIndex < secondIndex;
 }
 
-function matchupRouteForSide(fixture, side) {
-  const text = fixture.keyInformation?.[side];
-  if (typeof text !== "string") {
+function buildShootoutTextureStory(fixture, teamsById, score) {
+  const home = getFixtureTeam(fixture, teamsById, "home");
+  const away = getFixtureTeam(fixture, teamsById, "away");
+  if (!home?.name || !away?.name) {
     return "";
   }
 
-  const route = text.match(/\. Against [^.]+?, their (.+?) ha(?:s|ve) to beat\b/i)?.[1];
-  return route ? route.replace(/\s+/g, " ").trim() : "";
-}
-
-function buildShootoutTextureStory(fixture, teamsById, score, side) {
-  const winner = teamForSide(teamsById, fixture, side);
-  if (!winner?.name) {
-    return "";
-  }
-
-  const route = matchupRouteForSide(fixture, side);
   const scoreText = `${score.home}-${score.away}`;
-
-  if (route) {
-    return `The ${scoreText} grind kept ${winner.name}'s ${route} relevant all the way to penalties`;
-  }
-
-  return `The ${scoreText} grind stayed tense enough to leave the knockout tie to penalties`;
+  return `${home.name} and ${away.name} were level at ${scoreText} after extra time`;
 }
 
 function buildScoreOnlyStoryBullets(fixture, teamsById, score, side) {
@@ -483,8 +502,7 @@ function buildScoreOnlyStoryBullets(fixture, teamsById, score, side) {
   const bullets = [];
 
   if (!side) {
-    addStoryBullet(bullets, `${home.name} and ${away.name} traded pressure without finding a goal`);
-    addStoryBullet(bullets, "Both defenses kept the scoring lanes closed through full time");
+    addStoryBullet(bullets, `${home.name} and ${away.name} drew 0-0`);
     return bullets;
   }
 
@@ -492,20 +510,10 @@ function buildScoreOnlyStoryBullets(fixture, teamsById, score, side) {
   const loser = side === "home" ? away : home;
   const winnerScore = side === "home" ? score.home : score.away;
   const loserScore = side === "home" ? score.away : score.home;
-  const margin = winnerScore - loserScore;
-
-  if (winnerScore === 1 && loserScore === 0) {
-    addStoryBullet(bullets, `${winner.name} found the only goal, leaving ${loser.name} chasing a 1-0 match`);
-  } else if (margin >= 3) {
-    addStoryBullet(bullets, `${winner.name}'s attack kept finding space and turned the finish into a rout`);
-  } else {
-    addStoryBullet(bullets, `${winner.name} made the ${winnerScore}-${loserScore} scoreline stand in a tight match`);
-  }
+  addStoryBullet(bullets, `${winner.name} beat ${loser.name} ${winnerScore}-${loserScore}`);
 
   if (loserScore === 0) {
-    addStoryBullet(bullets, `${winner.name} kept ${loser.name} out and closed the match with a clean sheet`);
-  } else {
-    addStoryBullet(bullets, `${loser.name} scored but never found the goal that would reopen the finish`);
+    addStoryBullet(bullets, `${winner.name} finished with a clean sheet`);
   }
 
   return bullets.slice(0, 2);
@@ -515,8 +523,6 @@ function buildDrawStoryBullets(fixture, teamsById, goals, score) {
   const home = getFixtureTeam(fixture, teamsById, "home");
   const away = getFixtureTeam(fixture, teamsById, "away");
   const bullets = [];
-  const groupResult = isGroupResultFixture(fixture);
-
   if (score.home === 0 && score.away === 0) {
     return buildScoreOnlyStoryBullets(fixture, teamsById, score, "");
   }
@@ -525,40 +531,23 @@ function buildDrawStoryBullets(fixture, teamsById, goals, score) {
   const lastGoal = goals.at(-1);
   const firstTeam = firstGoal.team?.name || teamForSide(teamsById, fixture, firstGoal.side)?.name;
   const lastTeam = lastGoal.team?.name || teamForSide(teamsById, fixture, lastGoal.side)?.name;
-  const topScorer = scorerCounts(goals);
+  if (firstGoal) {
+    addStoryBullet(bullets, `${goalScorerLabel(firstGoal)} opened the scoring for ${firstTeam}`);
+  }
 
-  if (firstGoal && lastGoal && firstGoal.side !== lastGoal.side) {
-    addStoryBullet(
-      bullets,
-      `${goalScorerLabel(firstGoal)} put ${firstTeam} in front before ${goalScorerLabel(lastGoal, { sentenceStart: false })} answered for ${lastTeam}`
-    );
-    if (groupResult) {
-      addEqualizerStory(bullets, lastGoal, lastTeam);
-    } else {
-      addKnockoutDrawEqualizerStory(bullets, lastGoal);
-    }
-  } else if (lastGoal) {
-    if (groupResult) {
+  if (lastGoal && lastGoal !== firstGoal) {
+    if (isGroupResultFixture(fixture)) {
       addEqualizerStory(bullets, lastGoal, lastTeam);
     } else {
       addKnockoutDrawEqualizerStory(bullets, lastGoal);
     }
   }
 
-  if (topScorer?.[1] >= 2) {
-    addStoryBullet(bullets, `${topScorer[0]} scored ${scoreWord(topScorer[1])} as the draw kept swinging`);
+  if (bullets.length < 2) {
+    addStoryBullet(bullets, `${home.name} and ${away.name} drew ${score.home}-${score.away}`);
   }
 
-  if (groupResult) {
-    addStoryBullet(bullets, `${home.name} and ${away.name} kept trading momentum instead of pulling clear`);
-    addStoryBullet(bullets, "The late pressure never produced a winner after the match came back level");
-  } else {
-    const ending = fixture.scoreDetails?.extraTime ? "after extra time" : "after the final whistle";
-    const tieLabel = fixture.round ? `the ${fixture.round} tie` : "the tie";
-    addStoryBullet(bullets, `The draw left ${tieLabel} unresolved ${ending}`);
-  }
-
-  return bullets.slice(0, 3);
+  return bullets.slice(0, 2);
 }
 
 function buildShootoutStoryBullets(fixture, teamsById, goals, score, side) {
@@ -584,22 +573,22 @@ function buildShootoutStoryBullets(fixture, teamsById, goals, score, side) {
     addStoryBullet(bullets, `${home.name} and ${away.name} stayed scoreless until penalties`);
   }
 
-  addStoryBullet(bullets, buildShootoutTextureStory(fixture, teamsById, score, side));
+  addStoryBullet(bullets, buildShootoutTextureStory(fixture, teamsById, score));
 
   if (isFinalRound(fixture)) {
     const title = fixture.tournamentName || "World Cup";
     addStoryBullet(
       bullets,
       penaltyScore
-        ? `${winner.name} were cleaner from the spot, winning the ${title} through the shootout ${penaltyScore} after the ${score.home}-${score.away} draw`
+        ? `${winner.name} won the ${title} final ${penaltyScore} in the shootout`
         : `${winner.name} lifted the ${title} title through the shootout`
     );
   } else {
     addStoryBullet(
       bullets,
       penaltyScore
-        ? `${winner.name} were cleaner from the spot, winning the shootout ${penaltyScore} after the ${score.home}-${score.away} draw`
-        : `${winner.name} survived from the spot after the ${score.home}-${score.away} draw`
+        ? `${winner.name} won the shootout ${penaltyScore}`
+        : `${winner.name} advanced through the shootout`
     );
   }
 
@@ -614,68 +603,63 @@ function buildWinStoryBullets(fixture, teamsById, goals, score, side) {
   const loser = side === "home" ? away : home;
   const winnerScore = side === "home" ? score.home : score.away;
   const loserScore = side === "home" ? score.away : score.home;
-  const margin = winnerScore - loserScore;
   const firstGoal = goals[0];
   const lastWinnerGoal = lastGoalForSide(goals, side);
-  const lastLoserGoal = lastGoalForSide(goals, otherSide(side));
   const winnerEqualizer = firstGoal?.side === otherSide(side) ? firstEqualizerForSide(goals, side) : null;
   const loserEqualizer = firstGoal?.side === side ? firstEqualizerForSide(goals, otherSide(side)) : null;
-  const topScorer = scorerCounts(goals);
 
-  if (firstGoal?.side === otherSide(side)) {
-    addStoryBullet(
-      bullets,
-      `${goalScorerLabel(firstGoal)} struck first for ${loser.name}, forcing ${winner.name} to chase the match`
-    );
-  } else if (firstGoal) {
-    const firstMinute = Number(firstGoal.minute);
-    if (Number.isFinite(firstMinute) && firstMinute <= 20) {
-      addStoryBullet(bullets, `${goalScorerLabel(firstGoal)} put ${winner.name} ahead early, making ${loser.name} chase the match`);
-    } else {
-      addStoryBullet(bullets, `${goalScorerLabel(firstGoal)} opened the scoring for ${winner.name}`);
-    }
+  if (firstGoal) {
+    const firstTeam = teamForSide(teamsById, fixture, firstGoal.side);
+    addStoryBullet(bullets, `${goalScorerLabel(firstGoal)} opened the scoring for ${firstTeam.name}`);
   }
 
   const assistStory = buildAssistStory(goals, side, winner.name);
 
-  if (winnerEqualizer && lastWinnerGoal && winnerEqualizer !== lastWinnerGoal) {
-    addStoryBullet(
-      bullets,
-      `${goalScorerLabel(winnerEqualizer)} brought ${winner.name} level before ${goalScorerLabel(lastWinnerGoal, { sentenceStart: false })} completed the turnaround`
-    );
-  } else if (loserEqualizer && lastWinnerGoal && goalHappensBefore(goals, loserEqualizer, lastWinnerGoal)) {
-    addLevelerStory(bullets, loserEqualizer, loser.name);
-    if (margin === 1) {
-      addWinnerStory(bullets, lastWinnerGoal, winner.name);
-    } else if (assistStory) {
-      addStoryBullet(bullets, assistStory);
-    } else {
-      addStoryBullet(bullets, `${goalScorerLabel(lastWinnerGoal)} finished the scoring as ${winner.name} pulled away`);
+  const addFinalWinnerGoal = (goal) => {
+    if (goal.ownGoal) {
+      addStoryBullet(bullets, `${goalScorerLabel(goal)} completed the scoring for ${winner.name}`);
+      return;
     }
-  } else if (lastWinnerGoal && margin === 1) {
-    addWinnerStory(bullets, lastWinnerGoal, winner.name);
+    addStoryBullet(bullets, `${goalScorerLabel(goal)} scored ${possessiveName(winner.name)} final goal`);
+  };
+
+  if (winnerEqualizer && lastWinnerGoal && winnerEqualizer !== lastWinnerGoal) {
+    if (!winnerEqualizer.ownGoal && !lastWinnerGoal.ownGoal && winnerEqualizer.name === lastWinnerGoal.name) {
+      addStoryBullet(
+        bullets,
+        `${goalScorerLabel(winnerEqualizer)} equalized, then scored ${possessiveName(winner.name)} final goal`
+      );
+    } else if (lastWinnerGoal.ownGoal) {
+      addStoryBullet(
+        bullets,
+        `${goalScorerLabel(winnerEqualizer)} equalized for ${winner.name}. ${goalScorerLabel(lastWinnerGoal)} completed the scoring`
+      );
+    } else {
+      addStoryBullet(
+        bullets,
+        `${goalScorerLabel(winnerEqualizer)} equalized for ${winner.name}. ${goalScorerLabel(lastWinnerGoal)} scored ${possessiveName(winner.name)} final goal`
+      );
+    }
+  } else if (loserEqualizer && lastWinnerGoal && goalHappensBefore(goals, loserEqualizer, lastWinnerGoal)) {
+    if (lastWinnerGoal.ownGoal) {
+      addStoryBullet(
+        bullets,
+        `${goalScorerLabel(loserEqualizer)} equalized for ${loser.name}. ${goalScorerLabel(lastWinnerGoal)} completed the scoring for ${winner.name}`
+      );
+    } else {
+      addStoryBullet(
+        bullets,
+        `${goalScorerLabel(loserEqualizer)} equalized for ${loser.name}. ${goalScorerLabel(lastWinnerGoal)} scored ${possessiveName(winner.name)} final goal`
+      );
+    }
+  } else if (lastWinnerGoal && firstGoal && lastWinnerGoal !== firstGoal) {
+    addFinalWinnerGoal(lastWinnerGoal);
   } else if (assistStory) {
     addStoryBullet(bullets, assistStory);
-  } else if (lastWinnerGoal && firstGoal && lastWinnerGoal !== firstGoal) {
-    addStoryBullet(bullets, `${goalScorerLabel(lastWinnerGoal)} finished the scoring as ${winner.name} pulled away`);
-  } else if (topScorer?.[1] >= 2) {
-    addStoryBullet(bullets, `${topScorer[0]}'s ${scoreWord(topScorer[1])} gave ${winner.name} the scoring separation`);
-  }
-
-  if (loserScore === 0) {
-    addStoryBullet(bullets, `${winner.name} kept ${loser.name} out and closed the match with a clean sheet`);
-  } else if (margin >= 3) {
-    addStoryBullet(bullets, `${winner.name}'s attack kept finding space and turned the finish into a rout`);
-  } else if (firstGoal?.side === otherSide(side)) {
-    addStoryBullet(bullets, `${loser.name}'s opener made ${winner.name} sweat, but the later chances finally turned`);
-  } else if (lastLoserGoal && lastLoserGoal !== loserEqualizer) {
-    addReplyStory(bullets, lastLoserGoal, loser.name);
-  } else {
-    addStoryBullet(bullets, `${loser.name} scored but never found the goal that would reopen the finish`);
   }
 
   if (bullets.length < 2) {
-    addStoryBullet(bullets, `${winner.name} made the ${winnerScore}-${loserScore} scoreline stand in a tight match`);
+    addStoryBullet(bullets, `${winner.name} beat ${loser.name} ${winnerScore}-${loserScore}`);
   }
 
   return bullets.slice(0, 2);
@@ -705,6 +689,131 @@ function buildStoryBullets(fixture, teamsById) {
   }
 
   return buildWinStoryBullets(fixture, teamsById, goals, score, side);
+}
+
+function zhTeamName(fixture, teamsById, side) {
+  const teamId = side === "home" ? fixture.homeTeamId : fixture.awayTeamId;
+  return ZH_TEAM_NAMES[teamId] || getFixtureTeam(fixture, teamsById, side)?.name || teamId || "";
+}
+
+function zhPlayerName(name) {
+  return ZH_PLAYER_NAME_TRANSLATIONS[name] || name || "";
+}
+
+function zhGoalMinute(goal) {
+  if (!Number.isFinite(Number(goal?.minute))) {
+    return "";
+  }
+  const offset = Number.isFinite(Number(goal.offset)) ? `+${goal.offset}` : "";
+  return `第${goal.minute}${offset}分钟`;
+}
+
+function zhGoalStory(goal, teamName, kind) {
+  const minute = zhGoalMinute(goal);
+  const timing = minute ? `${minute}` : "";
+  if (goal.ownGoal) {
+    const ownGoal = timing ? `${timing}的乌龙球` : "乌龙球";
+    if (kind === "opening") {
+      return `${ownGoal}让${teamName}首开纪录`;
+    }
+    if (kind === "equalizer") {
+      return `${ownGoal}让${teamName}扳平比分`;
+    }
+    return `${ownGoal}成为${teamName}的最后一球`;
+  }
+
+  const player = zhPlayerName(goal.name);
+  if (kind === "opening") {
+    return `${player}${timing ? `在${timing}` : ""}为${teamName}首开纪录`;
+  }
+  if (kind === "equalizer") {
+    return `${player}${timing ? `在${timing}` : ""}为${teamName}扳平比分`;
+  }
+  return `${player}${timing ? `在${timing}` : ""}打进${teamName}的最后一球`;
+}
+
+function addZhStoryBullet(bullets, text) {
+  const sentence = String(text || "").replace(/[。.!?]+$/, "").trim();
+  if (!sentence || sentence.length > 159 || bullets.includes(`${sentence}。`)) {
+    return;
+  }
+  bullets.push(`${sentence}。`);
+}
+
+function buildStoryBulletsZh(fixture, teamsById) {
+  const score = {
+    home: scoreNumber(fixture.score.home),
+    away: scoreNumber(fixture.score.away)
+  };
+  const side = winnerSide(score);
+  const goals = goalEvents(fixture, teamsById);
+  const homeName = zhTeamName(fixture, teamsById, "home");
+  const awayName = zhTeamName(fixture, teamsById, "away");
+  const bullets = [];
+  const shootoutSide = !side ? penaltyWinnerSide(fixture, teamsById) : "";
+
+  if (shootoutSide) {
+    const firstGoal = goals[0];
+    const lastGoal = goals.at(-1);
+    if (firstGoal) {
+      addZhStoryBullet(bullets, zhGoalStory(firstGoal, zhTeamName(fixture, teamsById, firstGoal.side), "opening"));
+    }
+    if (lastGoal && lastGoal !== firstGoal && lastGoal.side !== firstGoal?.side) {
+      addZhStoryBullet(bullets, zhGoalStory(lastGoal, zhTeamName(fixture, teamsById, lastGoal.side), "equalizer"));
+    }
+    const winnerName = zhTeamName(fixture, teamsById, shootoutSide);
+    const penaltyScore = scorePairForSide(fixture.scoreDetails?.penalties, shootoutSide).replace("-", "比");
+    addZhStoryBullet(
+      bullets,
+      penaltyScore ? `${winnerName}在点球大战中以${penaltyScore}获胜` : `${winnerName}通过点球大战晋级`
+    );
+    return bullets.slice(0, 3);
+  }
+
+  if (!side) {
+    if (!goals.length) {
+      addZhStoryBullet(bullets, `${homeName}与${awayName}以${score.home}比${score.away}战平`);
+      return bullets;
+    }
+    const firstGoal = goals[0];
+    const lastGoal = goals.at(-1);
+    addZhStoryBullet(bullets, zhGoalStory(firstGoal, zhTeamName(fixture, teamsById, firstGoal.side), "opening"));
+    if (lastGoal && lastGoal !== firstGoal) {
+      addZhStoryBullet(bullets, zhGoalStory(lastGoal, zhTeamName(fixture, teamsById, lastGoal.side), "equalizer"));
+    }
+    if (bullets.length < 2) {
+      addZhStoryBullet(bullets, `${homeName}与${awayName}以${score.home}比${score.away}战平`);
+    }
+    return bullets.slice(0, 2);
+  }
+
+  const winnerName = zhTeamName(fixture, teamsById, side);
+  const loserSide = otherSide(side);
+  const loserName = zhTeamName(fixture, teamsById, loserSide);
+  const winnerScore = side === "home" ? score.home : score.away;
+  const loserScore = side === "home" ? score.away : score.home;
+  const firstGoal = goals[0];
+  const lastWinnerGoal = lastGoalForSide(goals, side);
+
+  if (firstGoal) {
+    addZhStoryBullet(bullets, zhGoalStory(firstGoal, zhTeamName(fixture, teamsById, firstGoal.side), "opening"));
+  }
+  if (lastWinnerGoal && lastWinnerGoal !== firstGoal) {
+    addZhStoryBullet(bullets, zhGoalStory(lastWinnerGoal, winnerName, "final"));
+  }
+  addZhStoryBullet(bullets, `${winnerName}以${winnerScore}比${loserScore}击败${loserName}`);
+
+  return bullets.slice(0, 3);
+}
+
+function alignChineseStoryBullets(fixture, bullets) {
+  const target = Math.min(3, Math.max(1, fixture.resultStoryBullets?.length || bullets.length || 1));
+  if (bullets.length < target) {
+    throw new Error(
+      `Structured Chinese story for ${fixture.id} has ${bullets.length} bullet(s); expected ${target}.`
+    );
+  }
+  return bullets.slice(0, target);
 }
 
 function goalAwareMoment(fixture, teamsById, score, side) {
@@ -991,35 +1100,41 @@ let highlightSkipped = 0;
 let storyPopulated = 0;
 let storySkipped = 0;
 let currentStoryResearchHeld = 0;
+let currentZhStoryPopulated = 0;
 let historicalStoryPopulated = 0;
 let historicalStorySkipped = 0;
 
-for (const fixture of finishedGroupFixtures) {
-  const table = groupTables.get(fixture.groupId);
+if (!currentStoriesOnly) {
+  for (const fixture of finishedGroupFixtures) {
+    const table = groupTables.get(fixture.groupId);
 
-  if (!table) {
-    highlightSkipped += 1;
-    continue;
+    if (!table) {
+      highlightSkipped += 1;
+      continue;
+    }
+
+    applyResult(table, fixture);
+
+    const hasAuthoredHighlights = Array.isArray(fixture.resultHighlights)
+      ? fixture.resultHighlights.some((highlight) => typeof highlight === "string" && highlight.trim())
+      : false;
+
+    if (hasAuthoredHighlights && !overwrite && !(refreshGeneric && hasGenericHighlights(fixture))) {
+      highlightSkipped += 1;
+      continue;
+    }
+
+    fixture.resultHighlights = buildHighlights(fixture, teamsById, table);
+    highlightPopulated += 1;
   }
-
-  applyResult(table, fixture);
-
-  const hasAuthoredHighlights = Array.isArray(fixture.resultHighlights)
-    ? fixture.resultHighlights.some((highlight) => typeof highlight === "string" && highlight.trim())
-    : false;
-
-  if (hasAuthoredHighlights && !overwrite && !(refreshGeneric && hasGenericHighlights(fixture))) {
-    highlightSkipped += 1;
-    continue;
-  }
-
-  fixture.resultHighlights = buildHighlights(fixture, teamsById, table);
-  highlightPopulated += 1;
 }
 
 for (const fixture of finishedFixtures) {
   const hasStoryBullets = Array.isArray(fixture.resultStoryBullets)
     ? fixture.resultStoryBullets.some((highlight) => typeof highlight === "string" && highlight.trim())
+    : false;
+  const hasZhStoryBullets = Array.isArray(fixture.resultStoryBulletsZh)
+    ? fixture.resultStoryBulletsZh.some((highlight) => typeof highlight === "string" && highlight.trim())
     : false;
 
   if (!generateCurrentStories) {
@@ -1036,12 +1151,22 @@ for (const fixture of finishedFixtures) {
       (refreshWeakStories && (hasWeakCurrentStoryBullets(fixture) || needsShootoutTextureRefresh(fixture)))
     ) {
       const existingBullets = fixture.resultStoryBullets.filter((highlight) => typeof highlight === "string" && highlight.trim());
-      const strongExistingBullets = existingBullets.filter((highlight) => !isWeakStoryBullet(highlight) && !weakCurrentStoryPattern.test(String(highlight || "")));
+      const strongExistingBullets = existingBullets.filter((highlight) => !isWeakCurrentStoryBullet(highlight));
       fixture.resultStoryBullets =
         hasOutOfOrderStoryMinutes(fixture) || fixture.scoreDetails?.penalties || strongExistingBullets.length < 2
           ? buildStoryBullets(fixture, teamsById)
           : strongExistingBullets.slice(0, 3);
+      if (!hasZhStoryBullets) {
+        fixture.resultStoryBulletsZh = buildStoryBulletsZh(fixture, teamsById);
+        currentZhStoryPopulated += 1;
+      }
       storyPopulated += 1;
+      continue;
+    }
+
+    if (!hasZhStoryBullets) {
+      fixture.resultStoryBulletsZh = buildStoryBulletsZh(fixture, teamsById);
+      currentZhStoryPopulated += 1;
       continue;
     }
 
@@ -1050,7 +1175,31 @@ for (const fixture of finishedFixtures) {
   }
 
   fixture.resultStoryBullets = buildStoryBullets(fixture, teamsById);
+  if (overwrite || !hasZhStoryBullets) {
+    fixture.resultStoryBulletsZh = buildStoryBulletsZh(fixture, teamsById);
+    currentZhStoryPopulated += 1;
+  }
   storyPopulated += 1;
+}
+
+if (syncChineseStories) {
+  for (const fixture of finishedFixtures) {
+    const existing = Array.isArray(fixture.resultStoryBulletsZh)
+      ? fixture.resultStoryBulletsZh.filter((bullet) => typeof bullet === "string" && bullet.trim())
+      : [];
+    const targetCount = Math.min(3, Math.max(1, fixture.resultStoryBullets?.length || 1));
+    const needsStructuredSync =
+      existing.length !== targetCount || existing.some((bullet) => weakChineseCurrentStoryPattern.test(bullet));
+    if (!needsStructuredSync) {
+      continue;
+    }
+    const next = alignChineseStoryBullets(fixture, buildStoryBulletsZh(fixture, teamsById));
+    if (JSON.stringify(existing) === JSON.stringify(next)) {
+      continue;
+    }
+    fixture.resultStoryBulletsZh = next;
+    currentZhStoryPopulated += 1;
+  }
 }
 
 for (const fixture of finishedHistoricalFixtures) {
@@ -1081,18 +1230,25 @@ for (const fixture of finishedHistoricalFixtures) {
   historicalStoryPopulated += 1;
 }
 
-if (highlightPopulated || storyPopulated) {
+if (highlightPopulated || storyPopulated || currentZhStoryPopulated) {
   fixturesData.updatedAt = new Date().toISOString();
-  await writeFile(fixturesPath, `${JSON.stringify(fixturesData, null, 2)}\n`);
+  if (!dryRun) {
+    await writeFile(fixturesPath, `${JSON.stringify(fixturesData, null, 2)}\n`);
+  }
 }
 
 if (historicalStoryPopulated) {
   historyData.updatedAt = new Date().toISOString();
-  await writeFile(historyPath, `${JSON.stringify(historyData, null, 2)}\n`);
+  if (!dryRun) {
+    await writeFile(historyPath, `${JSON.stringify(historyData, null, 2)}\n`);
+  }
 }
 
 console.log(
-  `${overwrite ? "Wrote" : refreshGeneric ? "Refreshed" : "Populated"} ${highlightPopulated} result highlight set${highlightPopulated === 1 ? "" : "s"} and ${storyPopulated} current story bullet set${storyPopulated === 1 ? "" : "s"}; skipped ${highlightSkipped} highlight set${highlightSkipped === 1 ? "" : "s"} and ${storySkipped} current story bullet set${storySkipped === 1 ? "" : "s"}.`
+  `${dryRun ? "Would populate" : overwrite ? "Wrote" : refreshGeneric ? "Refreshed" : "Populated"} ${highlightPopulated} result highlight set${highlightPopulated === 1 ? "" : "s"} and ${storyPopulated} current story bullet set${storyPopulated === 1 ? "" : "s"}; skipped ${highlightSkipped} highlight set${highlightSkipped === 1 ? "" : "s"} and ${storySkipped} current story bullet set${storySkipped === 1 ? "" : "s"}.`
+);
+console.log(
+  `${dryRun ? "Would populate" : "Populated"} ${currentZhStoryPopulated} structured Chinese current story bullet set${currentZhStoryPopulated === 1 ? "" : "s"}.`
 );
 if (currentStoryResearchHeld) {
   console.log(

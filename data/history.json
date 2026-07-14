@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-30T17:47:10-07:00",
+  "updatedAt": "2026-07-14T01:06:19-07:00",
   "sourceIds": [
     "openfootball-worldcup-json-2026-06-17",
     "fjelstul-worldcup-json-2026-06-23",
@@ -35264,6 +35264,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "checkedAt": "2026-06-29T22:22:01-07:00",
         "note": "No clean official FIFA YouTube highlight-style video matched this fixture."
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "1978-06-24",
+        "cutoffKey": "1978-06-24T15:00:036",
+        "homeTeamName": "Brazil",
+        "awayTeamName": "Italy",
+        "home": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        },
+        "away": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        }
       }
     },
     {
@@ -35383,6 +35404,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2014-07-06T09:54:02-07:00",
         "checkedAt": "2026-06-29T20:25:20-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "1978-06-25",
+        "cutoffKey": "1978-06-25T15:00:037",
+        "homeTeamName": "Netherlands",
+        "awayTeamName": "Argentina",
+        "home": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        },
+        "away": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        }
       }
     },
     {
@@ -40761,6 +40803,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "checkedAt": "2026-06-29T22:22:01-07:00",
         "note": "No clean official FIFA YouTube highlight-style video matched this fixture."
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "1982-07-08",
+        "cutoffKey": "1982-07-08T17:15:048",
+        "homeTeamName": "Poland",
+        "awayTeamName": "Italy",
+        "home": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        },
+        "away": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        }
       }
     },
     {
@@ -40893,6 +40956,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2014-07-01T13:10:11-07:00",
         "checkedAt": "2026-06-29T20:25:20-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "1982-07-08",
+        "cutoffKey": "1982-07-08T21:00:049",
+        "homeTeamName": "West Germany",
+        "awayTeamName": "France",
+        "home": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        },
+        "away": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        }
       }
     },
     {
@@ -41012,6 +41096,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "checkedAt": "2026-06-29T22:22:01-07:00",
         "note": "No clean official FIFA YouTube highlight-style video matched this fixture."
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "1982-07-10",
+        "cutoffKey": "1982-07-10T20:00:050",
+        "homeTeamName": "Poland",
+        "awayTeamName": "France",
+        "home": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        },
+        "away": {
+          "wins": 0,
+          "losses": 1,
+          "appearances": 1
+        }
       }
     },
     {
@@ -41127,6 +41232,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2014-07-10T20:42:59-07:00",
         "checkedAt": "2026-06-29T20:25:20-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "1982-07-11",
+        "cutoffKey": "1982-07-11T20:00:051",
+        "homeTeamName": "Italy",
+        "awayTeamName": "West Germany",
+        "home": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        },
+        "away": {
+          "wins": 1,
+          "losses": 0,
+          "appearances": 1
+        }
       }
     },
     {
@@ -45139,6 +45265,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "checkedAt": "2026-06-29T22:22:01-07:00",
         "note": "No clean official FIFA YouTube highlight-style video matched this fixture."
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "1986-06-15",
+        "cutoffKey": "1986-06-15T12:00:036",
+        "homeTeamName": "Mexico",
+        "awayTeamName": "Bulgaria",
+        "home": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        },
+        "away": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        }
       }
     },
     {
@@ -45271,6 +45418,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "checkedAt": "2026-06-29T22:22:01-07:00",
         "note": "No clean official FIFA YouTube highlight-style video matched this fixture."
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "1986-06-15",
+        "cutoffKey": "1986-06-15T16:00:037",
+        "homeTeamName": "Soviet Union",
+        "awayTeamName": "Belgium",
+        "home": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        },
+        "away": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        }
       }
     },
     {
@@ -45373,6 +45541,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "checkedAt": "2026-06-29T22:22:01-07:00",
         "note": "No clean official FIFA YouTube highlight-style video matched this fixture."
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "1986-06-16",
+        "cutoffKey": "1986-06-16T16:00:038",
+        "homeTeamName": "Argentina",
+        "awayTeamName": "Uruguay",
+        "home": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        },
+        "away": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        }
       }
     },
     {
@@ -45489,6 +45678,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "checkedAt": "2026-06-29T22:22:01-07:00",
         "note": "No clean official FIFA YouTube highlight-style video matched this fixture."
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "1986-06-16",
+        "cutoffKey": "1986-06-16T12:00:039",
+        "homeTeamName": "Brazil",
+        "awayTeamName": "Poland",
+        "home": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        },
+        "away": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        }
       }
     },
     {
@@ -45595,6 +45805,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "checkedAt": "2026-06-29T22:22:01-07:00",
         "note": "No clean official FIFA YouTube highlight-style video matched this fixture."
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "1986-06-17",
+        "cutoffKey": "1986-06-17T12:00:040",
+        "homeTeamName": "Italy",
+        "awayTeamName": "France",
+        "home": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        },
+        "away": {
+          "wins": 0,
+          "losses": 1,
+          "appearances": 1
+        }
       }
     },
     {
@@ -45697,6 +45928,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "checkedAt": "2026-06-29T22:22:01-07:00",
         "note": "No clean official FIFA YouTube highlight-style video matched this fixture."
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "1986-06-17",
+        "cutoffKey": "1986-06-17T16:00:041",
+        "homeTeamName": "Morocco",
+        "awayTeamName": "West Germany",
+        "home": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        },
+        "away": {
+          "wins": 1,
+          "losses": 0,
+          "appearances": 1
+        }
       }
     },
     {
@@ -45807,6 +46059,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "checkedAt": "2026-06-29T22:22:01-07:00",
         "note": "No clean official FIFA YouTube highlight-style video matched this fixture."
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "1986-06-18",
+        "cutoffKey": "1986-06-18T12:00:042",
+        "homeTeamName": "England",
+        "awayTeamName": "Paraguay",
+        "home": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        },
+        "away": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        }
       }
     },
     {
@@ -45933,6 +46206,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "checkedAt": "2026-06-29T22:22:01-07:00",
         "note": "No clean official FIFA YouTube highlight-style video matched this fixture."
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "1986-06-18",
+        "cutoffKey": "1986-06-18T16:00:043",
+        "homeTeamName": "Denmark",
+        "awayTeamName": "Spain",
+        "home": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        },
+        "away": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        }
       }
     },
     {
@@ -46048,6 +46342,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2016-06-20T21:02:57-07:00",
         "checkedAt": "2026-06-29T22:22:01-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "1986-06-21",
+        "cutoffKey": "1986-06-21T12:00:044",
+        "homeTeamName": "Brazil",
+        "awayTeamName": "France",
+        "home": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        },
+        "away": {
+          "wins": 0,
+          "losses": 1,
+          "appearances": 1
+        }
       }
     },
     {
@@ -46153,6 +46468,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "checkedAt": "2026-06-29T22:22:01-07:00",
         "note": "No clean official FIFA YouTube highlight-style video matched this fixture."
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "1986-06-21",
+        "cutoffKey": "1986-06-21T16:00:045",
+        "homeTeamName": "West Germany",
+        "awayTeamName": "Mexico",
+        "home": {
+          "wins": 1,
+          "losses": 0,
+          "appearances": 1
+        },
+        "away": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        }
       }
     },
     {
@@ -46268,6 +46604,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "checkedAt": "2026-06-29T22:22:01-07:00",
         "note": "No clean official FIFA YouTube highlight-style video matched this fixture."
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "1986-06-22",
+        "cutoffKey": "1986-06-22T16:00:046",
+        "homeTeamName": "Spain",
+        "awayTeamName": "Belgium",
+        "home": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        },
+        "away": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        }
       }
     },
     {
@@ -46379,6 +46736,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "checkedAt": "2026-06-29T22:22:01-07:00",
         "note": "No clean official FIFA YouTube highlight-style video matched this fixture."
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "1986-06-22",
+        "cutoffKey": "1986-06-22T12:00:047",
+        "homeTeamName": "Argentina",
+        "awayTeamName": "England",
+        "home": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        },
+        "away": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        }
       }
     },
     {
@@ -46485,6 +46863,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2014-07-02T11:38:39-07:00",
         "checkedAt": "2026-06-29T20:25:20-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "1986-06-25",
+        "cutoffKey": "1986-06-25T16:00:048",
+        "homeTeamName": "Argentina",
+        "awayTeamName": "Belgium",
+        "home": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        },
+        "away": {
+          "wins": 1,
+          "losses": 0,
+          "appearances": 1
+        }
       }
     },
     {
@@ -46591,6 +46990,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2014-07-02T10:11:58-07:00",
         "checkedAt": "2026-06-29T20:25:20-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "1986-06-25",
+        "cutoffKey": "1986-06-25T12:00:049",
+        "homeTeamName": "France",
+        "awayTeamName": "West Germany",
+        "home": {
+          "wins": 1,
+          "losses": 1,
+          "appearances": 2
+        },
+        "away": {
+          "wins": 2,
+          "losses": 0,
+          "appearances": 2
+        }
       }
     },
     {
@@ -46719,6 +47139,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "checkedAt": "2026-06-29T22:22:01-07:00",
         "note": "No clean official FIFA YouTube highlight-style video matched this fixture."
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "1986-06-28",
+        "cutoffKey": "1986-06-28T12:00:050",
+        "homeTeamName": "France",
+        "awayTeamName": "Belgium",
+        "home": {
+          "wins": 1,
+          "losses": 1,
+          "appearances": 2
+        },
+        "away": {
+          "wins": 1,
+          "losses": 0,
+          "appearances": 1
+        }
       }
     },
     {
@@ -46838,6 +47279,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2020-05-06T13:13:48-07:00",
         "checkedAt": "2026-06-29T20:25:20-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "1986-06-29",
+        "cutoffKey": "1986-06-29T12:00:051",
+        "homeTeamName": "Argentina",
+        "awayTeamName": "West Germany",
+        "home": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        },
+        "away": {
+          "wins": 2,
+          "losses": 0,
+          "appearances": 2
+        }
       }
     },
     {
@@ -50858,6 +51320,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "checkedAt": "2026-06-29T22:35:06-07:00",
         "note": "No clean official FIFA YouTube highlight-style video matched this fixture."
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "1990-06-23",
+        "cutoffKey": "1990-06-23T17:00:036",
+        "homeTeamName": "Cameroon",
+        "awayTeamName": "Colombia",
+        "home": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        },
+        "away": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        }
       }
     },
     {
@@ -50977,6 +51460,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "checkedAt": "2026-06-29T22:35:06-07:00",
         "note": "No clean official FIFA YouTube highlight-style video matched this fixture."
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "1990-06-23",
+        "cutoffKey": "1990-06-23T21:00:037",
+        "homeTeamName": "Czechoslovakia",
+        "awayTeamName": "Costa Rica",
+        "home": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        },
+        "away": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        }
       }
     },
     {
@@ -51079,6 +51583,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "checkedAt": "2026-06-29T22:35:06-07:00",
         "note": "No clean official FIFA YouTube highlight-style video matched this fixture."
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "1990-06-24",
+        "cutoffKey": "1990-06-24T17:00:038",
+        "homeTeamName": "Brazil",
+        "awayTeamName": "Argentina",
+        "home": {
+          "wins": 0,
+          "losses": 1,
+          "appearances": 1
+        },
+        "away": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        }
       }
     },
     {
@@ -51191,6 +51716,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "checkedAt": "2026-06-29T22:35:06-07:00",
         "note": "No clean official FIFA YouTube highlight-style video matched this fixture."
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "1990-06-24",
+        "cutoffKey": "1990-06-24T21:00:039",
+        "homeTeamName": "West Germany",
+        "awayTeamName": "Netherlands",
+        "home": {
+          "wins": 2,
+          "losses": 0,
+          "appearances": 2
+        },
+        "away": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        }
       }
     },
     {
@@ -51296,6 +51842,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "checkedAt": "2026-06-29T22:35:06-07:00",
         "note": "No clean official FIFA YouTube highlight-style video matched this fixture."
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "1990-06-25",
+        "cutoffKey": "1990-06-25T17:00:040",
+        "homeTeamName": "Ireland",
+        "awayTeamName": "Romania",
+        "home": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        },
+        "away": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        }
       }
     },
     {
@@ -51402,6 +51969,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2014-06-22T09:30:02-07:00",
         "checkedAt": "2026-06-29T22:35:06-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "1990-06-25",
+        "cutoffKey": "1990-06-25T21:00:041",
+        "homeTeamName": "Italy",
+        "awayTeamName": "Uruguay",
+        "home": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        },
+        "away": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        }
       }
     },
     {
@@ -51517,6 +52105,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "checkedAt": "2026-06-29T22:35:06-07:00",
         "note": "No clean official FIFA YouTube highlight-style video matched this fixture."
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "1990-06-26",
+        "cutoffKey": "1990-06-26T17:00:042",
+        "homeTeamName": "Spain",
+        "awayTeamName": "Yugoslavia",
+        "home": {
+          "wins": 0,
+          "losses": 1,
+          "appearances": 1
+        },
+        "away": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        }
       }
     },
     {
@@ -51623,6 +52232,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "checkedAt": "2026-06-29T22:35:06-07:00",
         "note": "No clean official FIFA YouTube highlight-style video matched this fixture."
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "1990-06-26",
+        "cutoffKey": "1990-06-26T21:00:043",
+        "homeTeamName": "England",
+        "awayTeamName": "Belgium",
+        "home": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        },
+        "away": {
+          "wins": 1,
+          "losses": 0,
+          "appearances": 1
+        }
       }
     },
     {
@@ -51728,6 +52358,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "checkedAt": "2026-06-29T22:35:06-07:00",
         "note": "No clean official FIFA YouTube highlight-style video matched this fixture."
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "1990-06-30",
+        "cutoffKey": "1990-06-30T17:00:044",
+        "homeTeamName": "Yugoslavia",
+        "awayTeamName": "Argentina",
+        "home": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        },
+        "away": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        }
       }
     },
     {
@@ -51830,6 +52481,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "checkedAt": "2026-06-29T22:35:06-07:00",
         "note": "No clean official FIFA YouTube highlight-style video matched this fixture."
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "1990-06-30",
+        "cutoffKey": "1990-06-30T21:00:045",
+        "homeTeamName": "Italy",
+        "awayTeamName": "Ireland",
+        "home": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        },
+        "away": {
+          "wins": 1,
+          "losses": 0,
+          "appearances": 1
+        }
       }
     },
     {
@@ -51933,6 +52605,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "checkedAt": "2026-06-29T22:35:06-07:00",
         "note": "No clean official FIFA YouTube highlight-style video matched this fixture."
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "1990-07-01",
+        "cutoffKey": "1990-07-01T17:00:046",
+        "homeTeamName": "West Germany",
+        "awayTeamName": "Czechoslovakia",
+        "home": {
+          "wins": 2,
+          "losses": 0,
+          "appearances": 2
+        },
+        "away": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        }
       }
     },
     {
@@ -52059,6 +52752,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "checkedAt": "2026-06-29T22:35:06-07:00",
         "note": "No clean official FIFA YouTube highlight-style video matched this fixture."
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "1990-07-01",
+        "cutoffKey": "1990-07-01T21:00:047",
+        "homeTeamName": "England",
+        "awayTeamName": "Cameroon",
+        "home": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        },
+        "away": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        }
       }
     },
     {
@@ -52174,6 +52888,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2020-07-03T00:00:22-07:00",
         "checkedAt": "2026-06-29T20:25:20-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "1990-07-03",
+        "cutoffKey": "1990-07-03T20:00:048",
+        "homeTeamName": "Italy",
+        "awayTeamName": "Argentina",
+        "home": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        },
+        "away": {
+          "wins": 1,
+          "losses": 0,
+          "appearances": 1
+        }
       }
     },
     {
@@ -52289,6 +53024,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2020-07-03T23:51:24-07:00",
         "checkedAt": "2026-06-29T20:25:20-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "1990-07-04",
+        "cutoffKey": "1990-07-04T20:00:049",
+        "homeTeamName": "West Germany",
+        "awayTeamName": "England",
+        "home": {
+          "wins": 2,
+          "losses": 0,
+          "appearances": 2
+        },
+        "away": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        }
       }
     },
     {
@@ -52401,6 +53157,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "checkedAt": "2026-06-29T22:35:06-07:00",
         "note": "No clean official FIFA YouTube highlight-style video matched this fixture."
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "1990-07-07",
+        "cutoffKey": "1990-07-07T20:00:050",
+        "homeTeamName": "Italy",
+        "awayTeamName": "England",
+        "home": {
+          "wins": 0,
+          "losses": 1,
+          "appearances": 1
+        },
+        "away": {
+          "wins": 0,
+          "losses": 1,
+          "appearances": 1
+        }
       }
     },
     {
@@ -52504,6 +53281,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2020-07-08T00:01:50-07:00",
         "checkedAt": "2026-06-29T20:25:20-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "1990-07-08",
+        "cutoffKey": "1990-07-08T20:00:051",
+        "homeTeamName": "West Germany",
+        "awayTeamName": "Argentina",
+        "home": {
+          "wins": 3,
+          "losses": 0,
+          "appearances": 3
+        },
+        "away": {
+          "wins": 2,
+          "losses": 0,
+          "appearances": 2
+        }
       }
     },
     {
@@ -56578,6 +57376,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "checkedAt": "2026-06-29T22:35:06-07:00",
         "note": "No clean official FIFA YouTube highlight-style video matched this fixture."
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "1994-07-02",
+        "cutoffKey": "1994-07-02T12:00:036",
+        "homeTeamName": "Germany",
+        "awayTeamName": "Belgium",
+        "home": {
+          "wins": 3,
+          "losses": 0,
+          "appearances": 3
+        },
+        "away": {
+          "wins": 1,
+          "losses": 0,
+          "appearances": 1
+        }
       }
     },
     {
@@ -56689,6 +57508,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "checkedAt": "2026-06-29T22:35:06-07:00",
         "note": "No clean official FIFA YouTube highlight-style video matched this fixture."
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "1994-07-02",
+        "cutoffKey": "1994-07-02T16:30:037",
+        "homeTeamName": "Spain",
+        "awayTeamName": "Switzerland",
+        "home": {
+          "wins": 0,
+          "losses": 1,
+          "appearances": 1
+        },
+        "away": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        }
       }
     },
     {
@@ -56804,6 +57644,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "checkedAt": "2026-06-29T22:35:06-07:00",
         "note": "No clean official FIFA YouTube highlight-style video matched this fixture."
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "1994-07-03",
+        "cutoffKey": "1994-07-03T12:00:038",
+        "homeTeamName": "Saudi Arabia",
+        "awayTeamName": "Sweden",
+        "home": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        },
+        "away": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        }
       }
     },
     {
@@ -56924,6 +57785,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "checkedAt": "2026-06-29T22:35:06-07:00",
         "note": "No clean official FIFA YouTube highlight-style video matched this fixture."
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "1994-07-03",
+        "cutoffKey": "1994-07-03T13:30:039",
+        "homeTeamName": "Romania",
+        "awayTeamName": "Argentina",
+        "home": {
+          "wins": 0,
+          "losses": 1,
+          "appearances": 1
+        },
+        "away": {
+          "wins": 2,
+          "losses": 0,
+          "appearances": 2
+        }
       }
     },
     {
@@ -57030,6 +57912,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "checkedAt": "2026-06-29T22:35:06-07:00",
         "note": "No clean official FIFA YouTube highlight-style video matched this fixture."
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "1994-07-04",
+        "cutoffKey": "1994-07-04T12:00:040",
+        "homeTeamName": "Netherlands",
+        "awayTeamName": "Ireland",
+        "home": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        },
+        "away": {
+          "wins": 1,
+          "losses": 0,
+          "appearances": 1
+        }
       }
     },
     {
@@ -57132,6 +58035,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "checkedAt": "2026-06-29T22:35:06-07:00",
         "note": "No clean official FIFA YouTube highlight-style video matched this fixture."
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "1994-07-04",
+        "cutoffKey": "1994-07-04T12:30:041",
+        "homeTeamName": "Brazil",
+        "awayTeamName": "USA",
+        "home": {
+          "wins": 0,
+          "losses": 1,
+          "appearances": 1
+        },
+        "away": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        }
       }
     },
     {
@@ -57248,6 +58172,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "checkedAt": "2026-06-29T22:35:06-07:00",
         "note": "No clean official FIFA YouTube highlight-style video matched this fixture."
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "1994-07-05",
+        "cutoffKey": "1994-07-05T13:00:042",
+        "homeTeamName": "Nigeria",
+        "awayTeamName": "Italy",
+        "home": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        },
+        "away": {
+          "wins": 0,
+          "losses": 1,
+          "appearances": 1
+        }
       }
     },
     {
@@ -57364,6 +58309,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "checkedAt": "2026-06-29T22:35:06-07:00",
         "note": "No clean official FIFA YouTube highlight-style video matched this fixture."
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "1994-07-05",
+        "cutoffKey": "1994-07-05T16:30:043",
+        "homeTeamName": "Mexico",
+        "awayTeamName": "Bulgaria",
+        "home": {
+          "wins": 0,
+          "losses": 1,
+          "appearances": 1
+        },
+        "away": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        }
       }
     },
     {
@@ -57475,6 +58441,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "checkedAt": "2026-06-29T22:35:06-07:00",
         "note": "No clean official FIFA YouTube highlight-style video matched this fixture."
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "1994-07-09",
+        "cutoffKey": "1994-07-09T12:00:044",
+        "homeTeamName": "Italy",
+        "awayTeamName": "Spain",
+        "home": {
+          "wins": 0,
+          "losses": 1,
+          "appearances": 1
+        },
+        "away": {
+          "wins": 0,
+          "losses": 1,
+          "appearances": 1
+        }
       }
     },
     {
@@ -57594,6 +58581,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2014-07-10T11:06:06-07:00",
         "checkedAt": "2026-06-29T22:35:06-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "1994-07-09",
+        "cutoffKey": "1994-07-09T14:30:045",
+        "homeTeamName": "Netherlands",
+        "awayTeamName": "Brazil",
+        "home": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        },
+        "away": {
+          "wins": 0,
+          "losses": 1,
+          "appearances": 1
+        }
       }
     },
     {
@@ -57706,6 +58714,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "checkedAt": "2026-06-29T22:35:06-07:00",
         "note": "No clean official FIFA YouTube highlight-style video matched this fixture."
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "1994-07-10",
+        "cutoffKey": "1994-07-10T12:00:046",
+        "homeTeamName": "Bulgaria",
+        "awayTeamName": "Germany",
+        "home": {
+          "wins": 1,
+          "losses": 0,
+          "appearances": 1
+        },
+        "away": {
+          "wins": 3,
+          "losses": 0,
+          "appearances": 3
+        }
       }
     },
     {
@@ -57829,6 +58858,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "checkedAt": "2026-06-29T22:35:06-07:00",
         "note": "No clean official FIFA YouTube highlight-style video matched this fixture."
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "1994-07-10",
+        "cutoffKey": "1994-07-10T12:30:047",
+        "homeTeamName": "Romania",
+        "awayTeamName": "Sweden",
+        "home": {
+          "wins": 0,
+          "losses": 1,
+          "appearances": 1
+        },
+        "away": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        }
       }
     },
     {
@@ -57941,6 +58991,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "checkedAt": "2026-06-29T22:35:06-07:00",
         "note": "No clean official FIFA YouTube highlight-style video matched this fixture."
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "1994-07-13",
+        "cutoffKey": "1994-07-13T16:00:048",
+        "homeTeamName": "Bulgaria",
+        "awayTeamName": "Italy",
+        "home": {
+          "wins": 1,
+          "losses": 0,
+          "appearances": 1
+        },
+        "away": {
+          "wins": 0,
+          "losses": 1,
+          "appearances": 1
+        }
       }
     },
     {
@@ -58043,6 +59114,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "checkedAt": "2026-06-29T22:35:06-07:00",
         "note": "No clean official FIFA YouTube highlight-style video matched this fixture."
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "1994-07-13",
+        "cutoffKey": "1994-07-13T16:30:049",
+        "homeTeamName": "Sweden",
+        "awayTeamName": "Brazil",
+        "home": {
+          "wins": 1,
+          "losses": 0,
+          "appearances": 1
+        },
+        "away": {
+          "wins": 0,
+          "losses": 1,
+          "appearances": 1
+        }
       }
     },
     {
@@ -58157,6 +59249,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "checkedAt": "2026-06-29T22:35:06-07:00",
         "note": "No clean official FIFA YouTube highlight-style video matched this fixture."
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "1994-07-16",
+        "cutoffKey": "1994-07-16T12:30:050",
+        "homeTeamName": "Sweden",
+        "awayTeamName": "Bulgaria",
+        "home": {
+          "wins": 1,
+          "losses": 0,
+          "appearances": 1
+        },
+        "away": {
+          "wins": 1,
+          "losses": 0,
+          "appearances": 1
+        }
       }
     },
     {
@@ -58262,6 +59375,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2018-04-06T04:19:34-07:00",
         "checkedAt": "2026-06-29T20:25:20-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "1994-07-17",
+        "cutoffKey": "1994-07-17T12:30:051",
+        "homeTeamName": "Brazil",
+        "awayTeamName": "Italy",
+        "home": {
+          "wins": 0,
+          "losses": 1,
+          "appearances": 1
+        },
+        "away": {
+          "wins": 0,
+          "losses": 1,
+          "appearances": 1
+        }
       }
     },
     {
@@ -63673,6 +64807,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2014-06-26T09:22:38-07:00",
         "checkedAt": "2026-06-29T22:35:06-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "1998-06-27",
+        "cutoffKey": "1998-06-27T21:00:048",
+        "homeTeamName": "Brazil",
+        "awayTeamName": "Chile",
+        "home": {
+          "wins": 1,
+          "losses": 1,
+          "appearances": 2
+        },
+        "away": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        }
       }
     },
     {
@@ -63775,6 +64930,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "checkedAt": "2026-06-29T22:35:06-07:00",
         "note": "No clean official FIFA YouTube highlight-style video matched this fixture."
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "1998-06-27",
+        "cutoffKey": "1998-06-27T16:30:049",
+        "homeTeamName": "Italy",
+        "awayTeamName": "Norway",
+        "home": {
+          "wins": 0,
+          "losses": 2,
+          "appearances": 2
+        },
+        "away": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        }
       }
     },
     {
@@ -63894,6 +65070,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "checkedAt": "2026-06-29T22:35:06-07:00",
         "note": "No clean official FIFA YouTube highlight-style video matched this fixture."
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "1998-06-28",
+        "cutoffKey": "1998-06-28T21:00:050",
+        "homeTeamName": "Nigeria",
+        "awayTeamName": "Denmark",
+        "home": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        },
+        "away": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        }
       }
     },
     {
@@ -64000,6 +65197,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "checkedAt": "2026-06-29T22:35:06-07:00",
         "note": "No clean official FIFA YouTube highlight-style video matched this fixture."
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "1998-06-28",
+        "cutoffKey": "1998-06-28T16:30:051",
+        "homeTeamName": "France",
+        "awayTeamName": "Paraguay",
+        "home": {
+          "wins": 1,
+          "losses": 1,
+          "appearances": 2
+        },
+        "away": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        }
       }
     },
     {
@@ -64111,6 +65329,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "checkedAt": "2026-06-29T22:35:06-07:00",
         "note": "No clean official FIFA YouTube highlight-style video matched this fixture."
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "1998-06-29",
+        "cutoffKey": "1998-06-29T16:30:052",
+        "homeTeamName": "Germany",
+        "awayTeamName": "Mexico",
+        "home": {
+          "wins": 3,
+          "losses": 0,
+          "appearances": 3
+        },
+        "away": {
+          "wins": 0,
+          "losses": 2,
+          "appearances": 2
+        }
       }
     },
     {
@@ -64223,6 +65462,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "checkedAt": "2026-06-29T22:35:06-07:00",
         "note": "No clean official FIFA YouTube highlight-style video matched this fixture."
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "1998-06-29",
+        "cutoffKey": "1998-06-29T21:00:053",
+        "homeTeamName": "Netherlands",
+        "awayTeamName": "Yugoslavia",
+        "home": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        },
+        "away": {
+          "wins": 0,
+          "losses": 1,
+          "appearances": 1
+        }
       }
     },
     {
@@ -64349,6 +65609,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "checkedAt": "2026-06-29T22:35:06-07:00",
         "note": "No clean official FIFA YouTube highlight-style video matched this fixture."
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "1998-06-30",
+        "cutoffKey": "1998-06-30T21:00:054",
+        "homeTeamName": "Argentina",
+        "awayTeamName": "England",
+        "home": {
+          "wins": 2,
+          "losses": 0,
+          "appearances": 2
+        },
+        "away": {
+          "wins": 0,
+          "losses": 1,
+          "appearances": 1
+        }
       }
     },
     {
@@ -64453,6 +65734,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "checkedAt": "2026-06-29T22:35:06-07:00",
         "note": "No clean official FIFA YouTube highlight-style video matched this fixture."
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "1998-06-30",
+        "cutoffKey": "1998-06-30T16:30:055",
+        "homeTeamName": "Romania",
+        "awayTeamName": "Croatia",
+        "home": {
+          "wins": 0,
+          "losses": 2,
+          "appearances": 2
+        },
+        "away": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        }
       }
     },
     {
@@ -64558,6 +65860,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "checkedAt": "2026-06-29T22:35:06-07:00",
         "note": "No clean official FIFA YouTube highlight-style video matched this fixture."
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "1998-07-03",
+        "cutoffKey": "1998-07-03T16:30:056",
+        "homeTeamName": "Italy",
+        "awayTeamName": "France",
+        "home": {
+          "wins": 0,
+          "losses": 2,
+          "appearances": 2
+        },
+        "away": {
+          "wins": 1,
+          "losses": 1,
+          "appearances": 2
+        }
       }
     },
     {
@@ -64677,6 +66000,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "checkedAt": "2026-06-29T22:35:06-07:00",
         "note": "No clean official FIFA YouTube highlight-style video matched this fixture."
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "1998-07-03",
+        "cutoffKey": "1998-07-03T21:00:057",
+        "homeTeamName": "Brazil",
+        "awayTeamName": "Denmark",
+        "home": {
+          "wins": 1,
+          "losses": 1,
+          "appearances": 2
+        },
+        "away": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        }
       }
     },
     {
@@ -64788,6 +66132,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "checkedAt": "2026-06-29T22:35:06-07:00",
         "note": "No clean official FIFA YouTube highlight-style video matched this fixture."
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "1998-07-04",
+        "cutoffKey": "1998-07-04T21:00:058",
+        "homeTeamName": "Germany",
+        "awayTeamName": "Croatia",
+        "home": {
+          "wins": 3,
+          "losses": 0,
+          "appearances": 3
+        },
+        "away": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        }
       }
     },
     {
@@ -64899,6 +66264,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2014-07-06T10:06:49-07:00",
         "checkedAt": "2026-06-29T22:35:06-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "1998-07-04",
+        "cutoffKey": "1998-07-04T16:30:059",
+        "homeTeamName": "Netherlands",
+        "awayTeamName": "Argentina",
+        "home": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        },
+        "away": {
+          "wins": 3,
+          "losses": 0,
+          "appearances": 3
+        }
       }
     },
     {
@@ -65014,6 +66400,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2014-07-10T11:29:19-07:00",
         "checkedAt": "2026-06-29T20:25:20-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "1998-07-07",
+        "cutoffKey": "1998-07-07T21:00:060",
+        "homeTeamName": "Brazil",
+        "awayTeamName": "Netherlands",
+        "home": {
+          "wins": 1,
+          "losses": 1,
+          "appearances": 2
+        },
+        "away": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        }
       }
     },
     {
@@ -65125,6 +66532,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "checkedAt": "2026-06-29T22:35:06-07:00",
         "note": "No clean official FIFA YouTube highlight-style video matched this fixture."
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "1998-07-08",
+        "cutoffKey": "1998-07-08T21:00:061",
+        "homeTeamName": "France",
+        "awayTeamName": "Croatia",
+        "home": {
+          "wins": 2,
+          "losses": 1,
+          "appearances": 3
+        },
+        "away": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        }
       }
     },
     {
@@ -65236,6 +66664,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "checkedAt": "2026-06-29T22:35:06-07:00",
         "note": "No clean official FIFA YouTube highlight-style video matched this fixture."
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "1998-07-11",
+        "cutoffKey": "1998-07-11T21:00:062",
+        "homeTeamName": "Netherlands",
+        "awayTeamName": "Croatia",
+        "home": {
+          "wins": 0,
+          "losses": 1,
+          "appearances": 1
+        },
+        "away": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        }
       }
     },
     {
@@ -65348,6 +66797,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2014-07-11T21:04:15-07:00",
         "checkedAt": "2026-06-29T20:25:20-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "1998-07-12",
+        "cutoffKey": "1998-07-12T21:00:063",
+        "homeTeamName": "Brazil",
+        "awayTeamName": "France",
+        "home": {
+          "wins": 2,
+          "losses": 1,
+          "appearances": 3
+        },
+        "away": {
+          "wins": 2,
+          "losses": 1,
+          "appearances": 3
+        }
       }
     },
     {
@@ -70751,6 +72221,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "checkedAt": "2026-06-29T22:41:04-07:00",
         "note": "No clean official FIFA YouTube highlight-style video matched this fixture."
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2002-06-15",
+        "cutoffKey": "2002-06-15T15:30:048",
+        "homeTeamName": "Germany",
+        "awayTeamName": "Paraguay",
+        "home": {
+          "wins": 3,
+          "losses": 0,
+          "appearances": 3
+        },
+        "away": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        }
       }
     },
     {
@@ -70861,6 +72352,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "checkedAt": "2026-06-29T22:41:04-07:00",
         "note": "No clean official FIFA YouTube highlight-style video matched this fixture."
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2002-06-15",
+        "cutoffKey": "2002-06-15T20:30:049",
+        "homeTeamName": "Denmark",
+        "awayTeamName": "England",
+        "home": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        },
+        "away": {
+          "wins": 0,
+          "losses": 2,
+          "appearances": 2
+        }
       }
     },
     {
@@ -70976,6 +72488,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "checkedAt": "2026-06-29T22:41:04-07:00",
         "note": "No clean official FIFA YouTube highlight-style video matched this fixture."
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2002-06-16",
+        "cutoffKey": "2002-06-16T15:30:050",
+        "homeTeamName": "Sweden",
+        "awayTeamName": "Senegal",
+        "home": {
+          "wins": 1,
+          "losses": 0,
+          "appearances": 1
+        },
+        "away": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        }
       }
     },
     {
@@ -71092,6 +72625,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "checkedAt": "2026-06-29T22:41:04-07:00",
         "note": "No clean official FIFA YouTube highlight-style video matched this fixture."
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2002-06-16",
+        "cutoffKey": "2002-06-16T20:30:051",
+        "homeTeamName": "Spain",
+        "awayTeamName": "Ireland",
+        "home": {
+          "wins": 0,
+          "losses": 1,
+          "appearances": 1
+        },
+        "away": {
+          "wins": 1,
+          "losses": 0,
+          "appearances": 1
+        }
       }
     },
     {
@@ -71198,6 +72752,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2024-03-24T19:00:34-07:00",
         "checkedAt": "2026-06-29T22:41:04-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2002-06-17",
+        "cutoffKey": "2002-06-17T15:30:052",
+        "homeTeamName": "Mexico",
+        "awayTeamName": "USA",
+        "home": {
+          "wins": 0,
+          "losses": 2,
+          "appearances": 2
+        },
+        "away": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        }
       }
     },
     {
@@ -71304,6 +72879,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "checkedAt": "2026-06-29T22:41:04-07:00",
         "note": "No clean official FIFA YouTube highlight-style video matched this fixture."
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2002-06-17",
+        "cutoffKey": "2002-06-17T20:30:053",
+        "homeTeamName": "Brazil",
+        "awayTeamName": "Belgium",
+        "home": {
+          "wins": 2,
+          "losses": 1,
+          "appearances": 3
+        },
+        "away": {
+          "wins": 1,
+          "losses": 0,
+          "appearances": 1
+        }
       }
     },
     {
@@ -71406,6 +73002,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "checkedAt": "2026-06-29T22:41:04-07:00",
         "note": "No clean official FIFA YouTube highlight-style video matched this fixture."
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2002-06-18",
+        "cutoffKey": "2002-06-18T15:30:054",
+        "homeTeamName": "Japan",
+        "awayTeamName": "Turkey",
+        "home": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        },
+        "away": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        }
       }
     },
     {
@@ -71521,6 +73138,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "checkedAt": "2026-06-29T22:41:04-07:00",
         "note": "No clean official FIFA YouTube highlight-style video matched this fixture."
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2002-06-18",
+        "cutoffKey": "2002-06-18T20:30:055",
+        "homeTeamName": "South Korea",
+        "awayTeamName": "Italy",
+        "home": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        },
+        "away": {
+          "wins": 0,
+          "losses": 3,
+          "appearances": 3
+        }
       }
     },
     {
@@ -71633,6 +73271,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "checkedAt": "2026-06-29T22:41:04-07:00",
         "note": "No clean official FIFA YouTube highlight-style video matched this fixture."
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2002-06-21",
+        "cutoffKey": "2002-06-21T15:30:056",
+        "homeTeamName": "England",
+        "awayTeamName": "Brazil",
+        "home": {
+          "wins": 0,
+          "losses": 2,
+          "appearances": 2
+        },
+        "away": {
+          "wins": 2,
+          "losses": 1,
+          "appearances": 3
+        }
       }
     },
     {
@@ -71735,6 +73394,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2014-06-23T10:32:47-07:00",
         "checkedAt": "2026-06-29T22:41:04-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2002-06-21",
+        "cutoffKey": "2002-06-21T20:30:057",
+        "homeTeamName": "Germany",
+        "awayTeamName": "USA",
+        "home": {
+          "wins": 3,
+          "losses": 0,
+          "appearances": 3
+        },
+        "away": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        }
       }
     },
     {
@@ -71840,6 +73520,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "checkedAt": "2026-06-29T22:41:04-07:00",
         "note": "No clean official FIFA YouTube highlight-style video matched this fixture."
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2002-06-22",
+        "cutoffKey": "2002-06-22T15:30:058",
+        "homeTeamName": "Spain",
+        "awayTeamName": "South Korea",
+        "home": {
+          "wins": 1,
+          "losses": 1,
+          "appearances": 2
+        },
+        "away": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        }
       }
     },
     {
@@ -71946,6 +73647,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "checkedAt": "2026-06-29T22:41:04-07:00",
         "note": "No clean official FIFA YouTube highlight-style video matched this fixture."
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2002-06-22",
+        "cutoffKey": "2002-06-22T20:30:059",
+        "homeTeamName": "Senegal",
+        "awayTeamName": "Turkey",
+        "home": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        },
+        "away": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        }
       }
     },
     {
@@ -72048,6 +73770,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "checkedAt": "2026-06-29T22:41:04-07:00",
         "note": "No clean official FIFA YouTube highlight-style video matched this fixture."
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2002-06-25",
+        "cutoffKey": "2002-06-25T20:30:060",
+        "homeTeamName": "Germany",
+        "awayTeamName": "South Korea",
+        "home": {
+          "wins": 3,
+          "losses": 0,
+          "appearances": 3
+        },
+        "away": {
+          "wins": 1,
+          "losses": 0,
+          "appearances": 1
+        }
       }
     },
     {
@@ -72150,6 +73893,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "checkedAt": "2026-06-29T22:41:04-07:00",
         "note": "No clean official FIFA YouTube highlight-style video matched this fixture."
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2002-06-26",
+        "cutoffKey": "2002-06-26T20:30:061",
+        "homeTeamName": "Brazil",
+        "awayTeamName": "Turkey",
+        "home": {
+          "wins": 2,
+          "losses": 1,
+          "appearances": 3
+        },
+        "away": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        }
       }
     },
     {
@@ -72270,6 +74034,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "checkedAt": "2026-06-29T22:41:04-07:00",
         "note": "No clean official FIFA YouTube highlight-style video matched this fixture."
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2002-06-29",
+        "cutoffKey": "2002-06-29T20:00:062",
+        "homeTeamName": "South Korea",
+        "awayTeamName": "Turkey",
+        "home": {
+          "wins": 1,
+          "losses": 0,
+          "appearances": 1
+        },
+        "away": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        }
       }
     },
     {
@@ -72376,6 +74161,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2020-06-22T13:46:01-07:00",
         "checkedAt": "2026-06-29T20:25:20-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2002-06-30",
+        "cutoffKey": "2002-06-30T20:00:063",
+        "homeTeamName": "Germany",
+        "awayTeamName": "Brazil",
+        "home": {
+          "wins": 3,
+          "losses": 0,
+          "appearances": 3
+        },
+        "away": {
+          "wins": 2,
+          "losses": 1,
+          "appearances": 3
+        }
       }
     },
     {
@@ -77895,6 +79701,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "checkedAt": "2026-06-29T22:41:04-07:00",
         "note": "No clean official FIFA YouTube highlight-style video matched this fixture."
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2006-06-24",
+        "cutoffKey": "2006-06-24T17:00:048",
+        "homeTeamName": "Germany",
+        "awayTeamName": "Sweden",
+        "home": {
+          "wins": 3,
+          "losses": 0,
+          "appearances": 3
+        },
+        "away": {
+          "wins": 1,
+          "losses": 0,
+          "appearances": 1
+        }
       }
     },
     {
@@ -78014,6 +79841,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2020-06-07T10:00:24-07:00",
         "checkedAt": "2026-06-29T22:41:04-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2006-06-24",
+        "cutoffKey": "2006-06-24T21:00:049",
+        "homeTeamName": "Argentina",
+        "awayTeamName": "Mexico",
+        "home": {
+          "wins": 3,
+          "losses": 0,
+          "appearances": 3
+        },
+        "away": {
+          "wins": 0,
+          "losses": 2,
+          "appearances": 2
+        }
       }
     },
     {
@@ -78120,6 +79968,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "checkedAt": "2026-06-29T22:41:04-07:00",
         "note": "No clean official FIFA YouTube highlight-style video matched this fixture."
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2006-06-25",
+        "cutoffKey": "2006-06-25T17:00:050",
+        "homeTeamName": "England",
+        "awayTeamName": "Ecuador",
+        "home": {
+          "wins": 0,
+          "losses": 2,
+          "appearances": 2
+        },
+        "away": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        }
       }
     },
     {
@@ -78226,6 +80095,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "checkedAt": "2026-06-29T22:41:04-07:00",
         "note": "No clean official FIFA YouTube highlight-style video matched this fixture."
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2006-06-25",
+        "cutoffKey": "2006-06-25T21:00:051",
+        "homeTeamName": "Portugal",
+        "awayTeamName": "Netherlands",
+        "home": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        },
+        "away": {
+          "wins": 0,
+          "losses": 1,
+          "appearances": 1
+        }
       }
     },
     {
@@ -78334,6 +80224,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "checkedAt": "2026-06-29T22:41:04-07:00",
         "note": "No clean official FIFA YouTube highlight-style video matched this fixture."
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2006-06-26",
+        "cutoffKey": "2006-06-26T17:00:052",
+        "homeTeamName": "Italy",
+        "awayTeamName": "Australia",
+        "home": {
+          "wins": 0,
+          "losses": 3,
+          "appearances": 3
+        },
+        "away": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        }
       }
     },
     {
@@ -78439,6 +80350,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "checkedAt": "2026-06-29T22:41:04-07:00",
         "note": "No clean official FIFA YouTube highlight-style video matched this fixture."
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2006-06-26",
+        "cutoffKey": "2006-06-26T21:00:053",
+        "homeTeamName": "Switzerland",
+        "awayTeamName": "Ukraine",
+        "home": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        },
+        "away": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        }
       }
     },
     {
@@ -78554,6 +80486,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "checkedAt": "2026-06-29T22:41:04-07:00",
         "note": "No clean official FIFA YouTube highlight-style video matched this fixture."
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2006-06-27",
+        "cutoffKey": "2006-06-27T17:00:054",
+        "homeTeamName": "Brazil",
+        "awayTeamName": "Ghana",
+        "home": {
+          "wins": 2,
+          "losses": 1,
+          "appearances": 3
+        },
+        "away": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        }
       }
     },
     {
@@ -78675,6 +80628,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "checkedAt": "2026-06-29T22:41:04-07:00",
         "note": "No clean official FIFA YouTube highlight-style video matched this fixture."
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2006-06-27",
+        "cutoffKey": "2006-06-27T21:00:055",
+        "homeTeamName": "Spain",
+        "awayTeamName": "France",
+        "home": {
+          "wins": 1,
+          "losses": 2,
+          "appearances": 3
+        },
+        "away": {
+          "wins": 2,
+          "losses": 1,
+          "appearances": 3
+        }
       }
     },
     {
@@ -78794,6 +80768,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2014-07-10T19:55:35-07:00",
         "checkedAt": "2026-06-29T22:41:04-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2006-06-30",
+        "cutoffKey": "2006-06-30T17:00:056",
+        "homeTeamName": "Germany",
+        "awayTeamName": "Argentina",
+        "home": {
+          "wins": 3,
+          "losses": 0,
+          "appearances": 3
+        },
+        "away": {
+          "wins": 3,
+          "losses": 0,
+          "appearances": 3
+        }
       }
     },
     {
@@ -78908,6 +80903,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "checkedAt": "2026-06-29T22:41:04-07:00",
         "note": "No clean official FIFA YouTube highlight-style video matched this fixture."
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2006-06-30",
+        "cutoffKey": "2006-06-30T21:00:057",
+        "homeTeamName": "Italy",
+        "awayTeamName": "Ukraine",
+        "home": {
+          "wins": 0,
+          "losses": 3,
+          "appearances": 3
+        },
+        "away": {
+          "wins": 1,
+          "losses": 0,
+          "appearances": 1
+        }
       }
     },
     {
@@ -79013,6 +81029,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "checkedAt": "2026-06-29T22:41:04-07:00",
         "note": "No clean official FIFA YouTube highlight-style video matched this fixture."
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2006-07-01",
+        "cutoffKey": "2006-07-01T17:00:058",
+        "homeTeamName": "England",
+        "awayTeamName": "Portugal",
+        "home": {
+          "wins": 0,
+          "losses": 2,
+          "appearances": 2
+        },
+        "away": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        }
       }
     },
     {
@@ -79119,6 +81156,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "checkedAt": "2026-06-29T22:41:04-07:00",
         "note": "No clean official FIFA YouTube highlight-style video matched this fixture."
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2006-07-01",
+        "cutoffKey": "2006-07-01T21:00:059",
+        "homeTeamName": "Brazil",
+        "awayTeamName": "France",
+        "home": {
+          "wins": 2,
+          "losses": 1,
+          "appearances": 3
+        },
+        "away": {
+          "wins": 2,
+          "losses": 1,
+          "appearances": 3
+        }
       }
     },
     {
@@ -79230,6 +81288,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2016-07-01T06:54:06-07:00",
         "checkedAt": "2026-06-29T22:41:04-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2006-07-04",
+        "cutoffKey": "2006-07-04T21:00:060",
+        "homeTeamName": "Germany",
+        "awayTeamName": "Italy",
+        "home": {
+          "wins": 4,
+          "losses": 0,
+          "appearances": 4
+        },
+        "away": {
+          "wins": 0,
+          "losses": 3,
+          "appearances": 3
+        }
       }
     },
     {
@@ -79337,6 +81416,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2016-07-08T07:56:57-07:00",
         "checkedAt": "2026-06-29T22:41:04-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2006-07-05",
+        "cutoffKey": "2006-07-05T21:00:061",
+        "homeTeamName": "Portugal",
+        "awayTeamName": "France",
+        "home": {
+          "wins": 1,
+          "losses": 0,
+          "appearances": 1
+        },
+        "away": {
+          "wins": 2,
+          "losses": 1,
+          "appearances": 3
+        }
       }
     },
     {
@@ -79457,6 +81557,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "checkedAt": "2026-06-29T22:41:04-07:00",
         "note": "No clean official FIFA YouTube highlight-style video matched this fixture."
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2006-07-08",
+        "cutoffKey": "2006-07-08T21:00:062",
+        "homeTeamName": "Germany",
+        "awayTeamName": "Portugal",
+        "home": {
+          "wins": 4,
+          "losses": 0,
+          "appearances": 4
+        },
+        "away": {
+          "wins": 1,
+          "losses": 0,
+          "appearances": 1
+        }
       }
     },
     {
@@ -79577,6 +81698,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2020-06-28T13:36:26-07:00",
         "checkedAt": "2026-06-29T20:25:20-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2006-07-09",
+        "cutoffKey": "2006-07-09T20:00:063",
+        "homeTeamName": "Italy",
+        "awayTeamName": "France",
+        "home": {
+          "wins": 0,
+          "losses": 3,
+          "appearances": 3
+        },
+        "away": {
+          "wins": 2,
+          "losses": 1,
+          "appearances": 3
+        }
       }
     },
     {
@@ -84802,6 +86944,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2013-01-31T18:15:53-08:00",
         "checkedAt": "2026-06-29T22:41:04-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2010-06-26",
+        "cutoffKey": "2010-06-26T16:00:048",
+        "homeTeamName": "Uruguay",
+        "awayTeamName": "South Korea",
+        "home": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        },
+        "away": {
+          "wins": 1,
+          "losses": 0,
+          "appearances": 1
+        }
       }
     },
     {
@@ -84917,6 +87080,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2012-04-26T14:32:46-07:00",
         "checkedAt": "2026-06-29T22:41:04-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2010-06-26",
+        "cutoffKey": "2010-06-26T20:30:049",
+        "homeTeamName": "USA",
+        "awayTeamName": "Ghana",
+        "home": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        },
+        "away": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        }
       }
     },
     {
@@ -85035,6 +87219,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2012-06-26T18:09:06-07:00",
         "checkedAt": "2026-06-29T22:41:04-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2010-06-27",
+        "cutoffKey": "2010-06-27T16:00:050",
+        "homeTeamName": "Germany",
+        "awayTeamName": "England",
+        "home": {
+          "wins": 4,
+          "losses": 0,
+          "appearances": 4
+        },
+        "away": {
+          "wins": 0,
+          "losses": 3,
+          "appearances": 3
+        }
       }
     },
     {
@@ -85149,6 +87354,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2012-04-05T15:18:38-07:00",
         "checkedAt": "2026-06-29T22:41:04-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2010-06-27",
+        "cutoffKey": "2010-06-27T20:30:051",
+        "homeTeamName": "Argentina",
+        "awayTeamName": "Mexico",
+        "home": {
+          "wins": 3,
+          "losses": 1,
+          "appearances": 4
+        },
+        "away": {
+          "wins": 0,
+          "losses": 2,
+          "appearances": 2
+        }
       }
     },
     {
@@ -85261,6 +87487,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2012-04-29T18:06:34-07:00",
         "checkedAt": "2026-06-29T22:41:04-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2010-06-28",
+        "cutoffKey": "2010-06-28T16:00:052",
+        "homeTeamName": "Netherlands",
+        "awayTeamName": "Slovakia",
+        "home": {
+          "wins": 0,
+          "losses": 1,
+          "appearances": 1
+        },
+        "away": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        }
       }
     },
     {
@@ -85370,6 +87617,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2012-03-21T00:54:01-07:00",
         "checkedAt": "2026-06-29T22:41:04-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2010-06-28",
+        "cutoffKey": "2010-06-28T20:30:053",
+        "homeTeamName": "Brazil",
+        "awayTeamName": "Chile",
+        "home": {
+          "wins": 2,
+          "losses": 1,
+          "appearances": 3
+        },
+        "away": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        }
       }
     },
     {
@@ -85474,6 +87742,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2013-02-07T20:20:58-08:00",
         "checkedAt": "2026-06-29T22:41:04-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2010-06-29",
+        "cutoffKey": "2010-06-29T16:00:054",
+        "homeTeamName": "Paraguay",
+        "awayTeamName": "Japan",
+        "home": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        },
+        "away": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        }
       }
     },
     {
@@ -85575,6 +87864,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2013-02-14T20:33:19-08:00",
         "checkedAt": "2026-06-29T22:41:04-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2010-06-29",
+        "cutoffKey": "2010-06-29T20:30:055",
+        "homeTeamName": "Spain",
+        "awayTeamName": "Portugal",
+        "home": {
+          "wins": 1,
+          "losses": 2,
+          "appearances": 3
+        },
+        "away": {
+          "wins": 1,
+          "losses": 0,
+          "appearances": 1
+        }
       }
     },
     {
@@ -85685,6 +87995,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2013-02-21T19:24:13-08:00",
         "checkedAt": "2026-06-29T22:41:04-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2010-07-02",
+        "cutoffKey": "2010-07-02T16:00:056",
+        "homeTeamName": "Netherlands",
+        "awayTeamName": "Brazil",
+        "home": {
+          "wins": 0,
+          "losses": 1,
+          "appearances": 1
+        },
+        "away": {
+          "wins": 2,
+          "losses": 1,
+          "appearances": 3
+        }
       }
     },
     {
@@ -85800,6 +88131,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2013-02-28T20:12:11-08:00",
         "checkedAt": "2026-06-29T22:41:04-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2010-07-02",
+        "cutoffKey": "2010-07-02T20:30:057",
+        "homeTeamName": "Uruguay",
+        "awayTeamName": "Ghana",
+        "home": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        },
+        "away": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        }
       }
     },
     {
@@ -85913,6 +88265,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2012-12-12T20:51:29-08:00",
         "checkedAt": "2026-06-29T22:41:04-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2010-07-03",
+        "cutoffKey": "2010-07-03T16:00:058",
+        "homeTeamName": "Argentina",
+        "awayTeamName": "Germany",
+        "home": {
+          "wins": 3,
+          "losses": 1,
+          "appearances": 4
+        },
+        "away": {
+          "wins": 4,
+          "losses": 0,
+          "appearances": 4
+        }
       }
     },
     {
@@ -86014,6 +88387,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2013-03-07T20:00:37-08:00",
         "checkedAt": "2026-06-29T22:41:04-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2010-07-03",
+        "cutoffKey": "2010-07-03T20:30:059",
+        "homeTeamName": "Paraguay",
+        "awayTeamName": "Spain",
+        "home": {
+          "wins": 1,
+          "losses": 0,
+          "appearances": 1
+        },
+        "away": {
+          "wins": 1,
+          "losses": 2,
+          "appearances": 3
+        }
       }
     },
     {
@@ -86133,6 +88527,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2012-07-05T20:03:13-07:00",
         "checkedAt": "2026-06-29T22:41:04-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2010-07-06",
+        "cutoffKey": "2010-07-06T20:30:060",
+        "homeTeamName": "Uruguay",
+        "awayTeamName": "Netherlands",
+        "home": {
+          "wins": 1,
+          "losses": 0,
+          "appearances": 1
+        },
+        "away": {
+          "wins": 0,
+          "losses": 1,
+          "appearances": 1
+        }
       }
     },
     {
@@ -86234,6 +88649,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2013-04-05T08:18:59-07:00",
         "checkedAt": "2026-06-29T22:41:04-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2010-07-07",
+        "cutoffKey": "2010-07-07T20:30:061",
+        "homeTeamName": "Germany",
+        "awayTeamName": "Spain",
+        "home": {
+          "wins": 4,
+          "losses": 0,
+          "appearances": 4
+        },
+        "away": {
+          "wins": 1,
+          "losses": 2,
+          "appearances": 3
+        }
       }
     },
     {
@@ -86352,6 +88788,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2013-03-14T17:53:20-07:00",
         "checkedAt": "2026-06-29T22:41:04-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2010-07-10",
+        "cutoffKey": "2010-07-10T20:30:062",
+        "homeTeamName": "Uruguay",
+        "awayTeamName": "Germany",
+        "home": {
+          "wins": 1,
+          "losses": 0,
+          "appearances": 1
+        },
+        "away": {
+          "wins": 4,
+          "losses": 0,
+          "appearances": 4
+        }
       }
     },
     {
@@ -86457,6 +88914,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2012-07-11T05:16:44-07:00",
         "checkedAt": "2026-06-29T20:25:20-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2010-07-11",
+        "cutoffKey": "2010-07-11T20:30:063",
+        "homeTeamName": "Netherlands",
+        "awayTeamName": "Spain",
+        "home": {
+          "wins": 0,
+          "losses": 1,
+          "appearances": 1
+        },
+        "away": {
+          "wins": 1,
+          "losses": 2,
+          "appearances": 3
+        }
       }
     },
     {
@@ -91871,6 +94349,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2018-04-23T08:11:33-07:00",
         "checkedAt": "2026-06-29T23:04:46-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2014-06-28",
+        "cutoffKey": "2014-06-28T13:00 UTC-3:048",
+        "homeTeamName": "Brazil",
+        "awayTeamName": "Chile",
+        "home": {
+          "wins": 2,
+          "losses": 1,
+          "appearances": 3
+        },
+        "away": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        }
       }
     },
     {
@@ -91980,6 +94479,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2018-04-23T08:13:44-07:00",
         "checkedAt": "2026-06-29T23:04:46-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2014-06-28",
+        "cutoffKey": "2014-06-28T17:00 UTC-3:049",
+        "homeTeamName": "Colombia",
+        "awayTeamName": "Uruguay",
+        "home": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        },
+        "away": {
+          "wins": 1,
+          "losses": 0,
+          "appearances": 1
+        }
       }
     },
     {
@@ -92096,6 +94616,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2018-04-23T08:15:54-07:00",
         "checkedAt": "2026-06-29T23:04:46-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2014-06-29",
+        "cutoffKey": "2014-06-29T13:00 UTC-3:050",
+        "homeTeamName": "Netherlands",
+        "awayTeamName": "Mexico",
+        "home": {
+          "wins": 0,
+          "losses": 1,
+          "appearances": 1
+        },
+        "away": {
+          "wins": 0,
+          "losses": 2,
+          "appearances": 2
+        }
       }
     },
     {
@@ -92215,6 +94756,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2018-04-23T08:18:25-07:00",
         "checkedAt": "2026-06-29T23:04:46-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2014-06-29",
+        "cutoffKey": "2014-06-29T17:00 UTC-3:051",
+        "homeTeamName": "Costa Rica",
+        "awayTeamName": "Greece",
+        "home": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        },
+        "away": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        }
       }
     },
     {
@@ -92326,6 +94888,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2018-04-23T08:20:08-07:00",
         "checkedAt": "2026-06-29T23:04:46-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2014-06-30",
+        "cutoffKey": "2014-06-30T13:00 UTC-3:052",
+        "homeTeamName": "France",
+        "awayTeamName": "Nigeria",
+        "home": {
+          "wins": 2,
+          "losses": 2,
+          "appearances": 4
+        },
+        "away": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        }
       }
     },
     {
@@ -92445,6 +95028,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2018-04-23T08:21:46-07:00",
         "checkedAt": "2026-06-29T23:04:46-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2014-06-30",
+        "cutoffKey": "2014-06-30T17:00 UTC-3:053",
+        "homeTeamName": "Germany",
+        "awayTeamName": "Algeria",
+        "home": {
+          "wins": 4,
+          "losses": 0,
+          "appearances": 4
+        },
+        "away": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        }
       }
     },
     {
@@ -92554,6 +95158,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2018-04-23T08:23:08-07:00",
         "checkedAt": "2026-06-29T23:04:46-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2014-07-01",
+        "cutoffKey": "2014-07-01T13:00 UTC-3:054",
+        "homeTeamName": "Argentina",
+        "awayTeamName": "Switzerland",
+        "home": {
+          "wins": 3,
+          "losses": 1,
+          "appearances": 4
+        },
+        "away": {
+          "wins": 0,
+          "losses": 1,
+          "appearances": 1
+        }
       }
     },
     {
@@ -92672,6 +95297,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2018-04-23T08:25:13-07:00",
         "checkedAt": "2026-06-29T23:04:46-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2014-07-01",
+        "cutoffKey": "2014-07-01T17:00 UTC-3:055",
+        "homeTeamName": "Belgium",
+        "awayTeamName": "USA",
+        "home": {
+          "wins": 1,
+          "losses": 0,
+          "appearances": 1
+        },
+        "away": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        }
       }
     },
     {
@@ -92777,6 +95423,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2018-04-25T09:00:05-07:00",
         "checkedAt": "2026-06-29T23:04:46-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2014-07-04",
+        "cutoffKey": "2014-07-04T13:00 UTC-3:056",
+        "homeTeamName": "France",
+        "awayTeamName": "Germany",
+        "home": {
+          "wins": 2,
+          "losses": 2,
+          "appearances": 4
+        },
+        "away": {
+          "wins": 4,
+          "losses": 0,
+          "appearances": 4
+        }
       }
     },
     {
@@ -92892,6 +95559,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2018-04-25T09:00:04-07:00",
         "checkedAt": "2026-06-29T23:04:46-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2014-07-04",
+        "cutoffKey": "2014-07-04T17:00 UTC-3:057",
+        "homeTeamName": "Brazil",
+        "awayTeamName": "Colombia",
+        "home": {
+          "wins": 3,
+          "losses": 1,
+          "appearances": 4
+        },
+        "away": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        }
       }
     },
     {
@@ -92997,6 +95685,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2018-04-25T09:00:03-07:00",
         "checkedAt": "2026-06-29T23:04:46-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2014-07-05",
+        "cutoffKey": "2014-07-05T13:00 UTC-3:058",
+        "homeTeamName": "Argentina",
+        "awayTeamName": "Belgium",
+        "home": {
+          "wins": 3,
+          "losses": 1,
+          "appearances": 4
+        },
+        "away": {
+          "wins": 1,
+          "losses": 0,
+          "appearances": 1
+        }
       }
     },
     {
@@ -93105,6 +95814,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2018-04-25T09:00:06-07:00",
         "checkedAt": "2026-06-29T23:04:46-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2014-07-05",
+        "cutoffKey": "2014-07-05T17:00 UTC-3:059",
+        "homeTeamName": "Netherlands",
+        "awayTeamName": "Costa Rica",
+        "home": {
+          "wins": 0,
+          "losses": 1,
+          "appearances": 1
+        },
+        "away": {
+          "wins": 1,
+          "losses": 0,
+          "appearances": 1
+        }
       }
     },
     {
@@ -93239,6 +95969,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2020-06-05T11:00:01-07:00",
         "checkedAt": "2026-06-29T20:25:20-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2014-07-08",
+        "cutoffKey": "2014-07-08T17:00 UTC-3:060",
+        "homeTeamName": "Brazil",
+        "awayTeamName": "Germany",
+        "home": {
+          "wins": 3,
+          "losses": 1,
+          "appearances": 4
+        },
+        "away": {
+          "wins": 4,
+          "losses": 0,
+          "appearances": 4
+        }
       }
     },
     {
@@ -93347,6 +96098,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2018-04-26T09:00:06-07:00",
         "checkedAt": "2026-06-29T20:25:20-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2014-07-09",
+        "cutoffKey": "2014-07-09T17:00 UTC-3:061",
+        "homeTeamName": "Netherlands",
+        "awayTeamName": "Argentina",
+        "home": {
+          "wins": 1,
+          "losses": 1,
+          "appearances": 2
+        },
+        "away": {
+          "wins": 3,
+          "losses": 1,
+          "appearances": 4
+        }
       }
     },
     {
@@ -93462,6 +96234,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2018-04-28T03:00:08-07:00",
         "checkedAt": "2026-06-29T23:04:46-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2014-07-12",
+        "cutoffKey": "2014-07-12T17:00 UTC-3:062",
+        "homeTeamName": "Brazil",
+        "awayTeamName": "Netherlands",
+        "home": {
+          "wins": 3,
+          "losses": 1,
+          "appearances": 4
+        },
+        "away": {
+          "wins": 1,
+          "losses": 2,
+          "appearances": 3
+        }
       }
     },
     {
@@ -93571,6 +96364,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2018-04-28T03:00:12-07:00",
         "checkedAt": "2026-06-29T20:25:20-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2014-07-13",
+        "cutoffKey": "2014-07-13T16:00 UTC-3:063",
+        "homeTeamName": "Germany",
+        "awayTeamName": "Argentina",
+        "home": {
+          "wins": 4,
+          "losses": 0,
+          "appearances": 4
+        },
+        "away": {
+          "wins": 4,
+          "losses": 1,
+          "appearances": 5
+        }
       }
     },
     {
@@ -99144,6 +101958,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2018-06-30T09:37:45-07:00",
         "checkedAt": "2026-06-29T23:07:51-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2018-06-30",
+        "cutoffKey": "2018-06-30T17:00 UTC+3:048",
+        "homeTeamName": "France",
+        "awayTeamName": "Argentina",
+        "home": {
+          "wins": 2,
+          "losses": 2,
+          "appearances": 4
+        },
+        "away": {
+          "wins": 4,
+          "losses": 1,
+          "appearances": 5
+        }
       }
     },
     {
@@ -99258,6 +102093,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2018-06-30T13:36:20-07:00",
         "checkedAt": "2026-06-29T23:07:51-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2018-06-30",
+        "cutoffKey": "2018-06-30T21:00 UTC+3:049",
+        "homeTeamName": "Uruguay",
+        "awayTeamName": "Portugal",
+        "home": {
+          "wins": 1,
+          "losses": 0,
+          "appearances": 1
+        },
+        "away": {
+          "wins": 1,
+          "losses": 0,
+          "appearances": 1
+        }
       }
     },
     {
@@ -99378,6 +102234,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2018-07-01T10:36:18-07:00",
         "checkedAt": "2026-06-29T23:07:51-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2018-07-01",
+        "cutoffKey": "2018-07-01T17:00 UTC+3:050",
+        "homeTeamName": "Spain",
+        "awayTeamName": "Russia",
+        "home": {
+          "wins": 1,
+          "losses": 2,
+          "appearances": 3
+        },
+        "away": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        }
       }
     },
     {
@@ -99496,6 +102373,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2018-07-01T14:37:02-07:00",
         "checkedAt": "2026-06-29T23:07:51-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2018-07-01",
+        "cutoffKey": "2018-07-01T21:00 UTC+3:051",
+        "homeTeamName": "Croatia",
+        "awayTeamName": "Denmark",
+        "home": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        },
+        "away": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        }
       }
     },
     {
@@ -99605,6 +102503,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2018-07-02T09:23:50-07:00",
         "checkedAt": "2026-06-29T23:07:51-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2018-07-02",
+        "cutoffKey": "2018-07-02T18:00 UTC+4:052",
+        "homeTeamName": "Brazil",
+        "awayTeamName": "Mexico",
+        "home": {
+          "wins": 3,
+          "losses": 1,
+          "appearances": 4
+        },
+        "away": {
+          "wins": 0,
+          "losses": 2,
+          "appearances": 2
+        }
       }
     },
     {
@@ -99728,6 +102647,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2018-07-02T13:56:15-07:00",
         "checkedAt": "2026-06-29T23:07:51-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2018-07-02",
+        "cutoffKey": "2018-07-02T21:00 UTC+3:053",
+        "homeTeamName": "Belgium",
+        "awayTeamName": "Japan",
+        "home": {
+          "wins": 1,
+          "losses": 0,
+          "appearances": 1
+        },
+        "away": {
+          "wins": 0,
+          "losses": 1,
+          "appearances": 1
+        }
       }
     },
     {
@@ -99833,6 +102773,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2018-07-03T10:01:55-07:00",
         "checkedAt": "2026-06-29T23:07:51-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2018-07-03",
+        "cutoffKey": "2018-07-03T17:00 UTC+3:054",
+        "homeTeamName": "Sweden",
+        "awayTeamName": "Switzerland",
+        "home": {
+          "wins": 1,
+          "losses": 0,
+          "appearances": 1
+        },
+        "away": {
+          "wins": 0,
+          "losses": 1,
+          "appearances": 1
+        }
       }
     },
     {
@@ -99953,6 +102914,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2018-07-03T15:03:20-07:00",
         "checkedAt": "2026-06-29T23:07:51-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2018-07-03",
+        "cutoffKey": "2018-07-03T21:00 UTC+3:055",
+        "homeTeamName": "Colombia",
+        "awayTeamName": "England",
+        "home": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        },
+        "away": {
+          "wins": 0,
+          "losses": 3,
+          "appearances": 3
+        }
       }
     },
     {
@@ -100062,6 +103044,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2018-07-06T09:24:05-07:00",
         "checkedAt": "2026-06-29T23:07:51-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2018-07-06",
+        "cutoffKey": "2018-07-06T17:00 UTC+3:056",
+        "homeTeamName": "Uruguay",
+        "awayTeamName": "France",
+        "home": {
+          "wins": 1,
+          "losses": 0,
+          "appearances": 1
+        },
+        "away": {
+          "wins": 2,
+          "losses": 2,
+          "appearances": 4
+        }
       }
     },
     {
@@ -100177,6 +103180,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2018-07-06T13:39:28-07:00",
         "checkedAt": "2026-06-29T23:07:51-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2018-07-06",
+        "cutoffKey": "2018-07-06T21:00 UTC+3:057",
+        "homeTeamName": "Brazil",
+        "awayTeamName": "Belgium",
+        "home": {
+          "wins": 3,
+          "losses": 1,
+          "appearances": 4
+        },
+        "away": {
+          "wins": 1,
+          "losses": 0,
+          "appearances": 1
+        }
       }
     },
     {
@@ -100286,6 +103310,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2018-07-07T09:41:20-07:00",
         "checkedAt": "2026-06-29T23:07:51-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2018-07-07",
+        "cutoffKey": "2018-07-07T18:00 UTC+4:058",
+        "homeTeamName": "Sweden",
+        "awayTeamName": "England",
+        "home": {
+          "wins": 1,
+          "losses": 0,
+          "appearances": 1
+        },
+        "away": {
+          "wins": 1,
+          "losses": 3,
+          "appearances": 4
+        }
       }
     },
     {
@@ -100412,6 +103457,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2018-07-07T14:38:13-07:00",
         "checkedAt": "2026-06-29T23:07:51-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2018-07-07",
+        "cutoffKey": "2018-07-07T21:00 UTC+3:059",
+        "homeTeamName": "Russia",
+        "awayTeamName": "Croatia",
+        "home": {
+          "wins": 1,
+          "losses": 0,
+          "appearances": 1
+        },
+        "away": {
+          "wins": 1,
+          "losses": 0,
+          "appearances": 1
+        }
       }
     },
     {
@@ -100517,6 +103583,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2018-07-10T13:53:31-07:00",
         "checkedAt": "2026-06-29T20:25:20-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2018-07-10",
+        "cutoffKey": "2018-07-10T21:00 UTC+3:060",
+        "homeTeamName": "France",
+        "awayTeamName": "Belgium",
+        "home": {
+          "wins": 2,
+          "losses": 2,
+          "appearances": 4
+        },
+        "away": {
+          "wins": 1,
+          "losses": 0,
+          "appearances": 1
+        }
       }
     },
     {
@@ -100635,6 +103722,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2018-07-11T14:28:25-07:00",
         "checkedAt": "2026-06-29T20:25:20-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2018-07-11",
+        "cutoffKey": "2018-07-11T21:00 UTC+3:061",
+        "homeTeamName": "Croatia",
+        "awayTeamName": "England",
+        "home": {
+          "wins": 2,
+          "losses": 0,
+          "appearances": 2
+        },
+        "away": {
+          "wins": 1,
+          "losses": 3,
+          "appearances": 4
+        }
       }
     },
     {
@@ -100744,6 +103852,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2018-07-14T09:50:30-07:00",
         "checkedAt": "2026-06-30T16:16:40-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2018-07-14",
+        "cutoffKey": "2018-07-14T17:00 UTC+3:062",
+        "homeTeamName": "Belgium",
+        "awayTeamName": "England",
+        "home": {
+          "wins": 1,
+          "losses": 0,
+          "appearances": 1
+        },
+        "away": {
+          "wins": 1,
+          "losses": 3,
+          "appearances": 4
+        }
       }
     },
     {
@@ -100872,6 +104001,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2020-06-09T11:18:13-07:00",
         "checkedAt": "2026-06-29T20:25:20-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2018-07-15",
+        "cutoffKey": "2018-07-15T18:00 UTC+3:063",
+        "homeTeamName": "France",
+        "awayTeamName": "Croatia",
+        "home": {
+          "wins": 2,
+          "losses": 2,
+          "appearances": 4
+        },
+        "away": {
+          "wins": 2,
+          "losses": 0,
+          "appearances": 2
+        }
       }
     },
     {
@@ -106361,6 +109511,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2022-12-04T09:00:07-08:00",
         "checkedAt": "2026-06-29T23:24:22-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2022-12-03",
+        "cutoffKey": "2022-12-03T18:00:048",
+        "homeTeamName": "Netherlands",
+        "awayTeamName": "USA",
+        "home": {
+          "wins": 1,
+          "losses": 2,
+          "appearances": 3
+        },
+        "away": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        }
       }
     },
     {
@@ -106476,6 +109647,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2022-12-04T12:45:08-08:00",
         "checkedAt": "2026-06-29T23:24:22-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2022-12-03",
+        "cutoffKey": "2022-12-03T22:00:049",
+        "homeTeamName": "Argentina",
+        "awayTeamName": "Australia",
+        "home": {
+          "wins": 4,
+          "losses": 1,
+          "appearances": 5
+        },
+        "away": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        }
       }
     },
     {
@@ -106597,6 +109789,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2022-12-05T09:00:10-08:00",
         "checkedAt": "2026-06-29T23:24:22-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2022-12-04",
+        "cutoffKey": "2022-12-04T18:00:050",
+        "homeTeamName": "France",
+        "awayTeamName": "Poland",
+        "home": {
+          "wins": 2,
+          "losses": 2,
+          "appearances": 4
+        },
+        "away": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        }
       }
     },
     {
@@ -106711,6 +109924,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2022-12-05T12:59:06-08:00",
         "checkedAt": "2026-06-29T23:24:22-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2022-12-04",
+        "cutoffKey": "2022-12-04T22:00:051",
+        "homeTeamName": "England",
+        "awayTeamName": "Senegal",
+        "home": {
+          "wins": 1,
+          "losses": 3,
+          "appearances": 4
+        },
+        "away": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        }
       }
     },
     {
@@ -106829,6 +110063,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2022-12-06T09:30:04-08:00",
         "checkedAt": "2026-06-29T23:24:22-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2022-12-05",
+        "cutoffKey": "2022-12-05T18:00:052",
+        "homeTeamName": "Japan",
+        "awayTeamName": "Croatia",
+        "home": {
+          "wins": 0,
+          "losses": 1,
+          "appearances": 1
+        },
+        "away": {
+          "wins": 2,
+          "losses": 0,
+          "appearances": 2
+        }
       }
     },
     {
@@ -106952,6 +110207,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2022-12-06T12:59:00-08:00",
         "checkedAt": "2026-06-29T23:24:22-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2022-12-05",
+        "cutoffKey": "2022-12-05T22:00:053",
+        "homeTeamName": "Brazil",
+        "awayTeamName": "South Korea",
+        "home": {
+          "wins": 3,
+          "losses": 1,
+          "appearances": 4
+        },
+        "away": {
+          "wins": 1,
+          "losses": 0,
+          "appearances": 1
+        }
       }
     },
     {
@@ -107060,6 +110336,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2022-12-07T10:00:07-08:00",
         "checkedAt": "2026-06-29T23:24:22-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2022-12-06",
+        "cutoffKey": "2022-12-06T18:00:054",
+        "homeTeamName": "Morocco",
+        "awayTeamName": "Spain",
+        "home": {
+          "wins": 0,
+          "losses": 0,
+          "appearances": 0
+        },
+        "away": {
+          "wins": 1,
+          "losses": 3,
+          "appearances": 4
+        }
       }
     },
     {
@@ -107191,6 +110488,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2022-12-07T12:59:00-08:00",
         "checkedAt": "2026-06-29T23:24:22-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2022-12-06",
+        "cutoffKey": "2022-12-06T22:00:055",
+        "homeTeamName": "Portugal",
+        "awayTeamName": "Switzerland",
+        "home": {
+          "wins": 1,
+          "losses": 0,
+          "appearances": 1
+        },
+        "away": {
+          "wins": 0,
+          "losses": 1,
+          "appearances": 1
+        }
       }
     },
     {
@@ -107310,6 +110628,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2026-06-08T06:30:00-07:00",
         "checkedAt": "2026-06-29T23:15:07-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2022-12-09",
+        "cutoffKey": "2022-12-09T18:00:056",
+        "homeTeamName": "Croatia",
+        "awayTeamName": "Brazil",
+        "home": {
+          "wins": 3,
+          "losses": 0,
+          "appearances": 3
+        },
+        "away": {
+          "wins": 3,
+          "losses": 1,
+          "appearances": 4
+        }
       }
     },
     {
@@ -107438,6 +110777,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2022-12-10T12:45:00-08:00",
         "checkedAt": "2026-06-29T23:24:22-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2022-12-09",
+        "cutoffKey": "2022-12-09T22:00:057",
+        "homeTeamName": "Netherlands",
+        "awayTeamName": "Argentina",
+        "home": {
+          "wins": 1,
+          "losses": 2,
+          "appearances": 3
+        },
+        "away": {
+          "wins": 4,
+          "losses": 1,
+          "appearances": 5
+        }
       }
     },
     {
@@ -107543,6 +110903,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2022-12-11T09:00:10-08:00",
         "checkedAt": "2026-06-29T23:24:22-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2022-12-10",
+        "cutoffKey": "2022-12-10T18:00:058",
+        "homeTeamName": "Morocco",
+        "awayTeamName": "Portugal",
+        "home": {
+          "wins": 1,
+          "losses": 0,
+          "appearances": 1
+        },
+        "away": {
+          "wins": 1,
+          "losses": 0,
+          "appearances": 1
+        }
       }
     },
     {
@@ -107658,6 +111039,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2022-12-11T12:59:01-08:00",
         "checkedAt": "2026-06-29T23:24:22-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2022-12-10",
+        "cutoffKey": "2022-12-10T22:00:059",
+        "homeTeamName": "England",
+        "awayTeamName": "France",
+        "home": {
+          "wins": 1,
+          "losses": 3,
+          "appearances": 4
+        },
+        "away": {
+          "wins": 2,
+          "losses": 2,
+          "appearances": 4
+        }
       }
     },
     {
@@ -107772,6 +111174,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2022-12-14T12:45:01-08:00",
         "checkedAt": "2026-06-29T20:25:20-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2022-12-13",
+        "cutoffKey": "2022-12-13T22:00:060",
+        "homeTeamName": "Argentina",
+        "awayTeamName": "Croatia",
+        "home": {
+          "wins": 5,
+          "losses": 1,
+          "appearances": 6
+        },
+        "away": {
+          "wins": 4,
+          "losses": 0,
+          "appearances": 4
+        }
       }
     },
     {
@@ -107881,6 +111304,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2022-12-15T12:59:01-08:00",
         "checkedAt": "2026-06-29T20:25:20-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2022-12-14",
+        "cutoffKey": "2022-12-14T22:00:061",
+        "homeTeamName": "France",
+        "awayTeamName": "Morocco",
+        "home": {
+          "wins": 2,
+          "losses": 2,
+          "appearances": 4
+        },
+        "away": {
+          "wins": 1,
+          "losses": 0,
+          "appearances": 1
+        }
       }
     },
     {
@@ -107995,6 +111439,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2022-12-18T09:00:21-08:00",
         "checkedAt": "2026-06-30T16:16:40-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2022-12-17",
+        "cutoffKey": "2022-12-17T18:00:062",
+        "homeTeamName": "Croatia",
+        "awayTeamName": "Morocco",
+        "home": {
+          "wins": 4,
+          "losses": 0,
+          "appearances": 4
+        },
+        "away": {
+          "wins": 1,
+          "losses": 0,
+          "appearances": 1
+        }
       }
     },
     {
@@ -108132,6 +111597,27 @@
         "channelId": "UCpcTrCXblq78GZrTUTLWeBw",
         "publishedAt": "2022-12-19T10:45:01-08:00",
         "checkedAt": "2026-06-29T20:25:20-07:00"
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-14T01:06:19-07:00",
+        "cutoffAt": "2022-12-18",
+        "cutoffKey": "2022-12-18T18:00:063",
+        "homeTeamName": "Argentina",
+        "awayTeamName": "France",
+        "home": {
+          "wins": 5,
+          "losses": 1,
+          "appearances": 6
+        },
+        "away": {
+          "wins": 2,
+          "losses": 2,
+          "appearances": 4
+        }
       }
     }
   ]

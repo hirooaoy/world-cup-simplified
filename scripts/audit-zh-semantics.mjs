@@ -282,19 +282,77 @@ async function auditBallBoyChineseIntents(dataByPath) {
 
     const samples = [
       {
+        question: "Who are you?",
+        locale: "en",
+        matches: (reply) =>
+          reply?.kind === "personality" &&
+          reply?.text === "I’m Ball Boy. I make football easier to understand." &&
+          reply?.followUps?.length === 0,
+        expected: "direct English identity"
+      },
+      {
+        question: "你是谁？",
+        matches: (reply) =>
+          reply?.kind === "personality" &&
+          reply?.text === "我是球童。我把足球讲明白。" &&
+          reply?.followUps?.length === 0,
+        expected: "direct Chinese identity"
+      },
+      {
+        question: "人生是什么？",
+        matches: (reply) => reply?.kind === "personality" && reply?.text === "不知道。",
+        expected: "short life answer"
+      },
+      {
+        question: "什么是soccer？",
+        matches: (reply) => reply?.kind === "personality" && reply?.text === "你是说足球。",
+        expected: "short soccer answer"
+      },
+      {
+        question: "为什么叫soccer？",
+        matches: (reply) =>
+          reply?.kind === "personality" &&
+          reply?.topic === "soccer-etymology" &&
+          reply?.text.includes("association football"),
+        expected: "soccer etymology answer"
+      },
+      {
+        question: "足球为什么特别？",
+        matches: (reply) =>
+          reply?.kind === "personality" &&
+          reply?.topic === "football-special" &&
+          reply?.text === "入门很简单，踢好很难。",
+        expected: "short football-special answer"
+      },
+      {
+        question: "你是机器人吗？",
+        matches: (reply) => reply?.kind === "personality" && reply?.text === "我是聊天机器人。",
+        expected: "direct reality answer"
+      },
+      {
+        question: "Tell me a joke",
+        locale: "en",
+        matches: (reply) => reply?.kind === "personality" && reply?.text === "No good ones.",
+        expected: "short English joke refusal"
+      },
+      {
         question: "解释越位",
         matches: (reply) => reply?.kind === "offside",
         expected: "offside"
       },
       {
         question: "红牌是什么？",
-        matches: (reply) => reply?.kind === "rule" && reply?.rule?.id === "red-card",
+        matches: (reply) =>
+          reply?.kind === "rule" &&
+          reply?.rule?.id === "red-card" &&
+          reply?.rule?.takeaway === "球队会少一名球员继续比赛。",
         expected: "red-card rule"
       },
       {
         question: "介绍一下姆巴佩",
         matches: (reply) =>
           reply?.kind === "player" &&
+          reply?.profile?.note === profiles["Kylian Mbappe"]?.noteZh &&
           /mbapp/i.test(
             String(reply?.profile?.canonicalName || reply?.profile?.displayName || reply?.profile?.name || "")
           ),
@@ -302,7 +360,8 @@ async function auditBallBoyChineseIntents(dataByPath) {
       },
       {
         question: "阿根廷怎么踢？",
-        matches: (reply) => reply?.kind === "country" && reply?.team?.id === "ARG",
+        matches: (reply) =>
+          reply?.kind === "country" && reply?.team?.id === "ARG" && reply?.focus === "style",
         expected: "Argentina country"
       },
       {
@@ -311,6 +370,8 @@ async function auditBallBoyChineseIntents(dataByPath) {
           reply?.kind === "match" &&
           [reply?.fixture?.homeTeamId, reply?.fixture?.awayTeamId].includes("NOR") &&
           [reply?.fixture?.homeTeamId, reply?.fixture?.awayTeamId].includes("ENG") &&
+          reply?.focus === "result" &&
+          reply?.fixture?.recap?.every((bullet) => /[\u3400-\u9fff]/u.test(bullet)) &&
           reply?.timeline?.every(
             (goal) => !/[A-Za-z]/.test(`${goal?.name || ""}${goal?.assistName || ""}`)
           ),
@@ -326,7 +387,8 @@ async function auditBallBoyChineseIntents(dataByPath) {
         matches: (reply) =>
           reply?.kind === "match" &&
           [reply?.fixture?.homeTeamId, reply?.fixture?.awayTeamId].includes("NOR") &&
-          [reply?.fixture?.homeTeamId, reply?.fixture?.awayTeamId].includes("ENG"),
+          [reply?.fixture?.homeTeamId, reply?.fixture?.awayTeamId].includes("ENG") &&
+          reply?.focus === "scorers",
         expected: "Norway-England scorer follow-up"
       },
       {
@@ -341,7 +403,7 @@ async function auditBallBoyChineseIntents(dataByPath) {
     ];
 
     for (const sample of samples) {
-      const reply = await ballBoy.getBallBoyReply(sample.question, { locale: "zh" });
+      const reply = await ballBoy.getBallBoyReply(sample.question, { locale: sample.locale || "zh" });
       check(
         "ball-boy-intent",
         sample.matches(reply),
@@ -387,18 +449,33 @@ const sharedFootballLocale = await import(
   `${pathToFileURL(path.join(root, "football-locale-zh.js")).href}?zh-semantic-audit=${Date.now()}`
 );
 
-// Ball Boy is a generic, dry stadium worker—not a disguised star player or a national-team mascot.
+// Ball Boy is a direct football guide, not a disguised player or invented stadium employee.
 const ballBoySource = `${chatbotSource}\n${chatbotKnowledgeSource}`;
 check(
   "ball-boy-persona",
   ballBoySource.includes("I’m Ball Boy. I make football easier to understand.") &&
-    ballBoySource.includes("我是球童。我让足球更容易懂。"),
+    ballBoySource.includes("我是球童。我把足球讲明白。"),
   "direct Ball Boy identity copy is missing in English or Chinese"
 );
 const retiredPersonaPhrases = [
   "very tall Norwegian",
   "Nothing suspicious",
   "completely neutral panel",
+  "collect the footballs",
+  "stadium employee",
+  "never get a break",
+  "I was resting",
+  "standing still very efficiently",
+  "corner flag",
+  "asked for a raise",
+  "On stadium duty",
+  "Digital stadium staff",
+  "球场值班中",
+  "数字球场员工",
+  "从来没有休息时间",
+  "站着不动",
+  "角旗",
+  "加薪",
   "挪威球童",
   "完全不可疑",
   "没有任何可疑之处",
@@ -409,6 +486,36 @@ check(
   "ball-boy-persona",
   !retiredPersonaLeaks.length,
   `retired Haaland-in-disguise persona remnants: ${retiredPersonaLeaks.join(", ")}`
+);
+check(
+  "ball-boy-persona",
+  !chatbotSource.includes("scout-personality-stamp") &&
+    !chatbotSource.includes("statusLabel:") &&
+    !chatbotKnowledgeSource.includes("badge:"),
+  "retired personality badges, stamps, or status labels are still rendered"
+);
+check(
+  "ball-boy-persona",
+  chatbotSource.includes('className: "is-personality"') &&
+    chatbotKnowledgeSource.includes("followUps: []"),
+  "personality replies must render as semantic chat bubbles without follow-up chips"
+);
+check(
+  "ball-boy-rules",
+  [
+    "Five kicks each, then one kick each if the score is still level.",
+    "The team plays one player short.",
+    "Two yellow cards in one match mean a red card.",
+    "Contact with the hand or arm alone is not enough.",
+    "Extra time is two more 15-minute periods.",
+    "The board shows the minimum time to be added."
+  ].every((text) => chatbotKnowledgeSource.includes(text)),
+  "one or more factual English rule takeaways are missing"
+);
+check(
+  "ball-boy-localization",
+  /profile\.noteZh\s*\|\|/.test(chatbotKnowledgeSource),
+  "Chinese player answers are not visibly sourced from profile.noteZh"
 );
 
 // Match-clock terminology: ET is the end of extra time; HT is the halftime boundary.
@@ -645,16 +752,24 @@ check(
   "app.js does not visibly prefer resultStoryBulletsZh in Chinese mode"
 );
 const fixturesWithChineseStories = fixtures.filter((fixture) => Array.isArray(fixture.resultStoryBulletsZh));
-const storyParityIssues = fixturesWithChineseStories.filter(
+const completedCurrentFixtures = fixtures.filter(
+  (fixture) =>
+    ["FT", "AET", "PEN"].includes(String(fixture.status || "").toUpperCase()) &&
+    Number.isFinite(Number(fixture.score?.home)) &&
+    Number.isFinite(Number(fixture.score?.away))
+);
+const storyParityIssues = completedCurrentFixtures.filter(
   (fixture) =>
     !Array.isArray(fixture.resultStoryBullets) ||
+    !Array.isArray(fixture.resultStoryBulletsZh) ||
+    !fixture.resultStoryBullets.length ||
     fixture.resultStoryBullets.length !== fixture.resultStoryBulletsZh.length ||
     fixture.resultStoryBulletsZh.some((bullet) => !String(bullet || "").trim())
 );
 check(
   "result-story",
-  fixturesWithChineseStories.length >= 10 && !storyParityIssues.length,
-  `found ${fixturesWithChineseStories.length} authored Chinese story sets; parity issues: ${formatSamples(storyParityIssues.map((fixture) => fixture.id))}`
+  fixturesWithChineseStories.length === completedCurrentFixtures.length && !storyParityIssues.length,
+  `found ${fixturesWithChineseStories.length}/${completedCurrentFixtures.length} bilingual current story sets; parity issues: ${formatSamples(storyParityIssues.map((fixture) => fixture.id))}`
 );
 
 // All current preview paragraphs need either authored Chinese fields or a guaranteed structured route.
@@ -801,7 +916,7 @@ if (failures.length) {
 } else {
   console.log(
     `Chinese semantic audit passed: ${checkCount} checks, ${previewSides.length} preview paragraphs, ` +
-      `${fixturesWithChineseStories.length} authored result-story sets, ${currentEventNames.length} event names, ` +
+      `${fixturesWithChineseStories.length} bilingual current result-story sets, ${currentEventNames.length} event names, ` +
       `${currentClubNames.length} clubs, ${currentLeagueNames.length} leagues, and 8 complete card samples.`
   );
 }

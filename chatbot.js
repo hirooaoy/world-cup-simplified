@@ -4,7 +4,7 @@ import {
   preloadBallBoyCore,
   rememberBallBoyReply,
   resetBallBoyContext
-} from "./chatbot-knowledge.js?v=2026-07-13-ball-boy-locale-3";
+} from "./chatbot-knowledge.js?v=2026-07-14-ball-boy-voice-4";
 
 const SCOUT_PUPIL_TRAVEL = 3.6;
 const SCOUT_REPLY_DELAY_MS = 650;
@@ -43,12 +43,10 @@ const SCOUT_COPY = {
     player: "Player",
     match: "Match",
     ruleSimple: "Rule made simple",
-    whatIKnow: "What I know",
+    whatIKnow: "What you can ask",
     whichPlayer: "Which player?",
     dataProblem: "Data problem",
-    tryAgain: "Try one more time",
-    offDuty: "Off duty",
-    statusLabel: "Ball Boy status",
+    tryAgain: "Try again",
     countryUnavailable: "Country unavailable",
     theirCountry: "their country",
     playerFallback: "Player",
@@ -60,7 +58,7 @@ const SCOUT_COPY = {
     goals: "Goals",
     assists: "Assists",
     recordedAssists: (count) => `${count} recorded assists`,
-    assistsTitle: "Assists recorded in the loaded World Cup match events.",
+    assistsTitle: "Assists recorded in World Cup match events.",
     age: "Age",
     estimatedValue: "Est. value",
     value: "Value",
@@ -110,7 +108,7 @@ const SCOUT_COPY = {
     wins: "Wins",
     draws: "Draws",
     losses: "Losses",
-    goalsBalance: (scored, allowed) => `${scored} scored · ${allowed} allowed`,
+    goalsBalance: (scored, conceded) => `${scored} scored · ${conceded} conceded`,
     onPenalties: "On penalties",
     advancedOnce: "advanced once",
     advancedTimes: (count) => `advanced ${count} times`,
@@ -128,7 +126,7 @@ const SCOUT_COPY = {
     scoringTeam: "Scoring team",
     assist: "Assist",
     penaltyShort: "pen.",
-    matchChanges: "What changed the match",
+    matchChanges: "Key moments",
     playPlans: "How they may play",
     noH2h: "No verified previous senior meetings before this fixture.",
     checkingH2h: "Previous-meeting history is still being checked.",
@@ -139,8 +137,8 @@ const SCOUT_COPY = {
     scoreAria: (home, away) => `${home} to ${away}`,
     flowAriaSeparator: "; ",
     watchListTitle: "Players to watch",
-    errorText: "The data did not load. Try that once more.",
-    errorFollowUps: ["What can I ask?", "Explain offside"]
+    errorText: "I couldn’t load the data. Try again.",
+    errorFollowUps: []
   },
   zh: {
     assistantName: "球童",
@@ -164,13 +162,11 @@ const SCOUT_COPY = {
     player: "球员",
     match: "比赛",
     ruleSimple: "简单讲规则",
-    whatIKnow: "我能回答什么",
+    whatIKnow: "你可以问什么",
     whichPlayer: "你指哪名球员？",
     dataProblem: "数据出了点问题",
-    tryAgain: "换个说法再试一次",
-    offDuty: "休息中",
-    statusLabel: "球童状态",
-    countryUnavailable: "国家队信息暂无",
+    tryAgain: "再试一次",
+    countryUnavailable: "暂无国家队信息",
     theirCountry: "所属国家队",
     playerFallback: "球员",
     flag: "国旗",
@@ -181,7 +177,7 @@ const SCOUT_COPY = {
     goals: "进球",
     assists: "助攻",
     recordedAssists: (count) => `已记录${count}次助攻`,
-    assistsTitle: "助攻数据来自已载入的世界杯比赛事件。",
+    assistsTitle: "助攻数据来自世界杯比赛事件。",
     age: "年龄",
     estimatedValue: "估算身价",
     value: "身价",
@@ -249,7 +245,7 @@ const SCOUT_COPY = {
     scoringTeam: "进球队",
     assist: "助攻",
     penaltyShort: "点球",
-    matchChanges: "比赛转折点",
+    matchChanges: "关键时刻",
     playPlans: "可能的比赛方式",
     noH2h: "这场比赛前，双方没有经过核验的成年国家队交锋记录。",
     checkingH2h: "双方过往交锋记录仍在核验中。",
@@ -260,8 +256,8 @@ const SCOUT_COPY = {
     scoreAria: (home, away) => `${home}比${away}`,
     flowAriaSeparator: "；",
     watchListTitle: "值得关注的球员",
-    errorText: "数据没有载入。请再试一次。",
-    errorFollowUps: ["我可以问什么？", "解释越位"]
+    errorText: "我无法载入数据。请再试一次。",
+    errorFollowUps: []
   }
 };
 
@@ -903,9 +899,12 @@ function setOpen(nextOpen, { focus = true } = {}) {
   }
 }
 
-function appendMessage(text, speaker, { scroll = true } = {}) {
+function appendMessage(text, speaker, { className = "", scroll = true } = {}) {
   const message = document.createElement("div");
   message.className = `scout-message is-${speaker}`;
+  if (className) {
+    message.classList.add(className);
+  }
   if (speaker === "assistant") {
     const label = document.createElement("p");
     label.className = "scout-speaker";
@@ -921,6 +920,7 @@ function appendMessage(text, speaker, { scroll = true } = {}) {
     conversation.scrollTo({ top: conversation.scrollHeight, behavior: reducedMotion.matches ? "auto" : "smooth" });
   }
   queueScoutMoreButtonSync();
+  return message;
 }
 
 function appendThinkingMessage() {
@@ -974,10 +974,10 @@ function resetConversation() {
 function appendOffsideExplanation({ scroll = true } = {}) {
   const copy = isScoutZh()
     ? {
-        intro: "越位规则是为了防止进攻球员一直站在对方球门前等轻松传球。",
+        intro: "越位规则防止进攻球员守在对方球门前等传球。",
         check: "只看一个时刻",
         direction: "进攻方向 →",
-        summary: "看队友踢出传球的那一刻。只有当进攻球员身处对方半场，而且比球和倒数第二名防守队员都更靠近球门时，才处于越位位置。",
+        summary: "看队友触球传球的一刻。如果进攻球员身处对方半场，而且比球和倒数第二名防守队员都更靠近球门，他就处于越位位置。",
         legend: "P = 传球者 · A = 进攻球员 · D = 防守球员 · GK = 门将",
         offside: "越位",
         tooEarly: "启动太早",
@@ -987,7 +987,7 @@ function appendOffsideExplanation({ scroll = true } = {}) {
         onside: "不越位",
         legalRun: "合法跑动",
         onsideAria: "不越位示例。传球瞬间，进攻球员与倒数第二名防守队员平行，之后才向前跑。",
-        onsideExample: "P踢球时，A与越位线平行；传球后再向前跑。",
+        onsideExample: "P传球时，A与越位线平行；之后再向前跑。",
         alsoOnside: "另外两种不越位：",
         alsoOnsideText: "A仍在本方半场，或位于球的后方。",
         noDirect: "不会直接判越位：",
@@ -999,20 +999,20 @@ function appendOffsideExplanation({ scroll = true } = {}) {
         followUps: ["解释红牌", "VAR是什么？", "解释点球"]
       }
     : {
-        intro: "Offside stops attackers from standing by the opponent’s goal waiting for an easy pass.",
+        intro: "Offside stops attackers waiting by the opponent’s goal for a pass.",
         check: "The one check",
         direction: "Attacking →",
-        summary: "Look at the instant a teammate kicks the pass. An attacker is in an offside position only if they are in the opponent’s half and closer to goal than both the ball and the second-last opponent.",
+        summary: "Check the moment a teammate plays the ball. An attacker is in an offside position if they are in the opponent’s half and closer to goal than both the ball and the second-last opponent.",
         legend: "P = passer · A = attacker · D = defender · GK = goalkeeper",
         offside: "Offside",
         tooEarly: "Too early",
-        offsideAria: "Offside example. The attacker is beyond the second-last opponent line when the pass is kicked.",
+        offsideAria: "Offside example. The attacker is beyond the second-last opponent line when a teammate plays the ball.",
         line: "Line",
         offsideExample: "A is already past the line when P passes, then plays the ball.",
         onside: "Onside",
         legalRun: "Legal run",
-        onsideAria: "Onside example. The attacker is level with the second-last opponent line when the pass is kicked, then runs forward.",
-        onsideExample: "A is level with the line, then runs past it after P kicks the ball.",
+        onsideAria: "Onside example. The attacker is level with the second-last opponent line when a teammate plays the ball, then runs forward.",
+        onsideExample: "A is level with the line, then runs past it after P plays the ball.",
         alsoOnside: "Also onside:",
         alsoOnsideText: "A is in their own half or behind the ball.",
         noDirect: "No direct offside:",
@@ -1304,8 +1304,9 @@ function formatScoutMarketValue(value) {
 
 function appendPlayerReply(reply, options = {}) {
   const { age, profile, role, stats, team } = reply;
-  const shirt = profile.shirtNumber !== "" ? ` · #${profile.shirtNumber}` : "";
-  const clubLine = profile.club
+  const focus = reply.focus || "overview";
+  const shirt = profile.shirtNumber !== "" && focus !== "number" ? ` · #${profile.shirtNumber}` : "";
+  const clubLine = profile.club && !["club", "league"].includes(focus)
     ? `${profile.club}${profile.league ? ` (${profile.league})` : ""}`
     : "";
   const marketValue = formatScoutMarketValue(profile.marketValue?.value);
@@ -1338,33 +1339,37 @@ function appendPlayerReply(reply, options = {}) {
       </div>
     `
     : "";
-
-  const body = `
-    <article class="scout-data-card scout-player-card">
-      <header class="scout-entity-header">
-        ${renderScoutAvatar(profile, team, "is-large")}
-        <div class="scout-entity-copy">
-          <h3>${escapeScoutHtml(profile.displayName)}</h3>
-          <p>${renderScoutFlag(team, "scout-inline-flag", { decorative: true })}<span>${escapeScoutHtml(team?.name || "")}${team ? " · " : ""}${escapeScoutHtml(profile.position)}${escapeScoutHtml(shirt)}</span></p>
-          ${clubLine ? `<small title="${escapeScoutHtml(clubLine)}">${escapeScoutHtml(clubLine)}</small>` : ""}
-        </div>
-      </header>
+  const showTournamentStats = ["overview", "stats", "penalty-goals"].includes(focus);
+  const showPlayerDetails = focus === "overview";
+  const showRole = ["overview", "style", "position"].includes(focus);
+  const showSkills = ["overview", "style"].includes(focus);
+  const showNote = focus === "overview";
+  const playerFacts = showTournamentStats || showPlayerDetails
+    ? `
       <div class="scout-player-facts" aria-label="${escapeScoutHtml(scoutText("worldCupStats"))}">
-        <section class="scout-player-fact-section" aria-label="${escapeScoutHtml(scoutText("thisWorldCup"))}">
-          <p class="scout-section-label">${escapeScoutHtml(scoutText("thisWorldCup"))}</p>
-          <div class="scout-player-fact-row">
-            <div><strong>${stats.goals}</strong><span>${escapeScoutHtml(scoutText("goals"))}</span></div>
-            <div aria-label="${escapeScoutHtml(scoutText("recordedAssists", stats.assists))}" title="${escapeScoutHtml(scoutText("assistsTitle"))}"><strong>${stats.assists}</strong><span>${escapeScoutHtml(scoutText("assists"))}</span></div>
-          </div>
-        </section>
-        <section class="scout-player-fact-section" aria-label="${escapeScoutHtml(scoutText("playerDetails"))}">
-          <p class="scout-section-label">${escapeScoutHtml(scoutText("playerDetails"))}</p>
-          <div class="scout-player-fact-row">
-            <div><strong>${age ?? "—"}</strong><span>${escapeScoutHtml(scoutText("age"))}</span></div>
-            <div class="is-value" title="${escapeScoutHtml(marketValueTitle)}"><strong>${escapeScoutHtml(marketValue)}</strong><span>${escapeScoutHtml(marketValueLabel)}</span>${primeValue}</div>
-          </div>
-        </section>
+        ${showTournamentStats ? `
+          <section class="scout-player-fact-section" aria-label="${escapeScoutHtml(scoutText("thisWorldCup"))}">
+            <p class="scout-section-label">${escapeScoutHtml(scoutText("thisWorldCup"))}</p>
+            <div class="scout-player-fact-row">
+              <div><strong>${stats.goals}</strong><span>${escapeScoutHtml(scoutText("goals"))}</span></div>
+              <div aria-label="${escapeScoutHtml(scoutText("recordedAssists", stats.assists))}" title="${escapeScoutHtml(scoutText("assistsTitle"))}"><strong>${stats.assists}</strong><span>${escapeScoutHtml(scoutText("assists"))}</span></div>
+            </div>
+          </section>
+        ` : ""}
+        ${showPlayerDetails ? `
+          <section class="scout-player-fact-section" aria-label="${escapeScoutHtml(scoutText("playerDetails"))}">
+            <p class="scout-section-label">${escapeScoutHtml(scoutText("playerDetails"))}</p>
+            <div class="scout-player-fact-row">
+              <div><strong>${age ?? "—"}</strong><span>${escapeScoutHtml(scoutText("age"))}</span></div>
+              <div class="is-value" title="${escapeScoutHtml(marketValueTitle)}"><strong>${escapeScoutHtml(marketValue)}</strong><span>${escapeScoutHtml(marketValueLabel)}</span>${primeValue}</div>
+            </div>
+          </section>
+        ` : ""}
       </div>
+    `
+    : "";
+  const roleBlock = showRole
+    ? `
       <div class="scout-role-block">
         <div class="scout-section-heading">
           <span class="scout-section-label">${escapeScoutHtml(scoutText("usualRoleZone"))}</span>
@@ -1381,13 +1386,33 @@ function appendPlayerReply(reply, options = {}) {
         <p class="scout-section-label">${escapeScoutHtml(scoutText("beginnerVersion"))}</p>
         <p>${escapeScoutHtml(role.summary)}</p>
       </div>
+    `
+    : "";
+  const skillBlock = showSkills
+    ? `
       <div class="scout-skill-section">
         <p class="scout-section-label">${escapeScoutHtml(scoutText("signatureTraits"))}</p>
         <div class="scout-skill-flow" aria-label="${escapeScoutHtml(scoutText("threeTraits"))}">
           ${skills}
         </div>
       </div>
-      ${note}
+    `
+    : "";
+
+  const body = `
+    <article class="scout-data-card scout-player-card is-focus-${escapeScoutHtml(focus)}">
+      <header class="scout-entity-header">
+        ${renderScoutAvatar(profile, team, "is-large")}
+        <div class="scout-entity-copy">
+          <h3>${escapeScoutHtml(profile.displayName)}</h3>
+          <p>${renderScoutFlag(team, "scout-inline-flag", { decorative: true })}<span>${escapeScoutHtml(team?.name || "")}${team ? " · " : ""}${escapeScoutHtml(profile.position)}${escapeScoutHtml(shirt)}</span></p>
+          ${clubLine ? `<small title="${escapeScoutHtml(clubLine)}">${escapeScoutHtml(clubLine)}</small>` : ""}
+        </div>
+      </header>
+      ${playerFacts}
+      ${roleBlock}
+      ${skillBlock}
+      ${showNote ? note : ""}
     </article>
   `;
   createScoutVisualMessage(
@@ -1426,6 +1451,14 @@ function renderCompactFixture(match, label) {
 
 function appendCountryReply(reply, options = {}) {
   const { groupStanding, record, team } = reply;
+  const focus = reply.focus || "overview";
+  const showRecord = ["overview", "record"].includes(focus);
+  const showGoals = ["overview", "record", "goals", "goal-difference"].includes(focus);
+  const showStyle = ["overview", "style"].includes(focus);
+  const showScorer = ["overview", "top-scorer"].includes(focus);
+  const showKeyPlayers = focus === "overview";
+  const shownLastMatch = focus === "overview" ? reply.lastMatch : null;
+  const shownNextMatch = ["overview", "next"].includes(focus) ? reply.nextMatch : null;
   const groupMeta = [
     Number.isFinite(Number(team.fifaRank)) ? scoutText("fifaRank", team.fifaRank) : "",
     team.groupId ? scoutText("group", team.groupId) : "",
@@ -1493,11 +1526,11 @@ function appendCountryReply(reply, options = {}) {
   const shootoutNote = shootoutResults.length
     ? `<p class="scout-stat-note">${escapeScoutHtml(scoutText("onPenalties"))}：${escapeScoutHtml(shootoutResults.join(isScoutZh() ? "，" : " and "))}${isScoutZh() ? "。" : ". "}${escapeScoutHtml(scoutText("shootoutDrawNote"))}</p>`
     : "";
-  const fixtureCount = [reply.lastMatch, reply.nextMatch].filter(Boolean).length;
+  const fixtureCount = [shownLastMatch, shownNextMatch].filter(Boolean).length;
   const repeatsLead = getScoutPromptKey(reply.lead) === getScoutPromptKey(reply.beginnerStyle);
 
   const body = `
-    <article class="scout-data-card scout-country-card">
+    <article class="scout-data-card scout-country-card is-focus-${escapeScoutHtml(focus)}">
       <header class="scout-country-header">
         ${renderScoutFlag(team, "scout-country-flag", { decorative: true })}
         <div>
@@ -1505,27 +1538,29 @@ function appendCountryReply(reply, options = {}) {
           <p>${escapeScoutHtml(groupMeta)}</p>
         </div>
       </header>
-      <div class="scout-stat-strip" aria-label="${escapeScoutHtml(scoutText("fullRecord"))}">
-        <div><strong>${record.wins}</strong><span>${escapeScoutHtml(scoutText("wins"))}</span></div>
-        <div><strong>${record.draws}</strong><span>${escapeScoutHtml(scoutText("draws"))}</span></div>
-        <div><strong>${record.losses}</strong><span>${escapeScoutHtml(scoutText("losses"))}</span></div>
-      </div>
-      <p class="scout-goal-balance">${isScoutZh()
+      ${showRecord ? `
+        <div class="scout-stat-strip" aria-label="${escapeScoutHtml(scoutText("fullRecord"))}">
+          <div><strong>${record.wins}</strong><span>${escapeScoutHtml(scoutText("wins"))}</span></div>
+          <div><strong>${record.draws}</strong><span>${escapeScoutHtml(scoutText("draws"))}</span></div>
+          <div><strong>${record.losses}</strong><span>${escapeScoutHtml(scoutText("losses"))}</span></div>
+        </div>
+      ` : ""}
+      ${showGoals ? `<p class="scout-goal-balance">${isScoutZh()
         ? `<strong>${record.goalsFor}</strong>进球 <span>·</span> <strong>${record.goalsAgainst}</strong>失球`
-        : `<strong>${record.goalsFor}</strong> scored <span>·</span> <strong>${record.goalsAgainst}</strong> allowed`}</p>
-      ${shootoutNote}
-      ${form}
-      <div class="scout-explainer">
+        : `<strong>${record.goalsFor}</strong> scored <span>·</span> <strong>${record.goalsAgainst}</strong> conceded`}</p>` : ""}
+      ${showRecord ? shootoutNote : ""}
+      ${showRecord ? form : ""}
+      ${showStyle ? `<div class="scout-explainer">
         <p class="scout-section-label">${escapeScoutHtml(scoutText("howTheyPlay"))}</p>
         ${repeatsLead ? "" : `<p>${escapeScoutHtml(reply.beginnerStyle)}</p>`}
       </div>
-      <div class="scout-skill-flow" aria-label="${escapeScoutHtml(scoutText("teamStyleFlow"))}">${styleFlow}</div>
-      ${scorer}
-      ${keyPlayers}
-      <div class="scout-fixture-pair ${fixtureCount === 1 ? "has-one" : ""}">
-        ${renderCompactFixture(reply.lastMatch, scoutText("lastMatch"))}
-        ${renderCompactFixture(reply.nextMatch, scoutText("nextMatch"))}
-      </div>
+      <div class="scout-skill-flow" aria-label="${escapeScoutHtml(scoutText("teamStyleFlow"))}">${styleFlow}</div>` : ""}
+      ${showScorer ? scorer : ""}
+      ${showKeyPlayers ? keyPlayers : ""}
+      ${fixtureCount ? `<div class="scout-fixture-pair ${fixtureCount === 1 ? "has-one" : ""}">
+        ${renderCompactFixture(shownLastMatch, scoutText("lastMatch"))}
+        ${renderCompactFixture(shownNextMatch, scoutText("nextMatch"))}
+      </div>` : ""}
     </article>
   `;
   createScoutVisualMessage("country", scoutText("country"), reply.lead, body, reply.followUps, options);
@@ -1533,6 +1568,12 @@ function appendCountryReply(reply, options = {}) {
 
 function appendMatchReply(reply, options = {}) {
   const { fixture, teams } = reply;
+  const focus = reply.focus || "overview";
+  const showTimeline = ["overview", "scorers"].includes(focus);
+  const showPlans = focus === "overview";
+  const showRecap = ["overview", "result"].includes(focus);
+  const showH2h = focus === "h2h";
+  const showHighlight = ["overview", "highlights"].includes(focus);
   const status = String(fixture.status || "").toUpperCase();
   const isFinished = ["FT", "AET", "PEN"].includes(status);
   const isLive = status === "LIVE";
@@ -1622,10 +1663,10 @@ function appendMatchReply(reply, options = {}) {
     : "";
 
   const body = `
-    <article class="scout-data-card scout-match-card">
+    <article class="scout-data-card scout-match-card is-focus-${escapeScoutHtml(focus)}">
       <div class="scout-match-meta">
         <span>${escapeScoutHtml(fixture.stage)}</span>
-        <span>${statusLabel ? `${escapeScoutHtml(statusLabel)} · ` : ""}${escapeScoutHtml(fixture.kickoffLabel)}</span>
+        <span>${statusLabel ? escapeScoutHtml(statusLabel) : ""}${focus !== "when" ? `${statusLabel ? " · " : ""}${escapeScoutHtml(fixture.kickoffLabel)}` : ""}</span>
       </div>
       <div class="scout-scoreboard">
         <div class="${reply.winnerTeamId && reply.winnerTeamId === teams.home?.id ? "is-winner" : ""}">
@@ -1639,11 +1680,11 @@ function appendMatchReply(reply, options = {}) {
         </div>
       </div>
       ${penalties}
-      ${timeline}
-      ${plans}
-      ${recap}
-      ${h2h}
-      ${highlight}
+      ${showTimeline ? timeline : ""}
+      ${showPlans ? plans : ""}
+      ${showRecap ? recap : ""}
+      ${showH2h ? h2h : ""}
+      ${showHighlight ? highlight : ""}
     </article>
   `;
   createScoutVisualMessage("match", scoutText("match"), reply.lead, body, reply.followUps, options);
@@ -1758,26 +1799,7 @@ function appendClarificationReply(reply, options = {}) {
 }
 
 function appendPersonalityReply(reply, options = {}) {
-  const body = `
-    <div class="scout-personality-stamp">
-      <span class="scout-personality-face" aria-hidden="true">
-        <i></i>
-        <i></i>
-      </span>
-      <span>
-        <small>${escapeScoutHtml(scoutText("statusLabel"))}</small>
-        <strong>${escapeScoutHtml(reply.badge || scoutText("offDuty"))}</strong>
-      </span>
-    </div>
-  `;
-  createScoutVisualMessage(
-    "personality",
-    reply.label || scoutText("offDuty"),
-    reply.text,
-    body,
-    reply.followUps,
-    options
-  );
+  appendMessage(reply.text, "assistant", { ...options, className: "is-personality" });
 }
 
 function playPersonalityEyeReaction(eye) {

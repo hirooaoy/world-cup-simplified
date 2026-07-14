@@ -10,6 +10,8 @@ const weakCurrentStoryPattern =
   /\b(?:won the shootout \d+-\d+ after a \d+-\d+ draw|survived the shootout after a \d+-\d+ draw|exited after penalties kept|stayed close enough to keep the final minutes tense|stayed locked together until the final whistle|got the decisive details right in a match that stayed tight|closed the result without needing another late twist|broke through for .+?, shifting the match toward|added the final word as .+? pulled away|scored (?:twice|three times|\d+ times) as .+? kept widening the gap|creator thread|super-goal moment)\b/i;
 const weakHistoricalStoryPattern =
   /\b(?:won the shootout \d+-\d+ after a \d+-\d+ draw|survived the shootout after a \d+-\d+ draw|exited after penalties kept|stayed close enough to keep the final minutes tense|stayed locked together until the final whistle|got the decisive details right in a match that stayed tight|closed the result without needing another late twist)\b/i;
+const repeatedGenericCurrentStoryPattern =
+  /\b(?:chase the match|pulled away|trading momentum|rescued a point|settled a tight match|traded pressure without finding a goal|both defenses kept the scoring lanes closed|made .+ sweat|later chances finally turned|scored their final goal)\b|\b(?:United States|Netherlands)'s\b/i;
 const storyScaffoldPunctuationPattern = /[:\u2013\u2014]|\s-\s/;
 const ambiguousVenueShorthandPattern = /\bthe (?:Azteca|Maracan(?:a|\u00e3)|Bernab(?:e|\u00e9)u|San Siro)\b/i;
 
@@ -35,6 +37,10 @@ function resultStoryBullets(fixture) {
 
 function weakCurrentStoryBullets(fixture) {
   return resultStoryBullets(fixture).filter((highlight) => weakCurrentStoryPattern.test(highlight));
+}
+
+function repeatedGenericCurrentStoryBullets(fixture) {
+  return resultStoryBullets(fixture).filter((highlight) => repeatedGenericCurrentStoryPattern.test(highlight));
 }
 
 function scaffoldedCurrentStoryBullets(fixture) {
@@ -188,6 +194,13 @@ for (const fixture of fixturesData.fixtures || []) {
   if (weakStories.length) {
     issues.push(
       `${fixture.id} (${matchLabel}) has weak current result story copy: ${weakStories.join(" | ")}`
+    );
+  }
+
+  const repeatedGenericStories = repeatedGenericCurrentStoryBullets(fixture);
+  if (repeatedGenericStories.length) {
+    issues.push(
+      `${fixture.id} (${matchLabel}) has repeated generic current result-story phrasing: ${repeatedGenericStories.join(" | ")}`
     );
   }
 

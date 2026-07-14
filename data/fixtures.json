@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-14T08:33:18.996Z",
+  "updatedAt": "2026-07-14T08:36:58.878Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -310,8 +310,8 @@
       },
       "matchNumber": 1,
       "resultStoryBullets": [
-        "Julian Quinones put Mexico ahead early, making South Africa chase the match.",
-        "Mexico kept South Africa out and closed the match with a clean sheet."
+        "Julian Quinones opened the scoring for Mexico.",
+        "Raul Jimenez scored Mexico's final goal."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -430,7 +430,11 @@
             }
           ]
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "胡利安·基尼奥内斯在第9分钟为墨西哥首开纪录。",
+        "劳尔·吉梅内斯在第67分钟打进墨西哥的最后一球。"
+      ]
     },
     {
       "id": "south-korea-czechia-2026-06-11",
@@ -564,9 +568,8 @@
       },
       "matchNumber": 2,
       "resultStoryBullets": [
-        "Ladislav Krejci struck first for Czechia, forcing South Korea to chase the match.",
-        "Hwang In-beom brought South Korea level before Oh Hyeon-gyu completed the turnaround.",
-        "Czechia's opener made South Korea sweat, but the later chances finally turned."
+        "Ladislav Krejci opened the scoring for Czechia.",
+        "Hwang In-beom equalized for South Korea. Oh Hyeon-gyu scored South Korea's final goal."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -654,7 +657,11 @@
             }
           ]
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "拉迪斯拉夫·基积斯在第59分钟为捷克首开纪录。",
+        "吴贤揆在第80分钟打进韩国的最后一球。"
+      ]
     },
     {
       "id": "canada-bosnia-2026-06-12",
@@ -752,9 +759,8 @@
       },
       "matchNumber": 3,
       "resultStoryBullets": [
-        "Jovo Lukic put Bosnia and Herzegovina in front before Cyle Larin answered for Canada.",
-        "Cyle Larin's 78' equalizer rescued a point for Canada.",
-        "Canada and Bosnia and Herzegovina kept trading momentum instead of pulling clear."
+        "Jovo Lukic opened the scoring for Bosnia and Herzegovina.",
+        "Cyle Larin's 78' equalizer brought Canada level."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -873,7 +879,11 @@
             }
           ]
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "乔沃·卢基奇在第21分钟为波黑首开纪录。",
+        "凯尔·拉林在第78分钟为加拿大扳平比分。"
+      ]
     },
     {
       "id": "united-states-paraguay-2026-06-12",
@@ -1079,8 +1089,8 @@
       },
       "matchNumber": 4,
       "resultStoryBullets": [
-        "A 7' own goal put United States ahead early, making Paraguay chase the match.",
-        "Giovanni Reyna finished the scoring as United States pulled away."
+        "A 7' own goal opened the scoring for United States.",
+        "Giovanni Reyna scored United States' final goal."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -1199,7 +1209,11 @@
             }
           ]
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "第7分钟的乌龙球让美国首开纪录。",
+        "乔瓦尼·雷纳在第90+8分钟打进美国的最后一球。"
+      ]
     },
     {
       "id": "qatar-switzerland-2026-06-13",
@@ -1309,9 +1323,8 @@
       },
       "matchNumber": 8,
       "resultStoryBullets": [
-        "Breel Embolo put Switzerland in front before a 90+4' own goal answered for Qatar.",
-        "A 90+4' own goal rescued a point for Qatar.",
-        "Qatar and Switzerland kept trading momentum instead of pulling clear."
+        "Breel Embolo opened the scoring for Switzerland.",
+        "A 90+4' own goal brought Qatar level."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -1418,7 +1431,11 @@
             }
           ]
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "布雷尔·恩博洛在第17分钟为瑞士首开纪录。",
+        "第90+4分钟的乌龙球让卡塔尔扳平比分。"
+      ]
     },
     {
       "id": "brazil-morocco-2026-06-13",
@@ -1547,9 +1564,8 @@
       },
       "matchNumber": 7,
       "resultStoryBullets": [
-        "Ismael Saibari put Morocco in front before Vinicius Junior answered for Brazil.",
-        "Vinicius Junior's 32' equalizer rescued a point for Brazil.",
-        "Brazil and Morocco kept trading momentum instead of pulling clear."
+        "Ismael Saibari opened the scoring for Morocco.",
+        "Vinicius Junior's 32' equalizer brought Brazil level."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -1649,7 +1665,11 @@
             }
           ]
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "伊斯梅尔·塞巴里在第21分钟为摩洛哥首开纪录。",
+        "维尼修斯·儒尼奥尔在第32分钟为巴西扳平比分。"
+      ]
     },
     {
       "id": "haiti-scotland-2026-06-13",
@@ -1740,8 +1760,8 @@
       },
       "matchNumber": 5,
       "resultStoryBullets": [
-        "John McGinn's 28' winner settled a tight match for Scotland.",
-        "Scotland kept Haiti out and closed the match with a clean sheet."
+        "John McGinn opened the scoring for Scotland.",
+        "Scotland beat Haiti 1-0."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -1842,7 +1862,11 @@
             }
           ]
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "约翰·麦金在第28分钟为苏格兰首开纪录。",
+        "苏格兰以1比0击败海地。"
+      ]
     },
     {
       "id": "australia-turkiye-2026-06-13",
@@ -1960,7 +1984,7 @@
       "matchNumber": 6,
       "resultStoryBullets": [
         "Nestory Irankunda opened the scoring for Australia.",
-        "Connor Metcalfe finished the scoring as Australia pulled away."
+        "Connor Metcalfe scored Australia's final goal."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -2054,7 +2078,11 @@
             }
           ]
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "内斯托里·伊兰昆达在第27分钟为澳大利亚首开纪录。",
+        "康纳·梅特卡夫在第75分钟打进澳大利亚的最后一球。"
+      ]
     },
     {
       "id": "germany-curacao-2026-06-14",
@@ -2182,8 +2210,8 @@
       },
       "matchNumber": 10,
       "resultStoryBullets": [
-        "Felix Nmecha put Germany ahead early, making Curaçao chase the match.",
-        "Livano Comenencia's 21' equalizer brought Curaçao level."
+        "Felix Nmecha opened the scoring for Germany.",
+        "Livano Comenencia equalized for Curaçao. Kai Havertz scored Germany's final goal."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -2258,7 +2286,11 @@
             }
           ]
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "费利克斯·恩梅查在第6分钟为德国首开纪录。",
+        "凯·哈弗茨在第88分钟打进德国的最后一球。"
+      ]
     },
     {
       "id": "netherlands-japan-2026-06-14",
@@ -2393,9 +2425,8 @@
       },
       "matchNumber": 11,
       "resultStoryBullets": [
-        "Virgil van Dijk put Netherlands in front before Daichi Kamada answered for Japan.",
-        "Daichi Kamada's 88' equalizer rescued a point for Japan.",
-        "Netherlands and Japan kept trading momentum instead of pulling clear."
+        "Virgil van Dijk opened the scoring for Netherlands.",
+        "Daichi Kamada's 88' equalizer brought Japan level."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -2501,7 +2532,11 @@
             }
           ]
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "维吉尔·范戴克在第50分钟为荷兰首开纪录。",
+        "镰田大地在第88分钟为日本扳平比分。"
+      ]
     },
     {
       "id": "cote-divoire-ecuador-2026-06-14",
@@ -2593,8 +2628,8 @@
       },
       "matchNumber": 9,
       "resultStoryBullets": [
-        "Amad Diallo's 90' winner settled a tight match for Côte d'Ivoire.",
-        "Côte d'Ivoire kept Ecuador out and closed the match with a clean sheet."
+        "Amad Diallo opened the scoring for Côte d'Ivoire.",
+        "Côte d'Ivoire beat Ecuador 1-0."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -2701,7 +2736,11 @@
             }
           ]
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "阿马德·迪亚洛在第90分钟为科特迪瓦首开纪录。",
+        "科特迪瓦以1比0击败厄瓜多尔。"
+      ]
     },
     {
       "id": "sweden-tunisia-2026-06-14",
@@ -2850,8 +2889,8 @@
       },
       "matchNumber": 12,
       "resultStoryBullets": [
-        "Yasin Ayari put Sweden ahead early, making Tunisia chase the match.",
-        "Yasin Ayari finished the scoring as Sweden pulled away."
+        "Yasin Ayari opened the scoring for Sweden.",
+        "Yasin Ayari scored Sweden's final goal."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -2945,7 +2984,11 @@
             }
           ]
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "亚辛·阿亚里在第7分钟为瑞典首开纪录。",
+        "亚辛·阿亚里在第90+6分钟打进瑞典的最后一球。"
+      ]
     },
     {
       "id": "spain-cabo-verde-2026-06-15",
@@ -3030,8 +3073,7 @@
       },
       "matchNumber": 14,
       "resultStoryBullets": [
-        "Spain and Cabo Verde traded pressure without finding a goal.",
-        "Both defenses kept the scoring lanes closed through full time."
+        "Spain and Cabo Verde drew 0-0."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -3126,7 +3168,10 @@
             }
           ]
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "西班牙与佛得角以0比0战平。"
+      ]
     },
     {
       "id": "belgium-egypt-2026-06-15",
@@ -3265,9 +3310,8 @@
       },
       "matchNumber": 16,
       "resultStoryBullets": [
-        "Emam Ashour put Egypt in front before a 66' own goal answered for Belgium.",
-        "A 66' own goal rescued a point for Belgium.",
-        "Belgium and Egypt kept trading momentum instead of pulling clear."
+        "Emam Ashour opened the scoring for Egypt.",
+        "A 66' own goal brought Belgium level."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -3380,7 +3424,11 @@
             }
           ]
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "艾疏亚在第19分钟为埃及首开纪录。",
+        "第66分钟的乌龙球让比利时扳平比分。"
+      ]
     },
     {
       "id": "saudi-arabia-uruguay-2026-06-15",
@@ -3507,9 +3555,8 @@
       },
       "matchNumber": 13,
       "resultStoryBullets": [
-        "Abdulelah Al-Amri put Saudi Arabia in front before Maxi Araujo answered for Uruguay.",
-        "Maxi Araujo's 80' equalizer rescued a point for Uruguay.",
-        "Saudi Arabia and Uruguay kept trading momentum instead of pulling clear."
+        "Abdulelah Al-Amri opened the scoring for Saudi Arabia.",
+        "Maxi Araujo's 80' equalizer brought Uruguay level."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -3603,7 +3650,11 @@
             }
           ]
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "阿卜杜勒拉·阿尔-阿姆里在第41分钟为沙特阿拉伯首开纪录。",
+        "马克西米利亚诺·阿劳霍在第80分钟为乌拉圭扳平比分。"
+      ]
     },
     {
       "id": "ir-iran-new-zealand-2026-06-15",
@@ -3721,9 +3772,8 @@
       },
       "matchNumber": 15,
       "resultStoryBullets": [
-        "Elijah Just put New Zealand in front before Mohammad Mohebbi answered for IR Iran.",
-        "Mohammad Mohebbi's 64' equalizer rescued a point for IR Iran.",
-        "IR Iran and New Zealand kept trading momentum instead of pulling clear."
+        "Elijah Just opened the scoring for New Zealand.",
+        "Mohammad Mohebbi's 64' equalizer brought IR Iran level."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -3811,7 +3861,11 @@
             }
           ]
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "以利亚·贾斯特在第7分钟为新西兰首开纪录。",
+        "穆罕默德·莫赫比在第64分钟为伊朗扳平比分。"
+      ]
     },
     {
       "id": "france-senegal-2026-06-16",
@@ -3942,7 +3996,7 @@
       "matchNumber": 17,
       "resultStoryBullets": [
         "Kylian Mbappe opened the scoring for France.",
-        "Kylian Mbappe finished the scoring as France pulled away."
+        "Kylian Mbappe scored France's final goal."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -4011,7 +4065,11 @@
             }
           ]
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "基利安·姆巴佩在第66分钟为法国首开纪录。",
+        "基利安·姆巴佩在第90+6分钟打进法国的最后一球。"
+      ]
     },
     {
       "id": "iraq-norway-2026-06-16",
@@ -4219,7 +4277,11 @@
             }
           ]
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "埃尔林·哈兰德在第29分钟为挪威首开纪录。",
+        "第90+6分钟的乌龙球成为挪威的最后一球。"
+      ]
     },
     {
       "id": "argentina-algeria-2026-06-16",
@@ -4341,8 +4403,8 @@
       },
       "matchNumber": 19,
       "resultStoryBullets": [
-        "Lionel Messi put Argentina ahead early, making Algeria chase the match.",
-        "Lionel Messi finished the scoring as Argentina pulled away."
+        "Lionel Messi opened the scoring for Argentina.",
+        "Lionel Messi scored Argentina's final goal."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -4429,7 +4491,11 @@
             }
           ]
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "利昂内尔·梅西在第17分钟为阿根廷首开纪录。",
+        "利昂内尔·梅西在第76分钟打进阿根廷的最后一球。"
+      ]
     },
     {
       "id": "austria-jordan-2026-06-16",
@@ -4538,8 +4604,8 @@
       },
       "matchNumber": 20,
       "resultStoryBullets": [
-        "Romano Schmid put Austria ahead early, making Jordan chase the match.",
-        "Ali Olwan's 50' equalizer brought Jordan level."
+        "Romano Schmid opened the scoring for Austria.",
+        "Ali Olwan equalized for Jordan. Marko Arnautovic scored Austria's final goal."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -4633,7 +4699,11 @@
             }
           ]
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "罗马诺·施密德在第20分钟为奥地利首开纪录。",
+        "马尔科·阿瑙托维奇在第90+12分钟打进奥地利的最后一球。"
+      ]
     },
     {
       "id": "portugal-dr-congo-2026-06-17",
@@ -4744,9 +4814,8 @@
       },
       "matchNumber": 23,
       "resultStoryBullets": [
-        "Joao Neves put Portugal in front before Yoane Wissa answered for DR Congo.",
-        "Yoane Wissa's 45+5' equalizer rescued a point for DR Congo.",
-        "Portugal and DR Congo kept trading momentum instead of pulling clear."
+        "Joao Neves opened the scoring for Portugal.",
+        "Yoane Wissa's 45+5' equalizer brought DR Congo level."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -4853,7 +4922,11 @@
             }
           ]
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "若昂·内维斯在第6分钟为葡萄牙首开纪录。",
+        "约安·维萨在第45+5分钟为刚果民主共和国扳平比分。"
+      ]
     },
     {
       "id": "england-croatia-2026-06-17",
@@ -5083,8 +5156,8 @@
       },
       "matchNumber": 22,
       "resultStoryBullets": [
-        "Harry Kane put England ahead early, making Croatia chase the match.",
-        "Martin Baturina's 36' equalizer brought Croatia level."
+        "Harry Kane opened the scoring for England.",
+        "Martin Baturina equalized for Croatia. Marcus Rashford scored England's final goal."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -5171,7 +5244,11 @@
             }
           ]
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "哈里·凯恩在第12分钟为英格兰首开纪录。",
+        "马库斯·拉什福德在第85分钟打进英格兰的最后一球。"
+      ]
     },
     {
       "id": "ghana-panama-2026-06-17",
@@ -5274,8 +5351,8 @@
       },
       "matchNumber": 21,
       "resultStoryBullets": [
-        "Caleb Yirenkyi's 90+5' winner settled a tight match for Ghana.",
-        "Ghana kept Panama out and closed the match with a clean sheet."
+        "Caleb Yirenkyi opened the scoring for Ghana.",
+        "Ghana beat Panama 1-0."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -5376,7 +5453,11 @@
             }
           ]
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "卡莱布·伊伦基在第90+5分钟为加纳首开纪录。",
+        "加纳以1比0击败巴拿马。"
+      ]
     },
     {
       "id": "uzbekistan-colombia-2026-06-17",
@@ -5598,7 +5679,11 @@
             }
           ]
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "丹尼尔·穆尼奥斯在第40分钟为哥伦比亚首开纪录。",
+        "哈明顿·坎帕斯在第90+9分钟打进哥伦比亚的最后一球。"
+      ]
     },
     {
       "id": "czechia-south-africa-2026-06-18",
@@ -5717,9 +5802,8 @@
       },
       "matchNumber": 25,
       "resultStoryBullets": [
-        "Michal Sadilek put Czechia in front before Teboho Mokoena answered for South Africa.",
-        "Teboho Mokoena's 83' equalizer rescued a point for South Africa.",
-        "Czechia and South Africa kept trading momentum instead of pulling clear."
+        "Michal Sadilek opened the scoring for Czechia.",
+        "Teboho Mokoena's 83' equalizer brought South Africa level."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -5814,7 +5898,11 @@
             }
           ]
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "米哈尔·萨迪莱克在第6分钟为捷克首开纪录。",
+        "特博霍·莫科纳在第83分钟为南非扳平比分。"
+      ]
     },
     {
       "id": "switzerland-bosnia-2026-06-18",
@@ -5949,7 +6037,7 @@
       "matchNumber": 26,
       "resultStoryBullets": [
         "Johan Manzambi opened the scoring for Switzerland.",
-        "Granit Xhaka finished the scoring as Switzerland pulled away."
+        "Granit Xhaka scored Switzerland's final goal."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -6062,7 +6150,11 @@
             }
           ]
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "约翰·曼赞比在第74分钟为瑞士首开纪录。",
+        "格拉尼特·扎卡在第90+7分钟打进瑞士的最后一球。"
+      ]
     },
     {
       "id": "canada-qatar-2026-06-18",
@@ -6188,8 +6280,8 @@
       },
       "matchNumber": 27,
       "resultStoryBullets": [
-        "Cyle Larin put Canada ahead early, making Qatar chase the match.",
-        "Jonathan David finished the scoring as Canada pulled away."
+        "Cyle Larin opened the scoring for Canada.",
+        "Jonathan David scored Canada's final goal."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -6302,7 +6394,11 @@
             }
           ]
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "凯尔·拉林在第16分钟为加拿大首开纪录。",
+        "乔纳森·戴维在第90+2分钟打进加拿大的最后一球。"
+      ]
     },
     {
       "id": "mexico-south-korea-2026-06-18",
@@ -6535,8 +6631,8 @@
       },
       "matchNumber": 28,
       "resultStoryBullets": [
-        "Luis Romo's 50' winner settled a tight match for Mexico.",
-        "Mexico kept South Korea out and closed the match with a clean sheet."
+        "Luis Romo opened the scoring for Mexico.",
+        "Mexico beat South Korea 1-0."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -6636,7 +6732,11 @@
             }
           ]
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "路易斯·罗莫在第50分钟为墨西哥首开纪录。",
+        "墨西哥以1比0击败韩国。"
+      ]
     },
     {
       "id": "united-states-australia-2026-06-19",
@@ -6774,8 +6874,8 @@
       },
       "matchNumber": 32,
       "resultStoryBullets": [
-        "A 11' own goal put United States ahead early, making Australia chase the match.",
-        "United States kept Australia out and closed the match with a clean sheet."
+        "A 11' own goal opened the scoring for United States.",
+        "Alex Freeman scored United States' final goal."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -6906,7 +7006,11 @@
             }
           ]
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "第11分钟的乌龙球让美国首开纪录。",
+        "亚历克斯·弗里曼在第43分钟打进美国的最后一球。"
+      ]
     },
     {
       "id": "scotland-morocco-2026-06-19",
@@ -7010,9 +7114,8 @@
       },
       "matchNumber": 30,
       "resultStoryBullets": [
-        "Ismael Saibari put Morocco ahead early, making Scotland chase the match.",
-        "Ismael Saibari's 2' winner settled a tight match for Morocco.",
-        "Morocco kept Scotland out and closed the match with a clean sheet."
+        "Ismael Saibari opened the scoring for Morocco.",
+        "Morocco beat Scotland 1-0."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -7107,7 +7210,11 @@
             }
           ]
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "伊斯梅尔·塞巴里在第2分钟为摩洛哥首开纪录。",
+        "摩洛哥以1比0击败苏格兰。"
+      ]
     },
     {
       "id": "brazil-haiti-2026-06-19",
@@ -7232,7 +7339,7 @@
       "matchNumber": 29,
       "resultStoryBullets": [
         "Matheus Cunha opened the scoring for Brazil.",
-        "Vinicius Junior finished the scoring as Brazil pulled away."
+        "Vinicius Junior scored Brazil's final goal."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -7345,7 +7452,11 @@
             }
           ]
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "马特乌斯·库尼亚在第23分钟为巴西首开纪录。",
+        "维尼修斯·儒尼奥尔在第45+3分钟打进巴西的最后一球。"
+      ]
     },
     {
       "id": "turkiye-paraguay-2026-06-19",
@@ -7449,9 +7560,8 @@
       },
       "matchNumber": 31,
       "resultStoryBullets": [
-        "Matias Galarza put Paraguay ahead early, making Türkiye chase the match.",
-        "Matias Galarza's 2' winner settled a tight match for Paraguay.",
-        "Paraguay kept Türkiye out and closed the match with a clean sheet."
+        "Matias Galarza opened the scoring for Paraguay.",
+        "Paraguay beat Türkiye 1-0."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -7572,7 +7682,11 @@
             }
           ]
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "马蒂亚斯·加拉萨在第2分钟为巴拉圭首开纪录。",
+        "巴拉圭以1比0击败土耳其。"
+      ]
     },
     {
       "id": "netherlands-sweden-2026-06-20",
@@ -7862,8 +7976,8 @@
       },
       "matchNumber": 35,
       "resultStoryBullets": [
-        "Brian Brobbey put Netherlands ahead early, making Sweden chase the match.",
-        "Crysencio Summerville finished the scoring as Netherlands pulled away."
+        "Brian Brobbey opened the scoring for Netherlands.",
+        "Crysencio Summerville scored Netherlands' final goal."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -7969,7 +8083,11 @@
             }
           ]
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "布莱恩·布罗比在第5分钟为荷兰首开纪录。",
+        "克利森西奥·萨默维尔在第89分钟打进荷兰的最后一球。"
+      ]
     },
     {
       "id": "germany-cote-divoire-2026-06-20",
@@ -8084,8 +8202,8 @@
       },
       "matchNumber": 33,
       "resultStoryBullets": [
-        "Franck Kessie struck first for Côte d'Ivoire, forcing Germany to chase the match.",
-        "Deniz Undav brought Germany level before Deniz Undav completed the turnaround."
+        "Franck Kessie opened the scoring for Côte d'Ivoire.",
+        "Deniz Undav equalized, then scored Germany's final goal."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -8172,7 +8290,11 @@
             }
           ]
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "弗兰克·凯西在第30分钟为科特迪瓦首开纪录。",
+        "德尼兹·翁达夫在第90+4分钟打进德国的最后一球。"
+      ]
     },
     {
       "id": "ecuador-curacao-2026-06-20",
@@ -8258,8 +8380,7 @@
       },
       "matchNumber": 34,
       "resultStoryBullets": [
-        "Ecuador and Curaçao traded pressure without finding a goal.",
-        "Both defenses kept the scoring lanes closed through full time."
+        "Ecuador and Curaçao drew 0-0."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -8378,7 +8499,10 @@
             }
           ]
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "厄瓜多尔与库拉索以0比0战平。"
+      ]
     },
     {
       "id": "tunisia-japan-2026-06-20",
@@ -8547,8 +8671,8 @@
       },
       "matchNumber": 36,
       "resultStoryBullets": [
-        "Daichi Kamada put Japan ahead early, making Tunisia chase the match.",
-        "Ayase Ueda finished the scoring as Japan pulled away."
+        "Daichi Kamada opened the scoring for Japan.",
+        "Ayase Ueda scored Japan's final goal."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -8635,7 +8759,11 @@
             }
           ]
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "镰田大地在第4分钟为日本首开纪录。",
+        "上田绮世在第83分钟打进日本的最后一球。"
+      ]
     },
     {
       "id": "spain-saudi-arabia-2026-06-21",
@@ -8774,8 +8902,8 @@
       },
       "matchNumber": 38,
       "resultStoryBullets": [
-        "Lamine Yamal put Spain ahead early, making Saudi Arabia chase the match.",
-        "A 49' own goal finished the scoring as Spain pulled away."
+        "Lamine Yamal opened the scoring for Spain.",
+        "A 49' own goal completed the scoring for Spain."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -8875,7 +9003,11 @@
             }
           ]
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "拉明·亚马尔在第10分钟为西班牙首开纪录。",
+        "第49分钟的乌龙球成为西班牙的最后一球。"
+      ]
     },
     {
       "id": "belgium-ir-iran-2026-06-21",
@@ -8961,8 +9093,7 @@
       },
       "matchNumber": 39,
       "resultStoryBullets": [
-        "Belgium and IR Iran traded pressure without finding a goal.",
-        "Both defenses kept the scoring lanes closed through full time."
+        "Belgium and IR Iran drew 0-0."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -9069,7 +9200,10 @@
             }
           ]
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "比利时与伊朗以0比0战平。"
+      ]
     },
     {
       "id": "uruguay-cabo-verde-2026-06-21",
@@ -9176,8 +9310,8 @@
       },
       "matchNumber": 37,
       "resultStoryBullets": [
-        "Uruguay and Cabo Verde kept trading momentum instead of pulling clear.",
-        "The late pressure never produced a winner after the match came back level."
+        "Kevin Pina opened the scoring for Cabo Verde.",
+        "Helio Varela's 61' equalizer brought Cabo Verde level."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -9278,7 +9412,11 @@
             }
           ]
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "凯文·皮纳在第21分钟为佛得角首开纪录。",
+        "埃利奥·瓦雷拉在第61分钟为佛得角扳平比分。"
+      ]
     },
     {
       "id": "new-zealand-egypt-2026-06-21",
@@ -9418,9 +9556,8 @@
       },
       "matchNumber": 40,
       "resultStoryBullets": [
-        "Finn Surman struck first for New Zealand, forcing Egypt to chase the match.",
-        "Mostafa Zico brought Egypt level before Trezeguet completed the turnaround.",
-        "New Zealand's opener made Egypt sweat, but the later chances finally turned."
+        "Finn Surman opened the scoring for New Zealand.",
+        "Mostafa Zico equalized for Egypt. Trezeguet scored Egypt's final goal."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -9533,7 +9670,11 @@
             }
           ]
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "芬恩·瑟曼在第15分钟为新西兰首开纪录。",
+        "特雷泽盖在第82分钟打进埃及的最后一球。"
+      ]
     },
     {
       "id": "argentina-austria-2026-06-22",
@@ -9664,7 +9805,7 @@
       "matchNumber": 43,
       "resultStoryBullets": [
         "Lionel Messi opened the scoring for Argentina.",
-        "Lionel Messi finished the scoring as Argentina pulled away."
+        "Lionel Messi scored Argentina's final goal."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -9777,7 +9918,11 @@
             }
           ]
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "利昂内尔·梅西在第38分钟为阿根廷首开纪录。",
+        "利昂内尔·梅西在第90+5分钟打进阿根廷的最后一球。"
+      ]
     },
     {
       "id": "france-iraq-2026-06-22",
@@ -9891,8 +10036,8 @@
       },
       "matchNumber": 42,
       "resultStoryBullets": [
-        "Kylian Mbappe put France ahead early, making Iraq chase the match.",
-        "Ousmane Dembele finished the scoring as France pulled away."
+        "Kylian Mbappe opened the scoring for France.",
+        "Ousmane Dembele scored France's final goal."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -9986,7 +10131,11 @@
             }
           ]
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "基利安·姆巴佩在第14分钟为法国首开纪录。",
+        "奥斯曼·登贝莱在第66分钟打进法国的最后一球。"
+      ]
     },
     {
       "id": "norway-senegal-2026-06-22",
@@ -10120,7 +10269,7 @@
       "matchNumber": 41,
       "resultStoryBullets": [
         "Marcus Holmgren Pedersen opened the scoring for Norway.",
-        "Erling Haaland's 58' winner settled a tight match for Norway."
+        "Erling Haaland scored Norway's final goal."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -10207,7 +10356,11 @@
             }
           ]
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "马库斯·霍姆格伦·佩德森在第43分钟为挪威首开纪录。",
+        "埃尔林·哈兰德在第58分钟打进挪威的最后一球。"
+      ]
     },
     {
       "id": "jordan-algeria-2026-06-22",
@@ -10328,9 +10481,8 @@
       },
       "matchNumber": 44,
       "resultStoryBullets": [
-        "Nizar Al-Rashdan struck first for Jordan, forcing Algeria to chase the match.",
-        "Nadhir Benbouali brought Algeria level before Amine Gouiri completed the turnaround.",
-        "Jordan's opener made Algeria sweat, but the later chances finally turned."
+        "Nizar Al-Rashdan opened the scoring for Jordan.",
+        "Nadhir Benbouali equalized for Algeria. Amine Gouiri scored Algeria's final goal."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -10431,7 +10583,11 @@
             }
           ]
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "尼扎尔·拉什丹在第36分钟为约旦首开纪录。",
+        "阿明·古伊里在第82分钟打进阿尔及利亚的最后一球。"
+      ]
     },
     {
       "id": "portugal-uzbekistan-2026-06-23",
@@ -10549,8 +10705,8 @@
       },
       "matchNumber": 47,
       "resultStoryBullets": [
-        "Cristiano Ronaldo put Portugal ahead early, making Uzbekistan chase the match.",
-        "Rafael Leao finished the scoring as Portugal pulled away."
+        "Cristiano Ronaldo opened the scoring for Portugal.",
+        "Rafael Leao scored Portugal's final goal."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -10651,7 +10807,11 @@
             }
           ]
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "克里斯蒂亚诺·罗纳尔多在第6分钟为葡萄牙首开纪录。",
+        "拉斐尔·莱奥在第87分钟打进葡萄牙的最后一球。"
+      ]
     },
     {
       "id": "england-ghana-2026-06-23",
@@ -10755,8 +10915,7 @@
       },
       "matchNumber": 45,
       "resultStoryBullets": [
-        "England and Ghana traded pressure without finding a goal.",
-        "Both defenses kept the scoring lanes closed through full time."
+        "England and Ghana drew 0-0."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -10851,7 +11010,10 @@
             }
           ]
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "英格兰与加纳以0比0战平。"
+      ]
     },
     {
       "id": "panama-croatia-2026-06-23",
@@ -10950,8 +11112,8 @@
         "📊 Croatia moved to 3 points in Group L and left Panama without a point."
       ],
       "resultStoryBullets": [
-        "Ante Budimir's 54' winner settled a tight match for Croatia.",
-        "Croatia kept Panama out and closed the match with a clean sheet."
+        "Ante Budimir opened the scoring for Croatia.",
+        "Croatia beat Panama 1-0."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -11046,7 +11208,11 @@
             }
           ]
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "安特·布迪米尔在第54分钟为克罗地亚首开纪录。",
+        "克罗地亚以1比0击败巴拿马。"
+      ]
     },
     {
       "id": "colombia-dr-congo-2026-06-23",
@@ -11146,8 +11312,8 @@
         "📊 Colombia moved to 6 points in Group K while DR Congo stayed on 1 point."
       ],
       "resultStoryBullets": [
-        "Daniel Munoz's 76' winner settled a tight match for Colombia.",
-        "Colombia kept DR Congo out and closed the match with a clean sheet."
+        "Daniel Munoz opened the scoring for Colombia.",
+        "Colombia beat DR Congo 1-0."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -11242,7 +11408,11 @@
             }
           ]
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "丹尼尔·穆尼奥斯在第76分钟为哥伦比亚首开纪录。",
+        "哥伦比亚以1比0击败刚果民主共和国。"
+      ]
     },
     {
       "id": "switzerland-canada-2026-06-24",
@@ -11364,7 +11534,7 @@
       ],
       "resultStoryBullets": [
         "Ruben Vargas opened the scoring for Switzerland.",
-        "Johan Manzambi's 57' winner settled a tight match for Switzerland."
+        "Johan Manzambi scored Switzerland's final goal."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -11471,7 +11641,11 @@
             }
           ]
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "鲁文·巴尔加斯在第46分钟为瑞士首开纪录。",
+        "约翰·曼赞比在第57分钟打进瑞士的最后一球。"
+      ]
     },
     {
       "id": "bosnia-qatar-2026-06-24",
@@ -11608,7 +11782,7 @@
       ],
       "resultStoryBullets": [
         "Kerim Alajbegovic opened the scoring for Bosnia and Herzegovina.",
-        "Ermin Mahmic finished the scoring as Bosnia and Herzegovina pulled away."
+        "Ermin Mahmic scored Bosnia and Herzegovina's final goal."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -11709,7 +11883,11 @@
             }
           ]
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "凯里姆·阿拉伊贝戈维奇在第29分钟为波黑首开纪录。",
+        "埃尔明·马赫米奇在第80分钟打进波黑的最后一球。"
+      ]
     },
     {
       "id": "scotland-brazil-2026-06-24",
@@ -11880,8 +12058,8 @@
         "📊 Brazil moved to 7 points in Group C while Scotland stayed on 3 points."
       ],
       "resultStoryBullets": [
-        "Vinicius Junior put Brazil ahead early, making Scotland chase the match.",
-        "Matheus Cunha finished the scoring as Brazil pulled away."
+        "Vinicius Junior opened the scoring for Brazil.",
+        "Matheus Cunha scored Brazil's final goal."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -11988,7 +12166,11 @@
             }
           ]
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "维尼修斯·儒尼奥尔在第7分钟为巴西首开纪录。",
+        "马特乌斯·库尼亚在第60分钟打进巴西的最后一球。"
+      ]
     },
     {
       "id": "morocco-haiti-2026-06-24",
@@ -12113,9 +12295,8 @@
         "📊 Morocco moved to 7 points in Group C and left Haiti without a point."
       ],
       "resultStoryBullets": [
-        "A 10' own goal struck first for Haiti, forcing Morocco to chase the match.",
-        "Achraf Hakimi brought Morocco level before Gessime Yassine completed the turnaround.",
-        "Haiti's opener made Morocco sweat, but the later chances finally turned."
+        "A 10' own goal opened the scoring for Haiti.",
+        "Achraf Hakimi equalized for Morocco. Gessime Yassine scored Morocco's final goal."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -12221,7 +12402,11 @@
             }
           ]
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "第10分钟的乌龙球让海地首开纪录。",
+        "杰西姆·亚辛在第89分钟打进摩洛哥的最后一球。"
+      ]
     },
     {
       "id": "czechia-mexico-2026-06-24",
@@ -12343,7 +12528,7 @@
       ],
       "resultStoryBullets": [
         "Mateo Chavez opened the scoring for Mexico.",
-        "Alvaro Fidalgo finished the scoring as Mexico pulled away."
+        "Alvaro Fidalgo scored Mexico's final goal."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -12437,7 +12622,11 @@
             }
           ]
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "马特奥·查韦斯在第55分钟为墨西哥首开纪录。",
+        "阿尔瓦罗·菲达尔戈在第90+4分钟打进墨西哥的最后一球。"
+      ]
     },
     {
       "id": "south-africa-south-korea-2026-06-24",
@@ -12536,8 +12725,8 @@
         "📊 South Africa moved to 4 points in Group A while South Korea stayed on 3 points."
       ],
       "resultStoryBullets": [
-        "Thapelo Maseko's 63' winner settled a tight match for South Africa.",
-        "South Africa kept South Korea out and closed the match with a clean sheet."
+        "Thapelo Maseko opened the scoring for South Africa.",
+        "South Africa beat South Korea 1-0."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -12626,7 +12815,11 @@
             }
           ]
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "塔佩洛·马塞科在第63分钟为南非首开纪录。",
+        "南非以1比0击败韩国。"
+      ]
     },
     {
       "id": "ecuador-germany-2026-06-25",
@@ -12751,9 +12944,8 @@
         "📊 Ecuador moved to 4 points in Group E while Germany stayed on 6 points."
       ],
       "resultStoryBullets": [
-        "Leroy Sane struck first for Germany, forcing Ecuador to chase the match.",
-        "Nilson Angulo brought Ecuador level before Gonzalo Plata completed the turnaround.",
-        "Germany's opener made Ecuador sweat, but the later chances finally turned."
+        "Leroy Sane opened the scoring for Germany.",
+        "Nilson Angulo equalized for Ecuador. Gonzalo Plata scored Ecuador's final goal."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -12866,7 +13058,11 @@
             }
           ]
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "勒鲁瓦·萨内在第2分钟为德国首开纪录。",
+        "贡萨洛·普拉塔在第77分钟打进厄瓜多尔的最后一球。"
+      ]
     },
     {
       "id": "curacao-cote-divoire-2026-06-25",
@@ -12964,8 +13160,8 @@
         "📊 Côte d'Ivoire moved to 6 points in Group E while Curaçao stayed on 1 point."
       ],
       "resultStoryBullets": [
-        "Nicolas Pepe put Côte d'Ivoire ahead early, making Curaçao chase the match.",
-        "Nicolas Pepe finished the scoring as Côte d'Ivoire pulled away."
+        "Nicolas Pepe opened the scoring for Côte d'Ivoire.",
+        "Nicolas Pepe scored Côte d'Ivoire's final goal."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -13072,7 +13268,11 @@
             }
           ]
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "尼古拉斯·佩佩在第7分钟为科特迪瓦首开纪录。",
+        "尼古拉斯·佩佩在第64分钟打进科特迪瓦的最后一球。"
+      ]
     },
     {
       "id": "japan-sweden-2026-06-25",
@@ -13212,9 +13412,8 @@
         "📊 Japan moved to 5 points and Sweden to 4 points in Group F."
       ],
       "resultStoryBullets": [
-        "Daizen Maeda put Japan in front before Anthony Elanga answered for Sweden.",
-        "Anthony Elanga's 62' equalizer rescued a point for Sweden.",
-        "Japan and Sweden kept trading momentum instead of pulling clear."
+        "Daizen Maeda opened the scoring for Japan.",
+        "Anthony Elanga's 62' equalizer brought Sweden level."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -13321,7 +13520,11 @@
             }
           ]
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "前田大然在第56分钟为日本首开纪录。",
+        "安东尼·埃兰加在第62分钟为瑞典扳平比分。"
+      ]
     },
     {
       "id": "tunisia-netherlands-2026-06-25",
@@ -13451,8 +13654,8 @@
         "📊 Netherlands moved to 7 points in Group F and left Tunisia without a point."
       ],
       "resultStoryBullets": [
-        "A 3' own goal put Netherlands ahead early, making Tunisia chase the match.",
-        "Jan Paul van Hecke finished the scoring as Netherlands pulled away."
+        "A 3' own goal opened the scoring for Netherlands.",
+        "Jan Paul van Hecke scored Netherlands' final goal."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -13539,7 +13742,11 @@
             }
           ]
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "第3分钟的乌龙球让荷兰首开纪录。",
+        "真·保罗·云赫基在第62分钟打进荷兰的最后一球。"
+      ]
     },
     {
       "id": "turkiye-united-states-2026-06-25",
@@ -13703,9 +13910,8 @@
         "📊 Türkiye moved to 3 points in Group D while United States stayed on 6 points."
       ],
       "resultStoryBullets": [
-        "Auston Trusty struck first for United States, forcing Türkiye to chase the match.",
-        "Arda Guler brought Türkiye level before Kaan Ayhan completed the turnaround.",
-        "United States's opener made Türkiye sweat, but the later chances finally turned."
+        "Auston Trusty opened the scoring for United States.",
+        "Arda Guler equalized for Türkiye. Kaan Ayhan scored Türkiye's final goal."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -13799,7 +14005,11 @@
             }
           ]
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "奥斯顿·特楚斯提在第3分钟为美国首开纪录。",
+        "卡恩·艾汉在第90+8分钟打进土耳其的最后一球。"
+      ]
     },
     {
       "id": "paraguay-australia-2026-06-25",
@@ -13936,8 +14146,7 @@
         "📊 Both teams moved to 4 points in Group D."
       ],
       "resultStoryBullets": [
-        "Paraguay and Australia traded pressure without finding a goal.",
-        "Both defenses kept the scoring lanes closed through full time."
+        "Paraguay and Australia drew 0-0."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -14026,7 +14235,10 @@
             }
           ]
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "巴拉圭与澳大利亚以0比0战平。"
+      ]
     },
     {
       "id": "norway-france-2026-06-26",
@@ -14272,8 +14484,8 @@
         "📊 France moved to 9 points in Group I while Norway stayed on 6 points."
       ],
       "resultStoryBullets": [
-        "Ousmane Dembele put France ahead early, making Norway chase the match.",
-        "Desire Doue finished the scoring as France pulled away."
+        "Ousmane Dembele opened the scoring for France.",
+        "Desire Doue scored France's final goal."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -14374,7 +14586,11 @@
             }
           ]
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "奥斯曼·登贝莱在第7分钟为法国首开纪录。",
+        "德西雷·杜埃在第90+4分钟打进法国的最后一球。"
+      ]
     },
     {
       "id": "senegal-iraq-2026-06-26",
@@ -14487,8 +14703,8 @@
         "📊 Senegal moved to 3 points in Group I and left Iraq without a point."
       ],
       "resultStoryBullets": [
-        "Habib Diarra put Senegal ahead early, making Iraq chase the match.",
-        "Iliman Ndiaye finished the scoring as Senegal pulled away."
+        "Habib Diarra opened the scoring for Senegal.",
+        "Iliman Ndiaye scored Senegal's final goal."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -14607,7 +14823,11 @@
             }
           ]
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "哈比卜·迪亚拉在第4分钟为塞内加尔首开纪录。",
+        "伊利曼·恩迪亚耶在第82分钟打进塞内加尔的最后一球。"
+      ]
     },
     {
       "id": "cabo-verde-saudi-arabia-2026-06-26",
@@ -14693,8 +14913,7 @@
         "📊 Cabo Verde moved to 3 points and Saudi Arabia to 2 points in Group H."
       ],
       "resultStoryBullets": [
-        "Cabo Verde and Saudi Arabia traded pressure without finding a goal.",
-        "Both defenses kept the scoring lanes closed through full time."
+        "Cabo Verde and Saudi Arabia drew 0-0."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -14807,7 +15026,10 @@
             }
           ]
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "佛得角与沙特阿拉伯以0比0战平。"
+      ]
     },
     {
       "id": "uruguay-spain-2026-06-26",
@@ -14971,8 +15193,8 @@
         "📊 Spain moved to 7 points in Group H while Uruguay stayed on 2 points."
       ],
       "resultStoryBullets": [
-        "Alex Baena's 42' winner settled a tight match for Spain.",
-        "Spain kept Uruguay out and closed the match with a clean sheet."
+        "Alex Baena opened the scoring for Spain.",
+        "Spain beat Uruguay 1-0."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -15085,7 +15307,11 @@
             }
           ]
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "亚历克斯·巴埃纳在第42分钟为西班牙首开纪录。",
+        "西班牙以1比0击败乌拉圭。"
+      ]
     },
     {
       "id": "egypt-ir-iran-2026-06-26",
@@ -15194,9 +15420,8 @@
         "📊 Egypt moved to 5 points and IR Iran to 3 points in Group G."
       ],
       "resultStoryBullets": [
-        "Mahmoud Saber put Egypt in front before Ramin Rezaeian answered for IR Iran.",
-        "Ramin Rezaeian's 14' equalizer rescued a point for IR Iran.",
-        "Egypt and IR Iran kept trading momentum instead of pulling clear."
+        "Mahmoud Saber opened the scoring for Egypt.",
+        "Ramin Rezaeian's 14' equalizer brought IR Iran level."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -15315,7 +15540,11 @@
             }
           ]
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "马哈茂德·萨贝尔在第5分钟为埃及首开纪录。",
+        "拉明·礼萨伊安在第14分钟为伊朗扳平比分。"
+      ]
     },
     {
       "id": "new-zealand-belgium-2026-06-26",
@@ -15433,7 +15662,7 @@
       ],
       "resultStoryBullets": [
         "Leandro Trossard opened the scoring for Belgium.",
-        "Alexis Saelemaekers finished the scoring as Belgium pulled away."
+        "Alexis Saelemaekers scored Belgium's final goal."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -15533,7 +15762,11 @@
             }
           ]
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "莱安德罗·特罗萨德在第28分钟为比利时首开纪录。",
+        "亚历克西斯·萨勒马克尔斯在第90+4分钟打进比利时的最后一球。"
+      ]
     },
     {
       "id": "panama-england-2026-06-27",
@@ -15643,7 +15876,7 @@
       ],
       "resultStoryBullets": [
         "Jude Bellingham opened the scoring for England.",
-        "Harry Kane finished the scoring as England pulled away."
+        "Harry Kane scored England's final goal."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -15750,7 +15983,11 @@
             }
           ]
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "裘德·贝林厄姆在第62分钟为英格兰首开纪录。",
+        "哈里·凯恩在第67分钟打进英格兰的最后一球。"
+      ]
     },
     {
       "id": "croatia-ghana-2026-06-27",
@@ -15950,7 +16187,11 @@
             }
           ]
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "佩塔尔·苏契奇在第31分钟为克罗地亚首开纪录。",
+        "尼古拉·弗拉希奇在第83分钟打进克罗地亚的最后一球。"
+      ]
     },
     {
       "id": "colombia-portugal-2026-06-27",
@@ -16036,8 +16277,7 @@
         "📊 Colombia moved to 7 points and Portugal to 5 points in Group K."
       ],
       "resultStoryBullets": [
-        "Colombia and Portugal traded pressure without finding a goal.",
-        "Both defenses kept the scoring lanes closed through full time."
+        "Colombia and Portugal drew 0-0."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -16131,7 +16371,10 @@
             }
           ]
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "哥伦比亚与葡萄牙以0比0战平。"
+      ]
     },
     {
       "id": "dr-congo-uzbekistan-2026-06-27",
@@ -16240,8 +16483,8 @@
         "📊 DR Congo moved to 4 points in Group K and left Uzbekistan without a point."
       ],
       "resultStoryBullets": [
-        "Eldor Shomurodov struck first for Uzbekistan, forcing DR Congo to chase the match.",
-        "Yoane Wissa brought DR Congo level before Yoane Wissa completed the turnaround."
+        "Eldor Shomurodov opened the scoring for Uzbekistan.",
+        "Yoane Wissa equalized, then scored DR Congo's final goal."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -16360,7 +16603,11 @@
             }
           ]
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "埃尔多尔·肖穆罗多夫在第10分钟为乌兹别克斯坦首开纪录。",
+        "约安·维萨在第90+1分钟打进刚果民主共和国的最后一球。"
+      ]
     },
     {
       "id": "algeria-austria-2026-06-27",
@@ -16491,8 +16738,8 @@
         "📊 Both teams moved to 4 points in Group J."
       ],
       "resultStoryBullets": [
-        "Algeria and Austria kept trading momentum instead of pulling clear.",
-        "The late pressure never produced a winner after the match came back level."
+        "Marko Arnautovic opened the scoring for Austria.",
+        "Sasa Kalajdzic's 90+6' equalizer brought Austria level."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -16580,7 +16827,11 @@
             }
           ]
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "马尔科·阿瑙托维奇在第28分钟为奥地利首开纪录。",
+        "萨沙·卡拉季奇在第90+6分钟为奥地利扳平比分。"
+      ]
     },
     {
       "id": "jordan-argentina-2026-06-27",
@@ -16687,8 +16938,8 @@
         "📊 Argentina moved to 9 points in Group J and left Jordan without a point."
       ],
       "resultStoryBullets": [
-        "Giovani Lo Celso put Argentina ahead early, making Jordan chase the match.",
-        "Lionel Messi finished the scoring as Argentina pulled away."
+        "Giovani Lo Celso opened the scoring for Argentina.",
+        "Lionel Messi scored Argentina's final goal."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -16794,7 +17045,11 @@
             }
           ]
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "乔瓦尼·路些素在第19分钟为阿根廷首开纪录。",
+        "利昂内尔·梅西在第80分钟打进阿根廷的最后一球。"
+      ]
     },
     {
       "id": "match-73-round-of-32-2026-06-28",
@@ -16894,8 +17149,8 @@
         }
       ],
       "resultStoryBullets": [
-        "Stephen Eustaquio broke through in stoppage time, leaving South Africa chasing a 1-0 match.",
-        "Canada kept South Africa out at the other end and turned the late goal into a knockout win."
+        "Stephen Eustaquio scored two minutes into stoppage time to put Canada ahead.",
+        "Canada kept South Africa out and turned the late goal into a knockout win."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -17003,7 +17258,11 @@
           "losses": 0,
           "appearances": 0
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "斯蒂芬·欧斯塔基奥在补时第2分钟进球，帮助加拿大领先。",
+        "加拿大守住南非的反扑，把这粒迟来的进球变成淘汰赛胜利。"
+      ]
     },
     {
       "id": "match-74-round-of-32-2026-06-29",
@@ -17309,7 +17568,12 @@
           "losses": 0,
           "appearances": 1
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "恩西索接加拉尔萨传中头球破门让巴拉圭领先，随后哈弗茨把维尔茨的传中改写为德国第54分钟扳平球。",
+        "巴拉圭大部分时间保持紧凑的4-5-1，让德国的控球显得迟钝，直到加时赛塔赫的头球被判无效。",
+        "吉尔先后扑出哈弗茨和沃尔特马德的点球，随后何塞·卡纳莱锁定巴拉圭4比3的点球胜利。"
+      ]
     },
     {
       "id": "match-75-round-of-32-2026-06-29",
@@ -17573,7 +17837,12 @@
           "losses": 0,
           "appearances": 1
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "加克波第72分钟打破僵局，但迪奥普补时扳平，把比赛拖入加时。",
+        "摩洛哥的年轻替补改变比赛，并在身体对抗激烈的收官阶段继续通过萨伊巴里制造机会。",
+        "五次罚失后的点球大战里，萨伊巴里罚入决定性点球，送摩洛哥进入对加拿大的16强赛。"
+      ]
     },
     {
       "id": "match-76-round-of-32-2026-06-29",
@@ -17799,7 +18068,6 @@
       },
       "resultStoryBullets": [
         "Japan frustrated Brazil for long spells, with Takehiro Tomiyasu keeping Vinicius Junior quiet and Zion Suzuki answering pressure.",
-        "Kaishu Sano rattled Brazil first, forcing the favorite to chase the match after the 29th-minute opener.",
         "Casemiro pulled Brazil level after halftime before Gabriel Martinelli won it deep into stoppage time."
       ],
       "highlightVideo": {
@@ -17956,7 +18224,11 @@
           "losses": 2,
           "appearances": 2
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "佐野海舟在第29分钟为日本首开纪录。",
+        "加布里埃尔·马丁内利在第90+5分钟打进巴西的最后一球。"
+      ]
     },
     {
       "id": "match-77-round-of-32-2026-06-30",
@@ -18217,8 +18489,8 @@
       ],
       "goalsAway": [],
       "resultStoryBullets": [
-        "Mbappe made France's opener a super goal, crossing over past Viktor Gyokeres and finishing across goal.",
-        "Olise shaped France's attack with two assists, teeing up Barcola before sliding Mbappe through for the third."
+        "Kylian Mbappe opened the scoring for France.",
+        "Kylian Mbappe scored France's final goal."
       ],
       "resultStoryResearch": {
         "status": "researched",
@@ -18333,7 +18605,11 @@
           "losses": 0,
           "appearances": 1
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "基利安·姆巴佩在第45分钟为法国首开纪录。",
+        "基利安·姆巴佩在第74分钟打进法国的最后一球。"
+      ]
     },
     {
       "id": "match-78-round-of-32-2026-06-30",
@@ -18545,7 +18821,11 @@
           "losses": 0,
           "appearances": 0
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "安东尼奥·努萨在第39分钟为挪威首开纪录。",
+        "埃尔林·哈兰德在第86分钟打进挪威的最后一球。"
+      ]
     },
     {
       "id": "match-79-round-of-32-2026-06-30",
@@ -19043,7 +19323,12 @@
           "losses": 0,
           "appearances": 0
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "胡利安·基尼奥内斯在第22分钟为墨西哥首开纪录。",
+        "劳尔·吉梅内斯在第31分钟打进墨西哥的最后一球。",
+        "墨西哥以2比0击败厄瓜多尔。"
+      ]
     },
     {
       "id": "match-80-round-of-32-2026-07-01",
@@ -19268,7 +19553,12 @@
           "losses": 0,
           "appearances": 0
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "布赖恩·奇彭加在第7分钟为刚果民主共和国首开纪录。",
+        "哈里·凯恩在第86分钟打进英格兰的最后一球。",
+        "英格兰以2比1击败刚果民主共和国。"
+      ]
     },
     {
       "id": "match-81-round-of-32-2026-07-01",
@@ -19518,7 +19808,12 @@
           "losses": 0,
           "appearances": 0
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "福拉林·巴洛贡在第45分钟为美国首开纪录。",
+        "马利克·蒂尔曼在第82分钟打进美国的最后一球。",
+        "美国以2比0击败波黑。"
+      ]
     },
     {
       "id": "match-82-round-of-32-2026-07-01",
@@ -19778,7 +20073,12 @@
           "losses": 0,
           "appearances": 0
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "哈比卜·迪亚拉在第24分钟为塞内加尔首开纪录。",
+        "尤里·蒂勒曼斯在第120+5分钟打进比利时的最后一球。",
+        "比利时以3比2击败塞内加尔。"
+      ]
     },
     {
       "id": "match-83-round-of-32-2026-07-02",
@@ -19981,7 +20281,6 @@
       ],
       "resultStoryBullets": [
         "Croatia took the lead through Ivan Perišić at 53'.",
-        "Cristiano Ronaldo leveled from the spot in the 68th minute to restore Portugal's edge.",
         "Gonçalo Ramos' 90+4' finish gave Portugal the late winner and a 2-1 victory."
       ],
       "highlightVideo": {
@@ -20011,7 +20310,11 @@
           "losses": 0,
           "appearances": 4
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "伊万·佩里希奇在第53分钟为克罗地亚首开纪录。",
+        "贡萨洛·拉莫斯在第90+4分钟打进葡萄牙的最后一球。"
+      ]
     },
     {
       "id": "match-84-round-of-32-2026-07-02",
@@ -20222,8 +20525,7 @@
       "goalsAway": [],
       "resultStoryBullets": [
         "Mikel Oyarzabal opened the scoring for Spain.",
-        "Marc Cucurella assisted Mikel Oyarzabal twice as Spain pulled away.",
-        "Pedro Porro added a mid-match goal, then Oyarzabal finished the match at 89'."
+        "Mikel Oyarzabal scored Spain's final goal."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -20252,7 +20554,11 @@
           "losses": 0,
           "appearances": 0
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "米克尔·奥亚萨瓦尔在第36分钟为西班牙首开纪录。",
+        "米克尔·奥亚萨瓦尔在第89分钟打进西班牙的最后一球。"
+      ]
     },
     {
       "id": "match-85-round-of-32-2026-07-02",
@@ -20367,14 +20673,12 @@
       ],
       "goalsAway": [],
       "resultStoryBullets": [
-        "Breel Embolo opened scoring for Switzerland on 10'.",
-        "Dan Ndoye doubled the lead on the first minute of the second half at 46'.",
-        "Switzerland then controlled the rest of the match to finish comfortably at 2-0."
+        "Breel Embolo opened the scoring for Switzerland.",
+        "Dan Ndoye scored Switzerland's final goal."
       ],
       "resultStoryBulletsZh": [
         "布雷尔·恩博洛在第10分钟为瑞士首开纪录。",
-        "丹·诺杜埃在下半场第1分钟(46')再下一城，将比分扩大。",
-        "瑞士随后牢牢控制比赛节奏，以2-0较为轻松拿下胜利。"
+        "丹·恩多耶在第46分钟打进瑞士的最后一球。"
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -20543,7 +20847,11 @@
           "losses": 0,
           "appearances": 0
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "利昂内尔·梅西在第29分钟为阿根廷首开纪录。",
+        "第111分钟的乌龙球成为阿根廷的最后一球。"
+      ]
     },
     {
       "id": "match-87-round-of-32-2026-07-03",
@@ -20632,9 +20940,8 @@
       ],
       "goalsAway": [],
       "resultStoryBullets": [
-        "Jhon Arias scored in the 14th minute to give Colombia the match's opening and only goal.",
-        "Ghana pressed for an answer afterward, but the Colombian defense held on for a clean sheet through the remainder of the game.",
-        "The round-of-32 tie ended 1-0, moving Colombia into match 89."
+        "Jhon Arias opened the scoring for Colombia.",
+        "Colombia beat Ghana 1-0."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -20663,7 +20970,11 @@
           "losses": 1,
           "appearances": 1
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "约翰·阿里亚斯在第14分钟为哥伦比亚首开纪录。",
+        "哥伦比亚以1比0击败加纳。"
+      ]
     },
     {
       "id": "match-88-round-of-32-2026-07-03",
@@ -20787,12 +21098,14 @@
         }
       ],
       "resultStoryBullets": [
-        "Australia were dangerous on transition, but Egypt kept the knockout tie controlled and composed through long quiet passages before the penalty stage.",
-        "A compact Egyptian defensive shape in the late phase absorbed Australia's final pressure and kept the match balanced into the post-timeframe conclusion."
+        "Emam Ashour put Egypt in front before a 55' own goal answered for Australia.",
+        "Australia and Egypt were level at 1-1 after extra time.",
+        "Egypt won the shootout 4-2."
       ],
       "resultStoryBulletsZh": [
-        "澳大利亚在反击中多次形成威胁，但埃及在漫长的节奏转换中始终保持组织，最终把淘汰赛对决稳住了局面。",
-        "下半场后段，埃及更紧凑的防线成功吸收了澳大利亚最后一波冲击，使比赛直到点球阶段保持了高度胶着。"
+        "艾疏亚在第13分钟为埃及首开纪录。",
+        "第55分钟的乌龙球让澳大利亚扳平比分。",
+        "埃及在点球大战中以4比2获胜。"
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -20953,14 +21266,12 @@
         "away": "France are an elite attacking side with Mbappe's speed now fed by Olise's left-footed creation, led by Kylian Mbappe, Michael Olise, and William Saliba. Against Paraguay, their Olise-to-Mbappe chance creation has to beat Paraguay's Almiron-Enciso counters. They want to let Olise receive inside, draw pressure, and release Mbappe before the defense can reset. The risk is Paraguay can turn one Almiron break or Enciso shot into a tight-game swing."
       },
       "resultStoryBullets": [
-        "Kylian Mbappé scored the match's only goal on a 70th-minute penalty.",
-        "Paraguay had several clear spells but did not make enough punishment count.",
-        "France held firm after the lead and advanced with a narrow 1-0 quarter-final win."
+        "Kylian Mbappe opened the scoring for France.",
+        "France beat Paraguay 1-0."
       ],
       "resultStoryBulletsZh": [
-        "姆巴佩在第70分钟点球中打进比赛唯一一球。",
-        "巴拉圭一度有过数次漂亮机会，但射门次数和威胁度都不足以改变比赛走向。",
-        "法国在领先后稳定守住，最终以1比0小胜晋级四分之一决赛。"
+        "基利安·姆巴佩在第70分钟为法国首开纪录。",
+        "法国以1比0击败巴拉圭。"
       ],
       "goalsAway": [
         {
@@ -21350,7 +21661,11 @@
           "losses": 0,
           "appearances": 0
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "埃尔林·哈兰德在第79分钟和第90分钟连入两球，把挪威的后段压力转化为胜利。",
+        "内马尔在90+10分钟的点球只是缩小差距，因为挪威已经打进决定性的第二球。"
+      ]
     },
     {
       "id": "match-92-round-of-16-2026-07-05",
@@ -21550,7 +21865,11 @@
           "losses": 3,
           "appearances": 4
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "裘德·贝林厄姆在第36分钟为英格兰首开纪录。",
+        "哈里·凯恩在第60分钟打进英格兰的最后一球。"
+      ]
     },
     {
       "id": "match-93-round-of-16-2026-07-06",
@@ -21891,8 +22210,8 @@
         "checkedAt": "2026-07-07T09:20:56-07:00"
       },
       "resultStoryBullets": [
-        "Mikel Merino waited until 90+1' to break Portugal's resistance.",
-        "Mikel Merino's 90+1' winner settled a tight match for Spain."
+        "Mikel Merino opened the scoring for Spain.",
+        "Spain beat Portugal 1-0."
       ],
       "shootoutOutlook": {
         "method": "world-cup-shootout-history",
@@ -21913,7 +22232,11 @@
           "losses": 4,
           "appearances": 5
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "米克尔·梅里诺在第90+1分钟为西班牙首开纪录。",
+        "西班牙以1比0击败葡萄牙。"
+      ]
     },
     {
       "id": "match-94-round-of-16-2026-07-06",
@@ -22102,7 +22425,6 @@
         "checkedAt": "2026-07-07T09:20:56-07:00"
       },
       "resultStoryBullets": [
-        "Charles De Ketelaere put Belgium ahead early, making United States chase the match.",
         "Malik Tillman briefly brought the United States level, but De Ketelaere answered two minutes later.",
         "Hans Vanaken and Romelu Lukaku finished the 4-1 rout after Belgium kept finding space late."
       ],
@@ -22125,7 +22447,11 @@
           "losses": 0,
           "appearances": 1
         }
-      }
+      },
+      "resultStoryBulletsZh": [
+        "查尔斯·德凯特莱尔在第0分钟为比利时首开纪录。",
+        "罗梅卢·卢卡库在第90+3分钟打进比利时的最后一球。"
+      ]
     },
     {
       "id": "match-95-round-of-16-2026-07-07",
@@ -22423,9 +22749,9 @@
         }
       },
       "resultStoryBullets": [
-        "Switzerland and Colombia turned the last round-of-16 tie into a tense 120-minute stalemate at BC Place.",
-        "Both attacks found pressure but not the finish, leaving the match 0-0 through extra time.",
-        "Switzerland held their nerve in the shootout, winning 4-3 on penalties to claim the final quarterfinal place."
+        "Switzerland and Colombia stayed scoreless until penalties.",
+        "Switzerland and Colombia were level at 0-0 after extra time.",
+        "Switzerland won the shootout 4-3."
       ],
       "resultStoryBulletsZh": [
         "瑞士和哥伦比亚在卑诗体育馆把最后一场16强战拖成紧绷的120分钟僵局。",

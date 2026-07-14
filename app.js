@@ -1,6 +1,6 @@
 import { ZH_CLUB_NAME_TRANSLATIONS, ZH_LEAGUE_NAME_TRANSLATIONS, ZH_PLAYER_NAME_TRANSLATIONS } from "./football-locale-zh.js?v=2026-07-13-locale-2";
 
-const DATA_VERSION = "2026-07-13-shootout-outlooks";
+const DATA_VERSION = "2026-07-14-historical-shootouts";
 const DATA_URLS = {
   adminMessage: `data/admin-message.json?v=${DATA_VERSION}`,
   fixtures: `data/fixtures.json?v=${DATA_VERSION}`,
@@ -18,6 +18,20 @@ const DATA_URLS = {
 };
 
 const LANGUAGE_STORAGE_KEY = "world-cup-simplified-language";
+const SITE_ORIGIN = "https://world-cup-simplified.vercel.app";
+const SITE_SOCIAL_IMAGE = `${SITE_ORIGIN}/assets/site-thumbnail.png?v=2026-06-17-1213`;
+const HOME_SEO = {
+  en: {
+    title: "World Cup 2026 Schedule, Results, Standings & Lineups | World Cup Simplified",
+    description:
+      "Follow the 2026 World Cup in your time zone with match schedules, verified lineups, live results, standings, predictions, concise recaps, and official highlights."
+  },
+  zh: {
+    title: "2026世界杯赛程、赛果、积分榜与阵容 | 世界杯简明指南",
+    description:
+      "按你的时区查看2026世界杯赛程、已验证阵容、实时赛果、积分榜、预测、简明回顾和官方集锦。"
+  }
+};
 const TIMEZONE_STORAGE_KEY = "world-cup-simplified-timezone";
 const SHOW_YESTERDAY_STORAGE_KEY = "world-cup-simplified-show-yesterday";
 const JUGGLE_RECORD_STORAGE_KEY = "world-cup-simplified-juggle-record";
@@ -3760,6 +3774,7 @@ let selectedTimeZone = getStoredTimeZone() || defaultTimeZone;
 let selectedDayKey = getDayKey(initialDate, selectedTimeZone);
 let shouldShowYesterdayMatches = getStoredShowYesterday();
 let activeMatchId = "";
+let committedMatchId = "";
 let activeView = "matches";
 let selectedStandingsYear = CURRENT_STANDINGS_YEAR;
 let selectedStandingsMode = DEFAULT_CURRENT_STANDINGS_MODE;
@@ -6363,6 +6378,172 @@ function getLocalizedTeamName(teamOrName) {
   return localizeText(name);
 }
 
+function setSeoMetaContent(selector, content) {
+  document.querySelector(selector)?.setAttribute("content", content);
+}
+
+function getSeoCanonicalUrl(matchId = "") {
+  const url = new URL("/", SITE_ORIGIN);
+  if (matchId) {
+    url.searchParams.set("match", matchId);
+  }
+  return url.href;
+}
+
+function getSeoEventStatus(match) {
+  if (match.status === "FT") {
+    return "https://schema.org/EventCompleted";
+  }
+  if (match.status === "LIVE") {
+    return "https://schema.org/EventInProgress";
+  }
+  if (match.status === "POSTPONED") {
+    return "https://schema.org/EventPostponed";
+  }
+  if (match.status === "CANCELLED") {
+    return "https://schema.org/EventCancelled";
+  }
+  return "https://schema.org/EventScheduled";
+}
+
+function getSeoStageLabel(match) {
+  const stage = tournament.stages.find((item) => item.id === match.stage);
+  return localizeText(stage?.label || match.stage || "match");
+}
+
+function getSeoMatchCopy(match) {
+  const home = getLocalizedTeamName(match.homeTeam);
+  const away = getLocalizedTeamName(match.awayTeam);
+  const hasConfirmedTeams = !match.homeTeam?.isSlot && !match.awayTeam?.isSlot;
+  const stage = getSeoStageLabel(match);
+  const isFinished = match.status === "FT";
+  const isLive = match.status === "LIVE";
+
+  if (currentLanguage === "zh") {
+    if (!hasConfirmedTeams) {
+      return {
+        title: `2026世界杯${stage}：时间、参赛球队与比赛指南 | 世界杯简明指南`,
+        description: `查看2026世界杯${stage}的开球时间、参赛球队、阵容、比赛背景和预测；球队确定后会及时更新。`,
+        name: `2026世界杯${stage}`
+      };
+    }
+    if (isFinished) {
+      return {
+        title: `${home}对${away}：赛果、阵容与集锦 | 2026世界杯`,
+        description: `查看${home}对${away}的赛果、已验证阵容、简明比赛回顾，以及可用时的官方集锦。`,
+        name: `${home}对${away}`
+      };
+    }
+    if (isLive) {
+      return {
+        title: `${home}对${away}：实时比分与阵容 | 2026世界杯`,
+        description: `关注${home}对${away}的实时比分、已确认阵容、比赛背景和关键球员。`,
+        name: `${home}对${away}`
+      };
+    }
+    return {
+      title: `${home}对${away}：时间、阵容与预测 | 2026世界杯`,
+      description: `查看${home}对${away}的本地开球时间、预测或已确认阵容、比赛背景、关键球员和赛果预测。`,
+      name: `${home}对${away}`
+    };
+  }
+
+  if (!hasConfirmedTeams) {
+    return {
+      title: `World Cup 2026 ${stage}: Time, Teams & Match Guide | World Cup Simplified`,
+      description: `Follow the World Cup 2026 ${stage} with kickoff time, teams, lineups, match context, and predictions updated as participants are confirmed.`,
+      name: `World Cup 2026 ${stage}`
+    };
+  }
+  if (isFinished) {
+    return {
+      title: `${home} vs ${away}: Result, Lineups & Highlights | World Cup 2026`,
+      description: `See the ${home} vs ${away} result, verified lineups, concise match recap, and official highlights when available.`,
+      name: `${home} vs ${away}`
+    };
+  }
+  if (isLive) {
+    return {
+      title: `${home} vs ${away}: Live Score & Lineups | World Cup 2026`,
+      description: `Follow ${home} vs ${away} with the live score, confirmed lineups, match context, and key players.`,
+      name: `${home} vs ${away}`
+    };
+  }
+  return {
+    title: `${home} vs ${away}: Time, Lineups & Prediction | World Cup 2026`,
+    description: `See ${home} vs ${away} kickoff time in your time zone, predicted or confirmed lineups, match context, key players, and match prediction.`,
+    name: `${home} vs ${away}`
+  };
+}
+
+function getSeoStructuredData(metadata, match = null) {
+  const website = {
+    "@type": "WebSite",
+    name: "World Cup Simplified",
+    url: `${SITE_ORIGIN}/`,
+    description: HOME_SEO.en.description
+  };
+
+  if (!match) {
+    return { "@context": "https://schema.org", ...website };
+  }
+
+  const event = {
+    "@type": "SportsEvent",
+    name: metadata.name,
+    url: metadata.canonicalUrl,
+    description: metadata.description,
+    sport: "Soccer",
+    startDate: match.kickoffUtc,
+    eventStatus: getSeoEventStatus(match),
+    image: SITE_SOCIAL_IMAGE,
+    location: {
+      "@type": "Place",
+      name: match.venue || "2026 FIFA World Cup venue"
+    }
+  };
+
+  if (!match.homeTeam?.isSlot) {
+    event.homeTeam = { "@type": "SportsTeam", name: match.homeTeam.name };
+  }
+  if (!match.awayTeam?.isSlot) {
+    event.awayTeam = { "@type": "SportsTeam", name: match.awayTeam.name };
+  }
+
+  return { "@context": "https://schema.org", "@graph": [website, event] };
+}
+
+function updateSeoMetadataFromUrl() {
+  const requestedMatchId = new URLSearchParams(window.location.search).get("match") || "";
+  const fixture = getFixtureById(requestedMatchId);
+  const match = fixture ? hydrateFixture(fixture) : null;
+  const homeSeo = HOME_SEO[currentLanguage] || HOME_SEO.en;
+  const matchCopy = match ? getSeoMatchCopy(match) : null;
+  const canonicalUrl = getSeoCanonicalUrl(match?.id || "");
+  const title = matchCopy?.title || homeSeo.title;
+  const description = matchCopy?.description || homeSeo.description;
+  const metadata = {
+    canonicalUrl,
+    description,
+    name: matchCopy?.name || "World Cup Simplified",
+    title
+  };
+
+  document.title = title;
+  document.querySelector('link[rel="canonical"]')?.setAttribute("href", canonicalUrl);
+  setSeoMetaContent('meta[name="description"]', description);
+  setSeoMetaContent('meta[property="og:url"]', canonicalUrl);
+  setSeoMetaContent('meta[property="og:title"]', title);
+  setSeoMetaContent('meta[property="og:description"]', description);
+  setSeoMetaContent('meta[name="twitter:title"]', title);
+  setSeoMetaContent('meta[name="twitter:description"]', description);
+
+  const structuredData = document.querySelector("#seo-structured-data");
+  if (structuredData) {
+    structuredData.textContent = JSON.stringify(getSeoStructuredData(metadata, match));
+  }
+}
+
 function getLocalizedStandingName(team) {
   return localizeText(team ? getStandingName(team) : "");
 }
@@ -6409,7 +6590,7 @@ function waitForLanguagePendingMinimum(startedAt) {
 
 function renderStaticText() {
   document.documentElement.lang = currentLanguage === "zh" ? "zh-Hans" : "en";
-  document.title = t("appName");
+  updateSeoMetadataFromUrl();
   brandHomeLink?.setAttribute("aria-label", t("appHomeLabel"));
   if (brandLabel) {
     brandLabel.textContent = t("appName");
@@ -7953,6 +8134,7 @@ function ensureSelectableSelectedDay() {
   selectedDayKey = nextDayKey;
   calendarMonthKey = getMonthKeyFromDayKey(nextDayKey);
   activeMatchId = "";
+  committedMatchId = "";
 }
 
 function getAdjacentMatchDay(direction) {
@@ -9712,7 +9894,7 @@ function renderMatchRow(match, state, currentTime = Date.now(), options = {}) {
       return;
     }
 
-    renderMatchInfo(match, { reveal: true });
+    renderMatchInfo(match, { commit: true, reveal: true });
     updateUrlState({ historyMode: "push" });
   });
 
@@ -11947,17 +12129,11 @@ function getTournamentShootoutHistoryRecord(match, participants, side) {
   return latest;
 }
 
-function getTournamentShootoutHistoryReason(match, participants) {
-  const homeTeam = participants?.home?.team;
-  const awayTeam = participants?.away?.team;
-  const home = getTournamentShootoutHistoryRecord(match, participants, "home");
-  const away = getTournamentShootoutHistoryRecord(match, participants, "away");
+function formatWorldCupShootoutHistoryReason(homeName, awayName, home, away) {
   const homeWins = Number(home?.wins) || 0;
   const awayWins = Number(away?.wins) || 0;
   const homeAppearances = Number(home?.appearances) || 0;
   const awayAppearances = Number(away?.appearances) || 0;
-  const homeName = getTournamentTeamDisplayName(homeTeam);
-  const awayName = getTournamentTeamDisplayName(awayTeam);
 
   if (!homeAppearances && !awayAppearances) {
     return currentLanguage === "zh"
@@ -12009,6 +12185,15 @@ function getTournamentShootoutHistoryReason(match, participants) {
   return currentLanguage === "zh"
     ? `如果进入点球大战，${leanName}可能略占${edgeType === "experience" ? "经验" : "历史战绩"}优势：世界杯点球大战${leanAppearances}次${leanWins}胜，${otherName}则是${otherAppearances}次${otherWins}胜。`
     : `If it goes to penalties, ${leanName} may have a slight ${edgeType} edge: ${leanWins} win${leanWins === 1 ? "" : "s"} in ${leanAppearances} World Cup shootout${leanAppearances === 1 ? "" : "s"}, compared with ${otherWins} in ${otherAppearances} for ${otherName}.`;
+}
+
+function getTournamentShootoutHistoryReason(match, participants) {
+  return formatWorldCupShootoutHistoryReason(
+    getTournamentTeamDisplayName(participants?.home?.team),
+    getTournamentTeamDisplayName(participants?.away?.team),
+    getTournamentShootoutHistoryRecord(match, participants, "home"),
+    getTournamentShootoutHistoryRecord(match, participants, "away")
+  );
 }
 
 function getTournamentSourcedShootoutReason(match, participants) {
@@ -13777,6 +13962,7 @@ function openMatchFromTournament(matchId) {
   selectedDayKey = getFixtureDayKey(match);
   calendarMonthKey = getMonthKeyFromDayKey(selectedDayKey);
   activeMatchId = match.id;
+  committedMatchId = match.id;
   clearTeamSearch({ render: false });
   setCalendarOpen(false);
   setCatchUpOpen(false);
@@ -13784,7 +13970,7 @@ function openMatchFromTournament(matchId) {
   setStandingsYearOpen(false);
   setActiveView("matches", { historyMode: "push" });
   renderSchedule();
-  renderMatchInfo(match, { reveal: true });
+  renderMatchInfo(match, { commit: true, reveal: true });
   updateUrlState();
 
   window.requestAnimationFrame(() => {
@@ -14526,12 +14712,12 @@ function renderStandingsView() {
   window.requestAnimationFrame(updateTournamentConnectors);
 }
 
-function renderPredictionBar(label, value) {
+function renderPredictionBar(label, value, options = {}) {
   const percent = clampPercent(value);
   const localizedLabel = localizeText(label);
-  const escapedLabel = escapeHtml(localizedLabel);
+  const tooltip = options.tooltip || localizedLabel;
   return `
-    <div class="prediction-row" data-tooltip="${escapedLabel}">
+    <div class="prediction-row" data-tooltip="${escapeHtml(tooltip)}">
       ${renderMeasuredLabel(localizedLabel, "prediction-label")}
       <div class="prediction-track" aria-hidden="true">
         <span style="width: ${percent}%"></span>
@@ -14691,6 +14877,27 @@ function getHistoricalProjection(match) {
   return projection;
 }
 
+function getHistoricalShootoutReason(match) {
+  const outlook = match?.shootoutOutlook;
+  if (
+    Number(match?.tournamentYear) < 1978 ||
+    !isHistoricalKnockoutBracketFixture(match) ||
+    outlook?.method !== "world-cup-shootout-history" ||
+    outlook?.cutoffKey !== match?.sortKey ||
+    outlook?.homeTeamName !== match?.homeSlot ||
+    outlook?.awayTeamName !== match?.awaySlot
+  ) {
+    return "";
+  }
+
+  return formatWorldCupShootoutHistoryReason(
+    getLocalizedTeamName(match.homeTeam),
+    getLocalizedTeamName(match.awayTeam),
+    outlook.home,
+    outlook.away
+  );
+}
+
 function renderHistoricalProjection(match) {
   const projection = getHistoricalProjection(match);
 
@@ -14698,9 +14905,11 @@ function renderHistoricalProjection(match) {
     return `<p class="past-empty">${escapeHtml(localizeText("No historical prediction is generated for cancelled fixtures."))}</p>`;
   }
 
+  const tieTooltip = getHistoricalShootoutReason(match);
+
   return `
     ${renderPredictionBar(match.homeTeam.name, projection.home)}
-    ${renderPredictionBar("Tie", projection.draw)}
+    ${renderPredictionBar("Tie", projection.draw, { tooltip: tieTooltip })}
     ${renderPredictionBar(match.awayTeam.name, projection.away)}
   `;
 }
@@ -18800,7 +19009,7 @@ function handleLineupSubstitutionTogglePointerDown(event) {
   event.preventDefault();
   event.stopPropagation();
   event.stopImmediatePropagation?.();
-  suppressPlayerCardClicksBriefly(800);
+  suppressPlayerCardClicksBriefly();
   return toggleLineupSubstitutionPreviewFromButton(button);
 }
 
@@ -20429,11 +20638,14 @@ function isFloatingPlayerCardActive() {
 }
 
 function shouldKeepFloatingPlayerCardForSource(playerHover) {
-  return Boolean(
-    playerHover?.matches(":hover, :focus-within") ||
-      floatingPlayerCard?.matches(":hover, :focus-within") ||
-      playerHover?.classList.contains("is-card-open")
-  );
+  const isTouchMode = isTouchPlayerCardMode();
+  const sourceIsEngaged = isTouchMode
+    ? playerHover?.matches(":focus-within") || playerHover?.classList.contains("is-card-open")
+    : playerHover?.matches(":hover, :focus-within") || playerHover?.classList.contains("is-card-open");
+  const floatingCardIsEngaged = isTouchMode
+    ? floatingPlayerCard?.matches(":focus-within")
+    : floatingPlayerCard?.matches(":hover, :focus-within");
+  return Boolean(sourceIsEngaged || floatingCardIsEngaged);
 }
 
 function isPlayerCardInteractionTarget(target) {
@@ -23419,6 +23631,9 @@ function renderMatchInfo(match, options = {}) {
   const shouldAnimateLineupEntrance =
     options.animateLineupEntrance !== false && (wasMatchInfoHidden || activeMatchId !== match.id);
   activeMatchId = match.id;
+  if (options.commit) {
+    committedMatchId = match.id;
+  }
   viewPanels.matches.classList.add("has-match-info");
   matchInfo.classList.remove("is-hidden");
   matchInfo.hidden = false;
@@ -23506,6 +23721,7 @@ function renderMatchInfo(match, options = {}) {
 function renderMatchInfoPrompt() {
   clearTransientInteractionState();
   activeMatchId = "";
+  committedMatchId = "";
   viewPanels.matches.classList.remove("has-match-info");
   document.querySelectorAll(".match-row, .yesterday-match-card").forEach((row) => {
     row.classList.remove("is-selected");
@@ -23545,6 +23761,7 @@ function setLiveTodayMatchFocus(enabled) {
 function renderEmptyState() {
   clearTransientInteractionState();
   activeMatchId = "";
+  committedMatchId = "";
   viewPanels.matches.classList.remove("has-match-info");
   setLiveTodayMatchFocus(false);
   matchList.removeAttribute("aria-busy");
@@ -23705,7 +23922,7 @@ function createYesterdayMatchCard(match, currentTime, tournamentContext = null) 
     }
   });
   card.addEventListener("click", () => {
-    renderMatchInfo(match, { reveal: true });
+    renderMatchInfo(match, { commit: true, reveal: true });
     updateUrlState({ historyMode: "push" });
   });
   return card;
@@ -25383,6 +25600,7 @@ function openTeamSearchResults(query, options = {}) {
   isShowingOlderTeamMatches = false;
   isTeamSearchOpen = true;
   activeMatchId = "";
+  committedMatchId = "";
   updateTeamSearchControls();
   renderSchedule({ historyMode: options.historyMode || "push" });
 
@@ -25497,8 +25715,8 @@ function applyUrlState(options = {}) {
     params.set("date", selectedDayKey);
   }
 
-  if (activeView === "matches" && activeMatchId && !hasTeamSearchQuery()) {
-    params.set("match", activeMatchId);
+  if (activeView === "matches" && committedMatchId && !hasTeamSearchQuery()) {
+    params.set("match", committedMatchId);
   }
 
   if (selectedTimeZone !== defaultTimeZone) {
@@ -25532,6 +25750,8 @@ function applyUrlState(options = {}) {
       window.history.replaceState(null, "", nextUrl);
     }
   }
+
+  updateSeoMetadataFromUrl();
 }
 
 function updateUrlState(options = {}) {
@@ -25754,6 +25974,7 @@ function readUrlState(options = {}) {
   isTeamSearchOpen = teamSearchQuery.length > 0;
   isShowingOlderTeamMatches = false;
   activeMatchId = activeView === "matches" && !isTeamSearchOpen ? requestedMatch?.id || "" : "";
+  committedMatchId = activeMatchId;
   selectedStandingsYear = getValidStandingsYear(requestedStandingsYear);
   selectedStandingsMode = getValidStandingsMode(
     requestedStandingsMode,
@@ -26901,6 +27122,7 @@ timezoneSelect.addEventListener("change", () => {
     selectedDayKey = getDayKey(new Date(), selectedTimeZone);
     calendarMonthKey = getMonthKeyFromDayKey(selectedDayKey);
     activeMatchId = "";
+    committedMatchId = "";
   }
   ensureSelectableSelectedDay();
   renderTimeZoneOptions();
@@ -26975,6 +27197,7 @@ window.addEventListener("popstate", () => {
     setActiveView(activeView);
     renderSchedule();
     renderSourceNote();
+    updateSeoMetadataFromUrl();
   } finally {
     syncUrl = true;
     window.setTimeout(() => {

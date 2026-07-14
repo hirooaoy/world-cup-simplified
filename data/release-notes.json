@@ -1,23 +1,25 @@
 {
-  "updatedAt": "2026-07-13T17:35:00-07:00",
+  "updatedAt": "2026-07-14T00:58:00-07:00",
   "releases": [
     {
-      "date": "2026-07-13",
-      "title": "Bilingual Ball Boy, verified line-ups, and tournament polish",
-      "titleZh": "双语 Ball Boy、已验证阵容与赛事优化",
+      "date": "2026-07-14",
+      "title": "Direct bilingual Ball Boy, match SEO, and verified line-ups",
+      "titleZh": "直接清晰的双语 Ball Boy、比赛 SEO 与已验证阵容",
       "highlights": [
-        "Ball Boy now adds a free bilingual in-app chat bubble for players, countries, matches, and rules, with localized Chinese match previews, player notes, names, and result stories alongside its slightly lazy stadium-worker personality.",
+        "Ball Boy now answers players, countries, matches, and rules in a direct bilingual voice, with intent-focused cards, localized Chinese match previews and player notes, clearer rule explanations, and repaired player names.",
+        "Remaining knockout match links now expose match-specific browser and search metadata plus structured event data, while the match-row interface stays unchanged and hover, Back, and Forward keep their existing behavior.",
         "Microsoft Clarity now loads once on the main app and report page alongside unchanged Vercel Web Analytics, with the CSP opened only for official Clarity script, collect, and image endpoints.",
         "When yesterday and today have no live or finished match notes during the tournament, Catch Up now shows one sourced Golden Boot race story, then keeps a confirmed post-final tournament wrap.",
         "Line-up boards are shorter with safer mobile substitution taps, and all 100 completed matches now use FIFA-official starting XIs with exact verified board placement; knockout See all links also stay attached to wrapped score text while browser back clears the search state.",
-        "All 102 confirmed matchups now use preserved online forecasts: archived market snapshots or pre-match Opta simulations for past matches, plus blended live consensus for both semi-finals. Every confirmed knockout matchup now has a pre-kickoff shootout outlook, with deeper goalkeeper, taker, and team-history evidence for the semi-finals."
+        "All 102 confirmed matchups now use preserved online forecasts: archived market snapshots or pre-match Opta simulations for past matches, plus blended live consensus for both semi-finals. Every confirmed 2026 knockout matchup now has a pre-kickoff shootout outlook, while all 166 eligible archive knockout matches from 1978-2022 add hindsight-safe shootout context; the semi-finals use deeper goalkeeper, taker, and team-history evidence."
       ],
       "highlightsZh": [
-        "Ball Boy 现在加入免费的双语站内聊天气泡，可回答球员、国家队、比赛和规则问题，并提供本地化中文比赛预览、球员说明、姓名和赛果故事，同时保留略显偷懒的球场工作人员个性。",
+        "Ball Boy 现在以直接清晰的双语表达回答球员、国家队、比赛和规则问题，并提供针对提问重点的卡片、本地化中文比赛预览与球员说明、更清楚的规则解释，以及修复后的球员姓名。",
+        "剩余淘汰赛链接现在会提供比赛专属的浏览器与搜索元数据以及结构化赛事数据；比赛行界面保持不变，悬停、返回和前进操作也维持原有行为。",
         "Microsoft Clarity 现在会与保留不变的 Vercel Web Analytics 一起，在主应用和反馈页各加载一次；CSP 只为官方 Clarity 脚本、收集和图片端点放行。",
         "赛事期间，如果昨天和今天没有进行中或已结束的比赛速览，Catch Up 现在会显示一条有来源的金靴奖竞争动态，并在决赛后保留已确认的赛事总结。",
         "阵容板现在更短，移动端换人点按更安全；全部100场已结束比赛现在都使用 FIFA 官方首发，并采用经过验证的精确站位；淘汰赛的“查看全部”链接也会跟随换行后的比分文字，浏览器返回会清空搜索状态。",
-        "全部102场已确定对阵现在都采用保留的在线预测：已结束比赛使用存档市场快照或赛前 Opta 模拟，两场半决赛使用实时综合预测。每场已确定的淘汰赛对阵现在都有赛前点球前景，两场半决赛还会结合门将、主罚手与球队历史证据。"
+        "全部102场已确定对阵现在都采用保留的在线预测：已结束比赛使用存档市场快照或赛前 Opta 模拟，两场半决赛使用实时综合预测。每场已确定的2026年淘汰赛现在都有赛前点球前景，1978至2022年的166场适用历史淘汰赛也加入了不受赛后结果影响的点球背景；两场半决赛还会结合门将、主罚手与球队历史证据。"
       ]
     },
     {

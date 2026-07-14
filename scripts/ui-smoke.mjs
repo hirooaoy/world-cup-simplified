@@ -2110,14 +2110,67 @@ try {
 
   await page.goto(baseUrl, { waitUntil: "load" });
   await page.waitForSelector(".match-row");
+  const homeSeoState = await page.evaluate(() => ({
+    canonical: document.querySelector('link[rel="canonical"]')?.href || "",
+    description: document.querySelector('meta[name="description"]')?.content || "",
+    historyLength: history.length,
+    title: document.title,
+    url: location.href
+  }));
+  await page.locator(".match-row").first().dispatchEvent("pointerenter", { pointerType: "mouse" });
+  const hoverSeoState = await page.evaluate(() => ({
+    canonical: document.querySelector('link[rel="canonical"]')?.href || "",
+    historyLength: history.length,
+    title: document.title,
+    url: location.href
+  }));
+  assert(
+    homeSeoState.title === "World Cup 2026 Schedule, Results, Standings & Lineups | World Cup Simplified" &&
+      homeSeoState.description.includes("verified lineups") &&
+      homeSeoState.canonical === "https://world-cup-simplified.vercel.app/" &&
+      hoverSeoState.title === homeSeoState.title &&
+      hoverSeoState.canonical === homeSeoState.canonical &&
+      hoverSeoState.url === homeSeoState.url &&
+      hoverSeoState.historyLength === homeSeoState.historyLength,
+    `Desktop hover previews should leave SEO metadata, the URL, and browser history untouched. Measured ${JSON.stringify({ homeSeoState, hoverSeoState })}.`
+  );
   await page.locator(".match-row").first().click();
   await page.waitForFunction(() => new URL(location.href).searchParams.has("match"));
+  const selectedMatchSeoState = await page.evaluate(() => {
+    const matchId = new URL(location.href).searchParams.get("match");
+    const structuredData = JSON.parse(document.querySelector("#seo-structured-data")?.textContent || "{}");
+    return {
+      canonical: document.querySelector('link[rel="canonical"]')?.href || "",
+      matchId,
+      structuredTypes: (structuredData["@graph"] || []).map((item) => item["@type"]),
+      title: document.title
+    };
+  });
+  assert(
+    selectedMatchSeoState.matchId &&
+      selectedMatchSeoState.canonical ===
+        `https://world-cup-simplified.vercel.app/?match=${selectedMatchSeoState.matchId}` &&
+      selectedMatchSeoState.title.includes(" vs ") &&
+      selectedMatchSeoState.title.includes("World Cup 2026") &&
+      selectedMatchSeoState.structuredTypes.includes("SportsEvent"),
+    `A deliberate match selection should publish match-specific metadata and SportsEvent data. Measured ${JSON.stringify(selectedMatchSeoState)}.`
+  );
   await page.goBack();
   await page.waitForFunction(
     () =>
       location.origin.startsWith("http://127.0.0.1") &&
       !new URL(location.href).searchParams.has("match") &&
-      document.querySelectorAll(".match-row.is-selected").length === 0
+      document.querySelectorAll(".match-row.is-selected").length === 0 &&
+      document.title === "World Cup 2026 Schedule, Results, Standings & Lineups | World Cup Simplified" &&
+      document.querySelector('link[rel="canonical"]')?.href === "https://world-cup-simplified.vercel.app/"
+  );
+  await page.goForward();
+  await page.waitForFunction(
+    () =>
+      new URL(location.href).searchParams.has("match") &&
+      document.querySelectorAll(".match-row.is-selected").length === 1 &&
+      document.title.includes(" vs ") &&
+      document.querySelector('link[rel="canonical"]')?.href.includes("?match=")
   );
 
   await page.goto(baseUrl, { waitUntil: "load" });
@@ -2477,11 +2530,11 @@ try {
       brazilJapanResultBlock.highlightTarget === "_blank" &&
       brazilJapanResultBlock.highlightRel.includes("noopener") &&
       brazilJapanResultBlock.highlightTooltip === "Play highlights on YouTube" &&
-      brazilJapanResultBlock.storyItems.length === 3 &&
+      brazilJapanResultBlock.storyItems.length === 2 &&
       brazilJapanResultBlock.storyItems.every((item) => !/[⚽🌟📊]/u.test(item)) &&
       brazilJapanResultBlock.storyItems[0].includes("Japan frustrated Brazil") &&
-      brazilJapanResultBlock.storyItems[1].includes("Kaishu Sano rattled Brazil first") &&
-      brazilJapanResultBlock.storyItems[2].includes("Gabriel Martinelli won it deep into stoppage time") &&
+      brazilJapanResultBlock.storyItems[1].includes("Gabriel Martinelli won it deep into stoppage time") &&
+      brazilJapanResultBlock.storyItems.every((item) => !/chase the match/i.test(item)) &&
       brazilJapanResultBlock.storyLinkTexts.includes("Takehiro Tomiyasu") &&
       brazilJapanResultBlock.storyLinkTexts.includes("Zion Suzuki"),
     `Brazil-Japan result recap should render score, scorer timeline, official video, and plain story bullets. Measured ${JSON.stringify(brazilJapanResultBlock)}.`
@@ -4247,6 +4300,87 @@ try {
       italyArgentinaHistoricalHeadings.join(" ")
     ),
     `Historical key-information headings should stay player-name-free. Measured ${JSON.stringify(italyArgentinaHistoricalHeadings)}.`
+  );
+
+  await page.goto(`${baseUrl}?view=matches&date=1978-06-25&lang=en&tz=America%2FLos_Angeles`, {
+    waitUntil: "load"
+  });
+  await page.locator('[data-match-id="wc-1978-1978-06-25-final-netherlands-argentina"]').click();
+  const firstEligibleShootoutTieTooltip = await page
+    .locator("#match-info .match-prediction-block .prediction-row")
+    .nth(1)
+    .getAttribute("data-tooltip");
+  assert(
+    firstEligibleShootoutTieTooltip ===
+      "If it goes to penalties, it would be a first World Cup shootout for both Netherlands and Argentina.",
+    `The 1978 final should include shootout context because the tiebreak was available, even though it was not needed. Measured ${firstEligibleShootoutTieTooltip}.`
+  );
+
+  await page.goto(`${baseUrl}?view=matches&date=1982-07-08&lang=en&tz=America%2FLos_Angeles`, {
+    waitUntil: "load"
+  });
+  await page.locator('[data-match-id="wc-1982-1982-07-08-semi-finals-west-germany-france"]').click();
+  const firstWorldCupShootoutTieRow = await page
+    .locator("#match-info .match-prediction-block .prediction-row")
+    .nth(1)
+    .evaluate((row) => ({
+      label: row.querySelector(".prediction-label")?.textContent.trim() || "",
+      tooltip: row.getAttribute("data-tooltip") || "",
+      hasTooltip: row.classList.contains("has-label-tooltip"),
+      tabIndex: row.getAttribute("tabindex") || ""
+    }));
+  assert(
+    firstWorldCupShootoutTieRow.label === "Tie" &&
+      firstWorldCupShootoutTieRow.tooltip ===
+        "If it goes to penalties, it would be a first World Cup shootout for both West Germany and France." &&
+      firstWorldCupShootoutTieRow.hasTooltip &&
+      firstWorldCupShootoutTieRow.tabIndex === "0",
+    `The first historical shootout forecast should use only the record known before kickoff and expose an accessible Tie tooltip. Measured ${JSON.stringify(firstWorldCupShootoutTieRow)}.`
+  );
+
+  await page.goto(`${baseUrl}?view=matches&date=2022-12-18&lang=en&tz=America%2FLos_Angeles`, {
+    waitUntil: "load"
+  });
+  await page.locator('[data-match-id="wc-2022-2022-12-18-final-argentina-france"]').click();
+  const historicalFinalTieTooltip = await page
+    .locator("#match-info .match-prediction-block .prediction-row")
+    .nth(1)
+    .getAttribute("data-tooltip");
+  assert(
+    historicalFinalTieTooltip ===
+      "If it goes to penalties, Argentina may have a slight record edge: 5 wins in 6 World Cup shootouts, compared with 2 in 4 for France.",
+    `The 2022 final Tie tooltip should use each team's pre-final World Cup shootout record. Measured ${historicalFinalTieTooltip}.`
+  );
+
+  await page.goto(`${baseUrl}?view=matches&date=2022-12-18&lang=zh&tz=America%2FLos_Angeles`, {
+    waitUntil: "load"
+  });
+  await page.locator('[data-match-id="wc-2022-2022-12-18-final-argentina-france"]').click();
+  const historicalFinalTieTooltipZh = await page
+    .locator("#match-info .match-prediction-block .prediction-row")
+    .nth(1)
+    .getAttribute("data-tooltip");
+  assert(
+    historicalFinalTieTooltipZh ===
+      "如果进入点球大战，阿根廷可能略占历史战绩优势：世界杯点球大战6次5胜，法国则是4次2胜。" &&
+      !/If it goes|World Cup|shootout|Argentina|France/.test(historicalFinalTieTooltipZh || ""),
+    `Historical shootout context should localize fully in Chinese. Measured ${historicalFinalTieTooltipZh}.`
+  );
+
+  await page.goto(`${baseUrl}?view=matches&date=1934-05-31&lang=en&tz=America%2FLos_Angeles`, {
+    waitUntil: "load"
+  });
+  await page.locator('[data-match-id="wc-1934-1934-05-31-quarter-finals-italy-spain"]').click();
+  const replayEraTieRow = await page
+    .locator("#match-info .match-prediction-block .prediction-row")
+    .nth(1)
+    .evaluate((row) => ({
+      tooltip: row.getAttribute("data-tooltip") || "",
+      hasTooltip: row.classList.contains("has-label-tooltip")
+    }));
+  assert(
+    replayEraTieRow.tooltip === "Tie" && !replayEraTieRow.hasTooltip,
+    `Pre-1978 archive forecasts should not imply that tied knockout matches used penalty shootouts. Measured ${JSON.stringify(replayEraTieRow)}.`
   );
 
   await page.goto(`${baseUrl}?view=matches&date=2022-11-23&tz=America%2FLos_Angeles`, {
@@ -8054,8 +8188,9 @@ try {
       !canadaKnockoutDetailText.includes("Canada beat South Africa 0-1.") &&
       canadaKnockoutDetailText.includes("90+2'") &&
       canadaKnockoutDetailText.includes("Stephen Eustaquio") &&
-      canadaKnockoutDetailText.includes("Stephen Eustaquio broke through in stoppage time, leaving South Africa chasing a 1-0 match.") &&
-      canadaKnockoutDetailText.includes("Canada kept South Africa out at the other end and turned the late goal into a knockout win.") &&
+      canadaKnockoutDetailText.includes("Stephen Eustaquio scored two minutes into stoppage time to put Canada ahead.") &&
+      canadaKnockoutDetailText.includes("Canada kept South Africa out and turned the late goal into a knockout win.") &&
+      !/chasing a 1-0 match/i.test(canadaKnockoutDetailText) &&
       !canadaKnockoutDetailText.includes("South Africa stayed close enough to keep the final minutes tense.") &&
       !/Canada reached the Round of 16 and South Africa exited|took three points from Round of 32|foothold in Round of 32/i.test(canadaKnockoutDetailText),
     "Completed knockout match detail should show winner-oriented score, scorer timeline, and match-specific bullets without bracket-impact or group-table copy."
@@ -9472,7 +9607,8 @@ try {
   });
   assert(
     (lockedBracketNavigation.date === "2026-06-28" || lockedBracketNavigation.date === null) &&
-      lockedBracketNavigation.match === "match-73-round-of-32-2026-06-28" &&
+      (lockedBracketNavigation.match === "match-73-round-of-32-2026-06-28" ||
+        lockedBracketNavigation.match === null) &&
       lockedBracketNavigation.selectedRowPressed === "true" &&
       lockedBracketNavigation.stageLinkTarget === "73" &&
       lockedBracketNavigation.stageLinkText === "Round of 32" &&
@@ -11398,6 +11534,24 @@ try {
       (await touchTodayRow.locator(".match-row-trigger").getAttribute("aria-pressed")) === "true",
     "On touch devices, tapping a today's match row should open its match detail card."
   );
+  const touchSelectedMatchUrl = touchPage.url();
+  await touchPage.goBack();
+  await touchPage.waitForFunction(
+    () =>
+      !new URL(location.href).searchParams.has("match") &&
+      document.querySelectorAll(".match-row.is-selected, .yesterday-match-card.is-selected").length === 0 &&
+      document.querySelector("#match-info")?.hidden === true &&
+      document.querySelector('link[rel="canonical"]')?.href === "https://world-cup-simplified.vercel.app/"
+  );
+  await touchPage.goForward();
+  await touchPage.waitForFunction(
+    (expectedUrl) =>
+      location.href === expectedUrl &&
+      document.querySelector('.match-row[data-match-id="switzerland-bosnia-2026-06-18"]')?.classList.contains("is-selected") &&
+      document.querySelector("#match-info:not([hidden])") &&
+      document.querySelector('link[rel="canonical"]')?.href.includes("?match=switzerland-bosnia-2026-06-18"),
+    touchSelectedMatchUrl
+  );
   await touchYesterdayCard.click();
   const touchYesterdayDetailText = await touchPage.locator("#match-info").innerText();
   assert(
@@ -11996,7 +12150,8 @@ try {
       haalandBallBoyMetrics.signatureLabel === "Signature traits" &&
       haalandBallBoyMetrics.avatarFlagCount === 0 &&
       haalandBallBoyMetrics.inlineFlagCount === 1 &&
-      haalandBallBoyMetrics.note.startsWith("Haaland scored seven goals in Norway's run to the quarter-finals.") &&
+      haalandBallBoyMetrics.note.startsWith("Haaland has scored 7 goals for Norway at this World Cup") &&
+      haalandBallBoyMetrics.note.includes("He finds space for shots in the box.") &&
       haalandBallBoyMetrics.followUpCount === 3 &&
       haalandBallBoyMetrics.promptCount === haalandBallBoyMetrics.promptUniqueCount &&
       haalandBallBoyMetrics.remaining > 8 &&
@@ -12056,17 +12211,80 @@ try {
   await touchPage
     .getByText("Erling Haaland's market value is €200m.", { exact: true })
     .waitFor({ state: "visible" });
+  const valueFocusMetrics = await touchPage.evaluate(() => {
+    const answer = [...document.querySelectorAll(".scout-answer.is-player")].at(-1);
+    const card = answer?.querySelector(".scout-player-card");
+    return {
+      cardClass: card?.className || "",
+      facts: card?.querySelectorAll(".scout-player-facts").length || 0,
+      note: card?.querySelectorAll(".scout-explainer").length || 0,
+      role: card?.querySelectorAll(".scout-role-block").length || 0,
+      skills: card?.querySelectorAll(".scout-skill-section").length || 0
+    };
+  });
+  assert(
+    valueFocusMetrics.cardClass.includes("is-focus-value") &&
+      valueFocusMetrics.facts === 0 &&
+      valueFocusMetrics.note === 0 &&
+      valueFocusMetrics.role === 0 &&
+      valueFocusMetrics.skills === 0,
+    `A direct player-value question should not append unrelated stats, role, skills, or editorial notes. Measured ${JSON.stringify(valueFocusMetrics)}.`
+  );
+
+  await ballBoyInput.fill("How old is he?");
+  await ballBoySend.click();
+  await touchPage.getByText("Erling Haaland is 25.", { exact: true }).waitFor({ state: "visible" });
+  const ageFocusMetrics = await touchPage.evaluate(() => {
+    const answer = [...document.querySelectorAll(".scout-answer.is-player")].at(-1);
+    const card = answer?.querySelector(".scout-player-card");
+    return {
+      cardClass: card?.className || "",
+      extraSections: card?.querySelectorAll(".scout-player-facts, .scout-role-block, .scout-skill-section, .scout-explainer").length || 0,
+      overflow: card ? card.scrollWidth - card.clientWidth : null
+    };
+  });
+  assert(
+    ageFocusMetrics.cardClass.includes("is-focus-age") &&
+      ageFocusMetrics.extraSections === 0 &&
+      ageFocusMetrics.overflow <= 1,
+    `A direct player-age question should stay compact and unclipped. Measured ${JSON.stringify(ageFocusMetrics)}.`
+  );
+
+  await touchPage.locator("#scout-reset").click();
+  await ballBoyInput.fill("How many goals and assists does Mbappe have?");
+  await ballBoySend.click();
+  await touchPage.getByRole("heading", { name: "Kylian Mbappé" }).waitFor({ state: "visible" });
+  const statsFocusMetrics = await touchPage.evaluate(() => {
+    const answer = [...document.querySelectorAll(".scout-answer.is-player")].at(-1);
+    const card = answer?.querySelector(".scout-player-card");
+    return {
+      cardClass: card?.className || "",
+      factSections: card?.querySelectorAll(".scout-player-fact-section").length || 0,
+      labels: [...(card?.querySelectorAll(".scout-player-fact-section .scout-section-label") || [])]
+        .map((item) => item.textContent.trim()),
+      unrelatedSections: card?.querySelectorAll(".scout-role-block, .scout-skill-section, .scout-explainer").length || 0
+    };
+  });
+  assert(
+    statsFocusMetrics.cardClass.includes("is-focus-stats") &&
+      statsFocusMetrics.factSections === 1 &&
+      JSON.stringify(statsFocusMetrics.labels) === JSON.stringify(["This World Cup"]) &&
+      statsFocusMetrics.unrelatedSections === 0,
+    `A player-stats question should show only the tournament stat strip. Measured ${JSON.stringify(statsFocusMetrics)}.`
+  );
 
   await touchPage.setViewportSize({ width: 320, height: 568 });
   await touchPage.locator("#scout-reset").click();
-  await ballBoyInput.fill("Tell me about Ibrahim Mbaye");
+  await ballBoyInput.fill("How does Ibrahim Mbaye play?");
   await ballBoySend.click();
   await touchPage.getByRole("heading", { name: "Ibrahim Mbaye" }).waitFor({ state: "visible" });
   const narrowBallBoyMetrics = await touchPage.evaluate(() => {
     const conversation = document.querySelector("#scout-conversation");
     const widget = document.querySelector("#scout-widget")?.getBoundingClientRect();
     return {
+      cardClass: document.querySelector(".scout-player-card")?.className || "",
       conversationOverflow: conversation ? conversation.scrollWidth - conversation.clientWidth : null,
+      unrelatedFacts: document.querySelectorAll(".scout-player-card .scout-player-facts").length,
       skillOverflow: [...document.querySelectorAll(".scout-player-card .scout-flow-step")]
         .map((skill) => ({
           overflow: skill.scrollWidth - skill.clientWidth,
@@ -12078,7 +12296,9 @@ try {
     };
   });
   assert(
-    narrowBallBoyMetrics.conversationOverflow <= 1 &&
+    narrowBallBoyMetrics.cardClass.includes("is-focus-style") &&
+      narrowBallBoyMetrics.unrelatedFacts === 0 &&
+      narrowBallBoyMetrics.conversationOverflow <= 1 &&
       narrowBallBoyMetrics.skillOverflow.length === 3 &&
       narrowBallBoyMetrics.skillOverflow.every((skill) => skill.overflow <= 1) &&
       narrowBallBoyMetrics.skillOverflow.some((skill) => skill.text === "Wing explosiveness") &&
@@ -12087,7 +12307,7 @@ try {
       narrowBallBoyMetrics.widget.top >= 0 &&
       narrowBallBoyMetrics.widget.right <= 320 &&
       narrowBallBoyMetrics.widget.bottom <= 568,
-    `Ball Boy's player card should fit a 320px-wide phone without clipping skills or the safe area. Measured ${JSON.stringify(narrowBallBoyMetrics)}.`
+    `Ball Boy's focused player-style card should fit a 320px-wide phone without unrelated facts or clipped skills. Measured ${JSON.stringify(narrowBallBoyMetrics)}.`
   );
 
   await touchPage.locator("#scout-reset").click();
@@ -12112,7 +12332,7 @@ try {
   );
 
   await touchPage.locator("#scout-reset").click();
-  await ballBoyInput.fill("How do Norway play?");
+  await ballBoyInput.fill("How does Norway play?");
   await ballBoySend.click();
   await touchPage.locator(".scout-answer.is-country").waitFor({ state: "visible" });
   const countryBallBoyMetrics = await touchPage.evaluate(() => {
@@ -12120,65 +12340,30 @@ try {
     const conversation = document.querySelector("#scout-conversation");
     const card = answer.querySelector(".scout-country-card");
     const widget = document.querySelector(".scout-widget").getBoundingClientRect();
-    const repeatedSentence = "They move the ball forward with a clear purpose, then attack before the opponent resets.";
-    const prompts = [...answer.querySelectorAll("[data-scout-prompt]")]
-      .map((item) => item.dataset.scoutPrompt.trim().toLowerCase());
-    const fixtureNames = [...answer.querySelectorAll(".scout-compact-team > span:last-child")];
-    const englandFlag = answer.querySelector(".scout-compact-fixture .flag-england")?.getBoundingClientRect();
-    const formStyles = [...answer.querySelectorAll(".scout-form-result")]
-      .map((item) => getComputedStyle(item));
+    const lead = answer.querySelector(".scout-answer-lead")?.textContent.replace(/\s+/g, " ").trim() || "";
     const flowSteps = [...answer.querySelectorAll(".scout-country-card .scout-flow-step")];
-    const keyPlayerSection = answer.querySelector(".scout-key-players");
-    const keyPlayerLabel = keyPlayerSection?.querySelector(".scout-section-label");
-    const keyPlayerList = keyPlayerSection?.querySelector(":scope > div");
-    const keyPlayerButtons = [...answer.querySelectorAll(".scout-key-players button")];
-    const keyPlayerSectionBounds = keyPlayerSection?.getBoundingClientRect();
-    const keyPlayerLabelBounds = keyPlayerLabel?.getBoundingClientRect();
-    const keyPlayerListBounds = keyPlayerList?.getBoundingClientRect();
-    const keyPlayerButtonBounds = keyPlayerButtons.map((item) => item.getBoundingClientRect());
     const isTransparent = (value) => value === "transparent" || value === "rgba(0, 0, 0, 0)";
     return {
       cardBackground: getComputedStyle(card).backgroundColor,
+      cardClass: card.className,
       cardOverflow: card.scrollWidth - card.clientWidth,
       conversationOverflow: conversation.scrollWidth - conversation.clientWidth,
       countryFlags: answer.querySelectorAll(".scout-country-flag").length,
-      englandFlag: englandFlag ? { height: englandFlag.height, width: englandFlag.width } : null,
-      fixtureColumns: getComputedStyle(answer.querySelector(".scout-fixture-pair")).gridTemplateColumns.split(" ").length,
-      fixtureNameOverflow: fixtureNames.map((name) => name.scrollWidth - name.clientWidth),
+      fixtureCount: answer.querySelectorAll(".scout-compact-fixture").length,
       flowIsPlain: flowSteps.every((item) => {
         const style = getComputedStyle(item);
         return isTransparent(style.backgroundColor) && parseFloat(style.borderRadius) === 0;
       }),
       flowOverflow: flowSteps.map((item) => item.scrollWidth - item.clientWidth),
-      formIsNeutral: new Set(formStyles.map((style) => style.backgroundColor)).size === 1 &&
-        new Set(formStyles.map((style) => style.color)).size === 1 &&
-        formStyles.every((style) => isTransparent(style.backgroundColor)),
-      keyPlayerActions: keyPlayerButtons.map((item) => {
-        const bounds = item.getBoundingClientRect();
-        const style = getComputedStyle(item);
-        return {
-          height: bounds.height,
-          width: bounds.width,
-          plain: isTransparent(style.backgroundColor) && parseFloat(style.borderRadius) === 0
-        };
-      }),
-      keyPlayerLayout:
-        keyPlayerSectionBounds && keyPlayerLabelBounds && keyPlayerListBounds
-          ? {
-              labelAboveList: keyPlayerLabelBounds.bottom <= keyPlayerListBounds.top,
-              labelInset: keyPlayerLabelBounds.left - keyPlayerSectionBounds.left,
-              listInset: keyPlayerListBounds.left - keyPlayerSectionBounds.left,
-              listRightInset: keyPlayerSectionBounds.right - keyPlayerListBounds.right,
-              rowCount: new Set(keyPlayerButtonBounds.map((bounds) => Math.round(bounds.top))).size,
-              sectionHeight: keyPlayerSectionBounds.height
-            }
-          : null,
+      flowStepCount: flowSteps.length,
+      formCount: answer.querySelectorAll(".scout-form-result").length,
+      goalBalanceCount: answer.querySelectorAll(".scout-goal-balance").length,
+      keyPlayerCount: answer.querySelectorAll(".scout-key-players").length,
       labelsUseSentenceCase: [...card.querySelectorAll(".scout-section-label")]
         .every((item) => getComputedStyle(item).textTransform === "none"),
-      promptCount: prompts.length,
-      promptUniqueCount: new Set(prompts).size,
-      repeatedSentenceCount: answer.innerText.split(repeatedSentence).length - 1,
-      topScorerHasEmoji: answer.querySelector(".scout-top-scorer")?.innerText.includes("⚽") || false,
+      lead,
+      recordCellCount: answer.querySelectorAll(".scout-stat-strip > div").length,
+      topScorerCount: answer.querySelectorAll(".scout-top-scorer").length,
       widget: {
         bottom: widget.bottom,
         left: widget.left,
@@ -12189,32 +12374,50 @@ try {
   });
   assert(
     countryBallBoyMetrics.cardBackground === "rgb(255, 255, 255)" &&
+      countryBallBoyMetrics.cardClass.includes("is-focus-style") &&
       countryBallBoyMetrics.countryFlags === 1 &&
-      countryBallBoyMetrics.repeatedSentenceCount === 1 &&
-      countryBallBoyMetrics.promptCount === countryBallBoyMetrics.promptUniqueCount &&
-      countryBallBoyMetrics.fixtureColumns === 1 &&
-      countryBallBoyMetrics.fixtureNameOverflow.every((overflow) => overflow <= 1) &&
+      countryBallBoyMetrics.lead === "They move the ball forward with a clear purpose, then attack before the opponent resets." &&
+      countryBallBoyMetrics.flowStepCount === 3 &&
       countryBallBoyMetrics.flowIsPlain &&
       countryBallBoyMetrics.flowOverflow.every((overflow) => overflow <= 1) &&
-      countryBallBoyMetrics.formIsNeutral &&
-      countryBallBoyMetrics.keyPlayerActions.every((item) => item.height >= 40 && item.width >= 40 && item.plain) &&
-      countryBallBoyMetrics.keyPlayerLayout?.labelAboveList &&
-      Math.abs(countryBallBoyMetrics.keyPlayerLayout.labelInset - 13) <= 1 &&
-      Math.abs(countryBallBoyMetrics.keyPlayerLayout.listInset - 13) <= 1 &&
-      Math.abs(countryBallBoyMetrics.keyPlayerLayout.listRightInset - 13) <= 1 &&
-      countryBallBoyMetrics.keyPlayerLayout.rowCount <= 2 &&
-      countryBallBoyMetrics.keyPlayerLayout.sectionHeight <= 116 &&
+      countryBallBoyMetrics.recordCellCount === 0 &&
+      countryBallBoyMetrics.goalBalanceCount === 0 &&
+      countryBallBoyMetrics.formCount === 0 &&
+      countryBallBoyMetrics.keyPlayerCount === 0 &&
+      countryBallBoyMetrics.topScorerCount === 0 &&
+      countryBallBoyMetrics.fixtureCount === 0 &&
       countryBallBoyMetrics.labelsUseSentenceCase &&
-      !countryBallBoyMetrics.topScorerHasEmoji &&
-      countryBallBoyMetrics.englandFlag?.width > 0 &&
-      countryBallBoyMetrics.englandFlag?.height > 0 &&
       countryBallBoyMetrics.cardOverflow <= 1 &&
       countryBallBoyMetrics.conversationOverflow <= 1 &&
       countryBallBoyMetrics.widget.left >= 0 &&
       countryBallBoyMetrics.widget.top >= 0 &&
       countryBallBoyMetrics.widget.right <= 320 &&
       countryBallBoyMetrics.widget.bottom <= 568,
-    `Ball Boy's country card should stay neutral, readable, and unclipped. Measured ${JSON.stringify(countryBallBoyMetrics)}.`
+    `Ball Boy's country-style answer should show only the style explanation and visual, without unrelated record, player, or fixture sections. Measured ${JSON.stringify(countryBallBoyMetrics)}.`
+  );
+
+  await touchPage.locator("#scout-reset").click();
+  await ballBoyInput.fill("How many wins does Norway have?");
+  await ballBoySend.click();
+  await touchPage.locator(".scout-country-card.is-focus-record").waitFor({ state: "visible" });
+  const countryRecordFocusMetrics = await touchPage.evaluate(() => {
+    const answer = [...document.querySelectorAll(".scout-answer.is-country")].at(-1);
+    const card = answer?.querySelector(".scout-country-card");
+    return {
+      fixtures: card?.querySelectorAll(".scout-compact-fixture").length || 0,
+      goals: card?.querySelectorAll(".scout-goal-balance").length || 0,
+      players: card?.querySelectorAll(".scout-key-players, .scout-top-scorer").length || 0,
+      recordCells: card?.querySelectorAll(".scout-stat-strip > div").length || 0,
+      style: card?.querySelectorAll(".scout-skill-flow, .scout-explainer").length || 0
+    };
+  });
+  assert(
+    countryRecordFocusMetrics.recordCells === 3 &&
+      countryRecordFocusMetrics.goals === 1 &&
+      countryRecordFocusMetrics.players === 0 &&
+      countryRecordFocusMetrics.style === 0 &&
+      countryRecordFocusMetrics.fixtures === 0,
+    `A country-record question should show the record and goal balance without unrelated style, players, or fixtures. Measured ${JSON.stringify(countryRecordFocusMetrics)}.`
   );
 
   await touchPage.locator("#scout-reset").click();
@@ -12227,25 +12430,71 @@ try {
       .map((item) => item.dataset.scoutPrompt.trim().toLowerCase());
     const flags = [...answer.querySelectorAll(".scout-score-flag")];
     return {
+      cardClass: answer.querySelector(".scout-match-card")?.className || "",
       englandFlag: flags.some((flag) => flag.classList.contains("flag-england")),
       flagSizes: flags.map((flag) => {
         const bounds = flag.getBoundingClientRect();
         return { height: bounds.height, width: bounds.width };
       }),
       overflow: answer.scrollWidth - answer.clientWidth,
+      recapCount: answer.querySelectorAll(".scout-match-recap").length,
       promptCount: prompts.length,
       promptUniqueCount: new Set(prompts).size,
-      status: answer.querySelector(".scout-match-meta")?.innerText.replace(/\s+/g, " ").trim() || ""
+      status: answer.querySelector(".scout-match-meta")?.innerText.replace(/\s+/g, " ").trim() || "",
+      timelineCount: answer.querySelectorAll(".scout-match-timeline").length,
+      unrelatedSections: answer.querySelectorAll(".scout-match-plans, .scout-match-card > .scout-explainer, .scout-highlight-link").length
     };
   });
   assert(
-    matchBallBoyMetrics.flagSizes.length === 2 &&
+    matchBallBoyMetrics.cardClass.includes("is-focus-result") &&
+      matchBallBoyMetrics.flagSizes.length === 2 &&
       matchBallBoyMetrics.flagSizes.every((flag) => flag.width > 0 && flag.height > 0) &&
       matchBallBoyMetrics.englandFlag &&
       matchBallBoyMetrics.status.includes("After extra time") &&
+      matchBallBoyMetrics.recapCount === 1 &&
+      matchBallBoyMetrics.timelineCount === 0 &&
+      matchBallBoyMetrics.unrelatedSections === 0 &&
       matchBallBoyMetrics.promptCount === matchBallBoyMetrics.promptUniqueCount &&
       matchBallBoyMetrics.overflow <= 1,
-    `Ball Boy's match card should show both flags, an accurate finish state, unique actions, and no clipping. Measured ${JSON.stringify(matchBallBoyMetrics)}.`
+    `Ball Boy's result answer should show the scoreboard and key moments without unrelated timeline, plan, H2H, or highlight sections. Measured ${JSON.stringify(matchBallBoyMetrics)}.`
+  );
+
+  await touchPage.locator("#scout-reset").click();
+  await ballBoyInput.fill("Who scored in Norway vs England?");
+  await ballBoySend.click();
+  await touchPage.locator(".scout-match-card.is-focus-scorers").waitFor({ state: "visible" });
+  const matchScorerFocusMetrics = await touchPage.evaluate(() => {
+    const answer = [...document.querySelectorAll(".scout-answer.is-match")].at(-1);
+    return {
+      recap: answer.querySelectorAll(".scout-match-recap").length,
+      timeline: answer.querySelectorAll(".scout-match-timeline").length,
+      timelineRows: answer.querySelectorAll(".scout-goal-row").length,
+      text: answer.querySelector(".scout-answer-lead")?.textContent.trim() || ""
+    };
+  });
+  assert(
+    matchScorerFocusMetrics.timeline === 1 &&
+      matchScorerFocusMetrics.timelineRows === 3 &&
+      matchScorerFocusMetrics.recap === 0 &&
+      /Andreas Schjelderup|Jude Bellingham/.test(matchScorerFocusMetrics.text),
+    `A match-scorer question should show the scorer lead and timeline without repeating the recap. Measured ${JSON.stringify(matchScorerFocusMetrics)}.`
+  );
+
+  await touchPage.locator("#scout-reset").click();
+  await ballBoyInput.fill("When was Norway vs England?");
+  await ballBoySend.click();
+  await touchPage.locator(".scout-match-card.is-focus-when").waitFor({ state: "visible" });
+  const matchWhenFocusMetrics = await touchPage.evaluate(() => {
+    const answer = [...document.querySelectorAll(".scout-answer.is-match")].at(-1);
+    return {
+      lead: answer.querySelector(".scout-answer-lead")?.textContent.trim() || "",
+      sections: answer.querySelectorAll(".scout-match-timeline, .scout-match-plans, .scout-match-recap, .scout-match-card > .scout-explainer, .scout-highlight-link").length
+    };
+  });
+  assert(
+    matchWhenFocusMetrics.lead.includes("Norway vs England:") &&
+      matchWhenFocusMetrics.sections === 0,
+    `A match-time question should answer with the localized kickoff and no unrelated story sections. Measured ${JSON.stringify(matchWhenFocusMetrics)}.`
   );
 
   await touchPage.locator("#scout-reset").click();
@@ -12291,6 +12540,7 @@ try {
       sourceHeight: source?.height || 0,
       sourceWidthDifference: card && source ? Math.abs(card.clientWidth - source.width) : null,
       takeawayBackground: takeaway ? getComputedStyle(takeaway).backgroundColor : "",
+      takeawayText: takeaway?.textContent.trim() || "",
       takeawayTextAlign: takeaway ? getComputedStyle(takeaway).textAlign : ""
     };
   });
@@ -12300,6 +12550,7 @@ try {
       ruleBallBoyMetrics.sourceHeight >= 40 &&
       ruleBallBoyMetrics.sourceWidthDifference <= 1 &&
       ruleBallBoyMetrics.takeawayBackground !== "rgb(10, 10, 10)" &&
+      ruleBallBoyMetrics.takeawayText === "The team plays one player short." &&
       ruleBallBoyMetrics.takeawayTextAlign === "left" &&
       ruleBallBoyMetrics.promptCount === ruleBallBoyMetrics.promptUniqueCount &&
       ruleBallBoyMetrics.overflow <= 1,
@@ -12319,6 +12570,7 @@ try {
       cards: answer.querySelectorAll(".scout-help-grid button").length,
       exampleFont: example ? Number.parseFloat(getComputedStyle(example).fontSize) : 0,
       followUps: answer.querySelectorAll(".scout-followup").length,
+      lead: answer.querySelector(".scout-answer-lead")?.textContent.trim() || "",
       overflow: answer.scrollWidth - answer.clientWidth,
       promptCount: prompts.length,
       promptUniqueCount: new Set(prompts).size
@@ -12327,6 +12579,7 @@ try {
   assert(
     helpBallBoyMetrics.cards === 4 &&
       helpBallBoyMetrics.followUps === 0 &&
+      helpBallBoyMetrics.lead === "Choose a topic." &&
       helpBallBoyMetrics.promptCount === helpBallBoyMetrics.promptUniqueCount &&
       helpBallBoyMetrics.exampleFont >= 10 &&
       helpBallBoyMetrics.overflow <= 1,
@@ -12391,25 +12644,26 @@ try {
   await touchPage.locator("#scout-reset").click();
   await ballBoyInput.fill("Who are you?");
   await ballBoySend.click();
-  await touchPage.locator(".scout-answer.is-personality").waitFor({ state: "visible" });
+  await touchPage.locator(".scout-message.is-assistant.is-personality").waitFor({ state: "visible" });
   const personalityBallBoyMetrics = await touchPage.evaluate(() => {
-    const answer = [...document.querySelectorAll(".scout-answer")].at(-1);
-    const prompts = [...answer.querySelectorAll("[data-scout-prompt]")]
-      .map((item) => item.dataset.scoutPrompt.trim().toLowerCase());
+    const answer = [...document.querySelectorAll(".scout-message.is-assistant.is-personality")].at(-1);
     return {
       dataCards: answer.querySelectorAll(".scout-data-card").length,
+      followUps: answer.querySelectorAll(".scout-followup").length,
+      headings: answer.querySelectorAll(".scout-answer-heading").length,
       overflow: answer.scrollWidth - answer.clientWidth,
-      promptCount: prompts.length,
-      promptUniqueCount: new Set(prompts).size,
+      response: answer.querySelector(":scope > p:not(.scout-speaker)")?.textContent.trim() || "",
       stamps: answer.querySelectorAll(".scout-personality-stamp").length
     };
   });
   assert(
-    personalityBallBoyMetrics.stamps === 1 &&
+    personalityBallBoyMetrics.response === "I’m Ball Boy. I make football easier to understand." &&
+      personalityBallBoyMetrics.stamps === 0 &&
       personalityBallBoyMetrics.dataCards === 0 &&
-      personalityBallBoyMetrics.promptCount === personalityBallBoyMetrics.promptUniqueCount &&
+      personalityBallBoyMetrics.headings === 0 &&
+      personalityBallBoyMetrics.followUps === 0 &&
       personalityBallBoyMetrics.overflow <= 1,
-    `Ball Boy's personality answer should stay playful without pretending to be a data card. Measured ${JSON.stringify(personalityBallBoyMetrics)}.`
+    `Ball Boy's identity should be a direct semantic chat bubble without a badge, card, heading, or follow-ups. Measured ${JSON.stringify(personalityBallBoyMetrics)}.`
   );
 
   await touchPage.locator("#scout-reset").click();
@@ -12424,11 +12678,13 @@ try {
       eyeCount: answer.querySelectorAll(".scout-unknown-mark i").length,
       overflow: answer.scrollWidth - answer.clientWidth,
       promptCount: prompts.length,
-      promptUniqueCount: new Set(prompts).size
+      promptUniqueCount: new Set(prompts).size,
+      text: answer.querySelector(".scout-answer-lead")?.textContent.trim() || ""
     };
   });
   assert(
     unknownBallBoyMetrics.eyeCount === 2 &&
+      unknownBallBoyMetrics.text === "I didn’t understand that. Try a player, team, match, or rule." &&
       unknownBallBoyMetrics.promptCount === unknownBallBoyMetrics.promptUniqueCount &&
       unknownBallBoyMetrics.overflow <= 1,
     `Ball Boy's fallback should use the playful eyes without a misleading external-link arrow. Measured ${JSON.stringify(unknownBallBoyMetrics)}.`
@@ -12516,9 +12772,9 @@ try {
     };
   });
   assert(
-    zhOffsideBallBoyMetrics.text.includes("只看一个时刻") &&
+      zhOffsideBallBoyMetrics.text.includes("只看一个时刻") &&
       zhOffsideBallBoyMetrics.text.includes("P传球时，A已经越过越位线") &&
-      zhOffsideBallBoyMetrics.text.includes("P踢球时，A与越位线平行") &&
+      zhOffsideBallBoyMetrics.text.includes("P传球时，A与越位线平行") &&
       zhOffsideBallBoyMetrics.source === "阅读IFAB官方规则 ↗" &&
       zhOffsideBallBoyMetrics.imageLabels.length >= 2 &&
       zhOffsideBallBoyMetrics.imageLabels.every((label) => /越位示例|不越位示例/.test(label)) &&
@@ -12536,6 +12792,7 @@ try {
     const card = answer.querySelector(".scout-player-card");
     return {
       labels: [...card.querySelectorAll(".scout-section-label")].map((item) => item.textContent.trim()),
+      note: [...card.querySelectorAll(".scout-explainer")].at(-1)?.querySelector("p:last-child")?.textContent.trim() || "",
       overflow: card.scrollWidth - card.clientWidth,
       text: card.innerText.replace(/\s+/g, " ").trim(),
       worldCupAria: card.querySelector(".scout-player-facts")?.getAttribute("aria-label") || ""
@@ -12549,6 +12806,7 @@ try {
       zhPlayerBallBoyMetrics.labels.includes("常见活动区域") &&
       zhPlayerBallBoyMetrics.labels.includes("新手版") &&
       zhPlayerBallBoyMetrics.labels.includes("标志性特点") &&
+      zhPlayerBallBoyMetrics.note === "他在本届世界杯为法国打进8球，并送出3次助攻。比赛中，他在禁区内寻找射门空间，也用传球创造机会。" &&
       zhPlayerBallBoyMetrics.worldCupAria === "世界杯数据和球员资料" &&
       !/This World Cup|Player details|Usual role zone|Beginner version|Signature traits/.test(zhPlayerBallBoyMetrics.text) &&
       zhPlayerBallBoyMetrics.overflow <= 1,
@@ -12582,19 +12840,24 @@ try {
     const answer = [...document.querySelectorAll(".scout-answer")].at(-1);
     const card = answer.querySelector(".scout-country-card");
     return {
+      cardClass: card.className,
+      fixtures: card.querySelectorAll(".scout-compact-fixture").length,
+      keyPlayers: card.querySelectorAll(".scout-key-players").length,
       overflow: card.scrollWidth - card.clientWidth,
+      record: card.querySelectorAll(".scout-stat-strip").length,
       text: card.innerText.replace(/\s+/g, " ").trim()
     };
   });
   assert(
     zhCountryBallBoyMetrics.text.includes("阿根廷") &&
+      zhCountryBallBoyMetrics.cardClass.includes("is-focus-style") &&
       zhCountryBallBoyMetrics.text.includes("他们怎么踢") &&
-      zhCountryBallBoyMetrics.text.includes("关键球员") &&
-      zhCountryBallBoyMetrics.text.includes("上一场") &&
-      /\d{1,2}月\d{1,2}日/.test(zhCountryBallBoyMetrics.text) &&
+      zhCountryBallBoyMetrics.keyPlayers === 0 &&
+      zhCountryBallBoyMetrics.fixtures === 0 &&
+      zhCountryBallBoyMetrics.record === 0 &&
       !/How they play|Key players|Last match|Next match/.test(zhCountryBallBoyMetrics.text) &&
       zhCountryBallBoyMetrics.overflow <= 1,
-    `Chinese Ball Boy country cards should localize labels, dates, and the full visual surface. Measured ${JSON.stringify(zhCountryBallBoyMetrics)}.`
+    `Chinese Ball Boy country-style answers should localize the focused visual without unrelated record, player, or fixture sections. Measured ${JSON.stringify(zhCountryBallBoyMetrics)}.`
   );
 
   await touchPage.locator("#scout-reset").click();
@@ -12627,24 +12890,24 @@ try {
     const answer = [...document.querySelectorAll(".scout-answer")].at(-1);
     const card = answer.querySelector(".scout-match-card");
     return {
+      cardClass: card.className,
       overflow: card.scrollWidth - card.clientWidth,
       recap: card.querySelector(".scout-match-recap")?.innerText.replace(/\s+/g, " ").trim() || "",
       status: card.querySelector(".scout-match-meta")?.innerText.replace(/\s+/g, " ").trim() || "",
       text: card.innerText.replace(/\s+/g, " ").trim(),
-      timelineNames: [...card.querySelectorAll(".scout-goal-row strong, .scout-goal-row small")]
-        .map((item) => item.textContent.trim())
+      timelineCount: card.querySelectorAll(".scout-match-timeline").length
     };
   });
   assert(
     zhMatchBallBoyMetrics.text.includes("挪威") &&
       zhMatchBallBoyMetrics.text.includes("英格兰") &&
+      zhMatchBallBoyMetrics.cardClass.includes("is-focus-result") &&
       zhMatchBallBoyMetrics.status.includes("加时赛后") &&
-      zhMatchBallBoyMetrics.recap.includes("比赛转折点") &&
-      zhMatchBallBoyMetrics.timelineNames.length >= 5 &&
-      zhMatchBallBoyMetrics.timelineNames.every((name) => !/[A-Za-z]/.test(name)) &&
+      zhMatchBallBoyMetrics.recap.includes("关键时刻") &&
+      zhMatchBallBoyMetrics.timelineCount === 0 &&
       !/After extra time|What changed the match|Goal timeline/.test(zhMatchBallBoyMetrics.text) &&
       zhMatchBallBoyMetrics.overflow <= 1,
-    `Chinese Ball Boy match cards should preserve extra-time semantics and authored Chinese recap copy. Measured ${JSON.stringify(zhMatchBallBoyMetrics)}.`
+    `Chinese Ball Boy result cards should preserve extra-time semantics and structured Chinese key moments without an unrelated timeline. Measured ${JSON.stringify(zhMatchBallBoyMetrics)}.`
   );
 
   const zhMatchAnswerCount = await touchPage.locator(".scout-answer.is-match").count();
@@ -12657,21 +12920,23 @@ try {
   );
   assert(
     (await touchPage.locator(".scout-answer.is-match").count()) === zhMatchAnswerCount + 1 &&
-      (await touchPage.locator(".scout-answer.is-country").count()) === 0,
+      (await touchPage.locator(".scout-answer.is-country").count()) === 0 &&
+      (await touchPage.locator(".scout-answer.is-match").last().locator(".scout-match-card.is-focus-scorers").count()) === 1 &&
+      (await touchPage.locator(".scout-answer.is-match").last().locator(".scout-goal-row").count()) === 3,
     "The generated Chinese scorer follow-up should remain a match intent instead of becoming a country card."
   );
 
   await touchPage.locator("#scout-reset").click();
   await zhBallBoyInput.fill("你是谁？");
   await zhBallBoySend.click();
-  await touchPage.locator(".scout-answer.is-personality").waitFor({ state: "visible" });
+  await touchPage.locator(".scout-message.is-assistant.is-personality").waitFor({ state: "visible" });
   const zhPersonalityText = await touchPage
-    .locator(".scout-answer.is-personality")
-    .innerText();
+    .locator(".scout-message.is-assistant.is-personality > p:not(.scout-speaker)")
+    .textContent();
   assert(
-    zhPersonalityText.includes("我是球童。我让足球更容易懂。") &&
+    zhPersonalityText.trim() === "我是球童。我把足球讲明白。" &&
       !/哈兰德|挪威|可疑|无可奉告/.test(zhPersonalityText),
-    `Ball Boy's Chinese identity should be generic, dry, and free of the retired Haaland disguise. Measured ${JSON.stringify(zhPersonalityText)}.`
+    `Ball Boy's Chinese identity should be direct and free of the retired Haaland disguise. Measured ${JSON.stringify(zhPersonalityText)}.`
   );
 
   await touchPage.locator("#scout-close").click();
@@ -12682,14 +12947,14 @@ try {
       document.documentElement.lang === "en" &&
       !document.querySelector(".language-option.is-pending") &&
       document.querySelector(".scout-title")?.textContent === "Ball Boy" &&
-      document.querySelector(".scout-answer.is-personality .scout-answer-lead")?.textContent.includes("I’m Ball Boy.")
+      document.querySelector(".scout-message.is-assistant.is-personality > p:not(.scout-speaker)")?.textContent.includes("I’m Ball Boy.")
   );
   if (await touchPage.locator("#settings-popover").isVisible()) {
     await touchPage.locator("#settings-button").click();
   }
   await touchPage.locator("#scout-launcher").click();
   const englishRerenderedBallBoy = await touchPage.evaluate(() => ({
-    answer: document.querySelector(".scout-answer.is-personality .scout-answer-lead")?.textContent.trim() || "",
+    answer: document.querySelector(".scout-message.is-assistant.is-personality > p:not(.scout-speaker)")?.textContent.trim() || "",
     initialUserQuestion: document.querySelector(".scout-message.is-user")?.textContent.trim() || "",
     status: document.querySelector(".scout-status")?.textContent.trim() || ""
   }));
@@ -12709,17 +12974,23 @@ try {
       document.documentElement.lang === "zh-Hans" &&
       !document.querySelector(".language-option.is-pending") &&
       document.querySelector(".scout-title")?.textContent === "球童" &&
-      document.querySelector(".scout-answer.is-personality .scout-answer-lead")?.textContent.includes("我是球童。")
+      document.querySelector(".scout-message.is-assistant.is-personality > p:not(.scout-speaker)")?.textContent.includes("我是球童。")
   );
+  if (await touchPage.locator("#settings-popover").isVisible()) {
+    await touchPage.locator("#settings-button").click();
+  }
+  await touchPage.locator("#scout-launcher").click();
+  await touchPage.waitForTimeout(450);
   const chineseRerenderedBallBoy = await touchPage.evaluate(() => ({
-    answer: document.querySelector(".scout-answer.is-personality .scout-answer-lead")?.textContent.trim() || "",
+    answer: document.querySelector(".scout-message.is-assistant.is-personality > p:not(.scout-speaker)")?.textContent.trim() || "",
     status: document.querySelector(".scout-status")?.textContent.trim() || "",
+    widgetOpen: document.querySelector("#scout-widget")?.classList.contains("is-open") || false,
     widgetOverflow: document.querySelector("#scout-widget")?.scrollWidth - document.querySelector("#scout-widget")?.clientWidth
   }));
   assert(
-    chineseRerenderedBallBoy.answer ===
-      "我是球童。我让足球更容易懂。" &&
+    chineseRerenderedBallBoy.answer === "我是球童。我把足球讲明白。" &&
       chineseRerenderedBallBoy.status === "问我足球问题" &&
+      chineseRerenderedBallBoy.widgetOpen &&
       chineseRerenderedBallBoy.widgetOverflow <= 1,
     `Switching back to Chinese should rebuild the same turn and keep the mobile widget unclipped. Measured ${JSON.stringify(chineseRerenderedBallBoy)}.`
   );

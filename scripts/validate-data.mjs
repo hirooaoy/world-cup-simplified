@@ -45,6 +45,10 @@ const LINEUP_FORMATION_NOTE_FORMATIONS = new Set([
   "5-4-1"
 ]);
 const COMPLETED_FIXTURE_STATUSES = new Set(["FT", "AET", "PEN"]);
+const BANNED_CURRENT_RESULT_STORY_PATTERN =
+  /\b(?:chase the match|pulled away|trading momentum|rescued a point|settled a tight match|traded pressure without finding a goal|both defenses kept the scoring lanes closed|made .+ sweat|later chances finally turned|scored their final goal)\b|\b(?:United States|Netherlands)'s\b/i;
+const CORRUPT_PLAYER_DISPLAY_NAME_PATTERN =
+  /\b(?:national (?:football|soccer) team|(?:fifa )?world cup group [a-l]|football award winners?)\b|\b(?:F\.?C\.?|S\.?C\.?)$/i;
 
 async function readJson(fileName) {
   const filePath = path.join(dataDir, fileName);
@@ -512,6 +516,47 @@ function registerSource(source, sourceIdSet, owner) {
 
 function isGeneratedScorerNote(note) {
   return /^Scored for .+ in .+ vs .+\.$/.test(String(note || "").trim());
+}
+
+function normalizedCurrentTeamLabels(team = {}) {
+  const labels = new Set();
+  for (const value of [team.name, team.officialName, team.standingName]) {
+    const normalized = normalizePlayerName(value);
+    if (!normalized) {
+      continue;
+    }
+    labels.add(normalized);
+    const meaningfulTokens = normalized
+      .split(/\s+/)
+      .filter((token) => !["dr", "ir", "republic", "the", "united", "states"].includes(token));
+    if (meaningfulTokens.length === 1) {
+      labels.add(meaningfulTokens[0]);
+    }
+  }
+  return labels;
+}
+
+function isCorruptCurrentPlayerDisplayName(profileName, profile = {}, team = {}) {
+  const displayName = String(profile.displayName || "").trim();
+  if (!displayName || /[|{}<>]/.test(displayName) || CORRUPT_PLAYER_DISPLAY_NAME_PATTERN.test(displayName)) {
+    return true;
+  }
+
+  const displayKey = normalizePlayerName(displayName);
+  const profileKey = normalizePlayerName(profileName);
+  if (
+    displayKey &&
+    displayKey !== profileKey &&
+    [profile.club, profile.league].some((value) => normalizePlayerName(value) === displayKey)
+  ) {
+    return true;
+  }
+
+  return (
+    profileKey.split(/\s+/).length >= 2 &&
+    displayKey.split(/\s+/).length === 1 &&
+    normalizedCurrentTeamLabels(team).has(displayKey)
+  );
 }
 
 function escapeRegExp(value) {
@@ -2083,6 +2128,16 @@ const playerProfiles = new Map(Object.entries(playerProfilesData?.profiles || {}
 const historicalPlayerProfiles = new Map(Object.entries(historicalPlayerProfilesData?.profiles || {}));
 const playerProfilesByAlias = new Map();
 for (const [profileName, profile] of playerProfiles) {
+  const owner = `player-profiles.json "${profileName}"`;
+  assert(profile && typeof profile === "object" && !Array.isArray(profile), `${owner} must be an object`);
+  if (!profile || typeof profile !== "object" || Array.isArray(profile)) {
+    continue;
+  }
+  assert(
+    !isCorruptCurrentPlayerDisplayName(profileName, profile, teams.get(profile.teamId)),
+    `${owner} displayName must be a player's name, not a team, club, group, or page title`
+  );
+
   for (const alias of getProfileAliases(profileName, profile)) {
     const key = normalizePlayerName(alias);
     if (key && !playerProfilesByAlias.has(key)) {
@@ -2348,6 +2403,33 @@ for (const fixture of fixturesData.fixtures || []) {
       assert(
         typeof highlight === "string" && highlight.trim().length <= 160,
         `Fixture "${fixture.id}" resultStoryBullets[${index}] should stay compact`
+      );
+      assert(
+        typeof highlight !== "string" || !BANNED_CURRENT_RESULT_STORY_PATTERN.test(highlight),
+        `Fixture "${fixture.id}" resultStoryBullets[${index}] uses a repeated generic result-story phrase`
+      );
+    }
+  }
+
+  if (fixture.resultStoryBulletsZh !== undefined) {
+    assert(Array.isArray(fixture.resultStoryBulletsZh), `Fixture "${fixture.id}" resultStoryBulletsZh must be an array`);
+    assert(
+      fixture.resultStoryBulletsZh.length <= 3,
+      `Fixture "${fixture.id}" resultStoryBulletsZh should include no more than three bullets`
+    );
+
+    for (const [index, highlight] of (fixture.resultStoryBulletsZh || []).entries()) {
+      assert(
+        typeof highlight === "string" && highlight.trim(),
+        `Fixture "${fixture.id}" resultStoryBulletsZh[${index}] must be a non-empty string`
+      );
+      assert(
+        !/^(?:⚽|🔥|🛡️|🧤|🌟|📊)\s*/u.test(String(highlight || "").trim()),
+        `Fixture "${fixture.id}" resultStoryBulletsZh[${index}] should not start with an emoji marker`
+      );
+      assert(
+        typeof highlight === "string" && highlight.trim().length <= 160,
+        `Fixture "${fixture.id}" resultStoryBulletsZh[${index}] should stay compact`
       );
     }
   }
@@ -2978,6 +3060,54 @@ for (const tournament of historyData.tournaments || []) {
 const historicalFixtureIds = new Set();
 const historicalFixturesById = new Map();
 const historicalYouTubeDispositionFixtureIds = new Set();
+const historicalFixtures = historyData.fixtures || [];
+let historicalShootoutOutlookCount = 0;
+
+function getHistoricalShootoutTeamKey(teamName) {
+  const key = String(teamName || "")
+    .normalize("NFD")
+    .replace(/\p{Diacritic}/gu, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim();
+  return key === "west germany" ? "germany" : key;
+}
+
+function isHistoricalShootoutOutlookFixture(fixture) {
+  return (
+    Number(fixture?.tournamentYear) >= 1978 &&
+    !fixture?.group &&
+    !/^Group\s+.+\s+Play-?off$/i.test(String(fixture?.round || "").trim())
+  );
+}
+
+function getExpectedHistoricalShootoutRecord(teamName, cutoffKey) {
+  const teamKey = getHistoricalShootoutTeamKey(teamName);
+  const events = historicalFixtures.filter((fixture) => {
+    const penalties = fixture?.scoreDetails?.penalties;
+    return (
+      getHistoricalShootoutTeamKey(fixture.homeSlot) === teamKey ||
+      getHistoricalShootoutTeamKey(fixture.awaySlot) === teamKey
+    ) &&
+      isNumber(penalties?.home) &&
+      isNumber(penalties?.away) &&
+      penalties.home !== penalties.away &&
+      String(fixture.sortKey || "").localeCompare(String(cutoffKey || "")) < 0;
+  });
+  const wins = events.filter((fixture) => {
+    const penalties = fixture.scoreDetails.penalties;
+    return getHistoricalShootoutTeamKey(fixture.homeSlot) === teamKey
+      ? penalties.home > penalties.away
+      : penalties.away > penalties.home;
+  }).length;
+
+  return {
+    wins,
+    losses: events.length - wins,
+    appearances: events.length
+  };
+}
+
 for (const fixture of historyData.fixtures || []) {
   assert(fixture.id, "Each historical fixture must have an id");
   assert(!historicalFixtureIds.has(fixture.id), `Duplicate historical fixture id "${fixture.id}"`);
@@ -3014,6 +3144,62 @@ for (const fixture of historyData.fixtures || []) {
     assert(fixture.score, `Historical final fixture "${fixture.id}" must include score`);
     assert(isNumber(fixture.score?.home), `Historical final fixture "${fixture.id}" must include numeric home score`);
     assert(isNumber(fixture.score?.away), `Historical final fixture "${fixture.id}" must include numeric away score`);
+  }
+  const expectsShootoutOutlook = isHistoricalShootoutOutlookFixture(fixture);
+  assert(
+    expectsShootoutOutlook ? fixture.shootoutOutlook !== undefined : fixture.shootoutOutlook === undefined,
+    expectsShootoutOutlook
+      ? `Historical knockout fixture "${fixture.id}" must include a pre-match shootoutOutlook from 1978 onward`
+      : `Historical fixture "${fixture.id}" must not imply a shootout under pre-1978 or non-knockout rules`
+  );
+  if (fixture.shootoutOutlook !== undefined) {
+    historicalShootoutOutlookCount += 1;
+    const outlook = fixture.shootoutOutlook;
+    assert(
+      outlook && typeof outlook === "object" && !Array.isArray(outlook),
+      `Historical fixture "${fixture.id}" shootoutOutlook must be an object`
+    );
+    requireSourceIds(outlook?.sourceIds, sourceIds, `Historical fixture "${fixture.id}" shootoutOutlook`);
+    assert(
+      outlook?.method === "world-cup-shootout-history",
+      `Historical fixture "${fixture.id}" shootoutOutlook must use world-cup-shootout-history`
+    );
+    assert(
+      isValidDateTime(outlook?.generatedAt),
+      `Historical fixture "${fixture.id}" shootoutOutlook must include a valid generatedAt`
+    );
+    assert(
+      outlook?.cutoffAt === fixture.date && outlook?.cutoffKey === fixture.sortKey,
+      `Historical fixture "${fixture.id}" shootoutOutlook cutoff must match the archived kickoff order`
+    );
+    assert(
+      outlook?.homeTeamName === fixture.homeSlot && outlook?.awayTeamName === fixture.awaySlot,
+      `Historical fixture "${fixture.id}" shootoutOutlook participants must match the fixture`
+    );
+
+    for (const side of ["home", "away"]) {
+      const record = outlook?.[side];
+      const teamName = side === "home" ? fixture.homeSlot : fixture.awaySlot;
+      const expected = getExpectedHistoricalShootoutRecord(teamName, fixture.sortKey);
+      assert(
+        record && typeof record === "object" && !Array.isArray(record),
+        `Historical fixture "${fixture.id}" shootoutOutlook.${side} must be an object`
+      );
+      for (const field of ["wins", "losses", "appearances"]) {
+        assert(
+          Number.isInteger(record?.[field]) && record[field] >= 0,
+          `Historical fixture "${fixture.id}" shootoutOutlook.${side}.${field} must be a non-negative integer`
+        );
+        assert(
+          record?.[field] === expected[field],
+          `Historical fixture "${fixture.id}" shootoutOutlook.${side}.${field} must use only prior World Cup shootouts`
+        );
+      }
+      assert(
+        record?.wins + record?.losses === record?.appearances,
+        `Historical fixture "${fixture.id}" shootoutOutlook.${side} wins and losses must total appearances`
+      );
+    }
   }
   if (fixture.resultStoryBullets !== undefined) {
     assert(Array.isArray(fixture.resultStoryBullets), `Historical fixture "${fixture.id}" resultStoryBullets must be an array`);
@@ -3125,6 +3311,11 @@ for (const fixture of historyData.fixtures || []) {
     }
   }
 }
+
+assert(
+  historicalShootoutOutlookCount === 166,
+  `history.json should include 166 cutoff-safe knockout shootout outlooks from 1978-2022, found ${historicalShootoutOutlookCount}`
+);
 
 if (youtubeHistoryCacheData) {
   validateHistoricalYouTubeCache(youtubeHistoryCacheData, historicalFixturesById, historicalYouTubeDispositionFixtureIds);

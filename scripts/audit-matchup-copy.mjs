@@ -468,6 +468,8 @@ function getAuthoredCatchUpChineseCopyFields(items, fieldPrefix) {
 
 function getAuthoredChineseCopyFields(fixture) {
   const fields = [];
+  const hasLocalizedStoryBullets = Array.isArray(fixture.resultStoryBulletsZh)
+    && fixture.resultStoryBulletsZh.some((highlight) => typeof highlight === "string" && highlight.trim());
 
   for (const [index, highlight] of (fixture.resultHighlights || []).entries()) {
     if (typeof highlight === "string" && highlight.trim()) {
@@ -478,12 +480,14 @@ function getAuthoredChineseCopyFields(fixture) {
     }
   }
 
-  for (const [index, highlight] of (fixture.resultStoryBullets || []).entries()) {
-    if (typeof highlight === "string" && highlight.trim()) {
-      fields.push({
-        field: `resultStoryBullets[${index}]`,
-        text: highlight.trim()
-      });
+  if (!hasLocalizedStoryBullets) {
+    for (const [index, highlight] of (fixture.resultStoryBullets || []).entries()) {
+      if (typeof highlight === "string" && highlight.trim()) {
+        fields.push({
+          field: `resultStoryBullets[${index}]`,
+          text: highlight.trim()
+        });
+      }
     }
   }
 

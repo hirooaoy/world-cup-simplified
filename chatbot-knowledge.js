@@ -214,7 +214,7 @@ const RULE_CATALOG = [
       { title: "First five", text: "Each team starts with five kicks, taken by different players." },
       { title: "Still tied?", text: "They continue one kick each until one scores and the other misses." }
     ],
-    takeaway: "A calm walk from halfway. Then one very loud kick.",
+    takeaway: "Five kicks each, then one kick each if the score is still level.",
     sourceUrl: "https://www.theifab.com/laws/latest/determining-the-outcome-of-a-match/"
   },
   {
@@ -231,7 +231,7 @@ const RULE_CATALOG = [
       { title: "Straight red", text: "One serious offence can mean an immediate red card." },
       { title: "Two yellows", text: "A second yellow in the same match also sends the player off." }
     ],
-    takeaway: "One fewer teammate. Same giant pitch. Bad mathematics.",
+    takeaway: "The team plays one player short.",
     sourceUrl: "https://www.theifab.com/laws/latest/fouls-and-misconduct/"
   },
   {
@@ -248,7 +248,7 @@ const RULE_CATALOG = [
       { title: "Why it happens", text: "Common reasons include reckless fouls, delaying play, dissent, or repeated offences." },
       { title: "Second yellow", text: "Two yellows in one match become a red card, so the player is sent off." }
     ],
-    takeaway: "First warning: calm down. Second warning: shower time.",
+    takeaway: "Two yellow cards in one match mean a red card.",
     sourceUrl: "https://www.theifab.com/laws/latest/fouls-and-misconduct/"
   },
   {
@@ -265,7 +265,7 @@ const RULE_CATALOG = [
       { title: "Usually an offence", text: "The player deliberately handles it or makes their body unnaturally bigger with the arm." },
       { title: "Not automatic", text: "A close-range accidental touch with a natural arm position may be allowed." }
     ],
-    takeaway: "Ball to hand is a clue. It is not the whole detective story.",
+    takeaway: "Contact with the hand or arm alone is not enough.",
     sourceUrl: "https://www.theifab.com/laws/latest/fouls-and-misconduct/"
   },
   {
@@ -279,10 +279,10 @@ const RULE_CATALOG = [
       { value: "1v1", label: "Taker vs keeper" }
     ],
     points: [
-      { title: "The setup", text: "The ball goes on the spot. The goalkeeper stays on the goal line until the kick is taken." },
+      { title: "The setup", text: "The ball goes on the spot. When the ball is kicked, at least part of one of the goalkeeper’s feet must be touching, level with, or behind the goal line." },
       { title: "Everyone else", text: "Other players wait outside the penalty area and behind the ball." }
     ],
-    takeaway: "One ball. One goalkeeper. Suddenly everyone remembers breathing.",
+    takeaway: "The taker faces the goalkeeper from 11 metres.",
     sourceUrl: "https://www.theifab.com/laws/latest/the-penalty-kick/"
   },
   {
@@ -299,7 +299,7 @@ const RULE_CATALOG = [
       { title: "What it checks", text: "Goals, penalty decisions, direct red cards, and mistaken identity." },
       { title: "Who decides", text: "The on-field referee keeps the final decision, sometimes after watching the monitor." }
     ],
-    takeaway: "Technology advises. The referee still owns the whistle.",
+    takeaway: "VAR advises. The referee decides.",
     sourceUrl: "https://www.theifab.com/laws/latest/video-assistant-referee-var-protocol/"
   },
   {
@@ -316,7 +316,7 @@ const RULE_CATALOG = [
       { title: "It is not stoppage time", text: "Extra time is two new 15-minute periods. Stoppage time is added within a period." },
       { title: "Still level?", text: "If the competition requires a winner, a penalty shootout usually follows." }
     ],
-    takeaway: "The legs say no. The tournament says thirty more minutes.",
+    takeaway: "Extra time is two more 15-minute periods.",
     sourceUrl: "https://www.theifab.com/laws/latest/determining-the-outcome-of-a-match/"
   },
   {
@@ -333,7 +333,7 @@ const RULE_CATALOG = [
       { title: "Why it is added", text: "Substitutions, injuries, celebrations, reviews, and deliberate delays can all add time." },
       { title: "Not extra time", text: "90+4 means the fourth added minute after 90. Extra time is a separate 30-minute period in some knockout matches." }
     ],
-    takeaway: "The board shows a minimum. The referee keeps the final clock.",
+    takeaway: "The board shows the minimum time to be added.",
     sourceUrl: "https://www.theifab.com/laws/latest/the-duration-of-the-match/"
   },
   {
@@ -347,10 +347,10 @@ const RULE_CATALOG = [
       { value: "+0", label: "Loss" }
     ],
     points: [
-      { title: "Goal difference", text: "Goals scored minus goals allowed. It is a common tiebreaker when points are level." },
+      { title: "Goal difference", text: "Goals scored minus goals conceded. It is a common tiebreaker when points are level." },
       { title: "Then what?", text: "Competitions use a published tiebreak order if teams are still level." }
     ],
-    takeaway: "Win matches and the calculator gets much less dramatic.",
+    takeaway: "Win 3 · Draw 1 · Loss 0",
     sourceUrl: ""
   },
   {
@@ -367,7 +367,7 @@ const RULE_CATALOG = [
       { title: "Why managers do it", text: "Fresh legs, an injury, a tactical change, or a different type of player." },
       { title: "Can they return?", text: "In top-level World Cup football, a substituted player cannot come back into that match." }
     ],
-    takeaway: "Same team. New problem for the opponent.",
+    takeaway: "A substituted player cannot return in this competition.",
     sourceUrl: "https://www.theifab.com/laws/latest/the-players/"
   }
 ];
@@ -385,7 +385,7 @@ const ZH_RULE_COPY = {
       { title: "前五轮", text: "每队先由五名不同球员各罚一次。" },
       { title: "还是平局？", text: "之后双方各罚一次；一方罚进而另一方罚失时，比赛结束。" }
     ],
-    takeaway: "从中圈走向罚球点。路不远，压力很大。"
+    takeaway: "双方先各罚5次；仍打平时，再各罚1次。"
   },
   "red-card": {
     title: "红牌",
@@ -399,7 +399,7 @@ const ZH_RULE_COPY = {
       { title: "直接红牌", text: "一次严重犯规或违规行为就可能直接得到红牌。" },
       { title: "两张黄牌", text: "同一场比赛得到第二张黄牌，也会被罚下。" }
     ],
-    takeaway: "少一个队友，球场却没有变小。算术很残酷。"
+    takeaway: "球队会少一名球员继续比赛。"
   },
   "yellow-card": {
     title: "黄牌",
@@ -413,7 +413,7 @@ const ZH_RULE_COPY = {
       { title: "为什么会吃牌", text: "常见原因包括鲁莽犯规、拖延比赛、抗议判罚或反复犯规。" },
       { title: "第二张黄牌", text: "同场两黄会变成一红，球员必须离场。" }
     ],
-    takeaway: "第一次：冷静。第二次：提前去更衣室。"
+    takeaway: "同一场比赛两张黄牌等于一张红牌。"
   },
   handball: {
     title: "手球",
@@ -427,7 +427,7 @@ const ZH_RULE_COPY = {
       { title: "通常会判罚", text: "球员故意用手触球，或用不自然张开的手臂扩大防守面积。" },
       { title: "并非自动判罚", text: "近距离意外触球、手臂处于自然位置时，可能不判犯规。" }
     ],
-    takeaway: "球碰到手只是线索，不是完整答案。"
+    takeaway: "球碰到手或手臂，不代表一定犯规。"
   },
   "penalty-kick": {
     title: "点球",
@@ -438,10 +438,10 @@ const ZH_RULE_COPY = {
       { value: "1对1", label: "主罚者对门将" }
     ],
     points: [
-      { title: "如何摆放", text: "球放在点球点；开球前，门将至少有一只脚接触或对齐球门线。" },
+      { title: "如何摆放", text: "球放在点球点。球被踢出时，门将至少要有一只脚的一部分接触球门线、与球门线齐平或位于球门线后方。" },
       { title: "其他球员", text: "其他球员要留在禁区外、点球点后方。" }
     ],
-    takeaway: "一个球，一名门将，突然所有人都忘了怎么呼吸。"
+    takeaway: "主罚者在11米外面对门将。"
   },
   var: {
     title: "VAR",
@@ -455,7 +455,7 @@ const ZH_RULE_COPY = {
       { title: "检查什么", text: "进球、点球、直接红牌和认错球员。" },
       { title: "谁来决定", text: "最终决定仍由场上主裁判作出，有时会到场边观看回放。" }
     ],
-    takeaway: "技术提供建议，哨子仍在裁判手里。"
+    takeaway: "VAR提供建议，最终由裁判决定。"
   },
   "extra-time": {
     title: "加时赛",
@@ -469,7 +469,7 @@ const ZH_RULE_COPY = {
       { title: "不是伤停补时", text: "加时赛是两个新的15分钟时段；伤停补时则加在某个半场末尾。" },
       { title: "仍然打平？", text: "如果比赛必须分出胜者，通常会进入点球大战。" }
     ],
-    takeaway: "双腿说够了，赛制说再来三十分钟。"
+    takeaway: "加时赛由两个15分钟时段组成。"
   },
   "stoppage-time": {
     title: "伤停补时",
@@ -483,7 +483,7 @@ const ZH_RULE_COPY = {
       { title: "为什么补时", text: "换人、伤病处理、庆祝进球、视频检查和故意拖延都可能增加补时时间。" },
       { title: "不是加时赛", text: "90+4表示常规时间第90分钟后的第4个补时分钟；加时赛则是部分淘汰赛另踢的30分钟。" }
     ],
-    takeaway: "牌子显示的是最少补时，最终时间由裁判掌握。"
+    takeaway: "牌子显示的是最少补时时间。"
   },
   "group-points": {
     title: "小组赛积分",
@@ -497,7 +497,7 @@ const ZH_RULE_COPY = {
       { title: "净胜球", text: "进球数减去失球数。球队同分时，它通常是重要的同分排序指标。" },
       { title: "仍然相同？", text: "如果各队仍然相同，赛事会继续按照已公布的同分排序规则比较。" }
     ],
-    takeaway: "多赢比赛，计算器就没那么忙。"
+    takeaway: "胜3分 · 平1分 · 负0分"
   },
   substitution: {
     title: "换人",
@@ -511,7 +511,7 @@ const ZH_RULE_COPY = {
       { title: "为什么换人", text: "可能是补充体能、处理伤病、调整战术，或换上不同类型的球员。" },
       { title: "还能回来吗", text: "在世界杯这种顶级赛事中，被换下的球员不能在同一场比赛再次上场。" }
     ],
-    takeaway: "还是同一支球队，但给对手换了一个问题。"
+    takeaway: "本赛事中，被换下的球员不能再次上场。"
   }
 };
 
@@ -526,9 +526,7 @@ const BALL_BOY_PERSONALITY_REPLIES = [
     ],
     label: "About me",
     text: "I’m Ball Boy. I make football easier to understand.",
-    badge: "On stadium duty",
-    eye: "double-blink",
-    followUps: ["What can I ask?", "What is football?", "Explain offside"]
+    eye: "double-blink"
   },
   {
     id: "life",
@@ -538,23 +536,25 @@ const BALL_BOY_PERSONALITY_REPLIES = [
       /^why are we here$/
     ],
     label: "Philosophy",
-    text: "Life is mostly waiting for something to happen, then pretending you were ready. Football is similar.",
-    badge: "Brief philosophy",
-    eye: "double-blink",
-    followUps: ["What is football?", "What can I ask?", "Explain offside"]
+    text: "No idea.",
+    eye: "side-glance"
   },
   {
     id: "football",
     patterns: [
       /^(?:what is|what s|whats) football$/,
-      /^define football$/,
-      /^why is football special$/
+      /^define football$/
     ],
     label: "Football",
-    text: "Football is two teams trying to put one ball in the other team's goal, usually over 90 minutes. The idea is simple. The people make it complicated.",
-    badge: "Simple game, complicated people",
-    eye: "wide",
-    followUps: ["Explain offside", "Explain a red card", "Who should I watch?"]
+    text: "Two teams try to score more goals than each other. Most matches last 90 minutes.",
+    eye: "wide"
+  },
+  {
+    id: "football-special",
+    patterns: [/^why is football special$/],
+    label: "Football",
+    text: "It is simple to start and difficult to master.",
+    eye: "wide"
   },
   {
     id: "reality",
@@ -564,24 +564,30 @@ const BALL_BOY_PERSONALITY_REPLIES = [
       /^do you (?:really )?exist$/
     ],
     label: "Reality check",
-    text: "I am a chatbot called Ball Boy. Not a real stadium employee, which is probably why I never get a break.",
-    badge: "Digital stadium staff",
-    eye: "double-blink",
-    followUps: ["Who are you?", "What can I ask?", "Explain offside"]
+    text: "I’m a chatbot.",
+    eye: "double-blink"
   },
   {
     id: "soccer",
     patterns: [
       /^(?:what is|what s|whats) soccer$/,
       /^soccer$/,
-      /^is it soccer or football$/,
-      /^why (?:do )?(?:people|americans) (?:say|call it) soccer$/
+      /^is it soccer or football$/
     ],
     label: "Terminology",
-    text: "“Soccer” is another name for association football. The word is historically valid. The ball does not seem concerned.",
-    badge: "Same game",
-    eye: "wince",
-    followUps: ["What is football?", "Explain offside", "Explain a red card"]
+    text: "You mean football.",
+    eye: "wince"
+  },
+  {
+    id: "soccer-etymology",
+    patterns: [
+      /^why (?:do )?(?:people|americans) (?:say|call it) soccer$/,
+      /^why is (?:it|football) called soccer$/,
+      /^where does (?:the word )?soccer come from$/
+    ],
+    label: "Terminology",
+    text: "“Soccer” comes from “association football.”",
+    eye: "double-blink"
   },
   {
     id: "best-player",
@@ -590,11 +596,9 @@ const BALL_BOY_PERSONALITY_REPLIES = [
       /^(?:who is|who s|whos) (?:the )?best (?:player|footballer)(?: in the world| right now| in football)?$/,
       /^(?:the )?(?:best (?:player|footballer)|goat)$/
     ],
-    label: "Expert verdict",
-    text: "There is no permanent single answer. Form, position, era, and what you value all change it. I can give you current tournament facts instead.",
-    badge: "Debate remains open",
-    eye: "double-blink",
-    followUps: ["Tell me about Mbappe", "Who should I watch?", "How does Argentina play?"]
+    label: "Best player",
+    text: "Depends. Right now, this tournament, or all time?",
+    eye: "double-blink"
   },
   {
     id: "best-country",
@@ -602,11 +606,9 @@ const BALL_BOY_PERSONALITY_REPLIES = [
       /^(?:which|what) (?:country|national team) is (?:the )?best(?: in football| at football| in the world)?$/,
       /^(?:the )?best (?:country|national team)$/
     ],
-    label: "Neutral opinion",
-    text: "There is no permanent best country. Trophies, current form, and playing style give different answers. I can compare the tournament numbers without starting an argument.",
-    badge: "No permanent champion",
-    eye: "double-blink",
-    followUps: ["How do Argentina play?", "How do Spain play?", "Who should I watch?"]
+    label: "Best country",
+    text: "Depends. Current form, trophies, or this World Cup?",
+    eye: "double-blink"
   },
   {
     id: "haaland-denial",
@@ -615,10 +617,8 @@ const BALL_BOY_PERSONALITY_REPLIES = [
       /^(?:you are|you re) (?:erling )?haaland$/
     ],
     label: "Wrong person",
-    text: "No. Haaland scores the goals; I collect the footballs. Different job.",
-    badge: "Different job",
-    eye: "double-blink",
-    followUps: ["Tell me about Haaland", "What can I ask?", "Explain offside"]
+    text: "No.",
+    eye: "double-blink"
   },
   {
     id: "greeting",
@@ -627,10 +627,8 @@ const BALL_BOY_PERSONALITY_REPLIES = [
       /^(?:good morning|good afternoon|good evening)(?: ball boy)?$/
     ],
     label: "Ball Boy",
-    text: "Hello. Ask your question. I was resting, but this is fine.",
-    badge: "Available, apparently",
-    eye: "wide",
-    followUps: ["What can I ask?", "Explain offside", "Tell me about Mbappe"]
+    text: "Hi. Ask away.",
+    eye: "wide"
   },
   {
     id: "mood",
@@ -639,11 +637,9 @@ const BALL_BOY_PERSONALITY_REPLIES = [
       /^(?:how is|how s|hows) it going$/,
       /^you good$/
     ],
-    label: "Form check",
-    text: "Fine. I have been standing still very efficiently.",
-    badge: "Energy conserved",
-    eye: "double-blink",
-    followUps: ["What can I ask?", "Explain offside", "Who should I watch?"]
+    label: "Ball Boy",
+    text: "Good.",
+    eye: "double-blink"
   },
   {
     id: "thanks",
@@ -651,96 +647,76 @@ const BALL_BOY_PERSONALITY_REPLIES = [
       /^(?:thanks|thank you|cheers|nice one)(?: ball boy)?$/
     ],
     label: "Ball Boy",
-    text: "You're welcome. I will return to standing near the corner flag.",
-    badge: "Back to position",
-    eye: "happy",
-    followUps: ["What can I ask?", "Tell me about Mbappe", "Explain offside"]
+    text: "Anytime.",
+    eye: "happy"
   },
   {
     id: "joke",
     patterns: [
       /^(?:tell me a joke|make me laugh|football joke)$/
     ],
-    label: "Comedy",
-    text: "I asked for a raise. They gave me another football.",
-    badge: "Stadium economics",
-    eye: "happy",
-    followUps: ["What can I ask?", "Tell me about Mbappe", "Explain offside"]
+    label: "Ball Boy",
+    text: "No good ones.",
+    eye: "wince"
   }
 ];
 
 const ZH_PERSONALITY_COPY = {
   identity: {
     label: "自我介绍",
-    text: "我是球童。我让足球更容易懂。",
-    badge: "球场值班中",
-    followUps: ["我可以问什么？", "什么是足球？", "解释越位"]
+    text: "我是球童。我把足球讲明白。"
   },
   life: {
-    label: "人生哲学",
-    text: "人生大部分时间是在等事情发生，然后假装自己早有准备。足球也差不多。",
-    badge: "简短哲学",
-    followUps: ["什么是足球？", "我可以问什么？", "解释越位"]
+    label: "球童",
+    text: "不知道。"
   },
   football: {
     label: "足球",
-    text: "足球通常是两支球队在90分钟内，想办法把一个球送进对方球门。想法很简单，人会把它变复杂。",
-    badge: "简单比赛，复杂的人",
-    followUps: ["解释越位", "解释红牌", "我该关注谁？"]
+    text: "两支球队争取比对方进更多球。大多数比赛踢90分钟。"
+  },
+  "football-special": {
+    label: "足球",
+    text: "入门很简单，踢好很难。"
   },
   reality: {
-    label: "真实性检查",
-    text: "我是一个叫球童的聊天机器人，不是真正的球场工作人员。可能正因如此，我从来没有休息时间。",
-    badge: "数字球场员工",
-    followUps: ["你是谁？", "我可以问什么？", "解释越位"]
+    label: "球童",
+    text: "我是聊天机器人。"
   },
   soccer: {
-    label: "用词问题",
-    text: "“Soccer”是association football的另一个名称，这个词在历史上完全成立。足球本人似乎并不在意。",
-    badge: "还是同一项运动",
-    followUps: ["什么是足球？", "解释越位", "解释红牌"]
+    label: "用词",
+    text: "你是说足球。"
+  },
+  "soccer-etymology": {
+    label: "用词",
+    text: "“Soccer”一词来自“association football”。"
   },
   "best-player": {
-    label: "专家结论",
-    text: "没有一个永远正确的答案。状态、位置、时代，以及你看重什么，都会改变结论。我可以改为提供本届赛事的客观数据。",
-    badge: "争论继续",
-    followUps: ["介绍一下姆巴佩", "我该关注谁？", "阿根廷怎么踢？"]
+    label: "最佳球员",
+    text: "看你问的是现在、本届赛事，还是历史最佳。"
   },
   "best-country": {
-    label: "中立意见",
-    text: "没有一个永远最强的国家队。冠军数量、近期状态和比赛风格会给出不同答案。我可以比较本届赛事数据，避免现场吵起来。",
-    badge: "没有永久冠军",
-    followUps: ["阿根廷怎么踢？", "西班牙怎么踢？", "我该关注谁？"]
+    label: "最佳国家队",
+    text: "看你比较的是近期状态、冠军数量，还是本届世界杯。"
   },
   "haaland-denial": {
-    label: "认错人了",
-    text: "不是。哈兰德负责进球，我负责捡球。工作不同。",
-    badge: "工作不同",
-    followUps: ["介绍一下哈兰德", "我可以问什么？", "解释越位"]
+    label: "球童",
+    text: "不是。"
   },
   greeting: {
     label: "球童",
-    text: "你好。问吧。我刚才在休息，不过没关系。",
-    badge: "看来现在有空",
-    followUps: ["我可以问什么？", "解释越位", "介绍一下姆巴佩"]
+    text: "你好。问吧。"
   },
   mood: {
-    label: "状态检查",
-    text: "还好。我一直非常高效地站着不动。",
-    badge: "节省体力中",
-    followUps: ["我可以问什么？", "解释越位", "我该关注谁？"]
+    label: "球童",
+    text: "挺好。"
   },
   thanks: {
     label: "球童",
-    text: "不客气。我继续回角旗旁边站着。",
-    badge: "回到位置",
-    followUps: ["我可以问什么？", "介绍一下姆巴佩", "解释越位"]
+    text: "不客气。"
   },
   joke: {
-    label: "喜剧时间",
-    text: "我提出加薪。他们又给了我一个足球。",
-    badge: "球场经济学",
-    followUps: ["我可以问什么？", "介绍一下姆巴佩", "解释越位"]
+    label: "球童",
+    text: "没有好笑的。"
   }
 };
 
@@ -905,12 +881,15 @@ function canonicalizeChineseQuestion(value) {
     [/^为什么活着$/, "why are we here"],
     [/^什么是足球$/, "what is football"],
     [/^足球是什么$/, "what is football"],
+    [/^足球为什么(?:这么)?特别$/, "why is football special"],
     [/^(?:你|您)是真的吗$/, "are you real"],
     [/^(?:你|您)是真人吗$/, "are you a real person"],
     [/^(?:你|您)是(?:机器人|聊天机器人|ai)吗$/, "are you a chatbot"],
     [/^什么是soccer$/, "what is soccer"],
     [/^soccer是什么$/, "what is soccer"],
     [/^为什么叫soccer$/, "why do people call it soccer"],
+    [/^soccer为什么(?:这么)?叫$/, "why is it called soccer"],
+    [/^soccer这个词从哪(?:里)?来$/, "where does the word soccer come from"],
     [/^(?:谁|哪个球员)(?:是)?(?:世界上)?(?:最强|最好|最佳)$/, "who is the best player"],
     [/^谁是goat$/, "who is the goat"],
     [/^(?:哪个|哪支)(?:国家|国家队)(?:是)?(?:世界上)?(?:最强|最好|最佳)$/, "which country is the best"],
@@ -1691,14 +1670,14 @@ function buildPlayerReply(profile, team, fixtures, question, locale = "en") {
   }
   followUps.push(isZh
     ? localizedTeam ? `${localizedTeam.name}怎么踢？` : "我可以问什么？"
-    : team ? `How do ${team.name} play?` : "What can I ask?");
+    : team ? `How does ${team.name} play?` : "What can I ask?");
 
   const localizedSkills = (Array.isArray(profile.skills) ? profile.skills.slice(0, 3) : [])
     .map((skill) => getLocalizedStyleLabel(skill, locale));
   const note = isZh
-    ? localizedSkills.length
-      ? `${localizedName}的比赛看点是${joinNaturalList(localizedSkills, locale)}。先观察这些动作，就更容易看懂这名球员的作用。`
-      : `${localizedName}会根据比赛阶段调整任务，重点是帮助球队完成下一次有效行动。`
+    ? profile.noteZh || (localizedSkills.length
+      ? `${localizedName}的比赛看点是${joinNaturalList(localizedSkills, locale)}。`
+      : `${localizedName}会根据比赛阶段调整场上任务。`)
     : profile.note || "";
 
   return {
@@ -1923,6 +1902,19 @@ function buildCountryReply(team, core, question, locale = "en") {
   const asksTopScorer = /\b(top scorer|leading scorer|most goals|who scored most)\b/.test(question);
   const asksNext = /\b(next|play next|playing next|next match|next game|who.*next)\b/.test(question);
   const asksStyle = /\b(style|play style|playstyle|how.*play|attack|defend)\b/.test(question);
+  const focus = asksNext
+    ? "next"
+    : asksTopScorer
+      ? "top-scorer"
+      : asksGoalDifference
+        ? "goal-difference"
+        : asksGoals
+          ? "goals"
+          : asksWins
+            ? "record"
+            : asksStyle
+              ? "style"
+              : "overview";
   const shootoutResults = [
     record.shootoutAdvances
       ? `advanced ${record.shootoutAdvances === 1 ? "once" : `${record.shootoutAdvances} times`}`
@@ -1941,8 +1933,8 @@ function buildCountryReply(team, core, question, locale = "en") {
   let lead;
   if (asksNext && !nextMatch) {
     lead = isZh
-      ? `目前载入的赛程中没有${localizedTeam.name}的下一场比赛。`
-      : `${team.name} have no next match in the loaded tournament schedule.`;
+      ? `${localizedTeam.name}目前没有下一场比赛。`
+      : `${team.name} do not currently have another match scheduled.`;
   } else if (asksTopScorer && topScorer) {
     lead = isZh
       ? `${localizedTopScorer.name}以${topScorer.goals}个进球领跑${localizedTeam.name}队内射手榜。`
@@ -1951,11 +1943,11 @@ function buildCountryReply(team, core, question, locale = "en") {
     const goalDifference = record.goalsFor - record.goalsAgainst;
     lead = isZh
       ? `${localizedTeam.name}本届赛事的净胜球是${goalDifference > 0 ? "+" : ""}${goalDifference}：进${record.goalsFor}球，失${record.goalsAgainst}球。`
-      : `${team.name}'s full-tournament goal difference is ${goalDifference > 0 ? "+" : ""}${goalDifference}: ${record.goalsFor} scored minus ${record.goalsAgainst} allowed.`;
+      : `${team.name}'s full-tournament goal difference is ${goalDifference > 0 ? "+" : ""}${goalDifference}: ${record.goalsFor} scored minus ${record.goalsAgainst} conceded.`;
   } else if (asksGoals) {
     lead = isZh
       ? `${localizedTeam.name}在${record.played}场比赛中打进${record.goalsFor}球，丢了${record.goalsAgainst}球。`
-      : `${team.name} have scored ${formatStatNoun(record.goalsFor, "goal")} and allowed ${record.goalsAgainst} across ${record.played} matches.`;
+      : `${team.name} have scored ${formatStatNoun(record.goalsFor, "goal")} and conceded ${record.goalsAgainst} across ${record.played} matches.`;
   } else if (asksWins) {
     lead = isZh
       ? `${localizedTeam.name}本届世界杯踢了${record.played}场，赢下${record.wins}场。${record.shootoutAdvances || record.shootoutExits ? "点球大战在胜平负统计中按平局计算。" : ""}`
@@ -1965,7 +1957,7 @@ function buildCountryReply(team, core, question, locale = "en") {
   } else {
     lead = isZh
       ? `${localizedTeam.name}踢了${record.played}场：${record.wins}胜、${record.draws}平、${record.losses}负，进${record.goalsFor}球、失${record.goalsAgainst}球。`
-      : `${team.name} are ${record.wins}-${record.draws}-${record.losses} across ${record.played} matches, with ${record.goalsFor} scored and ${record.goalsAgainst} allowed.`;
+      : `${team.name} are ${record.wins}-${record.draws}-${record.losses} across ${record.played} matches, with ${record.goalsFor} scored and ${record.goalsAgainst} conceded.`;
   }
 
   const keyPlayers = getTeamKeyPlayers(team.id, core.fixtures).map((player) => ({
@@ -1988,6 +1980,7 @@ function buildCountryReply(team, core, question, locale = "en") {
 
   return {
     beginnerStyle: getTeamStyleSummary(team, locale),
+    focus,
     followUps: followUps.slice(0, 3),
     groupStanding: getTeamGroupStanding(team, core.standings),
     keyPlayers,
@@ -2162,24 +2155,50 @@ function getZhH2hSummary(fixture, teams) {
   return `此前经过核验的成年国家队交锋：${teams.home.name}${record.homeWins}胜，平局${record.draws}场，${teams.away.name}${record.awayWins}胜。`;
 }
 
-function getStructuredZhRecap(fixture, teams, timeline) {
-  if (Array.isArray(fixture?.resultStoryBulletsZh) && fixture.resultStoryBulletsZh.length) {
+const GENERIC_MATCH_STORY_PATTERN = /\b(?:chase the match|pulled away|trading momentum|kept trading momentum|rescued a point|settled a tight match|finished the scoring|shaped the contest|shaped the match|traded pressure without finding a goal|both defenses kept the scoring lanes closed|made .+ sweat|later chances finally turned)\b/i;
+
+function getStructuredMatchRecap(fixture, teams, timeline, locale = "en") {
+  const isZh = isZhLocale(locale);
+  if (isZh && Array.isArray(fixture?.resultStoryBulletsZh) && fixture.resultStoryBulletsZh.length) {
     return fixture.resultStoryBulletsZh.slice(0, 3);
   }
   if (!isCompletedFixture(fixture)) {
     return [];
   }
-  const winnerId = getFixtureWinnerId(fixture);
-  const winner = winnerId === fixture.homeTeamId ? teams.home : winnerId === fixture.awayTeamId ? teams.away : null;
+  if (!isZh && Array.isArray(fixture?.resultStoryBullets)) {
+    const specific = fixture.resultStoryBullets
+      .filter((bullet) => bullet && !GENERIC_MATCH_STORY_PATTERN.test(bullet))
+      .slice(0, 3);
+    if (specific.length) {
+      return specific;
+    }
+  }
   const firstGoal = timeline[0];
+  const finalGoal = timeline.length > 1 ? timeline.at(-1) : null;
   const bullets = [];
   if (firstGoal) {
-    bullets.push(`${firstGoal.name}在${firstGoal.minute}打入本场第一个进球。`);
+    bullets.push(isZh
+      ? `${firstGoal.name}在${firstGoal.minute}首开纪录。`
+      : `${firstGoal.name} opened the scoring at ${firstGoal.minute}.`);
   }
-  if (winner && Number.isFinite(fixture?.score?.home) && Number.isFinite(fixture?.score?.away)) {
-    bullets.push(`${winner.name}最终拿下比赛。`);
+  if (finalGoal) {
+    bullets.push(isZh
+      ? `${finalGoal.name}在${finalGoal.minute}打入最后一个进球。`
+      : `${finalGoal.name} scored the final goal at ${finalGoal.minute}.`);
   }
   return bullets.slice(0, 3);
+}
+
+function getMatchH2hSummary(fixture, teams, locale = "en") {
+  if (isZhLocale(locale)) {
+    return getZhH2hSummary(fixture, teams);
+  }
+  if (fixture?.h2h?.status === "loaded" && fixture.h2h.summary) {
+    return fixture.h2h.summary;
+  }
+  return fixture?.h2h?.status === "verified-empty"
+    ? "No verified previous senior meetings before this fixture."
+    : "Previous-meeting history is still being checked.";
 }
 
 function buildMatchReply(fixture, core, question, locale = "en") {
@@ -2191,12 +2210,41 @@ function buildMatchReply(fixture, core, question, locale = "en") {
   };
   const timeline = getGoalTimeline(fixture, locale);
   const wantsH2h = /\b(head to head|h2h|history|previous meetings)\b/.test(question);
+  const asksWhoScored = /\b(who scored|scorers|goalscorers|goal scorers)\b/.test(question);
+  const asksWhen = /\b(when|kickoff|next match|play next|playing next)\b/.test(question);
+  const asksHighlights = /\b(highlights|watch)\b/.test(question);
+  const asksResult = /\b(who won|winner|score|result|beat)\b/.test(question);
+  const focus = asksWhoScored
+    ? "scorers"
+    : asksWhen
+      ? "when"
+      : wantsH2h
+        ? "h2h"
+        : asksHighlights
+          ? "highlights"
+          : asksResult
+            ? "result"
+            : "overview";
   const resultLead = buildMatchLead(fixture, teams, timeline, locale);
-  const lead = /\bwhen\b/.test(question) && isCompletedFixture(fixture)
-    ? isZh
-      ? `${teams.home?.name || "主队"}与${teams.away?.name || "客队"}在${formatKickoff(fixture.kickoffUtc, locale)}交手。${resultLead}`
-      : `${teams.home?.name || "The home team"} and ${teams.away?.name || "the away team"} played on ${formatKickoff(fixture.kickoffUtc, locale)}. ${resultLead}`
-    : resultLead;
+  let lead = resultLead;
+  if (asksWhoScored) {
+    const scorers = uniqueBy(timeline, (goal) => normalizeBallBoyText(goal.name)).map((goal) => goal.name);
+    lead = scorers.length
+      ? isZh
+        ? `进球者：${joinNaturalList(scorers, locale)}。`
+        : `${scorers.length === 1 ? "The scorer was" : "The scorers were"} ${joinNaturalList(scorers, locale)}.`
+      : isZh ? "这场比赛没有进球。" : "No goals were scored.";
+  } else if (asksWhen) {
+    lead = isZh
+      ? `${teams.home?.name || "主队"}对${teams.away?.name || "客队"}：${formatKickoff(fixture.kickoffUtc, locale)}。`
+      : `${teams.home?.name || "The home team"} vs ${teams.away?.name || "the away team"}: ${formatKickoff(fixture.kickoffUtc, locale)}.`;
+  } else if (wantsH2h) {
+    lead = isZh ? "这是双方在本场比赛前的交锋记录。" : "This is their record before this match.";
+  } else if (asksHighlights) {
+    lead = fixture.highlightVideo?.url
+      ? isZh ? "这场比赛有经过核验的官方集锦。" : "Verified official highlights are available for this match."
+      : isZh ? "这场比赛暂时没有经过核验的官方集锦。" : "No verified official highlights are available for this match yet.";
+  }
   const followUps = [];
   if (teams.home && teams.away) {
     if (isCompletedFixture(fixture)) {
@@ -2204,8 +2252,8 @@ function buildMatchReply(fixture, core, question, locale = "en") {
         ? `${teams.home.name}对${teams.away.name}是谁进球？`
         : `Who scored in ${teams.home.name} vs ${teams.away.name}?`);
     }
-    followUps.push(isZh ? `${teams.home.name}怎么踢？` : `How do ${teams.home.name} play?`);
-    followUps.push(isZh ? `${teams.away.name}怎么踢？` : `How do ${teams.away.name} play?`);
+    followUps.push(isZh ? `${teams.home.name}怎么踢？` : `How does ${teams.home.name} play?`);
+    followUps.push(isZh ? `${teams.away.name}怎么踢？` : `How does ${teams.away.name} play?`);
   }
 
   return {
@@ -2215,22 +2263,21 @@ function buildMatchReply(fixture, core, question, locale = "en") {
       h2h: wantsH2h && fixture.h2h
         ? {
             ...fixture.h2h,
-            summary: isZh ? getZhH2hSummary(fixture, teams) : fixture.h2h.summary
+            summary: getMatchH2hSummary(fixture, teams, locale)
           }
         : null,
       homeTeamId: fixture.homeTeamId || "",
       id: fixture.id,
       kickoffLabel: formatKickoff(fixture.kickoffUtc, locale),
       penalties: fixture?.scoreDetails?.penalties || null,
-      recap: isZh
-        ? getStructuredZhRecap(fixture, teams, timeline)
-        : Array.isArray(fixture.resultStoryBullets) ? fixture.resultStoryBullets.slice(0, 3) : [],
+      recap: getStructuredMatchRecap(fixture, teams, timeline, locale),
       score: fixture.score || null,
       stage: getStageLabel(fixture, locale),
       status: fixture.status,
       venue: fixture.venue || ""
     },
     followUps: followUps.slice(0, 3),
+    focus,
     kind: "match",
     lead,
     teams,
@@ -2317,7 +2364,7 @@ function buildWatchReply(core, playerIndex, requestedTeams = [], locale = "en") 
     const localizedPosition = getLocalizedPosition(profile?.position || "Player", locale);
     return {
       note: isZh
-        ? `${localizedName}的场上任务是通过${getLocalizedStyleLabel(profile?.skills?.[0] || "", locale) || "阅读比赛"}影响比赛。`
+        ? profile?.noteZh || `${localizedName}主要通过${getLocalizedStyleLabel(profile?.skills?.[0] || "", locale) || "阅读比赛"}影响比赛。`
         : entry.note || profile?.note || "",
       profile: profile
         ? {
@@ -2349,11 +2396,11 @@ function buildWatchReply(core, playerIndex, requestedTeams = [], locale = "en") 
     kind: "player-list",
     lead: requestedSide
       ? isZh
-        ? `这三名${requestedSide.team.name}球员值得关注，依据是已载入比赛的关键球员资料。`
-        : `These are three ${requestedSide.team.name} players to watch, based on the loaded key-player notes.`
+        ? `这三名${requestedSide.team.name}球员值得关注。`
+        : `These are three ${requestedSide.team.name} players to watch.`
       : isZh
-        ? `这三名球员值得在${matchLabel}中重点关注，依据是本场比赛的关键球员资料。`
-        : `These are three players to watch for ${matchLabel}, based on the fixture's key-player notes.`,
+        ? `这三名球员值得在${matchLabel}中关注。`
+        : `These are three players to watch for ${matchLabel}.`,
     players,
     title: isZh ? "值得关注的球员" : "Players to watch"
   };
@@ -2369,11 +2416,10 @@ function resolvePersonalityReply(question, locale = "en") {
 
   const copy = isZhLocale(locale) ? ZH_PERSONALITY_COPY[entry.id] || entry : entry;
   return {
-    badge: copy.badge,
     contextPlayerName: entry.contextPlayerName || "",
     contextTeamId: entry.contextTeamId || "",
     eye: entry.eye,
-    followUps: copy.followUps,
+    followUps: [],
     kind: "personality",
     label: copy.label,
     text: copy.text,
@@ -2392,23 +2438,23 @@ function getHelpReply(locale = "en") {
       ],
       followUps: ["介绍一下姆巴佩", "阿根廷怎么踢？", "法国对西班牙谁赢了？"],
       kind: "help",
-      lead: "选一张卡片吧。这样我们都省点时间。"
+      lead: "选择一个主题。"
     };
   }
   return {
     categories: [
       { example: "How many goals does Mbappe have?", icon: "9", title: "Players" },
-      { example: "How do Argentina play?", icon: "🇦🇷", title: "Countries" },
+      { example: "How does Argentina play?", icon: "🇦🇷", title: "Countries" },
       { example: "Who won France vs Spain?", icon: "1–2", title: "Matches" },
       { example: "Explain a red card", icon: "🟥", title: "Rules" }
     ],
     followUps: [
       "Tell me about Kylian Mbappe",
-      "How do Argentina play?",
+      "How does Argentina play?",
       "Who won France vs Spain?"
     ],
     kind: "help",
-    lead: "Pick a card. It saves both of us time."
+    lead: "Choose a topic."
   };
 }
 
@@ -2466,8 +2512,8 @@ function getClarificationReply(candidates, locale = "en") {
   return {
     kind: "clarify",
     lead: isZh
-      ? "我找到了不止一名同名球员。名字很短，问题很大。"
-      : "I found more than one player with that name. Tiny name, large problem.",
+      ? "我找到了不止一名同名球员。你指哪一名？"
+      : "I found more than one player with that name. Which one?",
     options: candidates.slice(0, 3).map((profile) => ({
       name: getLocalizedPlayerName(profile.displayName, locale),
       team: localizeTeam(teamsCache.find((candidate) => candidate.id === profile.teamId) || null, locale)
@@ -2481,17 +2527,17 @@ function getUnknownReply(locale = "en") {
     return {
       followUps: ["介绍一下姆巴佩", "西班牙怎么踢？", "解释红牌"],
       kind: "unknown",
-      text: "我暂时无法识别这个问题。可以换成一名球员、一支国家队、两支对阵球队或一条足球规则。"
+      text: "我没看懂。试试问一名球员、一支国家队、一场比赛或一条规则。"
     };
   }
   return {
     followUps: [
       "Tell me about Kylian Mbappe",
-      "How do Spain play?",
+      "How does Spain play?",
       "Explain a red card"
     ],
     kind: "unknown",
-    text: "I could not match that question. Try a player, a country, two teams, or a football rule."
+    text: "I didn’t understand that. Try a player, team, match, or rule."
   };
 }
 
