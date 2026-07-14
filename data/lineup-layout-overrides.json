@@ -8,16 +8,15 @@
     "lineup-layout-verification-2026-07-13",
     "lineup-layout-verification-2026-07-14"
   ],
-  "updatedAt": "2026-07-14T21:39:09.176Z",
+  "updatedAt": "2026-07-14T22:02:38.970Z",
   "fixtures": {
     "match-82-round-of-32-2026-07-01": {
       "status": "unresolved",
-      "checkedAt": "2026-07-03T06:11:46.942Z",
+      "unresolvedReason": "conflict",
+      "checkedAt": "2026-07-14T22:02:38.970Z",
       "sourceIds": [
-        "lineup-layout-verification-2026-07-03"
+        "lineup-layout-verification-2026-07-14"
       ],
-      "homeTeamId": "BEL",
-      "awayTeamId": "SEN",
       "sources": [
         {
           "name": "ESPN",
@@ -206,79 +205,79 @@
               {
                 "number": "1",
                 "name": "Thibaut Courtois",
-                "position": "ST",
-                "x": 0.1,
-                "y": 0.1
+                "position": "GK",
+                "x": 50,
+                "y": 90
               },
               {
                 "number": "21",
                 "name": "Timothy Castagne",
-                "position": "LW",
-                "x": 0.3,
-                "y": 0.3
+                "position": "RB",
+                "x": 87.5,
+                "y": 70.8
               },
               {
                 "number": "4",
                 "name": "Brandon Mechele",
-                "position": "AM",
-                "x": 0.3,
-                "y": 0.3
+                "position": "CB",
+                "x": 62.5,
+                "y": 70.8
               },
               {
                 "number": "3",
                 "name": "Arthur Theate",
-                "position": "RW",
-                "x": 0.3,
-                "y": 0.3
+                "position": "CB",
+                "x": 37.5,
+                "y": 70.8
               },
               {
                 "number": "5",
                 "name": "Maxim De Cuyper",
-                "position": "CM",
-                "x": 0.3,
-                "y": 0.3
+                "position": "LB",
+                "x": 12.5,
+                "y": 70.8
               },
               {
                 "number": "20",
                 "name": "Hans Vanaken",
                 "position": "CM",
-                "x": 0.5,
-                "y": 0.5
+                "x": 70,
+                "y": 51.5
               },
               {
                 "number": "8",
                 "name": "Youri Tielemans",
-                "position": "LB",
-                "x": 0.5,
-                "y": 0.5
+                "position": "CM",
+                "x": 30,
+                "y": 51.5
               },
               {
                 "number": "10",
                 "name": "Leandro Trossard",
-                "position": "CB",
-                "x": 0.7,
-                "y": 0.7
+                "position": "RW",
+                "x": 83.8,
+                "y": 32.2
               },
               {
                 "number": "7",
                 "name": "Kevin De Bruyne",
-                "position": "CB",
-                "x": 0.7,
-                "y": 0.7
+                "position": "AM",
+                "x": 50,
+                "y": 32.2
               },
               {
                 "number": "11",
                 "name": "Jeremy Doku",
-                "position": "RB",
-                "x": 0.7,
-                "y": 0.7
+                "position": "LW",
+                "x": 16.3,
+                "y": 32.2
               },
               {
                 "number": "17",
                 "name": "Charles De Ketelaere",
-                "position": "GK",
-                "x": 0.9,
-                "y": 0.9
+                "position": "ST",
+                "x": 50,
+                "y": 13
               }
             ]
           },
@@ -288,85 +287,85 @@
               {
                 "number": "23",
                 "name": "Mory Diaw",
-                "position": "LW",
-                "x": 0.1,
-                "y": 0.1
+                "position": "GK",
+                "x": 50,
+                "y": 90
               },
               {
                 "number": "15",
                 "name": "Krepin Diatta",
-                "position": "ST",
-                "x": 0.4,
-                "y": 0.4
+                "position": "RB",
+                "x": 87.5,
+                "y": 64.3
               },
               {
                 "number": "6",
                 "name": "Pathe Ciss",
-                "position": "RW",
-                "x": 0.4,
-                "y": 0.4
+                "position": "CB",
+                "x": 62.5,
+                "y": 64.3
               },
               {
                 "number": "19",
                 "name": "Moussa Niakhate",
-                "position": "CM",
-                "x": 0.4,
-                "y": 0.4
+                "position": "CB",
+                "x": 37.5,
+                "y": 64.3
               },
               {
                 "number": "14",
                 "name": "Ismail Jakobs",
-                "position": "CM",
-                "x": 0.4,
-                "y": 0.4
+                "position": "LB",
+                "x": 12.5,
+                "y": 64.3
               },
               {
                 "number": "21",
                 "name": "Habib Diarra",
                 "position": "CM",
-                "x": 0.6,
-                "y": 0.6
+                "x": 79,
+                "y": 38.7
               },
               {
                 "number": "5",
                 "name": "Idrissa Gueye",
-                "position": "LB",
-                "x": 0.6,
-                "y": 0.6
+                "position": "CM",
+                "x": 50,
+                "y": 38.7
               },
               {
                 "number": "26",
                 "name": "Pape Gueye",
-                "position": "CB",
-                "x": 0.6,
-                "y": 0.6
+                "position": "CM",
+                "x": 21,
+                "y": 38.7
               },
               {
                 "number": "13",
                 "name": "Iliman Ndiaye",
-                "position": "CB",
-                "x": 0.9,
-                "y": 0.9
+                "position": "RW",
+                "x": 79,
+                "y": 13
               },
               {
                 "number": "18",
                 "name": "Ismaila Sarr",
-                "position": "RB",
-                "x": 0.9,
-                "y": 0.9
+                "position": "ST",
+                "x": 50,
+                "y": 13
               },
               {
                 "number": "10",
                 "name": "Sadio Mane",
-                "position": "GK",
-                "x": 0.9,
-                "y": 0.9
+                "position": "LW",
+                "x": 21,
+                "y": 13
               }
             ]
           },
           "signature": {
-            "home": "thibaut courtois|timothy castagne/brandon mechele/arthur theate|maxim de cuyper/hans vanaken|youri tielemans/leandro trossard/kevin de bruyne/jeremy doku|charles de ketelaere",
-            "away": "mory diaw/krepin diatta/pathe ciss|moussa niakhate/ismail jakobs/habib diarra|idrissa gueye/pape gueye/iliman ndiaye/ismaila sarr|sadio mane"
+            "home": "charles de ketelaere|jeremy doku/kevin de bruyne/leandro trossard|youri tielemans/hans vanaken|maxim de cuyper/arthur theate/brandon mechele/timothy castagne|thibaut courtois",
+            "away": "sadio mane/ismaila sarr/iliman ndiaye|pape gueye/idrissa gueye/habib diarra|ismail jakobs/moussa niakhate/pathe ciss/krepin diatta|mory diaw"
           }
         },
         {
@@ -391,172 +390,7 @@
           "note": "No parser is registered for source adapter \"concacaf\"."
         }
       ],
-      "note": "Trusted public boards disagreed on tactical row order; stored pitch placement remains provisional.",
-      "home": {
-        "formation": "4-2-3-1",
-        "players": [
-          {
-            "number": "17",
-            "name": "Charles De Ketelaere",
-            "position": "ST",
-            "x": 50,
-            "y": 10.5
-          },
-          {
-            "number": "11",
-            "name": "Jeremy Doku",
-            "position": "LW",
-            "x": 19.4,
-            "y": 30.1
-          },
-          {
-            "number": "7",
-            "name": "Kevin De Bruyne",
-            "position": "AM",
-            "x": 50,
-            "y": 30.1
-          },
-          {
-            "number": "10",
-            "name": "Leandro Trossard",
-            "position": "RW",
-            "x": 80.6,
-            "y": 30.1
-          },
-          {
-            "number": "20",
-            "name": "Hans Vanaken",
-            "position": "CM",
-            "x": 36.5,
-            "y": 49.9
-          },
-          {
-            "number": "8",
-            "name": "Youri Tielemans",
-            "position": "CM",
-            "x": 63.4,
-            "y": 49.9
-          },
-          {
-            "number": "5",
-            "name": "Maxim De Cuyper",
-            "position": "LB",
-            "x": 13.7,
-            "y": 62.8
-          },
-          {
-            "number": "21",
-            "name": "Timothy Castagne",
-            "position": "RB",
-            "x": 86.2,
-            "y": 62.8
-          },
-          {
-            "number": "3",
-            "name": "Arthur Theate",
-            "position": "CB",
-            "x": 33.3,
-            "y": 68.7
-          },
-          {
-            "number": "4",
-            "name": "Brandon Mechele",
-            "position": "CB",
-            "x": 66.5,
-            "y": 68.7
-          },
-          {
-            "number": "1",
-            "name": "Thibaut Courtois",
-            "position": "GK",
-            "x": 49.9,
-            "y": 90.5
-          }
-        ]
-      },
-      "away": {
-        "formation": "4-3-3",
-        "players": [
-          {
-            "number": "18",
-            "name": "Ismaila Sarr",
-            "position": "ST",
-            "x": 50,
-            "y": 10.5
-          },
-          {
-            "number": "10",
-            "name": "Sadio Mane",
-            "position": "LW",
-            "x": 18.6,
-            "y": 18.2
-          },
-          {
-            "number": "13",
-            "name": "Iliman Ndiaye",
-            "position": "RW",
-            "x": 81.4,
-            "y": 18.2
-          },
-          {
-            "number": "5",
-            "name": "Idrissa Gueye",
-            "position": "CM",
-            "x": 50,
-            "y": 37.6
-          },
-          {
-            "number": "26",
-            "name": "Pape Gueye",
-            "position": "CM",
-            "x": 18.6,
-            "y": 42.3
-          },
-          {
-            "number": "21",
-            "name": "Habib Diarra",
-            "position": "CM",
-            "x": 81.4,
-            "y": 42.3
-          },
-          {
-            "number": "14",
-            "name": "Ismail Jakobs",
-            "position": "LB",
-            "x": 13.7,
-            "y": 62.8
-          },
-          {
-            "number": "15",
-            "name": "Krepin Diatta",
-            "position": "RB",
-            "x": 86.6,
-            "y": 62.8
-          },
-          {
-            "number": "19",
-            "name": "Moussa Niakhate",
-            "position": "CB",
-            "x": 33.3,
-            "y": 68.7
-          },
-          {
-            "number": "6",
-            "name": "Pathe Ciss",
-            "position": "CB",
-            "x": 66.5,
-            "y": 68.7
-          },
-          {
-            "number": "23",
-            "name": "Mory Diaw",
-            "position": "GK",
-            "x": 49.9,
-            "y": 90.5
-          }
-        ]
-      },
-      "unresolvedReason": "conflict"
+      "note": "Trusted public sources disagreed on the tactical row order."
     },
     "mexico-south-africa-2026-06-11": {
       "status": "verified",
@@ -4784,10 +4618,10 @@
     },
     "spain-cabo-verde-2026-06-15": {
       "status": "verified",
-      "layoutSource": "editorial-verified",
-      "checkedAt": "2026-07-03T06:11:46.942Z",
+      "layoutSource": "verified-layout",
+      "checkedAt": "2026-07-14T22:02:38.970Z",
       "sourceIds": [
-        "lineup-layout-verification-2026-07-03"
+        "lineup-layout-verification-2026-07-14"
       ],
       "homeTeamId": "ESP",
       "awayTeamId": "CPV",
@@ -4811,79 +4645,79 @@
               {
                 "number": "23",
                 "name": "Unai Simon",
-                "position": "LW",
-                "x": 0.1,
-                "y": 0.1
+                "position": "GK",
+                "x": 50,
+                "y": 90
               },
               {
                 "number": "5",
                 "name": "Marcos Llorente",
-                "position": "ST",
-                "x": 0.4,
-                "y": 0.4
+                "position": "RB",
+                "x": 87.5,
+                "y": 64.3
               },
               {
                 "number": "22",
                 "name": "Pau Cubarsi",
-                "position": "RW",
-                "x": 0.4,
-                "y": 0.4
+                "position": "CB",
+                "x": 62.5,
+                "y": 64.3
               },
               {
                 "number": "14",
                 "name": "Aymeric Laporte",
-                "position": "CM",
-                "x": 0.4,
-                "y": 0.4
+                "position": "CB",
+                "x": 37.5,
+                "y": 64.3
               },
               {
                 "number": "24",
                 "name": "Marc Cucurella",
-                "position": "CM",
-                "x": 0.4,
-                "y": 0.4
+                "position": "LB",
+                "x": 12.5,
+                "y": 64.3
               },
               {
                 "number": "8",
                 "name": "Fabian Ruiz",
-                "position": "DM",
-                "x": 0.6,
-                "y": 0.6
+                "position": "CM",
+                "x": 79,
+                "y": 38.7
               },
               {
                 "number": "16",
                 "name": "Rodri",
-                "position": "LB",
-                "x": 0.6,
-                "y": 0.6
+                "position": "CM",
+                "x": 50,
+                "y": 38.7
               },
               {
                 "number": "20",
                 "name": "Pedri",
-                "position": "CB",
-                "x": 0.6,
-                "y": 0.6
+                "position": "CM",
+                "x": 21,
+                "y": 38.7
               },
               {
                 "number": "7",
                 "name": "Ferran Torres",
-                "position": "CB",
-                "x": 0.9,
-                "y": 0.9
+                "position": "AM",
+                "x": 79,
+                "y": 13
               },
               {
                 "number": "21",
                 "name": "Mikel Oyarzabal",
-                "position": "RB",
-                "x": 0.9,
-                "y": 0.9
+                "position": "AM",
+                "x": 50,
+                "y": 13
               },
               {
                 "number": "9",
                 "name": "Gavi",
-                "position": "GK",
-                "x": 0.9,
-                "y": 0.9
+                "position": "ST",
+                "x": 21,
+                "y": 13
               }
             ]
           },
@@ -4893,85 +4727,85 @@
               {
                 "number": "1",
                 "name": "Vozinha",
-                "position": "LW",
-                "x": 0.1,
-                "y": 0.1
+                "position": "GK",
+                "x": 50,
+                "y": 90
               },
               {
                 "number": "22",
                 "name": "Steven Moreira",
-                "position": "ST",
-                "x": 0.3,
-                "y": 0.3
+                "position": "RB",
+                "x": 87.5,
+                "y": 70.8
               },
               {
                 "number": "4",
                 "name": "Roberto Lopes",
-                "position": "RW",
-                "x": 0.3,
-                "y": 0.3
+                "position": "CB",
+                "x": 62.5,
+                "y": 70.8
               },
               {
                 "number": "3",
                 "name": "Diney Borges",
-                "position": "CM",
-                "x": 0.3,
-                "y": 0.3
+                "position": "CB",
+                "x": 37.5,
+                "y": 70.8
               },
               {
                 "number": "13",
                 "name": "Sidny Lopes Cabral",
-                "position": "CM",
-                "x": 0.3,
-                "y": 0.3
+                "position": "LB",
+                "x": 12.5,
+                "y": 70.8
               },
               {
                 "number": "6",
                 "name": "Kevin Pina",
                 "position": "DM",
-                "x": 0.5,
-                "y": 0.5
+                "x": 50,
+                "y": 51.5
               },
               {
                 "number": "20",
                 "name": "Ryan Mendes",
-                "position": "LB",
-                "x": 0.7,
-                "y": 0.7
+                "position": "RM",
+                "x": 87.5,
+                "y": 32.2
               },
               {
                 "number": "15",
                 "name": "Laros Duarte",
-                "position": "CB",
-                "x": 0.7,
-                "y": 0.7
+                "position": "CM",
+                "x": 62.5,
+                "y": 32.2
               },
               {
                 "number": "10",
                 "name": "Jamiro Monteiro",
-                "position": "CB",
-                "x": 0.7,
-                "y": 0.7
+                "position": "CM",
+                "x": 37.5,
+                "y": 32.2
               },
               {
                 "number": "7",
                 "name": "Jovane Cabral",
-                "position": "RB",
-                "x": 0.7,
-                "y": 0.7
+                "position": "LM",
+                "x": 12.5,
+                "y": 32.2
               },
               {
                 "number": "19",
                 "name": "Dailon Livramento",
-                "position": "GK",
-                "x": 0.9,
-                "y": 0.9
+                "position": "ST",
+                "x": 50,
+                "y": 11
               }
             ]
           },
           "signature": {
-            "home": "unai simon/marcos llorente/pau cubarsi|aymeric laporte/marc cucurella|fabian ruiz|rodri/pedri/ferran torres/mikel oyarzabal|gavi",
-            "away": "vozinha/steven moreira/roberto lopes|diney borges/sidny lopes cabral|kevin pina|ryan mendes/laros duarte/jamiro monteiro/jovane cabral|dailon livramento"
+            "home": "gavi/mikel oyarzabal/ferran torres|pedri/rodri|fabian ruiz|marc cucurella/aymeric laporte/pau cubarsi/marcos llorente|unai simon",
+            "away": "jovane cabral/jamiro monteiro/dailon livramento|laros duarte/ryan mendes|kevin pina|sidny lopes cabral/diney borges/roberto lopes/steven moreira|vozinha"
           }
         }
       ],
@@ -4982,79 +4816,79 @@
           {
             "number": "23",
             "name": "Unai Simon",
-            "position": "LW",
-            "x": 0.1,
-            "y": 0.1
+            "position": "GK",
+            "x": 50,
+            "y": 90
           },
           {
             "number": "5",
             "name": "Marcos Llorente",
-            "position": "ST",
-            "x": 99.6,
-            "y": 0.4
+            "position": "RB",
+            "x": 87.5,
+            "y": 64.3
           },
           {
             "number": "22",
             "name": "Pau Cubarsi",
-            "position": "LW",
-            "x": 0.4,
-            "y": 0.4
+            "position": "CB",
+            "x": 62.5,
+            "y": 64.3
           },
           {
             "number": "14",
             "name": "Aymeric Laporte",
-            "position": "CM",
-            "x": 0.4,
-            "y": 0.4
+            "position": "CB",
+            "x": 37.5,
+            "y": 64.3
           },
           {
             "number": "24",
             "name": "Marc Cucurella",
-            "position": "CM",
-            "x": 0.4,
-            "y": 0.4
+            "position": "LB",
+            "x": 12.5,
+            "y": 64.3
           },
           {
             "number": "8",
             "name": "Fabian Ruiz",
-            "position": "DM",
-            "x": 0.6,
-            "y": 0.6
+            "position": "CM",
+            "x": 79,
+            "y": 38.7
           },
           {
             "number": "16",
             "name": "Rodri",
-            "position": "LB",
-            "x": 0.6,
-            "y": 0.6
+            "position": "CM",
+            "x": 50,
+            "y": 38.7
           },
           {
             "number": "20",
             "name": "Pedri",
-            "position": "CB",
-            "x": 0.6,
-            "y": 0.6
+            "position": "CM",
+            "x": 21,
+            "y": 38.7
           },
           {
             "number": "7",
             "name": "Ferran Torres",
-            "position": "CB",
-            "x": 0.9,
-            "y": 0.9
+            "position": "AM",
+            "x": 79,
+            "y": 13
           },
           {
             "number": "21",
             "name": "Mikel Oyarzabal",
-            "position": "LB",
-            "x": 0.9,
-            "y": 0.9
+            "position": "AM",
+            "x": 50,
+            "y": 13
           },
           {
             "number": "9",
             "name": "Gavi",
-            "position": "GK",
-            "x": 0.9,
-            "y": 0.9
+            "position": "ST",
+            "x": 21,
+            "y": 13
           }
         ]
       },
@@ -5064,79 +4898,79 @@
           {
             "number": "1",
             "name": "Vozinha",
-            "position": "LW",
-            "x": 0.1,
-            "y": 0.1
+            "position": "GK",
+            "x": 50,
+            "y": 90
           },
           {
             "number": "22",
             "name": "Steven Moreira",
-            "position": "ST",
-            "x": 0.3,
-            "y": 0.3
+            "position": "RB",
+            "x": 87.5,
+            "y": 70.8
           },
           {
             "number": "4",
             "name": "Roberto Lopes",
-            "position": "LW",
-            "x": 0.3,
-            "y": 0.3
+            "position": "CB",
+            "x": 62.5,
+            "y": 70.8
           },
           {
             "number": "3",
             "name": "Diney Borges",
-            "position": "CM",
-            "x": 0.3,
-            "y": 0.3
+            "position": "CB",
+            "x": 37.5,
+            "y": 70.8
           },
           {
             "number": "13",
             "name": "Sidny Lopes Cabral",
-            "position": "CM",
-            "x": 0.3,
-            "y": 0.3
+            "position": "LB",
+            "x": 12.5,
+            "y": 70.8
           },
           {
             "number": "6",
             "name": "Kevin Pina",
             "position": "DM",
-            "x": 0.5,
-            "y": 0.5
+            "x": 50,
+            "y": 51.5
           },
           {
             "number": "20",
             "name": "Ryan Mendes",
-            "position": "LB",
-            "x": 0.7,
-            "y": 0.7
+            "position": "RM",
+            "x": 87.5,
+            "y": 32.2
           },
           {
             "number": "15",
             "name": "Laros Duarte",
-            "position": "CB",
-            "x": 0.7,
-            "y": 0.7
+            "position": "CM",
+            "x": 62.5,
+            "y": 32.2
           },
           {
             "number": "10",
             "name": "Jamiro Monteiro",
-            "position": "CB",
-            "x": 0.7,
-            "y": 0.7
+            "position": "CM",
+            "x": 37.5,
+            "y": 32.2
           },
           {
             "number": "7",
             "name": "Jovane Cabral",
-            "position": "LB",
-            "x": 0.7,
-            "y": 0.7
+            "position": "LM",
+            "x": 12.5,
+            "y": 32.2
           },
           {
             "number": "19",
             "name": "Dailon Livramento",
-            "position": "GK",
-            "x": 0.9,
-            "y": 0.9
+            "position": "ST",
+            "x": 50,
+            "y": 11
           }
         ]
       }
@@ -6903,12 +6737,11 @@
     },
     "argentina-algeria-2026-06-16": {
       "status": "unresolved",
-      "checkedAt": "2026-07-03T06:11:46.942Z",
+      "unresolvedReason": "conflict",
+      "checkedAt": "2026-07-14T22:02:38.970Z",
       "sourceIds": [
-        "lineup-layout-verification-2026-07-03"
+        "lineup-layout-verification-2026-07-14"
       ],
-      "homeTeamId": "ARG",
-      "awayTeamId": "ALG",
       "sources": [
         {
           "name": "ESPN",
@@ -6929,21 +6762,21 @@
               {
                 "number": "10",
                 "name": "Lionel Messi",
-                "position": "RW",
+                "position": "ST",
                 "x": 64.3,
                 "y": 10.5
               },
               {
                 "number": "16",
                 "name": "Thiago Almada",
-                "position": "LW",
+                "position": "LM",
                 "x": 13.7,
                 "y": 39
               },
               {
                 "number": "7",
                 "name": "Rodrigo De Paul",
-                "position": "CM",
+                "position": "RM",
                 "x": 86.6,
                 "y": 39
               },
@@ -7097,79 +6930,79 @@
               {
                 "number": "23",
                 "name": "Emiliano Martinez",
-                "position": "LW",
-                "x": 0.1,
-                "y": 0.1
+                "position": "GK",
+                "x": 50,
+                "y": 90
               },
               {
                 "number": "4",
                 "name": "Gonzalo Montiel",
-                "position": "ST",
-                "x": 0.4,
-                "y": 0.4
+                "position": "RB",
+                "x": 87.5,
+                "y": 64.3
               },
               {
                 "number": "13",
                 "name": "Cristian Romero",
-                "position": "RW",
-                "x": 0.4,
-                "y": 0.4
+                "position": "CB",
+                "x": 62.5,
+                "y": 64.3
               },
               {
                 "number": "6",
                 "name": "Lisandro Martinez",
-                "position": "CM",
-                "x": 0.4,
-                "y": 0.4
+                "position": "CB",
+                "x": 37.5,
+                "y": 64.3
               },
               {
                 "number": "25",
                 "name": "Facundo Medina",
-                "position": "CM",
-                "x": 0.4,
-                "y": 0.4
+                "position": "LB",
+                "x": 12.5,
+                "y": 64.3
               },
               {
                 "number": "7",
                 "name": "Rodrigo De Paul",
-                "position": "CM",
-                "x": 0.6,
-                "y": 0.6
+                "position": "RM",
+                "x": 87.5,
+                "y": 38.7
               },
               {
                 "number": "20",
                 "name": "Alexis Mac Allister",
-                "position": "LB",
-                "x": 0.6,
-                "y": 0.6
+                "position": "CM",
+                "x": 62.5,
+                "y": 38.7
               },
               {
                 "number": "24",
                 "name": "Enzo Fernandez",
-                "position": "CB",
-                "x": 0.6,
-                "y": 0.6
+                "position": "CM",
+                "x": 37.5,
+                "y": 38.7
               },
               {
                 "number": "16",
                 "name": "Thiago Almada",
-                "position": "CB",
-                "x": 0.6,
-                "y": 0.6
+                "position": "LM",
+                "x": 12.5,
+                "y": 38.7
               },
               {
                 "number": "10",
                 "name": "Lionel Messi",
-                "position": "RB",
-                "x": 0.9,
-                "y": 0.9
+                "position": "ST",
+                "x": 70,
+                "y": 13
               },
               {
                 "number": "22",
                 "name": "Lautaro Martinez",
-                "position": "GK",
-                "x": 0.9,
-                "y": 0.9
+                "position": "ST",
+                "x": 30,
+                "y": 13
               }
             ]
           },
@@ -7179,254 +7012,89 @@
               {
                 "number": "23",
                 "name": "Luca Zidane",
-                "position": "LW",
-                "x": 0.1,
-                "y": 0.1
+                "position": "GK",
+                "x": 50,
+                "y": 90
               },
               {
                 "number": "17",
                 "name": "Rak Belghali",
-                "position": "ST",
-                "x": 0.3,
-                "y": 0.3
+                "position": "RB",
+                "x": 87.5,
+                "y": 70.8
               },
               {
                 "number": "2",
                 "name": "Aissa Mandi",
-                "position": "RW",
-                "x": 0.3,
-                "y": 0.3
+                "position": "CB",
+                "x": 62.5,
+                "y": 70.8
               },
               {
                 "number": "21",
                 "name": "Ramy Bensebaini",
-                "position": "CM",
-                "x": 0.3,
-                "y": 0.3
+                "position": "CB",
+                "x": 37.5,
+                "y": 70.8
               },
               {
                 "number": "15",
                 "name": "Rayan Ait-Nouri",
-                "position": "CM",
-                "x": 0.3,
-                "y": 0.3
+                "position": "LB",
+                "x": 12.5,
+                "y": 70.8
               },
               {
                 "number": "14",
                 "name": "Hicham Boudaoui",
                 "position": "CM",
-                "x": 0.5,
-                "y": 0.5
+                "x": 70,
+                "y": 51.5
               },
               {
                 "number": "19",
                 "name": "Nabil Bentaleb",
-                "position": "LB",
-                "x": 0.5,
-                "y": 0.5
+                "position": "CM",
+                "x": 30,
+                "y": 51.5
               },
               {
                 "number": "11",
                 "name": "Anis Hadj Moussa",
-                "position": "CB",
-                "x": 0.7,
-                "y": 0.7
+                "position": "RW",
+                "x": 83.8,
+                "y": 32.2
               },
               {
                 "number": "22",
                 "name": "Ibrahim Maza",
-                "position": "CB",
-                "x": 0.7,
-                "y": 0.7
+                "position": "ST",
+                "x": 50,
+                "y": 32.2
               },
               {
                 "number": "10",
                 "name": "Fares Chaibi",
-                "position": "RB",
-                "x": 0.7,
-                "y": 0.7
+                "position": "LW",
+                "x": 16.3,
+                "y": 32.2
               },
               {
                 "number": "9",
                 "name": "Amine Gouiri",
-                "position": "GK",
-                "x": 0.9,
-                "y": 0.9
+                "position": "ST",
+                "x": 50,
+                "y": 13
               }
             ]
           },
           "signature": {
-            "home": "emiliano martinez/gonzalo montiel/cristian romero|lisandro martinez/facundo medina/rodrigo de paul|alexis mac allister/enzo fernandez/thiago almada/lionel messi|lautaro martinez",
-            "away": "luca zidane/rak belghali/aissa mandi|ramy bensebaini/rayan ait nouri/hicham boudaoui|nabil bentaleb/anis hadj moussa/ibrahim maza/fares chaibi|amine gouiri"
+            "home": "thiago almada/lautaro martinez/lionel messi|enzo fernandez/alexis mac allister/rodrigo de paul|facundo medina/lisandro martinez/cristian romero/gonzalo montiel|emiliano martinez",
+            "away": "fares chaibi/amine gouiri/ibrahim maza|nabil bentaleb/hicham boudaoui/anis hadj moussa|rayan ait nouri/ramy bensebaini/aissa mandi/rak belghali|luca zidane"
           }
         }
       ],
-      "note": "Trusted public boards disagreed on tactical row order; stored pitch placement remains provisional.",
-      "home": {
-        "formation": "4-3-3",
-        "players": [
-          {
-            "number": "22",
-            "name": "Lautaro Martinez",
-            "position": "ST",
-            "x": 35.7,
-            "y": 10.5
-          },
-          {
-            "number": "10",
-            "name": "Lionel Messi",
-            "position": "RW",
-            "x": 64.3,
-            "y": 10.5
-          },
-          {
-            "number": "16",
-            "name": "Thiago Almada",
-            "position": "LW",
-            "x": 13.7,
-            "y": 39
-          },
-          {
-            "number": "7",
-            "name": "Rodrigo De Paul",
-            "position": "CM",
-            "x": 86.6,
-            "y": 39
-          },
-          {
-            "number": "24",
-            "name": "Enzo Fernandez",
-            "position": "CM",
-            "x": 35,
-            "y": 44.3
-          },
-          {
-            "number": "20",
-            "name": "Alexis Mac Allister",
-            "position": "CM",
-            "x": 64.9,
-            "y": 44.3
-          },
-          {
-            "number": "25",
-            "name": "Facundo Medina",
-            "position": "LB",
-            "x": 13.7,
-            "y": 62.8
-          },
-          {
-            "number": "4",
-            "name": "Gonzalo Montiel",
-            "position": "RB",
-            "x": 86.6,
-            "y": 62.8
-          },
-          {
-            "number": "6",
-            "name": "Lisandro Martinez",
-            "position": "CB",
-            "x": 33.3,
-            "y": 68.7
-          },
-          {
-            "number": "13",
-            "name": "Cristian Romero",
-            "position": "CB",
-            "x": 66.5,
-            "y": 68.7
-          },
-          {
-            "number": "23",
-            "name": "Emiliano Martinez",
-            "position": "GK",
-            "x": 49.9,
-            "y": 90.5
-          }
-        ]
-      },
-      "away": {
-        "formation": "4-3-3",
-        "players": [
-          {
-            "number": "9",
-            "name": "Amine Gouiri",
-            "position": "ST",
-            "x": 50,
-            "y": 10.5
-          },
-          {
-            "number": "10",
-            "name": "Fares Chaibi",
-            "position": "LW",
-            "x": 18.6,
-            "y": 18.2
-          },
-          {
-            "number": "11",
-            "name": "Anis Hadj Moussa",
-            "position": "RW",
-            "x": 81.4,
-            "y": 18.2
-          },
-          {
-            "number": "19",
-            "name": "Nabil Bentaleb",
-            "position": "CM",
-            "x": 50,
-            "y": 37.6
-          },
-          {
-            "number": "22",
-            "name": "Ibrahim Maza",
-            "position": "CM",
-            "x": 18.6,
-            "y": 42.3
-          },
-          {
-            "number": "14",
-            "name": "Hicham Boudaoui",
-            "position": "CM",
-            "x": 81.4,
-            "y": 42.3
-          },
-          {
-            "number": "15",
-            "name": "Rayan Ait-Nouri",
-            "position": "LB",
-            "x": 13.7,
-            "y": 62.8
-          },
-          {
-            "number": "17",
-            "name": "Rak Belghali",
-            "position": "RB",
-            "x": 86.6,
-            "y": 62.8
-          },
-          {
-            "number": "21",
-            "name": "Ramy Bensebaini",
-            "position": "CB",
-            "x": 33.3,
-            "y": 68.7
-          },
-          {
-            "number": "2",
-            "name": "Aissa Mandi",
-            "position": "CB",
-            "x": 66.5,
-            "y": 68.7
-          },
-          {
-            "number": "23",
-            "name": "Luca Zidane",
-            "position": "GK",
-            "x": 49.9,
-            "y": 90.5
-          }
-        ]
-      },
-      "unresolvedReason": "conflict"
+      "note": "Trusted public sources disagreed on the tactical row order."
     },
     "austria-jordan-2026-06-16": {
       "status": "verified",
@@ -15884,10 +15552,11 @@
       }
     },
     "jordan-algeria-2026-06-22": {
-      "status": "unresolved",
-      "checkedAt": "2026-07-03T06:11:46.942Z",
+      "status": "verified",
+      "layoutSource": "verified-layout",
+      "checkedAt": "2026-07-14T22:02:38.970Z",
       "sourceIds": [
-        "lineup-layout-verification-2026-07-03"
+        "lineup-layout-verification-2026-07-14"
       ],
       "homeTeamId": "JOR",
       "awayTeamId": "ALG",
@@ -15895,7 +15564,7 @@
         {
           "name": "ESPN",
           "url": "https://www.espn.com/soccer/match/_/gameId/760455",
-          "status": "conflict",
+          "status": "matched",
           "sourceDetail": "public match-center board geometry",
           "exactLayout": true,
           "home": {
@@ -15953,7 +15622,7 @@
               {
                 "number": "4",
                 "name": "Husam Abu Dahab",
-                "position": "CB",
+                "position": "LCB",
                 "x": 25.3,
                 "y": 69.7
               },
@@ -15967,7 +15636,7 @@
               {
                 "number": "3",
                 "name": "Abdallah Nasib",
-                "position": "CB",
+                "position": "RCB",
                 "x": 74.5,
                 "y": 69.7
               },
@@ -16000,14 +15669,14 @@
               {
                 "number": "22",
                 "name": "Ibrahim Maza",
-                "position": "RW",
+                "position": "AM",
                 "x": 50,
                 "y": 30.1
               },
               {
                 "number": "7",
                 "name": "Riyad Mahrez",
-                "position": "DM",
+                "position": "RW",
                 "x": 80.6,
                 "y": 30.1
               },
@@ -16070,7 +15739,7 @@
         {
           "name": "FotMob",
           "url": "https://www.fotmob.com/matches/jordan-vs-algeria/17tvf0",
-          "status": "conflict",
+          "status": "matched",
           "sourceDetail": "lineup payload source: enetpulse",
           "exactLayout": true,
           "home": {
@@ -16079,79 +15748,79 @@
               {
                 "number": "1",
                 "name": "Yazeed Abulaila",
-                "position": "LW",
-                "x": 0.1,
-                "y": 0.1
+                "position": "GK",
+                "x": 50,
+                "y": 90
               },
               {
                 "number": "3",
                 "name": "Abdallah Nasib",
-                "position": "ST",
-                "x": 0.3,
-                "y": 0.3
+                "position": "RCB",
+                "x": 79,
+                "y": 70.8
               },
               {
                 "number": "5",
                 "name": "Yazan Al-Arab",
-                "position": "RW",
-                "x": 0.3,
-                "y": 0.3
+                "position": "CB",
+                "x": 50,
+                "y": 70.8
               },
               {
                 "number": "4",
                 "name": "Husam Abu Dahab",
-                "position": "LM",
-                "x": 0.3,
-                "y": 0.3
+                "position": "LCB",
+                "x": 21,
+                "y": 70.8
               },
               {
                 "number": "23",
                 "name": "Ehsan Haddad",
-                "position": "CM",
-                "x": 0.5,
-                "y": 0.5
+                "position": "RM",
+                "x": 87.5,
+                "y": 51.5
               },
               {
                 "number": "21",
                 "name": "Nizar Al-Rashdan",
                 "position": "CM",
-                "x": 0.5,
-                "y": 0.5
+                "x": 62.5,
+                "y": 51.5
               },
               {
                 "number": "8",
                 "name": "Noor Al-Rawabdeh",
-                "position": "RM",
-                "x": 0.5,
-                "y": 0.5
+                "position": "CM",
+                "x": 37.5,
+                "y": 51.5
               },
               {
                 "number": "20",
                 "name": "Mohannad Abu Taha",
-                "position": "CB",
-                "x": 0.5,
-                "y": 0.5
+                "position": "LM",
+                "x": 12.5,
+                "y": 51.5
               },
               {
                 "number": "9",
                 "name": "Ali Olwan",
-                "position": "CB",
-                "x": 0.7,
-                "y": 0.7
+                "position": "RW",
+                "x": 70,
+                "y": 32.2
               },
               {
                 "number": "13",
                 "name": "Mahmoud Al-Mardi",
-                "position": "CB",
-                "x": 0.7,
-                "y": 0.7
+                "position": "LW",
+                "x": 30,
+                "y": 32.2
               },
               {
                 "number": "10",
                 "name": "Mousa Al-Taamari",
-                "position": "GK",
-                "x": 0.9,
-                "y": 0.9
+                "position": "ST",
+                "x": 50,
+                "y": 13
               }
             ]
           },
@@ -16161,89 +15830,89 @@
               {
                 "number": "23",
                 "name": "Luca Zidane",
-                "position": "LW",
-                "x": 0.1,
-                "y": 0.1
+                "position": "GK",
+                "x": 50,
+                "y": 90
               },
               {
                 "number": "17",
                 "name": "Rak Belghali",
-                "position": "ST",
-                "x": 0.3,
-                "y": 0.3
+                "position": "RB",
+                "x": 87.5,
+                "y": 70.8
               },
               {
                 "number": "2",
                 "name": "Aissa Mandi",
-                "position": "RW",
-                "x": 0.3,
-                "y": 0.3
+                "position": "CB",
+                "x": 62.5,
+                "y": 70.8
               },
               {
                 "number": "21",
                 "name": "Ramy Bensebaini",
-                "position": "DM",
-                "x": 0.3,
-                "y": 0.3
+                "position": "CB",
+                "x": 37.5,
+                "y": 70.8
               },
               {
                 "number": "15",
                 "name": "Rayan Ait-Nouri",
-                "position": "CM",
-                "x": 0.3,
-                "y": 0.3
+                "position": "LB",
+                "x": 12.5,
+                "y": 70.8
               },
               {
                 "number": "14",
                 "name": "Hicham Boudaoui",
                 "position": "CM",
-                "x": 0.5,
-                "y": 0.5
+                "x": 70,
+                "y": 51.5
               },
               {
                 "number": "6",
                 "name": "Ramiz Zerrouki",
-                "position": "LB",
-                "x": 0.5,
-                "y": 0.5
+                "position": "CM",
+                "x": 30,
+                "y": 51.5
               },
               {
                 "number": "7",
                 "name": "Riyad Mahrez",
-                "position": "CB",
-                "x": 0.7,
-                "y": 0.7
+                "position": "RW",
+                "x": 83.8,
+                "y": 32.2
               },
               {
                 "number": "22",
                 "name": "Ibrahim Maza",
-                "position": "CB",
-                "x": 0.7,
-                "y": 0.7
+                "position": "AM",
+                "x": 50,
+                "y": 32.2
               },
               {
                 "number": "10",
                 "name": "Fares Chaibi",
-                "position": "RB",
-                "x": 0.7,
-                "y": 0.7
+                "position": "LW",
+                "x": 16.3,
+                "y": 32.2
               },
               {
                 "number": "9",
                 "name": "Amine Gouiri",
-                "position": "GK",
-                "x": 0.9,
-                "y": 0.9
+                "position": "ST",
+                "x": 50,
+                "y": 13
               }
             ]
           },
           "signature": {
-            "home": "yazeed abulaila/abdallah nasib/yazan al arab|husam abu dahab/ehsan haddad/nizar al rashdan/noor al rawabdeh|mohannad abu taha/ali olwan/mahmoud al mardi|mousa al taamari",
-            "away": "luca zidane/rak belghali/aissa mandi|ramy bensebaini|rayan ait nouri/hicham boudaoui|ramiz zerrouki/riyad mahrez/ibrahim maza/fares chaibi|amine gouiri"
+            "home": "mahmoud al mardi/mousa al taamari/ali olwan|mohannad abu taha/noor al rawabdeh/nizar al rashdan/ehsan haddad|husam abu dahab/yazan al arab/abdallah nasib|yazeed abulaila",
+            "away": "fares chaibi/amine gouiri/ibrahim maza|riyad mahrez|ramiz zerrouki/hicham boudaoui|rayan ait nouri/ramy bensebaini/aissa mandi/rak belghali|luca zidane"
           }
         }
       ],
-      "note": "Trusted public boards disagreed on tactical row order; stored pitch placement remains provisional.",
+      "note": "FIFA official team sheet kept for facts; ESPN and FotMob agreed on the tactical layout.",
       "home": {
         "formation": "3-4-3",
         "players": [
@@ -16299,7 +15968,7 @@
           {
             "number": "4",
             "name": "Husam Abu Dahab",
-            "position": "CB",
+            "position": "LCB",
             "x": 25.3,
             "y": 69.7
           },
@@ -16313,7 +15982,7 @@
           {
             "number": "3",
             "name": "Abdallah Nasib",
-            "position": "CB",
+            "position": "RCB",
             "x": 74.5,
             "y": 69.7
           },
@@ -16346,14 +16015,14 @@
           {
             "number": "22",
             "name": "Ibrahim Maza",
-            "position": "RW",
+            "position": "AM",
             "x": 50,
             "y": 30.1
           },
           {
             "number": "7",
             "name": "Riyad Mahrez",
-            "position": "DM",
+            "position": "RW",
             "x": 80.6,
             "y": 30.1
           },
@@ -16407,8 +16076,7 @@
             "y": 90.5
           }
         ]
-      },
-      "unresolvedReason": "conflict"
+      }
     },
     "portugal-uzbekistan-2026-06-23": {
       "status": "verified",
@@ -21692,12 +21360,11 @@
     },
     "paraguay-australia-2026-06-25": {
       "status": "unresolved",
-      "checkedAt": "2026-07-03T06:11:46.942Z",
+      "unresolvedReason": "conflict",
+      "checkedAt": "2026-07-14T22:02:38.970Z",
       "sourceIds": [
-        "lineup-layout-verification-2026-07-03"
+        "lineup-layout-verification-2026-07-14"
       ],
-      "homeTeamId": "PAR",
-      "awayTeamId": "AUS",
       "sources": [
         {
           "name": "ESPN",
@@ -21842,7 +21509,7 @@
               {
                 "number": "25",
                 "name": "Lucas Herrington",
-                "position": "CB",
+                "position": "LCB",
                 "x": 25.3,
                 "y": 69.7
               },
@@ -21856,7 +21523,7 @@
               {
                 "number": "3",
                 "name": "Alessandro Circati",
-                "position": "CB",
+                "position": "RCB",
                 "x": 74.5,
                 "y": 69.7
               },
@@ -21886,79 +21553,79 @@
               {
                 "number": "12",
                 "name": "Orlando Gill",
-                "position": "ST",
-                "x": 0.1,
-                "y": 0.1
+                "position": "GK",
+                "x": 50,
+                "y": 90
               },
               {
                 "number": "2",
                 "name": "Gustavo Velazquez",
-                "position": "ST",
-                "x": 0.4,
-                "y": 0.4
+                "position": "CB",
+                "x": 69.5,
+                "y": 64.3
               },
               {
                 "number": "15",
                 "name": "Gustavo Gomez",
-                "position": "CM",
-                "x": 0.4,
-                "y": 0.4
+                "position": "CB",
+                "x": 50,
+                "y": 64.3
               },
               {
                 "number": "3",
                 "name": "Omar Alderete",
-                "position": "CM",
-                "x": 0.4,
-                "y": 0.4
+                "position": "CB",
+                "x": 30.5,
+                "y": 64.3
               },
               {
                 "number": "4",
                 "name": "Juan Jose Caceres",
-                "position": "CM",
-                "x": 0.4,
-                "y": 0.4
+                "position": "RWB",
+                "x": 89,
+                "y": 62.9
               },
               {
                 "number": "26",
                 "name": "Alexandro Maidana",
                 "position": "LWB",
-                "x": 0.4,
-                "y": 0.4
+                "x": 11,
+                "y": 62.9
               },
               {
                 "number": "8",
                 "name": "Diego Gomez",
-                "position": "CB",
-                "x": 0.6,
-                "y": 0.6
+                "position": "CM",
+                "x": 79,
+                "y": 38.7
               },
               {
                 "number": "14",
                 "name": "Andres Cubas",
-                "position": "CB",
-                "x": 0.6,
-                "y": 0.6
+                "position": "CM",
+                "x": 50,
+                "y": 38.7
               },
               {
                 "number": "23",
                 "name": "Matias Galarza",
-                "position": "CB",
-                "x": 0.6,
-                "y": 0.6
+                "position": "CM",
+                "x": 21,
+                "y": 38.7
               },
               {
                 "number": "21",
                 "name": "Gabriel Avalos",
-                "position": "RWB",
-                "x": 0.9,
-                "y": 0.9
+                "position": "ST",
+                "x": 70,
+                "y": 13
               },
               {
                 "number": "19",
                 "name": "Julio Enciso",
-                "position": "GK",
-                "x": 0.9,
-                "y": 0.9
+                "position": "ST",
+                "x": 30,
+                "y": 13
               }
             ]
           },
@@ -21968,254 +21635,89 @@
               {
                 "number": "18",
                 "name": "Patrick Beach",
-                "position": "LW",
-                "x": 0.1,
-                "y": 0.1
+                "position": "GK",
+                "x": 50,
+                "y": 90
               },
               {
                 "number": "3",
                 "name": "Alessandro Circati",
-                "position": "ST",
-                "x": 0.3,
-                "y": 0.3
+                "position": "RCB",
+                "x": 79,
+                "y": 70.8
               },
               {
                 "number": "19",
                 "name": "Harry Souttar",
-                "position": "RW",
-                "x": 0.3,
-                "y": 0.3
+                "position": "CB",
+                "x": 50,
+                "y": 70.8
               },
               {
                 "number": "25",
                 "name": "Lucas Herrington",
-                "position": "LM",
-                "x": 0.3,
-                "y": 0.3
+                "position": "LCB",
+                "x": 21,
+                "y": 70.8
               },
               {
                 "number": "5",
                 "name": "Jordan Bos",
-                "position": "CM",
-                "x": 0.5,
-                "y": 0.5
+                "position": "RM",
+                "x": 87.5,
+                "y": 51.5
               },
               {
                 "number": "22",
                 "name": "Jackson Irvine",
                 "position": "CM",
-                "x": 0.5,
-                "y": 0.5
+                "x": 62.5,
+                "y": 51.5
               },
               {
                 "number": "13",
                 "name": "Aiden Oneill",
-                "position": "RM",
-                "x": 0.5,
-                "y": 0.5
+                "position": "CM",
+                "x": 37.5,
+                "y": 51.5
               },
               {
                 "number": "16",
                 "name": "Aziz Behich",
-                "position": "CB",
-                "x": 0.5,
-                "y": 0.5
+                "position": "LM",
+                "x": 12.5,
+                "y": 51.5
               },
               {
                 "number": "20",
                 "name": "Christian Volpato",
-                "position": "CB",
-                "x": 0.7,
-                "y": 0.7
+                "position": "RW",
+                "x": 70,
+                "y": 32.2
               },
               {
                 "number": "8",
                 "name": "Connor Metcalfe",
-                "position": "CB",
-                "x": 0.7,
-                "y": 0.7
+                "position": "LW",
+                "x": 30,
+                "y": 32.2
               },
               {
                 "number": "17",
                 "name": "Nestory Irankunda",
-                "position": "GK",
-                "x": 0.9,
-                "y": 0.9
+                "position": "ST",
+                "x": 50,
+                "y": 13
               }
             ]
           },
           "signature": {
-            "home": "orlando gill/gustavo velazquez|gustavo gomez/omar alderete/juan jose caceres|alexandro maidana/diego gomez/andres cubas/matias galarza/gabriel avalos|julio enciso",
-            "away": "patrick beach/alessandro circati/harry souttar|lucas herrington/jordan bos/jackson irvine/aiden oneill|aziz behich/christian volpato/connor metcalfe|nestory irankunda"
+            "home": "julio enciso/gabriel avalos|matias galarza/andres cubas/diego gomez|alexandro maidana/omar alderete/gustavo gomez/gustavo velazquez/juan jose caceres|orlando gill",
+            "away": "connor metcalfe/nestory irankunda/christian volpato|aziz behich/aiden oneill/jackson irvine/jordan bos|lucas herrington/harry souttar/alessandro circati|patrick beach"
           }
         }
       ],
-      "note": "Trusted public boards disagreed on tactical row order; stored pitch placement remains provisional.",
-      "home": {
-        "formation": "5-3-2",
-        "players": [
-          {
-            "number": "19",
-            "name": "Julio Enciso",
-            "position": "ST",
-            "x": 33.5,
-            "y": 10.5
-          },
-          {
-            "number": "21",
-            "name": "Gabriel Avalos",
-            "position": "ST",
-            "x": 66.5,
-            "y": 10.5
-          },
-          {
-            "number": "23",
-            "name": "Matias Galarza",
-            "position": "CM",
-            "x": 27.5,
-            "y": 35.6
-          },
-          {
-            "number": "14",
-            "name": "Andres Cubas",
-            "position": "CM",
-            "x": 50,
-            "y": 42.3
-          },
-          {
-            "number": "8",
-            "name": "Diego Gomez",
-            "position": "CM",
-            "x": 72.5,
-            "y": 35.6
-          },
-          {
-            "number": "26",
-            "name": "Alexandro Maidana",
-            "position": "LWB",
-            "x": 11.4,
-            "y": 57.2
-          },
-          {
-            "number": "4",
-            "name": "Juan Jose Caceres",
-            "position": "RWB",
-            "x": 86.6,
-            "y": 57.2
-          },
-          {
-            "number": "3",
-            "name": "Omar Alderete",
-            "position": "CB",
-            "x": 29,
-            "y": 62.7
-          },
-          {
-            "number": "15",
-            "name": "Gustavo Gomez",
-            "position": "CB",
-            "x": 49.9,
-            "y": 69.7
-          },
-          {
-            "number": "2",
-            "name": "Gustavo Velazquez",
-            "position": "CB",
-            "x": 70,
-            "y": 62.7
-          },
-          {
-            "number": "12",
-            "name": "Orlando Gill",
-            "position": "GK",
-            "x": 49.9,
-            "y": 90.5
-          }
-        ]
-      },
-      "away": {
-        "formation": "3-4-3",
-        "players": [
-          {
-            "number": "17",
-            "name": "Nestory Irankunda",
-            "position": "ST",
-            "x": 50,
-            "y": 10.5
-          },
-          {
-            "number": "8",
-            "name": "Connor Metcalfe",
-            "position": "LW",
-            "x": 30,
-            "y": 28
-          },
-          {
-            "number": "20",
-            "name": "Christian Volpato",
-            "position": "RW",
-            "x": 69.9,
-            "y": 28
-          },
-          {
-            "number": "16",
-            "name": "Aziz Behich",
-            "position": "LM",
-            "x": 12.6,
-            "y": 47
-          },
-          {
-            "number": "22",
-            "name": "Jackson Irvine",
-            "position": "CM",
-            "x": 37.5,
-            "y": 47
-          },
-          {
-            "number": "13",
-            "name": "Aiden Oneill",
-            "position": "CM",
-            "x": 62.4,
-            "y": 47
-          },
-          {
-            "number": "5",
-            "name": "Jordan Bos",
-            "position": "LM",
-            "x": 12.7,
-            "y": 47
-          },
-          {
-            "number": "25",
-            "name": "Lucas Herrington",
-            "position": "CB",
-            "x": 25.3,
-            "y": 69.7
-          },
-          {
-            "number": "19",
-            "name": "Harry Souttar",
-            "position": "CB",
-            "x": 49.9,
-            "y": 69.7
-          },
-          {
-            "number": "3",
-            "name": "Alessandro Circati",
-            "position": "CB",
-            "x": 74.5,
-            "y": 69.7
-          },
-          {
-            "number": "18",
-            "name": "Patrick Beach",
-            "position": "GK",
-            "x": 49.9,
-            "y": 90.5
-          }
-        ]
-      },
-      "unresolvedReason": "conflict"
+      "note": "Trusted public sources disagreed on the tactical row order."
     },
     "norway-france-2026-06-26": {
       "status": "verified",
@@ -22922,12 +22424,14 @@
       }
     },
     "cabo-verde-saudi-arabia-2026-06-26": {
-      "status": "unresolved",
-      "unresolvedReason": "insufficient_evidence",
-      "checkedAt": "2026-07-14T21:39:09.176Z",
+      "status": "verified",
+      "layoutSource": "verified-layout",
+      "checkedAt": "2026-07-14T22:02:38.970Z",
       "sourceIds": [
         "lineup-layout-verification-2026-07-14"
       ],
+      "homeTeamId": "CPV",
+      "awayTeamId": "KSA",
       "sources": [
         {
           "name": "ESPN",
@@ -22990,7 +22494,7 @@
               {
                 "number": "20",
                 "name": "Ryan Mendes",
-                "position": "CM",
+                "position": "RM",
                 "x": 87.5,
                 "y": 32.2
               },
@@ -23004,21 +22508,21 @@
               {
                 "number": "10",
                 "name": "Jamiro Monteiro",
-                "position": "ST",
+                "position": "CM",
                 "x": 37.5,
                 "y": 32.2
               },
               {
                 "number": "17",
                 "name": "Willy Semedo",
-                "position": "LW",
+                "position": "LM",
                 "x": 12.5,
                 "y": 32.2
               },
               {
                 "number": "19",
                 "name": "Dailon Livramento",
-                "position": "RW",
+                "position": "ST",
                 "x": 50,
                 "y": 11
               }
@@ -23056,8 +22560,8 @@
                 "y": 64.3
               },
               {
-                "number": "",
-                "name": "Nawaf Al-Boushail",
+                "number": "13",
+                "name": "Nawaf Boushal",
                 "position": "LB",
                 "x": 12.5,
                 "y": 64.3
@@ -23108,11 +22612,175 @@
           },
           "signature": {
             "home": "willy semedo/jamiro monteiro/dailon livramento|deroy duarte/ryan mendes|kevin pina|joao paulo/diney borges/roberto lopes/wagner pina|vozinha",
-            "away": "mohamed kanno/firas al buraikan|salem al dawsari/nasser al dawsari/abdullah al khaibari/sultan mandash|nawaf al boushail/hassan al tambakti/abdulelah al amri/saud abdulhamid|mohammed al owais"
+            "away": "mohamed kanno/firas al buraikan|salem al dawsari/nasser al dawsari/abdullah al khaibari/sultan mandash|nawaf boushal/hassan al tambakti/abdulelah al amri/saud abdulhamid|mohammed al owais"
           }
         }
       ],
-      "note": "cabo-verde-saudi-arabia-2026-06-26 away missing official starter Nawaf Boushal"
+      "note": "FIFA official team sheet kept for facts; FotMob supplied exact board geometry.",
+      "home": {
+        "formation": "4-1-2-3",
+        "players": [
+          {
+            "number": "1",
+            "name": "Vozinha",
+            "position": "GK",
+            "x": 50,
+            "y": 90
+          },
+          {
+            "number": "24",
+            "name": "Wagner Pina",
+            "position": "RB",
+            "x": 87.5,
+            "y": 70.8
+          },
+          {
+            "number": "4",
+            "name": "Roberto Lopes",
+            "position": "CB",
+            "x": 62.5,
+            "y": 70.8
+          },
+          {
+            "number": "3",
+            "name": "Diney Borges",
+            "position": "CB",
+            "x": 37.5,
+            "y": 70.8
+          },
+          {
+            "number": "8",
+            "name": "João Paulo",
+            "position": "LB",
+            "x": 12.5,
+            "y": 70.8
+          },
+          {
+            "number": "6",
+            "name": "Kevin Pina",
+            "position": "DM",
+            "x": 50,
+            "y": 51.5
+          },
+          {
+            "number": "20",
+            "name": "Ryan Mendes",
+            "position": "RM",
+            "x": 87.5,
+            "y": 32.2
+          },
+          {
+            "number": "14",
+            "name": "Deroy Duarte",
+            "position": "CM",
+            "x": 62.5,
+            "y": 32.2
+          },
+          {
+            "number": "10",
+            "name": "Jamiro Monteiro",
+            "position": "CM",
+            "x": 37.5,
+            "y": 32.2
+          },
+          {
+            "number": "17",
+            "name": "Willy Semedo",
+            "position": "LM",
+            "x": 12.5,
+            "y": 32.2
+          },
+          {
+            "number": "19",
+            "name": "Dailon Livramento",
+            "position": "ST",
+            "x": 50,
+            "y": 11
+          }
+        ]
+      },
+      "away": {
+        "formation": "4-4-2",
+        "players": [
+          {
+            "number": "21",
+            "name": "Mohammed Al-Owais",
+            "position": "GK",
+            "x": 50,
+            "y": 90
+          },
+          {
+            "number": "12",
+            "name": "Saud Abdulhamid",
+            "position": "RB",
+            "x": 87.5,
+            "y": 64.3
+          },
+          {
+            "number": "4",
+            "name": "Abdulelah Al-Amri",
+            "position": "CB",
+            "x": 62.5,
+            "y": 64.3
+          },
+          {
+            "number": "5",
+            "name": "Hassan Al-Tambakti",
+            "position": "CB",
+            "x": 37.5,
+            "y": 64.3
+          },
+          {
+            "number": "13",
+            "name": "Nawaf Boushal",
+            "position": "LB",
+            "x": 12.5,
+            "y": 64.3
+          },
+          {
+            "number": "20",
+            "name": "Sultan Mandash",
+            "position": "RM",
+            "x": 87.5,
+            "y": 38.7
+          },
+          {
+            "number": "15",
+            "name": "Abdullah Al-Khaibari",
+            "position": "CM",
+            "x": 62.5,
+            "y": 38.7
+          },
+          {
+            "number": "6",
+            "name": "Nasser Al-Dawsari",
+            "position": "CM",
+            "x": 37.5,
+            "y": 38.7
+          },
+          {
+            "number": "10",
+            "name": "Salem Al-Dawsari",
+            "position": "LM",
+            "x": 12.5,
+            "y": 38.7
+          },
+          {
+            "number": "9",
+            "name": "Firas Al-Buraikan",
+            "position": "ST",
+            "x": 70,
+            "y": 13
+          },
+          {
+            "number": "23",
+            "name": "Mohamed Kanno",
+            "position": "ST",
+            "x": 30,
+            "y": 13
+          }
+        ]
+      }
     },
     "uruguay-spain-2026-06-26": {
       "status": "verified",
@@ -25580,12 +25248,11 @@
     },
     "algeria-austria-2026-06-27": {
       "status": "unresolved",
-      "checkedAt": "2026-07-03T06:11:46.942Z",
+      "unresolvedReason": "conflict",
+      "checkedAt": "2026-07-14T22:02:38.970Z",
       "sourceIds": [
-        "lineup-layout-verification-2026-07-03"
+        "lineup-layout-verification-2026-07-14"
       ],
-      "homeTeamId": "ALG",
-      "awayTeamId": "AUT",
       "sources": [
         {
           "name": "ESPN",
@@ -25774,79 +25441,79 @@
               {
                 "number": "16",
                 "name": "Oussama Benbot",
-                "position": "ST",
-                "x": 0.1,
-                "y": 0.1
+                "position": "GK",
+                "x": 50,
+                "y": 90
               },
               {
                 "number": "17",
                 "name": "Rak Belghali",
-                "position": "LW",
-                "x": 0.3,
-                "y": 0.3
+                "position": "RB",
+                "x": 87.5,
+                "y": 70.8
               },
               {
                 "number": "2",
                 "name": "Aissa Mandi",
-                "position": "AM",
-                "x": 0.3,
-                "y": 0.3
+                "position": "CB",
+                "x": 62.5,
+                "y": 70.8
               },
               {
                 "number": "21",
                 "name": "Ramy Bensebaini",
-                "position": "RW",
-                "x": 0.3,
-                "y": 0.3
+                "position": "CB",
+                "x": 37.5,
+                "y": 70.8
               },
               {
                 "number": "13",
                 "name": "Jaouen Hadjam",
-                "position": "CM",
-                "x": 0.3,
-                "y": 0.3
+                "position": "LB",
+                "x": 12.5,
+                "y": 70.8
               },
               {
                 "number": "19",
                 "name": "Nabil Bentaleb",
                 "position": "CM",
-                "x": 0.5,
-                "y": 0.5
+                "x": 70,
+                "y": 51.5
               },
               {
                 "number": "10",
                 "name": "Fares Chaibi",
-                "position": "LB",
-                "x": 0.5,
-                "y": 0.5
+                "position": "CM",
+                "x": 30,
+                "y": 51.5
               },
               {
                 "number": "7",
                 "name": "Riyad Mahrez",
-                "position": "CB",
-                "x": 0.7,
-                "y": 0.7
+                "position": "RW",
+                "x": 83.8,
+                "y": 32.2
               },
               {
                 "number": "22",
                 "name": "Ibrahim Maza",
-                "position": "CB",
-                "x": 0.7,
-                "y": 0.7
+                "position": "AM",
+                "x": 50,
+                "y": 32.2
               },
               {
                 "number": "8",
                 "name": "Houssem Aouar",
-                "position": "RB",
-                "x": 0.7,
-                "y": 0.7
+                "position": "LW",
+                "x": 16.3,
+                "y": 32.2
               },
               {
                 "number": "9",
                 "name": "Amine Gouiri",
-                "position": "GK",
-                "x": 0.9,
-                "y": 0.9
+                "position": "ST",
+                "x": 50,
+                "y": 13
               }
             ]
           },
@@ -25856,254 +25523,89 @@
               {
                 "number": "1",
                 "name": "Alexander Schlager",
-                "position": "ST",
-                "x": 0.1,
-                "y": 0.1
+                "position": "GK",
+                "x": 50,
+                "y": 90
               },
               {
                 "number": "5",
                 "name": "Stefan Posch",
-                "position": "LW",
-                "x": 0.3,
-                "y": 0.3
+                "position": "RB",
+                "x": 87.5,
+                "y": 70.8
               },
               {
                 "number": "15",
                 "name": "Philipp Lienhart",
-                "position": "AM",
-                "x": 0.3,
-                "y": 0.3
+                "position": "CB",
+                "x": 62.5,
+                "y": 70.8
               },
               {
                 "number": "8",
                 "name": "David Alaba",
-                "position": "RW",
-                "x": 0.3,
-                "y": 0.3
+                "position": "CB",
+                "x": 37.5,
+                "y": 70.8
               },
               {
                 "number": "16",
                 "name": "Phillip Mwene",
-                "position": "CM",
-                "x": 0.3,
-                "y": 0.3
+                "position": "LB",
+                "x": 12.5,
+                "y": 70.8
               },
               {
                 "number": "6",
                 "name": "Nicolas Seiwald",
                 "position": "CM",
-                "x": 0.5,
-                "y": 0.5
+                "x": 70,
+                "y": 51.5
               },
               {
                 "number": "4",
                 "name": "Xaver Schlager",
-                "position": "LB",
-                "x": 0.5,
-                "y": 0.5
+                "position": "CM",
+                "x": 30,
+                "y": 51.5
               },
               {
                 "number": "20",
                 "name": "Konrad Laimer",
-                "position": "CB",
-                "x": 0.7,
-                "y": 0.7
+                "position": "RW",
+                "x": 83.8,
+                "y": 32.2
               },
               {
                 "number": "18",
                 "name": "Romano Schmid",
-                "position": "CB",
-                "x": 0.7,
-                "y": 0.7
+                "position": "AM",
+                "x": 50,
+                "y": 32.2
               },
               {
                 "number": "9",
                 "name": "Marcel Sabitzer",
-                "position": "RB",
-                "x": 0.7,
-                "y": 0.7
+                "position": "LW",
+                "x": 16.3,
+                "y": 32.2
               },
               {
                 "number": "7",
                 "name": "Marko Arnautovic",
-                "position": "GK",
-                "x": 0.9,
-                "y": 0.9
+                "position": "ST",
+                "x": 50,
+                "y": 13
               }
             ]
           },
           "signature": {
-            "home": "oussama benbot|rak belghali/aissa mandi/ramy bensebaini|jaouen hadjam/nabil bentaleb|fares chaibi/riyad mahrez/ibrahim maza/houssem aouar|amine gouiri",
-            "away": "alexander schlager|stefan posch/philipp lienhart/david alaba|phillip mwene/nicolas seiwald|xaver schlager/konrad laimer/romano schmid/marcel sabitzer|marko arnautovic"
+            "home": "amine gouiri|houssem aouar/ibrahim maza/riyad mahrez|fares chaibi/nabil bentaleb|jaouen hadjam/ramy bensebaini/aissa mandi/rak belghali|oussama benbot",
+            "away": "marko arnautovic|marcel sabitzer/romano schmid/konrad laimer|xaver schlager/nicolas seiwald|phillip mwene/david alaba/philipp lienhart/stefan posch|alexander schlager"
           }
         }
       ],
-      "note": "Trusted public boards disagreed on tactical row order; stored pitch placement remains provisional.",
-      "home": {
-        "formation": "4-2-3-1",
-        "players": [
-          {
-            "number": "9",
-            "name": "Amine Gouiri",
-            "position": "ST",
-            "x": 50,
-            "y": 10.5
-          },
-          {
-            "number": "8",
-            "name": "Houssem Aouar",
-            "position": "LW",
-            "x": 19.4,
-            "y": 30.1
-          },
-          {
-            "number": "22",
-            "name": "Ibrahim Maza",
-            "position": "AM",
-            "x": 50,
-            "y": 30.1
-          },
-          {
-            "number": "7",
-            "name": "Riyad Mahrez",
-            "position": "RW",
-            "x": 80.6,
-            "y": 30.1
-          },
-          {
-            "number": "19",
-            "name": "Nabil Bentaleb",
-            "position": "CM",
-            "x": 36.5,
-            "y": 49.9
-          },
-          {
-            "number": "10",
-            "name": "Fares Chaibi",
-            "position": "CM",
-            "x": 63.4,
-            "y": 49.9
-          },
-          {
-            "number": "13",
-            "name": "Jaouen Hadjam",
-            "position": "LB",
-            "x": 13.7,
-            "y": 62.8
-          },
-          {
-            "number": "17",
-            "name": "Rak Belghali",
-            "position": "RB",
-            "x": 86.2,
-            "y": 62.8
-          },
-          {
-            "number": "21",
-            "name": "Ramy Bensebaini",
-            "position": "CB",
-            "x": 33.3,
-            "y": 68.7
-          },
-          {
-            "number": "2",
-            "name": "Aissa Mandi",
-            "position": "CB",
-            "x": 66.5,
-            "y": 68.7
-          },
-          {
-            "number": "16",
-            "name": "Oussama Benbot",
-            "position": "GK",
-            "x": 49.9,
-            "y": 90.5
-          }
-        ]
-      },
-      "away": {
-        "formation": "4-2-3-1",
-        "players": [
-          {
-            "number": "7",
-            "name": "Marko Arnautovic",
-            "position": "ST",
-            "x": 50,
-            "y": 10.5
-          },
-          {
-            "number": "9",
-            "name": "Marcel Sabitzer",
-            "position": "LW",
-            "x": 19.4,
-            "y": 30.1
-          },
-          {
-            "number": "18",
-            "name": "Romano Schmid",
-            "position": "AM",
-            "x": 50,
-            "y": 30.1
-          },
-          {
-            "number": "20",
-            "name": "Konrad Laimer",
-            "position": "RW",
-            "x": 80.6,
-            "y": 30.1
-          },
-          {
-            "number": "4",
-            "name": "Xaver Schlager",
-            "position": "CM",
-            "x": 36.5,
-            "y": 49.9
-          },
-          {
-            "number": "6",
-            "name": "Nicolas Seiwald",
-            "position": "CM",
-            "x": 63.4,
-            "y": 49.9
-          },
-          {
-            "number": "16",
-            "name": "Phillip Mwene",
-            "position": "LB",
-            "x": 13.7,
-            "y": 62.8
-          },
-          {
-            "number": "5",
-            "name": "Stefan Posch",
-            "position": "RB",
-            "x": 86.2,
-            "y": 62.8
-          },
-          {
-            "number": "8",
-            "name": "David Alaba",
-            "position": "CB",
-            "x": 33.3,
-            "y": 68.7
-          },
-          {
-            "number": "15",
-            "name": "Philipp Lienhart",
-            "position": "CB",
-            "x": 66.5,
-            "y": 68.7
-          },
-          {
-            "number": "1",
-            "name": "Alexander Schlager",
-            "position": "GK",
-            "x": 49.9,
-            "y": 90.5
-          }
-        ]
-      },
-      "unresolvedReason": "conflict"
+      "note": "Trusted public sources disagreed on the tactical row order."
     },
     "jordan-argentina-2026-06-27": {
       "status": "verified",
@@ -28923,12 +28425,11 @@
     },
     "match-80-round-of-32-2026-07-01": {
       "status": "unresolved",
-      "checkedAt": "2026-07-03T06:11:46.942Z",
+      "unresolvedReason": "conflict",
+      "checkedAt": "2026-07-14T22:02:38.970Z",
       "sourceIds": [
-        "lineup-layout-verification-2026-07-03"
+        "lineup-layout-verification-2026-07-14"
       ],
-      "homeTeamId": "ENG",
-      "awayTeamId": "COD",
       "sources": [
         {
           "name": "ESPN",
@@ -29031,14 +28532,14 @@
               {
                 "number": "9",
                 "name": "Brian Cipenga",
-                "position": "LM",
+                "position": "AM",
                 "x": 18.6,
                 "y": 18.2
               },
               {
                 "number": "7",
                 "name": "Nathanael Mbuku",
-                "position": "RM",
+                "position": "AM",
                 "x": 81.4,
                 "y": 18.2
               },
@@ -29059,7 +28560,7 @@
               {
                 "number": "6",
                 "name": "Ngalayel Mukau",
-                "position": "DM",
+                "position": "CM",
                 "x": 81.4,
                 "y": 42.3
               },
@@ -29117,79 +28618,79 @@
               {
                 "number": "1",
                 "name": "Jordan Pickford",
-                "position": "ST",
-                "x": 0.1,
-                "y": 0.1
+                "position": "GK",
+                "x": 50,
+                "y": 90
               },
               {
                 "number": "25",
                 "name": "Djed Spence",
-                "position": "LW",
-                "x": 0.3,
-                "y": 0.3
+                "position": "RB",
+                "x": 87.5,
+                "y": 70.8
               },
               {
                 "number": "2",
                 "name": "Ezri Konsa",
-                "position": "AM",
-                "x": 0.3,
-                "y": 0.3
+                "position": "CB",
+                "x": 62.5,
+                "y": 70.8
               },
               {
                 "number": "6",
                 "name": "Marc Guehi",
-                "position": "RW",
-                "x": 0.3,
-                "y": 0.3
+                "position": "CB",
+                "x": 37.5,
+                "y": 70.8
               },
               {
                 "number": "3",
                 "name": "Nico Oreilly",
-                "position": "CM",
-                "x": 0.3,
-                "y": 0.3
+                "position": "LB",
+                "x": 12.5,
+                "y": 70.8
               },
               {
                 "number": "8",
                 "name": "Elliot Anderson",
                 "position": "CM",
-                "x": 0.5,
-                "y": 0.5
+                "x": 70,
+                "y": 51.5
               },
               {
                 "number": "4",
                 "name": "Declan Rice",
-                "position": "LB",
-                "x": 0.5,
-                "y": 0.5
+                "position": "CM",
+                "x": 30,
+                "y": 51.5
               },
               {
                 "number": "20",
                 "name": "Noni Madueke",
-                "position": "CB",
-                "x": 0.7,
-                "y": 0.7
+                "position": "RW",
+                "x": 83.8,
+                "y": 32.2
               },
               {
                 "number": "10",
                 "name": "Jude Bellingham",
-                "position": "CB",
-                "x": 0.7,
-                "y": 0.7
+                "position": "AM",
+                "x": 50,
+                "y": 32.2
               },
               {
                 "number": "11",
                 "name": "Marcus Rashford",
-                "position": "RB",
-                "x": 0.7,
-                "y": 0.7
+                "position": "LW",
+                "x": 16.3,
+                "y": 32.2
               },
               {
                 "number": "9",
                 "name": "Harry Kane",
-                "position": "GK",
-                "x": 0.9,
-                "y": 0.9
+                "position": "ST",
+                "x": 50,
+                "y": 13
               }
             ]
           },
@@ -29199,263 +28700,97 @@
               {
                 "number": "1",
                 "name": "Lionel Mpasi",
-                "position": "ST",
-                "x": 0.1,
-                "y": 0.1
+                "position": "GK",
+                "x": 50,
+                "y": 90
               },
               {
                 "number": "2",
                 "name": "Aaron Wan-Bissaka",
-                "position": "LM",
-                "x": 0.4,
-                "y": 0.4
+                "position": "RB",
+                "x": 87.5,
+                "y": 64.3
               },
               {
                 "number": "22",
                 "name": "Chancel Mbemba",
-                "position": "CM",
-                "x": 0.4,
-                "y": 0.4
+                "position": "CB",
+                "x": 62.5,
+                "y": 64.3
               },
               {
                 "number": "4",
                 "name": "Axel Tuanzebe",
-                "position": "CM",
-                "x": 0.4,
-                "y": 0.4
+                "position": "CB",
+                "x": 37.5,
+                "y": 64.3
               },
               {
                 "number": "26",
                 "name": "Arthur Masuaku",
-                "position": "RM",
-                "x": 0.4,
-                "y": 0.4
+                "position": "LB",
+                "x": 12.5,
+                "y": 64.3
               },
               {
                 "number": "6",
                 "name": "Ngalayel Mukau",
-                "position": "DM",
-                "x": 0.6,
-                "y": 0.6
+                "position": "CM",
+                "x": 79,
+                "y": 38.7
               },
               {
                 "number": "8",
                 "name": "Samuel Moutoussamy",
-                "position": "LB",
-                "x": 0.6,
-                "y": 0.6
+                "position": "CM",
+                "x": 50,
+                "y": 38.7
               },
               {
                 "number": "14",
                 "name": "Noah Sadiki",
-                "position": "CB",
-                "x": 0.6,
-                "y": 0.6
+                "position": "CM",
+                "x": 21,
+                "y": 38.7
               },
               {
                 "number": "7",
                 "name": "Nathanael Mbuku",
-                "position": "CB",
-                "x": 0.9,
-                "y": 0.9
+                "position": "AM",
+                "x": 79,
+                "y": 13
               },
               {
                 "number": "20",
                 "name": "Yoane Wissa",
-                "position": "RB",
-                "x": 0.9,
-                "y": 0.9
+                "position": "AM",
+                "x": 50,
+                "y": 13
               },
               {
                 "number": "9",
                 "name": "Brian Cipenga",
-                "position": "GK",
-                "x": 0.9,
-                "y": 0.9
+                "position": "ST",
+                "x": 21,
+                "y": 13
               }
             ]
           },
           "signature": {
-            "home": "jordan pickford|djed spence/ezri konsa/marc guehi|nico oreilly/elliot anderson|declan rice/noni madueke/jude bellingham/marcus rashford|harry kane",
-            "away": "lionel mpasi|aaron wan bissaka/chancel mbemba/axel tuanzebe/arthur masuaku|ngalayel mukau|samuel moutoussamy/noah sadiki/nathanael mbuku/yoane wissa|brian cipenga"
+            "home": "harry kane|marcus rashford/jude bellingham/noni madueke|declan rice/elliot anderson|nico oreilly/marc guehi/ezri konsa/djed spence|jordan pickford",
+            "away": "brian cipenga|noah sadiki/yoane wissa/samuel moutoussamy/nathanael mbuku|ngalayel mukau|arthur masuaku/axel tuanzebe/chancel mbemba/aaron wan bissaka|lionel mpasi"
           }
         }
       ],
-      "note": "Trusted public boards disagreed on tactical row order; stored pitch placement remains provisional.",
-      "home": {
-        "formation": "4-2-3-1",
-        "players": [
-          {
-            "number": "9",
-            "name": "Harry Kane",
-            "position": "ST",
-            "x": 50,
-            "y": 10.5
-          },
-          {
-            "number": "11",
-            "name": "Marcus Rashford",
-            "position": "LW",
-            "x": 19.4,
-            "y": 30.1
-          },
-          {
-            "number": "10",
-            "name": "Jude Bellingham",
-            "position": "AM",
-            "x": 50,
-            "y": 30.1
-          },
-          {
-            "number": "20",
-            "name": "Noni Madueke",
-            "position": "RW",
-            "x": 80.6,
-            "y": 30.1
-          },
-          {
-            "number": "4",
-            "name": "Declan Rice",
-            "position": "CM",
-            "x": 36.5,
-            "y": 49.9
-          },
-          {
-            "number": "8",
-            "name": "Elliot Anderson",
-            "position": "CM",
-            "x": 63.4,
-            "y": 49.9
-          },
-          {
-            "number": "3",
-            "name": "Nico Oreilly",
-            "position": "LB",
-            "x": 13.7,
-            "y": 62.8
-          },
-          {
-            "number": "25",
-            "name": "Djed Spence",
-            "position": "RB",
-            "x": 86.2,
-            "y": 62.8
-          },
-          {
-            "number": "6",
-            "name": "Marc Guehi",
-            "position": "CB",
-            "x": 33.3,
-            "y": 68.7
-          },
-          {
-            "number": "2",
-            "name": "Ezri Konsa",
-            "position": "CB",
-            "x": 66.5,
-            "y": 68.7
-          },
-          {
-            "number": "1",
-            "name": "Jordan Pickford",
-            "position": "GK",
-            "x": 49.9,
-            "y": 90.5
-          }
-        ]
-      },
-      "away": {
-        "formation": "4-1-4-1",
-        "players": [
-          {
-            "number": "20",
-            "name": "Yoane Wissa",
-            "position": "ST",
-            "x": 50,
-            "y": 10.5
-          },
-          {
-            "number": "9",
-            "name": "Brian Cipenga",
-            "position": "LM",
-            "x": 18.6,
-            "y": 18.2
-          },
-          {
-            "number": "7",
-            "name": "Nathanael Mbuku",
-            "position": "RM",
-            "x": 81.4,
-            "y": 18.2
-          },
-          {
-            "number": "8",
-            "name": "Samuel Moutoussamy",
-            "position": "CM",
-            "x": 50,
-            "y": 37.6
-          },
-          {
-            "number": "14",
-            "name": "Noah Sadiki",
-            "position": "CM",
-            "x": 18.6,
-            "y": 42.3
-          },
-          {
-            "number": "6",
-            "name": "Ngalayel Mukau",
-            "position": "DM",
-            "x": 81.4,
-            "y": 42.3
-          },
-          {
-            "number": "26",
-            "name": "Arthur Masuaku",
-            "position": "LB",
-            "x": 13.7,
-            "y": 62.8
-          },
-          {
-            "number": "2",
-            "name": "Aaron Wan-Bissaka",
-            "position": "RB",
-            "x": 86.6,
-            "y": 62.8
-          },
-          {
-            "number": "4",
-            "name": "Axel Tuanzebe",
-            "position": "CB",
-            "x": 33.3,
-            "y": 68.7
-          },
-          {
-            "number": "22",
-            "name": "Chancel Mbemba",
-            "position": "CB",
-            "x": 66.5,
-            "y": 68.7
-          },
-          {
-            "number": "1",
-            "name": "Lionel Mpasi",
-            "position": "GK",
-            "x": 49.9,
-            "y": 90.5
-          }
-        ]
-      },
-      "unresolvedReason": "conflict"
+      "note": "Trusted public sources disagreed on the tactical row order."
     },
     "match-81-round-of-32-2026-07-01": {
       "status": "unresolved",
-      "checkedAt": "2026-07-03T06:11:46.942Z",
+      "unresolvedReason": "conflict",
+      "checkedAt": "2026-07-14T22:02:38.970Z",
       "sourceIds": [
-        "lineup-layout-verification-2026-07-03"
+        "lineup-layout-verification-2026-07-14"
       ],
-      "homeTeamId": "USA",
-      "awayTeamId": "BIH",
       "sources": [
         {
           "name": "ESPN",
@@ -29469,14 +28804,14 @@
               {
                 "number": "20",
                 "name": "Folarin Balogun",
-                "position": "ST",
+                "position": "CM",
                 "x": 50,
                 "y": 10.5
               },
               {
                 "number": "10",
                 "name": "Christian Pulisic",
-                "position": "ST",
+                "position": "CM",
                 "x": 18.6,
                 "y": 18.2
               },
@@ -29504,28 +28839,28 @@
               {
                 "number": "8",
                 "name": "Weston McKennie",
-                "position": "RWB",
+                "position": "CM",
                 "x": 81.4,
                 "y": 42.3
               },
               {
                 "number": "5",
                 "name": "Antonee Robinson",
-                "position": "LWB",
+                "position": "DM",
                 "x": 13.7,
                 "y": 62.8
               },
               {
                 "number": "16",
                 "name": "Alex Freeman",
-                "position": "CB",
+                "position": "RCB",
                 "x": 86.6,
                 "y": 62.8
               },
               {
                 "number": "13",
                 "name": "Tim Ream",
-                "position": "CB",
+                "position": "LCB",
                 "x": 33.3,
                 "y": 68.7
               },
@@ -29644,79 +28979,79 @@
               {
                 "number": "24",
                 "name": "Matt Freese",
-                "position": "ST",
-                "x": 0.1,
-                "y": 0.1
+                "position": "GK",
+                "x": 50,
+                "y": 90
               },
               {
                 "number": "16",
                 "name": "Alex Freeman",
-                "position": "ST",
-                "x": 0.3,
-                "y": 0.3
+                "position": "RCB",
+                "x": 87.5,
+                "y": 70.8
               },
               {
                 "number": "3",
                 "name": "Chris Richards",
-                "position": "LWB",
-                "x": 0.3,
-                "y": 0.3
+                "position": "CB",
+                "x": 62.5,
+                "y": 70.8
               },
               {
                 "number": "13",
                 "name": "Tim Ream",
-                "position": "CM",
-                "x": 0.3,
-                "y": 0.3
+                "position": "LCB",
+                "x": 37.5,
+                "y": 70.8
               },
               {
                 "number": "5",
                 "name": "Antonee Robinson",
                 "position": "CM",
-                "x": 0.3,
-                "y": 0.3
+                "x": 12.5,
+                "y": 70.8
               },
               {
                 "number": "4",
                 "name": "Tyler Adams",
                 "position": "CM",
-                "x": 0.5,
-                "y": 0.5
+                "x": 50,
+                "y": 51.5
               },
               {
                 "number": "2",
                 "name": "Sergino Dest",
-                "position": "RWB",
-                "x": 0.7,
-                "y": 0.7
+                "position": "CM",
+                "x": 87.5,
+                "y": 32.2
               },
               {
                 "number": "8",
                 "name": "Weston McKennie",
-                "position": "CB",
-                "x": 0.7,
-                "y": 0.7
+                "position": "CM",
+                "x": 62.5,
+                "y": 32.2
               },
               {
                 "number": "17",
                 "name": "Malik Tillman",
-                "position": "CB",
-                "x": 0.7,
-                "y": 0.7
+                "position": "CM",
+                "x": 37.5,
+                "y": 32.2
               },
               {
                 "number": "10",
                 "name": "Christian Pulisic",
-                "position": "CB",
-                "x": 0.7,
-                "y": 0.7
+                "position": "CM",
+                "x": 12.5,
+                "y": 32.2
               },
               {
                 "number": "20",
                 "name": "Folarin Balogun",
-                "position": "GK",
-                "x": 0.9,
-                "y": 0.9
+                "position": "ST",
+                "x": 50,
+                "y": 11
               }
             ]
           },
@@ -29726,260 +29061,96 @@
               {
                 "number": "1",
                 "name": "Nikola Vasilj",
-                "position": "ST",
-                "x": 0.1,
-                "y": 0.1
+                "position": "GK",
+                "x": 50,
+                "y": 90
               },
               {
                 "number": "18",
                 "name": "Nikola Katic",
-                "position": "ST",
-                "x": 0.4,
-                "y": 0.4
+                "position": "CB",
+                "x": 69.5,
+                "y": 64.3
               },
               {
                 "number": "4",
                 "name": "Tarik Muharemovic",
-                "position": "LM",
-                "x": 0.4,
-                "y": 0.4
+                "position": "CB",
+                "x": 50,
+                "y": 64.3
               },
               {
                 "number": "21",
                 "name": "Stjepan Radeljic",
-                "position": "CM",
-                "x": 0.4,
-                "y": 0.4
+                "position": "LB",
+                "x": 30.5,
+                "y": 64.3
               },
               {
                 "number": "7",
                 "name": "Amar Dedic",
-                "position": "CM",
-                "x": 0.4,
-                "y": 0.4
+                "position": "RB",
+                "x": 89,
+                "y": 62.9
               },
               {
                 "number": "5",
                 "name": "Sead Kolasinac",
-                "position": "RM",
-                "x": 0.4,
-                "y": 0.4
+                "position": "LM",
+                "x": 11,
+                "y": 62.9
               },
               {
                 "number": "8",
                 "name": "Armin Gigovic",
-                "position": "LB",
-                "x": 0.6,
-                "y": 0.6
+                "position": "RM",
+                "x": 79,
+                "y": 38.7
               },
               {
                 "number": "14",
                 "name": "Ivan Sunjic",
-                "position": "CB",
-                "x": 0.6,
-                "y": 0.6
+                "position": "CM",
+                "x": 50,
+                "y": 38.7
               },
               {
                 "number": "19",
                 "name": "Kerim Alajbegovic",
-                "position": "CB",
-                "x": 0.6,
-                "y": 0.6
+                "position": "CM",
+                "x": 21,
+                "y": 38.7
               },
               {
                 "number": "11",
                 "name": "Edin Dzeko",
-                "position": "RB",
-                "x": 0.9,
-                "y": 0.9
+                "position": "ST",
+                "x": 70,
+                "y": 13
               },
               {
                 "number": "10",
                 "name": "Ermedin Demirovic",
-                "position": "GK",
-                "x": 0.9,
-                "y": 0.9
+                "position": "ST",
+                "x": 30,
+                "y": 13
               }
             ]
           },
           "signature": {
-            "home": "matt freese/alex freeman|chris richards/tim ream/antonee robinson/tyler adams/sergino dest|weston mckennie/malik tillman/christian pulisic|folarin balogun",
-            "away": "nikola vasilj/nikola katic|tarik muharemovic/stjepan radeljic/amar dedic/sead kolasinac|armin gigovic/ivan sunjic/kerim alajbegovic/edin dzeko|ermedin demirovic"
+            "home": "christian pulisic/folarin balogun|antonee robinson/malik tillman/tyler adams/weston mckennie/sergino dest|tim ream/chris richards/alex freeman|matt freese",
+            "away": "ermedin demirovic/edin dzeko|sead kolasinac/kerim alajbegovic/ivan sunjic/armin gigovic|stjepan radeljic/tarik muharemovic/nikola katic/amar dedic|nikola vasilj"
           }
         }
       ],
-      "note": "Trusted public boards disagreed on tactical row order; stored pitch placement remains provisional.",
-      "home": {
-        "formation": "3-5-2",
-        "players": [
-          {
-            "number": "20",
-            "name": "Folarin Balogun",
-            "position": "ST",
-            "x": 50,
-            "y": 10.5
-          },
-          {
-            "number": "10",
-            "name": "Christian Pulisic",
-            "position": "ST",
-            "x": 18.6,
-            "y": 18.2
-          },
-          {
-            "number": "2",
-            "name": "Sergino Dest",
-            "position": "CM",
-            "x": 81.4,
-            "y": 18.2
-          },
-          {
-            "number": "4",
-            "name": "Tyler Adams",
-            "position": "CM",
-            "x": 50,
-            "y": 37.6
-          },
-          {
-            "number": "17",
-            "name": "Malik Tillman",
-            "position": "CM",
-            "x": 18.6,
-            "y": 42.3
-          },
-          {
-            "number": "8",
-            "name": "Weston McKennie",
-            "position": "RWB",
-            "x": 81.4,
-            "y": 42.3
-          },
-          {
-            "number": "5",
-            "name": "Antonee Robinson",
-            "position": "LWB",
-            "x": 13.7,
-            "y": 62.8
-          },
-          {
-            "number": "16",
-            "name": "Alex Freeman",
-            "position": "CB",
-            "x": 86.6,
-            "y": 62.8
-          },
-          {
-            "number": "13",
-            "name": "Tim Ream",
-            "position": "CB",
-            "x": 33.3,
-            "y": 68.7
-          },
-          {
-            "number": "3",
-            "name": "Chris Richards",
-            "position": "CB",
-            "x": 66.5,
-            "y": 68.7
-          },
-          {
-            "number": "24",
-            "name": "Matt Freese",
-            "position": "GK",
-            "x": 49.9,
-            "y": 90.5
-          }
-        ]
-      },
-      "away": {
-        "formation": "4-4-2",
-        "players": [
-          {
-            "number": "10",
-            "name": "Ermedin Demirovic",
-            "position": "ST",
-            "x": 33.5,
-            "y": 10.5
-          },
-          {
-            "number": "11",
-            "name": "Edin Dzeko",
-            "position": "ST",
-            "x": 66.5,
-            "y": 10.5
-          },
-          {
-            "number": "19",
-            "name": "Kerim Alajbegovic",
-            "position": "CM",
-            "x": 27.5,
-            "y": 35.6
-          },
-          {
-            "number": "14",
-            "name": "Ivan Sunjic",
-            "position": "CM",
-            "x": 50,
-            "y": 42.3
-          },
-          {
-            "number": "8",
-            "name": "Armin Gigovic",
-            "position": "RM",
-            "x": 72.5,
-            "y": 35.6
-          },
-          {
-            "number": "5",
-            "name": "Sead Kolasinac",
-            "position": "LM",
-            "x": 11.4,
-            "y": 57.2
-          },
-          {
-            "number": "7",
-            "name": "Amar Dedic",
-            "position": "RB",
-            "x": 86.6,
-            "y": 57.2
-          },
-          {
-            "number": "21",
-            "name": "Stjepan Radeljic",
-            "position": "LB",
-            "x": 29,
-            "y": 62.7
-          },
-          {
-            "number": "4",
-            "name": "Tarik Muharemovic",
-            "position": "CB",
-            "x": 49.9,
-            "y": 69.7
-          },
-          {
-            "number": "18",
-            "name": "Nikola Katic",
-            "position": "CB",
-            "x": 70,
-            "y": 62.7
-          },
-          {
-            "number": "1",
-            "name": "Nikola Vasilj",
-            "position": "GK",
-            "x": 49.9,
-            "y": 90.5
-          }
-        ]
-      },
-      "unresolvedReason": "conflict"
+      "note": "Trusted public sources disagreed on the tactical row order."
     },
     "match-84-round-of-32-2026-07-02": {
-      "status": "unresolved",
-      "checkedAt": "2026-07-03T06:11:46.942Z",
+      "status": "verified",
+      "layoutSource": "verified-layout",
+      "checkedAt": "2026-07-14T22:02:38.970Z",
       "sourceIds": [
-        "lineup-layout-verification-2026-07-03"
+        "lineup-layout-verification-2026-07-14"
       ],
       "homeTeamId": "ESP",
       "awayTeamId": "AUT",
@@ -29987,7 +29158,7 @@
         {
           "name": "ESPN",
           "url": "https://www.espn.com/soccer/match/_/gameId/760497/austria-spain",
-          "status": "conflict",
+          "status": "matched",
           "sourceDetail": "public match-center board geometry",
           "exactLayout": true,
           "home": {
@@ -30010,14 +29181,14 @@
               {
                 "number": "10",
                 "name": "Dani Olmo",
-                "position": "RW",
+                "position": "AM",
                 "x": 50,
                 "y": 30.1
               },
               {
                 "number": "19",
                 "name": "Lamine Yamal",
-                "position": "CM",
+                "position": "RW",
                 "x": 80.6,
                 "y": 30.1
               },
@@ -30031,7 +29202,7 @@
               {
                 "number": "16",
                 "name": "Rodri",
-                "position": "DM",
+                "position": "CM",
                 "x": 63.4,
                 "y": 49.9
               },
@@ -30162,7 +29333,7 @@
         {
           "name": "FotMob",
           "url": "https://www.fotmob.com/matches/spain-vs-austria/i9x9deku",
-          "status": "conflict",
+          "status": "matched",
           "sourceDetail": "lineup payload source: enetpulse",
           "exactLayout": true,
           "home": {
@@ -30171,79 +29342,79 @@
               {
                 "number": "23",
                 "name": "Unai Simon",
-                "position": "LW",
-                "x": 0.1,
-                "y": 0.1
+                "position": "GK",
+                "x": 50,
+                "y": 90
               },
               {
                 "number": "12",
                 "name": "Pedro Porro",
-                "position": "ST",
-                "x": 0.3,
-                "y": 0.3
+                "position": "RB",
+                "x": 87.5,
+                "y": 70.8
               },
               {
                 "number": "22",
                 "name": "Pau Cubarsi",
-                "position": "RW",
-                "x": 0.3,
-                "y": 0.3
+                "position": "CB",
+                "x": 62.5,
+                "y": 70.8
               },
               {
                 "number": "14",
                 "name": "Aymeric Laporte",
-                "position": "CM",
-                "x": 0.3,
-                "y": 0.3
+                "position": "CB",
+                "x": 37.5,
+                "y": 70.8
               },
               {
                 "number": "24",
                 "name": "Marc Cucurella",
-                "position": "CM",
-                "x": 0.3,
-                "y": 0.3
+                "position": "LB",
+                "x": 12.5,
+                "y": 70.8
               },
               {
                 "number": "16",
                 "name": "Rodri",
-                "position": "DM",
-                "x": 0.5,
-                "y": 0.5
+                "position": "CM",
+                "x": 70,
+                "y": 51.5
               },
               {
                 "number": "20",
                 "name": "Pedri",
-                "position": "LB",
-                "x": 0.5,
-                "y": 0.5
+                "position": "CM",
+                "x": 30,
+                "y": 51.5
               },
               {
                 "number": "19",
                 "name": "Lamine Yamal",
-                "position": "CB",
-                "x": 0.7,
-                "y": 0.7
+                "position": "RW",
+                "x": 83.8,
+                "y": 32.2
               },
               {
                 "number": "10",
                 "name": "Dani Olmo",
-                "position": "CB",
-                "x": 0.7,
-                "y": 0.7
+                "position": "AM",
+                "x": 50,
+                "y": 32.2
               },
               {
                 "number": "15",
                 "name": "Alex Baena",
-                "position": "RB",
-                "x": 0.7,
-                "y": 0.7
+                "position": "LW",
+                "x": 16.3,
+                "y": 32.2
               },
               {
                 "number": "21",
                 "name": "Mikel Oyarzabal",
-                "position": "GK",
-                "x": 0.9,
-                "y": 0.9
+                "position": "ST",
+                "x": 50,
+                "y": 13
               }
             ]
           },
@@ -30253,89 +29424,89 @@
               {
                 "number": "1",
                 "name": "Alexander Schlager",
-                "position": "ST",
-                "x": 0.1,
-                "y": 0.1
+                "position": "GK",
+                "x": 50,
+                "y": 90
               },
               {
                 "number": "5",
                 "name": "Stefan Posch",
-                "position": "LW",
-                "x": 0.3,
-                "y": 0.3
+                "position": "RB",
+                "x": 87.5,
+                "y": 70.8
               },
               {
                 "number": "3",
                 "name": "Kevin Danso",
-                "position": "AM",
-                "x": 0.3,
-                "y": 0.3
+                "position": "CB",
+                "x": 62.5,
+                "y": 70.8
               },
               {
                 "number": "8",
                 "name": "David Alaba",
-                "position": "RW",
-                "x": 0.3,
-                "y": 0.3
+                "position": "CB",
+                "x": 37.5,
+                "y": 70.8
               },
               {
                 "number": "20",
                 "name": "Konrad Laimer",
-                "position": "CM",
-                "x": 0.3,
-                "y": 0.3
+                "position": "LB",
+                "x": 12.5,
+                "y": 70.8
               },
               {
                 "number": "6",
                 "name": "Nicolas Seiwald",
                 "position": "CM",
-                "x": 0.5,
-                "y": 0.5
+                "x": 70,
+                "y": 51.5
               },
               {
                 "number": "4",
                 "name": "Xaver Schlager",
-                "position": "LB",
-                "x": 0.5,
-                "y": 0.5
+                "position": "CM",
+                "x": 30,
+                "y": 51.5
               },
               {
                 "number": "18",
                 "name": "Romano Schmid",
-                "position": "CB",
-                "x": 0.7,
-                "y": 0.7
+                "position": "RW",
+                "x": 83.8,
+                "y": 32.2
               },
               {
                 "number": "24",
                 "name": "Paul Wanner",
-                "position": "CB",
-                "x": 0.7,
-                "y": 0.7
+                "position": "AM",
+                "x": 50,
+                "y": 32.2
               },
               {
                 "number": "9",
                 "name": "Marcel Sabitzer",
-                "position": "RB",
-                "x": 0.7,
-                "y": 0.7
+                "position": "LW",
+                "x": 16.3,
+                "y": 32.2
               },
               {
                 "number": "11",
                 "name": "Michael Gregoritsch",
-                "position": "GK",
-                "x": 0.9,
-                "y": 0.9
+                "position": "ST",
+                "x": 50,
+                "y": 13
               }
             ]
           },
           "signature": {
-            "home": "unai simon/pedro porro/pau cubarsi|aymeric laporte/marc cucurella|rodri|pedri/lamine yamal/dani olmo/alex baena|mikel oyarzabal",
-            "away": "alexander schlager|stefan posch/kevin danso/david alaba|konrad laimer/nicolas seiwald|xaver schlager/romano schmid/paul wanner/marcel sabitzer|michael gregoritsch"
+            "home": "alex baena/mikel oyarzabal/dani olmo|pedri/lamine yamal|rodri|marc cucurella/aymeric laporte/pau cubarsi/pedro porro|unai simon",
+            "away": "michael gregoritsch|marcel sabitzer/paul wanner/romano schmid|xaver schlager/nicolas seiwald|konrad laimer/david alaba/kevin danso/stefan posch|alexander schlager"
           }
         }
       ],
-      "note": "Trusted public boards disagreed on tactical row order; stored pitch placement remains provisional.",
+      "note": "FIFA official team sheet kept for facts; ESPN and FotMob agreed on the tactical layout.",
       "home": {
         "formation": "4-1-2-3",
         "players": [
@@ -30356,14 +29527,14 @@
           {
             "number": "10",
             "name": "Dani Olmo",
-            "position": "RW",
+            "position": "AM",
             "x": 50,
             "y": 30.1
           },
           {
             "number": "19",
             "name": "Lamine Yamal",
-            "position": "CM",
+            "position": "RW",
             "x": 80.6,
             "y": 30.1
           },
@@ -30377,7 +29548,7 @@
           {
             "number": "16",
             "name": "Rodri",
-            "position": "DM",
+            "position": "CM",
             "x": 63.4,
             "y": 49.9
           },
@@ -30499,8 +29670,7 @@
             "y": 90.5
           }
         ]
-      },
-      "unresolvedReason": "conflict"
+      }
     },
     "match-83-round-of-32-2026-07-02": {
       "status": "verified",

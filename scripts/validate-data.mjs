@@ -7,6 +7,7 @@ import {
   getLayoutOverrideProvenanceIssues,
   VERIFIED_LAYOUT_SOURCE
 } from "./lineup-layout-overrides.mjs";
+import { getLineupGeometryIssues } from "./lineup-geometry.mjs";
 import {
   DERIVED_TEAM_SHEET_ORDER_LAYOUT_SOURCE,
   isDerivedLayoutSource,
@@ -1549,6 +1550,9 @@ function validateLineupSide(teamLineup, fixture, side, lineupRecord = {}) {
       assert(!hasExactLineupPlayerName(starterNames, name), `${owner}.players[${index}] duplicates starter "${name}"`);
       starterNames.push(name);
     }
+  }
+  for (const issue of getLineupGeometryIssues(starters, { owner })) {
+    fail(issue);
   }
 
   const bench = teamLineup.bench === undefined ? [] : teamLineup.bench;

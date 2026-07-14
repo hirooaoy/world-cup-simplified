@@ -5,10 +5,12 @@ import { fileURLToPath } from "node:url";
 import {
   applyLineupLayoutOverride,
   compareLineupsToLayoutOverride,
+  getLayoutOverrideProvenanceIssues,
   getVerifiedLayoutOverride,
   normalizeLayoutPlayerName,
   VERIFIED_LAYOUT_SOURCE
 } from "./lineup-layout-overrides.mjs";
+import { assignRolesFromPitchGeometry } from "./lineup-layout-roles.mjs";
 import { isPlayerNameMatch } from "./player-name-matching.mjs";
 import { getSourceCandidatesForFixture } from "./lineup-layout-source-candidates.mjs";
 
@@ -386,79 +388,6 @@ function getOfficialRowsByPlayerName(officialPlayers, formation) {
   return officialPlayerRows;
 }
 
-function assignRolesForFormation(formation, sourcePlayers) {
-  const digits = String(formation || "")
-    .split("-")
-    .map((value) => Number(value))
-    .filter((value) => Number.isInteger(value) && value > 0);
-  if (digits.reduce((sum, value) => sum + value, 0) !== 10) {
-    return sourcePlayers.map((player) => ({ ...player, position: player.position || "CM" }));
-  }
-
-  const [defenderCount, ...rest] = digits;
-  const forwardCount = rest.at(-1);
-  const midfieldRows = rest.slice(0, -1);
-  const expectedRows = [];
-
-  expectedRows.push({ type: "forward", count: forwardCount });
-  for (let index = midfieldRows.length - 1; index >= 0; index -= 1) {
-    const count = midfieldRows[index];
-    const isAttackingBand = index === midfieldRows.length - 1 && forwardCount === 1;
-    expectedRows.push({ type: isAttackingBand ? "attacking-midfield" : "midfield", count });
-  }
-  expectedRows.push({ type: "defense", count: defenderCount });
-  expectedRows.push({ type: "goalkeeper", count: 1 });
-
-  const players = sourcePlayers
-    .map((player, sourceIndex) => ({ ...player, sourceIndex }))
-    .sort((left, right) => left.y - right.y || left.x - right.x);
-  const assigned = [];
-  let offset = 0;
-
-  for (const row of expectedRows) {
-    const rowPlayers = players.slice(offset, offset + row.count).sort((left, right) => left.x - right.x);
-    const roles = rolesForRow(row.type, row.count);
-    rowPlayers.forEach((player, index) => {
-      assigned.push({
-        ...player,
-        position: roles[index] || player.position || "CM"
-      });
-    });
-    offset += row.count;
-  }
-
-  return assigned.sort((left, right) => left.sourceIndex - right.sourceIndex);
-}
-
-function rolesForRow(type, count) {
-  if (type === "goalkeeper") return ["GK"];
-  if (type === "defense") {
-    if (count === 3) return ["LCB", "CB", "RCB"];
-    if (count === 4) return ["LB", "CB", "CB", "RB"];
-    if (count === 5) return ["LWB", "CB", "CB", "CB", "RWB"];
-  }
-  if (type === "attacking-midfield") {
-    if (count === 1) return ["AM"];
-    if (count === 2) return ["AM", "AM"];
-    if (count === 3) return ["LW", "AM", "RW"];
-    if (count === 4) return ["LM", "CM", "CM", "RM"];
-  }
-  if (type === "forward") {
-    if (count === 1) return ["ST"];
-    if (count === 2) return ["ST", "ST"];
-    if (count === 3) return ["LW", "ST", "RW"];
-  }
-  if (type === "midfield") {
-    if (count === 1) return ["DM"];
-    if (count === 2) return ["CM", "CM"];
-    if (count === 3) return ["CM", "CM", "CM"];
-    if (count === 4) return ["LM", "CM", "CM", "RM"];
-    if (count === 5) return ["LWB", "CM", "CM", "CM", "RWB"];
-  }
-
-  return Array.from({ length: count }, () => "CM");
-}
-
 function signatureFromLayout(formation, players) {
   const rowCounts = formationRowCounts(formation);
   const sortedPlayers = [...players].sort((left, right) => left.y - right.y || left.x - right.x);
@@ -544,7 +473,7 @@ function buildSideFromExactLayout(lineups, side, formation, sourcePlayers) {
     name: officialNameForSourceName(player.name, officialNames),
     number: officialPlayerForSourceName(player.name, officialPlayers)?.number || player.number || ""
   }));
-  const assigned = assignRolesForFormation(formation, players);
+  const assigned = assignRolesFromPitchGeometry(formation, players);
 
   return {
     formation,
@@ -1123,6 +1052,19 @@ function buildOverrideFromClaims(fixtureId, fixture, lineups, claims) {
       sourceIds: [overrideSourceId],
       sources: claims,
       note: coverageIssues.join("; ")
+    };
+  }
+
+  const geometryIssues = getLayoutOverrideProvenanceIssues(override)
+    .filter((issue) => /pitch|spread|coordinates|positioned players/i.test(issue));
+  if (geometryIssues.length) {
+    return {
+      status: "unresolved",
+      unresolvedReason: "invalid_geometry",
+      checkedAt,
+      sourceIds: [overrideSourceId],
+      sources: claims,
+      note: `The exact-layout source produced unusable pitch geometry: ${geometryIssues.join("; ")}`
     };
   }
 

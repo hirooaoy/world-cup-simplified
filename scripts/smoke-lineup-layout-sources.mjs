@@ -4,14 +4,18 @@ import { buildFifaLineupsFromLiveMatch } from "./fifa-live-lineup-parser.mjs";
 import {
   applyLineupLayoutOverride,
   compareLineupsToLayoutOverride,
+  getVerifiedLayoutOverride,
   getLayoutOverrideProvenanceIssues
 } from "./lineup-layout-overrides.mjs";
+import { getLineupGeometryIssues } from "./lineup-geometry.mjs";
+import { assignRolesFromPitchGeometry } from "./lineup-layout-roles.mjs";
 import {
   DERIVED_TEAM_SHEET_ORDER_LAYOUT_SOURCE,
   getLineupLayoutStatus,
   normalizeLayoutSource,
   VERIFIED_LAYOUT_SOURCE
 } from "./lineup-layout-sources.mjs";
+import { isPlayerNameMatch } from "./player-name-matching.mjs";
 
 const checkedAt = "2026-07-07T18:00:00.000Z";
 
@@ -188,5 +192,83 @@ assert.equal(verifiedLineups.layoutVerification.status, "verified");
 assert.equal(getLineupLayoutStatus(verifiedLineups).provisional, false);
 assert.equal(getLineupLayoutStatus(verifiedLineups).exact, true);
 assert.deepEqual(compareLineupsToLayoutOverride(verifiedLineups, override), []);
+
+assert.deepEqual(
+  getLineupGeometryIssues(lineups.home.players, { owner: "current World Cup lineup" }),
+  [],
+  "The shared geometry contract should accept a normally distributed formation."
+);
+
+const collapsedArchiveOverride = structuredClone(override);
+collapsedArchiveOverride.home.players = collapsedArchiveOverride.home.players.map((player, index) => ({
+  ...player,
+  x: index === 1 ? 99.6 : 0.1 + (index % 5) * 0.2,
+  y: 0.1 + (index % 5) * 0.2
+}));
+const collapsedArchiveIssues = getLayoutOverrideProvenanceIssues(collapsedArchiveOverride);
+assert(
+  collapsedArchiveIssues.some((issue) => issue.includes("spread") || issue.includes("visible pitch")),
+  "Collapsed archived World Cup geometry must be rejected even when its coordinates remain between 0 and 100."
+);
+assert.equal(
+  getVerifiedLayoutOverride({ fixtures: { "world-cup-archive-1998": collapsedArchiveOverride } }, "world-cup-archive-1998"),
+  null,
+  "Malformed archived overrides must not be treated as verified."
+);
+assert.equal(
+  applyLineupLayoutOverride(lineups, collapsedArchiveOverride),
+  lineups,
+  "Malformed overrides must fail safely instead of replacing a usable provisional formation."
+);
+
+const futureImportPlayers = lineups.away.players.map((player) => ({ ...player }));
+futureImportPlayers[0] = { ...futureImportPlayers[0], x: 100, y: 0 };
+assert(
+  getLineupGeometryIssues(futureImportPlayers, { owner: "future World Cup import" })
+    .some((issue) => issue.includes("visible pitch")),
+  "Future World Cup imports must keep markers inside the visible pitch inset."
+);
+
+assert(
+  isPlayerNameMatch("Nawaf Boushal", "Nawaf Al-Boushail"),
+  "Team-scoped lineup verification should tolerate the known Arabic transliteration variant."
+);
+
+const measuredFourTwoThreeOne = [
+  { name: "Goalkeeper", x: 50, y: 90 },
+  { name: "Right back", x: 87.5, y: 70.8 },
+  { name: "Right centre back", x: 62.5, y: 70.8 },
+  { name: "Left centre back", x: 37.5, y: 70.8 },
+  { name: "Left back", x: 12.5, y: 70.8 },
+  { name: "Right central midfielder", x: 70, y: 51.5 },
+  { name: "Left central midfielder", x: 30, y: 51.5 },
+  { name: "Right wing", x: 83.8, y: 32.2 },
+  { name: "Attacking midfielder", x: 50, y: 32.2 },
+  { name: "Left wing", x: 16.3, y: 32.2 },
+  { name: "Striker", x: 50, y: 13 }
+];
+const geometryAssignedRoles = Object.fromEntries(
+  assignRolesFromPitchGeometry("4-1-2-3", measuredFourTwoThreeOne).map((player) => [
+    player.name,
+    player.position
+  ])
+);
+assert.deepEqual(
+  geometryAssignedRoles,
+  {
+    Goalkeeper: "GK",
+    "Right back": "RB",
+    "Right centre back": "CB",
+    "Left centre back": "CB",
+    "Left back": "LB",
+    "Right central midfielder": "CM",
+    "Left central midfielder": "CM",
+    "Right wing": "RW",
+    "Attacking midfielder": "AM",
+    "Left wing": "LW",
+    Striker: "ST"
+  },
+  "Role labels should follow the verified pitch bands when they differ from a compact formation label."
+);
 
 console.log("Lineup layout source smoke passed: derived layouts stay unverified until an exact override is applied.");

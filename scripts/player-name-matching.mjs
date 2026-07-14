@@ -22,6 +22,8 @@ function simplifyPlayerToken(value) {
 }
 
 const TOKEN_ALIASES = {
+  boushal: new Set(["boushail"]),
+  boushail: new Set(["boushal"]),
   rafik: new Set(["rak"]),
   rak: new Set(["rafik"]),
   christian: new Set(["cristian"]),

@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-14T21:39:09.176Z",
+  "updatedAt": "2026-07-14T22:02:38.970Z",
   "coverageNote": "The current seed dataset covers the full official fixture skeleton from June 11 through July 19. Rich previews, scores, live status and knockout participants are updated progressively.",
   "catchUp": [
     {
@@ -1630,8 +1630,8 @@
       "label": "Lineup layout verification",
       "url": "https://www.fifa.com/fifaplus/en/match-centre",
       "type": "editorial",
-      "checkedAt": "2026-07-14T21:39:09.176Z",
-      "note": "2 completed fixtures reviewed; 1 verified override applied."
+      "checkedAt": "2026-07-14T22:02:38.970Z",
+      "note": "10 completed fixtures reviewed; 4 verified overrides applied."
     }
   ],
   "groups": [

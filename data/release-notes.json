@@ -1,6 +1,21 @@
 {
-  "updatedAt": "2026-07-14T14:53:21-07:00",
+  "updatedAt": "2026-07-14T15:19:50-07:00",
   "releases": [
+    {
+      "date": "2026-07-14",
+      "title": "Repaired line-up geometry and durable placement checks",
+      "titleZh": "修复阵容站位并加入长期几何检查",
+      "highlights": [
+        "Spain-Cabo Verde and Cabo Verde-Saudi Arabia now use repaired verified line-up boards instead of collapsed edge coordinates, including the Saudi starter transliteration match.",
+        "A year-independent geometry audit now checks 630 stored official, source, forecast, and archived lineup sides, rejects implausible or collapsed placement data, and prevents malformed verified overrides from reaching the pitch.",
+        "Verified-board role labels now follow the measured pitch rows when a provider's compact formation label differs from its displayed shape, keeping left, center, and right roles aligned for past and future imports."
+      ],
+      "highlightsZh": [
+        "西班牙对佛得角和佛得角对沙特阿拉伯现在使用修复后的已验证阵容板，不再把球员挤到球场边缘；沙特首发球员姓名的不同音译也已正确匹配。",
+        "新增与年份无关的阵容几何审计，覆盖630个官方、来源、预测和历史阵容侧面；不合理或坍缩的站位会被拒绝，格式错误的已验证覆盖也不会再进入球场界面。",
+        "当数据提供方的简写阵型与实际阵容板形状不一致时，已验证阵容的角色标签现在会依据测得的球场行列分配，让过去与未来导入中的左路、中路和右路位置保持一致。"
+      ]
+    },
     {
       "date": "2026-07-14",
       "title": "Direct bilingual Ball Boy, match SEO, and verified line-ups",

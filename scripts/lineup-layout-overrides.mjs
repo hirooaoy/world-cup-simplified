@@ -1,4 +1,5 @@
 import { isPlayerNameMatch, normalizePlayerName } from "./player-name-matching.mjs";
+import { getLineupGeometryIssues } from "./lineup-geometry.mjs";
 import {
   DERIVED_TEAM_SHEET_ORDER_LAYOUT_SOURCE,
   isDerivedLayoutSource,
@@ -93,11 +94,20 @@ export function getVerifiedLayoutOverride(overridesData, fixtureId) {
     return null;
   }
 
+  if (getLayoutOverrideProvenanceIssues(override).length) {
+    return null;
+  }
+
   return override;
 }
 
 export function applyLineupLayoutOverride(lineups, override) {
-  if (!lineups || !override || override.status !== "verified") {
+  if (
+    !lineups ||
+    !override ||
+    override.status !== "verified" ||
+    getLayoutOverrideProvenanceIssues(override).length
+  ) {
     return lineups;
   }
 
@@ -229,6 +239,8 @@ export function getLayoutOverrideProvenanceIssues(override) {
     if (missingNamedSources.length) {
       issues.push(`note names sources that are not stored: ${missingNamedSources.join(", ")}`);
     }
+    issues.push(...getLineupGeometryIssues(override?.home?.players, { owner: "home override" }));
+    issues.push(...getLineupGeometryIssues(override?.away?.players, { owner: "away override" }));
   }
 
   if (override.status === "unresolved" && !hasText(override.unresolvedReason)) {
@@ -246,6 +258,8 @@ function compareLayoutSide(teamLineup, sideOverride, owner) {
   const issues = [];
   const players = Array.isArray(teamLineup?.players) ? teamLineup.players : [];
   const overridePlayers = Array.isArray(sideOverride?.players) ? sideOverride.players : [];
+
+  issues.push(...getLineupGeometryIssues(players, { owner }));
 
   if (players.length !== 11) {
     issues.push(`${owner} must keep 11 starters`);
