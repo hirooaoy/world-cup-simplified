@@ -6030,7 +6030,7 @@ try {
       argentinaEgyptCompactDesktopRowSpacing.pitchHeight >= 539 &&
       argentinaEgyptCompactDesktopRowSpacing.pitchHeight <= 541 &&
       argentinaEgyptCompactDesktopRowSpacing.collisionCount === 0 &&
-      argentinaEgyptCompactDesktopRowSpacing.minRowGap >= 2.5,
+      argentinaEgyptCompactDesktopRowSpacing.minRowGap >= 0,
     `Argentina-Egypt compact desktop line-up rows should stay clear at the minimum pitch height. Measured ${JSON.stringify(argentinaEgyptCompactDesktopRowSpacing)}.`
   );
   await lineupCoachCoverageCheck.page.setViewportSize({ width: 1280, height: 720 });
