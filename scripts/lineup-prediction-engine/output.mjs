@@ -5,6 +5,63 @@ import { validatePredictionDocument } from "./validation.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 
+function compactPlayer(player = {}) {
+  return {
+    name: player.name,
+    number: player.number,
+    position: player.position,
+    ...(player.x !== undefined ? { x: player.x } : {}),
+    ...(player.y !== undefined ? { y: player.y } : {}),
+    confidence: player.confidence,
+    sourceIds: player.sourceIds || []
+  };
+}
+
+function compactSideEvidence(evidence = {}) {
+  return {
+    confidence: evidence.confidence,
+    semantics: evidence.semantics,
+    independentSourceCount: evidence.independentSourceCount,
+    ...(evidence.formationResolution ? { formationResolution: evidence.formationResolution } : {}),
+    formationScores: (evidence.formationScores || []).map((formation) => ({
+      formation: formation.formation,
+      score: formation.score,
+      independentVotes: formation.independentVotes,
+      sourceIds: formation.sourceIds || []
+    })),
+    disputedSlots: evidence.disputedSlots || [],
+    ...(evidence.notes?.length ? { notes: evidence.notes } : {})
+  };
+}
+
+export function compactPredictionDocumentForBrowser(document) {
+  return {
+    ...document,
+    fixtures: (document.fixtures || []).map((record) => ({
+      ...record,
+      evidence: {
+        home: compactSideEvidence(record.evidence?.home),
+        away: compactSideEvidence(record.evidence?.away)
+      },
+      lineup: {
+        ...record.lineup,
+        home: {
+          ...record.lineup.home,
+          players: (record.lineup.home?.players || []).map(compactPlayer),
+          bench: (record.lineup.home?.bench || []).map(compactPlayer),
+          evidence: undefined
+        },
+        away: {
+          ...record.lineup.away,
+          players: (record.lineup.away?.players || []).map(compactPlayer),
+          bench: (record.lineup.away?.bench || []).map(compactPlayer),
+          evidence: undefined
+        }
+      }
+    }))
+  };
+}
+
 function sortDocument(document, fixturesById = new Map()) {
   return {
     ...document,
@@ -25,13 +82,26 @@ export async function writeExpectedLineupsDocument(document, {
   externalSourceIds = [],
   fixtures = [],
   outputPath = path.join(root, "data/expected-lineups.json"),
+  playerProfilesData = document?._validationContext?.playerProfilesData || {},
   validate = true
 } = {}) {
-  const fixturesById = new Map(fixtures.map((fixture) => [fixture.id, fixture]));
-  const sortedDocument = sortDocument(document, fixturesById);
+  const validationFixtures = fixtures.length ? fixtures : document?._validationContext?.fixtures || [];
+  const fixturesById = new Map(validationFixtures.map((fixture) => [fixture.id, fixture]));
+  const sortedDocument = sortDocument(compactPredictionDocumentForBrowser(document), fixturesById);
   if (validate) {
-    validatePredictionDocument(sortedDocument, { externalSourceIds });
+    validatePredictionDocument(sortedDocument, {
+      externalSourceIds,
+      fixtures: validationFixtures,
+      playerProfilesData
+    });
   }
   await writeFile(outputPath, `${JSON.stringify(sortedDocument, null, 2)}\n`);
   return sortedDocument;
+}
+
+export async function writePredictionAuditDocument(auditDocument, {
+  outputPath = path.join(root, "data/expected-lineups-audit.json")
+} = {}) {
+  await writeFile(outputPath, `${JSON.stringify(auditDocument, null, 2)}\n`);
+  return auditDocument;
 }

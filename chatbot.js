@@ -9,6 +9,8 @@ import {
 const SCOUT_PUPIL_TRAVEL = 3.6;
 const SCOUT_REPLY_DELAY_MS = 650;
 const SCOUT_SHOW_NEXT_GAP = 14;
+const SCOUT_TOUCH_GAZE_LINGER_MS = 420;
+const SCOUT_TOUCH_RELEASE_BLINK_MS = 260;
 const SCOUT_JUGGLE_RECORD_STORAGE_KEY = "world-cup-simplified-juggle-record";
 const SCOUT_EYE_EXPRESSION_CLASSES = [
   "is-eye-aware-below",
@@ -17,7 +19,8 @@ const SCOUT_EYE_EXPRESSION_CLASSES = [
   "is-eye-side-glance",
   "is-eye-happy",
   "is-eye-record",
-  "is-eye-wince"
+  "is-eye-wink",
+  "is-eye-touch-release"
 ];
 
 const SCOUT_COPY = {
@@ -65,18 +68,6 @@ const SCOUT_COPY = {
     estimatedValueTitle: "Estimated market value based on sourced public player data.",
     valueTitle: "Market value from sourced public player data.",
     prime: "Prime",
-    usualRoleZone: "Usual role zone",
-    roleZones: {
-      goal: "Goal area",
-      defend: "Defensive third",
-      create: "Middle third",
-      "attack-wide": "Wide attacking area",
-      finish: "Finishing third"
-    },
-    typicalArea: (position, zone) => `Typical pitch area for ${position}: ${zone}`,
-    defend: "Defend",
-    create: "Create",
-    finish: "Finish",
     beginnerVersion: "Beginner version",
     signatureTraits: "Signature traits",
     threeTraits: "Three signature traits",
@@ -184,18 +175,6 @@ const SCOUT_COPY = {
     estimatedValueTitle: "依据已注明来源的公开球员资料估算。",
     valueTitle: "身价数据来自已注明来源的公开球员资料。",
     prime: "巅峰",
-    usualRoleZone: "常见活动区域",
-    roleZones: {
-      goal: "球门区",
-      defend: "防守三区",
-      create: "中场区域",
-      "attack-wide": "进攻边路",
-      finish: "终结区域"
-    },
-    typicalArea: (position, zone) => `${position}通常活动在${zone}`,
-    defend: "防守",
-    create: "组织",
-    finish: "终结",
     beginnerVersion: "新手版",
     signatureTraits: "标志性特点",
     threeTraits: "三项标志性特点",
@@ -377,6 +356,8 @@ let isOpen = false;
 let pointerFrame = 0;
 let latestPointer = null;
 let blinkTimer = 0;
+let touchGazeTimer = 0;
+let isTouchGazeActive = false;
 let replyTimer = 0;
 let replyRequestToken = 0;
 let isReplyPending = false;
@@ -397,6 +378,7 @@ let juggleBestBeforeRun = 0;
 let tournamentShowNextFrame = 0;
 let tournamentShowNextObserver = null;
 let isAvoidingTournamentShowNext = false;
+let scoutVisualViewportFrame = 0;
 let canonicalTurns = [];
 let localeRenderToken = 0;
 
@@ -473,6 +455,69 @@ function queuePupilUpdate(event) {
   }
 }
 
+function queueTouchPupilUpdate(event) {
+  const touch = event.touches?.[0] || event.changedTouches?.[0];
+  if (!touch) {
+    return;
+  }
+
+  window.clearTimeout(touchGazeTimer);
+  touchGazeTimer = 0;
+  isTouchGazeActive = true;
+  latestPointer = { x: touch.clientX, y: touch.clientY };
+  if (widget.classList.contains("is-eye-touch-release")) {
+    clearEyeExpression({ restore: false });
+  }
+  pauseRandomBlink();
+  if (!isJuggleActive && !isEyeExpressionActive && !isReplyPending && !pointerFrame) {
+    pointerFrame = window.requestAnimationFrame(updatePupils);
+  }
+}
+
+function cancelTouchGaze({ recenter = false } = {}) {
+  window.clearTimeout(touchGazeTimer);
+  touchGazeTimer = 0;
+  isTouchGazeActive = false;
+  if (recenter) {
+    latestPointer = null;
+    setPupilPosition();
+  }
+}
+
+function scheduleTouchGazeRelease(event) {
+  if (event.touches?.length) {
+    queueTouchPupilUpdate(event);
+    return;
+  }
+
+  window.clearTimeout(touchGazeTimer);
+  touchGazeTimer = window.setTimeout(() => {
+    touchGazeTimer = 0;
+    isTouchGazeActive = false;
+    latestPointer = null;
+
+    if (
+      reducedMotion.matches ||
+      document.hidden ||
+      isJuggleActive ||
+      isEyeExpressionActive ||
+      isReplyPending
+    ) {
+      syncEyeAttention();
+      scheduleBlink();
+      return;
+    }
+
+    playEyeSequence([
+      {
+        className: "is-eye-touch-release",
+        duration: SCOUT_TOUCH_RELEASE_BLINK_MS,
+        pupil: { x: 0, y: 0 }
+      }
+    ]);
+  }, SCOUT_TOUCH_GAZE_LINGER_MS);
+}
+
 function pauseRandomBlink() {
   window.clearTimeout(blinkTimer);
   blinkTimer = 0;
@@ -486,20 +531,30 @@ function scheduleBlink() {
     document.hidden ||
     isJuggleActive ||
     isEyeExpressionActive ||
-    isReplyPending
+    isReplyPending ||
+    isTouchGazeActive
   ) {
     return;
   }
 
   blinkTimer = window.setTimeout(() => {
     blinkTimer = 0;
-    if (document.hidden || isJuggleActive || isEyeExpressionActive || isReplyPending) {
+    if (
+      document.hidden ||
+      isJuggleActive ||
+      isEyeExpressionActive ||
+      isReplyPending ||
+      isTouchGazeActive
+    ) {
       scheduleBlink();
       return;
     }
     widget.classList.add("is-blinking");
-    window.setTimeout(() => widget.classList.remove("is-blinking"), 135);
-    scheduleBlink();
+    blinkTimer = window.setTimeout(() => {
+      blinkTimer = 0;
+      widget.classList.remove("is-blinking");
+      scheduleBlink();
+    }, 135);
   }, 3400 + Math.random() * 4300);
 }
 
@@ -750,6 +805,7 @@ function triggerJuggleTapReaction() {
 }
 
 function startJuggleEyeTracking() {
+  cancelTouchGaze({ recenter: true });
   isJuggleActive = true;
   currentJuggleCount = 0;
   juggleBestBeforeRun = Math.max(knownJuggleBest, readStoredJuggleBest());
@@ -772,7 +828,7 @@ function startJuggleEyeTracking() {
     juggleStartTimer = window.setTimeout(() => {
       widget.classList.remove("is-eye-juggle-start");
       juggleStartTimer = 0;
-    }, 340);
+    }, 380);
   }
 
   window.cancelAnimationFrame(juggleTrackingFrame);
@@ -802,7 +858,7 @@ function finishJuggleEyeTracking() {
   }
 
   if (finalCount === 0) {
-    playEyeSequence([{ className: "is-eye-wince", duration: 1100, pupil: { x: -1.7, y: 1.6 } }]);
+    playEyeSequence([{ className: "is-eye-wink", duration: 1100, pupil: { x: -1.7, y: 1.6 } }]);
     return;
   }
 
@@ -867,6 +923,42 @@ function initializeJuggleEyeReactions() {
   reconcileJuggleState();
 }
 
+function syncScoutVisualViewport() {
+  scoutVisualViewportFrame = 0;
+  const viewport = window.visualViewport;
+
+  if (!isOpen || !viewport) {
+    widget.style.removeProperty("--scout-visual-height");
+    widget.style.removeProperty("--scout-visual-bottom-inset");
+    widget.classList.remove("is-keyboard-open");
+    return;
+  }
+
+  const layoutHeight = Math.max(
+    window.innerHeight || 0,
+    document.documentElement.clientHeight || 0
+  );
+  const visualHeight = Math.max(0, viewport.height);
+  const visualBottom = viewport.offsetTop + visualHeight;
+  const bottomInset = Math.max(0, layoutHeight - visualBottom);
+  const keyboardOpen =
+    window.matchMedia("(max-width: 560px)").matches &&
+    document.activeElement === input &&
+    layoutHeight - visualHeight >= 120;
+
+  widget.style.setProperty("--scout-visual-height", `${Math.round(visualHeight)}px`);
+  widget.style.setProperty("--scout-visual-bottom-inset", `${Math.round(bottomInset)}px`);
+  widget.classList.toggle("is-keyboard-open", keyboardOpen);
+}
+
+function queueScoutVisualViewportSync() {
+  if (scoutVisualViewportFrame) {
+    return;
+  }
+
+  scoutVisualViewportFrame = window.requestAnimationFrame(syncScoutVisualViewport);
+}
+
 function setOpen(nextOpen, { focus = true } = {}) {
   if (isOpen === nextOpen) {
     return;
@@ -880,15 +972,19 @@ function setOpen(nextOpen, { focus = true } = {}) {
   panel.inert = !isOpen;
 
   if (isOpen) {
+    queueScoutVisualViewportSync();
     void preloadBallBoyCore();
     playEyeSequence([{ className: "is-eye-wide", duration: 380 }]);
     queueScoutMoreButtonSync();
     window.setTimeout(() => {
-      if (isOpen && focus) {
+      const shouldFocusInput =
+        focus && !window.matchMedia("(max-width: 560px)").matches;
+      if (isOpen && shouldFocusInput) {
         input.focus({ preventScroll: true });
       }
     }, reducedMotion.matches ? 0 : 360);
   } else {
+    queueScoutVisualViewportSync();
     syncScoutMoreButton();
     if (focus) {
       launcher.focus({ preventScroll: true });
@@ -955,6 +1051,8 @@ function updateSendState() {
 }
 
 function resetConversation() {
+  const shouldRestoreInputFocus =
+    document.activeElement === input || widget.classList.contains("is-keyboard-open");
   replyRequestToken += 1;
   isReplyPending = false;
   resetBallBoyContext();
@@ -966,8 +1064,12 @@ function resetConversation() {
   input.value = "";
   updateSendState();
   conversation.scrollTo({ top: 0, behavior: "auto" });
+  widget.classList.remove("has-conversation");
   queueScoutMoreButtonSync();
-  input.focus({ preventScroll: true });
+  if (shouldRestoreInputFocus || !window.matchMedia("(max-width: 560px)").matches) {
+    input.focus({ preventScroll: true });
+  }
+  queueScoutVisualViewportSync();
   playEyeSequence([{ className: "is-eye-double-blink", duration: 540 }]);
 }
 
@@ -1175,11 +1277,10 @@ function renderScoutFollowUps(prompts = [], excludedPrompts = []) {
   `;
 }
 
-function renderScoutAnswerHeading(label) {
+function renderScoutAnswerHeading() {
   return `
     <div class="scout-answer-heading">
       <p class="scout-speaker">${escapeScoutHtml(scoutText("assistantName"))}</p>
-      <span class="scout-answer-type">${escapeScoutHtml(label)}</span>
     </div>
   `;
 }
@@ -1250,12 +1351,12 @@ function scrollScoutMessageIntoView(message) {
   });
 }
 
-function createScoutVisualMessage(kind, label, lead, body, followUps = [], options = {}) {
+function createScoutVisualMessage(kind, lead, body, followUps = [], options = {}) {
   const message = document.createElement("div");
   message.className = `scout-message is-assistant is-visual scout-answer is-${kind}`;
   message.innerHTML = `
     <div class="scout-answer-intro ${lead ? "" : "has-no-lead"}">
-      ${renderScoutAnswerHeading(label)}
+      ${renderScoutAnswerHeading()}
       ${lead ? `<p class="scout-answer-lead">${escapeScoutHtml(lead)}</p>` : ""}
     </div>
     ${body}
@@ -1317,10 +1418,6 @@ function appendPlayerReply(reply, options = {}) {
   const primeValue = profile.peakMarketValue
     ? `<em>${escapeScoutHtml(scoutText("prime"))} ${escapeScoutHtml(formatScoutMarketValue(profile.peakMarketValue))}</em>`
     : "";
-  const roleClass = ["goal", "defend", "create", "attack-wide", "finish"].includes(role.zone)
-    ? role.zone
-    : "create";
-  const roleZoneLabel = scoutText("roleZones")[roleClass];
   const skills = profile.skills.length
     ? profile.skills
         .map(
@@ -1370,18 +1467,6 @@ function appendPlayerReply(reply, options = {}) {
     : "";
   const roleBlock = showRole
     ? `
-      <div class="scout-role-block">
-        <div class="scout-section-heading">
-          <span class="scout-section-label">${escapeScoutHtml(scoutText("usualRoleZone"))}</span>
-          <span>${escapeScoutHtml(roleZoneLabel)}</span>
-        </div>
-        <div class="scout-role-pitch is-${escapeScoutHtml(roleClass)}" role="img" aria-label="${escapeScoutHtml(scoutText("typicalArea", profile.position, roleZoneLabel))}">
-          <span class="scout-role-third is-defend"><small>${escapeScoutHtml(scoutText("defend"))}</small></span>
-          <span class="scout-role-third is-create"><small>${escapeScoutHtml(scoutText("create"))}</small></span>
-          <span class="scout-role-third is-finish"><small>${escapeScoutHtml(scoutText("finish"))}</small></span>
-          <span class="scout-role-marker" aria-hidden="true">${escapeScoutHtml(profile.shirtNumber || "•")}</span>
-        </div>
-      </div>
       <div class="scout-explainer">
         <p class="scout-section-label">${escapeScoutHtml(scoutText("beginnerVersion"))}</p>
         <p>${escapeScoutHtml(role.summary)}</p>
@@ -1417,7 +1502,6 @@ function appendPlayerReply(reply, options = {}) {
   `;
   createScoutVisualMessage(
     "player",
-    scoutText("player"),
     reply.focus === "overview" ? "" : reply.lead,
     body,
     reply.followUps,
@@ -1563,7 +1647,7 @@ function appendCountryReply(reply, options = {}) {
       </div>` : ""}
     </article>
   `;
-  createScoutVisualMessage("country", scoutText("country"), reply.lead, body, reply.followUps, options);
+  createScoutVisualMessage("country", reply.lead, body, reply.followUps, options);
 }
 
 function appendMatchReply(reply, options = {}) {
@@ -1687,7 +1771,7 @@ function appendMatchReply(reply, options = {}) {
       ${showHighlight ? highlight : ""}
     </article>
   `;
-  createScoutVisualMessage("match", scoutText("match"), reply.lead, body, reply.followUps, options);
+  createScoutVisualMessage("match", reply.lead, body, reply.followUps, options);
 }
 
 function appendRuleReply(reply, options = {}) {
@@ -1726,7 +1810,7 @@ function appendRuleReply(reply, options = {}) {
       ${sourceUrl ? `<a class="scout-source-link" href="${escapeScoutHtml(sourceUrl)}" target="_blank" rel="noreferrer">${escapeScoutHtml(scoutText("officialLaw"))}</a>` : ""}
     </article>
   `;
-  createScoutVisualMessage("rule", scoutText("ruleSimple"), rule.lead, body, isScoutZh()
+  createScoutVisualMessage("rule", rule.lead, body, isScoutZh()
     ? [
         "解释越位",
         rule.id === "red-card" ? "解释黄牌" : "解释红牌",
@@ -1755,7 +1839,7 @@ function appendHelpReply(reply, options = {}) {
         .join("")}
     </div>
   `;
-  createScoutVisualMessage("help", scoutText("whatIKnow"), reply.lead, body, [], options);
+  createScoutVisualMessage("help", reply.lead, body, [], options);
 }
 
 function appendPlayerListReply(reply, options = {}) {
@@ -1777,7 +1861,7 @@ function appendPlayerListReply(reply, options = {}) {
         .join("")}
     </div>
   `;
-  createScoutVisualMessage("player-list", reply.title || scoutText("watchListTitle"), reply.lead, body, [], options);
+  createScoutVisualMessage("player-list", reply.lead, body, [], options);
 }
 
 function appendClarificationReply(reply, options = {}) {
@@ -1795,7 +1879,7 @@ function appendClarificationReply(reply, options = {}) {
         .join("")}
     </div>
   `;
-  createScoutVisualMessage("clarify", scoutText("whichPlayer"), reply.lead, body, [], options);
+  createScoutVisualMessage("clarify", reply.lead, body, [], options);
 }
 
 function appendPersonalityReply(reply, options = {}) {
@@ -1816,8 +1900,8 @@ function playPersonalityEyeReaction(eye) {
     wide: [
       { className: "is-eye-wide", duration: 480 }
     ],
-    wince: [
-      { className: "is-eye-wince", duration: 720, pupil: { x: 2.8, y: 0.3 } }
+    wink: [
+      { className: "is-eye-wink", duration: 720, pupil: { x: 2.8, y: 0.3 } }
     ]
   };
   const sequence = sequences[eye];
@@ -1829,12 +1913,10 @@ function playPersonalityEyeReaction(eye) {
 }
 
 function appendUnknownReply(reply, options = {}) {
-  const body = `<div class="scout-unknown-mark" aria-hidden="true"><i></i><i></i></div>`;
   createScoutVisualMessage(
     reply.kind === "error" ? "error" : "unknown",
-    reply.kind === "error" ? scoutText("dataProblem") : scoutText("tryAgain"),
     reply.text,
-    body,
+    "",
     reply.followUps,
     options
   );
@@ -1897,6 +1979,7 @@ async function rerenderScoutConversation() {
   const renderToken = ++localeRenderToken;
   const requestToken = ++replyRequestToken;
   const turns = [...canonicalTurns];
+  widget.classList.toggle("has-conversation", Boolean(turns.length));
   isReplyPending = Boolean(turns.length);
   resetBallBoyContext();
   currentAnswerPrompt = "";
@@ -1968,6 +2051,7 @@ async function submitQuestion(question) {
   const requestToken = ++replyRequestToken;
   const turn = { question: trimmed, reply: null };
   canonicalTurns.push(turn);
+  widget.classList.add("has-conversation");
   appendMessage(trimmed, "user");
   suggestions.hidden = true;
   input.value = "";
@@ -2002,6 +2086,8 @@ composer.addEventListener("submit", (event) => {
   submitQuestion(input.value);
 });
 input.addEventListener("input", updateSendState);
+input.addEventListener("focus", queueScoutVisualViewportSync);
+input.addEventListener("blur", queueScoutVisualViewportSync);
 suggestions.addEventListener("click", (event) => {
   const promptButton = event.target.closest("[data-scout-prompt]");
   if (promptButton) {
@@ -2031,13 +2117,31 @@ if (typeof ResizeObserver !== "undefined") {
   scoutContentObserver.observe(messages);
 }
 
-document.addEventListener("keydown", (event) => {
-  if (event.key === "Escape" && isOpen) {
+document.addEventListener(
+  "keydown",
+  (event) => {
+    if (event.key !== "Escape" || !isOpen) {
+      return;
+    }
+
+    const hasOpenHeaderOverlay = document.querySelector(
+      '#settings-button[aria-expanded="true"], #catch-up-button[aria-expanded="true"]'
+    );
+
+    if (hasOpenHeaderOverlay) {
+      return;
+    }
+
     event.stopImmediatePropagation();
     setOpen(false);
-  }
-});
+  },
+  { capture: true }
+);
 document.addEventListener("pointermove", queuePupilUpdate, { passive: true });
+document.addEventListener("touchstart", queueTouchPupilUpdate, { passive: true });
+document.addEventListener("touchmove", queueTouchPupilUpdate, { passive: true });
+document.addEventListener("touchend", scheduleTouchGazeRelease, { passive: true });
+document.addEventListener("touchcancel", scheduleTouchGazeRelease, { passive: true });
 document.addEventListener("visibilitychange", scheduleBlink);
 reducedMotion.addEventListener?.("change", scheduleBlink);
 window.addEventListener("worldcup:languagechange", handleScoutLanguageChange);
@@ -2052,6 +2156,7 @@ window.addEventListener(
   "resize",
   () => {
     juggleEyeCenter = null;
+    queueScoutVisualViewportSync();
     queueTournamentShowNextSync();
     queueScoutMoreButtonSync();
     if (!isJuggleActive && !isEyeExpressionActive && !isReplyPending) {
@@ -2062,12 +2167,18 @@ window.addEventListener(
 );
 window.visualViewport?.addEventListener(
   "resize",
-  queueTournamentShowNextSync,
+  () => {
+    queueScoutVisualViewportSync();
+    queueTournamentShowNextSync();
+  },
   { passive: true }
 );
 window.visualViewport?.addEventListener(
   "scroll",
-  queueTournamentShowNextSync,
+  () => {
+    queueScoutVisualViewportSync();
+    queueTournamentShowNextSync();
+  },
   { passive: true }
 );
 

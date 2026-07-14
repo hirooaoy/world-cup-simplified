@@ -20,7 +20,7 @@ const checkedAt = process.env.LINEUP_LAYOUT_CHECKED_AT || new Date().toISOString
 const overrideSourceId = `lineup-layout-verification-${checkedAt.slice(0, 10)}`;
 const requestTimeoutMs = Number(process.env.LINEUP_LAYOUT_TIMEOUT_MS || 15000);
 const COMPLETED_STATUSES = new Set(["FT", "AET", "PEN"]);
-const LIVE_START_STATUSES = new Set(["LIVE"]);
+const LIVE_START_STATUSES = new Set(["SCHEDULED", "DELAYED", "LIVE"]);
 const VALID_SCOPE_VALUES = new Set(["all-completed", "knockout", "recent-completed", "live-start"]);
 const DEFAULT_SCOPE = "all-completed";
 const DEFAULT_RECENT_COMPLETED_DAYS = 30;
@@ -168,7 +168,7 @@ function isLiveStartFixture(fixture) {
     return true;
   }
 
-  return minutes >= -15 && minutes <= requestedLiveStartWindowMinutes;
+  return minutes >= -requestedLiveStartWindowMinutes && minutes <= requestedLiveStartWindowMinutes;
 }
 
 function isFixtureInScope(fixture, scope) {
@@ -232,6 +232,46 @@ async function fetchText(url) {
   });
   const text = await response.text();
   return { ok: response.ok, status: response.status, statusText: response.statusText, text };
+}
+
+async function discoverEspnSourceCandidates(fixture) {
+  const kickoff = new Date(fixture?.kickoffUtc || "");
+  if (
+    Number.isNaN(kickoff.getTime()) ||
+    !fixture?.homeTeamId ||
+    !fixture?.awayTeamId
+  ) {
+    return [];
+  }
+
+  const day = kickoff.toISOString().slice(0, 10).replaceAll("-", "");
+  const scoreboardUrl =
+    `https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?dates=${day}`;
+  try {
+    const response = await fetchText(scoreboardUrl);
+    if (!response.ok) {
+      return [];
+    }
+    const payload = JSON.parse(response.text);
+    const event = (payload.events || []).find((candidate) => {
+      const competitors = candidate?.competitions?.[0]?.competitors || [];
+      const abbreviations = new Set(
+        competitors.map((entry) => String(entry?.team?.abbreviation || "").trim().toUpperCase())
+      );
+      return abbreviations.has(fixture.homeTeamId) && abbreviations.has(fixture.awayTeamId);
+    });
+    if (!event?.id) {
+      return [];
+    }
+    return [{
+      name: "ESPN",
+      adapter: "espn",
+      url: `https://www.espn.com/soccer/match/_/gameId/${event.id}`,
+      discoveredFrom: scoreboardUrl
+    }];
+  } catch {
+    return [];
+  }
 }
 
 function playerName(player) {
@@ -1016,8 +1056,6 @@ function buildOverrideFromClaims(fixtureId, fixture, lineups, claims) {
   const signatures = new Set(
     matchedClaims.map((claim) => `${claim.signature?.home || ""}::${claim.signature?.away || ""}`)
   );
-  const signatureKey = (claim) => `${claim.signature?.home || ""}::${claim.signature?.away || ""}`;
-  const espnClaim = matchedClaims.find((claim) => claim.name === "ESPN");
 
   if (!matchedClaims.length) {
     return {
@@ -1031,26 +1069,6 @@ function buildOverrideFromClaims(fixtureId, fixture, lineups, claims) {
   }
 
   if (signatures.size > 1) {
-    if (espnClaim?.exactLayout) {
-      const preferredSignature = signatureKey(espnClaim);
-      const preferredClaims = matchedClaims.filter(
-        (claim) => signatureKey(claim) === preferredSignature
-      );
-
-      return {
-        status: "verified",
-        layoutSource: VERIFIED_LAYOUT_SOURCE,
-        checkedAt,
-        sourceIds: [overrideSourceId],
-        homeTeamId: fixture.homeTeamId,
-        awayTeamId: fixture.awayTeamId,
-        sources: claims,
-        note: `Row-order disagreement was detected, ESPN was selected as the primary source. Matched claim signatures: ${preferredClaims.length}/${matchedClaims.length}.`,
-        home: espnClaim.home,
-        away: espnClaim.away
-      };
-    }
-
     for (const claim of matchedClaims) {
       claim.status = "conflict";
     }
@@ -1185,7 +1203,10 @@ for (const fixture of fixturesData.fixtures || []) {
     }
   }
 
-  const sourceCandidates = getSourceCandidatesForFixture(fixtureId);
+  let sourceCandidates = getSourceCandidatesForFixture(fixtureId);
+  if (!Array.isArray(sourceCandidates) || sourceCandidates.length === 0) {
+    sourceCandidates = await discoverEspnSourceCandidates(fixture);
+  }
   const existingOverride = getVerifiedLayoutOverride(nextOverrides, fixtureId);
   const lineups = lineupsData.lineups?.[fixtureId];
   const shouldUseExistingOverride =

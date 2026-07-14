@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-14T21:28:54.043Z",
+  "updatedAt": "2026-07-14T21:39:09.176Z",
   "coverageNote": "The current seed dataset covers the full official fixture skeleton from June 11 through July 19. Rich previews, scores, live status and knockout participants are updated progressively.",
   "catchUp": [
     {
@@ -1594,6 +1594,14 @@
       "note": "4 completed fixtures reviewed; 4 verified overrides applied."
     },
     {
+      "id": "sky-sports-england-argentina-team-news-2026-07-14",
+      "label": "Sky Sports England vs Argentina team news",
+      "url": "https://www.skysports.com/football/news/11095/13563231/england-vs-argentina-declan-rice-fit-for-world-cup-semi-final-as-thomas-tuchels-squad-issues-begin-to-ease",
+      "type": "team-news",
+      "checkedAt": "2026-07-14T17:14:25Z",
+      "note": "Matchday availability report: Declan Rice and Nico O'Reilly are fit; suspended Jarell Quansah and injured Jordan Henderson are unavailable for the semifinal."
+    },
+    {
       "id": "fifa-official-results-sync-2026-07-14",
       "label": "FIFA official results sync",
       "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/match-schedule-fixtures-results-teams-stadiums",
@@ -1616,6 +1624,14 @@
       "type": "official",
       "checkedAt": "2026-07-14T21:28:54.043Z",
       "note": "1 fixture goal-event update merged from 93 matched FIFA timelines."
+    },
+    {
+      "id": "lineup-layout-verification-2026-07-14",
+      "label": "Lineup layout verification",
+      "url": "https://www.fifa.com/fifaplus/en/match-centre",
+      "type": "editorial",
+      "checkedAt": "2026-07-14T21:39:09.176Z",
+      "note": "2 completed fixtures reviewed; 1 verified override applied."
     }
   ],
   "groups": [

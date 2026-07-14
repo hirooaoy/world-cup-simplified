@@ -1,5 +1,6 @@
 {
-  "updatedAt": "2026-07-13T22:50:33Z",
+  "updatedAt": "2026-07-14T17:32:35Z",
+  "defaultLateralOrder": "right-to-left",
   "sources": [
     {
       "id": "rotowire-world-cup-lineups-2026-07-07",
@@ -62,6 +63,46 @@
       "note": "FIFA match preview with current likely XIs for the France vs Spain semi-final."
     },
     {
+      "id": "sports-mole-france-spain-team-news-2026-07-14",
+      "label": "Sports Mole France vs Spain team news and predicted XIs",
+      "url": "https://www.sportsmole.co.uk/football/france/world-cup-2026/team-news/france-vs-spain-injury-suspension-list-predicted-xis--world-cup-2026_601095.html",
+      "type": "free-public-probable-lineup",
+      "checkedAt": "2026-07-14T15:33:19Z",
+      "outlet": "sports-mole",
+      "independenceKey": "sports-mole",
+      "note": "Matchday team-news update with current predicted XIs and France injury context."
+    },
+    {
+      "id": "bein-france-spain-preview-2026-07-14",
+      "label": "beIN SPORTS France vs Spain semi-final preview",
+      "url": "https://www.beinsports.com/en-mena/football/fifa-world-cup-2026/articles-video/france-vs-spain-world-cup-semi-final-preview-2026-07-14",
+      "type": "free-public-probable-lineup",
+      "checkedAt": "2026-07-14T15:33:19Z",
+      "outlet": "bein-sports",
+      "independenceKey": "bein-sports",
+      "note": "Matchday preview with current predicted XIs for both semi-finalists."
+    },
+    {
+      "id": "lequipe-france-spain-team-news-2026-07-14",
+      "label": "L'Équipe France vs Spain late team news",
+      "url": "https://www.lequipe.fr/Football/Actualites/Barcola-prefere-a-doue-pour-demarrer-face-a-l-espagne-en-demi-finales-de-la-coupe-du-monde/1704273",
+      "type": "free-public-probable-lineup",
+      "checkedAt": "2026-07-14T17:32:35Z",
+      "outlet": "lequipe",
+      "independenceKey": "lequipe",
+      "note": "Late matchday report that Bradley Barcola and Aurelien Tchouameni will replace Desire Doue and Manu Kone."
+    },
+    {
+      "id": "elpais-france-spain-published-spain-xi-2026-07-14",
+      "label": "El País published Spain starting XI",
+      "url": "https://elpais.com/deportes/mundial-futbol/2026-07-14/francia-espana-en-directo-el-partido-de-las-semifinales-del-mundial-en-vivo.html",
+      "type": "published-lineup-report",
+      "checkedAt": "2026-07-14T17:32:35Z",
+      "outlet": "el-pais",
+      "independenceKey": "el-pais",
+      "note": "Live match page published Spain's starting XI before kickoff; retained as a press report until FIFA official data overrides it."
+    },
+    {
       "id": "fifa-england-argentina-preview-2026-07-13",
       "label": "FIFA England vs Argentina semi-final match preview",
       "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/england-v-argentina-live-stream-team-news-tickets-and-more",
@@ -70,6 +111,26 @@
       "outlet": "fifa",
       "independenceKey": "fifa",
       "note": "FIFA match preview with current likely XIs for the England vs Argentina semi-final."
+    },
+    {
+      "id": "sports-mole-england-argentina-team-news-2026-07-14",
+      "label": "Sports Mole England vs Argentina team news and predicted XIs",
+      "url": "https://www.sportsmole.co.uk/football/england/world-cup-2026/preview/england-vs-argentina-prediction-team-news-lineups_601122.html",
+      "type": "free-public-probable-lineup",
+      "checkedAt": "2026-07-14T15:50:00Z",
+      "outlet": "sports-mole",
+      "independenceKey": "sports-mole",
+      "note": "Fresh matchday preview that returns John Stones at centre-back and keeps Ezri Konsa at right-back."
+    },
+    {
+      "id": "stats-zone-england-argentina-preview-2026-07-14",
+      "label": "The Stats Zone England vs Argentina preview and predicted XIs",
+      "url": "https://www.thestatszone.com/england-vs-argentina-preview-team-news-prediction-fifa-world-cup-2026-semi-final-205854",
+      "type": "free-public-probable-lineup",
+      "checkedAt": "2026-07-14T15:50:00Z",
+      "outlet": "the-stats-zone",
+      "independenceKey": "the-stats-zone",
+      "note": "Independently updated matchday preview with the same Konsa-Stones-Guehi-O'Reilly back four."
     }
   ],
   "fixtures": [
@@ -425,10 +486,152 @@
       "fixtureId": "match-101-semi-final-2026-07-14",
       "sources": [
         {
+          "sourceId": "lequipe-france-spain-team-news-2026-07-14",
+          "confidence": 0.96,
+          "claimStrength": 3,
+          "predictionClass": "reported-xi",
+          "checkedAt": "2026-07-14T17:32:35Z",
+          "note": "L'Équipe's late team report changes France only: Barcola for Doue and Tchouameni for Kone, while retaining Dembele right and Olise central.",
+          "teams": {
+            "home": {
+              "teamId": "FRA",
+              "formation": "4-2-3-1",
+              "starters": [
+                { "name": "Mike Maignan", "position": "GK" },
+                { "name": "Jules Kounde", "position": "RB" },
+                { "name": "Dayot Upamecano", "position": "CB" },
+                { "name": "William Saliba", "position": "CB" },
+                { "name": "Lucas Digne", "position": "LB" },
+                { "name": "Aurelien Tchouameni", "position": "CM" },
+                { "name": "Adrien Rabiot", "position": "CM" },
+                { "name": "Ousmane Dembele", "position": "RW" },
+                { "name": "Michael Olise", "position": "AM" },
+                { "name": "Bradley Barcola", "position": "LW" },
+                { "name": "Kylian Mbappe", "position": "ST" }
+              ],
+              "bench": [
+                { "name": "Desire Doue", "position": "LW" },
+                { "name": "Manu Kone", "position": "CM" }
+              ]
+            }
+          }
+        },
+        {
+          "sourceId": "elpais-france-spain-published-spain-xi-2026-07-14",
+          "confidence": 0.99,
+          "claimStrength": 3,
+          "predictionClass": "reported-xi",
+          "checkedAt": "2026-07-14T17:32:35Z",
+          "note": "El País published Spain's unchanged starting XI; this is a press confirmation, not the FIFA-official feed.",
+          "teams": {
+            "away": {
+              "teamId": "ESP",
+              "formation": "4-2-3-1",
+              "starters": [
+                { "name": "Unai Simon", "position": "GK" },
+                { "name": "Pedro Porro", "position": "RB" },
+                { "name": "Pau Cubarsi", "position": "CB" },
+                { "name": "Aymeric Laporte", "position": "CB" },
+                { "name": "Marc Cucurella", "position": "LB" },
+                { "name": "Rodri", "position": "CM" },
+                { "name": "Fabian Ruiz", "position": "CM" },
+                { "name": "Lamine Yamal", "position": "RW" },
+                { "name": "Dani Olmo", "position": "AM" },
+                { "name": "Alex Baena", "position": "LW" },
+                { "name": "Mikel Oyarzabal", "position": "ST" }
+              ]
+            }
+          }
+        },
+        {
+          "sourceId": "sports-mole-france-spain-team-news-2026-07-14",
+          "confidence": 0.9,
+          "checkedAt": "2026-07-14T15:33:19Z",
+          "note": "Sports Mole's matchday update returns Tchouameni and Fabian Ruiz, and lists France's attacking band as Dembele right, Olise central, and Doue left.",
+          "teams": {
+            "home": {
+              "teamId": "FRA",
+              "formation": "4-2-3-1",
+              "starters": [
+                { "name": "Mike Maignan", "position": "GK" },
+                { "name": "Jules Kounde", "position": "RB" },
+                { "name": "Dayot Upamecano", "position": "CB" },
+                { "name": "William Saliba", "position": "CB" },
+                { "name": "Lucas Digne", "position": "LB" },
+                { "name": "Aurelien Tchouameni", "position": "CM" },
+                { "name": "Adrien Rabiot", "position": "CM" },
+                { "name": "Ousmane Dembele", "position": "RW" },
+                { "name": "Michael Olise", "position": "AM" },
+                { "name": "Desire Doue", "position": "LW" },
+                { "name": "Kylian Mbappe", "position": "ST" }
+              ]
+            },
+            "away": {
+              "teamId": "ESP",
+              "formation": "4-2-3-1",
+              "starters": [
+                { "name": "Unai Simon", "position": "GK" },
+                { "name": "Pedro Porro", "position": "RB" },
+                { "name": "Pau Cubarsi", "position": "CB" },
+                { "name": "Aymeric Laporte", "position": "CB" },
+                { "name": "Marc Cucurella", "position": "LB" },
+                { "name": "Rodri", "position": "CM" },
+                { "name": "Fabian Ruiz", "position": "CM" },
+                { "name": "Lamine Yamal", "position": "RW" },
+                { "name": "Dani Olmo", "position": "AM" },
+                { "name": "Alex Baena", "position": "LW" },
+                { "name": "Mikel Oyarzabal", "position": "ST" }
+              ]
+            }
+          }
+        },
+        {
+          "sourceId": "bein-france-spain-preview-2026-07-14",
+          "confidence": 0.89,
+          "checkedAt": "2026-07-14T15:33:19Z",
+          "note": "beIN SPORTS independently matches the Sports Mole XI and the Dembele-right, Olise-central attacking shape.",
+          "teams": {
+            "home": {
+              "teamId": "FRA",
+              "formation": "4-2-3-1",
+              "starters": [
+                { "name": "Mike Maignan", "position": "GK" },
+                { "name": "Jules Kounde", "position": "RB" },
+                { "name": "Dayot Upamecano", "position": "CB" },
+                { "name": "William Saliba", "position": "CB" },
+                { "name": "Lucas Digne", "position": "LB" },
+                { "name": "Aurelien Tchouameni", "position": "CM" },
+                { "name": "Adrien Rabiot", "position": "CM" },
+                { "name": "Ousmane Dembele", "position": "RW" },
+                { "name": "Michael Olise", "position": "AM" },
+                { "name": "Desire Doue", "position": "LW" },
+                { "name": "Kylian Mbappe", "position": "ST" }
+              ]
+            },
+            "away": {
+              "teamId": "ESP",
+              "formation": "4-2-3-1",
+              "starters": [
+                { "name": "Unai Simon", "position": "GK" },
+                { "name": "Pedro Porro", "position": "RB" },
+                { "name": "Pau Cubarsi", "position": "CB" },
+                { "name": "Aymeric Laporte", "position": "CB" },
+                { "name": "Marc Cucurella", "position": "LB" },
+                { "name": "Rodri", "position": "CM" },
+                { "name": "Fabian Ruiz", "position": "CM" },
+                { "name": "Lamine Yamal", "position": "RW" },
+                { "name": "Dani Olmo", "position": "AM" },
+                { "name": "Alex Baena", "position": "LW" },
+                { "name": "Mikel Oyarzabal", "position": "ST" }
+              ]
+            }
+          }
+        },
+        {
           "sourceId": "fifa-france-spain-preview-2026-07-13",
-          "confidence": 0.88,
+          "confidence": 0.82,
           "checkedAt": "2026-07-13T22:42:29Z",
-          "note": "FIFA's current match preview lists Pedri back in Spain's likely XI; the published line order maps both teams to 4-2-3-1 shapes.",
+          "note": "FIFA's earlier preview supplies the likely XI names; France's attacking roles are cross-checked against recent official 4-2-3-1 team sheets because prose list order is not exact position evidence.",
           "teams": {
             "home": {
               "teamId": "FRA",
@@ -441,8 +644,8 @@
                 { "name": "Lucas Digne", "position": "LB" },
                 { "name": "Manu Kone", "position": "CM" },
                 { "name": "Adrien Rabiot", "position": "CM" },
-                { "name": "Michael Olise", "position": "RW" },
-                { "name": "Ousmane Dembele", "position": "AM" },
+                { "name": "Ousmane Dembele", "position": "RW" },
+                { "name": "Michael Olise", "position": "AM" },
                 { "name": "Desire Doue", "position": "LW" },
                 { "name": "Kylian Mbappe", "position": "ST" }
               ]
@@ -473,9 +676,9 @@
       "sources": [
         {
           "sourceId": "fifa-england-argentina-preview-2026-07-13",
-          "confidence": 0.88,
+          "confidence": 0.84,
           "checkedAt": "2026-07-13T22:50:33Z",
-          "note": "FIFA's current match preview restores Reece James and Bukayo Saka to England's likely XI; Argentina's published line order maps to a Paredes-anchored 4-1-3-2.",
+          "note": "FIFA's earlier preview restores Reece James and Bukayo Saka to England's likely XI; retained as a visible dissenting source after fresher matchday previews moved Konsa to right-back and Stones into central defence. Argentina's published line order maps to a Paredes-anchored 4-1-3-2.",
           "teams": {
             "home": {
               "teamId": "ENG",
@@ -488,6 +691,90 @@
                 { "name": "Nico O'Reilly", "position": "LB" },
                 { "name": "Elliot Anderson", "position": "CM" },
                 { "name": "Declan Rice", "position": "CM" },
+                { "name": "Bukayo Saka", "position": "RW" },
+                { "name": "Jude Bellingham", "position": "AM" },
+                { "name": "Anthony Gordon", "position": "LW" },
+                { "name": "Harry Kane", "position": "ST" }
+              ]
+            },
+            "away": {
+              "teamId": "ARG",
+              "formation": "4-1-3-2",
+              "starters": [
+                { "name": "Emiliano Martinez", "position": "GK" },
+                { "name": "Nahuel Molina", "position": "RB" },
+                { "name": "Cristian Romero", "position": "CB" },
+                { "name": "Lisandro Martinez", "position": "CB" },
+                { "name": "Nicolas Tagliafico", "position": "LB" },
+                { "name": "Leandro Paredes", "position": "DM" },
+                { "name": "Rodrigo De Paul", "position": "RW" },
+                { "name": "Alexis Mac Allister", "position": "AM" },
+                { "name": "Enzo Fernandez", "position": "LW" },
+                { "name": "Lionel Messi", "position": "ST" },
+                { "name": "Julian Alvarez", "position": "ST" }
+              ]
+            }
+          }
+        },
+        {
+          "sourceId": "sports-mole-england-argentina-team-news-2026-07-14",
+          "confidence": 0.92,
+          "checkedAt": "2026-07-14T15:50:00Z",
+          "note": "Latest team-news consensus: Rice and O'Reilly are fit, Saka returns, and Stones partners Guehi with Konsa covering right-back; Argentina remain unchanged from their quarter-final XI.",
+          "teams": {
+            "home": {
+              "teamId": "ENG",
+              "formation": "4-2-3-1",
+              "starters": [
+                { "name": "Jordan Pickford", "position": "GK" },
+                { "name": "Ezri Konsa", "position": "RB" },
+                { "name": "John Stones", "position": "CB" },
+                { "name": "Marc Guehi", "position": "CB" },
+                { "name": "Nico O'Reilly", "position": "LB" },
+                { "name": "Declan Rice", "position": "CM" },
+                { "name": "Elliot Anderson", "position": "CM" },
+                { "name": "Bukayo Saka", "position": "RW" },
+                { "name": "Jude Bellingham", "position": "AM" },
+                { "name": "Anthony Gordon", "position": "LW" },
+                { "name": "Harry Kane", "position": "ST" }
+              ]
+            },
+            "away": {
+              "teamId": "ARG",
+              "formation": "4-1-3-2",
+              "starters": [
+                { "name": "Emiliano Martinez", "position": "GK" },
+                { "name": "Nahuel Molina", "position": "RB" },
+                { "name": "Cristian Romero", "position": "CB" },
+                { "name": "Lisandro Martinez", "position": "CB" },
+                { "name": "Nicolas Tagliafico", "position": "LB" },
+                { "name": "Leandro Paredes", "position": "DM" },
+                { "name": "Rodrigo De Paul", "position": "RW" },
+                { "name": "Alexis Mac Allister", "position": "AM" },
+                { "name": "Enzo Fernandez", "position": "LW" },
+                { "name": "Lionel Messi", "position": "ST" },
+                { "name": "Julian Alvarez", "position": "ST" }
+              ]
+            }
+          }
+        },
+        {
+          "sourceId": "stats-zone-england-argentina-preview-2026-07-14",
+          "confidence": 0.9,
+          "checkedAt": "2026-07-14T15:50:00Z",
+          "note": "Second fresh matchday source independently agrees on England's Konsa-Stones-Guehi-O'Reilly back four and Argentina's unchanged quarter-final personnel.",
+          "teams": {
+            "home": {
+              "teamId": "ENG",
+              "formation": "4-2-3-1",
+              "starters": [
+                { "name": "Jordan Pickford", "position": "GK" },
+                { "name": "Ezri Konsa", "position": "RB" },
+                { "name": "John Stones", "position": "CB" },
+                { "name": "Marc Guehi", "position": "CB" },
+                { "name": "Nico O'Reilly", "position": "LB" },
+                { "name": "Declan Rice", "position": "CM" },
+                { "name": "Elliot Anderson", "position": "CM" },
                 { "name": "Bukayo Saka", "position": "RW" },
                 { "name": "Jude Bellingham", "position": "AM" },
                 { "name": "Anthony Gordon", "position": "LW" },

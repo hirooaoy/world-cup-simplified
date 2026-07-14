@@ -63,6 +63,9 @@ for (const snapshot of snapshots) {
   const expectedLineupsData = JSON.parse(
     gitText(["show", `${snapshot.commit}:data/expected-lineups.json`])
   );
+  const snapshotTournamentData = JSON.parse(
+    gitText(["show", `${snapshot.commit}:data/tournament.json`])
+  );
   const record = (expectedLineupsData.fixtures || []).find((candidate) => candidate.fixtureId === snapshot.fixtureId);
   if (!record) {
     throw new Error(`${snapshot.fixtureId} missing from ${snapshot.commit}:data/expected-lineups.json`);
@@ -70,6 +73,7 @@ for (const snapshot of snapshots) {
 
   recordsById.set(snapshot.fixtureId, createPredictionHistoryRecord({
     expectedLineupsData,
+    externalSources: snapshotTournamentData.sources || [],
     fixture,
     record,
     capturedAt,
@@ -88,4 +92,3 @@ const nextHistory = {
 
 await writeFile(historyPath, `${JSON.stringify(nextHistory, null, 2)}\n`);
 console.log(`Lineup prediction history backfilled: ${backfilledCount} added, ${nextHistory.fixtures.length} total.`);
-

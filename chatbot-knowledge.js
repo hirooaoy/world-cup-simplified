@@ -576,7 +576,7 @@ const BALL_BOY_PERSONALITY_REPLIES = [
     ],
     label: "Terminology",
     text: "You mean football.",
-    eye: "wince"
+    eye: "wink"
   },
   {
     id: "soccer-etymology",
@@ -657,7 +657,7 @@ const BALL_BOY_PERSONALITY_REPLIES = [
     ],
     label: "Ball Boy",
     text: "No good ones.",
-    eye: "wince"
+    eye: "wink"
   }
 ];
 

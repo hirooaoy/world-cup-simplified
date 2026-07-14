@@ -28,13 +28,19 @@ Ranking-based projection baselines may use FIFA ranking data as input, but the m
 
 Lineups follow a trust ladder:
 
-- Before kickoff, `data/expected-lineups.json` may provide predicted lineups. These records must stay `mode: "expected"` or `mode: "probable"`, use `layoutSource: "derived-team-sheet-order"`, and keep `layoutVerification.exact` false unless a genuinely verified layout exists.
-- `data/lineup-prediction-history.json` preserves the last available pre-kickoff prediction after a fixture starts. `pnpm sync:fifa` archives a completed fixture's expected-lineup record before pruning it, while `pnpm lineups:history:backfill` reconstructs only snapshots that demonstrably existed in Git before kickoff. Never manufacture older forecasts from final lineups.
-- When FIFA publishes the team sheet, `pnpm sync:fifa:lineups` writes official starters, bench, formation, coaches, cards, and substitutions into `data/lineups.json`.
+- Before kickoff, `data/expected-lineups.json` may provide compact browser-facing predictions. These records must stay `mode: "expected"` or `mode: "probable"`, use `layoutSource: "derived-team-sheet-order"`, and keep `layoutVerification.exact` false unless a genuinely verified layout exists. The displayed confidence is evidence strength, not a probability that the whole XI will be exact.
+- `data/free-lineup-prediction-sources.json` is the editorial source registry. `defaultLateralOrder: "right-to-left"` means ordered centre-back and central-midfield pairs are interpreted from the team's right to left unless a source overrides it. `claimStrength: 1` is a generic predicted XI; values above 1 are reserved for direct, explicit selection reporting. Directly reported or published XIs must also use `predictionClass: "reported-xi"`, so the selected record becomes `reported-xi-assisted` and is excluded from forecast-only calibration.
+- Prediction formation labels and pitch grids share `scripts/lineup-prediction-engine/formations.mjs`. Known shapes such as `4-2-2-2` and `3-4-2-1` have explicit grids; other valid digit formations receive a deterministic inferred grid and caveat. Malformed/unsupported labels are normalized to the displayed fallback formation instead of retaining a false label over a `4-2-3-1` grid.
+- Player identity is team-scoped and ambiguity-safe: exact canonical names win, and fuzzy aliases are accepted only when they resolve to one roster identity. Never let an availability entry for `Ederson` remove a distinct teammate such as `Ederson Silva`.
+- `data/expected-lineups-audit.json` preserves every normalized provider candidate and the selected consensus for the current run. `data/lineup-prediction-revisions.json` appends each materially different input/model revision, so source reliability and changing predictions can be measured later without shipping verbose evidence to the browser. The engine has a bounded source-reliability hook, but it does not learn or change reliability automatically yet; keep the default neutral until enough immutable forecast-only outcomes exist for a reviewed calibration.
+- `data/lineup-prediction-history.json` preserves the last available pre-kickoff prediction after a fixture starts, including bench, evidence, engine metadata, and self-contained source metadata. `pnpm sync:fifa` archives a completed fixture's expected-lineup record before pruning it, while `pnpm lineups:history:backfill` reconstructs only snapshots that demonstrably existed in Git before kickoff. Never manufacture older forecasts from final lineups.
+- A delayed fixture at or after its scheduled kickoff freezes the last valid pre-kickoff record and its exact audit revision; prediction generation must not rewrite it with hindsight while status remains `DELAYED`.
+- When FIFA publishes the team sheet, `pnpm sync:fifa:lineups:live` can persist a complete confirmed sheet for scheduled/delayed fixtures near kickoff as well as live and completed fixtures. The default `pnpm sync:fifa:lineups` remains a completed-fixture sync. Runtime `/api/live-data` performs the same automatic override and retains the last complete official XI across a temporary provider failure.
+- FIFA's live payload supplies the official XI, bench, broad positions, and formation, but no exact tactical coordinates. Matching official starters may use the frozen pre-kickoff role/side evidence to choose slots inside FIFA's official formation; this never changes official identities or formation and remains `exact: false` with explicit inference provenance. A verified layout override still has higher priority.
 - During live matches, the UI displays the official starting XI and represents substitutions separately.
 - After full time, completed fixtures must keep a final `lineups.json` record. Official facts should come from FIFA whenever possible.
 
-Run `pnpm lineups:history:audit` to compare archived predictions with the final official starting XIs and formation labels.
+Run `pnpm lineups:history:audit` to compare archived predictions with final official XIs using one-to-one identity matching, starters, benches, starter/bench crossovers, roles, formations, coordinates, lead time, and source/evidence-strength buckets. Headline accuracy is forecast-only; published/reported-XI-assisted records and candidates are reported separately. Run `pnpm smoke:lineups` for the complete prediction, history, live override, rendering, and layout-provenance gate.
 
 Exact pitch geometry is separate from official team-sheet facts. Do not tune the generic placement heuristics to fix one match. If a public FIFA payload does not expose reliable coordinates, keep the layout `derived-team-sheet-order` and unverified.
 
@@ -45,7 +51,7 @@ When exact placement matters, use an audited manual override in `data/lineup-lay
 3. Store the verified home and away player coordinates in the override.
 4. Run `pnpm sync:fifa:lineups`, then `pnpm validate` and `pnpm smoke:lineup-layouts`.
 
-`pnpm validate` rejects verified overrides that do not include at least one matched exact-layout source, so completed/live matches cannot silently present guessed placement as verified.
+`pnpm validate` rejects verified overrides that do not include at least one matched exact-layout source, notes that claim evidence not stored in the record, and source sets with conflicting tactical signatures. Conflicting boards remain visible only as provisional placement; do not select a preferred provider and call the result verified.
 
 For matchday live starts, use a bounded one-time verification pass instead of an always-on scraper:
 
@@ -59,7 +65,7 @@ Run the Google kickoff check once around kickoff, after FIFA official lineups ha
 
 The kickoff Google check defaults to a tight `-5` to `+20` minute window from kickoff. Live fixtures with FIFA-official lineups but unverified geometry stay visible as late manual checks until `+180` minutes by default. Use `LINEUP_GOOGLE_KICKOFF_BEFORE_MINUTES`, `LINEUP_GOOGLE_KICKOFF_AFTER_MINUTES`, or `LINEUP_GOOGLE_KICKOFF_LATE_LIVE_MINUTES` only if tournament timing requires a different one-time window. If Google confirms a meaningful exact-layout issue, add an audited manual override with the Google URL, `checkedAt`, notes, and `verified-layout` metadata; do not tune the generic inference algorithm.
 
-The live-start verifier remains a broader safety check for early live fixtures. It only targets `LIVE` fixtures in the early match window, defaults to 90 minutes after kickoff, accepts only FIFA-official lineup records, and skips fixtures that already have a verified layout override. Use `LINEUP_LAYOUT_LIVE_START_WINDOW_MINUTES` only if tournament timing requires a wider early-match window.
+The live-start verifier remains a broader safety check from 90 minutes before through 90 minutes after kickoff. It targets nearby `SCHEDULED`, `DELAYED`, and `LIVE` fixtures, accepts only complete FIFA-official lineup records, discovers an ESPN board from the public matchday scoreboard when no configured candidate exists, and skips fixtures that already have a verified layout override. Use `LINEUP_LAYOUT_LIVE_START_WINDOW_MINUTES` only if tournament timing requires a wider window.
 
 ## Projection Baselines
 

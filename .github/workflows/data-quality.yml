@@ -49,6 +49,9 @@ jobs:
       - name: Sync FIFA final lineups for completed fixtures
         run: pnpm sync:fifa:lineups
 
+      - name: Refresh expected lineups when inputs changed
+        run: pnpm lineups:predict -- --if-needed
+
       - name: Refresh confirmed-fixture projections
         run: pnpm projections
 
@@ -57,6 +60,9 @@ jobs:
 
       - name: Sync H2H results
         run: pnpm sync:h2h
+
+      - name: Enforce matchday editorial readiness
+        run: pnpm matchday:readiness
 
       - name: Sync FIFA goal events
         run: pnpm sync:fifa:goals
@@ -78,6 +84,8 @@ jobs:
         run: |
           pnpm validate:profiles
           pnpm run audit
+          pnpm audit:tournament
           pnpm results:check
           pnpm cards:check
+          pnpm smoke:lineups
           pnpm smoke

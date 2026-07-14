@@ -158,6 +158,30 @@ assert(
   "Verified layout overrides must require at least one matched exact-layout source."
 );
 
+const overstatedAgreementOverride = structuredClone(override);
+overstatedAgreementOverride.note = "ESPN and FotMob agreed on the tactical layout.";
+assert(
+  getLayoutOverrideProvenanceIssues(overstatedAgreementOverride).some((issue) =>
+    issue.includes("FotMob") || issue.includes("agreement")
+  ),
+  "Verified layout notes must not claim agreement from a source that is not stored."
+);
+
+const conflictingOverride = structuredClone(override);
+conflictingOverride.sources.push({
+  ...structuredClone(conflictingOverride.sources[0]),
+  name: "Second board",
+  url: "https://example.com/conflicting-lineup",
+  signature: { home: "different-home", away: "different-away" }
+});
+conflictingOverride.sources[0].signature = { home: "home", away: "away" };
+assert(
+  getLayoutOverrideProvenanceIssues(conflictingOverride).some((issue) =>
+    issue.includes("conflicting tactical signatures")
+  ),
+  "Conflicting tactical signatures must remain unresolved rather than selecting a preferred source."
+);
+
 const verifiedLineups = applyLineupLayoutOverride(lineups, override);
 assert.equal(verifiedLineups.layoutSource, VERIFIED_LAYOUT_SOURCE);
 assert.equal(verifiedLineups.layoutVerification.status, "verified");

@@ -5,8 +5,14 @@ import {
   buildFifaLineupsFromLiveMatch,
   buildProfileLookup,
   buildFifaMatchCentreUrl,
-  fixtureFifaMatchId
+  fixtureFifaMatchId,
+  getPreKickoffPredictionLayoutReference,
+  getRetainedOfficialLayoutReference
 } from "../scripts/fifa-live-lineup-parser.mjs";
+import {
+  applyLineupLayoutOverride,
+  getVerifiedLayoutOverride
+} from "../scripts/lineup-layout-overrides.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const dataDir = path.join(root, "data");
@@ -43,6 +49,8 @@ const FIFA_PROVIDER_KEY = "fifa";
 const FIFA_GOAL_EVENTS_SOURCE_PREFIX = "fifa-official-goal-events-auto";
 const DEFAULT_FIFA_LIVE_SCORE_TIMEOUT_MS = 3000;
 const DEFAULT_FIFA_LIVE_LINEUP_TIMEOUT_MS = 5000;
+const DEFAULT_FIFA_LIVE_LINEUP_OVERALL_TIMEOUT_MS = 6000;
+const DEFAULT_FIFA_LIVE_LINEUP_CONCURRENCY = 4;
 const DEFAULT_FIFA_LIVE_LINEUP_WINDOW_BEFORE_MINUTES = 180;
 const DEFAULT_FIFA_LIVE_LINEUP_WINDOW_AFTER_MINUTES = 360;
 const DEFAULT_FIFA_GOAL_EVENTS_TIMEOUT_MS = 5000;
@@ -74,6 +82,7 @@ const TEAM_NAME_ALIASES = {
   "ivory coast": "CIV",
   turkey: "TUR"
 };
+const officialLineupCache = new Map();
 
 export default async function handler(request, response) {
   if (request.method !== "GET") {
@@ -82,29 +91,73 @@ export default async function handler(request, response) {
     return;
   }
 
-  const [fixturesData, standingsData, teamsData, tournamentData, playerProfilesData, lineupsData] = await Promise.all([
+  const [
+    fixturesData,
+    standingsData,
+    teamsData,
+    tournamentData,
+    playerProfilesData,
+    lineupsData,
+    expectedLineupsData,
+    lineupLayoutOverridesData
+  ] = await Promise.all([
     readJson("fixtures.json"),
     readJson("standings.json"),
     readJson("teams.json"),
     readJson("tournament.json"),
     readOptionalJson("player-profiles.json"),
-    readOptionalJson("lineups.json")
+    readOptionalJson("lineups.json"),
+    readOptionalJson("expected-lineups.json"),
+    readOptionalJson("lineup-layout-overrides.json")
   ]);
   const providerMap = (await readOptionalJson("provider-map.json")) || {};
   const provider = getLiveDataProvider();
   const checkedAt = new Date().toISOString();
   const cacheControl = getLiveDataCacheControl(provider);
   const timeZone = process.env.SYNC_TIMEZONE || DEFAULT_TIME_ZONE;
+  const staticLineupSeed = mergeStaticLineupsForLivePayload({
+    fixturesData,
+    lineupsData
+  });
+  const cachedLineupSeed = mergeCachedOfficialLineupsForLivePayload({
+    fixturesData: staticLineupSeed.fixturesData
+  });
+  rememberOfficialLineups(cachedLineupSeed.fixturesData);
+  const liveLineupPromise = startOfficialLiveLineupMerge({
+    checkedAt,
+    fixturesData: cachedLineupSeed.fixturesData,
+    expectedLineupsData,
+    lineupLayoutOverridesData,
+    playerProfilesData,
+    teams: teamsData.teams,
+    timeZone
+  });
 
   if (!provider.ok) {
-    const fallbackPayload = buildStaticFallbackPayload({
+    const fallbackPayload = await buildOfficialFallbackPayload({
       checkedAt,
       fixturesData,
+      lineupsData,
+      liveLineupPromise,
       provider,
+      providerMap,
       reason: provider.reason,
       standingsData,
+      teamsData,
+      timeZone,
       tournamentData
-    });
+    }).catch((fallbackError) =>
+      buildStaticFallbackPayload({
+        checkedAt,
+        fallbackReason: fallbackError?.message || "Unable to enrich fallback with FIFA official data",
+        fixturesData,
+        lineupsData,
+        provider,
+        reason: provider.reason,
+        standingsData,
+        tournamentData
+      })
+    );
     sendJson(
       response,
       200,
@@ -144,20 +197,22 @@ export default async function handler(request, response) {
           teams: teamsData.teams,
           timeZone
         });
-        const liveLineupMerge = await mergeLiveLineups({
-          checkedAt,
+        const liveLineupMerge = await liveLineupPromise;
+        const liveLineupOverlay = mergeOfficialLineupsOntoFixtures({
           fixturesData: goalEventMerge.fixturesData,
-          playerProfilesData,
-          teams: teamsData.teams,
-          timeZone
+          lineupFixturesData: liveLineupMerge.fixturesData
         });
         const staticLineupMerge = mergeStaticLineupsForLivePayload({
-          fixturesData: liveLineupMerge.fixturesData,
+          fixturesData: liveLineupOverlay.fixturesData,
           lineupsData
         });
+        const cachedLineupMerge = mergeCachedOfficialLineupsForLivePayload({
+          fixturesData: staticLineupMerge.fixturesData
+        });
+        rememberOfficialLineups(cachedLineupMerge.fixturesData);
         const mergedStandingsData = recomputeStandings({
           checkedAt,
-          fixturesData: staticLineupMerge.fixturesData,
+          fixturesData: cachedLineupMerge.fixturesData,
           provider,
           standingsData,
           teams: teamsData.teams,
@@ -181,7 +236,7 @@ export default async function handler(request, response) {
         });
 
         return {
-          fixturesData: staticLineupMerge.fixturesData,
+          fixturesData: cachedLineupMerge.fixturesData,
           standingsData: mergedStandingsData,
           tournamentData: mergedTournamentData,
           syncStatus: {
@@ -198,8 +253,10 @@ export default async function handler(request, response) {
             officialScoreReason: officialScoreMerge.reason || undefined,
             officialScoreUpdates: officialScoreMerge.updateCount,
             provider: provider.name,
-            staticLineupFixtures: staticLineupMerge.matchedCount || undefined,
-            staticLineupUpdates: staticLineupMerge.updateCount || undefined,
+            cachedLineupFixtures: cachedLineupSeed.matchedCount + cachedLineupMerge.matchedCount || undefined,
+            cachedLineupUpdates: cachedLineupSeed.updateCount + cachedLineupMerge.updateCount || undefined,
+            staticLineupFixtures: staticLineupSeed.matchedCount + staticLineupMerge.matchedCount || undefined,
+            staticLineupUpdates: staticLineupSeed.updateCount + staticLineupMerge.updateCount || undefined,
             updatedFixtures: merge.updateCount
           }
         };
@@ -214,6 +271,8 @@ export default async function handler(request, response) {
     const fallbackPayload = await buildOfficialFallbackPayload({
       checkedAt,
       fixturesData,
+      lineupsData,
+      liveLineupPromise,
       provider,
       providerMap,
       reason,
@@ -226,6 +285,7 @@ export default async function handler(request, response) {
         checkedAt,
         fallbackReason: fallbackError?.message || "Unable to sync FIFA official fallback",
         fixturesData,
+        lineupsData,
         provider,
         reason,
         standingsData,
@@ -282,6 +342,13 @@ function getFifaFallbackTimeoutMs() {
   return positiveInteger(process.env.FIFA_FALLBACK_TIMEOUT_MS, DEFAULT_FIFA_FALLBACK_TIMEOUT_MS);
 }
 
+function getFifaLiveLineupOverallTimeoutMs() {
+  return positiveInteger(
+    process.env.FIFA_LIVE_LINEUP_OVERALL_TIMEOUT_MS,
+    DEFAULT_FIFA_LIVE_LINEUP_OVERALL_TIMEOUT_MS
+  );
+}
+
 function withTimeout(promise, timeoutMs, message) {
   let timeoutId;
   const timeout = new Promise((_, reject) => {
@@ -293,6 +360,44 @@ function withTimeout(promise, timeoutMs, message) {
   return Promise.race([promise, timeout]).finally(() => {
     clearTimeout(timeoutId);
   });
+}
+
+function emptyLineupMerge(fixturesData, reason = "") {
+  return {
+    fixturesData,
+    matchedCount: 0,
+    reason,
+    updateCount: 0
+  };
+}
+
+function startOfficialLiveLineupMerge({
+  checkedAt,
+  expectedLineupsData,
+  fixturesData,
+  lineupLayoutOverridesData,
+  playerProfilesData,
+  teams,
+  timeZone
+}) {
+  return withTimeout(
+    mergeLiveLineups({
+      checkedAt,
+      expectedLineupsData,
+      fixturesData,
+      lineupLayoutOverridesData,
+      playerProfilesData,
+      teams,
+      timeZone
+    }),
+    getFifaLiveLineupOverallTimeoutMs(),
+    "FIFA official lineup enrichment timed out"
+  )
+    .catch((error) => emptyLineupMerge(fixturesData, error.message || "Unable to sync FIFA live lineups"))
+    .then((result) => {
+      rememberOfficialLineups(result.fixturesData);
+      return result;
+    });
 }
 
 async function readJson(fileName) {
@@ -350,15 +455,24 @@ function buildStaticFallbackPayload({
   checkedAt,
   fallbackReason = "",
   fixturesData,
+  lineupsData,
   provider,
   reason,
   standingsData,
   tournamentData
 }) {
   const sanitized = sanitizeStaticFallbackFixturesData(fixturesData);
+  const staticLineupMerge = mergeStaticLineupsForLivePayload({
+    fixturesData: sanitized.fixturesData,
+    lineupsData
+  });
+  const cachedLineupMerge = mergeCachedOfficialLineupsForLivePayload({
+    fixturesData: staticLineupMerge.fixturesData
+  });
+  rememberOfficialLineups(cachedLineupMerge.fixturesData);
 
   return {
-    fixturesData: sanitized.fixturesData,
+    fixturesData: cachedLineupMerge.fixturesData,
     standingsData,
     tournamentData,
     syncStatus: {
@@ -367,6 +481,10 @@ function buildStaticFallbackPayload({
       provider: provider.name,
       reason,
       fallbackReason: fallbackReason || undefined,
+      cachedLineupFixtures: cachedLineupMerge.matchedCount || undefined,
+      cachedLineupUpdates: cachedLineupMerge.updateCount || undefined,
+      staticLineupFixtures: staticLineupMerge.matchedCount || undefined,
+      staticLineupUpdates: staticLineupMerge.updateCount || undefined,
       sanitizedLiveFixtures: sanitized.sanitizedCount || undefined
     }
   };
@@ -375,6 +493,8 @@ function buildStaticFallbackPayload({
 async function buildOfficialFallbackPayload({
   checkedAt,
   fixturesData,
+  lineupsData,
+  liveLineupPromise,
   provider,
   providerMap,
   reason,
@@ -387,47 +507,86 @@ async function buildOfficialFallbackPayload({
     timeoutMs: getFifaFallbackTimeoutMs()
   });
   const sanitized = sanitizeStaticFallbackFixturesData(fixturesData);
-  const officialFixtures = await officialProvider.fetchFixtures({
-    providerMap,
-    timeZone
+  const officialScorePromise = officialProvider
+    .fetchFixtures({
+      providerMap,
+      timeZone
+    })
+    .then((officialFixtures) => ({
+      error: "",
+      merge: mergeProviderFixtures({
+        checkedAt,
+        fixturesData: sanitized.fixturesData,
+        forceStatus: true,
+        provider: officialProvider,
+        providerFixtures: officialFixtures,
+        providerMap,
+        teams: teamsData.teams
+      })
+    }))
+    .catch((error) => ({
+      error: error.message || "Unable to sync FIFA official scores",
+      merge: {
+        fixturesData: sanitized.fixturesData,
+        matchedCount: 0,
+        updateCount: 0
+      }
+    }));
+  const [officialScoreResult, liveLineupMerge] = await Promise.all([
+    officialScorePromise,
+    liveLineupPromise || Promise.resolve(emptyLineupMerge(fixturesData))
+  ]);
+  const officialMerge = officialScoreResult.merge;
+  const liveLineupOverlay = mergeOfficialLineupsOntoFixtures({
+    fixturesData: officialMerge.fixturesData,
+    lineupFixturesData: liveLineupMerge.fixturesData
   });
-  const officialMerge = mergeProviderFixtures({
-    checkedAt,
-    fixturesData: sanitized.fixturesData,
-    forceStatus: true,
-    provider: officialProvider,
-    providerFixtures: officialFixtures,
-    providerMap,
-    teams: teamsData.teams
+  const staticLineupMerge = mergeStaticLineupsForLivePayload({
+    fixturesData: liveLineupOverlay.fixturesData,
+    lineupsData
   });
+  const cachedLineupMerge = mergeCachedOfficialLineupsForLivePayload({
+    fixturesData: staticLineupMerge.fixturesData
+  });
+  rememberOfficialLineups(cachedLineupMerge.fixturesData);
   const mergedStandingsData = recomputeStandings({
     checkedAt,
-    fixturesData: officialMerge.fixturesData,
+    fixturesData: cachedLineupMerge.fixturesData,
     provider: officialProvider,
     standingsData,
     teams: teamsData.teams,
     tournamentData
   });
-  const mergedTournamentData = addOfficialScoreSource({
-    checkedAt,
-    scoreMerge: officialMerge,
-    tournamentData
-  });
+  const mergedTournamentData = officialScoreResult.error
+    ? tournamentData
+    : addOfficialScoreSource({
+        checkedAt,
+        scoreMerge: officialMerge,
+        tournamentData
+      });
 
   return {
-    fixturesData: officialMerge.fixturesData,
+    fixturesData: cachedLineupMerge.fixturesData,
     standingsData: mergedStandingsData,
     tournamentData: mergedTournamentData,
     syncStatus: {
       checkedAt,
+      cachedLineupFixtures: cachedLineupMerge.matchedCount || undefined,
+      cachedLineupUpdates: cachedLineupMerge.updateCount || undefined,
       fallback: true,
       fallbackReason: reason,
+      lineupFixtures: liveLineupMerge.matchedCount,
+      lineupReason: liveLineupMerge.reason || undefined,
+      lineupUpdates: liveLineupMerge.updateCount,
       officialScoreFixtures: officialMerge.matchedCount,
+      officialScoreReason: officialScoreResult.error || undefined,
       officialScoreUpdates: officialMerge.updateCount,
-      ok: true,
+      ok: !officialScoreResult.error,
       primaryProvider: provider.name,
       provider: officialProvider.name,
-      sanitizedLiveFixtures: sanitized.sanitizedCount || undefined
+      sanitizedLiveFixtures: sanitized.sanitizedCount || undefined,
+      staticLineupFixtures: staticLineupMerge.matchedCount || undefined,
+      staticLineupUpdates: staticLineupMerge.updateCount || undefined
     }
   };
 }
@@ -1870,7 +2029,15 @@ async function mergeOfficialGoalEvents({ checkedAt, fixturesData, playerProfiles
   }
 }
 
-async function mergeLiveLineups({ checkedAt, fixturesData, playerProfilesData, teams, timeZone }) {
+async function mergeLiveLineups({
+  checkedAt,
+  expectedLineupsData,
+  fixturesData,
+  lineupLayoutOverridesData,
+  playerProfilesData,
+  teams,
+  timeZone
+}) {
   const fixtures = fixturesData.fixtures.map((fixture) => ({ ...fixture }));
   const candidates = fixtures.filter(
     (fixture) => shouldFetchOfficialLiveLineup(fixture, checkedAt)
@@ -1898,37 +2065,56 @@ async function mergeLiveLineups({ checkedAt, fixturesData, playerProfilesData, t
     let matchedCount = 0;
     let updateCount = 0;
 
-    for (const fixture of candidates) {
-      const officialMatch = findOfficialLiveMatchForFixture(fixture, officialIndex);
-      const idMatch = officialMatch?.IdMatch || fixtureFifaMatchId(fixture);
-      if (!idMatch) {
-        warnings.push(`${fixture.id}: no official FIFA lineup source found`);
-        continue;
-      }
-
-      try {
-        const liveMatch = await fetchOfficialLiveFootballMatch(idMatch);
-        const lineup = buildFifaLineupsFromLiveMatch({
-          checkedAt,
-          fixture,
-          liveMatch,
-          mode: isMatchInProgress(fixture.status) ? "live" : "confirmed",
-          teamsById,
-          profileLookup,
-          sourceUrl: buildFifaMatchCentreUrl(fixture, liveMatch),
-          sourceIds: ["fifa-lineups-live"]
-        });
-
-        const before = JSON.stringify(fixture.lineups || null);
-        fixture.lineups = lineup;
-        if (before !== JSON.stringify(lineup)) {
-          updateCount += 1;
+    await mapWithConcurrency(
+      candidates,
+      positiveInteger(
+        process.env.FIFA_LIVE_LINEUP_CONCURRENCY,
+        DEFAULT_FIFA_LIVE_LINEUP_CONCURRENCY
+      ),
+      async (fixture) => {
+        const officialMatch = findOfficialLiveMatchForFixture(fixture, officialIndex);
+        const idMatch = officialMatch?.IdMatch || fixtureFifaMatchId(fixture);
+        if (!idMatch) {
+          warnings.push(`${fixture.id}: no official FIFA lineup source found`);
+          return;
         }
-        matchedCount += 1;
-      } catch (error) {
-        warnings.push(`${fixture.id}: ${error.message || "unable to fetch or parse FIFA live lineup"}`);
+
+        try {
+          const liveMatch = await fetchOfficialLiveFootballMatch(idMatch);
+          const layoutReference =
+            getPreKickoffPredictionLayoutReference(expectedLineupsData, fixture) ||
+            getRetainedOfficialLayoutReference(fixture.lineups);
+          let lineup = buildFifaLineupsFromLiveMatch({
+            checkedAt,
+            fixture,
+            layoutReference,
+            liveMatch,
+            mode: isMatchInProgress(fixture.status) ? "live" : "confirmed",
+            teamsById,
+            profileLookup,
+            sourceUrl: buildFifaMatchCentreUrl(fixture, liveMatch),
+            sourceIds: ["fifa-lineups-live"]
+          });
+          const verifiedOverride = getVerifiedLayoutOverride(lineupLayoutOverridesData, fixture.id);
+          if (
+            verifiedOverride &&
+            (!verifiedOverride.homeTeamId || verifiedOverride.homeTeamId === fixture.homeTeamId) &&
+            (!verifiedOverride.awayTeamId || verifiedOverride.awayTeamId === fixture.awayTeamId)
+          ) {
+            lineup = applyLineupLayoutOverride(lineup, verifiedOverride);
+          }
+
+          const before = JSON.stringify(fixture.lineups || null);
+          fixture.lineups = lineup;
+          if (before !== JSON.stringify(lineup)) {
+            updateCount += 1;
+          }
+          matchedCount += 1;
+        } catch (error) {
+          warnings.push(`${fixture.id}: ${error.message || "unable to fetch or parse FIFA live lineup"}`);
+        }
       }
-    }
+    );
 
     return {
       fixturesData: {
@@ -1948,6 +2134,21 @@ async function mergeLiveLineups({ checkedAt, fixturesData, playerProfilesData, t
       updateCount: 0
     };
   }
+}
+
+async function mapWithConcurrency(items, concurrency, callback) {
+  let nextIndex = 0;
+  const workerCount = Math.min(Math.max(1, concurrency), items.length);
+
+  async function worker() {
+    while (nextIndex < items.length) {
+      const item = items[nextIndex];
+      nextIndex += 1;
+      await callback(item);
+    }
+  }
+
+  await Promise.all(Array.from({ length: workerCount }, () => worker()));
 }
 
 function getLiveLineupWindowMinutes(name, fallback) {
@@ -1998,7 +2199,144 @@ function shouldExposeStaticLineupInLivePayload(fixture, lineup) {
     return false;
   }
 
-  return ["FT", "AET", "PEN"].includes(fixture.status);
+  const mode = String(lineup.mode || "").trim().toLowerCase();
+  const isOfficial = lineup.teamSheetSource === "fifa-official";
+  if (!isOfficial) {
+    return false;
+  }
+
+  if (mode === "final") {
+    return ["FT", "AET", "PEN"].includes(fixture.status);
+  }
+
+  return ["confirmed", "live"].includes(mode) &&
+    ["SCHEDULED", "DELAYED", "LIVE"].includes(fixture.status);
+}
+
+function isReusableOfficialLineup(lineup) {
+  if (!lineup || typeof lineup !== "object" || Array.isArray(lineup)) {
+    return false;
+  }
+
+  return (
+    lineup.teamSheetSource === "fifa-official" &&
+    ["confirmed", "final", "live"].includes(String(lineup.mode || "").trim().toLowerCase()) &&
+    lineup.home?.players?.length === 11 &&
+    lineup.away?.players?.length === 11
+  );
+}
+
+function lineupTimestamp(lineup) {
+  const timestamp = new Date(lineup?.checkedAt || lineup?.updatedAt || 0).getTime();
+  return Number.isFinite(timestamp) ? timestamp : 0;
+}
+
+function rememberOfficialLineups(fixturesData) {
+  for (const fixture of fixturesData?.fixtures || []) {
+    if (!fixture?.id || !isReusableOfficialLineup(fixture.lineups)) {
+      continue;
+    }
+    if (String(fixture.lineups.mode || "").trim().toLowerCase() === "final") {
+      continue;
+    }
+
+    const existing = officialLineupCache.get(fixture.id);
+    const nextTimestamp = lineupTimestamp(fixture.lineups);
+    const existingTimestamp = lineupTimestamp(existing?.lineups);
+    if (existing && existingTimestamp > nextTimestamp) {
+      continue;
+    }
+
+    officialLineupCache.set(fixture.id, {
+      awayTeamId: fixture.awayTeamId,
+      homeTeamId: fixture.homeTeamId,
+      lineups: fixture.lineups
+    });
+  }
+}
+
+function mergeCachedOfficialLineupsForLivePayload({ fixturesData }) {
+  let matchedCount = 0;
+  let updateCount = 0;
+  const fixtures = (fixturesData.fixtures || []).map((fixture) => {
+    const cached = officialLineupCache.get(fixture.id);
+    if (
+      !cached ||
+      cached.homeTeamId !== fixture.homeTeamId ||
+      cached.awayTeamId !== fixture.awayTeamId ||
+      !shouldExposeStaticLineupInLivePayload(fixture, cached.lineups)
+    ) {
+      return fixture;
+    }
+
+    if (
+      isReusableOfficialLineup(fixture.lineups) &&
+      lineupTimestamp(fixture.lineups) >= lineupTimestamp(cached.lineups)
+    ) {
+      return fixture;
+    }
+
+    matchedCount += 1;
+    updateCount += JSON.stringify(fixture.lineups || null) === JSON.stringify(cached.lineups) ? 0 : 1;
+    return {
+      ...fixture,
+      lineups: cached.lineups
+    };
+  });
+
+  return {
+    fixturesData: {
+      ...fixturesData,
+      fixtures
+    },
+    matchedCount,
+    updateCount
+  };
+}
+
+function mergeOfficialLineupsOntoFixtures({ fixturesData, lineupFixturesData }) {
+  const lineupsByFixtureId = new Map(
+    (lineupFixturesData?.fixtures || [])
+      .filter((fixture) => fixture?.id && isReusableOfficialLineup(fixture.lineups))
+      .map((fixture) => [fixture.id, fixture.lineups])
+  );
+  let matchedCount = 0;
+  let updateCount = 0;
+  const fixtures = (fixturesData.fixtures || []).map((fixture) => {
+    const sourceLineup = lineupsByFixtureId.get(fixture.id);
+    if (!sourceLineup || !shouldExposeStaticLineupInLivePayload(fixture, sourceLineup)) {
+      return fixture;
+    }
+
+    const sourceMode = String(sourceLineup.mode || "").trim().toLowerCase();
+    const desiredMode = isMatchInProgress(fixture.status)
+      ? "live"
+      : sourceMode === "live"
+        ? "confirmed"
+        : sourceMode;
+    const lineup = desiredMode === sourceMode ? sourceLineup : { ...sourceLineup, mode: desiredMode };
+
+    matchedCount += 1;
+    if (JSON.stringify(fixture.lineups || null) === JSON.stringify(lineup)) {
+      return fixture;
+    }
+
+    updateCount += 1;
+    return {
+      ...fixture,
+      lineups: lineup
+    };
+  });
+
+  return {
+    fixturesData: {
+      ...fixturesData,
+      updatedAt: updateCount ? lineupFixturesData.updatedAt || fixturesData.updatedAt : fixturesData.updatedAt,
+      fixtures
+    },
+    matchedCount,
+    updateCount
+  };
 }
 
 function mergeStaticLineupsForLivePayload({ fixturesData, lineupsData }) {

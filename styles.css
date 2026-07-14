@@ -39,12 +39,18 @@ a {
 
 .site-header {
   position: relative;
-  z-index: 60;
+  z-index: auto;
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
   gap: 20px;
   padding: 24px clamp(20px, 3.5vw, 52px) 0;
+}
+
+.site-brand-lockup,
+.header-view-actions {
+  position: relative;
+  z-index: 60;
 }
 
 .site-brand-lockup {
@@ -185,6 +191,8 @@ body.is-juggle-active {
 }
 
 .header-controls {
+  position: relative;
+  z-index: 200;
   display: inline-flex;
   align-items: center;
   justify-content: flex-end;
@@ -6238,7 +6246,7 @@ button.lineup-event-sub,
 }
 
 .lineup-substitution-toggle[aria-pressed="true"] {
-  background: rgba(10, 10, 10, 0.055);
+  background: #f3f3f3;
   color: rgba(10, 10, 10, 0.8);
 }
 
@@ -7874,6 +7882,10 @@ button.lineup-event-sub,
     margin-top: 0;
     max-width: none;
     justify-self: stretch;
+  }
+
+  #matches-view.has-team-search-query.has-match-info .match-info {
+    order: -1;
   }
 
   #matches-view.is-yesterday-suppressed.has-match-info .match-info {

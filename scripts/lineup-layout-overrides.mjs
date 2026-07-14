@@ -147,6 +147,21 @@ function isMatchedExactLayoutSource(source) {
   return source?.status === "matched" && source?.exactLayout === true;
 }
 
+function layoutClaimSignature(source) {
+  const home = String(source?.signature?.home || "").trim();
+  const away = String(source?.signature?.away || "").trim();
+  return home || away ? `${home}::${away}` : "";
+}
+
+function noteClaimsMissingSource(note, sources) {
+  const sourceNames = new Set(
+    sources.map((source) => String(source?.name || "").trim().toLowerCase()).filter(Boolean)
+  );
+  const text = String(note || "").toLowerCase();
+  return ["ESPN", "FotMob", "Google", "Sofascore"]
+    .filter((name) => text.includes(name.toLowerCase()) && !sourceNames.has(name.toLowerCase()));
+}
+
 export function getLayoutOverrideProvenanceIssues(override) {
   const issues = [];
   if (!isPlainObject(override)) {
@@ -194,6 +209,25 @@ export function getLayoutOverrideProvenanceIssues(override) {
     }
     if (!sources.some(isMatchedExactLayoutSource)) {
       issues.push("verified overrides must include at least one matched source with exactLayout true");
+    }
+    if (sources.some((source) => source?.status === "conflict")) {
+      issues.push("verified overrides must not contain unresolved source conflicts");
+    }
+    const matchedSignatures = new Set(
+      sources
+        .filter((source) => source?.status === "matched")
+        .map(layoutClaimSignature)
+        .filter(Boolean)
+    );
+    if (matchedSignatures.size > 1) {
+      issues.push("verified overrides must not contain conflicting tactical signatures");
+    }
+    if (/\bagreed\b/i.test(override.note || "") && sources.filter((source) => source?.status === "matched").length < 2) {
+      issues.push("note must not claim source agreement when fewer than two matched sources are stored");
+    }
+    const missingNamedSources = noteClaimsMissingSource(override.note, sources);
+    if (missingNamedSources.length) {
+      issues.push(`note names sources that are not stored: ${missingNamedSources.join(", ")}`);
     }
   }
 

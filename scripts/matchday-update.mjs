@@ -11,6 +11,21 @@ const steps = [
     args: ["--skip-unchanged"]
   },
   {
+    label: "Sync FIFA confirmed and final lineups",
+    script: "scripts/sync-fifa-lineups.mjs",
+    args: ["--include-live"]
+  },
+  {
+    label: "Verify kickoff-window lineup layouts",
+    script: "scripts/verify-lineup-layouts.mjs",
+    args: ["--scope=live-start"]
+  },
+  {
+    label: "Refresh expected lineups for confirmed fixtures",
+    script: "scripts/generate-expected-lineups.mjs",
+    args: ["--if-needed"]
+  },
+  {
     label: "Sync FIFA goal events",
     script: "scripts/sync-fifa-goal-events.mjs"
   },
@@ -51,6 +66,34 @@ const verificationSteps = [
   {
     label: "Audit player-card coverage",
     script: "scripts/audit-player-card-coverage.mjs"
+  },
+  {
+    label: "Verify lineup prediction engine",
+    script: "scripts/smoke-lineup-prediction-engine.mjs"
+  },
+  {
+    label: "Verify lineup prediction history",
+    script: "scripts/smoke-lineup-prediction-history.mjs"
+  },
+  {
+    label: "Verify lineup prediction audit revisions",
+    script: "scripts/smoke-lineup-prediction-audit.mjs"
+  },
+  {
+    label: "Audit lineup prediction accuracy",
+    script: "scripts/audit-lineup-prediction-history.mjs"
+  },
+  {
+    label: "Verify live official lineup ingestion",
+    script: "scripts/smoke-live-lineups.mjs"
+  },
+  {
+    label: "Verify live lineup rendering",
+    script: "scripts/smoke-live-lineup-rendering.mjs"
+  },
+  {
+    label: "Verify lineup layout provenance",
+    script: "scripts/smoke-lineup-layout-sources.mjs"
   },
   {
     label: "Run UI smoke tests",

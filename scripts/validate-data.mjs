@@ -19,6 +19,10 @@ import { isPlayerNameMatch, normalizePlayerName } from "./player-name-matching.m
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const dataDir = path.join(root, "data");
 const errors = [];
+const validationNow = process.env.LINEUP_VALIDATION_NOW || process.env.MATCHDAY_NOW
+  ? new Date(process.env.LINEUP_VALIDATION_NOW || process.env.MATCHDAY_NOW)
+  : new Date();
+const expectedLineupMaxAgeHours = Number(process.env.LINEUP_PREDICTION_MAX_AGE_HOURS || 36);
 const OFFICIAL_HIGHLIGHT_VIDEO_CHANNELS = new Map([
   ["UCwNqHDsnBCKT-olwJwIFyfg", "FOX Sports"],
   ["UCpcTrCXblq78GZrTUTLWeBw", "FIFA"]
@@ -1387,9 +1391,19 @@ function validateCompletedFixtureTrust(fixture, lineups, override) {
   }
 }
 
-function getLineupPlayerProfile(player, teamId) {
+function findLineupPlayerProfile(player, teamId = "") {
   const playerName = getLineupPlayerName(player);
-  const profile = playerProfilesByAlias.get(normalizePlayerName(playerName));
+  const alias = normalizePlayerName(playerName);
+  if (!alias) return null;
+  if (teamId) {
+    return playerProfilesByTeamAndAlias.get(`${teamId}:${alias}`) || null;
+  }
+  const candidates = playerProfileCandidatesByAlias.get(alias) || [];
+  return candidates.length === 1 ? candidates[0] : null;
+}
+
+function getLineupPlayerProfile(player, teamId) {
+  const profile = findLineupPlayerProfile(player, teamId);
   if (!profile) {
     return null;
   }
@@ -1442,6 +1456,19 @@ function validateLineupPlayer(player, owner, { allowVerifiedSourceSide = false, 
 
   const name = getLineupPlayerName(player);
   assert(name, `${owner}.name must be a non-empty string`);
+  const profile = findLineupPlayerProfile(player, teamId);
+  const knownAliasProfiles = playerProfileCandidatesByAlias.get(normalizePlayerName(name)) || [];
+  if (profile?.teamId && teamId) {
+    assert(
+      profile.teamId === teamId,
+      `${owner}.name must belong to fixture team ${teamId}, not ${profile.teamId}`
+    );
+  } else if (teamId && knownAliasProfiles.length) {
+    assert(
+      knownAliasProfiles.some((candidate) => candidate.teamId === teamId),
+      `${owner}.name is a known profile but does not belong to fixture team ${teamId}`
+    );
+  }
   assert(
     typeof player.number === "string" || typeof player.number === "number",
     `${owner}.number must be a string or number`
@@ -1763,7 +1790,7 @@ function validateExpectedLineupConfidence(confidence, owner) {
   return true;
 }
 
-function validateExpectedLineupRecord(record, sourceIdSet, fixtureById, owner, seenFixtureIds) {
+function validateExpectedLineupRecord(record, sourceIdSet, sourceById, fixtureById, owner, seenFixtureIds) {
   if (!isPlainObject(record)) {
     fail(`${owner} must be an object`);
     return;
@@ -1794,6 +1821,24 @@ function validateExpectedLineupRecord(record, sourceIdSet, fixtureById, owner, s
     assert(record.sourceIds.length > 0, `${owner}.sourceIds must include at least one source`);
     assert(isValidDateTime(record.lastUpdated), `${owner}.lastUpdated must be a valid date-time`);
     validateExpectedLineupConfidence(record.confidence, `${owner}.confidence`);
+    const lastUpdated = new Date(record.lastUpdated);
+    const kickoff = new Date(fixture.kickoffUtc || "");
+    if (!Number.isNaN(lastUpdated.getTime()) && !Number.isNaN(kickoff.getTime())) {
+      assert(lastUpdated < kickoff, `${owner}.lastUpdated must be strictly before kickoff`);
+      if (fixture.status === "SCHEDULED" && !Number.isNaN(validationNow.getTime())) {
+        assert(validationNow < kickoff, `${owner} must not remain predicted after scheduled kickoff`);
+      }
+    }
+    const newestReferencedSourceTime = (record.sourceIds || [])
+      .map((sourceId) => new Date(sourceById.get(sourceId)?.checkedAt || "").getTime())
+      .filter(Number.isFinite)
+      .reduce((latest, value) => Math.max(latest, value), 0);
+    if (!Number.isNaN(lastUpdated.getTime()) && newestReferencedSourceTime > 0) {
+      assert(
+        lastUpdated.getTime() >= newestReferencedSourceTime,
+        `${owner}.lastUpdated must not predate its newest referenced source`
+      );
+    }
   }
 
   assert(isPlainObject(record.lineup), `${owner}.lineup must be an object`);
@@ -2127,6 +2172,8 @@ assert(
 const playerProfiles = new Map(Object.entries(playerProfilesData?.profiles || {}));
 const historicalPlayerProfiles = new Map(Object.entries(historicalPlayerProfilesData?.profiles || {}));
 const playerProfilesByAlias = new Map();
+const playerProfilesByTeamAndAlias = new Map();
+const playerProfileCandidatesByAlias = new Map();
 for (const [profileName, profile] of playerProfiles) {
   const owner = `player-profiles.json "${profileName}"`;
   assert(profile && typeof profile === "object" && !Array.isArray(profile), `${owner} must be an object`);
@@ -2142,6 +2189,12 @@ for (const [profileName, profile] of playerProfiles) {
     const key = normalizePlayerName(alias);
     if (key && !playerProfilesByAlias.has(key)) {
       playerProfilesByAlias.set(key, profile);
+    }
+    if (key) {
+      const candidates = playerProfileCandidatesByAlias.get(key) || [];
+      if (!candidates.includes(profile)) candidates.push(profile);
+      playerProfileCandidatesByAlias.set(key, candidates);
+      if (profile.teamId) playerProfilesByTeamAndAlias.set(`${profile.teamId}:${key}`, profile);
     }
   }
 }
@@ -2902,6 +2955,20 @@ if (expectedLineupsData !== null) {
       "expected-lineups.json.schemaVersion must be a non-empty string");
     assert(isValidDateTime(expectedLineupsData.generatedAt), "expected-lineups.json.generatedAt must be a valid date-time");
     assert(Array.isArray(expectedLineupsData.fixtures), "expected-lineups.json.fixtures must be an array");
+    const expectedGeneratedAt = new Date(expectedLineupsData.generatedAt || "");
+    if (
+      Array.isArray(expectedLineupsData.fixtures) &&
+      expectedLineupsData.fixtures.length > 0 &&
+      !Number.isNaN(expectedGeneratedAt.getTime()) &&
+      !Number.isNaN(validationNow.getTime())
+    ) {
+      const ageHours = (validationNow.getTime() - expectedGeneratedAt.getTime()) / 36e5;
+      assert(ageHours >= 0, "expected-lineups.json.generatedAt must not be in the future");
+      assert(
+        ageHours <= expectedLineupMaxAgeHours,
+        `expected-lineups.json must be regenerated when older than ${expectedLineupMaxAgeHours} hours`
+      );
+    }
     if (expectedLineupsData.engine !== undefined) {
       assert(isPlainObject(expectedLineupsData.engine), "expected-lineups.json.engine must be an object");
       if (isPlainObject(expectedLineupsData.engine)) {
@@ -2909,13 +2976,23 @@ if (expectedLineupsData !== null) {
           "expected-lineups.json.engine.id must be a non-empty string");
         assert(typeof expectedLineupsData.engine.version === "string" && expectedLineupsData.engine.version.trim(),
           "expected-lineups.json.engine.version must be a non-empty string");
+        assert(/^[a-f0-9]{64}$/.test(expectedLineupsData.engine.inputFingerprint || ""),
+          "expected-lineups.json.engine.inputFingerprint must be a SHA-256 digest");
+        assert(/^[a-f0-9]{64}$/.test(expectedLineupsData.engine.modelFingerprint || ""),
+          "expected-lineups.json.engine.modelFingerprint must be a SHA-256 digest");
       }
     }
     const expectedLineupSourceIds = new Set(sourceIds);
+    const expectedLineupSourceById = new Map(
+      (tournamentData.sources || []).map((source) => [source.id, source])
+    );
     if (expectedLineupsData.sources !== undefined) {
       assert(Array.isArray(expectedLineupsData.sources), "expected-lineups.json.sources must be an array");
       for (const [index, source] of (Array.isArray(expectedLineupsData.sources) ? expectedLineupsData.sources : []).entries()) {
         registerSource(source, expectedLineupSourceIds, `expected-lineups.json.sources[${index}]`);
+        if (source?.id) {
+          expectedLineupSourceById.set(source.id, source);
+        }
       }
     }
 
@@ -2924,6 +3001,7 @@ if (expectedLineupsData !== null) {
       validateExpectedLineupRecord(
         expectedLineupRecord,
         expectedLineupSourceIds,
+        expectedLineupSourceById,
         fixturesById,
         `expected-lineups.json.fixtures[${index}]`,
         seenExpectedLineupFixtures

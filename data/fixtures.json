@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-14T21:28:54.043Z",
+  "updatedAt": "2026-07-14T21:34:55.226Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -24120,7 +24120,25 @@
           "name": "Pedro Porro",
           "assistName": "Dani Olmo"
         }
-      ]
+      ],
+      "resultStoryBullets": [
+        "Yamal won the 22nd-minute penalty, and Oyarzabal converted his fifth goal of the tournament.",
+        "Spain controlled midfield and isolated Mbappé, stopping France from building sustained pressure.",
+        "Porro finished a slick one-two with Olmo, sealing Spain's 2-0 win and first World Cup final since 2010."
+      ],
+      "resultStoryBulletsZh": [
+        "亚马尔赢得第22分钟点球，奥亚萨瓦尔罚入个人本届赛事第五球。",
+        "西班牙掌控中场并限制姆巴佩，让法国始终无法形成持续压力。",
+        "波罗与奥尔莫完成漂亮二过一后破门，锁定西班牙2比0取胜并自2010年以来首次晋级世界杯决赛。"
+      ],
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=3JAZZr3jWD0",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-07-14T14:34:53-07:00",
+        "checkedAt": "2026-07-14T14:34:53-07:00"
+      }
     },
     {
       "id": "match-102-semi-final-2026-07-15",

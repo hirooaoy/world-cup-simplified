@@ -760,6 +760,34 @@ export const TRUSTED_SOURCE_CANDIDATES_BY_FIXTURE = {
       url: "https://www.espn.com/soccer/match/_/gameId/760513/switzerland-argentina"
     },
   ],
+  "match-101-semi-final-2026-07-14": [
+    {
+      name: "ESPN",
+      adapter: "espn",
+      url: "https://www.espn.com/soccer/match/_/gameId/760514/spain-france"
+    },
+  ],
+  "match-102-semi-final-2026-07-15": [
+    {
+      name: "ESPN",
+      adapter: "espn",
+      url: "https://www.espn.com/soccer/match/_/gameId/760515/argentina-england"
+    },
+  ],
+  "match-103-bronze-final-2026-07-18": [
+    {
+      name: "ESPN",
+      adapter: "espn",
+      url: "https://www.espn.com/soccer/match/_/gameId/760516"
+    },
+  ],
+  "match-104-final-2026-07-19": [
+    {
+      name: "ESPN",
+      adapter: "espn",
+      url: "https://www.espn.com/soccer/match/_/gameId/760517"
+    },
+  ],
 };
 
 export function getSourceCandidatesForFixture(fixtureId) {

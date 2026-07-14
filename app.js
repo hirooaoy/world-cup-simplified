@@ -1,6 +1,6 @@
 import { ZH_CLUB_NAME_TRANSLATIONS, ZH_LEAGUE_NAME_TRANSLATIONS, ZH_PLAYER_NAME_TRANSLATIONS } from "./football-locale-zh.js?v=2026-07-13-locale-2";
 
-const DATA_VERSION = "2026-07-14-historical-shootouts";
+const DATA_VERSION = "2026-07-14-tournament-integrity-4";
 const DATA_URLS = {
   adminMessage: `data/admin-message.json?v=${DATA_VERSION}`,
   fixtures: `data/fixtures.json?v=${DATA_VERSION}`,
@@ -22,7 +22,7 @@ const SITE_ORIGIN = "https://world-cup-simplified.vercel.app";
 const SITE_SOCIAL_IMAGE = `${SITE_ORIGIN}/assets/site-thumbnail.png?v=2026-06-17-1213`;
 const HOME_SEO = {
   en: {
-    title: "World Cup 2026 Schedule, Results, Standings & Lineups | World Cup Simplified",
+    title: "World Cup Simplified",
     description:
       "Follow the 2026 World Cup in your time zone with match schedules, verified lineups, live results, standings, predictions, concise recaps, and official highlights."
   },
@@ -181,8 +181,8 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "Club to verify": "俱乐部待确认",
     "Current knockout path with likely winners filled for now. Finished results replace estimates.":
       "当前淘汰赛路径会先填入暂时更可能晋级的球队，完赛结果会替换估算。",
-    "Knockout bracket uses archived match results.":
-      "淘汰赛对阵使用存档比赛结果。",
+    "Tournament path uses archived match results.":
+      "赛事路径使用存档比赛结果。",
     "Round of 32 slots use current standings and remaining projections. Later rounds are predictions.":
       "32强席位使用当前积分榜和剩余预测。后续轮次为预测。",
     "Current score": "当前比分",
@@ -225,11 +225,10 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "Footer and source polish": "页脚和来源体验优化",
     "Footer stays short while sources and release notes open on hover.":
       "页脚保持简短，来源和发布说明可悬停查看。",
-    "Final group table computed from archived match results.": "最终小组表由存档比赛结果计算得出。",
-    "Final group tables computed from archived match results.": "最终小组表由存档比赛结果计算得出。",
+    "Final group table uses archived results and tournament-era tie-breakers.": "最终小组表使用存档比赛结果及当届赛事的排名规则。",
+    "Final group tables use archived results and tournament-era tie-breakers.": "最终小组表使用存档比赛结果及当届赛事的排名规则。",
     "Final round": "决赛轮",
     "Final round standings": "决赛轮积分榜",
-    "Final round table computed from archived match results.": "决赛轮积分榜由存档比赛结果计算得出。",
     "Final round table data is not available for this archived match.":
       "这场存档比赛没有可用的决赛轮积分榜数据。",
     "Second round": "第二轮",
@@ -336,6 +335,8 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "Knockout match": "淘汰赛",
     "Knockout path": "淘汰赛路径",
     "Knockout winner progression": "淘汰赛胜者晋级",
+    "Tournament path": "赛事路径",
+    "Tournament progression": "赛事进程",
     "Likely for now": "当前可能",
     "likely for now": "当前可能",
     "Later matches": "后续比赛",
@@ -438,6 +439,7 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "Live lineup record from official FIFA feed": "来自FIFA官方实况的实时阵容记录",
     "Official FIFA live lineup": "官方FIFA实况阵容",
     "Official lineup source": "官方阵容",
+    "Confirmed lineup record": "已确认阵容记录",
     "Final lineup record": "最终阵容记录",
     "Official FIFA lineup": "官方FIFA阵容",
     "Pitch layout is provisional.": "球场站位仍为临时推定。",
@@ -449,14 +451,20 @@ const ZH_EXACT_TRANSLATIONS = new Map(
     "Expected lineups checked": "预计阵容核验",
     "Probable lineups checked": "可能阵容核验",
     "Predicted from online sources": "来自在线来源的预测阵容",
+    "Informed by published team reports": "参考已发布的球队报道",
     "This was the final lineup for the match.": "这是本场比赛的最终阵容。",
     "This feature is still work in progress and may not be accurate.": "该功能仍在开发中，可能不够准确。",
     "low confidence": "低置信度",
     "medium confidence": "中等置信度",
     "high confidence": "高置信度",
-  "Predicted lineups checked": "预测阵容核验",
-  "Predicted from online sources": "来自在线来源的预测阵容",
-  "This was the final lineup for the match.": "这是本场比赛的最终阵容。",
+    "Predicted lineups checked": "预测阵容核验",
+    "Predicted lineup record": "预测阵容记录",
+    "Predicted from online sources": "来自在线来源的预测阵容",
+    "Predicted from recent official lineups": "根据近期官方首发预测",
+    "Evidence strength": "证据强度",
+    "Checked": "核验于",
+    "Sources": "来源",
+    "This was the final lineup for the match.": "这是本场比赛的最终阵容。",
   "This feature is still work in progress and may not be accurate.": "该功能仍在开发中，可能不够准确。",
   "Own goal": "乌龙球",
     "Red card": "红牌",
@@ -702,6 +710,12 @@ const ZH_ADDITIONAL_EXACT_TRANSLATIONS = {
     "恩多耶第67分钟为瑞士扳平，不过恩博洛第二张黄牌离场，让瑞士只能十人守住1比1。",
   "Alvarez curled Argentina back ahead in the 112th minute and Lautaro Martinez finished it late, setting up the England semi-final.":
     "阿尔瓦雷斯第112分钟弧线球帮助阿根廷再度领先，劳塔罗·马丁内斯尾声锁定胜局，半决赛将对阵英格兰。",
+  "Yamal won the 22nd-minute penalty, and Oyarzabal converted his fifth goal of the tournament.":
+    "亚马尔赢得第22分钟点球，奥亚萨瓦尔罚入个人本届赛事第五球。",
+  "Spain controlled midfield and isolated Mbappé, stopping France from building sustained pressure.":
+    "西班牙掌控中场并限制姆巴佩，让法国始终无法形成持续压力。",
+  "Porro finished a slick one-two with Olmo, sealing Spain's 2-0 win and first World Cup final since 2010.":
+    "波罗与奥尔莫完成漂亮二过一后破门，锁定西班牙2比0取胜并自2010年以来首次晋级世界杯决赛。",
   "Yasser Ibrahim and Mostafa Ziko gave Egypt a 2-0 lead and pushed Argentina to the edge.":
     "亚塞尔·易卜拉欣和穆斯塔法·齐科帮助埃及取得2比0领先，把阿根廷逼到悬崖边。",
   "Athletic pressing with direct attacking bursts": "运动能力压迫和直接进攻爆发",
@@ -1732,8 +1746,15 @@ Object.entries({
   "Live lineup record from official FIFA feed": "来自FIFA官方实况的实时阵容记录",
   "Official FIFA live lineup": "官方FIFA实况阵容",
   "Official lineup source": "官方阵容",
+  "Confirmed lineup record": "已确认阵容记录",
   "Official FIFA lineup": "官方FIFA阵容",
-  "Pitch layout is provisional.": "球场站位仍为临时推定。"
+  "Pitch layout is provisional.": "球场站位仍为临时推定。",
+  "Predicted from recent official lineups": "根据近期官方首发预测",
+  "Informed by published team reports": "参考已发布的球队报道",
+  "Predicted lineup record": "预测阵容记录",
+  "Evidence strength": "证据强度",
+  "Checked": "核验于",
+  "Sources": "来源"
 }).forEach(([text, translation]) => {
   ZH_EXACT_TRANSLATIONS.set(text, translation);
 });
@@ -3206,6 +3227,7 @@ const CJK_CHARACTER_PATTERN =
 const MATCH_LIVE_WINDOW_MS = 2.25 * 60 * 60 * 1000;
 const DATA_REFRESH_INTERVAL_MS = 5 * 60 * 1000;
 const LIVE_DATA_TIMEOUT_MS = 4000;
+const PREDICTED_LINEUP_MAX_AGE_MS = 36 * 60 * 60 * 1000;
 const CURRENT_STANDINGS_YEAR = 2026;
 const DEFAULT_KNOCKOUT_FIELD_SIZE = 32;
 const DEFAULT_AUTOMATIC_ADVANCERS_PER_GROUP = 2;
@@ -3219,10 +3241,16 @@ const THIRD_PLACE_STANDINGS_SUMMARY =
 const TOURNAMENT_STANDINGS_SUMMARY =
   "Round of 32 slots use current standings and remaining projections. Later rounds are predictions.";
 const HISTORICAL_STANDINGS_SUMMARY =
-  "Final group tables computed from archived match results.";
+  "Final group tables use archived results and tournament-era tie-breakers.";
 const HISTORICAL_TOURNAMENT_STANDINGS_SUMMARY =
-  "Knockout bracket uses archived match results.";
+  "Tournament path uses archived match results.";
 const HISTORICAL_FINAL_GROUP_STAGE_CONFIGS = {
+  1950: {
+    includeWithoutGroup: true,
+    label: "Final round",
+    maxMatchNumber: 22,
+    minMatchNumber: 17
+  },
   1974: {
     label: "Final round",
     maxMatchNumber: 36,
@@ -3238,6 +3266,18 @@ const HISTORICAL_FINAL_GROUP_STAGE_CONFIGS = {
     maxMatchNumber: 48,
     minMatchNumber: 37
   }
+};
+const HISTORICAL_STANDINGS_TIEBREAK_ORDERS = {
+  "1954:Group 2": ["West Germany", "Turkey"],
+  "1954:Group 4": ["Switzerland", "Italy"],
+  "1958:Group 1": ["Northern Ireland", "Czechoslovakia"],
+  "1958:Group 3": ["Wales", "Hungary"],
+  "1958:Group 4": ["Soviet Union", "England"],
+  "1990:Group F": ["Ireland", "Netherlands"],
+  "1994:Group D": ["Nigeria", "Bulgaria", "Argentina"],
+  "1994:Group E": ["Mexico", "Ireland", "Italy", "Norway"],
+  "1994:Group F": ["Netherlands", "Saudi Arabia", "Belgium"],
+  "2018:Group H": ["Japan", "Senegal"]
 };
 const TOURNAMENT_MOBILE_BREAKPOINT_QUERY = "(max-width: 900px)";
 const TOURNAMENT_PROGRESS_ROUNDS = [
@@ -3813,6 +3853,7 @@ let playerProfilesByName = new Map();
 let playerProfilesByTeamAndName = new Map();
 let lineupData = { lineups: {} };
 let expectedLineupsData = { fixtures: [] };
+const lastKnownOfficialLineupsByFixtureId = new Map();
 const lineupSubstitutionPreviewState = new Set();
 let shouldShowPlayerMarketValues = false;
 let adminMessages = { messages: [] };
@@ -7895,7 +7936,7 @@ function isHistoricalFinalGroupStageFixture(fixture) {
 
   return Boolean(
     config &&
-      fixture?.group &&
+      (fixture?.group || config.includeWithoutGroup) &&
       Number.isFinite(matchNumber) &&
       matchNumber >= config.minMatchNumber &&
       matchNumber <= config.maxMatchNumber
@@ -9575,19 +9616,31 @@ function getMatchScoreOutcomeSide(match, score) {
   return getResultWinnerSide(match, score) || getScoreWinnerSide(score.home, score.away);
 }
 
-function getMatchPenaltyScoreText(match) {
-  return formatScorePair(match?.scoreDetails?.penalties);
+function getMatchScoreForDisplay(score, options = {}) {
+  if (!score || !options.reverseSides) {
+    return score;
+  }
+
+  return {
+    ...score,
+    away: score.home,
+    home: score.away
+  };
 }
 
-function getMatchVisibleScoreText(match, score) {
+function getMatchPenaltyScoreText(match, options = {}) {
+  return formatScorePair(getMatchScoreForDisplay(match?.scoreDetails?.penalties, options));
+}
+
+function getMatchVisibleScoreText(match, score, options = {}) {
   const scoreText = `${score.home}-${score.away}`;
-  const penaltyText = getMatchPenaltyScoreText(match);
+  const penaltyText = getMatchPenaltyScoreText(match, options);
 
   return penaltyText ? `${scoreText} (${penaltyText} ${localizeText("pens")})` : scoreText;
 }
 
-function getMatchScoreAriaLabel(match, label, home, away, score, freshness = "") {
-  const penaltyText = getMatchPenaltyScoreText(match);
+function getMatchScoreAriaLabel(match, label, home, away, score, freshness = "", options = {}) {
+  const penaltyText = getMatchPenaltyScoreText(match, options);
   const penaltyLabel = penaltyText
     ? currentLanguage === "zh"
       ? `，点球 ${penaltyText}`
@@ -9616,15 +9669,20 @@ function getSearchScoreOutcome(match, score, searchedSide) {
 }
 
 function renderScore(match, state, options = {}) {
-  const score = getDisplayScore(match, state);
-  if (!score) {
+  const sourceScore = getDisplayScore(match, state);
+  if (!sourceScore) {
     return "";
   }
 
-  const home = getLocalizedTeamName(match.homeTeam);
-  const away = getLocalizedTeamName(match.awayTeam);
+  const reverseSides = Boolean(options.reverseSides);
+  const score = getMatchScoreForDisplay(sourceScore, { reverseSides });
+  const displayTeams = options.displayTeams || getDisplayMatchTeams(match, options.tournamentContext);
+  const leftTeam = reverseSides ? displayTeams.away : displayTeams.home;
+  const rightTeam = reverseSides ? displayTeams.home : displayTeams.away;
+  const home = getLocalizedTeamName(leftTeam);
+  const away = getLocalizedTeamName(rightTeam);
   const scoreText = `${score.home}-${score.away}`;
-  const scoreWithDetailsText = getMatchVisibleScoreText(match, score);
+  const scoreWithDetailsText = getMatchVisibleScoreText(match, score, { reverseSides });
   const isLiveScore = match.status === "LIVE" || state === "live";
   const freshness = isLiveScore
     ? formatRelativeScoreFreshness(getScoreFreshnessTimestamp(match))
@@ -9634,8 +9692,8 @@ function renderScore(match, state, options = {}) {
     isLiveScore ? localizeText("Current score") : localizeText("Final score");
   const ariaLabel = score.isFallback
     ? localizeText(`Current score not loaded yet; showing ${scoreText}`)
-    : getMatchScoreAriaLabel(match, label, home, away, score, freshness);
-  const outcome = getSearchScoreOutcome(match, score, options.searchedSide);
+    : getMatchScoreAriaLabel(match, label, home, away, score, freshness, { reverseSides });
+  const outcome = getSearchScoreOutcome(match, sourceScore, options.searchedSide);
   const className = [
     "match-score",
     score.isFallback ? "is-live-fallback" : "",
@@ -9804,8 +9862,13 @@ function shouldPreviewMatchInfoOnHover(event) {
 function renderMatchRow(match, state, currentTime = Date.now(), options = {}) {
   const row = document.createElement("div");
   const displayTeams = getDisplayMatchTeams(match, options.tournamentContext);
-  const homeName = getLocalizedTeamName(displayTeams.home);
-  const awayName = getLocalizedTeamName(displayTeams.away);
+  const reverseSides = options.searchedSide === "away";
+  const leftTeam = reverseSides ? displayTeams.away : displayTeams.home;
+  const rightTeam = reverseSides ? displayTeams.home : displayTeams.away;
+  const leftSourceSide = reverseSides ? "away" : "home";
+  const rightSourceSide = reverseSides ? "home" : "away";
+  const homeName = getLocalizedTeamName(leftTeam);
+  const awayName = getLocalizedTeamName(rightTeam);
   const versusText = localizeText("vs");
   const dateLabel = options.showDate ? getMatchDateLabel(match, options) : "";
   const dateTimeAriaLabel = getMatchDateTimeAriaLabel(match, options);
@@ -9815,6 +9878,7 @@ function renderMatchRow(match, state, currentTime = Date.now(), options = {}) {
   const scoreLabel = isLiveState ? localizeText("current score") : localizeText("final score");
   const pendingScoreText = getScorePendingText(match, state, currentTime);
   const displayScore = getDisplayScore(match, state);
+  const visibleDisplayScore = getMatchScoreForDisplay(displayScore, { reverseSides });
   const winnerSide = getMatchScoreOutcomeSide(match, displayScore);
   const stateLabel =
     state === "live"
@@ -9839,11 +9903,11 @@ function renderMatchRow(match, state, currentTime = Date.now(), options = {}) {
         : state === "delayed"
           ? renderDelayedPill()
         : "";
-  const score = renderScore(match, state, options);
+  const score = renderScore(match, state, { ...options, displayTeams, reverseSides });
   const rowMeta = `${stateBadge}${scoreStatus}${score}`;
   const rowLabel = `${stateLabel}${homeName} ${versusText} ${awayName}${rowDateTimeLabel}${statusLabel}${
-    displayScore
-      ? `, ${scoreLabel} ${getMatchVisibleScoreText(match, displayScore)}`
+    visibleDisplayScore
+      ? `, ${scoreLabel} ${getMatchVisibleScoreText(match, visibleDisplayScore, { reverseSides })}`
       : pendingScoreText
         ? `, ${pendingScoreText.toLowerCase()}`
         : ""
@@ -9860,9 +9924,9 @@ function renderMatchRow(match, state, currentTime = Date.now(), options = {}) {
         <span class="${dateLabel ? "match-date" : "match-clock"}">${escapeHtml(visibleTimeLabel)}</span>
       </time>
       <span class="match-teams">
-        ${renderTeamInline(displayTeams.home, getTeamClass("team match-team-home", winnerSide, "home"), { showRank: false })}
+        ${renderTeamInline(leftTeam, getTeamClass("team match-team-home", winnerSide, leftSourceSide), { showRank: false })}
         <span class="versus match-versus">${escapeHtml(versusText)}</span>
-        ${renderTeamInline(displayTeams.away, getTeamClass("team match-team-away", winnerSide, "away"), { showRank: false })}
+        ${renderTeamInline(rightTeam, getTeamClass("team match-team-away", winnerSide, rightSourceSide), { showRank: false })}
       </span>
     </button>
     ${rowMeta ? `<span class="match-row-meta">${rowMeta}</span>` : ""}
@@ -11055,7 +11119,9 @@ function getHistoricalStandingsGroups(year) {
       }
     });
 
-  return [...groups.values()];
+  return [...groups.values()].sort((a, b) =>
+    a.localeCompare(b, "en", { numeric: true, sensitivity: "base" })
+  );
 }
 
 function getHistoricalStandingsWinPoints(year) {
@@ -11130,7 +11196,24 @@ function getHistoricalGroupStandingsForYear(year, groupName) {
     .filter((fixture) => fixture.tournamentYear === year && fixture.group === groupName)
     .sort((a, b) => getFixtureSortValue(a).localeCompare(getFixtureSortValue(b)));
 
-  return getHistoricalStandingsRowsFromFixtures(groupFixtures, year);
+  const rows = getHistoricalStandingsRowsFromFixtures(groupFixtures, year);
+  const override = HISTORICAL_STANDINGS_TIEBREAK_ORDERS[`${year}:${groupName}`] || [];
+  const overrideRanks = new Map(override.map((teamName, index) => [teamName, index]));
+
+  return rows.sort((a, b) => {
+    if (a.points !== b.points) {
+      return 0;
+    }
+
+    const aRank = overrideRanks.get(a.teamName);
+    const bRank = overrideRanks.get(b.teamName);
+
+    if (aRank === undefined && bRank === undefined) {
+      return 0;
+    }
+
+    return (aRank ?? Number.POSITIVE_INFINITY) - (bRank ?? Number.POSITIVE_INFINITY);
+  });
 }
 
 function getHistoricalGroupAdvancingTeamNames(year, groupName) {
@@ -12033,6 +12116,76 @@ function getTournamentOutcomeProjection(match, participants) {
   };
 }
 
+function getTournamentShootoutShares(match, participants, outcomePercents) {
+  const forecast = match?.shootoutForecast;
+  const forecastHome = Number(forecast?.home);
+  const forecastAway = Number(forecast?.away);
+  const forecastTotal = forecastHome + forecastAway;
+  const forecastMatchesParticipants =
+    forecast?.homeTeamId === participants?.home?.team?.id &&
+    forecast?.awayTeamId === participants?.away?.team?.id;
+
+  if (
+    forecastMatchesParticipants &&
+    Number.isFinite(forecastHome) &&
+    Number.isFinite(forecastAway) &&
+    forecastHome >= 0 &&
+    forecastAway >= 0 &&
+    forecastTotal > 0
+  ) {
+    return {
+      away: forecastAway / forecastTotal,
+      basis: "shootout",
+      home: forecastHome / forecastTotal
+    };
+  }
+
+  const decisiveHome = Number(outcomePercents?.home);
+  const decisiveAway = Number(outcomePercents?.away);
+  const decisiveTotal = decisiveHome + decisiveAway;
+
+  if (Number.isFinite(decisiveTotal) && decisiveTotal > 0) {
+    return {
+      away: decisiveAway / decisiveTotal,
+      basis: "decisive-outcomes",
+      home: decisiveHome / decisiveTotal
+    };
+  }
+
+  return { away: 0.5, basis: "even", home: 0.5 };
+}
+
+function getTournamentAdvancementProjection(match, participants) {
+  const outcomeProjection = getTournamentOutcomeProjection(match, participants);
+
+  if (!outcomeProjection) {
+    return null;
+  }
+
+  const outcomePercents = outcomeProjection.percents;
+  const shootoutShares = getTournamentShootoutShares(match, participants, outcomePercents);
+  const homeRaw =
+    Number(outcomePercents.home) + Number(outcomePercents.tie) * shootoutShares.home;
+  const awayRaw =
+    Number(outcomePercents.away) + Number(outcomePercents.tie) * shootoutShares.away;
+  const total = homeRaw + awayRaw;
+
+  if (!Number.isFinite(total) || total <= 0) {
+    return null;
+  }
+
+  const home = clampPercent(Math.round((homeRaw / total) * 100));
+
+  return {
+    basis: outcomeProjection.basis,
+    drawResolutionBasis: shootoutShares.basis,
+    percents: {
+      away: 100 - home,
+      home
+    }
+  };
+}
+
 function getTournamentOutcomeBasisLabel(basis) {
   if (currentLanguage === "zh") {
     return basis === "loaded" ? "已载入的比赛预测" : "当前FIFA排名路径";
@@ -12640,6 +12793,24 @@ function getTournamentLikelihoodReason(favorite, other, percent) {
   return `${favoriteName} are the current slot pick. Rough ${percent}%.`;
 }
 
+function getTournamentAdvancementLikelihoodReason(match, participants, side, projection) {
+  const team = participants?.[side]?.team;
+  const otherSide = side === "home" ? "away" : "home";
+  const otherTeam = participants?.[otherSide]?.team;
+  const percent = Number(projection?.percents?.[side]);
+  const teamName = getStandingName(team);
+
+  if (projection?.basis !== "loaded") {
+    return getTournamentLikelihoodReason(team, otherTeam, percent);
+  }
+
+  if (projection.drawResolutionBasis === "shootout") {
+    return `${teamName} have the higher advance estimate after combining the loaded match forecast with the shootout outlook. Rough ${percent}%.`;
+  }
+
+  return `${teamName} have the higher advance estimate from the loaded match forecast, with drawn-game paths split by the decisive-win chances. Rough ${percent}%.`;
+}
+
 function getTournamentPredictionLead(participants) {
   const homeName = participants?.home?.team ? getStandingName(participants.home.team) : "";
   const awayName = participants?.away?.team ? getStandingName(participants.away.team) : "";
@@ -12703,12 +12874,22 @@ function getTournamentLikelyWinnerPrediction(match, context) {
     return prediction;
   }
 
-  const estimate = getTournamentRankWinEstimate(homeTeam, awayTeam);
-  const side = estimate.homePercent >= estimate.awayPercent ? "home" : "away";
-  const percent = side === "home" ? estimate.homePercent : estimate.awayPercent;
+  const advancementProjection = getTournamentAdvancementProjection(match, participants);
+
+  if (!advancementProjection) {
+    return null;
+  }
+
+  const side =
+    advancementProjection.percents.home >= advancementProjection.percents.away ? "home" : "away";
+  const percent = advancementProjection.percents[side];
   const team = side === "home" ? homeTeam : awayTeam;
-  const otherTeam = side === "home" ? awayTeam : homeTeam;
-  const detail = getTournamentLikelihoodReason(team, otherTeam, percent);
+  const detail = getTournamentAdvancementLikelihoodReason(
+    match,
+    participants,
+    side,
+    advancementProjection
+  );
   const prediction = {
     entry: participants[side],
     percent,
@@ -13622,7 +13803,7 @@ function normalizeHistoricalTournamentRoundLabel(label) {
 
 function getHistoricalFinalGroupStageRoundLabel(fixture) {
   const config = getHistoricalFinalGroupStageConfig(fixture?.tournamentYear);
-  return `${config?.label || "Final round"} ${fixture?.group || "Group"}`;
+  return [config?.label || "Final round", fixture?.group].filter(Boolean).join(" ");
 }
 
 function getHistoricalTournamentRoundLabel(fixture) {
@@ -13934,10 +14115,12 @@ function renderHistoricalTournamentView(year) {
     fixtures: getHistoricalTournamentFixturesForYear(year).map(hydrateFixture)
   };
   const pathRows = getHistoricalTournamentPathRowCount(rounds);
+  const historicalViewLabel = localizeText("Tournament path");
+  const historicalProgressionLabel = localizeText("Tournament progression");
 
   return `
-    <section class="tournament-view historical-tournament-view" aria-label="${escapeHtml(localizeText("Tournament bracket"))}" style="--tournament-round-count: ${escapeHtml(rounds.length)}; --tournament-path-rows: ${escapeHtml(pathRows)};">
-      <section class="tournament-progression" aria-label="${escapeHtml(localizeText("Knockout winner progression"))}" tabindex="0">
+    <section class="tournament-view historical-tournament-view" aria-label="${escapeHtml(historicalViewLabel)}" style="--tournament-round-count: ${escapeHtml(rounds.length)}; --tournament-path-rows: ${escapeHtml(pathRows)};">
+      <section class="tournament-progression" aria-label="${escapeHtml(historicalProgressionLabel)}" tabindex="0">
         <svg class="progress-connectors" aria-hidden="true" focusable="false"></svg>
         <div class="progress-rounds">
           ${rounds
@@ -14052,7 +14235,10 @@ function updateTournamentBoardLayout(root = standingsGrid) {
 
   progression.classList.toggle("is-mobile-board", isTournamentMobileLayout());
   progression.classList.remove("is-mobile-dragging");
-  progression.setAttribute("aria-label", localizeText("Knockout winner progression"));
+  progression.setAttribute(
+    "aria-label",
+    localizeText(root?.querySelector(".historical-tournament-view") ? "Tournament progression" : "Knockout winner progression")
+  );
   progression.removeAttribute("data-mobile-active-round-index");
   progression.removeAttribute("data-mobile-active-round-id");
   rounds.style.removeProperty("--tournament-mobile-active-index");
@@ -17407,8 +17593,70 @@ function normalizeLineupTeamData(teamLineup, teamId, mode = "final") {
   };
 }
 
+function getLineupSourceEntries(lineup) {
+  const entries = Array.isArray(lineup?.sources) ? lineup.sources : [];
+  const seen = new Set();
+
+  return entries.filter((source) => {
+    const key = String(source?.id || source?.url || source?.label || "").trim();
+    if (!key || seen.has(key)) {
+      return false;
+    }
+    seen.add(key);
+    return true;
+  });
+}
+
+function isOfficialLineupSourceEntry(source) {
+  const type = String(source?.type || "").trim().toLowerCase();
+  return [
+    "fifa-official",
+    "fifa-official-lineup",
+    "fifa-official-team-sheet",
+    "official",
+    "official-lineup",
+    "official-team-sheet"
+  ].includes(type);
+}
+
+function isOfficialLineupRecord(lineup) {
+  const teamSheetSource = String(lineup?.teamSheetSource || "").trim().toLowerCase();
+  return (
+    ["fifa-official", "official-team-sheet"].includes(teamSheetSource) ||
+    getLineupSourceEntries(lineup).some(isOfficialLineupSourceEntry)
+  );
+}
+
+function getLineupMetadataTimestamp(lineup) {
+  const timestamps = [
+    lineup?.updatedAt,
+    lineup?.checkedAt,
+    lineup?.layoutVerification?.checkedAt,
+    ...getLineupSourceEntries(lineup).flatMap((source) => [source?.updatedAt, source?.checkedAt]),
+    ...(Array.isArray(lineup?.providers)
+      ? lineup.providers.flatMap((provider) => [provider?.updatedAt, provider?.checkedAt])
+      : [])
+  ]
+    .map((value) => ({ value, time: new Date(value || "").getTime() }))
+    .filter(({ time }) => Number.isFinite(time))
+    .sort((a, b) => b.time - a.time);
+
+  return timestamps[0]?.value || "";
+}
+
+function isFreshPredictedLineup(lineup) {
+  const timestamp = getLineupMetadataTimestamp(lineup);
+  const checkedAt = new Date(timestamp || "").getTime();
+  if (!Number.isFinite(checkedAt)) {
+    return false;
+  }
+
+  const age = Date.now() - checkedAt;
+  return age <= PREDICTED_LINEUP_MAX_AGE_MS;
+}
+
 function hasTrustedLineupSource(lineup) {
-  const checkedAt = lineup?.checkedAt || lineup?.updatedAt;
+  const checkedAt = getLineupMetadataTimestamp(lineup);
   return (
     lineup &&
     typeof lineup === "object" &&
@@ -17427,6 +17675,9 @@ function getFixtureLineupPreview(match) {
   }
 
   const mode = getLineupModeForMatch(match, lineup.mode || lineup.status);
+  if (isPredictedLineupMode(mode) && !isFreshPredictedLineup(lineup)) {
+    return null;
+  }
   const home = normalizeLineupTeamData(lineup.home, match.homeTeamId, mode);
   const away = normalizeLineupTeamData(lineup.away, match.awayTeamId, mode);
   if (!home || !away) {
@@ -17440,6 +17691,11 @@ function getFixtureLineupPreview(match) {
     checkedAt: lineup.checkedAt,
     updatedAt: lineup.updatedAt,
     sourceIds: lineup.sourceIds,
+    sources: getLineupSourceEntries(lineup),
+    providers: Array.isArray(lineup.providers) ? lineup.providers : [],
+    evidence: lineup.evidence && typeof lineup.evidence === "object" ? lineup.evidence : {},
+    notes: Array.isArray(lineup.notes) ? lineup.notes : [],
+    confidence: lineup.confidence && typeof lineup.confidence === "object" ? lineup.confidence : null,
     teamSheetSource: lineup.teamSheetSource || "",
     eventSource: lineup.eventSource || "",
     layoutSource: layoutStatus.source || "",
@@ -17637,8 +17893,7 @@ function getLineupPreview(match) {
 
 function getLineupFreshness(match, lineup = null) {
   const timestamp =
-    lineup?.updatedAt ||
-    lineup?.checkedAt ||
+    getLineupMetadataTimestamp(lineup) ||
     match?.lineupUpdatedAt ||
     match?.lineupCheckedAt ||
     match?.scoreUpdatedAt ||
@@ -17650,22 +17905,72 @@ function getLineupFreshness(match, lineup = null) {
   return formatRelativeScoreFreshness(timestamp);
 }
 
+function isLocalLineupPredictionSource(source) {
+  const id = String(source?.id || "").trim().toLowerCase();
+  const type = String(source?.type || "").trim().toLowerCase();
+  return (
+    type === "lineup-prediction-provider" ||
+    id.includes("official-history") ||
+    id.includes("layout-verification") ||
+    id.includes("lineups-sync")
+  );
+}
+
+function getOnlineLineupPredictionSources(lineup) {
+  return getLineupSourceEntries(lineup).filter((source) => {
+    const type = String(source?.type || "").trim().toLowerCase();
+    return Boolean(
+      source?.url &&
+        !isLocalLineupPredictionSource(source) &&
+        (
+          source?.suppliesLineup === true ||
+          source?.sourceRole === "lineup-candidate" ||
+          type.includes("probable-lineup") ||
+          type.includes("predicted-lineup") ||
+          type.includes("lineup-prediction") ||
+          type.includes("published-lineup")
+        )
+    );
+  });
+}
+
+function hasOnlineLineupPredictionSources(lineup) {
+  return getOnlineLineupPredictionSources(lineup).length > 0;
+}
+
+function hasLocalOfficialHistoryPredictionSource(lineup) {
+  return getLineupSourceEntries(lineup).some((source) =>
+    String(source?.id || "").toLowerCase().includes("official-history")
+  );
+}
+
 function getLineupSourceLabel(match, lineup = null) {
   const mode = getLineupModeForMatch(match, lineup?.mode);
+  const isOfficial = isOfficialLineupRecord(lineup);
 
   if (mode === "live") {
-    return localizeText("Official FIFA live lineup");
+    return isOfficial ? localizeText("Official FIFA live lineup") : localizeText("Live lineup record");
   }
 
   if (["expected", "probable", "prediction"].includes(mode)) {
-    return localizeText("Predicted from online sources");
+    return localizeText(
+      lineup?.predictionClass === "reported-xi-assisted"
+        ? "Informed by published team reports"
+        : hasOnlineLineupPredictionSources(lineup)
+        ? "Predicted from online sources"
+        : hasLocalOfficialHistoryPredictionSource(lineup)
+          ? "Predicted from recent official lineups"
+          : "Predicted lineup record"
+    );
   }
 
-  if (mode === "final" && lineup?.teamSheetSource === "fifa-official") {
-    return `${localizeText("Final lineup record")} (Official FIFA team sheet)`;
+  if (mode === "final") {
+    return isOfficial
+      ? `${localizeText("Final lineup record")} (Official FIFA team sheet)`
+      : localizeText("Final lineup record");
   }
 
-  return localizeText("Official lineup source");
+  return isOfficial ? localizeText("Official FIFA lineup") : localizeText("Confirmed lineup record");
 }
 
 function getLineupCheckedText(label, freshness) {
@@ -17685,13 +17990,97 @@ function getLineupCheckedText(label, freshness) {
   return `${localizeText(label)} ${freshness}`;
 }
 
-function getLineupConfidenceText(lineup) {
+function getLineupEvidenceStrengthText(lineup) {
   const confidenceLabel = String(lineup?.confidence?.label || "").trim().toLowerCase();
   if (!["low", "medium", "high"].includes(confidenceLabel)) {
     return "";
   }
 
-  return ` (${localizeText(`${confidenceLabel} confidence`)})`;
+  const localizedLabel = currentLanguage === "zh"
+    ? confidenceLabel === "high" ? "高" : confidenceLabel === "medium" ? "中" : "低"
+    : confidenceLabel;
+  return currentLanguage === "zh"
+    ? `${localizeText("Evidence strength")}：${localizedLabel}`
+    : `${localizeText("Evidence strength")}: ${localizedLabel}`;
+}
+
+function getLineupDisputedSlots(lineup) {
+  return ["home", "away"].flatMap((side) => {
+    const slots = lineup?.evidence?.[side]?.disputedSlots;
+    return (Array.isArray(slots) ? slots : []).map((slot) => ({ ...slot, side }));
+  });
+}
+
+function getLineupDisputedCountText(lineup) {
+  const count = getLineupDisputedSlots(lineup).length;
+  if (!count) {
+    return "";
+  }
+
+  if (currentLanguage === "zh") {
+    return `${count}个位置仍有分歧`;
+  }
+  return `${count} disputed ${count === 1 ? "slot" : "slots"}`;
+}
+
+function getLineupDisputeSummary(match, lineup) {
+  const items = getLineupDisputedSlots(lineup)
+    .map((slot) => {
+      const alternatives = (Array.isArray(slot.alternatives) ? slot.alternatives : [])
+        .map((alternative) => String(alternative?.name || "").trim())
+        .filter((name) => name && normalizeTextKey(name) !== normalizeTextKey(slot.selectedName));
+      if (!alternatives.length || !slot.selectedName) {
+        return "";
+      }
+      const team = slot.side === "home" ? match?.homeTeam : match?.awayTeam;
+      const teamName = getLocalizedTeamName(team);
+      const position = getLocalizedLineupPosition(slot.position);
+      const choiceText = currentLanguage === "zh"
+        ? `${translateEntityNameToZh(slot.selectedName) || slot.selectedName} / ${alternatives
+            .slice(0, 2)
+            .map((name) => translateEntityNameToZh(name) || name)
+            .join(" / ")}`
+        : `${slot.selectedName} / ${alternatives.slice(0, 2).join(" / ")}`;
+      return [teamName, position, choiceText].filter(Boolean).join(" ");
+    })
+    .filter(Boolean)
+    .slice(0, 4);
+
+  if (!items.length) {
+    return "";
+  }
+  return currentLanguage === "zh"
+    ? `仍有分歧的位置：${items.join("；")}`
+    : `Disputed slots: ${items.join("; ")}`;
+}
+
+function getLineupSourceDisplayLabel(source) {
+  const outlet = String(source?.outlet || "").trim().toLowerCase();
+  const id = String(source?.id || "").trim().toLowerCase();
+  if (outlet === "sports-mole" || id.startsWith("sports-mole-")) return "Sports Mole";
+  if (outlet === "bein-sports" || id.startsWith("bein-")) return "beIN SPORTS";
+  if (outlet === "the-stats-zone" || id.startsWith("stats-zone-")) return "The Stats Zone";
+  if (outlet === "fifa" || id.startsWith("fifa-")) return "FIFA";
+  if (outlet === "rotowire" || id.startsWith("rotowire-")) return "RotoWire";
+  if (id.includes("official-history")) return currentLanguage === "zh" ? "近期FIFA官方首发" : "Recent FIFA official XIs";
+  return String(source?.label || source?.id || "").trim();
+}
+
+function getLineupSourceNames(lineup) {
+  const mode = String(lineup?.mode || "").trim().toLowerCase();
+  const onlinePredictionSources = getOnlineLineupPredictionSources(lineup);
+  const localPredictionSources = getLineupSourceEntries(lineup).filter((source) =>
+    String(source?.id || "").toLowerCase().includes("official-history")
+  );
+  let sources = getLineupSourceEntries(lineup);
+  if (isPredictedLineupMode(mode)) {
+    if (onlinePredictionSources.length) {
+      sources = onlinePredictionSources;
+    } else if (localPredictionSources.length) {
+      sources = localPredictionSources;
+    }
+  }
+  return [...new Set(sources.map(getLineupSourceDisplayLabel).filter(Boolean))];
 }
 
 function getLineupUpdatedText(match, lineup = null) {
@@ -17714,7 +18103,12 @@ function getLineupUpdatedText(match, lineup = null) {
   }
 
   if (isFutureLineup) {
-    return localizeText("Predicted lineups") + getLineupConfidenceText(lineup);
+    const evidenceStrength = getLineupEvidenceStrengthText(lineup);
+    const freshness = getLineupFreshness(match, lineup);
+    const disputeCount = getLineupDisputedCountText(lineup);
+    return [evidenceStrength, freshness ? `${localizeText("Checked")} ${freshness}` : "", disputeCount]
+      .filter(Boolean)
+      .join(" · ");
   }
 
   return localizeText("Confirmed lineups");
@@ -17729,11 +18123,26 @@ function getLineupHelpText(match, lineup = null) {
   const layoutCaveat = getLineupLayoutCaveat(lineup);
 
   if (isFutureLineup) {
-    return withLocalizedSentenceEnd(localizeText("Predicted from online sources"));
+    const evidenceStrength = getLineupEvidenceStrengthText(lineup);
+    const sourceNames = getLineupSourceNames(lineup);
+    const sourceNamesText = sourceNames.length
+      ? `${localizeText("Sources")}: ${sourceNames.join(", ")}`
+      : "";
+    const freshnessText = freshness ? `${localizeText("Checked")} ${freshness}` : "";
+    const disputeSummary = getLineupDisputeSummary(match, lineup);
+    const calibrationNote = evidenceStrength
+      ? currentLanguage === "zh" ? `${evidenceStrength}（不是校准后的概率）` : `${evidenceStrength} (not a calibrated probability)`
+      : "";
+    return [sourceLabel, calibrationNote, freshnessText, sourceNamesText, disputeSummary, layoutCaveat]
+      .filter(Boolean)
+      .map(withLocalizedSentenceEnd)
+      .join("\n");
   }
 
   if (isPastLineup) {
-    return [localizeText("This was the final lineup for the match."), layoutCaveat].filter(Boolean).join("\n");
+    return [localizeText("This was the final lineup for the match."), sourceLabel, layoutCaveat]
+      .filter(Boolean)
+      .join("\n");
   }
 
   const sourceText = !freshness
@@ -17768,7 +18177,23 @@ function withLocalizedSentenceEnd(text) {
 
 function renderLineupUpdatedCopy(match, lineup = null) {
   const text = getLineupUpdatedText(match, lineup);
-  return text ? `<p class="data-note lineup-updated-copy">${escapeHtml(text)}</p>` : "";
+  const isPrediction = isPredictedLineupMode(getLineupModeForMatch(match, lineup?.mode));
+  const sourceEntries = isPrediction
+    ? getOnlineLineupPredictionSources(lineup)
+    : getLineupSourceEntries(lineup).filter((source) => isOfficialLineupSourceEntry(source));
+  const sourceLinks = [...new Map(sourceEntries.map((source) => [getLineupSourceDisplayLabel(source), source])).values()]
+    .map((source) => {
+      const label = getLineupSourceDisplayLabel(source);
+      return source.url
+        ? `<a class="live-source-link" href="${escapeHtml(source.url)}" target="_blank" rel="noreferrer" title="${escapeHtml(source.label || label)}">${escapeHtml(label)}</a>`
+        : escapeHtml(label);
+    });
+  const sourceText = sourceLinks.length
+    ? `${escapeHtml(localizeText("Sources"))}: ${sourceLinks.join(", ")}`
+    : "";
+  const layoutCaveat = getLineupLayoutCaveat(lineup);
+  const parts = [text ? escapeHtml(text) : "", sourceText, layoutCaveat ? escapeHtml(layoutCaveat) : ""].filter(Boolean);
+  return parts.length ? `<p class="data-note lineup-updated-copy">${parts.join(" · ")}</p>` : "";
 }
 
 function localizeLineupCopy(value) {
@@ -18808,6 +19233,7 @@ function renderLineupVisualPrototype(match, options = {}) {
       <div class="lineup-header">
         ${renderLineupHeading(match, lineup)}
       </div>
+      ${renderLineupUpdatedCopy(match, lineup)}
       ${renderLineupPitchPanel(match, lineup, "home", true, pitchOptions)}
       ${renderLineupPitchPanel(match, lineup, "away", false, pitchOptions)}
     </section>
@@ -21975,11 +22401,12 @@ function revealMatchInfoOnSmallScreens() {
   const prefersReducedMotion = window.matchMedia(
     "(prefers-reduced-motion: reduce)"
   ).matches;
+  const shouldRevealImmediately = prefersReducedMotion || hasTeamSearchQuery();
 
   window.requestAnimationFrame(() => {
     matchInfo.scrollIntoView({
       block: "start",
-      behavior: prefersReducedMotion ? "auto" : "smooth"
+      behavior: shouldRevealImmediately ? "auto" : "smooth"
     });
   });
 }
@@ -22299,7 +22726,7 @@ function renderHistoricalGroupStandings(match) {
             .join("")}
         </tbody>
       </table>
-      <p class="data-note">${escapeHtml(localizeText("Final group table computed from archived match results."))}</p>
+      <p class="data-note">${escapeHtml(localizeText("Final group table uses archived results and tournament-era tie-breakers."))}</p>
     </section>
   `;
 }
@@ -22342,7 +22769,7 @@ function renderHistoricalFinalRoundStandings(match) {
             .join("")}
         </tbody>
       </table>
-      <p class="data-note">${escapeHtml(localizeText("Final round table computed from archived match results."))}</p>
+      <p class="data-note">${escapeHtml(localizeText("Final group table uses archived results and tournament-era tie-breakers."))}</p>
     </section>
   `;
 }
@@ -25619,6 +26046,7 @@ function updateTeamSearchControls() {
 
   const query = getTeamSearchQuery();
   const isActive = isTeamSearchOpen || query.length > 0;
+  viewPanels.matches.classList.toggle("has-team-search-query", query.length > 0);
   teamSearch.classList.toggle("is-active", isActive);
   teamSearch.classList.toggle("has-value", query.length > 0);
   teamSearchInput.value = teamSearchQuery;
@@ -26180,6 +26608,11 @@ function mergeFixtureLineups(fixturesData, nextLineupData = lineupData, nextExpe
       .filter((entry) => entry?.fixtureId)
       .map((entry) => [entry.fixtureId, entry])
   );
+  const expectedLineupSourcesById = new Map(
+    (Array.isArray(nextExpectedLineupsData?.sources) ? nextExpectedLineupsData.sources : [])
+      .filter((source) => source?.id)
+      .map((source) => [source.id, source])
+  );
   const fixturesWithLineups = (fixturesData.fixtures || []).map((fixture) => {
     const staticLineup = lineupRecords[fixture.id];
     const liveLineup = fixture.lineups;
@@ -26189,15 +26622,29 @@ function mergeFixtureLineups(fixturesData, nextLineupData = lineupData, nextExpe
       ? {
           ...expectedLineupRecord.lineup,
           mode: expectedLineupRecord.mode,
+          predictionClass: expectedLineupRecord.predictionClass || expectedLineupRecord.lineup.predictionClass || "forecast",
           sourceIds: expectedLineupRecord.sourceIds,
+          sources: (Array.isArray(expectedLineupRecord.sourceIds) ? expectedLineupRecord.sourceIds : [])
+            .map((sourceId) => expectedLineupSourcesById.get(sourceId))
+            .filter(Boolean),
+          confidence: expectedLineupRecord.confidence || expectedLineupRecord.lineup.confidence,
+          providers: expectedLineupRecord.providers || expectedLineupRecord.lineup.providers || [],
+          evidence: expectedLineupRecord.evidence || expectedLineupRecord.lineup.evidence || {},
+          notes: expectedLineupRecord.notes || expectedLineupRecord.lineup.notes || [],
           checkedAt: expectedLineupRecord.lastUpdated,
           updatedAt: expectedLineupRecord.lastUpdated
         }
       : null;
+    const currentOfficialLineup = [liveLineup, staticLineup]
+      .find((lineup) => isOfficialLineupRecord(lineup));
+    if (currentOfficialLineup) {
+      lastKnownOfficialLineupsByFixtureId.set(fixture.id, currentOfficialLineup);
+    }
+    const lastKnownOfficialLineup = lastKnownOfficialLineupsByFixtureId.get(fixture.id);
     const lineups =
       isCompletedFixture && staticLineup
         ? staticLineup
-        : liveLineup || staticLineup || expectedLineup;
+        : currentOfficialLineup || lastKnownOfficialLineup || liveLineup || staticLineup || expectedLineup;
 
     return lineups ? { ...fixture, lineups } : fixture;
   });

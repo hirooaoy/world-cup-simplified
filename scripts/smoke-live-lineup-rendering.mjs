@@ -100,11 +100,10 @@ function computeScenarioOnField(starters, substitutions = []) {
   return [...onField];
 }
 
-function buildLiveLineups({ mode = "live", substitutions = [] } = {}) {
-  return {
+function buildLiveLineups({ mode = "live", substitutions = [], official = true } = {}) {
+  const lineups = {
     mode,
-    teamSheetSource: "fifa-official",
-    eventSource: "fifa-official",
+    ...(official ? { teamSheetSource: "fifa-official", eventSource: "fifa-official" } : {}),
     layoutSource: "derived-team-sheet-order",
     layoutVerification: {
       status: "unverified",
@@ -142,6 +141,7 @@ function buildLiveLineups({ mode = "live", substitutions = [] } = {}) {
       onFieldPlayers: awayStarters.map((starter) => starter.name)
     }
   };
+  return lineups;
 }
 
 function buildLivePayload(fixturesData, standingsData, tournamentData, scenario) {
@@ -169,12 +169,14 @@ function buildLivePayload(fixturesData, standingsData, tournamentData, scenario)
   };
 }
 
-function buildExpectedLineupsPayload() {
+function buildExpectedLineupsPayload({ localOnly = false } = {}) {
   const lineup = buildLiveLineups({ mode: "expected", substitutions: [] });
 
   delete lineup.teamSheetSource;
   delete lineup.eventSource;
-  lineup.sourceIds = ["lineup-rendering-smoke-expected"];
+  lineup.sourceIds = localOnly
+    ? ["lineup-prediction-official-history-smoke"]
+    : ["lineup-rendering-smoke-expected", "lineup-prediction-official-history-smoke"];
 
   return {
     schemaVersion: "2",
@@ -182,17 +184,50 @@ function buildExpectedLineupsPayload() {
     sources: [
       {
         id: "lineup-rendering-smoke-expected",
-        label: "Lineup rendering smoke expected-lineup source",
+        label: "Sports Mole semifinal preview",
+        type: "free-public-probable-lineup",
+        checkedAt,
+        url: "https://example.com/predicted-lineup"
+      },
+      {
+        id: "lineup-prediction-official-history-smoke",
+        label: "Lineup prediction official-history provider",
         type: "lineup-prediction-provider",
         checkedAt
       }
-    ],
+    ].filter((source) => !localOnly || source.id === "lineup-prediction-official-history-smoke"),
     fixtures: [
       {
         fixtureId: predictedMatchId,
         mode: "expected",
-        sourceIds: ["lineup-rendering-smoke-expected"],
+        sourceIds: lineup.sourceIds,
         lastUpdated: checkedAt,
+        confidence: {
+          label: "medium",
+          score: 0.78,
+          method: "evidence-strength-v2",
+          reason: "Evidence strength, not a calibrated probability."
+        },
+        evidence: {
+          home: {
+            disputedSlots: [
+              {
+                slotIndex: 6,
+                position: "CM",
+                selectedName: "Rodrigo De Paul",
+                alternatives: [{ name: "Giovani Lo Celso", score: 0.7, independentStarterVotes: 1 }]
+              }
+            ]
+          },
+          away: { disputedSlots: [] }
+        },
+        providers: [
+          {
+            providerId: "free-public-lineups",
+            updatedAt: "2026-07-07T17:44:00Z",
+            sourceIds: localOnly ? [] : ["lineup-rendering-smoke-expected"]
+          }
+        ],
         lineup
       }
     ]
@@ -204,15 +239,8 @@ function buildPredictedHeadingPayload(fixturesData, standingsData, tournamentDat
   const fixture = fixturesDataCopy.fixtures.find((item) => item.id === predictedMatchId);
   assert(fixture, `Missing fixture ${predictedMatchId} in data/fixtures.json`);
 
-  const expectedLineupRecord = buildExpectedLineupsPayload().fixtures[0];
   fixture.status = "SCHEDULED";
-  fixture.lineups = {
-    ...expectedLineupRecord.lineup,
-    mode: expectedLineupRecord.mode,
-    sourceIds: expectedLineupRecord.sourceIds,
-    checkedAt: expectedLineupRecord.lastUpdated,
-    updatedAt: expectedLineupRecord.lastUpdated
-  };
+  delete fixture.lineups;
 
   return {
     fixturesData: fixturesDataCopy,
@@ -467,7 +495,7 @@ try {
     await context.close();
   }
 
-  async function runPredictedHeadingScenario() {
+  async function runPredictedHeadingScenario({ localOnly = false, stale = false } = {}) {
     let liveDataServed;
     const liveDataPromise = new Promise((resolve) => {
       liveDataServed = resolve;
@@ -478,9 +506,9 @@ try {
     });
     const context = await browser.newContext();
 
-    await context.addInitScript(() => {
+    await context.addInitScript(({ mockNowValue }) => {
       const RealDate = Date;
-      const mockNow = new RealDate("2026-07-07T17:45:00Z");
+      const mockNow = new RealDate(mockNowValue);
 
       class MockDate extends RealDate {
         constructor(...args) {
@@ -493,7 +521,7 @@ try {
       }
 
       window.Date = MockDate;
-    });
+    }, { mockNowValue: stale ? "2026-07-09T08:00:00Z" : "2026-07-07T17:45:00Z" });
     await context.route("**/data/lineups.json*", async (route) => {
       await route.fulfill({
         body: JSON.stringify({ lineups: {} }),
@@ -504,7 +532,7 @@ try {
     await context.route("**/data/expected-lineups.json*", async (route) => {
       expectedLineupsServed();
       await route.fulfill({
-        body: JSON.stringify(buildExpectedLineupsPayload()),
+        body: JSON.stringify(buildExpectedLineupsPayload({ localOnly })),
         contentType: "application/json",
         status: 200
       });
@@ -526,12 +554,27 @@ try {
     await liveDataPromise;
     await expectedLineupsPromise;
     await page.locator(`[data-match-id="${predictedMatchId}"] .match-row-trigger`).click();
+    if (stale) {
+      await page.waitForTimeout(100);
+      assert.equal(
+        await page.locator("#match-info .lineup-preview-block").count(),
+        0,
+        "Predicted lineups older than the freshness limit should not be rendered."
+      );
+      await context.close();
+      return;
+    }
     await page.waitForSelector("#match-info .lineup-preview-block", { state: "attached" });
 
     const headingState = await page.locator("#match-info .lineup-preview-block").evaluate((block) => ({
       ariaLabel: block.getAttribute("aria-label") || "",
       helpLabel: block.querySelector(".lineup-heading .info-tooltip-button")?.getAttribute("aria-label") || "",
       heading: block.querySelector(".lineup-heading span")?.textContent.replace(/\s+/g, " ").trim() || "",
+      sourceLinks: [...block.querySelectorAll(".lineup-updated-copy a")].map((link) => ({
+        href: link.href,
+        text: link.textContent.replace(/\s+/g, " ").trim()
+      })),
+      updatedText: block.querySelector(".lineup-updated-copy")?.textContent.replace(/\s+/g, " ").trim() || "",
       text: block.textContent.replace(/\s+/g, " ").trim()
     }));
 
@@ -541,24 +584,35 @@ try {
       `Future expected lineups should use the predicted heading. Measured ${JSON.stringify(headingState)}.`
     );
     assert.equal(headingState.ariaLabel, "Line-ups (predicted)");
-    assert.equal(
-      headingState.helpLabel,
-      "Predicted from online sources.\nThis feature is still work in progress and may not be accurate.",
-      `Future predicted lineup help should keep the sentence period before the disclaimer. Measured ${JSON.stringify(headingState)}.`
-    );
     assert(
-      headingState.helpLabel.includes("Predicted from online sources.") &&
+      headingState.helpLabel.includes(
+        localOnly ? "Predicted from recent official lineups." : "Predicted from online sources."
+      ) &&
+        headingState.helpLabel.includes("Evidence strength: medium (not a calibrated probability).") &&
+        headingState.helpLabel.includes(
+          localOnly ? "Sources: Recent FIFA official XIs." : "Sources: Sports Mole semifinal preview."
+        ) &&
+        headingState.helpLabel.includes("Disputed slots: England CM Rodrigo De Paul / Giovani Lo Celso.") &&
+        headingState.helpLabel.includes("Pitch layout is provisional.") &&
+        headingState.updatedText.includes("Evidence strength: medium") &&
+        headingState.updatedText.includes("Checked 1 min ago") &&
+        headingState.updatedText.includes("1 disputed slot") &&
+        (localOnly
+          ? headingState.sourceLinks.length === 0
+          : headingState.sourceLinks.length === 1 &&
+            headingState.sourceLinks[0].href === "https://example.com/predicted-lineup") &&
         !headingState.text.includes("This was the final lineup for the match."),
-      `Future predicted lineups should not read as final or official-only copy. Measured ${JSON.stringify(headingState)}.`
+      `Future predicted lineups should expose evidence strength, freshness, sources, disputes, and provisional placement without reading as official. Measured ${JSON.stringify(headingState)}.`
     );
 
     await context.close();
   }
 
-  async function runConfirmedHeadingScenario() {
+  async function runConfirmedHeadingScenario({ official = true } = {}) {
     const livePayload = buildLivePayload(fixturesData, standingsData, tournamentData, {
       label: "confirmed scheduled heading",
       mode: "confirmed",
+      official,
       status: "SCHEDULED",
       substitutions: []
     });
@@ -611,6 +665,7 @@ try {
 
     const headingState = await page.locator("#match-info .lineup-preview-block").evaluate((block) => ({
       ariaLabel: block.getAttribute("aria-label") || "",
+      helpLabel: block.querySelector(".lineup-heading .info-tooltip-button")?.getAttribute("aria-label") || "",
       heading: block.querySelector(".lineup-heading span")?.textContent.replace(/\s+/g, " ").trim() || "",
       text: block.textContent.replace(/\s+/g, " ").trim()
     }));
@@ -622,8 +677,77 @@ try {
     );
     assert.equal(headingState.ariaLabel, "Line-ups");
     assert(
-      !headingState.text.includes("Line-ups (official)"),
-      `Confirmed pre-kickoff lineups should not expose an official heading suffix. Measured ${JSON.stringify(headingState)}.`
+      !headingState.text.includes("Line-ups (official)") &&
+        headingState.helpLabel.includes(official ? "Official FIFA lineup" : "Confirmed lineup record") &&
+        (official || !headingState.helpLabel.includes("Official")),
+      `Confirmed pre-kickoff lineups should reserve official wording for an official source type. Measured ${JSON.stringify(headingState)}.`
+    );
+
+    await context.close();
+  }
+
+  async function runStickyOfficialLineupScenario() {
+    const officialPayload = buildLivePayload(fixturesData, standingsData, tournamentData, {
+      label: "sticky official lineup",
+      mode: "live",
+      official: true,
+      status: "LIVE",
+      substitutions: []
+    });
+    const missingLineupPayload = JSON.parse(JSON.stringify(officialPayload));
+    const missingLineupFixture = missingLineupPayload.fixturesData.fixtures.find((fixture) => fixture.id === matchId);
+    delete missingLineupFixture.lineups;
+    missingLineupPayload.syncStatus.lineupFixtures = 0;
+    missingLineupPayload.syncStatus.lineupUpdates = 0;
+    let liveRequestCount = 0;
+    const context = await browser.newContext();
+
+    await context.addInitScript(() => {
+      const nativeSetInterval = window.setInterval.bind(window);
+      window.__lineupRefreshCallback = null;
+      window.setInterval = (callback, delay, ...args) => {
+        if (delay === 5 * 60 * 1000) {
+          window.__lineupRefreshCallback = callback;
+        }
+        return nativeSetInterval(callback, delay, ...args);
+      };
+    });
+    await context.route("**/data/lineups.json*", async (route) => {
+      await route.fulfill({ body: JSON.stringify({ lineups: {} }), contentType: "application/json", status: 200 });
+    });
+    await context.route("**/data/expected-lineups.json*", async (route) => {
+      await route.fulfill({ body: JSON.stringify({ fixtures: [], sources: [] }), contentType: "application/json", status: 200 });
+    });
+    await context.route("**/api/live-data*", async (route) => {
+      liveRequestCount += 1;
+      await route.fulfill({
+        body: JSON.stringify(liveRequestCount === 1 ? officialPayload : missingLineupPayload),
+        contentType: "application/json",
+        status: 200
+      });
+    });
+
+    const page = await context.newPage();
+    await page.goto(`${baseUrl}/?view=matches&date=2026-07-07&tz=America%2FLos_Angeles`, { waitUntil: "load" });
+    await page.waitForSelector(`[data-match-id="${matchId}"]`, { state: "attached" });
+    await page.locator(`[data-match-id="${matchId}"] .match-row-trigger`).click();
+    await page.waitForSelector("#match-info .lineup-preview-block", { state: "attached" });
+    await page.evaluate(async () => {
+      if (typeof window.__lineupRefreshCallback !== "function") {
+        throw new Error("Refresh callback was not captured");
+      }
+      await window.__lineupRefreshCallback();
+    });
+    await page.waitForTimeout(100);
+
+    const retainedState = await page.locator("#match-info .lineup-preview-block").evaluate((block) => ({
+      helpLabel: block.querySelector(".lineup-heading .info-tooltip-button")?.getAttribute("aria-label") || "",
+      markerCount: block.querySelectorAll(".lineup-player-marker").length
+    }));
+    assert.equal(liveRequestCount, 2, "Sticky-lineup scenario should exercise one successful refresh without a lineup.");
+    assert(
+      retainedState.markerCount === 22 && retainedState.helpLabel.includes("Official FIFA live lineup"),
+      `A successful refresh missing lineup data should retain the last-known official lineup. Measured ${JSON.stringify(retainedState)}.`
     );
 
     await context.close();
@@ -633,9 +757,13 @@ try {
     await runScenario(scenario);
   }
   await runConfirmedHeadingScenario();
+  await runConfirmedHeadingScenario({ official: false });
+  await runStickyOfficialLineupScenario();
   await runPredictedHeadingScenario();
+  await runPredictedHeadingScenario({ localOnly: true });
+  await runPredictedHeadingScenario({ stale: true });
 
-  console.log("Live lineup rendering smoke passed: official XI stays at 11 across substitution scenarios.");
+  console.log("Live lineup rendering smoke passed: official XI retention, prediction provenance, and substitution rendering are verified.");
 } finally {
   if (browser) {
     await browser.close();

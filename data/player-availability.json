@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-07T18:49:39Z",
+  "updatedAt": "2026-07-14T17:12:21Z",
   "sourceIds": [
     "fifa-squad-list-2026-06-21",
     "canada-soccer-world-cup-squad-2026-05-29",
@@ -11,7 +11,8 @@
     "standard-switzerland-colombia-lineups-2026-07-07",
     "365scores-france-morocco-lineups-2026-07-07",
     "365scores-norway-england-lineups-2026-07-07",
-    "squawka-spain-belgium-lineups-2026-07-07"
+    "squawka-spain-belgium-lineups-2026-07-07",
+    "sky-sports-england-argentina-team-news-2026-07-14"
   ],
   "teams": {
     "ALG": {
@@ -1415,7 +1416,9 @@
         "MAINOO Kobbie",
         "Marcus RASHFORD",
         "Morgan Elliot ROGERS",
+        "Nico O'Reilly",
         "Nico O'REILLY",
+        "Nico Oreilly",
         "O'REILLY",
         "Oliver George Arthur WATKINS",
         "OREILLY Nico",
@@ -1451,6 +1454,18 @@
           "name": "Jordan Henderson",
           "reason": "Listed as missing for Norway vs England probable lineups.",
           "sourceId": "365scores-norway-england-lineups-2026-07-07"
+        },
+        {
+          "fixtureId": "match-102-semi-final-2026-07-15",
+          "name": "Jarell Quansah",
+          "reason": "Serving the second match of a two-game suspension after his red card against Mexico.",
+          "sourceId": "sky-sports-england-argentina-team-news-2026-07-14"
+        },
+        {
+          "fixtureId": "match-102-semi-final-2026-07-15",
+          "name": "Jordan Henderson",
+          "reason": "Unavailable with a broken wrist.",
+          "sourceId": "sky-sports-england-argentina-team-news-2026-07-14"
         }
       ]
     },
@@ -2075,6 +2090,7 @@
         "MOHANNAD ABUTAHA",
         "Mohannad Mahmoud Saleh",
         "MOUSA ALTAMARI",
+        "Mousa Al-Taamari",
         "Mousa Mohammad Mousa",
         "NASIB",
         "NIZAR",
@@ -2272,6 +2288,7 @@
         "ALI MAJRASHI",
         "Ali Mohammed A LAJAMI",
         "FERAS ALBRIKAN",
+        "Firas Al-Buraikan",
         "Feras Tariq N ALBRIKAN",
         "HASSAN ALTAMBAKTI",
         "HASSAN KADISH",

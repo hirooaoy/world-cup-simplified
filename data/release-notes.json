@@ -1,25 +1,31 @@
 {
-  "updatedAt": "2026-07-14T00:58:00-07:00",
+  "updatedAt": "2026-07-14T14:53:21-07:00",
   "releases": [
     {
       "date": "2026-07-14",
       "title": "Direct bilingual Ball Boy, match SEO, and verified line-ups",
       "titleZh": "直接清晰的双语 Ball Boy、比赛 SEO 与已验证阵容",
       "highlights": [
-        "Ball Boy now answers players, countries, matches, and rules in a direct bilingual voice, with intent-focused cards, localized Chinese match previews and player notes, clearer rule explanations, and repaired player names.",
-        "Remaining knockout match links now expose match-specific browser and search metadata plus structured event data, while the match-row interface stays unchanged and hover, Back, and Forward keep their existing behavior.",
+        "Ball Boy now answers players, countries, matches, and rules in a direct bilingual voice, with intent-focused cards, localized Chinese match previews and player notes, clearer rule explanations, and repaired player names; player cards keep the useful beginner explanation without the confusing green role-zone graphic.",
+        "Remaining knockout match links now expose match-specific browser and search metadata plus structured event data, while the homepage tab stays branded as World Cup Simplified and the match-row interface, hover, Back, and Forward keep their existing behavior.",
         "Microsoft Clarity now loads once on the main app and report page alongside unchanged Vercel Web Analytics, with the CSP opened only for official Clarity script, collect, and image endpoints.",
         "When yesterday and today have no live or finished match notes during the tournament, Catch Up now shows one sourced Golden Boot race story, then keeps a confirmed post-final tournament wrap.",
-        "Line-up boards are shorter with safer mobile substitution taps, and all 100 completed matches now use FIFA-official starting XIs with exact verified board placement; knockout See all links also stay attached to wrapped score text while browser back clears the search state.",
-        "All 102 confirmed matchups now use preserved online forecasts: archived market snapshots or pre-match Opta simulations for past matches, plus blended live consensus for both semi-finals. Every confirmed 2026 knockout matchup now has a pre-kickoff shootout outlook, while all 166 eligible archive knockout matches from 1978-2022 add hindsight-safe shootout context; the semi-finals use deeper goalkeeper, taker, and team-history evidence."
+        "Line-up boards are shorter with safer mobile substitution taps, and all 101 completed matches now use FIFA-official starting XIs; 92 boards retain exact verified placement while nine provisional cases are honestly labeled, including source disagreements and the role-informed France-Spain completed-match board. Knockout See all links also stay attached to wrapped score text while browser back clears the search state.",
+        "All 102 confirmed matchups now use preserved online forecasts: archived market snapshots or pre-match Opta simulations for past matches, plus blended live consensus for both semi-finals. Every confirmed 2026 knockout matchup now has a pre-kickoff shootout outlook, while all 166 eligible archive knockout matches from 1978-2022 add hindsight-safe shootout context; the semi-finals use deeper goalkeeper, taker, and team-history evidence.",
+        "Line-up predictions now use independent-source player consensus, ambiguity-safe identities, scalable formation grids, immutable pre-kickoff revisions, and forecast-only accuracy audits. FIFA's France-Spain team sheet automatically replaced the prediction without losing its history; the provisional role layout correctly keeps Koundé at right-back, Dembélé right, Olise central, Barcola left, and Mbappé up front.",
+        "Projected final and third-place participants now advance consistently from each semi-final's loaded forecast, including its draw and shootout paths, instead of switching to a separate FIFA-ranking pick.",
+        "Tournament and standings integrity now has a repeatable 7,784-check online audit covering all 104 current fixtures and all 965 archived matches; historical tables apply recorded play-offs, head-to-head, drawing-of-lots, and fair-play ordering, while 1950 is shown as a championship pool rather than a knockout path."
       ],
       "highlightsZh": [
-        "Ball Boy 现在以直接清晰的双语表达回答球员、国家队、比赛和规则问题，并提供针对提问重点的卡片、本地化中文比赛预览与球员说明、更清楚的规则解释，以及修复后的球员姓名。",
-        "剩余淘汰赛链接现在会提供比赛专属的浏览器与搜索元数据以及结构化赛事数据；比赛行界面保持不变，悬停、返回和前进操作也维持原有行为。",
+        "Ball Boy 现在以直接清晰的双语表达回答球员、国家队、比赛和规则问题，并提供针对提问重点的卡片、本地化中文比赛预览与球员说明、更清楚的规则解释，以及修复后的球员姓名；球员卡保留实用的新手说明，同时移除令人困惑的绿色活动区域图。",
+        "剩余淘汰赛链接现在会提供比赛专属的浏览器与搜索元数据以及结构化赛事数据；主页标签仍显示 World Cup Simplified，比赛行界面、悬停、返回和前进操作也维持原有行为。",
         "Microsoft Clarity 现在会与保留不变的 Vercel Web Analytics 一起，在主应用和反馈页各加载一次；CSP 只为官方 Clarity 脚本、收集和图片端点放行。",
         "赛事期间，如果昨天和今天没有进行中或已结束的比赛速览，Catch Up 现在会显示一条有来源的金靴奖竞争动态，并在决赛后保留已确认的赛事总结。",
-        "阵容板现在更短，移动端换人点按更安全；全部100场已结束比赛现在都使用 FIFA 官方首发，并采用经过验证的精确站位；淘汰赛的“查看全部”链接也会跟随换行后的比分文字，浏览器返回会清空搜索状态。",
-        "全部102场已确定对阵现在都采用保留的在线预测：已结束比赛使用存档市场快照或赛前 Opta 模拟，两场半决赛使用实时综合预测。每场已确定的2026年淘汰赛现在都有赛前点球前景，1978至2022年的166场适用历史淘汰赛也加入了不受赛后结果影响的点球背景；两场半决赛还会结合门将、主罚手与球队历史证据。"
+        "阵容板现在更短，移动端换人点按更安全；全部101场已结束比赛现在都使用 FIFA 官方首发，其中92场保留已验证的精确站位，另外9场暂定站位会如实标注，包括来源分歧案例以及依据赛前角色信息排布的法国对西班牙完场阵容板。淘汰赛的“查看全部”链接也会跟随换行后的比分文字，浏览器返回会清空搜索状态。",
+        "全部102场已确定对阵现在都采用保留的在线预测：已结束比赛使用存档市场快照或赛前 Opta 模拟，两场半决赛使用实时综合预测。每场已确定的2026年淘汰赛现在都有赛前点球前景，1978至2022年的166场适用历史淘汰赛也加入了不受赛后结果影响的点球背景；两场半决赛还会结合门将、主罚手与球队历史证据。",
+        "阵容预测现在使用独立来源的球员级共识、可消除同名歧义的身份匹配、可扩展阵型网格、不可变的赛前版本，以及只统计真正预测的准确率审计。FIFA 公布法国对西班牙首发后已自动替换预测，同时保留赛前历史；临时站位也正确将孔德放在右后卫、登贝莱放在右路、奥利塞放在中路、巴科拉放在左路，并由姆巴佩居中突前。",
+        "预测的决赛和季军赛参赛队现在会依据每场半决赛已载入的预测一致晋级，并计入平局与点球路径，不再改用另一套 FIFA 排名选择。",
+        "赛事与积分榜现在加入可重复执行的7,784项在线完整性检查，覆盖本届全部104场比赛和历史965场比赛；历史积分榜会按当届规则处理附加赛、相互战绩、抽签与公平竞赛排序，1950年赛事也会正确显示为冠军循环赛，而不是淘汰赛路径。"
       ]
     },
     {

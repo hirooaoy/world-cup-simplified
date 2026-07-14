@@ -522,6 +522,45 @@ await new Promise((resolve) => server.listen(0, "127.0.0.1", resolve));
 const { port } = server.address();
 const baseUrl = `http://127.0.0.1:${port}`;
 const fixturesData = JSON.parse(await readFile(path.join(root, "data/fixtures.json"), "utf8"));
+const [playerAvailabilityData, freeLineupPredictionSourcesData] = await Promise.all(
+  ["player-availability.json", "free-lineup-prediction-sources.json"].map(async (fileName) =>
+    JSON.parse(await readFile(path.join(root, "data", fileName), "utf8"))
+  )
+);
+const englandAvailability = playerAvailabilityData.teams?.ENG;
+const englandSemiFinalUnavailable = (englandAvailability?.fixtureUnavailable || [])
+  .filter((entry) => entry.fixtureId === "match-102-semi-final-2026-07-15")
+  .map((entry) => entry.name)
+  .sort();
+assert(
+  englandAvailability?.included?.includes("Nico O'Reilly") &&
+    englandAvailability?.included?.includes("Nico Oreilly") &&
+    JSON.stringify(englandSemiFinalUnavailable) === JSON.stringify(["Jarell Quansah", "Jordan Henderson"]),
+  `England lineup availability should canonicalize Nico O'Reilly and exclude Quansah and Jordan Henderson from the semifinal. Measured ${JSON.stringify({ englandSemiFinalUnavailable, includedAliases: englandAvailability?.included?.filter((name) => /o.?reilly/i.test(name)) })}.`
+);
+const franceSpainPredictionSources = freeLineupPredictionSourcesData.fixtures
+  ?.find((fixture) => fixture.fixtureId === "match-101-semi-final-2026-07-14")
+  ?.sources || [];
+const franceAttackRoles = franceSpainPredictionSources
+  .filter((source) => source.teams?.home)
+  .map((source) => ({
+  dembele: source.teams?.home?.starters?.find((player) => player.name === "Ousmane Dembele")?.position,
+  olise: source.teams?.home?.starters?.find((player) => player.name === "Michael Olise")?.position,
+  sourceId: source.sourceId
+  }));
+assert(
+  franceAttackRoles.length >= 2 &&
+    franceAttackRoles.every((entry) => entry.dembele === "RW" && entry.olise === "AM"),
+  `Every current France-Spain prediction source should preserve Dembele at RW and Olise at AM. Measured ${JSON.stringify(franceAttackRoles)}.`
+);
+const publishedSpainSource = franceSpainPredictionSources.find(
+  (source) => source.sourceId === "elpais-france-spain-published-spain-xi-2026-07-14"
+);
+assert(
+  publishedSpainSource?.teams?.away?.starters?.some((player) => player.name === "Fabian Ruiz") &&
+    !publishedSpainSource?.teams?.away?.starters?.some((player) => player.name === "Pedri"),
+  "The published Spain XI source should preserve Fabian Ruiz over Pedri."
+);
 const sourceNoteData = await Promise.all(
   [
     "fixtures.json",
@@ -2129,7 +2168,7 @@ try {
     url: location.href
   }));
   assert(
-    homeSeoState.title === "World Cup 2026 Schedule, Results, Standings & Lineups | World Cup Simplified" &&
+    homeSeoState.title === "World Cup Simplified" &&
       homeSeoState.description.includes("verified lineups") &&
       homeSeoState.canonical === "https://world-cup-simplified.vercel.app/" &&
       hoverSeoState.title === homeSeoState.title &&
@@ -2165,7 +2204,7 @@ try {
       location.origin.startsWith("http://127.0.0.1") &&
       !new URL(location.href).searchParams.has("match") &&
       document.querySelectorAll(".match-row.is-selected").length === 0 &&
-      document.title === "World Cup 2026 Schedule, Results, Standings & Lineups | World Cup Simplified" &&
+      document.title === "World Cup Simplified" &&
       document.querySelector('link[rel="canonical"]')?.href === "https://world-cup-simplified.vercel.app/"
   );
   await page.goForward();
@@ -3555,6 +3594,24 @@ try {
   );
   await page.setViewportSize({ width: 1280, height: 720 });
 
+  const currentFranceSpainSemiFinal = fixturesData.fixtures.find((fixture) => fixture.matchNumber === 101);
+  const franceSpainScore = currentFranceSpainSemiFinal?.score;
+  const franceSpainIsFinal = currentFranceSpainSemiFinal?.status === "FT" && franceSpainScore;
+  const franceSpainHomeWon = franceSpainIsFinal && franceSpainScore.home > franceSpainScore.away;
+  const expectedFranceSpainSourceSummary = franceSpainIsFinal
+    ? franceSpainHomeWon
+      ? `France #3 beat Spain #2 ${franceSpainScore.home}-${franceSpainScore.away} See all`
+      : `Spain #2 beat France #3 ${franceSpainScore.away}-${franceSpainScore.home} See all`
+    : currentFranceSpainSemiFinal?.status === "LIVE" && franceSpainScore
+      ? `France #3 vs Spain #2 is live at ${franceSpainScore.home}-${franceSpainScore.away}.`
+      : "France #3 vs Spain #2 is scheduled.";
+  const expectedFinalParticipantText = franceSpainIsFinal
+    ? `${franceSpainHomeWon ? "France #3" : "Spain #2"} vs Winner match 102`
+    : "Winner match 101 vs Winner match 102";
+  const expectedBronzeParticipantText = franceSpainIsFinal
+    ? `${franceSpainHomeWon ? "Spain #2" : "France #3"} vs Runner-up match 102`
+    : "Runner-up match 101 vs Runner-up match 102";
+
   await page.goto(`${baseUrl}?view=matches&date=2026-07-19&tz=America%2FLos_Angeles`, {
     waitUntil: "load"
   });
@@ -3566,14 +3623,14 @@ try {
   const unresolvedFinalDetailText = normalizeFlaggedText(await page.locator("#match-info").innerText());
   assert(
     !unresolvedFinalRowText.includes("Predicted") &&
-      unresolvedFinalDetailText.includes("Winner match 101 vs Winner match 102") &&
+      unresolvedFinalDetailText.includes(expectedFinalParticipantText) &&
       unresolvedFinalDetailText.includes("Predicted matchup; participants come from current knockout-path estimates.") &&
       unresolvedFinalDetailText.includes("Previous: Semi-finals") &&
-      unresolvedFinalDetailText.includes("France #3 vs Spain #2 is scheduled.") &&
+      unresolvedFinalDetailText.includes(expectedFranceSpainSourceSummary) &&
       unresolvedFinalDetailText.includes("England #4 vs Argentina #1 is scheduled.") &&
       !unresolvedFinalDetailText.includes("Round path") &&
       !unresolvedFinalDetailText.includes("No next knockout match is loaded yet."),
-    "The Final detail should keep unresolved winner slots in the title, label the resolved semi-final sources as scheduled, and omit a dead-end next-path block."
+    "The Final detail should use confirmed semi-final winners, keep unresolved winner slots, reflect source status, and omit a dead-end next-path block."
   );
 
   await page.goto(`${baseUrl}?view=matches&date=2026-07-18&tz=America%2FLos_Angeles`, {
@@ -3587,14 +3644,14 @@ try {
   const unresolvedBronzeDetailText = normalizeFlaggedText(await page.locator("#match-info").innerText());
   assert(
     !unresolvedBronzeRowText.includes("Predicted") &&
-      unresolvedBronzeDetailText.includes("Runner-up match 101 vs Runner-up match 102") &&
+      unresolvedBronzeDetailText.includes(expectedBronzeParticipantText) &&
       unresolvedBronzeDetailText.includes("Predicted matchup; participants come from current knockout-path estimates.") &&
       unresolvedBronzeDetailText.includes("Previous: Semi-finals") &&
-      unresolvedBronzeDetailText.includes("France #3 vs Spain #2 is scheduled.") &&
+      unresolvedBronzeDetailText.includes(expectedFranceSpainSourceSummary) &&
       unresolvedBronzeDetailText.includes("England #4 vs Argentina #1 is scheduled.") &&
       !unresolvedBronzeDetailText.includes("Round path") &&
       !unresolvedBronzeDetailText.includes("No next knockout match is loaded yet."),
-    "The third-place detail should keep unresolved runner-up slots, label the resolved semi-final sources as scheduled, and omit a dead-end next-path block."
+    "The third-place detail should use confirmed semi-final runners-up, keep unresolved runner-up slots, reflect source status, and omit a dead-end next-path block."
   );
 
   const resolvedFinalCheck = await openPageAtTime(
@@ -3615,6 +3672,11 @@ try {
 
         finishSemiFinal(101, "FRA", "ESP", 2, 0);
         finishSemiFinal(102, "ENG", "ARG", 0, 1);
+        [103, 104].forEach((matchNumber) => {
+          const fixture = data.fixtures.find((item) => item.matchNumber === matchNumber);
+          delete fixture.homeTeamId;
+          delete fixture.awayTeamId;
+        });
       }
     }
   );
@@ -3660,6 +3722,11 @@ try {
 
         finishSemiFinal(101, "FRA", "ESP", 2, 0);
         finishSemiFinal(102, "ENG", "ARG", 0, 1);
+        [103, 104].forEach((matchNumber) => {
+          const fixture = data.fixtures.find((item) => item.matchNumber === matchNumber);
+          delete fixture.homeTeamId;
+          delete fixture.awayTeamId;
+        });
       }
     }
   );
@@ -5862,24 +5929,24 @@ try {
     );
 
     if (coachCase.matchId === "match-84-round-of-32-2026-07-02") {
+      const spainWideRightWing = lineupSideState.markers.find(({ position }) => position === "RW");
+      const spainWideLeftWing = lineupSideState.markers.find(({ position }) => position === "LW");
+      const spainRightBack = lineupSideState.markers.find(({ position }) => position === "RB");
+      const spainLeftBack = lineupSideState.markers.find(({ position }) => position === "LB");
       const spainWideState = [
-        lineupSideState.byName["Lamine Yamal"],
-        lineupSideState.byName["Nico Williams"],
-        lineupSideState.byName["Pedro Porro"],
-        lineupSideState.byName["Marc Cucurella"]
+        spainWideRightWing,
+        spainWideLeftWing,
+        spainRightBack,
+        spainLeftBack
       ];
-      const spainWideRightWing = lineupSideState.byName["Lamine Yamal"] || lineupSideState.byName["Alex Baena"];
-      const spainWideLeftWing = lineupSideState.byName["Nico Williams"] || lineupSideState.byName["Alex Baena"];
       assert(
         spainWideRightWing &&
           spainWideLeftWing &&
           spainWideRightWing.name !== spainWideLeftWing.name &&
           spainWideRightWing.x > 50 &&
           spainWideLeftWing.x < 50 &&
-          lineupSideState.byName["Pedro Porro"].position === "RB" &&
-          lineupSideState.byName["Pedro Porro"].x > 50 &&
-          lineupSideState.byName["Marc Cucurella"].position === "LB" &&
-          lineupSideState.byName["Marc Cucurella"].x < 50,
+          spainRightBack?.x > 50 &&
+          spainLeftBack?.x < 50,
         `Spain predicted line-up should place right-side attackers on the right and left-side attackers on the left. Measured ${JSON.stringify(spainWideState)}.`
       );
     }
@@ -6378,6 +6445,7 @@ try {
     ),
     "Current country search rows should show and announce the match date and time on one line."
   );
+  await japanSearchCheck.page.setViewportSize({ width: 390, height: 844 });
   await japanSearchCheck.page.locator('[data-team-history-toggle="true"]').click();
   const japanArchiveRows = await japanSearchCheck.page
     .locator(".team-search-section.is-archive .match-row")
@@ -6403,7 +6471,65 @@ try {
     ),
     "Archived country search rows should show and announce date and loaded kickoff time labels with the year."
   );
+  const japanArchiveTarget = japanSearchCheck.page.locator(".team-search-section.is-archive .match-row").first();
+  const expandedJapanSearchMetrics = await japanSearchCheck.page.evaluate(() => ({
+    listHeight: document.querySelector("#match-list")?.getBoundingClientRect().height || 0,
+    viewportHeight: window.innerHeight
+  }));
+  await japanArchiveTarget.click();
+  await japanSearchCheck.page.waitForSelector("#match-info:not(.is-hidden)");
+  const mobileSearchDetailMetrics = await japanSearchCheck.page.evaluate(() => {
+    const info = document.querySelector("#match-info")?.getBoundingClientRect();
+    const list = document.querySelector("#match-list")?.getBoundingClientRect();
+
+    return {
+      infoBottom: info?.bottom || 0,
+      infoTop: info?.top || 0,
+      listTop: list?.top || 0,
+      viewportHeight: window.innerHeight
+    };
+  });
+  assert(
+    expandedJapanSearchMetrics.listHeight > expandedJapanSearchMetrics.viewportHeight * 1.5 &&
+      mobileSearchDetailMetrics.infoTop >= 0 &&
+      mobileSearchDetailMetrics.infoTop < mobileSearchDetailMetrics.viewportHeight * 0.25 &&
+      mobileSearchDetailMetrics.infoBottom < mobileSearchDetailMetrics.listTop,
+    `Opening a mobile match from expanded country results should place and reveal the detail card before the long list. Measured ${JSON.stringify({ expandedJapanSearchMetrics, mobileSearchDetailMetrics })}.`
+  );
   await japanSearchCheck.context.close();
+
+  const franceSearchCheck = await openPageAtTime(
+    "2026-07-14T23:00:00.000Z",
+    "/?view=matches&team=France&tz=America%2FLos_Angeles"
+  );
+  const franceSearchRows = await franceSearchCheck.page.locator(".match-row").evaluateAll((rows) =>
+    rows.map((row) => ({
+      ariaLabel: row.getAttribute("aria-label") || "",
+      id: row.dataset.matchId,
+      scoreAriaLabel: row.querySelector(".match-score")?.getAttribute("aria-label") || "",
+      scoreText: row.querySelector(".match-score")?.textContent.replace(/\s+/g, " ").trim() || "",
+      teams: [...row.querySelectorAll(".match-teams .team-name")].map((team) => team.textContent.trim())
+    }))
+  );
+  const norwayFranceSearchRow = franceSearchRows.find(
+    (row) => row.id === "norway-france-2026-06-26"
+  );
+  const paraguayFranceSearchRow = franceSearchRows.find(
+    (row) => row.id === "match-89-round-of-16-2026-07-04"
+  );
+  assert(
+    franceSearchRows.length > 0 &&
+      franceSearchRows.every((row) => row.teams[0] === "France") &&
+      norwayFranceSearchRow?.teams.join("|") === "France|Norway" &&
+      norwayFranceSearchRow.scoreText === "4-1" &&
+      norwayFranceSearchRow.ariaLabel.includes("France vs Norway") &&
+      norwayFranceSearchRow.ariaLabel.includes("final score 4-1") &&
+      norwayFranceSearchRow.scoreAriaLabel.includes("France 4, Norway 1") &&
+      paraguayFranceSearchRow?.teams.join("|") === "France|Paraguay" &&
+      paraguayFranceSearchRow.scoreText === "1-0",
+    `France country search should always put France first and keep every score aligned with the reordered teams. Measured ${JSON.stringify(franceSearchRows)}.`
+  );
+  await franceSearchCheck.context.close();
 
   const japanChineseSearchCheck = await openPageAtTime(
     "2026-06-21T21:00:00.000Z",
@@ -9363,8 +9489,10 @@ try {
   );
   const expectedMatch81Fixture = fixturesData.fixtures.find((fixture) => fixture.matchNumber === 81);
   const expectedMatch97Fixture = fixturesData.fixtures.find((fixture) => fixture.matchNumber === 97);
+  const expectedMatch101Fixture = fixturesData.fixtures.find((fixture) => fixture.matchNumber === 101);
   const expectedM81HasOutcomePills = shouldShowOutcomePills(expectedMatch81Fixture);
   const expectedM97HasOutcomePills = shouldShowOutcomePills(expectedMatch97Fixture);
+  const expectedM101HasOutcomePills = shouldShowOutcomePills(expectedMatch101Fixture);
   const expectedM97ResultText = expectedMatch97Fixture?.score
     ? `${expectedMatch97Fixture.score.home}-${expectedMatch97Fixture.score.away}`
     : "";
@@ -9378,6 +9506,56 @@ try {
   const expectedM81ResultText = expectedMatch81Fixture?.score
     ? `${expectedMatch81Fixture.score.home}-${expectedMatch81Fixture.score.away}`
     : "";
+  const getExpectedKnockoutPathPicks = (fixture) => {
+    const resolvedWinnerTeamId = getFixtureWinnerTeamId(fixture);
+    if (resolvedWinnerTeamId) {
+      const loserTeamId =
+        fixture.homeTeamId === resolvedWinnerTeamId ? fixture.awayTeamId : fixture.homeTeamId;
+      return { loserTeamId, winnerTeamId: resolvedWinnerTeamId };
+    }
+
+    const home = Number(fixture?.projection?.home);
+    const tie = Number(fixture?.projection?.draw);
+    const away = Number(fixture?.projection?.away);
+    if (
+      !fixture?.homeTeamId ||
+      !fixture?.awayTeamId ||
+      !Number.isFinite(home) ||
+      !Number.isFinite(tie) ||
+      !Number.isFinite(away)
+    ) {
+      return null;
+    }
+
+    const forecast = fixture.shootoutForecast;
+    const forecastHome = Number(forecast?.home);
+    const forecastAway = Number(forecast?.away);
+    const forecastTotal = forecastHome + forecastAway;
+    const forecastMatches =
+      forecast?.homeTeamId === fixture.homeTeamId && forecast?.awayTeamId === fixture.awayTeamId;
+    const decisiveTotal = home + away;
+    const homeDrawShare =
+      forecastMatches && Number.isFinite(forecastTotal) && forecastTotal > 0
+        ? forecastHome / forecastTotal
+        : decisiveTotal > 0
+          ? home / decisiveTotal
+          : 0.5;
+    const homeAdvance = home + tie * homeDrawShare;
+    const awayAdvance = away + tie * (1 - homeDrawShare);
+    const winnerTeamId = homeAdvance >= awayAdvance ? fixture.homeTeamId : fixture.awayTeamId;
+    const loserTeamId = winnerTeamId === fixture.homeTeamId ? fixture.awayTeamId : fixture.homeTeamId;
+
+    return { loserTeamId, winnerTeamId };
+  };
+  const expectedSemiFinalPathPicks = [101, 102]
+    .map((matchNumber) => fixturesByMatchNumber.get(matchNumber))
+    .map(getExpectedKnockoutPathPicks);
+  const expectedFinalTeamIds = expectedSemiFinalPathPicks.map((pick) => pick?.winnerTeamId).filter(Boolean);
+  const expectedThirdPlaceTeamIds = expectedSemiFinalPathPicks.map((pick) => pick?.loserTeamId).filter(Boolean);
+  const expectedFinalTeamNames = expectedFinalTeamIds.map((teamId) => {
+    const team = getTeam(teamId);
+    return team.standingName || team.name;
+  });
   const tournamentCheckPredicates = [
     ["summaryHasRoundOf32", tournamentCheck.summary.includes("Round of 32 slots")],
     ["m73ProgressDate", tournamentCheck.m73ProgressText.includes("Jun 28 12:00PM")],
@@ -9454,8 +9632,16 @@ try {
     ["connectorStrokeWidth", tournamentCheck.connectorStrokeWidths[0] >= 2.5],
     ["m89TeamIds", tournamentCheck.m89TeamIds.length === 2],
     ["m97TeamIds", tournamentCheck.m97TeamIds.length === 2],
-    ["m103TeamIds", tournamentCheck.m103TeamIds.length === 2],
-    ["m104TeamIds", tournamentCheck.m104TeamIds.length === 2],
+    [
+      "m103TeamIdsFollowSemiFinalForecasts",
+      expectedThirdPlaceTeamIds.length === 2 &&
+        tournamentCheck.m103TeamIds.join("|") === expectedThirdPlaceTeamIds.join("|")
+    ],
+    [
+      "m104TeamIdsFollowSemiFinalForecasts",
+      expectedFinalTeamIds.length === 2 &&
+        tournamentCheck.m104TeamIds.join("|") === expectedFinalTeamIds.join("|")
+    ],
     ["finalRailConnectorPathCount", tournamentCheck.finalRailConnectorPathCount === 1],
     ["finalRailMoveCount", tournamentCheck.finalRailMoveCount >= 5],
     ["semi101RunnerUpNextMatch", tournamentCheck.semi101RunnerUpNextMatch === "103"],
@@ -9508,16 +9694,21 @@ try {
     ],
     [
       "m101TieTooltip",
-      tournamentCheck.m101TieTooltip.includes("Unai Simón has saved 8 of 22 shootout kicks") &&
-        tournamentCheck.m101TieTooltip.includes("Oyarzabal converts 89% of career penalties")
+      !expectedM101HasOutcomePills ||
+        (tournamentCheck.m101TieTooltip.includes("Unai Simón has saved 8 of 22 shootout kicks") &&
+          tournamentCheck.m101TieTooltip.includes("Oyarzabal converts 89% of career penalties"))
     ],
     [
       "m102TieTooltip",
       tournamentCheck.m102TieTooltip.includes("won 6 of 7 World Cup shootouts") &&
         tournamentCheck.m102TieTooltip.includes("Emiliano Martínez has never lost one for his country")
     ],
-    ["m103TieTooltip", tournamentCheck.m103TieTooltip.includes("France may have a slight record edge")],
-    ["m104TieTooltip", tournamentCheck.m104TieTooltip.includes("Argentina may have a slight record edge")],
+    ["m103TieTooltip", tournamentCheck.m103TieTooltip.includes("Argentina may have a slight record edge")],
+    [
+      "m104TieTooltip",
+      tournamentCheck.m104TieTooltip.startsWith("If it goes to penalties") &&
+        expectedFinalTeamNames.every((teamName) => tournamentCheck.m104TieTooltip.includes(teamName))
+    ],
     [
       "m83TieTooltip",
       !tournamentCheck.m83TieTooltip || tournamentCheck.m83TieTooltip.startsWith("If it goes to penalties")
@@ -9583,12 +9774,14 @@ try {
     (!hasM88AwayTooltip ||
       (zhTournamentTooltips.m88Away.includes("埃及点球前取胜概率约35%。这场很接近，但澳大利亚略占优势。") &&
         !zhTournamentTooltips.m88Away.includes("爆冷"))) &&
-      zhTournamentTooltips.m101Tie.includes("面对22次点球大战罚球扑出8次") &&
-      zhTournamentTooltips.m101Tie.includes("职业生涯点球命中率为89%") &&
+      (!expectedM101HasOutcomePills ||
+        (zhTournamentTooltips.m101Tie.includes("面对22次点球大战罚球扑出8次") &&
+          zhTournamentTooltips.m101Tie.includes("职业生涯点球命中率为89%"))) &&
       zhTournamentTooltips.m102Tie.includes("7次世界杯点球大战中赢下6次") &&
       zhTournamentTooltips.m102Tie.includes("代表国家队参加点球大战从未失利") &&
-      zhTournamentTooltips.m103Tie.includes("法国可能略占历史战绩优势") &&
-      zhTournamentTooltips.m104Tie.includes("阿根廷可能略占历史战绩优势") &&
+      zhTournamentTooltips.m103Tie.includes("阿根廷可能略占历史战绩优势") &&
+      zhTournamentTooltips.m104Tie.startsWith("如果进入点球大战") &&
+      zhTournamentTooltips.m104Tie.includes("略占") &&
       !/chance|penalties|shootout|goalkeeper|favored|upset|projects|before penalties/i.test(zhTournamentTooltips.all),
     `Chinese tournament outcome tooltips should use localized close-match wording and avoid stale English/upset templates. Measured ${JSON.stringify(zhTournamentTooltips)}.`
   );
@@ -10324,7 +10517,7 @@ try {
     historicalTournamentCheck.tournamentPressed === "true" &&
       historicalTournamentCheck.tabLabels.join("|") === "Tournament|Groups" &&
       historicalTournamentCheck.hiddenThirdPlaceTab &&
-      historicalTournamentCheck.summary === "Knockout bracket uses archived match results." &&
+      historicalTournamentCheck.summary === "Tournament path uses archived match results." &&
       historicalTournamentCheck.roundHeadings.join("|") ===
         "Round of 16|Quarter-finals|Semi-finals|Final" &&
       historicalTournamentCheck.finalText.includes("Argentina") &&
@@ -10391,7 +10584,7 @@ try {
     `The 2022 archived Groups tab should highlight the teams that reached the Tournament stage. Measured ${JSON.stringify(historicalStandingsCheck)}.`
   );
   assert(
-    historicalStandingsCheck.summary === "Final group tables computed from archived match results.",
+    historicalStandingsCheck.summary === "Final group tables use archived results and tournament-era tie-breakers.",
     "Historical standings should explain their archived data source."
   );
   await page.goto(`${baseUrl}?view=standings&standingsYear=2010`, { waitUntil: "load" });
@@ -10454,7 +10647,7 @@ try {
   assert(
     historical1958TournamentCheck.tournamentPressed === "true" &&
       historical1958TournamentCheck.urlMode === "" &&
-      historical1958TournamentCheck.summary === "Knockout bracket uses archived match results." &&
+      historical1958TournamentCheck.summary === "Tournament path uses archived match results." &&
       historical1958TournamentCheck.roundHeadings.join("|") === "Quarter-finals|Semi-finals|Final" &&
       historical1958TournamentCheck.matchCount === 8 &&
       !historical1958TournamentCheck.matchNumbers.includes("7") &&
@@ -10502,12 +10695,21 @@ try {
         .map((team) => team.textContent.trim())
         .sort();
     };
+    const getOrder = (groupName) => {
+      const card = [...document.querySelectorAll(".standings-card")].find(
+        (item) => item.querySelector("h2")?.textContent.trim() === groupName
+      );
+      return [...(card?.querySelectorAll("tbody tr .standing-name") || [])].map((team) => team.textContent.trim());
+    };
 
     return {
       group1: getAdvancing("Group 1"),
+      group1Order: getOrder("Group 1"),
       group2: getAdvancing("Group 2"),
       group3: getAdvancing("Group 3"),
+      group3Order: getOrder("Group 3"),
       group4: getAdvancing("Group 4"),
+      group4Order: getOrder("Group 4"),
       highlightedCount: document.querySelectorAll(".standings-card tbody tr.is-advancing").length
     };
   });
@@ -10516,6 +10718,10 @@ try {
       historical1958GroupAdvancementCheck.group2.join("|") === "France|Yugoslavia" &&
       historical1958GroupAdvancementCheck.group3.join("|") === "Sweden|Wales" &&
       historical1958GroupAdvancementCheck.group4.join("|") === "Brazil|Soviet Union" &&
+      historical1958GroupAdvancementCheck.group1Order.slice(0, 3).join("|") ===
+        "West Germany|Northern Ireland|Czechoslovakia" &&
+      historical1958GroupAdvancementCheck.group3Order.slice(0, 3).join("|") === "Sweden|Wales|Hungary" &&
+      historical1958GroupAdvancementCheck.group4Order.slice(0, 3).join("|") === "Brazil|Soviet Union|England" &&
       historical1958GroupAdvancementCheck.highlightedCount === 8,
     `The 1958 archived Groups tab should highlight the teams that actually reached the knockout bracket, including group-playoff winners only. Measured ${JSON.stringify(historical1958GroupAdvancementCheck)}.`
   );
@@ -10558,18 +10764,55 @@ try {
         .map((team) => team.textContent.trim())
         .sort();
     };
+    const getOrder = (groupName) => {
+      const card = [...document.querySelectorAll(".standings-card")].find(
+        (item) => item.querySelector("h2")?.textContent.trim() === groupName
+      );
+      return [...(card?.querySelectorAll("tbody tr .standing-name") || [])].map((team) => team.textContent.trim());
+    };
 
     return {
       group2: getAdvancing("Group 2"),
+      group2Order: getOrder("Group 2"),
       group4: getAdvancing("Group 4"),
+      group4Order: getOrder("Group 4"),
       highlightedCount: document.querySelectorAll(".standings-card tbody tr.is-advancing").length
     };
   });
   assert(
     historical1954GroupAdvancementCheck.group2.join("|") === "Hungary|West Germany" &&
       historical1954GroupAdvancementCheck.group4.join("|") === "England|Switzerland" &&
+      historical1954GroupAdvancementCheck.group2Order.slice(0, 3).join("|") ===
+        "Hungary|West Germany|Turkey" &&
+      historical1954GroupAdvancementCheck.group4Order.slice(0, 3).join("|") ===
+        "England|Switzerland|Italy" &&
       historical1954GroupAdvancementCheck.highlightedCount === 8,
     `The 1954 archived Groups tab should highlight group-playoff winners without highlighting eliminated playoff losers. Measured ${JSON.stringify(historical1954GroupAdvancementCheck)}.`
+  );
+  await page.goto(`${baseUrl}?view=standings&standingsYear=1994&standingsMode=groups`, { waitUntil: "load" });
+  await waitForHistoricalStandingsYear(page, 1994, "groups");
+  await page.waitForFunction(() => document.querySelectorAll(".standings-card tbody tr.is-advancing").length >= 16);
+  const historical1994TiebreakOrderCheck = await page.evaluate(() => {
+    const getOrder = (groupName) => {
+      const card = [...document.querySelectorAll(".standings-card")].find(
+        (item) => item.querySelector("h2")?.textContent.trim() === groupName
+      );
+      return [...(card?.querySelectorAll("tbody tr .standing-name") || [])].map((team) => team.textContent.trim());
+    };
+
+    return {
+      groupD: getOrder("Group D"),
+      groupE: getOrder("Group E"),
+      groupF: getOrder("Group F"),
+      groupHeadings: [...document.querySelectorAll(".standings-card h2")].map((heading) => heading.textContent.trim())
+    };
+  });
+  assert(
+    historical1994TiebreakOrderCheck.groupD.join("|") === "Nigeria|Bulgaria|Argentina|Greece" &&
+      historical1994TiebreakOrderCheck.groupE.join("|") === "Mexico|Ireland|Italy|Norway" &&
+      historical1994TiebreakOrderCheck.groupF.join("|") === "Netherlands|Saudi Arabia|Belgium|Morocco" &&
+      historical1994TiebreakOrderCheck.groupHeadings.join("|") === "Group A|Group B|Group C|Group D|Group E|Group F",
+    `The 1994 archived tables should preserve the complete official order when three or four teams finish level on points. Measured ${JSON.stringify(historical1994TiebreakOrderCheck)}.`
   );
   await page.goto(`${baseUrl}?view=standings&standingsYear=1930&standingsMode=groups`, { waitUntil: "load" });
   await waitForHistoricalStandingsYear(page, 1930, "groups");
@@ -10599,6 +10842,40 @@ try {
       historical1930GroupAdvancementCheck.group4.join("|") === "United States" &&
       historical1930GroupAdvancementCheck.highlightedCount === 4,
     `The 1930 archived Groups tab should highlight only the single group winner that reached the semi-finals. Measured ${JSON.stringify(historical1930GroupAdvancementCheck)}.`
+  );
+  await page.goto(`${baseUrl}?view=standings&standingsYear=1950`, { waitUntil: "load" });
+  await waitForHistoricalStandingsYear(page, 1950, "tournament");
+  await page.waitForSelector('.historical-tournament-view .progress-match[data-match-number="22"]');
+  const historical1950ChampionshipPoolCheck = await page.evaluate(() => {
+    const cards = [...document.querySelectorAll(".historical-tournament-view .progress-match")];
+
+    return {
+      cardCount: cards.length,
+      linkedPathCount: cards.filter(
+        (card) => card.hasAttribute("data-next-match") || card.hasAttribute("data-runner-up-next-match")
+      ).length,
+      matchNumbers: cards.map((card) => card.getAttribute("data-match-number")),
+      progressionLabel: document
+        .querySelector(".historical-tournament-view .tournament-progression")
+        ?.getAttribute("aria-label"),
+      roundClassCount: document.querySelectorAll(".historical-tournament-view .progress-round.is-final-group").length,
+      roundHeadings: [...document.querySelectorAll(".historical-tournament-view .progress-round h3")].map((heading) =>
+        heading.textContent.trim()
+      ),
+      summary: document.querySelector("#standings-summary")?.textContent.trim(),
+      viewLabel: document.querySelector(".historical-tournament-view")?.getAttribute("aria-label")
+    };
+  });
+  assert(
+    historical1950ChampionshipPoolCheck.cardCount === 6 &&
+      historical1950ChampionshipPoolCheck.matchNumbers.join("|") === "17|18|19|20|21|22" &&
+      historical1950ChampionshipPoolCheck.roundHeadings.join("|") === "Final round" &&
+      historical1950ChampionshipPoolCheck.roundClassCount === 1 &&
+      historical1950ChampionshipPoolCheck.linkedPathCount === 0 &&
+      historical1950ChampionshipPoolCheck.summary === "Tournament path uses archived match results." &&
+      historical1950ChampionshipPoolCheck.viewLabel === "Tournament path" &&
+      historical1950ChampionshipPoolCheck.progressionLabel === "Tournament progression",
+    `The 1950 archived Tournament tab should render its six-match championship pool without false knockout paths. Measured ${JSON.stringify(historical1950ChampionshipPoolCheck)}.`
   );
   const historicalFinalGroupTournamentCases = [
     {
@@ -10689,7 +10966,7 @@ try {
     assert(
       historicalFinalGroupTournamentCheck.tournamentPressed === "true" &&
         historicalFinalGroupTournamentCheck.urlMode === "" &&
-        historicalFinalGroupTournamentCheck.summary === "Knockout bracket uses archived match results." &&
+        historicalFinalGroupTournamentCheck.summary === "Tournament path uses archived match results." &&
         historicalFinalGroupTournamentCheck.roundHeadings.join("|") === historicalTournamentCase.expectedRoundHeadings &&
         historicalFinalGroupTournamentCheck.groupPoolRoundCount === 0 &&
         onlyExpectedMatches &&
@@ -11783,6 +12060,7 @@ try {
 
       return {
         ariaPressed: button?.getAttribute("aria-pressed") || "",
+        buttonBackground: button ? getComputedStyle(button).backgroundColor : "",
         buttonText: button?.textContent.replace(/\s+/g, " ").trim() || "",
         laneLeftDelta: lane && avatarBounds
           ? Math.round((lane.getBoundingClientRect().left - avatarBounds.left) * 10) / 10
@@ -11808,6 +12086,7 @@ try {
     touchLineupSubstitutionState.markerName === "Joaquin Seys" &&
       touchLineupSubstitutionState.buttonText === "↑60'" &&
       touchLineupSubstitutionState.ariaPressed === "true" &&
+      touchLineupSubstitutionState.buttonBackground === "rgb(243, 243, 243)" &&
       touchLineupSubstitutionState.visibleCards.length === 0 &&
       touchLineupSubstitutionState.openPlayerHovers === 0 &&
       touchLineupSubstitutionState.overlapWidth <= 16 &&
@@ -12103,6 +12382,72 @@ try {
     ]),
     `Ball Boy should open with the three curated questions in order. Measured ${JSON.stringify(initialBallBoyPrompts)}.`
   );
+  const initialBallBoySheetState = await touchPage.evaluate(() => {
+    const widget = document.querySelector("#scout-widget")?.getBoundingClientRect();
+    return {
+      activeInput: document.activeElement?.id === "scout-input",
+      hasConversation: document.querySelector("#scout-widget")?.classList.contains("has-conversation") || false,
+      height: widget?.height || 0
+    };
+  });
+  assert(
+    !initialBallBoySheetState.activeInput &&
+      !initialBallBoySheetState.hasConversation &&
+      initialBallBoySheetState.height <= 456,
+    `Ball Boy should open as a medium mobile sheet without summoning the keyboard. Measured ${JSON.stringify(initialBallBoySheetState)}.`
+  );
+  const ballBoyKeyboardState = await touchPage.evaluate(async () => {
+    const viewport = window.visualViewport;
+    if (!viewport) {
+      return { supported: false };
+    }
+
+    const originalHeight = viewport.height;
+    const originalOffsetTop = viewport.offsetTop;
+    let measured;
+
+    try {
+      Object.defineProperty(viewport, "height", { configurable: true, value: 420 });
+      Object.defineProperty(viewport, "offsetTop", { configurable: true, value: 0 });
+      document.querySelector("#scout-input")?.focus();
+      viewport.dispatchEvent(new Event("resize"));
+      await new Promise((resolve) => window.setTimeout(resolve, 450));
+
+      const composer = document.querySelector("#scout-composer")?.getBoundingClientRect();
+      const widget = document.querySelector("#scout-widget")?.getBoundingClientRect();
+      measured = {
+        activeInput: document.activeElement?.id === "scout-input",
+        composerBottom: composer?.bottom || 0,
+        keyboardClass: document.querySelector("#scout-widget")?.classList.contains("is-keyboard-open") || false,
+        supported: true,
+        visualBottom: viewport.offsetTop + viewport.height,
+        widgetBottom: widget?.bottom || 0,
+        widgetTop: widget?.top || 0
+      };
+    } finally {
+      delete viewport.height;
+      delete viewport.offsetTop;
+      viewport.dispatchEvent(new Event("resize"));
+      await new Promise((resolve) => window.setTimeout(resolve, 450));
+    }
+
+    return {
+      ...measured,
+      restoredHeight: Math.round(viewport.height) === Math.round(originalHeight),
+      restoredOffsetTop: Math.round(viewport.offsetTop) === Math.round(originalOffsetTop)
+    };
+  });
+  assert(
+    ballBoyKeyboardState.supported &&
+      ballBoyKeyboardState.activeInput &&
+      ballBoyKeyboardState.keyboardClass &&
+      ballBoyKeyboardState.widgetTop >= 0 &&
+      ballBoyKeyboardState.widgetBottom <= ballBoyKeyboardState.visualBottom + 1 &&
+      ballBoyKeyboardState.composerBottom <= ballBoyKeyboardState.visualBottom + 1 &&
+      ballBoyKeyboardState.restoredHeight &&
+      ballBoyKeyboardState.restoredOffsetTop,
+    `Ball Boy should attach its typing layout to the open mobile keyboard. Measured ${JSON.stringify(ballBoyKeyboardState)}.`
+  );
   await ballBoyInput.fill("Tell me about Haaland");
   await ballBoySend.click();
   await touchPage.getByRole("heading", { name: "Erling Haaland" }).waitFor({ state: "visible" });
@@ -12135,14 +12480,14 @@ try {
       remaining: conversation
         ? conversation.scrollHeight - conversation.clientHeight - conversation.scrollTop
         : null,
-      roleZone: card?.querySelector(".scout-section-heading > span:last-child")?.textContent.trim() || "",
+      rolePitchCount: card?.querySelectorAll(".scout-role-pitch").length || 0,
+      roleSummaryLabel: card?.querySelector(".scout-explainer .scout-section-label")?.textContent.trim() || "",
       scopes: [...(card?.querySelectorAll(".scout-player-fact-section > .scout-section-label") || [])]
         .map((item) => item.textContent.trim()),
       signatureLabel: card?.querySelector(".scout-skill-section > .scout-section-label")?.textContent.trim() || "",
       statCells: [...(card?.querySelectorAll(".scout-player-fact-row > div") || [])]
         .map((item) => item.innerText.replace(/\s+/g, " ").trim()),
-      valueTitle: valueCell?.getAttribute("title") || "",
-      zoneLabel: card?.querySelector(".scout-role-pitch")?.getAttribute("aria-label") || ""
+      valueTitle: valueCell?.getAttribute("title") || ""
     };
   });
   assert(
@@ -12154,8 +12499,8 @@ try {
       haalandBallBoyMetrics.statCells[2] === "25 Age" &&
       haalandBallBoyMetrics.statCells[3] === "€200m Value" &&
       haalandBallBoyMetrics.valueTitle.includes("sourced public player data") &&
-      haalandBallBoyMetrics.zoneLabel.endsWith("Finishing third") &&
-      haalandBallBoyMetrics.roleZone === "Finishing third" &&
+      haalandBallBoyMetrics.rolePitchCount === 0 &&
+      haalandBallBoyMetrics.roleSummaryLabel === "Beginner version" &&
       haalandBallBoyMetrics.signatureLabel === "Signature traits" &&
       haalandBallBoyMetrics.avatarFlagCount === 0 &&
       haalandBallBoyMetrics.inlineFlagCount === 1 &&
@@ -12684,7 +13029,7 @@ try {
     const prompts = [...answer.querySelectorAll("[data-scout-prompt]")]
       .map((item) => item.dataset.scoutPrompt.trim().toLowerCase());
     return {
-      eyeCount: answer.querySelectorAll(".scout-unknown-mark i").length,
+      decorationCount: answer.querySelectorAll(".scout-answer-type, .scout-unknown-mark").length,
       overflow: answer.scrollWidth - answer.clientWidth,
       promptCount: prompts.length,
       promptUniqueCount: new Set(prompts).size,
@@ -12692,11 +13037,11 @@ try {
     };
   });
   assert(
-    unknownBallBoyMetrics.eyeCount === 2 &&
+    unknownBallBoyMetrics.decorationCount === 0 &&
       unknownBallBoyMetrics.text === "I didn’t understand that. Try a player, team, match, or rule." &&
       unknownBallBoyMetrics.promptCount === unknownBallBoyMetrics.promptUniqueCount &&
       unknownBallBoyMetrics.overflow <= 1,
-    `Ball Boy's fallback should use the playful eyes without a misleading external-link arrow. Measured ${JSON.stringify(unknownBallBoyMetrics)}.`
+    `Ball Boy's fallback should stay direct without an answer-type pill or decorative face. Measured ${JSON.stringify(unknownBallBoyMetrics)}.`
   );
 
   await touchPage.setViewportSize({ width: 568, height: 320 });
@@ -12812,7 +13157,7 @@ try {
       zhPlayerBallBoyMetrics.text.includes("法国") &&
       zhPlayerBallBoyMetrics.labels.includes("本届世界杯") &&
       zhPlayerBallBoyMetrics.labels.includes("球员资料") &&
-      zhPlayerBallBoyMetrics.labels.includes("常见活动区域") &&
+      !zhPlayerBallBoyMetrics.labels.includes("常见活动区域") &&
       zhPlayerBallBoyMetrics.labels.includes("新手版") &&
       zhPlayerBallBoyMetrics.labels.includes("标志性特点") &&
       zhPlayerBallBoyMetrics.note === "他在本届世界杯为法国打进8球，并送出3次助攻。比赛中，他在禁区内寻找射门空间，也用传球创造机会。" &&

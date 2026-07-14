@@ -16,7 +16,8 @@
     "fifa-lineups-sync-2026-07-12",
     "fifa-lineups-sync-2026-07-13",
     "lineup-layout-verification-2026-07-13",
-    "fifa-lineups-sync-2026-07-14"
+    "fifa-lineups-sync-2026-07-14",
+    "lineup-layout-verification-2026-07-14"
   ],
   "lineups": {
     "mexico-south-africa-2026-06-11": {
@@ -39,7 +40,7 @@
             "exactLayout": true
           }
         ],
-        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
+        "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-07",
@@ -540,7 +541,7 @@
             "exactLayout": true
           }
         ],
-        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
+        "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-07",
@@ -1015,7 +1016,7 @@
             "exactLayout": true
           }
         ],
-        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
+        "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-07",
@@ -1516,7 +1517,7 @@
             "exactLayout": true
           }
         ],
-        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
+        "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-07",
@@ -2017,7 +2018,7 @@
             "exactLayout": true
           }
         ],
-        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
+        "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-07",
@@ -2508,7 +2509,7 @@
             "exactLayout": true
           }
         ],
-        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
+        "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-07",
@@ -2987,7 +2988,7 @@
             "exactLayout": true
           }
         ],
-        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
+        "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-07",
@@ -3473,7 +3474,7 @@
             "exactLayout": true
           }
         ],
-        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
+        "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-07",
@@ -3953,7 +3954,7 @@
             "exactLayout": true
           }
         ],
-        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
+        "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-07",
@@ -4417,7 +4418,7 @@
             "exactLayout": true
           }
         ],
-        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
+        "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-07",
@@ -4907,7 +4908,7 @@
             "exactLayout": true
           }
         ],
-        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
+        "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-07",
@@ -5398,7 +5399,7 @@
             "exactLayout": true
           }
         ],
-        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
+        "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-07",
@@ -5883,7 +5884,7 @@
             "exactLayout": true
           }
         ],
-        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
+        "note": "FIFA official team sheet kept for facts; FotMob supplied exact board geometry."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-07",
@@ -6364,7 +6365,7 @@
             "exactLayout": true
           }
         ],
-        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
+        "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-07",
@@ -6854,7 +6855,7 @@
             "exactLayout": true
           }
         ],
-        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
+        "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-07",
@@ -7322,7 +7323,7 @@
             "exactLayout": true
           }
         ],
-        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
+        "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-07",
@@ -7791,7 +7792,7 @@
             "exactLayout": true
           }
         ],
-        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
+        "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-07",
@@ -8250,7 +8251,7 @@
             "exactLayout": true
           }
         ],
-        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
+        "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-07",
@@ -8714,36 +8715,18 @@
       "mode": "final",
       "teamSheetSource": "fifa-official",
       "eventSource": "fifa-official",
-      "layoutSource": "verified-layout",
+      "layoutSource": "derived-team-sheet-order",
       "layoutVerification": {
-        "status": "verified",
-        "checkedAt": "2026-07-03T06:11:46.942Z",
-        "sourceIds": [
-          "lineup-layout-verification-2026-07-03"
-        ],
-        "sources": [
-          {
-            "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760433",
-            "status": "matched",
-            "sourceDetail": "public match-center board geometry",
-            "exactLayout": true
-          },
-          {
-            "name": "FotMob",
-            "url": "https://www.fotmob.com/matches/algeria-vs-argentina/1ehtqa",
-            "status": "matched",
-            "sourceDetail": "lineup payload source: enetpulse",
-            "exactLayout": true
-          }
-        ],
-        "note": "Row-order disagreement was detected, ESPN was selected as the primary source. Matched claim signatures: 1/2."
+        "status": "unverified",
+        "source": "derived-team-sheet-order",
+        "exact": false,
+        "checkedAt": "2026-07-14T18:21:57.802Z",
+        "note": "Official team sheet confirms players, bench, events, and formation; pitch coordinates are generated from formation slots and are not exact left/right placements."
       },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-07",
-        "lineup-layout-verification-2026-07-03"
+        "fifa-lineups-sync-2026-07-14"
       ],
-      "checkedAt": "2026-07-07T22:59:37.002Z",
+      "checkedAt": "2026-07-14T18:21:57.802Z",
       "home": {
         "formation": "4-3-3",
         "coach": {
@@ -8758,89 +8741,89 @@
             "name": "Emiliano Martinez",
             "sourcePosition": "goalkeeper",
             "position": "GK",
-            "x": 49.9,
-            "y": 90.5
+            "x": 50,
+            "y": 91
           },
           {
             "number": "4",
             "name": "Gonzalo Montiel",
             "sourcePosition": "defender",
             "position": "RB",
-            "x": 86.6,
-            "y": 62.8
+            "x": 85,
+            "y": 75
           },
           {
             "number": "6",
             "name": "Lisandro Martinez",
             "sourcePosition": "defender",
             "position": "CB",
-            "x": 33.3,
-            "y": 68.7
+            "x": 62,
+            "y": 75
           },
           {
             "number": "13",
             "name": "Cristian Romero",
             "sourcePosition": "defender",
             "position": "CB",
-            "x": 66.5,
-            "y": 68.7
+            "x": 38,
+            "y": 75
           },
           {
             "number": "25",
             "name": "Facundo Medina",
             "sourcePosition": "defender",
             "position": "LB",
-            "x": 13.7,
-            "y": 62.8
+            "x": 15,
+            "y": 75
           },
           {
             "number": "7",
             "name": "Rodrigo De Paul",
             "sourcePosition": "midfielder",
             "position": "CM",
-            "x": 86.6,
-            "y": 39
+            "x": 75,
+            "y": 53
           },
           {
             "number": "20",
             "name": "Alexis Mac Allister",
             "sourcePosition": "midfielder",
             "position": "CM",
-            "x": 64.9,
-            "y": 44.3
+            "x": 50,
+            "y": 53
           },
           {
             "number": "24",
             "name": "Enzo Fernandez",
             "sourcePosition": "midfielder",
             "position": "CM",
-            "x": 35,
-            "y": 44.3
+            "x": 25,
+            "y": 53
           },
           {
             "number": "10",
             "name": "Lionel Messi",
             "sourcePosition": "forward",
             "isCaptain": true,
-            "position": "RW",
-            "x": 64.3,
-            "y": 10.5
+            "position": "ST",
+            "x": 50,
+            "y": 21
           },
           {
             "number": "16",
             "name": "Thiago Almada",
             "sourcePosition": "forward",
-            "position": "LW",
-            "x": 13.7,
-            "y": 39
+            "position": "RW",
+            "x": 82,
+            "y": 31
           },
           {
             "number": "22",
             "name": "Lautaro Martinez",
             "sourcePosition": "forward",
-            "position": "ST",
-            "x": 35.7,
-            "y": 10.5
+            "position": "LW",
+            "x": 18,
+            "y": 31
           }
         ],
         "bench": [
@@ -8981,8 +8964,8 @@
             "name": "Luca Zidane",
             "sourcePosition": "goalkeeper",
             "position": "GK",
-            "x": 49.9,
-            "y": 90.5
+            "x": 50,
+            "y": 91
           },
           {
             "number": "2",
@@ -8990,48 +8973,48 @@
             "sourcePosition": "defender",
             "isCaptain": true,
             "position": "CB",
-            "x": 66.5,
-            "y": 68.7
+            "x": 62,
+            "y": 75
           },
           {
             "number": "15",
             "name": "Rayan Ait-Nouri",
             "sourcePosition": "defender",
             "position": "LB",
-            "x": 13.7,
-            "y": 62.8
+            "x": 15,
+            "y": 75
           },
           {
             "number": "17",
             "name": "Rak Belghali",
             "sourcePosition": "defender",
             "position": "RB",
-            "x": 86.6,
-            "y": 62.8
+            "x": 85,
+            "y": 75
           },
           {
             "number": "21",
             "name": "Ramy Bensebaini",
             "sourcePosition": "defender",
             "position": "CB",
-            "x": 33.3,
-            "y": 68.7
+            "x": 38,
+            "y": 75
           },
           {
             "number": "10",
             "name": "Fares Chaibi",
             "sourcePosition": "midfielder",
             "position": "LW",
-            "x": 18.6,
-            "y": 18.2
+            "x": 18,
+            "y": 31
           },
           {
             "number": "14",
             "name": "Hicham Boudaoui",
             "sourcePosition": "midfielder",
             "position": "CM",
-            "x": 81.4,
-            "y": 42.3
+            "x": 75,
+            "y": 53
           },
           {
             "number": "19",
@@ -9039,15 +9022,15 @@
             "sourcePosition": "midfielder",
             "position": "CM",
             "x": 50,
-            "y": 37.6
+            "y": 53
           },
           {
             "number": "22",
             "name": "Ibrahim Maza",
             "sourcePosition": "midfielder",
             "position": "CM",
-            "x": 18.6,
-            "y": 42.3
+            "x": 25,
+            "y": 53
           },
           {
             "number": "9",
@@ -9055,15 +9038,15 @@
             "sourcePosition": "forward",
             "position": "ST",
             "x": 50,
-            "y": 10.5
+            "y": 21
           },
           {
             "number": "11",
             "name": "Anis Hadj Moussa",
             "sourcePosition": "forward",
             "position": "RW",
-            "x": 81.4,
-            "y": 18.2
+            "x": 82,
+            "y": 31
           }
         ],
         "bench": [
@@ -9211,7 +9194,7 @@
             "exactLayout": true
           }
         ],
-        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
+        "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-07",
@@ -9691,7 +9674,7 @@
             "exactLayout": true
           }
         ],
-        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
+        "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-07",
@@ -10182,7 +10165,7 @@
             "exactLayout": true
           }
         ],
-        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
+        "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-07",
@@ -10650,7 +10633,7 @@
             "exactLayout": true
           }
         ],
-        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
+        "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-07",
@@ -11130,7 +11113,7 @@
             "exactLayout": true
           }
         ],
-        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
+        "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-07",
@@ -11616,7 +11599,7 @@
             "exactLayout": true
           }
         ],
-        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
+        "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-07",
@@ -12079,7 +12062,7 @@
             "exactLayout": true
           }
         ],
-        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
+        "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-07",
@@ -12569,7 +12552,7 @@
             "exactLayout": true
           }
         ],
-        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
+        "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-07",
@@ -13059,7 +13042,7 @@
             "exactLayout": true
           }
         ],
-        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
+        "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-07",
@@ -13538,7 +13521,7 @@
             "exactLayout": true
           }
         ],
-        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
+        "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-07",
@@ -14043,7 +14026,7 @@
             "exactLayout": true
           }
         ],
-        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
+        "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-07",
@@ -14524,7 +14507,7 @@
             "exactLayout": true
           }
         ],
-        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
+        "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-07",
@@ -15014,7 +14997,7 @@
             "exactLayout": true
           }
         ],
-        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
+        "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-07",
@@ -15519,7 +15502,7 @@
             "exactLayout": true
           }
         ],
-        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
+        "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-07",
@@ -16003,7 +15986,7 @@
             "exactLayout": true
           }
         ],
-        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
+        "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-07",
@@ -16477,7 +16460,7 @@
             "exactLayout": true
           }
         ],
-        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
+        "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-07",
@@ -16978,7 +16961,7 @@
             "exactLayout": true
           }
         ],
-        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
+        "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-07",
@@ -17440,7 +17423,7 @@
             "exactLayout": true
           }
         ],
-        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
+        "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-07",
@@ -17925,7 +17908,7 @@
             "exactLayout": true
           }
         ],
-        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
+        "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-07",
@@ -18391,9 +18374,9 @@
       "layoutSource": "verified-layout",
       "layoutVerification": {
         "status": "verified",
-        "checkedAt": "2026-07-03T06:11:46.942Z",
+        "checkedAt": "2026-07-14T21:39:09.176Z",
         "sourceIds": [
-          "lineup-layout-verification-2026-07-03"
+          "lineup-layout-verification-2026-07-14"
         ],
         "sources": [
           {
@@ -18410,11 +18393,12 @@
             "exactLayout": true
           }
         ],
-        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
+        "note": "FIFA official team sheet kept for facts; FotMob supplied exact board geometry."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-07",
-        "lineup-layout-verification-2026-07-03"
+        "lineup-layout-verification-2026-07-03",
+        "lineup-layout-verification-2026-07-14"
       ],
       "checkedAt": "2026-07-07T22:59:37.002Z",
       "home": {
@@ -18430,90 +18414,90 @@
             "number": "23",
             "name": "Fernando Muslera",
             "sourcePosition": "goalkeeper",
-            "position": "LW",
-            "x": 0.1,
-            "y": 0.1
+            "position": "GK",
+            "x": 50,
+            "y": 90
           },
           {
             "number": "3",
             "name": "Sebastian Caceres",
             "sourcePosition": "defender",
-            "position": "LW",
-            "x": 0.3,
-            "y": 0.3
+            "position": "CB",
+            "x": 62.5,
+            "y": 70.8
           },
           {
             "number": "13",
             "name": "Guillermo Varela",
             "sourcePosition": "defender",
-            "position": "ST",
-            "x": 99.7,
-            "y": 0.3
+            "position": "RB",
+            "x": 87.5,
+            "y": 70.8
           },
           {
             "number": "16",
             "name": "Mathias Olivera",
             "sourcePosition": "defender",
-            "position": "CM",
-            "x": 0.3,
-            "y": 0.3
+            "position": "CB",
+            "x": 37.5,
+            "y": 70.8
           },
           {
             "number": "5",
             "name": "Manuel Ugarte",
             "sourcePosition": "midfielder",
-            "position": "LB",
-            "x": 0.5,
-            "y": 0.5
+            "position": "CM",
+            "x": 30,
+            "y": 51.5
           },
           {
             "number": "6",
             "name": "Rodrigo Bentancur",
             "sourcePosition": "midfielder",
             "position": "DM",
-            "x": 0.5,
-            "y": 0.5
+            "x": 70,
+            "y": 51.5
           },
           {
             "number": "8",
             "name": "Federico Valverde",
             "sourcePosition": "midfielder",
             "isCaptain": true,
-            "position": "CB",
-            "x": 0.7,
-            "y": 0.7
+            "position": "RW",
+            "x": 50,
+            "y": 32.2
           },
           {
             "number": "14",
             "name": "Agustin Canobbio",
             "sourcePosition": "midfielder",
-            "position": "CB",
-            "x": 0.7,
-            "y": 0.7
+            "position": "CM",
+            "x": 83.8,
+            "y": 32.2
           },
           {
             "number": "20",
             "name": "Maxi Araujo",
             "sourcePosition": "midfielder",
-            "position": "LB",
-            "x": 0.7,
-            "y": 0.7
+            "position": "LW",
+            "x": 16.3,
+            "y": 32.2
           },
           {
             "number": "25",
             "name": "Juan Manuel Sanabria",
             "sourcePosition": "midfielder",
-            "position": "CM",
-            "x": 0.3,
-            "y": 0.3
+            "position": "LB",
+            "x": 12.5,
+            "y": 70.8
           },
           {
             "number": "21",
             "name": "Federico Vinas",
             "sourcePosition": "forward",
-            "position": "GK",
-            "x": 0.9,
-            "y": 0.9
+            "position": "ST",
+            "x": 50,
+            "y": 13
           }
         ],
         "bench": [
@@ -18642,90 +18626,90 @@
             "number": "1",
             "name": "Vozinha",
             "sourcePosition": "goalkeeper",
-            "position": "LW",
-            "x": 0.1,
-            "y": 0.1
+            "position": "GK",
+            "x": 50,
+            "y": 90
           },
           {
             "number": "3",
             "name": "Diney Borges",
             "sourcePosition": "defender",
-            "position": "CM",
-            "x": 0.3,
-            "y": 0.3
+            "position": "CB",
+            "x": 37.5,
+            "y": 70.8
           },
           {
             "number": "4",
             "name": "Roberto Lopes",
             "sourcePosition": "defender",
-            "position": "LW",
-            "x": 0.3,
-            "y": 0.3
+            "position": "CB",
+            "x": 62.5,
+            "y": 70.8
           },
           {
             "number": "13",
             "name": "Sidny Lopes Cabral",
             "sourcePosition": "defender",
-            "position": "CM",
-            "x": 0.3,
-            "y": 0.3
+            "position": "LB",
+            "x": 12.5,
+            "y": 70.8
           },
           {
             "number": "22",
             "name": "Steven Moreira",
             "sourcePosition": "defender",
-            "position": "ST",
-            "x": 0.3,
-            "y": 0.3
+            "position": "RB",
+            "x": 87.5,
+            "y": 70.8
           },
           {
             "number": "6",
             "name": "Kevin Pina",
             "sourcePosition": "midfielder",
             "position": "DM",
-            "x": 0.5,
-            "y": 0.5
+            "x": 50,
+            "y": 51.5
           },
           {
             "number": "10",
             "name": "Jamiro Monteiro",
             "sourcePosition": "midfielder",
-            "position": "CB",
-            "x": 0.7,
-            "y": 0.7
+            "position": "ST",
+            "x": 37.5,
+            "y": 32.2
           },
           {
             "number": "11",
             "name": "Garry Rodrigues",
             "sourcePosition": "midfielder",
-            "position": "LB",
-            "x": 0.7,
-            "y": 0.7
+            "position": "LW",
+            "x": 12.5,
+            "y": 32.2
           },
           {
             "number": "18",
             "name": "Telmo Arcanjo",
             "sourcePosition": "midfielder",
-            "position": "CB",
-            "x": 0.7,
-            "y": 0.7
+            "position": "CM",
+            "x": 62.5,
+            "y": 32.2
           },
           {
             "number": "9",
             "name": "Gilson Benchimol",
             "sourcePosition": "forward",
-            "position": "GK",
-            "x": 0.9,
-            "y": 0.9
+            "position": "RW",
+            "x": 50,
+            "y": 11
           },
           {
             "number": "20",
             "name": "Ryan Mendes",
             "sourcePosition": "forward",
             "isCaptain": true,
-            "position": "LB",
-            "x": 0.7,
-            "y": 0.7
+            "position": "CM",
+            "x": 87.5,
+            "y": 32.2
           }
         ],
         "bench": [
@@ -18884,7 +18868,7 @@
             "exactLayout": true
           }
         ],
-        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
+        "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-07",
@@ -19380,7 +19364,7 @@
             "exactLayout": true
           }
         ],
-        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
+        "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-07",
@@ -19876,7 +19860,7 @@
             "exactLayout": true
           }
         ],
-        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
+        "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-07",
@@ -20356,7 +20340,7 @@
             "exactLayout": true
           }
         ],
-        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
+        "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-07",
@@ -20814,36 +20798,18 @@
       "mode": "final",
       "teamSheetSource": "fifa-official",
       "eventSource": "fifa-official",
-      "layoutSource": "verified-layout",
+      "layoutSource": "derived-team-sheet-order",
       "layoutVerification": {
-        "status": "verified",
-        "checkedAt": "2026-07-03T06:11:46.942Z",
-        "sourceIds": [
-          "lineup-layout-verification-2026-07-03"
-        ],
-        "sources": [
-          {
-            "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760455",
-            "status": "matched",
-            "sourceDetail": "public match-center board geometry",
-            "exactLayout": true
-          },
-          {
-            "name": "FotMob",
-            "url": "https://www.fotmob.com/matches/jordan-vs-algeria/17tvf0",
-            "status": "matched",
-            "sourceDetail": "lineup payload source: enetpulse",
-            "exactLayout": true
-          }
-        ],
-        "note": "Row-order disagreement was detected, ESPN was selected as the primary source. Matched claim signatures: 1/2."
+        "status": "unverified",
+        "source": "derived-team-sheet-order",
+        "exact": false,
+        "checkedAt": "2026-07-14T18:21:57.802Z",
+        "note": "Official team sheet confirms players, bench, events, and formation; pitch coordinates are generated from formation slots and are not exact left/right placements."
       },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-07",
-        "lineup-layout-verification-2026-07-03"
+        "fifa-lineups-sync-2026-07-14"
       ],
-      "checkedAt": "2026-07-07T22:59:37.002Z",
+      "checkedAt": "2026-07-14T18:21:57.802Z",
       "home": {
         "formation": "3-4-3",
         "coach": {
@@ -20858,32 +20824,32 @@
             "name": "Yazeed Abulaila",
             "sourcePosition": "goalkeeper",
             "position": "GK",
-            "x": 49.9,
-            "y": 90.5
+            "x": 50,
+            "y": 91
           },
           {
             "number": "3",
             "name": "Abdallah Nasib",
             "sourcePosition": "defender",
             "position": "CB",
-            "x": 74.5,
-            "y": 69.7
+            "x": 68,
+            "y": 75
           },
           {
             "number": "4",
             "name": "Husam Abu Dahab",
             "sourcePosition": "defender",
             "position": "CB",
-            "x": 25.3,
-            "y": 69.7
+            "x": 50,
+            "y": 75
           },
           {
             "number": "5",
             "name": "Yazan Al-Arab",
             "sourcePosition": "defender",
             "position": "CB",
-            "x": 49.9,
-            "y": 69.7
+            "x": 32,
+            "y": 75
           },
           {
             "number": "23",
@@ -20891,56 +20857,56 @@
             "sourcePosition": "defender",
             "isCaptain": true,
             "position": "RM",
-            "x": 87.3,
-            "y": 47
+            "x": 84,
+            "y": 53
           },
           {
             "number": "8",
             "name": "Noor Al-Rawabdeh",
             "sourcePosition": "midfielder",
             "position": "CM",
-            "x": 37.5,
-            "y": 47
+            "x": 60,
+            "y": 55
           },
           {
             "number": "20",
             "name": "Mohannad Abu Taha",
             "sourcePosition": "midfielder",
             "position": "LM",
-            "x": 12.6,
-            "y": 47
+            "x": 16,
+            "y": 53
           },
           {
             "number": "21",
             "name": "Nizar Al-Rashdan",
             "sourcePosition": "midfielder",
             "position": "CM",
-            "x": 62.4,
-            "y": 47
+            "x": 40,
+            "y": 55
           },
           {
             "number": "9",
             "name": "Ali Olwan",
             "sourcePosition": "forward",
-            "position": "RW",
-            "x": 69.9,
-            "y": 28
+            "position": "ST",
+            "x": 50,
+            "y": 22
           },
           {
             "number": "10",
             "name": "Mousa Al-Taamari",
             "sourcePosition": "forward",
-            "position": "ST",
-            "x": 50,
-            "y": 10.5
+            "position": "RW",
+            "x": 82,
+            "y": 29
           },
           {
             "number": "13",
             "name": "Mahmoud Al-Mardi",
             "sourcePosition": "forward",
             "position": "LW",
-            "x": 30,
-            "y": 28
+            "x": 18,
+            "y": 29
           }
         ],
         "bench": [
@@ -21087,81 +21053,81 @@
             "name": "Luca Zidane",
             "sourcePosition": "goalkeeper",
             "position": "GK",
-            "x": 49.9,
-            "y": 90.5
+            "x": 50,
+            "y": 91
           },
           {
             "number": "2",
             "name": "Aissa Mandi",
             "sourcePosition": "defender",
             "position": "CB",
-            "x": 66.5,
-            "y": 68.7
+            "x": 62,
+            "y": 75
           },
           {
             "number": "15",
             "name": "Rayan Ait-Nouri",
             "sourcePosition": "defender",
             "position": "LB",
-            "x": 13.7,
-            "y": 62.8
+            "x": 15,
+            "y": 75
           },
           {
             "number": "17",
             "name": "Rak Belghali",
             "sourcePosition": "defender",
             "position": "RB",
-            "x": 86.2,
-            "y": 62.8
+            "x": 85,
+            "y": 75
           },
           {
             "number": "21",
             "name": "Ramy Bensebaini",
             "sourcePosition": "defender",
             "position": "CB",
-            "x": 33.3,
-            "y": 68.7
+            "x": 38,
+            "y": 75
           },
           {
             "number": "6",
             "name": "Ramiz Zerrouki",
             "sourcePosition": "midfielder",
             "position": "CM",
-            "x": 36.5,
-            "y": 49.9
+            "x": 62,
+            "y": 59
           },
           {
             "number": "10",
             "name": "Fares Chaibi",
             "sourcePosition": "midfielder",
             "position": "LW",
-            "x": 19.4,
-            "y": 30.1
+            "x": 18,
+            "y": 30
           },
           {
             "number": "14",
             "name": "Hicham Boudaoui",
             "sourcePosition": "midfielder",
             "position": "CM",
-            "x": 63.4,
-            "y": 49.9
+            "x": 38,
+            "y": 59
           },
           {
             "number": "22",
             "name": "Ibrahim Maza",
             "sourcePosition": "midfielder",
-            "position": "RW",
+            "position": "AM",
             "x": 50,
-            "y": 30.1
+            "y": 43
           },
           {
             "number": "7",
             "name": "Riyad Mahrez",
             "sourcePosition": "forward",
             "isCaptain": true,
-            "position": "DM",
-            "x": 80.6,
-            "y": 30.1
+            "position": "RW",
+            "x": 82,
+            "y": 30
           },
           {
             "number": "9",
@@ -21169,7 +21135,7 @@
             "sourcePosition": "forward",
             "position": "ST",
             "x": 50,
-            "y": 10.5
+            "y": 21
           }
         ],
         "bench": [
@@ -21317,7 +21283,7 @@
             "exactLayout": true
           }
         ],
-        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
+        "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-07",
@@ -21803,7 +21769,7 @@
             "exactLayout": true
           }
         ],
-        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
+        "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-07",
@@ -22284,7 +22250,7 @@
             "exactLayout": true
           }
         ],
-        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
+        "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-07",
@@ -22765,7 +22731,7 @@
             "exactLayout": true
           }
         ],
-        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
+        "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-07",
@@ -23246,7 +23212,7 @@
             "exactLayout": true
           }
         ],
-        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
+        "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-07",
@@ -23719,7 +23685,7 @@
             "exactLayout": true
           }
         ],
-        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
+        "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-07",
@@ -24187,7 +24153,7 @@
             "exactLayout": true
           }
         ],
-        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
+        "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-14",
@@ -24672,7 +24638,7 @@
             "exactLayout": true
           }
         ],
-        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
+        "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-07",
@@ -25162,7 +25128,7 @@
             "exactLayout": true
           }
         ],
-        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
+        "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-07",
@@ -25636,7 +25602,7 @@
             "exactLayout": true
           }
         ],
-        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
+        "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-07",
@@ -26100,7 +26066,7 @@
             "exactLayout": true
           }
         ],
-        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
+        "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-07",
@@ -26584,7 +26550,7 @@
             "exactLayout": true
           }
         ],
-        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
+        "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-07",
@@ -27075,7 +27041,7 @@
             "exactLayout": true
           }
         ],
-        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
+        "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-07",
@@ -27560,7 +27526,7 @@
             "exactLayout": true
           }
         ],
-        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
+        "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-07",
@@ -28022,7 +27988,7 @@
             "exactLayout": true
           }
         ],
-        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
+        "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-07",
@@ -28480,36 +28446,18 @@
       "mode": "final",
       "teamSheetSource": "fifa-official",
       "eventSource": "fifa-official",
-      "layoutSource": "verified-layout",
+      "layoutSource": "derived-team-sheet-order",
       "layoutVerification": {
-        "status": "verified",
-        "checkedAt": "2026-07-03T06:11:46.942Z",
-        "sourceIds": [
-          "lineup-layout-verification-2026-07-03"
-        ],
-        "sources": [
-          {
-            "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760469",
-            "status": "matched",
-            "sourceDetail": "public match-center board geometry",
-            "exactLayout": true
-          },
-          {
-            "name": "FotMob",
-            "url": "https://www.fotmob.com/matches/australia-vs-paraguay/1hs39g",
-            "status": "matched",
-            "sourceDetail": "lineup payload source: enetpulse",
-            "exactLayout": true
-          }
-        ],
-        "note": "Row-order disagreement was detected, ESPN was selected as the primary source. Matched claim signatures: 1/2."
+        "status": "unverified",
+        "source": "derived-team-sheet-order",
+        "exact": false,
+        "checkedAt": "2026-07-14T18:21:57.802Z",
+        "note": "Official team sheet confirms players, bench, events, and formation; pitch coordinates are generated from formation slots and are not exact left/right placements."
       },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-07",
-        "lineup-layout-verification-2026-07-03"
+        "fifa-lineups-sync-2026-07-14"
       ],
-      "checkedAt": "2026-07-07T22:59:37.002Z",
+      "checkedAt": "2026-07-14T18:21:57.802Z",
       "home": {
         "formation": "5-3-2",
         "coach": {
@@ -28524,32 +28472,32 @@
             "name": "Orlando Gill",
             "sourcePosition": "goalkeeper",
             "position": "GK",
-            "x": 49.9,
-            "y": 90.5
+            "x": 50,
+            "y": 91
           },
           {
             "number": "2",
             "name": "Gustavo Velazquez",
             "sourcePosition": "defender",
             "position": "CB",
-            "x": 70,
-            "y": 62.7
+            "x": 68,
+            "y": 76
           },
           {
             "number": "3",
             "name": "Omar Alderete",
             "sourcePosition": "defender",
             "position": "CB",
-            "x": 29,
-            "y": 62.7
+            "x": 50,
+            "y": 76
           },
           {
             "number": "4",
             "name": "Juan Jose Caceres",
             "sourcePosition": "defender",
             "position": "RWB",
-            "x": 86.6,
-            "y": 57.2
+            "x": 88,
+            "y": 74
           },
           {
             "number": "15",
@@ -28557,24 +28505,24 @@
             "sourcePosition": "defender",
             "isCaptain": true,
             "position": "CB",
-            "x": 49.9,
-            "y": 69.7
+            "x": 32,
+            "y": 76
           },
           {
             "number": "26",
             "name": "Alexandro Maidana",
             "sourcePosition": "defender",
             "position": "LWB",
-            "x": 11.4,
-            "y": 57.2
+            "x": 12,
+            "y": 74
           },
           {
             "number": "8",
             "name": "Diego Gomez",
             "sourcePosition": "midfielder",
             "position": "CM",
-            "x": 72.5,
-            "y": 35.6
+            "x": 70,
+            "y": 54
           },
           {
             "number": "14",
@@ -28582,31 +28530,31 @@
             "sourcePosition": "midfielder",
             "position": "CM",
             "x": 50,
-            "y": 42.3
+            "y": 55
           },
           {
             "number": "23",
             "name": "Matias Galarza",
             "sourcePosition": "midfielder",
             "position": "CM",
-            "x": 27.5,
-            "y": 35.6
+            "x": 30,
+            "y": 54
           },
           {
             "number": "19",
             "name": "Julio Enciso",
             "sourcePosition": "forward",
             "position": "ST",
-            "x": 33.5,
-            "y": 10.5
+            "x": 42,
+            "y": 24
           },
           {
             "number": "21",
             "name": "Gabriel Avalos",
             "sourcePosition": "forward",
             "position": "ST",
-            "x": 66.5,
-            "y": 10.5
+            "x": 58,
+            "y": 24
           }
         ],
         "bench": [
@@ -28747,32 +28695,32 @@
             "name": "Patrick Beach",
             "sourcePosition": "goalkeeper",
             "position": "GK",
-            "x": 49.9,
-            "y": 90.5
+            "x": 50,
+            "y": 91
           },
           {
             "number": "3",
             "name": "Alessandro Circati",
             "sourcePosition": "defender",
             "position": "CB",
-            "x": 74.5,
-            "y": 69.7
+            "x": 68,
+            "y": 75
           },
           {
             "number": "5",
             "name": "Jordan Bos",
             "sourcePosition": "defender",
             "position": "LM",
-            "x": 12.7,
-            "y": 47
+            "x": 16,
+            "y": 53
           },
           {
             "number": "16",
             "name": "Aziz Behich",
             "sourcePosition": "defender",
-            "position": "LM",
-            "x": 12.6,
-            "y": 47
+            "position": "ST",
+            "x": 50,
+            "y": 22
           },
           {
             "number": "19",
@@ -28780,56 +28728,56 @@
             "sourcePosition": "defender",
             "isCaptain": true,
             "position": "CB",
-            "x": 49.9,
-            "y": 69.7
+            "x": 50,
+            "y": 75
           },
           {
             "number": "25",
             "name": "Lucas Herrington",
             "sourcePosition": "defender",
             "position": "CB",
-            "x": 25.3,
-            "y": 69.7
+            "x": 32,
+            "y": 75
           },
           {
             "number": "8",
             "name": "Connor Metcalfe",
             "sourcePosition": "midfielder",
-            "position": "LW",
-            "x": 30,
-            "y": 28
+            "position": "CM",
+            "x": 60,
+            "y": 55
           },
           {
             "number": "13",
             "name": "Aiden Oneill",
             "sourcePosition": "midfielder",
-            "position": "CM",
-            "x": 62.4,
-            "y": 47
+            "position": "RM",
+            "x": 84,
+            "y": 53
           },
           {
             "number": "22",
             "name": "Jackson Irvine",
             "sourcePosition": "midfielder",
             "position": "CM",
-            "x": 37.5,
-            "y": 47
+            "x": 40,
+            "y": 55
           },
           {
             "number": "17",
             "name": "Nestory Irankunda",
             "sourcePosition": "forward",
-            "position": "ST",
-            "x": 50,
-            "y": 10.5
+            "position": "RW",
+            "x": 82,
+            "y": 29
           },
           {
             "number": "20",
             "name": "Christian Volpato",
             "sourcePosition": "forward",
-            "position": "RW",
-            "x": 69.9,
-            "y": 28
+            "position": "LW",
+            "x": 18,
+            "y": 29
           }
         ],
         "bench": [
@@ -28961,7 +28909,7 @@
             "exactLayout": true
           }
         ],
-        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
+        "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-07",
@@ -29441,7 +29389,7 @@
             "exactLayout": true
           }
         ],
-        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
+        "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-07",
@@ -29942,7 +29890,7 @@
             "exactLayout": true
           }
         ],
-        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
+        "note": "FIFA official team sheet kept for facts; FotMob supplied exact board geometry."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-07",
@@ -30426,7 +30374,7 @@
             "exactLayout": true
           }
         ],
-        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
+        "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-07",
@@ -30922,7 +30870,7 @@
             "exactLayout": true
           }
         ],
-        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
+        "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-07",
@@ -31411,7 +31359,7 @@
             "exactLayout": true
           }
         ],
-        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
+        "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-07",
@@ -31884,7 +31832,7 @@
             "exactLayout": true
           }
         ],
-        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
+        "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-07",
@@ -32369,7 +32317,7 @@
             "exactLayout": true
           }
         ],
-        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
+        "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-07",
@@ -32850,7 +32798,7 @@
             "exactLayout": true
           }
         ],
-        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
+        "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-07",
@@ -33330,7 +33278,7 @@
             "exactLayout": true
           }
         ],
-        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
+        "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-07",
@@ -33815,36 +33763,18 @@
       "mode": "final",
       "teamSheetSource": "fifa-official",
       "eventSource": "fifa-official",
-      "layoutSource": "verified-layout",
+      "layoutSource": "derived-team-sheet-order",
       "layoutVerification": {
-        "status": "verified",
-        "checkedAt": "2026-07-03T06:11:46.942Z",
-        "sourceIds": [
-          "lineup-layout-verification-2026-07-03"
-        ],
-        "sources": [
-          {
-            "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760484",
-            "status": "matched",
-            "sourceDetail": "public match-center board geometry",
-            "exactLayout": true
-          },
-          {
-            "name": "FotMob",
-            "url": "https://www.fotmob.com/matches/algeria-vs-austria/1r7yil",
-            "status": "matched",
-            "sourceDetail": "lineup payload source: enetpulse",
-            "exactLayout": true
-          }
-        ],
-        "note": "Row-order disagreement was detected, ESPN was selected as the primary source. Matched claim signatures: 1/2."
+        "status": "unverified",
+        "source": "derived-team-sheet-order",
+        "exact": false,
+        "checkedAt": "2026-07-14T18:21:57.802Z",
+        "note": "Official team sheet confirms players, bench, events, and formation; pitch coordinates are generated from formation slots and are not exact left/right placements."
       },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-07",
-        "lineup-layout-verification-2026-07-03"
+        "fifa-lineups-sync-2026-07-14"
       ],
-      "checkedAt": "2026-07-07T22:59:37.002Z",
+      "checkedAt": "2026-07-14T18:21:57.802Z",
       "home": {
         "formation": "4-2-3-1",
         "coach": {
@@ -33859,64 +33789,64 @@
             "name": "Oussama Benbot",
             "sourcePosition": "goalkeeper",
             "position": "GK",
-            "x": 49.9,
-            "y": 90.5
+            "x": 50,
+            "y": 91
           },
           {
             "number": "2",
             "name": "Aissa Mandi",
             "sourcePosition": "defender",
             "position": "CB",
-            "x": 66.5,
-            "y": 68.7
+            "x": 62,
+            "y": 75
           },
           {
             "number": "13",
             "name": "Jaouen Hadjam",
             "sourcePosition": "defender",
             "position": "LB",
-            "x": 13.7,
-            "y": 62.8
+            "x": 15,
+            "y": 75
           },
           {
             "number": "17",
             "name": "Rak Belghali",
             "sourcePosition": "defender",
             "position": "RB",
-            "x": 86.2,
-            "y": 62.8
+            "x": 85,
+            "y": 75
           },
           {
             "number": "21",
             "name": "Ramy Bensebaini",
             "sourcePosition": "defender",
             "position": "CB",
-            "x": 33.3,
-            "y": 68.7
+            "x": 38,
+            "y": 75
           },
           {
             "number": "8",
             "name": "Houssem Aouar",
             "sourcePosition": "midfielder",
-            "position": "LW",
-            "x": 19.4,
-            "y": 30.1
+            "position": "CM",
+            "x": 62,
+            "y": 59
           },
           {
             "number": "10",
             "name": "Fares Chaibi",
             "sourcePosition": "midfielder",
-            "position": "CM",
-            "x": 63.4,
-            "y": 49.9
+            "position": "LW",
+            "x": 18,
+            "y": 40
           },
           {
             "number": "19",
             "name": "Nabil Bentaleb",
             "sourcePosition": "midfielder",
             "position": "CM",
-            "x": 36.5,
-            "y": 49.9
+            "x": 38,
+            "y": 59
           },
           {
             "number": "22",
@@ -33924,7 +33854,7 @@
             "sourcePosition": "midfielder",
             "position": "AM",
             "x": 50,
-            "y": 30.1
+            "y": 40
           },
           {
             "number": "7",
@@ -33932,8 +33862,8 @@
             "sourcePosition": "forward",
             "isCaptain": true,
             "position": "RW",
-            "x": 80.6,
-            "y": 30.1
+            "x": 82,
+            "y": 40
           },
           {
             "number": "9",
@@ -33941,7 +33871,7 @@
             "sourcePosition": "forward",
             "position": "ST",
             "x": 50,
-            "y": 10.5
+            "y": 20
           }
         ],
         "bench": [
@@ -34071,65 +34001,65 @@
             "name": "Alexander Schlager",
             "sourcePosition": "goalkeeper",
             "position": "GK",
-            "x": 49.9,
-            "y": 90.5
+            "x": 50,
+            "y": 91
           },
           {
             "number": "5",
             "name": "Stefan Posch",
             "sourcePosition": "defender",
             "position": "RB",
-            "x": 86.2,
-            "y": 62.8
+            "x": 85,
+            "y": 75
           },
           {
             "number": "8",
             "name": "David Alaba",
             "sourcePosition": "defender",
             "isCaptain": true,
-            "position": "CB",
-            "x": 33.3,
-            "y": 68.7
+            "position": "LB",
+            "x": 15,
+            "y": 75
           },
           {
             "number": "15",
             "name": "Philipp Lienhart",
             "sourcePosition": "defender",
             "position": "CB",
-            "x": 66.5,
-            "y": 68.7
+            "x": 62,
+            "y": 75
           },
           {
             "number": "16",
             "name": "Phillip Mwene",
             "sourcePosition": "defender",
-            "position": "LB",
-            "x": 13.7,
-            "y": 62.8
+            "position": "CB",
+            "x": 38,
+            "y": 75
           },
           {
             "number": "4",
             "name": "Xaver Schlager",
             "sourcePosition": "midfielder",
             "position": "CM",
-            "x": 36.5,
-            "y": 49.9
+            "x": 62,
+            "y": 59
           },
           {
             "number": "6",
             "name": "Nicolas Seiwald",
             "sourcePosition": "midfielder",
-            "position": "CM",
-            "x": 63.4,
-            "y": 49.9
+            "position": "RW",
+            "x": 82,
+            "y": 40
           },
           {
             "number": "9",
             "name": "Marcel Sabitzer",
             "sourcePosition": "midfielder",
             "position": "LW",
-            "x": 19.4,
-            "y": 30.1
+            "x": 18,
+            "y": 40
           },
           {
             "number": "18",
@@ -34137,15 +34067,15 @@
             "sourcePosition": "midfielder",
             "position": "AM",
             "x": 50,
-            "y": 30.1
+            "y": 40
           },
           {
             "number": "20",
             "name": "Konrad Laimer",
             "sourcePosition": "midfielder",
-            "position": "RW",
-            "x": 80.6,
-            "y": 30.1
+            "position": "CM",
+            "x": 38,
+            "y": 59
           },
           {
             "number": "7",
@@ -34153,7 +34083,7 @@
             "sourcePosition": "forward",
             "position": "ST",
             "x": 50,
-            "y": 10.5
+            "y": 20
           }
         ],
         "bench": [
@@ -34307,7 +34237,7 @@
             "exactLayout": true
           }
         ],
-        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
+        "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-07",
@@ -34797,7 +34727,7 @@
             "exactLayout": true
           }
         ],
-        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
+        "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-07",
@@ -35260,7 +35190,7 @@
             "exactLayout": true
           }
         ],
-        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
+        "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-07",
@@ -35780,7 +35710,7 @@
             "exactLayout": true
           }
         ],
-        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
+        "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-07",
@@ -36265,7 +36195,7 @@
             "exactLayout": true
           }
         ],
-        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
+        "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-14",
@@ -36755,7 +36685,7 @@
             "exactLayout": true
           }
         ],
-        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
+        "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-07",
@@ -37223,7 +37153,7 @@
             "exactLayout": true
           }
         ],
-        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
+        "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-07",
@@ -37693,7 +37623,7 @@
             "exactLayout": true
           }
         ],
-        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
+        "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-07",
@@ -38172,36 +38102,18 @@
       "mode": "final",
       "teamSheetSource": "fifa-official",
       "eventSource": "fifa-official",
-      "layoutSource": "verified-layout",
+      "layoutSource": "derived-team-sheet-order",
       "layoutVerification": {
-        "status": "verified",
-        "checkedAt": "2026-07-03T06:11:46.942Z",
-        "sourceIds": [
-          "lineup-layout-verification-2026-07-03"
-        ],
-        "sources": [
-          {
-            "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760495/congo-dr-england",
-            "status": "matched",
-            "sourceDetail": "public match-center board geometry",
-            "exactLayout": true
-          },
-          {
-            "name": "FotMob",
-            "url": "https://www.fotmob.com/matches/dr-congo-vs-england/1tbjj5",
-            "status": "matched",
-            "sourceDetail": "lineup payload source: enetpulse",
-            "exactLayout": true
-          }
-        ],
-        "note": "Row-order disagreement was detected, ESPN was selected as the primary source. Matched claim signatures: 1/2."
+        "status": "unverified",
+        "source": "derived-team-sheet-order",
+        "exact": false,
+        "checkedAt": "2026-07-14T18:21:57.802Z",
+        "note": "Official team sheet confirms players, bench, events, and formation; pitch coordinates are generated from formation slots and are not exact left/right placements."
       },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-07",
-        "lineup-layout-verification-2026-07-03"
+        "fifa-lineups-sync-2026-07-14"
       ],
-      "checkedAt": "2026-07-07T22:59:37.002Z",
+      "checkedAt": "2026-07-14T18:21:57.802Z",
       "home": {
         "formation": "4-2-3-1",
         "coach": {
@@ -38216,56 +38128,56 @@
             "name": "Jordan Pickford",
             "sourcePosition": "goalkeeper",
             "position": "GK",
-            "x": 49.9,
-            "y": 90.5
+            "x": 50,
+            "y": 91
           },
           {
             "number": "2",
             "name": "Ezri Konsa",
             "sourcePosition": "defender",
             "position": "CB",
-            "x": 66.5,
-            "y": 68.7
+            "x": 62,
+            "y": 75
           },
           {
             "number": "3",
             "name": "Nico Oreilly",
             "sourcePosition": "defender",
             "position": "LB",
-            "x": 13.7,
-            "y": 62.8
+            "x": 15,
+            "y": 75
           },
           {
             "number": "6",
             "name": "Marc Guehi",
             "sourcePosition": "defender",
             "position": "CB",
-            "x": 33.3,
-            "y": 68.7
+            "x": 38,
+            "y": 75
           },
           {
             "number": "25",
             "name": "Djed Spence",
             "sourcePosition": "defender",
             "position": "RB",
-            "x": 86.2,
-            "y": 62.8
+            "x": 85,
+            "y": 75
           },
           {
             "number": "4",
             "name": "Declan Rice",
             "sourcePosition": "midfielder",
             "position": "CM",
-            "x": 36.5,
-            "y": 49.9
+            "x": 62,
+            "y": 59
           },
           {
             "number": "8",
             "name": "Elliot Anderson",
             "sourcePosition": "midfielder",
             "position": "CM",
-            "x": 63.4,
-            "y": 49.9
+            "x": 38,
+            "y": 59
           },
           {
             "number": "10",
@@ -38273,7 +38185,7 @@
             "sourcePosition": "midfielder",
             "position": "AM",
             "x": 50,
-            "y": 30.1
+            "y": 40
           },
           {
             "number": "9",
@@ -38282,23 +38194,23 @@
             "isCaptain": true,
             "position": "ST",
             "x": 50,
-            "y": 10.5
+            "y": 20
           },
           {
             "number": "11",
             "name": "Marcus Rashford",
             "sourcePosition": "forward",
             "position": "LW",
-            "x": 19.4,
-            "y": 30.1
+            "x": 18,
+            "y": 40
           },
           {
             "number": "20",
             "name": "Noni Madueke",
             "sourcePosition": "forward",
             "position": "RW",
-            "x": 80.6,
-            "y": 30.1
+            "x": 82,
+            "y": 40
           }
         ],
         "bench": [
@@ -38440,24 +38352,24 @@
             "name": "Lionel Mpasi",
             "sourcePosition": "goalkeeper",
             "position": "GK",
-            "x": 49.9,
-            "y": 90.5
+            "x": 50,
+            "y": 91
           },
           {
             "number": "2",
             "name": "Aaron Wan-Bissaka",
             "sourcePosition": "defender",
             "position": "RB",
-            "x": 86.6,
-            "y": 62.8
+            "x": 85,
+            "y": 75
           },
           {
             "number": "4",
             "name": "Axel Tuanzebe",
             "sourcePosition": "defender",
             "position": "CB",
-            "x": 33.3,
-            "y": 68.7
+            "x": 62,
+            "y": 75
           },
           {
             "number": "22",
@@ -38465,64 +38377,64 @@
             "sourcePosition": "defender",
             "isCaptain": true,
             "position": "CB",
-            "x": 66.5,
-            "y": 68.7
+            "x": 38,
+            "y": 75
           },
           {
             "number": "26",
             "name": "Arthur Masuaku",
             "sourcePosition": "defender",
             "position": "LB",
-            "x": 13.7,
-            "y": 62.8
+            "x": 15,
+            "y": 75
           },
           {
             "number": "6",
             "name": "Ngalayel Mukau",
             "sourcePosition": "midfielder",
-            "position": "DM",
-            "x": 81.4,
-            "y": 42.3
+            "position": "CM",
+            "x": 62,
+            "y": 48
           },
           {
             "number": "7",
             "name": "Nathanael Mbuku",
             "sourcePosition": "midfielder",
-            "position": "RM",
-            "x": 81.4,
-            "y": 18.2
+            "position": "ST",
+            "x": 50,
+            "y": 22
           },
           {
             "number": "8",
             "name": "Samuel Moutoussamy",
             "sourcePosition": "midfielder",
-            "position": "CM",
+            "position": "DM",
             "x": 50,
-            "y": 37.6
+            "y": 62
           },
           {
             "number": "14",
             "name": "Noah Sadiki",
             "sourcePosition": "midfielder",
-            "position": "CM",
-            "x": 18.6,
-            "y": 42.3
+            "position": "RM",
+            "x": 82,
+            "y": 47
           },
           {
             "number": "9",
             "name": "Brian Cipenga",
             "sourcePosition": "forward",
-            "position": "LM",
-            "x": 18.6,
-            "y": 18.2
+            "position": "CM",
+            "x": 38,
+            "y": 48
           },
           {
             "number": "20",
             "name": "Yoane Wissa",
             "sourcePosition": "forward",
-            "position": "ST",
-            "x": 50,
-            "y": 10.5
+            "position": "LM",
+            "x": 18,
+            "y": 47
           }
         ],
         "bench": [
@@ -38660,36 +38572,18 @@
       "mode": "final",
       "teamSheetSource": "fifa-official",
       "eventSource": "fifa-official",
-      "layoutSource": "verified-layout",
+      "layoutSource": "derived-team-sheet-order",
       "layoutVerification": {
-        "status": "verified",
-        "checkedAt": "2026-07-03T06:11:46.942Z",
-        "sourceIds": [
-          "lineup-layout-verification-2026-07-03"
-        ],
-        "sources": [
-          {
-            "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760494/bosnia-herzegovina-united-states",
-            "status": "matched",
-            "sourceDetail": "public match-center board geometry",
-            "exactLayout": true
-          },
-          {
-            "name": "FotMob",
-            "url": "https://www.fotmob.com/matches/usa-vs-bosnia-herzegovina/2c7uzr",
-            "status": "matched",
-            "sourceDetail": "lineup payload source: enetpulse",
-            "exactLayout": true
-          }
-        ],
-        "note": "Row-order disagreement was detected, ESPN was selected as the primary source. Matched claim signatures: 1/2."
+        "status": "unverified",
+        "source": "derived-team-sheet-order",
+        "exact": false,
+        "checkedAt": "2026-07-14T18:21:57.802Z",
+        "note": "Official team sheet confirms players, bench, events, and formation; pitch coordinates are generated from formation slots and are not exact left/right placements."
       },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-07",
-        "lineup-layout-verification-2026-07-03"
+        "fifa-lineups-sync-2026-07-14"
       ],
-      "checkedAt": "2026-07-07T22:59:37.002Z",
+      "checkedAt": "2026-07-14T18:21:57.802Z",
       "home": {
         "formation": "3-5-2",
         "coach": {
@@ -38704,32 +38598,32 @@
             "name": "Matt Freese",
             "sourcePosition": "goalkeeper",
             "position": "GK",
-            "x": 49.9,
-            "y": 90.5
+            "x": 50,
+            "y": 91
           },
           {
             "number": "2",
             "name": "Sergino Dest",
             "sourcePosition": "defender",
-            "position": "CM",
-            "x": 81.4,
-            "y": 18.2
+            "position": "CB",
+            "x": 68,
+            "y": 75
           },
           {
             "number": "3",
             "name": "Chris Richards",
             "sourcePosition": "defender",
             "position": "CB",
-            "x": 66.5,
-            "y": 68.7
+            "x": 50,
+            "y": 75
           },
           {
             "number": "5",
             "name": "Antonee Robinson",
             "sourcePosition": "defender",
             "position": "LWB",
-            "x": 13.7,
-            "y": 62.8
+            "x": 14,
+            "y": 54
           },
           {
             "number": "13",
@@ -38737,56 +38631,56 @@
             "sourcePosition": "defender",
             "isCaptain": true,
             "position": "CB",
-            "x": 33.3,
-            "y": 68.7
+            "x": 32,
+            "y": 75
           },
           {
             "number": "16",
             "name": "Alex Freeman",
             "sourcePosition": "defender",
-            "position": "CB",
-            "x": 86.6,
-            "y": 62.8
+            "position": "RWB",
+            "x": 86,
+            "y": 54
           },
           {
             "number": "4",
             "name": "Tyler Adams",
             "sourcePosition": "midfielder",
             "position": "CM",
-            "x": 50,
-            "y": 37.6
+            "x": 65,
+            "y": 55
           },
           {
             "number": "8",
             "name": "Weston McKennie",
             "sourcePosition": "midfielder",
-            "position": "RWB",
-            "x": 81.4,
-            "y": 42.3
+            "position": "CM",
+            "x": 50,
+            "y": 55
           },
           {
             "number": "17",
             "name": "Malik Tillman",
             "sourcePosition": "midfielder",
             "position": "CM",
-            "x": 18.6,
-            "y": 42.3
+            "x": 35,
+            "y": 55
           },
           {
             "number": "10",
             "name": "Christian Pulisic",
             "sourcePosition": "forward",
             "position": "ST",
-            "x": 18.6,
-            "y": 18.2
+            "x": 42,
+            "y": 23
           },
           {
             "number": "20",
             "name": "Folarin Balogun",
             "sourcePosition": "forward",
             "position": "ST",
-            "x": 50,
-            "y": 10.5
+            "x": 58,
+            "y": 23
           }
         ],
         "bench": [
@@ -38911,72 +38805,72 @@
             "name": "Nikola Vasilj",
             "sourcePosition": "goalkeeper",
             "position": "GK",
-            "x": 49.9,
-            "y": 90.5
+            "x": 50,
+            "y": 91
           },
           {
             "number": "4",
             "name": "Tarik Muharemovic",
             "sourcePosition": "defender",
             "position": "CB",
-            "x": 49.9,
-            "y": 69.7
+            "x": 62,
+            "y": 75
           },
           {
             "number": "5",
             "name": "Sead Kolasinac",
             "sourcePosition": "defender",
-            "position": "LM",
-            "x": 11.4,
-            "y": 57.2
+            "position": "CB",
+            "x": 38,
+            "y": 75
           },
           {
             "number": "7",
             "name": "Amar Dedic",
             "sourcePosition": "defender",
             "position": "RB",
-            "x": 86.6,
-            "y": 57.2
+            "x": 85,
+            "y": 75
           },
           {
             "number": "18",
             "name": "Nikola Katic",
             "sourcePosition": "defender",
-            "position": "CB",
-            "x": 70,
-            "y": 62.7
+            "position": "LB",
+            "x": 15,
+            "y": 75
           },
           {
             "number": "21",
             "name": "Stjepan Radeljic",
             "sourcePosition": "defender",
-            "position": "LB",
-            "x": 29,
-            "y": 62.7
+            "position": "RM",
+            "x": 82,
+            "y": 52
           },
           {
             "number": "8",
             "name": "Armin Gigovic",
             "sourcePosition": "midfielder",
-            "position": "RM",
-            "x": 72.5,
-            "y": 35.6
+            "position": "CM",
+            "x": 62,
+            "y": 55
           },
           {
             "number": "14",
             "name": "Ivan Sunjic",
             "sourcePosition": "midfielder",
             "position": "CM",
-            "x": 50,
-            "y": 42.3
+            "x": 38,
+            "y": 55
           },
           {
             "number": "10",
             "name": "Ermedin Demirovic",
             "sourcePosition": "forward",
             "position": "ST",
-            "x": 33.5,
-            "y": 10.5
+            "x": 42,
+            "y": 24
           },
           {
             "number": "11",
@@ -38984,16 +38878,16 @@
             "sourcePosition": "forward",
             "isCaptain": true,
             "position": "ST",
-            "x": 66.5,
-            "y": 10.5
+            "x": 58,
+            "y": 24
           },
           {
             "number": "19",
             "name": "Kerim Alajbegovic",
             "sourcePosition": "forward",
-            "position": "CM",
-            "x": 27.5,
-            "y": 35.6
+            "position": "LM",
+            "x": 18,
+            "y": 52
           }
         ],
         "bench": [
@@ -39138,54 +39032,18 @@
       "mode": "final",
       "teamSheetSource": "fifa-official",
       "eventSource": "fifa-official",
-      "layoutSource": "verified-layout",
+      "layoutSource": "derived-team-sheet-order",
       "layoutVerification": {
-        "status": "verified",
-        "checkedAt": "2026-07-03T06:11:46.942Z",
-        "sourceIds": [
-          "lineup-layout-verification-2026-07-03"
-        ],
-        "sources": [
-          {
-            "name": "ESPN",
-            "url": "https://www.espn.co.uk/football/match/_/gameId/760493/senegal-belgium",
-            "status": "matched",
-            "sourceDetail": "public match-center board geometry",
-            "exactLayout": true
-          },
-          {
-            "name": "FotMob",
-            "url": "https://www.fotmob.com/matches/senegal-vs-belgium/1rywdm",
-            "status": "matched",
-            "sourceDetail": "lineup payload source: enetpulse",
-            "exactLayout": true
-          },
-          {
-            "name": "SofaScore",
-            "url": "https://www.sofascore.com/football/match/senegal-belgium/rUbsOUb",
-            "status": "blocked",
-            "note": "403 Forbidden"
-          },
-          {
-            "name": "BBC Sport",
-            "url": "https://www.bbc.com/sport/football/live/cx2j5p9",
-            "status": "unavailable",
-            "note": "404 Not Found"
-          },
-          {
-            "name": "Concacaf",
-            "url": "https://www.concacaf.com/competitions/fifa-world-cup/matches/8ec2ae6a1b1246f4b398626f7f1c3040/belgium-vs-senegal/lineups",
-            "status": "unavailable",
-            "note": "No parser is registered for source adapter \"concacaf\"."
-          }
-        ],
-        "note": "Row-order disagreement was detected, ESPN was selected as the primary source. Matched claim signatures: 1/2."
+        "status": "unverified",
+        "source": "derived-team-sheet-order",
+        "exact": false,
+        "checkedAt": "2026-07-14T18:21:57.802Z",
+        "note": "Official team sheet confirms players, bench, events, and formation; pitch coordinates are generated from formation slots and are not exact left/right placements."
       },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-07",
-        "lineup-layout-verification-2026-07-03"
+        "fifa-lineups-sync-2026-07-14"
       ],
-      "checkedAt": "2026-07-07T22:59:37.002Z",
+      "checkedAt": "2026-07-14T18:21:57.802Z",
       "home": {
         "formation": "4-2-3-1",
         "coach": {
@@ -39200,48 +39058,48 @@
             "name": "Thibaut Courtois",
             "sourcePosition": "goalkeeper",
             "position": "GK",
-            "x": 49.9,
-            "y": 90.5
+            "x": 50,
+            "y": 91
           },
           {
             "number": "3",
             "name": "Arthur Theate",
             "sourcePosition": "defender",
-            "position": "CB",
-            "x": 33.3,
-            "y": 68.7
+            "position": "LB",
+            "x": 15,
+            "y": 75
           },
           {
             "number": "4",
             "name": "Brandon Mechele",
             "sourcePosition": "defender",
             "position": "CB",
-            "x": 66.5,
-            "y": 68.7
+            "x": 62,
+            "y": 75
           },
           {
             "number": "5",
             "name": "Maxim De Cuyper",
             "sourcePosition": "defender",
-            "position": "LB",
-            "x": 13.7,
-            "y": 62.8
+            "position": "LW",
+            "x": 18,
+            "y": 40
           },
           {
             "number": "21",
             "name": "Timothy Castagne",
             "sourcePosition": "defender",
-            "position": "RB",
-            "x": 86.2,
-            "y": 62.8
+            "position": "CB",
+            "x": 38,
+            "y": 75
           },
           {
             "number": "7",
             "name": "Kevin De Bruyne",
             "sourcePosition": "midfielder",
-            "position": "AM",
-            "x": 50,
-            "y": 30.1
+            "position": "CM",
+            "x": 62,
+            "y": 59
           },
           {
             "number": "8",
@@ -39249,32 +39107,32 @@
             "sourcePosition": "midfielder",
             "isCaptain": true,
             "position": "CM",
-            "x": 63.4,
-            "y": 49.9
+            "x": 38,
+            "y": 59
           },
           {
             "number": "20",
             "name": "Hans Vanaken",
             "sourcePosition": "midfielder",
-            "position": "CM",
-            "x": 36.5,
-            "y": 49.9
+            "position": "AM",
+            "x": 50,
+            "y": 40
           },
           {
             "number": "10",
             "name": "Leandro Trossard",
             "sourcePosition": "forward",
-            "position": "RW",
-            "x": 80.6,
-            "y": 30.1
+            "position": "RB",
+            "x": 85,
+            "y": 75
           },
           {
             "number": "11",
             "name": "Jeremy Doku",
             "sourcePosition": "forward",
-            "position": "LW",
-            "x": 19.4,
-            "y": 30.1
+            "position": "RW",
+            "x": 82,
+            "y": 40
           },
           {
             "number": "17",
@@ -39282,7 +39140,7 @@
             "sourcePosition": "forward",
             "position": "ST",
             "x": 50,
-            "y": 10.5
+            "y": 20
           }
         ],
         "bench": [
@@ -39435,81 +39293,81 @@
             "name": "Mory Diaw",
             "sourcePosition": "goalkeeper",
             "position": "GK",
-            "x": 49.9,
-            "y": 90.5
+            "x": 50,
+            "y": 91
           },
           {
             "number": "14",
             "name": "Ismail Jakobs",
             "sourcePosition": "defender",
             "position": "LB",
-            "x": 13.7,
-            "y": 62.8
+            "x": 15,
+            "y": 75
           },
           {
             "number": "15",
             "name": "Krepin Diatta",
             "sourcePosition": "defender",
             "position": "RB",
-            "x": 86.6,
-            "y": 62.8
+            "x": 85,
+            "y": 75
           },
           {
             "number": "19",
             "name": "Moussa Niakhate",
             "sourcePosition": "defender",
             "position": "CB",
-            "x": 33.3,
-            "y": 68.7
+            "x": 62,
+            "y": 75
           },
           {
             "number": "5",
             "name": "Idrissa Gueye",
             "sourcePosition": "midfielder",
             "isCaptain": true,
-            "position": "CM",
-            "x": 50,
-            "y": 37.6
+            "position": "CB",
+            "x": 38,
+            "y": 75
           },
           {
             "number": "6",
             "name": "Pathe Ciss",
             "sourcePosition": "midfielder",
-            "position": "CB",
-            "x": 66.5,
-            "y": 68.7
+            "position": "CM",
+            "x": 75,
+            "y": 53
           },
           {
             "number": "21",
             "name": "Habib Diarra",
             "sourcePosition": "midfielder",
             "position": "CM",
-            "x": 81.4,
-            "y": 42.3
+            "x": 50,
+            "y": 53
           },
           {
             "number": "26",
             "name": "Pape Gueye",
             "sourcePosition": "midfielder",
             "position": "CM",
-            "x": 18.6,
-            "y": 42.3
+            "x": 25,
+            "y": 53
           },
           {
             "number": "10",
             "name": "Sadio Mane",
             "sourcePosition": "forward",
-            "position": "LW",
-            "x": 18.6,
-            "y": 18.2
+            "position": "RW",
+            "x": 82,
+            "y": 31
           },
           {
             "number": "13",
             "name": "Iliman Ndiaye",
             "sourcePosition": "forward",
-            "position": "RW",
-            "x": 81.4,
-            "y": 18.2
+            "position": "LW",
+            "x": 18,
+            "y": 31
           },
           {
             "number": "18",
@@ -39517,7 +39375,7 @@
             "sourcePosition": "forward",
             "position": "ST",
             "x": 50,
-            "y": 10.5
+            "y": 21
           }
         ],
         "bench": [
@@ -39654,36 +39512,18 @@
       "mode": "final",
       "teamSheetSource": "fifa-official",
       "eventSource": "fifa-official",
-      "layoutSource": "verified-layout",
+      "layoutSource": "derived-team-sheet-order",
       "layoutVerification": {
-        "status": "verified",
-        "checkedAt": "2026-07-03T06:11:46.942Z",
-        "sourceIds": [
-          "lineup-layout-verification-2026-07-03"
-        ],
-        "sources": [
-          {
-            "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760497/austria-spain",
-            "status": "matched",
-            "sourceDetail": "public match-center board geometry",
-            "exactLayout": true
-          },
-          {
-            "name": "FotMob",
-            "url": "https://www.fotmob.com/matches/spain-vs-austria/i9x9deku",
-            "status": "matched",
-            "sourceDetail": "lineup payload source: enetpulse",
-            "exactLayout": true
-          }
-        ],
-        "note": "Row-order disagreement was detected, ESPN was selected as the primary source. Matched claim signatures: 1/2."
+        "status": "unverified",
+        "source": "derived-team-sheet-order",
+        "exact": false,
+        "checkedAt": "2026-07-14T18:21:57.802Z",
+        "note": "Official team sheet confirms players, bench, events, and formation; pitch coordinates are generated from formation slots and are not exact left/right placements."
       },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-07",
-        "lineup-layout-verification-2026-07-03"
+        "fifa-lineups-sync-2026-07-14"
       ],
-      "checkedAt": "2026-07-07T22:59:37.002Z",
+      "checkedAt": "2026-07-14T18:21:57.802Z",
       "home": {
         "formation": "4-1-2-3",
         "coach": {
@@ -39698,48 +39538,48 @@
             "name": "Unai Simon",
             "sourcePosition": "goalkeeper",
             "position": "GK",
-            "x": 49.9,
-            "y": 90.5
+            "x": 50,
+            "y": 91
           },
           {
             "number": "12",
             "name": "Pedro Porro",
             "sourcePosition": "defender",
             "position": "RB",
-            "x": 86.2,
-            "y": 62.8
+            "x": 85,
+            "y": 75
           },
           {
             "number": "14",
             "name": "Aymeric Laporte",
             "sourcePosition": "defender",
             "position": "CB",
-            "x": 33.3,
-            "y": 68.7
+            "x": 62,
+            "y": 75
           },
           {
             "number": "22",
             "name": "Pau Cubarsi",
             "sourcePosition": "defender",
             "position": "CB",
-            "x": 66.5,
-            "y": 68.7
+            "x": 38,
+            "y": 75
           },
           {
             "number": "24",
             "name": "Marc Cucurella",
             "sourcePosition": "defender",
             "position": "LB",
-            "x": 13.7,
-            "y": 62.8
+            "x": 15,
+            "y": 75
           },
           {
             "number": "15",
             "name": "Alex Baena",
             "sourcePosition": "midfielder",
-            "position": "LW",
-            "x": 19.4,
-            "y": 30.1
+            "position": "CM",
+            "x": 62,
+            "y": 49
           },
           {
             "number": "16",
@@ -39747,32 +39587,32 @@
             "sourcePosition": "midfielder",
             "isCaptain": true,
             "position": "DM",
-            "x": 63.4,
-            "y": 49.9
+            "x": 50,
+            "y": 62
           },
           {
             "number": "20",
             "name": "Pedri",
             "sourcePosition": "midfielder",
             "position": "CM",
-            "x": 36.5,
-            "y": 49.9
+            "x": 38,
+            "y": 49
           },
           {
             "number": "10",
             "name": "Dani Olmo",
             "sourcePosition": "forward",
-            "position": "RW",
-            "x": 50,
-            "y": 30.1
+            "position": "LW",
+            "x": 18,
+            "y": 30
           },
           {
             "number": "19",
             "name": "Lamine Yamal",
             "sourcePosition": "forward",
-            "position": "CM",
-            "x": 80.6,
-            "y": 30.1
+            "position": "RW",
+            "x": 82,
+            "y": 30
           },
           {
             "number": "21",
@@ -39780,7 +39620,7 @@
             "sourcePosition": "forward",
             "position": "ST",
             "x": 50,
-            "y": 10.5
+            "y": 21
           }
         ],
         "bench": [
@@ -39921,24 +39761,24 @@
             "name": "Alexander Schlager",
             "sourcePosition": "goalkeeper",
             "position": "GK",
-            "x": 49.9,
-            "y": 90.5
+            "x": 50,
+            "y": 91
           },
           {
             "number": "3",
             "name": "Kevin Danso",
             "sourcePosition": "defender",
             "position": "CB",
-            "x": 66.5,
-            "y": 68.7
+            "x": 62,
+            "y": 75
           },
           {
             "number": "5",
             "name": "Stefan Posch",
             "sourcePosition": "defender",
             "position": "RB",
-            "x": 86.2,
-            "y": 62.8
+            "x": 85,
+            "y": 75
           },
           {
             "number": "8",
@@ -39946,56 +39786,56 @@
             "sourcePosition": "defender",
             "isCaptain": true,
             "position": "CB",
-            "x": 33.3,
-            "y": 68.7
+            "x": 38,
+            "y": 75
           },
           {
             "number": "4",
             "name": "Xaver Schlager",
             "sourcePosition": "midfielder",
             "position": "CM",
-            "x": 36.5,
-            "y": 49.9
+            "x": 62,
+            "y": 59
           },
           {
             "number": "6",
             "name": "Nicolas Seiwald",
             "sourcePosition": "midfielder",
-            "position": "CM",
-            "x": 63.4,
-            "y": 49.9
+            "position": "LB",
+            "x": 15,
+            "y": 75
           },
           {
             "number": "9",
             "name": "Marcel Sabitzer",
             "sourcePosition": "midfielder",
-            "position": "LW",
-            "x": 19.4,
-            "y": 30.1
+            "position": "RW",
+            "x": 82,
+            "y": 40
           },
           {
             "number": "18",
             "name": "Romano Schmid",
             "sourcePosition": "midfielder",
-            "position": "RW",
-            "x": 80.6,
-            "y": 30.1
+            "position": "AM",
+            "x": 50,
+            "y": 40
           },
           {
             "number": "20",
             "name": "Konrad Laimer",
             "sourcePosition": "midfielder",
-            "position": "LB",
-            "x": 13.7,
-            "y": 62.8
+            "position": "CM",
+            "x": 38,
+            "y": 59
           },
           {
             "number": "24",
             "name": "Paul Wanner",
             "sourcePosition": "midfielder",
-            "position": "AM",
-            "x": 50,
-            "y": 30.1
+            "position": "LW",
+            "x": 18,
+            "y": 40
           },
           {
             "number": "11",
@@ -40003,7 +39843,7 @@
             "sourcePosition": "forward",
             "position": "ST",
             "x": 50,
-            "y": 10.5
+            "y": 20
           }
         ],
         "bench": [
@@ -40157,7 +39997,7 @@
             "exactLayout": true
           }
         ],
-        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
+        "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-07",
@@ -40643,7 +40483,7 @@
             "exactLayout": true
           }
         ],
-        "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout."
+        "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-07",
@@ -45482,7 +45322,7 @@
             "note": "Egypt front four shown with Mostafa Zico central, Mohamed Salah in the central attacking role, and Haissem Hassan on the right."
           }
         ],
-        "note": "FIFA official team sheet kept for facts; Google lineup visual manually verified Egypt attacking placement: Zico central striker, Salah central attacking midfielder, Haissem Hassan right winger."
+        "note": "FIFA official team sheet kept for facts; Google supplied exact board geometry."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-07",
@@ -45980,7 +45820,7 @@
             "note": "Colombia board shows James Rodriguez high right, Jhon Arias left central midfield, Gustavo Puerta right central midfield, Jhon Lucumi left centre-back, and Davinson Sanchez right centre-back."
           }
         ],
-        "note": "FIFA official team sheet kept for facts; Google lineup visual manually verified Colombia placement: James high right, Arias left central midfield, Puerta right central midfield, Lucumi left centre-back, Sanchez right centre-back."
+        "note": "FIFA official team sheet kept for facts; Google supplied exact board geometry."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-07",
@@ -48392,7 +48232,15 @@
         "source": "derived-team-sheet-order",
         "exact": false,
         "checkedAt": "2026-07-14T21:28:49.403Z",
-        "note": "Official team sheet confirms players, bench, events, and formation; pitch coordinates are generated from formation slots and are not exact left/right placements."
+        "note": "FIFA confirms the starting XI, bench, and formation. Matching players use frozen pre-kickoff role and side hints to choose slots within FIFA's official formation; pitch placement remains provisional, not FIFA-supplied exact geometry.",
+        "method": "role-informed-formation-slots",
+        "inferenceSources": [
+          {
+            "type": "pre-kickoff-prediction",
+            "updatedAt": "2026-07-14T18:19:10.941Z",
+            "revisionId": "6699ae75e5144d9128b712619f6a4f51a3c5c2fa2dc6c605e78765206cdecc4e"
+          }
+        ]
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-14"
@@ -48427,16 +48275,16 @@
             "number": "4",
             "name": "Dayot Upamecano",
             "sourcePosition": "defender",
-            "position": "RB",
-            "x": 85,
+            "position": "CB",
+            "x": 62,
             "y": 75
           },
           {
             "number": "5",
             "name": "Jules Kounde",
             "sourcePosition": "defender",
-            "position": "CB",
-            "x": 62,
+            "position": "RB",
+            "x": 85,
             "y": 75
           },
           {
@@ -48476,9 +48324,9 @@
             "name": "Kylian Mbappe",
             "sourcePosition": "forward",
             "isCaptain": true,
-            "position": "LW",
-            "x": 18,
-            "y": 40
+            "position": "ST",
+            "x": 50,
+            "y": 20
           },
           {
             "number": "11",
@@ -48492,9 +48340,9 @@
             "number": "12",
             "name": "Bradley Barcola",
             "sourcePosition": "forward",
-            "position": "ST",
-            "x": 50,
-            "y": 20
+            "position": "LW",
+            "x": 18,
+            "y": 40
           }
         ],
         "bench": [
@@ -48662,7 +48510,7 @@
             "name": "Aymeric Laporte",
             "sourcePosition": "defender",
             "position": "CB",
-            "x": 62,
+            "x": 38,
             "y": 75
           },
           {
@@ -48670,7 +48518,7 @@
             "name": "Pau Cubarsi",
             "sourcePosition": "defender",
             "position": "CB",
-            "x": 38,
+            "x": 62,
             "y": 75
           },
           {
@@ -48686,16 +48534,16 @@
             "name": "Fabian Ruiz",
             "sourcePosition": "midfielder",
             "position": "CM",
-            "x": 62,
+            "x": 38,
             "y": 49
           },
           {
             "number": "15",
             "name": "Alex Baena",
             "sourcePosition": "midfielder",
-            "position": "CM",
-            "x": 38,
-            "y": 49
+            "position": "LW",
+            "x": 18,
+            "y": 30
           },
           {
             "number": "16",
@@ -48710,9 +48558,9 @@
             "number": "10",
             "name": "Dani Olmo",
             "sourcePosition": "forward",
-            "position": "LW",
-            "x": 18,
-            "y": 30
+            "position": "CM",
+            "x": 62,
+            "y": 49
           },
           {
             "number": "19",
@@ -48863,5 +48711,5 @@
       }
     }
   },
-  "updatedAt": "2026-07-14T21:28:49.403Z"
+  "updatedAt": "2026-07-14T21:39:09.176Z"
 }

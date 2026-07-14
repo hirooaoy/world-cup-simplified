@@ -1,4 +1,5 @@
 import { createProviderEvidence, normalizeConfidence } from "./model.mjs";
+import { getCanonicalPlayerKey } from "../player-name-matching.mjs";
 
 function normalizeString(value) {
   return String(value || "").trim();
@@ -104,7 +105,7 @@ export function normalizeProviderPlayer(player = {}) {
     throw new Error("Provider player candidate requires name");
   }
 
-  return {
+  const normalized = {
     name,
     number: normalizeString(player.number),
     position: normalizeString(player.position || player.role),
@@ -116,6 +117,18 @@ export function normalizeProviderPlayer(player = {}) {
     evidence: uniqueStrings(player.evidence),
     notes: uniqueStrings(player.notes)
   };
+  if (normalized.x !== undefined && (normalized.x < 0 || normalized.x > 100)) {
+    throw new Error(`Provider player candidate "${name}" x must be from 0 to 100`);
+  }
+  if (normalized.y !== undefined && (normalized.y < 0 || normalized.y > 100)) {
+    throw new Error(`Provider player candidate "${name}" y must be from 0 to 100`);
+  }
+  return normalized;
+}
+
+function hasPlayer(players, player) {
+  const key = getCanonicalPlayerKey(player?.name);
+  return Boolean(key && players.some((candidate) => getCanonicalPlayerKey(candidate?.name) === key));
 }
 
 export function normalizeProviderSide(side = {}) {
@@ -124,12 +137,30 @@ export function normalizeProviderSide(side = {}) {
     throw new Error("Provider side candidate requires teamId");
   }
 
+  const starters = (Array.isArray(side.starters) ? side.starters : []).map(normalizeProviderPlayer);
+  const benchCandidates = (Array.isArray(side.benchCandidates) ? side.benchCandidates : []).map(normalizeProviderPlayer);
+  if (starters.some((player, index) => hasPlayer(starters.slice(0, index), player))) {
+    throw new Error(`Provider side candidate "${teamId}" contains duplicate starters`);
+  }
+  if (benchCandidates.some((player, index) => hasPlayer(benchCandidates.slice(0, index), player))) {
+    throw new Error(`Provider side candidate "${teamId}" contains duplicate bench candidates`);
+  }
+  if (benchCandidates.some((player) => hasPlayer(starters, player))) {
+    throw new Error(`Provider side candidate "${teamId}" lists the same player as starter and bench`);
+  }
+  if (starters.some((player) => !player.position)) {
+    throw new Error(`Provider side candidate "${teamId}" starters require positions`);
+  }
+
   return {
     teamId,
     formation: normalizeString(side.formation),
     confidence: normalizeConfidence(side.confidence),
-    starters: (Array.isArray(side.starters) ? side.starters : []).map(normalizeProviderPlayer),
-    benchCandidates: (Array.isArray(side.benchCandidates) ? side.benchCandidates : []).map(normalizeProviderPlayer),
+    ...(Number.isFinite(Number(side.evidenceStrengthCap))
+      ? { evidenceStrengthCap: Math.max(0, Math.min(1, Number(side.evidenceStrengthCap))) }
+      : {}),
+    starters,
+    benchCandidates,
     unavailable: (Array.isArray(side.unavailable) ? side.unavailable : []).map((player) => ({
       name: normalizeString(player.name),
       reason: normalizeString(player.reason),
@@ -151,24 +182,38 @@ export function normalizeProviderCandidate(candidate = {}) {
     throw new Error("Provider candidate requires fixtureId");
   }
 
+  const rawHome = candidate.sides?.home || candidate.home;
+  const rawAway = candidate.sides?.away || candidate.away;
   const sides = {
-    home: normalizeProviderSide(candidate.sides?.home || candidate.home),
-    away: normalizeProviderSide(candidate.sides?.away || candidate.away)
+    ...(rawHome ? { home: normalizeProviderSide(rawHome) } : {}),
+    ...(rawAway ? { away: normalizeProviderSide(rawAway) } : {})
   };
+  if (!sides.home && !sides.away) {
+    throw new Error(`Provider candidate "${providerId}" requires at least one team side`);
+  }
+  if (sides.home?.teamId && sides.home.teamId === sides.away?.teamId) {
+    throw new Error(`Provider candidate "${providerId}" cannot use the same team for home and away`);
+  }
   const sourceIds = uniqueStrings([
     ...(candidate.sourceIds || []),
-    ...sides.home.sourceIds,
-    ...sides.away.sourceIds
+    ...(sides.home?.sourceIds || []),
+    ...(sides.away?.sourceIds || [])
   ]);
+  const lineupSourceIds = uniqueStrings(candidate.lineupSourceIds || []);
 
   return {
     providerId,
     providerVersion: normalizeString(candidate.providerVersion) || "1",
     fixtureId,
     mode: normalizeString(candidate.mode) || "expected",
+    predictionClass: candidate.predictionClass === "reported-xi" ? "reported-xi" : "forecast",
+    claimStrength: Number.isFinite(Number(candidate.claimStrength))
+      ? Math.max(0.5, Math.min(3, Number(candidate.claimStrength)))
+      : 1,
     updatedAt: candidate.updatedAt,
     confidence: normalizeConfidence(candidate.confidence),
     sourceIds,
+    lineupSourceIds: lineupSourceIds.length ? lineupSourceIds : sourceIds,
     sides,
     evidence: (Array.isArray(candidate.evidence) ? candidate.evidence : []).map((evidence) =>
       createProviderEvidence({

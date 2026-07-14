@@ -5,13 +5,13 @@
     "lineup-layout-verification-2026-07-07",
     "google-argentina-egypt-lineup-visual-2026-07-07",
     "google-switzerland-colombia-lineup-visual-2026-07-07",
-    "lineup-layout-verification-2026-07-13"
+    "lineup-layout-verification-2026-07-13",
+    "lineup-layout-verification-2026-07-14"
   ],
-  "updatedAt": "2026-07-13T22:55:07.000Z",
+  "updatedAt": "2026-07-14T21:39:09.176Z",
   "fixtures": {
     "match-82-round-of-32-2026-07-01": {
-      "status": "verified",
-      "layoutSource": "editorial-verified",
+      "status": "unresolved",
       "checkedAt": "2026-07-03T06:11:46.942Z",
       "sourceIds": [
         "lineup-layout-verification-2026-07-03"
@@ -22,7 +22,7 @@
         {
           "name": "ESPN",
           "url": "https://www.espn.co.uk/football/match/_/gameId/760493/senegal-belgium",
-          "status": "matched",
+          "status": "conflict",
           "sourceDetail": "public match-center board geometry",
           "exactLayout": true,
           "home": {
@@ -197,7 +197,7 @@
         {
           "name": "FotMob",
           "url": "https://www.fotmob.com/matches/senegal-vs-belgium/1rywdm",
-          "status": "matched",
+          "status": "conflict",
           "sourceDetail": "lineup payload source: enetpulse",
           "exactLayout": true,
           "home": {
@@ -391,7 +391,7 @@
           "note": "No parser is registered for source adapter \"concacaf\"."
         }
       ],
-      "note": "Row-order disagreement was detected, ESPN was selected as the primary source. Matched claim signatures: 1/2.",
+      "note": "Trusted public boards disagreed on tactical row order; stored pitch placement remains provisional.",
       "home": {
         "formation": "4-2-3-1",
         "players": [
@@ -555,7 +555,8 @@
             "y": 90.5
           }
         ]
-      }
+      },
+      "unresolvedReason": "conflict"
     },
     "mexico-south-africa-2026-06-11": {
       "status": "verified",
@@ -743,7 +744,7 @@
           }
         }
       ],
-      "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout.",
+      "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry.",
       "home": {
         "formation": "4-1-2-3",
         "players": [
@@ -1095,7 +1096,7 @@
           }
         }
       ],
-      "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout.",
+      "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry.",
       "home": {
         "formation": "3-4-3",
         "players": [
@@ -1447,7 +1448,7 @@
           }
         }
       ],
-      "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout.",
+      "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry.",
       "home": {
         "formation": "4-4-2",
         "players": [
@@ -1799,7 +1800,7 @@
           }
         }
       ],
-      "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout.",
+      "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry.",
       "home": {
         "formation": "4-2-3-1",
         "players": [
@@ -2151,7 +2152,7 @@
           }
         }
       ],
-      "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout.",
+      "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry.",
       "home": {
         "formation": "4-2-3-1",
         "players": [
@@ -2503,7 +2504,7 @@
           }
         }
       ],
-      "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout.",
+      "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry.",
       "home": {
         "formation": "4-4-2",
         "players": [
@@ -2855,7 +2856,7 @@
           }
         }
       ],
-      "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout.",
+      "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry.",
       "home": {
         "formation": "4-4-2",
         "players": [
@@ -3207,7 +3208,7 @@
           }
         }
       ],
-      "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout.",
+      "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry.",
       "home": {
         "formation": "5-4-1",
         "players": [
@@ -3559,7 +3560,7 @@
           }
         }
       ],
-      "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout.",
+      "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry.",
       "home": {
         "formation": "3-4-3",
         "players": [
@@ -3911,7 +3912,7 @@
           }
         }
       ],
-      "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout.",
+      "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry.",
       "home": {
         "formation": "4-1-2-3",
         "players": [
@@ -4263,7 +4264,7 @@
           }
         }
       ],
-      "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout.",
+      "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry.",
       "home": {
         "formation": "4-4-2",
         "players": [
@@ -4615,7 +4616,7 @@
           }
         }
       ],
-      "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout.",
+      "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry.",
       "home": {
         "formation": "3-4-1-2",
         "players": [
@@ -4974,7 +4975,7 @@
           }
         }
       ],
-      "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout.",
+      "note": "FIFA official team sheet kept for facts; FotMob supplied exact board geometry.",
       "home": {
         "formation": "4-1-2-3",
         "players": [
@@ -5326,7 +5327,7 @@
           }
         }
       ],
-      "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout.",
+      "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry.",
       "home": {
         "formation": "4-2-3-1",
         "players": [
@@ -5678,7 +5679,7 @@
           }
         }
       ],
-      "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout.",
+      "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry.",
       "home": {
         "formation": "4-4-2",
         "players": [
@@ -6030,7 +6031,7 @@
           }
         }
       ],
-      "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout.",
+      "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry.",
       "home": {
         "formation": "4-3-3",
         "players": [
@@ -6382,7 +6383,7 @@
           }
         }
       ],
-      "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout.",
+      "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry.",
       "home": {
         "formation": "4-2-3-1",
         "players": [
@@ -6734,7 +6735,7 @@
           }
         }
       ],
-      "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout.",
+      "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry.",
       "home": {
         "formation": "4-4-2",
         "players": [
@@ -6901,8 +6902,7 @@
       }
     },
     "argentina-algeria-2026-06-16": {
-      "status": "verified",
-      "layoutSource": "editorial-verified",
+      "status": "unresolved",
       "checkedAt": "2026-07-03T06:11:46.942Z",
       "sourceIds": [
         "lineup-layout-verification-2026-07-03"
@@ -6913,7 +6913,7 @@
         {
           "name": "ESPN",
           "url": "https://www.espn.com/soccer/match/_/gameId/760433",
-          "status": "matched",
+          "status": "conflict",
           "sourceDetail": "public match-center board geometry",
           "exactLayout": true,
           "home": {
@@ -7088,7 +7088,7 @@
         {
           "name": "FotMob",
           "url": "https://www.fotmob.com/matches/algeria-vs-argentina/1ehtqa",
-          "status": "matched",
+          "status": "conflict",
           "sourceDetail": "lineup payload source: enetpulse",
           "exactLayout": true,
           "home": {
@@ -7261,7 +7261,7 @@
           }
         }
       ],
-      "note": "Row-order disagreement was detected, ESPN was selected as the primary source. Matched claim signatures: 1/2.",
+      "note": "Trusted public boards disagreed on tactical row order; stored pitch placement remains provisional.",
       "home": {
         "formation": "4-3-3",
         "players": [
@@ -7425,7 +7425,8 @@
             "y": 90.5
           }
         ]
-      }
+      },
+      "unresolvedReason": "conflict"
     },
     "austria-jordan-2026-06-16": {
       "status": "verified",
@@ -7613,7 +7614,7 @@
           }
         }
       ],
-      "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout.",
+      "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry.",
       "home": {
         "formation": "4-2-3-1",
         "players": [
@@ -7965,7 +7966,7 @@
           }
         }
       ],
-      "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout.",
+      "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry.",
       "home": {
         "formation": "4-2-3-1",
         "players": [
@@ -8317,7 +8318,7 @@
           }
         }
       ],
-      "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout.",
+      "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry.",
       "home": {
         "formation": "4-2-3-1",
         "players": [
@@ -8669,7 +8670,7 @@
           }
         }
       ],
-      "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout.",
+      "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry.",
       "home": {
         "formation": "4-1-2-3",
         "players": [
@@ -9021,7 +9022,7 @@
           }
         }
       ],
-      "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout.",
+      "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry.",
       "home": {
         "formation": "3-4-3",
         "players": [
@@ -9373,7 +9374,7 @@
           }
         }
       ],
-      "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout.",
+      "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry.",
       "home": {
         "formation": "3-5-2",
         "players": [
@@ -9725,7 +9726,7 @@
           }
         }
       ],
-      "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout.",
+      "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry.",
       "home": {
         "formation": "4-3-3",
         "players": [
@@ -10077,7 +10078,7 @@
           }
         }
       ],
-      "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout.",
+      "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry.",
       "home": {
         "formation": "4-4-2",
         "players": [
@@ -10429,7 +10430,7 @@
           }
         }
       ],
-      "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout.",
+      "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry.",
       "home": {
         "formation": "4-1-2-3",
         "players": [
@@ -10781,7 +10782,7 @@
           }
         }
       ],
-      "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout.",
+      "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry.",
       "home": {
         "formation": "3-5-2",
         "players": [
@@ -11133,7 +11134,7 @@
           }
         }
       ],
-      "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout.",
+      "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry.",
       "home": {
         "formation": "4-4-2",
         "players": [
@@ -11485,7 +11486,7 @@
           }
         }
       ],
-      "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout.",
+      "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry.",
       "home": {
         "formation": "4-3-3",
         "players": [
@@ -11837,7 +11838,7 @@
           }
         }
       ],
-      "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout.",
+      "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry.",
       "home": {
         "formation": "4-2-3-1",
         "players": [
@@ -12189,7 +12190,7 @@
           }
         }
       ],
-      "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout.",
+      "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry.",
       "home": {
         "formation": "4-3-3",
         "players": [
@@ -12541,7 +12542,7 @@
           }
         }
       ],
-      "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout.",
+      "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry.",
       "home": {
         "formation": "4-2-3-1",
         "players": [
@@ -12893,7 +12894,7 @@
           }
         }
       ],
-      "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout.",
+      "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry.",
       "home": {
         "formation": "3-5-2",
         "players": [
@@ -13245,7 +13246,7 @@
           }
         }
       ],
-      "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout.",
+      "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry.",
       "home": {
         "formation": "5-3-2",
         "players": [
@@ -13597,7 +13598,7 @@
           }
         }
       ],
-      "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout.",
+      "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry.",
       "home": {
         "formation": "4-1-2-3",
         "players": [
@@ -13949,7 +13950,7 @@
           }
         }
       ],
-      "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout.",
+      "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry.",
       "home": {
         "formation": "4-2-3-1",
         "players": [
@@ -14117,10 +14118,10 @@
     },
     "uruguay-cabo-verde-2026-06-21": {
       "status": "verified",
-      "layoutSource": "editorial-verified",
-      "checkedAt": "2026-07-03T06:11:46.942Z",
+      "layoutSource": "verified-layout",
+      "checkedAt": "2026-07-14T21:39:09.176Z",
       "sourceIds": [
-        "lineup-layout-verification-2026-07-03"
+        "lineup-layout-verification-2026-07-14"
       ],
       "homeTeamId": "URU",
       "awayTeamId": "CPV",
@@ -14144,79 +14145,79 @@
               {
                 "number": "23",
                 "name": "Fernando Muslera",
-                "position": "LW",
-                "x": 0.1,
-                "y": 0.1
+                "position": "GK",
+                "x": 50,
+                "y": 90
               },
               {
                 "number": "13",
                 "name": "Guillermo Varela",
-                "position": "ST",
-                "x": 0.3,
-                "y": 0.3
+                "position": "RB",
+                "x": 87.5,
+                "y": 70.8
               },
               {
                 "number": "3",
                 "name": "Sebastian Caceres",
-                "position": "RW",
-                "x": 0.3,
-                "y": 0.3
+                "position": "CB",
+                "x": 62.5,
+                "y": 70.8
               },
               {
                 "number": "16",
                 "name": "Mathias Olivera",
-                "position": "CM",
-                "x": 0.3,
-                "y": 0.3
+                "position": "CB",
+                "x": 37.5,
+                "y": 70.8
               },
               {
                 "number": "25",
                 "name": "Juan Manuel Sanabria",
-                "position": "CM",
-                "x": 0.3,
-                "y": 0.3
+                "position": "LB",
+                "x": 12.5,
+                "y": 70.8
               },
               {
                 "number": "6",
                 "name": "Rodrigo Bentancur",
                 "position": "DM",
-                "x": 0.5,
-                "y": 0.5
+                "x": 70,
+                "y": 51.5
               },
               {
                 "number": "5",
                 "name": "Manuel Ugarte",
-                "position": "LB",
-                "x": 0.5,
-                "y": 0.5
+                "position": "CM",
+                "x": 30,
+                "y": 51.5
               },
               {
                 "number": "14",
                 "name": "Agustin Canobbio",
-                "position": "CB",
-                "x": 0.7,
-                "y": 0.7
+                "position": "CM",
+                "x": 83.8,
+                "y": 32.2
               },
               {
                 "number": "8",
                 "name": "Federico Valverde",
-                "position": "CB",
-                "x": 0.7,
-                "y": 0.7
+                "position": "RW",
+                "x": 50,
+                "y": 32.2
               },
               {
                 "number": "20",
                 "name": "Maxi Araujo",
-                "position": "RB",
-                "x": 0.7,
-                "y": 0.7
+                "position": "LW",
+                "x": 16.3,
+                "y": 32.2
               },
               {
                 "number": "21",
                 "name": "Federico Vinas",
-                "position": "GK",
-                "x": 0.9,
-                "y": 0.9
+                "position": "ST",
+                "x": 50,
+                "y": 13
               }
             ]
           },
@@ -14226,168 +14227,168 @@
               {
                 "number": "1",
                 "name": "Vozinha",
-                "position": "LW",
-                "x": 0.1,
-                "y": 0.1
+                "position": "GK",
+                "x": 50,
+                "y": 90
               },
               {
                 "number": "22",
                 "name": "Steven Moreira",
-                "position": "ST",
-                "x": 0.3,
-                "y": 0.3
+                "position": "RB",
+                "x": 87.5,
+                "y": 70.8
               },
               {
                 "number": "4",
                 "name": "Roberto Lopes",
-                "position": "RW",
-                "x": 0.3,
-                "y": 0.3
+                "position": "CB",
+                "x": 62.5,
+                "y": 70.8
               },
               {
                 "number": "3",
                 "name": "Diney Borges",
-                "position": "CM",
-                "x": 0.3,
-                "y": 0.3
+                "position": "CB",
+                "x": 37.5,
+                "y": 70.8
               },
               {
                 "number": "13",
                 "name": "Sidny Lopes Cabral",
-                "position": "CM",
-                "x": 0.3,
-                "y": 0.3
+                "position": "LB",
+                "x": 12.5,
+                "y": 70.8
               },
               {
                 "number": "6",
                 "name": "Kevin Pina",
                 "position": "DM",
-                "x": 0.5,
-                "y": 0.5
+                "x": 50,
+                "y": 51.5
               },
               {
                 "number": "20",
                 "name": "Ryan Mendes",
-                "position": "LB",
-                "x": 0.7,
-                "y": 0.7
+                "position": "CM",
+                "x": 87.5,
+                "y": 32.2
               },
               {
                 "number": "18",
                 "name": "Telmo Arcanjo",
-                "position": "CB",
-                "x": 0.7,
-                "y": 0.7
+                "position": "CM",
+                "x": 62.5,
+                "y": 32.2
               },
               {
                 "number": "10",
                 "name": "Jamiro Monteiro",
-                "position": "CB",
-                "x": 0.7,
-                "y": 0.7
+                "position": "ST",
+                "x": 37.5,
+                "y": 32.2
               },
               {
                 "number": "11",
                 "name": "Garry Rodrigues",
-                "position": "RB",
-                "x": 0.7,
-                "y": 0.7
+                "position": "LW",
+                "x": 12.5,
+                "y": 32.2
               },
               {
                 "number": "9",
                 "name": "Gilson Benchimol",
-                "position": "GK",
-                "x": 0.9,
-                "y": 0.9
+                "position": "RW",
+                "x": 50,
+                "y": 11
               }
             ]
           },
           "signature": {
-            "home": "fernando muslera/guillermo varela/sebastian caceres|mathias olivera/juan manuel sanabria|rodrigo bentancur|manuel ugarte/agustin canobbio/federico valverde/maxi araujo|federico vinas",
-            "away": "vozinha/steven moreira/roberto lopes|diney borges/sidny lopes cabral|kevin pina|ryan mendes/telmo arcanjo/jamiro monteiro/garry rodrigues|gilson benchimol"
+            "home": "maxi araujo/federico vinas/federico valverde|manuel ugarte/agustin canobbio|rodrigo bentancur|juan manuel sanabria/mathias olivera/sebastian caceres/guillermo varela|fernando muslera",
+            "away": "garry rodrigues/jamiro monteiro/gilson benchimol|telmo arcanjo/ryan mendes|kevin pina|sidny lopes cabral/diney borges/roberto lopes/steven moreira|vozinha"
           }
         }
       ],
-      "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout.",
+      "note": "FIFA official team sheet kept for facts; FotMob supplied exact board geometry.",
       "home": {
         "formation": "4-1-2-3",
         "players": [
           {
             "number": "23",
             "name": "Fernando Muslera",
-            "position": "LW",
-            "x": 0.1,
-            "y": 0.1
+            "position": "GK",
+            "x": 50,
+            "y": 90
           },
           {
             "number": "13",
             "name": "Guillermo Varela",
-            "position": "ST",
-            "x": 99.7,
-            "y": 0.3
+            "position": "RB",
+            "x": 87.5,
+            "y": 70.8
           },
           {
             "number": "3",
             "name": "Sebastian Caceres",
-            "position": "LW",
-            "x": 0.3,
-            "y": 0.3
+            "position": "CB",
+            "x": 62.5,
+            "y": 70.8
           },
           {
             "number": "16",
             "name": "Mathias Olivera",
-            "position": "CM",
-            "x": 0.3,
-            "y": 0.3
+            "position": "CB",
+            "x": 37.5,
+            "y": 70.8
           },
           {
             "number": "25",
             "name": "Juan Manuel Sanabria",
-            "position": "CM",
-            "x": 0.3,
-            "y": 0.3
+            "position": "LB",
+            "x": 12.5,
+            "y": 70.8
           },
           {
             "number": "6",
             "name": "Rodrigo Bentancur",
             "position": "DM",
-            "x": 0.5,
-            "y": 0.5
+            "x": 70,
+            "y": 51.5
           },
           {
             "number": "5",
             "name": "Manuel Ugarte",
-            "position": "LB",
-            "x": 0.5,
-            "y": 0.5
+            "position": "CM",
+            "x": 30,
+            "y": 51.5
           },
           {
             "number": "14",
             "name": "Agustin Canobbio",
-            "position": "CB",
-            "x": 0.7,
-            "y": 0.7
+            "position": "CM",
+            "x": 83.8,
+            "y": 32.2
           },
           {
             "number": "8",
             "name": "Federico Valverde",
-            "position": "CB",
-            "x": 0.7,
-            "y": 0.7
+            "position": "RW",
+            "x": 50,
+            "y": 32.2
           },
           {
             "number": "20",
             "name": "Maxi Araujo",
-            "position": "LB",
-            "x": 0.7,
-            "y": 0.7
+            "position": "LW",
+            "x": 16.3,
+            "y": 32.2
           },
           {
             "number": "21",
             "name": "Federico Vinas",
-            "position": "GK",
-            "x": 0.9,
-            "y": 0.9
+            "position": "ST",
+            "x": 50,
+            "y": 13
           }
         ]
       },
@@ -14397,79 +14398,79 @@
           {
             "number": "1",
             "name": "Vozinha",
-            "position": "LW",
-            "x": 0.1,
-            "y": 0.1
+            "position": "GK",
+            "x": 50,
+            "y": 90
           },
           {
             "number": "22",
             "name": "Steven Moreira",
-            "position": "ST",
-            "x": 0.3,
-            "y": 0.3
+            "position": "RB",
+            "x": 87.5,
+            "y": 70.8
           },
           {
             "number": "4",
             "name": "Roberto Lopes",
-            "position": "LW",
-            "x": 0.3,
-            "y": 0.3
+            "position": "CB",
+            "x": 62.5,
+            "y": 70.8
           },
           {
             "number": "3",
             "name": "Diney Borges",
-            "position": "CM",
-            "x": 0.3,
-            "y": 0.3
+            "position": "CB",
+            "x": 37.5,
+            "y": 70.8
           },
           {
             "number": "13",
             "name": "Sidny Lopes Cabral",
-            "position": "CM",
-            "x": 0.3,
-            "y": 0.3
+            "position": "LB",
+            "x": 12.5,
+            "y": 70.8
           },
           {
             "number": "6",
             "name": "Kevin Pina",
             "position": "DM",
-            "x": 0.5,
-            "y": 0.5
+            "x": 50,
+            "y": 51.5
           },
           {
             "number": "20",
             "name": "Ryan Mendes",
-            "position": "LB",
-            "x": 0.7,
-            "y": 0.7
+            "position": "CM",
+            "x": 87.5,
+            "y": 32.2
           },
           {
             "number": "18",
             "name": "Telmo Arcanjo",
-            "position": "CB",
-            "x": 0.7,
-            "y": 0.7
+            "position": "CM",
+            "x": 62.5,
+            "y": 32.2
           },
           {
             "number": "10",
             "name": "Jamiro Monteiro",
-            "position": "CB",
-            "x": 0.7,
-            "y": 0.7
+            "position": "ST",
+            "x": 37.5,
+            "y": 32.2
           },
           {
             "number": "11",
             "name": "Garry Rodrigues",
-            "position": "LB",
-            "x": 0.7,
-            "y": 0.7
+            "position": "LW",
+            "x": 12.5,
+            "y": 32.2
           },
           {
             "number": "9",
             "name": "Gilson Benchimol",
-            "position": "GK",
-            "x": 0.9,
-            "y": 0.9
+            "position": "RW",
+            "x": 50,
+            "y": 11
           }
         ]
       }
@@ -14660,7 +14661,7 @@
           }
         }
       ],
-      "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout.",
+      "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry.",
       "home": {
         "formation": "4-4-2",
         "players": [
@@ -15012,7 +15013,7 @@
           }
         }
       ],
-      "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout.",
+      "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry.",
       "home": {
         "formation": "4-1-3-2",
         "players": [
@@ -15364,7 +15365,7 @@
           }
         }
       ],
-      "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout.",
+      "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry.",
       "home": {
         "formation": "4-2-3-1",
         "players": [
@@ -15716,7 +15717,7 @@
           }
         }
       ],
-      "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout.",
+      "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry.",
       "home": {
         "formation": "4-1-2-3",
         "players": [
@@ -15883,8 +15884,7 @@
       }
     },
     "jordan-algeria-2026-06-22": {
-      "status": "verified",
-      "layoutSource": "editorial-verified",
+      "status": "unresolved",
       "checkedAt": "2026-07-03T06:11:46.942Z",
       "sourceIds": [
         "lineup-layout-verification-2026-07-03"
@@ -15895,7 +15895,7 @@
         {
           "name": "ESPN",
           "url": "https://www.espn.com/soccer/match/_/gameId/760455",
-          "status": "matched",
+          "status": "conflict",
           "sourceDetail": "public match-center board geometry",
           "exactLayout": true,
           "home": {
@@ -16070,7 +16070,7 @@
         {
           "name": "FotMob",
           "url": "https://www.fotmob.com/matches/jordan-vs-algeria/17tvf0",
-          "status": "matched",
+          "status": "conflict",
           "sourceDetail": "lineup payload source: enetpulse",
           "exactLayout": true,
           "home": {
@@ -16243,7 +16243,7 @@
           }
         }
       ],
-      "note": "Row-order disagreement was detected, ESPN was selected as the primary source. Matched claim signatures: 1/2.",
+      "note": "Trusted public boards disagreed on tactical row order; stored pitch placement remains provisional.",
       "home": {
         "formation": "3-4-3",
         "players": [
@@ -16407,7 +16407,8 @@
             "y": 90.5
           }
         ]
-      }
+      },
+      "unresolvedReason": "conflict"
     },
     "portugal-uzbekistan-2026-06-23": {
       "status": "verified",
@@ -16595,7 +16596,7 @@
           }
         }
       ],
-      "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout.",
+      "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry.",
       "home": {
         "formation": "4-2-3-1",
         "players": [
@@ -16947,7 +16948,7 @@
           }
         }
       ],
-      "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout.",
+      "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry.",
       "home": {
         "formation": "4-2-3-1",
         "players": [
@@ -17299,7 +17300,7 @@
           }
         }
       ],
-      "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout.",
+      "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry.",
       "home": {
         "formation": "3-4-3",
         "players": [
@@ -17651,7 +17652,7 @@
           }
         }
       ],
-      "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout.",
+      "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry.",
       "home": {
         "formation": "4-1-2-3",
         "players": [
@@ -18003,7 +18004,7 @@
           }
         }
       ],
-      "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout.",
+      "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry.",
       "home": {
         "formation": "4-4-2",
         "players": [
@@ -18355,7 +18356,7 @@
           }
         }
       ],
-      "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout.",
+      "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry.",
       "home": {
         "formation": "4-4-2",
         "players": [
@@ -18707,7 +18708,7 @@
           }
         }
       ],
-      "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout.",
+      "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry.",
       "home": {
         "formation": "4-2-3-1",
         "players": [
@@ -19059,7 +19060,7 @@
           }
         }
       ],
-      "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout.",
+      "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry.",
       "home": {
         "formation": "4-2-3-1",
         "players": [
@@ -19411,7 +19412,7 @@
           }
         }
       ],
-      "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout.",
+      "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry.",
       "home": {
         "formation": "5-2-3",
         "players": [
@@ -19763,7 +19764,7 @@
           }
         }
       ],
-      "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout.",
+      "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry.",
       "home": {
         "formation": "4-2-3-1",
         "players": [
@@ -20115,7 +20116,7 @@
           }
         }
       ],
-      "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout.",
+      "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry.",
       "home": {
         "formation": "4-4-2",
         "players": [
@@ -20467,7 +20468,7 @@
           }
         }
       ],
-      "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout.",
+      "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry.",
       "home": {
         "formation": "5-4-1",
         "players": [
@@ -20819,7 +20820,7 @@
           }
         }
       ],
-      "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout.",
+      "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry.",
       "home": {
         "formation": "3-4-3",
         "players": [
@@ -21171,7 +21172,7 @@
           }
         }
       ],
-      "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout.",
+      "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry.",
       "home": {
         "formation": "5-4-1",
         "players": [
@@ -21523,7 +21524,7 @@
           }
         }
       ],
-      "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout.",
+      "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry.",
       "home": {
         "formation": "3-4-3",
         "players": [
@@ -21690,8 +21691,7 @@
       }
     },
     "paraguay-australia-2026-06-25": {
-      "status": "verified",
-      "layoutSource": "editorial-verified",
+      "status": "unresolved",
       "checkedAt": "2026-07-03T06:11:46.942Z",
       "sourceIds": [
         "lineup-layout-verification-2026-07-03"
@@ -21702,7 +21702,7 @@
         {
           "name": "ESPN",
           "url": "https://www.espn.com/soccer/match/_/gameId/760469",
-          "status": "matched",
+          "status": "conflict",
           "sourceDetail": "public match-center board geometry",
           "exactLayout": true,
           "home": {
@@ -21877,7 +21877,7 @@
         {
           "name": "FotMob",
           "url": "https://www.fotmob.com/matches/australia-vs-paraguay/1hs39g",
-          "status": "matched",
+          "status": "conflict",
           "sourceDetail": "lineup payload source: enetpulse",
           "exactLayout": true,
           "home": {
@@ -22050,7 +22050,7 @@
           }
         }
       ],
-      "note": "Row-order disagreement was detected, ESPN was selected as the primary source. Matched claim signatures: 1/2.",
+      "note": "Trusted public boards disagreed on tactical row order; stored pitch placement remains provisional.",
       "home": {
         "formation": "5-3-2",
         "players": [
@@ -22214,7 +22214,8 @@
             "y": 90.5
           }
         ]
-      }
+      },
+      "unresolvedReason": "conflict"
     },
     "norway-france-2026-06-26": {
       "status": "verified",
@@ -22402,7 +22403,7 @@
           }
         }
       ],
-      "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout.",
+      "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry.",
       "home": {
         "formation": "4-1-2-3",
         "players": [
@@ -22754,7 +22755,7 @@
           }
         }
       ],
-      "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout.",
+      "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry.",
       "home": {
         "formation": "4-1-2-3",
         "players": [
@@ -22921,21 +22922,19 @@
       }
     },
     "cabo-verde-saudi-arabia-2026-06-26": {
-      "status": "verified",
-      "layoutSource": "editorial-verified",
-      "checkedAt": "2026-07-03T06:11:46.942Z",
+      "status": "unresolved",
+      "unresolvedReason": "insufficient_evidence",
+      "checkedAt": "2026-07-14T21:39:09.176Z",
       "sourceIds": [
-        "lineup-layout-verification-2026-07-03"
+        "lineup-layout-verification-2026-07-14"
       ],
-      "homeTeamId": "CPV",
-      "awayTeamId": "KSA",
       "sources": [
         {
           "name": "ESPN",
           "adapter": "espn",
           "url": "https://www.espn.com/soccer/match/_/gameId/760478",
           "status": "unavailable",
-          "note": "Expected 11 starters per side from ESPN; parsed 10 home and 11 away."
+          "note": "Expected 11 starters per side from ESPN; parsed 10 home and 10 away."
         },
         {
           "name": "FotMob",
@@ -22949,79 +22948,79 @@
               {
                 "number": "1",
                 "name": "Vozinha",
-                "position": "LW",
-                "x": 0.1,
-                "y": 0.1
+                "position": "GK",
+                "x": 50,
+                "y": 90
               },
               {
                 "number": "24",
                 "name": "Wagner Pina",
-                "position": "ST",
-                "x": 0.3,
-                "y": 0.3
+                "position": "RB",
+                "x": 87.5,
+                "y": 70.8
               },
               {
                 "number": "4",
                 "name": "Roberto Lopes",
-                "position": "RW",
-                "x": 0.3,
-                "y": 0.3
+                "position": "CB",
+                "x": 62.5,
+                "y": 70.8
               },
               {
                 "number": "3",
                 "name": "Diney Borges",
-                "position": "CM",
-                "x": 0.3,
-                "y": 0.3
+                "position": "CB",
+                "x": 37.5,
+                "y": 70.8
               },
               {
                 "number": "8",
                 "name": "João Paulo",
-                "position": "CM",
-                "x": 0.3,
-                "y": 0.3
+                "position": "LB",
+                "x": 12.5,
+                "y": 70.8
               },
               {
                 "number": "6",
                 "name": "Kevin Pina",
                 "position": "DM",
-                "x": 0.5,
-                "y": 0.5
+                "x": 50,
+                "y": 51.5
               },
               {
                 "number": "20",
                 "name": "Ryan Mendes",
-                "position": "LB",
-                "x": 0.7,
-                "y": 0.7
+                "position": "CM",
+                "x": 87.5,
+                "y": 32.2
               },
               {
                 "number": "14",
                 "name": "Deroy Duarte",
-                "position": "CB",
-                "x": 0.7,
-                "y": 0.7
+                "position": "CM",
+                "x": 62.5,
+                "y": 32.2
               },
               {
                 "number": "10",
                 "name": "Jamiro Monteiro",
-                "position": "CB",
-                "x": 0.7,
-                "y": 0.7
+                "position": "ST",
+                "x": 37.5,
+                "y": 32.2
               },
               {
                 "number": "17",
                 "name": "Willy Semedo",
-                "position": "RB",
-                "x": 0.7,
-                "y": 0.7
+                "position": "LW",
+                "x": 12.5,
+                "y": 32.2
               },
               {
                 "number": "19",
                 "name": "Dailon Livramento",
-                "position": "GK",
-                "x": 0.9,
-                "y": 0.9
+                "position": "RW",
+                "x": 50,
+                "y": 11
               }
             ]
           },
@@ -23031,253 +23030,89 @@
               {
                 "number": "21",
                 "name": "Mohammed Al-Owais",
-                "position": "ST",
-                "x": 0.1,
-                "y": 0.1
+                "position": "GK",
+                "x": 50,
+                "y": 90
               },
               {
                 "number": "12",
                 "name": "Saud Abdulhamid",
-                "position": "ST",
-                "x": 0.4,
-                "y": 0.4
+                "position": "RB",
+                "x": 87.5,
+                "y": 64.3
               },
               {
                 "number": "4",
                 "name": "Abdulelah Al-Amri",
-                "position": "LM",
-                "x": 0.4,
-                "y": 0.4
+                "position": "CB",
+                "x": 62.5,
+                "y": 64.3
               },
               {
                 "number": "5",
                 "name": "Hassan Al-Tambakti",
-                "position": "CM",
-                "x": 0.4,
-                "y": 0.4
+                "position": "CB",
+                "x": 37.5,
+                "y": 64.3
               },
               {
-                "number": "13",
-                "name": "Nawaf Boushal",
-                "position": "CM",
-                "x": 0.4,
-                "y": 0.4
+                "number": "",
+                "name": "Nawaf Al-Boushail",
+                "position": "LB",
+                "x": 12.5,
+                "y": 64.3
               },
               {
                 "number": "20",
                 "name": "Sultan Mandash",
                 "position": "RM",
-                "x": 0.6,
-                "y": 0.6
+                "x": 87.5,
+                "y": 38.7
               },
               {
                 "number": "15",
                 "name": "Abdullah Al-Khaibari",
-                "position": "LB",
-                "x": 0.6,
-                "y": 0.6
+                "position": "CM",
+                "x": 62.5,
+                "y": 38.7
               },
               {
                 "number": "6",
                 "name": "Nasser Al-Dawsari",
-                "position": "CB",
-                "x": 0.6,
-                "y": 0.6
+                "position": "CM",
+                "x": 37.5,
+                "y": 38.7
               },
               {
                 "number": "10",
                 "name": "Salem Al-Dawsari",
-                "position": "CB",
-                "x": 0.6,
-                "y": 0.6
+                "position": "LM",
+                "x": 12.5,
+                "y": 38.7
               },
               {
                 "number": "9",
                 "name": "Firas Al-Buraikan",
-                "position": "RB",
-                "x": 0.9,
-                "y": 0.9
+                "position": "ST",
+                "x": 70,
+                "y": 13
               },
               {
                 "number": "23",
                 "name": "Mohamed Kanno",
-                "position": "GK",
-                "x": 0.9,
-                "y": 0.9
+                "position": "ST",
+                "x": 30,
+                "y": 13
               }
             ]
           },
           "signature": {
-            "home": "vozinha/wagner pina/roberto lopes|diney borges/joao paulo|kevin pina|ryan mendes/deroy duarte/jamiro monteiro/willy semedo|dailon livramento",
-            "away": "mohammed al owais/saud abdulhamid|abdulelah al amri/hassan al tambakti/nawaf boushal/sultan mandash|abdullah al khaibari/nasser al dawsari/salem al dawsari/firas al buraikan|mohamed kanno"
+            "home": "willy semedo/jamiro monteiro/dailon livramento|deroy duarte/ryan mendes|kevin pina|joao paulo/diney borges/roberto lopes/wagner pina|vozinha",
+            "away": "mohamed kanno/firas al buraikan|salem al dawsari/nasser al dawsari/abdullah al khaibari/sultan mandash|nawaf al boushail/hassan al tambakti/abdulelah al amri/saud abdulhamid|mohammed al owais"
           }
         }
       ],
-      "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout.",
-      "home": {
-        "formation": "4-1-2-3",
-        "players": [
-          {
-            "number": "1",
-            "name": "Vozinha",
-            "position": "LW",
-            "x": 0.1,
-            "y": 0.1
-          },
-          {
-            "number": "24",
-            "name": "Wagner Pina",
-            "position": "ST",
-            "x": 99.7,
-            "y": 0.3
-          },
-          {
-            "number": "4",
-            "name": "Roberto Lopes",
-            "position": "LW",
-            "x": 0.3,
-            "y": 0.3
-          },
-          {
-            "number": "3",
-            "name": "Diney Borges",
-            "position": "CM",
-            "x": 0.3,
-            "y": 0.3
-          },
-          {
-            "number": "8",
-            "name": "João Paulo",
-            "position": "CM",
-            "x": 0.3,
-            "y": 0.3
-          },
-          {
-            "number": "6",
-            "name": "Kevin Pina",
-            "position": "DM",
-            "x": 0.5,
-            "y": 0.5
-          },
-          {
-            "number": "20",
-            "name": "Ryan Mendes",
-            "position": "LB",
-            "x": 0.7,
-            "y": 0.7
-          },
-          {
-            "number": "14",
-            "name": "Deroy Duarte",
-            "position": "CB",
-            "x": 0.7,
-            "y": 0.7
-          },
-          {
-            "number": "10",
-            "name": "Jamiro Monteiro",
-            "position": "CB",
-            "x": 0.7,
-            "y": 0.7
-          },
-          {
-            "number": "17",
-            "name": "Willy Semedo",
-            "position": "LB",
-            "x": 0.7,
-            "y": 0.7
-          },
-          {
-            "number": "19",
-            "name": "Dailon Livramento",
-            "position": "GK",
-            "x": 0.9,
-            "y": 0.9
-          }
-        ]
-      },
-      "away": {
-        "formation": "4-4-2",
-        "players": [
-          {
-            "number": "21",
-            "name": "Mohammed Al-Owais",
-            "position": "ST",
-            "x": 0.1,
-            "y": 0.1
-          },
-          {
-            "number": "12",
-            "name": "Saud Abdulhamid",
-            "position": "ST",
-            "x": 99.6,
-            "y": 0.4
-          },
-          {
-            "number": "4",
-            "name": "Abdulelah Al-Amri",
-            "position": "LM",
-            "x": 0.4,
-            "y": 0.4
-          },
-          {
-            "number": "5",
-            "name": "Hassan Al-Tambakti",
-            "position": "CM",
-            "x": 0.4,
-            "y": 0.4
-          },
-          {
-            "number": "13",
-            "name": "Nawaf Boushal",
-            "position": "CM",
-            "x": 99.6,
-            "y": 0.4
-          },
-          {
-            "number": "20",
-            "name": "Sultan Mandash",
-            "position": "LM",
-            "x": 0.6,
-            "y": 0.6
-          },
-          {
-            "number": "15",
-            "name": "Abdullah Al-Khaibari",
-            "position": "LB",
-            "x": 0.6,
-            "y": 0.6
-          },
-          {
-            "number": "6",
-            "name": "Nasser Al-Dawsari",
-            "position": "CB",
-            "x": 0.6,
-            "y": 0.6
-          },
-          {
-            "number": "10",
-            "name": "Salem Al-Dawsari",
-            "position": "CB",
-            "x": 0.6,
-            "y": 0.6
-          },
-          {
-            "number": "9",
-            "name": "Firas Al-Buraikan",
-            "position": "LB",
-            "x": 0.9,
-            "y": 0.9
-          },
-          {
-            "number": "23",
-            "name": "Mohamed Kanno",
-            "position": "GK",
-            "x": 0.9,
-            "y": 0.9
-          }
-        ]
-      }
+      "note": "cabo-verde-saudi-arabia-2026-06-26 away missing official starter Nawaf Boushal"
     },
     "uruguay-spain-2026-06-26": {
       "status": "verified",
@@ -23465,7 +23300,7 @@
           }
         }
       ],
-      "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout.",
+      "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry.",
       "home": {
         "formation": "4-1-2-3",
         "players": [
@@ -23817,7 +23652,7 @@
           }
         }
       ],
-      "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout.",
+      "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry.",
       "home": {
         "formation": "4-2-3-1",
         "players": [
@@ -24169,7 +24004,7 @@
           }
         }
       ],
-      "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout.",
+      "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry.",
       "home": {
         "formation": "4-2-3-1",
         "players": [
@@ -24521,7 +24356,7 @@
           }
         }
       ],
-      "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout.",
+      "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry.",
       "home": {
         "formation": "3-4-3",
         "players": [
@@ -24873,7 +24708,7 @@
           }
         }
       ],
-      "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout.",
+      "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry.",
       "home": {
         "formation": "4-2-3-1",
         "players": [
@@ -25225,7 +25060,7 @@
           }
         }
       ],
-      "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout.",
+      "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry.",
       "home": {
         "formation": "4-1-2-3",
         "players": [
@@ -25577,7 +25412,7 @@
           }
         }
       ],
-      "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout.",
+      "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry.",
       "home": {
         "formation": "4-4-2",
         "players": [
@@ -25744,8 +25579,7 @@
       }
     },
     "algeria-austria-2026-06-27": {
-      "status": "verified",
-      "layoutSource": "editorial-verified",
+      "status": "unresolved",
       "checkedAt": "2026-07-03T06:11:46.942Z",
       "sourceIds": [
         "lineup-layout-verification-2026-07-03"
@@ -25756,7 +25590,7 @@
         {
           "name": "ESPN",
           "url": "https://www.espn.com/soccer/match/_/gameId/760484",
-          "status": "matched",
+          "status": "conflict",
           "sourceDetail": "public match-center board geometry",
           "exactLayout": true,
           "home": {
@@ -25931,7 +25765,7 @@
         {
           "name": "FotMob",
           "url": "https://www.fotmob.com/matches/algeria-vs-austria/1r7yil",
-          "status": "matched",
+          "status": "conflict",
           "sourceDetail": "lineup payload source: enetpulse",
           "exactLayout": true,
           "home": {
@@ -26104,7 +25938,7 @@
           }
         }
       ],
-      "note": "Row-order disagreement was detected, ESPN was selected as the primary source. Matched claim signatures: 1/2.",
+      "note": "Trusted public boards disagreed on tactical row order; stored pitch placement remains provisional.",
       "home": {
         "formation": "4-2-3-1",
         "players": [
@@ -26268,7 +26102,8 @@
             "y": 90.5
           }
         ]
-      }
+      },
+      "unresolvedReason": "conflict"
     },
     "jordan-argentina-2026-06-27": {
       "status": "verified",
@@ -26456,7 +26291,7 @@
           }
         }
       ],
-      "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout.",
+      "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry.",
       "home": {
         "formation": "3-4-3",
         "players": [
@@ -26808,7 +26643,7 @@
           }
         }
       ],
-      "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout.",
+      "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry.",
       "home": {
         "formation": "4-2-3-1",
         "players": [
@@ -27160,7 +26995,7 @@
           }
         }
       ],
-      "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout.",
+      "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry.",
       "home": {
         "formation": "4-2-3-1",
         "players": [
@@ -27512,7 +27347,7 @@
           }
         }
       ],
-      "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout.",
+      "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry.",
       "home": {
         "formation": "3-4-3",
         "players": [
@@ -27864,7 +27699,7 @@
           }
         }
       ],
-      "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout.",
+      "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry.",
       "home": {
         "formation": "4-1-2-3",
         "players": [
@@ -28216,7 +28051,7 @@
           }
         }
       ],
-      "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout.",
+      "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry.",
       "home": {
         "formation": "4-2-3-1",
         "players": [
@@ -28568,7 +28403,7 @@
           }
         }
       ],
-      "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout.",
+      "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry.",
       "home": {
         "formation": "4-1-2-3",
         "players": [
@@ -28920,7 +28755,7 @@
           }
         }
       ],
-      "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout.",
+      "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry.",
       "home": {
         "formation": "4-1-2-3",
         "players": [
@@ -29087,8 +28922,7 @@
       }
     },
     "match-80-round-of-32-2026-07-01": {
-      "status": "verified",
-      "layoutSource": "editorial-verified",
+      "status": "unresolved",
       "checkedAt": "2026-07-03T06:11:46.942Z",
       "sourceIds": [
         "lineup-layout-verification-2026-07-03"
@@ -29099,7 +28933,7 @@
         {
           "name": "ESPN",
           "url": "https://www.espn.com/soccer/match/_/gameId/760495/congo-dr-england",
-          "status": "matched",
+          "status": "conflict",
           "sourceDetail": "public match-center board geometry",
           "exactLayout": true,
           "home": {
@@ -29274,7 +29108,7 @@
         {
           "name": "FotMob",
           "url": "https://www.fotmob.com/matches/dr-congo-vs-england/1tbjj5",
-          "status": "matched",
+          "status": "conflict",
           "sourceDetail": "lineup payload source: enetpulse",
           "exactLayout": true,
           "home": {
@@ -29447,7 +29281,7 @@
           }
         }
       ],
-      "note": "Row-order disagreement was detected, ESPN was selected as the primary source. Matched claim signatures: 1/2.",
+      "note": "Trusted public boards disagreed on tactical row order; stored pitch placement remains provisional.",
       "home": {
         "formation": "4-2-3-1",
         "players": [
@@ -29611,11 +29445,11 @@
             "y": 90.5
           }
         ]
-      }
+      },
+      "unresolvedReason": "conflict"
     },
     "match-81-round-of-32-2026-07-01": {
-      "status": "verified",
-      "layoutSource": "editorial-verified",
+      "status": "unresolved",
       "checkedAt": "2026-07-03T06:11:46.942Z",
       "sourceIds": [
         "lineup-layout-verification-2026-07-03"
@@ -29626,7 +29460,7 @@
         {
           "name": "ESPN",
           "url": "https://www.espn.com/soccer/match/_/gameId/760494/bosnia-herzegovina-united-states",
-          "status": "matched",
+          "status": "conflict",
           "sourceDetail": "public match-center board geometry",
           "exactLayout": true,
           "home": {
@@ -29801,7 +29635,7 @@
         {
           "name": "FotMob",
           "url": "https://www.fotmob.com/matches/usa-vs-bosnia-herzegovina/2c7uzr",
-          "status": "matched",
+          "status": "conflict",
           "sourceDetail": "lineup payload source: enetpulse",
           "exactLayout": true,
           "home": {
@@ -29974,7 +29808,7 @@
           }
         }
       ],
-      "note": "Row-order disagreement was detected, ESPN was selected as the primary source. Matched claim signatures: 1/2.",
+      "note": "Trusted public boards disagreed on tactical row order; stored pitch placement remains provisional.",
       "home": {
         "formation": "3-5-2",
         "players": [
@@ -30138,11 +29972,11 @@
             "y": 90.5
           }
         ]
-      }
+      },
+      "unresolvedReason": "conflict"
     },
     "match-84-round-of-32-2026-07-02": {
-      "status": "verified",
-      "layoutSource": "editorial-verified",
+      "status": "unresolved",
       "checkedAt": "2026-07-03T06:11:46.942Z",
       "sourceIds": [
         "lineup-layout-verification-2026-07-03"
@@ -30153,7 +29987,7 @@
         {
           "name": "ESPN",
           "url": "https://www.espn.com/soccer/match/_/gameId/760497/austria-spain",
-          "status": "matched",
+          "status": "conflict",
           "sourceDetail": "public match-center board geometry",
           "exactLayout": true,
           "home": {
@@ -30328,7 +30162,7 @@
         {
           "name": "FotMob",
           "url": "https://www.fotmob.com/matches/spain-vs-austria/i9x9deku",
-          "status": "matched",
+          "status": "conflict",
           "sourceDetail": "lineup payload source: enetpulse",
           "exactLayout": true,
           "home": {
@@ -30501,7 +30335,7 @@
           }
         }
       ],
-      "note": "Row-order disagreement was detected, ESPN was selected as the primary source. Matched claim signatures: 1/2.",
+      "note": "Trusted public boards disagreed on tactical row order; stored pitch placement remains provisional.",
       "home": {
         "formation": "4-1-2-3",
         "players": [
@@ -30665,7 +30499,8 @@
             "y": 90.5
           }
         ]
-      }
+      },
+      "unresolvedReason": "conflict"
     },
     "match-83-round-of-32-2026-07-02": {
       "status": "verified",
@@ -30853,7 +30688,7 @@
           }
         }
       ],
-      "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout.",
+      "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry.",
       "home": {
         "formation": "4-2-3-1",
         "players": [
@@ -31205,7 +31040,7 @@
           }
         }
       ],
-      "note": "FIFA official team sheet kept for facts; ESPN board geometry and FotMob lineup rows agreed on the tactical layout.",
+      "note": "FIFA official team sheet kept for facts; ESPN supplied exact board geometry.",
       "home": {
         "formation": "4-2-3-1",
         "players": [
@@ -34733,7 +34568,7 @@
           }
         }
       ],
-      "note": "FIFA official team sheet kept for facts; Google lineup visual manually verified Egypt attacking placement: Zico central striker, Salah central attacking midfielder, Haissem Hassan right winger.",
+      "note": "FIFA official team sheet kept for facts; Google supplied exact board geometry.",
       "home": {
         "formation": "4-1-3-2",
         "players": [
@@ -35084,7 +34919,7 @@
           }
         }
       ],
-      "note": "FIFA official team sheet kept for facts; Google lineup visual manually verified Colombia placement: James high right, Arias left central midfield, Puerta right central midfield, Lucumi left centre-back, Sanchez right centre-back.",
+      "note": "FIFA official team sheet kept for facts; Google supplied exact board geometry.",
       "home": {
         "formation": "4-1-2-3",
         "players": [

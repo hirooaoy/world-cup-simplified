@@ -14,10 +14,24 @@ const marketFreshHours = Number(process.env.MATCHDAY_MARKET_FRESH_HOURS || 24);
 const contextFreshHours = Number(process.env.MATCHDAY_CONTEXT_FRESH_HOURS || 72);
 const squadFreshHours = Number(process.env.MATCHDAY_SQUAD_FRESH_HOURS || 24);
 const matchupResearchFreshHours = Number(process.env.MATCHDAY_MATCHUP_RESEARCH_FRESH_HOURS || 24);
+const lineupPreviewFreshHours = Number(process.env.MATCHDAY_LINEUP_PREVIEW_FRESH_HOURS || 24);
+const lineupResearchRequiredHours = Number(process.env.MATCHDAY_LINEUP_RESEARCH_REQUIRED_HOURS || 72);
+const lineupPlanningHorizonHours = Number(process.env.MATCHDAY_LINEUP_PLANNING_HORIZON_HOURS || 168);
 const editorialWarnOnly = /^(1|true|yes)$/i.test(process.env.MATCHDAY_EDITORIAL_WARN_ONLY || "");
 
 async function readJson(fileName) {
   return JSON.parse(await readFile(path.join(dataDir, fileName), "utf8"));
+}
+
+async function readOptionalJson(fileName, fallback) {
+  try {
+    return await readJson(fileName);
+  } catch (error) {
+    if (error?.code === "ENOENT") {
+      return fallback;
+    }
+    throw error;
+  }
 }
 
 function getDayKey(date) {
@@ -131,13 +145,19 @@ function getFixtureUnavailable(playerAvailabilityData, fixture) {
 }
 
 const [
+  expectedLineupsData,
   fixturesData,
+  freeLineupPredictionsData,
+  lineupsData,
   matchupResearchData,
   playerAvailabilityData,
   teamsData,
   tournamentData
 ] = await Promise.all([
+  readOptionalJson("expected-lineups.json", { fixtures: [] }),
   readJson("fixtures.json"),
+  readOptionalJson("free-lineup-prediction-sources.json", { sources: [], fixtures: [] }),
+  readJson("lineups.json"),
   readJson("matchup-research-notes.json"),
   readJson("player-availability.json"),
   readJson("teams.json"),
@@ -145,7 +165,16 @@ const [
 ]);
 
 const teamsById = new Map((teamsData.teams || []).map((team) => [team.id, team]));
-const sourceById = new Map((tournamentData.sources || []).map((source) => [source.id, source]));
+const sourceById = new Map(
+  [...(tournamentData.sources || []), ...(freeLineupPredictionsData.sources || [])]
+    .map((source) => [source.id, source])
+);
+const expectedLineupByFixtureId = new Map(
+  (expectedLineupsData.fixtures || []).map((record) => [record.fixtureId, record])
+);
+const curatedLineupSourcesByFixtureId = new Map(
+  (freeLineupPredictionsData.fixtures || []).map((record) => [record.fixtureId, record.sources || []])
+);
 const todayKey = getDayKey(now);
 const tomorrowKey = addDays(todayKey, 1);
 const fixtures = [...(fixturesData.fixtures || [])].sort(
@@ -153,13 +182,25 @@ const fixtures = [...(fixturesData.fixtures || [])].sort(
 );
 const focusFixtures = fixtures.filter((fixture) => {
   const dayKey = getDayKey(new Date(fixture.kickoffUtc));
-  return dayKey === todayKey || dayKey === tomorrowKey;
+  const hoursUntilKickoff = hoursBetween(new Date(fixture.kickoffUtc), now);
+  return (
+    dayKey === todayKey ||
+    dayKey === tomorrowKey ||
+    (
+      ["SCHEDULED", "DELAYED"].includes(fixture.status) &&
+      fixture.homeTeamId &&
+      fixture.awayTeamId &&
+      hoursUntilKickoff >= 0 &&
+      hoursUntilKickoff <= lineupPlanningHorizonHours
+    )
+  );
 });
 const blockers = [];
 const editorialWarnings = [];
 const actions = [];
 const sourceRefreshes = new Map();
 const matchupResearchRows = [];
+const lineupPredictionRows = [];
 
 function getFixtureResearch(fixture) {
   return matchupResearchData?.fixtures?.[fixture.id] || null;
@@ -210,6 +251,75 @@ for (const fixture of focusFixtures) {
 
   if (fixture.status === "FT" && !fixture.score) {
     blockers.push(`${label} is FT but has no score.`);
+  }
+
+  if (
+    ["SCHEDULED", "DELAYED"].includes(fixture.status) &&
+    fixture.homeTeamId &&
+    fixture.awayTeamId &&
+    !lineupsData.lineups?.[fixture.id]
+  ) {
+    const expectedLineup = expectedLineupByFixtureId.get(fixture.id);
+    const curatedSources = curatedLineupSourcesByFixtureId.get(fixture.id) || [];
+    const newestCuratedAt = curatedSources
+      .map((source) => new Date(source.checkedAt || "").getTime())
+      .filter(Number.isFinite)
+      .sort((left, right) => right - left)[0];
+    const curatedAge = Number.isFinite(newestCuratedAt)
+      ? hoursBetween(now, new Date(newestCuratedAt))
+      : Infinity;
+    lineupPredictionRows.push({ curatedAge, curatedSources, expectedLineup, fixture, label });
+    const expectedUpdatedAt = new Date(expectedLineup?.lastUpdated || expectedLineupsData.generatedAt || "");
+    const expectedAge = Number.isNaN(expectedUpdatedAt.getTime())
+      ? Infinity
+      : hoursBetween(now, expectedUpdatedAt);
+    const expectedPredatesResearch = Number.isFinite(newestCuratedAt) &&
+      (Number.isNaN(expectedUpdatedAt.getTime()) || expectedUpdatedAt.getTime() < newestCuratedAt);
+
+    if (!expectedLineup) {
+      const message = `${label} has confirmed teams but no expected lineup. Run pnpm lineups:predict.`;
+      if (hoursUntilKickoff <= lineupResearchRequiredHours) {
+        addEditorialFreshnessIssue(message);
+      } else {
+        actions.push(message);
+      }
+    } else if (!curatedSources.length) {
+      const message = `${label} is using the automatic recent-official-XI baseline only; research and add fresh probable-lineup sources before kickoff.`;
+      if (hoursUntilKickoff <= lineupResearchRequiredHours) {
+        addEditorialFreshnessIssue(message);
+      } else {
+        actions.push(message);
+      }
+    } else if (curatedAge > lineupPreviewFreshHours) {
+      const message = `${label} probable-lineup research is ${Number.isFinite(curatedAge) ? `${curatedAge.toFixed(1)}h` : "invalid"} old; refresh team news and regenerate expected lineups.`;
+      if (hoursUntilKickoff <= lineupResearchRequiredHours) {
+        addEditorialFreshnessIssue(message);
+      } else {
+        actions.push(message);
+      }
+    } else if (expectedPredatesResearch) {
+      addEditorialFreshnessIssue(`${label} expected lineup predates its newest curated source. Run pnpm lineups:predict.`);
+    } else if (expectedAge > lineupPreviewFreshHours) {
+      addEditorialFreshnessIssue(
+        `${label} expected lineup is ${Number.isFinite(expectedAge) ? `${expectedAge.toFixed(1)}h` : "invalid"} old. Regenerate it.`
+      );
+    }
+
+    if (expectedLineup) {
+      const unavailable = getFixtureUnavailable(playerAvailabilityData, fixture);
+      const predictedNames = [
+        ...(expectedLineup.lineup?.home?.players || []),
+        ...(expectedLineup.lineup?.home?.bench || []),
+        ...(expectedLineup.lineup?.away?.players || []),
+        ...(expectedLineup.lineup?.away?.bench || [])
+      ].map((player) => String(player?.name || "").toLowerCase().replace(/[^a-z0-9]/g, ""));
+      for (const player of unavailable) {
+        const unavailableKey = String(player.name || "").toLowerCase().replace(/[^a-z0-9]/g, "");
+        if (unavailableKey && predictedNames.includes(unavailableKey)) {
+          blockers.push(`${label} expected lineup still includes unavailable ${player.name}. Regenerate after updating availability.`);
+        }
+      }
+    }
   }
 
   if (fixture.stage === "group" && fixture.status !== "FT" && fixture.homeTeamId && fixture.awayTeamId) {
@@ -271,7 +381,7 @@ console.log(`Now: ${formatDateTime(now)}`);
 console.log(`Editorial freshness: ${editorialWarnOnly ? "warn-only" : "strict"}`);
 console.log("");
 
-console.log(`Today (${todayKey}) and tomorrow (${tomorrowKey})`);
+console.log(`Today (${todayKey}), tomorrow (${tomorrowKey}), and confirmed fixtures within ${lineupPlanningHorizonHours}h`);
 for (const fixture of focusFixtures) {
   const kickoff = new Date(fixture.kickoffUtc);
   const score = fixture.score ? ` ${fixture.score.home}-${fixture.score.away}` : "";
@@ -289,13 +399,27 @@ for (const fixture of focusFixtures) {
   }
 }
 if (!printedAvailability) {
-  console.log("- No fixture-specific absences recorded for today/tomorrow.");
+  console.log("- No fixture-specific absences recorded for the focus fixtures.");
+}
+
+console.log("");
+console.log("Lineup predictions");
+if (!lineupPredictionRows.length) {
+  console.log("- No unconfirmed lineup projections needed within the planning horizon.");
+} else {
+  for (const row of lineupPredictionRows) {
+    const mode = row.expectedLineup?.mode || "missing";
+    const sourceText = row.curatedSources.length
+      ? `${row.curatedSources.length} curated source(s), newest ${row.curatedAge.toFixed(1)}h old`
+      : "official-history baseline only";
+    console.log(`- ${row.label}: ${mode}; ${sourceText}.`);
+  }
 }
 
 console.log("");
 console.log("Fixture matchup research");
 if (!matchupResearchRows.length) {
-  console.log("- No source-backed fixture research notes loaded for today/tomorrow.");
+  console.log("- No source-backed fixture research notes loaded for the focus fixtures.");
 } else {
   for (const row of matchupResearchRows) {
     const sourceCount = row.research.sourceIds?.length || 0;
@@ -321,7 +445,7 @@ if (!blockers.length && !editorialWarnings.length && !actions.length) {
 }
 
 console.log("");
-console.log("Source freshness for today/tomorrow");
+console.log("Source freshness for focus fixtures");
 if (!sourceRefreshes.size) {
   console.log("- No focused source refreshes needed.");
 } else {
@@ -333,8 +457,12 @@ if (!sourceRefreshes.size) {
 
 console.log("");
 console.log("Automation note");
-console.log("- Production auto updates require /api/live-data with a configured provider key.");
-console.log("- Committed static JSON updates require pnpm sync:fifa and a commit/deploy.");
+console.log(
+  "- Runtime /api/live-data fetches FIFA official scores and near-kickoff lineups even when the configured primary provider is unavailable; the primary provider is still used when configured."
+);
+console.log(
+  "- The scheduled Sync FIFA Results Hybrid workflow checks every 30 minutes during the tournament and commits changed static JSON; local-only runs still need a commit/deploy before production sees them."
+);
 
 if (blockers.length) {
   process.exitCode = 1;

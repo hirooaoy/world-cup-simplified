@@ -1,6 +1,6 @@
 export const LINEUP_PREDICTION_SCHEMA_VERSION = "2";
 export const LINEUP_PREDICTION_ENGINE_ID = "lineup-prediction-engine";
-export const LINEUP_PREDICTION_ENGINE_VERSION = "1";
+export const LINEUP_PREDICTION_ENGINE_VERSION = "2";
 export const EXPECTED_LINEUP_LAYOUT_SOURCE = "derived-team-sheet-order";
 
 export const EXPECTED_LINEUP_MODES = new Set(["expected", "probable"]);
@@ -52,6 +52,8 @@ export function createPredictionSource({
   id,
   label,
   note = "",
+  sourceRole = "",
+  suppliesLineup = false,
   type = "lineup-prediction",
   url = ""
 }) {
@@ -67,6 +69,8 @@ export function createPredictionSource({
     label: String(label).trim(),
     type: String(type || "lineup-prediction").trim(),
     checkedAt: isoTimestamp(checkedAt),
+    ...(sourceRole ? { sourceRole: String(sourceRole).trim() } : {}),
+    ...(suppliesLineup ? { suppliesLineup: true } : {}),
     ...(url ? { url: String(url) } : {}),
     ...(note ? { note: String(note) } : {})
   };
@@ -168,7 +172,8 @@ export function createPredictedSide({
   evidence = [],
   formation,
   players,
-  sourceIds = []
+  sourceIds = [],
+  teamId
 }) {
   if (!formation || !String(formation).trim()) {
     throw new Error("Predicted side requires formation");
@@ -176,8 +181,12 @@ export function createPredictedSide({
   if (!Array.isArray(players) || players.length !== 11) {
     throw new Error("Predicted side requires exactly 11 starters");
   }
+  if (!teamId || !String(teamId).trim()) {
+    throw new Error("Predicted side requires teamId");
+  }
 
   return {
+    teamId: String(teamId).trim(),
     formation: String(formation).trim(),
     ...(coach ? { coach } : {}),
     players,
@@ -196,6 +205,7 @@ export function createExpectedLineupRecord({
   lineup,
   mode = "expected",
   notes = [],
+  predictionClass = "forecast",
   providerRefs = [],
   sourceIds = []
 }) {
@@ -217,6 +227,7 @@ export function createExpectedLineupRecord({
   return {
     fixtureId: String(fixtureId).trim(),
     mode: normalizedMode,
+    predictionClass: predictionClass === "reported-xi-assisted" ? "reported-xi-assisted" : "forecast",
     sourceIds: normalizedSourceIds,
     lastUpdated: normalizedLastUpdated,
     confidence: normalizedConfidence,
@@ -226,6 +237,7 @@ export function createExpectedLineupRecord({
     lineup: {
       ...lineup,
       mode: normalizedMode,
+      predictionClass: predictionClass === "reported-xi-assisted" ? "reported-xi-assisted" : "forecast",
       teamSheetSource: lineup.teamSheetSource || "editorial",
       eventSource: lineup.eventSource || "editorial",
       layoutSource: lineup.layoutSource || EXPECTED_LINEUP_LAYOUT_SOURCE,

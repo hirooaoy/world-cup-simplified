@@ -1,4 +1,8 @@
-import { isPlayerNameMatch, normalizePlayerName } from "../../player-name-matching.mjs";
+import {
+  getCanonicalPlayerKey,
+  normalizePlayerName,
+  resolvePlayerNameInPool
+} from "../../player-name-matching.mjs";
 
 export const LOCAL_OFFICIAL_HISTORY_PROVIDER_ID = "local-official-history";
 
@@ -22,12 +26,22 @@ function playerName(player) {
   return String(player?.name || player?.fullName || player?.displayName || "").trim();
 }
 
-function samePlayer(left, right) {
-  return isPlayerNameMatch(playerName(left), playerName(right));
+function samePlayer(left, right, resolveIdentity) {
+  const leftKey = getCanonicalPlayerKey(playerName(left));
+  if (leftKey && leftKey === getCanonicalPlayerKey(playerName(right))) return true;
+  if (!resolveIdentity) return false;
+  const leftIdentity = resolveIdentity(left);
+  const rightIdentity = resolveIdentity(right);
+  return Boolean(
+    leftIdentity.status === "matched" &&
+    rightIdentity.status === "matched" &&
+    leftIdentity.key === rightIdentity.key
+  );
 }
 
-function playerKey(player) {
-  return normalizePlayerName(playerName(player));
+function playerKey(player, resolveIdentity) {
+  const identity = resolveIdentity?.(player);
+  return identity?.status === "matched" ? identity.key : normalizePlayerName(playerName(player));
 }
 
 function getProfileSide(profile = {}) {
@@ -56,11 +70,16 @@ function buildProfileLookup(playerProfilesData = {}) {
 
 function getPlayerProfileSide(profileLookup, teamId, name) {
   const normalizedName = normalizePlayerName(name);
-  const profile =
-    profileLookup.get(`${teamId}:${normalizedName}`) ||
-    [...profileLookup.values()].find((candidate) =>
-      (!teamId || candidate.teamId === teamId) && isPlayerNameMatch(name, candidate.name || candidate.displayName)
-    );
+  const exact = profileLookup.get(`${teamId}:${normalizedName}`);
+  const teamProfiles = [...new Set(profileLookup.values())]
+    .filter((candidate) => !teamId || candidate.teamId === teamId);
+  const resolved = exact
+    ? { status: "matched", candidate: exact }
+    : resolvePlayerNameInPool(name, teamProfiles, {
+        getIdentityKey: (candidate) => candidate.name || candidate.displayName,
+        getNames: (candidate) => [candidate.name, candidate.displayName]
+      });
+  const profile = resolved.status === "matched" ? resolved.candidate : null;
 
   return getProfileSide(profile);
 }
@@ -125,19 +144,19 @@ function getTeamHistory({ fixtures, lineupsByFixtureId, teamId, targetFixture })
     .slice(0, RECENT_LIMIT);
 }
 
-function minutesForLineup(teamLineup, matchLength = 90) {
+function minutesForLineup(teamLineup, matchLength = 90, resolveIdentity) {
   const minutes = new Map();
   const starters = teamLineup.players || [];
   const substitutions = teamLineup.events?.substitutions || [];
 
   for (const starter of starters) {
-    minutes.set(playerKey(starter), matchLength);
+    minutes.set(playerKey(starter, resolveIdentity), matchLength);
   }
 
   for (const substitution of substitutions) {
     const minute = Math.max(0, Math.min(matchLength, parseMinute(substitution.minute)));
-    const offKey = normalizePlayerName(substitution.offName);
-    const onKey = normalizePlayerName(substitution.onName);
+    const offKey = playerKey({ name: substitution.offName }, resolveIdentity);
+    const onKey = playerKey({ name: substitution.onName }, resolveIdentity);
     if (offKey && minutes.has(offKey)) {
       minutes.set(offKey, Math.min(minutes.get(offKey), minute));
     }
@@ -159,23 +178,37 @@ function getAvailabilityEntries(playerAvailabilityData, teamId, fixtureId) {
   ];
 }
 
-function getSuspensionRiskEntries(history) {
-  const latest = history[0];
-  const cards = latest?.teamLineup?.events?.cards || [];
-  return cards
-    .filter((card) => card.type === "red")
-    .map((card) => ({
-      name: card.playerName,
-      reason: "Red card in previous official match; treated as suspension risk.",
-      sourceId: latest.lineups?.sourceIds?.[0] || ""
-    }));
+function createTeamIdentityResolver({ history, profileLookup, teamId }) {
+  const roster = [...new Set(profileLookup.values())]
+    .filter((profile) => profile?.teamId === teamId);
+  const candidatePool = history.flatMap((item) => [
+    ...(item.teamLineup.players || []),
+    ...(item.teamLineup.bench || [])
+  ]);
+  const primaryPool = roster.length ? roster : candidatePool;
+
+  return (value) => {
+    const primary = resolvePlayerNameInPool(value, primaryPool, roster.length
+      ? {
+          getIdentityKey: (profile) => profile.name || profile.displayName,
+          getNames: (profile) => [profile.name, profile.displayName]
+        }
+      : { getName: playerName });
+    if (primary.status !== "unmatched" || primaryPool === candidatePool) return primary;
+    return resolvePlayerNameInPool(value, candidatePool, { getName: playerName });
+  };
 }
 
-function isUnavailable(player, unavailableEntries) {
-  return unavailableEntries.some((entry) => isPlayerNameMatch(playerName(player), entry.name));
+function isUnavailable(player, unavailableEntries, resolveIdentity) {
+  const playerIdentity = resolveIdentity(player);
+  if (playerIdentity.status !== "matched") return false;
+  return unavailableEntries.some((entry) => {
+    const unavailableIdentity = resolveIdentity(entry.name);
+    return unavailableIdentity.status === "matched" && unavailableIdentity.key === playerIdentity.key;
+  });
 }
 
-function scoreRecentPlayers(history) {
+function scoreRecentPlayers(history, resolveIdentity) {
   const scores = new Map();
   const formationCounts = new Map();
   const recencyWeights = [1, 0.8, 0.6, 0.45, 0.3];
@@ -183,11 +216,15 @@ function scoreRecentPlayers(history) {
   for (const [historyIndex, item] of history.entries()) {
     const weight = recencyWeights[historyIndex] || 0.2;
     formationCounts.set(item.teamLineup.formation, (formationCounts.get(item.teamLineup.formation) || 0) + weight);
-    const minutes = minutesForLineup(item.teamLineup, item.fixture.status === "AET" || item.fixture.status === "PEN" ? 120 : 90);
+    const minutes = minutesForLineup(
+      item.teamLineup,
+      item.fixture.status === "AET" || item.fixture.status === "PEN" ? 120 : 90,
+      resolveIdentity
+    );
     const players = [...(item.teamLineup.players || []), ...(item.teamLineup.bench || [])];
 
     for (const player of players) {
-      const key = playerKey(player);
+      const key = playerKey(player, resolveIdentity);
       if (!key) continue;
       const existing = scores.get(key) || {
         player,
@@ -197,7 +234,7 @@ function scoreRecentPlayers(history) {
         sourceIds: []
       };
       const playerMinutes = minutes.get(key) || 0;
-      if ((item.teamLineup.players || []).some((starter) => samePlayer(starter, player))) {
+      if ((item.teamLineup.players || []).some((starter) => samePlayer(starter, player, resolveIdentity))) {
         existing.recentStarts += 1;
         existing.score += 2.5 * weight;
       }
@@ -214,8 +251,65 @@ function scoreRecentPlayers(history) {
   };
 }
 
-function confidenceForPlayer(player, playerScores, inLastXi) {
-  const score = playerScores.find((candidate) => samePlayer(candidate.player, player));
+function positionGroup(player) {
+  const position = String(player?.position || "").toUpperCase();
+  if (position === "GK") return "GK";
+  if (["RB", "RWB", "RCB", "CB", "LCB", "LB", "LWB"].includes(position)) return "DEF";
+  if (["RM", "CM", "DM", "AM", "LM"].includes(position)) return "MID";
+  if (["RW", "LW", "ST"].includes(position)) return "FWD";
+  return "";
+}
+
+function recentScoreFor(recent, player, resolveIdentity) {
+  return recent.playerScores.find((candidate) => samePlayer(candidate.player, player, resolveIdentity));
+}
+
+function buildBronzeRotationBaseline({ latest, recent, selectedStarters, unavailableEntries, resolveIdentity }) {
+  const selected = [...selectedStarters];
+  const benchPool = [];
+  for (const player of [...(latest.teamLineup.bench || []), ...recent.playerScores.map((entry) => entry.player)]) {
+    if (
+      !isUnavailable(player, unavailableEntries, resolveIdentity) &&
+      !selected.some((starter) => samePlayer(starter, player, resolveIdentity)) &&
+      !benchPool.some((candidate) => samePlayer(candidate, player, resolveIdentity))
+    ) {
+      benchPool.push(player);
+    }
+  }
+
+  const rotationCandidates = selected
+    .map((player, index) => ({ index, player, recent: recentScoreFor(recent, player, resolveIdentity) }))
+    .filter(({ player }) => positionGroup(player) !== "GK")
+    .sort((left, right) =>
+      Number(right.recent?.recentMinutes || 0) - Number(left.recent?.recentMinutes || 0) ||
+      Number(right.recent?.recentStarts || 0) - Number(left.recent?.recentStarts || 0)
+    );
+  const rotated = [];
+
+  for (const starter of rotationCandidates) {
+    if (rotated.length >= 4) break;
+    const group = positionGroup(starter.player);
+    const replacement = benchPool
+      .filter((player) => positionGroup(player) === group)
+      .map((player) => ({ player, recent: recentScoreFor(recent, player, resolveIdentity) }))
+      .filter(({ recent }) => recent && (recent.recentMinutes > 0 || recent.recentStarts > 0))
+      .sort((left, right) => {
+        const leftLoadBonus = Number(left.recent.recentMinutes || 0) < 180 ? 0.75 : 0;
+        const rightLoadBonus = Number(right.recent.recentMinutes || 0) < 180 ? 0.75 : 0;
+        return right.recent.score + rightLoadBonus - (left.recent.score + leftLoadBonus);
+      })[0];
+    if (!replacement) continue;
+    selected[starter.index] = replacement.player;
+    rotated.push({ out: playerName(starter.player), in: playerName(replacement.player) });
+    const benchIndex = benchPool.findIndex((player) => samePlayer(player, replacement.player, resolveIdentity));
+    if (benchIndex >= 0) benchPool.splice(benchIndex, 1);
+  }
+
+  return { selected, rotated };
+}
+
+function confidenceForPlayer(player, playerScores, inLastXi, resolveIdentity) {
+  const score = playerScores.find((candidate) => samePlayer(candidate.player, player, resolveIdentity));
   const recentStarts = score?.recentStarts || 0;
   const recentMinutes = score?.recentMinutes || 0;
   const confidenceScore = Math.max(
@@ -229,8 +323,8 @@ function confidenceForPlayer(player, playerScores, inLastXi) {
   };
 }
 
-function providerPlayer(player, { evidence, inLastXi, playerScores, profileLookup, sourceIds, teamId }) {
-  const confidence = confidenceForPlayer(player, playerScores, inLastXi);
+function providerPlayer(player, { evidence, inLastXi, playerScores, profileLookup, resolveIdentity, sourceIds, teamId }) {
+  const confidence = confidenceForPlayer(player, playerScores, inLastXi, resolveIdentity);
   const adjustedX = adjustedNeutralX(player, profileLookup, teamId);
 
   return {
@@ -245,9 +339,9 @@ function providerPlayer(player, { evidence, inLastXi, playerScores, profileLooku
   };
 }
 
-function addUniquePlayer(players, player) {
-  const key = playerKey(player);
-  if (!key || players.some((candidate) => playerKey(candidate) === key)) {
+function addUniquePlayer(players, player, resolveIdentity) {
+  const key = playerKey(player, resolveIdentity);
+  if (!key || players.some((candidate) => samePlayer(candidate, player, resolveIdentity))) {
     return;
   }
   players.push(player);
@@ -259,11 +353,13 @@ function buildSideCandidate({ checkedAt, fixture, history, playerAvailabilityDat
   }
 
   const latest = history[0];
-  const recent = scoreRecentPlayers(history);
-  const unavailableEntries = [
-    ...getAvailabilityEntries(playerAvailabilityData, teamId, fixture.id),
-    ...getSuspensionRiskEntries(history)
-  ];
+  const evidenceUpdatedAt = latest.fixture?.kickoffUtc || checkedAt;
+  const resolveIdentity = createTeamIdentityResolver({ history, profileLookup, teamId });
+  const recent = scoreRecentPlayers(history, resolveIdentity);
+  // Disciplinary sanctions vary by competition and decision. Only explicit
+  // tournament/fixture availability is a hard exclusion; do not guess a ban
+  // from a prior red or yellow card.
+  const unavailableEntries = getAvailabilityEntries(playerAvailabilityData, teamId, fixture.id);
   const sourceIds = [
     providerSourceId,
     ...(latest.lineups.sourceIds || []),
@@ -271,50 +367,63 @@ function buildSideCandidate({ checkedAt, fixture, history, playerAvailabilityDat
   ];
   const selectedStarters = [];
   for (const starter of latest.teamLineup.players || []) {
-    if (!isUnavailable(starter, unavailableEntries)) {
-      addUniquePlayer(selectedStarters, starter);
+    if (!isUnavailable(starter, unavailableEntries, resolveIdentity)) {
+      addUniquePlayer(selectedStarters, starter, resolveIdentity);
     }
   }
   for (const playerScore of recent.playerScores) {
     if (selectedStarters.length >= 11) break;
-    if (!isUnavailable(playerScore.player, unavailableEntries)) {
-      addUniquePlayer(selectedStarters, playerScore.player);
+    if (!isUnavailable(playerScore.player, unavailableEntries, resolveIdentity)) {
+      addUniquePlayer(selectedStarters, playerScore.player, resolveIdentity);
     }
   }
   if (selectedStarters.length !== 11) {
     return null;
   }
 
+  const isBronzeFinal = fixture.stage === "bronze-final";
+  const bronzeRotation = isBronzeFinal
+    ? buildBronzeRotationBaseline({ latest, recent, selectedStarters, unavailableEntries, resolveIdentity })
+    : { selected: selectedStarters, rotated: [] };
+  selectedStarters.splice(0, selectedStarters.length, ...bronzeRotation.selected);
+
   const benchCandidates = [];
   for (const player of latest.teamLineup.bench || []) {
-    if (!isUnavailable(player, unavailableEntries)) {
-      addUniquePlayer(benchCandidates, player);
+    if (
+      !isUnavailable(player, unavailableEntries, resolveIdentity) &&
+      !selectedStarters.some((starter) => samePlayer(starter, player, resolveIdentity))
+    ) {
+      addUniquePlayer(benchCandidates, player, resolveIdentity);
     }
   }
   for (const playerScore of recent.playerScores) {
     if (benchCandidates.length >= 15) break;
     if (
-      !isUnavailable(playerScore.player, unavailableEntries) &&
-      !selectedStarters.some((starter) => samePlayer(starter, playerScore.player))
+      !isUnavailable(playerScore.player, unavailableEntries, resolveIdentity) &&
+      !selectedStarters.some((starter) => samePlayer(starter, playerScore.player, resolveIdentity))
     ) {
-      addUniquePlayer(benchCandidates, playerScore.player);
+      addUniquePlayer(benchCandidates, playerScore.player, resolveIdentity);
     }
   }
 
   const topFormation = [...recent.formationCounts.entries()].sort((left, right) => right[1] - left[1])[0];
   const formationStability = topFormation?.[0] === latest.teamLineup.formation ? Math.min(1, Number(topFormation[1]) / 2) : 0.4;
-  const unavailableRemoved = (latest.teamLineup.players || []).filter((player) => isUnavailable(player, unavailableEntries)).length;
+  const unavailableRemoved = (latest.teamLineup.players || [])
+    .filter((player) => isUnavailable(player, unavailableEntries, resolveIdentity)).length;
   const sideConfidence = Math.max(
     0.4,
-    Math.min(0.88, 0.58 + formationStability * 0.12 + (unavailableRemoved ? -0.08 : 0.08))
+    Math.min(isBronzeFinal ? 0.58 : 0.88, 0.58 + formationStability * 0.12 + (unavailableRemoved ? -0.08 : 0.08))
   );
-  const starterOptions = { playerScores: recent.playerScores, profileLookup, sourceIds, teamId, evidence: "Last verified official XI", inLastXi: true };
-  const benchOptions = { playerScores: recent.playerScores, profileLookup, sourceIds, teamId, evidence: "Recent official bench/minutes", inLastXi: false };
+  const starterOptions = { playerScores: recent.playerScores, profileLookup, resolveIdentity, sourceIds, teamId, evidence: isBronzeFinal ? "Rotation-aware bronze-final baseline" : "Last verified official XI" };
+  const benchOptions = { playerScores: recent.playerScores, profileLookup, resolveIdentity, sourceIds, teamId, evidence: "Recent official bench/minutes", inLastXi: false };
 
   return {
     teamId,
     formation: latest.teamLineup.formation,
-    starters: selectedStarters.map((player) => providerPlayer(player, starterOptions)),
+    starters: selectedStarters.map((player) => providerPlayer(player, {
+      ...starterOptions,
+      inLastXi: (latest.teamLineup.players || []).some((starter) => samePlayer(starter, player, resolveIdentity))
+    })),
     benchCandidates: benchCandidates.map((player) => providerPlayer(player, benchOptions)),
     unavailable: unavailableEntries.map((entry) => ({
       name: entry.name,
@@ -326,10 +435,17 @@ function buildSideCandidate({ checkedAt, fixture, history, playerAvailabilityDat
       score: Number(sideConfidence.toFixed(3)),
       reason: `${side} prediction based on last verified XI from match ${latest.fixture.matchNumber}`
     },
+    ...(isBronzeFinal ? { evidenceStrengthCap: 0.58 } : {}),
     notes: [
       `Last verified XI: match ${latest.fixture.matchNumber}`,
       `Recent formation: ${latest.teamLineup.formation}`,
-      `${unavailableRemoved} last-XI player${unavailableRemoved === 1 ? "" : "s"} removed for availability`
+      `${unavailableRemoved} last-XI player${unavailableRemoved === 1 ? "" : "s"} removed for explicit availability`,
+      ...(isBronzeFinal
+        ? [
+            "Bronze-final rotation risk: latest-XI carryover is intentionally downweighted.",
+            `${bronzeRotation.rotated.length} high-load starter${bronzeRotation.rotated.length === 1 ? "" : "s"} rotated toward recent bench/minutes alternatives.`
+          ]
+        : [])
     ],
     evidence: [
       {
@@ -339,7 +455,7 @@ function buildSideCandidate({ checkedAt, fixture, history, playerAvailabilityDat
         weight: 1,
         confidence: { score: sideConfidence },
         sourceIds,
-        updatedAt: checkedAt,
+        updatedAt: evidenceUpdatedAt,
         notes: [`Based on ${history.length} recent official team sheet${history.length === 1 ? "" : "s"}.`]
       }
     ]
@@ -398,19 +514,32 @@ export function createLocalOfficialHistoryProvider({ checkedAt, sourceId }) {
           teamId: fixture.awayTeamId
         });
 
-        if (!home || !away) {
+        if (!home && !away) {
           continue;
         }
 
+        const availableSides = [home, away].filter(Boolean);
+
+        const historyObservedAt = [homeHistory[0]?.fixture?.kickoffUtc, awayHistory[0]?.fixture?.kickoffUtc]
+          .filter(Boolean)
+          .sort((left, right) => new Date(right).getTime() - new Date(left).getTime())[0];
         candidates.push({
           fixtureId: fixture.id,
-          updatedAt: raw.checkedAt,
+          updatedAt: historyObservedAt,
           confidence: {
-            score: (home.confidence.score + away.confidence.score) / 2,
+            score: availableSides.reduce((sum, candidate) => sum + candidate.confidence.score, 0) / availableSides.length,
             reason: "Local official-history confidence average"
           },
-          sourceIds: [...new Set([raw.providerSourceId, ...home.sourceIds, ...away.sourceIds])],
-          sides: { home, away },
+          sourceIds: [...new Set([
+            raw.providerSourceId,
+            ...(home?.sourceIds || []),
+            ...(away?.sourceIds || [])
+          ])],
+          lineupSourceIds: [raw.providerSourceId],
+          sides: {
+            ...(home ? { home } : {}),
+            ...(away ? { away } : {})
+          },
           notes: ["Local provider: last verified XI plus availability and recent-load evidence."]
         });
       }

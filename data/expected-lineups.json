@@ -1,17 +1,42 @@
 {
   "schemaVersion": "2",
-  "generatedAt": "2026-07-13T22:51:42.836Z",
+  "generatedAt": "2026-07-14T21:36:24.792Z",
   "engine": {
     "id": "lineup-prediction-engine",
-    "version": "1",
-    "runId": "lineup-prediction-2026-07-13"
+    "version": "2",
+    "runId": "lineup-prediction-2026-07-14-458d57095d25",
+    "inputFingerprint": "458d57095d25919cebf39dfba476b0a3f548663182b919767d5de60c38b9c3aa",
+    "modelFingerprint": "a1bf337983bb5d86d13409f7dbb4cf31059445bd421a9bbc6250710fbda45f0e",
+    "revisionId": "cbeeb0acf87cc530ec5535039ae23dd02873a018c8f85a6a8d39ea83e158b691"
   },
   "sources": [
+    {
+      "id": "bein-france-spain-preview-2026-07-14",
+      "label": "beIN SPORTS France vs Spain semi-final preview",
+      "type": "free-public-probable-lineup",
+      "checkedAt": "2026-07-14T15:33:19.000Z",
+      "sourceRole": "lineup-candidate",
+      "suppliesLineup": true,
+      "url": "https://www.beinsports.com/en-mena/football/fifa-world-cup-2026/articles-video/france-vs-spain-world-cup-semi-final-preview-2026-07-14",
+      "note": "Matchday preview with current predicted XIs for both semi-finalists."
+    },
+    {
+      "id": "elpais-france-spain-published-spain-xi-2026-07-14",
+      "label": "El País published Spain starting XI",
+      "type": "published-lineup-report",
+      "checkedAt": "2026-07-14T17:32:35.000Z",
+      "sourceRole": "lineup-candidate",
+      "suppliesLineup": true,
+      "url": "https://elpais.com/deportes/mundial-futbol/2026-07-14/francia-espana-en-directo-el-partido-de-las-semifinales-del-mundial-en-vivo.html",
+      "note": "Live match page published Spain's starting XI before kickoff; retained as a press report until FIFA official data overrides it."
+    },
     {
       "id": "fifa-england-argentina-preview-2026-07-13",
       "label": "FIFA England vs Argentina semi-final match preview",
       "type": "free-public-probable-lineup",
       "checkedAt": "2026-07-13T22:50:33.000Z",
+      "sourceRole": "lineup-candidate",
+      "suppliesLineup": true,
       "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/england-v-argentina-live-stream-team-news-tickets-and-more",
       "note": "FIFA match preview with current likely XIs for the England vs Argentina semi-final."
     },
@@ -20,15 +45,57 @@
       "label": "FIFA France vs Spain semi-final match preview",
       "type": "free-public-probable-lineup",
       "checkedAt": "2026-07-13T22:42:29.000Z",
+      "sourceRole": "lineup-candidate",
+      "suppliesLineup": true,
       "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/france-v-spain-live-stream-team-news-tickets-and-more",
       "note": "FIFA match preview with current likely XIs for the France vs Spain semi-final."
     },
     {
-      "id": "lineup-prediction-official-history-2026-07-13",
+      "id": "lequipe-france-spain-team-news-2026-07-14",
+      "label": "L'Équipe France vs Spain late team news",
+      "type": "free-public-probable-lineup",
+      "checkedAt": "2026-07-14T17:32:35.000Z",
+      "sourceRole": "lineup-candidate",
+      "suppliesLineup": true,
+      "url": "https://www.lequipe.fr/Football/Actualites/Barcola-prefere-a-doue-pour-demarrer-face-a-l-espagne-en-demi-finales-de-la-coupe-du-monde/1704273",
+      "note": "Late matchday report that Bradley Barcola and Aurelien Tchouameni will replace Desire Doue and Manu Kone."
+    },
+    {
+      "id": "lineup-prediction-official-history",
       "label": "Lineup prediction official-history provider",
       "type": "lineup-prediction-provider",
-      "checkedAt": "2026-07-13T22:51:42.836Z",
-      "note": "Uses local FIFA official lineup history, recent formations, minutes/load, cards, and player availability."
+      "checkedAt": "2026-07-14T21:36:24.792Z",
+      "note": "Uses local FIFA official lineup history, recent formations, minutes/load, and explicit player availability."
+    },
+    {
+      "id": "sports-mole-england-argentina-team-news-2026-07-14",
+      "label": "Sports Mole England vs Argentina team news and predicted XIs",
+      "type": "free-public-probable-lineup",
+      "checkedAt": "2026-07-14T15:50:00.000Z",
+      "sourceRole": "lineup-candidate",
+      "suppliesLineup": true,
+      "url": "https://www.sportsmole.co.uk/football/england/world-cup-2026/preview/england-vs-argentina-prediction-team-news-lineups_601122.html",
+      "note": "Fresh matchday preview that returns John Stones at centre-back and keeps Ezri Konsa at right-back."
+    },
+    {
+      "id": "sports-mole-france-spain-team-news-2026-07-14",
+      "label": "Sports Mole France vs Spain team news and predicted XIs",
+      "type": "free-public-probable-lineup",
+      "checkedAt": "2026-07-14T15:33:19.000Z",
+      "sourceRole": "lineup-candidate",
+      "suppliesLineup": true,
+      "url": "https://www.sportsmole.co.uk/football/france/world-cup-2026/team-news/france-vs-spain-injury-suspension-list-predicted-xis--world-cup-2026_601095.html",
+      "note": "Matchday team-news update with current predicted XIs and France injury context."
+    },
+    {
+      "id": "stats-zone-england-argentina-preview-2026-07-14",
+      "label": "The Stats Zone England vs Argentina preview and predicted XIs",
+      "type": "free-public-probable-lineup",
+      "checkedAt": "2026-07-14T15:50:00.000Z",
+      "sourceRole": "lineup-candidate",
+      "suppliesLineup": true,
+      "url": "https://www.thestatszone.com/england-vs-argentina-preview-team-news-prediction-fifa-world-cup-2026-semi-final-205854",
+      "note": "Independently updated matchday preview with the same Konsa-Stones-Guehi-O'Reilly back four."
     }
   ],
   "inputs": [
@@ -38,7 +105,7 @@
     },
     {
       "file": "data/lineups.json",
-      "role": "last verified XI, formation, bench, cards, substitutions"
+      "role": "last verified XI, formation, bench, substitutions, and recent minutes/load"
     },
     {
       "file": "data/player-availability.json",
@@ -51,2438 +118,176 @@
   ],
   "fixtures": [
     {
-      "fixtureId": "match-101-semi-final-2026-07-14",
-      "mode": "expected",
-      "sourceIds": [
-        "fifa-france-spain-preview-2026-07-13",
-        "lineup-prediction-official-history-2026-07-13",
-        "fifa-lineups-sync-2026-07-13"
-      ],
-      "lastUpdated": "2026-07-13T22:51:42.836Z",
-      "confidence": {
-        "label": "medium",
-        "score": 0.74,
-        "method": "provider-weighted-lineup-evidence-v1",
-        "reason": "Average confidence across predicted home and away XIs"
-      },
-      "providers": [
-        {
-          "providerId": "local-official-history",
-          "providerVersion": "1",
-          "score": 0.91,
-          "sourceIds": [
-            "lineup-prediction-official-history-2026-07-13",
-            "fifa-lineups-sync-2026-07-13"
-          ]
-        },
-        {
-          "providerId": "free-public-lineups",
-          "providerVersion": "1",
-          "score": 0.958,
-          "sourceIds": [
-            "fifa-france-spain-preview-2026-07-13"
-          ]
-        }
-      ],
-      "evidence": {
-        "home": {
-          "confidence": {
-            "label": "medium",
-            "score": 0.74,
-            "method": "provider-weighted-evidence-v1",
-            "reason": "11/11 starters selected from 2 providers; 1 independent external source"
-          },
-          "formationScores": [
-            {
-              "formation": "4-2-3-1",
-              "score": 1.789,
-              "providerIds": [
-                "free-public-lineups",
-                "local-official-history"
-              ],
-              "sourceIds": [
-                "fifa-france-spain-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ]
-            }
-          ],
-          "starterScores": [
-            {
-              "name": "Mike Maignan",
-              "score": 1.705,
-              "starterVotes": 2,
-              "benchVotes": 0,
-              "providerIds": [
-                "free-public-lineups",
-                "local-official-history"
-              ],
-              "sourceIds": [
-                "fifa-france-spain-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ]
-            },
-            {
-              "name": "Jules Kounde",
-              "score": 1.705,
-              "starterVotes": 2,
-              "benchVotes": 0,
-              "providerIds": [
-                "free-public-lineups",
-                "local-official-history"
-              ],
-              "sourceIds": [
-                "fifa-france-spain-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ]
-            },
-            {
-              "name": "Dayot Upamecano",
-              "score": 1.705,
-              "starterVotes": 2,
-              "benchVotes": 0,
-              "providerIds": [
-                "free-public-lineups",
-                "local-official-history"
-              ],
-              "sourceIds": [
-                "fifa-france-spain-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ]
-            },
-            {
-              "name": "William Saliba",
-              "score": 1.693,
-              "starterVotes": 2,
-              "benchVotes": 0,
-              "providerIds": [
-                "free-public-lineups",
-                "local-official-history"
-              ],
-              "sourceIds": [
-                "fifa-france-spain-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ]
-            },
-            {
-              "name": "Lucas Digne",
-              "score": 1.693,
-              "starterVotes": 2,
-              "benchVotes": 0,
-              "providerIds": [
-                "free-public-lineups",
-                "local-official-history"
-              ],
-              "sourceIds": [
-                "fifa-france-spain-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ]
-            },
-            {
-              "name": "Manu Kone",
-              "score": 1.693,
-              "starterVotes": 2,
-              "benchVotes": 0,
-              "providerIds": [
-                "free-public-lineups",
-                "local-official-history"
-              ],
-              "sourceIds": [
-                "fifa-france-spain-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ]
-            },
-            {
-              "name": "Adrien Rabiot",
-              "score": 1.693,
-              "starterVotes": 2,
-              "benchVotes": 0,
-              "providerIds": [
-                "free-public-lineups",
-                "local-official-history"
-              ],
-              "sourceIds": [
-                "fifa-france-spain-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ]
-            },
-            {
-              "name": "Michael Olise",
-              "score": 1.705,
-              "starterVotes": 2,
-              "benchVotes": 0,
-              "providerIds": [
-                "free-public-lineups",
-                "local-official-history"
-              ],
-              "sourceIds": [
-                "fifa-france-spain-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ]
-            },
-            {
-              "name": "Ousmane Dembele",
-              "score": 1.705,
-              "starterVotes": 2,
-              "benchVotes": 0,
-              "providerIds": [
-                "free-public-lineups",
-                "local-official-history"
-              ],
-              "sourceIds": [
-                "fifa-france-spain-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ]
-            },
-            {
-              "name": "Desire Doue",
-              "score": 1.684,
-              "starterVotes": 2,
-              "benchVotes": 0,
-              "providerIds": [
-                "free-public-lineups",
-                "local-official-history"
-              ],
-              "sourceIds": [
-                "fifa-france-spain-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ]
-            },
-            {
-              "name": "Kylian Mbappe",
-              "score": 1.705,
-              "starterVotes": 2,
-              "benchVotes": 0,
-              "providerIds": [
-                "free-public-lineups",
-                "local-official-history"
-              ],
-              "sourceIds": [
-                "fifa-france-spain-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ]
-            }
-          ]
-        },
-        "away": {
-          "confidence": {
-            "label": "medium",
-            "score": 0.74,
-            "method": "provider-weighted-evidence-v1",
-            "reason": "11/11 starters selected from 2 providers; 1 independent external source"
-          },
-          "formationScores": [
-            {
-              "formation": "4-2-3-1",
-              "score": 1.773,
-              "providerIds": [
-                "free-public-lineups",
-                "local-official-history"
-              ],
-              "sourceIds": [
-                "fifa-france-spain-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ]
-            }
-          ],
-          "starterScores": [
-            {
-              "name": "Unai Simon",
-              "score": 1.69,
-              "starterVotes": 2,
-              "benchVotes": 0,
-              "providerIds": [
-                "free-public-lineups",
-                "local-official-history"
-              ],
-              "sourceIds": [
-                "fifa-france-spain-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ]
-            },
-            {
-              "name": "Pedro Porro",
-              "score": 1.69,
-              "starterVotes": 2,
-              "benchVotes": 0,
-              "providerIds": [
-                "free-public-lineups",
-                "local-official-history"
-              ],
-              "sourceIds": [
-                "fifa-france-spain-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ]
-            },
-            {
-              "name": "Pau Cubarsi",
-              "score": 1.69,
-              "starterVotes": 2,
-              "benchVotes": 0,
-              "providerIds": [
-                "free-public-lineups",
-                "local-official-history"
-              ],
-              "sourceIds": [
-                "fifa-france-spain-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ]
-            },
-            {
-              "name": "Aymeric Laporte",
-              "score": 1.69,
-              "starterVotes": 2,
-              "benchVotes": 0,
-              "providerIds": [
-                "free-public-lineups",
-                "local-official-history"
-              ],
-              "sourceIds": [
-                "fifa-france-spain-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ]
-            },
-            {
-              "name": "Marc Cucurella",
-              "score": 1.69,
-              "starterVotes": 2,
-              "benchVotes": 0,
-              "providerIds": [
-                "free-public-lineups",
-                "local-official-history"
-              ],
-              "sourceIds": [
-                "fifa-france-spain-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ]
-            },
-            {
-              "name": "Rodri",
-              "score": 1.69,
-              "starterVotes": 2,
-              "benchVotes": 0,
-              "providerIds": [
-                "free-public-lineups",
-                "local-official-history"
-              ],
-              "sourceIds": [
-                "fifa-france-spain-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ]
-            },
-            {
-              "name": "Pedri",
-              "score": 1.223,
-              "starterVotes": 1,
-              "benchVotes": 1,
-              "providerIds": [
-                "free-public-lineups",
-                "local-official-history"
-              ],
-              "sourceIds": [
-                "fifa-france-spain-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ]
-            },
-            {
-              "name": "Lamine Yamal",
-              "score": 1.69,
-              "starterVotes": 2,
-              "benchVotes": 0,
-              "providerIds": [
-                "free-public-lineups",
-                "local-official-history"
-              ],
-              "sourceIds": [
-                "fifa-france-spain-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ]
-            },
-            {
-              "name": "Dani Olmo",
-              "score": 1.678,
-              "starterVotes": 2,
-              "benchVotes": 0,
-              "providerIds": [
-                "free-public-lineups",
-                "local-official-history"
-              ],
-              "sourceIds": [
-                "fifa-france-spain-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ]
-            },
-            {
-              "name": "Alex Baena",
-              "score": 1.69,
-              "starterVotes": 2,
-              "benchVotes": 0,
-              "providerIds": [
-                "free-public-lineups",
-                "local-official-history"
-              ],
-              "sourceIds": [
-                "fifa-france-spain-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ]
-            },
-            {
-              "name": "Mikel Oyarzabal",
-              "score": 1.69,
-              "starterVotes": 2,
-              "benchVotes": 0,
-              "providerIds": [
-                "free-public-lineups",
-                "local-official-history"
-              ],
-              "sourceIds": [
-                "fifa-france-spain-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ]
-            }
-          ]
-        }
-      },
-      "notes": [
-        "Generated by lineup prediction engine; replaced by confirmed/live FIFA lineups when available."
-      ],
-      "lineup": {
-        "home": {
-          "formation": "4-2-3-1",
-          "coach": {
-            "name": "Didier Deschamps",
-            "teamId": "FRA",
-            "teamName": "France",
-            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Didier_Deschamps_France_v_Senegal_16_June_2026-519_%28cropped%29.jpg/250px-Didier_Deschamps_France_v_Senegal_16_June_2026-519_%28cropped%29.jpg",
-            "sourceUrl": "https://en.wikipedia.org/wiki/Didier_Deschamps",
-            "styles": [
-              "Defensive organization",
-              "Counter-attack",
-              "Set-piece focus"
-            ],
-            "note": {
-              "en": "Deschamps keeps France ruthlessly practical: defend the center, manage momentum, and let elite transition players decide matches.",
-              "zh": "德尚让法国保持极其务实：守住中路、管理比赛势头，并让顶级转换球员决定比赛。"
-            },
-            "history": {
-              "en": "Appointed in 2012, he led France to the 2018 World Cup title, the Euro 2016 final, and the 2022 World Cup final.",
-              "zh": "他于2012年上任，带领法国赢得2018年世界杯，打进2016年欧洲杯决赛和2022年世界杯决赛。"
-            },
-            "sinceYear": 2012,
-            "birthDate": "1968-10-15"
-          },
-          "players": [
-            {
-              "name": "Mike Maignan",
-              "number": "16",
-              "position": "GK",
-              "x": 50,
-              "y": 91,
-              "confidence": {
-                "label": "high",
-                "score": 0.84,
-                "method": "provider-weighted-player-evidence-v1"
-              },
-              "sourceIds": [
-                "fifa-france-spain-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Free public probable-lineup source",
-                "free-public-lineups: FRA 4-2-3-1 starter 1",
-                "Last verified official XI",
-                "5 recent starts, 450 recent minutes",
-                "local-official-history: FRA 4-2-3-1 starter 1"
-              ],
-              "notes": []
-            },
-            {
-              "name": "Jules Kounde",
-              "number": "5",
-              "position": "RB",
-              "x": 85,
-              "y": 75,
-              "confidence": {
-                "label": "high",
-                "score": 0.84,
-                "method": "provider-weighted-player-evidence-v1"
-              },
-              "sourceIds": [
-                "fifa-france-spain-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Free public probable-lineup source",
-                "free-public-lineups: FRA 4-2-3-1 starter 2",
-                "Last verified official XI",
-                "5 recent starts, 421 recent minutes",
-                "local-official-history: FRA 4-2-3-1 starter 4"
-              ],
-              "notes": []
-            },
-            {
-              "name": "Dayot Upamecano",
-              "number": "4",
-              "position": "CB",
-              "x": 62,
-              "y": 75,
-              "confidence": {
-                "label": "high",
-                "score": 0.84,
-                "method": "provider-weighted-player-evidence-v1"
-              },
-              "sourceIds": [
-                "fifa-france-spain-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Free public probable-lineup source",
-                "free-public-lineups: FRA 4-2-3-1 starter 3",
-                "Last verified official XI",
-                "5 recent starts, 436 recent minutes",
-                "local-official-history: FRA 4-2-3-1 starter 3"
-              ],
-              "notes": []
-            },
-            {
-              "name": "William Saliba",
-              "number": "17",
-              "position": "CB",
-              "x": 38,
-              "y": 75,
-              "confidence": {
-                "label": "high",
-                "score": 0.84,
-                "method": "provider-weighted-player-evidence-v1"
-              },
-              "sourceIds": [
-                "fifa-france-spain-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Free public probable-lineup source",
-                "free-public-lineups: FRA 4-2-3-1 starter 4",
-                "Last verified official XI",
-                "4 recent starts, 360 recent minutes",
-                "local-official-history: FRA 4-2-3-1 starter 5"
-              ],
-              "notes": []
-            },
-            {
-              "name": "Lucas Digne",
-              "number": "3",
-              "position": "LB",
-              "x": 15,
-              "y": 75,
-              "confidence": {
-                "label": "high",
-                "score": 0.84,
-                "method": "provider-weighted-player-evidence-v1"
-              },
-              "sourceIds": [
-                "fifa-france-spain-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Free public probable-lineup source",
-                "free-public-lineups: FRA 4-2-3-1 starter 5",
-                "Last verified official XI",
-                "4 recent starts, 348 recent minutes",
-                "local-official-history: FRA 4-2-3-1 starter 2"
-              ],
-              "notes": []
-            },
-            {
-              "name": "Manu Kone",
-              "number": "6",
-              "position": "CM",
-              "x": 34,
-              "y": 59,
-              "confidence": {
-                "label": "high",
-                "score": 0.84,
-                "method": "provider-weighted-player-evidence-v1"
-              },
-              "sourceIds": [
-                "fifa-france-spain-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Free public probable-lineup source",
-                "free-public-lineups: FRA 4-2-3-1 starter 6",
-                "Last verified official XI",
-                "4 recent starts, 341 recent minutes",
-                "local-official-history: FRA 4-2-3-1 starter 6"
-              ],
-              "notes": []
-            },
-            {
-              "name": "Adrien Rabiot",
-              "number": "14",
-              "position": "CM",
-              "x": 66,
-              "y": 59,
-              "confidence": {
-                "label": "high",
-                "score": 0.84,
-                "method": "provider-weighted-player-evidence-v1"
-              },
-              "sourceIds": [
-                "fifa-france-spain-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Free public probable-lineup source",
-                "free-public-lineups: FRA 4-2-3-1 starter 7",
-                "Last verified official XI",
-                "4 recent starts, 360 recent minutes",
-                "local-official-history: FRA 4-2-3-1 starter 7"
-              ],
-              "notes": []
-            },
-            {
-              "name": "Michael Olise",
-              "number": "11",
-              "position": "RW",
-              "x": 82,
-              "y": 40,
-              "confidence": {
-                "label": "high",
-                "score": 0.84,
-                "method": "provider-weighted-player-evidence-v1"
-              },
-              "sourceIds": [
-                "fifa-france-spain-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Free public probable-lineup source",
-                "free-public-lineups: FRA 4-2-3-1 starter 8",
-                "Last verified official XI",
-                "5 recent starts, 398 recent minutes",
-                "local-official-history: FRA 4-2-3-1 starter 10"
-              ],
-              "notes": []
-            },
-            {
-              "name": "Ousmane Dembele",
-              "number": "7",
-              "position": "AM",
-              "x": 50,
-              "y": 40,
-              "confidence": {
-                "label": "high",
-                "score": 0.84,
-                "method": "provider-weighted-player-evidence-v1"
-              },
-              "sourceIds": [
-                "fifa-france-spain-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Free public probable-lineup source",
-                "free-public-lineups: FRA 4-2-3-1 starter 9",
-                "Last verified official XI",
-                "5 recent starts, 382 recent minutes",
-                "local-official-history: FRA 4-2-3-1 starter 8"
-              ],
-              "notes": []
-            },
-            {
-              "name": "Desire Doue",
-              "number": "20",
-              "position": "LW",
-              "x": 18,
-              "y": 40,
-              "confidence": {
-                "label": "high",
-                "score": 0.84,
-                "method": "provider-weighted-player-evidence-v1"
-              },
-              "sourceIds": [
-                "fifa-france-spain-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Free public probable-lineup source",
-                "free-public-lineups: FRA 4-2-3-1 starter 10",
-                "Last verified official XI",
-                "2 recent starts, 233 recent minutes",
-                "local-official-history: FRA 4-2-3-1 starter 11"
-              ],
-              "notes": []
-            },
-            {
-              "name": "Kylian Mbappe",
-              "number": "10",
-              "position": "ST",
-              "x": 50,
-              "y": 20,
-              "confidence": {
-                "label": "high",
-                "score": 0.84,
-                "method": "provider-weighted-player-evidence-v1"
-              },
-              "sourceIds": [
-                "fifa-france-spain-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Free public probable-lineup source",
-                "free-public-lineups: FRA 4-2-3-1 starter 11",
-                "Last verified official XI",
-                "5 recent starts, 428 recent minutes",
-                "local-official-history: FRA 4-2-3-1 starter 9"
-              ],
-              "notes": []
-            }
-          ],
-          "bench": [
-            {
-              "name": "Bradley Barcola",
-              "number": "12",
-              "position": "ST",
-              "confidence": {
-                "label": "medium",
-                "score": 0.62,
-                "reason": "3 recent starts, 272 recent minutes"
-              },
-              "sourceIds": [
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Recent official bench/minutes",
-                "3 recent starts, 272 recent minutes"
-              ],
-              "notes": []
-            },
-            {
-              "name": "Aurelien Tchouameni",
-              "number": "8",
-              "position": "DM",
-              "confidence": {
-                "label": "medium",
-                "score": 0.58,
-                "reason": "2 recent starts, 180 recent minutes"
-              },
-              "sourceIds": [
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Recent official bench/minutes",
-                "2 recent starts, 180 recent minutes"
-              ],
-              "notes": []
-            },
-            {
-              "name": "Maxence Lacroix",
-              "number": "26",
-              "position": "CB",
-              "confidence": {
-                "label": "medium",
-                "score": 0.54,
-                "reason": "1 recent start, 90 recent minutes"
-              },
-              "sourceIds": [
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Recent official bench/minutes",
-                "1 recent start, 90 recent minutes"
-              ],
-              "notes": []
-            },
-            {
-              "name": "Theo Hernandez",
-              "number": "19",
-              "position": "LB",
-              "confidence": {
-                "label": "medium",
-                "score": 0.54,
-                "reason": "1 recent start, 102 recent minutes"
-              },
-              "sourceIds": [
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Recent official bench/minutes",
-                "1 recent start, 102 recent minutes"
-              ],
-              "notes": []
-            },
-            {
-              "name": "Brice Samba",
-              "number": "1",
-              "position": "GK",
-              "confidence": {
-                "label": "medium",
-                "score": 0.5,
-                "reason": "0 recent starts, 0 recent minutes"
-              },
-              "sourceIds": [
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Recent official bench/minutes",
-                "0 recent starts, 0 recent minutes"
-              ],
-              "notes": []
-            },
-            {
-              "name": "Ibrahima Konate",
-              "number": "15",
-              "position": "CB",
-              "confidence": {
-                "label": "medium",
-                "score": 0.5,
-                "reason": "0 recent starts, 14 recent minutes"
-              },
-              "sourceIds": [
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Recent official bench/minutes",
-                "0 recent starts, 14 recent minutes"
-              ],
-              "notes": []
-            },
-            {
-              "name": "Jean-Philippe Mateta",
-              "number": "22",
-              "position": "ST",
-              "confidence": {
-                "label": "medium",
-                "score": 0.5,
-                "reason": "0 recent starts, 22 recent minutes"
-              },
-              "sourceIds": [
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Recent official bench/minutes",
-                "0 recent starts, 22 recent minutes"
-              ],
-              "notes": []
-            },
-            {
-              "name": "Lucas Hernandez",
-              "number": "21",
-              "position": "CB",
-              "confidence": {
-                "label": "medium",
-                "score": 0.5,
-                "reason": "0 recent starts, 0 recent minutes"
-              },
-              "sourceIds": [
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Recent official bench/minutes",
-                "0 recent starts, 0 recent minutes"
-              ],
-              "notes": []
-            },
-            {
-              "name": "Maghnes Akliouche",
-              "number": "25",
-              "position": "AM",
-              "confidence": {
-                "label": "medium",
-                "score": 0.5,
-                "reason": "0 recent starts, 7 recent minutes"
-              },
-              "sourceIds": [
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Recent official bench/minutes",
-                "0 recent starts, 7 recent minutes"
-              ],
-              "notes": []
-            },
-            {
-              "name": "Malo Gusto",
-              "number": "2",
-              "position": "RB",
-              "confidence": {
-                "label": "medium",
-                "score": 0.5,
-                "reason": "0 recent starts, 29 recent minutes"
-              },
-              "sourceIds": [
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Recent official bench/minutes",
-                "0 recent starts, 29 recent minutes"
-              ],
-              "notes": []
-            },
-            {
-              "name": "Marcus Thuram",
-              "number": "9",
-              "position": "ST",
-              "confidence": {
-                "label": "medium",
-                "score": 0.5,
-                "reason": "0 recent starts, 0 recent minutes"
-              },
-              "sourceIds": [
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Recent official bench/minutes",
-                "0 recent starts, 0 recent minutes"
-              ],
-              "notes": []
-            },
-            {
-              "name": "Ngolo Kante",
-              "number": "13",
-              "position": "DM",
-              "confidence": {
-                "label": "medium",
-                "score": 0.5,
-                "reason": "0 recent starts, 0 recent minutes"
-              },
-              "sourceIds": [
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Recent official bench/minutes",
-                "0 recent starts, 0 recent minutes"
-              ],
-              "notes": []
-            },
-            {
-              "name": "Rayan Cherki",
-              "number": "24",
-              "position": "AM",
-              "confidence": {
-                "label": "medium",
-                "score": 0.5,
-                "reason": "0 recent starts, 58 recent minutes"
-              },
-              "sourceIds": [
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Recent official bench/minutes",
-                "0 recent starts, 58 recent minutes"
-              ],
-              "notes": []
-            },
-            {
-              "name": "Robin Risser",
-              "number": "23",
-              "position": "GK",
-              "confidence": {
-                "label": "medium",
-                "score": 0.5,
-                "reason": "0 recent starts, 0 recent minutes"
-              },
-              "sourceIds": [
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Recent official bench/minutes",
-                "0 recent starts, 0 recent minutes"
-              ],
-              "notes": []
-            },
-            {
-              "name": "Warren Zaire-Emery",
-              "number": "18",
-              "position": "CM",
-              "confidence": {
-                "label": "medium",
-                "score": 0.5,
-                "reason": "0 recent starts, 19 recent minutes"
-              },
-              "sourceIds": [
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Recent official bench/minutes",
-                "0 recent starts, 19 recent minutes"
-              ],
-              "notes": []
-            }
-          ],
-          "events": {},
-          "sourceIds": [
-            "fifa-france-spain-preview-2026-07-13",
-            "lineup-prediction-official-history-2026-07-13",
-            "fifa-lineups-sync-2026-07-13"
-          ],
-          "evidence": {
-            "confidence": {
-              "label": "medium",
-              "score": 0.74,
-              "method": "provider-weighted-evidence-v1",
-              "reason": "11/11 starters selected from 2 providers; 1 independent external source"
-            },
-            "formationScores": [
-              {
-                "formation": "4-2-3-1",
-                "score": 1.789,
-                "providerIds": [
-                  "free-public-lineups",
-                  "local-official-history"
-                ],
-                "sourceIds": [
-                  "fifa-france-spain-preview-2026-07-13",
-                  "lineup-prediction-official-history-2026-07-13",
-                  "fifa-lineups-sync-2026-07-13"
-                ]
-              }
-            ],
-            "starterScores": [
-              {
-                "name": "Mike Maignan",
-                "score": 1.705,
-                "starterVotes": 2,
-                "benchVotes": 0,
-                "providerIds": [
-                  "free-public-lineups",
-                  "local-official-history"
-                ],
-                "sourceIds": [
-                  "fifa-france-spain-preview-2026-07-13",
-                  "lineup-prediction-official-history-2026-07-13",
-                  "fifa-lineups-sync-2026-07-13"
-                ]
-              },
-              {
-                "name": "Jules Kounde",
-                "score": 1.705,
-                "starterVotes": 2,
-                "benchVotes": 0,
-                "providerIds": [
-                  "free-public-lineups",
-                  "local-official-history"
-                ],
-                "sourceIds": [
-                  "fifa-france-spain-preview-2026-07-13",
-                  "lineup-prediction-official-history-2026-07-13",
-                  "fifa-lineups-sync-2026-07-13"
-                ]
-              },
-              {
-                "name": "Dayot Upamecano",
-                "score": 1.705,
-                "starterVotes": 2,
-                "benchVotes": 0,
-                "providerIds": [
-                  "free-public-lineups",
-                  "local-official-history"
-                ],
-                "sourceIds": [
-                  "fifa-france-spain-preview-2026-07-13",
-                  "lineup-prediction-official-history-2026-07-13",
-                  "fifa-lineups-sync-2026-07-13"
-                ]
-              },
-              {
-                "name": "William Saliba",
-                "score": 1.693,
-                "starterVotes": 2,
-                "benchVotes": 0,
-                "providerIds": [
-                  "free-public-lineups",
-                  "local-official-history"
-                ],
-                "sourceIds": [
-                  "fifa-france-spain-preview-2026-07-13",
-                  "lineup-prediction-official-history-2026-07-13",
-                  "fifa-lineups-sync-2026-07-13"
-                ]
-              },
-              {
-                "name": "Lucas Digne",
-                "score": 1.693,
-                "starterVotes": 2,
-                "benchVotes": 0,
-                "providerIds": [
-                  "free-public-lineups",
-                  "local-official-history"
-                ],
-                "sourceIds": [
-                  "fifa-france-spain-preview-2026-07-13",
-                  "lineup-prediction-official-history-2026-07-13",
-                  "fifa-lineups-sync-2026-07-13"
-                ]
-              },
-              {
-                "name": "Manu Kone",
-                "score": 1.693,
-                "starterVotes": 2,
-                "benchVotes": 0,
-                "providerIds": [
-                  "free-public-lineups",
-                  "local-official-history"
-                ],
-                "sourceIds": [
-                  "fifa-france-spain-preview-2026-07-13",
-                  "lineup-prediction-official-history-2026-07-13",
-                  "fifa-lineups-sync-2026-07-13"
-                ]
-              },
-              {
-                "name": "Adrien Rabiot",
-                "score": 1.693,
-                "starterVotes": 2,
-                "benchVotes": 0,
-                "providerIds": [
-                  "free-public-lineups",
-                  "local-official-history"
-                ],
-                "sourceIds": [
-                  "fifa-france-spain-preview-2026-07-13",
-                  "lineup-prediction-official-history-2026-07-13",
-                  "fifa-lineups-sync-2026-07-13"
-                ]
-              },
-              {
-                "name": "Michael Olise",
-                "score": 1.705,
-                "starterVotes": 2,
-                "benchVotes": 0,
-                "providerIds": [
-                  "free-public-lineups",
-                  "local-official-history"
-                ],
-                "sourceIds": [
-                  "fifa-france-spain-preview-2026-07-13",
-                  "lineup-prediction-official-history-2026-07-13",
-                  "fifa-lineups-sync-2026-07-13"
-                ]
-              },
-              {
-                "name": "Ousmane Dembele",
-                "score": 1.705,
-                "starterVotes": 2,
-                "benchVotes": 0,
-                "providerIds": [
-                  "free-public-lineups",
-                  "local-official-history"
-                ],
-                "sourceIds": [
-                  "fifa-france-spain-preview-2026-07-13",
-                  "lineup-prediction-official-history-2026-07-13",
-                  "fifa-lineups-sync-2026-07-13"
-                ]
-              },
-              {
-                "name": "Desire Doue",
-                "score": 1.684,
-                "starterVotes": 2,
-                "benchVotes": 0,
-                "providerIds": [
-                  "free-public-lineups",
-                  "local-official-history"
-                ],
-                "sourceIds": [
-                  "fifa-france-spain-preview-2026-07-13",
-                  "lineup-prediction-official-history-2026-07-13",
-                  "fifa-lineups-sync-2026-07-13"
-                ]
-              },
-              {
-                "name": "Kylian Mbappe",
-                "score": 1.705,
-                "starterVotes": 2,
-                "benchVotes": 0,
-                "providerIds": [
-                  "free-public-lineups",
-                  "local-official-history"
-                ],
-                "sourceIds": [
-                  "fifa-france-spain-preview-2026-07-13",
-                  "lineup-prediction-official-history-2026-07-13",
-                  "fifa-lineups-sync-2026-07-13"
-                ]
-              }
-            ]
-          }
-        },
-        "away": {
-          "formation": "4-2-3-1",
-          "coach": {
-            "name": "Luis De La Fuente",
-            "teamId": "ESP",
-            "teamName": "Spain",
-            "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Luis_de_la_Fuente_Castillo_-_2023_05_06_Final_de_la_Copa_del_Rey_0001_%28cropped%29.jpg/250px-Luis_de_la_Fuente_Castillo_-_2023_05_06_Final_de_la_Copa_del_Rey_0001_%28cropped%29.jpg",
-            "sourceUrl": "https://en.wikipedia.org/wiki/Luis_de_la_Fuente_(footballer%2C_born_1961)",
-            "styles": [
-              "Youth pipeline",
-              "Possession control",
-              "Defensive organization"
-            ],
-            "note": {
-              "en": "De la Fuente keeps Spain connected to its possession identity while adding vertical runners and trust in players he developed through the youth teams.",
-              "zh": "德拉富恩特让西班牙延续控球身份，同时加入纵向跑动者，并信任自己在青年队培养过的球员。"
-            },
-            "history": {
-              "en": "Promoted to the senior job in 2022, he previously led Spain's under-19, under-21, and Olympic teams.",
-              "zh": "他于2022年升任成年队主帅，此前执教过西班牙19岁以下、21岁以下和奥运代表队。"
-            },
-            "sinceYear": 2022,
-            "birthDate": "1961-06-21"
-          },
-          "players": [
-            {
-              "name": "Unai Simon",
-              "number": "23",
-              "position": "GK",
-              "x": 50,
-              "y": 91,
-              "confidence": {
-                "label": "high",
-                "score": 0.84,
-                "method": "provider-weighted-player-evidence-v1"
-              },
-              "sourceIds": [
-                "fifa-france-spain-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Free public probable-lineup source",
-                "free-public-lineups: ESP 4-2-3-1 starter 1",
-                "Last verified official XI",
-                "5 recent starts, 450 recent minutes",
-                "local-official-history: ESP 4-2-3-1 starter 1"
-              ],
-              "notes": []
-            },
-            {
-              "name": "Pedro Porro",
-              "number": "12",
-              "position": "RB",
-              "x": 85,
-              "y": 75,
-              "confidence": {
-                "label": "high",
-                "score": 0.84,
-                "method": "provider-weighted-player-evidence-v1"
-              },
-              "sourceIds": [
-                "fifa-france-spain-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Free public probable-lineup source",
-                "free-public-lineups: ESP 4-2-3-1 starter 2",
-                "Last verified official XI",
-                "5 recent starts, 360 recent minutes",
-                "local-official-history: ESP 4-2-3-1 starter 2"
-              ],
-              "notes": []
-            },
-            {
-              "name": "Pau Cubarsi",
-              "number": "22",
-              "position": "CB",
-              "x": 62,
-              "y": 75,
-              "confidence": {
-                "label": "high",
-                "score": 0.84,
-                "method": "provider-weighted-player-evidence-v1"
-              },
-              "sourceIds": [
-                "fifa-france-spain-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Free public probable-lineup source",
-                "free-public-lineups: ESP 4-2-3-1 starter 3",
-                "Last verified official XI",
-                "5 recent starts, 450 recent minutes",
-                "local-official-history: ESP 4-2-3-1 starter 4"
-              ],
-              "notes": []
-            },
-            {
-              "name": "Aymeric Laporte",
-              "number": "14",
-              "position": "CB",
-              "x": 38,
-              "y": 75,
-              "confidence": {
-                "label": "high",
-                "score": 0.84,
-                "method": "provider-weighted-player-evidence-v1"
-              },
-              "sourceIds": [
-                "fifa-france-spain-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Free public probable-lineup source",
-                "free-public-lineups: ESP 4-2-3-1 starter 4",
-                "Last verified official XI",
-                "5 recent starts, 450 recent minutes",
-                "local-official-history: ESP 4-2-3-1 starter 3"
-              ],
-              "notes": []
-            },
-            {
-              "name": "Marc Cucurella",
-              "number": "24",
-              "position": "LB",
-              "x": 15,
-              "y": 75,
-              "confidence": {
-                "label": "high",
-                "score": 0.84,
-                "method": "provider-weighted-player-evidence-v1"
-              },
-              "sourceIds": [
-                "fifa-france-spain-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Free public probable-lineup source",
-                "free-public-lineups: ESP 4-2-3-1 starter 5",
-                "Last verified official XI",
-                "5 recent starts, 450 recent minutes",
-                "local-official-history: ESP 4-2-3-1 starter 5"
-              ],
-              "notes": []
-            },
-            {
-              "name": "Rodri",
-              "number": "16",
-              "position": "CM",
-              "x": 34,
-              "y": 59,
-              "confidence": {
-                "label": "high",
-                "score": 0.84,
-                "method": "provider-weighted-player-evidence-v1"
-              },
-              "sourceIds": [
-                "fifa-france-spain-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Free public probable-lineup source",
-                "free-public-lineups: ESP 4-2-3-1 starter 6",
-                "Last verified official XI",
-                "5 recent starts, 450 recent minutes",
-                "local-official-history: ESP 4-2-3-1 starter 8"
-              ],
-              "notes": []
-            },
-            {
-              "name": "Pedri",
-              "number": "20",
-              "position": "CM",
-              "x": 66,
-              "y": 59,
-              "confidence": {
-                "label": "medium",
-                "score": 0.72,
-                "method": "provider-weighted-player-evidence-v1"
-              },
-              "sourceIds": [
-                "fifa-france-spain-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Free public probable-lineup source",
-                "free-public-lineups: ESP 4-2-3-1 starter 7",
-                "Recent official bench/minutes",
-                "5 recent starts, 360 recent minutes",
-                "local-official-history: ESP 4-2-3-1 bench 10"
-              ],
-              "notes": []
-            },
-            {
-              "name": "Lamine Yamal",
-              "number": "19",
-              "position": "RW",
-              "x": 82,
-              "y": 40,
-              "confidence": {
-                "label": "high",
-                "score": 0.84,
-                "method": "provider-weighted-player-evidence-v1"
-              },
-              "sourceIds": [
-                "fifa-france-spain-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Free public probable-lineup source",
-                "free-public-lineups: ESP 4-2-3-1 starter 8",
-                "Last verified official XI",
-                "5 recent starts, 386 recent minutes",
-                "local-official-history: ESP 4-2-3-1 starter 10"
-              ],
-              "notes": []
-            },
-            {
-              "name": "Dani Olmo",
-              "number": "10",
-              "position": "AM",
-              "x": 50,
-              "y": 40,
-              "confidence": {
-                "label": "high",
-                "score": 0.84,
-                "method": "provider-weighted-player-evidence-v1"
-              },
-              "sourceIds": [
-                "fifa-france-spain-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Free public probable-lineup source",
-                "free-public-lineups: ESP 4-2-3-1 starter 9",
-                "Last verified official XI",
-                "4 recent starts, 333 recent minutes",
-                "local-official-history: ESP 4-2-3-1 starter 9"
-              ],
-              "notes": []
-            },
-            {
-              "name": "Alex Baena",
-              "number": "15",
-              "position": "LW",
-              "x": 18,
-              "y": 40,
-              "confidence": {
-                "label": "high",
-                "score": 0.84,
-                "method": "provider-weighted-player-evidence-v1"
-              },
-              "sourceIds": [
-                "fifa-france-spain-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Free public probable-lineup source",
-                "free-public-lineups: ESP 4-2-3-1 starter 10",
-                "Last verified official XI",
-                "5 recent starts, 328 recent minutes",
-                "local-official-history: ESP 4-2-3-1 starter 7"
-              ],
-              "notes": []
-            },
-            {
-              "name": "Mikel Oyarzabal",
-              "number": "21",
-              "position": "ST",
-              "x": 50,
-              "y": 20,
-              "confidence": {
-                "label": "high",
-                "score": 0.84,
-                "method": "provider-weighted-player-evidence-v1"
-              },
-              "sourceIds": [
-                "fifa-france-spain-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Free public probable-lineup source",
-                "free-public-lineups: ESP 4-2-3-1 starter 11",
-                "Last verified official XI",
-                "5 recent starts, 380 recent minutes",
-                "local-official-history: ESP 4-2-3-1 starter 11"
-              ],
-              "notes": []
-            }
-          ],
-          "bench": [
-            {
-              "name": "Fabian Ruiz",
-              "number": "8",
-              "position": "CM",
-              "confidence": {
-                "label": "medium",
-                "score": 0.74,
-                "reason": "1 recent start, 110 recent minutes"
-              },
-              "sourceIds": [
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Last verified official XI",
-                "1 recent start, 110 recent minutes"
-              ],
-              "notes": []
-            },
-            {
-              "name": "Marcos Llorente",
-              "number": "5",
-              "position": "RB",
-              "confidence": {
-                "label": "medium",
-                "score": 0.54,
-                "reason": "1 recent start, 90 recent minutes"
-              },
-              "sourceIds": [
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Recent official bench/minutes",
-                "1 recent start, 90 recent minutes"
-              ],
-              "notes": []
-            },
-            {
-              "name": "Mikel Merino",
-              "number": "6",
-              "position": "CM",
-              "confidence": {
-                "label": "medium",
-                "score": 0.54,
-                "reason": "1 recent start, 117 recent minutes"
-              },
-              "sourceIds": [
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Recent official bench/minutes",
-                "1 recent start, 117 recent minutes"
-              ],
-              "notes": []
-            },
-            {
-              "name": "Alex Grimaldo",
-              "number": "3",
-              "position": "LB",
-              "confidence": {
-                "label": "medium",
-                "score": 0.5,
-                "reason": "0 recent starts, 0 recent minutes"
-              },
-              "sourceIds": [
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Recent official bench/minutes",
-                "0 recent starts, 0 recent minutes"
-              ],
-              "notes": []
-            },
-            {
-              "name": "Borja Iglesias",
-              "number": "26",
-              "position": "ST",
-              "confidence": {
-                "label": "medium",
-                "score": 0.5,
-                "reason": "0 recent starts, 0 recent minutes"
-              },
-              "sourceIds": [
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Recent official bench/minutes",
-                "0 recent starts, 0 recent minutes"
-              ],
-              "notes": []
-            },
-            {
-              "name": "David Raya",
-              "number": "1",
-              "position": "GK",
-              "confidence": {
-                "label": "medium",
-                "score": 0.5,
-                "reason": "0 recent starts, 0 recent minutes"
-              },
-              "sourceIds": [
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Recent official bench/minutes",
-                "0 recent starts, 0 recent minutes"
-              ],
-              "notes": []
-            },
-            {
-              "name": "Eric Garcia",
-              "number": "4",
-              "position": "CB",
-              "confidence": {
-                "label": "medium",
-                "score": 0.5,
-                "reason": "0 recent starts, 0 recent minutes"
-              },
-              "sourceIds": [
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Recent official bench/minutes",
-                "0 recent starts, 0 recent minutes"
-              ],
-              "notes": []
-            },
-            {
-              "name": "Ferran Torres",
-              "number": "7",
-              "position": "RW",
-              "confidence": {
-                "label": "medium",
-                "score": 0.5,
-                "reason": "0 recent starts, 128 recent minutes"
-              },
-              "sourceIds": [
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Recent official bench/minutes",
-                "0 recent starts, 128 recent minutes"
-              ],
-              "notes": []
-            },
-            {
-              "name": "Gavi",
-              "number": "9",
-              "position": "CM",
-              "confidence": {
-                "label": "medium",
-                "score": 0.5,
-                "reason": "0 recent starts, 5 recent minutes"
-              },
-              "sourceIds": [
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Recent official bench/minutes",
-                "0 recent starts, 5 recent minutes"
-              ],
-              "notes": []
-            },
-            {
-              "name": "Joan Garcia",
-              "number": "13",
-              "position": "GK",
-              "confidence": {
-                "label": "medium",
-                "score": 0.5,
-                "reason": "0 recent starts, 0 recent minutes"
-              },
-              "sourceIds": [
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Recent official bench/minutes",
-                "0 recent starts, 0 recent minutes"
-              ],
-              "notes": []
-            },
-            {
-              "name": "Marc Pubill",
-              "number": "2",
-              "position": "CB",
-              "confidence": {
-                "label": "medium",
-                "score": 0.5,
-                "reason": "0 recent starts, 0 recent minutes"
-              },
-              "sourceIds": [
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Recent official bench/minutes",
-                "0 recent starts, 0 recent minutes"
-              ],
-              "notes": []
-            },
-            {
-              "name": "Martin Zubimendi",
-              "number": "18",
-              "position": "DM",
-              "confidence": {
-                "label": "medium",
-                "score": 0.5,
-                "reason": "0 recent starts, 0 recent minutes"
-              },
-              "sourceIds": [
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Recent official bench/minutes",
-                "0 recent starts, 0 recent minutes"
-              ],
-              "notes": []
-            },
-            {
-              "name": "Nico Williams",
-              "number": "17",
-              "position": "RW",
-              "confidence": {
-                "label": "medium",
-                "score": 0.5,
-                "reason": "0 recent starts, 54 recent minutes"
-              },
-              "sourceIds": [
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Recent official bench/minutes",
-                "0 recent starts, 54 recent minutes"
-              ],
-              "notes": []
-            },
-            {
-              "name": "Victor Munoz",
-              "number": "25",
-              "position": "LW",
-              "confidence": {
-                "label": "medium",
-                "score": 0.5,
-                "reason": "0 recent starts, 0 recent minutes"
-              },
-              "sourceIds": [
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Recent official bench/minutes",
-                "0 recent starts, 0 recent minutes"
-              ],
-              "notes": []
-            },
-            {
-              "name": "Yeremy Pino",
-              "number": "11",
-              "position": "RW",
-              "confidence": {
-                "label": "medium",
-                "score": 0.5,
-                "reason": "0 recent starts, 69 recent minutes"
-              },
-              "sourceIds": [
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Recent official bench/minutes",
-                "0 recent starts, 69 recent minutes"
-              ],
-              "notes": []
-            }
-          ],
-          "events": {},
-          "sourceIds": [
-            "fifa-france-spain-preview-2026-07-13",
-            "lineup-prediction-official-history-2026-07-13",
-            "fifa-lineups-sync-2026-07-13"
-          ],
-          "evidence": {
-            "confidence": {
-              "label": "medium",
-              "score": 0.74,
-              "method": "provider-weighted-evidence-v1",
-              "reason": "11/11 starters selected from 2 providers; 1 independent external source"
-            },
-            "formationScores": [
-              {
-                "formation": "4-2-3-1",
-                "score": 1.773,
-                "providerIds": [
-                  "free-public-lineups",
-                  "local-official-history"
-                ],
-                "sourceIds": [
-                  "fifa-france-spain-preview-2026-07-13",
-                  "lineup-prediction-official-history-2026-07-13",
-                  "fifa-lineups-sync-2026-07-13"
-                ]
-              }
-            ],
-            "starterScores": [
-              {
-                "name": "Unai Simon",
-                "score": 1.69,
-                "starterVotes": 2,
-                "benchVotes": 0,
-                "providerIds": [
-                  "free-public-lineups",
-                  "local-official-history"
-                ],
-                "sourceIds": [
-                  "fifa-france-spain-preview-2026-07-13",
-                  "lineup-prediction-official-history-2026-07-13",
-                  "fifa-lineups-sync-2026-07-13"
-                ]
-              },
-              {
-                "name": "Pedro Porro",
-                "score": 1.69,
-                "starterVotes": 2,
-                "benchVotes": 0,
-                "providerIds": [
-                  "free-public-lineups",
-                  "local-official-history"
-                ],
-                "sourceIds": [
-                  "fifa-france-spain-preview-2026-07-13",
-                  "lineup-prediction-official-history-2026-07-13",
-                  "fifa-lineups-sync-2026-07-13"
-                ]
-              },
-              {
-                "name": "Pau Cubarsi",
-                "score": 1.69,
-                "starterVotes": 2,
-                "benchVotes": 0,
-                "providerIds": [
-                  "free-public-lineups",
-                  "local-official-history"
-                ],
-                "sourceIds": [
-                  "fifa-france-spain-preview-2026-07-13",
-                  "lineup-prediction-official-history-2026-07-13",
-                  "fifa-lineups-sync-2026-07-13"
-                ]
-              },
-              {
-                "name": "Aymeric Laporte",
-                "score": 1.69,
-                "starterVotes": 2,
-                "benchVotes": 0,
-                "providerIds": [
-                  "free-public-lineups",
-                  "local-official-history"
-                ],
-                "sourceIds": [
-                  "fifa-france-spain-preview-2026-07-13",
-                  "lineup-prediction-official-history-2026-07-13",
-                  "fifa-lineups-sync-2026-07-13"
-                ]
-              },
-              {
-                "name": "Marc Cucurella",
-                "score": 1.69,
-                "starterVotes": 2,
-                "benchVotes": 0,
-                "providerIds": [
-                  "free-public-lineups",
-                  "local-official-history"
-                ],
-                "sourceIds": [
-                  "fifa-france-spain-preview-2026-07-13",
-                  "lineup-prediction-official-history-2026-07-13",
-                  "fifa-lineups-sync-2026-07-13"
-                ]
-              },
-              {
-                "name": "Rodri",
-                "score": 1.69,
-                "starterVotes": 2,
-                "benchVotes": 0,
-                "providerIds": [
-                  "free-public-lineups",
-                  "local-official-history"
-                ],
-                "sourceIds": [
-                  "fifa-france-spain-preview-2026-07-13",
-                  "lineup-prediction-official-history-2026-07-13",
-                  "fifa-lineups-sync-2026-07-13"
-                ]
-              },
-              {
-                "name": "Pedri",
-                "score": 1.223,
-                "starterVotes": 1,
-                "benchVotes": 1,
-                "providerIds": [
-                  "free-public-lineups",
-                  "local-official-history"
-                ],
-                "sourceIds": [
-                  "fifa-france-spain-preview-2026-07-13",
-                  "lineup-prediction-official-history-2026-07-13",
-                  "fifa-lineups-sync-2026-07-13"
-                ]
-              },
-              {
-                "name": "Lamine Yamal",
-                "score": 1.69,
-                "starterVotes": 2,
-                "benchVotes": 0,
-                "providerIds": [
-                  "free-public-lineups",
-                  "local-official-history"
-                ],
-                "sourceIds": [
-                  "fifa-france-spain-preview-2026-07-13",
-                  "lineup-prediction-official-history-2026-07-13",
-                  "fifa-lineups-sync-2026-07-13"
-                ]
-              },
-              {
-                "name": "Dani Olmo",
-                "score": 1.678,
-                "starterVotes": 2,
-                "benchVotes": 0,
-                "providerIds": [
-                  "free-public-lineups",
-                  "local-official-history"
-                ],
-                "sourceIds": [
-                  "fifa-france-spain-preview-2026-07-13",
-                  "lineup-prediction-official-history-2026-07-13",
-                  "fifa-lineups-sync-2026-07-13"
-                ]
-              },
-              {
-                "name": "Alex Baena",
-                "score": 1.69,
-                "starterVotes": 2,
-                "benchVotes": 0,
-                "providerIds": [
-                  "free-public-lineups",
-                  "local-official-history"
-                ],
-                "sourceIds": [
-                  "fifa-france-spain-preview-2026-07-13",
-                  "lineup-prediction-official-history-2026-07-13",
-                  "fifa-lineups-sync-2026-07-13"
-                ]
-              },
-              {
-                "name": "Mikel Oyarzabal",
-                "score": 1.69,
-                "starterVotes": 2,
-                "benchVotes": 0,
-                "providerIds": [
-                  "free-public-lineups",
-                  "local-official-history"
-                ],
-                "sourceIds": [
-                  "fifa-france-spain-preview-2026-07-13",
-                  "lineup-prediction-official-history-2026-07-13",
-                  "fifa-lineups-sync-2026-07-13"
-                ]
-              }
-            ]
-          }
-        },
-        "mode": "expected",
-        "teamSheetSource": "editorial",
-        "eventSource": "editorial",
-        "layoutSource": "derived-team-sheet-order",
-        "layoutVerification": {
-          "status": "unverified",
-          "exact": false,
-          "source": "derived-team-sheet-order",
-          "checkedAt": "2026-07-13T22:51:42.836Z"
-        },
-        "confidence": {
-          "label": "medium",
-          "score": 0.74,
-          "method": "provider-weighted-lineup-evidence-v1",
-          "reason": "Average confidence across predicted home and away XIs"
-        },
-        "sourceIds": [
-          "fifa-france-spain-preview-2026-07-13",
-          "lineup-prediction-official-history-2026-07-13",
-          "fifa-lineups-sync-2026-07-13"
-        ],
-        "checkedAt": "2026-07-13T22:51:42.836Z",
-        "updatedAt": "2026-07-13T22:51:42.836Z"
-      }
-    },
-    {
       "fixtureId": "match-102-semi-final-2026-07-15",
-      "mode": "expected",
+      "mode": "probable",
+      "predictionClass": "forecast",
       "sourceIds": [
+        "sports-mole-england-argentina-team-news-2026-07-14",
+        "sky-sports-england-argentina-team-news-2026-07-14",
+        "stats-zone-england-argentina-preview-2026-07-14",
         "fifa-england-argentina-preview-2026-07-13",
-        "lineup-prediction-official-history-2026-07-13",
-        "fifa-lineups-sync-2026-07-13"
+        "lineup-prediction-official-history",
+        "lineup-layout-verification-2026-07-13",
+        "fifa-lineups-sync-2026-07-14"
       ],
-      "lastUpdated": "2026-07-13T22:51:42.836Z",
+      "lastUpdated": "2026-07-14T21:36:24.792Z",
       "confidence": {
-        "label": "medium",
-        "score": 0.74,
-        "method": "provider-weighted-lineup-evidence-v1",
-        "reason": "Average confidence across predicted home and away XIs"
+        "label": "high",
+        "score": 0.931,
+        "method": "evidence-strength-v2",
+        "reason": "Average home/away evidence strength; this is not a calibrated probability."
       },
       "providers": [
         {
           "providerId": "local-official-history",
           "providerVersion": "1",
           "score": 0.923,
+          "predictionClass": "forecast",
+          "recencyWeight": 0.45,
+          "sourceReliability": 1,
+          "independenceKey": "source:lineup-prediction-official-history",
+          "updatedAt": "2026-07-12T01:00:00Z",
           "sourceIds": [
-            "lineup-prediction-official-history-2026-07-13",
-            "fifa-lineups-sync-2026-07-13"
+            "lineup-prediction-official-history",
+            "lineup-layout-verification-2026-07-13",
+            "fifa-lineups-sync-2026-07-14",
+            "sky-sports-england-argentina-team-news-2026-07-14"
           ]
         },
         {
           "providerId": "free-public-lineups",
           "providerVersion": "1",
-          "score": 0.958,
+          "score": 0.944,
+          "predictionClass": "forecast",
+          "recencyWeight": 0.72,
+          "sourceReliability": 1,
+          "independenceKey": "source:fifa",
+          "updatedAt": "2026-07-13T22:50:33Z",
           "sourceIds": [
-            "fifa-england-argentina-preview-2026-07-13"
+            "fifa-england-argentina-preview-2026-07-13",
+            "sky-sports-england-argentina-team-news-2026-07-14"
+          ]
+        },
+        {
+          "providerId": "free-public-lineups",
+          "providerVersion": "1",
+          "score": 0.972,
+          "predictionClass": "forecast",
+          "recencyWeight": 0.92,
+          "sourceReliability": 1,
+          "independenceKey": "source:sports-mole",
+          "updatedAt": "2026-07-14T15:50:00Z",
+          "sourceIds": [
+            "sports-mole-england-argentina-team-news-2026-07-14",
+            "sky-sports-england-argentina-team-news-2026-07-14"
+          ]
+        },
+        {
+          "providerId": "free-public-lineups",
+          "providerVersion": "1",
+          "score": 0.965,
+          "predictionClass": "forecast",
+          "recencyWeight": 0.92,
+          "sourceReliability": 1,
+          "independenceKey": "source:the-stats-zone",
+          "updatedAt": "2026-07-14T15:50:00Z",
+          "sourceIds": [
+            "stats-zone-england-argentina-preview-2026-07-14",
+            "sky-sports-england-argentina-team-news-2026-07-14"
           ]
         }
       ],
       "evidence": {
         "home": {
           "confidence": {
-            "label": "medium",
-            "score": 0.74,
-            "method": "provider-weighted-evidence-v1",
-            "reason": "11/11 starters selected from 2 providers; 1 independent external source"
+            "label": "high",
+            "score": 0.921,
+            "method": "evidence-strength-v2",
+            "reason": "Evidence strength from 11/11 role-constrained consensus starters, 2 providers, and 3 independent external sources; this is not a calibrated probability."
+          },
+          "semantics": "evidence-strength-not-calibrated-probability",
+          "independentSourceCount": 4,
+          "formationResolution": {
+            "requestedFormation": "4-2-3-1",
+            "displayedFormation": "4-2-3-1",
+            "method": "known-layout"
           },
           "formationScores": [
             {
               "formation": "4-2-3-1",
-              "score": 1.801,
-              "providerIds": [
-                "free-public-lineups",
-                "local-official-history"
-              ],
+              "score": 2.787,
+              "independentVotes": 4,
               "sourceIds": [
+                "sports-mole-england-argentina-team-news-2026-07-14",
+                "sky-sports-england-argentina-team-news-2026-07-14",
+                "stats-zone-england-argentina-preview-2026-07-14",
                 "fifa-england-argentina-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
+                "lineup-prediction-official-history",
+                "lineup-layout-verification-2026-07-13",
+                "fifa-lineups-sync-2026-07-14"
               ]
             }
           ],
-          "starterScores": [
-            {
-              "name": "Jordan Pickford",
-              "score": 1.716,
-              "starterVotes": 2,
-              "benchVotes": 0,
-              "providerIds": [
-                "free-public-lineups",
-                "local-official-history"
-              ],
-              "sourceIds": [
-                "fifa-england-argentina-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ]
-            },
-            {
-              "name": "Reece James",
-              "score": 1.219,
-              "starterVotes": 1,
-              "benchVotes": 1,
-              "providerIds": [
-                "free-public-lineups",
-                "local-official-history"
-              ],
-              "sourceIds": [
-                "fifa-england-argentina-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ]
-            },
-            {
-              "name": "Ezri Konsa",
-              "score": 1.716,
-              "starterVotes": 2,
-              "benchVotes": 0,
-              "providerIds": [
-                "free-public-lineups",
-                "local-official-history"
-              ],
-              "sourceIds": [
-                "fifa-england-argentina-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ]
-            },
-            {
-              "name": "Marc Guehi",
-              "score": 1.716,
-              "starterVotes": 2,
-              "benchVotes": 0,
-              "providerIds": [
-                "free-public-lineups",
-                "local-official-history"
-              ],
-              "sourceIds": [
-                "fifa-england-argentina-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ]
-            },
-            {
-              "name": "Nico O'Reilly",
-              "score": 0.89,
-              "starterVotes": 1,
-              "benchVotes": 0,
-              "providerIds": [
-                "free-public-lineups"
-              ],
-              "sourceIds": [
-                "fifa-england-argentina-preview-2026-07-13"
-              ]
-            },
-            {
-              "name": "Elliot Anderson",
-              "score": 1.716,
-              "starterVotes": 2,
-              "benchVotes": 0,
-              "providerIds": [
-                "free-public-lineups",
-                "local-official-history"
-              ],
-              "sourceIds": [
-                "fifa-england-argentina-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ]
-            },
-            {
-              "name": "Declan Rice",
-              "score": 1.704,
-              "starterVotes": 2,
-              "benchVotes": 0,
-              "providerIds": [
-                "free-public-lineups",
-                "local-official-history"
-              ],
-              "sourceIds": [
-                "fifa-england-argentina-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ]
-            },
-            {
-              "name": "Bukayo Saka",
-              "score": 1.225,
-              "starterVotes": 1,
-              "benchVotes": 1,
-              "providerIds": [
-                "free-public-lineups",
-                "local-official-history"
-              ],
-              "sourceIds": [
-                "fifa-england-argentina-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ]
-            },
-            {
-              "name": "Jude Bellingham",
-              "score": 1.716,
-              "starterVotes": 2,
-              "benchVotes": 0,
-              "providerIds": [
-                "free-public-lineups",
-                "local-official-history"
-              ],
-              "sourceIds": [
-                "fifa-england-argentina-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ]
-            },
-            {
-              "name": "Anthony Gordon",
-              "score": 1.707,
-              "starterVotes": 2,
-              "benchVotes": 0,
-              "providerIds": [
-                "free-public-lineups",
-                "local-official-history"
-              ],
-              "sourceIds": [
-                "fifa-england-argentina-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ]
-            },
-            {
-              "name": "Harry Kane",
-              "score": 1.716,
-              "starterVotes": 2,
-              "benchVotes": 0,
-              "providerIds": [
-                "free-public-lineups",
-                "local-official-history"
-              ],
-              "sourceIds": [
-                "fifa-england-argentina-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ]
-            }
+          "disputedSlots": [],
+          "notes": [
+            "Latest team-news consensus: Rice and O'Reilly are fit, Saka returns, and Stones partners Guehi with Konsa covering right-back; Argentina remain unchanged from their quarter-final XI.",
+            "2 availability exclusions checked",
+            "Second fresh matchday source independently agrees on England's Konsa-Stones-Guehi-O'Reilly back four and Argentina's unchanged quarter-final personnel.",
+            "FIFA's earlier preview restores Reece James and Bukayo Saka to England's likely XI; retained as a visible dissenting source after fresher matchday previews moved Konsa to right-back and Stones into central defence. Argentina's published line order maps to a Paredes-anchored 4-1-3-2.",
+            "Last verified XI: match 99",
+            "Recent formation: 4-2-3-1",
+            "0 last-XI players removed for explicit availability"
           ]
         },
         "away": {
           "confidence": {
-            "label": "medium",
-            "score": 0.74,
-            "method": "provider-weighted-evidence-v1",
-            "reason": "11/11 starters selected from 2 providers; 1 independent external source"
+            "label": "high",
+            "score": 0.942,
+            "method": "evidence-strength-v2",
+            "reason": "Evidence strength from 11/11 role-constrained consensus starters, 2 providers, and 3 independent external sources; this is not a calibrated probability."
+          },
+          "semantics": "evidence-strength-not-calibrated-probability",
+          "independentSourceCount": 4,
+          "formationResolution": {
+            "requestedFormation": "4-1-3-2",
+            "displayedFormation": "4-1-3-2",
+            "method": "known-layout"
           },
           "formationScores": [
             {
               "formation": "4-1-3-2",
-              "score": 1.801,
-              "providerIds": [
-                "free-public-lineups",
-                "local-official-history"
-              ],
+              "score": 2.787,
+              "independentVotes": 4,
               "sourceIds": [
+                "sports-mole-england-argentina-team-news-2026-07-14",
+                "sky-sports-england-argentina-team-news-2026-07-14",
+                "stats-zone-england-argentina-preview-2026-07-14",
                 "fifa-england-argentina-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
+                "lineup-prediction-official-history",
+                "lineup-layout-verification-2026-07-13",
+                "fifa-lineups-sync-2026-07-14"
               ]
             }
           ],
-          "starterScores": [
-            {
-              "name": "Emiliano Martinez",
-              "score": 1.716,
-              "starterVotes": 2,
-              "benchVotes": 0,
-              "providerIds": [
-                "free-public-lineups",
-                "local-official-history"
-              ],
-              "sourceIds": [
-                "fifa-england-argentina-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ]
-            },
-            {
-              "name": "Nahuel Molina",
-              "score": 1.704,
-              "starterVotes": 2,
-              "benchVotes": 0,
-              "providerIds": [
-                "free-public-lineups",
-                "local-official-history"
-              ],
-              "sourceIds": [
-                "fifa-england-argentina-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ]
-            },
-            {
-              "name": "Cristian Romero",
-              "score": 1.704,
-              "starterVotes": 2,
-              "benchVotes": 0,
-              "providerIds": [
-                "free-public-lineups",
-                "local-official-history"
-              ],
-              "sourceIds": [
-                "fifa-england-argentina-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ]
-            },
-            {
-              "name": "Lisandro Martinez",
-              "score": 1.704,
-              "starterVotes": 2,
-              "benchVotes": 0,
-              "providerIds": [
-                "free-public-lineups",
-                "local-official-history"
-              ],
-              "sourceIds": [
-                "fifa-england-argentina-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ]
-            },
-            {
-              "name": "Nicolas Tagliafico",
-              "score": 1.707,
-              "starterVotes": 2,
-              "benchVotes": 0,
-              "providerIds": [
-                "free-public-lineups",
-                "local-official-history"
-              ],
-              "sourceIds": [
-                "fifa-england-argentina-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ]
-            },
-            {
-              "name": "Leandro Paredes",
-              "score": 1.707,
-              "starterVotes": 2,
-              "benchVotes": 0,
-              "providerIds": [
-                "free-public-lineups",
-                "local-official-history"
-              ],
-              "sourceIds": [
-                "fifa-england-argentina-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ]
-            },
-            {
-              "name": "Rodrigo De Paul",
-              "score": 1.704,
-              "starterVotes": 2,
-              "benchVotes": 0,
-              "providerIds": [
-                "free-public-lineups",
-                "local-official-history"
-              ],
-              "sourceIds": [
-                "fifa-england-argentina-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ]
-            },
-            {
-              "name": "Alexis Mac Allister",
-              "score": 1.704,
-              "starterVotes": 2,
-              "benchVotes": 0,
-              "providerIds": [
-                "free-public-lineups",
-                "local-official-history"
-              ],
-              "sourceIds": [
-                "fifa-england-argentina-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ]
-            },
-            {
-              "name": "Enzo Fernandez",
-              "score": 1.719,
-              "starterVotes": 2,
-              "benchVotes": 0,
-              "providerIds": [
-                "free-public-lineups",
-                "local-official-history"
-              ],
-              "sourceIds": [
-                "fifa-england-argentina-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ]
-            },
-            {
-              "name": "Lionel Messi",
-              "score": 1.704,
-              "starterVotes": 2,
-              "benchVotes": 0,
-              "providerIds": [
-                "free-public-lineups",
-                "local-official-history"
-              ],
-              "sourceIds": [
-                "fifa-england-argentina-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ]
-            },
-            {
-              "name": "Julian Alvarez",
-              "score": 1.692,
-              "starterVotes": 2,
-              "benchVotes": 0,
-              "providerIds": [
-                "free-public-lineups",
-                "local-official-history"
-              ],
-              "sourceIds": [
-                "fifa-england-argentina-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ]
-            }
+          "disputedSlots": [],
+          "notes": [
+            "Latest team-news consensus: Rice and O'Reilly are fit, Saka returns, and Stones partners Guehi with Konsa covering right-back; Argentina remain unchanged from their quarter-final XI.",
+            "0 availability exclusions checked",
+            "Second fresh matchday source independently agrees on England's Konsa-Stones-Guehi-O'Reilly back four and Argentina's unchanged quarter-final personnel.",
+            "FIFA's earlier preview restores Reece James and Bukayo Saka to England's likely XI; retained as a visible dissenting source after fresher matchday previews moved Konsa to right-back and Stones into central defence. Argentina's published line order maps to a Paredes-anchored 4-1-3-2.",
+            "Last verified XI: match 100",
+            "Recent formation: 4-1-3-2",
+            "0 last-XI players removed for explicit availability"
           ]
         }
       },
       "notes": [
-        "Generated by lineup prediction engine; replaced by confirmed/live FIFA lineups when available."
+        "Generated by role-constrained lineup consensus; evidence-strength scores are not calibrated probabilities.",
+        "Replaced by confirmed/live FIFA lineups when available."
       ],
       "lineup": {
         "home": {
+          "teamId": "ENG",
           "formation": "4-2-3-1",
           "coach": {
             "name": "Thomas Tuchel",
@@ -2515,142 +320,106 @@
               "y": 91,
               "confidence": {
                 "label": "high",
-                "score": 0.84,
-                "method": "provider-weighted-player-evidence-v1"
+                "score": 0.92,
+                "method": "evidence-strength-v2",
+                "reason": "4 independent starter sources; not a calibrated probability."
               },
               "sourceIds": [
+                "sports-mole-england-argentina-team-news-2026-07-14",
+                "sky-sports-england-argentina-team-news-2026-07-14",
+                "stats-zone-england-argentina-preview-2026-07-14",
                 "fifa-england-argentina-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Free public probable-lineup source",
-                "free-public-lineups: ENG 4-2-3-1 starter 1",
-                "Last verified official XI",
-                "5 recent starts, 450 recent minutes",
-                "local-official-history: ENG 4-2-3-1 starter 1"
-              ],
-              "notes": []
-            },
-            {
-              "name": "Reece James",
-              "number": "24",
-              "position": "RB",
-              "x": 85,
-              "y": 75,
-              "confidence": {
-                "label": "medium",
-                "score": 0.72,
-                "method": "provider-weighted-player-evidence-v1"
-              },
-              "sourceIds": [
-                "fifa-england-argentina-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Free public probable-lineup source",
-                "free-public-lineups: ENG 4-2-3-1 starter 2",
-                "Recent official bench/minutes",
-                "1 recent start, 109 recent minutes",
-                "local-official-history: ENG 4-2-3-1 bench 5"
-              ],
-              "notes": []
+                "lineup-prediction-official-history",
+                "lineup-layout-verification-2026-07-13",
+                "fifa-lineups-sync-2026-07-14"
+              ]
             },
             {
               "name": "Ezri Konsa",
               "number": "2",
+              "position": "RB",
+              "x": 85,
+              "y": 75,
+              "confidence": {
+                "label": "high",
+                "score": 0.92,
+                "method": "evidence-strength-v2",
+                "reason": "4 independent starter sources; not a calibrated probability."
+              },
+              "sourceIds": [
+                "sports-mole-england-argentina-team-news-2026-07-14",
+                "sky-sports-england-argentina-team-news-2026-07-14",
+                "stats-zone-england-argentina-preview-2026-07-14",
+                "fifa-england-argentina-preview-2026-07-13",
+                "lineup-prediction-official-history",
+                "lineup-layout-verification-2026-07-13",
+                "fifa-lineups-sync-2026-07-14"
+              ]
+            },
+            {
+              "name": "John Stones",
+              "number": "5",
               "position": "CB",
               "x": 62,
               "y": 75,
               "confidence": {
-                "label": "high",
-                "score": 0.84,
-                "method": "provider-weighted-player-evidence-v1"
+                "label": "medium",
+                "score": 0.733,
+                "method": "evidence-strength-v2",
+                "reason": "3 independent starter sources; not a calibrated probability."
               },
               "sourceIds": [
-                "fifa-england-argentina-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Free public probable-lineup source",
-                "free-public-lineups: ENG 4-2-3-1 starter 3",
-                "Last verified official XI",
-                "5 recent starts, 449 recent minutes",
-                "local-official-history: ENG 4-2-3-1 starter 2"
-              ],
-              "notes": []
+                "sports-mole-england-argentina-team-news-2026-07-14",
+                "sky-sports-england-argentina-team-news-2026-07-14",
+                "stats-zone-england-argentina-preview-2026-07-14",
+                "lineup-prediction-official-history",
+                "lineup-layout-verification-2026-07-13",
+                "fifa-lineups-sync-2026-07-14"
+              ]
             },
             {
-              "name": "Marc Guehi",
+              "name": "Marc Guéhi",
               "number": "6",
               "position": "CB",
               "x": 38,
               "y": 75,
               "confidence": {
                 "label": "high",
-                "score": 0.84,
-                "method": "provider-weighted-player-evidence-v1"
+                "score": 0.92,
+                "method": "evidence-strength-v2",
+                "reason": "4 independent starter sources; not a calibrated probability."
               },
               "sourceIds": [
+                "sports-mole-england-argentina-team-news-2026-07-14",
+                "sky-sports-england-argentina-team-news-2026-07-14",
+                "stats-zone-england-argentina-preview-2026-07-14",
                 "fifa-england-argentina-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Free public probable-lineup source",
-                "free-public-lineups: ENG 4-2-3-1 starter 4",
-                "Last verified official XI",
-                "5 recent starts, 450 recent minutes",
-                "local-official-history: ENG 4-2-3-1 starter 5"
-              ],
-              "notes": []
+                "lineup-prediction-official-history",
+                "lineup-layout-verification-2026-07-13",
+                "fifa-lineups-sync-2026-07-14"
+              ]
             },
             {
               "name": "Nico O'Reilly",
-              "number": "",
+              "number": "3",
               "position": "LB",
               "x": 15,
               "y": 75,
               "confidence": {
-                "label": "medium",
-                "score": 0.72,
-                "method": "provider-weighted-player-evidence-v1"
-              },
-              "sourceIds": [
-                "fifa-england-argentina-preview-2026-07-13"
-              ],
-              "evidence": [
-                "Free public probable-lineup source",
-                "free-public-lineups: ENG 4-2-3-1 starter 5"
-              ],
-              "notes": []
-            },
-            {
-              "name": "Elliot Anderson",
-              "number": "8",
-              "position": "CM",
-              "x": 34,
-              "y": 59,
-              "confidence": {
                 "label": "high",
-                "score": 0.84,
-                "method": "provider-weighted-player-evidence-v1"
+                "score": 0.92,
+                "method": "evidence-strength-v2",
+                "reason": "4 independent starter sources; not a calibrated probability."
               },
               "sourceIds": [
+                "sports-mole-england-argentina-team-news-2026-07-14",
+                "sky-sports-england-argentina-team-news-2026-07-14",
+                "stats-zone-england-argentina-preview-2026-07-14",
                 "fifa-england-argentina-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Free public probable-lineup source",
-                "free-public-lineups: ENG 4-2-3-1 starter 6",
-                "Last verified official XI",
-                "5 recent starts, 413 recent minutes",
-                "local-official-history: ENG 4-2-3-1 starter 7"
-              ],
-              "notes": []
+                "lineup-prediction-official-history",
+                "lineup-layout-verification-2026-07-13",
+                "fifa-lineups-sync-2026-07-14"
+              ]
             },
             {
               "name": "Declan Rice",
@@ -2660,22 +429,41 @@
               "y": 59,
               "confidence": {
                 "label": "high",
-                "score": 0.84,
-                "method": "provider-weighted-player-evidence-v1"
+                "score": 0.92,
+                "method": "evidence-strength-v2",
+                "reason": "4 independent starter sources; not a calibrated probability."
               },
               "sourceIds": [
+                "sports-mole-england-argentina-team-news-2026-07-14",
+                "sky-sports-england-argentina-team-news-2026-07-14",
+                "stats-zone-england-argentina-preview-2026-07-14",
                 "fifa-england-argentina-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Free public probable-lineup source",
-                "free-public-lineups: ENG 4-2-3-1 starter 7",
-                "Last verified official XI",
-                "4 recent starts, 315 recent minutes",
-                "local-official-history: ENG 4-2-3-1 starter 6"
-              ],
-              "notes": []
+                "lineup-prediction-official-history",
+                "lineup-layout-verification-2026-07-13",
+                "fifa-lineups-sync-2026-07-14"
+              ]
+            },
+            {
+              "name": "Elliot Anderson",
+              "number": "8",
+              "position": "CM",
+              "x": 34,
+              "y": 59,
+              "confidence": {
+                "label": "high",
+                "score": 0.92,
+                "method": "evidence-strength-v2",
+                "reason": "4 independent starter sources; not a calibrated probability."
+              },
+              "sourceIds": [
+                "sports-mole-england-argentina-team-news-2026-07-14",
+                "sky-sports-england-argentina-team-news-2026-07-14",
+                "stats-zone-england-argentina-preview-2026-07-14",
+                "fifa-england-argentina-preview-2026-07-13",
+                "lineup-prediction-official-history",
+                "lineup-layout-verification-2026-07-13",
+                "fifa-lineups-sync-2026-07-14"
+              ]
             },
             {
               "name": "Bukayo Saka",
@@ -2684,23 +472,20 @@
               "x": 82,
               "y": 40,
               "confidence": {
-                "label": "medium",
-                "score": 0.72,
-                "method": "provider-weighted-player-evidence-v1"
+                "label": "high",
+                "score": 0.778,
+                "method": "evidence-strength-v2",
+                "reason": "3 independent starter sources; not a calibrated probability."
               },
               "sourceIds": [
+                "sports-mole-england-argentina-team-news-2026-07-14",
+                "sky-sports-england-argentina-team-news-2026-07-14",
+                "stats-zone-england-argentina-preview-2026-07-14",
                 "fifa-england-argentina-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Free public probable-lineup source",
-                "free-public-lineups: ENG 4-2-3-1 starter 8",
-                "Recent official bench/minutes",
-                "2 recent starts, 220 recent minutes",
-                "local-official-history: ENG 4-2-3-1 bench 11"
-              ],
-              "notes": []
+                "lineup-prediction-official-history",
+                "lineup-layout-verification-2026-07-13",
+                "fifa-lineups-sync-2026-07-14"
+              ]
             },
             {
               "name": "Jude Bellingham",
@@ -2710,22 +495,19 @@
               "y": 40,
               "confidence": {
                 "label": "high",
-                "score": 0.84,
-                "method": "provider-weighted-player-evidence-v1"
+                "score": 0.92,
+                "method": "evidence-strength-v2",
+                "reason": "4 independent starter sources; not a calibrated probability."
               },
               "sourceIds": [
+                "sports-mole-england-argentina-team-news-2026-07-14",
+                "sky-sports-england-argentina-team-news-2026-07-14",
+                "stats-zone-england-argentina-preview-2026-07-14",
                 "fifa-england-argentina-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Free public probable-lineup source",
-                "free-public-lineups: ENG 4-2-3-1 starter 9",
-                "Last verified official XI",
-                "5 recent starts, 415 recent minutes",
-                "local-official-history: ENG 4-2-3-1 starter 8"
-              ],
-              "notes": []
+                "lineup-prediction-official-history",
+                "lineup-layout-verification-2026-07-13",
+                "fifa-lineups-sync-2026-07-14"
+              ]
             },
             {
               "name": "Anthony Gordon",
@@ -2735,22 +517,19 @@
               "y": 40,
               "confidence": {
                 "label": "high",
-                "score": 0.84,
-                "method": "provider-weighted-player-evidence-v1"
+                "score": 0.92,
+                "method": "evidence-strength-v2",
+                "reason": "4 independent starter sources; not a calibrated probability."
               },
               "sourceIds": [
+                "sports-mole-england-argentina-team-news-2026-07-14",
+                "sky-sports-england-argentina-team-news-2026-07-14",
+                "stats-zone-england-argentina-preview-2026-07-14",
                 "fifa-england-argentina-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Free public probable-lineup source",
-                "free-public-lineups: ENG 4-2-3-1 starter 10",
-                "Last verified official XI",
-                "3 recent starts, 256 recent minutes",
-                "local-official-history: ENG 4-2-3-1 starter 10"
-              ],
-              "notes": []
+                "lineup-prediction-official-history",
+                "lineup-layout-verification-2026-07-13",
+                "fifa-lineups-sync-2026-07-14"
+              ]
             },
             {
               "name": "Harry Kane",
@@ -2760,506 +539,258 @@
               "y": 20,
               "confidence": {
                 "label": "high",
-                "score": 0.84,
-                "method": "provider-weighted-player-evidence-v1"
+                "score": 0.92,
+                "method": "evidence-strength-v2",
+                "reason": "4 independent starter sources; not a calibrated probability."
               },
               "sourceIds": [
+                "sports-mole-england-argentina-team-news-2026-07-14",
+                "sky-sports-england-argentina-team-news-2026-07-14",
+                "stats-zone-england-argentina-preview-2026-07-14",
                 "fifa-england-argentina-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Free public probable-lineup source",
-                "free-public-lineups: ENG 4-2-3-1 starter 11",
-                "Last verified official XI",
-                "5 recent starts, 444 recent minutes",
-                "local-official-history: ENG 4-2-3-1 starter 9"
-              ],
-              "notes": []
+                "lineup-prediction-official-history",
+                "lineup-layout-verification-2026-07-13",
+                "fifa-lineups-sync-2026-07-14"
+              ]
             }
           ],
           "bench": [
-            {
-              "name": "Noni Madueke",
-              "number": "20",
-              "position": "LW",
-              "confidence": {
-                "label": "high",
-                "score": 0.82,
-                "reason": "3 recent starts, 215 recent minutes"
-              },
-              "sourceIds": [
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Last verified official XI",
-                "3 recent starts, 215 recent minutes"
-              ],
-              "notes": []
-            },
-            {
-              "name": "Nico Oreilly",
-              "number": "3",
-              "position": "LB",
-              "confidence": {
-                "label": "high",
-                "score": 0.81,
-                "reason": "4 recent starts, 366 recent minutes"
-              },
-              "sourceIds": [
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Last verified official XI",
-                "4 recent starts, 366 recent minutes"
-              ],
-              "notes": []
-            },
-            {
-              "name": "John Stones",
-              "number": "5",
-              "position": "CB",
-              "confidence": {
-                "label": "medium",
-                "score": 0.74,
-                "reason": "1 recent start, 123 recent minutes"
-              },
-              "sourceIds": [
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Last verified official XI",
-                "1 recent start, 123 recent minutes"
-              ],
-              "notes": []
-            },
             {
               "name": "Djed Spence",
               "number": "25",
               "position": "RB",
               "confidence": {
-                "label": "medium",
-                "score": 0.58,
-                "reason": "2 recent starts, 181 recent minutes"
+                "label": "low",
+                "score": 0.12,
+                "method": "evidence-strength-v2",
+                "reason": "Bench evidence strength; not a calibrated probability."
               },
               "sourceIds": [
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Recent official bench/minutes",
-                "2 recent starts, 181 recent minutes"
-              ],
-              "notes": []
-            },
-            {
-              "name": "Jarell Quansah",
-              "number": "26",
-              "position": "RB",
-              "confidence": {
-                "label": "medium",
-                "score": 0.58,
-                "reason": "2 recent starts, 153 recent minutes"
-              },
-              "sourceIds": [
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Recent official bench/minutes",
-                "2 recent starts, 153 recent minutes"
-              ],
-              "notes": []
+                "lineup-prediction-official-history",
+                "lineup-layout-verification-2026-07-13",
+                "fifa-lineups-sync-2026-07-14",
+                "sky-sports-england-argentina-team-news-2026-07-14"
+              ]
             },
             {
               "name": "Marcus Rashford",
               "number": "11",
               "position": "ST",
               "confidence": {
-                "label": "medium",
-                "score": 0.58,
-                "reason": "2 recent starts, 157 recent minutes"
+                "label": "low",
+                "score": 0.12,
+                "method": "evidence-strength-v2",
+                "reason": "Bench evidence strength; not a calibrated probability."
               },
               "sourceIds": [
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Recent official bench/minutes",
-                "2 recent starts, 157 recent minutes"
-              ],
-              "notes": []
+                "lineup-prediction-official-history",
+                "lineup-layout-verification-2026-07-13",
+                "fifa-lineups-sync-2026-07-14",
+                "sky-sports-england-argentina-team-news-2026-07-14"
+              ]
+            },
+            {
+              "name": "Reece James",
+              "number": "24",
+              "position": "RB",
+              "confidence": {
+                "label": "low",
+                "score": 0.118,
+                "method": "evidence-strength-v2",
+                "reason": "Bench evidence strength; not a calibrated probability."
+              },
+              "sourceIds": [
+                "fifa-england-argentina-preview-2026-07-13",
+                "sky-sports-england-argentina-team-news-2026-07-14",
+                "lineup-prediction-official-history",
+                "lineup-layout-verification-2026-07-13",
+                "fifa-lineups-sync-2026-07-14"
+              ]
             },
             {
               "name": "Morgan Rogers",
               "number": "17",
               "position": "AM",
               "confidence": {
-                "label": "medium",
-                "score": 0.54,
-                "reason": "1 recent start, 107 recent minutes"
+                "label": "low",
+                "score": 0.118,
+                "method": "evidence-strength-v2",
+                "reason": "Bench evidence strength; not a calibrated probability."
               },
               "sourceIds": [
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Recent official bench/minutes",
-                "1 recent start, 107 recent minutes"
-              ],
-              "notes": []
+                "lineup-prediction-official-history",
+                "lineup-layout-verification-2026-07-13",
+                "fifa-lineups-sync-2026-07-14",
+                "sky-sports-england-argentina-team-news-2026-07-14"
+              ]
             },
             {
               "name": "Dan Burn",
               "number": "15",
               "position": "CB",
               "confidence": {
-                "label": "medium",
-                "score": 0.5,
-                "reason": "0 recent starts, 15 recent minutes"
+                "label": "low",
+                "score": 0.116,
+                "method": "evidence-strength-v2",
+                "reason": "Bench evidence strength; not a calibrated probability."
               },
               "sourceIds": [
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Recent official bench/minutes",
-                "0 recent starts, 15 recent minutes"
-              ],
-              "notes": []
+                "lineup-prediction-official-history",
+                "lineup-layout-verification-2026-07-13",
+                "fifa-lineups-sync-2026-07-14",
+                "sky-sports-england-argentina-team-news-2026-07-14"
+              ]
             },
             {
               "name": "Dean Henderson",
               "number": "13",
               "position": "GK",
               "confidence": {
-                "label": "medium",
-                "score": 0.5,
-                "reason": "0 recent starts, 0 recent minutes"
+                "label": "low",
+                "score": 0.116,
+                "method": "evidence-strength-v2",
+                "reason": "Bench evidence strength; not a calibrated probability."
               },
               "sourceIds": [
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Recent official bench/minutes",
-                "0 recent starts, 0 recent minutes"
-              ],
-              "notes": []
+                "lineup-prediction-official-history",
+                "lineup-layout-verification-2026-07-13",
+                "fifa-lineups-sync-2026-07-14",
+                "sky-sports-england-argentina-team-news-2026-07-14"
+              ]
             },
             {
               "name": "Eberechi Eze",
               "number": "21",
               "position": "AM",
               "confidence": {
-                "label": "medium",
-                "score": 0.5,
-                "reason": "0 recent starts, 100 recent minutes"
+                "label": "low",
+                "score": 0.116,
+                "method": "evidence-strength-v2",
+                "reason": "Bench evidence strength; not a calibrated probability."
               },
               "sourceIds": [
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Recent official bench/minutes",
-                "0 recent starts, 100 recent minutes"
-              ],
-              "notes": []
+                "lineup-prediction-official-history",
+                "lineup-layout-verification-2026-07-13",
+                "fifa-lineups-sync-2026-07-14",
+                "sky-sports-england-argentina-team-news-2026-07-14"
+              ]
             },
             {
               "name": "Ivan Toney",
               "number": "22",
               "position": "ST",
               "confidence": {
-                "label": "medium",
-                "score": 0.5,
-                "reason": "0 recent starts, 0 recent minutes"
+                "label": "low",
+                "score": 0.116,
+                "method": "evidence-strength-v2",
+                "reason": "Bench evidence strength; not a calibrated probability."
               },
               "sourceIds": [
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Recent official bench/minutes",
-                "0 recent starts, 0 recent minutes"
-              ],
-              "notes": []
+                "lineup-prediction-official-history",
+                "lineup-layout-verification-2026-07-13",
+                "fifa-lineups-sync-2026-07-14",
+                "sky-sports-england-argentina-team-news-2026-07-14"
+              ]
             },
             {
               "name": "James Trafford",
               "number": "23",
               "position": "GK",
               "confidence": {
-                "label": "medium",
-                "score": 0.5,
-                "reason": "0 recent starts, 0 recent minutes"
+                "label": "low",
+                "score": 0.116,
+                "method": "evidence-strength-v2",
+                "reason": "Bench evidence strength; not a calibrated probability."
               },
               "sourceIds": [
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Recent official bench/minutes",
-                "0 recent starts, 0 recent minutes"
-              ],
-              "notes": []
-            },
-            {
-              "name": "Jordan Henderson",
-              "number": "14",
-              "position": "CM",
-              "confidence": {
-                "label": "medium",
-                "score": 0.5,
-                "reason": "0 recent starts, 6 recent minutes"
-              },
-              "sourceIds": [
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Recent official bench/minutes",
-                "0 recent starts, 6 recent minutes"
-              ],
-              "notes": []
+                "lineup-prediction-official-history",
+                "lineup-layout-verification-2026-07-13",
+                "fifa-lineups-sync-2026-07-14",
+                "sky-sports-england-argentina-team-news-2026-07-14"
+              ]
             },
             {
               "name": "Kobbie Mainoo",
               "number": "16",
               "position": "CM",
               "confidence": {
-                "label": "medium",
-                "score": 0.5,
-                "reason": "0 recent starts, 0 recent minutes"
+                "label": "low",
+                "score": 0.116,
+                "method": "evidence-strength-v2",
+                "reason": "Bench evidence strength; not a calibrated probability."
               },
               "sourceIds": [
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Recent official bench/minutes",
-                "0 recent starts, 0 recent minutes"
-              ],
-              "notes": []
+                "lineup-prediction-official-history",
+                "lineup-layout-verification-2026-07-13",
+                "fifa-lineups-sync-2026-07-14",
+                "sky-sports-england-argentina-team-news-2026-07-14"
+              ]
             },
             {
               "name": "Ollie Watkins",
               "number": "19",
               "position": "ST",
               "confidence": {
-                "label": "medium",
-                "score": 0.5,
-                "reason": "0 recent starts, 6 recent minutes"
+                "label": "low",
+                "score": 0.116,
+                "method": "evidence-strength-v2",
+                "reason": "Bench evidence strength; not a calibrated probability."
               },
               "sourceIds": [
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Recent official bench/minutes",
-                "0 recent starts, 6 recent minutes"
-              ],
-              "notes": []
+                "lineup-prediction-official-history",
+                "lineup-layout-verification-2026-07-13",
+                "fifa-lineups-sync-2026-07-14",
+                "sky-sports-england-argentina-team-news-2026-07-14"
+              ]
+            },
+            {
+              "name": "Trevoh Chalobah",
+              "number": "12",
+              "position": "CB",
+              "confidence": {
+                "label": "low",
+                "score": 0.116,
+                "method": "evidence-strength-v2",
+                "reason": "Bench evidence strength; not a calibrated probability."
+              },
+              "sourceIds": [
+                "lineup-prediction-official-history",
+                "lineup-layout-verification-2026-07-13",
+                "fifa-lineups-sync-2026-07-14",
+                "sky-sports-england-argentina-team-news-2026-07-14"
+              ]
+            },
+            {
+              "name": "Noni Madueke",
+              "number": "20",
+              "position": "RW",
+              "confidence": {
+                "label": "high",
+                "score": 0.82,
+                "method": "evidence-strength-v2",
+                "reason": "Bench evidence strength; not a calibrated probability."
+              },
+              "sourceIds": [
+                "lineup-prediction-official-history",
+                "lineup-layout-verification-2026-07-13",
+                "fifa-lineups-sync-2026-07-14",
+                "sky-sports-england-argentina-team-news-2026-07-14"
+              ]
             }
           ],
           "events": {},
           "sourceIds": [
+            "sports-mole-england-argentina-team-news-2026-07-14",
+            "sky-sports-england-argentina-team-news-2026-07-14",
+            "stats-zone-england-argentina-preview-2026-07-14",
             "fifa-england-argentina-preview-2026-07-13",
-            "lineup-prediction-official-history-2026-07-13",
-            "fifa-lineups-sync-2026-07-13"
-          ],
-          "evidence": {
-            "confidence": {
-              "label": "medium",
-              "score": 0.74,
-              "method": "provider-weighted-evidence-v1",
-              "reason": "11/11 starters selected from 2 providers; 1 independent external source"
-            },
-            "formationScores": [
-              {
-                "formation": "4-2-3-1",
-                "score": 1.801,
-                "providerIds": [
-                  "free-public-lineups",
-                  "local-official-history"
-                ],
-                "sourceIds": [
-                  "fifa-england-argentina-preview-2026-07-13",
-                  "lineup-prediction-official-history-2026-07-13",
-                  "fifa-lineups-sync-2026-07-13"
-                ]
-              }
-            ],
-            "starterScores": [
-              {
-                "name": "Jordan Pickford",
-                "score": 1.716,
-                "starterVotes": 2,
-                "benchVotes": 0,
-                "providerIds": [
-                  "free-public-lineups",
-                  "local-official-history"
-                ],
-                "sourceIds": [
-                  "fifa-england-argentina-preview-2026-07-13",
-                  "lineup-prediction-official-history-2026-07-13",
-                  "fifa-lineups-sync-2026-07-13"
-                ]
-              },
-              {
-                "name": "Reece James",
-                "score": 1.219,
-                "starterVotes": 1,
-                "benchVotes": 1,
-                "providerIds": [
-                  "free-public-lineups",
-                  "local-official-history"
-                ],
-                "sourceIds": [
-                  "fifa-england-argentina-preview-2026-07-13",
-                  "lineup-prediction-official-history-2026-07-13",
-                  "fifa-lineups-sync-2026-07-13"
-                ]
-              },
-              {
-                "name": "Ezri Konsa",
-                "score": 1.716,
-                "starterVotes": 2,
-                "benchVotes": 0,
-                "providerIds": [
-                  "free-public-lineups",
-                  "local-official-history"
-                ],
-                "sourceIds": [
-                  "fifa-england-argentina-preview-2026-07-13",
-                  "lineup-prediction-official-history-2026-07-13",
-                  "fifa-lineups-sync-2026-07-13"
-                ]
-              },
-              {
-                "name": "Marc Guehi",
-                "score": 1.716,
-                "starterVotes": 2,
-                "benchVotes": 0,
-                "providerIds": [
-                  "free-public-lineups",
-                  "local-official-history"
-                ],
-                "sourceIds": [
-                  "fifa-england-argentina-preview-2026-07-13",
-                  "lineup-prediction-official-history-2026-07-13",
-                  "fifa-lineups-sync-2026-07-13"
-                ]
-              },
-              {
-                "name": "Nico O'Reilly",
-                "score": 0.89,
-                "starterVotes": 1,
-                "benchVotes": 0,
-                "providerIds": [
-                  "free-public-lineups"
-                ],
-                "sourceIds": [
-                  "fifa-england-argentina-preview-2026-07-13"
-                ]
-              },
-              {
-                "name": "Elliot Anderson",
-                "score": 1.716,
-                "starterVotes": 2,
-                "benchVotes": 0,
-                "providerIds": [
-                  "free-public-lineups",
-                  "local-official-history"
-                ],
-                "sourceIds": [
-                  "fifa-england-argentina-preview-2026-07-13",
-                  "lineup-prediction-official-history-2026-07-13",
-                  "fifa-lineups-sync-2026-07-13"
-                ]
-              },
-              {
-                "name": "Declan Rice",
-                "score": 1.704,
-                "starterVotes": 2,
-                "benchVotes": 0,
-                "providerIds": [
-                  "free-public-lineups",
-                  "local-official-history"
-                ],
-                "sourceIds": [
-                  "fifa-england-argentina-preview-2026-07-13",
-                  "lineup-prediction-official-history-2026-07-13",
-                  "fifa-lineups-sync-2026-07-13"
-                ]
-              },
-              {
-                "name": "Bukayo Saka",
-                "score": 1.225,
-                "starterVotes": 1,
-                "benchVotes": 1,
-                "providerIds": [
-                  "free-public-lineups",
-                  "local-official-history"
-                ],
-                "sourceIds": [
-                  "fifa-england-argentina-preview-2026-07-13",
-                  "lineup-prediction-official-history-2026-07-13",
-                  "fifa-lineups-sync-2026-07-13"
-                ]
-              },
-              {
-                "name": "Jude Bellingham",
-                "score": 1.716,
-                "starterVotes": 2,
-                "benchVotes": 0,
-                "providerIds": [
-                  "free-public-lineups",
-                  "local-official-history"
-                ],
-                "sourceIds": [
-                  "fifa-england-argentina-preview-2026-07-13",
-                  "lineup-prediction-official-history-2026-07-13",
-                  "fifa-lineups-sync-2026-07-13"
-                ]
-              },
-              {
-                "name": "Anthony Gordon",
-                "score": 1.707,
-                "starterVotes": 2,
-                "benchVotes": 0,
-                "providerIds": [
-                  "free-public-lineups",
-                  "local-official-history"
-                ],
-                "sourceIds": [
-                  "fifa-england-argentina-preview-2026-07-13",
-                  "lineup-prediction-official-history-2026-07-13",
-                  "fifa-lineups-sync-2026-07-13"
-                ]
-              },
-              {
-                "name": "Harry Kane",
-                "score": 1.716,
-                "starterVotes": 2,
-                "benchVotes": 0,
-                "providerIds": [
-                  "free-public-lineups",
-                  "local-official-history"
-                ],
-                "sourceIds": [
-                  "fifa-england-argentina-preview-2026-07-13",
-                  "lineup-prediction-official-history-2026-07-13",
-                  "fifa-lineups-sync-2026-07-13"
-                ]
-              }
-            ]
-          }
+            "lineup-prediction-official-history",
+            "lineup-layout-verification-2026-07-13",
+            "fifa-lineups-sync-2026-07-14"
+          ]
         },
         "away": {
+          "teamId": "ARG",
           "formation": "4-1-3-2",
           "coach": {
             "name": "Lionel Scaloni",
@@ -3285,29 +816,26 @@
           },
           "players": [
             {
-              "name": "Emiliano Martinez",
+              "name": "Emiliano Martínez",
               "number": "23",
               "position": "GK",
               "x": 50,
               "y": 91,
               "confidence": {
                 "label": "high",
-                "score": 0.84,
-                "method": "provider-weighted-player-evidence-v1"
+                "score": 0.92,
+                "method": "evidence-strength-v2",
+                "reason": "4 independent starter sources; not a calibrated probability."
               },
               "sourceIds": [
+                "sports-mole-england-argentina-team-news-2026-07-14",
+                "sky-sports-england-argentina-team-news-2026-07-14",
+                "stats-zone-england-argentina-preview-2026-07-14",
                 "fifa-england-argentina-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Free public probable-lineup source",
-                "free-public-lineups: ARG 4-1-3-2 starter 1",
-                "Last verified official XI",
-                "5 recent starts, 450 recent minutes",
-                "local-official-history: ARG 4-1-3-2 starter 1"
-              ],
-              "notes": []
+                "lineup-prediction-official-history",
+                "lineup-layout-verification-2026-07-13",
+                "fifa-lineups-sync-2026-07-14"
+              ]
             },
             {
               "name": "Nahuel Molina",
@@ -3317,22 +845,19 @@
               "y": 75,
               "confidence": {
                 "label": "high",
-                "score": 0.84,
-                "method": "provider-weighted-player-evidence-v1"
+                "score": 0.92,
+                "method": "evidence-strength-v2",
+                "reason": "4 independent starter sources; not a calibrated probability."
               },
               "sourceIds": [
+                "sports-mole-england-argentina-team-news-2026-07-14",
+                "sky-sports-england-argentina-team-news-2026-07-14",
+                "stats-zone-england-argentina-preview-2026-07-14",
                 "fifa-england-argentina-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Free public probable-lineup source",
-                "free-public-lineups: ARG 4-1-3-2 starter 2",
-                "Last verified official XI",
-                "4 recent starts, 338 recent minutes",
-                "local-official-history: ARG 4-1-3-2 starter 5"
-              ],
-              "notes": []
+                "lineup-prediction-official-history",
+                "lineup-layout-verification-2026-07-13",
+                "fifa-lineups-sync-2026-07-14"
+              ]
             },
             {
               "name": "Cristian Romero",
@@ -3342,72 +867,63 @@
               "y": 75,
               "confidence": {
                 "label": "high",
-                "score": 0.84,
-                "method": "provider-weighted-player-evidence-v1"
+                "score": 0.92,
+                "method": "evidence-strength-v2",
+                "reason": "4 independent starter sources; not a calibrated probability."
               },
               "sourceIds": [
+                "sports-mole-england-argentina-team-news-2026-07-14",
+                "sky-sports-england-argentina-team-news-2026-07-14",
+                "stats-zone-england-argentina-preview-2026-07-14",
                 "fifa-england-argentina-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Free public probable-lineup source",
-                "free-public-lineups: ARG 4-1-3-2 starter 3",
-                "Last verified official XI",
-                "4 recent starts, 327 recent minutes",
-                "local-official-history: ARG 4-1-3-2 starter 4"
-              ],
-              "notes": []
+                "lineup-prediction-official-history",
+                "lineup-layout-verification-2026-07-13",
+                "fifa-lineups-sync-2026-07-14"
+              ]
             },
             {
-              "name": "Lisandro Martinez",
+              "name": "Lisandro Martínez",
               "number": "6",
               "position": "CB",
               "x": 38,
               "y": 75,
               "confidence": {
                 "label": "high",
-                "score": 0.84,
-                "method": "provider-weighted-player-evidence-v1"
+                "score": 0.92,
+                "method": "evidence-strength-v2",
+                "reason": "4 independent starter sources; not a calibrated probability."
               },
               "sourceIds": [
+                "sports-mole-england-argentina-team-news-2026-07-14",
+                "sky-sports-england-argentina-team-news-2026-07-14",
+                "stats-zone-england-argentina-preview-2026-07-14",
                 "fifa-england-argentina-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Free public probable-lineup source",
-                "free-public-lineups: ARG 4-1-3-2 starter 4",
-                "Last verified official XI",
-                "4 recent starts, 360 recent minutes",
-                "local-official-history: ARG 4-1-3-2 starter 3"
-              ],
-              "notes": []
+                "lineup-prediction-official-history",
+                "lineup-layout-verification-2026-07-13",
+                "fifa-lineups-sync-2026-07-14"
+              ]
             },
             {
-              "name": "Nicolas Tagliafico",
+              "name": "Nicolás Tagliafico",
               "number": "3",
               "position": "LB",
               "x": 15,
               "y": 75,
               "confidence": {
                 "label": "high",
-                "score": 0.84,
-                "method": "provider-weighted-player-evidence-v1"
+                "score": 0.92,
+                "method": "evidence-strength-v2",
+                "reason": "4 independent starter sources; not a calibrated probability."
               },
               "sourceIds": [
+                "sports-mole-england-argentina-team-news-2026-07-14",
+                "sky-sports-england-argentina-team-news-2026-07-14",
+                "stats-zone-england-argentina-preview-2026-07-14",
                 "fifa-england-argentina-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Free public probable-lineup source",
-                "free-public-lineups: ARG 4-1-3-2 starter 5",
-                "Last verified official XI",
-                "3 recent starts, 247 recent minutes",
-                "local-official-history: ARG 4-1-3-2 starter 2"
-              ],
-              "notes": []
+                "lineup-prediction-official-history",
+                "lineup-layout-verification-2026-07-13",
+                "fifa-lineups-sync-2026-07-14"
+              ]
             },
             {
               "name": "Leandro Paredes",
@@ -3417,97 +933,85 @@
               "y": 61,
               "confidence": {
                 "label": "high",
-                "score": 0.84,
-                "method": "provider-weighted-player-evidence-v1"
+                "score": 0.92,
+                "method": "evidence-strength-v2",
+                "reason": "4 independent starter sources; not a calibrated probability."
               },
               "sourceIds": [
+                "sports-mole-england-argentina-team-news-2026-07-14",
+                "sky-sports-england-argentina-team-news-2026-07-14",
+                "stats-zone-england-argentina-preview-2026-07-14",
                 "fifa-england-argentina-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Free public probable-lineup source",
-                "free-public-lineups: ARG 4-1-3-2 starter 6",
-                "Last verified official XI",
-                "3 recent starts, 284 recent minutes",
-                "local-official-history: ARG 4-1-3-2 starter 6"
-              ],
-              "notes": []
+                "lineup-prediction-official-history",
+                "lineup-layout-verification-2026-07-13",
+                "fifa-lineups-sync-2026-07-14"
+              ]
             },
             {
               "name": "Rodrigo De Paul",
               "number": "7",
-              "position": "RW",
-              "x": 78,
-              "y": 43,
+              "position": "CM",
+              "x": 68,
+              "y": 45,
               "confidence": {
                 "label": "high",
-                "score": 0.84,
-                "method": "provider-weighted-player-evidence-v1"
+                "score": 0.92,
+                "method": "evidence-strength-v2",
+                "reason": "4 independent starter sources; not a calibrated probability."
               },
               "sourceIds": [
+                "sports-mole-england-argentina-team-news-2026-07-14",
+                "sky-sports-england-argentina-team-news-2026-07-14",
+                "stats-zone-england-argentina-preview-2026-07-14",
                 "fifa-england-argentina-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Free public probable-lineup source",
-                "free-public-lineups: ARG 4-1-3-2 starter 7",
-                "Last verified official XI",
-                "4 recent starts, 317 recent minutes",
-                "local-official-history: ARG 4-1-3-2 starter 7"
-              ],
-              "notes": []
+                "lineup-prediction-official-history",
+                "lineup-layout-verification-2026-07-13",
+                "fifa-lineups-sync-2026-07-14"
+              ]
             },
             {
               "name": "Alexis Mac Allister",
               "number": "20",
-              "position": "AM",
+              "position": "CM",
               "x": 50,
               "y": 42,
               "confidence": {
                 "label": "high",
-                "score": 0.84,
-                "method": "provider-weighted-player-evidence-v1"
+                "score": 0.92,
+                "method": "evidence-strength-v2",
+                "reason": "4 independent starter sources; not a calibrated probability."
               },
               "sourceIds": [
+                "sports-mole-england-argentina-team-news-2026-07-14",
+                "sky-sports-england-argentina-team-news-2026-07-14",
+                "stats-zone-england-argentina-preview-2026-07-14",
                 "fifa-england-argentina-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Free public probable-lineup source",
-                "free-public-lineups: ARG 4-1-3-2 starter 8",
-                "Last verified official XI",
-                "4 recent starts, 390 recent minutes",
-                "local-official-history: ARG 4-1-3-2 starter 8"
-              ],
-              "notes": []
+                "lineup-prediction-official-history",
+                "lineup-layout-verification-2026-07-13",
+                "fifa-lineups-sync-2026-07-14"
+              ]
             },
             {
-              "name": "Enzo Fernandez",
+              "name": "Enzo Fernández",
               "number": "24",
-              "position": "LW",
-              "x": 22,
-              "y": 43,
+              "position": "CM",
+              "x": 32,
+              "y": 45,
               "confidence": {
                 "label": "high",
-                "score": 0.84,
-                "method": "provider-weighted-player-evidence-v1"
+                "score": 0.92,
+                "method": "evidence-strength-v2",
+                "reason": "4 independent starter sources; not a calibrated probability."
               },
               "sourceIds": [
+                "sports-mole-england-argentina-team-news-2026-07-14",
+                "sky-sports-england-argentina-team-news-2026-07-14",
+                "stats-zone-england-argentina-preview-2026-07-14",
                 "fifa-england-argentina-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Free public probable-lineup source",
-                "free-public-lineups: ARG 4-1-3-2 starter 9",
-                "Last verified official XI",
-                "4 recent starts, 270 recent minutes",
-                "local-official-history: ARG 4-1-3-2 starter 9"
-              ],
-              "notes": []
+                "lineup-prediction-official-history",
+                "lineup-layout-verification-2026-07-13",
+                "fifa-lineups-sync-2026-07-14"
+              ]
             },
             {
               "name": "Lionel Messi",
@@ -3517,534 +1021,313 @@
               "y": 22,
               "confidence": {
                 "label": "high",
-                "score": 0.84,
-                "method": "provider-weighted-player-evidence-v1"
+                "score": 0.92,
+                "method": "evidence-strength-v2",
+                "reason": "4 independent starter sources; not a calibrated probability."
               },
               "sourceIds": [
+                "sports-mole-england-argentina-team-news-2026-07-14",
+                "sky-sports-england-argentina-team-news-2026-07-14",
+                "stats-zone-england-argentina-preview-2026-07-14",
                 "fifa-england-argentina-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Free public probable-lineup source",
-                "free-public-lineups: ARG 4-1-3-2 starter 10",
-                "Last verified official XI",
-                "4 recent starts, 390 recent minutes",
-                "local-official-history: ARG 4-1-3-2 starter 11"
-              ],
-              "notes": []
+                "lineup-prediction-official-history",
+                "lineup-layout-verification-2026-07-13",
+                "fifa-lineups-sync-2026-07-14"
+              ]
             },
             {
-              "name": "Julian Alvarez",
+              "name": "Julián Álvarez",
               "number": "9",
               "position": "ST",
               "x": 42,
               "y": 22,
               "confidence": {
                 "label": "high",
-                "score": 0.84,
-                "method": "provider-weighted-player-evidence-v1"
+                "score": 0.92,
+                "method": "evidence-strength-v2",
+                "reason": "4 independent starter sources; not a calibrated probability."
               },
               "sourceIds": [
+                "sports-mole-england-argentina-team-news-2026-07-14",
+                "sky-sports-england-argentina-team-news-2026-07-14",
+                "stats-zone-england-argentina-preview-2026-07-14",
                 "fifa-england-argentina-preview-2026-07-13",
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Free public probable-lineup source",
-                "free-public-lineups: ARG 4-1-3-2 starter 11",
-                "Last verified official XI",
-                "3 recent starts, 315 recent minutes",
-                "local-official-history: ARG 4-1-3-2 starter 10"
-              ],
-              "notes": []
+                "lineup-prediction-official-history",
+                "lineup-layout-verification-2026-07-13",
+                "fifa-lineups-sync-2026-07-14"
+              ]
             }
           ],
           "bench": [
             {
-              "name": "Lautaro Martinez",
+              "name": "Lautaro Martínez",
               "number": "22",
               "position": "ST",
               "confidence": {
-                "label": "medium",
-                "score": 0.62,
-                "reason": "3 recent starts, 216 recent minutes"
+                "label": "low",
+                "score": 0.122,
+                "method": "evidence-strength-v2",
+                "reason": "Bench evidence strength; not a calibrated probability."
               },
               "sourceIds": [
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Recent official bench/minutes",
-                "3 recent starts, 216 recent minutes"
-              ],
-              "notes": []
+                "lineup-prediction-official-history",
+                "lineup-layout-verification-2026-07-13",
+                "fifa-lineups-sync-2026-07-14",
+                "sky-sports-england-argentina-team-news-2026-07-14"
+              ]
             },
             {
               "name": "Facundo Medina",
               "number": "25",
               "position": "CB",
               "confidence": {
-                "label": "medium",
-                "score": 0.58,
-                "reason": "2 recent starts, 167 recent minutes"
+                "label": "low",
+                "score": 0.12,
+                "method": "evidence-strength-v2",
+                "reason": "Bench evidence strength; not a calibrated probability."
               },
               "sourceIds": [
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Recent official bench/minutes",
-                "2 recent starts, 167 recent minutes"
-              ],
-              "notes": []
+                "lineup-prediction-official-history",
+                "lineup-layout-verification-2026-07-13",
+                "fifa-lineups-sync-2026-07-14",
+                "sky-sports-england-argentina-team-news-2026-07-14"
+              ]
             },
             {
               "name": "Thiago Almada",
               "number": "16",
               "position": "RW",
               "confidence": {
-                "label": "medium",
-                "score": 0.58,
-                "reason": "2 recent starts, 247 recent minutes"
+                "label": "low",
+                "score": 0.12,
+                "method": "evidence-strength-v2",
+                "reason": "Bench evidence strength; not a calibrated probability."
               },
               "sourceIds": [
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Recent official bench/minutes",
-                "2 recent starts, 247 recent minutes"
-              ],
-              "notes": []
+                "lineup-prediction-official-history",
+                "lineup-layout-verification-2026-07-13",
+                "fifa-lineups-sync-2026-07-14",
+                "sky-sports-england-argentina-team-news-2026-07-14"
+              ]
             },
             {
               "name": "Exequiel Palacios",
               "number": "14",
               "position": "CM",
               "confidence": {
-                "label": "medium",
-                "score": 0.54,
-                "reason": "1 recent start, 90 recent minutes"
+                "label": "low",
+                "score": 0.118,
+                "method": "evidence-strength-v2",
+                "reason": "Bench evidence strength; not a calibrated probability."
               },
               "sourceIds": [
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Recent official bench/minutes",
-                "1 recent start, 90 recent minutes"
-              ],
-              "notes": []
+                "lineup-prediction-official-history",
+                "lineup-layout-verification-2026-07-13",
+                "fifa-lineups-sync-2026-07-14",
+                "sky-sports-england-argentina-team-news-2026-07-14"
+              ]
             },
             {
               "name": "Giovani Lo Celso",
               "number": "11",
               "position": "CM",
               "confidence": {
-                "label": "medium",
-                "score": 0.54,
-                "reason": "1 recent start, 60 recent minutes"
+                "label": "low",
+                "score": 0.118,
+                "method": "evidence-strength-v2",
+                "reason": "Bench evidence strength; not a calibrated probability."
               },
               "sourceIds": [
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Recent official bench/minutes",
-                "1 recent start, 60 recent minutes"
-              ],
-              "notes": []
+                "lineup-prediction-official-history",
+                "lineup-layout-verification-2026-07-13",
+                "fifa-lineups-sync-2026-07-14",
+                "sky-sports-england-argentina-team-news-2026-07-14"
+              ]
             },
             {
               "name": "Giuliano Simeone",
               "number": "17",
               "position": "RW",
               "confidence": {
-                "label": "medium",
-                "score": 0.54,
-                "reason": "1 recent start, 71 recent minutes"
+                "label": "low",
+                "score": 0.118,
+                "method": "evidence-strength-v2",
+                "reason": "Bench evidence strength; not a calibrated probability."
               },
               "sourceIds": [
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Recent official bench/minutes",
-                "1 recent start, 71 recent minutes"
-              ],
-              "notes": []
+                "lineup-prediction-official-history",
+                "lineup-layout-verification-2026-07-13",
+                "fifa-lineups-sync-2026-07-14",
+                "sky-sports-england-argentina-team-news-2026-07-14"
+              ]
             },
             {
               "name": "Marcos Senesi",
               "number": "2",
               "position": "CB",
               "confidence": {
-                "label": "medium",
-                "score": 0.54,
-                "reason": "1 recent start, 90 recent minutes"
+                "label": "low",
+                "score": 0.118,
+                "method": "evidence-strength-v2",
+                "reason": "Bench evidence strength; not a calibrated probability."
               },
               "sourceIds": [
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Recent official bench/minutes",
-                "1 recent start, 90 recent minutes"
-              ],
-              "notes": []
+                "lineup-prediction-official-history",
+                "lineup-layout-verification-2026-07-13",
+                "fifa-lineups-sync-2026-07-14",
+                "sky-sports-england-argentina-team-news-2026-07-14"
+              ]
             },
             {
               "name": "Nico Paz",
               "number": "18",
               "position": "ST",
               "confidence": {
-                "label": "medium",
-                "score": 0.54,
-                "reason": "1 recent start, 60 recent minutes"
+                "label": "low",
+                "score": 0.118,
+                "method": "evidence-strength-v2",
+                "reason": "Bench evidence strength; not a calibrated probability."
               },
               "sourceIds": [
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Recent official bench/minutes",
-                "1 recent start, 60 recent minutes"
-              ],
-              "notes": []
+                "lineup-prediction-official-history",
+                "lineup-layout-verification-2026-07-13",
+                "fifa-lineups-sync-2026-07-14",
+                "sky-sports-england-argentina-team-news-2026-07-14"
+              ]
             },
             {
-              "name": "Nicolas Otamendi",
+              "name": "Nicolás Otamendi",
               "number": "19",
               "position": "CB",
               "confidence": {
-                "label": "medium",
-                "score": 0.54,
-                "reason": "1 recent start, 123 recent minutes"
+                "label": "low",
+                "score": 0.118,
+                "method": "evidence-strength-v2",
+                "reason": "Bench evidence strength; not a calibrated probability."
               },
               "sourceIds": [
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Recent official bench/minutes",
-                "1 recent start, 123 recent minutes"
-              ],
-              "notes": []
+                "lineup-prediction-official-history",
+                "lineup-layout-verification-2026-07-13",
+                "fifa-lineups-sync-2026-07-14",
+                "sky-sports-england-argentina-team-news-2026-07-14"
+              ]
             },
             {
-              "name": "Geronimo Rulli",
+              "name": "Gerónimo Rulli",
               "number": "12",
               "position": "GK",
               "confidence": {
-                "label": "medium",
-                "score": 0.5,
-                "reason": "0 recent starts, 0 recent minutes"
+                "label": "low",
+                "score": 0.116,
+                "method": "evidence-strength-v2",
+                "reason": "Bench evidence strength; not a calibrated probability."
               },
               "sourceIds": [
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Recent official bench/minutes",
-                "0 recent starts, 0 recent minutes"
-              ],
-              "notes": []
+                "lineup-prediction-official-history",
+                "lineup-layout-verification-2026-07-13",
+                "fifa-lineups-sync-2026-07-14",
+                "sky-sports-england-argentina-team-news-2026-07-14"
+              ]
             },
             {
               "name": "Gonzalo Montiel",
               "number": "4",
               "position": "RB",
               "confidence": {
-                "label": "medium",
-                "score": 0.5,
-                "reason": "0 recent starts, 22 recent minutes"
+                "label": "low",
+                "score": 0.116,
+                "method": "evidence-strength-v2",
+                "reason": "Bench evidence strength; not a calibrated probability."
               },
               "sourceIds": [
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Recent official bench/minutes",
-                "0 recent starts, 22 recent minutes"
-              ],
-              "notes": []
+                "lineup-prediction-official-history",
+                "lineup-layout-verification-2026-07-13",
+                "fifa-lineups-sync-2026-07-14",
+                "sky-sports-england-argentina-team-news-2026-07-14"
+              ]
             },
             {
-              "name": "Jose Manuel Lopez",
+              "name": "José Manuel López",
               "number": "21",
               "position": "ST",
               "confidence": {
-                "label": "medium",
-                "score": 0.5,
-                "reason": "0 recent starts, 8 recent minutes"
+                "label": "low",
+                "score": 0.116,
+                "method": "evidence-strength-v2",
+                "reason": "Bench evidence strength; not a calibrated probability."
               },
               "sourceIds": [
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Recent official bench/minutes",
-                "0 recent starts, 8 recent minutes"
-              ],
-              "notes": []
+                "lineup-prediction-official-history",
+                "lineup-layout-verification-2026-07-13",
+                "fifa-lineups-sync-2026-07-14",
+                "sky-sports-england-argentina-team-news-2026-07-14"
+              ]
             },
             {
               "name": "Juan Musso",
               "number": "1",
               "position": "GK",
               "confidence": {
-                "label": "medium",
-                "score": 0.5,
-                "reason": "0 recent starts, 0 recent minutes"
+                "label": "low",
+                "score": 0.116,
+                "method": "evidence-strength-v2",
+                "reason": "Bench evidence strength; not a calibrated probability."
               },
               "sourceIds": [
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Recent official bench/minutes",
-                "0 recent starts, 0 recent minutes"
-              ],
-              "notes": []
+                "lineup-prediction-official-history",
+                "lineup-layout-verification-2026-07-13",
+                "fifa-lineups-sync-2026-07-14",
+                "sky-sports-england-argentina-team-news-2026-07-14"
+              ]
             },
             {
-              "name": "Nico Gonzalez",
+              "name": "Nico González",
               "number": "15",
               "position": "LM",
               "confidence": {
-                "label": "medium",
-                "score": 0.5,
-                "reason": "0 recent starts, 89 recent minutes"
+                "label": "low",
+                "score": 0.116,
+                "method": "evidence-strength-v2",
+                "reason": "Bench evidence strength; not a calibrated probability."
               },
               "sourceIds": [
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Recent official bench/minutes",
-                "0 recent starts, 89 recent minutes"
-              ],
-              "notes": []
+                "lineup-prediction-official-history",
+                "lineup-layout-verification-2026-07-13",
+                "fifa-lineups-sync-2026-07-14",
+                "sky-sports-england-argentina-team-news-2026-07-14"
+              ]
             },
             {
-              "name": "Valentin Barco",
+              "name": "Valentín Barco",
               "number": "8",
               "position": "CM",
               "confidence": {
-                "label": "medium",
-                "score": 0.5,
-                "reason": "0 recent starts, 19 recent minutes"
+                "label": "low",
+                "score": 0.116,
+                "method": "evidence-strength-v2",
+                "reason": "Bench evidence strength; not a calibrated probability."
               },
               "sourceIds": [
-                "lineup-prediction-official-history-2026-07-13",
-                "fifa-lineups-sync-2026-07-13"
-              ],
-              "evidence": [
-                "Recent official bench/minutes",
-                "0 recent starts, 19 recent minutes"
-              ],
-              "notes": []
+                "lineup-prediction-official-history",
+                "lineup-layout-verification-2026-07-13",
+                "fifa-lineups-sync-2026-07-14",
+                "sky-sports-england-argentina-team-news-2026-07-14"
+              ]
             }
           ],
           "events": {},
           "sourceIds": [
+            "sports-mole-england-argentina-team-news-2026-07-14",
+            "sky-sports-england-argentina-team-news-2026-07-14",
+            "stats-zone-england-argentina-preview-2026-07-14",
             "fifa-england-argentina-preview-2026-07-13",
-            "lineup-prediction-official-history-2026-07-13",
-            "fifa-lineups-sync-2026-07-13"
-          ],
-          "evidence": {
-            "confidence": {
-              "label": "medium",
-              "score": 0.74,
-              "method": "provider-weighted-evidence-v1",
-              "reason": "11/11 starters selected from 2 providers; 1 independent external source"
-            },
-            "formationScores": [
-              {
-                "formation": "4-1-3-2",
-                "score": 1.801,
-                "providerIds": [
-                  "free-public-lineups",
-                  "local-official-history"
-                ],
-                "sourceIds": [
-                  "fifa-england-argentina-preview-2026-07-13",
-                  "lineup-prediction-official-history-2026-07-13",
-                  "fifa-lineups-sync-2026-07-13"
-                ]
-              }
-            ],
-            "starterScores": [
-              {
-                "name": "Emiliano Martinez",
-                "score": 1.716,
-                "starterVotes": 2,
-                "benchVotes": 0,
-                "providerIds": [
-                  "free-public-lineups",
-                  "local-official-history"
-                ],
-                "sourceIds": [
-                  "fifa-england-argentina-preview-2026-07-13",
-                  "lineup-prediction-official-history-2026-07-13",
-                  "fifa-lineups-sync-2026-07-13"
-                ]
-              },
-              {
-                "name": "Nahuel Molina",
-                "score": 1.704,
-                "starterVotes": 2,
-                "benchVotes": 0,
-                "providerIds": [
-                  "free-public-lineups",
-                  "local-official-history"
-                ],
-                "sourceIds": [
-                  "fifa-england-argentina-preview-2026-07-13",
-                  "lineup-prediction-official-history-2026-07-13",
-                  "fifa-lineups-sync-2026-07-13"
-                ]
-              },
-              {
-                "name": "Cristian Romero",
-                "score": 1.704,
-                "starterVotes": 2,
-                "benchVotes": 0,
-                "providerIds": [
-                  "free-public-lineups",
-                  "local-official-history"
-                ],
-                "sourceIds": [
-                  "fifa-england-argentina-preview-2026-07-13",
-                  "lineup-prediction-official-history-2026-07-13",
-                  "fifa-lineups-sync-2026-07-13"
-                ]
-              },
-              {
-                "name": "Lisandro Martinez",
-                "score": 1.704,
-                "starterVotes": 2,
-                "benchVotes": 0,
-                "providerIds": [
-                  "free-public-lineups",
-                  "local-official-history"
-                ],
-                "sourceIds": [
-                  "fifa-england-argentina-preview-2026-07-13",
-                  "lineup-prediction-official-history-2026-07-13",
-                  "fifa-lineups-sync-2026-07-13"
-                ]
-              },
-              {
-                "name": "Nicolas Tagliafico",
-                "score": 1.707,
-                "starterVotes": 2,
-                "benchVotes": 0,
-                "providerIds": [
-                  "free-public-lineups",
-                  "local-official-history"
-                ],
-                "sourceIds": [
-                  "fifa-england-argentina-preview-2026-07-13",
-                  "lineup-prediction-official-history-2026-07-13",
-                  "fifa-lineups-sync-2026-07-13"
-                ]
-              },
-              {
-                "name": "Leandro Paredes",
-                "score": 1.707,
-                "starterVotes": 2,
-                "benchVotes": 0,
-                "providerIds": [
-                  "free-public-lineups",
-                  "local-official-history"
-                ],
-                "sourceIds": [
-                  "fifa-england-argentina-preview-2026-07-13",
-                  "lineup-prediction-official-history-2026-07-13",
-                  "fifa-lineups-sync-2026-07-13"
-                ]
-              },
-              {
-                "name": "Rodrigo De Paul",
-                "score": 1.704,
-                "starterVotes": 2,
-                "benchVotes": 0,
-                "providerIds": [
-                  "free-public-lineups",
-                  "local-official-history"
-                ],
-                "sourceIds": [
-                  "fifa-england-argentina-preview-2026-07-13",
-                  "lineup-prediction-official-history-2026-07-13",
-                  "fifa-lineups-sync-2026-07-13"
-                ]
-              },
-              {
-                "name": "Alexis Mac Allister",
-                "score": 1.704,
-                "starterVotes": 2,
-                "benchVotes": 0,
-                "providerIds": [
-                  "free-public-lineups",
-                  "local-official-history"
-                ],
-                "sourceIds": [
-                  "fifa-england-argentina-preview-2026-07-13",
-                  "lineup-prediction-official-history-2026-07-13",
-                  "fifa-lineups-sync-2026-07-13"
-                ]
-              },
-              {
-                "name": "Enzo Fernandez",
-                "score": 1.719,
-                "starterVotes": 2,
-                "benchVotes": 0,
-                "providerIds": [
-                  "free-public-lineups",
-                  "local-official-history"
-                ],
-                "sourceIds": [
-                  "fifa-england-argentina-preview-2026-07-13",
-                  "lineup-prediction-official-history-2026-07-13",
-                  "fifa-lineups-sync-2026-07-13"
-                ]
-              },
-              {
-                "name": "Lionel Messi",
-                "score": 1.704,
-                "starterVotes": 2,
-                "benchVotes": 0,
-                "providerIds": [
-                  "free-public-lineups",
-                  "local-official-history"
-                ],
-                "sourceIds": [
-                  "fifa-england-argentina-preview-2026-07-13",
-                  "lineup-prediction-official-history-2026-07-13",
-                  "fifa-lineups-sync-2026-07-13"
-                ]
-              },
-              {
-                "name": "Julian Alvarez",
-                "score": 1.692,
-                "starterVotes": 2,
-                "benchVotes": 0,
-                "providerIds": [
-                  "free-public-lineups",
-                  "local-official-history"
-                ],
-                "sourceIds": [
-                  "fifa-england-argentina-preview-2026-07-13",
-                  "lineup-prediction-official-history-2026-07-13",
-                  "fifa-lineups-sync-2026-07-13"
-                ]
-              }
-            ]
-          }
+            "lineup-prediction-official-history",
+            "lineup-layout-verification-2026-07-13",
+            "fifa-lineups-sync-2026-07-14"
+          ]
         },
-        "mode": "expected",
+        "mode": "probable",
+        "predictionClass": "forecast",
         "teamSheetSource": "editorial",
         "eventSource": "editorial",
         "layoutSource": "derived-team-sheet-order",
@@ -4052,28 +1335,32 @@
           "status": "unverified",
           "exact": false,
           "source": "derived-team-sheet-order",
-          "checkedAt": "2026-07-13T22:51:42.836Z"
+          "checkedAt": "2026-07-14T21:36:24.792Z"
         },
         "confidence": {
-          "label": "medium",
-          "score": 0.74,
-          "method": "provider-weighted-lineup-evidence-v1",
-          "reason": "Average confidence across predicted home and away XIs"
+          "label": "high",
+          "score": 0.931,
+          "method": "evidence-strength-v2",
+          "reason": "Average home/away evidence strength; this is not a calibrated probability."
         },
         "sourceIds": [
+          "sports-mole-england-argentina-team-news-2026-07-14",
+          "sky-sports-england-argentina-team-news-2026-07-14",
+          "stats-zone-england-argentina-preview-2026-07-14",
           "fifa-england-argentina-preview-2026-07-13",
-          "lineup-prediction-official-history-2026-07-13",
-          "fifa-lineups-sync-2026-07-13"
+          "lineup-prediction-official-history",
+          "lineup-layout-verification-2026-07-13",
+          "fifa-lineups-sync-2026-07-14"
         ],
-        "checkedAt": "2026-07-13T22:51:42.836Z",
-        "updatedAt": "2026-07-13T22:51:42.836Z"
+        "checkedAt": "2026-07-14T21:36:24.792Z",
+        "updatedAt": "2026-07-14T21:36:24.792Z"
       }
     }
   ],
   "run": {
     "providerCount": 2,
     "candidateCount": 4,
-    "fixtureCount": 2,
+    "fixtureCount": 1,
     "skippedFixtureCount": 0
   }
 }

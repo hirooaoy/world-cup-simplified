@@ -1,8 +1,12 @@
 #!/usr/bin/env node
-import { readFile, writeFile } from "node:fs/promises";
+import { readFile, rename, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { archiveCompletedExpectedLineups } from "./lineup-prediction-history.mjs";
+import {
+  archiveExpectedLineupsForFixtures,
+  commitPredictionArchiveBeforeOfficialPersistence,
+  getExpectedLineupTransitionFixtureIds
+} from "./lineup-prediction-history.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const dataDir = path.join(root, "data");
@@ -46,6 +50,19 @@ async function readOptionalJson(fileName, fallback = null) {
 
 async function writeJson(fileName, value) {
   await writeFile(path.join(dataDir, fileName), `${JSON.stringify(value, null, 2)}\n`);
+}
+
+async function writeJsonAtomic(fileName, value) {
+  const outputPath = path.join(dataDir, fileName);
+  const temporaryPath = `${outputPath}.${process.pid}.${Date.now()}.tmp`;
+
+  try {
+    await writeFile(temporaryPath, `${JSON.stringify(value, null, 2)}\n`, { flag: "wx" });
+    await rename(temporaryPath, outputPath);
+  } catch (error) {
+    await rm(temporaryPath, { force: true }).catch(() => {});
+    throw error;
+  }
 }
 
 function addDays(dayKey, days) {
@@ -1082,13 +1099,24 @@ function addSyncSource(tournamentData, { matchedCount, participantUpdateCount = 
   };
 }
 
-const [fixturesData, standingsData, teamsData, tournamentData, expectedLineupsData, predictionHistoryData] = await Promise.all([
+const [
+  fixturesData,
+  standingsData,
+  teamsData,
+  tournamentData,
+  expectedLineupsData,
+  predictionHistoryData,
+  predictionAuditData,
+  predictionRevisionLedgerData
+] = await Promise.all([
   readJson("fixtures.json"),
   readJson("standings.json"),
   readJson("teams.json"),
   readJson("tournament.json"),
   readOptionalJson("expected-lineups.json"),
-  readOptionalJson("lineup-prediction-history.json", { schemaVersion: "1.0", updatedAt: checkedAt, fixtures: [] })
+  readOptionalJson("lineup-prediction-history.json", { schemaVersion: "1.0", updatedAt: checkedAt, fixtures: [] }),
+  readOptionalJson("expected-lineups-audit.json"),
+  readOptionalJson("lineup-prediction-revisions.json", { revisions: [] })
 ]);
 const officialData = await fetchOfficialSchedule(fixturesData);
 const officialMatches = officialData.Results || [];
@@ -1105,11 +1133,21 @@ const participantMerge = populateResolvedKnockoutParticipants({
   teams: teamsData.teams,
   tournamentData
 });
-const predictionHistoryArchive = archiveCompletedExpectedLineups({
+const transitionedExpectedFixtureIds = getExpectedLineupTransitionFixtureIds({
+  expectedLineupsData,
+  fixturesData: participantMerge.fixturesData
+});
+const predictionHistoryArchive = archiveExpectedLineupsForFixtures({
+  auditData: predictionAuditData,
   historyData: predictionHistoryData,
   expectedLineupsData,
   fixturesData: participantMerge.fixturesData,
-  capturedAt: checkedAt
+  fixtureIds: transitionedExpectedFixtureIds,
+  capturedAt: checkedAt,
+  captureMethod: "fifa-results-prune",
+  externalSources: tournamentData.sources || [],
+  requireAuditRevision: true,
+  revisionLedgerData: predictionRevisionLedgerData
 });
 const expectedLineupsPrune = pruneExpectedLineupsForSyncedFixtures(expectedLineupsData, participantMerge.fixturesData);
 const totalUpdateCount = merge.updateCount + participantMerge.updateCount + expectedLineupsPrune.pruneCount;
@@ -1120,7 +1158,7 @@ const nextTournamentData = addSyncSource(tournamentData, {
   updateCount: merge.updateCount
 });
 
-if (shouldWrite && (!skipUnchangedWrites || totalUpdateCount > 0)) {
+async function persistOfficialResultFiles() {
   const writes = [
     writeJson("fixtures.json", participantMerge.fixturesData),
     writeJson("standings.json", nextStandingsData),
@@ -1130,11 +1168,17 @@ if (shouldWrite && (!skipUnchangedWrites || totalUpdateCount > 0)) {
   if (expectedLineupsPrune.pruneCount > 0) {
     writes.push(writeJson("expected-lineups.json", expectedLineupsPrune.expectedLineupsData));
   }
-  if (predictionHistoryArchive.archivedCount > 0) {
-    writes.push(writeJson("lineup-prediction-history.json", predictionHistoryArchive.historyData));
-  }
 
   await Promise.all(writes);
+}
+
+if (shouldWrite && (!skipUnchangedWrites || totalUpdateCount > 0)) {
+  await commitPredictionArchiveBeforeOfficialPersistence({
+    archiveResult: predictionHistoryArchive,
+    persistHistory: (historyData) =>
+      writeJsonAtomic("lineup-prediction-history.json", historyData),
+    persistOfficial: persistOfficialResultFiles
+  });
 }
 
 console.log(`FIFA official sync source: ${FIFA_SCHEDULE_URL}`);

@@ -1,4 +1,3 @@
-import { isPlayerNameMatch } from "./player-name-matching.mjs";
 import {
   buildDerivedLayoutVerification,
   DERIVED_TEAM_SHEET_ORDER_LAYOUT_SOURCE
@@ -81,9 +80,9 @@ const FORMATION_SLOTS = {
     ["CB", 38, 75],
     ["LB", 15, 75],
     ["DM", 50, 62],
-    ["RW", 76, 44],
-    ["AM", 50, 42],
-    ["LW", 24, 44],
+    ["CM", 76, 44],
+    ["CM", 50, 42],
+    ["CM", 24, 44],
     ["ST", 42, 23],
     ["ST", 58, 23]
   ],
@@ -231,6 +230,7 @@ export function buildFifaLineupsFromLiveMatch({
   liveMatch,
   teamsById,
   profileLookup,
+  layoutReference = null,
   checkedAt,
   sourceIds,
   sourceUrl,
@@ -255,7 +255,8 @@ export function buildFifaLineupsFromLiveMatch({
     homeFormation,
     homeTeam,
     actualSourceUrl,
-    profileLookup
+    profileLookup,
+    layoutReference?.lineup?.home || null
   );
 
   const away = buildLineupSide(
@@ -265,15 +266,32 @@ export function buildFifaLineupsFromLiveMatch({
     awayFormation,
     awayTeam,
     actualSourceUrl,
-    profileLookup
+    profileLookup,
+    layoutReference?.lineup?.away || null
   );
+
+  const derivedVerification = buildDerivedLayoutVerification(checkedAt);
+  const inferenceSource = layoutReference?.type
+    ? {
+        type: layoutReference.type,
+        ...(layoutReference.updatedAt ? { updatedAt: layoutReference.updatedAt } : {}),
+        ...(layoutReference.revisionId ? { revisionId: layoutReference.revisionId } : {})
+      }
+    : null;
 
   return {
     mode: ["confirmed", "final", "live"].includes(safeMode) ? safeMode : "live",
     teamSheetSource: OFFICIAL_LINEUP_SOURCE,
     eventSource: OFFICIAL_LINEUP_SOURCE,
     layoutSource: DERIVED_LAYOUT_SOURCE,
-    layoutVerification: buildDerivedLayoutVerification(checkedAt),
+    layoutVerification: inferenceSource
+      ? {
+          ...derivedVerification,
+          method: "role-informed-formation-slots",
+          inferenceSources: [inferenceSource],
+          note: "FIFA confirms the starting XI, bench, and formation. Matching players use frozen pre-kickoff role and side hints to choose slots within FIFA's official formation; pitch placement remains provisional, not FIFA-supplied exact geometry."
+        }
+      : derivedVerification,
     sourceIds: Array.isArray(sourceIds) && sourceIds.length ? sourceIds : ["fifa-lineups-live"],
     checkedAt,
     home: {
@@ -284,6 +302,49 @@ export function buildFifaLineupsFromLiveMatch({
       ...away,
       onFieldPlayers: computeLiveOnFieldPlayers(away)
     }
+  };
+}
+
+export function getPreKickoffPredictionLayoutReference(expectedLineupsData, fixture) {
+  const record = (expectedLineupsData?.fixtures || []).find((entry) => entry?.fixtureId === fixture?.id);
+  const predictedAt = Date.parse(record?.lastUpdated || "");
+  const kickoffAt = Date.parse(fixture?.kickoffUtc || "");
+  if (
+    !record?.lineup?.home?.players?.length ||
+    !record?.lineup?.away?.players?.length ||
+    !Number.isFinite(predictedAt) ||
+    !Number.isFinite(kickoffAt) ||
+    predictedAt >= kickoffAt ||
+    (record.lineup.home.teamId && record.lineup.home.teamId !== fixture.homeTeamId) ||
+    (record.lineup.away.teamId && record.lineup.away.teamId !== fixture.awayTeamId)
+  ) {
+    return null;
+  }
+
+  return {
+    type: "pre-kickoff-prediction",
+    updatedAt: record.lastUpdated,
+    revisionId: expectedLineupsData?.engine?.revisionId || "",
+    lineup: record.lineup
+  };
+}
+
+export function getRetainedOfficialLayoutReference(lineup) {
+  const inferenceSources = lineup?.layoutVerification?.inferenceSources;
+  const reusable = (
+    lineup?.teamSheetSource === OFFICIAL_LINEUP_SOURCE &&
+    lineup?.home?.players?.length === 11 &&
+    lineup?.away?.players?.length === 11 &&
+    Array.isArray(inferenceSources) &&
+    inferenceSources.some((source) => source?.type === "pre-kickoff-prediction")
+  );
+  if (!reusable) return null;
+
+  return {
+    type: "retained-official-role-layout",
+    updatedAt: lineup.checkedAt || "",
+    revisionId: inferenceSources.find((source) => source?.revisionId)?.revisionId || "",
+    lineup
   };
 }
 
@@ -499,23 +560,23 @@ function buildGenericFormationSlots(formation) {
       return;
     }
     if (count === 2) {
-      rows.push(["CM", 62, y], ["CM", 38, y]);
+      rows.push([["CM", 62, y], ["CM", 38, y]]);
       return;
     }
     if (count === 3 && isLastMidfieldLine && forwardCount === 1) {
-      rows.push(["RW", 82, y], ["AM", 50, y], ["LW", 18, y]);
+      rows.push([["RW", 82, y], ["AM", 50, y], ["LW", 18, y]]);
       return;
     }
     if (count === 3) {
-      rows.push(["CM", 70, y], ["CM", 50, y], ["CM", 30, y]);
+      rows.push([["CM", 70, y], ["CM", 50, y], ["CM", 30, y]]);
       return;
     }
     if (count === 4) {
-      rows.push(["RM", 82, y], ["CM", 62, y], ["CM", 38, y], ["LM", 18, y]);
+      rows.push([["RM", 82, y], ["CM", 62, y], ["CM", 38, y], ["LM", 18, y]]);
       return;
     }
     if (count === 5) {
-      rows.push(["RWB", 86, y], ["CM", 65, y], ["CM", 50, y], ["CM", 35, y], ["LWB", 14, y]);
+      rows.push([["RWB", 86, y], ["CM", 65, y], ["CM", 50, y], ["CM", 35, y], ["LWB", 14, y]]);
     }
   });
 
@@ -539,12 +600,25 @@ function formationSlots(formation) {
   return baseSlots.map(([role, x, y], index) => slot(role, x, y, index));
 }
 
-function scorePlayerSlot(player, targetSlot, playerIndex) {
+function scorePlayerSlot(player, targetSlot) {
   let score = 0;
   const playerSide = profileSide(player.profile);
   const hints = profileRoleHints(player.profile, player.fifaLine);
+  const layoutHintRole = String(player.layoutHint?.position || "").trim().toUpperCase();
+  const layoutHintLine = ROLE_LINE[layoutHintRole] || "";
+  const layoutHintSide = roleSide(layoutHintRole) || coordinateSide(player.layoutHint?.x);
+  const structurallyStableHint = ["RB", "RWB", "CB", "LB", "LWB", "RW", "ST", "LW"].includes(layoutHintRole);
+  const useExactLayoutHint = player.layoutHint?.formationMatches || structurallyStableHint;
+  const useLayoutSideHint = useExactLayoutHint || Boolean(layoutHintSide && hints[0] !== "DM");
 
-  if (hints.includes(targetSlot.role)) score += 120;
+  if (useExactLayoutHint && layoutHintRole && layoutHintRole === targetSlot.role) score += 600;
+  if (layoutHintLine && layoutHintLine === targetSlot.line) score += 100;
+  if (useLayoutSideHint && layoutHintSide && targetSlot.coordinateSide === layoutHintSide) score += 220;
+  if (useLayoutSideHint && layoutHintSide && targetSlot.side === layoutHintSide) score += 220;
+  if (useLayoutSideHint && layoutHintSide && targetSlot.coordinateSide && targetSlot.coordinateSide !== layoutHintSide) score -= 10000;
+  if (useLayoutSideHint && layoutHintSide && targetSlot.side && targetSlot.side !== layoutHintSide) score -= 10000;
+  const profileHintIndex = hints.indexOf(targetSlot.role);
+  if (profileHintIndex >= 0) score += profileHintIndex === 0 ? 400 : 120;
   if (player.fifaLine && targetSlot.line === player.fifaLine) score += 45;
   if (playerSide && targetSlot.coordinateSide === playerSide) score += 35;
   if (playerSide && targetSlot.side === playerSide) score += 35;
@@ -553,7 +627,6 @@ function scorePlayerSlot(player, targetSlot, playerIndex) {
   if (player.fifaLine === "def" && targetSlot.line === "mid" && ["RWB", "LWB"].includes(targetSlot.role)) score += 25;
   if (player.fifaLine === "mid" && targetSlot.line === "fwd" && ["RW", "LW"].includes(targetSlot.role)) score += 15;
   if (player.fifaLine === "fwd" && targetSlot.line === "mid" && ["RW", "LW"].includes(targetSlot.role)) score += 15;
-  score -= Math.abs(playerIndex - targetSlot.orderIndex) * 20;
 
   return score;
 }
@@ -576,7 +649,7 @@ function assignOutfieldSlots(players, slots) {
       }
 
       const nextMask = mask | (1 << slotIndex);
-      const nextScore = dp[mask].score + scorePlayerSlot(players[playerIndex], slots[slotIndex], playerIndex);
+      const nextScore = dp[mask].score + scorePlayerSlot(players[playerIndex], slots[slotIndex]);
       if (nextScore > dp[nextMask].score) {
         dp[nextMask] = {
           score: nextScore,
@@ -614,19 +687,74 @@ function playerNumber(player) {
   return String(player?.ShirtNumber || player?.ShirtNum || player?.JerseyNumber || player?.Bib || "").trim();
 }
 
-function buildRawPlayer(player, teamId, profileLookup) {
-  const baseName = normalizePersonName(description(player?.PlayerName) || description(player?.ShortName), teamId, profileLookup);
+function isFifaPlayerCaptain(player) {
+  const value =
+    player?.Captain ??
+    player?.IsCaptain ??
+    player?.PlayerCaptain ??
+    player?.TeamCaptain ??
+    player?.captain ??
+    player?.isCaptain;
+
+  if (typeof value === "boolean") {
+    return value;
+  }
+  if (typeof value === "number") {
+    return value === 1;
+  }
+  if (typeof value === "string") {
+    return ["1", "true", "yes", "y", "captain", "c"].includes(value.trim().toLowerCase());
+  }
+
+  return false;
+}
+
+function buildLayoutHintLookup(referenceSide, formation) {
+  const claims = new Map();
+  for (const referencePlayer of referenceSide?.players || []) {
+    const key = compactText(referencePlayer?.name || referencePlayer?.displayName || referencePlayer?.fullName);
+    if (!key) continue;
+    const matches = claims.get(key) || [];
+    matches.push(referencePlayer);
+    claims.set(key, matches);
+  }
+  return new Map(
+    [...claims.entries()]
+      .filter(([, players]) => players.length === 1)
+      .map(([key, players]) => [key, {
+        ...players[0],
+        formationMatches: String(referenceSide?.formation || "") === String(formation || "")
+      }])
+  );
+}
+
+function buildRawPlayer(player, teamId, profileLookup, layoutHintLookup = new Map()) {
+  const sourceName = description(player?.PlayerName) || description(player?.ShortName);
+  const shortName = description(player?.ShortName);
+  const baseName = normalizePersonName(sourceName, teamId, profileLookup);
   const profile = findProfileForName(baseName, teamId, profileLookup);
+  const id = String(player?.IdPlayer || "");
+  const number = playerNumber(player);
+  const aliases = [...new Set([
+    sourceName,
+    shortName,
+    baseName,
+    ...profileAliases(profile)
+  ].map(normalizeText).filter(Boolean))];
 
   return {
-    id: String(player?.IdPlayer || ""),
+    id,
+    identityKey: id || `${normalizeText(baseName)}|${number}|${String(player?.Position ?? "")}`,
+    aliases,
     baseName,
     name: baseName,
-    number: playerNumber(player),
+    number,
     rawPosition: player?.Position,
     sourcePosition: sourcePositionFromFifaPosition(player?.Position),
     fifaLine: playerLineFromFifaPosition(player?.Position),
-    profile
+    isCaptain: isFifaPlayerCaptain(player),
+    profile,
+    layoutHint: layoutHintLookup.get(compactText(baseName)) || null
   };
 }
 
@@ -678,6 +806,53 @@ function disambiguateDuplicatePlayers(players) {
   }
 }
 
+function buildTeamSheetIdentity(players) {
+  const byId = new Map();
+  const aliasClaims = new Map();
+
+  for (const player of players) {
+    if (player.id && !byId.has(player.id)) {
+      byId.set(player.id, player);
+    }
+
+    const aliases = new Set([
+      ...(player.aliases || []),
+      normalizeText(player.baseName),
+      normalizeText(player.name),
+      normalizeText(player.displayName)
+    ].filter(Boolean));
+    for (const alias of aliases) {
+      if (!aliasClaims.has(alias)) {
+        aliasClaims.set(alias, new Set());
+      }
+      aliasClaims.get(alias).add(player);
+    }
+  }
+
+  const byAlias = new Map();
+  for (const [alias, claims] of aliasClaims) {
+    // An alias is safe only when it identifies exactly one player on this team
+    // sheet. This deliberately does not use global fuzzy-name matching: Brazil,
+    // for example, can field Ederson and Ederson Silva or Danilo and Danilo
+    // Santos in the same squad.
+    if (claims.size === 1) {
+      byAlias.set(alias, claims.values().next().value);
+    }
+  }
+
+  return { byId, byAlias };
+}
+
+function resolveTeamSheetPlayer(teamSheetIdentity, id, name) {
+  const playerId = String(id || "");
+  if (playerId && teamSheetIdentity.byId.has(playerId)) {
+    return teamSheetIdentity.byId.get(playerId);
+  }
+
+  const alias = normalizeText(name);
+  return alias ? teamSheetIdentity.byAlias.get(alias) || null : null;
+}
+
 function lineupPlayerEntry(player, targetSlot) {
   return {
     number: player.number,
@@ -685,6 +860,7 @@ function lineupPlayerEntry(player, targetSlot) {
     ...(player.sourcePosition ? { sourcePosition: player.sourcePosition } : {}),
     ...(player.displayName ? { displayName: player.displayName } : {}),
     ...(player.label ? { label: player.label } : {}),
+    ...(player.isCaptain ? { isCaptain: true } : {}),
     position: targetSlot.role,
     x: targetSlot.x,
     y: targetSlot.y
@@ -698,12 +874,9 @@ function benchPlayerEntry(player) {
     ...(player.sourcePosition ? { sourcePosition: player.sourcePosition } : {}),
     ...(player.displayName ? { displayName: player.displayName } : {}),
     ...(player.label ? { label: player.label } : {}),
+    ...(player.isCaptain ? { isCaptain: true } : {}),
     position: positionCodeForBench(player.profile, player.rawPosition)
   };
-}
-
-function namesContain(playerNames, name) {
-  return playerNames.some((playerName) => normalizeText(playerName) === normalizeText(name) || isPlayerNameMatch(playerName, name));
 }
 
 function parseMinute(value, period = null) {
@@ -749,13 +922,15 @@ function buildStaffLookup(teamData) {
   return staff;
 }
 
-function buildEvents(teamData, playersById, starterNames, benchNames) {
+function buildEvents(teamData, teamSheetIdentity, starters, bench) {
   const events = {
     cards: [],
     staffCards: [],
     substitutions: []
   };
   const staffById = buildStaffLookup(teamData);
+  const allPlayers = new Set([...starters, ...bench]);
+  const benchPlayers = new Set(bench);
 
   for (const booking of teamData.Bookings || []) {
     const minute = parseMinute(booking.Minute, booking.Period);
@@ -777,8 +952,12 @@ function buildEvents(teamData, playersById, starterNames, benchNames) {
       continue;
     }
 
-    const player = playersById.get(String(booking.IdPlayer));
-    if (player && namesContain([...starterNames, ...benchNames], player.name)) {
+    const player = resolveTeamSheetPlayer(
+      teamSheetIdentity,
+      booking.IdPlayer,
+      description(booking.PlayerName) || description(booking.PlayerShortName)
+    );
+    if (player && allPlayers.has(player)) {
       events.cards.push({
         playerName: player.name,
         type: Number(booking.Card) === 1 ? "yellow" : "red",
@@ -787,27 +966,33 @@ function buildEvents(teamData, playersById, starterNames, benchNames) {
     }
   }
 
-  const allPlayerNames = [...starterNames, ...benchNames];
   for (const substitution of teamData.Substitutions || []) {
-    const offPlayer = playersById.get(String(substitution.IdPlayerOff));
-    const onPlayer = playersById.get(String(substitution.IdPlayerOn));
-    const offName = offPlayer?.name || normalizePersonName(description(substitution.PlayerOffName), "", null);
-    const onName = onPlayer?.name || normalizePersonName(description(substitution.PlayerOnName), "", null);
+    const offPlayer = resolveTeamSheetPlayer(
+      teamSheetIdentity,
+      substitution.IdPlayerOff,
+      description(substitution.PlayerOffName)
+    );
+    const onPlayer = resolveTeamSheetPlayer(
+      teamSheetIdentity,
+      substitution.IdPlayerOn,
+      description(substitution.PlayerOnName)
+    );
     const minute = parseMinute(substitution.Minute, substitution.Period);
 
     if (
-      !offName ||
-      !onName ||
+      !offPlayer ||
+      !onPlayer ||
       !minute ||
-      !namesContain(allPlayerNames, offName) ||
-      !namesContain(benchNames, onName)
+      !allPlayers.has(offPlayer) ||
+      !benchPlayers.has(onPlayer) ||
+      offPlayer === onPlayer
     ) {
       continue;
     }
 
     events.substitutions.push({
-      offName,
-      onName,
+      offName: offPlayer.name,
+      onName: onPlayer.name,
       minute
     });
   }
@@ -834,12 +1019,13 @@ function buildCoach(teamData, team, sourceUrl) {
   };
 }
 
-function buildLineupSide(teamData, fixture, side, formation, team, sourceUrl, profileLookup) {
+function buildLineupSide(teamData, fixture, side, formation, team, sourceUrl, profileLookup, layoutReferenceSide = null) {
   const teamId = fixture[`${side}TeamId`];
   const sourcePlayers = teamData.Players || [];
-  const rawPlayers = sourcePlayers.map((player) => buildRawPlayer(player, teamId, profileLookup));
+  const layoutHintLookup = buildLayoutHintLookup(layoutReferenceSide, formation);
+  const rawPlayers = sourcePlayers.map((player) => buildRawPlayer(player, teamId, profileLookup, layoutHintLookup));
   disambiguateDuplicatePlayers(rawPlayers);
-  const playersById = new Map(rawPlayers.filter((player) => player.id).map((player) => [player.id, player]));
+  const teamSheetIdentity = buildTeamSheetIdentity(rawPlayers);
   const starters = sourcePlayers
     .map((player, index) => (Number(player.Status) === 1 ? rawPlayers[index] : null))
     .filter(Boolean);
@@ -864,8 +1050,6 @@ function buildLineupSide(teamData, fixture, side, formation, team, sourceUrl, pr
     ...outfieldPlayers.map((player, index) => lineupPlayerEntry(player, assignments[index] || slots[index]))
   ];
   const benchEntries = bench.map(benchPlayerEntry);
-  const starterNames = starterEntries.map((player) => player.name);
-  const benchNames = benchEntries.map((player) => player.name);
   const coach = buildCoach(teamData, team, sourceUrl);
 
   return {
@@ -873,7 +1057,7 @@ function buildLineupSide(teamData, fixture, side, formation, team, sourceUrl, pr
     ...(coach ? { coach } : {}),
     players: starterEntries,
     bench: benchEntries,
-    events: buildEvents(teamData, playersById, starterNames, benchNames)
+    events: buildEvents(teamData, teamSheetIdentity, starters, bench)
   };
 }
 
