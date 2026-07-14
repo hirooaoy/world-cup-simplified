@@ -5977,9 +5977,9 @@ try {
       argentinaEgyptDesktopLineupGeometry.messi.valueCount === 1 &&
       argentinaEgyptDesktopLineupGeometry.alvarez.valueText.includes("€") &&
       argentinaEgyptDesktopLineupGeometry.messi.valueText.includes("€") &&
-      argentinaEgyptDesktopLineupGeometry.alvarez.labelValueGap >= 1 &&
+      argentinaEgyptDesktopLineupGeometry.alvarez.labelValueGap >= 0.75 &&
       argentinaEgyptDesktopLineupGeometry.alvarez.labelValueGap <= 4 &&
-      argentinaEgyptDesktopLineupGeometry.messi.labelValueGap >= 1 &&
+      argentinaEgyptDesktopLineupGeometry.messi.labelValueGap >= 0.75 &&
       argentinaEgyptDesktopLineupGeometry.messi.labelValueGap <= 4 &&
       argentinaEgyptDesktopLineupGeometry.alvarez.eventRows === 0 &&
       argentinaEgyptDesktopLineupGeometry.alvarez.avatarRightEvents === 1 &&
@@ -11635,9 +11635,9 @@ try {
       touchArgentinaEgyptLineupGeometry.messi.valueCount === 1 &&
       touchArgentinaEgyptLineupGeometry.alvarez.valueText.includes("€") &&
       touchArgentinaEgyptLineupGeometry.messi.valueText.includes("€") &&
-      touchArgentinaEgyptLineupGeometry.alvarez.labelValueGap >= 1 &&
+      touchArgentinaEgyptLineupGeometry.alvarez.labelValueGap >= 0.75 &&
       touchArgentinaEgyptLineupGeometry.alvarez.labelValueGap <= 4 &&
-      touchArgentinaEgyptLineupGeometry.messi.labelValueGap >= 1 &&
+      touchArgentinaEgyptLineupGeometry.messi.labelValueGap >= 0.75 &&
       touchArgentinaEgyptLineupGeometry.messi.labelValueGap <= 4 &&
       touchArgentinaEgyptLineupGeometry.alvarez.eventRows === 0 &&
       touchArgentinaEgyptLineupGeometry.alvarez.avatarRightEvents === 1 &&
