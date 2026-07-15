@@ -21374,6 +21374,14 @@ function hideFloatingLineupEventTooltip() {
 function queueFloatingLineupEventTooltipHide() {
   window.clearTimeout(floatingLineupEventTooltipHideTimer);
   floatingLineupEventTooltipHideTimer = window.setTimeout(() => {
+    const source = floatingLineupEventTooltipSource;
+    if (
+      source?.isConnected &&
+      (document.activeElement === source || source.matches(":hover"))
+    ) {
+      floatingLineupEventTooltipHideTimer = 0;
+      return;
+    }
     hideFloatingLineupEventTooltip();
   }, 50);
 }
@@ -27357,6 +27365,9 @@ function attachPlayerCardPositioning(root) {
         if (isTouchTooltipPointerEvent(event)) {
           return;
         }
+        if (document.activeElement === lineupEventBadge) {
+          return;
+        }
         queueFloatingLineupEventTooltipHide();
         return;
       }
@@ -27623,7 +27634,14 @@ window.addEventListener(
   () => {
     updateVisualViewportInsets();
     clearActiveTouchTooltip();
-    hideFloatingLineupEventTooltip();
+    if (
+      floatingLineupEventTooltipSource?.isConnected &&
+      document.activeElement === floatingLineupEventTooltipSource
+    ) {
+      positionFloatingLineupEventTooltip(floatingLineupEventTooltipSource);
+    } else {
+      hideFloatingLineupEventTooltip();
+    }
     positionCatchUpPopover();
     positionPlayerCards();
     updateTooltipBounds();

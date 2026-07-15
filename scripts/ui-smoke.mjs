@@ -5385,6 +5385,11 @@ try {
       Number(styles.opacity) > 0.05
     );
   });
+  await lineupEventBadge.dispatchEvent("pointerleave", {
+    bubbles: false,
+    pointerType: "mouse"
+  });
+  await finalLineupModeCheck.page.waitForTimeout(120);
   const lineupEventTooltipState = await finalLineupModeCheck.page.evaluate(() => {
     const tooltip = document.querySelector(".lineup-event-tooltip-floating");
     const tooltipBounds = tooltip?.getBoundingClientRect();
@@ -5402,6 +5407,10 @@ try {
       })
       .map((card) => card.querySelector(".player-card-name")?.textContent.trim() || "");
     return {
+      activeElement: document.activeElement?.className || document.activeElement?.tagName || "",
+      badgeFocused: document.activeElement?.matches?.(
+        '.lineup-event-score[aria-label*="Harry Kane"][aria-label*="Goal"]'
+      ) || false,
       tooltipText: tooltip?.textContent.trim() || "",
       tooltipVisible: Boolean(tooltip?.classList.contains("is-visible")),
       tooltipBounds: tooltipBounds
