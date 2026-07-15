@@ -6585,6 +6585,7 @@ try {
     "/?view=matches&team=Spain&tz=America%2FLos_Angeles",
     {
       contextOptions: { viewport: { width: 1440, height: 800 } },
+      desktopPointerMedia: true,
       initScript: () => {
         const realSetInterval = window.setInterval.bind(window);
         let capturedScheduledRender = false;
