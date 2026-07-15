@@ -968,7 +968,10 @@ function canonicalizeChineseQuestion(value) {
 }
 
 function normalizeBallBoyQuestion(value) {
-  return canonicalizeChineseQuestion(value);
+  return canonicalizeChineseQuestion(value)
+    .split(" ")
+    .map((token) => token === "u" ? "you" : token)
+    .join(" ");
 }
 
 function containsPhrase(text, phrase) {
@@ -1018,7 +1021,7 @@ function buildTeamAliasEntries(teams) {
     ]);
     for (const alias of aliases) {
       const key = normalizeBallBoyText(alias);
-      if (key && key !== "us") {
+      if (key && !["can", "us"].includes(key)) {
         entries.push({ key, team });
       }
     }

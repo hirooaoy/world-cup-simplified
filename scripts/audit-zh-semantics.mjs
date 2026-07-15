@@ -282,6 +282,22 @@ async function auditBallBoyChineseIntents(dataByPath) {
 
     const samples = [
       {
+        question: "what can u do",
+        locale: "en",
+        matches: (reply) =>
+          reply?.kind === "help" &&
+          reply?.lead === "Choose a topic.",
+        expected: "English help intent from common shorthand"
+      },
+      {
+        question: "can you dance?",
+        locale: "en",
+        matches: (reply) =>
+          reply?.kind === "unknown" &&
+          reply?.team?.id !== "CAN",
+        expected: "ordinary English can without a false Canada match"
+      },
+      {
         question: "Who are you?",
         locale: "en",
         matches: (reply) =>

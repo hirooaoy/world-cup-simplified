@@ -1,6 +1,21 @@
 {
-  "updatedAt": "2026-07-15T00:21:54-07:00",
+  "updatedAt": "2026-07-15T09:54:22-07:00",
   "releases": [
+    {
+      "date": "2026-07-15",
+      "title": "Clearer history controls, roomier match details, and smarter Ball Boy shorthand",
+      "titleZh": "更清晰的历史记录控制、更宽敞的比赛详情与更智能的 Ball Boy 简写识别",
+      "highlights": [
+        "Expanded country searches now offer Hide previous World Cups, with a true two-state, count-aware, accessible toggle that collapses the archive cleanly.",
+        "On short desktop match pages, scrolling past the header now lets the detail card grow smoothly into real available space while preserving its bottom gap; long archives and mobile layouts keep their existing geometry.",
+        "Ball Boy now understands shorthand such as what can u do and no longer mistakes the ordinary word can for Canada's CAN team code."
+      ],
+      "highlightsZh": [
+        "展开国家队搜索中的往届比赛后，现在会显示“隐藏往届世界杯”；这个包含动态场次数量且支持无障碍状态的双向控件，可干净地收起历史记录。",
+        "在较短的桌面端比赛页面中，滚过页眉后详情卡会平滑扩展到实际可用空间并保留底部间距；较长的历史列表和移动端布局继续保持原有几何结构。",
+        "Ball Boy 现在能理解“what can u do”等简写，也不会再把英语中的普通单词“can”误认为加拿大队代码 CAN。"
+      ]
+    },
     {
       "date": "2026-07-15",
       "title": "Smarter timezone replies and steadier navigation",

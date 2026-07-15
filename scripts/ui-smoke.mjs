@@ -6553,7 +6553,14 @@ try {
     "Current country search rows should show and announce the match date and time on one line."
   );
   await japanSearchCheck.page.setViewportSize({ width: 390, height: 844 });
-  await japanSearchCheck.page.locator('[data-team-history-toggle="true"]').click();
+  const japanHistoryToggle = japanSearchCheck.page.locator('[data-team-history-toggle="true"]');
+  const japanCollapsedHistoryLabel = (await japanHistoryToggle.innerText()).trim();
+  assert(
+    /^See previous World Cups \(\d+\)$/.test(japanCollapsedHistoryLabel) &&
+      (await japanHistoryToggle.getAttribute("aria-expanded")) === "false",
+    "Collapsed country history should offer to show the number of previous World Cup matches."
+  );
+  await japanHistoryToggle.click();
   const japanArchiveRows = await japanSearchCheck.page
     .locator(".team-search-section.is-archive .match-row")
     .evaluateAll((rows) =>
@@ -6577,6 +6584,18 @@ try {
       }
     ),
     "Archived country search rows should show and announce date and loaded kickoff time labels with the year."
+  );
+  assert(
+    (await japanHistoryToggle.innerText()).trim() === "Hide previous World Cups" &&
+      (await japanHistoryToggle.getAttribute("aria-expanded")) === "true",
+    "Expanded country history should offer to hide the previous World Cups."
+  );
+  await japanHistoryToggle.click();
+  assert(
+    (await japanSearchCheck.page.locator(".team-search-section.is-archive").count()) === 0 &&
+      (await japanHistoryToggle.innerText()).trim() === japanCollapsedHistoryLabel &&
+      (await japanHistoryToggle.getAttribute("aria-expanded")) === "false",
+    "Hiding country history should collapse the archive and restore the See action."
   );
   await japanSearchCheck.context.close();
 
@@ -6713,6 +6732,57 @@ try {
     `The sticky card should have an internal scroll position to reset before previewing another row. Measured ${matchInfoScrollBeforeHoverSwitch}.`
   );
   await desktopSearchRevealCheck.context.close();
+
+  const desktopShortPageCardCheck = await openPageAtTime(
+    "2026-07-15T16:15:00.000Z",
+    "/?view=matches&date=2026-07-04&tz=America%2FLos_Angeles",
+    {
+      contextOptions: { viewport: { width: 2048, height: 1112 } },
+      desktopPointerMedia: true
+    }
+  );
+  await desktopShortPageCardCheck.page
+    .locator('[data-match-id="match-90-round-of-16-2026-07-04"]')
+    .click();
+  const desktopShortCardInitialHeight = await desktopShortPageCardCheck.page
+    .locator("#match-info")
+    .evaluate((info) => info.clientHeight);
+  await desktopShortPageCardCheck.page.evaluate(() => {
+    window.scrollTo({ top: document.documentElement.scrollHeight, behavior: "auto" });
+  });
+  await desktopShortPageCardCheck.page.waitForFunction(() => {
+    const info = document.querySelector("#match-info");
+    const bounds = info?.getBoundingClientRect();
+
+    return (
+      info?.classList.contains("is-viewport-docked") &&
+      info.clientHeight >= window.innerHeight - 34 &&
+      bounds?.bottom <= window.innerHeight + 1
+    );
+  });
+  const desktopShortCardExpandedState = await desktopShortPageCardCheck.page.evaluate(() => {
+    const info = document.querySelector("#match-info");
+    const infoBounds = info?.getBoundingClientRect();
+    const footerBounds = document.querySelector(".site-footer")?.getBoundingClientRect();
+
+    return {
+      bottomGap: infoBounds ? Math.round(window.innerHeight - infoBounds.bottom) : null,
+      clientHeight: info?.clientHeight ?? null,
+      docked: info?.classList.contains("is-viewport-docked") || false,
+      footerTop: footerBounds?.top ?? null,
+      scrollY: window.scrollY,
+      viewportHeight: window.innerHeight
+    };
+  });
+  assert(
+    desktopShortCardExpandedState.docked &&
+      desktopShortCardExpandedState.scrollY > 0 &&
+      Math.abs(desktopShortCardExpandedState.bottomGap - 16) <= 2 &&
+      desktopShortCardExpandedState.clientHeight > desktopShortCardInitialHeight + 100 &&
+      desktopShortCardExpandedState.footerTop >= desktopShortCardExpandedState.viewportHeight,
+    `A short desktop match page should let its detail card grow into the footer-side gap after scrolling. Measured ${JSON.stringify({ desktopShortCardInitialHeight, desktopShortCardExpandedState })}.`
+  );
+  await desktopShortPageCardCheck.context.close();
 
   const franceSearchCheck = await openPageAtTime(
     "2026-07-14T23:00:00.000Z",

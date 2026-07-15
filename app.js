@@ -2147,6 +2147,10 @@ const ZH_PATTERN_TRANSLATIONS = [
     replace: (_, count) => `查看历届世界杯（${count}）`
   },
   {
+    pattern: /^Hide previous World Cups$/,
+    replace: () => "隐藏历届世界杯"
+  },
+  {
     pattern: /^Head-to-head record across (\d+) match(?:es)?$/,
     replace: (_, count) => `${count}场交锋记录`
   },
@@ -22461,12 +22465,15 @@ function updateMatchInfoViewportDockState() {
   const usesDesktopMatchLayout = window.matchMedia("(min-width: 1161px)").matches;
   const headerBounds = siteHeader?.getBoundingClientRect();
   const footerBounds = siteFooter?.getBoundingClientRect();
+  const matchListBounds = matchList.getBoundingClientRect();
+  const matchInfoBounds = matchInfo.getBoundingClientRect();
+  const matchInfoDefinesPageHeight = matchInfoBounds.height >= matchListBounds.height;
   const shouldExpand =
     usesDesktopMatchLayout &&
     !viewPanels.matches.hidden &&
     !matchInfo.hidden &&
     headerBounds?.bottom <= 0 &&
-    footerBounds?.top >= window.innerHeight;
+    (footerBounds?.top >= window.innerHeight || matchInfoDefinesPageHeight);
 
   matchInfo.classList.toggle("is-viewport-docked", Boolean(shouldExpand));
 }
@@ -24782,20 +24789,24 @@ function createTeamSearchSection(title, items, stateForMatch, options = {}) {
   return section;
 }
 
-function createOlderWorldCupsToggle(hiddenCount) {
+function createOlderWorldCupsToggle(hiddenCount, isExpanded) {
   const section = document.createElement("section");
   section.className = "team-search-section team-search-archive-toggle";
   const button = document.createElement("button");
   button.className = "past-reveal-button team-search-history-button";
   button.type = "button";
   button.dataset.teamHistoryToggle = "true";
+  button.setAttribute("aria-expanded", String(isExpanded));
+  const actionLabel = isExpanded
+    ? "Hide previous World Cups"
+    : `See previous World Cups (${hiddenCount})`;
   button.innerHTML = `
     <span class="past-reveal-action">
-      ${escapeHtml(localizeText(`See previous World Cups (${hiddenCount})`))}
+      ${escapeHtml(localizeText(actionLabel))}
     </span>
   `;
   button.addEventListener("click", () => {
-    isShowingOlderTeamMatches = true;
+    isShowingOlderTeamMatches = !isExpanded;
     renderSchedule();
   });
   section.append(button);
@@ -24873,8 +24884,9 @@ function renderTeamSearchResults(options = {}) {
         currentTime
       })
     );
+    nodes.push(createOlderWorldCupsToggle(olderWorldCupMatches.length, true));
   } else if (olderWorldCupMatches.length) {
-    nodes.push(createOlderWorldCupsToggle(olderWorldCupMatches.length));
+    nodes.push(createOlderWorldCupsToggle(olderWorldCupMatches.length, false));
   }
 
   const activeSearchMatch = searchMatches.find(({ match }) => match.id === activeMatchId)?.match || null;
