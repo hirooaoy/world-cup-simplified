@@ -8,16 +8,16 @@
       "highlights": [
         "Match rows now give screen readers a concise status, stage, score, penalty outcome, winner, and readable live minute, while each row clearly controls the named Match details panel without changing the visual layout.",
         "Live updates now announce only meaningful changes such as kick-off, goals, phase changes, delays, postponements, cancellations, and full time instead of repeatedly reading the entire match list or detail card.",
-        "England and Argentina's verified semi-final line-ups now place every starter in the correct pitch role, backed by a persistent reviewed layout override and refreshed provenance.",
+        "England and Argentina's semi-final line-ups now use FIFA's official Tactical Line-up document to place every starter in the published tactical row and left/right position.",
         "In dark mode, the line-up pitch now uses one uniform deep-green surface instead of splitting into mismatched upper and lower shades; light mode remains unchanged.",
-        "Future matchdays now check for FIFA's official XI every five minutes near kickoff, keep its fallback placement inside compatible position rows, and silently adopt permanent median geometry only when two normalized ESPN/FotMob boards agree; provider conflicts leave the safer board untouched."
+        "Future matchdays now check FIFA's official Tactical Line-up PDF every five minutes near kickoff and use its positioned text for permanent player rows and left/right placement; the FIFA XI fallback stays conservative while the document is unavailable, with ESPN/FotMob agreement used only as a secondary recovery path."
       ],
       "highlightsZh": [
         "比赛行现在会向屏幕阅读器简洁播报比赛状态、阶段、比分、点球结果、胜者和易读的实时分钟数；每一行也会明确控制名为“比赛详情”的面板，同时不改变视觉布局。",
         "实时更新现在只会播报开球、进球、阶段变化、延迟、延期、取消和终场等有意义的变化，不再反复朗读整份比赛列表或详情卡。",
-        "英格兰与阿根廷的半决赛首发阵容现在会把每位球员放在已核实的正确场上位置，并通过持久化的人工复核布局覆盖和更新后的来源记录加以保证。",
+        "英格兰与阿根廷的半决赛首发阵容现在会采用 FIFA 官方《战术阵容》文件，把每位球员放在公布的战术层级及左右位置。",
         "深色模式下的阵容球场现在采用统一的深绿色表面，不再分成上下两种不一致的色调；浅色模式保持不变。",
-        "今后的比赛日会在开球前后每五分钟检查 FIFA 官方首发；安全回退站位会把球员限制在相容的位置层级中，只有当标准化后的 ESPN 与 FotMob 阵容板一致时才会静默采用并永久保存坐标中位数；若来源冲突，则继续保留更安全的阵容板。"
+        "今后的比赛日会在临近开球时每五分钟检查 FIFA 官方《战术阵容》PDF，并直接读取带坐标的文字来永久确定球员层级及左右站位；文件尚未发布时会保留谨慎的 FIFA 首发回退布局，只有官方文件缺失或无法解析时，才把 ESPN 与 FotMob 的一致结果作为次级恢复路径。"
       ]
     },
     {

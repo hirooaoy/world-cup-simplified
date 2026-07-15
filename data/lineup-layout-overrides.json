@@ -7,9 +7,11 @@
     "google-switzerland-colombia-lineup-visual-2026-07-07",
     "lineup-layout-verification-2026-07-13",
     "lineup-layout-verification-2026-07-14",
-    "lineup-layout-verification-2026-07-15"
+    "lineup-layout-verification-2026-07-15",
+    "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
+    "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f"
   ],
-  "updatedAt": "2026-07-15T19:12:38.000Z",
+  "updatedAt": "2026-07-15T20:55:00.000Z",
   "fixtures": {
     "match-82-round-of-32-2026-07-01": {
       "status": "unresolved",
@@ -35666,35 +35668,30 @@
     },
     "match-102-semi-final-2026-07-15": {
       "status": "verified",
-      "layoutSource": "editorial-verified",
-      "checkedAt": "2026-07-15T19:12:38.000Z",
+      "layoutSource": "fifa-official-layout",
+      "verificationMethod": "fifa-tactical-lineup-pdf-v1",
+      "checkedAt": "2026-07-15T17:41:37.000Z",
+      "homeTeamId": "ENG",
+      "awayTeamId": "ARG",
       "sourceIds": [
-        "lineup-layout-verification-2026-07-15"
+        "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
       ],
       "sources": [
         {
-          "name": "Google",
-          "url": "https://www.google.com/search?q=England+Argentina+World+Cup+2026+lineups",
+          "name": "FIFA Tactical Line-up PDF",
+          "adapter": "fifa-tactical-pdf",
+          "url": "https://fdp.fifa.org/assetspublic/ce281/r12549/pdf/TacticalLineup-English.pdf",
           "status": "matched",
-          "sourceDetail": "live lineup-board screenshot supplied at kickoff; it shows James-Stones-Guehi-Spence in defence and Rogers-Bellingham-Gordon behind Kane",
-          "exactLayout": true
-        },
-        {
-          "name": "Sofascore",
-          "url": "https://www.sofascore.com/football/match/argentina-england/nUbsuWb",
-          "status": "matched",
-          "sourceDetail": "public live lineup board confirms England's 4-2-3-1 and Argentina's 4-4-2, including Enzo on Argentina's left and Simeone on the right",
-          "exactLayout": true
-        },
-        {
-          "name": "ESPN",
-          "adapter": "espn",
-          "url": "https://www.espn.com/soccer/match/_/gameId/760515/argentina-england",
-          "status": "unavailable",
-          "note": "Formations & Lineups section was not found."
+          "exactLayout": true,
+          "sourceDetail": "Positioned text from FIFA's official Tactical Line-up PDF matched all 22 starters one-to-one against FIFA's official team sheet.",
+          "matchNumber": 102,
+          "registrationId": 12549,
+          "documentVersion": 1,
+          "publishedAt": "2026-07-15T17:41:37.000Z",
+          "sha256": "cda8da4f98a5a9493b526b49558ab3d39e494b5647d5a703f00b19fa232a8f83"
         }
       ],
-      "note": "FIFA official team sheet kept for facts; Google and Sofascore agreed on the exact tactical rows and corrected the provisional Rogers-Spence and Paredes-Simeone swaps.",
+      "note": "FIFA's official Tactical Line-up PDF supplied the nominal tactical rows and left/right placement; all 22 starters matched FIFA's official team sheet.",
       "home": {
         "formation": "4-2-3-1",
         "players": [
@@ -35703,77 +35700,77 @@
             "name": "Harry Kane",
             "position": "ST",
             "x": 50,
-            "y": 20
+            "y": 8
           },
           {
             "number": "18",
             "name": "Anthony Gordon",
             "position": "LW",
-            "x": 18,
-            "y": 40
+            "x": 29,
+            "y": 28
           },
           {
             "number": "10",
             "name": "Jude Bellingham",
             "position": "AM",
             "x": 50,
-            "y": 40
+            "y": 28
           },
           {
             "number": "17",
             "name": "Morgan Rogers",
             "position": "RW",
-            "x": 82,
-            "y": 40
+            "x": 71,
+            "y": 28
           },
           {
             "number": "8",
             "name": "Elliot Anderson",
             "position": "CM",
-            "x": 38,
-            "y": 59
+            "x": 40,
+            "y": 48
           },
           {
             "number": "4",
             "name": "Declan Rice",
             "position": "CM",
-            "x": 62,
-            "y": 59
+            "x": 60,
+            "y": 48
           },
           {
             "number": "25",
             "name": "Djed Spence",
             "position": "LB",
-            "x": 15,
-            "y": 75
+            "x": 19,
+            "y": 68
           },
           {
             "number": "6",
             "name": "Marc Guehi",
             "position": "CB",
-            "x": 38,
-            "y": 75
+            "x": 40,
+            "y": 68
           },
           {
             "number": "5",
             "name": "John Stones",
             "position": "CB",
-            "x": 62,
-            "y": 75
+            "x": 60,
+            "y": 68
           },
           {
             "number": "24",
             "name": "Reece James",
             "position": "RB",
-            "x": 85,
-            "y": 75
+            "x": 81,
+            "y": 68
           },
           {
             "number": "1",
             "name": "Jordan Pickford",
             "position": "GK",
             "x": 50,
-            "y": 91
+            "y": 86
           }
         ]
       },
@@ -35784,78 +35781,269 @@
             "number": "9",
             "name": "Julian Alvarez",
             "position": "ST",
-            "x": 42,
-            "y": 24
+            "x": 40,
+            "y": 8
           },
           {
             "number": "10",
             "name": "Lionel Messi",
             "position": "ST",
-            "x": 58,
-            "y": 24
+            "x": 60,
+            "y": 8
           },
           {
             "number": "24",
             "name": "Enzo Fernandez",
             "position": "LM",
-            "x": 18,
-            "y": 52
+            "x": 19,
+            "y": 36
           },
           {
             "number": "20",
             "name": "Alexis Mac Allister",
             "position": "CM",
-            "x": 38,
-            "y": 55
+            "x": 40,
+            "y": 36
           },
           {
             "number": "5",
             "name": "Leandro Paredes",
             "position": "CM",
-            "x": 62,
-            "y": 55
+            "x": 60,
+            "y": 36
           },
           {
             "number": "17",
             "name": "Giuliano Simeone",
             "position": "RM",
-            "x": 82,
-            "y": 52
+            "x": 81,
+            "y": 36
           },
           {
             "number": "3",
             "name": "Nicolas Tagliafico",
             "position": "LB",
-            "x": 15,
-            "y": 75
+            "x": 19,
+            "y": 64
           },
           {
             "number": "6",
             "name": "Lisandro Martinez",
             "position": "CB",
-            "x": 38,
-            "y": 75
+            "x": 40,
+            "y": 64
           },
           {
             "number": "13",
             "name": "Cristian Romero",
             "position": "CB",
-            "x": 62,
-            "y": 75
+            "x": 60,
+            "y": 64
           },
           {
             "number": "26",
             "name": "Nahuel Molina",
             "position": "RB",
-            "x": 85,
-            "y": 75
+            "x": 81,
+            "y": 64
           },
           {
             "number": "23",
             "name": "Emiliano Martinez",
             "position": "GK",
             "x": 50,
-            "y": 91
+            "y": 85
+          }
+        ]
+      }
+    },
+    "match-101-semi-final-2026-07-14": {
+      "status": "verified",
+      "layoutSource": "fifa-official-layout",
+      "verificationMethod": "fifa-tactical-lineup-pdf-v1",
+      "checkedAt": "2026-07-14T17:40:50.000Z",
+      "homeTeamId": "FRA",
+      "awayTeamId": "ESP",
+      "sourceIds": [
+        "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f"
+      ],
+      "sources": [
+        {
+          "name": "FIFA Tactical Line-up PDF",
+          "adapter": "fifa-tactical-pdf",
+          "url": "https://fdp.fifa.org/assetspublic/ce281/r12550/pdf/TacticalLineup-English.pdf",
+          "status": "matched",
+          "exactLayout": true,
+          "sourceDetail": "Positioned text from FIFA's official Tactical Line-up PDF matched all 22 starters one-to-one against FIFA's official team sheet.",
+          "matchNumber": 101,
+          "registrationId": 12550,
+          "documentVersion": 1,
+          "publishedAt": "2026-07-14T17:40:50.000Z",
+          "sha256": "e6da2e9eed2f3bdaf090fbac79f48b6e2b71f5d55db5c96b666d3d815b24b561"
+        }
+      ],
+      "note": "FIFA's official Tactical Line-up PDF supplied the nominal tactical rows and left/right placement; all 22 starters matched FIFA's official team sheet.",
+      "home": {
+        "formation": "4-2-3-1",
+        "players": [
+          {
+            "number": "10",
+            "name": "Kylian Mbappe",
+            "position": "ST",
+            "x": 50,
+            "y": 8
+          },
+          {
+            "number": "12",
+            "name": "Bradley Barcola",
+            "position": "LW",
+            "x": 29,
+            "y": 28
+          },
+          {
+            "number": "11",
+            "name": "Michael Olise",
+            "position": "AM",
+            "x": 50,
+            "y": 28
+          },
+          {
+            "number": "7",
+            "name": "Ousmane Dembele",
+            "position": "RW",
+            "x": 71,
+            "y": 28
+          },
+          {
+            "number": "14",
+            "name": "Adrien Rabiot",
+            "position": "CM",
+            "x": 40,
+            "y": 48
+          },
+          {
+            "number": "8",
+            "name": "Aurelien Tchouameni",
+            "position": "CM",
+            "x": 60,
+            "y": 48
+          },
+          {
+            "number": "3",
+            "name": "Lucas Digne",
+            "position": "LB",
+            "x": 19,
+            "y": 68
+          },
+          {
+            "number": "17",
+            "name": "William Saliba",
+            "position": "CB",
+            "x": 40,
+            "y": 68
+          },
+          {
+            "number": "4",
+            "name": "Dayot Upamecano",
+            "position": "CB",
+            "x": 60,
+            "y": 68
+          },
+          {
+            "number": "5",
+            "name": "Jules Kounde",
+            "position": "RB",
+            "x": 81,
+            "y": 68
+          },
+          {
+            "number": "16",
+            "name": "Mike Maignan",
+            "position": "GK",
+            "x": 50,
+            "y": 86
+          }
+        ]
+      },
+      "away": {
+        "formation": "4-1-2-3",
+        "players": [
+          {
+            "number": "15",
+            "name": "Alex Baena",
+            "position": "LW",
+            "x": 29,
+            "y": 8
+          },
+          {
+            "number": "21",
+            "name": "Mikel Oyarzabal",
+            "position": "ST",
+            "x": 50,
+            "y": 8
+          },
+          {
+            "number": "19",
+            "name": "Lamine Yamal",
+            "position": "RW",
+            "x": 71,
+            "y": 8
+          },
+          {
+            "number": "8",
+            "name": "Fabian Ruiz",
+            "position": "CM",
+            "x": 40,
+            "y": 33
+          },
+          {
+            "number": "10",
+            "name": "Dani Olmo",
+            "position": "CM",
+            "x": 60,
+            "y": 33
+          },
+          {
+            "number": "16",
+            "name": "Rodri",
+            "position": "DM",
+            "x": 50,
+            "y": 48
+          },
+          {
+            "number": "24",
+            "name": "Marc Cucurella",
+            "position": "LB",
+            "x": 19,
+            "y": 68
+          },
+          {
+            "number": "14",
+            "name": "Aymeric Laporte",
+            "position": "CB",
+            "x": 40,
+            "y": 68
+          },
+          {
+            "number": "22",
+            "name": "Pau Cubarsi",
+            "position": "CB",
+            "x": 60,
+            "y": 68
+          },
+          {
+            "number": "12",
+            "name": "Pedro Porro",
+            "position": "RB",
+            "x": 81,
+            "y": 68
+          },
+          {
+            "number": "23",
+            "name": "Unai Simon",
+            "position": "GK",
+            "x": 50,
+            "y": 86
           }
         ]
       }

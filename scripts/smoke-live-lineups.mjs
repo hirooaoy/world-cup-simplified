@@ -620,14 +620,18 @@ try {
   assert.equal(liveFixture?.status, "FT");
   assert.equal(liveFixture?.lineups?.mode, "final");
   assert.equal(liveFixture.lineups.teamSheetSource, "fifa-official");
-  assert.equal(liveFixture.lineups.layoutSource, "derived-team-sheet-order");
-  assert.equal(liveFixture.lineups.layoutVerification?.status, "unverified");
-  assert.equal(liveFixture.lineups.layoutVerification?.exact, false);
+  assert.equal(liveFixture.lineups.layoutSource, "fifa-official-layout");
+  assert.equal(liveFixture.lineups.layoutVerification?.status, "verified");
+  assert(
+    liveFixture.lineups.layoutVerification?.sources?.some(
+      (source) => source.adapter === "fifa-tactical-pdf" && source.exactLayout === true
+    ),
+    "The previous semi-final should retain FIFA's official tactical document geometry."
+  );
   assert.equal(liveFixture.lineups.home.players.length, 11);
   assert.equal(liveFixture.lineups.away.players.length, 11);
   assert.equal(liveFixture.lineups.home.formation, "4-2-3-1");
   assert.equal(liveFixture.lineups.away.formation, "4-1-2-3");
-  assert.equal(liveFixture.lineups.layoutVerification?.method, "role-informed-formation-slots");
   const playerKey = (name) => String(name || "").normalize("NFKD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
   const playerByName = (players, name) => players.find((player) => playerKey(player.name) === playerKey(name));
   assert.equal(playerByName(liveFixture.lineups.home.players, "Jules Kounde")?.position, "RB");

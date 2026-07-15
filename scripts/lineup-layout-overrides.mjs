@@ -2,14 +2,22 @@ import { isPlayerNameMatch, normalizePlayerName } from "./player-name-matching.m
 import { getLineupGeometryIssues } from "./lineup-geometry.mjs";
 import {
   DERIVED_TEAM_SHEET_ORDER_LAYOUT_SOURCE,
+  FIFA_OFFICIAL_LAYOUT_SOURCE,
   isDerivedLayoutSource,
   normalizeLayoutSource,
   VERIFIED_LAYOUT_SOURCE
 } from "./lineup-layout-sources.mjs";
 
-export { VERIFIED_LAYOUT_SOURCE };
+export { FIFA_OFFICIAL_LAYOUT_SOURCE, VERIFIED_LAYOUT_SOURCE };
 
 const LAYOUT_OVERRIDE_SOURCE_STATUSES = new Set(["matched", "unavailable", "blocked", "error", "conflict"]);
+const VERIFIED_OVERRIDE_LAYOUT_SOURCES = new Set([
+  VERIFIED_LAYOUT_SOURCE,
+  FIFA_OFFICIAL_LAYOUT_SOURCE
+]);
+const FIFA_TACTICAL_VERIFICATION_METHOD = "fifa-tactical-lineup-pdf-v1";
+const FIFA_TACTICAL_DOCUMENT_URL_PATTERN =
+  /^https:\/\/fdp\.fifa\.org\/assetspublic\/ce(\d+)\/r(\d+)\/pdf\/TacticalLineup-English\.pdf$/;
 
 export function normalizeLayoutPlayerName(value) {
   return normalizePlayerName(value || "");
@@ -101,6 +109,17 @@ export function getVerifiedLayoutOverride(overridesData, fixtureId) {
   return override;
 }
 
+export function isFifaOfficialLayoutOverride(override) {
+  return (
+    override?.status === "verified" &&
+    normalizeLayoutSource(override.layoutSource) === FIFA_OFFICIAL_LAYOUT_SOURCE
+  );
+}
+
+export function shouldPreserveLayoutOverride(override, { reverify = false } = {}) {
+  return Boolean(override && (!reverify || isFifaOfficialLayoutOverride(override)));
+}
+
 export function applyLineupLayoutOverride(lineups, override) {
   if (
     !lineups ||
@@ -130,13 +149,25 @@ export function applyLineupLayoutOverride(lineups, override) {
   };
 }
 
+export function canApplyLineupLayoutOverride(lineups, override) {
+  if (!lineups || !override) return false;
+  const applied = applyLineupLayoutOverride(lineups, override);
+  return compareLineupsToLayoutOverride(applied, override).length === 0;
+}
+
 function summarizeOverrideSources(sources) {
   return (Array.isArray(sources) ? sources : []).map((source) => ({
     name: source.name,
+    ...(source.adapter ? { adapter: source.adapter } : {}),
     url: source.url,
     status: source.status,
     ...(source.sourceDetail ? { sourceDetail: source.sourceDetail } : {}),
     ...(source.exactLayout !== undefined ? { exactLayout: source.exactLayout } : {}),
+    ...(source.matchNumber !== undefined ? { matchNumber: source.matchNumber } : {}),
+    ...(source.registrationId !== undefined ? { registrationId: source.registrationId } : {}),
+    ...(source.documentVersion !== undefined ? { documentVersion: source.documentVersion } : {}),
+    ...(source.publishedAt ? { publishedAt: source.publishedAt } : {}),
+    ...(source.sha256 ? { sha256: source.sha256 } : {}),
     ...(source.note ? { note: source.note } : {})
   }));
 }
@@ -155,6 +186,44 @@ function hasText(value) {
 
 function isMatchedExactLayoutSource(source) {
   return source?.status === "matched" && source?.exactLayout === true;
+}
+
+function isPositiveInteger(value) {
+  const parsed = Number(value);
+  return Number.isInteger(parsed) && parsed > 0;
+}
+
+function isValidTimestamp(value) {
+  return hasText(value) && Number.isFinite(Date.parse(value));
+}
+
+function getFifaTacticalSourceIssues(source, prefix) {
+  const issues = [];
+  const urlMatch = String(source?.url || "").match(FIFA_TACTICAL_DOCUMENT_URL_PATTERN);
+  if (source?.adapter !== "fifa-tactical-pdf") {
+    issues.push(`${prefix}.adapter must be fifa-tactical-pdf`);
+  }
+  if (!urlMatch) {
+    issues.push(`${prefix}.url must be an official FIFA Tactical Line-up PDF URL`);
+  }
+  if (!isPositiveInteger(source?.matchNumber)) {
+    issues.push(`${prefix}.matchNumber must be a positive integer`);
+  }
+  if (!isPositiveInteger(source?.registrationId)) {
+    issues.push(`${prefix}.registrationId must be a positive integer`);
+  } else if (urlMatch && Number(urlMatch[2]) !== Number(source.registrationId)) {
+    issues.push(`${prefix}.registrationId must match the official document URL`);
+  }
+  if (!isPositiveInteger(source?.documentVersion)) {
+    issues.push(`${prefix}.documentVersion must be a positive integer`);
+  }
+  if (!isValidTimestamp(source?.publishedAt)) {
+    issues.push(`${prefix}.publishedAt must be a valid timestamp`);
+  }
+  if (!/^[a-f0-9]{64}$/.test(String(source?.sha256 || ""))) {
+    issues.push(`${prefix}.sha256 must be a lowercase SHA-256 digest`);
+  }
+  return issues;
 }
 
 function layoutClaimSignature(source) {
@@ -211,14 +280,33 @@ export function getLayoutOverrideProvenanceIssues(override) {
   }
 
   if (override.status === "verified") {
-    if (normalizeLayoutSource(override.layoutSource) !== VERIFIED_LAYOUT_SOURCE) {
-      issues.push(`layoutSource must be ${VERIFIED_LAYOUT_SOURCE} for verified overrides`);
+    const normalizedLayoutSource = normalizeLayoutSource(override.layoutSource);
+    if (!VERIFIED_OVERRIDE_LAYOUT_SOURCES.has(normalizedLayoutSource)) {
+      issues.push(
+        `layoutSource must be ${VERIFIED_LAYOUT_SOURCE} or ${FIFA_OFFICIAL_LAYOUT_SOURCE} for verified overrides`
+      );
     }
     if (!hasText(override.note)) {
       issues.push("note must explain what was verified");
     }
     if (!sources.some(isMatchedExactLayoutSource)) {
       issues.push("verified overrides must include at least one matched source with exactLayout true");
+    }
+    if (normalizedLayoutSource === FIFA_OFFICIAL_LAYOUT_SOURCE) {
+      if (override.verificationMethod !== FIFA_TACTICAL_VERIFICATION_METHOD) {
+        issues.push(`FIFA official overrides must use ${FIFA_TACTICAL_VERIFICATION_METHOD}`);
+      }
+      const officialSources = sources
+        .map((source, index) => ({ source, index }))
+        .filter(({ source }) => isMatchedExactLayoutSource(source) && source?.adapter === "fifa-tactical-pdf");
+      if (officialSources.length !== 1) {
+        issues.push("FIFA official overrides must include exactly one matched FIFA tactical PDF source");
+      }
+      for (const { source, index } of officialSources) {
+        issues.push(...getFifaTacticalSourceIssues(source, `sources[${index}]`));
+      }
+    } else if (override.verificationMethod === FIFA_TACTICAL_VERIFICATION_METHOD) {
+      issues.push(`${FIFA_TACTICAL_VERIFICATION_METHOD} requires ${FIFA_OFFICIAL_LAYOUT_SOURCE}`);
     }
     if (override.verificationMethod === "source-consensus-v1") {
       const exactProviderIds = new Set(

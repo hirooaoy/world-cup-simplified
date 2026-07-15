@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-15T19:21:16.099Z",
+  "updatedAt": "2026-07-15T20:55:00.000Z",
   "coverageNote": "The current seed dataset covers the full official fixture skeleton from June 11 through July 19. Rich previews, scores, live status and knockout participants are updated progressively.",
   "catchUp": [
     {
@@ -1739,14 +1739,6 @@
       "note": "Reviewed for the 120-minute stalemate, Kobel save, Vargas winner, and quarter-final path."
     },
     {
-      "id": "fifa-lineups-sync-2026-07-15",
-      "label": "FIFA official lineups sync",
-      "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/match-schedule-fixtures-results-teams-stadiums",
-      "type": "official",
-      "checkedAt": "2026-07-15T17:44:43.186Z",
-      "note": "102 FIFA team sheets checked across 101 completed and 1 near-kickoff fixture; lineups.json carries official starters, bench, cards, and substitutions for 102 fixtures; 8 changed on this pass."
-    },
-    {
       "id": "lineup-layout-verification-2026-07-15",
       "label": "Lineup layout verification",
       "url": "https://www.fifa.com/fifaplus/en/match-centre",
@@ -1761,6 +1753,30 @@
       "type": "official",
       "checkedAt": "2026-07-15T19:21:16.099Z",
       "note": "1 fixture update merged from 104 matched FIFA fixtures."
+    },
+    {
+      "id": "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
+      "label": "FIFA official Tactical Line-up - match 102",
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12549/pdf/TacticalLineup-English.pdf",
+      "type": "official",
+      "checkedAt": "2026-07-15T17:41:37.000Z",
+      "note": "FIFA Tactical Line-up version 1 supplied the nominal rows and left/right geometry for all 22 starters."
+    },
+    {
+      "id": "fifa-lineups-sync-2026-07-15",
+      "label": "FIFA official lineups sync",
+      "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/match-schedule-fixtures-results-teams-stadiums",
+      "type": "official",
+      "checkedAt": "2026-07-15T20:45:00.000Z",
+      "note": "102 FIFA team sheets checked across 101 completed and 1 near-kickoff fixture; lineups.json carries official starters, bench, cards, and substitutions for 102 fixtures; 9 changed on this pass."
+    },
+    {
+      "id": "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
+      "label": "FIFA official Tactical Line-up - match 101",
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12550/pdf/TacticalLineup-English.pdf",
+      "type": "official",
+      "checkedAt": "2026-07-14T17:40:50.000Z",
+      "note": "FIFA Tactical Line-up version 1 supplied the nominal rows and left/right geometry for all 22 starters."
     }
   ],
   "groups": [

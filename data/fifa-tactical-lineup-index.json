@@ -1,0 +1,43 @@
+{
+  "schemaVersion": "1.0",
+  "competitionEditionId": "281",
+  "updatedAt": "2026-07-15T20:55:00.000Z",
+  "minimumRegistrationId": 12537,
+  "maximumKnownRegistrationId": 12550,
+  "lookaheadRegistrationCount": 16,
+  "extendedLookaheadRegistrationCount": 128,
+  "registrationsByMatchNumber": {
+    "89": 12542,
+    "90": 12539,
+    "91": 12541,
+    "92": 12540,
+    "93": 12538,
+    "94": 12543,
+    "95": 12537,
+    "96": 12544,
+    "97": 12545,
+    "98": 12547,
+    "99": 12548,
+    "100": 12546,
+    "101": 12550,
+    "102": 12549
+  },
+  "documents": {
+    "101": {
+      "fixtureId": "match-101-semi-final-2026-07-14",
+      "registrationId": 12550,
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12550/pdf/TacticalLineup-English.pdf",
+      "version": 1,
+      "publishedAt": "2026-07-14T17:40:50.000Z",
+      "sha256": "e6da2e9eed2f3bdaf090fbac79f48b6e2b71f5d55db5c96b666d3d815b24b561"
+    },
+    "102": {
+      "fixtureId": "match-102-semi-final-2026-07-15",
+      "registrationId": 12549,
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12549/pdf/TacticalLineup-English.pdf",
+      "version": 1,
+      "publishedAt": "2026-07-15T17:41:37.000Z",
+      "sha256": "cda8da4f98a5a9493b526b49558ab3d39e494b5647d5a703f00b19fa232a8f83"
+    }
+  }
+}

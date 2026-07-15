@@ -46,6 +46,7 @@
     "sync:fifa:events": "node scripts/sync-fifa-match-events.mjs",
     "sync:fifa:goals": "node scripts/sync-fifa-goal-events.mjs",
     "sync:fifa:lineups": "node scripts/sync-fifa-lineups.mjs",
+    "sync:fifa:tactical-lineups": "node scripts/sync-fifa-tactical-lineups.mjs",
     "sync:fifa:lineups:live": "node scripts/sync-fifa-lineups.mjs --include-live",
     "sync:fifa:lineups:matchday": "node scripts/sync-fifa-lineups.mjs --include-live --matchday-only",
     "lineups:predict": "node scripts/generate-expected-lineups.mjs",
@@ -69,7 +70,8 @@
     "smoke:live-lineup-rendering": "node scripts/smoke-live-lineup-rendering.mjs",
     "smoke:live-lineups": "node scripts/smoke-live-lineups.mjs",
     "smoke:lineup-layouts": "node scripts/smoke-lineup-layout-sources.mjs",
-    "smoke:lineups": "node scripts/smoke-lineup-prediction-engine.mjs && node scripts/smoke-lineup-formations.mjs && node scripts/smoke-lineup-prediction-history.mjs && node scripts/smoke-lineup-prediction-audit.mjs && node scripts/audit-lineup-prediction-history.mjs && node scripts/audit-lineup-geometry.mjs && node scripts/smoke-live-lineups.mjs && node scripts/smoke-live-lineup-rendering.mjs && node scripts/smoke-lineup-layout-sources.mjs",
+    "smoke:fifa:tactical-lineups": "node scripts/smoke-fifa-tactical-lineup-discovery.mjs && node scripts/smoke-fifa-tactical-lineup-pdf.mjs",
+    "smoke:lineups": "node scripts/smoke-lineup-prediction-engine.mjs && node scripts/smoke-lineup-formations.mjs && node scripts/smoke-lineup-prediction-history.mjs && node scripts/smoke-lineup-prediction-audit.mjs && node scripts/audit-lineup-prediction-history.mjs && node scripts/audit-lineup-geometry.mjs && node scripts/smoke-live-lineups.mjs && node scripts/smoke-live-lineup-rendering.mjs && node scripts/smoke-lineup-layout-sources.mjs && pnpm smoke:fifa:tactical-lineups",
     "sync:fifa": "node scripts/sync-fifa-results.mjs",
     "sync:fifa:pr": "node scripts/sync-fifa-results.mjs --skip-unchanged",
     "test": "pnpm forecasts:check && pnpm forecasts:history:audit && node scripts/validate-data.mjs && node scripts/audit-matchup-copy.mjs && node scripts/audit-zh-semantics.mjs && node scripts/audit-data.mjs && node scripts/audit-result-enrichment.mjs && node scripts/audit-player-card-coverage.mjs && pnpm smoke:lineups && node scripts/smoke-live-match-phase.mjs && node scripts/smoke-tournament-forecasts.mjs && node scripts/ui-smoke.mjs",
@@ -78,6 +80,7 @@
     "validate:profiles": "node scripts/validate-with-profile-refresh.mjs"
   },
   "devDependencies": {
+    "pdfjs-dist": "5.4.624",
     "playwright": "1.60.0"
   },
   "dependencies": {

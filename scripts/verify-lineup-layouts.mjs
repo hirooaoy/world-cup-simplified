@@ -4,10 +4,13 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import {
   applyLineupLayoutOverride,
+  canApplyLineupLayoutOverride,
   compareLineupsToLayoutOverride,
   getLayoutOverrideProvenanceIssues,
   getVerifiedLayoutOverride,
+  isFifaOfficialLayoutOverride,
   normalizeLayoutPlayerName,
+  shouldPreserveLayoutOverride,
   VERIFIED_LAYOUT_SOURCE
 } from "./lineup-layout-overrides.mjs";
 import { assignRolesFromPitchGeometry } from "./lineup-layout-roles.mjs";
@@ -1311,20 +1314,24 @@ for (const fixture of fixturesData.fixtures || []) {
 
   const existingOverride = getVerifiedLayoutOverride(nextOverrides, fixtureId);
   const lineups = lineupsData.lineups?.[fixtureId];
-  let sourceCandidates = Array.isArray(getSourceCandidatesForFixture(fixtureId))
-    ? getSourceCandidatesForFixture(fixtureId)
-    : [];
-  if ((!existingOverride || shouldReverify) && requestedScope === "live-start") {
-    const adapters = new Set(sourceCandidates.map((source) => source.adapter));
-    const [espnCandidates, fotmobCandidates] = await Promise.all([
-      adapters.has("espn") ? [] : discoverEspnSourceCandidates(fixture),
-      adapters.has("fotmob") ? [] : discoverFotmobSourceCandidates(fixture, teamsById)
-    ]);
-    sourceCandidates = mergeSourceCandidates(sourceCandidates, espnCandidates, fotmobCandidates);
-  } else if ((!existingOverride || shouldReverify) && sourceCandidates.length === 0) {
-    sourceCandidates = await discoverEspnSourceCandidates(fixture);
+  const shouldUseExistingOverride =
+    shouldPreserveLayoutOverride(existingOverride, { reverify: shouldReverify }) &&
+    (!lineups || canApplyLineupLayoutOverride(lineups, existingOverride));
+  let sourceCandidates = [];
+  if (!shouldUseExistingOverride) {
+    const configuredSourceCandidates = getSourceCandidatesForFixture(fixtureId);
+    sourceCandidates = Array.isArray(configuredSourceCandidates) ? configuredSourceCandidates : [];
+    if (requestedScope === "live-start") {
+      const adapters = new Set(sourceCandidates.map((source) => source.adapter));
+      const [espnCandidates, fotmobCandidates] = await Promise.all([
+        adapters.has("espn") ? [] : discoverEspnSourceCandidates(fixture),
+        adapters.has("fotmob") ? [] : discoverFotmobSourceCandidates(fixture, teamsById)
+      ]);
+      sourceCandidates = mergeSourceCandidates(sourceCandidates, espnCandidates, fotmobCandidates);
+    } else if (sourceCandidates.length === 0) {
+      sourceCandidates = await discoverEspnSourceCandidates(fixture);
+    }
   }
-  const shouldUseExistingOverride = Boolean(existingOverride && !shouldReverify);
 
   if (shouldUseExistingOverride) {
     if (!lineups || !isVerifiedLineupSource(lineups)) {
@@ -1350,7 +1357,9 @@ for (const fixture of fixturesData.fixtures || []) {
     }
 
     summary.existingVerified.push(fixtureId);
-    console.log(`${fixtureId}: verified (existing override)`);
+    console.log(
+      `${fixtureId}: verified (existing${isFifaOfficialLayoutOverride(existingOverride) ? " FIFA official" : ""} override)`
+    );
     continue;
   }
 

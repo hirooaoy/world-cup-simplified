@@ -3,15 +3,19 @@ import assert from "node:assert/strict";
 import { buildFifaLineupsFromLiveMatch } from "./fifa-live-lineup-parser.mjs";
 import {
   applyLineupLayoutOverride,
+  canApplyLineupLayoutOverride,
   compareLineupsToLayoutOverride,
   getVerifiedLayoutOverride,
-  getLayoutOverrideProvenanceIssues
+  getLayoutOverrideProvenanceIssues,
+  isFifaOfficialLayoutOverride,
+  shouldPreserveLayoutOverride
 } from "./lineup-layout-overrides.mjs";
 import { getLineupGeometryIssues } from "./lineup-geometry.mjs";
 import { assignRolesFromPitchGeometry } from "./lineup-layout-roles.mjs";
 import { buildExactLayoutConsensus } from "./lineup-layout-consensus.mjs";
 import {
   DERIVED_TEAM_SHEET_ORDER_LAYOUT_SOURCE,
+  FIFA_OFFICIAL_LAYOUT_SOURCE,
   getLineupLayoutStatus,
   normalizeLayoutSource,
   VERIFIED_LAYOUT_SOURCE
@@ -145,6 +149,93 @@ const override = {
 };
 
 assert.deepEqual(getLayoutOverrideProvenanceIssues(override), []);
+
+const fifaOfficialOverride = structuredClone(override);
+fifaOfficialOverride.layoutSource = FIFA_OFFICIAL_LAYOUT_SOURCE;
+fifaOfficialOverride.verificationMethod = "fifa-tactical-lineup-pdf-v1";
+fifaOfficialOverride.sourceIds = ["fifa-tactical-lineup-pdf-smoke"];
+fifaOfficialOverride.sources = [
+  {
+    name: "FIFA Tactical Line-up PDF",
+    adapter: "fifa-tactical-pdf",
+    url: "https://fdp.fifa.org/assetspublic/ce281/r12549/pdf/TacticalLineup-English.pdf",
+    status: "matched",
+    sourceDetail: "positioned text from the official FIFA tactical document",
+    exactLayout: true,
+    matchNumber: 102,
+    registrationId: 12549,
+    documentVersion: 1,
+    publishedAt: "2026-07-15T17:41:37.000Z",
+    sha256: "cda8da4f98a5a9493b526b49558ab3d39e494b5647d5a703f00b19fa232a8f83"
+  }
+];
+fifaOfficialOverride.note = "FIFA's official tactical document supplied exact pitch geometry.";
+assert.deepEqual(
+  getLayoutOverrideProvenanceIssues(fifaOfficialOverride),
+  [],
+  "A single official FIFA tactical document should be valid exact-layout evidence."
+);
+assert.equal(isFifaOfficialLayoutOverride(fifaOfficialOverride), true);
+assert.equal(
+  shouldPreserveLayoutOverride(fifaOfficialOverride, { reverify: true }),
+  true,
+  "Routine third-party reverification must preserve an official FIFA tactical override."
+);
+assert.equal(
+  shouldPreserveLayoutOverride(override, { reverify: true }),
+  false,
+  "Explicit reverification may still refresh a non-official verified override."
+);
+assert.equal(
+  getVerifiedLayoutOverride({ fixtures: { [fixture.id]: fifaOfficialOverride } }, fixture.id),
+  fifaOfficialOverride,
+  "Official FIFA tactical geometry should be returned as a verified override."
+);
+const fifaOfficialLineups = applyLineupLayoutOverride(lineups, fifaOfficialOverride);
+assert.equal(fifaOfficialLineups.layoutSource, FIFA_OFFICIAL_LAYOUT_SOURCE);
+assert.deepEqual(compareLineupsToLayoutOverride(fifaOfficialLineups, fifaOfficialOverride), []);
+assert.equal(canApplyLineupLayoutOverride(lineups, fifaOfficialOverride), true);
+
+const changedOfficialXi = structuredClone(lineups);
+changedOfficialXi.home.players[0] = {
+  ...changedOfficialXi.home.players[0],
+  number: "99",
+  name: "Last Minute Replacement"
+};
+assert.equal(
+  canApplyLineupLayoutOverride(changedOfficialXi, fifaOfficialOverride),
+  false,
+  "An official tactical document must stop blocking fallback discovery if the official XI later changes."
+);
+
+const refreshedFifaLineups = buildFifaLineupsFromLiveMatch({
+  checkedAt: "2026-07-15T19:10:00.000Z",
+  fixture,
+  liveMatch,
+  teamsById: new Map([
+    ["AAA", { id: "AAA", name: "Home" }],
+    ["BBB", { id: "BBB", name: "Away" }]
+  ]),
+  profileLookup: null,
+  sourceIds: ["fifa-lineups-later-refresh-smoke"],
+  sourceUrl: "https://www.fifa.com/en/match-centre/match/17/285023/108852/400000000",
+  mode: "live"
+});
+const refreshedWithOfficialGeometry = applyLineupLayoutOverride(refreshedFifaLineups, fifaOfficialOverride);
+assert.deepEqual(
+  compareLineupsToLayoutOverride(refreshedWithOfficialGeometry, fifaOfficialOverride),
+  [],
+  "A later FIFA XI refresh must reapply and preserve the official tactical geometry."
+);
+
+const forgedOfficialOverride = structuredClone(fifaOfficialOverride);
+forgedOfficialOverride.sources[0].url = "https://example.fifa.com/tactical-lineup.pdf";
+assert(
+  getLayoutOverrideProvenanceIssues(forgedOfficialOverride).some((issue) =>
+    issue.includes("official FIFA Tactical Line-up PDF URL")
+  ),
+  "An untrusted URL must not be accepted as FIFA official geometry."
+);
 
 const weakOverride = structuredClone(override);
 weakOverride.sources = [

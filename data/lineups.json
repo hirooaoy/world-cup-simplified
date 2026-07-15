@@ -19,7 +19,9 @@
     "fifa-lineups-sync-2026-07-14",
     "lineup-layout-verification-2026-07-14",
     "fifa-lineups-sync-2026-07-15",
-    "lineup-layout-verification-2026-07-15"
+    "lineup-layout-verification-2026-07-15",
+    "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
+    "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f"
   ],
   "lineups": {
     "mexico-south-africa-2026-06-11": {
@@ -5874,6 +5876,7 @@
         "sources": [
           {
             "name": "ESPN",
+            "adapter": "espn",
             "url": "https://www.espn.com/soccer/match/_/gameId/760428",
             "status": "unavailable",
             "note": "Expected 11 starters per side from ESPN; parsed 11 home and 10 away."
@@ -5889,11 +5892,10 @@
         "note": "FIFA official team sheet kept for facts; FotMob supplied exact board geometry."
       },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-07",
-        "lineup-layout-verification-2026-07-03",
+        "fifa-lineups-sync-2026-07-15",
         "lineup-layout-verification-2026-07-14"
       ],
-      "checkedAt": "2026-07-07T22:59:37.002Z",
+      "checkedAt": "2026-07-15T20:45:00.000Z",
       "home": {
         "formation": "4-1-2-3",
         "coach": {
@@ -18384,6 +18386,7 @@
         "sources": [
           {
             "name": "ESPN",
+            "adapter": "espn",
             "url": "https://www.espn.com/soccer/match/_/gameId/760450",
             "status": "unavailable",
             "note": "Expected 11 starters per side from ESPN; parsed 11 home and 10 away."
@@ -18399,11 +18402,10 @@
         "note": "FIFA official team sheet kept for facts; FotMob supplied exact board geometry."
       },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-07",
-        "lineup-layout-verification-2026-07-03",
+        "fifa-lineups-sync-2026-07-15",
         "lineup-layout-verification-2026-07-14"
       ],
-      "checkedAt": "2026-07-07T22:59:37.002Z",
+      "checkedAt": "2026-07-15T20:45:00.000Z",
       "home": {
         "formation": "4-2-3-1",
         "coach": {
@@ -28472,13 +28474,13 @@
         "status": "unverified",
         "source": "derived-team-sheet-order",
         "exact": false,
-        "checkedAt": "2026-07-15T17:44:43.186Z",
+        "checkedAt": "2026-07-15T20:45:00.000Z",
         "note": "Official team sheet confirms players, bench, events, and formation; pitch coordinates are generated from formation slots and are not exact left/right placements."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-15"
       ],
-      "checkedAt": "2026-07-15T17:44:43.186Z",
+      "checkedAt": "2026-07-15T20:45:00.000Z",
       "home": {
         "formation": "5-3-2",
         "coach": {
@@ -28731,17 +28733,17 @@
             "number": "5",
             "name": "Jordan Bos",
             "sourcePosition": "defender",
-            "position": "LM",
-            "x": 16,
+            "position": "RM",
+            "x": 84,
             "y": 53
           },
           {
             "number": "16",
             "name": "Aziz Behich",
             "sourcePosition": "defender",
-            "position": "ST",
-            "x": 50,
-            "y": 22
+            "position": "LM",
+            "x": 16,
+            "y": 53
           },
           {
             "number": "19",
@@ -28772,9 +28774,9 @@
             "number": "13",
             "name": "Aiden Oneill",
             "sourcePosition": "midfielder",
-            "position": "RM",
-            "x": 84,
-            "y": 53
+            "position": "LW",
+            "x": 18,
+            "y": 29
           },
           {
             "number": "22",
@@ -28796,9 +28798,9 @@
             "number": "20",
             "name": "Christian Volpato",
             "sourcePosition": "forward",
-            "position": "LW",
-            "x": 18,
-            "y": 29
+            "position": "ST",
+            "x": 50,
+            "y": 22
           }
         ],
         "bench": [
@@ -29899,6 +29901,7 @@
         "sources": [
           {
             "name": "ESPN",
+            "adapter": "espn",
             "url": "https://www.espn.com/soccer/match/_/gameId/760478",
             "status": "unavailable",
             "note": "Expected 11 starters per side from ESPN; parsed 10 home and 10 away."
@@ -29914,11 +29917,10 @@
         "note": "FIFA official team sheet kept for facts; FotMob supplied exact board geometry."
       },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-07",
-        "lineup-layout-verification-2026-07-03",
+        "fifa-lineups-sync-2026-07-15",
         "lineup-layout-verification-2026-07-14"
       ],
-      "checkedAt": "2026-07-07T22:59:37.002Z",
+      "checkedAt": "2026-07-15T20:45:00.000Z",
       "home": {
         "formation": "4-1-2-3",
         "coach": {
@@ -38129,13 +38131,13 @@
         "status": "unverified",
         "source": "derived-team-sheet-order",
         "exact": false,
-        "checkedAt": "2026-07-15T17:44:43.186Z",
+        "checkedAt": "2026-07-15T20:45:00.000Z",
         "note": "Official team sheet confirms players, bench, events, and formation; pitch coordinates are generated from formation slots and are not exact left/right placements."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-15"
       ],
-      "checkedAt": "2026-07-15T17:44:43.186Z",
+      "checkedAt": "2026-07-15T20:45:00.000Z",
       "home": {
         "formation": "4-2-3-1",
         "coach": {
@@ -38422,9 +38424,9 @@
             "number": "7",
             "name": "Nathanael Mbuku",
             "sourcePosition": "midfielder",
-            "position": "ST",
-            "x": 50,
-            "y": 22
+            "position": "RM",
+            "x": 82,
+            "y": 47
           },
           {
             "number": "8",
@@ -38438,25 +38440,25 @@
             "number": "14",
             "name": "Noah Sadiki",
             "sourcePosition": "midfielder",
-            "position": "RM",
-            "x": 82,
-            "y": 47
-          },
-          {
-            "number": "9",
-            "name": "Brian Cipenga",
-            "sourcePosition": "forward",
             "position": "CM",
             "x": 38,
             "y": 48
           },
           {
-            "number": "20",
-            "name": "Yoane Wissa",
+            "number": "9",
+            "name": "Brian Cipenga",
             "sourcePosition": "forward",
             "position": "LM",
             "x": 18,
             "y": 47
+          },
+          {
+            "number": "20",
+            "name": "Yoane Wissa",
+            "sourcePosition": "forward",
+            "position": "ST",
+            "x": 50,
+            "y": 22
           }
         ],
         "bench": [
@@ -39059,13 +39061,13 @@
         "status": "unverified",
         "source": "derived-team-sheet-order",
         "exact": false,
-        "checkedAt": "2026-07-15T17:44:43.186Z",
+        "checkedAt": "2026-07-15T20:45:00.000Z",
         "note": "Official team sheet confirms players, bench, events, and formation; pitch coordinates are generated from formation slots and are not exact left/right placements."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-15"
       ],
-      "checkedAt": "2026-07-15T17:44:43.186Z",
+      "checkedAt": "2026-07-15T20:45:00.000Z",
       "home": {
         "formation": "4-2-3-1",
         "coach": {
@@ -39087,8 +39089,8 @@
             "number": "3",
             "name": "Arthur Theate",
             "sourcePosition": "defender",
-            "position": "LB",
-            "x": 15,
+            "position": "RB",
+            "x": 85,
             "y": 75
           },
           {
@@ -39103,9 +39105,9 @@
             "number": "5",
             "name": "Maxim De Cuyper",
             "sourcePosition": "defender",
-            "position": "LW",
-            "x": 18,
-            "y": 40
+            "position": "LB",
+            "x": 15,
+            "y": 75
           },
           {
             "number": "21",
@@ -39144,16 +39146,16 @@
             "number": "10",
             "name": "Leandro Trossard",
             "sourcePosition": "forward",
-            "position": "RB",
-            "x": 85,
-            "y": 75
+            "position": "RW",
+            "x": 82,
+            "y": 40
           },
           {
             "number": "11",
             "name": "Jeremy Doku",
             "sourcePosition": "forward",
-            "position": "RW",
-            "x": 82,
+            "position": "LW",
+            "x": 18,
             "y": 40
           },
           {
@@ -41446,6 +41448,7 @@
         "sources": [
           {
             "name": "ESPN",
+            "adapter": "espn",
             "url": "https://www.espn.com/soccer/match/_/gameId/760500/cape-verde-argentina",
             "status": "unavailable",
             "note": "Expected 11 starters per side from ESPN; parsed 11 home and 10 away."
@@ -41461,10 +41464,10 @@
         "note": "FIFA official team sheet kept for facts; FotMob supplied exact board geometry."
       },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-07",
+        "fifa-lineups-sync-2026-07-15",
         "lineup-layout-verification-2026-07-07"
       ],
-      "checkedAt": "2026-07-07T22:59:37.002Z",
+      "checkedAt": "2026-07-15T20:45:00.000Z",
       "home": {
         "formation": "4-4-2",
         "coach": {
@@ -48266,26 +48269,35 @@
       "mode": "final",
       "teamSheetSource": "fifa-official",
       "eventSource": "fifa-official",
-      "layoutSource": "derived-team-sheet-order",
+      "layoutSource": "fifa-official-layout",
       "layoutVerification": {
-        "status": "unverified",
-        "source": "derived-team-sheet-order",
-        "exact": false,
-        "checkedAt": "2026-07-15T17:44:43.186Z",
-        "note": "FIFA confirms the starting XI, bench, and formation. Matching players use frozen pre-kickoff role and side hints to choose slots within FIFA's official formation; pitch placement remains provisional, not FIFA-supplied exact geometry.",
-        "method": "role-informed-formation-slots",
-        "inferenceSources": [
+        "status": "verified",
+        "checkedAt": "2026-07-14T17:40:50.000Z",
+        "sourceIds": [
+          "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f"
+        ],
+        "sources": [
           {
-            "type": "retained-official-role-layout",
-            "updatedAt": "2026-07-15T16:15:18.415Z",
-            "revisionId": "6699ae75e5144d9128b712619f6a4f51a3c5c2fa2dc6c605e78765206cdecc4e"
+            "name": "FIFA Tactical Line-up PDF",
+            "adapter": "fifa-tactical-pdf",
+            "url": "https://fdp.fifa.org/assetspublic/ce281/r12550/pdf/TacticalLineup-English.pdf",
+            "status": "matched",
+            "sourceDetail": "Positioned text from FIFA's official Tactical Line-up PDF matched all 22 starters one-to-one against FIFA's official team sheet.",
+            "exactLayout": true,
+            "matchNumber": 101,
+            "registrationId": 12550,
+            "documentVersion": 1,
+            "publishedAt": "2026-07-14T17:40:50.000Z",
+            "sha256": "e6da2e9eed2f3bdaf090fbac79f48b6e2b71f5d55db5c96b666d3d815b24b561"
           }
-        ]
+        ],
+        "note": "FIFA's official Tactical Line-up PDF supplied the nominal tactical rows and left/right placement; all 22 starters matched FIFA's official team sheet."
       },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-15"
+        "fifa-lineups-sync-2026-07-15",
+        "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f"
       ],
-      "checkedAt": "2026-07-15T17:44:43.186Z",
+      "checkedAt": "2026-07-15T20:45:00.000Z",
       "home": {
         "formation": "4-2-3-1",
         "coach": {
@@ -48301,63 +48313,63 @@
             "sourcePosition": "goalkeeper",
             "position": "GK",
             "x": 50,
-            "y": 91
+            "y": 86
           },
           {
             "number": "3",
             "name": "Lucas Digne",
             "sourcePosition": "defender",
             "position": "LB",
-            "x": 15,
-            "y": 75
+            "x": 19,
+            "y": 68
           },
           {
             "number": "4",
             "name": "Dayot Upamecano",
             "sourcePosition": "defender",
             "position": "CB",
-            "x": 62,
-            "y": 75
+            "x": 60,
+            "y": 68
           },
           {
             "number": "5",
             "name": "Jules Kounde",
             "sourcePosition": "defender",
             "position": "RB",
-            "x": 85,
-            "y": 75
+            "x": 81,
+            "y": 68
           },
           {
             "number": "17",
             "name": "William Saliba",
             "sourcePosition": "defender",
             "position": "CB",
-            "x": 38,
-            "y": 75
+            "x": 40,
+            "y": 68
           },
           {
             "number": "8",
             "name": "Aurelien Tchouameni",
             "sourcePosition": "midfielder",
             "position": "CM",
-            "x": 62,
-            "y": 59
+            "x": 60,
+            "y": 48
           },
           {
             "number": "14",
             "name": "Adrien Rabiot",
             "sourcePosition": "midfielder",
             "position": "CM",
-            "x": 38,
-            "y": 59
+            "x": 40,
+            "y": 48
           },
           {
             "number": "7",
             "name": "Ousmane Dembele",
             "sourcePosition": "forward",
             "position": "RW",
-            "x": 82,
-            "y": 40
+            "x": 71,
+            "y": 28
           },
           {
             "number": "10",
@@ -48366,7 +48378,7 @@
             "isCaptain": true,
             "position": "ST",
             "x": 50,
-            "y": 20
+            "y": 8
           },
           {
             "number": "11",
@@ -48374,15 +48386,15 @@
             "sourcePosition": "forward",
             "position": "AM",
             "x": 50,
-            "y": 40
+            "y": 28
           },
           {
             "number": "12",
             "name": "Bradley Barcola",
             "sourcePosition": "forward",
             "position": "LW",
-            "x": 18,
-            "y": 40
+            "x": 29,
+            "y": 28
           }
         ],
         "bench": [
@@ -48535,55 +48547,55 @@
             "sourcePosition": "goalkeeper",
             "position": "GK",
             "x": 50,
-            "y": 91
+            "y": 86
           },
           {
             "number": "12",
             "name": "Pedro Porro",
             "sourcePosition": "defender",
             "position": "RB",
-            "x": 85,
-            "y": 75
+            "x": 81,
+            "y": 68
           },
           {
             "number": "14",
             "name": "Aymeric Laporte",
             "sourcePosition": "defender",
             "position": "CB",
-            "x": 38,
-            "y": 75
+            "x": 40,
+            "y": 68
           },
           {
             "number": "22",
             "name": "Pau Cubarsi",
             "sourcePosition": "defender",
             "position": "CB",
-            "x": 62,
-            "y": 75
+            "x": 60,
+            "y": 68
           },
           {
             "number": "24",
             "name": "Marc Cucurella",
             "sourcePosition": "defender",
             "position": "LB",
-            "x": 15,
-            "y": 75
+            "x": 19,
+            "y": 68
           },
           {
             "number": "8",
             "name": "Fabian Ruiz",
             "sourcePosition": "midfielder",
             "position": "CM",
-            "x": 38,
-            "y": 49
+            "x": 40,
+            "y": 33
           },
           {
             "number": "15",
             "name": "Alex Baena",
             "sourcePosition": "midfielder",
             "position": "LW",
-            "x": 18,
-            "y": 30
+            "x": 29,
+            "y": 8
           },
           {
             "number": "16",
@@ -48592,23 +48604,23 @@
             "isCaptain": true,
             "position": "DM",
             "x": 50,
-            "y": 62
+            "y": 48
           },
           {
             "number": "10",
             "name": "Dani Olmo",
             "sourcePosition": "forward",
             "position": "CM",
-            "x": 62,
-            "y": 49
+            "x": 60,
+            "y": 33
           },
           {
             "number": "19",
             "name": "Lamine Yamal",
             "sourcePosition": "forward",
             "position": "RW",
-            "x": 82,
-            "y": 30
+            "x": 71,
+            "y": 8
           },
           {
             "number": "21",
@@ -48616,7 +48628,7 @@
             "sourcePosition": "forward",
             "position": "ST",
             "x": 50,
-            "y": 21
+            "y": 8
           }
         ],
         "bench": [
@@ -48754,42 +48766,35 @@
       "mode": "confirmed",
       "teamSheetSource": "fifa-official",
       "eventSource": "fifa-official",
-      "layoutSource": "verified-layout",
+      "layoutSource": "fifa-official-layout",
       "layoutVerification": {
         "status": "verified",
-        "checkedAt": "2026-07-15T19:12:38.000Z",
+        "checkedAt": "2026-07-15T17:41:37.000Z",
         "sourceIds": [
-          "lineup-layout-verification-2026-07-15"
+          "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
         ],
         "sources": [
           {
-            "name": "Google",
-            "url": "https://www.google.com/search?q=England+Argentina+World+Cup+2026+lineups",
+            "name": "FIFA Tactical Line-up PDF",
+            "adapter": "fifa-tactical-pdf",
+            "url": "https://fdp.fifa.org/assetspublic/ce281/r12549/pdf/TacticalLineup-English.pdf",
             "status": "matched",
-            "sourceDetail": "live lineup-board screenshot supplied at kickoff; it shows James-Stones-Guehi-Spence in defence and Rogers-Bellingham-Gordon behind Kane",
-            "exactLayout": true
-          },
-          {
-            "name": "Sofascore",
-            "url": "https://www.sofascore.com/football/match/argentina-england/nUbsuWb",
-            "status": "matched",
-            "sourceDetail": "public live lineup board confirms England's 4-2-3-1 and Argentina's 4-4-2, including Enzo on Argentina's left and Simeone on the right",
-            "exactLayout": true
-          },
-          {
-            "name": "ESPN",
-            "url": "https://www.espn.com/soccer/match/_/gameId/760515/argentina-england",
-            "status": "unavailable",
-            "note": "Formations & Lineups section was not found."
+            "sourceDetail": "Positioned text from FIFA's official Tactical Line-up PDF matched all 22 starters one-to-one against FIFA's official team sheet.",
+            "exactLayout": true,
+            "matchNumber": 102,
+            "registrationId": 12549,
+            "documentVersion": 1,
+            "publishedAt": "2026-07-15T17:41:37.000Z",
+            "sha256": "cda8da4f98a5a9493b526b49558ab3d39e494b5647d5a703f00b19fa232a8f83"
           }
         ],
-        "note": "FIFA official team sheet kept for facts; Google and Sofascore agreed on the exact tactical rows and corrected the provisional Rogers-Spence and Paredes-Simeone swaps."
+        "note": "FIFA's official Tactical Line-up PDF supplied the nominal tactical rows and left/right placement; all 22 starters matched FIFA's official team sheet."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-15",
-        "lineup-layout-verification-2026-07-15"
+        "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
       ],
-      "checkedAt": "2026-07-15T17:44:43.186Z",
+      "checkedAt": "2026-07-15T20:45:00.000Z",
       "home": {
         "formation": "4-2-3-1",
         "coach": {
@@ -48805,55 +48810,55 @@
             "sourcePosition": "goalkeeper",
             "position": "GK",
             "x": 50,
-            "y": 91
+            "y": 86
           },
           {
             "number": "5",
             "name": "John Stones",
             "sourcePosition": "defender",
             "position": "CB",
-            "x": 62,
-            "y": 75
+            "x": 60,
+            "y": 68
           },
           {
             "number": "6",
             "name": "Marc Guehi",
             "sourcePosition": "defender",
             "position": "CB",
-            "x": 38,
-            "y": 75
+            "x": 40,
+            "y": 68
           },
           {
             "number": "24",
             "name": "Reece James",
             "sourcePosition": "defender",
             "position": "RB",
-            "x": 85,
-            "y": 75
+            "x": 81,
+            "y": 68
           },
           {
             "number": "25",
             "name": "Djed Spence",
             "sourcePosition": "defender",
             "position": "LB",
-            "x": 15,
-            "y": 75
+            "x": 19,
+            "y": 68
           },
           {
             "number": "4",
             "name": "Declan Rice",
             "sourcePosition": "midfielder",
             "position": "CM",
-            "x": 62,
-            "y": 59
+            "x": 60,
+            "y": 48
           },
           {
             "number": "8",
             "name": "Elliot Anderson",
             "sourcePosition": "midfielder",
             "position": "CM",
-            "x": 38,
-            "y": 59
+            "x": 40,
+            "y": 48
           },
           {
             "number": "10",
@@ -48861,15 +48866,15 @@
             "sourcePosition": "midfielder",
             "position": "AM",
             "x": 50,
-            "y": 40
+            "y": 28
           },
           {
             "number": "17",
             "name": "Morgan Rogers",
             "sourcePosition": "midfielder",
             "position": "RW",
-            "x": 82,
-            "y": 40
+            "x": 71,
+            "y": 28
           },
           {
             "number": "9",
@@ -48878,15 +48883,15 @@
             "isCaptain": true,
             "position": "ST",
             "x": 50,
-            "y": 20
+            "y": 8
           },
           {
             "number": "18",
             "name": "Anthony Gordon",
             "sourcePosition": "forward",
             "position": "LW",
-            "x": 18,
-            "y": 40
+            "x": 29,
+            "y": 28
           }
         ],
         "bench": [
@@ -48976,9 +48981,31 @@
           }
         ],
         "events": {
-          "cards": [],
+          "cards": [
+            {
+              "playerName": "Elliot Anderson",
+              "type": "yellow",
+              "minute": 37
+            }
+          ],
           "staffCards": [],
-          "substitutions": []
+          "substitutions": [
+            {
+              "offName": "Anthony Gordon",
+              "onName": "Ezri Konsa",
+              "minute": 72
+            },
+            {
+              "offName": "Reece James",
+              "onName": "Dan Burn",
+              "minute": 82
+            },
+            {
+              "offName": "Declan Rice",
+              "onName": "Nico Oreilly",
+              "minute": 82
+            }
+          ]
         }
       },
       "away": {
@@ -48996,71 +49023,71 @@
             "sourcePosition": "goalkeeper",
             "position": "GK",
             "x": 50,
-            "y": 91
+            "y": 85
           },
           {
             "number": "3",
             "name": "Nicolas Tagliafico",
             "sourcePosition": "defender",
             "position": "LB",
-            "x": 15,
-            "y": 75
+            "x": 19,
+            "y": 64
           },
           {
             "number": "6",
             "name": "Lisandro Martinez",
             "sourcePosition": "defender",
             "position": "CB",
-            "x": 38,
-            "y": 75
+            "x": 40,
+            "y": 64
           },
           {
             "number": "13",
             "name": "Cristian Romero",
             "sourcePosition": "defender",
             "position": "CB",
-            "x": 62,
-            "y": 75
+            "x": 60,
+            "y": 64
           },
           {
             "number": "26",
             "name": "Nahuel Molina",
             "sourcePosition": "defender",
             "position": "RB",
-            "x": 85,
-            "y": 75
+            "x": 81,
+            "y": 64
           },
           {
             "number": "5",
             "name": "Leandro Paredes",
             "sourcePosition": "midfielder",
             "position": "CM",
-            "x": 62,
-            "y": 55
+            "x": 60,
+            "y": 36
           },
           {
             "number": "20",
             "name": "Alexis Mac Allister",
             "sourcePosition": "midfielder",
             "position": "CM",
-            "x": 38,
-            "y": 55
+            "x": 40,
+            "y": 36
           },
           {
             "number": "24",
             "name": "Enzo Fernandez",
             "sourcePosition": "midfielder",
             "position": "LM",
-            "x": 18,
-            "y": 52
+            "x": 19,
+            "y": 36
           },
           {
             "number": "9",
             "name": "Julian Alvarez",
             "sourcePosition": "forward",
             "position": "ST",
-            "x": 42,
-            "y": 24
+            "x": 40,
+            "y": 8
           },
           {
             "number": "10",
@@ -49068,16 +49095,16 @@
             "sourcePosition": "forward",
             "isCaptain": true,
             "position": "ST",
-            "x": 58,
-            "y": 24
+            "x": 60,
+            "y": 8
           },
           {
             "number": "17",
             "name": "Giuliano Simeone",
             "sourcePosition": "forward",
             "position": "RM",
-            "x": 82,
-            "y": 52
+            "x": 81,
+            "y": 36
           }
         ],
         "bench": [
@@ -49173,12 +49200,49 @@
           }
         ],
         "events": {
-          "cards": [],
+          "cards": [
+            {
+              "playerName": "Lisandro Martinez",
+              "type": "yellow",
+              "minute": 42
+            },
+            {
+              "playerName": "Cristian Romero",
+              "type": "yellow",
+              "minute": 51
+            }
+          ],
           "staffCards": [],
-          "substitutions": []
+          "substitutions": [
+            {
+              "offName": "Leandro Paredes",
+              "onName": "Nico Gonzalez",
+              "minute": 64
+            },
+            {
+              "offName": "Lisandro Martinez",
+              "onName": "Nicolas Otamendi",
+              "minute": 72
+            },
+            {
+              "offName": "Nahuel Molina",
+              "onName": "Gonzalo Montiel",
+              "minute": 72
+            },
+            {
+              "offName": "Giuliano Simeone",
+              "onName": "Rodrigo De Paul",
+              "minute": 72
+            },
+            {
+              "offName": "Nicolas Tagliafico",
+              "onName": "Lautaro Martinez",
+              "minute": 81
+            }
+          ]
         }
       }
     }
   },
-  "updatedAt": "2026-07-15T19:12:38.000Z"
+  "updatedAt": "2026-07-15T20:55:00.000Z"
 }

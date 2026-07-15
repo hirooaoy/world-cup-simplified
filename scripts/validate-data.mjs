@@ -10,6 +10,7 @@ import {
 import { getLineupGeometryIssues } from "./lineup-geometry.mjs";
 import {
   DERIVED_TEAM_SHEET_ORDER_LAYOUT_SOURCE,
+  FIFA_OFFICIAL_LAYOUT_SOURCE,
   isDerivedLayoutSource,
   isExactLayoutSource,
   isKnownLayoutSource,
@@ -22,6 +23,7 @@ import {
   sameProjectionValues
 } from "./forecast-math.mjs";
 import { auditHistoricalForecasts } from "./historical-forecast-model.mjs";
+import { validateFifaTacticalLineupIndex } from "./fifa-tactical-lineup-discovery.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const dataDir = path.join(root, "data");
@@ -791,6 +793,7 @@ const [
   lineupsData,
   expectedLineupsData,
   lineupLayoutOverridesData,
+  fifaTacticalLineupIndexData,
   coachProfilesData,
   historicalPlayerProfilesData,
   adminMessageData,
@@ -809,6 +812,7 @@ const [
   readJson("lineups.json"),
   readOptionalJson("expected-lineups.json"),
   readOptionalJson("lineup-layout-overrides.json"),
+  readOptionalJson("fifa-tactical-lineup-index.json"),
   readOptionalJson("coach-profiles.json"),
   readJson("historical-player-profiles.json"),
   readOptionalJson("admin-message.json"),
@@ -866,6 +870,11 @@ requireSourceIds(historyData.sourceIds, sourceIds, "history.json");
 requireSourceIds(lineupsData.sourceIds, sourceIds, "lineups.json");
 if (lineupLayoutOverridesData) {
   requireSourceIds(lineupLayoutOverridesData.sourceIds, sourceIds, "lineup-layout-overrides.json");
+}
+if (fifaTacticalLineupIndexData) {
+  for (const issue of validateFifaTacticalLineupIndex(fifaTacticalLineupIndexData)) {
+    fail(`fifa-tactical-lineup-index.json ${issue}`);
+  }
 }
 if (expectedLineupsData?.sourceIds) {
   requireSourceIds(expectedLineupsData.sourceIds, sourceIds, "expected-lineups.json");
@@ -1530,7 +1539,7 @@ function getLineupPlayerProfile(player, teamId) {
   return profile;
 }
 
-function validateLineupPlayerPosition(player, owner, teamId, { allowVerifiedSourceSide = false, requireCoordinates = false } = {}) {
+function validateLineupPlayerPosition(player, owner, teamId, { allowProfileSideMismatch = false, requireCoordinates = false } = {}) {
   if (!requireCoordinates && player.x === undefined && player.y === undefined) {
     return;
   }
@@ -1550,7 +1559,7 @@ function validateLineupPlayerPosition(player, owner, teamId, { allowVerifiedSour
     );
   }
 
-  const profileSide = allowVerifiedSourceSide ? "" : getLineupProfileExpectedSide(getLineupPlayerProfile(player, teamId));
+  const profileSide = allowProfileSideMismatch ? "" : getLineupProfileExpectedSide(getLineupPlayerProfile(player, teamId));
   if (profileSide) {
     assert(
       !positionSide || positionSide === profileSide,
@@ -1563,7 +1572,7 @@ function validateLineupPlayerPosition(player, owner, teamId, { allowVerifiedSour
   }
 }
 
-function validateLineupPlayer(player, owner, { allowVerifiedSourceSide = false, teamId = "", requirePosition = true, requireCoordinates = false } = {}) {
+function validateLineupPlayer(player, owner, { allowProfileSideMismatch = false, teamId = "", requirePosition = true, requireCoordinates = false } = {}) {
   assert(isPlainObject(player), `${owner} must be an object`);
   if (!isPlainObject(player)) {
     return "";
@@ -1611,10 +1620,73 @@ function validateLineupPlayer(player, owner, { allowVerifiedSourceSide = false, 
   }
 
   if (requirePosition) {
-    validateLineupPlayerPosition(player, owner, teamId, { allowVerifiedSourceSide, requireCoordinates });
+    validateLineupPlayerPosition(player, owner, teamId, { allowProfileSideMismatch, requireCoordinates });
   }
 
   return name;
+}
+
+function derivedSourceLine(sourcePosition) {
+  return new Map([
+    ["goalkeeper", "gk"],
+    ["defender", "def"],
+    ["midfielder", "mid"],
+    ["forward", "fwd"]
+  ]).get(String(sourcePosition || "").trim().toLowerCase()) || "";
+}
+
+function derivedRoleLine(role) {
+  if (["CB", "LB", "RB"].includes(role)) return "def";
+  if (["DM", "CM", "AM", "LM", "RM", "LWB", "RWB"].includes(role)) return "mid";
+  if (["ST", "LW", "RW"].includes(role)) return "fwd";
+  return role === "GK" ? "gk" : "";
+}
+
+function derivedSourceRolePenalty(sourcePosition, role, formation) {
+  const sourceLine = derivedSourceLine(sourcePosition);
+  const targetLine = derivedRoleLine(role);
+  if (!sourceLine || !targetLine || sourceLine === targetLine) return 0;
+  if (sourceLine === "def") {
+    if (["RWB", "LWB"].includes(role)) return 0;
+    const backLineCount = Number(String(formation || "").split("-")[0]);
+    if (backLineCount === 3 && ["RM", "LM"].includes(role)) return 0;
+  }
+  if (sourceLine === "mid" && ["RW", "LW"].includes(role)) return 0;
+  if (sourceLine === "fwd" && ["AM", "RM", "LM"].includes(role)) return 0;
+  const lineRank = { def: 0, mid: 1, fwd: 2 };
+  return Number.isFinite(lineRank[sourceLine]) && Number.isFinite(lineRank[targetLine])
+    ? Math.max(1, Math.abs(lineRank[sourceLine] - lineRank[targetLine]))
+    : 100;
+}
+
+function minimumDerivedSourceRolePenalty(players, formation) {
+  const outfield = players.filter((player) => derivedSourceLine(player?.sourcePosition) !== "gk");
+  const roles = players
+    .map((player) => normalizeLineupPositionCode(player?.position))
+    .filter((role) => role && role !== "GK");
+  if (outfield.length !== roles.length || outfield.length > 10) return Number.POSITIVE_INFINITY;
+  const stateCount = 1 << roles.length;
+  const costs = Array(stateCount).fill(Number.POSITIVE_INFINITY);
+  costs[0] = 0;
+  for (let mask = 0; mask < stateCount; mask += 1) {
+    if (!Number.isFinite(costs[mask])) continue;
+    let playerIndex = 0;
+    for (let bits = mask; bits; bits &= bits - 1) playerIndex += 1;
+    if (playerIndex >= outfield.length) continue;
+    for (let roleIndex = 0; roleIndex < roles.length; roleIndex += 1) {
+      if (mask & (1 << roleIndex)) continue;
+      const nextMask = mask | (1 << roleIndex);
+      costs[nextMask] = Math.min(
+        costs[nextMask],
+        costs[mask] + derivedSourceRolePenalty(
+          outfield[playerIndex].sourcePosition,
+          roles[roleIndex],
+          formation
+        )
+      );
+    }
+  }
+  return costs[stateCount - 1];
 }
 
 function validateLineupSide(teamLineup, fixture, side, lineupRecord = {}) {
@@ -1651,15 +1723,22 @@ function validateLineupSide(teamLineup, fixture, side, lineupRecord = {}) {
       : null;
   assert(Array.isArray(starters), `${owner}.players must be an array`);
   assert(!Array.isArray(starters) || starters.length === 11, `${owner}.players must include exactly 11 starters`);
-  const allowVerifiedSourceSide = isExactLayoutSource(normalizeLayoutSource(lineupRecord.layoutSource));
+  const normalizedLayoutSource = normalizeLayoutSource(lineupRecord.layoutSource);
+  const isFifaDerivedTeamSheet =
+    isDerivedLayoutSource(normalizedLayoutSource) && lineupRecord.teamSheetSource === "fifa-official";
+  const allowProfileSideMismatch =
+    isExactLayoutSource(normalizedLayoutSource) || isDerivedLayoutSource(normalizedLayoutSource);
 
   const starterNames = [];
   for (const [index, player] of (starters || []).entries()) {
     const name = validateLineupPlayer(player, `${owner}.players[${index}]`, {
-      allowVerifiedSourceSide,
+      allowProfileSideMismatch,
       requireCoordinates: true,
       teamId: fixture[`${side}TeamId`]
     });
+    if (isFifaDerivedTeamSheet && derivedSourceLine(player?.sourcePosition) === "gk") {
+      assert(player?.position === "GK", `${owner}.players[${index}] FIFA goalkeeper must keep the derived GK role`);
+    }
     if (name) {
       assert(!hasExactLineupPlayerName(starterNames, name), `${owner}.players[${index}] duplicates starter "${name}"`);
       starterNames.push(name);
@@ -1667,6 +1746,35 @@ function validateLineupSide(teamLineup, fixture, side, lineupRecord = {}) {
   }
   for (const issue of getLineupGeometryIssues(starters, { owner })) {
     fail(issue);
+  }
+  const startersWithSourcePositions = (starters || []).filter((player) =>
+    Boolean(derivedSourceLine(player?.sourcePosition))
+  );
+  if (isFifaDerivedTeamSheet && Array.isArray(starters) && starters.length === 11) {
+    assert(
+      startersWithSourcePositions.length === starters.length,
+      `${owner} FIFA-derived roles require a recognized sourcePosition for every starter`
+    );
+  }
+  if (
+    isFifaDerivedTeamSheet &&
+    Array.isArray(starters) &&
+    starters.length === 11 &&
+    startersWithSourcePositions.length === starters.length
+  ) {
+    const actualPenalty = starters.reduce(
+      (sum, player) => sum + derivedSourceRolePenalty(
+        player?.sourcePosition,
+        normalizeLineupPositionCode(player?.position),
+        teamLineup.formation
+      ),
+      0
+    );
+    const minimumPenalty = minimumDerivedSourceRolePenalty(starters, teamLineup.formation);
+    assert(
+      actualPenalty === minimumPenalty,
+      `${owner} derived roles must minimize FIFA broad-line conflicts (${actualPenalty} stored vs ${minimumPenalty} possible)`
+    );
   }
 
   const bench = teamLineup.bench === undefined ? [] : teamLineup.bench;
@@ -2090,7 +2198,7 @@ function validateLineupLayoutOverrideSide(sideOverride, owner) {
   }
 }
 
-function validateLineupLayoutOverrides(overridesData, lineupsDataValue) {
+function validateLineupLayoutOverrides(overridesData, lineupsDataValue, tacticalIndexData) {
   if (overridesData === null || overridesData === undefined) {
     return;
   }
@@ -2124,7 +2232,12 @@ function validateLineupLayoutOverrides(overridesData, lineupsDataValue) {
       assert(override.awayTeamId === fixture.awayTeamId, `${owner}.awayTeamId must match the fixture away team`);
     }
     if (override.layoutSource !== undefined) {
-      assert(normalizeLayoutSource(override.layoutSource) === VERIFIED_LAYOUT_SOURCE, `${owner}.layoutSource must be ${VERIFIED_LAYOUT_SOURCE}`);
+      const normalizedOverrideLayoutSource = normalizeLayoutSource(override.layoutSource);
+      assert(
+        normalizedOverrideLayoutSource === VERIFIED_LAYOUT_SOURCE ||
+          normalizedOverrideLayoutSource === FIFA_OFFICIAL_LAYOUT_SOURCE,
+        `${owner}.layoutSource must be ${VERIFIED_LAYOUT_SOURCE} or ${FIFA_OFFICIAL_LAYOUT_SOURCE}`
+      );
     }
     assert(Array.isArray(override.sources) && override.sources.length > 0, `${owner}.sources must include at least one checked source`);
     for (const [index, source] of (Array.isArray(override.sources) ? override.sources : []).entries()) {
@@ -2152,6 +2265,45 @@ function validateLineupLayoutOverrides(overridesData, lineupsDataValue) {
     }
     for (const issue of getLayoutOverrideProvenanceIssues(override)) {
       fail(`${owner}: ${issue}`);
+    }
+
+    if (
+      override.status === "verified" &&
+      normalizeLayoutSource(override.layoutSource) === FIFA_OFFICIAL_LAYOUT_SOURCE
+    ) {
+      const matchNumber = Number(fixture.matchNumber ?? fixture.providerIds?.fifa?.matchNumber);
+      const officialSource = (override.sources || []).find(
+        (source) => source?.adapter === "fifa-tactical-pdf" && source?.status === "matched" && source?.exactLayout === true
+      );
+      const indexedDocument = tacticalIndexData?.documents?.[String(matchNumber)];
+      assert(Number.isInteger(matchNumber) && matchNumber > 0, `${owner} fixture must include a positive FIFA match number`);
+      assert(officialSource, `${owner} must include its matched FIFA tactical PDF source`);
+      assert(indexedDocument, `${owner} must have a matching fifa-tactical-lineup-index.json document`);
+      if (officialSource && indexedDocument) {
+        assert(Number(officialSource.matchNumber) === matchNumber, `${owner} source.matchNumber must match the fixture`);
+        assert(indexedDocument.fixtureId === fixtureId, `${owner} indexed document must belong to this fixture`);
+        assert(
+          Number(officialSource.registrationId) === Number(indexedDocument.registrationId),
+          `${owner} source.registrationId must match the indexed document`
+        );
+        assert(officialSource.url === indexedDocument.url, `${owner} source.url must match the indexed document`);
+        assert(
+          Number(officialSource.documentVersion) === Number(indexedDocument.version),
+          `${owner} source.documentVersion must match the indexed document`
+        );
+        assert(officialSource.publishedAt === indexedDocument.publishedAt, `${owner} source.publishedAt must match the indexed document`);
+        assert(officialSource.sha256 === indexedDocument.sha256, `${owner} source.sha256 must match the indexed document`);
+        assert(override.checkedAt === officialSource.publishedAt, `${owner}.checkedAt must match the FIFA document publication time`);
+        const expectedSourceId =
+          `fifa-tactical-lineup-match-${matchNumber}-v${Number(officialSource.documentVersion)}-${officialSource.sha256.slice(0, 12)}`;
+        assert(
+          Array.isArray(override.sourceIds) && override.sourceIds.includes(expectedSourceId),
+          `${owner}.sourceIds must include ${expectedSourceId}`
+        );
+        const catalogSource = (tournamentData.sources || []).find((source) => source?.id === expectedSourceId);
+        assert(catalogSource?.type === "official", `${owner} tournament source must be official`);
+        assert(catalogSource?.url === officialSource.url, `${owner} tournament source URL must match the FIFA document`);
+      }
     }
 
     if (override.status !== "verified") {
@@ -2420,6 +2572,20 @@ if (playerAvailabilityData) {
         typeof player?.sourceId === "string" && sourceIds.has(player.sourceId),
         `player-availability.json team "${teamId}" fixtureUnavailable[${index}] references unknown source`
       );
+      if (player?.benchDisplay !== undefined) {
+        const displayOwner = `player-availability.json team "${teamId}" fixtureUnavailable[${index}].benchDisplay`;
+        assert(isPlainObject(player.benchDisplay), `${displayOwner} must be an object`);
+        if (isPlainObject(player.benchDisplay)) {
+          assert(
+            typeof player.benchDisplay.status === "string" && player.benchDisplay.status.trim(),
+            `${displayOwner}.status must be a non-empty string`
+          );
+          for (const field of ["cause", "origin", "ends"]) {
+            assert(getDefaultCopyText(player.benchDisplay[field]), `${displayOwner}.${field} must include copy`);
+            validateLocalizedCopy(player.benchDisplay[field], `${displayOwner}.${field}`);
+          }
+        }
+      }
 
       fixtureUnavailableRefs.push({ teamId, index, player });
       const fixturePlayers = fixtureUnavailableByFixture.get(player.fixtureId) || [];
@@ -3310,7 +3476,7 @@ if (expectedLineupsData !== null) {
     }
   }
 }
-validateLineupLayoutOverrides(lineupLayoutOverridesData, lineupsData);
+validateLineupLayoutOverrides(lineupLayoutOverridesData, lineupsData, fifaTacticalLineupIndexData);
 
 const completedFixtureLineupOverrides = isPlainObject(lineupLayoutOverridesData?.fixtures) ? lineupLayoutOverridesData.fixtures : {};
 for (const fixture of fixturesData.fixtures || []) {
