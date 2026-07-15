@@ -117,10 +117,10 @@
       "label": "Sports Mole England vs Argentina team news and predicted XIs",
       "url": "https://www.sportsmole.co.uk/football/england/world-cup-2026/preview/england-vs-argentina-prediction-team-news-lineups_601122.html",
       "type": "free-public-probable-lineup",
-      "checkedAt": "2026-07-14T15:50:00Z",
+      "checkedAt": "2026-07-15T16:53:00Z",
       "outlet": "sports-mole",
       "independenceKey": "sports-mole",
-      "note": "Fresh matchday preview that returns John Stones at centre-back and keeps Ezri Konsa at right-back."
+      "note": "Updated matchday preview rechecked at 16:53 UTC; it still returns John Stones at centre-back and keeps Ezri Konsa at right-back."
     },
     {
       "id": "stats-zone-england-argentina-preview-2026-07-14",
@@ -719,8 +719,8 @@
         {
           "sourceId": "sports-mole-england-argentina-team-news-2026-07-14",
           "confidence": 0.92,
-          "checkedAt": "2026-07-14T15:50:00Z",
-          "note": "Latest team-news consensus: Rice and O'Reilly are fit, Saka returns, and Stones partners Guehi with Konsa covering right-back; Argentina remain unchanged from their quarter-final XI.",
+          "checkedAt": "2026-07-15T16:53:00Z",
+          "note": "Updated matchday preview: Rice and O'Reilly are fit, Saka returns, and Stones partners Guehi with Konsa covering right-back; Argentina remain unchanged from their quarter-final XI.",
           "teams": {
             "home": {
               "teamId": "ENG",
