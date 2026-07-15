@@ -6551,31 +6551,6 @@ try {
     ),
     "Archived country search rows should show and announce date and loaded kickoff time labels with the year."
   );
-  const japanArchiveTarget = japanSearchCheck.page.locator(".team-search-section.is-archive .match-row").first();
-  const expandedJapanSearchMetrics = await japanSearchCheck.page.evaluate(() => ({
-    listHeight: document.querySelector("#match-list")?.getBoundingClientRect().height || 0,
-    viewportHeight: window.innerHeight
-  }));
-  await japanArchiveTarget.click();
-  await japanSearchCheck.page.waitForSelector("#match-info:not(.is-hidden)");
-  const mobileSearchDetailMetrics = await japanSearchCheck.page.evaluate(() => {
-    const info = document.querySelector("#match-info")?.getBoundingClientRect();
-    const list = document.querySelector("#match-list")?.getBoundingClientRect();
-
-    return {
-      infoBottom: info?.bottom || 0,
-      infoTop: info?.top || 0,
-      listTop: list?.top || 0,
-      viewportHeight: window.innerHeight
-    };
-  });
-  assert(
-    expandedJapanSearchMetrics.listHeight > expandedJapanSearchMetrics.viewportHeight * 1.5 &&
-      mobileSearchDetailMetrics.infoTop >= 0 &&
-      mobileSearchDetailMetrics.infoTop < mobileSearchDetailMetrics.viewportHeight * 0.25 &&
-      mobileSearchDetailMetrics.infoBottom < mobileSearchDetailMetrics.listTop,
-    `Opening a mobile match from expanded country results should place and reveal the detail card before the long list. Measured ${JSON.stringify({ expandedJapanSearchMetrics, mobileSearchDetailMetrics })}.`
-  );
   await japanSearchCheck.context.close();
 
   const franceSearchCheck = await openPageAtTime(
@@ -6608,6 +6583,27 @@ try {
       paraguayFranceSearchRow?.teams.join("|") === "France|Paraguay" &&
       paraguayFranceSearchRow.scoreText === "1-0",
     `France country search should always put France first and keep every score aligned with the reordered teams. Measured ${JSON.stringify(franceSearchRows)}.`
+  );
+  await franceSearchCheck.page.setViewportSize({ width: 390, height: 844 });
+  await franceSearchCheck.page.locator('[data-match-id="match-101-semi-final-2026-07-14"]').click();
+  await franceSearchCheck.page.waitForSelector("#match-info:not(.is-hidden)");
+  const mobileSearchDetailMetrics = await franceSearchCheck.page.evaluate(() => {
+    const info = document.querySelector("#match-info")?.getBoundingClientRect();
+    const list = document.querySelector("#match-list")?.getBoundingClientRect();
+
+    return {
+      gapAfterList: info && list ? Math.round(info.top - list.bottom) : null,
+      infoTop: info?.top || 0,
+      listBottom: list?.bottom || 0,
+      viewportHeight: window.innerHeight
+    };
+  });
+  assert(
+    mobileSearchDetailMetrics.infoTop >= 0 &&
+      mobileSearchDetailMetrics.infoTop < mobileSearchDetailMetrics.viewportHeight * 0.25 &&
+      mobileSearchDetailMetrics.infoTop > mobileSearchDetailMetrics.listBottom &&
+      mobileSearchDetailMetrics.gapAfterList >= 20,
+    `Opening a mobile country-search match should place and reveal the detail card below the match list. Measured ${JSON.stringify(mobileSearchDetailMetrics)}.`
   );
   await franceSearchCheck.context.close();
 
@@ -12974,7 +12970,7 @@ try {
   );
 
   await touchPage.locator("#scout-reset").click();
-  await ballBoyInput.fill("How does Norway play?");
+  await ballBoyInput.fill("How does Argentina play?");
   await ballBoySend.click();
   await touchPage.locator(".scout-answer.is-country").waitFor({ state: "visible" });
   const countryBallBoyMetrics = await touchPage.evaluate(() => {
@@ -13018,7 +13014,7 @@ try {
     countryBallBoyMetrics.cardBackground === "rgb(255, 255, 255)" &&
       countryBallBoyMetrics.cardClass.includes("is-focus-style") &&
       countryBallBoyMetrics.countryFlags === 1 &&
-      countryBallBoyMetrics.lead === "They move the ball forward with a clear purpose, then attack before the opponent resets." &&
+      countryBallBoyMetrics.lead === "Argentina can keep the ball patiently, but they become much quicker after winning it. Julián Álvarez leads the press, Lionel Messi finds space behind midfield, and Enzo Fernández changes the angle with forward passes. Without the ball, their priority is closing central counters before they reach Emiliano Martinez's box." &&
       countryBallBoyMetrics.flowStepCount === 3 &&
       countryBallBoyMetrics.flowIsPlain &&
       countryBallBoyMetrics.flowOverflow.every((overflow) => overflow <= 1) &&
@@ -13485,6 +13481,7 @@ try {
       cardClass: card.className,
       fixtures: card.querySelectorAll(".scout-compact-fixture").length,
       keyPlayers: card.querySelectorAll(".scout-key-players").length,
+      lead: answer.querySelector(".scout-answer-lead")?.textContent.replace(/\s+/g, " ").trim() || "",
       overflow: card.scrollWidth - card.clientWidth,
       record: card.querySelectorAll(".scout-stat-strip").length,
       text: card.innerText.replace(/\s+/g, " ").trim()
@@ -13494,6 +13491,8 @@ try {
     zhCountryBallBoyMetrics.text.includes("阿根廷") &&
       zhCountryBallBoyMetrics.cardClass.includes("is-focus-style") &&
       zhCountryBallBoyMetrics.text.includes("他们怎么踢") &&
+      zhCountryBallBoyMetrics.lead.includes("胡利安·阿尔瓦雷斯负责带动逼抢") &&
+      zhCountryBallBoyMetrics.lead.includes("无球时，他们最需要阻止对手摆脱第一层逼抢后从中路快速反击") &&
       zhCountryBallBoyMetrics.keyPlayers === 0 &&
       zhCountryBallBoyMetrics.fixtures === 0 &&
       zhCountryBallBoyMetrics.record === 0 &&

@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-15T01:49:21.615Z",
+  "updatedAt": "2026-07-15T02:58:44.924Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -156,6 +156,8 @@
     "ap-argentina-switzerland-result-2026-07-11",
     "guardian-argentina-switzerland-live-reaction-2026-07-11",
     "fox-youtube-argentina-switzerland-highlights-2026-07-11",
+    "caf-australia-egypt-result-2026-07-03",
+    "afc-switzerland-colombia-result-2026-07-08",
     "11v11-england-argentina-h2h-2026-07-11",
     "openfootball-worldcup-json-2026-06-17",
     "ladbrokes-france-spain-method-victory-2026-07-13",
@@ -321,8 +323,9 @@
       },
       "matchNumber": 1,
       "resultStoryBullets": [
-        "Julian Quinones opened the scoring for Mexico.",
-        "Raul Jimenez scored Mexico's final goal."
+        "Erik Lira set up Julian Quinones for a finish in the 9th minute, giving Mexico a fast start.",
+        "Roberto Alvarado set up Raul Jimenez for a finish in the 67th minute, doubling Mexico's lead.",
+        "Mexico moved to 3 points in Group A and left South Africa without a point."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -443,8 +446,9 @@
         }
       },
       "resultStoryBulletsZh": [
-        "胡利安·基尼奥内斯在第9分钟为墨西哥首开纪录。",
-        "劳尔·吉梅内斯在第67分钟打进墨西哥的最后一球。"
+        "埃里克·利拉助攻胡利安·基尼奥内斯在第9分钟破门，让墨西哥取得领先。",
+        "罗伯托·阿尔瓦拉多助攻劳尔·吉梅内斯在第67分钟破门，将墨西哥的领先优势扩大到两球。",
+        "墨西哥的塞萨尔·蒙特斯在第90+2分钟，南非的Sphephelo Sithole在第49分钟，南非的Themba Zwane在第84分钟被罚下。"
       ]
     },
     {
@@ -579,8 +583,9 @@
       },
       "matchNumber": 2,
       "resultStoryBullets": [
-        "Ladislav Krejci opened the scoring for Czechia.",
-        "Hwang In-beom equalized for South Korea. Oh Hyeon-gyu scored South Korea's final goal."
+        "Vladimir Coufal set up Ladislav Krejci for a finish in the 59th minute, putting Czechia in front.",
+        "Lee Kang-in set up Hwang In-beom for a finish in the 67th minute, bringing South Korea level at 1-1.",
+        "Hwang In-beom set up Oh Hyeon-gyu for a finish in the 80th minute, swinging the match South Korea's way at 2-1."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -670,8 +675,9 @@
         }
       },
       "resultStoryBulletsZh": [
-        "拉迪斯拉夫·基积斯在第59分钟为捷克首开纪录。",
-        "吴贤揆在第80分钟打进韩国的最后一球。"
+        "华迪美·高法尔助攻拉迪斯拉夫·基积斯在第59分钟破门，让捷克取得领先。",
+        "李刚仁助攻黄仁范在第67分钟破门，帮助韩国扳平比分。",
+        "黄仁范助攻吴贤揆在第80分钟破门，让韩国取得领先。"
       ]
     },
     {
@@ -770,8 +776,9 @@
       },
       "matchNumber": 3,
       "resultStoryBullets": [
-        "Jovo Lukic opened the scoring for Bosnia and Herzegovina.",
-        "Cyle Larin's 78' equalizer brought Canada level."
+        "Sead Kolasinac set up Jovo Lukic for a finish in the 21st minute, putting Bosnia and Herzegovina in front.",
+        "Promise David set up Cyle Larin for a finish in the 78th minute, bringing Canada level at 1-1.",
+        "Cyle Larin came on in the 76th minute and scored in the 78th minute."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -892,8 +899,9 @@
         }
       },
       "resultStoryBulletsZh": [
-        "乔沃·卢基奇在第21分钟为波黑首开纪录。",
-        "凯尔·拉林在第78分钟为加拿大扳平比分。"
+        "塞亚德·科拉希纳茨助攻乔沃·卢基奇在第21分钟破门，让波黑取得领先。",
+        "普罗米斯·大卫助攻凯尔·拉林在第78分钟破门，帮助加拿大扳平比分。",
+        "凯尔·拉林在第76分钟替补登场，并在第78分钟破门。"
       ]
     },
     {
@@ -1100,8 +1108,9 @@
       },
       "matchNumber": 4,
       "resultStoryBullets": [
-        "A 7' own goal opened the scoring for United States.",
-        "Giovanni Reyna scored United States' final goal."
+        "A 7' own goal gave United States the lead.",
+        "Folarin Balogun struck at 31' and 45+5', driving United States to a 3-0 lead.",
+        "Alex Freeman set up Giovanni Reyna for a finish in the 90+8 minute, stretching United States' lead to 4-1."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -1222,8 +1231,9 @@
         }
       },
       "resultStoryBulletsZh": [
-        "第7分钟的乌龙球让美国首开纪录。",
-        "乔瓦尼·雷纳在第90+8分钟打进美国的最后一球。"
+        "第7分钟出现乌龙球，让美国取得领先。",
+        "福拉林·巴洛贡在第31分钟和第45+5分钟连续破门，帮助美国将比分拉开到3比0。",
+        "亚历克斯·弗里曼助攻乔瓦尼·雷纳在第90+8分钟破门，把比分改写为4比1。"
       ]
     },
     {
@@ -1334,8 +1344,9 @@
       },
       "matchNumber": 8,
       "resultStoryBullets": [
-        "Breel Embolo opened the scoring for Switzerland.",
-        "A 90+4' own goal brought Qatar level."
+        "Breel Embolo converted a penalty in the 17th minute, putting Switzerland in front.",
+        "A 90+4' own goal brought Qatar level at 1-1.",
+        "Both teams moved to 1 point in Group B."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -1444,8 +1455,9 @@
         }
       },
       "resultStoryBulletsZh": [
-        "布雷尔·恩博洛在第17分钟为瑞士首开纪录。",
-        "第90+4分钟的乌龙球让卡塔尔扳平比分。"
+        "布雷尔·恩博洛在第17分钟罚入点球，让瑞士取得领先。",
+        "第90+4分钟出现乌龙球，帮助卡塔尔扳平比分。",
+        "卡塔尔与瑞士各取一分。"
       ]
     },
     {
@@ -1575,8 +1587,9 @@
       },
       "matchNumber": 7,
       "resultStoryBullets": [
-        "Ismael Saibari opened the scoring for Morocco.",
-        "Vinicius Junior's 32' equalizer brought Brazil level."
+        "Brahim Diaz set up Ismael Saibari for a finish in the 21st minute, putting Morocco in front.",
+        "Bruno Guimaraes set up Vinicius Junior for a finish in the 32nd minute, bringing Brazil level at 1-1.",
+        "Both teams moved to 1 point in Group C."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -1678,8 +1691,9 @@
         }
       },
       "resultStoryBulletsZh": [
-        "伊斯梅尔·塞巴里在第21分钟为摩洛哥首开纪录。",
-        "维尼修斯·儒尼奥尔在第32分钟为巴西扳平比分。"
+        "布拉欣·迪亚斯助攻伊斯梅尔·塞巴里在第21分钟破门，让摩洛哥取得领先。",
+        "布鲁诺·吉马良斯助攻维尼修斯·儒尼奥尔在第32分钟破门，帮助巴西扳平比分。",
+        "巴西与摩洛哥各取一分。"
       ]
     },
     {
@@ -1771,8 +1785,9 @@
       },
       "matchNumber": 5,
       "resultStoryBullets": [
-        "John McGinn opened the scoring for Scotland.",
-        "Scotland beat Haiti 1-0."
+        "John McGinn struck in the 28th minute, putting Scotland in front.",
+        "Scotland protected the lead for the remaining 62 minutes and kept Haiti scoreless.",
+        "Scotland moved to 3 points in Group C and left Haiti without a point."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -1875,8 +1890,9 @@
         }
       },
       "resultStoryBulletsZh": [
-        "约翰·麦金在第28分钟为苏格兰首开纪录。",
-        "苏格兰以1比0击败海地。"
+        "约翰·麦金在第28分钟破门，让苏格兰取得领先。",
+        "苏格兰在余下62分钟守住领先，并零封海地。",
+        "苏格兰凭借这场胜利拿到三分。"
       ]
     },
     {
@@ -1994,8 +2010,9 @@
       },
       "matchNumber": 6,
       "resultStoryBullets": [
-        "Nestory Irankunda opened the scoring for Australia.",
-        "Connor Metcalfe scored Australia's final goal."
+        "Paul Okon-Engstler set up Nestory Irankunda for a finish in the 27th minute, putting Australia in front.",
+        "Connor Metcalfe struck in the 75th minute, doubling Australia's lead.",
+        "Australia moved to 3 points in Group D and left Türkiye without a point."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -2091,8 +2108,9 @@
         }
       },
       "resultStoryBulletsZh": [
-        "内斯托里·伊兰昆达在第27分钟为澳大利亚首开纪录。",
-        "康纳·梅特卡夫在第75分钟打进澳大利亚的最后一球。"
+        "保罗·奥康-恩斯特勒助攻内斯托里·伊兰昆达在第27分钟破门，让澳大利亚取得领先。",
+        "康纳·梅特卡夫在第75分钟破门，将澳大利亚的领先优势扩大到两球。",
+        "澳大利亚凭借这场胜利拿到三分。"
       ]
     },
     {
@@ -2221,8 +2239,9 @@
       },
       "matchNumber": 10,
       "resultStoryBullets": [
-        "Felix Nmecha opened the scoring for Germany.",
-        "Livano Comenencia equalized for Curaçao. Kai Havertz scored Germany's final goal."
+        "Florian Wirtz set up Felix Nmecha for a finish in the 6th minute, giving Germany a fast start.",
+        "Livano Comenencia levelled at 21', but Nico Schlotterbeck restored Germany's lead at 38'.",
+        "Deniz Undav set up Kai Havertz for a finish in the 88th minute, stretching Germany's lead to 7-1."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -2299,8 +2318,9 @@
         }
       },
       "resultStoryBulletsZh": [
-        "费利克斯·恩梅查在第6分钟为德国首开纪录。",
-        "凯·哈弗茨在第88分钟打进德国的最后一球。"
+        "弗洛里安·维尔茨助攻费利克斯·恩梅查在第6分钟破门，让德国取得领先。",
+        "利瓦诺·科梅南西亚在第21分钟扳平比分，但尼科·施洛特贝克在第38分钟帮助德国再次领先。",
+        "德尼兹·翁达夫助攻凯·哈弗茨在第88分钟破门，把比分改写为7比1。"
       ]
     },
     {
@@ -2436,8 +2456,9 @@
       },
       "matchNumber": 11,
       "resultStoryBullets": [
-        "Virgil van Dijk opened the scoring for Netherlands.",
-        "Daichi Kamada's 88' equalizer brought Japan level."
+        "Ryan Gravenberch set up Virgil van Dijk for a finish in the 50th minute, putting Netherlands in front.",
+        "Keito Nakamura levelled at 57', but Crysencio Summerville restored Netherlands' lead at 64'.",
+        "Koki Ogawa set up Daichi Kamada for a finish in the 88th minute, bringing Japan level at 2-2."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -2545,8 +2566,9 @@
         }
       },
       "resultStoryBulletsZh": [
-        "维吉尔·范戴克在第50分钟为荷兰首开纪录。",
-        "镰田大地在第88分钟为日本扳平比分。"
+        "瑞安·格拉文贝尔赫助攻维吉尔·范戴克在第50分钟破门，让荷兰取得领先。",
+        "中村敬斗在第57分钟扳平比分，但克利森西奥·萨默维尔在第64分钟帮助荷兰再次领先。",
+        "小川航基助攻镰田大地在第88分钟破门，帮助日本扳平比分。"
       ]
     },
     {
@@ -2639,8 +2661,9 @@
       },
       "matchNumber": 9,
       "resultStoryBullets": [
-        "Amad Diallo opened the scoring for Côte d'Ivoire.",
-        "Côte d'Ivoire beat Ecuador 1-0."
+        "Wilfried Singo set up Amad Diallo for a finish in the 90th minute, finally breaking the deadlock for Côte d'Ivoire.",
+        "Amad Diallo came on in the 56th minute and scored in the 90th minute.",
+        "Amad Diallo struck in stoppage time, leaving Ecuador no time to answer."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -2749,8 +2772,9 @@
         }
       },
       "resultStoryBulletsZh": [
-        "阿马德·迪亚洛在第90分钟为科特迪瓦首开纪录。",
-        "科特迪瓦以1比0击败厄瓜多尔。"
+        "威尔弗里德·辛戈助攻阿马德·迪亚洛在第90分钟破门，让科特迪瓦取得领先。",
+        "阿马德·迪亚洛在第56分钟替补登场，并在第90分钟破门。",
+        "阿马德·迪亚洛在补时阶段破门，没有给厄瓜多尔留下回应时间。"
       ]
     },
     {
@@ -2900,8 +2924,9 @@
       },
       "matchNumber": 12,
       "resultStoryBullets": [
-        "Yasin Ayari opened the scoring for Sweden.",
-        "Yasin Ayari scored Sweden's final goal."
+        "Yasin Ayari struck in the 7th minute, giving Sweden a fast start.",
+        "Alexander Isak struck at 30' and Mattias Svanberg answered at 84', moving the score from 1-0 to 4-1.",
+        "Lucas Bergvall set up Yasin Ayari for a finish in the 90+6 minute, stretching Sweden's lead to 5-1."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -2997,8 +3022,9 @@
         }
       },
       "resultStoryBulletsZh": [
-        "亚辛·阿亚里在第7分钟为瑞典首开纪录。",
-        "亚辛·阿亚里在第90+6分钟打进瑞典的最后一球。"
+        "亚辛·阿亚里在第7分钟破门，让瑞典取得领先。",
+        "亚历山大·伊萨克与马蒂亚斯·斯万贝里分别在第30分钟和第84分钟破门，比分从1比0来到4比1。",
+        "卢卡斯·贝里瓦尔助攻亚辛·阿亚里在第90+6分钟破门，把比分改写为5比1。"
       ]
     },
     {
@@ -3084,7 +3110,9 @@
       },
       "matchNumber": 14,
       "resultStoryBullets": [
-        "Spain and Cabo Verde drew 0-0."
+        "Spain's 4-1-2-3 and Cabo Verde's 4-1-2-3 cancelled each other out through halftime.",
+        "Cabo Verde made the first change in the 61st minute, sending on Nuno da Costa, but the deadlock held.",
+        "Both teams moved to 1 point in Group H."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -3181,7 +3209,9 @@
         }
       },
       "resultStoryBulletsZh": [
-        "西班牙与佛得角以0比0战平。"
+        "西班牙的4-1-2-3阵型与佛得角的4-1-2-3阵型在上半场相互抵消。",
+        "佛得角在第61分钟率先调整进攻，换上Nuno da Costa，但僵局依旧。",
+        "西班牙与佛得角最终0比0战平。"
       ]
     },
     {
@@ -3321,8 +3351,9 @@
       },
       "matchNumber": 16,
       "resultStoryBullets": [
-        "Emam Ashour opened the scoring for Egypt.",
-        "A 66' own goal brought Belgium level."
+        "Mohamed Salah set up Emam Ashour for a finish in the 19th minute, putting Egypt in front.",
+        "A 66' own goal brought Belgium level at 1-1.",
+        "Both teams moved to 1 point in Group G."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -3437,8 +3468,9 @@
         }
       },
       "resultStoryBulletsZh": [
-        "艾疏亚在第19分钟为埃及首开纪录。",
-        "第66分钟的乌龙球让比利时扳平比分。"
+        "穆罕默德·萨拉赫助攻艾疏亚在第19分钟破门，让埃及取得领先。",
+        "第66分钟出现乌龙球，帮助比利时扳平比分。",
+        "比利时与埃及各取一分。"
       ]
     },
     {
@@ -3566,8 +3598,9 @@
       },
       "matchNumber": 13,
       "resultStoryBullets": [
-        "Abdulelah Al-Amri opened the scoring for Saudi Arabia.",
-        "Maxi Araujo's 80' equalizer brought Uruguay level."
+        "Abdulelah Al-Amri struck in the 41st minute, putting Saudi Arabia in front.",
+        "Maxi Araujo struck in the 80th minute, bringing Uruguay level at 1-1.",
+        "Both teams moved to 1 point in Group H."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -3663,8 +3696,9 @@
         }
       },
       "resultStoryBulletsZh": [
-        "阿卜杜勒拉·阿尔-阿姆里在第41分钟为沙特阿拉伯首开纪录。",
-        "马克西米利亚诺·阿劳霍在第80分钟为乌拉圭扳平比分。"
+        "阿卜杜勒拉·阿尔-阿姆里在第41分钟破门，让沙特阿拉伯取得领先。",
+        "马克西米利亚诺·阿劳霍在第80分钟破门，帮助乌拉圭扳平比分。",
+        "沙特阿拉伯与乌拉圭各取一分。"
       ]
     },
     {
@@ -3783,8 +3817,9 @@
       },
       "matchNumber": 15,
       "resultStoryBullets": [
-        "Elijah Just opened the scoring for New Zealand.",
-        "Mohammad Mohebbi's 64' equalizer brought IR Iran level."
+        "Chris Wood set up Elijah Just for a finish in the 7th minute, giving New Zealand a fast start.",
+        "Ramin Rezaeian levelled at 32', but Elijah Just restored New Zealand's lead at 54'.",
+        "Ramin Rezaeian set up Mohammad Mohebbi for a finish in the 64th minute, bringing IR Iran level at 2-2."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -3874,8 +3909,9 @@
         }
       },
       "resultStoryBulletsZh": [
-        "以利亚·贾斯特在第7分钟为新西兰首开纪录。",
-        "穆罕默德·莫赫比在第64分钟为伊朗扳平比分。"
+        "克里斯·伍德助攻以利亚·贾斯特在第7分钟破门，让新西兰取得领先。",
+        "拉明·礼萨伊安在第32分钟扳平比分，但以利亚·贾斯特在第54分钟帮助新西兰再次领先。",
+        "拉明·礼萨伊安助攻穆罕默德·莫赫比在第64分钟破门，帮助伊朗扳平比分。"
       ]
     },
     {
@@ -4006,8 +4042,9 @@
       },
       "matchNumber": 17,
       "resultStoryBullets": [
-        "Kylian Mbappe opened the scoring for France.",
-        "Kylian Mbappe scored France's final goal."
+        "Michael Olise set up Kylian Mbappe for a finish in the 66th minute, putting France in front.",
+        "Bradley Barcola struck at 82' and Ibrahim Mbaye answered at 90+5', moving the score from 1-0 to 2-1.",
+        "Kylian Mbappe struck in the 90+6 minute, doubling France's lead."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -4078,8 +4115,9 @@
         }
       },
       "resultStoryBulletsZh": [
-        "基利安·姆巴佩在第66分钟为法国首开纪录。",
-        "基利安·姆巴佩在第90+6分钟打进法国的最后一球。"
+        "迈克尔·奥利塞助攻基利安·姆巴佩在第66分钟破门，让法国取得领先。",
+        "布拉德利·巴尔科拉与易卜拉欣·姆巴耶分别在第82分钟和第90+5分钟破门，比分从1比0来到2比1。",
+        "基利安·姆巴佩在第90+6分钟破门，将法国的领先优势扩大到两球。"
       ]
     },
     {
@@ -4193,8 +4231,9 @@
       },
       "matchNumber": 18,
       "resultStoryBullets": [
-        "Erling Haaland opened the scoring for Norway.",
-        "Aymen Hussein's 39' equalizer brought Iraq level."
+        "David Moller Wolfe set up Erling Haaland for a finish in the 29th minute, putting Norway in front.",
+        "Aymen Hussein levelled at 39', but Erling Haaland restored Norway's lead at 43'.",
+        "A 90+6' own goal changed the score to 1-4."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -4290,8 +4329,9 @@
         }
       },
       "resultStoryBulletsZh": [
-        "埃尔林·哈兰德在第29分钟为挪威首开纪录。",
-        "第90+6分钟的乌龙球成为挪威的最后一球。"
+        "达维德·默勒·沃尔费助攻埃尔林·哈兰德在第29分钟破门，让挪威取得领先。",
+        "艾曼·侯赛因在第39分钟扳平比分，但埃尔林·哈兰德在第43分钟帮助挪威再次领先。",
+        "第90+6分钟出现乌龙球，把比分改写为1比4。"
       ]
     },
     {
@@ -4414,8 +4454,9 @@
       },
       "matchNumber": 19,
       "resultStoryBullets": [
-        "Lionel Messi opened the scoring for Argentina.",
-        "Lionel Messi scored Argentina's final goal."
+        "Rodrigo De Paul set up Lionel Messi for a finish in the 17th minute, putting Argentina in front.",
+        "Lionel Messi struck in the 60th minute, doubling Argentina's lead.",
+        "Nico Gonzalez set up Lionel Messi for a finish in the 76th minute, stretching Argentina's lead to 3-0."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -4504,8 +4545,9 @@
         }
       },
       "resultStoryBulletsZh": [
-        "利昂内尔·梅西在第17分钟为阿根廷首开纪录。",
-        "利昂内尔·梅西在第76分钟打进阿根廷的最后一球。"
+        "罗德里戈·德保罗助攻利昂内尔·梅西在第17分钟破门，让阿根廷取得领先。",
+        "利昂内尔·梅西在第60分钟破门，将阿根廷的领先优势扩大到两球。",
+        "尼古拉斯·冈萨雷斯助攻利昂内尔·梅西在第76分钟破门，把比分改写为3比0。"
       ]
     },
     {
@@ -4615,8 +4657,9 @@
       },
       "matchNumber": 20,
       "resultStoryBullets": [
-        "Romano Schmid opened the scoring for Austria.",
-        "Ali Olwan equalized for Jordan. Marko Arnautovic scored Austria's final goal."
+        "Xaver Schlager set up Romano Schmid for a finish in the 20th minute, putting Austria in front.",
+        "Ali Olwan levelled at 50', but a 76' own goal restored Austria's lead at 76'.",
+        "Marko Arnautovic converted a penalty in the 90+12 minute, doubling Austria's lead."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -4712,8 +4755,9 @@
         }
       },
       "resultStoryBulletsZh": [
-        "罗马诺·施密德在第20分钟为奥地利首开纪录。",
-        "马尔科·阿瑙托维奇在第90+12分钟打进奥地利的最后一球。"
+        "沙费尔·施拉格助攻罗马诺·施密德在第20分钟破门，让奥地利取得领先。",
+        "阿里·奥尔万在第50分钟扳平比分，但亚赞·阿布·阿拉伯在第76分钟帮助奥地利再次领先。",
+        "马尔科·阿瑙托维奇在第90+12分钟罚入点球，将奥地利的领先优势扩大到两球。"
       ]
     },
     {
@@ -4825,8 +4869,9 @@
       },
       "matchNumber": 23,
       "resultStoryBullets": [
-        "Joao Neves opened the scoring for Portugal.",
-        "Yoane Wissa's 45+5' equalizer brought DR Congo level."
+        "Pedro Neto set up Joao Neves for a finish in the 6th minute, giving Portugal a fast start.",
+        "Arthur Masuaku set up Yoane Wissa for a finish in the 45+5 minute, bringing DR Congo level at 1-1.",
+        "Both teams moved to 1 point in Group K."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -4935,8 +4980,9 @@
         }
       },
       "resultStoryBulletsZh": [
-        "若昂·内维斯在第6分钟为葡萄牙首开纪录。",
-        "约安·维萨在第45+5分钟为刚果民主共和国扳平比分。"
+        "柏度·尼图助攻若昂·内维斯在第6分钟破门，让葡萄牙取得领先。",
+        "阿图尔·马苏亚库助攻约安·维萨在第45+5分钟破门，帮助刚果民主共和国扳平比分。",
+        "葡萄牙与刚果民主共和国各取一分。"
       ]
     },
     {
@@ -5167,8 +5213,9 @@
       },
       "matchNumber": 22,
       "resultStoryBullets": [
-        "Harry Kane opened the scoring for England.",
-        "Martin Baturina equalized for Croatia. Marcus Rashford scored England's final goal."
+        "Harry Kane converted a penalty in the 12th minute, putting England in front.",
+        "Martin Baturina levelled at 36', but Harry Kane restored England's lead at 42'.",
+        "Bukayo Saka set up Marcus Rashford for a finish in the 85th minute, doubling England's lead."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -5257,8 +5304,9 @@
         }
       },
       "resultStoryBulletsZh": [
-        "哈里·凯恩在第12分钟为英格兰首开纪录。",
-        "马库斯·拉什福德在第85分钟打进英格兰的最后一球。"
+        "哈里·凯恩在第12分钟罚入点球，让英格兰取得领先。",
+        "马丁·巴图里纳在第36分钟扳平比分，但哈里·凯恩在第42分钟帮助英格兰再次领先。",
+        "布卡约·萨卡助攻马库斯·拉什福德在第85分钟破门，将英格兰的领先优势扩大到两球。"
       ]
     },
     {
@@ -5362,8 +5410,9 @@
       },
       "matchNumber": 21,
       "resultStoryBullets": [
-        "Caleb Yirenkyi opened the scoring for Ghana.",
-        "Ghana beat Panama 1-0."
+        "Caleb Yirenkyi struck in the 90+5 minute, finally breaking the deadlock for Ghana.",
+        "Caleb Yirenkyi struck in stoppage time, leaving Panama no time to answer.",
+        "Ghana moved to 3 points in Group L and left Panama without a point."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -5466,8 +5515,9 @@
         }
       },
       "resultStoryBulletsZh": [
-        "卡莱布·伊伦基在第90+5分钟为加纳首开纪录。",
-        "加纳以1比0击败巴拿马。"
+        "卡莱布·伊伦基在第90+5分钟破门，让加纳取得领先。",
+        "卡莱布·伊伦基在补时阶段破门，没有给巴拿马留下回应时间。",
+        "加纳凭借这场胜利拿到三分。"
       ]
     },
     {
@@ -5588,8 +5638,9 @@
       },
       "matchNumber": 24,
       "resultStoryBullets": [
-        "Daniel Munoz opened the scoring for Colombia.",
-        "Abbosbek Fayzullaev's 60' equalizer brought Uzbekistan level."
+        "Luis Diaz set up Daniel Munoz for a finish in the 40th minute, putting Colombia in front.",
+        "Abbosbek Fayzullaev levelled at 60', but Luis Diaz restored Colombia's lead at 65'.",
+        "Cucho Hernandez set up Jaminton Campaz for a finish in the 90+9 minute, doubling Colombia's lead."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -5692,8 +5743,9 @@
         }
       },
       "resultStoryBulletsZh": [
-        "丹尼尔·穆尼奥斯在第40分钟为哥伦比亚首开纪录。",
-        "哈明顿·坎帕斯在第90+9分钟打进哥伦比亚的最后一球。"
+        "路易斯·迪亚斯助攻丹尼尔·穆尼奥斯在第40分钟破门，让哥伦比亚取得领先。",
+        "阿博斯别克·法伊祖拉耶夫在第60分钟扳平比分，但路易斯·迪亚斯在第65分钟帮助哥伦比亚再次领先。",
+        "库乔·埃尔南德斯助攻哈明顿·坎帕斯在第90+9分钟破门，将哥伦比亚的领先优势扩大到两球。"
       ]
     },
     {
@@ -5813,8 +5865,9 @@
       },
       "matchNumber": 25,
       "resultStoryBullets": [
-        "Michal Sadilek opened the scoring for Czechia.",
-        "Teboho Mokoena's 83' equalizer brought South Africa level."
+        "Alexandr Sojka set up Michal Sadilek for a finish in the 6th minute, giving Czechia a fast start.",
+        "Teboho Mokoena converted a penalty in the 83rd minute, bringing South Africa level at 1-1.",
+        "Both teams moved to 1 point in Group A."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -5911,8 +5964,9 @@
         }
       },
       "resultStoryBulletsZh": [
-        "米哈尔·萨迪莱克在第6分钟为捷克首开纪录。",
-        "特博霍·莫科纳在第83分钟为南非扳平比分。"
+        "亚历山大·索伊卡助攻米哈尔·萨迪莱克在第6分钟破门，让捷克取得领先。",
+        "特博霍·莫科纳在第83分钟罚入点球，帮助南非扳平比分。",
+        "捷克与南非各取一分。"
       ]
     },
     {
@@ -6047,8 +6101,9 @@
       },
       "matchNumber": 26,
       "resultStoryBullets": [
-        "Johan Manzambi opened the scoring for Switzerland.",
-        "Granit Xhaka scored Switzerland's final goal."
+        "Johan Manzambi struck in the 74th minute, putting Switzerland in front.",
+        "Ruben Vargas struck at 84' and Ermin Mahmic answered at 90+3', moving the score from 1-0 to 3-1.",
+        "Granit Xhaka converted a penalty in the 90+7 minute, stretching Switzerland's lead to 4-1."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -6163,8 +6218,9 @@
         }
       },
       "resultStoryBulletsZh": [
-        "约翰·曼赞比在第74分钟为瑞士首开纪录。",
-        "格拉尼特·扎卡在第90+7分钟打进瑞士的最后一球。"
+        "约翰·曼赞比在第74分钟破门，让瑞士取得领先。",
+        "鲁文·巴尔加斯与埃尔明·马赫米奇分别在第84分钟和第90+3分钟破门，比分从1比0来到3比1。",
+        "格拉尼特·扎卡在第90+7分钟罚入点球，把比分改写为4比1。"
       ]
     },
     {
@@ -6291,8 +6347,9 @@
       },
       "matchNumber": 27,
       "resultStoryBullets": [
-        "Cyle Larin opened the scoring for Canada.",
-        "Jonathan David scored Canada's final goal."
+        "Cyle Larin struck in the 16th minute, putting Canada in front.",
+        "Jonathan David struck at 29' and 45+3', driving Canada to a 3-0 lead.",
+        "Nathan Saliba set up Jonathan David for a finish in the 90+2 minute, stretching Canada's lead to 6-0."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -6407,8 +6464,9 @@
         }
       },
       "resultStoryBulletsZh": [
-        "凯尔·拉林在第16分钟为加拿大首开纪录。",
-        "乔纳森·戴维在第90+2分钟打进加拿大的最后一球。"
+        "凯尔·拉林在第16分钟破门，让加拿大取得领先。",
+        "乔纳森·戴维在第29分钟和第45+3分钟连续破门，帮助加拿大将比分拉开到3比0。",
+        "内森·萨利巴助攻乔纳森·戴维在第90+2分钟破门，把比分改写为6比0。"
       ]
     },
     {
@@ -6642,8 +6700,9 @@
       },
       "matchNumber": 28,
       "resultStoryBullets": [
-        "Luis Romo opened the scoring for Mexico.",
-        "Mexico beat South Korea 1-0."
+        "Luis Romo struck in the 50th minute, putting Mexico in front.",
+        "Mexico protected the lead for the remaining 40 minutes and kept South Korea scoreless.",
+        "Mexico took three points in Group A."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -6745,8 +6804,9 @@
         }
       },
       "resultStoryBulletsZh": [
-        "路易斯·罗莫在第50分钟为墨西哥首开纪录。",
-        "墨西哥以1比0击败韩国。"
+        "路易斯·罗莫在第50分钟破门，让墨西哥取得领先。",
+        "墨西哥在余下40分钟守住领先，并零封韩国。",
+        "墨西哥凭借这场胜利拿到三分。"
       ]
     },
     {
@@ -6885,8 +6945,9 @@
       },
       "matchNumber": 32,
       "resultStoryBullets": [
-        "A 11' own goal opened the scoring for United States.",
-        "Alex Freeman scored United States' final goal."
+        "A 11' own goal gave United States the lead.",
+        "Alex Freeman struck in the 43rd minute, doubling United States' lead.",
+        "United States moved to 6 points in Group D while Australia stayed on 3 points."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -7019,8 +7080,9 @@
         }
       },
       "resultStoryBulletsZh": [
-        "第11分钟的乌龙球让美国首开纪录。",
-        "亚历克斯·弗里曼在第43分钟打进美国的最后一球。"
+        "第11分钟出现乌龙球，让美国取得领先。",
+        "亚历克斯·弗里曼在第43分钟破门，将美国的领先优势扩大到两球。",
+        "美国凭借这场胜利拿到三分。"
       ]
     },
     {
@@ -7125,8 +7187,9 @@
       },
       "matchNumber": 30,
       "resultStoryBullets": [
-        "Ismael Saibari opened the scoring for Morocco.",
-        "Morocco beat Scotland 1-0."
+        "Brahim Diaz set up Ismael Saibari for a finish in the 2nd minute, giving Morocco a fast start.",
+        "Morocco protected the lead for the remaining 88 minutes and kept Scotland scoreless.",
+        "Morocco moved to 4 points in Group C while Scotland stayed on 3 points."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -7223,8 +7286,9 @@
         }
       },
       "resultStoryBulletsZh": [
-        "伊斯梅尔·塞巴里在第2分钟为摩洛哥首开纪录。",
-        "摩洛哥以1比0击败苏格兰。"
+        "布拉欣·迪亚斯助攻伊斯梅尔·塞巴里在第2分钟破门，让摩洛哥取得领先。",
+        "摩洛哥在余下88分钟守住领先，并零封苏格兰。",
+        "摩洛哥凭借这场胜利拿到三分。"
       ]
     },
     {
@@ -7349,8 +7413,9 @@
       },
       "matchNumber": 29,
       "resultStoryBullets": [
-        "Matheus Cunha opened the scoring for Brazil.",
-        "Vinicius Junior scored Brazil's final goal."
+        "Matheus Cunha struck in the 23rd minute, putting Brazil in front.",
+        "Vinicius Junior set up Matheus Cunha for a finish in the 36th minute, doubling Brazil's lead.",
+        "Lucas Paqueta set up Vinicius Junior for a finish in the 45+3 minute, stretching Brazil's lead to 3-0."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -7465,8 +7530,9 @@
         }
       },
       "resultStoryBulletsZh": [
-        "马特乌斯·库尼亚在第23分钟为巴西首开纪录。",
-        "维尼修斯·儒尼奥尔在第45+3分钟打进巴西的最后一球。"
+        "马特乌斯·库尼亚在第23分钟破门，让巴西取得领先。",
+        "维尼修斯·儒尼奥尔助攻马特乌斯·库尼亚在第36分钟破门，将巴西的领先优势扩大到两球。",
+        "卢卡斯·帕奎塔助攻维尼修斯·儒尼奥尔在第45+3分钟破门，把比分改写为3比0。"
       ]
     },
     {
@@ -7571,8 +7637,9 @@
       },
       "matchNumber": 31,
       "resultStoryBullets": [
-        "Matias Galarza opened the scoring for Paraguay.",
-        "Paraguay beat Türkiye 1-0."
+        "Julio Enciso set up Matias Galarza for a finish in the 2nd minute, giving Paraguay a fast start.",
+        "Miguel Almiron for Paraguay in the 45+3 minute was sent off.",
+        "Paraguay protected the lead for the remaining 88 minutes and kept Türkiye scoreless."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -7695,8 +7762,9 @@
         }
       },
       "resultStoryBulletsZh": [
-        "马蒂亚斯·加拉萨在第2分钟为巴拉圭首开纪录。",
-        "巴拉圭以1比0击败土耳其。"
+        "胡利奥·塞萨尔·恩西索助攻马蒂亚斯·加拉萨在第2分钟破门，让巴拉圭取得领先。",
+        "巴拉圭的米格尔·阿尔米隆在第45+3分钟被罚下。",
+        "巴拉圭在余下88分钟守住领先，并零封土耳其。"
       ]
     },
     {
@@ -7987,8 +8055,9 @@
       },
       "matchNumber": 35,
       "resultStoryBullets": [
-        "Brian Brobbey opened the scoring for Netherlands.",
-        "Crysencio Summerville scored Netherlands' final goal."
+        "Cody Gakpo set up Brian Brobbey for a finish in the 5th minute, giving Netherlands a fast start.",
+        "Cody Gakpo struck at 47' and 54', driving Netherlands to a 4-0 lead.",
+        "Memphis Depay set up Crysencio Summerville for a finish in the 89th minute, stretching Netherlands' lead to 5-1."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -8096,8 +8165,9 @@
         }
       },
       "resultStoryBulletsZh": [
-        "布莱恩·布罗比在第5分钟为荷兰首开纪录。",
-        "克利森西奥·萨默维尔在第89分钟打进荷兰的最后一球。"
+        "科迪·加克波助攻布莱恩·布罗比在第5分钟破门，让荷兰取得领先。",
+        "科迪·加克波在第47分钟和第54分钟连续破门，帮助荷兰将比分拉开到4比0。",
+        "孟菲斯·德佩助攻克利森西奥·萨默维尔在第89分钟破门，把比分改写为5比1。"
       ]
     },
     {
@@ -8213,8 +8283,9 @@
       },
       "matchNumber": 33,
       "resultStoryBullets": [
-        "Franck Kessie opened the scoring for Côte d'Ivoire.",
-        "Deniz Undav equalized, then scored Germany's final goal."
+        "Franck Kessie struck in the 30th minute, putting Côte d'Ivoire in front.",
+        "Nadiem Amiri set up Deniz Undav for a finish in the 68th minute, bringing Germany level at 1-1.",
+        "Felix Nmecha set up Deniz Undav for a finish in the 90+4 minute, swinging the match Germany's way at 2-1."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -8303,8 +8374,9 @@
         }
       },
       "resultStoryBulletsZh": [
-        "弗兰克·凯西在第30分钟为科特迪瓦首开纪录。",
-        "德尼兹·翁达夫在第90+4分钟打进德国的最后一球。"
+        "弗兰克·凯西在第30分钟破门，让科特迪瓦取得领先。",
+        "纳迪埃姆·阿米里助攻德尼兹·翁达夫在第68分钟破门，帮助德国扳平比分。",
+        "费利克斯·恩梅查助攻德尼兹·翁达夫在第90+4分钟破门，让德国取得领先。"
       ]
     },
     {
@@ -8391,7 +8463,9 @@
       },
       "matchNumber": 34,
       "resultStoryBullets": [
-        "Ecuador and Curaçao drew 0-0."
+        "Ecuador's 3-5-2 and Curaçao's 5-3-2 cancelled each other out through halftime.",
+        "Ecuador made the first change in the 71st minute, sending on Nilson Angulo, but the deadlock held.",
+        "Both teams moved to 1 point in Group E."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -8512,7 +8586,9 @@
         }
       },
       "resultStoryBulletsZh": [
-        "厄瓜多尔与库拉索以0比0战平。"
+        "厄瓜多尔的3-5-2阵型与库拉索的5-3-2阵型在上半场相互抵消。",
+        "厄瓜多尔在第71分钟率先调整进攻，换上尼尔森·安古罗，但僵局依旧。",
+        "厄瓜多尔与库拉索最终0比0战平。"
       ]
     },
     {
@@ -8682,8 +8758,9 @@
       },
       "matchNumber": 36,
       "resultStoryBullets": [
-        "Daichi Kamada opened the scoring for Japan.",
-        "Ayase Ueda scored Japan's final goal."
+        "Keito Nakamura set up Daichi Kamada for a finish in the 4th minute, giving Japan a fast start.",
+        "Ayase Ueda struck at 31' and Junya Ito answered at 69', moving the score from 0-1 to 0-3.",
+        "Kaishu Sano set up Ayase Ueda for a finish in the 83rd minute, stretching Japan's lead to 0-4."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -8772,8 +8849,9 @@
         }
       },
       "resultStoryBulletsZh": [
-        "镰田大地在第4分钟为日本首开纪录。",
-        "上田绮世在第83分钟打进日本的最后一球。"
+        "中村敬斗助攻镰田大地在第4分钟破门，让日本取得领先。",
+        "上田绮世与伊东纯也分别在第31分钟和第69分钟破门，比分从0比1来到0比3。",
+        "佐野海舟助攻上田绮世在第83分钟破门，把比分改写为0比4。"
       ]
     },
     {
@@ -8913,8 +8991,9 @@
       },
       "matchNumber": 38,
       "resultStoryBullets": [
-        "Lamine Yamal opened the scoring for Spain.",
-        "A 49' own goal completed the scoring for Spain."
+        "Mikel Oyarzabal set up Lamine Yamal for a finish in the 10th minute, giving Spain a fast start.",
+        "Mikel Oyarzabal struck at 21' and 24', driving Spain to a 3-0 lead.",
+        "A 49' own goal changed the score to 4-0."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -9016,8 +9095,9 @@
         }
       },
       "resultStoryBulletsZh": [
-        "拉明·亚马尔在第10分钟为西班牙首开纪录。",
-        "第49分钟的乌龙球成为西班牙的最后一球。"
+        "米克尔·奥亚萨瓦尔助攻拉明·亚马尔在第10分钟破门，让西班牙取得领先。",
+        "米克尔·奥亚萨瓦尔在第21分钟和第24分钟连续破门，帮助西班牙将比分拉开到3比0。",
+        "第49分钟出现乌龙球，把比分改写为4比0。"
       ]
     },
     {
@@ -9104,7 +9184,9 @@
       },
       "matchNumber": 39,
       "resultStoryBullets": [
-        "Belgium and IR Iran drew 0-0."
+        "Belgium's 4-2-3-1 and IR Iran's 5-2-3 cancelled each other out through halftime.",
+        "Belgium made the first change in the 58th minute, sending on Timothy Castagne, but the deadlock held.",
+        "Both teams moved to 2 points in Group G."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -9213,7 +9295,9 @@
         }
       },
       "resultStoryBulletsZh": [
-        "比利时与伊朗以0比0战平。"
+        "比利时的4-2-3-1阵型与伊朗的5-2-3阵型在上半场相互抵消。",
+        "比利时在第58分钟率先调整进攻，换上蒂莫西·卡斯塔涅，但僵局依旧。",
+        "比利时与伊朗最终0比0战平。"
       ]
     },
     {
@@ -9321,8 +9405,9 @@
       },
       "matchNumber": 37,
       "resultStoryBullets": [
-        "Kevin Pina opened the scoring for Cabo Verde.",
-        "Helio Varela's 61' equalizer brought Cabo Verde level."
+        "Kevin Pina struck in the 21st minute, putting Cabo Verde in front.",
+        "Maxi Araujo levelled at 44', but Agustin Canobbio restored Uruguay's lead at 45+6'.",
+        "Helio Varela struck in the 61st minute, bringing Cabo Verde level at 2-2."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -9425,8 +9510,9 @@
         }
       },
       "resultStoryBulletsZh": [
-        "凯文·皮纳在第21分钟为佛得角首开纪录。",
-        "埃利奥·瓦雷拉在第61分钟为佛得角扳平比分。"
+        "凯文·皮纳在第21分钟破门，让佛得角取得领先。",
+        "马克西米利亚诺·阿劳霍在第44分钟扳平比分，但奥古斯甸·卡诺比奥在第45+6分钟帮助乌拉圭再次领先。",
+        "埃利奥·瓦雷拉在第61分钟破门，帮助佛得角扳平比分。"
       ]
     },
     {
@@ -9567,8 +9653,9 @@
       },
       "matchNumber": 40,
       "resultStoryBullets": [
-        "Finn Surman opened the scoring for New Zealand.",
-        "Mostafa Zico equalized for Egypt. Trezeguet scored Egypt's final goal."
+        "Tim Payne set up Finn Surman for a finish in the 15th minute, putting New Zealand in front.",
+        "Mostafa Zico levelled at 58', but Mohamed Salah restored Egypt's lead at 67'.",
+        "Mohamed Salah set up Trezeguet for a finish in the 82nd minute, doubling Egypt's lead."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -9683,8 +9770,9 @@
         }
       },
       "resultStoryBulletsZh": [
-        "芬恩·瑟曼在第15分钟为新西兰首开纪录。",
-        "特雷泽盖在第82分钟打进埃及的最后一球。"
+        "蒂姆·佩恩助攻芬恩·瑟曼在第15分钟破门，让新西兰取得领先。",
+        "穆斯塔法·齐科在第58分钟扳平比分，但穆罕默德·萨拉赫在第67分钟帮助埃及再次领先。",
+        "穆罕默德·萨拉赫助攻特雷泽盖在第82分钟破门，将埃及的领先优势扩大到两球。"
       ]
     },
     {
@@ -9815,8 +9903,9 @@
       },
       "matchNumber": 43,
       "resultStoryBullets": [
-        "Lionel Messi opened the scoring for Argentina.",
-        "Lionel Messi scored Argentina's final goal."
+        "Facundo Medina set up Lionel Messi for a finish in the 38th minute, putting Argentina in front.",
+        "Lionel Messi struck in the 90+5 minute, doubling Argentina's lead.",
+        "Argentina reached six points in Group J and booked a Round of 32 place."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -9931,8 +10020,9 @@
         }
       },
       "resultStoryBulletsZh": [
-        "利昂内尔·梅西在第38分钟为阿根廷首开纪录。",
-        "利昂内尔·梅西在第90+5分钟打进阿根廷的最后一球。"
+        "法昆多·米迪拿助攻利昂内尔·梅西在第38分钟破门，让阿根廷取得领先。",
+        "利昂内尔·梅西在第90+5分钟破门，将阿根廷的领先优势扩大到两球。",
+        "阿根廷凭借这场胜利拿到三分。"
       ]
     },
     {
@@ -10047,8 +10137,9 @@
       },
       "matchNumber": 42,
       "resultStoryBullets": [
-        "Kylian Mbappe opened the scoring for France.",
-        "Ousmane Dembele scored France's final goal."
+        "Michael Olise set up Kylian Mbappe for a finish in the 14th minute, putting France in front.",
+        "Ousmane Dembele set up Kylian Mbappe for a finish in the 54th minute, doubling France's lead.",
+        "Michael Olise set up Ousmane Dembele for a finish in the 66th minute, stretching France's lead to 3-0."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -10144,8 +10235,9 @@
         }
       },
       "resultStoryBulletsZh": [
-        "基利安·姆巴佩在第14分钟为法国首开纪录。",
-        "奥斯曼·登贝莱在第66分钟打进法国的最后一球。"
+        "迈克尔·奥利塞助攻基利安·姆巴佩在第14分钟破门，让法国取得领先。",
+        "奥斯曼·登贝莱助攻基利安·姆巴佩在第54分钟破门，将法国的领先优势扩大到两球。",
+        "迈克尔·奥利塞助攻奥斯曼·登贝莱在第66分钟破门，把比分改写为3比0。"
       ]
     },
     {
@@ -10279,8 +10371,9 @@
       },
       "matchNumber": 41,
       "resultStoryBullets": [
-        "Marcus Holmgren Pedersen opened the scoring for Norway.",
-        "Erling Haaland scored Norway's final goal."
+        "Marcus Holmgren Pedersen struck in the 43rd minute, putting Norway in front.",
+        "Erling Haaland struck at 48' and 58', driving Norway to a 3-1 lead.",
+        "Nicolas Jackson set up Ismaila Sarr for a finish in the 90+3 minute, cutting Senegal's deficit to 3-2."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -10369,8 +10462,9 @@
         }
       },
       "resultStoryBulletsZh": [
-        "马库斯·霍姆格伦·佩德森在第43分钟为挪威首开纪录。",
-        "埃尔林·哈兰德在第58分钟打进挪威的最后一球。"
+        "马库斯·霍姆格伦·佩德森在第43分钟破门，让挪威取得领先。",
+        "埃尔林·哈兰德在第48分钟和第58分钟连续破门，帮助挪威将比分拉开到3比1。",
+        "尼古拉斯·杰克逊助攻伊斯梅拉·萨尔在第90+3分钟破门，帮助塞内加尔缩小差距。"
       ]
     },
     {
@@ -10492,8 +10586,9 @@
       },
       "matchNumber": 44,
       "resultStoryBullets": [
-        "Nizar Al-Rashdan opened the scoring for Jordan.",
-        "Nadhir Benbouali equalized for Algeria. Amine Gouiri scored Algeria's final goal."
+        "Mousa Al-Taamari set up Nizar Al-Rashdan for a finish in the 36th minute, putting Jordan in front.",
+        "Riyad Mahrez set up Nadhir Benbouali for a finish in the 69th minute, bringing Algeria level at 1-1.",
+        "Amine Gouiri struck in the 82nd minute, swinging the match Algeria's way at 1-2."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -10596,8 +10691,9 @@
         }
       },
       "resultStoryBulletsZh": [
-        "尼扎尔·拉什丹在第36分钟为约旦首开纪录。",
-        "阿明·古伊里在第82分钟打进阿尔及利亚的最后一球。"
+        "穆萨·塔马里助攻尼扎尔·拉什丹在第36分钟破门，让约旦取得领先。",
+        "利雅得·马赫雷斯助攻纳迪尔·本布阿利在第69分钟破门，帮助阿尔及利亚扳平比分。",
+        "阿明·古伊里在第82分钟破门，让阿尔及利亚取得领先。"
       ]
     },
     {
@@ -10716,8 +10812,9 @@
       },
       "matchNumber": 47,
       "resultStoryBullets": [
-        "Cristiano Ronaldo opened the scoring for Portugal.",
-        "Rafael Leao scored Portugal's final goal."
+        "Joao Cancelo set up Cristiano Ronaldo for a finish in the 6th minute, giving Portugal a fast start.",
+        "Nuno Mendes struck at 17' and an own goal followed at 60', moving the score from 1-0 to 4-0.",
+        "Rafael Leao struck in the 87th minute, stretching Portugal's lead to 5-0."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -10820,8 +10917,9 @@
         }
       },
       "resultStoryBulletsZh": [
-        "克里斯蒂亚诺·罗纳尔多在第6分钟为葡萄牙首开纪录。",
-        "拉斐尔·莱奥在第87分钟打进葡萄牙的最后一球。"
+        "若昂·坎塞洛助攻克里斯蒂亚诺·罗纳尔多在第6分钟破门，让葡萄牙取得领先。",
+        "努诺·门德斯与第60分钟的乌龙球分别在第17分钟和第60分钟破门，比分从1比0来到4比0。",
+        "拉斐尔·莱奥在第87分钟破门，把比分改写为5比0。"
       ]
     },
     {
@@ -10926,7 +11024,9 @@
       },
       "matchNumber": 45,
       "resultStoryBullets": [
-        "England and Ghana drew 0-0."
+        "England's 4-2-3-1 and Ghana's 4-4-2 cancelled each other out through halftime.",
+        "England made the first change in the 65th minute, sending on Bukayo Saka, but the deadlock held.",
+        "Both teams moved to 4 points in Group L."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -11023,7 +11123,9 @@
         }
       },
       "resultStoryBulletsZh": [
-        "英格兰与加纳以0比0战平。"
+        "英格兰的4-2-3-1阵型与加纳的4-4-2阵型在上半场相互抵消。",
+        "英格兰在第65分钟率先调整进攻，换上布卡约·萨卡，但僵局依旧。",
+        "英格兰与加纳最终0比0战平。"
       ]
     },
     {
@@ -11123,8 +11225,9 @@
         "📊 Croatia moved to 3 points in Group L and left Panama without a point."
       ],
       "resultStoryBullets": [
-        "Ante Budimir opened the scoring for Croatia.",
-        "Croatia beat Panama 1-0."
+        "Josip Stanisic set up Ante Budimir for a finish in the 54th minute, putting Croatia in front.",
+        "Ante Budimir came on at halftime and scored in the 54th minute.",
+        "Croatia protected the lead for the remaining 36 minutes and kept Panama scoreless."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -11221,8 +11324,9 @@
         }
       },
       "resultStoryBulletsZh": [
-        "安特·布迪米尔在第54分钟为克罗地亚首开纪录。",
-        "克罗地亚以1比0击败巴拿马。"
+        "约西普·斯塔尼希奇助攻安特·布迪米尔在第54分钟破门，让克罗地亚取得领先。",
+        "安特·布迪米尔在第HT分钟替补登场，并在第54分钟破门。",
+        "克罗地亚在余下36分钟守住领先，并零封巴拿马。"
       ]
     },
     {
@@ -11323,8 +11427,9 @@
         "📊 Colombia moved to 6 points in Group K while DR Congo stayed on 1 point."
       ],
       "resultStoryBullets": [
-        "Daniel Munoz opened the scoring for Colombia.",
-        "Colombia beat DR Congo 1-0."
+        "Juan Quintero set up Daniel Munoz for a finish in the 76th minute, finally breaking the deadlock for Colombia.",
+        "Colombia protected the lead for the remaining 14 minutes and kept DR Congo scoreless.",
+        "Colombia moved to 6 points in Group K while DR Congo stayed on 1 point."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -11421,8 +11526,9 @@
         }
       },
       "resultStoryBulletsZh": [
-        "丹尼尔·穆尼奥斯在第76分钟为哥伦比亚首开纪录。",
-        "哥伦比亚以1比0击败刚果民主共和国。"
+        "胡安·金特罗助攻丹尼尔·穆尼奥斯在第76分钟破门，让哥伦比亚取得领先。",
+        "哥伦比亚在余下14分钟守住领先，并零封刚果民主共和国。",
+        "哥伦比亚凭借这场胜利拿到三分。"
       ]
     },
     {
@@ -11544,8 +11650,9 @@
         "📊 Switzerland moved to 7 points in Group B while Canada stayed on 4 points."
       ],
       "resultStoryBullets": [
-        "Ruben Vargas opened the scoring for Switzerland.",
-        "Johan Manzambi scored Switzerland's final goal."
+        "Johan Manzambi set up Ruben Vargas for a finish in the 46th minute, putting Switzerland in front.",
+        "Breel Embolo set up Johan Manzambi for a finish in the 57th minute, doubling Switzerland's lead.",
+        "Nathan Saliba set up Promise David for a finish in the 76th minute, cutting Canada's deficit to 2-1."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -11654,8 +11761,9 @@
         }
       },
       "resultStoryBulletsZh": [
-        "鲁文·巴尔加斯在第46分钟为瑞士首开纪录。",
-        "约翰·曼赞比在第57分钟打进瑞士的最后一球。"
+        "约翰·曼赞比助攻鲁文·巴尔加斯在第46分钟破门，让瑞士取得领先。",
+        "布雷尔·恩博洛助攻约翰·曼赞比在第57分钟破门，将瑞士的领先优势扩大到两球。",
+        "内森·萨利巴助攻普罗米斯·大卫在第76分钟破门，帮助加拿大缩小差距。"
       ]
     },
     {
@@ -11792,8 +11900,9 @@
         "📊 Bosnia and Herzegovina moved to 4 points in Group B while Qatar stayed on 1 point."
       ],
       "resultStoryBullets": [
-        "Kerim Alajbegovic opened the scoring for Bosnia and Herzegovina.",
-        "Ermin Mahmic scored Bosnia and Herzegovina's final goal."
+        "Ivan Basic set up Kerim Alajbegovic for a finish in the 29th minute, putting Bosnia and Herzegovina in front.",
+        "an own goal arrived at 34' and Hassan Alhaydos answered at 42', moving the score from 1-0 to 2-1.",
+        "Dennis Hadzikadunic set up Ermin Mahmic for a finish in the 80th minute, doubling Bosnia and Herzegovina's lead."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -11896,8 +12005,9 @@
         }
       },
       "resultStoryBulletsZh": [
-        "凯里姆·阿拉伊贝戈维奇在第29分钟为波黑首开纪录。",
-        "埃尔明·马赫米奇在第80分钟打进波黑的最后一球。"
+        "伊万·巴希奇助攻凯里姆·阿拉伊贝戈维奇在第29分钟破门，让波黑取得领先。",
+        "第34分钟的乌龙球与哈辛·艾希度斯分别在第34分钟和第42分钟破门，比分从1比0来到2比1。",
+        "丹尼斯·哈季卡杜尼奇助攻埃尔明·马赫米奇在第80分钟破门，将波黑的领先优势扩大到两球。"
       ]
     },
     {
@@ -12069,8 +12179,9 @@
         "📊 Brazil moved to 7 points in Group C while Scotland stayed on 3 points."
       ],
       "resultStoryBullets": [
-        "Vinicius Junior opened the scoring for Brazil.",
-        "Matheus Cunha scored Brazil's final goal."
+        "Rayan set up Vinicius Junior for a finish in the 7th minute, giving Brazil a fast start.",
+        "Bruno Guimaraes set up Vinicius Junior for a finish in the 45+3 minute, doubling Brazil's lead.",
+        "Bruno Guimaraes set up Matheus Cunha for a finish in the 60th minute, stretching Brazil's lead to 0-3."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -12179,8 +12290,9 @@
         }
       },
       "resultStoryBulletsZh": [
-        "维尼修斯·儒尼奥尔在第7分钟为巴西首开纪录。",
-        "马特乌斯·库尼亚在第60分钟打进巴西的最后一球。"
+        "拉扬助攻维尼修斯·儒尼奥尔在第7分钟破门，让巴西取得领先。",
+        "布鲁诺·吉马良斯助攻维尼修斯·儒尼奥尔在第45+3分钟破门，将巴西的领先优势扩大到两球。",
+        "布鲁诺·吉马良斯助攻马特乌斯·库尼亚在第60分钟破门，把比分改写为0比3。"
       ]
     },
     {
@@ -12306,8 +12418,9 @@
         "📊 Morocco moved to 7 points in Group C and left Haiti without a point."
       ],
       "resultStoryBullets": [
-        "A 10' own goal opened the scoring for Haiti.",
-        "Achraf Hakimi equalized for Morocco. Gessime Yassine scored Morocco's final goal."
+        "A 10' own goal gave Haiti the lead.",
+        "Achraf Hakimi levelled at 39', but Wilson Isidor restored Haiti's lead at 43'.",
+        "Soufiane Rahimi set up Gessime Yassine for a finish in the 89th minute, doubling Morocco's lead."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -12415,8 +12528,9 @@
         }
       },
       "resultStoryBulletsZh": [
-        "第10分钟的乌龙球让海地首开纪录。",
-        "杰西姆·亚辛在第89分钟打进摩洛哥的最后一球。"
+        "第10分钟出现乌龙球，让海地取得领先。",
+        "阿什拉夫·哈基米在第39分钟扳平比分，但威尔逊·伊西多尔在第43分钟帮助海地再次领先。",
+        "苏菲安·拉希米助攻杰西姆·亚辛在第89分钟破门，将摩洛哥的领先优势扩大到两球。"
       ]
     },
     {
@@ -12538,8 +12652,9 @@
         "📊 Mexico moved to 9 points in Group A while Czechia stayed on 1 point."
       ],
       "resultStoryBullets": [
-        "Mateo Chavez opened the scoring for Mexico.",
-        "Alvaro Fidalgo scored Mexico's final goal."
+        "Luis Romo set up Mateo Chavez for a finish in the 55th minute, putting Mexico in front.",
+        "Jorge Sanchez set up Julian Quinones for a finish in the 61st minute, doubling Mexico's lead.",
+        "Roberto Alvarado set up Alvaro Fidalgo for a finish in the 90+4 minute, stretching Mexico's lead to 0-3."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -12635,8 +12750,9 @@
         }
       },
       "resultStoryBulletsZh": [
-        "马特奥·查韦斯在第55分钟为墨西哥首开纪录。",
-        "阿尔瓦罗·菲达尔戈在第90+4分钟打进墨西哥的最后一球。"
+        "路易斯·罗莫助攻马特奥·查韦斯在第55分钟破门，让墨西哥取得领先。",
+        "豪尔赫·桑切斯助攻胡利安·基尼奥内斯在第61分钟破门，将墨西哥的领先优势扩大到两球。",
+        "罗伯托·阿尔瓦拉多助攻阿尔瓦罗·菲达尔戈在第90+4分钟破门，把比分改写为0比3。"
       ]
     },
     {
@@ -12736,8 +12852,9 @@
         "📊 South Africa moved to 4 points in Group A while South Korea stayed on 3 points."
       ],
       "resultStoryBullets": [
-        "Thapelo Maseko opened the scoring for South Africa.",
-        "South Africa beat South Korea 1-0."
+        "Tshepang Moremi set up Thapelo Maseko for a finish in the 63rd minute, putting South Africa in front.",
+        "South Africa protected the lead for the remaining 27 minutes and kept South Korea scoreless.",
+        "South Africa moved to 4 points in Group A while South Korea stayed on 3 points."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -12828,8 +12945,9 @@
         }
       },
       "resultStoryBulletsZh": [
-        "塔佩洛·马塞科在第63分钟为南非首开纪录。",
-        "南非以1比0击败韩国。"
+        "齐潘·莫雷米助攻塔佩洛·马塞科在第63分钟破门，让南非取得领先。",
+        "南非在余下27分钟守住领先，并零封韩国。",
+        "南非凭借这场胜利拿到三分。"
       ]
     },
     {
@@ -12955,8 +13073,9 @@
         "📊 Ecuador moved to 4 points in Group E while Germany stayed on 6 points."
       ],
       "resultStoryBullets": [
-        "Leroy Sane opened the scoring for Germany.",
-        "Nilson Angulo equalized for Ecuador. Gonzalo Plata scored Ecuador's final goal."
+        "Florian Wirtz set up Leroy Sane for a finish in the 2nd minute, giving Germany a fast start.",
+        "Pedro Vite set up Nilson Angulo for a finish in the 9th minute, bringing Ecuador level at 1-1.",
+        "Kevin Rodriguez set up Gonzalo Plata for a finish in the 77th minute, swinging the match Ecuador's way at 2-1."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -13071,8 +13190,9 @@
         }
       },
       "resultStoryBulletsZh": [
-        "勒鲁瓦·萨内在第2分钟为德国首开纪录。",
-        "贡萨洛·普拉塔在第77分钟打进厄瓜多尔的最后一球。"
+        "弗洛里安·维尔茨助攻勒鲁瓦·萨内在第2分钟破门，让德国取得领先。",
+        "佩德罗·维特助攻尼尔森·安古罗在第9分钟破门，帮助厄瓜多尔扳平比分。",
+        "凯温·罗德里格斯助攻贡萨洛·普拉塔在第77分钟破门，让厄瓜多尔取得领先。"
       ]
     },
     {
@@ -13171,8 +13291,9 @@
         "📊 Côte d'Ivoire moved to 6 points in Group E while Curaçao stayed on 1 point."
       ],
       "resultStoryBullets": [
-        "Nicolas Pepe opened the scoring for Côte d'Ivoire.",
-        "Nicolas Pepe scored Côte d'Ivoire's final goal."
+        "Yan Diomande set up Nicolas Pepe for a finish in the 7th minute, giving Côte d'Ivoire a fast start.",
+        "Ibrahim Sangare set up Nicolas Pepe for a finish in the 64th minute, doubling Côte d'Ivoire's lead.",
+        "Côte d'Ivoire moved to 6 points in Group E while Curaçao stayed on 1 point."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -13281,8 +13402,9 @@
         }
       },
       "resultStoryBulletsZh": [
-        "尼古拉斯·佩佩在第7分钟为科特迪瓦首开纪录。",
-        "尼古拉斯·佩佩在第64分钟打进科特迪瓦的最后一球。"
+        "扬·迪奥曼德助攻尼古拉斯·佩佩在第7分钟破门，让科特迪瓦取得领先。",
+        "易卜拉欣·桑加雷助攻尼古拉斯·佩佩在第64分钟破门，将科特迪瓦的领先优势扩大到两球。",
+        "科特迪瓦凭借这场胜利拿到三分。"
       ]
     },
     {
@@ -13423,8 +13545,9 @@
         "📊 Japan moved to 5 points and Sweden to 4 points in Group F."
       ],
       "resultStoryBullets": [
-        "Daizen Maeda opened the scoring for Japan.",
-        "Anthony Elanga's 62' equalizer brought Sweden level."
+        "Ritsu Doan set up Daizen Maeda for a finish in the 56th minute, putting Japan in front.",
+        "Viktor Gyokeres set up Anthony Elanga for a finish in the 62nd minute, bringing Sweden level at 1-1.",
+        "Japan moved to 5 points and Sweden to 4 points in Group F."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -13533,8 +13656,9 @@
         }
       },
       "resultStoryBulletsZh": [
-        "前田大然在第56分钟为日本首开纪录。",
-        "安东尼·埃兰加在第62分钟为瑞典扳平比分。"
+        "堂安律助攻前田大然在第56分钟破门，让日本取得领先。",
+        "维克托·约克雷斯助攻安东尼·埃兰加在第62分钟破门，帮助瑞典扳平比分。",
+        "日本与瑞典各取一分。"
       ]
     },
     {
@@ -13665,8 +13789,9 @@
         "📊 Netherlands moved to 7 points in Group F and left Tunisia without a point."
       ],
       "resultStoryBullets": [
-        "A 3' own goal opened the scoring for Netherlands.",
-        "Jan Paul van Hecke scored Netherlands' final goal."
+        "A 3' own goal gave Netherlands the lead.",
+        "Brian Brobbey struck at 7' and Hazem Mastouri answered at 54', moving the score from 0-1 to 1-2.",
+        "Tijjani Reijnders set up Jan Paul van Hecke for a finish in the 62nd minute, doubling Netherlands' lead."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -13755,8 +13880,9 @@
         }
       },
       "resultStoryBulletsZh": [
-        "第3分钟的乌龙球让荷兰首开纪录。",
-        "真·保罗·云赫基在第62分钟打进荷兰的最后一球。"
+        "第3分钟出现乌龙球，让荷兰取得领先。",
+        "布莱恩·布罗比与哈泽姆·马斯图里分别在第7分钟和第54分钟破门，比分从0比1来到1比2。",
+        "泰贾尼·赖因德斯助攻真·保罗·云赫基在第62分钟破门，将荷兰的领先优势扩大到两球。"
       ]
     },
     {
@@ -13921,8 +14047,9 @@
         "📊 Türkiye moved to 3 points in Group D while United States stayed on 6 points."
       ],
       "resultStoryBullets": [
-        "Auston Trusty opened the scoring for United States.",
-        "Arda Guler equalized for Türkiye. Kaan Ayhan scored Türkiye's final goal."
+        "Sebastian Berhalter set up Auston Trusty for a finish in the 3rd minute, giving United States a fast start.",
+        "Arda Guler levelled at 10', but Baris Alper Yilmaz restored Türkiye's lead at 31'.",
+        "Kaan Ayhan struck in the 90+8 minute, swinging the match Türkiye's way at 3-2."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -14018,8 +14145,9 @@
         }
       },
       "resultStoryBulletsZh": [
-        "奥斯顿·特楚斯提在第3分钟为美国首开纪录。",
-        "卡恩·艾汉在第90+8分钟打进土耳其的最后一球。"
+        "塞巴斯蒂安·贝尔哈特助攻奥斯顿·特楚斯提在第3分钟破门，让美国取得领先。",
+        "阿尔达·居莱尔在第10分钟扳平比分，但巴勒什·阿尔佩尔·耶尔马兹在第31分钟帮助土耳其再次领先。",
+        "卡恩·艾汉在第90+8分钟破门，让土耳其取得领先。"
       ]
     },
     {
@@ -14157,7 +14285,9 @@
         "📊 Both teams moved to 4 points in Group D."
       ],
       "resultStoryBullets": [
-        "Paraguay and Australia drew 0-0."
+        "Paraguay's 5-3-2 and Australia's 3-4-3 cancelled each other out through halftime.",
+        "Australia made the first change in the 58th minute, sending on Ajdin Hrustic, but the deadlock held.",
+        "Both teams moved to 4 points in Group D."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -14248,7 +14378,9 @@
         }
       },
       "resultStoryBulletsZh": [
-        "巴拉圭与澳大利亚以0比0战平。"
+        "巴拉圭的5-3-2阵型与澳大利亚的3-4-3阵型在上半场相互抵消。",
+        "澳大利亚在第58分钟率先调整进攻，换上Ajdin Hrustic，但僵局依旧。",
+        "巴拉圭与澳大利亚最终0比0战平。"
       ]
     },
     {
@@ -14495,8 +14627,9 @@
         "📊 France moved to 9 points in Group I while Norway stayed on 6 points."
       ],
       "resultStoryBullets": [
-        "Ousmane Dembele opened the scoring for France.",
-        "Desire Doue scored France's final goal."
+        "Kylian Mbappe set up Ousmane Dembele for a finish in the 7th minute, giving France a fast start.",
+        "Ousmane Dembele struck at 20' and 32', driving France to a 1-3 lead.",
+        "Bradley Barcola set up Desire Doue for a finish in the 90+4 minute, stretching France's lead to 1-4."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -14599,8 +14732,9 @@
         }
       },
       "resultStoryBulletsZh": [
-        "奥斯曼·登贝莱在第7分钟为法国首开纪录。",
-        "德西雷·杜埃在第90+4分钟打进法国的最后一球。"
+        "基利安·姆巴佩助攻奥斯曼·登贝莱在第7分钟破门，让法国取得领先。",
+        "奥斯曼·登贝莱在第20分钟和第32分钟连续破门，帮助法国将比分拉开到1比3。",
+        "布拉德利·巴尔科拉助攻德西雷·杜埃在第90+4分钟破门，把比分改写为1比4。"
       ]
     },
     {
@@ -14714,8 +14848,9 @@
         "📊 Senegal moved to 3 points in Group I and left Iraq without a point."
       ],
       "resultStoryBullets": [
-        "Habib Diarra opened the scoring for Senegal.",
-        "Iliman Ndiaye scored Senegal's final goal."
+        "Abdoulaye Seck set up Habib Diarra for a finish in the 4th minute, giving Senegal a fast start.",
+        "Pape Gueye struck at 59' and 71', driving Senegal to a 4-0 lead.",
+        "Pape Gueye set up Iliman Ndiaye for a finish in the 82nd minute, stretching Senegal's lead to 5-0."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -14836,8 +14971,9 @@
         }
       },
       "resultStoryBulletsZh": [
-        "哈比卜·迪亚拉在第4分钟为塞内加尔首开纪录。",
-        "伊利曼·恩迪亚耶在第82分钟打进塞内加尔的最后一球。"
+        "阿卜杜拉耶·塞克助攻哈比卜·迪亚拉在第4分钟破门，让塞内加尔取得领先。",
+        "帕普·盖耶在第59分钟和第71分钟连续破门，帮助塞内加尔将比分拉开到4比0。",
+        "帕普·盖耶助攻伊利曼·恩迪亚耶在第82分钟破门，把比分改写为5比0。"
       ]
     },
     {
@@ -14924,7 +15060,9 @@
         "📊 Cabo Verde moved to 3 points and Saudi Arabia to 2 points in Group H."
       ],
       "resultStoryBullets": [
-        "Cabo Verde and Saudi Arabia drew 0-0."
+        "Cabo Verde's 4-1-2-3 and Saudi Arabia's 4-4-2 cancelled each other out through halftime.",
+        "Saudi Arabia made the first change in the 33rd minute, sending on Ali Lajami, but the deadlock held.",
+        "Cabo Verde moved to 3 points and Saudi Arabia to 2 points in Group H."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -15039,7 +15177,9 @@
         }
       },
       "resultStoryBulletsZh": [
-        "佛得角与沙特阿拉伯以0比0战平。"
+        "佛得角的4-1-2-3阵型与沙特阿拉伯的4-4-2阵型在上半场相互抵消。",
+        "沙特阿拉伯在第33分钟率先调整进攻，换上Ali Lajami，但僵局依旧。",
+        "佛得角与沙特阿拉伯最终0比0战平。"
       ]
     },
     {
@@ -15204,8 +15344,9 @@
         "📊 Spain moved to 7 points in Group H while Uruguay stayed on 2 points."
       ],
       "resultStoryBullets": [
-        "Alex Baena opened the scoring for Spain.",
-        "Spain beat Uruguay 1-0."
+        "Marcos Llorente set up Alex Baena for a finish in the 42nd minute, putting Spain in front.",
+        "Agustin Canobbio for Uruguay in the 90+4 minute was sent off.",
+        "Spain protected the lead for the remaining 48 minutes and kept Uruguay scoreless."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -15320,8 +15461,9 @@
         }
       },
       "resultStoryBulletsZh": [
-        "亚历克斯·巴埃纳在第42分钟为西班牙首开纪录。",
-        "西班牙以1比0击败乌拉圭。"
+        "马科斯·略伦特助攻亚历克斯·巴埃纳在第42分钟破门，让西班牙取得领先。",
+        "乌拉圭的奥古斯甸·卡诺比奥在第90+4分钟被罚下。",
+        "西班牙在余下48分钟守住领先，并零封乌拉圭。"
       ]
     },
     {
@@ -15431,8 +15573,9 @@
         "📊 Egypt moved to 5 points and IR Iran to 3 points in Group G."
       ],
       "resultStoryBullets": [
-        "Mahmoud Saber opened the scoring for Egypt.",
-        "Ramin Rezaeian's 14' equalizer brought IR Iran level."
+        "Trezeguet set up Mahmoud Saber for a finish in the 5th minute, giving Egypt a fast start.",
+        "Ramin Rezaeian struck in the 14th minute, bringing IR Iran level at 1-1.",
+        "Egypt moved to 5 points and IR Iran to 3 points in Group G."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -15553,8 +15696,9 @@
         }
       },
       "resultStoryBulletsZh": [
-        "马哈茂德·萨贝尔在第5分钟为埃及首开纪录。",
-        "拉明·礼萨伊安在第14分钟为伊朗扳平比分。"
+        "特雷泽盖助攻马哈茂德·萨贝尔在第5分钟破门，让埃及取得领先。",
+        "拉明·礼萨伊安在第14分钟破门，帮助伊朗扳平比分。",
+        "埃及与伊朗各取一分。"
       ]
     },
     {
@@ -15672,8 +15816,9 @@
         "📊 Belgium moved to 5 points in Group G while New Zealand stayed on 1 point."
       ],
       "resultStoryBullets": [
-        "Leandro Trossard opened the scoring for Belgium.",
-        "Alexis Saelemaekers scored Belgium's final goal."
+        "Leandro Trossard struck in the 28th minute, putting Belgium in front.",
+        "Leandro Trossard struck at 50' and Romelu Lukaku answered at 86', moving the score from 0-1 to 1-4.",
+        "Romelu Lukaku set up Alexis Saelemaekers for a finish in the 90+4 minute, stretching Belgium's lead to 1-5."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -15775,8 +15920,9 @@
         }
       },
       "resultStoryBulletsZh": [
-        "莱安德罗·特罗萨德在第28分钟为比利时首开纪录。",
-        "亚历克西斯·萨勒马克尔斯在第90+4分钟打进比利时的最后一球。"
+        "莱安德罗·特罗萨德在第28分钟破门，让比利时取得领先。",
+        "莱安德罗·特罗萨德与罗梅卢·卢卡库分别在第50分钟和第86分钟破门，比分从0比1来到1比4。",
+        "罗梅卢·卢卡库助攻亚历克西斯·萨勒马克尔斯在第90+4分钟破门，把比分改写为1比5。"
       ]
     },
     {
@@ -15886,8 +16032,9 @@
         }
       ],
       "resultStoryBullets": [
-        "Jude Bellingham opened the scoring for England.",
-        "Harry Kane scored England's final goal."
+        "Bukayo Saka set up Jude Bellingham for a finish in the 62nd minute, putting England in front.",
+        "Jude Bellingham set up Harry Kane for a finish in the 67th minute, doubling England's lead.",
+        "England moved to 7 points in Group L and left Panama without a point."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -15996,8 +16143,9 @@
         }
       },
       "resultStoryBulletsZh": [
-        "裘德·贝林厄姆在第62分钟为英格兰首开纪录。",
-        "哈里·凯恩在第67分钟打进英格兰的最后一球。"
+        "布卡约·萨卡助攻裘德·贝林厄姆在第62分钟破门，让英格兰取得领先。",
+        "裘德·贝林厄姆助攻哈里·凯恩在第67分钟破门，将英格兰的领先优势扩大到两球。",
+        "英格兰凭借这场胜利拿到三分。"
       ]
     },
     {
@@ -16102,8 +16250,9 @@
         }
       ],
       "resultStoryBullets": [
-        "Petar Sucic opened the scoring for Croatia.",
-        "Derrick Luckassen's 73' equalizer brought Ghana level."
+        "Mateo Kovacic set up Petar Sucic for a finish in the 31st minute, putting Croatia in front.",
+        "Ernest Nuamah set up Derrick Luckassen for a finish in the 73rd minute, bringing Ghana level at 1-1.",
+        "Luka Modric set up Nikola Vlasic for a finish in the 83rd minute, swinging the match Croatia's way at 2-1."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -16200,8 +16349,9 @@
         }
       },
       "resultStoryBulletsZh": [
-        "佩塔尔·苏契奇在第31分钟为克罗地亚首开纪录。",
-        "尼古拉·弗拉希奇在第83分钟打进克罗地亚的最后一球。"
+        "马特奥·科瓦契奇助攻佩塔尔·苏契奇在第31分钟破门，让克罗地亚取得领先。",
+        "埃内斯特·努瓦马助攻德里克·卢卡森在第73分钟破门，帮助加纳扳平比分。",
+        "卢卡·莫德里奇助攻尼古拉·弗拉希奇在第83分钟破门，让克罗地亚取得领先。"
       ]
     },
     {
@@ -16288,7 +16438,9 @@
         "📊 Colombia moved to 7 points and Portugal to 5 points in Group K."
       ],
       "resultStoryBullets": [
-        "Colombia and Portugal drew 0-0."
+        "Colombia's 4-1-2-3 and Portugal's 4-2-3-1 cancelled each other out through halftime.",
+        "Colombia made the first change in the 60th minute, sending on Richard Rios, but the deadlock held.",
+        "Colombia moved to 7 points and Portugal to 5 points in Group K."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -16384,7 +16536,9 @@
         }
       },
       "resultStoryBulletsZh": [
-        "哥伦比亚与葡萄牙以0比0战平。"
+        "哥伦比亚的4-1-2-3阵型与葡萄牙的4-2-3-1阵型在上半场相互抵消。",
+        "哥伦比亚在第60分钟率先调整进攻，换上Richard Rios，但僵局依旧。",
+        "哥伦比亚与葡萄牙最终0比0战平。"
       ]
     },
     {
@@ -16494,8 +16648,9 @@
         "📊 DR Congo moved to 4 points in Group K and left Uzbekistan without a point."
       ],
       "resultStoryBullets": [
-        "Eldor Shomurodov opened the scoring for Uzbekistan.",
-        "Yoane Wissa equalized, then scored DR Congo's final goal."
+        "Akmal Mozgovoy set up Eldor Shomurodov for a finish in the 10th minute, giving Uzbekistan a fast start.",
+        "Yoane Wissa levelled at 68', but Fiston Mayele restored DR Congo's lead at 78'.",
+        "Meschack Elia set up Yoane Wissa for a finish in the 90+1 minute, doubling DR Congo's lead."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -16616,8 +16771,9 @@
         }
       },
       "resultStoryBulletsZh": [
-        "埃尔多尔·肖穆罗多夫在第10分钟为乌兹别克斯坦首开纪录。",
-        "约安·维萨在第90+1分钟打进刚果民主共和国的最后一球。"
+        "阿克马尔·莫兹戈沃伊助攻埃尔多尔·肖穆罗多夫在第10分钟破门，让乌兹别克斯坦取得领先。",
+        "约安·维萨在第68分钟扳平比分，但菲斯顿·马耶莱在第78分钟帮助刚果民主共和国再次领先。",
+        "梅沙克·埃利亚助攻约安·维萨在第90+1分钟破门，将刚果民主共和国的领先优势扩大到两球。"
       ]
     },
     {
@@ -16749,8 +16905,9 @@
         "📊 Both teams moved to 4 points in Group J."
       ],
       "resultStoryBullets": [
-        "Marko Arnautovic opened the scoring for Austria.",
-        "Sasa Kalajdzic's 90+6' equalizer brought Austria level."
+        "David Alaba set up Marko Arnautovic for a finish in the 28th minute, putting Austria in front.",
+        "Riyad Mahrez struck at 60' and 90+3', driving Algeria to a 3-2 lead.",
+        "Michael Gregoritsch set up Sasa Kalajdzic for a finish in the 90+6 minute, bringing Austria level at 3-3."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -16840,8 +16997,9 @@
         }
       },
       "resultStoryBulletsZh": [
-        "马尔科·阿瑙托维奇在第28分钟为奥地利首开纪录。",
-        "萨沙·卡拉季奇在第90+6分钟为奥地利扳平比分。"
+        "大卫·阿拉巴助攻马尔科·阿瑙托维奇在第28分钟破门，让奥地利取得领先。",
+        "利雅得·马赫雷斯在第60分钟和第90+3分钟连续破门，帮助阿尔及利亚将比分拉开到3比2。",
+        "米夏埃尔·格雷戈里奇助攻萨沙·卡拉季奇在第90+6分钟破门，帮助奥地利扳平比分。"
       ]
     },
     {
@@ -16949,8 +17107,9 @@
         "📊 Argentina moved to 9 points in Group J and left Jordan without a point."
       ],
       "resultStoryBullets": [
-        "Giovani Lo Celso opened the scoring for Argentina.",
-        "Lionel Messi scored Argentina's final goal."
+        "Giovani Lo Celso struck in the 19th minute, putting Argentina in front.",
+        "Lautaro Martinez struck at 31' and Mousa Al-Taamari answered at 55', moving the score from 0-1 to 1-2.",
+        "Lionel Messi struck in the 80th minute, doubling Argentina's lead."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -17058,8 +17217,9 @@
         }
       },
       "resultStoryBulletsZh": [
-        "乔瓦尼·路些素在第19分钟为阿根廷首开纪录。",
-        "利昂内尔·梅西在第80分钟打进阿根廷的最后一球。"
+        "乔瓦尼·路些素在第19分钟破门，让阿根廷取得领先。",
+        "劳塔罗·马丁内斯与穆萨·塔马里分别在第31分钟和第55分钟破门，比分从0比1来到1比2。",
+        "利昂内尔·梅西在第80分钟破门，将阿根廷的领先优势扩大到两球。"
       ]
     },
     {
@@ -18500,8 +18660,9 @@
       ],
       "goalsAway": [],
       "resultStoryBullets": [
-        "Kylian Mbappe opened the scoring for France.",
-        "Kylian Mbappe scored France's final goal."
+        "Sweden kept France scoreless until the final minute of the first half, when Dembélé found Mbappé for the breakthrough.",
+        "Olise set up Barcola eight minutes after the restart, turning a tight first half into a two-goal French lead.",
+        "Olise created again for Mbappé in the 74th minute, completing the 3-0 win and sending France into the last 16."
       ],
       "resultStoryResearch": {
         "status": "researched",
@@ -18618,8 +18779,9 @@
         }
       },
       "resultStoryBulletsZh": [
-        "基利安·姆巴佩在第45分钟为法国首开纪录。",
-        "基利安·姆巴佩在第74分钟打进法国的最后一球。"
+        "瑞典将0比0守到上半场最后一分钟，登贝莱助攻姆巴佩打破僵局。",
+        "下半场开始八分钟后，奥利塞助攻巴尔科拉将法国的领先优势扩大到两球。",
+        "第74分钟奥利塞再次助攻姆巴佩，法国3比0锁定胜局并晋级16强。"
       ]
     },
     {
@@ -20535,8 +20697,9 @@
       ],
       "goalsAway": [],
       "resultStoryBullets": [
-        "Mikel Oyarzabal opened the scoring for Spain.",
-        "Mikel Oyarzabal scored Spain's final goal."
+        "Austria held Spain scoreless for 35 minutes before Cucurella found Oyarzabal for the breakthrough.",
+        "Baena released Porro for Spain's second goal in the 66th minute, putting the tie firmly under their control.",
+        "Oyarzabal connected with Cucurella again in the 89th minute, completing his brace and Spain's 3-0 passage to the last 16."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -20567,8 +20730,9 @@
         }
       },
       "resultStoryBulletsZh": [
-        "米克尔·奥亚萨瓦尔在第36分钟为西班牙首开纪录。",
-        "米克尔·奥亚萨瓦尔在第89分钟打进西班牙的最后一球。"
+        "奥地利前35分钟守住0比0，随后库库雷利亚助攻奥亚萨瓦尔打破僵局。",
+        "第66分钟巴埃纳助攻波罗打进第二球，西班牙彻底掌控比赛。",
+        "第89分钟奥亚萨瓦尔再次接应库库雷利亚完成梅开二度，西班牙3比0晋级16强。"
       ]
     },
     {
@@ -20684,12 +20848,14 @@
       ],
       "goalsAway": [],
       "resultStoryBullets": [
-        "Breel Embolo opened the scoring for Switzerland.",
-        "Dan Ndoye scored Switzerland's final goal."
+        "Johan Manzambi set up Breel Embolo for a finish in the 10th minute, giving Switzerland a fast start.",
+        "Dan Ndoye struck in the 46th minute, doubling Switzerland's lead.",
+        "Switzerland carried the 2-0 result into the last 16."
       ],
       "resultStoryBulletsZh": [
-        "布雷尔·恩博洛在第10分钟为瑞士首开纪录。",
-        "丹·恩多耶在第46分钟打进瑞士的最后一球。"
+        "约翰·曼赞比助攻布雷尔·恩博洛在第10分钟破门，让瑞士取得领先。",
+        "丹·恩多耶在第46分钟破门，将瑞士的领先优势扩大到两球。",
+        "瑞士以2比0晋级16强。"
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -20951,8 +21117,8 @@
       ],
       "goalsAway": [],
       "resultStoryBullets": [
-        "Jhon Arias opened the scoring for Colombia.",
-        "Colombia beat Ghana 1-0."
+        "Luis Suárez supplied Jhon Arias for the 14th-minute goal that put Colombia in front.",
+        "That early strike stood for the remaining 76 minutes, carrying Colombia past Ghana and into the last 16."
       ],
       "highlightVideo": {
         "platform": "youtube",
@@ -20983,8 +21149,8 @@
         }
       },
       "resultStoryBulletsZh": [
-        "约翰·阿里亚斯在第14分钟为哥伦比亚首开纪录。",
-        "哥伦比亚以1比0击败加纳。"
+        "路易斯·苏亚雷斯助攻约翰·阿里亚斯在第14分钟破门，哥伦比亚取得领先。",
+        "这粒早早到来的进球在余下76分钟里一直有效，哥伦比亚1比0淘汰加纳晋级16强。"
       ]
     },
     {
@@ -21109,15 +21275,23 @@
         }
       ],
       "resultStoryBullets": [
-        "Emam Ashour put Egypt in front before a 55' own goal answered for Australia.",
-        "Australia and Egypt were level at 1-1 after extra time.",
-        "Egypt won the shootout 4-2."
+        "Volpato hit the crossbar before Ashour headed Egypt in front from Hafez's 13th-minute cross.",
+        "Hany's 55th-minute own goal revived Australia, but Egypt created the better chances as the tie stretched through extra time.",
+        "Egypt converted all four penalties while Souttar and Herrington missed, sealing a 4-2 shootout win and a historic last-16 place."
       ],
       "resultStoryBulletsZh": [
-        "艾疏亚在第13分钟为埃及首开纪录。",
-        "第55分钟的乌龙球让澳大利亚扳平比分。",
-        "埃及在点球大战中以4比2获胜。"
+        "沃尔帕托先击中横梁，随后阿舒尔接哈费兹传中在第13分钟头球为埃及取得领先。",
+        "哈尼第55分钟的乌龙球让澳大利亚重燃希望，但比赛进入加时后埃及制造了更好的机会。",
+        "埃及四次点球全部命中，苏塔尔与赫林顿罚失，埃及4比2赢下点球大战并历史性晋级16强。"
       ],
+      "resultStoryResearch": {
+        "status": "researched",
+        "sourceIds": [
+          "caf-australia-egypt-result-2026-07-03"
+        ],
+        "checkedAt": "2026-07-14T20:00:27-07:00",
+        "note": "CAF match report reviewed for the goal sequence, extra-time pressure, shootout misses, and historical advancement."
+      },
       "highlightVideo": {
         "platform": "youtube",
         "url": "https://www.youtube.com/watch?v=ACWOG7t8Plk",
@@ -21277,12 +21451,12 @@
         "away": "France are an elite attacking side with Mbappe's speed now fed by Olise's left-footed creation, led by Kylian Mbappe, Michael Olise, and William Saliba. Against Paraguay, their Olise-to-Mbappe chance creation has to beat Paraguay's Almiron-Enciso counters. They want to let Olise receive inside, draw pressure, and release Mbappe before the defense can reset. The risk is Paraguay can turn one Almiron break or Enciso shot into a tight-game swing."
       },
       "resultStoryBullets": [
-        "Kylian Mbappe opened the scoring for France.",
-        "France beat Paraguay 1-0."
+        "Paraguay kept France scoreless for 70 minutes before Mbappé converted the penalty that finally broke the tie open.",
+        "France protected that one-goal margin through the final 20 minutes, winning 1-0 to reach the quarter-finals."
       ],
       "resultStoryBulletsZh": [
-        "基利安·姆巴佩在第70分钟为法国首开纪录。",
-        "法国以1比0击败巴拉圭。"
+        "巴拉圭将0比0守到第70分钟，姆巴佩随后罚入点球终于打破僵局。",
+        "法国守住最后20分钟的一球优势，以1比0晋级八强。"
       ],
       "goalsAway": [
         {
@@ -21443,14 +21617,14 @@
         "away": 3
       },
       "resultStoryBullets": [
-        "Azzedine Ounahi opened the scoring for Morocco in the 50th minute.",
-        "He doubled Morocco's lead at 82', then Soufiane Rahimi sealed it at 90+8'.",
-        "Canada could not respond and Morocco moved on as 3-0 winners."
+        "Canada kept Morocco out through halftime before Hakimi found Ounahi for the 50th-minute breakthrough.",
+        "Ounahi struck again from Brahim Díaz's pass in the 82nd minute, turning a tense knockout tie into a two-goal lead.",
+        "Brahim created once more for Rahimi at 90+8, completing Morocco's 3-0 win and place in the quarter-finals."
       ],
       "resultStoryBulletsZh": [
-        "奥纳希在第50分钟为摩洛哥首开纪录。",
-        "他在第82分钟再下一城，随后苏菲安·拉希米在90+8分钟再入一球，完成收官。",
-        "加拿大始终未能有效反击，摩洛哥以3比0晋级。"
+        "加拿大上半场守住0比0，哈基米随后助攻奥纳希在第50分钟打破僵局。",
+        "第82分钟奥纳希接布拉欣·迪亚斯传球再进一球，将紧张的淘汰赛变成两球领先。",
+        "第90+8分钟布拉欣再次助攻拉希米，摩洛哥3比0锁定八强席位。"
       ],
       "goalsAway": [
         {
@@ -22221,8 +22395,8 @@
         "checkedAt": "2026-07-07T09:20:56-07:00"
       },
       "resultStoryBullets": [
-        "Mikel Merino opened the scoring for Spain.",
-        "Spain beat Portugal 1-0."
+        "Portugal and Spain stayed scoreless for 90 minutes before Ferran Torres found Merino in stoppage time.",
+        "Merino's 90+1 finish settled the tie at the last possible moment, sending Spain into the quarter-finals 1-0."
       ],
       "shootoutOutlook": {
         "method": "world-cup-shootout-history",
@@ -22245,8 +22419,8 @@
         }
       },
       "resultStoryBulletsZh": [
-        "米克尔·梅里诺在第90+1分钟为西班牙首开纪录。",
-        "西班牙以1比0击败葡萄牙。"
+        "葡萄牙与西班牙前90分钟均未破门，费兰·托雷斯在补时阶段助攻梅里诺。",
+        "梅里诺第90+1分钟的进球在最后时刻终结比赛，西班牙1比0晋级八强。"
       ]
     },
     {
@@ -22760,15 +22934,23 @@
         }
       },
       "resultStoryBullets": [
-        "Switzerland and Colombia stayed scoreless until penalties.",
-        "Switzerland and Colombia were level at 0-0 after extra time.",
-        "Switzerland won the shootout 4-3."
+        "Switzerland and Colombia cancelled each other out for 120 minutes, with neither side turning its chances into a goal.",
+        "Both sides missed in the shootout before Kobel saved Cucho Hernández's penalty to give Switzerland the edge.",
+        "Vargas converted the decisive kick, completing the 4-3 shootout win and sending Switzerland into a quarter-final with Argentina."
       ],
       "resultStoryBulletsZh": [
-        "瑞士和哥伦比亚在卑诗体育馆把最后一场16强战拖成紧绷的120分钟僵局。",
-        "双方都制造了压力却没能完成终结，比赛在加时赛后仍是0比0。",
-        "瑞士在点球大战中更稳，以4比3取胜，拿到最后一个四分之一决赛席位。"
+        "瑞士与哥伦比亚相互抵消，双方都未能把机会变成进球，120分钟后仍是0比0。",
+        "点球大战中双方都曾罚失，随后科贝尔扑出库乔·埃尔南德斯的点球，让瑞士占得先机。",
+        "巴尔加斯罚入制胜点球，瑞士4比3赢下点球大战并晋级对阵阿根廷的八强战。"
       ],
+      "resultStoryResearch": {
+        "status": "researched",
+        "sourceIds": [
+          "afc-switzerland-colombia-result-2026-07-08"
+        ],
+        "checkedAt": "2026-07-14T20:00:27-07:00",
+        "note": "AFC match report reviewed for the 120-minute stalemate, Kobel save, Vargas winner, and quarter-final path."
+      },
       "highlightVideo": {
         "platform": "youtube",
         "url": "https://www.youtube.com/watch?v=_uEzppRKcd0",

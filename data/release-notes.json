@@ -1,6 +1,23 @@
 {
-  "updatedAt": "2026-07-14T19:28:50-07:00",
+  "updatedAt": "2026-07-14T20:04:30-07:00",
   "releases": [
+    {
+      "date": "2026-07-14",
+      "title": "Richer match stories, team insight, and mobile flow",
+      "titleZh": "更丰富的赛后故事、球队解读与移动端体验",
+      "highlights": [
+        "The current-tournament archive now gives all 101 completed matches specific, bilingual result stories: 81 boilerplate recap sets were rewritten, while 20 already-strong sets were preserved.",
+        "Recap generation and audits now favor match progression, creators, score swings, substitutions, dismissals, and tournament consequences while rejecting filler such as generic opening- and final-goal lines.",
+        "Ball Boy answers how all 48 teams play from shared authored style profiles instead of a generic keyword template, including a specific bilingual explanation of Argentina's press, Messi's positioning, Enzo Fernández's passing, and their defensive priority.",
+        "On mobile, opening a match from a long country search keeps the complete result list first, places the detail card below it, and scrolls the selected card into view without changing the desktop layout."
+      ],
+      "highlightsZh": [
+        "本届赛事档案中的101场已完成比赛现在都配有具体的中英文赛后故事：81组模板化总结已重写，20组原本质量较高的内容得到保留。",
+        "赛后故事生成与审计现在会优先呈现比赛走势、助攻者、比分变化、替补、红牌和赛事影响，并拦截笼统的首球或末球套话。",
+        "Ball Boy 现在通过共享的人工撰写风格档案解释全部48支球队的踢法，不再套用通用关键词模板；其中包括阿根廷的逼抢、梅西的跑位、恩佐·费尔南德斯的传球和无球防守重点。",
+        "在移动端从较长的国家队搜索结果中打开比赛时，完整比赛列表会保留在上方，详情卡位于列表下方并自动滚动到可见位置；桌面端布局保持不变。"
+      ]
+    },
     {
       "date": "2026-07-14",
       "title": "Three-way forecasts and polished Ball Boy behavior",

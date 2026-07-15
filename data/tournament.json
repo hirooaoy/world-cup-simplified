@@ -1723,6 +1723,22 @@
       "note": "10 completed fixtures reviewed; 4 verified overrides applied."
     },
     {
+      "id": "caf-australia-egypt-result-2026-07-03",
+      "label": "CAF Australia vs Egypt match report",
+      "url": "https://www.cafonline.com/fifa-world-cup/news/egypt-beat-australia-on-penalties-to-reach-historic-world-cup-last-16/",
+      "type": "cross-check",
+      "checkedAt": "2026-07-14T20:00:27-07:00",
+      "note": "Reviewed for the goal sequence, extra-time pressure, shootout misses, and Egypt's historic advancement."
+    },
+    {
+      "id": "afc-switzerland-colombia-result-2026-07-08",
+      "label": "AFC Switzerland vs Colombia match report",
+      "url": "https://www.the-afc.com/en/national/fifa_world_cup.html/news/r16-switzerland-0-4-3-0-colombia",
+      "type": "cross-check",
+      "checkedAt": "2026-07-14T20:00:27-07:00",
+      "note": "Reviewed for the 120-minute stalemate, Kobel save, Vargas winner, and quarter-final path."
+    },
+    {
       "id": "fifa-lineups-sync-2026-07-15",
       "label": "FIFA official final lineups sync",
       "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/match-schedule-fixtures-results-teams-stadiums",

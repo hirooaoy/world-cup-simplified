@@ -16,6 +16,7 @@ const refreshWeakStories = process.argv.includes("--refresh-weak-stories");
 const currentStoriesOnly = process.argv.includes("--current-stories-only");
 const generateCurrentStories = process.argv.includes("--generate-current-stories") || currentStoriesOnly;
 const syncChineseStories = process.argv.includes("--sync-chinese-stories");
+const rebuildGeneratedCurrentStories = process.argv.includes("--rebuild-generated-current-stories");
 const currentOnly = process.argv.includes("--current-only") || currentStoriesOnly;
 const historyOnly = process.argv.includes("--history-only");
 const dryRun = process.argv.includes("--dry-run");
@@ -37,7 +38,7 @@ const weakStoryPattern =
 const weakCurrentStoryPattern =
   /\b(?:broke through for .+?, shifting the match toward|added the final word as .+? pulled away|scored (?:twice|three times|\d+ times) as .+? kept widening the gap)\b/i;
 const repeatedGenericCurrentStoryPattern =
-  /\b(?:chase the match|pulled away|trading momentum|rescued a point|settled a tight match|traded pressure without finding a goal|both defenses kept the scoring lanes closed|made .+ sweat|later chances finally turned|own goal scored|scored their final goal|chasing a \d+-\d+ match|super goal|shaped .+ attack|restore .+ edge|opened scoring|first minute of the second half|finish comfortably|finished the match|match's opening and only goal|moving .+ into match \d+|did not make enough punishment count|quarter-final win|assisted .+ for .+)\b|\b(?:United States|Netherlands)'s\b/i;
+  /\b(?:chase the match|pulled away|trading momentum|rescued a point|settled a tight match|traded pressure without finding a goal|both defenses kept the scoring lanes closed|made .+ sweat|later chances finally turned|own goal scored|scored their final goal|scored .+ final goal|chasing a \d+-\d+ match|super goal|shaped .+ attack|restore .+ edge|opened (?:the )?scoring|first minute of the second half|finish comfortably|finished the match|match's opening and only goal|moving .+ into match \d+|did not make enough punishment count|quarter-final win|assisted .+ for .+|beat .+ \d+-\d+|drew \d+-\d+)\b|\b(?:United States|Netherlands)'s\b/i;
 const weakChineseCurrentStoryPattern =
   /(?:漫长的节奏转换|稳住了局面|更紧凑的防线|吸收了.+冲击|高度胶着|比赛变得开放|始终保持组织)/u;
 const ZH_TEAM_NAMES = Object.freeze({
@@ -691,6 +692,309 @@ function buildStoryBullets(fixture, teamsById) {
   return buildWinStoryBullets(fixture, teamsById, goals, score, side);
 }
 
+function ordinalNumber(value) {
+  const number = Number(value);
+  if (!Number.isFinite(number)) {
+    return "";
+  }
+
+  const lastTwo = number % 100;
+  const suffix = lastTwo >= 11 && lastTwo <= 13
+    ? "th"
+    : number % 10 === 1
+      ? "st"
+      : number % 10 === 2
+        ? "nd"
+        : number % 10 === 3
+          ? "rd"
+          : "th";
+  return `${number}${suffix}`;
+}
+
+function goalMinuteWords(goal) {
+  if (!Number.isFinite(Number(goal?.minute))) {
+    return "";
+  }
+  const minute = Number.isFinite(Number(goal.offset))
+    ? `${goal.minute}+${goal.offset}`
+    : ordinalNumber(goal.minute);
+  return `in the ${minute} minute`;
+}
+
+function goalSetup(goal) {
+  const timing = goalMinuteWords(goal);
+  if (goal.ownGoal) {
+    return `A ${formatGoalMinute(goal)} own goal`;
+  }
+  if (goal.penalty) {
+    return `${goal.name} converted a penalty ${timing}`;
+  }
+  if (goal.assistName) {
+    return `${goal.assistName} set up ${goal.name} for a finish ${timing}`;
+  }
+  return `${goal.name} struck ${timing}`;
+}
+
+function detailedGoalText(goal, scoreBefore, scoreAfter) {
+  const teamName = goal.team?.name || "";
+  const opponentSide = otherSide(goal.side);
+  const setup = goalSetup(goal);
+  if (goal.ownGoal) {
+    if (scoreAfter.home === scoreAfter.away) {
+      return `${setup} brought ${teamName} level at ${scoreAfter.home}-${scoreAfter.away}`;
+    }
+    if (scoreBefore.home === scoreBefore.away) {
+      return `${setup} gave ${teamName} the lead`;
+    }
+    return `${setup} changed the score to ${scoreAfter.home}-${scoreAfter.away}`;
+  }
+  if (scoreAfter.home === scoreAfter.away) {
+    return `${setup}, bringing ${teamName} level at ${scoreAfter.home}-${scoreAfter.away}`;
+  }
+  if (scoreBefore.home === scoreBefore.away) {
+    if (Number(goal.minute) <= 10) {
+      return `${setup}, giving ${teamName} a fast start`;
+    }
+    if (Number(goal.minute) >= 75 && scoreBefore.home + scoreBefore.away === 0) {
+      return `${setup}, finally breaking the deadlock for ${teamName}`;
+    }
+    if (scoreBefore.home + scoreBefore.away > 0) {
+      return `${setup}, swinging the match ${possessiveName(teamName)} way at ${scoreAfter.home}-${scoreAfter.away}`;
+    }
+    return `${setup}, putting ${teamName} in front`;
+  }
+  if (scoreBefore[goal.side] < scoreBefore[opponentSide]) {
+    return `${setup}, cutting ${possessiveName(teamName)} deficit to ${scoreAfter.home}-${scoreAfter.away}`;
+  }
+  if (scoreAfter[goal.side] - scoreAfter[opponentSide] === 2) {
+    return `${setup}, doubling ${possessiveName(teamName)} lead`;
+  }
+  return `${setup}, stretching ${possessiveName(teamName)} lead to ${scoreAfter.home}-${scoreAfter.away}`;
+}
+
+function detailedGoalRows(goals) {
+  const score = { home: 0, away: 0 };
+  return goals.map((goal) => {
+    const before = { ...score };
+    score[goal.side] += 1;
+    const after = { ...score };
+    return {
+      goal,
+      text: detailedGoalText(goal, before, after),
+      before,
+      after
+    };
+  });
+}
+
+function currentMatchEvents(fixture) {
+  const rows = [];
+  for (const side of ["home", "away"]) {
+    const teamId = side === "home" ? fixture.homeTeamId : fixture.awayTeamId;
+    const teamName = side === "home" ? fixture.homeSlot : fixture.awaySlot;
+    for (const card of fixture.matchEvents?.[side]?.cards || []) {
+      rows.push({ ...card, side, teamId, teamName, kind: "card" });
+    }
+    for (const substitution of fixture.matchEvents?.[side]?.substitutions || []) {
+      rows.push({ ...substitution, side, teamId, teamName, kind: "substitution" });
+    }
+  }
+  return rows;
+}
+
+function detailedTextureBullet(fixture, teamsById, goals) {
+  const events = currentMatchEvents(fixture);
+  const reds = events.filter((event) => event.kind === "card" && event.type === "red");
+  if (reds.length) {
+    const details = reds.map((event) => {
+      const team = getFixtureTeam(fixture, teamsById, event.side)?.name || event.teamId;
+      const minute = String(event.minute).includes("+") ? event.minute : ordinalNumber(event.minute);
+      return `${event.playerName} for ${team} in the ${minute} minute`;
+    });
+    return `${formatNameList(details)} ${reds.length === 1 ? "was" : "were"} sent off`;
+  }
+
+  const scorerSubs = events.filter((event) =>
+    event.kind === "substitution" && goals.some((goal) => !goal.ownGoal && goal.name === event.onName)
+  );
+  if (scorerSubs.length) {
+    const event = scorerSubs[0];
+    const goal = goals.find((row) => !row.ownGoal && row.name === event.onName);
+    const entry = event.minute === "HT" ? "at halftime" : `in the ${ordinalNumber(event.minute)} minute`;
+    return `${event.onName} came on ${entry} and scored ${goalMinuteWords(goal)}`;
+  }
+
+  const topAssist = assistCounts(goals, goals.at(-1)?.side);
+  if (topAssist?.[1]?.length >= 2) {
+    const teamName = teamForSide(teamsById, fixture, goals.at(-1).side)?.name || "";
+    return `${topAssist[0]} created ${topAssist[1].length} of ${possessiveName(teamName)} goals`;
+  }
+
+  return "";
+}
+
+function cleanResultContext(fixture) {
+  const context = (fixture.resultHighlights || [])
+    .filter((item) => /^\s*📊/u.test(String(item || "")) || /\bGroup [A-L]\b/i.test(String(item || "")))
+    .map((item) => String(item || "").replace(/^[^\p{L}\p{N}]+/u, "").trim())
+    .find(Boolean);
+  return context || "";
+}
+
+function middleGoalStory(rows, fixture, teamsById) {
+  const middle = rows.slice(1, -1);
+  if (!middle.length) {
+    return "";
+  }
+  if (middle.length === 1) {
+    return middle[0].text;
+  }
+
+  const scorerGroups = new Map();
+  for (const row of middle) {
+    if (row.goal.ownGoal) {
+      continue;
+    }
+    const list = scorerGroups.get(row.goal.name) || [];
+    list.push(row);
+    scorerGroups.set(row.goal.name, list);
+  }
+  const repeatScorer = [...scorerGroups.entries()].sort((a, b) => b[1].length - a[1].length)[0];
+  if (repeatScorer?.[1]?.length >= 2) {
+    const [name, scorerRows] = repeatScorer;
+    const teamName = teamForSide(teamsById, fixture, scorerRows[0].goal.side)?.name || "his team";
+    const minutes = formatNameList(scorerRows.map((row) => formatGoalMinute(row.goal)));
+    const lastScorerRow = scorerRows.at(-1);
+    return `${name} struck at ${minutes}, driving ${teamName} to a ${lastScorerRow.after.home}-${lastScorerRow.after.away} lead`;
+  }
+
+  const first = middle[0];
+  const last = middle.at(-1);
+  const equalizer = middle.find((row) => row.after.home === row.after.away);
+  if (equalizer) {
+    const answer = middle[middle.indexOf(equalizer) + 1];
+    if (answer) {
+      const answerTeam = answer.goal.team?.name || "their team";
+      return `${goalScorerLabel(equalizer.goal)} levelled at ${formatGoalMinute(equalizer.goal)}, but ${goalScorerLabel(answer.goal, { sentenceStart: false })} restored ${possessiveName(answerTeam)} lead at ${formatGoalMinute(answer.goal)}`;
+    }
+    return equalizer.text;
+  }
+  const firstMoment = first.goal.ownGoal
+    ? `an own goal arrived at ${formatGoalMinute(first.goal)}`
+    : `${first.goal.name} struck at ${formatGoalMinute(first.goal)}`;
+  const lastMoment = last.goal.ownGoal
+    ? `an own goal followed at ${formatGoalMinute(last.goal)}`
+    : `${last.goal.name} answered at ${formatGoalMinute(last.goal)}`;
+  return `${firstMoment} and ${lastMoment}, moving the score from ${rows[0].after.home}-${rows[0].after.away} to ${last.after.home}-${last.after.away}`;
+}
+
+function oneGoalTextureBullet(fixture, teamsById, goal) {
+  if (!goal) {
+    return "";
+  }
+  const score = { home: scoreNumber(fixture.score?.home), away: scoreNumber(fixture.score?.away) };
+  const side = winnerSide(score);
+  if (!side) {
+    return "";
+  }
+  const winner = getFixtureTeam(fixture, teamsById, side)?.name || "The winner";
+  const loser = getFixtureTeam(fixture, teamsById, otherSide(side))?.name || "the opposition";
+  const minute = Number(goal.minute);
+  if (minute >= 90) {
+    return `${goalScorerLabel(goal)} struck in stoppage time, leaving ${loser} no time to answer`;
+  }
+  return `${winner} protected the lead for the remaining ${Math.max(0, 90 - minute)} minutes and kept ${loser} scoreless`;
+}
+
+function knockoutResultContext(fixture, teamsById) {
+  const score = { home: scoreNumber(fixture.score?.home), away: scoreNumber(fixture.score?.away) };
+  const side = winnerSide(score);
+  if (!side) {
+    return "";
+  }
+  const winner = getFixtureTeam(fixture, teamsById, side)?.name || "The winner";
+  const scoreText = side === "home" ? `${score.home}-${score.away}` : `${score.away}-${score.home}`;
+  const round = String(fixture.round || "").toLowerCase();
+  const nextRound = round.includes("round-of-32") ? "last 16"
+    : round.includes("round-of-16") ? "quarter-finals"
+      : round.includes("quarter") ? "semi-finals"
+        : round.includes("semi") ? "final"
+          : "next round";
+  return `${winner} carried the ${scoreText} result into the ${nextRound}`;
+}
+
+function detailedShootoutStoryBullets(fixture, teamsById, goals) {
+  const bullets = goals.length ? buildDetailedCurrentStoryBullets({ ...fixture, scoreDetails: undefined }, teamsById) : scorelessStoryBullets(fixture, teamsById);
+  const winnerSideValue = penaltyWinnerSide(fixture, teamsById);
+  const winner = getFixtureTeam(fixture, teamsById, winnerSideValue)?.name || "The winner";
+  const penaltyScore = scorePairForSide(fixture.scoreDetails?.penalties, winnerSideValue);
+  const regulationScore = `${fixture.score.home}-${fixture.score.away}`;
+  const shootoutLine = penaltyScore
+    ? `${winner} took the shootout ${penaltyScore} after the ${regulationScore} match stayed level through extra time`
+    : `${winner} advanced on penalties after the ${regulationScore} match stayed level through extra time`;
+  return [...bullets.slice(0, 2), withPeriod(shootoutLine)].slice(0, 3);
+}
+
+function scorelessStoryBullets(fixture, teamsById) {
+  const home = getFixtureTeam(fixture, teamsById, "home");
+  const away = getFixtureTeam(fixture, teamsById, "away");
+  const homeFormation = fixture.matchEvents?.home?.formation;
+  const awayFormation = fixture.matchEvents?.away?.formation;
+  const bullets = [];
+  addStoryBullet(
+    bullets,
+    homeFormation && awayFormation
+      ? `${possessiveName(home.name)} ${homeFormation} and ${possessiveName(away.name)} ${awayFormation} cancelled each other out through halftime`
+      : `${home.name} and ${away.name} reached halftime without a breakthrough`
+  );
+
+  const substitutions = currentMatchEvents(fixture)
+    .filter((event) => event.kind === "substitution" && Number.isFinite(Number(event.minute)))
+    .sort((a, b) => Number(a.minute) - Number(b.minute));
+  if (substitutions.length) {
+    const first = substitutions[0];
+    const team = getFixtureTeam(fixture, teamsById, first.side)?.name || first.teamId;
+    addStoryBullet(bullets, `${team} made the first change in the ${ordinalNumber(first.minute)} minute, sending on ${first.onName}, but the deadlock held`);
+  }
+
+  addStoryBullet(bullets, cleanResultContext(fixture) || `Neither side found a goal, leaving the match at 0-0`);
+  return bullets.slice(0, 3);
+}
+
+function buildDetailedCurrentStoryBullets(fixture, teamsById) {
+  const goals = goalEvents(fixture, teamsById);
+  if (fixture.scoreDetails?.penalties) {
+    return detailedShootoutStoryBullets(fixture, teamsById, goals);
+  }
+  if (!goals.length) {
+    return scorelessStoryBullets(fixture, teamsById);
+  }
+
+  const rows = detailedGoalRows(goals);
+  const bullets = [];
+  if (rows.length <= 3) {
+    for (const row of rows) {
+      addStoryBullet(bullets, row.text);
+    }
+  } else {
+    addStoryBullet(bullets, rows[0].text);
+    addStoryBullet(bullets, middleGoalStory(rows, fixture, teamsById));
+    addStoryBullet(bullets, rows.at(-1).text);
+  }
+
+  const texture = detailedTextureBullet(fixture, teamsById, goals);
+  if (bullets.length < 3 && texture) {
+    addStoryBullet(bullets, texture);
+  }
+  if (bullets.length < 3 && goals.length === 1) {
+    addStoryBullet(bullets, oneGoalTextureBullet(fixture, teamsById, goals[0]));
+  }
+  if (bullets.length < 3) {
+    addStoryBullet(bullets, cleanResultContext(fixture) || knockoutResultContext(fixture, teamsById));
+  }
+  return bullets.slice(0, 3);
+}
+
 function zhTeamName(fixture, teamsById, side) {
   const teamId = side === "home" ? fixture.homeTeamId : fixture.awayTeamId;
   return ZH_TEAM_NAMES[teamId] || getFixtureTeam(fixture, teamsById, side)?.name || teamId || "";
@@ -804,6 +1108,251 @@ function buildStoryBulletsZh(fixture, teamsById) {
   addZhStoryBullet(bullets, `${winnerName}以${winnerScore}比${loserScore}击败${loserName}`);
 
   return bullets.slice(0, 3);
+}
+
+function zhGoalAction(goal) {
+  const minute = zhGoalMinute(goal);
+  if (goal.ownGoal) {
+    return `${minute || "比赛中"}出现乌龙球`;
+  }
+  const player = zhPlayerName(goal.name);
+  if (goal.penalty) {
+    return `${player}${minute ? `在${minute}` : ""}罚入点球`;
+  }
+  if (goal.assistName) {
+    return `${zhPlayerName(goal.assistName)}助攻${player}${minute ? `在${minute}` : ""}破门`;
+  }
+  return `${player}${minute ? `在${minute}` : ""}破门`;
+}
+
+function zhGoalOutcome(goal, scoreBefore, scoreAfter, fixture, teamsById) {
+  const teamName = zhTeamName(fixture, teamsById, goal.side);
+  const opponentSide = otherSide(goal.side);
+  if (scoreAfter.home === scoreAfter.away) {
+    return `帮助${teamName}扳平比分`;
+  }
+  if (scoreBefore.home === scoreBefore.away) {
+    return `让${teamName}取得领先`;
+  }
+  if (scoreBefore[goal.side] < scoreBefore[opponentSide]) {
+    return `帮助${teamName}缩小差距`;
+  }
+  if (scoreAfter[goal.side] - scoreAfter[opponentSide] === 2) {
+    return `将${teamName}的领先优势扩大到两球`;
+  }
+  return `把比分改写为${scoreAfter.home}比${scoreAfter.away}`;
+}
+
+function detailedZhGoalRows(fixture, teamsById, goals) {
+  const score = { home: 0, away: 0 };
+  return goals.map((goal) => {
+    const before = { ...score };
+    score[goal.side] += 1;
+    const after = { ...score };
+    return {
+      goal,
+      before,
+      after,
+      text: `${zhGoalAction(goal)}，${zhGoalOutcome(goal, before, after, fixture, teamsById)}`
+    };
+  });
+}
+
+function detailedZhTextureBullet(fixture, teamsById, goals) {
+  const events = currentMatchEvents(fixture);
+  const reds = events.filter((event) => event.kind === "card" && event.type === "red");
+  if (reds.length) {
+    const details = reds.map((event) => {
+      const team = zhTeamName(fixture, teamsById, event.side);
+      return `${team}的${zhPlayerName(event.playerName)}在第${event.minute}分钟`;
+    });
+    return `${details.join("，")}被罚下`;
+  }
+
+  const scorerSub = events.find((event) =>
+    event.kind === "substitution" && goals.some((goal) => !goal.ownGoal && goal.name === event.onName)
+  );
+  if (scorerSub) {
+    const goal = goals.find((row) => !row.ownGoal && row.name === scorerSub.onName);
+    return `${zhPlayerName(scorerSub.onName)}在第${scorerSub.minute}分钟替补登场，并${zhGoalMinute(goal) ? `在${zhGoalMinute(goal)}` : "随后"}破门`;
+  }
+
+  const topAssist = assistCounts(goals, goals.at(-1)?.side);
+  if (topAssist?.[1]?.length >= 2) {
+    const teamName = zhTeamName(fixture, teamsById, goals.at(-1).side);
+    return `${zhPlayerName(topAssist[0])}为${teamName}的${topAssist[1].length}个进球送出助攻`;
+  }
+  return "";
+}
+
+function zhScorelessStoryBullets(fixture, teamsById) {
+  const homeName = zhTeamName(fixture, teamsById, "home");
+  const awayName = zhTeamName(fixture, teamsById, "away");
+  const homeFormation = fixture.matchEvents?.home?.formation;
+  const awayFormation = fixture.matchEvents?.away?.formation;
+  const bullets = [];
+  addZhStoryBullet(
+    bullets,
+    homeFormation && awayFormation
+      ? `${homeName}的${homeFormation}阵型与${awayName}的${awayFormation}阵型在上半场相互抵消`
+      : `${homeName}与${awayName}在上半场均未能打破僵局`
+  );
+  const substitution = currentMatchEvents(fixture)
+    .filter((event) => event.kind === "substitution" && Number.isFinite(Number(event.minute)))
+    .sort((a, b) => Number(a.minute) - Number(b.minute))[0];
+  if (substitution) {
+    const teamName = zhTeamName(fixture, teamsById, substitution.side);
+    addZhStoryBullet(
+      bullets,
+      `${teamName}在第${substitution.minute}分钟率先调整进攻，换上${zhPlayerName(substitution.onName)}，但僵局依旧`
+    );
+  }
+  addZhStoryBullet(bullets, `${homeName}与${awayName}最终0比0战平`);
+  return bullets.slice(0, 3);
+}
+
+function zhKnockoutResultContext(fixture, teamsById) {
+  const score = { home: scoreNumber(fixture.score?.home), away: scoreNumber(fixture.score?.away) };
+  const side = winnerSide(score);
+  if (!side) {
+    return "";
+  }
+  const winner = zhTeamName(fixture, teamsById, side);
+  const scoreText = side === "home" ? `${score.home}比${score.away}` : `${score.away}比${score.home}`;
+  const round = String(fixture.round || "").toLowerCase();
+  const nextRound = round.includes("round-of-32") ? "16强"
+    : round.includes("round-of-16") ? "八强"
+      : round.includes("quarter") ? "半决赛"
+        : round.includes("semi") ? "决赛"
+          : "下一轮";
+  return `${winner}以${scoreText}晋级${nextRound}`;
+}
+
+function zhGroupResultContext(fixture, teamsById) {
+  const score = { home: scoreNumber(fixture.score?.home), away: scoreNumber(fixture.score?.away) };
+  const side = winnerSide(score);
+  if (!side) {
+    return `${zhTeamName(fixture, teamsById, "home")}与${zhTeamName(fixture, teamsById, "away")}各取一分`;
+  }
+  return `${zhTeamName(fixture, teamsById, side)}凭借这场胜利拿到三分`;
+}
+
+function detailedZhShootoutStoryBullets(fixture, teamsById, goals) {
+  const bullets = goals.length
+    ? buildDetailedCurrentStoryBulletsZh({ ...fixture, scoreDetails: undefined }, teamsById)
+    : zhScorelessStoryBullets(fixture, teamsById);
+  const winnerSideValue = penaltyWinnerSide(fixture, teamsById);
+  const winner = zhTeamName(fixture, teamsById, winnerSideValue);
+  const penaltyScore = scorePairForSide(fixture.scoreDetails?.penalties, winnerSideValue).replace("-", "比");
+  const regulationScore = `${fixture.score.home}比${fixture.score.away}`;
+  const shootoutLine = penaltyScore
+    ? `加时赛后仍是${regulationScore}，${winner}在点球大战中以${penaltyScore}获胜`
+    : `加时赛后仍是${regulationScore}，${winner}通过点球大战晋级`;
+  return [...bullets.slice(0, 2), `${shootoutLine}。`].slice(0, 3);
+}
+
+function middleZhGoalStory(rows, fixture, teamsById) {
+  const middle = rows.slice(1, -1);
+  if (!middle.length) {
+    return "";
+  }
+  if (middle.length === 1) {
+    return middle[0].text;
+  }
+
+  const scorerGroups = new Map();
+  for (const row of middle) {
+    if (row.goal.ownGoal) {
+      continue;
+    }
+    const list = scorerGroups.get(row.goal.name) || [];
+    list.push(row);
+    scorerGroups.set(row.goal.name, list);
+  }
+  const repeatScorer = [...scorerGroups.entries()].sort((a, b) => b[1].length - a[1].length)[0];
+  if (repeatScorer?.[1]?.length >= 2) {
+    const [name, scorerRows] = repeatScorer;
+    const lastScorerRow = scorerRows.at(-1);
+    const teamName = zhTeamName(fixture, teamsById, scorerRows[0].goal.side);
+    const minutes = scorerRows.map((row) => zhGoalMinute(row.goal)).join("和");
+    return `${zhPlayerName(name)}在${minutes}连续破门，帮助${teamName}将比分拉开到${lastScorerRow.after.home}比${lastScorerRow.after.away}`;
+  }
+
+  const equalizer = middle.find((row) => row.after.home === row.after.away);
+  if (equalizer) {
+    const answer = middle[middle.indexOf(equalizer) + 1];
+    if (answer) {
+      const answerTeam = zhTeamName(fixture, teamsById, answer.goal.side);
+      return `${zhPlayerName(equalizer.goal.name)}在${zhGoalMinute(equalizer.goal)}扳平比分，但${zhPlayerName(answer.goal.name)}在${zhGoalMinute(answer.goal)}帮助${answerTeam}再次领先`;
+    }
+    return equalizer.text;
+  }
+
+  const first = middle[0];
+  const last = middle.at(-1);
+  const firstName = first.goal.ownGoal ? `${zhGoalMinute(first.goal)}的乌龙球` : zhPlayerName(first.goal.name);
+  const lastName = last.goal.ownGoal ? `${zhGoalMinute(last.goal)}的乌龙球` : zhPlayerName(last.goal.name);
+  return `${firstName}与${lastName}分别在${zhGoalMinute(first.goal)}和${zhGoalMinute(last.goal)}破门，比分从${rows[0].after.home}比${rows[0].after.away}来到${last.after.home}比${last.after.away}`;
+}
+
+function oneGoalZhTextureBullet(fixture, teamsById, goal) {
+  const score = { home: scoreNumber(fixture.score?.home), away: scoreNumber(fixture.score?.away) };
+  const side = winnerSide(score);
+  if (!side) {
+    return "";
+  }
+  const winner = zhTeamName(fixture, teamsById, side);
+  const loser = zhTeamName(fixture, teamsById, otherSide(side));
+  const minute = Number(goal?.minute);
+  if (minute >= 90) {
+    return `${zhPlayerName(goal.name)}在补时阶段破门，没有给${loser}留下回应时间`;
+  }
+  return `${winner}在余下${Math.max(0, 90 - minute)}分钟守住领先，并零封${loser}`;
+}
+
+function buildDetailedCurrentStoryBulletsZh(fixture, teamsById) {
+  const goals = goalEvents(fixture, teamsById);
+  if (fixture.scoreDetails?.penalties) {
+    return detailedZhShootoutStoryBullets(fixture, teamsById, goals);
+  }
+  if (!goals.length) {
+    return zhScorelessStoryBullets(fixture, teamsById);
+  }
+
+  const rows = detailedZhGoalRows(fixture, teamsById, goals);
+  const bullets = [];
+  if (rows.length <= 3) {
+    for (const row of rows) {
+      addZhStoryBullet(bullets, row.text);
+    }
+  } else {
+    addZhStoryBullet(bullets, rows[0].text);
+    addZhStoryBullet(bullets, middleZhGoalStory(rows, fixture, teamsById));
+    addZhStoryBullet(bullets, rows.at(-1).text);
+  }
+
+  const texture = detailedZhTextureBullet(fixture, teamsById, goals);
+  if (bullets.length < 3 && texture) {
+    addZhStoryBullet(bullets, texture);
+  }
+  if (bullets.length < 3 && goals.length === 1) {
+    addZhStoryBullet(bullets, oneGoalZhTextureBullet(fixture, teamsById, goals[0]));
+  }
+  if (bullets.length < 3) {
+    addZhStoryBullet(
+      bullets,
+      isGroupResultFixture(fixture)
+        ? zhGroupResultContext(fixture, teamsById)
+        : zhKnockoutResultContext(fixture, teamsById)
+    );
+  }
+  return bullets.slice(0, 3);
+}
+
+function hasGeneratedCurrentStoryBullets(fixture) {
+  return (fixture.resultStoryBullets || []).some((bullet) =>
+    /finished .+ pass in the|set up .+ for a finish|struck (?:in|at) the?|supplied the middle goals|traded the middle blows|first attacking change|cancelled each other out through halftime|own goal,/i.test(String(bullet || ""))
+  );
 }
 
 function alignChineseStoryBullets(fixture, bullets) {
@@ -1146,20 +1695,24 @@ for (const fixture of finishedFixtures) {
   }
 
   if (hasStoryBullets && !overwrite) {
+    const needsDetailedRefresh =
+      (refreshWeakStories && hasWeakCurrentStoryBullets(fixture)) ||
+      (rebuildGeneratedCurrentStories && hasGeneratedCurrentStoryBullets(fixture));
     if (
       hasOutOfOrderStoryMinutes(fixture) ||
-      (refreshWeakStories && (hasWeakCurrentStoryBullets(fixture) || needsShootoutTextureRefresh(fixture)))
+      needsDetailedRefresh ||
+      (refreshWeakStories && needsShootoutTextureRefresh(fixture))
     ) {
       const existingBullets = fixture.resultStoryBullets.filter((highlight) => typeof highlight === "string" && highlight.trim());
       const strongExistingBullets = existingBullets.filter((highlight) => !isWeakCurrentStoryBullet(highlight));
       fixture.resultStoryBullets =
-        hasOutOfOrderStoryMinutes(fixture) || fixture.scoreDetails?.penalties || strongExistingBullets.length < 2
-          ? buildStoryBullets(fixture, teamsById)
+        needsDetailedRefresh
+          ? buildDetailedCurrentStoryBullets(fixture, teamsById)
+          : hasOutOfOrderStoryMinutes(fixture) || fixture.scoreDetails?.penalties || strongExistingBullets.length < 2
+            ? buildDetailedCurrentStoryBullets(fixture, teamsById)
           : strongExistingBullets.slice(0, 3);
-      if (!hasZhStoryBullets) {
-        fixture.resultStoryBulletsZh = buildStoryBulletsZh(fixture, teamsById);
-        currentZhStoryPopulated += 1;
-      }
+      fixture.resultStoryBulletsZh = buildDetailedCurrentStoryBulletsZh(fixture, teamsById);
+      currentZhStoryPopulated += 1;
       storyPopulated += 1;
       continue;
     }
@@ -1174,9 +1727,9 @@ for (const fixture of finishedFixtures) {
     continue;
   }
 
-  fixture.resultStoryBullets = buildStoryBullets(fixture, teamsById);
+  fixture.resultStoryBullets = buildDetailedCurrentStoryBullets(fixture, teamsById);
   if (overwrite || !hasZhStoryBullets) {
-    fixture.resultStoryBulletsZh = buildStoryBulletsZh(fixture, teamsById);
+    fixture.resultStoryBulletsZh = buildDetailedCurrentStoryBulletsZh(fixture, teamsById);
     currentZhStoryPopulated += 1;
   }
   storyPopulated += 1;
@@ -1193,7 +1746,7 @@ if (syncChineseStories) {
     if (!needsStructuredSync) {
       continue;
     }
-    const next = alignChineseStoryBullets(fixture, buildStoryBulletsZh(fixture, teamsById));
+    const next = alignChineseStoryBullets(fixture, buildDetailedCurrentStoryBulletsZh(fixture, teamsById));
     if (JSON.stringify(existing) === JSON.stringify(next)) {
       continue;
     }

@@ -1,12 +1,13 @@
 import { ZH_CLUB_NAME_TRANSLATIONS, ZH_LEAGUE_NAME_TRANSLATIONS, ZH_PLAYER_NAME_TRANSLATIONS } from "./football-locale-zh.js?v=2026-07-13-locale-2";
 
-const BALL_BOY_DATA_VERSION = "2026-07-14-country-matchup-intents";
+const BALL_BOY_DATA_VERSION = "2026-07-14-team-style-profiles-1";
 const BALL_BOY_DATA_URLS = {
   chatbotH2h: `data/chatbot-h2h.json?v=${BALL_BOY_DATA_VERSION}`,
   fixtures: `data/fixtures.json?v=${BALL_BOY_DATA_VERSION}`,
   liveData: `api/live-data?v=${BALL_BOY_DATA_VERSION}`,
   playerProfiles: `data/player-profiles.json?v=${BALL_BOY_DATA_VERSION}`,
   standings: `data/standings.json?v=${BALL_BOY_DATA_VERSION}`,
+  teamStyleProfiles: `data/team-style-profiles.json?v=${BALL_BOY_DATA_VERSION}`,
   teams: `data/teams.json?v=${BALL_BOY_DATA_VERSION}`
 };
 
@@ -725,11 +726,13 @@ let teamsPromise = null;
 let fixturesPromise = null;
 let chatbotH2hPromise = null;
 let standingsPromise = null;
+let teamStyleProfilesPromise = null;
 let profilesPromise = null;
 let teamsCache = [];
 let fixturesCache = [];
 let chatbotH2hCache = {};
 let standingsCache = {};
+let teamStyleProfilesCache = {};
 let teamAliasEntries = [];
 let playerIndexCache = null;
 let liveRefreshPromise = null;
@@ -1100,6 +1103,16 @@ async function loadStandings() {
   return standingsPromise;
 }
 
+async function loadTeamStyleProfiles() {
+  if (!teamStyleProfilesPromise) {
+    teamStyleProfilesPromise = loadJson(BALL_BOY_DATA_URLS.teamStyleProfiles, { profiles: {} }).then((data) => {
+      teamStyleProfilesCache = data?.profiles && typeof data.profiles === "object" ? data.profiles : {};
+      return teamStyleProfilesCache;
+    });
+  }
+  return teamStyleProfilesPromise;
+}
+
 function getProfileAliases(profile) {
   return [
     profile?.name,
@@ -1192,17 +1205,21 @@ async function loadProfiles() {
 }
 
 async function loadCoreData() {
-  const [teams, fixtures, standings, chatbotH2h] = await Promise.all([
+  const [teams, fixtures, standings, chatbotH2h, teamStyleProfiles] = await Promise.all([
     loadTeams(),
     loadFixtures(),
     loadStandings(),
-    loadChatbotH2h()
+    loadChatbotH2h(),
+    loadTeamStyleProfiles()
   ]);
   await refreshFixturesFromLiveData();
   return {
     fixtures: fixturesCache.length ? fixturesCache : fixtures,
     chatbotH2h: Object.keys(chatbotH2hCache).length ? chatbotH2hCache : chatbotH2h,
     standings: Object.keys(standingsCache).length ? standingsCache : standings,
+    teamStyleProfiles: Object.keys(teamStyleProfilesCache).length
+      ? teamStyleProfilesCache
+      : teamStyleProfiles,
     teams,
     teamsById: new Map(teams.map((team) => [team.id, team]))
   };
@@ -1729,7 +1746,26 @@ function buildPlayerReply(profile, team, fixtures, question, locale = "en") {
   };
 }
 
-function getTeamStyleSummary(team, locale = "en") {
+function getTeamStyleSummary(team, styleProfiles = {}, locale = "en") {
+  const profile = styleProfiles?.[team?.id];
+  const toSentence = (value, ending = ".") => {
+    const sentence = String(value || "").trim();
+    return !sentence || /[.!?。！？]$/.test(sentence) ? sentence : `${sentence}${ending}`;
+  };
+  if (isZhLocale(locale) && profile?.planZh) {
+    return [
+      toSentence(profile.planZh, "。"),
+      profile.defensiveTaskZh ? `无球时，他们最需要${toSentence(profile.defensiveTaskZh, "。")}` : ""
+    ].filter(Boolean).join("");
+  }
+  if (!isZhLocale(locale) && profile?.plan) {
+    return [
+      toSentence(profile.plan),
+      profile.defensiveTask
+        ? `Without the ball, their priority is ${toSentence(profile.defensiveTask)}`
+        : ""
+    ].filter(Boolean).join(" ");
+  }
   const text = normalizeBallBoyText([team?.tagline, ...(team?.styleTags || [])].join(" "));
   if (isZhLocale(locale)) {
     let setup = "他们会有目的地把球向前推进";
@@ -1977,7 +2013,7 @@ function buildCountryReply(team, core, question, locale = "en") {
       ? `${localizedTeam.name}本届世界杯踢了${record.played}场，赢下${record.wins}场。${record.shootoutAdvances || record.shootoutExits ? "点球大战在胜平负统计中按平局计算。" : ""}`
       : `${team.name} have won ${record.wins} of ${record.played} matches at this World Cup.${shootoutNote}`;
   } else if (asksStyle) {
-    lead = getTeamStyleSummary(team, locale);
+    lead = getTeamStyleSummary(team, core.teamStyleProfiles, locale);
   } else {
     lead = isZh
       ? `${localizedTeam.name}踢了${record.played}场：${record.wins}胜、${record.draws}平、${record.losses}负，进${record.goalsFor}球、失${record.goalsAgainst}球。`
@@ -2003,7 +2039,7 @@ function buildCountryReply(team, core, question, locale = "en") {
   }
 
   return {
-    beginnerStyle: getTeamStyleSummary(team, locale),
+    beginnerStyle: getTeamStyleSummary(team, core.teamStyleProfiles, locale),
     focus,
     followUps: followUps.slice(0, 3),
     groupStanding: getTeamGroupStanding(team, core.standings),

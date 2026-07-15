@@ -11,7 +11,7 @@ const weakCurrentStoryPattern =
 const weakHistoricalStoryPattern =
   /\b(?:won the shootout \d+-\d+ after a \d+-\d+ draw|survived the shootout after a \d+-\d+ draw|exited after penalties kept|stayed close enough to keep the final minutes tense|stayed locked together until the final whistle|got the decisive details right in a match that stayed tight|closed the result without needing another late twist)\b/i;
 const repeatedGenericCurrentStoryPattern =
-  /\b(?:chase the match|pulled away|trading momentum|rescued a point|settled a tight match|traded pressure without finding a goal|both defenses kept the scoring lanes closed|made .+ sweat|later chances finally turned|scored their final goal)\b|\b(?:United States|Netherlands)'s\b/i;
+  /\b(?:chase the match|pulled away|trading momentum|rescued a point|settled a tight match|traded pressure without finding a goal|both defenses kept the scoring lanes closed|made .+ sweat|later chances finally turned|opened (?:the )?scoring|scored their final goal|scored .+ final goal|beat .+ \d+-\d+|drew \d+-\d+)\b|\b(?:United States|Netherlands)'s\b/i;
 const storyScaffoldPunctuationPattern = /[:\u2013\u2014]|\s-\s/;
 const ambiguousVenueShorthandPattern = /\bthe (?:Azteca|Maracan(?:a|\u00e3)|Bernab(?:e|\u00e9)u|San Siro)\b/i;
 

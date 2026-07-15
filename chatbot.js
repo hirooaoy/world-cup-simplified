@@ -4,7 +4,7 @@ import {
   preloadBallBoyCore,
   rememberBallBoyReply,
   resetBallBoyContext
-} from "./chatbot-knowledge.js?v=2026-07-14-ball-boy-form-3";
+} from "./chatbot-knowledge.js?v=2026-07-14-team-style-profiles-1";
 
 const SCOUT_PUPIL_TRAVEL = 3.6;
 const SCOUT_REPLY_DELAY_MS = 650;

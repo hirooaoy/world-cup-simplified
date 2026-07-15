@@ -7887,10 +7887,6 @@ button.lineup-event-sub,
     justify-self: stretch;
   }
 
-  #matches-view.has-team-search-query.has-match-info .match-info {
-    order: -1;
-  }
-
   #matches-view.is-yesterday-suppressed.has-match-info .match-info {
     margin-top: 0;
   }

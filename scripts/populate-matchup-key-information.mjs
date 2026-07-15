@@ -9,6 +9,7 @@ const dataDir = path.join(root, "data");
 const fixturesPath = path.join(dataDir, "fixtures.json");
 const matchupResearchPath = path.join(dataDir, "matchup-research-notes.json");
 const playerAvailabilityPath = path.join(dataDir, "player-availability.json");
+const teamStyleProfilesPath = path.join(dataDir, "team-style-profiles.json");
 const teamsPath = path.join(dataDir, "teams.json");
 
 const sourceId = "editorial-preview-2026-06-22";
@@ -26,10 +27,12 @@ const profiles = {
   ARG: {
     summary: "are the defending champions and still one of the most complete tournament teams",
     leaderRole: "giving them between-lines creation, pressing, and midfield control",
-    plan: "They can play with patience, but Lionel Messi's between-lines gravity, Julian Alvarez's running, and Enzo Fernandez's passing also let them turn pressure into fast attacks.",
+    plan: "Argentina can keep the ball patiently, but they become much quicker after winning it. Julián Álvarez leads the press, Lionel Messi finds space behind midfield, and Enzo Fernández changes the angle with forward passes.",
+    planZh: "阿根廷可以耐心控球，但一旦夺回球权就会迅速提速。胡利安·阿尔瓦雷斯负责带动逼抢，梅西寻找对方中场身后的空间，恩佐·费尔南德斯则用向前传球改变进攻角度。",
     attackPlan: "press high through Alvarez, find Messi in space behind midfield, and let Enzo Fernandez change the angle of the attack",
     matchupWin: "keep possession without losing pressure after turnovers",
     defensiveTask: "closing central counters before they reach Emiliano Martinez's box",
+    defensiveTaskZh: "阻止对手摆脱第一层逼抢后从中路快速反击",
     threat: "turn one midfield win into Messi touches, Alvarez movement, and Enzo service"
   },
   AUS: {
@@ -752,5 +755,27 @@ fixturesData.fixtures = fixturesData.fixtures.map((fixture) => {
   return fixture;
 });
 
-await writeFile(fixturesPath, `${JSON.stringify(fixturesData, null, 2)}\n`);
-console.log(`Populated ${populated} matchup-specific key information blurbs.`);
+const teamStyleProfilesData = {
+  generatedBy: "scripts/populate-matchup-key-information.mjs",
+  sourceId,
+  profiles: Object.fromEntries(
+    Object.entries(profiles).map(([teamId, profile]) => [
+      teamId,
+      {
+        summary: profile.summary,
+        plan: profile.plan,
+        ...(profile.planZh ? { planZh: profile.planZh } : {}),
+        attackPlan: profile.attackPlan,
+        matchupWin: profile.matchupWin,
+        defensiveTask: profile.defensiveTask,
+        ...(profile.defensiveTaskZh ? { defensiveTaskZh: profile.defensiveTaskZh } : {})
+      }
+    ])
+  )
+};
+
+await Promise.all([
+  writeFile(fixturesPath, `${JSON.stringify(fixturesData, null, 2)}\n`),
+  writeFile(teamStyleProfilesPath, `${JSON.stringify(teamStyleProfilesData, null, 2)}\n`)
+]);
+console.log(`Populated ${populated} matchup blurbs and ${Object.keys(profiles).length} shared team style profiles.`);
