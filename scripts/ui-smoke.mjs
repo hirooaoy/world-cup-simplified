@@ -6583,7 +6583,21 @@ try {
   const desktopSearchRevealCheck = await openPageAtTime(
     "2026-07-14T23:00:00.000Z",
     "/?view=matches&team=Spain&tz=America%2FLos_Angeles",
-    { contextOptions: { viewport: { width: 1440, height: 800 } } }
+    {
+      contextOptions: { viewport: { width: 1440, height: 800 } },
+      initScript: () => {
+        const realSetInterval = window.setInterval.bind(window);
+        let capturedScheduledRender = false;
+        window.setInterval = (handler, timeout, ...args) => {
+          if (!capturedScheduledRender && Number(timeout) === 60_000) {
+            capturedScheduledRender = true;
+            window.__runScheduledMatchRender = () => handler(...args);
+            return 2_147_483_646;
+          }
+          return realSetInterval(handler, timeout, ...args);
+        };
+      }
+    }
   );
   await desktopSearchRevealCheck.page.locator('[data-team-history-toggle="true"]').click();
   const finalSpainArchiveRow = desktopSearchRevealCheck.page
@@ -6595,6 +6609,13 @@ try {
   );
   await finalSpainArchiveRow.locator(".match-row-trigger").click({
     position: { x: 8, y: 8 }
+  });
+  await desktopSearchRevealCheck.page.waitForFunction(() => {
+    const info = document.querySelector("#match-info");
+    return !info?.hidden && info?.clientHeight > 0 && info.scrollHeight > info.clientHeight;
+  });
+  await desktopSearchRevealCheck.page.evaluate(() => {
+    window.__runScheduledMatchRender?.();
   });
   await desktopSearchRevealCheck.page.waitForFunction(() => {
     const info = document.querySelector("#match-info");
@@ -7810,17 +7831,26 @@ try {
     await tournamentShowNextFloatingCheck.page.evaluate(() => {
       window.dispatchEvent(new Event("resize"));
     });
-    await tournamentShowNextFloatingCheck.page.waitForTimeout(80);
+    await tournamentShowNextFloatingCheck.page.waitForTimeout(450);
     const tournamentShowNextFloatingState = await tournamentShowNextFloatingCheck.page.evaluate(() => {
       const button = document.querySelector(".tournament-show-next-button");
+      const ballBoy = document.querySelector(".scout-widget");
       const progression = document.querySelector(".tournament-progression");
       const rect = button?.getBoundingClientRect();
+      const ballBoyRect = ballBoy?.getBoundingClientRect();
       const style = button ? getComputedStyle(button) : null;
       const rootStyle = getComputedStyle(document.documentElement);
       const viewportBottom =
         (window.visualViewport?.offsetTop || 0) + (window.visualViewport?.height || window.innerHeight);
 
       return {
+        ballBoyBottom: ballBoyRect ? Math.round(ballBoyRect.bottom) : null,
+        ballBoyClearsButton: Boolean(
+          ballBoyRect && rect && ballBoyRect.bottom <= rect.top - 10
+        ),
+        ballBoyHasAvoidance: Boolean(ballBoy?.classList.contains("has-tournament-show-next")),
+        ballBoyObstacleBottom:
+          ballBoy?.style.getPropertyValue("--scout-obstacle-bottom") || "",
         bottomGapToLayoutViewport: rect ? Math.round(window.innerHeight - rect.bottom) : null,
         bottomGapToVisualViewport: rect ? Math.round(viewportBottom - rect.bottom) : null,
         buttonInsideProgression: Boolean(button?.closest(".tournament-progression")),
@@ -7837,6 +7867,9 @@ try {
     });
     assert(
       tournamentShowNextFloatingState.label === "Show next" &&
+        tournamentShowNextFloatingState.ballBoyClearsButton &&
+        tournamentShowNextFloatingState.ballBoyHasAvoidance &&
+        Boolean(tournamentShowNextFloatingState.ballBoyObstacleBottom) &&
         nextScheduledKnockoutMatchNumbers.includes(tournamentShowNextFloatingState.targetMatchNumber) &&
         tournamentShowNextFloatingState.buttonParentClass.includes("tournament-view") &&
         !tournamentShowNextFloatingState.buttonInsideProgression &&
@@ -7850,6 +7883,105 @@ try {
         tournamentShowNextFloatingState.rightGap >= 10 &&
         tournamentShowNextFloatingState.rightGap <= 18,
       `Mobile Show next should float from the page bottom-right, outside the bracket canvas, and clear bottom browser chrome. Measured ${JSON.stringify(tournamentShowNextFloatingState)}.`
+    );
+
+    await tournamentShowNextFloatingCheck.page.click("#matches-tab");
+    await tournamentShowNextFloatingCheck.page.waitForTimeout(80);
+    const ballBoyAfterTournamentState = await tournamentShowNextFloatingCheck.page.evaluate(() => {
+      const ballBoy = document.querySelector(".scout-widget");
+      const rect = ballBoy?.getBoundingClientRect();
+      return {
+        bottomGap: rect ? Math.round(window.innerHeight - rect.bottom) : null,
+        hasAvoidance: Boolean(ballBoy?.classList.contains("has-tournament-show-next")),
+        obstacleBottom: ballBoy?.style.getPropertyValue("--scout-obstacle-bottom") || "",
+        standingsHidden: Boolean(document.querySelector("#standings-view")?.hidden)
+      };
+    });
+    assert(
+      ballBoyAfterTournamentState.standingsHidden &&
+        !ballBoyAfterTournamentState.hasAvoidance &&
+        ballBoyAfterTournamentState.obstacleBottom === "" &&
+        ballBoyAfterTournamentState.bottomGap >= 10 &&
+        ballBoyAfterTournamentState.bottomGap <= 14,
+      `Closed Ball Boy should snap back to its normal mobile bottom edge as soon as Tournament is hidden. Measured ${JSON.stringify(ballBoyAfterTournamentState)}.`
+    );
+
+    await tournamentShowNextFloatingCheck.page.click("#scout-launcher");
+    await tournamentShowNextFloatingCheck.page.waitForSelector(".scout-widget.is-open");
+    await tournamentShowNextFloatingCheck.page.evaluate(() => {
+      Object.defineProperty(window, "visualViewport", {
+        configurable: true,
+        value: {
+          addEventListener() {},
+          removeEventListener() {},
+          get height() {
+            return Math.max(0, window.innerHeight - 112);
+          },
+          get offsetTop() {
+            return 0;
+          },
+          get pageLeft() {
+            return window.scrollX;
+          },
+          get pageTop() {
+            return window.scrollY;
+          },
+          get scale() {
+            return 1;
+          },
+          get width() {
+            return window.innerWidth;
+          }
+        }
+      });
+      window.dispatchEvent(new Event("resize"));
+    });
+    await tournamentShowNextFloatingCheck.page.waitForFunction(() => {
+      const ballBoy = document.querySelector(".scout-widget");
+      return (
+        Number.parseFloat(ballBoy?.style.getPropertyValue("--scout-visual-bottom-inset") || "0") >= 100
+      );
+    });
+    const ballBoyOpenViewportState = await tournamentShowNextFloatingCheck.page.evaluate(() => {
+      const ballBoy = document.querySelector(".scout-widget");
+      return {
+        innerHeight: window.innerHeight,
+        visualHeight: window.visualViewport?.height || 0,
+        visualOffsetTop: window.visualViewport?.offsetTop || 0,
+        visualBottomInset: Math.round(
+          Number.parseFloat(
+            ballBoy?.style.getPropertyValue("--scout-visual-bottom-inset") || "0"
+          ) || 0
+        )
+      };
+    });
+    assert(
+      ballBoyOpenViewportState.visualBottomInset >= 100,
+      `Open mobile Ball Boy should still follow the reduced visual viewport. Measured ${JSON.stringify(ballBoyOpenViewportState)}.`
+    );
+
+    await tournamentShowNextFloatingCheck.page.click("#scout-close");
+    await tournamentShowNextFloatingCheck.page.waitForTimeout(80);
+    const ballBoyAfterCloseState = await tournamentShowNextFloatingCheck.page.evaluate(() => {
+      const ballBoy = document.querySelector(".scout-widget");
+      const rect = ballBoy?.getBoundingClientRect();
+      return {
+        bottomGap: rect ? Math.round(window.innerHeight - rect.bottom) : null,
+        isKeyboardOpen: Boolean(ballBoy?.classList.contains("is-keyboard-open")),
+        isOpen: Boolean(ballBoy?.classList.contains("is-open")),
+        visualBottomInset:
+          ballBoy?.style.getPropertyValue("--scout-visual-bottom-inset") || "",
+        visualHeight: ballBoy?.style.getPropertyValue("--scout-visual-height") || ""
+      };
+    });
+    assert(
+      !ballBoyAfterCloseState.isOpen &&
+        !ballBoyAfterCloseState.isKeyboardOpen &&
+        ballBoyAfterCloseState.visualBottomInset === "" &&
+        ballBoyAfterCloseState.visualHeight === "" &&
+        ballBoyAfterCloseState.bottomGap >= 10 &&
+        ballBoyAfterCloseState.bottomGap <= 14,
+      `Closed Ball Boy should immediately discard the mobile visual-viewport offset. Measured ${JSON.stringify(ballBoyAfterCloseState)}.`
     );
     await tournamentShowNextFloatingCheck.context.close();
 

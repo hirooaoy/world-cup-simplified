@@ -24877,8 +24877,13 @@ function renderTeamSearchResults(options = {}) {
     nodes.push(createOlderWorldCupsToggle(olderWorldCupMatches.length));
   }
 
+  const activeSearchMatch = searchMatches.find(({ match }) => match.id === activeMatchId)?.match || null;
   matchList.replaceChildren(...nodes);
-  ensureMatchInfoPrompt();
+  if (activeSearchMatch) {
+    renderMatchInfo(activeSearchMatch);
+  } else {
+    ensureMatchInfoPrompt();
+  }
   updateWrappedMatchRows(matchList);
   updateTruncatedTeamTooltips(matchList);
   updateTooltipBounds(matchList);
