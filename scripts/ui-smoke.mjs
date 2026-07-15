@@ -12631,6 +12631,53 @@ try {
       initialBallBoySheetState.height <= 456,
     `Ball Boy should open as a medium mobile sheet without summoning the keyboard. Measured ${JSON.stringify(initialBallBoySheetState)}.`
   );
+  const ballBoyClosedHeaderLayerState = await touchPage.evaluate(() => {
+    const catchUpButton = document.querySelector("#catch-up-button");
+    const settingsButton = document.querySelector("#settings-button");
+    const widget = document.querySelector("#scout-widget");
+    return {
+      catchUpButtonLayer: Number.parseInt(getComputedStyle(catchUpButton).zIndex, 10),
+      settingsButtonLayer: Number.parseInt(getComputedStyle(settingsButton).zIndex, 10),
+      widgetLayer: Number.parseInt(getComputedStyle(widget).zIndex, 10)
+    };
+  });
+  assert(
+    ballBoyClosedHeaderLayerState.catchUpButtonLayer < ballBoyClosedHeaderLayerState.widgetLayer &&
+      ballBoyClosedHeaderLayerState.settingsButtonLayer < ballBoyClosedHeaderLayerState.widgetLayer,
+    `Ball Boy should cover the closed Catch Up and Settings buttons. Measured ${JSON.stringify(ballBoyClosedHeaderLayerState)}.`
+  );
+  await touchPage.evaluate(() => document.querySelector("#settings-button")?.click());
+  const ballBoyOpenHeaderLayerState = await touchPage.evaluate(() => {
+    const settingsPopover = document.querySelector("#settings-popover");
+    const widget = document.querySelector("#scout-widget");
+    return {
+      popoverLayer: Number.parseInt(getComputedStyle(settingsPopover).zIndex, 10),
+      settingsVisible: !settingsPopover?.classList.contains("is-hidden"),
+      widgetLayer: Number.parseInt(getComputedStyle(widget).zIndex, 10)
+    };
+  });
+  assert(
+    ballBoyOpenHeaderLayerState.settingsVisible &&
+      ballBoyOpenHeaderLayerState.popoverLayer > ballBoyOpenHeaderLayerState.widgetLayer,
+    `An open header popover should still sit above Ball Boy. Measured ${JSON.stringify(ballBoyOpenHeaderLayerState)}.`
+  );
+  await touchPage.evaluate(() => document.querySelector("#settings-button")?.click());
+  await touchPage.evaluate(() => document.querySelector("#catch-up-button")?.click());
+  const ballBoyOpenCatchUpLayerState = await touchPage.evaluate(() => {
+    const catchUpPopover = document.querySelector("#catch-up-popover");
+    const widget = document.querySelector("#scout-widget");
+    return {
+      popoverLayer: Number.parseInt(getComputedStyle(catchUpPopover).zIndex, 10),
+      catchUpVisible: !catchUpPopover?.classList.contains("is-hidden"),
+      widgetLayer: Number.parseInt(getComputedStyle(widget).zIndex, 10)
+    };
+  });
+  assert(
+    ballBoyOpenCatchUpLayerState.catchUpVisible &&
+      ballBoyOpenCatchUpLayerState.popoverLayer > ballBoyOpenCatchUpLayerState.widgetLayer,
+    `An open Catch Up popover should still sit above Ball Boy. Measured ${JSON.stringify(ballBoyOpenCatchUpLayerState)}.`
+  );
+  await touchPage.evaluate(() => document.querySelector("#catch-up-button")?.click());
   const ballBoyKeyboardState = await touchPage.evaluate(async () => {
     const viewport = window.visualViewport;
     if (!viewport) {
@@ -12654,10 +12701,13 @@ try {
         activeInput: document.activeElement?.id === "scout-input",
         composerBottom: composer?.bottom || 0,
         keyboardClass: document.querySelector("#scout-widget")?.classList.contains("is-keyboard-open") || false,
+        leftGap: widget?.left || 0,
+        rightGap: window.innerWidth - (widget?.right || 0),
         supported: true,
         visualBottom: viewport.offsetTop + viewport.height,
         widgetBottom: widget?.bottom || 0,
-        widgetTop: widget?.top || 0
+        widgetTop: widget?.top || 0,
+        widgetWidth: widget?.width || 0
       };
     } finally {
       delete viewport.height;
@@ -12679,6 +12729,9 @@ try {
       ballBoyKeyboardState.widgetTop >= 0 &&
       ballBoyKeyboardState.widgetBottom <= ballBoyKeyboardState.visualBottom + 1 &&
       ballBoyKeyboardState.composerBottom <= ballBoyKeyboardState.visualBottom + 1 &&
+      Math.abs(ballBoyKeyboardState.leftGap - 12) <= 1 &&
+      Math.abs(ballBoyKeyboardState.rightGap - 12) <= 1 &&
+      Math.abs(ballBoyKeyboardState.widgetWidth - (390 - 24)) <= 1 &&
       ballBoyKeyboardState.restoredHeight &&
       ballBoyKeyboardState.restoredOffsetTop,
     `Ball Boy should attach its typing layout to the open mobile keyboard. Measured ${JSON.stringify(ballBoyKeyboardState)}.`

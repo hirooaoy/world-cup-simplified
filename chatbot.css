@@ -2818,13 +2818,10 @@ body.is-juggle-active .scout-pupil {
 
   .scout-widget.is-open.is-keyboard-open {
     --scout-bottom: 0px;
-    right: 0;
-    width: 100vw;
+    right: 12px;
+    width: calc(100vw - 24px);
     height: calc(var(--scout-visual-height, 100dvh) - 8px);
-    border-right-width: 0;
-    border-bottom-width: 0;
-    border-left-width: 0;
-    border-radius: 22px 22px 0 0;
+    border-radius: 22px;
     box-shadow: 0 -12px 36px rgba(10, 10, 10, 0.14);
   }
 
