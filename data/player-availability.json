@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-14T17:12:21Z",
+  "updatedAt": "2026-07-15T20:42:09Z",
   "sourceIds": [
     "fifa-squad-list-2026-06-21",
     "canada-soccer-world-cup-squad-2026-05-29",
@@ -1459,7 +1459,22 @@
           "fixtureId": "match-102-semi-final-2026-07-15",
           "name": "Jarell Quansah",
           "reason": "Serving the second match of a two-game suspension after his red card against Mexico.",
-          "sourceId": "sky-sports-england-argentina-team-news-2026-07-14"
+          "sourceId": "sky-sports-england-argentina-team-news-2026-07-14",
+          "benchDisplay": {
+            "status": "suspended",
+            "cause": {
+              "en": "Red-card suspension",
+              "zh": "红牌停赛"
+            },
+            "origin": {
+              "en": "Sent off against Mexico",
+              "zh": "对阵墨西哥时被罚下"
+            },
+            "ends": {
+              "en": "Second of two matches; ends after England vs Argentina",
+              "zh": "两场停赛的第二场；英格兰对阿根廷赛后结束"
+            }
+          }
         },
         {
           "fixtureId": "match-102-semi-final-2026-07-15",

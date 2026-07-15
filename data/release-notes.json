@@ -1,6 +1,31 @@
 {
-  "updatedAt": "2026-07-15T12:50:45-07:00",
+  "updatedAt": "2026-07-15T14:53:00-07:00",
   "releases": [
+    {
+      "date": "2026-07-15",
+      "title": "Confirmed finalists, clearer suspensions, and calmer football visuals",
+      "titleZh": "决赛对阵确认、停赛信息更清晰、足球视觉更简洁",
+      "highlights": [
+        "England's expanded semi-final bench still counts only its 14 eligible substitutes, then shows Jarell Quansah as an additional greyed-out suspended player without making him available for substitution.",
+        "Quansah's red-card badge explains the cause, where the suspension began, and when it ends; his player profile remains available, while screen readers clearly announce that he is suspended and unavailable.",
+        "The suspended-player row is driven by fixture-scoped availability data, so the same presentation can be reused for other documented 2026 suspensions as their metadata is added.",
+        "Dark-mode line-up shirt numbers now use the intended black pill with white text and a deep-green pitch outline instead of an isolated white badge; light mode remains unchanged.",
+        "Argentina's 2-1 semi-final win over England now includes the official final line-up, goals, cards, substitutions, official highlight, and a concise bilingual three-bullet recap.",
+        "The bracket now confirms France vs England for third place and Spain vs Argentina for the final, with their sourced 44/20/36 and 40/31/29 regulation forecasts promoted from pre-authored scenarios to the resolved fixtures.",
+        "Future result syncs now promote an exact conditional medal-match forecast as soon as both participants are known, preserve extra-time substitution markers, and keep final-state browser checks aligned with confirmed fixtures.",
+        "Ball Boy's offside explainer removes the redundant 'The one check' and 'Attacking' heading row, leaving the rule, direction graphic, and legend to explain the idea without decorative duplication."
+      ],
+      "highlightsZh": [
+        "英格兰半决赛的展开替补席仍只统计14名可出场替补，随后额外显示灰色的停赛球员贾雷尔·宽萨，并且不会让他进入可替换名单。",
+        "宽萨的红牌标记会说明停赛原因、停赛从哪场比赛开始以及何时结束；他的球员资料仍可打开，屏幕阅读器也会明确播报他处于停赛且无法出场的状态。",
+        "停赛球员行由比赛级别的可用性数据驱动，因此在补充相应资料后，同样的展示方式可以复用于其他有记录的2026年停赛情况。",
+        "深色模式下的阵容球衣号码现在使用预期的黑色胶囊、白色文字和深绿色球场描边，不再出现孤立的白色标记；浅色模式保持不变。",
+        "阿根廷2比1击败英格兰的半决赛现已补齐官方最终阵容、进球、黄牌、换人、官方集锦，以及简洁的中英双语三点赛果回顾。",
+        "淘汰赛对阵现已确认法国对英格兰的季军赛和西班牙对阿根廷的决赛，并把预先编写的情景预测提升为已确定比赛的常规时间预测：分别为44/20/36和40/31/29。",
+        "今后的赛果同步会在双方确定后自动采用完全匹配的奖牌赛条件预测，同时保留加时赛换人标记，并让浏览器检查与已确认的比赛状态保持一致。",
+        "Ball Boy 的越位说明移除了重复的“只看一个时刻”和“进攻方向”标题行，只保留规则、方向图和图例来解释概念，避免装饰性重复。"
+      ]
+    },
     {
       "date": "2026-07-15",
       "title": "Calmer match accessibility and verified line-up placement",

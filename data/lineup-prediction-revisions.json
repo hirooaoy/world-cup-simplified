@@ -1,6 +1,6 @@
 {
   "schemaVersion": "2",
-  "updatedAt": "2026-07-15T17:44:47.261Z",
+  "updatedAt": "2026-07-15T21:26:31.260Z",
   "revisions": [
     {
       "schemaVersion": "2",
@@ -40350,6 +40350,2752 @@
       ],
       "sources": [],
       "fixtures": []
+    },
+    {
+      "schemaVersion": "2",
+      "generatedAt": "2026-07-15T21:26:31.260Z",
+      "revisionId": "7a322b81def47121198ef43a999781f2b46bf74b7c1d62657e6959fdd32a023e",
+      "engine": {
+        "id": "lineup-prediction-engine",
+        "version": "2",
+        "runId": "lineup-prediction-2026-07-15-8069189df459",
+        "inputFingerprint": "8069189df4597d00f568f2e939a498c22f05cac86f377c6a414daee442a4328e",
+        "modelFingerprint": "eb79163bdf904f7d41d36b022c65663111815c755f49d89249c4f9935df9794c",
+        "revisionId": "7a322b81def47121198ef43a999781f2b46bf74b7c1d62657e6959fdd32a023e"
+      },
+      "inputs": [
+        {
+          "file": "data/fixtures.json",
+          "role": "target fixtures and kickoff dates"
+        },
+        {
+          "file": "data/lineups.json",
+          "role": "last verified XI, formation, bench, substitutions, and recent minutes/load"
+        },
+        {
+          "file": "data/player-availability.json",
+          "role": "injury, omission, and fixture availability exclusions"
+        },
+        {
+          "file": "data/free-lineup-prediction-sources.json",
+          "role": "free public probable-lineup source candidates"
+        }
+      ],
+      "sources": [
+        {
+          "id": "fifa-lineups-sync-2026-07-15",
+          "label": "FIFA official final lineups sync",
+          "type": "official",
+          "checkedAt": "2026-07-15T21:26:28.263Z",
+          "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/match-schedule-fixtures-results-teams-stadiums"
+        },
+        {
+          "id": "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
+          "label": "FIFA official Tactical Line-up - match 101",
+          "type": "official",
+          "checkedAt": "2026-07-14T17:40:50.000Z",
+          "url": "https://fdp.fifa.org/assetspublic/ce281/r12550/pdf/TacticalLineup-English.pdf"
+        },
+        {
+          "id": "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
+          "label": "FIFA official Tactical Line-up - match 102",
+          "type": "official",
+          "checkedAt": "2026-07-15T17:41:37.000Z",
+          "url": "https://fdp.fifa.org/assetspublic/ce281/r12549/pdf/TacticalLineup-English.pdf"
+        },
+        {
+          "id": "lineup-prediction-official-history",
+          "label": "Lineup prediction official-history provider",
+          "type": "lineup-prediction-provider",
+          "checkedAt": "2026-07-15T21:26:31.260Z"
+        }
+      ],
+      "fixtures": [
+        {
+          "fixture": {
+            "id": "match-103-bronze-final-2026-07-18",
+            "matchNumber": 103,
+            "stage": "bronze-final",
+            "round": "bronze-final",
+            "kickoffUtc": "2026-07-18T21:00:00Z",
+            "status": "SCHEDULED",
+            "homeTeamId": "FRA",
+            "awayTeamId": "ENG"
+          },
+          "prediction": {
+            "fixtureId": "match-103-bronze-final-2026-07-18",
+            "mode": "expected",
+            "predictionClass": "forecast",
+            "lastUpdated": "2026-07-15T21:26:31.260Z",
+            "confidence": {
+              "label": "medium",
+              "score": 0.58,
+              "method": "evidence-strength-v2",
+              "reason": "Average home/away evidence strength; this is not a calibrated probability."
+            },
+            "sourceIds": [
+              "lineup-prediction-official-history",
+              "fifa-lineups-sync-2026-07-15",
+              "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
+              "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
+            ],
+            "providers": [
+              {
+                "providerId": "local-official-history",
+                "providerVersion": "1",
+                "score": 0.853,
+                "predictionClass": "forecast",
+                "recencyWeight": 0.965,
+                "sourceReliability": 1,
+                "independenceKey": "source:lineup-prediction-official-history",
+                "updatedAt": "2026-07-15T19:00:00Z",
+                "sourceIds": [
+                  "lineup-prediction-official-history",
+                  "fifa-lineups-sync-2026-07-15",
+                  "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
+                  "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
+                ]
+              }
+            ],
+            "evidence": {
+              "home": {
+                "confidence": {
+                  "label": "medium",
+                  "score": 0.58,
+                  "method": "evidence-strength-v2",
+                  "reason": "Evidence strength from 11/11 role-constrained consensus starters, 1 provider, and 0 independent external sources; this is not a calibrated probability."
+                },
+                "semantics": "evidence-strength-not-calibrated-probability",
+                "independentSourceCount": 1,
+                "formationScores": [
+                  {
+                    "formation": "4-2-3-1",
+                    "score": 0.737,
+                    "providerIds": [
+                      "local-official-history"
+                    ],
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
+                    ],
+                    "independenceKeys": [
+                      "source:lineup-prediction-official-history"
+                    ],
+                    "independentVotes": 1
+                  }
+                ],
+                "disputedSlots": []
+              },
+              "away": {
+                "confidence": {
+                  "label": "medium",
+                  "score": 0.58,
+                  "method": "evidence-strength-v2",
+                  "reason": "Evidence strength from 11/11 role-constrained consensus starters, 1 provider, and 0 independent external sources; this is not a calibrated probability."
+                },
+                "semantics": "evidence-strength-not-calibrated-probability",
+                "independentSourceCount": 1,
+                "formationScores": [
+                  {
+                    "formation": "4-2-3-1",
+                    "score": 0.737,
+                    "providerIds": [
+                      "local-official-history"
+                    ],
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
+                    ],
+                    "independenceKeys": [
+                      "source:lineup-prediction-official-history"
+                    ],
+                    "independentVotes": 1
+                  }
+                ],
+                "disputedSlots": []
+              }
+            },
+            "lineup": {
+              "home": {
+                "teamId": "FRA",
+                "formation": "4-2-3-1",
+                "players": [
+                  {
+                    "name": "Mike Maignan",
+                    "number": "16",
+                    "position": "GK",
+                    "x": 50,
+                    "y": 91,
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.92,
+                      "method": "evidence-strength-v2",
+                      "reason": "1 independent starter source; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
+                    ]
+                  },
+                  {
+                    "name": "Aurélien Tchouaméni",
+                    "number": "8",
+                    "position": "RB",
+                    "x": 85,
+                    "y": 75,
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.92,
+                      "method": "evidence-strength-v2",
+                      "reason": "1 independent starter source; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
+                    ]
+                  },
+                  {
+                    "name": "Maxence Lacroix",
+                    "number": "26",
+                    "position": "CB",
+                    "x": 62,
+                    "y": 75,
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.839,
+                      "method": "evidence-strength-v2",
+                      "reason": "1 independent starter source; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
+                    ]
+                  },
+                  {
+                    "name": "William Saliba",
+                    "number": "17",
+                    "position": "CB",
+                    "x": 38,
+                    "y": 75,
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.92,
+                      "method": "evidence-strength-v2",
+                      "reason": "1 independent starter source; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
+                    ]
+                  },
+                  {
+                    "name": "Lucas Digne",
+                    "number": "3",
+                    "position": "LB",
+                    "x": 15,
+                    "y": 75,
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.92,
+                      "method": "evidence-strength-v2",
+                      "reason": "1 independent starter source; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
+                    ]
+                  },
+                  {
+                    "name": "Michael Olise",
+                    "number": "11",
+                    "position": "CM",
+                    "x": 66,
+                    "y": 59,
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.92,
+                      "method": "evidence-strength-v2",
+                      "reason": "1 independent starter source; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
+                    ]
+                  },
+                  {
+                    "name": "Théo Hernandez",
+                    "number": "19",
+                    "position": "CM",
+                    "x": 34,
+                    "y": 59,
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.839,
+                      "method": "evidence-strength-v2",
+                      "reason": "1 independent starter source; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
+                    ]
+                  },
+                  {
+                    "name": "Désiré Doué",
+                    "number": "20",
+                    "position": "RW",
+                    "x": 82,
+                    "y": 40,
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.853,
+                      "method": "evidence-strength-v2",
+                      "reason": "1 independent starter source; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
+                    ]
+                  },
+                  {
+                    "name": "Adrien Rabiot",
+                    "number": "14",
+                    "position": "AM",
+                    "x": 50,
+                    "y": 40,
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.92,
+                      "method": "evidence-strength-v2",
+                      "reason": "1 independent starter source; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
+                    ]
+                  },
+                  {
+                    "name": "Bradley Barcola",
+                    "number": "12",
+                    "position": "LW",
+                    "x": 18,
+                    "y": 40,
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.92,
+                      "method": "evidence-strength-v2",
+                      "reason": "1 independent starter source; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
+                    ]
+                  },
+                  {
+                    "name": "Jean-Philippe Mateta",
+                    "number": "22",
+                    "position": "ST",
+                    "x": 50,
+                    "y": 20,
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.825,
+                      "method": "evidence-strength-v2",
+                      "reason": "1 independent starter source; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
+                    ]
+                  }
+                ],
+                "bench": [
+                  {
+                    "name": "Dayot Upamecano",
+                    "number": "4",
+                    "position": "CB",
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.878,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
+                    ]
+                  },
+                  {
+                    "name": "Jules Koundé",
+                    "number": "5",
+                    "position": "RB",
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.878,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
+                    ]
+                  },
+                  {
+                    "name": "Kylian Mbappé",
+                    "number": "10",
+                    "position": "ST",
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.878,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
+                    ]
+                  },
+                  {
+                    "name": "Ousmane Dembélé",
+                    "number": "7",
+                    "position": "RW",
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.878,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
+                    ]
+                  },
+                  {
+                    "name": "Manu Koné",
+                    "number": "6",
+                    "position": "CM",
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.867,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
+                    ]
+                  },
+                  {
+                    "name": "Brice Samba",
+                    "number": "1",
+                    "position": "GK",
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.825,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
+                    ]
+                  },
+                  {
+                    "name": "Ibrahima Konaté",
+                    "number": "15",
+                    "position": "CB",
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.825,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
+                    ]
+                  },
+                  {
+                    "name": "Lucas Hernández",
+                    "number": "21",
+                    "position": "CB",
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.825,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
+                    ]
+                  },
+                  {
+                    "name": "Maghnes Akliouche",
+                    "number": "25",
+                    "position": "AM",
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.825,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
+                    ]
+                  },
+                  {
+                    "name": "Malo Gusto",
+                    "number": "2",
+                    "position": "RB",
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.825,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
+                    ]
+                  },
+                  {
+                    "name": "Marcus Thuram",
+                    "number": "9",
+                    "position": "ST",
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.825,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
+                    ]
+                  },
+                  {
+                    "name": "N'Golo Kanté",
+                    "number": "13",
+                    "position": "DM",
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.825,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
+                    ]
+                  },
+                  {
+                    "name": "Rayan Cherki",
+                    "number": "24",
+                    "position": "AM",
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.825,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
+                    ]
+                  },
+                  {
+                    "name": "Robin Risser",
+                    "number": "23",
+                    "position": "GK",
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.825,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
+                    ]
+                  },
+                  {
+                    "name": "Warren Zaïre-Emery",
+                    "number": "18",
+                    "position": "CM",
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.825,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
+                    ]
+                  }
+                ],
+                "sourceIds": [
+                  "lineup-prediction-official-history",
+                  "fifa-lineups-sync-2026-07-15",
+                  "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
+                  "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
+                ]
+              },
+              "away": {
+                "teamId": "ENG",
+                "formation": "4-2-3-1",
+                "players": [
+                  {
+                    "name": "Jordan Pickford",
+                    "number": "1",
+                    "position": "GK",
+                    "x": 50,
+                    "y": 91,
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.92,
+                      "method": "evidence-strength-v2",
+                      "reason": "1 independent starter source; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f"
+                    ]
+                  },
+                  {
+                    "name": "Reece James",
+                    "number": "24",
+                    "position": "RB",
+                    "x": 85,
+                    "y": 75,
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.909,
+                      "method": "evidence-strength-v2",
+                      "reason": "1 independent starter source; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f"
+                    ]
+                  },
+                  {
+                    "name": "John Stones",
+                    "number": "5",
+                    "position": "CB",
+                    "x": 62,
+                    "y": 75,
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.92,
+                      "method": "evidence-strength-v2",
+                      "reason": "1 independent starter source; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f"
+                    ]
+                  },
+                  {
+                    "name": "Ezri Konsa",
+                    "number": "2",
+                    "position": "CB",
+                    "x": 38,
+                    "y": 75,
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.863,
+                      "method": "evidence-strength-v2",
+                      "reason": "1 independent starter source; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f"
+                    ]
+                  },
+                  {
+                    "name": "Djed Spence",
+                    "number": "25",
+                    "position": "LB",
+                    "x": 15,
+                    "y": 75,
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.92,
+                      "method": "evidence-strength-v2",
+                      "reason": "1 independent starter source; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f"
+                    ]
+                  },
+                  {
+                    "name": "Declan Rice",
+                    "number": "4",
+                    "position": "CM",
+                    "x": 66,
+                    "y": 59,
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.92,
+                      "method": "evidence-strength-v2",
+                      "reason": "1 independent starter source; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f"
+                    ]
+                  },
+                  {
+                    "name": "Jordan Henderson",
+                    "number": "14",
+                    "position": "CM",
+                    "x": 34,
+                    "y": 59,
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.825,
+                      "method": "evidence-strength-v2",
+                      "reason": "1 independent starter source; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f"
+                    ]
+                  },
+                  {
+                    "name": "Morgan Rogers",
+                    "number": "17",
+                    "position": "RW",
+                    "x": 82,
+                    "y": 40,
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.92,
+                      "method": "evidence-strength-v2",
+                      "reason": "1 independent starter source; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f"
+                    ]
+                  },
+                  {
+                    "name": "Eberechi Eze",
+                    "number": "21",
+                    "position": "AM",
+                    "x": 50,
+                    "y": 40,
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.825,
+                      "method": "evidence-strength-v2",
+                      "reason": "1 independent starter source; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f"
+                    ]
+                  },
+                  {
+                    "name": "Anthony Gordon",
+                    "number": "18",
+                    "position": "LW",
+                    "x": 18,
+                    "y": 40,
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.92,
+                      "method": "evidence-strength-v2",
+                      "reason": "1 independent starter source; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f"
+                    ]
+                  },
+                  {
+                    "name": "Noni Madueke",
+                    "number": "20",
+                    "position": "ST",
+                    "x": 50,
+                    "y": 20,
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.853,
+                      "method": "evidence-strength-v2",
+                      "reason": "1 independent starter source; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f"
+                    ]
+                  }
+                ],
+                "bench": [
+                  {
+                    "name": "Elliot Anderson",
+                    "number": "8",
+                    "position": "CM",
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.878,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f"
+                    ]
+                  },
+                  {
+                    "name": "Harry Kane",
+                    "number": "9",
+                    "position": "ST",
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.878,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f"
+                    ]
+                  },
+                  {
+                    "name": "Jude Bellingham",
+                    "number": "10",
+                    "position": "AM",
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.878,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f"
+                    ]
+                  },
+                  {
+                    "name": "Marc Guéhi",
+                    "number": "6",
+                    "position": "CB",
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.878,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f"
+                    ]
+                  },
+                  {
+                    "name": "Nico O'Reilly",
+                    "number": "3",
+                    "position": "CB",
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.863,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f"
+                    ]
+                  },
+                  {
+                    "name": "Bukayo Saka",
+                    "number": "7",
+                    "position": "RW",
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.853,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f"
+                    ]
+                  },
+                  {
+                    "name": "Jarell Quansah",
+                    "number": "26",
+                    "position": "RB",
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.853,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f"
+                    ]
+                  },
+                  {
+                    "name": "Marcus Rashford",
+                    "number": "11",
+                    "position": "ST",
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.853,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f"
+                    ]
+                  },
+                  {
+                    "name": "Dan Burn",
+                    "number": "15",
+                    "position": "CB",
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.825,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f"
+                    ]
+                  },
+                  {
+                    "name": "Dean Henderson",
+                    "number": "13",
+                    "position": "GK",
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.825,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f"
+                    ]
+                  },
+                  {
+                    "name": "Ivan Toney",
+                    "number": "22",
+                    "position": "ST",
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.825,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f"
+                    ]
+                  },
+                  {
+                    "name": "James Trafford",
+                    "number": "23",
+                    "position": "GK",
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.825,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f"
+                    ]
+                  },
+                  {
+                    "name": "Kobbie Mainoo",
+                    "number": "16",
+                    "position": "CM",
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.825,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f"
+                    ]
+                  },
+                  {
+                    "name": "Ollie Watkins",
+                    "number": "19",
+                    "position": "ST",
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.825,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f"
+                    ]
+                  },
+                  {
+                    "name": "Trevoh Chalobah",
+                    "number": "12",
+                    "position": "CB",
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.825,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f"
+                    ]
+                  }
+                ],
+                "sourceIds": [
+                  "lineup-prediction-official-history",
+                  "fifa-lineups-sync-2026-07-15",
+                  "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
+                  "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
+                ]
+              }
+            }
+          },
+          "providerCandidates": [
+            {
+              "providerId": "local-official-history",
+              "providerVersion": "1",
+              "fixtureId": "match-103-bronze-final-2026-07-18",
+              "mode": "expected",
+              "predictionClass": "forecast",
+              "claimStrength": 1,
+              "updatedAt": "2026-07-15T19:00:00Z",
+              "confidence": {
+                "label": "medium",
+                "score": 0.58,
+                "reason": "Local official-history confidence average"
+              },
+              "sourceIds": [
+                "lineup-prediction-official-history",
+                "fifa-lineups-sync-2026-07-15",
+                "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
+                "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
+              ],
+              "lineupSourceIds": [
+                "lineup-prediction-official-history"
+              ],
+              "sides": {
+                "home": {
+                  "teamId": "FRA",
+                  "formation": "4-2-3-1",
+                  "confidence": {
+                    "label": "medium",
+                    "score": 0.58,
+                    "reason": "home prediction based on last verified XI from match 101"
+                  },
+                  "evidenceStrengthCap": 0.58,
+                  "starters": [
+                    {
+                      "name": "Mike Maignan",
+                      "position": "GK"
+                    },
+                    {
+                      "name": "Lucas Digne",
+                      "position": "LB"
+                    },
+                    {
+                      "name": "Maxence Lacroix",
+                      "position": "CB"
+                    },
+                    {
+                      "name": "Theo Hernandez",
+                      "position": "LB"
+                    },
+                    {
+                      "name": "William Saliba",
+                      "position": "CB"
+                    },
+                    {
+                      "name": "Aurelien Tchouameni",
+                      "position": "CM"
+                    },
+                    {
+                      "name": "Adrien Rabiot",
+                      "position": "CM"
+                    },
+                    {
+                      "name": "Jean-Philippe Mateta",
+                      "position": "ST"
+                    },
+                    {
+                      "name": "Desire Doue",
+                      "position": "RW"
+                    },
+                    {
+                      "name": "Michael Olise",
+                      "position": "AM"
+                    },
+                    {
+                      "name": "Bradley Barcola",
+                      "position": "LW"
+                    }
+                  ],
+                  "benchCandidates": [
+                    {
+                      "name": "Brice Samba",
+                      "position": "GK"
+                    },
+                    {
+                      "name": "Robin Risser",
+                      "position": "GK"
+                    },
+                    {
+                      "name": "Malo Gusto",
+                      "position": "RB"
+                    },
+                    {
+                      "name": "Ibrahima Konate",
+                      "position": "CB"
+                    },
+                    {
+                      "name": "Lucas Hernandez",
+                      "position": "CB"
+                    },
+                    {
+                      "name": "Manu Kone",
+                      "position": "CM"
+                    },
+                    {
+                      "name": "Ngolo Kante",
+                      "position": "DM"
+                    },
+                    {
+                      "name": "Warren Zaire-Emery",
+                      "position": "CM"
+                    },
+                    {
+                      "name": "Rayan Cherki",
+                      "position": "AM"
+                    },
+                    {
+                      "name": "Maghnes Akliouche",
+                      "position": "AM"
+                    },
+                    {
+                      "name": "Marcus Thuram",
+                      "position": "ST"
+                    },
+                    {
+                      "name": "Dayot Upamecano",
+                      "position": "CB"
+                    },
+                    {
+                      "name": "Jules Kounde",
+                      "position": "RB"
+                    },
+                    {
+                      "name": "Kylian Mbappe",
+                      "position": "ST"
+                    },
+                    {
+                      "name": "Ousmane Dembele",
+                      "position": "RW"
+                    }
+                  ],
+                  "unavailable": [],
+                  "sourceIds": [
+                    "lineup-prediction-official-history",
+                    "fifa-lineups-sync-2026-07-15",
+                    "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f"
+                  ]
+                },
+                "away": {
+                  "teamId": "ENG",
+                  "formation": "4-2-3-1",
+                  "confidence": {
+                    "label": "medium",
+                    "score": 0.58,
+                    "reason": "away prediction based on last verified XI from match 102"
+                  },
+                  "evidenceStrengthCap": 0.58,
+                  "starters": [
+                    {
+                      "name": "Jordan Pickford",
+                      "position": "GK"
+                    },
+                    {
+                      "name": "John Stones",
+                      "position": "CB"
+                    },
+                    {
+                      "name": "Ezri Konsa",
+                      "position": "CB"
+                    },
+                    {
+                      "name": "Reece James",
+                      "position": "RB"
+                    },
+                    {
+                      "name": "Djed Spence",
+                      "position": "LB"
+                    },
+                    {
+                      "name": "Declan Rice",
+                      "position": "CM"
+                    },
+                    {
+                      "name": "Jordan Henderson",
+                      "position": "CM"
+                    },
+                    {
+                      "name": "Eberechi Eze",
+                      "position": "AM"
+                    },
+                    {
+                      "name": "Morgan Rogers",
+                      "position": "RW"
+                    },
+                    {
+                      "name": "Noni Madueke",
+                      "position": "RW"
+                    },
+                    {
+                      "name": "Anthony Gordon",
+                      "position": "LW"
+                    }
+                  ],
+                  "benchCandidates": [
+                    {
+                      "name": "Dean Henderson",
+                      "position": "GK"
+                    },
+                    {
+                      "name": "James Trafford",
+                      "position": "GK"
+                    },
+                    {
+                      "name": "Nico Oreilly",
+                      "position": "CB"
+                    },
+                    {
+                      "name": "Trevoh Chalobah",
+                      "position": "CB"
+                    },
+                    {
+                      "name": "Dan Burn",
+                      "position": "CB"
+                    },
+                    {
+                      "name": "Kobbie Mainoo",
+                      "position": "CM"
+                    },
+                    {
+                      "name": "Bukayo Saka",
+                      "position": "RW"
+                    },
+                    {
+                      "name": "Marcus Rashford",
+                      "position": "ST"
+                    },
+                    {
+                      "name": "Ollie Watkins",
+                      "position": "ST"
+                    },
+                    {
+                      "name": "Ivan Toney",
+                      "position": "ST"
+                    },
+                    {
+                      "name": "Marc Guehi",
+                      "position": "CB"
+                    },
+                    {
+                      "name": "Harry Kane",
+                      "position": "ST"
+                    },
+                    {
+                      "name": "Jude Bellingham",
+                      "position": "AM"
+                    },
+                    {
+                      "name": "Elliot Anderson",
+                      "position": "CM"
+                    },
+                    {
+                      "name": "Jarell Quansah",
+                      "position": "RB"
+                    }
+                  ],
+                  "unavailable": [],
+                  "sourceIds": [
+                    "lineup-prediction-official-history",
+                    "fifa-lineups-sync-2026-07-15",
+                    "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "fixture": {
+            "id": "match-104-final-2026-07-19",
+            "matchNumber": 104,
+            "stage": "final",
+            "round": "final",
+            "kickoffUtc": "2026-07-19T19:00:00Z",
+            "status": "SCHEDULED",
+            "homeTeamId": "ESP",
+            "awayTeamId": "ARG"
+          },
+          "prediction": {
+            "fixtureId": "match-104-final-2026-07-19",
+            "mode": "expected",
+            "predictionClass": "forecast",
+            "lastUpdated": "2026-07-15T21:26:31.260Z",
+            "confidence": {
+              "label": "medium",
+              "score": 0.72,
+              "method": "evidence-strength-v2",
+              "reason": "Average home/away evidence strength; this is not a calibrated probability."
+            },
+            "sourceIds": [
+              "lineup-prediction-official-history",
+              "fifa-lineups-sync-2026-07-15",
+              "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
+              "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
+            ],
+            "providers": [
+              {
+                "providerId": "local-official-history",
+                "providerVersion": "1",
+                "score": 0.917,
+                "predictionClass": "forecast",
+                "recencyWeight": 0.965,
+                "sourceReliability": 1,
+                "independenceKey": "source:lineup-prediction-official-history",
+                "updatedAt": "2026-07-15T19:00:00Z",
+                "sourceIds": [
+                  "lineup-prediction-official-history",
+                  "fifa-lineups-sync-2026-07-15",
+                  "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
+                  "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
+                ]
+              }
+            ],
+            "evidence": {
+              "home": {
+                "confidence": {
+                  "label": "medium",
+                  "score": 0.72,
+                  "method": "evidence-strength-v2",
+                  "reason": "Evidence strength from 11/11 role-constrained consensus starters, 1 provider, and 0 independent external sources; this is not a calibrated probability."
+                },
+                "semantics": "evidence-strength-not-calibrated-probability",
+                "independentSourceCount": 1,
+                "formationScores": [
+                  {
+                    "formation": "4-1-2-3",
+                    "score": 0.836,
+                    "providerIds": [
+                      "local-official-history"
+                    ],
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
+                    ],
+                    "independenceKeys": [
+                      "source:lineup-prediction-official-history"
+                    ],
+                    "independentVotes": 1
+                  }
+                ],
+                "disputedSlots": []
+              },
+              "away": {
+                "confidence": {
+                  "label": "medium",
+                  "score": 0.72,
+                  "method": "evidence-strength-v2",
+                  "reason": "Evidence strength from 11/11 role-constrained consensus starters, 1 provider, and 0 independent external sources; this is not a calibrated probability."
+                },
+                "semantics": "evidence-strength-not-calibrated-probability",
+                "independentSourceCount": 1,
+                "formationScores": [
+                  {
+                    "formation": "4-4-2",
+                    "score": 0.829,
+                    "providerIds": [
+                      "local-official-history"
+                    ],
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
+                    ],
+                    "independenceKeys": [
+                      "source:lineup-prediction-official-history"
+                    ],
+                    "independentVotes": 1
+                  }
+                ],
+                "disputedSlots": []
+              }
+            },
+            "lineup": {
+              "home": {
+                "teamId": "ESP",
+                "formation": "4-1-2-3",
+                "players": [
+                  {
+                    "name": "Unai Simón",
+                    "number": "23",
+                    "position": "GK",
+                    "x": 50,
+                    "y": 91,
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.92,
+                      "method": "evidence-strength-v2",
+                      "reason": "1 independent starter source; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
+                    ]
+                  },
+                  {
+                    "name": "Pedro Porro",
+                    "number": "12",
+                    "position": "RB",
+                    "x": 85,
+                    "y": 75,
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.92,
+                      "method": "evidence-strength-v2",
+                      "reason": "1 independent starter source; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
+                    ]
+                  },
+                  {
+                    "name": "Pau Cubarsí",
+                    "number": "22",
+                    "position": "CB",
+                    "x": 62,
+                    "y": 75,
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.92,
+                      "method": "evidence-strength-v2",
+                      "reason": "1 independent starter source; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
+                    ]
+                  },
+                  {
+                    "name": "Aymeric Laporte",
+                    "number": "14",
+                    "position": "CB",
+                    "x": 38,
+                    "y": 75,
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.92,
+                      "method": "evidence-strength-v2",
+                      "reason": "1 independent starter source; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
+                    ]
+                  },
+                  {
+                    "name": "Marc Cucurella",
+                    "number": "24",
+                    "position": "LB",
+                    "x": 15,
+                    "y": 75,
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.92,
+                      "method": "evidence-strength-v2",
+                      "reason": "1 independent starter source; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
+                    ]
+                  },
+                  {
+                    "name": "Rodri",
+                    "number": "16",
+                    "position": "DM",
+                    "x": 50,
+                    "y": 61,
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.92,
+                      "method": "evidence-strength-v2",
+                      "reason": "1 independent starter source; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
+                    ]
+                  },
+                  {
+                    "name": "Dani Olmo",
+                    "number": "10",
+                    "position": "CM",
+                    "x": 64,
+                    "y": 49,
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.92,
+                      "method": "evidence-strength-v2",
+                      "reason": "1 independent starter source; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
+                    ]
+                  },
+                  {
+                    "name": "Fabián Ruiz",
+                    "number": "8",
+                    "position": "CM",
+                    "x": 36,
+                    "y": 49,
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.92,
+                      "method": "evidence-strength-v2",
+                      "reason": "1 independent starter source; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
+                    ]
+                  },
+                  {
+                    "name": "Lamine Yamal",
+                    "number": "19",
+                    "position": "RW",
+                    "x": 82,
+                    "y": 31,
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.92,
+                      "method": "evidence-strength-v2",
+                      "reason": "1 independent starter source; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
+                    ]
+                  },
+                  {
+                    "name": "Mikel Oyarzabal",
+                    "number": "21",
+                    "position": "ST",
+                    "x": 50,
+                    "y": 21,
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.92,
+                      "method": "evidence-strength-v2",
+                      "reason": "1 independent starter source; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
+                    ]
+                  },
+                  {
+                    "name": "Álex Baena",
+                    "number": "15",
+                    "position": "LW",
+                    "x": 18,
+                    "y": 31,
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.92,
+                      "method": "evidence-strength-v2",
+                      "reason": "1 independent starter source; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
+                    ]
+                  }
+                ],
+                "bench": [
+                  {
+                    "name": "Pedri",
+                    "number": "20",
+                    "position": "CM",
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.867,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
+                    ]
+                  },
+                  {
+                    "name": "Marcos Llorente",
+                    "number": "5",
+                    "position": "RB",
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.839,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
+                    ]
+                  },
+                  {
+                    "name": "Mikel Merino",
+                    "number": "6",
+                    "position": "CM",
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.839,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
+                    ]
+                  },
+                  {
+                    "name": "Álex Grimaldo",
+                    "number": "3",
+                    "position": "LB",
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.825,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
+                    ]
+                  },
+                  {
+                    "name": "Borja Iglesias",
+                    "number": "26",
+                    "position": "ST",
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.825,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
+                    ]
+                  },
+                  {
+                    "name": "David Raya",
+                    "number": "1",
+                    "position": "GK",
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.825,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
+                    ]
+                  },
+                  {
+                    "name": "Eric García",
+                    "number": "4",
+                    "position": "CB",
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.825,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
+                    ]
+                  },
+                  {
+                    "name": "Ferran Torres",
+                    "number": "7",
+                    "position": "RW",
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.825,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
+                    ]
+                  },
+                  {
+                    "name": "Gavi",
+                    "number": "9",
+                    "position": "CM",
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.825,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
+                    ]
+                  },
+                  {
+                    "name": "Joan García",
+                    "number": "13",
+                    "position": "GK",
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.825,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
+                    ]
+                  },
+                  {
+                    "name": "Marc Pubill",
+                    "number": "2",
+                    "position": "CB",
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.825,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
+                    ]
+                  },
+                  {
+                    "name": "Martín Zubimendi",
+                    "number": "18",
+                    "position": "DM",
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.825,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
+                    ]
+                  },
+                  {
+                    "name": "Nico Williams",
+                    "number": "17",
+                    "position": "RW",
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.825,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
+                    ]
+                  },
+                  {
+                    "name": "Víctor Muñoz",
+                    "number": "25",
+                    "position": "LW",
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.825,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
+                    ]
+                  },
+                  {
+                    "name": "Yéremy Pino",
+                    "number": "11",
+                    "position": "RW",
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.825,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
+                    ]
+                  }
+                ],
+                "sourceIds": [
+                  "lineup-prediction-official-history",
+                  "fifa-lineups-sync-2026-07-15",
+                  "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
+                  "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
+                ]
+              },
+              "away": {
+                "teamId": "ARG",
+                "formation": "4-4-2",
+                "players": [
+                  {
+                    "name": "Emiliano Martínez",
+                    "number": "23",
+                    "position": "GK",
+                    "x": 50,
+                    "y": 91,
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.92,
+                      "method": "evidence-strength-v2",
+                      "reason": "1 independent starter source; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f"
+                    ]
+                  },
+                  {
+                    "name": "Nahuel Molina",
+                    "number": "26",
+                    "position": "RB",
+                    "x": 85,
+                    "y": 75,
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.92,
+                      "method": "evidence-strength-v2",
+                      "reason": "1 independent starter source; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f"
+                    ]
+                  },
+                  {
+                    "name": "Cristian Romero",
+                    "number": "13",
+                    "position": "CB",
+                    "x": 62,
+                    "y": 75,
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.92,
+                      "method": "evidence-strength-v2",
+                      "reason": "1 independent starter source; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f"
+                    ]
+                  },
+                  {
+                    "name": "Lisandro Martínez",
+                    "number": "6",
+                    "position": "CB",
+                    "x": 38,
+                    "y": 75,
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.92,
+                      "method": "evidence-strength-v2",
+                      "reason": "1 independent starter source; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f"
+                    ]
+                  },
+                  {
+                    "name": "Nicolás Tagliafico",
+                    "number": "3",
+                    "position": "LB",
+                    "x": 15,
+                    "y": 75,
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.92,
+                      "method": "evidence-strength-v2",
+                      "reason": "1 independent starter source; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f"
+                    ]
+                  },
+                  {
+                    "name": "Giuliano Simeone",
+                    "number": "17",
+                    "position": "RM",
+                    "x": 82,
+                    "y": 52,
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.92,
+                      "method": "evidence-strength-v2",
+                      "reason": "1 independent starter source; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f"
+                    ]
+                  },
+                  {
+                    "name": "Leandro Paredes",
+                    "number": "5",
+                    "position": "CM",
+                    "x": 62,
+                    "y": 55,
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.92,
+                      "method": "evidence-strength-v2",
+                      "reason": "1 independent starter source; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f"
+                    ]
+                  },
+                  {
+                    "name": "Alexis Mac Allister",
+                    "number": "20",
+                    "position": "CM",
+                    "x": 38,
+                    "y": 55,
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.92,
+                      "method": "evidence-strength-v2",
+                      "reason": "1 independent starter source; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f"
+                    ]
+                  },
+                  {
+                    "name": "Enzo Fernández",
+                    "number": "24",
+                    "position": "LM",
+                    "x": 18,
+                    "y": 52,
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.92,
+                      "method": "evidence-strength-v2",
+                      "reason": "1 independent starter source; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f"
+                    ]
+                  },
+                  {
+                    "name": "Julián Álvarez",
+                    "number": "9",
+                    "position": "ST",
+                    "x": 59,
+                    "y": 24,
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.92,
+                      "method": "evidence-strength-v2",
+                      "reason": "1 independent starter source; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f"
+                    ]
+                  },
+                  {
+                    "name": "Lionel Messi",
+                    "number": "10",
+                    "position": "ST",
+                    "x": 41,
+                    "y": 24,
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.92,
+                      "method": "evidence-strength-v2",
+                      "reason": "1 independent starter source; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f"
+                    ]
+                  }
+                ],
+                "bench": [
+                  {
+                    "name": "Rodrigo De Paul",
+                    "number": "7",
+                    "position": "CM",
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.867,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f"
+                    ]
+                  },
+                  {
+                    "name": "Lautaro Martínez",
+                    "number": "22",
+                    "position": "ST",
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.853,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f"
+                    ]
+                  },
+                  {
+                    "name": "Exequiel Palacios",
+                    "number": "14",
+                    "position": "CM",
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.84,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f"
+                    ]
+                  },
+                  {
+                    "name": "Facundo Medina",
+                    "number": "25",
+                    "position": "CB",
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.84,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f"
+                    ]
+                  },
+                  {
+                    "name": "Giovani Lo Celso",
+                    "number": "11",
+                    "position": "CM",
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.84,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f"
+                    ]
+                  },
+                  {
+                    "name": "Marcos Senesi",
+                    "number": "2",
+                    "position": "CB",
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.84,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f"
+                    ]
+                  },
+                  {
+                    "name": "Nico Paz",
+                    "number": "18",
+                    "position": "ST",
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.84,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f"
+                    ]
+                  },
+                  {
+                    "name": "Nicolás Otamendi",
+                    "number": "19",
+                    "position": "CB",
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.84,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f"
+                    ]
+                  },
+                  {
+                    "name": "Thiago Almada",
+                    "number": "16",
+                    "position": "RW",
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.84,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f"
+                    ]
+                  },
+                  {
+                    "name": "Gerónimo Rulli",
+                    "number": "12",
+                    "position": "GK",
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.825,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f"
+                    ]
+                  },
+                  {
+                    "name": "Gonzalo Montiel",
+                    "number": "4",
+                    "position": "RB",
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.825,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f"
+                    ]
+                  },
+                  {
+                    "name": "José Manuel López",
+                    "number": "21",
+                    "position": "ST",
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.825,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f"
+                    ]
+                  },
+                  {
+                    "name": "Juan Musso",
+                    "number": "1",
+                    "position": "GK",
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.825,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f"
+                    ]
+                  },
+                  {
+                    "name": "Nico González",
+                    "number": "15",
+                    "position": "LM",
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.825,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f"
+                    ]
+                  },
+                  {
+                    "name": "Valentín Barco",
+                    "number": "8",
+                    "position": "CM",
+                    "confidence": {
+                      "label": "high",
+                      "score": 0.825,
+                      "method": "evidence-strength-v2",
+                      "reason": "Bench evidence strength; not a calibrated probability."
+                    },
+                    "sourceIds": [
+                      "lineup-prediction-official-history",
+                      "fifa-lineups-sync-2026-07-15",
+                      "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
+                      "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f"
+                    ]
+                  }
+                ],
+                "sourceIds": [
+                  "lineup-prediction-official-history",
+                  "fifa-lineups-sync-2026-07-15",
+                  "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
+                  "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
+                ]
+              }
+            }
+          },
+          "providerCandidates": [
+            {
+              "providerId": "local-official-history",
+              "providerVersion": "1",
+              "fixtureId": "match-104-final-2026-07-19",
+              "mode": "expected",
+              "predictionClass": "forecast",
+              "claimStrength": 1,
+              "updatedAt": "2026-07-15T19:00:00Z",
+              "confidence": {
+                "label": "high",
+                "score": 0.764,
+                "reason": "Local official-history confidence average"
+              },
+              "sourceIds": [
+                "lineup-prediction-official-history",
+                "fifa-lineups-sync-2026-07-15",
+                "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f",
+                "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
+              ],
+              "lineupSourceIds": [
+                "lineup-prediction-official-history"
+              ],
+              "sides": {
+                "home": {
+                  "teamId": "ESP",
+                  "formation": "4-1-2-3",
+                  "confidence": {
+                    "label": "high",
+                    "score": 0.78,
+                    "reason": "home prediction based on last verified XI from match 101"
+                  },
+                  "starters": [
+                    {
+                      "name": "Unai Simon",
+                      "position": "GK"
+                    },
+                    {
+                      "name": "Pedro Porro",
+                      "position": "RB"
+                    },
+                    {
+                      "name": "Aymeric Laporte",
+                      "position": "CB"
+                    },
+                    {
+                      "name": "Pau Cubarsi",
+                      "position": "CB"
+                    },
+                    {
+                      "name": "Marc Cucurella",
+                      "position": "LB"
+                    },
+                    {
+                      "name": "Fabian Ruiz",
+                      "position": "CM"
+                    },
+                    {
+                      "name": "Alex Baena",
+                      "position": "LW"
+                    },
+                    {
+                      "name": "Rodri",
+                      "position": "DM"
+                    },
+                    {
+                      "name": "Dani Olmo",
+                      "position": "CM"
+                    },
+                    {
+                      "name": "Lamine Yamal",
+                      "position": "RW"
+                    },
+                    {
+                      "name": "Mikel Oyarzabal",
+                      "position": "ST"
+                    }
+                  ],
+                  "benchCandidates": [
+                    {
+                      "name": "David Raya",
+                      "position": "GK"
+                    },
+                    {
+                      "name": "Joan Garcia",
+                      "position": "GK"
+                    },
+                    {
+                      "name": "Marc Pubill",
+                      "position": "CB"
+                    },
+                    {
+                      "name": "Alex Grimaldo",
+                      "position": "LB"
+                    },
+                    {
+                      "name": "Eric Garcia",
+                      "position": "CB"
+                    },
+                    {
+                      "name": "Marcos Llorente",
+                      "position": "RB"
+                    },
+                    {
+                      "name": "Mikel Merino",
+                      "position": "CM"
+                    },
+                    {
+                      "name": "Gavi",
+                      "position": "CM"
+                    },
+                    {
+                      "name": "Martin Zubimendi",
+                      "position": "DM"
+                    },
+                    {
+                      "name": "Pedri",
+                      "position": "CM"
+                    },
+                    {
+                      "name": "Ferran Torres",
+                      "position": "RW"
+                    },
+                    {
+                      "name": "Yeremy Pino",
+                      "position": "RW"
+                    },
+                    {
+                      "name": "Nico Williams",
+                      "position": "RW"
+                    },
+                    {
+                      "name": "Victor Munoz",
+                      "position": "LW"
+                    },
+                    {
+                      "name": "Borja Iglesias",
+                      "position": "ST"
+                    }
+                  ],
+                  "unavailable": [],
+                  "sourceIds": [
+                    "lineup-prediction-official-history",
+                    "fifa-lineups-sync-2026-07-15",
+                    "fifa-tactical-lineup-match-101-v1-e6da2e9eed2f"
+                  ]
+                },
+                "away": {
+                  "teamId": "ARG",
+                  "formation": "4-4-2",
+                  "confidence": {
+                    "label": "medium",
+                    "score": 0.747,
+                    "reason": "away prediction based on last verified XI from match 102"
+                  },
+                  "starters": [
+                    {
+                      "name": "Emiliano Martinez",
+                      "position": "GK"
+                    },
+                    {
+                      "name": "Nicolas Tagliafico",
+                      "position": "LB"
+                    },
+                    {
+                      "name": "Lisandro Martinez",
+                      "position": "CB"
+                    },
+                    {
+                      "name": "Cristian Romero",
+                      "position": "CB"
+                    },
+                    {
+                      "name": "Nahuel Molina",
+                      "position": "RB"
+                    },
+                    {
+                      "name": "Leandro Paredes",
+                      "position": "CM"
+                    },
+                    {
+                      "name": "Alexis Mac Allister",
+                      "position": "CM"
+                    },
+                    {
+                      "name": "Enzo Fernandez",
+                      "position": "LM"
+                    },
+                    {
+                      "name": "Julian Alvarez",
+                      "position": "ST"
+                    },
+                    {
+                      "name": "Lionel Messi",
+                      "position": "ST"
+                    },
+                    {
+                      "name": "Giuliano Simeone",
+                      "position": "RM"
+                    }
+                  ],
+                  "benchCandidates": [
+                    {
+                      "name": "Juan Musso",
+                      "position": "GK"
+                    },
+                    {
+                      "name": "Geronimo Rulli",
+                      "position": "GK"
+                    },
+                    {
+                      "name": "Marcos Senesi",
+                      "position": "CB"
+                    },
+                    {
+                      "name": "Gonzalo Montiel",
+                      "position": "RB"
+                    },
+                    {
+                      "name": "Nicolas Otamendi",
+                      "position": "CB"
+                    },
+                    {
+                      "name": "Facundo Medina",
+                      "position": "CB"
+                    },
+                    {
+                      "name": "Rodrigo De Paul",
+                      "position": "CM"
+                    },
+                    {
+                      "name": "Valentin Barco",
+                      "position": "CM"
+                    },
+                    {
+                      "name": "Giovani Lo Celso",
+                      "position": "CM"
+                    },
+                    {
+                      "name": "Exequiel Palacios",
+                      "position": "CM"
+                    },
+                    {
+                      "name": "Nico Gonzalez",
+                      "position": "LM"
+                    },
+                    {
+                      "name": "Thiago Almada",
+                      "position": "RW"
+                    },
+                    {
+                      "name": "Nico Paz",
+                      "position": "ST"
+                    },
+                    {
+                      "name": "Jose Manuel Lopez",
+                      "position": "ST"
+                    },
+                    {
+                      "name": "Lautaro Martinez",
+                      "position": "ST"
+                    }
+                  ],
+                  "unavailable": [],
+                  "sourceIds": [
+                    "lineup-prediction-official-history",
+                    "fifa-lineups-sync-2026-07-15",
+                    "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      ]
     }
   ]
 }

@@ -328,7 +328,7 @@ function parseEventMinute(value, eventText = "", event = {}) {
     return "HT";
   }
 
-  if (Number(event.Period) === 17) {
+  if ([8, 17].includes(Number(event.Period))) {
     return "ET";
   }
 

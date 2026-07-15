@@ -955,30 +955,6 @@ body.is-juggle-active .scout-pupil {
   border-bottom: 1px solid rgba(10, 10, 10, 0.08);
 }
 
-.offside-summary-heading {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 8px;
-}
-
-.offside-summary-heading span {
-  color: rgba(10, 10, 10, 0.54);
-  font-size: 9px;
-  font-weight: 800;
-  letter-spacing: 0.055em;
-  line-height: 1;
-  text-transform: uppercase;
-}
-
-.offside-summary-heading span:first-child {
-  padding: 5px 7px;
-  border-radius: 999px;
-  background: #0a0a0a;
-  color: #ffffff;
-}
-
 .offside-rule-summary > p:not(.offside-legend) {
   color: rgba(10, 10, 10, 0.72);
   font-size: 12px;
@@ -3274,13 +3250,11 @@ html[data-theme="dark"] .scout-data-card {
 }
 
 html[data-theme="dark"] .offside-direction,
-html[data-theme="dark"] .offside-summary-heading span,
 html[data-theme="dark"] .offside-legend {
   color: var(--scout-dark-text-tertiary);
 }
 
-html[data-theme="dark"] .offside-moment,
-html[data-theme="dark"] .offside-summary-heading span:first-child {
+html[data-theme="dark"] .offside-moment {
   background: var(--scout-dark-inverse);
   color: var(--scout-dark-on-inverse);
 }

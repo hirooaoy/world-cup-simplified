@@ -1,6 +1,6 @@
 import { ZH_CLUB_NAME_TRANSLATIONS, ZH_LEAGUE_NAME_TRANSLATIONS, ZH_PLAYER_NAME_TRANSLATIONS } from "./football-locale-zh.js?v=2026-07-13-locale-2";
 
-const DATA_VERSION = "2026-07-14-tournament-integrity-4";
+const DATA_VERSION = "2026-07-15-suspended-bench-1";
 const DATA_URLS = {
   adminMessage: `data/admin-message.json?v=${DATA_VERSION}`,
   fixtures: `data/fixtures.json?v=${DATA_VERSION}`,
@@ -9,6 +9,7 @@ const DATA_URLS = {
   coachProfiles: `data/coach-profiles.json?v=${DATA_VERSION}`,
   lineups: `data/lineups.json?v=${DATA_VERSION}`,
   expectedLineups: `data/expected-lineups.json?v=${DATA_VERSION}`,
+  playerAvailability: `data/player-availability.json?v=${DATA_VERSION}`,
   liveData: `api/live-data?v=${DATA_VERSION}`,
   playerProfiles: `data/player-profiles.json?v=${DATA_VERSION}`,
   releaseNotes: `data/release-notes.json?v=${DATA_VERSION}`,
@@ -717,6 +718,12 @@ const ZH_ADDITIONAL_EXACT_TRANSLATIONS = {
     "西班牙掌控中场并限制姆巴佩，让法国始终无法形成持续压力。",
   "Porro finished a slick one-two with Olmo, sealing Spain's 2-0 win and first World Cup final since 2010.":
     "波罗与奥尔莫完成漂亮二过一后破门，锁定西班牙2比0取胜并自2010年以来首次晋级世界杯决赛。",
+  "Gordon finished Rogers' pass in the 55th minute to put England ahead after a goalless first half.":
+    "戈登在第55分钟接罗杰斯传球破门，在上半场互交白卷后帮助英格兰领先。",
+  "Messi set up Enzo Fernández in the 85th minute and Lautaro Martínez at 90+2' to complete Argentina's late comeback.":
+    "梅西先在第85分钟助攻恩佐·费尔南德斯，随后又在90+2分钟助攻劳塔罗·马丁内斯，完成阿根廷的末段逆转。",
+  "Martínez's winner sent Argentina into the final against Spain; England will face France for third place.":
+    "马丁内斯的制胜球将阿根廷送入对阵西班牙的决赛；英格兰将与法国争夺季军。",
   "Yasser Ibrahim and Mostafa Ziko gave Egypt a 2-0 lead and pushed Argentina to the edge.":
     "亚塞尔·易卜拉欣和穆斯塔法·齐科帮助埃及取得2比0领先，把阿根廷逼到悬崖边。",
   "Athletic pressing with direct attacking bursts": "运动能力压迫和直接进攻爆发",
@@ -3878,6 +3885,8 @@ let playerProfilesByName = new Map();
 let playerProfilesByTeamAndName = new Map();
 let lineupData = { lineups: {} };
 let expectedLineupsData = { fixtures: [] };
+let playerAvailabilityData = { teams: {} };
+let lineupRosterPlayersByTeamAndName = new Map();
 const lastKnownOfficialLineupsByFixtureId = new Map();
 const lineupSubstitutionPreviewState = new Set();
 let shouldShowPlayerMarketValues = false;
@@ -17931,6 +17940,98 @@ function normalizeLineupBenchEntry(player, teamId, index = 0) {
   return normalizedPlayer ? [...normalizedPlayer.slice(0, 4), normalizedPlayer[8]] : null;
 }
 
+function getLineupRosterPlayerKey(teamId, playerName) {
+  return `${String(teamId || "").trim()}:${normalizeLineupEventName(playerName)}`;
+}
+
+function getMostCommonLineupRosterValue(values = []) {
+  const counts = new Map();
+  let bestValue = "";
+  let bestCount = 0;
+
+  for (const rawValue of values) {
+    const value = String(rawValue || "").trim();
+    if (!value) {
+      continue;
+    }
+    const count = (counts.get(value) || 0) + 1;
+    counts.set(value, count);
+    if (count > bestCount) {
+      bestValue = value;
+      bestCount = count;
+    }
+  }
+
+  return bestValue;
+}
+
+function buildLineupRosterPlayerLookup(fixturesData, nextLineupData) {
+  const candidatesByKey = new Map();
+  const lineupRecords = nextLineupData?.lineups || {};
+
+  for (const fixture of fixturesData?.fixtures || []) {
+    const lineup = lineupRecords[fixture.id] || fixture.lineups;
+    if (!lineup) {
+      continue;
+    }
+
+    for (const side of ["home", "away"]) {
+      const teamId = fixture[`${side}TeamId`];
+      const teamLineup = lineup[side];
+      const players = [
+        ...(Array.isArray(teamLineup?.players) ? teamLineup.players : []),
+        ...(Array.isArray(teamLineup?.starters) ? teamLineup.starters : []),
+        ...(Array.isArray(teamLineup?.bench) ? teamLineup.bench : [])
+      ];
+
+      for (const player of players) {
+        const name = Array.isArray(player)
+          ? player[2] || player[1]
+          : player?.name || player?.fullName || player?.displayName || player?.label;
+        const key = getLineupRosterPlayerKey(teamId, name);
+        if (!name || !teamId || !key) {
+          continue;
+        }
+        const candidates = candidatesByKey.get(key) || [];
+        candidates.push({
+          name,
+          number: Array.isArray(player) ? player[0] : player.number || player.uniformNumber,
+          position: Array.isArray(player) ? player[3] : player.position || player.role
+        });
+        candidatesByKey.set(key, candidates);
+      }
+    }
+  }
+
+  return new Map(
+    [...candidatesByKey.entries()].map(([key, candidates]) => [
+      key,
+      {
+        name: candidates.at(-1)?.name || "",
+        number: getMostCommonLineupRosterValue(candidates.map((player) => player.number)),
+        position: getMostCommonLineupRosterValue(candidates.map((player) => player.position))
+      }
+    ])
+  );
+}
+
+function getFixtureBenchUnavailablePlayers(fixtureId, teamId) {
+  return (playerAvailabilityData?.teams?.[teamId]?.fixtureUnavailable || [])
+    .filter((entry) => entry?.fixtureId === fixtureId && entry?.benchDisplay)
+    .map((availability, index) => {
+      const rosterPlayer = lineupRosterPlayersByTeamAndName.get(
+        getLineupRosterPlayerKey(teamId, availability.name)
+      );
+      const player = normalizeLineupBenchEntry(
+        { ...rosterPlayer, name: availability.name },
+        teamId,
+        index
+      );
+      return player ? { player, availability } : null;
+    })
+    .filter(Boolean);
+}
+
 function normalizeLineupTeamEvents(events = {}) {
   const eventData = events && typeof events === "object" && !Array.isArray(events) ? events : {};
   return {
@@ -18097,6 +18198,7 @@ function normalizeLineupTeamData(teamLineup, teamId, mode = "final", options = {
   const bench = (Array.isArray(teamLineup.bench) ? teamLineup.bench : [])
     .map((player, index) => normalizeLineupBenchEntry(player, teamId, index))
     .filter(Boolean);
+  const benchUnavailable = getFixtureBenchUnavailablePlayers(options.fixtureId, teamId);
 
   if (!formation || sourcePlayersEntries.length !== 11) {
     return null;
@@ -18108,6 +18210,7 @@ function normalizeLineupTeamData(teamLineup, teamId, mode = "final", options = {
     coach: normalizeLineupCoach(teamLineup.coach, teamId),
     players: adjustedPlayers,
     bench,
+    benchUnavailable,
     events: normalizeLineupTeamEvents(teamLineup.events)
   };
 }
@@ -18198,7 +18301,7 @@ function getFixtureLineupPreview(match) {
     return null;
   }
   const layoutStatus = getLineupLayoutStatus(lineup);
-  const normalizationOptions = { preserveSourceGeometry: layoutStatus.exact };
+  const normalizationOptions = { preserveSourceGeometry: layoutStatus.exact, fixtureId: match.id };
   const home = normalizeLineupTeamData(lineup.home, match.homeTeamId, mode, normalizationOptions);
   const away = normalizeLineupTeamData(lineup.away, match.awayTeamId, mode, normalizationOptions);
   if (!home || !away) {
@@ -19507,8 +19610,82 @@ function renderLineupBenchPlayer(player, team, teamLineup) {
   `;
 }
 
+function getLocalizedBenchAvailabilityCopy(value) {
+  if (value && typeof value === "object" && !Array.isArray(value)) {
+    return String((currentLanguage === "zh" ? value.zh || value.en : value.en || value.zh) || "").trim();
+  }
+  return String(value || "").trim();
+}
+
+function getLineupBenchAvailabilityDetails(availability) {
+  const display = availability?.benchDisplay || {};
+  return [display.cause, display.origin, display.ends]
+    .map(getLocalizedBenchAvailabilityCopy)
+    .filter(Boolean);
+}
+
+function getLineupBenchAvailabilityStatus(availability) {
+  const status = String(availability?.benchDisplay?.status || "unavailable").trim().toLowerCase();
+  if (currentLanguage === "zh") {
+    return status === "suspended" ? "停赛" : "无法出场";
+  }
+  return status === "suspended" ? "Suspended" : "Unavailable";
+}
+
+function renderLineupBenchAvailabilityBadge(availability, playerName) {
+  const status = String(availability?.benchDisplay?.status || "unavailable").trim().toLowerCase();
+  const statusLabel = getLineupBenchAvailabilityStatus(availability);
+  const details = getLineupBenchAvailabilityDetails(availability);
+  const tooltip = details.join(" • ") || statusLabel;
+  const unavailableLabel = currentLanguage === "zh" ? `${statusLabel}，无法出场` : `${statusLabel} and unavailable`;
+  const ariaLabel = [playerName, unavailableLabel, ...details].filter(Boolean).join(". ");
+
+  if (status !== "suspended") {
+    return "";
+  }
+
+  return `
+    <span
+      class="lineup-event-badge lineup-event-card lineup-bench-availability-icon is-red"
+      ${renderLineupBadgeTooltipAttributes(ariaLabel, tooltip)}
+    ><span aria-hidden="true"></span></span>
+  `;
+}
+
+function renderLineupBenchUnavailablePlayer(entry, team, teamLineup) {
+  const lineupPlayer = getLineupPlayerData(entry.player, team);
+  const availability = entry.availability;
+  const numberLabel = formatLineupNumberLabel(lineupPlayer.number, lineupPlayer.isCaptain);
+  const positionLabel = getLocalizedLineupPosition(lineupPlayer.position);
+  const statusLabel = getLineupBenchAvailabilityStatus(availability);
+  const details = getLineupBenchAvailabilityDetails(availability);
+  const rowLabel = [
+    lineupPlayer.name,
+    numberLabel ? `#${numberLabel}` : "",
+    positionLabel,
+    currentLanguage === "zh" ? `${statusLabel}，无法出场` : `${statusLabel} and unavailable`,
+    ...details
+  ].filter(Boolean).join(". ");
+
+  return `
+    <li
+      class="lineup-bench-player is-unavailable is-${escapeHtml(availability?.benchDisplay?.status || "unavailable")}"
+      aria-label="${escapeHtml(rowLabel)}"
+      data-lineup-player-name="${escapeHtml(lineupPlayer.name)}"
+      data-lineup-availability="${escapeHtml(availability?.benchDisplay?.status || "unavailable")}"
+    >
+      ${numberLabel ? `<span class="lineup-bench-number">${escapeHtml(numberLabel)}</span>` : ""}
+      <span class="lineup-bench-name">${renderPlayerMention(lineupPlayer.label, lineupPlayer.cardPlayer)}</span>
+      <span class="lineup-bench-position">${escapeHtml(positionLabel)}</span>
+      <span class="lineup-bench-availability-status">${escapeHtml(statusLabel)}</span>
+      ${renderLineupBenchAvailabilityBadge(availability, lineupPlayer.name)}
+    </li>
+  `;
+}
+
 function renderLineupBenchPanel(match, team, teamLineup, side) {
   const bench = Array.isArray(teamLineup.bench) ? teamLineup.bench : [];
+  const benchUnavailable = Array.isArray(teamLineup.benchUnavailable) ? teamLineup.benchUnavailable : [];
   const benchId = `lineup-bench-${match.id}-${side}`;
 
   return `
@@ -19521,6 +19698,7 @@ function renderLineupBenchPanel(match, team, teamLineup, side) {
       <div class="lineup-bench-panel-inner">
         <ul class="lineup-bench-list">
           ${bench.map((player) => renderLineupBenchPlayer(player, team, teamLineup)).join("")}
+          ${benchUnavailable.map((entry) => renderLineupBenchUnavailablePlayer(entry, team, teamLineup)).join("")}
         </ul>
       </div>
     </div>
@@ -27094,6 +27272,7 @@ function applyDataSnapshot({
   historyData,
   lineupsData,
   expectedLineupsData: nextExpectedLineupsData = null,
+  playerAvailabilityData: nextPlayerAvailabilityData = null,
   coachProfilesData,
   playerProfilesData,
   standingsData,
@@ -27105,6 +27284,8 @@ function applyDataSnapshot({
       ? lineupsData
       : { lineups: {} };
   expectedLineupsData = isPlainObject(nextExpectedLineupsData) ? nextExpectedLineupsData : { fixtures: [] };
+  playerAvailabilityData = isPlainObject(nextPlayerAvailabilityData) ? nextPlayerAvailabilityData : { teams: {} };
+  lineupRosterPlayersByTeamAndName = buildLineupRosterPlayerLookup(fixturesData, lineupData);
   const fixturesWithLineups = mergeFixtureLineups(fixturesData, lineupData, expectedLineupsData);
   teamsById = new Map(teamsData.teams.map((team) => [team.id, team]));
   teamsByName = buildTeamNameLookup(teamsData.teams);
@@ -27133,6 +27314,7 @@ function applyDataSnapshot({
     historyData,
     lineupData,
     expectedLineupsData,
+    playerAvailabilityData,
     coachProfilesData,
     playerProfilesData,
     teamsData,
@@ -27168,6 +27350,7 @@ async function loadStaticData() {
     historyData,
     lineupsData,
     expectedLineupsFileData,
+    playerAvailabilityFileData,
     coachProfilesData,
     playerProfilesData,
     teamsData,
@@ -27179,6 +27362,7 @@ async function loadStaticData() {
     loadJson(DATA_URLS.history),
     loadOptionalJson(DATA_URLS.lineups, { lineups: {} }),
     loadOptionalJson(DATA_URLS.expectedLineups, { fixtures: [] }),
+    loadOptionalJson(DATA_URLS.playerAvailability, { teams: {} }),
     loadOptionalJson(DATA_URLS.coachProfiles, { profiles: {} }),
     loadOptionalJson(DATA_URLS.playerProfiles, { profiles: {} }),
     loadJson(DATA_URLS.teams),
@@ -27195,6 +27379,7 @@ async function loadStaticData() {
     historyData,
     lineupsData,
     expectedLineupsData: expectedLineupsFileData,
+    playerAvailabilityData: playerAvailabilityFileData,
     coachProfilesData,
     playerProfilesData,
     standingsData,

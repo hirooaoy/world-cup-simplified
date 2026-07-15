@@ -957,6 +957,31 @@ function getFixtureByMatchNumber(fixtures) {
   );
 }
 
+function promoteConfirmedConditionalProjections(fixturesData) {
+  let updateCount = 0;
+
+  for (const fixture of fixturesData.fixtures || []) {
+    if (fixture.projection || !fixture.homeTeamId || !fixture.awayTeamId) {
+      continue;
+    }
+
+    const conditionalProjection = (fixture.conditionalProjections || []).find(
+      (candidate) =>
+        candidate.homeTeamId === fixture.homeTeamId &&
+        candidate.awayTeamId === fixture.awayTeamId
+    );
+    if (!conditionalProjection) {
+      continue;
+    }
+
+    const { homeTeamId, awayTeamId, market, ...projection } = conditionalProjection;
+    fixture.projection = projection;
+    updateCount += 1;
+  }
+
+  return { fixturesData, updateCount };
+}
+
 function resolveKnockoutSlotTeamId({
   fixture,
   fixtureByMatchNumber,
@@ -1133,15 +1158,16 @@ const participantMerge = populateResolvedKnockoutParticipants({
   teams: teamsData.teams,
   tournamentData
 });
+const projectionPromotion = promoteConfirmedConditionalProjections(participantMerge.fixturesData);
 const transitionedExpectedFixtureIds = getExpectedLineupTransitionFixtureIds({
   expectedLineupsData,
-  fixturesData: participantMerge.fixturesData
+  fixturesData: projectionPromotion.fixturesData
 });
 const predictionHistoryArchive = archiveExpectedLineupsForFixtures({
   auditData: predictionAuditData,
   historyData: predictionHistoryData,
   expectedLineupsData,
-  fixturesData: participantMerge.fixturesData,
+  fixturesData: projectionPromotion.fixturesData,
   fixtureIds: transitionedExpectedFixtureIds,
   capturedAt: checkedAt,
   captureMethod: "fifa-results-prune",
@@ -1149,8 +1175,12 @@ const predictionHistoryArchive = archiveExpectedLineupsForFixtures({
   requireAuditRevision: true,
   revisionLedgerData: predictionRevisionLedgerData
 });
-const expectedLineupsPrune = pruneExpectedLineupsForSyncedFixtures(expectedLineupsData, participantMerge.fixturesData);
-const totalUpdateCount = merge.updateCount + participantMerge.updateCount + expectedLineupsPrune.pruneCount;
+const expectedLineupsPrune = pruneExpectedLineupsForSyncedFixtures(expectedLineupsData, projectionPromotion.fixturesData);
+const totalUpdateCount =
+  merge.updateCount +
+  participantMerge.updateCount +
+  projectionPromotion.updateCount +
+  expectedLineupsPrune.pruneCount;
 const totalParticipantUpdateCount = merge.officialParticipantUpdateCount + participantMerge.updateCount;
 const nextTournamentData = addSyncSource(tournamentData, {
   matchedCount: merge.matchedCount,
@@ -1160,7 +1190,7 @@ const nextTournamentData = addSyncSource(tournamentData, {
 
 async function persistOfficialResultFiles() {
   const writes = [
-    writeJson("fixtures.json", participantMerge.fixturesData),
+    writeJson("fixtures.json", projectionPromotion.fixturesData),
     writeJson("standings.json", nextStandingsData),
     writeJson("tournament.json", nextTournamentData)
   ];

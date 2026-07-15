@@ -147,14 +147,17 @@ try {
   const englandArgentina = await readProjectedCard(102);
   assert(
     englandArgentina.teamIds.join("|") === "ENG|ARG" &&
-      englandArgentina.basis === "loaded" &&
-      englandArgentina.keys.join("|") === "home|tie|away" &&
-      englandArgentina.texts.join("|") === englandArgentina.expectedTexts.join("|") &&
-      englandArgentina.tooltips[1] === "If it goes to penalties, Argentina may have a slight edge: they have won 6 of 7 World Cup shootouts, and Emiliano Martínez has never lost one for his country.",
-    `England-Argentina should use today's direct Opta/bookmaker consensus. Measured ${JSON.stringify(englandArgentina)}.`
+      englandArgentina.basis === "" &&
+      englandArgentina.keys.length === 0 &&
+      englandArgentina.texts.length === 0,
+    `Completed England-Argentina should no longer display a pre-match forecast. Measured ${JSON.stringify(englandArgentina)}.`
   );
 
-  const englandFinal = await readProjectedCard(104);
+  const englandFinal = await readProjectedCard(104, (data) => {
+    const final = data.fixtures.find((fixture) => fixture.matchNumber === 104);
+    final.awayTeamId = "ENG";
+    delete final.projection;
+  });
   assert(
     englandFinal.teamIds.join("|") === "ESP|ENG" &&
       englandFinal.basis === "conditional-model" &&
@@ -166,21 +169,21 @@ try {
     `Spain-England should use the sourced conditional final forecast. Measured ${JSON.stringify(englandFinal)}.`
   );
 
-  const argentinaFinalTransform = (data) => {
-    const semiFinal = data.fixtures.find((fixture) => fixture.matchNumber === 102);
-    semiFinal.projection = { ...semiFinal.projection, home: 31, draw: 32, away: 37 };
-  };
-  const argentinaFinal = await readProjectedCard(104, argentinaFinalTransform);
+  const argentinaFinal = await readProjectedCard(104);
   assert(
     argentinaFinal.teamIds.join("|") === "ESP|ARG" &&
-      argentinaFinal.basis === "conditional-model" &&
+      argentinaFinal.basis === "loaded" &&
       argentinaFinal.keys.join("|") === "home|tie|away" &&
       argentinaFinal.texts.join("|") === argentinaFinal.expectedTexts.join("|") &&
       argentinaFinal.tooltips[1].startsWith("If it goes to penalties"),
-    `Spain-Argentina should use the sourced conditional final forecast. Measured ${JSON.stringify(argentinaFinal)}.`
+    `Confirmed Spain-Argentina should use its promoted direct fixture forecast. Measured ${JSON.stringify(argentinaFinal)}.`
   );
 
-  const argentinaThirdPlace = await readProjectedCard(103);
+  const argentinaThirdPlace = await readProjectedCard(103, (data) => {
+    const thirdPlace = data.fixtures.find((fixture) => fixture.matchNumber === 103);
+    thirdPlace.awayTeamId = "ARG";
+    delete thirdPlace.projection;
+  });
   assert(
     argentinaThirdPlace.teamIds.join("|") === "FRA|ARG" &&
       argentinaThirdPlace.basis === "conditional-model" &&
@@ -190,22 +193,23 @@ try {
     `France-Argentina should use the online-calibrated third-place scenario. Measured ${JSON.stringify(argentinaThirdPlace)}.`
   );
 
-  const englandThirdPlace = await readProjectedCard(103, argentinaFinalTransform);
+  const englandThirdPlace = await readProjectedCard(103);
   assert(
     englandThirdPlace.teamIds.join("|") === "FRA|ENG" &&
-      englandThirdPlace.basis === "conditional-model" &&
+      englandThirdPlace.basis === "loaded" &&
       englandThirdPlace.keys.join("|") === "home|tie|away" &&
       englandThirdPlace.texts.join("|") === englandThirdPlace.expectedTexts.join("|") &&
       englandThirdPlace.tooltips[1].startsWith("If it goes to penalties"),
-    `France-England should use the online-calibrated third-place scenario. Measured ${JSON.stringify(englandThirdPlace)}.`
+    `Confirmed France-England should use its promoted direct fixture forecast. Measured ${JSON.stringify(englandThirdPlace)}.`
   );
 
   const unsourcedFinal = await readProjectedCard(104, (data) => {
     const final = data.fixtures.find((fixture) => fixture.matchNumber === 104);
+    delete final.projection;
     delete final.conditionalProjections;
   });
   assert(
-    unsourcedFinal.teamIds.join("|") === "ESP|ENG" &&
+    unsourcedFinal.teamIds.join("|") === "ESP|ARG" &&
       unsourcedFinal.basis === "" &&
       unsourcedFinal.keys.length === 0 &&
       unsourcedFinal.texts.length === 0,

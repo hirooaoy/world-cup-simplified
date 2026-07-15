@@ -2040,13 +2040,30 @@ try {
     .click();
   await themeTogglePage.waitForFunction(() => document.documentElement.dataset.theme === "dark");
   await themeReportPage.waitForFunction(() => document.documentElement.dataset.theme === "dark");
-  const toggledDarkState = await themeTogglePage.evaluate(() => ({
-    checked: document.querySelector("#dark-mode-toggle")?.checked,
-    metaThemeColor: document.querySelector('meta[name="theme-color"]')?.content.toLowerCase(),
-    preference: window.worldCupTheme?.getPreference(),
-    stored: localStorage.getItem("world-cup-simplified-theme"),
-    theme: document.documentElement.dataset.theme
-  }));
+  const toggledDarkState = await themeTogglePage.evaluate(() => {
+    const pitchProbe = document.createElement("div");
+    const numberProbe = document.createElement("span");
+    pitchProbe.className = "lineup-pitch";
+    numberProbe.className = "lineup-player-number";
+    pitchProbe.append(numberProbe);
+    document.body.append(pitchProbe);
+    const numberStyles = getComputedStyle(numberProbe);
+    const lineupNumber = {
+      background: numberStyles.backgroundColor,
+      border: numberStyles.borderColor,
+      color: numberStyles.color
+    };
+    pitchProbe.remove();
+
+    return {
+      checked: document.querySelector("#dark-mode-toggle")?.checked,
+      lineupNumber,
+      metaThemeColor: document.querySelector('meta[name="theme-color"]')?.content.toLowerCase(),
+      preference: window.worldCupTheme?.getPreference(),
+      stored: localStorage.getItem("world-cup-simplified-theme"),
+      theme: document.documentElement.dataset.theme
+    };
+  });
   const reportDarkState = await themeReportPage.evaluate(() => ({
     colorScheme: getComputedStyle(document.documentElement).colorScheme,
     metaThemeColor: document.querySelector('meta[name="theme-color"]')?.content.toLowerCase(),
@@ -2085,6 +2102,9 @@ try {
       toggledDarkState.preference === "dark" &&
       toggledDarkState.stored === "dark" &&
       toggledDarkState.metaThemeColor === "#0b0d10" &&
+      toggledDarkState.lineupNumber.background === "rgb(10, 10, 10)" &&
+      toggledDarkState.lineupNumber.border === "rgb(18, 44, 33)" &&
+      toggledDarkState.lineupNumber.color === "rgb(255, 255, 255)" &&
       reportDarkState.theme === "dark" &&
       reportDarkState.stored === "dark" &&
       reportDarkState.colorScheme.includes("dark") &&
@@ -3863,13 +3883,13 @@ try {
   assert(
     !unresolvedFinalRowText.includes("Predicted") &&
       unresolvedFinalDetailText.includes(expectedFinalParticipantText) &&
-      unresolvedFinalDetailText.includes("Predicted matchup; participants come from current knockout-path estimates.") &&
+      !unresolvedFinalDetailText.includes("Predicted matchup") &&
       unresolvedFinalDetailText.includes("Previous: Semi-finals") &&
       unresolvedFinalDetailText.includes(expectedFranceSpainSourceSummary) &&
       unresolvedFinalDetailText.includes(expectedEnglandArgentinaSourceSummary) &&
       !unresolvedFinalDetailText.includes("Round path") &&
       !unresolvedFinalDetailText.includes("No next knockout match is loaded yet."),
-    "The Final detail should use confirmed semi-final winners, keep unresolved winner slots, reflect source status, and omit a dead-end next-path block."
+    "The Final detail should use confirmed semi-final winners, reflect source status, and omit predicted or dead-end path copy."
   );
 
   await page.goto(`${baseUrl}?view=matches&date=2026-07-18&tz=America%2FLos_Angeles`, {
@@ -3884,13 +3904,13 @@ try {
   assert(
     !unresolvedBronzeRowText.includes("Predicted") &&
       unresolvedBronzeDetailText.includes(expectedBronzeParticipantText) &&
-      unresolvedBronzeDetailText.includes("Predicted matchup; participants come from current knockout-path estimates.") &&
+      !unresolvedBronzeDetailText.includes("Predicted matchup") &&
       unresolvedBronzeDetailText.includes("Previous: Semi-finals") &&
       unresolvedBronzeDetailText.includes(expectedFranceSpainSourceSummary) &&
       unresolvedBronzeDetailText.includes(expectedEnglandArgentinaSourceSummary) &&
       !unresolvedBronzeDetailText.includes("Round path") &&
       !unresolvedBronzeDetailText.includes("No next knockout match is loaded yet."),
-    "The third-place detail should use confirmed semi-final runners-up, keep unresolved runner-up slots, reflect source status, and omit a dead-end next-path block."
+    "The third-place detail should use confirmed semi-final runners-up, reflect source status, and omit predicted or dead-end path copy."
   );
 
   const resolvedFinalCheck = await openPageAtTime(
@@ -8925,10 +8945,10 @@ try {
     };
   });
   assert(
-    quietDayCatchUpItem.count === 1 &&
+      quietDayCatchUpItem.count === 1 &&
       quietDayCatchUpItem.headline ===
-        "Kylian Mbappe and Lionel Messi are level at the top of the Golden Boot race" &&
-      quietDayCatchUpItem.subtitle.includes("Kylian Mbappe and Lionel Messi have 8 goals each") &&
+        "Lionel Messi and Kylian Mbappe are level at the top of the Golden Boot race" &&
+      quietDayCatchUpItem.subtitle.includes("Lionel Messi and Kylian Mbappe have 8 goals each") &&
       quietDayCatchUpItem.subtitle.includes("Erling Haaland is next on 7") &&
       quietDayCatchUpItem.subtitle.includes("Harry Kane and Jude Bellingham on 6") &&
       quietDayCatchUpItem.sourceHref.includes("fifa.com"),
@@ -8943,7 +8963,7 @@ try {
     return clone.textContent.replace(/\s+/g, " ").trim();
   });
   assert(
-    quietDayChineseText.includes("基利安·姆巴佩和利昂内尔·梅西并列领跑金靴奖竞争") &&
+    quietDayChineseText.includes("利昂内尔·梅西和基利安·姆巴佩并列领跑金靴奖竞争") &&
       quietDayChineseText.includes("同为8球") &&
       quietDayChineseText.includes("埃尔林·哈兰德以7球紧随其后") &&
       quietDayChineseText.includes("哈里·凯恩和裘德·贝林厄姆同为6球") &&
@@ -10145,9 +10165,8 @@ try {
       tournamentCheck.m89TeamVisuals.every(isResolvedRoundOf16Country) &&
       getCssColorAlpha(tournamentCheck.m89VersusColor) >= 0.35 &&
       (m92ResolvedState || m92ProjectedState) &&
-      tournamentCheck.laterRoundLikelyVisuals.length >= 2 &&
       tournamentCheck.laterRoundLikelyVisuals.every(isMutedProjectedCountry),
-    `Resolved Round of 16 country picks should stay full-strength while projected Round of 16 and later teams stay muted. Measured ${JSON.stringify({ m89TeamVisuals: tournamentCheck.m89TeamVisuals, m89VersusColor: tournamentCheck.m89VersusColor, m92LikelyVisuals, m92LockedVisuals, m92VersusColor: tournamentCheck.m92VersusColor, laterRoundLikelyVisuals: tournamentCheck.laterRoundLikelyVisuals })}.`
+    `Resolved knockout country picks should stay full-strength while any remaining projected teams stay muted. Measured ${JSON.stringify({ m89TeamVisuals: tournamentCheck.m89TeamVisuals, m89VersusColor: tournamentCheck.m89VersusColor, m92LikelyVisuals, m92LockedVisuals, m92VersusColor: tournamentCheck.m92VersusColor, laterRoundLikelyVisuals: tournamentCheck.laterRoundLikelyVisuals })}.`
   );
   const groupETopTeam = getTeam(standingsData.groups?.E?.[0]?.teamId);
   const groupETopTeamName = groupETopTeam.standingName || groupETopTeam.name;
@@ -10287,9 +10306,11 @@ try {
   const expectedMatch81Fixture = fixturesData.fixtures.find((fixture) => fixture.matchNumber === 81);
   const expectedMatch97Fixture = fixturesData.fixtures.find((fixture) => fixture.matchNumber === 97);
   const expectedMatch101Fixture = fixturesData.fixtures.find((fixture) => fixture.matchNumber === 101);
+  const expectedMatch102Fixture = fixturesData.fixtures.find((fixture) => fixture.matchNumber === 102);
   const expectedM81HasOutcomePills = shouldShowOutcomePills(expectedMatch81Fixture);
   const expectedM97HasOutcomePills = shouldShowOutcomePills(expectedMatch97Fixture);
   const expectedM101HasOutcomePills = shouldShowOutcomePills(expectedMatch101Fixture);
+  const expectedM102HasOutcomePills = shouldShowOutcomePills(expectedMatch102Fixture);
   const expectedM97ResultText = expectedMatch97Fixture?.score
     ? `${expectedMatch97Fixture.score.home}-${expectedMatch97Fixture.score.away}`
     : "";
@@ -10384,6 +10405,21 @@ try {
     expectedThirdPlaceConditionalProjection,
     expectedThirdPlaceTeamIds
   );
+  const getExpectedLoadedTexts = (fixture, teamIds) => fixture?.projection
+    ? [
+        `${teamIds[0]} ${fixture.projection.home}%`,
+        `TIE ${fixture.projection.draw}%`,
+        `${teamIds[1]} ${fixture.projection.away}%`
+      ]
+    : [];
+  const expectedFinalOutcomeBasis = expectedFinalFixture?.projection ? "loaded" : "conditional-model";
+  const expectedThirdPlaceOutcomeBasis = expectedThirdPlaceFixture?.projection ? "loaded" : "conditional-model";
+  const expectedFinalOutcomeTexts = expectedFinalFixture?.projection
+    ? getExpectedLoadedTexts(expectedFinalFixture, expectedFinalTeamIds)
+    : expectedFinalConditionalTexts;
+  const expectedThirdPlaceOutcomeTexts = expectedThirdPlaceFixture?.projection
+    ? getExpectedLoadedTexts(expectedThirdPlaceFixture, expectedThirdPlaceTeamIds)
+    : expectedThirdPlaceConditionalTexts;
   const tournamentCheckPredicates = [
     ["summaryHasRoundOf32", tournamentCheck.summary.includes("Round of 32 slots")],
     ["m73ProgressDate", tournamentCheck.m73ProgressText.includes("Jun 28 12:00PM")],
@@ -10452,28 +10488,35 @@ try {
     ],
     ["m97SeedLabelCount", tournamentCheck.m97SeedLabelCount === 0],
     ["m103PillCount", tournamentCheck.m103PillCount === 3],
-    ["m103Projected", tournamentCheck.m103Projected === true],
-    ["m103ConditionalBasis", tournamentCheck.m103OutcomeBasis === "conditional-model"],
+    [
+      "m103Projected",
+      tournamentCheck.m103Projected ===
+        !(isKnockoutSideConfirmed(expectedThirdPlaceFixture, "home") && isKnockoutSideConfirmed(expectedThirdPlaceFixture, "away"))
+    ],
+    ["m103ConditionalBasis", tournamentCheck.m103OutcomeBasis === expectedThirdPlaceOutcomeBasis],
     ["m103ConditionalKeys", tournamentCheck.m103OutcomeKeys.join("|") === "home|tie|away"],
     [
       "m103ConditionalTexts",
-      expectedThirdPlaceConditionalTexts.length === 3 &&
-        tournamentCheck.m103OutcomeTexts.join("|") === expectedThirdPlaceConditionalTexts.join("|")
+      expectedThirdPlaceOutcomeTexts.length === 3 &&
+        tournamentCheck.m103OutcomeTexts.join("|") === expectedThirdPlaceOutcomeTexts.join("|")
     ],
     ["m104PillCount", tournamentCheck.m104PillCount === 3],
-    ["m104ConditionalBasis", tournamentCheck.m104OutcomeBasis === "conditional-model"],
+    ["m104ConditionalBasis", tournamentCheck.m104OutcomeBasis === expectedFinalOutcomeBasis],
     ["m104ConditionalKeys", tournamentCheck.m104OutcomeKeys.join("|") === "home|tie|away"],
     [
       "m104ConditionalTexts",
-      expectedFinalConditionalTexts.length === 3 &&
-        tournamentCheck.m104OutcomeTexts.join("|") === expectedFinalConditionalTexts.join("|")
+      expectedFinalOutcomeTexts.length === 3 &&
+        tournamentCheck.m104OutcomeTexts.join("|") === expectedFinalOutcomeTexts.join("|")
     ],
     [
       "m104ConditionalTooltips",
       tournamentCheck.m104OutcomeTooltips.length === 3 &&
-        tournamentCheck.m104OutcomeTooltips[0].includes("Online-calibrated from Opta and markets") &&
         tournamentCheck.m104OutcomeTooltips[1].startsWith("If it goes to penalties") &&
-        tournamentCheck.m104OutcomeTooltips[2].includes("direct odds replace it once set")
+        (expectedFinalOutcomeBasis === "loaded"
+          ? tournamentCheck.m104OutcomeTooltips[0].includes("chance to win in regulation") &&
+            tournamentCheck.m104OutcomeTooltips[2].includes("chance to win in regulation")
+          : tournamentCheck.m104OutcomeTooltips[0].includes("Online-calibrated from Opta and markets") &&
+            tournamentCheck.m104OutcomeTooltips[2].includes("direct odds replace it once set"))
     ],
     ["connectorStrokeValues", tournamentCheck.connectorStrokeValues.length === 1],
     ["connectorStrokeValue", tournamentCheck.connectorStrokeValues[0] === "rgb(217, 217, 217)"],
@@ -10549,8 +10592,9 @@ try {
     ],
     [
       "m102TieTooltip",
-      tournamentCheck.m102TieTooltip.includes("won 6 of 7 World Cup shootouts") &&
-        tournamentCheck.m102TieTooltip.includes("Emiliano Martínez has never lost one for his country")
+      !expectedM102HasOutcomePills ||
+        (tournamentCheck.m102TieTooltip.includes("won 6 of 7 World Cup shootouts") &&
+          tournamentCheck.m102TieTooltip.includes("Emiliano Martínez has never lost one for his country"))
     ],
     [
       "m103TieTooltip",
@@ -10601,13 +10645,8 @@ try {
     "/?view=standings&standingsMode=tournament&tz=America%2FLos_Angeles",
     {
       fixtureTransform(data) {
-        const semiFinal = data.fixtures.find((fixture) => fixture.matchNumber === 102);
-        semiFinal.projection = {
-          ...semiFinal.projection,
-          home: 31,
-          draw: 32,
-          away: 37
-        };
+        const final = data.fixtures.find((fixture) => fixture.matchNumber === 104);
+        delete final.projection;
       }
     }
   );
@@ -10644,7 +10683,13 @@ try {
 
   const zhTournamentTooltipCheck = await openPageAtTime(
     "2026-06-27T23:30:00.000Z",
-    "/?view=standings&standingsMode=tournament&lang=zh&tz=America%2FLos_Angeles"
+    "/?view=standings&standingsMode=tournament&lang=zh&tz=America%2FLos_Angeles",
+    {
+      fixtureTransform(data) {
+        const final = data.fixtures.find((fixture) => fixture.matchNumber === 104);
+        delete final.projection;
+      }
+    }
   );
   await zhTournamentTooltipCheck.page.waitForSelector('.progress-match[data-match-number="88"]');
   const zhTournamentTooltips = await zhTournamentTooltipCheck.page.evaluate(() => {
@@ -10675,8 +10720,9 @@ try {
       (!expectedM101HasOutcomePills ||
         (zhTournamentTooltips.m101Tie.includes("面对22次点球大战罚球扑出8次") &&
           zhTournamentTooltips.m101Tie.includes("职业生涯点球命中率为89%"))) &&
-      zhTournamentTooltips.m102Tie.includes("7次世界杯点球大战中赢下6次") &&
-      zhTournamentTooltips.m102Tie.includes("代表国家队参加点球大战从未失利") &&
+      (!expectedM102HasOutcomePills ||
+        (zhTournamentTooltips.m102Tie.includes("7次世界杯点球大战中赢下6次") &&
+          zhTournamentTooltips.m102Tie.includes("代表国家队参加点球大战从未失利"))) &&
       zhTournamentTooltips.m103Tie.startsWith("如果进入点球大战") &&
       zhTournamentTooltips.m104Tie.startsWith("如果进入点球大战") &&
       zhTournamentTooltips.m104Home.includes("常规时间取胜概率约为") &&
@@ -10755,6 +10801,80 @@ try {
       document.querySelector("#match-info:not([hidden])") &&
       document.querySelector("#match-info [data-open-tournament-tab]")?.dataset.tournamentMatchNumber === "102"
   );
+  await page.waitForSelector("#match-info .lineup-preview-block");
+  await page.locator('#match-info [data-lineup-bench-toggle="home"]').click();
+  await page.waitForFunction(() =>
+    document.querySelector('#match-info [data-lineup-bench-panel="home"]')?.classList.contains("is-open")
+  );
+  const englandSuspendedBenchState = await page.evaluate(() => {
+    const button = document.querySelector('#match-info [data-lineup-bench-toggle="home"]');
+    const panel = document.querySelector('#match-info [data-lineup-bench-panel="home"]');
+    const rows = [...(panel?.querySelectorAll(".lineup-bench-player") || [])];
+    const unavailableRows = rows.filter((row) => row.classList.contains("is-unavailable"));
+    const quansah = unavailableRows.find((row) => row.dataset.lineupPlayerName === "Jarell Quansah");
+    const cardTrigger = quansah?.querySelector('[data-player-card-trigger="true"]');
+    const redCard = quansah?.querySelector(".lineup-bench-availability-icon.is-red");
+    const styles = quansah ? getComputedStyle(quansah) : null;
+
+    return {
+      benchAriaLabel: button?.getAttribute("aria-label") || "",
+      benchCount: button?.querySelector(".lineup-bench-count")?.textContent.trim() || "",
+      cardAriaLabel: cardTrigger?.getAttribute("aria-label") || "",
+      eligibleRows: rows.filter((row) => !row.classList.contains("is-unavailable")).length,
+      lastPlayerName: rows.at(-1)?.dataset.lineupPlayerName || "",
+      playerCardTriggers: quansah?.querySelectorAll('[data-player-card-trigger="true"]').length || 0,
+      position: quansah?.querySelector(".lineup-bench-position")?.textContent.trim() || "",
+      redCardAriaLabel: redCard?.getAttribute("aria-label") || "",
+      redCardTooltip: redCard?.getAttribute("data-tooltip") || "",
+      rowAriaLabel: quansah?.getAttribute("aria-label") || "",
+      rowColor: styles?.color || "",
+      rowCount: rows.length,
+      status: quansah?.querySelector(".lineup-bench-availability-status")?.textContent.trim() || "",
+      substitutionControls: quansah?.querySelectorAll("[data-lineup-substitution-toggle]").length || 0,
+      unavailableRows: unavailableRows.length,
+      uniformNumber: quansah?.querySelector(".lineup-bench-number")?.textContent.trim() || ""
+    };
+  });
+  assert(
+    englandSuspendedBenchState.benchAriaLabel === "Bench: 14" &&
+      englandSuspendedBenchState.benchCount === "14" &&
+      englandSuspendedBenchState.eligibleRows === 14 &&
+      englandSuspendedBenchState.rowCount === 15 &&
+      englandSuspendedBenchState.unavailableRows === 1 &&
+      englandSuspendedBenchState.lastPlayerName === "Jarell Quansah" &&
+      englandSuspendedBenchState.uniformNumber === "26" &&
+      englandSuspendedBenchState.position === "CB" &&
+      englandSuspendedBenchState.status === "Suspended" &&
+      englandSuspendedBenchState.substitutionControls === 0 &&
+      englandSuspendedBenchState.playerCardTriggers === 1 &&
+      englandSuspendedBenchState.cardAriaLabel.includes("Jarell Quansah") &&
+      englandSuspendedBenchState.rowAriaLabel.includes("Suspended and unavailable") &&
+      englandSuspendedBenchState.redCardAriaLabel.includes("Suspended and unavailable") &&
+      englandSuspendedBenchState.redCardTooltip ===
+        "Red-card suspension • Sent off against Mexico • Second of two matches; ends after England vs Argentina" &&
+      englandSuspendedBenchState.rowColor === "rgba(10, 10, 10, 0.38)",
+    `England's semifinal bench should announce 14 eligible substitutes and append Quansah as a grey suspended, unavailable player with profile access. Measured ${JSON.stringify(englandSuspendedBenchState)}.`
+  );
+  const quansahBenchProfileTrigger = page.locator(
+    '#match-info [data-lineup-player-name="Jarell Quansah"] [data-player-card-trigger="true"]'
+  );
+  await quansahBenchProfileTrigger.focus();
+  await page.keyboard.press("Enter");
+  await page.waitForFunction(() =>
+    [...document.querySelectorAll(".player-card")].some((card) => {
+      const style = getComputedStyle(card);
+      const bounds = card.getBoundingClientRect();
+      return (
+        card.querySelector(".player-card-name")?.textContent.trim() === "Jarell Quansah" &&
+        style.display !== "none" &&
+        style.visibility !== "hidden" &&
+        Number(style.opacity) > 0.05 &&
+        bounds.width > 0 &&
+        bounds.height > 0
+      );
+    })
+  );
+  await page.keyboard.press("Escape");
   await page.locator("#match-info [data-open-tournament-tab]").click();
   await page.waitForFunction(
     () =>
@@ -13899,6 +14019,18 @@ try {
   await ballBoyInput.fill("Who do Argentina play next?");
   await ballBoySend.click();
   const argentinaSemiFinalIsLive = currentEnglandArgentinaSemiFinal?.status === "LIVE";
+  const expectedArgentinaNextFixture = fixturesData.fixtures
+    .filter((fixture) =>
+      fixture.status !== "FT" &&
+      [fixture.homeTeamId, fixture.awayTeamId].includes("ARG")
+    )
+    .sort((left, right) => new Date(left.kickoffUtc) - new Date(right.kickoffUtc))[0];
+  const expectedArgentinaNextTeams = expectedArgentinaNextFixture
+    ? [expectedArgentinaNextFixture.homeTeamId, expectedArgentinaNextFixture.awayTeamId].map((teamId) => {
+        const team = getTeam(teamId);
+        return team.standingName || team.name;
+      })
+    : [];
   await touchPage.locator(
     argentinaSemiFinalIsLive
       ? ".scout-country-card.is-focus-next"
@@ -13920,9 +14052,9 @@ try {
       ? nextFixtureMetrics.lead === "Argentina do not currently have another match scheduled." &&
         nextFixtureMetrics.matchCards === 0 &&
         nextFixtureMetrics.highlightLinks === 0
-      : nextFixtureMetrics.lead.startsWith("England vs Argentina:") &&
-        nextFixtureMetrics.lead.includes("Jul 15") &&
-        JSON.stringify(nextFixtureMetrics.teams) === JSON.stringify(["England", "Argentina"]) &&
+      : expectedArgentinaNextFixture &&
+        nextFixtureMetrics.lead.startsWith(`${expectedArgentinaNextTeams.join(" vs ")}:`) &&
+        JSON.stringify(nextFixtureMetrics.teams) === JSON.stringify(expectedArgentinaNextTeams) &&
         nextFixtureMetrics.highlightLinks === 0 &&
         nextFixtureMetrics.unrelatedSections === 0,
     `Ball Boy should answer the exact Argentina next-match question for the current fixture state without crashing on a missing highlight. Measured ${JSON.stringify(nextFixtureMetrics)}.`
@@ -14013,6 +14145,7 @@ try {
     const answer = [...document.querySelectorAll(".scout-answer")].at(-1);
     const source = answer.querySelector(".scout-source-link")?.getBoundingClientRect();
     return {
+      decorativeHeaderCount: answer.querySelectorAll(".offside-summary-heading").length,
       overflow: answer.scrollWidth - answer.clientWidth,
       scenarioColumns: [...answer.querySelectorAll(".offside-scenario")]
         .map((scenario) => getComputedStyle(scenario).gridTemplateColumns.split(" ").length),
@@ -14021,7 +14154,8 @@ try {
     };
   });
   assert(
-    offsideBallBoyMetrics.scenarioCount === 2 &&
+    offsideBallBoyMetrics.decorativeHeaderCount === 0 &&
+      offsideBallBoyMetrics.scenarioCount === 2 &&
       offsideBallBoyMetrics.scenarioColumns.every((count) => count === 1) &&
       offsideBallBoyMetrics.sourceHeight >= 40 &&
       offsideBallBoyMetrics.overflow <= 1,
@@ -14280,7 +14414,8 @@ try {
     };
   });
   assert(
-      zhOffsideBallBoyMetrics.text.includes("只看一个时刻") &&
+      !zhOffsideBallBoyMetrics.text.includes("只看一个时刻") &&
+      !zhOffsideBallBoyMetrics.text.includes("进攻方向") &&
       zhOffsideBallBoyMetrics.text.includes("P传球时，A已经越过越位线") &&
       zhOffsideBallBoyMetrics.text.includes("P传球时，A与越位线平行") &&
       zhOffsideBallBoyMetrics.source === "阅读IFAB官方规则 ↗" &&

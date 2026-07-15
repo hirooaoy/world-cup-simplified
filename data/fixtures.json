@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-15T20:45:00.000Z",
+  "updatedAt": "2026-07-15T21:33:10.951Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -177,7 +177,10 @@
     "fox-england-argentina-odds-2026-07-14",
     "worldcupbracket-draw-model-2026-07-14",
     "statszone-third-place-history-2026-04-14",
-    "fifa-official-results-sync-2026-07-15"
+    "fifa-official-results-sync-2026-07-15",
+    "fifa-goal-events-sync-2026-07-15",
+    "fifa-match-events-sync-2026-07-15",
+    "national-football-teams-h2h-sync-2026-07-15"
   ],
   "coverage": {
     "status": "complete-schedule",
@@ -12194,9 +12197,9 @@
       },
       "matchEvents": {
         "sourceIds": [
-          "fifa-match-events-sync-2026-07-02"
+          "fifa-match-events-sync-2026-07-15"
         ],
-        "checkedAt": "2026-07-02T05:35:25.953Z",
+        "checkedAt": "2026-07-15T21:26:35.800Z",
         "home": {
           "formation": "4-2-3-1",
           "cards": [
@@ -12271,7 +12274,7 @@
             },
             {
               "offName": "Matheus Cunha",
-              "onName": "Neymar Jr",
+              "onName": "Neymar",
               "minute": 76,
               "side": "away"
             },
@@ -20488,7 +20491,99 @@
       "resultStoryBulletsZh": [
         "伊万·佩里希奇在第53分钟为克罗地亚首开纪录。",
         "贡萨洛·拉莫斯在第90+4分钟打进葡萄牙的最后一球。"
-      ]
+      ],
+      "matchEvents": {
+        "sourceIds": [
+          "fifa-match-events-sync-2026-07-15"
+        ],
+        "checkedAt": "2026-07-15T21:26:35.800Z",
+        "home": {
+          "formation": "4-2-3-1",
+          "cards": [
+            {
+              "playerName": "Ruben Dias",
+              "type": "yellow",
+              "minute": 17,
+              "side": "home"
+            }
+          ],
+          "substitutions": [
+            {
+              "offName": "Pedro Neto",
+              "onName": "Francisco Conceicao",
+              "minute": 62,
+              "side": "home"
+            },
+            {
+              "offName": "Vitinha",
+              "onName": "Bernardo Silva",
+              "minute": 62,
+              "side": "home"
+            },
+            {
+              "offName": "Bruno Fernandes",
+              "onName": "Nelson Semedo",
+              "minute": 62,
+              "side": "home"
+            },
+            {
+              "offName": "Joao Cancelo",
+              "onName": "Goncalo Ramos",
+              "minute": 62,
+              "side": "home"
+            },
+            {
+              "offName": "Cristiano Ronaldo",
+              "onName": "Ruben Neves",
+              "minute": 81,
+              "side": "home"
+            }
+          ]
+        },
+        "away": {
+          "formation": "4-2-3-1",
+          "cards": [
+            {
+              "playerName": "Luka Modric",
+              "type": "yellow",
+              "minute": 59,
+              "side": "away"
+            },
+            {
+              "playerName": "Ivan Perisic",
+              "type": "yellow",
+              "minute": "90+8",
+              "side": "away"
+            }
+          ],
+          "substitutions": [
+            {
+              "offName": "Ante Budimir",
+              "onName": "Igor Matanovic",
+              "minute": "HT",
+              "side": "away"
+            },
+            {
+              "offName": "Martin Baturina",
+              "onName": "Mario Pasalic",
+              "minute": 68,
+              "side": "away"
+            },
+            {
+              "offName": "Nikola Vlasic",
+              "onName": "Josko Gvardiol",
+              "minute": "90+2",
+              "side": "away"
+            },
+            {
+              "offName": "Mateo Kovacic",
+              "onName": "Andrej Kramaric",
+              "minute": "90+6",
+              "side": "away"
+            }
+          ]
+        }
+      }
     },
     {
       "id": "match-84-round-of-32-2026-07-02",
@@ -20734,7 +20829,92 @@
         "奥地利前35分钟守住0比0，随后库库雷利亚助攻奥亚萨瓦尔打破僵局。",
         "第66分钟巴埃纳助攻波罗打进第二球，西班牙彻底掌控比赛。",
         "第89分钟奥亚萨瓦尔再次接应库库雷利亚完成梅开二度，西班牙3比0晋级16强。"
-      ]
+      ],
+      "matchEvents": {
+        "sourceIds": [
+          "fifa-match-events-sync-2026-07-15"
+        ],
+        "checkedAt": "2026-07-15T21:26:35.800Z",
+        "home": {
+          "formation": "4-1-2-3",
+          "cards": [],
+          "substitutions": [
+            {
+              "offName": "Alex Baena",
+              "onName": "Ferran Torres",
+              "minute": 71,
+              "side": "home"
+            },
+            {
+              "offName": "Dani Olmo",
+              "onName": "Mikel Merino",
+              "minute": 71,
+              "side": "home"
+            },
+            {
+              "offName": "Lamine Yamal",
+              "onName": "Gavi",
+              "minute": 85,
+              "side": "home"
+            },
+            {
+              "offName": "Aymeric Laporte",
+              "onName": "Marc Pubill",
+              "minute": "90+3",
+              "side": "home"
+            },
+            {
+              "offName": "Pedri",
+              "onName": "Fabian Ruiz",
+              "minute": "90+3",
+              "side": "home"
+            }
+          ]
+        },
+        "away": {
+          "formation": "4-2-3-1",
+          "cards": [
+            {
+              "playerName": "Stefan Posch",
+              "type": "yellow",
+              "minute": 83,
+              "side": "away"
+            }
+          ],
+          "substitutions": [
+            {
+              "offName": "Xaver Schlager",
+              "onName": "Florian Grillitsch",
+              "minute": "HT",
+              "side": "away"
+            },
+            {
+              "offName": "Nicolas Seiwald",
+              "onName": "Carney Chukwuemeka",
+              "minute": "HT",
+              "side": "away"
+            },
+            {
+              "offName": "Michael Gregoritsch",
+              "onName": "Marko Arnautovic",
+              "minute": 60,
+              "side": "away"
+            },
+            {
+              "offName": "Romano Schmid",
+              "onName": "Sasa Kalajdzic",
+              "minute": 60,
+              "side": "away"
+            },
+            {
+              "offName": "Stefan Posch",
+              "onName": "Alexander Prass",
+              "minute": 85,
+              "side": "away"
+            }
+          ]
+        }
+      }
     },
     {
       "id": "match-85-round-of-32-2026-07-02",
@@ -20885,6 +21065,97 @@
           "losses": 0,
           "appearances": 0
         }
+      },
+      "matchEvents": {
+        "sourceIds": [
+          "fifa-match-events-sync-2026-07-15"
+        ],
+        "checkedAt": "2026-07-15T21:26:35.800Z",
+        "home": {
+          "formation": "4-2-3-1",
+          "cards": [],
+          "substitutions": [
+            {
+              "offName": "Ruben Vargas",
+              "onName": "Fabian Rieder",
+              "minute": 70,
+              "side": "home"
+            },
+            {
+              "offName": "Johan Manzambi",
+              "onName": "Noah Okafor",
+              "minute": 70,
+              "side": "home"
+            },
+            {
+              "offName": "Breel Embolo",
+              "onName": "Zeki Amdouni",
+              "minute": 82,
+              "side": "home"
+            },
+            {
+              "offName": "Dan Ndoye",
+              "onName": "Michel Aebischer",
+              "minute": 87,
+              "side": "home"
+            },
+            {
+              "offName": "Denis Zakaria",
+              "onName": "Silvan Widmer",
+              "minute": 87,
+              "side": "home"
+            }
+          ]
+        },
+        "away": {
+          "formation": "4-1-2-3",
+          "cards": [
+            {
+              "playerName": "Fares Chaibi",
+              "type": "yellow",
+              "minute": 36,
+              "side": "away"
+            },
+            {
+              "playerName": "Hicham Boudaoui",
+              "type": "yellow",
+              "minute": 72,
+              "side": "away"
+            }
+          ],
+          "substitutions": [
+            {
+              "offName": "Houssem Aouar",
+              "onName": "Jaouen Hadjam",
+              "minute": 58,
+              "side": "away"
+            },
+            {
+              "offName": "Ramiz Zerrouki",
+              "onName": "Amine Gouiri",
+              "minute": 58,
+              "side": "away"
+            },
+            {
+              "offName": "Nabil Bentaleb",
+              "onName": "Hicham Boudaoui",
+              "minute": 71,
+              "side": "away"
+            },
+            {
+              "offName": "Riyad Mahrez",
+              "onName": "Anis Hadj Moussa",
+              "minute": 71,
+              "side": "away"
+            },
+            {
+              "offName": "Rak Belghali",
+              "onName": "Adil Boulbina",
+              "minute": 82,
+              "side": "away"
+            }
+          ]
+        }
       }
     },
     {
@@ -21029,7 +21300,105 @@
       "resultStoryBulletsZh": [
         "利昂内尔·梅西在第29分钟为阿根廷首开纪录。",
         "第111分钟的乌龙球成为阿根廷的最后一球。"
-      ]
+      ],
+      "matchEvents": {
+        "sourceIds": [
+          "fifa-match-events-sync-2026-07-15"
+        ],
+        "checkedAt": "2026-07-15T21:26:35.800Z",
+        "home": {
+          "formation": "4-4-2",
+          "cards": [
+            {
+              "playerName": "Gonzalo Montiel",
+              "type": "yellow",
+              "minute": 115,
+              "side": "home"
+            }
+          ],
+          "substitutions": [
+            {
+              "offName": "Thiago Almada",
+              "onName": "Nico Gonzalez",
+              "minute": 63,
+              "side": "home"
+            },
+            {
+              "offName": "Lautaro Martinez",
+              "onName": "Julian Alvarez",
+              "minute": 63,
+              "side": "home"
+            },
+            {
+              "offName": "Rodrigo De Paul",
+              "onName": "Leandro Paredes",
+              "minute": 84,
+              "side": "home"
+            },
+            {
+              "offName": "Facundo Medina",
+              "onName": "Nicolas Tagliafico",
+              "minute": 85,
+              "side": "home"
+            },
+            {
+              "offName": "Nahuel Molina",
+              "onName": "Gonzalo Montiel",
+              "minute": 104,
+              "side": "home"
+            }
+          ]
+        },
+        "away": {
+          "formation": "4-1-4-1",
+          "cards": [
+            {
+              "playerName": "Kevin Pina",
+              "type": "yellow",
+              "minute": 68,
+              "side": "away"
+            }
+          ],
+          "substitutions": [
+            {
+              "offName": "Nuno da Costa",
+              "onName": "Dailon Livramento",
+              "minute": 67,
+              "side": "away"
+            },
+            {
+              "offName": "Laros Duarte",
+              "onName": "Jamiro Monteiro",
+              "minute": 67,
+              "side": "away"
+            },
+            {
+              "offName": "Jovane Cabral",
+              "onName": "Helio Varela",
+              "minute": 80,
+              "side": "away"
+            },
+            {
+              "offName": "Ryan Mendes",
+              "onName": "Willy Semedo",
+              "minute": 80,
+              "side": "away"
+            },
+            {
+              "offName": "Kevin Pina",
+              "onName": "Gilson Benchimol",
+              "minute": 100,
+              "side": "away"
+            },
+            {
+              "offName": "Deroy Duarte",
+              "onName": "Yannick Semedo",
+              "minute": 100,
+              "side": "away"
+            }
+          ]
+        }
+      }
     },
     {
       "id": "match-87-round-of-32-2026-07-03",
@@ -21152,7 +21521,111 @@
       "resultStoryBulletsZh": [
         "路易斯·苏亚雷斯助攻约翰·阿里亚斯在第14分钟破门，哥伦比亚取得领先。",
         "这粒早早到来的进球在余下76分钟里一直有效，哥伦比亚1比0淘汰加纳晋级16强。"
-      ]
+      ],
+      "matchEvents": {
+        "sourceIds": [
+          "fifa-match-events-sync-2026-07-15"
+        ],
+        "checkedAt": "2026-07-15T21:26:35.800Z",
+        "home": {
+          "formation": "4-1-2-3",
+          "cards": [
+            {
+              "playerName": "Jhon Arias",
+              "type": "yellow",
+              "minute": 12,
+              "side": "home"
+            },
+            {
+              "playerName": "Richard Rios",
+              "type": "yellow",
+              "minute": 78,
+              "side": "home"
+            }
+          ],
+          "substitutions": [
+            {
+              "offName": "Jhon Cordoba",
+              "onName": "Luis Suarez",
+              "minute": 8,
+              "side": "home"
+            },
+            {
+              "offName": "James Rodriguez",
+              "onName": "Richard Rios",
+              "minute": "HT",
+              "side": "home"
+            },
+            {
+              "offName": "Jhon Arias",
+              "onName": "Juan Quintero",
+              "minute": 72,
+              "side": "home"
+            },
+            {
+              "offName": "Luis Diaz",
+              "onName": "Jaminton Campaz",
+              "minute": 90,
+              "side": "home"
+            }
+          ]
+        },
+        "away": {
+          "formation": "4-1-2-3",
+          "cards": [
+            {
+              "playerName": "Caleb Yirenkyi",
+              "type": "yellow",
+              "minute": 49,
+              "side": "away"
+            },
+            {
+              "playerName": "Abdul Fatawu",
+              "type": "yellow",
+              "minute": 66,
+              "side": "away"
+            },
+            {
+              "playerName": "Alidu Seidu",
+              "type": "yellow",
+              "minute": 76,
+              "side": "away"
+            }
+          ],
+          "substitutions": [
+            {
+              "offName": "Marvin Senaya",
+              "onName": "Alidu Seidu",
+              "minute": 13,
+              "side": "away"
+            },
+            {
+              "offName": "Inaki Williams",
+              "onName": "Abdul Fatawu",
+              "minute": 62,
+              "side": "away"
+            },
+            {
+              "offName": "Kwasi Sibo",
+              "onName": "Elisha Owusu",
+              "minute": 62,
+              "side": "away"
+            },
+            {
+              "offName": "Caleb Yirenkyi",
+              "onName": "Prince Adu",
+              "minute": 79,
+              "side": "away"
+            },
+            {
+              "offName": "Jordan Ayew",
+              "onName": "Ernest Nuamah",
+              "minute": 79,
+              "side": "away"
+            }
+          ]
+        }
+      }
     },
     {
       "id": "match-88-round-of-32-2026-07-03",
@@ -21319,6 +21792,110 @@
           "wins": 0,
           "losses": 0,
           "appearances": 0
+        }
+      },
+      "matchEvents": {
+        "sourceIds": [
+          "fifa-match-events-sync-2026-07-15"
+        ],
+        "checkedAt": "2026-07-15T21:30:22.686Z",
+        "home": {
+          "formation": "3-4-3",
+          "cards": [],
+          "substitutions": [
+            {
+              "offName": "Jordan Bos",
+              "onName": "Kai Trewin",
+              "minute": "HT",
+              "side": "home"
+            },
+            {
+              "offName": "Christian Volpato",
+              "onName": "Ajdin Hrustic",
+              "minute": 74,
+              "side": "home"
+            },
+            {
+              "offName": "Nestory Irankunda",
+              "onName": "Mohamed Toure",
+              "minute": 74,
+              "side": "home"
+            },
+            {
+              "offName": "Connor Metcalfe",
+              "onName": "Awer Mabil",
+              "minute": "ET",
+              "side": "home"
+            },
+            {
+              "offName": "Aiden Oneill",
+              "onName": "Paul Okon-Engstler",
+              "minute": "ET",
+              "side": "home"
+            },
+            {
+              "offName": "Patrick Beach",
+              "onName": "Mathew Ryan",
+              "minute": 119,
+              "side": "home"
+            }
+          ]
+        },
+        "away": {
+          "formation": "4-4-2",
+          "cards": [
+            {
+              "playerName": "Saafan Elsaghir (staff)",
+              "type": "yellow",
+              "minute": 91,
+              "staff": true,
+              "side": "away"
+            },
+            {
+              "playerName": "Haissem Hassan",
+              "type": "yellow",
+              "minute": 104,
+              "side": "away"
+            },
+            {
+              "playerName": "Yasser Ibrahim",
+              "type": "yellow",
+              "minute": 120,
+              "side": "away"
+            }
+          ],
+          "substitutions": [
+            {
+              "offName": "Mostafa Zico",
+              "onName": "Haissem Hassan",
+              "minute": 67,
+              "side": "away"
+            },
+            {
+              "offName": "Hamdy Fathy",
+              "onName": "Hossam Abdelmaguid",
+              "minute": 67,
+              "side": "away"
+            },
+            {
+              "offName": "Karim Hafez",
+              "onName": "Trezeguet",
+              "minute": 80,
+              "side": "away"
+            },
+            {
+              "offName": "Omar Marmoush",
+              "onName": "Hamza Abdelkarim",
+              "minute": "ET",
+              "side": "away"
+            },
+            {
+              "offName": "Marawan Attia",
+              "onName": "Mahmoud Saber",
+              "minute": "120+1",
+              "side": "away"
+            }
+          ]
         }
       }
     },
@@ -21495,6 +22072,87 @@
           "wins": 2,
           "losses": 3,
           "appearances": 5
+        }
+      },
+      "matchEvents": {
+        "sourceIds": [
+          "fifa-match-events-sync-2026-07-15"
+        ],
+        "checkedAt": "2026-07-15T21:26:35.800Z",
+        "home": {
+          "formation": "5-4-1",
+          "cards": [
+            {
+              "playerName": "Carlos Gonzalez",
+              "type": "yellow",
+              "minute": 90,
+              "staff": true,
+              "side": "home"
+            }
+          ],
+          "substitutions": [
+            {
+              "offName": "Omar Alderete",
+              "onName": "Jose Canale",
+              "minute": 58,
+              "side": "home"
+            },
+            {
+              "offName": "Julio Enciso",
+              "onName": "Gustavo Caballero",
+              "minute": 61,
+              "side": "home"
+            },
+            {
+              "offName": "Miguel Almiron",
+              "onName": "Gabriel Avalos",
+              "minute": 71,
+              "side": "home"
+            },
+            {
+              "offName": "Diego Gomez",
+              "onName": "Mauricio",
+              "minute": 71,
+              "side": "home"
+            }
+          ]
+        },
+        "away": {
+          "formation": "4-2-3-1",
+          "cards": [
+            {
+              "playerName": "Bradley Barcola",
+              "type": "yellow",
+              "minute": 19,
+              "side": "away"
+            },
+            {
+              "playerName": "Manu Kone",
+              "type": "yellow",
+              "minute": 81,
+              "side": "away"
+            },
+            {
+              "playerName": "Michael Olise",
+              "type": "yellow",
+              "minute": "90+7",
+              "side": "away"
+            }
+          ],
+          "substitutions": [
+            {
+              "offName": "Bradley Barcola",
+              "onName": "Desire Doue",
+              "minute": 61,
+              "side": "away"
+            },
+            {
+              "offName": "Ousmane Dembele",
+              "onName": "Rayan Cherki",
+              "minute": 84,
+              "side": "away"
+            }
+          ]
         }
       }
     },
@@ -21675,6 +22333,134 @@
           "losses": 0,
           "appearances": 2
         }
+      },
+      "matchEvents": {
+        "sourceIds": [
+          "fifa-match-events-sync-2026-07-15"
+        ],
+        "checkedAt": "2026-07-15T21:26:35.800Z",
+        "home": {
+          "formation": "4-4-2",
+          "cards": [
+            {
+              "playerName": "Richie Laryea",
+              "type": "yellow",
+              "minute": 40,
+              "side": "home"
+            },
+            {
+              "playerName": "Jonathan David",
+              "type": "yellow",
+              "minute": 43,
+              "side": "home"
+            },
+            {
+              "playerName": "Luc De Fougerolles",
+              "type": "yellow",
+              "minute": 49,
+              "side": "home"
+            },
+            {
+              "playerName": "Cyle Larin",
+              "type": "yellow",
+              "minute": 67,
+              "side": "home"
+            }
+          ],
+          "substitutions": [
+            {
+              "offName": "Tani Oluwaseyi",
+              "onName": "Cyle Larin",
+              "minute": 63,
+              "side": "home"
+            },
+            {
+              "offName": "Ali Ahmed",
+              "onName": "Promise David",
+              "minute": 78,
+              "side": "home"
+            },
+            {
+              "offName": "Richie Laryea",
+              "onName": "Jacob Shaffelburg",
+              "minute": 78,
+              "side": "home"
+            },
+            {
+              "offName": "Tajon Buchanan",
+              "onName": "Jayden Nelson",
+              "minute": 87,
+              "side": "home"
+            },
+            {
+              "offName": "Niko Sigur",
+              "onName": "Jonathan Osorio",
+              "minute": 87,
+              "side": "home"
+            }
+          ]
+        },
+        "away": {
+          "formation": "4-2-3-1",
+          "cards": [
+            {
+              "playerName": "Redouane Halhal",
+              "type": "yellow",
+              "minute": 20,
+              "side": "away"
+            },
+            {
+              "playerName": "Achraf Hakimi",
+              "type": "yellow",
+              "minute": 40,
+              "side": "away"
+            },
+            {
+              "playerName": "Azzedine Ounahi",
+              "type": "yellow",
+              "minute": 45,
+              "side": "away"
+            },
+            {
+              "playerName": "Bilal El Khannouss",
+              "type": "yellow",
+              "minute": "45+6",
+              "side": "away"
+            }
+          ],
+          "substitutions": [
+            {
+              "offName": "Ismael Saibari",
+              "onName": "Soufiane Rahimi",
+              "minute": 22,
+              "side": "away"
+            },
+            {
+              "offName": "Ayyoub Bouaddi",
+              "onName": "Sofyan Amrabat",
+              "minute": 63,
+              "side": "away"
+            },
+            {
+              "offName": "Bilal El Khannouss",
+              "onName": "Chemsdine Talbi",
+              "minute": 63,
+              "side": "away"
+            },
+            {
+              "offName": "Issa Diop",
+              "onName": "Marwane Saadane",
+              "minute": 87,
+              "side": "away"
+            },
+            {
+              "offName": "Azzedine Ounahi",
+              "onName": "Samir El Mourabet",
+              "minute": 87,
+              "side": "away"
+            }
+          ]
+        }
       }
     },
     {
@@ -21851,7 +22637,80 @@
       "resultStoryBulletsZh": [
         "埃尔林·哈兰德在第79分钟和第90分钟连入两球，把挪威的后段压力转化为胜利。",
         "内马尔在90+10分钟的点球只是缩小差距，因为挪威已经打进决定性的第二球。"
-      ]
+      ],
+      "matchEvents": {
+        "sourceIds": [
+          "fifa-match-events-sync-2026-07-15"
+        ],
+        "checkedAt": "2026-07-15T21:26:35.800Z",
+        "home": {
+          "formation": "4-1-2-3",
+          "cards": [
+            {
+              "playerName": "Neymar",
+              "type": "yellow",
+              "minute": "90+6",
+              "side": "home"
+            }
+          ],
+          "substitutions": [
+            {
+              "offName": "Matheus Cunha",
+              "onName": "Endrick",
+              "minute": 58,
+              "side": "home"
+            },
+            {
+              "offName": "Gabriel Martinelli",
+              "onName": "Neymar",
+              "minute": 67,
+              "side": "home"
+            },
+            {
+              "offName": "Rayan",
+              "onName": "Danilo Santos",
+              "minute": 67,
+              "side": "home"
+            },
+            {
+              "offName": "Bruno Guimaraes",
+              "onName": "Ederson Silva",
+              "minute": 79,
+              "side": "home"
+            }
+          ]
+        },
+        "away": {
+          "formation": "4-1-2-3",
+          "cards": [],
+          "substitutions": [
+            {
+              "offName": "Antonio Nusa",
+              "onName": "Andreas Schjelderup",
+              "minute": "HT",
+              "side": "away"
+            },
+            {
+              "offName": "Alexander Sorloth",
+              "onName": "Oscar Bobb",
+              "minute": "HT",
+              "side": "away"
+            },
+            {
+              "offName": "Julian Ryerson",
+              "onName": "Fredrik Aursnes",
+              "minute": 63,
+              "side": "away"
+            },
+            {
+              "offName": "David Moller Wolfe",
+              "onName": "Leo Ostigard",
+              "minute": "90+5",
+              "side": "away"
+            }
+          ]
+        }
+      }
     },
     {
       "id": "match-92-round-of-16-2026-07-05",
@@ -22055,7 +22914,123 @@
       "resultStoryBulletsZh": [
         "裘德·贝林厄姆在第36分钟为英格兰首开纪录。",
         "哈里·凯恩在第60分钟打进英格兰的最后一球。"
-      ]
+      ],
+      "matchEvents": {
+        "sourceIds": [
+          "fifa-match-events-sync-2026-07-15"
+        ],
+        "checkedAt": "2026-07-15T21:26:35.800Z",
+        "home": {
+          "formation": "4-1-2-3",
+          "cards": [
+            {
+              "playerName": "Jorge Sanchez",
+              "type": "yellow",
+              "minute": 71,
+              "side": "home"
+            },
+            {
+              "playerName": "Johan Vasquez",
+              "type": "yellow",
+              "minute": "90+8",
+              "side": "home"
+            }
+          ],
+          "substitutions": [
+            {
+              "offName": "Cesar Montes",
+              "onName": "Edson Alvarez",
+              "minute": "HT",
+              "side": "home"
+            },
+            {
+              "offName": "Gilberto Mora",
+              "onName": "Santiago Gimenez",
+              "minute": 61,
+              "side": "home"
+            },
+            {
+              "offName": "Luis Romo",
+              "onName": "Brian Gutierrez",
+              "minute": 61,
+              "side": "home"
+            },
+            {
+              "offName": "Jorge Sanchez",
+              "onName": "Alvaro Fidalgo",
+              "minute": 79,
+              "side": "home"
+            },
+            {
+              "offName": "Julian Quinones",
+              "onName": "Guillermo Martinez",
+              "minute": 81,
+              "side": "home"
+            }
+          ]
+        },
+        "away": {
+          "formation": "4-2-3-1",
+          "cards": [
+            {
+              "playerName": "Declan Rice",
+              "type": "yellow",
+              "minute": 1,
+              "side": "away"
+            },
+            {
+              "playerName": "Jarell Quansah",
+              "type": "red",
+              "minute": 54,
+              "side": "away"
+            },
+            {
+              "playerName": "Marc Guehi",
+              "type": "yellow",
+              "minute": 68,
+              "side": "away"
+            },
+            {
+              "playerName": "Nico Oreilly",
+              "type": "yellow",
+              "minute": 72,
+              "side": "away"
+            },
+            {
+              "playerName": "Jordan Henderson",
+              "type": "yellow",
+              "minute": "90+8",
+              "side": "away"
+            }
+          ],
+          "substitutions": [
+            {
+              "offName": "Bukayo Saka",
+              "onName": "John Stones",
+              "minute": 57,
+              "side": "away"
+            },
+            {
+              "offName": "Elliot Anderson",
+              "onName": "Dan Burn",
+              "minute": 75,
+              "side": "away"
+            },
+            {
+              "offName": "Nico Oreilly",
+              "onName": "Djed Spence",
+              "minute": 75,
+              "side": "away"
+            },
+            {
+              "offName": "Harry Kane",
+              "onName": "Morgan Rogers",
+              "minute": 90,
+              "side": "away"
+            }
+          ]
+        }
+      }
     },
     {
       "id": "match-93-round-of-16-2026-07-06",
@@ -22422,7 +23397,99 @@
       "resultStoryBulletsZh": [
         "葡萄牙与西班牙前90分钟均未破门，费兰·托雷斯在补时阶段助攻梅里诺。",
         "梅里诺第90+1分钟的进球在最后时刻终结比赛，西班牙1比0晋级八强。"
-      ]
+      ],
+      "matchEvents": {
+        "sourceIds": [
+          "fifa-match-events-sync-2026-07-15"
+        ],
+        "checkedAt": "2026-07-15T21:26:35.800Z",
+        "home": {
+          "formation": "4-2-3-1",
+          "cards": [
+            {
+              "playerName": "Bernardo Silva",
+              "type": "yellow",
+              "minute": 89,
+              "side": "home"
+            },
+            {
+              "playerName": "Renato Veiga",
+              "type": "yellow",
+              "minute": "90+3",
+              "side": "home"
+            }
+          ],
+          "substitutions": [
+            {
+              "offName": "Nuno Mendes",
+              "onName": "Nelson Semedo",
+              "minute": 56,
+              "side": "home"
+            },
+            {
+              "offName": "Joao Felix",
+              "onName": "Rafael Leao",
+              "minute": 71,
+              "side": "home"
+            },
+            {
+              "offName": "Joao Cancelo",
+              "onName": "Diogo Dalot",
+              "minute": 71,
+              "side": "home"
+            },
+            {
+              "offName": "Vitinha",
+              "onName": "Bernardo Silva",
+              "minute": 83,
+              "side": "home"
+            },
+            {
+              "offName": "Pedro Neto",
+              "onName": "Francisco Conceicao",
+              "minute": 83,
+              "side": "home"
+            }
+          ]
+        },
+        "away": {
+          "formation": "4-1-2-3",
+          "cards": [
+            {
+              "playerName": "Ferran Torres",
+              "type": "yellow",
+              "minute": "90+8",
+              "side": "away"
+            }
+          ],
+          "substitutions": [
+            {
+              "offName": "Alex Baena",
+              "onName": "Ferran Torres",
+              "minute": 75,
+              "side": "away"
+            },
+            {
+              "offName": "Dani Olmo",
+              "onName": "Mikel Merino",
+              "minute": 85,
+              "side": "away"
+            },
+            {
+              "offName": "Pedri",
+              "onName": "Fabian Ruiz",
+              "minute": 85,
+              "side": "away"
+            },
+            {
+              "offName": "Mikel Oyarzabal",
+              "onName": "Borja Iglesias",
+              "minute": "90+7",
+              "side": "away"
+            }
+          ]
+        }
+      }
     },
     {
       "id": "match-94-round-of-16-2026-07-06",
@@ -22637,7 +23704,98 @@
       "resultStoryBulletsZh": [
         "查尔斯·德凯特莱尔在第0分钟为比利时首开纪录。",
         "罗梅卢·卢卡库在第90+3分钟打进比利时的最后一球。"
-      ]
+      ],
+      "matchEvents": {
+        "sourceIds": [
+          "fifa-match-events-sync-2026-07-15"
+        ],
+        "checkedAt": "2026-07-15T21:26:35.800Z",
+        "home": {
+          "formation": "3-5-2",
+          "cards": [
+            {
+              "playerName": "Weston McKennie",
+              "type": "yellow",
+              "minute": 35,
+              "side": "home"
+            },
+            {
+              "playerName": "Malik Tillman",
+              "type": "yellow",
+              "minute": 69,
+              "side": "home"
+            }
+          ],
+          "substitutions": [
+            {
+              "offName": "Sergino Dest",
+              "onName": "Giovanni Reyna",
+              "minute": "HT",
+              "side": "home"
+            },
+            {
+              "offName": "Christian Pulisic",
+              "onName": "Sebastian Berhalter",
+              "minute": 59,
+              "side": "home"
+            },
+            {
+              "offName": "Tyler Adams",
+              "onName": "Ricardo Pepi",
+              "minute": 72,
+              "side": "home"
+            },
+            {
+              "offName": "Folarin Balogun",
+              "onName": "Haji Wright",
+              "minute": "90+2",
+              "side": "home"
+            },
+            {
+              "offName": "Antonee Robinson",
+              "onName": "Max Arfsten",
+              "minute": "90+2",
+              "side": "home"
+            }
+          ]
+        },
+        "away": {
+          "formation": "4-2-3-1",
+          "cards": [],
+          "substitutions": [
+            {
+              "offName": "Amadou Onana",
+              "onName": "Hans Vanaken",
+              "minute": 21,
+              "side": "away"
+            },
+            {
+              "offName": "Charles De Ketelaere",
+              "onName": "Romelu Lukaku",
+              "minute": 67,
+              "side": "away"
+            },
+            {
+              "offName": "Dodi Lukebakio",
+              "onName": "Jeremy Doku",
+              "minute": 67,
+              "side": "away"
+            },
+            {
+              "offName": "Leandro Trossard",
+              "onName": "Alexis Saelemaekers",
+              "minute": 89,
+              "side": "away"
+            },
+            {
+              "offName": "Nicolas Raskin",
+              "onName": "Axel Witsel",
+              "minute": 89,
+              "side": "away"
+            }
+          ]
+        }
+      }
     },
     {
       "id": "match-95-round-of-16-2026-07-07",
@@ -22791,7 +23949,8 @@
         "method": "world-cup-shootout-history",
         "sourceIds": [
           "openfootball-worldcup-json-2026-06-17",
-          "fifa-official-results-sync-2026-07-03"
+          "fifa-official-results-sync-2026-07-03",
+          "caf-australia-egypt-result-2026-07-03"
         ],
         "generatedAt": "2026-07-13T15:25:20-07:00",
         "cutoffAt": "2026-07-07T16:00:00Z",
@@ -22806,6 +23965,124 @@
           "wins": 1,
           "losses": 0,
           "appearances": 1
+        }
+      },
+      "matchEvents": {
+        "sourceIds": [
+          "fifa-match-events-sync-2026-07-15"
+        ],
+        "checkedAt": "2026-07-15T21:26:35.800Z",
+        "home": {
+          "formation": "4-1-3-2",
+          "cards": [],
+          "substitutions": [
+            {
+              "offName": "Rodrigo De Paul",
+              "onName": "Lautaro Martinez",
+              "minute": 66,
+              "side": "home"
+            },
+            {
+              "offName": "Nicolas Tagliafico",
+              "onName": "Nico Gonzalez",
+              "minute": 66,
+              "side": "home"
+            },
+            {
+              "offName": "Nahuel Molina",
+              "onName": "Gonzalo Montiel",
+              "minute": 73,
+              "side": "home"
+            },
+            {
+              "offName": "Cristian Romero",
+              "onName": "Nicolas Otamendi",
+              "minute": "90+5",
+              "side": "home"
+            },
+            {
+              "offName": "Julian Alvarez",
+              "onName": "Facundo Medina",
+              "minute": "90+5",
+              "side": "home"
+            }
+          ]
+        },
+        "away": {
+          "formation": "4-2-3-1",
+          "cards": [
+            {
+              "playerName": "Saafan Elsaghir (staff)",
+              "type": "yellow",
+              "minute": 21,
+              "staff": true,
+              "side": "away"
+            },
+            {
+              "playerName": "Mostafa Shoubir",
+              "type": "yellow",
+              "minute": "90+3",
+              "side": "away"
+            },
+            {
+              "playerName": "Hamdy Fathy",
+              "type": "yellow",
+              "minute": "90+4",
+              "side": "away"
+            },
+            {
+              "playerName": "Saafan Elsaghir (staff)",
+              "type": "red",
+              "minute": "90+4",
+              "staff": true,
+              "side": "away"
+            },
+            {
+              "playerName": "Marawan Attia",
+              "type": "yellow",
+              "minute": "90+8",
+              "side": "away"
+            },
+            {
+              "playerName": "Hossam Hassan",
+              "type": "yellow",
+              "minute": "90+9",
+              "staff": true,
+              "side": "away"
+            },
+            {
+              "playerName": "Haissem Hassan",
+              "type": "yellow",
+              "minute": 90,
+              "side": "away"
+            }
+          ],
+          "substitutions": [
+            {
+              "offName": "Emam Ashour",
+              "onName": "Hamdy Fathy",
+              "minute": "HT",
+              "side": "away"
+            },
+            {
+              "offName": "Haissem Hassan",
+              "onName": "Trezeguet",
+              "minute": 73,
+              "side": "away"
+            },
+            {
+              "offName": "Mostafa Zico",
+              "onName": "Omar Marmoush",
+              "minute": 80,
+              "side": "away"
+            },
+            {
+              "offName": "Mohanad Lashin",
+              "onName": "Zizo",
+              "minute": "90+6",
+              "side": "away"
+            }
+          ]
         }
       }
     },
@@ -22978,6 +24255,129 @@
           "wins": 0,
           "losses": 1,
           "appearances": 1
+        }
+      },
+      "matchEvents": {
+        "sourceIds": [
+          "fifa-match-events-sync-2026-07-15"
+        ],
+        "checkedAt": "2026-07-15T21:26:35.800Z",
+        "home": {
+          "formation": "4-1-2-3",
+          "cards": [
+            {
+              "playerName": "Granit Xhaka",
+              "type": "yellow",
+              "minute": 51,
+              "side": "home"
+            },
+            {
+              "playerName": "Denis Zakaria",
+              "type": "yellow",
+              "minute": 59,
+              "side": "home"
+            },
+            {
+              "playerName": "Miro Muheim",
+              "type": "yellow",
+              "minute": 105,
+              "side": "home"
+            }
+          ],
+          "substitutions": [
+            {
+              "offName": "Ardon Jashari",
+              "onName": "Djibril Sow",
+              "minute": "HT",
+              "side": "home"
+            },
+            {
+              "offName": "Ricardo Rodriguez",
+              "onName": "Miro Muheim",
+              "minute": 71,
+              "side": "home"
+            },
+            {
+              "offName": "Breel Embolo",
+              "onName": "Cedric Itten",
+              "minute": 87,
+              "side": "home"
+            },
+            {
+              "offName": "Denis Zakaria",
+              "onName": "Silvan Widmer",
+              "minute": 87,
+              "side": "home"
+            },
+            {
+              "offName": "Dan Ndoye",
+              "onName": "Ruben Vargas",
+              "minute": "90+1",
+              "side": "home"
+            },
+            {
+              "offName": "Fabian Rieder",
+              "onName": "Zeki Amdouni",
+              "minute": 103,
+              "side": "home"
+            }
+          ]
+        },
+        "away": {
+          "formation": "4-1-2-3",
+          "cards": [
+            {
+              "playerName": "Luis Suarez",
+              "type": "yellow",
+              "minute": 60,
+              "side": "away"
+            },
+            {
+              "playerName": "Davinson Sanchez",
+              "type": "yellow",
+              "minute": 94,
+              "side": "away"
+            },
+            {
+              "playerName": "Luis Perea",
+              "type": "yellow",
+              "minute": 95,
+              "staff": true,
+              "side": "away"
+            }
+          ],
+          "substitutions": [
+            {
+              "offName": "Jhon Arias",
+              "onName": "Jaminton Campaz",
+              "minute": 66,
+              "side": "away"
+            },
+            {
+              "offName": "James Rodriguez",
+              "onName": "Juan Quintero",
+              "minute": 66,
+              "side": "away"
+            },
+            {
+              "offName": "Jefferson Lerma",
+              "onName": "Richard Rios",
+              "minute": 82,
+              "side": "away"
+            },
+            {
+              "offName": "Luis Suarez",
+              "onName": "Cucho Hernandez",
+              "minute": 82,
+              "side": "away"
+            },
+            {
+              "offName": "Jhon Lucumi",
+              "onName": "Yerry Mina",
+              "minute": 118,
+              "side": "away"
+            }
+          ]
         }
       }
     },
@@ -23171,6 +24571,85 @@
           "wins": 2,
           "losses": 0,
           "appearances": 2
+        }
+      },
+      "matchEvents": {
+        "sourceIds": [
+          "fifa-match-events-sync-2026-07-15"
+        ],
+        "checkedAt": "2026-07-15T21:26:35.800Z",
+        "home": {
+          "formation": "4-2-3-1",
+          "cards": [],
+          "substitutions": [
+            {
+              "offName": "Manu Kone",
+              "onName": "Warren Zaire-Emery",
+              "minute": 71,
+              "side": "home"
+            },
+            {
+              "offName": "Kylian Mbappe",
+              "onName": "Jean-Philippe Mateta",
+              "minute": 77,
+              "side": "home"
+            },
+            {
+              "offName": "Desire Doue",
+              "onName": "Bradley Barcola",
+              "minute": 77,
+              "side": "home"
+            },
+            {
+              "offName": "Jules Kounde",
+              "onName": "Malo Gusto",
+              "minute": 87,
+              "side": "home"
+            }
+          ]
+        },
+        "away": {
+          "formation": "4-2-3-1",
+          "cards": [
+            {
+              "playerName": "Issa Diop",
+              "type": "yellow",
+              "minute": 63,
+              "side": "away"
+            }
+          ],
+          "substitutions": [
+            {
+              "offName": "Ayyoub Bouaddi",
+              "onName": "Sofyan Amrabat",
+              "minute": 62,
+              "side": "away"
+            },
+            {
+              "offName": "Bilal El Khannouss",
+              "onName": "Soufiane Rahimi",
+              "minute": 62,
+              "side": "away"
+            },
+            {
+              "offName": "Anass Salah Eddine",
+              "onName": "Zakaria El Ouahdi",
+              "minute": 74,
+              "side": "away"
+            },
+            {
+              "offName": "Brahim Diaz",
+              "onName": "Gessime Yassine",
+              "minute": 74,
+              "side": "away"
+            },
+            {
+              "offName": "Chemsdine Talbi",
+              "onName": "Amine Sbai",
+              "minute": 85,
+              "side": "away"
+            }
+          ]
         }
       }
     },
@@ -23478,6 +24957,104 @@
           "losses": 0,
           "appearances": 1
         }
+      },
+      "matchEvents": {
+        "sourceIds": [
+          "fifa-match-events-sync-2026-07-15"
+        ],
+        "checkedAt": "2026-07-15T21:26:35.800Z",
+        "home": {
+          "formation": "4-2-3-1",
+          "cards": [
+            {
+              "playerName": "Pau Cubarsi",
+              "type": "yellow",
+              "minute": 43,
+              "side": "home"
+            },
+            {
+              "playerName": "Aymeric Laporte",
+              "type": "yellow",
+              "minute": "90+3",
+              "side": "home"
+            }
+          ],
+          "substitutions": [
+            {
+              "offName": "Alex Baena",
+              "onName": "Ferran Torres",
+              "minute": 55,
+              "side": "home"
+            },
+            {
+              "offName": "Fabian Ruiz",
+              "onName": "Pedri",
+              "minute": 55,
+              "side": "home"
+            },
+            {
+              "offName": "Mikel Oyarzabal",
+              "onName": "Nico Williams",
+              "minute": 79,
+              "side": "home"
+            },
+            {
+              "offName": "Dani Olmo",
+              "onName": "Mikel Merino",
+              "minute": 86,
+              "side": "home"
+            }
+          ]
+        },
+        "away": {
+          "formation": "4-2-3-1",
+          "cards": [
+            {
+              "playerName": "Kevin De Bruyne",
+              "type": "yellow",
+              "minute": 85,
+              "side": "away"
+            },
+            {
+              "playerName": "Axel Witsel",
+              "type": "yellow",
+              "minute": "90+5",
+              "side": "away"
+            }
+          ],
+          "substitutions": [
+            {
+              "offName": "Hans Vanaken",
+              "onName": "Romelu Lukaku",
+              "minute": 60,
+              "side": "away"
+            },
+            {
+              "offName": "Leandro Trossard",
+              "onName": "Axel Witsel",
+              "minute": 60,
+              "side": "away"
+            },
+            {
+              "offName": "Maxim De Cuyper",
+              "onName": "Joaquin Seys",
+              "minute": 60,
+              "side": "away"
+            },
+            {
+              "offName": "Thibaut Courtois",
+              "onName": "Senne Lammens",
+              "minute": 71,
+              "side": "away"
+            },
+            {
+              "offName": "Kevin De Bruyne",
+              "onName": "Alexis Saelemaekers",
+              "minute": 86,
+              "side": "away"
+            }
+          ]
+        }
       }
     },
     {
@@ -23705,6 +25282,103 @@
           "losses": 3,
           "appearances": 4
         }
+      },
+      "matchEvents": {
+        "sourceIds": [
+          "fifa-match-events-sync-2026-07-15"
+        ],
+        "checkedAt": "2026-07-15T21:30:22.686Z",
+        "home": {
+          "formation": "4-1-2-3",
+          "cards": [
+            {
+              "playerName": "Kristoffer Ajer",
+              "type": "yellow",
+              "minute": 117,
+              "side": "home"
+            }
+          ],
+          "substitutions": [
+            {
+              "offName": "Julian Ryerson",
+              "onName": "Fredrik Aursnes",
+              "minute": 60,
+              "side": "home"
+            },
+            {
+              "offName": "Alexander Sorloth",
+              "onName": "Oscar Bobb",
+              "minute": 67,
+              "side": "home"
+            },
+            {
+              "offName": "Andreas Schjelderup",
+              "onName": "Antonio Nusa",
+              "minute": 67,
+              "side": "home"
+            },
+            {
+              "offName": "David Moller Wolfe",
+              "onName": "Marcus Holmgren Pedersen",
+              "minute": 90,
+              "side": "home"
+            },
+            {
+              "offName": "Torbjorn Heggem",
+              "onName": "Leo Ostigard",
+              "minute": "ET",
+              "side": "home"
+            },
+            {
+              "offName": "Erling Haaland",
+              "onName": "Jorgen Strand Larsen",
+              "minute": "ET",
+              "side": "home"
+            }
+          ]
+        },
+        "away": {
+          "formation": "4-2-3-1",
+          "cards": [],
+          "substitutions": [
+            {
+              "offName": "Declan Rice",
+              "onName": "Eberechi Eze",
+              "minute": "HT",
+              "side": "away"
+            },
+            {
+              "offName": "Noni Madueke",
+              "onName": "Bukayo Saka",
+              "minute": "HT",
+              "side": "away"
+            },
+            {
+              "offName": "Anthony Gordon",
+              "onName": "Reece James",
+              "minute": 71,
+              "side": "away"
+            },
+            {
+              "offName": "Nico Oreilly",
+              "onName": "Djed Spence",
+              "minute": 86,
+              "side": "away"
+            },
+            {
+              "offName": "Ezri Konsa",
+              "onName": "Morgan Rogers",
+              "minute": 89,
+              "side": "away"
+            },
+            {
+              "offName": "Jude Bellingham",
+              "onName": "Dan Burn",
+              "minute": 111,
+              "side": "away"
+            }
+          ]
+        }
       }
     },
     {
@@ -23912,7 +25586,8 @@
         "method": "world-cup-shootout-history",
         "sourceIds": [
           "openfootball-worldcup-json-2026-06-17",
-          "fifa-official-results-sync-2026-07-07"
+          "fifa-official-results-sync-2026-07-07",
+          "afc-switzerland-colombia-result-2026-07-08"
         ],
         "generatedAt": "2026-07-13T15:25:20-07:00",
         "cutoffAt": "2026-07-12T01:00:00Z",
@@ -23927,6 +25602,122 @@
           "wins": 1,
           "losses": 1,
           "appearances": 2
+        }
+      },
+      "matchEvents": {
+        "sourceIds": [
+          "fifa-match-events-sync-2026-07-15"
+        ],
+        "checkedAt": "2026-07-15T21:30:22.686Z",
+        "home": {
+          "formation": "4-1-3-2",
+          "cards": [
+            {
+              "playerName": "Thiago Almada",
+              "type": "yellow",
+              "minute": 97,
+              "side": "home"
+            },
+            {
+              "playerName": "Lautaro Martinez",
+              "type": "yellow",
+              "minute": 98,
+              "side": "home"
+            },
+            {
+              "playerName": "Jose Manuel Lopez",
+              "type": "yellow",
+              "minute": 114,
+              "side": "home"
+            }
+          ],
+          "substitutions": [
+            {
+              "offName": "Nicolas Tagliafico",
+              "onName": "Nico Gonzalez",
+              "minute": 78,
+              "side": "home"
+            },
+            {
+              "offName": "Rodrigo De Paul",
+              "onName": "Lautaro Martinez",
+              "minute": 85,
+              "side": "home"
+            },
+            {
+              "offName": "Nahuel Molina",
+              "onName": "Gonzalo Montiel",
+              "minute": 85,
+              "side": "home"
+            },
+            {
+              "offName": "Enzo Fernandez",
+              "onName": "Thiago Almada",
+              "minute": "ET",
+              "side": "home"
+            },
+            {
+              "offName": "Cristian Romero",
+              "onName": "Nicolas Otamendi",
+              "minute": "ET",
+              "side": "home"
+            },
+            {
+              "offName": "Leandro Paredes",
+              "onName": "Jose Manuel Lopez",
+              "minute": 110,
+              "side": "home"
+            }
+          ]
+        },
+        "away": {
+          "formation": "4-2-3-1",
+          "cards": [
+            {
+              "playerName": "Breel Embolo",
+              "type": "yellow",
+              "minute": 44,
+              "side": "away"
+            }
+          ],
+          "substitutions": [
+            {
+              "offName": "Fabian Rieder",
+              "onName": "Miro Muheim",
+              "minute": 86,
+              "side": "away"
+            },
+            {
+              "offName": "Djibril Sow",
+              "onName": "Silvan Widmer",
+              "minute": 86,
+              "side": "away"
+            },
+            {
+              "offName": "Dan Ndoye",
+              "onName": "Zeki Amdouni",
+              "minute": 86,
+              "side": "away"
+            },
+            {
+              "offName": "Ricardo Rodriguez",
+              "onName": "Eray Coemert",
+              "minute": "90+5",
+              "side": "away"
+            },
+            {
+              "offName": "Denis Zakaria",
+              "onName": "Ardon Jashari",
+              "minute": 96,
+              "side": "away"
+            },
+            {
+              "offName": "Remo Freuler",
+              "onName": "Ruben Vargas",
+              "minute": 115,
+              "side": "away"
+            }
+          ]
         }
       }
     },
@@ -24330,6 +26121,104 @@
         "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
         "publishedAt": "2026-07-14T14:34:53-07:00",
         "checkedAt": "2026-07-14T14:34:53-07:00"
+      },
+      "matchEvents": {
+        "sourceIds": [
+          "fifa-match-events-sync-2026-07-15"
+        ],
+        "checkedAt": "2026-07-15T21:26:35.800Z",
+        "home": {
+          "formation": "4-2-3-1",
+          "cards": [
+            {
+              "playerName": "Adrien Rabiot",
+              "type": "yellow",
+              "minute": 8,
+              "side": "home"
+            },
+            {
+              "playerName": "Kylian Mbappe",
+              "type": "yellow",
+              "minute": 86,
+              "side": "home"
+            }
+          ],
+          "substitutions": [
+            {
+              "offName": "William Saliba",
+              "onName": "Maxence Lacroix",
+              "minute": 30,
+              "side": "home"
+            },
+            {
+              "offName": "Adrien Rabiot",
+              "onName": "Manu Kone",
+              "minute": "HT",
+              "side": "home"
+            },
+            {
+              "offName": "Bradley Barcola",
+              "onName": "Desire Doue",
+              "minute": 57,
+              "side": "home"
+            },
+            {
+              "offName": "Michael Olise",
+              "onName": "Rayan Cherki",
+              "minute": 72,
+              "side": "home"
+            },
+            {
+              "offName": "Lucas Digne",
+              "onName": "Theo Hernandez",
+              "minute": 72,
+              "side": "home"
+            }
+          ]
+        },
+        "away": {
+          "formation": "4-1-2-3",
+          "cards": [
+            {
+              "playerName": "Marc Cucurella",
+              "type": "yellow",
+              "minute": 31,
+              "side": "away"
+            }
+          ],
+          "substitutions": [
+            {
+              "offName": "Mikel Oyarzabal",
+              "onName": "Ferran Torres",
+              "minute": 74,
+              "side": "away"
+            },
+            {
+              "offName": "Fabian Ruiz",
+              "onName": "Pedri",
+              "minute": 77,
+              "side": "away"
+            },
+            {
+              "offName": "Dani Olmo",
+              "onName": "Mikel Merino",
+              "minute": 77,
+              "side": "away"
+            },
+            {
+              "offName": "Alex Baena",
+              "onName": "Nico Williams",
+              "minute": 83,
+              "side": "away"
+            },
+            {
+              "offName": "Pedro Porro",
+              "onName": "Marcos Llorente",
+              "minute": 83,
+              "side": "away"
+            }
+          ]
+        }
       }
     },
     {
@@ -24341,7 +26230,7 @@
       "homeSlot": "Winner match 99",
       "awaySlot": "Winner match 100",
       "venue": "Atlanta Stadium",
-      "status": "LIVE",
+      "status": "FT",
       "h2h": {
         "status": "loaded",
         "sourceId": "11v11-england-argentina-h2h-2026-07-11",
@@ -24633,8 +26522,150 @@
         ]
       },
       "score": {
-        "home": 0,
-        "away": 0
+        "home": 1,
+        "away": 2
+      },
+      "goalsHome": [
+        {
+          "minute": 55,
+          "name": "Anthony Gordon",
+          "assistName": "Morgan Rogers"
+        }
+      ],
+      "goalsAway": [
+        {
+          "minute": 85,
+          "name": "Enzo Fernandez",
+          "assistName": "Lionel Messi"
+        },
+        {
+          "minute": 90,
+          "offset": 2,
+          "name": "Lautaro Martinez",
+          "assistName": "Lionel Messi"
+        }
+      ],
+      "resultStoryBullets": [
+        "Gordon finished Rogers' pass in the 55th minute to put England ahead after a goalless first half.",
+        "Messi set up Enzo Fernández in the 85th minute and Lautaro Martínez at 90+2' to complete Argentina's late comeback.",
+        "Martínez's winner sent Argentina into the final against Spain; England will face France for third place."
+      ],
+      "resultStoryBulletsZh": [
+        "戈登在第55分钟接罗杰斯传球破门，在上半场互交白卷后帮助英格兰领先。",
+        "梅西先在第85分钟助攻恩佐·费尔南德斯，随后又在90+2分钟助攻劳塔罗·马丁内斯，完成阿根廷的末段逆转。",
+        "马丁内斯的制胜球将阿根廷送入对阵西班牙的决赛；英格兰将与法国争夺季军。"
+      ],
+      "matchEvents": {
+        "sourceIds": [
+          "fifa-match-events-sync-2026-07-15"
+        ],
+        "checkedAt": "2026-07-15T21:26:35.800Z",
+        "home": {
+          "formation": "4-2-3-1",
+          "cards": [
+            {
+              "playerName": "Elliot Anderson",
+              "type": "yellow",
+              "minute": 37,
+              "side": "home"
+            }
+          ],
+          "substitutions": [
+            {
+              "offName": "Anthony Gordon",
+              "onName": "Ezri Konsa",
+              "minute": 72,
+              "side": "home"
+            },
+            {
+              "offName": "Reece James",
+              "onName": "Dan Burn",
+              "minute": 82,
+              "side": "home"
+            },
+            {
+              "offName": "Declan Rice",
+              "onName": "Nico Oreilly",
+              "minute": 82,
+              "side": "home"
+            },
+            {
+              "offName": "John Stones",
+              "onName": "Ivan Toney",
+              "minute": "90+6",
+              "side": "home"
+            },
+            {
+              "offName": "Djed Spence",
+              "onName": "Marcus Rashford",
+              "minute": "90+6",
+              "side": "home"
+            }
+          ]
+        },
+        "away": {
+          "formation": "4-4-2",
+          "cards": [
+            {
+              "playerName": "Lisandro Martinez",
+              "type": "yellow",
+              "minute": 42,
+              "side": "away"
+            },
+            {
+              "playerName": "Cristian Romero",
+              "type": "yellow",
+              "minute": 51,
+              "side": "away"
+            },
+            {
+              "playerName": "Rodrigo De Paul",
+              "type": "yellow",
+              "minute": "90+4",
+              "side": "away"
+            }
+          ],
+          "substitutions": [
+            {
+              "offName": "Leandro Paredes",
+              "onName": "Nico Gonzalez",
+              "minute": 64,
+              "side": "away"
+            },
+            {
+              "offName": "Lisandro Martinez",
+              "onName": "Nicolas Otamendi",
+              "minute": 72,
+              "side": "away"
+            },
+            {
+              "offName": "Nahuel Molina",
+              "onName": "Gonzalo Montiel",
+              "minute": 72,
+              "side": "away"
+            },
+            {
+              "offName": "Giuliano Simeone",
+              "onName": "Rodrigo De Paul",
+              "minute": 72,
+              "side": "away"
+            },
+            {
+              "offName": "Nicolas Tagliafico",
+              "onName": "Lautaro Martinez",
+              "minute": 81,
+              "side": "away"
+            }
+          ]
+        }
+      },
+      "highlightVideo": {
+        "platform": "youtube",
+        "url": "https://www.youtube.com/watch?v=y-4saPWrPt0",
+        "sourceName": "FOX Sports",
+        "channelId": "UCwNqHDsnBCKT-olwJwIFyfg",
+        "publishedAt": "2026-07-15T14:33:08-07:00",
+        "checkedAt": "2026-07-15T14:33:08-07:00"
       }
     },
     {
@@ -24648,9 +26679,172 @@
       "venue": "Miami Stadium",
       "status": "SCHEDULED",
       "h2h": {
-        "status": "not-loaded",
-        "summary": "Teams are not known yet. Past match research will load after the matchup is set.",
-        "results": null
+        "status": "loaded",
+        "sourceId": "national-football-teams-h2h-sync-2026-07-15",
+        "summary": "Before this fixture, France had the edge in the verified senior series: 7 France wins, 3 draws, 6 England wins, 39 total goals.",
+        "results": [
+          {
+            "date": "2022-12-10",
+            "competition": "World Cup 2022 - Quarter Finals",
+            "homeTeamId": "ENG",
+            "awayTeamId": "FRA",
+            "homeScore": 1,
+            "awayScore": 2,
+            "venue": "Al-Bayt Stadium",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/35880/England_France.html"
+          },
+          {
+            "date": "2017-06-13",
+            "competition": "Friendly",
+            "homeTeamId": "FRA",
+            "awayTeamId": "ENG",
+            "homeScore": 3,
+            "awayScore": 2,
+            "venue": "Stade de France",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/17735/France_England.html"
+          },
+          {
+            "date": "2015-11-17",
+            "competition": "Friendly",
+            "homeTeamId": "ENG",
+            "awayTeamId": "FRA",
+            "homeScore": 2,
+            "awayScore": 0,
+            "venue": "Wembley Stadium",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/14259/England_France.html"
+          },
+          {
+            "date": "2012-06-11",
+            "competition": "Euro 2012 - Group D",
+            "homeTeamId": "FRA",
+            "awayTeamId": "ENG",
+            "homeScore": 1,
+            "awayScore": 1,
+            "venue": "Donbass Arena",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/3729/France_England.html"
+          },
+          {
+            "date": "2010-11-17",
+            "competition": "Friendly",
+            "homeTeamId": "ENG",
+            "awayTeamId": "FRA",
+            "homeScore": 1,
+            "awayScore": 2,
+            "venue": "Wembley Stadium",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/10040/England_France.html"
+          },
+          {
+            "date": "2008-03-26",
+            "competition": "Friendly",
+            "homeTeamId": "FRA",
+            "awayTeamId": "ENG",
+            "homeScore": 1,
+            "awayScore": 0,
+            "venue": "Stade de France",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/12194/France_England.html"
+          },
+          {
+            "date": "2004-06-13",
+            "competition": "Euro 2004 - Group 2",
+            "homeTeamId": "FRA",
+            "awayTeamId": "ENG",
+            "homeScore": 2,
+            "awayScore": 1,
+            "venue": "Estádio da Luz",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/916/France_England.html"
+          },
+          {
+            "date": "2000-09-02",
+            "competition": "Friendly",
+            "homeTeamId": "FRA",
+            "awayTeamId": "ENG",
+            "homeScore": 1,
+            "awayScore": 1,
+            "venue": "Stade de France",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/22178/France_England.html"
+          },
+          {
+            "date": "1999-02-10",
+            "competition": "Friendly",
+            "homeTeamId": "ENG",
+            "awayTeamId": "FRA",
+            "homeScore": 0,
+            "awayScore": 2,
+            "venue": "Wembley Stadium",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/23461/England_France.html"
+          },
+          {
+            "date": "1997-06-07",
+            "competition": "Friendly",
+            "homeTeamId": "FRA",
+            "awayTeamId": "ENG",
+            "homeScore": 0,
+            "awayScore": 1,
+            "venue": "Stade de la Mosson",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/25745/France_England.html"
+          },
+          {
+            "date": "1992-06-14",
+            "competition": "Euro 1992 - Group 1",
+            "homeTeamId": "FRA",
+            "awayTeamId": "ENG",
+            "homeScore": 0,
+            "awayScore": 0,
+            "venue": "Malmö Stadion",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/16179/France_England.html"
+          },
+          {
+            "date": "1992-02-19",
+            "competition": "Friendly",
+            "homeTeamId": "ENG",
+            "awayTeamId": "FRA",
+            "homeScore": 2,
+            "awayScore": 0,
+            "venue": "Wembley Stadium",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/30177/England_France.html"
+          },
+          {
+            "date": "1984-02-29",
+            "competition": "Friendly",
+            "homeTeamId": "FRA",
+            "awayTeamId": "ENG",
+            "homeScore": 2,
+            "awayScore": 0,
+            "venue": "Parc des Princes",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/37927/France_England.html"
+          },
+          {
+            "date": "1982-06-16",
+            "competition": "World Cup 1982 - Group 4",
+            "homeTeamId": "ENG",
+            "awayTeamId": "FRA",
+            "homeScore": 3,
+            "awayScore": 1,
+            "venue": "Estadio de San Mamés",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/15333/England_France.html"
+          },
+          {
+            "date": "1966-07-20",
+            "competition": "World Cup 1966 - Group 1",
+            "homeTeamId": "ENG",
+            "awayTeamId": "FRA",
+            "homeScore": 2,
+            "awayScore": 0,
+            "venue": "Wembley Stadium",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/15071/England_France.html"
+          },
+          {
+            "date": "1923-05-10",
+            "competition": "Friendly",
+            "homeTeamId": "FRA",
+            "awayTeamId": "ENG",
+            "homeScore": 1,
+            "awayScore": 4,
+            "venue": "Stade Pershing",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/34035/France_England.html"
+          }
+        ],
+        "sourceUrl": "https://www.national-football-teams.com/encounter/teams/67/59/France_vs_England.html"
       },
       "providerIds": {
         "fifa": {
@@ -24774,7 +26968,120 @@
             }
           ]
         }
-      ]
+      ],
+      "awayTeamId": "ENG",
+      "keyPlayers": {
+        "sourceId": "key-player-baseline-2026-06-22",
+        "method": "team-watchlist-baseline",
+        "basis": "Team-level key-player watchlist; replace with API/squad-sourced fixture notes when available",
+        "home": [
+          {
+            "name": "Kylian Mbappe",
+            "note": "France's game-breaking runner and finisher, the player who turns one channel ball into panic."
+          },
+          {
+            "name": "Michael Olise",
+            "note": "The current creative hinge, dangerous as a passer, dribbler, or left-footed shooter between defenders."
+          },
+          {
+            "name": "William Saliba",
+            "note": "The defensive stabilizer, calm enough to defend space while France's athletes surge forward."
+          }
+        ],
+        "away": [
+          {
+            "name": "Jude Bellingham",
+            "note": "The connector between midfield and attack, dangerous because he arrives late rather than standing still as a No. 10."
+          },
+          {
+            "name": "Harry Kane",
+            "note": "England's captain and central finisher. His dropping movements can pull center-backs out of shape."
+          },
+          {
+            "name": "Declan Rice",
+            "note": "The balance piece in midfield, responsible for stopping counters before opponents can slow the game down."
+          }
+        ]
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-22",
+        "home": "France are an elite attacking side with Mbappe's speed now fed by Olise's left-footed creation, led by Kylian Mbappe, Michael Olise, and William Saliba. Against England, their Olise-to-Mbappe chance creation has to beat England's Kane-Bellingham box entries. They want to let Olise receive inside, draw pressure, and release Mbappe before the defense can reset. The risk is England can attack quickly through Kane and Bellingham while Rice controls the counter.",
+        "away": "England are one of the strongest teams in the tournament, built around power, speed, and danger near goal, led by Jude Bellingham, Harry Kane, and Declan Rice. Against France, their Kane-Bellingham box entries has to beat France's Olise-to-Mbappe chance creation. They want to turn Kane's dropping movements into Bellingham runs and fast cutbacks from wide areas. The risk is France can combine Olise's final ball with Mbappe's acceleration before Saliba controls the counter."
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-15T21:26:37.128Z",
+        "cutoffAt": "2026-07-18T21:00:00Z",
+        "homeTeamId": "FRA",
+        "awayTeamId": "ENG",
+        "home": {
+          "wins": 2,
+          "losses": 3,
+          "appearances": 5
+        },
+        "away": {
+          "wins": 1,
+          "losses": 3,
+          "appearances": 4
+        }
+      },
+      "projection": {
+        "sourceId": "opta-world-cup-semifinal-projections-2026-07-12",
+        "sourceIds": [
+          "opta-world-cup-semifinal-projections-2026-07-12",
+          "fifa-official-results-sync-2026-07-14",
+          "fifa-ranking-2026-06-11",
+          "statszone-third-place-history-2026-04-14",
+          "worldcupbracket-draw-model-2026-07-14",
+          "oddschecker-england-argentina-odds-2026-07-14"
+        ],
+        "method": "online-calibrated-scenario-model",
+        "basis": "Projected regulation forecast: online team strength blended with official tournament form and ranking, then calibrated to the historically open third-place draw profile",
+        "capturedAt": "2026-07-14T17:17:44-07:00",
+        "home": 44,
+        "draw": 20,
+        "away": 36,
+        "inputs": [
+          {
+            "sourceId": "opta-world-cup-semifinal-projections-2026-07-12",
+            "home": 58,
+            "away": 42,
+            "basis": "Relative Opta knockout strength normalized from each team's tournament-win and final-reach simulation rates"
+          },
+          {
+            "sourceId": "fifa-official-results-sync-2026-07-14",
+            "home": 56,
+            "away": 44,
+            "basis": "Recency-weighted 2026 tournament form through France's semifinal, using official results and per-match goal difference"
+          },
+          {
+            "sourceId": "fifa-ranking-2026-06-11",
+            "home": 51,
+            "away": 49,
+            "basis": "Small ranking component from France #3 and England #4; ranking is one of three strength inputs, not the forecast"
+          }
+        ],
+        "drawInputs": [
+          {
+            "sourceId": "statszone-third-place-history-2026-04-14",
+            "draw": 5,
+            "basis": "One of the 20 men's World Cup third-place matches through 2022 was tied after 90 minutes"
+          },
+          {
+            "sourceId": "worldcupbracket-draw-model-2026-07-14",
+            "draw": 22,
+            "basis": "Published neutral-team Elo draw anchor"
+          },
+          {
+            "sourceId": "oddschecker-england-argentina-odds-2026-07-14",
+            "draw": 32,
+            "basis": "Current margin-normalized semifinal draw probability as the live tournament-market anchor"
+          }
+        ]
+      }
     },
     {
       "id": "match-104-final-2026-07-19",
@@ -24787,9 +27094,92 @@
       "venue": "New York New Jersey Stadium",
       "status": "SCHEDULED",
       "h2h": {
-        "status": "not-loaded",
-        "summary": "Teams are not known yet. Past match research will load after the matchup is set.",
-        "results": null
+        "status": "loaded",
+        "sourceId": "national-football-teams-h2h-sync-2026-07-15",
+        "summary": "Before this fixture, Spain had the edge in the verified senior series: 4 Spain wins, 1 draw, 3 Argentina wins, 28 total goals.",
+        "results": [
+          {
+            "date": "2018-03-27",
+            "competition": "Friendly",
+            "homeTeamId": "ESP",
+            "awayTeamId": "ARG",
+            "homeScore": 6,
+            "awayScore": 1,
+            "venue": "Estadio Metropolitano Madrid",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/19603/Spain_Argentina.html"
+          },
+          {
+            "date": "2010-09-07",
+            "competition": "Friendly",
+            "homeTeamId": "ARG",
+            "awayTeamId": "ESP",
+            "homeScore": 4,
+            "awayScore": 1,
+            "venue": "Estadio Mas Monumental",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/10516/Argentina_Spain.html"
+          },
+          {
+            "date": "2009-11-14",
+            "competition": "Friendly",
+            "homeTeamId": "ESP",
+            "awayTeamId": "ARG",
+            "homeScore": 2,
+            "awayScore": 1,
+            "venue": "Estadio Vicente Calderón",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/11588/Spain_Argentina.html"
+          },
+          {
+            "date": "2006-10-11",
+            "competition": "Friendly",
+            "homeTeamId": "ESP",
+            "awayTeamId": "ARG",
+            "homeScore": 2,
+            "awayScore": 1,
+            "venue": "Estadio Nueva Condomina",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/13900/Spain_Argentina.html"
+          },
+          {
+            "date": "1999-11-17",
+            "competition": "Friendly",
+            "homeTeamId": "ESP",
+            "awayTeamId": "ARG",
+            "homeScore": 0,
+            "awayScore": 2,
+            "venue": "Estadio de La Cartuja",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/23487/Spain_Argentina.html"
+          },
+          {
+            "date": "1995-09-20",
+            "competition": "Friendly",
+            "homeTeamId": "ESP",
+            "awayTeamId": "ARG",
+            "homeScore": 2,
+            "awayScore": 1,
+            "venue": "Estadio Vicente Calderón",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/27392/Spain_Argentina.html"
+          },
+          {
+            "date": "1988-10-12",
+            "competition": "Friendly",
+            "homeTeamId": "ESP",
+            "awayTeamId": "ARG",
+            "homeScore": 1,
+            "awayScore": 1,
+            "venue": "Estadio Ramón Sánchez-Pizjuán",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/33411/Spain_Argentina.html"
+          },
+          {
+            "date": "1966-07-13",
+            "competition": "World Cup 1966 - Group 2",
+            "homeTeamId": "ARG",
+            "awayTeamId": "ESP",
+            "homeScore": 2,
+            "awayScore": 1,
+            "venue": "Villa Park",
+            "sourceUrl": "https://www.national-football-teams.com/matches/report/15073/Argentina_Spain.html"
+          }
+        ],
+        "sourceUrl": "https://www.national-football-teams.com/encounter/teams/174/9/Spain_vs_Argentina.html"
       },
       "providerIds": {
         "fifa": {
@@ -24925,7 +27315,126 @@
             }
           ]
         }
-      ]
+      ],
+      "awayTeamId": "ARG",
+      "keyPlayers": {
+        "sourceId": "key-player-baseline-2026-06-22",
+        "method": "team-watchlist-baseline",
+        "basis": "Team-level key-player watchlist; replace with API/squad-sourced fixture notes when available",
+        "home": [
+          {
+            "name": "Lamine Yamal",
+            "note": "Spain's game-breaking wide creator, able to bend low blocks with dribbling, passing, and shot threat."
+          },
+          {
+            "name": "Pedri",
+            "note": "The rhythm setter in open space, making Spain's possession feel calmer and more incisive."
+          },
+          {
+            "name": "Nico Williams",
+            "note": "The vertical winger who turns switches of play into immediate pressure on the box."
+          }
+        ],
+        "away": [
+          {
+            "name": "Lionel Messi",
+            "note": "Argentina's central attacking reference, whose between-lines gravity can turn pressure into clean chances."
+          },
+          {
+            "name": "Julian Alvarez",
+            "note": "Argentina's pressing forward and flexible finisher, dangerous whether he starts moves or attacks the last line."
+          },
+          {
+            "name": "Enzo Fernandez",
+            "note": "The midfield passer who can change the angle of attacks and keep Argentina's control from going stale."
+          }
+        ]
+      },
+      "keyInformation": {
+        "sourceId": "editorial-preview-2026-06-22",
+        "home": "Spain are one of the tournament's most polished possession teams, led by Lamine Yamal, Pedri, and Nico Williams. Against Argentina, their Yamal-Williams wide stretch has to beat Argentina's Messi-Alvarez midfield breaks. They want to pin the wide defenders with Yamal and Williams before Pedri plays through the gaps. The risk is Argentina can turn one midfield win into Messi touches, Alvarez movement, and Enzo service.",
+        "away": "Argentina are the defending champions and still one of the most complete tournament teams, led by Lionel Messi, Julian Alvarez, and Enzo Fernandez. Against Spain, their Messi-Alvarez midfield breaks has to beat Spain's Yamal-Williams wide stretch. They want to press high through Alvarez, find Messi in space behind midfield, and let Enzo Fernandez change the angle of the attack. The risk is Spain can stretch the pitch through Yamal and Williams before Pedri breaks the line."
+      },
+      "shootoutOutlook": {
+        "method": "world-cup-shootout-history",
+        "sourceIds": [
+          "openfootball-worldcup-json-2026-06-17"
+        ],
+        "generatedAt": "2026-07-15T21:26:37.128Z",
+        "cutoffAt": "2026-07-19T19:00:00Z",
+        "homeTeamId": "ESP",
+        "awayTeamId": "ARG",
+        "home": {
+          "wins": 1,
+          "losses": 4,
+          "appearances": 5
+        },
+        "away": {
+          "wins": 6,
+          "losses": 1,
+          "appearances": 7
+        }
+      },
+      "projection": {
+        "sourceId": "sportsbettingdime-final-lookahead-2026-07-14",
+        "sourceIds": [
+          "opta-world-cup-semifinal-projections-2026-07-12",
+          "sportsbettingdime-final-lookahead-2026-07-14",
+          "oddschecker-world-cup-outrights-2026-07-14",
+          "opta-england-argentina-forecast-2026-07-14",
+          "opta-france-spain-forecast-2026-07-13",
+          "oddschecker-england-argentina-odds-2026-07-14",
+          "bet365-england-argentina-odds-2026-07-14"
+        ],
+        "method": "online-calibrated-scenario-model",
+        "basis": "Projected regulation forecast: sourced two-way final strength converted to 1X2 with a draw rate calibrated from both Opta semifinals and current bookmaker prices",
+        "capturedAt": "2026-07-14T17:17:44-07:00",
+        "home": 40,
+        "draw": 31,
+        "away": 29,
+        "inputs": [
+          {
+            "sourceId": "opta-world-cup-semifinal-projections-2026-07-12",
+            "home": 57,
+            "away": 43,
+            "basis": "Conditional title strength normalized from Spain and Argentina tournament-win and final-reach simulation rates"
+          },
+          {
+            "sourceId": "sportsbettingdime-final-lookahead-2026-07-14",
+            "home": 57,
+            "away": 43,
+            "basis": "Margin-normalized Spain 58c and Argentina 43c Kalshi lookahead prices"
+          },
+          {
+            "sourceId": "oddschecker-world-cup-outrights-2026-07-14",
+            "home": 60,
+            "away": 40,
+            "basis": "Conditional title strength normalized from current champion and to-reach-final bookmaker prices"
+          }
+        ],
+        "drawInputs": [
+          {
+            "sourceId": "opta-england-argentina-forecast-2026-07-14",
+            "draw": 30,
+            "basis": "Opta's 29.7% regulation draw forecast for the other semifinal"
+          },
+          {
+            "sourceId": "opta-france-spain-forecast-2026-07-13",
+            "draw": 27,
+            "basis": "Opta's 27.2% regulation draw forecast for the first semifinal"
+          },
+          {
+            "sourceId": "oddschecker-england-argentina-odds-2026-07-14",
+            "draw": 32,
+            "basis": "Current margin-normalized Oddschecker regulation draw probability"
+          },
+          {
+            "sourceId": "bet365-england-argentina-odds-2026-07-14",
+            "draw": 33,
+            "basis": "Current margin-normalized bet365 full-time draw probability"
+          }
+        ]
+      }
     }
   ]
 }

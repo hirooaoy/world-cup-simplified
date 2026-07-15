@@ -3224,7 +3224,12 @@ for (const fixture of fixturesData.fixtures || []) {
     );
     if (fixture.stage !== "group") {
       assert(
-        ["market-implied-consensus", "online-source-consensus", "online-source-forecast"].includes(
+        [
+          "market-implied-consensus",
+          "online-calibrated-scenario-model",
+          "online-source-consensus",
+          "online-source-forecast"
+        ].includes(
           fixture.projection?.method
         ),
         `Confirmed knockout fixture "${fixture.id}" must use a sourced online projection, not a ranking fallback`

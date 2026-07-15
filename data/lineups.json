@@ -48763,7 +48763,7 @@
       }
     },
     "match-102-semi-final-2026-07-15": {
-      "mode": "confirmed",
+      "mode": "final",
       "teamSheetSource": "fifa-official",
       "eventSource": "fifa-official",
       "layoutSource": "fifa-official-layout",
@@ -48794,7 +48794,7 @@
         "fifa-lineups-sync-2026-07-15",
         "fifa-tactical-lineup-match-102-v1-cda8da4f98a5"
       ],
-      "checkedAt": "2026-07-15T20:45:00.000Z",
+      "checkedAt": "2026-07-15T21:26:28.263Z",
       "home": {
         "formation": "4-2-3-1",
         "coach": {
@@ -49004,6 +49004,16 @@
               "offName": "Declan Rice",
               "onName": "Nico Oreilly",
               "minute": 82
+            },
+            {
+              "offName": "John Stones",
+              "onName": "Ivan Toney",
+              "minute": "90+6"
+            },
+            {
+              "offName": "Djed Spence",
+              "onName": "Marcus Rashford",
+              "minute": "90+6"
             }
           ]
         }
@@ -49210,6 +49220,11 @@
               "playerName": "Cristian Romero",
               "type": "yellow",
               "minute": 51
+            },
+            {
+              "playerName": "Rodrigo De Paul",
+              "type": "yellow",
+              "minute": "90+4"
             }
           ],
           "staffCards": [],
@@ -49244,5 +49259,5 @@
       }
     }
   },
-  "updatedAt": "2026-07-15T20:55:00.000Z"
+  "updatedAt": "2026-07-15T21:26:28.263Z"
 }

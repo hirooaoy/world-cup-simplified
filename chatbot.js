@@ -1666,8 +1666,6 @@ function appendOffsideExplanation({ scroll = true } = {}) {
   const copy = isScoutZh()
     ? {
         intro: "越位规则防止进攻球员守在对方球门前等传球。",
-        check: "只看一个时刻",
-        direction: "进攻方向 →",
         summary: "看队友触球传球的一刻。如果进攻球员身处对方半场，而且比球和倒数第二名防守队员都更靠近球门，他就处于越位位置。",
         legend: "P = 传球者 · A = 进攻球员 · D = 防守球员 · GK = 门将",
         offside: "越位",
@@ -1691,8 +1689,6 @@ function appendOffsideExplanation({ scroll = true } = {}) {
       }
     : {
         intro: "Offside stops attackers waiting by the opponent’s goal for a pass.",
-        check: "The one check",
-        direction: "Attacking →",
         summary: "Check the moment a teammate plays the ball. An attacker is in an offside position if they are in the opponent’s half and closer to goal than both the ball and the second-last opponent.",
         legend: "P = passer · A = attacker · D = defender · GK = goalkeeper",
         offside: "Offside",
@@ -1723,10 +1719,6 @@ function appendOffsideExplanation({ scroll = true } = {}) {
     </div>
     <div class="offside-card">
       <div class="offside-rule-summary">
-        <div class="offside-summary-heading">
-          <span>${escapeScoutHtml(copy.check)}</span>
-          <span>${escapeScoutHtml(copy.direction)}</span>
-        </div>
         <p>${escapeScoutHtml(copy.summary)}</p>
         <p class="offside-legend">${escapeScoutHtml(copy.legend)}</p>
       </div>
