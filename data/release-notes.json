@@ -11,8 +11,8 @@
         "The suspended-player row is driven by fixture-scoped availability data, so the same presentation can be reused for other documented 2026 suspensions as their metadata is added.",
         "Dark-mode line-up shirt numbers now use the intended black pill with white text and a deep-green pitch outline instead of an isolated white badge; light mode remains unchanged.",
         "Argentina's 2-1 semi-final win over England now includes the official final line-up, goals, cards, substitutions, official highlight, and a concise bilingual three-bullet recap.",
-        "The bracket now confirms France vs England for third place and Spain vs Argentina for the final, with their sourced 44/20/36 and 40/31/29 regulation forecasts promoted from pre-authored scenarios to the resolved fixtures.",
-        "Future result syncs now promote an exact conditional medal-match forecast as soon as both participants are known, preserve extra-time substitution markers, and keep final-state browser checks aligned with confirmed fixtures.",
+        "The bracket now confirms France vs England for third place and Spain vs Argentina for the final, with a sourced 44/20/36 scenario for the former and a current Betfair/PokerStars 40/31/29 regulation consensus for the latter.",
+        "Future result syncs now promote an exact conditional medal-match forecast as soon as both participants are known, preserve extra-time substitution markers, and keep final-state browser checks aligned with confirmed fixtures; the editorial gate now makes missing direct odds or probable-lineup research blocking inside 48 hours of kickoff.",
         "Ball Boy's offside explainer removes the redundant 'The one check' and 'Attacking' heading row, leaving the rule, direction graphic, and legend to explain the idea without decorative duplication."
       ],
       "highlightsZh": [
@@ -21,8 +21,8 @@
         "停赛球员行由比赛级别的可用性数据驱动，因此在补充相应资料后，同样的展示方式可以复用于其他有记录的2026年停赛情况。",
         "深色模式下的阵容球衣号码现在使用预期的黑色胶囊、白色文字和深绿色球场描边，不再出现孤立的白色标记；浅色模式保持不变。",
         "阿根廷2比1击败英格兰的半决赛现已补齐官方最终阵容、进球、黄牌、换人、官方集锦，以及简洁的中英双语三点赛果回顾。",
-        "淘汰赛对阵现已确认法国对英格兰的季军赛和西班牙对阿根廷的决赛，并把预先编写的情景预测提升为已确定比赛的常规时间预测：分别为44/20/36和40/31/29。",
-        "今后的赛果同步会在双方确定后自动采用完全匹配的奖牌赛条件预测，同时保留加时赛换人标记，并让浏览器检查与已确认的比赛状态保持一致。",
+        "淘汰赛对阵现已确认法国对英格兰的季军赛和西班牙对阿根廷的决赛：前者采用有来源支持的44/20/36情景预测，后者采用当前Betfair与PokerStars综合得出的40/31/29常规时间预测。",
+        "今后的赛果同步会在双方确定后自动采用完全匹配的奖牌赛条件预测，同时保留加时赛换人标记，并让浏览器检查与已确认的比赛状态保持一致；编辑门槛现在会在开球前48小时内把缺少直接赔率或预计阵容研究视为阻断项。",
         "Ball Boy 的越位说明移除了重复的“只看一个时刻”和“进攻方向”标题行，只保留规则、方向图和图例来解释概念，避免装饰性重复。"
       ]
     },

@@ -19,6 +19,7 @@ jobs:
     env:
       H2H_SOURCE_OPTIONAL: "1"
       H2H_WARN_ONLY: "1"
+      MATCHDAY_LINEUP_RESEARCH_REQUIRED_HOURS: "48"
       WORLD_CUP_TZ: America/Los_Angeles
     steps:
       - name: Check out repository

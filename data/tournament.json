@@ -348,6 +348,22 @@
       "note": "Complete result list shows only one of the 20 men's World Cup third-place matches through 2022 tied after 90 minutes; used only as one draw-rate input."
     },
     {
+      "id": "betfair-spain-argentina-odds-2026-07-15",
+      "label": "Betfair Spain vs Argentina current 1X2 odds",
+      "url": "https://www.betfair.es/betting/en/football/fifa-world-cup/c-12469077",
+      "type": "market-odds",
+      "checkedAt": "2026-07-15T15:03:00-07:00",
+      "note": "Captured current 2.25 / 3.00 / 3.00 regulation prices and normalized away the bookmaker margin to 40/30/30."
+    },
+    {
+      "id": "pokerstars-spain-argentina-odds-2026-07-15",
+      "label": "PokerStars Spain vs Argentina current 1X2 odds",
+      "url": "https://www.pokerstars.es/en/sports/soccer/1/fifa-world-cup/12469077/",
+      "type": "market-odds",
+      "checkedAt": "2026-07-15T15:03:00-07:00",
+      "note": "Captured current 2.30 / 3.00 / 3.20 regulation prices and normalized away the bookmaker margin to 40/31/29."
+    },
+    {
       "id": "sportsbettingdime-final-lookahead-2026-07-14",
       "label": "Sports Betting Dime World Cup final lookahead lines",
       "url": "https://www.sportsbettingdime.com/news/soccer/world-cup-final-odds-see-the-lookahead-lines-for-spain-vs-england-spain-vs-argentina/",

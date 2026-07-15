@@ -177,6 +177,8 @@
     "fox-england-argentina-odds-2026-07-14",
     "worldcupbracket-draw-model-2026-07-14",
     "statszone-third-place-history-2026-04-14",
+    "betfair-spain-argentina-odds-2026-07-15",
+    "pokerstars-spain-argentina-odds-2026-07-15",
     "fifa-official-results-sync-2026-07-15",
     "fifa-goal-events-sync-2026-07-15",
     "fifa-match-events-sync-2026-07-15",
@@ -27376,62 +27378,31 @@
         }
       },
       "projection": {
-        "sourceId": "sportsbettingdime-final-lookahead-2026-07-14",
+        "sourceId": "betfair-spain-argentina-odds-2026-07-15",
         "sourceIds": [
-          "opta-world-cup-semifinal-projections-2026-07-12",
-          "sportsbettingdime-final-lookahead-2026-07-14",
-          "oddschecker-world-cup-outrights-2026-07-14",
-          "opta-england-argentina-forecast-2026-07-14",
-          "opta-france-spain-forecast-2026-07-13",
-          "oddschecker-england-argentina-odds-2026-07-14",
-          "bet365-england-argentina-odds-2026-07-14"
+          "betfair-spain-argentina-odds-2026-07-15",
+          "pokerstars-spain-argentina-odds-2026-07-15"
         ],
-        "method": "online-calibrated-scenario-model",
-        "basis": "Projected regulation forecast: sourced two-way final strength converted to 1X2 with a draw rate calibrated from both Opta semifinals and current bookmaker prices",
-        "capturedAt": "2026-07-14T17:17:44-07:00",
+        "method": "online-source-consensus",
+        "basis": "Rounded consensus of current margin-normalized Betfair and PokerStars regulation 1X2 prices",
+        "capturedAt": "2026-07-15T15:03:00-07:00",
         "home": 40,
         "draw": 31,
         "away": 29,
         "inputs": [
           {
-            "sourceId": "opta-world-cup-semifinal-projections-2026-07-12",
-            "home": 57,
-            "away": 43,
-            "basis": "Conditional title strength normalized from Spain and Argentina tournament-win and final-reach simulation rates"
-          },
-          {
-            "sourceId": "sportsbettingdime-final-lookahead-2026-07-14",
-            "home": 57,
-            "away": 43,
-            "basis": "Margin-normalized Spain 58c and Argentina 43c Kalshi lookahead prices"
-          },
-          {
-            "sourceId": "oddschecker-world-cup-outrights-2026-07-14",
-            "home": 60,
-            "away": 40,
-            "basis": "Conditional title strength normalized from current champion and to-reach-final bookmaker prices"
-          }
-        ],
-        "drawInputs": [
-          {
-            "sourceId": "opta-england-argentina-forecast-2026-07-14",
+            "sourceId": "betfair-spain-argentina-odds-2026-07-15",
+            "home": 40,
             "draw": 30,
-            "basis": "Opta's 29.7% regulation draw forecast for the other semifinal"
+            "away": 30,
+            "basis": "Margin-normalized 2.25 / 3.00 / 3.00 regulation prices"
           },
           {
-            "sourceId": "opta-france-spain-forecast-2026-07-13",
-            "draw": 27,
-            "basis": "Opta's 27.2% regulation draw forecast for the first semifinal"
-          },
-          {
-            "sourceId": "oddschecker-england-argentina-odds-2026-07-14",
-            "draw": 32,
-            "basis": "Current margin-normalized Oddschecker regulation draw probability"
-          },
-          {
-            "sourceId": "bet365-england-argentina-odds-2026-07-14",
-            "draw": 33,
-            "basis": "Current margin-normalized bet365 full-time draw probability"
+            "sourceId": "pokerstars-spain-argentina-odds-2026-07-15",
+            "home": 40,
+            "draw": 31,
+            "away": 29,
+            "basis": "Margin-normalized 2.30 / 3.00 / 3.20 regulation prices"
           }
         ]
       }
