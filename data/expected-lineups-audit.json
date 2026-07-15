@@ -1,14 +1,14 @@
 {
   "schemaVersion": "1",
-  "generatedAt": "2026-07-15T07:10:04.261Z",
-  "revisionId": "9560242d018f1d561838bd99d8a7f0f940775d7949f1885babd36428646a60b4",
+  "generatedAt": "2026-07-15T09:27:07.729Z",
+  "revisionId": "a2077e4e3efed7e9b0bceee15d8ab7aa7d5ba7f60f2edc164faf3462467fe055",
   "engine": {
     "id": "lineup-prediction-engine",
     "version": "2",
-    "runId": "lineup-prediction-2026-07-15-fcb2a0780eb7",
-    "inputFingerprint": "fcb2a0780eb746a178cec3d56e7c1121cf13bed17b2d86a2d91b07455f715178",
+    "runId": "lineup-prediction-2026-07-15-46c86196df42",
+    "inputFingerprint": "46c86196df42c0a99116e987c2c724c742133436c46a9eb1c1401df7adf2003e",
     "modelFingerprint": "eb79163bdf904f7d41d36b022c65663111815c755f49d89249c4f9935df9794c",
-    "revisionId": "9560242d018f1d561838bd99d8a7f0f940775d7949f1885babd36428646a60b4"
+    "revisionId": "a2077e4e3efed7e9b0bceee15d8ab7aa7d5ba7f60f2edc164faf3462467fe055"
   },
   "inputs": [
     {
@@ -59,7 +59,7 @@
       "id": "lineup-prediction-official-history",
       "label": "Lineup prediction official-history provider",
       "type": "lineup-prediction-provider",
-      "checkedAt": "2026-07-15T07:10:04.261Z",
+      "checkedAt": "2026-07-15T09:27:07.729Z",
       "note": "Uses local FIFA official lineup history, recent formations, minutes/load, and explicit player availability."
     },
     {
@@ -116,10 +116,10 @@
           "lineup-layout-verification-2026-07-13",
           "fifa-lineups-sync-2026-07-14"
         ],
-        "lastUpdated": "2026-07-15T07:10:04.261Z",
+        "lastUpdated": "2026-07-15T09:27:07.729Z",
         "confidence": {
           "label": "high",
-          "score": 0.931,
+          "score": 0.93,
           "method": "evidence-strength-v2",
           "reason": "Average home/away evidence strength; this is not a calibrated probability."
         },
@@ -145,7 +145,7 @@
             "providerVersion": "1",
             "score": 0.944,
             "predictionClass": "forecast",
-            "recencyWeight": 0.627,
+            "recencyWeight": 0.607,
             "sourceReliability": 1,
             "independenceKey": "source:fifa",
             "updatedAt": "2026-07-13T22:50:33Z",
@@ -159,7 +159,7 @@
             "providerVersion": "1",
             "score": 0.972,
             "predictionClass": "forecast",
-            "recencyWeight": 0.801,
+            "recencyWeight": 0.775,
             "sourceReliability": 1,
             "independenceKey": "source:sports-mole",
             "updatedAt": "2026-07-14T15:50:00Z",
@@ -173,7 +173,7 @@
             "providerVersion": "1",
             "score": 0.965,
             "predictionClass": "forecast",
-            "recencyWeight": 0.801,
+            "recencyWeight": 0.775,
             "sourceReliability": 1,
             "independenceKey": "source:the-stats-zone",
             "updatedAt": "2026-07-14T15:50:00Z",
@@ -187,7 +187,7 @@
           "home": {
             "confidence": {
               "label": "high",
-              "score": 0.92,
+              "score": 0.919,
               "method": "evidence-strength-v2",
               "reason": "Evidence strength from 11/11 role-constrained consensus starters, 2 providers, and 3 independent external sources; this is not a calibrated probability."
             },
@@ -210,7 +210,7 @@
             "formationScores": [
               {
                 "formation": "4-2-3-1",
-                "score": 2.478,
+                "score": 2.41,
                 "providerIds": [
                   "free-public-lineups",
                   "local-official-history"
@@ -237,8 +237,8 @@
             "starterScores": [
               {
                 "name": "Jordan Pickford",
-                "score": 2.378,
-                "evidenceStrength": 0.96,
+                "score": 2.311,
+                "evidenceStrength": 0.959,
                 "starterVotes": 4,
                 "benchVotes": 0,
                 "independentStarterVotes": 4,
@@ -248,7 +248,7 @@
                 "roleScores": [
                   {
                     "position": "GK",
-                    "score": 2.378,
+                    "score": 2.311,
                     "independentVotes": 4
                   }
                 ],
@@ -268,8 +268,8 @@
               },
               {
                 "name": "Ezri Konsa",
-                "score": 2.378,
-                "evidenceStrength": 0.96,
+                "score": 2.311,
+                "evidenceStrength": 0.959,
                 "starterVotes": 4,
                 "benchVotes": 0,
                 "independentStarterVotes": 4,
@@ -279,12 +279,12 @@
                 "roleScores": [
                   {
                     "position": "RB",
-                    "score": 1.842,
+                    "score": 1.792,
                     "independentVotes": 3
                   },
                   {
                     "position": "RCB",
-                    "score": 0.536,
+                    "score": 0.519,
                     "independentVotes": 1
                   }
                 ],
@@ -304,7 +304,7 @@
               },
               {
                 "name": "John Stones",
-                "score": 1.827,
+                "score": 1.777,
                 "evidenceStrength": 0.737,
                 "starterVotes": 3,
                 "benchVotes": 0,
@@ -315,7 +315,7 @@
                 "roleScores": [
                   {
                     "position": "RCB",
-                    "score": 1.827,
+                    "score": 1.777,
                     "independentVotes": 3
                   }
                 ],
@@ -334,8 +334,8 @@
               },
               {
                 "name": "Marc Guéhi",
-                "score": 2.378,
-                "evidenceStrength": 0.96,
+                "score": 2.311,
+                "evidenceStrength": 0.959,
                 "starterVotes": 4,
                 "benchVotes": 0,
                 "independentStarterVotes": 4,
@@ -345,7 +345,7 @@
                 "roleScores": [
                   {
                     "position": "LCB",
-                    "score": 2.378,
+                    "score": 2.311,
                     "independentVotes": 4
                   }
                 ],
@@ -365,8 +365,8 @@
               },
               {
                 "name": "Nico O'Reilly",
-                "score": 2.373,
-                "evidenceStrength": 0.958,
+                "score": 2.306,
+                "evidenceStrength": 0.957,
                 "starterVotes": 4,
                 "benchVotes": 0,
                 "independentStarterVotes": 4,
@@ -376,7 +376,7 @@
                 "roleScores": [
                   {
                     "position": "LB",
-                    "score": 2.373,
+                    "score": 2.306,
                     "independentVotes": 4
                   }
                 ],
@@ -396,8 +396,8 @@
               },
               {
                 "name": "Declan Rice",
-                "score": 2.373,
-                "evidenceStrength": 0.958,
+                "score": 2.306,
+                "evidenceStrength": 0.957,
                 "starterVotes": 4,
                 "benchVotes": 0,
                 "independentStarterVotes": 4,
@@ -407,12 +407,12 @@
                 "roleScores": [
                   {
                     "position": "RCM",
-                    "score": 1.837,
+                    "score": 1.787,
                     "independentVotes": 3
                   },
                   {
                     "position": "LCM",
-                    "score": 0.536,
+                    "score": 0.519,
                     "independentVotes": 1
                   }
                 ],
@@ -432,8 +432,8 @@
               },
               {
                 "name": "Elliot Anderson",
-                "score": 2.378,
-                "evidenceStrength": 0.96,
+                "score": 2.311,
+                "evidenceStrength": 0.959,
                 "starterVotes": 4,
                 "benchVotes": 0,
                 "independentStarterVotes": 4,
@@ -443,12 +443,12 @@
                 "roleScores": [
                   {
                     "position": "LCM",
-                    "score": 1.842,
+                    "score": 1.792,
                     "independentVotes": 3
                   },
                   {
                     "position": "RCM",
-                    "score": 0.536,
+                    "score": 0.519,
                     "independentVotes": 1
                   }
                 ],
@@ -468,8 +468,8 @@
               },
               {
                 "name": "Bukayo Saka",
-                "score": 1.822,
-                "evidenceStrength": 0.756,
+                "score": 1.755,
+                "evidenceStrength": 0.749,
                 "starterVotes": 3,
                 "benchVotes": 1,
                 "independentStarterVotes": 3,
@@ -479,7 +479,7 @@
                 "roleScores": [
                   {
                     "position": "RW",
-                    "score": 2.006,
+                    "score": 1.939,
                     "independentVotes": 3
                   }
                 ],
@@ -499,8 +499,8 @@
               },
               {
                 "name": "Jude Bellingham",
-                "score": 2.378,
-                "evidenceStrength": 0.96,
+                "score": 2.311,
+                "evidenceStrength": 0.959,
                 "starterVotes": 4,
                 "benchVotes": 0,
                 "independentStarterVotes": 4,
@@ -510,7 +510,7 @@
                 "roleScores": [
                   {
                     "position": "AM",
-                    "score": 2.378,
+                    "score": 2.311,
                     "independentVotes": 4
                   }
                 ],
@@ -530,8 +530,8 @@
               },
               {
                 "name": "Anthony Gordon",
-                "score": 2.374,
-                "evidenceStrength": 0.958,
+                "score": 2.307,
+                "evidenceStrength": 0.957,
                 "starterVotes": 4,
                 "benchVotes": 0,
                 "independentStarterVotes": 4,
@@ -541,7 +541,7 @@
                 "roleScores": [
                   {
                     "position": "LW",
-                    "score": 2.374,
+                    "score": 2.307,
                     "independentVotes": 4
                   }
                 ],
@@ -561,8 +561,8 @@
               },
               {
                 "name": "Harry Kane",
-                "score": 2.378,
-                "evidenceStrength": 0.96,
+                "score": 2.311,
+                "evidenceStrength": 0.959,
                 "starterVotes": 4,
                 "benchVotes": 0,
                 "independentStarterVotes": 4,
@@ -572,7 +572,7 @@
                 "roleScores": [
                   {
                     "position": "ST",
-                    "score": 2.378,
+                    "score": 2.311,
                     "independentVotes": 4
                   }
                 ],
@@ -618,7 +618,7 @@
             "formationScores": [
               {
                 "formation": "4-1-3-2",
-                "score": 2.478,
+                "score": 2.41,
                 "providerIds": [
                   "free-public-lineups",
                   "local-official-history"
@@ -645,8 +645,8 @@
             "starterScores": [
               {
                 "name": "Emiliano Martínez",
-                "score": 2.378,
-                "evidenceStrength": 0.96,
+                "score": 2.311,
+                "evidenceStrength": 0.959,
                 "starterVotes": 4,
                 "benchVotes": 0,
                 "independentStarterVotes": 4,
@@ -656,7 +656,7 @@
                 "roleScores": [
                   {
                     "position": "GK",
-                    "score": 2.378,
+                    "score": 2.311,
                     "independentVotes": 4
                   }
                 ],
@@ -676,8 +676,8 @@
               },
               {
                 "name": "Nahuel Molina",
-                "score": 2.373,
-                "evidenceStrength": 0.958,
+                "score": 2.306,
+                "evidenceStrength": 0.957,
                 "starterVotes": 4,
                 "benchVotes": 0,
                 "independentStarterVotes": 4,
@@ -687,7 +687,7 @@
                 "roleScores": [
                   {
                     "position": "RB",
-                    "score": 2.373,
+                    "score": 2.306,
                     "independentVotes": 4
                   }
                 ],
@@ -707,8 +707,8 @@
               },
               {
                 "name": "Cristian Romero",
-                "score": 2.373,
-                "evidenceStrength": 0.958,
+                "score": 2.306,
+                "evidenceStrength": 0.957,
                 "starterVotes": 4,
                 "benchVotes": 0,
                 "independentStarterVotes": 4,
@@ -718,7 +718,7 @@
                 "roleScores": [
                   {
                     "position": "RCB",
-                    "score": 2.373,
+                    "score": 2.306,
                     "independentVotes": 4
                   }
                 ],
@@ -738,8 +738,8 @@
               },
               {
                 "name": "Lisandro Martínez",
-                "score": 2.373,
-                "evidenceStrength": 0.958,
+                "score": 2.306,
+                "evidenceStrength": 0.957,
                 "starterVotes": 4,
                 "benchVotes": 0,
                 "independentStarterVotes": 4,
@@ -749,7 +749,7 @@
                 "roleScores": [
                   {
                     "position": "LCB",
-                    "score": 2.373,
+                    "score": 2.306,
                     "independentVotes": 4
                   }
                 ],
@@ -769,8 +769,8 @@
               },
               {
                 "name": "Nicolás Tagliafico",
-                "score": 2.374,
-                "evidenceStrength": 0.958,
+                "score": 2.307,
+                "evidenceStrength": 0.957,
                 "starterVotes": 4,
                 "benchVotes": 0,
                 "independentStarterVotes": 4,
@@ -780,7 +780,7 @@
                 "roleScores": [
                   {
                     "position": "LB",
-                    "score": 2.374,
+                    "score": 2.307,
                     "independentVotes": 4
                   }
                 ],
@@ -800,8 +800,8 @@
               },
               {
                 "name": "Leandro Paredes",
-                "score": 2.374,
-                "evidenceStrength": 0.958,
+                "score": 2.307,
+                "evidenceStrength": 0.957,
                 "starterVotes": 4,
                 "benchVotes": 0,
                 "independentStarterVotes": 4,
@@ -811,7 +811,7 @@
                 "roleScores": [
                   {
                     "position": "DM",
-                    "score": 2.374,
+                    "score": 2.307,
                     "independentVotes": 4
                   }
                 ],
@@ -831,8 +831,8 @@
               },
               {
                 "name": "Rodrigo De Paul",
-                "score": 2.373,
-                "evidenceStrength": 0.958,
+                "score": 2.306,
+                "evidenceStrength": 0.957,
                 "starterVotes": 4,
                 "benchVotes": 0,
                 "independentStarterVotes": 4,
@@ -842,7 +842,7 @@
                 "roleScores": [
                   {
                     "position": "RW",
-                    "score": 2.006,
+                    "score": 1.939,
                     "independentVotes": 3
                   },
                   {
@@ -867,8 +867,8 @@
               },
               {
                 "name": "Alexis Mac Allister",
-                "score": 2.373,
-                "evidenceStrength": 0.958,
+                "score": 2.306,
+                "evidenceStrength": 0.957,
                 "starterVotes": 4,
                 "benchVotes": 0,
                 "independentStarterVotes": 4,
@@ -878,7 +878,7 @@
                 "roleScores": [
                   {
                     "position": "AM",
-                    "score": 2.006,
+                    "score": 1.939,
                     "independentVotes": 3
                   },
                   {
@@ -903,7 +903,7 @@
               },
               {
                 "name": "Enzo Fernández",
-                "score": 2.38,
+                "score": 2.313,
                 "evidenceStrength": 0.96,
                 "starterVotes": 4,
                 "benchVotes": 0,
@@ -914,7 +914,7 @@
                 "roleScores": [
                   {
                     "position": "LW",
-                    "score": 2.006,
+                    "score": 1.939,
                     "independentVotes": 3
                   },
                   {
@@ -939,8 +939,8 @@
               },
               {
                 "name": "Lionel Messi",
-                "score": 2.373,
-                "evidenceStrength": 0.958,
+                "score": 2.306,
+                "evidenceStrength": 0.957,
                 "starterVotes": 4,
                 "benchVotes": 0,
                 "independentStarterVotes": 4,
@@ -950,7 +950,7 @@
                 "roleScores": [
                   {
                     "position": "ST",
-                    "score": 2.373,
+                    "score": 2.306,
                     "independentVotes": 4
                   }
                 ],
@@ -970,8 +970,8 @@
               },
               {
                 "name": "Julián Álvarez",
-                "score": 2.367,
-                "evidenceStrength": 0.955,
+                "score": 2.3,
+                "evidenceStrength": 0.954,
                 "starterVotes": 4,
                 "benchVotes": 0,
                 "independentStarterVotes": 4,
@@ -981,7 +981,7 @@
                 "roleScores": [
                   {
                     "position": "ST",
-                    "score": 2.367,
+                    "score": 2.3,
                     "independentVotes": 4
                   }
                 ],
@@ -1252,8 +1252,8 @@
                 "x": 82,
                 "y": 40,
                 "confidence": {
-                  "label": "high",
-                  "score": 0.756,
+                  "label": "medium",
+                  "score": 0.749,
                   "method": "evidence-strength-v2",
                   "reason": "3 independent starter sources; not a calibrated probability."
                 },
@@ -1373,7 +1373,7 @@
                 "position": "RB",
                 "confidence": {
                   "label": "low",
-                  "score": 0.135,
+                  "score": 0.139,
                   "method": "evidence-strength-v2",
                   "reason": "Bench evidence strength; not a calibrated probability."
                 },
@@ -1396,7 +1396,7 @@
                 "position": "ST",
                 "confidence": {
                   "label": "low",
-                  "score": 0.135,
+                  "score": 0.139,
                   "method": "evidence-strength-v2",
                   "reason": "Bench evidence strength; not a calibrated probability."
                 },
@@ -1419,7 +1419,7 @@
                 "position": "RB",
                 "confidence": {
                   "label": "low",
-                  "score": 0.133,
+                  "score": 0.137,
                   "method": "evidence-strength-v2",
                   "reason": "Bench evidence strength; not a calibrated probability."
                 },
@@ -1445,7 +1445,7 @@
                 "position": "AM",
                 "confidence": {
                   "label": "low",
-                  "score": 0.133,
+                  "score": 0.137,
                   "method": "evidence-strength-v2",
                   "reason": "Bench evidence strength; not a calibrated probability."
                 },
@@ -1468,7 +1468,7 @@
                 "position": "CB",
                 "confidence": {
                   "label": "low",
-                  "score": 0.131,
+                  "score": 0.134,
                   "method": "evidence-strength-v2",
                   "reason": "Bench evidence strength; not a calibrated probability."
                 },
@@ -1491,7 +1491,7 @@
                 "position": "GK",
                 "confidence": {
                   "label": "low",
-                  "score": 0.131,
+                  "score": 0.134,
                   "method": "evidence-strength-v2",
                   "reason": "Bench evidence strength; not a calibrated probability."
                 },
@@ -1514,7 +1514,7 @@
                 "position": "AM",
                 "confidence": {
                   "label": "low",
-                  "score": 0.131,
+                  "score": 0.134,
                   "method": "evidence-strength-v2",
                   "reason": "Bench evidence strength; not a calibrated probability."
                 },
@@ -1537,7 +1537,7 @@
                 "position": "ST",
                 "confidence": {
                   "label": "low",
-                  "score": 0.131,
+                  "score": 0.134,
                   "method": "evidence-strength-v2",
                   "reason": "Bench evidence strength; not a calibrated probability."
                 },
@@ -1560,7 +1560,7 @@
                 "position": "GK",
                 "confidence": {
                   "label": "low",
-                  "score": 0.131,
+                  "score": 0.134,
                   "method": "evidence-strength-v2",
                   "reason": "Bench evidence strength; not a calibrated probability."
                 },
@@ -1583,7 +1583,7 @@
                 "position": "CM",
                 "confidence": {
                   "label": "low",
-                  "score": 0.131,
+                  "score": 0.134,
                   "method": "evidence-strength-v2",
                   "reason": "Bench evidence strength; not a calibrated probability."
                 },
@@ -1606,7 +1606,7 @@
                 "position": "ST",
                 "confidence": {
                   "label": "low",
-                  "score": 0.131,
+                  "score": 0.134,
                   "method": "evidence-strength-v2",
                   "reason": "Bench evidence strength; not a calibrated probability."
                 },
@@ -1629,7 +1629,7 @@
                 "position": "CB",
                 "confidence": {
                   "label": "low",
-                  "score": 0.131,
+                  "score": 0.134,
                   "method": "evidence-strength-v2",
                   "reason": "Bench evidence strength; not a calibrated probability."
                 },
@@ -1683,7 +1683,7 @@
             "evidence": {
               "confidence": {
                 "label": "high",
-                "score": 0.92,
+                "score": 0.919,
                 "method": "evidence-strength-v2",
                 "reason": "Evidence strength from 11/11 role-constrained consensus starters, 2 providers, and 3 independent external sources; this is not a calibrated probability."
               },
@@ -1706,7 +1706,7 @@
               "formationScores": [
                 {
                   "formation": "4-2-3-1",
-                  "score": 2.478,
+                  "score": 2.41,
                   "providerIds": [
                     "free-public-lineups",
                     "local-official-history"
@@ -1733,8 +1733,8 @@
               "starterScores": [
                 {
                   "name": "Jordan Pickford",
-                  "score": 2.378,
-                  "evidenceStrength": 0.96,
+                  "score": 2.311,
+                  "evidenceStrength": 0.959,
                   "starterVotes": 4,
                   "benchVotes": 0,
                   "independentStarterVotes": 4,
@@ -1744,7 +1744,7 @@
                   "roleScores": [
                     {
                       "position": "GK",
-                      "score": 2.378,
+                      "score": 2.311,
                       "independentVotes": 4
                     }
                   ],
@@ -1764,8 +1764,8 @@
                 },
                 {
                   "name": "Ezri Konsa",
-                  "score": 2.378,
-                  "evidenceStrength": 0.96,
+                  "score": 2.311,
+                  "evidenceStrength": 0.959,
                   "starterVotes": 4,
                   "benchVotes": 0,
                   "independentStarterVotes": 4,
@@ -1775,12 +1775,12 @@
                   "roleScores": [
                     {
                       "position": "RB",
-                      "score": 1.842,
+                      "score": 1.792,
                       "independentVotes": 3
                     },
                     {
                       "position": "RCB",
-                      "score": 0.536,
+                      "score": 0.519,
                       "independentVotes": 1
                     }
                   ],
@@ -1800,7 +1800,7 @@
                 },
                 {
                   "name": "John Stones",
-                  "score": 1.827,
+                  "score": 1.777,
                   "evidenceStrength": 0.737,
                   "starterVotes": 3,
                   "benchVotes": 0,
@@ -1811,7 +1811,7 @@
                   "roleScores": [
                     {
                       "position": "RCB",
-                      "score": 1.827,
+                      "score": 1.777,
                       "independentVotes": 3
                     }
                   ],
@@ -1830,8 +1830,8 @@
                 },
                 {
                   "name": "Marc Guéhi",
-                  "score": 2.378,
-                  "evidenceStrength": 0.96,
+                  "score": 2.311,
+                  "evidenceStrength": 0.959,
                   "starterVotes": 4,
                   "benchVotes": 0,
                   "independentStarterVotes": 4,
@@ -1841,7 +1841,7 @@
                   "roleScores": [
                     {
                       "position": "LCB",
-                      "score": 2.378,
+                      "score": 2.311,
                       "independentVotes": 4
                     }
                   ],
@@ -1861,8 +1861,8 @@
                 },
                 {
                   "name": "Nico O'Reilly",
-                  "score": 2.373,
-                  "evidenceStrength": 0.958,
+                  "score": 2.306,
+                  "evidenceStrength": 0.957,
                   "starterVotes": 4,
                   "benchVotes": 0,
                   "independentStarterVotes": 4,
@@ -1872,7 +1872,7 @@
                   "roleScores": [
                     {
                       "position": "LB",
-                      "score": 2.373,
+                      "score": 2.306,
                       "independentVotes": 4
                     }
                   ],
@@ -1892,8 +1892,8 @@
                 },
                 {
                   "name": "Declan Rice",
-                  "score": 2.373,
-                  "evidenceStrength": 0.958,
+                  "score": 2.306,
+                  "evidenceStrength": 0.957,
                   "starterVotes": 4,
                   "benchVotes": 0,
                   "independentStarterVotes": 4,
@@ -1903,12 +1903,12 @@
                   "roleScores": [
                     {
                       "position": "RCM",
-                      "score": 1.837,
+                      "score": 1.787,
                       "independentVotes": 3
                     },
                     {
                       "position": "LCM",
-                      "score": 0.536,
+                      "score": 0.519,
                       "independentVotes": 1
                     }
                   ],
@@ -1928,8 +1928,8 @@
                 },
                 {
                   "name": "Elliot Anderson",
-                  "score": 2.378,
-                  "evidenceStrength": 0.96,
+                  "score": 2.311,
+                  "evidenceStrength": 0.959,
                   "starterVotes": 4,
                   "benchVotes": 0,
                   "independentStarterVotes": 4,
@@ -1939,12 +1939,12 @@
                   "roleScores": [
                     {
                       "position": "LCM",
-                      "score": 1.842,
+                      "score": 1.792,
                       "independentVotes": 3
                     },
                     {
                       "position": "RCM",
-                      "score": 0.536,
+                      "score": 0.519,
                       "independentVotes": 1
                     }
                   ],
@@ -1964,8 +1964,8 @@
                 },
                 {
                   "name": "Bukayo Saka",
-                  "score": 1.822,
-                  "evidenceStrength": 0.756,
+                  "score": 1.755,
+                  "evidenceStrength": 0.749,
                   "starterVotes": 3,
                   "benchVotes": 1,
                   "independentStarterVotes": 3,
@@ -1975,7 +1975,7 @@
                   "roleScores": [
                     {
                       "position": "RW",
-                      "score": 2.006,
+                      "score": 1.939,
                       "independentVotes": 3
                     }
                   ],
@@ -1995,8 +1995,8 @@
                 },
                 {
                   "name": "Jude Bellingham",
-                  "score": 2.378,
-                  "evidenceStrength": 0.96,
+                  "score": 2.311,
+                  "evidenceStrength": 0.959,
                   "starterVotes": 4,
                   "benchVotes": 0,
                   "independentStarterVotes": 4,
@@ -2006,7 +2006,7 @@
                   "roleScores": [
                     {
                       "position": "AM",
-                      "score": 2.378,
+                      "score": 2.311,
                       "independentVotes": 4
                     }
                   ],
@@ -2026,8 +2026,8 @@
                 },
                 {
                   "name": "Anthony Gordon",
-                  "score": 2.374,
-                  "evidenceStrength": 0.958,
+                  "score": 2.307,
+                  "evidenceStrength": 0.957,
                   "starterVotes": 4,
                   "benchVotes": 0,
                   "independentStarterVotes": 4,
@@ -2037,7 +2037,7 @@
                   "roleScores": [
                     {
                       "position": "LW",
-                      "score": 2.374,
+                      "score": 2.307,
                       "independentVotes": 4
                     }
                   ],
@@ -2057,8 +2057,8 @@
                 },
                 {
                   "name": "Harry Kane",
-                  "score": 2.378,
-                  "evidenceStrength": 0.96,
+                  "score": 2.311,
+                  "evidenceStrength": 0.959,
                   "starterVotes": 4,
                   "benchVotes": 0,
                   "independentStarterVotes": 4,
@@ -2068,7 +2068,7 @@
                   "roleScores": [
                     {
                       "position": "ST",
-                      "score": 2.378,
+                      "score": 2.311,
                       "independentVotes": 4
                     }
                   ],
@@ -2453,7 +2453,7 @@
                 "position": "ST",
                 "confidence": {
                   "label": "low",
-                  "score": 0.138,
+                  "score": 0.141,
                   "method": "evidence-strength-v2",
                   "reason": "Bench evidence strength; not a calibrated probability."
                 },
@@ -2476,7 +2476,7 @@
                 "position": "CB",
                 "confidence": {
                   "label": "low",
-                  "score": 0.135,
+                  "score": 0.139,
                   "method": "evidence-strength-v2",
                   "reason": "Bench evidence strength; not a calibrated probability."
                 },
@@ -2499,7 +2499,7 @@
                 "position": "RW",
                 "confidence": {
                   "label": "low",
-                  "score": 0.135,
+                  "score": 0.139,
                   "method": "evidence-strength-v2",
                   "reason": "Bench evidence strength; not a calibrated probability."
                 },
@@ -2522,7 +2522,7 @@
                 "position": "CM",
                 "confidence": {
                   "label": "low",
-                  "score": 0.133,
+                  "score": 0.137,
                   "method": "evidence-strength-v2",
                   "reason": "Bench evidence strength; not a calibrated probability."
                 },
@@ -2545,7 +2545,7 @@
                 "position": "CM",
                 "confidence": {
                   "label": "low",
-                  "score": 0.133,
+                  "score": 0.137,
                   "method": "evidence-strength-v2",
                   "reason": "Bench evidence strength; not a calibrated probability."
                 },
@@ -2568,7 +2568,7 @@
                 "position": "RW",
                 "confidence": {
                   "label": "low",
-                  "score": 0.133,
+                  "score": 0.137,
                   "method": "evidence-strength-v2",
                   "reason": "Bench evidence strength; not a calibrated probability."
                 },
@@ -2591,7 +2591,7 @@
                 "position": "CB",
                 "confidence": {
                   "label": "low",
-                  "score": 0.133,
+                  "score": 0.137,
                   "method": "evidence-strength-v2",
                   "reason": "Bench evidence strength; not a calibrated probability."
                 },
@@ -2614,7 +2614,7 @@
                 "position": "ST",
                 "confidence": {
                   "label": "low",
-                  "score": 0.133,
+                  "score": 0.137,
                   "method": "evidence-strength-v2",
                   "reason": "Bench evidence strength; not a calibrated probability."
                 },
@@ -2637,7 +2637,7 @@
                 "position": "CB",
                 "confidence": {
                   "label": "low",
-                  "score": 0.133,
+                  "score": 0.137,
                   "method": "evidence-strength-v2",
                   "reason": "Bench evidence strength; not a calibrated probability."
                 },
@@ -2660,7 +2660,7 @@
                 "position": "GK",
                 "confidence": {
                   "label": "low",
-                  "score": 0.131,
+                  "score": 0.134,
                   "method": "evidence-strength-v2",
                   "reason": "Bench evidence strength; not a calibrated probability."
                 },
@@ -2683,7 +2683,7 @@
                 "position": "RB",
                 "confidence": {
                   "label": "low",
-                  "score": 0.131,
+                  "score": 0.134,
                   "method": "evidence-strength-v2",
                   "reason": "Bench evidence strength; not a calibrated probability."
                 },
@@ -2706,7 +2706,7 @@
                 "position": "ST",
                 "confidence": {
                   "label": "low",
-                  "score": 0.131,
+                  "score": 0.134,
                   "method": "evidence-strength-v2",
                   "reason": "Bench evidence strength; not a calibrated probability."
                 },
@@ -2729,7 +2729,7 @@
                 "position": "GK",
                 "confidence": {
                   "label": "low",
-                  "score": 0.131,
+                  "score": 0.134,
                   "method": "evidence-strength-v2",
                   "reason": "Bench evidence strength; not a calibrated probability."
                 },
@@ -2752,7 +2752,7 @@
                 "position": "LM",
                 "confidence": {
                   "label": "low",
-                  "score": 0.131,
+                  "score": 0.134,
                   "method": "evidence-strength-v2",
                   "reason": "Bench evidence strength; not a calibrated probability."
                 },
@@ -2775,7 +2775,7 @@
                 "position": "CM",
                 "confidence": {
                   "label": "low",
-                  "score": 0.131,
+                  "score": 0.134,
                   "method": "evidence-strength-v2",
                   "reason": "Bench evidence strength; not a calibrated probability."
                 },
@@ -2829,7 +2829,7 @@
               "formationScores": [
                 {
                   "formation": "4-1-3-2",
-                  "score": 2.478,
+                  "score": 2.41,
                   "providerIds": [
                     "free-public-lineups",
                     "local-official-history"
@@ -2856,8 +2856,8 @@
               "starterScores": [
                 {
                   "name": "Emiliano Martínez",
-                  "score": 2.378,
-                  "evidenceStrength": 0.96,
+                  "score": 2.311,
+                  "evidenceStrength": 0.959,
                   "starterVotes": 4,
                   "benchVotes": 0,
                   "independentStarterVotes": 4,
@@ -2867,7 +2867,7 @@
                   "roleScores": [
                     {
                       "position": "GK",
-                      "score": 2.378,
+                      "score": 2.311,
                       "independentVotes": 4
                     }
                   ],
@@ -2887,8 +2887,8 @@
                 },
                 {
                   "name": "Nahuel Molina",
-                  "score": 2.373,
-                  "evidenceStrength": 0.958,
+                  "score": 2.306,
+                  "evidenceStrength": 0.957,
                   "starterVotes": 4,
                   "benchVotes": 0,
                   "independentStarterVotes": 4,
@@ -2898,7 +2898,7 @@
                   "roleScores": [
                     {
                       "position": "RB",
-                      "score": 2.373,
+                      "score": 2.306,
                       "independentVotes": 4
                     }
                   ],
@@ -2918,8 +2918,8 @@
                 },
                 {
                   "name": "Cristian Romero",
-                  "score": 2.373,
-                  "evidenceStrength": 0.958,
+                  "score": 2.306,
+                  "evidenceStrength": 0.957,
                   "starterVotes": 4,
                   "benchVotes": 0,
                   "independentStarterVotes": 4,
@@ -2929,7 +2929,7 @@
                   "roleScores": [
                     {
                       "position": "RCB",
-                      "score": 2.373,
+                      "score": 2.306,
                       "independentVotes": 4
                     }
                   ],
@@ -2949,8 +2949,8 @@
                 },
                 {
                   "name": "Lisandro Martínez",
-                  "score": 2.373,
-                  "evidenceStrength": 0.958,
+                  "score": 2.306,
+                  "evidenceStrength": 0.957,
                   "starterVotes": 4,
                   "benchVotes": 0,
                   "independentStarterVotes": 4,
@@ -2960,7 +2960,7 @@
                   "roleScores": [
                     {
                       "position": "LCB",
-                      "score": 2.373,
+                      "score": 2.306,
                       "independentVotes": 4
                     }
                   ],
@@ -2980,8 +2980,8 @@
                 },
                 {
                   "name": "Nicolás Tagliafico",
-                  "score": 2.374,
-                  "evidenceStrength": 0.958,
+                  "score": 2.307,
+                  "evidenceStrength": 0.957,
                   "starterVotes": 4,
                   "benchVotes": 0,
                   "independentStarterVotes": 4,
@@ -2991,7 +2991,7 @@
                   "roleScores": [
                     {
                       "position": "LB",
-                      "score": 2.374,
+                      "score": 2.307,
                       "independentVotes": 4
                     }
                   ],
@@ -3011,8 +3011,8 @@
                 },
                 {
                   "name": "Leandro Paredes",
-                  "score": 2.374,
-                  "evidenceStrength": 0.958,
+                  "score": 2.307,
+                  "evidenceStrength": 0.957,
                   "starterVotes": 4,
                   "benchVotes": 0,
                   "independentStarterVotes": 4,
@@ -3022,7 +3022,7 @@
                   "roleScores": [
                     {
                       "position": "DM",
-                      "score": 2.374,
+                      "score": 2.307,
                       "independentVotes": 4
                     }
                   ],
@@ -3042,8 +3042,8 @@
                 },
                 {
                   "name": "Rodrigo De Paul",
-                  "score": 2.373,
-                  "evidenceStrength": 0.958,
+                  "score": 2.306,
+                  "evidenceStrength": 0.957,
                   "starterVotes": 4,
                   "benchVotes": 0,
                   "independentStarterVotes": 4,
@@ -3053,7 +3053,7 @@
                   "roleScores": [
                     {
                       "position": "RW",
-                      "score": 2.006,
+                      "score": 1.939,
                       "independentVotes": 3
                     },
                     {
@@ -3078,8 +3078,8 @@
                 },
                 {
                   "name": "Alexis Mac Allister",
-                  "score": 2.373,
-                  "evidenceStrength": 0.958,
+                  "score": 2.306,
+                  "evidenceStrength": 0.957,
                   "starterVotes": 4,
                   "benchVotes": 0,
                   "independentStarterVotes": 4,
@@ -3089,7 +3089,7 @@
                   "roleScores": [
                     {
                       "position": "AM",
-                      "score": 2.006,
+                      "score": 1.939,
                       "independentVotes": 3
                     },
                     {
@@ -3114,7 +3114,7 @@
                 },
                 {
                   "name": "Enzo Fernández",
-                  "score": 2.38,
+                  "score": 2.313,
                   "evidenceStrength": 0.96,
                   "starterVotes": 4,
                   "benchVotes": 0,
@@ -3125,7 +3125,7 @@
                   "roleScores": [
                     {
                       "position": "LW",
-                      "score": 2.006,
+                      "score": 1.939,
                       "independentVotes": 3
                     },
                     {
@@ -3150,8 +3150,8 @@
                 },
                 {
                   "name": "Lionel Messi",
-                  "score": 2.373,
-                  "evidenceStrength": 0.958,
+                  "score": 2.306,
+                  "evidenceStrength": 0.957,
                   "starterVotes": 4,
                   "benchVotes": 0,
                   "independentStarterVotes": 4,
@@ -3161,7 +3161,7 @@
                   "roleScores": [
                     {
                       "position": "ST",
-                      "score": 2.373,
+                      "score": 2.306,
                       "independentVotes": 4
                     }
                   ],
@@ -3181,8 +3181,8 @@
                 },
                 {
                   "name": "Julián Álvarez",
-                  "score": 2.367,
-                  "evidenceStrength": 0.955,
+                  "score": 2.3,
+                  "evidenceStrength": 0.954,
                   "starterVotes": 4,
                   "benchVotes": 0,
                   "independentStarterVotes": 4,
@@ -3192,7 +3192,7 @@
                   "roleScores": [
                     {
                       "position": "ST",
-                      "score": 2.367,
+                      "score": 2.3,
                       "independentVotes": 4
                     }
                   ],
@@ -3222,11 +3222,11 @@
             "status": "unverified",
             "exact": false,
             "source": "derived-team-sheet-order",
-            "checkedAt": "2026-07-15T07:10:04.261Z"
+            "checkedAt": "2026-07-15T09:27:07.729Z"
           },
           "confidence": {
             "label": "high",
-            "score": 0.931,
+            "score": 0.93,
             "method": "evidence-strength-v2",
             "reason": "Average home/away evidence strength; this is not a calibrated probability."
           },
@@ -3239,8 +3239,8 @@
             "lineup-layout-verification-2026-07-13",
             "fifa-lineups-sync-2026-07-14"
           ],
-          "checkedAt": "2026-07-15T07:10:04.261Z",
-          "updatedAt": "2026-07-15T07:10:04.261Z"
+          "checkedAt": "2026-07-15T09:27:07.729Z",
+          "updatedAt": "2026-07-15T09:27:07.729Z"
         }
       },
       "providerCandidates": [
