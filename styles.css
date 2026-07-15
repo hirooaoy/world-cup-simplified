@@ -5254,7 +5254,7 @@ h1 {
 .player-photo img {
   display: block;
   object-fit: cover;
-  object-position: center 28%;
+  object-position: center 12%;
 }
 
 .player-photo-fallback {
@@ -8394,6 +8394,7 @@ button.lineup-event-sub,
 
   .match-layout {
     overflow-x: clip;
+    overflow-clip-margin: 8px;
   }
 
   .match-row:hover {

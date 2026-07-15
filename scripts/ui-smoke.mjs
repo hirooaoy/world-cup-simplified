@@ -2559,6 +2559,16 @@ try {
     (await playerCard.locator(".player-photo img, .player-photo-fallback").count()) === 1,
     "Player hover card should include a face or initials fallback."
   );
+  const playerCardPhoto = playerCard.locator(".player-photo img");
+  if ((await playerCardPhoto.count()) === 1) {
+    const playerCardPhotoPosition = await playerCardPhoto.evaluate(
+      (image) => getComputedStyle(image).objectPosition
+    );
+    assert(
+      playerCardPhotoPosition === "50% 12%",
+      `Player hover card photos should keep the face-biased crop position. Measured ${playerCardPhotoPosition}.`
+    );
+  }
   assert(
     (await playerCard.locator(".player-card-name").count()) === 1 &&
       (await playerCard.locator(".player-card-position").count()) === 1 &&
