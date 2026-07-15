@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-15T17:44:43.186Z",
+  "updatedAt": "2026-07-15T19:21:16.099Z",
   "sourceIds": [
     "fifa-schedule-2026-06-20",
     "fox-schedule-2026-06-17",
@@ -176,7 +176,8 @@
     "bet365-england-argentina-odds-2026-07-14",
     "fox-england-argentina-odds-2026-07-14",
     "worldcupbracket-draw-model-2026-07-14",
-    "statszone-third-place-history-2026-04-14"
+    "statszone-third-place-history-2026-04-14",
+    "fifa-official-results-sync-2026-07-15"
   ],
   "coverage": {
     "status": "complete-schedule",
@@ -24340,7 +24341,7 @@
       "homeSlot": "Winner match 99",
       "awaySlot": "Winner match 100",
       "venue": "Atlanta Stadium",
-      "status": "SCHEDULED",
+      "status": "LIVE",
       "h2h": {
         "status": "loaded",
         "sourceId": "11v11-england-argentina-h2h-2026-07-11",
@@ -24630,6 +24631,10 @@
             "player": "Emiliano Martínez"
           }
         ]
+      },
+      "score": {
+        "home": 0,
+        "away": 0
       }
     },
     {

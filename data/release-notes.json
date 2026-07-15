@@ -1,6 +1,23 @@
 {
-  "updatedAt": "2026-07-15T11:41:57-07:00",
+  "updatedAt": "2026-07-15T12:20:27-07:00",
   "releases": [
+    {
+      "date": "2026-07-15",
+      "title": "Calmer match accessibility and verified line-up placement",
+      "titleZh": "更平静的比赛无障碍播报与已核实的阵容站位",
+      "highlights": [
+        "Match rows now give screen readers a concise status, stage, score, penalty outcome, winner, and readable live minute, while each row clearly controls the named Match details panel without changing the visual layout.",
+        "Live updates now announce only meaningful changes such as kick-off, goals, phase changes, delays, postponements, cancellations, and full time instead of repeatedly reading the entire match list or detail card.",
+        "England and Argentina's verified semi-final line-ups now place every starter in the correct pitch role, backed by a persistent reviewed layout override and refreshed provenance.",
+        "In dark mode, the line-up pitch now uses one uniform deep-green surface instead of splitting into mismatched upper and lower shades; light mode remains unchanged."
+      ],
+      "highlightsZh": [
+        "比赛行现在会向屏幕阅读器简洁播报比赛状态、阶段、比分、点球结果、胜者和易读的实时分钟数；每一行也会明确控制名为“比赛详情”的面板，同时不改变视觉布局。",
+        "实时更新现在只会播报开球、进球、阶段变化、延迟、延期、取消和终场等有意义的变化，不再反复朗读整份比赛列表或详情卡。",
+        "英格兰与阿根廷的半决赛首发阵容现在会把每位球员放在已核实的正确场上位置，并通过持久化的人工复核布局覆盖和更新后的来源记录加以保证。",
+        "深色模式下的阵容球场现在采用统一的深绿色表面，不再分成上下两种不一致的色调；浅色模式保持不变。"
+      ]
+    },
     {
       "date": "2026-07-15",
       "title": "Complete dark mode and steadier match details",

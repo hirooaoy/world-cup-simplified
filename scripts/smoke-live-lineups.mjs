@@ -548,7 +548,13 @@ try {
   assert.equal(playerByName(liveFixture.lineups.away.players, "Rodri")?.position, "DM");
   assert(playerByName(liveFixture.lineups.away.players, "Fabian Ruiz")?.x < 50, "Fabian should retain the left central-midfield hint");
   assert(playerByName(liveFixture.lineups.away.players, "Dani Olmo")?.x > 50, "Olmo should fill the remaining right central-midfield slot");
-  assert.equal(concurrentFixture?.lineups?.mode, "confirmed");
+  const concurrentFixtureStatus = String(concurrentFixture?.status || "").trim().toUpperCase();
+  const concurrentFixtureExpectedLineupMode = concurrentFixtureStatus === "FT"
+    ? "final"
+    : concurrentFixtureStatus === "SCHEDULED"
+      ? "confirmed"
+      : "live";
+  assert.equal(concurrentFixture?.lineups?.mode, concurrentFixtureExpectedLineupMode);
   assert.equal(concurrentFixture.lineups.home.players.length, 11);
   assert.equal(
     maxConcurrentLiveFootballRequests,
@@ -625,7 +631,7 @@ try {
   assert.equal(retainedFixture.lineups.checkedAt, retainedCheckedAt);
   assert.match(retainedPayload.syncStatus.lineupReason, /Simulated FIFA lineup failure/);
 
-  console.log("Live lineup smoke passed: exact teammate identities, central 4-1-3-2 roles, generic formations, concurrent FIFA fetches, fallback enrichment, and confirmed-lineup retention are resilient.");
+  console.log("Live lineup smoke passed: exact teammate identities, central 4-1-3-2 roles, generic formations, concurrent FIFA fetches, fallback enrichment, and official-lineup state transitions are resilient.");
 } finally {
   globalThis.fetch = previousFetch;
   for (const [key, value] of Object.entries(previousEnv)) {

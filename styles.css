@@ -10650,19 +10650,13 @@ html[data-theme="dark"] :is(
 }
 
 html[data-theme="dark"] .lineup-pitch {
-  background: #10271e;
+  /* Match the former top-half tint across the entire dark-mode pitch. */
+  --lineup-pitch-dark-green: #122c21;
+  background: var(--lineup-pitch-dark-green);
 }
 
 html[data-theme="dark"] .lineup-pitch-surface {
-  background:
-    linear-gradient(
-      to bottom,
-      rgba(83, 209, 139, 0.032) 0,
-      rgba(83, 209, 139, 0.032) 50%,
-      rgba(0, 0, 0, 0.09) 50%,
-      rgba(0, 0, 0, 0.09) 100%
-    ),
-    #10271e;
+  background: var(--lineup-pitch-dark-green);
 }
 
 html[data-theme="dark"] .lineup-pitch-line.is-mid {
@@ -10686,7 +10680,7 @@ html[data-theme="dark"] :is(.lineup-avatar, .lineup-avatar-image) {
 }
 
 html[data-theme="dark"] .lineup-player-number {
-  border-color: #10271e;
+  border-color: var(--lineup-pitch-dark-green);
   background: #f5f7fa;
   color: #0b0d10;
 }

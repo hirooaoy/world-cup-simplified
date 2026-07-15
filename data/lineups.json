@@ -48754,24 +48754,40 @@
       "mode": "confirmed",
       "teamSheetSource": "fifa-official",
       "eventSource": "fifa-official",
-      "layoutSource": "derived-team-sheet-order",
+      "layoutSource": "verified-layout",
       "layoutVerification": {
-        "status": "unverified",
-        "source": "derived-team-sheet-order",
-        "exact": false,
-        "checkedAt": "2026-07-15T17:44:43.186Z",
-        "note": "FIFA confirms the starting XI, bench, and formation. Matching players use frozen pre-kickoff role and side hints to choose slots within FIFA's official formation; pitch placement remains provisional, not FIFA-supplied exact geometry.",
-        "method": "role-informed-formation-slots",
-        "inferenceSources": [
+        "status": "verified",
+        "checkedAt": "2026-07-15T19:12:38.000Z",
+        "sourceIds": [
+          "lineup-layout-verification-2026-07-15"
+        ],
+        "sources": [
           {
-            "type": "pre-kickoff-prediction",
-            "updatedAt": "2026-07-15T17:01:22.644Z",
-            "revisionId": "156e277bef2169aecd8483232058258e9eec3f901a0f5cbe583dd4fefba19655"
+            "name": "Google",
+            "url": "https://www.google.com/search?q=England+Argentina+World+Cup+2026+lineups",
+            "status": "matched",
+            "sourceDetail": "live lineup-board screenshot supplied at kickoff; it shows James-Stones-Guehi-Spence in defence and Rogers-Bellingham-Gordon behind Kane",
+            "exactLayout": true
+          },
+          {
+            "name": "Sofascore",
+            "url": "https://www.sofascore.com/football/match/argentina-england/nUbsuWb",
+            "status": "matched",
+            "sourceDetail": "public live lineup board confirms England's 4-2-3-1 and Argentina's 4-4-2, including Enzo on Argentina's left and Simeone on the right",
+            "exactLayout": true
+          },
+          {
+            "name": "ESPN",
+            "url": "https://www.espn.com/soccer/match/_/gameId/760515/argentina-england",
+            "status": "unavailable",
+            "note": "Formations & Lineups section was not found."
           }
-        ]
+        ],
+        "note": "FIFA official team sheet kept for facts; Google and Sofascore agreed on the exact tactical rows and corrected the provisional Rogers-Spence and Paredes-Simeone swaps."
       },
       "sourceIds": [
-        "fifa-lineups-sync-2026-07-15"
+        "fifa-lineups-sync-2026-07-15",
+        "lineup-layout-verification-2026-07-15"
       ],
       "checkedAt": "2026-07-15T17:44:43.186Z",
       "home": {
@@ -48819,9 +48835,9 @@
             "number": "25",
             "name": "Djed Spence",
             "sourcePosition": "defender",
-            "position": "RW",
-            "x": 82,
-            "y": 40
+            "position": "LB",
+            "x": 15,
+            "y": 75
           },
           {
             "number": "4",
@@ -48851,9 +48867,9 @@
             "number": "17",
             "name": "Morgan Rogers",
             "sourcePosition": "midfielder",
-            "position": "LB",
-            "x": 15,
-            "y": 75
+            "position": "RW",
+            "x": 82,
+            "y": 40
           },
           {
             "number": "9",
@@ -49018,25 +49034,25 @@
             "number": "5",
             "name": "Leandro Paredes",
             "sourcePosition": "midfielder",
-            "position": "RM",
-            "x": 82,
-            "y": 52
+            "position": "CM",
+            "x": 62,
+            "y": 55
           },
           {
             "number": "20",
             "name": "Alexis Mac Allister",
             "sourcePosition": "midfielder",
             "position": "CM",
-            "x": 62,
+            "x": 38,
             "y": 55
           },
           {
             "number": "24",
             "name": "Enzo Fernandez",
             "sourcePosition": "midfielder",
-            "position": "CM",
-            "x": 38,
-            "y": 55
+            "position": "LM",
+            "x": 18,
+            "y": 52
           },
           {
             "number": "9",
@@ -49059,8 +49075,8 @@
             "number": "17",
             "name": "Giuliano Simeone",
             "sourcePosition": "forward",
-            "position": "LM",
-            "x": 18,
+            "position": "RM",
+            "x": 82,
             "y": 52
           }
         ],
@@ -49164,5 +49180,5 @@
       }
     }
   },
-  "updatedAt": "2026-07-15T17:44:46.600Z"
+  "updatedAt": "2026-07-15T19:12:38.000Z"
 }

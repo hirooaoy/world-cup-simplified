@@ -3244,6 +3244,19 @@ try {
     waitUntil: "load"
   });
   await page.waitForSelector('[data-match-id="match-99-quarter-final-2026-07-11"]');
+  const norwayEnglandAccessibleRow = await page
+    .locator('[data-match-id="match-99-quarter-final-2026-07-11"]')
+    .evaluate((row) => ({
+      controls: row.querySelector(".match-row-trigger")?.getAttribute("aria-controls") || "",
+      label: row.getAttribute("aria-label") || ""
+    }));
+  assert(
+    norwayEnglandAccessibleRow.controls === "match-info" &&
+      norwayEnglandAccessibleRow.label.startsWith("全场结束, 挪威 对 英格兰") &&
+      norwayEnglandAccessibleRow.label.includes("四分之一决赛") &&
+      norwayEnglandAccessibleRow.label.includes("英格兰获胜"),
+    `Chinese completed-match labels should announce status, stage, score context, and outcome without changing visible copy. Measured ${JSON.stringify(norwayEnglandAccessibleRow)}.`
+  );
   await page.locator('[data-match-id="match-99-quarter-final-2026-07-11"]').click();
   const norwayEnglandRenderedCard = await page.locator("#match-info").evaluate((card) => ({
     stories: [...card.querySelectorAll(".result-story-highlights li")]
@@ -3816,12 +3829,27 @@ try {
     : currentFranceSpainSemiFinal?.status === "LIVE" && franceSpainScore
       ? `France #3 vs Spain #2 is live at ${franceSpainScore.home}-${franceSpainScore.away}.`
       : "France #3 vs Spain #2 is scheduled.";
-  const expectedFinalParticipantText = franceSpainIsFinal
-    ? `${franceSpainHomeWon ? "France #3" : "Spain #2"} vs Winner match 102`
-    : "Winner match 101 vs Winner match 102";
-  const expectedBronzeParticipantText = franceSpainIsFinal
-    ? `${franceSpainHomeWon ? "Spain #2" : "France #3"} vs Runner-up match 102`
-    : "Runner-up match 101 vs Runner-up match 102";
+  const currentEnglandArgentinaSemiFinal = fixturesData.fixtures.find((fixture) => fixture.matchNumber === 102);
+  const englandArgentinaScore = currentEnglandArgentinaSemiFinal?.score;
+  const englandArgentinaIsFinal = currentEnglandArgentinaSemiFinal?.status === "FT" && englandArgentinaScore;
+  const englandArgentinaHomeWon = englandArgentinaIsFinal && englandArgentinaScore.home > englandArgentinaScore.away;
+  const expectedEnglandArgentinaSourceSummary = englandArgentinaIsFinal
+    ? englandArgentinaHomeWon
+      ? `England #4 beat Argentina #1 ${englandArgentinaScore.home}-${englandArgentinaScore.away} See all`
+      : `Argentina #1 beat England #4 ${englandArgentinaScore.away}-${englandArgentinaScore.home} See all`
+    : currentEnglandArgentinaSemiFinal?.status === "LIVE" && englandArgentinaScore
+      ? `England #4 vs Argentina #1 is live at ${englandArgentinaScore.home}-${englandArgentinaScore.away}.`
+      : "England #4 vs Argentina #1 is scheduled.";
+  const expectedFinalParticipantText = `${
+    franceSpainIsFinal ? (franceSpainHomeWon ? "France #3" : "Spain #2") : "Winner match 101"
+  } vs ${
+    englandArgentinaIsFinal ? (englandArgentinaHomeWon ? "England #4" : "Argentina #1") : "Winner match 102"
+  }`;
+  const expectedBronzeParticipantText = `${
+    franceSpainIsFinal ? (franceSpainHomeWon ? "Spain #2" : "France #3") : "Runner-up match 101"
+  } vs ${
+    englandArgentinaIsFinal ? (englandArgentinaHomeWon ? "Argentina #1" : "England #4") : "Runner-up match 102"
+  }`;
 
   await page.goto(`${baseUrl}?view=matches&date=2026-07-19&tz=America%2FLos_Angeles`, {
     waitUntil: "load"
@@ -3838,7 +3866,7 @@ try {
       unresolvedFinalDetailText.includes("Predicted matchup; participants come from current knockout-path estimates.") &&
       unresolvedFinalDetailText.includes("Previous: Semi-finals") &&
       unresolvedFinalDetailText.includes(expectedFranceSpainSourceSummary) &&
-      unresolvedFinalDetailText.includes("England #4 vs Argentina #1 is scheduled.") &&
+      unresolvedFinalDetailText.includes(expectedEnglandArgentinaSourceSummary) &&
       !unresolvedFinalDetailText.includes("Round path") &&
       !unresolvedFinalDetailText.includes("No next knockout match is loaded yet."),
     "The Final detail should use confirmed semi-final winners, keep unresolved winner slots, reflect source status, and omit a dead-end next-path block."
@@ -3859,7 +3887,7 @@ try {
       unresolvedBronzeDetailText.includes("Predicted matchup; participants come from current knockout-path estimates.") &&
       unresolvedBronzeDetailText.includes("Previous: Semi-finals") &&
       unresolvedBronzeDetailText.includes(expectedFranceSpainSourceSummary) &&
-      unresolvedBronzeDetailText.includes("England #4 vs Argentina #1 is scheduled.") &&
+      unresolvedBronzeDetailText.includes(expectedEnglandArgentinaSourceSummary) &&
       !unresolvedBronzeDetailText.includes("Round path") &&
       !unresolvedBronzeDetailText.includes("No next knockout match is loaded yet."),
     "The third-place detail should use confirmed semi-final runners-up, keep unresolved runner-up slots, reflect source status, and omit a dead-end next-path block."
@@ -6611,6 +6639,63 @@ try {
     june17Scores.join("|") === "1-1|4-2|1-0|1-3",
     "The finalized Jun 17 match list should show all four score pills."
   );
+  const matchAccessibilityStructure = await matchStateCheck.page.evaluate(() => ({
+    announcerAriaAtomic: document.querySelector("#match-status-announcer")?.getAttribute("aria-atomic") || "",
+    announcerAriaLive: document.querySelector("#match-status-announcer")?.getAttribute("aria-live") || "",
+    announcerRole: document.querySelector("#match-status-announcer")?.getAttribute("role") || "",
+    detailsAriaLabel: document.querySelector("#match-info")?.getAttribute("aria-label") || "",
+    detailsAriaLive: document.querySelector("#match-info")?.getAttribute("aria-live"),
+    listAriaLive: document.querySelector("#match-list")?.getAttribute("aria-live"),
+    rowControls: document.querySelector(".match-row-trigger")?.getAttribute("aria-controls") || "",
+    rowLabel: document.querySelector(".match-row")?.getAttribute("aria-label") || ""
+  }));
+  assert(
+    matchAccessibilityStructure.announcerRole === "status" &&
+      matchAccessibilityStructure.announcerAriaLive === "polite" &&
+      matchAccessibilityStructure.announcerAriaAtomic === "true" &&
+      matchAccessibilityStructure.detailsAriaLabel === "Match details" &&
+      matchAccessibilityStructure.detailsAriaLive === null &&
+      matchAccessibilityStructure.listAriaLive === null &&
+      matchAccessibilityStructure.rowControls === "match-info" &&
+      matchAccessibilityStructure.rowLabel.includes("Group"),
+    `Match accessibility updates should use one quiet status channel and explicitly connect rows to named details. Measured ${JSON.stringify(matchAccessibilityStructure)}.`
+  );
+  const liveAccessibilityAnnouncementCopy = await matchStateCheck.page.evaluate(async () => {
+    const appModuleUrl = document.querySelector('script[src^="app.js"]')?.src;
+    const { getLiveMatchAccessibilityAnnouncements } = await import(appModuleUrl);
+    const base = {
+      away: "Brazil",
+      home: "Japan",
+      id: "accessibility-test",
+      penalties: null,
+      phase: "Second half",
+      score: { away: 1, home: 1 },
+      status: "LIVE",
+      winnerSide: ""
+    };
+    const announcementsFor = (next) =>
+      getLiveMatchAccessibilityAnnouncements(
+        new Map([[base.id, base]]),
+        new Map([[base.id, { ...base, ...next }]])
+      );
+
+    return {
+      final: announcementsFor({ score: { away: 1, home: 2 }, status: "FT", winnerSide: "home" }),
+      phase: announcementsFor({ phase: "Half-time" }),
+      quiet: announcementsFor({}),
+      score: announcementsFor({ score: { away: 1, home: 2 } })
+    };
+  });
+  assert(
+    JSON.stringify(liveAccessibilityAnnouncementCopy.score) ===
+      JSON.stringify(["Score update. Japan 2, Brazil 1."]) &&
+      JSON.stringify(liveAccessibilityAnnouncementCopy.phase) ===
+        JSON.stringify(["Half-time. Japan 1, Brazil 1."]) &&
+      JSON.stringify(liveAccessibilityAnnouncementCopy.final) ===
+        JSON.stringify(["Full time. Japan 2, Brazil 1. Japan won."]) &&
+      liveAccessibilityAnnouncementCopy.quiet.length === 0,
+    `Live accessibility announcements should report only meaningful match changes. Measured ${JSON.stringify(liveAccessibilityAnnouncementCopy)}.`
+  );
   const livePillCount = await matchStateCheck.page.locator("#match-list .live-pill").count();
   if (livePillCount > 0) {
     assert(livePillCount === 1, "A live match should show one Live pill.");
@@ -6980,6 +7065,11 @@ try {
   await desktopShortPageCardCheck.page.evaluate(() => {
     window.scrollTo({ top: document.documentElement.scrollHeight, behavior: "auto" });
   });
+  await desktopShortPageCardCheck.page.waitForTimeout(380);
+  await desktopShortPageCardCheck.page.evaluate(() => {
+    window.scrollTo({ top: document.documentElement.scrollHeight, behavior: "auto" });
+  });
+  await desktopShortPageCardCheck.page.waitForTimeout(80);
   await desktopShortPageCardCheck.page.waitForFunction(() => {
     const info = document.querySelector("#match-info");
     const infoBounds = info?.getBoundingClientRect();
@@ -7258,6 +7348,10 @@ try {
   assert(
     (await liveFallbackRow.locator(".match-score").count()) === 0,
     "A live fixture without a loaded score should not show a fallback score."
+  );
+  assert(
+    (await liveFallbackRow.getAttribute("aria-label")).includes("5th minute"),
+    "A live match row should turn the official clock snapshot into a screen-reader-friendly minute label."
   );
   const liveScorePill = liveFallbackRow.locator(".live-pill");
   assert(
@@ -13804,24 +13898,34 @@ try {
   await touchPage.locator("#scout-reset").click();
   await ballBoyInput.fill("Who do Argentina play next?");
   await ballBoySend.click();
-  await touchPage.locator(".scout-match-card.is-focus-when").waitFor({ state: "visible" });
+  const argentinaSemiFinalIsLive = currentEnglandArgentinaSemiFinal?.status === "LIVE";
+  await touchPage.locator(
+    argentinaSemiFinalIsLive
+      ? ".scout-country-card.is-focus-next"
+      : ".scout-match-card.is-focus-when"
+  ).waitFor({ state: "visible" });
   const nextFixtureMetrics = await touchPage.evaluate(() => {
-    const answer = [...document.querySelectorAll(".scout-answer.is-match")].at(-1);
+    const answer = [...document.querySelectorAll(".scout-answer")].at(-1);
     return {
       highlightLinks: answer?.querySelectorAll(".scout-highlight-link").length || 0,
       lead: answer?.querySelector(".scout-answer-lead")?.textContent.trim() || "",
+      matchCards: answer?.querySelectorAll(".scout-match-card").length || 0,
       teams: [...(answer?.querySelectorAll(".scout-scoreboard strong") || [])]
         .map((team) => team.textContent.trim()),
       unrelatedSections: answer?.querySelectorAll(".scout-match-timeline, .scout-match-plans, .scout-match-recap, .scout-match-card > .scout-explainer").length || 0
     };
   });
   assert(
-    nextFixtureMetrics.lead.startsWith("England vs Argentina:") &&
-      nextFixtureMetrics.lead.includes("Jul 15") &&
-      JSON.stringify(nextFixtureMetrics.teams) === JSON.stringify(["England", "Argentina"]) &&
-      nextFixtureMetrics.highlightLinks === 0 &&
-      nextFixtureMetrics.unrelatedSections === 0,
-    `Ball Boy should answer the exact Argentina next-match question without crashing on a missing highlight. Measured ${JSON.stringify(nextFixtureMetrics)}.`
+    argentinaSemiFinalIsLive
+      ? nextFixtureMetrics.lead === "Argentina do not currently have another match scheduled." &&
+        nextFixtureMetrics.matchCards === 0 &&
+        nextFixtureMetrics.highlightLinks === 0
+      : nextFixtureMetrics.lead.startsWith("England vs Argentina:") &&
+        nextFixtureMetrics.lead.includes("Jul 15") &&
+        JSON.stringify(nextFixtureMetrics.teams) === JSON.stringify(["England", "Argentina"]) &&
+        nextFixtureMetrics.highlightLinks === 0 &&
+        nextFixtureMetrics.unrelatedSections === 0,
+    `Ball Boy should answer the exact Argentina next-match question for the current fixture state without crashing on a missing highlight. Measured ${JSON.stringify(nextFixtureMetrics)}.`
   );
 
   await touchPage.locator("#scout-reset").click();

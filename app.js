@@ -102,6 +102,7 @@ const UI_TEXT = {
     juggleRecord: "Best juggling streak",
     juggleRecordAction: "Drop soccer ball",
     matches: "Matches",
+    matchDetails: "Match details",
     matchesHeading: "Matches and selected match details",
     matchesList: "Matches",
     month: "Month",
@@ -146,6 +147,7 @@ const UI_TEXT = {
     juggleRecord: "最佳颠球纪录",
     juggleRecordAction: "让足球落下",
     matches: "赛程",
+    matchDetails: "比赛详情",
     matchesHeading: "比赛和已选比赛详情",
     matchesList: "比赛",
     month: "月份",
@@ -3130,6 +3132,7 @@ const ZH_PATTERN_TRANSLATIONS = [
 
 const matchList = document.querySelector("#match-list");
 const matchInfo = document.querySelector("#match-info");
+const matchStatusAnnouncer = document.querySelector("#match-status-announcer");
 const siteHeader = document.querySelector(".site-header");
 const siteFooter = document.querySelector(".site-footer");
 const timezoneSelect = document.querySelector("#timezone-select");
@@ -6722,6 +6725,7 @@ function renderStaticText() {
   });
   viewPanels.matches?.querySelector(".match-layout")?.setAttribute("aria-label", t("matchesHeading"));
   matchList?.setAttribute("aria-label", t("matchesList"));
+  matchInfo?.setAttribute("aria-label", t("matchDetails"));
   standingsHeading?.setAttribute("aria-label", String(selectedStandingsYear));
   standingsYearPopover?.setAttribute("aria-label", t("chooseStandingsYear"));
   standingsModeTabsShell?.setAttribute("aria-label", t("standingsSections"));
@@ -9890,6 +9894,304 @@ function getMatchVisibleTimeLabel(match, options = {}) {
   return [dateLabel, timeLabel].filter(Boolean).join(" ");
 }
 
+function getMatchAccessibilityContextLabel(match) {
+  if (match?.isHistorical) {
+    return [match.tournamentName, match.group || match.round]
+      .filter(Boolean)
+      .map((label) => localizeText(label))
+      .join(", ");
+  }
+
+  if (match?.stage === "group") {
+    return localizeText(getGroup(match.groupId)?.label || `Group ${match.groupId}`);
+  }
+
+  return match?.stage ? getTournamentStageLabel(match.stage) : "";
+}
+
+function getOfficialMatchSnapshotAriaLabel(match) {
+  const phase =
+    normalizeOfficialMatchPhase(match?.officialMatchPhase) ||
+    normalizeOfficialMatchPhase(match?.officialMatchTime);
+  const matchTime = normalizeOfficialMatchTime(match?.officialMatchTime);
+
+  if (phase && (!matchTime || shouldPreferOfficialMatchPhase(phase))) {
+    return localizeText(phase);
+  }
+
+  const timeParts = /^(\d{1,3})(?:\+(\d{1,2}))?'$/.exec(matchTime);
+  if (!timeParts) {
+    return localizeText(phase);
+  }
+
+  const minute = Number(timeParts[1]);
+  const stoppageMinute = Number(timeParts[2]);
+  const addedTime = Number(match?.officialMatchAddedTime);
+  if (currentLanguage === "zh") {
+    const timeLabel = stoppageMinute
+      ? `第${minute}+${stoppageMinute}分钟`
+      : `第${minute}分钟`;
+    const addedTimeLabel =
+      !stoppageMinute && Number.isInteger(addedTime) && addedTime > 0
+        ? `，已公布${addedTime}分钟补时`
+        : "";
+    const phaseLabel = phase === "Extra time" ? `，${localizeText(phase)}` : "";
+    return `${timeLabel}${addedTimeLabel}${phaseLabel}`;
+  }
+
+  const timeLabel = stoppageMinute
+    ? `${formatOrdinal(minute)} minute plus ${stoppageMinute}`
+    : `${formatOrdinal(minute)} minute`;
+  const addedTimeLabel =
+    !stoppageMinute && Number.isInteger(addedTime) && addedTime > 0
+      ? `, ${addedTime} minutes of added time announced`
+      : "";
+  const phaseLabel = phase === "Extra time" ? `, ${phase}` : "";
+  return `${timeLabel}${addedTimeLabel}${phaseLabel}`;
+}
+
+function getMatchOutcomeAriaLabel(match, score, displayTeams) {
+  if (!score || !["FT", "AET", "PEN"].includes(match?.status)) {
+    return "";
+  }
+
+  const winnerSide = getMatchScoreOutcomeSide(match, score);
+  if (winnerSide) {
+    const winnerName = getLocalizedTeamName(displayTeams?.[winnerSide]);
+    if (match.scoreDetails?.penalties) {
+      return currentLanguage === "zh" ? `${winnerName}点球获胜` : `${winnerName} won on penalties`;
+    }
+
+    return currentLanguage === "zh" ? `${winnerName}获胜` : `${winnerName} won`;
+  }
+
+  if (isKnockoutResultMatch(match)) {
+    return currentLanguage === "zh" ? "淘汰赛胜者尚未载入" : "Knockout winner not loaded";
+  }
+
+  return currentLanguage === "zh" ? "平局" : "Draw";
+}
+
+function getMatchAccessibilityScore(score) {
+  const home = Number(score?.home);
+  const away = Number(score?.away);
+
+  return Number.isFinite(home) && Number.isFinite(away) ? { home, away } : null;
+}
+
+function getLiveMatchAccessibilitySnapshot(sourceFixtures = fixtures) {
+  return new Map(
+    sourceFixtures.map((fixture) => {
+      const match = hydrateFixture(fixture);
+      const score = getMatchAccessibilityScore(match.score);
+
+      return [
+        match.id,
+        {
+          away: getLocalizedTeamName(match.awayTeam),
+          home: getLocalizedTeamName(match.homeTeam),
+          id: match.id,
+          penalties: getMatchAccessibilityScore(match.scoreDetails?.penalties),
+          phase:
+            normalizeOfficialMatchPhase(match.officialMatchPhase) ||
+            normalizeOfficialMatchPhase(match.officialMatchTime),
+          score,
+          status: String(match.status || "").toUpperCase(),
+          winnerSide: getMatchScoreOutcomeSide(match, score)
+        }
+      ];
+    })
+  );
+}
+
+function areMatchAccessibilityScoresEqual(left, right) {
+  return (
+    (!left && !right) ||
+    (left && right && left.home === right.home && left.away === right.away)
+  );
+}
+
+function getLiveMatchAccessibilityScoreText(snapshot) {
+  if (!snapshot?.score) {
+    return "";
+  }
+
+  const scoreText =
+    currentLanguage === "zh"
+      ? `${snapshot.home}${snapshot.score.home}，${snapshot.away}${snapshot.score.away}`
+      : `${snapshot.home} ${snapshot.score.home}, ${snapshot.away} ${snapshot.score.away}`;
+  if (!snapshot.penalties) {
+    return scoreText;
+  }
+
+  return currentLanguage === "zh"
+    ? `${scoreText}，点球${snapshot.penalties.home}比${snapshot.penalties.away}`
+    : `${scoreText}, penalties ${snapshot.penalties.home} to ${snapshot.penalties.away}`;
+}
+
+function getLiveMatchAccessibilityOutcomeText(snapshot) {
+  if (!snapshot?.winnerSide) {
+    return "";
+  }
+
+  const winnerName = snapshot[snapshot.winnerSide];
+  if (snapshot.penalties) {
+    return currentLanguage === "zh" ? `${winnerName}点球获胜` : `${winnerName} won on penalties`;
+  }
+
+  return currentLanguage === "zh" ? `${winnerName}获胜` : `${winnerName} won`;
+}
+
+function getLiveMatchAccessibilityAnnouncement(kind, snapshot) {
+  const scoreText = getLiveMatchAccessibilityScoreText(snapshot);
+  const scoreSentence = scoreText ? `${scoreText}${currentLanguage === "zh" ? "。" : "."}` : "";
+  const matchupText =
+    currentLanguage === "zh"
+      ? `${snapshot.home}对${snapshot.away}`
+      : `${snapshot.home} vs ${snapshot.away}`;
+
+  if (currentLanguage === "zh") {
+    if (kind === "started") {
+      return `比赛开始：${matchupText}。${scoreSentence}`;
+    }
+    if (kind === "final") {
+      const outcomeText = getLiveMatchAccessibilityOutcomeText(snapshot);
+      return scoreSentence
+        ? `全场结束：${scoreSentence}${outcomeText ? `${outcomeText}。` : ""}`
+        : `全场结束：${matchupText}。`;
+    }
+    if (kind === "final-score") {
+      return scoreSentence ? `最终比分更新：${scoreSentence}` : `最终比分更新：${matchupText}的核验比分暂不可用。`;
+    }
+    if (kind === "score") {
+      return scoreSentence ? `比分更新：${scoreSentence}` : `比分更新：${matchupText}的核验比分暂不可用。`;
+    }
+    if (kind === "delayed") {
+      return `比赛延迟：${snapshot.home}对${snapshot.away}。`;
+    }
+    if (kind === "postponed") {
+      return `比赛延期：${snapshot.home}对${snapshot.away}。`;
+    }
+    if (kind === "cancelled") {
+      return `比赛取消：${snapshot.home}对${snapshot.away}。`;
+    }
+    if (kind === "phase") {
+      return scoreSentence
+        ? `${localizeText(snapshot.phase)}：${scoreSentence}`
+        : `${localizeText(snapshot.phase)}：${matchupText}。`;
+    }
+  }
+
+  if (kind === "started") {
+    return `Match started: ${matchupText}. ${scoreSentence}`.trim();
+  }
+  if (kind === "final") {
+    const outcomeText = getLiveMatchAccessibilityOutcomeText(snapshot);
+    return scoreSentence
+      ? `Full time. ${scoreSentence}${outcomeText ? ` ${outcomeText}.` : ""}`.trim()
+      : `Full time: ${matchupText}.`;
+  }
+  if (kind === "final-score") {
+    return scoreSentence
+      ? `Final score update. ${scoreSentence}`.trim()
+      : `Final score update for ${matchupText}. Verified score is temporarily unavailable.`;
+  }
+  if (kind === "score") {
+    return scoreSentence
+      ? `Score update. ${scoreSentence}`.trim()
+      : `Score update for ${matchupText}. Verified score is temporarily unavailable.`;
+  }
+  if (kind === "delayed") {
+    return `Match delayed: ${snapshot.home} vs ${snapshot.away}.`;
+  }
+  if (kind === "postponed") {
+    return `Match postponed: ${snapshot.home} vs ${snapshot.away}.`;
+  }
+  if (kind === "cancelled") {
+    return `Match cancelled: ${snapshot.home} vs ${snapshot.away}.`;
+  }
+  if (kind === "phase") {
+    return scoreSentence ? `${snapshot.phase}. ${scoreSentence}`.trim() : `${snapshot.phase}: ${matchupText}.`;
+  }
+
+  return "";
+}
+
+export function getLiveMatchAccessibilityAnnouncements(previousSnapshots, nextSnapshots) {
+  const announcements = [];
+  const finalStatuses = new Set(["FT", "AET", "PEN"]);
+  const meaningfulPhases = new Set([
+    "Half-time",
+    "Second half",
+    "Extra time",
+    "Penalty shootout",
+    "Suspended",
+    "Interrupted",
+    "Break"
+  ]);
+
+  for (const [matchId, next] of nextSnapshots) {
+    const previous = previousSnapshots.get(matchId);
+    if (!previous) {
+      continue;
+    }
+
+    const statusChanged = previous.status !== next.status;
+    const scoreChanged = !areMatchAccessibilityScoresEqual(previous.score, next.score);
+    const penaltiesChanged = !areMatchAccessibilityScoresEqual(previous.penalties, next.penalties);
+    const phaseChanged = previous.phase !== next.phase;
+    let kind = "";
+
+    if (finalStatuses.has(next.status) && !finalStatuses.has(previous.status)) {
+      kind = "final";
+    } else if (finalStatuses.has(next.status) && (scoreChanged || penaltiesChanged)) {
+      kind = "final-score";
+    } else if (statusChanged && next.status === "LIVE") {
+      kind = meaningfulPhases.has(next.phase) ? "phase" : "started";
+    } else if (statusChanged && next.status === "DELAYED") {
+      kind = "delayed";
+    } else if (statusChanged && next.status === "POSTPONED") {
+      kind = "postponed";
+    } else if (statusChanged && ["CANCELLED", "CANCELED"].includes(next.status)) {
+      kind = "cancelled";
+    } else if (next.status === "LIVE" && phaseChanged && meaningfulPhases.has(next.phase)) {
+      kind = "phase";
+    } else if (next.status === "LIVE" && (scoreChanged || penaltiesChanged)) {
+      kind = "score";
+    }
+
+    const announcement = kind ? getLiveMatchAccessibilityAnnouncement(kind, next) : "";
+    if (announcement) {
+      announcements.push(announcement);
+    }
+  }
+
+  return announcements;
+}
+
+let pendingMatchStatusAnnouncementFrameId = 0;
+
+function announceLiveMatchAccessibilityChanges(previousSnapshots) {
+  if (!matchStatusAnnouncer) {
+    return;
+  }
+
+  const announcements = getLiveMatchAccessibilityAnnouncements(
+    previousSnapshots,
+    getLiveMatchAccessibilitySnapshot()
+  );
+  if (!announcements.length) {
+    return;
+  }
+
+  window.cancelAnimationFrame(pendingMatchStatusAnnouncementFrameId);
+  matchStatusAnnouncer.textContent = "";
+  pendingMatchStatusAnnouncementFrameId = window.requestAnimationFrame(() => {
+    matchStatusAnnouncer.textContent = announcements.join(" ");
+    pendingMatchStatusAnnouncementFrameId = 0;
+  });
+}
+
 function shouldPreviewMatchInfoOnHover(event) {
   if (event.pointerType && event.pointerType !== "mouse") {
     return false;
@@ -9913,7 +10215,11 @@ function renderMatchRow(match, state, currentTime = Date.now(), options = {}) {
   const dateTimeAriaLabel = getMatchDateTimeAriaLabel(match, options);
   const visibleTimeLabel = getMatchVisibleTimeLabel(match, options);
   const rowDateTimeLabel = dateTimeAriaLabel ? `, ${dateTimeAriaLabel}` : "";
+  const contextLabel = getMatchAccessibilityContextLabel(match);
+  const rowContextLabel = contextLabel ? `, ${contextLabel}` : "";
   const isLiveState = match.status === "LIVE" || state === "live";
+  const livePositionLabel = isLiveState ? getOfficialMatchSnapshotAriaLabel(match) : "";
+  const rowLivePositionLabel = livePositionLabel ? `, ${livePositionLabel}` : "";
   const scoreLabel = isLiveState ? localizeText("current score") : localizeText("final score");
   const pendingScoreText = getScorePendingText(match, state, currentTime);
   const displayScore = getDisplayScore(match, state);
@@ -9926,7 +10232,9 @@ function renderMatchRow(match, state, currentTime = Date.now(), options = {}) {
         ? `${localizeText("Up next")}, `
         : state === "delayed"
           ? `${localizeText("Delayed")}, `
-          : "";
+          : ["FT", "AET", "PEN"].includes(match.status)
+            ? `${currentLanguage === "zh" ? "全场结束" : "Final"}, `
+            : "";
   const statusLabel =
     match.status === "CANCELLED"
       ? `, ${localizeText("cancelled")}`
@@ -9944,13 +10252,15 @@ function renderMatchRow(match, state, currentTime = Date.now(), options = {}) {
         : "";
   const score = renderScore(match, state, { ...options, displayTeams, reverseSides });
   const rowMeta = `${stateBadge}${scoreStatus}${score}`;
-  const rowLabel = `${stateLabel}${homeName} ${versusText} ${awayName}${rowDateTimeLabel}${statusLabel}${
+  const outcomeLabel = getMatchOutcomeAriaLabel(match, displayScore, displayTeams);
+  const rowOutcomeLabel = outcomeLabel ? `, ${outcomeLabel}` : "";
+  const rowLabel = `${stateLabel}${homeName} ${versusText} ${awayName}${rowContextLabel}${rowDateTimeLabel}${rowLivePositionLabel}${statusLabel}${
     visibleDisplayScore
       ? `, ${scoreLabel} ${getMatchVisibleScoreText(match, visibleDisplayScore, { reverseSides })}`
       : pendingScoreText
         ? `, ${pendingScoreText.toLowerCase()}`
         : ""
-  }`;
+  }${rowOutcomeLabel}`;
 
   row.className = `match-row is-${state}`;
   row.dataset.matchId = match.id;
@@ -9958,7 +10268,7 @@ function renderMatchRow(match, state, currentTime = Date.now(), options = {}) {
   row.setAttribute("role", "group");
   row.setAttribute("aria-label", rowLabel);
   row.innerHTML = `
-    <button class="match-row-trigger" type="button" aria-label="${escapeHtml(rowLabel)}" aria-pressed="false">
+    <button class="match-row-trigger" type="button" aria-label="${escapeHtml(rowLabel)}" aria-controls="match-info" aria-pressed="false">
       <time class="match-time${dateLabel ? " has-date" : ""}" datetime="${escapeHtml(getMatchDateTimeValue(match))}" title="${escapeHtml(dateTimeAriaLabel)}" aria-label="${escapeHtml(dateTimeAriaLabel)}">
         <span class="${dateLabel ? "match-date" : "match-clock"}">${escapeHtml(visibleTimeLabel)}</span>
       </time>
@@ -24439,7 +24749,14 @@ function createYesterdayMatchCard(match, currentTime, tournamentContext = null) 
   const scoreText = displayScore
     ? `, ${localizeText("final score")} ${getMatchVisibleScoreText(match, displayScore)}`
     : "";
-  const label = `${homeName} ${versusText} ${awayName}${timeLabel ? `, ${timeLabel}` : ""}${scoreText}`;
+  const contextLabel = getMatchAccessibilityContextLabel(match);
+  const outcomeLabel = getMatchOutcomeAriaLabel(match, displayScore, displayTeams);
+  const completionLabel = ["FT", "AET", "PEN"].includes(match.status)
+    ? `${currentLanguage === "zh" ? "全场结束" : "Final"}, `
+    : "";
+  const label = `${completionLabel}${homeName} ${versusText} ${awayName}${contextLabel ? `, ${contextLabel}` : ""}${
+    timeLabel ? `, ${timeLabel}` : ""
+  }${scoreText}${outcomeLabel ? `, ${outcomeLabel}` : ""}`;
   const winnerSide = getMatchScoreOutcomeSide(match, displayScore);
 
   card.className = "yesterday-match-card";
@@ -24447,6 +24764,7 @@ function createYesterdayMatchCard(match, currentTime, tournamentContext = null) 
   button.className = "yesterday-match-button";
   button.type = "button";
   button.setAttribute("aria-label", label);
+  button.setAttribute("aria-controls", "match-info");
   button.setAttribute("aria-pressed", String(activeMatchId === match.id));
   button.innerHTML = `
     ${timeLabel ? `<span class="yesterday-match-time">${escapeHtml(timeLabel)}</span>` : ""}
@@ -27001,6 +27319,7 @@ async function setLanguage(language) {
 
 async function refreshData() {
   let didUpdate = false;
+  const previousAccessibilitySnapshots = getLiveMatchAccessibilitySnapshot();
 
   try {
     didUpdate = await loadLiveData();
@@ -27016,6 +27335,7 @@ async function refreshData() {
 
   try {
     renderLoadedApp();
+    announceLiveMatchAccessibilityChanges(previousAccessibilitySnapshots);
   } catch (error) {
     console.error("Unable to render refreshed data", error);
   }

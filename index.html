@@ -35,7 +35,7 @@
     <link rel="icon" type="image/svg+xml" href="assets/favicon.svg?v=2026-06-17-1209" />
     <link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=2026-06-17-1213" />
     <script src="theme-init.js?v=2026-07-15-dark-mode-2"></script>
-    <link rel="stylesheet" href="styles.css?v=2026-07-15-dark-mode-2" />
+    <link rel="stylesheet" href="styles.css?v=2026-07-15-dark-mode-3" />
     <link rel="stylesheet" href="chatbot.css?v=2026-07-15-dark-mode-3" />
   </head>
   <body>
@@ -174,7 +174,7 @@
         </section>
 
         <section class="match-layout" aria-label="Matches and selected match details">
-          <section class="match-list" id="match-list" aria-live="polite" aria-label="Matches" aria-busy="true">
+          <section class="match-list" id="match-list" aria-label="Matches" aria-busy="true">
             <div class="match-loading" role="status">
               <p class="visually-hidden">Loading matches</p>
               <div class="match-loading-row" aria-hidden="true">
@@ -200,7 +200,8 @@
             </div>
           </section>
 
-          <aside class="match-info is-hidden" id="match-info" aria-live="polite" hidden></aside>
+          <div class="visually-hidden" id="match-status-announcer" role="status" aria-live="polite" aria-atomic="true"></div>
+          <aside class="match-info is-hidden" id="match-info" aria-label="Match details" hidden></aside>
         </section>
       </section>
 
