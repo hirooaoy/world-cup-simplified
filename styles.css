@@ -6,11 +6,71 @@
   --line: #111111;
   --hairline: rgba(10, 10, 10, 0.1);
   --surface: #ffffff;
+  --surface-raised: #ffffff;
   --surface-soft: #f5f5f7;
+  --surface-muted: #f7f7f8;
+  --surface-hover: rgba(10, 10, 10, 0.05);
+  --surface-selected: rgba(10, 10, 10, 0.045);
+  --text-secondary: #5f6067;
+  --text-tertiary: #72737b;
+  --text-disabled: #a3a4aa;
+  --text-inverse: #ffffff;
+  --border-subtle: rgba(10, 10, 10, 0.08);
+  --border: rgba(10, 10, 10, 0.12);
+  --border-strong: rgba(10, 10, 10, 0.22);
   --focus: #0071e3;
+  --focus-soft: rgba(0, 113, 227, 0.14);
+  --live: #ff3b30;
+  --success: #147a3d;
+  --warning: #8a5600;
+  --danger: #b42318;
+  --tooltip-background: rgba(10, 10, 10, 0.94);
+  --tooltip-text: #ffffff;
+  --shadow-small: 0 1px 2px rgba(10, 10, 10, 0.06),
+    0 5px 14px rgba(10, 10, 10, 0.06);
+  --shadow-card: 0 14px 36px rgba(10, 10, 10, 0.05);
+  --shadow-raised: 0 18px 52px rgba(10, 10, 10, 0.13);
+  --skeleton-start: #e8e8e8;
+  --skeleton-highlight: #f8f8f8;
   --tooltip-host-z-index: 12;
   font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue",
     Arial, sans-serif;
+}
+
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --background: #0b0d10;
+  --text: #f5f7fa;
+  --muted: #b8c0cb;
+  --line: #e3e8ef;
+  --hairline: rgba(245, 247, 250, 0.12);
+  --surface: #13161b;
+  --surface-raised: #1a1e24;
+  --surface-soft: #22272f;
+  --surface-muted: #181c22;
+  --surface-hover: rgba(245, 247, 250, 0.07);
+  --surface-selected: rgba(115, 183, 255, 0.12);
+  --text-secondary: #b8c0cb;
+  --text-tertiary: #8f99a6;
+  --text-disabled: #68727f;
+  --text-inverse: #0b0d10;
+  --border-subtle: rgba(245, 247, 250, 0.09);
+  --border: rgba(245, 247, 250, 0.14);
+  --border-strong: rgba(245, 247, 250, 0.25);
+  --focus: #73b7ff;
+  --focus-soft: rgba(115, 183, 255, 0.2);
+  --live: #ff6b72;
+  --success: #53d18b;
+  --warning: #f2c94c;
+  --danger: #ff858c;
+  --tooltip-background: #272d36;
+  --tooltip-text: #f5f7fa;
+  --shadow-small: 0 1px 2px rgba(0, 0, 0, 0.32),
+    0 6px 18px rgba(0, 0, 0, 0.28);
+  --shadow-card: 0 16px 42px rgba(0, 0, 0, 0.3);
+  --shadow-raised: 0 22px 64px rgba(0, 0, 0, 0.46);
+  --skeleton-start: #252a32;
+  --skeleton-highlight: #353c47;
 }
 
 * {
@@ -1748,6 +1808,10 @@ h1 {
   justify-self: start;
 }
 
+.team-search-history-button[aria-expanded="true"] .past-reveal-action::after {
+  transform: translateY(2px) rotate(225deg);
+}
+
 .match-row {
   position: relative;
   display: flex;
@@ -2472,6 +2536,19 @@ h1 {
 }
 
 @media (min-width: 1161px) {
+  /* Extend the sticky rail through the desktop shell's footer-side spacing. */
+  #matches-view.has-match-info {
+    margin-bottom: -60px;
+  }
+
+  #matches-view.has-match-info::after {
+    content: "";
+    grid-column: 2;
+    grid-row: 3;
+    height: 60px;
+    pointer-events: none;
+  }
+
   .match-info {
     position: sticky;
     top: 16px;
@@ -2488,6 +2565,11 @@ h1 {
   .match-info.is-viewport-docked {
     max-height: calc(100vh - 32px);
     max-height: calc(100dvh - 32px);
+  }
+
+  .match-info.is-footer-constrained {
+    max-height: var(--match-info-footer-max-height, calc(100vh - 144px));
+    max-height: var(--match-info-footer-max-height, calc(100dvh - 144px));
   }
 
   .match-info::-webkit-scrollbar {
@@ -7729,10 +7811,18 @@ button.lineup-event-sub,
 
 .report-back-link {
   width: fit-content;
+  transition: opacity 160ms ease, transform 160ms cubic-bezier(0.2, 0.72, 0.18, 1);
 }
 
 .report-back-link:hover {
   color: var(--text);
+  opacity: 0.64;
+  transform: translateX(-2px);
+}
+
+.report-back-link:active {
+  opacity: 0.5;
+  transform: translateX(-1px);
 }
 
 .report-back-link:focus-visible {
@@ -7741,11 +7831,17 @@ button.lineup-event-sub,
   border-radius: 6px;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .report-back-link {
+    transition: none;
+  }
+}
+
 .report-shell {
   flex: 1 0 auto;
   width: min(calc(100% - 64px), 680px);
   margin: 0 auto;
-  padding: clamp(108px, 16vh, 172px) 0 72px;
+  padding: clamp(84px, calc(16vh - 24px), 148px) 0 72px;
 }
 
 .report-title {
@@ -9319,5 +9415,1472 @@ button.lineup-event-sub,
     max-width: calc(100% - 24px);
     margin: 0;
     gap: 8px;
+  }
+}
+
+/* Dark theme ------------------------------------------------------------- */
+
+html[data-theme="dark"] body {
+  background: var(--background);
+  color: var(--text);
+}
+
+html[data-theme="dark"] {
+  accent-color: var(--focus);
+  scrollbar-color: rgba(245, 247, 250, 0.24) transparent;
+}
+
+html[data-theme="dark"] ::selection {
+  background: rgba(115, 183, 255, 0.3);
+  color: var(--text);
+}
+
+html[data-theme="dark"] :is(input, select, textarea, button) {
+  color-scheme: dark;
+}
+
+html[data-theme="dark"] :is(input, select, textarea)::placeholder {
+  color: var(--text-tertiary);
+  opacity: 1;
+}
+
+html[data-theme="dark"] :is(input, select, textarea):-webkit-autofill,
+html[data-theme="dark"] :is(input, select, textarea):-webkit-autofill:hover,
+html[data-theme="dark"] :is(input, select, textarea):-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--text);
+  box-shadow: 0 0 0 1000px var(--surface) inset;
+  caret-color: var(--text);
+}
+
+html[data-theme="dark"] ::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+html[data-theme="dark"] ::-webkit-scrollbar-thumb {
+  border: 2px solid transparent;
+  border-radius: 999px;
+  background: rgba(245, 247, 250, 0.2);
+  background-clip: padding-box;
+}
+
+html[data-theme-ready="true"] body {
+  transition: background-color 180ms ease, color 180ms ease;
+}
+
+html[data-theme-ready="true"] :is(
+  .settings-popover,
+  .catch-up-popover,
+  .date-popover,
+  .standings-year-popover,
+  .source-tooltip,
+  .release-tooltip
+) {
+  transition: background-color 180ms ease, border-color 180ms ease,
+    color 180ms ease, box-shadow 180ms ease;
+}
+
+html[data-theme="dark"] .juggle-record {
+  color: var(--text-tertiary);
+}
+
+html[data-theme="dark"] .juggle-ball-shadow {
+  background: radial-gradient(
+    ellipse at center,
+    rgba(0, 0, 0, 0.48) 0%,
+    rgba(0, 0, 0, 0.28) 44%,
+    rgba(0, 0, 0, 0) 72%
+  );
+}
+
+html[data-theme="dark"] :is(
+  .view-tabs,
+  .catch-up-button,
+  .language-switch,
+  .settings-button,
+  .standings-mode-tabs,
+  .lineup-tabs
+) {
+  border-color: var(--border-subtle);
+  background: var(--surface-soft);
+}
+
+html[data-theme="dark"] :is(
+  .view-tabs::before,
+  .language-switch::before,
+  .standings-mode-tabs::before,
+  .lineup-tabs::before
+) {
+  background: var(--surface-raised);
+  box-shadow: var(--shadow-small);
+}
+
+html[data-theme="dark"] :is(
+  .view-tab,
+  .language-option,
+  .standings-mode-tab,
+  .lineup-tab
+) {
+  color: var(--text-secondary);
+}
+
+html[data-theme="dark"] :is(
+  .view-tab:hover,
+  .language-option:hover,
+  .standings-mode-tab:hover,
+  .lineup-tab.is-active,
+  .view-tab.is-active,
+  .language-option.is-active,
+  .standings-mode-tab.is-active
+) {
+  color: var(--text);
+}
+
+html[data-theme="dark"] :is(.catch-up-button, .settings-button) {
+  color: var(--text-secondary);
+}
+
+html[data-theme="dark"] :is(
+  .catch-up-button:hover,
+  .settings-button:hover,
+  .catch-up-button[aria-expanded="true"],
+  .settings-button[aria-expanded="true"]
+) {
+  border-color: var(--border);
+  background: var(--surface-raised);
+  box-shadow: var(--shadow-small);
+  color: var(--text);
+}
+
+html[data-theme="dark"] :is(
+  .settings-popover,
+  .catch-up-popover,
+  .date-popover,
+  .standings-year-popover
+) {
+  border-color: var(--border);
+  background: rgba(26, 30, 36, 0.96);
+  box-shadow: var(--shadow-raised);
+  backdrop-filter: blur(22px) saturate(115%);
+}
+
+html[data-theme="dark"] :is(
+  .settings-label,
+  .catch-up-group-date,
+  .calendar-weekdays span
+) {
+  color: var(--text-tertiary);
+}
+
+html[data-theme="dark"] :is(.catch-up-subtitle, .catch-up-point) {
+  color: var(--text-secondary);
+}
+
+html[data-theme="dark"] .catch-up-point::marker {
+  color: var(--text-tertiary);
+}
+
+html[data-theme="dark"] .catch-up-source {
+  color: var(--text-tertiary);
+}
+
+html[data-theme="dark"] .catch-up-source:hover {
+  background: var(--surface-hover);
+  color: var(--text);
+}
+
+html[data-theme="dark"] :is(.catch-up-group, .catch-up-item) {
+  border-color: var(--border-subtle);
+}
+
+html[data-theme="dark"] .settings-toggle-track {
+  border-color: var(--border);
+  background: #353b45;
+}
+
+html[data-theme="dark"] .settings-toggle-track::after {
+  background: #f5f7fa;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+}
+
+html[data-theme="dark"] .settings-toggle-control:hover .settings-toggle-track {
+  border-color: var(--border-strong);
+  box-shadow: 0 0 0 3px rgba(245, 247, 250, 0.05);
+}
+
+html[data-theme="dark"] .settings-toggle-input:checked + .settings-toggle-track {
+  border-color: #73b7ff;
+  background: #4b96e8;
+}
+
+html[data-theme="dark"] .timezone-control::after {
+  border-color: var(--text-tertiary);
+}
+
+html[data-theme="dark"] .timezone-select {
+  border-color: var(--border-subtle);
+  background: var(--surface-soft);
+  color: var(--text);
+}
+
+html[data-theme="dark"] .timezone-select:hover {
+  border-color: var(--border-strong);
+  background: var(--surface-raised);
+}
+
+html[data-theme="dark"] .admin-message-banner {
+  background: linear-gradient(180deg, rgba(34, 39, 47, 0.98), rgba(24, 28, 34, 0.98));
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3),
+    0 20px 48px rgba(0, 0, 0, 0.38);
+}
+
+html[data-theme="dark"] .admin-message-banner::after {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.055), transparent 58%);
+}
+
+html[data-theme="dark"] .admin-message-label {
+  color: var(--text-tertiary);
+}
+
+html[data-theme="dark"] .admin-message-dismiss {
+  color: var(--text-tertiary);
+}
+
+html[data-theme="dark"] .admin-message-dismiss:hover {
+  background: var(--surface-hover);
+  color: var(--text);
+}
+
+html[data-theme="dark"] #day-label:hover {
+  color: var(--text-secondary);
+}
+
+html[data-theme="dark"] .team-search.is-active .team-search-field {
+  border-color: var(--border);
+  background: rgba(34, 39, 47, 0.94);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.32);
+}
+
+html[data-theme="dark"] :is(.team-search-toggle, .team-search-clear) {
+  color: var(--text-tertiary);
+}
+
+html[data-theme="dark"] :is(.team-search-toggle:hover, .team-search-clear:hover) {
+  color: var(--text);
+}
+
+html[data-theme="dark"] .team-search-input::placeholder {
+  color: var(--text-tertiary);
+}
+
+html[data-theme="dark"] :is(.calendar-nav-button, .calendar-day) {
+  color: var(--text-secondary);
+}
+
+html[data-theme="dark"] :is(.calendar-nav-button:hover, .calendar-day:hover) {
+  background: var(--surface-soft);
+  color: var(--text);
+}
+
+html[data-theme="dark"] :is(
+  .calendar-nav-button:disabled,
+  .calendar-shortcut-button:disabled,
+  .calendar-day:disabled,
+  .calendar-day.is-outside-month:disabled
+) {
+  color: var(--text-disabled);
+}
+
+html[data-theme="dark"] .calendar-day.is-outside-month {
+  color: var(--text-tertiary);
+}
+
+html[data-theme="dark"] .calendar-day.is-today {
+  border-color: var(--border-strong);
+}
+
+html[data-theme="dark"] :is(.calendar-day.is-selected, .standings-year-option.is-selected) {
+  background: #f5f7fa;
+  color: #0b0d10;
+}
+
+html[data-theme="dark"] .calendar-footer {
+  border-color: var(--border-subtle);
+}
+
+html[data-theme="dark"] .calendar-shortcut-button {
+  border-color: var(--border);
+  background: var(--surface-raised);
+  color: var(--text);
+}
+
+html[data-theme="dark"] .calendar-shortcut-button:hover {
+  background: var(--surface-soft);
+}
+
+html[data-theme="dark"] .standings-year-option {
+  color: var(--text-secondary);
+}
+
+html[data-theme="dark"] .standings-year-option:hover {
+  background: var(--surface-soft);
+  color: var(--text);
+}
+
+html[data-theme="dark"] :is(
+  .match-loading-line,
+  .player-photo-loading,
+  .player-card-loading-line,
+  .player-card-loading-pill,
+  .player-skill-list .player-card-loading-pill
+) {
+  background: linear-gradient(
+    90deg,
+    var(--skeleton-start) 0%,
+    var(--skeleton-highlight) 45%,
+    var(--skeleton-start) 100%
+  );
+  background-size: 220% 100%;
+}
+
+html[data-theme="dark"] .yesterday-section {
+  border-color: var(--border-subtle);
+  background: rgba(245, 247, 250, 0.035);
+}
+
+html[data-theme="dark"] :is(
+  .yesterday-section-header h2,
+  .yesterday-dismiss,
+  .team-search-summary.is-empty h2,
+  .team-search-section h3
+) {
+  color: var(--text-tertiary);
+}
+
+html[data-theme="dark"] .yesterday-dismiss:hover {
+  background: var(--surface-hover);
+  color: var(--text);
+}
+
+html[data-theme="dark"] .yesterday-match-button {
+  background: rgba(26, 30, 36, 0.68);
+}
+
+html[data-theme="dark"] :is(
+  .yesterday-match-button:hover,
+  .yesterday-match-card.is-selected .yesterday-match-button
+) {
+  border-color: var(--border);
+  background: var(--surface-raised);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.28);
+}
+
+html[data-theme="dark"] .yesterday-match-time {
+  color: var(--text-tertiary);
+}
+
+html[data-theme="dark"] .yesterday-match-pair {
+  color: var(--text-secondary);
+}
+
+html[data-theme="dark"] :is(
+  .yesterday-match-pair .versus,
+  .match-info .info-empty,
+  .info-kicker,
+  .match-summary p,
+  .section-note
+) {
+  color: var(--text-tertiary);
+}
+
+html[data-theme="dark"] .match-row-trigger:focus-visible {
+  outline-color: var(--focus);
+}
+
+html[data-theme="dark"] .match-row.is-selected {
+  background: var(--surface-selected);
+  box-shadow: 0 0 0 6px var(--surface-selected);
+}
+
+html[data-theme="dark"] .live-pill,
+html[data-theme="dark"] .tournament-live-pill,
+html[data-theme="dark"] .live-position-badge {
+  background: var(--live);
+  color: #0b0d10;
+}
+
+html[data-theme="dark"] :is(
+  .up-next-pill,
+  .match-score,
+  .tournament-up-next-pill
+) {
+  background: #f5f7fa;
+  color: #0b0d10;
+}
+
+html[data-theme="dark"] .match-score.is-live-fallback {
+  background: #d9dee6;
+  color: #0b0d10;
+}
+
+html[data-theme="dark"] .match-score.is-search-win {
+  background: #2a9d62;
+  color: #ffffff;
+}
+
+html[data-theme="dark"] .match-score.is-search-loss {
+  background: #c94b52;
+  color: #ffffff;
+}
+
+html[data-theme="dark"] .match-score.is-search-tie {
+  background: #4b5360;
+  color: #ffffff;
+}
+
+html[data-theme="dark"] :is(.delayed-pill, .tournament-delayed-pill) {
+  border-color: rgba(242, 201, 76, 0.42);
+  background: rgba(242, 201, 76, 0.17);
+  color: #f6d873;
+}
+
+html[data-theme="dark"] .score-status {
+  border-color: var(--border);
+  background: var(--surface-soft);
+  color: var(--text-secondary);
+}
+
+html[data-theme="dark"] .rank-pill {
+  border-color: var(--border);
+  background: var(--surface-raised);
+  color: var(--text-secondary);
+}
+
+html[data-theme="dark"] .rank-pill[data-tooltip]:is(:hover, :focus-visible) {
+  border-color: var(--border-strong);
+  color: var(--text);
+}
+
+html[data-theme="dark"] .primary-button {
+  border-color: #f5f7fa;
+  background: #f5f7fa;
+  color: #0b0d10;
+}
+
+html[data-theme="dark"] .primary-button:hover {
+  border-color: #dce2e9;
+  background: #dce2e9;
+}
+
+html[data-theme="dark"] .primary-button.is-loading::before {
+  border-color: rgba(11, 13, 16, 0.28);
+  border-top-color: #0b0d10;
+}
+
+html[data-theme="dark"] .secondary-button {
+  border-color: var(--border);
+  background: var(--surface-raised);
+  color: var(--text);
+}
+
+html[data-theme="dark"] .secondary-button:hover {
+  border-color: var(--border-strong);
+  background: var(--surface-soft);
+}
+
+html[data-theme="dark"] .match-info {
+  border-color: var(--border);
+  background: rgba(19, 22, 27, 0.94);
+  box-shadow: 0 20px 62px rgba(0, 0, 0, 0.34);
+}
+
+html[data-theme="dark"] .match-info {
+  scrollbar-color: rgba(245, 247, 250, 0.24) transparent;
+}
+
+html[data-theme="dark"] .match-info::-webkit-scrollbar-thumb {
+  background: rgba(245, 247, 250, 0.2);
+  background-clip: padding-box;
+}
+
+html[data-theme="dark"] :is(
+  .match-info .info-block.has-section-divider,
+  .historical-facts div,
+  .historical-goal-team li,
+  .historical-bracket li,
+  .player-note,
+  .past-list,
+  .past-list li,
+  .past-list.has-hidden-results li:last-child
+) {
+  border-color: var(--border-subtle);
+}
+
+html[data-theme="dark"] .match-stage-link {
+  text-decoration-color: var(--text-tertiary);
+}
+
+html[data-theme="dark"] .match-stage-link:hover {
+  color: var(--text-secondary);
+  text-decoration-color: var(--text-secondary);
+}
+
+html[data-theme="dark"] .info-tooltip-button {
+  border-color: var(--border);
+  background: var(--surface-raised);
+  color: var(--text-tertiary);
+}
+
+html[data-theme="dark"] .info-tooltip-button:is(:hover, :focus) {
+  border-color: var(--border-strong);
+  color: var(--text);
+}
+
+html[data-theme="dark"] :is(
+  .historical-date,
+  .historical-goal-team h4,
+  .historical-bracket h4,
+  .historical-bracket li,
+  .player-group h4,
+  .h2h-summary,
+  .past-empty,
+  .past-list li,
+  .result-highlights li,
+  .data-note
+) {
+  color: var(--text-secondary);
+}
+
+html[data-theme="dark"] :is(
+  .historical-facts dt,
+  .historical-goal-team em,
+  .historical-bracket em,
+  .past-meta em,
+  .live-source-separator
+) {
+  color: var(--text-tertiary);
+}
+
+html[data-theme="dark"] .historical-goal-team span {
+  color: var(--text-secondary);
+}
+
+html[data-theme="dark"] .historical-bracket li.is-selected {
+  background: var(--surface-selected);
+}
+
+html[data-theme="dark"] :is(
+  .team.has-team-tooltip::after,
+  .past-team.has-team-tooltip::after,
+  .summary-team.has-team-tooltip::after,
+  .yesterday-team.has-team-tooltip::after,
+  .live-pill[data-tooltip]::after,
+  .tournament-live-pill[data-tooltip]::after,
+  .rank-pill[data-tooltip]::after,
+  .info-tooltip-button::after,
+  .standing-help::after,
+  .standing-team.has-name-tooltip::after,
+  .standing-status-pill[data-tooltip]::after,
+  .third-place-pill[data-tooltip]::after,
+  .third-place-status[data-tooltip]::after,
+  .knockout-match-venue[data-tooltip]::after,
+  .knockout-team[data-tooltip]::after,
+  .knockout-likelihood::after,
+  .knockout-slot-odds::after,
+  .prediction-row.has-label-tooltip::after,
+  .past-record-row.has-label-tooltip::after,
+  .player-card-value-help::after,
+  .lineup-event-tooltip-floating
+) {
+  border-color: var(--border);
+  background: var(--tooltip-background);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.42);
+  color: var(--tooltip-text);
+}
+
+html[data-theme="dark"] :is(
+  .key-info-team p .player-link,
+  .player-link,
+  .result-highlights .player-link,
+  .live-source-link
+) {
+  color: var(--text-secondary);
+  text-decoration-color: rgba(184, 192, 203, 0.48);
+}
+
+html[data-theme="dark"] :is(
+  .key-info-team p .player-link:hover,
+  .key-info-team p .player-hover:focus-within .player-link,
+  .player-link:hover,
+  .player-hover:focus-within .player-link,
+  .result-highlights .player-link:hover,
+  .result-highlights .player-hover:focus-within .player-link,
+  .live-source-link:hover
+) {
+  color: var(--text);
+  text-decoration-color: rgba(245, 247, 250, 0.76);
+}
+
+html[data-theme="dark"] .standings-table th {
+  color: var(--text-tertiary);
+}
+
+html[data-theme="dark"] .standing-help {
+  border-bottom-color: rgba(184, 192, 203, 0.52);
+}
+
+html[data-theme="dark"] .standings-table tbody tr.is-advancing td {
+  background: rgba(83, 209, 139, 0.075);
+}
+
+html[data-theme="dark"] .standings-table tbody tr.is-advancing td:first-child,
+html[data-theme="dark"] .third-place-table tbody tr.is-inside td:first-child {
+  box-shadow: inset 3px 0 0 rgba(83, 209, 139, 0.62);
+}
+
+html[data-theme="dark"] .third-place-table tbody tr.is-cut-line-tie td:first-child {
+  box-shadow: inset 3px 0 0 rgba(242, 201, 76, 0.72);
+}
+
+html[data-theme="dark"] .standings-title p {
+  color: var(--text-secondary);
+}
+
+html[data-theme="dark"] .standings-card {
+  border-color: var(--border);
+  background: var(--surface);
+  box-shadow: var(--shadow-card);
+}
+
+html[data-theme="dark"] .standings-card.is-drill-target {
+  border-color: var(--focus);
+  box-shadow: 0 0 0 3px var(--focus-soft), var(--shadow-card);
+}
+
+html[data-theme="dark"] .third-place-race-header p {
+  color: var(--text-secondary);
+}
+
+html[data-theme="dark"] .third-place-metrics div {
+  border-color: var(--border);
+}
+
+html[data-theme="dark"] .third-place-metrics dt {
+  color: var(--text-tertiary);
+}
+
+html[data-theme="dark"] .third-place-table-shell {
+  border-color: var(--border);
+  background: var(--surface);
+}
+
+html[data-theme="dark"] .third-place-rank-cell {
+  color: var(--text-secondary);
+}
+
+html[data-theme="dark"] .third-place-group-button {
+  border-bottom-color: var(--border-strong);
+  color: var(--text-secondary);
+}
+
+html[data-theme="dark"] .third-place-group-button:hover {
+  border-bottom-color: var(--text-secondary);
+  color: var(--text);
+}
+
+html[data-theme="dark"] .third-place-cut-row span {
+  color: var(--text-tertiary);
+}
+
+html[data-theme="dark"] :is(
+  .third-place-cut-row span::before,
+  .third-place-cut-row span::after
+) {
+  background: var(--border);
+}
+
+html[data-theme="dark"] :is(
+  .third-place-pill.is-in,
+  .third-place-status.is-in
+) {
+  background: rgba(83, 209, 139, 0.16);
+  color: #72dfa2;
+}
+
+html[data-theme="dark"] :is(
+  .third-place-pill.is-bubble-in,
+  .third-place-status.is-bubble-in
+) {
+  background: rgba(83, 209, 139, 0.11);
+  color: #6bd89a;
+}
+
+html[data-theme="dark"] :is(
+  .third-place-pill.is-pending,
+  .third-place-status.is-pending,
+  .third-place-pill.is-first-out,
+  .third-place-status.is-first-out
+) {
+  background: rgba(242, 201, 76, 0.14);
+  color: #f2cf64;
+}
+
+html[data-theme="dark"] :is(
+  .third-place-pill.is-out,
+  .third-place-status.is-out,
+  .standing-status-pill.is-eliminated,
+  .third-place-pill.is-eliminated,
+  .third-place-status.is-eliminated
+) {
+  background: rgba(245, 247, 250, 0.08);
+  color: var(--text-tertiary);
+}
+
+html[data-theme="dark"] :is(.third-place-muted, .third-place-note) {
+  color: var(--text-tertiary);
+}
+
+html[data-theme="dark"] :is(.tournament-r32, .tournament-progression) {
+  border-color: var(--border);
+  background:
+    linear-gradient(90deg, rgba(245, 247, 250, 0.034) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(245, 247, 250, 0.034) 1px, transparent 1px),
+    var(--surface);
+  background-size: 38px 38px;
+}
+
+html[data-theme="dark"] .poster-side::before {
+  background: rgba(245, 247, 250, 0.13);
+}
+
+html[data-theme="dark"] .poster-match {
+  border-color: var(--border-subtle);
+  background: rgba(26, 30, 36, 0.9);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.24);
+}
+
+html[data-theme="dark"] .poster-match::after {
+  border-color: rgba(245, 247, 250, 0.13);
+}
+
+html[data-theme="dark"] .poster-match.is-complete {
+  border-color: rgba(83, 209, 139, 0.32);
+  background: rgba(83, 209, 139, 0.075);
+}
+
+html[data-theme="dark"] .poster-match time {
+  color: var(--text-tertiary);
+}
+
+html[data-theme="dark"] :is(
+  .poster-team-flag,
+  .poster-team-code,
+  .poster-versus
+) {
+  border-color: var(--border);
+  background: var(--surface-raised);
+}
+
+html[data-theme="dark"] .poster-team-code {
+  color: var(--text);
+}
+
+html[data-theme="dark"] .poster-team.is-winner .poster-team-code {
+  border-color: rgba(83, 209, 139, 0.42);
+  color: var(--success);
+}
+
+html[data-theme="dark"] .poster-versus {
+  color: var(--text-tertiary);
+}
+
+html[data-theme="dark"] .poster-center-panel {
+  border-color: var(--border-subtle);
+}
+
+html[data-theme="dark"] :is(
+  .poster-center-panel > span,
+  .poster-center-panel strong,
+  .tournament-section-heading span
+) {
+  color: var(--text-tertiary);
+}
+
+html[data-theme="dark"] .poster-trophy-shadow {
+  fill: rgba(0, 0, 0, 0.34);
+}
+
+html[data-theme="dark"] .progress-connectors path {
+  stroke: #4c5562;
+}
+
+html[data-theme="dark"] .progress-match {
+  border-color: var(--border);
+  background: rgba(26, 30, 36, 0.92);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.26);
+}
+
+html[data-theme="dark"] .progress-match.is-openable:hover {
+  border-color: var(--border-strong);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.38);
+}
+
+html[data-theme="dark"] .progress-match.is-projected {
+  border-color: var(--border-subtle);
+  background: rgba(24, 28, 34, 0.82);
+  box-shadow: none;
+}
+
+html[data-theme="dark"] :is(
+  .progress-match.is-drill-target,
+  .progress-match.is-projected.is-drill-target
+) {
+  border-color: var(--focus);
+  background: var(--surface-raised);
+  box-shadow: 0 0 0 3px var(--focus-soft),
+    0 14px 34px rgba(0, 0, 0, 0.36);
+}
+
+html[data-theme="dark"] :is(
+  .progress-match.is-projected .knockout-match-header time,
+  .progress-match.is-projected .knockout-match-footer,
+  .progress-match.is-projected .knockout-team:not(.is-locked) .knockout-team-copy small
+) {
+  color: var(--text-tertiary);
+}
+
+html[data-theme="dark"] :is(
+  .progress-match.is-projected .knockout-team:not(.is-locked) .knockout-team-copy strong,
+  .progress-match.is-projected .knockout-versus
+) {
+  color: var(--text-secondary);
+}
+
+html[data-theme="dark"] .progress-match.is-projected .knockout-team:not(.is-locked) .rank-pill {
+  border-color: var(--border-subtle);
+  background: var(--surface);
+  color: var(--text-tertiary);
+}
+
+html[data-theme="dark"] .progress-match.is-complete {
+  border-color: var(--border-subtle);
+  background: #171b20;
+}
+
+html[data-theme="dark"] :is(
+  .progress-match.is-complete .knockout-match-header time,
+  .progress-match.is-complete .knockout-match-venue,
+  .progress-match.is-complete .knockout-versus,
+  .progress-match.is-complete .knockout-team.is-loser .knockout-team-copy strong
+) {
+  color: var(--text-tertiary);
+}
+
+html[data-theme="dark"] .progress-match.is-complete .knockout-team.is-loser .rank-pill {
+  border-color: var(--border-subtle);
+  background: var(--surface);
+  color: var(--text-tertiary);
+}
+
+html[data-theme="dark"] :is(
+  .knockout-match-header time,
+  .knockout-match-venue,
+  .knockout-match-footer,
+  .knockout-team-copy small
+) {
+  color: var(--text-tertiary);
+}
+
+html[data-theme="dark"] .knockout-team-copy strong {
+  color: var(--text);
+}
+
+html[data-theme="dark"] .knockout-team.is-pending .knockout-team-copy strong {
+  color: var(--text-secondary);
+}
+
+html[data-theme="dark"] .knockout-team.is-winner .knockout-team-copy strong {
+  color: var(--success);
+}
+
+html[data-theme="dark"] .knockout-versus {
+  color: var(--text-secondary);
+}
+
+html[data-theme="dark"] .knockout-match-footer {
+  border-color: var(--border-subtle);
+}
+
+html[data-theme="dark"] :is(
+  .knockout-result-pill,
+  .knockout-likelihood.is-high,
+  .knockout-likelihood.is-neutral,
+  .knockout-likelihood.is-low,
+  .knockout-slot-odds.is-high,
+  .knockout-slot-odds.is-neutral,
+  .knockout-slot-odds.is-low
+) {
+  border-color: var(--border);
+  background: rgba(245, 247, 250, 0.07);
+  color: var(--text-secondary);
+}
+
+html[data-theme="dark"] .tournament-show-next-button {
+  border-color: rgba(11, 13, 16, 0.18);
+  background: #f5f7fa;
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.42);
+  color: #0b0d10;
+}
+
+html[data-theme="dark"] .tournament-show-next-button:hover {
+  background: #dce2e9;
+  box-shadow: 0 16px 38px rgba(0, 0, 0, 0.5);
+}
+
+html[data-theme="dark"] .tournament-show-next-button:active {
+  background: #cbd2db;
+}
+
+html[data-theme="dark"] .progress-round h3,
+html[data-theme="dark"] .tournament-progression .progress-round h3 {
+  border-color: var(--border-subtle);
+  background: linear-gradient(180deg, rgba(34, 39, 47, 0.98), rgba(26, 30, 36, 0.94));
+  color: var(--text-tertiary);
+}
+
+html[data-theme="dark"] :is(.prediction-track, .past-record-track) {
+  background: rgba(245, 247, 250, 0.13);
+}
+
+html[data-theme="dark"] :is(.prediction-track span, .past-record-track span) {
+  background: var(--text-secondary);
+}
+
+html[data-theme="dark"] .key-info-team h4 {
+  color: var(--text);
+}
+
+html[data-theme="dark"] .team-style-tags li {
+  border-color: var(--border-subtle);
+  background: var(--surface-soft);
+  color: var(--text-secondary);
+}
+
+html[data-theme="dark"] .key-info-team p {
+  color: var(--text-secondary);
+}
+
+html[data-theme="dark"] .player-card {
+  border-color: var(--border);
+  background: rgba(26, 30, 36, 0.98);
+  box-shadow: var(--shadow-raised);
+  color: var(--text);
+}
+
+html[data-theme="dark"] .player-hover.is-card-open .player-link {
+  color: var(--text);
+  text-decoration-color: rgba(245, 247, 250, 0.76);
+}
+
+html[data-theme="dark"] :is(
+  .player-photo,
+  .lineup-coach-avatar,
+  .lineup-coach-card-photo,
+  .lineup-avatar,
+  .lineup-avatar-image
+) {
+  border-color: var(--border);
+  background: var(--surface-soft);
+  color: var(--text-tertiary);
+}
+
+html[data-theme="dark"] .player-photo-fallback {
+  color: var(--text-tertiary);
+}
+
+html[data-theme="dark"] .player-card-flag .flag,
+html[data-theme="dark"] .goal-scorer-flag .flag {
+  color: #0a0a0a;
+}
+
+html[data-theme="dark"] :is(
+  .player-card-number,
+  .player-card-position,
+  .player-card-club,
+  .player-card-note,
+  .player-note p
+) {
+  color: var(--text-secondary);
+}
+
+html[data-theme="dark"] .player-card-tournament-stats {
+  color: var(--text);
+}
+
+html[data-theme="dark"] .player-skill-list span {
+  border-color: var(--border-subtle);
+  background: var(--surface-soft);
+  color: var(--text-secondary);
+}
+
+html[data-theme="dark"] .result-score-summary {
+  color: var(--text);
+}
+
+html[data-theme="dark"] .result-story-highlights li::marker {
+  color: var(--text-tertiary);
+}
+
+html[data-theme="dark"] :is(
+  .knockout-context-search-action,
+  .match-event-sub-link,
+  .goal-separator
+) {
+  color: var(--text-tertiary);
+}
+
+html[data-theme="dark"] .knockout-context-search-action:hover {
+  color: var(--text-secondary);
+}
+
+html[data-theme="dark"] .match-event-formation-pill {
+  border-color: var(--border-subtle);
+  background: var(--surface-soft);
+  color: var(--text-secondary);
+}
+
+html[data-theme="dark"] .match-event-formation-pill strong {
+  color: var(--text);
+}
+
+html[data-theme="dark"] .match-event-row {
+  color: var(--text-secondary);
+}
+
+html[data-theme="dark"] .match-event-minute {
+  color: var(--text-tertiary);
+}
+
+html[data-theme="dark"] .match-event-copy strong {
+  color: var(--text);
+}
+
+html[data-theme="dark"] .match-event-sub-icon::before,
+html[data-theme="dark"] .match-event-sub-icon::after {
+  background: var(--text-tertiary);
+}
+
+html[data-theme="dark"] .match-event-card-icon {
+  box-shadow: 0 0 0 1px rgba(245, 247, 250, 0.16);
+}
+
+html[data-theme="dark"] .lineup-pitch-card {
+  border-color: var(--border);
+  background: var(--surface);
+  color: var(--text);
+}
+
+html[data-theme="dark"] .lineup-team-band {
+  border-color: var(--border);
+  background: var(--surface-raised);
+}
+
+html[data-theme="dark"] .lineup-coach-trigger.player-link {
+  color: var(--text-secondary);
+}
+
+html[data-theme="dark"] :is(
+  .lineup-coach-trigger.player-link:hover .lineup-coach-name-text,
+  .lineup-coach-hover:focus-within .lineup-coach-name-text
+) {
+  color: var(--text);
+  text-decoration-color: rgba(245, 247, 250, 0.62);
+}
+
+html[data-theme="dark"] :is(
+  .lineup-coach-icon-trigger.player-link:hover .lineup-coach-avatar,
+  .lineup-coach-icon-hover:focus-within .lineup-coach-avatar
+) {
+  border-color: var(--border-strong);
+  background: var(--surface-hover);
+}
+
+html[data-theme="dark"] .lineup-coach-name-text {
+  color: var(--text-tertiary);
+}
+
+html[data-theme="dark"] .lineup-coach-label {
+  color: var(--text-secondary);
+}
+
+html[data-theme="dark"] :is(.lineup-bench-button, .lineup-formation-pill) {
+  border-color: var(--border);
+  background: var(--surface-raised);
+  color: var(--text-secondary);
+}
+
+html[data-theme="dark"] .lineup-bench-count {
+  background: rgba(245, 247, 250, 0.09);
+  color: var(--text-secondary);
+}
+
+html[data-theme="dark"] :is(
+  .lineup-bench-button:hover,
+  .lineup-bench-button:focus-visible,
+  .lineup-bench-button.is-open,
+  .lineup-formation-pill:hover,
+  .lineup-formation-hover:focus-within .lineup-formation-pill
+) {
+  border-color: var(--border-strong);
+  background: var(--surface-soft);
+  color: var(--text);
+}
+
+html[data-theme="dark"] .lineup-formation-note {
+  color: var(--text-secondary);
+}
+
+html[data-theme="dark"] .lineup-formation-note strong {
+  color: var(--text);
+}
+
+html[data-theme="dark"] .lineup-bench-panel {
+  background: rgba(245, 247, 250, 0.025);
+}
+
+html[data-theme="dark"] .lineup-bench-panel.is-open {
+  border-color: var(--border-subtle);
+}
+
+html[data-theme="dark"] .lineup-bench-player {
+  border-color: var(--border-subtle);
+  background: var(--surface-raised);
+  color: var(--text-secondary);
+}
+
+html[data-theme="dark"] :is(.lineup-bench-number, .lineup-bench-position) {
+  color: var(--text-tertiary);
+}
+
+html[data-theme="dark"] :is(.lineup-event-card, .lineup-event-sub) {
+  border-color: var(--border);
+  background: var(--surface-raised);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  color: var(--text-secondary);
+}
+
+html[data-theme="dark"] .lineup-event-card > span {
+  border-color: rgba(245, 247, 250, 0.2);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
+}
+
+html[data-theme="dark"] .lineup-event-card.is-yellow {
+  border-color: rgba(242, 201, 76, 0.38);
+  background: rgba(242, 201, 76, 0.14);
+  color: #f2cf64;
+}
+
+html[data-theme="dark"] .lineup-event-card.is-red {
+  border-color: rgba(255, 107, 114, 0.4);
+  background: rgba(255, 107, 114, 0.13);
+  color: #ff9298;
+}
+
+html[data-theme="dark"] .lineup-event-score {
+  border-color: rgba(11, 13, 16, 0.48);
+  background: #f5f7fa;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+  color: #0b0d10;
+}
+
+html[data-theme="dark"] .lineup-event-score.is-assist {
+  border-color: var(--border-strong);
+  background: var(--surface-raised);
+  color: var(--text);
+}
+
+html[data-theme="dark"] .lineup-event-score.is-own-goal {
+  background: #8f99a6;
+  color: #0b0d10;
+}
+
+html[data-theme="dark"] .lineup-event-sub.is-on {
+  color: var(--text);
+}
+
+html[data-theme="dark"] .lineup-event-sub.is-off {
+  color: var(--text-tertiary);
+}
+
+html[data-theme="dark"] :is(
+  .lineup-substitution-toggle:hover,
+  .lineup-substitution-toggle:focus-visible
+) {
+  border-color: var(--border-strong);
+  background: var(--surface-soft);
+  color: var(--text);
+}
+
+html[data-theme="dark"] .lineup-substitution-toggle:focus-visible {
+  outline-color: var(--focus);
+}
+
+html[data-theme="dark"] .lineup-substitution-toggle[aria-pressed="true"] {
+  background: rgba(115, 183, 255, 0.15);
+  color: var(--text);
+}
+
+html[data-theme="dark"] :is(
+  .lineup-bench-events .lineup-event-card,
+  .lineup-bench-events .lineup-event-sub
+) {
+  background: rgba(245, 247, 250, 0.06);
+}
+
+html[data-theme="dark"] .lineup-player-value {
+  color: #aab4c1;
+}
+
+html[data-theme="dark"] :is(
+  .lineup-name-sub-events .lineup-event-sub,
+  .lineup-name-card-events .lineup-event-card
+) {
+  border-color: rgba(245, 247, 250, 0.2);
+  background: rgba(19, 22, 27, 0.9);
+  color: var(--text-secondary);
+}
+
+html[data-theme="dark"] .lineup-pitch {
+  background: #10271e;
+}
+
+html[data-theme="dark"] .lineup-pitch-surface {
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(83, 209, 139, 0.032) 0,
+      rgba(83, 209, 139, 0.032) 50%,
+      rgba(0, 0, 0, 0.09) 50%,
+      rgba(0, 0, 0, 0.09) 100%
+    ),
+    #10271e;
+}
+
+html[data-theme="dark"] .lineup-pitch-line.is-mid {
+  background: rgba(221, 244, 230, 0.2);
+}
+
+html[data-theme="dark"] :is(
+  .lineup-pitch-line.is-circle,
+  .lineup-pitch-line.is-box,
+  .lineup-pitch-line.is-six
+) {
+  border-color: rgba(221, 244, 230, 0.2);
+}
+
+html[data-theme="dark"] .lineup-pitch-line.is-spot {
+  background: rgba(221, 244, 230, 0.28);
+}
+
+html[data-theme="dark"] :is(.lineup-avatar, .lineup-avatar-image) {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.42);
+}
+
+html[data-theme="dark"] .lineup-player-number {
+  border-color: #10271e;
+  background: #f5f7fa;
+  color: #0b0d10;
+}
+
+html[data-theme="dark"] .lineup-player-marker .player-link.lineup-player-name {
+  color: #d8e1e9;
+  text-decoration-color: rgba(216, 225, 233, 0.44);
+}
+
+html[data-theme="dark"] :is(
+  .lineup-player-marker .player-link.lineup-player-name:hover,
+  .lineup-player-hover:focus-within .player-link.lineup-player-name,
+  .lineup-player-hover:hover .player-link.lineup-player-name,
+  .lineup-bench-name .player-link:hover,
+  .lineup-bench-name .player-hover:focus-within .player-link
+) {
+  color: #ffffff;
+  text-decoration-color: rgba(255, 255, 255, 0.78);
+}
+
+html[data-theme="dark"] .past-score {
+  border-color: rgba(115, 183, 255, 0.28);
+  background: rgba(115, 183, 255, 0.13);
+  color: #9bc8ff;
+}
+
+html[data-theme="dark"] .past-score span {
+  color: #7eb5f7;
+}
+
+html[data-theme="dark"] .site-footer .source-note {
+  color: var(--text-tertiary);
+}
+
+html[data-theme="dark"] :is(.source-tooltip, .release-tooltip) {
+  border-color: var(--border);
+  background: rgba(26, 30, 36, 0.98);
+  box-shadow: var(--shadow-raised);
+  color: var(--text);
+}
+
+html[data-theme="dark"] .release-tooltip {
+  background: linear-gradient(180deg, rgba(34, 39, 47, 0.98), rgba(26, 30, 36, 0.98));
+}
+
+html[data-theme="dark"] .release-tooltip li {
+  color: var(--text-secondary);
+}
+
+html[data-theme="dark"] .release-tooltip li::marker {
+  color: var(--text-tertiary);
+}
+
+html[data-theme="dark"] .release-tooltip-loading-dot {
+  background: rgba(245, 247, 250, 0.24);
+}
+
+html[data-theme="dark"] .source-tooltip a {
+  color: var(--text-secondary);
+}
+
+html[data-theme="dark"] .release-note {
+  border-color: var(--border-subtle);
+}
+
+html[data-theme="dark"] :is(.release-note p, .release-note ul) {
+  color: var(--text-secondary);
+}
+
+html[data-theme="dark"] .form-field span {
+  color: var(--text-secondary);
+}
+
+html[data-theme="dark"] :is(
+  .form-field input,
+  .form-field select,
+  .form-field textarea
+) {
+  border-color: var(--border);
+  background-color: var(--surface);
+  color: var(--text);
+  caret-color: var(--text);
+}
+
+html[data-theme="dark"] .form-field select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='8' viewBox='0 0 14 8' fill='none'%3E%3Cpath d='m1 1 6 6 6-6' stroke='%23b8c0cb' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+
+html[data-theme="dark"] .form-field select:invalid {
+  color: var(--text-tertiary);
+}
+
+html[data-theme="dark"] .form-field select option {
+  background: var(--surface-raised);
+  color: var(--text);
+}
+
+html[data-theme="dark"] :is(
+  .form-field input:focus,
+  .form-field select:focus,
+  .form-field textarea:focus
+) {
+  border-color: var(--focus);
+  outline-color: var(--focus-soft);
+}
+
+html[data-theme="dark"] :is(
+  .form-field input:disabled,
+  .form-field select:disabled,
+  .form-field textarea:disabled
+) {
+  border-color: var(--border-subtle);
+  background: var(--surface-muted);
+  color: var(--text-disabled);
+  opacity: 1;
+}
+
+html[data-theme="dark"] .report-summary span {
+  border-color: var(--border-subtle);
+  background: var(--surface-soft);
+  color: var(--text-secondary);
+}
+
+html[data-theme="dark"] .form-status[data-state="success"] {
+  color: var(--success);
+}
+
+html[data-theme="dark"] .form-status[data-state="error"] {
+  color: var(--danger);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-theme-ready="true"] body,
+  html[data-theme-ready="true"] :is(
+    .settings-popover,
+    .catch-up-popover,
+    .date-popover,
+    .standings-year-popover,
+    .source-tooltip,
+    .release-tooltip
+  ) {
+    transition: none;
+  }
+}
+
+@media (forced-colors: active) {
+  html[data-theme="dark"] :is(
+    .live-pill,
+    .up-next-pill,
+    .delayed-pill,
+    .match-score,
+    .score-status,
+    .tournament-up-next-pill,
+    .tournament-live-pill,
+    .tournament-delayed-pill,
+    .standing-status-pill,
+    .third-place-pill,
+    .third-place-status,
+    .primary-button,
+    .secondary-button,
+    .settings-toggle-track
+  ) {
+    border: 1px solid ButtonText;
+    background: Canvas;
+    color: CanvasText;
+    forced-color-adjust: auto;
+  }
+
+  html[data-theme="dark"] :is(
+    .match-row.is-selected,
+    .standings-card.is-drill-target,
+    .progress-match.is-drill-target
+  ) {
+    outline: 2px solid Highlight;
+    outline-offset: 3px;
+  }
+
+  html[data-theme="dark"] .lineup-pitch {
+    border: 1px solid CanvasText;
+    background: Canvas;
+  }
+
+  html[data-theme="dark"] :is(
+    .lineup-pitch-line.is-mid,
+    .lineup-pitch-line.is-spot
+  ) {
+    background: CanvasText;
+  }
+
+  html[data-theme="dark"] :is(
+    .lineup-pitch-line.is-circle,
+    .lineup-pitch-line.is-box,
+    .lineup-pitch-line.is-six
+  ) {
+    border-color: CanvasText;
   }
 }

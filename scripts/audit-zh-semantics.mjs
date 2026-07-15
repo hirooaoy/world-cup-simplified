@@ -290,6 +290,36 @@ async function auditBallBoyChineseIntents(dataByPath) {
         expected: "English help intent from common shorthand"
       },
       {
+        question: "who r u",
+        locale: "en",
+        matches: (reply) =>
+          reply?.kind === "personality" &&
+          reply?.topic === "identity",
+        expected: "English identity intent with u shorthand"
+      },
+      {
+        question: "wats offside",
+        locale: "en",
+        matches: (reply) => reply?.kind === "offside",
+        expected: "offside intent with wats shorthand"
+      },
+      {
+        question: "whos mbappe",
+        locale: "en",
+        matches: (reply) =>
+          reply?.kind === "player" &&
+          /mbapp/i.test(reply?.profile?.canonicalName || ""),
+        expected: "player intent with whos shorthand"
+      },
+      {
+        question: "wats ur prediction france vs spain",
+        locale: "en",
+        matches: (reply) =>
+          reply?.kind === "matchup" &&
+          reply?.focus === "prediction",
+        expected: "matchup prediction with wats and ur shorthand"
+      },
+      {
         question: "can you dance?",
         locale: "en",
         matches: (reply) =>

@@ -1942,6 +1942,175 @@ function hideFutureStartedFixtures(data, nowIso) {
 }
 
 try {
+  const systemThemeContext = await browser.newContext({ colorScheme: "dark" });
+  await systemThemeContext.addInitScript(() => {
+    document.addEventListener("DOMContentLoaded", () => {
+      window.__worldCupThemeAtDomContentLoaded = document.documentElement.dataset.theme || "";
+    }, { once: true });
+  });
+  const systemThemePage = await systemThemeContext.newPage();
+  await systemThemePage.goto(baseUrl, { waitUntil: "domcontentloaded" });
+  await systemThemePage.waitForSelector("#dark-mode-toggle", { state: "attached" });
+  await systemThemePage.waitForFunction(() => document.documentElement.dataset.themeReady === "true");
+  const systemDarkThemeState = await systemThemePage.evaluate(() => {
+    const headChildren = [...document.head.children];
+    const themeScriptIndex = headChildren.findIndex((node) =>
+      node.matches?.('script[src^="theme-init.js"]')
+    );
+    const firstStylesheetIndex = headChildren.findIndex((node) =>
+      node.matches?.('link[rel="stylesheet"]')
+    );
+    return {
+      atDomContentLoaded: window.__worldCupThemeAtDomContentLoaded,
+      checked: document.querySelector("#dark-mode-toggle")?.checked,
+      colorScheme: getComputedStyle(document.documentElement).colorScheme,
+      firstStylesheetIndex,
+      metaThemeColor: document.querySelector('meta[name="theme-color"]')?.content.toLowerCase(),
+      preference: window.worldCupTheme?.getPreference(),
+      stored: localStorage.getItem("world-cup-simplified-theme"),
+      theme: document.documentElement.dataset.theme,
+      themeScriptIndex
+    };
+  });
+  assert(
+    systemDarkThemeState.theme === "dark" &&
+      systemDarkThemeState.atDomContentLoaded === "dark" &&
+      systemDarkThemeState.checked === true &&
+      systemDarkThemeState.colorScheme.includes("dark") &&
+      systemDarkThemeState.metaThemeColor === "#0b0d10" &&
+      systemDarkThemeState.preference === null &&
+      systemDarkThemeState.stored === null &&
+      systemDarkThemeState.themeScriptIndex >= 0 &&
+      systemDarkThemeState.firstStylesheetIndex > systemDarkThemeState.themeScriptIndex,
+    `A first visit should apply the device dark theme before CSS and without turning it into a saved preference. Measured ${JSON.stringify(systemDarkThemeState)}.`
+  );
+  await systemThemePage.emulateMedia({ colorScheme: "light" });
+  await systemThemePage.waitForFunction(() => document.documentElement.dataset.theme === "light");
+  assert(
+    (await systemThemePage.evaluate(() => ({
+      checked: document.querySelector("#dark-mode-toggle")?.checked,
+      preference: window.worldCupTheme?.getPreference(),
+      stored: localStorage.getItem("world-cup-simplified-theme")
+    }))).checked === false,
+    "An unsaved theme should continue following a live system preference change."
+  );
+  await systemThemeContext.close();
+
+  const storedLightContext = await browser.newContext({ colorScheme: "dark" });
+  await storedLightContext.addInitScript(() => {
+    localStorage.setItem("world-cup-simplified-theme", "light");
+  });
+  const storedLightPage = await storedLightContext.newPage();
+  await storedLightPage.goto(baseUrl, { waitUntil: "domcontentloaded" });
+  await storedLightPage.waitForSelector("#dark-mode-toggle", { state: "attached" });
+  const storedLightState = await storedLightPage.evaluate(() => ({
+    checked: document.querySelector("#dark-mode-toggle")?.checked,
+    preference: window.worldCupTheme?.getPreference(),
+    theme: document.documentElement.dataset.theme
+  }));
+  assert(
+    storedLightState.theme === "light" &&
+      storedLightState.preference === "light" &&
+      storedLightState.checked === false,
+    `A saved light preference should override a dark device. Measured ${JSON.stringify(storedLightState)}.`
+  );
+  await storedLightContext.close();
+
+  const themeToggleContext = await browser.newContext({ colorScheme: "light" });
+  const themeTogglePage = await themeToggleContext.newPage();
+  const themeReportPage = await themeToggleContext.newPage();
+  await themeTogglePage.goto(baseUrl, { waitUntil: "domcontentloaded" });
+  await themeReportPage.goto(`${baseUrl}/report.html`, { waitUntil: "domcontentloaded" });
+  await themeTogglePage.waitForSelector("#dark-mode-toggle", { state: "attached" });
+  await themeTogglePage.locator("#settings-button").click();
+  const themeToggleOrder = await themeTogglePage.evaluate(() => {
+    const yesterdaySetting = document.querySelector("#show-yesterday-toggle")?.closest(".settings-section");
+    const darkModeSetting = document.querySelector("#dark-mode-toggle")?.closest(".settings-section");
+    return {
+      darkModeIsLast: darkModeSetting?.nextElementSibling === null,
+      darkModeIsNext: yesterdaySetting?.nextElementSibling === darkModeSetting
+    };
+  });
+  assert(
+    themeToggleOrder.darkModeIsLast && themeToggleOrder.darkModeIsNext,
+    `Dark mode should sit directly below Show past 24 hours as the final Settings row. Measured ${JSON.stringify(themeToggleOrder)}.`
+  );
+  await themeTogglePage
+    .locator("label.settings-toggle-control:has(#dark-mode-toggle)")
+    .click();
+  await themeTogglePage.waitForFunction(() => document.documentElement.dataset.theme === "dark");
+  await themeReportPage.waitForFunction(() => document.documentElement.dataset.theme === "dark");
+  const toggledDarkState = await themeTogglePage.evaluate(() => ({
+    checked: document.querySelector("#dark-mode-toggle")?.checked,
+    metaThemeColor: document.querySelector('meta[name="theme-color"]')?.content.toLowerCase(),
+    preference: window.worldCupTheme?.getPreference(),
+    stored: localStorage.getItem("world-cup-simplified-theme"),
+    theme: document.documentElement.dataset.theme
+  }));
+  const reportDarkState = await themeReportPage.evaluate(() => ({
+    colorScheme: getComputedStyle(document.documentElement).colorScheme,
+    metaThemeColor: document.querySelector('meta[name="theme-color"]')?.content.toLowerCase(),
+    stored: localStorage.getItem("world-cup-simplified-theme"),
+    theme: document.documentElement.dataset.theme
+  }));
+  await themeTogglePage.waitForFunction(() => {
+    const launcher = document.querySelector(".scout-launcher");
+    const appBackground = getComputedStyle(document.body).backgroundColor;
+    return launcher &&
+      appBackground === "rgb(11, 13, 16)" &&
+      getComputedStyle(launcher).backgroundColor === appBackground;
+  });
+  const ballBoyCanvasState = await themeTogglePage.evaluate(() => {
+    const backgroundColor = (selector) => {
+      const element = document.querySelector(selector);
+      return element ? getComputedStyle(element).backgroundColor : null;
+    };
+    return {
+      app: getComputedStyle(document.body).backgroundColor,
+      face: backgroundColor(".scout-face"),
+      header: backgroundColor(".scout-header"),
+      launcher: backgroundColor(".scout-launcher"),
+      widget: backgroundColor(".scout-widget")
+    };
+  });
+  assert(
+    Object.values(ballBoyCanvasState).every(
+      (backgroundColor) => backgroundColor === ballBoyCanvasState.app
+    ),
+    `Ball Boy's black launcher, face, header, and shell should use the exact app canvas in dark mode. Measured ${JSON.stringify(ballBoyCanvasState)}.`
+  );
+  assert(
+    toggledDarkState.theme === "dark" &&
+      toggledDarkState.checked === true &&
+      toggledDarkState.preference === "dark" &&
+      toggledDarkState.stored === "dark" &&
+      toggledDarkState.metaThemeColor === "#0b0d10" &&
+      reportDarkState.theme === "dark" &&
+      reportDarkState.stored === "dark" &&
+      reportDarkState.colorScheme.includes("dark") &&
+      reportDarkState.metaThemeColor === "#0b0d10",
+    `The Settings toggle should persist, update browser chrome, sync across tabs, and carry onto the report page. Measured ${JSON.stringify({ reportDarkState, toggledDarkState })}.`
+  );
+  await themeTogglePage.reload({ waitUntil: "domcontentloaded" });
+  await themeTogglePage.waitForSelector("#dark-mode-toggle", { state: "attached" });
+  assert(
+    await themeTogglePage.evaluate(() =>
+      document.documentElement.dataset.theme === "dark" &&
+      document.querySelector("#dark-mode-toggle")?.checked === true
+    ),
+    "A saved dark preference should be restored on reload."
+  );
+  await themeTogglePage.locator("#settings-button").click();
+  await themeTogglePage.locator('[data-language="zh"]').click();
+  await themeTogglePage.waitForFunction(() =>
+    document.querySelector("#settings-dark-mode-label")?.textContent === "深色模式"
+  );
+  assert(
+    (await themeTogglePage.locator("#dark-mode-toggle").getAttribute("aria-label")) === "深色模式",
+    "The dark-mode setting should localize its visible and accessible name in Chinese."
+  );
+  await themeToggleContext.close();
+
   const loadingContext = await browser.newContext();
   let releaseFixtures;
   const fixturesDelay = new Promise((resolve) => {
@@ -1959,7 +2128,9 @@ try {
   await loadingPage.goto(baseUrl, { waitUntil: "domcontentloaded" });
   await loadingPage.waitForSelector(".header-controls:not(.is-loading)");
   await loadingPage.locator("#settings-button").click();
-  await loadingPage.locator(".settings-toggle-control").click();
+  await loadingPage
+    .locator("label.settings-toggle-control:has(#show-yesterday-toggle)")
+    .click();
   assert(
     (await loadingPage.locator("#match-list .empty-state").count()) === 0,
     "Toggling Show yesterday during initial data load should not show the no-data report state."
@@ -5012,7 +5183,9 @@ try {
     await page.evaluate(() => document.querySelector("#show-yesterday-toggle")?.checked === false),
     "Closing the Past 24 hours banner should also turn off the Show past 24 hours setting."
   );
-  await page.locator(".settings-toggle-control").click();
+  await page
+    .locator("label.settings-toggle-control:has(#show-yesterday-toggle)")
+    .click();
   assert(
     (await page.locator(".yesterday-section").count()) === 1 &&
       (await page.evaluate(() => localStorage.getItem("world-cup-simplified-show-yesterday"))) === "true",
@@ -6555,6 +6728,9 @@ try {
   await japanSearchCheck.page.setViewportSize({ width: 390, height: 844 });
   const japanHistoryToggle = japanSearchCheck.page.locator('[data-team-history-toggle="true"]');
   const japanCollapsedHistoryLabel = (await japanHistoryToggle.innerText()).trim();
+  const japanCollapsedHistoryChevron = await japanHistoryToggle
+    .locator(".past-reveal-action")
+    .evaluate((action) => getComputedStyle(action, "::after").transform);
   assert(
     /^See previous World Cups \(\d+\)$/.test(japanCollapsedHistoryLabel) &&
       (await japanHistoryToggle.getAttribute("aria-expanded")) === "false",
@@ -6587,7 +6763,11 @@ try {
   );
   assert(
     (await japanHistoryToggle.innerText()).trim() === "Hide previous World Cups" &&
-      (await japanHistoryToggle.getAttribute("aria-expanded")) === "true",
+      (await japanHistoryToggle.getAttribute("aria-expanded")) === "true" &&
+      (await japanHistoryToggle
+        .locator(".past-reveal-action")
+        .evaluate((action) => getComputedStyle(action, "::after").transform)) !==
+        japanCollapsedHistoryChevron,
     "Expanded country history should offer to hide the previous World Cups."
   );
   await japanHistoryToggle.click();
@@ -6705,9 +6885,9 @@ try {
       desktopExpandedCardMetrics.footerTop >= desktopExpandedCardMetrics.viewportHeight &&
       Math.abs(desktopExpandedCardMetrics.top - 16) <= 1 &&
       Math.abs(desktopExpandedCardMetrics.bottomGap - 16) <= 2 &&
-      desktopExpandedCardMetrics.clientHeight > desktopSearchRevealMetrics.infoClientHeight + 100 &&
+      desktopExpandedCardMetrics.clientHeight >= desktopExpandedCardMetrics.viewportHeight - 34 &&
       desktopExpandedCardMetrics.transitionDuration !== "0s",
-    `The sticky desktop card should animate closer to the viewport bottom while both the site header and disclaimer are offscreen. Measured ${JSON.stringify(desktopExpandedCardMetrics)}.`
+    `The sticky desktop card should occupy the viewport-height rail while both the site header and disclaimer are offscreen. Measured ${JSON.stringify(desktopExpandedCardMetrics)}.`
   );
   const matchInfoScrollBeforeHoverSwitch = await desktopSearchRevealCheck.page
     .locator("#match-info")
@@ -6731,6 +6911,52 @@ try {
     matchInfoScrollBeforeHoverSwitch > 0,
     `The sticky card should have an internal scroll position to reset before previewing another row. Measured ${matchInfoScrollBeforeHoverSwitch}.`
   );
+  await desktopSearchRevealCheck.page.locator('[data-team-history-toggle="true"]').click();
+  await desktopSearchRevealCheck.page.evaluate(() => {
+    window.scrollTo({ top: document.documentElement.scrollHeight, behavior: "auto" });
+  });
+  await desktopSearchRevealCheck.page.waitForTimeout(360);
+  await desktopSearchRevealCheck.page.evaluate(() => {
+    window.scrollTo({ top: document.documentElement.scrollHeight, behavior: "auto" });
+  });
+  await desktopSearchRevealCheck.page.waitForFunction(() => {
+    const info = document.querySelector("#match-info");
+    const infoBounds = info?.getBoundingClientRect();
+    const footerBounds = document.querySelector(".site-footer")?.getBoundingClientRect();
+
+    return (
+      info?.classList.contains("is-footer-constrained") &&
+      infoBounds?.top >= 15 &&
+      footerBounds?.top < window.innerHeight &&
+      infoBounds?.bottom <= footerBounds.top - 15
+    );
+  });
+  const desktopCollapsedHistoryCardMetrics = await desktopSearchRevealCheck.page.evaluate(() => {
+    const info = document.querySelector("#match-info");
+    const infoBounds = info?.getBoundingClientRect();
+    const footerBounds = document.querySelector(".site-footer")?.getBoundingClientRect();
+
+    return {
+      bottom: infoBounds?.bottom ?? null,
+      clientHeight: info?.clientHeight ?? null,
+      constrained: info?.classList.contains("is-footer-constrained") || false,
+      docked: info?.classList.contains("is-viewport-docked") || false,
+      footerGap: infoBounds && footerBounds ? footerBounds.top - infoBounds.bottom : null,
+      footerTop: footerBounds?.top ?? null,
+      scrollHeight: info?.scrollHeight ?? null,
+      top: infoBounds?.top ?? null,
+      viewportHeight: window.innerHeight
+    };
+  });
+  assert(
+    desktopCollapsedHistoryCardMetrics.docked &&
+      desktopCollapsedHistoryCardMetrics.constrained &&
+      Math.abs(desktopCollapsedHistoryCardMetrics.top - 16) <= 1 &&
+      desktopCollapsedHistoryCardMetrics.footerTop < desktopCollapsedHistoryCardMetrics.viewportHeight &&
+      desktopCollapsedHistoryCardMetrics.footerGap >= 15 &&
+      desktopCollapsedHistoryCardMetrics.scrollHeight > desktopCollapsedHistoryCardMetrics.clientHeight,
+    `Collapsing previous World Cups should keep the tall desktop detail card pinned to the top while its bottom yields to the visible footer. Measured ${JSON.stringify(desktopCollapsedHistoryCardMetrics)}.`
+  );
   await desktopSearchRevealCheck.context.close();
 
   const desktopShortPageCardCheck = await openPageAtTime(
@@ -6750,14 +6976,21 @@ try {
   await desktopShortPageCardCheck.page.evaluate(() => {
     window.scrollTo({ top: document.documentElement.scrollHeight, behavior: "auto" });
   });
+  await desktopShortPageCardCheck.page.waitForTimeout(360);
+  await desktopShortPageCardCheck.page.evaluate(() => {
+    window.scrollTo({ top: document.documentElement.scrollHeight, behavior: "auto" });
+  });
   await desktopShortPageCardCheck.page.waitForFunction(() => {
     const info = document.querySelector("#match-info");
-    const bounds = info?.getBoundingClientRect();
+    const infoBounds = info?.getBoundingClientRect();
+    const footerBounds = document.querySelector(".site-footer")?.getBoundingClientRect();
 
     return (
       info?.classList.contains("is-viewport-docked") &&
-      info.clientHeight >= window.innerHeight - 34 &&
-      bounds?.bottom <= window.innerHeight + 1
+      info.classList.contains("is-footer-constrained") &&
+      infoBounds?.top >= 15 &&
+      footerBounds?.top < window.innerHeight &&
+      infoBounds?.bottom <= footerBounds.top - 15
     );
   });
   const desktopShortCardExpandedState = await desktopShortPageCardCheck.page.evaluate(() => {
@@ -6766,21 +6999,26 @@ try {
     const footerBounds = document.querySelector(".site-footer")?.getBoundingClientRect();
 
     return {
-      bottomGap: infoBounds ? Math.round(window.innerHeight - infoBounds.bottom) : null,
+      bottom: infoBounds?.bottom ?? null,
       clientHeight: info?.clientHeight ?? null,
+      constrained: info?.classList.contains("is-footer-constrained") || false,
       docked: info?.classList.contains("is-viewport-docked") || false,
+      footerGap: infoBounds && footerBounds ? footerBounds.top - infoBounds.bottom : null,
       footerTop: footerBounds?.top ?? null,
       scrollY: window.scrollY,
+      top: infoBounds?.top ?? null,
       viewportHeight: window.innerHeight
     };
   });
   assert(
     desktopShortCardExpandedState.docked &&
+      desktopShortCardExpandedState.constrained &&
       desktopShortCardExpandedState.scrollY > 0 &&
-      Math.abs(desktopShortCardExpandedState.bottomGap - 16) <= 2 &&
-      desktopShortCardExpandedState.clientHeight > desktopShortCardInitialHeight + 100 &&
-      desktopShortCardExpandedState.footerTop >= desktopShortCardExpandedState.viewportHeight,
-    `A short desktop match page should let its detail card grow into the footer-side gap after scrolling. Measured ${JSON.stringify({ desktopShortCardInitialHeight, desktopShortCardExpandedState })}.`
+      Math.abs(desktopShortCardExpandedState.top - 16) <= 1 &&
+      desktopShortCardExpandedState.clientHeight > desktopShortCardInitialHeight &&
+      desktopShortCardExpandedState.footerTop < desktopShortCardExpandedState.viewportHeight &&
+      desktopShortCardExpandedState.footerGap >= 15,
+    `A short desktop match page should grow its detail card into available space without letting the visible footer push the card above its sticky top. Measured ${JSON.stringify({ desktopShortCardInitialHeight, desktopShortCardExpandedState })}.`
   );
   await desktopShortPageCardCheck.context.close();
 

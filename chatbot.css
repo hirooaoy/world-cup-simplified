@@ -3093,3 +3093,732 @@ body.is-juggle-active .scout-pupil {
     opacity: 0.52;
   }
 }
+
+/* Dark theme -------------------------------------------------------------
+   Ball Boy keeps his black-and-white identity while sharing the app canvas
+   exactly, so the launcher and header feel native to the surrounding theme.
+   Raised UI keeps a quiet, blue-neutral night palette so flags, photos, pitch
+   diagrams, and football status colors remain truthful. */
+html[data-theme="dark"] .scout-widget {
+  --scout-dark-canvas: var(--background, #0b0d10);
+  --scout-dark-surface: #13161b;
+  --scout-dark-surface-raised: #1a1e24;
+  --scout-dark-surface-soft: #22272f;
+  --scout-dark-surface-hover: #2a3039;
+  --scout-dark-text: #f5f7fa;
+  --scout-dark-text-secondary: #b8c0cb;
+  --scout-dark-text-tertiary: #929caa;
+  --scout-dark-text-disabled: #727c89;
+  --scout-dark-border-subtle: #292f38;
+  --scout-dark-border: #3a424e;
+  --scout-dark-border-strong: #515c6b;
+  --scout-dark-focus: #73b7ff;
+  --scout-dark-danger: #ff7b82;
+  --scout-dark-success: #63d79a;
+  --scout-dark-inverse: #f5f7fa;
+  --scout-dark-on-inverse: #101318;
+  border-color: rgba(245, 247, 250, 0.2);
+  background: var(--scout-dark-canvas);
+  color-scheme: dark;
+}
+
+html[data-theme="dark"] .scout-widget:not(.is-open) {
+  border-color: rgba(245, 247, 250, 0.26);
+  box-shadow:
+    0 0 0 1px rgba(245, 247, 250, 0.2),
+    0 10px 30px rgba(0, 0, 0, 0.48),
+    0 0 25px rgba(245, 247, 250, 0.08);
+}
+
+html[data-theme="dark"] .scout-widget.is-open {
+  border-color: var(--scout-dark-border);
+  box-shadow:
+    0 30px 90px rgba(0, 0, 0, 0.58),
+    0 10px 34px rgba(0, 0, 0, 0.34),
+    0 0 0 1px rgba(245, 247, 250, 0.04);
+}
+
+html[data-theme="dark"] .scout-launcher,
+html[data-theme="dark"] .scout-face,
+html[data-theme="dark"] .scout-eye::before,
+html[data-theme="dark"] .scout-eye::after,
+html[data-theme="dark"] .scout-pupil {
+  background: var(--scout-dark-canvas);
+}
+
+html[data-theme="dark"] .scout-launcher:hover {
+  background: var(--scout-dark-surface-raised);
+}
+
+html[data-theme="dark"] .scout-panel,
+html[data-theme="dark"] .scout-conversation {
+  background: var(--scout-dark-canvas);
+  color: var(--scout-dark-text);
+}
+
+html[data-theme="dark"] .scout-header {
+  background: var(--scout-dark-canvas);
+  color: #ffffff;
+}
+
+html[data-theme="dark"] .scout-status {
+  color: rgba(255, 255, 255, 0.68);
+}
+
+html[data-theme="dark"] .scout-reset,
+html[data-theme="dark"] .scout-close {
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+}
+
+html[data-theme="dark"] .scout-reset:hover,
+html[data-theme="dark"] .scout-close:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+html[data-theme="dark"] .scout-conversation {
+  scrollbar-color: var(--scout-dark-border-strong) transparent;
+  scrollbar-width: thin;
+}
+
+html[data-theme="dark"] .scout-conversation::-webkit-scrollbar {
+  width: 10px;
+}
+
+html[data-theme="dark"] .scout-conversation::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+html[data-theme="dark"] .scout-conversation::-webkit-scrollbar-thumb {
+  border: 3px solid transparent;
+  border-radius: 999px;
+  background: var(--scout-dark-border-strong);
+  background-clip: padding-box;
+}
+
+html[data-theme="dark"] .scout-conversation::-webkit-scrollbar-thumb:hover {
+  background: #657184;
+  background-clip: padding-box;
+}
+
+html[data-theme="dark"] .scout-more {
+  border-top-color: var(--scout-dark-border-subtle);
+  background: var(--scout-dark-surface);
+  color: var(--scout-dark-text-secondary);
+}
+
+html[data-theme="dark"] .scout-more:hover {
+  background: var(--scout-dark-surface-hover);
+  color: var(--scout-dark-text);
+}
+
+html[data-theme="dark"] .scout-message,
+html[data-theme="dark"] .scout-answer-lead {
+  color: var(--scout-dark-text);
+}
+
+html[data-theme="dark"] .scout-message.is-assistant,
+html[data-theme="dark"] .scout-rule-intro,
+html[data-theme="dark"] .scout-answer-intro {
+  border-left-color: var(--scout-dark-text);
+}
+
+html[data-theme="dark"] .scout-message.is-user {
+  background: var(--scout-dark-inverse);
+  color: var(--scout-dark-on-inverse);
+}
+
+html[data-theme="dark"] .scout-speaker {
+  color: var(--scout-dark-text-tertiary);
+}
+
+html[data-theme="dark"] .scout-thinking-dots span {
+  background: var(--scout-dark-text-secondary);
+}
+
+html[data-theme="dark"] .scout-answer.is-error .scout-answer-intro {
+  border-left-color: var(--scout-dark-danger);
+}
+
+html[data-theme="dark"] .scout-answer.is-error .scout-speaker {
+  color: var(--scout-dark-danger);
+}
+
+html[data-theme="dark"] .scout-widget ::selection {
+  background: rgba(115, 183, 255, 0.34);
+  color: var(--scout-dark-text);
+}
+
+html[data-theme="dark"] .scout-launcher:focus-visible,
+html[data-theme="dark"] .scout-reset:focus-visible,
+html[data-theme="dark"] .scout-close:focus-visible,
+html[data-theme="dark"] .scout-more:focus-visible,
+html[data-theme="dark"] .scout-chip:focus-visible,
+html[data-theme="dark"] .scout-send:focus-visible,
+html[data-theme="dark"] .scout-settings-action:focus-visible,
+html[data-theme="dark"] .scout-settings-report:focus-visible,
+html[data-theme="dark"] .scout-followup:focus-visible,
+html[data-theme="dark"] .scout-key-players button:focus-visible,
+html[data-theme="dark"] .scout-help-grid button:focus-visible,
+html[data-theme="dark"] .scout-watch-card:focus-visible,
+html[data-theme="dark"] .scout-clarify-list button:focus-visible,
+html[data-theme="dark"] .scout-source-link:focus-visible,
+html[data-theme="dark"] .scout-highlight-link:focus-visible {
+  outline-color: var(--scout-dark-focus);
+}
+
+html[data-theme="dark"] .offside-card,
+html[data-theme="dark"] .scout-data-card {
+  border-color: var(--scout-dark-border);
+  background: var(--scout-dark-surface);
+}
+
+html[data-theme="dark"] .offside-direction,
+html[data-theme="dark"] .offside-summary-heading span,
+html[data-theme="dark"] .offside-legend {
+  color: var(--scout-dark-text-tertiary);
+}
+
+html[data-theme="dark"] .offside-moment,
+html[data-theme="dark"] .offside-summary-heading span:first-child {
+  background: var(--scout-dark-inverse);
+  color: var(--scout-dark-on-inverse);
+}
+
+/* Keep the pitch, markings, yellow line, players, ball, and semantic red/green
+   art in their authored colors; only the surrounding reading surfaces change. */
+html[data-theme="dark"] .offside-card figcaption,
+html[data-theme="dark"] .offside-steps p,
+html[data-theme="dark"] .offside-rule-summary > p:not(.offside-legend),
+html[data-theme="dark"] .offside-scenario > p,
+html[data-theme="dark"] .offside-quick-notes p,
+html[data-theme="dark"] .offside-explainers p {
+  color: var(--scout-dark-text-secondary);
+}
+
+html[data-theme="dark"] .offside-card figcaption strong,
+html[data-theme="dark"] .offside-steps strong,
+html[data-theme="dark"] .offside-scenario > p strong,
+html[data-theme="dark"] .offside-quick-notes strong,
+html[data-theme="dark"] .offside-explainers strong {
+  color: var(--scout-dark-text);
+}
+
+html[data-theme="dark"] .offside-steps li > span {
+  background: var(--scout-dark-surface-raised);
+  box-shadow: inset 0 0 0 1px var(--scout-dark-border);
+  color: var(--scout-dark-text-secondary);
+}
+
+html[data-theme="dark"] .offside-rule-summary,
+html[data-theme="dark"] .offside-explainers {
+  border-color: var(--scout-dark-border-subtle);
+}
+
+html[data-theme="dark"] .offside-scenario {
+  border-color: var(--scout-dark-border-subtle);
+  background: var(--scout-dark-surface-raised);
+}
+
+html[data-theme="dark"] .offside-scenario.is-offside .offside-scenario-heading > span {
+  color: var(--scout-dark-danger);
+}
+
+html[data-theme="dark"] .offside-scenario.is-onside .offside-scenario-heading > span {
+  color: var(--scout-dark-success);
+}
+
+html[data-theme="dark"] .offside-scenario-heading small {
+  color: var(--scout-dark-text-tertiary);
+}
+
+html[data-theme="dark"] .offside-quick-notes p {
+  border-color: var(--scout-dark-border-subtle);
+  background: rgba(34, 39, 47, 0.72);
+}
+
+html[data-theme="dark"] .scout-settings-action,
+html[data-theme="dark"] .scout-settings-report {
+  border-color: var(--scout-dark-border-strong);
+}
+
+html[data-theme="dark"] .scout-settings-action {
+  background: var(--scout-dark-inverse);
+  color: var(--scout-dark-on-inverse);
+}
+
+html[data-theme="dark"] .scout-settings-action:hover {
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.24);
+}
+
+html[data-theme="dark"] .scout-settings-action:disabled,
+html[data-theme="dark"] .scout-settings-action[aria-busy="true"] {
+  background: #6e7783;
+  color: #111419;
+  cursor: wait;
+  opacity: 0.66;
+}
+
+html[data-theme="dark"] .scout-settings-report {
+  background: var(--scout-dark-surface-raised);
+  color: var(--scout-dark-text);
+}
+
+html[data-theme="dark"] .scout-settings-report:hover {
+  background: var(--scout-dark-surface-hover);
+}
+
+html[data-theme="dark"] .scout-followup,
+html[data-theme="dark"] .scout-key-players button,
+html[data-theme="dark"] .scout-help-grid button,
+html[data-theme="dark"] .scout-watch-card,
+html[data-theme="dark"] .scout-clarify-list button,
+html[data-theme="dark"] .scout-chip {
+  border-color: var(--scout-dark-border);
+  background: var(--scout-dark-surface-raised);
+  color: var(--scout-dark-text);
+}
+
+html[data-theme="dark"] .scout-followup {
+  color: var(--scout-dark-text-secondary);
+}
+
+html[data-theme="dark"] .scout-followup:hover,
+html[data-theme="dark"] .scout-key-players button:hover,
+html[data-theme="dark"] .scout-help-grid button:hover,
+html[data-theme="dark"] .scout-watch-card:hover,
+html[data-theme="dark"] .scout-clarify-list button:hover,
+html[data-theme="dark"] .scout-chip:hover {
+  border-color: var(--scout-dark-border-strong);
+  background: var(--scout-dark-surface-hover);
+}
+
+html[data-theme="dark"] .scout-followup:disabled,
+html[data-theme="dark"] .scout-key-players button:disabled,
+html[data-theme="dark"] .scout-help-grid button:disabled,
+html[data-theme="dark"] .scout-watch-card:disabled,
+html[data-theme="dark"] .scout-clarify-list button:disabled,
+html[data-theme="dark"] .scout-chip:disabled {
+  border-color: var(--scout-dark-border-subtle);
+  background: var(--scout-dark-surface);
+  color: var(--scout-dark-text-disabled);
+  cursor: not-allowed;
+  opacity: 0.68;
+  transform: none;
+}
+
+html[data-theme="dark"] .scout-entity-header,
+html[data-theme="dark"] .scout-country-header,
+html[data-theme="dark"] .scout-stat-strip,
+html[data-theme="dark"] .scout-player-facts,
+html[data-theme="dark"] .scout-skill-section,
+html[data-theme="dark"] .scout-skill-flow,
+html[data-theme="dark"] .scout-country-card,
+html[data-theme="dark"] .scout-goal-balance,
+html[data-theme="dark"] .scout-stat-note,
+html[data-theme="dark"] .scout-country-card .scout-explainer,
+html[data-theme="dark"] .scout-top-scorer,
+html[data-theme="dark"] .scout-country-card .scout-key-players,
+html[data-theme="dark"] .scout-matchup-card,
+html[data-theme="dark"] .scout-matchup-prediction,
+html[data-theme="dark"] .scout-matchup-team,
+html[data-theme="dark"] .scout-fixture-pair,
+html[data-theme="dark"] .scout-match-meta,
+html[data-theme="dark"] .scout-scoreboard,
+html[data-theme="dark"] .scout-match-recap,
+html[data-theme="dark"] .scout-highlight-link,
+html[data-theme="dark"] .scout-rule-flow,
+html[data-theme="dark"] .scout-rule-card .scout-source-link {
+  background: var(--scout-dark-surface-raised);
+}
+
+html[data-theme="dark"] .scout-entity-copy h3,
+html[data-theme="dark"] .scout-country-header h3,
+html[data-theme="dark"] .scout-rule-card h3,
+html[data-theme="dark"] .scout-player-fact-row strong,
+html[data-theme="dark"] .scout-stat-strip strong,
+html[data-theme="dark"] .scout-goal-balance strong,
+html[data-theme="dark"] .scout-top-scorer strong,
+html[data-theme="dark"] .scout-matchup-team h3,
+html[data-theme="dark"] .scout-matchup-record strong,
+html[data-theme="dark"] .scout-prediction-row strong,
+html[data-theme="dark"] .scout-h2h-result > span.is-winner,
+html[data-theme="dark"] .scout-h2h-result > strong,
+html[data-theme="dark"] .scout-compact-team.is-winner,
+html[data-theme="dark"] .scout-score-value,
+html[data-theme="dark"] .scout-highlight-link,
+html[data-theme="dark"] .scout-rule-step strong,
+html[data-theme="dark"] .scout-rule-points strong,
+html[data-theme="dark"] .scout-help-grid button,
+html[data-theme="dark"] .scout-watch-card,
+html[data-theme="dark"] .scout-clarify-list button {
+  color: var(--scout-dark-text);
+}
+
+html[data-theme="dark"] .scout-entity-copy p,
+html[data-theme="dark"] .scout-country-header p,
+html[data-theme="dark"] .scout-entity-copy small,
+html[data-theme="dark"] .scout-player-fact-row span,
+html[data-theme="dark"] .scout-player-fact-row .scout-value-label em,
+html[data-theme="dark"] .scout-stat-strip span,
+html[data-theme="dark"] .scout-explainer > p:last-child,
+html[data-theme="dark"] .scout-player-watch-points,
+html[data-theme="dark"] .scout-country-card .scout-flow-step,
+html[data-theme="dark"] .scout-stat-note,
+html[data-theme="dark"] .scout-country-card .scout-form-result,
+html[data-theme="dark"] .scout-country-card .scout-form-result.is-win,
+html[data-theme="dark"] .scout-country-card .scout-form-result.is-shootout-win,
+html[data-theme="dark"] .scout-country-card .scout-form-result.is-loss,
+html[data-theme="dark"] .scout-country-card .scout-form-result.is-shootout-loss,
+html[data-theme="dark"] .scout-country-card .scout-form-result.is-draw,
+html[data-theme="dark"] .scout-prediction-row,
+html[data-theme="dark"] .scout-matchup-team header p,
+html[data-theme="dark"] .scout-matchup-record span,
+html[data-theme="dark"] .scout-matchup-goals,
+html[data-theme="dark"] .scout-matchup-styles,
+html[data-theme="dark"] .scout-matchup-history-summary,
+html[data-theme="dark"] .scout-h2h-result,
+html[data-theme="dark"] .scout-compact-score-center,
+html[data-theme="dark"] .scout-match-meta,
+html[data-theme="dark"] .scout-goal-row,
+html[data-theme="dark"] .scout-goal-row time,
+html[data-theme="dark"] .scout-goal-row small,
+html[data-theme="dark"] .scout-match-recap ul,
+html[data-theme="dark"] .scout-match-plans span,
+html[data-theme="dark"] .scout-highlight-link span,
+html[data-theme="dark"] .scout-rule-step span,
+html[data-theme="dark"] .scout-rule-points p,
+html[data-theme="dark"] .scout-help-grid small,
+html[data-theme="dark"] .scout-watch-card small,
+html[data-theme="dark"] .scout-watch-card em,
+html[data-theme="dark"] .scout-clarify-list span {
+  color: var(--scout-dark-text-secondary);
+}
+
+html[data-theme="dark"] .scout-stat-strip em,
+html[data-theme="dark"] .scout-section-label,
+html[data-theme="dark"] .scout-player-fact-section > .scout-section-label,
+html[data-theme="dark"] .scout-country-card .scout-section-label,
+html[data-theme="dark"] .scout-h2h-result > small,
+html[data-theme="dark"] .scout-compact-score-center small,
+html[data-theme="dark"] .scout-source-link,
+html[data-theme="dark"] .scout-rule-card .scout-source-link {
+  color: var(--scout-dark-text-tertiary);
+}
+
+html[data-theme="dark"] .scout-avatar {
+  background: var(--scout-dark-surface-soft);
+  color: var(--scout-dark-text-secondary);
+  box-shadow: inset 0 0 0 1px var(--scout-dark-border-subtle);
+}
+
+html[data-theme="dark"] .scout-avatar img,
+html[data-theme="dark"] .scout-team-flag,
+html[data-theme="dark"] .scout-inline-flag,
+html[data-theme="dark"] .scout-country-flag,
+html[data-theme="dark"] .scout-matchup-flag,
+html[data-theme="dark"] .scout-h2h-flag,
+html[data-theme="dark"] .scout-compact-flag,
+html[data-theme="dark"] .scout-score-flag,
+html[data-theme="dark"] .offside-pitch,
+html[data-theme="dark"] .offside-mini-pitch {
+  filter: none;
+}
+
+html[data-theme="dark"] .scout-avatar-flag {
+  border-color: var(--scout-dark-surface-raised);
+  background: var(--scout-dark-surface-raised);
+}
+
+html[data-theme="dark"] .scout-stat-strip,
+html[data-theme="dark"] .scout-player-facts,
+html[data-theme="dark"] .scout-player-fact-section + .scout-player-fact-section,
+html[data-theme="dark"] .scout-stat-strip > div + div,
+html[data-theme="dark"] .scout-player-fact-row > div + div,
+html[data-theme="dark"] .scout-skill-section,
+html[data-theme="dark"] .scout-skill-flow,
+html[data-theme="dark"] .scout-form-row,
+html[data-theme="dark"] .scout-top-scorer,
+html[data-theme="dark"] .scout-key-players,
+html[data-theme="dark"] .scout-matchup-history,
+html[data-theme="dark"] .scout-matchup-team + .scout-matchup-team,
+html[data-theme="dark"] .scout-matchup-record,
+html[data-theme="dark"] .scout-matchup-record span + span,
+html[data-theme="dark"] .scout-fixture-pair,
+html[data-theme="dark"] .scout-compact-fixture + .scout-compact-fixture,
+html[data-theme="dark"] .scout-match-meta,
+html[data-theme="dark"] .scout-shootout-line,
+html[data-theme="dark"] .scout-match-timeline,
+html[data-theme="dark"] .scout-match-recap,
+html[data-theme="dark"] .scout-match-plans,
+html[data-theme="dark"] .scout-match-plans > div > div + div,
+html[data-theme="dark"] .scout-highlight-link,
+html[data-theme="dark"] .scout-rule-points,
+html[data-theme="dark"] .scout-rule-points > div + div,
+html[data-theme="dark"] .scout-takeaway,
+html[data-theme="dark"] .scout-rule-card .scout-source-link {
+  border-color: var(--scout-dark-border-subtle);
+}
+
+html[data-theme="dark"] .scout-player-fact-section > .scout-section-label {
+  background: var(--scout-dark-surface-soft);
+}
+
+html[data-theme="dark"] .scout-explainer {
+  border-top-color: var(--scout-dark-border-subtle);
+  background: rgba(34, 39, 47, 0.68);
+}
+
+html[data-theme="dark"] .scout-player-watch-points li::marker {
+  color: var(--scout-dark-text-tertiary);
+}
+
+html[data-theme="dark"] .scout-flow-step,
+html[data-theme="dark"] .scout-rule-step {
+  background: var(--scout-dark-surface-soft);
+  color: var(--scout-dark-text-secondary);
+}
+
+html[data-theme="dark"] .scout-flow-arrow,
+html[data-theme="dark"] .scout-rule-arrow {
+  color: var(--scout-dark-text-tertiary);
+}
+
+html[data-theme="dark"] .scout-player-skill-list span {
+  border-color: var(--scout-dark-border);
+  background: var(--scout-dark-surface-soft);
+  color: var(--scout-dark-text-secondary);
+}
+
+html[data-theme="dark"] .scout-player-skill-list .player-card-loading-pill {
+  background: linear-gradient(
+    90deg,
+    var(--scout-dark-surface-soft) 0%,
+    #303741 45%,
+    var(--scout-dark-surface-soft) 100%
+  );
+  background-size: 220% 100%;
+}
+
+html[data-theme="dark"] .scout-goal-balance,
+html[data-theme="dark"] .scout-stat-note {
+  color: var(--scout-dark-text-secondary);
+}
+
+html[data-theme="dark"] .scout-goal-balance span {
+  color: var(--scout-dark-text-disabled);
+}
+
+html[data-theme="dark"] .scout-form-result {
+  background: #343b45;
+  color: var(--scout-dark-text);
+}
+
+html[data-theme="dark"] .scout-form-result.is-win,
+html[data-theme="dark"] .scout-form-result.is-shootout-win {
+  background: rgba(99, 215, 154, 0.18);
+  color: #8ce6b5;
+}
+
+html[data-theme="dark"] .scout-form-result.is-loss,
+html[data-theme="dark"] .scout-form-result.is-shootout-loss {
+  background: rgba(255, 123, 130, 0.18);
+  color: #ff9ca2;
+}
+
+html[data-theme="dark"] .scout-form-result.is-draw {
+  background: #343b45;
+  color: #c8ced6;
+}
+
+html[data-theme="dark"] .scout-country-card .scout-key-players button {
+  border-color: transparent;
+  background: transparent;
+  color: var(--scout-dark-text);
+  text-decoration-color: var(--scout-dark-border-strong);
+}
+
+html[data-theme="dark"] .scout-country-card .scout-key-players button:hover {
+  border-color: transparent;
+  background: transparent;
+  text-decoration-color: var(--scout-dark-text-secondary);
+}
+
+html[data-theme="dark"] .scout-prediction-row > div {
+  background: var(--scout-dark-surface-soft);
+}
+
+html[data-theme="dark"] .scout-prediction-row i {
+  background: var(--scout-dark-inverse);
+}
+
+html[data-theme="dark"] .scout-matchup-grid,
+html[data-theme="dark"] .scout-h2h-result {
+  border-color: var(--scout-dark-border-subtle);
+}
+
+html[data-theme="dark"] .scout-matchup-history {
+  background: var(--scout-dark-surface);
+}
+
+html[data-theme="dark"] .scout-h2h-result {
+  background: var(--scout-dark-surface-raised);
+}
+
+html[data-theme="dark"] .scout-scoreboard > div:not(.scout-score-value) {
+  color: var(--scout-dark-text-secondary);
+}
+
+html[data-theme="dark"] .scout-score-value > span:not(.scout-versus),
+html[data-theme="dark"] .scout-versus {
+  color: var(--scout-dark-text-disabled);
+}
+
+html[data-theme="dark"] .scout-shootout-line {
+  background: var(--scout-dark-inverse);
+  color: var(--scout-dark-on-inverse);
+}
+
+html[data-theme="dark"] .scout-goal-team {
+  background: var(--scout-dark-surface-soft);
+  color: var(--scout-dark-text-secondary);
+}
+
+html[data-theme="dark"] .scout-goal-dot {
+  background: var(--scout-dark-surface-soft);
+  color: var(--scout-dark-text);
+  box-shadow: inset 0 0 0 1px var(--scout-dark-border-subtle);
+}
+
+html[data-theme="dark"] .scout-goal-row:not(:last-child) .scout-goal-dot::after {
+  background: var(--scout-dark-border);
+}
+
+html[data-theme="dark"] .scout-source-link:hover,
+html[data-theme="dark"] .scout-highlight-link:hover {
+  color: var(--scout-dark-text);
+}
+
+html[data-theme="dark"] .scout-takeaway {
+  background: var(--scout-dark-surface-soft);
+  color: var(--scout-dark-text-secondary);
+}
+
+html[data-theme="dark"] .scout-takeaway::before {
+  background: var(--scout-dark-inverse);
+}
+
+html[data-theme="dark"] .scout-help-grid small,
+html[data-theme="dark"] .scout-watch-card small,
+html[data-theme="dark"] .scout-watch-card em,
+html[data-theme="dark"] .scout-clarify-list span {
+  color: var(--scout-dark-text-secondary);
+}
+
+html[data-theme="dark"] .scout-composer {
+  border-top-color: var(--scout-dark-border-subtle);
+  background: rgba(19, 22, 27, 0.98);
+}
+
+html[data-theme="dark"] .scout-input {
+  border-color: var(--scout-dark-border);
+  background: var(--scout-dark-surface-soft);
+  color: var(--scout-dark-text);
+  caret-color: var(--scout-dark-focus);
+}
+
+html[data-theme="dark"] .scout-input::placeholder {
+  color: var(--scout-dark-text-tertiary);
+  opacity: 1;
+}
+
+html[data-theme="dark"] .scout-input:hover {
+  border-color: var(--scout-dark-border-strong);
+}
+
+html[data-theme="dark"] .scout-input:focus {
+  border-color: var(--scout-dark-focus);
+  background: var(--scout-dark-surface-raised);
+  box-shadow: 0 0 0 3px rgba(115, 183, 255, 0.18);
+}
+
+html[data-theme="dark"] .scout-input:disabled {
+  border-color: var(--scout-dark-border-subtle);
+  background: var(--scout-dark-surface);
+  color: var(--scout-dark-text-disabled);
+  cursor: not-allowed;
+  opacity: 1;
+}
+
+html[data-theme="dark"] .scout-input[aria-invalid="true"] {
+  border-color: var(--scout-dark-danger);
+  box-shadow: 0 0 0 3px rgba(255, 123, 130, 0.16);
+}
+
+html[data-theme="dark"] .scout-input:-webkit-autofill,
+html[data-theme="dark"] .scout-input:-webkit-autofill:hover,
+html[data-theme="dark"] .scout-input:-webkit-autofill:focus {
+  border-color: var(--scout-dark-focus);
+  -webkit-text-fill-color: var(--scout-dark-text);
+  box-shadow: 0 0 0 1000px var(--scout-dark-surface-raised) inset;
+  caret-color: var(--scout-dark-focus);
+}
+
+html[data-theme="dark"] .scout-send {
+  background: var(--scout-dark-inverse);
+  color: var(--scout-dark-on-inverse);
+}
+
+html[data-theme="dark"] .scout-send:not(:disabled):hover {
+  background: #ffffff;
+  box-shadow: 0 7px 20px rgba(0, 0, 0, 0.28);
+}
+
+html[data-theme="dark"] .scout-send:disabled {
+  background: var(--scout-dark-surface-soft);
+  color: var(--scout-dark-text-disabled);
+  cursor: default;
+  opacity: 1;
+}
+
+html[data-theme="dark"] .scout-widget.is-open.is-keyboard-open {
+  border-color: var(--scout-dark-border);
+  box-shadow:
+    0 -14px 42px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(245, 247, 250, 0.04);
+}
+
+@media (hover: none) {
+  html[data-theme="dark"] .scout-followup:hover,
+  html[data-theme="dark"] .scout-key-players button:hover,
+  html[data-theme="dark"] .scout-help-grid button:hover,
+  html[data-theme="dark"] .scout-watch-card:hover,
+  html[data-theme="dark"] .scout-clarify-list button:hover,
+  html[data-theme="dark"] .scout-chip:hover,
+  html[data-theme="dark"] .scout-settings-action:hover,
+  html[data-theme="dark"] .scout-settings-report:hover,
+  html[data-theme="dark"] .scout-send:not(:disabled):hover {
+    transform: none;
+  }
+}
+
+@media (prefers-contrast: more) {
+  html[data-theme="dark"] .scout-widget {
+    --scout-dark-text-secondary: #d7dce3;
+    --scout-dark-text-tertiary: #bac2cd;
+    --scout-dark-border-subtle: #4b5665;
+    --scout-dark-border: #667386;
+    --scout-dark-border-strong: #8794a6;
+  }
+
+  html[data-theme="dark"] .scout-widget.is-open,
+  html[data-theme="dark"] .offside-card,
+  html[data-theme="dark"] .scout-data-card,
+  html[data-theme="dark"] .scout-input,
+  html[data-theme="dark"] .scout-chip,
+  html[data-theme="dark"] .scout-followup,
+  html[data-theme="dark"] .scout-settings-action,
+  html[data-theme="dark"] .scout-settings-report {
+    border-width: 2px;
+  }
+}

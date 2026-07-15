@@ -92,6 +92,7 @@ const UI_TEXT = {
     clearCountrySearch: "Clear country search",
     countrySearch: "Search country matches",
     groups: "Groups",
+    darkMode: "Dark mode",
     language: "Language",
     languageEnglish: "English",
     languageChinese: "Chinese",
@@ -135,6 +136,7 @@ const UI_TEXT = {
     clearCountrySearch: "清除国家队搜索",
     countrySearch: "搜索国家队比赛",
     groups: "小组",
+    darkMode: "深色模式",
     language: "语言",
     languageEnglish: "English",
     languageChinese: "中文",
@@ -3168,6 +3170,8 @@ const settingsPopover = document.querySelector("#settings-popover");
 const languageSwitch = document.querySelector("#language-switch");
 const languageButtons = document.querySelectorAll(".language-option");
 const settingsLanguageLabel = document.querySelector("#settings-language-label");
+const settingsDarkModeLabel = document.querySelector("#settings-dark-mode-label");
+const darkModeToggle = document.querySelector("#dark-mode-toggle");
 const timezoneLabel = document.querySelector(".timezone-label");
 const settingsYesterdayLabel = document.querySelector("#settings-yesterday-label");
 const showYesterdayToggle = document.querySelector("#show-yesterday-toggle");
@@ -6669,6 +6673,13 @@ function renderStaticText() {
   settingsButton?.setAttribute("aria-label", t("settings"));
   settingsButton?.setAttribute("title", t("settings"));
   settingsPopover?.setAttribute("aria-label", t("settings"));
+  if (settingsDarkModeLabel) {
+    settingsDarkModeLabel.textContent = t("darkMode");
+  }
+  if (darkModeToggle) {
+    darkModeToggle.checked = window.worldCupTheme?.getTheme() === "dark";
+    darkModeToggle.setAttribute("aria-label", t("darkMode"));
+  }
   if (settingsLanguageLabel) {
     settingsLanguageLabel.textContent = t("language");
   }
@@ -22465,17 +22476,29 @@ function updateMatchInfoViewportDockState() {
   const usesDesktopMatchLayout = window.matchMedia("(min-width: 1161px)").matches;
   const headerBounds = siteHeader?.getBoundingClientRect();
   const footerBounds = siteFooter?.getBoundingClientRect();
-  const matchListBounds = matchList.getBoundingClientRect();
-  const matchInfoBounds = matchInfo.getBoundingClientRect();
-  const matchInfoDefinesPageHeight = matchInfoBounds.height >= matchListBounds.height;
-  const shouldExpand =
+  const canDock =
     usesDesktopMatchLayout &&
     !viewPanels.matches.hidden &&
-    !matchInfo.hidden &&
-    headerBounds?.bottom <= 0 &&
-    (footerBounds?.top >= window.innerHeight || matchInfoDefinesPageHeight);
+    !matchInfo.hidden;
+  const shouldExpand = canDock && headerBounds?.bottom <= 0;
+  const shouldConstrainForFooter =
+    shouldExpand &&
+    Number.isFinite(footerBounds?.top) &&
+    footerBounds.top < window.innerHeight;
 
   matchInfo.classList.toggle("is-viewport-docked", Boolean(shouldExpand));
+  matchInfo.classList.toggle("is-footer-constrained", Boolean(shouldConstrainForFooter));
+
+  if (shouldConstrainForFooter) {
+    const viewportEdgeGap = 16;
+    const availableHeight = Math.max(
+      420,
+      Math.floor(footerBounds.top - viewportEdgeGap * 2)
+    );
+    matchInfo.style.setProperty("--match-info-footer-max-height", `${availableHeight}px`);
+  } else {
+    matchInfo.style.removeProperty("--match-info-footer-max-height");
+  }
 }
 
 function revealMatchInfoAfterSelection() {
@@ -24253,6 +24276,8 @@ function renderMatchInfoPrompt() {
   });
   matchInfo.replaceChildren();
   matchInfo.classList.remove("is-viewport-docked");
+  matchInfo.classList.remove("is-footer-constrained");
+  matchInfo.style.removeProperty("--match-info-footer-max-height");
   matchInfo.classList.add("is-hidden");
   matchInfo.hidden = true;
 }
@@ -27048,6 +27073,16 @@ languageButtons.forEach((button) => {
       setPendingLanguage("");
     });
   });
+});
+
+darkModeToggle?.addEventListener("change", () => {
+  window.worldCupTheme?.setTheme(darkModeToggle.checked ? "dark" : "light");
+});
+
+window.worldCupTheme?.subscribe(({ theme }) => {
+  if (darkModeToggle) {
+    darkModeToggle.checked = theme === "dark";
+  }
 });
 
 showYesterdayToggle?.addEventListener("change", () => {

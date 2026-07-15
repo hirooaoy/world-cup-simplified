@@ -34,8 +34,9 @@
     <meta name="theme-color" content="#ffffff" />
     <link rel="icon" type="image/svg+xml" href="assets/favicon.svg?v=2026-06-17-1209" />
     <link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=2026-06-17-1213" />
-    <link rel="stylesheet" href="styles.css?v=2026-07-14-search-pill-match-reveal-1" />
-    <link rel="stylesheet" href="chatbot.css?v=2026-07-15-mobile-bottom-reset-1" />
+    <script src="theme-init.js?v=2026-07-15-dark-mode-2"></script>
+    <link rel="stylesheet" href="styles.css?v=2026-07-15-dark-mode-2" />
+    <link rel="stylesheet" href="chatbot.css?v=2026-07-15-dark-mode-3" />
   </head>
   <body>
     <header class="site-header">
@@ -108,6 +109,11 @@
             <label class="settings-section settings-toggle-control">
               <span class="settings-label" id="settings-yesterday-label">Show past 24 hours</span>
               <input class="settings-toggle-input" id="show-yesterday-toggle" type="checkbox" checked>
+              <span class="settings-toggle-track" aria-hidden="true"></span>
+            </label>
+            <label class="settings-section settings-toggle-control">
+              <span class="settings-label" id="settings-dark-mode-label">Dark mode</span>
+              <input class="settings-toggle-input" id="dark-mode-toggle" type="checkbox">
               <span class="settings-toggle-track" aria-hidden="true"></span>
             </label>
           </div>
@@ -320,7 +326,7 @@
 
     <script type="module" src="clarity.js"></script>
     <script type="module" src="analytics.js"></script>
-    <script type="module" src="app.js?v=2026-07-15-desktop-card-grow-1"></script>
-    <script type="module" src="chatbot.js?v=2026-07-15-mobile-bottom-reset-1"></script>
+    <script type="module" src="app.js?v=2026-07-15-dark-mode-2"></script>
+    <script type="module" src="chatbot.js?v=2026-07-15-dark-mode-2"></script>
   </body>
 </html>

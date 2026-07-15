@@ -13,6 +13,12 @@ const BALL_BOY_DATA_URLS = {
 
 const COMPLETED_MATCH_STATUSES = new Set(["FT", "AET", "PEN"]);
 const COUNTABLE_PLAYER_STATUSES = new Set(["LIVE", "FT", "AET", "PEN"]);
+const BALL_BOY_SHORTHAND = new Map([
+  ["u", "you"],
+  ["ur", "your"],
+  ["wats", "what is"],
+  ["whos", "who is"]
+]);
 const EXTRA_TEAM_ALIASES = {
   BIH: ["bosnia"],
   CIV: ["ivory coast", "cote d ivoire"],
@@ -522,7 +528,7 @@ const BALL_BOY_PERSONALITY_REPLIES = [
     id: "identity",
     patterns: [
       /^(?:who|what) are you(?: really)?$/,
-      /^who r u$/,
+      /^who r you$/,
       /^(?:are you )?just (?:a )?ball boy$/,
       /^(?:tell me about|introduce) yourself$/
     ],
@@ -561,7 +567,7 @@ const BALL_BOY_PERSONALITY_REPLIES = [
   {
     id: "reality",
     patterns: [
-      /^(?:are you|are u|r u) real$/,
+      /^(?:are you|r you) real$/,
       /^are you (?:a )?(?:real person|bot|chatbot|ai)$/,
       /^do you (?:really )?exist$/
     ],
@@ -615,7 +621,7 @@ const BALL_BOY_PERSONALITY_REPLIES = [
   {
     id: "haaland-denial",
     patterns: [
-      /^(?:are you|are u|r u) (?:erling )?haaland(?: really)?$/,
+      /^(?:are you|r you) (?:erling )?haaland(?: really)?$/,
       /^(?:you are|you re) (?:erling )?haaland$/
     ],
     label: "Wrong person",
@@ -635,7 +641,7 @@ const BALL_BOY_PERSONALITY_REPLIES = [
   {
     id: "mood",
     patterns: [
-      /^(?:how are you|how are u)$/,
+      /^how are you$/,
       /^(?:how is|how s|hows) it going$/,
       /^you good$/
     ],
@@ -970,7 +976,7 @@ function canonicalizeChineseQuestion(value) {
 function normalizeBallBoyQuestion(value) {
   return canonicalizeChineseQuestion(value)
     .split(" ")
-    .map((token) => token === "u" ? "you" : token)
+    .flatMap((token) => (BALL_BOY_SHORTHAND.get(token) || token).split(" "))
     .join(" ");
 }
 

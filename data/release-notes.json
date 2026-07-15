@@ -1,6 +1,25 @@
 {
-  "updatedAt": "2026-07-15T09:54:22-07:00",
+  "updatedAt": "2026-07-15T11:41:57-07:00",
   "releases": [
+    {
+      "date": "2026-07-15",
+      "title": "Complete dark mode and steadier match details",
+      "titleZh": "完整深色模式与更稳定的比赛详情",
+      "highlights": [
+        "Settings now includes a Dark mode switch that follows the device on first visit, then remembers an explicit choice across reloads, tabs, and the Report issue page without a light flash.",
+        "Matches, standings, the tournament bracket, predictions, player cards, line-ups, loading states, popovers, native controls, the footer, and the report form now share a deliberately designed high-contrast midnight palette.",
+        "Ball Boy keeps its black-and-white identity while every conversation, football explainer, data card, composer state, and mobile layout now adapts cleanly to dark mode in both English and Chinese.",
+        "On desktop, the right match-detail card now stays anchored 16px from the top while growing or shrinking into genuinely available space, so the footer and collapsed or expanded World Cup history can no longer push its top off-screen.",
+        "The expanded World Cup-history control now points upward toward the records it will hide, and the desktop Report issue form sits 24px higher for more balanced vertical spacing without changing mobile layout or copy."
+      ],
+      "highlightsZh": [
+        "设置中现已加入“深色模式”开关：首次访问会跟随设备偏好，用户明确选择后则会在刷新、多个标签页和“报告问题”页面之间保持一致，并避免加载时闪现浅色界面。",
+        "比赛、积分榜、淘汰赛对阵图、预测、球员卡、阵容、加载状态、弹出层、原生控件、页脚和报告表单现在共用一套经过专门设计的高对比度深夜配色。",
+        "Ball Boy 保留标志性的黑白形象，同时对话、足球知识讲解、数据卡、输入区状态和移动端布局现在都会在中英文界面中完整适配深色模式。",
+        "在桌面端，右侧比赛详情卡现在始终与视口顶部保持16像素距离，并只在真正可用的空间内伸缩；页脚或展开、收起往届世界杯记录都不会再把卡片顶部推到屏幕之外。",
+        "展开后的世界杯历史记录控件现在会向上指向将被隐藏的内容；桌面端“报告问题”表单整体上移24像素，使垂直留白更均衡，同时不改变移动端布局或文案。"
+      ]
+    },
     {
       "date": "2026-07-15",
       "title": "Clearer history controls, roomier match details, and smarter Ball Boy shorthand",
