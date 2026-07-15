@@ -1480,7 +1480,10 @@ body.is-juggle-active .scout-pupil {
 .scout-inline-flag {
   width: 16px;
   height: 12px;
+  color: #0a0a0a;
+  filter: none;
   font-size: 13px;
+  opacity: 1;
 }
 
 .scout-avatar-flag {
@@ -1570,14 +1573,20 @@ body.is-juggle-active .scout-pupil {
   text-transform: none;
 }
 
-.scout-player-fact-row em {
-  max-width: 100%;
-  margin-top: 2px;
+.scout-player-fact-row .scout-value-label {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 3px;
+  white-space: nowrap;
+}
+
+.scout-player-fact-row .scout-value-label em {
   color: rgba(10, 10, 10, 0.56);
-  font-size: 9px;
+  font-size: inherit;
   font-style: normal;
   font-weight: 650;
-  line-height: 1.15;
+  letter-spacing: 0;
+  line-height: inherit;
 }
 
 .scout-stat-strip > div {
@@ -2937,6 +2946,11 @@ body.is-juggle-active .scout-pupil {
 }
 
 @media (max-width: 360px) {
+  .scout-player-fact-row > div {
+    padding-right: 9px;
+    padding-left: 9px;
+  }
+
   .scout-header {
     padding-right: 100px;
   }

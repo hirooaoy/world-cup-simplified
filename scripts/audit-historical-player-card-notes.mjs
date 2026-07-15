@@ -27,6 +27,18 @@ const forbiddenPhrases = [
   {
     pattern: /\bMatchday\s+\d+\b/i,
     message: "hide source matchday labels from reader-facing archive cards"
+  },
+  {
+    pattern: /\b(?:World Cup|tournament|match touchpoints?|scored|hat[ -]?trick)\b/i,
+    message: "keep historical results and achievements out of the evergreen play-style paragraph"
+  },
+  {
+    pattern: /\b\d+\s+(?:goals?|assists?|matches?)\b|\b(?:one|two|three|four|five|six|seven|eight|nine|ten) (?:goals?|assists?)\b/i,
+    message: "keep historical totals in the separate year-labeled stat row"
+  },
+  {
+    pattern: /\(\d+\s*[-–—]\s*\d+\s+(?:win|loss|tie)\)/i,
+    message: "keep archived scorelines out of the evergreen play-style paragraph"
   }
 ];
 
@@ -101,7 +113,7 @@ for (const [profileKey, profile] of Object.entries(profilesData.profiles || {}))
   if (countSentences(styleNote) > 3) {
     addIssue(issues, profileKey, "length", "styleNote has more than 3 sentences");
   }
-  if (styleNote.length > 260) {
+  if (styleNote.length > 255) {
     addIssue(issues, profileKey, "length", `styleNote is ${styleNote.length} characters`);
   }
   if (styleNoteZh && countSentences(styleNoteZh) > 3) {
@@ -115,6 +127,14 @@ for (const [profileKey, profile] of Object.entries(profilesData.profiles || {}))
   }
   if (/[A-Za-z]/.test(noteZh)) {
     addIssue(issues, profileKey, "latin-leak", "Chinese noteZh contains Latin letters");
+  }
+
+  const sentenceKeys = styleNote
+    .split(/[.!?]+/)
+    .map((sentence) => sentence.toLowerCase().replace(/\b(?:he|also)\b/g, " ").replace(/[^a-z0-9]+/g, " ").trim())
+    .filter(Boolean);
+  if (new Set(sentenceKeys).size !== sentenceKeys.length) {
+    addIssue(issues, profileKey, "repeated-action", "styleNote repeats the same explanation more than once");
   }
 
   for (const check of forbiddenPhrases) {

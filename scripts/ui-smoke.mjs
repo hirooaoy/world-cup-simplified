@@ -4350,15 +4350,17 @@ try {
       historicalScorerCardText.includes("Forward") &&
       historicalScorerCardText.includes("Ecuador 2022 World Cup archive") &&
       historicalScorerCardText.includes(
-        "Valencia made Ecuador's 2022 attack feel alive whenever the chance opened."
+        "Valencia stands out for attacking the space behind defenders before it fully opens."
       ) &&
       historicalScorerCardText.includes(
-        "He scored three times, including twice against Qatar (2-0 win) and a goal against Netherlands (1-1 tie)."
+        "He arrives on the move and gets his finish away before the nearest marker recovers."
       ) &&
+      historicalScorerCardText.includes("2022 World Cup: 3 goals") &&
       historicalScorerCardText.includes("2022 age 33") &&
       historicalScorerCardText.includes("Peak value €11m") &&
+      !historicalScorerCardText.includes("Qatar (2-0 win)") &&
       !historicalScorerCardText.includes("scored 2 goals in this match"),
-    "Historical player cards should use archive-style profile copy instead of raw match-event notes."
+    "Historical player cards should separate evergreen play-style copy from the fixed year-labeled stat row."
   );
   const historicalNarrativeHighlights = historicalResultHighlights.filter(
     (text) => !text.includes("16' Enner Valencia") && !text.includes("31' Enner Valencia")
@@ -4617,7 +4619,7 @@ try {
   await page.locator(".match-row").first().click();
   await page.waitForFunction(() =>
     [...document.querySelectorAll("#match-info .scorer-highlight .player-card")].some((card) =>
-      card.textContent.includes("Alberto's 1970 card belongs to the final stage for Brazil.")
+      card.textContent.includes("Alberto stands out for creating a clean shot before the defense can reset.")
     )
   );
   const scorerOnlyHistoricalLink = page.locator("#match-info .scorer-highlight .player-link", { hasText: "Carlos Alberto" }).first();
@@ -4630,10 +4632,11 @@ try {
   assert(
     scorerOnlyHistoricalCardText.includes("Carlos Alberto") &&
       scorerOnlyHistoricalCardText.includes("Brazil 1970 World Cup archive") &&
-      scorerOnlyHistoricalCardText.includes("Alberto's 1970 card belongs to the final stage for Brazil.") &&
-      scorerOnlyHistoricalCardText.includes("He scored against Italy in the Final (4-1 win).") &&
+      scorerOnlyHistoricalCardText.includes("Alberto stands out for creating a clean shot before the defense can reset.") &&
+      scorerOnlyHistoricalCardText.includes("1970 World Cup: 1 goal") &&
+      !scorerOnlyHistoricalCardText.includes("Italy in the Final (4-1 win)") &&
       !scorerOnlyHistoricalCardText.includes("Credited with 1 World Cup goal"),
-    "Historical scorer-only names should use the generated archive card profile."
+    "Historical scorer-only names should separate evergreen play-style copy from the fixed year-labeled stat row."
   );
 
   await page.goto(`${baseUrl}?view=matches&date=1930-07-13&tz=America%2FLos_Angeles`, {
@@ -6565,6 +6568,39 @@ try {
   );
   await japanSearchCheck.context.close();
 
+  const desktopSearchRevealCheck = await openPageAtTime(
+    "2026-07-14T23:00:00.000Z",
+    "/?view=matches&team=Spain&tz=America%2FLos_Angeles",
+    { contextOptions: { viewport: { width: 1440, height: 800 } } }
+  );
+  await desktopSearchRevealCheck.page.locator('[data-team-history-toggle="true"]').click();
+  const finalSpainArchiveRow = desktopSearchRevealCheck.page
+    .locator(".team-search-section.is-archive .match-row")
+    .last();
+  await finalSpainArchiveRow.scrollIntoViewIfNeeded();
+  const desktopSearchScrollBeforeSelection = await desktopSearchRevealCheck.page.evaluate(
+    () => window.scrollY
+  );
+  await finalSpainArchiveRow.click();
+  await desktopSearchRevealCheck.page.waitForFunction(() => window.scrollY <= 1);
+  const desktopSearchRevealMetrics = await desktopSearchRevealCheck.page.evaluate(() => {
+    const info = document.querySelector("#match-info")?.getBoundingClientRect();
+
+    return {
+      infoTop: info?.top ?? null,
+      scrollY: window.scrollY,
+      viewportHeight: window.innerHeight
+    };
+  });
+  assert(
+    desktopSearchScrollBeforeSelection > 100 &&
+      desktopSearchRevealMetrics.scrollY <= 1 &&
+      desktopSearchRevealMetrics.infoTop >= 0 &&
+      desktopSearchRevealMetrics.infoTop < desktopSearchRevealMetrics.viewportHeight,
+    `Choosing a desktop country-search row from deep in the archive should scroll back up to reveal the match detail card. Measured ${JSON.stringify({ desktopSearchScrollBeforeSelection, desktopSearchRevealMetrics })}.`
+  );
+  await desktopSearchRevealCheck.context.close();
+
   const franceSearchCheck = await openPageAtTime(
     "2026-07-14T23:00:00.000Z",
     "/?view=matches&team=France&tz=America%2FLos_Angeles"
@@ -7938,7 +7974,6 @@ try {
         cardZIndex: parseZIndex(card),
         href: pill?.getAttribute("href"),
         headerHasLive: header?.classList.contains("has-live") || false,
-        isClickedOpen: pill?.classList.contains("is-touch-tooltip-open") || false,
         label: pill?.textContent.replace(/\s+/g, " ").trim() || "",
         maxOverlappingCardZIndex: Math.max(0, ...overlappingCardZIndexes),
         overlappingCardCount: overlappingCards.length,
@@ -7970,7 +8005,6 @@ try {
         tournamentLiveTooltipState.title === null &&
         tournamentLiveTooltipState.tooltip === "FIFA snapshot: 5' · checked 3 min ago" &&
         tournamentLiveTooltipState.ariaLabel === "Live: FIFA snapshot: 5' · checked 3 min ago" &&
-        tournamentLiveTooltipState.isClickedOpen &&
         tournamentLiveTooltipState.tooltipContent.replace(/^"|"$/g, "").includes("FIFA snapshot: 5") &&
         tournamentLiveTooltipState.cardZIndex > tournamentLiveTooltipState.maxOverlappingCardZIndex,
       `Tournament-card Live pills should expose the same official match-time tooltip on hover and click without linking away. Measured ${JSON.stringify(tournamentLiveTooltipState)}.`
@@ -12891,6 +12925,8 @@ try {
     const answer = [...document.querySelectorAll(".scout-answer")].at(-1);
     const card = answer?.querySelector(".scout-player-card");
     const valueCell = card?.querySelector(".scout-player-fact-section:last-child .is-value");
+    const inlineFlag = card?.querySelector(".scout-inline-flag");
+    const inlineFlagStyle = inlineFlag ? getComputedStyle(inlineFlag) : null;
     const lead = answer?.querySelector(".scout-answer-lead")?.textContent.replace(/\s+/g, " ").trim() || "";
     const noteBlock = [...card?.querySelectorAll(".scout-explainer") || []].at(-1);
     const noteBullets = [...(noteBlock?.querySelectorAll(".scout-player-watch-points li") || [])]
@@ -12906,6 +12942,9 @@ try {
       conversationOverflow: conversation ? conversation.scrollWidth - conversation.clientWidth : null,
       followUpCount: answer?.querySelectorAll(".scout-followup").length,
       inlineFlagCount: card?.querySelectorAll(".scout-inline-flag").length,
+      inlineFlagColor: inlineFlagStyle?.color || "",
+      inlineFlagFilter: inlineFlagStyle?.filter || "",
+      inlineFlagOpacity: inlineFlagStyle?.opacity || "",
       lead,
       moreHidden: document.querySelector("#scout-more")?.hidden,
       note,
@@ -12915,9 +12954,8 @@ try {
       remaining: conversation
         ? conversation.scrollHeight - conversation.clientHeight - conversation.scrollTop
         : null,
-      rolePitchCount: card?.querySelectorAll(".scout-role-pitch").length || 0,
-      roleSummaryLabel: card?.querySelector(".scout-explainer .scout-section-label")?.textContent.trim() || "",
-      roleSummary: card?.querySelector(".scout-explainer > p:last-child")?.textContent.replace(/\s+/g, " ").trim() || "",
+      beginnerSectionCount: [...(card?.querySelectorAll(".scout-section-label") || [])]
+        .filter((item) => item.textContent.trim() === "Beginner version").length,
       scopes: [...(card?.querySelectorAll(".scout-player-fact-section > .scout-section-label") || [])]
         .map((item) => item.textContent.trim()),
       signatureArrowCount: card?.querySelectorAll(".scout-skill-section .scout-flow-arrow").length || 0,
@@ -12939,10 +12977,7 @@ try {
       haalandBallBoyMetrics.statCells[2] === "25 Age" &&
       haalandBallBoyMetrics.statCells[3] === "€200m Value" &&
       haalandBallBoyMetrics.valueTitle.includes("sourced public player data") &&
-      haalandBallBoyMetrics.rolePitchCount === 0 &&
-      haalandBallBoyMetrics.roleSummaryLabel === "Beginner version" &&
-      haalandBallBoyMetrics.roleSummary ===
-        "A striker leads the attack, but the role is not only about scoring. They occupy defenders, time runs into space, link with teammates, and create shots for themselves or others." &&
+      haalandBallBoyMetrics.beginnerSectionCount === 0 &&
       haalandBallBoyMetrics.signatureLabel === "Signature traits" &&
       haalandBallBoyMetrics.signatureArrowCount === 0 &&
       haalandBallBoyMetrics.signaturePillCount === 3 &&
@@ -12950,6 +12985,9 @@ try {
       haalandBallBoyMetrics.signatureWrap === "wrap" &&
       haalandBallBoyMetrics.avatarFlagCount === 0 &&
       haalandBallBoyMetrics.inlineFlagCount === 1 &&
+      haalandBallBoyMetrics.inlineFlagColor === "rgb(10, 10, 10)" &&
+      haalandBallBoyMetrics.inlineFlagFilter === "none" &&
+      haalandBallBoyMetrics.inlineFlagOpacity === "1" &&
       haalandBallBoyMetrics.note.startsWith("Haaland's edge is creating a clean shot before the defense can reset") &&
       haalandBallBoyMetrics.note.includes("He arrives in the box late enough to be difficult to track.") &&
       !/\b(?:World Cup|\d+ goals?|\d+ assists?)\b/i.test(haalandBallBoyMetrics.note) &&
@@ -13120,14 +13158,23 @@ try {
     const card = document.querySelector(".scout-player-card");
     const facts = card?.querySelector(".scout-player-facts");
     const valueCell = card?.querySelector(".scout-player-fact-section:last-child .is-value");
+    const valueLabel = valueCell?.querySelector(".scout-value-label");
+    const valueLabelStyle = valueLabel ? getComputedStyle(valueLabel) : null;
     return {
       statOverflow: facts ? facts.scrollWidth - facts.clientWidth : null,
       value: valueCell?.innerText.replace(/\s+/g, " ").trim() || "",
+      valueLabel: valueLabel?.textContent.replace(/\s+/g, " ").trim() || "",
+      valueLabelHeight: valueLabel?.getBoundingClientRect().height || 0,
+      valueLabelLineHeight: valueLabelStyle ? parseFloat(valueLabelStyle.lineHeight) : 0,
+      valueLabelWhiteSpace: valueLabelStyle?.whiteSpace || "",
       valueOverflow: valueCell ? valueCell.scrollWidth - valueCell.clientWidth : null
     };
   });
   assert(
-    estimatedValueMetrics.value === "€600k Est. value Prime €1.5m" &&
+    estimatedValueMetrics.value === "€600k Est. value (Prime €1.5m)" &&
+      estimatedValueMetrics.valueLabel === "Est. value (Prime €1.5m)" &&
+      estimatedValueMetrics.valueLabelWhiteSpace === "nowrap" &&
+      estimatedValueMetrics.valueLabelHeight <= estimatedValueMetrics.valueLabelLineHeight + 1 &&
       estimatedValueMetrics.statOverflow <= 1 &&
       estimatedValueMetrics.valueOverflow <= 1,
     `Ball Boy should label estimated and prime values without overflowing at 320px. Measured ${JSON.stringify(estimatedValueMetrics)}.`
@@ -13220,6 +13267,29 @@ try {
       countryRecordFocusMetrics.style === 0 &&
       countryRecordFocusMetrics.fixtures === 0,
     `A country-record question should show the record and goal balance without unrelated style, players, or fixtures. Measured ${JSON.stringify(countryRecordFocusMetrics)}.`
+  );
+
+  await touchPage.locator("#scout-reset").click();
+  await ballBoyInput.fill("Who do Argentina play next?");
+  await ballBoySend.click();
+  await touchPage.locator(".scout-match-card.is-focus-when").waitFor({ state: "visible" });
+  const nextFixtureMetrics = await touchPage.evaluate(() => {
+    const answer = [...document.querySelectorAll(".scout-answer.is-match")].at(-1);
+    return {
+      highlightLinks: answer?.querySelectorAll(".scout-highlight-link").length || 0,
+      lead: answer?.querySelector(".scout-answer-lead")?.textContent.trim() || "",
+      teams: [...(answer?.querySelectorAll(".scout-scoreboard strong") || [])]
+        .map((team) => team.textContent.trim()),
+      unrelatedSections: answer?.querySelectorAll(".scout-match-timeline, .scout-match-plans, .scout-match-recap, .scout-match-card > .scout-explainer").length || 0
+    };
+  });
+  assert(
+    nextFixtureMetrics.lead.startsWith("England vs Argentina:") &&
+      nextFixtureMetrics.lead.includes("Jul 15") &&
+      JSON.stringify(nextFixtureMetrics.teams) === JSON.stringify(["England", "Argentina"]) &&
+      nextFixtureMetrics.highlightLinks === 0 &&
+      nextFixtureMetrics.unrelatedSections === 0,
+    `Ball Boy should answer the exact Argentina next-match question without crashing on a missing highlight. Measured ${JSON.stringify(nextFixtureMetrics)}.`
   );
 
   await touchPage.locator("#scout-reset").click();
@@ -13599,6 +13669,7 @@ try {
         .map((item) => item.textContent.trim()),
       overflow: card.scrollWidth - card.clientWidth,
       text: card.innerText.replace(/\s+/g, " ").trim(),
+      valueLabel: card.querySelector(".is-value .scout-value-label")?.textContent.trim() || "",
       worldCupAria: card.querySelector(".scout-player-facts")?.getAttribute("aria-label") || ""
     };
   });
@@ -13608,11 +13679,12 @@ try {
       zhPlayerBallBoyMetrics.labels.includes("本届世界杯") &&
       zhPlayerBallBoyMetrics.labels.includes("球员资料") &&
       !zhPlayerBallBoyMetrics.labels.includes("常见活动区域") &&
-      zhPlayerBallBoyMetrics.labels.includes("新手版") &&
+      !zhPlayerBallBoyMetrics.labels.includes("新手版") &&
       zhPlayerBallBoyMetrics.labels.includes("标志性特点") &&
       zhPlayerBallBoyMetrics.noteBullets.length === 3 &&
       zhPlayerBallBoyMetrics.noteBullets.every((bullet) => bullet.length >= 16) &&
       !/[A-Za-z]/.test(zhPlayerBallBoyMetrics.noteBullets.join(" ")) &&
+      zhPlayerBallBoyMetrics.valueLabel === "身价（巅峰 €200m）" &&
       zhPlayerBallBoyMetrics.worldCupAria === "世界杯数据和球员资料" &&
       !/This World Cup|Player details|Usual role zone|Beginner version|Signature traits/.test(zhPlayerBallBoyMetrics.text) &&
       zhPlayerBallBoyMetrics.overflow <= 1,
@@ -13819,6 +13891,72 @@ try {
       explicitEnglishBallBoyLocale.saved === "en" &&
       explicitEnglishBallBoyLocale.status === "Ask me about football",
     `An explicit English URL should override the previously saved Chinese locale during Ball Boy initialization. Measured ${JSON.stringify(explicitEnglishBallBoyLocale)}.`
+  );
+
+  const availableTimeZoneCheck = await touchPage.locator("#timezone-select option").evaluateAll((options) => ({
+    count: options.length,
+    values: options.map((option) => option.value)
+  }));
+  assert(
+    availableTimeZoneCheck.count >= 300 &&
+      ["Asia/Tokyo", "America/Phoenix", "Pacific/Auckland", "Australia/Brisbane"]
+        .every((timeZone) => availableTimeZoneCheck.values.includes(timeZone)),
+    `Settings should derive hundreds of canonical IANA time zones from the browser. Measured ${JSON.stringify({ count: availableTimeZoneCheck.count, samples: availableTimeZoneCheck.values.filter((value) => ["Asia/Tokyo", "America/Phoenix", "Pacific/Auckland", "Australia/Brisbane"].includes(value)) })}.`
+  );
+
+  await touchPage.locator("#scout-launcher").click();
+  const timeZoneBallBoyInput = touchPage.locator("#scout-input");
+  const timeZoneBallBoySend = touchPage.locator(".scout-send");
+  await timeZoneBallBoyInput.fill("timezone to Phoenix");
+  await timeZoneBallBoySend.click();
+  const phoenixAction = touchPage.locator('[data-scout-setting-value="America/Phoenix"]');
+  await phoenixAction.waitFor({ state: "visible" });
+  assert(
+    (await phoenixAction.count()) === 1,
+    "Ball Boy should derive Phoenix from the browser's canonical IANA city list."
+  );
+
+  await touchPage.locator("#scout-reset").click();
+  await timeZoneBallBoyInput.fill("change timezone to Australia");
+  await timeZoneBallBoySend.click();
+  await touchPage.getByText("Which Australian time zone?", { exact: true }).waitFor({ state: "visible" });
+  const australianChoices = await touchPage.locator("[data-scout-setting-value]").evaluateAll((buttons) =>
+    buttons.map((button) => ({ label: button.textContent.trim(), value: button.dataset.scoutSettingValue }))
+  );
+  assert(
+    ["Australia/Sydney", "Australia/Brisbane", "Australia/Perth"]
+      .every((timeZone) => australianChoices.some((choice) => choice.value === timeZone)) &&
+      australianChoices.some((choice) => choice.label === "Sydney") &&
+      australianChoices.some((choice) => choice.label === "Brisbane") &&
+      australianChoices.some((choice) => choice.label === "Perth"),
+    `An ambiguous country should offer concise major-city choices. Measured ${JSON.stringify(australianChoices)}.`
+  );
+  await touchPage.locator('[data-scout-setting-value="Australia/Brisbane"]').click();
+  await touchPage.getByText(/Time zone changed to Australia\/Brisbane/).waitFor({ state: "visible" });
+  const australiaHistoryText = await touchPage.locator("#scout-messages").innerText();
+  assert(
+    australiaHistoryText.includes("change timezone to Australia") &&
+      australiaHistoryText.includes("Which Australian time zone?") &&
+      australiaHistoryText.includes("Time zone changed to Australia/Brisbane"),
+    `Selecting a country choice should append its result without rewriting chat history. Measured ${JSON.stringify(australiaHistoryText)}.`
+  );
+
+  await touchPage.locator("#scout-reset").click();
+  await timeZoneBallBoyInput.fill("change timezone to Springfield");
+  await timeZoneBallBoySend.click();
+  await touchPage.getByText(
+    "I couldn’t match “Springfield” to one time zone. Try a nearby major city or choose from Settings.",
+    { exact: true }
+  ).waitFor({ state: "visible" });
+  const unmatchedTimeZoneActions = await touchPage.locator(".scout-settings-actions").last().innerText();
+  assert(
+    unmatchedTimeZoneActions.includes("Open Settings") && unmatchedTimeZoneActions.includes("Report issue"),
+    `An unmatched location should offer Settings before escalating to a report. Measured ${JSON.stringify(unmatchedTimeZoneActions)}.`
+  );
+  await touchPage.locator("[data-scout-open-settings]").click();
+  assert(
+    await touchPage.locator("#settings-popover").isVisible(),
+    "Ball Boy's Open Settings action should reveal the real timezone picker."
   );
   await touchContext.close();
 

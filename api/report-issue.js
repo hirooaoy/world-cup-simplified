@@ -178,13 +178,19 @@ async function readJsonBody(request) {
 
 function normalizeReport(payload) {
   const typeLabels = {
-    "no-matches": "No matches found",
-    "wrong-match": "Wrong match details",
-    "wrong-standings": "Wrong standings",
-    other: "Other"
+    "match-score-schedule": "Match, score, or schedule",
+    "lineup-player": "Line-up or player information",
+    "prediction-standings": "Prediction or standings",
+    other: "Others"
+  };
+  const legacyTypeAliases = {
+    "no-matches": "match-score-schedule",
+    "wrong-match": "match-score-schedule",
+    "wrong-standings": "prediction-standings"
   };
   const requestedType = limitedString(payload.type, 40);
-  const type = Object.hasOwn(typeLabels, requestedType) ? requestedType : "other";
+  const normalizedType = legacyTypeAliases[requestedType] || requestedType;
+  const type = Object.hasOwn(typeLabels, normalizedType) ? normalizedType : "other";
   const date = isDayKey(payload.date) ? payload.date : "";
 
   return {

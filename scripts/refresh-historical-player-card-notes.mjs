@@ -128,6 +128,40 @@ const TARGET_SPOTLIGHTS_ZH = new Map([
   ]
 ]);
 
+const EVERGREEN_SPOTLIGHTS = new Map([
+  ["Lionel Messi / Argentina / 2022", "Messi controls attacks with close touches and an early picture of the next pass. He draws defenders toward the ball, then releases a runner or shifts into his own shooting lane."],
+  ["Kylian Mbappé / France / 2022", "Mbappé's defining weapon is acceleration once a defender turns toward his own goal. He attacks from the left, changes pace after the challenge is set, and finishes before the cover arrives."],
+  ["Ángel Di María / Argentina / 2022", "Di María carries the ball from wide areas on his left foot and changes the angle of an attack. He can beat the first defender, deliver early, or continue inside for the next combination."],
+  ["Emiliano Martínez / Argentina / 2022", "Martínez makes himself large in one-on-one chances and waits for the striker to reveal the finish. He also commands the box with the confidence that lets defenders hold a higher line."],
+  ["Luka Modrić / Croatia / 2018", "Modrić escapes pressure with his first touch and keeps seeing forward angles from central midfield. He changes tempo without forcing the pass and follows the ball to offer support again."],
+  ["Kylian Mbappé / France / 2018", "Mbappé attacks open grass with unusually quick acceleration and keeps control at top speed. He starts wide or off a striker, then races through the gap before the defense can turn."],
+  ["Antoine Griezmann / France / 2018", "Griezmann links midfield and attack by finding pockets around the main striker. He receives on the half-turn, combines quickly, and begins the press by closing the easiest pass."],
+  ["Paul Pogba / France / 2018", "Pogba combines physical strength with a passing range that can move an attack in one action. He protects the ball under pressure, looks up, and switches play beyond the nearest line."],
+  ["Ivan Perišić / Croatia / 2018", "Perišić is a two-footed wide attacker who can threaten outside or move into the box. He delivers early when the lane opens and attacks the far post when play develops opposite him."],
+  ["Guillermo Stábile / Argentina / 1930", "Stábile plays as a direct central forward who attacks space before defenders can settle. He stays ready between centre-backs and meets the final pass with minimal extra touches."],
+  ["Pedro Cea / Uruguay / 1930", "Cea brings inside-forward movement from midfield into the penalty area. He begins outside the main marking line, arrives late, and gives the passer a second central target."],
+  ["Héctor Castro / Uruguay / 1930", "Castro gives the attack a physical central reference without becoming static. He occupies centre-backs, protects direct passes, and turns toward goal when the second ball drops."],
+  ["Lucien Laurent / France / 1930", "Laurent plays as a forward who looks for the gap beside the central striker. He moves before the defense is set and tries to turn a loose attacking phase into a quick shot."],
+  ["Bert Patenaude / United States / 1930", "Patenaude is a penalty-area striker whose main strength is arriving where the next touch will fall. He stays central, separates from his marker, and finishes without delaying the move."]
+]);
+
+const EVERGREEN_SPOTLIGHTS_ZH = new Map([
+  ["Lionel Messi / Argentina / 2022", "梅西用细密触球和提前观察掌控进攻。他先把防守者吸引到球边，再送出跑动线路上的传球，或移动到自己的射门通道。"],
+  ["Kylian Mbappé / France / 2022", "姆巴佩最鲜明的武器，是防守者转向自家球门后的爆发加速。他从左侧发起冲击，等对手脚步固定后变速，并在协防到位前完成射门。"],
+  ["Ángel Di María / Argentina / 2022", "迪马利亚用左脚从边路带球，并改变进攻角度。他可以突破第一名防守者、提前传中，也可以继续内切参与下一次配合。"],
+  ["Emiliano Martínez / Argentina / 2022", "马丁内斯在单刀时会扩大封堵面积，并等前锋暴露射门选择。他也用自信指挥禁区，让后卫敢于保持更靠前的防线。"],
+  ["Luka Modrić / Croatia / 2018", "莫德里奇用第一脚触球摆脱压力，并不断从中场看到向前线路。他不勉强传球也能改变节奏，出球后还会继续移动提供支援。"],
+  ["Kylian Mbappé / France / 2018", "姆巴佩用极快加速攻击开放空间，而且高速中仍能控制住球。他可以从边路或中锋身后启动，在防线转身前穿过空当。"],
+  ["Antoine Griezmann / France / 2018", "格列兹曼通过寻找主中锋周围的空当连接中场与进攻。他会半转身接球、快速配合，并通过封住最简单传球来发起逼抢。"],
+  ["Paul Pogba / France / 2018", "博格巴把身体力量和大范围传球结合在一起，可以一次处理就改变进攻方向。他在压力下护住球，抬头观察，再把球转移到最近防线之外。"],
+  ["Ivan Perišić / Croatia / 2018", "佩里希奇是双脚都能制造威胁的边路攻击手，既能走外线也能进入禁区。传球线路打开时他会提前送球，球在另一侧发展时则攻击后点。"],
+  ["Guillermo Stábile / Argentina / 1930", "斯塔比莱是直接攻击空当的中锋，会在防守者站稳前启动。他始终在两名中后卫之间准备接应，并尽量减少终结前的多余触球。"],
+  ["Pedro Cea / Uruguay / 1930", "塞亚用从中场进入禁区的内锋跑动制造威胁。他先留在主要盯防线之外，再稍晚前插，为传球者提供第二个中路目标。"],
+  ["Héctor Castro / Uruguay / 1930", "卡斯特罗为进攻提供身体支点，但不会一直站在原地。他牵制中后卫、保护直接传球，并在二点球落下时转向球门。"],
+  ["Lucien Laurent / France / 1930", "洛朗会寻找中锋身旁的空当。他在防线站稳前移动，并尝试把松散的进攻阶段迅速变成射门。"],
+  ["Bert Patenaude / United States / 1930", "帕特诺德是禁区型前锋，主要强项是提前到达下一次触球可能落下的位置。他留在中路、摆脱盯防，并尽量不拖慢终结动作。"]
+]);
+
 const TEAM_ZH = new Map([
   ["Algeria", "阿尔及利亚"],
   ["Angola", "安哥拉"],
@@ -742,22 +776,171 @@ function buildAppearanceStyleNoteZh(profile, fact) {
   ]);
 }
 
-function buildStyleNote(profile, fact) {
-  const spotlight = TARGET_SPOTLIGHTS.get(profile.profileKey);
-  if (spotlight) return spotlight;
-  if (Number(profile.goals || 0) > 0 || fact.goalEvents.length) {
-    return buildGoalStyleNote(profile, fact);
+const NON_STYLE_SKILLS = new Set(["Historical lens", "Archive standout", "Starter", "Impact sub", "Player"]);
+
+function historicalStyleTraits(profile) {
+  const skills = refinedSkills(profile).filter((skill) => !NON_STYLE_SKILLS.has(skill));
+  const skillText = skills.join(" ").toLowerCase();
+  const role = roleLabel(profile.position);
+  const trait = (quality, action, qualityZh, actionZh) => ({ quality, action, qualityZh, actionZh });
+  const traits = [];
+  const add = (item) => {
+    if (!traits.some((existing) => existing.action === item.action)) traits.push(item);
+  };
+
+  if (/shot stopping/.test(skillText) || role === "goalkeeper") {
+    add(trait(
+      "staying balanced until the shot reveals its direction",
+      "sets his feet early and reacts with as few extra movements as possible",
+      "射门方向明确前的身体平衡",
+      "提前站稳脚步，用尽量少的多余动作完成扑救"
+    ));
+    add(trait(
+      "judging danger in the crowded space around goal",
+      "protects the centre of goal first and leaves his line only when he can reach the ball",
+      "对门前拥挤区域危险的判断",
+      "先保护球门中央，确认能触球时才选择出击"
+    ));
   }
-  return buildAppearanceStyleNote(profile, fact);
+  if (/wing back/.test(skillText)) {
+    add(trait(
+      "covering the outside lane at both ends of the pitch",
+      "chooses his forward run only after the space behind him is protected",
+      "对球场两端边路通道的覆盖",
+      "确认身后空间有人保护后再选择前插"
+    ));
+  }
+  if (/second striker/.test(skillText)) {
+    add(trait(
+      "finding pockets around the main striker",
+      "moves away from the centre-backs so he can receive facing goal",
+      "对主中锋周围接球空当的寻找",
+      "主动离开中后卫身边，争取面向球门接球"
+    ));
+  }
+  if (/runs in behind|right forward|left forward/.test(skillText) || (role === "forward" && !traits.length)) {
+    add(trait(
+      "attacking the space behind defenders before it fully opens",
+      "starts his run while the back line is still watching the ball",
+      "对防线身后空当的提前攻击",
+      "趁后防线仍盯着球时提前启动"
+    ));
+  }
+  if (/tempo control/.test(skillText) || (role === "midfielder" && !traits.length)) {
+    add(trait(
+      "shaping the pace of the game from midfield",
+      "offers a passing angle before the ball arrives and keeps the next decision simple",
+      "对中场比赛节奏的掌控",
+      "球到之前先提供传球角度，并让下一步处理保持简单"
+    ));
+  }
+  if (/physical duels/.test(skillText) || (role === "defender" && !traits.length)) {
+    add(trait(
+      "using contact without losing his defensive position",
+      "stays goal-side, waits for a loose touch, and then commits to the duel",
+      "身体对抗中的防守位置",
+      "先站在球门一侧，等对手触球稍大后再投入对抗"
+    ));
+  }
+  if (/goal threat/.test(skillText)) {
+    add(trait(
+      "creating a clean shot before the defense can reset",
+      "arrives on the move and gets his finish away before the nearest marker recovers",
+      "防线重组前制造干净射门的能力",
+      "移动中进入射门位置，并在最近的盯防者回位前完成终结"
+    ));
+  }
+  if (/penalty pressure/.test(skillText)) {
+    add(trait(
+      "keeping his technique repeatable in set-piece moments",
+      "slows the approach, fixes his balance, and strikes without rushing",
+      "定位球时稳定可重复的技术动作",
+      "放慢助跑、稳住身体，再从容完成击球"
+    ));
+  }
+  if (/defensive control/.test(skillText)) {
+    add(trait(
+      "protecting the route to goal before chasing the ball",
+      "holds the dangerous lane until a teammate can apply pressure",
+      "对通向球门路线的优先保护",
+      "守住危险线路，直到队友能对持球人施压"
+    ));
+  }
+
+  if (!traits.length) {
+    if (role === "goalkeeper") {
+      add(trait("calm positioning in goal", "stays set and makes the save with economical movement", "门前冷静的站位", "保持准备姿势，用简洁动作完成扑救"));
+    } else if (role === "defender") {
+      add(trait("making the safe defensive decision early", "protects the central lane before stepping toward the ball", "提前做出稳妥的防守判断", "上抢前先保护中路线路"));
+    } else if (role === "midfielder") {
+      add(trait("creating a better angle for the next pass", "moves after releasing the ball so the receiver still has support", "为下一脚传球制造更好角度", "出球后继续移动，让接球队友仍有支援"));
+    } else {
+      add(trait("purposeful movement away from the ball", "changes position early enough to give the passer a clear target", "有目的的无球移动", "提前改变位置，为传球队友提供清晰目标"));
+    }
+  }
+
+  const roleFallbacks = {
+    goalkeeper: trait("handling pressure around goal", "claims the ball when possible and pushes danger away when it is not", "处理门前压力", "能稳稳拿球时直接控制，无法控制时把危险击离门前"),
+    defender: trait("keeping the defensive line connected", "checks the runner over his shoulder before the final pass arrives", "保持后防线连接", "最后一传到来前回头确认跑动者的位置"),
+    midfielder: trait("supporting the player in possession", "moves after passing so the team keeps a nearby outlet", "支援持球队友", "传球后继续移动，让球队始终保留近距离出球点"),
+    forward: trait("giving the passer a target under pressure", "uses his body to protect the ball and brings a teammate into the move", "在压力下为传球者提供目标", "用身体护住球，再让队友加入进攻"),
+    player: trait("making the next action easier for a teammate", "moves into a clear supporting angle before pressure arrives", "让队友的下一步处理更轻松", "压力到来前移动到清晰的接应角度")
+  };
+  add(roleFallbacks[role] || roleFallbacks.player);
+  return traits.slice(0, 3);
+}
+
+function historicalThirdTrait(role) {
+  if (role === "goalkeeper") {
+    return { action: "starts the next phase with the simplest safe restart", actionZh: "用最简单稳妥的方式发动下一阶段" };
+  }
+  if (role === "defender") {
+    return { action: "clears danger toward a safe area rather than back into pressure", actionZh: "把危险球解围到安全区域，而不是重新送回压力中" };
+  }
+  if (role === "midfielder") {
+    return { action: "receives side-on so his next pass can move forward", actionZh: "侧身接球，让下一脚传球可以向前发展" };
+  }
+  if (role === "forward") {
+    return { action: "gets his shot away before the nearest defender can reset", actionZh: "在最近的防守者回位前完成射门" };
+  }
+  return { action: "keeps his first touch close enough to make the next action simple", actionZh: "把第一脚触球控制在身边，让下一步处理更简单" };
+}
+
+function buildEvergreenStyleNote(profile) {
+  const name = shortName(profile);
+  const traits = historicalStyleTraits(profile);
+  const primary = traits[0];
+  const second = traits[1] || traits[0];
+  const third = traits[2] || historicalThirdTrait(roleLabel(profile.position));
+  const variants = [
+    `${name} stands out for ${primary.quality}. He ${second.action}. He ${third.action}.`,
+    `${name}'s style is built around ${primary.quality}. He ${second.action}. He ${third.action}.`,
+    `Watch ${name} for ${primary.quality}. He ${second.action}. He ${third.action}.`,
+    `${name}'s edge is ${primary.quality}. He ${second.action}. He ${third.action}.`
+  ];
+  return variants[stableHash(profile.profileKey) % variants.length];
+}
+
+function buildEvergreenStyleNoteZh(profile) {
+  const traits = historicalStyleTraits(profile);
+  const primary = traits[0];
+  const second = traits[1] || traits[0];
+  const third = traits[2] || historicalThirdTrait(roleLabel(profile.position));
+  const variants = [
+    `他的突出特点是${primary.qualityZh}。他会${second.actionZh}。他也会${third.actionZh}。`,
+    `他的比赛方式建立在${primary.qualityZh}上。他会${second.actionZh}。他也会${third.actionZh}。`,
+    `要看懂他的作用，关键是${primary.qualityZh}。留意他如何${second.actionZh}。他也会${third.actionZh}。`,
+    `他最特别的地方是${primary.qualityZh}。他会${second.actionZh}。他也会${third.actionZh}。`
+  ];
+  return variants[stableHash(profile.profileKey) % variants.length];
+}
+
+function buildStyleNote(profile, fact) {
+  return EVERGREEN_SPOTLIGHTS.get(profile.profileKey) || buildEvergreenStyleNote(profile);
 }
 
 function buildStyleNoteZh(profile, fact) {
-  const spotlight = TARGET_SPOTLIGHTS_ZH.get(profile.profileKey);
-  if (spotlight) return spotlight;
-  if (Number(profile.goals || 0) > 0 || fact.goalEvents.length) {
-    return buildGoalStyleNoteZh(profile, fact);
-  }
-  return buildAppearanceStyleNoteZh(profile, fact);
+  return EVERGREEN_SPOTLIGHTS_ZH.get(profile.profileKey) || buildEvergreenStyleNoteZh(profile);
 }
 
 function buildNote(profile, fact) {

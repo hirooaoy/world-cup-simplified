@@ -4,7 +4,7 @@ import {
   preloadBallBoyCore,
   rememberBallBoyReply,
   resetBallBoyContext
-} from "./chatbot-knowledge.js?v=2026-07-14-player-watch-bullets-1";
+} from "./chatbot-knowledge.js?v=2026-07-14-next-fixture-replies-1";
 
 const SCOUT_PUPIL_TRAVEL = 3.6;
 const SCOUT_REPLY_DELAY_MS = 650;
@@ -73,7 +73,6 @@ const SCOUT_COPY = {
     estimatedValueTitle: "Estimated market value based on sourced public player data.",
     valueTitle: "Market value from sourced public player data.",
     prime: "Prime",
-    beginnerVersion: "Beginner version",
     signatureTraits: "Signature traits",
     threeTraits: "Three signature traits",
     readPlay: "Read the play",
@@ -140,8 +139,12 @@ const SCOUT_COPY = {
     watchListTitle: "Players to watch",
     languageActionIntro: "I can do that. You can also change your language from the Settings icon in the top right.",
     timeZoneActionIntro: "I can do that. You can also change your time zone from the Settings icon in the top right.",
+    timeZoneClarification: "Which time zone would you like to use? You can also change it from the Settings icon in the top right.",
+    timeZoneRegionClarification: (region) => `Which ${region} time zone?`,
+    timeZoneUnmatched: (location) => `I couldn’t match “${location}” to one time zone. Try a nearby major city or choose from Settings.`,
     switchLanguage: (language) => `Switch to ${language}`,
     switchTimeZone: (timeZone) => `Switch to ${timeZone}`,
+    openSettings: "Open Settings",
     languageAlreadySet: (language) => `You’re already using ${language}. You can also change your language from the Settings icon in the top right.`,
     timeZoneAlreadySet: (timeZone) => `You’re already using ${timeZone}. You can also change your time zone from the Settings icon in the top right.`,
     languageChanged: (language) => `Language changed to ${language}.`,
@@ -196,7 +199,6 @@ const SCOUT_COPY = {
     estimatedValueTitle: "依据已注明来源的公开球员资料估算。",
     valueTitle: "身价数据来自已注明来源的公开球员资料。",
     prime: "巅峰",
-    beginnerVersion: "新手版",
     signatureTraits: "标志性特点",
     threeTraits: "三项标志性特点",
     readPlay: "阅读比赛",
@@ -263,8 +265,12 @@ const SCOUT_COPY = {
     watchListTitle: "值得关注的球员",
     languageActionIntro: "可以。你也可以通过右上角的设置图标更改语言。",
     timeZoneActionIntro: "可以。你也可以通过右上角的设置图标更改时区。",
+    timeZoneClarification: "你想使用哪个时区？也可以通过右上角的设置图标更改时区。",
+    timeZoneRegionClarification: (region) => `${region}的哪个时区？`,
+    timeZoneUnmatched: (location) => `我无法将“${location}”对应到唯一时区。请尝试附近的大城市，或前往设置中选择。`,
     switchLanguage: (language) => `切换到${language}`,
     switchTimeZone: (timeZone) => `切换到${timeZone}`,
+    openSettings: "打开设置",
     languageAlreadySet: (language) => `你已在使用${language}。也可以通过右上角的设置图标更改语言。`,
     timeZoneAlreadySet: (timeZone) => `你已在使用${timeZone}。也可以通过右上角的设置图标更改时区。`,
     languageChanged: (language) => `语言已切换为${language}。`,
@@ -308,6 +314,14 @@ const SCOUT_UNSUPPORTED_LANGUAGE_NAMES = {
   阿拉伯语: "阿拉伯语"
 };
 const SCOUT_TIME_ZONE_ALIASES = {
+  california: "America/Los_Angeles",
+  "bay area": "America/Los_Angeles",
+  "san francisco bay area": "America/Los_Angeles",
+  "west coast": "America/Los_Angeles",
+  加州: "America/Los_Angeles",
+  加利福尼亚: "America/Los_Angeles",
+  湾区: "America/Los_Angeles",
+  美国西海岸: "America/Los_Angeles",
   la: "America/Los_Angeles",
   "los angeles": "America/Los_Angeles",
   pacific: "America/Los_Angeles",
@@ -318,15 +332,153 @@ const SCOUT_TIME_ZONE_ALIASES = {
   "central time": "America/Chicago",
   eastern: "America/New_York",
   "eastern time": "America/New_York",
+  "east coast": "America/New_York",
+  美国东海岸: "America/New_York",
   uk: "Europe/London",
   "uk time": "Europe/London",
+  britain: "Europe/London",
+  "great britain": "Europe/London",
+  英国: "Europe/London",
   china: "Asia/Shanghai",
   "china time": "Asia/Shanghai",
+  中国: "Asia/Shanghai",
   india: "Asia/Kolkata",
   "india time": "Asia/Kolkata",
+  印度: "Asia/Kolkata",
   japan: "Asia/Tokyo",
-  "japan time": "Asia/Tokyo"
+  "japan time": "Asia/Tokyo",
+  日本: "Asia/Tokyo"
 };
+const SCOUT_TIME_ZONE_GROUPS = [
+  {
+    aliases: ["america", "us", "usa", "united states", "united states of america", "美国", "美利坚合众国"],
+    label: "United States",
+    labelZh: "美国",
+    options: [
+      ["America/Los_Angeles", "Los Angeles", "洛杉矶"],
+      ["America/Denver", "Denver", "丹佛"],
+      ["America/Chicago", "Chicago", "芝加哥"],
+      ["America/New_York", "New York", "纽约"],
+      ["America/Phoenix", "Phoenix", "菲尼克斯"],
+      ["America/Anchorage", "Anchorage", "安克雷奇"],
+      ["Pacific/Honolulu", "Honolulu", "檀香山"]
+    ]
+  },
+  {
+    aliases: ["australia", "australian", "澳大利亚", "澳洲"],
+    label: "Australian",
+    labelZh: "澳大利亚",
+    options: [
+      ["Australia/Sydney", "Sydney", "悉尼"],
+      ["Australia/Brisbane", "Brisbane", "布里斯班"],
+      ["Australia/Adelaide", "Adelaide", "阿德莱德"],
+      ["Australia/Darwin", "Darwin", "达尔文"],
+      ["Australia/Perth", "Perth", "珀斯"]
+    ]
+  },
+  {
+    aliases: ["canada", "canadian", "加拿大"],
+    label: "Canadian",
+    labelZh: "加拿大",
+    options: [
+      ["America/Vancouver", "Vancouver", "温哥华"],
+      ["America/Edmonton", "Edmonton", "埃德蒙顿"],
+      ["America/Winnipeg", "Winnipeg", "温尼伯"],
+      ["America/Toronto", "Toronto", "多伦多"],
+      ["America/Halifax", "Halifax", "哈利法克斯"],
+      ["America/St_Johns", "St. John’s", "圣约翰斯"]
+    ]
+  },
+  {
+    aliases: ["brazil", "brazilian", "巴西"],
+    label: "Brazilian",
+    labelZh: "巴西",
+    options: [
+      ["America/Noronha", "Fernando de Noronha", "费尔南多-迪诺罗尼亚"],
+      ["America/Sao_Paulo", "São Paulo", "圣保罗"],
+      ["America/Cuiaba", "Cuiabá", "库亚巴"],
+      ["America/Manaus", "Manaus", "马瑙斯"],
+      ["America/Rio_Branco", "Rio Branco", "里奥布兰科"]
+    ]
+  },
+  {
+    aliases: ["mexico", "mexican", "墨西哥"],
+    label: "Mexican",
+    labelZh: "墨西哥",
+    options: [
+      ["America/Tijuana", "Tijuana", "蒂华纳"],
+      ["America/Chihuahua", "Chihuahua", "奇瓦瓦"],
+      ["America/Mexico_City", "Mexico City", "墨西哥城"],
+      ["America/Cancun", "Cancún", "坎昆"]
+    ]
+  },
+  {
+    aliases: ["indonesia", "indonesian", "印度尼西亚", "印尼"],
+    label: "Indonesian",
+    labelZh: "印度尼西亚",
+    options: [
+      ["Asia/Jakarta", "Jakarta", "雅加达"],
+      ["Asia/Makassar", "Makassar", "望加锡"],
+      ["Asia/Jayapura", "Jayapura", "查亚普拉"]
+    ]
+  },
+  {
+    aliases: ["russia", "russian federation", "俄罗斯"],
+    label: "Russian",
+    labelZh: "俄罗斯",
+    options: [
+      ["Europe/Kaliningrad", "Kaliningrad", "加里宁格勒"],
+      ["Europe/Moscow", "Moscow", "莫斯科"],
+      ["Asia/Yekaterinburg", "Yekaterinburg", "叶卡捷琳堡"],
+      ["Asia/Omsk", "Omsk", "鄂木斯克"],
+      ["Asia/Krasnoyarsk", "Krasnoyarsk", "克拉斯诺亚尔斯克"],
+      ["Asia/Irkutsk", "Irkutsk", "伊尔库茨克"],
+      ["Asia/Yakutsk", "Yakutsk", "雅库茨克"],
+      ["Asia/Vladivostok", "Vladivostok", "符拉迪沃斯托克"],
+      ["Asia/Kamchatka", "Kamchatka", "堪察加"]
+    ]
+  },
+  {
+    aliases: ["chile", "chilean", "智利"],
+    label: "Chilean",
+    labelZh: "智利",
+    options: [
+      ["America/Santiago", "Santiago", "圣地亚哥"],
+      ["Pacific/Easter", "Easter Island", "复活节岛"]
+    ]
+  },
+  {
+    aliases: ["ecuador", "ecuadorian", "厄瓜多尔"],
+    label: "Ecuadorian",
+    labelZh: "厄瓜多尔",
+    options: [
+      ["America/Guayaquil", "Guayaquil", "瓜亚基尔"],
+      ["Pacific/Galapagos", "Galápagos", "加拉帕戈斯"]
+    ]
+  },
+  {
+    aliases: ["portugal", "portuguese time", "葡萄牙"],
+    label: "Portuguese",
+    labelZh: "葡萄牙",
+    options: [
+      ["Europe/Lisbon", "Lisbon", "里斯本"],
+      ["Atlantic/Madeira", "Madeira", "马德拉"],
+      ["Atlantic/Azores", "Azores", "亚速尔群岛"]
+    ]
+  },
+  {
+    aliases: ["spain", "spanish time", "西班牙"],
+    label: "Spanish",
+    labelZh: "西班牙",
+    options: [
+      ["Europe/Madrid", "Madrid", "马德里"],
+      ["Atlantic/Canary", "Canary Islands", "加那利群岛"]
+    ]
+  }
+];
+const SCOUT_TIME_ZONE_GROUP_ALIASES = Object.fromEntries(
+  SCOUT_TIME_ZONE_GROUPS.flatMap((group) => group.aliases.map((alias) => [alias, group]))
+);
 
 function readScoutLocale() {
   try {
@@ -425,35 +577,93 @@ function normalizeScoutTimeZoneTarget(value) {
     .trim();
 }
 
+function getScoutAvailableTimeZones() {
+  const selectValues = [...(document.querySelector("#timezone-select")?.options || [])]
+    .map((option) => option.value)
+    .filter(Boolean);
+  let browserValues = [];
+  try {
+    browserValues = typeof Intl.supportedValuesOf === "function"
+      ? Intl.supportedValuesOf("timeZone")
+      : [];
+  } catch {
+    browserValues = [];
+  }
+  return [...new Set([...selectValues, ...browserValues])];
+}
+
+function getScoutTimeZoneMatches(target) {
+  const normalizedTarget = normalizeScoutTimeZoneTarget(target);
+  if (!normalizedTarget) {
+    return [];
+  }
+
+  const availableTimeZones = getScoutAvailableTimeZones();
+  const availableSet = new Set(availableTimeZones);
+  const aliasValue = SCOUT_TIME_ZONE_ALIASES[normalizeScoutSettingsText(target)] ||
+    SCOUT_TIME_ZONE_ALIASES[normalizedTarget];
+  if (aliasValue) {
+    return availableSet.has(aliasValue) ? [aliasValue] : [];
+  }
+
+  return availableTimeZones.filter((timeZone) => {
+    const parts = timeZone.split("/");
+    const candidates = [
+      timeZone,
+      parts.at(-1),
+      parts.slice(1).join(" ")
+    ].map((candidate) => normalizeScoutSettingsText(candidate));
+    return candidates.includes(normalizedTarget);
+  });
+}
+
 function getScoutTimeZoneOption(target) {
   const timeZoneSelect = document.querySelector("#timezone-select");
   if (!timeZoneSelect) {
     return null;
   }
-  const normalizedTarget = normalizeScoutTimeZoneTarget(target);
-  const aliasValue = SCOUT_TIME_ZONE_ALIASES[normalizeScoutSettingsText(target)] ||
-    SCOUT_TIME_ZONE_ALIASES[normalizedTarget];
-  if (aliasValue) {
-    return [...timeZoneSelect.options].find((option) => option.value === aliasValue) || null;
+  const matches = getScoutTimeZoneMatches(target);
+  if (matches.length !== 1) {
+    return null;
   }
+  return [...timeZoneSelect.options].find((option) => option.value === matches[0]) || null;
+}
 
-  return [...timeZoneSelect.options].find((option) => {
-    const valueName = normalizeScoutTimeZoneTarget(option.value);
-    const cityName = normalizeScoutTimeZoneTarget(option.value.split("/").at(-1));
-    const label = normalizeScoutTimeZoneTarget(option.textContent);
-    return [valueName, cityName, label].includes(normalizedTarget);
-  }) || null;
+function getScoutLocationLabel(value) {
+  const label = String(value || "").replace(/[_/]+/g, " ").replace(/\s+/g, " ").trim();
+  if (!label || /[\u3400-\u9fff]/.test(label)) {
+    return label;
+  }
+  return label
+    .split(" ")
+    .map((word) => word ? `${word[0].toLocaleUpperCase("en-US")}${word.slice(1)}` : "")
+    .join(" ");
 }
 
 function getScoutTimeZoneRequest(question) {
   const normalized = normalizeScoutSettingsText(question);
+  const timeZoneFirstMatch = normalized.match(/^(?:time ?zone)(?: to| for)? (.+)$/);
   const hasAction = /\b(?:change|set|switch|use)\b/.test(normalized) ||
-    /(?:切换|改成|换成|设置为|使用|用)/.test(normalized);
+    /(?:切换|改成|换成|设置为|使用|用)/.test(normalized) ||
+    Boolean(timeZoneFirstMatch);
   if (!hasAction) {
     return null;
   }
 
+  const needsTimeZoneTarget =
+    /^(?:please )?(?:change|set|switch)(?: my| the| this| app| site| page)*(?: time ?zone| timezone)$/.test(normalized) ||
+    /^(?:请)?(?:切换|更改|修改|设置)(?:我的|网站|页面)?时区$/.test(normalized);
+  if (needsTimeZoneTarget) {
+    return {
+      kind: "settings-action",
+      setting: "timezone",
+      status: "needs-target",
+      value: ""
+    };
+  }
+
   const patterns = [
+    /^(?:time ?zone)(?: to| for)? (.+)$/,
     /^(?:please )?(?:change|set|switch)(?: my| the| this| app| site| page)*(?: time ?zone| timezone)(?: to)? (.+)$/,
     /^(?:please )?(?:change|set|switch|use)(?: to)? (.+?) (?:time|time ?zone|timezone)$/,
     /^(?:please )?(?:change|set|switch|use)(?: to)? (.+)$/,
@@ -466,6 +676,24 @@ function getScoutTimeZoneRequest(question) {
   const requestedTarget = matchedPattern?.[1]?.trim() || "";
   if (!requestedTarget) {
     return null;
+  }
+
+  const timeZoneGroup = SCOUT_TIME_ZONE_GROUP_ALIASES[normalizeScoutTimeZoneTarget(requestedTarget)];
+  if (timeZoneGroup) {
+    const availableValues = new Set(getScoutAvailableTimeZones());
+    const availableOptions = timeZoneGroup.options
+      .filter(([value]) => availableValues.has(value));
+    return {
+      kind: "settings-action",
+      optionLabels: Object.fromEntries(availableOptions.map(([value, label]) => [value, label])),
+      optionLabelsZh: Object.fromEntries(availableOptions.map(([value, , labelZh]) => [value, labelZh])),
+      options: availableOptions.map(([value]) => value),
+      requestedLabel: timeZoneGroup.label,
+      requestedLabelZh: timeZoneGroup.labelZh,
+      setting: "timezone",
+      status: "choose-target",
+      value: ""
+    };
   }
 
   const option = getScoutTimeZoneOption(requestedTarget);
@@ -484,9 +712,9 @@ function getScoutTimeZoneRequest(question) {
   if (hasTimeZoneCue) {
     return {
       kind: "settings-action",
-      requestedLabel: requestedTarget,
+      requestedLabel: getScoutLocationLabel(requestedTarget),
       setting: "timezone",
-      status: "unsupported",
+      status: "unmatched",
       value: ""
     };
   }
@@ -1457,8 +1685,12 @@ function escapeScoutHtml(value) {
 }
 
 function getSafeScoutUrl(value) {
+  const candidate = String(value || "").trim();
+  if (!candidate) {
+    return "";
+  }
   try {
-    const url = new URL(String(value || ""), window.location.href);
+    const url = new URL(candidate, window.location.href);
     return ["http:", "https:"].includes(url.protocol) ? url.href : "";
   } catch {
     return "";
@@ -1665,7 +1897,7 @@ function renderScoutWatchList(note) {
 }
 
 function appendPlayerReply(reply, options = {}) {
-  const { age, profile, role, stats, team } = reply;
+  const { age, profile, stats, team } = reply;
   const focus = reply.focus || "overview";
   const shirt = profile.shirtNumber !== "" && focus !== "number" ? ` · #${profile.shirtNumber}` : "";
   const clubLine = profile.club && !["club", "league"].includes(focus)
@@ -1677,7 +1909,7 @@ function appendPlayerReply(reply, options = {}) {
     ? scoutText("estimatedValueTitle")
     : scoutText("valueTitle");
   const primeValue = profile.peakMarketValue
-    ? `<em>${escapeScoutHtml(scoutText("prime"))} ${escapeScoutHtml(formatScoutMarketValue(profile.peakMarketValue))}</em>`
+    ? `<em>${escapeScoutHtml(isScoutZh() ? `（${scoutText("prime")} ${formatScoutMarketValue(profile.peakMarketValue)}）` : `(${scoutText("prime")} ${formatScoutMarketValue(profile.peakMarketValue)})`)}</em>`
     : "";
   const skills = profile.skills.length
     ? profile.skills.map((skill) => `<span>${escapeScoutHtml(skill)}</span>`).join("")
@@ -1692,7 +1924,6 @@ function appendPlayerReply(reply, options = {}) {
     : "";
   const showTournamentStats = ["overview", "stats", "penalty-goals"].includes(focus);
   const showPlayerDetails = focus === "overview";
-  const showRole = ["overview", "style", "position"].includes(focus);
   const showSkills = ["overview", "style"].includes(focus);
   const showNote = focus === "overview";
   const playerFacts = showTournamentStats || showPlayerDetails
@@ -1712,18 +1943,10 @@ function appendPlayerReply(reply, options = {}) {
             <p class="scout-section-label">${escapeScoutHtml(scoutText("playerDetails"))}</p>
             <div class="scout-player-fact-row">
               <div><strong>${age ?? "—"}</strong><span>${escapeScoutHtml(scoutText("age"))}</span></div>
-              <div class="is-value" title="${escapeScoutHtml(marketValueTitle)}"><strong>${escapeScoutHtml(marketValue)}</strong><span>${escapeScoutHtml(marketValueLabel)}</span>${primeValue}</div>
+              <div class="is-value" title="${escapeScoutHtml(marketValueTitle)}"><strong>${escapeScoutHtml(marketValue)}</strong><span class="scout-value-label">${escapeScoutHtml(marketValueLabel)}${primeValue ? `${isScoutZh() ? "" : " "}${primeValue}` : ""}</span></div>
             </div>
           </section>
         ` : ""}
-      </div>
-    `
-    : "";
-  const roleBlock = showRole
-    ? `
-      <div class="scout-explainer">
-        <p class="scout-section-label">${escapeScoutHtml(scoutText("beginnerVersion"))}</p>
-        <p>${escapeScoutHtml(role.summary)}</p>
       </div>
     `
     : "";
@@ -1749,7 +1972,6 @@ function appendPlayerReply(reply, options = {}) {
         </div>
       </header>
       ${playerFacts}
-      ${roleBlock}
       ${skillBlock}
       ${showNote ? note : ""}
     </article>
@@ -2091,7 +2313,7 @@ function appendMatchReply(reply, options = {}) {
   }
   const highlightUrl = getSafeScoutUrl(fixture.highlightVideo?.url);
   const highlight = highlightUrl
-    ? `<a class="scout-highlight-link" href="${escapeScoutHtml(highlightUrl)}" target="_blank" rel="noreferrer">▶ ${escapeScoutHtml(scoutText("verifiedHighlights"))} <span>${escapeScoutHtml(fixture.highlightVideo.sourceName || scoutText("official"))}</span></a>`
+    ? `<a class="scout-highlight-link" href="${escapeScoutHtml(highlightUrl)}" target="_blank" rel="noreferrer">▶ ${escapeScoutHtml(scoutText("verifiedHighlights"))} <span>${escapeScoutHtml(fixture.highlightVideo?.sourceName || scoutText("official"))}</span></a>`
     : "";
 
   const body = `
@@ -2263,7 +2485,11 @@ function getScoutSettingsLead(reply) {
     ? getScoutLanguageName(reply.value)
     : getScoutTimeZoneLabel(reply.value);
   if (reply.status === "completed") {
-    return scoutText(reply.setting === "language" ? "languageChanged" : "timeZoneChanged", label);
+    if (reply.originStatus === "choose-target") {
+      const region = isScoutZh() ? reply.requestedLabelZh : reply.requestedLabel;
+      return scoutText("timeZoneRegionClarification", region);
+    }
+    return scoutText(reply.setting === "language" ? "languageActionIntro" : "timeZoneActionIntro");
   }
   if (reply.status === "already") {
     return scoutText(reply.setting === "language" ? "languageAlreadySet" : "timeZoneAlreadySet", label);
@@ -2271,27 +2497,65 @@ function getScoutSettingsLead(reply) {
   if (reply.status === "unsupported") {
     return scoutText(reply.setting === "language" ? "unsupportedLanguage" : "unsupportedTimeZone");
   }
+  if (reply.status === "unmatched") {
+    return scoutText("timeZoneUnmatched", reply.requestedLabel);
+  }
+  if (reply.status === "needs-target") {
+    return scoutText("timeZoneClarification");
+  }
+  if (reply.status === "choose-target") {
+    const region = isScoutZh() ? reply.requestedLabelZh : reply.requestedLabel;
+    return scoutText("timeZoneRegionClarification", region);
+  }
   return scoutText(reply.setting === "language" ? "languageActionIntro" : "timeZoneActionIntro");
+}
+
+function getScoutSettingsCompletion(reply) {
+  const label = reply.setting === "language"
+    ? getScoutLanguageName(reply.value)
+    : getScoutTimeZoneLabel(reply.value);
+  return scoutText(reply.setting === "language" ? "languageChanged" : "timeZoneChanged", label);
+}
+
+function getScoutSettingsOptionLabel(reply, value) {
+  if (reply.status === "choose-target") {
+    const localizedLabel = isScoutZh()
+      ? reply.optionLabelsZh?.[value]
+      : reply.optionLabels?.[value];
+    if (localizedLabel) {
+      return localizedLabel;
+    }
+  }
+  const label = reply.setting === "language"
+    ? getScoutLanguageName(value)
+    : getScoutTimeZoneLabel(value);
+  return scoutText(
+    reply.setting === "language" ? "switchLanguage" : "switchTimeZone",
+    label
+  );
 }
 
 function appendSettingsActionReply(reply, options = {}) {
   let actions = "";
-  if (reply.status === "pending") {
-    const label = reply.setting === "language"
-      ? getScoutLanguageName(reply.value)
-      : getScoutTimeZoneLabel(reply.value);
-    const buttonText = scoutText(
-      reply.setting === "language" ? "switchLanguage" : "switchTimeZone",
-      label
-    );
+  if (reply.status === "pending" || reply.status === "choose-target") {
+    const values = reply.status === "choose-target" ? reply.options : [reply.value];
     actions = `
       <div class="scout-settings-actions">
-        <button
-          class="scout-settings-action"
-          type="button"
-          data-scout-setting-action="${escapeScoutHtml(reply.setting)}"
-          data-scout-setting-value="${escapeScoutHtml(reply.value)}"
-        >${escapeScoutHtml(buttonText)}</button>
+        ${values.map((value) => {
+          return `<button
+            class="scout-settings-action"
+            type="button"
+            data-scout-setting-action="${escapeScoutHtml(reply.setting)}"
+            data-scout-setting-value="${escapeScoutHtml(value)}"
+          >${escapeScoutHtml(getScoutSettingsOptionLabel(reply, value))}</button>`;
+        }).join("")}
+      </div>
+    `;
+  } else if (reply.status === "unmatched") {
+    actions = `
+      <div class="scout-settings-actions">
+        <button class="scout-settings-action" type="button" data-scout-open-settings>${escapeScoutHtml(scoutText("openSettings"))}</button>
+        <a class="scout-settings-report" href="${escapeScoutHtml(getScoutReportIssueUrl(reply))}">${escapeScoutHtml(scoutText("reportIssue"))}</a>
       </div>
     `;
   } else if (reply.status === "unsupported") {
@@ -2302,6 +2566,9 @@ function appendSettingsActionReply(reply, options = {}) {
     `;
   }
   createScoutVisualMessage("settings", getScoutSettingsLead(reply), actions, [], options);
+  if (reply.status === "completed") {
+    appendMessage(getScoutSettingsCompletion(reply), "assistant", options);
+  }
 }
 
 function playPersonalityEyeReaction(eye) {
@@ -2528,8 +2795,10 @@ messages.addEventListener("click", (event) => {
       .find((turn) =>
         turn.reply?.kind === "settings-action" &&
         turn.reply.setting === setting &&
-        turn.reply.value === value &&
-        turn.reply.status === "pending"
+        (
+          (turn.reply.status === "pending" && turn.reply.value === value) ||
+          (turn.reply.status === "choose-target" && turn.reply.options?.includes(value))
+        )
       );
     if (!matchingTurn) {
       return;
@@ -2540,7 +2809,9 @@ messages.addEventListener("click", (event) => {
       if (!languageButton) {
         return;
       }
+      matchingTurn.reply.originStatus = matchingTurn.reply.status;
       matchingTurn.reply.status = "completed";
+      matchingTurn.reply.value = value;
       settingsAction.disabled = true;
       settingsAction.setAttribute("aria-busy", "true");
       languageButton.click();
@@ -2554,17 +2825,24 @@ messages.addEventListener("click", (event) => {
       if (!timeZoneSelect || !hasOption) {
         return;
       }
+      matchingTurn.reply.originStatus = matchingTurn.reply.status;
       matchingTurn.reply.status = "completed";
+      matchingTurn.reply.value = value;
       timeZoneSelect.value = value;
       timeZoneSelect.dispatchEvent(new Event("change", { bubbles: true }));
       const message = settingsAction.closest(".scout-message");
-      const lead = message?.querySelector(".scout-answer-lead");
-      if (lead) {
-        lead.textContent = getScoutSettingsLead(matchingTurn.reply);
-      }
       message?.querySelector(".scout-settings-actions")?.remove();
+      appendMessage(getScoutSettingsCompletion(matchingTurn.reply), "assistant");
       syncEyeAttention();
       scheduleBlink();
+    }
+    return;
+  }
+  const openSettingsButton = event.target.closest("[data-scout-open-settings]");
+  if (openSettingsButton) {
+    const settingsButton = document.querySelector("#settings-button");
+    if (settingsButton?.getAttribute("aria-expanded") !== "true") {
+      settingsButton?.click();
     }
     return;
   }

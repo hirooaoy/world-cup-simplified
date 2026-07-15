@@ -1,5 +1,10 @@
 const REPORT_ENDPOINT = "/api/report-issue";
 const LANGUAGE_STORAGE_KEY = "world-cup-simplified-language";
+const LEGACY_REPORT_TYPE_ALIASES = {
+  "no-matches": "match-score-schedule",
+  "wrong-match": "match-score-schedule",
+  "wrong-standings": "prediction-standings"
+};
 
 const params = new URLSearchParams(window.location.search);
 const reportForm = document.querySelector("#report-form");
@@ -11,11 +16,10 @@ const reportSummary = document.querySelector("#report-summary");
 const formStatus = document.querySelector("#form-status");
 const submitButton = reportForm.querySelector("button[type='submit']");
 const backLink = document.querySelector("#back-link");
-const brandHomeLink = document.querySelector(".site-brand");
-const brandLabel = document.querySelector(".brand-label");
 const reportHeading = document.querySelector("#report-heading");
 
-const reportType = params.get("type") || "other";
+const requestedReportType = params.get("type") || "";
+const reportType = LEGACY_REPORT_TYPE_ALIASES[requestedReportType] || requestedReportType;
 const reportDetails = params.get("details") || "";
 const reportDate = params.get("date") || "";
 const reportTimeZone = params.get("tz") || "";
@@ -24,19 +28,19 @@ const currentLanguage = getCurrentLanguage();
 const text = {
   en: {
     addNote: "Add a short note before sending.",
-    appHomeLabel: "World Cup Simplified home",
-    appName: "World Cup Simplified",
     attachedContext: "Attached context",
     back: "Back",
+    completeRequired: "Choose an issue and add details before sending.",
     date: "Date",
     details: "Details",
     emailPlaceholder: "you@example.com",
     issue: "Issue",
     issueOptions: {
-      "no-matches": "No matches found for this date",
-      "wrong-match": "Wrong match details",
-      "wrong-standings": "Wrong standings",
-      other: "Other"
+      "": "Select an issue",
+      "match-score-schedule": "Match, score, or schedule",
+      "lineup-player": "Line-up or player information",
+      "prediction-standings": "Prediction or standings",
+      other: "Others"
     },
     metaDescription: "Report a schedule or data issue for World Cup Simplified.",
     optional: "optional",
@@ -53,18 +57,18 @@ const text = {
   },
   zh: {
     addNote: "发送前请先写一小段说明。",
-    appHomeLabel: "世界杯简明指南首页",
-    appName: "世界杯简明指南",
     attachedContext: "已附加的上下文",
     back: "返回",
+    completeRequired: "请选择问题并填写详情后再发送。",
     date: "日期",
     details: "详情",
     emailPlaceholder: "你的邮箱@example.com",
     issue: "问题",
     issueOptions: {
-      "no-matches": "这个日期没有找到比赛",
-      "wrong-match": "比赛信息有误",
-      "wrong-standings": "积分榜有误",
+      "": "请选择问题",
+      "match-score-schedule": "比赛、比分或赛程",
+      "lineup-player": "阵容或球员信息",
+      "prediction-standings": "预测或积分榜",
       other: "其他"
     },
     metaDescription: "向世界杯简明指南报告赛程或数据问题。",
@@ -109,12 +113,13 @@ const zhTimeZoneNames = {
 
 issueType.value = [...issueType.options].some((option) => option.value === reportType)
   ? reportType
-  : "other";
+  : "";
 renderStaticText();
 renderAttachedContext();
 if (reportDetails) {
   issueDetails.value = reportDetails;
 }
+updateSubmitState();
 
 if (reportDate) {
   const backParams = new URLSearchParams({
@@ -154,10 +159,6 @@ function renderStaticText() {
   document
     .querySelector("meta[name='description']")
     ?.setAttribute("content", t.metaDescription);
-  brandHomeLink?.setAttribute("aria-label", t.appHomeLabel);
-  if (brandLabel) {
-    brandLabel.textContent = t.appName;
-  }
   if (backLink) {
     backLink.textContent = t.back;
   }
@@ -200,14 +201,24 @@ function setStatus(message, state = "") {
 }
 
 function setSubmitLoading(isLoading) {
-  submitButton.disabled = isLoading;
   submitButton.classList.toggle("is-loading", isLoading);
+  submitButton.disabled = isLoading || !isReportReady();
   submitButton.textContent = isLoading ? t.sending : t.sendReport;
 
   if (isLoading) {
     submitButton.setAttribute("aria-busy", "true");
   } else {
     submitButton.removeAttribute("aria-busy");
+  }
+}
+
+function isReportReady() {
+  return Boolean(issueType.value && issueDetails.value.trim());
+}
+
+function updateSubmitState() {
+  if (!submitButton.classList.contains("is-loading")) {
+    submitButton.disabled = !isReportReady();
   }
 }
 
@@ -261,9 +272,9 @@ reportForm.addEventListener("submit", async (event) => {
   event.preventDefault();
 
   const payload = getPayload();
-  if (!payload.details) {
-    setStatus(t.addNote, "error");
-    issueDetails.focus();
+  if (!payload.type || !payload.details) {
+    setStatus(payload.type ? t.addNote : t.completeRequired, "error");
+    (payload.type ? issueDetails : issueType).focus();
     return;
   }
 
@@ -284,7 +295,6 @@ reportForm.addEventListener("submit", async (event) => {
     }
 
     reportForm.reset();
-    issueType.value = payload.type;
     setStatus(t.reportSent, "success");
   } catch {
     setStatus(t.reportFailed, "error");
@@ -292,3 +302,6 @@ reportForm.addEventListener("submit", async (event) => {
     setSubmitLoading(false);
   }
 });
+
+issueType.addEventListener("change", updateSubmitState);
+issueDetails.addEventListener("input", updateSubmitState);

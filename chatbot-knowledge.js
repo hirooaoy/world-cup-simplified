@@ -946,7 +946,7 @@ function canonicalizeChineseQuestion(value) {
     [/赢了多少场|赢了几场|多少胜|战绩/g, " how many wins record "],
     [/进了多少个|进了几个/g, " how many goals "],
     [/头号射手|最佳射手|谁进球最多/g, " top scorer "],
-    [/下一场对谁|下一场比赛|接下来踢谁|下场对手/g, " next match "],
+    [/下一场对谁|下一场对阵谁|下一场比赛|下一场的对手|下一个对手|接下来踢谁|接下来对谁|下场踢谁|下场对手/g, " next match "],
     [/上一场比赛|最近一场比赛|上场比赛/g, " last match "],
     [/是谁进球|谁进了球|进球的是谁/g, " who scored "],
     [/谁赢了|谁获胜|比赛结果/g, " who won result "],
@@ -1960,7 +1960,7 @@ function buildCountryReply(team, core, question, locale = "en") {
   const asksGoals = /\b(how many goals|goals scored|scored at this|scored in this|tournament goals)\b/.test(question);
   const asksGoalDifference = /\bgoal difference\b/.test(question);
   const asksTopScorer = /\b(top scorer|leading scorer|most goals|who scored most)\b/.test(question);
-  const asksNext = /\b(next|play next|playing next|next match|next game|who.*next)\b/.test(question);
+  const asksNext = isNextFixtureQuestion(question);
   const asksStyle = /\b(style|play style|playstyle|how.*play|attack|defend)\b/.test(question);
   const focus = asksNext
     ? "next"
@@ -2054,8 +2054,16 @@ function buildCountryReply(team, core, question, locale = "en") {
   };
 }
 
+function isNextFixtureQuestion(question) {
+  return (
+    /\b(?:next|upcoming)\s+(?:match|game|fixture|opponent)\b/.test(question) ||
+    /\b(?:play|playing|face|facing|meet|meeting)\s+next\b/.test(question) ||
+    /\b(?:play|playing|face|facing|meet|meeting)\s+(?:who|whom)\s+next\b/.test(question)
+  );
+}
+
 function isMatchQuestion(question) {
-  return /\b(match|game|score|scored|won|winner|beat|result|happened|play next|playing next|next match|last match|highlights|head to head|h2h|kickoff|when)\b/.test(question);
+  return isNextFixtureQuestion(question) || /\b(match|game|fixture|upcoming|score|scored|won|winner|beat|result|happened|last match|highlights|head to head|h2h|kickoff|when)\b/.test(question);
 }
 
 function resolveFixture(question, teams, fixtures, contextFixtureId = "") {
@@ -2077,7 +2085,7 @@ function resolveFixture(question, teams, fixtures, contextFixtureId = "") {
   }
 
   const asksPastTiming = /\bwhen (?:was|were|did)\b/.test(question);
-  const asksUpcomingTiming = /\b(next|upcoming|play next|playing next|when (?:is|are|do|does|will)|kickoff)\b/.test(question);
+  const asksUpcomingTiming = isNextFixtureQuestion(question) || /\b(upcoming|when (?:is|are|do|does|will)|kickoff)\b/.test(question);
   if (asksUpcomingTiming && !asksPastTiming) {
     return candidates
       .filter(
@@ -2653,7 +2661,7 @@ function buildMatchReply(fixture, core, question, locale = "en") {
   const timeline = getGoalTimeline(fixture, locale);
   const wantsH2h = /\b(head to head|h2h|history|previous meetings)\b/.test(question);
   const asksWhoScored = /\b(who scored|scorers|goalscorers|goal scorers)\b/.test(question);
-  const asksWhen = /\b(when|kickoff|next match|play next|playing next)\b/.test(question);
+  const asksWhen = isNextFixtureQuestion(question) || /\b(when|kickoff)\b/.test(question);
   const asksHighlights = /\b(highlights|watch)\b/.test(question);
   const asksResult = /\b(who won|winner|score|result|beat)\b/.test(question);
   const focus = asksWhoScored

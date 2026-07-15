@@ -82,15 +82,16 @@ The final `note` can stay as the app-facing field, but generation and review sho
 
 ## Historical Archive Cards
 
-Archive cards answer a different question: why did this player matter in that tournament?
+Archive cards use the same paragraph/stat boundary as current cards. The paragraph explains how the player played; completed tournament output belongs in a separate year-labeled row such as `2022 World Cup: 3 goals`.
 
-For historical profiles, the visible English card line comes from `styleNote`; the Chinese card line should come from `styleNoteZh`. Keep both more reflective than a current scouting note, but still grounded in stored archive facts:
+For historical profiles, the visible English card line comes from `styleNote`; the Chinese card line should come from `styleNoteZh`. Keep both grounded in what the archive can honestly support:
 
-- Use the tournament year and team as the frame.
-- For scorers, lead with why the goal record mattered, then name the concrete match evidence.
-- For non-scorers, explain the role in the team shape or featured match rather than forcing a legacy claim.
+- Keep the tournament year and team in the archive identity line rather than repeating them in the paragraph.
+- Describe role, movement, technique, decision-making, or a distinctive physical strength rather than goals, opponents, scorelines, or appearances.
+- Show completed scoring totals in the separate year-labeled stat row; do not repeat them in `styleNote`.
+- Use a conservative position-and-trait explanation when the archive lacks detailed scouting evidence.
+- Give researched spotlight players more specific copy only when the claim is well supported.
 - Avoid internal phrases such as `archive lens`, `match lens`, `squad-context`, and `supporting a scoring route`.
-- Famous players can get a stronger memory line, but the second sentence should still anchor the card to goals, starts, shootouts, or featured matches.
 - When `styleNote` changes for historical cards, update `styleNoteZh` and `noteZh` in the same pass.
 - The historical refresh and audit commands default to every archive year. Use `--years=2022,2018,1930` only for a targeted rerun.
 
@@ -105,4 +106,4 @@ Before shipping a batch:
 - The batch does not reuse the same sentence pattern across many players.
 - Chinese notes are updated with the same meaning when English notes change.
 - Spotlight players get a stronger watch cue than depth players.
-- Historical archive cards explain why the player mattered then, not how to scout him now.
+- Historical archive cards keep completed results in the year-labeled stat row and make only evidence-bounded play-style claims.

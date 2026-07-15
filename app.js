@@ -3176,7 +3176,7 @@ const viewPanels = {
 
 const defaultTimeZone =
   Intl.DateTimeFormat().resolvedOptions().timeZone || "America/Los_Angeles";
-const timeZones = [
+const preferredTimeZones = [
   "America/Los_Angeles",
   "America/Vancouver",
   "America/Denver",
@@ -3198,6 +3198,22 @@ const timeZones = [
   "Asia/Shanghai",
   "Asia/Tokyo",
   "Australia/Sydney"
+];
+const browserTimeZones = (() => {
+  try {
+    return typeof Intl.supportedValuesOf === "function"
+      ? Intl.supportedValuesOf("timeZone")
+      : [];
+  } catch {
+    return [];
+  }
+})();
+const preferredTimeZoneSet = new Set(preferredTimeZones);
+const timeZones = [
+  ...preferredTimeZones,
+  ...browserTimeZones
+    .filter((timeZone) => !preferredTimeZoneSet.has(timeZone))
+    .sort((left, right) => left.localeCompare(right, "en"))
 ];
 const zhTimeZoneNames = {
   "America/Los_Angeles": "洛杉矶",
@@ -20531,7 +20547,11 @@ function getPlayerTournamentStatKeys(player, profile = getPlayerProfile(player))
 
 function getPlayerTournamentStats(player, profile = getPlayerProfile(player)) {
   if (isHistoricalPlayerCard(player)) {
-    return null;
+    const goals = Number(profile?.goals || 0);
+    const archiveYear = Number(profile?.tournamentYear || player?.tournamentYear || 0);
+    return Number.isInteger(goals) && goals > 0
+      ? { goals, assists: 0, archiveYear: Number.isInteger(archiveYear) && archiveYear > 0 ? archiveYear : null }
+      : null;
   }
 
   const statsByKey = getPlayerTournamentStatsByKey();
@@ -20580,6 +20600,12 @@ function renderPlayerTournamentStatsLine(player, profile = getPlayerProfile(play
 
   if (!parts.length) {
     return "";
+  }
+
+  if (stats.archiveYear) {
+    return currentLanguage === "zh"
+      ? `${stats.archiveYear}年世界杯：${parts.join("，")}`
+      : `${stats.archiveYear} World Cup: ${parts.join(", ")}`;
   }
 
   return currentLanguage === "zh" ? `本届世界杯：${parts.join("，")}` : `This World Cup: ${parts.join(", ")}`;
@@ -22407,17 +22433,32 @@ function renderMatchContext(match, context = null) {
   return renderKnockoutContext(match, context || createTournamentProgressionContext());
 }
 
-function revealMatchInfoOnSmallScreens() {
-  if (!window.matchMedia("(max-width: 1160px)").matches) {
-    return;
-  }
-
+function revealMatchInfoAfterSelection() {
+  const usesStackedMatchLayout = window.matchMedia("(max-width: 1160px)").matches;
   const prefersReducedMotion = window.matchMedia(
     "(prefers-reduced-motion: reduce)"
   ).matches;
   const shouldRevealImmediately = prefersReducedMotion || hasTeamSearchQuery();
 
   window.requestAnimationFrame(() => {
+    const matchInfoRect = matchInfo.getBoundingClientRect();
+
+    if (
+      !usesStackedMatchLayout &&
+      matchInfoRect.top >= 0 &&
+      matchInfoRect.top < window.innerHeight
+    ) {
+      return;
+    }
+
+    if (!usesStackedMatchLayout) {
+      window.scrollTo({
+        top: 0,
+        behavior: "auto"
+      });
+      return;
+    }
+
     matchInfo.scrollIntoView({
       block: "start",
       behavior: shouldRevealImmediately ? "auto" : "smooth"
@@ -24096,7 +24137,7 @@ function renderMatchInfo(match, options = {}) {
     updateTooltipBounds(matchInfo);
     setMatchInfoEntrance(shouldAnimateEntrance);
     if (options.reveal) {
-      revealMatchInfoOnSmallScreens();
+      revealMatchInfoAfterSelection();
     }
     return;
   }
@@ -24155,7 +24196,7 @@ function renderMatchInfo(match, options = {}) {
   setMatchInfoEntrance(shouldAnimateEntrance);
 
   if (options.reveal) {
-    revealMatchInfoOnSmallScreens();
+    revealMatchInfoAfterSelection();
   }
 }
 
