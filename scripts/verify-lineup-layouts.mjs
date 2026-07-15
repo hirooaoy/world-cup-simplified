@@ -605,6 +605,21 @@ function normalizeExactSourceFormation(value, fallback = "") {
     : fallback;
 }
 
+function exactSideCoversOfficialStarters(sourceSide, officialPlayers) {
+  const sourcePlayers = Array.isArray(sourceSide?.players) ? sourceSide.players : [];
+  if (sourcePlayers.length !== 11 || officialPlayers.length !== 11) {
+    return false;
+  }
+
+  return officialPlayers.every((officialPlayer) => {
+    const officialNumber = String(officialPlayer?.number || "").trim();
+    return sourcePlayers.filter((sourcePlayer) =>
+      sameName(sourcePlayer?.name, playerName(officialPlayer)) &&
+      (!officialNumber || String(sourcePlayer?.number || "").trim() === officialNumber)
+    ).length === 1;
+  });
+}
+
 function sourceClaimFromExactLayout({
   name,
   adapter,
@@ -623,6 +638,16 @@ function sourceClaimFromExactLayout({
   const awayFormation = normalizeExactSourceFormation(sourceAwayFormation, lineups.away?.formation || "");
   const home = buildSideFromExactLayout(lineups, "home", homeFormation, homePlayers);
   const away = buildSideFromExactLayout(lineups, "away", awayFormation, awayPlayers);
+  if (
+    !exactSideCoversOfficialStarters(home, lineups?.home?.players || []) ||
+    !exactSideCoversOfficialStarters(away, lineups?.away?.players || [])
+  ) {
+    return sourceClaimEnvelope({ name, adapter, url }, {
+      status: "unavailable",
+      sourceDetail,
+      note: "The source board did not resolve all 22 players one-to-one to the official FIFA starters."
+    });
+  }
 
   return {
     name,
@@ -638,6 +663,66 @@ function sourceClaimFromExactLayout({
       away: `${away.formation}::${signatureFromLayout(away.formation, away.players)}`
     }
   };
+}
+
+function sofaScoreHistoryPlayers(sideRecord, officialPlayers) {
+  const formation = normalizeExactSourceFormation(sideRecord?.formation);
+  const rowsFromGoalkeeper = Array.isArray(sideRecord?.rowsFromGoalkeeper)
+    ? sideRecord.rowsFromGoalkeeper
+    : [];
+  const sourceRows = [...rowsFromGoalkeeper.slice(1)].reverse();
+  sourceRows.push(rowsFromGoalkeeper[0] || []);
+  const expectedRows = formationRowCounts(formation);
+  if (!formation || !assertValidRowShape(
+    sourceRows.map((row) => row.map((number, column) => ({ number, column }))),
+    expectedRows
+  )) {
+    throw new Error("SofaScore history row counts did not match the stored formation.");
+  }
+
+  const rowCount = sourceRows.length;
+  const players = [];
+  for (let rowIndex = 0; rowIndex < sourceRows.length; rowIndex += 1) {
+    const row = sourceRows[rowIndex];
+    const y = rowCount === 1 ? 50 : 10.5 + (80 * rowIndex) / (rowCount - 1);
+    for (let column = 0; column < row.length; column += 1) {
+      const number = String(row[column] || "").trim();
+      const matches = officialPlayers.filter(
+        (player) => String(player?.number || "").trim() === number
+      );
+      if (matches.length !== 1) {
+        throw new Error(`SofaScore shirt number ${number || "(blank)"} did not resolve to one official starter.`);
+      }
+      players.push({
+        name: playerName(matches[0]),
+        number,
+        x: (100 * (column + 1)) / (row.length + 1),
+        y
+      });
+    }
+  }
+
+  return players;
+}
+
+function parseSofaScoreHistoryLayout(record, lineups, source) {
+  try {
+    const homePlayers = sofaScoreHistoryPlayers(record?.home, lineups?.home?.players || []);
+    const awayPlayers = sofaScoreHistoryPlayers(record?.away, lineups?.away?.players || []);
+    return sourceClaimFromExactLayout({
+      name: source.name,
+      adapter: source.adapter,
+      url: source.url,
+      sourceDetail: source.sourceDetail,
+      lineups,
+      homePlayers,
+      awayPlayers,
+      homeFormation: record?.home?.formation,
+      awayFormation: record?.away?.formation
+    });
+  } catch (error) {
+    return sourceClaimFromError(source, error.message);
+  }
 }
 
 function sourceClaimFromUnsupportedAdapter(source) {
@@ -1083,6 +1168,10 @@ function parseUnavailableHtml(source, response) {
 }
 
 async function readSourceClaim(source, lineups) {
+  if (source.adapter === "sofascore-history") {
+    return parseSofaScoreHistoryLayout(source.historyRecord, lineups, source);
+  }
+
   const sourceClaimParsers = {
     espn: (html) => parseEspnLayout(html, lineups, source),
     fotmob: (html) => parseFotmobLayout(html, lineups, source)
@@ -1129,8 +1218,11 @@ function validateOfficialStarterCoverage(fixtureId, lineups, override) {
 }
 
 function buildOverrideFromClaims(fixtureId, fixture, lineups, claims) {
-  const minimumExactSources = requestedScope === "live-start" ? 2 : 1;
-  const consensus = buildExactLayoutConsensus(claims, { minimumExactSources });
+  const minimumExactSources = requestedScope === "live-start" || shouldReverify ? 2 : 1;
+  const consensus = buildExactLayoutConsensus(claims, {
+    minimumExactSources,
+    allowStrictMajority: shouldReverify
+  });
 
   if (!consensus.matchedClaims.length) {
     return {
@@ -1153,9 +1245,7 @@ function buildOverrideFromClaims(fixtureId, fixture, lineups, claims) {
       checkedAt,
       sourceIds: [overrideSourceId],
       sources: claims,
-      note: consensus.reason === "geometry_tolerance_conflict"
-        ? "Trusted public sources agreed on player rows but their normalized board coordinates differed beyond the safe tolerance."
-        : "Trusted public sources disagreed on formation, tactical row membership, or left-to-right player order."
+      note: "Trusted public sources disagreed on formation, tactical row membership, or left-to-right player order."
     };
   }
 
@@ -1173,23 +1263,33 @@ function buildOverrideFromClaims(fixtureId, fixture, lineups, claims) {
     };
   }
 
+  for (const claim of consensus.dissentingClaims || []) {
+    claim.status = "conflict";
+  }
   const exactSourceNames = consensus.sourceNames;
+  const dissentingSourceNames = (consensus.dissentingClaims || [])
+    .map((claim) => claim.name)
+    .filter(Boolean);
+  const usedStrictMajority = dissentingSourceNames.length > 0;
   const exactSourceNote =
     exactSourceNames.length > 1
       ? `${exactSourceNames.join(" and ")} agreed on the tactical layout.`
       : `${exactSourceNames[0] || "A trusted source"} supplied exact board geometry.`;
+  const dissentingSourceNote = usedStrictMajority
+    ? ` ${dissentingSourceNames.join(" and ")} differed and ${dissentingSourceNames.length === 1 ? "was" : "were"} retained as conflicting evidence.`
+    : "";
 
   const override = {
     status: "verified",
     layoutSource: VERIFIED_LAYOUT_SOURCE,
     ...(minimumExactSources > 1
       ? {
-          verificationMethod: "source-consensus-v1",
+          verificationMethod: usedStrictMajority ? "source-majority-v1" : "source-consensus-v1",
           consensus: {
             providers: exactSourceNames,
             minimumExactSources,
-            coordinateTolerance: { x: 8, y: 10 },
-            aggregation: "median-normalized-coordinates"
+            ...(usedStrictMajority ? { dissentingProviders: dissentingSourceNames } : {}),
+            aggregation: "canonical-formation-grid"
           }
         }
       : {}),
@@ -1198,7 +1298,7 @@ function buildOverrideFromClaims(fixtureId, fixture, lineups, claims) {
     homeTeamId: fixture.homeTeamId,
     awayTeamId: fixture.awayTeamId,
     sources: claims,
-    note: `FIFA official team sheet kept for facts; ${exactSourceNote}`,
+    note: `FIFA official team sheet kept for facts; ${exactSourceNote}${dissentingSourceNote}`,
     home: {
       ...consensus.home,
       players: assignRolesFromPitchGeometry(consensus.home.formation, consensus.home.players)
@@ -1250,12 +1350,13 @@ function upsertSource(tournamentData, sourceId, fixtureCount, changedCount) {
   tournamentData.updatedAt = checkedAt;
 }
 
-const [fixturesData, lineupsData, tournamentData, overridesData, teamsData] = await Promise.all([
+const [fixturesData, lineupsData, tournamentData, overridesData, teamsData, sofascoreHistoryData] = await Promise.all([
   readJson("fixtures.json"),
   readJson("lineups.json"),
   readJson("tournament.json"),
   readOptionalJson("lineup-layout-overrides.json", { sourceIds: [], updatedAt: checkedAt, fixtures: {} }),
-  readJson("teams.json")
+  readJson("teams.json"),
+  readOptionalJson("sofascore-tactical-lineup-history.json", { checkedAt: "", matches: {} })
 ]);
 const teamsById = new Map((teamsData.teams || []).map((team) => [team.id, team]));
 
@@ -1321,13 +1422,28 @@ for (const fixture of fixturesData.fixtures || []) {
   if (!shouldUseExistingOverride) {
     const configuredSourceCandidates = getSourceCandidatesForFixture(fixtureId);
     sourceCandidates = Array.isArray(configuredSourceCandidates) ? configuredSourceCandidates : [];
-    if (requestedScope === "live-start") {
+    if (requestedScope === "live-start" || shouldReverify) {
       const adapters = new Set(sourceCandidates.map((source) => source.adapter));
       const [espnCandidates, fotmobCandidates] = await Promise.all([
         adapters.has("espn") ? [] : discoverEspnSourceCandidates(fixture),
         adapters.has("fotmob") ? [] : discoverFotmobSourceCandidates(fixture, teamsById)
       ]);
       sourceCandidates = mergeSourceCandidates(sourceCandidates, espnCandidates, fotmobCandidates);
+      const sofascoreHistoryRecord = shouldReverify
+        ? sofascoreHistoryData.matches?.[fixtureId]
+        : null;
+      if (sofascoreHistoryRecord) {
+        sourceCandidates = sourceCandidates.filter(
+          (source) => String(source?.name || "").toLowerCase() !== "sofascore"
+        );
+        sourceCandidates = mergeSourceCandidates(sourceCandidates, [{
+          name: "SofaScore",
+          adapter: "sofascore-history",
+          url: sofascoreHistoryRecord.url,
+          sourceDetail: `public tactical formation board captured ${sofascoreHistoryData.checkedAt}`,
+          historyRecord: sofascoreHistoryRecord
+        }]);
+      }
     } else if (sourceCandidates.length === 0) {
       sourceCandidates = await discoverEspnSourceCandidates(fixture);
     }

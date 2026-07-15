@@ -2,6 +2,9 @@
   "edition": "2026-world-cup",
   "teamId": "RSA",
   "teamName": "South Africa",
+  "rosterNameOverrides": {
+    "MAKGPA": "Evidence Makgopa"
+  },
   "profiles": {
     "Aubrey Modiba": {
       "skills": [

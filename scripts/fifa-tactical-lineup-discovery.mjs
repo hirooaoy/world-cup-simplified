@@ -126,6 +126,18 @@ export function validateFifaTacticalLineupIndex(index) {
         if (!/^[a-f0-9]{64}$/.test(String(document.sha256 || ""))) {
           issues.push(`${prefix}.sha256 must be a lowercase SHA-256 digest`);
         }
+        if (
+          document.archiveUrl !== undefined &&
+          !/^https:\/\/web\.archive\.org\/web\/\d{14}id_\/https:\/\/fdp\.fifa\.org\//.test(String(document.archiveUrl || ""))
+        ) {
+          issues.push(`${prefix}.archiveUrl must be an exact Wayback replay of an official FIFA document`);
+        }
+        if (
+          document.capturedAt !== undefined &&
+          (typeof document.capturedAt !== "string" || !Number.isFinite(Date.parse(document.capturedAt)))
+        ) {
+          issues.push(`${prefix}.capturedAt must be a valid timestamp when provided`);
+        }
       }
     }
   }
@@ -246,7 +258,9 @@ export function recordFifaTacticalDocument(index, {
   url,
   version,
   publishedAt,
-  sha256
+  sha256,
+  archiveUrl = "",
+  capturedAt = ""
 }) {
   let changed = recordFifaTacticalRegistration(index, { matchNumber, registrationId });
   const documentRecord = {
@@ -255,7 +269,9 @@ export function recordFifaTacticalDocument(index, {
     url,
     version: positiveInteger(version),
     publishedAt,
-    sha256
+    sha256,
+    ...(archiveUrl ? { archiveUrl } : {}),
+    ...(capturedAt ? { capturedAt } : {})
   };
   const matchKey = String(positiveInteger(matchNumber));
   const documents = index.documents || (index.documents = {});

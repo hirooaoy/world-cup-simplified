@@ -14,15 +14,19 @@ import {
   extractFifaTacticalLineupPdf,
   parseFifaTacticalLineupDocument
 } from "./fifa-tactical-lineup-pdf.mjs";
+import { enrichFifaTacticalLineupPlayerAliases } from "./fifa-tactical-lineup-player-aliases.mjs";
 import {
-  applyLineupLayoutOverride,
+  applyFifaOfficialLayoutOverride,
+  buildFifaOfficialLayoutOverride,
+  officialFifaTacticalSourceFromOverride,
+  upsertFifaTacticalTournamentSource
+} from "./fifa-tactical-lineup-official-override.mjs";
+import {
   canApplyLineupLayoutOverride,
-  compareLineupsToLayoutOverride,
   getLayoutOverrideProvenanceIssues,
   getVerifiedLayoutOverride,
   isFifaOfficialLayoutOverride
 } from "./lineup-layout-overrides.mjs";
-import { FIFA_OFFICIAL_LAYOUT_SOURCE } from "./lineup-layout-sources.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const dataDir = path.join(root, "data");
@@ -191,116 +195,12 @@ async function fetchTacticalDocument(url) {
   };
 }
 
-function sourceIdForDocument(matchNumber, version, sha256) {
-  return `fifa-tactical-lineup-match-${matchNumber}-v${version}-${sha256.slice(0, 12)}`;
-}
-
-function layoutPlayers(players) {
-  return players.map((player) => ({
-    number: String(player.number),
-    name: player.name,
-    position: player.position,
-    x: player.x,
-    y: player.y
-  }));
-}
-
-function buildOfficialOverride({ fixture, parsed, registrationId, url, publishedAt }) {
-  const sourceId = sourceIdForDocument(parsed.matchNumber, parsed.version, parsed.sha256);
-  const sourceDetail =
-    "Positioned text from FIFA's official Tactical Line-up PDF matched all 22 starters one-to-one against FIFA's official team sheet.";
-  return {
-    status: "verified",
-    layoutSource: FIFA_OFFICIAL_LAYOUT_SOURCE,
-    verificationMethod: "fifa-tactical-lineup-pdf-v1",
-    checkedAt: publishedAt,
-    homeTeamId: fixture.homeTeamId,
-    awayTeamId: fixture.awayTeamId,
-    sourceIds: [sourceId],
-    sources: [
-      {
-        name: "FIFA Tactical Line-up PDF",
-        adapter: "fifa-tactical-pdf",
-        url,
-        status: "matched",
-        exactLayout: true,
-        sourceDetail,
-        matchNumber: parsed.matchNumber,
-        registrationId,
-        documentVersion: parsed.version,
-        publishedAt,
-        sha256: parsed.sha256
-      }
-    ],
-    note:
-      "FIFA's official Tactical Line-up PDF supplied the nominal tactical rows and left/right placement; all 22 starters matched FIFA's official team sheet.",
-    home: {
-      formation: parsed.home.formation,
-      players: layoutPlayers(parsed.home.players)
-    },
-    away: {
-      formation: parsed.away.formation,
-      players: layoutPlayers(parsed.away.players)
-    }
-  };
-}
-
-function officialSourceFromOverride(override) {
-  return (override?.sources || []).find(
-    (source) => source?.adapter === "fifa-tactical-pdf" && source?.status === "matched"
-  );
-}
-
-function applyOfficialOverride(lineups, override, previousOverride) {
-  const previousSourceIds = new Set(previousOverride?.sourceIds || []);
-  const withoutSupersededLayoutSource = {
-    ...lineups,
-    sourceIds: (lineups.sourceIds || []).filter((sourceId) => !previousSourceIds.has(sourceId))
-  };
-  const applied = applyLineupLayoutOverride(withoutSupersededLayoutSource, override);
-  const issues = compareLineupsToLayoutOverride(applied, override);
-  if (issues.length) {
-    throw new Error(`official FIFA geometry could not be applied: ${issues.join("; ")}`);
-  }
-  return applied;
-}
-
 function sameJson(left, right) {
   return JSON.stringify(left) === JSON.stringify(right);
 }
 
-function tournamentSourceForOverride(fixture, override) {
-  const source = officialSourceFromOverride(override);
-  if (!source) return null;
-  const sourceId = override.sourceIds?.[0];
-  if (!sourceId) return null;
-  return {
-    id: sourceId,
-    label: `FIFA official Tactical Line-up - match ${fixtureMatchNumber(fixture)}`,
-    url: source.url,
-    type: "official",
-    checkedAt: source.publishedAt,
-    note: `FIFA Tactical Line-up version ${source.documentVersion} supplied the nominal rows and left/right geometry for all 22 starters.`
-  };
-}
-
-function upsertTournamentSource(tournamentData, fixture, override) {
-  const nextSource = tournamentSourceForOverride(fixture, override);
-  if (!nextSource) return false;
-  const sources = Array.isArray(tournamentData.sources) ? tournamentData.sources : [];
-  const index = sources.findIndex((source) => source?.id === nextSource.id);
-  if (index >= 0 && sameJson(sources[index], nextSource)) return false;
-  if (index >= 0) {
-    sources[index] = nextSource;
-  } else {
-    sources.push(nextSource);
-  }
-  tournamentData.sources = sources;
-  return true;
-}
-
 function newestOfficialVersion(override) {
-  const version = Number(officialSourceFromOverride(override)?.documentVersion);
+  const version = Number(officialFifaTacticalSourceFromOverride(override)?.documentVersion);
   return Number.isInteger(version) && version > 0 ? version : 0;
 }
 
@@ -314,12 +214,13 @@ function isUsableOfficialOverride(fixture, lineups, override) {
   );
 }
 
-const [fixturesData, lineupsData, overridesData, tacticalIndex, tournamentData] = await Promise.all([
+const [fixturesData, lineupsData, overridesData, tacticalIndex, tournamentData, profilesData] = await Promise.all([
   readJson("fixtures.json"),
   readJson("lineups.json"),
   readJson("lineup-layout-overrides.json"),
   readJson("fifa-tactical-lineup-index.json"),
-  readJson("tournament.json")
+  readJson("tournament.json"),
+  readJson("player-profiles.json")
 ]);
 
 const indexIssues = validateFifaTacticalLineupIndex(tacticalIndex);
@@ -357,13 +258,13 @@ function applyAndPersistOfficial(fixture, override, previousOverride) {
     warnings.push(`${fixture.id}: FIFA's official starting XI is not available yet`);
     return false;
   }
-  const nextLineups = applyOfficialOverride(currentLineups, override, previousOverride);
+  const nextLineups = applyFifaOfficialLayoutOverride(currentLineups, override, previousOverride);
   if (!sameJson(currentLineups, nextLineups)) {
     lineupsByFixtureId[fixture.id] = nextLineups;
     lineupsChanged = true;
   }
   for (const sourceId of override.sourceIds) acceptedSourceIds.add(sourceId);
-  if (upsertTournamentSource(tournamentData, fixture, override)) tournamentChanged = true;
+  if (upsertFifaTacticalTournamentSource(tournamentData, fixture, override)) tournamentChanged = true;
   return true;
 }
 
@@ -432,10 +333,17 @@ for (const fixture of targetFixtures) {
 
     let parsed;
     try {
+      const enrichedLineups = await enrichFifaTacticalLineupPlayerAliases({
+        dataDir,
+        fixture: discoveredFixture,
+        lineups: discoveredLineups,
+        profilesData
+      });
       parsed = parseFifaTacticalLineupDocument({
         document: fetched.document,
         fixture: discoveredFixture,
-        lineups: discoveredLineups
+        lineups: enrichedLineups,
+        allowFormationCorrection: true
       });
     } catch (error) {
       warnings.push(`${fixture.id}: r${registrationId} failed strict validation: ${error.message}`);
@@ -488,7 +396,7 @@ for (const fixture of targetFixtures) {
       break;
     }
 
-    const override = buildOfficialOverride({ fixture, parsed, registrationId, url, publishedAt });
+    const override = buildFifaOfficialLayoutOverride({ fixture, parsed, registrationId, url, publishedAt });
     const provenanceIssues = getLayoutOverrideProvenanceIssues(override);
     if (provenanceIssues.length) {
       warnings.push(`${fixture.id}: official override failed provenance validation: ${provenanceIssues.join("; ")}`);

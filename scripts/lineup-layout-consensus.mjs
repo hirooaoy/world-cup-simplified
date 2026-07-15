@@ -1,4 +1,4 @@
-import { normalizeLayoutPlayerName } from "./lineup-layout-overrides.mjs";
+import { resolveFormationLayout } from "./lineup-prediction-engine/formations.mjs";
 
 function claimSignature(claim) {
   const home = String(claim?.signature?.home || "").trim();
@@ -12,53 +12,55 @@ function sourceIdentity(claim) {
     .toLowerCase();
 }
 
-function median(values) {
-  const sorted = values.map(Number).filter(Number.isFinite).sort((left, right) => left - right);
-  if (!sorted.length) {
-    return Number.NaN;
+function formationRowCounts(formation) {
+  const rows = String(formation || "").split("-").map(Number);
+  return [...rows].reverse().concat(1);
+}
+
+function groupIntoRows(items, rowCounts, sorter) {
+  const ordered = [...items].sort(sorter);
+  const rows = [];
+  let offset = 0;
+  for (const count of rowCounts) {
+    rows.push(ordered.slice(offset, offset + count).sort((left, right) => left.x - right.x));
+    offset += count;
   }
-
-  const middle = Math.floor(sorted.length / 2);
-  return sorted.length % 2
-    ? sorted[middle]
-    : (sorted[middle - 1] + sorted[middle]) / 2;
+  return rows;
 }
 
-function findClaimPlayer(claim, side, name) {
-  const key = normalizeLayoutPlayerName(name);
-  return (claim?.[side]?.players || []).find(
-    (player) => normalizeLayoutPlayerName(player?.name) === key
-  );
-}
-
-function mergeSideGeometry(exactClaims, side) {
+function canonicalSideGeometry(exactClaims, side) {
   const baseSide = exactClaims[0]?.[side];
   if (!baseSide?.formation || !Array.isArray(baseSide.players) || baseSide.players.length !== 11) {
     return null;
   }
 
-  const players = baseSide.players.map((basePlayer) => {
-    const sourcePlayers = exactClaims.map((claim) => findClaimPlayer(claim, side, basePlayer.name));
-    if (sourcePlayers.some((player) => !player)) {
-      return null;
-    }
-
-    const x = median(sourcePlayers.map((player) => player.x));
-    const y = median(sourcePlayers.map((player) => player.y));
-    if (!Number.isFinite(x) || !Number.isFinite(y)) {
-      return null;
-    }
-
-    return {
-      ...basePlayer,
-      x: Number(x.toFixed(1)),
-      y: Number(y.toFixed(1))
-    };
-  });
-
-  if (players.some((player) => !player)) {
+  const resolution = resolveFormationLayout(baseSide.formation);
+  if (resolution.formation !== baseSide.formation || resolution.layout.length !== 11) {
     return null;
   }
+
+  const rowCounts = formationRowCounts(baseSide.formation);
+  const playerRows = groupIntoRows(
+    baseSide.players,
+    rowCounts,
+    (left, right) => left.y - right.y || left.x - right.x
+  );
+  const slots = resolution.layout.map(([assignmentRole, x, y, displayRole = assignmentRole]) => ({
+    position: displayRole,
+    x,
+    y
+  }));
+  const slotRows = groupIntoRows(slots, rowCounts, (left, right) => left.y - right.y || left.x - right.x);
+  if (playerRows.some((row, index) => row.length !== slotRows[index]?.length)) {
+    return null;
+  }
+
+  const players = playerRows.flatMap((row, rowIndex) => row.map((player, column) => ({
+    ...player,
+    position: slotRows[rowIndex][column].position,
+    x: slotRows[rowIndex][column].x,
+    y: slotRows[rowIndex][column].y
+  })));
 
   return {
     formation: baseSide.formation,
@@ -66,49 +68,47 @@ function mergeSideGeometry(exactClaims, side) {
   };
 }
 
-function geometryWithinTolerance(exactClaims, { maximumXDelta, maximumYDelta }) {
-  for (const side of ["home", "away"]) {
-    for (const basePlayer of exactClaims[0]?.[side]?.players || []) {
-      const sourcePlayers = exactClaims.map((claim) => findClaimPlayer(claim, side, basePlayer.name));
-      if (sourcePlayers.some((player) => !player)) {
-        return false;
-      }
-      const xValues = sourcePlayers.map((player) => Number(player.x));
-      const yValues = sourcePlayers.map((player) => Number(player.y));
-      if (
-        xValues.some((value) => !Number.isFinite(value)) ||
-        yValues.some((value) => !Number.isFinite(value)) ||
-        Math.max(...xValues) - Math.min(...xValues) > maximumXDelta ||
-        Math.max(...yValues) - Math.min(...yValues) > maximumYDelta
-      ) {
-        return false;
-      }
-    }
-  }
-
-  return true;
-}
-
 export function buildExactLayoutConsensus(
   claims,
-  { minimumExactSources = 2, maximumXDelta = 8, maximumYDelta = 10 } = {}
+  { minimumExactSources = 2, allowStrictMajority = false } = {}
 ) {
   const matchedClaims = (Array.isArray(claims) ? claims : []).filter(
     (claim) => claim?.status === "matched"
   );
-  const matchedSignatures = new Set(matchedClaims.map(claimSignature).filter(Boolean));
 
   if (!matchedClaims.length) {
     return { status: "insufficient", reason: "no_matched_sources", matchedClaims, exactClaims: [] };
   }
 
-  if (matchedSignatures.size !== 1 || matchedClaims.some((claim) => !claimSignature(claim))) {
+  if (matchedClaims.some((claim) => !claimSignature(claim))) {
     return { status: "conflict", reason: "tactical_signature_conflict", matchedClaims, exactClaims: [] };
+  }
+
+  const signatureGroups = new Map();
+  for (const claim of matchedClaims) {
+    const signature = claimSignature(claim);
+    const group = signatureGroups.get(signature) || [];
+    group.push(claim);
+    signatureGroups.set(signature, group);
+  }
+  const rankedGroups = [...signatureGroups.values()].sort((left, right) => right.length - left.length);
+  const supportingClaims = rankedGroups[0] || [];
+  const dissentingClaims = rankedGroups.slice(1).flat();
+  const hasStrictMajority = supportingClaims.length > matchedClaims.length / 2;
+  if (signatureGroups.size !== 1 && (!allowStrictMajority || !hasStrictMajority)) {
+    return {
+      status: "conflict",
+      reason: "tactical_signature_conflict",
+      matchedClaims,
+      supportingClaims,
+      dissentingClaims,
+      exactClaims: []
+    };
   }
 
   const exactClaims = [];
   const seenSources = new Set();
-  for (const claim of matchedClaims) {
+  for (const claim of supportingClaims) {
     if (!claim.exactLayout) {
       continue;
     }
@@ -129,17 +129,8 @@ export function buildExactLayoutConsensus(
     };
   }
 
-  if (!geometryWithinTolerance(exactClaims, { maximumXDelta, maximumYDelta })) {
-    return {
-      status: "conflict",
-      reason: "geometry_tolerance_conflict",
-      matchedClaims,
-      exactClaims
-    };
-  }
-
-  const home = mergeSideGeometry(exactClaims, "home");
-  const away = mergeSideGeometry(exactClaims, "away");
+  const home = canonicalSideGeometry(exactClaims, "home");
+  const away = canonicalSideGeometry(exactClaims, "away");
   if (!home || !away) {
     return {
       status: "insufficient",
@@ -152,6 +143,8 @@ export function buildExactLayoutConsensus(
   return {
     status: "agreed",
     matchedClaims,
+    supportingClaims,
+    dissentingClaims,
     exactClaims,
     sourceNames: exactClaims.map((claim) => claim.name).filter(Boolean),
     home,

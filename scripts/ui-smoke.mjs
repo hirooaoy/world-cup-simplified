@@ -6030,9 +6030,9 @@ try {
       return { formationCards, redCards };
     });
   assert(
-    redCardPillState.formationCards.some(
+    redCardPillState.formationCards.every(
       (card) =>
-        card.title === "4-1-2-3" &&
+        /^\d(?:-\d+)+$/.test(card.title) &&
         card.notes.length === 2 &&
         card.notes.some((note) => note.includes("Good at") && note.length > 24) &&
         card.notes.some((note) => note.includes("Can struggle with") && note.length > 32)
@@ -6047,7 +6047,7 @@ try {
           card.radius !== "2px" &&
           card.tooltip === "90+2' Red card"
       ),
-    `4-1-2-3 should render populated formation-card notes, and floating red cards should keep timing in the tooltip instead of visible text. Measured ${JSON.stringify(redCardPillState)}.`
+    `Corrected exact formations should render populated formation-card notes, and floating red cards should keep timing in the tooltip instead of visible text. Measured ${JSON.stringify(redCardPillState)}.`
   );
   await finalLineupModeCheck.context.close();
 

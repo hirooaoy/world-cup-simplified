@@ -21,6 +21,7 @@ import {
   VERIFIED_LAYOUT_SOURCE
 } from "./lineup-layout-sources.mjs";
 import { isPlayerNameMatch } from "./player-name-matching.mjs";
+import { formationLayoutMatchesPlayers } from "./lineup-prediction-engine/formations.mjs";
 
 const checkedAt = "2026-07-07T18:00:00.000Z";
 
@@ -405,10 +406,9 @@ assert.equal(
 const fotmobConsensusClaim = exactConsensusClaim("FotMob", "fotmob", 4);
 const agreedConsensus = buildExactLayoutConsensus([espnConsensusClaim, fotmobConsensusClaim]);
 assert.equal(agreedConsensus.status, "agreed");
-assert.equal(
-  agreedConsensus.home.players[1].x,
-  Number(lineups.home.players[1].x) + 2,
-  "Agreed normalized coordinates should use the per-player median."
+assert(
+  formationLayoutMatchesPlayers(agreedConsensus.home.formation, agreedConsensus.home.players),
+  "Agreed row signatures should render on the canonical formation grid."
 );
 
 const rowConflictClaim = structuredClone(fotmobConsensusClaim);
@@ -422,17 +422,33 @@ assert.equal(
 const geometryConflictClaim = exactConsensusClaim("FotMob", "fotmob", 9);
 assert.equal(
   buildExactLayoutConsensus([espnConsensusClaim, geometryConflictClaim]).status,
-  "conflict",
-  "Coordinate drift beyond the normalized tolerance must stay unresolved."
+  "agreed",
+  "Providers with the same normalized rows should not conflict only because their drawing grids use different spacing."
 );
+
+const majorityConflictClaim = structuredClone(rowConflictClaim);
+majorityConflictClaim.name = "FotMob";
+majorityConflictClaim.adapter = "fotmob";
+const sofascoreMajorityClaim = exactConsensusClaim("SofaScore", "sofascore-history");
+assert.equal(
+  buildExactLayoutConsensus([espnConsensusClaim, majorityConflictClaim, sofascoreMajorityClaim]).status,
+  "conflict",
+  "Routine consensus must remain unanimous."
+);
+const reviewedMajority = buildExactLayoutConsensus(
+  [espnConsensusClaim, majorityConflictClaim, sofascoreMajorityClaim],
+  { allowStrictMajority: true }
+);
+assert.equal(reviewedMajority.status, "agreed");
+assert.deepEqual(reviewedMajority.sourceNames, ["ESPN", "SofaScore"]);
+assert.deepEqual(reviewedMajority.dissentingClaims.map((claim) => claim.name), ["FotMob"]);
 
 const consensusOverride = structuredClone(override);
 consensusOverride.verificationMethod = "source-consensus-v1";
 consensusOverride.consensus = {
   providers: ["ESPN", "FotMob"],
   minimumExactSources: 2,
-  coordinateTolerance: { x: 8, y: 10 },
-  aggregation: "median-normalized-coordinates"
+  aggregation: "canonical-formation-grid"
 };
 consensusOverride.note = "ESPN and FotMob agreed on the tactical layout.";
 consensusOverride.sources = [espnConsensusClaim, fotmobConsensusClaim].map((claim) => ({

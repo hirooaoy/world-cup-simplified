@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-15T21:30:50.879Z",
+  "updatedAt": "2026-07-15T22:51:32.000Z",
   "coverageNote": "The current seed dataset covers the full official fixture skeleton from June 11 through July 19. Rich previews, scores, live status and knockout participants are updated progressively.",
   "catchUp": [
     {
@@ -1755,19 +1755,11 @@
       "note": "Reviewed for the 120-minute stalemate, Kobel save, Vargas winner, and quarter-final path."
     },
     {
-      "id": "lineup-layout-verification-2026-07-15",
-      "label": "Lineup layout verification",
-      "url": "https://www.fifa.com/fifaplus/en/match-centre",
-      "type": "editorial",
-      "checkedAt": "2026-07-15T19:12:38.000Z",
-      "note": "1 live fixture reviewed; 1 verified override applied for the England-Argentina semifinal."
-    },
-    {
       "id": "fifa-tactical-lineup-match-102-v1-cda8da4f98a5",
       "label": "FIFA official Tactical Line-up - match 102",
       "url": "https://fdp.fifa.org/assetspublic/ce281/r12549/pdf/TacticalLineup-English.pdf",
       "type": "official",
-      "checkedAt": "2026-07-15T17:41:37.000Z",
+      "checkedAt": "2026-07-15T17:41:00.000Z",
       "note": "FIFA Tactical Line-up version 1 supplied the nominal rows and left/right geometry for all 22 starters."
     },
     {
@@ -1775,7 +1767,7 @@
       "label": "FIFA official Tactical Line-up - match 101",
       "url": "https://fdp.fifa.org/assetspublic/ce281/r12550/pdf/TacticalLineup-English.pdf",
       "type": "official",
-      "checkedAt": "2026-07-14T17:40:50.000Z",
+      "checkedAt": "2026-07-14T17:40:00.000Z",
       "note": "FIFA Tactical Line-up version 1 supplied the nominal rows and left/right geometry for all 22 starters."
     },
     {
@@ -1817,6 +1809,342 @@
       "type": "official",
       "checkedAt": "2026-07-15T21:30:50.879Z",
       "note": "0 fixture updates merged from 104 matched FIFA fixtures."
+    },
+    {
+      "id": "fifa-tactical-lineup-match-6-v1-abb5b18b49fd",
+      "label": "FIFA official Tactical Line-up - match 6",
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12472/pdf/TacticalLineup-English.pdf",
+      "type": "official",
+      "checkedAt": "2026-06-14T02:40:00.000Z",
+      "note": "FIFA Tactical Line-up version 1 supplied the nominal rows and left/right geometry for all 22 starters."
+    },
+    {
+      "id": "fifa-tactical-lineup-match-10-v1-69e3a390fc2e",
+      "label": "FIFA official Tactical Line-up - match 10",
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12473/pdf/TacticalLineup-English.pdf",
+      "type": "official",
+      "checkedAt": "2026-06-14T15:50:00.000Z",
+      "note": "FIFA Tactical Line-up version 1 supplied the nominal rows and left/right geometry for all 22 starters."
+    },
+    {
+      "id": "fifa-tactical-lineup-match-11-v1-e3341d0f474f",
+      "label": "FIFA official Tactical Line-up - match 11",
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12480/pdf/TacticalLineup-English.pdf",
+      "type": "official",
+      "checkedAt": "2026-06-14T18:46:00.000Z",
+      "note": "FIFA Tactical Line-up version 1 supplied the nominal rows and left/right geometry for all 22 starters."
+    },
+    {
+      "id": "fifa-tactical-lineup-match-13-v1-3e9a428a6eb4",
+      "label": "FIFA official Tactical Line-up - match 13",
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12495/pdf/TacticalLineup-English.pdf",
+      "type": "official",
+      "checkedAt": "2026-06-15T20:49:00.000Z",
+      "note": "FIFA Tactical Line-up version 1 supplied the nominal rows and left/right geometry for all 22 starters."
+    },
+    {
+      "id": "fifa-tactical-lineup-match-14-v1-0457b9da6b78",
+      "label": "FIFA official Tactical Line-up - match 14",
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12492/pdf/TacticalLineup-English.pdf",
+      "type": "official",
+      "checkedAt": "2026-06-15T15:15:00.000Z",
+      "note": "FIFA Tactical Line-up version 1 supplied the nominal rows and left/right geometry for all 22 starters."
+    },
+    {
+      "id": "fifa-tactical-lineup-match-15-v1-b7c6b8e69b71",
+      "label": "FIFA official Tactical Line-up - match 15",
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12485/pdf/TacticalLineup-English.pdf",
+      "type": "official",
+      "checkedAt": "2026-06-15T23:57:00.000Z",
+      "note": "FIFA Tactical Line-up version 1 supplied the nominal rows and left/right geometry for all 22 starters."
+    },
+    {
+      "id": "fifa-tactical-lineup-match-16-v1-fc37d380d604",
+      "label": "FIFA official Tactical Line-up - match 16",
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12488/pdf/TacticalLineup-English.pdf",
+      "type": "official",
+      "checkedAt": "2026-06-15T17:42:00.000Z",
+      "note": "FIFA Tactical Line-up version 1 supplied the nominal rows and left/right geometry for all 22 starters."
+    },
+    {
+      "id": "fifa-tactical-lineup-match-17-v1-63100110b5a2",
+      "label": "FIFA official Tactical Line-up - match 17",
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12499/pdf/TacticalLineup-English.pdf",
+      "type": "official",
+      "checkedAt": "2026-06-16T17:37:00.000Z",
+      "note": "FIFA Tactical Line-up version 1 supplied the nominal rows and left/right geometry for all 22 starters."
+    },
+    {
+      "id": "fifa-tactical-lineup-match-19-v1-33c0fd689efa",
+      "label": "FIFA official Tactical Line-up - match 19",
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12506/pdf/TacticalLineup-English.pdf",
+      "type": "official",
+      "checkedAt": "2026-06-16T23:44:00.000Z",
+      "note": "FIFA Tactical Line-up version 1 supplied the nominal rows and left/right geometry for all 22 starters."
+    },
+    {
+      "id": "fifa-tactical-lineup-match-21-v1-346ac22d644e",
+      "label": "FIFA official Tactical Line-up - match 21",
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12519/pdf/TacticalLineup-English.pdf",
+      "type": "official",
+      "checkedAt": "2026-06-17T21:44:00.000Z",
+      "note": "FIFA Tactical Line-up version 1 supplied the nominal rows and left/right geometry for all 22 starters."
+    },
+    {
+      "id": "fifa-tactical-lineup-match-31-v1-c42f7606c44d",
+      "label": "FIFA official Tactical Line-up - match 31",
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12470/pdf/TacticalLineup-English.pdf",
+      "type": "official",
+      "checkedAt": "2026-06-20T01:44:00.000Z",
+      "note": "FIFA Tactical Line-up version 1 supplied the nominal rows and left/right geometry for all 22 starters."
+    },
+    {
+      "id": "fifa-tactical-lineup-match-32-v1-2ccdb049beef",
+      "label": "FIFA official Tactical Line-up - match 32",
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12471/pdf/TacticalLineup-English.pdf",
+      "type": "official",
+      "checkedAt": "2026-06-19T17:43:00.000Z",
+      "note": "FIFA Tactical Line-up version 1 supplied the nominal rows and left/right geometry for all 22 starters."
+    },
+    {
+      "id": "fifa-tactical-lineup-match-33-v1-9abe34d44028",
+      "label": "FIFA official Tactical Line-up - match 33",
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12478/pdf/TacticalLineup-English.pdf",
+      "type": "official",
+      "checkedAt": "2026-06-20T18:46:00.000Z",
+      "note": "FIFA Tactical Line-up version 1 supplied the nominal rows and left/right geometry for all 22 starters."
+    },
+    {
+      "id": "fifa-tactical-lineup-match-34-v1-f482b1f58de7",
+      "label": "FIFA official Tactical Line-up - match 34",
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12474/pdf/TacticalLineup-English.pdf",
+      "type": "official",
+      "checkedAt": "2026-06-20T22:56:00.000Z",
+      "note": "FIFA Tactical Line-up version 1 supplied the nominal rows and left/right geometry for all 22 starters."
+    },
+    {
+      "id": "fifa-tactical-lineup-match-35-v1-87bc0a757332",
+      "label": "FIFA official Tactical Line-up - match 35",
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12481/pdf/TacticalLineup-English.pdf",
+      "type": "official",
+      "checkedAt": "2026-06-20T15:51:00.000Z",
+      "note": "FIFA Tactical Line-up version 1 supplied the nominal rows and left/right geometry for all 22 starters."
+    },
+    {
+      "id": "fifa-tactical-lineup-match-40-v1-8c5aea802007",
+      "label": "FIFA official Tactical Line-up - match 40",
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12489/pdf/TacticalLineup-English.pdf",
+      "type": "official",
+      "checkedAt": "2026-06-21T23:37:00.000Z",
+      "note": "FIFA Tactical Line-up version 1 supplied the nominal rows and left/right geometry for all 22 starters."
+    },
+    {
+      "id": "fifa-tactical-lineup-match-44-v1-6d91cb4fbfe0",
+      "label": "FIFA official Tactical Line-up - match 44",
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12507/pdf/TacticalLineup-English.pdf",
+      "type": "official",
+      "checkedAt": "2026-06-23T01:43:00.000Z",
+      "note": "FIFA Tactical Line-up version 1 supplied the nominal rows and left/right geometry for all 22 starters."
+    },
+    {
+      "id": "fifa-tactical-lineup-match-45-v1-78577b6fb9e8",
+      "label": "FIFA official Tactical Line-up - match 45",
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12515/pdf/TacticalLineup-English.pdf",
+      "type": "official",
+      "checkedAt": "2026-06-23T18:44:00.000Z",
+      "note": "FIFA Tactical Line-up version 1 supplied the nominal rows and left/right geometry for all 22 starters."
+    },
+    {
+      "id": "fifa-tactical-lineup-match-46-v1-48c9f6868c4e",
+      "label": "FIFA official Tactical Line-up - match 46",
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12520/pdf/TacticalLineup-English.pdf",
+      "type": "official",
+      "checkedAt": "2026-06-23T21:42:00.000Z",
+      "note": "FIFA Tactical Line-up version 1 supplied the nominal rows and left/right geometry for all 22 starters."
+    },
+    {
+      "id": "fifa-tactical-lineup-match-47-v1-6834853aa743",
+      "label": "FIFA official Tactical Line-up - match 47",
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12512/pdf/TacticalLineup-English.pdf",
+      "type": "official",
+      "checkedAt": "2026-06-23T15:48:00.000Z",
+      "note": "FIFA Tactical Line-up version 1 supplied the nominal rows and left/right geometry for all 22 starters."
+    },
+    {
+      "id": "fifa-tactical-lineup-match-49-v1-b1a02bf995cd",
+      "label": "FIFA official Tactical Line-up - match 49",
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12464/pdf/TacticalLineup-English.pdf",
+      "type": "official",
+      "checkedAt": "2026-06-24T20:43:00.000Z",
+      "note": "FIFA Tactical Line-up version 1 supplied the nominal rows and left/right geometry for all 22 starters."
+    },
+    {
+      "id": "fifa-tactical-lineup-match-50-v1-c2c487aa4b02",
+      "label": "FIFA official Tactical Line-up - match 50",
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12461/pdf/TacticalLineup-English.pdf",
+      "type": "official",
+      "checkedAt": "2026-06-24T20:36:00.000Z",
+      "note": "FIFA Tactical Line-up version 1 supplied the nominal rows and left/right geometry for all 22 starters."
+    },
+    {
+      "id": "fifa-tactical-lineup-match-53-v1-23aa9bf1ee41",
+      "label": "FIFA official Tactical Line-up - match 53",
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12453/pdf/TacticalLineup-English.pdf",
+      "type": "official",
+      "checkedAt": "2026-06-24T23:50:00.000Z",
+      "note": "FIFA Tactical Line-up version 1 supplied the nominal rows and left/right geometry for all 22 starters."
+    },
+    {
+      "id": "fifa-tactical-lineup-match-61-v1-0c4a3687a2b5",
+      "label": "FIFA official Tactical Line-up - match 61",
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12498/pdf/TacticalLineup-English.pdf",
+      "type": "official",
+      "checkedAt": "2026-06-26T17:42:00.000Z",
+      "note": "FIFA Tactical Line-up version 1 supplied the nominal rows and left/right geometry for all 22 starters."
+    },
+    {
+      "id": "fifa-tactical-lineup-match-62-v1-c51509c89043",
+      "label": "FIFA official Tactical Line-up - match 62",
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12502/pdf/TacticalLineup-English.pdf",
+      "type": "official",
+      "checkedAt": "2026-06-26T17:57:00.000Z",
+      "note": "FIFA Tactical Line-up version 1 supplied the nominal rows and left/right geometry for all 22 starters."
+    },
+    {
+      "id": "fifa-tactical-lineup-match-72-v1-b3c95b32cc42",
+      "label": "FIFA official Tactical Line-up - match 72",
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12509/pdf/TacticalLineup-English.pdf",
+      "type": "official",
+      "checkedAt": "2026-06-27T22:24:00.000Z",
+      "note": "FIFA Tactical Line-up version 1 supplied the nominal rows and left/right geometry for all 22 starters."
+    },
+    {
+      "id": "fifa-tactical-lineup-match-73-v1-0d118bfadb5f",
+      "label": "FIFA official Tactical Line-up - match 73",
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12527/pdf/TacticalLineup-English.pdf",
+      "type": "official",
+      "checkedAt": "2026-06-28T17:42:00.000Z",
+      "note": "FIFA Tactical Line-up version 1 supplied the nominal rows and left/right geometry for all 22 starters."
+    },
+    {
+      "id": "fifa-tactical-lineup-match-79-v1-ed3c07c110dc",
+      "label": "FIFA official Tactical Line-up - match 79",
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12529/pdf/TacticalLineup-English.pdf",
+      "type": "official",
+      "checkedAt": "2026-06-30T23:37:00.000Z",
+      "note": "FIFA Tactical Line-up version 1 supplied the nominal rows and left/right geometry for all 22 starters."
+    },
+    {
+      "id": "fifa-tactical-lineup-match-80-v1-324046b31d88",
+      "label": "FIFA official Tactical Line-up - match 80",
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12521/pdf/TacticalLineup-English.pdf",
+      "type": "official",
+      "checkedAt": "2026-07-01T14:40:00.000Z",
+      "note": "FIFA Tactical Line-up version 1 supplied the nominal rows and left/right geometry for all 22 starters."
+    },
+    {
+      "id": "fifa-tactical-lineup-match-81-v1-a10daffb1797",
+      "label": "FIFA official Tactical Line-up - match 81",
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12533/pdf/TacticalLineup-English.pdf",
+      "type": "official",
+      "checkedAt": "2026-07-01T22:41:00.000Z",
+      "note": "FIFA Tactical Line-up version 1 supplied the nominal rows and left/right geometry for all 22 starters."
+    },
+    {
+      "id": "fifa-tactical-lineup-match-84-v1-6cf56e8ecff1",
+      "label": "FIFA official Tactical Line-up - match 84",
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12528/pdf/TacticalLineup-English.pdf",
+      "type": "official",
+      "checkedAt": "2026-07-02T17:41:00.000Z",
+      "note": "FIFA Tactical Line-up version 1 supplied the nominal rows and left/right geometry for all 22 starters."
+    },
+    {
+      "id": "fifa-tactical-lineup-match-85-v1-b74df8530098",
+      "label": "FIFA official Tactical Line-up - match 85",
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12536/pdf/TacticalLineup-English.pdf",
+      "type": "official",
+      "checkedAt": "2026-07-03T01:40:00.000Z",
+      "note": "FIFA Tactical Line-up version 1 supplied the nominal rows and left/right geometry for all 22 starters."
+    },
+    {
+      "id": "fifa-tactical-lineup-match-86-v1-9ad9c127d876",
+      "label": "FIFA official Tactical Line-up - match 86",
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12530/pdf/TacticalLineup-English.pdf",
+      "type": "official",
+      "checkedAt": "2026-07-03T20:44:00.000Z",
+      "note": "FIFA Tactical Line-up version 1 supplied the nominal rows and left/right geometry for all 22 starters."
+    },
+    {
+      "id": "fifa-tactical-lineup-match-87-v1-313897303005",
+      "label": "FIFA official Tactical Line-up - match 87",
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12526/pdf/TacticalLineup-English.pdf",
+      "type": "official",
+      "checkedAt": "2026-07-04T00:08:00.000Z",
+      "note": "FIFA Tactical Line-up version 1 supplied the nominal rows and left/right geometry for all 22 starters."
+    },
+    {
+      "id": "fifa-tactical-lineup-match-88-v1-aa73c6f30a1f",
+      "label": "FIFA official Tactical Line-up - match 88",
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12524/pdf/TacticalLineup-English.pdf",
+      "type": "official",
+      "checkedAt": "2026-07-03T16:41:00.000Z",
+      "note": "FIFA Tactical Line-up version 1 supplied the nominal rows and left/right geometry for all 22 starters."
+    },
+    {
+      "id": "fifa-tactical-lineup-match-89-v1-86eff6b9c6d9",
+      "label": "FIFA official Tactical Line-up - match 89",
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12542/pdf/TacticalLineup-English.pdf",
+      "type": "official",
+      "checkedAt": "2026-07-04T19:43:00.000Z",
+      "note": "FIFA Tactical Line-up version 1 supplied the nominal rows and left/right geometry for all 22 starters."
+    },
+    {
+      "id": "fifa-tactical-lineup-match-91-v2-ff9df87ad2c9",
+      "label": "FIFA official Tactical Line-up - match 91",
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12541/pdf/TacticalLineup-English.pdf",
+      "type": "official",
+      "checkedAt": "2026-07-05T18:54:00.000Z",
+      "note": "FIFA Tactical Line-up version 2 supplied the nominal rows and left/right geometry for all 22 starters."
+    },
+    {
+      "id": "fifa-tactical-lineup-match-92-v1-cdff460bcad6",
+      "label": "FIFA official Tactical Line-up - match 92",
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12540/pdf/TacticalLineup-English.pdf",
+      "type": "official",
+      "checkedAt": "2026-07-05T22:40:00.000Z",
+      "note": "FIFA Tactical Line-up version 1 supplied the nominal rows and left/right geometry for all 22 starters."
+    },
+    {
+      "id": "fifa-tactical-lineup-match-93-v1-c4ef906ba031",
+      "label": "FIFA official Tactical Line-up - match 93",
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12538/pdf/TacticalLineup-English.pdf",
+      "type": "official",
+      "checkedAt": "2026-07-06T17:40:00.000Z",
+      "note": "FIFA Tactical Line-up version 1 supplied the nominal rows and left/right geometry for all 22 starters."
+    },
+    {
+      "id": "fifa-tactical-lineup-match-99-v1-1776249c1da9",
+      "label": "FIFA official Tactical Line-up - match 99",
+      "url": "https://fdp.fifa.org/assetspublic/ce281/r12548/pdf/TacticalLineup-English.pdf",
+      "type": "official",
+      "checkedAt": "2026-07-11T19:41:00.000Z",
+      "note": "FIFA Tactical Line-up version 1 supplied the nominal rows and left/right geometry for all 22 starters."
+    },
+    {
+      "id": "lineup-layout-verification-2026-07-15",
+      "label": "Lineup layout verification",
+      "url": "https://www.fifa.com/fifaplus/en/match-centre",
+      "type": "editorial",
+      "checkedAt": "2026-07-15T22:52:53.133Z",
+      "note": "9 completed fixtures reviewed; 0 verified overrides applied."
+    },
+    {
+      "id": "lineup-layout-manual-review-2026-07-15",
+      "label": "Manual lineup layout review",
+      "url": "https://www.google.com/search?q=Sweden+Tunisia+Jun+14+2026+ESPN+Formations+%26+Lineups+Soccer+pitch",
+      "type": "editorial",
+      "checkedAt": "2026-07-15T22:51:32.000Z",
+      "note": "9 provider ties were reviewed one by one; complete SofaScore rows were used only where Google-indexed ESPN board text confirmed both formations."
     }
   ],
   "groups": [

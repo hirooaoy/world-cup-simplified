@@ -36,30 +36,31 @@ Lineups follow a trust ladder:
 - `data/lineup-prediction-history.json` preserves the last available pre-kickoff prediction after a fixture starts, including bench, evidence, engine metadata, and self-contained source metadata. `pnpm sync:fifa` archives a completed fixture's expected-lineup record before pruning it, while `pnpm lineups:history:backfill` reconstructs only snapshots that demonstrably existed in Git before kickoff. Never manufacture older forecasts from final lineups.
 - A delayed fixture at or after its scheduled kickoff freezes the last valid pre-kickoff record and its exact audit revision; prediction generation must not rewrite it with hindsight while status remains `DELAYED`.
 - When FIFA publishes the team sheet, `pnpm sync:fifa:lineups:live` can persist a complete confirmed sheet for scheduled/delayed fixtures near kickoff as well as live and completed fixtures. The default `pnpm sync:fifa:lineups` remains a completed-fixture sync. Runtime `/api/live-data` performs the same automatic override and retains the last complete official XI across a temporary provider failure.
-- FIFA's live payload supplies the official XI, bench, broad positions, and formation, but no exact tactical coordinates. Matching official starters may use the frozen pre-kickoff role/side evidence to choose slots inside FIFA's official formation; this never changes official identities or formation and remains `exact: false` with explicit inference provenance. A verified layout override still has higher priority.
+- FIFA's live payload supplies the official XI, bench, broad positions, and formation. Matching official starters may use the frozen pre-kickoff role/side evidence to choose safe provisional slots inside FIFA's official formation; this never changes official identities or formation and remains `exact: false` with explicit inference provenance.
+- FIFA's separately published Tactical Line-up PDF is the primary exact-geometry source. `pnpm sync:fifa:tactical-lineups` discovers the match document, parses positioned PDF text directly, maps its rows and left/right order to the official XI, and stores a permanent `fifa-tactical-lineup-pdf-v1` override. Later FIFA XI refreshes preserve and reapply that official geometry.
 - During live matches, the UI displays the official starting XI and represents substitutions separately.
 - After full time, completed fixtures must keep a final `lineups.json` record. Official facts should come from FIFA whenever possible.
 
 Run `pnpm lineups:history:audit` to compare archived predictions with final official XIs using one-to-one identity matching, starters, benches, starter/bench crossovers, roles, formations, coordinates, lead time, and source/evidence-strength buckets. Headline accuracy is forecast-only; published/reported-XI-assisted records and candidates are reported separately. Run `pnpm smoke:lineups` for the complete prediction, history, live override, rendering, and layout-provenance gate.
 
-Exact pitch geometry is separate from official team-sheet facts. Do not tune the generic placement heuristics to fix one match. If a public FIFA payload does not expose reliable coordinates, keep the layout `derived-team-sheet-order` and unverified.
+Exact pitch geometry is separate from official team-sheet facts. Do not tune generic placement heuristics or add formation-specific exceptions to fix one match. Use this evidence order:
 
-When exact placement matters, use an audited manual override in `data/lineup-layout-overrides.json`:
+1. FIFA Tactical Line-up PDF.
+2. FIFA official XI with safe role-based provisional placement while the PDF is unavailable.
+3. Exact ESPN, FotMob, and captured Sofascore boards, normalized to formation rows and team-relative left/right order. Routine live verification remains unanimous; a deliberate historical `--reverify` may accept a strict exact-source majority and must retain the dissenting claim.
+4. An individually recorded manual review when the available exact boards remain tied or incomplete.
 
-1. Compare the official FIFA team sheet against a trusted free visual reference such as a public lineup board.
-2. Record the source URL, `checkedAt`, a short `note`, and source claims that include `status: "matched"`, `exactLayout: true`, and `sourceDetail`.
-3. Store the verified home and away player coordinates in the override.
-4. Run `pnpm sync:fifa:lineups`, then `pnpm validate` and `pnpm smoke:lineup-layouts`.
+Provider pixel spacing is not tactical evidence. Exact-source comparison uses formation, row membership, and left/right player order; an accepted signature is rendered on the app's canonical formation grid. `pnpm validate` rejects incomplete FIFA documents, mismatched official starters, unsupported verification methods, missing evidence, invalid majorities, and unrecorded conflicts.
 
-`pnpm validate` rejects verified overrides that do not include at least one matched exact-layout source, notes that claim evidence not stored in the record, and source sets with conflicting tactical signatures. Conflicting boards keep the safer formation-derived placement; do not select a preferred provider and call the result verified.
+The completed-match backfill is reproducible: `pnpm lineups:fifa-history:audit` inventories every known FIFA tactical document, `pnpm lineups:fifa-history:backfill` applies recoverable pre-kickoff official documents, `pnpm lineups:verify-layouts --scope=all-completed --reverify` checks exact fallback boards, and `pnpm lineups:manual-layout-reviews` reapplies the nine explicitly reviewed ties in `data/lineup-layout-manual-reviews.json`. The captured public Sofascore evidence ledger is `data/sofascore-tactical-lineup-history.json`.
 
 For matchday live starts, `.github/workflows/lineup-matchday-geometry.yml` runs every five minutes during the tournament but exits immediately unless a fixture is between 90 minutes before and 20 minutes after kickoff. In that bounded window it:
 
 1. Syncs the complete FIFA-official XI, bench, captain, and formation. Until those facts exist, the site keeps the pre-match `Line-ups (predicted)` board.
 2. Changes the same card to `Line-ups` as soon as the official XI is complete. Formation-aware assignment keeps FIFA-listed defenders, midfielders, and forwards in safe compatible rows while exact geometry is still unavailable.
-3. From 10 minutes before through 20 minutes after kickoff, merges the configured/discovered ESPN board with a dynamically discovered FotMob board.
-4. Normalizes both boards to the app's 0-100 pitch orientation, then requires the same formation, row membership, left-to-right order, and close coordinates for both teams. Two distinct exact-layout providers are required; agreed coordinates use the per-player median.
-5. Stores a permanent `source-consensus-v1` verified override only when those checks agree. A later FIFA refresh reapplies rather than replaces it. Conflicts and unavailable sources remain Action logs and do not rewrite data or trigger a deployment.
+3. Checks for FIFA's official Tactical Line-up PDF and applies it immediately when complete and consistent with the official XI.
+4. Only when the official tactical document is unavailable, from 10 minutes before through 20 minutes after kickoff it compares the configured/discovered ESPN and FotMob boards.
+5. Stores a permanent official or unanimous `source-consensus-v1` override. A later FIFA refresh reapplies rather than replaces it. Conflicts and unavailable sources remain Action logs and do not rewrite data or trigger a deployment.
 6. Validates the lineup files, commits a material change to `main`, and lets the repository's Vercel Git integration deploy it automatically.
 
 Public copy deliberately has only two lineup states: `Line-ups (predicted)` before the official XI and `Line-ups` afterward. Exact/provisional verification remains internal.
@@ -71,7 +72,7 @@ pnpm sync:fifa:lineups:matchday
 pnpm lineups:verify-live-start
 ```
 
-ESPN and FotMob are the automated exact-board providers. Google and Sofascore remain useful manual fallbacks when their public pages cannot be parsed reliably: `pnpm lineups:google-kickoff-check` prints the relevant Google search URL after FIFA official lineups have synced, skips fixtures that already have a verified override, and never fetches Google or writes data.
+ESPN and FotMob are automated fallback exact-board providers after the FIFA tactical-document check. Google and Sofascore remain useful review evidence: `pnpm lineups:google-kickoff-check` prints the relevant Google search URL after FIFA official lineups have synced, skips fixtures that already have a verified override, and never fetches Google or writes data.
 
 The kickoff Google check defaults to a tight `-5` to `+20` minute window from kickoff. Live fixtures with FIFA-official lineups but unverified geometry stay visible as late manual checks until `+180` minutes by default. Use `LINEUP_GOOGLE_KICKOFF_BEFORE_MINUTES`, `LINEUP_GOOGLE_KICKOFF_AFTER_MINUTES`, or `LINEUP_GOOGLE_KICKOFF_LATE_LIVE_MINUTES` only if tournament timing requires a different one-time window. If Google confirms a meaningful exact-layout issue, add an audited manual override with the Google URL, `checkedAt`, notes, and `verified-layout` metadata; do not tune the generic inference algorithm.
 

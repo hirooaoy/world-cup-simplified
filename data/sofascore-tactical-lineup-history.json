@@ -1,0 +1,6158 @@
+{
+  "schemaVersion": 1,
+  "checkedAt": "2026-07-15T22:40:42.369Z",
+  "extraction": {
+    "source": "SofaScore public tactical formation boards",
+    "method": "positioned DOM text normalized by declared formation row counts",
+    "orientation": "team-relative left-to-right",
+    "requiredStartersPerMatch": 22
+  },
+  "matches": {
+    "mexico-south-africa-2026-06-11": {
+      "matchNumber": 1,
+      "eventId": 15186710,
+      "kickoffUtc": "2026-06-11T19:00:00.000Z",
+      "homeTeamId": "MEX",
+      "awayTeamId": "RSA",
+      "url": "https://www.sofascore.com/football/match/mexico-south-africa/LUbsGVb#id:15186710",
+      "home": {
+        "formation": "4-1-4-1",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "23",
+            "5",
+            "3",
+            "15"
+          ],
+          [
+            "6"
+          ],
+          [
+            "16",
+            "8",
+            "26",
+            "25"
+          ],
+          [
+            "9"
+          ]
+        ],
+        "signature": "4-1-4-1|9/16,8,26,25/6/23,5,3,15/1"
+      },
+      "away": {
+        "formation": "5-3-2",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "6",
+            "14",
+            "21",
+            "19",
+            "20"
+          ],
+          [
+            "23",
+            "13",
+            "4"
+          ],
+          [
+            "9",
+            "15"
+          ]
+        ],
+        "signature": "5-3-2|9,15/23,13,4/6,14,21,19,20/1"
+      }
+    },
+    "south-korea-czechia-2026-06-11": {
+      "matchNumber": 2,
+      "eventId": 15186720,
+      "kickoffUtc": "2026-06-12T02:00:00.000Z",
+      "homeTeamId": "KOR",
+      "awayTeamId": "CZE",
+      "url": "https://www.sofascore.com/football/match/south-korea-czechia/oUbsKUb#id:15186720",
+      "home": {
+        "formation": "3-4-2-1",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "3",
+            "4",
+            "2"
+          ],
+          [
+            "13",
+            "8",
+            "6",
+            "22"
+          ],
+          [
+            "10",
+            "19"
+          ],
+          [
+            "7"
+          ]
+        ],
+        "signature": "3-4-2-1|7/10,19/13,8,6,22/3,4,2/1"
+      },
+      "away": {
+        "formation": "3-4-2-1",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "7",
+            "4",
+            "6"
+          ],
+          [
+            "20",
+            "24",
+            "22",
+            "5"
+          ],
+          [
+            "15",
+            "17"
+          ],
+          [
+            "10"
+          ]
+        ],
+        "signature": "3-4-2-1|10/15,17/20,24,22,5/7,4,6/1"
+      }
+    },
+    "canada-bosnia-2026-06-12": {
+      "matchNumber": 3,
+      "eventId": 15186836,
+      "kickoffUtc": "2026-06-12T19:00:00.000Z",
+      "homeTeamId": "CAN",
+      "awayTeamId": "BIH",
+      "url": "https://www.sofascore.com/football/match/canada-bosnia-and-herzegovina/EObscVb#id:15186836",
+      "home": {
+        "formation": "4-4-2",
+        "rowsFromGoalkeeper": [
+          [
+            "16"
+          ],
+          [
+            "22",
+            "13",
+            "4",
+            "2"
+          ],
+          [
+            "11",
+            "7",
+            "8",
+            "17"
+          ],
+          [
+            "12",
+            "10"
+          ]
+        ],
+        "signature": "4-4-2|12,10/11,7,8,17/22,13,4,2/16"
+      },
+      "away": {
+        "formation": "4-4-2",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "5",
+            "4",
+            "18",
+            "7"
+          ],
+          [
+            "15",
+            "13",
+            "6",
+            "20"
+          ],
+          [
+            "25",
+            "10"
+          ]
+        ],
+        "signature": "4-4-2|25,10/15,13,6,20/5,4,18,7/1"
+      }
+    },
+    "united-states-paraguay-2026-06-12": {
+      "matchNumber": 4,
+      "eventId": 15186873,
+      "kickoffUtc": "2026-06-13T01:00:00.000Z",
+      "homeTeamId": "USA",
+      "awayTeamId": "PAR",
+      "url": "https://www.sofascore.com/football/match/paraguay-usa/zUbsOVb#id:15186873",
+      "home": {
+        "formation": "4-2-3-1",
+        "rowsFromGoalkeeper": [
+          [
+            "24"
+          ],
+          [
+            "5",
+            "13",
+            "3",
+            "16"
+          ],
+          [
+            "17",
+            "4"
+          ],
+          [
+            "10",
+            "8",
+            "2"
+          ],
+          [
+            "20"
+          ]
+        ],
+        "signature": "4-2-3-1|20/10,8,2/17,4/5,13,3,16/24"
+      },
+      "away": {
+        "formation": "4-4-2",
+        "rowsFromGoalkeeper": [
+          [
+            "12"
+          ],
+          [
+            "6",
+            "3",
+            "15",
+            "4"
+          ],
+          [
+            "10",
+            "16",
+            "14",
+            "8"
+          ],
+          [
+            "19",
+            "9"
+          ]
+        ],
+        "signature": "4-4-2|19,9/10,16,14,8/6,3,15,4/12"
+      }
+    },
+    "haiti-scotland-2026-06-13": {
+      "matchNumber": 5,
+      "eventId": 15186853,
+      "kickoffUtc": "2026-06-14T01:00:00.000Z",
+      "homeTeamId": "HAI",
+      "awayTeamId": "SCO",
+      "url": "https://www.sofascore.com/football/match/haiti-scotland/VTbsEUc#id:15186853",
+      "home": {
+        "formation": "4-4-2",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "8",
+            "5",
+            "4",
+            "2"
+          ],
+          [
+            "15",
+            "10",
+            "17",
+            "11"
+          ],
+          [
+            "18",
+            "20"
+          ]
+        ],
+        "signature": "4-4-2|18,20/15,10,17,11/8,5,4,2/1"
+      },
+      "away": {
+        "formation": "4-4-2",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "3",
+            "13",
+            "5",
+            "2"
+          ],
+          [
+            "7",
+            "19",
+            "4",
+            "17"
+          ],
+          [
+            "10",
+            "20"
+          ]
+        ],
+        "signature": "4-4-2|10,20/7,19,4,17/3,13,5,2/1"
+      }
+    },
+    "australia-turkiye-2026-06-13": {
+      "matchNumber": 6,
+      "eventId": 15186874,
+      "kickoffUtc": "2026-06-14T04:00:00.000Z",
+      "homeTeamId": "AUS",
+      "awayTeamId": "TUR",
+      "url": "https://www.sofascore.com/football/match/australia-turkiye/aUbsQUb#id:15186874",
+      "home": {
+        "formation": "5-4-1",
+        "rowsFromGoalkeeper": [
+          [
+            "18"
+          ],
+          [
+            "5",
+            "21",
+            "19",
+            "3",
+            "4"
+          ],
+          [
+            "17",
+            "24",
+            "13",
+            "8"
+          ],
+          [
+            "9"
+          ]
+        ],
+        "signature": "5-4-1|9/17,24,13,8/5,21,19,3,4/18"
+      },
+      "away": {
+        "formation": "4-2-3-1",
+        "rowsFromGoalkeeper": [
+          [
+            "23"
+          ],
+          [
+            "20",
+            "14",
+            "3",
+            "2"
+          ],
+          [
+            "10",
+            "16"
+          ],
+          [
+            "21",
+            "6",
+            "8"
+          ],
+          [
+            "7"
+          ]
+        ],
+        "signature": "4-2-3-1|7/21,6,8/10,16/20,14,3,2/23"
+      }
+    },
+    "brazil-morocco-2026-06-13": {
+      "matchNumber": 7,
+      "eventId": 15186850,
+      "kickoffUtc": "2026-06-13T22:00:00.000Z",
+      "homeTeamId": "BRA",
+      "awayTeamId": "MAR",
+      "url": "https://www.sofascore.com/football/match/morocco-brazil/YUbsDVb#id:15186850",
+      "home": {
+        "formation": "4-2-3-1",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "16",
+            "3",
+            "4",
+            "24"
+          ],
+          [
+            "8",
+            "5"
+          ],
+          [
+            "7",
+            "11",
+            "20"
+          ],
+          [
+            "25"
+          ]
+        ],
+        "signature": "4-2-3-1|25/7,11,20/8,5/16,3,4,24/1"
+      },
+      "away": {
+        "formation": "4-2-3-1",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "3",
+            "18",
+            "14",
+            "2"
+          ],
+          [
+            "6",
+            "24"
+          ],
+          [
+            "23",
+            "8",
+            "10"
+          ],
+          [
+            "11"
+          ]
+        ],
+        "signature": "4-2-3-1|11/23,8,10/6,24/3,18,14,2/1"
+      }
+    },
+    "qatar-switzerland-2026-06-13": {
+      "matchNumber": 8,
+      "eventId": 15186526,
+      "kickoffUtc": "2026-06-13T19:00:00.000Z",
+      "homeTeamId": "QAT",
+      "awayTeamId": "SUI",
+      "url": "https://www.sofascore.com/football/match/qatar-switzerland/ZTbsRVb#id:15186526",
+      "home": {
+        "formation": "4-3-3",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "14",
+            "16",
+            "2",
+            "13"
+          ],
+          [
+            "4",
+            "23",
+            "5"
+          ],
+          [
+            "11",
+            "15",
+            "8"
+          ]
+        ],
+        "signature": "4-3-3|11,15,8/4,23,5/14,16,2,13/1"
+      },
+      "away": {
+        "formation": "4-3-3",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "13",
+            "5",
+            "4",
+            "6"
+          ],
+          [
+            "8",
+            "10",
+            "20"
+          ],
+          [
+            "17",
+            "7",
+            "11"
+          ]
+        ],
+        "signature": "4-3-3|17,7,11/8,10,20/13,5,4,6/1"
+      }
+    },
+    "cote-divoire-ecuador-2026-06-14": {
+      "matchNumber": 9,
+      "eventId": 15186904,
+      "kickoffUtc": "2026-06-14T23:00:00.000Z",
+      "homeTeamId": "CIV",
+      "awayTeamId": "ECU",
+      "url": "https://www.sofascore.com/football/match/cote-divoire-ecuador/hVbstVb#id:15186904",
+      "home": {
+        "formation": "4-4-2",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "3",
+            "20",
+            "5",
+            "17"
+          ],
+          [
+            "24",
+            "6",
+            "8",
+            "11"
+          ],
+          [
+            "12",
+            "19"
+          ]
+        ],
+        "signature": "4-4-2|12,19/24,6,8,11/3,20,5,17/1"
+      },
+      "away": {
+        "formation": "4-4-2",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "3",
+            "6",
+            "4",
+            "21"
+          ],
+          [
+            "14",
+            "15",
+            "23",
+            "9"
+          ],
+          [
+            "13",
+            "19"
+          ]
+        ],
+        "signature": "4-4-2|13,19/14,15,23,9/3,6,4,21/1"
+      }
+    },
+    "germany-curacao-2026-06-14": {
+      "matchNumber": 10,
+      "eventId": 15186899,
+      "kickoffUtc": "2026-06-14T17:00:00.000Z",
+      "homeTeamId": "GER",
+      "awayTeamId": "CUW",
+      "url": "https://www.sofascore.com/football/match/curacao-germany/lUbsCqx#id:15186899",
+      "home": {
+        "formation": "4-2-3-1",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "18",
+            "15",
+            "4",
+            "6"
+          ],
+          [
+            "5",
+            "23"
+          ],
+          [
+            "17",
+            "10",
+            "19"
+          ],
+          [
+            "7"
+          ]
+        ],
+        "signature": "4-2-3-1|7/17,10,19/5,23/18,15,4,6/1"
+      },
+      "away": {
+        "formation": "4-3-1-2",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "24",
+            "18",
+            "23",
+            "5"
+          ],
+          [
+            "7",
+            "10",
+            "8"
+          ],
+          [
+            "21"
+          ],
+          [
+            "12",
+            "9"
+          ]
+        ],
+        "signature": "4-3-1-2|12,9/21/7,10,8/24,18,23,5/1"
+      }
+    },
+    "netherlands-japan-2026-06-14": {
+      "matchNumber": 11,
+      "eventId": 15186945,
+      "kickoffUtc": "2026-06-14T20:00:00.000Z",
+      "homeTeamId": "NED",
+      "awayTeamId": "JPN",
+      "url": "https://www.sofascore.com/football/match/japan-netherlands/fUbsvVb#id:15186945",
+      "home": {
+        "formation": "4-3-3",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "15",
+            "4",
+            "6",
+            "22"
+          ],
+          [
+            "14",
+            "21",
+            "8"
+          ],
+          [
+            "11",
+            "18",
+            "24"
+          ]
+        ],
+        "signature": "4-3-3|11,18,24/14,21,8/15,4,6,22/1"
+      },
+      "away": {
+        "formation": "3-4-2-1",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "21",
+            "3",
+            "16"
+          ],
+          [
+            "13",
+            "15",
+            "24",
+            "10"
+          ],
+          [
+            "11",
+            "8"
+          ],
+          [
+            "18"
+          ]
+        ],
+        "signature": "3-4-2-1|18/11,8/13,15,24,10/21,3,16/1"
+      }
+    },
+    "sweden-tunisia-2026-06-14": {
+      "matchNumber": 12,
+      "eventId": 15186951,
+      "kickoffUtc": "2026-06-15T02:00:00.000Z",
+      "homeTeamId": "SWE",
+      "awayTeamId": "TUN",
+      "url": "https://www.sofascore.com/football/match/tunisia-sweden/NTbsEUb#id:15186951",
+      "home": {
+        "formation": "3-1-4-2",
+        "rowsFromGoalkeeper": [
+          [
+            "23"
+          ],
+          [
+            "3",
+            "4",
+            "2"
+          ],
+          [
+            "16"
+          ],
+          [
+            "5",
+            "18",
+            "10",
+            "21"
+          ],
+          [
+            "9",
+            "17"
+          ]
+        ],
+        "signature": "3-1-4-2|9,17/5,18,10,21/16/3,4,2/23"
+      },
+      "away": {
+        "formation": "5-3-2",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "2",
+            "21",
+            "3",
+            "4",
+            "20"
+          ],
+          [
+            "10",
+            "17",
+            "13"
+          ],
+          [
+            "25",
+            "8"
+          ]
+        ],
+        "signature": "5-3-2|25,8/10,17,13/2,21,3,4,20/1"
+      }
+    },
+    "saudi-arabia-uruguay-2026-06-15": {
+      "matchNumber": 13,
+      "eventId": 15186811,
+      "kickoffUtc": "2026-06-15T22:00:00.000Z",
+      "homeTeamId": "KSA",
+      "awayTeamId": "URU",
+      "url": "https://www.sofascore.com/football/match/saudi-arabia-uruguay/AUbsJWb#id:15186811",
+      "home": {
+        "formation": "4-4-2",
+        "rowsFromGoalkeeper": [
+          [
+            "21"
+          ],
+          [
+            "24",
+            "5",
+            "4",
+            "12"
+          ],
+          [
+            "10",
+            "15",
+            "23",
+            "26"
+          ],
+          [
+            "7",
+            "9"
+          ]
+        ],
+        "signature": "4-4-2|7,9/10,15,23,26/24,5,4,12/21"
+      },
+      "away": {
+        "formation": "4-2-3-1",
+        "rowsFromGoalkeeper": [
+          [
+            "23"
+          ],
+          [
+            "17",
+            "16",
+            "3",
+            "13"
+          ],
+          [
+            "6",
+            "5"
+          ],
+          [
+            "20",
+            "21",
+            "8"
+          ],
+          [
+            "9"
+          ]
+        ],
+        "signature": "4-2-3-1|9/20,21,8/6,5/17,16,3,13/23"
+      }
+    },
+    "spain-cabo-verde-2026-06-15": {
+      "matchNumber": 14,
+      "eventId": 15186783,
+      "kickoffUtc": "2026-06-15T16:00:00.000Z",
+      "homeTeamId": "ESP",
+      "awayTeamId": "CPV",
+      "url": "https://www.sofascore.com/football/match/cabo-verde-spain/YTbsdVb#id:15186783",
+      "home": {
+        "formation": "4-3-3",
+        "rowsFromGoalkeeper": [
+          [
+            "23"
+          ],
+          [
+            "24",
+            "14",
+            "22",
+            "5"
+          ],
+          [
+            "20",
+            "16",
+            "8"
+          ],
+          [
+            "9",
+            "21",
+            "7"
+          ]
+        ],
+        "signature": "4-3-3|9,21,7/20,16,8/24,14,22,5/23"
+      },
+      "away": {
+        "formation": "4-1-4-1",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "13",
+            "3",
+            "4",
+            "22"
+          ],
+          [
+            "6"
+          ],
+          [
+            "7",
+            "10",
+            "15",
+            "20"
+          ],
+          [
+            "19"
+          ]
+        ],
+        "signature": "4-1-4-1|19/7,10,15,20/6/13,3,4,22/1"
+      }
+    },
+    "ir-iran-new-zealand-2026-06-15": {
+      "matchNumber": 15,
+      "eventId": 15186832,
+      "kickoffUtc": "2026-06-16T01:00:00.000Z",
+      "homeTeamId": "IRN",
+      "awayTeamId": "NZL",
+      "url": "https://www.sofascore.com/football/match/new-zealand-iran/qVbsJVb#id:15186832",
+      "home": {
+        "formation": "4-4-2",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "5",
+            "19",
+            "4",
+            "23"
+          ],
+          [
+            "17",
+            "6",
+            "14",
+            "8"
+          ],
+          [
+            "9",
+            "20"
+          ]
+        ],
+        "signature": "4-4-2|9,20/17,6,14,8/5,19,4,23/1"
+      },
+      "away": {
+        "formation": "4-2-3-1",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "13",
+            "5",
+            "16",
+            "2"
+          ],
+          [
+            "8",
+            "6"
+          ],
+          [
+            "11",
+            "10",
+            "20"
+          ],
+          [
+            "9"
+          ]
+        ],
+        "signature": "4-2-3-1|9/11,10,20/8,6/13,5,16,2/1"
+      }
+    },
+    "belgium-egypt-2026-06-15": {
+      "matchNumber": 16,
+      "eventId": 15186837,
+      "kickoffUtc": "2026-06-15T19:00:00.000Z",
+      "homeTeamId": "BEL",
+      "awayTeamId": "EGY",
+      "url": "https://www.sofascore.com/football/match/egypt-belgium/rUbsiVb#id:15186837",
+      "home": {
+        "formation": "4-2-3-1",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "21",
+            "4",
+            "25",
+            "15"
+          ],
+          [
+            "8",
+            "24"
+          ],
+          [
+            "11",
+            "7",
+            "10"
+          ],
+          [
+            "17"
+          ]
+        ],
+        "signature": "4-2-3-1|17/11,7,10/8,24/21,4,25,15/1"
+      },
+      "away": {
+        "formation": "4-2-3-1",
+        "rowsFromGoalkeeper": [
+          [
+            "23"
+          ],
+          [
+            "13",
+            "14",
+            "2",
+            "3"
+          ],
+          [
+            "17",
+            "19"
+          ],
+          [
+            "8",
+            "10",
+            "11"
+          ],
+          [
+            "22"
+          ]
+        ],
+        "signature": "4-2-3-1|22/8,10,11/17,19/13,14,2,3/23"
+      }
+    },
+    "france-senegal-2026-06-16": {
+      "matchNumber": 17,
+      "eventId": 15186501,
+      "kickoffUtc": "2026-06-16T19:00:00.000Z",
+      "homeTeamId": "FRA",
+      "awayTeamId": "SEN",
+      "url": "https://www.sofascore.com/football/match/senegal-france/GObsOUb#id:15186501",
+      "home": {
+        "formation": "4-2-3-1",
+        "rowsFromGoalkeeper": [
+          [
+            "16"
+          ],
+          [
+            "19",
+            "17",
+            "4",
+            "5"
+          ],
+          [
+            "14",
+            "8"
+          ],
+          [
+            "20",
+            "7",
+            "11"
+          ],
+          [
+            "10"
+          ]
+        ],
+        "signature": "4-2-3-1|10/20,7,11/14,8/19,17,4,5/16"
+      },
+      "away": {
+        "formation": "4-2-3-1",
+        "rowsFromGoalkeeper": [
+          [
+            "16"
+          ],
+          [
+            "25",
+            "19",
+            "3",
+            "15"
+          ],
+          [
+            "26",
+            "5"
+          ],
+          [
+            "10",
+            "8",
+            "18"
+          ],
+          [
+            "11"
+          ]
+        ],
+        "signature": "4-2-3-1|11/10,8,18/26,5/25,19,3,15/16"
+      }
+    },
+    "iraq-norway-2026-06-16": {
+      "matchNumber": 18,
+      "eventId": 15186773,
+      "kickoffUtc": "2026-06-16T22:00:00.000Z",
+      "homeTeamId": "IRQ",
+      "awayTeamId": "NOR",
+      "url": "https://www.sofascore.com/football/match/iraq-norway/AObsrVb#id:15186773",
+      "home": {
+        "formation": "4-4-2",
+        "rowsFromGoalkeeper": [
+          [
+            "12"
+          ],
+          [
+            "23",
+            "5",
+            "4",
+            "3"
+          ],
+          [
+            "17",
+            "16",
+            "24",
+            "8"
+          ],
+          [
+            "9",
+            "18"
+          ]
+        ],
+        "signature": "4-4-2|9,18/17,16,24,8/23,5,4,3/12"
+      },
+      "away": {
+        "formation": "4-4-2",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "5",
+            "17",
+            "3",
+            "26"
+          ],
+          [
+            "20",
+            "14",
+            "8",
+            "10"
+          ],
+          [
+            "9",
+            "7"
+          ]
+        ],
+        "signature": "4-4-2|9,7/20,14,8,10/5,17,3,26/1"
+      }
+    },
+    "argentina-algeria-2026-06-16": {
+      "matchNumber": 19,
+      "eventId": 15186854,
+      "kickoffUtc": "2026-06-17T01:00:00.000Z",
+      "homeTeamId": "ARG",
+      "awayTeamId": "ALG",
+      "url": "https://www.sofascore.com/football/match/argentina-algeria/QTbsuWb#id:15186854",
+      "home": {
+        "formation": "4-4-2",
+        "rowsFromGoalkeeper": [
+          [
+            "23"
+          ],
+          [
+            "25",
+            "6",
+            "13",
+            "4"
+          ],
+          [
+            "16",
+            "24",
+            "20",
+            "7"
+          ],
+          [
+            "22",
+            "10"
+          ]
+        ],
+        "signature": "4-4-2|22,10/16,24,20,7/25,6,13,4/23"
+      },
+      "away": {
+        "formation": "4-3-3",
+        "rowsFromGoalkeeper": [
+          [
+            "23"
+          ],
+          [
+            "15",
+            "21",
+            "2",
+            "17"
+          ],
+          [
+            "22",
+            "19",
+            "14"
+          ],
+          [
+            "10",
+            "9",
+            "11"
+          ]
+        ],
+        "signature": "4-3-3|10,9,11/22,19,14/15,21,2,17/23"
+      }
+    },
+    "austria-jordan-2026-06-16": {
+      "matchNumber": 20,
+      "eventId": 15186751,
+      "kickoffUtc": "2026-06-17T04:00:00.000Z",
+      "homeTeamId": "AUT",
+      "awayTeamId": "JOR",
+      "url": "https://www.sofascore.com/football/match/jordan-austria/tUbswVb#id:15186751",
+      "home": {
+        "formation": "4-2-3-1",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "16",
+            "8",
+            "15",
+            "5"
+          ],
+          [
+            "4",
+            "6"
+          ],
+          [
+            "9",
+            "20",
+            "18"
+          ],
+          [
+            "14"
+          ]
+        ],
+        "signature": "4-2-3-1|14/9,20,18/4,6/16,8,15,5/1"
+      },
+      "away": {
+        "formation": "3-4-2-1",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "16",
+            "5",
+            "3"
+          ],
+          [
+            "20",
+            "8",
+            "21",
+            "23"
+          ],
+          [
+            "9",
+            "11"
+          ],
+          [
+            "10"
+          ]
+        ],
+        "signature": "3-4-2-1|10/9,11/20,8,21,23/16,5,3/1"
+      }
+    },
+    "ghana-panama-2026-06-17": {
+      "matchNumber": 21,
+      "eventId": 15186687,
+      "kickoffUtc": "2026-06-17T23:00:00.000Z",
+      "homeTeamId": "GHA",
+      "awayTeamId": "PAN",
+      "url": "https://www.sofascore.com/football/match/panama-ghana/oVbsodc#id:15186687",
+      "home": {
+        "formation": "4-3-3",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "14",
+            "18",
+            "4",
+            "26"
+          ],
+          [
+            "22",
+            "15",
+            "3"
+          ],
+          [
+            "11",
+            "9",
+            "24"
+          ]
+        ],
+        "signature": "4-3-3|11,9,24/22,15,3/14,18,4,26/1"
+      },
+      "away": {
+        "formation": "3-4-3",
+        "rowsFromGoalkeeper": [
+          [
+            "22"
+          ],
+          [
+            "16",
+            "3",
+            "13"
+          ],
+          [
+            "2",
+            "11",
+            "14",
+            "23"
+          ],
+          [
+            "7",
+            "18",
+            "6"
+          ]
+        ],
+        "signature": "3-4-3|7,18,6/2,11,14,23/16,3,13/22"
+      }
+    },
+    "england-croatia-2026-06-17": {
+      "matchNumber": 22,
+      "eventId": 15186504,
+      "kickoffUtc": "2026-06-17T20:00:00.000Z",
+      "homeTeamId": "ENG",
+      "awayTeamId": "CRO",
+      "url": "https://www.sofascore.com/football/match/croatia-england/nUbspUb#id:15186504",
+      "home": {
+        "formation": "4-2-3-1",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "3",
+            "5",
+            "2",
+            "24"
+          ],
+          [
+            "4",
+            "8"
+          ],
+          [
+            "18",
+            "10",
+            "20"
+          ],
+          [
+            "9"
+          ]
+        ],
+        "signature": "4-2-3-1|9/18,10,20/4,8/3,5,2,24/1"
+      },
+      "away": {
+        "formation": "3-4-2-1",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "4",
+            "22",
+            "6"
+          ],
+          [
+            "14",
+            "15",
+            "10",
+            "2"
+          ],
+          [
+            "16",
+            "17"
+          ],
+          [
+            "26"
+          ]
+        ],
+        "signature": "3-4-2-1|26/16,17/14,15,10,2/4,22,6/1"
+      }
+    },
+    "portugal-dr-congo-2026-06-17": {
+      "matchNumber": 23,
+      "eventId": 15186709,
+      "kickoffUtc": "2026-06-17T17:00:00.000Z",
+      "homeTeamId": "POR",
+      "awayTeamId": "COD",
+      "url": "https://www.sofascore.com/football/match/dr-congo-portugal/eUbsyWb#id:15186709",
+      "home": {
+        "formation": "4-2-3-1",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "25",
+            "13",
+            "4",
+            "20"
+          ],
+          [
+            "23",
+            "15"
+          ],
+          [
+            "18",
+            "8",
+            "10"
+          ],
+          [
+            "7"
+          ]
+        ],
+        "signature": "4-2-3-1|7/18,8,10/23,15/25,13,4,20/1"
+      },
+      "away": {
+        "formation": "5-3-2",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "26",
+            "3",
+            "4",
+            "22",
+            "2"
+          ],
+          [
+            "25",
+            "8",
+            "6"
+          ],
+          [
+            "17",
+            "20"
+          ]
+        ],
+        "signature": "5-3-2|17,20/25,8,6/26,3,4,22,2/1"
+      }
+    },
+    "uzbekistan-colombia-2026-06-17": {
+      "matchNumber": 24,
+      "eventId": 15186722,
+      "kickoffUtc": "2026-06-18T02:00:00.000Z",
+      "homeTeamId": "UZB",
+      "awayTeamId": "COL",
+      "url": "https://www.sofascore.com/football/match/colombia-uzbekistan/yUbsvWb#id:15186722",
+      "home": {
+        "formation": "3-4-2-1",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "5",
+            "18",
+            "2"
+          ],
+          [
+            "13",
+            "7",
+            "6",
+            "24"
+          ],
+          [
+            "11",
+            "22"
+          ],
+          [
+            "14"
+          ]
+        ],
+        "signature": "3-4-2-1|14/11,22/13,7,6,24/5,18,2/1"
+      },
+      "away": {
+        "formation": "4-3-3",
+        "rowsFromGoalkeeper": [
+          [
+            "12"
+          ],
+          [
+            "17",
+            "3",
+            "23",
+            "2"
+          ],
+          [
+            "11",
+            "16",
+            "14"
+          ],
+          [
+            "7",
+            "25",
+            "10"
+          ]
+        ],
+        "signature": "4-3-3|7,25,10/11,16,14/17,3,23,2/12"
+      }
+    },
+    "czechia-south-africa-2026-06-18": {
+      "matchNumber": 25,
+      "eventId": 15186731,
+      "kickoffUtc": "2026-06-18T16:00:00.000Z",
+      "homeTeamId": "CZE",
+      "awayTeamId": "RSA",
+      "url": "https://www.sofascore.com/football/match/south-africa-czechia/oUbsLUb#id:15186731",
+      "home": {
+        "formation": "3-5-2",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "7",
+            "4",
+            "3"
+          ],
+          [
+            "24",
+            "18",
+            "12",
+            "8",
+            "5"
+          ],
+          [
+            "9",
+            "10"
+          ]
+        ],
+        "signature": "3-5-2|9,10/24,18,12,8,5/7,4,3/1"
+      },
+      "away": {
+        "formation": "4-3-3",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "6",
+            "14",
+            "21",
+            "20"
+          ],
+          [
+            "23",
+            "4",
+            "5"
+          ],
+          [
+            "7",
+            "15",
+            "12"
+          ]
+        ],
+        "signature": "4-3-3|7,15,12/23,4,5/6,14,21,20/1"
+      }
+    },
+    "switzerland-bosnia-2026-06-18": {
+      "matchNumber": 26,
+      "eventId": 15186806,
+      "kickoffUtc": "2026-06-18T19:00:00.000Z",
+      "homeTeamId": "SUI",
+      "awayTeamId": "BIH",
+      "url": "https://www.sofascore.com/football/match/switzerland-bosnia-and-herzegovina/EObsZTb#id:15186806",
+      "home": {
+        "formation": "4-3-1-2",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "13",
+            "5",
+            "4",
+            "3"
+          ],
+          [
+            "8",
+            "10",
+            "20"
+          ],
+          [
+            "22"
+          ],
+          [
+            "11",
+            "7"
+          ]
+        ],
+        "signature": "4-3-1-2|11,7/22/8,10,20/13,5,4,3/1"
+      },
+      "away": {
+        "formation": "4-4-2",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "5",
+            "4",
+            "18",
+            "7"
+          ],
+          [
+            "19",
+            "14",
+            "6",
+            "15"
+          ],
+          [
+            "11",
+            "10"
+          ]
+        ],
+        "signature": "4-4-2|11,10/19,14,6,15/5,4,18,7/1"
+      }
+    },
+    "canada-qatar-2026-06-18": {
+      "matchNumber": 27,
+      "eventId": 15186798,
+      "kickoffUtc": "2026-06-18T22:00:00.000Z",
+      "homeTeamId": "CAN",
+      "awayTeamId": "QAT",
+      "url": "https://www.sofascore.com/football/match/qatar-canada/cVbsRVb#id:15186798",
+      "home": {
+        "formation": "4-4-2",
+        "rowsFromGoalkeeper": [
+          [
+            "16"
+          ],
+          [
+            "22",
+            "13",
+            "4",
+            "2"
+          ],
+          [
+            "20",
+            "7",
+            "8",
+            "17"
+          ],
+          [
+            "9",
+            "10"
+          ]
+        ],
+        "signature": "4-4-2|9,10/20,7,8,17/22,13,4,2/16"
+      },
+      "away": {
+        "formation": "4-3-3",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "14",
+            "16",
+            "2",
+            "13"
+          ],
+          [
+            "4",
+            "23",
+            "5"
+          ],
+          [
+            "11",
+            "15",
+            "8"
+          ]
+        ],
+        "signature": "4-3-3|11,15,8/4,23,5/14,16,2,13/1"
+      }
+    },
+    "mexico-south-korea-2026-06-18": {
+      "matchNumber": 28,
+      "eventId": 15186490,
+      "kickoffUtc": "2026-06-19T01:00:00.000Z",
+      "homeTeamId": "MEX",
+      "awayTeamId": "KOR",
+      "url": "https://www.sofascore.com/football/match/mexico-south-korea/KUbsGVb#id:15186490",
+      "home": {
+        "formation": "4-3-3",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "23",
+            "5",
+            "4",
+            "2"
+          ],
+          [
+            "7",
+            "6",
+            "26"
+          ],
+          [
+            "16",
+            "9",
+            "25"
+          ]
+        ],
+        "signature": "4-3-3|16,9,25/7,6,26/23,5,4,2/1"
+      },
+      "away": {
+        "formation": "3-4-2-1",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "3",
+            "4",
+            "2"
+          ],
+          [
+            "22",
+            "8",
+            "6",
+            "15"
+          ],
+          [
+            "10",
+            "19"
+          ],
+          [
+            "7"
+          ]
+        ],
+        "signature": "3-4-2-1|7/10,19/22,8,6,15/3,4,2/1"
+      }
+    },
+    "brazil-haiti-2026-06-19": {
+      "matchNumber": 29,
+      "eventId": 15186856,
+      "kickoffUtc": "2026-06-20T00:30:00.000Z",
+      "homeTeamId": "BRA",
+      "awayTeamId": "HAI",
+      "url": "https://www.sofascore.com/football/match/haiti-brazil/YUbsEUc#id:15186856",
+      "home": {
+        "formation": "4-3-3",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "16",
+            "3",
+            "4",
+            "13"
+          ],
+          [
+            "20",
+            "5",
+            "8"
+          ],
+          [
+            "7",
+            "9",
+            "11"
+          ]
+        ],
+        "signature": "4-3-3|7,9,11/20,5,8/16,3,4,13/1"
+      },
+      "away": {
+        "formation": "5-4-1",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "8",
+            "5",
+            "4",
+            "22",
+            "2"
+          ],
+          [
+            "15",
+            "10",
+            "17",
+            "21"
+          ],
+          [
+            "20"
+          ]
+        ],
+        "signature": "5-4-1|20/15,10,17,21/8,5,4,22,2/1"
+      }
+    },
+    "scotland-morocco-2026-06-19": {
+      "matchNumber": 30,
+      "eventId": 15186859,
+      "kickoffUtc": "2026-06-19T22:00:00.000Z",
+      "homeTeamId": "SCO",
+      "awayTeamId": "MAR",
+      "url": "https://www.sofascore.com/football/match/morocco-scotland/VTbsDVb#id:15186859",
+      "home": {
+        "formation": "4-4-1-1",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "3",
+            "13",
+            "5",
+            "22"
+          ],
+          [
+            "6",
+            "19",
+            "11",
+            "7"
+          ],
+          [
+            "4"
+          ],
+          [
+            "10"
+          ]
+        ],
+        "signature": "4-4-1-1|10/4/6,19,11,7/3,13,5,22/1"
+      },
+      "away": {
+        "formation": "4-2-3-1",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "3",
+            "18",
+            "14",
+            "2"
+          ],
+          [
+            "24",
+            "6"
+          ],
+          [
+            "23",
+            "8",
+            "10"
+          ],
+          [
+            "11"
+          ]
+        ],
+        "signature": "4-2-3-1|11/23,8,10/24,6/3,18,14,2/1"
+      }
+    },
+    "turkiye-paraguay-2026-06-19": {
+      "matchNumber": 31,
+      "eventId": 15186879,
+      "kickoffUtc": "2026-06-20T03:00:00.000Z",
+      "homeTeamId": "TUR",
+      "awayTeamId": "PAR",
+      "url": "https://www.sofascore.com/football/match/paraguay-turkiye/aUbsOVb#id:15186879",
+      "home": {
+        "formation": "4-2-3-1",
+        "rowsFromGoalkeeper": [
+          [
+            "23"
+          ],
+          [
+            "20",
+            "14",
+            "3",
+            "18"
+          ],
+          [
+            "16",
+            "10"
+          ],
+          [
+            "11",
+            "8",
+            "19"
+          ],
+          [
+            "7"
+          ]
+        ],
+        "signature": "4-2-3-1|7/11,8,19/16,10/20,14,3,18/23"
+      },
+      "away": {
+        "formation": "4-4-2",
+        "rowsFromGoalkeeper": [
+          [
+            "12"
+          ],
+          [
+            "6",
+            "3",
+            "15",
+            "4"
+          ],
+          [
+            "23",
+            "8",
+            "14",
+            "10"
+          ],
+          [
+            "19",
+            "25"
+          ]
+        ],
+        "signature": "4-4-2|19,25/23,8,14,10/6,3,15,4/12"
+      }
+    },
+    "united-states-australia-2026-06-19": {
+      "matchNumber": 32,
+      "eventId": 15186878,
+      "kickoffUtc": "2026-06-19T19:00:00.000Z",
+      "homeTeamId": "USA",
+      "awayTeamId": "AUS",
+      "url": "https://www.sofascore.com/football/match/australia-usa/zUbsQUb#id:15186878",
+      "home": {
+        "formation": "3-5-2",
+        "rowsFromGoalkeeper": [
+          [
+            "24"
+          ],
+          [
+            "13",
+            "3",
+            "16"
+          ],
+          [
+            "5",
+            "17",
+            "4",
+            "8",
+            "2"
+          ],
+          [
+            "9",
+            "20"
+          ]
+        ],
+        "signature": "3-5-2|9,20/5,17,4,8,2/13,3,16/24"
+      },
+      "away": {
+        "formation": "5-4-1",
+        "rowsFromGoalkeeper": [
+          [
+            "18"
+          ],
+          [
+            "5",
+            "21",
+            "19",
+            "3",
+            "4"
+          ],
+          [
+            "23",
+            "24",
+            "13",
+            "7"
+          ],
+          [
+            "9"
+          ]
+        ],
+        "signature": "5-4-1|9/23,24,13,7/5,21,19,3,4/18"
+      }
+    },
+    "germany-cote-divoire-2026-06-20": {
+      "matchNumber": 33,
+      "eventId": 15186905,
+      "kickoffUtc": "2026-06-20T20:00:00.000Z",
+      "homeTeamId": "GER",
+      "awayTeamId": "CIV",
+      "url": "https://www.sofascore.com/football/match/cote-divoire-germany/lUbstVb#id:15186905",
+      "home": {
+        "formation": "4-2-3-1",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "18",
+            "15",
+            "4",
+            "6"
+          ],
+          [
+            "5",
+            "23"
+          ],
+          [
+            "17",
+            "10",
+            "19"
+          ],
+          [
+            "7"
+          ]
+        ],
+        "signature": "4-2-3-1|7/17,10,19/5,23/18,15,4,6/1"
+      },
+      "away": {
+        "formation": "4-1-4-1",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "3",
+            "20",
+            "7",
+            "5"
+          ],
+          [
+            "18"
+          ],
+          [
+            "11",
+            "26",
+            "8",
+            "15"
+          ],
+          [
+            "9"
+          ]
+        ],
+        "signature": "4-1-4-1|9/11,26,8,15/18/3,20,7,5/1"
+      }
+    },
+    "ecuador-curacao-2026-06-20": {
+      "matchNumber": 34,
+      "eventId": 15186906,
+      "kickoffUtc": "2026-06-21T00:00:00.000Z",
+      "homeTeamId": "ECU",
+      "awayTeamId": "CUW",
+      "url": "https://www.sofascore.com/football/match/curacao-ecuador/hVbsCqx#id:15186906",
+      "home": {
+        "formation": "3-1-4-2",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "3",
+            "6",
+            "21"
+          ],
+          [
+            "5"
+          ],
+          [
+            "7",
+            "23",
+            "15",
+            "9"
+          ],
+          [
+            "13",
+            "19"
+          ]
+        ],
+        "signature": "3-1-4-2|13,19/7,23,15,9/5/3,6,21/1"
+      },
+      "away": {
+        "formation": "5-4-1",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "24",
+            "5",
+            "18",
+            "3",
+            "20"
+          ],
+          [
+            "7",
+            "10",
+            "8",
+            "21"
+          ],
+          [
+            "9"
+          ]
+        ],
+        "signature": "5-4-1|9/7,10,8,21/24,5,18,3,20/1"
+      }
+    },
+    "netherlands-sweden-2026-06-20": {
+      "matchNumber": 35,
+      "eventId": 15186957,
+      "kickoffUtc": "2026-06-20T17:00:00.000Z",
+      "homeTeamId": "NED",
+      "awayTeamId": "SWE",
+      "url": "https://www.sofascore.com/football/match/netherlands-sweden/NTbsfUb#id:15186957",
+      "home": {
+        "formation": "4-3-3",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "15",
+            "4",
+            "6",
+            "22"
+          ],
+          [
+            "14",
+            "21",
+            "8"
+          ],
+          [
+            "11",
+            "19",
+            "18"
+          ]
+        ],
+        "signature": "4-3-3|11,19,18/14,21,8/15,4,6,22/1"
+      },
+      "away": {
+        "formation": "3-1-4-2",
+        "rowsFromGoalkeeper": [
+          [
+            "23"
+          ],
+          [
+            "3",
+            "4",
+            "2"
+          ],
+          [
+            "16"
+          ],
+          [
+            "5",
+            "18",
+            "10",
+            "21"
+          ],
+          [
+            "9",
+            "17"
+          ]
+        ],
+        "signature": "3-1-4-2|9,17/5,18,10,21/16/3,4,2/23"
+      }
+    },
+    "tunisia-japan-2026-06-20": {
+      "matchNumber": 36,
+      "eventId": 15186963,
+      "kickoffUtc": "2026-06-21T04:00:00.000Z",
+      "homeTeamId": "TUN",
+      "awayTeamId": "JPN",
+      "url": "https://www.sofascore.com/football/match/japan-tunisia/EUbsvVb#id:15186963",
+      "home": {
+        "formation": "3-4-2-1",
+        "rowsFromGoalkeeper": [
+          [
+            "16"
+          ],
+          [
+            "4",
+            "3",
+            "6"
+          ],
+          [
+            "2",
+            "17",
+            "25",
+            "20"
+          ],
+          [
+            "10",
+            "8"
+          ],
+          [
+            "26"
+          ]
+        ],
+        "signature": "3-4-2-1|26/10,8/2,17,25,20/4,3,6/16"
+      },
+      "away": {
+        "formation": "3-4-2-1",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "21",
+            "4",
+            "22"
+          ],
+          [
+            "13",
+            "7",
+            "24",
+            "10"
+          ],
+          [
+            "15",
+            "14"
+          ],
+          [
+            "18"
+          ]
+        ],
+        "signature": "3-4-2-1|18/15,14/13,7,24,10/21,4,22/1"
+      }
+    },
+    "uruguay-cabo-verde-2026-06-21": {
+      "matchNumber": 37,
+      "eventId": 15186800,
+      "kickoffUtc": "2026-06-21T22:00:00.000Z",
+      "homeTeamId": "URU",
+      "awayTeamId": "CPV",
+      "url": "https://www.sofascore.com/football/match/cabo-verde-uruguay/AUbsdVb#id:15186800",
+      "home": {
+        "formation": "4-1-4-1",
+        "rowsFromGoalkeeper": [
+          [
+            "23"
+          ],
+          [
+            "25",
+            "16",
+            "3",
+            "13"
+          ],
+          [
+            "5"
+          ],
+          [
+            "20",
+            "8",
+            "6",
+            "14"
+          ],
+          [
+            "21"
+          ]
+        ],
+        "signature": "4-1-4-1|21/20,8,6,14/5/25,16,3,13/23"
+      },
+      "away": {
+        "formation": "4-1-4-1",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "13",
+            "3",
+            "4",
+            "22"
+          ],
+          [
+            "6"
+          ],
+          [
+            "11",
+            "10",
+            "18",
+            "20"
+          ],
+          [
+            "9"
+          ]
+        ],
+        "signature": "4-1-4-1|9/11,10,18,20/6/13,3,4,22/1"
+      }
+    },
+    "spain-saudi-arabia-2026-06-21": {
+      "matchNumber": 38,
+      "eventId": 15186840,
+      "kickoffUtc": "2026-06-21T16:00:00.000Z",
+      "homeTeamId": "ESP",
+      "awayTeamId": "KSA",
+      "url": "https://www.sofascore.com/football/match/saudi-arabia-spain/YTbsJWb#id:15186840",
+      "home": {
+        "formation": "4-3-3",
+        "rowsFromGoalkeeper": [
+          [
+            "23"
+          ],
+          [
+            "24",
+            "14",
+            "22",
+            "12"
+          ],
+          [
+            "20",
+            "16",
+            "10"
+          ],
+          [
+            "15",
+            "21",
+            "19"
+          ]
+        ],
+        "signature": "4-3-3|15,21,19/20,16,10/24,14,22,12/23"
+      },
+      "away": {
+        "formation": "5-4-1",
+        "rowsFromGoalkeeper": [
+          [
+            "21"
+          ],
+          [
+            "24",
+            "5",
+            "3",
+            "4",
+            "12"
+          ],
+          [
+            "10",
+            "6",
+            "15",
+            "7"
+          ],
+          [
+            "9"
+          ]
+        ],
+        "signature": "5-4-1|9/10,6,15,7/24,5,3,4,12/21"
+      }
+    },
+    "belgium-ir-iran-2026-06-21": {
+      "matchNumber": 39,
+      "eventId": 15186499,
+      "kickoffUtc": "2026-06-21T19:00:00.000Z",
+      "homeTeamId": "BEL",
+      "awayTeamId": "IRN",
+      "url": "https://www.sofascore.com/football/match/iran-belgium/rUbsqVb#id:15186499",
+      "home": {
+        "formation": "4-2-3-1",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "5",
+            "4",
+            "25",
+            "15"
+          ],
+          [
+            "8",
+            "23"
+          ],
+          [
+            "10",
+            "7",
+            "22"
+          ],
+          [
+            "9"
+          ]
+        ],
+        "signature": "4-2-3-1|9/10,7,22/8,23/5,4,25,15/1"
+      },
+      "away": {
+        "formation": "5-4-1",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "3",
+            "19",
+            "4",
+            "13",
+            "2"
+          ],
+          [
+            "8",
+            "6",
+            "14",
+            "23"
+          ],
+          [
+            "9"
+          ]
+        ],
+        "signature": "5-4-1|9/8,6,14,23/3,19,4,13,2/1"
+      }
+    },
+    "new-zealand-egypt-2026-06-21": {
+      "matchNumber": 40,
+      "eventId": 15186827,
+      "kickoffUtc": "2026-06-22T01:00:00.000Z",
+      "homeTeamId": "NZL",
+      "awayTeamId": "EGY",
+      "url": "https://www.sofascore.com/football/match/new-zealand-egypt/iVbsJVb#id:15186827",
+      "home": {
+        "formation": "4-2-3-1",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "13",
+            "5",
+            "16",
+            "2"
+          ],
+          [
+            "8",
+            "6"
+          ],
+          [
+            "11",
+            "10",
+            "20"
+          ],
+          [
+            "9"
+          ]
+        ],
+        "signature": "4-2-3-1|9/11,10,20/8,6/13,5,16,2/1"
+      },
+      "away": {
+        "formation": "4-2-3-1",
+        "rowsFromGoalkeeper": [
+          [
+            "23"
+          ],
+          [
+            "13",
+            "14",
+            "2",
+            "3"
+          ],
+          [
+            "17",
+            "19"
+          ],
+          [
+            "8",
+            "10",
+            "11"
+          ],
+          [
+            "22"
+          ]
+        ],
+        "signature": "4-2-3-1|22/8,10,11/17,19/13,14,2,3/23"
+      }
+    },
+    "norway-senegal-2026-06-22": {
+      "matchNumber": 41,
+      "eventId": 15186770,
+      "kickoffUtc": "2026-06-23T00:00:00.000Z",
+      "homeTeamId": "NOR",
+      "awayTeamId": "SEN",
+      "url": "https://www.sofascore.com/football/match/senegal-norway/AObsOUb#id:15186770",
+      "home": {
+        "formation": "4-3-3",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "5",
+            "17",
+            "3",
+            "26"
+          ],
+          [
+            "14",
+            "8",
+            "10"
+          ],
+          [
+            "20",
+            "9",
+            "7"
+          ]
+        ],
+        "signature": "4-3-3|20,9,7/14,8,10/5,17,3,26/1"
+      },
+      "away": {
+        "formation": "4-2-3-1",
+        "rowsFromGoalkeeper": [
+          [
+            "16"
+          ],
+          [
+            "25",
+            "19",
+            "3",
+            "15"
+          ],
+          [
+            "26",
+            "5"
+          ],
+          [
+            "10",
+            "8",
+            "18"
+          ],
+          [
+            "11"
+          ]
+        ],
+        "signature": "4-2-3-1|11/10,8,18/26,5/25,19,3,15/16"
+      }
+    },
+    "france-iraq-2026-06-22": {
+      "matchNumber": 42,
+      "eventId": 15186769,
+      "kickoffUtc": "2026-06-22T21:00:00.000Z",
+      "homeTeamId": "FRA",
+      "awayTeamId": "IRQ",
+      "url": "https://www.sofascore.com/football/match/iraq-france/GObsrVb#id:15186769",
+      "home": {
+        "formation": "4-2-3-1",
+        "rowsFromGoalkeeper": [
+          [
+            "16"
+          ],
+          [
+            "3",
+            "17",
+            "4",
+            "5"
+          ],
+          [
+            "14",
+            "6"
+          ],
+          [
+            "12",
+            "11",
+            "7"
+          ],
+          [
+            "10"
+          ]
+        ],
+        "signature": "4-2-3-1|10/12,11,7/14,6/3,17,4,5/16"
+      },
+      "away": {
+        "formation": "4-1-4-1",
+        "rowsFromGoalkeeper": [
+          [
+            "22"
+          ],
+          [
+            "23",
+            "5",
+            "4",
+            "3"
+          ],
+          [
+            "16"
+          ],
+          [
+            "8",
+            "14",
+            "24",
+            "11"
+          ],
+          [
+            "18"
+          ]
+        ],
+        "signature": "4-1-4-1|18/8,14,24,11/16/23,5,4,3/22"
+      }
+    },
+    "argentina-austria-2026-06-22": {
+      "matchNumber": 43,
+      "eventId": 15186502,
+      "kickoffUtc": "2026-06-22T17:00:00.000Z",
+      "homeTeamId": "ARG",
+      "awayTeamId": "AUT",
+      "url": "https://www.sofascore.com/football/match/argentina-austria/tUbsuWb#id:15186502",
+      "home": {
+        "formation": "4-4-2",
+        "rowsFromGoalkeeper": [
+          [
+            "23"
+          ],
+          [
+            "25",
+            "6",
+            "13",
+            "26"
+          ],
+          [
+            "16",
+            "24",
+            "20",
+            "7"
+          ],
+          [
+            "22",
+            "10"
+          ]
+        ],
+        "signature": "4-4-2|22,10/16,24,20,7/25,6,13,26/23"
+      },
+      "away": {
+        "formation": "4-2-3-1",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "20",
+            "8",
+            "3",
+            "5"
+          ],
+          [
+            "4",
+            "6"
+          ],
+          [
+            "9",
+            "24",
+            "18"
+          ],
+          [
+            "11"
+          ]
+        ],
+        "signature": "4-2-3-1|11/9,24,18/4,6/20,8,3,5/1"
+      }
+    },
+    "jordan-algeria-2026-06-22": {
+      "matchNumber": 44,
+      "eventId": 15186740,
+      "kickoffUtc": "2026-06-23T03:00:00.000Z",
+      "homeTeamId": "JOR",
+      "awayTeamId": "ALG",
+      "url": "https://www.sofascore.com/football/match/jordan-algeria/QTbswVb#id:15186740",
+      "home": {
+        "formation": "3-4-2-1",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "4",
+            "5",
+            "3"
+          ],
+          [
+            "20",
+            "8",
+            "21",
+            "23"
+          ],
+          [
+            "13",
+            "9"
+          ],
+          [
+            "10"
+          ]
+        ],
+        "signature": "3-4-2-1|10/13,9/20,8,21,23/4,5,3/1"
+      },
+      "away": {
+        "formation": "4-2-3-1",
+        "rowsFromGoalkeeper": [
+          [
+            "23"
+          ],
+          [
+            "15",
+            "21",
+            "2",
+            "17"
+          ],
+          [
+            "6",
+            "14"
+          ],
+          [
+            "10",
+            "22",
+            "7"
+          ],
+          [
+            "9"
+          ]
+        ],
+        "signature": "4-2-3-1|9/10,22,7/6,14/15,21,2,17/23"
+      }
+    },
+    "england-ghana-2026-06-23": {
+      "matchNumber": 45,
+      "eventId": 15186672,
+      "kickoffUtc": "2026-06-23T20:00:00.000Z",
+      "homeTeamId": "ENG",
+      "awayTeamId": "GHA",
+      "url": "https://www.sofascore.com/football/match/ghana-england/nUbsoVb#id:15186672",
+      "home": {
+        "formation": "4-2-3-1",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "25",
+            "6",
+            "2",
+            "24"
+          ],
+          [
+            "4",
+            "8"
+          ],
+          [
+            "18",
+            "10",
+            "20"
+          ],
+          [
+            "9"
+          ]
+        ],
+        "signature": "4-2-3-1|9/18,10,20/4,8/25,6,2,24/1"
+      },
+      "away": {
+        "formation": "4-1-4-1",
+        "rowsFromGoalkeeper": [
+          [
+            "16"
+          ],
+          [
+            "14",
+            "18",
+            "4",
+            "26"
+          ],
+          [
+            "5"
+          ],
+          [
+            "11",
+            "8",
+            "3",
+            "19"
+          ],
+          [
+            "9"
+          ]
+        ],
+        "signature": "4-1-4-1|9/11,8,3,19/5/14,18,4,26/16"
+      }
+    },
+    "panama-croatia-2026-06-23": {
+      "matchNumber": 46,
+      "eventId": 15186520,
+      "kickoffUtc": "2026-06-23T23:00:00.000Z",
+      "homeTeamId": "PAN",
+      "awayTeamId": "CRO",
+      "url": "https://www.sofascore.com/football/match/panama-croatia/pUbsodc#id:15186520",
+      "home": {
+        "formation": "5-4-1",
+        "rowsFromGoalkeeper": [
+          [
+            "22"
+          ],
+          [
+            "2",
+            "16",
+            "3",
+            "13",
+            "23"
+          ],
+          [
+            "7",
+            "11",
+            "14",
+            "6"
+          ],
+          [
+            "17"
+          ]
+        ],
+        "signature": "5-4-1|17/7,11,14,6/2,16,3,13,23/22"
+      },
+      "away": {
+        "formation": "4-2-3-1",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "4",
+            "3",
+            "6",
+            "2"
+          ],
+          [
+            "8",
+            "10"
+          ],
+          [
+            "14",
+            "16",
+            "24"
+          ],
+          [
+            "26"
+          ]
+        ],
+        "signature": "4-2-3-1|26/14,16,24/8,10/4,3,6,2/1"
+      }
+    },
+    "portugal-uzbekistan-2026-06-23": {
+      "matchNumber": 47,
+      "eventId": 15186858,
+      "kickoffUtc": "2026-06-23T17:00:00.000Z",
+      "homeTeamId": "POR",
+      "awayTeamId": "UZB",
+      "url": "https://www.sofascore.com/football/match/uzbekistan-portugal/eUbsyUb#id:15186858",
+      "home": {
+        "formation": "4-2-3-1",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "25",
+            "13",
+            "3",
+            "20"
+          ],
+          [
+            "23",
+            "15"
+          ],
+          [
+            "11",
+            "8",
+            "18"
+          ],
+          [
+            "7"
+          ]
+        ],
+        "signature": "4-2-3-1|7/11,8,18/23,15/25,13,3,20/1"
+      },
+      "away": {
+        "formation": "3-4-2-1",
+        "rowsFromGoalkeeper": [
+          [
+            "12"
+          ],
+          [
+            "5",
+            "18",
+            "2"
+          ],
+          [
+            "13",
+            "7",
+            "9",
+            "24"
+          ],
+          [
+            "22",
+            "19"
+          ],
+          [
+            "14"
+          ]
+        ],
+        "signature": "3-4-2-1|14/22,19/13,7,9,24/5,18,2/12"
+      }
+    },
+    "colombia-dr-congo-2026-06-23": {
+      "matchNumber": 48,
+      "eventId": 15186713,
+      "kickoffUtc": "2026-06-24T02:00:00.000Z",
+      "homeTeamId": "COL",
+      "awayTeamId": "COD",
+      "url": "https://www.sofascore.com/football/match/dr-congo-colombia/vWbsyWb#id:15186713",
+      "home": {
+        "formation": "4-3-3",
+        "rowsFromGoalkeeper": [
+          [
+            "12"
+          ],
+          [
+            "17",
+            "3",
+            "23",
+            "2"
+          ],
+          [
+            "11",
+            "16",
+            "14"
+          ],
+          [
+            "7",
+            "25",
+            "10"
+          ]
+        ],
+        "signature": "4-3-3|7,25,10/11,16,14/17,3,23,2/12"
+      },
+      "away": {
+        "formation": "5-3-2",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "26",
+            "3",
+            "4",
+            "22",
+            "2"
+          ],
+          [
+            "25",
+            "8",
+            "6"
+          ],
+          [
+            "20",
+            "17"
+          ]
+        ],
+        "signature": "5-3-2|20,17/25,8,6/26,3,4,22,2/1"
+      }
+    },
+    "scotland-brazil-2026-06-24": {
+      "matchNumber": 49,
+      "eventId": 15186861,
+      "kickoffUtc": "2026-06-24T22:00:00.000Z",
+      "homeTeamId": "SCO",
+      "awayTeamId": "BRA",
+      "url": "https://www.sofascore.com/football/match/brazil-scotland/VTbsYUb#id:15186861",
+      "home": {
+        "formation": "4-2-3-1",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "3",
+            "26",
+            "13",
+            "22"
+          ],
+          [
+            "23",
+            "19"
+          ],
+          [
+            "7",
+            "4",
+            "17"
+          ],
+          [
+            "20"
+          ]
+        ],
+        "signature": "4-2-3-1|20/7,4,17/23,19/3,26,13,22/1"
+      },
+      "away": {
+        "formation": "4-3-3",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "16",
+            "3",
+            "4",
+            "13"
+          ],
+          [
+            "20",
+            "5",
+            "8"
+          ],
+          [
+            "7",
+            "9",
+            "26"
+          ]
+        ],
+        "signature": "4-3-3|7,9,26/20,5,8/16,3,4,13/1"
+      }
+    },
+    "morocco-haiti-2026-06-24": {
+      "matchNumber": 50,
+      "eventId": 15186864,
+      "kickoffUtc": "2026-06-24T22:00:00.000Z",
+      "homeTeamId": "MAR",
+      "awayTeamId": "HAI",
+      "url": "https://www.sofascore.com/football/match/haiti-morocco/DVbsEUc#id:15186864",
+      "home": {
+        "formation": "4-2-3-1",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "26",
+            "18",
+            "25",
+            "2"
+          ],
+          [
+            "4",
+            "24"
+          ],
+          [
+            "23",
+            "11",
+            "10"
+          ],
+          [
+            "20"
+          ]
+        ],
+        "signature": "4-2-3-1|20/23,11,10/4,24/26,18,25,2/1"
+      },
+      "away": {
+        "formation": "4-4-1-1",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "8",
+            "5",
+            "4",
+            "22"
+          ],
+          [
+            "15",
+            "10",
+            "17",
+            "21"
+          ],
+          [
+            "18"
+          ],
+          [
+            "16"
+          ]
+        ],
+        "signature": "4-4-1-1|16/18/15,10,17,21/8,5,4,22/1"
+      }
+    },
+    "switzerland-canada-2026-06-24": {
+      "matchNumber": 51,
+      "eventId": 15186821,
+      "kickoffUtc": "2026-06-24T19:00:00.000Z",
+      "homeTeamId": "SUI",
+      "awayTeamId": "CAN",
+      "url": "https://www.sofascore.com/football/match/canada-switzerland/ZTbscVb#id:15186821",
+      "home": {
+        "formation": "4-2-3-1",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "13",
+            "5",
+            "4",
+            "25"
+          ],
+          [
+            "10",
+            "8"
+          ],
+          [
+            "17",
+            "9",
+            "15"
+          ],
+          [
+            "7"
+          ]
+        ],
+        "signature": "4-2-3-1|7/17,9,15/10,8/13,5,4,25/1"
+      },
+      "away": {
+        "formation": "4-4-2",
+        "rowsFromGoalkeeper": [
+          [
+            "16"
+          ],
+          [
+            "22",
+            "13",
+            "4",
+            "2"
+          ],
+          [
+            "20",
+            "6",
+            "25",
+            "17"
+          ],
+          [
+            "9",
+            "10"
+          ]
+        ],
+        "signature": "4-4-2|9,10/20,6,25,17/22,13,4,2/16"
+      }
+    },
+    "bosnia-qatar-2026-06-24": {
+      "matchNumber": 52,
+      "eventId": 15186829,
+      "kickoffUtc": "2026-06-24T19:00:00.000Z",
+      "homeTeamId": "BIH",
+      "awayTeamId": "QAT",
+      "url": "https://www.sofascore.com/football/match/qatar-bosnia-and-herzegovina/EObsRVb#id:15186829",
+      "home": {
+        "formation": "4-4-2",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "5",
+            "21",
+            "18",
+            "24"
+          ],
+          [
+            "19",
+            "14",
+            "13",
+            "20"
+          ],
+          [
+            "11",
+            "10"
+          ]
+        ],
+        "signature": "4-4-2|11,10/19,14,13,20/5,21,18,24/1"
+      },
+      "away": {
+        "formation": "4-3-3",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "18",
+            "4",
+            "16",
+            "2"
+          ],
+          [
+            "12",
+            "20",
+            "5"
+          ],
+          [
+            "10",
+            "11",
+            "8"
+          ]
+        ],
+        "signature": "4-3-3|10,11,8/12,20,5/18,4,16,2/1"
+      }
+    },
+    "czechia-mexico-2026-06-24": {
+      "matchNumber": 53,
+      "eventId": 15186732,
+      "kickoffUtc": "2026-06-25T01:00:00.000Z",
+      "homeTeamId": "CZE",
+      "awayTeamId": "MEX",
+      "url": "https://www.sofascore.com/football/match/mexico-czechia/oUbsGVb#id:15186732",
+      "home": {
+        "formation": "3-4-2-1",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "7",
+            "4",
+            "3"
+          ],
+          [
+            "21",
+            "18",
+            "12",
+            "5"
+          ],
+          [
+            "26",
+            "15"
+          ],
+          [
+            "9"
+          ]
+        ],
+        "signature": "3-4-2-1|9/26,15/21,18,12,5/7,4,3/1"
+      },
+      "away": {
+        "formation": "4-3-3",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "20",
+            "15",
+            "3",
+            "2"
+          ],
+          [
+            "7",
+            "4",
+            "19"
+          ],
+          [
+            "16",
+            "22",
+            "25"
+          ]
+        ],
+        "signature": "4-3-3|16,22,25/7,4,19/20,15,3,2/1"
+      }
+    },
+    "south-africa-south-korea-2026-06-24": {
+      "matchNumber": 54,
+      "eventId": 15186744,
+      "kickoffUtc": "2026-06-25T01:00:00.000Z",
+      "homeTeamId": "RSA",
+      "awayTeamId": "KOR",
+      "url": "https://www.sofascore.com/football/match/south-africa-south-korea/KUbsLUb#id:15186744",
+      "home": {
+        "formation": "4-2-3-1",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "6",
+            "14",
+            "21",
+            "20"
+          ],
+          [
+            "13",
+            "5"
+          ],
+          [
+            "7",
+            "10",
+            "12"
+          ],
+          [
+            "17"
+          ]
+        ],
+        "signature": "4-2-3-1|17/7,10,12/13,5/6,14,21,20/1"
+      },
+      "away": {
+        "formation": "3-4-2-1",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "3",
+            "4",
+            "2"
+          ],
+          [
+            "13",
+            "6",
+            "8",
+            "22"
+          ],
+          [
+            "11",
+            "19"
+          ],
+          [
+            "18"
+          ]
+        ],
+        "signature": "3-4-2-1|18/11,19/13,6,8,22/3,4,2/1"
+      }
+    },
+    "curacao-cote-divoire-2026-06-25": {
+      "matchNumber": 55,
+      "eventId": 15186908,
+      "kickoffUtc": "2026-06-25T20:00:00.000Z",
+      "homeTeamId": "CUW",
+      "awayTeamId": "CIV",
+      "url": "https://www.sofascore.com/football/match/curacao-cote-divoire/tVbsCqx#id:15186908",
+      "home": {
+        "formation": "5-4-1",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "5",
+            "24",
+            "18",
+            "3",
+            "20"
+          ],
+          [
+            "7",
+            "10",
+            "8",
+            "21"
+          ],
+          [
+            "9"
+          ]
+        ],
+        "signature": "5-4-1|9/7,10,8,21/5,24,18,3,20/1"
+      },
+      "away": {
+        "formation": "4-2-3-1",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "13",
+            "2",
+            "7",
+            "17"
+          ],
+          [
+            "8",
+            "18"
+          ],
+          [
+            "11",
+            "19",
+            "15"
+          ],
+          [
+            "9"
+          ]
+        ],
+        "signature": "4-2-3-1|9/11,19,15/8,18/13,2,7,17/1"
+      }
+    },
+    "ecuador-germany-2026-06-25": {
+      "matchNumber": 56,
+      "eventId": 15186907,
+      "kickoffUtc": "2026-06-25T20:00:00.000Z",
+      "homeTeamId": "ECU",
+      "awayTeamId": "GER",
+      "url": "https://www.sofascore.com/football/match/ecuador-germany/lUbshVb#id:15186907",
+      "home": {
+        "formation": "4-4-2",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "3",
+            "6",
+            "4",
+            "21"
+          ],
+          [
+            "20",
+            "15",
+            "23",
+            "9"
+          ],
+          [
+            "13",
+            "19"
+          ]
+        ],
+        "signature": "4-4-2|13,19/20,15,23,9/3,6,4,21/1"
+      },
+      "away": {
+        "formation": "3-4-2-1",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "2",
+            "4",
+            "6"
+          ],
+          [
+            "22",
+            "5",
+            "23",
+            "19"
+          ],
+          [
+            "17",
+            "10"
+          ],
+          [
+            "7"
+          ]
+        ],
+        "signature": "3-4-2-1|7/17,10/22,5,23,19/2,4,6/1"
+      }
+    },
+    "japan-sweden-2026-06-25": {
+      "matchNumber": 57,
+      "eventId": 15186972,
+      "kickoffUtc": "2026-06-25T23:00:00.000Z",
+      "homeTeamId": "JPN",
+      "awayTeamId": "SWE",
+      "url": "https://www.sofascore.com/football/match/japan-sweden/NTbsvVb#id:15186972",
+      "home": {
+        "formation": "3-4-2-1",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "21",
+            "4",
+            "20"
+          ],
+          [
+            "13",
+            "15",
+            "7",
+            "2"
+          ],
+          [
+            "11",
+            "10"
+          ],
+          [
+            "18"
+          ]
+        ],
+        "signature": "3-4-2-1|18/11,10/13,15,7,2/21,4,20/1"
+      },
+      "away": {
+        "formation": "3-4-3",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "5",
+            "4",
+            "2"
+          ],
+          [
+            "24",
+            "18",
+            "3",
+            "21"
+          ],
+          [
+            "9",
+            "17",
+            "11"
+          ]
+        ],
+        "signature": "3-4-3|9,17,11/24,18,3,21/5,4,2/1"
+      }
+    },
+    "tunisia-netherlands-2026-06-25": {
+      "matchNumber": 58,
+      "eventId": 15186973,
+      "kickoffUtc": "2026-06-25T23:00:00.000Z",
+      "homeTeamId": "TUN",
+      "awayTeamId": "NED",
+      "url": "https://www.sofascore.com/football/match/tunisia-netherlands/fUbsEUb#id:15186973",
+      "home": {
+        "formation": "5-4-1",
+        "rowsFromGoalkeeper": [
+          [
+            "16"
+          ],
+          [
+            "2",
+            "21",
+            "17",
+            "3",
+            "20"
+          ],
+          [
+            "10",
+            "13",
+            "11",
+            "25"
+          ],
+          [
+            "9"
+          ]
+        ],
+        "signature": "5-4-1|9/10,13,11,25/2,21,17,3,20/16"
+      },
+      "away": {
+        "formation": "4-3-3",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "5",
+            "4",
+            "6",
+            "22"
+          ],
+          [
+            "14",
+            "21",
+            "8"
+          ],
+          [
+            "11",
+            "19",
+            "18"
+          ]
+        ],
+        "signature": "4-3-3|11,19,18/14,21,8/5,4,6,22/1"
+      }
+    },
+    "turkiye-united-states-2026-06-25": {
+      "matchNumber": 59,
+      "eventId": 15186887,
+      "kickoffUtc": "2026-06-26T02:00:00.000Z",
+      "homeTeamId": "TUR",
+      "awayTeamId": "USA",
+      "url": "https://www.sofascore.com/football/match/usa-turkiye/aUbszUb#id:15186887",
+      "home": {
+        "formation": "3-4-2-1",
+        "rowsFromGoalkeeper": [
+          [
+            "23"
+          ],
+          [
+            "14",
+            "15",
+            "2"
+          ],
+          [
+            "13",
+            "6",
+            "5",
+            "24"
+          ],
+          [
+            "11",
+            "8"
+          ],
+          [
+            "21"
+          ]
+        ],
+        "signature": "3-4-2-1|21/11,8/13,6,5,24/14,15,2/23"
+      },
+      "away": {
+        "formation": "4-3-3",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "6",
+            "22",
+            "12",
+            "23"
+          ],
+          [
+            "7",
+            "14",
+            "8"
+          ],
+          [
+            "21",
+            "9",
+            "11"
+          ]
+        ],
+        "signature": "4-3-3|21,9,11/7,14,8/6,22,12,23/1"
+      }
+    },
+    "paraguay-australia-2026-06-25": {
+      "matchNumber": 60,
+      "eventId": 15186891,
+      "kickoffUtc": "2026-06-26T02:00:00.000Z",
+      "homeTeamId": "PAR",
+      "awayTeamId": "AUS",
+      "url": "https://www.sofascore.com/football/match/paraguay-australia/QUbsOVb#id:15186891",
+      "home": {
+        "formation": "5-3-2",
+        "rowsFromGoalkeeper": [
+          [
+            "12"
+          ],
+          [
+            "26",
+            "3",
+            "15",
+            "2",
+            "4"
+          ],
+          [
+            "23",
+            "14",
+            "8"
+          ],
+          [
+            "19",
+            "21"
+          ]
+        ],
+        "signature": "5-3-2|19,21/23,14,8/26,3,15,2,4/12"
+      },
+      "away": {
+        "formation": "3-4-2-1",
+        "rowsFromGoalkeeper": [
+          [
+            "18"
+          ],
+          [
+            "25",
+            "19",
+            "3"
+          ],
+          [
+            "16",
+            "22",
+            "13",
+            "5"
+          ],
+          [
+            "8",
+            "20"
+          ],
+          [
+            "17"
+          ]
+        ],
+        "signature": "3-4-2-1|17/8,20/16,22,13,5/25,19,3/18"
+      }
+    },
+    "norway-france-2026-06-26": {
+      "matchNumber": 61,
+      "eventId": 15186537,
+      "kickoffUtc": "2026-06-26T19:00:00.000Z",
+      "homeTeamId": "NOR",
+      "awayTeamId": "FRA",
+      "url": "https://www.sofascore.com/football/match/france-norway/AObsGOb#id:15186537",
+      "home": {
+        "formation": "4-3-3",
+        "rowsFromGoalkeeper": [
+          [
+            "13"
+          ],
+          [
+            "15",
+            "4",
+            "25",
+            "14"
+          ],
+          [
+            "19",
+            "6",
+            "18"
+          ],
+          [
+            "21",
+            "11",
+            "22"
+          ]
+        ],
+        "signature": "4-3-3|21,11,22/19,6,18/15,4,25,14/13"
+      },
+      "away": {
+        "formation": "4-2-3-1",
+        "rowsFromGoalkeeper": [
+          [
+            "16"
+          ],
+          [
+            "19",
+            "26",
+            "4",
+            "5"
+          ],
+          [
+            "6",
+            "8"
+          ],
+          [
+            "20",
+            "11",
+            "7"
+          ],
+          [
+            "10"
+          ]
+        ],
+        "signature": "4-2-3-1|10/20,11,7/6,8/19,26,4,5/16"
+      }
+    },
+    "senegal-iraq-2026-06-26": {
+      "matchNumber": 62,
+      "eventId": 15186771,
+      "kickoffUtc": "2026-06-26T19:00:00.000Z",
+      "homeTeamId": "SEN",
+      "awayTeamId": "IRQ",
+      "url": "https://www.sofascore.com/football/match/iraq-senegal/OUbsrVb#id:15186771",
+      "home": {
+        "formation": "4-3-3",
+        "rowsFromGoalkeeper": [
+          [
+            "23"
+          ],
+          [
+            "14",
+            "19",
+            "4",
+            "15"
+          ],
+          [
+            "8",
+            "5",
+            "21"
+          ],
+          [
+            "10",
+            "18",
+            "20"
+          ]
+        ],
+        "signature": "4-3-3|10,18,20/8,5,21/14,19,4,15/23"
+      },
+      "away": {
+        "formation": "4-2-3-1",
+        "rowsFromGoalkeeper": [
+          [
+            "22"
+          ],
+          [
+            "23",
+            "5",
+            "2",
+            "26"
+          ],
+          [
+            "16",
+            "14"
+          ],
+          [
+            "8",
+            "17",
+            "11"
+          ],
+          [
+            "9"
+          ]
+        ],
+        "signature": "4-2-3-1|9/8,17,11/16,14/23,5,2,26/22"
+      }
+    },
+    "egypt-ir-iran-2026-06-26": {
+      "matchNumber": 63,
+      "eventId": 15186828,
+      "kickoffUtc": "2026-06-27T03:00:00.000Z",
+      "homeTeamId": "EGY",
+      "awayTeamId": "IRN",
+      "url": "https://www.sofascore.com/football/match/iran-egypt/iVbsqVb#id:15186828",
+      "home": {
+        "formation": "4-2-3-1",
+        "rowsFromGoalkeeper": [
+          [
+            "23"
+          ],
+          [
+            "13",
+            "6",
+            "5",
+            "3"
+          ],
+          [
+            "21",
+            "17"
+          ],
+          [
+            "7",
+            "10",
+            "8"
+          ],
+          [
+            "11"
+          ]
+        ],
+        "signature": "4-2-3-1|11/7,10,8/21,17/13,6,5,3/23"
+      },
+      "away": {
+        "formation": "5-4-1",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "5",
+            "19",
+            "4",
+            "13",
+            "23"
+          ],
+          [
+            "8",
+            "6",
+            "21",
+            "14"
+          ],
+          [
+            "9"
+          ]
+        ],
+        "signature": "5-4-1|9/8,6,21,14/5,19,4,13,23/1"
+      }
+    },
+    "new-zealand-belgium-2026-06-26": {
+      "matchNumber": 64,
+      "eventId": 15186822,
+      "kickoffUtc": "2026-06-27T03:00:00.000Z",
+      "homeTeamId": "NZL",
+      "awayTeamId": "BEL",
+      "url": "https://www.sofascore.com/football/match/new-zealand-belgium/rUbsJVb#id:15186822",
+      "home": {
+        "formation": "4-2-3-1",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "13",
+            "4",
+            "16",
+            "2"
+          ],
+          [
+            "8",
+            "6"
+          ],
+          [
+            "11",
+            "23",
+            "10"
+          ],
+          [
+            "9"
+          ]
+        ],
+        "signature": "4-2-3-1|9/11,23,10/8,6/13,4,16,2/1"
+      },
+      "away": {
+        "formation": "4-2-3-1",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "5",
+            "3",
+            "4",
+            "21"
+          ],
+          [
+            "20",
+            "8"
+          ],
+          [
+            "10",
+            "7",
+            "11"
+          ],
+          [
+            "17"
+          ]
+        ],
+        "signature": "4-2-3-1|17/10,7,11/20,8/5,3,4,21/1"
+      }
+    },
+    "cabo-verde-saudi-arabia-2026-06-26": {
+      "matchNumber": 65,
+      "eventId": 15186803,
+      "kickoffUtc": "2026-06-27T00:00:00.000Z",
+      "homeTeamId": "CPV",
+      "awayTeamId": "KSA",
+      "url": "https://www.sofascore.com/football/match/saudi-arabia-cabo-verde/dVbsJWb#id:15186803",
+      "home": {
+        "formation": "4-1-4-1",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "8",
+            "3",
+            "4",
+            "24"
+          ],
+          [
+            "6"
+          ],
+          [
+            "17",
+            "10",
+            "14",
+            "20"
+          ],
+          [
+            "19"
+          ]
+        ],
+        "signature": "4-1-4-1|19/17,10,14,20/6/8,3,4,24/1"
+      },
+      "away": {
+        "formation": "4-4-2",
+        "rowsFromGoalkeeper": [
+          [
+            "21"
+          ],
+          [
+            "13",
+            "5",
+            "4",
+            "12"
+          ],
+          [
+            "10",
+            "6",
+            "15",
+            "20"
+          ],
+          [
+            "23",
+            "9"
+          ]
+        ],
+        "signature": "4-4-2|23,9/10,6,15,20/13,5,4,12/21"
+      }
+    },
+    "uruguay-spain-2026-06-26": {
+      "matchNumber": 66,
+      "eventId": 15186841,
+      "kickoffUtc": "2026-06-27T00:00:00.000Z",
+      "homeTeamId": "URU",
+      "awayTeamId": "ESP",
+      "url": "https://www.sofascore.com/football/match/uruguay-spain/YTbsAUb#id:15186841",
+      "home": {
+        "formation": "4-1-4-1",
+        "rowsFromGoalkeeper": [
+          [
+            "23"
+          ],
+          [
+            "25",
+            "16",
+            "3",
+            "13"
+          ],
+          [
+            "5"
+          ],
+          [
+            "20",
+            "8",
+            "6",
+            "14"
+          ],
+          [
+            "9"
+          ]
+        ],
+        "signature": "4-1-4-1|9/20,8,6,14/5/25,16,3,13/23"
+      },
+      "away": {
+        "formation": "4-2-3-1",
+        "rowsFromGoalkeeper": [
+          [
+            "23"
+          ],
+          [
+            "24",
+            "14",
+            "22",
+            "5"
+          ],
+          [
+            "16",
+            "20"
+          ],
+          [
+            "15",
+            "6",
+            "19"
+          ],
+          [
+            "21"
+          ]
+        ],
+        "signature": "4-2-3-1|21/15,6,19/16,20/24,14,22,5/23"
+      }
+    },
+    "panama-england-2026-06-27": {
+      "matchNumber": 67,
+      "eventId": 15186676,
+      "kickoffUtc": "2026-06-27T21:00:00.000Z",
+      "homeTeamId": "PAN",
+      "awayTeamId": "ENG",
+      "url": "https://www.sofascore.com/football/match/panama-england/nUbsodc#id:15186676",
+      "home": {
+        "formation": "5-4-1",
+        "rowsFromGoalkeeper": [
+          [
+            "22"
+          ],
+          [
+            "26",
+            "16",
+            "3",
+            "4",
+            "23"
+          ],
+          [
+            "7",
+            "11",
+            "14",
+            "6"
+          ],
+          [
+            "9"
+          ]
+        ],
+        "signature": "5-4-1|9/7,11,14,6/26,16,3,4,23/22"
+      },
+      "away": {
+        "formation": "4-1-4-1",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "3",
+            "6",
+            "2",
+            "26"
+          ],
+          [
+            "8"
+          ],
+          [
+            "11",
+            "10",
+            "17",
+            "7"
+          ],
+          [
+            "9"
+          ]
+        ],
+        "signature": "4-1-4-1|9/11,10,17,7/8/3,6,2,26/1"
+      }
+    },
+    "croatia-ghana-2026-06-27": {
+      "matchNumber": 68,
+      "eventId": 15186624,
+      "kickoffUtc": "2026-06-27T21:00:00.000Z",
+      "homeTeamId": "CRO",
+      "awayTeamId": "GHA",
+      "url": "https://www.sofascore.com/football/match/ghana-croatia/pUbsoVb#id:15186624",
+      "home": {
+        "formation": "4-2-3-1",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "14",
+            "3",
+            "6",
+            "2"
+          ],
+          [
+            "8",
+            "10"
+          ],
+          [
+            "16",
+            "17",
+            "13"
+          ],
+          [
+            "11"
+          ]
+        ],
+        "signature": "4-2-3-1|11/16,17,13/8,10/14,3,6,2/1"
+      },
+      "away": {
+        "formation": "4-1-4-1",
+        "rowsFromGoalkeeper": [
+          [
+            "16"
+          ],
+          [
+            "14",
+            "23",
+            "4",
+            "26"
+          ],
+          [
+            "5"
+          ],
+          [
+            "22",
+            "8",
+            "15",
+            "11"
+          ],
+          [
+            "9"
+          ]
+        ],
+        "signature": "4-1-4-1|9/22,8,15,11/5/14,23,4,26/16"
+      }
+    },
+    "algeria-austria-2026-06-27": {
+      "matchNumber": 69,
+      "eventId": 15186747,
+      "kickoffUtc": "2026-06-28T02:00:00.000Z",
+      "homeTeamId": "ALG",
+      "awayTeamId": "AUT",
+      "url": "https://www.sofascore.com/football/match/austria-algeria/QTbstUb#id:15186747",
+      "home": {
+        "formation": "4-2-3-1",
+        "rowsFromGoalkeeper": [
+          [
+            "16"
+          ],
+          [
+            "13",
+            "21",
+            "2",
+            "17"
+          ],
+          [
+            "19",
+            "10"
+          ],
+          [
+            "8",
+            "22",
+            "7"
+          ],
+          [
+            "9"
+          ]
+        ],
+        "signature": "4-2-3-1|9/8,22,7/19,10/13,21,2,17/16"
+      },
+      "away": {
+        "formation": "4-2-3-1",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "16",
+            "8",
+            "15",
+            "5"
+          ],
+          [
+            "4",
+            "6"
+          ],
+          [
+            "9",
+            "18",
+            "20"
+          ],
+          [
+            "7"
+          ]
+        ],
+        "signature": "4-2-3-1|7/9,18,20/4,6/16,8,15,5/1"
+      }
+    },
+    "jordan-argentina-2026-06-27": {
+      "matchNumber": 70,
+      "eventId": 15186734,
+      "kickoffUtc": "2026-06-28T02:00:00.000Z",
+      "homeTeamId": "JOR",
+      "awayTeamId": "ARG",
+      "url": "https://www.sofascore.com/football/match/argentina-jordan/wVbsuWb#id:15186734",
+      "home": {
+        "formation": "3-4-2-1",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "4",
+            "5",
+            "3"
+          ],
+          [
+            "20",
+            "8",
+            "21",
+            "23"
+          ],
+          [
+            "9",
+            "24"
+          ],
+          [
+            "11"
+          ]
+        ],
+        "signature": "3-4-2-1|11/9,24/20,8,21,23/4,5,3/1"
+      },
+      "away": {
+        "formation": "4-4-2",
+        "rowsFromGoalkeeper": [
+          [
+            "23"
+          ],
+          [
+            "3",
+            "2",
+            "19",
+            "14"
+          ],
+          [
+            "11",
+            "5",
+            "18",
+            "17"
+          ],
+          [
+            "9",
+            "22"
+          ]
+        ],
+        "signature": "4-4-2|9,22/11,5,18,17/3,2,19,14/23"
+      }
+    },
+    "colombia-portugal-2026-06-27": {
+      "matchNumber": 71,
+      "eventId": 15186696,
+      "kickoffUtc": "2026-06-27T23:30:00.000Z",
+      "homeTeamId": "COL",
+      "awayTeamId": "POR",
+      "url": "https://www.sofascore.com/football/match/colombia-portugal/eUbsvWb#id:15186696",
+      "home": {
+        "formation": "4-3-3",
+        "rowsFromGoalkeeper": [
+          [
+            "12"
+          ],
+          [
+            "22",
+            "3",
+            "23",
+            "4"
+          ],
+          [
+            "14",
+            "16",
+            "11"
+          ],
+          [
+            "7",
+            "9",
+            "10"
+          ]
+        ],
+        "signature": "4-3-3|7,9,10/14,16,11/22,3,23,4/12"
+      },
+      "away": {
+        "formation": "4-2-3-1",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "25",
+            "13",
+            "3",
+            "20"
+          ],
+          [
+            "23",
+            "21"
+          ],
+          [
+            "11",
+            "8",
+            "18"
+          ],
+          [
+            "7"
+          ]
+        ],
+        "signature": "4-2-3-1|7/11,8,18/23,21/25,13,3,20/1"
+      }
+    },
+    "dr-congo-uzbekistan-2026-06-27": {
+      "matchNumber": 72,
+      "eventId": 15186717,
+      "kickoffUtc": "2026-06-27T23:30:00.000Z",
+      "homeTeamId": "COD",
+      "awayTeamId": "UZB",
+      "url": "https://www.sofascore.com/football/match/dr-congo-uzbekistan/yUbsyWb#id:15186717",
+      "home": {
+        "formation": "4-4-2",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "26",
+            "4",
+            "22",
+            "2"
+          ],
+          [
+            "9",
+            "14",
+            "8",
+            "7"
+          ],
+          [
+            "20",
+            "17"
+          ]
+        ],
+        "signature": "4-4-2|20,17/9,14,8,7/26,4,22,2/1"
+      },
+      "away": {
+        "formation": "3-4-2-1",
+        "rowsFromGoalkeeper": [
+          [
+            "12"
+          ],
+          [
+            "26",
+            "2",
+            "5"
+          ],
+          [
+            "13",
+            "7",
+            "6",
+            "3"
+          ],
+          [
+            "22",
+            "17"
+          ],
+          [
+            "14"
+          ]
+        ],
+        "signature": "3-4-2-1|14/22,17/13,7,6,3/26,2,5/12"
+      }
+    },
+    "match-73-round-of-32-2026-06-28": {
+      "matchNumber": 73,
+      "eventId": 12813000,
+      "kickoffUtc": "2026-06-28T19:00:00.000Z",
+      "homeTeamId": "RSA",
+      "awayTeamId": "CAN",
+      "url": "https://www.sofascore.com/football/match/canada-south-africa/LUbscVb#id:12813000",
+      "home": {
+        "formation": "4-2-3-1",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "6",
+            "14",
+            "21",
+            "20"
+          ],
+          [
+            "13",
+            "4"
+          ],
+          [
+            "7",
+            "10",
+            "12"
+          ],
+          [
+            "17"
+          ]
+        ],
+        "signature": "4-2-3-1|17/7,10,12/13,4/6,14,21,20/1"
+      },
+      "away": {
+        "formation": "4-4-2",
+        "rowsFromGoalkeeper": [
+          [
+            "16"
+          ],
+          [
+            "22",
+            "13",
+            "15",
+            "2"
+          ],
+          [
+            "11",
+            "7",
+            "25",
+            "17"
+          ],
+          [
+            "12",
+            "10"
+          ]
+        ],
+        "signature": "4-4-2|12,10/11,7,25,17/22,13,15,2/16"
+      }
+    },
+    "match-74-round-of-32-2026-06-29": {
+      "matchNumber": 74,
+      "eventId": 12813014,
+      "kickoffUtc": "2026-06-29T20:30:00.000Z",
+      "homeTeamId": "GER",
+      "awayTeamId": "PAR",
+      "url": "https://www.sofascore.com/football/match/paraguay-germany/lUbsOVb#id:12813014",
+      "home": {
+        "formation": "4-4-2",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "18",
+            "2",
+            "4",
+            "6"
+          ],
+          [
+            "17",
+            "5",
+            "23",
+            "19"
+          ],
+          [
+            "26",
+            "7"
+          ]
+        ],
+        "signature": "4-4-2|26,7/17,5,23,19/18,2,4,6/1"
+      },
+      "away": {
+        "formation": "4-4-2",
+        "rowsFromGoalkeeper": [
+          [
+            "12"
+          ],
+          [
+            "6",
+            "13",
+            "15",
+            "4"
+          ],
+          [
+            "23",
+            "14",
+            "16",
+            "10"
+          ],
+          [
+            "19",
+            "21"
+          ]
+        ],
+        "signature": "4-4-2|19,21/23,14,16,10/6,13,15,4/12"
+      }
+    },
+    "match-75-round-of-32-2026-06-29": {
+      "matchNumber": 75,
+      "eventId": 12812998,
+      "kickoffUtc": "2026-06-30T01:00:00.000Z",
+      "homeTeamId": "NED",
+      "awayTeamId": "MAR",
+      "url": "https://www.sofascore.com/football/match/morocco-netherlands/fUbsDVb#id:12812998",
+      "home": {
+        "formation": "3-4-2-1",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "5",
+            "4",
+            "6"
+          ],
+          [
+            "15",
+            "21",
+            "8",
+            "22"
+          ],
+          [
+            "11",
+            "24"
+          ],
+          [
+            "19"
+          ]
+        ],
+        "signature": "3-4-2-1|19/11,24/15,21,8,22/5,4,6/1"
+      },
+      "away": {
+        "formation": "4-2-3-1",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "3",
+            "18",
+            "14",
+            "2"
+          ],
+          [
+            "24",
+            "6"
+          ],
+          [
+            "23",
+            "8",
+            "10"
+          ],
+          [
+            "11"
+          ]
+        ],
+        "signature": "4-2-3-1|11/23,8,10/24,6/3,18,14,2/1"
+      }
+    },
+    "match-76-round-of-32-2026-06-29": {
+      "matchNumber": 76,
+      "eventId": 12813012,
+      "kickoffUtc": "2026-06-29T17:00:00.000Z",
+      "homeTeamId": "BRA",
+      "awayTeamId": "JPN",
+      "url": "https://www.sofascore.com/football/match/japan-brazil/YUbsvVb#id:12813012",
+      "home": {
+        "formation": "4-3-3",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "16",
+            "3",
+            "4",
+            "13"
+          ],
+          [
+            "20",
+            "5",
+            "8"
+          ],
+          [
+            "7",
+            "9",
+            "26"
+          ]
+        ],
+        "signature": "4-3-3|7,9,26/20,5,8/16,3,4,13/1"
+      },
+      "away": {
+        "formation": "3-4-2-1",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "21",
+            "3",
+            "22"
+          ],
+          [
+            "13",
+            "15",
+            "24",
+            "10"
+          ],
+          [
+            "11",
+            "14"
+          ],
+          [
+            "18"
+          ]
+        ],
+        "signature": "3-4-2-1|18/11,14/13,15,24,10/21,3,22/1"
+      }
+    },
+    "match-77-round-of-32-2026-06-30": {
+      "matchNumber": 77,
+      "eventId": 12812995,
+      "kickoffUtc": "2026-06-30T21:00:00.000Z",
+      "homeTeamId": "FRA",
+      "awayTeamId": "SWE",
+      "url": "https://www.sofascore.com/football/match/sweden-france/GObsNTb#id:12812995",
+      "home": {
+        "formation": "4-2-3-1",
+        "rowsFromGoalkeeper": [
+          [
+            "16"
+          ],
+          [
+            "3",
+            "17",
+            "4",
+            "5"
+          ],
+          [
+            "14",
+            "8"
+          ],
+          [
+            "12",
+            "11",
+            "7"
+          ],
+          [
+            "10"
+          ]
+        ],
+        "signature": "4-2-3-1|10/12,11,7/14,8/3,17,4,5/16"
+      },
+      "away": {
+        "formation": "4-4-2",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "5",
+            "3",
+            "2",
+            "8"
+          ],
+          [
+            "24",
+            "18",
+            "7",
+            "11"
+          ],
+          [
+            "9",
+            "17"
+          ]
+        ],
+        "signature": "4-4-2|9,17/24,18,7,11/5,3,2,8/1"
+      }
+    },
+    "match-78-round-of-32-2026-06-30": {
+      "matchNumber": 78,
+      "eventId": 12812989,
+      "kickoffUtc": "2026-06-30T17:00:00.000Z",
+      "homeTeamId": "CIV",
+      "awayTeamId": "NOR",
+      "url": "https://www.sofascore.com/football/match/cote-divoire-norway/AObstVb#id:12812989",
+      "home": {
+        "formation": "4-1-4-1",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "3",
+            "20",
+            "7",
+            "17"
+          ],
+          [
+            "18"
+          ],
+          [
+            "11",
+            "26",
+            "8",
+            "19"
+          ],
+          [
+            "9"
+          ]
+        ],
+        "signature": "4-1-4-1|9/11,26,8,19/18/3,20,7,17/1"
+      },
+      "away": {
+        "formation": "4-3-3",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "5",
+            "17",
+            "3",
+            "16"
+          ],
+          [
+            "6",
+            "8",
+            "10"
+          ],
+          [
+            "20",
+            "9",
+            "7"
+          ]
+        ],
+        "signature": "4-3-3|20,9,7/6,8,10/5,17,3,16/1"
+      }
+    },
+    "match-79-round-of-32-2026-06-30": {
+      "matchNumber": 79,
+      "eventId": 12813001,
+      "kickoffUtc": "2026-07-01T02:00:00.000Z",
+      "homeTeamId": "MEX",
+      "awayTeamId": "ECU",
+      "url": "https://www.sofascore.com/football/match/mexico-ecuador/hVbsGVb#id:12813001",
+      "home": {
+        "formation": "4-3-3",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "23",
+            "5",
+            "3",
+            "2"
+          ],
+          [
+            "7",
+            "6",
+            "19"
+          ],
+          [
+            "16",
+            "9",
+            "25"
+          ]
+        ],
+        "signature": "4-3-3|16,9,25/7,6,19/23,5,3,2/1"
+      },
+      "away": {
+        "formation": "4-4-2",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "3",
+            "6",
+            "4",
+            "21"
+          ],
+          [
+            "20",
+            "15",
+            "23",
+            "9"
+          ],
+          [
+            "13",
+            "19"
+          ]
+        ],
+        "signature": "4-4-2|13,19/20,15,23,9/3,6,4,21/1"
+      }
+    },
+    "match-80-round-of-32-2026-07-01": {
+      "matchNumber": 80,
+      "eventId": 12813020,
+      "kickoffUtc": "2026-07-01T16:00:00.000Z",
+      "homeTeamId": "ENG",
+      "awayTeamId": "COD",
+      "url": "https://www.sofascore.com/football/match/dr-congo-england/nUbsyWb#id:12813020",
+      "home": {
+        "formation": "4-2-3-1",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "3",
+            "6",
+            "2",
+            "25"
+          ],
+          [
+            "4",
+            "8"
+          ],
+          [
+            "11",
+            "10",
+            "20"
+          ],
+          [
+            "9"
+          ]
+        ],
+        "signature": "4-2-3-1|9/11,10,20/4,8/3,6,2,25/1"
+      },
+      "away": {
+        "formation": "4-3-3",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "26",
+            "4",
+            "22",
+            "2"
+          ],
+          [
+            "14",
+            "8",
+            "6"
+          ],
+          [
+            "9",
+            "20",
+            "7"
+          ]
+        ],
+        "signature": "4-3-3|9,20,7/14,8,6/26,4,22,2/1"
+      }
+    },
+    "match-81-round-of-32-2026-07-01": {
+      "matchNumber": 81,
+      "eventId": 12812992,
+      "kickoffUtc": "2026-07-02T00:00:00.000Z",
+      "homeTeamId": "USA",
+      "awayTeamId": "BIH",
+      "url": "https://www.sofascore.com/football/match/usa-bosnia-and-herzegovina/EObszUb#id:12812992",
+      "home": {
+        "formation": "4-3-3",
+        "rowsFromGoalkeeper": [
+          [
+            "24"
+          ],
+          [
+            "5",
+            "13",
+            "3",
+            "16"
+          ],
+          [
+            "17",
+            "4",
+            "8"
+          ],
+          [
+            "10",
+            "20",
+            "2"
+          ]
+        ],
+        "signature": "4-3-3|10,20,2/17,4,8/5,13,3,16/24"
+      },
+      "away": {
+        "formation": "5-3-2",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "5",
+            "21",
+            "4",
+            "18",
+            "7"
+          ],
+          [
+            "19",
+            "14",
+            "8"
+          ],
+          [
+            "10",
+            "11"
+          ]
+        ],
+        "signature": "5-3-2|10,11/19,14,8/5,21,4,18,7/1"
+      }
+    },
+    "match-82-round-of-32-2026-07-01": {
+      "matchNumber": 82,
+      "eventId": 12813013,
+      "kickoffUtc": "2026-07-01T20:00:00.000Z",
+      "homeTeamId": "BEL",
+      "awayTeamId": "SEN",
+      "url": "https://www.sofascore.com/football/match/senegal-belgium/rUbsOUb#id:12813013",
+      "home": {
+        "formation": "4-2-3-1",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "5",
+            "3",
+            "4",
+            "21"
+          ],
+          [
+            "20",
+            "8"
+          ],
+          [
+            "11",
+            "7",
+            "10"
+          ],
+          [
+            "17"
+          ]
+        ],
+        "signature": "4-2-3-1|17/11,7,10/20,8/5,3,4,21/1"
+      },
+      "away": {
+        "formation": "4-3-3",
+        "rowsFromGoalkeeper": [
+          [
+            "23"
+          ],
+          [
+            "14",
+            "19",
+            "6",
+            "15"
+          ],
+          [
+            "26",
+            "5",
+            "21"
+          ],
+          [
+            "10",
+            "18",
+            "13"
+          ]
+        ],
+        "signature": "4-3-3|10,18,13/26,5,21/14,19,6,15/23"
+      }
+    },
+    "match-83-round-of-32-2026-07-02": {
+      "matchNumber": 83,
+      "eventId": 12812997,
+      "kickoffUtc": "2026-07-02T23:00:00.000Z",
+      "homeTeamId": "POR",
+      "awayTeamId": "CRO",
+      "url": "https://www.sofascore.com/football/match/croatia-portugal/eUbspUb#id:12812997",
+      "home": {
+        "formation": "4-2-3-1",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "25",
+            "13",
+            "3",
+            "20"
+          ],
+          [
+            "23",
+            "15"
+          ],
+          [
+            "17",
+            "8",
+            "18"
+          ],
+          [
+            "7"
+          ]
+        ],
+        "signature": "4-2-3-1|7/17,8,18/23,15/25,13,3,20/1"
+      },
+      "away": {
+        "formation": "4-2-3-1",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "14",
+            "3",
+            "6",
+            "2"
+          ],
+          [
+            "8",
+            "10"
+          ],
+          [
+            "16",
+            "17",
+            "13"
+          ],
+          [
+            "11"
+          ]
+        ],
+        "signature": "4-2-3-1|11/16,17,13/8,10/14,3,6,2/1"
+      }
+    },
+    "match-84-round-of-32-2026-07-02": {
+      "matchNumber": 84,
+      "eventId": 12813004,
+      "kickoffUtc": "2026-07-02T19:00:00.000Z",
+      "homeTeamId": "ESP",
+      "awayTeamId": "AUT",
+      "url": "https://www.sofascore.com/football/match/austria-spain/YTbstUb#id:12813004",
+      "home": {
+        "formation": "4-2-3-1",
+        "rowsFromGoalkeeper": [
+          [
+            "23"
+          ],
+          [
+            "24",
+            "14",
+            "22",
+            "12"
+          ],
+          [
+            "20",
+            "16"
+          ],
+          [
+            "15",
+            "10",
+            "19"
+          ],
+          [
+            "21"
+          ]
+        ],
+        "signature": "4-2-3-1|21/15,10,19/20,16/24,14,22,12/23"
+      },
+      "away": {
+        "formation": "4-2-3-1",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "20",
+            "8",
+            "3",
+            "5"
+          ],
+          [
+            "4",
+            "6"
+          ],
+          [
+            "9",
+            "24",
+            "18"
+          ],
+          [
+            "11"
+          ]
+        ],
+        "signature": "4-2-3-1|11/9,24,18/4,6/20,8,3,5/1"
+      }
+    },
+    "match-85-round-of-32-2026-07-02": {
+      "matchNumber": 85,
+      "eventId": 12813019,
+      "kickoffUtc": "2026-07-03T03:00:00.000Z",
+      "homeTeamId": "SUI",
+      "awayTeamId": "ALG",
+      "url": "https://www.sofascore.com/football/match/switzerland-algeria/QTbsZTb#id:12813019",
+      "home": {
+        "formation": "4-2-3-1",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "13",
+            "5",
+            "4",
+            "6"
+          ],
+          [
+            "10",
+            "8"
+          ],
+          [
+            "17",
+            "9",
+            "11"
+          ],
+          [
+            "7"
+          ]
+        ],
+        "signature": "4-2-3-1|7/17,9,11/10,8/13,5,4,6/1"
+      },
+      "away": {
+        "formation": "4-3-3",
+        "rowsFromGoalkeeper": [
+          [
+            "23"
+          ],
+          [
+            "15",
+            "21",
+            "2",
+            "17"
+          ],
+          [
+            "10",
+            "19",
+            "6"
+          ],
+          [
+            "8",
+            "22",
+            "7"
+          ]
+        ],
+        "signature": "4-3-3|8,22,7/10,19,6/15,21,2,17/23"
+      }
+    },
+    "match-86-round-of-32-2026-07-03": {
+      "matchNumber": 86,
+      "eventId": 12812999,
+      "kickoffUtc": "2026-07-03T22:00:00.000Z",
+      "homeTeamId": "ARG",
+      "awayTeamId": "CPV",
+      "url": "https://www.sofascore.com/football/match/argentina-cabo-verde/dVbsuWb#id:12812999",
+      "home": {
+        "formation": "4-4-2",
+        "rowsFromGoalkeeper": [
+          [
+            "23"
+          ],
+          [
+            "25",
+            "6",
+            "13",
+            "26"
+          ],
+          [
+            "16",
+            "24",
+            "20",
+            "7"
+          ],
+          [
+            "22",
+            "10"
+          ]
+        ],
+        "signature": "4-4-2|22,10/16,24,20,7/25,6,13,26/23"
+      },
+      "away": {
+        "formation": "4-1-4-1",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "13",
+            "3",
+            "4",
+            "22"
+          ],
+          [
+            "6"
+          ],
+          [
+            "7",
+            "14",
+            "15",
+            "20"
+          ],
+          [
+            "21"
+          ]
+        ],
+        "signature": "4-1-4-1|21/7,14,15,20/6/13,3,4,22/1"
+      }
+    },
+    "match-87-round-of-32-2026-07-03": {
+      "matchNumber": 87,
+      "eventId": 12813011,
+      "kickoffUtc": "2026-07-04T01:30:00.000Z",
+      "homeTeamId": "COL",
+      "awayTeamId": "GHA",
+      "url": "https://www.sofascore.com/football/match/colombia-ghana/oVbsvWb#id:12813011",
+      "home": {
+        "formation": "4-3-3",
+        "rowsFromGoalkeeper": [
+          [
+            "12"
+          ],
+          [
+            "17",
+            "3",
+            "23",
+            "2"
+          ],
+          [
+            "11",
+            "16",
+            "14"
+          ],
+          [
+            "7",
+            "9",
+            "10"
+          ]
+        ],
+        "signature": "4-3-3|7,9,10/11,16,14/17,3,23,2/12"
+      },
+      "away": {
+        "formation": "4-1-4-1",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "14",
+            "18",
+            "23",
+            "26"
+          ],
+          [
+            "5"
+          ],
+          [
+            "11",
+            "8",
+            "3",
+            "19"
+          ],
+          [
+            "9"
+          ]
+        ],
+        "signature": "4-1-4-1|9/11,8,3,19/5/14,18,23,26/1"
+      }
+    },
+    "match-88-round-of-32-2026-07-03": {
+      "matchNumber": 88,
+      "eventId": 12813018,
+      "kickoffUtc": "2026-07-03T18:00:00.000Z",
+      "homeTeamId": "AUS",
+      "awayTeamId": "EGY",
+      "url": "https://www.sofascore.com/football/match/egypt-australia/QUbsiVb#id:12813018",
+      "home": {
+        "formation": "3-4-2-1",
+        "rowsFromGoalkeeper": [
+          [
+            "18"
+          ],
+          [
+            "25",
+            "19",
+            "3"
+          ],
+          [
+            "16",
+            "13",
+            "22",
+            "5"
+          ],
+          [
+            "8",
+            "20"
+          ],
+          [
+            "17"
+          ]
+        ],
+        "signature": "3-4-2-1|17/8,20/16,13,22,5/25,19,3/18"
+      },
+      "away": {
+        "formation": "4-4-2",
+        "rowsFromGoalkeeper": [
+          [
+            "23"
+          ],
+          [
+            "15",
+            "5",
+            "2",
+            "3"
+          ],
+          [
+            "22",
+            "19",
+            "14",
+            "8"
+          ],
+          [
+            "11",
+            "10"
+          ]
+        ],
+        "signature": "4-4-2|11,10/22,19,14,8/15,5,2,3/23"
+      }
+    },
+    "match-89-round-of-16-2026-07-04": {
+      "matchNumber": 89,
+      "eventId": 12813010,
+      "kickoffUtc": "2026-07-04T21:00:00.000Z",
+      "homeTeamId": "PAR",
+      "awayTeamId": "FRA",
+      "url": "https://www.sofascore.com/football/match/paraguay-france/GObsOVb#id:12813010",
+      "home": {
+        "formation": "5-4-1",
+        "rowsFromGoalkeeper": [
+          [
+            "12"
+          ],
+          [
+            "6",
+            "3",
+            "15",
+            "2",
+            "4"
+          ],
+          [
+            "23",
+            "14",
+            "8",
+            "10"
+          ],
+          [
+            "19"
+          ]
+        ],
+        "signature": "5-4-1|19/23,14,8,10/6,3,15,2,4/12"
+      },
+      "away": {
+        "formation": "4-2-3-1",
+        "rowsFromGoalkeeper": [
+          [
+            "16"
+          ],
+          [
+            "3",
+            "17",
+            "4",
+            "5"
+          ],
+          [
+            "14",
+            "6"
+          ],
+          [
+            "12",
+            "11",
+            "7"
+          ],
+          [
+            "10"
+          ]
+        ],
+        "signature": "4-2-3-1|10/12,11,7/14,6/3,17,4,5/16"
+      }
+    },
+    "match-90-round-of-16-2026-07-04": {
+      "matchNumber": 90,
+      "eventId": 12813009,
+      "kickoffUtc": "2026-07-04T17:00:00.000Z",
+      "homeTeamId": "CAN",
+      "awayTeamId": "MAR",
+      "url": "https://www.sofascore.com/football/match/morocco-canada/cVbsDVb#id:12813009",
+      "home": {
+        "formation": "4-4-2",
+        "rowsFromGoalkeeper": [
+          [
+            "16"
+          ],
+          [
+            "22",
+            "4",
+            "15",
+            "2"
+          ],
+          [
+            "20",
+            "7",
+            "23",
+            "17"
+          ],
+          [
+            "12",
+            "10"
+          ]
+        ],
+        "signature": "4-4-2|12,10/20,7,23,17/22,4,15,2/16"
+      },
+      "away": {
+        "formation": "4-2-3-1",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "3",
+            "25",
+            "14",
+            "2"
+          ],
+          [
+            "24",
+            "6"
+          ],
+          [
+            "23",
+            "8",
+            "10"
+          ],
+          [
+            "11"
+          ]
+        ],
+        "signature": "4-2-3-1|11/23,8,10/24,6/3,25,14,2/1"
+      }
+    },
+    "match-91-round-of-16-2026-07-05": {
+      "matchNumber": 91,
+      "eventId": 12813006,
+      "kickoffUtc": "2026-07-05T20:00:00.000Z",
+      "homeTeamId": "BRA",
+      "awayTeamId": "NOR",
+      "url": "https://www.sofascore.com/football/match/brazil-norway/AObsYUb#id:12813006",
+      "home": {
+        "formation": "4-4-2",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "16",
+            "3",
+            "4",
+            "13"
+          ],
+          [
+            "22",
+            "5",
+            "8",
+            "26"
+          ],
+          [
+            "7",
+            "9"
+          ]
+        ],
+        "signature": "4-4-2|7,9/22,5,8,26/16,3,4,13/1"
+      },
+      "away": {
+        "formation": "4-3-3",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "5",
+            "17",
+            "3",
+            "26"
+          ],
+          [
+            "6",
+            "8",
+            "10"
+          ],
+          [
+            "20",
+            "9",
+            "7"
+          ]
+        ],
+        "signature": "4-3-3|20,9,7/6,8,10/5,17,3,26/1"
+      }
+    },
+    "match-92-round-of-16-2026-07-05": {
+      "matchNumber": 92,
+      "eventId": 12813007,
+      "kickoffUtc": "2026-07-06T01:00:00.000Z",
+      "homeTeamId": "MEX",
+      "awayTeamId": "ENG",
+      "url": "https://www.sofascore.com/football/match/mexico-england/nUbsGVb#id:12813007",
+      "home": {
+        "formation": "4-3-3",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "23",
+            "5",
+            "3",
+            "2"
+          ],
+          [
+            "7",
+            "6",
+            "19"
+          ],
+          [
+            "16",
+            "9",
+            "25"
+          ]
+        ],
+        "signature": "4-3-3|16,9,25/7,6,19/23,5,3,2/1"
+      },
+      "away": {
+        "formation": "4-2-3-1",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "3",
+            "6",
+            "2",
+            "26"
+          ],
+          [
+            "8",
+            "4"
+          ],
+          [
+            "18",
+            "10",
+            "7"
+          ],
+          [
+            "9"
+          ]
+        ],
+        "signature": "4-2-3-1|9/18,10,7/8,4/3,6,2,26/1"
+      }
+    },
+    "match-93-round-of-16-2026-07-06": {
+      "matchNumber": 93,
+      "eventId": 12812990,
+      "kickoffUtc": "2026-07-06T19:00:00.000Z",
+      "homeTeamId": "POR",
+      "awayTeamId": "ESP",
+      "url": "https://www.sofascore.com/football/match/portugal-spain/YTbseUb#id:12812990",
+      "home": {
+        "formation": "4-2-3-1",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "25",
+            "13",
+            "3",
+            "20"
+          ],
+          [
+            "15",
+            "23"
+          ],
+          [
+            "11",
+            "8",
+            "18"
+          ],
+          [
+            "7"
+          ]
+        ],
+        "signature": "4-2-3-1|7/11,8,18/15,23/25,13,3,20/1"
+      },
+      "away": {
+        "formation": "4-2-3-1",
+        "rowsFromGoalkeeper": [
+          [
+            "23"
+          ],
+          [
+            "24",
+            "14",
+            "22",
+            "12"
+          ],
+          [
+            "20",
+            "16"
+          ],
+          [
+            "15",
+            "10",
+            "19"
+          ],
+          [
+            "21"
+          ]
+        ],
+        "signature": "4-2-3-1|21/15,10,19/20,16/24,14,22,12/23"
+      }
+    },
+    "match-94-round-of-16-2026-07-06": {
+      "matchNumber": 94,
+      "eventId": 12813002,
+      "kickoffUtc": "2026-07-07T00:00:00.000Z",
+      "homeTeamId": "USA",
+      "awayTeamId": "BEL",
+      "url": "https://www.sofascore.com/football/match/usa-belgium/rUbszUb#id:12813002",
+      "home": {
+        "formation": "4-3-3",
+        "rowsFromGoalkeeper": [
+          [
+            "24"
+          ],
+          [
+            "5",
+            "13",
+            "3",
+            "16"
+          ],
+          [
+            "17",
+            "4",
+            "8"
+          ],
+          [
+            "10",
+            "20",
+            "2"
+          ]
+        ],
+        "signature": "4-3-3|10,20,2/17,4,8/5,13,3,16/24"
+      },
+      "away": {
+        "formation": "4-2-3-1",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "5",
+            "4",
+            "25",
+            "21"
+          ],
+          [
+            "23",
+            "24"
+          ],
+          [
+            "10",
+            "8",
+            "14"
+          ],
+          [
+            "17"
+          ]
+        ],
+        "signature": "4-2-3-1|17/10,8,14/23,24/5,4,25,21/1"
+      }
+    },
+    "match-95-round-of-16-2026-07-07": {
+      "matchNumber": 95,
+      "eventId": 12812993,
+      "kickoffUtc": "2026-07-07T16:00:00.000Z",
+      "homeTeamId": "ARG",
+      "awayTeamId": "EGY",
+      "url": "https://www.sofascore.com/football/match/argentina-egypt/iVbsuWb#id:12812993",
+      "home": {
+        "formation": "4-1-3-2",
+        "rowsFromGoalkeeper": [
+          [
+            "23"
+          ],
+          [
+            "3",
+            "6",
+            "13",
+            "26"
+          ],
+          [
+            "5"
+          ],
+          [
+            "24",
+            "20",
+            "7"
+          ],
+          [
+            "9",
+            "10"
+          ]
+        ],
+        "signature": "4-1-3-2|9,10/24,20,7/5/3,6,13,26/23"
+      },
+      "away": {
+        "formation": "4-4-2",
+        "rowsFromGoalkeeper": [
+          [
+            "23"
+          ],
+          [
+            "15",
+            "5",
+            "2",
+            "3"
+          ],
+          [
+            "8",
+            "19",
+            "17",
+            "12"
+          ],
+          [
+            "11",
+            "10"
+          ]
+        ],
+        "signature": "4-4-2|11,10/8,19,17,12/15,5,2,3/23"
+      }
+    },
+    "match-96-round-of-16-2026-07-07": {
+      "matchNumber": 96,
+      "eventId": 12812991,
+      "kickoffUtc": "2026-07-07T20:00:00.000Z",
+      "homeTeamId": "SUI",
+      "awayTeamId": "COL",
+      "url": "https://www.sofascore.com/football/match/colombia-switzerland/ZTbsvWb#id:12812991",
+      "home": {
+        "formation": "4-2-3-1",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "13",
+            "5",
+            "4",
+            "6"
+          ],
+          [
+            "10",
+            "8"
+          ],
+          [
+            "11",
+            "14",
+            "22"
+          ],
+          [
+            "7"
+          ]
+        ],
+        "signature": "4-2-3-1|7/11,14,22/10,8/13,5,4,6/1"
+      },
+      "away": {
+        "formation": "4-4-1-1",
+        "rowsFromGoalkeeper": [
+          [
+            "12"
+          ],
+          [
+            "17",
+            "3",
+            "23",
+            "2"
+          ],
+          [
+            "7",
+            "14",
+            "16",
+            "11"
+          ],
+          [
+            "10"
+          ],
+          [
+            "25"
+          ]
+        ],
+        "signature": "4-4-1-1|25/10/7,14,16,11/17,3,23,2/12"
+      }
+    },
+    "match-97-quarter-final-2026-07-09": {
+      "matchNumber": 97,
+      "eventId": 12813016,
+      "kickoffUtc": "2026-07-09T20:00:00.000Z",
+      "homeTeamId": "FRA",
+      "awayTeamId": "MAR",
+      "url": "https://www.sofascore.com/football/match/morocco-france/GObsDVb#id:12813016",
+      "home": {
+        "formation": "4-2-3-1",
+        "rowsFromGoalkeeper": [
+          [
+            "16"
+          ],
+          [
+            "3",
+            "17",
+            "4",
+            "5"
+          ],
+          [
+            "14",
+            "6"
+          ],
+          [
+            "20",
+            "11",
+            "7"
+          ],
+          [
+            "10"
+          ]
+        ],
+        "signature": "4-2-3-1|10/20,11,7/14,6/3,17,4,5/16"
+      },
+      "away": {
+        "formation": "4-2-3-1",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "26",
+            "3",
+            "14",
+            "2"
+          ],
+          [
+            "24",
+            "6"
+          ],
+          [
+            "7",
+            "8",
+            "10"
+          ],
+          [
+            "23"
+          ]
+        ],
+        "signature": "4-2-3-1|23/7,8,10/24,6/26,3,14,2/1"
+      }
+    },
+    "match-98-quarter-final-2026-07-10": {
+      "matchNumber": 98,
+      "eventId": 12812994,
+      "kickoffUtc": "2026-07-10T19:00:00.000Z",
+      "homeTeamId": "ESP",
+      "awayTeamId": "BEL",
+      "url": "https://www.sofascore.com/football/match/belgium-spain/YTbsrUb#id:12812994",
+      "home": {
+        "formation": "4-2-3-1",
+        "rowsFromGoalkeeper": [
+          [
+            "23"
+          ],
+          [
+            "24",
+            "14",
+            "22",
+            "12"
+          ],
+          [
+            "8",
+            "16"
+          ],
+          [
+            "15",
+            "10",
+            "19"
+          ],
+          [
+            "21"
+          ]
+        ],
+        "signature": "4-2-3-1|21/15,10,19/8,16/24,14,22,12/23"
+      },
+      "away": {
+        "formation": "4-2-3-1",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "5",
+            "4",
+            "25",
+            "21"
+          ],
+          [
+            "23",
+            "20"
+          ],
+          [
+            "11",
+            "7",
+            "10"
+          ],
+          [
+            "17"
+          ]
+        ],
+        "signature": "4-2-3-1|17/11,7,10/23,20/5,4,25,21/1"
+      }
+    },
+    "match-99-quarter-final-2026-07-11": {
+      "matchNumber": 99,
+      "eventId": 12813017,
+      "kickoffUtc": "2026-07-11T21:00:00.000Z",
+      "homeTeamId": "NOR",
+      "awayTeamId": "ENG",
+      "url": "https://www.sofascore.com/football/match/england-norway/AObsnUb#id:12813017",
+      "home": {
+        "formation": "4-3-3",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "5",
+            "17",
+            "3",
+            "26"
+          ],
+          [
+            "6",
+            "8",
+            "10"
+          ],
+          [
+            "21",
+            "9",
+            "7"
+          ]
+        ],
+        "signature": "4-3-3|21,9,7/6,8,10/5,17,3,26/1"
+      },
+      "away": {
+        "formation": "4-2-3-1",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "3",
+            "6",
+            "5",
+            "2"
+          ],
+          [
+            "8",
+            "4"
+          ],
+          [
+            "18",
+            "10",
+            "20"
+          ],
+          [
+            "9"
+          ]
+        ],
+        "signature": "4-2-3-1|9/18,10,20/8,4/3,6,5,2/1"
+      }
+    },
+    "match-100-quarter-final-2026-07-11": {
+      "matchNumber": 100,
+      "eventId": 12813015,
+      "kickoffUtc": "2026-07-12T01:00:00.000Z",
+      "homeTeamId": "ARG",
+      "awayTeamId": "SUI",
+      "url": "https://www.sofascore.com/football/match/argentina-switzerland/ZTbsuWb#id:12813015",
+      "home": {
+        "formation": "4-1-3-2",
+        "rowsFromGoalkeeper": [
+          [
+            "23"
+          ],
+          [
+            "3",
+            "6",
+            "13",
+            "26"
+          ],
+          [
+            "5"
+          ],
+          [
+            "20",
+            "24",
+            "7"
+          ],
+          [
+            "9",
+            "10"
+          ]
+        ],
+        "signature": "4-1-3-2|9,10/20,24,7/5/3,6,13,26/23"
+      },
+      "away": {
+        "formation": "4-2-3-1",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "13",
+            "5",
+            "4",
+            "6"
+          ],
+          [
+            "10",
+            "8"
+          ],
+          [
+            "11",
+            "22",
+            "15"
+          ],
+          [
+            "7"
+          ]
+        ],
+        "signature": "4-2-3-1|7/11,22,15/10,8/13,5,4,6/1"
+      }
+    },
+    "match-101-semi-final-2026-07-14": {
+      "matchNumber": 101,
+      "eventId": 12813008,
+      "kickoffUtc": "2026-07-14T19:00:00.000Z",
+      "homeTeamId": "FRA",
+      "awayTeamId": "ESP",
+      "url": "https://www.sofascore.com/football/match/spain-france/GObsYTb#id:12813008",
+      "home": {
+        "formation": "4-2-3-1",
+        "rowsFromGoalkeeper": [
+          [
+            "16"
+          ],
+          [
+            "3",
+            "17",
+            "4",
+            "5"
+          ],
+          [
+            "14",
+            "8"
+          ],
+          [
+            "12",
+            "11",
+            "7"
+          ],
+          [
+            "10"
+          ]
+        ],
+        "signature": "4-2-3-1|10/12,11,7/14,8/3,17,4,5/16"
+      },
+      "away": {
+        "formation": "4-2-3-1",
+        "rowsFromGoalkeeper": [
+          [
+            "23"
+          ],
+          [
+            "24",
+            "14",
+            "22",
+            "12"
+          ],
+          [
+            "8",
+            "16"
+          ],
+          [
+            "15",
+            "10",
+            "19"
+          ],
+          [
+            "21"
+          ]
+        ],
+        "signature": "4-2-3-1|21/15,10,19/8,16/24,14,22,12/23"
+      }
+    },
+    "match-102-semi-final-2026-07-15": {
+      "matchNumber": 102,
+      "eventId": 12812996,
+      "kickoffUtc": "2026-07-15T19:00:00.000Z",
+      "homeTeamId": "ENG",
+      "awayTeamId": "ARG",
+      "url": "https://www.sofascore.com/football/match/argentina-england/nUbsuWb#id:12812996",
+      "home": {
+        "formation": "4-2-3-1",
+        "rowsFromGoalkeeper": [
+          [
+            "1"
+          ],
+          [
+            "25",
+            "6",
+            "5",
+            "24"
+          ],
+          [
+            "8",
+            "4"
+          ],
+          [
+            "18",
+            "10",
+            "17"
+          ],
+          [
+            "9"
+          ]
+        ],
+        "signature": "4-2-3-1|9/18,10,17/8,4/25,6,5,24/1"
+      },
+      "away": {
+        "formation": "4-1-4-1",
+        "rowsFromGoalkeeper": [
+          [
+            "23"
+          ],
+          [
+            "3",
+            "6",
+            "13",
+            "26"
+          ],
+          [
+            "5"
+          ],
+          [
+            "9",
+            "20",
+            "24",
+            "17"
+          ],
+          [
+            "10"
+          ]
+        ],
+        "signature": "4-1-4-1|10/9,20,24,17/5/3,6,13,26/23"
+      }
+    }
+  }
+}

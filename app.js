@@ -16882,6 +16882,16 @@ const MOCK_LINEUP_LAYOUTS = {
 };
 
 const MOCK_LINEUP_FORMATION_NOTES = {
+  "3-1-4-2": {
+    good: {
+      en: "Uses a holding midfielder behind a four-player support line and two strikers, giving the team central cover plus several routes forward.",
+      zh: "单后腰站在四人支援线身后，前方保留双前锋，让球队既有中路保护，也有多条向前路线。"
+    },
+    bad: {
+      en: "The holding midfielder can be isolated during transitions, while the wide midfielders must recover quickly to protect the back three.",
+      zh: "攻守转换时单后腰可能被孤立，两侧中场也必须快速回防，保护三中卫。"
+    }
+  },
   "3-4-1-2": {
     good: {
       en: "Uses a back three for cover, wing-backs for width, and a No. 10 close to two strikers, so attacks can build through the middle quickly.",
@@ -16890,6 +16900,16 @@ const MOCK_LINEUP_FORMATION_NOTES = {
     bad: {
       en: "The wing-backs have long defensive runs, and the two central midfielders can be stretched if the No. 10 stays high.",
       zh: "翼卫需要承担很长的回防距离；如果前腰留得太高，两名中场可能会被拉得很开。"
+    }
+  },
+  "3-4-2-1": {
+    good: {
+      en: "Keeps three defenders behind two central midfielders, with two creators close to the striker and wing-backs supplying the width.",
+      zh: "三名后卫身前有两名中场保护，两名攻击手靠近中锋，翼卫负责提供宽度。"
+    },
+    bad: {
+      en: "If the wing-backs are forced deep, the lone striker and two creators can become separated from the rest of the team.",
+      zh: "如果翼卫被压得太深，单前锋和两名攻击手可能会与后方阵线脱节。"
     }
   },
   "3-4-3": {
@@ -16962,6 +16982,16 @@ const MOCK_LINEUP_FORMATION_NOTES = {
       zh: "如果边路球员一直压得很高，边后卫身后会容易被打，中锋也可能在前场显得孤立。"
     }
   },
+  "4-3-1-2": {
+    good: {
+      en: "A midfield three protects the center while a No. 10 connects quickly to two strikers, creating several short central passing options.",
+      zh: "三名中场保护中路，前腰快速连接双前锋，形成多条中路短传选择。"
+    },
+    bad: {
+      en: "The narrow shape depends on the full-backs for width, so losing the ball during their forward runs can expose the outside channels.",
+      zh: "阵型较窄，宽度依赖边后卫；他们前插时一旦丢球，两侧通道容易暴露。"
+    }
+  },
   "4-3-3": {
     good: {
       en: "A simple shape for pressing and counterattacking: three midfielders protect the middle, while three forwards can attack space quickly.",
@@ -16970,6 +17000,16 @@ const MOCK_LINEUP_FORMATION_NOTES = {
     bad: {
       en: "If the wingers do not help back, the full-backs can get doubled up and the midfield can be pulled wide.",
       zh: "如果边锋不回防，边后卫会被对手夹击，中场也容易被拉到边路。"
+    }
+  },
+  "4-4-1-1": {
+    good: {
+      en: "Keeps two compact lines behind a supporting forward, making the center difficult to play through while preserving a link to the striker.",
+      zh: "两条紧凑阵线留在支援前锋身后，让对手难以穿过中路，同时保留与中锋的连接。"
+    },
+    bad: {
+      en: "If the supporting forward drops too far, the striker can become isolated and the team may struggle to keep the ball after regains.",
+      zh: "如果支援前锋回撤太深，中锋会被孤立，球队夺回球权后也可能难以控住球。"
     }
   },
   "4-4-2": {

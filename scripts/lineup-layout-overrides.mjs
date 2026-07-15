@@ -167,6 +167,8 @@ function summarizeOverrideSources(sources) {
     ...(source.registrationId !== undefined ? { registrationId: source.registrationId } : {}),
     ...(source.documentVersion !== undefined ? { documentVersion: source.documentVersion } : {}),
     ...(source.publishedAt ? { publishedAt: source.publishedAt } : {}),
+    ...(source.archiveUrl ? { archiveUrl: source.archiveUrl } : {}),
+    ...(source.capturedAt ? { capturedAt: source.capturedAt } : {}),
     ...(source.sha256 ? { sha256: source.sha256 } : {}),
     ...(source.note ? { note: source.note } : {})
   }));
@@ -222,6 +224,15 @@ function getFifaTacticalSourceIssues(source, prefix) {
   }
   if (!/^[a-f0-9]{64}$/.test(String(source?.sha256 || ""))) {
     issues.push(`${prefix}.sha256 must be a lowercase SHA-256 digest`);
+  }
+  if (
+    source?.archiveUrl !== undefined &&
+    !/^https:\/\/web\.archive\.org\/web\/\d{14}id_\/https:\/\/fdp\.fifa\.org\//.test(String(source.archiveUrl || ""))
+  ) {
+    issues.push(`${prefix}.archiveUrl must be an exact Wayback replay of the official FIFA PDF`);
+  }
+  if (source?.capturedAt !== undefined && !isValidTimestamp(source.capturedAt)) {
+    issues.push(`${prefix}.capturedAt must be a valid timestamp when provided`);
   }
   return issues;
 }
@@ -308,7 +319,7 @@ export function getLayoutOverrideProvenanceIssues(override) {
     } else if (override.verificationMethod === FIFA_TACTICAL_VERIFICATION_METHOD) {
       issues.push(`${FIFA_TACTICAL_VERIFICATION_METHOD} requires ${FIFA_OFFICIAL_LAYOUT_SOURCE}`);
     }
-    if (override.verificationMethod === "source-consensus-v1") {
+    if (["source-consensus-v1", "source-majority-v1"].includes(override.verificationMethod)) {
       const exactProviderIds = new Set(
         sources
           .filter(isMatchedExactLayoutSource)
@@ -316,13 +327,74 @@ export function getLayoutOverrideProvenanceIssues(override) {
           .filter(Boolean)
       );
       if (exactProviderIds.size < 2) {
-        issues.push("source-consensus-v1 overrides must include two distinct matched exact-layout providers");
+        issues.push(`${override.verificationMethod} overrides must include two distinct matched exact-layout providers`);
       }
-      if (override.consensus?.aggregation !== "median-normalized-coordinates") {
-        issues.push("source-consensus-v1 overrides must record median-normalized-coordinates aggregation");
+      if (override.consensus?.aggregation !== "canonical-formation-grid") {
+        issues.push(`${override.verificationMethod} overrides must record canonical-formation-grid aggregation`);
+      }
+      const conflictingProviderNames = sources
+        .filter((source) => source?.status === "conflict")
+        .map((source) => String(source?.name || "").trim())
+        .filter(Boolean);
+      if (override.verificationMethod === "source-consensus-v1" && conflictingProviderNames.length) {
+        issues.push("source-consensus-v1 overrides must not contain source conflicts");
+      }
+      if (override.verificationMethod === "source-majority-v1") {
+        const matchedExactCount = sources.filter(isMatchedExactLayoutSource).length;
+        const conflictingExactCount = sources.filter(
+          (source) => source?.status === "conflict" && source?.exactLayout === true
+        ).length;
+        const recordedDissenters = new Set(
+          Array.isArray(override.consensus?.dissentingProviders)
+            ? override.consensus.dissentingProviders.map((name) => String(name || "").trim()).filter(Boolean)
+            : []
+        );
+        if (!conflictingProviderNames.length) {
+          issues.push("source-majority-v1 overrides must retain at least one conflicting provider");
+        }
+        if (matchedExactCount <= conflictingExactCount) {
+          issues.push("source-majority-v1 overrides must retain a strict majority of matched exact-layout providers");
+        }
+        if (
+          conflictingProviderNames.some((name) => !recordedDissenters.has(name)) ||
+          [...recordedDissenters].some((name) => !conflictingProviderNames.includes(name))
+        ) {
+          issues.push("source-majority-v1 dissentingProviders must match the retained source conflicts");
+        }
       }
     }
-    if (sources.some((source) => source?.status === "conflict")) {
+    if (override.verificationMethod === "manual-review-v1") {
+      const selectedProvider = String(override.manualReview?.selectedProvider || "").trim();
+      const formationEvidenceProvider = String(
+        override.manualReview?.formationEvidenceProvider || ""
+      ).trim();
+      if (!selectedProvider) {
+        issues.push("manual-review-v1 overrides must record manualReview.selectedProvider");
+      }
+      if (!isValidTimestamp(override.manualReview?.checkedAt)) {
+        issues.push("manual-review-v1 overrides must record a valid manualReview.checkedAt");
+      }
+      if (!formationEvidenceProvider) {
+        issues.push("manual-review-v1 overrides must record manualReview.formationEvidenceProvider");
+      }
+      if (!sources.some((source) =>
+        source?.status === "matched" &&
+        source?.exactLayout === true &&
+        String(source?.name || "").trim() === selectedProvider
+      )) {
+        issues.push("manual-review-v1 selectedProvider must be a matched exact-layout source");
+      }
+      if (!sources.some((source) =>
+        source?.status === "matched" &&
+        String(source?.name || "").trim() === formationEvidenceProvider
+      )) {
+        issues.push("manual-review-v1 formationEvidenceProvider must be stored as a matched source");
+      }
+    }
+    if (
+      sources.some((source) => source?.status === "conflict") &&
+      !["source-majority-v1", "manual-review-v1"].includes(override.verificationMethod)
+    ) {
       issues.push("verified overrides must not contain unresolved source conflicts");
     }
     const matchedSignatures = new Set(

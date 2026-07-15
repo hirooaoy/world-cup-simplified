@@ -1,0 +1,88 @@
+{
+  "schemaVersion": 1,
+  "checkedAt": "2026-07-15T22:51:32.000Z",
+  "policy": "Use the complete SofaScore tactical board when Google-indexed ESPN match-board text independently confirms both displayed formations; retain unavailable or dissenting provider claims in the override audit.",
+  "matches": {
+    "sweden-tunisia-2026-06-14": {
+      "matchNumber": 12,
+      "selectedProvider": "SofaScore",
+      "indexedSourceName": "ESPN",
+      "indexedSourceUrl": "https://www.espn.com/soccer/match/_/gameId/760424",
+      "evidenceUrl": "https://www.google.com/search?q=Sweden+Tunisia+Jun+14+2026+ESPN+Formations+%26+Lineups+Soccer+pitch",
+      "homeFormation": "3-1-4-2",
+      "awayFormation": "5-3-2"
+    },
+    "iraq-norway-2026-06-16": {
+      "matchNumber": 18,
+      "selectedProvider": "SofaScore",
+      "indexedSourceName": "ESPN",
+      "indexedSourceUrl": "https://www.espn.com/soccer/match/_/gameId/760430",
+      "evidenceUrl": "https://www.google.com/search?q=Iraq+Norway+Jun+16+2026+ESPN+Formations+%26+Lineups+Soccer+pitch",
+      "homeFormation": "4-4-2",
+      "awayFormation": "4-4-2"
+    },
+    "uruguay-cabo-verde-2026-06-21": {
+      "matchNumber": 37,
+      "selectedProvider": "SofaScore",
+      "indexedSourceName": "ESPN",
+      "indexedSourceUrl": "https://www.espn.com/soccer/match/_/gameId/760450",
+      "evidenceUrl": "https://www.google.com/search?q=Uruguay+Cabo+Verde+Jun+21+2026+ESPN+Formations+%26+Lineups+Soccer+pitch",
+      "homeFormation": "4-1-4-1",
+      "awayFormation": "4-1-4-1"
+    },
+    "spain-saudi-arabia-2026-06-21": {
+      "matchNumber": 38,
+      "selectedProvider": "SofaScore",
+      "indexedSourceName": "ESPN",
+      "indexedSourceUrl": "https://www.espn.com/soccer/match/_/gameId/760453",
+      "evidenceUrl": "https://www.google.com/search?q=Spain+Saudi+Arabia+Jun+21+2026+ESPN+Formations+%26+Lineups+Soccer+pitch",
+      "homeFormation": "4-3-3",
+      "awayFormation": "5-4-1"
+    },
+    "norway-senegal-2026-06-22": {
+      "matchNumber": 41,
+      "selectedProvider": "SofaScore",
+      "indexedSourceName": "ESPN",
+      "indexedSourceUrl": "https://www.espn.com/soccer/match/_/gameId/760454",
+      "evidenceUrl": "https://www.google.com/search?q=Norway+Senegal+Jun+22+2026+ESPN+Formations+%26+Lineups+Soccer+pitch",
+      "homeFormation": "4-3-3",
+      "awayFormation": "4-2-3-1"
+    },
+    "france-iraq-2026-06-22": {
+      "matchNumber": 42,
+      "selectedProvider": "SofaScore",
+      "indexedSourceName": "ESPN",
+      "indexedSourceUrl": "https://www.espn.com/soccer/match/_/gameId/760457",
+      "evidenceUrl": "https://www.google.com/search?q=France+Iraq+Jun+22+2026+ESPN+Formations+%26+Lineups+Soccer+pitch",
+      "homeFormation": "4-2-3-1",
+      "awayFormation": "4-1-4-1"
+    },
+    "curacao-cote-divoire-2026-06-25": {
+      "matchNumber": 55,
+      "selectedProvider": "SofaScore",
+      "indexedSourceName": "ESPN",
+      "indexedSourceUrl": "https://www.espn.com/soccer/match/_/gameId/760473",
+      "evidenceUrl": "https://www.google.com/search?q=Curacao+Cote+d+Ivoire+Jun+25+2026+ESPN+Formations+%26+Lineups+Soccer+pitch",
+      "homeFormation": "5-4-1",
+      "awayFormation": "4-2-3-1"
+    },
+    "tunisia-netherlands-2026-06-25": {
+      "matchNumber": 58,
+      "selectedProvider": "SofaScore",
+      "indexedSourceName": "ESPN",
+      "indexedSourceUrl": "https://www.espn.com/soccer/match/_/gameId/760472",
+      "evidenceUrl": "https://www.google.com/search?q=Tunisia+Netherlands+Jun+25+2026+ESPN+Formations+%26+Lineups+Soccer+pitch",
+      "homeFormation": "5-4-1",
+      "awayFormation": "4-3-3"
+    },
+    "match-78-round-of-32-2026-06-30": {
+      "matchNumber": 78,
+      "selectedProvider": "SofaScore",
+      "indexedSourceName": "ESPN",
+      "indexedSourceUrl": "https://www.espn.com/soccer/match/_/gameId/760490",
+      "evidenceUrl": "https://www.google.com/search?q=Cote+d+Ivoire+Norway+Jun+30+2026+ESPN+Formations+%26+Lineups+Soccer+pitch",
+      "homeFormation": "4-1-4-1",
+      "awayFormation": "4-3-3"
+    }
+  }
+}

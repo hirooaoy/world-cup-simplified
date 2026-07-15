@@ -41,6 +41,31 @@ function comparableNameTokens(value) {
     .filter(Boolean);
 }
 
+function compactComparableName(value) {
+  return comparableNameTokens(value)
+    .map((token) => token === "jr" ? "junior" : token)
+    .join("");
+}
+
+function editDistance(left, right) {
+  if (left === right) return 0;
+  if (!left.length) return right.length;
+  if (!right.length) return left.length;
+  let previous = Array.from({ length: right.length + 1 }, (_, index) => index);
+  for (let leftIndex = 1; leftIndex <= left.length; leftIndex += 1) {
+    const current = [leftIndex];
+    for (let rightIndex = 1; rightIndex <= right.length; rightIndex += 1) {
+      current[rightIndex] = Math.min(
+        current[rightIndex - 1] + 1,
+        previous[rightIndex] + 1,
+        previous[rightIndex - 1] + (left[leftIndex - 1] === right[rightIndex - 1] ? 0 : 1)
+      );
+    }
+    previous = current;
+  }
+  return previous[right.length];
+}
+
 export function isFifaTacticalPlayerNameMatch(sourceName, officialName) {
   if (isPlayerNameMatch(sourceName, officialName) || isPlayerNameMatch(officialName, sourceName)) {
     return true;
@@ -49,6 +74,43 @@ export function isFifaTacticalPlayerNameMatch(sourceName, officialName) {
   const sourceTokens = comparableNameTokens(sourceName);
   const officialTokens = comparableNameTokens(officialName);
   if (!sourceTokens.length || !officialTokens.length) return false;
+  const sourceCompact = compactComparableName(sourceName);
+  const officialCompact = compactComparableName(officialName);
+  if (
+    Math.min(sourceCompact.length, officialCompact.length) >= 4 &&
+    (sourceCompact.includes(officialCompact) || officialCompact.includes(sourceCompact))
+  ) {
+    return true;
+  }
+  if (
+    Math.min(sourceCompact.length, officialCompact.length) >= 5 &&
+    Math.abs(sourceCompact.length - officialCompact.length) <= 1 &&
+    editDistance(sourceCompact, officialCompact) <= 1
+  ) {
+    return true;
+  }
+  if (
+    sourceTokens.length === 2 &&
+    sourceTokens[1].length === 1 &&
+    officialTokens[0] === sourceTokens[0]
+  ) {
+    return true;
+  }
+  if (
+    sourceTokens[0].length === 1 &&
+    officialTokens[0].startsWith(sourceTokens[0]) &&
+    sourceTokens.slice(1).join("").length >= 4 &&
+    officialCompact.includes(sourceTokens.slice(1).join(""))
+  ) {
+    return true;
+  }
+  if (
+    sourceTokens.at(-1) === "jr" &&
+    officialTokens.at(-1) === "junior" &&
+    officialTokens[0].startsWith(sourceTokens[0])
+  ) {
+    return true;
+  }
   if (sourceTokens.length === 1) {
     const [sourceToken] = sourceTokens;
     return sourceToken.length >= 3 && officialTokens.some((token) =>
@@ -249,16 +311,19 @@ function parseSourcePlayerName(items, numberItem, numberRow, playerIndex, sideLe
   const cellLeft = Number.isFinite(previousX) ? (previousX + currentX) / 2 : sideLeft;
   const cellRight = Number.isFinite(nextX) ? (nextX + currentX) / 2 : sideRight;
   const fragments = items
-    .filter((item) => numberItem.y - item.y >= 4 && numberItem.y - item.y <= 9)
+    .filter((item) => numberItem.y - item.y >= 4 && numberItem.y - item.y <= 13)
     .filter((item) => centerX(item) > cellLeft && centerX(item) < cellRight)
     .sort((left, right) => left.x - right.x);
   if (!fragments.some((item) => /[A-Za-z\u00c0-\u024f]/.test(item.str))) {
     reject("starter_incomplete", `Missing FIFA source name for starter ${playerIndex + 1}.`);
   }
 
-  const baseline = fragments[0].y;
-  const sameLine = fragments.filter((item) => Math.abs(item.y - baseline) <= 0.8);
-  const rawName = cleanText(sameLine.map((item) => item.str).join(" "));
+  const rawName = cleanText(
+    [...fragments]
+      .sort((left, right) => right.y - left.y || left.x - right.x)
+      .map((item) => item.str)
+      .join(" ")
+  );
   const isCaptain = /\(\s*C\s*\)/i.test(rawName);
   const name = cleanText(rawName.replace(/\(\s*C\s*\)/ig, ""));
   if (!name) reject("starter_incomplete", `Empty FIFA source name for starter ${playerIndex + 1}.`);
@@ -321,11 +386,25 @@ function matchOfficialPlayers(sourcePlayers, officialSide, owner) {
       reject("starter_mismatch", `${owner} FIFA number ${sourcePlayer.number} did not match exactly one official starter.`);
     }
     const [{ player, index }] = candidates;
-    if (!isFifaTacticalPlayerNameMatch(sourcePlayer.sourceName, player.name)) {
+    const officialNames = [
+      player.name,
+      player.displayName,
+      ...(Array.isArray(player.sourceAliases) ? player.sourceAliases : []),
+      ...(Array.isArray(player.aliases) ? player.aliases : [])
+    ].filter(Boolean);
+    if (!officialNames.some((name) => isFifaTacticalPlayerNameMatch(sourcePlayer.sourceName, name))) {
       reject("starter_mismatch", `${owner} FIFA starter "${sourcePlayer.sourceName}" does not match official #${sourcePlayer.number} "${player.name}".`);
     }
     used.add(index);
-    const { x: _x, y: _y, position: _position, sideInference: _sideInference, ...officialFacts } = player;
+    const {
+      x: _x,
+      y: _y,
+      position: _position,
+      sideInference: _sideInference,
+      sourceAliases: _sourceAliases,
+      aliases: _aliases,
+      ...officialFacts
+    } = player;
     return {
       ...officialFacts,
       number: sourcePlayer.number,
@@ -340,12 +419,21 @@ function matchOfficialPlayers(sourcePlayers, officialSide, owner) {
   return matched;
 }
 
-function parseSide({ document, items, sideIndex, formationEntry, teamHeader, expectedCode, officialSide }) {
+function parseSide({
+  document,
+  items,
+  sideIndex,
+  formationEntry,
+  teamHeader,
+  expectedCode,
+  officialSide,
+  allowFormationCorrection
+}) {
   if (teamHeader.code !== expectedCode) {
     reject("team_mismatch", `FIFA side ${sideIndex + 1} is ${teamHeader.code}; expected ${expectedCode}.`);
   }
   const expectedFormation = cleanText(officialSide?.formation).replace(/\s/g, "");
-  if (expectedFormation && expectedFormation !== formationEntry.normalized) {
+  if (!allowFormationCorrection && expectedFormation && expectedFormation !== formationEntry.normalized) {
     reject("formation_mismatch", `FIFA ${teamHeader.code} formation is ${formationEntry.normalized}; official lineup is ${expectedFormation}.`);
   }
   const substitutes = items
@@ -370,7 +458,12 @@ function parseSide({ document, items, sideIndex, formationEntry, teamHeader, exp
   return { teamName: teamHeader.name, teamCode: teamHeader.code, formation: formationEntry.normalized, players };
 }
 
-export function parseFifaTacticalLineupDocument({ document: inputDocument, fixture, lineups }) {
+export function parseFifaTacticalLineupDocument({
+  document: inputDocument,
+  fixture,
+  lineups,
+  allowFormationCorrection = false
+}) {
   const document = normalizeDocument(inputDocument);
   const { items } = document;
   if (!items.some((item) => /^TACTICAL LINE-?UP$/i.test(item.str))) {
@@ -402,7 +495,8 @@ export function parseFifaTacticalLineupDocument({ document: inputDocument, fixtu
     formationEntry: formations[0],
     teamHeader: headers[0],
     expectedCode: expectedTeamCode(fixture, "home"),
-    officialSide: lineups?.home
+    officialSide: lineups?.home,
+    allowFormationCorrection
   });
   const away = parseSide({
     document,
@@ -411,7 +505,8 @@ export function parseFifaTacticalLineupDocument({ document: inputDocument, fixtu
     formationEntry: formations[1],
     teamHeader: headers[1],
     expectedCode: expectedTeamCode(fixture, "away"),
-    officialSide: lineups?.away
+    officialSide: lineups?.away,
+    allowFormationCorrection
   });
 
   if (home.players.length !== 11 || away.players.length !== 11) {

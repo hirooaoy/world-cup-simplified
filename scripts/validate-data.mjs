@@ -44,6 +44,8 @@ const H2H_SOURCE_OPTIONAL = process.env.H2H_SOURCE_OPTIONAL === "1" || process.e
 const HIGHLIGHT_VIDEO_REVIEW_STATUSES = new Set(["not-found", "needs-review"]);
 const LINEUP_FORMATION_NOTE_FORMATIONS = new Set([
   "3-4-1-2",
+  "3-4-2-1",
+  "3-1-4-2",
   "3-4-3",
   "3-5-2",
   "4-1-2-3",
@@ -51,7 +53,9 @@ const LINEUP_FORMATION_NOTE_FORMATIONS = new Set([
   "4-1-4-1",
   "4-2-1-3",
   "4-2-3-1",
+  "4-3-1-2",
   "4-3-3",
+  "4-4-1-1",
   "4-4-2",
   "5-2-3",
   "5-3-2",
