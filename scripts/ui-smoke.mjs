@@ -12092,6 +12092,9 @@ try {
     .locator('#match-info [data-lineup-player-name="Lionel Messi"] .lineup-avatar-score-events .lineup-event-score.is-goal')
     .first();
   await touchMessiGoalBadge.scrollIntoViewIfNeeded();
+  await touchPage.evaluate(
+    () => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)))
+  );
   await touchMessiGoalBadge.dispatchEvent("pointerdown", {
     bubbles: true,
     cancelable: true,
