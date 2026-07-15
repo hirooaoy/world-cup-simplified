@@ -5724,6 +5724,9 @@ try {
   await cipengaLineupTrigger.click();
   await sadikiLineupTrigger.focus();
   await finalLineupModeCheck.page.keyboard.press("Enter");
+  await finalLineupModeCheck.page.evaluate(() => {
+    window.dispatchEvent(new Event("scroll"));
+  });
   await finalLineupModeCheck.page.waitForFunction(() =>
     [...document.querySelectorAll(".player-card")]
       .filter((card) => {

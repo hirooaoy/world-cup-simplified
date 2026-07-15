@@ -21274,9 +21274,21 @@ function positionPlayerCard(playerHover, options = {}) {
 }
 
 function positionPlayerCards() {
-  document
-    .querySelectorAll(".player-hover")
-    .forEach((playerHover) => positionPlayerCard(playerHover));
+  const focusedPlayerHover = getClosestPlayerHover(document.activeElement);
+  const preferredPlayerHover = focusedPlayerHover?.isConnected
+    ? focusedPlayerHover
+    : activePlayerHover?.isConnected
+      ? activePlayerHover
+      : null;
+
+  document.querySelectorAll(".player-hover").forEach((playerHover) => {
+    if (playerHover !== preferredPlayerHover) {
+      positionPlayerCard(playerHover);
+    }
+  });
+  if (preferredPlayerHover) {
+    positionPlayerCard(preferredPlayerHover);
+  }
   updateTooltipBounds();
 }
 
