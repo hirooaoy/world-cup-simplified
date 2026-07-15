@@ -6,9 +6,10 @@
     "google-argentina-egypt-lineup-visual-2026-07-07",
     "google-switzerland-colombia-lineup-visual-2026-07-07",
     "lineup-layout-verification-2026-07-13",
-    "lineup-layout-verification-2026-07-14"
+    "lineup-layout-verification-2026-07-14",
+    "lineup-layout-verification-2026-07-15"
   ],
-  "updatedAt": "2026-07-14T22:02:38.970Z",
+  "updatedAt": "2026-07-15T17:44:46.600Z",
   "fixtures": {
     "match-82-round-of-32-2026-07-01": {
       "status": "unresolved",
@@ -35662,6 +35663,24 @@
           }
         ]
       }
+    },
+    "match-102-semi-final-2026-07-15": {
+      "status": "unresolved",
+      "unresolvedReason": "insufficient_evidence",
+      "checkedAt": "2026-07-15T17:44:46.600Z",
+      "sourceIds": [
+        "lineup-layout-verification-2026-07-15"
+      ],
+      "sources": [
+        {
+          "name": "ESPN",
+          "adapter": "espn",
+          "url": "https://www.espn.com/soccer/match/_/gameId/760515/argentina-england",
+          "status": "unavailable",
+          "note": "Formations & Lineups section was not found."
+        }
+      ],
+      "note": "No trusted public source yielded a parseable tactical layout."
     }
   }
 }

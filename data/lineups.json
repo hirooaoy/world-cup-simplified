@@ -18,7 +18,8 @@
     "lineup-layout-verification-2026-07-13",
     "fifa-lineups-sync-2026-07-14",
     "lineup-layout-verification-2026-07-14",
-    "fifa-lineups-sync-2026-07-15"
+    "fifa-lineups-sync-2026-07-15",
+    "lineup-layout-verification-2026-07-15"
   ],
   "lineups": {
     "mexico-south-africa-2026-06-11": {
@@ -8722,13 +8723,13 @@
         "status": "unverified",
         "source": "derived-team-sheet-order",
         "exact": false,
-        "checkedAt": "2026-07-15T16:15:18.415Z",
+        "checkedAt": "2026-07-15T17:44:43.186Z",
         "note": "Official team sheet confirms players, bench, events, and formation; pitch coordinates are generated from formation slots and are not exact left/right placements."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-15"
       ],
-      "checkedAt": "2026-07-15T16:15:18.415Z",
+      "checkedAt": "2026-07-15T17:44:43.186Z",
       "home": {
         "formation": "4-3-3",
         "coach": {
@@ -28471,13 +28472,13 @@
         "status": "unverified",
         "source": "derived-team-sheet-order",
         "exact": false,
-        "checkedAt": "2026-07-15T16:15:18.415Z",
+        "checkedAt": "2026-07-15T17:44:43.186Z",
         "note": "Official team sheet confirms players, bench, events, and formation; pitch coordinates are generated from formation slots and are not exact left/right placements."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-15"
       ],
-      "checkedAt": "2026-07-15T16:15:18.415Z",
+      "checkedAt": "2026-07-15T17:44:43.186Z",
       "home": {
         "formation": "5-3-2",
         "coach": {
@@ -33789,13 +33790,13 @@
         "status": "unverified",
         "source": "derived-team-sheet-order",
         "exact": false,
-        "checkedAt": "2026-07-15T16:15:18.415Z",
+        "checkedAt": "2026-07-15T17:44:43.186Z",
         "note": "Official team sheet confirms players, bench, events, and formation; pitch coordinates are generated from formation slots and are not exact left/right placements."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-15"
       ],
-      "checkedAt": "2026-07-15T16:15:18.415Z",
+      "checkedAt": "2026-07-15T17:44:43.186Z",
       "home": {
         "formation": "4-2-3-1",
         "coach": {
@@ -38128,13 +38129,13 @@
         "status": "unverified",
         "source": "derived-team-sheet-order",
         "exact": false,
-        "checkedAt": "2026-07-15T16:15:18.415Z",
+        "checkedAt": "2026-07-15T17:44:43.186Z",
         "note": "Official team sheet confirms players, bench, events, and formation; pitch coordinates are generated from formation slots and are not exact left/right placements."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-15"
       ],
-      "checkedAt": "2026-07-15T16:15:18.415Z",
+      "checkedAt": "2026-07-15T17:44:43.186Z",
       "home": {
         "formation": "4-2-3-1",
         "coach": {
@@ -38598,13 +38599,13 @@
         "status": "unverified",
         "source": "derived-team-sheet-order",
         "exact": false,
-        "checkedAt": "2026-07-15T16:15:18.415Z",
+        "checkedAt": "2026-07-15T17:44:43.186Z",
         "note": "Official team sheet confirms players, bench, events, and formation; pitch coordinates are generated from formation slots and are not exact left/right placements."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-15"
       ],
-      "checkedAt": "2026-07-15T16:15:18.415Z",
+      "checkedAt": "2026-07-15T17:44:43.186Z",
       "home": {
         "formation": "3-5-2",
         "coach": {
@@ -39058,13 +39059,13 @@
         "status": "unverified",
         "source": "derived-team-sheet-order",
         "exact": false,
-        "checkedAt": "2026-07-15T16:15:18.415Z",
+        "checkedAt": "2026-07-15T17:44:43.186Z",
         "note": "Official team sheet confirms players, bench, events, and formation; pitch coordinates are generated from formation slots and are not exact left/right placements."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-15"
       ],
-      "checkedAt": "2026-07-15T16:15:18.415Z",
+      "checkedAt": "2026-07-15T17:44:43.186Z",
       "home": {
         "formation": "4-2-3-1",
         "coach": {
@@ -48270,13 +48271,13 @@
         "status": "unverified",
         "source": "derived-team-sheet-order",
         "exact": false,
-        "checkedAt": "2026-07-15T16:15:18.415Z",
+        "checkedAt": "2026-07-15T17:44:43.186Z",
         "note": "FIFA confirms the starting XI, bench, and formation. Matching players use frozen pre-kickoff role and side hints to choose slots within FIFA's official formation; pitch placement remains provisional, not FIFA-supplied exact geometry.",
         "method": "role-informed-formation-slots",
         "inferenceSources": [
           {
             "type": "retained-official-role-layout",
-            "updatedAt": "2026-07-15T14:43:37.748Z",
+            "updatedAt": "2026-07-15T16:15:18.415Z",
             "revisionId": "6699ae75e5144d9128b712619f6a4f51a3c5c2fa2dc6c605e78765206cdecc4e"
           }
         ]
@@ -48284,7 +48285,7 @@
       "sourceIds": [
         "fifa-lineups-sync-2026-07-15"
       ],
-      "checkedAt": "2026-07-15T16:15:18.415Z",
+      "checkedAt": "2026-07-15T17:44:43.186Z",
       "home": {
         "formation": "4-2-3-1",
         "coach": {
@@ -48748,7 +48749,420 @@
           ]
         }
       }
+    },
+    "match-102-semi-final-2026-07-15": {
+      "mode": "confirmed",
+      "teamSheetSource": "fifa-official",
+      "eventSource": "fifa-official",
+      "layoutSource": "derived-team-sheet-order",
+      "layoutVerification": {
+        "status": "unverified",
+        "source": "derived-team-sheet-order",
+        "exact": false,
+        "checkedAt": "2026-07-15T17:44:43.186Z",
+        "note": "FIFA confirms the starting XI, bench, and formation. Matching players use frozen pre-kickoff role and side hints to choose slots within FIFA's official formation; pitch placement remains provisional, not FIFA-supplied exact geometry.",
+        "method": "role-informed-formation-slots",
+        "inferenceSources": [
+          {
+            "type": "pre-kickoff-prediction",
+            "updatedAt": "2026-07-15T17:01:22.644Z",
+            "revisionId": "156e277bef2169aecd8483232058258e9eec3f901a0f5cbe583dd4fefba19655"
+          }
+        ]
+      },
+      "sourceIds": [
+        "fifa-lineups-sync-2026-07-15"
+      ],
+      "checkedAt": "2026-07-15T17:44:43.186Z",
+      "home": {
+        "formation": "4-2-3-1",
+        "coach": {
+          "name": "Thomas Tuchel",
+          "teamName": "England",
+          "imageUrl": "https://digitalhub.fifa.com/transform/fc649bf3-486d-4ca8-aa84-d30c87cea7e5/TUCHEL-Thomas_165190",
+          "sourceUrl": "https://www.fifa.com/en/match-centre/match/17/285023/289290/400021540"
+        },
+        "players": [
+          {
+            "number": "1",
+            "name": "Jordan Pickford",
+            "sourcePosition": "goalkeeper",
+            "position": "GK",
+            "x": 50,
+            "y": 91
+          },
+          {
+            "number": "5",
+            "name": "John Stones",
+            "sourcePosition": "defender",
+            "position": "CB",
+            "x": 62,
+            "y": 75
+          },
+          {
+            "number": "6",
+            "name": "Marc Guehi",
+            "sourcePosition": "defender",
+            "position": "CB",
+            "x": 38,
+            "y": 75
+          },
+          {
+            "number": "24",
+            "name": "Reece James",
+            "sourcePosition": "defender",
+            "position": "RB",
+            "x": 85,
+            "y": 75
+          },
+          {
+            "number": "25",
+            "name": "Djed Spence",
+            "sourcePosition": "defender",
+            "position": "RW",
+            "x": 82,
+            "y": 40
+          },
+          {
+            "number": "4",
+            "name": "Declan Rice",
+            "sourcePosition": "midfielder",
+            "position": "CM",
+            "x": 62,
+            "y": 59
+          },
+          {
+            "number": "8",
+            "name": "Elliot Anderson",
+            "sourcePosition": "midfielder",
+            "position": "CM",
+            "x": 38,
+            "y": 59
+          },
+          {
+            "number": "10",
+            "name": "Jude Bellingham",
+            "sourcePosition": "midfielder",
+            "position": "AM",
+            "x": 50,
+            "y": 40
+          },
+          {
+            "number": "17",
+            "name": "Morgan Rogers",
+            "sourcePosition": "midfielder",
+            "position": "LB",
+            "x": 15,
+            "y": 75
+          },
+          {
+            "number": "9",
+            "name": "Harry Kane",
+            "sourcePosition": "forward",
+            "isCaptain": true,
+            "position": "ST",
+            "x": 50,
+            "y": 20
+          },
+          {
+            "number": "18",
+            "name": "Anthony Gordon",
+            "sourcePosition": "forward",
+            "position": "LW",
+            "x": 18,
+            "y": 40
+          }
+        ],
+        "bench": [
+          {
+            "number": "13",
+            "name": "Dean Henderson",
+            "sourcePosition": "goalkeeper",
+            "position": "GK"
+          },
+          {
+            "number": "23",
+            "name": "James Trafford",
+            "sourcePosition": "goalkeeper",
+            "position": "GK"
+          },
+          {
+            "number": "2",
+            "name": "Ezri Konsa",
+            "sourcePosition": "defender",
+            "position": "CB"
+          },
+          {
+            "number": "3",
+            "name": "Nico Oreilly",
+            "sourcePosition": "defender",
+            "position": "CB"
+          },
+          {
+            "number": "12",
+            "name": "Trevoh Chalobah",
+            "sourcePosition": "defender",
+            "position": "CB"
+          },
+          {
+            "number": "15",
+            "name": "Dan Burn",
+            "sourcePosition": "defender",
+            "position": "CB"
+          },
+          {
+            "number": "14",
+            "name": "Jordan Henderson",
+            "sourcePosition": "midfielder",
+            "position": "CM"
+          },
+          {
+            "number": "16",
+            "name": "Kobbie Mainoo",
+            "sourcePosition": "midfielder",
+            "position": "CM"
+          },
+          {
+            "number": "21",
+            "name": "Eberechi Eze",
+            "sourcePosition": "midfielder",
+            "position": "AM"
+          },
+          {
+            "number": "7",
+            "name": "Bukayo Saka",
+            "sourcePosition": "forward",
+            "position": "RW"
+          },
+          {
+            "number": "11",
+            "name": "Marcus Rashford",
+            "sourcePosition": "forward",
+            "position": "ST"
+          },
+          {
+            "number": "19",
+            "name": "Ollie Watkins",
+            "sourcePosition": "forward",
+            "position": "ST"
+          },
+          {
+            "number": "20",
+            "name": "Noni Madueke",
+            "sourcePosition": "forward",
+            "position": "RW"
+          },
+          {
+            "number": "22",
+            "name": "Ivan Toney",
+            "sourcePosition": "forward",
+            "position": "ST"
+          }
+        ],
+        "events": {
+          "cards": [],
+          "staffCards": [],
+          "substitutions": []
+        }
+      },
+      "away": {
+        "formation": "4-4-2",
+        "coach": {
+          "name": "Lionel Scaloni",
+          "teamName": "Argentina",
+          "imageUrl": "https://digitalhub.fifa.com/transform/d58ec767-2484-47d4-8b29-8fa845eb75f8/SCALONI-Lionel_183380",
+          "sourceUrl": "https://www.fifa.com/en/match-centre/match/17/285023/289290/400021540"
+        },
+        "players": [
+          {
+            "number": "23",
+            "name": "Emiliano Martinez",
+            "sourcePosition": "goalkeeper",
+            "position": "GK",
+            "x": 50,
+            "y": 91
+          },
+          {
+            "number": "3",
+            "name": "Nicolas Tagliafico",
+            "sourcePosition": "defender",
+            "position": "LB",
+            "x": 15,
+            "y": 75
+          },
+          {
+            "number": "6",
+            "name": "Lisandro Martinez",
+            "sourcePosition": "defender",
+            "position": "CB",
+            "x": 38,
+            "y": 75
+          },
+          {
+            "number": "13",
+            "name": "Cristian Romero",
+            "sourcePosition": "defender",
+            "position": "CB",
+            "x": 62,
+            "y": 75
+          },
+          {
+            "number": "26",
+            "name": "Nahuel Molina",
+            "sourcePosition": "defender",
+            "position": "RB",
+            "x": 85,
+            "y": 75
+          },
+          {
+            "number": "5",
+            "name": "Leandro Paredes",
+            "sourcePosition": "midfielder",
+            "position": "RM",
+            "x": 82,
+            "y": 52
+          },
+          {
+            "number": "20",
+            "name": "Alexis Mac Allister",
+            "sourcePosition": "midfielder",
+            "position": "CM",
+            "x": 62,
+            "y": 55
+          },
+          {
+            "number": "24",
+            "name": "Enzo Fernandez",
+            "sourcePosition": "midfielder",
+            "position": "CM",
+            "x": 38,
+            "y": 55
+          },
+          {
+            "number": "9",
+            "name": "Julian Alvarez",
+            "sourcePosition": "forward",
+            "position": "ST",
+            "x": 42,
+            "y": 24
+          },
+          {
+            "number": "10",
+            "name": "Lionel Messi",
+            "sourcePosition": "forward",
+            "isCaptain": true,
+            "position": "ST",
+            "x": 58,
+            "y": 24
+          },
+          {
+            "number": "17",
+            "name": "Giuliano Simeone",
+            "sourcePosition": "forward",
+            "position": "LM",
+            "x": 18,
+            "y": 52
+          }
+        ],
+        "bench": [
+          {
+            "number": "1",
+            "name": "Juan Musso",
+            "sourcePosition": "goalkeeper",
+            "position": "GK"
+          },
+          {
+            "number": "12",
+            "name": "Geronimo Rulli",
+            "sourcePosition": "goalkeeper",
+            "position": "GK"
+          },
+          {
+            "number": "2",
+            "name": "Marcos Senesi",
+            "sourcePosition": "defender",
+            "position": "CB"
+          },
+          {
+            "number": "4",
+            "name": "Gonzalo Montiel",
+            "sourcePosition": "defender",
+            "position": "RB"
+          },
+          {
+            "number": "19",
+            "name": "Nicolas Otamendi",
+            "sourcePosition": "defender",
+            "position": "CB"
+          },
+          {
+            "number": "25",
+            "name": "Facundo Medina",
+            "sourcePosition": "defender",
+            "position": "CB"
+          },
+          {
+            "number": "7",
+            "name": "Rodrigo De Paul",
+            "sourcePosition": "midfielder",
+            "position": "CM"
+          },
+          {
+            "number": "8",
+            "name": "Valentin Barco",
+            "sourcePosition": "midfielder",
+            "position": "CM"
+          },
+          {
+            "number": "11",
+            "name": "Giovani Lo Celso",
+            "sourcePosition": "midfielder",
+            "position": "CM"
+          },
+          {
+            "number": "14",
+            "name": "Exequiel Palacios",
+            "sourcePosition": "midfielder",
+            "position": "CM"
+          },
+          {
+            "number": "15",
+            "name": "Nico Gonzalez",
+            "sourcePosition": "midfielder",
+            "position": "LM"
+          },
+          {
+            "number": "16",
+            "name": "Thiago Almada",
+            "sourcePosition": "forward",
+            "position": "RW"
+          },
+          {
+            "number": "18",
+            "name": "Nico Paz",
+            "sourcePosition": "forward",
+            "position": "ST"
+          },
+          {
+            "number": "21",
+            "name": "Jose Manuel Lopez",
+            "sourcePosition": "forward",
+            "position": "ST"
+          },
+          {
+            "number": "22",
+            "name": "Lautaro Martinez",
+            "sourcePosition": "forward",
+            "position": "ST"
+          }
+        ],
+        "events": {
+          "cards": [],
+          "staffCards": [],
+          "substitutions": []
+        }
+      }
     }
   },
-  "updatedAt": "2026-07-15T16:15:18.415Z"
+  "updatedAt": "2026-07-15T17:44:46.600Z"
 }
