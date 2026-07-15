@@ -8722,13 +8722,13 @@
         "status": "unverified",
         "source": "derived-team-sheet-order",
         "exact": false,
-        "checkedAt": "2026-07-15T01:49:21.615Z",
+        "checkedAt": "2026-07-15T04:45:47.457Z",
         "note": "Official team sheet confirms players, bench, events, and formation; pitch coordinates are generated from formation slots and are not exact left/right placements."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-15"
       ],
-      "checkedAt": "2026-07-15T01:49:21.615Z",
+      "checkedAt": "2026-07-15T04:45:47.457Z",
       "home": {
         "formation": "4-3-3",
         "coach": {
@@ -28471,13 +28471,13 @@
         "status": "unverified",
         "source": "derived-team-sheet-order",
         "exact": false,
-        "checkedAt": "2026-07-15T01:49:21.615Z",
+        "checkedAt": "2026-07-15T04:45:47.457Z",
         "note": "Official team sheet confirms players, bench, events, and formation; pitch coordinates are generated from formation slots and are not exact left/right placements."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-15"
       ],
-      "checkedAt": "2026-07-15T01:49:21.615Z",
+      "checkedAt": "2026-07-15T04:45:47.457Z",
       "home": {
         "formation": "5-3-2",
         "coach": {
@@ -33789,13 +33789,13 @@
         "status": "unverified",
         "source": "derived-team-sheet-order",
         "exact": false,
-        "checkedAt": "2026-07-15T01:49:21.615Z",
+        "checkedAt": "2026-07-15T04:45:47.457Z",
         "note": "Official team sheet confirms players, bench, events, and formation; pitch coordinates are generated from formation slots and are not exact left/right placements."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-15"
       ],
-      "checkedAt": "2026-07-15T01:49:21.615Z",
+      "checkedAt": "2026-07-15T04:45:47.457Z",
       "home": {
         "formation": "4-2-3-1",
         "coach": {
@@ -38128,13 +38128,13 @@
         "status": "unverified",
         "source": "derived-team-sheet-order",
         "exact": false,
-        "checkedAt": "2026-07-15T01:49:21.615Z",
+        "checkedAt": "2026-07-15T04:45:47.457Z",
         "note": "Official team sheet confirms players, bench, events, and formation; pitch coordinates are generated from formation slots and are not exact left/right placements."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-15"
       ],
-      "checkedAt": "2026-07-15T01:49:21.615Z",
+      "checkedAt": "2026-07-15T04:45:47.457Z",
       "home": {
         "formation": "4-2-3-1",
         "coach": {
@@ -38598,13 +38598,13 @@
         "status": "unverified",
         "source": "derived-team-sheet-order",
         "exact": false,
-        "checkedAt": "2026-07-15T01:49:21.615Z",
+        "checkedAt": "2026-07-15T04:45:47.457Z",
         "note": "Official team sheet confirms players, bench, events, and formation; pitch coordinates are generated from formation slots and are not exact left/right placements."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-15"
       ],
-      "checkedAt": "2026-07-15T01:49:21.615Z",
+      "checkedAt": "2026-07-15T04:45:47.457Z",
       "home": {
         "formation": "3-5-2",
         "coach": {
@@ -39058,13 +39058,13 @@
         "status": "unverified",
         "source": "derived-team-sheet-order",
         "exact": false,
-        "checkedAt": "2026-07-15T01:49:21.615Z",
+        "checkedAt": "2026-07-15T04:45:47.457Z",
         "note": "Official team sheet confirms players, bench, events, and formation; pitch coordinates are generated from formation slots and are not exact left/right placements."
       },
       "sourceIds": [
         "fifa-lineups-sync-2026-07-15"
       ],
-      "checkedAt": "2026-07-15T01:49:21.615Z",
+      "checkedAt": "2026-07-15T04:45:47.457Z",
       "home": {
         "formation": "4-2-3-1",
         "coach": {
@@ -48270,13 +48270,13 @@
         "status": "unverified",
         "source": "derived-team-sheet-order",
         "exact": false,
-        "checkedAt": "2026-07-15T01:49:21.615Z",
+        "checkedAt": "2026-07-15T04:45:47.457Z",
         "note": "FIFA confirms the starting XI, bench, and formation. Matching players use frozen pre-kickoff role and side hints to choose slots within FIFA's official formation; pitch placement remains provisional, not FIFA-supplied exact geometry.",
         "method": "role-informed-formation-slots",
         "inferenceSources": [
           {
             "type": "retained-official-role-layout",
-            "updatedAt": "2026-07-15T00:08:48.917Z",
+            "updatedAt": "2026-07-15T01:49:21.615Z",
             "revisionId": "6699ae75e5144d9128b712619f6a4f51a3c5c2fa2dc6c605e78765206cdecc4e"
           }
         ]
@@ -48284,7 +48284,7 @@
       "sourceIds": [
         "fifa-lineups-sync-2026-07-15"
       ],
-      "checkedAt": "2026-07-15T01:49:21.615Z",
+      "checkedAt": "2026-07-15T04:45:47.457Z",
       "home": {
         "formation": "4-2-3-1",
         "coach": {
@@ -48750,5 +48750,5 @@
       }
     }
   },
-  "updatedAt": "2026-07-15T01:49:21.615Z"
+  "updatedAt": "2026-07-15T04:45:47.457Z"
 }
