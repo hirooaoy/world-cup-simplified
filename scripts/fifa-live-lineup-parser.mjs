@@ -331,19 +331,23 @@ export function getPreKickoffPredictionLayoutReference(expectedLineupsData, fixt
 
 export function getRetainedOfficialLayoutReference(lineup) {
   const inferenceSources = lineup?.layoutVerification?.inferenceSources;
+  const reusableInferenceSource = Array.isArray(inferenceSources)
+    ? inferenceSources.find((source) =>
+        ["pre-kickoff-prediction", "retained-official-role-layout"].includes(source?.type)
+      )
+    : null;
   const reusable = (
     lineup?.teamSheetSource === OFFICIAL_LINEUP_SOURCE &&
     lineup?.home?.players?.length === 11 &&
     lineup?.away?.players?.length === 11 &&
-    Array.isArray(inferenceSources) &&
-    inferenceSources.some((source) => source?.type === "pre-kickoff-prediction")
+    reusableInferenceSource
   );
   if (!reusable) return null;
 
   return {
     type: "retained-official-role-layout",
     updatedAt: lineup.checkedAt || "",
-    revisionId: inferenceSources.find((source) => source?.revisionId)?.revisionId || "",
+    revisionId: reusableInferenceSource.revisionId || "",
     lineup
   };
 }

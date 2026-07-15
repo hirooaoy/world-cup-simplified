@@ -2,7 +2,8 @@
 import assert from "node:assert/strict";
 import {
   buildFifaLineupsFromLiveMatch,
-  buildProfileLookup
+  buildProfileLookup,
+  getRetainedOfficialLayoutReference
 } from "./fifa-live-lineup-parser.mjs";
 
 const previousFetch = globalThis.fetch;
@@ -329,6 +330,28 @@ assert.deepEqual(
   parsed4132.home.players.map((entry) => entry.position).sort(),
   ["CB", "CB", "CM", "CM", "CM", "DM", "GK", "LB", "RB", "ST", "ST"].sort(),
   "A parsed 4-1-3-2 must contain one holding midfielder plus three midfielders, not a fictional RW/AM/LW line"
+);
+
+const retainedLayout = {
+  ...parsed4132,
+  teamSheetSource: "fifa-official",
+  checkedAt: "2026-07-14T21:28:49.403Z",
+  layoutVerification: {
+    inferenceSources: [
+      {
+        type: "retained-official-role-layout",
+        revisionId: "immutable-prediction-revision"
+      }
+    ]
+  }
+};
+const retainedLayoutReference = getRetainedOfficialLayoutReference(retainedLayout);
+assert.equal(retainedLayoutReference?.type, "retained-official-role-layout");
+assert.equal(retainedLayoutReference?.revisionId, "immutable-prediction-revision");
+assert.equal(
+  retainedLayoutReference?.lineup,
+  retainedLayout,
+  "Repeated official refreshes must preserve a role-informed layout that was retained by an earlier refresh"
 );
 
 const distinctIdentityMatch = structuredClone(livePayloads.get("400021528"));

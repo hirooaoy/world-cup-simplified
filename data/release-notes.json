@@ -8,12 +8,14 @@
       "highlights": [
         "FIFA's official sync rechecked all 101 completed team sheets and refreshed seven stored lineup records while preserving each board's verified or provisional placement trust.",
         "The England-Argentina expected lineup was regenerated after its prediction inputs changed, with a new immutable pre-kickoff revision preserved for an honest historical record.",
-        "The complete lineup lifecycle and geometry audits now cover 632 team sides and pass under both Node 20 and Node 24."
+        "The complete lineup lifecycle and geometry audits now cover 632 team sides and pass under both Node 20 and Node 24.",
+        "Repeated official refreshes now retain the frozen pre-kickoff role layout instead of reverting France-Spain to raw team-sheet order."
       ],
       "highlightsZh": [
         "FIFA 官方同步重新检查了全部101场已完成比赛的球队名单，并刷新了7条已保存阵容记录，同时保留每块阵容板已验证或暂定站位的可信状态。",
         "英格兰对阿根廷的预计阵容已在预测输入变化后重新生成，并保存新的不可变赛前版本，确保历史记录真实可追溯。",
-        "完整阵容生命周期与几何审计现已覆盖632个球队侧面，并同时通过 Node 20 与 Node 24 验证。"
+        "完整阵容生命周期与几何审计现已覆盖632个球队侧面，并同时通过 Node 20 与 Node 24 验证。",
+        "重复执行官方刷新时，现在会保留冻结的赛前角色站位，不再把法国对西班牙的阵容退回原始球队名单顺序。"
       ]
     },
     {
