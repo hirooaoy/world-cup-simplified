@@ -1,6 +1,21 @@
 {
-  "updatedAt": "2026-07-14T16:36:36-07:00",
+  "updatedAt": "2026-07-14T17:09:09-07:00",
   "releases": [
+    {
+      "date": "2026-07-14",
+      "title": "Refreshed official line-ups and the semifinal prediction",
+      "titleZh": "刷新官方阵容与半决赛预测",
+      "highlights": [
+        "FIFA's official sync rechecked all 101 completed team sheets and refreshed seven stored lineup records while preserving each board's verified or provisional placement trust.",
+        "The England-Argentina expected lineup was regenerated after its prediction inputs changed, with a new immutable pre-kickoff revision preserved for an honest historical record.",
+        "The complete lineup lifecycle and geometry audits now cover 632 team sides and pass under both Node 20 and Node 24."
+      ],
+      "highlightsZh": [
+        "FIFA 官方同步重新检查了全部101场已完成比赛的球队名单，并刷新了7条已保存阵容记录，同时保留每块阵容板已验证或暂定站位的可信状态。",
+        "英格兰对阿根廷的预计阵容已在预测输入变化后重新生成，并保存新的不可变赛前版本，确保历史记录真实可追溯。",
+        "完整阵容生命周期与几何审计现已覆盖632个球队侧面，并同时通过 Node 20 与 Node 24 验证。"
+      ]
+    },
     {
       "date": "2026-07-14",
       "title": "Sourced final forecasts and Ball Boy matchup answers",
